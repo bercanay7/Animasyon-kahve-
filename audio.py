@@ -2,9 +2,10 @@
 Dünya Kahve Günü — ses tasarımı (20 sn, 48 kHz stereo) → audio.wav
 
 Tamamen sentezlenir, telif sorunu yoktur. Zamanlamalar animation.html ile senkrondur.
-  Müzik : D majör, sahne geçişlerinde akor değişimi
-          Dmaj7 (0) → Bm9 (3.0, koyu sahne) → Gmaj7 (6.95) → Em9 (10.3, fal)
-          → Asus2 (12.6, fal açılır) → D6/9 (15.0, final)
+  Müzik : D majör, 120 BPM; vuruş ızgarası 0.95'teki damlaya hizalı (0.95 + 0.5k).
+          Görsel geçişler bu ızgaraya oturur, akorlar her 4 vuruşta bir (ölçü başında) değişir:
+          Dmaj7 (0) → Bm9 (2.95, koyu sahne) → Gmaj7 (6.95) → Em9 (10.95, fincan kapanır)
+          → Asus2 (12.95, fal açılır) → D6/9 (14.95, final)
   Efekt : damla, geri sıçrama, whoosh + kapanış darbesi, panel whoosh,
           kahve dökülmesi, sayaç tıkları, fincan kapatma + porselen tıkı,
           bekleme tıkları, fincan kalkar, telve hışırtısı, fal parıltısı,
@@ -81,12 +82,12 @@ def with_reverb(dry, wet=0.3):
 # ---------------- müzik ----------------
 music = np.zeros((N, 2))
 CHORDS = [  # (başlangıç, bitiş, notalar)
-    (0.0, 3.0, [50, 54, 57, 61]),          # Dmaj7
-    (3.0, 6.95, [47, 50, 54, 57, 61]),     # Bm9 (B D F# A C#)
-    (6.95, 10.3, [43, 47, 50, 54, 59]),    # Gmaj7 (+B)
-    (10.3, 12.6, [40, 47, 50, 54, 55]),    # Em9 (E B D F# G) — gizemli
-    (12.6, 15.0, [45, 52, 57, 59, 64]),    # Asus2 — fal açılır, merak
-    (15.0, DUR, [50, 54, 57, 59, 64]),     # D6/9 — final
+    (0.0, 2.95, [50, 54, 57, 61]),         # Dmaj7
+    (2.95, 6.95, [47, 50, 54, 57, 61]),    # Bm9 (B D F# A C#)
+    (6.95, 10.95, [43, 47, 50, 54, 59]),   # Gmaj7 (+B)
+    (10.95, 12.95, [40, 47, 50, 54, 55]),  # Em9 (E B D F# G) — gizemli
+    (12.95, 14.95, [45, 52, 57, 59, 64]),  # Asus2 — fal açılır, merak
+    (14.95, DUR, [50, 54, 57, 59, 64]),    # D6/9 — final
 ]
 
 
@@ -120,24 +121,25 @@ def epiano(freq, d=1.8):
     return sig * env
 
 
-# arpej: 3. saniyeden itibaren, 92 BPM sekizlikler, seyrek
-BEAT = 60 / 92
+# arpej: koyu sahneden itibaren, 120 BPM (dörtlük / sekizlik)
+BEAT = 0.5
+GRID0 = 0.95  # ızgaranın sıfır noktası: damla
 ARP = {0: [62, 66, 69, 73], 1: [59, 62, 66, 69, 73], 2: [55, 59, 62, 66, 71],
        3: [64, 67, 71, 74, 78], 4: [69, 71, 76, 81, 83], 5: [62, 66, 69, 71, 76]}
 k = 0
-t_note = 3.0
+t_note = 2.95
 while t_note < 19.3:
     ci = max(i for i, c in enumerate(CHORDS) if c[0] <= t_note + 1e-6)
     pattern = ARP[ci]
     n = pattern[[0, 2, 1, 3, 2, 4, 3, 1][k % 8] % len(pattern)]
     accent = 1.0 if k % 2 == 0 else 0.6
-    quiet = 0.35 if 11.6 <= t_note < 12.6 else 1.0  # fincan kapalıyken nefes
+    quiet = 0.35 if 11.45 <= t_note < 12.45 else 1.0  # fincan kapalıyken nefes
     place(music, epiano(note(n)), t_note, gain=0.05 * accent * quiet, pan=(-0.35 if k % 2 else 0.35))
     k += 1
     t_note += BEAT if ci in (0, 1, 3) else BEAT / 2
 
 # final: iki oktav yukarıda kısa melodi
-for i, (n, at) in enumerate([(78, 15.05), (81, 15.4), (83, 15.75), (81, 16.3), (78, 17.0), (76, 17.7)]):
+for i, (n, at) in enumerate([(78, 14.95), (81, 15.45), (83, 15.95), (81, 16.45), (78, 17.45), (76, 18.45)]):
     place(music, epiano(note(n), 2.2), at, gain=0.045, pan=0.2 * (-1) ** i)
 
 # genel müzik zarfı: hızlı giriş, sonda kısılma
@@ -186,8 +188,8 @@ place(sfx, plip(), 0.95, gain=0.55)
 place(sfx, thump(120, 0.3), 0.95, gain=0.35)
 place(sfx, plip(900, 2200, 0.12), 1.75, gain=0.28, pan=0.1)
 # daire ekranı kaplar: yükselen whoosh + koyu sahneye iniş darbesi
-place(sfx, bandpass(whoosh(0.9, 300, 3200), 120, 9000), 2.12, gain=0.22)
-place(sfx, thump(58, 1.0, 4.5), 2.98, gain=0.5)
+place(sfx, bandpass(whoosh(0.9, 300, 3200), 120, 9000), 2.07, gain=0.22)
+place(sfx, thump(58, 1.0, 4.5), 2.95, gain=0.5)
 # başlık satırları: çok hafif tıklar
 for i, at in enumerate([2.75, 2.85, 2.98, 3.11]):
     place(sfx, tick(1400 + i * 120, 0.02), at, gain=0.06, pan=-0.3)
@@ -214,7 +216,7 @@ for di, ch in enumerate([1, 5, 0, 0]):
     for s in steps:
         place(sfx, tick(2600 - di * 150), ts[s + 1], gain=0.12, pan=-0.45 + di * 0.3)
 # fal: kahve içilir (yumuşak alçalan hışırtı)
-place(sfx, bandpass(whoosh(0.8, 1800, 400, 0.3, 1.0), 150, 4000), 10.0, gain=0.07)
+place(sfx, bandpass(whoosh(0.8, 1800, 400, 0.3, 1.0), 150, 4000), 10.1, gain=0.07)
 
 
 def clink(f=3100, d=0.5):
@@ -224,15 +226,15 @@ def clink(f=3100, d=0.5):
 
 
 # fincan havada döner ve tabağa kapanır
-place(sfx, bandpass(whoosh(0.7, 400, 2600, 0.7), 150, 9000), 10.9, gain=0.14, pan=-0.1)
-place(sfx, clink(), 11.6, gain=0.16, pan=0.05)
-place(sfx, thump(180, 0.2, 25), 11.6, gain=0.18)
+place(sfx, bandpass(whoosh(0.55, 400, 2600, 0.8), 150, 9000), 10.92, gain=0.14, pan=-0.1)
+place(sfx, clink(), 11.45, gain=0.16, pan=0.05)
+place(sfx, thump(180, 0.2, 25), 11.45, gain=0.18)
 # bekleme: saat gibi üç yumuşak tık
-for i, at in enumerate([11.85, 12.15, 12.45]):
+for i, at in enumerate([11.7, 11.95, 12.2]):
     place(sfx, tick(1500, 0.025), at, gain=0.07, pan=-0.2 + i * 0.2)
 # fincan kalkar
-place(sfx, clink(3600, 0.3), 12.6, gain=0.08, pan=-0.1)
-place(sfx, bandpass(whoosh(0.6, 600, 4500, 0.85), 200, 10000), 12.6, gain=0.13, pan=0.15)
+place(sfx, clink(3600, 0.3), 12.45, gain=0.08, pan=-0.1)
+place(sfx, bandpass(whoosh(0.6, 600, 4500, 0.85), 200, 10000), 12.5, gain=0.13, pan=0.15)
 # telve beliriyor: kum gibi hışırtı taneleri
 grains = np.zeros(int(SR * 1.2))
 gt = np.arange(len(grains)) / SR
@@ -242,16 +244,17 @@ for _ in range(260):
     g = rng.standard_normal(int(SR * 0.004)) * np.exp(-np.arange(int(SR * 0.004)) / SR * 900)
     grains[i:i + len(g)] += g * rng.uniform(0.3, 1)
 grains = bandpass(grains, 1800, 9000) * np.clip((1.2 - gt) / 0.4, 0, 1)
-place(sfx, grains, 13.1, gain=0.22, pan=0.1)
+place(sfx, grains, 12.95, gain=0.22, pan=0.1)
 # fal okunur: parıltı
-for i, (n, at) in enumerate([(81, 13.45), (85, 13.6), (88, 13.75)]):
+for i, (n, at) in enumerate([(81, 13.45), (85, 13.575), (88, 13.7)]):
     place(sfx, bell(note(n), 1.8), at, gain=0.05, pan=-0.3 + i * 0.3)
 # tabak rozete uçar
-place(sfx, bandpass(whoosh(0.8, 700, 3500, 0.75), 200, 9000), 14.6, gain=0.13, pan=0.4)
+place(sfx, bandpass(whoosh(0.8, 700, 3500, 0.75), 200, 9000), 14.45, gain=0.13, pan=0.4)
 # final: "Kahveler bizden." çanı + rozet
-place(sfx, bell(note(74)), 15.0, gain=0.16, pan=-0.15)
-place(sfx, bell(note(81)), 15.15, gain=0.10, pan=0.2)
-place(sfx, tick(1800, 0.04), 15.6, gain=0.1, pan=0.5)
+place(sfx, bell(note(74)), 14.95, gain=0.16, pan=-0.15)
+place(sfx, bell(note(81)), 15.2, gain=0.10, pan=0.2)
+place(sfx, tick(1800, 0.04), 15.55, gain=0.1, pan=0.5)
+place(sfx, tick(1500, 0.03), 16.2, gain=0.07, pan=-0.4)  # logo girer
 
 # ---------------- miks ----------------
 mix = with_reverb(music, 0.35) + with_reverb(sfx, 0.18)

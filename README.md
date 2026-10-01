@@ -7,11 +7,16 @@
 - `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, videonun espresso tonunda tek renk (logo.js canvas için gömülü sürüm)
 - `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=12` ile tek kare)
 - `audio.py` — ses tasarımı (sentezlenmiş müzik + efektler, telifsiz) → `audio.wav`: `python3 audio.py` (numpy + scipy)
-- `render.js` — kare kare MP4 çıkışı, varsa `audio.wav`'ı ekler: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
+- `render.js` — kare kare MP4 çıkışı, hareket bulanıklığıyla (`MB_SAMPLES=16`, varsayılan 8; 1 = kapalı), varsa `audio.wav`'ı ekler: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
 
 ## Tasarım
 Modern, minimalist kinetik tipografi: kırık beyaz kâğıt (#EEE8DF), espresso siyahı (#1C1714) ve tek vurgu rengi yanık karamel (#B06C38).
 Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
+
+## Teknik notlar
+- Hareket bulanıklığı: her kare, 180° obtüratör (yarım kare pozlama) içindeki alt karelerin ortalaması.
+- Müzik 120 BPM; vuruş ızgarası 0.95 sn'deki damlaya hizalı. Koyu sahne (2.95), sayaç (8.45), fincanın tabağa oturması (11.45), fal metni (13.45) ve final (14.95) vuruşa denk gelir.
+- Fincan hareketleri: yudumda eğilme (kahve yüzeyi yatay kalır), kapatmadan önce hazırlık, oturuşta sönümlü sekme, yavaş başlayan kalkış.
 
 ## Senaryo
 | Süre | Sahne |

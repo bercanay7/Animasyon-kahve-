@@ -55,6 +55,7 @@ const easeOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
 const easeInExpo = x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10);
 const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
 const easeInCubic = x => x * x * x;
+const easeInOutCubic = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const easeInOutQuint = x => x < .5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2;
 const TAU = Math.PI * 2;
 
@@ -128,6 +129,15 @@ function strokePoly(poly, a, b) {
   ctx.stroke();
 }
 
+// Tabak: merkezi (0,112), yarıçapları 238 x 28 olan elipsin alt yarısı
+const SAUCER = { cy: 112, rx: 238, ry: 28 };
+function ellArc(a0, a1, n = 30) {
+  return Array.from({ length: n + 1 }, (_, i) => {
+    const a = lerp(a0, a1, i / n);
+    return [SAUCER.rx * Math.cos(a), SAUCER.cy + SAUCER.ry * Math.sin(a)];
+  });
+}
+
 // Tek çizgi Türk kahvesi fincanı (yerel koordinat, merkez 0,0)
 const CUP = {
   body: withLengths(join(
@@ -137,8 +147,8 @@ const CUP = {
     cubicPts([-52, 96], [-96, 66], [-108, -10], [-108, -112]))),
   foot: withLengths(join(linePts([-38, 96], [-46, 122], 6), linePts([-46, 122], [46, 122], 12), linePts([46, 122], [38, 96], 6))),
   handle: withLengths(cubicPts([106, -84], [168, -96], [166, 0], [100, -6])),
-  saucerL: withLengths(cubicPts([0, 140], [-110, 140], [-196, 134], [-238, 112])),
-  saucerR: withLengths(cubicPts([0, 140], [110, 140], [196, 134], [238, 112])),
+  saucerL: withLengths(ellArc(Math.PI / 2, Math.PI)),
+  saucerR: withLengths(ellArc(Math.PI / 2, 0)),
   lokum: withLengths(join(linePts([146, 131], [144, 97], 6), linePts([144, 97], [178, 94], 6), linePts([178, 94], [181, 129], 6), linePts([181, 129], [146, 131], 6))),
 };
 function cupInterior() {
@@ -158,13 +168,14 @@ function steamPoly(i, t) {
 }
 // o: body/handle/saucer/steam/fill/lokum çizim ilerlemesi (0..1), erase: çizgiyi baştan siler
 function drawCup(x, y, s, t, o) {
-  const { body = 1, handle = 1, saucer = 1, steam = 0, fill = 0, lokum = 0, erase = 0, color = C.ink, lw = 6 } = o;
+  const { body = 1, handle = 1, saucer = 1, steam = 0, fill = 0, lokum = 0, erase = 0, color = C.ink, lw = 6, surfaceTilt = 0 } = o;
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
   ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = color; ctx.lineWidth = lw / s;
   if (fill > 0 && erase < 1) {
     ctx.save(); cupInterior(); ctx.clip();
     ctx.globalAlpha = clamp(1 - erase * 2.5);
-    const level = lerp(100, -84, fill), wob = x => Math.sin(x * 0.04 + t * 6) * 4 * (1 - fill);
+    const tilt = Math.tan(surfaceTilt);
+    const level = lerp(100, -84, fill), wob = x => Math.sin(x * 0.04 + t * 6) * 4 * (1 - fill) - x * tilt;
     ctx.beginPath(); ctx.moveTo(-120, 130);
     for (let px = -120; px <= 120; px += 8) ctx.lineTo(px, level + wob(px));
     ctx.lineTo(120, 130); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
@@ -234,7 +245,7 @@ function scene1(t) {
     ctx.beginPath(); ctx.arc(DROP.x, y, r, 0, TAU); ctx.fillStyle = C.ink; ctx.fill();
   }
 }
-function circleRadius(t) { return lerp(20, 1500, easeInOutQuint(prog(t, 2.15, 3.0))); }
+function circleRadius(t) { return lerp(20, 1500, easeInOutQuint(prog(t, 2.15, 2.95))); }
 
 // ---------- S2: koyu başlık ----------
 function scene2(t) {
@@ -304,51 +315,99 @@ const FAL = { x: 540, y: 790, s: 1.3 };
 const SAUCER_TOP = { y: 820, R: 290 };
 const BADGE = { x: W - M - 130, y: 530 };
 const GROUNDS = (() => {
-  const r = rng(2024), blobs = [];
-  const heart = a => [16 * Math.sin(a) ** 3, -(13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a))];
-  for (let i = 0; i < 90; i++) {            // kalbin hattı
-    const [hx, hy] = heart(i / 90 * TAU);
-    blobs.push({ x: hx * 8 + (r() - .5) * 12, y: hy * 8 - 20 + (r() - .5) * 12, rad: 6 + r() * 9, d: i / 90 * 0.6 + r() * 0.1, a: 0.92 });
+  const r = rng(2024), blobs = [], dust = [], streaks = [];
+  // el yapımı his: yarıçapa düşük frekanslı dalga, asimetrik loblar, hafif eğim
+  const heart = a => {
+    const wob = 1 + 0.07 * Math.sin(3 * a + 0.8) + 0.04 * Math.sin(7 * a + 2.1);
+    let x = 16 * Math.sin(a) ** 3, y = -(13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a));
+    x *= wob * (x < 0 ? 1.07 : 0.95); y *= wob;
+    const c = Math.cos(-0.13), sn = Math.sin(-0.13);
+    return [(x * c - y * sn) * 8, (x * sn + y * c) * 8 - 18];
+  };
+  const HP = Array.from({ length: 120 }, (_, i) => heart(i / 120 * TAU));
+  for (let i = 0; i < 120; i++) {            // kalbin hattı: kalınlığı değişen, yer yer kopan lekeler
+    if (r() < 0.12) continue;
+    const [x, y] = HP[i], [nx, ny] = HP[(i + 1) % 120];
+    const thick = 0.55 + 0.45 * Math.sin(i / 120 * TAU * 2 + 1) ** 2;
+    blobs.push({ x: x + (r() - .5) * 8, y: y + (r() - .5) * 8, rad: (5 + r() * 8) * thick + 3, ang: Math.atan2(ny - y, nx - x),
+                 el: 1.3 + r() * 0.9, d: i / 120 * 0.55 + r() * 0.08, a: 0.72 + r() * 0.22 });
   }
-  for (let i = 0; i < 50; i++) {            // kalbin içi, daha açık
-    const [hx, hy] = heart(r() * TAU), k = Math.sqrt(r()) * 0.8;
-    blobs.push({ x: hx * 8 * k, y: hy * 8 * k - 20, rad: 3 + r() * 7, d: 0.3 + r() * 0.5, a: 0.45 });
+  for (let i = 0; i < 40; i++) {             // kalbin içi: açık tonlu gölgeler
+    const [hx, hy] = HP[Math.floor(r() * 120)], k = Math.sqrt(r()) * 0.75;
+    blobs.push({ x: hx * k, y: (hy + 18) * k - 18, rad: 6 + r() * 12, ang: r() * TAU, el: 1 + r() * 0.6, d: 0.3 + r() * 0.45, a: 0.16 + r() * 0.14 });
   }
-  for (let i = 0; i < 70; i++) {            // tabağa dağılmış telve
-    const a = r() * TAU, rr = 168 + r() * 100;
-    blobs.push({ x: Math.cos(a) * rr, y: Math.sin(a) * rr, rad: 1.5 + r() * 4.5, d: 0.15 + r() * 0.8, a: 0.35 + r() * 0.5 });
+  for (let i = 0; i < 45; i++) {             // tabağa dağılmış topaklar
+    const a = r() * TAU, rr = 165 + r() * 100;
+    blobs.push({ x: Math.cos(a) * rr, y: Math.sin(a) * rr, rad: 2 + r() * 6, ang: r() * TAU, el: 1 + r(), d: 0.15 + r() * 0.75, a: 0.35 + r() * 0.45 });
   }
-  blobs.forEach(b => { b.k = Array.from({ length: 9 }, () => 0.7 + r() * 0.55); });
-  const streaks = Array.from({ length: 7 }, () => {   // telve akıntıları
-    const a = r() * TAU, len = 50 + r() * 70, r0 = 175 + r() * 30;
-    return { a, len, r0, w: 2 + r() * 4, ph: r() * 6, d: 0.2 + r() * 0.6 };
-  });
-  return { blobs, streaks };
+  for (let i = 0; i < 380; i++) {            // ince toz: kalbe ve tabak kenarına yakın yoğun
+    let x, y;
+    if (r() < 0.55) {
+      const [hx, hy] = HP[Math.floor(r() * 120)];
+      x = hx + (r() + r() + r() - 1.5) * 30; y = hy + (r() + r() + r() - 1.5) * 30;
+    } else { const a = r() * TAU, rr = 140 + r() * 140; x = Math.cos(a) * rr; y = Math.sin(a) * rr; }
+    dust.push({ x, y, rad: 0.8 + r() * 2.2, d: 0.1 + r() * 0.85, a: 0.25 + r() * 0.45 });
+  }
+  for (let i = 0; i < 9; i++) {              // telve akıntıları: kenardan içe kıvrılıp incelerek biter
+    const a0 = r() * TAU, r0 = 270 - r() * 30, len = 70 + r() * 90, curl = (r() - .5) * 0.6;
+    const pts = Array.from({ length: 16 }, (_, k) => {
+      const q = k / 15, rr = r0 - len * q, aa = a0 + curl * q * q + Math.sin(q * 5 + i) * 0.02;
+      return [Math.cos(aa) * rr, Math.sin(aa) * rr];
+    });
+    streaks.push({ pts, w: 3 + r() * 5, d: 0.1 + r() * 0.5 });
+  }
+  blobs.forEach(b => { b.k = Array.from({ length: 10 }, () => 0.72 + r() * 0.5); });
+  return { blobs, dust, streaks, HP };
 })();
 
 function drawGrounds(gp) {
-  for (const s of GROUNDS.streaks) {
-    const p = easeOutCubic(prog(gp, s.d, s.d + 0.35));
-    if (p <= 0) continue;
-    ctx.save(); ctx.globalAlpha = 0.18; ctx.lineWidth = s.w * 0.7; ctx.strokeStyle = C.ink; ctx.lineCap = 'round';
-    ctx.beginPath();
-    for (let k = 0; k <= 12; k++) {
-      const rr = s.r0 + s.len * p * k / 12, aa = s.a + Math.sin(k * 0.6 + s.ph) * 0.03;
-      k ? ctx.lineTo(Math.cos(aa) * rr, Math.sin(aa) * rr) : ctx.moveTo(Math.cos(aa) * rr, Math.sin(aa) * rr);
+  ctx.save();
+  // kalbin altında yumuşak ton: telvenin gölgesi
+  const sh = easeOutCubic(prog(gp, 0.25, 0.9));
+  if (sh > 0) {
+    ctx.globalAlpha = 0.09 * sh; ctx.strokeStyle = C.ink; ctx.lineWidth = 36; ctx.lineJoin = 'round';
+    ctx.beginPath(); GROUNDS.HP.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.stroke();
+  }
+  ctx.strokeStyle = C.ink; ctx.lineCap = 'round';
+  for (const st of GROUNDS.streaks) {
+    const p = easeOutCubic(prog(gp, st.d, st.d + 0.45));
+    const n = Math.floor(15 * p);
+    for (let k = 0; k < n; k++) {
+      const q = k / 15;
+      ctx.globalAlpha = 0.26 * (1 - q * 0.6); ctx.lineWidth = st.w * (1 - q) + 0.6;
+      ctx.beginPath(); ctx.moveTo(st.pts[k][0], st.pts[k][1]); ctx.lineTo(st.pts[k + 1][0], st.pts[k + 1][1]); ctx.stroke();
     }
-    ctx.stroke(); ctx.restore();
+  }
+  ctx.fillStyle = C.ink;
+  for (const d of GROUNDS.dust) {
+    const p = prog(gp, d.d, d.d + 0.15);
+    if (p <= 0) continue;
+    ctx.globalAlpha = d.a * p; ctx.beginPath(); ctx.arc(d.x, d.y, d.rad, 0, TAU); ctx.fill();
   }
   for (const b of GROUNDS.blobs) {
     const p = easeOutCubic(prog(gp, b.d, b.d + 0.3));
     if (p <= 0) continue;
-    ctx.save(); ctx.globalAlpha = b.a * Math.min(1, p * 2); ctx.fillStyle = C.ink;
+    const R = b.rad * p;
+    ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.ang); ctx.scale(b.el, 1);
+    const g = ctx.createRadialGradient(0, 0, R * 0.15, 0, 0, R * 1.15);
+    g.addColorStop(0, 'rgba(28,23,20,1)'); g.addColorStop(0.6, 'rgba(28,23,20,0.85)'); g.addColorStop(1, 'rgba(28,23,20,0)');
+    ctx.globalAlpha = b.a * Math.min(1, p * 2); ctx.fillStyle = g;
     ctx.beginPath();
     b.k.forEach((k, j) => {
-      const a = j / b.k.length * TAU, rr = b.rad * k * p;
-      j ? ctx.lineTo(b.x + Math.cos(a) * rr, b.y + Math.sin(a) * rr) : ctx.moveTo(b.x + Math.cos(a) * rr, b.y + Math.sin(a) * rr);
+      const a = j / b.k.length * TAU, rr = R * 1.15 * k;
+      j ? ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : ctx.moveTo(Math.cos(a) * rr, Math.sin(a) * rr);
     });
     ctx.closePath(); ctx.fill(); ctx.restore();
   }
+  ctx.restore();
+}
+
+// Lokum: yandan görünümdeki yeriyle (162,113) aynı noktadan başlar, tabak açılınca ön kenarda kalır
+const LOKUM_PTS = [[-16, 18], [-18, -16], [16, -19], [19, 16]];
+function drawLokum(px, py, k, lw) {
+  ctx.save(); ctx.strokeStyle = C.accent; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.beginPath(); LOKUM_PTS.forEach(([x, y], i) => i ? ctx.lineTo(px + x * k, py + y * k) : ctx.moveTo(px + x * k, py + y * k));
+  ctx.closePath(); ctx.stroke(); ctx.restore();
 }
 
 // Kuşbakışı tabak: alt yarı hep çizili, üst yarı topP ile iki uçtan kapanır
@@ -360,43 +419,68 @@ function drawSaucerTop(cx, cy, rx, ry, topP, gp, lw) {
     ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, TAU - Math.PI / 2 * topP, TAU); ctx.stroke();
   }
   if (gp > 0) {
-    ctx.save(); ctx.globalAlpha = 0.35 * clamp(gp * 3); ctx.lineWidth = lw * 0.6;
+    ctx.save(); ctx.globalAlpha = 0.3 * clamp(gp * 3); ctx.lineWidth = lw * 0.6;
     ctx.beginPath(); ctx.ellipse(cx, cy, rx * 0.47, ry * 0.47, 0, 0, TAU); ctx.stroke(); ctx.restore();
-    ctx.translate(cx, cy); ctx.scale(rx / SAUCER_TOP.R, ry / SAUCER_TOP.R);
-    drawGrounds(gp);
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(rx / SAUCER_TOP.R, ry / SAUCER_TOP.R);
+    drawGrounds(gp); ctx.restore();
   }
+  const k = rx / SAUCER.rx;
+  drawLokum(cx + rx * lerp(0.68, 0.6, topP), cy + lerp(1 * k, ry * 0.62, topP), k, lw);
   ctx.restore();
+}
+
+// Fincanın fal sahnesindeki hareketi: yudum → hazırlık → havada dönüş → tabağa oturma → kaldırılma
+function cupFalPose(t) {
+  const s = FAL.s;
+  // yudum: fincan sola eğilir ve kalkar
+  const sip = easeInOutCubic(prog(t, 9.95, 10.3)) - easeInOutCubic(prog(t, 10.5, 10.8));
+  let rot = -0.42 * sip, dx = -40 * sip, dy = -95 * sip, sq = 0;
+  const l1 = prog(t, 10.8, 11.0); dy += 5 * Math.sin(l1 * Math.PI) * (1 - l1);
+  // kapatma: önce küçük bir ters hazırlık, sonra kavisli uçuş
+  const ant = Math.sin(prog(t, 10.86, 10.98) * Math.PI / 2);
+  const f = easeInOutCubic(prog(t, 10.98, 11.45));
+  rot += 0.1 * ant * (1 - f) + Math.PI * f;
+  dy += 10 * ant * (1 - f) - 130 * Math.sin(f * Math.PI) + 24 * s * f;
+  // tabağa oturur: sönümlü küçük sekme + hafif basılma
+  const q = prog(t, 11.45, 11.95);
+  if (q > 0 && q < 1) {
+    const d = Math.exp(-q * 6) * Math.sin(q * 16);
+    rot += 0.05 * d; dy -= 5 * d; sq = Math.exp(-q * 7) * Math.cos(q * 14);
+  }
+  // kaldırılma: hafif bastırma, sonra el gibi yavaş başlayıp hızlanan kalkış
+  const press = Math.sin(prog(t, 12.33, 12.45) * Math.PI / 2) * (1 - prog(t, 12.45, 12.6));
+  const L = easeInCubic(prog(t, 12.45, 13.15));
+  dy += 6 * press - 1300 * L; dx += 70 * L; rot += 0.22 * L;
+  return { rot, dx, dy, sq, gone: L >= 1, flip: f };
 }
 
 function sceneFal(t) {
   if (t < 9.85) return;
   const { x, y, s } = FAL;
-  const flip = easeInOutQuint(prog(t, 10.9, 11.6));
-  const lift = easeInExpo(prog(t, 12.6, 13.25));
-  const open = easeInOutQuint(prog(t, 12.85, 13.6));
-  const gp = prog(t, 13.1, 14.2);
+  const open = easeInOutQuint(prog(t, 12.7, 13.45));
+  const gp = prog(t, 12.95, 14.05);
   // tabak: önce yandan, sonra kuşbakışına döner, en sonda rozetin içine küçülür
-  if (t < 12.85) {
-    drawCup(x, y, s, t, { body: 0, handle: 0, saucer: 1, lokum: 1 - prog(t, 12.6, 12.85) });
+  if (t < 12.7) {
+    drawCup(x, y, s, t, { body: 0, handle: 0, saucer: 1, lokum: 1 });
   } else {
-    const e = easeInOutQuint(prog(t, 14.6, 15.4));
-    const rx = lerp(238 * s, SAUCER_TOP.R, open), ry = lerp(36, SAUCER_TOP.R, open);
-    const cy = lerp(y + 112 * s, SAUCER_TOP.y, open);
+    const e = easeInOutQuint(prog(t, 14.45, 15.25));
+    const rx = lerp(SAUCER.rx * s, SAUCER_TOP.R, open), ry = lerp(SAUCER.ry * s, SAUCER_TOP.R, open);
+    const cy = lerp(y + SAUCER.cy * s, SAUCER_TOP.y, open);
     drawSaucerTop(lerp(x, BADGE.x, e), lerp(cy, BADGE.y, e), lerp(rx, 92, e), lerp(ry, 92, e), open, gp, lerp(6, 3, e));
   }
-  // fincan: içilir, kapatılır, kaldırılır
-  if (lift < 1) {
-    const fill = lerp(1, 0.12, easeInOutQuint(prog(t, 10.0, 10.8))) * (1 - flip);
-    const steam = flip > 0 ? 0 : 1 - easeOutCubic(prog(t, 9.9, 10.5));
-    const dy = (-80 * Math.sin(flip * Math.PI) + 24 * flip) * s - lift * 1150;
-    ctx.save(); ctx.translate(x, y + dy); ctx.rotate(flip * Math.PI + lift * 0.35);
-    drawCup(0, 0, s, t, { saucer: 0, fill, steam });
+  // fincan
+  const P = cupFalPose(t);
+  if (!P.gone) {
+    const fill = lerp(1, 0.12, easeInOutCubic(prog(t, 10.1, 10.65))) * (1 - P.flip);
+    const steam = P.flip > 0 ? 0 : 1 - easeOutCubic(prog(t, 9.9, 10.3));
+    ctx.save(); ctx.translate(x + P.dx, y + P.dy); ctx.rotate(P.rot); ctx.scale(1 + 0.035 * P.sq, 1 - 0.035 * P.sq);
+    drawCup(0, 0, s, t, { saucer: 0, fill, steam, surfaceTilt: P.flip > 0 ? 0 : P.rot });
     ctx.restore();
   }
-  maskLine('Fincanı kapattık…', 540, 1230, { font: `italic 400 84px ${SERIF}`, color: C.ink, t, t0: 11.3, align: 'center', outT: 12.5 });
-  maskLine('FALINIZDA', 540, 1235, { font: `500 34px ${SANS}`, color: C.accent, t, t0: 13.45, ls: 9, align: 'center', outT: 14.5 });
-  maskLine('bugün 15.00’te', 540, 1370, { font: `400 124px ${SERIF}`, color: C.ink, t, t0: 13.55, ls: -2, align: 'center', outT: 14.55 });
-  maskLine('bir kahve var.', 540, 1495, { font: `italic 400 124px ${SERIF}`, color: C.accent, t, t0: 13.68, ls: -2, align: 'center', outT: 14.6 });
+  maskLine('Fincanı kapattık…', 540, 1230, { font: `italic 400 84px ${SERIF}`, color: C.ink, t, t0: 11.5, align: 'center', outT: 12.3 });
+  maskLine('FALINIZDA', 540, 1235, { font: `500 34px ${SANS}`, color: C.accent, t, t0: 13.45, ls: 9, align: 'center', outT: 14.4 });
+  maskLine('bugün 15.00’te', 540, 1370, { font: `400 124px ${SERIF}`, color: C.ink, t, t0: 13.55, ls: -2, align: 'center', outT: 14.45 });
+  maskLine('bir kahve var.', 540, 1495, { font: `italic 400 124px ${SERIF}`, color: C.accent, t, t0: 13.68, ls: -2, align: 'center', outT: 14.5 });
 }
 
 // ---------- S4: kapanış ----------
@@ -415,7 +499,7 @@ function badge(cx, cy, r, text, t, a) {
   });
   ctx.restore();
 }
-const S4_SHIFT = 4.7;
+const S4_SHIFT = 4.65;
 function scene4(t) {
   t -= S4_SHIFT;
   if (t < 10.2) return;
@@ -467,7 +551,7 @@ function makeGrain() {
   g.putImageData(img, 0, 0);
 }
 
-function render(t) {
+function render(t, grainFrame = Math.floor(t * FPS)) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
   if (t < 2.15) {
     lightLayer(t);
@@ -487,15 +571,30 @@ function render(t) {
   }
   // film greni
   ctx.save(); ctx.globalAlpha = 0.05; ctx.globalCompositeOperation = 'overlay';
-  const r = rng(Math.floor(t * FPS) + 1);
+  const r = rng(grainFrame + 1);
   ctx.translate(-r() * 256, -r() * 256);
   ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W + 256, H + 256);
   ctx.restore();
 }
 
+// Hareket bulanıklığı (motion blur): 180° obtüratör = kare süresinin yarısı.
+// Alt kareler yürüyen ortalama ile birleştirilir; duran öğeler keskin kalır.
+let acc = null;
+function renderMB(t, n = 8, shutter = 0.5) {
+  if (!acc) { acc = document.createElement('canvas'); acc.width = W; acc.height = H; }
+  const a = acc.getContext('2d'), f = Math.round(t * FPS);
+  for (let k = 0; k < n; k++) {
+    render(t + ((k + 0.5) / n - 0.5) * shutter / FPS, f);
+    a.globalAlpha = 1 / (k + 1); a.drawImage(cv, 0, 0);
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  ctx.drawImage(acc, 0, 0);
+}
+
 // ---------- başlat ----------
 const params = new URLSearchParams(location.search);
 window.renderFrame = render;
+window.renderFrameMB = renderMB;
 window.DUR = DUR; window.FPS = FPS;
 let logoImg = null;
 window.ready = (async () => {

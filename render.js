@@ -15,10 +15,11 @@ const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
   await page.goto('file://' + path.resolve(__dirname, 'animation.html') + '?render=1');
   await page.evaluate(() => window.ready);
   const { DUR, FPS } = await page.evaluate(() => ({ DUR: window.DUR, FPS: window.FPS }));
-  const grab = async t => Buffer.from((await page.evaluate(t => {
-    window.renderFrame(t);
+  const mb = +(process.env.MB_SAMPLES || 8); // hareket bulanıklığı alt kare sayısı (1 = kapalı)
+  const grab = async t => Buffer.from((await page.evaluate(({ t, mb }) => {
+    if (mb > 1) window.renderFrameMB(t, mb); else window.renderFrame(t);
     return document.getElementById('c').toDataURL('image/png').split(',')[1];
-  }, t)), 'base64');
+  }, { t, mb })), 'base64');
 
   if (only) {
     fs.mkdirSync('frames', { recursive: true });
