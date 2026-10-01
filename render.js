@@ -3,6 +3,7 @@
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path');
+const fs = require('fs');
 
 const out = process.argv[2] || 'dunya-kahve-gunu.mp4';
 const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
@@ -20,7 +21,6 @@ const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
   }, t)), 'base64');
 
   if (only) {
-    const fs = require('fs');
     fs.mkdirSync('frames', { recursive: true });
     for (const f of only.split(',').map(Number)) {
       fs.writeFileSync(`frames/f${String(f).padStart(4, '0')}.png`, await grab(f / FPS));
@@ -30,10 +30,12 @@ const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
 
   const total = Math.round(DUR * FPS);
   const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
-    '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
+    ...(fs.existsSync(path.join(__dirname, 'audio.wav'))
+      ? ['-i', path.join(__dirname, 'audio.wav'), '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', '48000']
+      : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000']),
     '-map', '0:v', '-map', '1:a', '-shortest',
     '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
-    '-r', String(FPS), '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', out],
+    '-r', String(FPS), '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', out],
     { stdio: ['pipe', 'ignore', 'inherit'] });
   for (let i = 0; i < total; i++) {
     const buf = await grab(i / FPS);
