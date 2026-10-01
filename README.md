@@ -4,10 +4,11 @@
 
 - `dunya-kahve-gunu.mp4` — Instagram'a yüklenecek video (H.264, 30 fps, AAC stereo ses)
 - `kapak.png` — kapak görseli ("KAHVELER bizden!")
+- `dunya-kahve-gunu-story.png` — tek görsel Story (1080×1920), videoyla aynı tasarım dili: `NODE_PATH=$(npm root -g) node poster.js`
 - `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=3` ile tek kare)
 - `audio.py` — ses tasarımı (sentezlenmiş müzik + efektler, telifsiz) → `audio.wav`: `python3 audio.py` (numpy + scipy)
 - `render.js` — kare kare MP4 çıkışı, hareket bulanıklığıyla (`MB_SAMPLES=16`, varsayılan 8; 1 = kapalı), varsa `audio.wav`'ı ekler: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
-- `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, orijinal renkler (logo.js canvas için gömülü sürüm)
+- `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, orijinal renkler; logo.js ayrıca turuncu zeminler için beyaz sürümü içerir
 
 ## Tasarım
 Story için hızlı, dikkat çekici kinetik tipografi: marka turuncusu (#E17610), lacivert (#202F50), espresso, karamel ve krem arasında sert sahne geçişleri.

@@ -360,6 +360,44 @@ function scene5(t) {
   pill('1 EKİM · DÜNYA KAHVE GÜNÜ', 540, 1470, { t, t0: 6.95, size: 34, bg: C.navy, fg: C.cream });
 }
 
+// ---------- tek görsel (Story) ----------
+// Videoyla aynı tasarım dili; tüm mesaj tek karede. Üst ~230 px (profil) ve alt ~250 px (yanıt bandı) boş.
+let logoWhite = null;
+function renderPoster() {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, C.orangeL); g.addColorStop(1, C.orangeD);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // zeminde dev köpük sarmalı: doku
+  ctx.save(); ctx.translate(540, 1060); foam(1500, 0.6, 0.22); ctx.restore();
+  // logo (beyaz)
+  if (logoWhite) {
+    const lw = 330, lh = lw * LOGO_WHITE.h / LOGO_WHITE.w;
+    ctx.drawImage(logoWhite, 540 - lw / 2, 250, lw, lh);
+  }
+  const T = 99; // tüm animasyonlar bitmiş hâlde
+  pill('1 EKİM · DÜNYA KAHVE GÜNÜ', 540, 480, { t: T, t0: 0, size: 36 });
+  slam('BUGÜN BÜTÜN GÜN', 540, 600, { t: T, t0: 0, size: 112, color: C.cream, ls: -3 });
+  slam('KAHVELER', 540, 750, { t: T, t0: 0, size: 220, color: C.navy, ls: -6 });
+  // fincan + çevresinde çekirdekler
+  const cx = 540, cy = 1130, R = 245;
+  [[150, 900, -0.6, 0.9], [935, 920, 0.5, 1.0], [120, 1240, 0.3, 0.75], [960, 1300, -0.8, 0.85],
+   [330, 860, 0.9, 0.55], [760, 860, -1.2, 0.6]]
+    .forEach(([x, y, r, s]) => bean(x, y, s, r));
+  cupTop(cx, cy, R, 0.6);
+  [[200, 1040, 0.4, 0.9, C.cream], [880, 1110, 0.2, 0.6, C.cream], [230, 1340, 0.1, 0.5, C.navy], [905, 1220, 0.5, 0.75, C.navy]]
+    .forEach(([x, y, r, s, c]) => sparkle(x, y, s, r, c));
+  charsPop('bizden!', 540, 1505, { t: T, t0: 0, size: 280, color: C.navy });
+  setFont('', 600, 44, SANS, -0.5);
+  ctx.fillStyle = C.cream; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('Tüm misafirlerimize ikramımızdır.', 540, 1660);
+  // film greni
+  ctx.save(); ctx.globalAlpha = 0.04; ctx.globalCompositeOperation = 'overlay';
+  ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+}
+window.renderPoster = renderPoster;
+
 // ---------- kare çizimi ----------
 let grain = null;
 function makeGrain() {
@@ -422,6 +460,7 @@ window.DUR = DUR; window.FPS = FPS;
 window.ready = (async () => {
   makeGrain();
   if (window.LOGO) { const im = new Image(); im.src = LOGO.src; await im.decode(); logoImg = im; }
+  if (window.LOGO_WHITE) { const im = new Image(); im.src = LOGO_WHITE.src; await im.decode(); logoWhite = im; }
   const sample = 'AaÜüİıŞşĞğÇçÖö•·!';
   await Promise.all([
     document.fonts.load(`italic 400 80px ${SERIF}`, sample),
@@ -435,6 +474,7 @@ window.ready = (async () => {
 window.ready.then(() => {
   if (params.has('render')) { document.body.classList.add('render'); return; }
   if (params.has('t')) { render(parseFloat(params.get('t'))); return; }
+  if (params.has('poster')) { renderPoster(); return; }
   let start = performance.now();
   cv.addEventListener('click', () => { start = performance.now(); });
   const loop = now => { render(((now - start) / 1000) % DUR); requestAnimationFrame(loop); };
