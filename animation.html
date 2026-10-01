@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dünya Kahve Günü</title>
 <style>
-  @font-face {
-    font-family: 'Fredoka';
-    src: url(fonts/fredoka-latin.woff2) format('woff2');
-    font-weight: 300 700;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
-  }
-  @font-face {
-    font-family: 'Fredoka';
-    src: url(fonts/fredoka-latin-ext.woff2) format('woff2');
-    font-weight: 300 700;
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F;
-  }
-  html, body { margin: 0; height: 100%; background: #1c120c; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; src: url(fonts/serif-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; src: url(fonts/serif-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; src: url(fonts/serif-italic-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; src: url(fonts/serif-italic-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url(fonts/inter-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Inter'; font-weight: 100 900; src: url(fonts/inter-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  html, body { margin: 0; height: 100%; background: #111; }
   body { display: flex; align-items: center; justify-content: center; overflow: hidden; }
   canvas { height: 100vh; width: auto; max-width: 100vw; aspect-ratio: 9 / 16; }
   body.render canvas { width: 1080px; height: 1920px; max-width: none; }
@@ -28,41 +28,31 @@
 <script>
 /*
  * Dünya Kahve Günü — 15 sn, 1080x1920 (Instagram Reels / Story)
+ * Modern, minimalist kinetik tipografi. render(t) yalnızca zamana bağlıdır.
  *
- * Her kare yalnızca zamana (t, saniye) bağlıdır: render(t) aynı t için hep aynı
- * kareyi çizer. Böylece tarayıcıda canlı önizleme ve render.js ile kare kare
- * video çıkışı aynı kodu kullanır.
- *
- * Zaman çizelgesi
- *   A  0.00 – 3.30  Çekirdek düşer, "Psst... Yarın ne var, biliyor musun?"
- *   B  3.20 – 6.30  Uykulu boş fincan, "1 EKİM · Dünya Kahve Günü"
- *   ~  6.30 – 6.95  Kahve dalgası geçişi (krem → espresso)
- *   C  6.95 – 10.1  Cezve kahve döker, fincan uyanır, saat 15.00'e döner
- *   ~ 10.10 – 10.75 Fincandan açılan daire geçişi (espresso → krem)
- *   D 10.75 – 15.0  Üç fincan tokuşturur, "Kahveler bizden!"
+ *   S1  0.00 – 3.00  Tek damla düşer, halkalar yayılır; damla büyüyüp ekranı kaplar
+ *   S2  3.00 – 6.30  (koyu) "Bugün · Dünya Kahve Günü." + atasözü
+ *   ~   6.20 – 6.95  Açık panel aşağıdan yukarı siler
+ *   S3  6.90 – 10.4  Tek çizgi fincan kendini çizer, dolar; "Saat 15.00" sayaç
+ *   S4 10.30 – 15.0  "Kahveler bizden." + ikram notu + dönen rozet
  */
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
 const W = 1080, H = 1920, DUR = 15, FPS = 30;
+const M = 96; // kenar boşluğu
 
-const COL = {
-  cream: '#F8EDE0', creamDeep: '#EEDBC5', espresso: '#33201A',
-  bean: '#7A4B2C', beanDark: '#55321D', caramel: '#D08A4E', caramelDeep: '#B5692F',
-  copper: '#DA8B52', copperHi: '#F0B07E', wood: '#7E5237',
-  blush: '#F3A09A', milk: '#FFFBF5', cupInner: '#EBDCCB',
-  coffee: '#6B3E24', crema: '#9A6238', foam: '#F6E3CB', ink: '#33201A',
-};
-const OUT = 9; // çizgi kalınlığı
+const C = { paper: '#EEE8DF', ink: '#1C1714', accent: '#B06C38', accentDark: '#CD8D57' };
+const SERIF = "'Instrument Serif'", SANS = 'Inter';
 
 // ---------- yardımcılar ----------
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const prog = (t, a, b) => clamp((t - a) / (b - a));
 const lerp = (a, b, k) => a + (b - a) * k;
+const easeOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const easeInExpo = x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10);
 const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
 const easeInCubic = x => x * x * x;
-const easeInOutCubic = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-const easeOutBack = (x, s = 1.70158) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
-const easeInBack = (x, s = 1.70158) => (s + 1) * x * x * x - s * x * x;
+const easeInOutQuint = x => x < .5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2;
 const TAU = Math.PI * 2;
 
 function rng(seed) {
@@ -74,71 +64,273 @@ function rng(seed) {
   };
 }
 
-function ellipse(x, y, rx, ry, rot = 0) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, rot, 0, TAU); }
-function fillStroke(fill, lw = OUT) {
-  ctx.fillStyle = fill; ctx.fill();
-  if (lw) { ctx.lineWidth = lw; ctx.strokeStyle = COL.ink; ctx.lineJoin = 'round'; ctx.stroke(); }
-}
-function roundRect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
-
-function heartPath(cx, cy, s, k = 1) {
-  ctx.beginPath();
-  ctx.moveTo(cx, cy + s * 0.95 * k);
-  ctx.bezierCurveTo(cx - s * 1.7, cy - s * 0.05 * k, cx - s * 0.95, cy - s * 1.35 * k, cx, cy - s * 0.5 * k);
-  ctx.bezierCurveTo(cx + s * 0.95, cy - s * 1.35 * k, cx + s * 1.7, cy - s * 0.05 * k, cx, cy + s * 0.95 * k);
-  ctx.closePath();
-}
-
-function sparkle(x, y, s, rot = 0, color = COL.caramel) {
-  if (s <= 0) return;
-  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
-  ctx.beginPath();
-  for (let i = 0; i < 4; i++) {
-    const a = i * Math.PI / 2;
-    ctx.lineTo(Math.cos(a) * 30, Math.sin(a) * 30);
-    ctx.quadraticCurveTo(0, 0, Math.cos(a + Math.PI / 2) * 30, Math.sin(a + Math.PI / 2) * 30);
-  }
-  ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+// Maskeli satır: metin kendi satır kutusunun altından kayarak girer, üstten çıkar
+function maskLine(str, x, y, o) {
+  const { font, color, t, t0, dur = 1.0, outT = null, outDur = 0.55, align = 'left', ls = 0, alpha = 1 } = o;
+  const pin = prog(t, t0, t0 + dur);
+  const pout = outT == null ? 0 : prog(t, outT, outT + outDur);
+  if (pin <= 0 || pout >= 1) return;
+  ctx.save();
+  ctx.font = font; ctx.letterSpacing = ls + 'px'; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
+  const m = ctx.measureText(str);
+  const asc = m.fontBoundingBoxAscent, desc = m.fontBoundingBoxDescent, h = asc + desc;
+  ctx.beginPath(); ctx.rect(0, y - asc, W, h); ctx.clip();
+  const dy = (1 - easeOutExpo(pin)) * h - easeInExpo(pout) * h;
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color; ctx.fillText(str, x, y + dy);
   ctx.restore();
 }
 
-// Kelime/harf bazlı "pop" tipografi
-function popText(str, x, y, size, o) {
-  const { t, t0, color = COL.ink, weight = 600, stagger = 0.06, dur = 0.55, mode = 'words',
-          ls = 0, back = 1.8, rise = 50, outT = null, outDur = 0.35 } = o;
+function hairline(x1, x2, y, p, color, lw = 2) {
+  if (p <= 0) return;
+  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw;
+  ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(lerp(x1, x2, p), y);
+  ctx.stroke(); ctx.restore();
+}
+
+// ---------- çizgi (polyline) altyapısı ----------
+function linePts(a, b, n = 20) {
+  const r = []; for (let i = 0; i <= n; i++) r.push([lerp(a[0], b[0], i / n), lerp(a[1], b[1], i / n)]); return r;
+}
+function cubicPts(p0, p1, p2, p3, n = 30) {
+  const r = [];
+  for (let i = 0; i <= n; i++) {
+    const s = i / n, u = 1 - s;
+    r.push([u * u * u * p0[0] + 3 * u * u * s * p1[0] + 3 * u * s * s * p2[0] + s * s * s * p3[0],
+            u * u * u * p0[1] + 3 * u * u * s * p1[1] + 3 * u * s * s * p2[1] + s * s * s * p3[1]]);
+  }
+  return r;
+}
+function join(...parts) { return parts.reduce((a, p) => a.concat(a.length ? p.slice(1) : p), []); }
+function withLengths(pts) {
+  const L = [0];
+  for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  return { pts, L, total: L[L.length - 1] };
+}
+// a..b: çizginin görünen bölümü (0..1)
+function strokePoly(poly, a, b) {
+  if (b <= a) return;
+  const { pts, L, total } = poly, A = a * total, B = b * total;
+  ctx.beginPath();
+  let started = false;
+  for (let i = 1; i < pts.length; i++) {
+    const l0 = L[i - 1], l1 = L[i];
+    if (l1 < A || l0 > B) continue;
+    const s0 = clamp((A - l0) / (l1 - l0 || 1)), s1 = clamp((B - l0) / (l1 - l0 || 1));
+    const p0 = [lerp(pts[i - 1][0], pts[i][0], s0), lerp(pts[i - 1][1], pts[i][1], s0)];
+    const p1 = [lerp(pts[i - 1][0], pts[i][0], s1), lerp(pts[i - 1][1], pts[i][1], s1)];
+    if (!started) { ctx.moveTo(p0[0], p0[1]); started = true; }
+    ctx.lineTo(p1[0], p1[1]);
+  }
+  ctx.stroke();
+}
+
+// Tek çizgi fincan (yerel koordinat, merkez 0,0)
+const CUP = {
+  body: withLengths(join(
+    linePts([-150, -110], [150, -110], 30),
+    linePts([150, -110], [150, 0], 12),
+    cubicPts([150, 0], [150, 92], [88, 140], [0, 140]),
+    cubicPts([0, 140], [-88, 140], [-150, 92], [-150, 0]),
+    linePts([-150, 0], [-150, -110], 12))),
+  handle: withLengths(cubicPts([150, -72], [248, -80], [250, 48], [146, 42])),
+  saucerL: withLengths(linePts([0, 172], [-250, 172], 20)),
+  saucerR: withLengths(linePts([0, 172], [250, 172], 20)),
+};
+function cupInterior() {
+  ctx.beginPath();
+  ctx.moveTo(-150, -110); ctx.lineTo(150, -110); ctx.lineTo(150, 0);
+  ctx.bezierCurveTo(150, 92, 88, 140, 0, 140); ctx.bezierCurveTo(-88, 140, -150, 92, -150, 0);
+  ctx.closePath();
+}
+function steamPoly(i, t) {
+  const pts = [];
+  for (let k = 0; k <= 40; k++) {
+    const ramp = k / 40;
+    pts.push([i * 62 + Math.sin(k * 0.26 - t * 2.4 + i * 1.7) * 16 * ramp, -150 - k * 6.2]);
+  }
+  return withLengths(pts);
+}
+// o: body/handle/saucer/steam/fill çizim ilerlemesi (0..1), erase: çizgiyi baştan siler
+function drawCup(x, y, s, t, o) {
+  const { body = 1, handle = 1, saucer = 1, steam = 0, fill = 0, erase = 0, color = C.ink, lw = 6 } = o;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = color; ctx.lineWidth = lw / s;
+  if (fill > 0 && erase < 1) {
+    ctx.save(); cupInterior(); ctx.clip();
+    const level = lerp(140, -62, fill);
+    ctx.beginPath(); ctx.moveTo(-160, 160);
+    for (let px = -160; px <= 160; px += 10) ctx.lineTo(px, level + Math.sin(px * 0.03 + t * 6) * 4 * (1 - fill));
+    ctx.lineTo(160, 160); ctx.closePath();
+    ctx.globalAlpha = clamp(1 - erase * 2.5); ctx.fillStyle = color; ctx.fill();
+    ctx.restore();
+  }
+  strokePoly(CUP.body, erase, body);
+  strokePoly(CUP.handle, erase, handle);
+  strokePoly(CUP.saucerL, erase, saucer);
+  strokePoly(CUP.saucerR, erase, saucer);
+  if (steam > 0) {
+    ctx.save(); ctx.globalAlpha = 0.5; ctx.lineWidth *= 0.7;
+    for (let i = -1; i <= 1; i++) strokePoly(steamPoly(i, t), erase, clamp(steam * 1.3 - (i + 1) * 0.15));
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+// ---------- ortak çerçeve (üst künye) ----------
+function chrome(t, color) {
+  hairline(M, W - M, 272, easeOutExpo(prog(t, 0.1, 1.3)), color, 2);
+  maskLine('DÜNYA KAHVE GÜNÜ', M, 240, { font: `500 26px ${SANS}`, color, t, t0: 0.25, dur: 0.9, ls: 5 });
+  maskLine('01.10.2026', W - M, 240, { font: `500 26px ${SANS}`, color, t, t0: 0.35, dur: 0.9, ls: 5, align: 'right' });
+}
+
+// ---------- S1: damla ----------
+const DROP = { x: 540, y: 980 };
+function scene1(t) {
+  const pf = prog(t, 0.45, 1.1);
+  if (pf > 0 && pf < 1) {
+    const y = lerp(-80, DROP.y, easeInCubic(pf));
+    ctx.save(); ctx.translate(DROP.x, y); ctx.scale(1, 1 + 0.9 * pf);
+    ctx.beginPath(); ctx.moveTo(0, -34);
+    ctx.bezierCurveTo(6, -18, 16, -6, 16, 4); ctx.arc(0, 4, 16, 0, Math.PI); ctx.bezierCurveTo(-16, -6, -6, -18, 0, -34);
+    ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
+  }
+  // halkalar (yüzey perspektifi)
+  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 2.5;
+  for (const [t0, k] of [[1.1, 1], [1.22, 0.78], [1.38, 0.56], [1.95, 0.5]]) {
+    const p = prog(t, t0, t0 + 1.5);
+    if (p <= 0 || p >= 1) continue;
+    const r = easeOutExpo(p) * 520 * k;
+    ctx.globalAlpha = (1 - p) * 0.9;
+    ctx.beginPath(); ctx.ellipse(DROP.x, DROP.y, r, r * 0.3, 0, 0, TAU); ctx.stroke();
+  }
+  ctx.restore();
+  // geri sıçrayan damlacık, sonra merkezde kalan nokta
+  if (t >= 1.1) {
+    const pj = prog(t, 1.12, 1.9);
+    const y = pj < 1 ? DROP.y - Math.sin(pj * Math.PI) * 190 : DROP.y;
+    const r = pj < 1 ? 9 : lerp(9, 14, prog(t, 1.9, 2.1));
+    ctx.beginPath(); ctx.arc(DROP.x, y, r, 0, TAU); ctx.fillStyle = C.ink; ctx.fill();
+  }
+  maskLine('bir damla…', DROP.x, 1230, { font: `italic 400 64px ${SERIF}`, color: C.ink, t, t0: 1.35, dur: 0.9, align: 'center', outT: 2.0, outDur: 0.35 });
+}
+function circleRadius(t) { return lerp(14, 1250, easeInOutQuint(prog(t, 2.15, 3.0))); }
+
+// ---------- S2: koyu başlık ----------
+function scene2(t) {
+  const out = 5.85;
+  maskLine('BUGÜN', M, 640, { font: `500 28px ${SANS}`, color: C.accentDark, t, t0: 2.75, ls: 9, outT: out });
+  maskLine('Dünya', M - 8, 905, { font: `400 300px ${SERIF}`, color: C.paper, t, t0: 2.85, dur: 1.1, ls: -4, outT: out + 0.05 });
+  maskLine('Kahve', M - 8, 1165, { font: `italic 400 300px ${SERIF}`, color: C.accentDark, t, t0: 2.98, dur: 1.1, ls: -4, outT: out + 0.1 });
+  maskLine('Günü.', M - 8, 1425, { font: `400 300px ${SERIF}`, color: C.paper, t, t0: 3.11, dur: 1.1, ls: -4, outT: out + 0.15 });
+  const pl = easeOutExpo(prog(t, 3.5, 4.6)) - easeInExpo(prog(t, out + 0.1, out + 0.6));
+  ctx.save(); ctx.globalAlpha = 0.35; hairline(M, W - M, 1505, pl, C.paper, 2); ctx.restore();
+  maskLine('“Bir fincan kahvenin', M, 1595, { font: `italic 400 56px ${SERIF}`, color: C.paper, t, t0: 3.85, alpha: 0.8, outT: out + 0.2 });
+  maskLine('kırk yıl hatırı vardır.”', M, 1661, { font: `italic 400 56px ${SERIF}`, color: C.paper, t, t0: 3.95, alpha: 0.8, outT: out + 0.25 });
+}
+function panelY(t) { return lerp(H, 0, easeInOutQuint(prog(t, 6.2, 6.95))); }
+
+// ---------- S3: fincan + saat ----------
+function odometer(str, cx, y, size, t, t0) {
   ctx.save();
-  ctx.font = `${weight} ${size}px Fredoka`;
-  ctx.letterSpacing = ls + 'px';
-  ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
-  const parts = mode === 'chars' ? [...str] : str.split(' ');
-  const sp = mode === 'chars' ? 0 : ctx.measureText(' ').width * 1.35;
-  const ws = parts.map(p => ctx.measureText(p).width);
-  const total = ws.reduce((a, b) => a + b, 0) + sp * (parts.length - 1);
-  let cx = x - total / 2;
-  parts.forEach((p, i) => {
-    const w = ws[i];
-    const pr = prog(t, t0 + i * stagger, t0 + i * stagger + dur);
-    if (pr > 0 && p.trim()) {
-      let a = clamp(pr * 2.5);
-      const sc = 0.35 + 0.65 * easeOutBack(pr, back);
-      let dy = (1 - easeOutCubic(pr)) * rise;
-      if (outT != null) {
-        const po = prog(t, outT + i * 0.03, outT + i * 0.03 + outDur);
-        a *= 1 - po; dy += easeInCubic(po) * 60;
+  ctx.font = `400 ${size}px ${SERIF}`; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'center'; ctx.letterSpacing = '0px';
+  const dw = Math.max(...'0123456789'.split('').map(d => ctx.measureText(d).width));
+  const widths = [...str].map(ch => /\d/.test(ch) ? dw : ctx.measureText(ch).width * 1.1);
+  let x = cx - widths.reduce((a, b) => a + b, 0) / 2;
+  const m = ctx.measureText('0123456789'), cap = m.actualBoundingBoxAscent, low = m.actualBoundingBoxDescent;
+  const pad = size * 0.08, h = cap + low + pad * 2;
+  ctx.beginPath(); ctx.rect(0, y - cap - pad, W, h); ctx.clip();
+  ctx.fillStyle = C.ink;
+  let di = 0;
+  [...str].forEach((ch, i) => {
+    const w = widths[i], sx = x + w / 2;
+    if (/\d/.test(ch)) {
+      const d0 = t0 + di * 0.09, p = easeOutExpo(prog(t, d0, d0 + 1.25));
+      const v = -1 + p * ((1 + di) * 10 + (+ch) + 1);
+      const base = Math.floor(v), f = v - base;
+      if (t > d0) {
+        if (base >= 0) ctx.fillText(String(base % 10), sx, y - f * h);
+        if (f > 0) ctx.fillText(String((base + 1) % 10), sx, y + (1 - f) * h);
       }
-      if (a > 0) {
-        ctx.save(); ctx.globalAlpha *= a;
-        ctx.translate(cx + w / 2, y + dy); ctx.scale(sc, sc);
-        ctx.fillStyle = color; ctx.fillText(p, 0, 0);
-        ctx.restore();
-      }
+      di++;
+    } else {
+      const p = easeOutExpo(prog(t, t0 + 0.35, t0 + 1.1));
+      if (p > 0) ctx.fillText(ch, sx, y + (1 - p) * h);
     }
-    cx += w + sp;
+    x += w;
   });
   ctx.restore();
 }
+function scene3(t) {
+  if (t < 6.3 || t > 10.5) return;
+  drawCup(540, 860, 1, t, {
+    body: easeInOutQuint(prog(t, 6.85, 8.0)),
+    handle: easeInOutQuint(prog(t, 7.55, 8.15)),
+    saucer: easeInOutQuint(prog(t, 7.35, 8.1)),
+    fill: easeInOutQuint(prog(t, 7.95, 8.8)),
+    steam: easeOutCubic(prog(t, 8.45, 9.4)),
+    erase: easeInOutQuint(prog(t, 9.85, 10.4)),
+  });
+  maskLine('SAAT', 540, 1250, { font: `500 28px ${SANS}`, color: C.accent, t, t0: 8.35, ls: 9, align: 'center', outT: 9.8 });
+  const po = easeInExpo(prog(t, 9.85, 10.35));
+  ctx.save(); ctx.translate(0, -po * 40); ctx.globalAlpha = 1 - po;
+  odometer('15.00', 540, 1530, 320, t, 8.45);
+  ctx.restore();
+}
 
-// ---------- arka plan ----------
+// ---------- S4: kapanış ----------
+function badge(cx, cy, r, text, t, a) {
+  if (a <= 0) return;
+  ctx.save(); ctx.translate(cx, cy); ctx.rotate(t * 0.35 - 1.2); ctx.globalAlpha = a;
+  ctx.font = `500 21px ${SANS}`; ctx.letterSpacing = '0px'; ctx.fillStyle = C.ink;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const chars = [...text], ws = chars.map(ch => ctx.measureText(ch).width);
+  const extra = (TAU * r - ws.reduce((x, y) => x + y, 0)) / chars.length;
+  let ang = 0;
+  chars.forEach((ch, i) => {
+    const step = (ws[i] + extra) / r;
+    ctx.save(); ctx.rotate(ang + step / 2); ctx.translate(0, -r); ctx.fillText(ch, 0, 0); ctx.restore();
+    ang += step;
+  });
+  ctx.restore();
+}
+function scene4(t) {
+  if (t < 10.2) return;
+  maskLine('Kahveler', M - 6, 900, { font: `400 230px ${SERIF}`, color: C.ink, t, t0: 10.3, dur: 1.1, ls: -4 });
+  maskLine('bizden.', M - 6, 1110, { font: `italic 400 230px ${SERIF}`, color: C.accent, t, t0: 10.45, dur: 1.1, ls: -4 });
+  hairline(M, W - M, 1200, easeOutExpo(prog(t, 10.9, 12.0)), C.ink, 2);
+  maskLine('Bugün saat 15.00’te tüm', M, 1290, { font: `400 44px ${SANS}`, color: C.ink, t, t0: 11.15, ls: -0.5 });
+  maskLine('misafirlerimize ikramımızdır.', M, 1352, { font: `400 44px ${SANS}`, color: C.ink, t, t0: 11.25, ls: -0.5 });
+
+  // dönen rozet + içinde küçük fincan
+  const pa = easeOutExpo(prog(t, 11.5, 12.6));
+  const bx = W - M - 120, by = 1530;
+  ctx.save(); ctx.translate(bx, by); ctx.scale(lerp(0.85, 1, pa), lerp(0.85, 1, pa)); ctx.translate(-bx, -by);
+  badge(bx, by, 112, 'KAHVELER BİZDEN · BUGÜN 15.00 · ', t, pa);
+  ctx.restore();
+  drawCup(bx - 6, by + 8, 0.2, t, {
+    body: easeInOutQuint(prog(t, 11.6, 12.4)), handle: easeInOutQuint(prog(t, 12.0, 12.4)),
+    saucer: easeInOutQuint(prog(t, 11.9, 12.4)), fill: easeInOutQuint(prog(t, 12.3, 12.8)),
+    steam: easeOutCubic(prog(t, 12.6, 13.4)), lw: 3,
+  });
+  maskLine('15.00', M, 1520, { font: `italic 400 76px ${SERIF}`, color: C.ink, t, t0: 11.6 });
+  maskLine('— BUGÜN', M, 1580, { font: `500 22px ${SANS}`, color: C.accent, t, t0: 11.7, ls: 6 });
+}
+
+// ---------- katmanlar ----------
+function lightLayer(t) {
+  ctx.fillStyle = C.paper; ctx.fillRect(0, 0, W, H);
+  chrome(t, C.ink);
+  if (t < 3.1) scene1(t);
+  scene3(t);
+  scene4(t);
+}
+function darkLayer(t) {
+  ctx.fillStyle = C.ink; ctx.fillRect(0, 0, W, H);
+  chrome(t, C.paper);
+  scene2(t);
+}
+
 let grain = null;
 function makeGrain() {
   grain = document.createElement('canvas'); grain.width = grain.height = 256;
@@ -149,553 +341,27 @@ function makeGrain() {
   g.putImageData(img, 0, 0);
 }
 
-function background(color, t, dark) {
-  ctx.fillStyle = color; ctx.fillRect(0, 0, W, H);
-  // yumuşak nokta deseni
-  ctx.fillStyle = dark ? 'rgba(248,237,224,0.06)' : 'rgba(51,32,26,0.06)';
-  const off = (t * 12) % 90;
-  for (let y = -90; y < H + 90; y += 90) {
-    for (let x = -90; x < W + 90; x += 90) {
-      const sx = x + ((y / 90) % 2 ? 45 : 0) + off * 0.5, sy = y + off;
-      ctx.beginPath(); ctx.arc(sx, sy, 4, 0, TAU); ctx.fill();
-    }
-  }
-  // vinyet
-  const g = ctx.createRadialGradient(W / 2, H / 2, H * 0.25, W / 2, H / 2, H * 0.75);
-  g.addColorStop(0, 'rgba(0,0,0,0)');
-  g.addColorStop(1, dark ? 'rgba(0,0,0,0.35)' : 'rgba(120,70,30,0.10)');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-}
-
-function floatingBeans(t, seed, count, dark, alpha = 1) {
-  const r = rng(seed);
-  for (let i = 0; i < count; i++) {
-    const x0 = r() * W, y0 = r() * H, sp = 30 + r() * 50, s = 0.16 + r() * 0.16, rot0 = r() * TAU, rs = (r() - .5) * 0.8;
-    const y = ((y0 - t * sp) % (H + 200) + H + 200) % (H + 200) - 100;
-    const x = x0 + Math.sin(t * 0.8 + i) * 20;
-    ctx.save(); ctx.globalAlpha *= (dark ? 0.12 : 0.16) * alpha;
-    ctx.translate(x, y); ctx.rotate(rot0 + t * rs); ctx.scale(s, s);
-    ellipse(0, 0, 95, 125); ctx.fillStyle = dark ? COL.cream : COL.bean; ctx.fill();
-    ctx.beginPath(); ctx.moveTo(0, -105); ctx.bezierCurveTo(-35, -40, 35, 40, 0, 105);
-    ctx.lineWidth = 16; ctx.lineCap = 'round'; ctx.strokeStyle = dark ? COL.espresso : COL.cream; ctx.stroke();
-    ctx.restore();
-  }
-}
-
-// ---------- karakterler ----------
-function drawFace(cx, cy, o = {}) {
-  const { gap = 40, r = 13, blink = 0, look = 0, mood = 'smile', mouth = 0, col = COL.ink, blushA = 0.85 } = o;
-  ctx.save(); ctx.translate(cx + look * 10, cy);
-  ctx.save(); ctx.globalAlpha *= blushA; ctx.fillStyle = COL.blush;
-  ellipse(-gap - 24, r + 16, 20, 11); ctx.fill(); ellipse(gap + 24, r + 16, 20, 11); ctx.fill();
-  ctx.restore();
-  ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  for (const sd of [-1, 1]) {
-    const ex = sd * gap;
-    ctx.lineWidth = r * 0.62;
-    if (mood === 'happy') {
-      ctx.beginPath(); ctx.moveTo(ex - r, r * 0.45); ctx.quadraticCurveTo(ex, -r * 1.3, ex + r, r * 0.45); ctx.stroke();
-    } else if (mood === 'sleepy') {
-      ctx.beginPath(); ctx.moveTo(ex - r, 0); ctx.quadraticCurveTo(ex, r * 1.1, ex + r, 0); ctx.stroke();
-    } else {
-      const big = mood === 'wow' ? 1.3 : 1;
-      const rx = r * big, ry = Math.max(r * big * (1 - blink * 0.92), 1.5);
-      ellipse(ex, 0, rx, ry); ctx.fill();
-      if (blink < 0.5) {
-        ctx.fillStyle = '#fff';
-        ctx.beginPath(); ctx.arc(ex - rx * 0.3, -ry * 0.35, r * 0.34 * big, 0, TAU); ctx.fill();
-        if (mood === 'wow') { ctx.beginPath(); ctx.arc(ex + rx * 0.35, ry * 0.35, r * 0.16, 0, TAU); ctx.fill(); }
-        ctx.fillStyle = col;
-      }
-    }
-  }
-  const my = r + 16;
-  if (mouth > 0.05) {
-    ctx.beginPath();
-    ctx.moveTo(-16, my - 4); ctx.quadraticCurveTo(0, my - 8, 16, my - 4);
-    ctx.quadraticCurveTo(15, my + 30 * mouth, 0, my + 30 * mouth);
-    ctx.quadraticCurveTo(-15, my + 30 * mouth, -16, my - 4);
-    ctx.closePath(); ctx.fill();
-    ctx.save(); ctx.clip();
-    ellipse(0, my + 30 * mouth, 12, 10); ctx.fillStyle = '#E97F7A'; ctx.fill();
-    ctx.restore();
-  } else {
-    ctx.lineWidth = r * 0.5;
-    ctx.beginPath(); ctx.arc(0, my - 8, 12, 0.18 * Math.PI, 0.82 * Math.PI); ctx.stroke();
-  }
-  ctx.restore();
-}
-
-function drawBean(x, y, s, o = {}) {
-  const { sx = 1, sy = 1, rot = 0, alpha = 1 } = o;
-  if (alpha <= 0) return;
-  ctx.save(); ctx.globalAlpha *= alpha;
-  ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s * sx, s * sy);
-  ellipse(0, 0, 100, 130); fillStroke(COL.bean);
-  ctx.save(); ellipse(0, 0, 100, 130); ctx.clip();
-  ellipse(-42, -58, 26, 50, 0.35); ctx.fillStyle = 'rgba(255,255,255,0.16)'; ctx.fill();
-  ellipse(40, 90, 90, 60); ctx.fillStyle = 'rgba(0,0,0,0.10)'; ctx.fill();
-  ctx.restore();
-  ctx.beginPath(); ctx.moveTo(22, -122); ctx.bezierCurveTo(-14, -100, 30, -78, 6, -62);
-  ctx.lineWidth = 9; ctx.strokeStyle = COL.beanDark; ctx.lineCap = 'round'; ctx.stroke();
-  drawFace(0, 12, { ...o, col: '#1E120C', gap: 38, r: 13 });
-  ctx.restore();
-}
-
-function cupBodyPath() {
-  ctx.beginPath();
-  ctx.moveTo(-150, -110); ctx.lineTo(150, -110); ctx.lineTo(133, 40);
-  ctx.bezierCurveTo(124, 118, 92, 128, 42, 128); ctx.lineTo(-42, 128);
-  ctx.bezierCurveTo(-92, 128, -124, 118, -133, 40); ctx.closePath();
-}
-
-function drawCup(x, y, s, o = {}) {
-  const { fill = 0, rot = 0, sx = 1, sy = 1, latte = 0, band = COL.caramel } = o;
-  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s * sx, s * sy);
-  // gölge + tabak
-  ellipse(0, 158, 210, 30); ctx.fillStyle = 'rgba(40,20,10,0.13)'; ctx.fill();
-  ellipse(0, 140, 200, 38); fillStroke(COL.milk);
-  ellipse(0, 133, 125, 19); ctx.fillStyle = COL.creamDeep; ctx.fill();
-  // kulp
-  ctx.beginPath(); ctx.arc(152, -4, 58, -Math.PI * 0.55, Math.PI * 0.55);
-  ctx.lineCap = 'round'; ctx.lineWidth = 44; ctx.strokeStyle = COL.ink; ctx.stroke();
-  ctx.lineWidth = 26; ctx.strokeStyle = COL.milk; ctx.stroke();
-  // gövde
-  cupBodyPath(); ctx.fillStyle = COL.milk; ctx.fill();
-  ctx.save(); cupBodyPath(); ctx.clip();
-  ctx.fillStyle = band; ctx.fillRect(-200, 76, 400, 22);
-  ctx.fillStyle = 'rgba(208,138,78,0.13)'; ctx.fillRect(92, -130, 90, 280);
-  ctx.fillStyle = 'rgba(255,255,255,0.9)'; roundRect(-122, -80, 16, 70, 8); ctx.fill();
-  ctx.restore();
-  cupBodyPath(); ctx.lineWidth = OUT; ctx.strokeStyle = COL.ink; ctx.lineJoin = 'round'; ctx.stroke();
-  // ağız
-  ellipse(0, -110, 150, 32); fillStroke(COL.milk);
-  ellipse(0, -108, 134, 23); ctx.fillStyle = COL.cupInner; ctx.fill();
-  if (fill > 0) {
-    ctx.save(); ellipse(0, -108, 134, 23); ctx.clip();
-    const k = 0.72 + 0.28 * fill, ly = -104 + (1 - fill) * 22;
-    ellipse(0, ly, 136 * k, 24 * k); ctx.fillStyle = COL.coffee; ctx.fill();
-    ellipse(0, ly, 136 * k * 0.8, 24 * k * 0.7); ctx.fillStyle = COL.crema; ctx.fill();
-    if (latte > 0) {
-      ctx.globalAlpha *= latte;
-      heartPath(0, ly + 2, 26 * latte, 0.5); ctx.fillStyle = COL.foam; ctx.fill();
-    }
-    ctx.restore();
-  }
-  drawFace(0, 8, o);
-  ctx.restore();
-}
-
-function drawCezve(x, y, s, rot) {
-  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
-  // sap
-  ctx.beginPath(); ctx.moveTo(140, 44); ctx.lineTo(290, -8);
-  ctx.lineCap = 'round'; ctx.lineWidth = 36; ctx.strokeStyle = COL.ink; ctx.stroke();
-  ctx.lineWidth = 20; ctx.strokeStyle = COL.wood; ctx.stroke();
-  // gövde
-  const body = () => {
-    ctx.beginPath(); ctx.moveTo(-10, -2); ctx.lineTo(160, -2);
-    ctx.quadraticCurveTo(150, 20, 140, 42);
-    ctx.bezierCurveTo(182, 110, 182, 176, 152, 192);
-    ctx.quadraticCurveTo(76, 208, 2, 192);
-    ctx.bezierCurveTo(-28, 176, -28, 110, 14, 42);
-    ctx.quadraticCurveTo(4, 20, -10, -2); ctx.closePath();
-  };
-  body(); ctx.fillStyle = COL.copper; ctx.fill();
-  ctx.save(); body(); ctx.clip();
-  ctx.fillStyle = COL.copperHi; roundRect(16, 70, 22, 100, 11); ctx.fill();
-  ctx.fillStyle = 'rgba(0,0,0,0.12)'; ctx.fillRect(120, 0, 80, 220);
-  ctx.strokeStyle = 'rgba(51,32,26,0.45)'; ctx.lineWidth = 6;
-  ctx.beginPath(); ctx.moveTo(-20, 150); ctx.quadraticCurveTo(76, 162, 180, 150); ctx.stroke();
-  ctx.restore();
-  body(); ctx.lineWidth = OUT; ctx.strokeStyle = '#8E4A22'; ctx.lineJoin = 'round'; ctx.stroke();
-  ctx.restore();
-}
-
-function drawClock(x, y, r, t, scale) {
-  if (scale <= 0) return;
-  const e = easeInOutCubic(prog(t, 7.15, 8.6));
-  const ding = prog(t, 8.6, 9.1);
-  ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-  ctx.rotate(Math.sin(ding * Math.PI * 4) * 0.12 * (1 - ding));
-  // zil kulakları
-  for (const sd of [-1, 1]) {
-    ctx.save(); ctx.rotate(sd * 0.7);
-    ellipse(0, -r - 14, 34, 20); fillStroke(COL.caramel);
-    ctx.restore();
-  }
-  ellipse(0, 0, r, r); fillStroke(COL.cream);
-  ctx.fillStyle = COL.ink;
-  for (let i = 0; i < 12; i++) {
-    const a = i / 12 * TAU, rr = i % 3 === 0 ? 8 : 4.5;
-    ctx.beginPath(); ctx.arc(Math.cos(a) * r * 0.74, Math.sin(a) * r * 0.74, rr, 0, TAU); ctx.fill();
-  }
-  const hand = (ang, len, lw, c) => {
-    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(ang) * len, Math.sin(ang) * len);
-    ctx.lineCap = 'round'; ctx.lineWidth = lw; ctx.strokeStyle = c; ctx.stroke();
-  };
-  hand(-Math.PI / 2 + Math.PI / 6 + Math.PI / 3 * e, r * 0.46, 13, COL.ink);   // akrep: 1 → 3
-  hand(-Math.PI / 2 + TAU * 2 * e, r * 0.66, 9, COL.caramelDeep);                 // yelkovan: 2 tur
-  ctx.beginPath(); ctx.arc(0, 0, 10, 0, TAU); ctx.fillStyle = COL.ink; ctx.fill();
-  ctx.restore();
-}
-
-function speechBubble(x, y, w, h, sc, t) {
-  if (sc <= 0) return;
-  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc);
-  ctx.lineWidth = OUT; ctx.strokeStyle = COL.ink; ctx.lineJoin = 'round';
-  ctx.beginPath();
-  // dış hat: balon + kuyruk tek parça
-  const r = h / 2, L = -w / 2, R = w / 2, T = -h / 2, B = h / 2;
-  ctx.moveTo(L + r, T); ctx.lineTo(R - r, T); ctx.arc(R - r, 0, r, -Math.PI / 2, Math.PI / 2);
-  ctx.lineTo(-w * 0.02, B); ctx.lineTo(-w * 0.32, B + 44); ctx.lineTo(-w * 0.18, B);
-  ctx.lineTo(L + r, B); ctx.arc(L + r, 0, r, Math.PI / 2, Math.PI * 1.5); ctx.closePath();
-  ctx.fillStyle = COL.milk; ctx.fill(); ctx.stroke();
-  ctx.font = '600 72px Fredoka'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillStyle = COL.ink;
-  const dots = Math.floor(clamp((t - 1.45) / 0.18, 0, 3));
-  ctx.fillText('Psst' + '.'.repeat(dots) + ' '.repeat(3 - dots), 0, 4);
-  ctx.restore();
-}
-
-// ---------- sahne A: çekirdek ----------
-function sceneA(t) {
-  floatingBeans(t, 11, 9, false, 1 - prog(t, 2.9, 3.3));
-  const bx = 540, by = 1000;
-  let y, sx = 1, sy = 1, rot = 0;
-  const pf = prog(t, 0.15, 0.72);
-  if (t < 0.72) {
-    y = lerp(-320, by, easeInCubic(pf) * 0.3 + pf * pf * 0.7);
-    sx = 0.9; sy = 1.12;
-  } else {
-    y = by;
-    const pl = prog(t, 0.72, 1.35);
-    const wob = Math.exp(-pl * 5) * Math.cos(pl * 16);
-    sx = 1 + 0.22 * wob; sy = 1 - 0.22 * wob;
-    const hop = prog(t, 0.82, 1.12); y -= Math.sin(hop * Math.PI) * 55;
-  }
-  // çıkış: hazırlan ve zıpla
-  const pa = prog(t, 2.72, 2.95), pj = prog(t, 2.95, 3.3);
-  if (pa > 0 && pj === 0) { const k = Math.sin(pa * Math.PI / 2); sx *= 1 + 0.18 * k; sy *= 1 - 0.18 * k; }
-  if (pj > 0) { y = lerp(by, -420, easeInCubic(pj)); sx = 0.86; sy = 1.2; rot = pj * 0.6; }
-  let look = 0;
-  const pl = prog(t, 1.2, 2.2);
-  if (pl > 0 && pl < 1) look = Math.sin(pl * TAU) * 1.2;
-  let blink = 0;
-  for (const b of [1.05, 2.35]) { const p = prog(t, b, b + 0.16); blink = Math.max(blink, Math.sin(p * Math.PI)); }
-  // yer gölgesi
-  const sh = 1 - clamp((by - y) / 900);
-  ctx.save(); ctx.globalAlpha = 0.14 * sh; ellipse(bx, by + 200, 140 * sh, 26 * sh); ctx.fillStyle = '#3a2010'; ctx.fill(); ctx.restore();
-  drawBean(bx, y + 175 * (1 - sy), 1.35, { sx, sy, rot, look, blink, mood: 'smile', mouth: t > 1.3 && t < 2.8 ? 0.35 : 0 });
-
-  const bub = easeOutBack(prog(t, 1.25, 1.6), 2.2) * (1 - easeInBack(prog(t, 2.72, 2.95)));
-  speechBubble(760, 640, 330, 130, bub, t);
-
-  popText('Yarın ne var,', 540, 1290, 88, { t, t0: 1.85, color: COL.ink, weight: 600, outT: 2.75 });
-  popText('biliyor musun?', 540, 1395, 88, { t, t0: 2.05, color: COL.caramelDeep, weight: 700, outT: 2.8 });
-}
-
-// ---------- sahne B: 1 Ekim ----------
-function sceneBText(t) {
-  popText('1 EKİM', 540, 470, 220, { t, t0: 3.55, weight: 700, mode: 'chars', stagger: 0.06, color: COL.ink, ls: 6 });
-  popText('Dünya Kahve Günü', 540, 625, 84, { t, t0: 3.95, weight: 600, color: COL.caramelDeep, stagger: 0.09 });
-  // süs çizgileri + yıldızlar
-  const pl = easeOutCubic(prog(t, 4.2, 4.8));
-  if (pl > 0) {
-    ctx.save(); ctx.strokeStyle = COL.caramel; ctx.lineWidth = 7; ctx.lineCap = 'round';
-    for (const sd of [-1, 1]) {
-      ctx.beginPath(); ctx.moveTo(540 + sd * 400, 625); ctx.lineTo(540 + sd * (400 + 70 * pl), 625); ctx.stroke();
-    }
-    ctx.restore();
-    const tw = t * 3;
-    sparkle(180, 330, 0.9 * pl * (0.8 + 0.2 * Math.sin(tw)), tw * 0.2);
-    sparkle(905, 380, 0.6 * pl * (0.8 + 0.2 * Math.sin(tw + 2)), -tw * 0.2, COL.blush);
-    sparkle(870, 250, 0.4 * pl, tw * 0.3);
-  }
-}
-
-// uyku "zzz"
-function drawZzz(t, cx, cy) {
-  if (t < 4.0 || t > 6.5) return;
-  const fade = 1 - prog(t, 6.1, 6.4);
-  ctx.save(); ctx.fillStyle = COL.caramelDeep; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  for (let i = 0; i < 3; i++) {
-    const ph = ((t - 4.0) / 1.5 + i / 3) % 1;
-    if (t - 4.0 < i * 0.5) continue;
-    ctx.globalAlpha = Math.sin(ph * Math.PI) * fade;
-    ctx.font = `700 ${40 + ph * 36}px Fredoka`;
-    ctx.fillText('z', cx + 170 + ph * 80 + Math.sin(ph * 6) * 12, cy - 170 - ph * 190);
-  }
-  ctx.restore();
-}
-
-// ---------- geçiş: kahve dalgası ----------
-function waveY(x, t, base, amp) { return base + Math.sin(x * 0.007 + t * 5) * amp + Math.sin(x * 0.013 - t * 3) * amp * 0.5; }
-function wavePath(t, base, amp) {
-  ctx.beginPath(); ctx.moveTo(0, H + 10);
-  for (let x = 0; x <= W; x += 20) ctx.lineTo(x, waveY(x, t, base, amp));
-  ctx.lineTo(W, H + 10); ctx.closePath();
-}
-
-// ---------- sahne C: cezve + saat ----------
-const PIVOT = { x: 620, y: 1060 };
-function cezveState(t) {
-  let x = PIVOT.x, y = PIVOT.y, rot = 0, vis = t > 6.9 && t < 9.7;
-  const pe = easeOutBack(prog(t, 6.95, 7.4), 1.2);
-  x = lerp(1400, PIVOT.x, pe); y = lerp(700, PIVOT.y, pe); rot = lerp(0.4, 0, pe);
-  const tilt = easeInOutCubic(prog(t, 7.0, 7.62)) - easeInOutCubic(prog(t, 8.95, 9.35));
-  rot += -1.2 * tilt;
-  y -= 260 * (1 - tilt); // dikken fincanın üstünde asılı kalsın
-  const px = easeInBack(prog(t, 9.1, 9.55));
-  x = lerp(x, 1450, px); y = lerp(y, 650, px);
-  return { x, y, rot, vis };
-}
-
-function sceneC(t) {
-  floatingBeans(t, 23, 8, true);
-  const cs = easeOutBack(prog(t, 6.95, 7.35), 2) * (1 - easeInBack(prog(t, 9.9, 10.15)));
-  drawClock(540, 365, 100, t, cs);
-  popText('Yarın saat', 540, 560, 76, { t, t0: 7.25, weight: 500, color: COL.cream });
-  popText('15.00’te', 540, 700, 160, { t, t0: 7.5, weight: 700, color: COL.caramel, mode: 'chars', stagger: 0.05 });
-}
-
-function drawStream(t, cup) {
-  const head = prog(t, 7.66, 7.82), tail = prog(t, 8.9, 9.05);
-  if (head <= 0 || tail >= 1) return;
-  const sx = PIVOT.x - 6, sy = PIVOT.y + 4;
-  const ex = cup.x + 20, ey = cup.y - 106 * cup.s;
-  const len = Math.hypot(ex - sx, ey - sy) * 1.1;
-  ctx.save();
-  ctx.beginPath(); ctx.moveTo(sx, sy);
-  ctx.quadraticCurveTo(sx - 24, (sy + ey) / 2, ex, ey);
-  ctx.setLineDash([len * (head - tail), len * 2]);
-  ctx.lineDashOffset = -len * tail;
-  ctx.lineCap = 'round'; ctx.strokeStyle = COL.coffee;
-  ctx.lineWidth = 20 + Math.sin(t * 40) * 2.5; ctx.stroke();
-  ctx.setLineDash([]);
-  // sıçrayan damlalar
-  if (head >= 1 && tail === 0) {
-    ctx.fillStyle = COL.coffee;
-    for (let i = 0; i < 4; i++) {
-      const ph = ((t - 7.8) / 0.38 + i / 4) % 1, dir = i % 2 ? 1 : -1;
-      const dx = dir * (30 + i * 12) * ph, dy = -Math.sin(ph * Math.PI) * (40 + i * 8);
-      ctx.beginPath(); ctx.arc(ex + dx, ey + dy, 8 * (1 - ph * 0.6), 0, TAU); ctx.fill();
-    }
-  }
-  ctx.restore();
-}
-
-function drawSteamHeart(t, cup) {
-  const on = prog(t, 9.4, 9.7) * (1 - prog(t, 10.1, 10.35));
-  if (on <= 0) return;
-  const bx = cup.x, by = cup.y - 150 * cup.s;
-  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = COL.cream;
-  for (let i = -1; i <= 1; i++) {
-    ctx.globalAlpha = 0.75 * on;
-    ctx.lineWidth = 14;
-    ctx.beginPath();
-    for (let k = 0; k <= 24; k++) {
-      const py = by - k * 7.5;
-      const px = bx + i * 60 + Math.sin(k * 0.45 - t * 6 + i * 2) * 13 * (k / 24);
-      k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-    }
-    ctx.stroke();
-  }
-  // buhardan kalp
-  const hp = prog(t, 9.5, 9.95);
-  if (hp > 0) {
-    const s = 58 * easeOutBack(clamp(hp * 1.4), 2);
-    const hy = by - 290 - prog(t, 9.95, 10.4) * 50;
-    ctx.globalAlpha = on;
-    heartPath(bx, hy, 60, 1);
-    const L = 60 * 7.4;
-    ctx.setLineDash([L * easeOutCubic(hp), L]); ctx.lineWidth = 16; ctx.stroke(); ctx.setLineDash([]);
-    ctx.globalAlpha = on * prog(t, 9.8, 10.0);
-    heartPath(bx, hy, s * 0.72, 1); ctx.fillStyle = COL.blush; ctx.fill();
-  }
-  ctx.restore();
-}
-
-// ---------- sahne D: final ----------
-function sideCup(t, side) {
-  const t0 = side < 0 ? 10.95 : 11.1;
-  const pop = easeOutBack(prog(t, t0, t0 + 0.45), 2.2);
-  const lean = Math.sin(prog(t, 11.8, 12.3) * Math.PI);
-  const x = 540 + side * 300 - side * 42 * lean;
-  let y = 1370 - Math.sin(prog(t, 11.8, 12.2) * Math.PI) * 30;
-  if (t > 12.3) y += Math.sin((t - 12.3) * 3 + side * 1.7) * 6;
-  const blinkAt = side < 0 ? 13.2 : 12.9;
-  const blink = Math.sin(prog(t, blinkAt, blinkAt + 0.16) * Math.PI);
-  return { x, y, s: 0.62 * pop, rot: -side * 0.2 * lean, fill: 1,
-           latte: easeOutCubic(prog(t, t0 + 0.3, t0 + 0.7)),
-           mood: t > 11.85 && t < 12.6 ? 'happy' : 'smile', blink,
-           mouth: t > 11.85 && t < 12.6 ? 0.6 : 0, band: side < 0 ? COL.blush : '#9CB49A' };
-}
-
-function sceneD(t, layer) {
-  if (layer === 'back') {
-    floatingBeans(t, 41, 10, false);
-    // ışınlar
-    const pr = easeOutCubic(prog(t, 10.9, 11.6));
-    ctx.save(); ctx.translate(540, 1300); ctx.rotate(t * 0.12);
-    ctx.fillStyle = 'rgba(208,138,78,0.10)';
-    for (let i = 0; i < 12; i++) {
-      ctx.rotate(TAU / 12);
-      ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-60 * pr, -900 * pr); ctx.lineTo(60 * pr, -900 * pr); ctx.closePath(); ctx.fill();
-    }
-    ctx.restore();
-
-    // üst etiket
-    const pill = easeOutBack(prog(t, 11.0, 11.45), 2);
-    if (pill > 0) {
-      ctx.save(); ctx.translate(540, 330); ctx.scale(pill, pill);
-      ctx.font = '600 40px Fredoka'; ctx.letterSpacing = '5px';
-      const label = '1 EKİM · DÜNYA KAHVE GÜNÜ', w = ctx.measureText(label).width + 80;
-      roundRect(-w / 2, -40, w, 80, 40); ctx.fillStyle = COL.espresso; ctx.fill();
-      ctx.fillStyle = COL.cream; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(label, 0, 3);
-      ctx.restore();
-    }
-    popText('Kahveler', 540, 540, 160, { t, t0: 11.2, weight: 700, color: COL.ink, mode: 'chars', stagger: 0.035 });
-    popText('bizden!', 540, 710, 190, { t, t0: 11.45, weight: 700, color: COL.caramelDeep, mode: 'chars', stagger: 0.045, back: 2.4 });
-    popText('Yarın saat 15.00’te', 540, 885, 62, { t, t0: 11.9, weight: 500, color: COL.ink, stagger: 0.07 });
-    popText('tüm misafirlerimize ikramımızdır', 540, 962, 62, { t, t0: 12.1, weight: 500, color: COL.ink, stagger: 0.07 });
-
-    // "bizden!" altına el çizimi dalga
-    const ul = easeOutCubic(prog(t, 11.9, 12.4));
-    if (ul > 0) {
-      ctx.save(); ctx.beginPath();
-      for (let i = 0; i <= 40; i++) {
-        const x = 330 + i * 10.5, y = 800 + Math.sin(i * 0.55) * 7;
-        i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-      }
-      ctx.setLineDash([440 * ul, 900]); ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.strokeStyle = COL.caramel; ctx.stroke();
-      ctx.restore();
-    }
-    for (const sd of [-1, 1]) {
-      const c = sideCup(t, sd);
-      if (c.s > 0) drawCup(c.x, c.y, c.s, c);
-    }
-  } else {
-    // tokuşturma kıvılcımları
-    const pb = prog(t, 12.02, 12.55);
-    if (pb > 0 && pb < 1) {
-      for (const sd of [-1, 1]) {
-        const cx = 540 + sd * 150, cy = 1180;
-        for (let i = 0; i < 6; i++) {
-          const a = -Math.PI / 2 + (i - 2.5) * 0.45 + (sd > 0 ? 0.2 : -0.2);
-          const d = 40 + easeOutCubic(pb) * 110;
-          sparkle(cx + Math.cos(a) * d, cy + Math.sin(a) * d, 0.55 * (1 - pb), pb * 3, i % 2 ? COL.caramel : COL.blush);
-        }
-      }
-    }
-    // yükselen kalpler
-    if (t > 12.2) {
-      const r = rng(99);
-      for (let i = 0; i < 7; i++) {
-        const x0 = 150 + r() * 780, sp = 90 + r() * 60, off = r() * 3, sz = 14 + r() * 12;
-        const ph = ((t - 12.2) * sp / 700 + off / 3) % 1;
-        if ((t - 12.2) < off * 0.4) continue;
-        ctx.save(); ctx.globalAlpha = Math.sin(ph * Math.PI) * 0.85;
-        heartPath(x0 + Math.sin(ph * 8 + i) * 20, 1560 - ph * 560, sz, 1);
-        ctx.fillStyle = i % 2 ? COL.blush : COL.caramel; ctx.fill();
-        ctx.restore();
-      }
-    }
-    // parıltılar
-    const tw = t * 2.5;
-    const sp = easeOutBack(prog(t, 11.6, 12.0), 2);
-    sparkle(140, 470, 0.9 * sp * (0.8 + 0.2 * Math.sin(tw)), tw * 0.3);
-    sparkle(950, 620, 0.7 * sp * (0.8 + 0.2 * Math.sin(tw + 1.5)), -tw * 0.3, COL.blush);
-    sparkle(905, 440, 0.4 * sp, tw * 0.4);
-    sparkle(175, 780, 0.45 * sp, -tw * 0.4, COL.blush);
-  }
-}
-
-// ---------- ana fincan (B → C → D boyunca kahraman) ----------
-function cupState(t) {
-  let x = 540, y, s = 1.15, sx = 1, sy = 1, rot = 0, fill = 0, mood = 'sleepy', mouth = 0, blink = 0, look = 0, latte = 0;
-  y = lerp(2300, 1150, easeOutBack(prog(t, 3.25, 3.85), 1.25));
-  const pl = prog(t, 3.78, 4.4);
-  const wob = Math.exp(-pl * 5) * Math.sin(pl * 18) * (pl > 0 ? 1 : 0);
-  sx = 1 + 0.1 * wob; sy = 1 - 0.1 * wob;
-  const pyw = prog(t, 4.9, 5.8), yw = Math.sin(pyw * Math.PI);
-  mouth = yw * 0.95; sy *= 1 + 0.06 * yw; sx *= 1 - 0.03 * yw;
-  if (t < 8.2) rot = Math.sin(t * 2.2) * 0.035;
-  y = lerp(y, 1420, easeInOutCubic(prog(t, 6.3, 6.95)));
-  fill = easeInOutCubic(prog(t, 7.78, 8.95));
-  if (t >= 8.25) {
-    mood = 'wow'; mouth = 0.45;
-    const pj = prog(t, 8.25, 8.65), j = Math.sin(pj * Math.PI);
-    y -= j * 70; sy *= 1 + 0.08 * j; sx *= 1 - 0.05 * j;
-  }
-  if (t >= 9.0) { mood = 'happy'; mouth = 0.7; }
-  if (t >= 10.1) {
-    const pd = easeInOutCubic(prog(t, 10.1, 10.85));
-    y = lerp(y, 1300, pd); s = lerp(1.15, 0.8, pd);
-  }
-  latte = easeOutCubic(prog(t, 10.85, 11.3));
-  const pc = prog(t, 11.8, 12.2); y -= Math.sin(pc * Math.PI) * 55;
-  if (t > 12.3) y += Math.sin((t - 12.3) * 3) * 6;
-  if (t > 12.6) { mood = 'smile'; mouth = 0.35; blink = Math.sin(prog(t, 13.6, 13.76) * Math.PI); }
-  if (t > 14.2) { mood = 'happy'; mouth = 0.7; }
-  return { x, y, s, sx, sy, rot, fill, mood, mouth, blink, look, latte };
-}
-
-// ---------- kare çizimi ----------
 function render(t) {
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
-  ctx.letterSpacing = '0px';
-
-  if (t < 6.95) {
-    background(COL.cream, t, false);
-    if (t < 3.35) sceneA(t);
-    if (t >= 3.3) sceneBText(t);
-    if (t >= 6.3) {
-      const bc = lerp(H + 120, -160, easeInOutCubic(prog(t, 6.3, 6.85)));
-      const be = lerp(H + 120, -160, easeInOutCubic(prog(t, 6.38, 6.95)));
-      wavePath(t, bc, 34); ctx.fillStyle = COL.caramel; ctx.fill();
-      ctx.save(); wavePath(t, be, 34); ctx.clip(); background(COL.espresso, t, true); ctx.restore();
-    }
-  } else if (t < 10.75) {
-    background(COL.espresso, t, true);
-    sceneC(t);
-    if (t >= 10.1) {
-      const r = lerp(0, 2300, easeInOutCubic(prog(t, 10.1, 10.75)));
-      const c = cupState(t);
-      ctx.save(); ctx.beginPath(); ctx.arc(c.x, c.y, r, 0, TAU); ctx.clip();
-      background(COL.cream, t, false); sceneD(t, 'back');
-      ctx.restore();
-      ctx.save(); ctx.beginPath(); ctx.arc(c.x, c.y, r, 0, TAU);
-      ctx.lineWidth = 18; ctx.strokeStyle = COL.caramel; ctx.stroke(); ctx.restore();
-    }
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
+  if (t < 2.15) {
+    lightLayer(t);
+  } else if (t < 3.0) {
+    lightLayer(t);
+    ctx.save(); ctx.beginPath(); ctx.arc(DROP.x, DROP.y, circleRadius(t), 0, TAU); ctx.clip();
+    darkLayer(t); ctx.restore();
+  } else if (t < 6.2) {
+    darkLayer(t);
+  } else if (t < 6.95) {
+    darkLayer(t);
+    const py = panelY(t);
+    ctx.save(); ctx.beginPath(); ctx.rect(0, py, W, H - py); ctx.clip(); lightLayer(t); ctx.restore();
+    ctx.fillStyle = C.accentDark; ctx.fillRect(0, py - 10, W, 10);
   } else {
-    background(COL.cream, t, false);
-    sceneD(t, 'back');
+    lightLayer(t);
   }
-
-  if (t >= 3.2) {
-    const c = cupState(t);
-    const cz = cezveState(t);
-    if (t > 7.6 && t < 9.1) drawStream(t, c);
-    drawCup(c.x, c.y, c.s, c);
-    if (cz.vis) drawCezve(cz.x, cz.y, 1.05, cz.rot);
-    drawZzz(t, c.x, c.y);
-    drawSteamHeart(t, c);
-    // uyanış parıltısı
-    const pw = prog(t, 8.25, 8.8);
-    if (pw > 0 && pw < 1) {
-      for (let i = 0; i < 8; i++) {
-        const a = i / 8 * TAU, d = 190 + easeOutCubic(pw) * 90;
-        sparkle(c.x + Math.cos(a) * d, c.y - 20 + Math.sin(a) * d * 0.8, 0.5 * Math.sin(pw * Math.PI), pw * 2, i % 2 ? COL.caramel : COL.cream);
-      }
-    }
-  }
-  if (t >= 10.75) sceneD(t, 'front');
-
   // film greni
-  ctx.save(); ctx.globalAlpha = 0.045; ctx.globalCompositeOperation = 'overlay';
-  const f = Math.floor(t * FPS), r = rng(f + 1);
+  ctx.save(); ctx.globalAlpha = 0.05; ctx.globalCompositeOperation = 'overlay';
+  const r = rng(Math.floor(t * FPS) + 1);
   ctx.translate(-r() * 256, -r() * 256);
   ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W + 256, H + 256);
   ctx.restore();
@@ -707,10 +373,12 @@ window.renderFrame = render;
 window.DUR = DUR; window.FPS = FPS;
 window.ready = (async () => {
   makeGrain();
+  const sample = 'AaÜüİıŞşĞğÇçÖö“”’';
   await Promise.all([
-    document.fonts.load('500 80px Fredoka', 'AaÜüİıŞşĞğ'),
-    document.fonts.load('600 80px Fredoka', 'AaÜüİıŞşĞğ'),
-    document.fonts.load('700 80px Fredoka', 'AaÜüİıŞşĞğ'),
+    document.fonts.load(`400 80px ${SERIF}`, sample),
+    document.fonts.load(`italic 400 80px ${SERIF}`, sample),
+    document.fonts.load(`400 40px ${SANS}`, sample),
+    document.fonts.load(`500 40px ${SANS}`, sample),
   ]);
   await document.fonts.ready;
 })();

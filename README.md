@@ -7,11 +7,15 @@
 - `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=12` ile tek kare)
 - `render.js` — kare kare MP4 çıkışı: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
 
+## Tasarım
+Modern, minimalist kinetik tipografi: kırık beyaz kâğıt (#EEE8DF), espresso siyahı (#1C1714) ve tek vurgu rengi yanık karamel (#B06C38).
+Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
+
 ## Senaryo
 | Süre | Sahne |
 |---|---|
-| 0–3 sn | Kahve çekirdeği düşer, zıplar: "Psst… Yarın ne var, biliyor musun?" |
-| 3–6.3 sn | Uykulu, boş fincan esner — "1 EKİM · Dünya Kahve Günü" |
-| 6.3–7 sn | Kahve dalgası ekranı kaplar |
-| 7–10 sn | Cezve Türk kahvesi döker, fincan uyanır, buhar kalbe döner; saat 15.00'e döner |
-| 10–15 sn | Üç fincan tokuşturur: "Kahveler bizden! Yarın saat 15.00'te tüm misafirlerimize ikramımızdır" |
+| 0–3 sn | Tek bir kahve damlası düşer, yüzeyde halkalar yayılır ("bir damla…"); damla büyüyüp ekranı kaplar |
+| 3–6.3 sn | Koyu zemin: "Bugün · Dünya *Kahve* Günü." + "Bir fincan kahvenin kırk yıl hatırı vardır." |
+| 6.3–7 sn | Açık panel aşağıdan yukarı siler |
+| 7–10.3 sn | Tek çizgi fincan kendini çizer, kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
+| 10.3–15 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen rozet |
