@@ -85,6 +85,8 @@ function maskLine(str, x, y, o) {
   ctx.restore();
 }
 
+function ellipse(x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, TAU); }
+
 function hairline(x1, x2, y, p, color, lw = 2) {
   if (p <= 0) return;
   ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw;
@@ -138,18 +140,50 @@ function ellArc(a0, a1, n = 30) {
   });
 }
 
+// Değişken kalınlıklı çizgi: genişlik, çizgi boyunca konuma (u: 0..1) bağlı.
+// Uçlarda incelen çizgi elle çizilmiş his verir; kapalı formlarda başlangıç-bitiş noktası
+// ince kalır ve hafif "açık birleşim" oluşur.
+const taper = (u, k = 0.16, min = 0.32) => Math.max(min, Math.min(1, u / k, (1 - u) / k)) ** 0.7;
+function strokeVar(poly, a, b, base, wf = u => taper(u)) {
+  if (b <= a) return;
+  const { pts, L, total } = poly, A = a * total, B = b * total;
+  for (let i = 1; i < pts.length; i++) {
+    const l0 = L[i - 1], l1 = L[i];
+    if (l1 < A || l0 > B) continue;
+    const s0 = clamp((A - l0) / (l1 - l0 || 1)), s1 = clamp((B - l0) / (l1 - l0 || 1));
+    ctx.lineWidth = base * wf((l0 + l1) / 2 / total);
+    ctx.beginPath();
+    ctx.moveTo(lerp(pts[i - 1][0], pts[i][0], s0), lerp(pts[i - 1][1], pts[i][1], s0));
+    ctx.lineTo(lerp(pts[i - 1][0], pts[i][0], s1), lerp(pts[i - 1][1], pts[i][1], s1));
+    ctx.stroke();
+  }
+}
+
 // Tek çizgi Türk kahvesi fincanı (yerel koordinat, merkez 0,0)
+const RIM = { y: -112, rx: 108, ry: 13 };  // ry/rx ≈ tabağınki (28/238): aynı bakış açısı
+const rimArc = (a0, a1, n = 32) => Array.from({ length: n + 1 }, (_, i) => {
+  const a = lerp(a0, a1, i / n); return [RIM.rx * Math.cos(a), RIM.y + RIM.ry * Math.sin(a)];
+});
+const CUP_SIDE = cubicPts([108, -112], [108, -10], [96, 66], [52, 96], 60);
+function cupHalfW(y) {  // gövdenin verilen yükseklikteki yarı genişliği
+  if (y <= CUP_SIDE[0][1]) return CUP_SIDE[0][0];
+  for (let i = 1; i < CUP_SIDE.length; i++) {
+    const [xa, ya] = CUP_SIDE[i - 1], [xb, yb] = CUP_SIDE[i];
+    if (y <= yb) return lerp(xa, xb, (y - ya) / (yb - ya || 1));
+  }
+  return 52;
+}
 const CUP = {
   body: withLengths(join(
-    linePts([-108, -112], [108, -112], 30),
+    rimArc(Math.PI, TAU),
     cubicPts([108, -112], [108, -10], [96, 66], [52, 96]),
     linePts([52, 96], [-52, 96], 14),
-    cubicPts([-52, 96], [-96, 66], [-108, -10], [-108, -112]))),
+    cubicPts([-52, 96], [-96, 66], [-108, -10], [-108, -112]),
+    rimArc(Math.PI, 0))),
   foot: withLengths(join(linePts([-38, 96], [-46, 122], 6), linePts([-46, 122], [46, 122], 12), linePts([46, 122], [38, 96], 6))),
   handle: withLengths(cubicPts([106, -84], [168, -96], [166, 0], [100, -6])),
   saucerL: withLengths(ellArc(Math.PI / 2, Math.PI)),
   saucerR: withLengths(ellArc(Math.PI / 2, 0)),
-  lokum: withLengths(join(linePts([146, 131], [144, 97], 6), linePts([144, 97], [178, 94], 6), linePts([178, 94], [181, 129], 6), linePts([181, 129], [146, 131], 6))),
 };
 function cupInterior() {
   ctx.beginPath();
@@ -159,10 +193,13 @@ function cupInterior() {
   ctx.closePath();
 }
 function steamPoly(i, t) {
-  const pts = [];
-  for (let k = 0; k <= 40; k++) {
+  const n = [33, 40, 29][i + 1], pts = [];
+  for (let k = 0; k <= n; k++) {
     const ramp = k / 40;
-    pts.push([i * 46 + Math.sin(k * 0.34 - t * 2.4 + i * 1.7) * 13 * ramp, -145 - k * 4.0]);
+    const x = i * 46 + (Math.sin(k * 0.3 - t * 2.4 + i * 1.7) * 11
+                      + Math.sin(k * 0.71 + t * 1.3 + i * 2.9) * 5
+                      + Math.sin(k * 0.13 + i * 1.1) * 7) * ramp;
+    pts.push([x, -145 - k * 4.1]);
   }
   return withLengths(pts);
 }
@@ -175,31 +212,37 @@ function drawCup(x, y, s, t, o) {
     ctx.save(); cupInterior(); ctx.clip();
     ctx.globalAlpha = clamp(1 - erase * 2.5);
     const tilt = Math.tan(surfaceTilt);
-    const level = lerp(100, -84, fill), wob = x => Math.sin(x * 0.04 + t * 6) * 4 * (1 - fill) - x * tilt;
+    const level = lerp(96, -92, fill), wob = x => Math.sin(x * 0.04 + t * 6) * 4 * (1 - fill) - x * tilt;
     ctx.beginPath(); ctx.moveTo(-120, 130);
     for (let px = -120; px <= 120; px += 8) ctx.lineTo(px, level + wob(px));
     ctx.lineTo(120, 130); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
-    // köpük: kahvenin üstünde ince karamel şerit
-    const foam = clamp((fill - 0.75) * 4);
+    // kahvenin yüzeyi: ağızla aynı perspektifte elips; dolunca karamel köpük
+    const hw = cupHalfW(level) - 4;
+    ctx.save(); ctx.translate(0, level); ctx.rotate(-surfaceTilt);
+    ellipse(0, 0, hw, hw * RIM.ry / RIM.rx); ctx.fillStyle = color; ctx.fill();
+    const foam = clamp((fill - 0.72) * 4);
     if (foam > 0) {
-      ctx.beginPath();
-      for (let px = -120; px <= 120; px += 8) ctx.lineTo(px, level + wob(px));
-      for (let px = 120; px >= -120; px -= 8) ctx.lineTo(px, level + 16 * foam + wob(px));
-      ctx.closePath(); ctx.fillStyle = C.accent; ctx.fill();
+      ctx.globalAlpha *= foam;
+      ellipse(0, 0, hw - 3, (hw - 3) * RIM.ry / RIM.rx); ctx.fillStyle = C.accent; ctx.fill();
+      ellipse(-hw * 0.18, -1, hw * 0.45, hw * 0.035); ctx.fillStyle = C.accentDark; ctx.fill();
     }
     ctx.restore();
+    ctx.restore();
   }
-  strokePoly(CUP.body, erase, body);
-  strokePoly(CUP.foot, erase, body);
-  strokePoly(CUP.handle, erase, handle);
-  strokePoly(CUP.saucerL, erase, saucer);
-  strokePoly(CUP.saucerR, erase, saucer);
-  if (lokum > 0) {
-    ctx.save(); ctx.strokeStyle = C.accent; strokePoly(CUP.lokum, erase, lokum); ctx.restore();
-  }
+  // çizgi hiyerarşisi: gövde en kalın, tabak orta, kulp ve kaide ince
+  const base = lw / s;
+  strokeVar(CUP.body, erase, body, base * 1.2);
+  strokeVar(CUP.foot, erase, body, base * 0.7, u => taper(u, 0.3, 0.5));
+  strokeVar(CUP.handle, erase, handle, base * 0.8, u => taper(u, 0.25, 0.45));
+  strokeVar(CUP.saucerL, erase, saucer, base, u => taper(u, 0.5, 0.75));
+  strokeVar(CUP.saucerR, erase, saucer, base, u => taper(u, 0.5, 0.75));
+  if (lokum > 0) drawLokum(162, 113, 0.6 + 0.4 * easeOutCubic(lokum), base, lokum);
   if (steam > 0) {
-    ctx.save(); ctx.globalAlpha = 0.5; ctx.lineWidth *= 0.7;
-    for (let i = -1; i <= 1; i++) strokePoly(steamPoly(i, t), erase, clamp(steam * 1.3 - (i + 1) * 0.15));
+    ctx.save(); ctx.strokeStyle = '#A39C93';
+    for (let i = -1; i <= 1; i++) {
+      strokeVar(steamPoly(i, t), erase, clamp(steam * 1.3 - (i + 1) * 0.15), base * 0.75,
+                u => (1 - u * 0.85) * Math.min(1, 0.3 + u / 0.12));
+    }
     ctx.restore();
   }
   ctx.restore();
@@ -404,10 +447,16 @@ function drawGrounds(gp) {
 
 // Lokum: yandan görünümdeki yeriyle (162,113) aynı noktadan başlar, tabak açılınca ön kenarda kalır
 const LOKUM_PTS = [[-16, 18], [-18, -16], [16, -19], [19, 16]];
-function drawLokum(px, py, k, lw) {
-  ctx.save(); ctx.strokeStyle = C.accent; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+const LOKUM_DOTS = [[-9, -9], [5, -12], [-2, -1], [10, 3], [-11, 8], [3, 11], [12, -6], [-5, 5]];
+function drawLokum(px, py, k, lw, a = 1) {
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a;
   ctx.beginPath(); LOKUM_PTS.forEach(([x, y], i) => i ? ctx.lineTo(px + x * k, py + y * k) : ctx.moveTo(px + x * k, py + y * k));
-  ctx.closePath(); ctx.stroke(); ctx.restore();
+  ctx.closePath(); ctx.fillStyle = C.accent; ctx.fill();
+  ctx.strokeStyle = C.accent; ctx.lineJoin = 'round'; ctx.lineWidth = 7 * k; ctx.stroke();   // yumuşak köşeler
+  ctx.fillStyle = C.paper;
+  for (const [x, y] of LOKUM_DOTS) { ctx.beginPath(); ctx.arc(px + x * k, py + y * k, 1.9 * k, 0, TAU); ctx.fill(); }
+  ctx.restore();
 }
 
 // Kuşbakışı tabak: alt yarı hep çizili, üst yarı topP ile iki uçtan kapanır
