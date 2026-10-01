@@ -1,6 +1,6 @@
 # Dünya Kahve Günü · Instagram Animasyonu
 
-15 saniyelik, 1080×1920 (9:16) Reels / Story videosu — tamamen kodla çizildi.
+20 saniyelik, 1080×1920 (9:16) Reels / Story videosu — tamamen kodla çizildi.
 
 - `dunya-kahve-gunu.mp4` — Instagram'a yüklenecek video (H.264, 30 fps, AAC stereo ses)
 - `kapak.png` — Reels kapak görseli
@@ -18,5 +18,6 @@ Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
 | 0–3 sn | İlk karede "Bugün kahveler *bizden.*"; bir kahve damlası düşer, halkalar yayılır, damla büyüyüp ekranı kaplar |
 | 3–6.3 sn | Koyu zemin: "Bugün · Dünya *Kahve* Günü." + "Bir fincan kahvenin kırk yıl hatırı vardır." |
 | 6.3–7 sn | Açık panel aşağıdan yukarı siler |
-| 7–10.3 sn | Tek çizgi Türk kahvesi fincanı (tabak + lokum) kendini çizer, köpüklü kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
-| 10.3–15 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti |
+| 7–10 sn | Tek çizgi Türk kahvesi fincanı (tabak + lokum) kendini çizer, köpüklü kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
+| 10–15.4 sn | Kahve falı: kahve içilir, fincan tabağa kapatılır ("Fincanı kapattık…"), kalkar; tabak kuşbakışına döner, telveden kalp belirir — "Falınızda bugün 15.00'te *bir kahve var.*" Tabak küçülüp rozetin içine yerleşir |
+| 15–20 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti |
