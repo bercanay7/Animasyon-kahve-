@@ -14,8 +14,8 @@ Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
 ## Senaryo
 | Süre | Sahne |
 |---|---|
-| 0–3 sn | Tek bir kahve damlası düşer, yüzeyde halkalar yayılır ("bir damla…"); damla büyüyüp ekranı kaplar |
+| 0–3 sn | İlk karede "Bugün kahveler *bizden.*"; bir kahve damlası düşer, halkalar yayılır, damla büyüyüp ekranı kaplar |
 | 3–6.3 sn | Koyu zemin: "Bugün · Dünya *Kahve* Günü." + "Bir fincan kahvenin kırk yıl hatırı vardır." |
 | 6.3–7 sn | Açık panel aşağıdan yukarı siler |
 | 7–10.3 sn | Tek çizgi fincan kendini çizer, kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
-| 10.3–15 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen rozet |
+| 10.3–15 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti |

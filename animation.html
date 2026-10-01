@@ -179,25 +179,29 @@ function drawCup(x, y, s, t, o) {
 
 // ---------- ortak çerçeve (üst künye) ----------
 function chrome(t, color) {
-  hairline(M, W - M, 272, easeOutExpo(prog(t, 0.1, 1.3)), color, 2);
-  maskLine('DÜNYA KAHVE GÜNÜ', M, 240, { font: `500 26px ${SANS}`, color, t, t0: 0.25, dur: 0.9, ls: 5 });
-  maskLine('01.10.2026', W - M, 240, { font: `500 26px ${SANS}`, color, t, t0: 0.35, dur: 0.9, ls: 5, align: 'right' });
+  hairline(M, W - M, 280, easeOutExpo(prog(t, -0.3, 0.9)), color, 2);
+  maskLine('DÜNYA KAHVE GÜNÜ', M, 240, { font: `500 32px ${SANS}`, color, t, t0: -0.35, dur: 0.9, ls: 5 });
+  maskLine('01.10.2026', W - M, 240, { font: `500 32px ${SANS}`, color, t, t0: -0.3, dur: 0.9, ls: 5, align: 'right' });
 }
 
 // ---------- S1: damla ----------
-const DROP = { x: 540, y: 980 };
+const DROP = { x: 540, y: 1260 };
 function scene1(t) {
-  const pf = prog(t, 0.45, 1.1);
+  // kanca: ilk karede görünür başlık
+  maskLine('Bugün', M - 6, 590, { font: `400 190px ${SERIF}`, color: C.ink, t, t0: -0.3, dur: 0.9, ls: -3 });
+  maskLine('kahveler', M - 6, 770, { font: `400 190px ${SERIF}`, color: C.ink, t, t0: -0.2, dur: 0.9, ls: -3 });
+  maskLine('bizden.', M - 6, 950, { font: `italic 400 190px ${SERIF}`, color: C.accent, t, t0: -0.1, dur: 0.9, ls: -3 });
+  const pf = prog(t, 0.35, 0.95);
   if (pf > 0 && pf < 1) {
-    const y = lerp(-80, DROP.y, easeInCubic(pf));
-    ctx.save(); ctx.translate(DROP.x, y); ctx.scale(1, 1 + 0.9 * pf);
+    const y = lerp(1000, DROP.y, easeInCubic(pf));
+    ctx.save(); ctx.translate(DROP.x, y); ctx.scale(1.7, 1.7 * (1 + 0.6 * pf)); ctx.globalAlpha = clamp(pf * 4);
     ctx.beginPath(); ctx.moveTo(0, -34);
     ctx.bezierCurveTo(6, -18, 16, -6, 16, 4); ctx.arc(0, 4, 16, 0, Math.PI); ctx.bezierCurveTo(-16, -6, -6, -18, 0, -34);
     ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
   }
   // halkalar (yüzey perspektifi)
-  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 2.5;
-  for (const [t0, k] of [[1.1, 1], [1.22, 0.78], [1.38, 0.56], [1.95, 0.5]]) {
+  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4;
+  for (const [t0, k] of [[0.95, 1], [1.07, 0.78], [1.23, 0.56], [1.8, 0.5]]) {
     const p = prog(t, t0, t0 + 1.5);
     if (p <= 0 || p >= 1) continue;
     const r = easeOutExpo(p) * 520 * k;
@@ -206,27 +210,26 @@ function scene1(t) {
   }
   ctx.restore();
   // geri sıçrayan damlacık, sonra merkezde kalan nokta
-  if (t >= 1.1) {
-    const pj = prog(t, 1.12, 1.9);
-    const y = pj < 1 ? DROP.y - Math.sin(pj * Math.PI) * 190 : DROP.y;
-    const r = pj < 1 ? 9 : lerp(9, 14, prog(t, 1.9, 2.1));
+  if (t >= 0.95) {
+    const pj = prog(t, 0.97, 1.75);
+    const y = pj < 1 ? DROP.y - Math.sin(pj * Math.PI) * 170 : DROP.y;
+    const r = pj < 1 ? 13 : lerp(13, 20, prog(t, 1.75, 2.0));
     ctx.beginPath(); ctx.arc(DROP.x, y, r, 0, TAU); ctx.fillStyle = C.ink; ctx.fill();
   }
-  maskLine('bir damla…', DROP.x, 1230, { font: `italic 400 64px ${SERIF}`, color: C.ink, t, t0: 1.35, dur: 0.9, align: 'center', outT: 2.0, outDur: 0.35 });
 }
-function circleRadius(t) { return lerp(14, 1250, easeInOutQuint(prog(t, 2.15, 3.0))); }
+function circleRadius(t) { return lerp(20, 1500, easeInOutQuint(prog(t, 2.15, 3.0))); }
 
 // ---------- S2: koyu başlık ----------
 function scene2(t) {
   const out = 5.85;
-  maskLine('BUGÜN', M, 640, { font: `500 28px ${SANS}`, color: C.accentDark, t, t0: 2.75, ls: 9, outT: out });
-  maskLine('Dünya', M - 8, 905, { font: `400 300px ${SERIF}`, color: C.paper, t, t0: 2.85, dur: 1.1, ls: -4, outT: out + 0.05 });
-  maskLine('Kahve', M - 8, 1165, { font: `italic 400 300px ${SERIF}`, color: C.accentDark, t, t0: 2.98, dur: 1.1, ls: -4, outT: out + 0.1 });
-  maskLine('Günü.', M - 8, 1425, { font: `400 300px ${SERIF}`, color: C.paper, t, t0: 3.11, dur: 1.1, ls: -4, outT: out + 0.15 });
+  maskLine('BUGÜN', M, 560, { font: `500 34px ${SANS}`, color: C.accentDark, t, t0: 2.75, ls: 9, outT: out });
+  maskLine('Dünya', M - 8, 820, { font: `400 270px ${SERIF}`, color: C.paper, t, t0: 2.85, dur: 1.1, ls: -4, outT: out + 0.05 });
+  maskLine('Kahve', M - 8, 1055, { font: `italic 400 270px ${SERIF}`, color: C.accentDark, t, t0: 2.98, dur: 1.1, ls: -4, outT: out + 0.1 });
+  maskLine('Günü.', M - 8, 1290, { font: `400 270px ${SERIF}`, color: C.paper, t, t0: 3.11, dur: 1.1, ls: -4, outT: out + 0.15 });
   const pl = easeOutExpo(prog(t, 3.5, 4.6)) - easeInExpo(prog(t, out + 0.1, out + 0.6));
-  ctx.save(); ctx.globalAlpha = 0.35; hairline(M, W - M, 1505, pl, C.paper, 2); ctx.restore();
-  maskLine('“Bir fincan kahvenin', M, 1595, { font: `italic 400 56px ${SERIF}`, color: C.paper, t, t0: 3.85, alpha: 0.8, outT: out + 0.2 });
-  maskLine('kırk yıl hatırı vardır.”', M, 1661, { font: `italic 400 56px ${SERIF}`, color: C.paper, t, t0: 3.95, alpha: 0.8, outT: out + 0.25 });
+  ctx.save(); ctx.globalAlpha = 0.35; hairline(M, W - M, 1360, pl, C.paper, 2); ctx.restore();
+  maskLine('“Bir fincan kahvenin', M, 1440, { font: `italic 400 60px ${SERIF}`, color: C.paper, t, t0: 3.85, alpha: 0.8, outT: out + 0.2 });
+  maskLine('kırk yıl hatırı vardır.”', M, 1510, { font: `italic 400 60px ${SERIF}`, color: C.paper, t, t0: 3.95, alpha: 0.8, outT: out + 0.25 });
 }
 function panelY(t) { return lerp(H, 0, easeInOutQuint(prog(t, 6.2, 6.95))); }
 
@@ -245,12 +248,13 @@ function odometer(str, cx, y, size, t, t0) {
   [...str].forEach((ch, i) => {
     const w = widths[i], sx = x + w / 2;
     if (/\d/.test(ch)) {
-      const d0 = t0 + di * 0.09, p = easeOutExpo(prog(t, d0, d0 + 1.25));
-      const v = -1 + p * ((1 + di) * 10 + (+ch) + 1);
-      const base = Math.floor(v), f = v - base;
+      const d0 = t0 + di * 0.1, p = easeOutExpo(prog(t, d0, d0 + 0.9));
+      const span = 2, start = +ch - span;          // örn. 5 için 3→4→5
+      const v = start - 1 + p * (span + 1);
+      const base = Math.floor(v), f = v - base, dig = n => String(((n % 10) + 10) % 10);
       if (t > d0) {
-        if (base >= 0) ctx.fillText(String(base % 10), sx, y - f * h);
-        if (f > 0) ctx.fillText(String((base + 1) % 10), sx, y + (1 - f) * h);
+        if (base >= start) ctx.fillText(dig(base), sx, y - f * h);
+        if (f > 0) ctx.fillText(dig(base + 1), sx, y + (1 - f) * h);
       }
       di++;
     } else {
@@ -263,7 +267,7 @@ function odometer(str, cx, y, size, t, t0) {
 }
 function scene3(t) {
   if (t < 6.3 || t > 10.5) return;
-  drawCup(540, 860, 1, t, {
+  drawCup(540, 790, 1, t, {
     body: easeInOutQuint(prog(t, 6.85, 8.0)),
     handle: easeInOutQuint(prog(t, 7.55, 8.15)),
     saucer: easeInOutQuint(prog(t, 7.35, 8.1)),
@@ -271,10 +275,10 @@ function scene3(t) {
     steam: easeOutCubic(prog(t, 8.45, 9.4)),
     erase: easeInOutQuint(prog(t, 9.85, 10.4)),
   });
-  maskLine('SAAT', 540, 1250, { font: `500 28px ${SANS}`, color: C.accent, t, t0: 8.35, ls: 9, align: 'center', outT: 9.8 });
+  maskLine('SAAT', 540, 1150, { font: `500 34px ${SANS}`, color: C.accent, t, t0: 8.35, ls: 9, align: 'center', outT: 9.8 });
   const po = easeInExpo(prog(t, 9.85, 10.35));
   ctx.save(); ctx.translate(0, -po * 40); ctx.globalAlpha = 1 - po;
-  odometer('15.00', 540, 1530, 320, t, 8.45);
+  odometer('15.00', 540, 1430, 320, t, 8.45);
   ctx.restore();
 }
 
@@ -282,7 +286,7 @@ function scene3(t) {
 function badge(cx, cy, r, text, t, a) {
   if (a <= 0) return;
   ctx.save(); ctx.translate(cx, cy); ctx.rotate(t * 0.35 - 1.2); ctx.globalAlpha = a;
-  ctx.font = `500 21px ${SANS}`; ctx.letterSpacing = '0px'; ctx.fillStyle = C.ink;
+  ctx.font = `500 27px ${SANS}`; ctx.letterSpacing = '0px'; ctx.fillStyle = C.ink;
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   const chars = [...text], ws = chars.map(ch => ctx.measureText(ch).width);
   const extra = (TAU * r - ws.reduce((x, y) => x + y, 0)) / chars.length;
@@ -296,25 +300,23 @@ function badge(cx, cy, r, text, t, a) {
 }
 function scene4(t) {
   if (t < 10.2) return;
-  maskLine('Kahveler', M - 6, 900, { font: `400 230px ${SERIF}`, color: C.ink, t, t0: 10.3, dur: 1.1, ls: -4 });
-  maskLine('bizden.', M - 6, 1110, { font: `italic 400 230px ${SERIF}`, color: C.accent, t, t0: 10.45, dur: 1.1, ls: -4 });
-  hairline(M, W - M, 1200, easeOutExpo(prog(t, 10.9, 12.0)), C.ink, 2);
-  maskLine('Bugün saat 15.00’te tüm', M, 1290, { font: `400 44px ${SANS}`, color: C.ink, t, t0: 11.15, ls: -0.5 });
-  maskLine('misafirlerimize ikramımızdır.', M, 1352, { font: `400 44px ${SANS}`, color: C.ink, t, t0: 11.25, ls: -0.5 });
+  maskLine('Kahveler', M - 6, 960, { font: `400 230px ${SERIF}`, color: C.ink, t, t0: 10.3, dur: 1.1, ls: -4 });
+  maskLine('bizden.', M - 6, 1170, { font: `italic 400 230px ${SERIF}`, color: C.accent, t, t0: 10.45, dur: 1.1, ls: -4 });
+  hairline(M, W - M, 1260, easeOutExpo(prog(t, 10.9, 12.0)), C.ink, 2);
+  maskLine('Bugün saat 15.00’te tüm', M, 1355, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.15, ls: -0.5 });
+  maskLine('misafirlerimize ikramımızdır.', M, 1428, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.25, ls: -0.5 });
 
   // dönen rozet + içinde küçük fincan
   const pa = easeOutExpo(prog(t, 11.5, 12.6));
-  const bx = W - M - 120, by = 1530;
+  const bx = W - M - 130, by = 530;
   ctx.save(); ctx.translate(bx, by); ctx.scale(lerp(0.85, 1, pa), lerp(0.85, 1, pa)); ctx.translate(-bx, -by);
-  badge(bx, by, 112, 'KAHVELER BİZDEN · BUGÜN 15.00 · ', t, pa);
+  badge(bx, by, 128, 'AFİYET OLSUN · AFİYET OLSUN · ', t, pa);
   ctx.restore();
-  drawCup(bx - 6, by + 8, 0.2, t, {
+  drawCup(bx - 8, by + 10, 0.24, t, {
     body: easeInOutQuint(prog(t, 11.6, 12.4)), handle: easeInOutQuint(prog(t, 12.0, 12.4)),
     saucer: easeInOutQuint(prog(t, 11.9, 12.4)), fill: easeInOutQuint(prog(t, 12.3, 12.8)),
     steam: easeOutCubic(prog(t, 12.6, 13.4)), lw: 3,
   });
-  maskLine('15.00', M, 1520, { font: `italic 400 76px ${SERIF}`, color: C.ink, t, t0: 11.6 });
-  maskLine('— BUGÜN', M, 1580, { font: `500 22px ${SANS}`, color: C.accent, t, t0: 11.7, ls: 6 });
 }
 
 // ---------- katmanlar ----------
