@@ -4,6 +4,7 @@
 
 - `dunya-kahve-gunu.mp4` — Instagram'a yüklenecek video (H.264, 30 fps, AAC stereo ses)
 - `kapak.png` — Reels kapak görseli
+- `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, videonun espresso tonunda tek renk (logo.js canvas için gömülü sürüm)
 - `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=12` ile tek kare)
 - `audio.py` — ses tasarımı (sentezlenmiş müzik + efektler, telifsiz) → `audio.wav`: `python3 audio.py` (numpy + scipy)
 - `render.js` — kare kare MP4 çıkışı, varsa `audio.wav`'ı ekler: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
@@ -20,4 +21,4 @@ Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
 | 6.3–7 sn | Açık panel aşağıdan yukarı siler |
 | 7–10 sn | Tek çizgi Türk kahvesi fincanı (tabak + lokum) kendini çizer, köpüklü kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
 | 10–15.4 sn | Kahve falı: kahve içilir, fincan tabağa kapatılır ("Fincanı kapattık…"), kalkar; tabak kuşbakışına döner, telveden kalp belirir — "Falınızda bugün 15.00'te *bir kahve var.*" Tabak küçülüp rozetin içine yerleşir |
-| 15–20 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti |
+| 15–20 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti + Navitas logosu |

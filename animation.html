@@ -25,6 +25,7 @@
 </head>
 <body>
 <canvas id="c" width="1080" height="1920"></canvas>
+<script src="logo.js"></script>
 <script>
 /*
  * Dünya Kahve Günü — 20 sn, 1080x1920 (Instagram Reels / Story)
@@ -36,7 +37,7 @@
  *   S3  6.90 – 9.85  Tek çizgi Türk kahvesi fincanı kendini çizer, dolar; "Saat 15.00" sayaç
  *   FAL 9.85 – 15.4  Kahve içilir, fincan kapatılır, kalkar; tabakta telveden kalp:
  *                    "Falınızda bugün 15.00'te bir kahve var." Tabak rozete dönüşür
- *   S4 15.00 – 20.0  "Kahveler bizden." + ikram notu + dönen rozet
+ *   S4 15.00 – 20.0  "Kahveler bizden." + ikram notu + dönen rozet + Navitas logosu
  */
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
@@ -424,6 +425,15 @@ function scene4(t) {
   maskLine('Bugün saat 15.00’te tüm', M, 1355, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.15, ls: -0.5 });
   maskLine('misafirlerimize ikramımızdır.', M, 1428, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.25, ls: -0.5 });
 
+  // imza: Navitas logosu, rozetin karşısında (maskeyle aşağıdan girer)
+  const pl = prog(t, 11.55, 12.65);
+  if (pl > 0 && logoImg) {
+    const lw = 470, lh = lw * LOGO.h / LOGO.w, lx = M - 4, ly = 425;
+    ctx.save(); ctx.beginPath(); ctx.rect(lx - 10, ly - 10, lw + 20, lh + 20); ctx.clip();
+    ctx.drawImage(logoImg, lx, ly + (1 - easeOutExpo(pl)) * (lh + 20), lw, lh);
+    ctx.restore();
+  }
+
   // dönen rozet + içinde küçük fincan
   const pa = easeOutExpo(prog(t, 10.9, 12.0));
   const bx = BADGE.x, by = BADGE.y;
@@ -487,8 +497,10 @@ function render(t) {
 const params = new URLSearchParams(location.search);
 window.renderFrame = render;
 window.DUR = DUR; window.FPS = FPS;
+let logoImg = null;
 window.ready = (async () => {
   makeGrain();
+  if (window.LOGO) { const im = new Image(); im.src = LOGO.src; await im.decode(); logoImg = im; }
   const sample = 'AaÜüİıŞşĞğÇçÖö“”’';
   await Promise.all([
     document.fonts.load(`400 80px ${SERIF}`, sample),
