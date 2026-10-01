@@ -1,30 +1,28 @@
-# Dünya Kahve Günü · Instagram Animasyonu
+# Dünya Kahve Günü · Instagram Story Animasyonu
 
-20 saniyelik, 1080×1920 (9:16) Reels / Story videosu — tamamen kodla çizildi.
+9 saniyelik, 1080×1920 (9:16) Story videosu — tamamen kodla çizildi ve sentezlendi. Navitas spa & sports için.
 
 - `dunya-kahve-gunu.mp4` — Instagram'a yüklenecek video (H.264, 30 fps, AAC stereo ses)
-- `kapak.png` — Reels kapak görseli
-- `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, orijinal renkler (logo.js canvas için gömülü sürüm)
-- `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=12` ile tek kare)
+- `kapak.png` — kapak görseli ("KAHVELER bizden!")
+- `animation.html` — animasyonun kaynağı; tarayıcıda açınca canlı oynar (tıklayınca başa sarar, `?t=3` ile tek kare)
 - `audio.py` — ses tasarımı (sentezlenmiş müzik + efektler, telifsiz) → `audio.wav`: `python3 audio.py` (numpy + scipy)
 - `render.js` — kare kare MP4 çıkışı, hareket bulanıklığıyla (`MB_SAMPLES=16`, varsayılan 8; 1 = kapalı), varsa `audio.wav`'ı ekler: `NODE_PATH=$(npm root -g) node render.js` (Playwright + ffmpeg gerekir)
+- `navitas-logo.svg` / `logo.js` — Navitas yatay logosu, orijinal renkler (logo.js canvas için gömülü sürüm)
 
 ## Tasarım
-Modern, minimalist kinetik tipografi: kırık beyaz kâğıt (#EEE8DF), espresso siyahı (#1C1714) ve tek vurgu rengi yanık karamel (#B06C38).
-Yazı tipleri: Instrument Serif (başlıklar) + Inter (künye ve gövde metni).
+Story için hızlı, dikkat çekici kinetik tipografi: marka turuncusu (#E17610), lacivert (#202F50), espresso, karamel ve krem arasında sert sahne geçişleri.
+Kalın, düz, geometrik çizimler (kuşbakışı Türk kahvesi fincanı, kahve çekirdekleri). Inter Black başlıklar + Instrument Serif italik vurgu.
 
 ## Teknik notlar
+- 120 BPM; her vuruşta (0.5 sn) ekranda bir şey değişir. Sahne geçişleri, kamera sarsıntıları ve ses vuruşları aynı ızgarada.
 - Hareket bulanıklığı: her kare, 180° obtüratör (yarım kare pozlama) içindeki alt karelerin ortalaması.
-- Müzik 120 BPM; vuruş ızgarası 0.95 sn'deki damlaya hizalı. Koyu sahne (2.95), sayaç (8.45), fincanın tabağa oturması (11.45), fal metni (13.45) ve final (14.95) vuruşa denk gelir.
-- Çizim: fincan ağzı ve kahve yüzeyi tabakla aynı perspektifte elips; değişken kalınlıklı, uçlarda incelen çizgiler (gövde > tabak > kulp/kaide); pudra şekerli lokum; düzensiz buhar.
-- Fincan hareketleri: yudumda eğilme (kahve yüzeyi yatay kalır), kapatmadan önce hazırlık, oturuşta sönümlü sekme, yavaş başlayan kalkış.
+- İlk kare boş değildir: "BUGÜN" yazısı ilk karede çarparak girmektedir, kahve çekirdekleri uçuşur.
 
 ## Senaryo
 | Süre | Sahne |
 |---|---|
-| 0–3 sn | İlk karede "Bugün kahveler *bizden.*"; bir kahve damlası düşer, halkalar yayılır, damla büyüyüp ekranı kaplar |
-| 3–6.3 sn | Koyu zemin: "Bugün · Dünya *Kahve* Günü." + "Bir fincan kahvenin kırk yıl hatırı vardır." |
-| 6.3–7 sn | Açık panel aşağıdan yukarı siler |
-| 7–10 sn | Tek çizgi Türk kahvesi fincanı (tabak + lokum) kendini çizer, köpüklü kahveyle dolar, buhar yükselir; "Saat 15.00" sayaç gibi döner |
-| 10–15.4 sn | Kahve falı: kahve içilir, fincan tabağa kapatılır ("Fincanı kapattık…"), kalkar; tabak kuşbakışına döner, telveden kalp belirir — "Falınızda bugün 15.00'te *bir kahve var.*" Tabak küçülüp rozetin içine yerleşir |
-| 15–20 sn | "Kahveler *bizden.*" — "Bugün saat 15.00'te tüm misafirlerimize ikramımızdır." + dönen "Afiyet olsun" rozeti + Navitas logosu |
+| 0–1 sn | Turuncu: "BUGÜN" çarparak girer, çekirdekler uçuşur, "DÜNYA KAHVE GÜNÜ" etiketi |
+| 1–2.5 sn | Espresso daire ekranı kaplar; kuşbakışı Türk kahvesi fincanı, dönen köpük, "KAHVELER"; çekirdek patlaması |
+| 2.5–4 sn | Kamera köpüğe dalar: "KAHVELER *bizden!*" |
+| 4–6 sn | Eğik kayan şeritler: "BÜTÜN GÜN", fincanlar, "SABAHTAN AKŞAMA" |
+| 6–9 sn | Krem kapanış: Navitas logosu, "Bütün gün kahveler *bizden.*", "Tüm misafirlerimize ikramımızdır.", "1 EKİM · DÜNYA KAHVE GÜNÜ" |

@@ -28,23 +28,26 @@
 <script src="logo.js"></script>
 <script>
 /*
- * Dünya Kahve Günü — 20 sn, 1080x1920 (Instagram Reels / Story)
- * Modern, minimalist kinetik tipografi. render(t) yalnızca zamana bağlıdır.
+ * Dünya Kahve Günü — Instagram Story, 9 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
+ * Her şey 120 BPM vuruş ızgarasına oturur (vuruş = 0.5 sn); her vuruşta ekranda bir şey değişir.
  *
- *   S1  0.00 – 3.00  "Bugün kahveler bizden." kancası; damla düşer, halkalar yayılır, damla ekranı kaplar
- *   S2  3.00 – 6.30  (koyu) "Bugün · Dünya Kahve Günü." + atasözü
- *   ~   6.20 – 6.95  Açık panel aşağıdan yukarı siler
- *   S3  6.90 – 9.85  Tek çizgi Türk kahvesi fincanı kendini çizer, dolar; "Saat 15.00" sayaç
- *   FAL 9.85 – 15.4  Kahve içilir, fincan kapatılır, kalkar; tabakta telveden kalp:
- *                    "Falınızda bugün 15.00'te bir kahve var." Tabak rozete dönüşür
- *   S4 15.00 – 20.0  "Kahveler bizden." + ikram notu + dönen rozet + Navitas logosu
+ *   S1  0.00 – 1.10  Turuncu: "BUGÜN" ilk karede çarparak girer, çekirdekler uçuşur, "DÜNYA KAHVE GÜNÜ"
+ *   ~   0.85 – 1.10  Espresso daire ekranı kaplar
+ *   S2  0.85 – 2.50  Kuşbakışı Türk kahvesi fincanı, dönen köpük; "KAHVELER"; 1.5'te çekirdek patlaması
+ *   ~   2.20 – 2.50  Kamera köpüğe dalar (köpük ekranı kaplar)
+ *   S3  2.50 – 4.05  Karamel: "KAHVELER bizden!" harf harf, alt çizgi, parıltılar
+ *   S4  3.90 – 6.00  Eğik kayan şeritler: "BÜTÜN GÜN", fincanlar, "SABAHTAN AKŞAMA"
+ *   S5  5.65 – 9.00  Krem şerit ekranı kaplar → kapanış: logo, "Bütün gün kahveler bizden.", ikram notu
  */
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
-const W = 1080, H = 1920, DUR = 20, FPS = 30;
-const M = 96; // kenar boşluğu
+const W = 1080, H = 1920, DUR = 9, FPS = 30;
 
-const C = { paper: '#EEE8DF', ink: '#1C1714', accent: '#B06C38', accentDark: '#CD8D57' };
+const C = {
+  orange: '#E17610', orangeD: '#D05C20', orangeL: '#F29100', navy: '#202F50',
+  cream: '#F4ECE1', ink: '#1C1714', espresso: '#24170F', white: '#FFFCF6',
+  caramel: '#C9772E', foamL: '#F2B370', coffee: '#4A2A18', beanC: '#B86A2E',
+};
 const SERIF = "'Instrument Serif'", SANS = 'Inter';
 
 // ---------- yardımcılar ----------
@@ -55,7 +58,7 @@ const easeOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
 const easeInExpo = x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10);
 const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
 const easeInCubic = x => x * x * x;
-const easeInOutCubic = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOutBack = (x, s = 1.70158) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
 const easeInOutQuint = x => x < .5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2;
 const TAU = Math.PI * 2;
 
@@ -67,529 +70,297 @@ function rng(seed) {
     return ((r ^ r >>> 14) >>> 0) / 4294967296;
   };
 }
+function circle(x, y, r) { ctx.beginPath(); ctx.arc(x, y, Math.max(0, r), 0, TAU); }
+function fill(c) { ctx.fillStyle = c; ctx.fill(); }
 
-// Maskeli satır: metin kendi satır kutusunun altından kayarak girer, üstten çıkar
-function maskLine(str, x, y, o) {
-  const { font, color, t, t0, dur = 1.0, outT = null, outDur = 0.55, align = 'left', ls = 0, alpha = 1 } = o;
-  const pin = prog(t, t0, t0 + dur);
-  const pout = outT == null ? 0 : prog(t, outT, outT + outDur);
-  if (pin <= 0 || pout >= 1) return;
-  ctx.save();
-  ctx.font = font; ctx.letterSpacing = ls + 'px'; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
-  const m = ctx.measureText(str);
-  const asc = m.fontBoundingBoxAscent, desc = m.fontBoundingBoxDescent, h = asc + desc;
-  ctx.beginPath(); ctx.rect(0, y - asc, W, h); ctx.clip();
-  const dy = (1 - easeOutExpo(pin)) * h - easeInExpo(pout) * h;
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = color; ctx.fillText(str, x, y + dy);
-  ctx.restore();
+// Vuruşlarda kısa kamera sarsıntısı
+const HITS = [0.0, 0.5, 1.0, 1.5, 2.5, 3.0, 4.0, 6.0];
+function shake(t) {
+  let x = 0, y = 0;
+  for (const h of HITS) {
+    const d = t - h;
+    if (d < 0 || d > 0.3) continue;
+    const a = 16 * Math.exp(-d * 18);
+    x += a * Math.sin(d * 95); y += a * Math.cos(d * 77);
+  }
+  return [x, y];
+}
+// Vuruşta kısa ölçek "pompası"
+function bump(t, hits, amt = 0.06) {
+  let s = 1;
+  for (const h of hits) if (t >= h) s += amt * Math.exp(-(t - h) * 10);
+  return s;
 }
 
-function ellipse(x, y, rx, ry) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, TAU); }
-
-function hairline(x1, x2, y, p, color, lw = 2) {
+// ---------- tipografi ----------
+function setFont(style, weight, size, family, ls = 0) {
+  ctx.font = `${style} ${weight} ${size}px ${family}`; ctx.letterSpacing = ls + 'px';
+}
+function fitSize(str, style, weight, family, size, maxW, ls) {
+  setFont(style, weight, size, family, ls);
+  const w = ctx.measureText(str).width;
+  return w > maxW ? size * maxW / w : size;
+}
+// Büyük yazı: ekrana "çarpar" (büyükten küçülerek oturur), çıkışta yukarı fırlar
+function slam(str, x, y, o) {
+  const { t, t0, size, color, weight = 900, family = SANS, style = '', dur = 0.5, from = 1.6, ls = -4, maxW = 920,
+          rot = 0, outT = null, outDur = 0.25 } = o;
+  const p = prog(t, t0, t0 + dur);
   if (p <= 0) return;
-  ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw;
-  ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(lerp(x1, x2, p), y);
-  ctx.stroke(); ctx.restore();
-}
-
-// ---------- çizgi (polyline) altyapısı ----------
-function linePts(a, b, n = 20) {
-  const r = []; for (let i = 0; i <= n; i++) r.push([lerp(a[0], b[0], i / n), lerp(a[1], b[1], i / n)]); return r;
-}
-function cubicPts(p0, p1, p2, p3, n = 30) {
-  const r = [];
-  for (let i = 0; i <= n; i++) {
-    const s = i / n, u = 1 - s;
-    r.push([u * u * u * p0[0] + 3 * u * u * s * p1[0] + 3 * u * s * s * p2[0] + s * s * s * p3[0],
-            u * u * u * p0[1] + 3 * u * u * s * p1[1] + 3 * u * s * s * p2[1] + s * s * s * p3[1]]);
+  let a = clamp(p * 5), sc = 1 + (from - 1) * (1 - easeOutExpo(p)), dy = 0;
+  if (outT != null) {
+    const q = prog(t, outT, outT + outDur);
+    if (q >= 1) return;
+    a *= 1 - q; sc *= 1 - 0.25 * easeInExpo(q); dy = -160 * easeInExpo(q);
   }
-  return r;
-}
-function join(...parts) { return parts.reduce((a, p) => a.concat(a.length ? p.slice(1) : p), []); }
-function withLengths(pts) {
-  const L = [0];
-  for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
-  return { pts, L, total: L[L.length - 1] };
-}
-// a..b: çizginin görünen bölümü (0..1)
-function strokePoly(poly, a, b) {
-  if (b <= a) return;
-  const { pts, L, total } = poly, A = a * total, B = b * total;
-  ctx.beginPath();
-  let started = false;
-  for (let i = 1; i < pts.length; i++) {
-    const l0 = L[i - 1], l1 = L[i];
-    if (l1 < A || l0 > B) continue;
-    const s0 = clamp((A - l0) / (l1 - l0 || 1)), s1 = clamp((B - l0) / (l1 - l0 || 1));
-    const p0 = [lerp(pts[i - 1][0], pts[i][0], s0), lerp(pts[i - 1][1], pts[i][1], s0)];
-    const p1 = [lerp(pts[i - 1][0], pts[i][0], s1), lerp(pts[i - 1][1], pts[i][1], s1)];
-    if (!started) { ctx.moveTo(p0[0], p0[1]); started = true; }
-    ctx.lineTo(p1[0], p1[1]);
-  }
-  ctx.stroke();
-}
-
-// Tabak: merkezi (0,112), yarıçapları 238 x 28 olan elipsin alt yarısı
-const SAUCER = { cy: 112, rx: 238, ry: 28 };
-function ellArc(a0, a1, n = 30) {
-  return Array.from({ length: n + 1 }, (_, i) => {
-    const a = lerp(a0, a1, i / n);
-    return [SAUCER.rx * Math.cos(a), SAUCER.cy + SAUCER.ry * Math.sin(a)];
-  });
-}
-
-// Değişken kalınlıklı çizgi: genişlik, çizgi boyunca konuma (u: 0..1) bağlı.
-// Uçlarda incelen çizgi elle çizilmiş his verir; kapalı formlarda başlangıç-bitiş noktası
-// ince kalır ve hafif "açık birleşim" oluşur.
-const taper = (u, k = 0.16, min = 0.32) => Math.max(min, Math.min(1, u / k, (1 - u) / k)) ** 0.7;
-function strokeVar(poly, a, b, base, wf = u => taper(u)) {
-  if (b <= a) return;
-  const { pts, L, total } = poly, A = a * total, B = b * total;
-  for (let i = 1; i < pts.length; i++) {
-    const l0 = L[i - 1], l1 = L[i];
-    if (l1 < A || l0 > B) continue;
-    const s0 = clamp((A - l0) / (l1 - l0 || 1)), s1 = clamp((B - l0) / (l1 - l0 || 1));
-    ctx.lineWidth = base * wf((l0 + l1) / 2 / total);
-    ctx.beginPath();
-    ctx.moveTo(lerp(pts[i - 1][0], pts[i][0], s0), lerp(pts[i - 1][1], pts[i][1], s0));
-    ctx.lineTo(lerp(pts[i - 1][0], pts[i][0], s1), lerp(pts[i - 1][1], pts[i][1], s1));
-    ctx.stroke();
-  }
-}
-
-// Tek çizgi Türk kahvesi fincanı (yerel koordinat, merkez 0,0)
-const RIM = { y: -112, rx: 108, ry: 13 };  // ry/rx ≈ tabağınki (28/238): aynı bakış açısı
-const rimArc = (a0, a1, n = 32) => Array.from({ length: n + 1 }, (_, i) => {
-  const a = lerp(a0, a1, i / n); return [RIM.rx * Math.cos(a), RIM.y + RIM.ry * Math.sin(a)];
-});
-const CUP_SIDE = cubicPts([108, -112], [108, -10], [96, 66], [52, 96], 60);
-function cupHalfW(y) {  // gövdenin verilen yükseklikteki yarı genişliği
-  if (y <= CUP_SIDE[0][1]) return CUP_SIDE[0][0];
-  for (let i = 1; i < CUP_SIDE.length; i++) {
-    const [xa, ya] = CUP_SIDE[i - 1], [xb, yb] = CUP_SIDE[i];
-    if (y <= yb) return lerp(xa, xb, (y - ya) / (yb - ya || 1));
-  }
-  return 52;
-}
-const CUP = {
-  body: withLengths(join(
-    rimArc(Math.PI, TAU),
-    cubicPts([108, -112], [108, -10], [96, 66], [52, 96]),
-    linePts([52, 96], [-52, 96], 14),
-    cubicPts([-52, 96], [-96, 66], [-108, -10], [-108, -112]),
-    rimArc(Math.PI, 0))),
-  foot: withLengths(join(linePts([-38, 96], [-46, 122], 6), linePts([-46, 122], [46, 122], 12), linePts([46, 122], [38, 96], 6))),
-  handle: withLengths(cubicPts([106, -84], [168, -96], [166, 0], [100, -6])),
-  saucerL: withLengths(ellArc(Math.PI / 2, Math.PI)),
-  saucerR: withLengths(ellArc(Math.PI / 2, 0)),
-};
-function cupInterior() {
-  ctx.beginPath();
-  ctx.moveTo(-108, -112); ctx.lineTo(108, -112);
-  ctx.bezierCurveTo(108, -10, 96, 66, 52, 96); ctx.lineTo(-52, 96);
-  ctx.bezierCurveTo(-96, 66, -108, -10, -108, -112);
-  ctx.closePath();
-}
-function steamPoly(i, t) {
-  const n = [33, 40, 29][i + 1], pts = [];
-  for (let k = 0; k <= n; k++) {
-    const ramp = k / 40;
-    const x = i * 46 + (Math.sin(k * 0.3 - t * 2.4 + i * 1.7) * 11
-                      + Math.sin(k * 0.71 + t * 1.3 + i * 2.9) * 5
-                      + Math.sin(k * 0.13 + i * 1.1) * 7) * ramp;
-    pts.push([x, -145 - k * 4.1]);
-  }
-  return withLengths(pts);
-}
-// o: body/handle/saucer/steam/fill/lokum çizim ilerlemesi (0..1), erase: çizgiyi baştan siler
-function drawCup(x, y, s, t, o) {
-  const { body = 1, handle = 1, saucer = 1, steam = 0, fill = 0, lokum = 0, erase = 0, color = C.ink, lw = 6, surfaceTilt = 0 } = o;
-  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = color; ctx.lineWidth = lw / s;
-  if (fill > 0 && erase < 1) {
-    ctx.save(); cupInterior(); ctx.clip();
-    ctx.globalAlpha = clamp(1 - erase * 2.5);
-    const tilt = Math.tan(surfaceTilt);
-    const level = lerp(96, -92, fill), wob = x => Math.sin(x * 0.04 + t * 6) * 4 * (1 - fill) - x * tilt;
-    ctx.beginPath(); ctx.moveTo(-120, 130);
-    for (let px = -120; px <= 120; px += 8) ctx.lineTo(px, level + wob(px));
-    ctx.lineTo(120, 130); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
-    // kahvenin yüzeyi: ağızla aynı perspektifte elips; dolunca karamel köpük
-    const hw = cupHalfW(level) - 4;
-    ctx.save(); ctx.translate(0, level); ctx.rotate(-surfaceTilt);
-    ellipse(0, 0, hw, hw * RIM.ry / RIM.rx); ctx.fillStyle = color; ctx.fill();
-    const foam = clamp((fill - 0.72) * 4);
-    if (foam > 0) {
-      ctx.globalAlpha *= foam;
-      ellipse(0, 0, hw - 3, (hw - 3) * RIM.ry / RIM.rx); ctx.fillStyle = C.accent; ctx.fill();
-      ellipse(-hw * 0.18, -1, hw * 0.45, hw * 0.035); ctx.fillStyle = C.accentDark; ctx.fill();
-    }
-    ctx.restore();
-    ctx.restore();
-  }
-  // çizgi hiyerarşisi: gövde en kalın, tabak orta, kulp ve kaide ince
-  const base = lw / s;
-  strokeVar(CUP.body, erase, body, base * 1.2);
-  strokeVar(CUP.foot, erase, body, base * 0.7, u => taper(u, 0.3, 0.5));
-  strokeVar(CUP.handle, erase, handle, base * 0.8, u => taper(u, 0.25, 0.45));
-  strokeVar(CUP.saucerL, erase, saucer, base, u => taper(u, 0.5, 0.75));
-  strokeVar(CUP.saucerR, erase, saucer, base, u => taper(u, 0.5, 0.75));
-  if (lokum > 0) drawLokum(162, 113, 0.6 + 0.4 * easeOutCubic(lokum), base, lokum);
-  if (steam > 0) {
-    ctx.save(); ctx.strokeStyle = '#A39C93';
-    for (let i = -1; i <= 1; i++) {
-      strokeVar(steamPoly(i, t), erase, clamp(steam * 1.3 - (i + 1) * 0.15), base * 0.75,
-                u => (1 - u * 0.85) * Math.min(1, 0.3 + u / 0.12));
-    }
-    ctx.restore();
-  }
+  const fs = fitSize(str, style, weight, family, size, maxW, ls);
+  ctx.save(); ctx.globalAlpha *= a; ctx.translate(x, y + dy); ctx.rotate(rot * (1 - easeOutExpo(p))); ctx.scale(sc, sc);
+  setFont(style, weight, fs, family, ls); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = color; ctx.fillText(str, ls / 2, 0);
   ctx.restore();
 }
-
-// ---------- ortak çerçeve (üst künye) ----------
-function chrome(t, color) {
-  hairline(M, W - M, 280, easeOutExpo(prog(t, -0.3, 0.9)), color, 2);
-  maskLine('DÜNYA KAHVE GÜNÜ', M, 240, { font: `500 32px ${SANS}`, color, t, t0: -0.35, dur: 0.9, ls: 5 });
-  maskLine('01.10.2026', W - M, 240, { font: `500 32px ${SANS}`, color, t, t0: -0.3, dur: 0.9, ls: 5, align: 'right' });
-}
-
-// ---------- S1: damla ----------
-const DROP = { x: 540, y: 1260 };
-function scene1(t) {
-  // kanca: ilk karede görünür başlık
-  maskLine('Bugün', M - 6, 590, { font: `400 190px ${SERIF}`, color: C.ink, t, t0: -0.3, dur: 0.9, ls: -3 });
-  maskLine('kahveler', M - 6, 770, { font: `400 190px ${SERIF}`, color: C.ink, t, t0: -0.2, dur: 0.9, ls: -3 });
-  maskLine('bizden.', M - 6, 950, { font: `italic 400 190px ${SERIF}`, color: C.accent, t, t0: -0.1, dur: 0.9, ls: -3 });
-  const pf = prog(t, 0.35, 0.95);
-  if (pf > 0 && pf < 1) {
-    const y = lerp(1000, DROP.y, easeInCubic(pf));
-    ctx.save(); ctx.translate(DROP.x, y); ctx.scale(1.7, 1.7 * (1 + 0.6 * pf)); ctx.globalAlpha = clamp(pf * 4);
-    ctx.beginPath(); ctx.moveTo(0, -34);
-    ctx.bezierCurveTo(6, -18, 16, -6, 16, 4); ctx.arc(0, 4, 16, 0, Math.PI); ctx.bezierCurveTo(-16, -6, -6, -18, 0, -34);
-    ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
-  }
-  // halkalar (yüzey perspektifi)
-  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4;
-  for (const [t0, k] of [[0.95, 1], [1.07, 0.78], [1.23, 0.56], [1.8, 0.5]]) {
-    const p = prog(t, t0, t0 + 1.5);
-    if (p <= 0 || p >= 1) continue;
-    const r = easeOutExpo(p) * 520 * k;
-    ctx.globalAlpha = (1 - p) * 0.9;
-    ctx.beginPath(); ctx.ellipse(DROP.x, DROP.y, r, r * 0.3, 0, 0, TAU); ctx.stroke();
-  }
-  ctx.restore();
-  // geri sıçrayan damlacık, sonra merkezde kalan nokta
-  if (t >= 0.95) {
-    const pj = prog(t, 0.97, 1.75);
-    const y = pj < 1 ? DROP.y - Math.sin(pj * Math.PI) * 170 : DROP.y;
-    const r = pj < 1 ? 13 : lerp(13, 20, prog(t, 1.75, 2.0));
-    ctx.beginPath(); ctx.arc(DROP.x, y, r, 0, TAU); ctx.fillStyle = C.ink; ctx.fill();
-  }
-}
-function circleRadius(t) { return lerp(20, 1500, easeInOutQuint(prog(t, 2.15, 2.95))); }
-
-// ---------- S2: koyu başlık ----------
-function scene2(t) {
-  const out = 5.85;
-  maskLine('BUGÜN', M, 560, { font: `500 34px ${SANS}`, color: C.accentDark, t, t0: 2.75, ls: 9, outT: out });
-  maskLine('Dünya', M - 8, 820, { font: `400 270px ${SERIF}`, color: C.paper, t, t0: 2.85, dur: 1.1, ls: -4, outT: out + 0.05 });
-  maskLine('Kahve', M - 8, 1055, { font: `italic 400 270px ${SERIF}`, color: C.accentDark, t, t0: 2.98, dur: 1.1, ls: -4, outT: out + 0.1 });
-  maskLine('Günü.', M - 8, 1290, { font: `400 270px ${SERIF}`, color: C.paper, t, t0: 3.11, dur: 1.1, ls: -4, outT: out + 0.15 });
-  const pl = easeOutExpo(prog(t, 3.5, 4.6)) - easeInExpo(prog(t, out + 0.1, out + 0.6));
-  ctx.save(); ctx.globalAlpha = 0.35; hairline(M, W - M, 1360, pl, C.paper, 2); ctx.restore();
-  maskLine('“Bir fincan kahvenin', M, 1440, { font: `italic 400 60px ${SERIF}`, color: C.paper, t, t0: 3.85, alpha: 0.8, outT: out + 0.2 });
-  maskLine('kırk yıl hatırı vardır.”', M, 1510, { font: `italic 400 60px ${SERIF}`, color: C.paper, t, t0: 3.95, alpha: 0.8, outT: out + 0.25 });
-}
-function panelY(t) { return lerp(H, 0, easeInOutQuint(prog(t, 6.2, 6.95))); }
-
-// ---------- S3: fincan + saat ----------
-function odometer(str, cx, y, size, t, t0) {
-  ctx.save();
-  ctx.font = `400 ${size}px ${SERIF}`; ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'center'; ctx.letterSpacing = '0px';
-  const dw = Math.max(...'0123456789'.split('').map(d => ctx.measureText(d).width));
-  const widths = [...str].map(ch => /\d/.test(ch) ? dw : ctx.measureText(ch).width * 1.1);
-  let x = cx - widths.reduce((a, b) => a + b, 0) / 2;
-  const m = ctx.measureText('0123456789'), cap = m.actualBoundingBoxAscent, low = m.actualBoundingBoxDescent;
-  const pad = size * 0.08, h = cap + low + pad * 2;
-  ctx.beginPath(); ctx.rect(0, y - cap - pad, W, h); ctx.clip();
-  ctx.fillStyle = C.ink;
-  let di = 0;
-  [...str].forEach((ch, i) => {
-    const w = widths[i], sx = x + w / 2;
-    if (/\d/.test(ch)) {
-      const d0 = t0 + di * 0.1, p = easeOutExpo(prog(t, d0, d0 + 0.9));
-      const span = 2, start = +ch - span;          // örn. 5 için 3→4→5
-      const v = start - 1 + p * (span + 1);
-      const base = Math.floor(v), f = v - base, dig = n => String(((n % 10) + 10) % 10);
-      if (t > d0) {
-        if (base >= start) ctx.fillText(dig(base), sx, y - f * h);
-        if (f > 0) ctx.fillText(dig(base + 1), sx, y + (1 - f) * h);
-      }
-      di++;
-    } else {
-      const p = easeOutExpo(prog(t, t0 + 0.35, t0 + 1.1));
-      if (p > 0) ctx.fillText(ch, sx, y + (1 - p) * h);
-    }
-    x += w;
-  });
-  ctx.restore();
-}
-function scene3(t) {
-  if (t < 6.3 || t > 10.5) return;
-  if (t < 9.85) drawCup(FAL.x, FAL.y, FAL.s, t, {
-    body: easeInOutQuint(prog(t, 6.85, 8.0)),
-    lokum: easeInOutQuint(prog(t, 8.1, 8.6)),
-    handle: easeInOutQuint(prog(t, 7.55, 8.15)),
-    saucer: easeInOutQuint(prog(t, 7.35, 8.1)),
-    fill: easeInOutQuint(prog(t, 7.95, 8.8)),
-    steam: easeOutCubic(prog(t, 8.45, 9.4)),
-  });
-  maskLine('SAAT', 540, 1150, { font: `500 34px ${SANS}`, color: C.accent, t, t0: 8.35, ls: 9, align: 'center', outT: 9.8 });
-  const po = easeInExpo(prog(t, 9.85, 10.35));
-  ctx.save(); ctx.translate(0, -po * 40); ctx.globalAlpha = 1 - po;
-  odometer('15.00', 540, 1430, 320, t, 8.45);
-  ctx.restore();
-}
-
-// ---------- FAL: kahve falı ----------
-const FAL = { x: 540, y: 790, s: 1.3 };
-const SAUCER_TOP = { y: 820, R: 290 };
-const BADGE = { x: W - M - 130, y: 530 };
-const GROUNDS = (() => {
-  const r = rng(2024), blobs = [], dust = [], streaks = [];
-  // el yapımı his: yarıçapa düşük frekanslı dalga, asimetrik loblar, hafif eğim
-  const heart = a => {
-    const wob = 1 + 0.07 * Math.sin(3 * a + 0.8) + 0.04 * Math.sin(7 * a + 2.1);
-    let x = 16 * Math.sin(a) ** 3, y = -(13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a));
-    x *= wob * (x < 0 ? 1.07 : 0.95); y *= wob;
-    const c = Math.cos(-0.13), sn = Math.sin(-0.13);
-    return [(x * c - y * sn) * 8, (x * sn + y * c) * 8 - 18];
-  };
-  const HP = Array.from({ length: 120 }, (_, i) => heart(i / 120 * TAU));
-  for (let i = 0; i < 120; i++) {            // kalbin hattı: kalınlığı değişen, yer yer kopan lekeler
-    if (r() < 0.12) continue;
-    const [x, y] = HP[i], [nx, ny] = HP[(i + 1) % 120];
-    const thick = 0.55 + 0.45 * Math.sin(i / 120 * TAU * 2 + 1) ** 2;
-    blobs.push({ x: x + (r() - .5) * 8, y: y + (r() - .5) * 8, rad: (5 + r() * 8) * thick + 3, ang: Math.atan2(ny - y, nx - x),
-                 el: 1.3 + r() * 0.9, d: i / 120 * 0.55 + r() * 0.08, a: 0.72 + r() * 0.22 });
-  }
-  for (let i = 0; i < 40; i++) {             // kalbin içi: açık tonlu gölgeler
-    const [hx, hy] = HP[Math.floor(r() * 120)], k = Math.sqrt(r()) * 0.75;
-    blobs.push({ x: hx * k, y: (hy + 18) * k - 18, rad: 6 + r() * 12, ang: r() * TAU, el: 1 + r() * 0.6, d: 0.3 + r() * 0.45, a: 0.16 + r() * 0.14 });
-  }
-  for (let i = 0; i < 45; i++) {             // tabağa dağılmış topaklar
-    const a = r() * TAU, rr = 165 + r() * 100;
-    blobs.push({ x: Math.cos(a) * rr, y: Math.sin(a) * rr, rad: 2 + r() * 6, ang: r() * TAU, el: 1 + r(), d: 0.15 + r() * 0.75, a: 0.35 + r() * 0.45 });
-  }
-  for (let i = 0; i < 380; i++) {            // ince toz: kalbe ve tabak kenarına yakın yoğun
-    let x, y;
-    if (r() < 0.55) {
-      const [hx, hy] = HP[Math.floor(r() * 120)];
-      x = hx + (r() + r() + r() - 1.5) * 30; y = hy + (r() + r() + r() - 1.5) * 30;
-    } else { const a = r() * TAU, rr = 140 + r() * 140; x = Math.cos(a) * rr; y = Math.sin(a) * rr; }
-    dust.push({ x, y, rad: 0.8 + r() * 2.2, d: 0.1 + r() * 0.85, a: 0.25 + r() * 0.45 });
-  }
-  for (let i = 0; i < 9; i++) {              // telve akıntıları: kenardan içe kıvrılıp incelerek biter
-    const a0 = r() * TAU, r0 = 270 - r() * 30, len = 70 + r() * 90, curl = (r() - .5) * 0.6;
-    const pts = Array.from({ length: 16 }, (_, k) => {
-      const q = k / 15, rr = r0 - len * q, aa = a0 + curl * q * q + Math.sin(q * 5 + i) * 0.02;
-      return [Math.cos(aa) * rr, Math.sin(aa) * rr];
-    });
-    streaks.push({ pts, w: 3 + r() * 5, d: 0.1 + r() * 0.5 });
-  }
-  blobs.forEach(b => { b.k = Array.from({ length: 10 }, () => 0.72 + r() * 0.5); });
-  return { blobs, dust, streaks, HP };
-})();
-
-function drawGrounds(gp) {
-  ctx.save();
-  // kalbin altında yumuşak ton: telvenin gölgesi
-  const sh = easeOutCubic(prog(gp, 0.25, 0.9));
-  if (sh > 0) {
-    ctx.globalAlpha = 0.09 * sh; ctx.strokeStyle = C.ink; ctx.lineWidth = 36; ctx.lineJoin = 'round';
-    ctx.beginPath(); GROUNDS.HP.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.stroke();
-  }
-  ctx.strokeStyle = C.ink; ctx.lineCap = 'round';
-  for (const st of GROUNDS.streaks) {
-    const p = easeOutCubic(prog(gp, st.d, st.d + 0.45));
-    const n = Math.floor(15 * p);
-    for (let k = 0; k < n; k++) {
-      const q = k / 15;
-      ctx.globalAlpha = 0.26 * (1 - q * 0.6); ctx.lineWidth = st.w * (1 - q) + 0.6;
-      ctx.beginPath(); ctx.moveTo(st.pts[k][0], st.pts[k][1]); ctx.lineTo(st.pts[k + 1][0], st.pts[k + 1][1]); ctx.stroke();
-    }
-  }
-  ctx.fillStyle = C.ink;
-  for (const d of GROUNDS.dust) {
-    const p = prog(gp, d.d, d.d + 0.15);
-    if (p <= 0) continue;
-    ctx.globalAlpha = d.a * p; ctx.beginPath(); ctx.arc(d.x, d.y, d.rad, 0, TAU); ctx.fill();
-  }
-  for (const b of GROUNDS.blobs) {
-    const p = easeOutCubic(prog(gp, b.d, b.d + 0.3));
-    if (p <= 0) continue;
-    const R = b.rad * p;
-    ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.ang); ctx.scale(b.el, 1);
-    const g = ctx.createRadialGradient(0, 0, R * 0.15, 0, 0, R * 1.15);
-    g.addColorStop(0, 'rgba(28,23,20,1)'); g.addColorStop(0.6, 'rgba(28,23,20,0.85)'); g.addColorStop(1, 'rgba(28,23,20,0)');
-    ctx.globalAlpha = b.a * Math.min(1, p * 2); ctx.fillStyle = g;
-    ctx.beginPath();
-    b.k.forEach((k, j) => {
-      const a = j / b.k.length * TAU, rr = R * 1.15 * k;
-      j ? ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : ctx.moveTo(Math.cos(a) * rr, Math.sin(a) * rr);
-    });
-    ctx.closePath(); ctx.fill(); ctx.restore();
-  }
-  ctx.restore();
-}
-
-// Lokum: yandan görünümdeki yeriyle (162,113) aynı noktadan başlar, tabak açılınca ön kenarda kalır
-const LOKUM_PTS = [[-16, 18], [-18, -16], [16, -19], [19, 16]];
-const LOKUM_DOTS = [[-9, -9], [5, -12], [-2, -1], [10, 3], [-11, 8], [3, 11], [12, -6], [-5, 5]];
-function drawLokum(px, py, k, lw, a = 1) {
-  if (a <= 0) return;
-  ctx.save(); ctx.globalAlpha *= a;
-  ctx.beginPath(); LOKUM_PTS.forEach(([x, y], i) => i ? ctx.lineTo(px + x * k, py + y * k) : ctx.moveTo(px + x * k, py + y * k));
-  ctx.closePath(); ctx.fillStyle = C.accent; ctx.fill();
-  ctx.strokeStyle = C.accent; ctx.lineJoin = 'round'; ctx.lineWidth = 7 * k; ctx.stroke();   // yumuşak köşeler
-  ctx.fillStyle = C.paper;
-  for (const [x, y] of LOKUM_DOTS) { ctx.beginPath(); ctx.arc(px + x * k, py + y * k, 1.9 * k, 0, TAU); ctx.fill(); }
-  ctx.restore();
-}
-
-// Kuşbakışı tabak: alt yarı hep çizili, üst yarı topP ile iki uçtan kapanır
-function drawSaucerTop(cx, cy, rx, ry, topP, gp, lw) {
-  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = lw; ctx.lineCap = 'round';
-  ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI); ctx.stroke();
-  if (topP > 0) {
-    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, Math.PI, Math.PI + Math.PI / 2 * topP); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, TAU - Math.PI / 2 * topP, TAU); ctx.stroke();
-  }
-  if (gp > 0) {
-    ctx.save(); ctx.globalAlpha = 0.3 * clamp(gp * 3); ctx.lineWidth = lw * 0.6;
-    ctx.beginPath(); ctx.ellipse(cx, cy, rx * 0.47, ry * 0.47, 0, 0, TAU); ctx.stroke(); ctx.restore();
-    ctx.save(); ctx.translate(cx, cy); ctx.scale(rx / SAUCER_TOP.R, ry / SAUCER_TOP.R);
-    drawGrounds(gp); ctx.restore();
-  }
-  const k = rx / SAUCER.rx;
-  drawLokum(cx + rx * lerp(0.68, 0.6, topP), cy + lerp(1 * k, ry * 0.62, topP), k, lw);
-  ctx.restore();
-}
-
-// Fincanın fal sahnesindeki hareketi: yudum → hazırlık → havada dönüş → tabağa oturma → kaldırılma
-function cupFalPose(t) {
-  const s = FAL.s;
-  // yudum: fincan sola eğilir ve kalkar
-  const sip = easeInOutCubic(prog(t, 9.95, 10.3)) - easeInOutCubic(prog(t, 10.5, 10.8));
-  let rot = -0.42 * sip, dx = -40 * sip, dy = -95 * sip, sq = 0;
-  const l1 = prog(t, 10.8, 11.0); dy += 5 * Math.sin(l1 * Math.PI) * (1 - l1);
-  // kapatma: önce küçük bir ters hazırlık, sonra kavisli uçuş
-  const ant = Math.sin(prog(t, 10.86, 10.98) * Math.PI / 2);
-  const f = easeInOutCubic(prog(t, 10.98, 11.45));
-  rot += 0.1 * ant * (1 - f) + Math.PI * f;
-  dy += 10 * ant * (1 - f) - 130 * Math.sin(f * Math.PI) + 24 * s * f;
-  // tabağa oturur: sönümlü küçük sekme + hafif basılma
-  const q = prog(t, 11.45, 11.95);
-  if (q > 0 && q < 1) {
-    const d = Math.exp(-q * 6) * Math.sin(q * 16);
-    rot += 0.05 * d; dy -= 5 * d; sq = Math.exp(-q * 7) * Math.cos(q * 14);
-  }
-  // kaldırılma: hafif bastırma, sonra el gibi yavaş başlayıp hızlanan kalkış
-  const press = Math.sin(prog(t, 12.33, 12.45) * Math.PI / 2) * (1 - prog(t, 12.45, 12.6));
-  const L = easeInCubic(prog(t, 12.45, 13.15));
-  dy += 6 * press - 1300 * L; dx += 70 * L; rot += 0.22 * L;
-  return { rot, dx, dy, sq, gone: L >= 1, flip: f };
-}
-
-function sceneFal(t) {
-  if (t < 9.85) return;
-  const { x, y, s } = FAL;
-  const open = easeInOutQuint(prog(t, 12.7, 13.45));
-  const gp = prog(t, 12.95, 14.05);
-  // tabak: önce yandan, sonra kuşbakışına döner, en sonda rozetin içine küçülür
-  if (t < 12.7) {
-    drawCup(x, y, s, t, { body: 0, handle: 0, saucer: 1, lokum: 1 });
-  } else {
-    const e = easeInOutQuint(prog(t, 14.45, 15.25));
-    const rx = lerp(SAUCER.rx * s, SAUCER_TOP.R, open), ry = lerp(SAUCER.ry * s, SAUCER_TOP.R, open);
-    const cy = lerp(y + SAUCER.cy * s, SAUCER_TOP.y, open);
-    drawSaucerTop(lerp(x, BADGE.x, e), lerp(cy, BADGE.y, e), lerp(rx, 92, e), lerp(ry, 92, e), open, gp, lerp(6, 3, e));
-  }
-  // fincan
-  const P = cupFalPose(t);
-  if (!P.gone) {
-    const fill = lerp(1, 0.12, easeInOutCubic(prog(t, 10.1, 10.65))) * (1 - P.flip);
-    const steam = P.flip > 0 ? 0 : 1 - easeOutCubic(prog(t, 9.9, 10.3));
-    ctx.save(); ctx.translate(x + P.dx, y + P.dy); ctx.rotate(P.rot); ctx.scale(1 + 0.035 * P.sq, 1 - 0.035 * P.sq);
-    drawCup(0, 0, s, t, { saucer: 0, fill, steam, surfaceTilt: P.flip > 0 ? 0 : P.rot });
-    ctx.restore();
-  }
-  maskLine('Fincanı kapattık…', 540, 1230, { font: `italic 400 84px ${SERIF}`, color: C.ink, t, t0: 11.5, align: 'center', outT: 12.3 });
-  maskLine('FALINIZDA', 540, 1235, { font: `500 34px ${SANS}`, color: C.accent, t, t0: 13.45, ls: 9, align: 'center', outT: 14.4 });
-  maskLine('bugün 15.00’te', 540, 1370, { font: `400 124px ${SERIF}`, color: C.ink, t, t0: 13.55, ls: -2, align: 'center', outT: 14.45 });
-  maskLine('bir kahve var.', 540, 1495, { font: `italic 400 124px ${SERIF}`, color: C.accent, t, t0: 13.68, ls: -2, align: 'center', outT: 14.5 });
-}
-
-// ---------- S4: kapanış ----------
-function badge(cx, cy, r, text, t, a) {
-  if (a <= 0) return;
-  ctx.save(); ctx.translate(cx, cy); ctx.rotate(t * 0.35 - 1.2); ctx.globalAlpha = a;
-  ctx.font = `500 27px ${SANS}`; ctx.letterSpacing = '0px'; ctx.fillStyle = C.ink;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  const chars = [...text], ws = chars.map(ch => ctx.measureText(ch).width);
-  const extra = (TAU * r - ws.reduce((x, y) => x + y, 0)) / chars.length;
-  let ang = 0;
+// Harf harf zıplayarak giren yazı
+function charsPop(str, x, y, o) {
+  const { t, t0, size, color, weight = 400, family = SERIF, style = 'italic', stagger = 0.04, ls = -4, maxW = 940,
+          outT = null, outDur = 0.25 } = o;
+  const fs = fitSize(str, style, weight, family, size, maxW, ls);
+  setFont(style, weight, fs, family, ls);
+  const chars = [...str], ws = chars.map(c => ctx.measureText(c).width);
+  let cx = x - ws.reduce((a, b) => a + b, 0) / 2;
+  const q = outT == null ? 0 : prog(t, outT, outT + outDur);
+  if (q >= 1) return;
+  ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = color;
   chars.forEach((ch, i) => {
-    const step = (ws[i] + extra) / r;
-    ctx.save(); ctx.rotate(ang + step / 2); ctx.translate(0, -r); ctx.fillText(ch, 0, 0); ctx.restore();
-    ang += step;
+    const p = prog(t, t0 + i * stagger, t0 + i * stagger + 0.45);
+    if (p > 0) {
+      const sc = Math.max(0, easeOutBack(p, 2.6)) * (1 - 0.25 * easeInExpo(q));
+      ctx.save(); ctx.globalAlpha *= clamp(p * 4) * (1 - q);
+      ctx.translate(cx + ws[i] / 2, y + (1 - easeOutCubic(p)) * 90 - 160 * easeInExpo(q));
+      ctx.rotate(-0.25 * (1 - easeOutCubic(p))); ctx.scale(sc, sc);
+      ctx.fillText(ch, 0, 0); ctx.restore();
+    }
+    cx += ws[i];
   });
   ctx.restore();
 }
-const S4_SHIFT = 4.65;
-function scene4(t) {
-  t -= S4_SHIFT;
-  if (t < 10.2) return;
-  maskLine('Kahveler', M - 6, 960, { font: `400 230px ${SERIF}`, color: C.ink, t, t0: 10.3, dur: 1.1, ls: -4 });
-  maskLine('bizden.', M - 6, 1170, { font: `italic 400 230px ${SERIF}`, color: C.accent, t, t0: 10.45, dur: 1.1, ls: -4 });
-  hairline(M, W - M, 1260, easeOutExpo(prog(t, 10.9, 12.0)), C.ink, 2);
-  maskLine('Bugün saat 15.00’te tüm', M, 1355, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.15, ls: -0.5 });
-  maskLine('misafirlerimize ikramımızdır.', M, 1428, { font: `400 52px ${SANS}`, color: C.ink, t, t0: 11.25, ls: -0.5 });
-
-  // imza: Navitas logosu, rozetin karşısında (maskeyle aşağıdan girer)
-  const pl = prog(t, 11.55, 12.65);
-  if (pl > 0 && logoImg) {
-    const lw = 470, lh = lw * LOGO.h / LOGO.w, lx = M - 4, ly = 425;
-    ctx.save(); ctx.beginPath(); ctx.rect(lx - 10, ly - 10, lw + 20, lh + 20); ctx.clip();
-    ctx.drawImage(logoImg, lx, ly + (1 - easeOutExpo(pl)) * (lh + 20), lw, lh);
-    ctx.restore();
-  }
-
-  // dönen rozet + içinde küçük fincan
-  const pa = easeOutExpo(prog(t, 10.9, 12.0));
-  const bx = BADGE.x, by = BADGE.y;
-  ctx.save(); ctx.translate(bx, by); ctx.scale(lerp(0.85, 1, pa), lerp(0.85, 1, pa)); ctx.translate(-bx, -by);
-  badge(bx, by, 128, 'AFİYET OLSUN · AFİYET OLSUN · ', t, pa);
+function pill(str, x, y, o) {
+  const { t, t0, size = 40, bg = C.navy, fg = C.cream, ls = 5, outT = null } = o;
+  const p = prog(t, t0, t0 + 0.45);
+  if (p <= 0) return;
+  const q = outT == null ? 0 : prog(t, outT, outT + 0.25);
+  const sc = Math.max(0, easeOutBack(p, 2.2)) * (1 - easeInExpo(q));
+  if (sc <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc);
+  setFont('', 800, size, SANS, ls);
+  const w = ctx.measureText(str).width + size * 1.6, h = size * 2;
+  ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, h / 2); fill(bg);
+  ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(str, ls / 2, size * 0.06);
   ctx.restore();
 }
 
-// ---------- katmanlar ----------
-function lightLayer(t) {
-  ctx.fillStyle = C.paper; ctx.fillRect(0, 0, W, H);
-  chrome(t, C.ink);
-  if (t < 3.1) scene1(t);
-  scene3(t);
-  sceneFal(t);
-  scene4(t);
+// ---------- çizimler: düz, kalın, geometrik ----------
+function bean(x, y, s, rot, body = C.espresso, crease = C.cream) {
+  if (s <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
+  ctx.beginPath(); ctx.ellipse(0, 0, 40, 56, 0, 0, TAU); fill(body);
+  ctx.beginPath(); ctx.moveTo(5, -47); ctx.bezierCurveTo(-21, -16, 21, 16, -5, 47);
+  ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.strokeStyle = crease; ctx.stroke();
+  ctx.restore();
 }
-function darkLayer(t) {
-  ctx.fillStyle = C.ink; ctx.fillRect(0, 0, W, H);
-  chrome(t, C.paper);
-  scene2(t);
+function sparkle(x, y, s, rot, color) {
+  if (s <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s); ctx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    const a = i * Math.PI / 2;
+    ctx.lineTo(Math.cos(a) * 34, Math.sin(a) * 34);
+    ctx.quadraticCurveTo(0, 0, Math.cos(a + Math.PI / 2) * 34, Math.sin(a + Math.PI / 2) * 34);
+  }
+  fill(color); ctx.restore();
+}
+// Türk kahvesi köpüğü: dönen iki kollu sarmal + kabarcıklar (yerel koordinat, merkez 0,0)
+const BUBBLES = (() => { const r = rng(77); return Array.from({ length: 54 }, () => ({ a: r() * TAU, d: Math.sqrt(r()) * 0.9, s: 0.006 + r() * 0.022, l: r() < 0.6 })); })();
+function foam(R, ang, a = 1) {
+  ctx.save(); ctx.rotate(ang); ctx.lineCap = 'round'; ctx.strokeStyle = C.foamL;
+  for (const ph of [0, Math.PI]) {
+    ctx.beginPath();
+    for (let k = 0; k <= 90; k++) {
+      const q = k / 90, rr = R * 0.92 * q, aa = ph + q * 7.2;
+      k ? ctx.lineTo(Math.cos(aa) * rr, Math.sin(aa) * rr) : ctx.moveTo(0, 0);
+    }
+    ctx.globalAlpha = 0.65 * a; ctx.lineWidth = R * 0.055; ctx.stroke();
+  }
+  for (const b of BUBBLES) {
+    ctx.globalAlpha = (b.l ? 0.85 : 0.5) * a;
+    circle(Math.cos(b.a) * b.d * R, Math.sin(b.a) * b.d * R, b.s * R); fill(b.l ? C.foamL : C.cream);
+  }
+  ctx.restore();
+}
+// Kuşbakışı Türk kahvesi fincanı
+function cupTop(cx, cy, R, ang, saucer = true) {
+  if (R <= 0) return;
+  ctx.save(); ctx.translate(cx, cy);
+  if (saucer) {
+    circle(0, 0, R * 1.34); fill(C.cream);
+    ctx.lineWidth = R * 0.025; ctx.strokeStyle = 'rgba(28,23,20,0.08)'; circle(0, 0, R * 1.14); ctx.stroke();
+  }
+  circle(R * 0.07, R * 0.1, R); fill('rgba(28,23,20,0.25)');                        // gölge
+  ctx.save(); ctx.rotate(-0.55); ctx.beginPath(); ctx.roundRect(R * 0.8, -R * 0.14, R * 0.56, R * 0.28, R * 0.14); fill(C.white); ctx.restore(); // kulp
+  circle(0, 0, R); fill(C.white);
+  circle(0, 0, R * 0.87); fill(C.coffee);
+  circle(0, 0, R * 0.83); fill(C.caramel);
+  ctx.save(); circle(0, 0, R * 0.83); ctx.clip(); foam(R * 0.83, ang); ctx.restore();
+  ctx.lineCap = 'round'; ctx.lineWidth = R * 0.035; ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+  ctx.beginPath(); ctx.arc(0, 0, R * 0.935, -2.5, -1.5); ctx.stroke();               // parlama
+  ctx.restore();
 }
 
+// ---------- S1: BUGÜN ----------
+const S1_BEANS = [[150, 470, -0.5, 1.1], [930, 560, 0.6, 0.9], [120, 1430, 0.3, 0.85], [950, 1390, -0.7, 1.2], [300, 1650, 0.9, 0.7], [800, 1690, -0.2, 0.8], [560, 380, 1.4, 0.6]];
+function scene1(t) {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, C.orangeL); g.addColorStop(1, C.orangeD);
+  ctx.fillStyle = g; ctx.fillRect(-50, -50, W + 100, H + 100);
+  S1_BEANS.forEach(([x, y, r, s], i) => {
+    const p = easeOutExpo(prog(t, -0.2 + i * 0.07, 0.5 + i * 0.07));
+    const bx = lerp(540 + (x - 540) * 2.2, x, p), by = lerp(960 + (y - 960) * 2.2, y, p) + Math.sin(t * 2.5 + i) * 10;
+    bean(bx, by, s * p, r + t * 0.8 * (i % 2 ? 1 : -1));
+  });
+  const b = bump(t, [0.5]);
+  ctx.save(); ctx.translate(540, 960); ctx.scale(b, b); ctx.translate(-540, -960);
+  slam('BUGÜN', 540, 930, { t, t0: -0.14, size: 280, color: C.cream, from: 1.7, rot: -0.08 });
+  ctx.restore();
+  pill('DÜNYA KAHVE GÜNÜ', 540, 1150, { t, t0: 0.5, size: 42 });
+}
+
+// ---------- S2: fincan + KAHVELER ----------
+const CUP = { x: 540, y: 1100, R: 290 };
+function cupZoom(t) { return 1 + 9 * easeInExpo(prog(t, 2.2, 2.5)); }
+function scene2(t) {
+  ctx.fillStyle = C.espresso; ctx.fillRect(-50, -50, W + 100, H + 100);
+  const pop = easeOutBack(prog(t, 0.92, 1.35), 1.7), z = cupZoom(t);
+  // çekirdek patlaması: fincanın altından dışarı
+  for (let i = 0; i < 11; i++) {
+    const p = prog(t, 1.5, 2.4);
+    if (p <= 0) break;
+    const a = i / 11 * TAU + 0.35, d = lerp(120, 470 + (i % 3) * 110, easeOutExpo(p));
+    bean(CUP.x + Math.cos(a) * d * z, CUP.y + Math.sin(a) * d * z, (0.75 + (i % 3) * 0.18) * Math.min(1, p * 4) * z,
+         a + p * 6 * (i % 2 ? 1 : -1), C.beanC, C.espresso);
+  }
+  const s = pop * bump(t, [1.5, 2.0], 0.05);
+  cupTop(CUP.x, CUP.y, CUP.R * s * z, t * 1.3);
+  slam('KAHVELER', 540, 450, { t, t0: 1.0, size: 190, color: C.cream, from: 1.5, outT: 2.2 });
+}
+
+// ---------- S3: KAHVELER bizden! ----------
+function scene3(t) {
+  ctx.fillStyle = C.caramel; ctx.fillRect(-50, -50, W + 100, H + 100);
+  // köpüğün içindeyiz: dev sarmal yavaşça döner
+  ctx.save(); ctx.translate(CUP.x, CUP.y);
+  foam(CUP.R * 0.83 * 10, t * 1.3, lerp(1, 0.35, easeOutCubic(prog(t, 2.5, 3.1))));
+  ctx.restore();
+  const b = bump(t, [3.0, 3.5], 0.04);
+  ctx.save(); ctx.translate(540, 1000); ctx.scale(b, b); ctx.translate(-540, -1000);
+  slam('KAHVELER', 540, 790, { t, t0: 2.5, size: 170, color: C.navy, from: 1.35, outT: 3.9 });
+  charsPop('bizden!', 540, 1060, { t, t0: 2.6, size: 360, color: C.cream, outT: 3.92 });
+  // el çizimi alt çizgi
+  const u = easeOutCubic(prog(t, 3.0, 3.35)) * (1 - prog(t, 3.9, 4.05));
+  if (u > 0) {
+    ctx.lineCap = 'round'; ctx.strokeStyle = C.navy;
+    for (let k = 0; k < 40 * u; k++) {
+      const q = k / 40, x0 = 250 + q * 580, x1 = x0 + 14.5;
+      ctx.lineWidth = 18 * Math.sin(Math.PI * Math.min(1, q * 1.05 + 0.03)) + 3;
+      ctx.beginPath(); ctx.moveTo(x0, 1250 + Math.sin(q * 7) * 10 - q * 18); ctx.lineTo(x1, 1250 + Math.sin((q + 0.025) * 7) * 10 - (q + 0.025) * 18); ctx.stroke();
+    }
+  }
+  ctx.restore();
+  // parıltı patlaması
+  const sp = prog(t, 3.0, 3.6);
+  if (sp > 0 && sp < 1) {
+    [[180, 760], [900, 720], [150, 1220], [930, 1300], [540, 560], [300, 1380]].forEach(([x, y], i) => {
+      sparkle(x, y, (0.6 + (i % 2) * 0.5) * Math.sin(sp * Math.PI), sp * 3 + i, i % 2 ? C.cream : C.navy);
+    });
+  }
+}
+
+// ---------- S4: kayan şeritler ----------
+const BAND_ROT = -0.12;
+function marquee(str, size, color, speed, t, weight = 900, style = '', family = SANS) {
+  setFont(style, weight, size, family, -2);
+  const w = ctx.measureText(str).width;
+  const off = ((t * speed) % w + w) % w;
+  ctx.fillStyle = color; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  for (let x = -1300 - off; x < 1300; x += w) ctx.fillText(str, x, size * 0.04);
+}
+function band(t, yc, h, color, enterT, dir, content, outDir) {
+  const pin = easeOutExpo(prog(t, enterT, enterT + 0.35));
+  const pout = outDir ? easeInExpo(prog(t, 5.58, 5.82)) : 0;
+  if (pin <= 0) return;
+  ctx.save(); ctx.translate(540 + dir * 1500 * (1 - pin) + outDir * 2800 * pout, yc); ctx.rotate(BAND_ROT);
+  ctx.fillStyle = color; ctx.fillRect(-1400, -h / 2, 2800, h);
+  ctx.beginPath(); ctx.rect(-1400, -h / 2, 2800, h); ctx.clip();
+  content();
+  ctx.restore();
+}
+function scene4(t) {
+  const bg = prog(t, 3.9, 4.2);
+  ctx.fillStyle = C.orange; ctx.fillRect(-50, -50, W + 100, H + 100);
+  if (bg < 1) { ctx.globalAlpha = 1 - bg; ctx.fillStyle = C.caramel; ctx.fillRect(-50, -50, W + 100, H + 100); ctx.globalAlpha = 1; }
+  const b = bump(t, [4.5, 5.0, 5.5], 0.035);
+  ctx.save(); ctx.translate(540, 960); ctx.scale(b, b); ctx.translate(-540, -960);
+  band(t, 700, 240, C.navy, 3.9, 1, () => marquee('BÜTÜN GÜN • BÜTÜN GÜN • ', 160, C.cream, -520, t), -1);
+  // orta şerit (krem) kapanışta büyüyüp ekranı kaplar
+  const grow = easeInOutQuint(prog(t, 5.65, 6.0));
+  const h2 = lerp(250, 4400, grow);
+  const pin = easeOutExpo(prog(t, 3.95, 4.3));
+  if (pin > 0) {
+    ctx.save(); ctx.translate(540 - 1500 * (1 - pin), 960); ctx.rotate(BAND_ROT * (1 - grow));
+    ctx.fillStyle = C.cream; ctx.fillRect(-1400, -h2 / 2, 2800, h2);
+    ctx.beginPath(); ctx.rect(-1400, -125, 2800, 250); ctx.clip();
+    ctx.globalAlpha = 1 - prog(t, 5.62, 5.76);
+    const off = (t * 300) % 300;
+    for (let x = -1500 + off; x < 1400; x += 300) {
+      cupTop(x, 0, 72, t * 2 + x * 0.01);
+      bean(x + 150, 0, 0.75, t * 2 + x, C.espresso, C.cream);
+    }
+    ctx.restore();
+  }
+  band(t, 1220, 240, C.navy, 4.0, 1, () => marquee('SABAHTAN AKŞAMA • ', 120, C.orangeL, -420, t), 1);
+  ctx.restore();
+}
+
+// ---------- S5: kapanış kartı ----------
+let logoImg = null;
+const S5_BEANS = [[75, 640, -0.5, 0.6], [1005, 1010, 0.7, 0.55], [80, 1330, 0.4, 0.5], [1000, 1580, -0.3, 0.65]];
+function scene5(t) {
+  ctx.fillStyle = C.cream; ctx.fillRect(-50, -50, W + 100, H + 100);
+  S5_BEANS.forEach(([x, y, r, s], i) => {
+    const p = easeOutBack(prog(t, 6.5 + i * 0.08, 6.95 + i * 0.08), 2);
+    bean(x, y + Math.sin(t * 2 + i) * 8, s * Math.max(0, p), r + t * 0.5 * (i % 2 ? 1 : -1), C.orange, C.cream);
+  });
+  // logo
+  const pl = prog(t, 6.0, 6.6);
+  if (pl > 0 && logoImg) {
+    const lw = 560, lh = lw * LOGO.h / LOGO.w, lx = 540 - lw / 2, ly = 330;
+    ctx.save(); ctx.beginPath(); ctx.rect(lx - 10, ly - 10, lw + 20, lh + 20); ctx.clip();
+    ctx.drawImage(logoImg, lx, ly + (1 - easeOutExpo(pl)) * (lh + 20), lw, lh); ctx.restore();
+  }
+  const b = bump(t, [7.0], 0.03);
+  ctx.save(); ctx.translate(540, 1050); ctx.scale(b, b); ctx.translate(-540, -1050);
+  slam('BÜTÜN GÜN', 540, 820, { t, t0: 6.0, size: 140, color: C.navy, from: 1.4, ls: -3 });
+  slam('KAHVELER', 540, 965, { t, t0: 6.15, size: 140, color: C.navy, from: 1.4, ls: -3 });
+  charsPop('bizden.', 540, 1150, { t, t0: 6.3, size: 250, color: C.orange });
+  ctx.restore();
+  const ps = easeOutExpo(prog(t, 6.7, 7.3));
+  if (ps > 0) {
+    ctx.save(); ctx.globalAlpha = ps; setFont('', 500, 46, SANS, -0.5);
+    ctx.fillStyle = C.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Tüm misafirlerimize ikramımızdır.', 540, 1330 + (1 - ps) * 30);
+    ctx.restore();
+  }
+  pill('1 EKİM · DÜNYA KAHVE GÜNÜ', 540, 1470, { t, t0: 6.95, size: 34, bg: C.navy, fg: C.cream });
+}
+
+// ---------- kare çizimi ----------
 let grain = null;
 function makeGrain() {
   grain = document.createElement('canvas'); grain.width = grain.height = 256;
@@ -602,32 +373,35 @@ function makeGrain() {
 
 function render(t, grainFrame = Math.floor(t * FPS)) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.letterSpacing = '0px';
-  if (t < 2.15) {
-    lightLayer(t);
-  } else if (t < 3.0) {
-    lightLayer(t);
-    ctx.save(); ctx.beginPath(); ctx.arc(DROP.x, DROP.y, circleRadius(t), 0, TAU); ctx.clip();
-    darkLayer(t); ctx.restore();
-  } else if (t < 6.2) {
-    darkLayer(t);
-  } else if (t < 6.95) {
-    darkLayer(t);
-    const py = panelY(t);
-    ctx.save(); ctx.beginPath(); ctx.rect(0, py, W, H - py); ctx.clip(); lightLayer(t); ctx.restore();
-    ctx.fillStyle = C.accentDark; ctx.fillRect(0, py - 10, W, 10);
+  ctx.fillStyle = C.espresso; ctx.fillRect(0, 0, W, H);
+  const [sx, sy] = shake(t);
+  ctx.save(); ctx.translate(sx, sy);
+  if (t < 0.85) {
+    scene1(t);
+  } else if (t < 1.12) {
+    scene1(t);
+    const r = lerp(0, 1350, easeInOutQuint(prog(t, 0.85, 1.12)));
+    ctx.save(); circle(540, 960, r); ctx.clip(); scene2(t); ctx.restore();
+  } else if (t < 2.5) {
+    scene2(t);
+  } else if (t < 3.9) {
+    scene3(t);
+  } else if (t < 6.0) {
+    if (t < 4.1) { scene3(t); }
+    scene4(t);
   } else {
-    lightLayer(t);
+    scene5(t);
   }
+  ctx.restore();
   // film greni
-  ctx.save(); ctx.globalAlpha = 0.05; ctx.globalCompositeOperation = 'overlay';
+  ctx.save(); ctx.globalAlpha = 0.04; ctx.globalCompositeOperation = 'overlay';
   const r = rng(grainFrame + 1);
   ctx.translate(-r() * 256, -r() * 256);
   ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W + 256, H + 256);
   ctx.restore();
 }
 
-// Hareket bulanıklığı (motion blur): 180° obtüratör = kare süresinin yarısı.
-// Alt kareler yürüyen ortalama ile birleştirilir; duran öğeler keskin kalır.
+// Hareket bulanıklığı: 180° obtüratör (yarım kare pozlama), alt karelerin yürüyen ortalaması
 let acc = null;
 function renderMB(t, n = 8, shutter = 0.5) {
   if (!acc) { acc = document.createElement('canvas'); acc.width = W; acc.height = H; }
@@ -645,15 +419,14 @@ const params = new URLSearchParams(location.search);
 window.renderFrame = render;
 window.renderFrameMB = renderMB;
 window.DUR = DUR; window.FPS = FPS;
-let logoImg = null;
 window.ready = (async () => {
   makeGrain();
   if (window.LOGO) { const im = new Image(); im.src = LOGO.src; await im.decode(); logoImg = im; }
-  const sample = 'AaÜüİıŞşĞğÇçÖö“”’';
+  const sample = 'AaÜüİıŞşĞğÇçÖö•·!';
   await Promise.all([
-    document.fonts.load(`400 80px ${SERIF}`, sample),
     document.fonts.load(`italic 400 80px ${SERIF}`, sample),
-    document.fonts.load(`400 40px ${SANS}`, sample),
+    document.fonts.load(`900 80px ${SANS}`, sample),
+    document.fonts.load(`800 40px ${SANS}`, sample),
     document.fonts.load(`500 40px ${SANS}`, sample),
   ]);
   await document.fonts.ready;
