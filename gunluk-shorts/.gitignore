@@ -2,4 +2,4 @@ ses-modelleri/ex_*
 ses-modelleri/*.tar.bz2
 __pycache__/
 emu-savasi/out/emu_noaudio.mp4
-emu-savasi/out/voice.wav
+emu-savasi/out/render.log
