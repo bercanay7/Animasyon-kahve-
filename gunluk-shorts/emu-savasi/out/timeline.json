@@ -1,0 +1,669 @@
+{
+ "duration": 40.0,
+ "voice": "fettah",
+ "last_word_end": 38.62,
+ "sentences": [
+  {
+   "id": "A",
+   "t0": 0.05,
+   "t1": 3.243,
+   "words": [
+    {
+     "show": "Bir",
+     "emph": false,
+     "t0": 0.05,
+     "t1": 0.208
+    },
+    {
+     "show": "ordu,",
+     "emph": false,
+     "t0": 0.208,
+     "t1": 0.683
+    },
+    {
+     "show": "20",
+     "emph": true,
+     "t0": 0.683,
+     "t1": 1.041
+    },
+    {
+     "show": "bin",
+     "emph": true,
+     "t0": 1.041,
+     "t1": 1.22
+    },
+    {
+     "show": "kuşa",
+     "emph": true,
+     "t0": 1.22,
+     "t1": 1.579
+    },
+    {
+     "show": "savaş",
+     "emph": false,
+     "t0": 1.579,
+     "t1": 1.937
+    },
+    {
+     "show": "açtı,",
+     "emph": false,
+     "t0": 1.937,
+     "t1": 2.475
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 2.475,
+     "t1": 2.667
+    },
+    {
+     "show": "kaybetti!",
+     "emph": true,
+     "t0": 2.667,
+     "t1": 3.243
+    }
+   ],
+   "text": "Bir ordu, *20=yirmi bin kuşa* savaş açtı, ve *kaybetti!*",
+   "gaps_found": 3,
+   "gaps_expected": 2
+  },
+  {
+   "id": "B",
+   "t0": 3.523,
+   "t1": 5.665,
+   "words": [
+    {
+     "show": "Ama",
+     "emph": false,
+     "t0": 3.523,
+     "t1": 3.792
+    },
+    {
+     "show": "asıl",
+     "emph": false,
+     "t0": 3.792,
+     "t1": 4.061
+    },
+    {
+     "show": "komik",
+     "emph": false,
+     "t0": 4.061,
+     "t1": 4.33
+    },
+    {
+     "show": "kısım,",
+     "emph": false,
+     "t0": 4.33,
+     "t1": 4.733
+    },
+    {
+     "show": "sondaki",
+     "emph": true,
+     "t0": 4.733,
+     "t1": 5.292
+    },
+    {
+     "show": "rapor!",
+     "emph": true,
+     "t0": 5.292,
+     "t1": 5.665
+    }
+   ],
+   "text": "Ama asıl komik kısım, *sondaki rapor!*",
+   "gaps_found": 1,
+   "gaps_expected": 1
+  },
+  {
+   "id": "C",
+   "t0": 5.885,
+   "t1": 9.193,
+   "words": [
+    {
+     "show": "Bu",
+     "emph": false,
+     "t0": 5.885,
+     "t1": 6.02
+    },
+    {
+     "show": "gerçek!",
+     "emph": false,
+     "t0": 6.02,
+     "t1": 6.535
+    },
+    {
+     "show": "Yıl",
+     "emph": false,
+     "t0": 6.535,
+     "t1": 6.715
+    },
+    {
+     "show": "1932,",
+     "emph": true,
+     "t0": 6.715,
+     "t1": 8.34
+    },
+    {
+     "show": "Avustralya.",
+     "emph": false,
+     "t0": 8.34,
+     "t1": 9.193
+    }
+   ],
+   "text": "Bu gerçek! Yıl *1932=bin_dokuz_yüz_otuz_iki*, Avustralya.",
+   "gaps_found": 3,
+   "gaps_expected": 2
+  },
+  {
+   "id": "D",
+   "t0": 9.393,
+   "t1": 12.914,
+   "words": [
+    {
+     "show": "Çiftçiler",
+     "emph": false,
+     "t0": 9.393,
+     "t1": 10.485
+    },
+    {
+     "show": "çaresizdi:",
+     "emph": false,
+     "t0": 10.485,
+     "t1": 12.303
+    },
+    {
+     "show": "20",
+     "emph": true,
+     "t0": 12.303,
+     "t1": 12.38
+    },
+    {
+     "show": "bin",
+     "emph": true,
+     "t0": 12.38,
+     "t1": 12.418
+    },
+    {
+     "show": "emu",
+     "emph": true,
+     "t0": 12.418,
+     "t1": 12.494
+    },
+    {
+     "show": "tarlaları",
+     "emph": false,
+     "t0": 12.494,
+     "t1": 12.647
+    },
+    {
+     "show": "yiyip",
+     "emph": false,
+     "t0": 12.647,
+     "t1": 12.723
+    },
+    {
+     "show": "bitiriyordu!",
+     "emph": false,
+     "t0": 12.723,
+     "t1": 12.914
+    }
+   ],
+   "text": "Çiftçiler çaresizdi: *20=yirmi bin emu* tarlaları yiyip bitiriyordu!",
+   "gaps_found": 1,
+   "gaps_expected": 1
+  },
+  {
+   "id": "E",
+   "t0": 13.114,
+   "t1": 16.284,
+   "words": [
+    {
+     "show": "Çözüm",
+     "emph": false,
+     "t0": 13.114,
+     "t1": 13.368
+    },
+    {
+     "show": "mü?",
+     "emph": false,
+     "t0": 13.368,
+     "t1": 13.724
+    },
+    {
+     "show": "Askerler,",
+     "emph": false,
+     "t0": 13.724,
+     "t1": 14.409
+    },
+    {
+     "show": "makineli",
+     "emph": true,
+     "t0": 14.409,
+     "t1": 15.034
+    },
+    {
+     "show": "tüfekler",
+     "emph": true,
+     "t0": 15.034,
+     "t1": 15.503
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 15.503,
+     "t1": 15.659
+    },
+    {
+     "show": "10",
+     "emph": true,
+     "t0": 15.659,
+     "t1": 15.815
+    },
+    {
+     "show": "bin",
+     "emph": true,
+     "t0": 15.815,
+     "t1": 15.972
+    },
+    {
+     "show": "mermi!",
+     "emph": true,
+     "t0": 15.972,
+     "t1": 16.284
+    }
+   ],
+   "text": "Çözüm mü? Askerler, *makineli tüfekler* ve *10=on bin mermi!*",
+   "gaps_found": 3,
+   "gaps_expected": 2
+  },
+  {
+   "id": "F",
+   "t0": 16.504,
+   "t1": 20.684,
+   "words": [
+    {
+     "show": "Ama",
+     "emph": false,
+     "t0": 16.504,
+     "t1": 16.749
+    },
+    {
+     "show": "emular",
+     "emph": false,
+     "t0": 16.749,
+     "t1": 17.115
+    },
+    {
+     "show": "çok",
+     "emph": false,
+     "t0": 17.115,
+     "t1": 17.238
+    },
+    {
+     "show": "akıllıydı!",
+     "emph": false,
+     "t0": 17.238,
+     "t1": 17.947
+    },
+    {
+     "show": "Küçük",
+     "emph": false,
+     "t0": 17.947,
+     "t1": 18.027
+    },
+    {
+     "show": "gruplara",
+     "emph": false,
+     "t0": 18.027,
+     "t1": 18.147
+    },
+    {
+     "show": "bölünüp,",
+     "emph": false,
+     "t0": 18.147,
+     "t1": 18.307
+    },
+    {
+     "show": "zikzak",
+     "emph": true,
+     "t0": 18.307,
+     "t1": 18.901
+    },
+    {
+     "show": "çizerek",
+     "emph": true,
+     "t0": 18.901,
+     "t1": 19.792
+    },
+    {
+     "show": "kaçtılar!",
+     "emph": false,
+     "t0": 19.792,
+     "t1": 20.684
+    }
+   ],
+   "text": "Ama emular çok akıllıydı! Küçük gruplara bölünüp, *zikzak çizerek* kaçtılar!",
+   "gaps_found": 2,
+   "gaps_expected": 2
+  },
+  {
+   "id": "G",
+   "t0": 20.884,
+   "t1": 24.71,
+   "words": [
+    {
+     "show": "Üstelik",
+     "emph": false,
+     "t0": 20.884,
+     "t1": 21.292
+    },
+    {
+     "show": "saatte",
+     "emph": false,
+     "t0": 21.292,
+     "t1": 21.699
+    },
+    {
+     "show": "50",
+     "emph": true,
+     "t0": 21.699,
+     "t1": 21.971
+    },
+    {
+     "show": "kilometre",
+     "emph": true,
+     "t0": 21.971,
+     "t1": 22.515
+    },
+    {
+     "show": "koşuyorlardı.",
+     "emph": false,
+     "t0": 22.515,
+     "t1": 23.439
+    },
+    {
+     "show": "Kamyon",
+     "emph": false,
+     "t0": 23.439,
+     "t1": 23.721
+    },
+    {
+     "show": "bile",
+     "emph": false,
+     "t0": 23.721,
+     "t1": 24.004
+    },
+    {
+     "show": "yetişemedi!",
+     "emph": false,
+     "t0": 24.004,
+     "t1": 24.71
+    }
+   ],
+   "text": "Üstelik saatte *50=elli kilometre* koşuyorlardı. Kamyon bile yetişemedi!",
+   "gaps_found": 2,
+   "gaps_expected": 1
+  },
+  {
+   "id": "H",
+   "t0": 24.95,
+   "t1": 26.653,
+   "words": [
+    {
+     "show": "Peki",
+     "emph": false,
+     "t0": 24.95,
+     "t1": 25.29
+    },
+    {
+     "show": "ordu",
+     "emph": false,
+     "t0": 25.29,
+     "t1": 25.631
+    },
+    {
+     "show": "kaç",
+     "emph": true,
+     "t0": 25.631,
+     "t1": 25.801
+    },
+    {
+     "show": "mermi",
+     "emph": true,
+     "t0": 25.801,
+     "t1": 26.142
+    },
+    {
+     "show": "harcadı?",
+     "emph": false,
+     "t0": 26.142,
+     "t1": 26.653
+    }
+   ],
+   "text": "Peki ordu *kaç mermi* harcadı?",
+   "gaps_found": 0,
+   "gaps_expected": 0
+  },
+  {
+   "id": "I",
+   "t0": 26.953,
+   "t1": 31.068,
+   "words": [
+    {
+     "show": "Yaklaşık",
+     "emph": false,
+     "t0": 26.953,
+     "t1": 27.413
+    },
+    {
+     "show": "10.000",
+     "emph": true,
+     "t0": 27.413,
+     "t1": 27.72
+    },
+    {
+     "show": "mermi,",
+     "emph": true,
+     "t0": 27.72,
+     "t1": 28.181
+    },
+    {
+     "show": "sadece",
+     "emph": false,
+     "t0": 28.181,
+     "t1": 28.642
+    },
+    {
+     "show": "1.000",
+     "emph": true,
+     "t0": 28.642,
+     "t1": 28.795
+    },
+    {
+     "show": "emu!",
+     "emph": true,
+     "t0": 28.795,
+     "t1": 29.379
+    },
+    {
+     "show": "Yani",
+     "emph": false,
+     "t0": 29.379,
+     "t1": 29.686
+    },
+    {
+     "show": "kuş",
+     "emph": false,
+     "t0": 29.686,
+     "t1": 29.839
+    },
+    {
+     "show": "başına,",
+     "emph": false,
+     "t0": 29.839,
+     "t1": 30.453
+    },
+    {
+     "show": "tam",
+     "emph": true,
+     "t0": 30.453,
+     "t1": 30.607
+    },
+    {
+     "show": "10",
+     "emph": true,
+     "t0": 30.607,
+     "t1": 30.76
+    },
+    {
+     "show": "mermi!",
+     "emph": true,
+     "t0": 30.76,
+     "t1": 31.068
+    }
+   ],
+   "text": "Yaklaşık *10.000=on_bin mermi*, sadece *1.000=bin emu!* Yani kuş başına, *tam 10=on mermi!*",
+   "gaps_found": 2,
+   "gaps_expected": 3
+  },
+  {
+   "id": "J",
+   "t0": 31.308,
+   "t1": 36.782,
+   "words": [
+    {
+     "show": "Ordu",
+     "emph": false,
+     "t0": 31.308,
+     "t1": 31.756
+    },
+    {
+     "show": "geri",
+     "emph": false,
+     "t0": 31.756,
+     "t1": 32.205
+    },
+    {
+     "show": "çekildi.",
+     "emph": false,
+     "t0": 32.205,
+     "t1": 33.283
+    },
+    {
+     "show": "Komutan",
+     "emph": false,
+     "t0": 33.283,
+     "t1": 33.336
+    },
+    {
+     "show": "bile",
+     "emph": false,
+     "t0": 33.336,
+     "t1": 33.371
+    },
+    {
+     "show": "itiraf",
+     "emph": false,
+     "t0": 33.371,
+     "t1": 33.424
+    },
+    {
+     "show": "etti:",
+     "emph": false,
+     "t0": 33.424,
+     "t1": 33.478
+    },
+    {
+     "show": "Bu",
+     "emph": false,
+     "t0": 33.478,
+     "t1": 33.744
+    },
+    {
+     "show": "kuşlardan",
+     "emph": false,
+     "t0": 33.744,
+     "t1": 34.543
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 34.543,
+     "t1": 34.81
+    },
+    {
+     "show": "tümenimiz",
+     "emph": false,
+     "t0": 34.81,
+     "t1": 35.876
+    },
+    {
+     "show": "olsa,",
+     "emph": false,
+     "t0": 35.876,
+     "t1": 36.675
+    },
+    {
+     "show": "her",
+     "emph": false,
+     "t0": 36.675,
+     "t1": 36.688
+    },
+    {
+     "show": "orduyla",
+     "emph": false,
+     "t0": 36.688,
+     "t1": 36.729
+    },
+    {
+     "show": "savaşırdık!",
+     "emph": false,
+     "t0": 36.729,
+     "t1": 36.782
+    }
+   ],
+   "text": "Ordu geri çekildi. Komutan bile itiraf etti: Bu kuşlardan bir tümenimiz olsa, her orduyla savaşırdık!",
+   "gaps_found": 3,
+   "gaps_expected": 3
+  },
+  {
+   "id": "K",
+   "t0": 37.042,
+   "t1": 38.62,
+   "words": [
+    {
+     "show": "Skor:",
+     "emph": false,
+     "t0": 37.042,
+     "t1": 37.358
+    },
+    {
+     "show": "Ordu",
+     "emph": true,
+     "t0": 37.358,
+     "t1": 37.673
+    },
+    {
+     "show": "0,",
+     "emph": true,
+     "t0": 37.673,
+     "t1": 38.146
+    },
+    {
+     "show": "emu",
+     "emph": true,
+     "t0": 38.146,
+     "t1": 38.462
+    },
+    {
+     "show": "1!",
+     "emph": true,
+     "t0": 38.462,
+     "t1": 38.62
+    }
+   ],
+   "text": "Skor: *Ordu 0=sıfır, emu 1=bir!*",
+   "gaps_found": 1,
+   "gaps_expected": 2
+  }
+ ]
+}
