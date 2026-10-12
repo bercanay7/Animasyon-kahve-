@@ -1,595 +1,571 @@
 {
- "duration": 37.0,
- "voice": "fettah",
- "last_word_end": 35.232,
+ "duration": 40.0,
+ "voice": "dfki",
+ "last_word_end": 38.74,
  "sentences": [
   {
    "id": "A",
    "t0": 0.05,
-   "t1": 2.963,
+   "t1": 3.558,
    "words": [
     {
      "show": "Bir",
      "emph": false,
      "t0": 0.05,
-     "t1": 0.196
+     "t1": 0.238
     },
     {
      "show": "kadın",
      "emph": false,
-     "t0": 0.196,
-     "t1": 0.487
+     "t0": 0.238,
+     "t1": 0.613
     },
     {
      "show": "sokakta",
      "emph": false,
-     "t0": 0.487,
-     "t1": 0.924
+     "t0": 0.613,
+     "t1": 1.176
     },
     {
      "show": "dansa",
      "emph": false,
-     "t0": 0.924,
-     "t1": 1.215
+     "t0": 1.176,
+     "t1": 1.552
     },
     {
      "show": "başladı,",
      "emph": false,
-     "t0": 1.215,
-     "t1": 1.798
+     "t0": 1.552,
+     "t1": 2.115
     },
     {
      "show": "ve",
      "emph": false,
-     "t0": 1.798,
-     "t1": 1.943
+     "t0": 2.225,
+     "t1": 2.392
     },
     {
      "show": "günlerce",
      "emph": true,
-     "t0": 1.943,
-     "t1": 2.38
+     "t0": 2.392,
+     "t1": 2.892
     },
     {
      "show": "duramadı!",
      "emph": true,
-     "t0": 2.38,
-     "t1": 2.963
+     "t0": 2.892,
+     "t1": 3.558
     }
    ],
-   "text": "Bir kadın sokakta dansa başladı, ve *günlerce duramadı!*",
-   "gaps_found": 0,
-   "gaps_expected": 1
+   "text": "Bir kadın sokakta dansa başladı, ve *günlerce duramadı!*"
   },
   {
    "id": "B",
-   "t0": 3.223,
-   "t1": 5.757,
+   "t0": 3.818,
+   "t1": 6.416,
    "words": [
     {
      "show": "Ama",
      "emph": false,
-     "t0": 3.223,
-     "t1": 3.521
+     "t0": 3.818,
+     "t1": 4.139
     },
     {
      "show": "asıl",
      "emph": false,
-     "t0": 3.521,
-     "t1": 3.819
+     "t0": 4.139,
+     "t1": 4.459
     },
     {
      "show": "çılgınlık,",
      "emph": false,
-     "t0": 3.819,
-     "t1": 4.415
+     "t0": 4.459,
+     "t1": 4.939
     },
     {
      "show": "yetkililerin",
      "emph": true,
-     "t0": 4.415,
-     "t1": 5.16
+     "t0": 5.049,
+     "t1": 5.808
     },
     {
      "show": "çözümüydü!",
      "emph": true,
-     "t0": 5.16,
-     "t1": 5.757
+     "t0": 5.808,
+     "t1": 6.416
     }
    ],
-   "text": "Ama asıl çılgınlık, *yetkililerin çözümüydü!*",
-   "gaps_found": 0,
-   "gaps_expected": 1
+   "text": "Ama asıl çılgınlık, *yetkililerin çözümüydü!*"
   },
   {
    "id": "C",
-   "t0": 5.977,
-   "t1": 8.135,
+   "t0": 6.636,
+   "t1": 9.258,
    "words": [
     {
      "show": "Yıl",
      "emph": false,
-     "t0": 5.977,
-     "t1": 6.231
+     "t0": 6.636,
+     "t1": 6.864
     },
     {
      "show": "1518,",
      "emph": true,
-     "t0": 6.231,
-     "t1": 8.012
+     "t0": 6.864,
+     "t1": 8.234
     },
     {
      "show": "Strazburg.",
      "emph": false,
-     "t0": 8.012,
-     "t1": 8.135
+     "t0": 8.344,
+     "t1": 9.258
     }
    ],
-   "text": "Yıl *1518=bin_beş_yüz_on_sekiz*, Strazburg.",
-   "gaps_found": 1,
-   "gaps_expected": 1
+   "text": "Yıl *1518=bin_beş_yüz_on_sekiz*, Strazburg."
   },
   {
    "id": "D",
-   "t0": 8.335,
-   "t1": 11.278,
+   "t0": 9.458,
+   "t1": 12.818,
    "words": [
     {
      "show": "Bir",
      "emph": false,
-     "t0": 8.335,
-     "t1": 8.498
+     "t0": 9.458,
+     "t1": 9.63
     },
     {
      "show": "haftada",
      "emph": false,
-     "t0": 8.498,
-     "t1": 8.989
+     "t0": 9.63,
+     "t1": 10.147
     },
     {
      "show": "34",
      "emph": true,
-     "t0": 8.989,
-     "t1": 9.479
+     "t0": 10.147,
+     "t1": 10.664
     },
     {
      "show": "kişi",
      "emph": false,
-     "t0": 9.479,
-     "t1": 9.806
+     "t0": 10.664,
+     "t1": 11.008
     },
     {
      "show": "katıldı,",
      "emph": false,
-     "t0": 9.806,
-     "t1": 10.461
+     "t0": 11.008,
+     "t1": 11.525
     },
     {
      "show": "bir",
      "emph": false,
-     "t0": 10.461,
-     "t1": 10.624
+     "t0": 11.635,
+     "t1": 11.871
     },
     {
      "show": "ayda",
      "emph": false,
-     "t0": 10.624,
-     "t1": 10.951
+     "t0": 11.871,
+     "t1": 12.345
     },
     {
      "show": "400!",
      "emph": true,
-     "t0": 10.951,
-     "t1": 11.278
+     "t0": 12.345,
+     "t1": 12.818
     }
    ],
-   "text": "Bir haftada *34=otuz_dört* kişi katıldı, bir ayda *400=dört_yüz!*",
-   "gaps_found": 0,
-   "gaps_expected": 1
+   "text": "Bir haftada *34=otuz_dört* kişi katıldı, bir ayda *400=dört_yüz!*"
   },
   {
    "id": "E",
-   "t0": 11.498,
-   "t1": 14.586,
+   "t0": 13.038,
+   "t1": 16.44,
    "words": [
     {
      "show": "Yemek",
      "emph": false,
-     "t0": 11.498,
-     "t1": 12.031
+     "t0": 13.038,
+     "t1": 13.501
     },
     {
      "show": "yok,",
      "emph": false,
-     "t0": 12.031,
-     "t1": 12.563
+     "t0": 13.501,
+     "t1": 13.732
     },
     {
      "show": "uyku",
      "emph": false,
-     "t0": 12.563,
-     "t1": 12.852
+     "t0": 13.842,
+     "t1": 14.263
     },
     {
      "show": "yok!",
      "emph": false,
-     "t0": 12.852,
-     "t1": 13.256
+     "t0": 14.263,
+     "t1": 14.474
     },
     {
      "show": "Yorgunluktan",
      "emph": false,
-     "t0": 13.256,
-     "t1": 13.699
+     "t0": 14.474,
+     "t1": 15.129
     },
     {
      "show": "yığılanlar",
      "emph": false,
-     "t0": 13.699,
-     "t1": 14.143
+     "t0": 15.129,
+     "t1": 15.785
     },
     {
      "show": "bile",
      "emph": false,
-     "t0": 14.143,
-     "t1": 14.365
+     "t0": 15.785,
+     "t1": 16.113
     },
     {
      "show": "oldu!",
      "emph": false,
-     "t0": 14.365,
-     "t1": 14.586
+     "t0": 16.113,
+     "t1": 16.44
     }
    ],
-   "text": "Yemek yok, uyku yok! Yorgunluktan yığılanlar bile oldu!",
-   "gaps_found": 4,
-   "gaps_expected": 2
+   "text": "Yemek yok, uyku yok! Yorgunluktan yığılanlar bile oldu!"
   },
   {
    "id": "F",
-   "t0": 14.786,
-   "t1": 17.901,
+   "t0": 16.64,
+   "t1": 19.872,
    "words": [
     {
      "show": "Doktorlar",
      "emph": false,
-     "t0": 14.786,
-     "t1": 15.226
+     "t0": 16.64,
+     "t1": 17.239
     },
     {
      "show": "sıcak",
      "emph": true,
-     "t0": 15.226,
-     "t1": 15.52
+     "t0": 17.239,
+     "t1": 17.638
     },
     {
      "show": "kan",
      "emph": true,
-     "t0": 15.52,
-     "t1": 15.666
+     "t0": 17.638,
+     "t1": 17.837
     },
     {
      "show": "dedi.",
      "emph": false,
-     "t0": 15.666,
-     "t1": 16.224
+     "t0": 17.837,
+     "t1": 18.236
     },
     {
      "show": "Çözüm",
      "emph": false,
-     "t0": 16.224,
-     "t1": 16.486
+     "t0": 18.236,
+     "t1": 18.634
     },
     {
      "show": "mü?",
      "emph": false,
-     "t0": 16.486,
-     "t1": 16.854
+     "t0": 18.634,
+     "t1": 18.833
     },
     {
      "show": "Daha",
      "emph": true,
-     "t0": 16.854,
-     "t1": 17.273
+     "t0": 18.833,
+     "t1": 19.249
     },
     {
      "show": "fazla",
      "emph": true,
-     "t0": 17.273,
-     "t1": 17.692
+     "t0": 19.249,
+     "t1": 19.664
     },
     {
      "show": "dans!",
      "emph": true,
-     "t0": 17.692,
-     "t1": 17.901
+     "t0": 19.664,
+     "t1": 19.872
     }
    ],
-   "text": "Doktorlar *sıcak kan* dedi. Çözüm mü? *Daha fazla dans!*",
-   "gaps_found": 3,
-   "gaps_expected": 2
+   "text": "Doktorlar *sıcak kan* dedi. Çözüm mü? *Daha fazla dans!*"
   },
   {
    "id": "G",
-   "t0": 18.101,
-   "t1": 20.149,
+   "t0": 20.072,
+   "t1": 22.567,
    "words": [
     {
      "show": "Sahne",
      "emph": false,
-     "t0": 18.101,
-     "t1": 18.416
+     "t0": 20.072,
+     "t1": 20.483
     },
     {
      "show": "kurdular,",
      "emph": false,
-     "t0": 18.416,
-     "t1": 19.046
+     "t0": 20.483,
+     "t1": 21.1
     },
     {
      "show": "müzisyenler",
      "emph": true,
-     "t0": 19.046,
-     "t1": 19.676
+     "t0": 21.21,
+     "t1": 21.985
     },
     {
      "show": "tuttular!",
      "emph": true,
-     "t0": 19.676,
-     "t1": 20.149
+     "t0": 21.985,
+     "t1": 22.567
     }
    ],
-   "text": "Sahne kurdular, *müzisyenler tuttular!*",
-   "gaps_found": 0,
-   "gaps_expected": 1
+   "text": "Sahne kurdular, *müzisyenler tuttular!*"
   },
   {
    "id": "H",
-   "t0": 20.369,
-   "t1": 22.263,
+   "t0": 22.787,
+   "t1": 24.968,
    "words": [
     {
      "show": "Dans",
      "emph": false,
-     "t0": 20.369,
-     "t1": 20.436
+     "t0": 22.787,
+     "t1": 22.966
     },
     {
      "show": "bitmek",
      "emph": false,
-     "t0": 20.436,
-     "t1": 20.569
+     "t0": 22.966,
+     "t1": 23.324
     },
     {
      "show": "yerine,",
      "emph": false,
-     "t0": 20.569,
-     "t1": 20.837
+     "t0": 23.324,
+     "t1": 23.862
     },
     {
      "show": "daha",
      "emph": true,
-     "t0": 20.837,
-     "t1": 21.312
+     "t0": 23.972,
+     "t1": 24.304
     },
     {
      "show": "da",
      "emph": true,
-     "t0": 21.312,
-     "t1": 21.55
+     "t0": 24.304,
+     "t1": 24.47
     },
     {
      "show": "yayıldı!",
      "emph": true,
-     "t0": 21.55,
-     "t1": 22.263
+     "t0": 24.47,
+     "t1": 24.968
     }
    ],
-   "text": "Dans bitmek yerine, *daha da yayıldı!*",
-   "gaps_found": 2,
-   "gaps_expected": 1
+   "text": "Dans bitmek yerine, *daha da yayıldı!*"
   },
   {
    "id": "I",
-   "t0": 22.503,
-   "t1": 26.148,
+   "t0": 25.208,
+   "t1": 29.199,
    "words": [
     {
      "show": "Sonunda",
      "emph": false,
-     "t0": 22.503,
-     "t1": 22.94
+     "t0": 25.208,
+     "t1": 25.673
     },
     {
      "show": "müziği",
      "emph": false,
-     "t0": 22.94,
-     "t1": 23.378
+     "t0": 25.673,
+     "t1": 26.138
     },
     {
      "show": "yasakladılar,",
      "emph": false,
-     "t0": 23.378,
-     "t1": 24.252
+     "t0": 26.138,
+     "t1": 26.913
     },
     {
      "show": "ve",
      "emph": false,
-     "t0": 24.252,
-     "t1": 24.398
+     "t0": 27.023,
+     "t1": 27.191
     },
     {
      "show": "dansçıları",
      "emph": false,
-     "t0": 24.398,
-     "t1": 24.982
+     "t0": 27.191,
+     "t1": 27.86
     },
     {
      "show": "bir",
      "emph": false,
-     "t0": 24.982,
-     "t1": 25.127
+     "t0": 27.86,
+     "t1": 28.028
     },
     {
      "show": "türbeye",
      "emph": false,
-     "t0": 25.127,
-     "t1": 25.565
+     "t0": 28.028,
+     "t1": 28.53
     },
     {
      "show": "götürdüler.",
      "emph": false,
-     "t0": 25.565,
-     "t1": 26.148
+     "t0": 28.53,
+     "t1": 29.199
     }
    ],
-   "text": "Sonunda müziği yasakladılar, ve dansçıları bir türbeye götürdüler.",
-   "gaps_found": 0,
-   "gaps_expected": 1
+   "text": "Sonunda müziği yasakladılar, ve dansçıları bir türbeye götürdüler."
   },
   {
    "id": "J",
-   "t0": 26.388,
-   "t1": 30.699,
+   "t0": 29.439,
+   "t1": 33.87,
    "words": [
     {
      "show": "Bilim",
      "emph": false,
-     "t0": 26.388,
-     "t1": 26.689
+     "t0": 29.439,
+     "t1": 29.775
     },
     {
      "show": "insanları",
      "emph": false,
-     "t0": 26.689,
-     "t1": 27.289
+     "t0": 29.775,
+     "t1": 30.446
     },
     {
      "show": "hâlâ",
      "emph": false,
-     "t0": 27.289,
-     "t1": 27.44
+     "t0": 30.446,
+     "t1": 30.614
     },
     {
      "show": "emin",
      "emph": false,
-     "t0": 27.44,
-     "t1": 27.74
+     "t0": 30.614,
+     "t1": 30.95
     },
     {
      "show": "değil:",
      "emph": false,
-     "t0": 27.74,
-     "t1": 28.191
+     "t0": 30.95,
+     "t1": 31.285
     },
     {
      "show": "ergot",
      "emph": true,
-     "t0": 28.191,
-     "t1": 28.522
+     "t0": 31.445,
+     "t1": 31.782
     },
     {
      "show": "zehirlenmesi",
      "emph": true,
-     "t0": 28.522,
-     "t1": 29.351
+     "t0": 31.782,
+     "t1": 32.624
     },
     {
      "show": "mi,",
      "emph": true,
-     "t0": 29.351,
-     "t1": 29.683
+     "t0": 32.624,
+     "t1": 32.793
     },
     {
      "show": "toplu",
      "emph": true,
-     "t0": 29.683,
-     "t1": 30.022
+     "t0": 32.903,
+     "t1": 33.225
     },
     {
      "show": "histeri",
      "emph": true,
-     "t0": 30.022,
-     "t1": 30.529
+     "t0": 33.225,
+     "t1": 33.709
     },
     {
      "show": "mi?",
      "emph": true,
-     "t0": 30.529,
-     "t1": 30.699
+     "t0": 33.709,
+     "t1": 33.87
     }
    ],
-   "text": "Bilim insanları hâlâ emin değil: *ergot zehirlenmesi mi, toplu histeri mi?*",
-   "gaps_found": 3,
-   "gaps_expected": 2
+   "text": "Bilim insanları hâlâ emin değil: *ergot zehirlenmesi mi, toplu histeri mi?*"
   },
   {
    "id": "K",
-   "t0": 30.959,
-   "t1": 32.808,
+   "t0": 34.13,
+   "t1": 36.132,
    "words": [
     {
      "show": "Ve",
      "emph": false,
-     "t0": 30.959,
-     "t1": 31.163
+     "t0": 34.13,
+     "t1": 34.431
     },
     {
      "show": "dans,",
      "emph": false,
-     "t0": 31.163,
-     "t1": 31.571
+     "t0": 34.431,
+     "t1": 34.732
     },
     {
      "show": "müzik",
      "emph": true,
-     "t0": 31.571,
-     "t1": 31.924
+     "t0": 34.842,
+     "t1": 35.21
     },
     {
      "show": "susunca",
      "emph": true,
-     "t0": 31.924,
-     "t1": 32.455
+     "t0": 35.21,
+     "t1": 35.764
     },
     {
      "show": "bitti!",
      "emph": true,
-     "t0": 32.455,
-     "t1": 32.808
+     "t0": 35.764,
+     "t1": 36.132
     }
    ],
-   "text": "Ve dans, *müzik susunca bitti!*",
-   "gaps_found": 2,
-   "gaps_expected": 1
+   "text": "Ve dans, *müzik susunca bitti!*"
   },
   {
    "id": "L",
-   "t0": 33.358,
-   "t1": 35.232,
+   "t0": 36.682,
+   "t1": 38.74,
    "words": [
     {
      "show": "Bazen",
      "emph": false,
-     "t0": 33.358,
-     "t1": 33.72
+     "t0": 36.682,
+     "t1": 37.098
     },
     {
      "show": "çözüm,",
      "emph": false,
-     "t0": 33.72,
-     "t1": 34.263
+     "t0": 37.098,
+     "t1": 37.513
     },
     {
      "show": "sessizliktir.",
      "emph": true,
-     "t0": 34.263,
-     "t1": 35.232
+     "t0": 37.623,
+     "t1": 38.74
     }
    ],
-   "text": "Bazen çözüm, *sessizliktir.*",
-   "gaps_found": 2,
-   "gaps_expected": 1
+   "text": "Bazen çözüm, *sessizliktir.*"
   }
  ]
 }

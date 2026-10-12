@@ -269,7 +269,7 @@ def build():
     env = np.array([np.sqrt(np.mean(v[i:i + 4 * hop] ** 2)) for i in range(0, N - 4 * hop, hop)])
     env = np.minimum(1, env / 0.12)
     env = np.convolve(env, np.ones(12) / 12, mode="same")
-    duck = np.interp(np.arange(N) / SR, np.arange(len(env)) * hop / SR, 1 - 0.55 * env)
+    duck = np.interp(np.arange(N) / SR, np.arange(len(env)) * hop / SR, 1 - 0.70 * env)
 
     Tm = cues.SILENCE_T
     # ---- müzik: sekizlik ızgara (tempo hızlanır)
@@ -358,7 +358,7 @@ def build():
     ir = make_ir()
     for ch in range(2):
         sfx_buf[:, ch] += fftconvolve(wet_buf[:, ch], ir)[:N] * 0.5
-    music = music_buf * 0.22
+    music = music_buf * 0.15
     for ch in range(2):
         music[:, ch] *= duck
     # müzik, SILENCE_T'de keskin biter (0.02 sn)
@@ -366,7 +366,7 @@ def build():
     fo = int(0.02 * SR)
     music[ci - fo:ci] *= np.linspace(1, 0, fo)[:, None]
     music[ci:] = 0.0
-    sfx = sfx_buf * 0.85
+    sfx = sfx_buf * 0.7
     mix = voice_buf * 1.0 + music + sfx
     return mix
 
