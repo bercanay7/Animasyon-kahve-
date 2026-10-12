@@ -3,3 +3,5 @@ ses-modelleri/*.tar.bz2
 __pycache__/
 emu-savasi/out/emu_noaudio.mp4
 emu-savasi/out/render.log
+dans-vebasi/out/dans_noaudio.mp4
+dans-vebasi/out/render.log
