@@ -6,26 +6,25 @@ sys.path.insert(0, os.path.join(HERE, "..", "ses-lab"))
 import narrator
 
 VOICE = "dfki"
-PROF = dict(speed=1.12)
+PROF = dict(speed=1.08, reverb_wet=0.0)   # anayasa: kuru erkek ses (yankı 0)
 for a in sys.argv[1:]:
     if a == "--kadin":   # kadın sesi (WORLD dönüşümü) + kuru ses (yankısız)
-        PROF.update(f0_scale=1.55, formant=1.14, reverb_wet=0.0)
+        PROF.update(f0_scale=1.55, formant=1.14)
     if a.startswith("--voice="):
         VOICE = a.split("=")[1]
 
 # (id, metin, hız, enerji, sonraki boşluk)
 SENTENCES = [
-    ("A", "Titanik batmadan *14=on_dört yıl önce*, bir yazar *aynı felaketi yazdı!*", 1.04, 1.2, 0.22),
-    ("B", "*6=altı benzerlik* var, ve sonuncusu *çok ürkütücü!*", 1.04, 1.15, 0.20),
+    ("A", "Titanik batmadan *14=on_dört yıl önce*, bir yazar *benzer felaketi yazdı!*", 1.04, 1.2, 0.22),
+    ("B", "*5=beş benzerlik* var, ve sonuncusu *çok ürkütücü!*", 1.04, 1.15, 0.20),
     ("C", "Yıl *1898=bin_sekiz_yüz_doksan_sekiz*. Roman: *Futility=fyutiliti.*", 1.02, 1.0, 0.20),
-    ("D", "Bir: İkisi de *batmaz* diye tanıtıldı!", 1.06, 1.15, 0.16),
+    ("D", "Bir: İkisi de *pratikte batmaz* diye tanıtıldı!", 1.06, 1.15, 0.16),
     ("E", "İki: Nisan gecesi, *Atlantik’te=Atlantikte buzdağına çarptılar!*", 1.06, 1.15, 0.16),
-    ("F", "Üç: İkisi de *sancak tarafından* vuruldu!", 1.06, 1.15, 0.16),
-    ("G", "Dört: İkisinde de *cankurtaran botu yetersizdi!*", 1.06, 1.15, 0.16),
-    ("H", "Beş: Neredeyse aynı boy! *244=iki_yüz_kırk_dört metreye* karşı *269=iki_yüz_altmış_dokuz metre!*", 1.06, 1.15, 0.30),
-    ("I", "Ve altıncı: romandaki geminin adı, *Titan!*", 1.00, 1.2, 0.30),
+    ("G", "Üç: İkisinde de *cankurtaran botu yetersizdi!*", 1.06, 1.15, 0.16),
+    ("H", "Dört: Boyları da *neredeyse aynı!*", 1.06, 1.15, 0.30),
+    ("I", "Ve beşinci: romandaki geminin adı, *Titan!*", 1.00, 1.2, 0.30),
     ("J", "Gerçek geminin adı ise, *Titanik!*", 1.00, 1.2, 0.30),
-    ("K", "Kehanet mi? Hayır. Yazar, *denizciliği çok iyi biliyordu.*", 1.02, 1.0, 0.25),
+    ("K", "Kehanet mi? Hayır. Yazar, *denizciliği çok iyi biliyordu*, üstelik roman *Titanik’ten sonra* düzenlendi.", 1.02, 1.0, 0.25),
     ("L", "Yine de, *tüyler ürpertici.*", 0.92, 0.9, 0.0),
 ]
 

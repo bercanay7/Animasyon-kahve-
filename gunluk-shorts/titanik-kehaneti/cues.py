@@ -28,8 +28,8 @@ FINAL_T = T - 0.1            # bu andan sonraki kareler 0. kareyle birebir aynı
 CAP_END = T - 0.1
 
 # Geçişler
-TRANS = [(st("B") - 0.04, "whip"), (st("C") - 0.04, "zoom"), (st("D") - 0.04, "whip"), (st("E") - 0.04, "up"), (st("F") - 0.04, "whip"),
-         (st("G") - 0.04, "up"), (st("H") - 0.04, "whip"), (st("I") - 0.04, "zoom"), (st("J") - 0.04, "zoom"), (st("K") - 0.04, "whip"),
+TRANS = [(st("B") - 0.04, "whip"), (st("C") - 0.04, "zoom"), (st("D") - 0.04, "whip"), (st("E") - 0.04, "up"), (st("G") - 0.04, "whip"),
+         (st("H") - 0.04, "up"), (st("I") - 0.04, "zoom"), (st("J") - 0.04, "zoom"), (st("K") - 0.04, "whip"),
          (st("L") - 0.04, "zoom")]
 TW = 0.17
 
@@ -42,16 +42,16 @@ def group_of(t):
     return g
 
 
-# Benzerlik sayacı (HUD): açılışta 6/6 (spoiler), 1.2-1.7 sn'de 0'a sarar, anlatımda 1..6 olur
+# Benzerlik sayacı (HUD): açılışta 5/5 (spoiler), 1.2-1.7 sn'de 0'a sarar, anlatımda 1..5 olur
 RESET0, RESET1 = 1.15, 1.65
-SIM_T = [wt("D", 3), wt("E", 4), wt("F", 3), wt("G", 3), wt("H", 4), wt("I", 5)]
+SIM_T = [wt("D", 4), wt("E", 4), wt("G", 3), wt("H", 3), wt("I", 5)]
 
 
 def sims(t):
     if t < RESET0:
-        return 6.0
+        return 5.0
     if t < RESET1:
-        return 6.0 * (1 - ease_io(prog(t, RESET0, RESET1)))
+        return 5.0 * (1 - ease_io(prog(t, RESET0, RESET1)))
     n = 0
     for k, ts in enumerate(SIM_T):
         if t >= ts:
@@ -60,8 +60,8 @@ def sims(t):
 
 
 FLASH = [(wt("E", 4), 0.55, 0.14), (wt("I", 5), 0.45, 0.12), (wt("J", 4), 0.45, 0.14), (st("L") - 0.04 + 0.17, 0.3, 0.12), (wt("A", 9), 0.25, 0.1)]
-SHAKES = [(wt("E", 4), 20, 0.4), (wt("I", 5), 14, 0.3), (wt("J", 4), 16, 0.35), (st("L") - 0.04 + 0.17, 10, 0.25), (wt("D", 3), 8, 0.2)]
-STAMPS = [(wt("D", 3), 0.9), (wt("J", 4), 1.0), (wt("I", 5), 1.0), (wt("G", 5), 0.8)]
+SHAKES = [(wt("E", 4), 20, 0.4), (wt("I", 5), 14, 0.3), (wt("J", 4), 16, 0.35), (st("L") - 0.04 + 0.17, 10, 0.25), (wt("D", 4), 8, 0.2)]
+STAMPS = [(wt("D", 4), 0.9), (wt("J", 4), 1.0), (wt("I", 5), 1.0), (wt("G", 5), 0.8)]
 CHECKS = SIM_T
 
 

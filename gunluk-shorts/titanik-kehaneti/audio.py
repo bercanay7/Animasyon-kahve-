@@ -257,7 +257,7 @@ def build():
     env = np.array([np.sqrt(np.mean(v[i:i + 4 * hop] ** 2)) for i in range(0, N - 4 * hop, hop)])
     env = np.minimum(1, env / 0.12)
     env = np.convolve(env, np.ones(12) / 12, mode="same")
-    duck = np.interp(np.arange(N) / SR, np.arange(len(env)) * hop / SR, 1 - 0.70 * env)
+    duck = np.interp(np.arange(N) / SR, np.arange(len(env)) * hop / SR, 1 - 0.85 * env)
 
     Tm = T - 0.12
     # ---- müzik: karanlık pad (D minör: D, F, A, Bb) + kalp atışı + sonar
@@ -293,7 +293,7 @@ def build():
     for k in range(14):
         place(sfx_buf, key_tick(), 1.3 + k * (cues.wt("A", 9) + 0.1 - 1.3) / 14, 0.25)
     # B: satır tıkları
-    for i in range(6):
+    for i in range(5):
         place(sfx_buf, key_tick(), cues.st("B") + 0.12 + i * 0.16, 0.35)
     # C: daktilo
     for ch in range(8):
@@ -311,7 +311,6 @@ def build():
     place(sfx_buf, ice_crack(1.2), cues.wt("E", 5) - 0.02, 0.7, send=0.3)
     place(sfx_buf, crash(1.0), cues.wt("E", 5), 0.35, send=0.2)
     # F: kırmızı çizgi cızırtısı
-    place(sfx_buf, slide(300, 1500, 0.45, "saw", 3000), cues.wt("F", 3) - 0.1, 0.14)
     # G: bot tıkırtıları
     for i in range(44):
         tm = cues.st("G") + 0.3 + (i % 24) * 0.045 + (0.0 if i < 24 else 0.0)
@@ -320,7 +319,7 @@ def build():
         else:
             place(sfx_buf, wood_tok_(), cues.st("G") + 0.3 + (i - 24) * 0.045, 0.12, pan=0.5)
     # H: ölçü çizgileri
-    for k in (4, 7):
+    for k in (3, 4):
         place(sfx_buf, whoosh(0.35, True, 0.8), cues.wt("H", k) - 0.05, 0.25)
     # I/J: büyük darbe + çan
     place(sfx_buf, sting(233, 2.4), cues.wt("I", 5), 0.35, send=0.5)
@@ -356,6 +355,9 @@ def lufs(x):
     return pyln.Meter(SR).integrated_loudness(x)
 
 
+CEIL_DB = -2.5   # örnek tepe tavanı (dBFS); AAC sonrası true peak ≤ −1 dBTP hedefi
+
+
 def master(x):
     # son 0.1 sn tam sessiz (döngüde kesintisiz bağlanır); ilk örnekte yumuşak giriş
     tail = int(0.10 * SR)
@@ -365,19 +367,32 @@ def master(x):
     x[:int(0.002 * SR)] *= np.linspace(0, 1, int(0.002 * SR))[:, None]
     sos = butter(2, 30, "high", fs=SR, output="sos")
     x = np.stack([sosfilt(sos, x[:, 0]), sosfilt(sos, x[:, 1])], axis=1)
-    ceil = 10 ** (-6.0 / 20)
+    # Anayasa: kodlanmış mp4'te −14 LUFS ±1 ve ≤ −1 dBTP. Sert kırpma yerine ileri-bakışlı (lookahead) limiter:
+    # tepe, 10 ms pencerede minimum kazanç + hareketli ortalama ile yumuşatılır (bozulma/pompalama düşük).
+    from scipy.ndimage import minimum_filter1d, uniform_filter1d
+    ceil = 10 ** (CEIL_DB / 20)
+    n = int(0.010 * SR)
+
+    def limit(y):
+        from scipy.signal import resample_poly
+        y4 = resample_poly(y, 4, 1, axis=0)                      # 4x aşırı örnek: örnekler arası (true) tepe
+        env = np.abs(y4).max(axis=1)[: len(y) * 4].reshape(-1, 4).max(axis=1)
+        gain = np.minimum(1.0, ceil / (env + 1e-9))
+        gain = uniform_filter1d(minimum_filter1d(gain, size=2 * n, mode="nearest"), size=n, mode="nearest")
+        gain = np.minimum(gain, np.minimum(1.0, ceil / (env + 1e-9)))   # güvenlik: asla tavanı aşma
+        z = y * gain[:, None]
+        z[-tail:] = 0.0
+        return z
+
     g = 1.0
     z = x
-    for _ in range(8):
-        y = x * g
-        knee = ceil * 0.75
-        z = np.where(np.abs(y) > knee, np.sign(y) * (knee + (ceil - knee) * np.tanh((np.abs(y) - knee) / (ceil - knee))), y)
-        z[-tail:] = 0.0
+    for _ in range(12):
+        z = limit(x * g)
         L = lufs(z)
         if abs(L + 14.0) < 0.05:
             break
         g *= 10 ** ((-14.0 - L) / 20)
-    return np.clip(z, -ceil, ceil), lufs(z)
+    return z, lufs(z)
 
 
 def write_wav(path, x):

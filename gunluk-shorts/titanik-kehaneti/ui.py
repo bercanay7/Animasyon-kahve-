@@ -119,13 +119,13 @@ def draw_hud(img, t):
     p.cam(W / 2, H / 2, 1.0)
     box = [(8, 8), (w - 8, 8), (w - 8, h - 8), (8, h - 8)]
     p.poly(box, (8, 30, 62))
-    full = shown >= 6 and t > cues.RESET1
+    full = shown >= 5 and t > cues.RESET1
     col = GREEN if full else LINE
     L(p, box, 4, col, 1.0, 1.0, glow=False, closed=True)
     for (x, y, dx, dy) in ((8, 8, 1, 1), (w - 8, 8, -1, 1), (8, h - 8, 1, -1), (w - 8, h - 8, -1, -1)):
         L(p, [(x, y + dy * 18), (x, y), (x + dx * 18, y)], 7, AMBER, 1.0, 1.0, glow=False)
-    p.text(172, h / 2 + 3, "BENZERLİK", 40, LINE_DIM if not full else GREEN, path=FONT_MONO)
-    p.text(448, h / 2 + 5, f"{shown}/6", 68, AMBER if not full else GREEN, path=FONT_MONO)
+    p.text(172, h / 2 + 3, "BENZERLİK", 44, LINE_DIM if not full else GREEN, path=FONT_MONO)
+    p.text(448, h / 2 + 5, f"{shown}/5", 68, AMBER if not full else GREEN, path=FONT_MONO)
     patch = p.finish()
     jit = 0
     pulse = [ts for ts in cues.SIM_T if 0 <= t - ts < 0.35]

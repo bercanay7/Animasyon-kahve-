@@ -33,7 +33,7 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 
 ## 3. Kanca kuralları (ilk 3 saniye)
 
-- **Kare 0'da kart (= kapak = son kare):** ≤6 kelime (≤40 karakter), ≥64 px, ≤2 satır, giriş animasyonu yok (kare 0'da tam kurulmuş), güvenli alanda; en çok 5 öğe. Kart özne+olay söyler ("ORDU 0 – EMU 1" tipi).
+- **Kare 0'da kart (= kapak = son kare):** ≤6 kelime (≤40 karakter), ≥64 px, ≤3 kısa satır (Türkçe sözcükler eş aralıklı yazıda ≥64 px'te iki satıra sığmıyor; v1'de ≤2 yazılmıştı, Titanik'te ölçüldü), giriş animasyonu yok (kare 0'da tam kurulmuş), güvenli alanda; en çok 5 öğe. Kart özne+olay söyler ("ORDU 0 – EMU 1" tipi).
 - **Ses:** ilk sesli söz ≤0,5 sn; ilk cümle ≤9 kelime ve ≤3,5 sn; kare 0'da tek imza vuruşu ≤0,25 sn.
 - **Vaat ödenir:** kanca cümlesindeki her sayı/iddia videoda gösterilir; vaadin ödendiği saniye ≤30 (en çok 35) ve kaynak dosyasına yazılır.
 - **Kanca üretimi:** her video için 3 aday yazılır (~15 dk), biri seçilir. Kanca türleri iki: **R** (rakam/çelişki), **S** (soru/merak). İlk 14 videoda tür yazı-tura ile atanır.

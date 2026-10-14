@@ -1,4 +1,4 @@
-"""Titanik'in Kehaneti — 12 sahne, mavi baskı (blueprint) stili. Her fonksiyon t için 1080x1920 RGB döndürür."""
+"""Titanik'in Kehaneti — 11 sahne, mavi baskı (blueprint) stili. Her fonksiyon t için 1080x1920 RGB döndürür."""
 import math
 
 import cues
@@ -21,13 +21,13 @@ def finish(ctx, t):
 
 # ───────────── açılış/kapanış kartı (ilk kare = son kare) ─────────────
 def title_card(ctx, dy=0.0, t=0.0, wave_t=0.0):
-    txt(ctx, 540, 372 + dy, "TİTANİK’TEN", 82, LINE)
-    txt(ctx, 540, 505 + dy, "14 YIL ÖNCE", 140, AMBER)
-    txt(ctx, 540, 660 + dy, "YAZILDI!", 170, (255, 255, 255))
-    L(ctx, [(120, 765 + dy), (960, 765 + dy)], 5, AMBER, 1.0, 1.0)
-    ship(ctx, 540, 1040 + dy, 0.62, 1.0, funnels=4, col=LINE, alpha=0.95)
-    waves_line(ctx, 1080 + dy, wave_t, x0=100, x1=980, amp=7, rows=2)
-    txt(ctx, 540, 1190 + dy, "6 BENZERLİK", 76, GREEN)
+    """Kanca kartı (anayasa: ≤6 kelime, ≥64 px, ≤2 satır yerine 3 kısa satır / 6 kelime, güvenli alan y 290–1250)"""
+    txt(ctx, 540, 430 + dy, "14 YIL ÖNCE", 140, AMBER)
+    txt(ctx, 540, 590 + dy, "YAZILDI:", 150, (255, 255, 255))
+    txt(ctx, 540, 745 + dy, "KEHANET Mİ?", 130, (255, 255, 255))
+    L(ctx, [(120, 835 + dy), (960, 835 + dy)], 5, AMBER, 1.0, 1.0)
+    ship(ctx, 540, 1110 + dy, 0.62, 1.0, funnels=4, col=LINE, alpha=0.95)
+    waves_line(ctx, 1150 + dy, wave_t, x0=100, x1=980, amp=7, rows=2)
 
 
 # ═══════════ A: kart → 1898 ile 1912 arası ═══════════
@@ -63,26 +63,27 @@ def scene_A(t, still=False):
     return finish(ctx, tt_)
 
 
-# ═══════════ B: 6 benzerlik kontrol listesi ═══════════
+# ═══════════ B: 5 benzerlik kontrol listesi ═══════════
 def scene_B(t):
     u = t - st("B")
     ctx = new(t, 1.0 + 0.03 * prog(t, st("B"), en("B")))
-    rows = ["01  ....................", "02  ....................", "03  ....................", "04  ....................", "05  ....................", "06  ???????????????????"]
-    for i in range(6):
-        y = 460 + i * 118
+    for i in range(5):
+        y = 480 + i * 135
         ts = st("B") + 0.12 + i * 0.16
         k = ease_out(prog(t, ts, ts + 0.25), 3)
         if k <= 0:
             continue
         x0 = 90
-        L(ctx, [(x0, y - 36), (x0 + 74, y - 36), (x0 + 74, y + 38), (x0, y + 38)], 4, LINE if i < 5 else RED, 1.0, k, closed=True)
-        txt(ctx, x0 + 37, y + 2, f"{i+1}", 54, LINE if i < 5 else RED, k)
-        L(ctx, [(x0 + 120, y + 30), (x0 + 120 + 780 * k, y + 30)], 3, LINE_DIM if i < 5 else RED, 0.9, 1.0, glow=False)
-        if i < 5:
+        L(ctx, [(x0, y - 36), (x0 + 74, y - 36), (x0 + 74, y + 38), (x0, y + 38)], 4, LINE if i < 4 else RED, 1.0, k, closed=True)
+        txt(ctx, x0 + 37, y + 2, f"{i+1}", 54, LINE if i < 4 else RED, k)
+        L(ctx, [(x0 + 120, y + 30), (x0 + 120 + 780 * k, y + 30)], 3, LINE_DIM if i < 4 else RED, 0.9, 1.0, glow=False)
+        if i < 4:
             txt(ctx, x0 + 150, y - 4, "· · ·", 56, LINE_DIM, k, anchor="lm")
         else:
             blink = 0.5 + 0.5 * math.sin(t * 9)
             txt(ctx, x0 + 150, y - 4, "? ? ? ?", 64, mix(RED, (255, 255, 255), blink * 0.5), k, anchor="lm")
+    yy_ = 440 + 700 * (((t - st("B")) * 0.55) % 1.0)
+    L(ctx, [(70, yy_), (1010, yy_)], 3, AMBER, 0.45, 1.0, glow=False)
     tw = wt("B", 6)
     if t >= tw - 0.05:
         kk = back_out(prog(t, tw - 0.05, tw + 0.2), 2.2)
@@ -113,7 +114,7 @@ def scene_C(t):
     return finish(ctx, t)
 
 
-# ═══════════ D: batmaz ═══════════
+# ═══════════ D: pratikte batmaz (basında) ═══════════
 def scene_D(t):
     u = t - st("D")
     ctx = new(t)
@@ -124,11 +125,11 @@ def scene_D(t):
     txt(ctx, 160, 840, "GERÇEK · 1912", 44, LINE_DIM, ease_out(prog(t, st("D") + 0.3, st("D") + 0.6)), anchor="lm")
     ship(ctx, 540, 1150, 0.7, prog(t, st("D") + 0.25, st("D") + 1.6), funnels=4, alpha=0.95)
     waves_line(ctx, 1190, t, rows=2)
-    tb = wt("D", 3)
+    tb = wt("D", 4)
     if t >= tb - 0.02:
         k = ease_out(prog(t, tb - 0.02, tb + 0.14), 3)
-        stamp(ctx, 400, 640, "BATMAZ!", 100 * (2.0 - 1.0 * k), RED, -10.0, 1.0)
-        stamp(ctx, 700, 1050, "BATMAZ!", 100 * (2.0 - 1.0 * k), RED, 8.0, 1.0)
+        stamp(ctx, 540, 640, "“PRATİKTE BATMAZ”", 56 * (1.8 - 0.8 * k), RED, -6.0, 1.0)
+        stamp(ctx, 540, 1050, "“PRATİKTE BATMAZ”", 56 * (1.8 - 0.8 * k), RED, 5.0, 1.0)
     return finish(ctx, t)
 
 
@@ -139,7 +140,7 @@ def scene_E(t):
     # takvim + ay
     L(ctx, [(110, 400), (390, 400), (390, 560), (110, 560), (110, 400)], 4, LINE, 1.0, prog(t, st("E"), st("E") + 0.6))
     L(ctx, [(110, 450), (390, 450)], 3, LINE_DIM, 1.0, prog(t, st("E") + 0.2, st("E") + 0.6), glow=False)
-    txt(ctx, 250, 425, "NİSAN", 38, AMBER, ease_out(prog(t, st("E") + 0.2, st("E") + 0.6)))
+    txt(ctx, 250, 425, "NİSAN", 44, AMBER, ease_out(prog(t, st("E") + 0.2, st("E") + 0.6)))
     txt(ctx, 250, 520, "GECE", 52, LINE, ease_out(prog(t, st("E") + 0.3, st("E") + 0.7)))
     moon = circ_pts(800, 470, 70)
     L(ctx, moon, 5, LINE, 1.0, prog(t, st("E") + 0.1, st("E") + 0.9))
@@ -163,27 +164,6 @@ def scene_E(t):
     return finish(ctx, t)
 
 
-# ═══════════ F: sancak tarafı ═══════════
-def scene_F(t):
-    u = t - st("F")
-    ctx = new(t)
-    for j, (y, lab) in enumerate(((640, "ROMAN"), (980, "GERÇEK"))):
-        k = prog(t, st("F") + 0.1 * j, st("F") + 0.8 + 0.1 * j)
-        txt(ctx, 110, y - 120, lab, 44, LINE_DIM, k, anchor="lm")
-        topdown_ship(ctx, 460, y, 0.75, k)
-        # buzdağı (sağ taraf = sancak, ekranda alt kenar)
-        ice = circ_pts(300, y + 98, 52, 40, 9)
-        L(ctx, ice, 5, LINE, 1.0, prog(t, st("F") + 0.5, st("F") + 1.0))
-    ts = wt("F", 3)
-    if t >= ts - 0.05:
-        k = ease_out(prog(t, ts - 0.05, ts + 0.4), 2)
-        for y in (640, 980):
-            L(ctx, [(460 - 340 * 0.75, y + 38), (460 + 200 * 0.75, y + 38)], 9, RED, 1.0, k)
-        txt(ctx, 540, 790, "SANCAK", 86 * max(0.02, k), RED)
-        txt(ctx, 540, 1150, "(sağ taraf)", 48, LINE_DIM, k)
-    return finish(ctx, t)
-
-
 # ═══════════ G: cankurtaran botları ═══════════
 def scene_G(t):
     u = t - st("G")
@@ -199,11 +179,12 @@ def scene_G(t):
             if k > 0:
                 lifeboat(ctx, cx0 - 150 + c * 100, 600 + r * 104, 0.9, k)
         cnt = int(clamp((t - st("G") - 0.3) / (n * 0.045), 0, 1) * n)
-        txt(ctx, cx0, 1215, str(cnt), 110, AMBER if cnt == n else LINE, 1.0)
+        txt(ctx, cx0, 1195, "~" + str(cnt), 100, AMBER if cnt == n else LINE, 1.0)
     tw = wt("G", 5)
     if t >= tw - 0.05:
         kk = back_out(prog(t, tw - 0.05, tw + 0.25), 2.2)
         stamp(ctx, 540, 1090, "YETERSİZ!", 96, RED, -6.0, kk)
+    txt(ctx, 540, 535, "(yaklaşık; baskıya göre değişir)", 44, LINE_DIM, ease_out(prog(t, st("G") + 0.6, st("G") + 1.0)))
     return finish(ctx, t)
 
 
@@ -217,13 +198,14 @@ def scene_H(t):
     waves_line(ctx, base + 46, t, rows=2)
     sx_ = 80 + 920 * (((t - st("H")) * 0.55) % 1.0)
     L(ctx, [(sx_, 520), (sx_, 960)], 3, AMBER, 0.55, 1.0, glow=False)
-    t1, t2 = wt("H", 4), wt("H", 7)
+    t1, t2 = wt("H", 3), wt("H", 4)
     L_t = 505 * 0.95 * 244 / 269
     L_T = 505 * 0.95
     if t >= t1 - 0.05:
-        dim_line(ctx, 540 - L_t, 540 + L_t, base + 190, "244 m", 56, AMBER, ease_out(prog(t, t1 - 0.05, t1 + 0.5)))
+        dim_line(ctx, 540 - L_t, 540 + L_t, base + 190, "~244 m", 56, AMBER, ease_out(prog(t, t1 - 0.05, t1 + 0.5)))
     if t >= t2 - 0.05:
-        dim_line(ctx, 540 - L_T, 540 + L_T, base + 330, "269 m", 56, GREEN, ease_out(prog(t, t2 - 0.05, t2 + 0.5)))
+        dim_line(ctx, 540 - L_T, 540 + L_T, base + 330, "~269 m", 56, GREEN, ease_out(prog(t, t2 - 0.05, t2 + 0.5)))
+    txt(ctx, 540, 1262, "(yaklaşık; baskıya göre değişir)", 44, LINE_DIM, 1.0)
     txt(ctx, 110, 440, "ROMAN", 44, AMBER, 1.0, anchor="lm")
     txt(ctx, 110, 495, "GERÇEK", 44, GREEN, 1.0, anchor="lm")
     return finish(ctx, t)
@@ -266,7 +248,7 @@ def scene_J(t):
     return finish(ctx, t)
 
 
-# ═══════════ K: kehanet mi? hayır — denizcilik ═══════════
+# ═══════════ K: kehanet mi? hayır — denizcilik + roman sonradan düzenlendi ═══════════
 def scene_K(t):
     u = t - st("K")
     ctx = new(t, 1.0 + 0.03 * prog(t, st("K"), en("K")))
@@ -275,20 +257,31 @@ def scene_K(t):
     tx = wt("K", 2)
     if t >= tx:
         cross(ctx, 540, 500, 3.6, ease_out(prog(t, tx, tx + 0.3)), RED)
+    w8 = wt("K", 8)
+    wa = 1.0 - ease_out(prog(t, w8 - 0.05, w8 + 0.25), 2)       # dümen simidi sönerken yeniden baskı paneli gelir
     # dümen simidi
     td = wt("K", 4)
     r = ease_out(prog(t, td, td + 0.9), 2)
     cx, cy, R = 540, 1000, 200
-    L(ctx, circ_pts(cx, cy, R), 6, AMBER, 1.0, r)
-    L(ctx, circ_pts(cx, cy, R * 0.28), 5, AMBER, 1.0, r)
-    for i in range(8):
-        a = i * math.pi / 4 + t * 0.35
-        L(ctx, [(cx + math.cos(a) * R * 0.28, cy + math.sin(a) * R * 0.28), (cx + math.cos(a) * (R + 70), cy + math.sin(a) * (R + 70))], 6, AMBER, 1.0, r)
-        L(ctx, circ_pts(cx + math.cos(a) * (R + 80), cy + math.sin(a) * (R + 80), 14, n=10), 4, AMBER, 1.0, r, glow=False)
-    tb = wt("K", 7)
-    if t >= tb - 0.1:
-        check(ctx, 540, 1000, 1.6, ease_out(prog(t, tb - 0.1, tb + 0.35)))
-        txt(ctx, 540, 650, "DENİZCİLİK BİLGİSİ", 52, GREEN, ease_out(prog(t, tb - 0.1, tb + 0.3)), stroke=6)
+    if wa > 0.02:
+        L(ctx, circ_pts(cx, cy, R), 6, AMBER, wa, r)
+        L(ctx, circ_pts(cx, cy, R * 0.28), 5, AMBER, wa, r)
+        for i in range(8):
+            a = i * math.pi / 4 + t * 0.35
+            L(ctx, [(cx + math.cos(a) * R * 0.28, cy + math.sin(a) * R * 0.28), (cx + math.cos(a) * (R + 70), cy + math.sin(a) * (R + 70))], 6, AMBER, wa, r)
+            L(ctx, circ_pts(cx + math.cos(a) * (R + 80), cy + math.sin(a) * (R + 80), 14, n=10), 4, AMBER, wa, r, glow=False)
+        tb = wt("K", 7)
+        if t >= tb - 0.1:
+            check(ctx, 540, 1000, 1.6 * wa, ease_out(prog(t, tb - 0.1, tb + 0.35)))
+            txt(ctx, 540, 650, "DENİZCİLİK BİLGİSİ", 52, GREEN, ease_out(prog(t, tb - 0.1, tb + 0.3)) * wa, stroke=6)
+    # roman sonradan düzenlendi: gemi büyür
+    if t >= w8 - 0.05:
+        g = ease_out(prog(t, w8, wt("K", 12) + 0.2), 2)
+        a_ = ease_out(prog(t, w8 - 0.05, w8 + 0.3), 2)
+        txt(ctx, 540, 740, "YENİDEN BASKI", 76, AMBER, a_)
+        txt(ctx, 540, 840, "GEMİ BÜYÜTÜLDÜ", 56, LINE, a_)
+        ship(ctx, 540, 1100, 0.50 + 0.18 * g, a_, funnels=3, alpha=0.95)
+        waves_line(ctx, 1145, t, rows=2)
     return finish(ctx, t)
 
 
@@ -303,7 +296,7 @@ def scene_L(t):
 
 
 def _funcs():
-    return [scene_A, scene_B, scene_C, scene_D, scene_E, scene_F, scene_G, scene_H, scene_I, scene_J, scene_K, scene_L]
+    return [scene_A, scene_B, scene_C, scene_D, scene_E, scene_G, scene_H, scene_I, scene_J, scene_K, scene_L]
 
 
 def render_group(g, t):

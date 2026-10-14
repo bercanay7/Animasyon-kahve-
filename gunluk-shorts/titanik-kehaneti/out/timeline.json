@@ -1,562 +1,530 @@
 {
- "duration": 40.0,
+ "duration": 39.0,
  "voice": "dfki",
- "last_word_end": 38.162,
+ "last_word_end": 36.86,
  "sentences": [
   {
    "id": "A",
    "t0": 0.05,
-   "t1": 4.038,
+   "t1": 4.231,
    "words": [
     {
      "show": "Titanik",
      "emph": false,
      "t0": 0.05,
-     "t1": 0.622
+     "t1": 0.627
     },
     {
      "show": "batmadan",
      "emph": false,
-     "t0": 0.622,
-     "t1": 1.194
+     "t0": 0.627,
+     "t1": 1.205
     },
     {
      "show": "14",
      "emph": true,
-     "t0": 1.194,
-     "t1": 1.575
+     "t0": 1.205,
+     "t1": 1.59
     },
     {
      "show": "yıl",
      "emph": true,
-     "t0": 1.575,
-     "t1": 1.766
+     "t0": 1.59,
+     "t1": 1.782
     },
     {
      "show": "önce,",
      "emph": true,
-     "t0": 1.766,
-     "t1": 2.147
+     "t0": 1.782,
+     "t1": 2.167
     },
     {
      "show": "bir",
      "emph": false,
-     "t0": 2.257,
-     "t1": 2.419
+     "t0": 2.277,
+     "t1": 2.455
     },
     {
      "show": "yazar",
      "emph": false,
-     "t0": 2.419,
-     "t1": 2.743
+     "t0": 2.455,
+     "t1": 2.81
     },
     {
-     "show": "aynı",
+     "show": "benzer",
      "emph": true,
-     "t0": 2.743,
-     "t1": 3.067
+     "t0": 2.81,
+     "t1": 3.165
     },
     {
      "show": "felaketi",
      "emph": true,
-     "t0": 3.067,
-     "t1": 3.714
+     "t0": 3.165,
+     "t1": 3.876
     },
     {
      "show": "yazdı!",
      "emph": true,
-     "t0": 3.714,
-     "t1": 4.038
+     "t0": 3.876,
+     "t1": 4.231
     }
    ],
-   "text": "Titanik batmadan *14=on_dört yıl önce*, bir yazar *aynı felaketi yazdı!*"
+   "text": "Titanik batmadan *14=on_dört yıl önce*, bir yazar *benzer felaketi yazdı!*"
   },
   {
    "id": "B",
-   "t0": 4.258,
-   "t1": 7.225,
+   "t0": 4.451,
+   "t1": 7.502,
    "words": [
     {
-     "show": "6",
+     "show": "5",
      "emph": true,
-     "t0": 4.258,
-     "t1": 4.653
+     "t0": 4.451,
+     "t1": 4.677
     },
     {
      "show": "benzerlik",
      "emph": true,
-     "t0": 4.653,
-     "t1": 5.244
+     "t0": 4.677,
+     "t1": 5.356
     },
     {
      "show": "var,",
      "emph": false,
-     "t0": 5.244,
-     "t1": 5.442
+     "t0": 5.356,
+     "t1": 5.582
     },
     {
      "show": "ve",
      "emph": false,
-     "t0": 5.552,
-     "t1": 5.719
+     "t0": 5.692,
+     "t1": 5.873
     },
     {
      "show": "sonuncusu",
      "emph": false,
-     "t0": 5.719,
-     "t1": 6.388
+     "t0": 5.873,
+     "t1": 6.597
     },
     {
      "show": "çok",
      "emph": true,
-     "t0": 6.388,
-     "t1": 6.556
+     "t0": 6.597,
+     "t1": 6.778
     },
     {
      "show": "ürkütücü!",
      "emph": true,
-     "t0": 6.556,
-     "t1": 7.225
+     "t0": 6.778,
+     "t1": 7.502
     }
    ],
-   "text": "*6=altı benzerlik* var, ve sonuncusu *çok ürkütücü!*"
+   "text": "*5=beş benzerlik* var, ve sonuncusu *çok ürkütücü!*"
   },
   {
    "id": "C",
-   "t0": 7.425,
-   "t1": 10.555,
+   "t0": 7.702,
+   "t1": 10.947,
    "words": [
     {
      "show": "Yıl",
      "emph": false,
-     "t0": 7.425,
-     "t1": 7.634
+     "t0": 7.702,
+     "t1": 7.92
     },
     {
      "show": "1898.",
      "emph": true,
-     "t0": 7.634,
-     "t1": 9.301
+     "t0": 7.92,
+     "t1": 9.662
     },
     {
      "show": "Roman:",
      "emph": false,
-     "t0": 9.301,
-     "t1": 9.632
+     "t0": 9.662,
+     "t1": 10.021
     },
     {
      "show": "Futility.",
      "emph": true,
-     "t0": 9.792,
-     "t1": 10.555
+     "t0": 10.181,
+     "t1": 10.947
     }
    ],
    "text": "Yıl *1898=bin_sekiz_yüz_doksan_sekiz*. Roman: *Futility=fyutiliti.*"
   },
   {
    "id": "D",
-   "t0": 10.755,
-   "t1": 12.91,
+   "t0": 11.147,
+   "t1": 13.958,
    "words": [
     {
      "show": "Bir:",
      "emph": false,
-     "t0": 10.755,
-     "t1": 11.04
+     "t0": 11.147,
+     "t1": 11.448
     },
     {
      "show": "İkisi",
      "emph": false,
-     "t0": 11.2,
-     "t1": 11.628
+     "t0": 11.608,
+     "t1": 12.078
     },
     {
      "show": "de",
      "emph": false,
-     "t0": 11.628,
-     "t1": 11.77
+     "t0": 12.078,
+     "t1": 12.235
+    },
+    {
+     "show": "pratikte",
+     "emph": true,
+     "t0": 12.235,
+     "t1": 12.705
     },
     {
      "show": "batmaz",
      "emph": true,
-     "t0": 11.77,
-     "t1": 12.055
+     "t0": 12.705,
+     "t1": 13.018
     },
     {
      "show": "diye",
      "emph": false,
-     "t0": 12.055,
-     "t1": 12.34
+     "t0": 13.018,
+     "t1": 13.331
     },
     {
      "show": "tanıtıldı!",
      "emph": false,
-     "t0": 12.34,
-     "t1": 12.91
+     "t0": 13.331,
+     "t1": 13.958
     }
    ],
-   "text": "Bir: İkisi de *batmaz* diye tanıtıldı!"
+   "text": "Bir: İkisi de *pratikte batmaz* diye tanıtıldı!"
   },
   {
    "id": "E",
-   "t0": 13.07,
-   "t1": 16.577,
+   "t0": 14.118,
+   "t1": 17.577,
    "words": [
     {
      "show": "İki:",
      "emph": false,
-     "t0": 13.07,
-     "t1": 13.442
+     "t0": 14.118,
+     "t1": 14.526
     },
     {
      "show": "Nisan",
      "emph": false,
-     "t0": 13.602,
-     "t1": 13.989
+     "t0": 14.686,
+     "t1": 15.063
     },
     {
      "show": "gecesi,",
      "emph": false,
-     "t0": 13.989,
-     "t1": 14.569
+     "t0": 15.063,
+     "t1": 15.628
     },
     {
      "show": "Atlantik’te",
      "emph": true,
-     "t0": 14.679,
-     "t1": 15.369
+     "t0": 15.738,
+     "t1": 16.407
     },
     {
      "show": "buzdağına",
      "emph": true,
-     "t0": 15.369,
-     "t1": 16.06
+     "t0": 16.407,
+     "t1": 17.075
     },
     {
      "show": "çarptılar!",
      "emph": true,
-     "t0": 16.06,
-     "t1": 16.577
+     "t0": 17.075,
+     "t1": 17.577
     }
    ],
    "text": "İki: Nisan gecesi, *Atlantik’te=Atlantikte buzdağına çarptılar!*"
   },
   {
-   "id": "F",
-   "t0": 16.737,
-   "t1": 19.281,
+   "id": "G",
+   "t0": 17.737,
+   "t1": 20.565,
    "words": [
     {
      "show": "Üç:",
      "emph": false,
-     "t0": 16.737,
-     "t1": 17.088
-    },
-    {
-     "show": "İkisi",
-     "emph": false,
-     "t0": 17.248,
-     "t1": 17.717
-    },
-    {
-     "show": "de",
-     "emph": false,
-     "t0": 17.717,
-     "t1": 17.874
-    },
-    {
-     "show": "sancak",
-     "emph": true,
-     "t0": 17.874,
-     "t1": 18.186
-    },
-    {
-     "show": "tarafından",
-     "emph": true,
-     "t0": 18.186,
-     "t1": 18.812
-    },
-    {
-     "show": "vuruldu!",
-     "emph": false,
-     "t0": 18.812,
-     "t1": 19.281
-    }
-   ],
-   "text": "Üç: İkisi de *sancak tarafından* vuruldu!"
-  },
-  {
-   "id": "G",
-   "t0": 19.441,
-   "t1": 22.175,
-   "words": [
-    {
-     "show": "Dört:",
-     "emph": false,
-     "t0": 19.441,
-     "t1": 19.787
+     "t0": 17.737,
+     "t1": 18.082
     },
     {
      "show": "İkisinde",
      "emph": false,
-     "t0": 19.947,
-     "t1": 20.541
+     "t0": 18.242,
+     "t1": 18.861
     },
     {
      "show": "de",
      "emph": false,
-     "t0": 20.541,
-     "t1": 20.69
+     "t0": 18.861,
+     "t1": 19.016
     },
     {
      "show": "cankurtaran",
      "emph": true,
-     "t0": 20.69,
-     "t1": 21.284
+     "t0": 19.016,
+     "t1": 19.636
     },
     {
      "show": "botu",
      "emph": true,
-     "t0": 21.284,
-     "t1": 21.581
+     "t0": 19.636,
+     "t1": 19.945
     },
     {
      "show": "yetersizdi!",
      "emph": true,
-     "t0": 21.581,
-     "t1": 22.175
+     "t0": 19.945,
+     "t1": 20.565
     }
    ],
-   "text": "Dört: İkisinde de *cankurtaran botu yetersizdi!*"
+   "text": "Üç: İkisinde de *cankurtaran botu yetersizdi!*"
   },
   {
    "id": "H",
-   "t0": 22.335,
-   "t1": 27.118,
+   "t0": 20.725,
+   "t1": 22.801,
    "words": [
     {
-     "show": "Beş:",
+     "show": "Dört:",
      "emph": false,
-     "t0": 22.335,
-     "t1": 22.719
+     "t0": 20.725,
+     "t1": 21.114
     },
     {
-     "show": "Neredeyse",
+     "show": "Boyları",
      "emph": false,
-     "t0": 22.879,
-     "t1": 23.478
+     "t0": 21.274,
+     "t1": 21.732
     },
     {
-     "show": "aynı",
+     "show": "da",
      "emph": false,
-     "t0": 23.478,
-     "t1": 23.778
+     "t0": 21.732,
+     "t1": 21.885
     },
     {
-     "show": "boy!",
-     "emph": false,
-     "t0": 23.778,
-     "t1": 23.928
-    },
-    {
-     "show": "244",
+     "show": "neredeyse",
      "emph": true,
-     "t0": 23.928,
-     "t1": 24.767
+     "t0": 21.885,
+     "t1": 22.496
     },
     {
-     "show": "metreye",
+     "show": "aynı!",
      "emph": true,
-     "t0": 24.767,
-     "t1": 25.271
-    },
-    {
-     "show": "karşı",
-     "emph": false,
-     "t0": 25.271,
-     "t1": 25.607
-    },
-    {
-     "show": "269",
-     "emph": true,
-     "t0": 25.607,
-     "t1": 26.782
-    },
-    {
-     "show": "metre!",
-     "emph": true,
-     "t0": 26.782,
-     "t1": 27.118
+     "t0": 22.496,
+     "t1": 22.801
     }
    ],
-   "text": "Beş: Neredeyse aynı boy! *244=iki_yüz_kırk_dört metreye* karşı *269=iki_yüz_altmış_dokuz metre!*"
+   "text": "Dört: Boyları da *neredeyse aynı!*"
   },
   {
    "id": "I",
-   "t0": 27.418,
-   "t1": 30.173,
+   "t0": 23.101,
+   "t1": 25.993,
    "words": [
     {
      "show": "Ve",
      "emph": false,
-     "t0": 27.418,
-     "t1": 27.583
+     "t0": 23.101,
+     "t1": 23.278
     },
     {
-     "show": "altıncı:",
+     "show": "beşinci:",
      "emph": false,
-     "t0": 27.583,
-     "t1": 28.079
+     "t0": 23.278,
+     "t1": 23.806
     },
     {
      "show": "romandaki",
      "emph": false,
-     "t0": 28.239,
-     "t1": 28.851
+     "t0": 23.966,
+     "t1": 24.615
     },
     {
      "show": "geminin",
      "emph": false,
-     "t0": 28.851,
-     "t1": 29.309
+     "t0": 24.615,
+     "t1": 25.101
     },
     {
      "show": "adı,",
      "emph": false,
-     "t0": 29.309,
-     "t1": 29.615
+     "t0": 25.101,
+     "t1": 25.426
     },
     {
      "show": "Titan!",
      "emph": true,
-     "t0": 29.725,
-     "t1": 30.173
+     "t0": 25.536,
+     "t1": 25.993
     }
    ],
-   "text": "Ve altıncı: romandaki geminin adı, *Titan!*"
+   "text": "Ve beşinci: romandaki geminin adı, *Titan!*"
   },
   {
    "id": "J",
-   "t0": 30.473,
-   "t1": 32.468,
+   "t0": 26.293,
+   "t1": 28.343,
    "words": [
     {
      "show": "Gerçek",
      "emph": false,
-     "t0": 30.473,
-     "t1": 30.783
+     "t0": 26.293,
+     "t1": 26.619
     },
     {
      "show": "geminin",
      "emph": false,
-     "t0": 30.783,
-     "t1": 31.247
+     "t0": 26.619,
+     "t1": 27.108
     },
     {
      "show": "adı",
      "emph": false,
-     "t0": 31.247,
-     "t1": 31.556
+     "t0": 27.108,
+     "t1": 27.435
     },
     {
      "show": "ise,",
      "emph": false,
-     "t0": 31.556,
-     "t1": 31.865
+     "t0": 27.435,
+     "t1": 27.761
     },
     {
      "show": "Titanik!",
      "emph": true,
-     "t0": 31.975,
-     "t1": 32.468
+     "t0": 27.871,
+     "t1": 28.343
     }
    ],
    "text": "Gerçek geminin adı ise, *Titanik!*"
   },
   {
    "id": "K",
-   "t0": 32.768,
-   "t1": 36.165,
+   "t0": 28.643,
+   "t1": 34.828,
    "words": [
     {
      "show": "Kehanet",
      "emph": false,
-     "t0": 32.768,
-     "t1": 33.269
+     "t0": 28.643,
+     "t1": 29.202
     },
     {
      "show": "mi?",
      "emph": false,
-     "t0": 33.269,
-     "t1": 33.436
+     "t0": 29.202,
+     "t1": 29.389
     },
     {
      "show": "Hayır.",
      "emph": false,
-     "t0": 33.436,
-     "t1": 33.838
+     "t0": 29.389,
+     "t1": 29.772
     },
     {
      "show": "Yazar,",
      "emph": false,
-     "t0": 33.838,
-     "t1": 34.336
+     "t0": 29.772,
+     "t1": 30.266
     },
     {
      "show": "denizciliği",
      "emph": true,
-     "t0": 34.446,
-     "t1": 35.162
+     "t0": 30.376,
+     "t1": 31.07
     },
     {
      "show": "çok",
      "emph": true,
-     "t0": 35.162,
-     "t1": 35.305
+     "t0": 31.07,
+     "t1": 31.209
     },
     {
      "show": "iyi",
      "emph": true,
-     "t0": 35.305,
-     "t1": 35.592
+     "t0": 31.209,
+     "t1": 31.486
     },
     {
-     "show": "biliyordu.",
+     "show": "biliyordu,",
      "emph": true,
-     "t0": 35.592,
-     "t1": 36.165
+     "t0": 31.486,
+     "t1": 32.042
+    },
+    {
+     "show": "üstelik",
+     "emph": false,
+     "t0": 32.152,
+     "t1": 32.687
+    },
+    {
+     "show": "roman",
+     "emph": false,
+     "t0": 32.687,
+     "t1": 33.044
+    },
+    {
+     "show": "Titanik’ten",
+     "emph": true,
+     "t0": 33.044,
+     "t1": 33.757
+    },
+    {
+     "show": "sonra",
+     "emph": true,
+     "t0": 33.757,
+     "t1": 34.114
+    },
+    {
+     "show": "düzenlendi.",
+     "emph": false,
+     "t0": 34.114,
+     "t1": 34.828
     }
    ],
-   "text": "Kehanet mi? Hayır. Yazar, *denizciliği çok iyi biliyordu.*"
+   "text": "Kehanet mi? Hayır. Yazar, *denizciliği çok iyi biliyordu*, üstelik roman *Titanik’ten sonra* düzenlendi."
   },
   {
    "id": "L",
-   "t0": 36.415,
-   "t1": 38.162,
+   "t0": 35.078,
+   "t1": 36.86,
    "words": [
     {
      "show": "Yine",
      "emph": false,
-     "t0": 36.415,
-     "t1": 36.754
+     "t0": 35.078,
+     "t1": 35.412
     },
     {
      "show": "de,",
      "emph": false,
-     "t0": 36.754,
-     "t1": 36.924
+     "t0": 35.412,
+     "t1": 35.579
     },
     {
      "show": "tüyler",
      "emph": true,
-     "t0": 37.034,
-     "t1": 37.41
+     "t0": 35.689,
+     "t1": 36.079
     },
     {
      "show": "ürpertici.",
      "emph": true,
-     "t0": 37.41,
-     "t1": 38.162
+     "t0": 36.079,
+     "t1": 36.86
     }
    ],
    "text": "Yine de, *tüyler ürpertici.*"
