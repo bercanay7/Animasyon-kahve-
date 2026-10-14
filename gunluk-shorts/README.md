@@ -1,5 +1,7 @@
 # Günlük Shorts — "Zaman Kuryesi"
 
+> **Kurallar:** her yeni video `konsey/KANAL_ANAYASASI.md`'ye göre yapılır (21 koltuklu danışma kurulunun kararı; gerekçe: `konsey/RECOMMENDATION.md`).
+
 Her video kendi klasöründe (kod + çıktı). Ortak altyapı: Pillow 2x süper örnekleme, 1x metin katmanı, ffmpeg pipe, numpy/scipy ses, −14 LUFS.
 
 | Klasör | Konu | Stil | Ses |
