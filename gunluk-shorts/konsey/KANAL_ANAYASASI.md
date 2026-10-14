@@ -57,7 +57,7 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 1. **Kaynak kapısı (olgu).** `sources.md` olmadan `qa.py` çıkış kodu ≠ 0. Her sayı/yıl/ad için 1 birincil veya 2 bağımsız kaynak. Tek tarafın öz-bildirimi ("komutanın raporuna göre") nitelenir ve **sesle söylenir**. Kaynaksız mutlak sözcük yasak: "tek", "ilk", "en kısa", "kehanet", "batmaz". Kancadaki iddia kaynak tablosunun 1. satırıdır. Kaynak doğrulaması render gününde değil konu seçiminde yapılır; havuzda ≥5 doğrulanmış konu bulunur.
 2. **Türkçe/telaffuz kapısı (dil; ≤8 dk).** Ekran metni ile okunuş metni ayrı (`göster=söylenen`); sayı/yıl harfle yazılır; sözlükte olmayan her özel ad ve her sert/ğ'li sözcük için **10 sn kulak kontrolü** (sözlük girdisini Whisper değil insan kulağı onaylar); video başına ≤3 sayı; cümle ≤14 kelime; Türkçe-duyarlı küçük/büyük harf (`.lower()` ve `.upper()` doğrudan yasak; `İ/I` testi).
 3. **Kalite kapısı (qc; otomatik + ≤10 dk).** `qa.py` çıkış kodu 0 ve raporun kare sayısı/dosya özeti teslim edilen videoyla eşleşir; kare 0'da kanca; ilk ses ≤0,5 sn; telefon hoparlöründe baştan sona tek dinleme (anlaşılmayan kelime 0); kodlanmış mp4'te LUFS/peak; `freezedetect`; güvenli alan/HUD; her video için sürüm künyesi (motor, cilt, ses, `pyworld` sürümü).
-4. **Metin kapısı (seo; ≤3 dk).** Başlık ≤60 karakter, ilk ~40 karakterde vaat; başlık ve kart videonun söylediğinden fazlasını vaat etmez; açıklama: 1. satır vaat + seri etiketi ("TESLİMAT #N"), 2. satır tek kaynak, sonra 3 hashtag; sabit yorum = kaynak + tek açık soru. Yayın saati ilk 14 videoda sabit.
+4. **Metin kapısı (seo; ≤3 dk).** Başlık ≤60 karakter, ilk ~40 karakterde vaat; **başlık anahtar sözcükleri arama niyeti açısından kontrol edilir** (Dans'ın "kadın dansa başladı" başlığı "dans eden kadın", "sırf kadın" gibi yanlış niyetli aramaları getirdi; YouTube arama önerilerinde başlığın ana sözcüklerini yazıp çıkan önerilere bakın); başlık ve kart videonun söylediğinden fazlasını vaat etmez; açıklama: 1. satır vaat + seri etiketi ("TESLİMAT #N"), 2. satır tek kaynak, sonra 3 hashtag; sabit yorum = kaynak + tek açık soru. Yayın saati ilk 14 videoda sabit.
 5. **Otomatik düşüş kuralı:** kapı bütçesi üst üste 3 gün 20 dk'yı aşarsa veya tampon 1 günün altına inerse yayın otomatik **haftada 3–4**'e düşer.
 6. **Doğrulama sonrası:** yayınlanmış videoda hata bulunursa video silinmez (analitiği sıfırlar); sabit yorumda düzeltme yapılır. Yeniden yüklenen video yeni video sayılır.
 
@@ -81,7 +81,8 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 - **Tek eksen:** aynı pencerede yalnız tanımlı eksenler (cilt ve kanca türü, ikisi de yazı-tura ile) oynar; süre, ses, iskelet ve müzik sabit.
 - **Kazanan ilanı:** hücre başına ≥7 video. **≥10 puan fark ve 5/5 çiftte aynı yön = "etki var"**; 4/5 çift veya 5–10 puan = "ipucu"; <5 puan = "ayırt edilemedi" ("etkisiz" denmez). 14. videoda yalnız yön okunur; **hüküm 28. videoda/gününde** (≥10 çift).
 - **Baz çizgi:** ilk 14 videonun medyan viewed %'i; 30. gün hedefi bu baz çizginin üzerinde (varsayım: +%30 medyan).
-- **Retro ilk adım (kullanıcı):** 4 videonun Studio dökümü (gösterilme, viewed %, ort. izlenme %, ilk 3 sn düşüşü, trafik kaynağı, yorum sayısı).
+- **Baz çizgi (2026-10-14):** Emu: Stayed to watch %43,0 / Swiped away %57,0 (1.625 görüntülenme, %97 Shorts akışı); Dans: Shorts akışı %0 (28 görüntülenme; `veri/`). 14 videonun ilk baz çizgisi bu iki veriyle başlar.
+- **Retro ilk adım (kullanıcı) — YAPILDI (kısmen):** 4 videonun Studio dökümü (gösterilme, viewed %, ort. izlenme %, ilk 3 sn düşüşü, trafik kaynağı, yorum sayısı).
 
 ## 9. Gözden geçirme tetikleyicileri (hangi sonuç neyi değiştirir)
 
