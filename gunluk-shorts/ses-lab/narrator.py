@@ -26,6 +26,7 @@ PROFILE = dict(
     excl_boost_db=1.5,   # '!' biten ifadelerde ek enerji
     q_rise=0.04,         # '?' sonunda hafif yükselen ton (oran)
     reverb_wet=0.085, reverb_time=0.55,
+    f0_scale=1.0, formant=1.0,   # kadın sesi: f0_scale≈1.65, formant≈1.17 (pyworld ile cinsiyet dönüşümü)
 )
 
 
@@ -153,11 +154,28 @@ def studio(y, profile):
     return y * (1 - profile["reverb_wet"] * 0.5) + wet * profile["reverb_wet"] * 1.6
 
 
+def _gender(x, sr, f0_scale, formant):
+    """WORLD vokoder: perde (f0) ve ses yolu (formant) ayrı ölçeklenir → doğal kadın/erkek dönüşümü"""
+    import pyworld as pw
+    x = np.ascontiguousarray(x, dtype=np.float64)
+    f0, t = pw.harvest(x, sr, f0_floor=60.0, f0_ceil=400.0, frame_period=5.0)
+    sp = pw.cheaptrick(x, f0, t, sr)
+    ap = pw.d4c(x, f0, t, sr)
+    if abs(formant - 1.0) > 1e-3:
+        nb = sp.shape[1]
+        src = np.clip(np.arange(nb) / formant, 0, nb - 1)
+        sp = np.stack([np.interp(src, np.arange(nb), r) for r in sp])
+    y = pw.synthesize(f0 * f0_scale, sp, ap, sr, frame_period=5.0)
+    return y * (np.max(np.abs(x)) / (np.max(np.abs(y)) + 1e-9))
+
+
 def synth_chunk(tts, toks, speed, pitch, prof, sent_energy=1.0):
     text = " ".join(t["say"] for t in toks)
     last = toks[-1]["punct"]
     a = tts.generate(text, sid=0, speed=speed)
     x = np.array(a.samples, dtype=np.float64)
+    if prof.get("f0_scale", 1.0) != 1.0 or prof.get("formant", 1.0) != 1.0:
+        x = _gender(x, a.sample_rate, prof["f0_scale"], prof["formant"])
     # sona doğru perde: '?' yükselir, '!' hafif yükselip düşer
     k_end = pitch * (1 + (prof["q_rise"] if "?" in last else 0.0))
     fr = Fraction(SR, a.sample_rate)

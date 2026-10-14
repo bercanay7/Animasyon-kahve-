@@ -6,7 +6,10 @@ sys.path.insert(0, os.path.join(HERE, "..", "ses-lab"))
 import narrator
 
 VOICE = "dfki"
+PROF = dict(speed=1.12)
 for a in sys.argv[1:]:
+    if a == "--kadin":   # kadın sesi (WORLD dönüşümü) + kuru ses (yankısız)
+        PROF.update(f0_scale=1.55, formant=1.14, reverb_wet=0.0)
     if a.startswith("--voice="):
         VOICE = a.split("=")[1]
 
@@ -30,7 +33,7 @@ if __name__ == "__main__":
     lex = os.path.join(HERE, "..", "ses-lab", "lex.json")
     if os.path.exists(lex):
         narrator.LEX.update(json.load(open(lex)))
-    T, tot, _ = narrator.render(SENTENCES, os.path.join(HERE, "out"), voice=VOICE, profile=dict(speed=1.12))
+    T, tot, _ = narrator.render(SENTENCES, os.path.join(HERE, "out"), voice=VOICE, profile=PROF)
     tl = json.load(open(os.path.join(HERE, "out", "timeline.json")))
     print(f"ses={VOICE} süre={T:.0f} sn (son kelime {tot:.2f} sn)")
     for s in tl["sentences"]:
