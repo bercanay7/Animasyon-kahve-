@@ -1,25 +1,130 @@
-<!-- council:todo -->
 # VERIFICATION: persona-free
 
-**No position, no vote.** Checked <n of N> load-bearing claims from DOSSIER-01-kanal-yonu.md and
-the Round 1 reports. Each claim was checked against its primary source or an independent one, not
-against the document or tool that produced it.
+**Görüş yok, oy yok.** DOSSIER-01-kanal-yonu.md'den ayıkladığım 53 yük taşıyan olgusal iddianın 53'ü kontrol edildi (DOSSIER'deki F/C/E maddeleri ve dosyanın atıf yaptığı videolardaki ek olgusal cümleler; ROUND1/ROUND2 raporları kapsam dışı). "Kontrol edildi" iki düzeyde: web iddiaları yalnız arama özetiyle (bkz. bölüm 0), yerel iddialar doğrudan ölçümle; 9'u UNVERIFIED kaldı. Her iddia, onu üreten belgeye veya araca değil, birincil ya da bağımsız bir kaynağa karşı kontrol edildi.
 
-Verdicts: **CONFIRMED** (source supports it), **CONTRADICTED** (source says otherwise; the correct
-value is given), **MISLEADING** (true but framed so it will mislead: wrong baseline, one favourable
-point, missing caveat), **UNVERIFIED** (could not reach a source; say where you looked),
-**ESTIMATE** (not checkable; method stated and reasonable, or not).
+Hükümler: **CONFIRMED** (kaynak destekliyor), **CONTRADICTED** (kaynak aksini söylüyor; doğru değer verildi), **MISLEADING** (doğru ama yanlış taban, tek uygun nokta ya da eksik uyarı yüzünden yanıltıcı), **UNVERIFIED** (kaynağa ulaşılamadı; nerede aradığım yazıldı), **ESTIMATE** (kontrol edilemez; yöntem belirtildi).
+
+## 0. Erişim durumu ve yöntem sınırları (okumadan önce)
+
+- **WebFetch çalışmadı** (`getaddrinfo ENOTFOUND`: en.wikipedia.org, support.google.com, australiangeographic.com.au) ve Bash/curl ile de proxy `403 CONNECT` verdi (wikipedia, britannica, gutenberg, support.google.com, huggingface). Yani **hiçbir sayfayı doğrudan açıp okuyamadım**. GitHub MCP `rhasspy/piper` için erişim reddetti (oturumda yalnız bercanay7 depoları tanımlı).
+- Çalışan tek yol **WebSearch** idi: sonuç başlıkları/URL'leri gerçek, ama özet metin arama aracının ürettiği bir özet. Bu yüzden "Kaynak" sütunundaki URL'ler **arama sonucunda görünen** sayfalardır; metni ben satır satır okumadım. Wikipedia/Britannica/Guinness/YouTube Help sayfalarının içeriği "arama özetine göre"dir. Birincil arşiv kaynağına (1932 Meredith raporu, 1898/1912 roman metni, 1518 Strazburg belgeleri) hiçbir yerde ulaşılamadı.
+- Yerel dosyalar (video, git günlüğü, kod) doğrudan okundu/ölçüldü: bunlar "birincil" sayılır.
+- "Bulamadım" demek "yok" demek değildir. Arama, aranan şeyi bulabilecek nitelikteydi (ilgili ana sayfalar sonuçlarda çıktı) ama sayfa gövdesi okunamadığı için "bulamadım" yalnız "arama özetinde yoktu" anlamına gelir.
 
 ## 1. Claims checked
 
+### 1a. C1 Emu Savaşı (DOSSIER §5, C1; video metni `emu-savasi/tts.py`)
+
 | # | Claim | Made in | Verdict | What I found | Source |
 |---|---|---|---|---|---|
-| V1 | ... | DOSSIER §4 F1 | ... | ... | ... |
+| V1 | 1932, Batı Avustralya; operasyon Kasım–Aralık 1932 | C1 | CONFIRMED | İlk temas 2 Kasım 1932, Campion; operasyon 10 Aralık 1932'de bitti. Komutan Binbaşı G.P.W. Meredith, Kraliyet Avustralya Topçusu. | https://en.wikipedia.org/wiki/Emu_War ; https://www.britannica.com/topic/Emu-War (arama özeti) |
+| V2 | "yaklaşık 20.000 emu" | C1; video "20 bin kuşa savaş açtı" | CONFIRMED (yaklaşık) | Britannica "roughly 20,000 emus". Wikipedia'nın makale metninde aynı sayının geçtiğini arama özetinden doğrulayamadım (yalnız talk sayfası bilgi kutusu önerisinde göründü); sayı bir tahmindir, kesin sayım değildir. | https://www.britannica.com/topic/Emu-War |
+| V3 | "yaklaşık 10.000 mermi" | C1; video "Yaklaşık 10.000 mermi" | CONFIRMED | 10.000 mermi tahsis edildi (iki Lewis makineli tüfeği). Harcanan miktar Meredith raporuna göre 9.860. Videonun HUD'u 9.860 gösteriyor (kare 1 sn'de görüldü), anlatım "yaklaşık 10.000" diyor: ikisi birbiriyle tutarlı. | https://en.wikipedia.org/wiki/Emu_War (arama özeti); yerel kare `Emu_Savasi.mp4` |
+| V4 | "yaklaşık 1.000 emu öldürüldü" ("sadece 1.000 emu!") | C1; video | MISLEADING | Rakam Meredith'in **kendi raporundaki** onaylı sayım: 986. Kaynaklar bunun tartışmalı olduğunu söylüyor (Britannica: "disputed"). İlk fazda (2–8 Kasım) 2.500 mermiyle 50–200 (bazı anlatımlarda 500'e kadar) emu öldürüldüğü bildirildi; ayrıca "sonradan yaralanmadan 2.500 öldü" iddiası var, tarihçi Greg Beyer bunu "highly disputed and likely very inflated" diye niteliyor. Video "sadece 1.000 emu" diyerek komutanın öz-bildirimini olgu gibi sunuyor. | https://www.britannica.com/topic/Emu-War ; https://www.britannica.com/today-in-history/December-10-Great-Emu-War-Ends |
+| V5 | "kuş başına ~10 mermi" ("tam 10 mermi!") | C1; video | MISLEADING (aritmetik CONFIRMED) | 9.860 / 986 = 10,0 tam; yani aritmetik tutuyor, ama yalnız Meredith'in iki öz-bildirim sayısı arasında. 10.000 tahsisata bölünürse 10,1; ilk faz tek başına 2.500 mermi / 50–200 kuş = 12–50 mermi/kuş. "tam 10" kesinliği, kaynağın göstermediği bir hassasiyet. | https://en.wikipedia.org/wiki/Emu_War (arama özeti) |
+| V6 | emular saatte ~50 km koştu | C1; video | CONFIRMED | Britannica: emular "nearly 30 mph (50 km/h)" hıza ulaşabilir ve engebeli arazide kamyondan hızlıydı. Başka bir kaynak 48 km/sa verir. Bu türün üst hızıdır; olay sırasındaki bir ölçüm değildir. | https://www.britannica.com/topic/Emu-War ; https://unpackedhistory.com/en/modern/great-emu-war |
+| V7 | emular küçük gruplara bölündü | C1; video | CONFIRMED | Birden çok anlatım: sürüler küçük gruplara bölünüp farklı yönlere kaçtı (ornitolog Dominic Serventy: "innumerable small units"). Kamyondan ateş denemesi: kamyon kuşlara yetişemedi, yolculuk çok sarsıntılı olduğundan nişancı ateş edemedi (video "Kamyon bile yetişemedi" ile uyumlu). | https://en.wikipedia.org/wiki/Emu_War ; https://canadabayheritage.asn.au/australias-emu-war/ |
+| V8 | emular **zikzak çizdi** | C1; video "zikzak çizerek kaçtılar" | UNVERIFIED | "Zikzak" ifadesini hiçbir arama özetinde bulamadım (Wikipedia, Britannica, canadabayheritage, Australian Geographic sonuçlarında aradım: "small groups", "guerrilla", "split up" geçiyor, zikzak geçmiyor). Sayfa gövdelerini okuyamadığım için "yok" demiyorum. | arama: "Emu War emus zigzag small groups guerrilla Meredith" |
+| V9 | ordu geri çekildi | C1; video "Ordu geri çekildi" | CONFIRMED | 8 Kasım'da Pearce birlikleri çekti; 12–13 Kasım'da yeniden gönderildi; Meredith 10 Aralık'ta geri çağrıldı. Tek bir geri çekilişten fazlası var; "geri çekildi" doğru, ama operasyon ikinci kez sürdü ve ikinci fazda ilk iki günde ~40 emu öldürüldüğü bildirildi. | https://en.wikipedia.org/wiki/Emu_War ; https://www.britannica.com/technology/M1932 (arama özetleri) |
+| V10 | "Bir ordu ... savaş açtı" / "Ordu 0, emu 1" (videoda "ordu") | video; C1 "ordu geri çekildi" | MISLEADING | Görev gücü **üç kişiydi**: Meredith, Çavuş S. McMurray, Nefer J. O'Halloran, iki Lewis makineli tüfeğiyle. İlk karede 5+ asker çizili. "Ordu" mecaz olarak kullanılıyorsa da kanca cümlesinin ilk sözcüğü ölçeği şişiriyor. | https://en.wikipedia.org/wiki/Emu_War (arama özeti) ; yerel kare |
+| V11 | Komutan: "Bu kuşlardan bir tümenimiz olsa her orduyla savaşırdık" | video (DOSSIER'de yok) | UNVERIFIED (söz kalıbı) | Alıntı Meredith'e atfediliyor ve geniş dolaşımda; ama arama sonuçlarının çoğu blog/forum, birkaçı alıntıyı yalnızca özetliyor. Orijinal arşiv metnine ulaşılamadı; sözcük düzeyi doğrulanmadı. Anlam (bir tümen / her ordu) birden çok kaynakta tutarlı. | https://www.australiangeographic.com.au/?p=23036 ; arama özeti |
+
+### 1b. C2 Titanik / "Futility" (DOSSIER §5, C2; video metni `titanik-kehaneti/tts.py`)
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V12 | Morgan Robertson'ın 1898 romanı "Futility" | C2 | CONFIRMED | 1898'de "Futility" adıyla yayımlandı; Project Gutenberg #24880 "The Wreck of the Titan or, Futility". | https://www.gutenberg.org/ebooks/24880 ; https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility |
+| V13 | romandaki gemi "Titan" | C2 | CONFIRMED | Kurgusal Amerikan transatlantik gemisi SS Titan. | aynı |
+| V14 | boylar 244 m (Titan) ve 269 m (Titanic) | C2 | CONFIRMED | Titan 800 ft (243,8 m); Titanic 882 ft 9 in (269,1 m). Birim/aritmetik doğru. "Neredeyse aynı boy" çerçevesi: fark ~25 m (%9); kabul edilebilir ama gevşek. 800 ft'in **hangi baskıda** olduğu bkz. V19. | https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility (arama özeti) |
+| V15 | Titan "batmaz" diye tanıtıldı | C2 (ikisi de) | CONFIRMED (Titan tarafı) | Romanda Titan batmaz kabul edilir ve yetersiz sayıda cankurtaran botu taşır. | https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility |
+| V16 | Titanic de "batmaz" diye tanıtıldı | C2; video "İkisi de batmaz diye tanıtıldı" | MISLEADING | Haziran 1911'de Belfast basını ve The Shipbuilder "practically unsinkable" (**"pratikte batmaz"**) dedi; "practically" nitelemesi kritik. Harland & Wolff Titanic'in "batmaz diye reklam edilmediğini" savunuyor; White Star'ın 1910 broşürü "designed to be unsinkable" diyor; batışından sonra Franklin "we believe the boat is unsinkable" dedi. Yani düz "batmaz diye tanıtıldı" tartışmalı; niteleme ("pratikte") ve kimin söylediği (basın / şirket) ayrımı videoda yok. | https://www.encyclopedia-titanica.org/acquitting-the-iceberg~part-3.html ; https://www.snopes.com/history/titanic/unsinkable.asp (arama özeti) |
+| V17 | nisan gecesi, Atlantik'te buzdağına çarptı | C2; video | CONFIRMED | Titan Nisan'da Kuzey Atlantik'te buza çarpar, geceyarısı civarı batar; Titanic 14–15 Nisan 1912. Nüans: romanda Titan buz kütlesinin üzerine "tırmanır" (video "çarptılar" diyor); Titanic yan sürtünmeyle çarptı. | https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility ; https://en.wikisource.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility |
+| V18 | sancak (sağ) taraf (ikisinde de) | C2; video "İkisi de sancak tarafından vuruldu" | CONFIRMED (ikincil kaynakla) | Wikisource alıntısı: buz kütlesi "left to starboard", iskele/botlar sancak tarafında hasar gördü; Titanic fan wiki'si ikisini de starboard diye yazar. Kaynakların bir kısmı çarpma mekanizmasını farklı anlatır (Titan buz rafına çıkıp sancağa yatar). Romanın kendi metnini **ben okumadım**; Titanic'in sancak tarafından vurulduğu iyi belgelenmiş (ABD Senatosu soruşturması; ayrıca aramadım). | https://en.wikisource.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility ; https://titanic.fandom.com/wiki/Futility,_or_the_Wreck_of_the_Titan |
+| V19 | cankurtaran botu yetersiz (Titan 24, Titanic 20) | C2; video "botu yetersizdi" | CONFIRMED | Titan 24 bot, Titanic 20 (16 sabit + 4 Engelhardt katlanır). Her ikisi de yolcu/mürettebat kapasitesinin kabaca yarısından azına yeterliydi. Bot sayısı roman metninden tek tek doğrulanmadı (arama sonuçlarından biri "24" için metne bakmamı öneriyor). | https://titanic.fandom.com/wiki/Futility,_or_the_Wreck_of_the_Titan ; https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility |
+| V20 | 1912'de romanın değiştirilmesi tartışması / hangi baskı | C2 (DOSSIER'de ele alınmıyor) | UNVERIFIED (baskı) / CONFIRMED (tartışmanın varlığı) | Titanic'ten sonra roman yeniden basıldı ve değiştirildi: en bilinen değişiklik **deplasman** (1898'de 45.000 t, 1912'de 70.000–75.000 t; kaynaklar 70 mı 75 mi konusunda çelişiyor), bir de sona eklenen paragraf. Encyclopedia Titanica tartışmacıları değişikliğin gemiyi Titanic'e benzetmek için olduğu "efsanesine" karşı çıkıyor: deplasman değişikliği gerçeğe yaklaşmak değil, uzaklaşmak. Videonun kullandığı **boy (800 ft), bot (24) ve hız** değerlerinin 1898 baskısında mı 1912 baskısında mı olduğunu kontrol edemedim (iki baskının metnine erişim yok). | https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility ; https://www.encyclopedia-titanica.org/community/threads/morgan-robertsons-futility.12661/ |
+| V21 | "Kehanet değil; yazar denizciliği çok iyi biliyordu" | C2; video | CONFIRMED | Wikipedia benzerlikleri Robertson'ın gemi inşası ve denizcilik eğilimleri bilgisine atfeder; eski ticari denizci. Not: 1915 anma kitabındaki bir deneme, Robertson'ın bir "ruh varlığı"nın yazmasını sağladığına inandığını aktarır (yazar Henry W. Francis'e ait yorum, Robertson'ın kendi sözü değil). | https://en.wikipedia.org/wiki/The_Wreck_of_the_Titan:_Or,_Futility ; https://www.mentalfloss.com/history/titanic/novel-predicted-titanic-disaster |
+| V22 | "14 yıl önce" ve "6 benzerlik" | video (kanca kartı) | CONFIRMED (iç tutarlılık) | 1912 − 1898 = 14. Sayılan benzerlikler: batmaz, nisan gecesi buzdağı, sancak, bot, boy, ad = 6; altıncı madde **ad** ("Titan" / "Titanik") özdeş değil benzer, "benzerlik" sayısı bir çerçeve tercihidir. | iç kontrol: `titanik-kehaneti/tts.py` |
+
+### 1c. C3 Zanzibar Savaşı (DOSSIER §5, C3; video `zaman-kuryesi-zanzibar/ui.py`)
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V23 | 27 Ağustos 1896 | C3; video damgası | CONFIRMED | Guinness: 27 Ağustos 1896 ~09:00–09:45. | https://guinnessworldrecords.com/world-records/65353-shortest-war ; https://en.wikipedia.org/wiki/Anglo-Zanzibar_War |
+| V24 | süre ~38–45 dakika | C3; video "Sadece 38 dakika" + not "kaynaklara göre 38-45 dk" | CONFIRMED | Wikipedia: 09:02–09:40 = 38 dk (en sık alıntı), 40 ve 45 dk da veriliyor (başlangıç 09:00 emir ya da 09:02 ilk atış; bitiş 09:40 bayrak ya da 09:45). Guinness penceresi 09:00–09:45 = 45 dk. Britannica "en çok 40 dk". Aritmetik: 09:40 − 09:02 = 38. Videonun kanca satırı "38" dese de nota "38–45" yazılmış; tutarlı. | https://en.wikipedia.org/wiki/Anglo-Zanzibar_War ; https://guinnessworldrecords.com/world-records/65353-shortest-war |
+| V25 | "tarihin en kısa savaşı" | C3; video | CONFIRMED | Guinness "Shortest war" kaydı mevcut; Wikipedia aynı iddiayı aktarır. (Bu bir Guinness rekoru/yaygın unvandır; ayrıca "savaş" tanımına bağlı.) | https://guinnessworldrecords.com/world-records/65353-shortest-war |
+| V26 | videodaki ek: sultanın ölümü, halefin (Halid) onaysız tahta çıkması, saat 9 ültimatomu | video | CONFIRMED | Guinness: Sultan Hamid bin Thuwaini 25 Ağustos 1896'da öldü; İngiltere onaysız tahta çıkan Halid'e karşı harekete geçti; 09:00 ültimatom bitişi. | https://guinnessworldrecords.com/world-records/65353-shortest-war |
+
+### 1d. C4 Dans Salgını (DOSSIER §5, C4; video `dans-vebasi/tts.py`)
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V27 | Strazburg, 1518 (Temmuz) | C4 | CONFIRMED | Temmuz 1518, Frau Troffea sokakta dansa başladı; Britannica ~2 ay sürdüğünü, Eylül'de bittiğini aktarır. | https://www.britannica.com/event/dancing-plague-of-1518 |
+| V28 | ~400 kişi dans etti | C4; video "bir ayda 400" | MISLEADING | Tahminler **50 ile 400** arası; 400 üst sınır (Waller, The Psychologist: "about 400"). Şehir kayıtları temiz bir son sayı vermiyor. Video 400'ü olgu gibi söylüyor. | https://www.bps.org.uk/psychologist/dancing-plagues-and-mass-hysteria ; arama özeti |
+| V29 | videoda "bir haftada 34 kişi" | video (DOSSIER'de yok) | UNVERIFIED | Arama sonuçlarında "yaklaşık 30" ve "üç düzine" diye geçiyor; tam "34"ü bir kaynakta göremedim (Wikipedia gövdesi okunamadı). | arama: "Dancing plague 1518 ... 34 dancers within a week" |
+| V30 | "bazıları öldü" | C4 | MISLEADING | "Günde 15 ölüm" ve "onlarca ölüm" **sonraki kroniklerden** geliyor; Wikipedia'ya göre dönemin Strazburg kaynakları ölüm sayısını ya da ölüm olup olmadığını belirtmiyor. Waller "dozens died" diyor; ölüm iddiası tartışmalı, "bazıları öldü" atıfsız olgu gibi duruyor. (Video yalnız "yığılanlar bile oldu" diyor: bu daha temkinli.) | https://en.wikipedia.org/wiki/Dancing_plague_of_1518 ; https://www.bps.org.uk/psychologist/dancing-plagues-and-mass-hysteria |
+| V31 | sebep tartışmalı (ergot / kitle histerisi) | C4; video | CONFIRMED | Waller (Lancet): ergot büyük olasılıkla yanlış (günlerce dans edemezler, herkes aynı tepkiyi vermez, Ren/Moselle bölgesiyle uyuşmaz); en yaygın görüş kitle psikojenik hastalık/stres; tartışma sürüyor. | https://www.bps.org.uk/psychologist/dancing-plagues-and-mass-hysteria |
+| V32 | "sıcak kan" teşhisi; sahne kuruldu ve müzisyenler tutuldu | video | CONFIRMED | Yerel hekimler "hot blood" dedi; konsey önce dansı teşvik etti (ahşap sahne, müzisyen) sonra dini çözüme döndü. | arama özeti (historyskills, retrospectjournal vb.) |
+| V33 | videoda "müziği yasakladılar, dansçıları türbeye götürdüler"; "dans müzik susunca bitti" | video | UNVERIFIED | Arama özetinde müzik yasağı ve Saverne türbesi **bulunmadı**; "müzik susunca bitti" nedensel bir iddia: kaynaklar sonun "kendiliğinden/gizemli biçimde" geldiğini söylüyor. Sayfa gövdelerini okuyamadım; "yok" demiyorum. | arama: "Dancing plague ... Saverne shrine music banned" |
+
+### 1e. E7 YouTube kuralları ve metrikleri (DOSSIER §5, E7 ve E4)
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V34 | Shorts maks. süre 3 dk, 15 Ekim 2024'ten itibaren | E7 | CONFIRMED | YouTube Help: 15 Ekim 2024 ve sonrası yüklenen, dikey/kare, ≤3 dk videolar Shorts; 16:9 gibi yatay videolar Shorts olmaz; öncesinde yüklenenler etkilenmedi. | https://support.google.com/youtube/answer/15424877 ; https://support.google.com/youtube/community-guide/302729680/faq-longer-shorts |
+| V35 | Shorts görüntülenme sayımı değişikliği (Mart 2025) | E7 | CONFIRMED | 31 Mart 2025'ten itibaren Shorts görüntülenmesi oynatma başladığında/tekrarlandığında sayılır, asgari izleme süresi yok; eski metrik "Engaged views" adıyla Analytics'te kaldı. YPP uygunluğu "engaged Shorts views" ile. Tarih ikincil kaynaklardan (ppc.land, routenote, samproof); Help sayfası alıntısı arama özetinde tarih vermiyor. | https://ppc.land/youtube-changes-how-shorts-views-are-counted-from-march-31/ ; https://blog.youtube/inside-youtube/engaged-views-youtube-explained/ |
+| V36 | E7'nin değişiklik listesi eksiksiz mi (Ağustos 2026 sayım değişikliği) | E7 | MISLEADING (eksik) | E7 yalnız iki değişikliği sayıyor. Arama sonuçlarına göre **24 Ağustos 2026**'dan itibaren görüntülenme **tüm biçimlerde** (Shorts, uzun video, canlı) ilk karede sayılıyor; engaged views karşılaştırma metriği olarak kalıyor; eski toplamlar yeniden hesaplanmıyor. Bu iddia için yalnız ikincil kaynaklar (vidiq, routenote, hellothematic, f9xr) ve YouTube Help/blog parçaları arama özetinde; resmî sayfayı açıp okuyamadım. Sonuç: F2'deki "1700" ve "100 izlendi" sayılarının ölçümü (başlatma sayısı mı, engaged views mı) belirtilmediği için, 31 Mart 2025 sonrası ham "görüntülenme" kaydıran izleyicileri de içerir; E1'deki karşılaştırma bu yüzden kırılgan. | https://vidiq.com/blog/post/youtube-view-count-update/ ; https://routenote.com/blog/youtube-view-count-change/ (ikincil) |
+| V37 | "viewed vs swiped away" ("izlenenlere karşı kaydıranlar") metriği var ve anlamı | §3, §6, E4 | CONFIRMED | YouTube Community duyurusu: "Shown in Feed" ve "Viewed (vs. swiped away)" Shorts metrikleri; Advanced mode ve içerik düzeyi Analytics'te (Studio web/mobil). Anlamı: akışta gösterildiğinde izleyicinin izlemesi ile kaydırması. Resmî Help'te aynı fikir "Stayed to watch" (ilk saniyeleri geçip izleme yüzdesi) olarak adlandırılıyor; "izlendi" ile "kaydırıldı" arasındaki saniye eşiği **yayımlanmamış**. Türkçe arayüz etiketi doğrulanmadı. | https://support.google.com/youtube/community-video/273390203 ; https://support.google.com/youtube/answer/16559650 |
+| V38 | E4: "başarı çoğunlukla ilk 1–3 sn'de kaydırma kararına bağlı" | E4 | ESTIMATE | YouTube Help "initial seconds" der (özellikle Shorts'ta izleyici kalıp kalmamaya orada karar verir), **sayısal pencere yok**; YouTube Blog'daki Shorts röportajında bir yaratıcı "bir saniyen var" diyor (resmî politika değil). "1–3 sn" üçüncü taraf kılavuz sayısı. Yöntem (Studio'daki oranla ölçme) makul. | https://support.google.com/youtube/answer/16559650 ; https://blog.youtube/creator-and-artist-stories/youtube-shorts-deep-dive/ |
+| V39 | Resmî YouTube kılavuzları ilk saniyeleri/tutmayı öneriyor | §5 E4/E7 | CONFIRMED | Help (öneri sistemi) ve blog "Four tips to hook your viewers": ilk saniyeler kritik, giriş kısa olmalı, vaadi hemen karşılamalı. Shorts'a özel sayısal tutma eşiği yok. Not: retention raporundaki "intro" metriği 30. saniyede ölçülüyor, Shorts açılışını ölçmez. | https://blog.youtube/creator-and-artist-stories/four-tips-to-hook-your-viewers-on/ |
+
+### 1f. Piper modelleri
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V40 | Piper Türkçe dfki, fahrettin, fettah modelleri var | §3 kısıtlar | CONFIRMED | Hugging Face `rhasspy/piper-voices` altında `tr/tr_TR/dfki`, `fahrettin/medium` ve `fettah` klasörleri listeleniyor (fahrettin: Ağustos 2023, fettah: 1 Şubat 2024 "Add fettah (tr) voice"). Yerelde de `ses-modelleri/ex_dfki`, `ex_fahrettin`, `ex_fettah` (`vits-piper-tr_TR-*-medium`) var. Sayfa gövdesini açamadım; varlık URL ve dosya adlarından. | https://huggingface.co/rhasspy/piper-voices/tree/5512791644e2148e4be301d4c7fc2a4bf51a5057/tr/tr_TR/dfki ; yerel dizin |
+| V41 | üçü "erkek" sesler | §3 | UNVERIFIED | Cinsiyet etiketini yalnız üçüncü taraf bir site (voicechanger.live) veriyor; HF model kartlarını okuyamadım. | https://voicechanger.live/text-to-speech/turkish |
+
+### 1g. Yerel/iç olgular (F1–F8)
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V42 | F1: dört video; süreleri 42/43/40/40 sn; 1080×1920, 24 fps | F1, §2 | CONFIRMED | ffprobe: Zanzibar 42,0 sn (1008 kare); Emu 43,0 sn (1032 kare); Dans 40,0 sn (960); Titanik 40,0 sn (960); hepsi 1080×1920, 24/1. Küçük düzeltme: Zanzibar `gunluk-shorts/*/out` altında değil, `/zaman-kuryesi-zanzibar/out/Zanzibar_Savasi.mp4`. Zanzibar'da ses akışı var; seslendirme betiği (tts) dizinde yok, "müzik/efekt, seslendirmesiz" ile uyumlu (dinlemedim). | yerel ffprobe |
+| V43 | F1/F3 tarihleri: Zanzibar 10-10, Emu 10-11, yeni anlatıcı ve Dans 10-12, Titanik 10-14 | F1, F3 | CONFIRMED | git log: bf0c1e8 (10-10, Zanzibar), f8cfc8d/ec314d3 (10-11, Emu), ac9ad23 ve 5ec4262 (10-12; "Dans ve Emu videoları yeniden seslendirildi"), c75f947 ve c7e41d9 (10-14, Titanik, kadın ses). | yerel `git log` |
+| V44 | F4: WORLD f0×1,55 ve formant×1,14 (kadın sürüm) | F4 | CONFIRMED | `titanik-kehaneti/tts.py` satır 12: `--kadin` → `f0_scale=1.55, formant=1.14, reverb_wet=0.0`. (`ses-lab/narrator.py` satır 29'daki yorum 1,65/1,17 diyor: bayat yorum, kod değeri 1,55/1,14.) "Yankı kapatılabiliyor" doğru (`reverb_wet=0.0`). | yerel kod |
+| V45 | F4: "oda yankısı (kuru oran ~%8,5)" | F4 | CONTRADICTED | Kodda `reverb_wet=0.085` = **ıslak (yankı)** oranı, kuru değil. Miks formülü: kuru kazanç 1−0,085×0,5 = 0,9575; ıslak kazanç 0,085×1,6 = 0,136 (~%13,6 etkin yankı). "Kuru oran %8,5" etiketi/ birimi yanlış. | `ses-lab/narrator.py` satır 28 ve 154 |
+| V46 | F4: Whisper kelime hata oranı ~%20 (çoğu yabancı ad) | F4 | UNVERIFIED | `check_voice.py`/`eval_voices.py` WER hesaplıyor ama çıktı dosyası kayıtlı değil; yeniden çalıştırmadım (model/çevrimdışı çalıştırma kapsam dışı). | yerel kod: `ses-lab/check_voice.py` |
+| V47 | F5: render ~95–100 sn | F5 | CONFIRMED (yaklaşık) | Titanik `render.log`: 912/960 kare 95 sn, "bitti out/noaudio.mp4 101s". 4 süreç ifadesini kontrol etmedim. | `titanik-kehaneti/out/render.log` |
+| V48 | F6: "her videoda otomatik QA var: ... kare sayısı ..." | F6 | CONTRADICTED (Emu için bayat rapor) | `emu-savasi/out/qa_raporu.txt` (11 Ekim 08:40) "kare sayısı: 960 (beklenen 960)" diyor; ama teslim edilen `Emu_Savasi.mp4` 12 Ekim 12:23'te yeniden render edildi ve **1032 kare / 43 sn**. QA raporu mevcut videoyu değil eski 40 sn'lik sürümü yansıtıyor. Ayrıca LUFS/true peak ölçümü `qa.py` içinde değil `audio.py` içinde (V49). | yerel dosyalar |
+| V49 | F6/§2: ses −14 LUFS | §2, F6 | CONFIRMED | ffmpeg ebur128: Emu −14,1 LUFS, Titanik −14,0 LUFS (entegre). Dans ve Zanzibar ölçülmedi. | yerel ffmpeg ölçümü |
+| V50 | F7: Dans ilk karede kanca kartı yok; Titanik'te var; Emu'da ilk saniyede "20 bin kuşa savaş açtı" | F7 | CONFIRMED | Kare 0/1 sn: Dans'ta yalnız "DANSÇI 1" HUD'u ve 1. saniyede "Bir kadın sokakta" altyazısı, büyük kart yok. Titanik kare 0: "TİTANİK'TEN 14 YIL ÖNCE YAZILDI!" + "6 BENZERLİK" + HUD "BENZERLİK 6/6". Emu kare ~1 sn: "20.000 EMU" büyük yazı + "Bir ordu, 20..." altyazısı; senaryo A cümlesi "Bir ordu, 20 bin kuşa savaş açtı" ile uyumlu. | yerel kare çıkarma, `*/tts.py` |
+
+### 1h. Kontrol edilemeyen veya kontrol dışı bırakılan maddeler
+
+| # | Claim | Made in | Verdict | What I found | Source |
+|---|---|---|---|---|---|
+| V51 | F2: kullanıcı 1700 / 100 izlenme yazdı | F2 | UNVERIFIED | Bu sohbet kaydı bu oturumda yok; YouTube Studio'ya erişimim yok. Olgunun kendisi kullanıcı beyanı; ölçüm tanımı belirtilmemiş (bkz. V36). | sohbet kaydı yok |
+| V52 | E1/E2/E3/E5/E6 (konu etkisi, ses etkisi, tutarlı stil etkisi, günlük yayın, rakip kullanımı) | E1–E3, E5, E6 | ESTIMATE | Dosya bunları zaten tahmin olarak etiketliyor (kanıt yok). Yöntemleri ("gözlem", "genel bilgi") kontrol edilebilir veri sunmuyor; çürütme yöntemleri makul. | DOSSIER §5 |
+| V53 | F8: yayın metni sohbette yazıldı; yayın saati sistematik değil | F8 | UNVERIFIED | `emu-savasi/yayin_metni.md` ve `dans-vebasi/yayin_metni.md` var (yayın metni yazılmış); "sistematik değil" öznel, "sohbet" doğrulanamaz. | yerel dosya listesi |
 
 ## 2. Summary
 
-- **Failed and load-bearing:** ...
-- **Failed, not load-bearing:** ...
-- **True but misleading:** ...
-- **Could not reach (never reached, not verified absent):** ...
-- **Everything else confirmed.**
+Kontrol edilen iddia sayısı: 53. Hüküm dağılımı (tablo satırı başına bir hüküm, betikle sayıldı): CONFIRMED 33, MISLEADING 7 (V4, V5, V10, V16, V28, V30, V36), CONTRADICTED 2 (V45, V48), UNVERIFIED 9 (V8, V11, V20, V29, V33, V41, V46, V51, V53), ESTIMATE 2 (V38, V52). V20 bölünmüş hüküm taşıyor ("tartışmanın varlığı" doğrulandı, "hangi baskı" doğrulanamadı) ve UNVERIFIED sayıldı.
+
+- **Failed and load-bearing:** Yok. Hiçbir iddia kanal yönü kararının dayandığı bir önermeyi yanlışlıyor. Karar için en ağır noktalar yanıltıcı sınıfında (aşağıda): V36 ölçüm tanımı (F2/E1 karşılaştırmasının taban sayıları), V16 (videoda yayınlanmış bir olgu iddiası).
+- **Failed, not load-bearing:**
+  - V45: `reverb_wet=0.085` yankı (ıslak) oranıdır, DOSSIER F4'teki "kuru oran ~%8,5" etiketi yanlış.
+  - V48: Emu `qa_raporu.txt` bayat (960 kare; teslim edilen video 1032 kare); LUFS ölçümü `qa.py`'de değil `audio.py`'de.
+  - V44 yan not: `narrator.py` yorumundaki 1,65/1,17, kodda kullanılan 1,55/1,14 ile çelişiyor (bayat yorum).
+  - V42 yan not: Zanzibar videosu belirtilen `gunluk-shorts/*/out` klasöründe değil.
+- **True but misleading:**
+  - V4/V5 Emu: "1.000 emu / tam 10 mermi" Meredith'in kendi raporundaki tartışmalı sayım; ilk fazda oran çok daha kötü; "tam 10" sahte hassasiyet.
+  - V10 Emu: "ordu" üç kişilik, iki makineli tüfekli müfrezeydi.
+  - V16 Titanik: "ikisi de batmaz diye tanıtıldı", Titanic için "pratikte batmaz" (basın/Shipbuilder 1911) ve şirket açıklamaları tartışmalı; niteleme düşmüş.
+  - V28/V30 Dans: ~400 kişi üst sınır (50–400); ölüm iddiaları sonraki kroniklerden, dönemin şehir kayıtlarında ölüm yok.
+  - V36 E7: Ağustos 2026 sayım değişikliği listede yok; F2'deki izlenme sayılarının ölçümü belirsiz olduğundan ham görüntülenme ile "engaged views" karıştırılabilir.
+  - V14/V19/V20 Titanik (hüküm CONFIRMED/UNVERIFIED, sınıflandırma uyarı amaçlı): 800 ft ve bot sayısı değerlerinin 1898 mi 1912 baskısından geldiği kontrol edilemedi; 1912'de roman değiştirildi (deplasman ve bir paragraf).
+- **Could not reach (never reached, not verified absent):**
+  - Hiçbir web sayfası doğrudan açılamadı (WebFetch DNS hatası, curl 403 proxy); tüm web bulguları arama özetine dayanır.
+  - V8 "zikzak", V11 Meredith alıntısı (sözcük düzeyi), V29 "34 kişi", V33 müzik yasağı/türbe/"müzik susunca bitti", V41 modellerin "erkek" etiketi (HF model kartı), V46 Whisper %20 WER, V51 kullanıcı izlenme sayıları (Studio erişimi yok), V53 yayın metni içeriği.
+  - Roman metni (1898/1912), Meredith raporu (1932) ve 1518 Strazburg belgeleri birincil düzeyde okunamadı.
+- **Everything else confirmed:** V1–V3, V6, V7, V9, V12, V13, V15, V17–V19, V21–V27, V31, V32, V34, V35, V37, V39, V40, V42–V44, V47, V49, V50 doğrulandı (web kaynaklı olanlar arama özeti düzeyinde, yerel olanlar doğrudan ölçümle).
