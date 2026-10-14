@@ -14,8 +14,8 @@ B'nin "ilk 14 günde 3 cilt dönsün" kuralı 10–14 videoyu hücre başına 2�
 - **Cilt:** ilk 14 gün 1; sonra tavan 3. Her yeni cilt, kanca kartının 270×480'de okunurluk testinden geçmeden çıkmaz.
 - **Sıklık/süre:** haftada ≥5; kapıyı geçmeyen gün atlanır. Süre 14 gün 40±3 sn sabit; 25–32 sn sonra, tek değişken olarak denenir.
 - **Ses testi:** seslendirme'nin eşiği (≥4/5 tercih, ≤1/5 "robot") kabul. Ek: test metnine kanca cümlesi girer, çünkü kaydırma kararı ilk 3 sn'de çıkar.
-- **Kapılar:** kaynak, Türkçe ve QC zorunlu; kapı toplamı ≤20 dk. Kanca yazımı (3 aday, ~15 dk, benim tahminim) kapı değil yazım aşamasıdır. Kanca kontrolü 2 dk: kart okunuyor, ilk söz ≤0,5 sn, "ödeme saniyesi" günlüğe yazılmış.
-- **Ölçüt:** birincil "izlenenlere karşı kaydıranlar" (48. saat ve 7. gün), ikincil ortalama izlenme %. Hücre ≥7 olmadan "kazanan" yok. Kancalar arası fark ≥10 puan ise "ipucu"; altı "ayırt edilemedi" demektir, "etkisiz" demek değil. R1'deki ≤5 puan eşiğimi 10'a çekiyorum, çünkü 7+7'de 5 puan gürültüdür.
+- **Kapılar:** kaynak, Türkçe ve QC zorunlu; toplam ≤20 dk. Kanca yazımı (3 aday, ~15 dk, tahminim) kapı değil yazım aşaması. Kanca kontrolü 2 dk: kart okunuyor, ilk söz ≤0,5 sn, "ödeme saniyesi" günlükte.
+- **Ölçüt:** birincil "izlenenlere karşı kaydıranlar" (48. saat ve 7. gün), ikincil ortalama izlenme %. Hücre ≥7 olmadan "kazanan" yok. Kancalar arası ≥10 puan "ipucu"; altı "ayırt edilemedi" (etkisiz değil). R1'deki ≤5 puan eşiğimi 10'a çekiyorum: 7+7'de 5 puan gürültü.
 - **Kanca kuralı:** kart ≤6 kelime (R1'de 9'du), ≥64 px; rakam, çelişki ya da "bir şey yanlış" yapısı. Ek 10 gereği üst ≥290 ve alt ≥672 px dışında kalır (R1'deki y<1440 fazla gevşekti). Ses ilk ≤0,5 sn'de başlar. Vaat ≤30 sn içinde ödenir; olgu kanca cümlesini ayrıca onaylar.
 - **Test kolları:** iki kurala uygun kanca (rakam vs çelişki cümlesi), yazı-tura, konu türü çiftleri içinde dengeli. Kanca-sız kol yok: 7 videoyu bilinen kötü açılışa harcamak israf. Kanca-sız karşılaştırma Emu–Dans'ın retro verisidir.
 - **Titanik (Soru 8):** "14 YIL ÖNCE YAZILDI · KEHANET Mİ?" (6 kelime), cevap ("yazar denizciydi") ≤35 sn'de; "batmaz" ilk kartta geçmez.
@@ -36,11 +36,11 @@ B'nin "ilk 14 günde 3 cilt dönsün" kuralı 10–14 videoyu hücre başına 2�
 
 ## 3. Corrections accepted or disputed
 
-- **Ek 3 (ilk kare ölçümü): kabul.** Dans'ta kanca kartı yok, Emu'da skor tabelası var. Yine de tek çifttir, kanıt değil.
-- **Ek 1 (metrik): kabul.** Ham görüntülenme kancayı ölçmez; 24 Ağustos 2026 iddiası doğruysa kaydıran oranı daha da şart (UNVERIFIED).
-- **Ek 6 ve 7: kabul.** "Tam 10 mermi" sahte hassasiyet; "ordu" ve "kehanet" kancaları düzeltilir.
-- **Ek 9: kabul.** QA kancayı hiç denetlemiyor; kapıya 2 dk'lık kanca kontrolü eklenir.
-- **Ek 10: kabul.** Piksel değerleri deneme olmadan kesin kural sayılmaz.
+- **Ek 3: kabul.** Dans'ta kanca kartı yok, Emu'da skor tabelası var; ama tek çift, kanıt değil.
+- **Ek 1: kabul.** Ham görüntülenme kancayı ölçmez.
+- **Ek 6 ve 7: kabul.** "Tam 10 mermi", "ordu" ve "kehanet" kancaları düzeltilir.
+- **Ek 9: kabul.** QA kancayı denetlemiyor; 2 dk'lık kanca kontrolü kapıya girer.
+- **Ek 10: kabul.** Piksel değerleri deneme olmadan kesin kural değil.
 
 ## 4. What would reverse this vote
 
@@ -48,4 +48,4 @@ Günlüğe göre 14. günde iki kanca arasında fark ayırt edilemiyorsa ve yoru
 
 ## 5. Dissent to record
 
-Oy A'da kalabalık değil. Eğer çoğunluk B ya da C'yi seçerse şunu kaydedin: kanal 4 videoluk, dağıtım dalgası ve cilt, konu ve ses aynı anda değişmişken tek ölçülebilir ucuz kaldıraç kancadır. İlk 14 günde cilt çeşitliliği kullanıcının isteğine yapılan 14 günlük bir erteleme, ama sonsuz olmayan bir bedeldir; buna karşılık cilt rotasyonu, kanca kuralının etkisini cilt etkisinden ayrılamaz kılar ve konsey iki hafta sonra yine "veri yok" diyerek aynı tartışmaya döner.
+Çoğunluk B ya da C'yi seçerse şunu kaydedin: cilt, konu ve ses aynı anda değişmişken tek ucuz ve ölçülebilir kaldıraç kancadır. Cilt çeşitliliğinin 14 gün ertelenmesi kullanıcının isteğine sonsuz değil, sınırlı bir bedeldir. Cilt rotasyonu ise kanca etkisini cilt etkisinden ayrılamaz kılar ve konsey iki hafta sonra yine "veri yok" diyerek aynı tartışmaya döner.
