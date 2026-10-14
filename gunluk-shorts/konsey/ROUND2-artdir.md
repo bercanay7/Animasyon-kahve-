@@ -15,7 +15,7 @@ Tanınabilir imza koltuğumun önceliği. Ek 01A madde 3 şunu gösterdi: Dans't
 - **Yeni cilt:** mevcut cilt ≥5 videoda kullanılmış VE ortak motor sürümü kilitlenmiş olacak. Cilt = yalnız `art.py` + palet; ≤90 dk.
 - **Sıklık:** haftada 5, 3 günlük tampon (pipeline). Tampon 1 güne inerse otomatik 3–4/hafta.
 - **Cilt kararı eşiği:** hücre başına ≥7 video, konu türü aynı, medyan "viewed" oranı farkı ≥10 puan. Tur 1'deki "≥4 video" şartımı geri çekiyorum (analitik haklı).
-- **Kanca kartı (soru 6):** ≤6 kelime, ≥64 px, en çok 2 satır, kare 0'dan itibaren, güvenli alanda. Gerekçe: 64 px'te 9 kelime 3 satıra çıkar ve ana nesneyi sıkıştırır (tahmin; Pillow ölçümüyle doğrulanacak). Vaat 10 sn içinde ödenir, kontrolü olgu/kanca koltuklarında.
+- **Kanca kartı (soru 6):** ≤6 kelime, ≥64 px, en çok 2 satır, kare 0'dan itibaren, güvenli alanda. Gerekçe: 64 px'te 9 kelime 3 satıra çıkar ve ana nesneyi sıkıştırır (tahmin; Pillow ölçümüyle doğrulanacak).
 - **Görsel kapı (soru 4, toplam 10–15 dk bütçenin ~3 dk'sı):** 270×480'de silüet testi, güvenli alan şablonu çakışması, Türkçe glif satırı (İ ı Ş Ğ).
 - **Titanik kartı (soru 8):** kartta "kehanet" sözcüğü yok, ≤6 kelime. Metni olgu ve kanca koltukları yazar.
 
@@ -23,7 +23,7 @@ Tanınabilir imza koltuğumun önceliği. Ek 01A madde 3 şunu gösterdi: Dans't
 
 | Member | Point | Agree / disagree | Why |
 |---|---|---|---|
-| buyume | 14 gün tek imza, blueprint öneriyor ("Titanik'te zaten var") | Kısmen | Tanınırlık ve "Dosya #N" seri adı: katılıyorum. Seçim gerekçesi kolaylık; Emu'yu blueprint ile anlatmak zor. Ayrıca ">%30 geri kalma" eşiği n=14'te gürültüdür. |
+| buyume | 14 gün tek imza, blueprint öneriyor ("Titanik'te zaten var") | Kısmen | Tanınırlık ve "Dosya #N" seri adı: katılıyorum. Seçim gerekçesi kolaylık; Emu'yu blueprint ile anlatmak zor. |
 | analitik | Tek eksen, hücre başına ≥7, ham izlenme yok | Katılıyorum, bir yerde karşı | Cilt-konu eşlememin cilt ile konuyu birbirine bağladığı doğru; bu yüzden 14 günde cilt etkisi iddia etmiyorum. Ama cildi dondurmak da veri almaz: tek hücre, karşılaştırma yok. |
 | pipeline | Tavan 4, belki 6; motor + veri dosyası | Motor: evet. Tavan: hayır | 6 cilt, kanal sayfasında A'nın yeniden etiketlenmiş halidir. Tavan 3. "14 günde bir yeni cilt" ile benim "≥5 video" şartımdan hangisi yavaşsa o geçerli. |
 | renktipo | Üst ≥290, alt ≥672, sağ ≥200; içerik 840×960 merkezde | Kısmen | Üst ve sağ: iki kaynak da 241–288 / 192–201 diyor, benimsiyorum, HUD y≈260 yukarı alınacak. Alt 672 yalnız bir reklam şartnamesine dayanıyor (organik doğrulanmadı); uygulanırsa tuval 960 px yüksekliğe iner ve kanca kartı, ana nesne, HUD, altyazı sığmaz. Alt sınırı sizin Pillow şablon testiniz belirlesin. |
@@ -34,13 +34,11 @@ Tanınabilir imza koltuğumun önceliği. Ek 01A madde 3 şunu gösterdi: Dans't
 
 - **Ek 01A madde 3 (ilk kareler): kabul.** Tur 1'deki "Dans'ta kanca yoktu" tahminim doğrulandı. Ama E1 tek çifttir.
 - **Madde 10 (güvenli alan açığı): kabul.** V1'deki "HUD y geçici" notumu şuna çeviriyorum: HUD yukarıdaki bölgeden çıkarılana ve şablonla doğrulanana kadar yayın şartı.
-- **Madde 1 (metrik): kabul.** Cilt kararında yalnız "viewed" oranı ve ortalama izlenme % kullanılır.
 
 ## 4. What would reverse this vote
 
 - Studio'da kancalı videolar (Emu, Titanik) ile kancasız (Dans) arasında kaydıran farkı yoksa, kanca önceliği düşer ve cilt tartışması geri açılır.
 - Ortak motora taşıma (Titanik, pipeline'ın ölçümü) >3 gün sürerse B'ye değil A'ya (tek cilt) dönerim: cilt maliyeti çeşitliliği satın alamaz.
-- 5 kişilik 270×480 testinde iki cilt de <3/5 çıkarsa tek okunur cilde kilitlerim.
 - 14. günde iki cildin "viewed" medyanı arasında ≥10 puan fark ve her hücrede ≥7 video varsa, kazanan cilde (B-tek cilt) yaklaşırım. Fark görünmezse 2→3 cilt, iskelet kalıcı.
 
 ## 5. Dissent to record
