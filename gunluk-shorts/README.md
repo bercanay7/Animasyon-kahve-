@@ -8,6 +8,9 @@ Her video kendi klasöründe (kod + çıktı). Ortak altyapı: Pillow 2x süper 
 |---|---|---|---|
 | `../zaman-kuryesi-zanzibar/` | Tarihin en kısa savaşı (1896) | düz renkli illüstrasyon + kinetik yazı | müzik/efekt, seslendirmesiz |
 | `emu-savasi/` | Emu Savaşı (1932) | **kara kalem / kömür çizimi**, titreyen çizgiler | **heyecanlı Türkçe seslendirme (ücretsiz, çevrimdışı)** |
+| `dans-vebasi/` | Dans Vebası (1518) | kara kalem | heyecanlı Türkçe seslendirme |
+| `titanik-kehaneti/` | Titanik'in Kehaneti (v2, TESLİMAT #4) | blueprint | kuru erkek ses (Piper dfki) |
+| `sitma-geri-dondu/` | Türkiye'de sıtma: neredeyse bitti, neden döndü? (TESLİMAT #5) | blueprint + Türkiye haritası/nokta | kuru erkek ses, en iyi-5 sentez + Whisper doğrulama |
 
 ## Ücretsiz Türkçe seslendirme (para yok, hesap yok)
 Piper VITS Türkçe modelleri (`fettah`, `dfki`, `fahrettin`) + `sherpa-onnx` (pip). Çevrimdışı çalışır, ~0.3 sn'de 6 sn konuşma üretir.

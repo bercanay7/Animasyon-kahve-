@@ -1,0 +1,12 @@
+kare sayısı: 936 (beklenen 936 )
+1) BOŞ/SİYAH KARE: min parlaklık 48, min kontrast 25.3; parlaklık<40: 0
+   çizgi/yazı yoğunluğu min 0.05% (kare 290), <%0.8 olan kare: 32
+2) MERMİ SAYACI (HUD) her karede: koyu piksel oranı min 12.7% (kare 464), <%1.5 olan kare: 0 / 936
+3) EN UZUN YAZISIZ SERİ (döngü dahil): 3 kare = 0.125 sn (sınır 0.3)
+4) İLK vs SON KARE: ort. fark 0.457, PSNR 48.4 dB
+   ham render farkı max 0 (0 = birebir aynı)
+5) 2 sn'lik pencerede belirgin görsel değişim olmayan başlangıçlar: yok
+   saniyelik hareket: 2.5 4.1 4.9 5.3 0.8 1.0 9.5 0.9 0.3 2.2 0.9 10.9 4.7 0.6 3.4 1.9 0.6 0.5 4.3 7.1 0.4 0.6 4.2 1.7 1.9 1.3 10.9 0.5 1.0 10.9 3.6 0.8 0.9 0.5 14.6 6.9 2.4 1.3 0.4
+6) ALT %25 (y>1440) çizgi/yazı oranı: ort 0.11%  maks 54.24% (içerik üst bölgede kalmalı)
+sayfalar yazıldı
+KAPI ÖZETİ: kare sayısı: GEÇTİ; boş/siyah kare yok: GEÇTİ; HUD her karede: GEÇTİ; yazısız seri ≤0,3 sn: GEÇTİ; ilk=son kare (ham render birebir): GEÇTİ; ilk ses ≤0,5 sn: GEÇTİ; 2 sn'lik durağan pencere yok: GEÇTİ; donma (freezedetect) yok: GEÇTİ

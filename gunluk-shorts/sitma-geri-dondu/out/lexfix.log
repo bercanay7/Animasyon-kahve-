@@ -1,0 +1,76 @@
+C WER 0.22 ['0.22', '0.22', '0.22'] | Vaka sayısı *1.263’e=bin_iki_yüz_altmış_üçe düştü.*
+       Bak'a sayısı 1263'e düştü.
+       Bak'a sayısı 1263'e düştü.
+       Bak'a sayısı 1263'e düştü.
+C WER 0.00 ['0.00', '0.00', '0.00'] | Yıllık vaka sayısı *1.263’e=bin_iki_yüz_altmış_üçe düştü.*
+       Yıllık vaka sayısı 1263'e düştü.
+       Yıllık vaka sayısı 1263'e düştü.
+       Yıllık vaka sayısı 1263'e düştü.
+C WER 0.00 ['0.00', '0.00', '0.00'] | Kayıtlı vaka sayısı *1.263’e=bin_iki_yüz_altmış_üçe düştü.*
+       kayıtlı vaka sayısı 1263'e düştü.
+       kayıtlı vaka sayısı 1263'e düştü.
+       kayıtlı vaka sayısı 1263'e düştü.
+E WER 0.30 ['0.30', '0.30', '0.30'] | Neden? Dünya Sağlık Örgütü’ne=Örgütüne göre, *etkenler üst üste bindi.*
+       Neden? Dünya Sağlık Örgütüne göre Etenler üst üste bindi.
+       Neden? Dünya Sağlık Örgütüne göre Etenler üst üste bindi.
+       Neden? Dünya Sağlık Örgütüne göre Etenler üst üste bindi.
+E WER 0.20 ['0.20', '0.20', '0.20'] | Neden? Dünya Sağlık Örgütü’ne=Örgütüne göre, *etkenler=et_kenler üst üste bindi.*
+       Neden? Dünya Sağlık Örgütüne göre etkenler üst üste bindi.
+       Neden? Dünya Sağlık Örgütüne göre etkenler üst üste bindi.
+       Neden? Dünya Sağlık Örgütüne göre etkenler üst üste bindi.
+E WER 0.00 ['0.00', '0.00', '0.00'] | Neden? Dünya Sağlık Örgütü’ne=Örgütüne göre, *etkenler=etkeenler üst üste bindi.*
+       Neden? Dünya Sağlık Örgütü'ne göre etkenler üst üste bindi
+       Neden? Dünya Sağlık Örgütü'ne göre etkenler üst üste bindi
+       Neden? Dünya Sağlık Örgütü'ne göre etkenler üst üste bindi
+E WER 0.00 ['0.00', '0.00', '0.00'] | Neden? Dünya Sağlık Örgütü’ne=Örgütüne göre, *faktörler üst üste bindi.*
+       Neden? Dünya Sağlık Örgütü'ne göre faktörler üst üste bindi
+       Neden? Dünya Sağlık Örgütü'ne göre faktörler üst üste bindi
+       Neden? Dünya Sağlık Örgütü'ne göre faktörler üst üste bindi
+K WER 0.18 ['0.18', '0.18', '0.18'] | Bugün, Sağlık Bakanlığı’na=Bakanlığına göre, *yerli vaka yok.* İthal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+K WER 0.36 ['0.36', '0.36', '0.36'] | Bugün, Sağlık Bakanlığı’na=Bakanlığına göre, *yerli vaka yok.* İthal=it_hal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, it hal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, it hal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, it hal vakalar sürüyor.
+K WER 0.18 ['0.18', '0.18', '0.18'] | Bugün, Sağlık Bakanlığı’na=Bakanlığına göre, *yerli vaka yok.* İthal=ithaal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok, ithal vakalar sürüyor.
+K WER 0.17 ['0.17', '0.17', '0.17'] | Bugün, Sağlık Bakanlığı’na=Bakanlığına göre, *yerli vaka yok.* Dışarıdan gelen vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok dışarıdan gelen vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok dışarıdan gelen vakalar sürüyor.
+       Bugün Sağlık Bakanlığına göre yerli vaka yok dışarıdan gelen vakalar sürüyor.
+H WER 0.75 ['0.75', '0.75', '0.75'] | Üstelik, *gözetim ağı yetersizdi.*
+       Üstelik gözetim ayı yeter sizde.
+       Üstelik gözetim ayı yeter sizde.
+       Üstelik gözetim ayı yeter sizde.
+H WER 1.00 ['1.00', '1.00', '1.00'] | Üstelik, *gözetim yetersizdi.*
+       Üstelik gözetimi yeter sizde.
+       Üstelik gözetimi yeter sizde.
+       Üstelik gözetimi yeter sizde.
+H WER 0.50 ['0.50', '0.50', '0.50'] | Üstelik, *gözetim sistemi yetersizdi.*
+       Üstelik, gözetim sistemi yeter sizde.
+       Üstelik, gözetim sistemi yeter sizde.
+       Üstelik, gözetim sistemi yeter sizde.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *bitti sanılan hastalık,* izlenmezse döner.
+       Ders şu; Bitti sanılan hastalık, gizlenmese döner.
+       Ders şu; Bitti sanılan hastalık, gizlenmese döner.
+       Ders şu; Bitti sanılan hastalık, gizlenmese döner.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *bitti sanılan hastalık,* izlenmeyince döner.
+       Ders şu; Bitti sanıdan hastalık, izlenmeyince döner.
+       Ders şu; Bitti sanıdan hastalık, izlenmeyince döner.
+       Ders şu; Bitti sanıdan hastalık, izlenmeyince döner.
+L WER 0.12 ['0.12', '0.12', '0.12'] | Ders şu: *bitti sanılan hastalık,* takip edilmezse döner.
+       Ders şu; Bitti sanılan hastalık, takip edilmese döner.
+       Ders şu; Bitti sanılan hastalık, takip edilmese döner.
+       Ders şu; Bitti sanılan hastalık, takip edilmese döner.
+F WER 0.12 ['0.12', '0.12', '0.12'] | Önce, *sulu tarım yayıldı.* Sivrisinek sayısı *keskin arttı.*
+       Önce sulu tarımı yayıldı. Sivrisinek sayısı keskin arttı.
+       Önce sulu tarımı yayıldı. Sivrisinek sayısı keskin arttı.
+       Önce sulu tarımı yayıldı. Sivrisinek sayısı keskin arttı.
+F WER 0.12 ['0.12', '0.12', '0.12'] | Önce, *sulu=suluu tarım yayıldı.* Sivrisinek sayısı *keskin arttı.*
+       Önce suvu tarım yayıldı. Sivrisinek sayısı keskin arttı.
+       Önce suvu tarım yayıldı. Sivrisinek sayısı keskin arttı.
+       Önce suvu tarım yayıldı. Sivrisinek sayısı keskin arttı.
