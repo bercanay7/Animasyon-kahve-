@@ -11,6 +11,7 @@ Her video kendi klasöründe (kod + çıktı). Ortak altyapı: Pillow 2x süper 
 | `dans-vebasi/` | Dans Vebası (1518) | kara kalem | heyecanlı Türkçe seslendirme |
 | `titanik-kehaneti/` | Titanik'in Kehaneti (v2, TESLİMAT #4) | blueprint | kuru erkek ses (Piper dfki) |
 | `sitma-geri-dondu/` | Türkiye'de sıtma: neredeyse bitti, neden döndü? (TESLİMAT #5) | blueprint + Türkiye haritası/nokta | kuru erkek ses, en iyi-5 sentez + Whisper doğrulama |
+| `dune-star-wars/` | Dune × Star Wars: Tatooine Arrakis'ten mi geldi? (TESLİMAT #6, **özel video**, 2 dk 36 sn) | **kâğıt kesme diyorama** (katmanlı kumullar, gölgeli kâğıt, "KANIT n/5" etiketi, serif altyazı) | kuru erkek ses, **yavaş tempo** (hız 0,90; cümle araları 0,4–0,9 sn), en iyi-5 sentez + Whisper doğrulama |
 
 ## Ücretsiz Türkçe seslendirme (para yok, hesap yok)
 Piper VITS Türkçe modelleri (`fettah`, `dfki`, `fahrettin`) + `sherpa-onnx` (pip). Çevrimdışı çalışır, ~0.3 sn'de 6 sn konuşma üretir.
@@ -31,3 +32,5 @@ cd emu-savasi && python3 tts.py --voice=fettah
 4. `python3 tts.py && python3 audio.py && python3 render.py` → mux → `python3 qa.py`.
 
 Stil fikirleri: kara kalem (bu video), çöp adam, kinetik tipografi (yalnız yazı), harita animasyonu, defter/karalama, blueprint (mavi çizim), kolaj/kağıt kesim.
+
+**Kural (kullanıcı düzeltmesi, 2026-10-15):** her konu kendi çizim diline sahip olur — bir önceki videonun cildi (blueprint, kara kalem, kâğıt kesme …) tekrar kullanılmaz; anlatım yavaş ve bağlamlı olur (ayrıntı: `konsey/KANAL_ANAYASASI.md` §12).

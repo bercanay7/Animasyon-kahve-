@@ -108,3 +108,15 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 ## 11. Sınırlar
 
 Bu belge simüle edilmiş bir kurulun tavsiyesidir; gerçek izleyici/Studio verisi yerine geçmez. Sayısal eşikler varsayımdır ve ilk 14 videoda yeniden yazılacaktır. Resmî YouTube sayfaları okunamadı; platform kuralları ikincil kaynaklara dayanır.
+
+## 12. Kullanıcı düzeltmeleri (2026-10-15) — bu bölüm diğerlerinden önceliklidir
+
+Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi: **anlatım çok hızlı**, **bağlam zayıf**, **çizimler Titanik'le aynı** ("her konu için farklı çizimler yapacaktık"). Kurallar buna göre değişti:
+
+1. **Her konu kendi çizim dilini taşır.** Bölüm 2'deki "tavan 3 cilt + yazı-tura" kaldırıldı. Önceki videonun cildi/sahne şablonu aynen tekrar edilmez; ortak olan yalnızca motor (çizim ilkelleri, render, ses, QA). Yeni konu için önce görsel dil seçilir (örnekler: düz renkli → Zanzibar; kara kalem → Emu, Dans; mavi baskı → Titanik, Sıtma; **kâğıt kesme diyorama → Dune × Star Wars**), HUD ve altyazı biçemi de konuya göre değişir (Dune videosunda serif altyazı + kâğıt "KANIT" etiketi).
+2. **Tempo ve bağlam.** Anlatıcı hızı ≤ 1,0 (Piper `speed`; Dune videosunda 0,90), cümle arası ≥ 0,4 s, virgül/iki nokta arası ≥ 0,2/0,3 s. Her yeni olgudan önce kısa bağlam (kim/ne/ne zaman); cümle başına en çok **bir** yeni olgu; sayı/tarih yoğunluğu düşük. Toplam hız (duraklar dahil) ≈ 1,8 sözcük/sn (Dune: 276 sözcük / 156 sn); 2,3 sözcük/sn üstü "çok hızlı" sayılır.
+3. **"Özel video" biçimi** (kullanıcı isterse): dikey 9:16, ≤ 3 dk (Shorts sınırı). Süre ve kanca kuralları gevşer: kanca bir **soru** olabilir ve vaat tek seferde değil **üç aşamada** ödenir (ara kanıt → "geri sayım" açık döngüsü → hüküm); kare 0 = son kare döngüsü, kaynak/telaffuz/QC kapıları aynen geçerlidir. Sıradan günlük Shorts 40 sn ±3 kalır.
+4. **Aşırı yoğun bilgi yasak:** sayı sınırı (≤3) 40 sn'lik videolar içindir; özel videoda her sayı ekranda büyük kartla gösterilir ve söylenen sayı ≤ 6'dır.
+5. **Doğrulanamayan hiçbir alıntı birebir söylenmez;** "anlatıldığına/bildirildiğine göre" ile niteliklenir ve kaynak dosyasında ikincil olduğu belirtilir.
+6. **Hareket (özel video).** Sarsıntı/flaş sınırı (40 sn başına ≤2 / ≤1) süreyle ölçeklenir. Kâğıt/diyorama gibi durağan çizim dillerinde "2 sn'lik durağan pencere" ve `freezedetect` (−55 dB, 1 sn) kapıları, dünya katmanına yavaş kamera sürüklenmesi (zoom ≈ %2,6–5, HUD/altyazı sabit) ve vurgu anlarında kısa zoom itişleriyle geçilir. Tane (grain) ≤ 0,01 tutulur: hareketli sahnede 0,05 tane bit hızını 2,4× yaptı (134 MB).
+7. **Yerleşim.** Altyazı bölgesine (y ≈ 1250–1390) metin taşıyan nesne (kart, etiket, damga) konmaz; kamera sürüklenmesi içeriği ±45 px kaydırdığı için nesneler bölgeden ≥ 60 px uzak tutulur. `capzone` taraması: altyazı sayfalarının orta anında dünya karesinde kenar yoğunluğu ölçülür; yalnız kum tepesi/zemin gibi arka plan dokusu kalmalıdır.
