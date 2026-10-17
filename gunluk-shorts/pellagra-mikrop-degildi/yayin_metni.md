@@ -5,13 +5,13 @@
 **Açıklama:**
 ```
 1916'da gönüllü doktorlar hastaların yara kabuğundan, idrarından ve dışkısından yapılmış hapları yuttu; kimse pellagra olmadı. Peki hastalık nereden geliyordu? · TESLİMAT #7
-Kaynak: Science History Institute, "Joseph Goldberger's Filth Parties" (ayrıntı: kaynaklar.md)
+Kaynak: Science History Institute, "Joseph Goldberger's Filth Parties"
 #Pellagra #Tarih #Shorts
 ```
 
 **Sabit yorum:**
 ```
-Kaynaklar: Science History Institute (kirli partiler), NIH Tarih Ofisi (26 Nisan 1916 kan enjeksiyonu), Public Health Reports (Public Health Service'in pellagra çalışması özeti; Rankin hapishane çiftliği), Georgia Ansiklopedisi (≈3 milyon vaka, ≈100.000 ölüm; başlangıç yılı kaynağa göre 1906/1907), Vikipedi "Nixtamalization" ve Southern Foodways Alliance (kireç işlemi). Notlar: Kaynaklar hapları Goldberger'in hazırladığını, yutanların çoğunlukla konuk doktorlar olduğunu söylüyor; eşi Mary'ye hap değil enjeksiyon yapıldığı aktarılıyor; katılımcı sayısı kaynağa göre değişiyor, bazı katılımcıların midesi bulandı ama kimse pellagra olmadı. Hapishane deneyinde sayı 11 gönüllüden 5 veya 6'sı (kaynağa göre). Sorun mısır değil, çeşitsiz beslenme ve bağlı niasindi. Bunu sakın denemeyin. Sence bugün yanlış nedene bağladığımız hangi sorun aslında tabakta saklı olabilir? 👇
+Kaynaklar: Science History Institute (kirli partiler), NIH Tarih Ofisi (26 Nisan 1916 kan enjeksiyonu), Public Health Reports (Public Health Service'in pellagra çalışması özeti; Rankin hapishane çiftliği), Georgia Ansiklopedisi (≈3 milyon vaka, ≈100.000 ölüm; başlangıç yılı kaynağa göre 1906/1907), Vikipedi "Nixtamalization" ve Southern Foodways Alliance (kireç işlemi). Notlar: Kaynaklar hapları Goldberger'in hazırladığını, yutanların çoğunlukla konuk doktorlar olduğunu söylüyor; eşi Mary'ye hap değil enjeksiyon yapıldığı aktarılıyor; katılımcı sayısı kaynağa göre değişiyor, bazı katılımcıların midesi bulandı ama kimse pellagra olmadı. Hapishane deneyinde sayı 11 gönüllüden 5 veya 6'sı (kaynağa göre). Sorun mısırın kendisi değil; mısıra dayalı çeşitsiz beslenme ve mısırda bağlı duran niasindi (kireçle işlenince serbest kalır). Bunu sakın denemeyin. Sence bugün yanlış nedene bağladığımız hangi sorun aslında tabakta saklı olabilir? 👇
 ```
 
 Notlar:
@@ -21,3 +21,5 @@ Notlar:
 - Sağlık güvenliği: ekranda "SAKIN DENEMEYİN" damgası, seste "Sakın denemeyin."; videoda "mısır yemeyin" izlenimi yok (ters köşe: mısır suçlu değildi, çeşitsiz beslenme ve bağlı niasin).
 - Süre 105 sn ≈ 1 dk 45 sn (Shorts üst sınırı 3 dk; kullanıcı kararı, 2026-10-17: "üst sınır kalksın, uygunluğu sen ayarla"). Telefonda dikey 9:16.
 - Yayın sonrası 24 saat içinde yorumlara cevap. Yayın saati: ilk 14 videoda sabit.
+- Yedek başlık (arama önerileri “dışkı yemek” gibi yanlış niyet gösterirse; 55 karakter): Hasta Atığından Hap Yuttular: Pellagra Neden Bulaşmadı?
+- Açıklamada “ayrıntı: kaynaklar.md” gibi depo içi atıf yok (izleyici o dosyayı açamaz); ayrıntılı kaynak tablosu depoda `kaynaklar.md`.
