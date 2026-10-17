@@ -71,7 +71,7 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 
 ## 7. Başlık, açıklama, kapak, topluluk
 
-- **Seri adı:** "TESLİMAT #N" (HUD ve açıklama 1. satırı). Başlık Shorts'ta "vaat sözleşmesidir"; arama ağırlığı Studio trafik kaynağı verisine göre belirlenir (Shorts akışı ≥%90 ise anahtar kelime çalışması kapanır; arama+önerilen ≥%20 ise açılır).
+- **Seri adı:** "TESLİMAT #N" (yalnız açıklamanın 1. satırı; ekranda/HUD'da sabit yazı olarak yer almaz, bkz. §12-8). Başlık Shorts'ta "vaat sözleşmesidir"; arama ağırlığı Studio trafik kaynağı verisine göre belirlenir (Shorts akışı ≥%90 ise anahtar kelime çalışması kapanır; arama+önerilen ≥%20 ise açılır).
 - **Kapak = tasarlanmış ilk kare** (ayrı kapak emeği yok). Kapak/ızgara trafik payı <%10 ise bu konu kapanır.
 - **Sabit yorum her videoda:** kaynak + tek açık soru; **24 saatte cevap** ve düzeltme kuralı (%100); ses/stil deneyleri izleyiciye açıkça söylenir; ses sorunu yorumların ≥%30'unu oluşturursa ses önceliği öne çekilir.
 
@@ -109,7 +109,7 @@ Kaynak: 21 koltuklu danışma kurulu, 2 tur, 1 doğrulama. 16/21 oyla **Seçenek
 
 Bu belge simüle edilmiş bir kurulun tavsiyesidir; gerçek izleyici/Studio verisi yerine geçmez. Sayısal eşikler varsayımdır ve ilk 14 videoda yeniden yazılacaktır. Resmî YouTube sayfaları okunamadı; platform kuralları ikincil kaynaklara dayanır.
 
-## 12. Kullanıcı düzeltmeleri (2026-10-15) — bu bölüm diğerlerinden önceliklidir
+## 12. Kullanıcı düzeltmeleri (2026-10-15, 2026-10-17) — bu bölüm diğerlerinden önceliklidir
 
 Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi: **anlatım çok hızlı**, **bağlam zayıf**, **çizimler Titanik'le aynı** ("her konu için farklı çizimler yapacaktık"). Kurallar buna göre değişti:
 
@@ -120,3 +120,4 @@ Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi:
 5. **Doğrulanamayan hiçbir alıntı birebir söylenmez;** "anlatıldığına/bildirildiğine göre" ile niteliklenir ve kaynak dosyasında ikincil olduğu belirtilir.
 6. **Hareket (özel video).** Sarsıntı/flaş sınırı (40 sn başına ≤2 / ≤1) süreyle ölçeklenir. Kâğıt/diyorama gibi durağan çizim dillerinde "2 sn'lik durağan pencere" ve `freezedetect` (−55 dB, 1 sn) kapıları, dünya katmanına yavaş kamera sürüklenmesi (zoom ≈ %2,6–5, HUD/altyazı sabit) ve vurgu anlarında kısa zoom itişleriyle geçilir. Tane (grain) ≤ 0,01 tutulur: hareketli sahnede 0,05 tane bit hızını 2,4× yaptı (134 MB).
 7. **Yerleşim.** Altyazı bölgesine (y ≈ 1250–1390) metin taşıyan nesne (kart, etiket, damga) konmaz; kamera sürüklenmesi içeriği ±45 px kaydırdığı için nesneler bölgeden ≥ 60 px uzak tutulur. `capzone` taraması: altyazı sayfalarının orta anında dünya karesinde kenar yoğunluğu ölçülür; yalnız kum tepesi/zemin gibi arka plan dokusu kalmalıdır.
+8. **HUD yalnız anlam taşıyan sayaçtır (2026-10-17).** Kullanıcı Pellagra videosunda (TESLİMAT #7) ekrandaki sabit "TESLİMAT #7" yazısına itiraz etti; bölüm 7'deki "HUD'da seri adı" ifadesi harfiyen uygulanınca Sıtma (YIL sayacı) ve Dune (KANIT n/5) ile tutarsızlık doğmuştu. HUD'da seri adı gibi değişmeyen yazı bulunmaz; HUD videonun ilerleyişini gösteren sayaçtır (Sıtma: YIL; Dune: KANIT n/5; Pellagra: KANIT + 4 kapsül). Seri adı yalnız açıklamanın 1. satırındadır.
