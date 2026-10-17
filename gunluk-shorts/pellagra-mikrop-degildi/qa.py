@@ -23,13 +23,13 @@ fr = decode_small()
 print("kare sayısı:", len(fr), "(beklenen", NF, ")")
 lum = np.array([f.mean() for f in fr]); sd = np.array([f.std() for f in fr])
 print(f"1) BOŞ/SİYAH KARE: min parlaklık {lum.min():.0f}, min kontrast {sd.min():.1f}; parlaklık<25: {(lum<25).sum()}")
-# HUD: koyu etiket (TESLİMAT #7 + 4 kapsül) — etiketin içinde koyu piksel çoğunlukta, açık yazı/kapsül oranı makul aralıkta olmalı
+# HUD: koyu etiket (KANIT + 4 kapsül) — etiketin içinde koyu piksel çoğunlukta, açık yazı/kapsül oranı makul aralıkta olmalı
 y0, y1, x0, x1 = int(222 / SF), int(302 / SF), int(230 / SF), int(850 / SF)
 dk = np.array([(f[y0:y1, x0:x1, :].mean(axis=2) < 95).mean() for f in fr])
 lt = np.array([(f[y0:y1, x0:x1, :].mean(axis=2) > 165).mean() for f in fr])
 ok_h = (dk > 0.55) & (lt > 0.02) & (lt < 0.45)
 hud_ok = ok_h.mean()
-print(f"2) HUD (TESLİMAT #7 + KANIT kapsülleri): koyu oran min {dk.min()*100:.0f}%, açık oran {lt.min()*100:.1f}–{lt.max()*100:.1f}%; aralık dışı kare: {int((~ok_h).sum())} / {len(fr)}")
+print(f"2) HUD (KANIT + 4 kapsül): koyu oran min {dk.min()*100:.0f}%, açık oran {lt.min()*100:.1f}–{lt.max()*100:.1f}%; aralık dışı kare: {int((~ok_h).sum())} / {len(fr)}")
 
 
 def visible(t):

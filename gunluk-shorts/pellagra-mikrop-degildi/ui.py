@@ -1,4 +1,4 @@
-"""1x katman: Fraunces altyazılar (kelime kelime pop, lamba sarısı vurgu) ve HUD (TESLİMAT #7 + 4 kapsüllük KANIT sayacı)."""
+"""1x katman: Fraunces altyazılar (kelime kelime pop, lamba sarısı vurgu) ve HUD (KANIT + 4 kapsüllük sayaç; seri adı yalnız açıklamada)."""
 import math
 
 import cues
@@ -96,7 +96,7 @@ def draw_captions(img, t):
 
 
 # ───────────────────────── HUD ─────────────────────────
-HUD_W, HUD_H = 680, 104
+HUD_W, HUD_H = 600, 104
 
 
 def _capsule(p, cx, cy, w, h, fill_k, age):
@@ -129,10 +129,10 @@ def draw_hud(img, t):
     p.cam(W / 2, H / 2, 1.0)
     # boyalı etiket: iç çerçeve + yazı
     p.line([(8, 8), (w - 8, 8), (w - 8, h - 8), (8, h - 8), (8, 8)], 3, Hx("#8A6A4A"), 0.9, cap=False)
-    p.text(176, h / 2 + 3, "TESLİMAT #7", 44, CREAM, path=FONT_SLAB)
+    p.text(128, h / 2 + 3, "KANIT", 44, CREAM, path=FONT_SLAB)
     for i in range(4):
         age = cues.kanit_age(t, i)
-        _capsule(p, 406 + i * 80, h / 2 + 1, 62, 30, 1.0 if age is not None else 0.0, age)
+        _capsule(p, 282 + i * 80, h / 2 + 1, 62, 30, 1.0 if age is not None else 0.0, age)
     patch = p.finish()
     jit = 0
     pulse = [ts for ts in cues.PULSES if 0 <= t - ts < 0.35]
