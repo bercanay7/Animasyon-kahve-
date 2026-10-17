@@ -15,3 +15,5 @@
 | `aday-iyot.md` | İyot eksikliği ve iyotlu tuz | BELKİ | bekliyor |
 | `aday-kursunlu-benzin.md` | Kurşunlu benzin | BELKİ | bekliyor |
 | `aday-arsenik.md` | Bangladeş'te arsenikli su | — | bekliyor |
+
+**Öncelik ve slot planı (2026-10-17):** puanlama formülü Anayasa §15, ilk sıralama ve yayın kuyruğu `../konsey/YOL_HARITASI.md` §5. Kısa kulvarı için doğrulanmamış fikir adayları (Domuz Savaşı 1859, Kova Savaşı 1325, Boston melas seli 1919, Serçe kampanyası 1958, "Jenkins'in Kulağı" 1739) kaynak kapısından geçince havuza girer.
