@@ -39,7 +39,7 @@
 
 | # | Tarih | Karar | Etiket |
 |---|---|---|---|
-| D1 | 2026-10-12/14 | Anlatıcı: tek erkek ses, kuru (yankı 0). "Ses iyi" (2026-10-17). | [K] |
+| D1 | 2026-10-12/14 | Anlatıcı: tek erkek ses, kuru (yankı 0). "Ses iyi" (2026-10-17). **2026-10-18: kör testte A (= `fahrettin`, CC0 veri seti) seçildi; önceki videolar `dfki`.** | [K] |
 | D2 | 2026-10-15 | Her konu kendi çizim dilini taşır; yavaş tempo, bağlam; "özel video" biçimi (§12) | [K] |
 | D3 | 2026-10-17 | "Üst sınır kalksın, uygunluğu sen ayarla": süre sınırı yok (teknik üst sınır 3 dk), süreyi konu belirler (§12-9) | [K] |
 | D4 | 2026-10-17 | HUD'da sabit yazı yok; HUD anlam taşıyan sayaçtır (§12-8) | [K] |
@@ -49,7 +49,7 @@
 | D8 | açık | Yayın kuyruğu (Titanik v1, eski videolar, Sıtma, Dune), ses lisansı geçişi: `YOL_HARITASI.md` §11 | açık |
 | D9 | 2026-10-18 | Kapsam genişledi: tarih + edebiyat + oyun + birbirleriyle alakalı içerik (§12-11, `VIZYON.md`) | [K] |
 | D10 | 2026-10-18 | Uzun video yeniden açıldı, ses koşuluyla (§12-12, §15) | [K] |
-| D11 | 2026-10-18 | Ses hedefi: derin, sıcak, robotik değil; ses yolu (A insan / B premium / C hibrit / D CC0) kararı bekliyor (`VIZYON.md` §6, `ses_testi/SES_BRIFI.md`) | [K] hedef, yol açık |
+| D11 | 2026-10-18 | Ses hedefi: derin, sıcak, robotik değil. **Shorts sesi: `fahrettin` (kör test A, seçildi).** Uzun Dosya için daha derin ses yolu (A insan / B premium) hâlâ açık (`VIZYON.md` §6, `ses_testi/SES_BRIFI.md`) | [K] |
 
 ## 1. Kimlik: neyi izleyici tanır
 
@@ -97,12 +97,13 @@
 ## 4. Ses kuralları
 
 - **Ses hedefi [K, §12-13]:** derin, sıcak, tiyatral ağırlık, doğal nefes ve vurgu; **olabildiğince robotik olmayan.** Mevcut Piper sesi (VITS "orta") bu hedefin altında kalabilir; ses yolu (insan / premium TTS / hibrit / CC0 Piper) `VIZYON.md` §6'daki kör testle seçilir (`ses_testi/SES_BRIFI.md`). **Uzun Dosya yalnız bu testi geçen sesle yayınlanır.**
-- **Anlatıcı (mevcut):** tek erkek ses, **kuru** (yankı/ıslak pay = 0). Konuşma hızı ≤1,0 (0,90–1,0 arası, değer sürüm künyesine yazılır); virgül/iki nokta boşlukları §12-2.
-- **Ses lisansı kapısı (yeni) [V: model kartları]:** `dfki` modelinin kendi MODEL_CARD dosyası veri seti lisansını **CC BY-NC-SA 4.0** (ticari kullanım yok, atıf gerekir, aynı lisansla paylaşım) gösterir. `fettah` ve `fahrettin` modellerinin veri setleri **CC0**'dır (üçü de ABD İngilizcesi "lessac" sesinden ince ayarlıdır; taban modelin kalıtım etkisi belirsizdir, bu hukuki görüş değildir). Kurallar:
-  1. **Atıf:** `dfki` kullanıldığı sürece her açıklamanın son satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.*
-  2. **Ticari kullanım:** gelir paylaşımı (YPP), sponsor, ürün satışı gibi ticari kullanım başlamadan önce ses ticari kullanıma uygun olmalıdır (CC0 sese geçiş, insan anlatıcı veya ticari lisanslı ses).
-  3. **Karar tarihi:** en geç Gün 28 (2026-11-15) okuma, Gün 60 (2026-12-17) uygulama. `ses_testi/lisans_karsilastirma/` kör testi (A/B/C) hazırlandı (aynı 6 cümle, aynı işleme; anahtar `ANAHTAR.txt`).
-  4. Ses kimliği 30 gün sabit kalır; geçiş tek seferde ve izleyiciye duyurularak yapılır.
+- **Anlatıcı (mevcut):** Piper **`fahrettin`** (2026-10-18'den; kullanıcı kör testte seçti; önceki videolar `dfki`), tek erkek ses, **kuru** (yankı/ıslak pay = 0). Konuşma hızı ≤1,0 (0,90–1,0 arası, değer sürüm künyesine yazılır); virgül/iki nokta boşlukları §12-2.
+- **Ses lisansı kapısı [V: model kartları; V2: ikincil kaynaklar]:** `dfki` modelinin MODEL_CARD'ı veri seti lisansını **CC BY-NC-SA 4.0** gösterir (ticari kullanım yok, atıf gerekir, aynı lisansla paylaşım). `fettah` ve `fahrettin` modellerinin veri setleri **CC0**'dır. **Ancak üç model de ABD İngilizcesi "lessac" sesinden ince ayarlıdır;** lessac'ın Blizzard 2013 veri seti lisansı yaygın olarak *yalnız araştırma amaçlı* okunur ve türev (ince ayarlı) modellere etkisi hakkında yetkili bir yanıt bulunamadı (Piper yazarı ek lisans koymadığını, nihai kararın kullanıcıya ait olduğunu söyler). Sonuç: **CC0 sesler `dfki`'den açıkça daha düşük risklidir ama sıfır riskli değildir** (hukuki görüş değildir). Kurallar:
+  1. **Seçim (2026-10-18) [K]:** Shorts anlatıcısı **`fahrettin`** (kör test A). `dfki` bırakıldı.
+  2. **Atıf satırı** (açıklamanın son satırı): `fahrettin`/`fettah` → *Ses: yapay (Piper TTS; veri seti CC0). Çizimler kodla üretilmiştir.* `dfki` kullanılmış eski videolarda → *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.*
+  3. **Ticari kullanım (YPP, sponsor, ürün satışı) başlamadan önce** ses ya insan anlatıcıya / ticari lisanslı sese taşınır ya da kalan taban-model riski kullanıcı tarafından yazılı kabul edilir. Karar tarihi: Gün 60 (2026-12-17).
+  4. **Uzun Dosya için ses kapısı ayrıdır:** kör test; insan/premium adayları (`ses_testi/SES_BRIFI.md`).
+  5. Ses kimliği 30 gün sabit kalır; geçişler tek seferde ve izleyiciye duyurularak yapılır (`dfki` → `fahrettin` geçişi 2026-10-18 ile erken yapıldı: kanal 6 abonedir).
 - **Kadın sesi (WORLD dönüşümü):** yayına yalnız şu kör testi geçerse girer: aynı metin, telefon hoparlörü (%50) ve kulaklık, 7 dinleyici, ≥6/7 tercih ve ≤1/7 "robot", yabancı adlarda erkekten en çok 5 puan kötü. Test yapılmadıysa erkek ses. (Düşük öncelik, D6.)
 - **Miks:** kodlanmış mp4 üzerinde −14 LUFS ±1; true peak ≤ −1 dBTP; ilk/son örnekte tık ve DC yok; müzik+efekt konuşma sırasında konuşmadan ≥16 dB aşağıda (≤14 dB QA hatası); konuşma yokken müzik −10 dB'e çıkabilir. (Uygulama: `audio.py` ducking müzik ×0,15, efekt ×0,60.)
 - **Müzik:** tek ortak palet; videoya özel beste yok; kendi sentezimiz (üçüncü taraf müzik yok).
@@ -138,7 +139,7 @@
   1. vaat cümlesi + " · TESLİMAT #N"
   2. `Kaynak: …` (tek kaynak; depo içi atıf yok)
   3. 3 hashtag (ilk üçü başlığın üstünde görünür [P])
-  4. **atıf satırı** (§4): *Ses: yapay (Piper TTS; …). Çizimler kodla üretilmiştir.*
+  4. **atıf satırı** (§4; sese göre): *Ses: yapay (Piper TTS; veri seti CC0). Çizimler kodla üretilmiştir.*
 - **Kapak = kare 0.** Shorts küçük resmi kaydırma akışında görünmez; arama, kanal sekmesi, abonelik ve ana sayfa raflarında görünür [P]. Studio'da küçük resim olarak **kare 0** seçilir (mobil kare seçici); özel yükleme yalnız erişimi olan kanallarda (masaüstü) mümkündür ve gerekmez. Kart içeriği y 290–1250 bandında olduğundan 2:3 kırpmada güvenlidir.
 - **Sabit yorum her videoda:** kaynak + tek açık soru; **24 saatte cevap**; düzeltme kuralı (%100). Sabit yorum "nitelemeleri" (belirsiz sayılar, tartışmalı ayrıntılar) açıkça yazar.
 - **Related video / oynatma listeleri:** her Short'a, varsa, ilgili uzun video bağlanır (Shorts'ta bitiş ekranı yok [P]). Üç oynatma listesi tutulur (sütun adlarıyla, §15).
@@ -203,6 +204,7 @@ Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi:
 11. **Kapsam genişledi (2026-10-18).** Kullanıcı: "Sadece tarih değil de yeri geldiği zaman edebiyat, yeri geldiği zaman oyun ve bunların birbiriyle alakalı içerikler de çekmek istiyorum." Alanlar: **Tarih** (bilim ve halk sağlığı tarihi dahil), **Edebiyat**, **Oyun**; imza biçim **Kesişim** (iki alan arasında kaynaklı bağ). Ayrıntı: `VIZYON.md` §4. Telif kuralı §14-U10.
 12. **Uzun video yeniden açıldı, ses koşuluyla (2026-10-18).** Kullanıcı: "Sadece Shorts üstünden de değil; sesi daha güzel yapabilirsek uzun videolarla detaylıca konu anlatımı da olabilir." "Uzun Dosya" kulvarı (6–15 dk, 16:9) dört kapıyla (ses, motor, paketleme, kapasite) açılır (§15). Önceki "10 dakikalık uzun video iptal" notu bu karar ve ses koşuluyla geçersizdir.
 13. **Ses hedefi (2026-10-18).** Kullanıcı: ses "kulağa hoş" geliyor ama "Haluk Bilginer sesi gibi" derin ve sıcak olsa, "olabildiğince robotiklikten kaçınalım". Nitelik hedeftir; **gerçek bir kişinin sesi klonlanmaz veya taklit edilmez** (§14-U3). Yol seçimi: `VIZYON.md` §6.
+14. **Anlatıcı sesi seçildi (2026-10-18).** Kullanıcı, kör testte "A sesini beğendim" dedi; A = `fahrettin` (veri seti CC0). Shorts anlatıcısı `fahrettin` olur; `dfki` bırakılır. Uzun Dosya için ses hedefi (derin, sıcak, tiyatral) ve insan/premium yol testi geçerliliğini korur (§4).
 
 ## 13. Platform ve algoritma haritası (Ekim 2026)
 

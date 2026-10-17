@@ -56,6 +56,19 @@ def _layout(page):
     return lines, widths, space, px
 
 
+def _split_big(pages):
+    """İki sözcüklü jeton ("Doktor Goldberger,") içeren dört+ jetonluk sayfa 70 pt altına düşüyorsa ortadan böl (ekran yazısı boyu tutarlı kalsın)."""
+    out = []
+    for p in pages:
+        if len(p) >= 4 and any(" " in w["show"] for w in p) and _layout(p)[3] < 70:
+            m = (len(p) + 1) // 2
+            out += [p[:m], p[m:]]
+        else:
+            out.append(p)
+    return out
+
+
+PAGES = _split_big(PAGES)
 _PL = [_layout(p) for p in PAGES]
 
 

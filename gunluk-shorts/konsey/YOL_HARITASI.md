@@ -19,9 +19,9 @@ Bu belge `KANAL_ANAYASASI.md` v2.1'in işletim planıdır; **vizyon, amaç ve ka
 |---|---|---|
 | Kanal | 4 günlük, **6 abone**, 28 günde 1.728 görüntülenme (%94'ü Emu) | Studio 14 Eki [V] |
 | Canlı videolar | Zanzibar, Emu, Dans, Titanik v1 + 3 depoda kaydı olmayan (Antik Mısır, Romalılar, Moğol) | Studio [V] |
-| Hazır, yayınlanmamış | #5 Sıtma (39 sn, mavi baskı; kullanıcı tempo/bağlam/çizim eleştirdi), #6 Dune (156 sn), #7 Pellagra (105 sn) + Titanik v2 (40 sn, düzeltilmiş) | yayın günlüğü, git |
+| Hazır, yayınlanmamış | #5 Sıtma (39 sn, mavi baskı; kullanıcı tempo/bağlam/çizim eleştirdi), #6 Dune (156 sn), #7 Pellagra (93 sn; `fahrettin` ile yeniden seslendirildi, onay bekliyor) + Titanik v2 (40 sn, düzeltilmiş; ses hâlâ `dfki`) | yayın günlüğü, git |
 | Üretim hızı | ≈1 Özel video/gün (15–17 Eki); #6 ve #7 yeni cilt, #5 Titanik'le aynı cilt | git [V] |
-| Ses | Piper `dfki` (kullanıcı: "ses iyi"); veri seti CC BY-NC-SA 4.0 | MODEL_CARD [V] |
+| Ses | Piper `dfki` (kullanıcı: "ses iyi"); veri seti CC BY-NC-SA 4.0. **2026-10-18'den beri anlatıcı `fahrettin`** (kör test A, CC0); `dfki` sesli hazır videolar (Titanik v2, Dune, Sıtma) yeniden seslendirilmeden yayınlanmaz | MODEL_CARD [V] |
 | Konu havuzu | 9 aday (2 kullanıldı), öncelik belirsiz | `../konu-havuzu/` |
 | Ölçüm | ekran görüntüsü, elle; şema yoktu | — |
 
@@ -40,10 +40,11 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 
 | # | Ne | Kim | Süre | Not |
 |---|---|---|---|---|
-| 1 | **Pellagra kontrolü:** 10 sn'lik kulak kontrolleri ("pelagra", "Misisipi", "yuttu lar", "Goldberger", "dışkısından", "Cevap, tabaktaydı"); YouTube arama kutusunda "pellagra" ve "dışkı yutan doktor" önerileri | **[K]** | 15 dk | Yanlış niyetli öneri baskınsa yedek başlık (`pellagra-mikrop-degildi/yayin_metni.md`) |
+| 1 | **Pellagra kontrolü:** 10 sn'lik kulak kontrolleri ("pelagıra", "Misisipi", "yuttu lar", "Doktor Goldberger", "dışkısından", "Cevap, tabakta idi", "Mikrop, hiç yoktu"; yeni `fahrettin` sürümü, `dfki` sürümü değil); YouTube arama kutusunda "pellagra" ve "dışkı yutan doktor" önerileri | **[K]** | 15 dk | Yanlış niyetli öneri baskınsa yedek başlık (`pellagra-mikrop-degildi/yayin_metni.md`) |
 | 2 | **Pellagra'yı Pazar 18 Eki 20:00'ye zamanla.** Başlık/açıklama/sabit yorum hazır; açıklamanın sonuna atıf satırı; Studio'da kare 0 küçük resim; "Değiştirilmiş içerik: Hayır"; "Çocuklara özel değil"; oynatma listesi: Tarih | **[K]** | 15 dk | Atıf satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* |
 | 3 | **Titanik v1'i özel (private) yap** (silme yok) | **[K]** | 2 dk | v2 Salı yayında |
-| 4 | **Ses A/B/C** (`ses_testi/lisans_karsilastirma/`): hangisi anlatıcı olabilir? Hangisini seçmezsin? (kör; anahtar `ANAHTAR.txt`, sonra aç) | **[K]** | 5 dk | Karar Gün 28'e kadar yeter |
+| 4 | ~~Ses A/B/C kör testi~~ **Yapıldı (2026-10-18): A = `fahrettin` (CC0) seçildi.** Pellagra bu sesle yeniden seslendirildi (93 sn; kullanıcı onayı bekleniyor) | **[K]** ✔ | — | `dfki` bırakıldı; bkz. Anayasa §12-14 |
+| 4b | **Titanik v2'yi `fahrettin` ile yeniden seslendir** (Sal 20 Eki'den önce; metin/okunuş + en iyi-5 + miks + render + QA); Dune 15 Ara'dan önce, Sıtma yeniden yapılırken | **[C]** | Titanik ≈1 saat | `dfki` = CC BY-NC-SA (Anayasa §4 ses kapısı); araçlar `ses-lab/OKUNUS_NOTLARI.md` |
 | 5 | **Antik Mısır, Romalılar, Moğol, Zanzibar'ı özel (private) yap** (öneri) ya da bana durumlarını söyle | **[K]** | 5 dk | Kaynak denetiminden geçenler geri açılır |
 | 6 | **Emu sabit yorum** ve **Dans başlık + sabit yorum** düzeltmeleri (metinleri ben yazarım) | **[C]** yazar, **[K]** yapıştırır | 10 dk | §10 |
 | 7 | **Kanal vitrini** (§8) | **[K]** | 20 dk | metinler hazır |
@@ -75,8 +76,8 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 
 | Slot | Tarih | Kulvar | İçerik | Durum |
 |---|---|---|---|---|
-| 0 | Paz 18 Eki | Özel | **Pellagra** (105 sn, guaj kukla) | hazır |
-| 1 | Sal 20 Eki | Kısa | **Titanik v2** (40 sn, mavi baskı; v1 yerine) | hazır |
+| 0 | Paz 18 Eki | Özel | **Pellagra** (93 sn, guaj kukla, `fahrettin`) | hazır; ses sürümü onay bekliyor |
+| 1 | Sal 20 Eki | Kısa | **Titanik v2** (40 sn, mavi baskı; v1 yerine) | hazır; **`fahrettin` ile yeniden seslendirilecek (4b)** |
 | 2 | Cum 23 Eki | Kısa | K1: **Edebiyat** ↔ tarih (aday: *Frankenstein* ve "yaz olmayan yıl" 1816 \*) | üretilecek |
 | 3 | Paz 25 Eki | Özel | Ö2: **Konya obrukları** (P1/P3; AFAD 741 obruk, Eylül 2026; en yüksek puan) | üretilecek |
 | 4 | Sal 27 Eki | Kısa | K2: **Oyun** ↔ tarih (aday: Tetris ve Soğuk Savaş \*) | üretilecek |
@@ -192,7 +193,7 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | K3 | **Eski 4 video** (Zanzibar, Antik Mısır, Romalılar, Moğol) | Private; kaynak denetimini geçerlerse geri açılır. |
 | K4 | **Sıtma (#5)** | Yayınlanmaz; Özel + yeni cilt ile yeniden yapılır (Slot 12). |
 | K5 | **Dune (#6)** | 15 Aralık'a (Dune: Part Three çıpası) saklanır; yayın öncesi ilk kanıt ≤30. sn'ye çekilir. Alternatif: hemen yayınla. |
-| K6 | **Ses** | A/B/C kör testi (5 dk) → Gün 28'e kadar karar; CC0'a geçiş Faz 2'de. Karar gelene kadar `dfki` + atıf satırı. |
+| K6 | **Ses (Shorts)** | **Karar verildi:** `fahrettin` (kör test A). Atıf satırı: *Ses: yapay (Piper TTS; veri seti CC0).* |
 | K7 | **Cilt politikası** | Özel: her video yeni cilt [K]; Kısa: "sezon" cildi (guaj kukla kiti). |
 | K8 | **Kısa kulvarı** | 35–50 sn, ≤1,9 sözcük/sn (§12-2 ile uyumlu). |
 | K9 | **Yayın saati** | 20:00 (+03); E3 ile 12:30 dönüşümlü sınanır. |
@@ -202,7 +203,7 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | K13 | **Çapraz paylaşım** (TikTok/Reels; aynı dikey dosya) | Faz 2'de dene (Metricool'e marka ekleyerek); YouTube kararlarını bozmaz. |
 | K14 | **Rakip taraması** (Supermetrics "YouTube Public Data" bağlantısı) | Yap (2 dk); niş kalıplarını ölçerek E1–E2 sorularını hızlandırır. |
 | K15 | **Vizyon** (`VIZYON.md` §2–§4) | Onay ya da düzeltme; varsayılan: öneri metni geçerli. |
-| K16 | **Ses yolu** (A insan/kendi ses, B premium TTS, C hibrit, D CC0 Piper) | Önce **A ve B'yi aynı metinle dinlet**; karar Gün 28; bu arada Shorts `dfki` + atıf (ya da CC0 `fahrettin`). Bütçe bandı: 0 / düşük / orta. |
+| K16 | **Ses yolu (Uzun Dosya ve daha derin ses)** (A insan/kendi ses, B premium TTS, C hibrit) | Shorts `fahrettin` ile sürer; **A ve B'yi aynı metinle dinlet**, kör testle karar Gün 28; ticari kullanım öncesi nihai karar G60. Bütçe bandı: 0 / düşük / orta. |
 | K17 | **Uzun Dosya** | Ayda 1; ses kapısı geçilmeden başlamaz; pilot: Dune × Star Wars (hedef 18–20 Ara) ya da *Frankenstein* 1816. |
 | K18 | **Edebiyat ve oyun için ilk konular** | Önerim (Frankenstein 1816, Tolkien–Somme, Tetris, Nükleer Gandi); kaynak kapısından geçerse yapılır. Senin konu fikrin varsa öncelik senin. |
 | K19 | **Kanal adı/slogan** | Ad kalır; kanal açıklamasına vizyon cümlesi eklenir. |
@@ -212,7 +213,7 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | # | Risk | Olasılık / etki | Önlem | Sahip |
 |---|---|---|---|---|
 | R1 | Dağıtım yine gelmez (soğuk başlangıç) | orta / yüksek | kadans, ilk 2 sn, G14 teşhisi, Pellagra'nın 72. sa okuması | K+C |
-| R2 | Ses lisansı (CC BY-NC-SA) ticari aşamada engel | kesin / orta (gelir yok) | atıf satırı; CC0 geçiş (G28/G60) | K+C |
+| R2 | Ses lisansı: `fahrettin` veri seti CC0 ama taban model "lessac" (araştırma amaçlı okunan veri seti) belirsiz; `dfki` açıkça NC | düşük-orta / orta (gelir yok) | `dfki` bırakıldı; atıf satırı; ticari kullanım (YPP/sponsor) öncesi insan/lisanslı ses ya da yazılı risk kabulü (G60) | K+C |
 | R3 | "Özgün olmayan içerik" izlenimi (şablon, TTS, yüksek hacim) | düşük-orta / yüksek (gelir) | Anayasa §14-U1, her videoya özgü görsel, kayıtlar | C |
 | R4 | Yayında maddi hata | orta / yüksek | kapı 1, sabit yorumda niteleme, ≤48 sa istisnası | C+K |
 | R5 | Kapasite/tükenme (Özel ≈4–6 saat) | yüksek / yüksek | iki kulvar, tampon ≥2, kadans düşer (kapı değil) | C |

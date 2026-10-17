@@ -3,3 +3,6 @@ ses-modelleri/*.tar.bz2
 __pycache__/
 */out/*_noaudio.mp4
 */out/render.log
+
+# yeniden üretilebilir ara çıktılar (tts_best.py parça önbelleği)
+**/_chunk_cache/

@@ -12,7 +12,7 @@ Her video kendi klasöründe (kod + çıktı). Ortak altyapı: Pillow 2x süper 
 | `titanik-kehaneti/` | Titanik'in Kehaneti (v2, TESLİMAT #4) | blueprint | kuru erkek ses (Piper dfki) |
 | `sitma-geri-dondu/` | Türkiye'de sıtma: neredeyse bitti, neden döndü? (TESLİMAT #5) | blueprint + Türkiye haritası/nokta | kuru erkek ses, en iyi-5 sentez + Whisper doğrulama |
 | `dune-star-wars/` | Dune × Star Wars: Tatooine Arrakis'ten mi geldi? (TESLİMAT #6, **özel video**, 2 dk 36 sn) | **kâğıt kesme diyorama** (katmanlı kumullar, gölgeli kâğıt, "KANIT n/5" etiketi, serif altyazı) | kuru erkek ses, **yavaş tempo** (hız 0,90; cümle araları 0,4–0,9 sn), en iyi-5 sentez + Whisper doğrulama |
-| `pellagra-mikrop-degildi/` | Pellagra: mikrop değildi, tabaktı (TESLİMAT #7, **özel video**, ~1 dk 45 sn) | **guaj kukla** (boyalı kâğıt-kukla: gölgesiz boyalı alanlar, mürekkep kontur, eklemli kuklalar, sahne başına palet, whip geçişleri; Alfa Slab One + Fraunces) | kuru erkek ses, hız 0,96, cümle araları 0,4–0,95 sn, en iyi-5 sentez + Whisper doğrulama |
+| `pellagra-mikrop-degildi/` | Pellagra: mikrop değildi, tabaktı (TESLİMAT #7, **özel video**, ~1 dk 33 sn) | **guaj kukla** (boyalı kâğıt-kukla: gölgesiz boyalı alanlar, mürekkep kontur, eklemli kuklalar, sahne başına palet, whip geçişleri; Alfa Slab One + Fraunces) | `fahrettin` sesi (Piper, CC0 veri seti; kullanıcının kör test seçimi), hız 0,96, cümle araları 0,4–0,95 sn, en iyi-5 sentez + zor sözcük kapısı + Whisper doğrulama |
 
 ## Yönetim belgeleri (2026-10-17)
 

@@ -7,6 +7,7 @@
 1916'da gönüllü doktorlar hastaların yara kabuğundan, idrarından ve dışkısından yapılmış hapları yuttu; kimse pellagra olmadı. Peki hastalık nereden geliyordu? · TESLİMAT #7
 Kaynak: Science History Institute, "Joseph Goldberger's Filth Parties"
 #Pellagra #Tarih #Shorts
+Ses: yapay (Piper TTS; veri seti CC0). Çizimler kodla üretilmiştir.
 ```
 
 **Sabit yorum:**
@@ -15,11 +16,12 @@ Kaynaklar: Science History Institute (kirli partiler), NIH Tarih Ofisi (26 Nisan
 ```
 
 Notlar:
-- Kanca (R, çelişki: "Dışkı yuttular. / Hastalık bulaşmadı.") yazı-tura ile atandı. Kart ve ilk söz aynı vaadi verir; iddia **göstererek** değil **kaynaklı** biçimde ödenir: yutma 45. sn civarı, "Kimse pelagra olmadı" hemen ardından (özel videoda üç aşamalı ödeme: gözlem → kirli parti → yemek testleri → hüküm).
+- Kanca (R, çelişki: "Dışkı yuttular. / Hastalık bulaşmadı.") yazı-tura ile atandı. Kart ve ilk söz aynı vaadi verir; iddia **göstererek** değil **kaynaklı** biçimde ödenir: yutma 40. sn civarı, "Kimse pellagra olmadı" hemen ardından (özel videoda üç aşamalı ödeme: gözlem → kirli parti → yemek testleri → hüküm).
 - Başlık/kart videonun söylediğinden fazlasını vaat etmez: "Doktorlar" (Goldberger değil; kaynaklarda yutanın o olduğu doğrulanamadı), "dışkı" (hapların içeriğinden biri), "bulaşmadı" (kimse pellagra olmadı).
 - **Arama niyeti kontrolü YAPILAMADI** (YouTube bu ortamda kapalı). Yayından önce YouTube arama kutusuna "pellagra" ve "dışkı yutan doktor" yazıp önerilere bakın; "dışkı yemek" gibi yanlış niyetli öneriler baskınsa başlıktaki "Dışkı Yuttu" ifadesi "Hasta Atığından Hap" ile değiştirilebilir (Dans videosundaki ders).
 - Sağlık güvenliği: ekranda "SAKIN DENEMEYİN" damgası, seste "Sakın denemeyin."; videoda "mısır yemeyin" izlenimi yok (ters köşe: mısır suçlu değildi, çeşitsiz beslenme ve bağlı niasin).
-- Süre 105 sn ≈ 1 dk 45 sn (Shorts üst sınırı 3 dk; kullanıcı kararı, 2026-10-17: "üst sınır kalksın, uygunluğu sen ayarla"). Telefonda dikey 9:16.
+- Süre 93 sn ≈ 1 dk 33 sn (Shorts üst sınırı 3 dk; kullanıcı kararı, 2026-10-17: "üst sınır kalksın, uygunluğu sen ayarla"). Telefonda dikey 9:16.
 - Yayın sonrası 24 saat içinde yorumlara cevap. Yayın saati: ilk 14 videoda sabit.
 - Yedek başlık (arama önerileri “dışkı yemek” gibi yanlış niyet gösterirse; 55 karakter): Hasta Atığından Hap Yuttular: Pellagra Neden Bulaşmadı?
 - Açıklamada “ayrıntı: kaynaklar.md” gibi depo içi atıf yok (izleyici o dosyayı açamaz); ayrıntılı kaynak tablosu depoda `kaynaklar.md`.
+- Ses (2026-10-18): kullanıcı kör testte `fahrettin` sesini seçti (veri seti CC0); bu video bu sesle yeniden seslendirildi. Atıf/şeffaflık satırı açıklamanın son satırıdır (Anayasa §4, §7). Eski `dfki` sürümü yayınlanmadı.

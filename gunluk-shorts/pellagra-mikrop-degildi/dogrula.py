@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.join(HERE, "..", "ses-lab"))
 sys.argv = [sys.argv[0]]
 import narrator, asr
 import tts as T
-from tts_best import wer_wild, _norm
+from tts_best import wer_wild, _norm, must_miss
 
 tl = json.load(open(os.path.join(HERE, "out", "timeline.json")))
 w = wave.open(os.path.join(HERE, "out", "voice.wav"))
@@ -17,7 +17,7 @@ sr = w.getframerate()
 x = np.frombuffer(w.readframes(w.getnframes()), "<i2").astype(np.float64) / 32768
 text_of = {sid: text for sid, text, *_ in T.SENTENCES}
 
-lines, werr = [], []
+lines, werr, nmiss = [], [], 0
 for s in tl["sentences"]:
     a, b = max(0, int((s["t0"] - 0.2) * sr)), min(len(x), int((s["t1"] + 0.3) * sr))
     seg = x[a:b]
@@ -35,9 +35,12 @@ for s in tl["sentences"]:
     e = wer_wild(ref, asr.norm(_norm(hyp)))
     werr.append(e)
     show = " ".join(t["show"] for t in toks)
-    lines.append(f"[{e:.2f}] {s['id']:4s} {show}\n        Whisper: {hyp}")
+    miss = must_miss(toks, hyp)
+    nmiss += len(miss)
+    flag = ("  ✗ zor sözcük duyulmadı: " + ", ".join(miss)) if miss else ""
+    lines.append(f"[{e:.2f}] {s['id']:4s} {show}{flag}\n        Whisper: {hyp}")
 mean = float(np.mean(werr))
-head = f"Cümle düzeyinde Whisper-medium doğrulaması (joker: yabancı ad/sayı) — ortalama WER {mean:.3f}, en kötü {max(werr):.2f}, ≥0,3 olan cümle: {sum(1 for e in werr if e >= 0.3)}\n"
+head = f"Cümle düzeyinde Whisper-medium doğrulaması (joker: yabancı ad/sayı) — ortalama WER {mean:.3f}, en kötü {max(werr):.2f}, ≥0,3 olan cümle: {sum(1 for e in werr if e >= 0.3)}, duyulmayan zor sözcük (Goldberger/pellagra/mikrop/tabaktaydı/eksikliğiydi): {nmiss}\n"
 open(os.path.join(HERE, "out", "dogrulama_cumle.txt"), "w", encoding="utf-8").write(head + "\n".join(lines) + "\n")
 print(head)
 print("\n".join(lines))

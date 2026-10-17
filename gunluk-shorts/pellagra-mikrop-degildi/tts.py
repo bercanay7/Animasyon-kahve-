@@ -1,5 +1,5 @@
-"""Pellagra: Mikrop Değildi (TESLİMAT #7) — anlatıcı: ses-lab/narrator.py (Piper dfki + stüdyo işleme). Çıktı: out/voice.wav, out/timeline.json
-Metin işareti: gösterilen=söylenen   *vurgulu*   (Türkçe okunuş: pellagra=pelagra, Mississippi=Misisipi, yuttular=yuttu_lar ...; Goldberger yazıldığı gibi okunur: Whisper 6/6 doğru duydu, 'Goldbörgır' tutarsızdı)
+"""Pellagra: Mikrop Değildi (TESLİMAT #7) — anlatıcı: ses-lab/narrator.py (Piper fahrettin [CC0 veri seti] + stüdyo işleme). Çıktı: out/voice.wav, out/timeline.json
+Metin işareti: gösterilen=söylenen   *vurgulu*   (Türkçe okunuş: pellagra=pelagıra [fahrettin 'gr' kümesini 'pelabre' yapıyordu], Mississippi=Misisipi, yuttular=yuttu_lar, tabaktaydı=tabakta_idi ...; 'Goldberger' cümle/ifade başında 'Bold…' duyuluyordu: 'doktor_Goldberger' tek jeton, ekranda 'doktor Goldberger', kelime dizini değişmez)
 Kullanım: python3 tts.py   (en iyi-K sentez için: python3 tts_best.py 5)
 
 Kanca (R, çelişki): "DIŞKI YUTTULAR. HASTALIK BULAŞMADI." — A1+A2 kartla aynı sözdür (≤9 kelime, ≤3,5 sn).
@@ -9,7 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "ses-lab"))
 import narrator
 
-VOICE = "dfki"
+VOICE = "fahrettin"   # 2026-10-18: kullanıcı kör testte A=fahrettin sesini seçti (veri seti CC0); önceki sürüm: dfki (CC BY-NC-SA)
 PROF = dict(speed=0.96, reverb_wet=0.0, gap_comma=0.22, gap_colon=0.30)
 
 # (id, metin, hız, enerji, sonraki boşluk)
@@ -18,7 +18,7 @@ SENTENCES = [
     ("A1", "*Dışkı yuttular=yuttu_lar.*", 1.0, 1.15, 0.40),
     ("A2", "*Hastalık bulaşmadı.*", 1.0, 1.15, 0.85),
     # ── bağlam: ne oluyordu? ──
-    ("B1", "Yüzyıl başında, Amerika’nın=Amerikanın güneyinde, *pellagra=pelagra* denen bir hastalık milyonlarca kişiyi hasta etti.", 1.0, 1.0, 0.50),
+    ("B1", "Yüzyıl başında, Amerika’nın=Amerikanın güneyinde, *pellagra=pelagıra* denen bir hastalık milyonlarca kişiyi hasta etti.", 1.0, 1.0, 0.50),
     ("B2", "Cilt döküntüsü, ishal, bunama, bazen ölüm.", 1.0, 1.0, 0.60),
     ("B3", "Çoğu doktor bulaşıcı bir *mikrop* arıyordu.", 1.0, 1.0, 0.90),
     # ── gözlem: Goldberger ──
@@ -26,21 +26,21 @@ SENTENCES = [
     ("C2", "Bulaşıcı olsaydı, çalışanlar da hastalanırdı.", 1.0, 1.05, 0.90),
     # ── kanıt 1: kanca ödenir ──
     ("D0", "Ama çoğu doktor ikna olmadı.", 1.0, 1.0, 0.40),
-    ("D1", "Goldberger, bulaşıcı olmadığını kanıtlamak istedi.", 1.0, 1.0, 0.45),
+    ("D1", "Doktor_Goldberger, bulaşıcı olmadığını kanıtlamak istedi.", 1.0, 1.0, 0.45),
     ("D2", "1916’da=bin_dokuz_yüz_on_altıda gönüllü doktorlar, hastaların yara kabuğundan, idrarından ve *dışkısından* yapılmış hapları yuttu.", 0.98, 1.1, 0.55),
-    ("D3", "*Kimse pellagra=pelagra olmadı.*", 1.0, 1.15, 0.45),
+    ("D3", "*Kimse pellagra=pelagıra olmadı.*", 1.0, 1.15, 0.45),
     ("D4", "Sakın denemeyin.", 1.0, 1.0, 0.90),
     # ── kanıt 2 ve 3: peki neden? ──
     ("E0", "Peki hastalık nereden geliyordu?", 1.0, 1.05, 0.50),
-    ("E0b", "Cevap, *tabaktaydı.*", 1.0, 1.1, 0.60),
+    ("E0b", "Cevap, *tabaktaydı=tabakta_idi.*", 1.0, 1.1, 0.60),
     ("E1", "Yetimhanedeki çocuklar çoğunlukla mısır unu ve pekmez yiyordu.", 1.0, 1.0, 0.45),
-    ("E2", "Goldberger, çocukların tabağına süt, yumurta ve et ekledi.", 1.0, 1.0, 0.40),
+    ("E2", "Doktor_Goldberger, çocukların tabağına süt, yumurta ve et ekledi.", 1.0, 1.0, 0.40),
     ("E2b", "Çocukların çoğu iyileşti.", 1.0, 1.05, 0.65),
     ("E3", "Mississippi’de=Misisipide, af sözüyle gönüllü olan mahkûmlar=mahkumlar, aylarca çoğunlukla mısır ekmeği ve pekmezle beslendi.", 1.0, 1.0, 0.45),
-    ("E4", "Yaklaşık *yarısı* pellagra=pelagra oldu.", 1.0, 1.1, 0.90),
+    ("E4", "Yaklaşık *yarısı* pellagra=pelagıra oldu.", 1.0, 1.1, 0.90),
     # ── hüküm + ters köşe ──
     ("F1", "Hastalık, *niasin* adlı bir vitaminin eksikliğiydi.", 1.0, 1.05, 0.50),
-    ("F2", "Bunu ancak 1937’de=bin_dokuz_yüz_otuz_yedide, Goldberger *öldükten sonra* gösterdiler.", 1.0, 1.05, 0.90),
+    ("F2", "Bunu ancak 1937’de=bin_dokuz_yüz_otuz_yedide, doktor_Goldberger *öldükten sonra* gösterdiler.", 1.0, 1.05, 0.90),
     ("F3", "Asıl ters köşe şu: *mısır suçlu değildi.*", 1.0, 1.1, 0.50),
     ("F4", "Orta Amerika’nın=Amerikanın yerli halkı, mısırı *kireç* suyunda işlerdi.", 1.0, 1.0, 0.40),
     ("F4b", "Bu işlem, niasini serbest bırakıyordu.", 1.0, 1.0, 0.50),

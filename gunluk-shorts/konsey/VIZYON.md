@@ -71,9 +71,9 @@ Kısaltması: **"Bildiğini sandığın şeyin ters yüzü ve iki şey arasında
 | **A. İnsan sesi** | kendi sesin ya da profesyonel seslendirmen (3 kişilik seçmeden) | en doğal ve "gravitas"; özgünlük ve YPP açısından en güvenli; marka sesi | bütçe/zaman; her video için kayıt; **dış sesten zaman çizelgesi aracı** gerekir |
 | **B. Premium TTS "ses tasarımı"** (klon değil) | lisanslı bulut sesi seç (ör. Google Chirp 3 HD tr-TR; ElevenLabs, Azure, OpenAI adayları), yavaş tempo + duraklar + özel okunuşlar | ucuz (Chirp 3 HD ≈ 30 $/1 M karakter; arama özetine göre ilk 1 M karakter ücretsiz; 10 dk video ≈ 10 bin karakter [P]); hızlı | tiyatral derinlik sınırlı olabilir; lisans/kullanım şartları doğrulanmalı; hâlâ "yapay" |
 | **C. Hibrit** | Shorts'ta premium TTS (ya da CC0 Piper), uzun/flagship videolarda insan sesi | maliyet-kalite dengesi | iki ses = kimlik bölünmesi riski (ses kimliği 30 gün sabit kuralı) |
-| **D. Açık kaynak Türkçe** | CC0 Piper (`fahrettin`, `fettah`) iyileştirilmiş işleme | ücretsiz, lisans temiz, çevrimdışı | yine VITS "orta" kalite; derinlik sınırlı; robotik kısmen kalır |
+| **D. Açık kaynak Türkçe** | CC0 Piper (`fahrettin`, `fettah`) iyileştirilmiş işleme | ücretsiz, çevrimdışı, veri seti CC0 (taban model "lessac" belirsizliği kalır) | yine VITS "orta" kalite; derinlik sınırlı; robotik kısmen kalır |
 
-**Önerim:** Shorts için **bugün** `fahrettin`/`dfki` ile devam (lisans atfı), **hemen paralelde A ve B'yi dinlet**; uzun video yalnız A ya da B'nin testi geçerse başlasın. Karar ölçütü: aynı 60 sn'lik metinle (`ses_testi/SES_BRIFI.md`) kör test, 7 dinleyici, ≥6/7 tercih ve ≤1/7 "robot" (Anayasa §4). **Uzun vadeli hayal:** kanal büyüyünce gerçek bir sanatçıyla **izinli ve ücretli** anlaşma.
+**Karar (2026-10-18) [K]:** kör testte **A = `fahrettin` seçildi**; Shorts anlatıcısı bu (yol D). **Önerim (Uzun Dosya için):** Shorts `fahrettin` ile sürerken **A (insan) ve B (premium)'yi aynı metinle dinlet**; uzun video yalnız A ya da B'nin testi geçerse başlasın. Karar ölçütü: aynı 60 sn'lik metinle (`ses_testi/SES_BRIFI.md`) kör test, 7 dinleyici, ≥6/7 tercih ve ≤1/7 "robot" (Anayasa §4). **Uzun vadeli hayal:** kanal büyüyünce gerçek bir sanatçıyla **izinli ve ücretli** anlaşma.
 
 ## 7. Değerler (hiçbir videoda pazarlık konusu değil) **[Ö]**
 

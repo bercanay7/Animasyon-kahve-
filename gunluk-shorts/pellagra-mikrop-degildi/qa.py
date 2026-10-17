@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw
 import cues, ui
 from engine import W, H, FPS
 
-VID = "out/Pellagra_Mikrop_Degildi.mp4"
+VID = os.environ.get("QA_VID", "out/Pellagra_Mikrop_Degildi.mp4")
 if not os.path.exists("kaynaklar.md"):
     print("HATA: kaynaklar.md yok (Kanal Anayasası, kaynak kapısı)"); sys.exit(1)
 SW, SH = 180, 320

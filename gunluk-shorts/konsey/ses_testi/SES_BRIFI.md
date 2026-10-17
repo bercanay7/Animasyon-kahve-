@@ -1,5 +1,7 @@
 # SES BRİFİ ve 60 sn TEST METNİ (Zaman Kuryesi anlatıcısı)
 
+**Durum (2026-10-18):** Piper kör testinde **A = `fahrettin` seçildi** (Shorts anlatıcısı, yol D). Aşağıdaki A/B yolları **Uzun Dosya ve "daha derin ses" hedefi** içindir.
+
 **Amaç:** Shorts ve ileride Uzun Dosya için anlatıcı sesini seçmek. Kullanıcı hedefi [K, Anayasa §12-13]: **derin, sıcak, "Haluk Bilginer sesi gibi", olabildiğince robotik olmayan.** Bu belge hangi yoldan gelirse gelsin (kendi ses, seslendirmen, premium TTS) **aynı brifi ve aynı metni** kullanır; karar kör testle verilir (`VIZYON.md` §6, Anayasa §4).
 
 > **Önemli:** Gerçek bir kişinin (ünlü ya da değil) sesi klonlanmaz veya taklit edilmez (Anayasa §14-U3). "Haluk Bilginer gibi" yalnız **nitelik tarifidir.** Hedef: o niteliklere sahip **özgün bir anlatıcı.**
@@ -66,7 +68,7 @@ Aynı metni her aday okur (dört kayıt tonu: sakin / resimli / rakamlı / sır 
 
 **C. Hibrit:** Shorts'ta premium TTS (ya da CC0 Piper), flagship/Uzun Dosya'da insan sesi. Kimlik bölünmesi riski: ses kimliği 30 gün sabit kalır; geçişler duyurulur.
 
-**D. CC0 Piper (`fahrettin`, `fettah`):** ücretsiz, lisans temiz; VITS "orta" kalite. A/B/C kör örnekler: `lisans_karsilastirma/` (aynı işlem, aynı cümleler).
+**D. CC0 Piper (`fahrettin`, `fettah`):** ücretsiz; veri seti CC0 (taban model "lessac" belirsizliği kalır); VITS "orta" kalite. **Seçildi: `fahrettin` (Shorts).** A/B/C kör örnekler: `lisans_karsilastirma/` (aynı işlem, aynı cümleler).
 
 ## 6. Kör değerlendirme (7 dinleyici, telefon hoparlörü ve kulaklık)
 
