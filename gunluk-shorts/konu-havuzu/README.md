@@ -7,7 +7,7 @@
 | Dosya | Konu | Öneri (rapor) | Durum |
 |---|---|---|---|
 | `aday-sitma.md` | Türkiye'de sıtma | BELKİ | **Kullanıldı → TESLİMAT #5** (`../sitma-geri-dondu/`) |
-| `aday-pellagra.md` | Pellagra ve Joseph Goldberger | EVET (koşullu) | bekliyor |
+| `aday-pellagra.md` | Pellagra ve Joseph Goldberger | EVET (koşullu) | **Kullanıldı → TESLİMAT #7** (`../pellagra-mikrop-degildi/`); not: rapordaki kanca ("bir doktor dışkı yuttu") kaynak kapısında düzeltildi — yutanlar konuk doktorlardı, Goldberger'in kendisinin yuttuğu doğrulanamadı |
 | `aday-sigir-vebasi.md` | Sığır vebasının yok edilmesi | EVET | bekliyor |
 | `aday-ors.md` | Oral rehidrasyon tuzları (oralit) | BELKİ | bekliyor |
 | `aday-obruk.md` | Konya obrukları ve yeraltı suyu | BELKİ | bekliyor |

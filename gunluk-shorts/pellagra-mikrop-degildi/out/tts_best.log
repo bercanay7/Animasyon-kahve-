@@ -1,0 +1,69 @@
+  [0.00] Dışkı yuttular.  ->  Dışkı yuttular.
+  [0.00] Hastalık bulaşmadı.  ->  Hastalık bulaşmadı.
+  [0.00] Yüzyıl başında,  ->  Yüzyıl başında
+  [0.00] Amerika’nın güneyinde,  ->  Amerika'nın güneyinde
+  [0.00] pellagra denen bir hastalık milyonlarca kişiyi hasta etti.  ->  Pelabra denen bir hastalık milyonlarca kişiyi hasta etti.
+  [0.00] Cilt döküntüsü,  ->  Cilt Döküntüsü
+  [0.00] bazen ölüm.  ->  Bazen ölüm
+  [0.00] Çoğu doktor bulaşıcı bir mikrop arıyordu.  ->  Çoğu doktor bulaşıcı bir mikrop arıyordu.
+  [0.50] 1914’te doktor Goldberger,  ->  1914'te Doktor Goldberger
+  [0.00] yetimhanelerde bir şey fark etti:  ->  Yetimhanelerde bir şey fark etti.
+  [0.00] çocuklar hastalanıyordu,  ->  Çocuklar hastalanıyordu.
+  [0.00] çalışanlar hastalanmıyordu.  ->  Çalışanlar hastalanmıyordu.
+  [0.00] Bulaşıcı olsaydı,  ->  Bulaşıcı olsaydı
+  [0.00] çalışanlar da hastalanırdı.  ->  Çalışanlar da hastalanırdı.
+  [0.00] Ama çoğu doktor ikna olmadı.  ->  Ama çoğu doktor ikna olmadı.
+  [0.00] bulaşıcı olmadığını kanıtlamak istedi.  ->  bulaşıcı olmadığını kanıtlamak istedi.
+  [0.50] 1916’da gönüllü doktorlar,  ->  1916'da gönüllü doktorlar.
+  [0.33] hastaların yara kabuğundan,  ->  hastaların yara kabundan
+  [0.00] idrarından ve dışkısından yapılmış hapları yuttu.  ->  İdrarından ve dışkısından yapılmış hapları yuttu.
+  [0.00] Kimse pellagra olmadı.  ->  kimse pelagra olmadı.
+  [0.00] Sakın denemeyin.  ->  Sakın denemeyin!
+  [0.00] Peki hastalık nereden geliyordu?  ->  Peki hastalık nereden geliyordu?
+  [0.00] Yetimhanedeki çocuklar çoğunlukla mısır unu ve pekmez yiyordu.  ->  Yetimhanedeki çocuklar çoğunlukla mısır, unu ve pekmez yiyordu.
+  [0.00] çocukların tabağına süt,  ->  Çocukların tabağına süt,
+  [0.00] yumurta ve et ekledi.  ->  Yumurta ve et ekledi.
+  [0.00] Çocukların çoğu iyileşti.  ->  Çocukların çoğu iyileşti.
+  [0.00] af sözüyle gönüllü olan mahkûmlar,  ->  Af sözüyle gönüllü olan mahkumlar
+  [0.00] aylarca çoğunlukla mısır ekmeği ve pekmezle beslendi.  ->  Aylarca çoğunlukla mısır ekmeği ve pekmezle beslendi
+  [0.00] Yaklaşık yarısı pellagra oldu.  ->  Yaklaşık yarısı pelavru oldu.
+  [0.00] niasin adlı bir vitaminin eksikliğiydi.  ->  Niasin adlı bir vitaminin eksikliğiydi.
+  [0.50] Bunu ancak 1937’de,  ->  Bunu ancak 1937'de.
+  [0.25] Goldberger öldükten sonra gösterdiler.  ->  Goldberg'ler öldükten sonra gösterdiler.
+  [0.00] Asıl ters köşe şu:  ->  Asıl ters köşe şu.
+  [0.00] mısır suçlu değildi.  ->  Mısır suçlu değildi.
+  [0.00] Orta Amerika’nın yerli halkı,  ->  Orta Amerika'nın yerli halkı
+  [0.50] mısırı kireç suyunda işlerdi.  ->  Mısır-ı Kireç suyunda işlerdi.
+  [0.00] Bu işlem,  ->  Bu işlem
+  [0.00] niasini serbest bırakıyordu.  ->  Niasini serbest bırakıyordu.
+  [0.00] Mısırı alan Avrupalılar ise,  ->  Mısır'ı alan Avrupalılar ise
+  [0.00] bu yöntemi almadı.  ->  Bu yöntemi almadı.
+  [0.00] hiç yoktu.  ->  Hiç yoktu.
+ses=dfki süre=105 sn (son kelime 103.14 sn)
+  A1   0.05–  1.31  0:Dışkı | 1:yuttular.
+  A2   1.71–  2.97  0:Hastalık | 1:bulaşmadı.
+  B1   3.82– 10.17  0:Yüzyıl | 1:başında, | 2:Amerika’nın | 3:güneyinde, | 4:pellagra | 5:denen | 6:bir | 7:hastalık | 8:milyonlarca | 9:kişiyi | 10:hasta | 11:etti.
+  B2  10.67– 14.23  0:Cilt | 1:döküntüsü, | 2:ishal, | 3:bunama, | 4:bazen | 5:ölüm.
+  B3  14.84– 17.35  0:Çoğu | 1:doktor | 2:bulaşıcı | 3:bir | 4:mikrop | 5:arıyordu.
+  C1  18.25– 27.31  0:1914’te | 1:doktor | 2:Goldberger, | 3:yetimhanelerde | 4:bir | 5:şey | 6:fark | 7:etti: | 8:çocuklar | 9:hastalanıyordu, | 10:çalışanlar | 11:hastalanmıyordu.
+  C2  27.81– 30.82  0:Bulaşıcı | 1:olsaydı, | 2:çalışanlar | 3:da | 4:hastalanırdı.
+  D0  31.72– 33.68  0:Ama | 1:çoğu | 2:doktor | 3:ikna | 4:olmadı.
+  D1  34.08– 37.36  0:Goldberger, | 1:bulaşıcı | 2:olmadığını | 3:kanıtlamak | 4:istedi.
+  D2  37.81– 45.78  0:1916’da | 1:gönüllü | 2:doktorlar, | 3:hastaların | 4:yara | 5:kabuğundan, | 6:idrarından | 7:ve | 8:dışkısından | 9:yapılmış | 10:hapları | 11:yuttu.
+  D3  46.33– 47.70  0:Kimse | 1:pellagra | 2:olmadı.
+  D4  48.15– 49.19  0:Sakın | 1:denemeyin.
+  E0  50.09– 51.91  0:Peki | 1:hastalık | 2:nereden | 3:geliyordu?
+  E0b  52.41– 53.88  0:Cevap, | 1:tabaktaydı.
+  E1  54.48– 58.33  0:Yetimhanedeki | 1:çocuklar | 2:çoğunlukla | 3:mısır | 4:unu | 5:ve | 6:pekmez | 7:yiyordu.
+  E2  58.78– 62.96  0:Goldberger, | 1:çocukların | 2:tabağına | 3:süt, | 4:yumurta | 5:ve | 6:et | 7:ekledi.
+  E2b  63.36– 64.97  0:Çocukların | 1:çoğu | 2:iyileşti.
+  E3  65.62– 72.28  0:Mississippi’de, | 1:af | 2:sözüyle | 3:gönüllü | 4:olan | 5:mahkûmlar, | 6:aylarca | 7:çoğunlukla | 8:mısır | 9:ekmeği | 10:ve | 11:pekmezle | 12:beslendi.
+  E4  72.73– 74.67  0:Yaklaşık | 1:yarısı | 2:pellagra | 3:oldu.
+  F1  75.58– 79.11  0:Hastalık, | 1:niasin | 2:adlı | 3:bir | 4:vitaminin | 5:eksikliğiydi.
+  F2  79.61– 85.03  0:Bunu | 1:ancak | 2:1937’de, | 3:Goldberger | 4:öldükten | 5:sonra | 6:gösterdiler.
+  F3  85.93– 89.22  0:Asıl | 1:ters | 2:köşe | 3:şu: | 4:mısır | 5:suçlu | 6:değildi.
+  F4  89.72– 93.60  0:Orta | 1:Amerika’nın | 2:yerli | 3:halkı, | 4:mısırı | 5:kireç | 6:suyunda | 7:işlerdi.
+  F4b  94.00– 96.83  0:Bu | 1:işlem, | 2:niasini | 3:serbest | 4:bırakıyordu.
+  F5  97.33–100.68  0:Mısırı | 1:alan | 2:Avrupalılar | 3:ise, | 4:bu | 5:yöntemi | 6:almadı.
+  G1 101.38–103.14  0:Mikrop, | 1:hiç | 2:yoktu.
+TTS_BEST_DONE

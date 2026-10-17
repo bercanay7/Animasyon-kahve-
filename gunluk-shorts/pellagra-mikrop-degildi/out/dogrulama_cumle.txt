@@ -1,0 +1,53 @@
+Cümle düzeyinde Whisper-medium doğrulaması (joker: yabancı ad/sayı) — ortalama WER 0.092, en kötü 0.50, ≥0,3 olan cümle: 4
+[0.00] A1   Dışkı yuttular.
+        Whisper: Dışkı yuttular.
+[0.00] A2   Hastalık bulaşmadı.
+        Whisper: Hastalık bulaşmadı.
+[0.00] B1   Yüzyıl başında, Amerika’nın güneyinde, pellagra denen bir hastalık milyonlarca kişiyi hasta etti.
+        Whisper: Yüzyıl başında Amerika'nın güneyinde Pelabra denen bir hastalık milyonlarca kişiyi hasta etti.
+[0.00] B2   Cilt döküntüsü, ishal, bunama, bazen ölüm.
+        Whisper: Cilt döküntüsü, ishal, bunama, bazen ölüm.
+[0.00] B3   Çoğu doktor bulaşıcı bir mikrop arıyordu.
+        Whisper: Çoğu doktor bulaşıcı bir mikrop arıyordu.
+[0.09] C1   1914’te doktor Goldberger, yetimhanelerde bir şey fark etti: çocuklar hastalanıyordu, çalışanlar hastalanmıyordu.
+        Whisper: 1914'te Doktor Goldberger yetimhanelerde bir şey fark etti. Çocuklar hastalanıyordu. Çalışanlar hastalanmıyordu.
+[0.00] C2   Bulaşıcı olsaydı, çalışanlar da hastalanırdı.
+        Whisper: Bulaşıcı olsaydı çalışanlar da hastalanırdı.
+[0.00] D0   Ama çoğu doktor ikna olmadı.
+        Whisper: Ama çoğu doktor ikna olmadı.
+[0.40] D1   Goldberger, bulaşıcı olmadığını kanıtlamak istedi.
+        Whisper: Goldberg'e yer bulaşıcı olmadığını kanıtlamak istedi.
+[0.36] D2   1916’da gönüllü doktorlar, hastaların yara kabuğundan, idrarından ve dışkısından yapılmış hapları yuttu.
+        Whisper: 1916'da gönüllü doktorlar, hastaların yara kabundan, idrarından ve dış kısımdan yapılmış hapları yuttu.
+[0.00] D3   Kimse pellagra olmadı.
+        Whisper: Kimse pelagra olmadı.
+[0.00] D4   Sakın denemeyin.
+        Whisper: Sakın denemeyin!
+[0.00] E0   Peki hastalık nereden geliyordu?
+        Whisper: Peki hastalık nereden geliyordu?
+[0.50] E0b  Cevap, tabaktaydı.
+        Whisper: Cevat tabaktaydı.
+[0.00] E1   Yetimhanedeki çocuklar çoğunlukla mısır unu ve pekmez yiyordu.
+        Whisper: Yetimhanedeki çocuklar çoğunlukla mısır, unu ve pekmez yiyordu.
+[0.12] E2   Goldberger, çocukların tabağına süt, yumurta ve et ekledi.
+        Whisper: Goldbergler çocukların tabağına süt, yumurta ve et ekledi.
+[0.00] E2b  Çocukların çoğu iyileşti.
+        Whisper: Çocukların çoğu iyileşti.
+[0.09] E3   Mississippi’de, af sözüyle gönüllü olan mahkûmlar, aylarca çoğunlukla mısır ekmeği ve pekmezle beslendi.
+        Whisper: Mississippi'de af sözüyle gönüllü olan mahkumlar aylarca çoğunlukla mısır ekmeği ve pekmezde beslendi.
+[0.00] E4   Yaklaşık yarısı pellagra oldu.
+        Whisper: Yaklaşık yarısı pelavru oldu.
+[0.00] F1   Hastalık, niasin adlı bir vitaminin eksikliğiydi.
+        Whisper: Hastalık, niasin adlı bir vitaminin eksikliğiydi.
+[0.33] F2   Bunu ancak 1937’de, Goldberger öldükten sonra gösterdiler.
+        Whisper: Bunu ancak 1937'de Goldberg'ler öldükten sonra gösterdiler.
+[0.00] F3   Asıl ters köşe şu: mısır suçlu değildi.
+        Whisper: Asıl ters köşe şu; Mısır suçlu değildi.
+[0.29] F4   Orta Amerika’nın yerli halkı, mısırı kireç suyunda işlerdi.
+        Whisper: Orta Amerika'nın yerli halkı Mısır-ı Kireç suyunda işlerdi.
+[0.20] F4b  Bu işlem, niasini serbest bırakıyordu.
+        Whisper: Bu işlem Niyasini serbest bırakıyordu.
+[0.00] F5   Mısırı alan Avrupalılar ise, bu yöntemi almadı.
+        Whisper: Mısır'ı alan Avrupalılar ise bu yöntemi almadı.
+[0.00] G1   Mikrop, hiç yoktu.
+        Whisper: Mikrop hiç yoktu.
