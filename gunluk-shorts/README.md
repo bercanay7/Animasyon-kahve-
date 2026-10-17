@@ -18,11 +18,13 @@ Her video kendi klasöründe (kod + çıktı). Ortak altyapı: Pillow 2x süper 
 
 | Belge | Ne |
 |---|---|
-| `konsey/KANAL_ANAYASASI.md` | **v2**: kurallar (kimlik, kanca, ses, kapılar, ölçüt, platform haritası, uyum, kadans, ölçüm) |
+| `konsey/VIZYON.md` | **vizyon, amaç, kapsam** (tarih + edebiyat + oyun + kesişim), biçim merdiveni (Kısa → Özel → Uzun Dosya), ses vizyonu (2026-10-18) |
+| `konsey/KANAL_ANAYASASI.md` | **v2.1**: kurallar (kimlik, kanca, ses, kapılar, ölçüt, platform haritası, uyum, kadans, ölçüm) |
 | `konsey/ANAYASA_ANALIZI_2026-10-17.md` | v1 → v2 analizi: gerçek veri, bulgular (B1–B9), gerekçeler, kaynaklar |
 | `konsey/YOL_HARITASI.md` | 13 haftalık işletim planı: fazlar, yayın kuyruğu, haftalık ritim, deneyler, kapılar, riskler, karar bekleyenler |
 | `olcum/` | ölçüm günlüğü (`olcum.csv`) ve protokol |
 | `konsey/ses_testi/lisans_karsilastirma/` | ses lisansı kör testi (A/B/C) |
+| `konsey/ses_testi/SES_BRIFI.md` | ses brifi ve 60 sn test metni (kendi ses / seslendirmen / premium TTS) |
 
 ## Ücretsiz Türkçe seslendirme (para yok, hesap yok)
 Piper VITS Türkçe modelleri (`fettah`, `dfki`, `fahrettin`) + `sherpa-onnx` (pip). Çevrimdışı çalışır, ~0.3 sn'de 6 sn konuşma üretir.

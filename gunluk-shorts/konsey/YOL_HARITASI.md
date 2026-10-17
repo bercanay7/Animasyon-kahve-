@@ -1,6 +1,6 @@
 # ZAMAN KURYESİ: YOL HARİTASI (2026-10-18 → 2027-01-16, 13 hafta)
 
-Bu belge `KANAL_ANAYASASI.md` v2'nin işletim planıdır. Gerekçeler: `ANAYASA_ANALIZI_2026-10-17.md`. Ölçüm: `../olcum/`. Etiketler: [V] kendi verimiz · [P] platform (ikincil) · [H] varsayım · **[K]** kullanıcının yapacağı · **[C]** Claude'un yapacağı.
+Bu belge `KANAL_ANAYASASI.md` v2.1'in işletim planıdır; **vizyon, amaç ve kapsam: `VIZYON.md`** (2026-10-18: tarih + edebiyat + oyun + kesişim; Uzun Dosya; ses hedefi). Gerekçeler: `ANAYASA_ANALIZI_2026-10-17.md`. Ölçüm: `../olcum/`. Etiketler: [V] kendi verimiz · [P] platform (ikincil) · [H] varsayım · **[K]** kullanıcının yapacağı · **[C]** Claude'un yapacağı.
 
 ## 0. Strateji tezi
 
@@ -9,8 +9,9 @@ Bu belge `KANAL_ANAYASASI.md` v2'nin işletim planıdır. Gerekçeler: `ANAYASA_
 3. **Kaliteyi hızdan önde tutuyoruz:** gelir 2027 başından önce gerçekçi değil [P: YPP eşikleri]; bu süre bir öğrenme ve vitrin kurma süresi.
 4. **Hukuki/politika zeminini baştan sağlama alıyoruz:** ses lisansı, özgünlük kayıtları, doğruluk kapısı.
 5. **Karar kapıları veriyle:** Gün 14/28/60/90'da "ne kalıyor, ne değişiyor" yazılı verilir.
+6. **Geniş vizyon, dar yürütme (2026-10-18):** kapsam tarih + edebiyat + oyun + kesişim [K]; ama kimlik alan değil **biçim ve tondur**; alanlar Kısa kulvarında dönüşümlü sınanır (E5). **Uzun video ses kapısına bağlıdır:** önce ses, sonra Uzun Dosya.
 
-**Kanalın sözü (öneri):** *"Bildiğini sandığın şeyin ters yüzü. Tarihten, bilimden ve halk sağlığından kaynaklı, sakin tempolu kısa hikâyeler. Her teslimatın başında vaat, sonunda kanıt."*
+**Kanalın sözü (öneri, `VIZYON.md` §2):** *"Bildiğini sandığın şeyin ters yüzü ve iki şey arasındaki gizli bağ, kaynağıyla teslim edilir. Tarih, edebiyat ve oyun; sakin tempolu, kaynaklı hikâyeler. Her teslimatın başında vaat, sonunda kanıt."*
 
 ## 1. Durum fotoğrafı
 
@@ -29,9 +30,9 @@ Bu belge `KANAL_ANAYASASI.md` v2'nin işletim planıdır. Gerekçeler: `ANAYASA_
 | Faz | Tarih | Amaç | Çıktı |
 |---|---|---|---|
 | **0 Temizlik + ilk yayın** | 18–19 Eki | Vitrini düzelt, Pellagra'yı yayınla, ölçümü başlat | Pellagra yayında; Titanik v1 + 4 eski video private; ses testi dinlendi |
-| **1 Kadans ve baz çizgi** | 20 Eki – 15 Kas (4 hafta) | Haftada 3 yayın; kendi referans sınıfımızı kur; teşhis okumasını alışkanlık yap | ≥11 video yayında; `olcum.csv` dolu; E1–E2 ilk okuma; ses kararı |
-| **2 Çoğalt ve sağlamlaştır** | 16 Kas – 13 Ara (4 hafta) | Çalışanı çoğalt, çalışmayanı bırak; ses geçişi; Dune çıpası hazırlığı | ilk "çatlak" denemesi; ses CC0'a geçti; sezon/cilt politikası oturdu |
-| **3 Ölçek kararı** | 14 Ara – 16 Oca (5 hafta) | 90 günlük değerlendirme; uzun video/YPP yolu | Gün 60 ve Gün 90 kararları; 2027 planı |
+| **1 Kadans ve baz çizgi** | 20 Eki – 15 Kas (4 hafta) | Haftada 3 yayın; kendi referans sınıfımızı kur; teşhis okumasını alışkanlık yap | ≥11 video yayında; `olcum.csv` dolu; E1–E2 ilk okuma; E5 (alan testi) başladı; **ses yolu kararı** (kör test) |
+| **2 Çoğalt ve sağlamlaştır** | 16 Kas – 13 Ara (4 hafta) | Çalışanı çoğalt, çalışmayanı bırak; ses geçişi; Dune çıpası hazırlığı | ilk "çatlak" denemesi; ses yolu uygulandı (insan/premium/CC0); dış ses → zaman çizelgesi aracı; 16:9 motor + bölümlü sahne kiti; Uzun Dosya pilot metni |
+| **3 Ölçek kararı** | 14 Ara – 16 Oca (5 hafta) | 90 günlük değerlendirme; uzun video/YPP yolu | Gün 60 ve Gün 90 kararları; **Uzun Dosya pilotu (1 adet) ve ilk okuması**; 2027 planı |
 
 Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15 Kas (Paz), Gün 60 = 17 Ara (Per), Gün 90 = 16 Oca (Cmt).**
 
@@ -40,7 +41,7 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 | # | Ne | Kim | Süre | Not |
 |---|---|---|---|---|
 | 1 | **Pellagra kontrolü:** 10 sn'lik kulak kontrolleri ("pelagra", "Misisipi", "yuttu lar", "Goldberger", "dışkısından", "Cevap, tabaktaydı"); YouTube arama kutusunda "pellagra" ve "dışkı yutan doktor" önerileri | **[K]** | 15 dk | Yanlış niyetli öneri baskınsa yedek başlık (`pellagra-mikrop-degildi/yayin_metni.md`) |
-| 2 | **Pellagra'yı Pazar 18 Eki 20:00'ye zamanla.** Başlık/açıklama/sabit yorum hazır; açıklamanın sonuna atıf satırı; Studio'da kare 0 küçük resim; "Değiştirilmiş içerik: Hayır"; "Çocuklara özel değil"; oynatma listesi: Ters Köşe Dosyaları | **[K]** | 15 dk | Atıf satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* |
+| 2 | **Pellagra'yı Pazar 18 Eki 20:00'ye zamanla.** Başlık/açıklama/sabit yorum hazır; açıklamanın sonuna atıf satırı; Studio'da kare 0 küçük resim; "Değiştirilmiş içerik: Hayır"; "Çocuklara özel değil"; oynatma listesi: Tarih | **[K]** | 15 dk | Atıf satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* |
 | 3 | **Titanik v1'i özel (private) yap** (silme yok) | **[K]** | 2 dk | v2 Salı yayında |
 | 4 | **Ses A/B/C** (`ses_testi/lisans_karsilastirma/`): hangisi anlatıcı olabilir? Hangisini seçmezsin? (kör; anahtar `ANAHTAR.txt`, sonra aç) | **[K]** | 5 dk | Karar Gün 28'e kadar yeter |
 | 5 | **Antik Mısır, Romalılar, Moğol, Zanzibar'ı özel (private) yap** (öneri) ya da bana durumlarını söyle | **[K]** | 5 dk | Kaynak denetiminden geçenler geri açılır |
@@ -48,6 +49,8 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 | 7 | **Kanal vitrini** (§8) | **[K]** | 20 dk | metinler hazır |
 | 8 | **K1 (Cuma) ve Ö2 (Pazar) üretimi:** kaynak kapısı, metin, kanca adayları | **[C]** | 2 oturum | §5 |
 | 9 | **Pellagra 24. sa okuması** (Pzt 19 Eki 20:00) ve **72. sa okuması** (Çar 21 Eki 20:00): Reach + Engagement ekran görüntüleri | **[K]** ekran, **[C]** `olcum.csv` | 10 dk/okuma | E1 ilk işareti |
+| 10a | **Vizyonu oku ve onayla/değiştir** (`VIZYON.md` §2–§4, 5 dk): vizyon cümlesi, üç alan, kesişim imzası | **[K]** | 5 dk | Anayasa §12-11..13 zaten senin sözün; geri kalanı öneri |
+| 10b | **Ses yolu için ilk adım:** `ses_testi/SES_BRIFI.md` içindeki 60 sn test metnini (a) kendi sesinle telefonda oku ve gönder **ya da** (b) bir seslendirmene yolla **ya da** (c) Google Cloud Text-to-Speech demo sayfasında tr-TR Chirp 3 HD erkek seslerinde oku/dinle; çıktıları bana ilet | **[K]** | 20–30 dk | Karar Gün 28; bütçe bandını (0/düşük/orta) yaz |
 | 10 | (Opsiyonel) **Rakip/niş taraması:** Supermetrics "YouTube Public Data"yı bağla; ben niş kanalların son Shorts'larını (süre, görüntülenme, başlık kalıbı) çekip analiz ederim | **[K]** bağlar, **[C]** analiz | 2 dk + 1 oturum | Bağlantı sohbette verildi |
 
 ## 4. Haftalık ritim (işletim sistemi)
@@ -74,20 +77,21 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 |---|---|---|---|---|
 | 0 | Paz 18 Eki | Özel | **Pellagra** (105 sn, guaj kukla) | hazır |
 | 1 | Sal 20 Eki | Kısa | **Titanik v2** (40 sn, mavi baskı; v1 yerine) | hazır |
-| 2 | Cum 23 Eki | Kısa | K1: P2 tuhaf olay (aday: Domuz Savaşı 1859 \*) | üretilecek |
+| 2 | Cum 23 Eki | Kısa | K1: **Edebiyat** ↔ tarih (aday: *Frankenstein* ve "yaz olmayan yıl" 1816 \*) | üretilecek |
 | 3 | Paz 25 Eki | Özel | Ö2: **Konya obrukları** (P1/P3; AFAD 741 obruk, Eylül 2026; en yüksek puan) | üretilecek |
-| 4 | Sal 27 Eki | Kısa | K2: P1 (aday: iyot, tuz) | üretilecek |
-| 5 | Cum 30 Eki | Kısa | K3: P2 (aday: Kova Savaşı 1325 / Boston melas seli 1919 \*) | üretilecek |
+| 4 | Sal 27 Eki | Kısa | K2: **Oyun** ↔ tarih (aday: Tetris ve Soğuk Savaş \*) | üretilecek |
+| 5 | Cum 30 Eki | Kısa | K3: **Tarih**, tuhaf olay (aday: Domuz Savaşı 1859 / Boston melas seli 1919 \*) | üretilecek |
 | 6 | Paz 1 Kas | Özel | Ö3: **Sığır vebası** (P1; İstanbul 1902 bağlantısı) | üretilecek |
-| 7 | Sal 3 Kas | Kısa | K4 | üretilecek |
-| 8 | Cum 6 Kas | Kısa | K5 | üretilecek |
+| 7 | Sal 3 Kas | Kısa | K4: **Edebiyat** (aday: Tolkien ve Somme siperleri \*) | üretilecek |
+| 8 | Cum 6 Kas | Kısa | K5: **Oyun** (aday: "Nükleer Gandi" efsanesi, Civilization \*) | üretilecek |
 | 9 | Paz 8 Kas | Özel | Ö4: **Oralit (ORS)** (P1) | üretilecek |
-| 10 | Sal 10 Kas | Kısa | K6 | üretilecek |
-| 11 | Cum 13 Kas | Kısa | K7 | üretilecek |
+| 10 | Sal 10 Kas | Kısa | K6: **Tarih** (P1: iyot ya da karantina) | üretilecek |
+| 11 | Cum 13 Kas | Kısa | K7: **Kesişim** (iki alan; E5 sonuçlarına göre) | üretilecek |
 | 12 | Paz 15 Kas | Özel | Ö5: **Sıtma (yeniden)** — Özel + yeni cilt | üretilecek |
 | — | **Sal 15 Ara** | Özel | **Dune × Star Wars** (çıpa: *Dune: Part Three*, 18 Aralık 2026 [P]); yayın öncesi ilk kanıt 51. sn → ≤30. sn'ye çekilir | hazır; çıpaya saklanır |
+| — | 18–20 Ara (hedef) | **Uzun Dosya** | **Pilot adayı: Dune × Star Wars (8–10 dk, 16:9)** — araştırma hazır; 15 Ara Özel video onun tanıtımı (Related video). Ses kapısı geçmezse Ocak'a kayar. Alternatif pilot: *Frankenstein* 1816 | G60'ta kesinleşir |
 
-\* Kısa kulvarı için fikirler **doğrulanmamış adaylardır** (kaynak kapısından geçmediler): Domuz Savaşı (1859), Kova Savaşı (1325), Boston melas seli (1919), Serçe kampanyası (Çin, 1958), "Jenkins'in Kulağı" savaşı (1739). Havuz hedefi ≥10 kaynaklı aday (Anayasa §15); haftada +3 aday araştırılır.
+\* Kısa kulvarı için fikirler **doğrulanmamış adaylardır** (kaynak kapısından geçmediler; edebiyat/oyun konularında telif kuralı §14-U10): *Frankenstein* ve 1816, Tolkien ve Somme, Tetris ve Soğuk Savaş, "Nükleer Gandi" efsanesi (efsane mi gerçek mi), Domuz Savaşı (1859), Boston melas seli (1919), Kova Savaşı (1325), Serçe kampanyası (Çin, 1958), "Jenkins'in Kulağı" savaşı (1739). Havuz hedefi ≥10 kaynaklı aday (Anayasa §15); haftada +3 aday araştırılır.
 
 **Konu puanları (ilk öneri, [H]; 0–5, Anayasa §15 formülü):**
 
@@ -106,13 +110,14 @@ Puanlar yalnız ilk sıralama içindir; kanca adayları ve arama önerisi kontro
 
 ## 6. Kulvarlar ve üretim planı
 
-| | Kısa | Özel |
-|---|---|---|
-| Süre / metin | 35–50 sn, ≤80 sözcük, ≤1,9 sözcük/sn | 75–150 sn, ≤1,8 sözcük/sn |
-| Cilt | **önerilen:** guaj kukla kitini yeniden kullan ("sezon 1"), 8–10 videoda | yeni cilt [K] |
-| Kaynak tablosu | hafif | tam |
-| Hedef süre | ≈2 saat | ≈4–6 saat |
-| Haftalık | 2 | 1 |
+| | Kısa | Özel | **Uzun Dosya** (kapılı) |
+|---|---|---|---|
+| Süre / yön | 35–50 sn, dikey | 75–150 sn, dikey | **6–15 dk, 16:9** |
+| Metin | ≤80 sözcük, ≤1,9 sözcük/sn | ≤1,8 sözcük/sn | ≤1,8 sözcük/sn; bölümlü (≈60–90 sn) |
+| Cilt | **önerilen:** guaj kukla kitini yeniden kullan ("sezon 1"), 8–10 videoda | yeni cilt [K] | konuya özgü + bölümlü sahne kiti |
+| Kaynak tablosu | hafif | tam | tam + zaman damgalı |
+| Hedef süre | ≈2 saat | ≈4–6 saat | ≈15–25 saat [H] |
+| Sıklık | haftada 2 | haftada 1 | ayda 1 (ses kapısından sonra) |
 
 **Neden "sezon" cildi (Kısa için)?** Kit zaten var (`kukla.py`, `props.py`, `guaj.py`): yeni konu = yeni sahne + yeni rekvizit. Kanalın tanınırlığı için bir "Kısa" yüzü oluşur; Özel'de yeni cilt [K] (anthology kimliği) korunur. Kullanıcı "her video yeni cilt" derse Kısa sayısı düşer (≈1/hafta) ve kadans 2'ye iner.
 
@@ -126,6 +131,9 @@ Puanlar yalnız ilk sıralama içindir; kanca adayları ve arama önerisi kontro
 | **E2** | Kanca türü: R (çelişki) mu, S (soru) mu? | ardışık iki videoda aynı tür yok | stayed to watch | Gün 60: ≥6 video/tür, fark ≥10 puan + ≥3 aynı yön |
 | **E3** | Saat: 20:00 mi, 12:30 mu? | Gün 28'den sonra dönüşümlü | gösterilme (24. sa), stayed to watch | Gün 60 |
 | **E4** (Faz 2) | Açılış sesi: 0,05 sn mi, 0,3 sn sessizlik + vuruş mu? | tek değişiklik | stayed to watch | Gün 90 |
+| **E5** | Alan: Tarih mi, Edebiyat mı, Oyun mu? Kesişim ek ilgi çekiyor mu? | Kısa kulvarı üç alanı dönüşümlü işler (§5) | stayed to watch, abone/1.000, yorum niteliği, tekrar oranı | **Gün 60:** ≥6 video/alan; yalnız ipucu; alan payı yeniden yazılır (Anayasa §15) |
+
+**E6 (Faz 3, Uzun Dosya):** 3 başlık / 3 küçük resim (Test & Compare [P]); ölçüt: izlenme süresi payı ve ort. izlenme %; karar: pilot sonrası.
 
 **Okuma:** ≥300 gösterilme; referans = aynı kulvarın son 5 videosunun medyanı; <5 puan = ayırt edilemedi; 5–10 ipucu; ≥10 olası etki. Çatlak: 7 günde medyanın ≥10 katı görüntülenme ve stayed to watch ≥%60 → otopsi.
 
@@ -133,7 +141,7 @@ Puanlar yalnız ilk sıralama içindir; kanca adayları ve arama önerisi kontro
 
 **Kanal açıklaması (öneri, ≤1000 karakter; kadans cümlesi K1 onaylanınca eklenir):**
 
-> Zaman Kuryesi: bildiğini sandığın şeyin ters yüzü. Tarihten, bilimden ve halk sağlığından kaynaklı, sakin tempolu kısa hikâyeler. Her teslimatın başında vaat, sonunda kanıt; kaynaklar sabit yorumda. Haftada üç teslimat: Salı, Cuma, Pazar 20:00. Seslendirme yapay (Piper TTS), çizimler kodla üretilmiştir.
+> Zaman Kuryesi: bildiğini sandığın şeyin ters yüzü ve iki şey arasındaki gizli bağ, kaynağıyla teslim edilir. Tarih, edebiyat ve oyun; sakin tempolu, kaynaklı hikâyeler. Her teslimatın başında vaat, sonunda kanıt; kaynaklar sabit yorumda. Haftada üç teslimat: Salı, Cuma, Pazar 20:00. Çizimler kodla üretilmiştir; seslendirme şu an yapaydır (Piper TTS).
 
 **Varsayılan açıklama şablonu (Studio → Ayarlar → Yükleme varsayılanları):**
 
@@ -146,7 +154,7 @@ Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla
 
 (CC0 sese geçilince son satır: *Ses: yapay (Piper TTS; veri seti CC0).*)
 
-**Kontrol listesi:** 2 adımlı doğrulama açık · varsayılan "çocuklara özel değil" · üç oynatma listesi: *Ters Köşe Dosyaları*, *Tuhaf Olaylar*, *Takvim Çıpası* · kanal açıklaması + bağlantılar · kanal logosu/başlığı (yoksa sade bir tane) · öne çıkan: Pellagra (ilk kez gelenlere).
+**Kontrol listesi:** 2 adımlı doğrulama açık · varsayılan "çocuklara özel değil" · dört oynatma listesi: *Tarih*, *Edebiyat*, *Oyun*, *Uzun Dosyalar* · kanal açıklaması + bağlantılar · kanal logosu/başlığı (yoksa sade bir tane) · öne çıkan: Pellagra (ilk kez gelenlere).
 
 ## 9. Ölçüm ve hedefler
 
@@ -188,11 +196,16 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | K7 | **Cilt politikası** | Özel: her video yeni cilt [K]; Kısa: "sezon" cildi (guaj kukla kiti). |
 | K8 | **Kısa kulvarı** | 35–50 sn, ≤1,9 sözcük/sn (§12-2 ile uyumlu). |
 | K9 | **Yayın saati** | 20:00 (+03); E3 ile 12:30 dönüşümlü sınanır. |
-| K10 | **Niş/sütunlar** | P1 Ters Köşe Dosyaları ≈%60 · P2 Tuhaf Olaylar ≈%30 · P3 Takvim Çıpası ≈%10. |
+| K10 | **Alanlar ve biçimler** | Alanlar: Tarih ≈%50 · Edebiyat ≈%25 · Oyun ≈%25 (başlangıç hipotezi; E5 ile G60'ta yeniden yazılır). Biçimler: Ters Köşe, Kesişim, Tuhaf Olay, Takvim Çıpası. |
 | K11 | **Atıf satırı** | Her açıklamanın son satırı (lisans gereği). |
-| K12 | **Uzun video pilotu** | G60'a ertelendi. |
+| K12 | **Uzun video pilotu** | Güncel: bkz. K17 (ses kapısı geçilince; hedef 18–20 Ara). |
 | K13 | **Çapraz paylaşım** (TikTok/Reels; aynı dikey dosya) | Faz 2'de dene (Metricool'e marka ekleyerek); YouTube kararlarını bozmaz. |
 | K14 | **Rakip taraması** (Supermetrics "YouTube Public Data" bağlantısı) | Yap (2 dk); niş kalıplarını ölçerek E1–E2 sorularını hızlandırır. |
+| K15 | **Vizyon** (`VIZYON.md` §2–§4) | Onay ya da düzeltme; varsayılan: öneri metni geçerli. |
+| K16 | **Ses yolu** (A insan/kendi ses, B premium TTS, C hibrit, D CC0 Piper) | Önce **A ve B'yi aynı metinle dinlet**; karar Gün 28; bu arada Shorts `dfki` + atıf (ya da CC0 `fahrettin`). Bütçe bandı: 0 / düşük / orta. |
+| K17 | **Uzun Dosya** | Ayda 1; ses kapısı geçilmeden başlamaz; pilot: Dune × Star Wars (hedef 18–20 Ara) ya da *Frankenstein* 1816. |
+| K18 | **Edebiyat ve oyun için ilk konular** | Önerim (Frankenstein 1816, Tolkien–Somme, Tetris, Nükleer Gandi); kaynak kapısından geçerse yapılır. Senin konu fikrin varsa öncelik senin. |
+| K19 | **Kanal adı/slogan** | Ad kalır; kanal açıklamasına vizyon cümlesi eklenir. |
 
 ## 12. Risk kaydı
 
@@ -209,6 +222,10 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | R9 | Platform kuralı değişir (YPP, sayım) | yüksek / orta | §14-U9 üç ayda bir; resmî sayfa okuması (kullanıcı erişimi) | K |
 | R10 | Ölçüm eksik kalır (ekran görüntüsü atlanır) | orta / yüksek | Pazartesi 30 dk ritmi; `olcum.csv` | K+C |
 | R11 | Hesap güvenliği | düşük / çok yüksek | 2 adımlı doğrulama | K |
+| R12 | Gerçek kişi sesinin taklidi/klonu (ör. ünlü sanatçı): kişilik hakkı, YouTube taklit/sentetik kuralı, yanıltma | düşük (yapmıyoruz) / çok yüksek | Anayasa §14-U3: yapılmaz; "X gibi" yalnız nitelik tarifi; insan seslendirmende yazılı sözleşme | C+K |
+| R13 | Edebiyat/oyun/film telifi (ekran görüntüsü, logo, karakter, uzun alıntı) | orta / yüksek | Anayasa §14-U10: özgün temsil, kısa kaynaklı alıntı, resmî kaynak | C |
+| R14 | Uzun Dosya: kapasite, tıklama oranı, retention düşüşü | yüksek / orta | dört kapı; ayda 1; kadans o hafta 2; paketleme testi | C+K |
+| R15 | Kimlik dağılması (üç alan; izleyici "bu kanal ne?" der) | orta / orta | kimlik = biçim ve ton; E5 alan testi; playlist/başlık kalıpları | C |
 
 ## 13. Sürecin tek sayfası
 

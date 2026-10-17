@@ -1,12 +1,23 @@
-# ZAMAN KURYESİ: KANAL ANAYASASI (v2, 2026-10-17)
+# ZAMAN KURYESİ: KANAL ANAYASASI (v2.1, 2026-10-18)
 
-**Sürüm geçmişi:** v1 (2026-10-14; 21 koltuklu *simüle* danışma kurulu, 2 tur, 1 doğrulama; 16/21 oyla Seçenek C) → kullanıcı düzeltmeleri §12 (2026-10-15 ve 10-17) → **v2 (2026-10-17): denetim ve birleştirme.** Gerekçeler ve kanıtlar: `ANAYASA_ANALIZI_2026-10-17.md`. Uygulama planı: `YOL_HARITASI.md`. Ölçüm günlüğü: `../olcum/`. Ham kurul tartışması: `RECOMMENDATION.md`, `ROUND1-*.md`, `ROUND2-*.md` (tarihçe; bağlayıcı değil).
+**Sürüm geçmişi:** v1 (2026-10-14; 21 koltuklu *simüle* danışma kurulu, 2 tur, 1 doğrulama; 16/21 oyla Seçenek C) → kullanıcı düzeltmeleri §12 (2026-10-15 ve 10-17) → v2 (2026-10-17): denetim ve birleştirme → **v2.1 (2026-10-18): kapsam ve biçim genişlemesi** (tarih + edebiyat + oyun + kesişim; Uzun Dosya kulvarı; ses hedefi). **Vizyon, amaç, kapsam: `VIZYON.md`.** Gerekçeler ve kanıtlar: `ANAYASA_ANALIZI_2026-10-17.md`. Uygulama planı: `YOL_HARITASI.md`. Ölçüm günlüğü: `../olcum/`. Ham kurul tartışması: `RECOMMENDATION.md`, `ROUND1-*.md`, `ROUND2-*.md` (tarihçe; bağlayıcı değil).
 
 **Bu belge şunu söyler: bundan sonraki her video bu kurallara göre yapılır.** Kullanıcı değiştirmediği sürece geçerlidir. **Çelişkide öncelik: §12 (kullanıcı kararları) > §13–§16 > diğer bölümler.**
 
 **Etiketler:** [K] kullanıcı kararı · [V] bu kanalın kendi verisi · [P] platform bilgisi (resmî YouTube sayfaları okunamadı; ikincil kaynak, bkz. §13) · [H] varsayım (veriyle yeniden yazılır). Etiketsiz kural = tasarım tercihi.
 
-## Ne değişti (v1 → v2)
+## Ne değişti (v2 → v2.1, 2026-10-18)
+
+| # | v2 | v2.1 | Neden |
+|---|---|---|---|
+| a | kapsam: tarih (+ sağlık/bilim) | **alanlar: Tarih, Edebiyat, Oyun + Kesişim biçimi** | [K] §12-11 |
+| b | yalnız Shorts (Kısa/Özel) | **+ Uzun Dosya kulvarı (6–15 dk, 16:9), dört kapıyla** | [K] §12-12 |
+| c | ses: kuru erkek, hız ≤1,0 | **+ ses hedefi (derin, sıcak, robotik değil); gerçek kişi sesi klonlanmaz** | [K] §12-13, §14-U3 |
+| d | telif: görsel/ses/logo yok | **+ edebiyat/oyun/film telif kuralı (U10)** | kapsam genişledi |
+| e | sütunlar P1/P2/P3 | **alanlar × biçimler + alan testi (E5)** | VIZYON §9 |
+| f | platform haritası Shorts odaklı | **+ uzun video satırları (15–17)** | Uzun Dosya |
+
+## Ne değişti (v1 → v2, 2026-10-17)
 
 | # | v1 | v2 | Neden |
 |---|---|---|---|
@@ -36,6 +47,9 @@
 | D6 | açık | Kadın sesi: kör test koşulu (yapılmadı; düşük öncelik) | konsey önerisi |
 | D7 | açık | **Sıklık:** konsey haftada 5 + tampon önerdi; kullanıcı başta günlük istedi; v2 önerisi haftada 3 (§15). Karar bekliyor. | açık |
 | D8 | açık | Yayın kuyruğu (Titanik v1, eski videolar, Sıtma, Dune), ses lisansı geçişi: `YOL_HARITASI.md` §11 | açık |
+| D9 | 2026-10-18 | Kapsam genişledi: tarih + edebiyat + oyun + birbirleriyle alakalı içerik (§12-11, `VIZYON.md`) | [K] |
+| D10 | 2026-10-18 | Uzun video yeniden açıldı, ses koşuluyla (§12-12, §15) | [K] |
+| D11 | 2026-10-18 | Ses hedefi: derin, sıcak, robotik değil; ses yolu (A insan / B premium / C hibrit / D CC0) kararı bekliyor (`VIZYON.md` §6, `ses_testi/SES_BRIFI.md`) | [K] hedef, yol açık |
 
 ## 1. Kimlik: neyi izleyici tanır
 
@@ -48,7 +62,7 @@
 - Okunabilirlik: altyazı ≥56 px, tüm yazı ≥44 px; kontrast ≥4,5:1; Türkçe karakter satırı (İ ı Ş Ğ Ç Ö Ü) kontrol edilir.
 - Hareket kiti: 3 easing eğrisi; sarsıntı/flaş süreyle ölçeklenir (§12-6); hiçbir kare 3 sn'den uzun durağan değil, her 2–3 sn'de görsel değişim; son 0,5 sn ilk kareye easing ile kapanır.
 
-**Değişen [K]:** görsel dil (cilt), palet, altyazı yazı tipi/biçemi, HUD'un biçimi (§2).
+**Değişen [K]:** alan (Tarih/Edebiyat/Oyun), görsel dil (cilt), palet, altyazı yazı tipi/biçemi, HUD'un biçimi (§2). **Kimlik biçim ve tondur, alan değil** (`VIZYON.md` §4).
 
 **Süre [K]:** üst sınır yok (teknik sınır 3 dk); her konu için gerekli en kısa süre seçilir; iki kulvar için hedef bantlar §15'te.
 
@@ -57,6 +71,7 @@
 - **[K] Her konu kendi görsel dilini taşır;** önceki videonun cildi/sahne şablonu aynen tekrar edilmez (§12-1). Ortak olan motor (çizim ilkelleri, render, ses, QA).
 - **Cilt-bağımsız değişmezler:** kare 0 kartı 270×480'de okunur (5 kişiden ≥4'ü doğru okur); ana nesne yüksekliğin ≥%35'i; altyazı bölgesi (y≈1250–1390) boş; HUD ile çakışma yok; tane (grain) ≤0,01.
 - **Yeni cilt maliyeti:** ≈ yarım gün–bir gün kod (guaj kukla: bir oturum). Bu yüzden Özel kulvarında yeni cilt, Kısa kulvarında yeniden kullanılabilir cilt ("sezon") **önerilir [karar bekliyor, D8]**; kullanıcı "her video yeni cilt" derse Kısa kulvarı da buna uyar ve kapasite düşer (§15).
+- **Uzun Dosya:** konuya özgü cilt + bölümlü sahne kiti (§15).
 - **Kaldırıldı:** "tavan 3 cilt", "ilk 14 video 2 cilt yazı-tura", "30. gün ızgara testi" (neden: §12-1).
 - **Cilt kataloğu (kayıt):**
 
@@ -81,7 +96,8 @@
 
 ## 4. Ses kuralları
 
-- **Anlatıcı:** tek erkek ses, **kuru** (yankı/ıslak pay = 0). Konuşma hızı ≤1,0 (0,90–1,0 arası, değer sürüm künyesine yazılır); virgül/iki nokta boşlukları §12-2.
+- **Ses hedefi [K, §12-13]:** derin, sıcak, tiyatral ağırlık, doğal nefes ve vurgu; **olabildiğince robotik olmayan.** Mevcut Piper sesi (VITS "orta") bu hedefin altında kalabilir; ses yolu (insan / premium TTS / hibrit / CC0 Piper) `VIZYON.md` §6'daki kör testle seçilir (`ses_testi/SES_BRIFI.md`). **Uzun Dosya yalnız bu testi geçen sesle yayınlanır.**
+- **Anlatıcı (mevcut):** tek erkek ses, **kuru** (yankı/ıslak pay = 0). Konuşma hızı ≤1,0 (0,90–1,0 arası, değer sürüm künyesine yazılır); virgül/iki nokta boşlukları §12-2.
 - **Ses lisansı kapısı (yeni) [V: model kartları]:** `dfki` modelinin kendi MODEL_CARD dosyası veri seti lisansını **CC BY-NC-SA 4.0** (ticari kullanım yok, atıf gerekir, aynı lisansla paylaşım) gösterir. `fettah` ve `fahrettin` modellerinin veri setleri **CC0**'dır (üçü de ABD İngilizcesi "lessac" sesinden ince ayarlıdır; taban modelin kalıtım etkisi belirsizdir, bu hukuki görüş değildir). Kurallar:
   1. **Atıf:** `dfki` kullanıldığı sürece her açıklamanın son satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.*
   2. **Ticari kullanım:** gelir paylaşımı (YPP), sponsor, ürün satışı gibi ticari kullanım başlamadan önce ses ticari kullanıma uygun olmalıdır (CC0 sese geçiş, insan anlatıcı veya ticari lisanslı ses).
@@ -108,7 +124,8 @@
 ## 6. Üretim hattı (gerçek)
 
 - **Ortak motor:** `engine.py` Sıtma/Dune/Pellagra'da bayt bayt aynı; tek sürüme kilitli. Her video kendi klasöründe cilt modülleriyle (`guaj.py`, `kukla.py`, `props.py`, `scenes.py`, `ui.py`, `cues.py`, `audio.py`) gelir; `qa.py` ortak şablondur.
-- **Ses hattı:** Piper (sherpa-onnx) → ifade başına en iyi-5 sentez → Whisper-medium (int8, çevrimdışı) doğrulaması → `dogrula.py` cümle raporu → mix (−14 LUFS).
+- **Dış ses (planlı):** insan ya da premium sesten `timeline.json` üretimi (sessizlik/VAD + hece orantılı + Whisper çapaları; doğrulama: Pellagra'nın bilinen zaman çizelgesiyle ≤80 ms ortalama hata). Ses yolu kararından sonra yapılır; tüm kulvarlar için gereklidir.
+- **Ses hattı (mevcut):** Piper (sherpa-onnx) → ifade başına en iyi-5 sentez → Whisper-medium (int8, çevrimdışı) doğrulaması → `dogrula.py` cümle raporu → mix (−14 LUFS).
 - **Gerçek süreler [V]:** Özel video ≈ 4–6 saat (yeni cilt dahil: Pellagra); render ≈ 5,5 dk (4 süreç, 2520 kare); TTS en iyi-5 ≈ 5,5 dk/tur (1–3 tur); QA ≈ 0,5 dk. Kısa kulvar hedefi ≈ 2 saat (yeniden kullanılabilir cilt varsayımı, [H]).
 - **Yayın günlüğü:** `../yayin_gunlugu.jsonl` (üretim ve yayın olguları; v1'in "metrik" alanı artık `../olcum/olcum.csv`'dedir).
 - **Tampon:** ≥2 yayına hazır video. "Hazır" = kapılar yeşil + yayın metni (`yayin_metni.md`) hazır.
@@ -169,7 +186,7 @@
 
 v2 yalnızca simüle kurulun tavsiyesi değildir: bu kanalın gerçek ama çok küçük verisine ([V], 3 gün öncesi, n≈1 dağıtılmış video), yerel model kartlarına ve 17 web araması özetine dayanır. Sınırlar: canlı Studio verisi yok; YouTube resmî Help/blog sayfaları açılamadı (bir istisna: Mart 2024 sentetik içerik blogu); eşikler topluluk tahminidir; rakip kanallar incelenemedi (YouTube araması bu ortamda kapalı); hukuki görüş değildir (ses lisansı, politika). Sayısal eşikler [H]'dir ve ilk 10–15 videonun verisiyle yeniden yazılır.
 
-## 12. Kullanıcı düzeltmeleri (2026-10-15, 2026-10-17) — bu bölüm diğerlerinden önceliklidir
+## 12. Kullanıcı düzeltmeleri (2026-10-15, 10-17, 10-18) — bu bölüm diğerlerinden önceliklidir
 
 Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi: **anlatım çok hızlı**, **bağlam zayıf**, **çizimler Titanik'le aynı** ("her konu için farklı çizimler yapacaktık"). Kurallar buna göre değişti:
 
@@ -183,6 +200,9 @@ Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi:
 8. **HUD yalnız anlam taşıyan sayaçtır (2026-10-17).** Kullanıcı Pellagra videosunda (TESLİMAT #7) ekrandaki sabit "TESLİMAT #7" yazısına itiraz etti; v1 bölüm 7'deki "HUD'da seri adı" ifadesi harfiyen uygulanınca Sıtma (YIL sayacı) ve Dune (KANIT n/5) ile tutarsızlık doğmuştu. HUD'da seri adı gibi değişmeyen yazı bulunmaz; HUD videonun ilerleyişini gösteren sayaçtır (Sıtma: YIL; Dune: KANIT n/5; Pellagra: KANIT + 4 kapsül). Seri adı yalnız açıklamanın 1. satırındadır.
 9. **Süre sınırı kalktı (2026-10-17).** Kullanıcı: "Üst sınır kalksın, uygunluğu sen ayarla." Kural: süre, konunun bağlamı ve kanıtı için gereken en kısa süredir; teknik üst sınır 3 dk. Süre seçimi sürüm künyesine gerekçesiyle yazılır; **sonucu ölçülür** (öğrenme sorusu E1, `YOL_HARITASI.md` §7).
 10. **Güncelleme yetkisi (2026-10-17).** Kullanıcı: "Güncelleme yapabilirsin." Bu yetkiyle v2 yazıldı; v2'deki değişiklikler kullanıcının itirazına açıktır ve itiraz edilen madde §12'ye karar olarak eklenir.
+11. **Kapsam genişledi (2026-10-18).** Kullanıcı: "Sadece tarih değil de yeri geldiği zaman edebiyat, yeri geldiği zaman oyun ve bunların birbiriyle alakalı içerikler de çekmek istiyorum." Alanlar: **Tarih** (bilim ve halk sağlığı tarihi dahil), **Edebiyat**, **Oyun**; imza biçim **Kesişim** (iki alan arasında kaynaklı bağ). Ayrıntı: `VIZYON.md` §4. Telif kuralı §14-U10.
+12. **Uzun video yeniden açıldı, ses koşuluyla (2026-10-18).** Kullanıcı: "Sadece Shorts üstünden de değil; sesi daha güzel yapabilirsek uzun videolarla detaylıca konu anlatımı da olabilir." "Uzun Dosya" kulvarı (6–15 dk, 16:9) dört kapıyla (ses, motor, paketleme, kapasite) açılır (§15). Önceki "10 dakikalık uzun video iptal" notu bu karar ve ses koşuluyla geçersizdir.
+13. **Ses hedefi (2026-10-18).** Kullanıcı: ses "kulağa hoş" geliyor ama "Haluk Bilginer sesi gibi" derin ve sıcak olsa, "olabildiğince robotiklikten kaçınalım". Nitelik hedeftir; **gerçek bir kişinin sesi klonlanmaz veya taklit edilmez** (§14-U3). Yol seçimi: `VIZYON.md` §6.
 
 ## 13. Platform ve algoritma haritası (Ekim 2026)
 
@@ -204,6 +224,9 @@ Kullanıcı Sıtma videosunu (TESLİMAT #5) izledikten sonra üç şey söyledi:
 | 12 | **YPP 2026:** Kademe 1 (erken): 500 abone + 90 günde ≥3 yükleme + 3.000 uzun-video saati veya 3 milyon Shorts görüntülenmesi (90 gün) — gelir paylaşımı yok. Kademe 2: 1.000 abone + 4.000 saat veya 10 milyon Shorts görüntülenmesi. **1 Şubat 2027'den itibaren yeni başvuranlar:** 8.000 saat veya 20 milyon (YouTube'un 10 Ağustos 2026 duyurusu, ikincil haberler) | [P] doğrulanmalı | 6 abone/1,7 bin görüntülenmeyle gelir hedefi gerçekçi değil; ilk hedef erişim, tutma, abone |
 | 13 | "Özgün olmayan içerik" (eski adı tekrarlı içerik; ad değişikliği 15 Temmuz 2025): kitlesel üretilmiş/şablondan çıkma/tekrarlı içerik YPP'ye uygun değil; yapay anlatım kendi başına engel değil; özgün senaryo + gerçek editoryal katkı korur | [P] | Şablon izlenimi riski → §14 |
 | 14 | Değiştirilmiş/sentetik içerik ifşası: gerçekçi kişi/olay görseli ve gerçek kişinin sesinin klonu için zorunlu; animasyon/stilize/açıkça gerçek dışı için gerekmez (YouTube blog, Mart 2024); genel TTS anlatıcı için resmî ifade bulunamadı | [P] | Studio sorusuna "Hayır"; gerçekçi görsel kullanılmaz |
+| 15 | Uzun videoda dağıtımı belirleyen: tıklama (başlık + küçük resim) ve izlenme süresi; Shorts'tan ayrı sistem | [P] | Uzun Dosya'da paketleme kapısı zorunlu (§15) |
+| 16 | "Test & Compare": en çok 3 başlık / 3 küçük resim, ≤14 gün; kazananı **izlenme süresi payı** belirler (tıklama oranı tek başına değil); erişim "gelişmiş özellikler" şartlı, kapsam doğrulanmalı | [P] doğrulanmalı | Uzun Dosya paketlemesinde kullanılır |
+| 17 | Genel uzun video çıtaları (ikincil; tarih/deneme için özel veri yok): ort. izlenme ≈%30 makul, >10 dk için %35–45 iyi; tıklama oranı %4–6 iyi, yeni kanalda ≈%3 kabul edilebilir | [P]/[H] | İlk beklenti; kendi referans sınıfımız (§8) belirleyici |
 
 **Bilinmeyenler:** gerçek eşikler ve test kitle büyüklükleri; HUD'un Shorts üst arayüzüyle çakışıp çakışmadığı (telefon denemesi yapılmadı); ≥2 dk Shorts'ın dağıtımı; yayın saatinin etkisi.
 
@@ -213,11 +236,12 @@ Yayın öncesi **Uyum kapısı** (kapı 5) kontrol listesi:
 
 - **U1 Özgünlük [P]:** her video özgün metin (kaynaklı) + özgün görsel + kullanıcı editoryal onayıyla çıkar; iki video aynı sahne düzenini/aynı metin iskeletini birebir tekrarlamaz; üretim kayıtları (`kaynaklar.md`, `SURUM_KUNYESI.md`, git günlüğü) "gerçek editoryal katkı"nın kanıtı olarak saklanır.
 - **U2 Ses lisansı:** §4 kuralları (atıf satırı; ticari kullanım öncesi geçiş).
-- **U3 Sentetik ifşa:** Studio "değiştirilmiş veya sentetik içerik" sorusu: animasyon/stilize içerik için **Hayır**. Kaçınılır: gerçek kişinin sesi/klonu; gerçekçi sahte fotoğraf/video; gerçek kişilerin yüzünü gerçekçi taklit eden görsel.
+- **U3 Sentetik ifşa:** Studio "değiştirilmiş veya sentetik içerik" sorusu: animasyon/stilize içerik için **Hayır**. Kaçınılır: gerçek kişinin sesi/klonu; gerçekçi sahte fotoğraf/video; gerçek kişilerin yüzünü gerçekçi taklit eden görsel. **Gerçek bir kişinin (ünlü ya da değil) sesi klonlanmaz veya taklit edilmez;** "Haluk Bilginer gibi" türü referanslar yalnız **nitelik tarifidir** (derin, sıcak, …). İnsan seslendirmen kullanılırsa **yazılı sözleşme:** YouTube dahil süresiz ve ticari kullanım, isim kredisi, **ses klonu/yapay zekâ eğitimi için kullanılmama (ya da açık izin)**.
 - **U4 Hassas konu:** tıbbi/tehlikeli eylem anlatılıyorsa eğitici/belgesel bağlamı + açık uyarı ("Sakın denemeyin"); tıbbi tavsiye vermeyen anlatım; sansasyon için şok görsel yok. Reklam verenlere uygunluk (sarı simge) gelir açısından olası, gelir başlamadan etkisizdir.
 - **U5 Doğruluk ve düzeltme:** §5 kapı 1 ve 7; sabit yorumda nitelemeler.
 - **U6 Yapay etkileşim yok:** satın alınmış izlenme/beğeni/abone, bot, öz-izleme döngüleri yok; "ilk saat" yalnız organik paylaşım.
 - **U7 Telif:** müzik/efekt kendi sentezimiz; yazı tipleri OFL (`fonts/LICENSES.txt`); üçüncü taraf görsel/ses/logo/film karesi yok.
+- **U10 Edebiyat, oyun, film (telif) [H]:** ekran görüntüsü, oyun içi görsel, logo, telifli karakter/sahne **çizilmez**; özgün temsil kullanılır (silüet, simge, metin kartı). Kamu malı metinden (ölümden ≥70 yıl; ülkeye göre değişir) kısa alıntı serbest; çağdaş eserden ≤1–2 cümle ve kaynaklı. Oyun/film olguları için resmî açıklama, röportaj, geliştirici sunumu/postmortem öncelikli kaynaktır; "efsane" olarak dolaşan şey kaynak sınıfında ○'dur ve "doğrulanamadı" diye söylenir.
 - **U8 Hesap:** 2 adımlı doğrulama açık (YPP şartı); yükleme varsayılanı "çocuklara özel değil".
 - **U9 Politika izleme:** YPP eşikleri ve özgün olmayan içerik politikası üç ayda bir yeniden okunur (resmî sayfadan; kullanıcı erişiminde).
 
@@ -237,7 +261,8 @@ Yayın öncesi **Uyum kapısı** (kapı 5) kontrol listesi:
 
 - **Kadans [H, D7]:** varsayılan **haftada 3** (Salı–Cuma–Pazar 20:00 +03: 1 Özel + 2 Kısa). v1'in "haftada 5" kuralı kaldırıldı (neden: Özel video ≈4–6 saat; günlük/haftada 5 bu kapasitede kapıları aşındırır). Günlük yayın istenirse önce Kısa kulvarı yeniden kullanılabilir cilde taşınır ve Gün 28'den sonra yeniden değerlendirilir.
 - **Tampon:** ≥2 yayına hazır video (kapı 6).
-- **Sütunlar [H]:** **P1 Ters Köşe Dosyaları** (bilinenin ters yüzü: sağlık/bilim/teknoloji tarihi; ≈%60) · **P2 Tuhaf Olaylar** (savaş, ritüel, olay; ≈%30; Emu bu aileden) · **P3 Takvim Çıpası** (yıldönümü, anma günü, vizyon tarihi; ≈%10). Üç oynatma listesi bu adlarla tutulur.
+- **Alanlar [K, §12-11] ve biçimler [H]:** Alanlar: **Tarih** (bilim ve halk sağlığı tarihi dahil), **Edebiyat**, **Oyun**. Biçimler: **Ters Köşe** (bilinenin ters yüzü), **Kesişim** (iki alan arasında kaynaklı bağ; imza biçim), **Tuhaf Olay** (Emu bu aileden), **Takvim Çıpası** (yıldönümü, anma günü, vizyon tarihi). Başlangıç payı (hipotez): Tarih ≈%50, Edebiyat ≈%25, Oyun ≈%25; kesişim videoları iki alana sayılır. **Alan testi (E5):** Kısa kulvarı üç alanı dönüşümlü işler; G60'ta (≥6 video/alan) pay yeniden yazılır. Oynatma listeleri: **Tarih, Edebiyat, Oyun, Uzun Dosyalar.**
+- **Uzun Dosya kulvarı (yeni, kapılı) [K, §12-12]:** 6–15 dk, 16:9; ayda 1 ile başlar; **dört kapı** (hepsi yeşil olmadan yayın yok): (1) **ses kapısı** (insan ya da premium ses; kör test ≥6/7 tercih, ≤1/7 "robot"), (2) **motor kapısı** (16:9, dış sesten zaman çizelgesi aracı, bölümlü sahne kiti), (3) **paketleme kapısı** (3 başlık/3 küçük resim, arama niyeti kontrolü), (4) **kapasite kapısı** (o hafta Shorts kadansı 2'ye iner; kapı değil kadans feda edilir). Anatomi: ilk 15 sn vaat + ilk kanıt; bölümler ≈60–90 sn, KANIT sayacı; ortada ikinci ters köşe; sonda hüküm + kesişim + açık soru; açıklamada bölüm zamanları ve kaynak listesi; sabit yorum = kaynak + tek soru. Üretim hedefi ≈15–25 saat [H]. Pilot: ses kararından sonra, en erken Faz 2 (`YOL_HARITASI.md`).
 - **Konu puanı (0–5):** Kanca gücü ×3 (≤6 kelimelik çelişki/ters köşe) · Merak/talep ×2 (arama önerisi, güncellik) · Kaynak kalitesi ×2 · Çizilebilirlik ×1 · Türkiye ilgisi ×1 · Takvim çıpası ×1 · Risk −1…−5. Üst sınır 50; kuyruğa giriş eşiği ≥30 ve risk ≤2 [H]. ("Az işlenmişlik" artık ağırlıklı ölçüt değildir: Shorts akışı talepten çok merak tetikler.)
 - **Havuz:** ≥10 kaynaklı aday; haftada +3 aday; havuz `../konu-havuzu/`.
 
@@ -247,3 +272,4 @@ Yayın öncesi **Uyum kapısı** (kapı 5) kontrol listesi:
 - **Studio yolu [V]:** Content → video → Analytics → **Reach** (Shown in feed, trafik kaynakları, arama terimleri) ve **Engagement** (Stayed to watch, ort. izlenme, tutma eğrisi, Engaged views, Unique viewers). Ekran görüntüsü: üstte metrik adı, tarih görünür.
 - **Haftalık gözden geçirme (Pazartesi, ≤30 dk):** önceki Cuma (72. sa), Pazar (24. sa) ve önceki Salı (7. gün) okumaları → `olcum.csv` güncellenir → 3 satırlık karar notu (ne kalıyor, ne değişiyor, bu hafta hangi bilinçli değişiklik) → bir sonraki haftanın konuları.
 - **Okuma kuralları:** §8. Aşırı yorumdan kaçınılır: tek video, tek okuma kural değiştirmez.
+- **Uzun Dosya okuması:** 48. sa, 7. gün, 28. gün; metrikler: gösterim, tıklama oranı, ort. izlenme süresi ve %, izlenme süresi payı, trafik kaynağı, abone; referans sınıfı yalnız kendi uzun videolarımız (§8).

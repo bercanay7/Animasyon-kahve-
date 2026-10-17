@@ -1,6 +1,6 @@
 # Konu havuzu — "az işlenmiş ve önemli" adaylar
 
-10 dakikalık uzun video iptal edildiği için bu araştırmalar **kısa videolar için konu havuzu** olarak saklanıyor (her rapor: özet, kanca, kaynak kalitesi, riskler, puanlar, kaynak listesi).
+10 dakikalık uzun video önce iptal edilmişti; **2026-10-18'de ses koşuluyla yeniden açıldı** (Anayasa §12-12, "Uzun Dosya"). Bu araştırmalar **Kısa, Özel ve Uzun Dosya videoları için konu havuzu** olarak saklanıyor; **alanlar artık Tarih, Edebiyat, Oyun** (`../konsey/VIZYON.md`) (her rapor: özet, kanca, kaynak kalitesi, riskler, puanlar, kaynak listesi).
 
 Önemli: raporlar **arama özetlerine** dayanır (tam metin açılamadı); `DN` = doğrulanamadı. Bir konu seçildiğinde Kanal Anayasası'nın kaynak kapısı için rakamlar yeniden doğrulanmalıdır.
 
