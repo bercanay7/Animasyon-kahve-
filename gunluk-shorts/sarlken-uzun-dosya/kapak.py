@@ -80,7 +80,8 @@ def kapak_c():
     f = sk.Frame()
     import scenes_lib as SL
     from shots import Ctx, Shot
-    sh = Shot("theatre", 0.0, dict(scene="hall", cams=[(0, (1000, 660, 1.75))], p=dict(crowd=True), vig=0.7, dust_n=0), None, "kapak")
+    import scenes_d as SD  # c0'daki baston/kılıçsız çift (kaynak kapısı: baston iddiası doğrulanmadı)
+    sh = Shot("theatre", 0.0, dict(scene="hall", cams=[(0, (1000, 660, 1.75))], p=dict(crowd=True, emperor=False, extra=lambda f, t: SD.draw_pair(f, 1010, 985, 520, 0.0)), vig=0.7, dust_n=0), None, "kapak")
     sh.t0, sh.t1, sh.i = 0.0, 8.0, 1
     cx = Ctx(f, 3.0, sh, SH.timeline())
     SH.KINDS["theatre"](cx, **sh.params)

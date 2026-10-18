@@ -14,3 +14,15 @@ Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf"
 [seg 07] 720/1200  183 ms/kare  ETA 1.5 dk
 [seg 08] 720/1200  216 ms/kare  ETA 1.7 dk
 [seg 07] 840/1200  200 ms/kare  ETA 1.2 dk
+[seg 08] 840/1200  232 ms/kare  ETA 1.4 dk
+[seg 07] 960/1200  222 ms/kare  ETA 0.9 dk
+[seg 08] 960/1200  244 ms/kare  ETA 1.0 dk
+[seg 07] 1080/1200  234 ms/kare  ETA 0.5 dk
+[seg 08] 1080/1200  249 ms/kare  ETA 0.5 dk
+[seg 07] 1200/1200  237 ms/kare  ETA 0.0 dk
+== seg 07 bitti (4.9 dk, hata 0); geçen 4.9 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 08] 1200/1200  259 ms/kare  ETA 0.0 dk
+== seg 08 bitti (5.3 dk, hata 0); geçen 5.3 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 09] 120/1200  288 ms/kare  ETA 5.2 dk
