@@ -246,10 +246,10 @@ def k_black(cx, black_at=1.3, tag_at=2.0, size=600):
         draw_medal2(f, "karl_yasli", W / 2, 500, size, "onyx", False, alpha=a * bk, tilt=0.08 * math.sin(cx.t * 0.5), shadow=(bk < 0.5))
     # kenarlardan inen siyah örtü
     if bk > 0:
-        for sx in (-1, 1):
-            x0 = W / 2 + sx * (W * 0.62 - 420 * bk)
-            f.rect(min(x0, W / 2 + sx * 2000), 0, 1, 1, color="#000000", alpha=0)
-        f.rect(0, 0, W, H, shader=f.rad(W / 2, 500, 900, [("#000000", 0.0, 0), ("#000000", 0.55, int(60 * bk)), ("#000000", 1.0, int(190 * bk))]))
+        veil = sk.baked("c11_black_veil", lambda g: g.rect(0, 0, W, H, shader=g.rad(W / 2, 500, 900, [("#000000", 0.0, 0), ("#000000", 0.55, 60), ("#000000", 1.0, 190)])))
+        vp = skia.Paint()
+        vp.setAlphaf(clamp(bk))
+        f.c.drawImage(veil, 0, 0, skia.SamplingOptions(), vp)
     tk = cx.amt(tag_at, 0.5)
     if tk > 0:
         tag(f, "ANLATILIR", W / 2, 920, size=32, alpha=tk, track=16)

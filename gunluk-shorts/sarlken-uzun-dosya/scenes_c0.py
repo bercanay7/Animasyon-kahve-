@@ -82,7 +82,7 @@ SHOTS = [
     shot("theatre", a=A("c0s4", -0.2), tr=("fade", 0.5), scene="hall", cams=[(0.0, (1175, 655, 2.0)), (AE("c0s4", 0.9), (1205, 628, 2.4))],
          p=dict(emperor=False, extra=_pair_extra(A("c0s4", -0.2))), label="omuz_yakin"),
     # s5a — kırk yıldır (kum saati akar, 40 sayılır; c12'de "40 YIL" zaman çizgisi olarak geri gelir)
-    shot("c0_forty", a=A("c0s5", "adam", -0.05), tr=("fade", 0.6), at_num=A("c0s5", "kırk", -0.12), at_unit=A("c0s5", "yıldır", -0.1), label="kirk_yil"),
+    shot("c0_forty", a=A("c0s5", "adam", -0.05), tr=("fade", 0.6), at_num=A("c0s5", "kırk", -0.12), at_unit=A("c0s5", "yıldır", -0.1), count_dur=0.45, label="kirk_yil"),
     # s5b — Avrupa'nın büyük bölümünü yönetiyor (Habsburg toprakları sırayla yanar)
     shot("map", a=A("c0s5", "Avrupa'nın", 0.12), tr=("fade", 0.5), cams=[(0.0, (7, 46.0, 1.28)), (AE("c0s5", 0.4), (6, 45.2, 1.5))],
          regions=[dict(name="ispanya", color="ispanya", at=A("c0s5", "Avrupa'nın", 0.2)),

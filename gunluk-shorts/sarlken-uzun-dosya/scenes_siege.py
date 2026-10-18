@@ -1128,6 +1128,23 @@ def _impacts(f, city, T, t, events, wind):
                 f.c.drawRect(skia.Rect.MakeXYWH(xi + vx * age, yi + vy * age + 380 * age * age, 5, 4), p_)
 
 
+def _wall_torches(f, meta, T, t, wind):
+    """Sur üstü meşaleleri (dusk/night): periyodik sönüp yanar; sönünce ince duman izi bırakır."""
+    if not T["lit"]:
+        return
+    pts = meta["defenders"][::2][:9] + meta["defenders_small"][::3][:4]
+    for i, (x, y, face) in enumerate(pts):
+        ph = t * 0.31 + i * 1.97
+        cyc = math.sin(ph) + 0.55 * math.sin(ph * 2.3 + i)
+        tx, ty = x + face * 13, y - 34
+        f.line(tx, ty + 12, tx, ty - 2, color="#0A0705", sw=1.8)
+        if cyc > -0.9:
+            k = 1.0 if cyc > -0.55 else clamp((cyc + 0.9) / 0.35)
+            PW.flame(f, tx, ty - 1, 0.30 * (0.8 + 0.2 * k), t, seed=i, glow_a=0.8 * k)
+        else:
+            PW.puff(f, tx + wind * 0.5, ty - 14 - (cyc + 1.4) * 10, 7, "#6A625A", 0.30, seed=i, rot=ph)
+
+
 def _wall_fire(f, meta, T, t, rate, wind):
     """Savunucuların küçük ateşleri: sur tepesinde rastgele namlu parlaması + duman (cannon_fire > 0)."""
     pts = meta["defenders"]
@@ -1344,6 +1361,7 @@ class Siege:
                 PW.glow(f, fx, CITY_BASE - 190, 760, "#FF8A2E", 0.30 * fire * T["fire_vis"], 255, 110, 0.35)
             f.c.drawImage(img, cx_, cy_, LIN, skia.Paint())
             _defenders(f, meta, city, T, t)
+            _wall_torches(f, meta, T, t, wind * 6)
             _flags_dyn(f, meta, T, t, wind, city)
             if self.ladders:
                 _ladders(f, city, T, t, wind)

@@ -5,6 +5,7 @@ mürekkep açılımı (reveal), karalama satırları (scribbles), kırmızı çi
 çift ışık (duo_glow) ve küçük çizim ilkelleri.
 """
 import math
+from collections import OrderedDict
 from contextlib import contextmanager
 
 import numpy as np
@@ -112,6 +113,31 @@ def backdrop(f, cx, kind="night", tint=None, tint_a=0.0, rays=0.3, dust_n=50, du
 
 # ───────────────────────────── parşömen ─────────────────────────────
 PAPER_TONE = "#C2A872"
+_PSH = OrderedDict()
+
+
+def _paper_shaded(w, h, seed, tone, shade):
+    """Parşömen sprite + mum ışığı gölgesi TEK görüntüde (önbellekli): kare başına tek drawImage."""
+    key = (w, h, seed, tone, shade)
+    hit = _PSH.get(key)
+    if hit is not None:
+        _PSH.move_to_end(key)
+        return hit
+    img, pad = SH.paper_sprite(w, h, seed=seed, tone=tone)
+    if shade > 0:
+        surf = skia.Surface(img.width(), img.height())
+        c = surf.getCanvas()
+        c.clear(skia.ColorTRANSPARENT)
+        c.drawImage(img, 0, 0)
+        c.translate(pad + w / 2, pad + h / 2)
+        sh = skia.GradientShader.MakeRadial((-w * 0.10, -h * 0.14), max(w, h) * 0.82,
+                                            [C("#2A1608", 0), C("#2A1608", int(255 * shade * 0.30)), C("#1A0D04", int(255 * shade))], [0.0, 0.5, 1.0])
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8), 14, 14), skia.Paint(AntiAlias=True, Shader=sh))
+        img = surf.makeImageSnapshot()
+    _PSH[key] = (img, pad)
+    while len(_PSH) > 24:
+        _PSH.popitem(last=False)
+    return img, pad
 
 
 @contextmanager
@@ -119,7 +145,7 @@ def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone=None, shade=0.
     """Parşömen levha (koyu sahneye uygun, kamaşmayan ton + mum ışığı düşüşü); yerel koordinatlar levha merkezinde
     (−w/2..w/2, −h/2..h/2). `with paper(...): f.text(...)`"""
     tone = tone or PAPER_TONE
-    img, pad = SH.paper_sprite(int(w), int(h), seed=seed, tone=tone)
+    img, pad = _paper_shaded(int(w), int(h), seed, tone, round(float(shade), 3))
     f.c.save()
     f.c.translate(x, y)
     if rot:
@@ -128,10 +154,6 @@ def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone=None, shade=0.
     p = skia.Paint(AntiAlias=True)
     p.setAlphaf(clamp(alpha))
     f.c.drawImage(img, -w / 2 - pad, -h / 2 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
-    if shade > 0 and alpha > 0:
-        sh = skia.GradientShader.MakeRadial((-w * 0.10, -h * 0.14), max(w, h) * 0.82,
-                                            [C("#2A1608", 0), C("#2A1608", int(255 * shade * alpha * 0.30)), C("#1A0D04", int(255 * shade * alpha))], [0.0, 0.5, 1.0])
-        f.c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8), 14, 14), skia.Paint(AntiAlias=True, Shader=sh))
     try:
         yield
     finally:
@@ -525,8 +547,6 @@ def draw_medal2(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, tilt=0.
 
 
 # ───────────────────────────── hız: önbellekli arka plan / ikon / altın yazı / toz ─────────────────────────────
-from collections import OrderedDict  # noqa: E402
-
 _BD = OrderedDict()
 
 
@@ -576,7 +596,7 @@ def glow_blit(f, x, y, r, color="#FFB347", a=0.5):
     p = skia.Paint()
     p.setAlphaf(clamp(a))
     p.setBlendMode(skia.BlendMode.kPlus)
-    f.c.drawImage(img, round(x) - round(r) + (x - round(x)), round(y) - round(r) + (y - round(y)), skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    f.c.drawImage(img, round(x) - round(r), round(y) - round(r), skia.SamplingOptions(), p)
 
 
 def dust2(f, t, n=70, seed=2, speed=(6, 3), depth=1.0, alpha=0.5, color="#FFE8B0", rect=None):

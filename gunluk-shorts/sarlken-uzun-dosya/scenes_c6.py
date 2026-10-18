@@ -122,7 +122,7 @@ SHOTS = [
          at_teyze=("c6s10", "teyzesi", -0.05), at_x=("c6s10", "onaylayamadı", -0.25), at_break=("c6s10", "koptu", -0.45), at_stamp=0.15, label="zincir_catherine_henry"),
 
     # s11 — 1528: yalancı! düello yapılmadı
-    shot("c6_duello", a=("c6s11", -0.3), tr=("dip", 0.8), at_year=("c6s11", "1528'de", -0.1), at_b1=("c6s11", "yalancı", -0.1), at_b2=("c6s11", "yalancı", 0.3),
+    shot("c6_duello", a=("c6s11", -0.3), tr=("dip", 0.8), at_year=("c6s11", "1528'de", -0.1), at_names=("c6s11", "hükümdar", -0.15), at_b1=("c6s11", "yalancı", -0.1), at_b2=("c6s11", "yalancı", 0.3),
          at_swords=("c6s11", "düelloya", -0.1), at_gone=("c6s11", "Düello", 1, -0.1), at_stamp=("c6s11", "yapılmadı", -0.25), label="duello"),
 
     # s12 — Cambrai 1529; iki kadın

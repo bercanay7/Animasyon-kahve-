@@ -401,13 +401,13 @@ def k_muhafiz(cx, at_total=0.0, at_dead=0.0, dead_dur=1.5, cols=27, rows=7, dead
     yb = 1000
     if a_t > 0:
         w84 = sk.text_width(str(total), "title", 84, 6)
-        c_final = CX + 70 + w84 / 2
+        c_final = CX + 92 + w84 / 2
         SH.gold_flat(f, str(total), lerp(CX, c_final, sw_), yb, face="title", size=lerp(120, 84, sw_), track=6, alpha=a_t * (1 - 0.15 * sw_))
         if sw_ > 0:
-            SH.gold_flat(f, "/", CX + 28, yb, face="title", size=84, track=6, alpha=sw_ * 0.8)
+            SH.gold_flat(f, "/", CX + 38, yb, face="title", size=84, track=6, alpha=sw_ * 0.8)
             col = mix("#F0D27A", "#E0624A", ky)
             f.text(str(int(round(dead * ky))), CX - 6, yb, face="title", size=130, color=col, align="r", track=6, alpha=sw_, shadow=(3, 4, 5, "#000000"))
-            X.chip(f, "ÖLDÜ", CX + 70 + w84 + 70, yb - 34, k=sw_, size=30, edge="#B02A2A", color="#F8E2D8", align="l")
+            X.chip(f, "ÖLDÜ", CX + 92 + w84 + 46, yb - 34, k=sw_, size=30, edge="#B02A2A", color="#F8E2D8", align="l")
     f.vig(0.62)
 
 
@@ -580,7 +580,7 @@ def _bubble(f, x, y, text, k, tail_dx=0, flipx=1, size=54):
 
 @SH.kind("c6_duello")
 @X.pushy(0.035)
-def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, at_stamp=0.0, left="karl_olgun", right="fransuva"):
+def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, at_stamp=0.0, left="karl_olgun", right="fransuva", at_names=None):
     """İki hükümdar yüz yüze: 'YALANCI!' balonları, düello kılıçları, DÜELLO YAPILMADI."""
     f = cx.f
     f.bg("night")
@@ -594,6 +594,14 @@ def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, 
     xl, xr, ym, ms = 470, 1450, 600, 470
     SH.draw_medal(f, left, xl, ym, ms * (0.94 + 0.06 * ease_out(a1)) * (1 + 0.03 * cx.u), "gold", False, alpha=a1, tilt=0.12 * math.sin(cx.t * 0.6))
     SH.draw_medal(f, right, xr, ym, ms * (0.94 + 0.06 * ease_out(a1)) * (1 + 0.03 * cx.u), "royal", True, alpha=a1, tilt=-0.12 * math.sin(cx.t * 0.6 + 1))
+    # isim levhaları ("iki hükümdar"): düello damgası gelince sönükleşir
+    if at_names is not None:
+        kn = cx.amt(at_names, 0.6)
+        if kn > 0:
+            fade = 1 - cx.amt(at_stamp, 0.3, off=-0.1)
+            if fade > 0.01:
+                SH.name_plate(f, "V. KARL", "İmparator", None, cx_=xl, y=ym + ms * 0.52, alpha=fade, t=kn)
+                SH.name_plate(f, "I. FRANÇOIS", "Fransa Kralı", None, cx_=xr, y=ym + ms * 0.52, alpha=fade, t=kn)
     # balonlar
     _bubble(f, xl + 120, ym - 340, "YALANCI!", cx.amt(at_b1, 0.28), tail_dx=-30)
     _bubble(f, xr - 120, ym - 340, "YALANCI!", cx.amt(at_b2, 0.28), tail_dx=30)
@@ -610,7 +618,7 @@ def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, 
             f.circle(CX, ym + 10, 60 + 30 * sp, shader=f.rad(CX, ym + 10, 60 + 30 * sp, [("#FFF1C2", 0.0, int(180 * (1 - sp))), ("#FFB347", 0.5, int(80 * (1 - sp))), ("#FFB347", 1.0, 0)]), blend=skia.BlendMode.kPlus)
     t = cx.amt(at_stamp, 0.3)
     if t > 0:
-        SH.stamp(f, "DÜELLO YAPILMADI", CX, H * 0.86, rot=-0.05, size=78, t=t)
+        SH.stamp(f, "DÜELLO YAPILMADI", CX, H * 0.90, rot=-0.05, size=78, t=t)
     f.vig(0.62)
 
 

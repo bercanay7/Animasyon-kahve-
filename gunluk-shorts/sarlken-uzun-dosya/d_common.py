@@ -425,12 +425,20 @@ def k_wd_medals(cx, items=(), size=520, y=H * 0.44, gap=None, bgk="night", title
     n = len(items)
     gap = gap or min(size * 1.15, (W - 200) / max(1, n))
     x0 = W / 2 - gap * (n - 1) / 2
+    ks = cx.amt(0.0, 0.9)
     for i, it in enumerate(items):
         ta = it.get("at", 0.2 + 0.3 * i)
         a = cx.amt(ta, 0.7)
+        x = x0 + i * gap
+        if a < 1.0 and ks > 0 and n > 1:
+            # içerik henüz gelmediyse: kesikli yuva halkası (söylenince dolar)
+            f.c.save()
+            pr = f.paint("#C9962B", style="stroke", sw=2.5, alpha=0.5 * ks * (1 - a))
+            pr.setPathEffect(skia.DashPathEffect.Make([10, 9], -cx.t * 18))
+            f.c.drawCircle(x, y, size * 0.5, pr)
+            f.c.restore()
         if a <= 0:
             continue
-        x = x0 + i * gap
         sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.03 * cx.u)
         draw_medal_plain(f, it["key"], x, y, size * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a, t=cx.t, i=i)
         if plates and it.get("name"):

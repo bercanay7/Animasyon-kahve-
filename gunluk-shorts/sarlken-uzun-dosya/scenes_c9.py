@@ -46,12 +46,12 @@ SHOTS = [
          stamps=[("TAHMİN", W * 0.76, H * 0.27, A("c9s4", "tahmin", -0.1), 70, -0.12)], label="yuz_bin_florin"),
     # s5a — 1532, Cajamarca (İnka topraklarında)
     shot("map", a=A("c9s5", -0.15), tr=("fade", 0.8), cams=[(0.0, (-72, -5, 1.9)), (A("c9s5", "Cajamarca", 0.0), (-76.5, -7.6, 2.5))],
-         regions=[dict(name="inka", color="#A8631F", at=0.3, alpha=0.42)],
-         labels=[dict(text="İNKA İMPARATORLUĞU", lon=-73.5, lat=-12.5, size=30, color="#F0D8A0", at=A("c9s5", "İnka", -0.2), track=10)],
+         regions=[dict(name="inka", color="#D08A2A", at=0.3, alpha=0.5)],
+         labels=[dict(text="İNKA İMPARATORLUĞU", lon=-73.5, lat=-12.5, size=30, color="#F6E3B0", at=A("c9s5", "Cajamarca", 0.2), track=10)],
          cities=[dict(lon=-78.52, lat=-7.16, name="CAJAMARCA", kind="siege", at=A("c9s5", "Cajamarca", -0.1), side="r", size=32)],
          date=("1532", A("c9s5", 0.0)), label="cajamarca_harita"),
     # s5b — Pizarro, Atahualpa'yı esir aldı
-    shot("wd_medals", a=A("c9s5", "Francisco", -0.55), tr=("fade", 0.8), size=520, y=H * 0.44,
+    shot("wd_medals", a=A("c9s5", "Francisco", 0.1), tr=("fade", 0.5), size=520, y=H * 0.44,
          items=[dict(key="pizarro", name="FRANCISCO PIZARRO", role="Konkistador", metal="bronze", at=A("c9s5", "Francisco", -0.1)),
                 dict(key="atahualpa", name="ATAHUALPA", role="İnka Hükümdarı", metal="bronze", flip=True, at=A("c9s5", "Atahualpa", -0.25))], label="pizarro_atahualpa"),
     # s6 — Fidye: bir oda dolusu altın, 1.326.539 peso (ransom_room — oda-lab)
