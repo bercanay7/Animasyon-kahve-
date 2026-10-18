@@ -299,7 +299,10 @@ def k_wd_counter(cx, value=100000, unit="FLORİN", lab=None, sub=None, at=0.0, d
     for bi in bg_icons:
         kk = cx.amt(bi.get("at", 0.0), 0.8)
         if kk > 0:
-            icons.draw_icon(f, icn(bi["icon"], "coin"), bi["x"], bi["y"], size=bi.get("size", 300), metal=bi.get("metal", "bronze"), alpha=bi.get("alpha", 0.16) * kk, rot=bi.get("rot", 0.0), shadow=False)
+            if bi.get("draw") is not None:          # özel çizici: draw(f, x, y, size, alpha, t)
+                bi["draw"](f, bi["x"], bi["y"], bi.get("size", 300), bi.get("alpha", 0.16) * kk, cx.t)
+            else:
+                icons.draw_icon(f, icn(bi["icon"], "coin"), bi["x"], bi["y"], size=bi.get("size", 300), metal=bi.get("metal", "bronze"), alpha=bi.get("alpha", 0.16) * kk, rot=bi.get("rot", 0.0), shadow=False)
     if medal_:
         m = medal_
         kk = cx.amt(m.get("at", 0.0), 0.8)

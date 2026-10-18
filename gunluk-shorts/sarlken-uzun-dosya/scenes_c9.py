@@ -42,7 +42,7 @@ SHOTS = [
     shot("c9_durer", a=A("c9s4", -0.15), tr=("fade", 0.8), at_br=A("c9s4", "Brüksel", -0.1), at_az=A("c9s4", "Aztek", -0.2), at_ob=A("c9s4", "eserlerini", -0.3), at_ch=A("c9s4", "görüp", -0.1), label="durer_sergi"),
     # s4b — değerlerini yaklaşık yüz bin florin tahmin etti
     shot("wd_counter", a=A("c9s4", "değerlerini", -0.1), tr=("fade", 0.6), value=100000, prefix="≈ ", unit="FLORİN", at=A("c9s4", "yaklaşık", -0.05), dur=1.7, size=210,
-         bg_icons=[dict(icon="sun_disc", x=W * 0.5, y=H * 0.5, size=760, at=0.0, metal="gold", alpha=0.10)],
+         bg_icons=[dict(draw=S9.sun_disc_bg, x=W * 0.5, y=H * 0.5, size=800, at=0.0, alpha=0.16)],
          stamps=[("TAHMİN", W * 0.76, H * 0.27, A("c9s4", "tahmin", -0.1), 70, -0.12)], label="yuz_bin_florin"),
     # s5a — 1532, Cajamarca (İnka topraklarında)
     shot("map", a=A("c9s5", -0.15), tr=("fade", 0.8), cams=[(0.0, (-72, -5, 1.9)), (A("c9s5", "Cajamarca", 0.0), (-76.5, -7.6, 2.5))],

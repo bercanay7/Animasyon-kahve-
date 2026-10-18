@@ -26,3 +26,64 @@ Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf"
 == seg 08 bitti (5.3 dk, hata 0); geçen 5.3 dk
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
 [seg 09] 120/1200  288 ms/kare  ETA 5.2 dk
+[seg 10] 120/1200  256 ms/kare  ETA 4.6 dk
+[seg 09] 240/1200  248 ms/kare  ETA 4.0 dk
+[seg 10] 240/1200  212 ms/kare  ETA 3.4 dk
+[seg 09] 360/1200  216 ms/kare  ETA 3.0 dk
+[seg 10] 360/1200  207 ms/kare  ETA 2.9 dk
+[seg 09] 480/1200  204 ms/kare  ETA 2.4 dk
+[seg 09] 600/1200  203 ms/kare  ETA 2.0 dk
+[seg 10] 480/1200  207 ms/kare  ETA 2.5 dk
+[seg 09] 720/1200  196 ms/kare  ETA 1.6 dk
+[seg 10] 600/1200  205 ms/kare  ETA 2.0 dk
+[seg 09] 840/1200  193 ms/kare  ETA 1.2 dk
+[seg 10] 720/1200  210 ms/kare  ETA 1.7 dk
+[seg 09] 960/1200  204 ms/kare  ETA 0.8 dk
+[seg 10] 840/1200  227 ms/kare  ETA 1.4 dk
+[seg 09] 1080/1200  217 ms/kare  ETA 0.4 dk
+[seg 10] 960/1200  245 ms/kare  ETA 1.0 dk
+[seg 09] 1200/1200  228 ms/kare  ETA 0.0 dk
+== seg 09 bitti (4.7 dk, hata 0); geçen 9.6 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 10] 1080/1200  241 ms/kare  ETA 0.5 dk
+[seg 11] 120/1200  179 ms/kare  ETA 3.2 dk
+[seg 10] 1200/1200  240 ms/kare  ETA 0.0 dk
+== seg 10 bitti (4.9 dk, hata 0); geçen 10.2 dk
+[seg 11] 240/1200  150 ms/kare  ETA 2.4 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 11] 360/1200  244 ms/kare  ETA 3.4 dk
+[seg 12] 120/1200  546 ms/kare  ETA 9.8 dk
+[seg 11] 480/1200  257 ms/kare  ETA 3.1 dk
+[seg 12] 240/1200  374 ms/kare  ETA 6.0 dk
+[seg 11] 600/1200  248 ms/kare  ETA 2.5 dk
+[seg 12] 360/1200  345 ms/kare  ETA 4.8 dk
+[seg 11] 720/1200  246 ms/kare  ETA 2.0 dk
+[seg 12] 480/1200  321 ms/kare  ETA 3.8 dk
+[seg 12] 600/1200  297 ms/kare  ETA 3.0 dk
+[seg 11] 840/1200  255 ms/kare  ETA 1.5 dk
+[seg 11] 960/1200  248 ms/kare  ETA 1.0 dk
+[seg 12] 720/1200  288 ms/kare  ETA 2.3 dk
+[seg 11] 1080/1200  244 ms/kare  ETA 0.5 dk
+[seg 12] 840/1200  284 ms/kare  ETA 1.7 dk
+[seg 11] 1200/1200  240 ms/kare  ETA 0.0 dk
+== seg 11 bitti (4.9 dk, hata 0); geçen 14.5 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 12] 960/1200  284 ms/kare  ETA 1.1 dk
+[seg 13] 120/1200  209 ms/kare  ETA 3.8 dk
+[seg 12] 1080/1200  275 ms/kare  ETA 0.5 dk
+[seg 13] 240/1200  209 ms/kare  ETA 3.3 dk
+[seg 12] 1200/1200  274 ms/kare  ETA 0.0 dk
+[seg 13] 360/1200  197 ms/kare  ETA 2.8 dk
+== seg 12 bitti (5.6 dk, hata 0); geçen 15.8 dk
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 13] 480/1200  195 ms/kare  ETA 2.3 dk
+[seg 14] 120/1200  195 ms/kare  ETA 3.5 dk
+[seg 13] 600/1200  197 ms/kare  ETA 2.0 dk
+[seg 14] 240/1200  189 ms/kare  ETA 3.0 dk
+[seg 14] 360/1200  187 ms/kare  ETA 2.6 dk
+[seg 13] 720/1200  204 ms/kare  ETA 1.6 dk
+[seg 14] 480/1200  172 ms/kare  ETA 2.1 dk
+[seg 13] 840/1200  208 ms/kare  ETA 1.2 dk
+[seg 14] 600/1200  166 ms/kare  ETA 1.7 dk
+[seg 14] 720/1200  164 ms/kare  ETA 1.3 dk
+[seg 13] 960/1200  210 ms/kare  ETA 0.8 dk

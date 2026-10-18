@@ -1,7 +1,7 @@
 # Bölüm 0 — Brüksel, 25 Ekim 1555 · yazar notları (BÖLÜM YAZARI D)
 
 **Dosyalar:** `scenes_c0.py` (SHOTS) · `shots_c0.py` (c0_ önekli türler: `c0_forty`, `c0_fronts`, `c0_borc`, `c0_title`) · `scenes_d.py` (c0/c12 ortak: `d_pair` bastonsuz çift figür, `d_hall_gold` sahnesi, kamera/ekran dönüşüm yardımcıları) · `d_common.py` (D ortak: `A()` çapa yardımcısı, `wd_*` türleri, `tag`, `kick_rule`, `draw_hourglass` …).
-**Süre** 46.1 sn · **14 çekim** · ort. 3.3 sn/çekim · `--check`: **uyarı yok** (bölüm ort. ≈ 140 ms/kare, en ağır çekim < 200 ms; 2× süper-örnekli stage.py ile ölçüldü).
+**Süre** 46.1 sn · **14 çekim** · ort. 3.3 sn/çekim · `--check`: **uyarı yok** (bölüm ort. ≈ 140–165 ms/kare (makine yüküne göre), en ağır çekim ≤ 250 ms; 2× süper-örnekli stage.py ile ölçüldü).
 **Ton:** sıcak altın/kara, merak. **Kimlik gizli:** isim levhası ilk kez s8'de (V. KARL); öncesinde yalnız yer (BRÜKSEL), yaş (55 YAŞINDA), sayı (40 YIL) ve harita var.
 **Ayna bölüm:** c12 aynı salonun ikinci görünüşü (aynı `hall`; orada ağır altın ışık, çift kapıdan girer, tahtta kimse yok). c0'da kamera kalabalığa süzülür, c12'de ters yönden gelir.
 
@@ -63,3 +63,5 @@ BRÜKSEL levhası 3.2 · "55 YAŞINDA" 7.8 · 40 sayacı 15.0 · V. KARL levhas�
 4. **`sk.text_width("")`** boş dizgede HarfBuzz'i çökertiyor (tek karakter koruması `d_common.tw()`'de).
 5. **`theatre` sahne önbelleği** ~5 sahne tutuyor; hall→başka sahne→hall dönüşlerinde yeniden pişer (c0'da 3'lü seri bilerek ardışık).
 6. **Bölüm kartı girişi sert kesme** (card'a `tr` verilmiyor): önceki bölümün son karesinden karta ani geçiş; kısa siyaha dalış önerilir.
+7. **Madalya çizim hızı (öneri):** `SH.draw_medal` her karede görüntüyü yeniden boyutlayıp gölgeyi bulanıklaştırıyor (ölçüm ≈ 74 ms/çizim, 640 px). `d_common.fast_medal` aynı görünümü önbellekli görüntü + önbellekli gölgeyle çiziyor (≈ 26 ms/çizim; 3 test karesinde en büyük piksel farkı 1/255). D bölümlerindeki tüm madalyalar (`wd_*`, `cameo`, `c9_durer`, `c12_*`, `c13_*`) bunu kullanıyor; aynı önbelleği ortak `shots.draw_medal`a almak tüm bölümlerde madalya çekimlerini ≈ 2–3× hızlandırır (paylaşılan `medal` türü hâlâ yavaş yolu kullanıyor).
+8. **qa_program.py / qa_text.py sonuçları (04:25 UTC):** `--static` engelleyici/uyarı yok; örnekleme (140 kare, 2 işçi) 3 uyarı verdi ve üçü de tek seferlik ilk-kare pişirmesi: yüksek zoom harita karoları (`yuste_harita`, zoom 6.6) ilk karede ≈ 6 sn sürüyor, sonraki kareler ≈ 100–150 ms; büyük simge sprite'ı ve ilk madalya pişirmesi yük altında 450–590 ms'ye çıkabiliyor (`--check` ısınmış önbellekle < 220 ms). `qa_text.py` yalnız yazıyla yazılmış sayıları ("elli beş", "kırk altı", "on sekiz", "yaklaşık yüz bin"), sayaç ara değerlerini ve kaynaklı yılları (1500–1558, 1519–1522, 1515 = 1555−40) işaretledi; hepsi bilinçli/kaynaklı.

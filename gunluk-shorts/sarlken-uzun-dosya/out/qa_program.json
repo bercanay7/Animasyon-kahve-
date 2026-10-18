@@ -2,9 +2,11 @@
  "report": {
   "blockers": [],
   "warnings": [
-   "YAVAŞ #48 map 'yuste_harita': 6304 ms",
-   "YAVAŞ #20 wd_counter 'yuz_bin_florin': 587 ms",
-   "YAVAŞ #32 wd_medal_swap 'magellan_oldu': 456 ms"
+   "YAVAŞ #128 map 'yuste_harita': 5209 ms",
+   "YAVAŞ #53 a_map 'aachen_harita': 4864 ms",
+   "YAVAŞ #58 a_map 'ispanyadan_ayrilis': 4055 ms",
+   "YAVAŞ #75 wd_counter 'yuz_bin_florin': 2264 ms",
+   "YAVAŞ #41 a_medals 'karl_fransuva': 1200 ms"
   ],
   "chapters": {
    "c0": {
@@ -24,6 +26,61 @@
     "scenes": {
      "hall": 4
     }
+   },
+   "c1": {
+    "shots": 23,
+    "t0": 49.13,
+    "t1": 168.56,
+    "kinds": {
+     "a_map": 7,
+     "c1_evli": 1,
+     "a_tree": 1,
+     "c1_yol": 1,
+     "c1_cift": 1,
+     "a_theatre": 3,
+     "c1_delilik": 1,
+     "a_medals": 1,
+     "c1_dort_dil": 1,
+     "quote": 1,
+     "a_timeline_s": 1,
+     "medal": 1,
+     "c1_ortak_kral": 1,
+     "c1_halk": 1,
+     "a_doc": 1
+    },
+    "scenes": {}
+   },
+   "c2": {
+    "shots": 18,
+    "t0": 171.56,
+    "t1": 260.08,
+    "kinds": {
+     "a_g_medal": 2,
+     "c2_yedi_koltuk": 1,
+     "a_medals": 1,
+     "c2_gosteri": 1,
+     "c2_terazi": 1,
+     "a_theatre": 3,
+     "c2_pay": 1,
+     "a_map": 4,
+     "c2_para": 1,
+     "c2_borc_terazi": 1,
+     "a_g_doc": 1,
+     "c2_plus_ultra": 1
+    },
+    "scenes": {}
+   },
+   "c3": {
+    "shots": 11,
+    "t0": 263.08,
+    "t1": 312.94,
+    "kinds": {
+     "a_map": 6,
+     "a_theatre": 3,
+     "a_medals": 1,
+     "c3_bayram": 1
+    },
+    "scenes": {}
    },
    "c9": {
     "shots": 20,
@@ -46,6 +103,42 @@
      "ransom_room": 1,
      "debate_hall": 1
     }
+   },
+   "c10": {
+    "shots": 13,
+    "t0": 962.91,
+    "t1": 1029.07,
+    "kinds": {
+     "c10_soru": 1,
+     "c10_sandik": 1,
+     "c10_defter": 1,
+     "c10_sayac": 1,
+     "c10_bars": 1,
+     "c10_egri": 1,
+     "a_theatre": 1,
+     "a_c_medal": 2,
+     "c10_mektup": 1,
+     "a_map": 1,
+     "c10_ucurum": 1,
+     "c10_kapanis": 1
+    },
+    "scenes": {}
+   },
+   "c11": {
+    "shots": 10,
+    "t0": 1032.07,
+    "t1": 1096.33,
+    "kinds": {
+     "c11_machine": 1,
+     "c11_chin": 1,
+     "c11_study": 1,
+     "c11_wed": 1,
+     "c11_loss": 1,
+     "bw_theatre": 2,
+     "c11_black": 1,
+     "map": 2
+    },
+    "scenes": {}
    },
    "c12": {
     "shots": 18,
@@ -98,7 +191,7 @@
    "n": 15,
    "kind": "title",
    "label": "tarih",
-   "ms": 116.41502380371094,
+   "ms": 122.67327308654785,
    "err": null
   },
   {
@@ -106,7 +199,7 @@
    "n": 55,
    "kind": "title",
    "label": "tarih",
-   "ms": 264.6481990814209,
+   "ms": 218.83440017700195,
    "err": null
   },
   {
@@ -114,7 +207,7 @@
    "n": 89,
    "kind": "theatre",
    "label": "salon_genis",
-   "ms": 162.10603713989258,
+   "ms": 116.95289611816406,
    "err": null
   },
   {
@@ -122,7 +215,7 @@
    "n": 143,
    "kind": "theatre",
    "label": "salon_genis",
-   "ms": 243.8070774078369,
+   "ms": 175.41956901550293,
    "err": null
   },
   {
@@ -130,7 +223,7 @@
    "n": 183,
    "kind": "theatre",
    "label": "cift_orta",
-   "ms": 272.5858688354492,
+   "ms": 162.18209266662598,
    "err": null
   },
   {
@@ -138,7 +231,7 @@
    "n": 241,
    "kind": "theatre",
    "label": "cift_orta",
-   "ms": 233.42466354370117,
+   "ms": 172.27888107299805,
    "err": null
   },
   {
@@ -146,7 +239,7 @@
    "n": 279,
    "kind": "theatre",
    "label": "omuz_yakin",
-   "ms": 232.92016983032227,
+   "ms": 206.49981498718262,
    "err": null
   },
   {
@@ -154,7 +247,7 @@
    "n": 327,
    "kind": "theatre",
    "label": "omuz_yakin",
-   "ms": 278.02538871765137,
+   "ms": 185.60004234313965,
    "err": null
   },
   {
@@ -162,7 +255,7 @@
    "n": 354,
    "kind": "c0_forty",
    "label": "kirk_yil",
-   "ms": 140.76709747314453,
+   "ms": 88.85622024536133,
    "err": null
   },
   {
@@ -170,7 +263,7 @@
    "n": 377,
    "kind": "c0_forty",
    "label": "kirk_yil",
-   "ms": 181.9756031036377,
+   "ms": 116.75262451171875,
    "err": null
   },
   {
@@ -178,7 +271,7 @@
    "n": 397,
    "kind": "map",
    "label": "avrupa",
-   "ms": 90.41285514831543,
+   "ms": 77.23474502563477,
    "err": null
   },
   {
@@ -186,7 +279,7 @@
    "n": 428,
    "kind": "map",
    "label": "avrupa",
-   "ms": 195.8637237548828,
+   "ms": 148.36549758911133,
    "err": null
   },
   {
@@ -194,7 +287,7 @@
    "n": 456,
    "kind": "map",
    "label": "yeni_dunya",
-   "ms": 103.52420806884766,
+   "ms": 73.78029823303223,
    "err": null
   },
   {
@@ -202,7 +295,7 @@
    "n": 502,
    "kind": "map",
    "label": "yeni_dunya",
-   "ms": 309.13424491882324,
+   "ms": 239.46619033813477,
    "err": null
   },
   {
@@ -210,7 +303,7 @@
    "n": 536,
    "kind": "theatre",
    "label": "salon_birakma",
-   "ms": 210.85000038146973,
+   "ms": 170.21846771240234,
    "err": null
   },
   {
@@ -218,7 +311,7 @@
    "n": 581,
    "kind": "theatre",
    "label": "salon_birakma",
-   "ms": 331.9072723388672,
+   "ms": 275.0074863433838,
    "err": null
   },
   {
@@ -226,7 +319,7 @@
    "n": 608,
    "kind": "medal",
    "label": "medal",
-   "ms": 206.62832260131836,
+   "ms": 185.86468696594238,
    "err": null
   },
   {
@@ -234,7 +327,7 @@
    "n": 637,
    "kind": "medal",
    "label": "medal",
-   "ms": 229.88462448120117,
+   "ms": 169.06976699829102,
    "err": null
   },
   {
@@ -242,7 +335,7 @@
    "n": 656,
    "kind": "emblem",
    "label": "neden",
-   "ms": 201.72619819641113,
+   "ms": 138.1211280822754,
    "err": null
   },
   {
@@ -250,7 +343,7 @@
    "n": 674,
    "kind": "emblem",
    "label": "neden",
-   "ms": 243.44539642333984,
+   "ms": 190.40513038635254,
    "err": null
   },
   {
@@ -258,7 +351,7 @@
    "n": 723,
    "kind": "c0_fronts",
    "label": "cephe5",
-   "ms": 84.23042297363281,
+   "ms": 75.47760009765625,
    "err": null
   },
   {
@@ -266,7 +359,7 @@
    "n": 844,
    "kind": "c0_fronts",
    "label": "cephe5",
-   "ms": 186.75684928894043,
+   "ms": 130.38921356201172,
    "err": null
   },
   {
@@ -274,7 +367,7 @@
    "n": 904,
    "kind": "emblem",
    "label": "ilk_kanit",
-   "ms": 183.70890617370605,
+   "ms": 147.72915840148926,
    "err": null
   },
   {
@@ -282,7 +375,7 @@
    "n": 958,
    "kind": "emblem",
    "label": "ilk_kanit",
-   "ms": 164.69526290893555,
+   "ms": 163.9995574951172,
    "err": null
   },
   {
@@ -290,7 +383,7 @@
    "n": 992,
    "kind": "c0_borc",
    "label": "tac_borc",
-   "ms": 169.11602020263672,
+   "ms": 107.95474052429199,
    "err": null
   },
   {
@@ -298,7 +391,7 @@
    "n": 1037,
    "kind": "c0_borc",
    "label": "tac_borc",
-   "ms": 200.87099075317383,
+   "ms": 202.6073932647705,
    "err": null
   },
   {
@@ -306,7 +399,7 @@
    "n": 1065,
    "kind": "c0_title",
    "label": "baslik",
-   "ms": 170.39728164672852,
+   "ms": 134.429931640625,
    "err": null
   },
   {
@@ -314,903 +407,2183 @@
    "n": 1096,
    "kind": "c0_title",
    "label": "baslik",
-   "ms": 218.7480926513672,
+   "ms": 146.2700366973877,
    "err": null
   },
   {
    "i": 14,
+   "n": 1123,
+   "kind": "title",
+   "label": "",
+   "ms": 138.91196250915527,
+   "err": null
+  },
+  {
+   "i": 14,
+   "n": 1165,
+   "kind": "title",
+   "label": "",
+   "ms": 165.6022071838379,
+   "err": null
+  },
+  {
+   "i": 15,
+   "n": 1210,
+   "kind": "a_map",
+   "label": "gent_harita",
+   "ms": 93.5361385345459,
+   "err": null
+  },
+  {
+   "i": 15,
+   "n": 1297,
+   "kind": "a_map",
+   "label": "gent_harita",
+   "ms": 96.82106971740723,
+   "err": null
+  },
+  {
+   "i": 16,
+   "n": 1360,
+   "kind": "c1_evli",
+   "label": "juana_filip",
+   "ms": 156.60572052001953,
+   "err": null
+  },
+  {
+   "i": 16,
+   "n": 1459,
+   "kind": "c1_evli",
+   "label": "juana_filip",
+   "ms": 168.79034042358398,
+   "err": null
+  },
+  {
+   "i": 17,
+   "n": 1514,
+   "kind": "a_tree",
+   "label": "soy_agaci",
+   "ms": 89.24174308776855,
+   "err": null
+  },
+  {
+   "i": 17,
+   "n": 1574,
+   "kind": "a_tree",
+   "label": "soy_agaci",
+   "ms": 175.36044120788574,
+   "err": null
+  },
+  {
+   "i": 18,
+   "n": 1620,
+   "kind": "a_map",
+   "label": "dort_ulke",
+   "ms": 59.197425842285156,
+   "err": null
+  },
+  {
+   "i": 18,
+   "n": 1692,
+   "kind": "a_map",
+   "label": "dort_ulke",
+   "ms": 97.00679779052734,
+   "err": null
+  },
+  {
+   "i": 19,
+   "n": 1758,
+   "kind": "c1_yol",
+   "label": "miras_yolu",
+   "ms": 86.89761161804199,
+   "err": null
+  },
+  {
+   "i": 19,
+   "n": 1879,
+   "kind": "c1_yol",
+   "label": "miras_yolu",
+   "ms": 132.10344314575195,
+   "err": null
+  },
+  {
+   "i": 20,
+   "n": 1949,
+   "kind": "c1_cift",
+   "label": "evlilik_olum",
+   "ms": 70.96672058105469,
+   "err": null
+  },
+  {
+   "i": 20,
+   "n": 2028,
+   "kind": "c1_cift",
+   "label": "evlilik_olum",
+   "ms": 162.68444061279297,
+   "err": null
+  },
+  {
+   "i": 21,
+   "n": 2077,
+   "kind": "a_map",
+   "label": "burgos",
+   "ms": 82.5495719909668,
+   "err": null
+  },
+  {
+   "i": 21,
+   "n": 2134,
+   "kind": "a_map",
+   "label": "burgos",
+   "ms": 128.56268882751465,
+   "err": null
+  },
+  {
+   "i": 22,
+   "n": 2174,
+   "kind": "a_map",
+   "label": "tordesillas_harita",
+   "ms": 83.09412002563477,
+   "err": null
+  },
+  {
+   "i": 22,
+   "n": 2229,
+   "kind": "a_map",
+   "label": "tordesillas_harita",
+   "ms": 115.29326438903809,
+   "err": null
+  },
+  {
+   "i": 23,
+   "n": 2284,
+   "kind": "a_theatre",
+   "label": "kule_juana",
+   "ms": 95.53670883178711,
+   "err": null
+  },
+  {
+   "i": 23,
+   "n": 2386,
+   "kind": "a_theatre",
+   "label": "kule_juana",
+   "ms": 123.5818862915039,
+   "err": null
+  },
+  {
+   "i": 24,
+   "n": 2453,
+   "kind": "c1_delilik",
+   "label": "delilik_siyaset",
+   "ms": 75.19793510437012,
+   "err": null
+  },
+  {
+   "i": 24,
+   "n": 2542,
+   "kind": "c1_delilik",
+   "label": "delilik_siyaset",
+   "ms": 125.86617469787598,
+   "err": null
+  },
+  {
+   "i": 25,
+   "n": 2590,
+   "kind": "a_medals",
+   "label": "karl_margareta",
+   "ms": 152.55379676818848,
+   "err": null
+  },
+  {
+   "i": 25,
+   "n": 2637,
+   "kind": "a_medals",
+   "label": "karl_margareta",
+   "ms": 174.00765419006348,
+   "err": null
+  },
+  {
+   "i": 26,
+   "n": 2672,
+   "kind": "a_map",
+   "label": "mechelen",
+   "ms": 81.36749267578125,
+   "err": null
+  },
+  {
+   "i": 26,
+   "n": 2723,
+   "kind": "a_map",
+   "label": "mechelen",
+   "ms": 123.33941459655762,
+   "err": null
+  },
+  {
+   "i": 27,
+   "n": 2784,
+   "kind": "c1_dort_dil",
+   "label": "dort_dil",
+   "ms": 87.8608226776123,
+   "err": null
+  },
+  {
+   "i": 27,
+   "n": 2913,
+   "kind": "c1_dort_dil",
+   "label": "dort_dil",
+   "ms": 138.94963264465332,
+   "err": null
+  },
+  {
+   "i": 28,
+   "n": 2974,
+   "kind": "quote",
+   "label": "soz_alinti",
+   "ms": 73.24409484863281,
+   "err": null
+  },
+  {
+   "i": 28,
+   "n": 3019,
+   "kind": "quote",
+   "label": "soz_alinti",
+   "ms": 76.63297653198242,
+   "err": null
+  },
+  {
+   "i": 29,
+   "n": 3071,
+   "kind": "a_timeline_s",
+   "label": "43_yil",
+   "ms": 70.62387466430664,
+   "err": null
+  },
+  {
+   "i": 29,
+   "n": 3170,
+   "kind": "a_timeline_s",
+   "label": "43_yil",
+   "ms": 59.80801582336426,
+   "err": null
+  },
+  {
+   "i": 30,
+   "n": 3227,
+   "kind": "medal",
+   "label": "fernando_oldu",
+   "ms": 149.17254447937012,
+   "err": null
+  },
+  {
+   "i": 30,
+   "n": 3287,
+   "kind": "medal",
+   "label": "fernando_oldu",
+   "ms": 146.83222770690918,
+   "err": null
+  },
+  {
+   "i": 31,
+   "n": 3336,
+   "kind": "c1_ortak_kral",
+   "label": "ortak_kral",
+   "ms": 189.9707317352295,
+   "err": null
+  },
+  {
+   "i": 31,
+   "n": 3417,
+   "kind": "c1_ortak_kral",
+   "label": "ortak_kral",
+   "ms": 176.45740509033203,
+   "err": null
+  },
+  {
+   "i": 32,
+   "n": 3476,
+   "kind": "a_theatre",
+   "label": "firtina",
+   "ms": 114.81165885925293,
+   "err": null
+  },
+  {
+   "i": 32,
+   "n": 3563,
+   "kind": "a_theatre",
+   "label": "firtina",
+   "ms": 125.17356872558594,
+   "err": null
+  },
+  {
+   "i": 33,
+   "n": 3611,
+   "kind": "a_map",
+   "label": "tazones_rota",
+   "ms": 75.49214363098145,
+   "err": null
+  },
+  {
+   "i": 33,
+   "n": 3662,
+   "kind": "a_map",
+   "label": "tazones_rota",
+   "ms": 98.05083274841309,
+   "err": null
+  },
+  {
+   "i": 34,
+   "n": 3691,
+   "kind": "a_theatre",
+   "label": "tazones_koyu",
+   "ms": 131.77132606506348,
+   "err": null
+  },
+  {
+   "i": 34,
+   "n": 3718,
+   "kind": "a_theatre",
+   "label": "tazones_koyu",
+   "ms": 249.93157386779785,
+   "err": null
+  },
+  {
+   "i": 35,
+   "n": 3752,
+   "kind": "c1_halk",
+   "label": "yeni_halk",
+   "ms": 187.04628944396973,
+   "err": null
+  },
+  {
+   "i": 35,
+   "n": 3821,
+   "kind": "c1_halk",
+   "label": "yeni_halk",
+   "ms": 156.64935111999512,
+   "err": null
+  },
+  {
+   "i": 36,
+   "n": 3858,
+   "kind": "a_map",
+   "label": "valladolid_harita",
+   "ms": 88.3336067199707,
+   "err": null
+  },
+  {
+   "i": 36,
+   "n": 3896,
+   "kind": "a_map",
+   "label": "valladolid_harita",
+   "ms": 133.81600379943848,
+   "err": null
+  },
+  {
+   "i": 37,
+   "n": 3938,
+   "kind": "a_doc",
+   "label": "kortes_talebi",
+   "ms": 94.71821784973145,
+   "err": null
+  },
+  {
+   "i": 37,
+   "n": 4018,
+   "kind": "a_doc",
+   "label": "kortes_talebi",
+   "ms": 86.80105209350586,
+   "err": null
+  },
+  {
+   "i": 38,
+   "n": 4061,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 114.55035209655762,
+   "err": null
+  },
+  {
+   "i": 38,
+   "n": 4103,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 158.6298942565918,
+   "err": null
+  },
+  {
+   "i": 39,
+   "n": 4139,
+   "kind": "a_g_medal",
+   "label": "maksimilyan_oldu",
+   "ms": 132.5054168701172,
+   "err": null
+  },
+  {
+   "i": 39,
+   "n": 4201,
+   "kind": "a_g_medal",
+   "label": "maksimilyan_oldu",
+   "ms": 129.06885147094727,
+   "err": null
+  },
+  {
+   "i": 40,
+   "n": 4249,
+   "kind": "c2_yedi_koltuk",
+   "label": "yedi_secmen",
+   "ms": 101.33600234985352,
+   "err": null
+  },
+  {
+   "i": 40,
+   "n": 4322,
+   "kind": "c2_yedi_koltuk",
+   "label": "yedi_secmen",
+   "ms": 152.81081199645996,
+   "err": null
+  },
+  {
+   "i": 41,
+   "n": 4365,
+   "kind": "a_medals",
+   "label": "karl_fransuva",
+   "ms": 108.40368270874023,
+   "err": null
+  },
+  {
+   "i": 41,
+   "n": 4416,
+   "kind": "a_medals",
+   "label": "karl_fransuva",
+   "ms": 1200.2346515655518,
+   "err": null
+  },
+  {
+   "i": 42,
+   "n": 4466,
+   "kind": "c2_gosteri",
+   "label": "henry_gosteri",
+   "ms": 186.96165084838867,
+   "err": null
+  },
+  {
+   "i": 42,
+   "n": 4556,
+   "kind": "c2_gosteri",
+   "label": "henry_gosteri",
+   "ms": 185.1351261138916,
+   "err": null
+  },
+  {
+   "i": 43,
+   "n": 4603,
+   "kind": "c2_terazi",
+   "label": "terazi_pazarlik",
+   "ms": 72.06201553344727,
+   "err": null
+  },
+  {
+   "i": 43,
+   "n": 4645,
+   "kind": "c2_terazi",
+   "label": "terazi_pazarlik",
+   "ms": 135.88738441467285,
+   "err": null
+  },
+  {
+   "i": 44,
+   "n": 4684,
+   "kind": "a_theatre",
+   "label": "sayim_odasi_850bin",
+   "ms": 108.99662971496582,
+   "err": null
+  },
+  {
+   "i": 44,
+   "n": 4750,
+   "kind": "a_theatre",
+   "label": "sayim_odasi_850bin",
+   "ms": 134.0317726135254,
+   "err": null
+  },
+  {
+   "i": 45,
+   "n": 4795,
+   "kind": "c2_pay",
+   "label": "fugger_payi",
+   "ms": 56.50520324707031,
+   "err": null
+  },
+  {
+   "i": 45,
+   "n": 4856,
+   "kind": "c2_pay",
+   "label": "fugger_payi",
+   "ms": 61.39039993286133,
+   "err": null
+  },
+  {
+   "i": 46,
+   "n": 4898,
+   "kind": "a_g_medal",
+   "label": "fugger",
+   "ms": 154.0818214416504,
+   "err": null
+  },
+  {
+   "i": 46,
+   "n": 4952,
+   "kind": "a_g_medal",
+   "label": "fugger",
+   "ms": 152.48966217041016,
+   "err": null
+  },
+  {
+   "i": 47,
+   "n": 4989,
+   "kind": "a_map",
+   "label": "frankfurt_harita",
+   "ms": 88.17934989929199,
+   "err": null
+  },
+  {
+   "i": 47,
+   "n": 5040,
+   "kind": "a_map",
+   "label": "frankfurt_harita",
+   "ms": 111.10830307006836,
+   "err": null
+  },
+  {
+   "i": 48,
+   "n": 5073,
+   "kind": "a_theatre",
+   "label": "yedi_oy",
+   "ms": 121.22941017150879,
+   "err": null
+  },
+  {
+   "i": 48,
+   "n": 5118,
+   "kind": "a_theatre",
+   "label": "yedi_oy",
+   "ms": 250.6413459777832,
+   "err": null
+  },
+  {
+   "i": 49,
+   "n": 5152,
+   "kind": "c2_para",
+   "label": "parayi_aldi",
+   "ms": 125.69427490234375,
+   "err": null
+  },
+  {
+   "i": 49,
+   "n": 5200,
+   "kind": "c2_para",
+   "label": "parayi_aldi",
+   "ms": 190.70696830749512,
+   "err": null
+  },
+  {
+   "i": 50,
+   "n": 5241,
+   "kind": "a_map",
+   "label": "almanya_icin_en_iyi",
+   "ms": 112.61749267578125,
+   "err": null
+  },
+  {
+   "i": 50,
+   "n": 5310,
+   "kind": "a_map",
+   "label": "almanya_icin_en_iyi",
+   "ms": 122.81417846679688,
+   "err": null
+  },
+  {
+   "i": 51,
+   "n": 5373,
+   "kind": "c2_borc_terazi",
+   "label": "rusvet_borc",
+   "ms": 77.82554626464844,
+   "err": null
+  },
+  {
+   "i": 51,
+   "n": 5490,
+   "kind": "c2_borc_terazi",
+   "label": "rusvet_borc",
+   "ms": 108.9785099029541,
+   "err": null
+  },
+  {
+   "i": 52,
+   "n": 5582,
+   "kind": "a_g_doc",
+   "label": "yazili_soz",
+   "ms": 97.87201881408691,
+   "err": null
+  },
+  {
+   "i": 52,
+   "n": 5732,
+   "kind": "a_g_doc",
+   "label": "yazili_soz",
+   "ms": 107.92207717895508,
+   "err": null
+  },
+  {
+   "i": 53,
+   "n": 5801,
+   "kind": "a_map",
+   "label": "aachen_harita",
+   "ms": 138.55719566345215,
+   "err": null
+  },
+  {
+   "i": 53,
+   "n": 5855,
+   "kind": "a_map",
+   "label": "aachen_harita",
+   "ms": 4864.4514083862305,
+   "err": null
+  },
+  {
+   "i": 54,
+   "n": 5888,
+   "kind": "a_theatre",
+   "label": "aachen_taç",
+   "ms": 85.60705184936523,
+   "err": null
+  },
+  {
+   "i": 54,
+   "n": 5927,
+   "kind": "a_theatre",
+   "label": "aachen_taç",
+   "ms": 130.31387329101562,
+   "err": null
+  },
+  {
+   "i": 55,
+   "n": 5956,
+   "kind": "c2_plus_ultra",
+   "label": "plus_ultra",
+   "ms": 105.2401065826416,
+   "err": null
+  },
+  {
+   "i": 55,
+   "n": 5995,
+   "kind": "c2_plus_ultra",
+   "label": "plus_ultra",
+   "ms": 88.65523338317871,
+   "err": null
+  },
+  {
+   "i": 56,
+   "n": 6057,
+   "kind": "a_map",
+   "label": "herkul_sutunlari",
+   "ms": 90.18540382385254,
+   "err": null
+  },
+  {
+   "i": 56,
+   "n": 6195,
+   "kind": "a_map",
+   "label": "herkul_sutunlari",
+   "ms": 112.43009567260742,
+   "err": null
+  },
+  {
+   "i": 57,
+   "n": 6257,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 67.72947311401367,
+   "err": null
+  },
+  {
+   "i": 57,
+   "n": 6299,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 125.3821849822998,
+   "err": null
+  },
+  {
+   "i": 58,
+   "n": 6332,
+   "kind": "a_map",
+   "label": "ispanyadan_ayrilis",
+   "ms": 80.23452758789062,
+   "err": null
+  },
+  {
+   "i": 58,
+   "n": 6384,
+   "kind": "a_map",
+   "label": "ispanyadan_ayrilis",
+   "ms": 4054.5668601989746,
+   "err": null
+  },
+  {
+   "i": 59,
+   "n": 6438,
+   "kind": "a_map",
+   "label": "sehirlerde_tepki",
+   "ms": 87.30530738830566,
+   "err": null
+  },
+  {
+   "i": 59,
+   "n": 6537,
+   "kind": "a_map",
+   "label": "sehirlerde_tepki",
+   "ms": 127.11453437805176,
+   "err": null
+  },
+  {
+   "i": 60,
+   "n": 6591,
+   "kind": "a_theatre",
+   "label": "komunero_isyani",
+   "ms": 192.12818145751953,
+   "err": null
+  },
+  {
+   "i": 60,
+   "n": 6643,
+   "kind": "a_theatre",
+   "label": "komunero_isyani",
+   "ms": 223.82307052612305,
+   "err": null
+  },
+  {
+   "i": 61,
+   "n": 6678,
+   "kind": "a_map",
+   "label": "villalar_harita",
+   "ms": 71.37441635131836,
+   "err": null
+  },
+  {
+   "i": 61,
+   "n": 6724,
+   "kind": "a_map",
+   "label": "villalar_harita",
+   "ms": 85.44921875,
+   "err": null
+  },
+  {
+   "i": 62,
+   "n": 6756,
+   "kind": "a_theatre",
+   "label": "villalar_savas",
+   "ms": 129.99820709228516,
+   "err": null
+  },
+  {
+   "i": 62,
+   "n": 6796,
+   "kind": "a_theatre",
+   "label": "villalar_savas",
+   "ms": 185.0285530090332,
+   "err": null
+  },
+  {
+   "i": 63,
+   "n": 6841,
+   "kind": "a_medals",
+   "label": "uc_onder",
+   "ms": 71.64764404296875,
+   "err": null
+  },
+  {
+   "i": 63,
+   "n": 6925,
+   "kind": "a_medals",
+   "label": "uc_onder",
+   "ms": 185.8079433441162,
+   "err": null
+  },
+  {
+   "i": 64,
+   "n": 6980,
+   "kind": "a_theatre",
+   "label": "toledo_pacheco",
+   "ms": 134.09709930419922,
+   "err": null
+  },
+  {
+   "i": 64,
+   "n": 7058,
+   "kind": "a_theatre",
+   "label": "toledo_pacheco",
+   "ms": 183.4723949432373,
+   "err": null
+  },
+  {
+   "i": 65,
+   "n": 7116,
+   "kind": "a_map",
+   "label": "valensiya_germania",
+   "ms": 74.18251037597656,
+   "err": null
+  },
+  {
+   "i": 65,
+   "n": 7204,
+   "kind": "a_map",
+   "label": "valensiya_germania",
+   "ms": 90.73567390441895,
+   "err": null
+  },
+  {
+   "i": 66,
+   "n": 7249,
+   "kind": "a_map",
+   "label": "kastilya_leon",
+   "ms": 76.04312896728516,
+   "err": null
+  },
+  {
+   "i": 66,
+   "n": 7286,
+   "kind": "a_map",
+   "label": "kastilya_leon",
+   "ms": 97.1684455871582,
+   "err": null
+  },
+  {
+   "i": 67,
+   "n": 7320,
+   "kind": "c3_bayram",
+   "label": "bayram",
+   "ms": 87.33153343200684,
+   "err": null
+  },
+  {
+   "i": 67,
+   "n": 7377,
+   "kind": "c3_bayram",
+   "label": "bayram",
+   "ms": 69.96440887451172,
+   "err": null
+  },
+  {
+   "i": 68,
+   "n": 7420,
+   "kind": "a_map",
+   "label": "ilk_ders",
+   "ms": 98.05870056152344,
+   "err": null
+  },
+  {
+   "i": 68,
+   "n": 7486,
+   "kind": "a_map",
+   "label": "ilk_ders",
+   "ms": 131.86168670654297,
+   "err": null
+  },
+  {
+   "i": 69,
    "n": 20363,
    "kind": "chapter_card",
    "label": "",
-   "ms": 83.78410339355469,
+   "ms": 74.57900047302246,
    "err": null
   },
   {
-   "i": 14,
+   "i": 69,
    "n": 20405,
    "kind": "chapter_card",
    "label": "",
-   "ms": 137.5129222869873,
+   "ms": 97.56112098693848,
    "err": null
   },
   {
-   "i": 15,
+   "i": 70,
    "n": 20449,
    "kind": "map",
    "label": "atlantik_hic",
-   "ms": 152.1751880645752,
+   "ms": 82.38816261291504,
    "err": null
   },
   {
-   "i": 15,
+   "i": 70,
    "n": 20535,
    "kind": "map",
    "label": "atlantik_hic",
-   "ms": 153.02276611328125,
+   "ms": 98.50525856018066,
    "err": null
   },
   {
-   "i": 16,
+   "i": 71,
    "n": 20599,
    "kind": "map",
    "label": "cortes_rota",
-   "ms": 98.30760955810547,
+   "ms": 77.39877700805664,
    "err": null
   },
   {
-   "i": 16,
+   "i": 71,
    "n": 20695,
    "kind": "map",
    "label": "cortes_rota",
-   "ms": 142.15874671936035,
+   "ms": 86.22980117797852,
    "err": null
   },
   {
-   "i": 17,
+   "i": 72,
    "n": 20751,
    "kind": "theatre",
    "label": "tenochtitlan",
-   "ms": 195.15299797058105,
+   "ms": 125.77533721923828,
    "err": null
   },
   {
-   "i": 17,
+   "i": 72,
    "n": 20819,
    "kind": "theatre",
    "label": "tenochtitlan",
-   "ms": 168.6117649078369,
+   "ms": 125.9157657623291,
    "err": null
   },
   {
-   "i": 18,
+   "i": 73,
    "n": 20881,
    "kind": "wd_doc",
    "label": "cortes_mektup",
-   "ms": 135.33592224121094,
+   "ms": 107.03158378601074,
    "err": null
   },
   {
-   "i": 18,
+   "i": 73,
    "n": 20992,
    "kind": "wd_doc",
    "label": "cortes_mektup",
-   "ms": 117.2783374786377,
+   "ms": 112.89238929748535,
    "err": null
   },
   {
-   "i": 19,
+   "i": 74,
    "n": 21051,
    "kind": "c9_durer",
    "label": "durer_sergi",
-   "ms": 178.4994602203369,
+   "ms": 79.8344612121582,
    "err": null
   },
   {
-   "i": 19,
+   "i": 74,
    "n": 21113,
    "kind": "c9_durer",
    "label": "durer_sergi",
-   "ms": 166.7470932006836,
+   "ms": 105.93533515930176,
    "err": null
   },
   {
-   "i": 20,
+   "i": 75,
    "n": 21153,
    "kind": "wd_counter",
    "label": "yuz_bin_florin",
-   "ms": 93.34969520568848,
+   "ms": 97.93615341186523,
    "err": null
   },
   {
-   "i": 20,
+   "i": 75,
    "n": 21204,
    "kind": "wd_counter",
    "label": "yuz_bin_florin",
-   "ms": 587.4218940734863,
+   "ms": 2263.913631439209,
    "err": null
   },
   {
-   "i": 21,
+   "i": 76,
    "n": 21237,
    "kind": "map",
    "label": "cajamarca_harita",
-   "ms": 126.76286697387695,
+   "ms": 87.68248558044434,
    "err": null
   },
   {
-   "i": 21,
+   "i": 76,
    "n": 21279,
    "kind": "map",
    "label": "cajamarca_harita",
-   "ms": 161.60154342651367,
+   "ms": 91.58921241760254,
    "err": null
   },
   {
-   "i": 22,
+   "i": 77,
    "n": 21317,
    "kind": "wd_medals",
    "label": "pizarro_atahualpa",
-   "ms": 216.49622917175293,
+   "ms": 92.97871589660645,
    "err": null
   },
   {
-   "i": 22,
+   "i": 77,
    "n": 21381,
    "kind": "wd_medals",
    "label": "pizarro_atahualpa",
-   "ms": 216.5975570678711,
+   "ms": 107.92422294616699,
    "err": null
   },
   {
-   "i": 23,
+   "i": 78,
    "n": 21441,
    "kind": "theatre",
    "label": "fidye_odasi",
-   "ms": 175.23622512817383,
+   "ms": 129.7011375427246,
    "err": null
   },
   {
-   "i": 23,
+   "i": 78,
    "n": 21548,
    "kind": "theatre",
    "label": "fidye_odasi",
-   "ms": 194.55909729003906,
+   "ms": 156.05998039245605,
    "err": null
   },
   {
-   "i": 24,
+   "i": 79,
    "n": 21600,
    "kind": "wd_medal_swap",
    "label": "idam_sessiz",
-   "ms": 137.54630088806152,
+   "ms": 111.45210266113281,
    "err": null
   },
   {
-   "i": 24,
+   "i": 79,
    "n": 21639,
    "kind": "wd_medal_swap",
    "label": "idam_sessiz",
-   "ms": 381.9136619567871,
+   "ms": 239.29810523986816,
    "err": null
   },
   {
-   "i": 25,
+   "i": 80,
    "n": 21673,
    "kind": "c9_fifth",
    "label": "beste_bir",
-   "ms": 109.19451713562012,
+   "ms": 104.03895378112793,
    "err": null
   },
   {
-   "i": 25,
+   "i": 80,
    "n": 21727,
    "kind": "c9_fifth",
    "label": "beste_bir",
-   "ms": 191.76912307739258,
+   "ms": 189.7881031036377,
    "err": null
   },
   {
-   "i": 26,
+   "i": 81,
    "n": 21774,
    "kind": "wd_doc",
    "label": "yeni_yasalar",
-   "ms": 121.1552619934082,
+   "ms": 86.27176284790039,
    "err": null
   },
   {
-   "i": 26,
+   "i": 81,
    "n": 21855,
    "kind": "wd_doc",
    "label": "yeni_yasalar",
-   "ms": 94.81596946716309,
+   "ms": 96.75264358520508,
    "err": null
   },
   {
-   "i": 27,
+   "i": 82,
    "n": 21915,
    "kind": "map",
    "label": "peru_valisi",
-   "ms": 75.67906379699707,
+   "ms": 101.54914855957031,
    "err": null
   },
   {
-   "i": 27,
+   "i": 82,
    "n": 22002,
    "kind": "map",
    "label": "peru_valisi",
-   "ms": 103.09696197509766,
+   "ms": 105.02839088439941,
    "err": null
   },
   {
-   "i": 28,
+   "i": 83,
    "n": 22059,
    "kind": "map",
    "label": "valladolid_1550",
-   "ms": 104.96258735656738,
+   "ms": 112.49852180480957,
    "err": null
   },
   {
-   "i": 28,
+   "i": 83,
    "n": 22137,
    "kind": "map",
    "label": "valladolid_1550",
-   "ms": 108.26611518859863,
+   "ms": 88.35244178771973,
    "err": null
   },
   {
-   "i": 29,
+   "i": 84,
    "n": 22189,
    "kind": "wd_vs",
    "label": "sepulveda_lascasas",
-   "ms": 78.86266708374023,
+   "ms": 92.63253211975098,
    "err": null
   },
   {
-   "i": 29,
+   "i": 84,
    "n": 22261,
    "kind": "wd_vs",
    "label": "sepulveda_lascasas",
-   "ms": 181.5197467803955,
+   "ms": 89.61081504821777,
    "err": null
   },
   {
-   "i": 30,
+   "i": 85,
    "n": 22327,
    "kind": "theatre",
    "label": "tartisma",
-   "ms": 193.8459873199463,
+   "ms": 82.84759521484375,
    "err": null
   },
   {
-   "i": 30,
+   "i": 85,
    "n": 22446,
    "kind": "theatre",
    "label": "tartisma",
-   "ms": 125.83160400390625,
+   "ms": 90.75593948364258,
    "err": null
   },
   {
-   "i": 31,
+   "i": 86,
    "n": 22517,
    "kind": "map",
    "label": "dunya_turu",
-   "ms": 100.69632530212402,
+   "ms": 102.3099422454834,
    "err": null
   },
   {
-   "i": 31,
+   "i": 86,
    "n": 22602,
    "kind": "map",
    "label": "dunya_turu",
-   "ms": 172.7890968322754,
+   "ms": 91.03035926818848,
    "err": null
   },
   {
-   "i": 32,
+   "i": 87,
    "n": 22641,
    "kind": "wd_medal_swap",
    "label": "magellan_oldu",
-   "ms": 171.28682136535645,
+   "ms": 99.11513328552246,
    "err": null
   },
   {
-   "i": 32,
+   "i": 87,
    "n": 22666,
    "kind": "wd_medal_swap",
    "label": "magellan_oldu",
-   "ms": 456.2487602233887,
+   "ms": 241.3949966430664,
    "err": null
   },
   {
-   "i": 33,
+   "i": 88,
    "n": 22704,
    "kind": "wd_counter",
    "label": "elcano_on_sekiz",
-   "ms": 77.6052474975586,
+   "ms": 69.73862648010254,
    "err": null
   },
   {
-   "i": 33,
+   "i": 88,
    "n": 22785,
    "kind": "wd_counter",
    "label": "elcano_on_sekiz",
-   "ms": 138.2594108581543,
+   "ms": 78.3078670501709,
    "err": null
   },
   {
-   "i": 34,
+   "i": 89,
    "n": 22859,
    "kind": "c9_arma",
    "label": "arma_primus",
-   "ms": 142.65155792236328,
+   "ms": 84.59258079528809,
    "err": null
   },
   {
-   "i": 34,
+   "i": 89,
    "n": 22992,
    "kind": "c9_arma",
    "label": "arma_primus",
-   "ms": 167.863130569458,
+   "ms": 104.6910285949707,
    "err": null
   },
   {
-   "i": 35,
+   "i": 90,
+   "n": 23053,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 63.79437446594238,
+   "err": null
+  },
+  {
+   "i": 90,
+   "n": 23095,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 124.13406372070312,
+   "err": null
+  },
+  {
+   "i": 91,
+   "n": 23124,
+   "kind": "c10_soru",
+   "label": "soru",
+   "ms": 127.61902809143066,
+   "err": null
+  },
+  {
+   "i": 91,
+   "n": 23163,
+   "kind": "c10_soru",
+   "label": "soru",
+   "ms": 260.8468532562256,
+   "err": null
+  },
+  {
+   "i": 92,
+   "n": 23196,
+   "kind": "c10_sandik",
+   "label": "gumus_sandik",
+   "ms": 134.7198486328125,
+   "err": null
+  },
+  {
+   "i": 92,
+   "n": 23244,
+   "kind": "c10_sandik",
+   "label": "gumus_sandik",
+   "ms": 134.57727432250977,
+   "err": null
+  },
+  {
+   "i": 93,
+   "n": 23271,
+   "kind": "c10_defter",
+   "label": "kayitlar_defter",
+   "ms": 144.52886581420898,
+   "err": null
+  },
+  {
+   "i": 93,
+   "n": 23297,
+   "kind": "c10_defter",
+   "label": "kayitlar_defter",
+   "ms": 209.87749099731445,
+   "err": null
+  },
+  {
+   "i": 94,
+   "n": 23331,
+   "kind": "c10_sayac",
+   "label": "35_yil_vergi",
+   "ms": 85.94489097595215,
+   "err": null
+  },
+  {
+   "i": 94,
+   "n": 23397,
+   "kind": "c10_sayac",
+   "label": "35_yil_vergi",
+   "ms": 107.21731185913086,
+   "err": null
+  },
+  {
+   "i": 95,
+   "n": 23469,
+   "kind": "c10_bars",
+   "label": "uc_bolge_vergi",
+   "ms": 72.02816009521484,
+   "err": null
+  },
+  {
+   "i": 95,
+   "n": 23611,
+   "kind": "c10_bars",
+   "label": "uc_bolge_vergi",
+   "ms": 78.00602912902832,
+   "err": null
+  },
+  {
+   "i": 96,
+   "n": 23701,
+   "kind": "c10_egri",
+   "label": "gumus_egrisi_potosi",
+   "ms": 72.70383834838867,
+   "err": null
+  },
+  {
+   "i": 96,
+   "n": 23820,
+   "kind": "c10_egri",
+   "label": "gumus_egrisi_potosi",
+   "ms": 88.55557441711426,
+   "err": null
+  },
+  {
+   "i": 97,
+   "n": 23878,
+   "kind": "a_theatre",
+   "label": "sayim_odasi_bankerler",
+   "ms": 168.3664321899414,
+   "err": null
+  },
+  {
+   "i": 97,
+   "n": 23929,
+   "kind": "a_theatre",
+   "label": "sayim_odasi_bankerler",
+   "ms": 166.0327911376953,
+   "err": null
+  },
+  {
+   "i": 98,
+   "n": 23969,
+   "kind": "a_c_medal",
+   "label": "fugger",
+   "ms": 173.61903190612793,
+   "err": null
+  },
+  {
+   "i": 98,
+   "n": 24032,
+   "kind": "a_c_medal",
+   "label": "fugger",
+   "ms": 147.7208137512207,
+   "err": null
+  },
+  {
+   "i": 99,
+   "n": 24082,
+   "kind": "c10_mektup",
+   "label": "mektup_ozeti",
+   "ms": 131.98089599609375,
+   "err": null
+  },
+  {
+   "i": 99,
+   "n": 24163,
+   "kind": "c10_mektup",
+   "label": "mektup_ozeti",
+   "ms": 113.58118057250977,
+   "err": null
+  },
+  {
+   "i": 100,
+   "n": 24219,
+   "kind": "a_map",
+   "label": "welser_venezuela",
+   "ms": 103.11222076416016,
+   "err": null
+  },
+  {
+   "i": 100,
+   "n": 24300,
+   "kind": "a_map",
+   "label": "welser_venezuela",
+   "ms": 134.65619087219238,
+   "err": null
+  },
+  {
+   "i": 101,
+   "n": 24357,
+   "kind": "c10_ucurum",
+   "label": "borc_ucurumda",
+   "ms": 101.67098045349121,
+   "err": null
+  },
+  {
+   "i": 101,
+   "n": 24443,
+   "kind": "c10_ucurum",
+   "label": "borc_ucurumda",
+   "ms": 136.43336296081543,
+   "err": null
+  },
+  {
+   "i": 102,
+   "n": 24497,
+   "kind": "a_c_medal",
+   "label": "felipe_odemeleri_durdurdu",
+   "ms": 183.41708183288574,
+   "err": null
+  },
+  {
+   "i": 102,
+   "n": 24563,
+   "kind": "a_c_medal",
+   "label": "felipe_odemeleri_durdurdu",
+   "ms": 142.686128616333,
+   "err": null
+  },
+  {
+   "i": 103,
+   "n": 24610,
+   "kind": "c10_kapanis",
+   "label": "borcla_ayakta",
+   "ms": 137.79807090759277,
+   "err": null
+  },
+  {
+   "i": 103,
+   "n": 24675,
+   "kind": "c10_kapanis",
+   "label": "borcla_ayakta",
+   "ms": 121.34313583374023,
+   "err": null
+  },
+  {
+   "i": 104,
+   "n": 24713,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 82.91769027709961,
+   "err": null
+  },
+  {
+   "i": 104,
+   "n": 24755,
+   "kind": "chapter_card",
+   "label": "",
+   "ms": 76.77793502807617,
+   "err": null
+  },
+  {
+   "i": 105,
+   "n": 24789,
+   "kind": "c11_machine",
+   "label": "makine_ve_adam",
+   "ms": 110.5802059173584,
+   "err": null
+  },
+  {
+   "i": 105,
+   "n": 24843,
+   "kind": "c11_machine",
+   "label": "makine_ve_adam",
+   "ms": 192.3503875732422,
+   "err": null
+  },
+  {
+   "i": 106,
+   "n": 24896,
+   "kind": "c11_chin",
+   "label": "cene",
+   "ms": 104.38323020935059,
+   "err": null
+  },
+  {
+   "i": 106,
+   "n": 24992,
+   "kind": "c11_chin",
+   "label": "cene",
+   "ms": 145.13325691223145,
+   "err": null
+  },
+  {
+   "i": 107,
+   "n": 25077,
+   "kind": "c11_study",
+   "label": "calisma_2019",
+   "ms": 120.36681175231934,
+   "err": null
+  },
+  {
+   "i": 107,
+   "n": 25233,
+   "kind": "c11_study",
+   "label": "calisma_2019",
+   "ms": 179.46243286132812,
+   "err": null
+  },
+  {
+   "i": 108,
+   "n": 25310,
+   "kind": "c11_wed",
+   "label": "evlilik",
+   "ms": 85.87098121643066,
+   "err": null
+  },
+  {
+   "i": 108,
+   "n": 25379,
+   "kind": "c11_wed",
+   "label": "evlilik",
+   "ms": 102.41198539733887,
+   "err": null
+  },
+  {
+   "i": 109,
+   "n": 25425,
+   "kind": "c11_loss",
+   "label": "isabel_oldu",
+   "ms": 98.47426414489746,
+   "err": null
+  },
+  {
+   "i": 109,
+   "n": 25485,
+   "kind": "c11_loss",
+   "label": "isabel_oldu",
+   "ms": 79.83565330505371,
+   "err": null
+  },
+  {
+   "i": 110,
+   "n": 25534,
+   "kind": "bw_theatre",
+   "label": "manastir",
+   "ms": 113.80767822265625,
+   "err": null
+  },
+  {
+   "i": 110,
+   "n": 25613,
+   "kind": "bw_theatre",
+   "label": "manastir",
+   "ms": 135.00094413757324,
+   "err": null
+  },
+  {
+   "i": 111,
+   "n": 25659,
+   "kind": "c11_black",
+   "label": "siyah",
+   "ms": 72.47352600097656,
+   "err": null
+  },
+  {
+   "i": 111,
+   "n": 25707,
+   "kind": "c11_black",
+   "label": "siyah",
+   "ms": 71.54703140258789,
+   "err": null
+  },
+  {
+   "i": 112,
+   "n": 25765,
+   "kind": "bw_theatre",
+   "label": "gut_perhiz",
+   "ms": 99.05862808227539,
+   "err": null
+  },
+  {
+   "i": 112,
+   "n": 25888,
+   "kind": "bw_theatre",
+   "label": "gut_perhiz",
+   "ms": 123.49200248718262,
+   "err": null
+  },
+  {
+   "i": 113,
+   "n": 25989,
+   "kind": "map",
+   "label": "gezi_agi",
+   "ms": 95.76058387756348,
+   "err": null
+  },
+  {
+   "i": 113,
+   "n": 26160,
+   "kind": "map",
+   "label": "gezi_agi",
+   "ms": 151.3981819152832,
+   "err": null
+  },
+  {
+   "i": 114,
+   "n": 26239,
+   "kind": "map",
+   "label": "yollarda",
+   "ms": 97.17035293579102,
+   "err": null
+  },
+  {
+   "i": 114,
+   "n": 26293,
+   "kind": "map",
+   "label": "yollarda",
+   "ms": 119.7056770324707,
+   "err": null
+  },
+  {
+   "i": 115,
    "n": 26327,
    "kind": "chapter_card",
    "label": "",
-   "ms": 80.06429672241211,
+   "ms": 74.29265975952148,
    "err": null
   },
   {
-   "i": 35,
+   "i": 115,
    "n": 26369,
    "kind": "chapter_card",
    "label": "",
-   "ms": 116.22214317321777,
+   "ms": 94.9716567993164,
    "err": null
   },
   {
-   "i": 36,
+   "i": 116,
    "n": 26418,
    "kind": "c12_clock",
    "label": "saat_uc",
-   "ms": 108.43682289123535,
+   "ms": 104.46310043334961,
    "err": null
   },
   {
-   "i": 36,
+   "i": 116,
    "n": 26517,
    "kind": "c12_clock",
    "label": "saat_uc",
-   "ms": 108.47973823547363,
+   "ms": 157.98282623291016,
    "err": null
   },
   {
-   "i": 37,
+   "i": 117,
    "n": 26566,
    "kind": "theatre",
    "label": "kule_juana",
-   "ms": 139.2509937286377,
+   "ms": 85.21890640258789,
    "err": null
   },
   {
-   "i": 37,
+   "i": 117,
    "n": 26605,
    "kind": "theatre",
    "label": "kule_juana",
-   "ms": 149.07121658325195,
+   "ms": 151.01361274719238,
    "err": null
   },
   {
-   "i": 38,
+   "i": 118,
    "n": 26638,
    "kind": "wd_counter",
    "label": "juana_46",
-   "ms": 182.70015716552734,
+   "ms": 96.19927406311035,
    "err": null
   },
   {
-   "i": 38,
+   "i": 118,
    "n": 26687,
    "kind": "wd_counter",
    "label": "juana_46",
-   "ms": 286.1144542694092,
+   "ms": 230.58128356933594,
    "err": null
   },
   {
-   "i": 39,
+   "i": 119,
    "n": 26752,
    "kind": "theatre",
    "label": "salon_ikinci",
-   "ms": 204.8184871673584,
+   "ms": 152.2080898284912,
    "err": null
   },
   {
-   "i": 39,
+   "i": 119,
    "n": 26890,
    "kind": "theatre",
    "label": "salon_ikinci",
-   "ms": 235.93783378601074,
+   "ms": 176.2251853942871,
    "err": null
   },
   {
-   "i": 40,
+   "i": 120,
    "n": 26957,
    "kind": "wd_medals",
    "label": "felipe_mary",
-   "ms": 196.46406173706055,
+   "ms": 84.58971977233887,
    "err": null
   },
   {
-   "i": 40,
+   "i": 120,
    "n": 27008,
    "kind": "wd_medals",
    "label": "felipe_mary",
-   "ms": 331.38108253479004,
+   "ms": 155.11012077331543,
    "err": null
   },
   {
-   "i": 41,
+   "i": 121,
    "n": 27062,
    "kind": "c12_forty",
    "label": "kirk_yil",
-   "ms": 157.4108600616455,
+   "ms": 79.71954345703125,
    "err": null
   },
   {
-   "i": 41,
+   "i": 121,
    "n": 27161,
    "kind": "c12_forty",
    "label": "kirk_yil",
-   "ms": 197.07679748535156,
+   "ms": 89.7674560546875,
    "err": null
   },
   {
-   "i": 42,
+   "i": 122,
    "n": 27228,
    "kind": "map",
    "label": "devir_harita",
-   "ms": 163.32054138183594,
+   "ms": 93.3847427368164,
    "err": null
   },
   {
-   "i": 42,
+   "i": 122,
    "n": 27322,
    "kind": "map",
    "label": "devir_harita",
-   "ms": 149.22189712524414,
+   "ms": 104.01654243469238,
    "err": null
   },
   {
-   "i": 43,
+   "i": 123,
    "n": 27397,
    "kind": "c12_transfer",
    "label": "devir_semasi",
-   "ms": 191.9538974761963,
+   "ms": 105.194091796875,
    "err": null
   },
   {
-   "i": 43,
+   "i": 123,
    "n": 27517,
    "kind": "c12_transfer",
    "label": "devir_semasi",
-   "ms": 216.094970703125,
+   "ms": 103.546142578125,
    "err": null
   },
   {
-   "i": 44,
+   "i": 124,
    "n": 27580,
    "kind": "c12_reason",
    "label": "neden_gut",
-   "ms": 142.303466796875,
+   "ms": 127.91109085083008,
    "err": null
   },
   {
-   "i": 44,
+   "i": 124,
    "n": 27643,
    "kind": "c12_reason",
    "label": "neden_gut",
-   "ms": 171.01144790649414,
+   "ms": 135.06364822387695,
    "err": null
   },
   {
-   "i": 45,
+   "i": 125,
    "n": 27691,
    "kind": "c12_reason",
    "label": "neden_evrensel",
-   "ms": 191.28823280334473,
+   "ms": 152.79245376586914,
    "err": null
   },
   {
-   "i": 45,
+   "i": 125,
    "n": 27766,
    "kind": "c12_reason",
    "label": "neden_evrensel",
-   "ms": 131.46567344665527,
+   "ms": 110.89420318603516,
    "err": null
   },
   {
-   "i": 46,
+   "i": 126,
    "n": 27820,
    "kind": "c12_crackcoin",
    "label": "felipe_iflas",
-   "ms": 166.18776321411133,
+   "ms": 88.67597579956055,
    "err": null
   },
   {
-   "i": 46,
+   "i": 126,
    "n": 27901,
    "kind": "c12_crackcoin",
    "label": "felipe_iflas",
-   "ms": 256.90555572509766,
+   "ms": 145.68138122558594,
    "err": null
   },
   {
-   "i": 47,
+   "i": 127,
    "n": 27951,
    "kind": "map",
    "label": "donus_1556",
-   "ms": 122.06506729125977,
+   "ms": 73.16732406616211,
    "err": null
   },
   {
-   "i": 47,
+   "i": 127,
    "n": 28017,
    "kind": "map",
    "label": "donus_1556",
-   "ms": 115.32330513000488,
+   "ms": 75.4237174987793,
    "err": null
   },
   {
-   "i": 48,
+   "i": 128,
    "n": 28059,
    "kind": "map",
    "label": "yuste_harita",
-   "ms": 133.25023651123047,
+   "ms": 102.00333595275879,
    "err": null
   },
   {
-   "i": 48,
+   "i": 128,
    "n": 28110,
    "kind": "map",
    "label": "yuste_harita",
-   "ms": 6304.358005523682,
+   "ms": 5208.901405334473,
    "err": null
   },
   {
-   "i": 49,
+   "i": 129,
    "n": 28140,
    "kind": "theatre",
    "label": "yuste_avlu",
-   "ms": 174.9558448791504,
+   "ms": 109.2996597290039,
    "err": null
   },
   {
-   "i": 49,
+   "i": 129,
    "n": 28171,
    "kind": "theatre",
    "label": "yuste_avlu",
-   "ms": 138.97418975830078,
+   "ms": 175.76956748962402,
    "err": null
   },
   {
-   "i": 50,
+   "i": 130,
    "n": 28213,
    "kind": "theatre",
    "label": "ayin",
-   "ms": 100.46863555908203,
+   "ms": 124.55606460571289,
    "err": null
   },
   {
-   "i": 50,
+   "i": 130,
    "n": 28301,
    "kind": "theatre",
    "label": "ayin",
-   "ms": 107.96809196472168,
+   "ms": 132.25483894348145,
    "err": null
   },
   {
-   "i": 51,
+   "i": 131,
    "n": 28359,
    "kind": "c12_rumor",
    "label": "tabut_rivayet",
-   "ms": 100.83675384521484,
+   "ms": 117.23136901855469,
    "err": null
   },
   {
-   "i": 51,
+   "i": 131,
    "n": 28435,
    "kind": "c12_rumor",
    "label": "tabut_rivayet",
-   "ms": 100.86941719055176,
+   "ms": 130.03277778625488,
    "err": null
   },
   {
-   "i": 52,
+   "i": 132,
    "n": 28502,
    "kind": "theatre",
    "label": "yatak_odasi",
-   "ms": 197.74985313415527,
+   "ms": 121.44136428833008,
    "err": null
   },
   {
-   "i": 52,
+   "i": 132,
    "n": 28618,
    "kind": "theatre",
    "label": "yatak_odasi",
-   "ms": 118.14475059509277,
+   "ms": 150.8195400238037,
    "err": null
   },
   {
-   "i": 53,
+   "i": 133,
    "n": 28666,
    "kind": "wd_medal_swap",
    "label": "elli_sekiz",
-   "ms": 267.41719245910645,
+   "ms": 95.96872329711914,
    "err": null
   },
   {
-   "i": 53,
+   "i": 133,
    "n": 28689,
    "kind": "wd_medal_swap",
    "label": "elli_sekiz",
-   "ms": 161.24558448791504,
+   "ms": 115.86356163024902,
    "err": null
   },
   {
-   "i": 54,
+   "i": 134,
    "n": 28714,
    "kind": "chapter_card",
    "label": "",
-   "ms": 94.98190879821777,
+   "ms": 72.86834716796875,
    "err": null
   },
   {
-   "i": 54,
+   "i": 134,
    "n": 28756,
    "kind": "chapter_card",
    "label": "",
-   "ms": 257.2617530822754,
+   "ms": 128.56721878051758,
    "err": null
   },
   {
-   "i": 55,
+   "i": 135,
    "n": 28790,
    "kind": "c13_open",
    "label": "besinci_cephe",
-   "ms": 152.88996696472168,
+   "ms": 118.09062957763672,
    "err": null
   },
   {
-   "i": 55,
+   "i": 135,
    "n": 28844,
    "kind": "c13_open",
    "label": "besinci_cephe",
-   "ms": 289.71290588378906,
+   "ms": 168.3979034423828,
    "err": null
   },
   {
-   "i": 56,
+   "i": 136,
    "n": 28905,
    "kind": "c13_network",
    "label": "akrabalik_agi",
-   "ms": 109.60555076599121,
+   "ms": 73.6532211303711,
    "err": null
   },
   {
-   "i": 56,
+   "i": 136,
    "n": 29025,
    "kind": "c13_network",
    "label": "akrabalik_agi",
-   "ms": 122.56169319152832,
+   "ms": 86.20572090148926,
    "err": null
   },
   {
-   "i": 57,
+   "i": 137,
    "n": 29092,
    "kind": "c13_split",
    "label": "kartal_ikiye",
-   "ms": 107.49936103820801,
+   "ms": 78.67240905761719,
    "err": null
   },
   {
-   "i": 57,
+   "i": 137,
    "n": 29167,
    "kind": "c13_split",
    "label": "kartal_ikiye",
-   "ms": 210.86359024047852,
+   "ms": 226.43089294433594,
    "err": null
   },
   {
-   "i": 58,
+   "i": 138,
    "n": 29221,
    "kind": "map",
    "label": "iki_kol_harita",
-   "ms": 82.4730396270752,
+   "ms": 137.99691200256348,
    "err": null
   },
   {
-   "i": 58,
+   "i": 138,
    "n": 29303,
    "kind": "map",
    "label": "iki_kol_harita",
-   "ms": 155.0445556640625,
+   "ms": 111.11807823181152,
    "err": null
   },
   {
-   "i": 59,
+   "i": 139,
    "n": 29350,
    "kind": "c13_crown",
    "label": "tac_catlar",
-   "ms": 183.70580673217773,
+   "ms": 193.1750774383545,
    "err": null
   },
   {
-   "i": 59,
+   "i": 139,
    "n": 29401,
    "kind": "c13_crown",
    "label": "tac_catlar",
-   "ms": 205.89804649353027,
+   "ms": 188.76242637634277,
    "err": null
   },
   {
-   "i": 60,
+   "i": 140,
    "n": 29443,
    "kind": "map",
    "label": "reform_yayilir",
-   "ms": 91.39180183410645,
+   "ms": 92.34309196472168,
    "err": null
   },
   {
-   "i": 60,
+   "i": 140,
    "n": 29512,
    "kind": "map",
    "label": "reform_yayilir",
-   "ms": 96.03095054626465,
+   "ms": 98.84381294250488,
    "err": null
   },
   {
-   "i": 61,
+   "i": 141,
    "n": 29571,
    "kind": "c13_balance",
    "label": "denge_terazi",
-   "ms": 69.58508491516113,
+   "ms": 61.02395057678223,
    "err": null
   },
   {
-   "i": 61,
+   "i": 141,
    "n": 29676,
    "kind": "c13_balance",
    "label": "denge_terazi",
-   "ms": 96.10438346862793,
+   "ms": 99.54214096069336,
    "err": null
   },
   {
-   "i": 62,
+   "i": 142,
    "n": 29739,
    "kind": "map",
    "label": "dunya_kuculdu",
-   "ms": 70.65439224243164,
+   "ms": 76.05648040771484,
    "err": null
   },
   {
-   "i": 62,
+   "i": 142,
    "n": 29815,
    "kind": "map",
    "label": "dunya_kuculdu",
-   "ms": 84.5186710357666,
+   "ms": 92.11015701293945,
    "err": null
   },
   {
-   "i": 63,
+   "i": 143,
    "n": 29855,
    "kind": "map",
    "label": "atlantik_ticaret",
-   "ms": 68.88675689697266,
+   "ms": 80.19161224365234,
    "err": null
   },
   {
-   "i": 63,
+   "i": 143,
    "n": 29888,
    "kind": "map",
    "label": "atlantik_ticaret",
-   "ms": 149.33443069458008,
+   "ms": 172.9452610015869,
    "err": null
   },
   {
-   "i": 64,
+   "i": 144,
    "n": 29925,
    "kind": "wd_vs",
    "label": "tartisma_hatirla",
-   "ms": 66.72239303588867,
+   "ms": 104.17318344116211,
    "err": null
   },
   {
-   "i": 64,
+   "i": 144,
    "n": 29998,
    "kind": "wd_vs",
    "label": "tartisma_hatirla",
-   "ms": 161.35430335998535,
+   "ms": 98.7401008605957,
    "err": null
   },
   {
-   "i": 65,
+   "i": 145,
    "n": 30058,
    "kind": "c13_game",
    "label": "oyun_paneli",
-   "ms": 92.87500381469727,
+   "ms": 161.5426540374756,
    "err": null
   },
   {
-   "i": 65,
+   "i": 145,
    "n": 30157,
    "kind": "c13_game",
    "label": "oyun_paneli",
-   "ms": 121.80638313293457,
+   "ms": 121.4604377746582,
    "err": null
   },
   {
-   "i": 66,
+   "i": 146,
    "n": 30211,
    "kind": "c13_life",
    "label": "oyun_degil_omur",
-   "ms": 65.2012825012207,
+   "ms": 85.55293083190918,
    "err": null
   },
   {
-   "i": 66,
+   "i": 146,
    "n": 30267,
    "kind": "c13_life",
    "label": "oyun_degil_omur",
-   "ms": 172.4104881286621,
+   "ms": 157.7441692352295,
    "err": null
   },
   {
-   "i": 67,
+   "i": 147,
    "n": 30322,
    "kind": "wd_vs",
    "label": "kaybeden_kim",
-   "ms": 77.14009284973145,
+   "ms": 72.49069213867188,
    "err": null
   },
   {
-   "i": 67,
+   "i": 147,
    "n": 30421,
    "kind": "wd_vs",
    "label": "kaybeden_kim",
-   "ms": 130.22589683532715,
+   "ms": 81.55035972595215,
    "err": null
   },
   {
-   "i": 68,
+   "i": 148,
    "n": 30507,
    "kind": "c13_final",
    "label": "hangisini_birakirdin",
-   "ms": 128.0193328857422,
+   "ms": 108.46304893493652,
    "err": null
   },
   {
-   "i": 68,
+   "i": 148,
    "n": 30659,
    "kind": "c13_final",
    "label": "hangisini_birakirdin",
-   "ms": 175.5812168121338,
+   "ms": 163.9688014984131,
    "err": null
   },
   {
-   "i": 69,
+   "i": 149,
    "n": 30745,
    "kind": "outro",
    "label": "",
-   "ms": 76.19237899780273,
+   "ms": 75.02865791320801,
    "err": null
   },
   {
-   "i": 69,
+   "i": 149,
    "n": 30844,
    "kind": "outro",
    "label": "",
-   "ms": 79.13541793823242,
+   "ms": 81.57038688659668,
    "err": null
   }
  ]

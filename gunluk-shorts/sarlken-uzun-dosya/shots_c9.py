@@ -83,7 +83,7 @@ def tenoch_overlay(cx):
         f.rect(0, H - 540, W, 540, shader=f.lin(0, H - 540, 0, H, [("#000000", 0.0, 0), ("#000000", 0.45, int(150 * max(k, kt))), ("#000000", 1.0, int(240 * max(k, kt)))]))
         f.gold("13 AĞUSTOS 1521", W / 2, H - 100, face="title", size=58, track=8, alpha=k)
     if kt > 0:
-        kick_rule(f, "AZTEK BAŞKENTİ", W / 2, H - 300, k=kt, size=26, track=16, span=100)
+        kick_rule(f, "AZTEK BAŞKENTİ", W / 2, H - 300, k=kt, size=30, track=16, span=110)
         reveal_text(f, "TENOCHTİTLAN", W / 2, H - 205, kt, face="title", size=88, color="#F4DD92", track=12)
 
 
@@ -113,6 +113,11 @@ def sun_disc(f, x, y, size, alpha=1.0, glow=0.4, rot=0.0):
         f.circle(x + math.cos(a_) * R * 0.46, y + math.sin(a_) * R * 0.46, R * 0.018, color="#6B4510", alpha=0.5 * alpha)
     f.circle(x, y, R * 0.13, shader=f.rad(x - R * 0.04, y - R * 0.05, R * 0.2, [("#FFF6D6", 0.0), ("#D9A93A", 1.0)]), alpha=alpha)
     f.circle(x, y, R * 0.13, style="stroke", sw=2.0, color="#5A3A0C", alpha=0.6 * alpha)
+
+
+def sun_disc_bg(f, x, y, size, alpha, t):
+    """wd_counter arka planı için soluk, yüzsüz güneş diski (hazır `sun_disc` simgesi yüzlü/kıvrımlı ışınlı çizgi film güneşine benziyordu)."""
+    sun_disc(f, x, y, size, alpha=alpha, glow=0.0, rot=t * 0.03)
 
 
 # ───────────────────────────── c9s4: Dürer ve Aztek eserleri ─────────────────────────────
@@ -159,7 +164,7 @@ def ransom_overlay(cx):
         SH.gold_flat(f, s, W / 2 - 110, H - 128, face="title", size=118, track=5, alpha=k)
         wd = sk.text_width(s, "title", 118, 5)
         f.text("PESO", W / 2 - 110 + wd / 2 + 30, H - 128, face="title_m", size=50, color="#E0C682", align="l", track=12, alpha=cx.amt(A("c9s6", "peso", -0.3), 0.4) * k)
-        kick_rule(f, "ALTIN", W / 2, H - 252, k=k, size=26, track=16, span=90)
+        kick_rule(f, "ALTIN", W / 2, H - 252, k=k, size=30, track=16, span=90)
 
 
 # ───────────────────────────── c9s8: beşte bir ─────────────────────────────

@@ -848,6 +848,84 @@ for _b in ("timeline", "bars", "counter", "stacked", "tree", "iconrow"):
     _with_stamp(f"a_{_b}_s", _b)
 
 
+# ───────────────────────────── soy ağacı (dirsekli bağlantılar, etiketlerin altından) ─────────────────────────────
+def _bracket(xa, y0, xb, y1, ybus, r=16):
+    """(xa,y0) → aşağı → yatay (ybus) → aşağı (xb,y1): yuvarlak köşeli dirsekli bağlantı."""
+    p = skia.Path()
+    p.moveTo(xa, y0)
+    if abs(xb - xa) < 2 * r:
+        p.lineTo(xa, ybus)
+        p.lineTo(xb, ybus)
+        p.lineTo(xb, y1)
+        return p
+    d = 1.0 if xb > xa else -1.0
+    p.lineTo(xa, ybus - r)
+    p.quadTo(xa, ybus, xa + d * r, ybus)
+    p.lineTo(xb - d * r, ybus)
+    p.quadTo(xb, ybus, xb, ybus + r)
+    p.lineTo(xb, y1)
+    return p
+
+
+@SH.kind("a_tree")
+def k_a_tree(cx, nodes=(), edges=(), at=0.0, bgk="night", title=None, size=210, edge_dur=0.8):
+    """shots.tree'nin düzeltilmiş kopyası: bağlantılar ebeveynin ad/tarih etiketinin ALTINDAN başlar, yatay bir dirsekle çocuğun
+    madalyasının üstüne iner (özgün sürümde eğriler ad yazılarının içinden geçiyordu); çizgiler madalyaların arkasında çizilir."""
+    f = cx.f
+    f.bg(bgk)
+    f.rays(alpha=0.25)
+    sk.dust(f, cx.t, n=40, alpha=0.4)
+    pos = {n["id"]: (n["x"] * W, n["y"] * H) for n in nodes}
+    sz = {n["id"]: n.get("size", size) for n in nodes}
+    has_dates = {n["id"]: bool(n.get("dates")) for n in nodes}
+    if title:
+        SH.kicker(f, title, W / 2, 110, alpha=cx.amt(at, 0.6), size=30, track=10, face="title_m", color="#E0C682")
+
+    def y_start(i):
+        return pos[i][1] + sz[i] / 2 + (84 if has_dates[i] else 58)
+    bus = {}
+    for e in edges:
+        b_ = e[1]
+        bus[b_] = max(bus.get(b_, 0), y_start(e[0]))
+    for e in edges:
+        a_, b_ = e[0], e[1]
+        ta = e[2] if len(e) > 2 else at
+        col = e[3] if len(e) > 3 else "#C9962B"
+        k = ease_out(clamp((cx.t - cx.at(ta)) / edge_dur), 2)
+        if k <= 0:
+            continue
+        (xa, ya), (xb, yb) = pos[a_], pos[b_]
+        y0 = y_start(a_)
+        y1 = yb - sz[b_] / 2 - 10
+        ybus = bus[b_] + (y1 - bus[b_]) * 0.45
+        p = _bracket(xa, y0, xb, y1, ybus)
+        pm = skia.PathMeasure(p, False)
+        part = skia.Path()
+        pm.getSegment(0, pm.getLength() * k, part, True)
+        f.path(part, style="stroke", sw=9, color="#000000", alpha=0.45)
+        f.path(part, style="stroke", sw=4, color=col, alpha=0.95)
+        if k > 0.98:
+            f.circle(xb, y1, 5, color=col, alpha=0.95)
+    for n in nodes:
+        ta = n.get("at", at)
+        k = cx.amt(ta, 0.6)
+        if k <= 0:
+            continue
+        x, y = pos[n["id"]]
+        s_ = n.get("size", size) * (0.88 + 0.12 * ease_out(k))
+        if n.get("key"):
+            SH.draw_medal(f, n["key"], x, y, s_, n.get("metal", "gold"), n.get("flip", False), alpha=k, inscription=n.get("ins", False))
+        elif n.get("icon"):
+            icons.draw_icon(f, n["icon"], x, y, size=s_ * 0.8, metal=n.get("metal", "gold"), alpha=k, glow=0.25)
+        if n.get("name"):
+            f.text(n["name"], x, y + s_ / 2 + 38, face="title_m", size=n.get("nsize", 25), color="#F0DDA0", align="c", track=3, alpha=k, shadow=(2, 2, 3, "#000000"))
+        if n.get("dates"):
+            f.text(n["dates"], x, y + s_ / 2 + 68, face="cap_i", size=22, color="#B9A674", align="c", alpha=k * 0.9)
+        if n.get("tag"):
+            f.text(n["tag"], x, y - s_ / 2 - 16, face="cap_b", size=24, color="#F6D77A", align="c", track=4, alpha=k)
+    f.vig(0.55)
+
+
 # ───────────────────────────── düzeltilmiş belge (doc) ─────────────────────────────
 @SH.kind("a_doc")
 def k_a_doc(cx, title="", lines=(), w=1100, h=760, at=0.0, line_dt=0.35, ink="#2A1A0C", seal=None, seal_at=None, tone="#EBDDB5",
