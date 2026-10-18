@@ -115,7 +115,7 @@ Dosya: sarlken_kisa_fragman.mp4 (46 sn, dikey). Metin: 06_kisa_fragman_metni.txt
 
 Studio → Analiz → "İçerik" → videon. 24. saatte, 72. saatte ve 7. günde ekran görüntüsü al, bana at.
 Bakılacaklar: ortalama izlenme süresi ve izlenme yüzdesi, izleyici tutma eğrisi (hangi bölüm geçişinde izleyici düşüyor), abone kazanımı. Bunlar bir sonraki videoyu iyileştirmek için.
-YouTube'u Windsor.ai'ye bağlarsan (sohbette verdiğim bağlantı; markanın kanal hesabını seç) ölçümü kendim çekerim.
+YouTube Windsor.ai'ye bağlı (yalnız okuma): izlenme, beğeni, yorum ve "altyazı var mı" bilgisini kendim çekerim; ekran görüntüsü gerekmez. (Altyazı yükleme gibi değişiklikleri yapamam; onlar Studio'da.)
 
 
 ════════ 8. SORUN GİDERME ════════

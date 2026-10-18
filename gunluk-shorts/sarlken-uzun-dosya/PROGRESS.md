@@ -53,7 +53,7 @@ Sesi tümden değiştirmek (ör. B adayı): `script.py`'den tüm bölümleri yen
 - c11'de yatak odası c12 ile aynı oda; Mühlberg planı ve gezi ağı şematik (ekranda notlu). Gümüş akışı eğrisi şematik (c10).
 - Sayaçlar animasyon sırasında ara değerlerden geçer (veri iddiası değil).
 - Ses lisansı: ElevenLabs'te ticari kullanım ücretli plan ve Voice Library lisansına bağlı; yayın öncesi kontrol edilmeli. Studio'da "sentetik içerik: Evet" önerilir.
-- Windsor.ai'ye YouTube bağlı değil; ölçüm Studio ekran görüntüleriyle ya da bağlantı kurulunca otomatik (`olcum/VERI_MERKEZI.md`).
+- Windsor.ai'ye YouTube bağlı (18 Ekim 2026'da doğrulandı; kanal hesabı id 59361, yalnız okuma). Deneme planı: saatlik yenileme yok, alan kümesine göre önbellek eski kalabilir (farklı alan kümesi isteyince taze veri gelir). `video_has_captions` altyazı yüklendi mi gösterir (otomatik altyazıyı saymaz). Şarlken videosu: `0RaTM5wnXfw`. Ölçüm Windsor'dan okunur; `olcum/VERI_MERKEZI.md` sekmelerinin doldurulması bekliyor.
 - Supermetrics: deneme süresi 14 Ekim 2026'da bitti (sorgular TRIAL_EXPIRED döner), YouTube (YT2) bağlı değil. Yazma yetkisi yalnız reklam kampanyalarında; YouTube'a yükleme, altyazı ya da Studio ayarı yapılamaz. Chrome eklentisi köprüsü bulut oturumunda yok. Studio işleri kullanıcıda.
 
 ## Çalışma günlüğü (özet)

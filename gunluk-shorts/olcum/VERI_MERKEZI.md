@@ -18,4 +18,5 @@ Bağlantı: https://docs.google.com/spreadsheets/d/1grLYcliMUoFMnSLFVUAJDrLAMUS_
 2. Claude'a "YouTube bağlandı" yaz → Claude Windsor `get_data` ile video/kanal metriklerini çeker, `Okumalar` ve `Kanal_28gun` sekmelerini doldurur ve Windsor→Google Sheets zamanlı aktarımını (`Windsor_YouTube`) kurar.
 
 Giriş/yetkilendirme bağlantıları sohbetle iletilir; **depoya yazılmaz** (Anayasa: kimlik bilgisi/oturum bağlantısı depoya girmez).
-Windsor bağlanana dek veriler `konsey/veri/` Studio ekran görüntülerinden elle girilir.
+Durum (18 Ekim 2026): YouTube Windsor'a bağlandı (kanal hesabı, yalnız okuma; deneme planı: saatlik yenileme yok, önbellek eski kalabilir). `Okumalar` ve `Kanal_28gun` doldurma ile `Windsor_YouTube` aktarımı henüz yapılmadı.
+Yeni veriler artık Windsor'dan okunur; Studio ekran görüntüsü yalnız Windsor'un vermediği alanlar için (yayın saati, "değiştirilmiş içerik", oynatma listesi, tutma eğrisi) gerekir.
