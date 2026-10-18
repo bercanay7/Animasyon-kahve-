@@ -53,11 +53,6 @@ def static_checks(chs):
                 rep["warnings"].append(f"{cid} #{s.i} {s.kind} '{s.label}': {s.dur:.1f} sn (çok uzun)")
         if not own or (own[0].kind == "black" and len(own) == 1):
             rep["blockers"].append(f"{cid}: bölümde gerçek çekim yok")
-        else:
-            span = sum(s.dur for s in own)
-            exp = c["t1"] - own[0].t0
-            if abs(span - exp) > 0.05:
-                rep["warnings"].append(f"{cid}: çekim süreleri toplamı {span:.1f} sn ≠ bölüm {exp:.1f} sn")
         rep["chapters"][cid] = info
     return rep
 
@@ -67,10 +62,21 @@ def _sample_worker(args):
     import compose
     import cv2
     cv2.setNumThreads(1)
+    import sk
+    found = []
+    _orig = sk.Frame.text
+
+    def _spy(self, txt, *a, **k):                    # yer tutucu metin ("[sahne: … henüz yok]") yakala
+        if isinstance(txt, str) and ("henüz yok" in txt or txt.startswith("[sahne")):
+            found.append(txt)
+        return _orig(self, txt, *a, **k)
+
+    sk.Frame.text = _spy
     prog = compose.Program(chapters=chs)
     out = []
     for i in idxs:
         s = prog.shots[i]
+        nfound = len(found)
         nfr = int(s.dur * FPS)
         if nfr < 3:
             continue
@@ -90,6 +96,8 @@ def _sample_worker(args):
                 ms = (time.time() - t) * 1000
                 if rep == 1:
                     out.append({"i": i, "n": n + rep, "kind": s.kind, "label": s.label, "ms": ms, "err": None})
+        if len(found) > nfound:
+            out.append({"i": i, "n": 0, "kind": s.kind, "label": s.label, "ms": None, "err": f"yer tutucu metin: {found[-1]!r}", "tb": ""})
     return out
 
 

@@ -737,16 +737,16 @@ def _relief_shader():
 
 
 def _patched_base(mv, relief):
-    """mv.base yerine geçer: kara kabartması döşeme önbelleğine pişirilir (kare başına ek maliyet yok).
-    Yalnız bu çekim süresince, yalnız bu MapView örneğinde; stil adı 'night_rel' ile ayrı döşeme anahtarı."""
+    """mv.base yerine geçer: kara kabartması ve renk tonu (tint) döşeme önbelleğine pişirilir (kare başına ek maliyet yok).
+    Yalnız bu çekim süresince, yalnız bu MapView örneğinde; stil adı 'night_rel…' ile ayrı döşeme anahtarı."""
     orig = type(mv).base
 
     def base2(f, cam, style="night", t=0.0, mountains=True, ripples=True, tint=None):
         if style != "night" or cam.rot:
             return orig(mv, f, cam, style, t=t, mountains=mountains, ripples=ripples, tint=tint)
         o_dbv, o_sea = type(mv)._draw_base_vector, type(mv).sea
-
-        sname = "night_rel%d" % int(round(relief * 100))
+        tcol, talpha = (tint[0], float(tint[1])) if tint else (None, 0.0)
+        sname = "night_rel%d_%s_%d" % (int(round(relief * 100)), (tcol or "none").lstrip("#"), int(round(talpha * 100)))
 
         def dbv(fr, cam_apply, z, st, mtn, rip):
             if st != sname:
@@ -755,31 +755,77 @@ def _patched_base(mv, relief):
             c = fr.c
             c.save()
             cam_apply(c)
+            land = mv.path("__kara__", z)
             pt = skia.Paint(AntiAlias=True)
             pt.setShader(_relief_shader())
             pt.setBlendMode(skia.BlendMode.kSoftLight)
             pt.setAlphaf(relief)
-            c.drawPath(mv.path("__kara__", z), pt)
+            c.drawPath(land, pt)
+            if tcol:
+                c.drawPath(land, fr.paint(tcol, alpha=talpha))
             c.restore()
 
         def sea2(ff, st="night"):
             return o_sea(mv, ff, "night" if st == sname else st)
         mv._draw_base_vector, mv.sea = dbv, sea2
         try:
-            orig(mv, f, cam, sname, t=t, mountains=mountains, ripples=ripples, tint=tint)
+            orig(mv, f, cam, sname, t=t, mountains=mountains, ripples=ripples, tint=None)
         finally:
             del mv._draw_base_vector, mv.sea
     return base2
 
 
+_PREBAKED = set()
+_SCRATCH = {}
+
+
+def _prebake_tiles(cx, mv, kw):
+    """Kamera yolu boyunca örnekleyip gerekli harita döşemelerini çekimin ilk karesinde pişirir:
+    sonraki karelerde döşeme üretimi (≈0.4–1.2 sn'lik sıçrama) olmaz → kare süreleri düzgün."""
+    import mapsk
+    cams = kw.get("cams")
+    if not cams or kw.get("style", "night") != "night":
+        return
+    ks = [(cx.at(a), v) for a, v in cams]
+    t0, t1 = max(0.0, ks[0][0]), min(float(cx.dur), ks[-1][0])
+    if t1 - t0 < 0.05:
+        return
+    if "f" not in _SCRATCH:
+        _SCRATCH["f"] = sk.Frame(W, H)
+    fr = _SCRATCH["f"]
+    n = min(40, int((t1 - t0) / 0.12) + 1)
+    for q in range(n + 1):
+        t = t0 + (t1 - t0) * q / n
+        if t <= ks[0][0]:
+            cm = mapsk.Cam(*ks[0][1])
+        elif t >= ks[-1][0]:
+            cm = mapsk.Cam(*ks[-1][1])
+        else:
+            cm = mapsk.Cam(*ks[0][1])
+            for (ta, va), (tb, vb) in zip(ks[:-1], ks[1:]):
+                if ta <= t <= tb:
+                    cm = mapsk.cam_move(va, vb, (t - ta) / max(1e-6, tb - ta))
+                    break
+        mv.base(fr, cm, "night", t=t, mountains=kw.get("mountains", True), ripples=kw.get("ripples", True), tint=kw.get("tint"))
+
+
 @SH.kind("a_map")
 def k_a_map(cx, need=(), stampt=None, relief=0.55, **kw):
-    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir; kara üstüne (döşemeye pişmiş) kabartma dokusu; isteğe bağlı damga."""
+    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir; kara üstüne (döşemeye pişmiş) kabartma dokusu ve ton;
+    kamera yolundaki döşemeler çekimin ilk karesinde önceden pişirilir; isteğe bağlı damga."""
     for n in need:
         ensure_region(n)
     mv = SH.mapview()
     if relief:
         mv.base = _patched_base(mv, relief)
+        key = (repr(kw.get("cams")), repr(kw.get("tint")), relief, repr(kw.get("mountains", True)), repr(kw.get("ripples", True)))
+        if key not in _PREBAKED:
+            _PREBAKED.add(key)
+            try:
+                _prebake_tiles(cx, mv, kw)
+            except Exception as e:  # noqa: BLE001  (ön pişirme yalnız hız içindir; hata kareyi bozmasın)
+                import sys
+                print(f"[a_map] ön pişirme atlandı: {type(e).__name__}: {e}", file=sys.stderr)
     try:
         SH.KINDS["map"](cx, **kw)
     finally:

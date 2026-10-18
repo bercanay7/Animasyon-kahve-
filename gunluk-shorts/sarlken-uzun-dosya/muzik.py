@@ -1172,7 +1172,13 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
                     print(f"  cue {cid} hazır ({time.time() - t_start:5.1f} sn)", flush=True)
         if cache_dir:
             os.makedirs(cache_dir, exist_ok=True)
+            import glob
             for j in todo:
+                for old in glob.glob(os.path.join(cache_dir, f"cue_{j['id']}_*.npy")):   # eski sürümler birikmesin
+                    try:
+                        os.remove(old)
+                    except OSError:
+                        pass
                 np.save(j["_fp"], results[j["id"]])
     # birleştir
     out = np.zeros((N, 2), dtype=np.float32)
