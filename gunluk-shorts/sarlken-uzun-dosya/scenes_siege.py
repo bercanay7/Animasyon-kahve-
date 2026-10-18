@@ -766,3 +766,163 @@ def city_asset(city, time, weather, fire_q):
     finally:
         _META["cur"] = None
     return img, -MARGIN, y0, meta
+
+
+# ───────────────────────────── zemin katmanları ─────────────────────────────
+WATER_MID = ("halkulvadi", "tenochtitlan", "toledo")
+WATER_NEAR = ("tenochtitlan",)
+GUNS = dict(
+    roma=dict(near=[430, 1010, 1520], mid=[260, 720, 1320, 1700]),
+    viyana=dict(near=[380, 1000, 1560], mid=[210, 650, 1190, 1630]),
+    guns=dict(near=[520, 1280], mid=[320, 820, 1500]),
+    halkulvadi=dict(near=[300, 920, 1530], mid=[]),
+    tenochtitlan=dict(near=[], mid=[]),
+    toledo=dict(near=[420, 1020, 1530], mid=[260, 760, 1320, 1700]),
+)
+LADDERS = dict(roma=[(190, 215), (520, 545), (880, 905), (1560, 1585), (1890, 1915)], viyana=[(300, 325), (700, 722), (1120, 1145)], guns=[(1010, 1030), (1390, 1410)],
+               halkulvadi=[(1100, 1120), (1300, 1320), (1620, 1640)], toledo=[(380, 400), (1600, 1620)], tenochtitlan=[])
+ATT = dict(imperial=("landsknecht", "arquebusier", "halberdier", "pikeman"), ottoman=("janissary", "janissary", "janissary", "arquebusier"), spanish=("conquistador", "pikeman", "arquebusier", "halberdier"))
+
+
+def _water_cols(T):
+    return mix(T["haze"], "#3A5A6C", 0.50), mix("#0E1E28", T["haze"], 0.10)
+
+
+def bake_ground(f, city, time, weather, k):
+    T = _time(time, weather)
+    C_ = CITIES[city]
+    y_edge = MID_Y if k == 0 else NEAR_Y
+    amp = 12 if k == 0 else 8
+    rs = RS(2000 + k * 77 + len(city) * 13)
+    xs = list(range(-MARGIN, W + MARGIN + 41, 40))
+    edge = [(x, y_edge + amp * math.sin(x * 0.0021 + k) + amp * 0.5 * math.sin(x * 0.0067 + 2 * k)) for x in xs]
+    ey = lambda x: y_edge + amp * math.sin(x * 0.0021 + k) + amp * 0.5 * math.sin(x * 0.0067 + 2 * k)
+    water = (k == 0 and city in WATER_MID) or (k == 1 and city in WATER_NEAR)
+    path = sk.smooth_path(edge + [(W + MARGIN, H + MARGIN + 100), (-MARGIN, H + MARGIN + 100)], True, 0.35)
+    lit = T["lit"]
+    if water:
+        c_top, c_bot = _water_cols(T)
+        if k == 1:
+            c_top = mix(c_top, "#000000", 0.25)
+        f.path(path, shader=f.lin(0, y_edge, 0, y_edge + 240, [(c_top, 0.0), (c_bot, 1.0)]))
+        f.path(sk.smooth_path(edge, False, 0.35), style="stroke", sw=3, color=T["rim"], alpha=0.30)
+        # kıyı kamışları
+        if city in ("tenochtitlan", "toledo") and k == 1:
+            for q in range(100):
+                x = rs.rand() * (W + 2 * MARGIN) - MARGIN
+                hh = 14 + rs.rand() * 36
+                f.path(sk.smooth_path([(x, ey(x) + 4), (x + (rs.rand() - 0.5) * 8, ey(x) - hh * 0.5), (x + (rs.rand() - 0.5) * 16, ey(x) - hh)], False, 0.5), style="stroke", sw=1.5, color=mix("#0A100C", T["haze"], 0.1))
+        sun = T["sun"]
+        if sun and k == 0:
+            PW.glow_add(f, sun[0] * W, y_edge + 50, 300, sun[4], 0.28, 200, 70, 0.3)
+    else:
+        col_a = mix(C_["ground"], T["haze"], 0.28 if k == 0 else 0.10)
+        col_b = mix(C_["ground2"], T["haze"], 0.12 if k == 0 else 0.0)
+        if weather == "rain":
+            col_a, col_b = mix(col_a, "#1E2A24", 0.38), mix(col_b, "#0A100E", 0.3)
+        if weather == "snow":
+            col_a, col_b = mix(col_a, "#D4DADF", 0.7), mix(col_b, "#8896A2", 0.6)
+        f.path(path, shader=f.lin(0, y_edge - 10, 0, y_edge + 240, [(col_a, 0.0), (col_b, 1.0)]))
+        f.c.save()
+        f.c.clipPath(path, skia.ClipOp.kIntersect, True)
+        tex = PW.streak_rgba(W + 2 * MARGIN, 260, 90 + k, col="#000000", alpha=0.24, scale_x=340, scale_y=9, thr=0.55)
+        f.c.drawImage(PW.img_from_rgba(tex), -MARGIN, y_edge - 20, LIN, skia.Paint())
+        tex2 = PW.streak_rgba(W + 2 * MARGIN, 260, 95 + k, col=lighten(col_a, 0.4), alpha=0.14, scale_x=280, scale_y=7, thr=0.6)
+        f.c.drawImage(PW.img_from_rgba(tex2), -MARGIN, y_edge - 10, LIN, skia.Paint())
+        if weather == "rain":                                   # çamur birikintileri
+            for q in range(16 + 8 * k):
+                px = rs.rand() * (W + 2 * MARGIN) - MARGIN
+                py = y_edge + 20 + rs.rand() * (60 + 60 * k)
+                rx = 28 + rs.rand() * (50 + 30 * k)
+                f.oval(px, py, rx, rx * 0.10, color=mix(T["haze"], "#1A2224", 0.4), alpha=0.6)
+        f.c.restore()
+        f.path(sk.smooth_path(edge, False, 0.35), style="stroke", sw=2.0 + k, color=T["rim"], alpha=0.30)
+        dark = mix(col_b, "#000000", 0.4)
+        att = C_["att"]
+        if k == 0:
+            # hendek: palisad + gabion sırası
+            for seg in ((-200, 360), (560, 1010), (1130, 1520), (1640, 2150)):
+                _palisade(f, seg[0], seg[1], ey(seg[0]) + 26, T, mix(dark, T["haze"], 0.08))
+                _gabions(f, seg[0] + 10, seg[1] - 10, ey(seg[0]) + 54, T, rs, mix(dark, "#5A4A30", 0.3), h=22, w=19)
+            # çadırlar
+            xs_t = [90 + 210 * i + rs.randn() * 14 for i in range(9)]
+            for i, x in enumerate(xs_t):
+                if 640 < x < 1100 and city in ("viyana", "guns", "roma"):
+                    continue
+                yb = ey(x) + 66 + (i % 3) * 14
+                if att == "ottoman":
+                    colt = ("#2F6B4A", "#8E1F26", "#B5832A")[i % 3]
+                    colt = mix(colt, T["haze"], 0.18)
+                    _tent_ottoman(f, x, yb, 0.52 + 0.06 * (i % 2), mix(colt, "#000000", 0.0), "#C9962B", T, lit=lit)
+                elif att == "imperial":
+                    colt = ("#8E1F26", "#C8BA8E", "#6A5A3C")[i % 3]
+                    _tent_pavilion(f, x, yb, 0.5, mix(colt, T["haze"], 0.18), "#C9962B", T, lit=lit)
+                else:
+                    _tent_small(f, x, yb, 0.9, mix("#8A7A5A", T["haze"], 0.2), T)
+        else:
+            for seg in ((-200, 330), (780, 1130), (1280, 1700)):
+                _gabions(f, seg[0], seg[1], ey(seg[0]) + 46, T, rs, mix(dark, "#5A4A30", 0.3), h=34, w=28)
+            for x in (180, 1790):
+                yb = ey(x) + 110
+                if att == "ottoman":
+                    _tent_ottoman(f, x, yb, 1.05, mix("#2F6B4A" if x < 900 else "#8E1F26", T["haze"], 0.05), "#C9962B", T, lit=lit)
+                elif att == "imperial":
+                    _tent_pavilion(f, x, yb, 1.0, mix("#8E1F26" if x < 900 else "#C8BA8E", T["haze"], 0.05), "#C9962B", T, lit=lit)
+                else:
+                    _tent_small(f, x, yb, 1.5, mix("#8A7A5A", T["haze"], 0.1), T)
+            for q in range(9):
+                x = rs.rand() * (W + 2 * MARGIN) - MARGIN
+                y = ey(x) + 30 + rs.rand() * 70
+                kind = rs.rand()
+                if kind < 0.4:
+                    f.circle(x, y, 7 + 3 * rs.rand(), color=mix("#0A0705", T["haze"], 0.08))
+                    f.circle(x + 12, y + 3, 7, color=mix("#0A0705", T["haze"], 0.08))
+                elif kind < 0.7:
+                    f.rect(x, y - 18, 26, 18, color=mix("#2A1C10", T["haze"], 0.1))
+                    f.line(x, y - 9, x + 26, y - 9, color="#000000", sw=1.0, alpha=0.35)
+                else:
+                    ang = (rs.rand() - 0.5) * 0.6
+                    f.line(x, y, x + math.sin(ang) * 70, y - math.cos(ang) * 70, color=mix("#0A0705", T["haze"], 0.08), sw=2.4)
+    # derinlik buğusu
+    fa = 0.22 if k == 0 else 0.08
+    f.rect(-MARGIN, y_edge - 120, W + 2 * MARGIN, 190, shader=f.lin(0, y_edge - 120, 0, y_edge + 70, [(T["haze"], 0.0, 0), (T["haze"], 0.6, int(255 * fa)), (T["haze"], 1.0, 0)]))
+
+
+@lru_cache(maxsize=24)
+def ground_asset(city, time, weather, k):
+    y0 = int((MID_Y if k == 0 else NEAR_Y) - 220)
+    h = int(H + MARGIN + 100 - y0)
+
+    def fn(f):
+        bake_ground(f, city, time, weather, k)
+    img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -y0, mip=False)
+    return img, -MARGIN, y0
+
+
+@lru_cache(maxsize=8)
+def fg_asset(city, time, weather):
+    T = _time(time, weather)
+    ytop = 880
+    h = int(H + MARGIN + 100 - ytop)
+
+    def fn(f):
+        rs = RS(333)
+        col = "#3A424A" if weather == "snow" else mix("#0A0F08", T["haze"], 0.05)
+        y0 = H - 18
+        f.rect(-MARGIN, y0 + 52, W + 2 * MARGIN, 500, color=col)
+        for q in range(170):
+            x = rs.rand() * (W + 2 * MARGIN) - MARGIN
+            hh = 26 + rs.rand() * 84
+            bx = x + (rs.rand() - 0.5) * 24
+            f.path(sk.smooth_path([(x, y0 + 40), (x + (bx - x) * 0.5, y0 - hh * 0.5), (bx, y0 - hh)], False, 0.5), style="stroke", sw=1.6 + rs.rand() * 2.0, color=col)
+        # saplanmış kazıklar / kırık mızraklar / gabion kenarları
+        for q in range(7):
+            x = rs.rand() * (W + 2 * MARGIN) - MARGIN
+            hh = 90 + rs.rand() * 120
+            ang = (rs.rand() - 0.5) * 0.5
+            f.line(x, y0 + 40, x + math.sin(ang) * hh, y0 + 40 - math.cos(ang) * hh, color=col, sw=3.0 + rs.rand() * 2)
+        for q in range(5):
+            x = rs.rand() * (W + 2 * MARGIN) - MARGIN
+            f.oval(x, y0 + 36, 36 + rs.rand() * 50, 12 + rs.rand() * 8, color=col)
+    img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -ytop, mip=False)
+    return img, -MARGIN, ytop

@@ -16,114 +16,192 @@ def fx(name):
 
 
 # ───────────────────────────── at gövdesi ─────────────────────────────
+# ───────────────────────────── at: gövde, boyun, baş, bacaklar ─────────────────────────────
+# Birim: h = kulak ucu yüksekliği; withers y≈−0.765, kulak ucu ≈ −1.09. Bacak eklemleri (h oranı): ön: [üst, diz, bilek(fetlock), toynak tabanı]; arka: [üst, hok, bilek, toynak].
 HORSE_STAND = dict(
-    legs=dict(
-        fn=[(0.30, -0.50), (0.325, -0.30), (0.335, -0.21), (0.34, -0.10), (0.345, 0.0)],            # ön yakın
-        ff=[(0.235, -0.50), (0.228, -0.30), (0.222, -0.21), (0.22, -0.10), (0.218, 0.0)],           # ön uzak
-        hn=[(-0.405, -0.62), (-0.46, -0.40), (-0.54, -0.255), (-0.495, -0.14), (-0.478, -0.065), (-0.47, 0.0)],   # arka yakın
-        hf=[(-0.34, -0.58), (-0.36, -0.38), (-0.405, -0.26), (-0.365, -0.14), (-0.35, -0.065), (-0.345, 0.0)]),  # arka uzak
-    head=0.0, tail=0.0)
+    fn=[(0.30, -0.50), (0.315, -0.265), (0.325, -0.075), (0.335, 0.0)],
+    ff=[(0.235, -0.50), (0.235, -0.265), (0.24, -0.075), (0.25, 0.0)],
+    hn=[(-0.40, -0.58), (-0.50, -0.29), (-0.47, -0.075), (-0.46, 0.0)],
+    hf=[(-0.34, -0.55), (-0.40, -0.30), (-0.37, -0.075), (-0.36, 0.0)],
+    poll=(0.52, -0.98), head_ang=38.0, tail="hang", mane_flick=0.0, mane_long=0.8, rot=0.0)
 
 HORSE_WALK = dict(
-    legs=dict(
-        fn=[(0.30, -0.50), (0.37, -0.31), (0.42, -0.245), (0.40, -0.13), (0.385, -0.07)],            # ön yakın: havada, diz bükük
-        ff=[(0.235, -0.50), (0.225, -0.30), (0.215, -0.21), (0.21, -0.10), (0.205, 0.0)],
-        hn=[(-0.405, -0.62), (-0.50, -0.40), (-0.60, -0.28), (-0.63, -0.15), (-0.645, -0.07), (-0.65, 0.0)],      # arka yakın: geride itiş
-        hf=[(-0.34, -0.58), (-0.33, -0.38), (-0.34, -0.26), (-0.30, -0.14), (-0.285, -0.065), (-0.28, 0.0)]),
-    head=-0.02, tail=0.0)
+    fn=[(0.30, -0.50), (0.405, -0.335), (0.345, -0.205), (0.335, -0.14)],
+    ff=[(0.235, -0.50), (0.23, -0.27), (0.225, -0.085), (0.225, 0.0)],
+    hn=[(-0.40, -0.58), (-0.57, -0.31), (-0.625, -0.10), (-0.64, 0.0)],
+    hf=[(-0.34, -0.55), (-0.395, -0.29), (-0.355, -0.085), (-0.345, 0.0)],
+    poll=(0.535, -0.955), head_ang=41.0, tail="hang", mane_flick=0.2, mane_long=0.9, rot=0.0)
+
+GALLOP_A = dict(     # uzamış: ön bacaklar ileri, arka bacaklar geriye gerilmiş
+    fn=[(0.30, -0.50), (0.50, -0.405), (0.685, -0.325), (0.755, -0.29)],
+    ff=[(0.235, -0.50), (0.40, -0.36), (0.52, -0.21), (0.565, -0.145)],
+    hn=[(-0.40, -0.60), (-0.62, -0.50), (-0.80, -0.37), (-0.885, -0.31)],
+    hf=[(-0.34, -0.57), (-0.52, -0.43), (-0.66, -0.26), (-0.71, -0.185)],
+    poll=(0.625, -0.91), head_ang=28.0, tail="stream", mane_flick=1.0, mane_long=1.5, rot=2.5)
+
+GALLOP_B = dict(     # toplanmış: bacaklar gövdenin altında, ön yakın bacak iniyor
+    fn=[(0.30, -0.50), (0.385, -0.34), (0.425, -0.15), (0.435, -0.075)],
+    ff=[(0.235, -0.50), (0.31, -0.33), (0.265, -0.205), (0.205, -0.165)],
+    hn=[(-0.40, -0.60), (-0.47, -0.40), (-0.30, -0.255), (-0.235, -0.20)],
+    hf=[(-0.34, -0.57), (-0.39, -0.365), (-0.225, -0.225), (-0.165, -0.185)],
+    poll=(0.565, -0.945), head_ang=35.0, tail="stream", mane_flick=0.8, mane_long=1.3, rot=-3.5)
 
 
-def _leg(F, pts, w, h, rim=0.9, hoof=True, tone=0.0):
-    """At bacağı: pts (x,y) h oranı, w=(üst, diz/hock, bilek, tırnak). Tırnak sonda."""
-    P = [(x * h, y * h) for (x, y) in pts]
-    n = len(P)
-    ws = []
-    for i in range(n):
-        u = i / (n - 1)
-        if u < 0.3:
-            ww = w[0] + (w[1] - w[0]) * (u / 0.3)
-        elif u < 0.62:
-            ww = w[1] + (w[2] - w[1]) * ((u - 0.3) / 0.32)
-        elif u < 0.88:
-            ww = w[2] * 1.2
-        else:
-            ww = w[3]
-        ws.append(ww * h)
-    F.fill(limb(P, ws, cap0=0.4, cap1=0.0 if hoof else 0.4), rim=rim, tone=tone)
-    if hoof:
-        x, y = P[-1]
-        F.fill(sp([KC(x - ws[-1] * 0.55, y - ws[-1] * 0.9), (x + ws[-1] * 0.60, y - ws[-1] * 0.85), KC(x + ws[-1] * 0.95, y), KC(x - ws[-1] * 0.60, y)], True, 0.8), rim=rim)
+def _lp(a, b, t):
+    return (a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
+
+
+def _hleg(F, joints, kind, h, rim=1.0, tone=0.0):
+    """At bacağı: eklemlerden (üst, diz/hok, bilek, toynak tabanı) kas kütleli, ince kemikli, bilekte şişkin bacak + toynak."""
+    top, j1, j2, j3 = joints
+    if kind == "f":
+        pts = [top, _lp(top, j1, 0.5), j1, _lp(j1, j2, 0.45), j2, _lp(j2, j3, 0.45)]
+        ws = [0.125, 0.088, 0.056, 0.040, 0.050, 0.040]
+    else:
+        pts = [top, _lp(top, j1, 0.5), j1, _lp(j1, j2, 0.45), j2, _lp(j2, j3, 0.45)]
+        ws = [0.205, 0.098, 0.066, 0.041, 0.050, 0.040]
+    P = [(x * h, y * h) for x, y in pts]
+    F.fill(limb(P, [w * h for w in ws], cap0=0.4, cap1=0.0), rim=rim, tone=tone)
+    if kind == "h":                              # hokun arkaya çıkıntısı
+        hx_, hy_ = j1[0] * h - 0.012 * h, j1[1] * h
+        F.fill(ell(hx_, hy_, 0.026 * h, 0.034 * h, 20), rim=rim * 0.9)
+    # toynak: pastern ucundan sole'a doğru genişleyen yamuk
+    dx, dy = j3[0] - j2[0], j3[1] - j2[1]
+    Ln = math.hypot(dx, dy) or 1.0
+    dx, dy = dx / Ln, dy / Ln
+    nx, ny = -dy, dx
+    if nx < 0:
+        nx, ny = -nx, -ny
+    hh_ = 0.040 * h
+    cx_, cy_ = j3[0] * h - dx * hh_, j3[1] * h - dy * hh_
+    wc, ws_ = 0.046 * h, 0.064 * h
+    F.fill(poly([(cx_ - nx * wc * 0.45, cy_ - ny * wc * 0.45), (cx_ + nx * wc * 0.55, cy_ + ny * wc * 0.55),
+                 (j3[0] * h + nx * ws_ * 0.62, j3[1] * h + ny * ws_ * 0.62), (j3[0] * h - nx * ws_ * 0.38, j3[1] * h - ny * ws_ * 0.38)]), rim=rim)
 
 
 def _hp(pts, h):
     return [((q[0] * h, q[1] * h, "c") if len(q) > 2 else (q[0] * h, q[1] * h)) for q in pts]
 
 
-def _mane(h, ey=0.0, flick=0.55, long=0.85):
-    """Yele: boyun üst çizgisine yapışık, geriye savrulan sivri tutamlı dalgalı şerit."""
-    T = [(0.20, -0.755), (0.28, -0.82), (0.35, -0.90), (0.42, -0.96), (0.485, -0.995), (0.525, -1.005 + ey)]
-    out_pts, in_pts = [], []
-    for i, (x, y) in enumerate(T):
-        j0, j1 = max(0, i - 1), min(len(T) - 1, i + 1)
-        tx, ty = T[j1][0] - T[j0][0], T[j1][1] - T[j0][1]
-        L = math.hypot(tx, ty) or 1
-        nx, ny = ty / L, -tx / L
-        in_pts.append((x - nx * 0.03, y - ny * 0.03))
-        d = (0.055 + (0.022 if i % 2 == 0 else 0.0)) * long
-        out_pts.append(((x + nx * d - 0.05 * flick * (0.4 if i == 0 else 1.0)) * h, (y + ny * d + 0.012 * (0.0 if i == 0 else 1.0)) * h))
-        if i < len(T) - 1:
-            mx, my = (x + T[i + 1][0]) / 2, (y + T[i + 1][1]) / 2
-            out_pts.append(((mx + nx * 0.025 - 0.012) * h, (my + ny * 0.025) * h, "c") if False else ((mx + nx * 0.026 - 0.014 * flick) * h, (my + ny * 0.026) * h))
-    pts = [KC(*in_pts[-1])] if False else []
-    seq = [(in_pts[-1][0] * h, in_pts[-1][1] * h, "c")]
-    seq += [((q[0], q[1], "c") if (k % 2 == 0) else (q[0], q[1])) for k, q in enumerate(out_pts[::-1])]
-    seq += [(q[0] * h, q[1] * h) for q in in_pts[::-1]]
-    return sp(seq, True, 0.9)
+def _head_geometry(poll, L, ang_deg):
+    """Baş yerel profilini (u: eksen boyunca 0..1, v: çene tarafına dik) dünya noktalarına çevirir. Dönüş: top[], bottom[], throat, eye, nostril, muzzle."""
+    th = math.radians(ang_deg)
+    ax, ay = math.cos(th), math.sin(th)
+    nx, ny = -math.sin(th), math.cos(th)
+
+    def W(u, v):
+        return (poll[0] + L * (u * ax + v * nx), poll[1] + L * (u * ay + v * ny))
+    top = [W(0.0, -0.045), W(0.09, -0.078), W(0.28, -0.062), W(0.52, -0.030), W(0.76, -0.004), W(0.92, 0.018)]
+    muz = [W(0.985, 0.060), W(1.025, 0.105), W(1.03, 0.160), (-9, -9, "lip")]
+    muz = [W(0.985, 0.060), W(1.030, 0.110), W(1.035, 0.165), W(1.00, 0.205), W(0.965, 0.228)]
+    bot = [W(0.90, 0.238), W(0.80, 0.240), W(0.66, 0.272), W(0.52, 0.335), W(0.38, 0.435), W(0.26, 0.460), W(0.15, 0.405), W(0.07, 0.30)]
+    return top, muz, bot, W(0.05, 0.22), W(0.30, 0.045), W(0.985, 0.115), W(1.0, 0.2), (ax, ay, nx, ny)
+
+
+def _ear(F, base, ang, ln, wd, h, rim):
+    bx, by = base
+    th = math.radians(ang)
+    tx, ty = bx + math.cos(th) * ln, by + math.sin(th) * ln
+    nx, ny = -math.sin(th), math.cos(th)
+    F.fill(sp([KC(bx - nx * wd * 0.5, by - ny * wd * 0.5), (bx + math.cos(th) * ln * 0.55 - nx * wd * 0.5, by + math.sin(th) * ln * 0.55 - ny * wd * 0.5), KC(tx, ty),
+               (bx + math.cos(th) * ln * 0.55 + nx * wd * 0.42, by + math.sin(th) * ln * 0.55 + ny * wd * 0.42), KC(bx + nx * wd * 0.5, by + ny * wd * 0.5)], True, 0.8), rim=rim)
+
+
+def _mane_locks(F, W0, P0, h, n=8, long=0.9, flick=0.0, rim=1.0):
+    """Yele: ense çizgisi (W0 withers → P0 poll) boyunca üst üste binen, geriye ve aşağıya akan sivri tutamlar."""
+    for i in range(n):
+        t = 0.04 + 0.96 * i / (n - 1)
+        bx = W0[0] + (P0[0] - W0[0]) * t
+        by = W0[1] + (P0[1] - W0[1]) * t
+        # tutam: tabanı ense çizgisinde (hafif içeride), ucu geriye-aşağıya
+        ln = (0.085 + 0.03 * math.sin(t * 3.1 + 1.0)) * long
+        dx = -(0.50 + 0.55 * flick) * ln
+        dy = (0.80 - 0.45 * flick) * ln * (1.0 if flick < 0.6 else 0.55)
+        a0 = (bx + 0.012, by - 0.012)
+        a1 = (bx - 0.030, by + 0.030)
+        tip = (bx + dx, by + dy)
+        mid = (bx + dx * 0.55 - 0.02 * (1 + flick), by + dy * 0.45 - 0.012)
+        F.fill(sp([KC(a0[0] * h, a0[1] * h), (mid[0] * h + 0.020 * h, mid[1] * h - 0.010 * h), KC(tip[0] * h, tip[1] * h), (mid[0] * h - 0.014 * h, mid[1] * h + 0.026 * h), KC(a1[0] * h, a1[1] * h)], True, 0.9), rim=rim)
 
 
 def horse_body(F, h, pose=HORSE_STAND, mane=True, tail=True, bridle=True, dy=0.0):
     """At: bacaklar + gövde/boyun/baş + yele + kuyruk. h = kulak ucu yüksekliği."""
-    L = pose["legs"]
-    hd = pose.get("head", 0.0)
-    for k in ("ff", "hf"):
-        _leg(F, L[k], (0.085, 0.052, 0.032, 0.05), h, rim=0.45)
+    P = pose
+    poll = P["poll"]
+    L = 0.31
+    top, muz, bot, throat, eye, nostril, lip, (ax, ay, nx, ny) = _head_geometry(poll, L, P["head_ang"])
+    # --- uzak bacaklar
+    _hleg(F, P["ff"], "f", h, rim=0.40)
+    _hleg(F, P["hf"], "h", h, rim=0.40)
+    # --- kuyruk
     if tail:
-        if pose.get("tail_stream", 0.0) > 0:      # dörtnalada kuyruk arkaya savrulur
-            ts = pose["tail_stream"]
-            tp = [(-0.55, -0.70 + dy), (-0.66, -0.71 + dy), (-0.80, -0.69 + 0.02 * ts), (-0.93, -0.64 + 0.04 * ts), (-1.04, -0.60 + 0.05 * ts), (-1.12, -0.62)]
-            F.fill(limb([(x * h, y * h) for x, y in tp], [0.045 * h, 0.085 * h, 0.095 * h, 0.08 * h, 0.05 * h, 0.012 * h], cap0=0.4, cap1=0.0), rim=0.9)
-            F.crease((-0.70 * h, -0.72 * h), (-1.02 * h, -0.62 * h), 0.008 * h, 0.012 * h, alpha=0.5)
-            F.crease((-0.72 * h, -0.67 * h), (-1.05 * h, -0.60 * h), 0.006 * h, -0.01 * h, alpha=0.4)
+        if P["tail"] == "stream":
+            tp = [(-0.52, -0.745 + dy), (-0.62, -0.745 + dy), (-0.76, -0.725), (-0.90, -0.69), (-1.02, -0.65), (-1.12, -0.63)]
+            wd = [0.045, 0.085, 0.095, 0.085, 0.055, 0.012]
         else:
-            tp = [(-0.55, -0.70 + dy), (-0.61, -0.65 + dy), (-0.70, -0.55), (-0.735, -0.43), (-0.72, -0.31), (-0.69, -0.23)]
-            F.fill(limb([(x * h, y * h) for x, y in tp], [0.04 * h, 0.085 * h, 0.095 * h, 0.08 * h, 0.045 * h, 0.01 * h], cap0=0.4, cap1=0.0), rim=0.9)
-            F.crease((-0.64 * h, -0.60 * h), (-0.73 * h, -0.30 * h), 0.008 * h, 0.012 * h, alpha=0.5)
-            F.crease((-0.67 * h, -0.62 * h), (-0.70 * h, -0.28 * h), 0.006 * h, -0.01 * h, alpha=0.4)
-    for k in ("hn", "fn"):
-        _leg(F, L[k], (0.095, 0.058, 0.034, 0.052), h, rim=1.0)
-    pts = [
-        (-0.555, -0.70 + dy), (-0.50, -0.74 + dy), (-0.40, -0.76 + dy), (-0.20, -0.745 + dy), (0.0, -0.72 + dy), (0.12, -0.735 + dy), (0.205, -0.75 + dy),      # sırt → omuz başı
-        (0.28, -0.815), (0.35, -0.90), (0.42, -0.96), (0.48, -0.995), (0.525, -1.005 + hd * 0.2),                                                           # boyun üstü (kavisli) → ense
-        (0.575, -0.995 + hd * 0.3), (0.62, -0.955 + hd * 0.6), (0.665, -0.905 + hd), (0.71, -0.85 + hd), (0.745, -0.805 + hd),                               # alın → burun köprüsü
-        (0.765, -0.775 + hd), (0.757, -0.735 + hd), (0.722, -0.715 + hd), (0.686, -0.726 + hd * 0.9),                                                          # burun ucu, dudak, çene
-        (0.652, -0.765 + hd * 0.5), (0.62, -0.80 + hd * 0.2), (0.58, -0.845), (0.54, -0.865),                                                                  # alt çene, yanak, boğaz
-        (0.49, -0.80), (0.458, -0.71), (0.44, -0.62), (0.43, -0.52),                                                                                            # boyun altı → göğüs
-        (0.385, -0.42), (0.30, -0.37), (0.15, -0.335), (0.0, -0.335), (-0.15, -0.36), (-0.28, -0.41), (-0.42, -0.45),                                          # göğüs altı → karın → kasık
-        (-0.54, -0.50), (-0.60, -0.58), (-0.60, -0.65),
+            tp = [(-0.52, -0.745 + dy), (-0.585, -0.70 + dy), (-0.665, -0.60), (-0.705, -0.48), (-0.70, -0.36), (-0.675, -0.27)]
+            wd = [0.04, 0.085, 0.095, 0.085, 0.05, 0.012]
+        F.fill(limb([(x * h, y * h) for x, y in tp], [w * h for w in wd], cap0=0.4, cap1=0.0), rim=0.9)
+        if P["tail"] == "stream":
+            F.crease((-0.64 * h, -0.74 * h), (-1.04 * h, -0.64 * h), 0.008 * h, 0.012 * h, alpha=0.5)
+            F.crease((-0.70 * h, -0.70 * h), (-1.08 * h, -0.62 * h), 0.006 * h, -0.010 * h, alpha=0.4)
+        else:
+            F.crease((-0.62 * h, -0.64 * h), (-0.70 * h, -0.32 * h), 0.008 * h, 0.012 * h, alpha=0.5)
+            F.crease((-0.66 * h, -0.62 * h), (-0.69 * h, -0.30 * h), 0.006 * h, -0.010 * h, alpha=0.4)
+    # --- uzak kulak
+    _ear(F, W_ := (poll[0] - 0.010, poll[1] - 0.005), -80.0, 0.105, 0.040, h, 0.5) if False else None
+    ex = poll[0] - 0.020
+    ey = poll[1] - 0.005
+    F.fill(sp(_hp([KC(ex - 0.016, ey), (ex - 0.026, ey - 0.055), KC(ex - 0.008, ey - 0.118), (ex + 0.020, ey - 0.056), KC(ex + 0.022, ey)], h), True, 0.8), rim=0.5)
+    # --- gövde + boyun + baş (tek kapalı eğri)
+    W0 = (0.20, -0.765)
+    crest = []
+    dxn, dyn = poll[0] - W0[0], poll[1] - W0[1]
+    Ln = math.hypot(dxn, dyn)
+    cnx, cny = dyn / Ln, -dxn / Ln                     # sol-yukarı normal
+    for t in (0.18, 0.38, 0.58, 0.78):
+        b = 0.040 * math.sin(math.pi * t)
+        crest.append((W0[0] + dxn * t + cnx * b, W0[1] + dyn * t + cny * b))
+    B0 = (0.425, -0.60)
+    under = []
+    for t in (0.22, 0.48, 0.74):
+        # boğaz altından göğse: hafif içbükey
+        tx_, ty_ = throat
+        q = (tx_ + (B0[0] - tx_) * t, ty_ + (B0[1] - ty_) * t)
+        bulge = -0.018 * math.sin(math.pi * t)
+        under.append((q[0] + bulge * 0.7, q[1] + bulge * 0.6))
+    under = under[::-1]
+    body = [
+        KC(-0.515, -0.755 + dy), (-0.45, -0.780 + dy), (-0.34, -0.785 + dy), (-0.20, -0.755 + dy), (-0.02, -0.738 + dy), (0.10, -0.745 + dy), (0.20, -0.766 + dy),
+    ] + crest + top + muz + bot[::-1][::-1] + [throat] + under[::-1][::-1] + [
+        B0, (0.438, -0.535), (0.405, -0.455), (0.32, -0.418), (0.18, -0.402), (0.02, -0.402), (-0.14, -0.425), (-0.27, -0.452), (-0.38, -0.49),
+        (-0.50, -0.545), (-0.552, -0.625), (-0.548, -0.70),
     ]
-    # kulaklar (başın arkasında, iri yaprak biçimli)
-    ey = hd * 0.2
-    F.fill(sp(_hp([KC(0.485, -0.99 + ey), (0.472, -1.05 + ey), KC(0.497, -1.11 + ey), (0.526, -1.05 + ey), KC(0.54, -0.995 + ey)], h), True, 0.8), rim=0.8)
-    F.fill(sp(_hp([KC(0.535, -0.995 + ey), (0.535, -1.05 + ey), KC(0.568, -1.105 + ey), (0.59, -1.04 + ey), KC(0.59, -0.99 + ey)], h), True, 0.8), rim=1.0)
-    F.fill(sp(_hp(pts, h), True, 1.0), rim=1.0, glow=0.08)
+    body = [(q[0] * h, q[1] * h, "c") if len(q) > 2 else (q[0] * h, q[1] * h) for q in body]
+    F.fill(sp(body, True, 1.0), rim=1.0, glow=0.06)
+    # --- sağrı/omuz kas çizgileri
+    F.line(sp(_hp([(-0.36, -0.77), (-0.31, -0.62), (-0.30, -0.49)], h), False), h * 0.0035, tone=1.0, alpha=0.30)
+    F.line(sp(_hp([(0.16, -0.755), (0.25, -0.62), (0.30, -0.50)], h), False), h * 0.0035, tone=1.0, alpha=0.30)
+    # --- yakın bacaklar (gövdenin önünde; üst uçları gövdeye gömülü)
+    _hleg(F, P["hn"], "h", h, rim=1.0)
+    _hleg(F, P["fn"], "f", h, rim=1.0)
+    # --- yakın kulak, perçem, yele
+    ex = poll[0] + 0.012
+    F.fill(sp(_hp([KC(ex - 0.020, ey + 0.004), (ex - 0.030, ey - 0.054), KC(ex - 0.008, ey - 0.121), (ex + 0.024, ey - 0.056), KC(ex + 0.026, ey + 0.004)], h), True, 0.8), rim=1.0)
+    F.fill(sp(_hp([KC(poll[0] + 0.03, poll[1] - 0.012), (poll[0] + 0.07, poll[1] + 0.005), (poll[0] + 0.065, poll[1] + 0.055), (poll[0] + 0.04, poll[1] + 0.07), (poll[0] + 0.035, poll[1] + 0.03)], h), True, 0.8), rim=1.0, bound=False)
     if mane:
-        F.fill(_mane(h, ey, flick=pose.get('mane_flick', 0.55), long=pose.get('mane_long', 0.85)), rim=1.0)
-        F.fill(sp(_hp([KC(0.545, -1.0 + ey), (0.59, -1.02 + ey), (0.612, -0.97 + ey), (0.59, -0.93 + ey), (0.565, -0.965 + ey)], h), True, 0.8), rim=1.0)          # perçem
-    # kafa kayışı + göz çizgisi
+        _mane_locks(F, (W0[0] + 0.02, W0[1] - 0.012), (poll[0] - 0.015, poll[1] + 0.005), h, n=9, long=P["mane_long"], flick=P["mane_flick"])
+    # --- yüz ayrıntıları: göz parıltısı, burun deliği, ağız çizgisi, boyunluk/kayış
+    F.fill(ell(eye[0] * h, eye[1] * h, 0.010 * h, 0.0075 * h, -20), rim=0.0, tone=1.0, alpha=0.65, bound=False)
+    F.fill(ell(nostril[0] * h, nostril[1] * h, 0.0085 * h, 0.0125 * h, -30), rim=0.0, tone=1.0, alpha=0.40, bound=False)
+    mx, my = lip
+    F.line(sp(_hp([(mx - 0.002, my), (mx - 0.05 * ax * 1.0, my - 0.05 * ay * 1.0)], h), False), h * 0.0030, tone=1.0, alpha=0.5)
     if bridle:
-        F.line(sp(_hp([(0.655, -0.905 + hd), (0.605, -0.865 + hd * 0.3), (0.56, -0.88)], h), False), h * 0.0035, tone=0.9, alpha=0.6)
-        F.line(sp(_hp([(0.705, -0.80 + hd), (0.64, -0.83 + hd * 0.4)], h), False), h * 0.0035, tone=0.9, alpha=0.6)
-        F.line(sp(_hp([(0.60, -0.95 + hd * 0.5), (0.575, -0.89)], h), False), h * 0.0035, tone=0.9, alpha=0.5)
+        def Wh(u, v):
+            return (poll[0] + L * (u * ax + v * nx), poll[1] + L * (u * ay + v * ny))
+        F.line(sp(_hp([Wh(0.34, -0.06), Wh(0.30, 0.20), Wh(0.30, 0.45)], h), False), h * 0.0035, tone=0.9, alpha=0.65)       # yanak kayışı
+        F.line(sp(_hp([Wh(0.12, -0.06), Wh(0.10, 0.12), Wh(0.14, 0.28)], h), False), h * 0.0035, tone=0.9, alpha=0.55)       # alınlık
+        F.line(sp(_hp([Wh(0.78, -0.002), Wh(0.77, 0.12), Wh(0.80, 0.24)], h), False), h * 0.0035, tone=0.9, alpha=0.65)      # burun kayışı
 
 
 @fx("horse")
@@ -138,24 +216,6 @@ def _horse_walk(h, lean):
     F = Fig(h, lean)
     horse_body(F, h, HORSE_WALK)
     return F.build()
-
-
-# ───────────────────────────── gallop pozları ─────────────────────────────
-GALLOP_A = dict(     # uzamış (iki ön bacak ileri, arka bacaklar geride, arka toynak itişte)
-    legs=dict(
-        fn=[(0.30, -0.50), (0.40, -0.43), (0.55, -0.37), (0.67, -0.31), (0.745, -0.28)],
-        ff=[(0.235, -0.50), (0.33, -0.45), (0.46, -0.41), (0.58, -0.36), (0.655, -0.33)],
-        hn=[(-0.405, -0.62), (-0.52, -0.50), (-0.65, -0.37), (-0.76, -0.22), (-0.815, -0.075)],
-        hf=[(-0.34, -0.58), (-0.44, -0.48), (-0.56, -0.38), (-0.66, -0.28), (-0.72, -0.16)]),
-    head=0.045, tail_stream=1.0, mane_flick=1.5, mane_long=1.0, rot=2.0)
-
-GALLOP_B = dict(     # toplanmış (bacaklar gövde altında, ön yakın bacak iniyor)
-    legs=dict(
-        fn=[(0.30, -0.50), (0.37, -0.36), (0.40, -0.22), (0.415, -0.10), (0.42, -0.03)],
-        ff=[(0.235, -0.50), (0.30, -0.40), (0.385, -0.31), (0.335, -0.20), (0.285, -0.155)],
-        hn=[(-0.405, -0.62), (-0.355, -0.46), (-0.295, -0.32), (-0.34, -0.20), (-0.275, -0.16)],
-        hf=[(-0.34, -0.58), (-0.28, -0.45), (-0.20, -0.34), (-0.25, -0.22), (-0.17, -0.18)]),
-    head=-0.04, tail_stream=0.6, mane_flick=1.2, mane_long=1.0, rot=-3.0)
 
 
 def _armet(F, hx, hy, hh, plume=True, rot=0.0, crest_col=None):
@@ -324,7 +384,7 @@ def _horse_with_rider(h, lean, pose, lance, cloth=False, charge=0.0, rot=None, s
     F.merge(H, 0, 0, 1.0, rot=R)
     m = skia.Matrix()
     m.setRotate(R)
-    q = m.mapXY(-0.045 * hs, -0.735 * hs)
+    q = m.mapXY(-0.005 * hs, -0.735 * hs)
     u = 0.56 * hs
     if sipahi:
         _rider_sipahi(F, q.x(), q.y(), u, lean_deg=5.0)
