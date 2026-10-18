@@ -7,7 +7,7 @@ import math
 import skia
 
 import figs_kit as K
-from figs_kit import K as KC, Fig, bar, ell, feather_path, lens, limb, place, poly, sp
+from figs_kit import K as KC, Fig, bar, ell, feather_path, lens, limb, place, poly, shoe, sp
 
 # ───────────────────────────── şapkalar ─────────────────────────────
 
@@ -20,10 +20,10 @@ def hat_parts(kind):
         P.append((feather_path(0.10, -0.70, -0.55, -1.12, 0.12, bend=-0.20), 0.8, 0.0))
         P.append((sp([KC(0.37, -0.22), (0.47, -0.37), (0.38, -0.58), (0.12, -0.74), (-0.22, -0.72), (-0.50, -0.55), (-0.58, -0.30), KC(-0.50, -0.10), (-0.32, -0.22),
                       (-0.05, -0.28), (0.20, -0.25)], True, 0.9), 1.0, 0.0))
-    elif kind == "flatcap":                   # tüccar/katip: yumuşak yuvarlak şapka, kıvrık kenarlı
-        P.append((sp([KC(0.40, -0.17), (0.43, -0.30), (0.30, -0.52), (0.02, -0.62), (-0.30, -0.58), (-0.48, -0.36), (-0.46, -0.14), KC(-0.40, -0.05),
-                      (-0.20, -0.17), (0.10, -0.20)], True, 0.9), 1.0, 0.0))
-        P.append((sp([KC(0.44, -0.20), (0.46, -0.27), (0.36, -0.29), KC(0.30, -0.21)], True, 0.6), 0.9, 0.06))
+    elif kind == "flatcap":                   # tüccar/katip: yumuşak yuvarlak şapka; kafatasından belirgin taşan taç + kıvrık kenar bandı
+        P.append((sp([KC(0.44, -0.30), (0.46, -0.50), (0.30, -0.68), (-0.04, -0.76), (-0.38, -0.68), (-0.54, -0.48), KC(-0.52, -0.30), (-0.2, -0.36), (0.1, -0.38)], True, 0.9), 1.0, 0.0))
+        P.append((sp([KC(0.50, -0.14), (0.54, -0.24), (0.44, -0.33), (0.0, -0.36), (-0.42, -0.33), (-0.60, -0.22), KC(-0.56, -0.08), (-0.32, -0.14), (0.0, -0.17), (0.32, -0.14)], True, 0.9), 1.0, 0.06))
+        P.append((sp([KC(-0.52, -0.31), (0.0, -0.37), KC(0.44, -0.31), (0.44, -0.34), (0.0, -0.40), (-0.52, -0.34)], True, 0.6), 0.0, 0.16))
     elif kind == "plume":                     # Landsknecht: geniş tabak şapka + tüyler
         for i, (dx, dy, wd, bd) in enumerate([(-0.95, -1.05, 0.26, -0.28), (-1.12, -0.80, 0.24, -0.30), (-0.78, -1.22, 0.22, -0.22), (-1.20, -0.55, 0.20, -0.26)]):
             P.append((feather_path(-0.02 - i * 0.04, -0.66, dx, dy, wd, bend=bd), 0.9, 0.0))
@@ -33,10 +33,10 @@ def hat_parts(kind):
         P.append((sp([KC(-1.25, -0.38), (-0.80, -0.47), (-0.2, -0.50), (0.5, -0.49), (1.0, -0.45), KC(1.30, -0.36), (1.0, -0.30), (0.5, -0.31), (-0.2, -0.31), (-0.8, -0.32)], True, 0.85), 1.0, 0.0))
         P.append((sp([KC(-0.46, -0.44), (-0.46, -0.62), (-0.22, -0.74), (0.12, -0.74), (0.40, -0.62), KC(0.48, -0.44)], True, 0.85), 1.0, 0.0))
         P.append((sp([KC(-0.46, -0.40), (0.0, -0.36), KC(0.48, -0.40), (0.48, -0.44), (0.0, -0.45), (-0.46, -0.44)], True, 0.6), 0.0, 0.14))
-    elif kind == "cowl":                      # keşiş kukuletası: kafayı saran kütle + omuzlara düşen kıvrım + alın kenarı bandı
-        P.append((sp([KC(0.20, -0.40), (0.02, -0.76), (-0.36, -0.86), (-0.66, -0.58), (-0.78, -0.12), (-0.92, 0.46), (-0.92, 1.00), (-0.66, 1.22), (-0.34, 1.12), KC(-0.14, 0.78),
+    elif kind == "cowl":                      # keşiş kukuletası: kafayı saran kütle + omuzlara düşen kıvrım + alın kenarı bandı (tek parça gibi)
+        P.append((sp([KC(0.22, -0.38), (0.04, -0.70), (-0.34, -0.80), (-0.64, -0.58), (-0.78, -0.14), (-0.92, 0.44), (-0.92, 1.00), (-0.66, 1.22), (-0.34, 1.12), KC(-0.14, 0.78),
                       (-0.30, 0.46), (-0.34, 0.20), (-0.20, -0.10)], True, 0.9), 1.0, 0.0, "back"))
-        P.append((sp([KC(0.36, -0.30), (0.30, -0.50), (0.12, -0.68), (-0.14, -0.74), (-0.42, -0.62), (-0.52, -0.34), (-0.36, -0.40), (-0.12, -0.50), (0.10, -0.42), KC(0.24, -0.26)], True, 0.8), 1.0, 0.05))
+        P.append((sp([KC(0.37, -0.26), (0.30, -0.46), (0.14, -0.64), (-0.12, -0.70), (-0.40, -0.60), (-0.50, -0.40), (-0.30, -0.44), (-0.08, -0.50), (0.12, -0.42), KC(0.26, -0.24)], True, 0.8), 0.45, 0.04))
     elif kind == "veil":                      # kadın örtüsü/tokası: alından omuza düşen kumaş
         P.append((sp([KC(0.33, -0.26), (0.22, -0.56), (-0.10, -0.66), (-0.44, -0.52), (-0.60, -0.10), (-0.70, 0.55), (-0.76, 1.25), (-0.50, 1.36), (-0.34, 0.95),
                       (-0.22, 0.55), KC(-0.16, 0.30), (-0.34, 0.10), (-0.34, -0.12), (0.0, -0.20)], True, 0.9), 1.0, 0.0))
@@ -106,8 +106,9 @@ def hat_parts(kind):
     elif kind == "biretta":                   # alim/öğrenci dört köşeli bareti
         P.append((poly([(-0.40, -0.28), (-0.38, -0.60), (0.40, -0.62), (0.42, -0.30)]), 1.0, 0.0))
         P.append((poly([(-0.34, -0.60), (-0.30, -0.70), (0.36, -0.70), (0.40, -0.62)]), 1.0, 0.0))
-    elif kind == "scholar":                   # bilgin kepi (yan kulaklıklı)
-        P.append((sp([KC(0.38, -0.18), (0.40, -0.40), (0.20, -0.62), (-0.10, -0.68), (-0.40, -0.52), (-0.50, -0.20), (-0.46, 0.18), KC(-0.30, 0.20), (-0.30, -0.06), (0.0, -0.22)], True, 0.9), 1.0, 0.0))
+    elif kind == "scholar":                   # bilgin/katip kepi: köşeli taç + kıvrık kenar + yan kulaklık
+        P.append((sp([KC(0.40, -0.22), (0.44, -0.46), (0.34, -0.66), (0.0, -0.72), (-0.34, -0.66), (-0.50, -0.44), KC(-0.48, -0.22), (-0.2, -0.30), (0.1, -0.32)], True, 0.7), 1.0, 0.0))
+        P.append((sp([KC(0.46, -0.12), (0.50, -0.22), (0.40, -0.30), (0.0, -0.33), (-0.46, -0.30), (-0.58, -0.18), KC(-0.54, 0.0), (-0.50, 0.24), KC(-0.34, 0.26), (-0.34, 0.02), (0.0, -0.14), (0.3, -0.12)], True, 0.8), 1.0, 0.05))
     return [p for p in P if p]
 
 
@@ -120,7 +121,7 @@ def add_hat(F, kind, hx, hy, hh, rot=0.0, back=None):
             F.fill(place(path, hx, hy, hh, rot), rim=rim, tone=tone)
 
 
-def add_head(F, hx, hy, hh, kind="m", rot=0.0, beard=None, hat=None, nose=1.0, chin=0.0, hair=None, neck_to=None, neck_w=(0.52, 0.72), bald=False, hat_rot=None, brow=1.0):
+def add_head(F, hx, hy, hh, kind="m", rot=0.0, beard=None, hat=None, nose=1.0, chin=0.0, hair=None, neck_to=None, neck_w=(0.52, 0.72), bald=False, hat_rot=None, brow=1.0, head_rim=None):
     """Boyun + baş (+sakal, saç, şapka). neck_to=(bx,by): boyun tabanı. rot: baş eğimi (derece, + = öne eğik)."""
     if neck_to is not None:
         bx, by = neck_to
@@ -129,7 +130,8 @@ def add_head(F, hx, hy, hh, kind="m", rot=0.0, beard=None, hat=None, nose=1.0, c
         add_hat(F, hat, hx, hy, hh, rot if hat_rot is None else hat_rot, back=True)
     if hair:
         F.fill(place(hair_path(hair), hx, hy, hh, rot), rim=1.0)
-    F.fill(place(K.head_path(kind, nose=nose, chin=chin, brow=brow), hx, hy, hh, rot), rim=1.0)
+    hr = head_rim if head_rim is not None else (0.35 if hat == "cowl" else 1.0)
+    F.fill(place(K.head_path(kind, nose=nose, chin=chin, brow=brow), hx, hy, hh, rot), rim=hr)
     if beard:
         F.fill(place(K.beard_path(beard, chin=chin), hx, hy, hh, rot), rim=0.9)
     if hat:
@@ -148,6 +150,20 @@ def hair_path(kind):
 
 # ───────────────────────────── kol & el montajı ─────────────────────────────
 
+def add_leg(F, h, hip, knee, ankle, wd=(0.070, 0.050, 0.032), toe=1, shoe_kind="square", shoe_w=0.09, rim=0.8, tone=0.0, calf=0.009):
+    """Çorap bacak (uyluk→diz→baldır kabarıklığı→bilek) + ayakkabı. hip/knee/ankle (x,y) h oranı."""
+    hx, hy = hip
+    kx, ky = knee
+    ax, ay = ankle
+    mx, my = hx + (kx - hx) * 0.45, hy + (ky - hy) * 0.45
+    cx, cy = kx + (ax - kx) * 0.28 - calf * toe, ky + (ay - ky) * 0.28
+    qx, qy = kx + (ax - kx) * 0.70, ky + (ay - ky) * 0.70
+    P = [(hx * h, hy * h), (mx * h, my * h), (kx * h, ky * h), (cx * h, cy * h), (qx * h, qy * h), (ax * h, ay * h)]
+    W = [wd[0] * h * 1.04, wd[0] * h * 0.92, wd[1] * h * 0.92, wd[1] * h * 1.12, wd[2] * h * 1.08, wd[2] * h * 0.9]
+    F.fill(limb(P, W, cap0=0.3, cap1=0.25), rim=rim, tone=tone)
+    F.fill(shoe((ankle[0] - 0.014) * h, 0, shoe_w * h, 0.036 * h, toe, shoe_kind), rim=rim)
+
+
 def add_arm(F, pts, widths, hand=None, hand_len=0.1, hand_rot=None, flip=False, rim=0.9, cuff=None, tone=0.0):
     """Kol (omurga noktaları pts, genişlikler) + el. hand: None | 'open' | 'fist'. Elin yönü son segmentin yönü (hand_rot ile değişir)."""
     F.fill(limb(pts, widths, cap0=0.5, cap1=0.2 if hand else 0.45), rim=rim, tone=tone)
@@ -158,6 +174,8 @@ def add_arm(F, pts, widths, hand=None, hand_len=0.1, hand_rot=None, flip=False, 
         F.fill(K.hand_pt(hand, x1 - math.cos(math.radians(ang)) * hand_len * 0.12, y1 - math.sin(math.radians(ang)) * hand_len * 0.12, hand_len, ang, flip), rim=1.0)
         if hand == "open":
             F.fill(K.hand_pt("thumb", x1, y1, hand_len, ang, flip), rim=1.0)
+        elif hand == "fist":
+            F.fill(K.hand_pt("thumb_fist", x1 - math.cos(math.radians(ang)) * hand_len * 0.12, y1 - math.sin(math.radians(ang)) * hand_len * 0.12, hand_len, ang, flip), rim=1.0)
 
 
 def fur_band(P, w, tuft, side=1, n=None, jag=0.78, phase=0.0, seed=3):

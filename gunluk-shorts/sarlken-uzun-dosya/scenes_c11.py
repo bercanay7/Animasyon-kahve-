@@ -44,7 +44,7 @@ SHOTS = [
          regions=[dict(name="karl_kendi", color="habsburg", at=("c11s8", "imparatorluğu", -0.2), alpha=0.28)],
          extra=kinds_c11.make_travel(TRAVEL_T, dur=1.0), approx=True, label="gezi_agi"),
     # s9 — İmparatorluğu bir masada değil, yollarda taşıdı
-    shot("map", a=("c11s9", -0.3), tr=F, cams=[(0.0, (5.0, 44.7, 1.14)), (("c11s9", "taşıdı", 0.5), (5.5, 44.5, 1.0))],
+    shot("map", a=("c11s9", -0.3), tr=F, cams=[(0.0, (5.0, 44.7, 1.14)), (("c11s9", "taşıdı", 0.5), (5.5, 44.5, 1.06))],
          regions=[dict(name="karl_kendi", color="habsburg", at=0.0, alpha=0.28)],
          extra=lambda cx, cam, mv: (kinds_c11.make_travel(TRAVEL_T, dur=1.0, all_done=True)(cx, cam, mv), _final_ov(cx)), approx=True, label="yollarda"),
 ]

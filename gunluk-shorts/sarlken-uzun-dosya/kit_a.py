@@ -11,6 +11,7 @@ import icons
 import medal
 import shots as SH
 import sk
+import stage as ST
 from sk import C, H, W, clamp, ease_in, ease_io, ease_out, lerp, mix, seg, smooth, back_out
 
 
@@ -561,6 +562,36 @@ def _i_besik(m):
     m.cut(sk.smooth_path([(120, 262), (256, 292), (392, 262)], False), 7)
     m.stroke(sk.smooth_path([(96, 410), (256, 448), (416, 410)], False, 0.5), 16)
     m.circle(256, 300, 4, 0)
+
+
+# ───────────────────────────── güvenli figür çizimi ─────────────────────────────
+_FW = set()
+
+
+def fig(f, kind, x, y, h, **kw):
+    """ST.figure sarmalayıcı: figür-lab modülü yarım/hatalıysa tek uyarı basıp o figürü atlar (önizleme çökmesin)."""
+    try:
+        ST.figure(f, kind, x, y, h, **kw)
+    except Exception as e:  # noqa: BLE001
+        key = (kind, type(e).__name__)
+        if key not in _FW:
+            _FW.add(key)
+            import sys
+            print(f"[kit_a.fig] '{kind}' figürü hata verdi: {type(e).__name__}: {e}", file=sys.stderr)
+
+
+def crowd(f, rows, x0, x1, y0, dy, h0, hs, kinds, col="#0C0705", rim="#8A5A2A", seed=1, dens=70, face=1, depth_fog=None):
+    """ST.crowd ile aynı, K.fig üzerinden."""
+    rs = np.random.RandomState(seed)
+    for r in range(rows):
+        y = y0 + r * dy
+        h = h0 * (hs ** r)
+        n = int((x1 - x0) / (dens * (hs ** r)))
+        for k in range(n):
+            x = x0 + (k + rs.rand() * 0.8) * (x1 - x0) / max(1, n)
+            kind = kinds[rs.randint(len(kinds))]
+            cc = col if depth_fog is None else mix(col, depth_fog, 0.5 * (1 - r / max(1, rows - 1)))
+            fig(f, kind, x, y + rs.randn() * 3, h * (0.92 + 0.16 * rs.rand()), col=cc, rim=rim, face=face if rs.rand() > 0.15 else -face, alpha=1.0, lean=(rs.rand() - 0.5) * 0.04)
 
 
 # ───────────────────────────── güvenli diorama sarmalayıcı ─────────────────────────────

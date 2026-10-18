@@ -22,6 +22,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 
 import numpy as np
@@ -281,7 +282,7 @@ def default_sfx_cues(chapters, tail):
     chapter_stinger (c1'in kartı = ana başlık: title_hit onu zaten kapsar). Stinger, gelen bölümün ana sesine akortlanır."""
     import muzik
     cues = []
-    cues.append(dict(t=round(chapters[0]["t1"] + 0.4, 3), name="title_hit", gain_db=-6.0, pan=0.0, seed=0, dur=None, loop=False,
+    cues.append(dict(t=round(chapters[0]["t1"] + 0.4, 3), name="title_hit", gain_db=-9.0, pan=0.0, seed=0, dur=None, loop=False,
                      params={"root": float(D.midi_hz(muzik.CUES["c0"]["tonic"] + 12 * 0)) * 1.0}))
     for i in range(2, len(chapters)):
         prev, ch = chapters[i - 1], chapters[i]
@@ -292,40 +293,45 @@ def default_sfx_cues(chapters, tail):
 
 
 def render_sfx_bus(cues, N, sa, region_s):
-    """cue listesi → (N,2) float32 SFX bus. Döngü sesleri dur boyunca tekrarlanır (1,2 sn giriş/çıkış), konuşma altında ducking."""
+    """cue listesi → (N,2) float32 SFX bus.
+    Cue alanları: t (sn, voice ekseni), name, gain_db, pan (−1…1), seed, dur (sn|null), loop (bool), isteğe bağlı duck_db (konuşma altında
+    kısma dB; varsayılan döngülerde −4, tekil seslerde 0) ve params (ör. {"root": 146.83} Hz).
+    Döngü sesleri dur boyunca dikişsiz tekrarlanır (1,2 sn giriş/çıkış sönümü). Bilinmeyen ad / hatalı cue atlanır ve uyarılır."""
     import sfx
     bus = np.zeros((N, 2), dtype=np.float32)
     cache = {}
     used = []
     for c in cues:
-        name = c["name"]
-        t = float(c["t"])
-        dur = c.get("dur")
-        loop = bool(c.get("loop", False)) or (name in sfx.LOOPABLE and dur is not None)
-        key = (name, int(c.get("seed", 0)), dur, loop, json.dumps(c.get("params", {}), sort_keys=True))
-        if key not in cache:
-            cache[key] = sfx.sfx(name, int(c.get("seed", 0)), dur, loop, **c.get("params", {}))
-        x = cache[key].astype(np.float32)
-        if loop and dur is not None:
-            x = D.fade_edges(x, 1.2, 1.2).astype(np.float32)
-        elif name in sfx.LOOPABLE and dur is None:
-            pass
-        g = D.db2lin(float(c.get("gain_db", 0.0)))
-        gl, gr = D.pan_gains(float(c.get("pan", 0.0)))
-        i = int(round(t * SR))
-        if i >= N or i + len(x) <= 0:
-            continue
-        a = max(0, -i)
-        m = min(len(x) - a, N - max(i, 0))
-        seg = x[a:a + m] * np.array([gl, gr], dtype=np.float32) * np.float32(g)
-        duck = c.get("duck_db")
-        if duck is None:
-            duck = -4.0 if (name in sfx.LOOPABLE) else 0.0
-        if duck != 0.0:
-            rs = region_s[(np.arange(max(i, 0), max(i, 0) + m) // FR).clip(0, len(region_s) - 1)]
-            seg = seg * (10 ** (duck * rs / 20.0)).astype(np.float32)[:, None]
-        bus[max(i, 0):max(i, 0) + m] += seg
-        used.append(name)
+        try:
+            name = c["name"]
+            t = float(c["t"])
+            dur = c.get("dur")
+            loop = bool(c.get("loop", False)) or (name in sfx.LOOPABLE and dur is not None)
+            key = (name, int(c.get("seed", 0)), dur, loop, json.dumps(c.get("params", {}), sort_keys=True))
+            if key not in cache:
+                cache[key] = sfx.sfx(name, int(c.get("seed", 0)), dur, loop, **c.get("params", {}))
+            x = cache[key].astype(np.float32)
+            if loop and dur is not None:
+                x = D.fade_edges(x, 1.2, 1.2).astype(np.float32)
+            g = D.db2lin(float(c.get("gain_db", 0.0)))
+            gl, gr = D.pan_gains(float(c.get("pan", 0.0)))
+            i = int(round(t * SR))
+            if i >= N or i + len(x) <= 0:
+                log(f"  UYARI: sfx cue aralık dışı atlandı: {name} t={t}")
+                continue
+            a = max(0, -i)
+            m = min(len(x) - a, N - max(i, 0))
+            seg = x[a:a + m] * np.array([gl, gr], dtype=np.float32) * np.float32(g)
+            duck = c.get("duck_db")
+            if duck is None:
+                duck = -4.0 if (name in sfx.LOOPABLE) else 0.0
+            if duck != 0.0:
+                rs = region_s[(np.arange(max(i, 0), max(i, 0) + m) // FR).clip(0, len(region_s) - 1)]
+                seg = seg * (10 ** (duck * rs / 20.0)).astype(np.float32)[:, None]
+            bus[max(i, 0):max(i, 0) + m] += seg
+            used.append(name)
+        except Exception as e:  # noqa — tek hatalı cue tüm miksi düşürmesin
+            log(f"  UYARI: sfx cue atlandı ({c.get('name')} t={c.get('t')}): {type(e).__name__}: {e}")
     return bus, used
 
 
@@ -442,6 +448,7 @@ def main():
     ap.add_argument("--no-m4a", action="store_true")
     ap.add_argument("--workers", type=int, default=None)
     ap.add_argument("--sfx-cues", default=os.path.join(OUT, "sfx_cues.json"))
+    ap.add_argument("--cache-dir", default=None, help="cue önbelleği (varsayılan: sistem geçici dizini/sarlken_audio_cache; depoya yazılmaz)")
     ap.add_argument("--stems", action="store_true", help="ducking'li müzik (music_ducked.wav) ve işlenmiş ses (voice_proc.wav) de yaz")
     ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args()
@@ -474,8 +481,8 @@ def main():
     log(f"konuşma bölgesi {sa['region'].mean() * 100:.1f}% ; boşluk (≥{MIN_GAP_SEC} sn) sayısı {len(sa['gaps'])}")
 
     # 3) müzik (ham, ducking'siz)
-    cache = None if a.fresh else os.path.join(OUT, "_audio_cache")
-    music, minfo = muzik.render_music(chapters, total, tail, workers=a.workers, cache_dir=cache, seed=a.seed)
+    cache = None if a.fresh else (a.cache_dir or os.path.join(tempfile.gettempdir(), "sarlken_audio_cache"))
+    music, minfo = muzik.render_music(chapters, total, tail, workers=a.workers, cache_dir=cache, seed=a.seed, timeline=timeline)
     assert len(music) == N, (len(music), N)
     log(f"müzik hazır ({minfo['render_sec']} sn), global kazanç {minfo['global_gain_db']:+.2f} dB")
     D.write_wav(os.path.join(OUT, "music.wav"), music, SR, 16)
@@ -635,6 +642,12 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     for g, r in zip(ginfo["gaps"], rises):
         rs = "   ölçülemedi" if r is None else f"   yükseliş {r:+5.1f} dB"
         P(f"   t={g['t0']:8.2f}–{g['t1']:8.2f} sn{rs}   (kazanç değişimi {g['gain_change_db']:+.1f} dB)" + ("   [ana başlık]" if g["title"] else ""))
+    P("  bölüm bazında nihai miks loudness (gerçek BS.1770; bölüm süresi boyunca, kart boşlukları hariç):")
+    P("   bölüm  entegre LUFS  kısa-dönem maks.  anlık maks.")
+    for ch in chapters:
+        a_, b_ = int(ch["t0"] * SR), min(int(ch["t1"] * SR), len(final))
+        sc = D.loudness_stats(final[a_:b_])
+        P(f"   {ch['id']:5s} {sc['integrated']:10.2f}   {sc['shortterm_max']:12.1f}   {sc['momentary_max']:10.1f}")
     P("")
     P("[3] SPEKTRAL DENGE (Welch, güç payı %)  düşük<250 Hz | orta 250–4k | yüksek>4k | centroid")
     for nm, arr in (("voice (ham)", voice_raw), ("voice (işlenmiş)", vproc), ("müzik (mikste)", music), ("sfx bus", sfxbus), ("MIKS (nihai)", final)):
@@ -742,7 +755,7 @@ def write_previews(a, chapters, minfo, final, music_in_mix, sfxbus, vproc, timel
         elif cid == "c13":
             t0, t1 = min(ch["t1"] + a.tail, len(raw) / SR) - 24.0, ch["t1"] + a.tail
         else:
-            arc = np.array(spec["arc"])
+            arc = np.array(ci["arc"])
             u = arc[np.argmax(arc[:, 1]), 0]
             tc = ch["t0"] + float(np.clip(u, 0.2, 0.8)) * (ch["t1"] - ch["t0"])
             t0, t1 = tc - 11.0, tc + 11.0

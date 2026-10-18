@@ -78,3 +78,64 @@ calm 1 karaka ≈ 110–135 · dawn ≈ 110–140 · storm 5 karaka + tazones �
 - Kıyı burnu (tazones) arkasındaki sıra-1/2 gemileri örter; gemileri kıyıdan uzak (x<.6) tut ya da `coast_side` çevir.
 - `coast="africa"` şehri gündüzleri biraz açık/krem; dusk/dawn/night'ta daha iyi görünür.
 - Dalga şeritlerinin tekrar periyodu 900–1540 px: çok yavaş ve çok uzun çekimde desen tekrarı fark edilebilir (15 sn'ye kadar sorun yok).
+
+---
+## 2) `field` — savaş alanı  (scenes_field.py)  ✅ hazır
+
+Gök + ufuk + uzak sırtlar (+ isteğe bağlı uzak kale/şehir) + 4 derinlikli zemin bandı (+ isteğe bağlı nehir bandı) + ordular (figür-lab siluetleri) + ön plan çimen/kamış çerçevesi + hava (yağmur/sis/kar/şafak/alacakaranlık).
+Ordular `ST.figure` sprite'larıyla çizilir: pikeman, landsknecht, arquebusier, halberdier, peasant, crowd_a/c, janissary, cavalry_charge(+_b), sipahi(+_b) (figür-lab türleri yoksa otomatik `pikeman`'a düşer).
+
+### `p` anahtarları (varsayılan)
+| anahtar | değer | açıklama |
+|---|---|---|
+| `ground` | `"plain"`(varsayılan) `"marsh"` `"river"` `"hills"` | plain: Kastilya ovası, hafif dalgalı, kavaklar; marsh: düz, su birikintileri, ölü ağaçlar (Mohaç); river: `river=True` varsayılır, nehir bandı + kıyı kamışları; hills: belirgin tepeler, çam kümeleri |
+| `weather` | `"clear"`(varsayılan) `"fog"` `"rain"` `"dawn"` `"dusk"` `"snow"` | clear: sıcak öğleden sonra; fog: kalın sis (kayan sis katmanı, soluk güneş); rain: koyu bulut + 3 katman yağmur + ıslak zemin/su birikintisi; dawn: pembe-altın şafak (güneş solda), sis; dusk: kızıl alacakaranlık (güneş sağda), kor/meşale daha çok parlar; snow: kar yağışı (3 katman) + beyazımsı zemin |
+| `armies` | `[dict(...)]` | ordu listesi, aşağıda (varsayılan: tek 30 kişilik pike bloğu) |
+| `banners` | bool (True) | her ordudan bir sancak (piyadede; atlıda yok). Renk = `side`; arma: kırmızı Habsburg tonları → Burgonya çaprazı, yeşil → yarım ay, diğer → haç |
+| `smoke` | 0..1 veya bool | barut dumanı bulutları (uzak/orta bantlarda). Arquebus atışları ayrıca kendi dumanını üretir |
+| `fire` | 0..1 | ufukta yanan köy/kale (1–3 yangın: alev + duman sütunu + parıltı) — Köylü Savaşı, kuşatma sonrası |
+| `river` | bool | nehir bandı (ground="river"da otomatik). Nehir b0–b1 arası; `ford=True` ordular nehrin içinde yürür |
+| `castle_far` | `None` `"pavia"` `"toledo"` | ufukta (x≈.70) sisli siluet: pavia = Visconti kalesi + park surları + kavaklar; toledo = tepe şehri + Alcázar + katedral kulesi |
+| `wind` | −1 / 1 | bulut/sis/nehir/sancak yönü (varsayılan −1: sancaklar sola dalgalanır → ordu `dir=+1` ilerlerken doğal) |
+| `rain` / `snow` | 0..1 | hava dışında yağmur/kar ekle ya da kıs |
+
+### Ordu sözlüğü `armies=[dict(...)]`
+| anahtar | varsayılan | açıklama |
+|---|---|---|
+| `side` | `"#8E1F26"` | taraf rengi (sancak, hafif siluet tonu). Yeşil ağırlıklıysa: atlı → sipahi, piyade → janissary |
+| `kind` | `"pike"` | `"pike"` (pike/landsknecht/halberd karışık blok) · `"arquebus"` (arkebüzcü + halberd; periyodik namlu alevi + duman) · `"cavalry"` (dörtnala; iki pozlu yürüyüş) · `"peasants"` (yabalı köylüler + kalabalık; `torch` ile meşale) · `"mixed"` (pike+arkebüz karışık) |
+| `x` | 0.5 | grubun merkezi (0..1 × 1920). Birlikler `dir*hız*t` ile ilerler (x'i ekran dışına taşırma) |
+| `row` | 1 | **0 = en yakın/en büyük** (boy ≈ 250 px piyade / 262 atlı), 1 orta (×0.66), 2 uzak (×0.43). Yakın sıra alttaki bandda durur (ground eğimini izler) |
+| `n` | 24 | kişi/atlı sayısı (piyade: 3–6 saflı blok; atlı: ≤9 tek saf, fazlası 2 saf) |
+| `dir` | 1 | +1 sağa, −1 sola bakar/ilerler |
+| `charge` | 0 | 0..1 ilerleme/atılış: atlıda 0→170 px/sn (×sıra ölçeği), piyadede 0→34 px/sn, köylüde 48 px/sn; aynı zamanda yürüyüş/dörtnala salınımı ve dörtnala yürüyüş hızı. 0 = yerinde bekler (hafif nefes) |
+| `unit` | otomatik | belirli figür türü: `"janissary"`, `"landsknecht"`, `"halberdier"`, `"knight"`, `"horse_rider"` ya da tür listesi `("pikeman","landsknecht")` |
+| `s` | 1.0 | ölçek çarpanı |
+| `spread` | 1.0 | yatay aralık çarpanı (gevşek/sıkı dizi) |
+| `fire` | arquebus: 1.0 | atış sıklığı (0..1). Namlu alevi + büyüyen duman |
+| `torch` | 0 | 0..1 meşale taşıyan oranı (dusk/dawn/rain/fog'da çok iyi) |
+| `banner` | True | bu ordunun sancağı |
+| `ford` | False | `river=True` iken ordu nehrin içinde (bel hizası su, çevresinde sıçrama): **Mühlberg** süvarisi |
+
+### Kamera
+`SF.cam_on(row, x, zoom, rise=.4)` → verilen sıradaki birliğin ekran ortasına geldiği güvenli kamera. Örnekler:
+- Geniş: `cams=[(0,(960,560,1.0)), (8,(1010,576,1.2))]`
+- Hücum takibi (süvari row 0): `cams=[(0, SF.cam_on(0,.30,1.25)), (6, SF.cam_on(0,.62,1.6))]` — süvari `dir=+1` ilerlerken kamera da sağa kayar.
+- Piyade bloğu yakın: `cams=[(0,(900,600,1.4)), (6,(1000,620,1.9))]`
+- Güvenli kayma: zoom 1.0'da |Δx|,|Δy| ≤ 190; zoom 1.6'da ≈ ±530 / ±400; `SF.safe_cam(x,y,z)` sıkıştırır. Ön plan çimeni (en yakın katman) hızlı paralaks verir.
+
+### Bölüm tarifleri
+- **c3 Villalar**: `ground="plain", weather="rain"`, `armies=[dict(side="#8E1F26",kind="cavalry",x=.28,row=0,n=10,dir=1,charge=.9), dict(side="#5A6A3A",kind="peasants",x=.74,row=1,n=34,dir=-1)]`; kamera süvariyi izler.
+- **c5 Mühlberg**: `ground="river", weather="fog"` (veya `"dawn"`), `armies=[dict(side="#8E1F26",kind="cavalry",x=.30,row=1,n=9,dir=1,charge=.5,ford=True), dict(side="#1E5560",kind="pike",x=.78,row=2,n=34,dir=-1)]` (Protestan petrol `#1E5560`).
+- **c5 Köylü Savaşı**: `ground="plain", weather="dusk", smoke=.8, fire=.9`, `peasants` (`torch=.3`) + karşıda `mixed`/`pike`.
+- **c6 Pavia**: `weather="fog", castle_far="pavia", smoke=.6`, `arquebus` (fire=1) + `cavalry` + `pike`; Fransız mavi `#27427A` vs İspanyol kırmızı.
+- **c7 Mohaç**: `ground="marsh", weather="rain"` (veya dusk), Macar (kırmızı/haç) vs Osmanlı yeşil: yeşil `cavalry` otomatik sipahi, yeşil `pike/mixed` otomatik janissary.
+
+### Performans (ms/kare, post dahil)
+villalar (3 ordu, 54 kişi) ≈ 150–170 · muhlberg nehir ≈ 115–170 · pavia sis+kale+duman ≈ 140–210 · köylü (60 köylü + yangın + meşale) ≈ 160–220 · 190 figür kar tepeleri ≈ 120–185. Zoom 1.7'de +30–60 ms. Ordu başına ~60 figürden sonra maliyet artar (figür başına ≈ 0.15 ms + yalnız ekranda görünenler çizilir).
+
+### Bilinen kusurlar
+- Piyade yalnız dikey salınımla yürür (sprite sabit poz); dörtnala iki poz (_a/_b) arasında geçişle. Formasyon sahte-rastgele (aynı n → aynı düzen).
+- Zemin eğimi yalnız 4 sabit bant: figürler bantlar arasında kayarak "sıra değiştirmez" (row sabit).
+- Kar ve sis sahnelerinde kontrast düşük tutuldu; "snow" yine de en açık sahnedir (kasıtlı).
+- Ön plan çimen/kamış çerçevesi kamera yakındayken alt kenarı kaplar; gerekirse kamerayı yukarı al.

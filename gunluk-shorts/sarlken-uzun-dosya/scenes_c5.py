@@ -23,17 +23,22 @@ def _hall_out(cx):
     fadeout(cx, 1.0)
 
 
-FIELD_P = dict(ground="river", weather="fog", river=True, smoke=True)
+PEAS_P = dict(ground="plain", weather="dusk", smoke=0.8, fire=0.45,
+              armies=[dict(side="#6A4A26", kind="peasants", x=0.40, row=0, n=20, dir=1, charge=0.5), dict(side="#6A4A26", kind="peasants", x=0.72, row=1, n=26, dir=-1, charge=0.35),
+                      dict(side="#6A4A26", kind="peasants", x=0.2, row=2, n=30, dir=1, charge=0.3)])
+FIELD_P = dict(ground="river", weather="fog", river=True, smoke=0.35,
+               armies=[dict(side="#8E1F26", kind="cavalry", x=0.30, row=1, n=9, dir=1, charge=0.7, ford=True), dict(side="#8E1F26", kind="pike", x=0.52, row=1, n=22, dir=1, charge=0.5, ford=True),
+                       dict(side="#1E5560", kind="pike", x=0.68, row=2, n=26, dir=-1, charge=0.2), dict(side="#1E5560", kind="arquebus", x=0.40, row=2, n=14, dir=-1, charge=0.1)])
 
 SHOTS = [
     # s1 — Almanya'dan ayrıldı, dokuz yıl dönemedi
     shot("map", a=("c5s1", 0.0), tr=F, cams=[(0.0, (6.5, 47.2, 1.7)), (("c5s1", "ayrıldı", 0.0), (4.6, 46.0, 2.0))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.2, alpha=0.30, hatch=True), dict(name="ispanya", color="ispanya", at=("c5s1", "ayrıldı", 1.2), alpha=0.45)],
-         labels=[dict(text="ALMANYA", lon=10.6, lat=51.2, size=36, track=14, at=0.6)],
+         labels=[dict(text="ALMANYA", lon=10.3, lat=49.0, size=36, track=14, at=0.6)],
          cities=[dict(lon=8.36, lat=49.63, name="WORMS", kind="seat", at=0.3, side="r", size=34)],
          extra=kinds_c5.make_leave(("c5s1", "ayrıldı", -0.1), ("c5s1", "Dokuz", -0.05), ("c5s1", "dönemedi", -0.1)), label="almanyadan_ayrildi"),
     # s2 — İspanya karışık, Fransa saldırıyor, Akdeniz'de Osmanlı: üç ok
-    shot("map", a=("c5s2", -0.3), tr=F, cams=[(0.0, (13.0, 44.5, 1.4)), (("c5s2", "vardı", 0.0), (13.0, 44.7, 1.5))],
+    shot("map", a=("c5s2", -0.3), tr=F, cams=[(0.0, (13.0, 44.5, 1.38)), (("c5s2", "vardı", 0.0), (13.0, 44.7, 1.4))],
          regions=[dict(name="ispanya", color="ispanya", at=("c5s2", "İspanya", -0.1), alpha=0.5), dict(name="fransa", color="fransa", at=("c5s2", "Fransa", -0.1), alpha=0.5),
                   dict(name="osmanli_1520", color="osmanli", at=("c5s2", "Osmanlı", -0.1), alpha=0.5)],
          extra=kinds_c5.make_pressure(("c5s2", "İspanya", 0.0), ("c5s2", "Fransa", 0.0), ("c5s2", "Akdeniz'de", 0.0)), label="uc_cephe"),
@@ -41,11 +46,11 @@ SHOTS = [
     shot("c5_ideas", a=("c5s3", -0.2), tr=F, tag_at=("c5s3", "Luther'in", 0.0), label="fikirler_yayildi"),
     # s3b — 1524, Köylü Savaşı
     shot("bw_theatre", a=("c5s3", "1524'te", -0.4), tr=WH, scene="field", cams=[(0.0, (960, 560, 1.0)), (("c5s3", "Luther", 1, -0.2), (900, 600, 1.25))],
-         p=dict(ground="plain", weather="dusk", smoke=True, armies=[dict(side="#7A5D1E", kind="peasants", x=0.5, row=1, n=24, dir=1, charge=0.4)]),
+         p=PEAS_P,
          overlay=kinds_c5.peasants_overlay(("c5s3", "1524'te", 0.0), ("c5s3", "Köylü", -0.1), None, None), label="koylu_savasi"),
     # s3c — Luther istememişti; 70–100 bin
     shot("bw_theatre", a=("c5s3", "Luther", 1, -0.3), tr=F, scene="field", cams=[(0.0, (900, 600, 1.25)), (("c5s3", "öldü", 0.0), (860, 620, 1.4))],
-         p=dict(ground="plain", weather="dusk", smoke=True, armies=[dict(side="#7A5D1E", kind="peasants", x=0.5, row=1, n=24, dir=1, charge=0.4)]),
+         p=PEAS_P,
          overlay=kinds_c5.peasants_overlay(None, None, ("c5s3", "Luther", 1, -0.1), ("c5s3", "yetmiş", -0.15)), label="luther_istememisti"),
     # s4 — Speyer 1529: Worms Fermanı yeniden yürürlükte
     shot("c5_speyer", a=("c5s4", -0.3), tr=F, year_at=("c5s4", "1529'da", -0.1), city_at=("c5s4", "Speyer'de", -0.1), maj_at=("c5s4", "çoğunluk", -0.6),
@@ -65,12 +70,9 @@ SHOTS = [
          close_at=("c5s7", "Birliği'ni", -0.2), flash_at=("c5s7", "kurdu", -0.05), label="smalkalden"),
     # s8 — ancak cepheler yatışınca, 1546'da savaş
     shot("c5_wait", a=("c5s8", -0.3), tr=F, at=0.0, fr_at=("c5s8", "Fransa", -0.2), ot_at=("c5s8", "Osmanlı", -0.2), calm_at=("c5s8", "yatışınca", -0.2), war_at=("c5s8", "1546'da", -0.1), label="yatisinca_1546"),
-    # s9a — Mühlberg, 24 Nisan 1547; sisli sabah; Elbe geçişi
-    shot("map", a=("c5s9", -0.3), tr=F, cams=[(0.0, (13.9, 51.6, 4.6)), (("c5s9", "Mühlberg'de", 0.6), (13.3, 51.45, 7.0))],
-         regions=[dict(name="almanya", color="#7A6A3A", at=0.0, alpha=0.2, hatch=True)],
-         cities=[dict(lon=13.22, lat=51.43, name="MÜHLBERG", kind="battle", at=("c5s9", "Mühlberg'de", -0.2), side="b", size=40)],
-         date=("24 NİSAN 1547", ("c5s9", 0.0)),
-         extra=kinds_c5.make_elbe(("c5s9", "Nisan", 0.0), ("c5s9", "sisli", -0.3), ("c5s9", "Elbe", -0.1), ("c5s9", "nehrini", 0.0)), approx=False, label="muhlberg_harita"),
+    # s9a — Mühlberg, 24 Nisan 1547; sisli sabah; Elbe geçişi (parşömen savaş planı)
+    shot("c5_plan", a=("c5s9", -0.3), tr=F, at=0.0, date_at=("c5s9", "Nisan", -0.4), river_at=("c5s9", "1547'de", 0.0), city_at=("c5s9", "Mühlberg'de", -0.15),
+         army_at=("c5s9", "Mühlberg'de", 0.5), fog_at=("c5s9", "sisli", -0.3), cross_at=("c5s9", "Elbe", -0.25), label="muhlberg_plan"),
     # s9b — Protestan ordusu dağıldı
     shot("bw_theatre", a=("c5s9", "geçti", 0.15), tr=F, scene="field", cams=[(0.0, (960, 560, 1.0)), (("c5s9", "dağıttı", 0.0), (1000, 580, 1.3))],
          p=FIELD_P, label="sis_elbe"),

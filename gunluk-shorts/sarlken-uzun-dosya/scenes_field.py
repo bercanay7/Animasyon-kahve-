@@ -23,7 +23,7 @@ from stage import MARGIN
 HZ = 500
 EDGE_Y = (562, 702, 846, 1004)           # b0 uzak · b1 orta · b2 yakın · b3 ön plan zemin kenarı
 BAND_D = (0.30, 0.52, 0.78, 1.06)
-FG_D = 1.30
+FG_D = 1.18
 RIVER_Y, RIVER_D = 628, 0.41
 BASE_D = 0.08
 ROW_BAND = {2: 0, 1: 1, 0: 2}
@@ -42,8 +42,8 @@ WEATHER = dict(
               tint="#9A7A5E", tint_k=0.30, rim="#FFB26A", fog_a=0.32, bright=1.0, ridge="#8A6E78", sunlight=0.9),
     dusk=dict(sky=[("#171B36", 0.0), ("#4B3359", 0.30), ("#A24A55", 0.62), ("#E2733C", 0.86), ("#FFB257", 1.0)], haze="#EE9150", sun=(0.70, 498, 64, "#FFE2A0", "#FF8E3C"), cloud_shadow="#3A2542", cloud_light="#FF9A55", cover=0.52,
               tint="#7A5440", tint_k=0.32, rim="#FF9A4E", fog_a=0.24, bright=0.95, ridge="#6A4A50", sunlight=0.9),
-    snow=dict(sky=[("#566069", 0.0), ("#98A1A7", 0.5), ("#CDD1D0", 1.0)], haze="#C9CFD0", sun=None, cloud_shadow="#838B93", cloud_light="#E0E4E4", cover=0.62,
-              tint="#C8D0D6", tint_k=0.75, rim="#D8E0E8", fog_a=0.40, bright=1.0, ridge="#B4BCC2", sunlight=0.3),
+    snow=dict(sky=[("#39424B", 0.0), ("#78828A", 0.5), ("#AEB5B8", 1.0)], haze="#9EA7AC", sun=None, cloud_shadow="#677079", cloud_light="#C4CACC", cover=0.62,
+              tint="#8A97A4", tint_k=0.72, rim="#D8E0E8", fog_a=0.40, bright=1.0, ridge="#8C979F", sunlight=0.3),
 )
 
 GROUND = dict(
@@ -342,8 +342,8 @@ def bake_band(f, ground, weather, k, river):
                 f.line(x, y, x + math.sin(ang) * L, y - math.cos(ang) * L, color=mix("#0A0705", Wx["haze"], 0.08), sw=2.2 * sc)
                 f.poly([(x + math.sin(ang) * L - 3 * sc, y - math.cos(ang) * L + 2), (x + math.sin(ang) * (L + 14 * sc), y - math.cos(ang) * (L + 14 * sc)), (x + math.sin(ang) * L + 3 * sc, y - math.cos(ang) * L + 2)], color="#0A0705")
             elif kindp < 0.75:   # yere düşmüş kalkan
-                f.oval(x, y, 30 * sc, 7 * sc, color=mix("#0A0705", Wx["haze"], 0.1))
-                f.oval(x, y - 2 * sc, 8 * sc, 2.4 * sc, color=Wx["rim"], alpha=0.45)
+                f.oval(x, y, 22 * sc, 4.6 * sc, color=mix("#0A0705", Wx["haze"], 0.1))
+                f.oval(x, y - 1.5 * sc, 5 * sc, 1.6 * sc, color=Wx["rim"], alpha=0.4)
             else:                # çalı/taş
                 f.oval(x, y, (16 + 14 * rs.rand()) * sc, (6 + 4 * rs.rand()) * sc, color=mix("#0A0705", Wx["haze"], 0.06))
     fa = Wx["fog_a"] * (1.0 - 0.28 * k) * (0.9 if k > 0 else 1.0)
@@ -409,15 +409,15 @@ def fg_image(ground, weather):
         rs = RS(77)
         col = "#3A424A" if weather == "snow" else mix("#0A0F08", Wx["haze"], 0.04)
         y0 = H - 24
-        f.rect(-MARGIN, y0 + 30, W + 2 * MARGIN, 400, color=col)
+        f.rect(-MARGIN, y0 + 52, W + 2 * MARGIN, 400, color=col)
         for q in range(190):
             x = rs.rand() * (W + 2 * MARGIN) - MARGIN
-            hh = 40 + rs.rand() * 120 * (1.0 if ground != "marsh" else 1.5)
+            hh = 30 + rs.rand() * 90 * (1.0 if ground != "marsh" else 1.5)
             bx = x + (rs.rand() - 0.5) * 30
             f.path(sk.smooth_path([(x, y0 + 40), (x + (bx - x) * 0.5, y0 - hh * 0.5), (bx, y0 - hh)], False, 0.5), style="stroke", sw=1.6 + rs.rand() * 2.2, color=col)
-        for q in range(8):
+        for q in range(6):
             x = rs.rand() * (W + 2 * MARGIN) - MARGIN
-            f.oval(x, y0 + 14, 40 + rs.rand() * 60, 18 + rs.rand() * 14, color=col)
+            f.oval(x, y0 + 40, 40 + rs.rand() * 60, 14 + rs.rand() * 10, color=col)
     img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -ytop, mip=False)
     return img, -MARGIN, ytop
 

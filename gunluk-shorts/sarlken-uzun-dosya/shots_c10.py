@@ -40,11 +40,11 @@ def k_c10_soru(cx, t_q=0.0):
     _silver_coins(f, t, 16)
     a = cx.amt(0.1, 0.8)
     qa = cx.amt(t_q, 0.6)
-    K.glow_disc(f, 700, 520, 330, "#CFE8E0", 0.18 * a)
-    icons.draw_icon(f, "swords", 700, 520 + math.sin(t * 1.2) * 6, size=340 * (0.9 + 0.1 * ease_out(a)), metal="silver", alpha=a, glow=0.25 * a)
+    K.glow_disc(f, 680, 520, 380, "#CFE8E0", 0.18 * a)
+    icons.draw_icon(f, "swords", 680, 520 + math.sin(t * 1.2) * 6, size=420 * (0.9 + 0.1 * ease_out(a)), metal="silver", alpha=a, glow=0.25 * a)
     if qa > 0:
-        K.glow_disc(f, 1250, 520, 380, "#F0D27A", 0.25 * qa)
-        icons.draw_icon(f, "question", 1250, 520 + math.sin(t * 1.5) * 8, size=470 * (0.8 + 0.2 * back_out(qa)), metal="silver", alpha=qa, glow=0.45 * qa)
+        K.glow_disc(f, 1280, 520, 420, "#F0D27A", 0.25 * qa)
+        icons.draw_icon(f, "question", 1280, 520 + math.sin(t * 1.5) * 8, size=560 * (0.8 + 0.2 * back_out(qa)), metal="silver", alpha=qa, glow=0.45 * qa)
     f.vig(0.6)
 
 
@@ -92,7 +92,7 @@ def k_c10_defter(cx, t_open=0.0, t_title=0.0):
         w = pw * op
         x0 = cxw if side > 0 else cxw - w
         f.rrect(x0 + side * 8, cyw - ph / 2 + 12, w, ph, 10, color="#000000", alpha=0.45, blur=16)
-        f.rrect(x0, cyw - ph / 2, w, ph, 8, shader=f.lin(x0 if side > 0 else x0 + w, 0, x0 + w if side > 0 else x0, 0, [("#9FB0A6", 0.0), ("#D2DBCE", 0.18), ("#C0CCBE", 1.0)]))
+        f.rrect(x0, cyw - ph / 2, w, ph, 8, shader=f.lin(x0 if side > 0 else x0 + w, 0, x0 + w if side > 0 else x0, 0, [("#6F8178", 0.0), ("#A9B8AA", 0.18), ("#97A698", 1.0)]))
         f.rrect(x0, cyw - ph / 2, w, ph, 8, style="stroke", sw=3, color="#3A4A44", alpha=0.8)
     if op > 0.3:
         for side in (-1, 1):
@@ -125,6 +125,9 @@ def k_c10_defter(cx, t_open=0.0, t_title=0.0):
     f.vig(0.6)
 
 
+_PILE = K.pile_spec(n=130, seed=11, width=520.0, height=170.0, rmin=15, rmax=21)
+
+
 # ───────────────────────────── 35 yıl / çoğu vergi ─────────────────────────────
 @SH.kind("c10_sayac")
 def k_c10_sayac(cx, t_num=0.0, t_label=0.0, t_tax=0.0):
@@ -132,6 +135,7 @@ def k_c10_sayac(cx, t_num=0.0, t_label=0.0, t_tax=0.0):
     t = cx.t
     na = cx.amt(t_num, 0.5, off=-0.15)
     v = 35 * ease_out(clamp((t - cx.at(t_num)) / 0.9), 3)
+    K.draw_pile(f, 960, 1010, ease_out(clamp(t / (cx.dur * 0.9)), 2), _PILE, alpha=0.55, scale=2.2, col="#C9B27A")
     K.glow_disc(f, 960, 450, 420, "#CFE8E0", 0.16 * na)
     if na > 0:
         SH.gold_flat(f, f"{int(round(v))}", 880, 560, face="title", size=300, track=10, alpha=na)
@@ -155,7 +159,7 @@ def k_c10_bars(cx, items=(), t_unit=0.0, maxv=10.5):
     """items: [dict(label, value, color, t0, t1, text)] — t0: çubuk başlar, t1: değer yazısı."""
     f = _base(cx, 0.25, 40)
     t = cx.t
-    x0, w, bh, gap = 640, 1000, 96, 70
+    x0, w, bh, gap = 600, 880, 96, 70
     n = len(items)
     y0 = 540 - (n * bh + (n - 1) * gap) / 2 + 20
     sc = 1.0 + 0.05 * cx.u
@@ -164,7 +168,7 @@ def k_c10_bars(cx, items=(), t_unit=0.0, maxv=10.5):
     f.c.scale(sc, sc)
     f.c.translate(-960, -540)
     ua = cx.amt(t_unit, 0.6)
-    K.txt(f, "OLAĞANÜSTÜ GELİRLER · MİLYON DÜKAT", 960, 150, face="title_m", size=34, color=SILV_D, track=10, alpha=smooth(t / 0.6) * (0.55 + 0.45 * ua))
+    K.txt(f, "OLAĞANÜSTÜ GELİRLER · DÜKAT", 960, 150, face="title_m", size=34, color=SILV_D, track=10, alpha=smooth(t / 0.6) * (0.55 + 0.45 * ua))
     for i, it in enumerate(items):
         y = y0 + i * (bh + gap)
         a = cx.amt(it["t0"], 0.5)
@@ -217,7 +221,7 @@ def k_c10_egri(cx, t_flow=0.0, t_boom=0.0, t_after=0.0, t_potosi=0.0, t_year=0.0
     f.rect(X(1519), ay - ph - 40, X(1556) - X(1519), ph + 40, color="#C9962B", alpha=0.12 * a)
     f.line(X(1519), ay - ph - 40, X(1519), ay, color="#C9962B", sw=2, alpha=0.5 * a)
     f.line(X(1556), ay - ph - 40, X(1556), ay, color="#C9962B", sw=2, alpha=0.5 * a)
-    K.txt(f, "ŞARLKEN DÖNEMİ", (X(1519) + X(1556)) / 2, ay - ph - 62, face="title_m", size=30, color="#E0C682", track=8, alpha=a)
+    K.txt(f, "ŞARLKEN DÖNEMİ", (X(1519) + X(1556)) / 2, ay - ph + 10, face="title_m", size=28, color="#E0C682", track=8, alpha=a)
     for yr in (1519, 1556):
         K.txt(f, str(yr), X(yr), ay + 52, face="title_m", size=30, color="#CDBB86", track=3, alpha=a)
     f.line(ax0, ay, ax1 + 40, ay, color="#9FB8B4", sw=3, alpha=0.8 * a)
@@ -268,7 +272,7 @@ def k_c10_egri(cx, t_flow=0.0, t_boom=0.0, t_after=0.0, t_potosi=0.0, t_year=0.0
 def k_c10_mektup(cx, lines=(), t_summary=0.0, t_seal=None, w=1180, h=620):
     f = _base(cx, 0.22, 35)
     t = cx.t
-    img, pad = SH.paper_sprite(w, h, seed=29, tone="#C6CFBF")
+    img, pad = SH.paper_sprite(w, h, seed=29, tone="#A3B2A1")
     a = cx.amt(0.0, 0.7)
     sc = (1.0 + 0.05 * cx.u) * (0.96 + 0.04 * ease_out(a))
     f.c.save()
@@ -295,9 +299,9 @@ def k_c10_mektup(cx, lines=(), t_summary=0.0, t_seal=None, w=1180, h=620):
     # özet etiketi
     sa = cx.amt(t_summary, 0.4)
     if sa > 0:
-        f.rrect(w / 2 - 330, -h / 2 + 40, 250, 64, 10, style="stroke", sw=3, color="#8E1F26", alpha=0.85 * sa)
-        f.text("ÖZET", w / 2 - 205, -h / 2 + 84, face="title", size=36, color="#8E1F26", align="c", track=10, alpha=0.9 * sa)
-        f.text("kelimesi kelimesine değil", w / 2 - 90, -h / 2 + 138, face="fell_i", size=30, color=ink, align="r", alpha=0.75 * sa)
+        f.rrect(w / 2 - 190, -h / 2 + 38, 150, 58, 10, style="stroke", sw=3, color="#8E1F26", alpha=0.85 * sa)
+        f.text("ÖZET", w / 2 - 115, -h / 2 + 78, face="title", size=32, color="#8E1F26", align="c", track=8, alpha=0.9 * sa)
+        f.text("kelimesi kelimesine değil", w / 2 - 50, -h / 2 + 128, face="fell_i", size=28, color=ink, align="r", alpha=0.8 * sa)
     if t_seal is not None:
         SH.wax_seal(f, w / 2 - 150, h / 2 - 96, 58, color="#2F5232", t=cx.amt(t_seal, 0.35), alpha=a, mono="F")
     f.c.restore()
@@ -328,7 +332,7 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
         k = ease_out(clamp((t - cx.at(t_debt, off=-0.5 + i * 0.12)) / 0.9), 3)
         if k <= 0:
             continue
-        hgt = (60 + i ** 1.75 * 20) * k
+        hgt = (50 + i ** 1.7 * 11) * k
         bx = 150 + i * 118
         col = mix("#7FA8A0", "#B02A2A", i / (n - 1))
         f.rect(bx, top_y - hgt, 86, hgt, shader=f.lin(bx, 0, bx + 86, 0, [(mix(col, "#000000", 0.4), 0.0), (mix(col, "#FFFFFF", 0.15), 0.4), (mix(col, "#000000", 0.45), 1.0)]), alpha=0.95)
@@ -341,8 +345,8 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
     ca = cx.amt(t_crown, 0.7)
     if ca > 0:
         tilt = 0.14 * smooth((t - cx.at(t_edge)) / 1.2) + 0.012 * math.sin(t * 3)
-        cxw = edge_x - 80
-        cyw = top_y - (60 + 7 ** 1.75 * 20) - 90 - 20 * (1 - ca)
+        cxw = 150 + 7 * 118 + 60
+        cyw = top_y - (50 + 7 ** 1.7 * 11) - 120 - 20 * (1 - ca)
         K.glow_disc(f, cxw, cyw, 230, "#F0D27A", 0.35 * ca)
         icons.draw_icon(f, "imperial_crown", cxw, cyw, size=300, metal="gold", alpha=ca, rot=tilt, glow=0.4 * ca)
     if ya > 0:

@@ -385,18 +385,23 @@ def hand_open():
                (0.80, 0.15), (0.70, 0.19), (0.52, 0.17), (0.34, 0.16), (0.14, 0.15), K(0, 0.14)], True)
 
 
+def hand_thumb_fist():
+    """Yumruk başparmağı: parmakların üstünden öne kıvrılan kısa parça."""
+    return sp([K(0.24, -0.12), (0.34, -0.27), (0.50, -0.30), (0.62, -0.24), (0.58, -0.17), (0.44, -0.18), K(0.34, -0.08)], True, 0.9)
+
+
 def hand_thumb(open_=0.0):
     """Başparmak (ayrı parça; açık elin üstünde)."""
     return sp([K(0.12, -0.14), (0.28, -0.30 - open_ * 0.1), (0.46, -0.37 - open_ * 0.1), (0.52, -0.33), (0.40, -0.25), (0.34, -0.17), K(0.24, -0.12)], True)
 
 
 def hand_fist():
-    """Kavrayan yumruk (sopa/kabze tutan)."""
-    return sp([K(0, -0.15), (0.16, -0.22), (0.42, -0.22), (0.64, -0.19), (0.74, -0.08), (0.72, 0.06), (0.62, 0.17), (0.40, 0.22), (0.18, 0.19), K(0, 0.14)], True)
+    """Kavrayan yumruk (sopa/kabze tutan): parmak boğumları (pürüzlü üst kenar) + başparmak ayrı parça (hand_thumb('fist'))."""
+    return sp([K(0, -0.15), (0.14, -0.21), (0.30, -0.235), (0.40, -0.215), (0.50, -0.235), (0.60, -0.205), (0.72, -0.13), (0.76, -0.03), (0.72, 0.07), (0.62, 0.17), (0.40, 0.225), (0.18, 0.195), K(0, 0.14)], True)
 
 
 def hand_pt(kind, x, y, s, rot=0.0, flip=False):
-    return place({"open": hand_open, "fist": hand_fist, "thumb": hand_thumb}[kind](), x, y, s, rot, flip)
+    return place({"open": hand_open, "fist": hand_fist, "thumb": hand_thumb, "thumb_fist": hand_thumb_fist}[kind](), x, y, s, rot, flip)
 
 
 # ───────────────────────────── ortak yardımcılar ─────────────────────────────

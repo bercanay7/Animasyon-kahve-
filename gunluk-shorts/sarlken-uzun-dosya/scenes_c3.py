@@ -50,7 +50,7 @@ def _ex_tepki(cx, cm, mv):
         x, y, w, h = 40, 300 - 14 * (1 - ya), 360, 360
         _card(f, x, y, w, h, ya)
         for i, (kind, dx, hh) in enumerate((("noble", -92, 150), ("page", 0, 130), ("merchant", 92, 150))):
-            ST.figure(f, kind, x + w / 2 + dx, y + 200, hh, col="#0A0504", rim="#D9A05A", face=1 if i != 1 else -1, alpha=ya)
+            K.fig(f, kind, x + w / 2 + dx, y + 200, hh, col="#0A0504", rim="#D9A05A", face=1 if i != 1 else -1, alpha=ya)
         K.txt(f, "YABANCI", x + w / 2, y + 262, face="title_m", size=34, color="#F3DE9A", track=8, alpha=ya)
         K.txt(f, "DANIŞMANLAR", x + w / 2, y + 308, face="title_m", size=34, color="#F3DE9A", track=8, alpha=ya)
     va = cx.amt(("c3s2", "vergilere", -0.1), 0.6)

@@ -123,7 +123,7 @@ def ransom_overlay(cx):
     t0 = cx.at(A("c9s6", "1.326.539", -0.05, alt=("peso",)))
     k = cx.amt(A("c9s6", "1.326.539", -0.2, alt=("peso",)), 0.7)
     if k > 0:
-        f.rect(0, H - 360, W, 360, shader=f.lin(0, H - 360, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(215 * k))]))
+        f.rect(0, H - 430, W, 430, shader=f.lin(0, H - 430, 0, H, [("#000000", 0.0, 0), ("#000000", 0.55, int(190 * k)), ("#000000", 1.0, int(240 * k))]))
         kk = ease_out(clamp((cx.t - t0) / 3.3), 2)
         v = 1326539 * kk
         s = SH.fmt_int(v)
@@ -260,4 +260,4 @@ def debate_overlay(cx):
     kr = cx.amt(A("c9s11", "öbürü", -0.3), 0.7)
     tag(f, "SEPÚLVEDA", 110, 790, kl, size=34, sub="Savı: köleliğe layık", align="l", accent="#9AA3AD")
     tag(f, "LAS CASAS", W - 110, 790, kr, size=34, sub="Savı: fetih bir suç", align="r", accent="#E8D8A0")
-    SH.stamp(f, "RESMÎ KAZANAN YOK", W / 2, 250, rot=-0.05, size=64, t=cx.amt(A("c9s11", "Resmî", -0.1), 0.3))
+    SH.stamp(f, "RESMÎ KAZANAN YOK", W / 2, 480, rot=-0.05, size=72, t=cx.amt(A("c9s11", "Resmî", -0.1), 0.3))

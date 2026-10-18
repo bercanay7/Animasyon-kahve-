@@ -122,7 +122,7 @@ def k_study(cx, year_at=0.0, portrait_at=2.0, face_at=3.1, kin_at=5.2, link_at=6
     with push(cx, 1.0, 1.04):
         with paper(f, 960, 560, 1560, 800, rot=-0.008, alpha=a, seed=19, tone="#B79C68", shade=0.5):
             f.text("2019", -540, -400 + 112, face="title", size=96, color="#4A2E12", align="l", track=10, alpha=0.95 * cx.amt(year_at, 0.8))
-            f.text("ÇALIŞMA", -280, -400 + 112, face="fell", size=52, color=INK, align="l", track=8, alpha=0.9 * cx.amt(year_at, 0.8, off=0.3))
+            f.text("ÇALIŞMA", -250, -400 + 112, face="fell", size=52, color=INK, align="l", track=8, alpha=0.9 * cx.amt(year_at, 0.8, off=0.3))
             f.line(-710, -400 + 138, 710, -400 + 138, color=INK, sw=2.2, alpha=0.5 * a)
             # portre şeridi (hanedan portreleri)
             n = len(STUDY_KEYS)
@@ -216,11 +216,15 @@ def cloister_overlay(approx_at, two_at, never_at):
         k = cx.amt(approx_at, 0.6)
         if k > 0:
             f.rect(0, H * 0.70, W, H * 0.30, shader=f.lin(0, H * 0.70, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(205 * k))]))
-            f.text("YAKLAŞIK", 560, H * 0.90, face="title_m", size=48, color="#C9B27A", align="center" if False else "r", track=14, alpha=k, shadow=(2, 3, 4, "#000000"))
-        k2 = cx.amt(two_at, 0.6)
-        if k2 > 0:
-            f.gold("İKİ AY", 760, H * 0.90 + 6, face="title", size=104, track=12, alpha=k2, glow=0.25 * k2, align="l")
-            tag(f, "MANASTIR", 1400, H * 0.90 - 8, size=32, alpha=cx.amt(two_at, 0.5, off=0.3), track=14)
+            w1 = sk.text_width("YAKLAŞIK", "title_m", 48, 14)
+            w2 = sk.text_width("İKİ AY", "title", 104, 12)
+            tot = w1 + 46 + w2
+            x0 = W / 2 - tot / 2 - 130
+            f.text("YAKLAŞIK", x0, H * 0.905, face="title_m", size=48, color="#C9B27A", align="l", track=14, alpha=k, shadow=(2, 3, 4, "#000000"))
+            k2 = cx.amt(two_at, 0.6)
+            if k2 > 0:
+                f.gold("İKİ AY", x0 + w1 + 46, H * 0.905 + 4, face="title", size=104, track=12, alpha=k2, glow=0.25 * k2, align="l")
+                tag(f, "MANASTIR", x0 + tot + 130, H * 0.905 - 6, size=32, alpha=cx.amt(two_at, 0.5, off=0.3), track=14, align="l")
         k3 = cx.amt(never_at, 0.6)
         if k3 > 0:
             icons.draw_icon(f, "ring", 1700, 260, size=170, metal="gold", alpha=k3 * (1 - 0.5 * cx.amt(never_at, 0.7, off=0.2)), glow=0.2)

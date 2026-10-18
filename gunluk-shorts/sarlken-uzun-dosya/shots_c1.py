@@ -76,7 +76,7 @@ def k_c1_yol(cx, t_far=0.0, t_name=0.0, t_five=0.0, t_cousin=0.0, t_age=None, t_
         K.candle(f, bx, by + 16, 150, t, lit=ap * (1 - snuff), alpha=ap, dim=snuff, seed=2.0)
         K.smoke_wisp(f, bx, by - 175, cx.at(t_die, off=-0.05), t, h=150, alpha=0.6)
         la = cx.amt(t_age if t_age is not None else t_cousin, 0.6, off=0.1) * (1 - 0.35 * snuff)
-        K.txt(f, "İKİ YAŞINA BASMAMIŞ KUZEN", bx, by + 92, face="cap_i", size=40, color="#EFE2B8", alpha=la)
+        K.txt(f, "İKİ YAŞINA BASMAMIŞ KUZEN", bx, by + 112, face="cap_i", size=40, color="#EFE2B8", alpha=la)
     # 5 AY sayacı
     fa = cx.amt(t_five, 0.5) * (1 - smooth(clamp((t - cx.at(t_open, off=0.2)) / 0.6)))
     if fa > 0:
@@ -294,7 +294,7 @@ def k_c1_halk(cx, a_q=(1.0, 1.5, 2.0), size=520):
     ST.hills(f, 680, 30, "#120C09", seed=7, step=70, wavelength=0.009)
     f.rect(0, 700, W, 8, color="#8C5A2A", alpha=0.25)
     # kalabalık
-    ST.crowd(f, 3, 960, 2000, 880, 62, 300, 1.12, ["peasant", "fisherman", "woman", "fisherman", "peasant", "child", "merchant"], col="#0A0604", rim="#B97A3A", seed=21, dens=70, face=-1, depth_fog="#2A170C")
+    K.crowd(f, 3, 960, 2000, 880, 62, 300, 1.12, ["peasant", "fisherman", "woman", "fisherman", "peasant", "child", "merchant"], col="#0A0604", rim="#B97A3A", seed=21, dens=70, face=-1, depth_fog="#2A170C")
     # soru işaretleri
     for i, (qx, qy) in enumerate(((1180, 500), (1440, 470), (1700, 520))):
         a = cx.amt(a_q[i], 0.5)

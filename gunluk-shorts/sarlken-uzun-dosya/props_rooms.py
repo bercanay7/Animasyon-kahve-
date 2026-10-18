@@ -443,15 +443,16 @@ def g_bar(f, x, y, w, h, rot=0.0):
 
 
 def g_mask(f, x, y, r, rot=0.0):
+    """Güneş diski (Inti): halkalı disk + ışınlar."""
     f.c.save()
     f.c.translate(x, y)
     f.c.rotate(math.degrees(rot))
+    for i in range(14):
+        a = 2 * math.pi * i / 14
+        f.poly([(math.cos(a - 0.14) * r, math.sin(a - 0.14) * r), (math.cos(a) * r * 1.38, math.sin(a) * r * 1.38), (math.cos(a + 0.14) * r, math.sin(a + 0.14) * r)], color="#c9962b")
     f.circle(0, 0, r, shader=f.rad(-r * 0.3, -r * 0.3, r * 1.4, [("#fff0b0", 0.0), ("#e0a830", 0.5), ("#7a5518", 1.0)]))
-    f.circle(0, 0, r, style="stroke", sw=max(1.0, r * 0.07), color="#8a6220")
-    for sx in (-1, 1):
-        f.oval(sx * r * 0.36, -r * 0.12, r * 0.2, r * 0.07, color="#2a1a06")
-        f.oval(sx * (r + r * 0.18), r * 0.05, r * 0.2, r * 0.3, color="#c9962b")
-    f.line(-r * 0.25, r * 0.4, r * 0.25, r * 0.4, color="#2a1a06", sw=max(1.2, r * 0.08))
+    f.circle(0, 0, r * 0.62, style="stroke", sw=max(1.0, r * 0.07), color="#8a6220")
+    f.circle(0, 0, r * 0.26, color="#fff0b0", alpha=0.75)
     f.c.restore()
 
 

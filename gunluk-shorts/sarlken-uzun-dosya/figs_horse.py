@@ -207,7 +207,19 @@ def _rider(F, px, py, u, lance="up", charge=0.0, style="armor", lean_deg=0.0):
     # lance (dönmeden): ayrı alt-Fig
     Lc = Fig(F.h)
     lx = lambda x, y: (x * u, y * u)
-    if lance == "up":
+    if lance == "angled":                     # Tiziano tarzı: el eyerde, mızrak ileri-yukarı eğik; ucunda flama
+        x0, y0 = lx(0.02, 0.80)
+        x1, y1 = lx(1.10, -2.30)
+        Lc.fill(bar(x0, y0, x1, y1, 0.07 * u, 0.045 * u), rim=0.95)
+        dx, dy = x1 - x0, y1 - y0
+        Ln = math.hypot(dx, dy)
+        ux, uy = dx / Ln, dy / Ln
+        nx, ny = -uy, ux
+        Lc.fill(sp([KC(x1 - ux * 0.02 * u - nx * 0.05 * u, y1 - uy * 0.02 * u - ny * 0.05 * u), (x1 + ux * 0.14 * u - nx * 0.065 * u, y1 + uy * 0.14 * u - ny * 0.065 * u), KC(x1 + ux * 0.42 * u, y1 + uy * 0.42 * u),
+                    (x1 + ux * 0.14 * u + nx * 0.065 * u, y1 + uy * 0.14 * u + ny * 0.065 * u), KC(x1 - ux * 0.02 * u + nx * 0.05 * u, y1 - uy * 0.02 * u + ny * 0.05 * u)], True), rim=1.0)
+        bx, by = x1 - ux * 0.50 * u, y1 - uy * 0.50 * u
+        Lc.fill(sp([KC(bx, by), (bx - 0.28 * u, by - 0.02 * u), KC(bx - 0.60 * u, by - 0.04 * u), (bx - 0.40 * u, by + 0.10 * u), KC(bx - 0.62 * u, by + 0.24 * u), (bx - 0.30 * u, by + 0.20 * u), KC(bx + 0.02 * u, by + 0.22 * u)], True, 0.8), rim=1.0)
+    elif lance == "up":
         Lc.fill(bar(*lx(0.36, 0.55), *lx(0.40, -2.35), 0.07 * u, 0.05 * u), rim=0.95)
         tx, ty = lx(0.40, -2.35)
         Lc.fill(sp([KC(tx - 0.05 * u, ty + 0.01 * u), (tx - 0.065 * u, ty - 0.14 * u), KC(tx, ty - 0.40 * u), (tx + 0.065 * u, ty - 0.14 * u), KC(tx + 0.05 * u, ty + 0.01 * u)], True), rim=1.0)
@@ -324,6 +336,12 @@ def _horse_with_rider(h, lean, pose, lance, cloth=False, charge=0.0, rot=None, s
 @fx("horse_rider")
 def _horse_rider(h, lean):
     return _horse_with_rider(h, lean, HORSE_STAND, "up", cloth=True).build()
+
+
+@fx("horse_rider_walk")
+def _horse_rider_walk(h, lean):
+    """Yürüyen at + zırhlı binici, mızrak ileri-yukarı eğik (Mühlberg/Tiziano tarzı duruş)."""
+    return _horse_with_rider(h, lean, HORSE_WALK, "angled", cloth=True).build()
 
 
 @fx("cavalry_charge")

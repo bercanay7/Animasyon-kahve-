@@ -316,9 +316,15 @@ def k_c2_plus_ultra(cx, t_pillars=0.0, t_motto=0.0, t_sub=0.0):
     f.c.translate(960, 540)
     f.c.scale(sc, sc)
     f.c.translate(-960, -540)
-    for x in (500, 1420):
-        K.glow_disc(f, x, 470, 330, "#F0D27A", 0.3 * pa)
-        icons.draw_icon(f, "c2_sutun", x, 470 + 40 * (1 - ease_out(pa)), size=700, metal="gold", alpha=pa, glow=0.25 * pa)
+    def _pillars(ff):
+        for x in (500, 1420):
+            K.glow_disc(ff, x, 470, 330, "#F0D27A", 0.3)
+            icons.draw_icon(ff, "c2_sutun", x, 470, size=700, metal="gold", alpha=1.0, glow=0.25)
+    img = sk.baked(("c2_pillars",), _pillars)
+    if pa > 0:
+        pp = skia.Paint(AntiAlias=True)
+        pp.setAlphaf(clamp(pa))
+        f.c.drawImage(img, 0, 40 * (1 - ease_out(pa)), skia.SamplingOptions(skia.FilterMode.kLinear), pp)
     ma = cx.amt(t_motto, 0.7)
     if ma > 0:
         yb = 560

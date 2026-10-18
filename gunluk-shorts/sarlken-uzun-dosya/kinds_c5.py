@@ -58,9 +58,9 @@ def make_leave(go_at, year_at, block_at):
         # 9 YIL
         ya = cx.amt(year_at, 0.6)
         if ya > 0:
-            px, py = 1440, 360
-            f.rrect(px - 250, py - 190, 500, 420, 24, color="#150D08", alpha=0.80 * ya)
-            f.rrect(px - 250, py - 190, 500, 420, 24, style="stroke", sw=3, color="#C9962B", alpha=0.9 * ya)
+            px, py = 320, 430
+            f.rrect(px - 215, py - 190, 430, 420, 24, color="#150D08", alpha=0.82 * ya)
+            f.rrect(px - 215, py - 190, 430, 420, 24, style="stroke", sw=3, color="#C9962B", alpha=0.9 * ya)
             icons.draw_icon(f, "hourglass", px, py - 100, size=150, metal="gold", alpha=ya, shadow=False, glow=0.2)
             big_gold(f, "9", px, py + 100, size=190, alpha=ya, track=4)
             f.text("YIL", px, py + 170, face="title_m", size=50, color="#E0C682", align="c", track=18, alpha=ya)
@@ -78,7 +78,7 @@ def make_pressure(es_at, fr_at, ot_at):
         ck = cx.amt(0.1, 0.8)
         glow(f, cxp, cyp, 120, "#FFD27A", 0.35 * ck)
         icons.draw_icon(f, "imperial_crown", cxp, cyp, size=110 * (0.85 + 0.15 * ck), metal="gold", alpha=ck, glow=0.35)
-        specs = [(es_at, (-3.8, 40.2), "#C0392B", "İSPANYA", (-3.8, 38.2), 60),
+        specs = [(es_at, (-3.8, 40.2), "#C0392B", "İSPANYA", (-1.0, 38.4), 60),
                  (fr_at, (0.6, 46.6), "#4B6DB5", "FRANSA", (-0.5, 49.2), -50),
                  (ot_at, (26.0, 40.6), "#4FA57A", "OSMANLI", (23.0, 39.6), 70)]
         for (ta, src, col, lab, lpos, bend) in specs:
@@ -116,8 +116,8 @@ def k_ideas(cx, tag_at=0.9, n=34):
         k = (cx.t - t0) / dur
         d = 0.45 + rs.rand() * 0.9                # derinlik (ölçek)
         y0 = 560 + rs.randn() * 40
-        y1 = 90 + rs.rand() * 900
-        x0, x1 = 600 + rs.rand() * 80, 760 + rs.rand() * 1250
+        y1 = 170 + rs.rand() * 800
+        x0, x1 = 600 + rs.rand() * 80, 760 + rs.rand() * 1050
         sd = rs.rand() * 6
         if k <= 0 or k >= 1.15:
             continue
@@ -131,7 +131,7 @@ def k_ideas(cx, tag_at=0.9, n=34):
         f.c.save()
         f.c.translate(x, y)
         f.c.rotate(math.degrees(rot))
-        f.rrect(-w / 2, -h / 2, w, h, 6, shader=f.lin(0, -h / 2, 0, h / 2, [("#F2E6C0", 0.0), ("#CDB88A", 1.0)]), alpha=a * (0.55 + 0.45 * d / 1.35))
+        f.rrect(-w / 2, -h / 2, w, h, 6, shader=f.lin(0, -h / 2, 0, h / 2, [("#D9C79A", 0.0), ("#A8946A", 1.0)]), alpha=a * (0.50 + 0.40 * d / 1.35))
         for r in range(5):
             f.line(-w * 0.36, -h * 0.30 + r * h * 0.16, w * 0.36 - (w * 0.2 if r == 4 else 0), -h * 0.30 + r * h * 0.16, color="#3A2A18", sw=max(1.5, 3 * d), alpha=0.6 * a)
         f.c.restore()
@@ -188,18 +188,24 @@ def k_speyer(cx, year_at=0.0, city_at=1.5, maj_at=2.9, ferman_at=4.0, stamp_at=5
         ca = cx.amt(city_at, 0.7)
         if ca > 0:
             f.text("SPEYER", 520, 300, face="title_m", size=56, color="#F0DDA0", align="c", track=24, alpha=ca, shadow=(2, 3, 4, "#000000"))
-        # oylama sütunları: Katolik çoğunluk (altın/mor) ↔ azınlık (petrol)
-        ma = cx.amt(maj_at, 0.8)
-        if ma > 0:
-            base_y = 880
-            for (xc, hgt, col, ic, lab, metal) in ((330, 410, "#D4B64E", "cross", "KATOLİK", "gold"), (700, 190, PETROL_L, "cross", "AZINLIK", "teal")):
-                hh = hgt * ease_out(ma, 2)
-                f.rrect(xc - 110, base_y - hh, 220, hh, 14, shader=f.lin(0, base_y - hh, 0, base_y, [(mix(col, "#FFFFFF", 0.25), 0.0), (col, 0.5), (mix(col, "#000000", 0.45), 1.0)]), alpha=0.95)
-                f.rrect(xc - 110, base_y - hh, 220, hh, 14, style="stroke", sw=3, color=mix(col, "#FFFFFF", 0.45), alpha=0.9)
-                if hh > 120:
-                    icons.draw_icon(f, ic, xc, base_y - hh / 2, size=120, metal=metal, alpha=ma, shadow=False)
-                f.text(lab, xc, base_y + 54, face="title_m", size=34, color="#E7D5A0", align="c", track=8, alpha=ma)
-            f.text("ÇOĞUNLUK", 330, base_y - 410 * ease_out(ma, 2) - 30, face="cap_b", size=34, color="#F4DD92", align="c", track=6, alpha=cx.amt(maj_at, 0.5, off=0.5))
+        # oylama: jeton yığınları — Katolik çoğunluk (yüksek) ↔ azınlık (alçak)
+        base_y = 880
+        for (xc, nt, col, metal, lab, sub_) in ((330, 9, "#D4B64E", "gold", "KATOLİK", "ÇOĞUNLUK"), (700, 4, PETROL_L, "teal", "AZINLIK", None)):
+            top_y = base_y - 36 - nt * 44
+            for i in range(nt):
+                ki = clamp((cx.t - cx.at(maj_at, off=0.11 * i)) / 0.30)
+                if ki <= 0:
+                    continue
+                y = base_y - 36 - i * 44 - (1 - ease_out(ki)) * 140
+                f.rrect(xc - 105, y - 6, 210, 44, 16, shader=f.lin(0, y, 0, y + 44, [(mix(col, "#FFFFFF", 0.22), 0.0), (col, 0.5), (mix(col, "#000000", 0.5), 1.0)]), alpha=ki)
+                f.oval(xc, y - 6, 105, 19, color=mix(col, "#FFFFFF", 0.28), alpha=ki)
+                f.oval(xc, y - 6, 105, 19, style="stroke", sw=2, color=mix(col, "#000000", 0.55), alpha=0.85 * ki)
+            ka = cx.amt(maj_at, 0.6, off=0.11 * nt * 0.6)
+            if ka > 0:
+                icons.draw_icon(f, "cross", xc, top_y - 66, size=112, metal=metal, alpha=ka, shadow=False, glow=0.15)
+                f.text(lab, xc, base_y + 60, face="title_m", size=34, color="#E7D5A0", align="c", track=8, alpha=ka)
+                if sub_:
+                    f.text(sub_, xc, base_y + 100, face="cap_i", size=34, color="#C9B27A", align="c", track=4, alpha=ka)
         # Worms Fermanı: sağda, yeniden canlanır
         fk = cx.amt(ferman_at, 0.8)
         if fk > 0:
@@ -279,32 +285,35 @@ def k_confession(cx, year_at=0.0, city_at=1.4, seal_at=2.7, write_at=3.4, offer_
     f.rays(alpha=0.28)
     duo_glow(f, PETROL, CRIM, a=0.26)
     sk.dust(f, cx.t, n=50)
-    with push(cx, 1.0, 1.05, pan=(-20, 0)):
-        # imparator: taht üstü taç (sağda)
+    with push(cx, 1.0, 1.04, pan=(-14, 0)):
+        # sağda: taç ve taht
         ok = cx.amt(offer_at, 0.9)
-        glow(f, 1500, 520, 380, "#FFB347", 0.18 + 0.1 * ok)
-        icons.draw_icon(f, "imperial_crown", 1500, 470, size=260, metal="gold", alpha=0.9, glow=0.3 + 0.2 * ok)
-        f.rrect(1360, 660, 280, 34, 8, color="#5A141A")
-        f.rrect(1360, 660, 280, 34, 8, style="stroke", sw=2, color="#C9962B", alpha=0.8)
-        f.rrect(1320, 694, 360, 28, 8, color="#3A0E12")
-        # belge: sunulur (sağa kayar)
+        glow(f, 1610, 560, 380, "#FFB347", 0.18 + 0.12 * ok)
+        icons.draw_icon(f, "imperial_crown", 1610, 470, size=300, metal="gold", alpha=0.92, glow=0.3 + 0.2 * ok)
+        f.rrect(1470, 668, 280, 36, 8, color="#5A141A")
+        f.rrect(1470, 668, 280, 36, 8, style="stroke", sw=2, color="#C9962B", alpha=0.8)
+        f.rrect(1430, 704, 360, 30, 8, color="#3A0E12")
+        # solda: yıl + şehir + etiket
         ya = cx.amt(year_at, 0.8)
-        slide = ease_io(clamp((cx.t - cx.at(offer_at)) / 1.0))
-        px = lerp(560, 1210, slide)
-        py = 540 + (1 - ease_out(ya)) * 120 - 60 * math.sin(math.pi * slide)
-        sc_ = 1.0 - 0.28 * slide
-        with paper(f, px, py, 700, 820, rot=-0.03 + 0.05 * slide, sc=sc_, alpha=ya, seed=83):
-            reveal(f, "AUGSBURG İTİRAFI", 0, -410 + 108, clamp((cx.t - cx.at(city_at)) / 1.0), face="fell", size=54, align="c", alpha=ya)
-            f.line(-230, -410 + 132, 230, -410 + 132, color=INK, sw=2, alpha=0.5 * ya)
-            scribbles(f, -280, -410 + 200, 560, 11, prog=clamp((cx.t - cx.at(write_at)) / 1.5), seed=33, line_h=52, thick=6.6, alpha=0.62 * ya)
-            SH.wax_seal(f, 200, 300, 64, color="#1E5560", t=cx.amt(seal_at, 0.35), alpha=ya, mono="P")
-        # yıl damgası
         if ya > 0:
-            f.gold("1530", 560, 128, face="title", size=96, track=14, alpha=ya, glow=0.3 * ya)
-        # 'Protestanlar' etiketi (Reform petrolü)
+            f.gold("1530", 330, 470, face="title", size=170, track=12, alpha=ya, glow=0.3 * ya)
+        ca = cx.amt(city_at, 0.7)
+        if ca > 0:
+            f.text("AUGSBURG", 330, 570, face="title_m", size=58, color="#F0DDA0", align="c", track=18, alpha=ca, shadow=(2, 3, 4, "#000000"))
         ta = cx.amt(seal_at, 0.6, off=-0.2)
         if ta > 0:
-            tag(f, "PROTESTANLAR", 560, 970, size=30, alpha=ta, track=10, color="#9ED3DA", edge="#3F8C96", icon="b_flame", icon_metal="teal")
+            tag(f, "PROTESTANLAR", 330, 700, size=30, alpha=ta, track=10, color="#9ED3DA", edge="#3F8C96", icon="b_flame", icon_metal="teal")
+        # belge: ortadan tahta doğru sunulur
+        a = cx.amt(year_at, 0.8)
+        slide = ease_io(clamp((cx.t - cx.at(offer_at)) / 1.0))
+        px = lerp(960, 1170, slide)
+        py = 540 + (1 - ease_out(a)) * 120 - 50 * math.sin(math.pi * slide)
+        sc_ = 1.0 - 0.22 * slide
+        with paper(f, px, py, 700, 820, rot=-0.03 + 0.05 * slide, sc=sc_, alpha=a, seed=83):
+            reveal(f, "AUGSBURG İTİRAFI", 0, -410 + 108, clamp((cx.t - cx.at(city_at)) / 1.0), face="fell", size=54, align="c", alpha=a)
+            f.line(-230, -410 + 132, 230, -410 + 132, color=INK, sw=2, alpha=0.5 * a)
+            scribbles(f, -280, -410 + 200, 560, 11, prog=clamp((cx.t - cx.at(write_at)) / 1.5), seed=33, line_h=52, thick=6.6, alpha=0.62 * a)
+            SH.wax_seal(f, 200, 300, 64, color="#1E5560", t=cx.amt(seal_at, 0.35), alpha=a, mono="P")
     f.vig(0.6)
 
 
@@ -540,7 +549,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
             # 'zafer simgesi': defne
             sk_ = cx.amt(symbol_at, 0.7)
             if sk_ > 0:
-                icons.draw_icon(f, "laurel", fx_ - fw / 2 - 20, fy_ - fh / 2 + 60, size=130, metal="gold", alpha=sk_, glow=0.35)
+                icons.draw_icon(f, "laurel", fx_ - fw / 2 - 95, fy_ - 150, size=140, metal="gold", alpha=sk_, glow=0.35)
             # zırh parıltısı
             ak = cx.amt(armor_at, 0.6) * (1 - cx.amt(armor_at, 0.9, off=1.2))
             if ak > 0:
@@ -570,7 +579,7 @@ def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
     # Faz B: iki madalya, ortada kopan zincir
     mk = cx.amt(year_at, 0.8)
     if mk > 0:
-        gap = 700
+        gap = 780
         sk_ = clamp((cx.t - cx.at(snap_at)) / 0.5)
         for i, (key, name, role, metal, flip) in enumerate((("moritz", "SAKSONYALI MORITZ", "Eski müttefik", "teal", False), ("karl_olgun", "V. KARL", None, "gold", True))):
             x = W / 2 + (-gap / 2 if i == 0 else gap / 2)
@@ -643,33 +652,80 @@ def k_peace(cx, at=0.0, date_at=0.9, title_at=2.8, seal_at=3.8, luther_at=5.2, o
     f.vig(0.6)
 
 
-# ───────────────────────────── Mühlberg: Elbe geçişi (harita extra) ─────────────────────────────
-ELBE = [(11.2, 53.0), (11.9, 52.3), (12.35, 51.95), (12.75, 51.75), (13.0, 51.58), (13.22, 51.43), (13.45, 51.26), (13.74, 51.05), (14.2, 50.8)]
+# ───────────────────────────── Mühlberg: Elbe geçişi — savaş planı (parşömen üzerinde) ─────────────────────────────
+INK_M = "#2A1A0C"
 
 
-def make_elbe(river_at, fog_at, army_at, cross_at):
-    def extra(cx, cam, mv):
-        f = cx.f
-        k = ease_out(clamp((cx.t - cx.at(river_at)) / 1.4), 2)
-        if k > 0:
-            mv.route(f, cam, ELBE, prog=k, color="#5FA0C8", width=9, arrow=False, glow=True, alpha=0.95)
-            lx, ly = cam.ll(13.62, 51.14)
-            f.text("ELBE", lx + 40, ly + 46, face="map_i", size=34, color="#BFE0F0", align="c", alpha=k, shadow=(2, 2, 3, "#000000"))
-        # Protestan ordusu (karşı yaka: teal kalkanlar)
-        ak = cx.amt(army_at, 0.6)
-        if ak > 0:
-            bx, by = cam.ll(13.62, 51.66)
-            for i, (dx, dy) in enumerate(((-46, 6), (0, -24), (46, 8), (-8, 34))):
-                icons.draw_icon(f, "shield", bx + dx, by + dy - (1 - ease_out(ak)) * 20, size=92, metal="teal", alpha=ak, glow=0.15)
-        ck = clamp((cx.t - cx.at(cross_at)) / 1.5)
-        if ck > 0:
-            mv.route(f, cam, [(12.45, 50.95), (13.15, 51.38), (13.95, 51.88)], prog=ease_io(ck), color="#E8C25A", width=9, arrow=True)
-        # sis: yavaşça sürüklenen büyük yumuşak lekeler
-        fk = cx.amt(fog_at, 1.6)
-        if fk > 0:
-            for i in range(16):
-                x = ((i * 211 + cx.t * (14 + 3 * (i % 4))) % (W + 700)) - 350
-                y = 180 + (i * 137) % 760
-                r = 230 + (i % 5) * 50
-                f.circle(x, y, r, shader=f.rad(x, y, r, [("#C9D2D6", 0.0, int(70 * fk)), ("#C9D2D6", 0.6, int(32 * fk)), ("#C9D2D6", 1.0, 0)]))
-    return extra
+def unit_block(f, x, y, w, h, col, kind="inf", alpha=1.0, rot=0.0):
+    """Savaş planı birlik kutusu (piyade: çapraz; süvari: çizgi)."""
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.rect(-w / 2 + 3, -h / 2 + 4, w, h, color="#000000", alpha=0.25 * alpha, blur=4)
+    f.rect(-w / 2, -h / 2, w, h, color=col, alpha=0.92 * alpha)
+    f.rect(-w / 2, -h / 2, w, h, style="stroke", sw=3, color=INK_M, alpha=0.95 * alpha)
+    if kind == "inf":
+        f.line(-w / 2, -h / 2, w / 2, h / 2, color=INK_M, sw=2.2, alpha=0.7 * alpha)
+        f.line(-w / 2, h / 2, w / 2, -h / 2, color=INK_M, sw=2.2, alpha=0.7 * alpha)
+    else:
+        f.line(-w / 2, h / 2, w / 2, -h / 2, color=INK_M, sw=3, alpha=0.8 * alpha)
+    f.c.restore()
+
+
+@SH.kind("c5_plan")
+def k_plan(cx, at=0.0, date_at=0.0, river_at=0.8, city_at=1.4, army_at=1.9, fog_at=3.4, cross_at=4.9):
+    """Mühlberg: parşömen savaş planı — Elbe, iki yakada birlikler, sis, geçiş oku."""
+    f = cx.f
+    f.bg("night")
+    f.rays(alpha=0.26)
+    duo_glow(f, "#4A2A18", PETROL, a=0.2)
+    sk.dust(f, cx.t, n=45)
+    a = cx.amt(at, 0.8)
+    with push(cx, 1.0, 1.05, pan=(-10, 0)):
+        yy = 560 + (1 - ease_out(a)) * 120
+        with paper(f, 960, yy, 1520, 820, rot=-0.01, alpha=a, seed=57, tone="#BCA270"):
+            # tarih (sol üst)
+            dk = cx.amt(date_at, 0.8)
+            f.text("24 NİSAN 1547", -690, -410 + 112, face="fell", size=60, color=INK, align="l", track=4, alpha=0.95 * dk)
+            f.line(-700, -410 + 138, 700, -410 + 138, color=INK, sw=2, alpha=0.5 * a)
+            # nehir: mürekkep fırçası
+            rk = ease_out(clamp((cx.t - cx.at(river_at)) / 1.5), 2)
+            if rk > 0:
+                pts = [(-150, -350), (-90, -240), (10, -120), (110, 0), (230, 110), (350, 225), (470, 330)]
+                path = sk.smooth_path(pts, False, 0.5)
+                pm = skia.PathMeasure(path, False)
+                part = skia.Path()
+                pm.getSegment(0, pm.getLength() * rk, part, True)
+                f.path(part, style="stroke", sw=30, color="#2F6F9A", alpha=0.20 * a)
+                f.path(part, style="stroke", sw=18, color="#3F7FA8", alpha=0.95 * a)
+                f.path(part, style="stroke", sw=4, color="#1F4A66", alpha=0.6 * a)
+                f.text("ELBE", 340, 120, face="fell_i", size=46, color="#1F4A66", align="c", alpha=0.95 * rk)
+            # Mühlberg işareti
+            ck = cx.amt(city_at, 0.7)
+            if ck > 0:
+                f.circle(112, 2, 13, color="#8E1F26", alpha=ck)
+                f.circle(112, 2, 13, style="stroke", sw=3, color=INK_M, alpha=ck)
+                f.text("MÜHLBERG", 84, 38, face="title_m", size=46, color=INK_M, align="r", track=8, alpha=ck)
+            # birlikler
+            ak = cx.amt(army_at, 0.7)
+            if ak > 0:
+                for i, (x, y) in enumerate(((-260, 170), (-170, 230), (-80, 160), (-330, 270), (-210, 330))):
+                    unit_block(f, x, y + (1 - ease_out(ak)) * 14, 74, 40, "#B4423A", "inf" if i % 2 == 0 else "cav", ak, rot=-0.5)
+                for i, (x, y) in enumerate(((190, -170), (290, -250), (370, -110), (110, -270))):
+                    unit_block(f, x, y + (1 - ease_out(ak)) * 14, 74, 40, "#2E7A86", "inf" if i % 2 == 0 else "cav", ak, rot=-0.5)
+            # geçiş oku
+            xk = clamp((cx.t - cx.at(cross_at)) / 1.5)
+            if xk > 0:
+                curve_arrow(f, (-110, 215), (300, -170), bend=-120, prog=ease_io(xk), color="#8E1F26", sw=12, alpha=0.95, shadow=False)
+            # sis
+            fk = cx.amt(fog_at, 1.6)
+            if fk > 0:
+                f.c.save()
+                f.c.clipRect(skia.Rect.MakeXYWH(-740, -400, 1480, 800))
+                for i in range(14):
+                    x = (((i * 211 + cx.t * (16 + 3 * (i % 4))) % 1900) - 950)
+                    y = -330 + (i * 137) % 700
+                    r = 230 + (i % 5) * 45
+                    f.circle(x, y, r, shader=f.rad(x, y, r, [("#8FA2AC", 0.0, int(105 * fk)), ("#8FA2AC", 0.6, int(52 * fk)), ("#8FA2AC", 1.0, 0)]))
+                f.c.restore()
+    f.vig(0.62)

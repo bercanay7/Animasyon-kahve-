@@ -32,6 +32,9 @@ def _dist_extra(cx, cam, mv):
             f.circle(x, y - 150, 150, shader=f.rad(x, y - 150, 150, [("#000000", 0.0, int(140 * k)), ("#000000", 1.0, 0)]))
             SH.draw_medal(f, key, x, y - 150 + (1 - k) * 20, 250 * (0.9 + 0.1 * ease_out(k)), metal, flip, alpha=k, tilt=0.1 * math.sin(cx.t * 0.6))
             f.text(name, x, y + 52, face="title_m", size=28, color="#F0DDA0", align="c", track=6, alpha=k, shadow=(2, 2, 3, "#000000"))
+    kh = cx.amt(("c7s2", "Bildiğimiz", -0.1), 0.6)
+    if kh > 0:
+        f.text("BİLDİĞİMİZ KADARIYLA", W / 2, 118, face="cap_i", size=36, color="#C9B27A", align="c", track=10, alpha=kh, shadow=(2, 2, 3, "#000000"))
     km = cx.amt(("c7s2", "hiç", -0.1), 0.6)
     if km > 0:
         X.chip(f, "HİÇ KARŞILAŞMADILAR", (xi + xb) / 2, (yi + yb) / 2 - 110, k=km, size=40, edge="#F0D27A", color="#F4DD92", padx=40, h=92)
@@ -108,13 +111,13 @@ SHOTS = [
 
     # s3 — Mohaç: Macar ordusu yenildi
     shot("c678_sahne", a=("c7s3", -0.3), tr=("whip", 0.55), scene="field",
-         cams=[(0.0, (960, 560, 1.0)), (("c7s3", "yenildi.", -0.5), (1020, 600, 1.4))],
+         cams=[(0.0, X.fcam(0, .32, 1.12)), (("c7s3", "yenildi.", -0.3), X.fcam(0, .50, 1.45))],
          p=dict(tag="c7_mohac", ground="marsh", weather="dusk", river=True, smoke=0.6,
-                armies=[dict(side="#B5483A", kind="cavalry", x=0.28, row=0, n=8, dir=1, charge=1.0),
-                        dict(side="#B5483A", kind="pike", x=0.14, row=1, n=12, dir=1, charge=0.6),
-                        dict(side="#2F6B4A", kind="mixed", x=0.72, row=1, n=16, dir=-1, charge=0.4),
-                        dict(side="#2F6B4A", kind="arquebus", x=0.84, row=2, n=12, dir=-1, fire=1.0),
-                        dict(side="#2F6B4A", kind="cavalry", x=0.62, row=0, n=6, dir=-1, charge=0.8)]),
+                armies=[dict(side="#B5483A", kind="cavalry", x=0.22, row=0, n=8, dir=1, charge=0.5),
+                        dict(side="#B5483A", kind="pike", x=0.12, row=1, n=12, dir=1, charge=0.4),
+                        dict(side="#2F6B4A", kind="mixed", x=0.74, row=1, n=16, dir=-1, charge=0.3),
+                        dict(side="#2F6B4A", kind="arquebus", x=0.86, row=2, n=12, dir=-1, fire=1.0),
+                        dict(side="#2F6B4A", kind="cavalry", x=0.68, row=0, n=6, dir=-1, charge=0.45)]),
          overlay=X.ov_all(X.ov_date("29 AĞUSTOS 1526", ("c7s3", "29", -0.1)), X.ov_kick("MOHAÇ", ("c7s3", "Mohaç'ta,", -0.2), y=122, size=38)), label="mohac"),
     shot("medal", a=("c7s3", "Kral", -0.2), tr=("dip", 0.6), key="lajos2", metal="onyx", name="II. LAJOS", role="Macaristan Kralı", pos="l", size=700,
          at=("c7s3", "Kral", -0.1), plate_at=("c7s3", "Lajos,", -0.1), extra=_mohac_water, label="lajos"),
@@ -202,7 +205,7 @@ SHOTS = [
          extra=lambda cx, cam, mv: _ordular(cx, cam, mv), label="ordular_karsilasmadi"),
 
     # s13 — unvan: İmparator yalnızca sultan
-    shot("c7_unvan", a=("c7s13", -0.2), tr=("zoom", 0.7), at_doc=("c7s13", "Osmanlı", -0.1), at_karl=("c7s13", "ona", -0.25), at_imp=("c7s13", "imparator", -0.2), at_strike=("c7s13", "demedi", -0.1),
+    shot("c7_unvan", a=("c7s13", -0.2), tr=("zoom", 0.7), at_doc=("c7s13", "Osmanlı", -0.1), at_gen=("c7s13", "genellikle", -0.1), at_karl=("c7s13", "ona", -0.25), at_imp=("c7s13", "imparator", -0.2), at_strike=("c7s13", "demedi", -0.1),
          at_king=("c7s13", "İspanya", -0.1), at_sultan=("c7s13", "yalnızca", -0.3), at_crown=("c7s13", "sultandı", -0.35), label="unvan_imparator_sultan"),
 
     # s14 — 1547 ateşkesi; 30.000 altın

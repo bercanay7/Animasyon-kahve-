@@ -37,6 +37,41 @@ def S(sid, off=0.0):
     return (sid, off)
 
 
+# ───────────────────────────── sahne-lab kamera yardımcıları (yoksa sabit kamera) ─────────────────────────────
+def fcam(row, x, z, rise=0.4):
+    """field sahnesi: birliğin ekran ortasına geleceği güvenli kamera."""
+    SF = sk.optional_import("scenes_field")
+    if SF is not None and hasattr(SF, "cam_on"):
+        return SF.cam_on(row, x, z, rise)
+    return (960 + (x - 0.5) * 600, 560, z)
+
+
+def scam(row, x, z, rise=0.0, s=1.0):
+    """sea sahnesi: geminin ekran ortasına geleceği güvenli kamera."""
+    SS = sk.optional_import("scenes_sea")
+    if SS is not None and hasattr(SS, "cam_on"):
+        return SS.cam_on(row, x, z, rise, s)
+    return (960 + (x - 0.5) * 600, 556, z)
+
+
+def pushy(amt=0.035, fx=0.5, fy=0.5):
+    """Çekim türünü yavaş itme (kamera zoom-in) ile sarar: hiçbir kare tamamen donuk kalmasın."""
+    def deco(fn):
+        def wrapper(cx, **kw):
+            f = cx.f
+            f.c.save()
+            sc = 1 + amt * cx.u
+            f.c.translate(fx * Wd, fy * H)
+            f.c.scale(sc, sc)
+            f.c.translate(-fx * Wd, -fy * H)
+            fn(cx, **kw)
+            f.c.restore()
+        wrapper.__name__ = fn.__name__
+        wrapper.__doc__ = fn.__doc__
+        return wrapper
+    return deco
+
+
 # ───────────────────────────── küçük yardımcılar ─────────────────────────────
 def up(s):
     """Türkçe büyük harf."""
@@ -153,6 +188,22 @@ def kick(cx, text, anchor, y=120, size=30, color="#E0C682", out=None):
         SH.kicker(cx.f, text, Wd / 2, y, alpha=k, size=size, track=12, face="title_m", color=color)
 
 
+def name_plate2(f, name, role, cx_, y, size=44, t=1.0, minw=420):
+    """İsim levhası (boyutu ayarlanabilir; metne göre genişler)."""
+    a = smooth(t)
+    if a <= 0:
+        return
+    wn = sk.text_width(name, "title_m", size, 6)
+    ww = max(wn + 90, minw)
+    hh = 84 + (34 if role else 0)
+    x = cx_ - ww / 2
+    yy = y + (1 - a) * 16
+    SH.plate(f, x, yy, ww, hh, alpha=a)
+    f.text(name, cx_, yy + 30 + size * 0.78, face="title_m", size=size, color="#F3DE9A", align="c", track=6, alpha=a, shadow=(2, 3, 3, "#000000"))
+    if role:
+        f.text(role, cx_, yy + 36 + size * 0.78 + 30, face="cap_i", size=28, color="#D9C795", align="c", alpha=a)
+
+
 # ───────────────────────────── theatre kaplamaları ─────────────────────────────
 def ov_date(text, anchor):
     def fn(cx):
@@ -224,6 +275,7 @@ def _numstr(v, k, decimals=0):
 
 
 @SH.kind("c678_cift")
+@pushy(0.035)
 def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size=170, stampt=None, band=None, kick_at=0.0, tone_col=None, sep=None, ykick=130):
     """1–3 sayaç yan yana. items: [dict(value|(a,b), unit, icon, at, dur, prefix, suffix, label, metal, sub)]
     band=("janissary", n, anchor): alt kenarda asker siluet bandı (sayı arttıkça kalabalıklaşır)."""

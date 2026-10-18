@@ -141,6 +141,7 @@ def _cell_back(f):
 
 
 @SH.kind("c6_rehin")
+@X.pushy(0.035)
 def k_rehin(cx, at=0.0, at_stamp=0.0, at_chip=None):
     """Hücre: iki oğul (siluet), demir parmaklıklar, soğuk ay ışığı; REHİN damgası."""
     f = cx.f
@@ -221,6 +222,7 @@ def X_poly(pts):
 
 # ───────────────────────────── c6_maas ─────────────────────────────
 @SH.kind("c6_maas")
+@X.pushy(0.035)
 def k_maas(cx, at=0.0, at_strike=0.0, at_men=0.0):
     """Maaş ödenmedi: para yığını üstü çizilir; alttan öfkeli asker siluetleri yükselir."""
     f = cx.f
@@ -345,6 +347,7 @@ def guard_sprite(h, col, rim):
 
 
 @SH.kind("c6_muhafiz")
+@X.pushy(0.035)
 def k_muhafiz(cx, at_total=0.0, at_dead=0.0, dead_dur=1.5, cols=27, rows=7, dead_cols=21, label="İSVİÇRELİ MUHAFIZLAR", total=189, dead=147):
     """189 küçük muhafız siluet; 147'si (21 sütun) soldan sağa devrilir. Sayaç: 189 → 147 / 189."""
     f = cx.f
@@ -409,6 +412,7 @@ def k_muhafiz(cx, at_total=0.0, at_dead=0.0, dead_dur=1.5, cols=27, rows=7, dead
 
 # ───────────────────────────── c6_emir / c6_aylar ─────────────────────────────
 @SH.kind("c6_emir")
+@X.pushy(0.035)
 def k_emir(cx, at_medal=0.0, at_paper=0.0, at_stamp=0.0, key="karl_olgun"):
     """Karl madalyası + BOŞ emir kâğıdı (mühürsüz) + EMİR YOK damgası."""
     f = cx.f
@@ -436,6 +440,7 @@ def k_emir(cx, at_medal=0.0, at_paper=0.0, at_stamp=0.0, key="karl_olgun"):
 
 
 @SH.kind("c6_aylar")
+@X.pushy(0.035)
 def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, key="klemens"):
     """Papa madalyası + MAYIS→ARALIK ay şeridi (1527) dolar; AYLARCA."""
     f = cx.f
@@ -473,6 +478,7 @@ def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, ke
 
 # ───────────────────────────── c6_zincir ─────────────────────────────
 @SH.kind("c6_zincir")
+@X.pushy(0.035)
 def k_zincir(cx, at_n1=0.0, at_n2=0.0, at_n3=0.0, at_n4=0.0, at_x=0.0, at_break=0.0, at_teyze=0.0, at_stamp=0.0, at_hdr=None):
     """Neden-sonuç zinciri: ROMA 1527 → PAPA → CATHERINE (teyze) → HENRY (kırık anahtar). Damga: SIKÇA ANLATILIR."""
     f = cx.f
@@ -572,6 +578,7 @@ def _bubble(f, x, y, text, k, tail_dx=0, flipx=1, size=54):
 
 
 @SH.kind("c6_duello")
+@X.pushy(0.035)
 def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, at_stamp=0.0, left="karl_olgun", right="fransuva"):
     """İki hükümdar yüz yüze: 'YALANCI!' balonları, düello kılıçları, DÜELLO YAPILMADI."""
     f = cx.f
@@ -608,6 +615,7 @@ def k_duello(cx, at_year=0.0, at_b1=0.0, at_b2=0.0, at_swords=0.0, at_gone=0.0, 
 
 # ───────────────────────────── c6_hanimlar ─────────────────────────────
 @SH.kind("c6_hanimlar")
+@X.pushy(0.035)
 def k_hanimlar(cx, at_two=0.0, at_l=0.0, at_r=0.0, at_title=0.0, at_olive=None):
     """İki kadın: François'nın annesi (Louise de Savoie) ve Şarlken'in halası (Margareta). Başlık: HANIMLAR BARIŞI."""
     f = cx.f
@@ -642,6 +650,7 @@ def k_hanimlar(cx, at_two=0.0, at_l=0.0, at_r=0.0, at_title=0.0, at_olive=None):
 
 # ───────────────────────────── c6_fidye ─────────────────────────────
 @SH.kind("c6_fidye")
+@X.pushy(0.035)
 def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
     """İki oğul (siluet) ve 2.000.000 ALTIN ECÜ: yağan paralar; oğullar geri."""
     f = cx.f
@@ -680,6 +689,7 @@ def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
 
 # ───────────────────────────── c6_savas (kronoloji) ─────────────────────────────
 @SH.kind("c6_savas")
+@X.pushy(0.035)
 def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, at_death=None, a0=1520, a1=1560):
     """1521–1558 savaş dilimleri (kesintili kırmızı çubuklar). Barış (Cambrai) belirir ve çatlar; son: 1558."""
     f = cx.f

@@ -181,7 +181,7 @@ SHOTS = [
     shot("c2_borc_terazi", a=("c2s10", -0.2), tr=("fade", 0.8), t_scale=0.1, t_rus=("c2s10", "Rüşvetin", -0.1), t_tart=("c2s10", "tartışmalı", -0.1), t_borc=("c2s10", "borç", -0.15),
          t_gercek=("c2s10", "gerçekti", -0.15), t_crown=("c2s10", "imparator,", -0.1), t_chain=("c2s10", "takmadan", 0.0), label="rusvet_borc"),
     # s11 — yazılı söz
-    shot("a_g_doc", a=("c2s11", -0.2), tr=("fade", 0.8), title="YAZILI SÖZ · 1519", w=1240, h=520, size=54, head_size=62, at=0.0, align="c", tone="#CDB886",
+    shot("a_g_doc", a=("c2s11", -0.2), tr=("fade", 0.8), title="YAZILI SÖZ · 1519", w=1280, h=360, size=58, head_size=60, at=0.0, align="c", tone="#CDB886",
          lines=[("Prenslerin ayrıcalıklarına saygı gösterilecek.", ("c2s11", "prenslerin", -0.1)), ("Birlikte yönetecek bir konsey kurulacak.", ("c2s11", "imparatorluğu", -0.1))],
          seal=True, seal_at=("c2s11", "kuracaktı", 0.0), label="yazili_soz"),
     # s12 — 23 Ekim 1520, Aachen

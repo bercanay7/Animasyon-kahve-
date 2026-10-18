@@ -61,11 +61,11 @@ def _ex_tazones(cx, cm, mv):
         x, y = cm.ll(*SANTANDER)
         K.beacon(f, x, y, cx.t, amt=a_s, color="#9FB8C8", r=14)
         K.tag(f, "SANTANDER", x + 40, y + 16, alpha=a_s, size=36, align="l", pad=22, color="#C7D6E0", edge="#7C93A4", sub="hedef")
-    a_t = cx.amt(("c1s14", "Tazones'a", -0.35), 0.6)
+    a_t = cx.amt(("c1s14", "balıkçı", -0.15), 0.6)
     if a_t > 0:
         x, y = cm.ll(*TAZONES)
         K.beacon(f, x, y, cx.t, amt=a_t, color="#F0D27A", r=17)
-        K.tag(f, "TAZONES", x - 40, y + 70, alpha=a_t, size=40, align="r", pad=24, sub="küçük bir balıkçı köyü")
+        K.tag(f, "KÜÇÜK BALIKÇI KÖYÜ", x - 40, y + 70, alpha=a_t, size=36, align="r", pad=24)
 
 
 def _ex_valladolid(cx, cm, mv):
@@ -91,6 +91,11 @@ def _tower_overlay(cx):
     mx = lerp(x0, x1, k)
     K.glow_disc(f, mx, y, 40, "#FFE9A8", 0.8 * a)
     SH.gold_flat(f, f"{int(round(46 * k))} YIL", W / 2, 835, face="title", size=100, track=8, alpha=a)
+
+
+def _tazones_overlay(cx):
+    a = cx.amt(("c1s14", "Tazones'a", -0.1), 0.6)
+    K.tag(cx.f, "TAZONES", 330, 190, alpha=a, size=48, align="l", pad=30)
 
 
 def _storm_date(cx):
@@ -121,14 +126,14 @@ SHOTS = [
          label="soy_agaci"),
     # s3b — dört ülke sırayla yanar
     shot("a_map", a=("c1s3", "Burgonya'yı", -0.8), tr=("fade", 0.8), need=("c1_aragon", "c1_kastilya"),
-         cams=[(0.0, (4.0, 44.9, 1.1)), (("c1s3", "Kastilya'yı", 0.3), (4.0, 44.9, 1.17))],
+         cams=[(0.0, (3.5, 44.8, 1.26)), (("c1s3", "Kastilya'yı", 0.3), (3.5, 44.8, 1.33))],
          regions=[dict(name="hollanda", color="burgonya", at=("c1s3", "Burgonya'yı", -0.1)), dict(name="franche_comte", color="burgonya", at=("c1s3", "Burgonya'yı", 0.1)),
                   dict(name="avusturya", color="avusturya", at=("c1s3", "Avusturya'yı", -0.1)),
                   dict(name="c1_aragon", color="#C28A22", at=("c1s3", "Aragon'u", -0.1)), dict(name="napoli", color="#C28A22", at=("c1s3", "Aragon'u", 0.1)),
                   dict(name="sicilya", color="#C28A22", at=("c1s3", "Aragon'u", 0.2)), dict(name="sardunya", color="#C28A22", at=("c1s3", "Aragon'u", 0.3)),
                   dict(name="c1_kastilya", color="ispanya", at=("c1s3", "Kastilya'yı", -0.1))],
          labels=[dict(text="BURGONYA", lon=4.8, lat=51.9, size=34, at=("c1s3", "Burgonya'yı", -0.05)), dict(text="AVUSTURYA", lon=14.3, lat=48.1, size=34, at=("c1s3", "Avusturya'yı", -0.05)),
-                 dict(text="ARAGON", lon=-0.3, lat=41.0, size=34, at=("c1s3", "Aragon'u", -0.05)), dict(text="KASTİLYA", lon=-4.8, lat=39.9, size=34, at=("c1s3", "Kastilya'yı", -0.05))],
+                 dict(text="ARAGON", lon=0.6, lat=41.6, size=32, at=("c1s3", "Aragon'u", -0.05)), dict(text="KASTİLYA", lon=-5.6, lat=38.5, size=32, at=("c1s3", "Kastilya'yı", -0.05))],
          label="dort_ulke"),
     # s4 — miras yolu: taç çok uzakta; beş ay sonra bir ölüm ve yol açılır
     shot("c1_yol", a=("c1s4", -0.2), tr=("fade", 0.8), t_far=("c1s4", "çok", 0.0), t_name=("c1s4", "İspanya", -0.1), t_five=("c1s4", "Beş", -0.1),
@@ -138,12 +143,12 @@ SHOTS = [
     # s6 — Burgos: baba ölür
     shot("a_map", a=("c1s6", -0.2), tr=("dip", 0.8),
          cams=[(0.0, (-3.0, 41.0, 2.6)), (("c1s6", "Burgos'ta", 0.15), (-3.7, 42.34, 8.0))],
-         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.28)], need=("c1_kastilya",),
+         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.17)], need=("c1_kastilya",),
          date=("6 YAŞINDA", ("c1s6", "Altı", -0.1)), extra=_ex_burgos, label="burgos"),
     # s7 — 1509, Tordesillas
     shot("a_map", a=("c1s7", -0.2), tr=("fade", 0.8),
          cams=[(0.0, (-4.0, 40.6, 2.6)), (("c1s7", "Tordesillas'ta", 0.0), (-5.0, 41.5, 7.5))],
-         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.28)], need=("c1_kastilya",),
+         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.17)], need=("c1_kastilya",),
          date=("1509", ("c1s7", "1509'dan", -0.1)), extra=_ex_tordesillas, label="tordesillas_harita"),
     # s7–s8 — kule: Juana, 46 yıl
     shot("a_theatre", a=("c1s7", "bir", -0.2), tr=("fade", 0.9), scene="tower", p=dict(variant="tordesillas", night=True, figure="woman", candle=True),
@@ -157,7 +162,7 @@ SHOTS = [
                 dict(key="margareta", name="MARGARETA", role="Hala", at=("c1s10", "halası", -0.1), pw=640)], label="karl_margareta"),
     shot("a_map", a=("c1s10", "Mechelen'de", -0.35), tr=("fade", 0.8),
          cams=[(0.0, (3.0, 49.5, 3.0)), (("c1s10", "büyüdü", 0.0), (4.48, 51.03, 8.0))],
-         regions=[dict(name="hollanda", color="burgonya", at=0.3, alpha=0.3)], extra=_ex_mechelen, label="mechelen"),
+         regions=[dict(name="hollanda", color="burgonya", at=0.3, alpha=0.2)], extra=_ex_mechelen, label="mechelen"),
     # s11 — dört dil sözü (rivayet)
     shot("c1_dort_dil", a=("c1s11", -0.2), tr=("fade", 0.8), t_stamp=("c1s11", "Rivayete", -0.05),
          items=[dict(icon="cross", who="TANRI", lang="ESPAÑOL", t_who=("c1s11", "Tanrı'yla", -0.1), t_lang=("c1s11", "İspanyolca", -0.1)),
@@ -178,24 +183,28 @@ SHOTS = [
          a_k=("c1s13", "Kastilya", -0.1), a_a=("c1s13", "Aragon'un", -0.1), a_crown=("c1s13", "kralı", -0.15), label="ortak_kral"),
     # s14 — Eylül 1517 fırtınası; Santander yerine Tazones
     shot("a_theatre", a=("c1s14", -0.2), tr=("whip", 0.6), scene="sea",
-         p=dict(mood="storm", rain=True, lightning=True,
-                ships=[dict(kind="carrack", x=0.34, row=1, s=1.0, flag="#8E1F26", heading=1, rock=1.0), dict(kind="carrack", x=0.62, row=0, s=0.75, flag="#8E1F26", heading=1, rock=0.9),
-                       dict(kind="carrack", x=0.82, row=2, s=1.25, flag="#8E1F26", heading=1, rock=1.0)]),
-         cams=[(0.0, (960, 560, 1.0)), (("c1s14", "yoldan", 0.0), (900, 580, 1.25))], overlay=_storm_date, label="firtina"),
+         p=dict(mood="storm", lightning=0.85, rain=0.9,
+                ships=[dict(kind="carrack", x=0.30, row=0, rock=1.0, flag="#8E1F26"), dict(kind="carrack", x=0.62, row=1, heading=-1, rock=1.0, flag="#8E1F26"),
+                       dict(kind="carrack", x=0.50, row=2, rock=1.0, sails="torn", flag="#8E1F26"), dict(kind="carrack", x=0.12, row=2, rock=1.0, flag="#8E1F26"),
+                       dict(kind="carrack", x=0.84, row=0, s=0.85, heading=-1, sails="torn", flag="#8E1F26")]),
+         cams=[(0.0, (960, 540, 1.0)), (("c1s14", "yoldan", 0.0), (1010, 556, 1.2))], overlay=_storm_date, label="firtina"),
     shot("a_map", a=("c1s14", "Hedefleri", -0.3), tr=("fade", 0.8),
          cams=[(0.0, (-2.5, 47.0, 3.2)), (("c1s14", "küçük", -0.4), (-4.7, 44.2, 7.6))],
          routes=[dict(pts=ROTA_ANA, at=("c1s14", "Hedefleri", -0.1), dur=2.0, color="#9FB8C8", width=5, dash=(14, 12), arrow=False),
-                 dict(pts=ROTA_GERCEK, at=("c1s14", "küçük", 0.0), dur=2.2, color="#F0D27A", width=7)],
-         icons_=[dict(kind="ship", lon=-5.3, lat=47.9, size=84, at=("c1s14", "küçük", 0.0), route=ROTA_GERCEK, move_at=("c1s14", "küçük", 0.0), move_dur=2.2, metal="gold")],
-         extra=_ex_tazones, label="tazones"),
+                 dict(pts=ROTA_GERCEK, at=("c1s14", "küçük", -0.1), dur=1.5, color="#F0D27A", width=7)],
+         icons_=[dict(kind="ship", lon=-5.3, lat=47.9, size=84, at=("c1s14", "küçük", -0.1), route=ROTA_GERCEK, move_at=("c1s14", "küçük", -0.1), move_dur=1.5, metal="gold")],
+         extra=_ex_tazones, label="tazones_rota"),
+    shot("a_theatre", a=("c1s14", "Tazones'a", -0.2), tr=("fade", 0.7), scene="sea",
+         p=dict(mood="dusk", coast="tazones", rain=0.25, ships=[dict(kind="carrack", x=0.30, row=0, rock=0.5, flag="#8E1F26"), dict(kind="carrack", x=0.52, row=1, rock=0.5, sails="reef", flag="#8E1F26")]),
+         cams=[(0.0, (1000, 560, 1.0)), (("c1s15", "On", -0.3), (1180, 600, 1.4))], overlay=_tazones_overlay, label="tazones_koyu"),
     # s15 — 17 yaşında kral, yeni halkının dilini konuşamıyor
     shot("c1_halk", a=("c1s15", -0.2), tr=("fade", 0.8), a_q=(("c1s15", "halkının", 0.0), ("c1s15", "dilini", 0.0), ("c1s15", "iyi", -0.1)), label="yeni_halk"),
     # s16 — Valladolid Kortesi 1518
     shot("a_map", a=("c1s16", -0.2), tr=("fade", 0.8),
          cams=[(0.0, (-3.5, 41.0, 3.2)), (("c1s16", "1518'de", 0.0), (-4.72, 41.65, 8.0))],
-         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.28)], need=("c1_kastilya",),
+         regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.17)], need=("c1_kastilya",),
          date=("1518", ("c1s16", "1518'de", -0.1)), extra=_ex_valladolid, label="valladolid_harita"),
-    shot("doc", a=("c1s16", "talebini", -0.3), tr=("fade", 0.8), title="VALLADOLID KORTESİ · 1518", w=1100, h=620, size=50, head_size=52, at=0.0,
+    shot("doc", a=("c1s16", "talebini", -0.3), tr=("fade", 0.8), title="VALLADOLID KORTESİ · 1518", w=1200, h=350, size=64, head_size=56, at=0.0, align="c", tone="#D2BE8E",
          lines=[("Kastilyacayı öğren.", ("c1s16", "Kastilyacayı", -0.1)), ("Yabancı danışmanlarını gönder.", ("c1s16", "yabancı", -0.1))],
-         hl=(-460, -144, 430), hl_at=("c1s16", "öğren", -0.1), label="kortes_talebi"),
+         hl=(-sk.text_width("Kastilyacayı öğren.", "fell", 64, 0) / 2, -4, sk.text_width("Kastilyacayı öğren.", "fell", 64, 0)), hl_at=("c1s16", "öğren", -0.1), label="kortes_talebi"),
 ]

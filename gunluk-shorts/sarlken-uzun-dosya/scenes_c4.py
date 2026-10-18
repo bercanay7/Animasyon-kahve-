@@ -12,7 +12,7 @@ D = ("dip", 0.9)
 
 SHOTS = [
     # s1 — Nisan 1521. Worms.
-    shot("map", a=("c4s1", 0.0), tr=F, cams=[(0.0, (9.0, 48.6, 2.8)), (("c4s1", "Worms", 0.0), (9.2, 50.2, 3.9))],
+    shot("map", a=("c4s1", 0.0), tr=F, cams=[(0.0, (9.0, 48.8, 2.9)), (("c4s1", "Worms", 0.0), (9.2, 50.2, 3.9))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.2, alpha=0.30, hatch=True)],
          labels=[dict(text="KUTSAL ROMA İMPARATORLUĞU", lon=10.4, lat=52.4, size=30, color="#E8D8A0", track=8, at=("c4s1", "1521", 0.3))],
          cities=[dict(lon=8.36, lat=49.63, name="WORMS", kind="seat", at=("c4s1", "Worms", -0.3), side="l", size=44)],
@@ -22,7 +22,7 @@ SHOTS = [
     shot("bw_theatre", a=("c4s2", -0.4), tr=F, scene="reichstag", cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
          p=dict(monk=True, emperor=True, books=True, crowd=True, monk_z=1000), label="reichstag"),
     # s2b — Karl ↔ Luther
-    shot("c4_duel", a=("c4s2", "bir", 1, -0.15), tr=("fade", 0.6),
+    shot("c4_duel", a=("c4s2", "bir", 1, -0.15), tr=("zoom", 0.6),
          left=dict(key="karl_genc", name="V. KARL", role="İmparator · 21 yaşında", at=0.2, metal="gold"),
          right=dict(key="luther", name="MARTIN LUTHER", role="Keşiş", at=("c4s2", "keşiş", -0.1), plate_at=("c4s2", "Martin", -0.15), metal="teal", flip=True),
          vs_at=("c4s2", "Martin", 0.0), label="karl_luther"),

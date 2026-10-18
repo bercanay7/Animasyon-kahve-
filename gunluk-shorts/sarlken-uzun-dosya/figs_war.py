@@ -7,8 +7,7 @@ import skia
 import stage as ST
 import figs_kit as K
 from figs_kit import K as KC, Fig, bar, ell, feather_path, lens, limb, place, poly, shoe, sp
-from figs_lab import add_leg
-from figs_parts import add_arm, add_head, fur_band, hem_slits, robe_folds, robe_path
+from figs_parts import add_arm, add_head, add_leg, fur_band, hem_slits, robe_folds, robe_path
 
 
 def fx(name):

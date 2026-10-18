@@ -145,6 +145,7 @@ def _council_back(f):
 
 
 @SH.kind("c8_konsey")
+@X.pushy(0.03)
 def k_konsey(cx, at_scene=0.0, at_kort=0.0, at_kick=0.0, at_chip=0.0, at_stamp=0.0, key="kortes"):
     """Savaş konseyi masası: oturanlar, BOŞ sandalye, kapıda Cortés; ANLATILIR damgası."""
     f = cx.f
@@ -160,10 +161,10 @@ def k_konsey(cx, at_scene=0.0, at_kort=0.0, at_kick=0.0, at_chip=0.0, at_stamp=0
     # Cortés (kapıda, ışık dışında)
     km = cx.amt(at_kort, 0.9)
     if km > 0:
-        mx, my = 250, 560
+        mx, my = 290, 540
         f.circle(mx, my, 250, shader=f.rad(mx, my, 250, [("#000000", 0.0, int(150 * km)), ("#000000", 1.0, 0)]))
         SH.draw_medal(f, key, mx, my + (1 - km) * 26, 360 * (0.92 + 0.08 * ease_out(km)), "bronze", False, alpha=km * 0.95, tilt=0.14 * math.sin(cx.t * 0.55))
-        SH.name_plate(f, "HERNÁN CORTÉS", "Meksika'nın fatihi", None, cx_=mx + 40, y=H * 0.80, t=cx.amt(at_kort, 0.6, off=0.3), w=480)
+        X.name_plate2(f, "HERNÁN CORTÉS", "Meksika'nın fatihi", mx + 30, H * 0.80, size=40, t=cx.amt(at_kort, 0.6, off=0.3), minw=460)
         # kesikli çizgi: medalden boş sandalyeye
         ka = ease_out(clamp((cx.t - cx.at(at_chip)) / 1.0))
         if ka > 0:

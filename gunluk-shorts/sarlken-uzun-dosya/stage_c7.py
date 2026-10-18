@@ -19,6 +19,7 @@ GREEN_L = "#5FA878"
 
 # ───────────────────────────── c7_hukum: iki saltanat, aynı yıllar ─────────────────────────────
 @SH.kind("c7_hukum")
+@X.pushy(0.035)
 def k_hukum(cx, at_axis=0.0, at_bars=0.0, at_overlap=0.0, at_title=None, a0=1510, a1=1560):
     """Şarlken (1516 → 1556) ve Süleyman (1520 →) saltanat çubukları; kesişim = AYNI YILLAR."""
     f = cx.f
@@ -81,6 +82,7 @@ def k_hukum(cx, at_axis=0.0, at_bars=0.0, at_overlap=0.0, at_title=None, a0=1510
 
 # ───────────────────────────── c7_taht: boş taç + Ferdinand ─────────────────────────────
 @SH.kind("c7_taht")
+@X.pushy(0.035)
 def k_taht(cx, at_crown=0.0, at_title=0.0, at_ferd=0.0, at_plate=None):
     """Çocuğu yoktu: boş taç (soru işaretiyle) → Ferdinand öne çıkar."""
     f = cx.f
@@ -110,6 +112,7 @@ def k_taht(cx, at_crown=0.0, at_title=0.0, at_ferd=0.0, at_plate=None):
 
 # ───────────────────────────── c7_vasal: Zapolya → Osmanlı ─────────────────────────────
 @SH.kind("c7_vasal")
+@X.pushy(0.035)
 def k_vasal(cx, at_medal=0.0, at_ott=0.0, at_link=0.0, at_chip=0.0):
     """Rakip aday Zapolya; Osmanlı hilali; aralarında zincir (vasal)."""
     f = cx.f
@@ -145,7 +148,8 @@ def k_vasal(cx, at_medal=0.0, at_ott=0.0, at_link=0.0, at_chip=0.0):
 
 # ───────────────────────────── c7_unvan: İMPARATOR üstü çizilir → İSPANYA KRALI ─────────────────────────────
 @SH.kind("c7_unvan")
-def k_unvan(cx, at_doc=None, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0.0, at_crown=0.0):
+@X.pushy(0.035)
+def k_unvan(cx, at_doc=None, at_gen=None, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0.0, at_crown=0.0):
     """Osmanlı belgelerinde Şarlken'in unvanı: İMPARATOR üstü çizilir, İSPANYA KRALI yazılır; imparator = sultan."""
     f = cx.f
     f.bg("night")
@@ -165,6 +169,10 @@ def k_unvan(cx, at_doc=None, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0
     ai = cx.amt(at_imp, 0.5)
     ks = ease_out(clamp((cx.t - cx.at(at_strike)) / 0.5))
     kk = cx.amt(at_king, 0.5)
+    if at_gen is not None:
+        kg_ = cx.amt(at_gen, 0.5)
+        if kg_ > 0:
+            f.text("GENELLİKLE", xk, py - 26, face="cap_i", size=34, color="#C9B27A", align="c", track=8, alpha=kg_, shadow=(2, 2, 3, "#000000"))
     if ai > 0:
         SH.plate(f, xk - 330, py, 660, 130, alpha=ai)
         t1 = "İMPARATOR"
@@ -192,6 +200,7 @@ def k_unvan(cx, at_doc=None, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0
 
 # ───────────────────────────── c7_yuk: yükü kardeşi taşıdı ─────────────────────────────
 @SH.kind("c7_yuk")
+@X.pushy(0.035)
 def k_yuk(cx, at_title=0.0, at_karl=0.0, at_not=0.0, at_ferd=0.0):
     """Yükün çoğunu Şarlken değil, kardeşi taşıdı: Karl soluk (üstü çizili), Ferdinand parlak."""
     f = cx.f

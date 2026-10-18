@@ -83,7 +83,7 @@ def _ov_bed(cx):
         f.rect(0, 0, W, H, shader=f.rad(W / 2, H / 2, 1100, [("#C0392B", 0.0, 0), ("#C0392B", 0.7, int(30 * kf * pulse)), ("#7A1210", 1.0, int(130 * kf * pulse))]))
 
 
-def _ov_chapel(txt, anchor, y=250):
+def _ov_chapel(txt, anchor, y=905):
     def ov(cx):
         SH.stamp(cx.f, txt, W / 2, y, rot=-0.06, size=64, t=cx.amt(anchor, 0.3))
     return ov
@@ -153,7 +153,7 @@ SHOTS = [
     # s9b — tabutuna yatıp cenazesini prova etti: yalnızca rivayet (soğuk, kesik çizgili hayalet tabut)
     shot("c12_rumor", a=A("c12s9", "Tabutuna", -0.35), tr=("fade", 0.9), at_coffin=A("c12s9", "Tabutuna", -0.3), at_fig=A("c12s9", "yatıp", -0.1), at_stamp=A("c12s9", "rivayet", -0.15), label="tabut_rivayet"),
     # s10a — 31 Ağustos 1558, ateş; büyük olasılıkla sıtma; 21 Eylül'de öldü (mum söner)
-    shot("theatre", a=_B0, tr=("dip", 0.9), scene="bedroom", cams=[(0.0, (960, 560, 1.0)), (A("c12s10", "öldü", -0.3), (1010, 640, 1.45))], p=dict(candle=1.0, fade_candle_t=(_T_OUT, _T_OUT + 1.0)),
+    shot("theatre", a=_B0, tr=("dip", 0.85), scene="bedroom", cams=[(0.0, (960, 540, 1.0)), (A("c12s10", "öldü", -0.3), (905, 600, 1.28))], p=dict(candle=1.0, fade_candle_t=(_T_OUT, _T_OUT + 1.0)),
          overlay=_ov_bed, label="yatak_odasi"),
     # s10b — elli sekiz yaşındaydı (oniks madalya, siyaha)
     shot("wd_medal_swap", a=A("c12s10", "Elli", -0.45), tr=("fade", 0.9), key="karl_yasli", metal_a="onyx", metal_b="onyx", swap_at=99.0, name="V. KARL", role="58 yaşında  ·  1500 – 1558", size=620, at=0.1, plate_at=A("c12s10", "sekiz", -0.2), fade_out=1.0, label="elli_sekiz"),

@@ -566,6 +566,8 @@ def _rhythm(c, nsteps, density, rng):
 
 
 def layer_melody(c, cfg):
+    """Cümle (phrase) kurucu: ritim hücreleri → perde yürüyüşü (akor sesine yaslanan güçlü vuruşlar, cümle sonunda akor sesi).
+    'motif': her cümlenin başında özgün figür; akor sesine göre kaydırılır, bazen ters çevrilir, kalanı yürüyüşle sürer."""
     inst = cfg.get("inst", "lute")
     play, rest = cfg.get("play", 2), cfg.get("rest", 2)
     lo_m, hi_m = cfg.get("reg", (60, 76))
@@ -574,54 +576,56 @@ def layer_melody(c, cfg):
     motif = MOTIFS.get(cfg.get("motif"), None)
     b0 = int(np.ceil(c.t_open / c.bar))
     b1 = int(c.t_close / c.bar)
-    k = 0
+    ready = b0
     b = b0
     while b < b1:
         tb = b * c.bar
         a = c.act(cfg, tb + c.bar)
-        phase = (b - b0) % (play + rest)
-        if phase != 0 or a < 0.03 or c.rng.random() > cfg.get("prob", 0.9):
+        if b < ready or a < 0.03 or c.rng.random() > cfg.get("prob", 0.9):
             b += 1
             continue
         nb = min(play, b1 - b)
+        ready = b + play + rest
         nsteps = nb * c.spb
         I = c.I(tb)
         dens = float(np.clip(cfg.get("dens", 0.4) + 0.4 * (I - 0.4), 0.05, 0.95))
         durs = _rhythm(c, nsteps, dens, c.rng)
-        # perde dizisi
-        notes = []
-        cur = None
-        pos = 0
+        # motif tohumu
+        mot = None
+        if motif and c.rng.random() < cfg.get("motif_p", 0.75) and len(durs) >= 3:
+            _, _, deg0, ext0 = c.chord_at(tb + 0.01)
+            tones0 = {(deg0 + k) % 7 for k in CHORD_EXT[ext0]}
+            base_c = [x for x in range(dlo, dhi + 1) if x % 7 in tones0] or [center]
+            var = str(c.rng.choice(["same", "same", "inv", "up", "down"]))
+            shift = {"same": 0, "inv": 0, "up": 1, "down": -1}[var] + int(c.rng.integers(-1, 2))
+            base = min(base_c, key=lambda x: (abs(x - (center + shift)), x))
+            offs = [o for o, _ in motif]
+            if var == "inv":
+                offs = [-o for o in offs]
+            mot = [int(np.clip(base + o - offs[0], dlo, dhi)) for o in offs]
+        notes, cur, pos = [], None, 0
         for i, d in enumerate(durs):
             t = tb + pos * c.step
             _, _, deg, ext = c.chord_at(t + 0.01)
             tones = {deg_midi(c.tonic, c.mode, x) % 12 for x in chord_degs(deg, ext)}
             is_strong = pos % (c.spb // 2) == 0
             last = i == len(durs) - 1
-            if cur is None:
-                if motif and c.rng.random() < 0.7:
-                    start = min(range(dlo, dhi + 1), key=lambda x: (abs(x - center), x))
-                    cur = start
-                else:
-                    cur = int(c.rng.integers(center - 2, center + 3))
+            if mot is not None and i < len(mot):
+                cur = mot[i]
+            elif cur is None:
+                cur = int(c.rng.integers(center - 2, center + 3))
             else:
                 step = int(c.rng.choice([-3, -2, -1, 0, 1, 2, 3], p=[0.05, 0.14, 0.31, 0.06, 0.28, 0.12, 0.04]))
                 pull = (center - cur) / 6.0
                 if c.rng.random() < abs(pull):
                     step = int(np.sign(pull)) * max(1, abs(step))
                 cur = int(np.clip(cur + step, dlo, dhi))
-            if is_strong or last:
+            if (is_strong or last) and not (mot is not None and i < len(mot)):
                 cand = [x for x in range(max(dlo, cur - 3), min(dhi, cur + 3) + 1) if deg_midi(c.tonic, c.mode, x) % 12 in tones]
                 if cand:
                     cur = min(cand, key=lambda x: (abs(x - cur), x))
             notes.append((t, cur, d))
             pos += d
-        # motif: ilk notaları motif konturuyla değiştir
-        if motif and notes:
-            start = notes[0][1]
-            for i, (off, dd) in enumerate(motif[: len(notes)]):
-                t, _, d0 = notes[i]
-                notes[i] = (t, int(np.clip(start - motif[0][0] + off, dlo, dhi)), d0)
         for (t, dg, d) in notes:
             m = deg_midi(c.tonic, c.mode, dg)
             if c.note_log is not None:
@@ -736,7 +740,7 @@ CUES = {
                prog=[[(0, 2, "5"), (6, 2, "5"), (0, 2, "sus2"), (3, 2, "5")], [(0, 2, "sus2"), (6, 2, ""), (4, 2, "5"), (3, 2, "")]], b_thr=0.5,
                drone=dict(lvl=1.0, chunk_bars=2, fifth=True),
                choir=dict(inst="choir", vowel=("o", "a"), lvl=0.4, lo=0.14, hi=0.5, voices=4),
-               melody=dict(inst="lute", lvl=1.5, lo=-1, hi=-0.5, cut=(0.22, 0.45), play=1, rest=2, dens=0.2, reg=(55, 69), motif="bruksel"),
+               melody=dict(inst="lute", lvl=1.5, lo=-1, hi=-0.5, cut=(0.22, 0.45), play=2, rest=1, dens=0.3, reg=(55, 69), motif="bruksel", motif_p=1.0),
                perc=dict(pattern="heartbeat", lvl=0.9, lo=0.28, hi=0.7, pitch=92, amp=0.7),
                bell=dict(period=3, offset=1, midi=62, ring=1.4, lo=-1, hi=-0.5, cut=(0.3, 0.6), lvl=0.9),
                finale="c0",
@@ -744,7 +748,7 @@ CUES = {
                                 organ=0.3, choir=0.3, bowed=0.45, bell=0.4, lute=0.3)),
     # c1: merak/miras — dört tahtın çocuğu: lavta → klavsen → org → bas/davul sırayla girer (D mixolydian, 6/8)
     "c1": dict(mood="curious", tonic=38, mode="mixolydian", bpm=68, meter="6/8", level_db=-1.0,
-               arc=[(-1, .30), (0, .34), (0.25, .43), (0.5, .55), (0.75, .50), (1.0, .42)],
+               arc=[(-1, .30), (0, .34), (0.12, .43), ("c1s6", 0.28, .28), ("c1s10", 0.50, .52), ("c1s14", 0.66, .66), ("c1s16", 0.86, .50), (1.0, .42)],
                prog=[[(0, 2, ""), (6, 1, ""), (3, 1, ""), (0, 2, ""), (6, 1, ""), (3, 1, "")],
                      [(0, 1, ""), (3, 1, ""), (6, 1, ""), (3, 1, ""), (0, 2, ""), (4, 2, "")]], b_thr=0.5,
                drone=dict(lvl=0.5, chunk_bars=4, fifth=True),
@@ -755,7 +759,7 @@ CUES = {
                bass=dict(inst="lute", pattern="lilt", lvl=0.6, lo=0.48, hi=0.56)),
     # c2: taç satılık — gerilim: bas ostinato, klavsen 'sikke' parıltıları, regal org; Plus Ultra'da yükseliş (A dorian)
     "c2": dict(mood="tense", tonic=45, mode="dorian", bpm=68, meter="4/4", level_db=0.0,
-               arc=[(-1, .28), (0, .30), (0.3, .46), (0.6, .62), (0.82, .82), (0.93, .70), (1.0, .55)],
+               arc=[(-1, .28), (0, .30), (0.2, .40), ("c2s6", 0.40, .52), ("c2s8", 0.55, .66), ("c2s13", 0.88, .84), ("c2s14", 0.94, .60), (1.0, .55)],
                prog=[[(0, 2, ""), (6, 2, ""), (0, 2, ""), (3, 2, "")], [(0, 1, "5"), (6, 1, "5"), (3, 1, ""), (4, 1, ""), (0, 2, ""), (6, 2, "")]], b_thr=0.7,
                drone=dict(lvl=0.8, mode="roots", chunk_bars=2, fifth=False),
                bass=dict(inst="lute", pattern="p332", lvl=0.9, lo=0.25, hi=0.40),
@@ -765,17 +769,17 @@ CUES = {
                melody=dict(inst="lute", lvl=0.8, lo=0.55, hi=0.62, play=2, rest=2, dens=0.35, reg=(57, 72), motif="sorgu")),
     # c3: şehirlerin isyanı — acil, yürüyüş davulları; Villalar zirvesi sonra ağıt (E aeolian, 84 bpm)
     "c3": dict(mood="tense", tonic=40, mode="aeolian", bpm=84, meter="4/4", level_db=0.0,
-               arc=[(-1, .32), (0, .36), (0.35, .55), (0.62, .82), (0.74, .90), (0.82, .30), (1.0, .24)],
+               arc=[(-1, .32), (0, .36), ("c3s3", 0.35, .55), ("c3s4", 0.62, .90), ("c3s5", 0.74, .78), ("c3s6", 0.82, .30), (1.0, .24)],
                prog=[[(0, 2, ""), (5, 1, ""), (6, 1, ""), (0, 2, ""), (3, 1, ""), (4, 1, "")], [(0, 1, "5"), (6, 1, "5"), (5, 1, ""), (6, 1, ""), (0, 2, "5"), (4, 2, "5")]], b_thr=0.75,
                drone=dict(lvl=0.8, chunk_bars=4, fifth=True),
                bass=dict(inst="lute", pattern="drive", lvl=0.8, lo=0.40, hi=0.55, p=0.92),
                perc=dict(pattern="march", tef="drive", lvl=0.8, lo=0.40, hi=0.55, pitch=96, fill=4),
                arp=dict(inst="lute", pattern="ostinato", lvl=0.55, lo=0.50, hi=0.65, p0=0.7, p1=0.3),
                choir=dict(inst="organ", stops=(("reed", 1.0, 1.0), ("principal", 0.5, 1.0)), lvl=0.5, lo=0.65, hi=0.8, voices=4, attack=0.4),
-               melody=dict(inst="lute", lvl=0.85, lo=-1, hi=-0.5, win=[(0.80, 2.0)], play=2, rest=2, dens=0.2, reg=(59, 74), motif="agit")),
+               melody=dict(inst="lute", lvl=0.85, lo=-1, hi=-0.5, win=[(("c3s6", 0.80), 2.0)], play=2, rest=2, dens=0.2, reg=(59, 74), motif="agit")),
     # c4: Worms'ta keşiş — koral: org + koro + çan (G mixolydian, 58 bpm)
     "c4": dict(mood="solemn", tonic=43, mode="mixolydian", bpm=58, meter="4/4", level_db=0.0,
-               arc=[(-1, .22), (0, .26), (0.3, .42), (0.5, .58), (0.72, .62), (0.9, .38), (1.0, .28)],
+               arc=[(-1, .22), (0, .26), ("c4s5", 0.30, .46), ("c4s6", 0.42, .62), ("c4s7", 0.52, .50), ("c4s8", 0.62, .66), ("c4s12", 0.78, .52), ("c4s15", 0.88, .36), (1.0, .28)],
                prog=[[(0, 2, ""), (3, 2, ""), (0, 2, "sus4"), (6, 2, "")], [(0, 2, ""), (4, 2, ""), (3, 2, ""), (0, 2, "5")]], b_thr=0.55,
                drone=dict(lvl=0.7, chunk_bars=4, fifth=True),
                choir=dict(inst="choir", vowel=("o", "a"), lvl=0.75, lo=0.22, hi=0.40, voices=4),
@@ -785,7 +789,7 @@ CUES = {
                bell=dict(period=2, offset=0, midi=67, ring=1.3, lo=0.2, hi=0.3, lvl=0.5, alt=[0, 0, -5, 0])),
     # c5: imparator hep başka yerde — ağır, kasvetli; Mühlberg'de kısa heybet, sonra çözülüş (A aeolian, 62 bpm)
     "c5": dict(mood="grave", tonic=33, mode="aeolian", bpm=62, meter="4/4", level_db=0.0,
-               arc=[(-1, .25), (0, .28), (0.3, .40), (0.55, .55), (0.68, .78), (0.8, .58), (1.0, .35)],
+               arc=[(-1, .25), (0, .28), ("c5s3", 0.20, .42), ("c5s6", 0.45, .55), ("c5s9", 0.66, .78), ("c5s11", 0.80, .50), ("c5s13", 0.92, .42), (1.0, .35)],
                prog=[[(0, 2, "5"), (5, 2, ""), (6, 2, ""), (0, 2, "5")], [(0, 2, ""), (3, 2, ""), (4, 2, ""), (0, 2, "5")]], b_thr=0.62,
                drone=dict(lvl=0.95, mode="roots", chunk_bars=2, fifth=True, bright=0.5),
                choir=dict(inst="organ", stops=(("reed", 1.0, 1.0), ("principal", 0.35, 1.0), ("flute", 0.3, 2.0)), lvl=0.55, lo=0.30, hi=0.45, voices=4, attack=0.9),
@@ -795,17 +799,17 @@ CUES = {
                bell=dict(period=4, offset=2, midi=57, ring=1.6, lo=0.2, hi=0.35, cut=(0.7, 0.85), lvl=0.6)),
     # c6: kral, esir, düello — Pavia davulları, Roma'nın yağması, sonda 'Hanımlar Barışı' ferahlığı (E dorian, 76 bpm)
     "c6": dict(mood="tense", tonic=40, mode="dorian", bpm=76, meter="4/4", level_db=0.0,
-               arc=[(-1, .30), (0, .35), (0.2, .60), (0.38, .50), (0.5, .76), (0.62, .86), (0.72, .42), (0.86, .36), (1.0, .30)],
+               arc=[(-1, .30), (0, .35), ("c6s3", 0.20, .60), ("c6s5", 0.38, .50), ("c6s7", 0.52, .86), ("c6s9", 0.62, .70), ("c6s11", 0.72, .42), ("c6s12", 0.86, .36), (1.0, .30)],
                prog=[[(0, 2, ""), (6, 2, ""), (0, 2, "5"), (3, 2, "")], [(0, 1, "5"), (6, 1, "5"), (4, 1, ""), (3, 1, ""), (0, 2, ""), (6, 2, "5")]], b_thr=0.7,
                drone=dict(lvl=0.8, mode="roots", chunk_bars=2, fifth=True),
-               bass=dict(inst="lute", pattern="drive", lvl=0.8, lo=0.42, hi=0.55, p=0.9, win=[(-1, 0.68)]),
-               perc=dict(pattern="march", tef="eighths", lvl=0.85, lo=0.40, hi=0.55, pitch=96, fill=4, win=[(-1, 0.70)]),
-               arp=dict(inst="lute", pattern="ostinato", lvl=0.6, lo=0.42, hi=0.58, p0=0.7, p1=0.3, win=[(-1, 0.70)]),
+               bass=dict(inst="lute", pattern="drive", lvl=0.8, lo=0.42, hi=0.55, p=0.9, win=[(-1, ("c6s11", 0.70))]),
+               perc=dict(pattern="march", tef="eighths", lvl=0.85, lo=0.40, hi=0.55, pitch=96, fill=4, win=[(-1, ("c6s11", 0.72))]),
+               arp=dict(inst="lute", pattern="ostinato", lvl=0.6, lo=0.42, hi=0.58, p0=0.7, p1=0.3, win=[(-1, ("c6s11", 0.72))]),
                choir=dict(inst="organ", stops=(("reed", 1.0, 1.0), ("principal", 0.5, 1.0)), lvl=0.5, lo=0.60, hi=0.75, voices=4, attack=0.5),
-               melody=dict(inst="harp", lvl=0.9, lo=-1, hi=-0.5, win=[(0.70, 2.0)], play=2, rest=2, dens=0.45, reg=(64, 79), motif="merak")),
+               melody=dict(inst="harp", lvl=0.9, lo=-1, hi=-0.5, win=[(("c6s11", 0.72), 2.0)], play=2, rest=2, dens=0.45, reg=(64, 79), motif="merak")),
     # c7: Sultan — destansı: davul düzeni, regal org, koro, Viyana'da doruk; hafif Frigiyen renk (D phrygian, 80 bpm)
     "c7": dict(mood="epic", tonic=38, mode="phrygian", bpm=80, meter="4/4", level_db=1.5,
-               arc=[(-1, .35), (0, .40), (0.25, .60), (0.5, .84), (0.68, .96), (0.85, .55), (1.0, .38)],
+               arc=[(-1, .35), (0, .40), ("c7s3", 0.20, .62), ("c7s6", 0.42, .88), ("c7s8", 0.55, .96), ("c7s10", 0.66, .82), ("c7s14", 0.90, .45), (1.0, .38)],
                prog=[[(0, 2, "5"), (6, 2, ""), (0, 2, ""), (3, 2, "")], [(0, 1, ""), (1, 1, ""), (0, 1, ""), (6, 1, ""), (3, 2, ""), (0, 2, "5")]], b_thr=0.6,
                drone=dict(lvl=0.9, chunk_bars=2, fifth=True),
                bass=dict(inst="lute", pattern="drive", lvl=0.85, lo=0.35, hi=0.5, p=0.92),
@@ -817,7 +821,7 @@ CUES = {
                bell=dict(period=4, offset=0, midi=62, ring=1.2, lo=0.6, hi=0.8, lvl=0.5, alt=[0, 7])),
     # c8: Akdeniz'de Barbaros — dalgalanan 6/8 deniz, gallop davulu; Cezayir fırtınası sonda (A mixolydian, 78 bpm)
     "c8": dict(mood="epic", tonic=45, mode="mixolydian", bpm=78, meter="6/8", level_db=1.2,
-               arc=[(-1, .35), (0, .40), (0.3, .60), (0.55, .78), (0.78, .72), (0.9, .95), (1.0, .40)],
+               arc=[(-1, .35), (0, .40), ("c8s2", 0.10, .60), ("c8s4", 0.30, .78), ("c8s7", 0.52, .76), ("c8s10", 0.86, .96), ("c8s11", 0.96, .40), (1.0, .38)],
                prog=[[(0, 2, ""), (6, 2, ""), (3, 2, ""), (0, 2, "")], [(0, 1, ""), (3, 1, ""), (6, 1, ""), (3, 1, ""), (0, 2, "5"), (4, 2, "")]], b_thr=0.7,
                drone=dict(lvl=0.8, chunk_bars=4, fifth=True),
                arp=dict(inst="lute", pattern="sea", lvl=0.7, lo=0.30, hi=0.45, p0=0.8, p1=0.2),
@@ -828,7 +832,7 @@ CUES = {
                bell=dict(period=3, offset=0, midi=69, ring=1.0, lo=0.8, hi=0.9, lvl=0.45, alt=[0, -2, -5])),
     # c9: Yeni Dünya — şaşkınlık: parıltılı çanlar, yüksek koro, yükselen arpej; ortada vicdan gölgesi (C lydian, 66 bpm)
     "c9": dict(mood="wonder", tonic=36, mode="lydian", bpm=66, meter="4/4", level_db=0.0,
-               arc=[(-1, .30), (0, .35), (0.25, .62), (0.4, .45), (0.6, .40), (0.75, .62), (1.0, .55)],
+               arc=[(-1, .30), (0, .35), ("c9s2", 0.15, .66), ("c9s6", 0.42, .60), ("c9s7", 0.52, .38), ("c9s10", 0.70, .42), ("c9s13", 0.88, .64), (1.0, .55)],
                prog=[[(0, 2, ""), (1, 2, ""), (0, 2, "add9"), (4, 2, "")], [(5, 2, ""), (2, 2, ""), (4, 2, ""), (0, 2, "5")]], b_thr=0.0,
                drone=dict(lvl=0.7, chunk_bars=4, fifth=True, bright=0.7),
                choir=dict(inst="choir", vowel=("u", "a"), lvl=0.6, lo=0.30, hi=0.45, voices=4, shift=1.05),
@@ -839,7 +843,7 @@ CUES = {
                bell=dict(period=2, offset=0, midi=74, ring=1.5, lo=0.30, hi=0.4, lvl=0.45, alt=[0, 7, 4, 9])),
     # c10: faturayı kim ödedi — defter tıkırtısı: sabit 'tik' arpej, soğuk bas, kasvetli org; çözülmeden biter (A dorian, 72 bpm)
     "c10": dict(mood="tense", tonic=45, mode="dorian", bpm=72, meter="4/4", level_db=-0.5,
-                arc=[(-1, .30), (0, .32), (0.5, .50), (0.85, .70), (1.0, .50)],
+                arc=[(-1, .30), (0, .32), ("c10s5", 0.50, .50), ("c10s8", 0.80, .74), (1.0, .50)],
                 prog=[[(0, 2, ""), (0, 2, "sus2"), (6, 2, ""), (3, 2, "")], [(0, 2, "5"), (4, 2, ""), (3, 2, ""), (6, 2, "5")]], b_thr=0.68,
                 drone=dict(lvl=0.8, mode="roots", chunk_bars=2, fifth=False, bright=0.5),
                 arp=dict(inst="harp", pattern="tick", lvl=0.55, lo=0.2, hi=0.35, p0=0.9, p1=0.1, transpose=12),
@@ -849,7 +853,7 @@ CUES = {
                 melody=dict(inst="lute", lvl=0.7, lo=0.45, hi=0.55, play=1, rest=3, dens=0.15, reg=(57, 70), motif="sorgu")),
     # c11: adamın kendisi — yakın: tek lavta, yumuşak çello, çok hafif koro; Isabel'e ağıt (D dorian, 3/4, 60 bpm)
     "c11": dict(mood="intimate", tonic=38, mode="dorian", bpm=60, meter="3/4", level_db=-2.0,
-                arc=[(-1, .20), (0, .22), (0.4, .35), (0.55, .42), (0.8, .30), (1.0, .22)],
+                arc=[(-1, .20), (0, .22), ("c11s2", 0.15, .26), ("c11s4", 0.50, .36), ("c11s5", 0.62, .44), ("c11s7", 0.80, .30), (1.0, .22)],
                 prog=[[(0, 2, ""), (3, 2, ""), (0, 2, "sus2"), (6, 2, "")], [(0, 2, "add9"), (4, 2, ""), (3, 2, ""), (0, 2, "")]], b_thr=0.4,
                 drone=dict(lvl=0.55, chunk_bars=4, fifth=True, bright=0.5),
                 arp=dict(inst="lute", pattern="lull", lvl=0.9, lo=-1, hi=-0.5, p0=0.85, p1=0.15),
@@ -858,7 +862,7 @@ CUES = {
                 bass=dict(inst="cello", pattern="whole", lvl=0.5, lo=0.30, hi=0.40)),
     # c12: bırakmak — Brüksel temasının dönüşü (c0 motifi), koro+org; Yuste'de seyrelir, çanlar (D aeolian, 58 bpm)
     "c12": dict(mood="solemn", tonic=38, mode="aeolian", bpm=58, meter="4/4", level_db=0.0,
-                arc=[(-1, .20), (0, .30), (0.3, .55), (0.45, .60), (0.6, .40), (0.8, .30), (1.0, .20)],
+                arc=[(-1, .20), (0, .30), ("c12s4", 0.30, .56), ("c12s5", 0.45, .60), ("c12s7", 0.62, .42), ("c12s8", 0.72, .36), ("c12s10", 0.90, .30), (1.0, .20)],
                 prog=[[(0, 2, "5"), (5, 2, ""), (6, 2, ""), (0, 2, "5")], [(0, 2, ""), (3, 2, ""), (6, 2, ""), (5, 2, "")]], b_thr=0.5,
                 drone=dict(lvl=0.8, chunk_bars=4, fifth=True),
                 choir=dict(inst="choir", vowel=("o", "a"), lvl=0.7, lo=0.26, hi=0.40, voices=4),
@@ -868,7 +872,7 @@ CUES = {
                 bell=dict(period=3, offset=0, midi=62, ring=1.5, lo=-1, hi=-0.5, lvl=0.65, alt=[0, 0, -7])),
     # c13: hesap — açık uçlu soru, yine de çözülen kapanış; Brüksel motifi D'ye iner, çanlar, sönüş (D dorian, 58 bpm)
     "c13": dict(mood="solemn", tonic=38, mode="dorian", bpm=58, meter="4/4", level_db=0.0,
-                arc=[(-1, .20), (0, .26), (0.5, .40), (0.85, .50), (1.0, .42)],
+                arc=[(-1, .20), (0, .26), ("c13s3", 0.30, .38), ("c13s8", 0.80, .52), (1.0, .42)],
                 prog=[[(0, 2, ""), (6, 2, ""), (3, 2, ""), (0, 2, "sus4")], [(0, 2, "sus2"), (3, 2, ""), (4, 2, ""), (0, 2, "5")]], b_thr=0.45,
                 drone=dict(lvl=0.8, chunk_bars=4, fifth=True),
                 choir=dict(inst="choir", vowel=("o", "a"), lvl=0.65, lo=0.28, hi=0.42, voices=4),
@@ -1022,9 +1026,40 @@ def geometry(chapters, total, tail):
     return geo
 
 
-def build_cue(cid, g, tail, seed=0):
+def _anchor_u(sid, default_u, ch, sent_by_id, dt=0.0):
+    sn = sent_by_id.get(sid)
+    if sn is None:
+        return float(default_u)
+    return float(np.clip((sn["t0"] + dt - ch["t0"]) / max(ch["t1"] - ch["t0"], 1e-6), 0.01, 0.99))
+
+
+def resolve_spec(spec, ch, sent_by_id):
+    """Cue tanımındaki hikâye çıpalarını (cümle kimliği → u) sayısal değerlere çevirir: arc noktaları ("c3s4", varsayılan_u, yoğunluk[, dt]) ve
+    katman pencereleri win=[(a, b)] (a/b sayı ya da ("c6s11", varsayılan_u)). Bulunamazsa varsayılan u kullanılır → ses yamalarında kırılmaz."""
+    import copy
+    sp = copy.deepcopy(spec)
+    arc = []
+    for a in sp["arc"]:
+        if isinstance(a[0], str):
+            sid, du, I = a[0], a[1], a[2]
+            dt = a[3] if len(a) > 3 else 0.0
+            arc.append((_anchor_u(sid, du, ch, sent_by_id, dt), float(I)))
+        else:
+            arc.append((float(a[0]), float(a[1])))
+    arc.sort(key=lambda p: p[0])
+    for i in range(1, len(arc)):
+        if arc[i][0] <= arc[i - 1][0]:
+            arc[i] = (arc[i - 1][0] + 1e-3, arc[i][1])
+    sp["arc"] = arc
+    for k, v in list(sp.items()):
+        if isinstance(v, dict) and v.get("win"):
+            v["win"] = [tuple(_anchor_u(x[0], x[1], ch, sent_by_id) if isinstance(x, (tuple, list)) else float(x) for x in w) for w in v["win"]]
+    return sp
+
+
+def build_cue(cid, g, tail, seed=0, spec=None):
     """Bir cue'nun tüm katmanlarını (reverb öncesi) üretir → Cue nesnesi (dry + send tamponları)."""
-    spec = CUES[cid]
+    spec = spec or CUES[cid]
     open_sec = g["xin"] + 1.0 if g["xin"] > 0 else 3.0
     close_sec = g["xout"] + 1.0 if g["xout"] > 0 else (tail + 0.75 if cid == "c13" else 4.0)
     c = Cue(cid, spec, g["T"], g["t0c"], g["t1c"], open_sec, close_sec, seed=seed)
@@ -1054,7 +1089,7 @@ def finish_cue(c, cid):
 
 def _render_job(job):
     """Çok işlemli çalıştırma için üst düzey fonksiyon: tek cue üretir (float32 (n,2), reverb dahil, seviyesiz)."""
-    c = build_cue(job["id"], job["geo"], job["tail"], job["seed"])
+    c = build_cue(job["id"], job["geo"], job["tail"], job["seed"], job.get("spec"))
     return job["id"], finish_cue(c, job["id"])
 
 
@@ -1083,25 +1118,27 @@ def _code_hash():
     return h.hexdigest()[:12]
 
 
-def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0, verbose=True, only=None):
+def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0, verbose=True, only=None, timeline=None):
     """Tüm cue'ları üretir, çapraz geçişle birleştirir, ortalama RMS'i TARGET_RMS_DB'ye getirir.
     Döner: (music float32 (N,2), info dict). N = (total + tail)·SR. Ducking YOK (miks.py uygular)."""
     t_start = time.time()
     geo = geometry(chapters, total, tail)
     N = int(round((total + tail) * SR))
     ch = _code_hash()
+    sent_by_id = {sn["id"]: sn for sn in (timeline or {}).get("sentences", [])}
+    ch_by_id = {c_["id"]: c_ for c_ in chapters}
     jobs = []
     for g in geo:
         if only and g["id"] not in only:
             continue
-        jobs.append(dict(id=g["id"], geo=g, tail=tail, seed=seed))
+        jobs.append(dict(id=g["id"], geo=g, tail=tail, seed=seed, spec=resolve_spec(CUES[g["id"]], ch_by_id[g["id"]], sent_by_id)))
     results = {}
     todo = []
     for j in jobs:
         key = None
         if cache_dir:
             import hashlib
-            key = hashlib.md5(json.dumps([j["geo"], tail, seed, CUES[j["id"]], ch], sort_keys=True, default=str).encode()).hexdigest()[:16]
+            key = hashlib.md5(json.dumps([j["geo"], tail, seed, j["spec"], ch], sort_keys=True, default=str).encode()).hexdigest()[:16]
             fp = os.path.join(cache_dir, f"cue_{j['id']}_{key}.npy")
             j["_fp"] = fp
             if os.path.exists(fp):
@@ -1134,7 +1171,7 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         if g["id"] not in results:
             continue
         x = results[g["id"]].astype(np.float32)
-        spec = CUES[g["id"]]
+        spec = [j for j in jobs if j["id"] == g["id"]][0]["spec"]
         core0, core1 = int((g["xin"] + 1.0) * SR) if g["xin"] else 0, len(x) - int((g["xout"] + 1.0) * SR) if g["xout"] else len(x)
         rdb = _robust_rms_db(x[core0:core1])
         gain = D.db2lin(TARGET_RMS_DB + spec.get("level_db", 0.0) - rdb)
@@ -1152,7 +1189,7 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         s = int(round(g["start"] * SR))
         m = min(len(x), N - s)
         out[s:s + m] += x[:m] * env[:m, None]
-        info["cues"].append(dict(id=g["id"], mood=spec["mood"], mode=spec["mode"], bpm=spec["bpm"], meter=spec["meter"],
+        info["cues"].append(dict(id=g["id"], mood=spec["mood"], mode=spec["mode"], bpm=spec["bpm"], meter=spec["meter"], arc=spec["arc"],
                                  tonic_midi=spec["tonic"], start=round(g["start"], 2), end=round(g["end"], 2),
                                  length=round(g["T"], 2), chapter_dur=round(g["t1"] - g["t0"], 2), xin=g["xin"], xout=g["xout"],
                                  pre_gain_db=round(float(20 * np.log10(gain)), 2)))
@@ -1182,7 +1219,9 @@ def main():
     a = ap.parse_args()
     chs, total = _load_chapters()
     only = [a.cue] if a.cue else None
-    x, info = render_music(chs, total, a.tail, workers=a.workers, cache_dir=a.cache, only=only)
+    tp = os.path.join(HERE, "out", "timeline.json")
+    tl = json.load(open(tp)) if os.path.exists(tp) else None
+    x, info = render_music(chs, total, a.tail, workers=a.workers, cache_dir=a.cache, only=only, timeline=tl)
     if a.cue:
         g = [g for g in info["geo"] if g["id"] == a.cue][0]
         s, e = int(g["start"] * SR), int(g["end"] * SR)

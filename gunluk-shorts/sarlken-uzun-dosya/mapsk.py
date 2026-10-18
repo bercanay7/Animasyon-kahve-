@@ -184,8 +184,9 @@ class MapView:
                 c.translate(-wx0, -wy0)
             self._draw_base_vector(fr, ap, s, style, mountains, ripples)
             img = fr.surf.makeImageSnapshot()
-            if len([k for k in self._paths if isinstance(k, tuple) and k[0] == "tile"]) > 80:
-                for k in [k for k in self._paths if isinstance(k, tuple) and k[0] == "tile"][:20]:
+            tiles = [k for k in self._paths if isinstance(k, tuple) and k[0] == "tile"]
+            if len(tiles) > 30:                      # bellek sınırı (her döşeme ≈17 MB)
+                for k in tiles[:12]:
                     del self._paths[k]
             self._paths[key] = img
         return img

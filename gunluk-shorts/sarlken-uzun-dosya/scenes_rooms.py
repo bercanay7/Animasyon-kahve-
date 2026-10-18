@@ -89,7 +89,7 @@ _TOWER = {
                         fig_xy=(776, 944, 430), moon_p=1.7, ambient=(0.006, 0.008, 0.016)),
     "cell": dict(back=(380, 60, 1540, 880), vp=(960, 500), win=(990, 120, 1150, 350), T=190, splay=0.74, bars=3, hbars=2, bar_w=9,
                  wall="#463d36", wall_seed=8, floor="flags", D=(0.30, 0.85, -0.42), candle=(1230, 726), candle_z=980, figure="man",
-                 fig_xy=(930, 950, 520), moon_p=1.4, ambient=(0.006, 0.008, 0.015)),
+                 fig_xy=(906, 944, 590), moon_p=1.4, ambient=(0.006, 0.008, 0.015)),
     "wartburg": dict(back=(300, 20, 1620, 900), vp=(990, 520), win=(1010, 170, 1230, 440), T=120, splay=0.86, bars=0, hbars=0, bar_w=6,
                      wall="#4a3322", wall_seed=5, floor="planks", D=(-0.30, 0.86, -0.40), candle=(1182, 646), candle_z=940, figure="writer",
                      fig_xy=(930, 944, 420), moon_p=1.1, ambient=(0.007, 0.007, 0.014)),
@@ -702,20 +702,24 @@ class ElectorsHall:
         n = len(seats)
 
         def D2(f, t):
-            for st in sorted(seats, key=lambda s: s["y"]):
+            order = sorted(seats, key=lambda s: s["y"])
+            # 1) parlama (figürün ARKASINDA: siluet kenarı parlar, yüz parlamaz)
+            if light_t is not None:
+                t0, t1 = light_t
+                for st in order:
+                    ti = t0 + (t1 - t0) * (st["i"] / 6.0)
+                    k = smooth((t - ti) / 0.5)
+                    if k > 0.01:
+                        hy = st["y"] - (300 * 0.86 * st["s"] if occ else 330 * st["s"])
+                        R.glow(f, st["x"], hy, 190 * st["s"] * (0.8 + 0.2 * k), "#FFC860", 0.50 * k)
+                        R.glow(f, st["x"], hy - 6 * st["s"], 80 * st["s"], "#FFF3C8", 0.55 * k)
+                        f.circle(st["x"], hy - 34 * st["s"], 62 * st["s"] * (0.9 + 0.1 * k), style="stroke", sw=2.4 * st["s"], color="#FFE9A8", alpha=0.75 * k)
+            # 2) seçmenler
+            for st in order:
                 if occ:
                     h = 300 * st["s"]
                     RF(f, "elector_" + st["gear"], st["x"], st["y"] - 4 * st["s"], h, rim="#FFE2A8", rimd=(0.0, -1.0), rim2="#E39A4A", rim2d=(0.9, 0.1),
                        bob=math.sin(t * 0.8 + st["i"]) * 1.0)
-                if light_t is not None:
-                    t0, t1 = light_t
-                    ti = t0 + (t1 - t0) * (st["i"] / 6.0 if n == 7 else st["i"] / 6.0)
-                    k = smooth((t - ti) / 0.5)
-                    if k > 0.01:
-                        hy = st["y"] - (300 * 0.9 * st["s"] if occ else 330 * st["s"])
-                        R.glow(f, st["x"], hy, 170 * st["s"] * (0.8 + 0.2 * k), "#FFC860", 0.55 * k)
-                        R.glow(f, st["x"], hy - 10 * st["s"], 60 * st["s"], "#FFF3C8", 0.65 * k)
-                        f.circle(st["x"], hy - 30 * st["s"], 58 * st["s"] * (0.9 + 0.1 * k), style="stroke", sw=2.2 * st["s"], color="#FFE9A8", alpha=0.7 * k)
             for sx in (330, 1590):
                 tips = [(sx + (j - 2) * 32, 940 - 240 - abs(j - 2) * 12 - 38) for j in range(5)]
                 for j, (fx, fy) in enumerate(tips):
@@ -1030,6 +1034,9 @@ class Reichstag:
                             RF(f, "sit_" + hats[rs.randint(len(hats))], pp[0], pp[1], hh, col=col, rim="#C58A44" if side < 0 else "#B07A3A", rimd=(1.0, -0.5) if side < 0 else (-1.0, -0.4),
                                rim2="#7FA0E8", rim2d=(0.0, -1.0), face=-side)
                             z -= rs.uniform(66, 96) * (z / 1300.0)
+            if self.monk:
+                pm_ = P(0, 0, self.monk_z)
+                R.glow(f, pm_[0], pm_[1] - 6, 220 * 1100.0 / self.monk_z, "#FFE2A8", 0.20, sy=0.22)
             # masa + kitaplar
             if self.books:
                 pt = P(0, 0, 1290)
@@ -1137,9 +1144,10 @@ class RoadNight:
     def __init__(self, p):
         self.p = p
         self.litter = bool(p.get("litter", False))
-        self.riders = int(p.get("riders", 3))
-        self.torches = int(p.get("torches", 3))
-        self.rain = float(p.get("rain", 0.0))
+        rd, tc, rn = p.get("riders", 3), p.get("torches", 3), p.get("rain", 0.0)
+        self.riders = (3 if rd else 0) if isinstance(rd, bool) else int(rd)
+        self.torches = (3 if tc else 0) if isinstance(tc, bool) else int(tc)
+        self.rain = (0.6 if rn else 0.0) if isinstance(rn, bool) else float(rn)
         self.mount = p.get("mountains", True)
         self.moon = p.get("moon", True)
         self.walk = float(p.get("walk", 14.0))
@@ -1307,13 +1315,13 @@ class RoadNight:
             rc = "#9db6dc" if moon else "#6f84a8"
             for (idx, k, x, y, hh, tilt, bob) in place:
                 if k == "rider":
-                    RF(f, "horse_rider", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.1), face=dr, bob=bob * 0.6, sway=tilt)
+                    RF(f, "horse_rider", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.1), face=dr, bob=bob * 0.6)
                 elif k == "torch":
-                    RF(f, "torchbearer", x, y, hh, rim=rc, rimd=rimd, rim2="#FFB35A", rim2d=(1.0 * dr, -0.2), face=dr, bob=bob, sway=tilt)
+                    RF(f, "torchbearer", x, y, hh, rim=rc, rimd=rimd, rim2="#FFB35A", rim2d=(1.0 * dr, -0.2), face=dr, bob=bob)
                 elif k == "bearer":
-                    RF(f, "bearer", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob, sway=tilt)
+                    RF(f, "bearer", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob)
                 elif k == "litter":
-                    RF(f, "litter", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob * 0.9, sway=tilt)
+                    RF(f, "litter", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob * 0.9)
             # 3) alevler/kıvılcımlar (en üstte)
             tip = R.TORCH_TIP["torchbearer"]
             for (idx, k, x, y, hh, tilt, bob) in place:
@@ -1474,14 +1482,8 @@ class Cloister:
                 col = R.rect_path(x - 80, -M, 160, H + 2 * M)
                 R.lit_path(f, col, "#2a2016", [(W / 2 + sx * 640, 600, 700, {"day": "#fff0c8", "dusk": "#ff9a4a", "night": "#6f93d0"}[tm], 0.10)],
                            grad=f.lin(x - 80, 0, x + 80, 0, [("#0b0705", 0.0), ("#3a2c1e", 0.5), ("#0b0705", 1.0)]))
-                # başlık + kemer yayı (içe doğru)
                 f.rect(x - 112, 80, 224, 34, color="#0b0705")
-                arc = skia.Path()
-                arc.moveTo(x - sx * 80, 80)
-                arc.cubicTo(x - sx * 260, 80, x - sx * 360, 20, x - sx * 400, -M)
-                arc.lineTo(x - sx * 80, -M)
-                arc.close()
-                f.path(arc, color="#0b0705")
+                f.rect(x - 96, 114, 192, 10, color="#14100c")
             R.vignette_frame(f, 0.7 if tm != "day" else 0.45, 0.55)
 
         return [(0.06, L0), (0.85, L1), (1.0, L2), (1.4, L3)]
@@ -1944,7 +1946,7 @@ class Chapel:
             for X in (-165, -105, -45, 45, 105, 165):
                 px = P(X, 190, 1760)
                 s_ = 1100.0 / 1760
-                R.flame(f, px[0], px[1] - 128 * s_ - 3, s=0.72 * cs, t=t, seed=X * 0.013, halo=0.6, hr=100)
+                R.flame(f, px[0], px[1] - 128 * s_ - 3, s=0.72 * cs, t=t, seed=X * 0.013, halo=0.4, hr=80)
             for (X, zz) in ((-130, cz - 90), (130, cz - 90), (-130, cz + 5), (130, cz + 5), (-130, cz + 100), (130, cz + 100)):
                 p0 = P(X, 0, zz)
                 s_ = 1100.0 / zz
@@ -1954,8 +1956,372 @@ class Chapel:
             f.line(lp[0], -M, lp[0], lp[1] - 20, color="#2a1c0a", sw=2.0)
             f.oval(lp[0], lp[1], 14, 8, color="#7a5518")
             R.flame(f, lp[0], lp[1] - 8, s=0.7, t=t, seed=7.7, halo=0.9, hr=70, col_out="#FF3a22", col_in="#FFB0A0", halo_col="#FF4a2a")
-            if inc:                    # tütsü dumanı (sunak önünden)
-                sk.smoke(f, 1130, 760, t, w=90, h=300, n=6, seed=5, color="#8f8c96", alpha=0.10)
+            if inc:                    # tütsü dumanı (ucuz: degradeli kıvrımlı çizgiler)
+                for j, (x0_, ph_) in enumerate(((1126, 0.0), (1138, 2.1))):
+                    pts = [(x0_ + math.sin(u * 6.2 + t * 0.9 + ph_) * (5 + 40 * u) + math.sin(u * 2.4 - t * 0.5) * 8, 770 - u * 300) for u in [i / 28 for i in range(29)]]
+                    for (sw_, a_) in ((18, 0.05), (8, 0.08), (3, 0.12)):
+                        sh = skia.GradientShader.MakeLinear([(x0_, 770), (x0_, 470)], [C("#b4b0be", int(255 * a_)), C("#b4b0be", 0)], [0.0, 1.0])
+                        f.path(sk.smooth_path(pts, False, 0.5), style="stroke", sw=sw_, shader=sh, cap="round")
             R.motes(f, t, (600, 200, 760, 600), n=26, seed=4, col="#FFD9A0", a=0.45, drift=(2, -4))
 
         return {1: D1}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  RANSOM_ROOM — Cajamarca fidye odası
+# ═══════════════════════════════════════════════════════════════════════
+@SL.sc("ransom_room")
+class RansomRoom:
+    """Cajamarca fidye odası: İnka taş işçiliği (trapez nişler), duvarlarda yüksekte KIRMIZI çizgi, yüksekteki delikten giren ışık huzmesi,
+    sağda parlak kapı (İspanyol askerler siluet), yığılan altın eşyalar (vazo, levha, heykelcik, kadeh, maske, külçe), tutsak Atahualpa (tüylü başlık, kolu çizgiye uzanmış).
+    p: fill_t=None|(t0,t1) yerel sn'de yığın fill0→fill oranına dolar; fill=1.0 (son seviye; fill_t yoksa sabit), fill0=0.0, prisoner=True, soldiers=2 (0..3), door=True."""
+
+    BACK = (380, 120, 1540, 880)
+    VP = (960, 480)
+    ZB = 1300.0
+    HOLE = (468, 226, 548, 306)
+    RED_HF = 430.0
+    HEAP = dict(cx=870.0, base=888.0, half=440.0, H=360.0)
+    J = 14
+
+    def __init__(self, p):
+        self.p = p
+        self.fill_t = p.get("fill_t")
+        self.fill = float(p.get("fill", 1.0))
+        self.fill0 = float(p.get("fill0", 0.0))
+        self.prisoner = p.get("prisoner", True)
+        self.soldiers = int(p.get("soldiers", 2))
+        self.door = p.get("door", True)
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    def _bbox(self):
+        h = self.HEAP
+        return (int(h["cx"] - h["half"] - 70), int(h["base"] - h["H"] - 90), int(2 * h["half"] + 140), int(h["H"] + 130))
+
+    def layers(self):
+        box = self._box()
+        cache = {}
+        k0 = self.ZB / 1100.0
+        fb = (self.BACK[3] - self.VP[1]) * k0
+        key = _pkey("ransom_room", self.p)
+        hole_outer = box.hole_outer(self.HOLE, 120.0, 0.8)
+        zw = box.zb + 120.0
+        door_on = self.door
+        items = PR.hoard_items(seed=3, **self.HEAP)
+        fill_static = self.fill
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            inc = R.mat_inca("#6a5d52", seed=3)
+            back = R.mat_inca_wall(fb, inca=inc, niches=[(-430, 470, 690, 150, 100), (-145, 470, 690, 150, 100), (145, 470, 690, 150, 100)], red=(self.RED_HF, 15.0),
+                                   door=(430, 520, 215, 150) if door_on else None, door_power=2.6)
+            side = R.mat_inca_wall(fb, inca=R.mat_inca("#625549", seed=5), niches=[(150, 215, 430, 150, 104)], pitch=340.0, red=(self.RED_HF, 15.0))
+            floor = R.mat_plaster("#4a3a2a", seed=7, rough=0.6, stain=0.4, tone=0.1)
+            ceil = R.mat_beams("#2b1d12", seed=7, pitch=260, bwid=70, plaster="#3a2c1c", axis="a")
+            mats = dict(back=back, left=side, right=side, floor=floor, ceil=ceil)
+            lights = [R.Light((930, 740, 1100), (1.0, 0.72, 0.30), 0.9, 420), R.Light((930, 500, 1000), (0.7, 0.5, 0.2), 0.35, 700)]
+            moons = []
+            if door_on:
+                dxc = 430.0
+                g = dict(z=box.zb, wrect=(dxc - 105.0, fb - 520.0 - (fb - 472.7) * 0 - (472.7 - 472.7) - 472.7 + 472.7 - 520 + 520 - 472.7 + 0, dxc + 105.0, 0.0))
+                # kapı açıklığı: dünya Y (aşağı +) aralığı: zemin=fb → üst = fb-520
+                g["wrect"] = (dxc - 105.0, fb - 520.0, dxc + 105.0, fb)
+                moons.append(R.Moon((-0.45, 0.32, -0.83), col=(1.0, 0.88, 0.62), power=1.7, win=g, pen=6.0, pen_k=0.014))
+            gh = R.window_gobo(box, hole_outer, zw)
+            moons.append(R.Moon((0.52, 0.66, -0.54), col=(0.95, 0.92, 0.85), power=1.6, win=gh, pen=3.0, pen_k=0.010))
+            rgb, cov = box.render(mats, lights, moon=moons, ambient=(0.016, 0.013, 0.011), expo=1.2, ao=0.6,
+                                  holes=[dict(rect=self.HOLE, T=120.0, splay=0.8, mat=inc, ao=0.2)])
+            cache["r"] = (rgb, cov)
+            return cache["r"]
+
+        def L0(f):
+            f.rect(-M, -M, W + 2 * M, H + 2 * M, shader=f.lin(0, -M, 0, 700, [("#e8f0f6", 0.0), ("#b8d0e4", 0.6), ("#7aa0c0", 1.0)]))
+            ST.hills(f, 350, 20, "#5a7088", seed=2, wavelength=0.005)
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+
+        bx, by, bw_, bh_ = self._bbox()
+
+        def L2(f):
+            # delikten gelen ışık huzmesi + kapı huzmesi (statik)
+            for q in R.shaft_polys(box, hole_outer, zw, (0.52, 0.66, -0.54), [], 8):
+                _soft_hull(f, q, "#fff4d8", 0.20)
+            if door_on:
+                dr = ((960 + (430 - 105) * 1100.0 / self.ZB), 480 + (fb - 520 - 472.7 + 472.7) * 0 + (fb - 520) * 1100.0 / self.ZB, (960 + (430 + 105) * 1100.0 / self.ZB), 480 + fb * 1100.0 / self.ZB)
+                for q in R.shaft_polys(box, (dr[0], dr[1], dr[2], dr[3]), box.zb, (-0.45, 0.32, -0.83), [], 8):
+                    _soft_hull(f, q, "#ffe9b8", 0.13)
+            # yığın (statik: fill_t yoksa son seviye)
+            if self.fill_t is None and fill_static > 0:
+                PR.draw_hoard(f, items, 0.0, fill_static)
+            _shadow_ellipse(f, 930, 896, 560, 20, 0.5, 18)
+            R.glow(f, 880, 780, 460, "#ffc450", 0.30 * (fill_static if self.fill_t is None else 0.0), sy=0.6)
+
+        def L3(f):
+            R.vignette_frame(f, 0.74, 0.5)
+            for sx in (-1, 1):
+                f.rect(W / 2 + sx * 1040 - 90, -M, 180, H + 2 * M, shader=f.lin(W / 2 + sx * 1040 - 90, 0, W / 2 + sx * 1040 + 90, 0, [("#000000", 0.0, 235), ("#16110c", 0.5, 245), ("#000000", 1.0, 235)]))
+
+        layers = [(0.1, L0), (0.85, L1), (1.0, L2), (1.36, L3)]
+        if self.fill_t is not None:
+            def bake_snaps():
+                surf = skia.Surface(bw_, bh_)
+                c = surf.getCanvas()
+                c.clear(skia.ColorTRANSPARENT)
+                fr = sk.Frame(1, 1)
+                fr.c = c
+                fr.w, fr.h = bw_, bh_
+                c.translate(-bx, -by)
+                snaps = [None]
+                for j in range(1, self.J + 1):
+                    PR.draw_hoard(fr, items, (j - 1) / self.J, j / self.J)
+                    snaps.append(surf.makeImageSnapshot())
+                _SIDE[key + "|snaps"] = snaps
+            bake_snaps()
+        return layers
+
+    def dyn(self):
+        key = _pkey("ransom_room", self.p)
+        fill_t, fill, fill0 = self.fill_t, self.fill, self.fill0
+        bx, by, bw_, bh_ = self._bbox()
+        J = self.J
+        prisoner, soldiers, door_on = self.prisoner, self.soldiers, self.door
+        items = PR.hoard_items(seed=3, **self.HEAP)
+        fb = (self.BACK[3] - self.VP[1]) * self.ZB / 1100.0
+
+        def D2(f, t):
+            k = fill
+            if fill_t is not None:
+                u = smooth((t - fill_t[0]) / max(0.1, fill_t[1] - fill_t[0]))
+                k = fill0 + (fill - fill0) * u
+                snaps = _SIDE.get(key + "|snaps")
+                if snaps and k > 0.003:
+                    x = k * J
+                    j = int(min(J, math.floor(x)))
+                    fr = x - j
+                    pa = skia.SamplingOptions(skia.FilterMode.kLinear)
+                    if j >= 1:
+                        f.c.drawImage(snaps[j], bx, by, pa, skia.Paint())
+                    if j < J and fr > 0.01:
+                        p2 = skia.Paint()
+                        p2.setAlphaf(fr)
+                        f.c.drawImage(snaps[j + 1], bx, by, pa, p2)
+                R.glow(f, 880, 780, 460, "#ffc450", 0.30 * k, sy=0.6)
+            # parıltılar
+            if k > 0.08:
+                rs = np.random.RandomState(5)
+                pa = skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus)
+                for i in range(14):
+                    it = items[int(rs.randint(len(items)))]
+                    if it["rank"] > k:
+                        continue
+                    a = max(0.0, math.sin(t * (1.2 + 1.5 * rs.rand()) + i * 3.1)) ** 8
+                    if a > 0.06:
+                        x, y = it["x"], it["y"]
+                        pa.setColor(C("#FFF6C8", int(255 * a)))
+                        f.c.drawCircle(x, y, 2.6, pa)
+                        pa.setColor(C("#FFF6C8", int(140 * a)))
+                        f.c.drawLine(x - 12, y, x + 12, y, pa)
+                        f.c.drawLine(x, y - 12, x, y + 12, pa)
+            # asker siluetleri (kapıda)
+            if door_on:
+                dxs = [960 + 430 * 1100.0 / 1300 + d for d in (-34, 30, 78)]
+                for i in range(min(3, soldiers)):
+                    ST.figure(f, "conquistador", dxs[i], 886 + (i == 2) * 2, 330 - 14 * i, col="#08050a", rim="#FFE2A8", face=-1, sway=math.sin(t * 0.8 + i) * 0.003)
+            if prisoner:
+                RF(f, "atahualpa", 640, 944, 430, rim="#FFD890", rimd=(1.0, -0.4), rim2="#FFF0C8", rim2d=(0.8, -0.9), bob=math.sin(t * 0.8) * 1.2)
+            R.motes(f, t, (440, 160, 1100, 760), n=40, seed=8, col="#FFF0C8", a=0.55, drift=(3, 5))
+
+        return {2: D2}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  DEBATE_HALL — Valladolid 1550 (Las Casas ↔ Sepúlveda)
+# ═══════════════════════════════════════════════════════════════════════
+def _lectern(f, x, y, s=1.0, lights=(), col="#3a2616", face=1):
+    """Eğik tablalı kürsü (önden/yan karışık): y zemin. face yönünde kitap açık."""
+    post = R.rect_path(x - 14 * s, y - 96 * s, 28 * s, 96 * s)
+    R.lit_path(f, post, shade_(col, -0.2), lights, rim="#b88a52", rim_w=1.0, grad=f.lin(x - 14 * s, 0, x + 14 * s, 0, [("#1a0e06", 0.0), (shade_(col, 0.1), 0.5), ("#1a0e06", 1.0)]))
+    base = R.rrect_path(x - 44 * s, y - 10 * s, 88 * s, 10 * s, 3)
+    R.lit_path(f, base, shade_(col, -0.3), lights)
+    top = sk.poly_path([(x - 52 * s, y - 100 * s), (x + 52 * s, y - 100 * s), (x + 44 * s * face, y - 128 * s), (x - 44 * s * face, y - 128 * s)], True)
+    R.lit_path(f, top, shade_(col, 0.05), lights, rim="#d6a15a", rim_w=1.4)
+    f.rect(x - 50 * s, y - 102 * s, 100 * s, 6 * s, color=shade_(col, -0.4))
+    bk = sk.poly_path([(x - 34 * s, y - 106 * s), (x + 34 * s, y - 106 * s), (x + 30 * s, y - 122 * s), (x - 30 * s, y - 122 * s)], True)
+    R.lit_path(f, bk, "#cdbb8c", lights, edge="#6a5638")
+    f.line(x, y - 106 * s, x, y - 122 * s, color="#4a3a24", sw=1.5)
+
+
+@SL.sc("debate_hall")
+class DebateHall:
+    """Valladolid 1550 tartışma salonu: yüksek taş salon (iki yan duvarda sivri pencereler, çapraz huzmeler), arkada yüksek kürsüde jüri sırası (yeşil örtülü masa),
+    ön planda iki kürsü ve karşılıklı konuşmacılar, kâtipler, yan sıralarda dinleyiciler.
+    p: lecterns=2 (0..2 konuşmacılı kürsü), jury=7 (0..9), crowd=True, left='friar', right='scholar' (konuşmacı tipi: friar|scholar), sun=1.0."""
+
+    BACK = (480, 170, 1440, 760)
+    VP = (960, 450)
+    ZB = 1600.0
+
+    def __init__(self, p):
+        self.p = p
+        self.lecterns = int(clamp(p.get("lecterns", 2), 0, 2))
+        self.jury = int(clamp(p.get("jury", 7), 0, 9))
+        self.crowd = p.get("crowd", True)
+        self.left = p.get("left", "friar")
+        self.right = p.get("right", "scholar")
+        self.sun = float(p.get("sun", 1.0))
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    LECT = [(-300.0, 900.0, 1), (300.0, 900.0, -1)]
+
+    def layers(self):
+        box = self._box()
+        P, YF = _persp(box)
+        cache = {}
+        sun = self.sun
+        XL = (self.BACK[0] - self.VP[0]) * self.ZB / 1100.0
+        XR = (self.BACK[2] - self.VP[0]) * self.ZB / 1100.0
+        PITCH, NWIN, A0, WW = 310.0, 3, 260.0, 160.0
+        H1, SPR, H3 = 240.0, 560.0, 720.0
+        Zmin = self.ZB - (A0 + (NWIN - 1) * PITCH + WW)
+        DL = (0.72, 0.58, -0.36)
+        DR = (-0.72, 0.58, -0.36)
+        jury_n = self.jury
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            wl = R.mat_hallwall(YF, stone="#6a5c4b", pitch=PITCH, a0=A0, nwin=NWIN, w=WW, h1=H1, spring=SPR, h3=H3, seed=4, power=2.3 * sun)
+            wr = R.mat_hallwall(YF, stone="#625546", pitch=PITCH, a0=A0, nwin=NWIN, w=WW, h1=H1, spring=SPR, h3=H3, seed=8, power=2.3 * sun)
+            back = R.mat_stone_fine("#5e5040", seed=6, course=54)
+            floor = R.mat_checker("#27211b", "#463c30", size=170, seed=6)
+            ceil = R.mat_beams("#34261a", seed=7, pitch=290, bwid=96, plaster="#403628", axis="b")
+            mats = dict(back=back, left=wl, right=wr, floor=floor, ceil=ceil)
+            lights = [R.Light((960, 380, 1000), R.warm(1.0), 1.0, 380, spec=0.2), R.Light((960, 460, 1560), R.warm(1.0), 1.2, 300)]
+            wL = dict(axis="x", x=XL, wrect=(Zmin, YF - H3, Zmin + WW, YF - H1), pitch=PITCH, n=NWIN, spring=YF - SPR)
+            wR = dict(axis="x", x=XR, wrect=(Zmin, YF - H3, Zmin + WW, YF - H1), pitch=PITCH, n=NWIN, spring=YF - SPR)
+            moons = [R.Moon(DL, col=(1.0, 0.86, 0.62), power=1.05 * sun, win=wL, pen=7.0, pen_k=0.02), R.Moon(DR, col=(1.0, 0.86, 0.62), power=0.85 * sun, win=wR, pen=7.0, pen_k=0.02)]
+            rgb, cov = box.render(mats, lights, moon=moons, ambient=(0.008, 0.008, 0.012), expo=0.98, ao=0.6)
+            cache["r"] = (rgb, cov)
+            return cache["r"]
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+            # arka duvar: haç + sancaklar (duvarla aynı katman)
+            for sx in (-1, 1):
+                x, y = 960 + sx * 330, 310
+                PR.banner_hang(f, x, 190, 150, 300, "#5a1016" if sx < 0 else "#1c3326", "#c9962b", [(960, 420, 800, "#ff9c40", 0.15)], icon="crown" if sx < 0 else "book")
+            f.rect(949, 250, 22, 190, color="#1a0e08")
+            f.rect(906, 296, 108, 22, color="#1a0e08")
+            f.line(960, 252, 960, 436, color="#9a7a48", sw=1.2, alpha=0.5)
+            f.path(sk.smooth_path([(944, 330), (960, 318), (976, 330), (972, 380), (948, 380)], True, 0.5), color="#2a1a10")
+            R.glow(f, 960, 330, 160, "#ffb060", 0.14)
+
+        def L2(f):
+            warm_l = [(960, 560, 520, "#ff9c40", 0.20), (960, 300, 700, "#ffb060", 0.08)]
+            # pencere huzmeleri (iki yandan)
+            for q in R.shaft_polys_x(box, XL, (Zmin, YF - H3, Zmin + WW, YF - H1), DL, PITCH, NWIN):
+                _soft_hull(f, q, "#ffe2a8", 0.15 * sun)
+            for q in R.shaft_polys_x(box, XR, (Zmin, YF - H3, Zmin + WW, YF - H1), DR, PITCH, NWIN):
+                _soft_hull(f, q, "#ffe2a8", 0.12 * sun)
+            # jüri kürsüsü (dais)
+            for (hx, h0, h1, zf) in ((600, 0, 40, 1420), (560, 40, 80, 1470)):
+                front = [P(-hx, h0, zf), P(hx, h0, zf), P(hx, h1, zf), P(-hx, h1, zf)]
+                topq = [P(-hx, h1, zf), P(hx, h1, zf), P(hx * 0.98, h1, 1600), P(-hx * 0.98, h1, 1600)]
+                _quad(f, front, "#3a2a1c", warm_l, grad=f.lin(0, front[2][1], 0, front[0][1], [("#5a4630", 0.0), ("#241812", 1.0)]))
+                _quad(f, topq, "#2a2018", warm_l, rim="#8a6a3a")
+            # koltuklar + jüri üyeleri (ön görünüş oturan siluetler)
+            if jury_n > 0:
+                gears = ["mitre", "cap", "galero", "kurhut", "cap", "galero", "mitre", "cap", "kurhut"]
+                span = 760.0
+                xs_ = [(-span / 2 + span * (i + 0.5) / jury_n) if jury_n > 1 else 0.0 for i in range(jury_n)]
+                order = sorted(range(jury_n), key=lambda i: abs(xs_[i]), reverse=True)
+                for i in order:
+                    X = xs_[i]
+                    pb = P(X, 80, 1560)
+                    sc_ = 1100.0 / 1560.0
+                    PR.chair_high(f, pb[0], pb[1], 0.50 * sc_ * 1.35, warm_l, col="#35210f", trim="#c9962b")
+                    RF(f, "elector_" + gears[i % len(gears)], pb[0], pb[1] - 2, 150 * sc_, rim="#FFE2A8", rimd=(0.0, -1.0), rim2="#E39A4A", rim2d=(0.9, 0.1))
+            # jüri masası (yeşil örtü, altın saçak) — jüri üyelerinin önünde
+            tz = 1500.0
+            tfront = [P(-470, 0 + 80, tz - 70), P(470, 80, tz - 70), P(470, 80 + 62, tz - 70), P(-470, 80 + 62, tz - 70)]
+            ttop = [P(-470, 80 + 62, tz - 70), P(470, 80 + 62, tz - 70), P(470, 80 + 62, tz + 30), P(-470, 80 + 62, tz + 30)]
+            _quad(f, ttop, "#1c3a28", warm_l, rim="#c9962b", grad=f.lin(0, ttop[2][1], 0, ttop[0][1], [("#2a4a36", 0.0), ("#16301f", 1.0)]))
+            _quad(f, tfront, "#14281c", warm_l, grad=f.lin(0, tfront[2][1], 0, tfront[0][1], [("#1c3a28", 0.0), ("#0a150e", 1.0)]))
+            for k in range(26):
+                xa = tfront[0][0] + (tfront[1][0] - tfront[0][0]) * (k + 0.5) / 26
+                f.line(xa, tfront[0][1] - 3, xa, tfront[0][1] + 4, color="#c9962b", sw=2.0, alpha=0.7)
+            f.line(tfront[0][0], tfront[0][1], tfront[1][0], tfront[1][1], color="#c9962b", sw=2.0, alpha=0.7)
+            # masada kâğıt/kitap/mum
+            pm = P(-120, 80 + 62, tz - 20)
+            PR.ledger_open(f, pm[0], pm[1], w=120 * 1100.0 / tz, h=26 * 1100.0 / tz, lights=warm_l, seed=3)
+            for X in (260, -300):
+                pc = P(X, 80 + 62, tz - 20)
+                R.candle_body(f, pc[0], pc[1], h=60 * 1100.0 / tz, w=12 * 1100.0 / tz, holder=True)
+            # yan bankların seyircileri
+            if self.crowd:
+                rs = np.random.RandomState(31)
+                hats = ["beret", "cap", "galero", "mitre", "hood", "beret", "cap"]
+                for side in (-1, 1):
+                    for rowX in (560, 450):
+                        inner = side * (rowX - 50)
+                        outer = side * (rowX + 36)
+                        zA, zB = 820, 1380
+                        q_front = [P(inner, 0, zA), P(inner, 0, zB), P(inner, 46, zB), P(inner, 46, zA)]
+                        q_top = [P(inner, 46, zA), P(inner, 46, zB), P(outer, 46, zB), P(outer, 46, zA)]
+                        _quad(f, q_front, "#2a1a10", warm_l, grad=f.lin(0, q_front[2][1], 0, q_front[0][1], [("#3a2616", 0.0), ("#150d08", 1.0)]))
+                        _quad(f, q_top, "#34200f", warm_l, rim="#8a6a3a")
+                        z = zB
+                        while z > zA:
+                            pp = P(side * rowX + rs.uniform(-8, 8), 0, z)
+                            hh = rs.uniform(150, 166) * 1100.0 / z
+                            RF(f, "sit_" + hats[rs.randint(len(hats))], pp[0], pp[1], hh, col="#0b0705", rim="#C58A44", rimd=(1.0, -0.5) if side < 0 else (-1.0, -0.4), rim2="#7FA0E8", rim2d=(0.0, -1.0), face=-side)
+                            z -= rs.uniform(70, 96) * (z / 1300.0)
+            # kâtipler
+            for (X, face) in ((-610, 1), (610, -1)):
+                pp = P(X, 0, 1400)
+                sc_ = 1100.0 / 1400.0
+                hh = 150 * sc_
+                dk = hh * 0.30
+                PR.desk_slant(f, (pp[0] + face * hh * 0.30) if face > 0 else (pp[0] - hh * 0.30 - hh * 0.7), pp[1], w=hh * 0.7, h=hh * 0.58, lights=warm_l)
+                RF(f, "clerk_seated", pp[0], pp[1], hh, rim="#F0B060", rimd=(1.0, -0.3), rim2="#FFC878", rim2d=(0.3, -1.0), face=face)
+            # kürsüler (konuşmacılar dyn'de)
+            for i, (X, Z, face) in enumerate(self.LECT[:self.lecterns]):
+                pp = P(X, 0, Z)
+                s_ = 1100.0 / Z
+                _lectern(f, pp[0] + face * 46 * s_, pp[1], s_ * 1.0, warm_l, face=face)
+
+        def L3(f):
+            rs = np.random.RandomState(5)
+            for side in (-1, 1):
+                pp = P(side * 520, 0, 700)
+                RF(f, "sit_" + ["beret", "hood", "galero"][rs.randint(3)], pp[0], pp[1] + 22, 165 * 1100.0 / 700, col="#040201", rim="#8A5A2A", rimd=(1.0 if side < 0 else -1.0, -0.5), face=-side)
+            f.rect(-M, H - 70, W + 2 * M, 70 + M, shader=f.lin(0, H - 70, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 230)]))
+            R.vignette_frame(f, 0.7, 0.55)
+
+        return [(0.8, L1), (1.0, L2), (1.3, L3)]
+
+    def dyn(self):
+        box = self._box()
+        P, YF = _persp(box)
+        n = self.lecterns
+        kinds = [("orator_" + self.left, 1), ("orator_" + self.right, -1)]
+
+        def D2(f, t):
+            for i, (X, Z, face) in enumerate(self.LECT[:n]):
+                pp = P(X, 0, Z)
+                s_ = 1100.0 / Z
+                kind = kinds[i][0]
+                # konuşmacı: hafif öne-arkaya vurgulu jest (sway) + nefes
+                gest = math.sin(t * 1.3 + i * 2.1) * 0.012
+                RF(f, kind, pp[0], pp[1], 196 * s_, rim="#FFD890", rimd=(0.8 * face, -0.5), rim2="#FFE2A8", rim2d=(0.0, -1.0), face=face, sway=gest, bob=math.sin(t * 1.0 + i) * 1.0)
+            R.motes(f, t, (400, 140, 1120, 740), n=40, seed=7, col="#FFE8B8", a=0.5, drift=(5, 4))
+
+        return {1: D2}

@@ -26,9 +26,9 @@ from sk import C, Frame, mix  # noqa: E402
 
 GROUP1 = ["noble", "merchant", "cardinal", "scribe", "monk", "woman", "emperor_old", "prince", "page", "seated", "kneel", "pair_old_prince",
           "pikeman", "landsknecht", "janissary", "knight", "conquistador", "sailor", "native"]
-GROUP2 = ["arquebusier", "halberdier", "horse", "horse_walk", "horse_rider", "cavalry_charge", "cavalry_charge_b", "sipahi", "sipahi_b", "peasant", "fisherman", "bearer",
+GROUP2 = ["arquebusier", "halberdier", "horse", "horse_walk", "horse_rider", "horse_rider_walk", "cavalry_charge", "cavalry_charge_b", "sipahi", "sipahi_b", "peasant", "fisherman", "bearer",
           "inca_noble", "aztec_warrior", "friar_writing", "scholar_lectern", "child", "woman_seated", "man_seated_bed", "coffin", "crowd_a", "crowd_b", "crowd_c", "crowd_d",
-          "crowd_e", "crowd_f"]
+          "crowd_e", "crowd_f", "torchbearer", "standard_bearer", "litter"]
 SIZES = [150, 300, 450, 600, 800]
 
 
@@ -49,7 +49,7 @@ def draw_label(f, s, x, y, size=22, color="#E8D8A0"):
 
 def _sprite_w(k, s, col="#0C0705", rim="#C58A44"):
     img, ox, oy = ST._fig_sprite(k, int(round(s)), col, rim, 0.0)
-    return img.width(), ox
+    return img.width(), ox, oy
 
 
 def render_scales(kinds, path, sizes=SIZES, col="#0C0705", rim="#C58A44"):
@@ -57,11 +57,13 @@ def render_scales(kinds, path, sizes=SIZES, col="#0C0705", rim="#C58A44"):
     gap = 50
     top = 70
     bands = []
+    tallest = max(sizes)
     for k in kinds:
         ws = [_sprite_w(k, s, col, rim) for s in sizes]
-        bands.append((ws, sum(w for w, _ in ws) + gap * (len(sizes) + 1)))
+        tallest = max(tallest, max(oy for _, _, oy in ws))
+        bands.append((ws, sum(w for w, _, _ in ws) + gap * (len(sizes) + 1)))
     bw = max(b[1] for b in bands)
-    bh = max(sizes) + top + 70
+    bh = int(tallest) + top + 70
     Wd = bw * 2
     Hd = bh * len(kinds)
     f = Frame(Wd, Hd)
@@ -73,7 +75,7 @@ def render_scales(kinds, path, sizes=SIZES, col="#0C0705", rim="#C58A44"):
             x0 = side * bw
             bgf(f, x0, y0, bw, bh)
             x = x0 + gap
-            for s, (wd, ox) in zip(sizes, ws):
+            for s, (wd, ox, _oy) in zip(sizes, ws):
                 yy = y0 + bh - 40
                 ST.figure(f, k, x + ox, yy, s, col=col, rim=rim if side == 0 else "#B8863F")
                 x += wd + gap

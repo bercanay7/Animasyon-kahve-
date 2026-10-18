@@ -13,25 +13,11 @@ import stage as ST
 import figs_kit as K
 from figs_parts import ruff as _ruff
 from figs_kit import K as KC, Fig, bar, ell, feather_path, lens, limb, place, poly, shoe, sp
-from figs_parts import add_arm, add_hat, add_head, fur_band, hair_path, hem_band, hem_slits, robe_folds, robe_path, ruff
+from figs_parts import add_arm, add_hat, add_head, add_leg, fur_band, hair_path, hem_band, hem_slits, robe_folds, robe_path, ruff
 
 
 def fx(name):
     return ST.figx(name)
-
-
-def add_leg(F, h, hip, knee, ankle, wd=(0.070, 0.050, 0.032), toe=1, shoe_kind="square", shoe_w=0.09, rim=0.8, tone=0.0, calf=0.009):
-    """Çorap bacak (uyluk→diz→baldır kabarıklığı→bilek) + ayakkabı. hip/knee/ankle (x,y) h oranı."""
-    hx, hy = hip
-    kx, ky = knee
-    ax, ay = ankle
-    mx, my = hx + (kx - hx) * 0.45, hy + (ky - hy) * 0.45
-    cx, cy = kx + (ax - kx) * 0.28 - calf * toe, ky + (ay - ky) * 0.28
-    qx, qy = kx + (ax - kx) * 0.70, ky + (ay - ky) * 0.70
-    P = [(hx * h, hy * h), (mx * h, my * h), (kx * h, ky * h), (cx * h, cy * h), (qx * h, qy * h), (ax * h, ay * h)]
-    W = [wd[0] * h * 1.04, wd[0] * h * 0.92, wd[1] * h * 0.92, wd[1] * h * 1.12, wd[2] * h * 1.08, wd[2] * h * 0.9]
-    F.fill(limb(P, W, cap0=0.3, cap1=0.25), rim=rim, tone=tone)
-    F.fill(shoe((ankle[0] - 0.014) * h, 0, shoe_w * h, 0.036 * h, toe, shoe_kind), rim=rim)
 
 
 # ───────────────────────────── noble (orta boy, dişli etekli, kürk klapalı; belde el) ─────────────────────────────
@@ -131,8 +117,8 @@ def _scribe(h, lean):
     F = Fig(h, lean)
     hh = 0.135 * h
     hx, hy = 0.075 * h, -0.905 * h + 0.5 * hh
-    add_leg(F, h, (-0.03, -0.27), (-0.055, -0.15), (-0.085, -0.046), (0.07, 0.046, 0.03), 1, "round", 0.09, 0.7)
-    add_leg(F, h, (0.025, -0.27), (0.055, -0.15), (0.095, -0.046), (0.074, 0.048, 0.032), 1, "round", 0.095, 0.9)
+    add_leg(F, h, (-0.03, -0.27), (-0.055, -0.15), (-0.085, -0.046), (0.07, 0.046, 0.03), 1, "round", 0.09, 0.7, calf=0.004)
+    add_leg(F, h, (0.025, -0.27), (0.055, -0.15), (0.095, -0.046), (0.074, 0.048, 0.032), 1, "round", 0.095, 0.9, calf=0.004)
     F.fill(robe_path(h, sh_y=-0.725, nb_y=-0.75, back_sh=-0.115, front_sh=0.098, chest=(-0.138, 0.105, -0.64), waist=(-0.112, 0.092, -0.50),
                      hip=(-0.135, 0.13, -0.34), hem=(-0.175, 0.17, -0.19), nfold=3, amp=0.007, lift=0.015, wave_b=0.005, wave_f=0.006), rim=0.9, glow=0.08)
     robe_folds(F, h, -0.05, 0.05, -0.50, -0.20, 5, 0.009, bend=0.008, seed=11)
@@ -322,7 +308,7 @@ def _seated(h, lean):
     for (ex_, ey_) in ((0.075, -0.60), (0.095, -0.52), (0.112, -0.44), (0.16, -0.375), (0.205, -0.35), (-0.075, -0.655), (-0.01, -0.672), (0.04, -0.668)):
         F.fill(lens(((ex_ - 0.004) * h, (ey_ - 0.012) * h), ((ex_ + 0.004) * h, (ey_ + 0.012) * h), 0.007 * h, 0.0), rim=0.0, tone=1.0, alpha=0.55, bound=False)
     # yakın kol: asayı tutar (dirsek yanda, el önde)
-    add_arm(F, [(-0.03 * h, -0.625 * h), (-0.09 * h, -0.50 * h), (0.10 * h, -0.42 * h)], [0.07 * h, 0.075 * h, 0.046 * h], hand="fist", hand_len=0.065 * h, hand_rot=-25)
+    add_arm(F, [(-0.03 * h, -0.625 * h), (-0.045 * h, -0.49 * h), (0.105 * h, -0.415 * h)], [0.066 * h, 0.07 * h, 0.046 * h], hand="fist", hand_len=0.065 * h, hand_rot=-20)
     add_head(F, hx, hy, hh, "m", rot=-3, beard="short", hat="crown_i", nose=1.1, chin=0.04, neck_to=(0.0, -0.645 * h), hat_rot=-3)
     return F.build()
 

@@ -95,8 +95,8 @@ class Sokak:
             f.oval(960, 860, 760, 190, shader=f.rad(960, 860, 760, [("#FF9A40", 0.0, 90), ("#FF9A40", 1.0, 0)]), blend=skia.BlendMode.kPlus)
 
         def L4(f):                       # ön plan siluetleri (kenarlarda kırpılmış)
-            ST.figure(f, "crowd_a", 90, 1190, 760, col="#060303", rim=RIM, face=1)
-            ST.figure(f, "peasant", 1850, 1200, 800, col="#060303", rim=RIM, face=-1)
+            K.fig(f, "crowd_a", 90, 1190, 760, col="#060303", rim=RIM, face=1)
+            K.fig(f, "peasant", 1850, 1200, 800, col="#060303", rim=RIM, face=-1)
             f.rect(-MARGIN, -MARGIN, W + 2 * MARGIN, 90, color="#0A0403", alpha=0.7)
 
         # derinlikler: 0.05 gök, 0.3 meydan, 0.7 duvar, 0.9 zemin; kalabalık (dyn) 0.9 katmanında; ön plan 1.35
@@ -108,7 +108,7 @@ class Sokak:
         def D3(f, t):
             for c in sorted(crowd, key=lambda q: q["y"]):
                 bob = abs(math.sin(t * 2.2 + c["ph"])) * -c["h"] * 0.012
-                ST.figure(f, c["kind"], c["x"], c["y"], c["h"], col="#0A0504", rim=RIM, face=c["face"], bob=bob, sway=math.sin(t * 1.3 + c["ph"]) * 0.01)
+                K.fig(f, c["kind"], c["x"], c["y"], c["h"], col="#0A0504", rim=RIM, face=c["face"], bob=bob, sway=math.sin(t * 1.3 + c["ph"]) * 0.01)
                 if c["torch"]:
                     hx = c["x"] + c["face"] * c["h"] * 0.20
                     hy = c["y"] - c["h"] * 0.60 + bob

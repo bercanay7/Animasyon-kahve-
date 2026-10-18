@@ -15,10 +15,18 @@ def _pavia_ov():
     return X.ov_all(
         X.ov_date("24 ŞUBAT 1525", ("c6s3", "24", -0.1)),
         X.ov_kick("PAVIA", ("c6s3", "Pavia'da", -0.1), y=122, size=34),
-        X.ov_stamp("BOZGUN", ("c6s3", "bozguna", -0.1), x=560, y=420, size=64, rot=-0.08),
+        X.ov_stamp("BOZGUN", ("c6s3", "bozguna", -0.1), x=640, y=300, size=72, rot=-0.08),
         X.ov_medal("fransuva", ("c6s3", "François", -0.15), 1560, 440, size=320, metal="royal", flip=True, name="I. FRANÇOIS", role="Fransa Kralı", plate_y=610),
         X.ov_stamp("ESİR", ("c6s3", "esir", -0.1), x=1560, y=800, size=76, rot=-0.10),
     )
+
+
+def _fleur_wait(cx):
+    """François madalyası gelmeden önce: Fransa'yı simgeleyen zambak (fleur) belirir, madalya gelince söner."""
+    k = cx.amt(("c6s1", "Fransa", -0.1), 0.8) * (1 - cx.amt(("c6s1", "François", -0.35), 0.5))
+    if k > 0:
+        cx.f.circle(W / 2 + 450, H * 0.45, 260, shader=cx.f.rad(W / 2 + 450, H * 0.45, 260, [("#27427A", 0.0, int(70 * k)), ("#27427A", 1.0, 0)]))
+        X.ic(cx.f, "fleur", W / 2 + 450, H * 0.45, size=300 * (0.9 + 0.1 * k), metal="royal", alpha=k, glow=0.3 * k)
 
 
 SHOTS = [
@@ -26,7 +34,7 @@ SHOTS = [
     shot("c678_medals", a=("c6s1", -0.2), items=[
         dict(key="karl_olgun", name="V. KARL", role="İmparator", at=("c6s1", "Şarlken'in", -0.1), metal="gold"),
         dict(key="fransuva", name="I. FRANÇOIS", role="Fransa Kralı", at=("c6s1", "François", -0.3), metal="royal", flip=True)],
-        size=540, y=H * 0.45, gap=900, vs=("c6s1", "François", 0.35), label="karl_fransuva"),
+        size=540, y=H * 0.45, gap=900, vs=("c6s1", "François", 0.35), extra=_fleur_wait, label="karl_fransuva"),
 
     # s2 — Fransa kuşatılmış: Habsburg toprakları sırayla, kuşatma okları
     shot("map", a=("c6s2", -0.35), tr=("fade", 0.9),
@@ -50,13 +58,13 @@ SHOTS = [
 
     # s3 — Pavia: bozgun, kral esir
     shot("c678_sahne", a=("c6s3", -0.3), tr=("whip", 0.5), scene="field",
-         cams=[(0.0, (960, 560, 1.0)), (("c6s3", "bozguna", 0.0), (900, 580, 1.25)), (("c6s3", "düştü", 1.0), (1000, 600, 1.55))],
+         cams=[(0.0, X.fcam(0, .60, 1.08)), (("c6s3", "bozguna", 0.0), X.fcam(0, .46, 1.22)), (("c6s3", "düştü", 1.0), X.fcam(0, .30, 1.45))],
          p=dict(tag="c6_pavia", ground="plain", weather="fog", castle_far="pavia", smoke=0.7,
-                armies=[dict(side="#27427A", kind="pike", x=0.12, row=1, n=12, dir=-1, charge=0.7),
-                        dict(side="#27427A", kind="cavalry", x=0.30, row=0, n=7, dir=-1, charge=0.95),
-                        dict(side="#9A2430", kind="cavalry", x=0.66, row=0, n=7, dir=-1, charge=1.0),
-                        dict(side="#9A2430", kind="arquebus", x=0.74, row=1, n=12, dir=-1, fire=1.0),
-                        dict(side="#9A2430", kind="pike", x=0.88, row=2, n=14, dir=-1, charge=0.5)]),
+                armies=[dict(side="#27427A", kind="pike", x=0.14, row=1, n=12, dir=-1, charge=0.4),
+                        dict(side="#27427A", kind="cavalry", x=0.40, row=0, n=7, dir=-1, charge=0.5),
+                        dict(side="#9A2430", kind="cavalry", x=0.70, row=0, n=7, dir=-1, charge=0.55),
+                        dict(side="#9A2430", kind="arquebus", x=0.76, row=1, n=12, dir=-1, fire=1.0),
+                        dict(side="#9A2430", kind="pike", x=0.90, row=2, n=14, dir=-1, charge=0.4)]),
          overlay=_pavia_ov(), label="pavia"),
 
     # s4 — annesine mektup (aktarılan söz) + sonradan yaygınlaşan slogan

@@ -264,6 +264,8 @@ def k_wd_vs(cx, left=None, right=None, center=None, size=500, y=H * 0.44, gap=64
             sc = (0.92 + 0.08 * ease_out(ka)) * (1.0 + 0.03 * cx.u)
             if slot.get("key"):
                 draw_medal_plain(f, slot["key"], sx, y, size * sc, slot.get("metal", "gold"), slot.get("flip", False), alpha=ka, t=cx.t, i=si)
+            elif slot.get("draw"):
+                slot["draw"](cx, sx, y, size * sc, ka)
             elif slot.get("icon"):
                 glow_dot(f, sx, y, size * 0.7, "#E3B54A", 0.35 * ka)
                 icons.draw_icon(f, icn(slot["icon"], "star"), sx, y, size=size * 0.78 * sc, metal=slot.get("metal", "gold"), alpha=ka, glow=0.3)
