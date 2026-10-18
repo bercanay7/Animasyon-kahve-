@@ -81,7 +81,7 @@ def cam_on(row=0, x=0.5, zoom=1.4, rise=0.0, s=1.0):
     return safe_cam(cx, cy, zoom)
 
 
-@lru_cache(maxsize=60)
+@lru_cache(maxsize=20)
 def band_image(mood, k):
     """Bant k gövdesi: yalnız içerik yüksekliği kadar kırpılmış görüntü → (img, x, y) katman koordinatında."""
     M = _mood(mood)
@@ -95,7 +95,7 @@ def band_image(mood, k):
     return img, -MARGIN, ytop
 
 
-@lru_cache(maxsize=12)
+@lru_cache(maxsize=6)
 def coast_image(coast, mood, side):
     M = _mood(mood)
     y0, y1 = 240, 870
@@ -117,7 +117,7 @@ def _mood(name):
 
 
 # ───────────────────────────── gökyüzü ─────────────────────────────
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=12)
 def _cloud_img(mood, seed, which):
     M = _mood(mood)
     w2, h2 = (W + 2 * MARGIN) // 2, (HZ + MARGIN + 60) // 2

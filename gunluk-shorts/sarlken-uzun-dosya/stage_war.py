@@ -423,7 +423,7 @@ BBOX = dict(carrack=(-290, -520, 400, 80), galley=(-290, -420, 370, 60), fishing
 DRAW = dict(carrack=draw_carrack, galley=draw_galley, fishing=draw_fishing)
 
 
-@lru_cache(maxsize=96)
+@lru_cache(maxsize=64)
 def ship_sprite(kind, ks, hull, rim, sail, sail_l, sail_d, gold, cross, lamp, lamp_col, sails, burnt, light_dir, awn, lod):
     """kind → (Image, ox, oy, ks): orijin (ox,oy) = su hattı ortası; ks: sprite çözünürlük çarpanı."""
     x0, y0, x1, y1 = BBOX[kind]

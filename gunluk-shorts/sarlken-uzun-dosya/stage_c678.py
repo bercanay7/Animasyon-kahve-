@@ -370,7 +370,7 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
             ST.figure(f, kind, xx, H + 12 - row * 40, hh * 1.15, col="#0A0604", rim="#79B58C", face=-1 if rs.rand() > 0.5 else 1, alpha=0.96 - row * 0.1)
     m_vis = max(1.0, sum(cx.amt(it.get("at", 0.0), 0.8) for it in items))     # görünen sayaç sayısı (yumuşak): grup ortada başlar, yenisi gelince kayar
     for i, it in enumerate(items):
-        xc = Wd / 2 + (i - (m_vis - 1) / 2) * colw
+        xc = Wd / 2 + (i - (max(i + 1.0, m_vis) - 1) / 2) * colw      # yeni sayaç son yerine gelir; öncekiler yumuşakça kayar
         at = it.get("at", 0.0)
         a = cx.amt(at, 0.5)
         if a <= 0:

@@ -114,7 +114,7 @@ def cam_on(row=0, x=0.5, zoom=1.4, rise=0.4):
 
 
 # ───────────────────────────── gök / uzak sırt / uzak kale ─────────────────────────────
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=10)
 def _cloud_f(weather, which):
     Wx = _weather(weather)
     w2, h2 = (W + 2 * MARGIN) // 2, (HZ + MARGIN + 60) // 2
@@ -351,7 +351,7 @@ def bake_band(f, ground, weather, k, river):
     f.rect(-MARGIN, ycr - 150, W + 2 * MARGIN, 150 + 90, shader=f.lin(0, ycr - 150, 0, ycr + 90, [(Wx["haze"], 0.0, 0), (Wx["haze"], 0.62, int(255 * fa * 0.70)), (Wx["haze"], 1.0, 0)]))
 
 
-@lru_cache(maxsize=40)
+@lru_cache(maxsize=16)
 def band_image(ground, weather, k, river):
     y0 = int(EDGE_Y[k] - _ground(ground)["amp"][k] * 2.4 - 170)
     h = int(H + MARGIN + 90 - y0)
@@ -387,7 +387,7 @@ def bake_river(f, ground, weather):
         f.line(x, y, x + 20 + rs.rand() * 70, y, color=mix(Wx["haze"], "#FFFFFF", 0.4), sw=1.0 + rs.rand() * 1.2, alpha=0.12 + 0.14 * rs.rand())
 
 
-@lru_cache(maxsize=12)
+@lru_cache(maxsize=6)
 def river_image(ground, weather):
     y0 = RIVER_Y - 70
     h = int(H + MARGIN + 90 - y0)
@@ -398,7 +398,7 @@ def river_image(ground, weather):
     return img, -MARGIN, y0
 
 
-@lru_cache(maxsize=8)
+@lru_cache(maxsize=5)
 def fg_image(ground, weather):
     """Ön plan: koyu çimen/kamış siluetleri (alt kenar), kamerada hızlı paralaks."""
     Wx = _weather(weather)
@@ -422,7 +422,7 @@ def fg_image(ground, weather):
     return img, -MARGIN, ytop
 
 
-@lru_cache(maxsize=12)
+@lru_cache(maxsize=6)
 def _fog_img(weather, haze):
     w2, h2 = (W + 2 * MARGIN) // 2, 140
     yy = np.linspace(0, 1, h2, dtype=np.float32)

@@ -89,7 +89,7 @@ def cam_on_city(x=0.5, zoom=1.4, y=0.0):
 
 
 # ───────────────────────────── gök ─────────────────────────────
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=10)
 def _cloud_s(time, weather, which):
     T = _time(time, weather)
     w2, h2 = (W + 2 * MARGIN) // 2, (HZ + MARGIN + 60) // 2
@@ -798,7 +798,7 @@ def _apron(f, city, T, rs):
     f.rect(-MARGIN, y_a, W + 2 * MARGIN, 90, shader=f.lin(0, y_a, 0, y_a + 90, [(T["haze"], 0.0, 70), (T["haze"], 1.0, 0)]))
 
 
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=10)
 def city_asset(city, time, weather, fire_q):
     """Şehir katmanı: (img, x, y, meta). fire_q: yangın (0..4, 0.25 adım)."""
     T = _time(time, weather)
@@ -939,7 +939,7 @@ def bake_ground(f, city, time, weather, k):
     f.rect(-MARGIN, y_edge - 120, W + 2 * MARGIN, 190, shader=f.lin(0, y_edge - 120, 0, y_edge + 70, [(T["haze"], 0.0, 0), (T["haze"], 0.6, int(255 * fa)), (T["haze"], 1.0, 0)]))
 
 
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=12)
 def ground_asset(city, time, weather, k):
     y0 = int((MID_Y if k == 0 else NEAR_Y) - 220)
     h = int(H + MARGIN + 100 - y0)
@@ -950,7 +950,7 @@ def ground_asset(city, time, weather, k):
     return img, -MARGIN, y0
 
 
-@lru_cache(maxsize=8)
+@lru_cache(maxsize=5)
 def fg_asset(city, time, weather):
     T = _time(time, weather)
     ytop = 880
