@@ -18,3 +18,18 @@ sarlken-uzun-dosya/out/scribe_raw.json
 sarlken-uzun-dosya/out/scribe_words_full.json
 sarlken-uzun-dosya/out/frames/
 sarlken-uzun-dosya/out/seg/
+
+# Şarlken: üretilen büyük/ara dosyalar (git'e girmez)
+sarlken-uzun-dosya/out/*.wav
+sarlken-uzun-dosya/out/*.m4a
+sarlken-uzun-dosya/out/*.mp4
+sarlken-uzun-dosya/out/_audio_cache/
+sarlken-uzun-dosya/out/_cache/
+sarlken-uzun-dosya/out/yama_combined*
+sarlken-uzun-dosya/out/yama_scribe_raw.json
+sarlken-uzun-dosya/out/audio_report.txt
+sarlken-uzun-dosya/out/seg/
+sarlken-uzun-dosya/out/frames/
+sarlken-uzun-dosya/ses_ham/*_48k.wav
+**/__pycache__/
+*.npy

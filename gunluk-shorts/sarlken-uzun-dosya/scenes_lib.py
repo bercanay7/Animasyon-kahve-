@@ -129,6 +129,11 @@ def _cam_at(cx, cams):
 def k_theatre(cx, scene="hall", cams=((0.0, (960, 540, 1.0)),), p=None, vig=0.6, rays=0.0, dust_n=70, overlay=None, fade_in=0.0, tint=None):
     p = p or {}
     f = cx.f
+    if scene not in SCENES:        # sahne henüz yazılmamış / kayıtsız: önizleme bozulmasın
+        f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#241509", 0.0), ("#0D0704", 1.0)]))
+        f.text(f"[sahne: {scene} — henüz yok]", W / 2, H / 2, face="cap_i", size=44, color="#8A7A55", align="c")
+        f.vig(vig)
+        return
     S = SCENES[scene](p)
     key = scene + repr(sorted((k, v) for k, v in p.items() if isinstance(v, (str, int, float, bool, tuple))))
     sc_ = ST.scene(key, S.layers)
@@ -143,3 +148,7 @@ def k_theatre(cx, scene="hall", cams=((0.0, (960, 540, 1.0)),), p=None, vig=0.6,
     f.vig(vig)
     if fade_in:
         f.rect(0, 0, W, H, color="#000000", alpha=1 - smooth(cx.t / fade_in))
+
+
+for _m in ("scenes_sea", "scenes_field", "scenes_siege", "scenes_rooms"):   # sahne-lab aileleri (varsa)
+    sk.optional_import(_m)

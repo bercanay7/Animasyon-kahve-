@@ -232,6 +232,17 @@ def fig(name):
     return deco
 
 
+FIGX = {}
+
+
+def figx(name):
+    """Zengin figür: fn(h, lean) -> (sınır_yolu, çiz(canvas, col, rim)). Canvas orijini ayakta (0,0), yukarı −y; iç ayrıntı/degrade/kenar ışığı serbest."""
+    def deco(fn):
+        FIGX[name] = fn
+        return fn
+    return deco
+
+
 def _hat(p, kind, x, y, s):
     """Başlık (y: baş merkezi). s: baş yarıçapı ölçeği."""
     r = s
@@ -308,6 +319,8 @@ def _pair_path(h):
 @lru_cache(maxsize=512)
 def _fig_path(kind, hpx, lean=0.0):
     h = float(hpx)
+    if kind in FIG:                       # dış modüllerin kayıtlı türleri: @ST.fig("ad") def f(h, lean) -> skia.Path
+        return FIG[kind](h, lean)
     if kind == "pair_old_prince":
         return _pair_path(h)
     p = skia.Path()
@@ -387,7 +400,11 @@ def _fig_path(kind, hpx, lean=0.0):
 def _fig_sprite(kind, hpx, col, rim, lean):
     """Sıkı kırpılmış sprite (boş alan çizim maliyetidir). Dönüş: (img, ox, oy) — ox,oy = yol orijininin sprite içindeki konumu."""
     hpx = int(hpx)
-    path = _fig_path(kind, hpx, lean)
+    xdraw = None
+    if kind in FIGX:
+        path, xdraw = FIGX[kind](float(hpx), lean)
+    else:
+        path = _fig_path(kind, hpx, lean)
     b = path.getBounds()
     pad = max(4, int(hpx * 0.03))
     l, t = int(math.floor(b.left())) - pad, int(math.floor(b.top())) - pad
@@ -396,6 +413,9 @@ def _fig_sprite(kind, hpx, col, rim, lean):
     c = s.getCanvas()
     c.clear(skia.ColorTRANSPARENT)
     c.translate(-l, -t)
+    if xdraw is not None:
+        xdraw(c, col, rim)
+        return s.makeImageSnapshot(), -l, -t
     if rim:
         c.save(); c.translate(-hpx * 0.012, -hpx * 0.010)
         c.drawPath(path, skia.Paint(AntiAlias=True, Color=C(rim)))
@@ -549,3 +569,7 @@ def pines(f, x0, x1, y, h, col, seed=1, dens=70):
             f.poly([(x - w * (1 - q * 0.18), y - hh * q * 0.22), (x, y - hh * (q * 0.22 + 0.4)), (x + w * (1 - q * 0.18), y - hh * q * 0.22)], color=col)
         f.rect(x - 3, y, 6, 14, color=col)
         x += dens * (0.5 + rs.rand())
+
+
+for _m in ("figs_lab", "figs_war"):          # figür-lab / sahne-lab modülleri (varsa)
+    sk.optional_import(_m)

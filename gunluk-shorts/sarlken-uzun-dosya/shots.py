@@ -19,6 +19,8 @@ from sk import C, Frame, H, W, clamp, ease_io, ease_out, lerp, mix, seg, smooth
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KINDS = {}
+for _m in ("medal_extra", "icons_extra"):      # madalya-lab ekleri (varsa)
+    sk.optional_import(_m)
 
 
 def kind(name):
@@ -708,7 +710,7 @@ def _fac(c):
 
 @kind("map")
 def k_map(cx, cam=(8, 47, 1.5), cams=None, style="night", regions=(), cities=(), routes=(), labels=(), icons_=(), notes=(), date=None,
-          frame=True, compass=None, mountains=True, drift=None, tint=None, ripples=True, grid=False, hud=None, vig=0.55, extra=None, kick=None):
+          frame=True, compass=None, mountains=True, drift=None, tint=None, ripples=True, grid=False, hud=None, vig=0.55, extra=None, kick=None, approx=True):
     """Genel harita çekimi.
     cams: [(an, (lon,lat,zoom)), ...] an = yerel sn veya anlatım çapası (cx.at ile çözülür) — aralarda yumuşak geçiş (zoom log).
     regions: [dict(name, color, at, alpha, hatch, glow)]; cities: [dict(lon,lat,name,kind,at,side)];
@@ -776,6 +778,8 @@ def k_map(cx, cam=(8, 47, 1.5), cams=None, style="night", regions=(), cities=(),
         mv.compass(f, cp[0], cp[1], cp[2], alpha=0.85, style=style)
     if date:
         _date_stamp(f, date, cx)
+    if approx and regions:
+        f.text("SINIRLAR YAKLAŞIKTIR", W / 2, H - 62, face="cap_i", size=22, color="#B9A674", align="c", track=5, alpha=0.6 * cx.amt(0.8, 0.6))
     for n in notes:
         k = cx.amt(n.get("at", 0.0), 0.5)
         if k > 0:

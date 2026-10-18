@@ -82,6 +82,10 @@ PEOPLE = {
 
 
 # ───────────────────────────── yardımcılar ─────────────────────────────
+PEOPLE["_anon"] = dict(nose=12, hook=2, brow=3, lip=2, lip2=3, chin=2, jaw=1.0, fore=1, age=0.4, jowl=0.05, neck=1.0,
+                       hair="short", hat="cap", beard=None, garment="doublet", mouth_open=0.0)   # bilinmeyen anahtar için yedek yüz
+
+
 def _sp(pts, close=False, t=0.5):
     return sk.smooth_path(pts, close=close, tension=t)
 
@@ -432,7 +436,7 @@ def _garment(cv, d):
 
 # ───────────────────────────── ana sprite ─────────────────────────────
 def portrait_height(key, flip=False):
-    d = PEOPLE[key]
+    d = PEOPLE.get(key) or PEOPLE['_anon']
     cv = _Canvas()
     _garment(cv, d)
     _skin(cv, d)
@@ -471,7 +475,7 @@ def ring_text_mask(text, radius, size_px, track=4.0, face="title"):
 @lru_cache(maxsize=64)
 def medal_array(key, metal="gold", inscription=None, flip=False, rim=True, size=1000):
     """RGBA uint8 (S×S) madalya sprite."""
-    d = PEOPLE[key]
+    d = PEOPLE.get(key) or PEOPLE['_anon']
     por = portrait_height(key, flip)
     # portreyi büyüt ve ortala (başın merkezi ≈ (500, 420) → medalin görsel merkezine)
     sc = d.get("scale", 1.22)
@@ -547,7 +551,7 @@ INSCR = {
     "melanchthon": "PHILIPPVS · MELANTHON ·", "suleyman": "SVLTAN · SOLYMAN · TVRCARVM · IMP ·",
     "barbaros": "BARBAROSSA · CHAIRADINVS · ·", "fugger": "IACOBVS · FVGGER · AVGVSTANVS ·", "klemens": "CLEMENS · VII · PONT · MAX ·",
     "felipe2": "PHILIPPVS · II · HISPANIARVM · REX ·", "juana": "IOANNA · CASTELLAE · REGINA ·", "isabel": "ISABELLA · LVSITANIAE ·",
-    "ferdinand": "FERDINANDVS · ROM · REX ·", "maksimilian": "MAXIMILIANVS · ROM · IMP ·", "kortes": "FERDINANDVS · CORTES ·",
+    "ferdinand": "FERDINANDVS · ROM · REX ·", "maksimilyan": "MAXIMILIANVS · ROM · IMP ·", "kortes": "FERDINANDVS · CORTES ·",
     "pizarro": "FRANCISCVS · PIZARRO ·", "lascasas": "BARTOLOME · DE · LAS · CASAS ·", "moritz": "MAVRITIVS · DVX · SAXONIAE ·",
     "orange": "GVILELMVS · PRINCEPS · AVRIACVS ·", "margareta": "MARGARITA · AVSTRIACA ·", "tiziano": "TITIANVS · VECELLIVS ·",
     "durer": "ALBERTVS · DVRER · NORICVS ·", "elkano": "IOANNES · SEBASTIANVS · ELCANO ·", "makedonya": "· · ·",

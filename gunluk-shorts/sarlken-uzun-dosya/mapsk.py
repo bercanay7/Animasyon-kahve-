@@ -115,6 +115,19 @@ class MapView:
     def cam(self, lon, lat, zoom, rot=0.0):
         return Cam(lon, lat, zoom, rot)
 
+    def add_region(self, name, rings_lonlat, holes_lonlat=()):
+        """Elle bölge ekle: rings_lonlat = [[(lon,lat),...], ...] (her biri bir dış halka); holes_lonlat isteğe bağlı delikler.
+        Kıyıya kırpılmaz (deniz taşmasın diye halkaları kıyıya göre çiz ya da mv.clip_to_land=True ile kırp)."""
+        from shapely.geometry import Polygon
+        g = shapely.union_all([Polygon(r).buffer(0) for r in rings_lonlat])
+        if holes_lonlat:
+            g = g.difference(shapely.union_all([Polygon(r).buffer(0) for r in holes_lonlat]))
+        if getattr(self, "clip_to_land", False):
+            g = g.intersection(shapely.union_all([Polygon(e, h).buffer(0) for e, h in self.D["regions"]["__kara__"][1.0]]))
+        self.D["regions"][name] = mapdata._levels(mapdata._project(g))
+        for k in [k for k in self._paths if isinstance(k, tuple) and k[0] == name]:
+            del self._paths[k]
+
     # ---- zemin (döşemeli önbellek: kıyı/dalga/ışıma bir kez pişer; kare başına yalnız basım)
     TILE = 2048
     TIERS = (0.35, 0.5, 0.7, 1.0, 1.4, 2.0, 2.8, 4.0, 5.6, 8.0)

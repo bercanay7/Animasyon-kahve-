@@ -1,0 +1,525 @@
+"""BÖLÜM YAZARI A (c1, c2, c3, c10) ortak yardımcıları: çapa sarmalayıcı, arka planlar, levha/işaret/para/zincir/mum/terazi çizimleri,
+kendi kabartma simgeleri (c1_*, c2_*, c10_* önekli) ve taban çekim türlerinin renk tonlu varyantları.
+Ortak dosyalara (sk/shots/stage/...) dokunmaz; yalnız onların API'sini kullanır.
+"""
+import math
+
+import numpy as np
+import skia
+
+import icons
+import medal
+import shots as SH
+import sk
+from sk import C, H, W, clamp, ease_in, ease_io, ease_out, lerp, mix, seg, smooth, back_out
+
+
+# ───────────────────────────── çapa sarmalayıcı ─────────────────────────────
+def A(sid, key=None, off=0.0, fb=None, nth=0):
+    """Çapa üretir. `key` sözcüğü timeline'da yoksa (metin yaması gelmeden önce) cümle başlangıcı + fb sn'ye düşer;
+    yama gelince otomatik sözcüğe döner. key=None → cümle başlangıcı + off."""
+    if key is None:
+        return (sid, off)
+    s = SH.timeline().sent[sid]
+    k = SH.Timeline._n(key)
+    if any(k in SH.Timeline._n(w["w"]) for w in s["words"]):
+        return (sid, key, nth, off) if nth else (sid, key, off)
+    return (sid, (fb if fb is not None else 0.0) + off)
+
+
+def tr_upper(s):
+    return s.replace("i", "İ").replace("ı", "I").upper()
+
+
+def mkey(key, fb="karl_genc"):
+    """Madalya anahtarı yoksa (lab henüz eklemediyse) yedek anahtar."""
+    return key if key in medal.PEOPLE else fb
+
+
+def iname(name, fb="coin"):
+    return name if name in icons.names() else fb
+
+
+# ───────────────────────────── arka planlar ─────────────────────────────
+def _b_cold(f):
+    f.rect(0, 0, W, H, shader=f.rad(W * 0.5, H * 0.42, H * 1.1, [("#22403F", 0.0), ("#122625", 0.5), ("#050A0A", 1.0)]))
+    for y in range(110, H, 54):                       # defter satırları
+        f.line(0, y, W, y, color="#A5D6CC", sw=1.2, alpha=0.055)
+    for x in (212, 220):                               # defter kenar çizgisi
+        f.line(x, 0, x, H, color="#B04848", sw=1.4, alpha=0.12)
+    sk.texture_overlay(f, "night", amp=0.05, seed=5)
+    sk.vignette(f, 0.62)
+
+
+def _b_green(f):
+    f.rect(0, 0, W, H, shader=f.rad(W * 0.5, H * 0.40, H * 1.1, [("#3C4220", 0.0), ("#232915", 0.5), ("#090B05", 1.0)]))
+    sk.texture_overlay(f, "night", amp=0.06, seed=7)
+    sk.vignette(f, 0.6)
+
+
+def _b_blood(f):
+    f.rect(0, 0, W, H, shader=f.rad(W * 0.5, H * 0.42, H * 1.1, [("#4C1618", 0.0), ("#2A0C0E", 0.5), ("#090304", 1.0)]))
+    sk.texture_overlay(f, "night", amp=0.06, seed=9)
+    sk.vignette(f, 0.62)
+
+
+def _b_dusk(f):
+    f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#1B2230", 0.0), ("#4A3322", 0.62), ("#150C07", 1.0)]))
+    sk.texture_overlay(f, "night", amp=0.05, seed=11)
+    sk.vignette(f, 0.6)
+
+
+_BGS = {"cold": _b_cold, "green": _b_green, "blood": _b_blood, "dusk": _b_dusk}
+
+
+def bg(f, name):
+    sk._fast_blit(f, sk.baked(("a_bg", name), _BGS[name]))
+
+
+def cool_rays(f, alpha=0.3, color="#CFE8E0"):
+    sk._fast_blit(f, sk.rays_image(color=color), alpha=alpha, blend=skia.BlendMode.kPlus)
+
+
+_RAYC = {"cold": "#CFE8E0", "green": "#EAE6A8", "blood": "#FFC4A8", "dusk": "#FFD9A8"}
+
+
+def variant(name, base, bgname, rays_color=None):
+    """Taban çekim türünün (SH.KINDS[base]) arka planı/ışığı değişik varyantını kaydeder: kind(name)."""
+    rc = rays_color or _RAYC.get(bgname)
+
+    def k(cx, **kw):
+        f = cx.f
+        f.bg = lambda kind="night", *a, **kk: bg(f, bgname)
+        f.rays = lambda alpha=1.0, dx=0, dy=0, **kk: sk._fast_blit(f, sk.rays_image(color=rc), alpha=alpha, blend=skia.BlendMode.kPlus, dx=dx, dy=dy)
+        try:
+            SH.KINDS[base](cx, **kw)
+        finally:
+            del f.bg
+            del f.rays
+    SH.KINDS[name] = k
+    return k
+
+
+# ───────────────────────────── yazı / levha ─────────────────────────────
+def txt(f, s, x, y, face="cap_b", size=40, color="#F0E6C8", align="c", track=0.0, alpha=1.0, shadow=True):
+    if alpha <= 0:
+        return 0
+    return f.text(s, x, y, face=face, size=size, color=color, align=align, track=track, alpha=alpha, shadow=(2, 3, 3, "#000000") if shadow else None)
+
+
+def tag(f, s, x, y, alpha=1.0, size=34, face="title_m", track=6, color="#F3DE9A", pad=34, edge="#C9962B", fill="#150D08", align="c", sub=None, subsize=24):
+    """Metne göre boyutlanan altın çerçeveli levha. (x,y) = ana metnin taban çizgisinin merkezi/solu/sağı."""
+    if alpha <= 0:
+        return 0
+    wd = sk.text_width(s, face, size, track) + pad * 2
+    if sub:
+        wd = max(wd, sk.text_width(sub, "cap_i", subsize, 1) + pad * 2)
+    hh = size * 1.75 + (subsize * 1.25 if sub else 0)
+    x0 = x - wd / 2 if align == "c" else (x if align == "l" else x - wd)
+    y0 = y - size * 1.15
+    SH.plate(f, x0, y0, wd, hh, alpha=alpha, fill=fill, edge=edge, corner=14, glow=True)
+    f.text(s, x0 + wd / 2, y, face=face, size=size, color=color, align="c", track=track, alpha=alpha, shadow=(2, 2, 3, "#000000"))
+    if sub:
+        f.text(sub, x0 + wd / 2, y + size * 0.62 + subsize * 0.6, face="cap_i", size=subsize, color="#C9B27A", align="c", alpha=alpha)
+    return wd
+
+
+def vtext(f, s, x, y, size, face="title", color="#F4DD92", align="c", track=6, alpha=1.0):
+    """Gölgeli altın-düz başlık (dinamik/sayaç dışı)."""
+    return SH.gold_flat(f, s, x, y, face=face, size=size, track=track, alpha=alpha, align=align)
+
+
+def strike(f, x0, x1, y, prog, color="#C0392B", sw=9, alpha=1.0, wob=3.0):
+    """Yazının üstünü çizen el yapımı çizgi (soldan sağa ilerler)."""
+    if prog <= 0:
+        return
+    xe = lerp(x0, x1, clamp(prog))
+    p = skia.Path()
+    p.moveTo(x0, y + wob)
+    n = 8
+    for i in range(1, n + 1):
+        u = i / n
+        xx = lerp(x0, x1, u)
+        if xx > xe:
+            p.lineTo(xe, y + math.sin(u * 5) * wob)
+            break
+        p.lineTo(xx, y + (wob if i % 2 else -wob) * 0.8)
+    f.path(p, style="stroke", sw=sw + 4, color="#000000", alpha=0.45 * alpha)
+    f.path(p, style="stroke", sw=sw, color=color, alpha=alpha)
+
+
+def x_mark(f, x, y, r, prog, color="#C0392B", sw=12, alpha=1.0):
+    """Üstü çizili işareti (X)."""
+    if prog <= 0:
+        return
+    k1 = clamp(prog * 2)
+    k2 = clamp(prog * 2 - 1)
+    for (ax, ay, bx, by, k) in ((x - r, y - r, x + r, y + r, k1), (x + r, y - r, x - r, y + r, k2)):
+        if k <= 0:
+            continue
+        ex, ey = lerp(ax, bx, k), lerp(ay, by, k)
+        f.line(ax, ay, ex, ey, color="#000000", sw=sw + 5, alpha=0.5 * alpha)
+        f.line(ax, ay, ex, ey, color=color, sw=sw, alpha=alpha)
+
+
+def glow_disc(f, x, y, r, color="#F0D27A", a=0.5):
+    f.circle(x, y, r, shader=f.rad(x, y, r, [(color, 0.0, int(255 * clamp(a))), (color, 1.0, 0)]), blend=skia.BlendMode.kPlus)
+
+
+def beacon(f, x, y, t, amt=1.0, color="#F0D27A", r=15, rings=3, period=2.6):
+    """Haritada konum işareti: nabız halkaları + sekizgen yıldız."""
+    if amt <= 0:
+        return
+    glow_disc(f, x, y, r * 4.2, color, 0.42 * amt)
+    for i in range(rings):
+        ph = ((t / period) + i / rings) % 1.0
+        f.circle(x, y, r * (0.8 + 4.6 * ph), style="stroke", sw=2.6, color=color, alpha=(1 - ph) ** 1.6 * 0.8 * amt)
+    star = [(x + (r * 1.7 if i % 2 == 0 else r * 0.62) * math.cos(math.pi * i / 4 - math.pi / 2),
+             y + (r * 1.7 if i % 2 == 0 else r * 0.62) * math.sin(math.pi * i / 4 - math.pi / 2)) for i in range(8)]
+    f.poly(star, color=color, alpha=amt)
+    f.poly(star, style="stroke", sw=1.8, color="#2A1A0C", alpha=0.85 * amt)
+    f.circle(x, y, r * 0.3, color="#FFF7DC", alpha=amt)
+
+
+def place(f, cm, lon, lat, name, t, amt=1.0, side="r", size=34, color="#F0D27A", sub=None, dx=44, dy=0, r=15):
+    """Konum işareti + isim levhası (harita çekimi `extra` içinde)."""
+    if amt <= 0:
+        return None
+    x, y = cm.ll(lon, lat)
+    beacon(f, x, y, t, amt, color=color, r=r)
+    if name:
+        sl = amt * smooth(amt)
+        if side == "r":
+            tag(f, name, x + dx, y + size * 0.36 + dy, alpha=sl, size=size, align="l", pad=22, sub=sub)
+        elif side == "l":
+            tag(f, name, x - dx, y + size * 0.36 + dy, alpha=sl, size=size, align="r", pad=22, sub=sub)
+        elif side == "t":
+            tag(f, name, x, y - dx - 10 + dy, alpha=sl, size=size, align="c", pad=22, sub=sub)
+        else:
+            tag(f, name, x, y + dx + size * 0.9 + dy, alpha=sl, size=size, align="c", pad=22, sub=sub)
+    return x, y
+
+
+# ───────────────────────────── para / zincir / mum ─────────────────────────────
+def coin(f, x, y, r, alpha=1.0, rot=0.0, squash=1.0, col="#E3B54A"):
+    if alpha <= 0:
+        return
+    f.c.save()
+    f.c.translate(x, y)
+    if rot:
+        f.c.rotate(math.degrees(rot))
+    ry = max(1.5, r * squash)
+    f.oval(0, r * 0.14, r, ry, color=mix(col, "#000000", 0.55), alpha=alpha)                       # kalınlık
+    f.oval(0, 0, r, ry, shader=f.rad(-r * 0.35, -ry * 0.4, r * 1.7, [(mix(col, "#FFFFFF", 0.55), 0.0), (col, 0.5), (mix(col, "#000000", 0.4), 1.0)]), alpha=alpha)
+    f.oval(0, 0, r, ry, style="stroke", sw=max(1.2, r * 0.09), color=mix(col, "#000000", 0.5), alpha=0.9 * alpha)
+    f.oval(0, 0, r * 0.68, ry * 0.68, style="stroke", sw=max(1.0, r * 0.06), color=mix(col, "#FFFFFF", 0.35), alpha=0.7 * alpha)
+    f.c.restore()
+
+
+def pile_spec(n=120, seed=3, width=500.0, height=260.0, rmin=15, rmax=22):
+    rs = np.random.RandomState(seed)
+    out = []
+    for i in range(n):
+        v = rs.rand() ** 1.5
+        hw = width / 2 * (1 - v) ** 0.85
+        x = (rs.rand() * 2 - 1) * hw
+        y = -v * height + rs.randn() * 3
+        out.append((v, x, y, rmin + rs.rand() * (rmax - rmin), (rs.rand() - 0.5) * 0.6, 0.45 + rs.rand() * 0.3, rs.rand()))
+    out.sort(key=lambda q: q[0])
+    return out
+
+
+def draw_pile(f, cx_, base_y, frac, spec, col="#E3B54A", alpha=1.0, scale=1.0, tarnish=0.0):
+    """Para yığını: spec'in ilk frac oranı kadar para çizilir (alttan üste büyür)."""
+    k = int(len(spec) * clamp(frac))
+    sub = sorted(spec[:k], key=lambda q: q[2])
+    for (v, x, y, r, rot, sq, tone) in sub:
+        c = mix(col, "#7A7468", tarnish) if tarnish > 0 else col
+        c = mix(c, "#000000", 0.18 * tone) if tone > 0.6 else c
+        coin(f, cx_ + x * scale, base_y + y * scale, r * scale, alpha=alpha, rot=rot, squash=sq, col=c)
+
+
+def chain(f, pts, prog=1.0, link=40, thick=9, col="#A9B0BA", alpha=1.0):
+    """Verilen noktalardan geçen zincir (halkalar dönüşümlü)."""
+    if prog <= 0:
+        return
+    path = sk.smooth_path(pts, False, 0.5) if len(pts) > 2 else sk.poly_path(pts, False)
+    pm = skia.PathMeasure(path, False)
+    L = pm.getLength() * clamp(prog)
+    step = link * 0.72
+    n = int(L / step) + 1
+    for i in range(n):
+        d = min(L, i * step)
+        pos, tan = pm.getPosTan(d)
+        if pos is None:
+            continue
+        ang = math.degrees(math.atan2(tan.y(), tan.x()))
+        w = link if i % 2 == 0 else link * 0.46
+        f.c.save()
+        f.c.translate(pos.x(), pos.y())
+        f.c.rotate(ang)
+        rr = skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2, -link * 0.3, w, link * 0.6), link * 0.3, link * 0.3)
+        f.c.drawRRect(rr, f.paint("#000000", style="stroke", sw=thick + 3.5, alpha=0.55 * alpha))
+        f.c.drawRRect(rr, f.paint(col, style="stroke", sw=thick, alpha=alpha))
+        f.c.drawRRect(rr, f.paint(mix(col, "#FFFFFF", 0.55), style="stroke", sw=max(1.2, thick * 0.28), alpha=0.8 * alpha))
+        f.c.restore()
+
+
+def flame(f, x, y, h, t, lit=1.0, seed=0.0):
+    """Mum alevi (tabanı (x,y))."""
+    if lit <= 0:
+        return
+    fl = lit * (0.9 + 0.1 * math.sin(t * 11 + seed) + 0.05 * math.sin(t * 23 + seed * 2.3))
+    fh, fw = h * fl, h * 0.34 * fl
+    glow_disc(f, x, y - fh * 0.5, fh * 2.6, "#FFB347", 0.34 * lit)
+    glow_disc(f, x, y - fh * 0.5, fh * 1.3, "#FFE0A0", 0.35 * lit)
+    sway = math.sin(t * 7 + seed) * fw * 0.18
+    p = skia.Path()
+    p.moveTo(x + sway, y - fh)
+    p.cubicTo(x + fw, y - fh * 0.45, x + fw * 0.9, y, x, y)
+    p.cubicTo(x - fw * 0.9, y, x - fw, y - fh * 0.45, x + sway, y - fh)
+    f.path(p, shader=f.lin(x, y - fh, x, y, [("#FFD36A", 0.0), ("#FF9A2E", 0.55), ("#C8501E", 1.0)]), alpha=lit)
+    q = skia.Path()
+    q.moveTo(x + sway * 0.6, y - fh * 0.62)
+    q.cubicTo(x + fw * 0.45, y - fh * 0.3, x + fw * 0.4, y, x, y)
+    q.cubicTo(x - fw * 0.4, y, x - fw * 0.45, y - fh * 0.3, x + sway * 0.6, y - fh * 0.62)
+    f.path(q, color="#FFF4D0", alpha=0.9 * lit)
+
+
+def candle(f, x, y, h, t, lit=1.0, w=None, wax="#EADCB5", seed=0.0, alpha=1.0, dim=0.0):
+    """Mum: gövde tabanı (x,y), yükseklik h. lit 0..1 alev; dim 0..1 solukluk."""
+    w = w or h * 0.26
+    a = alpha * (1 - 0.6 * dim)
+    wc = mix(wax, "#554A3A", dim)
+    f.rect(x - w / 2, y - h, w, h, shader=f.lin(x - w / 2, 0, x + w / 2, 0, [(mix(wc, "#000000", 0.4), 0.0), (wc, 0.42), (mix(wc, "#000000", 0.55), 1.0)]), alpha=a)
+    f.oval(x, y - h, w / 2, w * 0.17, color=mix(wc, "#FFFFFF", 0.18), alpha=a)
+    f.line(x, y - h, x, y - h - h * 0.12, color="#1A1210", sw=max(2.0, w * 0.08), alpha=a)
+    f.oval(x, y, w * 0.78, w * 0.2, color="#000000", alpha=0.35 * a, blur=4)
+    if lit > 0:
+        flame(f, x, y - h - h * 0.12, h * 0.55, t, lit=lit * alpha, seed=seed)
+
+
+def smoke_wisp(f, x, y, t0, t, h=130, n=5, alpha=0.5, seed=1):
+    """Sönen mumun dumanı: t0'dan sonra yükselen soluk lekeler."""
+    dt = t - t0
+    if dt <= 0:
+        return
+    rs = np.random.RandomState(seed)
+    for i in range(n):
+        ph = clamp((dt - i * 0.18) / 2.2)
+        if ph <= 0 or ph >= 1:
+            continue
+        px = x + math.sin(ph * 5 + i * 1.7) * 16 * ph + (rs.rand() - 0.5) * 10
+        py = y - ph * h
+        r = 6 + ph * 22
+        f.circle(px, py, r, color="#B8B2A8", alpha=alpha * (1 - ph) * math.sin(math.pi * min(1, ph * 3)) * 0.8, blur=r * 0.5)
+
+
+# ───────────────────────────── terazi ─────────────────────────────
+def _gold_grad(f, x0, x1, y0=0, y1=0, metal="gold"):
+    st = sk.METAL[metal]
+    return f.lin(x0, y0, x1, y1, [(c, p) for c, p in st])
+
+
+def draw_scale(f, x, y, L, tilt, left=None, right=None, alpha=1.0, metal="gold", t=0.0):
+    """Terazi. (x,y) = kolun ekseni; L = kolun yarı uzunluğu; tilt (rad, +: sağ kefe aşağı).
+    left/right = fn(f, cx, cy) kefe merkezine (kefenin üstü) çizilen içerik."""
+    if alpha <= 0:
+        return
+    base_y = y + L * 1.55
+    f.c.save()
+    if alpha < 1:
+        f.c.saveLayerAlphaf(skia.Rect.MakeLTRB(x - L * 2, y - L * 1.2, x + L * 2, base_y + L * 0.4), clamp(alpha))
+    # ayak/gövde
+    f.oval(x, base_y + 6, L * 0.62, L * 0.1, color="#000000", alpha=0.4, blur=8)
+    f.path(sk.smooth_path([(x - L * 0.55, base_y + 4), (x - L * 0.36, base_y - L * 0.1), (x + L * 0.36, base_y - L * 0.1), (x + L * 0.55, base_y + 4)], True, 0.25), shader=_gold_grad(f, x - L * 0.5, x + L * 0.5, metal=metal))
+    f.path(sk.smooth_path([(x - L * 0.55, base_y + 4), (x - L * 0.36, base_y - L * 0.1), (x + L * 0.36, base_y - L * 0.1), (x + L * 0.55, base_y + 4)], True, 0.25), style="stroke", sw=3, color="#3A2610", alpha=0.8)
+    f.rect(x - L * 0.045, y, L * 0.09, base_y - y, shader=_gold_grad(f, x - L * 0.05, x + L * 0.05, metal=metal))
+    f.rect(x - L * 0.045, y, L * 0.09, base_y - y, style="stroke", sw=2.5, color="#3A2610", alpha=0.7)
+    for k in range(3):
+        yy = y + (base_y - y) * (0.3 + 0.2 * k)
+        f.rect(x - L * 0.08, yy, L * 0.16, L * 0.05, shader=_gold_grad(f, x - L * 0.08, x + L * 0.08, metal=metal))
+    # kol
+    ca, sa = math.cos(tilt), math.sin(tilt)
+    lx, ly, rx, ry = x - L * ca, y - L * sa, x + L * ca, y + L * sa
+    S = L * 1.0
+    for (px, py, fn_) in ((lx, ly, left), (rx, ry, right)):
+        cx_, cy_ = px, py + S
+        f.line(px, py, cx_ - L * 0.38, cy_, color="#000000", sw=5, alpha=0.5)
+        f.line(px, py, cx_ + L * 0.38, cy_, color="#000000", sw=5, alpha=0.5)
+        f.line(px, py, cx_ - L * 0.38, cy_, color="#D9B65A", sw=2.4, alpha=0.95)
+        f.line(px, py, cx_ + L * 0.38, cy_, color="#D9B65A", sw=2.4, alpha=0.95)
+        if fn_ is not None:
+            fn_(f, cx_, cy_)
+        pan = skia.Path()
+        pan.moveTo(cx_ - L * 0.44, cy_)
+        pan.cubicTo(cx_ - L * 0.36, cy_ + L * 0.2, cx_ + L * 0.36, cy_ + L * 0.2, cx_ + L * 0.44, cy_)
+        pan.close()
+        f.path(pan, shader=_gold_grad(f, cx_ - L * 0.44, cx_ + L * 0.44, metal=metal))
+        f.path(pan, style="stroke", sw=3, color="#3A2610", alpha=0.85)
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(tilt))
+    beam = skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(-L, -L * 0.045, L, L * 0.045), L * 0.045, L * 0.045)
+    f.c.drawRRect(beam, skia.Paint(AntiAlias=True, Shader=_gold_grad(f, 0, 0, -L * 0.05, L * 0.05, metal=metal)))
+    f.c.drawRRect(beam, f.paint("#3A2610", style="stroke", sw=2.5, alpha=0.85))
+    for sg in (-1, 1):
+        f.c.drawCircle(sg * L, 0, L * 0.06, f.paint("#E3B54A"))
+        f.c.drawCircle(sg * L, 0, L * 0.06, f.paint("#3A2610", style="stroke", sw=2.2, alpha=0.9))
+    f.c.restore()
+    f.circle(x, y, L * 0.1, shader=f.rad(x - L * 0.03, y - L * 0.03, L * 0.16, [("#FBE9A6", 0.0), ("#C9962B", 0.6), ("#6B4A12", 1.0)]))
+    f.circle(x, y, L * 0.1, style="stroke", sw=2.5, color="#3A2610", alpha=0.85)
+    f.c.restore()
+
+
+# ───────────────────────────── kabartma simgeler (kendi) ─────────────────────────────
+@icons.icon("c2_kurhut")
+def _i_kurhut(m):
+    """Seçmen şapkası (Kurhut): kürk bant + kubbe + kemer + yuvarlak/haç."""
+    m.smooth([(128, 340), (128, 246), (184, 158), (256, 128), (328, 158), (384, 246), (384, 340)], close=True, t=0.35)
+    arc = skia.Path()
+    arc.moveTo(150, 330)
+    arc.cubicTo(150, 190, 220, 128, 256, 120)
+    arc.cubicTo(292, 128, 362, 190, 362, 330)
+    m.cut(arc, 7)
+    m.rect(104, 318, 304, 112, r=48)
+    for (x, y) in ((156, 384), (220, 396), (292, 396), (356, 384)):
+        m.cut(sk.smooth_path([(x, y - 22), (x + 10, y), (x, y + 24), (x - 10, y)], True, 0.5))
+        m.cut(sk.poly_path([(x - 3, y + 20), (x + 3, y + 20), (x + 2, y + 44), (x - 2, y + 44)], True))
+    m.circle(256, 100, 24)
+    m.rect(250, 52, 12, 34)
+    m.rect(238, 62, 36, 11)
+
+
+@icons.icon("c2_sutun")
+def _i_sutun(m):
+    """Herkül Sütunu: gövde (oluklu), başlık, kaide, tepede küçük taç."""
+    m.poly([(212, 148), (300, 148), (310, 410), (202, 410)])
+    for dx in (-30, -10, 10, 30):
+        m.cut(sk.poly_path([(256 + dx * 0.8, 160), (256 + dx, 404)], False), 4)
+    m.rect(170, 118, 172, 34, r=8)
+    m.circle(186, 134, 17)
+    m.circle(326, 134, 17)
+    m.rect(158, 98, 196, 26, r=6)
+    m.rect(184, 408, 144, 28, r=6)
+    m.rect(164, 436, 184, 30, r=8)
+    m.smooth([(196, 100), (196, 70), (224, 86), (256, 50), (288, 86), (316, 70), (316, 100)], close=True, t=0.2)
+    m.circle(256, 46, 12)
+
+
+@icons.icon("c1_sarmal")
+def _i_sarmal(m):
+    """Sarmal (delilik): halka içinde dönen spiral."""
+    ring = skia.Path()
+    ring.addCircle(256, 256, 196)
+    m.stroke(ring, 20)
+    pts = []
+    for i in range(0, 135):
+        th = i * 0.115
+        r = 8 + th * 11.5
+        pts.append((256 + r * math.cos(th), 256 + r * math.sin(th)))
+    m.stroke(sk.smooth_path(pts, False, 0.5), 22)
+    m.circle(pts[0][0], pts[0][1], 16)
+
+
+@icons.icon("c1_gul")
+def _i_gul(m):
+    """Gül (üstten görünüm): tırtıklı taç yapraklar + sarmal çizgiler."""
+    for k in range(9):
+        a = k * math.tau / 9
+        m.circle(256 + 118 * math.cos(a), 256 + 118 * math.sin(a), 66)
+    m.circle(256, 256, 150)
+    pts = []
+    for i in range(0, 90):
+        th = i * 0.17
+        r = 6 + th * 8.2
+        pts.append((256 + r * math.cos(th), 256 + r * math.sin(th)))
+    m.cut(sk.smooth_path(pts, False, 0.5), 7)
+    for k in range(9):
+        a = k * math.tau / 9 + 0.3
+        m.cut(sk.smooth_path([(256 + 110 * math.cos(a), 256 + 110 * math.sin(a)), (256 + 168 * math.cos(a + 0.35), 256 + 168 * math.sin(a + 0.35))], False), 6)
+
+
+@icons.icon("c1_at")
+def _i_at(m):
+    """At başı (satranç atı profili, sola bakar)."""
+    pts = [(286, 58), (266, 92), (236, 108), (184, 172), (120, 252), (100, 282), (116, 312), (160, 308), (198, 282),
+           (238, 308), (272, 352), (250, 410), (394, 410), (410, 330), (396, 250), (360, 172), (330, 112), (306, 82)]
+    m.smooth(pts, close=True, t=0.3)
+    m.poly([(286, 52), (262, 98), (300, 90)])
+    m.rect(120, 408, 292, 40, r=12)
+    m.rect(146, 440, 240, 30, r=10)
+    m.cut(sk.smooth_path([(104, 292), (130, 296), (156, 290)], False), 5)
+    m.cut(sk.smooth_path([(210, 182), (222, 176), (234, 184)], False), 6)
+    m.circle(222, 188, 8, 0)
+    m.circle(114, 278, 6, 0)
+    for k in range(6):
+        y = 130 + k * 42
+        m.cut(sk.smooth_path([(352 + k * 3, y), (330 + k * 3, y + 40)], False), 5)
+
+
+@icons.icon("c10_sandik")
+def _i_sandik(m):
+    """Sandık: kubbeli kapak, bantlar, kilit."""
+    lid = skia.Path()
+    lid.moveTo(92, 258)
+    lid.cubicTo(92, 170, 170, 138, 256, 138)
+    lid.cubicTo(342, 138, 420, 170, 420, 258)
+    lid.close()
+    m.fill(lid)
+    m.rect(92, 252, 328, 176, r=14)
+    m.cut(sk.smooth_path([(92, 256), (256, 270), (420, 256)], False), 7)
+    for x in (168, 344):
+        m.cut(sk.poly_path([(x, 150), (x, 428)], False), 8)
+    m.rect(222, 236, 68, 74, r=10, v=255)
+    m.cut(sk.poly_path([(222, 236), (290, 236), (290, 310), (222, 310)], True), 6)
+    m.circle(256, 266, 10, 0)
+    m.poly([(250, 270), (262, 270), (264, 294), (248, 294)], 0)
+    for (x, y) in ((118, 290), (394, 290), (118, 400), (394, 400)):
+        m.circle(x, y, 8, 0)
+
+
+@icons.icon("c10_dag")
+def _i_dag(m):
+    """Dağ (Potosí tepesi): iri zirve + yan zirve + maden ağzı."""
+    m.poly([(36, 430), (150, 262), (196, 300), (286, 100), (344, 206), (386, 170), (476, 430)])
+    m.cut(sk.poly_path([(286, 100), (262, 190), (296, 250), (270, 330)], False), 6)
+    m.cut(sk.poly_path([(150, 262), (176, 330), (150, 390)], False), 5)
+    m.cut(sk.poly_path([(386, 170), (364, 260), (400, 340)], False), 5)
+    arch = skia.Path()
+    arch.moveTo(236, 430)
+    arch.lineTo(236, 372)
+    arch.cubicTo(236, 336, 296, 336, 296, 372)
+    arch.lineTo(296, 430)
+    arch.close()
+    m.cut(arch)
+
+
+@icons.icon("c1_besik")
+def _i_besik(m):
+    """Beşik: yay tabanlı sepet + başlık."""
+    bowl = skia.Path()
+    bowl.moveTo(86, 238)
+    bowl.cubicTo(110, 360, 190, 388, 256, 388)
+    bowl.cubicTo(322, 388, 402, 360, 426, 238)
+    bowl.close()
+    m.fill(bowl)
+    hood = skia.Path()
+    hood.moveTo(86, 238)
+    hood.cubicTo(80, 140, 150, 110, 200, 130)
+    hood.cubicTo(180, 170, 186, 210, 206, 238)
+    hood.close()
+    m.fill(hood)
+    m.cut(sk.smooth_path([(120, 262), (256, 292), (392, 262)], False), 7)
+    m.stroke(sk.smooth_path([(96, 410), (256, 448), (416, 410)], False, 0.5), 16)
+    m.circle(256, 300, 4, 0)
+
+
+# ───────────────────────────── taban türlerin tonlu varyantları ─────────────────────────────
+def register_variants():
+    for base in ("medal", "medals", "doc", "quote", "counter", "bars", "stacked", "timeline", "emblem", "tree", "iconrow"):
+        for pre, bgn in (("g_", "green"), ("c_", "cold"), ("r_", "blood")):
+            variant(f"a_{pre}{base}", base, bgn)
+
+
+register_variants()

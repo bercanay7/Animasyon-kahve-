@@ -54,8 +54,8 @@ P = PAL
 # fraksiyon renkleri (haritada kim kimdir)
 FAC = dict(
     habsburg=("#8E1F26", "#E8C25A"), ispanya=("#9A2430", "#E8C25A"), burgonya=("#7B1E2B", "#E8C25A"), avusturya=("#A33A2E", "#F0E0B0"),
-    fransa=("#27427A", "#F0D27A"), osmanli=("#2F6B4A", "#E8D8A0"), papalik=("#C9A227", "#F6EDD0"), protestan=("#1E5560", "#F6EDD0"),
-    venedik=("#A8741A", "#27427A"), ingiliz=("#A8352C", "#F6EDD0"), portekiz=("#2D5A8E", "#F6EDD0"), macar=("#6A7A38", "#F6EDD0"),
+    fransa=("#27427A", "#F0D27A"), osmanli=("#2F6B4A", "#E8D8A0"), papalik=("#D4B64E", "#3A2A10"), protestan=("#1E5560", "#F6EDD0"),
+    venedik=("#2F7A8A", "#F6EDD0"), ingiliz=("#A8352C", "#F6EDD0"), portekiz=("#2D5A8E", "#F6EDD0"), macar=("#6A7A38", "#F6EDD0"),
     nötr=("#5C3B22", "#CDB88A"),
 )
 
@@ -697,3 +697,19 @@ def post(img, frame_idx=0, grain=1.0, bloom=0.22, grade=(1.06, 0.035, 2.0), fade
 
 def to_rgb_f(f):
     return f.rgb()
+
+
+def optional_import(name):
+    """Başka ajanların yazdığı isteğe bağlı modülleri güvenle yükle (yarım kalmış/hatalı modül ortak kiti bozmasın)."""
+    import importlib
+    import sys
+    import traceback
+    try:
+        return importlib.import_module(name)
+    except ModuleNotFoundError as e:
+        if e.name == name:
+            return None
+        print(f"[uyarı] {name} yüklenemedi: {e}", file=sys.stderr)
+    except Exception:
+        print(f"[uyarı] {name} yüklenemedi:\n" + traceback.format_exc(limit=3), file=sys.stderr)
+    return None

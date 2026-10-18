@@ -94,14 +94,14 @@ CHAPTERS = [
              ("{25 Ekim 1555.|Yirmi beş Ekim, bin beş yüz elli beş.}", ),
              ("Brüksel'de büyük salon tıklım tıklım dolu.", ),
              ("Ortada, elli beş yaşında bir adam ayakta zor duruyor.", ),
-             ("Bir elinde baston, öbür kolu genç bir prensin omzunda.", ),
+             ("Kolunu genç bir prensin omzuna dayamış.", ),
              ("Bu adam, kırk yıldır Avrupa'nın büyük bölümünü yönetiyor.", ),
              ("Yeni Dünya'da fethedilen topraklar da onun adına.", ),
              ("Ve bugün, hepsini bırakmaya başlıyor.", ),
              ("Kimse onu tahttan indirmedi.", ),
              ("Peki neden?", ),
              ("Cevap, beş cephede saklı: bir bankacı, bir keşiş, bir kral, bir sultan ve bir miras.", ),
-             ("İlk kanıt, taç daha takılmadan ortaya çıkıyor: o taç, borçla alındı.", ),
+             ("İlk kanıt, taç daha takılmadan ortaya çıkıyor: o taç, büyük ölçüde borçla alındı.", ),
              ("Bu, Şarlken'in hikâyesi.", ),
          ]]),
 
@@ -110,7 +110,7 @@ CHAPTERS = [
              ("Şarlken, 24 Şubat 1500'de, Flandre'daki Gent şehrinde doğdu.", ),
              ("Annesi Kastilya Kraliçesi Juana'ydı; babası, Burgonyalı Yakışıklı Filip.", ),
              ("Dört büyükanne ve büyükbabasının her biri ona bir ülke bırakacaktı: Burgonya'yı, Avusturya'yı, Aragon'u, Kastilya'yı.", ),
-             ("O doğduğunda İspanya tahtı çok uzaktı. Beş ay sonra, kuzeni olan küçük bir bebek öldü ve yol açıldı.", ),
+             ("O doğduğunda İspanya tahtı çok uzaktı. Beş ay sonra, henüz iki yaşına basmamış kuzeni öldü ve yol açıldı.", ),
              ("Habsburglar tahtları böyle topladı: evlilikle ve ölümle.", ),
          ], [
              ("Altı yaşındayken, babası Burgos'ta aniden öldü.", ),
@@ -120,7 +120,7 @@ CHAPTERS = [
          ], [
              ("Küçük Şarlken, halası Margareta'nın sarayında, Mechelen'de büyüdü. Ana dili Fransızcaydı.", ),
              ("Rivayete göre, Tanrı'yla İspanyolca, kadınlarla İtalyanca, erkeklerle Fransızca, atıyla Almanca konuşurdu.", ),
-             ("Oysa bu söz, ilk kez ölümünden kırk üç yıl sonra yazıldı. Ona ait olduğunu gösteren bir belge yok.", ),
+             ("Oysa bu söz, bilinen en eski hâliyle, ölümünden yaklaşık kırk üç yıl sonra yazıya geçti. Ona ait olduğunu gösteren bir belge bilinmiyor.", ),
          ], [
              ("1516'da dedesi, Aragonlu Fernando öldü. Şarlken, tutsak annesiyle birlikte, Kastilya ve Aragon'un kralı oldu.", ),
              ("Eylül 1517'de, İspanya'ya giderken bir fırtına gemilerini yoldan çıkardı. Hedefleri Santander'di; küçük bir balıkçı köyü olan Tazones'a çıktılar.", ),
@@ -137,9 +137,9 @@ CHAPTERS = [
              ("Oylar, açıkça pazarlık konusuydu.", ),
          ], [
              ("Şarlken'in seçim masrafı, yaklaşık 850.000 florini buldu.", ),
-             ("Bunun üçte ikisine yakını, 543.000 florin, Augsburglu bankacı Jakob Fugger'den geldi.", ),
+             ("Bunun üçte ikisine yakını, yaklaşık 543.000 florin, Augsburglu bankacı Jakob Fugger'den geldi.", ),
              ("28 Haziran 1519'da, Frankfurt'ta, yedi seçmenin yedisi de ona oy verdi.", ),
-             ("Bazı tarihçilere göre seçmenler iki taraftan da parayı aldı, sonra kendilerine en uygun adayı seçti.", ),
+             ("Bazı tarihçilere göre seçmenler parayı aldı, ama kararı yine de Almanya için en iyi saydıkları yönde verdi.", ),
              ("Rüşvetin ne kadar belirleyici olduğu tartışmalı. Ama borç gerçekti: imparator, tacını takmadan önce borçluydu.", ),
          ], [
              ("Seçilince seçmenlere yazılı söz verdi: prenslerin ayrıcalıklarına saygı gösterecek, imparatorluğu birlikte yönetecek bir konsey kuracaktı.", ),
@@ -151,7 +151,7 @@ CHAPTERS = [
     dict(id="c3", n="III", title="Şehirlerin İsyanı", years="1520–1522", mood="tense", front="",
          paras=[[
              ("Tacı almak için İspanya'dan ayrılması gerekti.", ),
-             ("Kastilya şehirleri bunu ihanet saydı. Yabancı danışmanlara ve vergilere öfkeliydiler.", ),
+             ("Bu ayrılış, yabancı danışmanlara ve vergilere öfkeli Kastilya şehirlerinde tepkiyle karşılandı.", ),
              ("1520'de Komünero İsyanı patladı.", ),
              ("23 Nisan 1521'de, Villalar'da, kraliyet ordusu isyancıları dağıttı.", ),
              ("Ertesi gün üç önder idam edildi: Padilla, Bravo ve Maldonado.", ),
@@ -188,7 +188,7 @@ CHAPTERS = [
          paras=[[
              ("Worms'tan sonra imparator Almanya'dan ayrıldı. Dokuz yıl dönemedi.", ),
              ("İspanya karışıktı, Fransa saldırıyordu, Akdeniz'de Osmanlı vardı.", ),
-             ("O yokken Luther'in fikirleri yayıldı. 1524'te başlayan Köylü Savaşı'nda yetmiş ile yüz bin kişi öldü.", ),
+             ("O yokken Luther'in fikirleri yayıldı. 1524'te başlayan Köylü Savaşı'nı Luther istememişti; yetmiş ile yüz bin kişi öldü.", ),
              ("1529'da Speyer'de Katolik çoğunluk, Worms Fermanı'nı yeniden yürürlüğe koydu.", ),
              ("Birkaç prens ve on dört şehir buna itiraz etti, yani protesto etti. “Protestan” sözcüğü oradan geliyor.", ),
          ], [
@@ -196,10 +196,10 @@ CHAPTERS = [
              ("Şarlken dinledi ama kabul etmedi. Prensler Şmalkalden Birliği'ni kurdu.", ),
              ("İmparator ancak Fransa ve Osmanlı cephesi yatışınca, 1546'da onlara savaş açabildi.", ),
              ("24 Nisan 1547'de, Mühlberg'de, sisli bir sabah Elbe nehrini geçti ve Protestan ordusunu dağıttı. Saksonya Seçmeni esir düştü.", ),
-             ("Tiziano o anı resmetti: zırhlı imparator, atının üstünde, tek başına.", ),
+             ("Tiziano, bir yıl sonra imparatoru o zaferin simgesi olarak resmetti: zırhlı, atının üstünde, tek başına.", ),
          ], [
              ("Zafer kısa sürdü. 1552'de eski müttefiki Saksonyalı Moritz, ona karşı ayaklandı.", ),
-             ("Hasta imparator, bir gece Innsbruck'tan sedyeyle kaçmak zorunda kaldı.", ),
+             ("Hasta imparator, bir gece Innsbruck'tan kaçmak zorunda kaldı.", ),
              ("Sonunda, Eylül 1555'te, Augsburg Barışı imzalandı: Lutherciliğe resmen yer açıldı.", ),
              ("Barışı o yapmadı; kardeşi Ferdinand yürüttü.", ),
              ("Tam bir ay sonra, o büyük salonda duruyordu.", ),
@@ -207,17 +207,17 @@ CHAPTERS = [
 
     dict(id="c6", n="VI", title="Kral, Esir, Düello", years="1521–1544", mood="tense", front="KRAL",
          paras=[[
-             ("Şarlken'in en uzun soluklu düşmanı, Fransa Kralı {I. François|Birinci Fransuva}'ydı.", ),
+             ("Şarlken'in en kalıcı düşmanlarından biri, Fransa Kralı {I. François|Birinci Fransuva}'ydı.", ),
              ("Fransa, Habsburg topraklarıyla kuşatılmıştı: güneyde İspanya, kuzeyde ve doğuda Burgonya ile Hollanda, İtalya'da Napoli.", ),
-             ("24 Şubat 1525'te, Pavia'da, François ordusuyla birlikte esir düştü.", ),
-             ("Annesine yazdığı mektupta, “bana şeref ve canım kaldı” diyordu. Meşhur “şeref dışında her şey kayıp” sözü, sonradan yaygınlaştı.", ),
+             ("24 Şubat 1525'te, Pavia'da, Fransız ordusu bozguna uğradı; François esir düştü.", ),
+             ("Annesine yazdığı mektupta, aktarıldığına göre, “bana şeref ve canım kaldı” diyordu. Meşhur “şeref dışında her şey kayıp” sözü ise sonradan yaygınlaştı.", ),
              ("Madrid'de esirken, İtalya ve Flandre'daki iddialarından vazgeçen bir antlaşma imzaladı. İki oğlu rehin kaldı.", ),
              ("Özgürlüğüne kavuşur kavuşmaz antlaşmayı reddetti: esirin sözü geçersizdi.", ),
          ], [
              ("6 Mayıs 1527'de, maaşını alamayan imparatorluk askerleri Roma'ya girdi.", ),
              ("Papa, Castel Sant'Angelo'ya sığındı. 189 İsviçreli muhafızdan 147'si öldü.", ),
              ("İmparator emir vermemişti. Ama papa, aylarca onun askerlerinin elinde kaldı.", ),
-             ("Çoğu tarihçiye göre bunun uzak bir sonucu İngiltere'de görüldü: papa, imparatorun halası Aragonlu {Catherine'in|Katerina'nın} boşanmasını onaylayamadı. Henry, Roma'dan koptu.", ),
+             ("Sıkça anlatıldığına göre, bunun uzak bir sonucu İngiltere'de görüldü: papa, imparatorun teyzesi Aragonlu {Catherine'in|Katerina'nın} boşanmasını onaylayamadı. Henry, Roma'dan koptu.", ),
          ], [
              ("1528'de iki hükümdar birbirine “yalancı” dedi ve düelloya davet etti. Düello hiç yapılmadı.", ),
              ("1529'da Cambrai'de barışı iki kadın yaptı: François'nın annesi ve Şarlken'in halası. Buna “Hanımlar Barışı” dediler.", ),
@@ -239,7 +239,7 @@ CHAPTERS = [
              ("Şarlken o hafta İtalya'daydı; papadan imparatorluk tacını almaya gidiyordu.", ),
          ], [
              ("1532'de Süleyman, bu kez doğrudan imparatora yürüdü. Osmanlı sefer günlüğü hedefi açıkça yazar: “İspanya kralı”.", ),
-             ("Yolda küçük bir kale, Güns, yedi sekiz yüz kişiyle orduyu yirmi beş gün oyaladı.", ),
+             ("Yolda küçük bir kale, Güns, yedi yüz ile sekiz yüz arası bir garnizonla orduyu yirmi beş gün oyaladı.", ),
              ("İmparatorluk ordusu Viyana yakınında bekledi. İki ordu hiç karşılaşmadı.", ),
              ("Osmanlı belgeleri ona genellikle “imparator” demedi. “İspanya kralı” derdi. Çünkü imparator, yalnızca sultandı.", ),
          ], [
@@ -253,14 +253,14 @@ CHAPTERS = [
              ("1534'te Barbaros kaptan-ı derya oldu ve Tunus'u aldı.", ),
              ("Ertesi yıl Şarlken, Andrea Doria'nın filosuyla birlikte, bizzat Tunus'a çıktı.", ),
              ("Temmuz 1535'te Halkulvadi Kalesi düştü, Tunus alındı. Yaklaşık yirmi bin esir serbest kaldı.", ),
-             ("Hıristiyan Avrupa bunu büyük bir zafer olarak kutladı.", ),
+             ("Habsburg çevresinde bu büyük bir zafer olarak kutlandı.", ),
          ], [
              ("Ama deniz uzundu, ve Barbaros hâlâ filosuyla ortadaydı.", ),
              ("28 Eylül 1538'de, Preveze'de, papanın, Venedik'in ve imparatorun birleşik filosu Barbaros'la karşılaştı ve geri çekildi.", ),
-             ("Sonraki otuz yıl boyunca, Akdeniz'in doğusunda Osmanlı donanması üstün kaldı.", ),
-             ("1541'de Şarlken, Cezayir'e çıktı: beş yüz yelkenli, yaklaşık yirmi dört bin asker.", ),
+             ("Sonraki yıllarda Akdeniz'in doğusunda Osmanlı donanması üstün kaldı.", ),
+             ("1541'de Şarlken, Cezayir'e çıktı: beş yüz kadar yelkenli, yaklaşık yirmi dört bin asker.", ),
              ("Kıyıya çıkar çıkmaz bir fırtına koptu. Yağmur barutu çürüttü, yaklaşık yüz elli gemi battı.", ),
-             ("Meksika'nın fatihi Hernán Cortés de oradaydı. Savaş konseyine çağrılmadı.", ),
+             ("Meksika'nın fatihi Hernán Cortés de oradaydı; savaş konseyine çağrılmadığı anlatılır.", ),
          ]]),
 
     dict(id="c9", n="IX", title="Yeni Dünya: Altın, Gümüş ve Vicdan", years="1519–1552", mood="wonder", front="",
@@ -276,7 +276,7 @@ CHAPTERS = [
              ("Kraliyetin payı, ganimetin beşte biriydi.", ),
          ], [
              ("1542'de Yeni Yasalar çıktı: yerlileri köle yapmak yasaktı. Yerleşimciler o kadar öfkelendi ki, yasayı uygulamaya giden Peru valisi öldürüldü.", ),
-             ("1550'de, Valladolid'de, imparator fetihleri durdurdu ve iki adamı karşı karşıya getirdi: Sepúlveda ve Las Casas.", ),
+             ("1550'de, Valladolid'de, imparator fetihleri geçici olarak durdurdu ve iki adamı karşı karşıya getirdi: Sepúlveda ve Las Casas.", ),
              ("Biri, yerlilerin köleliğe layık olduğunu savundu; öbürü, fethin bir suç olduğunu. Resmî bir kazanan çıkmadı.", ),
          ], [
              ("Bu arada ilk dünya turu da onun desteğiyle, onun bayrağı altında tamamlandı.", ),
@@ -288,7 +288,7 @@ CHAPTERS = [
          paras=[[
              ("Peki bütün bu savaşları kim ödedi? Çoğumuz hemen Amerika'nın gümüşünü sayarız.", ),
              ("Kayıtlar başka bir şey söylüyor.", ),
-             ("Şarlken'in otuz beş yıllık olağanüstü gelirlerinin çoğu vergiydi. Alçak Ülkeler on milyonun, Kastilya dokuz milyonun üzerinde katkı yaptı; Napoli beş milyondan fazla.", ),
+             ("Şarlken'in otuz beş yıllık olağanüstü gelirlerinin çoğu vergiydi. Alçak Ülkeler on milyon dükatın, Kastilya dokuz milyon dükatın üzerinde katkı yaptı; Napoli beş milyon dükattan fazla.", ),
              ("Amerika'nın gümüş akışı asıl büyük patlamasını sonra yaşadı. Potosí madeni ancak 1545'te bulundu.", ),
          ], [
              ("Faturayı bankerler kesiyordu. 1523'te Jakob Fugger, imparatora parasını isteyen bir mektup yazdı.", ),
@@ -305,17 +305,17 @@ CHAPTERS = [
              ("2019'daki bir çalışma, portrelerindeki yüz özelliklerini hanedanın akraba evlilikleriyle ilişkilendirdi. Ama çalışma küçüktü; kesin bir şey söylemiyor.", ),
          ], [
              ("26 yaşında Portekizli kuzeni İsabel'le evlendi.", ),
-             ("1539'da İsabel, otuz beş yaşında öldü. Şarlken iki ay bir manastıra kapandı, bir daha evlenmedi.", ),
+             ("1539'da İsabel, otuz beş yaşında öldü. Şarlken yaklaşık iki ay bir manastıra çekildi, bir daha da evlenmedi.", ),
              ("Ömrünün sonuna kadar siyah giydiği anlatılır.", ),
          ], [
-             ("Gut hastalığı onu yatağa bağladı. Doktorlar perhiz önerdi; yemeği bol severdi diye yazılır.", ),
+             ("Gut atakları onu çoğu zaman hareketsiz bıraktı. Doktorlar perhiz önerdi; yemeği bol severdi diye yazılır.", ),
              ("Merkezi olmayan bir imparatorluğu, bizzat dolaşarak yönetti: Almanya, İtalya, İspanya, Hollanda, Fransa, hatta Tunus ve Cezayir.", ),
              ("İmparatorluğu bir masada değil, yollarda taşıdı.", ),
          ]]),
 
     dict(id="c12", n="XII", title="Bırakmak", years="1555–1558", mood="solemn", front="",
          paras=[[
-             ("Brüksel, 25 Ekim 1555. Öğleden sonra saat üç.", ),
+             ("Brüksel, 25 Ekim 1555. Öğleden sonra, saat üç sularında.", ),
              ("Altı ay önce annesi Juana, kırk altı yıllık tutsaklığın ardından ölmüştü.", ),
              ("Salonda Genel Devletler toplanmış. İmparator, genç Orange Prensi Willem'in omzuna yaslanarak giriyor; arkasında oğlu Felipe ve kız kardeşi Mary var.", ),
              ("Konuşmasında, tam kırk yıl önce, on beş yaşında bu topraklara hükmetmeye başladığını söylüyor.", ),
@@ -333,11 +333,11 @@ CHAPTERS = [
          paras=[[
              ("Beşinci cephe en sessiz olanıydı: miras.", ),
              ("Dört büyük taht, tek bir adama kalmıştı. Hepsi birbirine bir ülke gibi değil, bir akrabalık ağı gibi bağlıydı.", ),
-             ("Şarlken ölünce Habsburg hanedanı ikiye ayrıldı: İspanya kolu oğlu Felipe'ye, Avusturya kolu kardeşi Ferdinand'a.", ),
+             ("Şarlken'in bıraktıklarıyla Habsburg hanedanı iki kola ayrıldı: İspanya kolu oğlu Felipe'ye, Avusturya kolu kardeşi Ferdinand'a.", ),
              ("Evrensel Hıristiyan imparatorluk hayali gerçekleşmedi. Reform durmadı; Augsburg Barışı Lutherciliği tanıdı.", ),
          ], [
-             ("Birçok tarihçi, Avrupa'nın tek imparatorluk yerine birbirini dengeleyen devletlerden oluşmasını da bu başarısızlığa bağlar.", ),
-             ("Ama onun döneminde dünya küçüldü: ilk dünya turu tamamlandı, Atlantik bir ticaret yolu oldu, sömürgeciliğin ahlâkı üzerine ilk büyük tartışma yapıldı.", ),
+             ("Sonuçta Avrupa, tek imparatorluk yerine birbirini dengeleyen devletlerden oluşan bir yapıya doğru gitti.", ),
+             ("Ama onun döneminde dünya küçüldü: ilk dünya turu tamamlandı, Atlantik bir ticaret yolu oldu, sömürgeciliğin ahlâkı üzerine en bilinen büyük tartışma yapıldı.", ),
              ("Strateji oyunlarında buna “kişisel birlik” derler: tek bir hükümdar, birçok devlet. Şarlken bunu oyun olarak değil, ömür olarak yaşadı.", ),
          ], [
              ("Peki kaybeden kim? O mu, yoksa tek bir adamın bütün dünyayı taşıyabileceği fikri mi?", ),
