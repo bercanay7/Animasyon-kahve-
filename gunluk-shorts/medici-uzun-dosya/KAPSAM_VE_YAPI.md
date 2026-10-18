@@ -42,8 +42,12 @@ Eksenler: **P** para/banka/ekonomi · **S** siyaset/diplomasi · **A** sanat/oku
 | c16 | Hesap | 1737–bugün | 3,5 | 1743 sahnesine dönüş; ne kaldı, ne mit | M P A D |
 | | **Toplam (tahmini)** | | **≈68** | | |
 
-- Süre tahmindir; senaryo yazılınca netleşir (hedef 60–70 dk). **Yayın biçimi seçeneği:** tek video, ya da iki parça (Perde I+II ≈ c0–c10 | Perde III ≈ c11–c16). Karar senaryo uzunluğuna ve ses/render kapasitesine göre verilir.
-- **Perde I — PARA (c0–c3):** tezgâh, defter, sessiz iktidar. **Perde II — GÜZELLİK (c4–c10):** sipariş, kitap, Lorenzo, Pazzi, çöküş. **Perde III — MİRAS (c11–c16):** papalar, dükler, kraliçeler, bilim, son.
+- Süre tahmindir; senaryo yazılınca netleşir (hedef 60–70 dk). **Yayın biçimi (karar, 18 Ekim 2026 — kullanıcı "çok uzun olacaksa part part yayınlayabiliriz" dedi, seçim bana bırakıldı):** **3 parça**, her biri tek başına izlenebilir, Şarlken'e (21 dk) yakın uzunlukta; bölüm kapıları kanca olarak kullanılır.
+  - **Parça 1 — ALTIN (Perde I): c0–c6, ≈26 dk.** Tezgâhtan Muhteşem'e: para → güven → iktidar → sanat. Kapanış kapısı: Giuliano'ya düşen gölge, "26 Nisan 1478".
+  - **Parça 2 — BEDEL (Perde II): c7–c11, ≈23,5 dk.** Pazzi, Napoli ve Osmanlı, defterin kapanışı, rahip ve kral, papa oğulları, Roma 1527 ve Floransa kuşatması. Parça **c7 ile açılır** (soğuk açılış = en güçlü sahne). Kapanış kapısı: Alessandro'nun sonu, "17 yaşında bir çocuk" (Cosimo).
+  - **Parça 3 — MİRAS (Perde III): c12–c16, ≈19,5 dk.** Dük, iki kraliçe, yıldızlar/notalar/taşlar, son Medici'ler, hesap; **1743 odasına dönüş**. Parça **c12 ile açılır**.
+  - Önceki parçanın özeti ayrı "önceki bölümde" bandı olarak değil, **anlatının ilk cümlelerine gömülerek** verilir. Bitiş ekranı: "SIRADAKİ PARÇA" / "ABONE OL" (Parça 3: "TÜM FİLM"). Yayın: +7 gün aralıkla, tek oynatma listesi; sonda isteğe bağlı **Tam Film** (≈68 dk). Ayrıntı ve gerekçe: `YONETMENLIK_REHBERI.md` §9.
+- **Perde (HUD'da ve bölüm kartında) = parça adı:** **I — ALTIN (c0–c6), II — BEDEL (c7–c11), III — MİRAS (c12–c16).** (Eski taslaktaki PARA/GÜZELLİK/MİRAS ayrımı kaldırıldı; Parça 1'in içinde para güzelliğe dönüşür.)
 
 ## 4. "Dünyaya etkisi" iddiaları: ön sağlamlık haritası (araştırma sonrası güncellenecek)
 
@@ -91,6 +95,7 @@ Alum (Foça, Tolfa) ve Fetih sonrası pazar · Bandini'nin İstanbul'a kaçış�
 - **Üslup:** `USLUP_REHBERI.md` (Zweig + Plutarkhos + Gürkan sentezi; kural: iç dünya yalnız kaynaktan; mizah dozu; argo sınırı; cümle ritmi).
 - **Ses:** ElevenLabs (Şarlken ile sürekli: `DpEiQMnL9WxMsymCsjPY`; alternatif aday `sqN4QwtcnanCCWx6TTYj`). Mizahlı ve sıcak anlatım için **kör test** (aynı 3 paragraf, 2 ses). Gerçek kişi sesi taklit edilmez.
 - **Okunuş:** İtalyanca adlar için `okunus.md` (örn. *Mediçi*, *Kozimo*, *Pattsi*, *Brunelleski*); sözlükte olmayan ad varsa render yok (Anayasa §5 kapı 2).
+- **Yönetmenlik (kullanıcı isteği, 18 Ekim 2026: "olabildiğince akan ve çok animasyon… yönetmenlik olarak da usta ol"):** sözleşme `YONETMENLIK_REHBERI.md` — sıfır durağan kare, her çekimde kamera + ana eylem + ortam hayatı; gerekçeli geçişler (eşleşmeli kesme, iris, zum-geçiş, kamera devri, malzeme geçişi); ölçek oyunu; ekran yönü sözleşmesi; ışık bilgi taşır; hareketli figürler ve uzun planlar; ses–görüntü kilidi; bölüm başına imza sekans; ölçülebilir kapılar (`qa_flow.py`).
 - **Görsel dil (öneri, "fresk ve defter"):** kireç sıva dokusu üstüne tempera tonları (kızıl toprak, lacivert, altın yaprak); defter sayfaları, mühür, florin ve altı top ("palle") arması; kodla üretilmiş portre madalyaları; kuşbakışı Floransa/İtalya haritaları; aile ağacı ve ağ (düğüm-bağ) görselleri; HUD = anlam taşıyan sayaç (YIL + "ŞUBE n"/"DEFTER" gibi, araştırmada veri çıkarsa). Önceki videonun cildi aynen tekrarlanmaz (Anayasa §12-1); motor ortak.
 
 ## 10. Üretim planı ve kapılar
