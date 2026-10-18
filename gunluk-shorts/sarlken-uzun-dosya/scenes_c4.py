@@ -4,7 +4,7 @@ from shots import shot
 import scenes_lib  # noqa: F401  (theatre şablonu + sahne aileleri)
 import kinds_c4
 import icons_b  # noqa: F401
-from bw_lib import anc
+from bw_lib import anc, hud_scrim
 from sk import W, H
 
 F = ("fade", 0.7)
@@ -20,7 +20,8 @@ SHOTS = [
          date=("NİSAN 1521", ("c4s1", "Nisan", 0.0)), label="worms_harita"),
     # s2a — Reichstag salonu: imparator tahtta, karşısında küçük keşiş
     shot("bw_theatre", a=("c4s2", -0.4), tr=("fade", 0.4), scene="reichstag", dust_n=36, cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
-         p=dict(monk=True, emperor=True, books=True, crowd=True, monk_z=1000), label="reichstag"),
+         p=dict(monk=True, emperor=True, books=True, crowd=True, monk_z=1000),
+         overlay=lambda cx: hud_scrim(cx, ("c4s2", 0.9), ("c4s2", 1.6)), label="reichstag"),
     # s2b — Karl ↔ Luther
     shot("c4_duel", a=("c4s2", "bir", 1, -0.15), tr=("zoom", 0.6),
          left=dict(key="karl_genc", name="V. KARL", role="İmparator · 21 yaşında", at=0.2, metal="gold"),
@@ -29,10 +30,9 @@ SHOTS = [
     # s3a — 95 madde
     shot("c4_theses", a=("c4s3", -0.25), tr=F, at=0.0, year_at=0.5, against_at=("c4s3", "günah", -0.1), slash_at=("c4s3", "karşı", -0.1),
          count_at=("c4s3", "doksan", -0.1), write_at=("c4s3", "maddelik", -0.2), write_dur=2.4, label="95_madde"),
-    # s3b — matbaa: Wittenberg'den Almanya'ya
-    shot("map", a=("c4s3", "Matbaa", -0.2), tr=F, cams=[(0.0, (10.2, 50.8, 3.3)), (("c4s4", 0.0), (10.0, 50.6, 3.7))],
+    # s3b — matbaa: metin Almanya'ya yayıldı (yayılma noktası adsız; yönetmen notundaki WITTENBERG etiketi kaynak kapısı gereği yazılmadı)
+    shot("map", a=("c4s3", "Matbaa", -0.2), tr=F, cams=[(0.0, (10.1, 50.75, 2.95)), (("c4s4", 0.0), (10.0, 50.7, 3.2))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.0, alpha=0.26, hatch=True)],
-         cities=[dict(lon=12.65, lat=51.87, name="WİTTENBERG", kind="town", at=("c4s3", "Matbaa", -0.2), side="r", size=34)],
          extra=kinds_c4.make_spread(("c4s3", "Matbaa", 0.0), ("c4s3", "bu", -0.3)), approx=False, label="matbaa_yayildi"),
     # s4 — güvenli geçiş: yirmi bir gün
     shot("c4_safeconduct", a=("c4s4", -0.25), tr=F, at=0.0, seal_at=("c4s4", "sözü", 0.0), days_at=("c4s4", "yirmi", -0.12), days_dur=0.62, label="guvenli_gecis"),
@@ -46,7 +46,7 @@ SHOTS = [
          ghost_at=("c4s7", "büyük", -0.1), rumor_at=("c4s7", "ihtimalle", 0.0), swap_at=("c4s7", "Resmî", -0.35), gap_at=("c4s7", "tutanakta", -0.4),
          add_at=("c4s7", "sonradan", -0.2), stamp1_at=("c4s7", "tutanakta", 0.0), stamp2_at=("c4s7", "sonradan", 0.0), label="tutanakta_yok"),
     # s8 — ertesi sabah: bildiri okundu
-    shot("c4_dawn_scroll", a=("c4s8", -0.2), tr=F, at=0.0, unroll_at=("c4s8", "imparatorun", -0.3), read_at=("c4s8", "yazılı", -0.2), seal_at=("c4s8", "okundu", 0.0), label="bildiri"),
+    shot("c4_dawn_scroll", a=("c4s8", -0.2), tr=D, at=0.0, unroll_at=("c4s8", "imparatorun", -0.3), read_at=("c4s8", "yazılı", -0.2), seal_at=("c4s8", "okundu", 0.0), label="bildiri"),
     # s9 — atalar
     shot("c4_ancestors", a=("c4s9", -0.2), tr=F, ger_at=("c4s9", "Alman", -0.2), esp_at=("c4s9", "İspanya", -0.2), bur_at=("c4s9", "Burgonya", -0.2),
          keys_at=("c4s9", "Roma", -0.15), chain_at=("c4s9", "Kilisesi", -0.1), label="atalar"),

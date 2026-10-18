@@ -358,6 +358,70 @@ def k_sahne(cx, overlay_always=None, **kw):
         kw["overlay"](cx)
 
 
+# ───────────────────────────── arka plan topluluk/filo/para yağmuru ─────────────────────────────
+def ship_sil(f, x, y, s=1.0, col="#0A121A", rim="#6C8EA6", alpha=1.0, flag=None, bob=0.0, face=1):
+    """Küçük kadırga/karaka siluet: gövde + 2 direk + kare/lateen yelken (y = su hattı)."""
+    f.c.save()
+    f.c.translate(x, y + bob)
+    f.c.scale(s * face, s)
+    hull = sk.smooth_path([(-66, -8), (-52, 15), (50, 15), (68, -10), (40, -3), (-38, -3)], True, 0.35)
+    sails = [
+        sk.smooth_path([(-24, -80), (24, -80), (20, -22), (-20, -22)], True, 0.25),
+        sk.smooth_path([(-18, -104), (18, -104), (16, -84), (-16, -84)], True, 0.2),
+        sk.poly_path([(-30, -58), (-30, -14), (-70, -16)], True),
+        sk.poly_path([(30, -48), (30, -14), (66, -16)], True),
+    ]
+    for p_ in sails:
+        f.path(p_, color=rim, alpha=0.55 * alpha)
+        f.c.save(); f.c.translate(-1.2, -1.2)
+        f.path(p_, color=col, alpha=alpha)
+        f.c.restore()
+    f.line(0, -2, 0, -104, color=col, sw=3.0, alpha=alpha)
+    f.line(-30, -2, -30, -60, color=col, sw=2.4, alpha=alpha)
+    f.line(30, -2, 30, -50, color=col, sw=2.4, alpha=alpha)
+    f.path(hull, color=rim, alpha=0.5 * alpha)
+    f.c.save(); f.c.translate(-1.0, -1.2)
+    f.path(hull, color=col, alpha=alpha)
+    f.c.restore()
+    if flag:
+        f.poly([(0, -104), (22, -99), (0, -93)], color=flag, alpha=alpha)
+    f.c.restore()
+
+
+def fleet_band(cx, n, anchor, y0=None, dur=3.0, col="#07101A", rim="#8DB0CA", flag="#2F6B4A", seed=5, face=-1, alpha=0.95):
+    """Ufuk çizgisinde sayı arttıkça kalabalıklaşan küçük gemi filosu (3 sıra)."""
+    f = cx.f
+    kk = ease_out(clamp((cx.t - cx.at(anchor)) / dur), 2)
+    cnt = int(n * kk)
+    if cnt <= 0:
+        return
+    rs = np.random.RandomState(seed)
+    y0 = H * 0.80 if y0 is None else y0
+    rows = ((y0, 0.78, 1.0), (y0 - 40, 0.58, 0.85), (y0 - 74, 0.44, 0.7))
+    for i in range(cnt):
+        r = i % 3
+        yy, sc, al = rows[r]
+        xx = 40 + (i // 3 + rs.rand() * 0.8) * (Wd - 80) / max(1, n / 3)
+        ship_sil(f, xx, yy + rs.rand() * 8, sc, col=col, rim=rim, alpha=alpha * al, flag=flag, bob=math.sin(cx.t * 1.3 + i) * 2.0, face=face)
+
+
+def coin_rain(cx, anchor, n=34, seed=9, alpha=0.5):
+    """Yavaşça düşen altın paralar (arka plan)."""
+    f = cx.f
+    a = cx.amt(anchor, 0.8)
+    if a <= 0:
+        return
+    rs = np.random.RandomState(seed)
+    for i in range(n):
+        px = rs.rand() * Wd
+        ph = (cx.t * (0.12 + 0.14 * rs.rand()) + rs.rand()) % 1.0
+        py = -50 + ph * (H + 100)
+        r = 11 + rs.rand() * 13
+        al = a * alpha * (0.35 + 0.45 * rs.rand())
+        sq = abs(math.cos(cx.t * 2.6 + i))
+        f.oval(px, py, r, r * (0.25 + 0.75 * sq), shader=f.lin(px - r, py, px + r, py, [("#7A5518", 0.0), ("#F4DC8C", 0.5), ("#C9962B", 1.0)]), alpha=al)
+
+
 # ───────────────────────────── sayaçlar ─────────────────────────────
 def _numstr(v, k, decimals=0):
     if isinstance(v, (tuple, list)):
@@ -367,7 +431,7 @@ def _numstr(v, k, decimals=0):
 
 @SH.kind("c678_cift")
 @pushy(0.035)
-def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size=170, stampt=None, band=None, kick_at=0.0, tone_col=None, sep=None, ykick=130):
+def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size=170, stampt=None, band=None, kick_at=0.0, tone_col=None, sep=None, ykick=130, fleet=None, coins=None):
     """1–3 sayaç yan yana. items: [dict(value|(a,b), unit, icon, at, dur, prefix, suffix, label, metal, sub)]
     band=("janissary", n, anchor): alt kenarda asker siluet bandı (sayı arttıkça kalabalıklaşır)."""
     f = cx.f
@@ -380,16 +444,23 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
     colw = (Wd - 240) / max(1, n)
     if title:
         SH.kicker(f, title, Wd / 2, ykick, alpha=cx.amt(kick_at, 0.7), size=32, track=12, face="title_m", color="#E0C682")
+    if coins is not None:
+        coin_rain(cx, coins)
+    if fleet:
+        fleet_band(cx, fleet[0], fleet[1], **(fleet[2] if len(fleet) > 2 else {}))
     if band:
         kind, nb, at_b = band[0], band[1], band[2]
-        kk = ease_out(clamp((cx.t - cx.at(at_b)) / 3.0), 2)
+        rim_ = band[3] if len(band) > 3 else "#79B58C"
+        dur_ = band[4] if len(band) > 4 else 3.0
+        kinds_ = kind if isinstance(kind, (list, tuple)) else [kind]
+        kk = ease_out(clamp((cx.t - cx.at(at_b)) / dur_), 2)
         rs = np.random.RandomState(5)
         cnt = int(nb * kk)
         for i in range(cnt):
             xx = 40 + (i + rs.rand() * 0.7) * (Wd - 80) / nb
             row = i % 4
             hh = 172 - row * 20
-            ST.figure(f, kind, xx, H + 12 - row * 40, hh * 1.15, col="#0A0604", rim="#79B58C", face=-1 if rs.rand() > 0.5 else 1, alpha=0.96 - row * 0.1)
+            ST.figure(f, kinds_[(i * 7 + row) % len(kinds_)], xx, H + 12 - row * 40, hh * 1.15, col="#0A0604" if bgk == "night" else "#06080C", rim=rim_, face=-1 if rs.rand() > 0.5 else 1, alpha=0.96 - row * 0.1)
     m_vis = max(1.0, sum(cx.amt(it.get("at", 0.0), 0.8) for it in items))     # görünen sayaç sayısı (yumuşak): grup ortada başlar, yenisi gelince kayar
     for i, it in enumerate(items):
         xc = Wd / 2 + (i - (max(i + 1.0, m_vis) - 1) / 2) * colw      # yeni sayaç son yerine gelir; öncekiler yumuşakça kayar

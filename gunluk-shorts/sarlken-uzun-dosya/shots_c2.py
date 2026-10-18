@@ -127,11 +127,12 @@ def k_c2_gosteri(cx, t_h=0.0, t_show=0.0, t_plate=None, size=470):
     _curtain(f, -1, w, t)
     _curtain(f, 1, w, t)
     # üst kuşak (valans) + saçaklar
-    f.rect(0, 0, W, 96, shader=f.lin(0, 0, 0, 96, [("#7A1620", 0.0), ("#4A0C12", 1.0)]))
+    # (koyu bordo: sağ üstteki HUD simgeleri kırmızı üzerinde kaybolmasın)
+    f.rect(0, 0, W, 96, shader=f.lin(0, 0, 0, 96, [("#2E0A10", 0.0), ("#1C0609", 1.0)]))
     for i in range(int(W / 120) + 2):
-        f.circle(i * 120 - 10, 96, 62, color="#5E1018")
-        f.circle(i * 120 - 10, 96, 62, style="stroke", sw=3, color="#C9962B", alpha=0.7)
-    f.rect(0, 92, W, 6, color="#C9962B", alpha=0.9)
+        f.circle(i * 120 - 10, 96, 62, color="#2A080D")
+        f.circle(i * 120 - 10, 96, 62, style="stroke", sw=3, color="#C9962B", alpha=0.5)
+    f.rect(0, 92, W, 6, color="#C9962B", alpha=0.8)
     # GÖSTERİ
     sa = cx.amt(t_show, 0.5)
     if sa > 0:
@@ -252,7 +253,7 @@ def k_c2_para(cx, t_stamp=0.0, t_coins=0.0, t_take=0.0):
         x = cxw + (rs.rand() - 0.5) * 90 * (1 - u * 0.6) + math.sin(i) * 22 * (1 - u)
         y = lerp(-40, 505, u * u)
         K.coin(f, x, y, 17, alpha=1.0 if u < 0.92 else (1 - u) / 0.08, rot=u * 6 + i, squash=abs(math.cos(u * 9 + i)) * 0.8 + 0.2)
-    SH.stamp(f, "BAZI TARİHÇİLERE GÖRE", 960, 200, rot=-0.03, size=54, t=cx.amt(t_stamp, 0.3))
+    SH.stamp(f, "BAZI TARİHÇİLERE GÖRE", 960, 940, rot=-0.03, size=54, t=cx.amt(t_stamp, 0.3))
     f.vig(0.58)
 
 
@@ -275,13 +276,13 @@ def k_c2_borc(cx, t_scale=0.0, t_rus=0.0, t_tart=0.0, t_borc=0.0, t_gercek=0.0, 
             pulse = 0.55 + 0.25 * math.sin(t * 3.0)
             icons.draw_icon(f, "coinbag", x, y - 62 - lift, size=130, metal="bronze", alpha=ra * pulse * (1 - 0.4 * kb), shadow=False)
             f.text("?", x, y - 40 - lift, face="title", size=84, color="#F0D27A", align="c", alpha=ra * (0.8 + 0.2 * math.sin(t * 4)) * (1 - 0.5 * kb), shadow=(2, 3, 4, "#000000"))
-            K.txt(f, "RÜŞVET", x, y + 78, face="title_m", size=34, color="#D9C795", track=8, alpha=ra * (1 - 0.5 * kb))
+            K.txt(f, "RÜŞVET", x, y + 100, face="title_m", size=34, color="#D9C795", track=8, alpha=ra * (1 - 0.5 * kb))
 
     def right(f, x, y):
         if kb > 0:
             sc = 0.8 + 0.2 * back_out(kb)
             icons.draw_icon(f, "book", x, y - 82 + 12 * (1 - kb), size=190 * sc, metal="gold", alpha=kb, glow=0.3 * kb)
-            K.txt(f, "BORÇ", x, y + 80, face="title", size=48, color="#F6DC8A", track=10, alpha=kb)
+            K.txt(f, "BORÇ", x, y + 102, face="title", size=48, color="#F6DC8A", track=10, alpha=kb)
 
     K.draw_scale(f, 960, 300, 370, tilt, left, right, alpha=sc_alpha, t=t)
     if cx.amt(t_tart, 0.3) > 0 and cc < 0.5:

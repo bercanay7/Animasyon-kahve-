@@ -176,7 +176,7 @@ def reform_extra(at_ref, at_aug, at_peace, at_tan):
         f = cx.f
         t0 = cx.at(at_ref)
         wx, wy = cam.ll(12.65, 51.87)
-        mv.city(f, cam, 12.65, 51.87, "WITTENBERG", kind="town", t=cx.t, amt=cx.amt(at_ref, 0.5), color="#9FD8E0", size=28, name_side="t")
+        mv.city(f, cam, 12.65, 51.87, "REFORM", kind="town", t=cx.t, amt=cx.amt(at_ref, 0.5), color="#9FD8E0", size=28, name_side="t")   # kaynak kapısı: şehir adı yok (araştırmada Wittenberg geçmiyor)
         for j in range(4):
             ring_pulse(f, wx, wy, t0 + 0.0 + 0.55 * j, cx.t, r0=14, r1=520, dur=2.4, color="#6CC4CE", sw=3.5, a=0.8)
         ka = cx.amt(at_aug, 0.6)
@@ -332,7 +332,7 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
             continue
         f.rrect(lx0 + 14, yy, lw - 28, 66, 8, color="#1C130D", alpha=0.95 * kr * ui_a)
         f.rrect(lx0 + 14, yy, 10, 66, 4, color=SH._fac(col), alpha=kr * ui_a)
-        f.text(nm, lx0 + 44, yy + 42, face="title_m", size=24, color="#F0DDA0", align="l", track=4, alpha=kr * ui_a)
+        f.text(nm, lx0 + 44, yy + 44, face="title_m", size=28, color="#F0DDA0", align="l", track=4, alpha=kr * ui_a)
         draw_medal_plain(f, "karl_olgun", lx0 + lw - 58, yy + 33, 56, "gold", alpha=kr * ui_a, t=cx.t, i=i, glint=False, shadow=False)
     # ipucu kartı
     kt = cx.amt(at_tip, 0.7) * (1 - 0.7 * dim)

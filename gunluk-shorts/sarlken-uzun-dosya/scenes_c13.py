@@ -48,7 +48,7 @@ def _atl_extra(cx, cam, mv):
 
 SHOTS = [
     # s1 — beşinci cephe en sessiz olanıydı: miras
-    shot("c13_open", a=A("c13s1", -0.2), at_kick=A("c13s1", "Beşinci", -0.1), at_icon=A("c13s1", "cephe", -0.1), at_word=A("c13s1", "miras", -0.15), label="besinci_cephe"),
+    shot("c13_open", a=A("c13s1", -0.2), tr=("fade", 0.8), at_kick=A("c13s1", "Beşinci", -0.1), at_icon=A("c13s1", "cephe", -0.1), at_word=A("c13s1", "miras", -0.15), label="besinci_cephe"),
     # s2 — dört büyük taht, tek adam; bir ülke gibi değil, akrabalık ağı gibi
     shot("c13_network", a=A("c13s2", -0.3), tr=("fade", 0.8),
          at_thrones=(A("c13s2", "Dört", -0.1), A("c13s2", "büyük", -0.05), A("c13s2", "taht", -0.05), A("c13s2", "tek", -0.4)),

@@ -1,22 +1,16 @@
-— statik denetim (14 bölüm) —
-c0    12 çekim      0.0–   46.1 sn  türler: {'theatre': 4, 'map': 2, 'emblem': 2, 'c0_forty': 1, 'medal': 1, 'c0_fronts': 1, 'c0_borc': 1}  sahneler: {'hall': 4}
-c1    23 çekim     49.1–  168.6 sn  türler: {'a_map': 7, 'a_theatre': 3, 'c1_evli': 1, 'tree': 1, 'c1_yol': 1, 'c1_cift': 1, 'c1_delilik': 1, 'a_medals': 1, 'c1_dort_dil': 1, 'quote': 1, 'a_timeline_s': 1, 'medal': 1, 'c1_ortak_kral': 1, 'c1_halk': 1, 'doc': 1}  sahneler: {}
-c2    18 çekim    171.6–  260.1 sn  türler: {'a_map': 4, 'a_theatre': 3, 'a_g_medal': 2, 'c2_yedi_koltuk': 1, 'a_medals': 1, 'c2_gosteri': 1, 'c2_terazi': 1, 'c2_pay': 1, 'c2_para': 1, 'c2_borc_terazi': 1, 'a_g_doc': 1, 'c2_plus_ultra': 1}  sahneler: {}
-c3    11 çekim    263.1–  312.9 sn  türler: {'a_map': 6, 'a_theatre': 3, 'a_medals': 1, 'c3_bayram': 1}  sahneler: {}
-c4    20 çekim    315.9–  429.8 sn  türler: {'bw_theatre': 4, 'map': 2, 'c4_duel': 1, 'c4_theses': 1, 'c4_safeconduct': 1, 'c4_books': 1, 'c4_answer': 1, 'c4_protocol': 1, 'c4_dawn_scroll': 1, 'c4_ancestors': 1, 'c4_pledge': 1, 'c4_backdate': 1, 'c4_banned': 1, 'medal': 1, 'c4_book': 1, 'c4_finale': 1}  sahneler: {}
-c5    21 çekim    432.8–  541.4 sn  türler: {'bw_theatre': 5, 'map': 2, 'medal': 2, 'c5_ideas': 1, 'c5_speyer': 1, 'c5_protest': 1, 'c5_confession': 1, 'c5_authors': 1, 'c5_refuse': 1, 'c5_league': 1, 'c5_wait': 1, 'c5_plan': 1, 'c5_titian': 1, 'c5_moritz': 1, 'c5_peace': 1}  sahneler: {}
-c6    22 çekim    544.4–  663.4 sn  türler: {'c678_sahne': 5, 'map': 3, 'c678_medals': 1, 'c6_mektup': 1, 'c6_antlasma': 1, 'c6_rehin': 1, 'c6_yirt': 1, 'c6_maas': 1, 'c6_muhafiz': 1, 'c6_emir': 1, 'c6_aylar': 1, 'c6_zincir': 1, 'c6_duello': 1, 'c6_hanimlar': 1, 'c6_fidye': 1, 'c6_savas': 1}  sahneler: {}
-c7    23 çekim    666.4–  772.9 sn  türler: {'map': 7, 'c678_sahne': 4, 'c678_cift': 3, 'medal': 2, 'c7_hukum': 1, 'c7_taht': 1, 'c7_vasal': 1, 'c7_gunluk': 1, 'c7_unvan': 1, 'c7_ates': 1, 'c7_yuk': 1}  sahneler: {}
-c8    15 çekim    775.9–  847.8 sn  türler: {'c678_sahne': 6, 'map': 4, 'c678_cift': 2, 'medal': 1, 'c678_medals': 1, 'c8_konsey': 1}  sahneler: {}
+— statik denetim (4 bölüm) —
+c0    13 çekim      0.0–   46.1 sn  türler: {'theatre': 4, 'map': 2, 'emblem': 2, 'c0_forty': 1, 'medal': 1, 'c0_fronts': 1, 'c0_borc': 1, 'c0_title': 1}  sahneler: {'hall': 4}
 c9    20 çekim    850.8–  959.9 sn  türler: {'map': 6, 'theatre': 3, 'wd_doc': 2, 'wd_counter': 2, 'wd_medal_swap': 2, 'c9_durer': 1, 'wd_medals': 1, 'c9_fifth': 1, 'wd_vs': 1, 'c9_arma': 1}  sahneler: {'siege': 1, 'ransom_room': 1, 'debate_hall': 1}
-c10   13 çekim    962.9– 1029.1 sn  türler: {'a_c_medal': 2, 'c10_soru': 1, 'c10_sandik': 1, 'c10_defter': 1, 'c10_sayac': 1, 'c10_bars': 1, 'c10_egri': 1, 'a_theatre': 1, 'c10_mektup': 1, 'a_map': 1, 'c10_ucurum': 1, 'c10_kapanis': 1}  sahneler: {}
-c11   10 çekim   1032.1– 1096.3 sn  türler: {'bw_theatre': 2, 'map': 2, 'c11_machine': 1, 'c11_chin': 1, 'c11_study': 1, 'c11_wed': 1, 'c11_loss': 1, 'c11_black': 1}  sahneler: {}
 c12   18 çekim   1099.3– 1195.8 sn  türler: {'theatre': 5, 'map': 3, 'c12_reason': 2, 'c12_clock': 1, 'wd_counter': 1, 'wd_medals': 1, 'c12_forty': 1, 'c12_transfer': 1, 'c12_crackcoin': 1, 'c12_rumor': 1, 'wd_medal_swap': 1}  sahneler: {'tower': 1, 'd_hall_gold': 1, 'cloister': 1, 'chapel': 1, 'bedroom': 1}
 c13   14 çekim   1198.8– 1279.6 sn  türler: {'map': 4, 'wd_vs': 2, 'c13_open': 1, 'c13_network': 1, 'c13_split': 1, 'c13_crown': 1, 'c13_balance': 1, 'c13_game': 1, 'c13_life': 1, 'c13_final': 1}  sahneler: {}
 
+— kare örnekleme: 140 örnek, ortalama 207 ms, en yavaş 6304 ms (yük altında şişer) —
+
 ENGELLEYİCİ (0):
   yok ✓
-UYARI (0):
-  yok ✓
+UYARI (3):
+  ⚠ YAVAŞ #48 map 'yuste_harita': 6304 ms
+  ⚠ YAVAŞ #20 wd_counter 'yuz_bin_florin': 587 ms
+  ⚠ YAVAŞ #32 wd_medal_swap 'magellan_oldu': 456 ms
 
-süre 0 sn
+süre 69 sn

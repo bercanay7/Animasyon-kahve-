@@ -16,8 +16,8 @@ Sürüm: yamalı anlatıya göre (c10s3 birim DÜKAT: "dükatın üzerinde / faz
 | 8 | a_c_medal | fugger | 4.5 | Jakob Fugger bronz madalya + levha |
 | 9 | c10_mektup | mektup_ozeti | 5.7 | parşömen "FUGGER'İN MEKTUBU · 1523": iki özet satırı, "ÖZET" etiketi + "kelimesi kelimesine değil", yeşil F mührü |
 | 10 | a_map | welser_venezuela | 5.7 | Karayipler'den Venezuela'ya yaklaşma; Welser bronz madalyası + "WELSER'LER"; "VENEZUELA"; "YÖNETİM HAKKI" levhası |
-| 11 | c10_ucurum | borc_ucurumda | 6.1 | yükselen borç sütunları platoda, uçurum kenarında sallanan taç, kızıl uçurum parıltısı; "1556", "DEVLETİN BORCU" |
-| 12 | a_c_medal | felipe_odemeleri_durdurdu | 4.7 | büyük "NİSAN 1557" yukarı çıkıp küçülür; Felipe altın madalya; ÖDEMELER DURDU damgası (dip geçişi) |
+| 11 | c10_ucurum | borc_ucurumda | 6.1 | kaya katmanlı plato + tırtıklı uçurum yüzü (kenar ışığı, kızıl yansıma), boşlukta derinlik sisi ve kayan sis bantları, karşı yakada silik kaya duvarı; plato üstünde yükselen, kırmızıya dönen borç sütunları; taç uçuruma doğru eğilir; "uçurumdaydı" sözcüğünde dipten kızıl ışık, boşluğa düşen gümüş paralar ve kopan taş parçaları; "1556", "DEVLETİN BORCU" |
+| 12 | a_c_medal | felipe_odemeleri_durdurdu | 4.7 | büyük "NİSAN 1557" yukarı çıkıp küçülür; Felipe altın madalyası solda, isim levhası sağda, levhanın altına ÖDEMELER DURDU damgası (dip geçişi) |
 | 13 | c10_kapanis | borcla_ayakta | 4.6 | altın sütun → kırmızı defter yığını, üstü X; BORÇ damgası |
 
 Geçişler çoğunlukla `fade` (soğuk, sakin ton); borç/ödemeler durdu vurgusunda `dip`. Çubuk çekimi 10 sn: anlatı cümlesi uzun (14 sn), her bölge kendi sözcüğünde uzar.
@@ -25,13 +25,13 @@ Geçişler çoğunlukla `fade` (soğuk, sakin ton); borç/ödemeler durdu vurgus
 ## (b) Bilinen kusurlar
 - Gümüş akışı eğrisi ŞEMATİK (veri değil): kaynaklarda yıllık seri yok; eğri "hükümdarlık boyunca düşük, sonra sert yükselir" fikrini çiziyor, eksenlerde sayı yok; "ŞEMATİK ÇİZİM" yazısı sağ altta duruyor. ŞARLKEN DÖNEMİ bandının uçları 1519 ve 1556 (bölüm başlığı + c10s8).
 - Çubuk uzunlukları araştırmadaki 10,5 / 9,3 / 5,7 M dükat oranına göre çizilmiş; ekranda değerler yalnızca "10+", "9+", "5+ MİLYON" (anlatıdaki "üzerinde/fazla" ile uyumlu). Tek kitap eleştirisine dayanıyor (A4 #16) — NİTELİKLİ.
-- Uçurum çekimindeki borç sütunlarının yükseklikleri şematik (rakam iddiası yok); "DEVLETİN BORCU" etiketi dışında sayı yok.
+- Uçurum çekimindeki borç sütunlarının yükseklikleri şematik (rakam iddiası yok); "DEVLETİN BORCU" etiketi dışında sayı yok. Uçurum, kaya yüzü ve karşı yaka stilize (gerçek bir yer değil, yalnız "uçurumdaydı" metaforu); uçurum olayları (kızıl ışık, düşen paralar/taşlar) çekimin son ≈1,5 saniyesinde ve dip geçişinin hemen öncesinde görünüyor.
 - Venezuela bölgesi `kit_a`'da ülke poligonundan türetilmiş yaklaşık çokgen (Klein-Venedig'in gerçek sınırı değil); "SINIRLAR YAKLAŞIKTIR" yazısını bilerek koymadım (`approx=False`; bölge tek etiket) — istenirse eklenebilir.
 - Mektup parşömeni iki satırlık yakın parafraz (alıntı işareti yok), "ÖZET / kelimesi kelimesine değil" etiketiyle; gerçek mektup metni doğrulanamadı (A4 #13).
 - 1523 mektubunun kesin günü ekrana yazılmadı (araştırmada "bahar 1523, tahmin 24 Nisan").
 - Madalya yüzleri (Fugger, Welser, Felipe) madalya-lab'ın stilize portreleri.
 - `c10_sayac` arka planındaki para yığını etiketlerin altında kalıyor (opaklık düşük); okunabilirlik kontrol edildi.
-- `--check` ms/kare ölçümü duvar saatiyle; yük altında dalgalanıyor. Ölçülen: ortalama ≈ 120–165 ms/kare, en yavaş çekim ≈ 375 ms (Felipe madalya çekimi, yük altında); hiçbiri 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 3–4 dk.
+- `--check` ms/kare ölçümü duvar saatiyle yapılıyor; makine yüküne duyarlı. Düşük yükte (load avg ≈ 2,5) ölçülen: ortalama ≈ 129 ms/kare, en yavaş çekim 172 ms (a_c_medal); yoğun yükte ortalama 120–165 ms, tek tek 375 ms'ye kadar. Hiçbir çekim 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 3,5 dk (düşük yük).
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - "AMERİKA'NIN GÜMÜŞÜ" + üstü çizili sandık, "KAYITLAR" — YORUM (c10s1–s2; A4 "yaygın yanlışlar", Tracy).

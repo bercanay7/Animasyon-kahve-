@@ -90,10 +90,10 @@ def check(prog, cid):
         pts = [int(s.t0 * FPS) + 1 + int((nfr - 3) * q) for q in (0.15, 0.5, 0.85)]
         for n in pts:
             prog.frame(n)
-        t = time.time()
+        t = time.process_time()                      # CPU süresi: makine yükü (başka işlemler) sahte uyarı üretmesin
         for n in pts:
             prog.frame(n + 1)
-        ms = (time.time() - t) / len(pts) * 1000
+        ms = (time.process_time() - t) / len(pts) * 1000
         tot += ms * nfr
         flag = "  ← YAVAŞ (>450 ms): dyn() içinde bulanıklık/degrade/ışık huzmesi çiziyor olabilirsin; statik katmana pişir" if ms > 450 else ""
         print(f"  #{i:2d} {s.kind:<12} {ms:6.0f} ms{flag}")

@@ -36,7 +36,7 @@ Sürüm: yamalı anlatıya göre (c2s7 "yaklaşık 543.000", c2s9 "Bazı tarihç
 - "YAZILI SÖZ" belgesi seçim kapitülasyonunun metni değil, anlatının yakın parafrazı (iki satır; alıntı işareti yok); madde sayısı yazılmadı (A1 #15'te 34 madde 19. yy kaynağı).
 - Terazi çekimleri (c2_terazi, c2_borc_terazi) sembolik; ölçek/oran iddiası yok. c2_borc_terazi sonunda terazi bilerek soluklaşıyor (taç odağa gelsin), son saniyede RÜŞVET/BORÇ etiketleri zor okunur — anlatı o anda taca geçiyor.
 - Henry, François, Fugger, Maksimilyan, Şarlman yüzleri madalya-lab'ın stilize portreleri.
-- `--check` ms/kare ölçümü duvar saatiyle; yük altında tek tek çekimler dalgalanıyor. Ölçülen: ortalama ≈ 145–225 ms/kare, en yavaş çekim ≈ 370 ms (c2_gosteri: perde + spot + hayalet madalyalar); hiçbiri 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 5–8 dk.
+- `--check` ms/kare ölçümü duvar saatiyle yapılıyor; makine yüküne duyarlı. Düşük yükte (load avg ≈ 2,5) ölçülen: ortalama ≈ 127 ms/kare, en yavaş çekim 193 ms (a_medals); yoğun yükte ortalama 145–225 ms, tek tek 370 ms'ye kadar. Hiçbir çekim 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 4,5 dk (düşük yük).
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - "OCAK 1519", Maksimilyan'ın ölümü — HAFIZA H7 (web özeti doğruladı: 12 Ocak 1519, Wels); ekranda yalnız "OCAK 1519".

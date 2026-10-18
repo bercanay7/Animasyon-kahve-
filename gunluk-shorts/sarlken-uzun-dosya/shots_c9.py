@@ -164,39 +164,45 @@ def ransom_overlay(cx):
 
 # ───────────────────────────── c9s8: beşte bir ─────────────────────────────
 @SH.kind("c9_fifth")
-def k_c9_fifth(cx, at_g=0.0, at_one=0.0):
+def k_c9_fifth(cx, at_crown=None, at_label=None, at_g=0.0, at_one=0.0):
+    """'Kraliyetin payı, ganimetin beşte biriydi.' Taç 'Kraliyetin' sözünde ortada belirir; 'ganimetin'de sola kayar ve beş külçe dizilir;
+    'beşte'de ilk külçe tacın altına yükselir ve '1/5' yanar."""
     f = cx.f
     f.bg("night"); f.rays(alpha=0.32)
     sk.dust(f, cx.t, n=55)
+    kc = cx.amt(at_crown, 0.9) if at_crown is not None else 1.0
+    kl = cx.amt(at_label, 0.6) if at_label is not None else 1.0
     kg = cx.amt(at_g, 0.6)
     kone = cx.amt(at_one, 0.7)
+    mv = ease_io(cx.amt(at_g, 1.0))                       # taç ortadan sola
     kick_rule(f, "GANİMET", W / 2, 215, k=kg, size=32, track=18, span=140)
     y0 = H * 0.66
+    x0 = W / 2 - 2 * 280
     for i in range(5):
         ki = cx.amt(at_g, 0.5, off=0.12 * i)
         if ki <= 0:
             continue
         x = W / 2 + (i - 2) * 280
-        lift = 0.0
-        metal = "gold"
-        if i == 0:
-            lift = 120 * ease_out(kone)
-            metal = "gold"
+        lift = 120 * ease_out(kone) if i == 0 else 0.0
         dim = 0.55 + 0.45 * (1 - kone) if i else 1.0
-        ingot(f, x, y0 + (1 - ease_out(ki)) * 50 - lift, w=236, h=112, metal=metal, alpha=ki * (dim if i else 1.0), lit=(0.5 * kone if i == 0 else 0.0))
+        ingot(f, x, y0 + (1 - ease_out(ki)) * 50 - lift, w=236, h=112, metal="gold", alpha=ki * (dim if i else 1.0), lit=(0.5 * kone if i == 0 else 0.0))
+    yy = y0 - 120 * ease_out(kone)
+    if kc > 0:
+        cxn = lerp(W / 2, x0, mv)
+        cyn = lerp(470, yy - 240, mv)
+        szn = lerp(290, 190, mv) * (0.85 + 0.15 * back_out(kc))
+        icons.draw_icon(f, "imperial_crown", cxn, cyn, size=szn, metal="gold", alpha=kc, glow=0.45)
+        if kl > 0:
+            f.text("KRALİYETİN PAYI", cxn, lerp(470 + 190, y0 + 74, mv), face="title_m", size=30, color="#F0DDA0", align="c", track=7, alpha=kl, shadow=(2, 2, 3, "#000000"))
     if kone > 0:
-        x0 = W / 2 - 2 * 280
-        yy = y0 - 120 * ease_out(kone)
-        icons.draw_icon(f, "imperial_crown", x0, yy - 240, size=190 * (0.85 + 0.15 * back_out(kone)), metal="gold", alpha=kone, glow=0.45)
         SH.gold_flat(f, "1/5", x0 + 240, yy - 40, face="title", size=110, track=4, alpha=kone)
-        f.text("KRALİYETİN PAYI", x0, y0 + 74, face="title_m", size=30, color="#F0DDA0", align="c", track=7, alpha=kone, shadow=(2, 2, 3, "#000000"))
         ring_pulse(f, x0, yy - 56, cx.at(at_one), cx.t, r0=40, r1=230, dur=1.2, color="#FFE7A0", sw=3)
     f.vig(0.6)
 
 
 # ───────────────────────────── c9s14: arma ─────────────────────────────
 @SH.kind("c9_arma")
-def k_c9_arma(cx, at_arma=0.0, at_globe=1.0, at_motto=2.0, words=(), at_tr=6.0, trans="Beni ilk dolaşan sensin."):
+def k_c9_arma(cx, at_arma=0.0, at_globe=1.0, at_motto=2.0, words=(), at_tr=6.0, trans="Beni ilk dolaşan sensin.", at_karl=None, at_elcano=None):
     """Elcano'ya verilen arma: kalkan + altın küre + 'Primus circumdedisti me' kuşağı. words=[(sözcük, çapa)]; trans: çeviri."""
     f = cx.f
     f.bg("night"); f.rays(alpha=0.42 + 0.08 * math.sin(cx.t * 0.6))
@@ -205,6 +211,21 @@ def k_c9_arma(cx, at_arma=0.0, at_globe=1.0, at_motto=2.0, words=(), at_tr=6.0, 
     kg = cx.amt(at_globe, 0.9)
     km = cx.amt(at_motto, 0.9)
     scx, scy, sw_, sh_ = W / 2, 400, 430, 520
+    if at_karl is not None:
+        # 'Şarlken ona ... verdi': solda Şarlken, sağda Elcano, aralarında verme oku; arma ikisinin arasına oturur
+        kk_ = cameo(f, cx, "karl_yasli", 330, scy, 300, at_karl, metal="gold", name="ŞARLKEN", role="İmparator", i=0, plate_dy=168, plate_w=420)
+        ke_ = cameo(f, cx, "elkano", W - 330, scy, 300, at_elcano, metal="bronze", name="ELCANO", role="Kaptan", i=1, plate_dy=168, plate_w=420)
+        kar = cx.amt(at_elcano, 0.9)
+        if kar > 0:
+            xa, xb = 520, W - 520
+            xe = lerp(xa, xb, ease_out(kar, 2))
+            f.c.save()
+            pr = f.paint("#E3B54A", style="stroke", sw=4, alpha=0.8 * kar)
+            pr.setPathEffect(skia.DashPathEffect.Make([14, 11], -cx.t * 40))
+            f.c.drawLine(xa, scy, xe, scy, pr)
+            f.c.restore()
+            if kar > 0.9:
+                f.poly([(xb, scy), (xb - 24, scy - 15), (xb - 24, scy + 15)], color="#E3B54A", alpha=0.9 * min(1.0, (kar - 0.9) * 10))
     sc = (0.88 + 0.12 * ease_out(ka)) * (1.0 + 0.03 * cx.u)
     f.c.save(); f.c.translate(scx, scy); f.c.scale(sc, sc); f.c.translate(-scx, -scy)
     if ka > 0:
@@ -289,4 +310,7 @@ def debate_overlay(cx):
     kr = cx.amt(A("c9s11", "öbürü", -0.3), 0.7)
     tag(f, "SEPÚLVEDA", 110, 790, kl, size=34, sub="Savı: köleliğe layık", align="l", accent="#9AA3AD")
     tag(f, "LAS CASAS", W - 110, 790, kr, size=34, sub="Savı: fetih bir suç", align="r", accent="#E8D8A0")
-    SH.stamp(f, "RESMÎ KAZANAN YOK", W / 2, 480, rot=-0.05, size=72, t=cx.amt(A("c9s11", "Resmî", -0.1), 0.3))
+    kst = cx.amt(A("c9s11", "Resmî", -0.1), 0.3)
+    if kst > 0:
+        f.rect(0, 340, W, 280, shader=f.lin(0, 340, 0, 620, [("#000000", 0.0, 0), ("#000000", 0.30, int(165 * kst)), ("#000000", 0.70, int(165 * kst)), ("#000000", 1.0, 0)]))
+    SH.stamp(f, "RESMÎ KAZANAN YOK", W / 2, 480, rot=-0.05, size=72, t=kst)

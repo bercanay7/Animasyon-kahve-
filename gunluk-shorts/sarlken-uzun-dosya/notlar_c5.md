@@ -27,7 +27,7 @@
 | 18 | bw_theatre / road_night | 1:29.6 | 4.5 | innsbruck_gece | Lab `road_night`: yağmurlu dağ gecesi, meşaleli atlı kafile (**sedye yok**); "İNNSBRUCK · GECE" |
 | 19 | c5_peace | 1:34.0 | 7.7 | augsburg_barisi | AUGSBURG BARIŞI · EYLÜL 1555; iki niş KATOLİK / LUTHERCİLİK (ikincisi kesikli → açılır); mühür |
 | 20 | bw_medal | 1:41.7 | 3.7 | ferdinand | Ferdinand madalyası, levha "FERDİNAND · Kardeşi · yürüten" |
-| 21 | bw_theatre / hall | 1:45.4 | 3.2 | salon_son | Lab `hall` — **c0 ile aynı sahne** (`p=dict()`); kamera yavaş yaklaşır, son 1 sn siyaha çözülür |
+| 21 | bw_theatre / hall | 1:45.4 | 3.2 | salon_son | Lab `hall` — **c0 ile aynı sahne ve aynı çift figür** (kolunu genç prensin omzuna dayamış yaşlı adam, **BASTONSUZ**; `scenes_d.draw_pair`, c0 s2 ile aynı yerleşim x≈1130 ve aynı kamera hareketi); son 1 sn siyaha çözülür |
 
 ## 2. Bilinen kusurlar / dürüst notlar
 - **METIN_DEGISIKLIKLERI uygulandı:** c5s3 "Luther istememişti" (madalya + yasak + levha); c5s10 etiket yalnız **"BİR YIL SONRA"** (yıl yazılmadı, simgesel portre); c5s12 **sedye/litter yok**, hasta imparator belirsiz (yalnız meşaleli atlı kafile).
@@ -70,6 +70,6 @@ Köylü Savaşı etiketi 449.0 · LUTHER İSTEMEMİŞTİ levhası 450.3 · 70.00
 ## 5. Ana ajana istekler / bulgular
 1. **compose.py Türkçe büyük harf hatası** (bkz. notlar_c4.md #1): bölüm kartı / HUD başlığı.
 2. **`SH.draw_medal` önbelleksiz** — c5'te 7 madalya kullanımı var (authors, refuse, moritz, titian, bw_medal ×2): `bw_lib.draw_medal2` / `bw_medal` önbellekli sürümü 2–3× hızlı. **Hız ipucu:** `bw_lib.py` ayrıca `static_backdrop`, `dust2`, `draw_icon2`, `gold2`, `glow_blit` içerir (kare başı maliyeti ≈ yarıya indirir; ayrıntı notlar_c4.md #6).
-3. **Hall (c0 geri çağrı):** `p=dict()` kullanıldı (varsayılan çift figür x=1000); c0'daki çift figür `extra` ile x≈1130'da çiziliyor — birebir eşleşme istenirse c5s15'te `p=dict(emperor=False, extra=…)` ile c0'ın `_pair_extra`'sı kullanılabilir (c0 yazarının dosyasına dokunmadım).
+3. **Hall (c0 geri çağrı) — kaynak kapısı uyarısı:** görev notundaki `p=dict()` ile salonun VARSAYILAN çiftini (`scenes_lib.Hall`, `emperor=True` → `pair_old_prince`) çizdirdiğinizde **bastonlu ve kılıçlı** figür çıkıyor (METIN_DEGISIKLIKLERI c0s4: baston YOK). Bu yüzden son çekimde c0'ın yaptığı gibi `p=dict(emperor=False, extra=…)` ile yazar D'nin bastonsuz `d_pair` figürünü (`scenes_d.draw_pair`, yalnız import; c0 dosyasına dokunmadım) kullandım. **Başka bölümlerde `hall` varsayılan `p` ile çağrılıyorsa aynı baston sorunu olabilir** — `scenes_lib.Hall` varsayılanı (ortak dosya) `d_pair`'e çevrilebilir.
 4. **`bw_theatre`** sarmalayıcı: lab hatası stderr'e "[bw_theatre] … hata verdi" yazar; şu an 0 hata (field, road_night, hall çalışıyor).
 5. Sahne önbelleği 5 sahne: c5'te `field` farklı `p` ile 3 kez (köylü ×2 aynı `p` → önbellekten; Mühlberg ayrı) — sorunsuz.

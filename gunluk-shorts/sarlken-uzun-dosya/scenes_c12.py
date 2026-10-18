@@ -98,7 +98,7 @@ def _ov_tower(cx):
 
 SHOTS = [
     # s1 — 25 Ekim 1555, öğleden sonra saat üç sularında (c0 tarih kartının aynası)
-    shot("c12_clock", a=A("c12s1", -0.05), at_city=A("c12s1", 0.0), at_date=A("c12s1", "25", -0.15), at_clock=A("c12s1", "Öğleden", -0.3), at_hand=A("c12s1", "saat", -0.1), at_three=A("c12s1", "üç", 0.0), label="saat_uc"),
+    shot("c12_clock", a=A("c12s1", -0.05), tr=("fade", 0.8), at_city=A("c12s1", 0.0), at_date=A("c12s1", "25", -0.15), at_clock=A("c12s1", "Öğleden", -0.3), at_hand=A("c12s1", "saat", -0.1), at_three=A("c12s1", "üç", 0.0), label="saat_uc"),
     # s2a — altı ay önce annesi Juana (Tordesillas kulesi; pencereye yaklaşma)
     shot("theatre", a=A("c12s2", -0.3), tr=("fade", 0.9), scene="tower", cams=[(0.0, (960, 540, 1.0)), (A("c12s2", "kırk", 0.0), (900, 470, 1.4))],
          p=dict(variant="tordesillas", candle=1.0), overlay=_ov_tower, label="kule_juana"),

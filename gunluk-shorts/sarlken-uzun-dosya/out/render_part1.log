@@ -1,0 +1,16 @@
+26 parçadan 10 tanesi üretilecek; 2 işlem
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+[seg 07] 120/1200  174 ms/kare  ETA 3.1 dk
+[seg 08] 120/1200  201 ms/kare  ETA 3.6 dk
+[seg 07] 240/1200  165 ms/kare  ETA 2.6 dk
+[seg 08] 240/1200  190 ms/kare  ETA 3.0 dk
+[seg 07] 360/1200  158 ms/kare  ETA 2.2 dk
+[seg 08] 360/1200  194 ms/kare  ETA 2.7 dk
+[seg 07] 480/1200  164 ms/kare  ETA 2.0 dk
+[seg 08] 480/1200  203 ms/kare  ETA 2.4 dk
+[seg 07] 600/1200  173 ms/kare  ETA 1.7 dk
+[seg 08] 600/1200  210 ms/kare  ETA 2.1 dk
+[seg 07] 720/1200  183 ms/kare  ETA 1.5 dk
+[seg 08] 720/1200  216 ms/kare  ETA 1.7 dk
+[seg 07] 840/1200  200 ms/kare  ETA 1.2 dk

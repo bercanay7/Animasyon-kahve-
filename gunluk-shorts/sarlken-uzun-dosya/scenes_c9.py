@@ -61,24 +61,24 @@ SHOTS = [
     shot("wd_medal_swap", a=A("c9s7", -0.2), tr=("dip", 0.8), key="atahualpa", metal_a="bronze", metal_b="onyx", swap_at=A("c9s7", "idam", -0.35), swap_dur=1.3,
          name="ATAHUALPA", role="İnka Hükümdarı", size=600, dark_at=A("c9s7", "edildi", -0.2), dark_dur=1.8, dark_to=0.75, label="idam_sessiz"),
     # s8 — kraliyetin payı beşte bir
-    shot("c9_fifth", a=A("c9s8", -0.25), tr=("fade", 0.7), at_g=A("c9s8", "ganimetin", -0.1), at_one=A("c9s8", "beşte", -0.1), label="beste_bir"),
+    shot("c9_fifth", a=A("c9s8", -0.25), tr=("fade", 0.7), at_crown=A("c9s8", "Kraliyetin", -0.1), at_label=A("c9s8", "payı", -0.2), at_g=A("c9s8", "ganimetin", -0.1), at_one=A("c9s8", "beşte", -0.1), label="beste_bir"),
     # s9a — Yeni Yasalar 1542
     shot("wd_doc", a=A("c9s9", -0.2), tr=("fade", 0.8), tone="#C9B484", title="YENİ YASALAR  ·  1542", w=1100, h=400, size=56, head_size=52, line_dt=0.6,
          lines=[("Yerlileri köle yapmak yasaktır.", A("c9s9", "yerlileri", -0.1))],
          hl=dict(line=0, start="Yerlileri ", text="köle yapmak yasaktır.", at=A("c9s9", "köle", -0.15)),
          seal=True, seal_at=A("c9s9", "yasaktı", 0.2), label="yeni_yasalar"),
     # s9b — yerleşimciler öfkelendi; yasayı getiren Peru valisi öldürüldü
-    shot("map", a=A("c9s9", "Yerleşimciler", -0.3), tr=("fade", 0.8), cams=[(0.0, (-38.5, 14.2, 0.45)), (AE("c9s9", 0.0), (-39.6, 13.7, 0.46))],
+    shot("map", a=A("c9s9", "Yerleşimciler", -0.3), tr=("fade", 0.8), cams=[(0.0, (-37.17, 16.26, 0.383)), (AE("c9s9", 0.0), (-37.9, 15.8, 0.39))],
          regions=[dict(name="ispanya", color="ispanya", at=0.0, alpha=0.5), dict(name="peru_ispanya", color="ispanya", at=0.2, alpha=0.5)],
-         labels=[dict(text="ATLANTİK OKYANUSU", lon=-16, lat=-10, size=28, color="#9FB8C8", at=0.4, track=12), dict(text="PERU", lon=-70.5, lat=-3.5, size=32, at=A("c9s9", "Yerleşimciler", 0.2), track=14)],
+         labels=[dict(text="ATLANTİK OKYANUSU", lon=-13.5, lat=-8, size=28, color="#9FB8C8", at=0.4, track=12), dict(text="PERU", lon=-70.5, lat=-3.5, size=32, at=A("c9s9", "Yerleşimciler", 0.2), track=14)],
          routes=[dict(pts=[(-6.3, 37.2), (-30, 27), (-58, 14), (-79.5, 9), (-77.0, -12.0)], at=A("c9s9", "yasayı", -0.1), dur=2.3, color="#F0D27A", width=4, dash=(12, 10), arrow=False)],
          icons_=[dict(kind="torch", lon=-76.0, lat=-7.0, size=84, at=A("c9s9", "öfkelendi", -0.5), metal="crimson", bob=3, glow=0.3),
                  dict(kind="torch", lon=-72.0, lat=-10.5, size=84, at=A("c9s9", "öfkelendi", -0.3), metal="crimson", bob=3, glow=0.3),
                  dict(kind="torch", lon=-78.5, lat=-13.5, size=84, at=A("c9s9", "öfkelendi", -0.1), metal="crimson", bob=3, glow=0.3),
                  dict(kind=icn("flag", "shield"), route=[(-6.3, 37.2), (-30, 27), (-58, 14), (-79.5, 9), (-77.0, -12.0)], at=A("c9s9", "yasayı", -0.1), move_at=A("c9s9", "yasayı", -0.1), move_dur=2.3, size=90, metal="gold", bob=2, glow=0.25),
                  dict(kind="skull", lon=-77.0, lat=-12.0, size=96, at=A("c9s9", "öldürüldü", -0.05), metal="onyx", glow=0.0)],
-         notes=[dict(text="YERLEŞİMCİLER", x=560, y=590, at=A("c9s9", "Yerleşimciler", 0.0), w=420, size=32),
-                dict(text="PERU VALİSİ", x=560, y=690, at=A("c9s9", "valisi", -0.2), w=360, size=32)], label="peru_valisi"),
+         notes=[dict(text="YERLEŞİMCİLER", x=50, y=640, at=A("c9s9", "Yerleşimciler", 0.0), w=360, size=32),
+                dict(text="PERU VALİSİ", x=50, y=740, at=A("c9s9", "valisi", -0.2), w=360, size=32)], label="peru_valisi"),
     # s10a — 1550, Valladolid; fetihler geçici olarak durdu
     shot("map", a=A("c9s10", -0.2), tr=("dip", 0.9), cams=[(0.0, (-3, 40.8, 2.3)), (AE("c9s10", -2.5), (-4.7, 41.6, 4.6))],
          regions=[dict(name="ispanya", color="ispanya", at=0.2, alpha=0.5)],
@@ -105,6 +105,6 @@ SHOTS = [
          medal_=dict(key="elkano", metal="bronze", x=W * 0.27, y=H * 0.57, size=500, at=A("c9s13", "Elcano", -0.2), name="ELCANO", role="Kaptan"),
          extra=S9.fleet_extra(A("c9s13", "Eve", -0.1), A("c9s13", "tek", -0.1), A("c9s13", "Elcano", -0.2), A("c9s13", "on", -0.1)), label="elcano_on_sekiz"),
     # s14 — arma: bir küre ve "Primus circumdedisti me"
-    shot("c9_arma", a=A("c9s14", -0.25), tr=("fade", 1.0), at_arma=A("c9s14", "arma", -0.35), at_globe=A("c9s14", "küre", -0.25), at_motto=A("c9s14", "yazı", -0.2),
+    shot("c9_arma", a=A("c9s14", -0.25), tr=("fade", 1.0), at_karl=A("c9s14", "Şarlken", -0.1), at_elcano=A("c9s14", "ona", -0.15), at_arma=A("c9s14", "arma", -0.35), at_globe=A("c9s14", "küre", -0.25), at_motto=A("c9s14", "yazı", -0.2),
          words=[("PRIMUS", A("c9s14", "Primus", -0.05)), ("CIRCUMDEDISTI", A("c9s14", "circumdedisti", -0.05)), ("ME", A("c9s14", "me", -0.05))], at_tr=A("c9s14", "Beni", -0.1), label="arma_primus"),
 ]

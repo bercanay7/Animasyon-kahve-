@@ -458,7 +458,7 @@ def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, ke
     x0 = CX - cw * n / 2
     ta, tb = cx.at(at_start), cx.at(at_end)
     prog = clamp((cx.t - ta) / max(0.3, tb - ta))
-    SH.kicker(f, "1527", x0 - 10, y - 74, alpha=am, size=34, track=10, face="title_m", color="#C9B27A", align="l")
+    SH.kicker(f, "1527", x0 + 8, y - 52, alpha=am, size=46, track=12, face="title_m", color="#E0C682", align="l")
     for i, m in enumerate(months):
         xx = x0 + i * cw
         lit = clamp(prog * n - i)
@@ -545,7 +545,7 @@ def k_zincir(cx, at_n1=0.0, at_n2=0.0, at_n3=0.0, at_n4=0.0, at_x=0.0, at_break=
     # damga
     t = cx.amt(at_stamp, 0.3)
     if t > 0:
-        SH.stamp(f, "SIKÇA ANLATILIR", CX, 180, rot=-0.04, size=54, t=t, color="#B02A2A")
+        SH.stamp(f, "SIKÇA ANLATILIR", CX, 168, rot=-0.04, size=54, t=t, color="#B02A2A")
     f.vig(0.6)
 
 
@@ -677,7 +677,6 @@ def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
         bh = lerp(700, 520, sl)
         ST.figure(f, "page", bx - 120, H + 60, bh * 0.98, col="#0A0605", rim="#8EA8C8", face=1, alpha=kb)
         ST.figure(f, "child", bx + 120, H + 60, bh * 0.86, col="#0A0605", rim="#8EA8C8", face=-1, alpha=kb)
-        X.chip(f, "İKİ OĞUL", bx, H - bh - 10 if sl > 0.5 else 190, k=kb, size=30, edge="#6C92E0", color="#E0ECFF")
     if a > 0:
         rs = np.random.RandomState(9)
         for i in range(46):
@@ -693,6 +692,8 @@ def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
         SH.gold_flat(f, s_, xc, 520, face="title", size=190, track=6, alpha=a)
         f.text("ALTIN ECÜ", xc, 610, face="title_m", size=52, color="#E0C682", align="c", track=16, alpha=cx.amt(at, 0.5, off=0.3))
         X.ic(f, "coinbag", xc, 270, size=260 * (0.9 + 0.1 * back_out(a)), metal="gold", alpha=a, glow=0.3 * a)
+    if kb > 0:
+        X.chip(f, "İKİ OĞUL", bx, H - bh - 10 if sl > 0.5 else 190, k=kb, size=30, edge="#6C92E0", color="#E0ECFF")
     f.vig(0.6)
 
 
@@ -767,6 +768,14 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
     tk = cx.amt(at_war, 0.3)
     if tk > 0:
         SH.stamp(f, "YAKLAŞIK", 400, 300, rot=-0.06, size=40, t=tk, color="#9A7A38")
+    # iki rakip: bölümün başındaki iki madalya, savaş kesintilerle sürerken yeniden yüz yüze
+    km = cx.amt(at_gap, 0.9, off=-0.1)
+    if km > 0:
+        ym = 910
+        for (xm, key, metal, flip) in ((905, "karl_olgun", "gold", False), (1315, "fransuva", "royal", True)):
+            f.circle(xm, ym, 170, shader=f.rad(xm, ym, 170, [("#000000", 0.0, int(120 * km)), ("#000000", 1.0, 0)]))
+            SH.draw_medal(f, key, xm, ym + (1 - km) * 22, 235 * (0.9 + 0.1 * ease_out(km)), metal, flip, alpha=0.92 * km, tilt=0.1 * math.sin(cx.t * 0.6 + xm))
+        X.ic(f, "swords", 1110, ym, size=118 * (0.8 + 0.2 * back_out(km)), metal="silver", alpha=km, glow=0.18 * km)
     f.vig(0.58)
 
 

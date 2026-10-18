@@ -136,6 +136,11 @@ def wrap_text(text, face, size, max_w, track=0.0):
 
 
 # ───────────────────────────── kolay hareket ─────────────────────────────
+def tr_upper(s):
+    """Türkçe büyük harf: i→İ, ı→I (str.upper() "BIR KEŞIŞ" üretir)."""
+    return s.replace("i", "İ").replace("ı", "I").upper()
+
+
 def clamp(x, a=0.0, b=1.0):
     return a if x < a else b if x > b else x
 

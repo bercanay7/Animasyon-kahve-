@@ -1,41 +1,20 @@
-— ekran yazısı denetimi — 248 çekim, 34 çekimde anlatımda geçmeyen sayı var (süre 170 sn)
+— ekran yazısı denetimi — 115 çekim, 17 çekimde anlatımda geçmeyen sayı var (süre 55 sn)
 
-c0 #2 theatre 'cift_orta'  t=6.8
-     sayı '55' anlatımda yok ← ekran metni: '55 YAŞINDA'
-c0 #4 c0_forty 'kirk_yil'  t=14.4
-     sayı '34' anlatımda yok ← ekran metni: '34'
-     sayı '40' anlatımda yok ← ekran metni: '40'
-c1 #23 a_theatre 'kule_juana'  t=93.7
-     sayı '46' anlatımda yok ← ekran metni: '46 YIL'
-c1 #28 quote 'soz_alinti'  t=123.2
-     sayı '1601' anlatımda yok ← ekran metni: '1601'
-     sayı '43' anlatımda yok ← ekran metni: 'YAKLAŞIK 43 YIL'
-c1 #29 a_timeline_s '43_yil'  t=126.5
-     sayı '1560' anlatımda yok ← ekran metni: '1560'
-     sayı '1580' anlatımda yok ← ekran metni: '1580'
-     sayı '1600' anlatımda yok ← ekran metni: '1600'
-     sayı '1601' anlatımda yok ← ekran metni: '1601'
-     sayı '43' anlatımda yok ← ekran metni: 'YAKLAŞIK 43 YIL'
-c1 #34 a_theatre 'tazones_koyu'  t=153.4
-     sayı '17' anlatımda yok ← ekran metni: '17 YAŞINDA · KRAL'
-c1 #35 c1_halk 'yeni_halk'  t=155.3
-     sayı '17' anlatımda yok ← ekran metni: '17 YAŞINDA · KRAL'
-c2 #44 a_theatre 'sayim_odasi_850bin'  t=194.2
-     sayı '849.762' anlatımda yok ← ekran metni: '849.762'
-     sayı '91.326' anlatımda yok ← ekran metni: '91.326'
-c2 #45 c2_pay 'fugger_payi'  t=198.9
-     sayı '502.702' anlatımda yok ← ekran metni: '502.702'
-c4 #73 c4_theses '95_madde'  t=326.5
+c4 #3 c4_duel 'karl_luther'  t=322.9
+     sayı '21' anlatımda yok ← ekran metni: 'İmparator · 21 yaşında'
+c4 #4 c4_theses '95_madde'  t=326.5
      sayı '10' anlatımda yok ← ekran metni: '10'
      sayı '11' anlatımda yok ← ekran metni: '11'
      sayı '12' anlatımda yok ← ekran metni: '12'
+     sayı '13' anlatımda yok ← ekran metni: '13'
      sayı '14' anlatımda yok ← ekran metni: '14'
      sayı '95' anlatımda yok ← ekran metni: '95'
      sayı '95' anlatımda yok ← ekran metni: '95 MADDE'
-c4 #75 c4_safeconduct 'guvenli_gecis'  t=336.4
+c4 #6 c4_safeconduct 'guvenli_gecis'  t=336.4
      sayı '10' anlatımda yok ← ekran metni: '10'
      sayı '11' anlatımda yok ← ekran metni: '11'
      sayı '12' anlatımda yok ← ekran metni: '12'
+     sayı '13' anlatımda yok ← ekran metni: '13'
      sayı '14' anlatımda yok ← ekran metni: '14'
      sayı '15' anlatımda yok ← ekran metni: '15'
      sayı '16' anlatımda yok ← ekran metni: '16'
@@ -43,73 +22,60 @@ c4 #75 c4_safeconduct 'guvenli_gecis'  t=336.4
      sayı '18' anlatımda yok ← ekran metni: '18'
      sayı '19' anlatımda yok ← ekran metni: '19'
      sayı '20' anlatımda yok ← ekran metni: '20'
-c5 #95 bw_theatre 'luther_istememisti'  t=450.1
+     sayı '21' anlatımda yok ← ekran metni: '21'
+c5 #26 bw_theatre 'luther_istememisti'  t=450.1
      sayı '35.145' anlatımda yok ← ekran metni: '35.145 – 50.207'
      sayı '50.207' anlatımda yok ← ekran metni: '35.145 – 50.207'
      sayı '70.000' anlatımda yok ← ekran metni: '70.000 – 100.000'
      sayı '100.000' anlatımda yok ← ekran metni: '70.000 – 100.000'
-c5 #97 c5_protest 'protestan'  t=461.7
+c5 #28 c5_protest 'protestan'  t=461.7
      sayı '14' anlatımda yok ← ekran metni: '14'
-c6 #125 c6_muhafiz 'muhafiz_189_147'  t=606.3
+c6 #56 c6_muhafiz 'muhafiz_189_147'  t=606.3
      sayı '140' anlatımda yok ← ekran metni: '140'
-c6 #133 c6_fidye 'iki_milyon_ecu'  t=651.6
+c6 #64 c6_fidye 'iki_milyon_ecu'  t=651.6
      sayı '1.998.093' anlatımda yok ← ekran metni: '1.998.093'
+     sayı '1520' anlatımda yok ← ekran metni: '1520'
      sayı '2.000.000' anlatımda yok ← ekran metni: '2.000.000'
      sayı '506.456' anlatımda yok ← ekran metni: '506.456'
-c6 #134 c6_savas 'savas_kronoloji'  t=657.1
+c6 #65 c6_savas 'savas_kronoloji'  t=657.1
+     sayı '1520' anlatımda yok ← ekran metni: '1520'
      sayı '1540' anlatımda yok ← ekran metni: '1540'
+     sayı '1550' anlatımda yok ← ekran metni: '1550'
      sayı '1560' anlatımda yok ← ekran metni: '1560'
-c7 #136 medal 'suleyman'  t=666.4
+c7 #67 medal 'suleyman'  t=666.4
      sayı '1510' anlatımda yok ← ekran metni: '1510'
-c7 #137 c7_hukum 'ayni_yillar'  t=671.1
+c7 #68 c7_hukum 'ayni_yillar'  t=671.1
      sayı '1510' anlatımda yok ← ekran metni: '1510'
+     sayı '1516' anlatımda yok ← ekran metni: '1516'
+     sayı '1520' anlatımda yok ← ekran metni: '1520'
      sayı '1540' anlatımda yok ← ekran metni: '1540'
+     sayı '1550' anlatımda yok ← ekran metni: '1550'
+     sayı '1556' anlatımda yok ← ekran metni: '1556'
      sayı '1560' anlatımda yok ← ekran metni: '1560'
-c7 #146 c678_cift 'ordu_75_100bin'  t=706.2
+c7 #77 c678_cift 'ordu_75_100bin'  t=706.2
      sayı '7.376' anlatımda yok ← ekran metni: '7.376 – 9.835'
      sayı '9.835' anlatımda yok ← ekran metni: '7.376 – 9.835'
      sayı '74.825' anlatımda yok ← ekran metni: '74.825 – 99.766'
      sayı '99.766' anlatımda yok ← ekran metni: '74.825 – 99.766'
      sayı '75.000' anlatımda yok ← ekran metni: '75.000 – 100.000'
      sayı '100.000' anlatımda yok ← ekran metni: '75.000 – 100.000'
-c7 #152 c678_cift 'guns_700_800_25'  t=736.5
+c7 #84 c678_cift 'guns_700_800_25'  t=736.5
+     sayı '25' anlatımda yok ← ekran metni: '25'
      sayı '700' anlatımda yok ← ekran metni: '700 – 800'
      sayı '800' anlatımda yok ← ekran metni: '700 – 800'
-c7 #156 c678_cift '30bin_altin'  t=760.9
+c7 #88 c678_cift '30bin_altin'  t=760.9
      sayı '19.392' anlatımda yok ← ekran metni: '19.392'
      sayı '29.958' anlatımda yok ← ekran metni: '29.958'
      sayı '30.000' anlatımda yok ← ekran metni: '30.000'
-c8 #165 c678_cift '20bin_esir'  t=798.9
+c8 #97 c678_cift '20bin_esir'  t=798.9
      sayı '19.268' anlatımda yok ← ekran metni: '19.268'
      sayı '20.000' anlatımda yok ← ekran metni: '20.000'
-c8 #172 c678_cift '500_24bin'  t=830.9
+c8 #104 c678_cift '500_24bin'  t=830.9
      sayı '15.410' anlatımda yok ← ekran metni: '≈ 15.410'
      sayı '24.000' anlatımda yok ← ekran metni: '≈ 24.000'
      sayı '500' anlatımda yok ← ekran metni: '≈ 500'
-c8 #173 c678_sahne 'cezayir_firtina'  t=835.1
+c8 #105 c678_sahne 'cezayir_firtina'  t=835.1
      sayı '150' anlatımda yok ← ekran metni: '≈ 150'
      sayı '81' anlatımda yok ← ekran metni: '≈ 81'
-c9 #181 wd_counter 'yuz_bin_florin'  t=880.6
-     sayı '100.000' anlatımda yok ← ekran metni: '≈ 100.000'
-     sayı '98.983' anlatımda yok ← ekran metni: '≈ 98.983'
-c9 #184 theatre 'fidye_odasi'  t=891.8
-     sayı '1.322.665' anlatımda yok ← ekran metni: '1.322.665'
-     sayı '812.956' anlatımda yok ← ekran metni: '812.956'
-c9 #194 wd_counter 'elcano_on_sekiz'  t=944.8
-     sayı '18' anlatımda yok ← ekran metni: '18'
-c10 #200 c10_sayac '35_yil_vergi'  t=971.1
-     sayı '35' anlatımda yok ← ekran metni: '35'
-c10 #201 c10_bars 'uc_bolge_vergi'  t=975.9
-     sayı '10' anlatımda yok ← ekran metni: '10+ MİLYON'
-c11 #215 c11_loss 'isabel_oldu'  t=1058.5
+c11 #112 c11_loss 'isabel_oldu'  t=1058.5
      sayı '35' anlatımda yok ← ekran metni: '35 YAŞINDA'
-c12 #224 wd_counter 'juana_46'  t=1109.2
-     sayı '46' anlatımda yok ← ekran metni: '46'
-c12 #226 wd_medals 'felipe_mary'  t=1122.4
-     sayı '1515' anlatımda yok ← ekran metni: '1515'
-c12 #227 c12_forty 'kirk_yil'  t=1126.1
-     sayı '15' anlatımda yok ← ekran metni: '15 YAŞINDA'
-     sayı '1515' anlatımda yok ← ekran metni: '1515'
-     sayı '40' anlatımda yok ← ekran metni: '40 YIL'
-c12 #239 wd_medal_swap 'elli_sekiz'  t=1194.1
-     sayı '58' anlatımda yok ← ekran metni: '58 yaşında  ·  1500 – 1558'

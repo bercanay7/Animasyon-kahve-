@@ -681,7 +681,8 @@ def _region_builders():
         "c1_flandre": lambda C: unary_union([C["France"], C["Belgium"], C["Netherlands"]]).intersection(
             P([(2.4, 51.2), (3.6, 51.7), (4.3, 51.5), (4.15, 51.0), (4.15, 50.85), (3.85, 50.6), (3.3, 50.5), (2.9, 50.68), (2.55, 50.8), (2.4, 51.0)])),
         "c1_aragon": lambda C: C["Spain"].intersection(P(aragon)),
-        "c1_kastilya": lambda C: C["Spain"].difference(P(aragon)),
+        # Navarra (1500'de bağımsız; Kastilya'ya 1512–15'te katıldı) kuzeydoğuda ince bir kama bırakıyordu: çıkarılır
+        "c1_kastilya": lambda C: C["Spain"].difference(P(aragon)).difference(P([(-1.85, 42.45), (-1.85, 44.2), (1.0, 44.2), (1.0, 42.45)])),
         "c3_castilla_leon": lambda C: C["Spain"].intersection(P([(-6.9, 42.9), (-6.0, 43.3), (-4.5, 43.3), (-3.2, 43.1), (-3.0, 42.7), (-2.6, 42.3), (-2.0, 42.1), (-1.9, 41.3),
                                                                   (-2.5, 41.1), (-3.2, 41.0), (-3.8, 40.7), (-4.6, 40.2), (-5.2, 40.0), (-5.9, 40.3), (-6.7, 40.3), (-6.9, 40.9), (-6.5, 41.5), (-6.9, 41.9), (-7.1, 42.5)])),
         "c3_valensiya": lambda C: C["Spain"].intersection(P([(-0.3, 40.9), (0.8, 40.9), (1.4, 39.0), (0.2, 37.8), (-0.8, 37.8), (-1.3, 38.4), (-1.45, 39.4), (-1.2, 40.3)])),

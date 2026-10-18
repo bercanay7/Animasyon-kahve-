@@ -6,6 +6,7 @@
 * wd_counter, wd_vs, wd_medal_swap: bölümler arası paylaşılan çekim türleri.
 Ortak dosyalara dokunulmaz; her şey bu modülde.
 """
+import functools
 import math
 
 import numpy as np
@@ -19,6 +20,9 @@ from sk import W, H, C, back_out, clamp, ease_io, ease_out, lerp, mix, seg, smoo
 
 # ───────────────────────────── çapalar ─────────────────────────────
 HUD_R = (1500, 0, 420, 110)     # sağ üst HUD (ortak) — içerik koyma
+
+
+MISSES = []          # bulunamayan çapa sözcükleri (denetim için: python3 -c "import d_common, scenes_c9; print(d_common.MISSES)")
 
 
 def A(sid, key=None, off=0.0, nth=0, alt=()):
@@ -38,6 +42,7 @@ def A(sid, key=None, off=0.0, nth=0, alt=()):
             return (sid, float(t - t0 + off))
         except KeyError:
             continue
+    MISSES.append((sid, key, tuple(alt), nth))
     return (sid, float(off))
 
 
@@ -145,9 +150,52 @@ def ring_pulse(f, x, y, t0, t, r0=20, r1=260, dur=1.4, color="#F0D27A", sw=3, a=
         f.circle(x, y, lerp(r0, r1, ease_out(k)), style="stroke", sw=sw * (1 - 0.6 * k), color=color, alpha=a * (1 - k))
 
 
+@functools.lru_cache(maxsize=24)
+def _medal_img(key, metal, flip):
+    """720 px madalya görüntüsü (önbellekli; SH.draw_medal her karede yeniden boyutlayıp dönüştürüyor)."""
+    return medal.medal_image(key, metal, medal.INSCR.get(key), flip, size=720)
+
+
+@functools.lru_cache(maxsize=16)
+def _medal_shadow(key, metal, flip):
+    """Madalyanın bulanık gölge görüntüsü (alfa = 0.6, siyah). SH.draw_medal gölgeyi her karede bulanıklaştırıyor (karenin en pahalı işi)."""
+    m = 60
+    surf = skia.Surface(720 + 2 * m, 720 + 2 * m)
+    c = surf.getCanvas()
+    p = skia.Paint(AntiAlias=True)
+    p.setImageFilter(skia.ImageFilters.Blur(18, 18))
+    p.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6, 0]))
+    c.drawImage(_medal_img(key, metal, flip), m, m, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    return surf.makeImageSnapshot()
+
+
+def fast_medal(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, tilt=0.0, glint=None, shadow=True):
+    """SH.draw_medal ile aynı görünüm (piksel farkı < 1/255 civarı), gölge ve görüntü önbellekli → ≈ 2–3× hızlı."""
+    img = _medal_img(key, metal, flip)
+    s = size / 720.0
+    cs = math.cos(tilt * 0.55)
+    if shadow:
+        f.c.save(); f.c.translate(x + size * 0.03, y + size * 0.05); f.c.scale(s * cs, s)
+        p = skia.Paint(AntiAlias=True)
+        p.setAlphaf(clamp(alpha))
+        f.c.drawImage(_medal_shadow(key, metal, flip), -420, -420, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+        f.c.restore()
+    f.c.save(); f.c.translate(x, y); f.c.scale(s * cs, s)
+    if glint is not None:
+        f.c.saveLayer(skia.Rect.MakeLTRB(-380, -380, 380, 380), None)
+    p = skia.Paint(AntiAlias=True); p.setAlphaf(clamp(alpha))
+    f.c.drawImage(img, -360, -360, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    if glint is not None:
+        gx = lerp(-520, 520, glint)
+        sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFE9A8", int(105 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+        f.c.drawRect(skia.Rect.MakeLTRB(-380, -380, 380, 380), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
+        f.c.restore()
+    f.c.restore()
+
+
 def draw_medal_plain(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, t=0.0, i=0, glint=True, shadow=True):
     gl = (t * 0.25 + 0.2 * i) % 2.0
-    SH.draw_medal(f, key, x, y, size, metal, flip, alpha=alpha, tilt=0.15 * math.sin(t * 0.5 + i), glint=(gl if (glint and gl < 1) else None), shadow=shadow)
+    fast_medal(f, key, x, y, size, metal, flip, alpha=alpha, tilt=0.15 * math.sin(t * 0.5 + i), glint=(gl if (glint and gl < 1) else None), shadow=shadow)
 
 
 def nplate(f, name, role=None, cx_=W / 2, y=800, t=1.0, size=44, maxw=None, alpha=1.0, min_w=340):
@@ -529,7 +577,7 @@ def k_wd_doc(cx, title="", lines=(), w=1100, h=620, at=0.0, line_dt=0.5, ink="#2
                     t=cx.amt(seal_at if seal_at is not None else at, 0.35, off=0.0 if seal_at is not None else 1.4), alpha=a, mono=mono)
     f.c.restore()
     if caption:
-        SH.kicker(f, caption, W / 2, H - 70, alpha=cx.amt(at, 0.6, off=0.6), size=24, track=6, face="cap_i", color="#B9A674")
+        SH.kicker(f, caption, W / 2, H - 70, alpha=cx.amt(at, 0.6, off=0.6), size=26, track=6, face="cap_i", color="#B9A674")
     for st in stamps:
         SH.stamp(f, st[0], st[1], st[2], rot=(st[5] if len(st) > 5 else -0.1), t=cx.amt(st[3], 0.3), size=(st[4] if len(st) > 4 else 60))
     sk.dust(f, cx.t, n=40, alpha=0.35)

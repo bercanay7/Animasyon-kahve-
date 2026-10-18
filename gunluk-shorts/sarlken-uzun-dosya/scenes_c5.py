@@ -7,6 +7,11 @@ import icons_b  # noqa: F401
 from bw_lib import anc, fadeout, tag
 from sk import W, H
 
+try:                       # c0'ın bastonsuz çift figürü (yazar D'nin ortak parçası; kaynak kapısı: baston YOK) — son çekim c0 ile aynı salon + aynı figür
+    import scenes_d as SD
+except Exception:          # noqa: BLE001  (modül yarım kalmışsa bölüm yine de çalışsın; salon figürsüz kalır)
+    SD = None
+
 F = ("fade", 0.7)
 D = ("dip", 0.9)
 WH = ("whip", 0.6)
@@ -21,6 +26,12 @@ def _night_label(cx):
 
 def _hall_out(cx):
     fadeout(cx, 1.0)
+
+
+def _hall_pair(f, t):
+    """c0'ın salonundaki çift (yaşlı imparator + genç prens, bastonsuz): c0 s2 ile aynı yerleşim (x≈1130, çok yavaş sağa kayar)."""
+    if SD is not None:
+        SD.draw_pair(f, 1130.0 + 6.0 * t, 985, 520, t, walk=False)
 
 
 PEAS_P = dict(ground="plain", weather="dusk", smoke=0.8, fire=0.45,
@@ -93,6 +104,6 @@ SHOTS = [
     # s14 — Barışı o yapmadı; kardeşi Ferdinand yürüttü
     shot("bw_medal", a=("c5s14", -0.25), tr=F, key="ferdinand", name="FERDİNAND", role="Kardeşi · yürüten", pos="c", size=640, plate_at=("c5s14", "Ferdinand", -0.35), label="ferdinand"),
     # s15 — Tam bir ay sonra, o büyük salonda (c0 ile aynı sahne): siyaha çözülür
-    shot("bw_theatre", a=("c5s15", -0.3), tr=F, scene="hall", dust_n=36, cams=[(0.0, (960, 540, 1.0)), (("c5s15", "duruyordu", 0.6), (975, 600, 1.16))], p=dict(),
-         overlay=_hall_out, label="salon_son"),
+    shot("bw_theatre", a=("c5s15", -0.3), tr=F, scene="hall", dust_n=36, cams=[(0.0, (960, 560, 1.0)), (("c5s15", "duruyordu", 0.6), (1010, 612, 1.24))],
+         p=dict(emperor=False, extra=_hall_pair), overlay=_hall_out, label="salon_son"),
 ]

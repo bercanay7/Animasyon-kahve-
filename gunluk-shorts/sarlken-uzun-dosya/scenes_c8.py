@@ -19,6 +19,23 @@ def _route_icon_ships(cx, cam, mv):
     pass
 
 
+def _tunus_extra(cx):
+    """Karl ↔ Doria madalyaları arasında Doria'nın filosu: kesikli rota üstünde altın gemi simgesi ilerler ("filosuyla"); BİZZAT levhası."""
+    f = cx.f
+    kf = cx.amt(("c8s3", "filosuyla", -0.3), 0.7)
+    if kf > 0:
+        y = 500
+        pr = ease_io(clamp((cx.t - cx.at(("c8s3", "filosuyla", -0.3))) / 3.2))
+        p = f.paint("#E3B54A", style="stroke", sw=4, alpha=0.75 * kf)
+        p.setPathEffect(__import__("skia").DashPathEffect.Make([14, 12], -cx.t * 26))
+        f.c.drawLine(800, y, 1120, y, p)
+        xs = 850 + 220 * pr
+        f.oval(xs, y + 40, 62, 9, color="#9CC4D8", alpha=0.35 * kf)
+        X.glow(f, xs, y - 8, 90, "#E3B54A", 0.18 * kf)
+        X.ic(f, "ship", xs, y - 8 + math.sin(cx.t * 2.2) * 3.0, size=118 * (0.8 + 0.2 * back_out(kf)), metal="gold", alpha=kf, glow=0.2 * kf)
+    X.chip(f, "BİZZAT", 510, 960, k=cx.amt(("c8s3", "bizzat", -0.1), 0.5), size=34, edge="#E3B54A", color="#F4DD92", padx=40)
+
+
 def _fleet_extras(*fns):
     def fn(cx, cam, mv):
         for g in fns:
@@ -146,8 +163,8 @@ SHOTS = [
                   dict(name="sicilya", color="ispanya", at=0.2, alpha=0.5), dict(name="napoli_kara", color="ispanya", at=0.2, alpha=0.5)],
          routes=[dict(pts=[(28.98, 41.01), (26.4, 38.8), (23.0, 36.6), (17.0, 36.2), (11.0, 37.0), (10.3, 36.8)], at=("c8s2", "kaptan-ı", -0.1), dur=3.0, color="#5FA878", width=9)],
          cities=[dict(lon=28.98, lat=41.01, name="İSTANBUL", kind="capital", at=0.0, color="#9FE0B4", side="b", size=28),
-                 dict(lon=10.18, lat=36.8, name="TUNUS", kind="siege", at=("c8s2", "Tunus'u", -0.1), side="t", size=32)],
-         notes=[dict(text="KAPTAN-I DERYA", x=210, y=250, at=("c8s2", "kaptan-ı", -0.1), w=520, size=40)],
+                 dict(lon=10.18, lat=36.8, name="TUNUS", kind="siege", at=("c8s2", "Tunus'u", -0.1), side="l", size=34)],
+         notes=[dict(text="KAPTAN-I DERYA", x=210, y=250, at=("c8s2", "kaptan-ı", -0.1), w=480, size=40, sub="Barbaros")],
          icons_=[dict(kind="ship", lon=26.4, lat=38.8, size=84, at=("c8s2", "kaptan-ı", 0.0), metal="forest", route=[(28.98, 41.01), (26.4, 38.8), (23.0, 36.6), (17.0, 36.2), (11.0, 37.0), (10.3, 36.8)],
                       move_at=("c8s2", "kaptan-ı", -0.1), move_dur=3.0, bob=3)],
          date=("1534", ("c8s2", "1534'te", -0.1)), label="istanbul_tunus"),
@@ -156,8 +173,7 @@ SHOTS = [
     shot("c678_medals", a=("c8s3", -0.2), tr=("fade", 0.7), bgk="sea", size=520, y=H * 0.45, gap=900, title="TUNUS SEFERİ · 1535",
          items=[dict(key="karl_olgun", name="V. KARL", role="İmparator", at=("c8s3", "Şarlken,", -0.1), metal="gold"),
                 dict(key="doria", name="ANDREA DORIA", role="Filo komutanı", at=("c8s3", "Andrea", -0.1), metal="silver", flip=True)],
-         extra=lambda cx: X.chip(cx.f, "BİZZAT", 510, 150 + 0, k=cx.amt(("c8s3", "bizzat", -0.1), 0.5), size=36, edge="#E3B54A", color="#F4DD92", padx=40) if False else
-         X.chip(cx.f, "BİZZAT", 510, 840 + 120, k=cx.amt(("c8s3", "bizzat", -0.1), 0.5), size=34, edge="#E3B54A", color="#F4DD92", padx=40), label="karl_doria"),
+         extra=_tunus_extra, label="karl_doria"),
 
     # s4 — Halkulvadi düştü; yirmi bin esir
     shot("c678_sahne", a=("c8s4", -0.3), tr=("whip", 0.5), scene="siege", cams=[(0.0, (960, 540, 1.0)), (("c8s4", "alındı.", 0.0), X.kcam(0.70, 1.4, 470))],
@@ -167,6 +183,7 @@ SHOTS = [
                           X.ov_stamp("TUNUS ALINDI", ("c8s4", "Tunus", -0.15), x=430, y=400, size=54, rot=-0.06)), label="halkulvadi"),
     shot("c678_cift", a=("c8s4", "Yaklaşık", -0.2), tr=("fade", 0.5), bgk="sea", title="HALKULVADİ · TUNUS", y=H * 0.5, size=190, ykick=150,
          items=[dict(value=20000, unit="esir", label="SERBEST KALDI", icon=CHAINS, metal="gold", at=("c8s4", "yirmi", -0.15), dur=1.3)],
+         band=(["crowd_a", "crowd_b", "crowd_c", "crowd_d", "crowd_e", "crowd_f", "child", "monk", "peasant"], 34, ("c8s4", "yirmi", -0.2), "#7FA0C0", 2.2),
          stampt=("YAKLAŞIK", 1330, 330, ("c8s4", "Yaklaşık", -0.1), 44, -0.07), label="20bin_esir"),
 
     # s5 — Habsburg çevresinde zafer kutlaması
@@ -212,7 +229,9 @@ SHOTS = [
          date=("1541", ("c8s9", "1541'de", -0.1)), label="cezayir_harita"),
     shot("c678_cift", a=("c8s9", "beş", -0.15), tr=("fade", 0.5), bgk="sea", title="CEZAYİR · 1541", y=H * 0.5, size=150, ykick=140,
          items=[dict(value=500, prefix="≈ ", unit="yelkenli", icon="ship", metal="gold", at=("c8s9", "beş", -0.1), dur=1.3),
-                dict(value=24000, prefix="≈ ", unit="asker", icon="swords", metal="gold", at=("c8s9", "yaklaşık", -0.15), dur=1.5)], label="500_24bin"),
+                dict(value=24000, prefix="≈ ", unit="asker", icon="swords", metal="gold", at=("c8s9", "yaklaşık", -0.15), dur=1.5)],
+         fleet=(66, ("c8s9", "beş", -0.1), dict(y0=H * 0.72, dur=1.6, flag="#8E1F26", face=1)),
+         band=(["landsknecht", "pikeman", "arquebusier", "halberdier", "landsknecht"], 40, ("c8s9", "yaklaşık", -0.15), "#C58A44", 2.0), label="500_24bin"),
 
     # s10 — fırtına: barut ıslandı, ≈150 gemi battı
     shot("c678_sahne", a=("c8s10", -0.2), tr=("whip", 0.5), scene="sea", cams=[(0.0, (940, 556, 1.0)), (("c8s10", "yaklaşık", -0.3), (990, 572, 1.25))],

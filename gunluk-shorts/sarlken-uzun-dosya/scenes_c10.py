@@ -86,8 +86,8 @@ SHOTS = [
          regions=[dict(name="c10_venezuela", color="#2F7A8A", at=("c10s7", "Venezuela'da", -0.15), alpha=0.55)], extra=_ex_venezuela, approx=False, label="welser_venezuela"),
     # s8 — 1556'da borç uçurumda; Nisan 1557'de Felipe ödemeleri durdurdu
     shot("c10_ucurum", a=("c10s8", -0.2), tr=("fade", 0.8), t_year=("c10s8", "1556'da", -0.1), t_crown=("c10s8", "imparator", -0.1), t_debt=("c10s8", "devletin", -0.1), t_edge=("c10s8", "uçurumdaydı.", -0.2), label="borc_ucurumda"),
-    shot("a_c_medal", a=("c10s8", "Nisan", -0.2), tr=("dip", 0.9), key="felipe2", metal="gold", name="FELİPE", role="Şarlken'in oğlu", pos="c", size=600,
-         at=("c10s8", "oğlu", -0.45), plate_at=("c10s8", "Felipe,", -0.1), extra=_ex_nisan, stampt=("ÖDEMELER DURDU", 1380, 735, ("c10s8", "ödemeleri", -0.1), 60), label="felipe_odemeleri_durdurdu"),
+    shot("a_c_medal", a=("c10s8", "Nisan", -0.2), tr=("dip", 0.9), key="felipe2", metal="gold", name="FELİPE", role="Şarlken'in oğlu", pos="l", size=620,
+         at=("c10s8", "oğlu", -0.45), plate_at=("c10s8", "Felipe,", -0.1), extra=_ex_nisan, stampt=("ÖDEMELER DURDU", 1500, 735, ("c10s8", "ödemeleri", -0.1), 56), label="felipe_odemeleri_durdurdu"),
     # s9 — imparatorluk altınla değil borçla ayakta duruyordu
     shot("c10_kapanis", a=("c10s9", -0.2), tr=("fade", 0.8), t_gold=("c10s9", "imparatorluk", -0.1), t_not=("c10s9", "değil,", -0.25), t_debt=("c10s9", "borçla", -0.15), label="borcla_ayakta"),
 ]

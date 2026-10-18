@@ -217,11 +217,11 @@ def k_yuk(cx, at_title=0.0, at_karl=0.0, at_not=0.0, at_ferd=0.0):
     X.strike_line(f, 360, 420, 680, 700, kn, sw=16)
     if kn > 0:
         X.chip(f, "ŞARLKEN DEĞİL", 520, H * 0.84, k=kn, size=32, edge="#B02A2A", color="#F8E2D8", padx=34)
-    af = cx.amt(at_ferd, 0.9)
+    af = cx.amt(at_ferd, 0.55)
     if af > 0:
         X.glow(f, 1400, 560, 400, "#E3B54A", 0.24 * af)
         SH.draw_medal(f, "ferdinand", 1400, 560, 540 * (0.92 + 0.08 * ease_out(af)) * (1 + 0.03 * cx.u), "gold", True, alpha=af, tilt=-0.14 * math.sin(cx.t * 0.55))
-        SH.name_plate(f, "FERDİNAND", "Kardeşi", None, cx_=1400, y=H * 0.81, t=cx.amt(at_ferd, 0.6, off=0.4), w=480)
+        SH.name_plate(f, "FERDİNAND", "Kardeşi", None, cx_=1400, y=H * 0.81, t=cx.amt(at_ferd, 0.5, off=0.25), w=480)
     f.vig(0.6)
 
 

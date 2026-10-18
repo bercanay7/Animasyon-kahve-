@@ -261,8 +261,8 @@ def k_chapter_card(cx, n="I", title="", years="", front=None, fronts=None, fnow=
     f.line(W / 2 - ww, H * 0.405, W / 2 + ww, H * 0.405, color="#C9962B", sw=2, alpha=0.8 * a)
     f.circle(W / 2, H * 0.405, 7, color="#C9962B", alpha=a)
     f.circle(W / 2, H * 0.405, 3, color="#1B120B", alpha=a)
-    sz = fit_size(title.upper(), "title", 76, 1560, 8)
-    f.gold(title.upper(), W / 2, H * 0.54, face="title", size=sz, track=8, alpha=cx.amt(0.25, 0.7))
+    sz = fit_size(sk.tr_upper(title), "title", 76, 1560, 8)
+    f.gold(sk.tr_upper(title), W / 2, H * 0.54, face="title", size=sz, track=8, alpha=cx.amt(0.25, 0.7))
     if years:
         kicker(f, years, W / 2, H * 0.62, alpha=cx.amt(0.5, 0.6), size=34, track=10, face="cap_i", color="#C9B27A")
     if fronts:
@@ -538,7 +538,7 @@ def k_counter(cx, value=850000, unit="florin", label="", at=0.0, dur=1.6, icon=N
         icons.draw_icon(f, icon, pos[0], pos[1] - size * 1.0, size=size * 0.95, metal="gold", alpha=a, glow=0.3)
     wd = gold_flat(f, prefix + s + suffix, pos[0], pos[1] + size * 0.3, face="title", size=size, track=6, alpha=a)
     if unit:
-        f.text(unit.upper(), pos[0], pos[1] + size * 0.3 + 76, face="title_m", size=48, color="#E0C682", align="c", track=14, alpha=cx.amt(at + 0.3, 0.5))
+        f.text(sk.tr_upper(unit), pos[0], pos[1] + size * 0.3 + 76, face="title_m", size=48, color="#E0C682", align="c", track=14, alpha=cx.amt(at + 0.3, 0.5))
     if label:
         f.text(label, pos[0], pos[1] + size * 0.3 + 140, face="cap_i", size=40, color="#C9B27A", align="c", alpha=cx.amt(at + 0.6, 0.6))
     if sub:

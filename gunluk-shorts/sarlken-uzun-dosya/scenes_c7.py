@@ -26,15 +26,16 @@ def _dist_extra(cx, cam, mv):
         p = f.paint("#F0D27A", style="stroke", sw=5, alpha=0.9)
         p.setPathEffect(__import__("skia").DashPathEffect.Make([16, 14], -cx.t * 30))
         f.c.drawLine(xi, yi, xe, ye, p)
+    X.scrim(f, W / 2, 112, w=1000, h=150, a=0.5 * cx.amt(("c7s2", "Bildiğimiz", -0.1), 0.6))
     for (x, y, key, metal, flip, at_, name) in ((xi, yi, "suleyman", "forest", True, ("c7s2", "Bildiğimiz", 0.0), "SÜLEYMAN"), (xb, yb, "karl_olgun", "gold", False, ("c7s2", "Bildiğimiz", 0.15), "ŞARLKEN")):
         k = cx.amt(at_, 0.7)
         if k > 0:
             f.circle(x, y - 150, 150, shader=f.rad(x, y - 150, 150, [("#000000", 0.0, int(140 * k)), ("#000000", 1.0, 0)]))
             SH.draw_medal(f, key, x, y - 150 + (1 - k) * 20, 250 * (0.9 + 0.1 * ease_out(k)), metal, flip, alpha=k, tilt=0.1 * math.sin(cx.t * 0.6))
-            f.text(name, x, y + 52, face="title_m", size=28, color="#F0DDA0", align="c", track=6, alpha=k, shadow=(2, 2, 3, "#000000"))
+            f.text(name, x + (-60 if name == "ŞARLKEN" else 0), y + 56 + (8 if name == "ŞARLKEN" else 0), face="title_m", size=28, color="#F0DDA0", align="c", track=6, alpha=k, shadow=(2, 2, 3, "#000000"))
     kh = cx.amt(("c7s2", "Bildiğimiz", -0.1), 0.6)
     if kh > 0:
-        f.text("BİLDİĞİMİZ KADARIYLA", W / 2, 118, face="cap_i", size=36, color="#C9B27A", align="c", track=10, alpha=kh, shadow=(2, 2, 3, "#000000"))
+        f.text("BİLDİĞİMİZ KADARIYLA", W / 2, 122, face="cap_i", size=38, color="#EBD9A2", align="c", track=10, alpha=kh, shadow=(2, 2, 3, "#000000"))
     km = cx.amt(("c7s2", "hiç", -0.1), 0.6)
     if km > 0:
         X.chip(f, "HİÇ KARŞILAŞMADILAR", (xi + xb) / 2, (yi + yb) / 2 - 110, k=km, size=40, edge="#F0D27A", color="#F4DD92", padx=40, h=92)
@@ -81,25 +82,18 @@ def _mohac_water(cx):
             f.oval(W * 0.34, ytop + 6, 40 + u * 260, 8 + u * 46, style="stroke", sw=3, color="#BFE0F0", alpha=0.6 * (1 - u) * k2)
 
 
-def _viyana_weather(cx):
-    """Yağmur (sahnenin kendisi) → çamur (zemin kararır) → erken kar (zemin ağarır, taneler artar) → geri çekilme oku."""
+def _viyana_kar_ov(cx):
+    """Erken kar sahnesi: EKİM ORTASI kicker'ı + GERİ ÇEKİLME levhası ve çekilme oku."""
     f = cx.f
-    km = cx.amt(("c7s8", "çamur", -0.15), 1.0)
-    ks = cx.amt(("c7s8", "erken", -0.1), 1.4)
-    if km > 0:
-        f.rect(0, 640, W, H - 640, shader=f.lin(0, 640, 0, H, [("#2A1C10", 0.0, 0), ("#2A1C10", 1.0, int(120 * km))]))
-    if ks > 0:
-        f.rect(0, 560, W, H - 560, shader=f.lin(0, 560, 0, H, [("#F2F6F8", 0.0, 0), ("#F2F6F8", 1.0, int(78 * ks))]))
-        sk.snow(f, cx.t, n=int(30 + 120 * ks), alpha=0.85 * ks)
     k = cx.amt(("c7s8", "Ekim", -0.1), 0.7)
     if k > 0:
-        X.scrim(f, W / 2, 112, w=900, h=150, a=0.36 * k)
-        SH.kicker(f, "EKİM ORTASI", W / 2, 122, alpha=k, size=36, track=14, face="title_m", color="#E8CF8A")
+        X.scrim(f, W / 2, 112, w=900, h=150, a=0.40 * k)
+        SH.kicker(f, "EKİM ORTASI", W / 2, 122, alpha=k, size=36, track=14, face="title_m", color="#EBD592")
     kg = cx.amt(("c7s8", "geri", -0.15), 0.6)
     if kg > 0:
         X.chip(f, "GERİ ÇEKİLME", W / 2, 205, k=kg, size=40, edge="#B02A2A", color="#F8E2D8", padx=40, h=88)
         pr = ease_out(clamp((cx.t - cx.at(("c7s8", "geri", -0.1))) / 1.5))
-        X.arrow(f, (640, 905), (1560, 905), pr, color="#6FBF8A", width=10, bend=-60, alpha=0.9)
+        X.arrow(f, (640, 925), (1560, 925), pr, color="#5FB37C", width=10, bend=-60, alpha=0.95)
 
 
 SHOTS = [
@@ -169,9 +163,12 @@ SHOTS = [
 
     # s8 — yağmur, çamur, erken kar → geri çekilme
     shot("c678_sahne", a=("c7s8", -0.2), tr=("whip", 0.5), scene="siege",
-         cams=[(0.0, (1020, 590, 1.22)), (("c7s9", -0.4), (1240, 560, 1.0))],
-         p=dict(tag="c7_viyana2", city="viyana", time="day", weather="rain", fire=0.0),
-         overlay=_viyana_weather, label="yagmur_kar_cekilme"),
+         cams=[(0.0, (1020, 590, 1.22)), (("c7s8", "erken", -0.25), (1065, 588, 1.17))],
+         p=dict(tag="c7_viyana_yagmur", city="viyana", time="day", weather="rain", fire=0.0), label="yagmur_camur"),
+    shot("c678_sahne", a=("c7s8", "erken", -0.25), tr=("fade", 0.45), scene="siege",
+         cams=[(0.0, (1065, 588, 1.17)), (("c7s9", -0.4), (1290, 560, 1.0))],
+         p=dict(tag="c7_viyana_kar", city="viyana", time="dusk", weather="snow", fire=0.0),
+         overlay=_viyana_kar_ov, label="erken_kar_cekilme"),
 
     # s9 — Şarlken o hafta İtalya'da
     shot("map", a=("c7s9", -0.2), tr=("wipe", 0.8), cams=[(0.0, (9.6, 45.4, 1.8)), (("c7s10", -0.4), (11.0, 45.8, 2.1))],
@@ -221,7 +218,8 @@ SHOTS = [
     # s14 — 1547 ateşkesi; 30.000 altın
     shot("c7_ates", a=("c7s14", -0.2), tr=("fade", 0.7), at=0.0, at_len=("c7s14", "beş", -0.1), at_seal=("c7s14", "imzalandı.", -0.2), label="ates_kes_1547"),
     shot("c678_cift", a=("c7s14", "Ferdinand,", -0.2), tr=("fade", 0.5), title="FERDİNAND ÖDEYECEKTİ", kick_at=("c7s14", "Ferdinand,", -0.1), tone_col="#C9962B", y=H * 0.5, size=170, ykick=170,
-         items=[dict(value=30000, unit="altın", label="HER YIL", icon="coins", metal="gold", at=("c7s14", "Ferdinand,", 0.1), count_at=("c7s14", "otuz", -0.2), dur=1.4)], label="30bin_altin"),
+         coins=("c7s14", "otuz", -0.4),
+         items=[dict(value=30000, unit="altın", label="HER YIL", icon="coins", metal="gold", at=("c7s14", "Ferdinand,", 0.1), count_at=("c7s14", "otuz", -0.2), hide0=True, dur=1.4)], label="30bin_altin"),
 
     # s15 — Viyana tutuldu, Macaristan kayıp; yükü kardeşi taşıdı
     shot("map", a=("c7s15", -0.2), tr=("fade", 0.7), cams=[(0.0, (20.0, 47.2, 3.0)), (("c7s15", "Yükün", -0.3), (19.6, 47.2, 3.2))],
@@ -232,7 +230,7 @@ SHOTS = [
                  dict(text="KAYIP", lon=20.6, lat=46.7, size=64, color="#C6F0D4", at=("c7s15", "bölümünü", -0.1), track=14)],
          label="macaristan_kayip"),
     shot("c7_yuk", a=("c7s15", "Yükün", -0.15), tr=("fade", 0.7), at_title=("c7s15", "Yükün", -0.1), at_karl=("c7s15", "çoğunu", -0.1), at_not=("c7s15", "değil,", -0.55),
-         at_ferd=("c7s15", "kardeşi", -0.35), label="yuku_kardesi_tasidi"),
+         at_ferd=("c7s15", "kardeşi", -0.5), label="yuku_kardesi_tasidi"),
 ]
 
 

@@ -41,7 +41,7 @@ Geçişler: çoğu `fade`; ölüm anlarında `dip` (Burgos, Fernando), fırtına
 - `c1_halk` kalabalığı dar bir şeritte duran siluet figürler (figür-lab); sol yarıda madalya + levha, orta boş. Tempo kısa (4,9 sn) olduğundan kabul edildi.
 - `quote` kartı sözü tam metin olarak yazıyor; anlatıdaki c1s12 cümlesini değil, tartışılan sözün kendisini gösteren bir kart (altyazı değil), yine de istenirse çıkarılabilir.
 - Valladolid belgesi iki satırlık yakın parafraz (alıntı işareti yok): "Kastilyacayı öğren. / Yabancı danışmanlarını gönder."
-- `--check` ms/kare ölçümü duvar saatiyle yapılıyor; makine yükü (load avg 6–12 / 4 çekirdek) iken tek tek çekimler dalgalanıyor. Ölçülen: ortalama ≈ 170–215 ms/kare; en yavaş çekimler 250–400 ms (kısa sahne geçişi penceresine düşen ilk kare önbellek pişirmesi); hiçbiri 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 8–10 dk.
+- `--check` ms/kare ölçümü duvar saatiyle yapılıyor; makine yüküne duyarlı. Düşük yükte (load avg ≈ 2,5) ölçülen: ortalama ≈ 108 ms/kare, en yavaş çekim 162 ms (c1_halk); yoğun yükte (load avg 6–12) aynı çekimler 170–215 ms ortalama ve tek tek 250–400 ms'ye çıkabiliyor. Hiçbir çekim 450 ms'yi aşmıyor. Tahmini tek çekirdek render ≈ 5 dk (düşük yük).
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - 24 Şubat 1500, Gent, Flandre — CONFIRMED (c1s1; A1 #1). "FLANDRE" etiketi anlatıdaki sözcük; bölge sınırı yaklaşık.

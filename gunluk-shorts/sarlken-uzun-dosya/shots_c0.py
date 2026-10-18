@@ -12,6 +12,25 @@ from d_common import A, glow_dot, kick_rule, ring_pulse, tag
 from sk import W, H, back_out, clamp, ease_io, ease_out, lerp, mix, smooth
 
 
+# ───────────────────────────── kapanış başlığı (compose'un c1 başlık kartıyla kesintisiz) ─────────────────────────────
+@SH.kind("c0_title")
+def k_c0_title(cx, text="ŞARLKEN", sub=None, kick=None, at=0.0, size=190, sub_at=None, kick_at=None, y=0.52, push=0.06):
+    """Ortak `title` ile aynı görünüm; tek fark: ölçek 1.00 → 1.06 yavaşça BÜYÜR. compose'un c1 başlık kartı 1.06'dan başlayıp 1.00'a oturduğu için
+    kesme anında zıplama olmaz; kicker + alt başlık kartla aynı anda tam görünür (kartta at=-4: baştan tam)."""
+    f = cx.f
+    f.bg("night")
+    f.rays(alpha=0.6 + 0.2 * math.sin(cx.t * 0.5))
+    sk.dust(f, cx.t, n=80, alpha=0.5)
+    a = cx.amt(at, 1.2)
+    sc = 1.0 + push * ease_out(clamp(cx.t / max(0.1, cx.dur)), 2)
+    if kick:
+        SH.kicker(f, kick, W / 2, H * (y - 0.21), alpha=cx.amt(kick_at if kick_at is not None else at, 0.9, off=0.0 if kick_at is not None else 0.4))
+    f.gold(text, W / 2, H * y, face="title", size=size, track=size * 0.12, alpha=a, scale=sc, glow=0.55 * a)
+    if sub:
+        f.gold(sub, W / 2, H * (y + 0.10), face="title_m", size=40, track=11, alpha=cx.amt(sub_at if sub_at is not None else at, 1.0, off=0.0 if sub_at is not None else 0.7))
+    f.vig(0.6)
+
+
 # ───────────────────────────── kırk yıl: kum saati + sayaç ─────────────────────────────
 @SH.kind("c0_forty")
 def k_c0_forty(cx, at_num=0.0, at_unit=0.0, count_dur=0.55, value=40, unit="YIL", fill_to=0.58):

@@ -88,11 +88,11 @@ SHOTS = [
          regions=[dict(name="ispanya", color="ispanya", at=A("c0s5", "Avrupa'nın", 0.2)),
                   dict(name="hollanda", color="burgonya", at=A("c0s5", "büyük", -0.2)), dict(name="franche_comte", color="burgonya", at=A("c0s5", "büyük", -0.05)),
                   dict(name="almanya", color="#7A6A3A", at=A("c0s5", "büyük", 0.1), alpha=0.35, hatch=True),
-                  dict(name="avusturya", color="avusturya", at=A("c0s5", "bölümünü", -0.05)),
+                  dict(name="milano", color="ispanya", at=A("c0s5", "bölümünü", -0.05)),      # (Avusturya KONMADI: 1555'te Ferdinand yönetiyordu)
                   dict(name="napoli", color="ispanya", at=A("c0s5", "yönetiyor", -0.1)), dict(name="sicilya", color="ispanya", at=A("c0s5", "yönetiyor", 0.0)),
                   dict(name="sardunya", color="ispanya", at=A("c0s5", "yönetiyor", 0.1))],
          labels=[dict(text="İSPANYA", lon=-3.5, lat=41.3, size=40, at=A("c0s5", "Avrupa'nın", 0.3)),
-                 dict(text="KUTSAL ROMA İMPARATORLUĞU", lon=14.5, lat=51.6, size=30, at=A("c0s5", "bölümünü", -0.1), color="#E8D8A0", track=8)],
+                 dict(text="KUTSAL ROMA İMPARATORLUĞU", lon=11.5, lat=50.2, size=30, at=A("c0s5", "bölümünü", -0.1), color="#E8D8A0", track=8)],
          date=("1555", A("c0s5", "Avrupa'nın", -0.1)), label="avrupa"),
     # s6 — Yeni Dünya'da fethedilen topraklar da onun adına (Atlantik'in ötesi: geniş kadraj, wipe ile açılır)
     shot("map", a=A("c0s6", -0.3), tr=("wipe", 0.9), cams=[(0.0, (-44, 27, 0.66)), (AE("c0s6", 0.0), (-46, 26, 0.70))],
@@ -118,5 +118,8 @@ SHOTS = [
     # s11b — o taç, büyük ölçüde borçla alındı
     shot("c0_borc", a=A("c0s11", "taç", -0.3, 1), tr=("fade", 0.6), at_coins=A("c0s11", "büyük", -0.35), at_big=A("c0s11", "büyük", -0.1), at_stamp=A("c0s11", "borçla", -0.1), label="tac_borc"),
     # s12 — başlık
-    shot("title", a=A("c0s12", -0.2), tr=("fade", 0.6), text="ŞARLKEN", at=0.2, size=190, label="baslik"),
+    # (compose bu çekimden sonra 3 sn'lik c1 başlık kartını koyar: aynı yazı/konum; kicker + alt başlık burada önceden gelir → kesintisiz)
+    shot("c0_title", a=A("c0s12", -0.2), tr=("fade", 0.6), text="ŞARLKEN", at=0.2, size=190,
+         kick="ZAMAN KURYESİ  ·  TESLİMAT", kick_at=A("c0s12", "Şarlken'in", -0.25),
+         sub="DÜNYAYI TESLİM EDEN İMPARATOR", sub_at=A("c0s12", "Şarlken'in", 0.05), label="baslik"),
 ]

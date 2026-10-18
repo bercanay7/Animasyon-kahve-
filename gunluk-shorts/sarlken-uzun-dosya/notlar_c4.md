@@ -8,10 +8,10 @@
 | # | tür | bölüm içi | süre | etiket | ne gösteriyor |
 |---|---|---|---|---|---|
 | 1 | map | 0:00 | 3.8 | worms_harita | Almanya (taralı bölge, "ALMANYA"), WORMS nabız halkaları, "NİSAN 1521" plakası |
-| 2 | bw_theatre / reichstag | 0:03.8 | 3.1 | reichstag | Lab `reichstag`: koridorda tek başına keşiş, masada kitaplar, tahtta imparator, kalabalık; kamera keşişe iner (geçiş 0.4 sn fade) |
+| 2 | bw_theatre / reichstag | 0:03.8 | 3.1 | reichstag | Lab `reichstag`: koridorda tek başına keşiş, masada kitaplar, tahtta imparator, kalabalık; kamera keşişe iner (geçiş 0.4 sn fade); sol üstteki parlak pencere HUD bölüm başlığını yuttuğu için `bw_lib.hud_scrim` ile ince karartma (HUD sönerken silinir) |
 | 3 | c4_duel | 0:06.9 | 3.6 | karl_luther | İki madalya: V. KARL (altın, "21 yaşında") ↔ MARTİN LUTHER (petrol); aralarında kılıç simgesi |
 | 4 | c4_theses | 0:10.5 | 6.2 | 95_madde | Parşömen "95 MADDE" satır satır yazılır; günah affı = kese+sikke üstünde yasak halkası; sayaç 95; "DÖRT YIL ÖNCE · 1517" |
-| 5 | map | 0:16.8 | 3.7 | matbaa_yayildi | Matbaa simgesi WİTTENBERG'den 12 Alman şehrine yayılan altın çizgiler |
+| 5 | map | 0:16.8 | 3.7 | matbaa_yayildi | Matbaa simgesi (Almanya'nın orta-doğusundaki çıkış noktasından) 12 Alman şehrine yayılan altın çizgiler; tüm Almanya kadrajda |
 | 6 | c4_safeconduct | 0:20.5 | 5.1 | guvenli_gecis | GÜVENLİ GEÇİŞ belgesi + K mührü; 3×7 gün ızgarası ve büyük sayaç 1→21 "GÜN" (sayaç "yirmi bir" sözcükleriyle bitiyor) |
 | 7 | c4_books | 0:25.6 | 6.8 | kitaplar | Keşiş siluet, masaya düşen 9 kitap, mum, pencere; "SENİN Mİ?" → "HEPSİ?" |
 | 8 | c4_answer | 0:32.4 | 8.8 | almanca_latince | Kum saati çevrilir "BİR GÜN" → iki belge ALMANCA / LATİNCE → "VAZGEÇMİYOR" |
@@ -37,10 +37,10 @@
 - **Reichstag:** kalabalık siluetleri birbirine benzer, keşiş figürü figür-lab sürümüyle güncellenir (lab notu). **road_night:** alt 1/4 geniş siyah (lab notu); etiket sol üstte, çakışma yok.
 - **c4_protocol:** iki damga bilerek üst üste biniyor ve kâğıt kenarından taşıyor (kauçuk damga görünümü); metinler okunaklı. Meşhur sözün tırnak işaretleri ilk karelerde kelimelerden uzak (tek kelime varken).
 - **c4_backdate:** zaman ekseni şematik; ekranda **gün/tarih YOK** (metin 8 Mayıs / imza 25–26 Mayıs kaynakta tutarsız: A2 #8). "Fermanın tarihi" işareti ayrılıştan önceye konuldu (geriye dönük).
-- **Matbaa haritası:** 12 Alman şehri adsız nokta (adlar anlatıda/araştırmada yok); yalnız WİTTENBERG etiketli (YONETMEN_NOTLARI s3 harita notu).
+- **Matbaa haritası:** 12 Alman şehri adsız nokta (adlar anlatıda/araştırmada yok). YONETMEN_NOTLARI s3'ün istediği **WİTTENBERG etiketi YAZILMADI** (anlatıda ve `arastirma/*.md` / `kaynaklar.md`'de geçmiyor → kaynak kapısı); çıkış noktası yine Wittenberg koordinatında ama adsız. Etiket istenirse `scenes_c4.py` matbaa çekimine `cities=[dict(lon=12.65, lat=51.87, name="WİTTENBERG", kind="town", at=("c4s3","Matbaa",-0.2), side="r", size=34)]` eklenir.
 - **c4_ancestors / c4_pledge:** armalar ve simgeler stilize (kartal = Alman imparatorları, kale = Kastilya, kızıl çapraz = Burgonya); gerçek arma değil.
 - `c4_nave` lab sahnesi değil; perspektifli gotik kemerlerden oluşan basit, kendi yazdığım diorama.
-- Madalya levhaları Türkçe büyük harf kuralına göre: **MARTİN LUTHER, WİTTENBERG** (İ'li).
+- Levha/etiketlerde Türkçe büyük harf kuralı: **MARTİN LUTHER** (İ'li).
 
 ## 3. Ekrandaki olgular ve kaynak sınıfı (sınıf = `kaynaklar.md` cümle tablosu)
 | Ekran metni / öğe | Çekim | Anlatıda | Sınıf / dayanak |
@@ -51,7 +51,7 @@
 | MARTİN LUTHER · Keşiş | 3, 15 | evet | CONFIRMED (A2 #5; 'keşiş' çevirilerde monk/friar ayrışır) |
 | DÖRT YIL ÖNCE · **1517** | 4 | "dört yıl önce" evet; **1517 türetilmiş** (1521−4) + YONETMEN_NOTLARI s3 | HAFIZA H13 → web doğruladı (yayılma hızı kaynağa göre değişir; ekranda hız iddiası yok) |
 | 95 MADDE · GÜNAH AFFI SATIŞI | 4 | evet | HAFIZA H13 (web doğruladı) |
-| **WİTTENBERG** + matbaa çizgileri | 5 | **hayır** | YONETMEN_NOTLARI s3 (araştırma/anlatıda yok) → ana ajan onayı istenir |
+| matbaa çizgileri (adsız çıkış noktası) | 5 | evet ("Matbaa … Almanya'ya yaydı") | YORUM/şematik; **WİTTENBERG etiketi kaldırıldı** (kaynak kapısı) |
 | GÜVENLİ GEÇİŞ · 21 GÜN | 6 | evet | CONFIRMED (A2 #1) |
 | SENİN Mİ? · HEPSİ? | 7 | evet | CONFIRMED +H14 (soran Trier yetkilisi; ekranda isim yok) |
 | BİR GÜN · ALMANCA · LATİNCE · VAZGEÇMİYOR | 8 | evet | CONFIRMED (A2 #2) |
@@ -78,4 +78,4 @@ RİVAYET damgası 361.7 · TUTANAKTA YOK damgası 364.3 · SONRADAN EKLENMİŞ d
 4. **Sahne önbelleği** (`stage._SCENES`) yalnız 5 sahne tutuyor; aynı sahneye başka `p` ile dönülürse yeniden pişer (3–8 sn).
 5. **`bw_theatre`** (bw_lib): lab sahnesi hata verirse render çökmesin diye yer tutucu çizer ve stderr'e "[bw_theatre] '…' sahnesi hata verdi" yazar — final render logunda bu satırı arayın (şu an 0 hata).
 6. **Hız ipucu (tüm yazarlar için):** `bw_lib.py` içinde kare başı maliyeti ≈ yarıya indiren önbellekli yardımcılar var — `static_backdrop` (bg+ışın+duo_glow tek blit), `dust2` (saveLayer'sız toz), `draw_icon2` (gölge/ışıma bulanıklığı önbellekli), `gold2` (altın yazı ışıması önbellekli), `glow_blit`, `bw_medal` (önbellekli madalya; `shots.medal` ile aynı parametreler). Paylaşılan `sk.dust`, `icons.draw_icon`, `Frame.gold(glow=)` ve `SH.draw_medal` en pahalı kalemler; ortak dosyalara yazmadım.
-7. Ekranda yeni **WİTTENBERG** etiketi ve **1517** (türetilmiş) var; ikisi de YONETMEN_NOTLARI s3'ten — kaynak kapısı için onay/ret sizde (kaldırmak: `scenes_c4.py`'de `cities=[…]` ve `c4_theses`'de `year_at`).
+7. Ekranda **1517** (türetilmiş: 1521−4; `kaynaklar.md` H13'te geçiyor) var; kaldırmak: `c4_theses`'de `year_at`. WİTTENBERG etiketi kaynak kapısı gereği çıkarıldı (bkz. §2).

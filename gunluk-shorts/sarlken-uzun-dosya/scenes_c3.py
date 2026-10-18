@@ -197,7 +197,7 @@ SHOTS = [
          date=("23 NİSAN 1521", ("c3s4", "23", -0.1)), extra=_ex_villalar, approx=False, label="villalar_harita"),
     shot("a_theatre", a=("c3s4", "kraliyet", -0.35), tr=("whip", 0.4), scene="field",
          p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.26, row=0, n=10, dir=1, charge=1.0), dict(side="#5A3A8A", kind="peasants", x=0.74, row=1, n=34, dir=-1, charge=0.0)]),
-         cams=[(0.0, SF.cam_on(0, 0.30, 1.2)), (("c3s4", "dağıttı", 0.3), SF.cam_on(0, 0.56, 1.5))], label="villalar_savas"),
+         cams=[(0.0, SF.safe_cam(660, 700, 1.2)), (("c3s4", "dağıttı", 0.3), SF.safe_cam(1090, 705, 1.5))], label="villalar_savas"),
     # s5 — ertesi gün üç önder idam edildi
     shot("a_medals", a=("c3s5", -0.2), tr=("dip", 0.9), size=430, y=H * 0.46, gap=500, bgname="blood", date=("ERTESİ GÜN", ("c3s5", "Ertesi", -0.1)),
          stampt=("İDAM", 960, 190, ("c3s5", "idam", -0.1), 78),

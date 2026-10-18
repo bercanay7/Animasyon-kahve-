@@ -28,7 +28,7 @@ Geçişler: savaş/isyan vurgularında `whip` (kısa), ölüm çekiminde `dip`, 
 - c3_bayram sancağı kale simgeli genel bayrak (Castilla y León bayrağının birebir taklidi değil: kale + aslan çeyrekleri yok).
 - Şehir kırmızıları (14 ışık) Kastilya'daki şehirlerin kabaca konumları, isimsiz (hangi şehirlerin ayaklandığı iddiası yok).
 - Çekim #5 (2,9 sn) ve #9 (2,7 sn) kısa; anlatı cümlesinin parçalarına denk geliyor.
-- `--check` ms/kare ölçümü duvar saatiyle; yük altında dalgalanıyor. Ölçülen: ortalama ≈ 145–170 ms/kare, en yavaş çekim ≈ 360 ms (#3 c3_sokak: ≈50 figür + meşale alevleri); hiçbiri 450 ms'yi aşmıyor. Geçişte gelen çekimin ilk karesindeki lab önbellek pişirmesi (~1 sn) bir önceki çekimin örnek karesine denk gelirse ölçümü şişirebilir (whip süresini 0,4 sn tuttum). Tahmini tek çekirdek render ≈ 3–4 dk.
+- `--check` ms/kare ölçümü duvar saatiyle yapılıyor; makine yüküne duyarlı. Düşük yükte (load avg ≈ 2,5) ölçülen: ortalama ≈ 113 ms/kare, en yavaş çekim 222 ms (#3 c3_sokak: ≈50 figür + meşale alevleri); yoğun yükte ortalama 145–170 ms, tek tek 360 ms'ye kadar. Hiçbir çekim 450 ms'yi aşmıyor. Geçişte gelen çekimin ilk karesindeki lab önbellek pişirmesi (~1 sn) bir önceki çekimin örnek karesine denk gelirse ölçümü şişirebilir (whip süresini 0,4 sn tuttum). Tahmini tek çekirdek render ≈ 2–3 dk.
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - AACHEN işareti + rota (taç için İspanya'dan ayrılış) — CONFIRMED (Aachen tacı: c2s12; A1 #16); ayrılışın zamanlaması/yolu HAFIZA H11 (Mayıs 1520; web: sıra doğrulandı). Ekranda tarih/liman adı yok, yalnız şematik rota.

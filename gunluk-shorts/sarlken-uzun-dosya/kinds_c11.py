@@ -292,11 +292,12 @@ def gout_overlay(cams, gut_at, still_at, diet_at, feast_at, tag_at):
                 glow(f, px + 10 * s, py - 8 * s, 150 * s, "#FFC060", 0.42 * tf * (0.9 + 0.1 * math.sin(cx.t * 5.0)))
         # --- alt karartma + etiketler
         f.rect(0, H * 0.74, W, H * 0.26, shader=f.lin(0, H * 0.74, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(205 * cx.amt(gut_at, 0.6)))]))
-        for (lab, ta, x) in (("GUT ATAKLARI", gut_at, 380), ("HAREKETSİZ", still_at, 800), ("PERHİZ", diet_at, 1190), ("BOL YEMEK", feast_at, 1560)):
+        for (lab, ta, x) in (("GUT ATAKLARI", gut_at, 402), ("HAREKETSİZ", still_at, 865), ("PERHİZ", diet_at, 1222), ("BOL YEMEK", feast_at, 1565)):
             k = cx.amt(ta, 0.5)
             if k > 0:
                 f.text(lab, x, H * 0.90, face="title_m", size=40, color="#F0DDA0", align="c", track=10, alpha=k, shadow=(2, 3, 4, "#000000"))
-                f.line(x - 90, H * 0.90 + 18, x + 90, H * 0.90 + 18, color="#C9962B", sw=2, alpha=0.8 * k)
+                hw = sk.text_width(lab, "title_m", 40, 10) / 2
+                f.line(x - hw, H * 0.90 + 18, x + hw, H * 0.90 + 18, color="#C9962B", sw=2, alpha=0.8 * k)
         tk = cx.amt(tag_at, 0.5)
         if tk > 0:
             tag(f, "YAZILIR", W - 330, 170, size=30, alpha=tk, track=14)

@@ -309,23 +309,120 @@ def k_c10_mektup(cx, lines=(), t_summary=0.0, t_seal=None, w=1180, h=620):
 
 
 # ───────────────────────────── uçurum: devletin borcu ─────────────────────────────
+_UC_EDGE, _UC_TOP = 1180, 650
+
+
+def _uc_profile():
+    """Plato üst profili + uçurum yüzü (kaya cepheleri); deterministik."""
+    rs = np.random.RandomState(21)
+    top = [(-40, _UC_TOP + 3)]
+    for x in range(10, _UC_EDGE - 90, 70):
+        top.append((x + int(rs.randint(-8, 9)), _UC_TOP + int(rs.randint(-6, 6))))
+    top += [(_UC_EDGE - 58, _UC_TOP - 5), (_UC_EDGE - 8, _UC_TOP - 2), (_UC_EDGE + 16, _UC_TOP + 11)]
+    face = [(_UC_EDGE + 8, _UC_TOP + 40), (_UC_EDGE + 36, _UC_TOP + 98), (_UC_EDGE + 2, _UC_TOP + 160), (_UC_EDGE + 42, _UC_TOP + 238),
+            (_UC_EDGE + 6, _UC_TOP + 324), (_UC_EDGE + 48, _UC_TOP + 416), (_UC_EDGE + 12, H + 30)]
+    return top, face
+
+
+def _uc_abyss():
+    """Boşluk: plato seviyesinin altında koyulaşan derinlik sisi + karşı yakadaki silik kaya duvarı (bir kez pişer)."""
+    def build(f):
+        far = [(W + 10, _UC_TOP + 20), (1830, _UC_TOP + 24), (1796, _UC_TOP + 104), (1838, _UC_TOP + 196), (1800, _UC_TOP + 296), (1846, _UC_TOP + 410), (1812, H + 20), (W + 10, H + 20)]
+        f.path(sk.poly_path(far), shader=f.lin(0, _UC_TOP, 0, H, [("#1B2E2B", 0.0, 210), ("#0B1514", 1.0, 235)]))
+        f.path(sk.poly_path(far[1:-1], False), style="stroke", sw=2.2, color="#8FAAA6", alpha=0.28)
+        f.rect(0, _UC_TOP - 170, W, H - _UC_TOP + 190, shader=f.lin(0, _UC_TOP - 170, 0, H, [("#06100F", 0.0, 0), ("#06100F", 0.30, 105), ("#030808", 0.72, 205), ("#020505", 1.0, 240)]))
+    return sk.baked(("c10_ucurum_abyss",), build)
+
+
+def _uc_rock():
+    """Plato + uçurum yüzü: kaya katmanları, çatlaklar, kenar ışığı, boşluktan gelen kızıl yansıma (bir kez pişer)."""
+    top, face = _uc_profile()
+
+    def build(f):
+        rs = np.random.RandomState(5)
+        path = sk.poly_path(top + face + [(-40, H + 30)])
+        f.path(path, shader=f.lin(0, _UC_TOP, 0, H, [("#36574F", 0.0), ("#1D312D", 0.22), ("#0D1716", 0.66), ("#050A0A", 1.0)]))
+        c = f.c
+        c.save()
+        c.clipPath(path, skia.ClipOp.kIntersect, True)
+        f.rect(0, _UC_TOP, _UC_EDGE + 70, 110, shader=f.lin(0, _UC_TOP, 0, _UC_TOP + 110, [("#B7CFCB", 0.0, 62), ("#B7CFCB", 1.0, 0)]))
+        for j in range(17):
+            y0 = _UC_TOP + 44 + j * 27 + int(rs.randint(-6, 7))
+            seg = [(x, y0 + int(rs.randint(-4, 5))) for x in range(-40, _UC_EDGE + 90, 55)]
+            f.path(sk.poly_path(seg, False), style="stroke", sw=float(rs.choice([1.6, 2.4, 3.2])), color="#000000", alpha=0.20 + 0.12 * rs.rand())
+            f.path(sk.poly_path([(x, y + 3) for x, y in seg], False), style="stroke", sw=1.2, color="#B7CFCB", alpha=0.05)
+        for _ in range(8):
+            x = int(rs.randint(60, _UC_EDGE - 40))
+            y = _UC_TOP + int(rs.randint(50, 300))
+            crack = [(x, y)]
+            for _ in range(int(rs.randint(3, 6))):
+                x += int(rs.randint(-24, 25))
+                y += int(rs.randint(18, 44))
+                crack.append((x, y))
+            f.path(sk.poly_path(crack, False), style="stroke", sw=2.0, color="#000000", alpha=0.42)
+        f.rect(_UC_EDGE - 380, _UC_TOP - 10, 460, H, shader=f.lin(_UC_EDGE - 380, 0, _UC_EDGE + 60, 0, [("#000000", 0.0, 0), ("#000000", 1.0, 120)]))
+        c.restore()
+        f.path(sk.poly_path(top[1:] + face[:1], False), style="stroke", sw=3.2, color="#C4DAD6", alpha=0.6)
+        f.path(sk.poly_path(face, False), style="stroke", sw=3.0, color="#9FB8B4", alpha=0.35)
+        f.path(sk.poly_path(face, False), style="stroke", sw=16, color="#B02A2A", alpha=0.22, blur=9)
+    return sk.baked(("c10_ucurum_rock",), build)
+
+
+def _uc_fog():
+    """Boşlukta kayan sis bantları (yatayda dikişsiz; bir kez pişer)."""
+    def build(f):
+        rs = np.random.RandomState(8)
+        for _ in range(10):
+            x = rs.rand() * W
+            y = _UC_TOP + 20 + rs.rand() * 360
+            rx = 240 + rs.rand() * 220
+            ry = 34 + rs.rand() * 30
+            for dx in (-W, 0, W):
+                f.oval(x + dx, y, rx, ry, color="#B3D2CB", alpha=0.09 + 0.05 * rs.rand(), blur=30)
+    return sk.baked(("c10_ucurum_fog",), build)
+
+
+def _pebble(f, x, y, s, rot, alpha):
+    pts = [(-s, -0.4 * s), (-0.2 * s, -s), (s, -0.5 * s), (0.8 * s, 0.7 * s), (-0.5 * s, s)]
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.path(sk.poly_path(pts), color="#16221F", alpha=alpha)
+    f.path(sk.poly_path(pts), style="stroke", sw=1.6, color="#9FB8B4", alpha=0.5 * alpha)
+    f.c.restore()
+
+
 @SH.kind("c10_ucurum")
 def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
     f = _base(cx, 0.22, 35)
     t = cx.t
+    c = f.c
     ya = cx.amt(t_year, 0.6)
-    edge_x, top_y = 1180, 650
-    # boşluk (uçurum): koyu degrade + düşen paralar
-    f.rect(edge_x, 0, W - edge_x, H, shader=f.lin(0, 0, 0, H, [("#04090A", 0.0), ("#0A1616", 1.0)]))
-    for i in range(10):
-        ph = (t * (0.18 + 0.05 * (i % 3)) + i * 0.13) % 1.0
-        K.coin(f, edge_x + 80 + (i * 61) % 560, 300 + ph * 820, 14 + (i % 3) * 3, alpha=0.5 * (1 - ph) * smooth((t - cx.at(t_edge, off=-0.2)) / 0.5), rot=ph * 9 + i, squash=abs(math.cos(ph * 12 + i)) * 0.7 + 0.3, col="#C8D2D6")
-    f.circle(edge_x + 330, H + 40, 520, shader=f.rad(edge_x + 330, H + 40, 520, [("#B02A2A", 0.0, int(70 * smooth((t - cx.at(t_edge, off=-0.3)) / 0.8))), ("#B02A2A", 1.0, 0)]), blend=skia.BlendMode.kPlus)
-    # zemin (plato) ve kaya yüzü
-    f.rect(0, top_y, edge_x, H - top_y, shader=f.lin(0, top_y, 0, H, [("#1A2A28", 0.0), ("#0A1413", 1.0)]))
-    f.line(0, top_y, edge_x, top_y, color="#9FB8B4", sw=3, alpha=0.5)
-    f.path(sk.poly_path([(edge_x, top_y), (edge_x + 40, top_y + 160), (edge_x - 10, top_y + 360), (edge_x + 30, H + 20), (edge_x - 120, H + 20), (edge_x - 120, top_y)], True), color="#0C1716")
-    f.line(edge_x, top_y, edge_x + 40, top_y + 160, color="#9FB8B4", sw=2, alpha=0.4)
+    edge_x, top_y = _UC_EDGE, _UC_TOP
+    te = cx.at(t_edge, off=-0.2)
+    ek = smooth((t - te) / 0.8)
+    # boşluk: derinlik sisi, kayan sis, uçurumun dibinden kızıl ışık
+    c.drawImage(_uc_abyss(), 0, 0)
+    off = (t * 16.0) % W
+    c.drawImage(_uc_fog(), -off, 0)
+    c.drawImage(_uc_fog(), W - off, 0)
+    pul = 0.85 + 0.15 * math.sin(t * 2.3)
+    f.circle(edge_x + 360, H + 60, 620, shader=f.rad(edge_x + 360, H + 60, 620, [("#C0392B", 0.0, int(150 * ek * pul)), ("#B02A2A", 0.5, int(60 * ek * pul)), ("#B02A2A", 1.0, 0)]), blend=skia.BlendMode.kPlus)
+    # düşen gümüş paralar ve kenardan kopan taş parçaları
+    if t > te - 0.3:
+        for i in range(12):
+            u = ((t - te) * (0.22 + 0.04 * (i % 3)) + i * 0.083) % 1.0
+            x = edge_x + 90 + (i * 53) % 640 + math.sin(u * 6 + i) * 14
+            y = top_y - 80 + (H - top_y + 170) * u ** 1.6
+            K.coin(f, x, y, 14 + (i % 3) * 3, alpha=0.62 * math.sin(math.pi * u) ** 0.6 * ek, rot=u * 9 + i, squash=abs(math.cos(u * 12 + i)) * 0.7 + 0.3, col="#C8D2D6")
+        for i in range(7):
+            dt = ((t - te) + i * 0.31) % 2.2
+            if dt < 1.5:
+                px = edge_x + 14 + (i * 9) % 26 + (46 + 12 * i) * dt
+                py = top_y + 24 + (i * 37) % 110 + 0.5 * 820 * dt * dt
+                _pebble(f, px, py, 7 + (i % 3) * 3, dt * (3 + i % 3) + i, min(1.0, dt / 0.15) * ek)
+    # plato + kaya yüzü
+    c.drawImage(_uc_rock(), 0, 0)
     # borç sütunları (defter yığınları): soldan sağa yükselen, kırmızıya dönen
     n = 8
     da = cx.amt(t_debt, 0.5, off=-0.6)
@@ -342,11 +439,13 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
             f.line(bx + 8, top_y - 22 - r * 38, bx + 78, top_y - 22 - r * 38, color="#000000", sw=1.4, alpha=0.3)
     if da > 0:
         K.txt(f, "DEVLETİN BORCU", 560, top_y + 120, face="title_m", size=42, color="#E7D5A0", track=10, alpha=da)
+        f.line(300, top_y + 142, 820, top_y + 142, color="#C9962B", sw=2, alpha=0.5 * da)
     # taç: kenarda, uçuruma doğru eğilir
     ca = cx.amt(t_crown, 0.7)
     if ca > 0:
-        tilt = 0.14 * smooth((t - cx.at(t_edge)) / 1.2) + 0.012 * math.sin(t * 3)
-        cxw = 150 + 7 * 118 + 60
+        lean = smooth((t - cx.at(t_edge)) / 1.2)
+        tilt = 0.20 * lean + 0.012 * math.sin(t * 3)
+        cxw = 150 + 7 * 118 + 60 + 14 * lean
         cyw = top_y - (40 + 7 ** 1.7 * 8) - 130 - 20 * (1 - ca)
         K.glow_disc(f, cxw, cyw, 230, "#F0D27A", 0.35 * ca)
         icons.draw_icon(f, "imperial_crown", cxw, cyw, size=300, metal="gold", alpha=ca, rot=tilt, glow=0.4 * ca)

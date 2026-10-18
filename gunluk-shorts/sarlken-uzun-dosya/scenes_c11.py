@@ -39,7 +39,7 @@ SHOTS = [
     # s6 — ömrünün sonuna kadar siyah giydiği anlatılır
     shot("c11_black", a=("c11s6", -0.3), tr=F, black_at=("c11s6", "siyah", -0.4), tag_at=("c11s6", "anlatılır", -0.25), label="siyah"),
     # s7 — gut atakları, perhiz, bol yemek (bedroom: hasta yastıklara yaslı; bacakta zonklama, komodinde yemek)
-    shot("bw_theatre", a=("c11s7", -0.3), tr=F, scene="bedroom", dust_n=36, cams=GOUT_CAMS, p=dict(candle=1.0),
+    shot("bw_theatre", a=("c11s7", -0.3), tr=("fade", 0.5), scene="bedroom", dust_n=36, cams=GOUT_CAMS, p=dict(candle=1.0),
          overlay=kinds_c11.gout_overlay(GOUT_CAMS, ("c11s7", "Gut", -0.05), ("c11s7", "hareketsiz", -0.1), ("c11s7", "perhiz", -0.1), ("c11s7", "yemeği", -0.1), ("c11s7", "yazılır", -0.1)), label="gut_perhiz"),
     # s8 — bizzat dolaşarak yönetti: gezi ağı
     shot("map", a=("c11s8", -0.3), tr=F, cams=[(0.0, (5.0, 44.7, 1.10)), (("c11s8", "Cezayir", 0.5), (5.0, 44.7, 1.14))],

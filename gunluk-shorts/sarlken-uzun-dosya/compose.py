@@ -200,7 +200,7 @@ class Program:
         if cid != "c0" and tl_ < 5.5:
             n, title, _ = TITLES[cid]
             a = smooth(tl_ / 0.6) * (1 - smooth((tl_ - 4.6) / 0.9))
-            f.text(f"{n} · {title.upper()}", 70, 74, face="title_m", size=24, color="#E3CF98", align="l", track=6, alpha=0.85 * a, shadow=(2, 2, 3, "#000000"))
+            f.text(f"{n} · {sk.tr_upper(title)}", 70, 74, face="title_m", size=24, color="#E3CF98", align="l", track=6, alpha=0.85 * a, shadow=(2, 2, 3, "#000000"))
         # cephe göstergesi
         fr = FRONT_ON_AFTER.get(cid)
         if fr and cid not in ("c13",) or (cid == "c13" and tl_ > 0):

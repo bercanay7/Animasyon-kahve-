@@ -2,7 +2,7 @@
 """Şarlken — parçalı paralel render + birleştirme + ses ekleme + denetim.
 
   python3 render.py --list                         # parça planı
-  python3 render.py --all [--workers 4] [--seg 1200] [--crf 18]   # tüm videoyu parça parça üret (devam edilebilir)
+  python3 render.py --all [--workers 4] [--seg 1200] [--crf 18] [--segs 7-16]   # tüm videoyu (veya yalnız seçili parçaları) üret (devam edilebilir)
   python3 render.py --range 120 180 --out out/prev.mp4 [--scale 1280]   # kısa önizleme (global sn; sessiz)
   python3 render.py --concat                       # parçaları sessiz tek dosyada birleştir → out/sarlken_noaudio.mp4
   python3 render.py --mux [--audio out/mix_audio.m4a] [--out out/sarlken_uzun.mp4]   # video + miks
@@ -28,6 +28,7 @@ os.chdir(HERE)
 OUT = os.path.join(HERE, "out")
 SEG = os.path.join(OUT, "seg")
 FPS = 24
+MAXRATE, BUFSIZE = "9M", "18M"      # YouTube önerisi (1080p24 SDR ≈ 8 Mb/sn); film greni tepe bit hızını şişirmesin
 W, H = 1920, 1080
 
 
@@ -46,7 +47,7 @@ def ff_cmd(out, crf, preset, scale=None, threads=2):
     if scale:
         vf = ["-vf", f"scale={scale}:-2:flags=lanczos"]
     return ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-            *vf, "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709",
+            *vf, "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-maxrate", MAXRATE, "-bufsize", BUFSIZE, "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709",
             "-colorspace", "bt709", "-g", "48", "-bf", "2", "-threads", str(threads), "-an", out]
 
 
@@ -101,7 +102,13 @@ def cmd_list(a):
 def cmd_all(a):
     nf, tot = total_frames()
     p = plan(nf, a.seg)
-    todo = [(i, n0, n1, a.crf, a.preset) for i, n0, n1 in p if not os.path.exists(os.path.join(SEG, f"seg_{i:04d}.mp4.done"))]
+    only = None
+    if a.segs:
+        only = set()
+        for part in a.segs.split(","):
+            lo, _, hi = part.partition("-")
+            only.update(range(int(lo), int(hi or lo) + 1))
+    todo = [(i, n0, n1, a.crf, a.preset) for i, n0, n1 in p if not os.path.exists(os.path.join(SEG, f"seg_{i:04d}.mp4.done")) and (only is None or i in only)]
     print(f"{len(p)} parçadan {len(todo)} tanesi üretilecek; {a.workers} işlem", flush=True)
     t0 = time.time()
     ctx = mp.get_context("spawn")
@@ -215,8 +222,9 @@ def main():
     ap.add_argument("--mux", action="store_true")
     ap.add_argument("--qa", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--segs", default=None, help="yalnız bu parçalar, ör. 7-16 veya 3,5,9-11")
     ap.add_argument("--seg", type=int, default=1200)
-    ap.add_argument("--crf", type=int, default=18)
+    ap.add_argument("--crf", type=int, default=19)
     ap.add_argument("--preset", default="medium")
     ap.add_argument("--scale", default=None)
     ap.add_argument("--out", default=None)

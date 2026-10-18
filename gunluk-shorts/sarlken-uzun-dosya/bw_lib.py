@@ -465,6 +465,21 @@ def chain_links(f, p0, p1, bend=0.0, prog=1.0, color="#B58AD8", link=26, alpha=1
         f.c.restore()
 
 
+def hud_scrim(cx, fade_from, fade_to, a=0.82, x=40, y=34, w=620, h=92):
+    """Bölüm başlığı HUD'unun (sol üst, ilk 5.5 sn) açık renkli zeminlerde okunur kalması için ince karartma.
+    fade_from→fade_to çapaları arasında silinir (HUD'un kendi sönmesiyle aynı pencereye denk getirin)."""
+    k = 1.0 - clamp((cx.t - cx.at(fade_from)) / max(0.05, cx.at(fade_to) - cx.at(fade_from)))
+    k = smooth(k)
+    if k <= 0:
+        return
+    f = cx.f
+    f.c.save()
+    f.c.translate(x + w * 0.42, y + h * 0.5)
+    f.c.scale(1.0, h / w * 1.25)
+    f.circle(0, 0, w * 0.62, shader=f.rad(0, 0, w * 0.62, [("#0A0604", 0.0, int(255 * a * k)), ("#0A0604", 0.6, int(255 * a * k * 0.75)), ("#0A0604", 1.0, 0)]))
+    f.c.restore()
+
+
 # ───────────────────────────── güvenli diorama sarmalayıcı ─────────────────────────────
 @SH.kind("bw_theatre")
 def k_bw_theatre(cx, **kw):
