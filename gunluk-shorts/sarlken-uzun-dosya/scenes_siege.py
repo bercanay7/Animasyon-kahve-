@@ -1027,7 +1027,7 @@ def _defenders(f, meta, city, T, t):
 def _flags_dyn(f, meta, T, t, wind, city=""):
     for i, (x, y, spec) in enumerate(meta["flags"]):
         col = spec if isinstance(spec, str) else "#8E1F26"
-        emb = "crescent" if (col.lstrip("#")[2:4] > col.lstrip("#")[0:2] and col.lstrip("#")[2:4] > col.lstrip("#")[4:6]) else "cross"
+        emb = "crescent" if PW.is_green(col) else "cross"
         if city == "tenochtitlan":
             emb = "none"
             f.line(x, y + 4, x, y - 6, color="#0A0705", sw=2.2)

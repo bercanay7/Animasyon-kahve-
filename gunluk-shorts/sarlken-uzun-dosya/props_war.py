@@ -19,6 +19,13 @@ LINMIP = skia.SamplingOptions(skia.FilterMode.kLinear, skia.MipmapMode.kLinear)
 PLUS = skia.BlendMode.kPlus
 
 
+def is_green(hexc):
+    """Osmanlı yeşili tespiti (katı): yalnız belirgin yeşiller (#2F6B4A gibi). Zeytin/haki (#5A6A3A, #6A7A38) ve turkuaz (#2F7A8A) yarım ay SAYILMAZ."""
+    c = hexc.lstrip("#")
+    r_, g_, b_ = int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
+    return g_ > r_ * 1.25 and g_ > b_ * 1.12
+
+
 def RS(seed):
     return np.random.RandomState(seed & 0x7FFFFFFF)
 

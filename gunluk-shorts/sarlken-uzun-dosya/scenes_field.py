@@ -445,9 +445,7 @@ _UNITS = dict(
 
 
 def _is_green(hexc):
-    c = hexc.lstrip("#")
-    r_, g_, b_ = int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
-    return g_ > r_ * 1.05 and g_ >= b_
+    return PW.is_green(hexc)
 
 
 def _army_kind_pool(army):
@@ -456,12 +454,13 @@ def _army_kind_pool(army):
     if unit:
         u = unit if isinstance(unit, (list, tuple)) else (unit,)
         return tuple(x if _have(x) else "pikeman" for x in u)
+    ott = army.get("ottoman", _is_green(army.get("side", "#8E1F26")))
     if kind == "cavalry":
-        if _is_green(army.get("side", "#8E1F26")) and _have("sipahi") and _have("sipahi_b"):
+        if ott and _have("sipahi") and _have("sipahi_b"):
             return ("sipahi",)
         return ("cavalry_charge",) if _have("cavalry_charge") else ("horse_rider",)
     pool = _UNITS.get(kind, _UNITS["pike"])
-    if army.get("side") and _is_green(army["side"]) and kind in ("pike", "mixed") and _have("janissary"):
+    if ott and kind in ("pike", "mixed") and _have("janissary"):
         pool = ("janissary", "janissary", "janissary", "arquebusier") if kind == "mixed" else ("janissary",)
     return tuple(x if _have(x) else "pikeman" for x in pool)
 
@@ -562,7 +561,7 @@ def draw_army(f, M, ground, weather, army, ai, t, vis, fx_list):
             pole_h = hh * 2.15
             bx = x + dirn * hh * 0.10
             f.line(bx, y_f + bob, bx, y_f + bob - pole_h, color="#0C0705", sw=max(2.0, hh * 0.016))
-            emb = "crescent" if _is_green(side) else ("saltire" if side.lower() in ("#8e1f26", "#9a2430", "#7b1e2b", "#a33a2e") else "cross")
+            emb = army.get("emblem") or ("crescent" if army.get("ottoman", _is_green(side)) else ("saltire" if side.lower() in ("#8e1f26", "#9a2430", "#7b1e2b", "#a33a2e") else "cross"))
             PW.flag_cloth(f, bx, y_f + bob - pole_h, hh * 0.78, hh * 0.46, side, t, emblem=emb, trim="#C9962B", wind=-dirn, seed=ai, speed=3.6, cut="swallow", emb="#F0E2B8")
         if fire > 0 and unit == "arquebusier":
             period = 4.6 / (0.3 + fire)

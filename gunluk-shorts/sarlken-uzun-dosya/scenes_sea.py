@@ -574,9 +574,7 @@ def _ship_defaults(M, mood, sh):
     if d["sails"] is None:
         d["sails"] = "reef" if mood == "storm" and d["kind"] == "carrack" else "full"
     if d["emblem"] == "auto":
-        c = d["flag"].lstrip("#")
-        r_, g_, b_ = int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
-        d["emblem"] = "crescent" if (g_ > r_ * 1.05 and g_ >= b_) else "cross"
+        d["emblem"] = "crescent" if PW.is_green(d["flag"]) else "cross"
     return d
 
 
