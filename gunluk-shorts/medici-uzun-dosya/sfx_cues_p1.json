@@ -1,0 +1,569 @@
+{
+ "surum": 1,
+ "parca": 1,
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c0-takvim",
+   "ad": "page_turn",
+   "capa": [
+    "c0s1",
+    "Şubat",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": -0.2,
+   "not": "takvim yaprağı (brif §7)"
+  },
+  {
+   "id": "c0-imza",
+   "ad": "quill_scratch",
+   "capa": [
+    "c0s6",
+    "imzalandı",
+    -0.4
+   ],
+   "seviye": -24,
+   "dur": 2.2,
+   "pan": 0.15,
+   "not": "sözleşme imzalandı"
+  },
+  {
+   "id": "c0-belge",
+   "ad": "paper_rustle",
+   "capa": [
+    "c0s8",
+    "Fransızca",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c0-uffizi-kuyrugu",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c0s15",
+    "Uffizi'nin",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c0s17",
+    "end",
+    -0.3
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -5,
+   "not": "bugünün kuyruğu (sözsüz uğultu)"
+  },
+  {
+   "id": "c1-florin",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s2",
+    "florin",
+    0.0
+   ],
+   "seviye": -20,
+   "pan": 0.25,
+   "seed": 3
+  },
+  {
+   "id": "c1-villani",
+   "ad": "quill_scratch",
+   "capa": [
+    "c1s6",
+    "saydı",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.6,
+   "pan": 0.2
+  },
+  {
+   "id": "c1-veba-ruzgar",
+   "ad": "wind",
+   "capa": [
+    "c1s11",
+    0.0
+   ],
+   "seviye": -35,
+   "bitis_capa": [
+    "c1s14",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.0,
+   "not": "veba: boş sokak; çok kısık"
+  },
+  {
+   "id": "c1-ciompi",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c1s15",
+    0.0
+   ],
+   "seviye": -27,
+   "bitis_capa": [
+    "c1s22",
+    "end",
+    -0.4
+   ],
+   "dongu": true,
+   "gir": 2.5,
+   "cik": 0.25,
+   "bastir_db": -4,
+   "not": "Ciompi: öfke sokakta; 'ezdi'de keskin kesilir"
+  },
+  {
+   "id": "c1-giovanni-defter",
+   "ad": "quill_scratch",
+   "capa": [
+    "c1s26",
+    "Roma'da",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.4
+  },
+  {
+   "id": "c1-on-bin-florin",
+   "ad": "coin_pile",
+   "capa": [
+    "c1s29",
+    "bin",
+    0.0
+   ],
+   "seviye": -21,
+   "pan": 0.2,
+   "seed": 4
+  },
+  {
+   "id": "c1-masa-ve-defter",
+   "ad": "page_turn",
+   "capa": [
+    "c1s30",
+    "defter",
+    -0.2
+   ],
+   "seviye": -21,
+   "pan": -0.2
+  },
+  {
+   "id": "c2-kambiyo-damga",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s1",
+    "kambiyodaydı",
+    0.3
+   ],
+   "seviye": -19,
+   "not": "KAMBİYO damgası (brif §7)"
+  },
+  {
+   "id": "c2-pesin",
+   "ad": "coin_clink",
+   "capa": [
+    "c2s3",
+    "peşin",
+    0.0
+   ],
+   "seviye": -23,
+   "pan": 0.2
+  },
+  {
+   "id": "c2-police",
+   "ad": "paper_rustle",
+   "capa": [
+    "c2s4",
+    "poliçe",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.5
+  },
+  {
+   "id": "c2-itiraz-damga",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s19",
+    "itiraz",
+    0.1
+   ],
+   "seviye": -19,
+   "seed": 2,
+   "not": "Martinus'un mührüne İTİRAZ damgası"
+  },
+  {
+   "id": "c2-defter",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s14",
+    "defterde",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.8
+  },
+  {
+   "id": "c2-catasto",
+   "ad": "paper_rustle",
+   "capa": [
+    "c2s22",
+    "catasto",
+    -0.5
+   ],
+   "seviye": -26,
+   "dur": 1.8
+  },
+  {
+   "id": "c2-machiavelli",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s29",
+    "yazar",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.0,
+   "pan": -0.2
+  },
+  {
+   "id": "c2-cavalcanti",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s30",
+    "yazar",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.0,
+   "pan": 0.2,
+   "seed": 2
+  },
+  {
+   "id": "c2-hucre-habercisi",
+   "ad": "lock_click",
+   "capa": [
+    "c2s35",
+    "hücreye",
+    0.0
+   ],
+   "seviye": -23,
+   "not": "kapıya: Cosimo'nun hücresi (c3 tutuklama habercisi)"
+  },
+  {
+   "id": "c3-tutuklama-surgu",
+   "ad": "door_bolt",
+   "capa": [
+    "c3s1",
+    "tutuklandı",
+    -0.2
+   ],
+   "seviye": -19
+  },
+  {
+   "id": "c3-tutuklama-kilit",
+   "ad": "lock_click",
+   "capa": [
+    "c3s1",
+    "tutuklandı",
+    0.9
+   ],
+   "seviye": -21,
+   "seed": 2
+  },
+  {
+   "id": "c3-kule-ruzgar",
+   "ad": "wind",
+   "capa": [
+    "c3s4",
+    0.0
+   ],
+   "seviye": -36,
+   "bitis_capa": [
+    "c3s6",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5,
+   "not": "dar yarık: kule rüzgârı"
+  },
+  {
+   "id": "c3-kucuk-kagit",
+   "ad": "paper_rustle",
+   "capa": [
+    "c3s8",
+    "kâğıt",
+    -0.3
+   ],
+   "seviye": -25,
+   "dur": 1.5
+  },
+  {
+   "id": "c3-venedik",
+   "ad": "water_lap",
+   "capa": [
+    "c3s13",
+    "Venedik",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c3s14",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "not": "Venedik (diplomat gibi karşılandı)"
+  },
+  {
+   "id": "c3-torba",
+   "ad": "paper_rustle",
+   "capa": [
+    "c3s22",
+    "torbalardan",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c3-defter",
+   "ad": "page_turn",
+   "capa": [
+    "c3s26",
+    "defter",
+    0.0
+   ],
+   "seviye": -21,
+   "pan": -0.2
+  },
+  {
+   "id": "c3-kar",
+   "ad": "coin_clink",
+   "capa": [
+    "c3s28",
+    "florin",
+    0.0
+   ],
+   "seviye": -24,
+   "pan": 0.2,
+   "seed": 5
+  },
+  {
+   "id": "c4-ilan",
+   "ad": "quill_scratch",
+   "capa": [
+    "c4s3",
+    "ilan",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.0
+  },
+  {
+   "id": "c4-yumurta",
+   "ad": "knock_wood",
+   "capa": [
+    "c4s5",
+    "tabanını",
+    0.0
+   ],
+   "seviye": -23,
+   "not": "yumurta kırılır (hafif mizah)"
+  },
+  {
+   "id": "c4-kubbe-iscilik",
+   "ad": "chisel_tap",
+   "capa": [
+    "c4s12",
+    "işçilikle",
+    0.0
+   ],
+   "seviye": -29,
+   "dur": 4.0
+  },
+  {
+   "id": "c4-kirk-bin",
+   "ad": "coin_pile",
+   "capa": [
+    "c4s17",
+    "kırk",
+    0.0
+   ],
+   "seviye": -23,
+   "pan": 0.2,
+   "seed": 6
+  },
+  {
+   "id": "c4-rucellai",
+   "ad": "quill_scratch",
+   "capa": [
+    "c4s22",
+    "defterine",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.2,
+   "pan": 0.15
+  },
+  {
+   "id": "c4-lippi-ip",
+   "ad": "rope_creak",
+   "capa": [
+    "c4s27",
+    "ip",
+    0.0
+   ],
+   "seviye": -27,
+   "dur": 2.2,
+   "not": "çarşaf ipi (hafif mizah)"
+  },
+  {
+   "id": "c4-defter",
+   "ad": "page_turn",
+   "capa": [
+    "c4s28",
+    "defterini",
+    0.0
+   ],
+   "seviye": -21,
+   "pan": -0.2
+  },
+  {
+   "id": "c5-niccoli",
+   "ad": "quill_scratch",
+   "capa": [
+    "c5s7",
+    "el",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.4
+  },
+  {
+   "id": "c5-kitaplik",
+   "ad": "page_turn",
+   "capa": [
+    "c5s8",
+    "kitaplığı",
+    -0.5
+   ],
+   "seviye": -21,
+   "pan": 0.2
+  },
+  {
+   "id": "c5-lascaris-deniz",
+   "ad": "sea_waves",
+   "capa": [
+    "c5s15",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c5s16",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5
+  },
+  {
+   "id": "c5-athos",
+   "ad": "rope_creak",
+   "capa": [
+    "c5s16",
+    "Athos",
+    -0.5
+   ],
+   "seviye": -28,
+   "dur": 2.2
+  },
+  {
+   "id": "c5-cep-defteri",
+   "ad": "page_turn",
+   "capa": [
+    "c5s17",
+    "defterinde",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": -0.2
+  },
+  {
+   "id": "c6-defter",
+   "ad": "page_turn",
+   "capa": [
+    "c6s5",
+    "defter",
+    0.0
+   ],
+   "seviye": -22,
+   "bolum": "c6",
+   "pan": -0.2
+  },
+  {
+   "id": "c6-ricordi",
+   "ad": "quill_scratch",
+   "capa": [
+    "c6s7",
+    "hatıra",
+    0.0
+   ],
+   "seviye": -25,
+   "bolum": "c6",
+   "dur": 2.2
+  },
+  {
+   "id": "c6-giostra-kalabalik",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c6s20",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c6s22",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bolum": "c6",
+   "bastir_db": -4,
+   "not": "Santa Croce meydanı (sözsüz)"
+  },
+  {
+   "id": "c6-giostra-at",
+   "ad": "horse_hooves",
+   "capa": [
+    "c6s20",
+    "turnuva",
+    0.0
+   ],
+   "seviye": -24,
+   "bolum": "c6",
+   "dur": 4.0,
+   "parametre": {
+    "kind": "gallop"
+   },
+   "pan": 0.0
+  }
+ ]
+}

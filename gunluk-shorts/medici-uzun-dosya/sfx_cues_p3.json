@@ -1,0 +1,627 @@
+{
+ "surum": 1,
+ "parca": 3,
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c12-senato-karari",
+   "ad": "quill_scratch",
+   "capa": [
+    "c12s2",
+    "yazıya",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.4
+  },
+  {
+   "id": "c12-evlilik-sozlesmesi",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c12s6",
+    "Sözleşme",
+    0.0
+   ],
+   "seviye": -21,
+   "seed": 11
+  },
+  {
+   "id": "c12-vasari-koridoru",
+   "ad": "footsteps",
+   "capa": [
+    "c12s14",
+    "koridora",
+    0.0
+   ],
+   "seviye": -26,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 8,
+    "pace": 0.6
+   },
+   "not": "Vasari Koridoru (kapalı yol)"
+  },
+  {
+   "id": "c12-santo-stefano-deniz",
+   "ad": "sea_waves",
+   "capa": [
+    "c12s16",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c12s18",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5
+  },
+  {
+   "id": "c12-kadirga-halat",
+   "ad": "rope_creak",
+   "capa": [
+    "c12s18",
+    "gemileriyle",
+    0.0
+   ],
+   "seviye": -28,
+   "dur": 2.4
+  },
+  {
+   "id": "c12-lepanto-deniz",
+   "ad": "sea_waves",
+   "capa": [
+    "c12s32",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c12s33",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.0,
+   "not": "Lepanto: saygılı-nötr; top/zafer sesi YOK"
+  },
+  {
+   "id": "c13-marsilya-liman",
+   "ad": "water_lap",
+   "capa": [
+    "c13s1",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c13s5",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "not": "V1→V2: deniz ve halat sesi yumuşak davula dönüşür"
+  },
+  {
+   "id": "c13-halat",
+   "ad": "rope_creak",
+   "capa": [
+    "c13s4",
+    "Marsilya",
+    0.0
+   ],
+   "seviye": -27,
+   "dur": 2.2
+  },
+  {
+   "id": "c13-gelin-alayi",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c13s3",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c13s4",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c13-turnuva",
+   "ad": "horse_hooves",
+   "capa": [
+    "c13s7",
+    "turnuvada",
+    -0.4
+   ],
+   "seviye": -23,
+   "dur": 2.8,
+   "parametre": {
+    "kind": "gallop"
+   },
+   "not": "iki atlı koşar; çarpışma anında kesilir (dip + sessizlik); çarpışma sesi YOK"
+  },
+  {
+   "id": "c13-v5-ilk-ses",
+   "ad": "paper_rustle",
+   "capa": [
+    "c13s15",
+    0.0
+   ],
+   "seviye": -23,
+   "dur": 1.8,
+   "not": "1572 sessizliğinden sonra ilk ses: kâğıt hışırtısı (brif V4→V5)"
+  },
+  {
+   "id": "c13-damga-catal",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "çatalı",
+    0.6
+   ],
+   "seviye": -19
+  },
+  {
+   "id": "c13-damga-dondurma",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "dondurmayı",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 2
+  },
+  {
+   "id": "c13-damga-topuk",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "ayakkabıyı",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 3
+  },
+  {
+   "id": "c13-damga-parfum",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "parfümü",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 4
+  },
+  {
+   "id": "c13-damga-zehir",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "zehri",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 5
+  },
+  {
+   "id": "c13-gercek-muhru",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c13s21",
+    "gerçek",
+    0.5
+   ],
+   "seviye": -19,
+   "not": "balet: damgasız, altın GERÇEK mührü"
+  },
+  {
+   "id": "c13-ecu-yuvarlanir",
+   "ad": "coin_roll",
+   "capa": [
+    "c13s25",
+    "Çeyiz",
+    0.0
+   ],
+   "seviye": -22,
+   "not": "écu yuvarlanır (brif V7)"
+  },
+  {
+   "id": "c13-marsilya-1600",
+   "ad": "water_lap",
+   "capa": [
+    "c13s27",
+    0.0
+   ],
+   "seviye": -29,
+   "bitis_capa": [
+    "c13s27",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c13-galeri",
+   "ad": "footsteps",
+   "capa": [
+    "c13s32",
+    0.0
+   ],
+   "seviye": -28,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 7,
+    "pace": 0.7
+   },
+   "not": "Rubens galerisi: dolly (uzak adımlar)"
+  },
+  {
+   "id": "c13-koln-adimlar",
+   "ad": "footsteps",
+   "capa": [
+    "c13s37",
+    0.0
+   ],
+   "seviye": -31,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 5,
+    "pace": 0.85
+   },
+   "not": "Köln: oda sessizliği, uzak galeri adımları (yalnız ses)"
+  },
+  {
+   "id": "c14-harf-dizimi",
+   "ad": "type_set",
+   "capa": [
+    "c14s2",
+    "harfleri",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.8,
+   "pan": -0.1
+  },
+  {
+   "id": "c14-ferman-muhru",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c14s3",
+    "ferman",
+    0.3
+   ],
+   "seviye": -22,
+   "seed": 12
+  },
+  {
+   "id": "c14-sert-tas",
+   "ad": "chisel_tap",
+   "capa": [
+    "c14s6",
+    "taşla",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.4
+  },
+  {
+   "id": "c14-lens",
+   "ad": "glass_chime",
+   "capa": [
+    "c14s12",
+    "Galileo",
+    0.3
+   ],
+   "seviye": -26,
+   "not": "mercek/cam tınısı"
+  },
+  {
+   "id": "c14-sidereus",
+   "ad": "page_turn",
+   "capa": [
+    "c14s14",
+    "kapağında",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2
+  },
+  {
+   "id": "c14-cekic-mekanizma",
+   "ad": "keyboard_action",
+   "capa": [
+    "c14s21",
+    "çekiçli",
+    -1.2
+   ],
+   "seviye": -27,
+   "parametre": {
+    "kind": "piano",
+    "n_keys": 5
+   },
+   "not": "piyano mekanizmasının çekici"
+  },
+  {
+   "id": "c14-gazete",
+   "ad": "paper_rustle",
+   "capa": [
+    "c14s22",
+    "gazete",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.5
+  },
+  {
+   "id": "c14-envanter-satiri",
+   "ad": "quill_scratch",
+   "capa": [
+    "c14s25",
+    "envanterde",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.4,
+   "not": "envanterde tek bir satır"
+  },
+  {
+   "id": "c15-studiolo",
+   "ad": "candle_flame",
+   "capa": [
+    "c15s1",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c15s1",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c15-saklanma-yeri",
+   "ad": "lock_click",
+   "capa": [
+    "c15s1",
+    "saklanma",
+    0.0
+   ],
+   "seviye": -26
+  },
+  {
+   "id": "c15-basliklar",
+   "ad": "paper_rustle",
+   "capa": [
+    "c15s6",
+    "başlığı",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c15-livorno",
+   "ad": "water_lap",
+   "capa": [
+    "c15s9",
+    "Livorno'nun",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c15s9",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c15-mustafa-aga-mektubu",
+   "ad": "letter_open",
+   "capa": [
+    "c15s10",
+    "mektuplarını",
+    0.0
+   ],
+   "seviye": -25
+  },
+  {
+   "id": "c15-ruspanti-1",
+   "ad": "coin_clink",
+   "capa": [
+    "c15s14",
+    "altın",
+    0.0
+   ],
+   "seviye": -25,
+   "pan": 0.2,
+   "seed": 13
+  },
+  {
+   "id": "c15-ruspanti-2",
+   "ad": "coin_clink",
+   "capa": [
+    "c15s14",
+    "sikkelerden",
+    0.0
+   ],
+   "seviye": -26,
+   "pan": -0.2,
+   "seed": 14
+  },
+  {
+   "id": "c15-imza-habercisi",
+   "ad": "quill_scratch",
+   "capa": [
+    "c15s19",
+    "imzalanacak",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.2,
+   "not": "imzalanacak bir sözleşme → c16"
+  },
+  {
+   "id": "c16-takvim",
+   "ad": "page_turn",
+   "capa": [
+    "c16s1",
+    "Şubat",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": -0.2,
+   "not": "c0'ın takvim yaprağının yankısı"
+  },
+  {
+   "id": "c16-oda",
+   "ad": "candle_flame",
+   "capa": [
+    "c16s1",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c16s2",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c16-sozlesme",
+   "ad": "paper_rustle",
+   "capa": [
+    "c16s3",
+    "Sözleşmeye",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c16-x-cifte-kayit",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s14",
+    "icat",
+    0.8
+   ],
+   "seviye": -20,
+   "not": "✘ (sağlamlık haritası)"
+  },
+  {
+   "id": "c16-x-opera",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s15",
+    "icat",
+    0.8
+   ],
+   "seviye": -20,
+   "seed": 2
+  },
+  {
+   "id": "c16-x-uffizi",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s16",
+    "açılmıştı",
+    0.6
+   ],
+   "seviye": -20,
+   "seed": 3
+  },
+  {
+   "id": "c16-x-zincir",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s17",
+    "benzetmeden",
+    0.6
+   ],
+   "seviye": -20,
+   "seed": 4
+  },
+  {
+   "id": "c16-defterler",
+   "ad": "page_turn",
+   "capa": [
+    "c16s19",
+    "Defterlerin",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2
+  },
+  {
+   "id": "c16-onay",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c16s20",
+    "kurumlar",
+    0.4
+   ],
+   "seviye": -20,
+   "seed": 15,
+   "not": "✔ banka öldü, kurumlar kaldı"
+  },
+  {
+   "id": "c16-alay-adimlari",
+   "ad": "footsteps",
+   "capa": [
+    "c16s23",
+    "yürünür",
+    -1.8
+   ],
+   "seviye": -27,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 9,
+    "pace": 0.66
+   }
+  },
+  {
+   "id": "c16-sehir",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c16s23",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c16s25",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 3.0,
+   "bastir_db": -5,
+   "not": "alay: her yıl yürüyerek anan şehir (sözsüz)"
+  }
+ ]
+}

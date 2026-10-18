@@ -1518,7 +1518,12 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         out[s:s + m] += x[:m] * env[:m, None]
         gts = [dict(seg=g["id"], a=round(g["s0"] + a_, 3), b=round(g["s0"] + b_, 3), lead=l_, rel=r_, floor_db=f_, note=n_)
                for (a_, b_, l_, r_, f_, n_) in spec.get("_gates", [])]
-        info["gates"].extend(gts)
+        for gg in gts:           # iki kesitte de tanımlı aynı kapıyı bir kez raporla
+            dup = [x for x in info["gates"] if abs(x["a"] - gg["a"]) < 0.02 and abs(x["b"] - gg["b"]) < 0.02]
+            if dup:
+                dup[0]["seg"] += "+" + gg["seg"]
+            else:
+                info["gates"].append(gg)
         info["cues"].append(dict(id=g["id"], ch=g["ch"], mood=spec["mood"], mode=spec["mode"], bpm=spec["bpm"], meter=spec["meter"], arc=spec["arc"],
                                  tonic_midi=spec["tonic"], start=round(g["start"], 2), end=round(g["end"], 2),
                                  length=round(g["end"] - g["start"], 2), chapter_dur=round(g["s1"] - g["s0"], 2), xin=g["xin"], xout=g["xout"],
@@ -1789,8 +1794,8 @@ CUES = {
                        E("organ", "c1s30", dt=0.4, deg=[0, 4, 7, 9], oct=1, vel=0.5, dur=5.0, attack=0.6, g=0.5),
                        STOP(END("c1s21", -0.2), hold=0.8)],
                gates=[GATE(END("c1s22", -0.5), END("c1s23", 0.0), lead=0.3, rel=2.5, floor_db=-30, note="Ciompi ezildi")]),
-    # c2: defter — kuru, ironik; 'ledger' tık-tık arpej (klavsen), bas ostinato, ölçülü kuru duraklar (mizah). Giovanni'nin ölümü ve son sözler: yumuşar. (A dorian, 70 bpm)
-    "c2": dict(mood="dry", tonic=45, mode="dorian", bpm=70, meter="4/4", level_db=0.0,
+    # c2: defter — kuru, ironik; 'ledger' tık-tık arpej (klavsen), bas ostinato, ölçülü kuru duraklar (mizah). Giovanni'nin ölümü ve son sözler: yumuşar. (A mixolydian, 70 bpm)
+    "c2": dict(mood="dry", tonic=45, mode="mixolydian", bpm=70, meter="4/4", level_db=0.0,
                arc=[(-1, .34), (0, .36), A("c2s1", .38), A("c2s3", .50), A("c2s5", .55), A("c2s6", .46), A("c2s8", .42), A("c2s9", .50),
                     A("c2s11", .58), A("c2s13", .50), A("c2s15", .55), A("c2s18", .50), A("c2s19", .45), A("c2s21", .56), A("c2s22", .52),
                     A("c2s25", .60), A("c2s26", .30), A("c2s27", .28), A("c2s28", .26), A("c2s29", .30), A("c2s31", .26), A("c2s32", .30),
@@ -1844,8 +1849,8 @@ CUES = {
                        E("choir", "c4s10", dt=0.4, midi=[55, 62, 67, 71], vel=0.65, dur=8.0, attack=1.4, g=0.7, vowel="o", vowel2="a"),
                        STOP(END("c4s20", -0.1)), STOP(END("c4s23", -0.1), hold=0.8)],
                gates=[GATE(("c4s32", 0.0), END("c4s32", 0.0), lead=0.3, rel=2.0, floor_db=-18, note="Duvarlar dikilmişti")]),
-    # c5: konsil, kitap, Platon — sıcak, düşünceli; 3/4 sarabande; Doğu heyeti alayı (davul), 1453 sessizlik, Orfik lir (lavta kadansı), Lorenzo'ya geçiş. (D dorian, 63 bpm)
-    "c5": dict(mood="warm", tonic=38, mode="dorian", bpm=63, meter="3/4", level_db=-0.5,
+    # c5: konsil, kitap, Platon — sıcak, düşünceli; 3/4 sarabande; Doğu heyeti alayı (davul), 1453 sessizlik, Orfik lir (lavta kadansı), Lorenzo'ya geçiş. (D mixolydian, 63 bpm)
+    "c5": dict(mood="warm", tonic=38, mode="mixolydian", bpm=63, meter="3/4", level_db=-0.5,
                arc=[(-1, .30), (0, .34), A("c5s1", .36), A("c5s2", .46), A("c5s3", .56), A("c5s4", .24), A("c5s5", .40), A("c5s6", .38), A("c5s7", .42),
                     A("c5s8", .56), A("c5s9", .40), A("c5s10", .42), A("c5s11", .46), A("c5s12", .44), A("c5s13", .38), A("c5s14", .30), A("c5s15", .46),
                     A("c5s16", .52), A("c5s17", .42), A("c5s19", .50), A("c5s20", .40), A("c5s21", .46), (1.0, .50)],
@@ -1877,7 +1882,7 @@ CUES = {
                         arp2=dict(inst="harp", pattern="florin", lvl=0.42, lo=0.52, hi=0.62, p0=0.8, p1=0.2, transpose=12),
                         bass=dict(inst="lute", pattern="walk", lvl=0.6, lo=0.46, hi=0.56),
                         melody=dict(inst="harp", lvl=0.7, lo=0.42, hi=0.52, play=2, rest=2, dens=0.4, reg=(64, 79), motif="lorenzo"),
-                        perc=dict(pattern="march", tef="eighths", lvl=0.8, lo=0.5, hi=0.6, pitch=96, amp=0.55, win=[W("c6s20", END("c6s22", 0.0))]),
+                        perc=dict(pattern="palle", tef="eighths", lvl=0.8, lo=0.5, hi=0.6, pitch=96, amp=0.55, win=[W("c6s20", END("c6s22", 0.0))]),
                         theme=[TH("lorenzo", "c6s1", dt=0.6, inst="lute", vel=0.55, g=0.9),
                                TH("lorenzo", "c6s9", dt=0.2, inst="harp", vel=0.6),
                                TH("lorenzo", ("c6s17", "Muhteşem", -0.3), inst="organ", vel=0.65, hold=True, g=0.9),
@@ -1896,33 +1901,46 @@ CUES = {
                                TH("bedel", ("c6s27", "ölecekti", -1.0), inst="gamba", vel=0.6, bend=-40, g=1.0)])]),
 
     # ───────────────────────────── PARÇA 2 · BEDEL ─────────────────────────────
-    # c7: 26 Nisan 1478 — AĞIR, mizah kapalı. D frigiyen; 'bedel' motifi (alçak, tek çekilen yay). Kilise girişinde müzik yok (ayin yankısı + kalabalık uğultusu — SFX);
+    # c7: 26 Nisan 1478 — AĞIR, mizah kapalı. İki kesit: [D dorian: kilise girişi, defter ve kin, plan] → (V5–V7 sessizliğinin İÇİNDE mod değişir) → [D frigiyen: sonrası].
+    # 'bedel' motifi (alçak, tek çekilen yay). Kilise girişinde müzik yok (ayin yankısı + kalabalık uğultusu — SFX);
     # V5–V7 (c7s15–c7s23) yıldız an: müzik ÇEKİLİR (sessizliğe giriş 0,6 sn önce), tam sessizlik; V8'de yavaşça geri döner. ÇAN YOK.
-    "c7": dict(mood="heavy", tonic=38, mode="phrygian", bpm=56, meter="4/4", level_db=-1.0, snr_bias=0.5,
-               arc=[(-1, .12), (0, .16), A("c7s1", .18), A("c7s2", .08), A("c7s3", .08), A("c7s4", .26), A("c7s5", .32), A("c7s6", .38), A("c7s7", .42),
-                    A("c7s8", .44), A("c7s9", .50), A("c7s10", .52), A("c7s11", .46), A("c7s12", .36), A("c7s13", .30), A("c7s14", .22),
-                    A("c7s15", .05), A("c7s23", .05), A("c7s24", .12), A("c7s25", .26), A("c7s26", .42), A("c7s27", .52), A("c7s28", .56), A("c7s29", .50),
-                    A("c7s30", .64), A("c7s31", .50), A("c7s32", .30), A("c7s35", .26), A("c7s37", .20), A("c7s38", .30), A("c7s41", .34),
-                    A("c7s43", .32), A("c7s44", .26), A("c7s46", .24), A("c7s47", .20), (1.0, .14)],
-               prog=[[(0, 2, "5"), (1, 2, ""), (0, 2, "5"), (6, 2, "")], [(0, 2, ""), (1, 2, ""), (0, 2, ""), (3, 2, "")]], b_thr=0.45,
-               drone=dict(lvl=0.9, mode="roots", chunk_bars=2, fifth=True, bright=0.5),
-               arp=dict(inst="harp", pattern="ledger", lvl=0.45, lo=0.20, hi=0.30, p0=0.9, p1=0.1, transpose=12),
-               arp2=dict(inst="lute", pattern="sparse", lvl=0.6, lo=0.36, hi=0.48, p0=0.8, p1=0.2),
-               bass=dict(inst="lute", pattern="pedal", lvl=0.7, lo=0.34, hi=0.46),
-               choir=dict(inst="organ", stops=REED, lvl=0.5, lo=0.30, hi=0.44, voices=4, attack=0.7),
-               perc=dict(pattern="heartbeat", lvl=0.8, lo=0.32, hi=0.44, pitch=80, amp=0.7, win=[W("c7s5", END("c7s14", 0.0)), W("c7s26", END("c7s31", 0.0))]),
-               theme=[TH("bedel", "c7s1", dt=0.7, inst="gamba", vel=0.7, bend=-30, g=1.0),
-                      TH("bedel", "c7s25", dt=0.3, inst="gamba", vel=0.45, bend=-25, g=0.9),
-                      dict(notes=[(2, 2), (4, 2), (5, 3), (4, 5)], at="c7s38", dt=0.4, inst="lute", vel=0.5, g=0.9),
-                      dict(notes=[(0, 3), (1, 3), (0, 6)], at="c7s39", dt=0.2, inst="organ", vel=0.5, hold=True, g=0.8),
-                      TH("bedel", END("c7s46", 0.0), dt=-2.0, inst="gamba", vel=0.6, bend=-35, g=1.0)],
-               events=[E("timp", ("c7s27", "kapana", 0.0), f=48.0, vel=0.7, dur=2.6, g=0.45),
-                       E("seq", ("c7s30", "palle", 0.0), hits=[(0.0, "dum", .9), (0.30, "tek", .55), (0.60, "dum", .9), (0.90, "tek", .55), (1.20, "dum", .9), (1.50, "tek", .55)], f=88.0, g=0.55),
-                       E("seq", ("c7s30", "palle", 2.4), hits=[(0.0, "dum", .9), (0.30, "tek", .55), (0.60, "dum", .9), (0.90, "tek", .55), (1.20, "dum", .9), (1.50, "tek", .55)], f=88.0, g=0.5),
-                       E("organ", ("c7s31", "alkışlandı", 0.0), midi=[50, 57, 62, 66], vel=0.5, dur=4.5, attack=0.4, release=2.0, g=0.45),
-                       E("gamba", "c7s40", dt=0.0, deg=[0], oct=0, vel=0.5, dur=6.0, attack=0.9, bend=-30, g=0.6)],
-               gates=[GATE(("c7s2", 1.0), END("c7s3", -2.0), lead=0.6, rel=2.5, floor_db=None, note="kilise girişi: ayin yankısı + kalabalık uğultusu (SFX), müzik yok"),
-                      GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")]),
+    "c7": dict(mood="heavy", tonic=38, mode="dorian", bpm=56, meter="4/4", level_db=-1.0, snr_bias=0.5,
+               sections=[
+                   dict(until=(("c7s20", 0.0), 0.43), xf=3.0, mode="dorian",
+                        arc=[(-1, .12), (0, .16), A("c7s1", .18), A("c7s2", .08), A("c7s3", .08), A("c7s4", .26), A("c7s5", .32), A("c7s6", .38), A("c7s7", .42),
+                             A("c7s8", .44), A("c7s9", .50), A("c7s10", .52), A("c7s11", .46), A("c7s12", .36), A("c7s13", .30), A("c7s14", .22),
+                             A("c7s15", .05), (1.0, .05)],
+                        prog=[[(0, 2, "5"), (6, 2, ""), (0, 2, "5"), (3, 2, "")], [(0, 2, ""), (6, 2, ""), (3, 2, ""), (0, 2, "sus4")]], b_thr=0.45,
+                        drone=dict(lvl=0.9, mode="roots", chunk_bars=2, fifth=True, bright=0.5),
+                        arp=dict(inst="harp", pattern="ledger", lvl=0.45, lo=0.20, hi=0.30, p0=0.9, p1=0.1, transpose=12),
+                        arp2=dict(inst="lute", pattern="sparse", lvl=0.6, lo=0.36, hi=0.48, p0=0.8, p1=0.2),
+                        bass=dict(inst="lute", pattern="pedal", lvl=0.7, lo=0.34, hi=0.46),
+                        choir=dict(inst="organ", stops=REED, lvl=0.5, lo=0.30, hi=0.44, voices=4, attack=0.7),
+                        perc=dict(pattern="heartbeat", lvl=0.8, lo=0.32, hi=0.44, pitch=80, amp=0.7, win=[W("c7s5", END("c7s14", 0.0))]),
+                        theme=[TH("bedel", "c7s1", dt=0.7, inst="gamba", vel=0.7, bend=-30, g=1.0)],
+                        gates=[GATE(("c7s2", 1.0), END("c7s3", -2.0), lead=0.6, rel=2.5, floor_db=None, note="kilise girişi: ayin yankısı + kalabalık uğultusu (SFX), müzik yok"),
+                               GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")]),
+                   dict(mode="phrygian", level_db=-1.0,
+                        arc=[(-1, .05), (0, .05), A("c7s24", .12), A("c7s25", .26), A("c7s26", .42), A("c7s27", .52), A("c7s28", .56), A("c7s29", .50),
+                             A("c7s30", .64), A("c7s31", .50), A("c7s32", .30), A("c7s35", .26), A("c7s37", .20), A("c7s38", .30), A("c7s41", .34),
+                             A("c7s43", .32), A("c7s44", .26), A("c7s46", .24), A("c7s47", .20), (1.0, .14)],
+                        prog=[[(0, 2, "5"), (1, 2, ""), (0, 2, "5"), (6, 2, "")], [(0, 2, ""), (1, 2, ""), (0, 2, ""), (3, 2, "")]], b_thr=0.45,
+                        drone=dict(lvl=0.9, mode="roots", chunk_bars=2, fifth=True, bright=0.5),
+                        arp=dict(inst="harp", pattern="ledger", lvl=0.45, lo=0.20, hi=0.30, p0=0.9, p1=0.1, transpose=12),
+                        arp2=dict(inst="lute", pattern="sparse", lvl=0.6, lo=0.36, hi=0.48, p0=0.8, p1=0.2),
+                        bass=dict(inst="lute", pattern="pedal", lvl=0.7, lo=0.34, hi=0.46),
+                        choir=dict(inst="organ", stops=REED, lvl=0.5, lo=0.30, hi=0.44, voices=4, attack=0.7),
+                        perc=dict(pattern="heartbeat", lvl=0.8, lo=0.32, hi=0.44, pitch=80, amp=0.7, win=[W("c7s26", END("c7s31", 0.0))]),
+                        theme=[TH("bedel", "c7s25", dt=0.3, inst="gamba", vel=0.45, bend=-25, g=0.9),
+                               dict(notes=[(2, 2), (4, 2), (5, 3), (4, 5)], at="c7s38", dt=0.4, inst="lute", vel=0.5, g=0.9),
+                               dict(notes=[(0, 3), (1, 3), (0, 6)], at="c7s39", dt=0.2, inst="organ", vel=0.5, hold=True, g=0.8),
+                               TH("bedel", END("c7s46", 0.0), dt=-2.0, inst="gamba", vel=0.6, bend=-35, g=1.0)],
+                        events=[E("timp", ("c7s27", "kapana", 0.0), f=48.0, vel=0.7, dur=2.6, g=0.45),
+                                E("seq", ("c7s30", "palle", 0.0), hits=[(0.0, "dum", .9), (0.30, "tek", .55), (0.60, "dum", .9), (0.90, "tek", .55), (1.20, "dum", .9), (1.50, "tek", .55)], f=88.0, g=0.55),
+                                E("seq", ("c7s30", "palle", 2.4), hits=[(0.0, "dum", .9), (0.30, "tek", .55), (0.60, "dum", .9), (0.90, "tek", .55), (1.20, "dum", .9), (1.50, "tek", .55)], f=88.0, g=0.5),
+                                E("organ", ("c7s31", "alkışlandı", 0.0), midi=[50, 57, 62, 66], vel=0.5, dur=4.5, attack=0.4, release=2.0, g=0.45),
+                                E("gamba", "c7s40", dt=0.0, deg=[0], oct=0, vel=0.5, dur=6.0, attack=0.9, bend=-30, g=0.6)],
+                        gates=[GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")])]),
     # c8: Aslanın İni — ciddi, diplomatik; 6/8 deniz. "Konuk muydu, rehine mi?" ve "O sırada Lorenzo Napoli'deydi." cümlelerinde müzik çekilir; sonda şube ışıkları sönüyor. (A dorian, 66 bpm)
     "c8": dict(mood="serious", tonic=45, mode="dorian", bpm=66, meter="6/8", level_db=0.0,
                arc=[(-1, .28), (0, .30), A("c8s1", .34), A("c8s3", .48), A("c8s5", .62), A("c8s6", .46), A("c8s7", .40), A("c8s9", .36), A("c8s10", .34),
@@ -2062,7 +2080,7 @@ CUES = {
                          arp2=dict(inst="harp", pattern="ledger", lvl=0.5, lo=0.34, hi=0.46, p0=0.9, p1=0.1, transpose=12, win=[W("c13s15", END("c13s20", 0.0))]),
                          choir=dict(inst="choir", vowel=("o", "a"), lvl=0.55, lo=0.34, hi=0.46, voices=4),
                          bass=dict(inst="lute", pattern="walk", lvl=0.6, lo=0.40, hi=0.52),
-                         perc=dict(pattern="ceremony", lvl=0.7, lo=0.28, hi=0.40, pitch=92, amp=0.5, win=[W("c13s5", END("c13s6", 0.0)), W("c13s21", END("c13s21", 0.0))]),
+                         perc=dict(pattern="palle", lvl=0.7, lo=0.28, hi=0.40, pitch=92, amp=0.5, win=[W("c13s5", END("c13s6", 0.0)), W("c13s21", END("c13s21", 0.0))]),
                          theme=[TH("bedel", "c13s7", dt=3.0, inst="gamba", vel=0.5, bend=-30, g=0.8),
                                 dict(notes=[(0, 2), (2, 2), (4, 2), (7, 6)], at=("c13s21", "gerçek", 0.0), inst="harp", vel=0.6, g=0.9)],
                          events=[STOP(END("c13s17", -0.1), hold=1.0), STOP(END("c13s20", -0.1)), STOP(("c13s19", "yüzyıla", 0.0), hold=0.7)],

@@ -1820,6 +1820,7 @@ def akustik_iyilestir(S, ctx, n_iter=8):
     mad = float(1.4826 * np.median(np.abs(lls - med)) + 1e-6)
     n_geri = 0
     n_nefes = 0
+    kenar_bas, kenar_son = [], []
     for sn in ctx["sonuclar"]:                                         # ağırlık tabanlı zamanları yeni sınırlarla yenile
         sn["eksik"] = []
         for r in sn["runs"]:
@@ -1842,6 +1843,8 @@ def akustik_iyilestir(S, ctx, n_iter=8):
         tt = [None] * n
         for k in konus:
             tt[k] = [t0w + w[k][0] * HOP + 0.0075, t0w + w[k][1] * HOP + 0.0075]
+        kenar_bas.append(tt[konus[0]][0] - r["a"])
+        kenar_son.append(r["b"] - tt[konus[-1]][1])
         # koşu kenarları VAD'a yaslanır (HMM ilk/son fonu belirgin geç/erken başlıyorsa — nefes/uzun yumuşak başlangıç — HMM'e uy)
         if tt[konus[0]][0] - r["a"] <= 0.10:
             tt[konus[0]][0] = r["a"]
@@ -1881,6 +1884,11 @@ def akustik_iyilestir(S, ctx, n_iter=8):
         r["hmm_durum"] = "tamam"
     for sn in ctx["sonuclar"]:
         eksik_yerlestir(sn)
+    if kenar_bas:
+        qb = np.percentile(kenar_bas, [5, 50, 95])
+        qs = np.percentile(kenar_son, [5, 50, 95])
+        log(f"[HMM] VAD koşu kenarı ↔ HMM ilk/son fon (sn): başlangıç HMM−VAD %5/medyan/%95 = {qb[0]:+.3f}/{qb[1]:+.3f}/{qb[2]:+.3f} · "
+            f"bitiş VAD−HMM = {qs[0]:+.3f}/{qs[1]:+.3f}/{qs[2]:+.3f}")
     n_eks = sum(len(sn.get("eksik", [])) for sn in ctx["sonuclar"])
     log(f"[HMM] hizalama: {len(ham) - n_geri}/{len(ham)} koşu HMM ile; ağırlık modeline geri düşen: {n_geri}; kare başına log-olasılık medyan {med:.2f} (MAD {mad:.2f}); "
         f"seste bulunmayan (atlanan) sözcük: {n_eks}; koşu kenarında >100 ms nefes/yumuşak kenar (HMM'e uyuldu): {n_nefes}")

@@ -1677,6 +1677,8 @@ def resolve_cues(raw_cues, sent, chapters=None, quiet_zones=(), warn=print):
         else:
             t = DD.anchor_time(c["anchor"], sent)
             if t is None:
+                if c.get("ch") and ch_spans and c["ch"] not in {x[0] for x in ch_spans}:
+                    continue            # bölüm bu parçada (henüz) yok: sessizce atla (ses gelince çözülür)
                 warns.append(f"çapa çözülemedi, atlandı: {c.get('id', c['name'])} {c['anchor']}")
                 continue
         t -= float(c.get("lead") or 0.0)

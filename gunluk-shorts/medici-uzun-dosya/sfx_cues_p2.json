@@ -1,0 +1,740 @@
+{
+ "surum": 1,
+ "parca": 2,
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c7-ayin-yankisi-1",
+   "ad": "church_ambience",
+   "capa": [
+    "c7s2",
+    "Santa",
+    0.0
+   ],
+   "seviye": -27,
+   "bitis_capa": [
+    "c7s3",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 0.8,
+   "cik": 1.8,
+   "erken": 0.4,
+   "bastir_db": -3,
+   "not": "V1 J-kesme: ayin yankısı + kalabalık uğultusu görüntüden 0,4 sn önce girer; müzik yok"
+  },
+  {
+   "id": "c7-ayin-yankisi-2",
+   "ad": "church_ambience",
+   "capa": [
+    "c7s12",
+    0.0
+   ],
+   "seviye": -25,
+   "bitis_capa": [
+    "c7s15",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.2,
+   "erken": 0.4,
+   "bastir_db": -3,
+   "not": "V4 J-kesme: içeriden önce girer; V5 başında (sessizliğe giriş 0,6 sn önce) çekilir"
+  },
+  {
+   "id": "c7-tunc-kapi",
+   "ad": "door_bronze",
+   "capa": [
+    "c7s22",
+    "kapattığı",
+    -0.12
+   ],
+   "seviye": -15,
+   "sessizlik_izni": true,
+   "not": "tunç kapı kapanır ('kapattığı'); kuyruğu sessizliğe uzanır (ses köprüsü)"
+  },
+  {
+   "id": "c7-kilit",
+   "ad": "lock_click",
+   "capa": [
+    "c7s27",
+    "kapana",
+    -0.3
+   ],
+   "seviye": -22,
+   "sessizlik_izni": true,
+   "not": "V9: kilit sesi V7'nin tunç kapısını yankılar"
+  },
+  {
+   "id": "c7-pazzi-atlilari",
+   "ad": "horse_hooves",
+   "capa": [
+    "c7s28",
+    "silahlı",
+    -0.5
+   ],
+   "seviye": -25,
+   "dur": 3.4,
+   "parametre": {
+    "kind": "walk"
+   },
+   "not": "Jacopo'nun adamları meydana gelir (brif V10: atlılar)"
+  },
+  {
+   "id": "c7-meydan",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c7s28",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c7s31",
+    "end",
+    -1.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.0,
+   "bastir_db": -4
+  },
+  {
+   "id": "c7-palle",
+   "ad": "crowd_chant",
+   "capa": [
+    "c7s30",
+    "palle",
+    -0.2
+   ],
+   "seviye": -22,
+   "dur": 5.2,
+   "not": "'palle, palle' (sözsüz ritmik haykırış; altılı ritim)"
+  },
+  {
+   "id": "c7-alkis",
+   "ad": "applause_far",
+   "capa": [
+    "c7s31",
+    "alkışlandı",
+    -2.2
+   ],
+   "seviye": -23,
+   "dur": 5.5,
+   "cik": 0.4,
+   "not": "alkış sese dönüşür ve sonraki çekimde kesilir"
+  },
+  {
+   "id": "c8-belge",
+   "ad": "paper_rustle",
+   "capa": [
+    "c8s2",
+    "belgeleri",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c8-hazine",
+   "ad": "coin_pile",
+   "capa": [
+    "c8s6",
+    "hazineyi",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2,
+   "seed": 7,
+   "not": "coin yığını boşalır (brif V2)"
+  },
+  {
+   "id": "c8-kasa-kapagi",
+   "ad": "knock_wood",
+   "capa": [
+    "c8s6",
+    "end",
+    0.0
+   ],
+   "seviye": -24,
+   "not": "ses köprüsü: kasa kapağı V3'e taşar"
+  },
+  {
+   "id": "c8-pisa-mektubu",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s8",
+    "yazıp",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.6
+  },
+  {
+   "id": "c8-napoli-yolu",
+   "ad": "sea_waves",
+   "capa": [
+    "c8s7",
+    "ayrılıp",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c8s9",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5
+  },
+  {
+   "id": "c8-pera",
+   "ad": "water_lap",
+   "capa": [
+    "c8s13",
+    "İstanbul'a",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c8s14",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "not": "Pera limanı"
+  },
+  {
+   "id": "c8-leonardo",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s20",
+    "çizdi",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.8,
+   "pan": 0.15,
+   "not": "Leonardo asılı adamı çizdi (kod çizimi; ses yalnız kalem)"
+  },
+  {
+   "id": "c8-bertoldo",
+   "ad": "knock_metal",
+   "capa": [
+    "c8s28",
+    "bronza",
+    0.0
+   ],
+   "seviye": -26,
+   "parametre": {
+    "n_hits": 3
+   },
+   "dur": 1.2
+  },
+  {
+   "id": "c8-otranto-deniz",
+   "ad": "sea_waves",
+   "capa": [
+    "c8s24",
+    "denizden",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c8s25",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c8-isik-1",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    0.0
+   ],
+   "seviye": -28
+  },
+  {
+   "id": "c8-isik-2",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    1.5
+   ],
+   "seviye": -28,
+   "seed": 2
+  },
+  {
+   "id": "c8-isik-3",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    3.2
+   ],
+   "seviye": -29,
+   "seed": 3
+  },
+  {
+   "id": "c8-isik-4",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    5.2
+   ],
+   "seviye": -30,
+   "seed": 4
+  },
+  {
+   "id": "c8-isik-5",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    7.6
+   ],
+   "seviye": -31,
+   "seed": 5,
+   "not": "şube ışıkları birer birer söner (lavta notalarıyla eşzamanlı)"
+  },
+  {
+   "id": "c9-kredi",
+   "ad": "coin_clink",
+   "capa": [
+    "c9s8",
+    "teminatsız",
+    0.0
+   ],
+   "seviye": -24,
+   "pan": 0.2,
+   "seed": 8
+  },
+  {
+   "id": "c9-brugge",
+   "ad": "book_close",
+   "capa": [
+    "c9s10",
+    "end",
+    -0.6
+   ],
+   "seviye": -22,
+   "parametre": {
+    "pitch": 1.0
+   }
+  },
+  {
+   "id": "c9-londra",
+   "ad": "book_close",
+   "capa": [
+    "c9s13",
+    "end",
+    -0.6
+   ],
+   "seviye": -22,
+   "seed": 2,
+   "parametre": {
+    "pitch": 0.95
+   }
+  },
+  {
+   "id": "c9-milano",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Milano",
+    0.0
+   ],
+   "seviye": -22,
+   "seed": 3,
+   "parametre": {
+    "pitch": 0.92
+   }
+  },
+  {
+   "id": "c9-avignon",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Avignon",
+    0.0
+   ],
+   "seviye": -23,
+   "seed": 4,
+   "parametre": {
+    "pitch": 0.88
+   }
+  },
+  {
+   "id": "c9-brugge2",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Brugge",
+    0.0
+   ],
+   "seviye": -24,
+   "seed": 5,
+   "parametre": {
+    "pitch": 0.84
+   }
+  },
+  {
+   "id": "c9-venedik",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Venedik",
+    0.0
+   ],
+   "seviye": -25,
+   "seed": 6,
+   "parametre": {
+    "pitch": 0.8
+   }
+  },
+  {
+   "id": "c9-yagma",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c9s23",
+    "Kalabalık",
+    0.0
+   ],
+   "seviye": -29,
+   "bitis_capa": [
+    "c9s23",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4,
+   "not": "Kalabalık bahçelere daldı (sözsüz; şiddet sesi yok)"
+  },
+  {
+   "id": "c9-kayyum-muhru",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s24",
+    "kayyumlara",
+    0.0
+   ],
+   "seviye": -20,
+   "not": "KAYYUM mührü (brif §7)"
+  },
+  {
+   "id": "c10-mum",
+   "ad": "candle_flame",
+   "capa": [
+    "c10s1",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c10s7",
+    3.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.5,
+   "not": "V1→V2 ses köprüsü: mum çıtırtısı sürer, başka ses yok"
+  },
+  {
+   "id": "c10-poliziano-mektubu",
+   "ad": "quill_scratch",
+   "capa": [
+    "c10s3",
+    "mektubuna",
+    -0.3
+   ],
+   "seviye": -26,
+   "dur": 3.0,
+   "pan": 0.15
+  },
+  {
+   "id": "c10-vaaz",
+   "ad": "church_ambience",
+   "capa": [
+    "c10s8",
+    0.0
+   ],
+   "seviye": -29,
+   "bitis_capa": [
+    "c10s9",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.0,
+   "bastir_db": -4,
+   "not": "vaaz uğultusu (sözsüz) söner"
+  },
+  {
+   "id": "c10-nal-acilis",
+   "ad": "horse_hooves",
+   "capa": [
+    "c10s10",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 3.0,
+   "parametre": {
+    "kind": "walk"
+   },
+   "not": "V3 nal sesi ile açılış (atmosfer; olay iddiası değil)"
+  },
+  {
+   "id": "c10-meydan",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c10s13",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c10s20",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 0.12,
+   "bastir_db": -4,
+   "not": "V4: uğultu V4 sonunda keskin kesilir"
+  },
+  {
+   "id": "c10-kapi",
+   "ad": "gate_thud",
+   "capa": [
+    "c10s15",
+    "kapandı",
+    -0.05
+   ],
+   "seviye": -14,
+   "sessizlik_izni": true,
+   "not": "kapı yüzüne kapandı: tek hamle (bölümün en sert sesi); ÇAN YOK"
+  },
+  {
+   "id": "c10-tek-nal",
+   "ad": "hoof_far",
+   "capa": [
+    "c10s20",
+    "end",
+    -1.0
+   ],
+   "seviye": -25,
+   "dur": 3.8,
+   "not": "tek nal sesi uzaklaşır; ardından 1 sn sessizlik"
+  },
+  {
+   "id": "c10-trompet",
+   "ad": "distant_trumpet",
+   "capa": [
+    "c10s21",
+    "fatih",
+    -0.3
+   ],
+   "seviye": -24,
+   "not": "uzaktan trompet: V5'in Capponi sözüne köprü (çan değil)"
+  },
+  {
+   "id": "c10-fransiz-atlilari",
+   "ad": "horse_hooves",
+   "capa": [
+    "c10s21",
+    "girdi",
+    -0.8
+   ],
+   "seviye": -26,
+   "dur": 4.5,
+   "parametre": {
+    "kind": "walk"
+   }
+  },
+  {
+   "id": "c10-ates-1",
+   "ad": "fire_crackle",
+   "capa": [
+    "c10s25",
+    "ateş",
+    -0.4
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c10s31",
+    1.5
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.5,
+   "not": "V6 ateş; V7 başında sürer"
+  },
+  {
+   "id": "c10-ates-kalabalik",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c10s25",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c10s30",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 2.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c10-ates-2",
+   "ad": "fire_crackle",
+   "capa": [
+    "c10s34",
+    "yakıldı",
+    -1.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c10s35",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 2.5,
+   "not": "şiddet gösterilmez; yalnız ateş"
+  },
+  {
+   "id": "c10-arno",
+   "ad": "water_lap",
+   "capa": [
+    "c10s35",
+    "Arno'ya",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c10s35",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c11-leo-alayi",
+   "ad": "horse_hooves",
+   "capa": [
+    "c11s5",
+    "alay",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 5.0,
+   "parametre": {
+    "kind": "walk"
+   }
+  },
+  {
+   "id": "c11-alay-halk",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c11s5",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c11s6",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c11-affi-geliri",
+   "ad": "coin_pile",
+   "capa": [
+    "c11s11",
+    "yarısı",
+    0.0
+   ],
+   "seviye": -23,
+   "pan": 0.2,
+   "seed": 9
+  },
+  {
+   "id": "c11-fugger-memuru",
+   "ad": "coin_clink",
+   "capa": [
+    "c11s12",
+    "memuru",
+    0.0
+   ],
+   "seviye": -25,
+   "pan": 0.25,
+   "seed": 10
+  },
+  {
+   "id": "c11-passetto",
+   "ad": "footsteps",
+   "capa": [
+    "c11s18",
+    "Passetto",
+    -0.2
+   ],
+   "seviye": -23,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 8,
+    "pace": 0.45
+   },
+   "not": "dar geçitte koşar adım (yankılı taş)"
+  },
+  {
+   "id": "c11-san-miniato-toplari",
+   "ad": "cannon_boom",
+   "capa": [
+    "c11s26",
+    "iki",
+    0.0
+   ],
+   "seviye": -28,
+   "not": "uzak, boğuk top (yalnız kuşatma anı; ölçülü)"
+  },
+  {
+   "id": "c11-1975-siva",
+   "ad": "plaster_scrape",
+   "capa": [
+    "c11s31",
+    "sıva",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.2,
+   "not": "1975: sıva kalkınca kömür çizimli oda"
+  }
+ ]
+}

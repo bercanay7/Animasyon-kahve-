@@ -189,11 +189,16 @@ def window_snr(Pv, Pm, act, G, lo, hi, mus=None):
     return 10 * np.log10(pv / (pm + 1e-20) + 1e-20)
 
 
-def build_gain_curve(sa, Pm_raw, n_frames, chapters, bias=None, part=None, log_=log):
+def build_gain_curve(sa, Pm_raw, n_frames, chapters, bias=None, part=None, gates=None, log_=log):
     """Müzik kazanç eğrisi (dB, 100 Hz): derinlik + pencere bazlı kapalı döngü seviyeleme (konuşma−müzik farkı [SNR_TARGET, SNR_HI]+bias aralığına
     çekilir; alt sınır sert, üst sınır sınırlı yükseltmeyle; müziğin sustuğu kareler hariç) + bölüm kartı/başlık yükselişleri."""
     Pv, act, region, gaps = sa["Pv"], sa["act"], sa["region"], sa["gaps"]
     mus = Pm_raw > 10 ** (MUSIC_ACTIVE_DB / 10.0)
+    for g_ in (gates or []):        # bilinçli kısılmış/susturulmuş müzik pencereleri (kapılar) seviyelemeye katılmaz: 'çekilir' etkisi korunur
+        if g_.get("floor_db") is None or g_["floor_db"] <= -12:
+            lo_ = int((g_["a"] - g_.get("lead", 0.6) - 0.5) * 100)
+            hi_ = int((g_["b"] + g_.get("rel", 3.0) + 0.5) * 100)
+            mus[max(lo_, 0):max(hi_, 0)] = False
     bias = np.zeros(n_frames) if bias is None else bias
     depth = depth_curve(sa["level_db"])
     G = depth.copy()
@@ -219,7 +224,7 @@ def build_gain_curve(sa, Pm_raw, n_frames, chapters, bias=None, part=None, log_=
         adj = uniform_filter1d(adj, 400, mode="nearest")
         if np.abs(adj).max() < 0.08:
             break
-        trims += adj
+        trims = np.minimum(trims + adj, MAX_BOOST)      # toplam yükseltme MAX_BOOST'u aşamaz (yinelemeler birikmesin)
     G = G + trims * region
     # ── bölüm kartı / başlık yükselişleri
     t_title = chapters[0]["t1"] if (part == 1 and chapters and chapters[0]["id"] == "c0") else None
@@ -640,7 +645,7 @@ def main():
     # 4) müzik bus: EQ + ducking/yükseliş (bölüm başına SNR yanlılığı: snr_bias)
     music_eq = D.eq_apply(music, MUSIC_EQ).astype(np.float32)
     del music
-    junc_steps = junction_raw_steps(chapters, music_eq)
+    junc_steps = junction_raw_steps(minfo["cues"], music_eq)
     Pm_raw = frame_power(music_eq, nf)
     bias = np.zeros(nf)
     for c in minfo["cues"]:
@@ -649,7 +654,7 @@ def main():
             lo, hi = int(c["s0"] * 100), min(int(c["s1"] * 100), nf)
             bias[lo:hi] = spec_bias
     bias = uniform_filter1d(bias, 300, mode="nearest")
-    G, ginfo = build_gain_curve(sa, Pm_raw, nf, chapters, bias=bias, part=PART, log_=log)
+    G, ginfo = build_gain_curve(sa, Pm_raw, nf, chapters, bias=bias, part=PART, gates=minfo["gates"], log_=log)
     music_d = apply_curve(music_eq, G)
     log(f"ducking eğrisi: konuşma bölgesi ort. {G[sa['region']].mean():+.2f} dB; yükseliş {len(ginfo['gaps'])} boşlukta; seviyeleme {ginfo['trim_min']:+.2f} … {ginfo['trim_max']:+.2f} dB")
 
@@ -751,30 +756,32 @@ def timeline_check(timeline, act, nf, chapters):
                 between_mean=float(np.mean(between)) if between else 0.0, offs=offs, total=timeline.get("total"))
 
 
-def junction_raw_steps(chapters, music_eq):
-    """Kavşak (bölüm kartı boşluğunun ortası) çevresinde (±8 sn) ham müzik bandının (ducking ÖNCESİ) 1 sn RMS dizisi → en büyük ardışık adım (dB).
-    Ham bantta kart etkisi (yükseliş) yoktur; çapraz geçişlerin (kesit sınırı) dB sıçrama yapıp yapmadığını ölçer."""
+def junction_raw_steps(minfo_cues, music_eq):
+    """Her çapraz geçiş merkezi (kesit sınırı) çevresinde (±8 sn) ham müzik bandının (ducking ÖNCESİ) 1 sn RMS dizisi → en büyük ardışık adım (dB).
+    Bölüm sınırları ve bölüm içi kesit sınırları dahil. Döner: [(sınır adı, merkez sn, adım dB)]."""
     out = []
-    for i in range(len(chapters) - 1):
-        a = chapters[i]
-        tc = a["t1"] + a.get("gap_after", 3.0) / 2
+    for ci in minfo_cues:
+        if not ci["xout"]:
+            continue
+        tc = ci["end"] - ci["xout"] / 2
         seg = music_eq[max(int((tc - 8.0) * SR), 0):int((tc + 8.0) * SR)]
+        if len(seg) < 4 * SR:
+            continue
         mm = seg.mean(axis=1)
         nwin = len(mm) // SR
         r = 10 * np.log10(np.mean(mm[:nwin * SR].reshape(nwin, SR).astype(np.float64) ** 2, axis=1) + 1e-14)
-        out.append(float(np.max(np.abs(np.diff(r)))) if len(r) > 1 else 0.0)
+        out.append((ci["id"], float(tc), float(np.max(np.abs(np.diff(r)))) if len(r) > 1 else 0.0))
     return out
 
 
-def junction_report(chapters, final, steps):
-    """Bölümler arası geçiş sıçramaları: (1) nihai mikste, konuşmalı bölgelerde 12 sn'lik entegre LUFS farkı (önceki bölümün sonu ↔ sonraki bölümün başı);
-    (2) ham müzik bandında kavşak çevresi en büyük 1 sn adımı (junction_raw_steps)."""
+def junction_report(chapters, final):
+    """Bölümler arası geçiş: nihai mikste, konuşmalı bölgelerde 12 sn'lik entegre LUFS farkı (önceki bölümün sonu ↔ sonraki bölümün başı)."""
     rows = []
     for i in range(len(chapters) - 1):
         a, b = chapters[i], chapters[i + 1]
         la = D.loudness_stats(final[int(max(a["t1"] - 12.0, a["t0"]) * SR):int((a["t1"] - 0.3) * SR)])["integrated"]
         lb = D.loudness_stats(final[int((b["t0"] + 0.3) * SR):int(min(b["t0"] + 12.0, b["t1"]) * SR)])["integrated"]
-        rows.append(dict(a=a["id"], b=b["id"], lufs_a=float(la), lufs_b=float(lb), d=float(lb - la), music_step=float(steps[i])))
+        rows.append(dict(a=a["id"], b=b["id"], lufs_a=float(la), lufs_b=float(lb), d=float(lb - la)))
     return rows
 
 
@@ -864,11 +871,14 @@ def write_report(c):
         chl.append(sc["integrated"])
         P(f"   {ch['id']:5s} {sc['integrated']:10.2f}   {sc['shortterm_max']:12.1f}   {sc['momentary_max']:10.1f}")
     P("")
-    P("[3] BÖLÜMLER ARASI GEÇİŞ SIÇRAMALARI (dB)")
-    P("   geçiş       mikste 12 sn LUFS (önceki sonu → sonraki başı)    fark     ham müzik bandında maks. 1 sn adımı (±8 sn)")
-    jr = junction_report(chapters, final, c["junc_steps"])
+    P("[3] GEÇİŞ SIÇRAMALARI (dB)")
+    P("   (a) bölümler arası, nihai mikste konuşmalı bölgelerde 12 sn entegre LUFS (önceki sonu → sonraki başı):")
+    jr = junction_report(chapters, final)
     for r in jr:
-        P(f"   {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}                          {r['d']:+5.2f}      {r['music_step']:5.1f}")
+        P(f"       {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}   fark {r['d']:+5.2f} dB")
+    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±8 sn) en büyük ardışık 1 sn RMS adımı:")
+    for (sid, tc, stp) in c["junc_steps"]:
+        P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   maks. adım {stp:5.1f} dB")
     P("")
     P("[4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an vb.)")
     P("   kesit   başlangıç–bitiş (sn)   tür             müzik RMS (ducking sonrası)   SFX RMS   miks−ses RMS (kestirim)   not")
@@ -950,7 +960,8 @@ def write_report(c):
     ck("boşluk yükselişi 8–10 dB (ölçülen, ±0,7)", bool(rv) and all(7.3 <= r <= 10.7 for r in rv), f"min {min(rv):.1f} maks {max(rv):.1f}" if rv else "-")
     if jr:
         ck("geçişte 12 sn LUFS sıçraması ≤ 1,5 dB (tüm geçişler)", all(abs(r["d"]) <= 1.5 for r in jr), f"maks {max(abs(r['d']) for r in jr):.2f}")
-        ck("ham müzik bandında kavşak 1 sn adımı ≤ 4 dB", all(r["music_step"] <= 4.0 for r in jr), f"maks {max(r['music_step'] for r in jr):.1f}")
+    if c["junc_steps"]:
+        ck("ham müzik bandında kavşak 1 sn adımı ≤ 4 dB (tüm kesit sınırları)", all(x[2] <= 4.0 for x in c["junc_steps"]), f"maks {max(x[2] for x in c['junc_steps']):.1f}")
     for (g, m_db, s_db, kind) in gate_rows:
         if g["floor_db"] is None:
             ck(f"sessizlik bölgesi {g['seg']} {g['a']:.1f}–{g['b']:.1f}: müzik ≤ −80 dBFS", m_db <= -80.0, f"{m_db:.1f}")

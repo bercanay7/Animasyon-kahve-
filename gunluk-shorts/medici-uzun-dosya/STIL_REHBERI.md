@@ -114,9 +114,19 @@ Parametreleri görmek için: `grep -n "ckind(\"ad\"" cilt_*.py` ve ilgili fonksi
 - **Yasak:** düz beyaz zemin, sistem yazı tipi, clipart hissi, neon, ekranı dolduran paragraf, kaynak/olgu uydurma, gerçek kişi yüzü/sesi taklidi iddiası (madalyalar stilize), kan/şiddet gösterimi (taşıyıcı mecaz: işaret, gölge, pigment yıkama), Leonardo/Botticelli/Rubens/Gozzoli görsellerinin birebir kopyası (kodla yeniden çizilen temsil).
 
 ---
-## 7. Dünya, figür ve yapım animasyonu (Lab-B) — *doldurulacak: `notlar_dunya.md` teslimiyle*
+## 7. Dünya, figür ve yapım animasyonu (Lab-B teslimi; ayrıntı + örnek satırlar: `notlar_dunya.md`)
 
-(`cilt_anim.py` / `cilt_pano.py` / `cilt_build.py` / `cilt_figs.py`: hareketli figürler, kalabalık, at, panoramalar, yapım dizileri; çekim türü adları ve parametreleri burada listelenecek.)
+Üç yeni çekim türü + figür kiti (`import cilt_anim as FA`, `cilt_pano`, `cilt_build` — `cilt_kinds4` sonunda otomatik yüklenir; sahne dosyasında ayrıca import etmek gerekmez ama `FA`/`cilt_pano.st_*` kullanacaksan import et). Önizleme: `python3 preview_world.py [ad…]` → `out/frames/world_<ad>.png` ve `out/clips/world_<ad>.mp4` (13 hazır örnek: kit_walk/acts/riders/crowd, procession, pano_*, build_*). **Bu örneklere bak; her tür için örnek `shot(...)` satırı notlar_dunya §1'dedir.**
+
+| tür | ne | önemli parametreler |
+|---|---|---|
+| `pano` | katmanlı **uzun plan** (≥3 paralaks derinliği, kareaş önbelleği); dünyalar: `florence` (Arno kıyısı, Ponte Vecchio, boya bezleri, tezgâh, revak altında yazan bankacı, Duomo'ya yürüyüş), `nave` (sütun sırası, ışık huzmesi, diz çöken/ayakta kalabalık, çan sarkacı, kaçan figürler), `corridor` (Arno üstünde Vasari Koridoru) | `pano=`, `tod="day|dusk|night"`, `cams=[(çapa,(x,y,zoom)),…]` (x = ana düzlem x'i, başlangıç ≈960), `stations=[dict(x, at=çapa \| at_frac, fn=callable)]` (`stations=[]` = yok), `kick`, `caption` |
+| `build` | **kendini kuran** yapı: `dome` (kubbe sıra sıra, çarklı vinç, işçiler; son: fener+haç, iskele söküm, geri çekilme), `uffizi` (iki kanat, kat kat) | `build=`, `p=(çapa_a, çapa_b)` (ilerleme 0→1) ya da sayı, `orbit` (≤12°), `tod`, `kick`, `caption` |
+| `procession` | Gozzoli "Magi" frizi: **gerçekten yürüyen** 3 sıra (sancaktar, atlı, sayfa, yaşlı/ruhban, muhafız), paralaks, toz, kuş | `dir="r|l"`, `density`, `mix=dict(rider=…, noble=…, page=…, banner=…, guard=…, elder=…, cleric=…, common=…)`, `speed`, `pan=("r", px)`, `seed` |
+
+**Figür kiti** (kendi çekim türünde — `@CM.ckind("cK_ad")` — ya da `extra=fn(cx)` içinde): `FA.walker`, `FA.actor(kind, x, y, h, t, action=…)` (`idle talk bow kneel point cheer pray write count handshake threat work`), `FA.rider` (at: walk/trot/gallop), `FA.crowd(mode="mill|stand|kneel|cheer|march|run")`, `FA.procession`, `FA.threat` (hançer/şiddet **yalnız siluet jesti**; kan yok), `FA.atmo_birds`. Tipler: `tuccar banker rahip kardinal papa kesis soylu soylu_f asker halk cocuk denizci` (+takma adlar `FA.ALIAS`); `prop=` aksesuar (`staff crosier spear halberd pole book cross torch sack basket dagger quill hammer trowel coin`). Kostüm `seed` ile belirlenir (tekrarlanabilir). Ayrıntı ve kısıtlar notlar_dunya §1.1.
+
+**Kısıtlar / dikkat:** (1) `pano=nave` varsayılan istasyonlarında **çan sarkacı (`st_bell`) var** — c7 (26 Nisan) ve c10 (9 Kasım) için kaynakta çan olayı YOK: `stations=[…]` ile çanı çıkar. (2) Ağır sahnede kalabalık/figür yalnız jest/siluet; kan yok. (3) Figürler yandan "kesme-bebek": yakın plan yüz için `medal`/madalya portresi kullan. (4) Yok/eksik (notlar_dunya §4–5): giostra çekimi (c6), dikey kule panosu, **gemi/deniz/liman** ve **iç mekân (oda/sokak/meydan/kale)** dünyaları (ayrı laboratuvarlarda yazılıyor: `cilt_deniz.py`, `cilt_oda.py` — hazır olunca buraya eklenir), veba renk solması. (5) Performans: pano/build/procession 100–175 ms/kare; `kit_crowd (58 kişi)` en ağır.
 
 ---
 ## 8. Ses–görüntü kilidi
