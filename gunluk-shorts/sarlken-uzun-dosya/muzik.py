@@ -282,6 +282,7 @@ class Cue:
         self.dry = np.zeros((self.n, 2), dtype=np.float32)
         self.send = np.zeros(self.n, dtype=np.float32)
         self.diag = {}   # katman → saniye başına enerji (yalnız ayar/teşhis için)
+        self.note_log = None   # teşhis: [(katman, t, midi, süre)] — layer_melody doldurur
         self.chords = self._build_chords()
 
     # --- zaman / yoğunluk
@@ -623,6 +624,8 @@ def layer_melody(c, cfg):
                 notes[i] = (t, int(np.clip(start - motif[0][0] + off, dlo, dhi)), d0)
         for (t, dg, d) in notes:
             m = deg_midi(c.tonic, c.mode, dg)
+            if c.note_log is not None:
+                c.note_log.append(("mel", round(t, 2), m, d))
             vel = float(np.clip((0.45 + 0.5 * I) * c.rng.uniform(0.9, 1.1), 0.2, 1.0))
             f = _hz(m)
             if inst == "lute":

@@ -378,17 +378,21 @@ def flag_cloth(f, x, y, w, h, col, t, emblem="cross", trim=None, wind=1, seed=0,
     k = int(nseg * 0.5)
     ex, ey = mids[k][0], mids[k][1]
     if emblem == "cross":
-        for u0, u1, v0, v1 in ((0.2, 0.8, 0.43, 0.57), (0.45, 0.55, 0.12, 0.88)):
-            seq = []
-            for i in range(nseg + 1):
-                u = xs[i]
-                if u0 <= u <= u1:
-                    seq.append(i)
-            if len(seq) >= 2:
-                a, b = seq[0], seq[-1]
-                pa = [(top[i][0], top[i][1] + (bot[i][1] - top[i][1]) * v0) for i in range(a, b + 1)]
-                pb = [(top[i][0], top[i][1] + (bot[i][1] - top[i][1]) * v1) for i in range(b, a - 1, -1)]
-                f.poly(pa + pb, color=emb, alpha=0.92)
+        # yatay kol (u 0.18..0.82, v 0.42..0.58)
+        a_, b_ = int(nseg * 0.18 + 0.5), int(nseg * 0.82 + 0.5)
+        pa = [(top[i][0], top[i][1] + (bot[i][1] - top[i][1]) * 0.42) for i in range(a_, b_ + 1)]
+        pb = [(top[i][0], top[i][1] + (bot[i][1] - top[i][1]) * 0.58) for i in range(b_, a_ - 1, -1)]
+        if len(pa) >= 2:
+            f.poly(pa + pb, color=emb, alpha=0.92)
+        # dikey kol (u≈0.5 çevresi, v 0.12..0.88)
+        i5 = nseg // 2
+        i4, i6 = max(0, i5 - 1), min(nseg, i5 + 1)
+        sl = (top[i6][1] - top[i4][1]) / (top[i6][0] - top[i4][0] + (1e-6 if top[i6][0] >= top[i4][0] else -1e-6))
+        dx = wind * w * 0.05
+        tx_, ty_ = top[i5]
+        bx_, by_ = bot[i5]
+        hgt = by_ - ty_
+        f.poly([(tx_ - dx, ty_ + hgt * 0.12 - sl * dx), (tx_ + dx, ty_ + hgt * 0.12 + sl * dx), (bx_ + dx, ty_ + hgt * 0.88 + sl * dx), (bx_ - dx, ty_ + hgt * 0.88 - sl * dx)], color=emb, alpha=0.92)
     elif emblem == "saltire":
         for sgn in (1, -1):
             seq = []
