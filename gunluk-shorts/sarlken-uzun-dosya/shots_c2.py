@@ -62,7 +62,7 @@ def k_c2_yedi(cx, mode="intro", t_crown=0.0, t_fam=0.0, t_cross=0.0, t_hats=0.0,
             pulse = max(0.0, math.sin((t - cx.at(t_pulse, off=i * 0.07)) * 5.0)) * (1 if t >= cx.at(t_pulse) else 0) * 0.35
         K.glow_disc(f, x, y, 125, "#F0D27A", (0.3 + pulse) * a)
         f.circle(x, y, 92, style="stroke", sw=2.2, color="#C9962B", alpha=0.55 * a)
-        icons.draw_icon(f, "c2_kurhut", x, y - 12 * (1 - a), size=150 * (0.82 + 0.18 * back_out(a)), metal="gold", alpha=a, glow=0.2 * a + pulse)
+        icons.draw_icon(f, "c2_kurhut", x, y - 12 * (1 - a), size=160 * (0.82 + 0.18 * back_out(a)), metal="crimson", alpha=a, glow=0.28 * a + pulse)
         if vote:
             tv = smooth(clamp((t - cx.at(t_vote, off=i * 0.07)) / 0.35))
             if tv > 0:
@@ -101,7 +101,7 @@ def _curtain(f, side, w, t, alpha=1.0):
 
 
 @SH.kind("c2_gosteri")
-def k_c2_gosteri(cx, t_h=0.0, t_show=0.0, t_plate=None, size=520):
+def k_c2_gosteri(cx, t_h=0.0, t_show=0.0, t_plate=None, size=470):
     f = cx.f
     t = cx.t
     f.bg("night")
@@ -116,11 +116,11 @@ def k_c2_gosteri(cx, t_h=0.0, t_show=0.0, t_plate=None, size=520):
     f.oval(960, 915, 400, 52, shader=f.rad(960, 915, 400, [("#FFE2A0", 0.0, int(110 * open_k)), ("#FFE2A0", 1.0, 0)]), blend=skia.BlendMode.kPlus)
     # silik rakipler (kulis)
     for (key, x, metal) in (("karl_genc", 250, "gold"), ("fransuva", 1670, "royal")):
-        SH.draw_medal(f, key, x, 770, 250, metal, alpha=0.32 * smooth(t / 0.8), inscription=False)
+        pass
     # Henry
     a = cx.amt(t_h, 0.9)
     if a > 0:
-        SH.draw_medal(f, "henri8", 960, 470, size * (0.92 + 0.08 * ease_out(a)), "crimson", alpha=a, tilt=0.14 * math.sin(t * 0.6), glint=((t * 0.27) % 2.0) if ((t * 0.27) % 2.0) < 1 else None)
+        SH.draw_medal(f, "henri8", 960, 545, size * (0.92 + 0.08 * ease_out(a)), "crimson", alpha=a, tilt=0.14 * math.sin(t * 0.6), glint=((t * 0.27) % 2.0) if ((t * 0.27) % 2.0) < 1 else None)
         SH.name_plate(f, "VIII. HENRY", "İngiltere Kralı", None, cx_=960, y=H * 0.77, t=cx.amt(t_plate if t_plate is not None else t_h, 0.6, off=0.5), w=640)
     # perdeler (açılır)
     w = lerp(W * 0.46, W * 0.15, open_k)
@@ -135,7 +135,9 @@ def k_c2_gosteri(cx, t_h=0.0, t_show=0.0, t_plate=None, size=520):
     # GÖSTERİ
     sa = cx.amt(t_show, 0.5)
     if sa > 0:
-        SH.gold_flat(f, "GÖSTERİ", 960, 238 + 8 * (1 - sa), face="title", size=int(96 * (0.9 + 0.1 * back_out(sa))), track=22, alpha=sa)
+        SH.gold_flat(f, "GÖSTERİ", 960, 236 + 8 * (1 - sa), face="title", size=int(92 * (0.9 + 0.1 * back_out(sa))), track=22, alpha=sa)
+    for (key, x, metal) in (("karl_genc", 430, "gold"), ("fransuva", 1490, "royal")):
+        SH.draw_medal(f, key, x, 800, 210, metal, alpha=0.34 * smooth(t / 0.8), inscription=False)
     sk.dust(f, t, n=45, alpha=0.4)
     f.vig(0.6)
 
@@ -190,6 +192,17 @@ def k_c2_pay(cx, t_bar=0.0, t_third=0.0, t_lab=0.0, t_num=0.0, t_unit=0.0):
         f.rrect(x0, y, max(2, bw), h, 12, style="stroke", sw=2.5, color="#FFF1C2", alpha=0.7 * a)
         for k in range(8):
             f.rect(x0 + bw * (k + 0.4) / 8 - 4, y + 8, 8, h - 16, color="#FFFFFF", alpha=0.05)
+        gx = x0 + ((t * 420) % (bw + 240)) - 120
+        f.c.save()
+        f.c.clipRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(x0, y, max(2, bw), h), 12, 12), skia.ClipOp.kIntersect, True)
+        f.rect(gx - 40, y, 80, h, shader=f.lin(gx - 40, 0, gx + 40, 0, [("#FFFFFF", 0.0, 0), ("#FFFFFF", 0.5, 90), ("#FFFFFF", 1.0, 0)]))
+        f.c.restore()
+        # ön kenara düşen paralar
+        if fill < 0.62:
+            for q in range(10):
+                u = ((t * 1.3) + q * 0.1) % 1.0
+                xx = x0 + bw - 20 - q * 14 + math.sin(q * 2.3) * 16
+                K.coin(f, xx, y - 200 + u * 190, 13, alpha=(1 - u) ** 0.5 * a, rot=u * 5 + q, squash=abs(math.cos(u * 8 + q)) * 0.7 + 0.3)
     # ücte iki işareti
     tx = x0 + w * 2 / 3
     ta = cx.amt(t_third, 0.5)
@@ -222,7 +235,7 @@ def k_c2_para(cx, t_stamp=0.0, t_coins=0.0, t_take=0.0):
         x, y = hat_pos(i, cx_=cxw, cy=cyw - 20, rx=470, ry=210, start=-math.pi / 2)
         a = smooth(clamp((t - 0.1 * i) / 0.5))
         K.glow_disc(f, x, y, 110, "#F0D27A", 0.25 * a + 0.3 * taken * a)
-        icons.draw_icon(f, "c2_kurhut", x, y, size=130, metal="gold" if taken > 0.5 else "bronze", alpha=a, glow=0.15 * a + 0.3 * taken)
+        icons.draw_icon(f, "c2_kurhut", x, y, size=140, metal="crimson", alpha=a * (0.7 + 0.3 * taken), glow=0.2 * a + 0.35 * taken)
     # kese
     ba = cx.amt(t_coins, 0.6, off=-0.3)
     if ba > 0:
@@ -253,7 +266,7 @@ def k_c2_borc(cx, t_scale=0.0, t_rus=0.0, t_tart=0.0, t_borc=0.0, t_gercek=0.0, 
     bounce = math.sin(max(0.0, t - cx.at(t_borc)) * 9) * 0.05 * math.exp(-max(0.0, t - cx.at(t_borc)) * 2.2)
     tilt = (0.05 * math.sin(t * 1.9) + 0.03 * math.sin(t * 3.1)) * (1 - kb) + 0.2 * kb + bounce
     cc = smooth((t - cx.at(t_crown, off=-0.2)) / 0.9)       # taç gelirken terazi geri çekilir
-    sc_alpha = a * (1 - 0.65 * cc)
+    sc_alpha = a * (1 - 0.82 * cc)
 
     def left(f, x, y):
         ra = cx.amt(t_rus, 0.6)
@@ -271,22 +284,23 @@ def k_c2_borc(cx, t_scale=0.0, t_rus=0.0, t_tart=0.0, t_borc=0.0, t_gercek=0.0, 
             K.txt(f, "BORÇ", x, y + 80, face="title", size=48, color="#F6DC8A", track=10, alpha=kb)
 
     K.draw_scale(f, 960, 300, 370, tilt, left, right, alpha=sc_alpha, t=t)
-    SH.stamp(f, "TARTIŞMALI", 560, 840, rot=-0.08, size=62, t=cx.amt(t_tart, 0.3)) if cx.amt(t_tart, 0.3) > 0 and cc < 0.5 else None
+    if cx.amt(t_tart, 0.3) > 0 and cc < 0.5:
+        SH.stamp(f, "TARTIŞMALI", 560, 900, rot=-0.08, size=62, t=cx.amt(t_tart, 0.3), alpha=1 - cc * 2)
     ga = cx.amt(t_gercek, 0.5)
     if ga > 0 and cc < 0.6:
-        K.txt(f, "GERÇEK", 1400, 840, face="title_m", size=46, color="#F6DC8A", track=12, alpha=ga * (1 - cc))
+        K.txt(f, "GERÇEK", 1322, 925, face="title_m", size=44, color="#F6DC8A", track=12, alpha=ga * (1 - cc))
     # taç + zincir
     ca = cx.amt(t_crown, 0.8)
     if ca > 0:
-        cyc = 430
-        K.glow_disc(f, 960, cyc, 260, "#F0D27A", 0.4 * ca)
-        icons.draw_icon(f, "imperial_crown", 960, cyc - 30 * (1 - ease_out(ca)), size=330, metal="gold", alpha=ca, glow=0.4 * ca)
+        cyc = 500
+        K.glow_disc(f, 960, cyc, 300, "#F0D27A", 0.4 * ca)
+        icons.draw_icon(f, "imperial_crown", 960, cyc - 30 * (1 - ease_out(ca)), size=380, metal="gold", alpha=ca, glow=0.4 * ca)
         k = clamp((t - cx.at(t_chain)) / 1.1)
         if k > 0:
             pts = []
             for j in range(25):
                 ang = -math.pi * 0.62 + j * (2 * math.pi) / 24
-                pts.append((960 + 250 * math.cos(ang), cyc + 12 + 130 * math.sin(ang)))
+                pts.append((960 + 290 * math.cos(ang), cyc + 14 + 150 * math.sin(ang)))
             K.chain(f, pts, prog=ease_out(k), link=44, thick=10, col="#B6BDC8", alpha=1.0)
     f.vig(0.58)
 

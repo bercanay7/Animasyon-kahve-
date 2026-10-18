@@ -82,23 +82,15 @@ def cam_on(row=0, x=0.5, zoom=1.4, rise=0.0, s=1.0):
 
 
 @lru_cache(maxsize=60)
-def band_image(mood, k, mist_q=0):
-    """Bant k gövdesi + önündeki derinlik buğusu: yalnız içerik yüksekliği kadar kırpılmış görüntü → (img, x, y) katman koordinatında.
-    Buğu bandın üstüne doğru uzanır: önceki sıradaki gemilerin üstüne biner (sıralar arası hava perspektifi)."""
+def band_image(mood, k):
+    """Bant k gövdesi: yalnız içerik yüksekliği kadar kırpılmış görüntü → (img, x, y) katman koordinatında."""
     M = _mood(mood)
     ycrest = BAND_Y[k] - _amp(M, k)
-    ytop_fill = int(ycrest + STRIP_H[k] - 8)
-    up = 210 if k > 0 else 120
-    ytop = int(ycrest - up)
+    ytop = int(ycrest + STRIP_H[k] - 8)
     h = int(H + MARGIN + 70 - ytop)
-    mist = mist_q / 4.0
 
     def fn(f):
         bake_band(f, M, k)
-        fa = M["fog_a"] * (1.0 - 0.18 * k) * (0.85 if k > 0 else 1.0) + mist * 0.55
-        fa = min(0.85, fa)
-        if fa > 0.01:
-            f.rect(-MARGIN, ytop, W + 2 * MARGIN, up + 40, shader=f.lin(0, ytop, 0, ycrest + 40, [(M["fog"], 0.0, 0), (M["fog"], 0.75, int(255 * fa * 0.8)), (M["fog"], 1.0, int(255 * fa))]))
     img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -ytop, mip=False)
     return img, -MARGIN, ytop
 
@@ -217,11 +209,14 @@ def band_color(M, k):
 
 def bake_far(f, M, mood, p):
     """Ufuk çizgisi altı: uzak su + güneş/ay yolu + ufuk parlaması."""
+    mist = float(p.get("mist", 0.0))
     c0 = mix(M["sea_top"], M["haze"], 0.55)
     c1 = band_color(M, 0)
     f.rect(-MARGIN, HZ, W + 2 * MARGIN, 300, shader=f.lin(0, HZ, 0, HZ + 120, [(mix(c0, "#FFFFFF", 0.04), 0.0), (c1, 1.0)]))
     # ufuk çizgisi: ince parlak
     f.rect(-MARGIN, HZ - 2, W + 2 * MARGIN, 3.0, color=mix(M["haze"], "#FFFFFF", 0.25), alpha=0.65)
+    if mist > 0.02:
+        f.rect(-MARGIN, HZ - 170, W + 2 * MARGIN, 330, shader=f.lin(0, HZ - 170, 0, HZ + 160, [(M["haze"], 0.0, 0), (M["haze"], 0.5, int(255 * min(0.9, 0.2 + 0.7 * mist))), (M["haze"], 1.0, int(255 * min(0.7, 0.1 + 0.55 * mist)))]))
     # güneş yolu / ay yolu (yansıma): dikey parıltı sütunu
     sun = M["sun"]
     ref_x = None
@@ -538,8 +533,18 @@ def _vis(f):
         return None
 
 
-def _flash_env(t, seed, amount):
-    """Şimşek parlaması zarfı ve olayı: (env, olay_id, olay_t)."""
+def _flash_env(t, seed, amount, times=None):
+    """Şimşek parlaması zarfı: (env, olay_id, olay_yaşı). times verilirse (yerel sn listesi) parlamalar tam o anlarda olur."""
+    if times:
+        best = (0.0, -1, 0.0)
+        for k, T in enumerate(times):
+            age = t - T
+            if age < 0 or age > 0.9:
+                continue
+            e = math.exp(-age / 0.075) * (1.0 if age < 0.35 else 0.0) + 0.65 * math.exp(-max(0.0, age - 0.17) / 0.07) * (1.0 if age >= 0.17 else 0.0)
+            if e > best[0]:
+                best = (e, k, age)
+        return best
     if amount <= 0:
         return 0.0, -1, 0.0
     per = 3.4 / (0.35 + amount)
@@ -575,8 +580,19 @@ def _ship_defaults(M, mood, sh):
     return d
 
 
+def _anim(v0, v1, tt, t):
+    """tt=(t0,t1) yerel sn: v0→v1 yumuşak geçiş."""
+    if not tt:
+        return v0
+    a, b = tt
+    return lerp(v0, v1, smooth((t - a) / max(1e-6, b - a)))
+
+
 def _wave_h(t, ph, A, w):
     return A * (math.sin(w * t + ph) + 0.45 * math.sin(w * 1.63 * t + ph * 2.1 + 1.3))
+
+
+MIST_Q = 0.0
 
 
 def draw_ship(f, M, mood, sh, t, wind, flash, fire_flash, idx, vis=None):
@@ -589,9 +605,9 @@ def draw_ship(f, M, mood, sh, t, wind, flash, fire_flash, idx, vis=None):
     ph = idx * 1.93 + 0.7
     w1 = (0.62 + 0.55 * (M["speed"] - 0.9)) * (1.0)
     rock = sh["rock"]
-    sink = clamp(sh["sink"])
-    burn = clamp(sh["burn"])
-    drift = sh["drift"] if sh["drift"] is not None else (7.0 * ROW_S[row] * (1.0 if sink <= 0 else 0.0))
+    sink = clamp(_anim(sh["sink"], sh.get("sink_to", sh["sink"]), sh.get("sink_t"), t))
+    burn = clamp(_anim(sh["burn"], sh.get("burn_to", sh["burn"]), sh.get("burn_t"), t))
+    drift = sh["drift"] if sh["drift"] is not None else (7.0 * ROW_S[row] * (1.0 - smooth(sink * 4)))
     x = sh["x"] * W + head * drift * t
     A = (2.2 + 11.0 * rock) * srow ** 0.8
     heave = _wave_h(t, ph, A, w1) * 0.8
@@ -604,8 +620,9 @@ def draw_ship(f, M, mood, sh, t, wind, flash, fire_flash, idx, vis=None):
     cross = sh["flag"] if sh["emblem"] == "cross" else ""
     lamp = sh["lamp"] if sh["lamp"] is not None else M["lamp"]
     hk = {0: 0.0, 1: 0.10, 2: 0.24, 3: 0.36}[row] * (1.0 if mood != "storm" else 1.25)
+    hk = min(0.85, hk + MIST_Q * (0.10 + 0.16 * row) * 1.0)
     hz = M["haze"]
-    sprite = SW.ship_sprite(kind, ks, mix(M["hull"], hz, hk * 0.8), mix(M["rim"], hz, hk * 0.5), mix(M["sail"], hz, hk), mix(M["sail_l"], hz, hk), mix(M["sail_d"], hz, hk), mix(M["gold"], hz, hk), cross, bool(lamp), M["lamp_col"], sh["sails"], round(burn, 1), M["light_dir"], sh["flag"], lod)
+    sprite = SW.ship_sprite(kind, ks, mix(M["hull"], hz, hk * 0.8), mix(M["rim"], hz, hk * 0.5), mix(M["sail"], hz, hk), mix(M["sail_l"], hz, hk), mix(M["sail_d"], hz, hk), mix(M["gold"], hz, hk), cross, bool(lamp), M["lamp_col"], sh["sails"], round(burn * 4) / 4.0, M["light_dir"], sh["flag"], lod)
     img, ox, oy, k = sprite
     cs = f.c
     if vis is not None:
@@ -816,6 +833,9 @@ class Sea:
         self.side = p.get("coast_side", "l" if self.coast == "africa" else "r")
         self.smoke = float(p.get("smoke", 0.0))
         self.mist = float(p.get("mist", 0.0))
+        self.flashes = [float(x) for x in p.get("flashes", [])] or None
+        if self.flashes and self.lightning <= 0:
+            self.lightning = 0.7
         self.wind = 1 if p.get("wind", -1) >= 0 else -1
         ships = p.get("ships")
         if ships is None:
@@ -850,7 +870,7 @@ class Sea:
 
         def flash_at(t):
             if t not in t_cache:
-                t_cache[t] = _flash_env(t, 3, self.lightning)
+                t_cache[t] = _flash_env(t, 3, self.lightning, self.flashes)
             return t_cache[t]
 
         wspd = M["wave_spd"]
@@ -891,6 +911,8 @@ class Sea:
                     f.c.restore()
 
         def master(f, t):
+            global MIST_Q
+            MIST_Q = round(clamp(self.mist) * 4) / 4.0
             cam = SW.cam_from_canvas(f, BASE_D)
             D_sky(f, t)
             e, ev, age = flash_at(t)
@@ -902,7 +924,7 @@ class Sea:
             rowmap = {0: 2, 1: 1, 2: 0}
             for k in range(5):
                 SW.push_depth(f, cam, BAND_D[k])
-                bimg, bx, by = band_image(mood, k, int(round(clamp(self.mist) * 4)))
+                bimg, bx, by = band_image(mood, k)
                 f.c.drawImage(bimg, bx, by, LIN, skia.Paint())
                 self._strips(f, t, k)
                 if k in rowmap:
@@ -1055,7 +1077,7 @@ class Sea:
         side = self.side
         sgn = 1 if side == "r" else -1
         xo = lambda x: x if sgn > 0 else W - x
-        e, ev, age = _flash_env(t, 3, self.lightning)
+        e, ev, age = _flash_env(t, 3, self.lightning, self.flashes)
         if self.coast == "tazones":
             # küçük balıkçı tekneleri: mendirek önünde demirli
             for q, (bx, s_) in enumerate(((1130, 0.55), (1215, 0.45), (1340, 0.5))):

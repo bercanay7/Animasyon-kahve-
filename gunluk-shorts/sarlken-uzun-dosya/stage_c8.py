@@ -69,7 +69,19 @@ def k_zafer(cx, at_kick=0.0, at_word=0.0, at_laurel=0.0):
         f.c.translate(-bx, 40)
         ST.banner(f, bx, -40 - (1 - ease_out(k)) * 420, 150, 520, color=col, icon=ic_, wave=math.sin(cx.t * 2 + i) * 2)
         f.c.restore()
-    X.ic(f, "laurel", CX, 480 + math.sin(cx.t * 1.1) * 6, size=560 * (0.85 + 0.15 * back_out(a)), metal="gold", alpha=a, glow=0.45 * a)
+    # çanlar (tepeden sallanır)
+    if X.has_icon("bell"):
+        kb = cx.amt(at_kick, 0.8, off=0.3)
+        for i, bx in enumerate((470, 1450)):
+            if kb <= 0:
+                continue
+            f.c.save()
+            f.c.translate(bx, 40)
+            f.c.rotate(math.sin(cx.t * 3.2 + i * 1.7) * 11)
+            f.line(0, 0, 0, 90, color="#7A5518", sw=5, alpha=kb)
+            X.ic(f, "bell", 0, 170, size=190 * kb, metal="gold", alpha=kb, glow=0.25 * kb)
+            f.c.restore()
+    X.ic(f, "laurel", CX, 470 + math.sin(cx.t * 1.1) * 6, size=430 * (0.85 + 0.15 * back_out(a)), metal="gold", alpha=a, glow=0.45 * a)
     kw = cx.amt(at_word, 0.6)
     if kw > 0:
         SH.gold_flat(f, "ZAFER", CX, 830, face="title", size=130, track=18, alpha=kw)

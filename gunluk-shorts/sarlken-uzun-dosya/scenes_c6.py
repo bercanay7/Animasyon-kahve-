@@ -6,7 +6,7 @@ import icons       # noqa: F401
 import sk
 import stage_c678 as X
 import stage_c6    # noqa: F401  özel çekim türleri + sahneler (c6_*)
-from sk import H
+from sk import H, W
 
 A = X.W      # sözcük çapası (sözcük yoksa cümle ofsetine düşer)
 
@@ -30,7 +30,7 @@ SHOTS = [
 
     # s2 — Fransa kuşatılmış: Habsburg toprakları sırayla, kuşatma okları
     shot("map", a=("c6s2", -0.35), tr=("fade", 0.9),
-         cams=[(0.0, (3.2, 45.7, 1.62)), (("c6s2", "Napoli.", 0.9), (4.6, 45.5, 1.76))],
+         cams=[(0.0, (4.4, 47.1, 1.34)), (("c6s2", "Napoli.", 0.9), (4.9, 46.7, 1.40))], compass=(150, 930, 58),
          regions=[dict(name="fransa", color="fransa", at=("c6s2", "Fransa,", -0.1), alpha=0.72),
                   dict(name="ispanya", color="ispanya", at=("c6s2", "İspanya,", -0.2)),
                   dict(name="hollanda", color="burgonya", at=("c6s2", "kuzeyde", 0.0)),
@@ -44,26 +44,32 @@ SHOTS = [
                  dict(text="İSPANYA", lon=-3.4, lat=39.6, size=38, at=("c6s2", "İspanya,", 0.0)),
                  dict(text="HOLLANDA", lon=5.2, lat=52.7, size=30, at=("c6s2", "Hollanda,", -0.4), track=8),
                  dict(text="BURGONYA", lon=8.9, lat=47.4, size=28, at=("c6s2", "Burgonya", -0.1), track=6),
-                 dict(text="NAPOLİ", lon=15.2, lat=39.4, size=30, at=("c6s2", "Napoli.", -0.3), track=8)],
+                 dict(text="NAPOLİ", lon=12.6, lat=39.3, size=30, at=("c6s2", "Napoli.", -0.3), track=8)],
          cities=[dict(lon=2.35, lat=48.86, name="PARİS", kind="capital", at=("c6s2", "Fransa,", 0.3), color="#9CB8E8", side="l")],
          label="fransa_kusatma"),
 
     # s3 — Pavia: bozgun, kral esir
     shot("c678_sahne", a=("c6s3", -0.3), tr=("whip", 0.5), scene="field",
          cams=[(0.0, (960, 560, 1.0)), (("c6s3", "bozguna", 0.0), (900, 580, 1.25)), (("c6s3", "düştü", 1.0), (1000, 600, 1.55))],
-         p=dict(tag="c6_pavia", ground="plain", weather="fog", castle_far="pavia", smoke=True,
-                armies=[dict(side="#27427A", kind="cavalry", x=0.35, row=1, n=9, dir=-1, charge=1.0),
-                        dict(side="#27427A", kind="pike", x=0.25, row=2, n=10, dir=-1),
-                        dict(side="#9A2430", kind="arquebus", x=0.75, row=1, n=10, dir=-1),
-                        dict(side="#9A2430", kind="pike", x=0.85, row=2, n=10, dir=-1)]),
+         p=dict(tag="c6_pavia", ground="plain", weather="fog", castle_far="pavia", smoke=0.7,
+                armies=[dict(side="#27427A", kind="pike", x=0.12, row=1, n=12, dir=-1, charge=0.7),
+                        dict(side="#27427A", kind="cavalry", x=0.30, row=0, n=7, dir=-1, charge=0.95),
+                        dict(side="#9A2430", kind="cavalry", x=0.66, row=0, n=7, dir=-1, charge=1.0),
+                        dict(side="#9A2430", kind="arquebus", x=0.74, row=1, n=12, dir=-1, fire=1.0),
+                        dict(side="#9A2430", kind="pike", x=0.88, row=2, n=14, dir=-1, charge=0.5)]),
          overlay=_pavia_ov(), label="pavia"),
 
     # s4 — annesine mektup (aktarılan söz) + sonradan yaygınlaşan slogan
     shot("c6_mektup", a=("c6s4", -0.4), tr=("fade", 0.8), at_a=("c6s4", "bana", 0.0), at_b=("c6s4", "kaldı", 0.0), at_hedge=("c6s4", "aktarıldığına", -0.1),
          at_seal=("c6s4", "diyordu", -0.2), at_slip=("c6s4", "Meşhur", -0.25), at_stamp=("c6s4", "sonradan", -0.1), label="mektup"),
 
-    # s5 — Madrid: esir kral + antlaşma (İtalya, Flandre; mühür)
-    shot("c6_antlasma", a=("c6s5", -0.3), tr=("fade", 0.8), at_medal=0.2, at_title=("c6s5", "Madrid'de", -0.1), at_chip=("c6s5", "esirken", -0.1),
+    # s5 — Madrid: hücre; esir kral + antlaşma (İtalya, Flandre; mühür)
+    shot("c678_sahne", a=("c6s5", -0.3), tr=("fade", 0.8), scene="tower",
+         cams=[(0.0, (970, 520, 1.0)), (("c6s5", "İtalya", -0.2), (1000, 440, 1.3))],
+         p=dict(tag="c6_madrid_cell", variant="cell", night=True, figure="man", candle=1.0),
+         overlay=X.ov_all(X.ov_kick("MADRİD", ("c6s5", "Madrid'de", -0.1), y=122, size=38), X.ov_chip("ESİR", ("c6s5", "esirken", -0.1), x=W / 2, y=H * 0.88, size=40, edge="#B02A2A", color="#F8E2D8", padx=44)),
+         label="madrid_hucre"),
+    shot("c6_antlasma", a=("c6s5", "İtalya", -0.08), tr=("fade", 0.5), at_medal=0.0, at_title=0.1, at_chip=0.4,
          at_l1=("c6s5", "İtalya", -0.15), at_l2=("c6s5", "Flandre", -0.15), at_strike=("c6s5", "vazgeçen", -0.05), at_seal=("c6s5", "imzaladı", -0.1), label="madrid_antlasma"),
     shot("c6_rehin", a=("c6s5", "İki", -0.2), tr=("dip", 0.6), at=0.0, at_stamp=("c6s5", "rehin", -0.1), label="rehin"),
 

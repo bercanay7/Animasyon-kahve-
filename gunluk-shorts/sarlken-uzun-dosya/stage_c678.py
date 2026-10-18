@@ -189,6 +189,16 @@ def ov_medal(key, anchor, x, y, size=300, metal="gold", flip=False, name=None, r
     return fn
 
 
+def ov_chip(text, anchor, x=Wd / 2, y=H * 0.86, size=36, edge="#C9962B", color="#F4E6BC", padx=36, h=None, out=None):
+    def fn(cx):
+        k = cx.amt(anchor, 0.5)
+        if out is not None:
+            k *= 1 - cx.amt(out, 0.5)
+        if k > 0:
+            chip(cx.f, text, x, y, k=k, size=size, edge=edge, color=color, padx=padx, h=h)
+    return fn
+
+
 def ov_all(*fns):
     def fn(cx):
         for g in fns:
@@ -236,14 +246,14 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
             xx = 40 + (i + rs.rand() * 0.7) * (Wd - 80) / nb
             row = i % 3
             hh = 120 - row * 14
-            ST.figure(f, kind, xx, H + 8 - row * 30, hh, col="#0A0604", rim="#4C7A58", face=-1 if rs.rand() > 0.5 else 1, alpha=0.9 - row * 0.12)
+            ST.figure(f, kind, xx, H + 8 - row * 34, hh * 1.15, col="#0A0604", rim="#79B58C", face=-1 if rs.rand() > 0.5 else 1, alpha=0.95 - row * 0.12)
     for i, it in enumerate(items):
         xc = Wd / 2 - colw * (n - 1) / 2 + i * colw
         at = it.get("at", 0.0)
         a = cx.amt(at, 0.5)
         if a <= 0:
             continue
-        k = ease_out(clamp((cx.t - cx.at(at)) / it.get("dur", 1.6)), 3)
+        k = ease_out(clamp((cx.t - cx.at(it.get("count_at", at))) / it.get("dur", 1.6)), 3)
         icon = it.get("icon")
         if icon:
             ic(f, icon, xc, y - size * 0.95, size=icon_size * (0.9 + 0.1 * back_out(a)), metal=it.get("metal", "gold"), alpha=a, glow=0.3 * a)

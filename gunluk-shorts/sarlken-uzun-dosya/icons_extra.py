@@ -188,10 +188,10 @@ def _globe(m):
         m.cut(pl([(cx, cy - R), (cx, cy + R)], False), 5)
         for dy in (-84, 0, 84):
             cutl(m, [(cx - R, cy + dy), (cx, cy + dy + (14 if dy else 0)), (cx + R, cy + dy)], 5, smooth=True)
-        # kıta lekeleri (kabaca)
-        m.cut(sm([(196, 160), (232, 148), (246, 186), (222, 230), (190, 206)], True, 0.5), 0)
-        m.cut(sm([(286, 200), (336, 186), (350, 240), (318, 290), (290, 258)], True, 0.5), 0)
-    # lekeler cut (siyah) → yer yer koyu; ızgara üstte okunur
+        # kıta kenarları (kabaca, çentik çizgisi)
+        m.cut(sm([(196, 160), (232, 148), (246, 186), (222, 230), (190, 206)], True, 0.5), 7)
+        m.cut(sm([(286, 200), (336, 186), (350, 240), (318, 290), (290, 258)], True, 0.5), 7)
+        m.cut(sm([(310, 120), (350, 128), (360, 156), (326, 160)], True, 0.5), 6)
     cutl(m, [(188, 428), (256, 440), (324, 428)], 4, smooth=True)
 
 
@@ -228,16 +228,18 @@ def _compass(m):
 @icon("helmet")
 def _helmet(m):
     # morion: yüksek tepelik + öne/arkaya kalkık kayık siperlik
-    m.smooth([(118, 322), (126, 246), (184, 196), (256, 184), (328, 196), (386, 246), (394, 322)], close=True, t=0.4)   # kubbe
-    m.stroke(sk.smooth_path([(128, 252), (156, 150), (256, 96), (356, 150), (384, 252)], False, 0.5), 38)                 # tepelik
+    m.smooth([(118, 330), (126, 250), (184, 196), (256, 184), (328, 196), (386, 250), (394, 330)], close=True, t=0.4)   # kubbe
+    m.smooth([(126, 262), (148, 168), (206, 116), (256, 96), (306, 116), (364, 168), (386, 262), (330, 190), (256, 176), (182, 190)], close=True, t=0.4)   # tepelik (kubbeye gömülü)
     m.smooth([(34, 252), (70, 336), (170, 372), (256, 378), (342, 372), (442, 336), (478, 252), (426, 316), (342, 338), (256, 342),
               (170, 338), (86, 316)], close=True, t=0.32)                                                               # siperlik
     m.rect(106, 318, 300, 24, r=10)
-    m.cut(sm([(134, 252), (162, 164), (256, 112), (350, 164), (378, 252)], False, 0.5), 5)       # tepelik ayrımı
+    m.cut(sm([(150, 250), (176, 178), (222, 132), (256, 118), (290, 132), (336, 178), (362, 250)], False, 0.5), 5)       # tepelik oluğu
     m.cut(pl([(112, 330), (400, 330)], False), 5)
     for k in range(7):
         m.circle(150 + k * 35, 330, 6, 0)
-    m.cut(sm([(190, 210), (256, 196), (322, 210)], False, 0.5), 4)
+    m.cut(sm([(186, 222), (256, 206), (326, 222)], False, 0.5), 4)
+    m.cut(sm([(136, 280), (150, 300)], False, 0.5), 4)
+    m.cut(sm([(376, 280), (362, 300)], False, 0.5), 4)
 
 
 @icon("horse")
@@ -275,25 +277,26 @@ def _horse(m):
 
 @icon("arquebus")
 def _arquebus(m):
-    m.rect(40, 214, 300, 30, r=12)                                # namlu
-    m.rect(26, 206, 28, 46, r=9)                                  # ağız
-    stock = [(318, 206), (396, 214), (440, 238), (478, 300), (488, 358), (460, 366), (414, 324), (344, 268), (314, 252)]
-    m.smooth(stock, close=True, t=0.3)                            # kundak
-    m.rect(316, 236, 78, 50, r=12)                                # çakmak plakası
-    m.stroke(sk.smooth_path([(360, 238), (370, 196), (402, 172), (430, 190)], False, 0.5), 18)    # horoz (S kolu)
-    m.circle(430, 192, 12)
-    m.rect(70, 248, 240, 12, r=5)                                 # çubuk (ramrod)
-    guard = skia.Path()
-    guard.addArc(skia.Rect.MakeLTRB(336, 262, 424, 336), 0, 180)
-    m.stroke(guard, 12)
-    m.rect(372, 276, 10, 30, r=4)                                 # tetik
-    m.stroke(sk.smooth_path([(120, 214), (100, 168), (140, 140), (180, 162), (160, 196)], False, 0.5), 10)   # fitil halkası
-    for x in (92, 160, 228, 296):
-        m.cut(pl([(x, 214), (x, 244)], False), 5)
-    m.cut(pl([(46, 229), (330, 229)], False), 3)
-    cring(m, 354, 261, 11, 4)
-    m.cut(pl([(330, 250), (390, 250)], False), 4)
-    cutl(m, [(402, 230), (440, 270), (466, 330)], 4, smooth=True)
+    with xform(m, tx=-30, ty=16, rot=-26, sc=0.92, cx=256, cy=250):
+        m.rect(18, 232, 314, 32, r=12)                                # namlu
+        m.rect(6, 224, 28, 48, r=9)                                   # ağız
+        stock = [(300, 224), (380, 226), (432, 238), (490, 266), (524, 314), (524, 376), (488, 384), (446, 334), (390, 298), (300, 284)]
+        m.smooth(stock, close=True, t=0.3)                            # kundak
+        m.rect(316, 252, 86, 54, r=12)                                # çakmak plakası
+        m.stroke(sk.smooth_path([(362, 254), (376, 206), (410, 178), (440, 194)], False, 0.5), 20)   # horoz (S kolu)
+        m.circle(442, 196, 13)
+        m.rect(60, 270, 250, 12, r=5)                                 # çubuk (ramrod)
+        guard = skia.Path()
+        guard.addArc(skia.Rect.MakeLTRB(342, 286, 436, 362), 0, 180)
+        m.stroke(guard, 13)
+        m.rect(380, 302, 11, 32, r=4)                                 # tetik
+        for x in (80, 150, 220, 290):
+            m.cut(pl([(x, 232), (x, 264)], False), 5)
+        m.cut(pl([(24, 248), (326, 248)], False), 3)
+        cring(m, 358, 279, 12, 4)
+        m.cut(pl([(326, 270), (396, 270)], False), 4)
+        cutl(m, [(404, 238), (444, 276), (470, 336)], 4, smooth=True)
+        m.cut(pl([(70, 276), (300, 276)], False), 3)
 
 
 @icon("flag")
@@ -454,8 +457,8 @@ def _pillars(m):
 
 @icon("cane")
 def _cane(m):
-    m.stroke(sk.smooth_path([(214, 470), (214, 330), (216, 190)], False, 0.4), 34)               # gövde
-    m.stroke(sk.smooth_path([(216, 190), (214, 120), (252, 74), (314, 66), (366, 100), (368, 160)], False, 0.5), 36)   # kıvrık sap
+    m.stroke(sk.smooth_path([(214, 470), (214, 330), (216, 190)], False, 0.4), 40)               # gövde
+    m.stroke(sk.smooth_path([(216, 190), (214, 120), (252, 74), (314, 66), (366, 100), (368, 160)], False, 0.5), 44)   # kıvrık sap
     m.circle(368, 168, 24)
     m.rect(194, 440, 42, 44, r=10)                                # uç demiri
     m.rect(190, 196, 50, 26, r=8)                                 # halka
@@ -505,24 +508,30 @@ def _galley(m):
 
 @icon("litter")
 def _litter(m):
-    m.smooth([(122, 196), (150, 126), (256, 94), (362, 126), (390, 196)], close=True, t=0.35)         # çatı
+    for x in (70, 442):                                                                              # taşıyıcılar (omuz sırık hizasında)
+        m.circle(x, 292, 24)
+        m.rect(x - 30, 330, 60, 104, r=20)
+        m.rect(x - 28, 428, 24, 70, r=8)
+        m.rect(x + 4, 428, 24, 70, r=8)
+    m.smooth([(100, 200), (130, 150), (200, 112), (256, 94), (312, 112), (382, 150), (412, 200), (384, 190), (256, 168), (128, 190)], close=True, t=0.35)   # çatı
     m.circle(256, 82, 17)
-    m.rect(140, 190, 232, 160, r=10)
-    m.cut(pl([(136, 198), (376, 198)], False), 6)
-    m.smooth([(188, 348), (188, 256), (214, 222), (256, 212), (298, 222), (324, 256), (324, 348)], close=True, v=0, t=0.4)   # açıklık
-    m.smooth([(188, 348), (188, 262), (206, 240), (216, 300), (212, 348)], close=True, t=0.4)       # sol perde
-    m.smooth([(324, 348), (324, 262), (306, 240), (296, 300), (300, 348)], close=True, t=0.4)       # sağ perde
-    m.rect(26, 374, 460, 20, r=10)                                                                   # sırıklar
-    m.rect(158, 346, 18, 34, r=5)
-    m.rect(336, 346, 18, 34, r=5)
-    m.circle(24, 384, 20)
-    m.circle(488, 384, 20)
+    m.rect(150, 188, 212, 112, r=10)
+    m.cut(pl([(146, 196), (366, 196)], False), 6)
+    m.smooth([(192, 298), (192, 244), (214, 216), (256, 208), (298, 216), (320, 244), (320, 298)], close=True, v=0, t=0.4)   # açıklık
+    m.smooth([(192, 298), (192, 252), (206, 234), (216, 272), (212, 298)], close=True, t=0.4)       # sol perde
+    m.smooth([(320, 298), (320, 252), (306, 234), (296, 272), (300, 298)], close=True, t=0.4)       # sağ perde
+    m.rect(158, 296, 18, 40, r=5)
+    m.rect(336, 296, 18, 40, r=5)
+    m.rect(22, 322, 468, 24, r=12)                                                                   # sırıklar
+    m.circle(22, 334, 18)
+    m.circle(490, 334, 18)
+    for x in (70, 442):
+        m.cut(pl([(x - 34, 322), (x + 34, 322)], False), 4)
+        m.cut(pl([(x - 34, 346), (x + 34, 346)], False), 4)
+        m.cut(pl([(x, 440), (x, 498)], False), 4)
     for x in (146, 366):
-        m.cut(pl([(x, 204), (x + 4, 240)], False), 3)
-    cutl(m, [(150, 140), (256, 112), (362, 140)], 4, smooth=True)
-    m.cut(pl([(146, 384), (366, 384)], False), 3)
-    for x in (176, 336):
-        m.circle(x + 9, 365, 4, 0)
+        m.cut(pl([(x, 204), (x + 4, 236)], False), 3)
+    cutl(m, [(150, 138), (256, 110), (362, 138)], 4, smooth=True)
 
 
 @icon("chains")
@@ -541,8 +550,6 @@ def _chains(m):
             m.c.rotate(ang)
             m.c.drawLine(-52, 0, 52, 0, m._p(0, "stroke", 4))
             m.c.restore()
-    # kırık halka kıvılcımı
-    m.poly([(400, 400), (430, 372), (424, 404), (456, 400), (420, 440), (428, 410)])
 
 
 @icon("lightning")
@@ -568,32 +575,40 @@ def _heart(m):
 
 @icon("fist")
 def _fist(m):
-    m.rect(194, 380, 124, 104, r=20)                              # bilek
-    m.rect(142, 226, 228, 170, r=56)                              # avuç/el sırtı
+    m.rect(194, 384, 124, 100, r=20)                              # bilek
+    m.rect(138, 226, 236, 176, r=58)                              # el sırtı/avuç
     for i in range(4):
-        m.rect(142 + i * 56, 138, 58, 150, r=28)                  # parmak boğumları
-    with xform(m, rot=-10, cx=256, cy=330):
-        m.rect(146, 304, 220, 62, r=30)                           # başparmak
-    for x in (198, 254, 310):
-        m.cut(pl([(x, 160), (x, 288)], False), 5)
-    cutl(m, [(150, 304), (256, 318), (366, 302)], 5, smooth=True)
+        m.rect(138 + i * 59, 132, 60, 156, r=29)                  # parmak boğumları
+    for x in (198, 256, 314):
+        m.cut(pl([(x, 158), (x, 300)], False), 5)
     for i in range(4):
-        m.cut(pl([(158 + i * 56, 214), (186 + i * 56, 214)], False), 4)
-    m.cut(pl([(206, 396), (306, 396)], False), 4)
+        m.cut(sm([(152 + i * 59, 214), (168 + i * 59, 222), (186 + i * 59, 214)], False, 0.5), 4)
+    with xform(m, rot=-12, cx=256, cy=334):
+        m.rect(134, 306, 236, 66, r=33)                           # başparmak
+        rr_cut(m, 134, 306, 236, 66, 33, 5)
+        m.cut(sm([(160, 330), (220, 322), (290, 326)], False, 0.5), 4)
+    m.cut(pl([(206, 398), (306, 398)], False), 4)
 
 
 @icon("mountain")
 def _mountain(m):
-    main = [(26, 456), (96, 384), (158, 300), (206, 210), (240, 120), (256, 62), (272, 120), (306, 210), (354, 300), (416, 384), (486, 456)]
-    m.smooth(main, close=True, t=0.14)
-    m.rect(20, 440, 472, 36, r=12)
-    cutl(m, [(256, 70), (238, 150), (264, 214), (228, 296), (252, 372), (214, 440)], 6, smooth=True)
-    cutl(m, [(256, 70), (284, 150), (262, 220), (302, 300), (284, 376), (326, 440)], 5, smooth=True)
-    m.cut(sm([(212, 200), (240, 218), (270, 198), (300, 216)], False, 0.5), 4)
-    m.cut(sm([(166, 296), (210, 316), (258, 296), (300, 318), (346, 296)], False, 0.5), 4)
-    for x in (150, 346):                                          # galeri girişleri
-        m.smooth([(x - 26, 440), (x - 26, 402), (x - 12, 380), (x, 376), (x + 12, 380), (x + 26, 402), (x + 26, 440)], close=True, v=0, t=0.3)
-    m.cut(pl([(30, 440), (486, 440)], False), 4)
+    m.smooth([(20, 458), (80, 392), (136, 330), (186, 262), (224, 182), (258, 110), (282, 66), (312, 124), (346, 196), (392, 272), (444, 352), (496, 458)], close=True, t=0.12)
+    m.smooth([(8, 458), (66, 360), (112, 308), (170, 380), (240, 458)], close=True, t=0.15)
+    m.smooth([(300, 458), (372, 370), (432, 314), (490, 388), (508, 458)], close=True, t=0.15)
+    m.rect(8, 440, 500, 36, r=12)
+    cutl(m, [(282, 70), (262, 142), (292, 204), (250, 282), (286, 356), (240, 440)], 6, smooth=True)       # ana sırt
+    for k in range(7):                                                                                     # gölge tarafı taraması
+        y = 150 + k * 40
+        x0 = 296 + k * 14
+        m.cut(pl([(x0, y), (x0 + 26 + k * 4, y + 22)], False), 5)
+    cutl(m, [(112, 310), (140, 360), (130, 420)], 4, smooth=True)
+    cutl(m, [(432, 316), (410, 372), (426, 430)], 4, smooth=True)
+    m.cut(sm([(212, 210), (240, 226), (262, 206)], False, 0.5), 4)
+    # kıvrımlı yol + galeri girişleri
+    cutl(m, [(150, 438), (200, 402), (170, 372), (222, 340), (196, 306), (240, 278)], 5, smooth=True)
+    for (x, y) in [(330, 412), (206, 400)]:
+        m.rect(x - 20, y - 22, 40, 44, 0, r=4)
+        m.cut(pl([(x - 26, y - 24), (x + 26, y - 24)], False), 5)
 
 
 @icon("elector_hat")
@@ -615,20 +630,27 @@ def _elector_hat(m):
 
 @icon("foot_gout")
 def _foot(m):
-    m.smooth([(196, 100), (270, 100), (282, 214), (340, 266), (432, 306), (466, 342), (448, 384), (252, 396), (170, 396), (136, 354),
-              (148, 262), (176, 164)], close=True, t=0.38)
-    m.rect(180, 80, 100, 56, r=20)                                # bacak ucu
-    m.circle(438, 340, 36)                                        # şişmiş başparmak eklemi
-    # alevler
-    for (x, y, s) in [(430, 236, 1.0), (386, 248, 0.7), (474, 262, 0.7)]:
-        m.smooth([(x, y - 70 * s), (x + 24 * s, y - 24 * s), (x + 20 * s, y + 10 * s), (x, y + 24 * s), (x - 20 * s, y + 10 * s), (x - 24 * s, y - 24 * s)], close=True, t=0.5)
-        m.smooth([(x, y - 30 * s), (x + 10 * s, y - 6 * s), (x, y + 10 * s), (x - 10 * s, y - 6 * s)], close=True, v=0, t=0.5)
-    for k, x in enumerate((410, 438, 462)):                       # parmak çentikleri
-        cutl(m, [(x, 360), (x + 4, 384)], 4)
-    for i in range(3):                                            # bandaj
-        m.cut(pl([(178, 150 + i * 26), (278, 168 + i * 26)], False), 6)
-    cutl(m, [(150, 330), (210, 372), (330, 380)], 4, smooth=True)
-    cring(m, 438, 340, 36, 4)
+    # çıplak ayak (yandan): topuk solda, parmaklar sağda; kemer kavisli
+    m.smooth([(150, 150), (262, 132), (284, 212), (340, 258), (410, 282), (462, 306), (492, 346), (484, 386), (440, 404), (380, 400),
+              (330, 384), (270, 372), (216, 392), (160, 408), (122, 382), (114, 300), (130, 214)], close=True, t=0.4)
+    m.rect(138, 96, 126, 74, r=24)                                # bilek
+    m.circle(408, 292, 34)                                        # şişmiş eklem
+    m.circle(462, 350, 36)                                        # başparmak
+    for (x, y, r) in [(414, 372, 22), (372, 366, 19)]:           # diğer parmaklar
+        m.circle(x, y, r)
+    for (x, y, s_) in [(404, 196, 1.0), (346, 214, 0.74), (456, 224, 0.7)]:
+        m.smooth([(x + 4 * s_, y - 84 * s_), (x + 30 * s_, y - 40 * s_), (x + 24 * s_, y + 8 * s_), (x, y + 30 * s_), (x - 24 * s_, y + 8 * s_),
+                  (x - 26 * s_, y - 24 * s_), (x - 6 * s_, y - 40 * s_)], close=True, t=0.5)
+        m.smooth([(x + 2 * s_, y - 36 * s_), (x + 12 * s_, y - 8 * s_), (x, y + 12 * s_), (x - 12 * s_, y - 8 * s_)], close=True, v=0, t=0.5)
+    for k in range(4):                                            # bandaj
+        m.cut(pl([(140, 130 + k * 24), (258, 114 + k * 24)], False), 6)
+    cring(m, 408, 292, 34, 4)
+    cring(m, 462, 350, 36, 4)
+    cring(m, 414, 372, 22, 3)
+    cutl(m, [(150, 346), (214, 384), (300, 380)], 4, smooth=True)
+    for a in range(7):                                            # şişlik ışınları
+        ang = math.radians(-100 + a * 24)
+        m.cut(pl([(408 + 42 * math.cos(ang), 292 + 42 * math.sin(ang)), (408 + 56 * math.cos(ang), 292 + 56 * math.sin(ang))], False), 4)
 
 
 @icon("bed")
@@ -691,27 +713,25 @@ def _ladder(m):
 
 @icon("crown_cracked")
 def _crown_cracked(m):
-    crack = [(262, 0), (240, 70), (278, 120), (236, 190), (272, 260), (232, 330), (262, 392), (244, 460), (252, 512)]
-    left = [(0, 0)] + crack + [(0, 512)]
-    right = crack + [(512, 512), (512, 0)]
-    lp = skia.Path()
-    lp.moveTo(*left[0])
-    for q in left[1:]:
-        lp.lineTo(*q)
-    lp.close()
+    crack = [(262, -10), (236, 110), (280, 196), (240, 290), (272, 376), (244, 470), (252, 522)]
+    right = crack + [(522, 522), (522, -10)]
     rp = skia.Path()
     rp.moveTo(*right[0])
     for q in right[1:]:
         rp.lineTo(*q)
     rp.close()
+    left = [(-10, -10)] + crack + [(-10, 522)]
+    lp = skia.Path()
+    lp.moveTo(*left[0])
+    for q in left[1:]:
+        lp.lineTo(*q)
+    lp.close()
     with clipm(m, lp):
         icons._icrown(m)
     with clipm(m, rp):
-        with xform(m, tx=16, ty=12, rot=3.5, cx=300, cy=300):
+        with xform(m, tx=12, ty=18, cx=256, cy=256):
             icons._icrown(m)
-    m.cut(sm(crack, False, 0.0), 9)
-    m.poly([(230, 400), (252, 430), (226, 470), (206, 440)], 255)
-    m.cut(pl([(230, 400), (252, 430), (226, 470)], False), 4)
+    m.cut(sm(crack, False, 0.0), 11)
 
 
 @icon("sack")

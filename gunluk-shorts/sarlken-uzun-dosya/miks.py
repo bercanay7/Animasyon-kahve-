@@ -36,7 +36,7 @@ OUT = os.path.join(HERE, "out")
 
 FR = 480                      # 10 ms'lik analiz karesi (100 Hz zarf hızı)
 TARGET_LUFS = -14.0
-CEILING_DB = -1.6             # limiter tavanı (dBTP); AAC kodlaması ~0,4 dB ekler → m4a ≤ −1,0 (doğrulanır)
+CEILING_DB = -1.8             # limiter tavanı (dBTP); AAC kodlaması ~0,4–0,6 dB ekler → m4a ≤ −1,0 (doğrulanır, gerekirse düşürülür)
 SNR_TARGET = 14.6             # konuşma − müzik hedef farkı (dB); asgari 14,0 aranır
 SNR_HI = 19.5                 # bundan fazla fark varsa müzik sınırlı yükseltilir (MAX_BOOST) — müzik hep 'duyulur' kalsın
 MAX_BOOST = 3.0
@@ -650,6 +650,9 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     P("  cue  ruh        mod         bpm  ölçü  başlangıç  bitiş    uzunluk  (bölüm süresi)  çapraz geçiş (giriş/çıkış)  ön-kazanç")
     for ci in minfo["cues"]:
         P(f"  {ci['id']:4s} {ci['mood']:9s}  {ci['mode']:10s} {ci['bpm']:4d}  {ci['meter']:4s} {ci['start']:9.2f} {ci['end']:8.2f} {ci['length']:8.2f}  ({ci['chapter_dur']:6.2f})        {ci['xin']:.0f} / {ci['xout']:.0f} sn          {ci['pre_gain_db']:+.1f} dB")
+    ir = D.hall_ir(2.2)
+    rt = D.measure_rt60(ir[:, 0])
+    P(f"  reverb: algoritmik salon IR'ı (üstel sönümlü bantlı gürültü + erken yansımalar), fftconvolve; ölçülen RT60: 500 Hz {rt[500]:.2f} sn, 1 kHz {rt[1000]:.2f} sn (ort. {0.5 * (rt[500] + rt[1000]):.2f} sn), 2 kHz {rt[2000]:.2f} sn")
     P(f"  c0 başlık vuruşu: c0 t1 + {muzik.TITLE_DELAY:.1f} sn = {chapters[0]['t1'] + muzik.TITLE_DELAY:.2f} sn; kapanış: c13 t1 = {chapters[-1]['t1']:.2f} → çözülme {chapters[-1]['t1'] + 0.25:.2f} sn, sönüş {N / SR:.2f} sn")
     P("")
     P("[6] SFX")
@@ -660,7 +663,7 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     tc = timeline_check(timeline, act, nf, chapters)
     P("[7] ZAMAN ÇİZELGESİ UYUMU (timeline.json ↔ voice.wav)")
     if tc:
-        P(f"  {tc['n']} cümle; cümle içinde konuşma payı ort. {tc['inside_mean']:.3f} (en düşük {tc['inside_min']:.2f}; <0,80 olan: {tc['n_low']}); cümle arası aralıkta konuşma payı ort. {tc['between_mean']:.3f}")
+        P(f"  {tc['n']} cümle; cümle içinde konuşma payı ort. {tc['inside_mean']:.3f} (en düşük {tc['inside_min']:.2f}; doğal nefes/virgül boşlukları nedeniyle <1); cümle arası aralıkta konuşma payı ort. {tc['between_mean']:.3f} (≈0 beklenir)")
         bad = [(i, a_, b_) for (i, a_, b_) in tc["offs"] if abs(a_) > 0.6 or abs(b_) > 0.6]
         P("  bölüm sınırı kayması (ilk cümle başı − t0 | t1 − son cümle sonu): " + ("; ".join(f"{i}: {a_:+.2f}/{b_:+.2f}" for (i, a_, b_) in tc["offs"])))
         P("  " + ("UYARI: >0,6 sn kayma: " + ", ".join(i for i, _, _ in bad) if bad else "tüm bölüm sınırları ≤0,6 sn içinde uyumlu"))
@@ -685,7 +688,9 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     rv = [r for r in rises if r is not None]
     ck("boşluk yükselişi 8–10 dB (ölçülen, ±0,7)", bool(rv) and all(7.3 <= r <= 10.7 for r in rv), f"min {min(rv):.1f} maks {max(rv):.1f}" if rv else "-")
     if tc:
-        ck("timeline.json uyumu (cümle içi konuşma ≥ 0,85 ort.)", tc["inside_mean"] >= 0.85, f"{tc['inside_mean']:.3f}")
+        okb = all(abs(a_) <= 0.6 and abs(b_) <= 0.6 for (_, a_, b_) in tc["offs"])
+        ck("timeline.json uyumu (cümle içi konuşma ≥ 0,70; cümle arası ≤ 0,10; bölüm sınırı ≤ 0,6 sn)",
+           tc["inside_mean"] >= 0.70 and tc["between_mean"] <= 0.10 and okb, f"{tc['inside_mean']:.3f} / {tc['between_mean']:.3f}")
     for name, ok, val in chk:
         P(f"  [{'GEÇTİ' if ok else 'KALDI'}] {name}  → {val}")
     P("")

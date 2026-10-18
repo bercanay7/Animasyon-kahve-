@@ -111,7 +111,7 @@ def backdrop(f, cx, kind="night", tint=None, tint_a=0.0, rays=0.3, dust_n=50, du
 
 
 # ───────────────────────────── parşömen ─────────────────────────────
-PAPER_TONE = "#CBB27C"
+PAPER_TONE = "#C2A872"
 
 
 @contextmanager
@@ -129,8 +129,8 @@ def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone=None, shade=0.
     p.setAlphaf(clamp(alpha))
     f.c.drawImage(img, -w / 2 - pad, -h / 2 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
     if shade > 0 and alpha > 0:
-        sh = skia.GradientShader.MakeRadial((-w * 0.18, -h * 0.22), max(w, h) * 0.78,
-                                            [C("#2A1608", 0), C("#2A1608", 0), C("#1A0D04", int(255 * shade * alpha))], [0.0, 0.35, 1.0])
+        sh = skia.GradientShader.MakeRadial((-w * 0.10, -h * 0.14), max(w, h) * 0.82,
+                                            [C("#2A1608", 0), C("#2A1608", int(255 * shade * alpha * 0.30)), C("#1A0D04", int(255 * shade * alpha))], [0.0, 0.5, 1.0])
         f.c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8), 14, 14), skia.Paint(AntiAlias=True, Shader=sh))
     try:
         yield

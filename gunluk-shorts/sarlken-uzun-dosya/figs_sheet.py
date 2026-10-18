@@ -26,8 +26,9 @@ from sk import C, Frame, mix  # noqa: E402
 
 GROUP1 = ["noble", "merchant", "cardinal", "scribe", "monk", "woman", "emperor_old", "prince", "page", "seated", "kneel", "pair_old_prince",
           "pikeman", "landsknecht", "janissary", "knight", "conquistador", "sailor", "native"]
-GROUP2 = ["arquebusier", "halberdier", "horse_rider", "cavalry_charge", "horse", "peasant", "fisherman", "bearer", "inca_noble", "aztec_warrior",
-          "friar_writing", "scholar_lectern", "child", "woman_seated", "man_seated_bed", "coffin", "crowd_a", "crowd_b", "crowd_c", "crowd_d", "crowd_e", "crowd_f"]
+GROUP2 = ["arquebusier", "halberdier", "horse", "horse_walk", "horse_rider", "cavalry_charge", "cavalry_charge_b", "sipahi", "sipahi_b", "peasant", "fisherman", "bearer",
+          "inca_noble", "aztec_warrior", "friar_writing", "scholar_lectern", "child", "woman_seated", "man_seated_bed", "coffin", "crowd_a", "crowd_b", "crowd_c", "crowd_d",
+          "crowd_e", "crowd_f"]
 SIZES = [150, 300, 450, 600, 800]
 
 
@@ -46,12 +47,20 @@ def draw_label(f, s, x, y, size=22, color="#E8D8A0"):
     f.text(s, x, y, face="cap_b", size=size, color=color, shadow=(1, 1, 2, "#000000"))
 
 
+def _sprite_w(k, s, col="#0C0705", rim="#C58A44"):
+    img, ox, oy = ST._fig_sprite(k, int(round(s)), col, rim, 0.0)
+    return img.width(), ox
+
+
 def render_scales(kinds, path, sizes=SIZES, col="#0C0705", rim="#C58A44"):
-    """Her tür: bir bant; bantta iki arka plan yan yana (solda amber, sağda sisli), her biri 5 boyda aynı zemin çizgisinde."""
-    gap = 60
-    widths = [int(s * 0.62) + gap for s in sizes]
-    bw = sum(widths) + gap
+    """Her tür: bir bant; bantta iki arka plan yan yana (solda amber, sağda sisli), her biri 5 boyda aynı zemin çizgisinde (aralık = sprite genişliği)."""
+    gap = 50
     top = 70
+    bands = []
+    for k in kinds:
+        ws = [_sprite_w(k, s, col, rim) for s in sizes]
+        bands.append((ws, sum(w for w, _ in ws) + gap * (len(sizes) + 1)))
+    bw = max(b[1] for b in bands)
     bh = max(sizes) + top + 70
     Wd = bw * 2
     Hd = bh * len(kinds)
@@ -59,17 +68,20 @@ def render_scales(kinds, path, sizes=SIZES, col="#0C0705", rim="#C58A44"):
     f.clear('#000000')
     for r, k in enumerate(kinds):
         y0 = r * bh
+        ws = bands[r][0]
         for side, bgf in enumerate((bg_amber, bg_mist)):
             x0 = side * bw
             bgf(f, x0, y0, bw, bh)
             x = x0 + gap
-            for s, wd in zip(sizes, widths):
+            for s, (wd, ox) in zip(sizes, ws):
                 yy = y0 + bh - 40
-                t0 = time.time()
-                ST.figure(f, k, x + wd * 0.42, yy, s, col=col, rim=rim if side == 0 else "#B8863F")
-                x += wd
+                ST.figure(f, k, x + ox, yy, s, col=col, rim=rim if side == 0 else "#B8863F")
+                x += wd + gap
             draw_label(f, f"{k}", x0 + 14, y0 + 34, 30, "#F0D27A" if side == 0 else "#2A2218")
     img = f.rgb()
+    if img.shape[1] > 4200:                       # çok geniş türler (süvari, tabut) için sayfayı küçült
+        sc = 4200 / img.shape[1]
+        img = cv2.resize(img, (4200, int(img.shape[0] * sc)), interpolation=cv2.INTER_AREA)
     cv2.imwrite(path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
     return img.shape
 

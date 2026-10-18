@@ -74,9 +74,9 @@ def _vote_overlay(cx):
     na = smooth((cx.t - cx.at(("c2s8", "verdi", -0.15))) / 0.45)
     if na > 0:
         f = cx.f
-        f.rect(0, 40, W, 180, shader=f.lin(0, 40, 0, 220, [("#000000", 0.0, int(150 * na)), ("#000000", 1.0, 0)]))
+        f.rect(0, 700, W, 380, shader=f.lin(0, 700, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(215 * na))]))
         sc = 0.85 + 0.15 * back_out(na)
-        SH.gold_flat(f, "7 / 7", W / 2, 190, face="title", size=int(130 * sc), track=12, alpha=na)
+        SH.gold_flat(f, "7 / 7", W / 2, 960, face="title", size=int(170 * sc), track=14, alpha=na)
 
 
 def _aachen_overlay(cx):
@@ -101,7 +101,7 @@ def _ex_riv(cx, cm, mv):
     SH.stamp(f, "RİVAYET", W - 330, 195, rot=-0.1, size=64, t=cx.amt(("c2s14", "Rivayete", -0.05), 0.3))
     t = cx.t
     t_p = cx.at(("c2s14", "Herkül", -0.1))
-    t_z = cx.at(("c2s14", "uyarıdan", 0.2))
+    t_z = cx.at(("c2s14", "silerek", -0.2))
     pa = smooth((t - t_p) / 0.7) * (1 - smooth((t - t_z) / 1.2))
     if pa > 0:
         for (ll, dx, dy) in ((CALPE, 170, -130), (ABYLA, -170, 130)):
@@ -165,28 +165,28 @@ SHOTS = [
          at=0.0, plate_at=("c2s7", "Jakob", -0.1), extra=_ex_fugger, label="fugger"),
     # s8 — 28 Haziran 1519, Frankfurt: 7/7
     shot("a_map", a=("c2s8", -0.2), tr=("fade", 0.8), cams=[(0.0, (9.5, 50.8, 2.6)), (("c2s8", "Frankfurt'ta", -0.1), (8.68, 50.11, 9.0))],
-         regions=[dict(name="almanya", color="#C9962B", at=0.2, alpha=0.3)], date=("28 HAZİRAN 1519", ("c2s8", "28", -0.1)), extra=_ex_frankfurt, label="frankfurt_harita"),
+         regions=[dict(name="almanya", color="#C9962B", at=0.2, alpha=0.15)], date=("28 HAZİRAN 1519", ("c2s8", "28", -0.1)), extra=_ex_frankfurt, label="frankfurt_harita"),
     shot("a_theatre", a=("c2s8", "yedi", -0.3), tr=("fade", 0.7), scene="electors_hall",
          p=dict(seats=7, occupied=True, light_t=(K.rel(("c2s8", "yedi", -0.1), ("c2s8", "yedi", -0.3)), K.rel(("c2s8", "verdi", 0.1), ("c2s8", "yedi", -0.3)))),
          cams=[(0.0, (960, 540, 1.0)), (("c2s8", "ona", -0.2), (960, 620, 1.45))], overlay=_vote_overlay, label="yedi_oy"),
     # s9 — bazı tarihçilere göre: parayı aldı ama kararı Almanya için en iyi yönde verdi
     shot("c2_para", a=("c2s9", -0.2), tr=("fade", 0.8), t_stamp=("c2s9", "Bazı", -0.05), t_coins=("c2s9", "seçmenler", 0.0), t_take=("c2s9", "aldı", -0.1), label="parayi_aldi"),
     shot("a_map", a=("c2s9", "ama", -0.3), tr=("fade", 0.8), cams=[(0.0, (ALMANYA_C[0], ALMANYA_C[1], 1.8)), (("c2s9", "verdi", 0.3), (ALMANYA_C[0], ALMANYA_C[1], 1.95))],
-         regions=[dict(name="almanya", color="#C9962B", at=("c2s9", "Almanya", -0.2), alpha=0.5)],
+         regions=[dict(name="almanya", color="#9A7222", at=("c2s9", "Almanya", -0.2), alpha=0.6)],
          labels=[dict(text="ALMANYA", lon=ALMANYA_C[0], lat=ALMANYA_C[1], size=76, track=26, color="#F8EBC0", at=("c2s9", "Almanya", -0.1))],
-         icons_=[dict(kind="c2_kurhut", lon=GER_HATS[i][0], lat=GER_HATS[i][1], size=118, at=("c2s9", "ama", -0.2 + 0.07 * i), metal="gold", glow=0.2) for i in range(7)],
+         icons_=[dict(kind="c2_kurhut", lon=GER_HATS[i][0], lat=GER_HATS[i][1], size=124, at=("c2s9", "ama", -0.2 + 0.07 * i), metal="crimson", glow=0.45) for i in range(7)],
          routes=[dict(pts=[GER_HATS[i], _toward(GER_HATS[i])], at=("c2s9", "yönde", -0.15 + 0.09 * i), dur=0.8, color="#F0D27A", width=5) for i in range(7)],
          approx=False, label="almanya_icin_en_iyi"),
     # s10 — rüşvet tartışmalı, borç gerçekti
     shot("c2_borc_terazi", a=("c2s10", -0.2), tr=("fade", 0.8), t_scale=0.1, t_rus=("c2s10", "Rüşvetin", -0.1), t_tart=("c2s10", "tartışmalı", -0.1), t_borc=("c2s10", "borç", -0.15),
          t_gercek=("c2s10", "gerçekti", -0.15), t_crown=("c2s10", "imparator,", -0.1), t_chain=("c2s10", "takmadan", 0.0), label="rusvet_borc"),
     # s11 — yazılı söz
-    shot("a_g_doc", a=("c2s11", -0.2), tr=("fade", 0.8), title="YAZILI SÖZ · 1519", w=1180, h=560, size=44, head_size=54, at=0.0,
+    shot("a_g_doc", a=("c2s11", -0.2), tr=("fade", 0.8), title="YAZILI SÖZ · 1519", w=1240, h=520, size=54, head_size=62, at=0.0, align="c", tone="#CDB886",
          lines=[("Prenslerin ayrıcalıklarına saygı gösterilecek.", ("c2s11", "prenslerin", -0.1)), ("Birlikte yönetecek bir konsey kurulacak.", ("c2s11", "imparatorluğu", -0.1))],
          seal=True, seal_at=("c2s11", "kuracaktı", 0.0), label="yazili_soz"),
     # s12 — 23 Ekim 1520, Aachen
-    shot("a_map", a=("c2s12", -0.2), tr=("fade", 0.8), cams=[(0.0, (5.0, 49.8, 2.6)), (("c2s12", "Şarlman'ın", 0.0), (6.08, 50.78, 8.5))],
-         date=("23 EKİM 1520", ("c2s12", "23", -0.1)), extra=_ex_aachen_map, label="aachen_harita"),
+    shot("a_map", a=("c2s12", -0.2), tr=("fade", 0.8), cams=[(0.0, (6.5, 50.4, 3.6)), (("c2s12", "Şarlman'ın", 0.3), (6.08, 50.78, 7.2))],
+         regions=[dict(name="almanya", color="#C9962B", at=0.3, alpha=0.2)], date=("23 EKİM 1520", ("c2s12", "23", -0.1)), extra=_ex_aachen_map, label="aachen_harita"),
     shot("a_theatre", a=("c2s12", "tacını", -0.2), tr=("zoom", 0.8), scene="aachen",
          p=dict(crown_t=(0.15, 2.2), crown_show=True, figure=True, bishops=True, attend=True),
          cams=[(0.0, (960, 560, 1.0)), (("c2s12", "taktı", -0.3), (980, 720, 1.8))], label="aachen_taç"),
@@ -194,8 +194,8 @@ SHOTS = [
     shot("c2_plus_ultra", a=("c2s13", "Plus", -0.3), tr=("fade", 0.7), t_pillars=0.0, t_motto=("c2s13", "Plus", -0.1), t_sub=("c2s13", "Daha", -0.1), label="plus_ultra"),
     # s14 — Herkül Sütunları'nda "non plus ultra" → "non" silinir
     shot("a_map", a=("c2s14", -0.2), tr=("fade", 0.8),
-         cams=[(0.0, (-5.4, 36.1, 7.0)), (("c2s14", "uyarıdan", 0.2), (-5.4, 36.1, 7.0)), (("c2s14", "söyledi", 0.3), (-18.0, 35.0, 2.4))],
-         routes=[dict(pts=ROTA_BATI, at=("c2s14", "tersini", -0.3), dur=2.0, color="#F0D27A", width=7)],
-         icons_=[dict(kind="ship", lon=-5.7, lat=36.0, size=84, at=("c2s14", "tersini", -0.3), route=ROTA_BATI, move_at=("c2s14", "tersini", -0.3), move_dur=2.0, metal="gold")],
+         cams=[(0.0, (-5.4, 36.1, 7.0)), (("c2s14", "silerek", -0.2), (-5.4, 36.1, 7.0)), (("c2s14", "söyledi", 0.35), (-14.5, 35.2, 3.0))],
+         routes=[dict(pts=ROTA_BATI, at=("c2s14", "silerek", 0.3), dur=1.4, color="#F0D27A", width=7)],
+         icons_=[dict(kind="ship", lon=-5.7, lat=36.0, size=84, at=("c2s14", "silerek", 0.3), route=ROTA_BATI, move_at=("c2s14", "silerek", 0.3), move_dur=1.4, metal="gold")],
          extra=_ex_riv, approx=False, label="herkul_sutunlari"),
 ]

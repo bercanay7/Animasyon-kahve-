@@ -51,6 +51,14 @@ def k_duel(cx, left=None, right=None, vs_at=0.6, size=560, y=H * 0.46, tint_a=0.
 
 
 # ───────────────────────────── 95 madde ─────────────────────────────
+def _theses_prog(cx, at, write_at, write_dur):
+    """İlk satırlar yavaşça (yazılmakta olan metin), 'maddelik' sözcüğünde hızlanır."""
+    t_c = cx.at(write_at)
+    slow = smooth((cx.t - (cx.at(at) + 0.9)) / max(0.5, t_c - cx.at(at) - 0.9))
+    fast = clamp((cx.t - t_c) / write_dur)
+    return min(1.0, 0.16 * slow + 0.84 * fast)
+
+
 @SH.kind("c4_theses")
 def k_theses(cx, at=0.0, year_at=0.4, against_at=2.0, slash_at=2.9, count_at=3.2, write_at=3.8, write_dur=2.2):
     f = cx.f
@@ -65,7 +73,7 @@ def k_theses(cx, at=0.0, year_at=0.4, against_at=2.0, slash_at=2.9, count_at=3.2
             hk = cx.amt(count_at, 0.5)
             reveal(f, "95 MADDE", 0, -400 + 112, clamp((cx.t - cx.at(count_at)) / 0.8), face="fell", size=70, align="c", alpha=a)
             f.line(-250, -400 + 134, 250, -400 + 134, color=INK, sw=2, alpha=0.55 * a * hk)
-            wp = clamp((cx.t - cx.at(write_at)) / write_dur)
+            wp = _theses_prog(cx, at, write_at, write_dur)
             scribbles(f, -330, -400 + 205, 300, 14, prog=clamp(wp * 2.0), seed=4, line_h=44, thick=6.4, alpha=0.66 * a)
             scribbles(f, 30, -400 + 205, 300, 14, prog=clamp(wp * 2.0 - 1.0), seed=9, line_h=44, thick=6.4, alpha=0.66 * a)
             # numaralar
@@ -73,6 +81,7 @@ def k_theses(cx, at=0.0, year_at=0.4, against_at=2.0, slash_at=2.9, count_at=3.2
                 if wp * 2.0 * 14 > r:
                     f.text(str(r + 1), -352, -400 + 213 + r * 44, face="fell_i", size=24, color=INK, align="r", alpha=0.55 * a)
         # kuğu tüyü kalemi yazarken ilerler
+        wp = _theses_prog(cx, at, write_at, write_dur)
         if 0 < wp < 1:
             col = 0 if wp < 0.5 else 1
             u = (wp * 2.0 if col == 0 else wp * 2.0 - 1.0)
@@ -299,8 +308,12 @@ def k_protocol(cx, words=(), ghost_at=4.1, rumor_at=4.4, swap_at=6.6, gap_at=7.0
     if qa > 0.01:
         size = 104
         yline = [420, 560]
-        f.text("“", 250, 440, face="title", size=300, color="#C9962B", align="l", alpha=0.5 * qa)
-        f.text("”", 1670, 640, face="title", size=300, color="#C9962B", align="r", alpha=0.5 * qa)
+        wl = []
+        for ln in lines:
+            ws_ = [sk.text_width(w_, "cap_i", size, 0) for w_ in ln]
+            wl.append(sum(ws_) + size * 0.28 * (len(ln) - 1))
+        f.text("“", W / 2 - wl[0] / 2 - 110, 470, face="title", size=240, color="#C9962B", align="l", alpha=0.55 * qa)
+        f.text("”", W / 2 + wl[1] / 2 + 30, 660, face="title", size=240, color="#C9962B", align="l", alpha=0.55 * qa)
         for li, ln in enumerate(lines):
             ws = [sk.text_width(w_, "cap_i", size, 0) for w_ in ln]
             sp = size * 0.28
@@ -317,7 +330,7 @@ def k_protocol(cx, words=(), ghost_at=4.1, rumor_at=4.4, swap_at=6.6, gap_at=7.0
                 x += wd + sp
         # belirsizlik: soru işareti
         if ghost > 0:
-            icons.draw_icon(f, "question", 1560, 330, size=220, metal="silver", alpha=0.5 * ghost * (1 - swap), glow=0.1)
+            icons.draw_icon(f, "question", 1530, 260, size=210, metal="silver", alpha=0.5 * ghost * (1 - swap), glow=0.1)
     # RİVAYET damgası
     r = cx.amt(rumor_at, 0.3)
     if r > 0 and swap < 1:
@@ -353,7 +366,7 @@ def k_protocol(cx, words=(), ghost_at=4.1, rumor_at=4.4, swap_at=6.6, gap_at=7.0
             stamp2(f, "TUTANAKTA YOK", 640, 318 if False else 760, rot=-0.10, size=62, t=s1, seed=8)
         s2 = cx.amt(stamp2_at, 0.3)
         if s2 > 0:
-            stamp2(f, "SONRADAN EKLENMİŞ", 1300, 850, rot=0.07, size=58, t=s2, seed=13, color="#2F4A9A")
+            stamp2(f, "SONRADAN EKLENMİŞ", 1250, 850, rot=0.07, size=58, t=s2, seed=13, color="#3A5AB5")
     f.vig(0.6)
 
 
@@ -539,7 +552,7 @@ def k_pledge(cx, items=(), settle_at=6.0, line_at=6.9):
     duo_glow(f, CRIM, PETROL, a=0.22)
     sk.dust(f, cx.t, n=55)
     cxm, cym = W / 2, 520
-    rx, ry = 700, 290
+    rx, ry = 730, 310
     # merkez: dava (haç)
     ck = cx.amt(0.2, 0.8)
     glow(f, cxm, cym, 330, "#FFD27A", 0.28 * ck + 0.2 * cx.amt(settle_at, 0.6))
@@ -558,16 +571,20 @@ def k_pledge(cx, items=(), settle_at=6.0, line_at=6.9):
         ey = lerp(ty + (ty - cym) * 0.35, ty, ease_out(k))
         ex = lerp(ex, cxm + (tx - cxm) * 0.82, st)
         ey = lerp(ey, cym + (ty - cym) * 0.82, st)
-        r = 98
+        r = 112
         f.circle(ex, ey, r + 14, color="#000000", alpha=0.38 * k, blur=14)
         f.circle(ex, ey, r, shader=f.rad(ex - 20, ey - 26, r * 1.5, [("#3A2415", 0.0), ("#150D08", 1.0)]), alpha=k)
         f.circle(ex, ey, r, style="stroke", sw=5, color="#C9962B", alpha=k)
         f.circle(ex, ey, r - 11, style="stroke", sw=1.6, color="#C9962B", alpha=0.6 * k)
-        icons.draw_icon(f, ic, ex, ey, size=118, metal=metal, alpha=k, shadow=False, glow=0.18)
-        f.text(lab, ex, ey + r + 46, face="title_m", size=30, color="#F0DDA0", align="c", track=6, alpha=k, shadow=(2, 3, 3, "#000000"))
+        icons.draw_icon(f, ic, ex, ey, size=136, metal=metal, alpha=k, shadow=False, glow=0.18)
+        f.text(lab, ex, ey + r + 48, face="title_m", size=32, color="#F0DDA0", align="c", track=6, alpha=k, shadow=(2, 3, 3, "#000000"))
         lk = clamp((cx.t - cx.at(line_at)) / 0.8)
         if lk > 0:
-            f.line(ex, ey, lerp(ex, cxm, lk), lerp(ey, cym, lk), color="#F0D27A", sw=2.5, alpha=0.45 * k * (1 - 0.3 * lk))
+            dx, dy = cxm - ex, cym - ey
+            L = math.hypot(dx, dy) or 1.0
+            sx_, sy_ = ex + dx / L * (r + 6), ey + dy / L * (r + 6)
+            ex2, ey2 = cxm - dx / L * 140, cym - dy / L * 140
+            f.line(sx_, sy_, lerp(sx_, ex2, lk), lerp(sy_, ey2, lk), color="#F0D27A", sw=2.5, alpha=0.5 * k * (1 - 0.3 * lk))
     f.vig(0.6)
 
 
@@ -584,7 +601,7 @@ def k_backdate(cx, at=0.0, leave_at=1.5, sign_at=3.4, back_at=4.7, stamp_at=5.0)
         with paper(f, 960, yy, 1360, 780, rot=-0.012, alpha=a, seed=37, tone="#DFCB98"):
             reveal(f, "WORMS FERMANI", 0, -390 + 100, clamp((cx.t - cx.at(at, off=0.25)) / 0.9), face="fell", size=70, align="c", alpha=a)
             f.line(-330, -390 + 128, 330, -390 + 128, color=INK, sw=2.2, alpha=0.55 * a)
-            scribbles(f, -520, -390 + 205, 1040, 4, prog=clamp((cx.t - cx.at(at, off=0.6)) / 1.5), seed=52, line_h=50, thick=6.4, alpha=0.6 * a)
+            scribbles(f, -520, -390 + 205, 1040, 3, prog=clamp((cx.t - cx.at(at, off=0.6)) / 1.2), seed=52, line_h=50, thick=6.4, alpha=0.6 * a)
             # zaman ekseni
             ay = 150
             f.line(-560, ay, 560, ay, color=INK, sw=4, alpha=0.7 * a)
@@ -609,7 +626,7 @@ def k_backdate(cx, at=0.0, leave_at=1.5, sign_at=3.4, back_at=4.7, stamp_at=5.0)
                 curve_arrow(f, (xC - 14, ay - 150), (xB + 6, ay - 22), bend=-150, prog=bk, color="#8E6A1A", sw=6, alpha=a, shadow=False)
     s = cx.amt(stamp_at, 0.3)
     if s > 0:
-        stamp2(f, "GERİYE DÖNÜK TARİHLİ", 990, 590, rot=-0.05, size=62, t=s, seed=21, fill_bg="#150D08")
+        stamp2(f, "GERİYE DÖNÜK TARİHLİ", 990, 872, rot=-0.045, size=62, t=s, seed=21, fill_bg="#150D08")
     f.vig(0.6)
 
 
@@ -756,7 +773,7 @@ def k_book(cx, head_at=0.6, de_at=1.6, write_at=2.2, write_dur=1.4):
         for side in (-1, 1):
             x0 = cxm if side == 1 else cxm - 590
             pg = sk.poly_path([(cxm, cym - 290), (cxm + side * 590, cym - 310), (cxm + side * 590, cym + 320), (cxm, cym + 340)], True)
-            f.path(pg, shader=f.lin(cxm, 0, cxm + side * 590, 0, [("#B8A272", 0.0), ("#EADCB5", 0.25), ("#E2D2A4", 1.0)]), alpha=a)
+            f.path(pg, shader=f.lin(cxm, 0, cxm + side * 590, 0, [("#8A7650", 0.0), ("#CDB985", 0.25), ("#C2AE7C", 1.0)]), alpha=a)
             for q in range(1, 5):
                 f.line(cxm, cym + 340 + q * 4, cxm + side * 590, cym + 320 + q * 4, color="#7A5E30", sw=1.5, alpha=0.5 * a)
         f.line(cxm, cym - 290, cxm, cym + 340, color="#6E5028", sw=5, alpha=0.7 * a)
@@ -765,13 +782,9 @@ def k_book(cx, head_at=0.6, de_at=1.6, write_at=2.2, write_dur=1.4):
         wp = clamp((cx.t - cx.at(write_at)) / write_dur)
         scribbles(f, cxm + 70, cym - 190, 450, 12, prog=wp, seed=88, line_h=44, thick=6.4, alpha=0.78, color="#1A1208")
         # başlıklar
-        hk = cx.amt(head_at, 0.7)
-        if hk > 0:
-            f.text("LATİNCE", cxm - 295, cym - 225, face="fell_i", size=34, color="#5A4220", align="c", alpha=0.8 * hk)
         dk = cx.amt(de_at, 0.7)
         if dk > 0:
-            f.text("ALMANCA", cxm + 295, cym - 225, face="fell_i", size=34, color="#1A1208", align="c", alpha=0.95 * dk)
-            curve_arrow(f, (cxm - 110, cym - 250), (cxm + 110, cym - 250), bend=-70, prog=dk, color="#8E6A1A", sw=5, alpha=0.9 * dk, shadow=False)
+            f.text("ALMANCA", cxm + 295, cym - 225, face="fell_i", size=38, color="#1A1208", align="c", alpha=0.95 * dk)
         # kalem
         if wp > 0:
             row = min(11.99, wp * 12)
@@ -787,3 +800,28 @@ def k_book(cx, head_at=0.6, de_at=1.6, write_at=2.2, write_dur=1.4):
     if tk > 0:
         f.gold("YENİ AHİT", W / 2, 150, face="title", size=104, track=20, alpha=tk, glow=0.35 * tk, scale=1.0 + (1 - tk) * 0.06)
     f.vig(0.62)
+
+
+# ───────────────────────────── theatre bindirmeleri (lab sahneleri üstüne) ─────────────────────────────
+def road_overlay(kidnap_at, men_at):
+    """Gece yolu: “KAÇIRILDI” (tırnaklı) + Saksonya Seçmeni'nin adamları ibaresi."""
+    def ov(cx):
+        f = cx.f
+        k = cx.amt(kidnap_at, 0.5)
+        if k > 0:
+            f.rect(0, 0, W, 330, shader=f.lin(0, 0, 0, 330, [("#000000", 0.0, int(170 * k)), ("#000000", 1.0, 0)]))
+            f.gold("“KAÇIRILDI”", W / 2 - 90, 215, face="title", size=104, track=14, alpha=k, glow=0.35 * k, scale=1.0 + (1 - k) * 0.06)
+    return ov
+
+
+def wartburg_overlay(castle_at, name_at):
+    def ov(cx):
+        f = cx.f
+        k = cx.amt(castle_at, 0.6)
+        if k > 0:
+            f.rect(0, H * 0.72, W, H * 0.28, shader=f.lin(0, H * 0.72, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(205 * k))]))
+            f.text("WARTBURG KALESİ", 120, H * 0.915, face="title_m", size=42, color="#C9B27A", align="l", track=14, alpha=k, shadow=(2, 3, 4, "#000000"))
+        n = cx.amt(name_at, 0.8)
+        if n > 0:
+            f.gold("“ŞÖVALYE JÖRG”", W - 130, H * 0.93, face="title", size=84, track=10, alpha=n, glow=0.35 * n, align="r", scale=1.0)
+    return ov

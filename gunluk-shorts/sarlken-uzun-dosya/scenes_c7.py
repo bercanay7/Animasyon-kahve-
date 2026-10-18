@@ -99,7 +99,7 @@ SHOTS = [
     shot("c7_hukum", a=("c7s2", -0.2), tr=("fade", 0.7), at_axis=("c7s2", "İkisi", -0.1), at_bars=("c7s2", "aynı", -0.1), at_overlap=("c7s2", "hüküm", 0.0), label="ayni_yillar"),
 
     # s2b — hiç yüz yüze gelmediler: uzaklık
-    shot("map", a=("c7s2", "kadarıyla", 0.1), tr=("fade", 0.7), cams=[(0.0, (16.6, 46.4, 1.28)), (("c7s3", -0.3), (16.6, 46.4, 1.38))],
+    shot("map", a=("c7s2", "kadarıyla", 0.1), tr=("fade", 0.7), cams=[(0.0, (16.8, 47.6, 1.18)), (("c7s3", -0.3), (16.8, 47.4, 1.26))],
          regions=[dict(name="osmanli_1520", color="osmanli", at=0.0, alpha=0.55), dict(name="ispanya", color="ispanya", at=0.2, alpha=0.6),
                   dict(name="hollanda", color="burgonya", at=0.3, alpha=0.6), dict(name="avusturya", color="avusturya", at=0.4, alpha=0.6)],
          cities=[dict(lon=28.98, lat=41.01, name="İSTANBUL", kind="capital", at=0.2, color="#9FE0B4", side="b", size=30),
@@ -109,11 +109,12 @@ SHOTS = [
     # s3 — Mohaç: Macar ordusu yenildi
     shot("c678_sahne", a=("c7s3", -0.3), tr=("whip", 0.55), scene="field",
          cams=[(0.0, (960, 560, 1.0)), (("c7s3", "yenildi.", -0.5), (1020, 600, 1.4))],
-         p=dict(tag="c7_mohac", ground="marsh", weather="dusk", river=True, smoke=True,
-                armies=[dict(side="#6A7A38", kind="cavalry", x=0.30, row=1, n=9, dir=1, charge=1.0),
-                        dict(side="#6A7A38", kind="pike", x=0.20, row=2, n=10, dir=1),
-                        dict(side="#2F6B4A", kind="mixed", x=0.70, row=1, n=14, dir=-1),
-                        dict(side="#2F6B4A", kind="arquebus", x=0.82, row=2, n=10, dir=-1)]),
+         p=dict(tag="c7_mohac", ground="marsh", weather="dusk", river=True, smoke=0.6,
+                armies=[dict(side="#B5483A", kind="cavalry", x=0.28, row=0, n=8, dir=1, charge=1.0),
+                        dict(side="#B5483A", kind="pike", x=0.14, row=1, n=12, dir=1, charge=0.6),
+                        dict(side="#2F6B4A", kind="mixed", x=0.72, row=1, n=16, dir=-1, charge=0.4),
+                        dict(side="#2F6B4A", kind="arquebus", x=0.84, row=2, n=12, dir=-1, fire=1.0),
+                        dict(side="#2F6B4A", kind="cavalry", x=0.62, row=0, n=6, dir=-1, charge=0.8)]),
          overlay=X.ov_all(X.ov_date("29 AĞUSTOS 1526", ("c7s3", "29", -0.1)), X.ov_kick("MOHAÇ", ("c7s3", "Mohaç'ta,", -0.2), y=122, size=38)), label="mohac"),
     shot("medal", a=("c7s3", "Kral", -0.2), tr=("dip", 0.6), key="lajos2", metal="onyx", name="II. LAJOS", role="Macaristan Kralı", pos="l", size=700,
          at=("c7s3", "Kral", -0.1), plate_at=("c7s3", "Lajos,", -0.1), extra=_mohac_water, label="lajos"),
@@ -179,7 +180,7 @@ SHOTS = [
          routes=[dict(pts=[(28.98, 41.01), (23.3, 42.7), (20.46, 44.82), (19.04, 47.5), (16.54, 47.4)], at=("c7s10", "doğrudan", -0.5), dur=2.6, color="#5FA878", width=9)],
          cities=[dict(lon=28.98, lat=41.01, name="İSTANBUL", kind="capital", at=0.0, color="#9FE0B4", side="b", size=28)],
          icons_=[dict(kind="imperial_crown", lon=13.4, lat=48.6, size=120, at=("c7s10", "imparatora", -0.15), metal="gold", bob=5)],
-         notes=[dict(text="HEDEF: İMPARATOR", x=210, y=250, at=("c7s10", "imparatora", -0.1), w=560, size=40)],
+         notes=[dict(text="HEDEF: İMPARATOR", x=210, y=120, at=("c7s10", "imparatora", -0.1), w=560, size=40)],
          date=("1532", ("c7s10", "1532'de", -0.1)), label="1532_sefer"),
     shot("c7_gunluk", a=("c7s10", "Osmanlı", -0.15), tr=("fade", 0.7), at=0.0, at_quote=("c7s10", "İspanya", -0.15), at_hl=("c7s10", "kralı”.", -0.2), label="sefer_gunlugu"),
 
@@ -193,7 +194,7 @@ SHOTS = [
                 dict(value=25, unit="gün", label="ORDUYU OYALADI", icon="hourglass", metal="gold", at=("c7s11", "yirmi", -0.15), dur=1.2)], label="guns_700_800_25"),
 
     # s12 — iki ordu hiç karşılaşmadı
-    shot("map", a=("c7s12", -0.2), tr=("fade", 0.6), cams=[(0.0, (17.2, 47.8, 3.3)), (("c7s13", -0.3), (17.2, 47.8, 3.5))],
+    shot("map", a=("c7s12", -0.2), tr=("fade", 0.6), cams=[(0.0, (17.2, 48.2, 3.3)), (("c7s13", -0.3), (17.2, 48.1, 3.5))],
          regions=[dict(name="avusturya", color="avusturya", at=0.0, alpha=0.5), dict(name="macar_habsburg", color="avusturya", at=0.0, alpha=0.4),
                   dict(name="macar_osmanli", color="osmanli", at=0.0, alpha=0.5)],
          cities=[dict(lon=16.37, lat=48.21, name="VİYANA", kind="town", at=0.0, side="t", size=30),
@@ -201,13 +202,13 @@ SHOTS = [
          extra=lambda cx, cam, mv: _ordular(cx, cam, mv), label="ordular_karsilasmadi"),
 
     # s13 — unvan: İmparator yalnızca sultan
-    shot("c7_unvan", a=("c7s13", -0.2), tr=("zoom", 0.7), at_karl=("c7s13", "ona", -0.25), at_imp=("c7s13", "imparator", -0.2), at_strike=("c7s13", "demedi", -0.1),
+    shot("c7_unvan", a=("c7s13", -0.2), tr=("zoom", 0.7), at_doc=("c7s13", "Osmanlı", -0.1), at_karl=("c7s13", "ona", -0.25), at_imp=("c7s13", "imparator", -0.2), at_strike=("c7s13", "demedi", -0.1),
          at_king=("c7s13", "İspanya", -0.1), at_sultan=("c7s13", "yalnızca", -0.3), at_crown=("c7s13", "sultandı", -0.35), label="unvan_imparator_sultan"),
 
     # s14 — 1547 ateşkesi; 30.000 altın
     shot("c7_ates", a=("c7s14", -0.2), tr=("fade", 0.7), at=0.0, at_len=("c7s14", "beş", -0.1), at_seal=("c7s14", "imzalandı.", -0.2), label="ates_kes_1547"),
     shot("c678_cift", a=("c7s14", "Ferdinand,", -0.2), tr=("fade", 0.5), title="FERDİNAND ÖDEYECEKTİ", kick_at=("c7s14", "Ferdinand,", -0.1), tone_col="#C9962B", y=H * 0.5, size=170, ykick=170,
-         items=[dict(value=30000, unit="altın", label="HER YIL", icon="coins", metal="gold", at=("c7s14", "otuz", -0.2), dur=1.5)], label="30bin_altin"),
+         items=[dict(value=30000, unit="altın", label="HER YIL", icon="coins", metal="gold", at=("c7s14", "Ferdinand,", 0.1), count_at=("c7s14", "otuz", -0.2), dur=1.4)], label="30bin_altin"),
 
     # s15 — Viyana tutuldu, Macaristan kayıp; yükü kardeşi taşıdı
     shot("map", a=("c7s15", -0.2), tr=("fade", 0.7), cams=[(0.0, (20.0, 47.2, 3.0)), (("c7s15", "Yükün", -0.3), (19.6, 47.2, 3.2))],
@@ -223,27 +224,27 @@ SHOTS = [
 
 
 def _ordular(cx, cam, mv):
+    import skia
     f = cx.f
-    # imparatorluk ordusu (Viyana yakınında): kırmızı-altın, bekler
-    xa, ya = cam.ll(15.7, 48.5)
+    xa, ya = cam.ll(15.7, 48.6)       # imparatorluk ordusu (Viyana yakını)
+    xo, yo = cam.ll(18.0, 46.9)       # Osmanlı ordusu (Güns yönü)
     ka = cx.amt(("c7s12", "İmparatorluk", -0.1), 0.8)
-    # Osmanlı ordusu (Güns'te): yeşil
-    xo, yo = cam.ll(17.6, 47.0)
     ko = cx.amt(("c7s12", "İmparatorluk", 0.3), 0.8)
-    for (x, y, k, col, rim, face) in ((xa, ya, ka, "#8E1F26", "#F0D27A", 1), (xo, yo, ko, "#2F6B4A", "#B6E6C6", -1)):
+    for (x, y, k, col, rim, face) in ((xa, ya, ka, "#B02A3A", "#F6D98A", 1), (xo, yo, ko, "#2F8A5A", "#C6F0D4", -1)):
         if k <= 0:
             continue
-        for i in range(7):
-            ST.figure(f, "pikeman", x + (i - 3) * 22, y + (i % 2) * 12, 78, col=col, rim=rim, face=face, alpha=k)
+        f.circle(x, y - 40, 150, shader=f.rad(x, y - 40, 150, [("#000000", 0.0, int(120 * k)), ("#000000", 1.0, 0)]))
+        for i in range(9):
+            ST.figure(f, "pikeman", x + (i - 4) * 24, y + (i % 3) * 12, 112, col=col, rim=rim, face=face, alpha=k)
     kb = cx.amt(("c7s12", "bekledi.", -0.4), 0.6)
     if kb > 0:
-        X.ic(f, "hourglass", xa - 70, ya - 90, size=84, metal="gold", alpha=kb)
-        X.chip(f, "BEKLEDİ", xa - 150, ya - 170, k=kb, size=28, edge="#E3B54A", color="#F4DD92")
+        X.ic(f, "hourglass", xa - 110, ya - 150, size=96, metal="gold", alpha=kb)
+        X.chip(f, "BEKLEDİ", xa - 110, ya - 230, k=kb, size=30, edge="#E3B54A", color="#F4DD92")
     kg = cx.amt(("c7s12", "karşılaşmadı.", -0.5), 0.7)
     if kg > 0:
         xm, ym = (xa + xo) / 2, (ya + yo) / 2
-        import skia
-        p = f.paint("#F0D27A", style="stroke", sw=4, alpha=0.9 * kg)
-        p.setPathEffect(skia.DashPathEffect.Make([10, 12], -cx.t * 20))
-        f.c.drawLine(xa + 50, ya + 30, xo - 60, yo - 20, p)
-        X.chip(f, "İKİ ORDU HİÇ KARŞILAŞMADI", xm + 140, ym - 140, k=kg, size=34, edge="#B02A2A", color="#F8E2D8", padx=34, h=84)
+        p = f.paint("#F0D27A", style="stroke", sw=5, alpha=0.95 * kg)
+        p.setPathEffect(skia.DashPathEffect.Make([12, 12], -cx.t * 22))
+        f.c.drawLine(xa + 40, ya + 20, xo - 40, yo - 10, p)
+        X.ic(f, "question", xm, ym - 4, size=96, metal="silver", alpha=0.9 * kg)
+        X.chip(f, "İKİ ORDU HİÇ KARŞILAŞMADI", W / 2, 205, k=kg, size=38, edge="#B02A2A", color="#F8E2D8", padx=40, h=90)

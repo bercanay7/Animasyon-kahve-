@@ -62,9 +62,17 @@ def _landsknecht(h, lean):
     add_arm(F, [(-0.04 * h, -0.725 * h), (-0.125 * h, -0.625 * h), (-0.02 * h, -0.535 * h)], [0.09 * h, 0.095 * h, 0.05 * h], hand="fist", hand_len=0.07 * h, hand_rot=5)
     for k in range(4):
         F.crease((-0.12 * h + k * 0.02 * h, -0.70 * h + k * 0.012 * h), (-0.15 * h + k * 0.03 * h, -0.58 * h), 0.006 * h, 0.004 * h, alpha=0.65)
-    # pike: yakın ele değil, ön elde (öne uzatılmış kol)
-    pike(F, h, 0.215, top=-1.72, lean_x=0.012)
-    add_arm(F, [(0.03 * h, -0.72 * h), (0.10 * h, -0.62 * h), (0.208 * h, -0.60 * h)], [0.07 * h, 0.07 * h, 0.044 * h], hand="fist", hand_len=0.07 * h, hand_rot=0)
+    # pike: omuzda diyagonal (tabanı geride aşağıda, ucu öne-yukarı); ön el göğüs hizasında kavrar
+    ax, ay, bx, by = -0.02, -0.22, 0.60, -1.74
+    F.fill(bar(ax * h, ay * h, bx * h, by * h, 0.0125 * h, 0.011 * h), rim=0.9)
+    dx_, dy_ = bx - ax, by - ay
+    Ln = math.hypot(dx_, dy_)
+    ux, uy = dx_ / Ln, dy_ / Ln
+    nx, ny = -uy, ux
+    tx, ty = bx * h, by * h
+    F.fill(sp([KC(tx - ux * 0.01 * h - nx * 0.012 * h, ty - uy * 0.01 * h - ny * 0.012 * h), (tx + ux * 0.04 * h - nx * 0.02 * h, ty + uy * 0.04 * h - ny * 0.02 * h), KC(tx + ux * 0.11 * h, ty + uy * 0.11 * h),
+               (tx + ux * 0.04 * h + nx * 0.02 * h, ty + uy * 0.04 * h + ny * 0.02 * h), KC(tx - ux * 0.01 * h + nx * 0.012 * h, ty - uy * 0.01 * h + ny * 0.012 * h)], True), rim=1.0)
+    add_arm(F, [(0.03 * h, -0.72 * h), (0.10 * h, -0.65 * h), (0.16 * h, -0.64 * h)], [0.07 * h, 0.07 * h, 0.046 * h], hand="fist", hand_len=0.07 * h, hand_rot=-10)
     add_head(F, hx, hy, hh, "m", rot=-2, beard="short", hat="plume", nose=1.1, neck_to=(0.0, -0.775 * h), hat_rot=6)
     return F.build()
 
@@ -75,8 +83,8 @@ def _pikeman(h, lean):
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.05 * h, -0.925 * h + 0.5 * hh
-    add_leg(F, h, (-0.025, -0.44), (-0.06, -0.255), (-0.095, -0.046), (0.075, 0.048, 0.032), 1, "round", 0.09, 0.7)
-    add_leg(F, h, (0.035, -0.44), (0.075, -0.265), (0.115, -0.046), (0.08, 0.05, 0.034), 1, "round", 0.095, 0.9)
+    add_leg(F, h, (-0.03, -0.44), (-0.04, -0.255), (-0.05, -0.046), (0.075, 0.048, 0.032), 1, "round", 0.09, 0.7)
+    add_leg(F, h, (0.03, -0.44), (0.05, -0.265), (0.075, -0.046), (0.08, 0.05, 0.034), 1, "round", 0.095, 0.9)
     # pike (iki elle, önde)
     pike(F, h, 0.17, top=-1.72, lean_x=0.006)
     # tassets (üst üste bindirilmiş uyluk levhaları) + şişkin pantolon
@@ -195,7 +203,7 @@ def _conquistador(h, lean):
     F.line(sp([(0.04 * h, -0.755 * h), (0.075 * h, -0.64 * h), (0.075 * h, -0.52 * h)], False), h * 0.005, tone=1.0, alpha=0.5)
     F.fill(fur_band([(-0.05 * h, -0.775 * h), (0.0, -0.79 * h), (0.06 * h, -0.775 * h)], 0.03 * h, 0.013 * h, side=1, jag=0.8), rim=1.0)
     F.fill(ell(-0.04 * h, -0.735 * h, 0.05 * h, 0.032 * h, -15), rim=1.0)
-    add_arm(F, [(-0.035 * h, -0.73 * h), (-0.12 * h, -0.60 * h), (-0.055 * h, -0.51 * h)], [0.064 * h, 0.07 * h, 0.044 * h], hand="fist", hand_len=0.065 * h, hand_rot=15)
+    add_arm(F, [(-0.035 * h, -0.73 * h), (-0.14 * h, -0.62 * h), (-0.04 * h, -0.51 * h)], [0.064 * h, 0.07 * h, 0.044 * h], hand="fist", hand_len=0.065 * h, hand_rot=15)
     add_arm(F, [(0.05 * h, -0.725 * h), (0.12 * h, -0.64 * h), (0.222 * h, -0.62 * h)], [0.06 * h, 0.058 * h, 0.042 * h], hand="fist", hand_len=0.065 * h, hand_rot=0)
     add_head(F, hx, hy, hh, "m", rot=-2, beard="point", hat="morion", nose=1.15, chin=0.02, neck_to=(0.0, -0.775 * h), hat_rot=1)
     return F.build()
@@ -230,31 +238,40 @@ def _sailor(h, lean):
     return F.build()
 
 
-# ───────────────────────────── native (Mezoamerika'dan onurlu bir soylu: tilma, bel bandı, tüylü başlık bandı) ─────────────────────────────
+# ───────────────────────────── native (Mezoamerika'dan onurlu bir soylu: omuzda düğümlü tilma, bel bezi, sandalet, tüylü alın bandı) ─────────────────────────────
 @fx("native")
 def _native(h, lean):
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.045 * h, -0.925 * h + 0.5 * hh
-    # asa (yere basan, süssüz)
-    F.fill(bar(0.17 * h, 0.0, 0.18 * h, -0.92 * h, 0.014 * h, 0.012 * h, False, True), rim=0.9)
-    # bacaklar (çıplak) + sandaletler, bel bezi uçları
+    # asa (yere basan, süssüz, üstte küçük tüy bağı)
+    F.fill(bar(0.175 * h, 0.0, 0.185 * h, -0.93 * h, 0.014 * h, 0.012 * h, False, True), rim=0.9)
+    F.fill(feather_path(0.185 * h, -0.94 * h, 0.20 * h, -1.04 * h, 0.028 * h, bend=0.01 * h), rim=1.0)
+    # bacaklar (çıplak), sandaletler (bağlı), bel bezi uçları (süslü)
     for (a, b, c, rim) in (((-0.02, -0.46), (-0.05, -0.24), (-0.085, -0.03), 0.7), ((0.035, -0.46), (0.075, -0.25), (0.11, -0.03), 0.9)):
         F.fill(limb([(a[0] * h, a[1] * h), (b[0] * h, b[1] * h), (c[0] * h, c[1] * h)], [0.07 * h, 0.048 * h, 0.03 * h], cap0=0.3, cap1=0.3), rim=rim)
         F.fill(sp([KC((c[0] - 0.02) * h, (c[1]) * h), ((c[0] + 0.05) * h, (c[1] - 0.004) * h), KC((c[0] + 0.07) * h, 0.0), KC((c[0] - 0.03) * h, 0.0)], True, 0.8), rim=rim)
-    F.fill(sp([KC(-0.065 * h, -0.50 * h), (-0.072 * h, -0.40 * h), (-0.062 * h, -0.30 * h), KC(-0.02 * h, -0.28 * h), KC(0.0, -0.40 * h), (0.02 * h, -0.30 * h), KC(0.07 * h, -0.30 * h), (0.07 * h, -0.40 * h), KC(0.065 * h, -0.50 * h)], True), rim=0.9)
-    # tilma: omuzda düğümlü, dizlere inen mantı
-    F.fill(sp([KC(-0.04 * h, -0.775 * h), (-0.105 * h, -0.745 * h), (-0.12 * h, -0.62 * h), (-0.115 * h, -0.45 * h), (-0.125 * h, -0.34 * h), KC(-0.04 * h, -0.32 * h), (0.04 * h, -0.34 * h),
-               (0.075 * h, -0.40 * h), (0.09 * h, -0.55 * h), (0.10 * h, -0.68 * h), (0.085 * h, -0.75 * h), (0.05 * h, -0.775 * h)], True, 0.95), rim=0.9, glow=0.10)
-    F.line(sp([(-0.115 * h, -0.36 * h), (0.0, -0.35 * h), (0.075 * h, -0.395 * h)], False), h * 0.007, tone=1.0, alpha=0.55)       # sınır bandı
-    F.line(sp([(-0.11 * h, -0.335 * h), (0.0, -0.325 * h), (0.07 * h, -0.355 * h)], False), h * 0.004, tone=1.0, alpha=0.4)
-    F.crease((-0.05 * h, -0.62 * h), (-0.07 * h, -0.36 * h), 0.008 * h, 0.01 * h)
-    F.crease((0.0 * h, -0.60 * h), (-0.01 * h, -0.34 * h), 0.007 * h, -0.006 * h, alpha=0.5)
-    F.fill(ell(0.075 * h, -0.735 * h, 0.018 * h, 0.018 * h), rim=1.0)                    # omuz düğümü
-    # kollar: biri asada, diğeri göğüste
-    add_arm(F, [(0.045 * h, -0.725 * h), (0.11 * h, -0.62 * h), (0.172 * h, -0.60 * h)], [0.055 * h, 0.052 * h, 0.04 * h], hand="fist", hand_len=0.062 * h, hand_rot=5)
+        F.line(poly([(c[0] * h, (c[1] - 0.02) * h), ((c[0] + 0.03) * h, (c[1] - 0.005) * h)], False), h * 0.004, tone=1.0, alpha=0.45)
+    F.fill(sp([KC(-0.06 * h, -0.45 * h), (-0.07 * h, -0.36 * h), (-0.06 * h, -0.28 * h), KC(-0.02 * h, -0.25 * h), KC(0.0, -0.36 * h), (0.02 * h, -0.28 * h), KC(0.075 * h, -0.28 * h), (0.075 * h, -0.36 * h), KC(0.07 * h, -0.45 * h)], True), rim=0.9)
+    for (x0_, x1_) in ((-0.066, -0.01), (0.012, 0.074)):
+        for k in range(3):
+            F.fill(poly([((x0_ + k * (x1_ - x0_) / 3) * h, -0.30 * h), ((x0_ + (k + 0.6) * (x1_ - x0_) / 3) * h, -0.30 * h), ((x0_ + (k + 0.3) * (x1_ - x0_) / 3) * h, -0.272 * h)]), rim=0.0, tone=1.0, alpha=0.5, bound=False)
+    # tilma: sağ omuzda düğümlü dikdörtgen mantı; kumaş çapraz iner, etek kenarı çapraz
+    F.fill(sp([KC(-0.045 * h, -0.775 * h), (-0.10 * h, -0.745 * h), (-0.115 * h, -0.62 * h), (-0.112 * h, -0.45 * h), (-0.125 * h, -0.36 * h), KC(-0.11 * h, -0.335 * h), (-0.03 * h, -0.355 * h), (0.05 * h, -0.40 * h),
+               (0.085 * h, -0.50 * h), (0.10 * h, -0.64 * h), (0.09 * h, -0.74 * h), (0.05 * h, -0.775 * h)], True, 0.95), rim=0.9, glow=0.10)
+    F.line(sp([(-0.115 * h, -0.355 * h), (-0.03 * h, -0.375 * h), (0.05 * h, -0.42 * h), (0.087 * h, -0.50 * h)], False), h * 0.007, tone=1.0, alpha=0.55)       # basamaklı sınır bandı
+    for k in range(7):
+        t = k / 6
+        x = -0.11 + t * 0.19
+        y = -0.352 - t * 0.12 + (0.012 if k % 2 == 0 else 0.0)
+        F.fill(poly([(x * h, y * h), ((x + 0.016) * h, y * h), ((x + 0.016) * h, (y - 0.012) * h), ((x + 0.03) * h, (y - 0.012) * h)]), rim=0.0, tone=1.0, alpha=0.5, bound=False)
+    F.crease((-0.05 * h, -0.65 * h), (-0.07 * h, -0.38 * h), 0.008 * h, 0.01 * h)
+    F.crease((0.0 * h, -0.62 * h), (-0.01 * h, -0.40 * h), 0.007 * h, -0.006 * h, alpha=0.5)
+    F.fill(ell(0.072 * h, -0.735 * h, 0.019 * h, 0.019 * h), rim=1.0)
+    # kollar + bilezik
+    add_arm(F, [(0.045 * h, -0.725 * h), (0.11 * h, -0.62 * h), (0.178 * h, -0.60 * h)], [0.055 * h, 0.052 * h, 0.04 * h], hand="fist", hand_len=0.062 * h, hand_rot=5)
     add_arm(F, [(-0.03 * h, -0.725 * h), (-0.09 * h, -0.63 * h), (0.0 * h, -0.60 * h)], [0.055 * h, 0.055 * h, 0.04 * h], hand="open", hand_len=0.06 * h, hand_rot=0)
-    # başlık bandı + iki dik tüy
+    F.line(poly([(0.14 * h, -0.612 * h), (0.152 * h, -0.608 * h)], False), h * 0.006, tone=1.0, alpha=0.7)
     add_head(F, hx, hy, hh, "m", rot=0, beard=None, hair="long", hat="headband", neck_to=(0.0, -0.775 * h), nose=1.05, hat_rot=0)
     return F.build()
 

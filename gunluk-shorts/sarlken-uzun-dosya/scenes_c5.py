@@ -84,7 +84,7 @@ SHOTS = [
     shot("c5_moritz", a=("c5s11", -0.2), tr=D, short_at=("c5s11", "Zafer", -0.05), year_at=("c5s11", "1552'de", -0.1), ally_at=("c5s11", "müttefiki", -0.3), snap_at=("c5s11", "karşı", -0.2), label="moritz"),
     # s12 — Innsbruck, gece kaçış (sedye yok: meşaleli atlı kafile)
     shot("bw_theatre", a=("c5s12", -0.2), tr=D, scene="road_night", cams=[(0.0, (960, 560, 1.0)), (("c5s12", "kaldı", 0.0), (1000, 560, 1.28))],
-         p=dict(riders=True, rain=True, mountains=True), overlay=_night_label, label="innsbruck_gece"),
+         p=dict(riders=5, torches=5, rain=0.45, mountains=True, litter=False, walk=11, fog=0.6, dir=-1), overlay=_night_label, label="innsbruck_gece"),
     # s13 — Augsburg Barışı, Eylül 1555
     shot("c5_peace", a=("c5s13", -0.2), tr=D, at=0.0, date_at=("c5s13", "Eylül", -0.1), title_at=("c5s13", "Augsburg", -0.1), seal_at=("c5s13", "imzalandı", -0.1),
          luther_at=("c5s13", "Lutherciliğe", -0.2), open_at=("c5s13", "yer", -0.25), label="augsburg_barisi"),

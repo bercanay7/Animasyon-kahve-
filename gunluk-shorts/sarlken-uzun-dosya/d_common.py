@@ -194,8 +194,8 @@ def smoke_puff(f, x, y, t, n=7, w=90, h=260, color="#2A1D14", alpha=0.35, seed=3
 
 # ───────────────────────────── sayaç (paylaşılan) ─────────────────────────────
 @SH.kind("wd_counter")
-def k_wd_counter(cx, value=100000, unit="FLORİN", label=None, sub=None, at=0.0, dur=1.8, prefix="", suffix="", size=200, pos=(W / 2, H * 0.5),
-                 icon=None, icon_metal="gold", medal_=None, stamps=(), bgk="night", kick=None, kick_at=None, decimals=0, extra=None, bg_icons=(), unit_at=None, label_at=None, sub_at=None,
+def k_wd_counter(cx, value=100000, unit="FLORİN", lab=None, sub=None, at=0.0, dur=1.8, prefix="", suffix="", size=200, pos=(W / 2, H * 0.5),
+                 icon=None, icon_metal="gold", medal_=None, stamps=(), bgk="night", kick=None, kick_at=None, decimals=0, extra=None, bg_icons=(), unit_at=None, lab_at=None, sub_at=None,
                  zoom=0.04):
     """Sayan büyük sayı + damgalar + isteğe bağlı madalya/simge.
     medal_=dict(key, metal, size, x, y, at, name, role, flip); stamps=[(metin, x, y, çapa[, boyut[, rot]])]; bg_icons=[dict(icon,x,y,size,at,metal,alpha,rot)]"""
@@ -228,8 +228,8 @@ def k_wd_counter(cx, value=100000, unit="FLORİN", label=None, sub=None, at=0.0,
     f.c.restore()
     if unit:
         f.text(unit, px, py + size * 0.3 + 78, face="title_m", size=48, color="#E0C682", align="c", track=14, alpha=cx.amt(unit_at if unit_at is not None else at, 0.5, off=0.0 if unit_at is not None else 0.3))
-    if label:
-        f.text(label, px, py + size * 0.3 + 142, face="cap_i", size=40, color="#C9B27A", align="c", alpha=cx.amt(label_at if label_at is not None else at, 0.6, off=0.0 if label_at is not None else 0.6))
+    if lab:
+        f.text(lab, px, py + size * 0.3 + 142, face="cap_i", size=40, color="#C9B27A", align="c", alpha=cx.amt(lab_at if lab_at is not None else at, 0.6, off=0.0 if lab_at is not None else 0.6))
     if sub:
         f.text(sub, px, py + size * 0.3 + 192, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(sub_at if sub_at is not None else at, 0.6, off=0.0 if sub_at is not None else 0.9), track=3)
     if kick:
@@ -481,3 +481,13 @@ def k_wd_doc(cx, title="", lines=(), w=1100, h=620, at=0.0, line_dt=0.5, ink="#2
     if extra:
         extra(cx)
     f.vig(0.5)
+
+
+def tag_seq(cx, items, x=96, y=128, size=36, align="l", accent="#C9962B"):
+    """Aynı yerde sırayla belirip sönen levhalar. items: [(metin, alt_metin|None, çapa_gir, çapa_çık|None)]."""
+    for text, sub, a_in, a_out in items:
+        k = cx.amt(a_in, 0.6)
+        if a_out is not None:
+            k *= (1 - cx.amt(a_out, 0.5))
+        if k > 0:
+            tag(cx.f, text, x, y, k, size=size, sub=sub, align=align, accent=accent)

@@ -351,6 +351,18 @@ def ribbon(f, x, y, w, h, alpha=1.0, color="#EBDDB5", ink="#2A1A0C", notch=None)
     f.path(q, style="stroke", sw=1.6, color=ink, alpha=0.45 * alpha)
 
 
+def puffs(f, x, y, t, w=220, h=380, n=8, seed=4, color="#1A1410", alpha=0.35):
+    """Hafif duman: katman bulanıklığı yok, daire başına maske bulanıklığı (sk.smoke'tan ~5x hızlı)."""
+    rs = np.random.RandomState(seed)
+    for i in range(n):
+        ph = (t * 0.18 + rs.rand()) % 1.0
+        px = x + (rs.rand() - 0.5) * w * 0.5 + math.sin(ph * 6 + i) * w * 0.18 * ph
+        py = y - ph * h
+        r = 26 + ph * 90 + rs.rand() * 18
+        a = alpha * math.sin(math.pi * ph) ** 1.2
+        f.circle(px, py, r, color=color, alpha=a, blur=r * 0.55)
+
+
 # ───────────────────────────── terazi ─────────────────────────────
 def _gold_grad(f, x0, x1, y0=0, y1=0, metal="gold"):
     st = sk.METAL[metal]
@@ -574,7 +586,7 @@ def k_a_theatre(cx, **kw):
 
 # ───────────────────────────── çoklu madalya (çapa destekli) ─────────────────────────────
 @SH.kind("a_medals")
-def k_a_medals(cx, items=(), size=520, y=H * 0.46, gap=None, bgname=None, vs=None, vs_icon="swords", vs_size=120, plates=True, stampt=None, rays=0.3, dust_n=50, vig=0.55):
+def k_a_medals(cx, items=(), size=520, y=H * 0.46, gap=None, bgname=None, vs=None, vs_icon="swords", vs_size=120, plates=True, stampt=None, rays=0.3, dust_n=50, vig=0.55, date=None, ghost=True):
     """Yan yana madalyalar; `at` değerleri çapa olabilir. items: dict(key,name,role,dates,at,metal,flip,size,dx,y)."""
     f = cx.f
     if bgname:
@@ -591,11 +603,14 @@ def k_a_medals(cx, items=(), size=520, y=H * 0.46, gap=None, bgname=None, vs=Non
     for i, it in enumerate(items):
         a_ = it.get("at", 0.2 + 0.3 * i)
         a = cx.amt(a_, 0.7)
-        if a <= 0:
-            continue
         x = x0 + i * gap + it.get("dx", 0)
         yy = it.get("y", y)
         sz = it.get("size", size)
+        if ghost and a < 1:
+            f.circle(x, yy, sz * 0.46, style="stroke", sw=3, color="#C9962B", alpha=0.35 * (1 - a))
+            f.circle(x, yy, sz * 0.46, color="#000000", alpha=0.25 * (1 - a))
+        if a <= 0:
+            continue
         sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.03 * cx.u)
         gl = (cx.t * 0.25 + 0.2 * i) % 2.0
         SH.draw_medal(f, it["key"], x, yy, sz * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a, tilt=0.15 * math.sin(cx.t * 0.5 + i), glint=gl if gl < 1 else None,
@@ -606,6 +621,8 @@ def k_a_medals(cx, items=(), size=520, y=H * 0.46, gap=None, bgname=None, vs=Non
         icons.draw_icon(f, vs_icon, W / 2, y, size=vs_size, metal="silver", alpha=cx.amt(vs, 0.4), glow=0.3)
     sk.dust(f, cx.t, n=dust_n)
     f.vig(vig)
+    if date:
+        SH._date_stamp(f, date, cx)
     if stampt:
         SH.stamp(f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
 
@@ -660,11 +677,13 @@ def ensure_region(name):
 
 
 @SH.kind("a_map")
-def k_a_map(cx, need=(), **kw):
-    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir."""
+def k_a_map(cx, need=(), stampt=None, **kw):
+    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir; isteğe bağlı damga."""
     for n in need:
         ensure_region(n)
     SH.KINDS["map"](cx, **kw)
+    if stampt:
+        SH.stamp(cx.f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
 
 
 def _with_stamp(name, base):

@@ -307,3 +307,193 @@ def pointed_window(f, cx, cy, w, h, glow=("#ffe9b8", "#e8a84a"), frame="#2b190c"
                 col = pane[rs.randint(len(pane))]
                 f.rect(cx - w / 2 + j * w / 3, cy - h / 2 + i * h / 6, w / 3, h / 6, color=col, alpha=0.30, blend=skia.BlendMode.kMultiply)
         f.c.restore()
+
+
+def cypress(f, x, y, h, w=None, col="#0a110b", rim="#5a7a58", rim_a=0.35, seed=1, rim_dir=1):
+    """Selvi ağacı siluet (y: gövde dibi). Pürüzlü kenarlı uzun damla; bir yanda hafif kenar ışığı."""
+    w = w or h * 0.17
+    rs = np.random.RandomState(seed)
+    n = 26
+    L, Rr = [], []
+    for i in range(n + 1):
+        u = i / n
+        yy = y - h * u
+        prof = math.sin(math.pi * min(1.0, u * 0.98 + 0.02)) ** 0.62 * (1 - 0.15 * u)
+        jit = 1 + (rs.rand() - 0.5) * 0.16
+        wd = w * prof * jit
+        L.append((x - wd, yy))
+        Rr.append((x + wd * (1 + (rs.rand() - 0.5) * 0.1), yy))
+    pts = L + Rr[::-1]
+    path = sk.smooth_path(pts, True, 0.25)
+    f.path(path, shader=f.lin(x - w, 0, x + w, 0, [(shade(col, 0.1 if rim_dir < 0 else -0.1), 0.0), (col, 0.5), (shade(col, 0.1 if rim_dir > 0 else -0.1), 1.0)]))
+    f.c.save()
+    f.c.clipPath(path, skia.ClipOp.kIntersect, True)
+    for i in range(40):                      # yaprak dokusu
+        yy = y - rs.rand() * h
+        xx = x + (rs.rand() - 0.5) * w * 1.4
+        f.line(xx, yy, xx + rs.uniform(-3, 3), yy - rs.uniform(10, 26), color="#1a2a18", sw=2.0, alpha=0.5)
+    f.c.restore()
+    if rim_a > 0:
+        rpts = (Rr if rim_dir > 0 else L)
+        f.path(sk.smooth_path(rpts, False, 0.25), style="stroke", sw=1.8, color=rim, alpha=rim_a)
+    f.rect(x - w * 0.08, y - 6, w * 0.16, 14, color=shade(col, -0.3))
+
+
+def fountain(f, x, y, s=1.0, stone="#6a6054", lights=(), rim="#c9b890"):
+    """Taş çeşme/kuyu (önden): havuz + orta sütun + üst tas. y: taban."""
+    bas = sk.smooth_path([(x - 150 * s, y), (x - 160 * s, y - 40 * s), (x + 160 * s, y - 40 * s), (x + 150 * s, y)], True, 0.2)
+    R.lit_path(f, bas, stone, lights, rim=rim, rim_w=1.4, grad=f.lin(0, y - 40 * s, 0, y, [(shade(stone, 0.2), 0.0), (shade(stone, -0.35), 1.0)]))
+    f.oval(x, y - 40 * s, 160 * s, 22 * s, color="#0e1218")
+    f.oval(x, y - 40 * s, 160 * s, 22 * s, style="stroke", sw=3 * s, color=shade(stone, 0.2))
+    f.oval(x, y - 38 * s, 130 * s, 15 * s, shader=f.lin(0, y - 52 * s, 0, y - 26 * s, [("#8da8c8", 0.0, 120), ("#1c2838", 1.0, 200)]))
+    col_ = R.rect_path(x - 12 * s, y - 130 * s, 24 * s, 92 * s)
+    R.lit_path(f, col_, stone, lights, rim=rim, rim_w=1.2)
+    f.oval(x, y - 132 * s, 52 * s, 11 * s, color=shade(stone, -0.15))
+    f.oval(x, y - 134 * s, 52 * s, 11 * s, style="stroke", sw=2 * s, color=shade(stone, 0.2))
+    f.oval(x, y - 134 * s, 44 * s, 8 * s, color="#16202c")
+
+
+# ───────────── altın eşyalar (Cajamarca fidyesi) ─────────────
+def _gold_grad(f, x0, y0, x1, y1, dark=0.0):
+    return f.lin(x0, y0, x1, y1, [("#fff0b0", 0.0), ("#e0a830", 0.38), ("#a87a24", 0.72), ("#5a3c10", 1.0)])
+
+
+def g_plate(f, x, y, r, rot=0.0):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.oval(0, 2.0, r, r * 0.36, color="#5a3c10")
+    f.oval(0, 0, r, r * 0.36, shader=_gold_grad(f, -r, -r * 0.36, r, r * 0.36))
+    f.oval(0, 0, r * 0.72, r * 0.25, style="stroke", sw=max(0.8, r * 0.04), color="#fff0b0", alpha=0.55)
+    f.oval(-r * 0.2, -r * 0.1, r * 0.25, r * 0.08, color="#ffffff", alpha=0.35)
+    f.c.restore()
+
+
+def g_sheet(f, x, y, w, h, rot=0.0):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    p = sk.poly_path([(-w / 2, -h / 2), (w / 2 + h * 0.2, -h / 2), (w / 2, h / 2), (-w / 2 - h * 0.2, h / 2)], True)
+    f.path(p, shader=_gold_grad(f, -w / 2, -h / 2, w / 2, h / 2))
+    f.path(p, style="stroke", sw=1.0, color="#fff0b0", alpha=0.6)
+    f.line(-w * 0.3, -h * 0.2, w * 0.3, -h * 0.2, color="#fff6c8", sw=1.2, alpha=0.5)
+    f.c.restore()
+
+
+def g_vase(f, x, y, s, rot=0.0):
+    """İnka aryballos'u: sivri tabanlı gövde, dar boyun, geniş ağız, iki kulp."""
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.c.scale(s, s)
+    body = skia.Path()
+    body.moveTo(0, 0)
+    body.cubicTo(-22, -6, -30, -34, -20, -58)
+    body.cubicTo(-14, -70, -8, -74, -8, -82)
+    body.lineTo(-13, -92)
+    body.lineTo(13, -92)
+    body.lineTo(8, -82)
+    body.cubicTo(8, -74, 14, -70, 20, -58)
+    body.cubicTo(30, -34, 22, -6, 0, 0)
+    body.close()
+    f.path(body, shader=f.lin(-30, 0, 30, 0, [("#6a4814", 0.0), ("#f1cf6a", 0.42), ("#c9962b", 0.6), ("#5a3c10", 1.0)]))
+    f.path(body, style="stroke", sw=1.2, color="#fff0b0", alpha=0.35)
+    f.oval(0, -92, 13, 3.4, color="#fff0b0", alpha=0.8)
+    for sx in (-1, 1):
+        h = skia.Path()
+        h.moveTo(sx * 19, -52)
+        h.cubicTo(sx * 34, -50, sx * 34, -32, sx * 24, -30)
+        f.path(h, style="stroke", sw=4.2, color="#c9962b")
+    f.rect(-22, -50, 44, 3, color="#6a4814", alpha=0.6)
+    f.c.restore()
+
+
+def g_cup(f, x, y, s, rot=0.0):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.c.scale(s, s)
+    p = sk.poly_path([(-10, 0), (10, 0), (16, -40), (-16, -40)], True)
+    f.path(p, shader=f.lin(-16, 0, 16, 0, [("#6a4814", 0.0), ("#f1cf6a", 0.45), ("#5a3c10", 1.0)]))
+    f.oval(0, -40, 16, 4.5, color="#fff0b0", alpha=0.85)
+    f.oval(0, -40, 13, 3.2, color="#3a2608")
+    f.rect(-14, -20, 28, 3, color="#fff0b0", alpha=0.35)
+    f.c.restore()
+
+
+def g_llama(f, x, y, s, flip=1):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.scale(s * flip, s)
+    pts = [(-22, -22), (-22, -34), (-8, -36), (6, -34), (10, -52), (12, -66), (20, -70), (24, -66), (20, -60), (16, -48), (16, -34), (14, -24), (14, 0), (10, 0), (8, -22), (-8, -22), (-10, 0), (-14, 0), (-16, -22)]
+    p = sk.smooth_path(pts, True, 0.18)
+    f.path(p, shader=f.lin(-24, -70, 24, 0, [("#fff0b0", 0.0), ("#e0a830", 0.4), ("#8a6220", 1.0)]))
+    f.path(p, style="stroke", sw=1.0, color="#fff0b0", alpha=0.5)
+    f.c.restore()
+
+
+def g_bar(f, x, y, w, h, rot=0.0):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    p = sk.poly_path([(-w / 2, h / 2), (w / 2, h / 2), (w / 2 - h * 0.3, -h / 2), (-w / 2 + h * 0.3, -h / 2)], True)
+    f.path(p, shader=f.lin(0, -h / 2, 0, h / 2, [("#fff0b0", 0.0), ("#e0a830", 0.5), ("#7a5518", 1.0)]))
+    f.line(-w / 2 + h * 0.3, -h / 2, w / 2 - h * 0.3, -h / 2, color="#ffffff", sw=1.2, alpha=0.5)
+    f.c.restore()
+
+
+def g_mask(f, x, y, r, rot=0.0):
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.rotate(math.degrees(rot))
+    f.circle(0, 0, r, shader=f.rad(-r * 0.3, -r * 0.3, r * 1.4, [("#fff0b0", 0.0), ("#e0a830", 0.5), ("#7a5518", 1.0)]))
+    f.circle(0, 0, r, style="stroke", sw=max(1.0, r * 0.07), color="#8a6220")
+    for sx in (-1, 1):
+        f.oval(sx * r * 0.36, -r * 0.12, r * 0.2, r * 0.07, color="#2a1a06")
+        f.oval(sx * (r + r * 0.18), r * 0.05, r * 0.2, r * 0.3, color="#c9962b")
+    f.line(-r * 0.25, r * 0.4, r * 0.25, r * 0.4, color="#2a1a06", sw=max(1.2, r * 0.08))
+    f.c.restore()
+
+
+def hoard_items(seed=3, n=260, cx=930.0, base=888.0, half=470.0, H=360.0):
+    """Altın yığını öğeleri: [dict(tür,x,y,s,rot,rank)] — yığın profili tümsek; rank 0..1 (alttan üste, jitter'lı)."""
+    rs = np.random.RandomState(seed)
+    items = []
+    tries = 0
+    while len(items) < n and tries < n * 30:
+        tries += 1
+        x = cx + (rs.rand() * 2 - 1) * half
+        u = abs(x - cx) / half
+        skew = 1.0 - 0.28 * np.tanh((x - cx) / half * 1.5)
+        top = base - H * max(0.0, 1 - u ** 2.0) ** 0.85 * skew
+        y = base - 6 - rs.rand() ** 0.8 * (base - top)
+        if y > base - 4:
+            continue
+        kind = rs.choice(["plate", "sheet", "vase", "cup", "llama", "bar", "mask"], p=[0.26, 0.2, 0.12, 0.10, 0.08, 0.14, 0.10])
+        depth = (base - y) / H
+        s = 0.8 + 0.5 * (1 - depth * 0.3) + rs.rand() * 0.3
+        rank = float(np.clip((base - y) / H * 0.82 + rs.rand() * 0.18, 0, 1))
+        items.append(dict(k=kind, x=x, y=y, s=s, rot=(rs.rand() - 0.5) * 1.0, rank=rank, f=1 if rs.rand() > 0.5 else -1, seed=int(rs.randint(1 << 30))))
+    items.sort(key=lambda d: d["y"])
+    return items
+
+
+def draw_hoard(f, items, rank_lo=0.0, rank_hi=1.0):
+    for it in items:
+        if not (rank_lo < it["rank"] <= rank_hi):
+            continue
+        k, x, y, s, rot = it["k"], it["x"], it["y"], it["s"], it["rot"]
+        if k == "plate":
+            g_plate(f, x, y, 34 * s, rot * 0.5)
+        elif k == "sheet":
+            g_sheet(f, x, y, 62 * s, 26 * s, rot)
+        elif k == "vase":
+            g_vase(f, x, y + 10, 0.78 * s, rot * 0.7)
+        elif k == "cup":
+            g_cup(f, x, y + 4, 0.8 * s, rot * 0.6)
+        elif k == "llama":
+            g_llama(f, x, y + 2, 0.85 * s, it["f"])
+        elif k == "bar":
+            g_bar(f, x, y, 52 * s, 20 * s, rot * 0.6)
+        else:
+            g_mask(f, x, y, 24 * s, rot * 0.5)

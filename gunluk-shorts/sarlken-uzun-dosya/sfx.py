@@ -794,20 +794,30 @@ SFX_NAMES = sorted(REGISTRY)
 
 
 def sfx(name, seed=0, dur=None, loop=False, **kw):
-    """SFX üretir → float32 (n,2) @48 kHz, tepe −3 dBFS. Döngü sesleri: dur=None → 8 sn dikişsiz döngü."""
+    """SFX üretir → float32 (n,2) @48 kHz, tepe −3 dBFS. Döngü sesleri: dur=None → 8 sn dikişsiz döngü.
+    dur: istenen uzunluk (sn). Üreteç çok kısa dur'u desteklemezse doğal uzunlukta üretilip dur'a kırpılır (40 ms sönümle)."""
     if name not in REGISTRY:
         raise KeyError(f"bilinmeyen SFX: {name}  (mevcut: {', '.join(SFX_NAMES)})")
-    rng = rng_for("sfx", name, int(seed))
     if name in LOOPABLE:
+        rng = rng_for("sfx", name, int(seed))
         x = REGISTRY[name](rng, LOOP_SEC)
         x = _finish(x, loop=True, name=name)
         if dur is not None and abs(dur - LOOP_SEC) > 1e-6:
             x = _fit(x.astype(np.float64), dur, loop=True)
-            x = D.peak_norm(D.fade_edges(x, 0.0, 0.0), PEAK_DB)
+            x = D.peak_norm(x, PEAK_DB)
         return x.astype(np.float32)
-    x = REGISTRY[name](rng, dur, **kw)
+    x = None
     if dur is not None:
-        x = _fit(np.asarray(x, dtype=np.float64), dur, loop=False)
+        try:
+            x = np.asarray(REGISTRY[name](rng_for("sfx", name, int(seed)), dur, **kw), dtype=np.float64)
+            if not np.isfinite(x).all() or np.max(np.abs(x)) < 1e-6:
+                x = None
+        except Exception:      # noqa — çok kısa/uygunsuz dur: doğal uzunluğa dön
+            x = None
+    if x is None:
+        x = np.asarray(REGISTRY[name](rng_for("sfx", name, int(seed)), None, **kw), dtype=np.float64)
+    if dur is not None:
+        x = _fit(x, dur, loop=False)
     return _finish(x, name=name)
 
 

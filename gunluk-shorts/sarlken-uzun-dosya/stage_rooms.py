@@ -315,7 +315,7 @@ def mat_stone_fine(base="#8a7c66", seed=3, course=46.0, tone=0.12, rough=0.7):
 
 
 def mat_arcade(floor_b, stone="#b3a48a", brick="#8e3a2c", white="#d8cdb0", bay=215.0, off=0.0, lo=(150.0, 230.0, 24.0, 345.0), gal=(100.0, 520.0, 18.0, 600.0),
-               top=760.0, seed=5, recess="#0c0908", base_fn=None):
+               top=760.0, seed=5, recess="#0c0908", base_fn=None, glow_prob=0.0, glow=(1.0, 0.62, 0.30), glow_power=1.2, glow_lo=False):
     """Aachen tipi iki katlı kemerli galeri (alt: büyük kemerler; üst: galeri kemerleri), kemer taşları kırmızı/beyaz dönüşümlü.
     floor_b: duvar düzleminde zeminin 'b' koordinatı (aşağı pozitif). lo/gal=(açıklık genişliği, yay başlangıç yüksekliği, halka kalınlığı, korniş yüksekliği)."""
     st = base_fn or mat_stone_fine(stone, seed=seed)
@@ -328,7 +328,9 @@ def mat_arcade(floor_b, stone="#b3a48a", brick="#8e3a2c", white="#d8cdb0", bay=2
         k = np.floor(u)
         x = (u - k - 0.5) * bay
         out_alb, out_h = alb.copy(), h.copy()
-        for (ow, spring, t, cornice, ymin, ymax) in ((lo[0], lo[1], lo[2], lo[3], -1e9, lo[3] - 18.0), (gal[0], gal[1], gal[2], gal[3], lo[3] + 52.0, gal[3] - 18.0)):
+        emit_acc = np.zeros(alb.shape, np.float32)
+        gcol = np.array(glow, np.float32)
+        for lvl_i, (ow, spring, t, cornice, ymin, ymax) in enumerate(((lo[0], lo[1], lo[2], lo[3], -1e9, lo[3] - 18.0), (gal[0], gal[1], gal[2], gal[3], lo[3] + 52.0, gal[3] - 18.0))):
             r = ow / 2
             cy = spring
             lvl = (hf > ymin) & (hf < ymax + 400)
@@ -351,6 +353,10 @@ def mat_arcade(floor_b, stone="#b3a48a", brick="#8e3a2c", white="#d8cdb0", bay=2
             rec_alb = rc[None, None, :] * (0.6 + 0.8 * deep)
             out_alb = np.where(opening[..., None], rec_alb, out_alb)
             out_h = np.where(opening, h * 0.3 - 14.0, out_h)
+            if glow_prob > 0 and (lvl_i == 1 or glow_lo):
+                gm = (hash2(k, k * 0 + lvl_i, seed + 77) < glow_prob) & opening
+                vg = 0.35 + 0.65 * np.clip(1.0 - (np.abs(x) / r) ** 2, 0, 1) * np.clip(1.0 - np.maximum(hf - cy, 0) / (r * 1.1), 0, 1)
+                emit_acc += gm[..., None] * gcol[None, None, :] * (glow_power * vg)[..., None]
         # korniş şeritleri
         for ch in (lo[3], gal[3]):
             band = sstep(11.0 - np.abs(hf - ch), 0.0, 2.5)
@@ -361,6 +367,8 @@ def mat_arcade(floor_b, stone="#b3a48a", brick="#8e3a2c", white="#d8cdb0", bay=2
         bz = hex3("#9a7a38")
         out_alb = np.where(par_m[..., None], bz[None, None, :] * (0.92 + 0.14 * noise2d(a, b, 1 / 650.0, seed=seed + 3))[..., None], out_alb)
         out_h = np.where(par_m, 1.0 + 2.0 * (np.abs(((u - k) * 8) % 1 - 0.5) < 0.1), out_h)
+        if glow_prob > 0:
+            return out_alb.astype(np.float32), out_h.astype(np.float32), emit_acc
         return out_alb.astype(np.float32), out_h.astype(np.float32)
     return fn
 
@@ -1368,7 +1376,7 @@ def _f_horse_rider(h):
     rider = _union(
         _sp([(-0.07, -0.64), (-0.075, -0.78), (-0.03, -0.90), (0.03, -0.935), (0.075, -0.90), (0.085, -0.78), (0.07, -0.65)], h, True, 0.45),
         _ellipse(0.04, -0.975, 0.045, 0.052, h),
-        _sp([(-0.04, -0.995), (0.0, -1.03), (0.07, -1.035), (0.12, -1.0), (0.10, -0.985), (0.03, -0.99)], h, True, 0.4),
+        _sp([(-0.03, -1.0), (-0.01, -1.04), (0.06, -1.055), (0.125, -1.025), (0.115, -0.995), (0.04, -0.995)], h, True, 0.4),
         _limb([(0.02, -0.66), (0.12, -0.58), (0.115, -0.46), (0.105, -0.38)], 0.07, 0.04, h),
         _limb([(0.04, -0.86), (0.13, -0.80), (0.20, -0.75)], 0.045, 0.03, h),
         _sp([(-0.03, -0.90), (-0.17, -0.82), (-0.30, -0.66), (-0.27, -0.58), (-0.09, -0.68)], h, True, 0.4))
@@ -1432,3 +1440,127 @@ def _f_litter(h):
             x = (-0.52 + k * 0.095) * h
             c.drawLine(x, -0.20 * h, x, -0.14 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 130), StrokeWidth=max(1.2, h * 0.006), Style=skia.Paint.kStroke_Style))
     return _union(poles, cabin, roof, hang), detail
+
+
+def mat_garden(bed=(-520.0, 520.0, 160.0, 760.0), grass="#26301f", path="#6a6050", seed=11, flag=None, border=34.0):
+    """Avlu zemini: taş döşeme (yol) + merkezde çim yatak (bed=(a0,a1,b0,b1) düzlem koordinatı), kenarda alçak kutu-ağacı çiti şeridi."""
+    fl = flag or mat_flags(path, seed=seed, size=170)
+    gcol = hex3(grass)
+    hed = hex3("#18240f")
+
+    def fn(a, b):
+        al, hl = fl(a, b)
+        a0, a1, b0, b1 = bed
+        ins = (a > a0) & (a < a1) & (b > b0) & (b < b1)
+        edge = np.minimum(np.minimum(a - a0, a1 - a), np.minimum(b - b0, b1 - b))
+        hedge = ins & (edge < border)
+        n1 = noise2d(a, b, 1 / 600.0, seed=seed)
+        n2 = noise2d(a, b, 1 / 160.0, seed=seed + 1)
+        n3 = noise2d(a, b, 1 / 90.0, seed=seed + 2)
+        gr = gcol[None, None, :] * (1 + 0.20 * n1 + 0.14 * n2 + 0.10 * n3)[..., None]
+        gr = np.where(hedge[..., None], hed[None, None, :] * (1 + 0.25 * n2 + 0.2 * n3)[..., None], gr)
+        alb = np.where(ins[..., None], gr, al)
+        h = np.where(ins, np.where(hedge, 7.0 + 2.5 * n2, 1.2 * n2 + 0.8 * n3), hl)
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+@rfig("old_man_bed")
+def _f_old_man_bed(h):
+    """Yastıklara yaslanmış yaşlı hasta (bel hizasından yukarısı, profil, sağa bakar): gece takkesi, kır sakal, battaniyede duran kol."""
+    torso = _sp([(-0.38, 0.0), (-0.34, -0.30), (-0.24, -0.55), (-0.10, -0.68), (0.06, -0.66), (0.16, -0.58), (0.24, -0.40), (0.30, -0.18), (0.34, 0.0)], h, True, 0.4)
+    neck = _pp([(-0.05, -0.74), (0.08, -0.74), (0.10, -0.62), (-0.06, -0.62)], h)
+    head = _sp([(-0.10, -0.86), (-0.08, -0.95), (0.0, -1.0), (0.09, -0.98), (0.15, -0.92), (0.17, -0.865), (0.20, -0.835), (0.18, -0.805), (0.19, -0.75), (0.16, -0.68),
+                (0.12, -0.645), (0.04, -0.66), (-0.04, -0.72), (-0.09, -0.78)], h, True, 0.45)
+    cap = _union(_sp([(-0.12, -0.88), (-0.10, -0.99), (0.0, -1.06), (0.10, -1.04), (0.155, -0.96), (0.12, -0.93), (0.0, -0.95)], h, True, 0.4),
+                 _sp([(-0.12, -0.95), (-0.20, -0.90), (-0.25, -0.78), (-0.18, -0.84), (-0.11, -0.90)], h, True, 0.4))
+    arm = _sp([(0.10, -0.52), (0.24, -0.36), (0.42, -0.18), (0.56, -0.10), (0.63, -0.05), (0.59, 0.02), (0.40, 0.0), (0.22, -0.16), (0.08, -0.34)], h, True, 0.4)
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(-0.20 * h, -0.40 * h), (-0.12 * h, -0.20 * h), (-0.06 * h, -0.02 * h)], rc, 0.14, max(1.0, h * 0.003))
+    return _union(torso, neck, head, cap, arm), detail
+
+
+@rfig("monk_kneel")
+def _f_monk_kneel(h):
+    """Diz çökmüş başı örtülü keşiş (profil, sağa bakar, eller önde)."""
+    robe = _sp([(-0.36, 0.0), (-0.28, -0.12), (-0.16, -0.34), (-0.12, -0.52), (0.0, -0.60), (0.12, -0.52), (0.14, -0.34), (0.12, -0.12), (0.10, 0.0)], h, True, 0.4)
+    shin = _sp([(-0.14, -0.07), (0.06, -0.08), (0.11, -0.03), (0.10, 0.0), (-0.34, 0.0), (-0.38, -0.03), (-0.30, -0.08)], h, True, 0.3)
+    torso = _sp([(-0.10, -0.62), (0.0, -0.65), (0.09, -0.60), (0.12, -0.48), (0.10, -0.34), (-0.12, -0.32), (-0.14, -0.46), (-0.13, -0.56)], h, True, 0.4)
+    hood = _sp([(-0.13, -0.60), (-0.15, -0.72), (-0.08, -0.82), (0.04, -0.86), (0.13, -0.80), (0.16, -0.70), (0.13, -0.62), (0.08, -0.60), (0.0, -0.64)], h, True, 0.4)
+    face_ = _sp([(0.10, -0.70), (0.15, -0.69), (0.17, -0.665), (0.14, -0.64), (0.10, -0.65)], h, True, 0.4)
+    arm = _sp([(0.04, -0.58), (0.12, -0.52), (0.20, -0.47), (0.23, -0.455), (0.22, -0.43), (0.15, -0.44), (0.07, -0.48), (0.02, -0.52)], h, True, 0.4)
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(-0.10 * h, -0.55 * h), (-0.14 * h, -0.35 * h), (-0.22 * h, -0.14 * h)], rc, 0.16, max(1.0, h * 0.003))
+    return _union(robe, shin, torso, hood, face_, arm), detail
+
+
+def mat_inca_wall(floor_b, inca=None, niches=(), pitch=None, red=None, door=None, door_col=(1.0, 0.88, 0.62), door_power=2.4, seed=3, shelf=None):
+    """İnka duvarı: sıkı taş işçiliği + trapez nişler (koyu girinti) + kırmızı çizgi + (isteğe bağlı) parlak trapez kapı.
+    niches=[(a_merkez, hf_alt, hf_üst, w_alt, w_üst)] ; pitch: niş a'da periyodik (yan duvar); red=(hf, kalınlık); door=(a_merkez, hf_üst, w_alt, w_üst)."""
+    base = inca or mat_inca(seed=seed)
+    rc = hex3("#a3261c")
+    dcol = np.array(door_col, np.float32)
+
+    def fn(a, b):
+        alb, h = base(a, b)
+        hf = floor_b - b
+        emit = None
+        for (ac, hb, ht, wb, wt) in niches:
+            aa = a if not pitch else (((a - ac + pitch / 2) % pitch) - pitch / 2 + ac)
+            ww = (wb + (wt - wb) * np.clip((hf - hb) / max(ht - hb, 1e-3), 0, 1)) / 2
+            inside = (hf > hb) & (hf < ht) & (np.abs(aa - ac) < ww)
+            depth = np.clip(1.0 - (hf - hb) / max(ht - hb, 1e-3) * 0.3, 0.2, 1.0)
+            alb = np.where(inside[..., None], alb * 0.22 * depth[..., None], alb)
+            h = np.where(inside, h - 22.0, h)
+        if red is not None:
+            line = sstep(red[1] * 0.5 - np.abs(hf - red[0]), 0.0, 1.6)
+            alb = alb * (1 - line[..., None]) + rc[None, None, :] * (0.85 + 0.2 * noise2d(a, b, 1 / 260.0, seed=9))[..., None] * line[..., None]
+            h = h - line * 1.2
+        if door is not None:
+            ac, ht, wb, wt = door
+            ww = (wb + (wt - wb) * np.clip(hf / max(ht, 1e-3), 0, 1)) / 2
+            ins = (hf > 0) & (hf < ht) & (np.abs(a - ac) < ww)
+            fr = (hf > -6) & (hf < ht + 22) & (np.abs(a - ac) < ww + 22) & ~ins
+            alb = np.where(ins[..., None], np.array([0.2, 0.18, 0.15], np.float32)[None, None, :], alb)
+            alb = np.where(fr[..., None], alb * 0.7, alb)
+            h = np.where(ins, h - 18.0, np.where(fr, h + 7.0, h))
+            glare = (0.75 + 0.25 * np.clip(hf / max(ht, 1e-3), 0, 1))
+            emit = (ins[..., None] * dcol[None, None, :] * (door_power * glare)[..., None]).astype(np.float32)
+        if emit is not None:
+            return alb.astype(np.float32), h.astype(np.float32), emit
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+@rfig("atahualpa")
+def _f_atahualpa(h):
+    """Atahualpa (profil, sağa bakar): tüylü başlık + saçaklı mascapaycha, kulak tapası, onurlu dik duruş, bir kolu yukarıda (çizgiyi gösterir)."""
+    spikes = []
+    for i in range(11):
+        a = math.radians(-62 + i * 12.4)
+        bx, by = 0.075, -0.925
+        tx, ty = bx + math.sin(a) * (0.17 + 0.03 * (i % 2)), by - math.cos(a) * (0.17 + 0.03 * (i % 2))
+        nx, ny = math.cos(a) * 0.016, math.sin(a) * 0.016
+        spikes.append(_pp([(bx - nx, by - ny), (tx, ty), (bx + nx, by + ny)], h))
+    band = _ellipse(0.075, -0.915, 0.082, 0.02, h)
+    tassel = _pp([(0.135, -0.925), (0.158, -0.925), (0.163, -0.835), (0.14, -0.835)], h)
+    head = _sp([(0.00, -0.86), (0.015, -0.905), (0.07, -0.925), (0.13, -0.905), (0.143, -0.875), (0.168, -0.862), (0.148, -0.848), (0.152, -0.83), (0.125, -0.808), (0.07, -0.80),
+                (0.02, -0.82)], h, True, 0.45)
+    spool = _ellipse(0.045, -0.855, 0.024, 0.03, h)
+    neck = _pp([(0.03, -0.83), (0.115, -0.83), (0.12, -0.77), (0.03, -0.77)], h)
+    torso = _sp([(-0.125, -0.775), (0.135, -0.775), (0.155, -0.60), (0.145, -0.45), (0.175, -0.30), (-0.165, -0.30), (-0.135, -0.45), (-0.145, -0.62)], h, True, 0.4)
+    legs = _union(_limb([(0.01, -0.32), (0.05, -0.17), (0.075, -0.01)], 0.095, 0.055, h), _limb([(-0.03, -0.32), (-0.06, -0.17), (-0.09, -0.01)], 0.095, 0.055, h),
+                  _pp([(0.05, -0.02), (0.14, -0.02), (0.14, 0.0), (0.05, 0.0)], h), _pp([(-0.12, -0.02), (-0.03, -0.02), (-0.03, 0.0), (-0.12, 0.0)], h))
+    arm_up = _limb([(0.06, -0.765), (0.20, -0.86), (0.34, -0.985), (0.435, -1.05)], 0.075, 0.04, h)
+    hand = _ellipse(0.445, -1.06, 0.03, 0.038, h)
+    arm_dn = _limb([(-0.09, -0.755), (-0.13, -0.60), (-0.115, -0.46)], 0.075, 0.045, h)
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        for dy in (-0.62, -0.50, -0.38):
+            c.drawLine(-0.15 * h, dy * h, 0.16 * h, dy * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 50), StrokeWidth=max(1.0, h * 0.004), Style=skia.Paint.kStroke_Style))
+    return _union(*spikes, band, tassel, head, spool, neck, torso, legs, arm_up, hand, arm_dn), detail

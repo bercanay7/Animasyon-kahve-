@@ -263,7 +263,9 @@ def wave_strip(period, hs, amp, body, crest, foam, seed, sharp=2.2, foam_amt=0.0
     # çukur gölgeleri
     for q in range(facets):
         dy = amp * (0.30 + 0.30 * q)
-        f.path(fill_path(dy), color=shade, alpha=0.10 + 0.045 * q)
+        a_q = int(255 * (0.13 + 0.05 * q))
+        yfade = min(hs - 2, amp * (1.5 + 0.5 * q) + dy)
+        f.path(fill_path(dy), shader=f.lin(0, dy, 0, yfade + 6, [(shade, 0.0, a_q), (shade, 1.0, 0)]))
     # eğime göre parlak/gölgeli yüzler
     for pass_i, (th, al) in enumerate(((0.42, 0.40), (0.20, 0.55))):
         for i in range(len(xs) - 1):

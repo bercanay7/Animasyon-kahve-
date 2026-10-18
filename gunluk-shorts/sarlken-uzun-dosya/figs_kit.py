@@ -208,8 +208,13 @@ class Fig:
             d = w * 0.95
             self.fill(lens((p0[0] - d, p0[1]), (p1[0] - d, p1[1]), w * 0.42, bend), rim=0, tone=1.0, alpha=0.30, bound=False)
 
-    def glowdot(self, x, y, r, color="#FFD58A", alpha=0.85):
+    def glowdot(self, x, y, r, color="#FFD58A", alpha=0.85, bound=False):
+        """Parlama (toplamsal): mum/meşale alevi. bound=True ise sprite sınırına dahil edilir (halo kırpılmasın)."""
         self.ops.append(("glow", x, y, r, color, alpha))
+        if bound:
+            p = skia.Path()
+            p.addCircle(x, y, r)
+            self.bound.addPath(p)
 
     def merge(self, other, dx=0.0, dy=0.0, s=1.0, flip=False, rot=0.0):
         """Başka bir Fig'in parçalarını (ölçekle/ayna/döndür/taşı) bu Fig'e ekle (çiftler, atlı = at + binici). rot: derece (+ = saat yönü)."""
@@ -253,19 +258,17 @@ class Fig:
         m.setAll(1, self.kx, 0, 0, 1, 0, 0, 0, 1)
         return m
 
-    def _crescent(self, c, path, rim, w, rs):
-        h = self.h
+    def _crescent(self, c, path, rim, w, rs, shader):
         r = path.getBounds().makeOutset(w * 2 + 2, w * 2 + 2)
         c.saveLayer(r, None)
         p1 = skia.Paint(AntiAlias=True)
-        a0 = int(255 * min(1.0, rs))
-        a1 = int(255 * min(1.0, rs * 0.55))
-        p1.setShader(skia.GradientShader.MakeLinear([(0, -h), (0, 0)], [C(rim, a0), C(rim, a1)], [0.0, 1.0]))
+        p1.setShader(shader)
+        if rs < 1.0:
+            p1.setAlphaf(max(0.0, rs))
         c.drawPath(path, p1)
-        p2 = skia.Paint(AntiAlias=True, Color=C("#000000"), BlendMode=skia.BlendMode.kDstOut)
         c.save()
         c.translate(w * 1.05, w * 0.85)
-        c.drawPath(path, p2)
+        c.drawPath(path, self._dstout)
         c.restore()
         c.restore()
 
@@ -273,6 +276,10 @@ class Fig:
         h = self.h
         w = max(0.9, h * 0.0068)
         warm = rim or "#6A4A2A"
+        shader = None
+        if rim:
+            shader = skia.GradientShader.MakeLinear([(0, -h), (0, 0)], [C(rim, 255), C(rim, 140)], [0.0, 1.0])
+        self._dstout = skia.Paint(AntiAlias=True, Color=C("#000000"), BlendMode=skia.BlendMode.kDstOut)
         c.save()
         if self.kx:
             c.concat(self._mat())
@@ -294,7 +301,7 @@ class Fig:
                     c.drawRect(b, gp)
                     c.restore()
                 if rim and rs > 0:
-                    self._crescent(c, path, rim, w, rs)
+                    self._crescent(c, path, rim, w, rs, shader)
             elif k == "cut":
                 c.drawPath(op[1], skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kClear))
             elif k == "line":

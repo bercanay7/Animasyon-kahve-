@@ -223,11 +223,11 @@ def _rider(F, px, py, u, lance="up", charge=0.0, style="armor", lean_deg=0.0):
         ux, uy = dx / Ln, dy / Ln
         nx, ny = -uy, ux
         Lc.fill(sp([KC(x1 - ux * 0.02 * u, y1 - uy * 0.02 * u), (x1 + ux * 0.22 * u + nx * 0.06 * u, y1 + uy * 0.22 * u + ny * 0.06 * u), KC(x1 + ux * 0.62 * u, y1 + uy * 0.62 * u), (x1 + ux * 0.22 * u - nx * 0.06 * u, y1 + uy * 0.22 * u - ny * 0.06 * u)], True), rim=1.0)
-        # flama: mızrak ucuna yakın, hoist kenarı mızrak boyunca; rüzgârla geriye savrulur
-        bx, by = x1 - ux * 0.75 * u, y1 - uy * 0.75 * u
-        tipx, tipy = bx - 0.70 * u, by + 0.10 * u
-        Lc.fill(sp([KC(bx, by + 0.05 * u), (bx - 0.30 * u, by - 0.02 * u), (tipx, tipy - 0.02 * u), (tipx + 0.18 * u, tipy + 0.16 * u), (tipx - 0.02 * u, tipy + 0.34 * u), (bx - 0.30 * u, by + 0.34 * u), KC(bx, by + 0.36 * u)], True, 0.8), rim=1.0)
-        Lc.line(poly([(bx - 0.03 * u, by + 0.12 * u), (bx - 0.45 * u, by + 0.14 * u)], False), u * 0.02, tone=1.0, alpha=0.5)
+        # flama: mızrağa boydan bağlı kenarı (hoist) mızrak üzerinde; gövdesi rüzgârla geriye-aşağıya savrulan çatal kuyruklu
+        bx, by = x1 - ux * 0.55 * u, y1 - uy * 0.55 * u
+        Lc.fill(sp([KC(bx, by + 0.012 * u), (bx - 0.22 * u, by - 0.035 * u), KC(bx - 0.55 * u, by - 0.085 * u), (bx - 0.78 * u, by - 0.04 * u), KC(bx - 1.12 * u, by + 0.02 * u),
+                    (bx - 0.93 * u, by + 0.14 * u), KC(bx - 1.16 * u, by + 0.30 * u), (bx - 0.80 * u, by + 0.26 * u), (bx - 0.45 * u, by + 0.21 * u), KC(bx, by + 0.20 * u)], True, 0.7), rim=1.0)
+        Lc.line(poly([(bx - 0.08 * u, by + 0.07 * u), (bx - 0.62 * u, by + 0.05 * u)], False), u * 0.02, tone=1.0, alpha=0.5)
     F.merge(R, dx=px, dy=py, rot=lean_deg)
     F.merge(Lc, dx=px, dy=py)
 

@@ -375,6 +375,7 @@ class Tower:
 #  COUNTING_HOUSE — bankacı sayım odası (Augsburg / Anvers)
 # ═══════════════════════════════════════════════════════════════════════
 import props_rooms as PR
+CW_, CH_ = W + 2 * MARGIN, H + 2 * MARGIN
 
 
 @SL.sc("counting_house")
@@ -1092,3 +1093,869 @@ class Reichstag:
                     R.flame(f, 960 + math.cos(a) * rr, y_ + math.sin(a) * rr * 0.2 - 24 * s_, s=0.75 * s_ + 0.2, t=t, seed=i * 1.3 + Z_, halo=0.4, hr=80 * s_ + 30)
 
         return {1: D2}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  ROAD_NIGHT — gece yolu (Worms→Wartburg, Innsbruck sedye kaçışı)
+# ═══════════════════════════════════════════════════════════════════════
+def _ridge(x, amp=26.0, base=840.0, slope=0.0):
+    """Yol çizgisinin y'si (yumuşak dalgalı tepe sırtı)."""
+    return base + amp * math.sin(x / 330.0 + 0.7) + amp * 0.45 * math.sin(x / 117.0) + slope * (x - 960.0)
+
+
+def _mount_pts(x0, x1, base, amp, seed, step=22, sharp=1.0):
+    rs = np.random.RandomState(seed)
+    pts = []
+    n = int((x1 - x0) / step) + 2
+    # fraktal tepe sırası: orta nokta kaydırma
+    arr = np.zeros(n)
+    h = amp
+    arr[0], arr[-1] = rs.rand() * amp * 0.4, rs.rand() * amp * 0.4
+    seg = n - 1
+    while seg > 1:
+        half = seg // 2
+        for i in range(0, n - 1, seg):
+            j = i + seg
+            if j >= n:
+                continue
+            m = i + half
+            arr[m] = (arr[i] + arr[j]) / 2 + (rs.rand() - 0.5) * h
+        seg = half
+        h *= 0.55 * sharp + 0.2
+    arr = arr - arr.min()
+    for i in range(n):
+        pts.append((x0 + i * step, base - arr[i]))
+    return pts
+
+
+@SL.sc("road_night")
+class RoadNight:
+    """Gece yolu: tepe sırtında ilerleyen kafile (yandan), ay, dağ/orman siluetleri, meşaleler, isteğe yağmur.
+    p: litter=False (sedye + 2 taşıyıcı), riders=3 (0..6 atlı), torches=3 (0..6 meşaleci), rain=0..1 (0), mountains=True (alp zirveleri; False=yumuşak orman tepeleri),
+    moon=True, walk=14 (px/sn ilerleme; 0=durağan), x0=None (kafile başı başlangıç x; None=kafile ekranda ortalanır), dir=1 (1: sağa, -1: sola), fog=0.5."""
+
+    def __init__(self, p):
+        self.p = p
+        self.litter = bool(p.get("litter", False))
+        self.riders = int(p.get("riders", 3))
+        self.torches = int(p.get("torches", 3))
+        self.rain = float(p.get("rain", 0.0))
+        self.mount = p.get("mountains", True)
+        self.moon = p.get("moon", True)
+        self.walk = float(p.get("walk", 14.0))
+        self.x0 = p.get("x0")
+        self.dir = 1 if p.get("dir", 1) >= 0 else -1
+        self.fog = float(p.get("fog", 0.5))
+
+    def _group(self):
+        """Kafile sırası (baştan sona): [(tür, ofset_px, boy_px)] — ofset kafile başından geriye doğru."""
+        seq = []
+        riders, torches = self.riders, self.torches
+        if self.litter:
+            seq += [("torch", 0, 250), ("rider", 1, 400)] if riders else [("torch", 0, 250)]
+            seq += [("torch", 2, 250)] if torches > 1 else []
+            seq += [("bearer", 3, 220), ("litter", 4, 220), ("bearer", 5, 220)]
+            for i in range(max(0, riders - 1)):
+                seq.append(("rider", 6 + i, 400))
+            for i in range(max(0, torches - 2)):
+                seq.append(("torch", 7 + i, 250))
+        else:
+            order = []
+            ri, ti = riders, torches
+            while ri > 0 or ti > 0:
+                if ri > 0:
+                    order.append(("rider", 400)); ri -= 1
+                if ti > 0:
+                    order.append(("torch", 250)); ti -= 1
+            for i, (k, h) in enumerate(order):
+                seq.append((k, i, h))
+        # px konumları
+        out = []
+        x = 0.0
+        for k, i, h in seq:
+            gap = {"rider": 330, "torch": 170, "bearer": 150, "litter": 420}[k]
+            out.append((k, x, h))
+            x += gap
+        return out
+
+    def layers(self):
+        mount, moon, rain, fog = self.mount, self.moon, self.rain, self.fog
+        litter = self.litter
+
+        def L0(f):          # gökyüzü
+            top, mid, hor = ("#04060c", "#0b1424", "#1c2c48") if rain < 0.5 else ("#06080c", "#0e131c", "#1d2735")
+            f.rect(-M, -M, W + 2 * M, H + 2 * M, shader=f.lin(0, -M, 0, 760, [(top, 0.0), (mid, 0.55), (hor, 1.0)]))
+            rs = np.random.RandomState(3)
+            if rain < 0.6:
+                for i in range(110):
+                    f.circle(rs.uniform(-M, W + M), rs.uniform(-M, 520), 0.7 + rs.rand() * 1.1, color="#DDE8FF", alpha=0.15 + 0.5 * rs.rand() * (1 - rain))
+            if moon:
+                mx, my, mr = 1450, 230, 62
+                R.glow(f, mx, my, mr * 9, "#6f93d0", 0.30 * (1 - 0.5 * rain))
+                R.glow(f, mx, my, mr * 3.6, "#b8cdf2", 0.45 * (1 - 0.6 * rain))
+                f.circle(mx, my, mr, shader=f.rad(mx - mr * 0.25, my - mr * 0.25, mr * 1.4, [("#ffffff", 0.0), ("#e5edfb", 0.6), ("#b4c3df", 1.0)]), alpha=1 - 0.5 * rain)
+                rm = np.random.RandomState(9)
+                for i in range(8):
+                    ang, rad = rm.rand() * 6.28, rm.rand() * mr * 0.7
+                    f.circle(mx + math.cos(ang) * rad, my + math.sin(ang) * rad, mr * (0.1 + 0.16 * rm.rand()), color="#8E9DBA", alpha=0.22)
+            # bulutlar
+            nc = 8 + int(10 * rain)
+            for i in range(nc):
+                cx_, cy_ = rs.uniform(-M, W + M), rs.uniform(60, 560)
+                w_, h_ = rs.uniform(260, 700), rs.uniform(26, 70)
+                a = rs.uniform(0.3, 0.6) + 0.35 * rain
+                pa = skia.Paint(AntiAlias=True, Color=C("#070b14" if rain < 0.5 else "#0b0f16", int(255 * min(0.95, a))), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 26))
+                f.c.drawOval(skia.Rect.MakeLTRB(cx_ - w_, cy_ - h_, cx_ + w_, cy_ + h_), pa)
+                if moon and rain < 0.7:
+                    pa2 = skia.Paint(AntiAlias=True, Color=C("#8FA9D8", 34), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 14))
+                    f.c.drawOval(skia.Rect.MakeLTRB(cx_ - w_ * 0.85, cy_ - h_ * 1.1, cx_ + w_ * 0.8, cy_ - h_ * 0.05), pa2)
+
+        def L1(f):          # uzak dağlar
+            if mount:
+                for (base, amp, seed, col, a_hi) in ((640, 330, 4, "#16233a", 0.5), (700, 250, 7, "#0f1a2d", 0.35)):
+                    pts = _mount_pts(-M, W + M, base, amp, seed, step=18, sharp=1.2)
+                    path = sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True)
+                    f.path(path, shader=f.lin(0, base - amp, 0, base + 60, [(mix(col, "#2a3f66", 0.45), 0.0), (col, 0.6), (mix(col, "#05080f", 0.4), 1.0)]))
+                    f.path(sk.poly_path(pts, False), style="stroke", sw=1.4, color="#a5bde6", alpha=a_hi * 0.35 * (1 if moon else 0.4))
+                    # ay ışıklı yamaçlar: sağa bakan (inen) kenarlar boyunca açık dolgu şeritleri
+                    for i in range(0, len(pts) - 1):
+                        (xa, ya), (xb, yb) = pts[i], pts[i + 1]
+                        if yb > ya + 2 and ya < base - amp * 0.35:
+                            q = [(xa, ya), (xb, yb), (xb - 6, yb + (yb - ya) * 1.8 + 14), (xa - 6, ya + 22)]
+                            soft_ = skia.Paint(AntiAlias=True, Color=C("#cfe0fa", int(255 * 0.13 * (1 if moon else 0.3))), BlendMode=skia.BlendMode.kPlus)
+                            f.c.drawPath(sk.poly_path(q, True), soft_)
+            else:
+                for (base, amp, seed, col) in ((690, 90, 5, "#111c30"), (740, 70, 8, "#0c1626")):
+                    pts = [(xx, base + math.sin(xx * 0.004 + seed) * amp + math.sin(xx * 0.011 + seed * 2) * amp * 0.4) for xx in range(-M, W + M + 40, 40)]
+                    f.path(sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True), color=col)
+                    f.path(sk.poly_path(pts, False), style="stroke", sw=2.0, color="#8ea8d4", alpha=0.25)
+            # alçak sis
+            f.rect(-M, 640, W + 2 * M, 200, shader=f.lin(0, 640, 0, 840, [("#7d93bd", 0.0, 0), ("#7d93bd", 1.0, int(60 + 80 * fog))]))
+
+        def L2(f):          # orta plan: orman tepeleri
+            for (base, amp, seed, col, y_p, hp, dn) in ((770, 60, 11, "#0a121f", 770, 120, 34), (820, 40, 13, "#070c15", 820, 150, 40)):
+                pts = [(xx, base + math.sin(xx * 0.006 + seed) * amp + math.sin(xx * 0.017 + seed * 1.7) * amp * 0.35) for xx in range(-M, W + M + 40, 40)]
+                f.path(sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True), color=col)
+                ST.pines(f, -M, W + M, base + amp * 0.2, hp, col, seed=seed, dens=dn)
+                f.path(sk.poly_path(pts, False), style="stroke", sw=1.6, color="#7f9bd0", alpha=0.18 if moon else 0.06)
+            f.rect(-M, 780, W + 2 * M, 160, shader=f.lin(0, 780, 0, 940, [("#6f86b0", 0.0, 0), ("#6f86b0", 1.0, int(50 + 70 * fog))]))
+
+        def L3(f):          # yol sırtı (kafile burada yürür)
+            pts = [(xx, _ridge(xx)) for xx in range(-M, W + M + 30, 30)]
+            ground = sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True)
+            f.path(ground, shader=f.lin(0, 800, 0, 1100, [("#121a2a", 0.0), ("#080b13", 0.5), ("#04060a", 1.0)]))
+            # yol bandı (ay ışıklı ıslak toprak)
+            band = [(x, y + 6) for x, y in pts] + [(x, y + 42) for x, y in reversed(pts)]
+            f.path(sk.poly_path(band, True), shader=f.lin(0, 760, 0, 880, [("#2c3b57", 0.0, 150), ("#16202f", 1.0, 150)]))
+            f.path(sk.poly_path(pts, False), style="stroke", sw=2.4, color="#8ea8d4", alpha=0.32 if moon else 0.1)
+            rs = np.random.RandomState(8)
+            for i in range(22):         # su birikintileri
+                x = rs.uniform(-100, W + 100)
+                y = _ridge(x) + rs.uniform(14, 36)
+                wd = rs.uniform(30, 90)
+                f.oval(x, y, wd, 3.2, color="#a6bde6" if moon else "#58667f", alpha=0.35 if moon else 0.2)
+            # kaya/çalı
+            for i in range(14):
+                x = rs.uniform(-150, W + 150)
+                y = _ridge(x) + rs.uniform(40, 120)
+                f.oval(x, y, rs.uniform(18, 52), rs.uniform(8, 22), color="#04060a")
+
+        def L4(f):          # ön plan: kara yamaç + iri çam siluetleri
+            pts = [(xx, 1010 + math.sin(xx * 0.005) * 28) for xx in range(-M, W + M + 40, 40)]
+            f.path(sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True), color="#020305")
+            for (x, hh, seed) in ((70, 520, 2), (1840, 600, 5), (-120, 700, 9), (2040, 460, 11)):
+                ST.pines(f, x - 90, x + 90, 1040, hh, "#020305", seed=seed, dens=120)
+            rsg = np.random.RandomState(4)
+            for i in range(120):             # ön plan ot/çalı kılıçları
+                x = rsg.uniform(-M, W + M)
+                y = 1030 + math.sin(x * 0.005) * 28 + rsg.uniform(-8, 20)
+                hgt = rsg.uniform(30, 110)
+                f.poly([(x - 4, y + 10), (x + rsg.uniform(-14, 14), y - hgt), (x + 5, y + 10)], color="#020305")
+            for (x, w_, h_) in ((260, 130, 60), (1500, 170, 80), (980, 90, 40)):
+                f.oval(x, 1060, w_, h_, color="#020305")
+                f.oval(x - w_ * 0.25, 1060 - h_ * 0.7, w_ * 0.5, h_ * 0.18, color="#5e7aa8", alpha=0.10 if moon else 0.03)
+            f.rect(-M, 940, W + 2 * M, 140 + M, shader=f.lin(0, 940, 0, 1080 + M, [("#000000", 0.0, 0), ("#000000", 1.0, 200)]))
+            R.vignette_frame(f, 0.7, 0.5)
+
+        return [(0.04, L0), (0.2, L1), (0.5, L2), (1.0, L3), (1.4, L4)]
+
+    def dyn(self):
+        grp = self._group()
+        walk, dr = self.walk, self.dir
+        Lg = (grp[-1][1] if grp else 0.0)
+        x0 = self.x0 if self.x0 is not None else (960.0 + dr * Lg / 2.0 - dr * 100.0)
+        rain = self.rain
+        moon = self.moon
+        litter = self.litter
+
+        def D3(f, t):
+            xl = x0 + walk * t * dr          # kafile başı
+            place = []
+            for idx, (k, off, hh) in enumerate(grp):
+                x = xl - off * dr
+                y = _ridge(x) + 34
+                tilt = math.atan2(_ridge(x + 6) - _ridge(x - 6), 12.0) * 0.8 * dr
+                ph = t * 3.0 + idx * 1.3
+                bob = abs(math.sin(ph)) * -3.5 if walk > 0.1 else 0
+                place.append((idx, k, x, y, hh, tilt, bob))
+            # 1) meşale parıltıları (figürlerin ARKASINDA kalsın)
+            for (idx, k, x, y, hh, tilt, bob) in place:
+                if k == "torch":
+                    R.glow(f, x + 40 * dr, y - hh * 0.30, hh * 1.0, "#FF9A3A", 0.12, sy=0.8)
+            # 2) figürler
+            rimd = (-0.5 * dr, -1.0)
+            rc = "#9db6dc" if moon else "#6f84a8"
+            for (idx, k, x, y, hh, tilt, bob) in place:
+                if k == "rider":
+                    RF(f, "horse_rider", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.1), face=dr, bob=bob * 0.6, sway=tilt)
+                elif k == "torch":
+                    RF(f, "torchbearer", x, y, hh, rim=rc, rimd=rimd, rim2="#FFB35A", rim2d=(1.0 * dr, -0.2), face=dr, bob=bob, sway=tilt)
+                elif k == "bearer":
+                    RF(f, "bearer", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob, sway=tilt)
+                elif k == "litter":
+                    RF(f, "litter", x, y, hh, rim=rc, rimd=rimd, rim2="#E0A15A", rim2d=(1.0 * dr, 0.0), face=dr, bob=bob * 0.9, sway=tilt)
+            # 3) alevler/kıvılcımlar (en üstte)
+            tip = R.TORCH_TIP["torchbearer"]
+            for (idx, k, x, y, hh, tilt, bob) in place:
+                if k == "torch":
+                    fx, fy = x + tip[0] * hh * dr, y + bob + tip[1] * hh
+                    R.flame(f, fx, fy + 6, s=1.4, t=t, seed=idx * 1.7, halo=1.0, hr=170, col_out="#FF8A24")
+                    R.embers_lite(f, t, fx, fy - 20, n=8, seed=idx + 3, rise=70)
+            if rain > 0.02:
+                sk.rain(f, t, n=int(110 + 160 * rain), seed=8, angle=-0.28, length=34 + 20 * rain, alpha=0.20 + 0.22 * rain, speed=1500)
+            else:
+                R.motes(f, t, (200, 500, 1500, 400), n=10, seed=2, col="#FFB060", a=0.35, drift=(8, -6))
+
+        def D4(f, t):
+            if rain > 0.02:
+                sk.rain(f, t, n=int(70 + 120 * rain), seed=21, angle=-0.30, length=70 + 30 * rain, alpha=0.18 + 0.2 * rain, speed=1900, color="#a8bed4")
+
+        return {3: D3, 4: D4}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  CLOISTER — Yuste manastır avlusu
+# ═══════════════════════════════════════════════════════════════════════
+@SL.sc("cloister")
+class Cloister:
+    """Yuste avlusu: iki katlı kemerli galeri (karşı kanat + yan kanatlar, perspektif), ortada çim parter + çeşme, selviler, turuncu ağaçlar,
+    galeride yanan lambalar, gezinen keşişler.
+    p: time="dusk"|"day"|"night" (dusk), monks=1 (0..3 yürüyen keşiş), lamps=True (galeri kemerlerinde lamba ışığı), walk=1.0 (keşiş hız çarpanı)."""
+
+    BACK = (330, 300, 1590, 880)
+    VP = (960, 600)
+    ZB = 1500.0
+    BAY = 335.0
+    LO = (250.0, 215.0, 26.0, 330.0)
+    GAL = (150.0, 470.0, 18.0, 575.0)
+
+    def __init__(self, p):
+        self.p = p
+        self.time = p.get("time", "dusk")
+        self.monks = int(p.get("monks", 1))
+        self.lamps = p.get("lamps", True)
+        self.walk = float(p.get("walk", 1.0))
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    def _glow_prob(self):
+        if not self.lamps:
+            return 0.0
+        return {"day": 0.0, "dusk": 0.40, "night": 0.55}.get(self.time, 0.4)
+
+    def _lamp_bays(self):
+        pr = self._glow_prob()
+        out = []
+        if pr <= 0:
+            return out
+        for k in range(-6, 7):
+            if R.hash2(np.array([k]), np.array([1]), 5 + 77)[0] < pr:
+                X = (k + 0.5) * self.BAY
+                out.append(960 + X * 1100.0 / self.ZB)
+        return out
+
+    def layers(self):
+        box = self._box()
+        tm = self.time
+        cache = {}
+        fb = (self.BACK[3] - self.VP[1]) * self.ZB / 1100.0
+        gp = self._glow_prob()
+        lamp_x = self._lamp_bays()
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            st = {"day": ("#c8b895", "#b3a283", "#d6c8a8"), "dusk": ("#a89674", "#8f7f64", "#b6a684"), "night": ("#8a7c64", "#756a56", "#968a72")}[tm]
+            arc = R.mat_arcade(fb, stone=st[0], brick=st[1], white=st[2], bay=self.BAY, lo=self.LO, gal=self.GAL, seed=6, recess="#0b0907",
+                               glow_prob=gp, glow=(1.0, 0.62, 0.30), glow_power=1.3)
+            floor = R.mat_garden(bed=(-520.0, 520.0, 170.0, 720.0), seed=11)
+            mats = dict(back=arc, left=arc, right=arc, floor=floor, ceil=arc)
+            amb = {"day": (0.12, 0.12, 0.13), "dusk": (0.052, 0.046, 0.062), "night": (0.012, 0.015, 0.030)}[tm]
+            D = {"day": (-0.45, 0.75, -0.48), "dusk": (-0.62, 0.40, -0.45), "night": (0.40, 0.70, -0.55)}[tm]
+            col, pw = {"day": ((1.0, 0.90, 0.70), 1.6), "dusk": ((1.0, 0.52, 0.28), 1.1), "night": ((0.40, 0.56, 0.96), 0.75)}[tm]
+            moon = R.Moon(D, col=col, power=pw, win=None)
+            lights = []
+            for lx in lamp_x:
+                lights.append(R.Light((lx, 560, self.ZB + 60), (1.0, 0.62, 0.30), 0.9, 230))
+            rgb, cov = box.render(mats, lights, moon=moon, ambient=amb, expo=1.2, ao=0.55, only=("back", "left", "right", "floor"))
+            cache["r"] = (rgb, cov)
+            return cache["r"]
+
+        def L0(f):          # gökyüzü + çatı arkasındaki çan kulesi
+            if tm == "day":
+                f.rect(-M, -M, W + 2 * M, 900, shader=f.lin(0, -M, 0, 640, [("#5f8fbd", 0.0), ("#9dbfd8", 0.65), ("#e6ddc4", 1.0)]))
+                R.glow(f, 380, 160, 360, "#fff2c0", 0.55)
+                rs = np.random.RandomState(4)
+                for i in range(7):
+                    cx_, cy_ = rs.uniform(-M, W + M), rs.uniform(40, 360)
+                    f.c.drawOval(skia.Rect.MakeLTRB(cx_ - 300, cy_ - 34, cx_ + 300, cy_ + 34), skia.Paint(AntiAlias=True, Color=C("#ffffff", 120), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 26)))
+            elif tm == "dusk":
+                f.rect(-M, -M, W + 2 * M, 900, shader=f.lin(0, -M, 0, 640, [("#171c3d", 0.0), ("#6a3558", 0.5), ("#d9763a", 0.88), ("#f3a85c", 1.0)]))
+                R.glow(f, 1500, 330, 520, "#ff9a4a", 0.45, sy=0.55)
+                rs = np.random.RandomState(5)
+                for i in range(7):
+                    cx_, cy_ = rs.uniform(-M, W + M), rs.uniform(140, 440)
+                    f.c.drawOval(skia.Rect.MakeLTRB(cx_ - 320, cy_ - 22, cx_ + 320, cy_ + 22), skia.Paint(AntiAlias=True, Color=C("#ff8a50", 90), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 20)))
+                for i in range(40):
+                    f.circle(rs.uniform(-M, W + M), rs.uniform(-M, 220), 1.0 + rs.rand(), color="#ffe8d0", alpha=0.5 * rs.rand())
+            else:
+                R.night_sky(f, moon=(520, 160, 30), y_h=620, stars=110, seed=14, clouds=True)
+            # çan kulesi + çatılar (siluet)
+            col = "#0d0a0c" if tm != "day" else "#6a5a4a"
+            f.rect(250, 70, 130, 260, color=col)
+            f.poly([(238, 70), (315, -20), (392, 70)], color=col)
+            f.rect(300, 120, 30, 60, color="#05040a" if tm != "day" else "#3a2f26")
+            if tm != "day":
+                f.rect(305, 128, 20, 40, color="#ffb85a", alpha=0.6 if tm == "dusk" else 0.9)
+            f.rect(1330, 150, 200, 190, color=col)
+            f.poly([(1320, 150), (1430, 70), (1540, 150)], color=col)
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+            # karşı kanat çatısı (kiremit)
+            x0, y0, x1, y1 = self.BACK
+            roof_col = {"day": "#8a4a30", "dusk": "#5a3028", "night": "#2a1a1c"}[tm]
+            rp = sk.poly_path([(x0 - 36, y0 + 6), (x1 + 36, y0 + 6), (x1 + 10, y0 - 86), (x0 - 10, y0 - 86)], True)
+            R.lit_path(f, rp, roof_col, [(960, y0 - 40, 900, {"day": "#fff0c8", "dusk": "#ff9a4a", "night": "#6f93d0"}[tm], 0.18)], grad=f.lin(0, y0 - 86, 0, y0 + 6, [(shade_(roof_col, -0.25), 0.0), (roof_col, 0.6), (shade_(roof_col, -0.5), 1.0)]))
+            for i in range(1, 6):
+                yy = y0 - 86 + i * 15.3
+                f.line(x0 - 36 + (86 - i * 15.3) * 0.28, yy, x1 + 36 - (86 - i * 15.3) * 0.28, yy, color="#000000", sw=1.6, alpha=0.35)
+            for i in range(int((x1 - x0) / 34)):
+                f.line(x0 + i * 34, y0 - 86 + 8, x0 + i * 34 - 10, y0 + 4, color="#000000", sw=1.0, alpha=0.22)
+            f.rect(x0 - 40, y0 + 4, x1 - x0 + 80, 10, color=shade_(roof_col, -0.5))
+
+        def L2(f):          # bahçe: selviler, ağaçlar, çeşme
+            skyc = {"day": "#e8d8a8", "dusk": "#ff9a5a", "night": "#7fa0e0"}[tm]
+            rim_a = {"day": 0.30, "dusk": 0.55, "night": 0.45}[tm]
+            lt = [(960, 960, 520, {"day": "#fff0c8", "dusk": "#ff9a4a", "night": "#6f93d0"}[tm], 0.10)]
+            # çeşme
+            PR.fountain(f, 960, 975, 1.0, stone="#5a5046" if tm != "day" else "#8a7e6a", lights=lt)
+            # turuncu ağaçlar (yuvarlak taçlı)
+            for (x, y, s_, seed) in ((700, 940, 1.0, 3), (1230, 940, 1.0, 8)):
+                f.rect(x - 7 * s_, y - 70 * s_, 14 * s_, 70 * s_, color="#120c08")
+                rs = np.random.RandomState(seed)
+                for i in range(46):
+                    ang, rad = rs.rand() * 6.28, rs.rand() ** 0.6 * 78 * s_
+                    cx_, cy_ = x + math.cos(ang) * rad * 1.1, y - 128 * s_ + math.sin(ang) * rad * 0.9
+                    f.circle(cx_, cy_, rs.uniform(18, 30) * s_, color="#0f1a0e" if i % 3 else "#16240f")
+                for i in range(9):
+                    f.circle(x + rs.uniform(-70, 70) * s_, y - 128 * s_ + rs.uniform(-60, 50) * s_, 4.2 * s_, color="#d98a2a" if tm != "night" else "#6a4a1a", alpha=0.95)
+                f.path(sk.smooth_path([(x - 96 * s_, y - 124 * s_), (x, y - 214 * s_), (x + 96 * s_, y - 124 * s_)], False, 0.5), style="stroke", sw=1.6, color=skyc, alpha=rim_a * 0.6)
+            # selviler
+            for (x, y, h_, seed, d_) in ((470, 930, 520, 1, 1), (1480, 930, 560, 2, -1), (590, 900, 330, 5, 1), (1370, 900, 360, 6, -1)):
+                PR.cypress(f, x, y, h_, seed=seed, rim=skyc, rim_a=rim_a, rim_dir=d_)
+            _shadow_ellipse(f, 960, 985, 260, 14, 0.5, 14)
+
+        def L3(f):          # ön plan: yakın galeri sütunları
+            for sx in (-1, 1):
+                x = W / 2 + sx * 1000
+                col = R.rect_path(x - 80, -M, 160, H + 2 * M)
+                R.lit_path(f, col, "#2a2016", [(W / 2 + sx * 640, 600, 700, {"day": "#fff0c8", "dusk": "#ff9a4a", "night": "#6f93d0"}[tm], 0.10)],
+                           grad=f.lin(x - 80, 0, x + 80, 0, [("#0b0705", 0.0), ("#3a2c1e", 0.5), ("#0b0705", 1.0)]))
+                # başlık + kemer yayı (içe doğru)
+                f.rect(x - 112, 80, 224, 34, color="#0b0705")
+                arc = skia.Path()
+                arc.moveTo(x - sx * 80, 80)
+                arc.cubicTo(x - sx * 260, 80, x - sx * 360, 20, x - sx * 400, -M)
+                arc.lineTo(x - sx * 80, -M)
+                arc.close()
+                f.path(arc, color="#0b0705")
+            R.vignette_frame(f, 0.7 if tm != "day" else 0.45, 0.55)
+
+        return [(0.06, L0), (0.85, L1), (1.0, L2), (1.4, L3)]
+
+    def dyn(self):
+        tm = self.time
+        monks = self.monks
+        walk = self.walk
+        lamp_x = self._lamp_bays()
+
+        def D2(f, t):
+            # galeri lambaları (titreşen parıltı)
+            for i, lx in enumerate(lamp_x):
+                fl = R.flicker(t, i * 1.7, 0.6)
+                R.glow(f, lx, 545, 70 * fl, "#FFB060", 0.20)
+            # keşişler
+            specs = [(0.00, 1, 22), (0.55, -1, 17), (0.30, 1, 12)]
+            for i in range(min(3, monks)):
+                ph, dr, spd = specs[i]
+                span = 1000.0
+                u = (ph * span + walk * spd * t) % span
+                x = 440 + u if dr > 0 else 1440 - u
+                y = 905 + (1 if i == 1 else 0) * 24
+                hh = 150 + 14 * (1 if i == 1 else 0)
+                bob = abs(math.sin(t * 2.6 + i)) * -2.5
+                if tm == "night" and i == 0:
+                    R.glow(f, x + dr * 40, y - hh * 0.45, 120, "#FFA848", 0.22)
+                ST.figure(f, "monk", x, y, hh, col="#0B0705", rim="#C58A44" if tm != "day" else "#6a5a44", face=dr, sway=math.sin(t * 2.6 + i) * 0.006, bob=bob)
+                if tm == "night" and i == 0:
+                    R.flame(f, x + dr * 52, y - hh * 0.36, s=0.9, t=t, seed=3.3, halo=0.6, hr=90)
+            if tm != "day":
+                R.motes(f, t, (420, 520, 1100, 420), n=18, seed=3, col="#FFD9A0" if tm == "dusk" else "#BFD2FF", a=0.4, drift=(3, -2))
+
+        return {2: D2}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  BEDROOM — Yuste yatak odası
+# ═══════════════════════════════════════════════════════════════════════
+_SIDE = {}
+
+
+def _pkey(scene, p):
+    return scene + repr(sorted((k, v) for k, v in p.items() if isinstance(v, (str, int, float, bool, tuple))))
+
+
+def _drape(f, x0, y0, x1, y1, col="#5a1a20", lights=(), folds=7, trim="#c9962b", sx=1):
+    """Dikey perde (kıvrımlı): dikdörtgen üstüne gradyanlı dikey kıvrım şeritleri."""
+    p = sk.poly_path([(x0, y0), (x1, y0), (x1 + sx * 10, y1), (x0 - sx * 6, y1)], True)
+    R.lit_path(f, p, col, lights, grad=f.lin(x0, 0, x1, 0, [(shade_(col, -0.45), 0.0), (shade_(col, 0.1), 0.25), (shade_(col, -0.5), 0.45), (shade_(col, 0.08), 0.7), (shade_(col, -0.5), 1.0)]))
+    f.c.save()
+    f.c.clipPath(p, skia.ClipOp.kIntersect, True)
+    for k in range(folds):
+        xx = x0 + (x1 - x0) * (k + 0.5) / folds
+        f.line(xx, y0, xx + sx * 6, y1, color="#000000", sw=2.5, alpha=0.3)
+    f.c.restore()
+    f.line(x0, y0 + 2, x1, y0 + 2, color=trim, sw=2.0, alpha=0.7)
+
+
+@SL.sc("bedroom")
+class Bedroom:
+    """Yuste yatak odası: baldaken yatak (kırmızı perdeler), yastıklara yaslanmış hasta yaşlı adam, komodinde mum + yemek tepsisi, ay ışıklı küçük pencere, haç.
+    p: candle=1.0 (0..1.4 alev boyutu/ışığı; 0=mum yok), fade_candle_t=None|(t0,t1) yerel sn'de mum söner (oda soğuk aya kalır, duman çıkar),
+    patient=True (hasta figürü), food=True, moon=1.0 (pencere ay ışığı)."""
+
+    BACK = (300, 70, 1620, 880)
+    VP = (960, 500)
+    ZB = 1200.0
+    WIN = (1290, 190, 1450, 470)
+    T, SPL = 140.0, 0.82
+    CANDLE = (1270, 628)
+
+    def __init__(self, p):
+        self.p = p
+        self.candle = float(p.get("candle", 1.0))
+        self.fade = p.get("fade_candle_t")
+        self.patient = p.get("patient", True)
+        self.food = p.get("food", True)
+        self.moonk = float(p.get("moon", 1.0))
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    def layers(self):
+        box = self._box()
+        cache = {}
+        outer = box.hole_outer(self.WIN, self.T, self.SPL)
+        zw = box.zb + self.T
+        cx_, cy_ = self.CANDLE
+        key = _pkey("bedroom", self.p)
+        need_dark = self.fade is not None
+
+        def render(candle_on):
+            plaster = R.mat_plaster("#62564a", seed=5, rough=0.35, stain=0.4, tone=0.08)
+            wood = R.mat_planks("#34221a", seed=8, pw=120, plen=2400, tone=0.14)
+            b0 = (880 - 170 - 500) * self.ZB / 1100.0 * 1.0
+            wall = R.mat_split(plaster, wood, b0, trim="#8a6a3a")
+            floor = R.mat_planks("#3f2c1e", seed=3, pw=110, plen=700, tone=0.18)
+            ceil = R.mat_beams("#2a1c11", seed=7, pitch=280, bwid=80, plaster="#6a5d4e", axis="a")
+            mats = dict(back=wall, left=wall, right=wall, floor=floor, ceil=ceil)
+            lights = []
+            if candle_on and self.candle > 0.01:
+                lights.append(R.Light((cx_, cy_ - 4, 1060), R.warm(1.0), 2.6 * min(1.2, self.candle + 0.2), 300, spec=0.5, far=(620, (0.55, 0.20, 0.05), 0.12)))
+            moon = None
+            ox0, oy0, ox1, oy1 = outer
+            if self.moonk > 0:
+                g = R.window_gobo(box, outer, zw, xs=[(ox0 + ox1) / 2], bar_w=7, ys=[(oy0 + oy1) / 2], bar_hw=7)
+                moon = R.Moon((-0.30, 0.85, -0.42), col=(0.42, 0.58, 1.0), power=1.5 * self.moonk, win=g, pen=4.0, pen_k=0.012)
+                lights.append(R.Light(((ox0 + ox1) / 2, (oy0 + oy1) / 2 + 30, zw - 90), (0.30, 0.42, 0.78), 0.8 * self.moonk, 320))
+            amb = (0.007, 0.008, 0.015) if candle_on else (0.005, 0.0065, 0.014)
+            return box.render(mats, lights, moon=moon, ambient=amb, expo=1.25, ao=0.55, holes=[dict(rect=self.WIN, T=self.T, splay=self.SPL, mat=wood, ao=0.25)])
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            cache["r"] = render(True)
+            return cache["r"]
+
+        def L0(f):
+            R.night_sky(f, moon=(1390, 250, 20), y_h=520, stars=70, seed=17, clouds=True)
+            # uzakta kilise/avlu çatıları
+            f.rect(-M, 470, W + 2 * M, 300, color="#04070d")
+            f.rect(1330, 380, 70, 120, color="#05080f")
+            f.poly([(1322, 380), (1365, 330), (1408, 380)], color="#05080f")
+            R.glow(f, 1365, 440, 40, "#ffb060", 0.35)
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+            x0, y0, x1, y1 = outer
+            PR.lattice(f, outer, step=24, col="#0b0907", sw=2.6, alpha=0.9, frame="#1a120b")
+            # duvarda haç (duvarla birlikte)
+            f.rect(594, 232, 14, 110, color="#1a110a")
+            f.rect(566, 262, 70, 12, color="#1a110a")
+            f.line(601, 234, 601, 340, color="#9a7a48", sw=1.0, alpha=0.4)
+
+        def L2(f):
+            lights = []
+            if self.candle > 0.01:
+                lights.append((cx_, cy_ + 30, 360, "#ff9c40", 0.55 * min(1.2, self.candle + 0.2)))
+            self._props(f, lights)
+
+        def L3(f):
+            f.rect(-M, -M, 150 + M, H + 2 * M, shader=f.lin(-M, 0, 150, 0, [("#000000", 0.0, 240), ("#000000", 1.0, 0)]))
+            f.rect(W - 120, -M, 120 + M, H + 2 * M, shader=f.lin(W - 120, 0, W + M, 0, [("#000000", 0.0, 0), ("#000000", 1.0, 230)]))
+            R.vignette_frame(f, 0.72, 0.52)
+
+        layers = [(0.1, L0), (0.85, L1), (1.0, L2), (1.38, L3)]
+        if need_dark:
+            def bake_dark():
+                rgb, cov = render(False)
+                f = sk.Frame(CW_, CH_)
+                f.clear(skia.ColorTRANSPARENT)
+                f.c.translate(M, M)
+                R.draw_np(f, rgb, cov)
+                _SIDE[key] = f.surf.makeImageSnapshot()
+            bake_dark()
+        return layers
+
+    # -- eşyalar
+    def _props(self, f, lights):
+        cx_, cy_ = self.CANDLE
+        # yatak (uzun kenarı bize dönük, baş solda)
+        yb = 905
+        # arka gölge
+        _shadow_ellipse(f, 700, yb + 6, 420, 24, 0.6, 18)
+        # perde direkleri + tavan çerçevesi (baldaken)
+        for x in (356, 1044):
+            post = R.rect_path(x - 15, 150, 30, yb - 150)
+            R.lit_path(f, post, "#2e1b0e", lights, rim="#9a7440", rim_w=1.0, grad=f.lin(x - 15, 0, x + 15, 0, [("#120a05", 0.0), ("#4a2e18", 0.45), ("#120a05", 1.0)]))
+            for q in range(8):
+                f.line(x - 14, 190 + q * 90, x + 14, 205 + q * 90, color="#000000", sw=2, alpha=0.25)
+            f.circle(x, 148, 20, color="#c9962b", alpha=0.85)
+        tester = R.rect_path(330, 156, 740, 34)
+        R.lit_path(f, tester, "#2a190d", lights, rim="#c9962b", rim_w=1.4)
+        val = sk.poly_path([(335, 190), (1065, 190), (1065, 236)] + [(1065 - i * 40.5, 236 + (10 if i % 2 else 0)) for i in range(1, 19)] + [(335, 236)], True)
+        R.lit_path(f, val, "#6a1a22", lights, grad=f.lin(0, 190, 0, 246, [("#7a2028", 0.0), ("#4a1218", 1.0)]))
+        for i in range(19):
+            f.line(335 + i * 40.5, 242, 335 + i * 40.5, 252, color="#c9962b", sw=2, alpha=0.7)
+        # perdeler (iki yanda toplanmış)
+        _drape(f, 336, 236, 440, yb - 4, "#5a1a20", lights, folds=6, sx=1)
+        _drape(f, 960, 236, 1064, yb - 4, "#5a1a20", lights, folds=6, sx=-1)
+        # arka başlık ve ayak ucu
+        head = sk.poly_path([(366, yb - 70), (366, 330), (380, 300), (420, 296), (440, 330), (440, yb - 70)], True)
+        R.lit_path(f, head, "#2e1b0e", lights, rim="#8a6a3a", rim_w=1.0)
+        # yatak çerçevesi (yan yüz) + ayaklar
+        rail = R.rect_path(360, 806, 690, 40)
+        R.lit_path(f, rail, "#2a190d", lights, rim="#9a7440", rim_w=1.0, grad=f.lin(0, 806, 0, 846, [("#4a2e18", 0.0), ("#1a0e06", 1.0)]))
+        for x in (372, 1030):
+            R.lit_path(f, R.rect_path(x - 12, 846, 24, yb - 846), "#1a0e06", lights)
+        # şilte/keten + yastıklar
+        lin = sk.smooth_path([(372, 806), (380, 744), (470, 720), (700, 726), (880, 730), (1030, 744), (1040, 806)], True, 0.45)
+        R.lit_path(f, lin, "#a79e86", lights + [(cx_ - 100, 740, 420, "#ffd9a0", 0.30)], rim=None,
+                   grad=f.lin(0, 720, 0, 806, [("#c8bfa4", 0.0), ("#8c826c", 1.0)]))
+        for (px, py, rot, w_) in ((440, 650, -0.26, 190), (500, 700, -0.10, 170)):
+            f.c.save()
+            f.c.translate(px, py)
+            f.c.rotate(math.degrees(rot))
+            pil = sk.smooth_path([(-w_ / 2, 0), (-w_ * 0.4, -52), (0, -62), (w_ * 0.4, -50), (w_ / 2, 0), (w_ * 0.4, 44), (0, 56), (-w_ * 0.4, 46)], True, 0.5)
+            R.lit_path(f, pil, "#b8af96", lights + [(cx_ - 600, 700, 500, "#ffd9a0", 0.35)], rim="#e8dcc0", rim_w=1.0,
+                       grad=f.lin(0, -62, 0, 56, [("#d6cdb2", 0.0), ("#8e856f", 1.0)]))
+            f.c.restore()
+        # hasta yaşlı adam (bust figürü) burada çizilir (statik) — nefes dyn'de
+        # battaniye (kırmızı-altın yorgan), hasta bacak şişkin
+        blk = sk.smooth_path([(560, 806), (566, 752), (640, 736), (760, 742), (880, 738), (975, 726), (1034, 744), (1042, 806)], True, 0.5)
+        R.lit_path(f, blk, "#5a1a20", lights + [(cx_ - 120, 760, 380, "#ffb060", 0.45)], rim="#c9962b", rim_w=1.2,
+                   grad=f.lin(0, 726, 0, 806, [("#8a2630", 0.0), ("#4a1218", 1.0)]))
+        for k in range(7):
+            f.line(600 + k * 62, 744 + (k % 2) * 3, 592 + k * 62, 804, color="#000000", sw=2.2, alpha=0.28)
+        f.line(566, 770, 1040, 760, color="#c9962b", sw=2.0, alpha=0.5)
+        # hasta bacağı için minder
+        cush = sk.smooth_path([(930, 744), (960, 716), (1018, 714), (1038, 740), (1000, 760)], True, 0.5)
+        R.lit_path(f, cush, "#7a6a50", lights, rim="#d8c8a0", rim_w=1.0)
+        # komodin + mum + yemek
+        top_y = 716
+        tbl = R.rrect_path(1130, top_y, 270, 16, 3)
+        R.lit_path(f, tbl, "#3a2616", lights, rim="#d6a15a", rim_w=1.4, grad=f.lin(0, top_y, 0, top_y + 16, [("#5a3a20", 0.0), ("#2a180c", 1.0)]))
+        R.lit_path(f, R.rect_path(1146, top_y + 16, 238, 26), "#2a190d", lights)
+        for x in (1150, 1380):
+            R.lit_path(f, R.rect_path(x - 11, top_y + 16, 22, yb - top_y - 16), "#241508", lights)
+        R.lit_path(f, R.rect_path(1160, top_y + 54, 210, 70), "#2c1a0e", lights)       # çekmece
+        f.circle(1265, top_y + 90, 6, color="#c9962b", alpha=0.8)
+        R.candle_body(f, self.CANDLE[0], top_y, h=88, w=18, holder=True)
+        if self.food:
+            for (px, w_) in ((1190, 62),):                 # tabak + ekmek
+                f.oval(px, top_y - 2, w_ / 2, 8, color="#c8bfa4")
+                f.oval(px, top_y - 4, w_ / 2 - 5, 6, color="#a99d83")
+                f.oval(px - 2, top_y - 12, 17, 10, color="#9a6a32")
+                f.oval(px + 10, top_y - 10, 11, 7, color="#8a5a2a")
+            # kapaklı kap
+            f.oval(1350, top_y - 2, 36, 9, color="#6a5a3a")
+            f.path(sk.smooth_path([(1316, top_y - 4), (1322, top_y - 30), (1350, top_y - 44), (1378, top_y - 30), (1384, top_y - 4)], True, 0.5), shader=f.lin(1316, 0, 1384, 0, [("#5a4a2a", 0.0), ("#d8c28a", 0.5), ("#5a4a2a", 1.0)]))
+            f.circle(1350, top_y - 48, 5, color="#d8c28a")
+            # kadeh
+            f.poly([(1224, top_y - 4), (1244, top_y - 4), (1240, top_y - 30), (1228, top_y - 30)], color="#a8321e", alpha=0.9)
+            f.rect(1233, top_y - 4, 2, 4, color="#c9b890")
+            _jug(f, 1300, top_y, 0.75, lights=lights)
+
+    def dyn(self):
+        p = self.p
+        candle = self.candle
+        fade = self.fade
+        patient = self.patient
+        key = _pkey("bedroom", p)
+        cx_, cy_ = self.CANDLE
+        top_y = 716
+
+        def D1(f, t):           # oda katmanı: mum sönünce soğuk-karanlık versiyona geçiş
+            if fade is None:
+                return
+            k = smooth((t - fade[0]) / max(0.1, fade[1] - fade[0]))
+            img = _SIDE.get(key)
+            if img is not None and k > 0.004:
+                pa = skia.Paint(AntiAlias=True)
+                pa.setAlphaf(k)
+                f.c.drawImage(img, -M, -M, skia.SamplingOptions(skia.FilterMode.kLinear), pa)
+
+        def D2(f, t):
+            k = 0.0 if fade is None else smooth((t - fade[0]) / max(0.1, fade[1] - fade[0]))
+            if patient:
+                RF(f, "old_man_bed", 545, 752, 205, rim="#FFC878", rimd=(1.0, -0.2), rim2="#7FA0E8", rim2d=(0.8, -0.7), bob=math.sin(t * 0.7) * 1.2)
+            if k > 0.003:
+                f.rect(-M, -M, W + 2 * M, H + 2 * M, color="#02030a", alpha=0.74 * k)
+            # mum
+            if candle > 0.01:
+                if fade is None:
+                    R.flame(f, cx_, top_y - 88 - 6, s=1.25 * candle, t=t, seed=2.0, halo=1.0, hr=220)
+                else:
+                    life = 1.0 - k
+                    flutter = 1.0 + 0.9 * math.sin(t * 38.0) * (k ** 0.7) * life
+                    s_ = 1.25 * candle * max(0.0, life) ** 0.55 * (0.8 + 0.2 * flutter)
+                    if s_ > 0.03:
+                        R.flame(f, cx_, top_y - 88 - 6, s=s_, t=t * (1 + 2 * k), seed=2.0, halo=max(0.0, life) ** 0.8, hr=220, a=min(1.0, life * 3.0))
+                    if k > 0.85 and t > fade[0] + (fade[1] - fade[0]) * 0.92:
+                        age = t - (fade[0] + (fade[1] - fade[0]) * 0.92)
+                        n_seg = 30
+                        ln = min(1.0, (age + 0.2) / 3.2)
+                        pts = []
+                        for i in range(n_seg + 1):
+                            u = i / n_seg * ln
+                            pts.append((cx_ + math.sin(u * 7.0 + t * 1.3) * (6 + 34 * u) + math.sin(u * 3.0 - t) * 6, top_y - 94 - u * 230))
+                        fade_a = min(1.0, age / 0.5) * max(0.0, 1 - age / 7.0)
+                        top_pt = pts[-1]
+                        for (sw_, a_) in ((16, 0.10), (8, 0.16), (3.2, 0.22)):
+                            sh = skia.GradientShader.MakeLinear([(cx_, top_y - 94), top_pt], [C("#aab0c0", int(255 * a_ * fade_a)), C("#aab0c0", 0)], [0.0, 1.0])
+                            f.path(sk.smooth_path(pts, False, 0.5), style="stroke", sw=sw_, shader=sh, cap="round")
+            R.motes(f, t, (300, 150, 1300, 700), n=24, seed=3, col="#FFD9A0" if (fade is None or k < 0.5) else "#BFD2FF", a=0.4, drift=(3, -3))
+
+        return {1: D1, 2: D2}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  CHAPEL — mum ışıklı şapel, sunak, tabut
+# ═══════════════════════════════════════════════════════════════════════
+@SL.sc("chapel")
+class Chapel:
+    """Yuste şapeli: uzun yüksek nef, yan kemerler, kirişli tonoz, arkada yaldızlı retabl + sunak (6 şamdan), nefin ortasında yüksek mumlarla çevrili tabut.
+    p: coffin=True (siyah örtülü tabut + altın haç), candles=1.0 (alev boyutu/ışık çarpanı), mourners=3 (0..4 diz çökmüş keşiş), incense=True (tütsü dumanı)."""
+
+    BACK = (650, 160, 1270, 720)
+    VP = (960, 470)
+    ZB = 1800.0
+
+    def __init__(self, p):
+        self.p = p
+        self.coffin = p.get("coffin", True)
+        self.cs = float(p.get("candles", 1.0))
+        self.mourners = int(p.get("mourners", 3))
+        self.incense = p.get("incense", True)
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    def layers(self):
+        box = self._box()
+        P, YF = _persp(box)
+        cache = {}
+        cs = self.cs
+        coffin = self.coffin
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            fb = YF
+            side = R.mat_arcade(fb, stone="#6d6050", brick="#6d6050", white="#7a6c5a", bay=400.0, lo=(220.0, 250.0, 26.0, 370.0), gal=(130.0, 560.0, 18.0, 640.0), seed=7,
+                                recess="#0a0807", glow_prob=0.95, glow=(0.22, 0.34, 0.72), glow_power=0.30)
+            back = R.mat_stone_fine("#5a4d3e", seed=6, course=56)
+            floor = R.mat_stripe(R.mat_flags("#241f1a", seed=5, size=190), R.mat_carpet("#1a1014", seed=3), 110.0, edge="#6a5226")
+            ceil = R.mat_beams("#4a3f33", seed=7, pitch=380, bwid=96, plaster="#2a251f", axis="b")
+            mats = dict(back=back, left=side, right=side, floor=floor, ceil=ceil)
+            k = min(1.3, 0.3 + cs)
+            lights = [R.Light((960, 600, 1730), R.warm(1.0), 2.2 * k, 330, spec=0.4, far=(900, (0.55, 0.20, 0.05), 0.16)),
+                      R.Light((P(0, 150, 1250)[0], P(0, 150, 1250)[1], 1250), R.warm(1.0), 2.0 * k, 300, spec=0.6),
+                      R.Light((960, 160, 1500), (0.6, 0.35, 0.18), 0.5 * k, 700)]
+            rgb, cov = box.render(mats, lights, moon=None, ambient=(0.008, 0.008, 0.014), expo=1.2, ao=0.6, bump=1.0)
+            cache["r"] = (rgb, cov)
+            return cache["r"]
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+            # retabl (yaldızlı)
+            gl = [(960, 600, 520, "#ffb060", 0.30), (960, 420, 380, "#ffd9a0", 0.10)]
+            body = sk.poly_path([(700, 640), (700, 330), (740, 292), (960, 214), (1180, 292), (1220, 330), (1220, 640)], True)
+            R.lit_path(f, body, "#6a4a14", gl, rim="#e9c35a", rim_w=2.0, grad=f.lin(0, 214, 0, 640, [("#9a7228", 0.0), ("#6e4c1a", 0.5), ("#3a2810", 1.0)]))
+            f.c.save()
+            f.c.clipPath(body, skia.ClipOp.kIntersect, True)
+            # sütunlar
+            for xx in (740, 830, 1090, 1180):
+                col = R.rect_path(xx - 14, 300, 28, 340)
+                R.lit_path(f, col, "#8a6220", gl, rim="#f1d27a", rim_w=1.0, grad=f.lin(xx - 14, 0, xx + 14, 0, [("#3a2608", 0.0), ("#d9aa3c", 0.4), ("#4a3210", 1.0)]))
+                f.rect(xx - 18, 292, 36, 14, color="#e9c35a", alpha=0.85)
+                for q in range(9):
+                    f.line(xx - 13, 320 + q * 36, xx + 13, 334 + q * 36, color="#2a1a06", sw=1.6, alpha=0.5)
+            # orta kemerli niş (koyu) + haç
+            niche = ST.pointed_arch_path(960, 600, 150, 300)
+            f.path(niche, color="#120c08")
+            f.path(niche, style="stroke", sw=3, color="#f1d27a", alpha=0.8)
+            f.rect(955, 360, 10, 120, color="#d9aa3c", alpha=0.9)
+            f.rect(925, 395, 70, 10, color="#d9aa3c", alpha=0.9)
+            f.circle(960, 392, 5, color="#fff0b0", alpha=0.9)
+            # yan nişlerde heykelcik siluetleri
+            for xx in (785, 1135):
+                nic = ST.pointed_arch_path(xx, 560, 60, 190)
+                f.path(nic, color="#120c08")
+                f.path(nic, style="stroke", sw=2, color="#e9c35a", alpha=0.6)
+                f.oval(xx, 480, 11, 14, color="#2a1a0c")
+                f.path(sk.smooth_path([(xx - 18, 560), (xx - 12, 498), (xx, 488), (xx + 12, 498), (xx + 18, 560)], True, 0.4), color="#2a1a0c")
+            # predella bandı
+            f.rect(700, 600, 520, 40, color="#4a3210", alpha=0.9)
+            for xx in range(724, 1220, 66):
+                f.rrect(xx, 608, 50, 24, 4, style="stroke", sw=1.4, color="#e9c35a", alpha=0.5)
+            f.c.restore()
+            # küçük üst haç
+            f.rect(955, 176, 10, 40, color="#e9c35a")
+            f.rect(944, 188, 32, 8, color="#e9c35a")
+
+        def L2(f):
+            gl = [(960, 640, 520, "#ffb060", 0.28)]
+            # basamaklar
+            for (hx, h0, h1, zf) in ((330, 0, 40, 1640), (270, 40, 80, 1700), (220, 80, 120, 1760)):
+                front = [P(-hx, h0, zf), P(hx, h0, zf), P(hx, h1, zf), P(-hx, h1, zf)]
+                topq = [P(-hx, h1, zf), P(hx, h1, zf), P(hx * 0.98, h1, 1800), P(-hx * 0.98, h1, 1800)]
+                _quad(f, front, "#3a3026", gl, grad=f.lin(0, front[2][1], 0, front[0][1], [("#5a4a38", 0.0), ("#1c1610", 1.0)]))
+                _quad(f, topq, "#2a2018", gl, rim="#8a6a3a", grad=f.lin(0, topq[2][1], 0, topq[0][1], [("#4a3a28", 0.0), ("#2a2018", 1.0)]))
+            # sunak masası + beyaz örtü
+            a0 = P(-190, 120, 1790)
+            a1 = P(190, 120, 1790)
+            at = [P(-190, 120, 1760), P(190, 120, 1760), P(190, 190, 1760), P(-190, 190, 1760)]
+            _quad(f, at, "#cfc4a8", gl + [(960, 560, 360, "#ffd9a0", 0.35)], rim="#e8dcc0",
+                  grad=f.lin(0, at[2][1], 0, at[0][1], [("#e8dfc4", 0.0), ("#a89d82", 1.0)]))
+            f.rect(at[0][0], at[0][1] - 5, at[1][0] - at[0][0], 6, color="#c9962b", alpha=0.8)
+            # sunak şamdanları (alevler dyn)
+            for X in (-165, -105, -45, 45, 105, 165):
+                px = P(X, 190, 1760)
+                s_ = 1100.0 / 1760
+                f.rect(px[0] - 3 * s_, px[1] - 70 * s_, 6 * s_, 70 * s_, shader=f.lin(px[0] - 3 * s_, 0, px[0] + 3 * s_, 0, [("#7a5a20", 0.0), ("#d9aa3c", 0.5), ("#5a4010", 1.0)]))
+                f.oval(px[0], px[1] - 2 * s_, 12 * s_, 4 * s_, color="#d9aa3c")
+                f.rect(px[0] - 5 * s_, px[1] - 128 * s_, 10 * s_, 58 * s_, shader=f.lin(px[0] - 5 * s_, 0, px[0] + 5 * s_, 0, [("#9c8a5e", 0.0), ("#efe0b0", 0.5), ("#9c8a5e", 1.0)]))
+            # tabut + katafalk
+            cz = 1250.0
+            if coffin:
+                # katafalk (ayaklı sehpa)
+                for sx in (-1, 1):
+                    for zz in (cz - 80, cz + 80):
+                        p0, p1 = P(sx * 60, 0, zz), P(sx * 60, 38, zz)
+                        f.rect(p0[0] - 5, p1[1], 10, p0[1] - p1[1], color="#120c08")
+                pall_top = [P(-52, 96, cz - 100), P(52, 96, cz - 100), P(52, 96, cz + 100), P(-52, 96, cz + 100)]
+                end_face = [P(-52, 38, cz - 100), P(52, 38, cz - 100), P(52, 96, cz - 100), P(-52, 96, cz - 100)]
+                side_l = [P(-52, 38, cz - 100), P(-52, 96, cz - 100), P(-52, 96, cz + 100), P(-52, 38, cz + 100)]
+                side_r = [P(52, 38, cz - 100), P(52, 96, cz - 100), P(52, 96, cz + 100), P(52, 38, cz + 100)]
+                lt2 = [(960, 800, 240, "#ffb060", 0.10)]
+                for q, col in ((side_l, "#0c0a0e"), (side_r, "#0c0a0e"), (pall_top, "#14101a"), (end_face, "#0f0c14")):
+                    _quad(f, q, col, lt2, rim=None)
+                # pall sarkıntıları (drape) — uç yüzde
+                for k in range(8):
+                    xa = end_face[0][0] + (end_face[1][0] - end_face[0][0]) * (k + 0.5) / 8
+                    f.line(xa, end_face[3][1], xa + 1, end_face[0][1], color="#000000", sw=1.6, alpha=0.4)
+                f.path(sk.poly_path(pall_top, True), style="stroke", sw=1.6, color="#c9962b", alpha=0.6)
+                # altın haç (üst yüzde)
+                cx0 = (pall_top[0][0] + pall_top[1][0] + pall_top[2][0] + pall_top[3][0]) / 4
+                cy0 = (pall_top[0][1] + pall_top[2][1]) / 2
+                f.path(sk.poly_path([(cx0 - 4, cy0 - 20), (cx0 + 4, cy0 - 20), (cx0 + 6, cy0 + 24), (cx0 - 6, cy0 + 24)], True), color="#d9aa3c", alpha=0.9)
+                f.path(sk.poly_path([(cx0 - 22, cy0 - 8), (cx0 + 22, cy0 - 8), (cx0 + 24, cy0 - 1), (cx0 - 24, cy0 - 1)], True), color="#d9aa3c", alpha=0.9)
+            # tabut çevresinde yüksek şamdanlar
+            for (X, zz) in ((-130, cz - 90), (130, cz - 90), (-130, cz + 5), (130, cz + 5), (-130, cz + 100), (130, cz + 100)):
+                p0 = P(X, 0, zz)
+                s_ = 1100.0 / zz
+                ph = 150 * s_
+                f.rect(p0[0] - 4 * s_, p0[1] - ph, 8 * s_, ph, shader=f.lin(p0[0] - 4 * s_, 0, p0[0] + 4 * s_, 0, [("#4a3210", 0.0), ("#c9962b", 0.5), ("#3a2608", 1.0)]))
+                f.oval(p0[0], p0[1] - 2, 18 * s_, 6 * s_, color="#b88a30")
+                f.rect(p0[0] - 8 * s_, p0[1] - ph - 50 * s_, 16 * s_, 52 * s_, shader=f.lin(p0[0] - 8 * s_, 0, p0[0] + 8 * s_, 0, [("#9c8a5e", 0.0), ("#efe0b0", 0.5), ("#9c8a5e", 1.0)]))
+            # diz çökmüş keşişler (nefin iki yanında)
+            rs = np.random.RandomState(9)
+            spots = [(-210, 1100, 1), (230, 1130, -1), (-200, 1400, 1), (215, 1420, -1)]
+            for (X, zz, face) in spots[:self.mourners]:
+                pp = P(X, 0, zz)
+                RF(f, "monk_kneel", pp[0], pp[1], 210 * 1100.0 / zz, col="#050302", rim="#C58A44", rimd=(-face * 0.9, -0.3), face=face)
+            _shadow_ellipse(f, 960, P(0, 0, 1250)[1] + 4, 230, 14, 0.6, 14)
+
+        def L3(f):
+            # ön plan: sıra/bank siluetleri
+            for sx in (-1, 1):
+                f.rect(W / 2 + sx * 900 - 90, 700, 180, 600, color="#050302")
+                f.rect(W / 2 + sx * 900 - 110, 690, 220, 22, color="#0a0604")
+            f.rect(-M, H - 90, W + 2 * M, 90 + M, shader=f.lin(0, H - 90, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 235)]))
+            R.vignette_frame(f, 0.74, 0.5)
+
+        return [(0.8, L1), (1.0, L2), (1.35, L3)]
+
+    def dyn(self):
+        box = self._box()
+        P, YF = _persp(box)
+        cs = self.cs
+        coffin = self.coffin
+        cz = 1250.0
+        inc = self.incense
+
+        def D1(f, t):
+            for X in (-165, -105, -45, 45, 105, 165):
+                px = P(X, 190, 1760)
+                s_ = 1100.0 / 1760
+                R.flame(f, px[0], px[1] - 128 * s_ - 3, s=0.72 * cs, t=t, seed=X * 0.013, halo=0.6, hr=100)
+            for (X, zz) in ((-130, cz - 90), (130, cz - 90), (-130, cz + 5), (130, cz + 5), (-130, cz + 100), (130, cz + 100)):
+                p0 = P(X, 0, zz)
+                s_ = 1100.0 / zz
+                R.flame(f, p0[0], p0[1] - 150 * s_ - 52 * s_ - 4, s=0.95 * cs * s_ + 0.3, t=t, seed=X * 0.01 + zz * 0.01, halo=0.7, hr=130 * s_ + 40)
+            # kutsal lamba (kırmızı)
+            lp = P(0, 360, 1500)
+            f.line(lp[0], -M, lp[0], lp[1] - 20, color="#2a1c0a", sw=2.0)
+            f.oval(lp[0], lp[1], 14, 8, color="#7a5518")
+            R.flame(f, lp[0], lp[1] - 8, s=0.7, t=t, seed=7.7, halo=0.9, hr=70, col_out="#FF3a22", col_in="#FFB0A0", halo_col="#FF4a2a")
+            if inc:                    # tütsü dumanı (sunak önünden)
+                sk.smoke(f, 1130, 760, t, w=90, h=300, n=6, seed=5, color="#8f8c96", alpha=0.10)
+            R.motes(f, t, (600, 200, 760, 600), n=26, seed=4, col="#FFD9A0", a=0.45, drift=(2, -4))
+
+        return {1: D1}

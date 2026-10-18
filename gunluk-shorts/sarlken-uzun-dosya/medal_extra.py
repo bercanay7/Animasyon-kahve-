@@ -410,6 +410,22 @@ def _features_x(cv, d):
         ln(cv, [(495, 322), (550, 312)], 110, 2)
     if a > 0.75:
         ln(cv, [(496, 298), (546, 290)], 112, 1.8)
+    # ── gravür taraması: elmacık altı + çene altı/boyun gölgesi (sakalsız yüzlerde)
+    if d.get("shade", False) and not d.get("beard"):
+        ck = d.get("ck", 1.0)
+        cv.c.save()
+        if ck != 1.0:
+            cv.c.translate(0, 470 * (1 - ck))
+            cv.c.scale(1, ck)
+        for k in range(5):
+            x0, y0 = 486 + k * 15, 462 + k * 7
+            ln(cv, [(x0, y0), (x0 - 9, y0 + 20 + k)], 118, 1.7)
+        for k in range(3):
+            ln(cv, [(452 + k * 26, 604 + k * 3), (466 + k * 26, 640 + k * 3)], 104, 1.7)
+        cv.c.restore()
+        if d.get("neck", 1.0) >= 0.95:
+            for k in range(3):
+                ln(cv, [(470 + k * 16, 650), (480 + k * 16, 700)], 100, 1.7)
 
 
 # ═════════════════════════════ büst / giysi tabanı ═════════════════════════════
@@ -864,7 +880,7 @@ def _b_furjacket(cv, d):
     body(cv, NECK["mid"], 74)
     folds(cv, [(330, 900), (440, 860), (560, 880)], [(300, 1040), (420, 1040), (600, 1040)], seed=7)
     ln(cv, [(560, 790), (590, 900), (610, 1040)], 52, 3)
-    fur_band(cv, [(342, 668), (420, 694), (520, 718), (612, 758), (672, 834), (716, 930)], 80, seed=5, g=176)
+    fur_band(cv, [(380, 684), (440, 700), (520, 718), (612, 758), (672, 834), (716, 930)], 80, seed=5, g=176)
     chain(cv, [(376, 700), (452, 752), (540, 788), (624, 822)], 11, rx=18, ry=10)
     gem(cv, 636, 836, 12, shape="dia")
 
@@ -1016,7 +1032,7 @@ def _hat_widow(cv, d):
     bot = [(448, 760), (418, 816), (360, 816), (312, 800)]
     strands_between(cv, top, bot, 10, 148, 2.4, bend=-12, waves=0.8, amp=7, seed=111, jit=0.5, rev=False)
     # beyaz pileli fırfır yaka (dul kıyafeti): çene açıkta kalır
-    sp = [(414, 676), (480, 700), (550, 706), (618, 722)]
+    sp = [(448, 686), (496, 704), (552, 710), (618, 724)]
     ln(cv, sp, 214, 30)
     a = cr(sp, 12)
     q, _ = along(a, 14)
@@ -1059,7 +1075,7 @@ def _hat_child(cv, d):
     circ(cv, 574, 262, 13, 240)
     circ(cv, 574, 262, 13, 110, stroke=2.4)
     gem(cv, 574, 262, 6, shape="dia")
-    plume(cv, [(584, 234), (620, 190), (668, 172), (708, 194)], 34, g=236)
+    plume(cv, [(584, 234), (614, 196), (650, 184), (680, 202)], 34, g=236)
 
 
 @reg(HAT, "kalpak")           # Zápolya: uzun kürk kalpak + mücevherli tokalı tüy
@@ -1079,8 +1095,8 @@ def _hat_kalpak(cv, d):
         a = k / 6 * 2 * math.pi
         pearl(cv, bx + 18 * math.cos(a), by + 18 * math.sin(a), 4.4)
     gem(cv, bx, by, 9, shape="dia")
-    plume(cv, [(598, 190), (596, 140), (612, 96), (648, 70)], 30, g=238)
-    plume(cv, [(588, 188), (570, 140), (556, 102)], 20, g=232)
+    plume(cv, [(598, 194), (596, 158), (600, 130), (606, 112)], 28, g=238)
+    plume(cv, [(586, 190), (576, 158), (568, 134)], 20, g=232)
 
 
 @reg(HAT, "beret_wide")       # Frederik: geniş, yumuşak, sade koyu bere + kordon
@@ -1141,26 +1157,31 @@ def _hat_masca(cv, d):
         pass
     ln(cv, [(356, 244), (430, 222), (520, 222), (602, 242)], 238, 7)
     ln(cv, [(354, 306), (430, 286), (520, 286), (598, 306)], 238, 7)
-    # püskül (borla) alına sarkar
-    for i in range(15):
-        x = 572 + i * 2.2
-        seg(cv, (x, 288), (x + 8 + i * 0.4, 342 + (i % 3) * 5), 150 if i % 2 else 232, 2.6)
-    cv.fill(poly([(566, 280), (612, 290), (612, 306), (566, 296)]), 244)
+    # püskül (borla): bandın önünden alna sarkan kalın saçaklı demet
+    tas = [(574, 292), (618, 300), (632, 348), (590, 352)]
+    fillp(cv, tas, 234, 0.2)
+    cv.stroke(P(tas, True, 0.2), 104, 2.4)
+    for i in range(6):
+        seg(cv, (584 + i * 8, 306 + i * 1.4), (592 + i * 8, 348 + i * 0.6), 118, 2.2)
+    for i in range(5):
+        circ(cv, 592 + i * 9, 352, 5.6, 236)
+    circ(cv, 598, 296, 14, 246)
+    circ(cv, 598, 296, 14, 108, stroke=2.4)
     # altın plaka
     circ(cv, 536, 266, 17, 246)
     circ(cv, 536, 266, 17, 106, stroke=2.6)
     circ(cv, 536, 266, 8, 130, stroke=2)
     # iki dik tüy
-    plume(cv, [(562, 236), (556, 176), (562, 118), (580, 66)], 46, g=238)
-    plume(cv, [(520, 232), (506, 180), (502, 130), (512, 86)], 40, g=234)
+    plume(cv, [(562, 236), (556, 180), (562, 128), (578, 84)], 46, g=238)
+    plume(cv, [(520, 232), (508, 184), (504, 140), (512, 102)], 40, g=234)
 
 
 @reg(HAT, "xiuhhuitzolli")    # Moctezuma: turkuaz mozaik diadem (sivri ön levha) + kuetzal tüyü yelesi + arka şerit
 def _hat_xiuh(cv, d):
     # arka tüy yelesi (quetzal)
     plume(cv, [(420, 236), (372, 168), (320, 128), (262, 124)], 34, g=232)
-    plume(cv, [(440, 232), (404, 150), (370, 96), (326, 70)], 32, g=236)
-    plume(cv, [(470, 230), (452, 140), (440, 80), (420, 50)], 30, g=234)
+    plume(cv, [(440, 232), (406, 156), (374, 110), (334, 84)], 32, g=236)
+    plume(cv, [(470, 230), (454, 150), (446, 100), (432, 74)], 30, g=234)
     top = [(604, 250), (520, 236), (430, 238), (360, 258)]
     bot = [(354, 304), (430, 286), (520, 286), (598, 304)]
     band_poly(cv, top, bot[::-1], 220, groove=110)
@@ -1259,6 +1280,20 @@ def _hat_royalcap(cv, d):
     plume(cv, [(412, 212), (376, 150), (326, 116), (270, 126)], 42, g=236)
 
 
+@reg(HAT, "flatcap_x")        # genç Karl: geniş yassı bere + mücevher + kısa tüy
+def _hat_flatcap_x(cv, d):
+    base = [(326, 298), (336, 242), (392, 202), (480, 188), (560, 198), (612, 228), (634, 262), (606, 280), (536, 266), (450, 278), (372, 306)]
+    fillp(cv, base, 216)
+    ov(cv, 480, 226, 130, 28, 234, blur=14)
+    _rim(cv, [(336, 296), (430, 276), (520, 268), (606, 280)], 20, 234)
+    ln(cv, [(384, 228), (452, 212), (530, 216)], 156, 2.4)
+    ln(cv, [(366, 262), (410, 244), (462, 242)], 156, 2.0)
+    circ(cv, 584, 262, 15, 242)
+    circ(cv, 584, 262, 15, 108, stroke=2.6)
+    gem(cv, 584, 262, 7, shape="dia")
+    plume(cv, [(590, 244), (626, 204), (668, 188), (700, 204)], 32, g=236)
+
+
 @reg(HAT, "kalot")            # Doria: kapalı küçük kalot + düğme
 def _hat_kalot(cv, d):
     base = [(358, 320), (366, 244), (432, 200), (522, 204), (584, 246), (596, 292), (530, 278), (452, 284), (396, 332)]
@@ -1352,7 +1387,7 @@ def _b_jgown(cv, d):
 def _b_gownfur(cv, d):
     body(cv, NECK["mid"], 70)
     folds(cv, [(300, 900), (420, 870), (540, 910)], [(280, 1040), (400, 1040), (540, 1040)], seed=22)
-    fur_band(cv, [(344, 678), (430, 698), (520, 724), (610, 768), (662, 840)], 58, seed=23, g=172)
+    fur_band(cv, [(390, 694), (440, 706), (520, 726), (610, 768), (662, 840)], 58, seed=23, g=172)
     neck_jewels(cv, [(396, 722), (470, 752), (548, 778), (626, 816)], 9, 9.5, 6)
     chain(cv, [(430, 740), (500, 800), (560, 850)], 6, rx=11, ry=7, g=224, w=3.4)
 
@@ -1432,14 +1467,14 @@ def _b_cloak(cv, d):
 def _b_lawyer(cv, d):
     body(cv, NECK["mid"], 72)
     folds(cv, [(300, 880), (420, 840), (520, 890)], [(280, 1040), (400, 1040), (540, 1040)], seed=29)
-    left = [(344, 674), (430, 696), (520, 724), (590, 770), (630, 860), (660, 1040)]
+    left = [(394, 694), (448, 706), (520, 726), (590, 770), (630, 860), (660, 1040)]
     ln(cv, left, 150, 62)
     ln(cv, [(x - 31, y - 4) for x, y in left], 106, 2.2)
     ln(cv, [(x + 31, y + 4) for x, y in left], 106, 2.2)
     for k in range(2):
         fillq(cv, [(588 + k * 26, 740 + k * 6), (616 + k * 26, 750 + k * 6), (630 + k * 26, 838), (600 + k * 26, 832)], 208)
         cv.stroke(poly([(588 + k * 26, 740 + k * 6), (616 + k * 26, 750 + k * 6), (630 + k * 26, 838), (600 + k * 26, 832)]), 108, 2)
-    ln(cv, [(344, 658), (430, 676), (520, 702), (590, 744)], 204, 8)
+    ln(cv, [(394, 676), (448, 688), (520, 706), (590, 746)], 204, 8)
 
 
 @reg(BUST, "fur_gown_wide")    # Frederik / JF: devasa kürk şal yaka + madalyonlu zincir
@@ -1447,7 +1482,7 @@ def _b_furwide(cv, d):
     body(cv, NECK["mid"], 72)
     folds(cv, [(300, 900), (420, 860)], [(280, 1040), (400, 1040)], seed=31)
     w = d.get("furw", 112)
-    fur_band(cv, [(332, 658), (420, 690), (520, 716), (622, 764), (694, 850), (744, 960)], w, seed=32, g=176, rows=4)
+    fur_band(cv, [(384, 676), (440, 694), (520, 716), (622, 764), (694, 850), (744, 960)], w, seed=32, g=176, rows=4)
     chain(cv, [(372, 704), (452, 756), (548, 790), (636, 834)], 11, rx=17, ry=10)
     circ(cv, 662, 872, 30, 242)
     circ(cv, 662, 872, 30, 106, stroke=3.2)
@@ -1492,14 +1527,14 @@ def _b_dolama(cv, d):
         ov(cv, 486 - i * 6, y, 13, 9, 224, stroke=3)
         circ(cv, 626 + i * 7, y, 7.5, 240)
     seg(cv, (620, 740), (660, 1040), 52, 3)
-    fur_band(cv, [(344, 668), (430, 690), (520, 712), (606, 744)], 54, seed=52, g=176, rows=3)
+    fur_band(cv, [(372, 676), (440, 692), (520, 712), (606, 744)], 54, seed=52, g=176, rows=3)
 
 
 @reg(BUST, "dark_robe")        # Doria: şal yakalı koyu cüppe + Altın Post zinciri
 def _b_darkrobe(cv, d):
     body(cv, NECK["mid"], 70)
     folds(cv, [(290, 900), (420, 860), (520, 900)], [(270, 1040), (400, 1040), (520, 1040)], seed=61)
-    lap = [(344, 676), (430, 698), (520, 726), (596, 770), (650, 860), (690, 980)]
+    lap = [(384, 694), (440, 706), (520, 728), (596, 770), (650, 860), (690, 980)]
     ln(cv, lap, 156, 72)
     ln(cv, [(x - 36, y - 6) for x, y in lap], 106, 2.4)
     ln(cv, [(x + 36, y + 6) for x, y in lap], 106, 2.4)
@@ -1601,7 +1636,7 @@ def _b_academic(cv, d):
 def _b_merchant(cv, d):
     body(cv, NECK["mid"], 72)
     folds(cv, [(300, 900), (420, 860)], [(280, 1040), (400, 1040)], seed=92)
-    fur_band(cv, [(340, 668), (426, 694), (516, 722), (596, 774), (640, 868), (664, 980)], 74, seed=93, g=174, rows=3)
+    fur_band(cv, [(384, 684), (444, 700), (516, 722), (596, 774), (640, 868), (664, 980)], 74, seed=93, g=174, rows=3)
     chain(cv, [(376, 706), (452, 758), (540, 790), (620, 830)], 10, rx=16, ry=9.5, g=236)
     circ(cv, 632, 846, 18, 244)
     circ(cv, 632, 846, 18, 106, stroke=2.6)
@@ -1641,6 +1676,13 @@ def _acc_ear_pearl(cv, d):
     pearl(cv, x + 2, y + 28, 8)
 
 
+# ═════════════════════════════ takma adlar ═════════════════════════════
+HAT["copilli"] = HAT["xiuhhuitzolli"]
+HAT["gable_hood_x"] = HAT["gable_hood"]
+BUST["tunik_inca"] = BUST["tunic_inca"]
+HAT["hood_dark"] = HAT["widow_wimple"]
+
+
 # ═════════════════════════════ kişiler ═════════════════════════════
 def person(key, inscr, **kw):
     base = dict(nose=12, hook=2, brow=3, lip=2, lip2=3, chin=2, jaw=1.0, fore=0, age=0.3, jowl=0.0, neck=1.0,
@@ -1653,21 +1695,21 @@ def person(key, inscr, **kw):
 # — Habsburg / Burgonya / İberya —
 person("filip", "PHILIPPVS · PVLCHER · DVX · BVRGVNDIAE ·", nose=14, hook=0, brow=2, lip=4, lip2=9, chin=15, jaw=0.95, fore=1, age=0.0,
        neck=1.05, hair="wavy", hat="burg_bonnet", garment="fur_jacket", eye="wide", brow_style="arch", ear=False, cheek=0.6,
-       scale=1.06, dy=-14)
+       scale=0.98, dy=-12)
 person("fernando", "FERNANDVS · ARAGONVM · REX · CATHOLICVS ·", nose=22, hook=4, brow=6, lip=0, lip2=0, chin=6, jaw=1.15, fore=0, age=0.6,
        jowl=0.1, neck=1.0, hair="bowl", hat="barrete", garment="dark_doublet", eye="narrow", brow_style="stern", mouth="stern",
        ear=False, scale=1.14, dy=-20)
 person("maria_burgonya", "MARIA · DVCISSA · BVRGVNDIAE ·", nose=8, hook=-3, brow=1, lip=3, lip2=5, chin=4, jaw=0.82, fore=3, age=0.0,
        neck=0.8, nback=384, hat="hennin", garment="jeweled_gown", eye="almond", lash=True, brow_style="arch", ear=False, scale=1.0, dy=-4)
 person("isabel_kastilya", "ELISABET · REGINA · CASTELLAE · LEGIONIS ·", nose=10, hook=0, brow=3, lip=1, lip2=3, chin=11, jaw=0.9, fore=2,
-       age=0.5, jowl=0.1, neck=0.9, hat="castilian_veil", garment="dark_gown_collar", eye="std", brow_style="arch", lash=True,
+       age=0.5, jowl=0.1, neck=0.9, nback=378, hat="castilian_veil", garment="dark_gown_collar", eye="std", brow_style="arch", lash=True,
        mouth="stern", ear=False, scale=1.12, dy=-20)
 person("sarlman", "KAROLVS · MAGNVS · IMPERATOR · AVGVSTVS ·", nose=20, hook=4, brow=7, lip=2, lip2=3, chin=12, jaw=1.15, fore=0, age=0.5,
        jowl=0.1, neck=1.2, hair="long_flow", hat="imperial_crown", beard="long_flow", must="droop", garment="mantle_brooch",
-       eye="heavy", brow_style="heavy", ear=False, scale=0.97, dy=-2)
+       eye="heavy", brow_style="heavy", ear=False, scale=0.93, dy=0)
 person("karl_cocuk", "CAROLVS · ARCHIDVX · AVSTRIAE · BVRGVND ·", nose=2, hook=-6, brow=0, lip=4, lip2=6, chin=8, jaw=0.7, fore=4, age=0.0,
        neck=0.72, nback=394, hair="child", hat="child_cap", garment="child_doublet", eye="wide", iris=9.5, brow_style="raised", ear=False,
-       cheek=0.9, puff=0.5, ck=0.84, scale=1.1, dy=-6)
+       cheek=0.9, puff=0.5, ck=0.84, scale=1.04, dy=-4)
 PEOPLE["karl_cocuk"].update(chin=6, jaw=0.62)
 # — Komünero —
 person("padilla", "IOANNES · DE · PADILLA · TOLETANVS ·", nose=12, hook=0, brow=6, lip=2, lip2=3, chin=8, jaw=1.2, fore=0, age=0.25,
@@ -1688,32 +1730,32 @@ person("frederik_bilge", "FRIDERICVS · SAPIENS · DVX · SAXONIAE ·", nose=18,
        eye="heavy", brow_style="std", scale=1.04, dy=-14, furw=112)
 person("johann_friedrich", "IOHANNES · FRIDERICVS · ELECTOR · SAXONIAE ·", nose=5, hook=-4, brow=2, lip=0, lip2=1, chin=-6, jaw=1.6, fore=3,
        age=0.4, jowl=0.9, neck=1.5, puff=1.0, hair="crop", hat="beret_feathers", beard="cropped", must="pencil", garment="fur_gown_wide",
-       garm="saxony", slash=True, furw=100, eye="narrow", brow_style="std", scale=1.0, dy=-8)
+       garm="saxony", slash=True, furw=100, eye="narrow", brow_style="std", scale=0.94, dy=-6)
 # — Hanımlar —
 person("louise_savoy", "LVDOVICA · SABAVDIAE · REGENS · FRANCIAE ·", nose=18, hook=6, brow=3, lip=1, lip2=2, chin=0, jaw=0.95, fore=2, age=0.5,
-       jowl=0.2, neck=0.9, hat="french_hood", garment="gown_fur", eye="heavy", brow_style="arch", lash=True, mouth="stern", ear=False,
+       jowl=0.2, neck=0.88, nback=374, hat="french_hood", garment="gown_fur", eye="heavy", brow_style="arch", lash=True, mouth="stern", ear=False,
        scale=1.1, dy=-18)
 person("catherine_aragon", "CATHARINA · ARAGONIA · ANGLIAE · REGINA ·", nose=8, hook=-2, brow=2, lip=4, lip2=6, chin=10, jaw=0.85, fore=3,
-       age=0.3, jowl=0.15, neck=0.9, puff=0.5, hat="gable_hood", garment="jeweled_gown", gv="tudor", eye="std", lash=True,
+       age=0.3, jowl=0.15, neck=0.9, nback=376, puff=0.5, hat="gable_hood", garment="jeweled_gown", gv="tudor", eye="std", lash=True,
        brow_style="arch", ear=False, cheek=0.3, scale=1.08, dy=-10)
 person("mary_macar", "MARIA · HVNGARIAE · ET · BOHEMIAE · REGINA ·", nose=12, hook=2, brow=3, lip=3, lip2=11, chin=20, jaw=0.95, fore=2,
-       age=0.35, neck=0.9, hat="widow_wimple", garment="black_dress", eye="std", lash=True, brow_style="stern", mouth="stern", ear=False,
+       age=0.35, neck=0.9, nback=376, hat="widow_wimple", garment="black_dress", eye="std", lash=True, brow_style="stern", mouth="stern", ear=False,
        scale=1.1, dy=-18)
 # — Macaristan —
 person("lajos2", "LVDOVICVS · II · HVNGARIAE · REX ·", nose=6, hook=-3, brow=1, lip=3, lip2=8, chin=5, jaw=0.8, fore=2, age=0.0, neck=0.9,
-       hair="wavy", hat="royal_cap_crown", garment="courtly_jacket", eye="wide", brow_style="arch", ear=False, cheek=0.3, scale=1.08, dy=-12)
+       hair="wavy", hat="royal_cap_crown", garment="courtly_jacket", eye="wide", brow_style="arch", ear=False, cheek=0.3, scale=1.0, dy=-8)
 person("zapolya", "IOANNES · DE · ZAPOLYA · HVNGARIAE · REX ·", nose=20, hook=2, brow=6, lip=1, lip2=2, chin=7, jaw=1.15, fore=0, age=0.35,
-       neck=1.1, hair="sides", hat="kalpak", must="long", garment="dolama", eye="heavy", brow_style="heavy", scale=1.04, dy=-6)
+       neck=1.1, hair="sides", hat="kalpak", must="long", garment="dolama", eye="heavy", brow_style="heavy", scale=1.0, dy=-4)
 # — Akdeniz / Yeni Dünya / Bilginler —
 person("doria", "ANDREAS · DORIA · PATER · PATRIAE ·", nose=22, hook=5, brow=6, lip=1, lip2=1, chin=-4, jaw=1.0, fore=-2, age=0.9,
        jowl=0.25, neck=1.0, hair="sides", hat="kalot", beard="white_long", must="long", garment="dark_robe", eye="heavy", brow_style="bushy",
        scale=1.1, dy=-14)
 person("atahualpa", "ATAWALLPA · SAPA · INKA · TAWANTINSUYU ·", nose=11, hook=-1, brow=2, lip=3, lip2=5, chin=2, jaw=1.0, fore=-2, age=0.12,
        neck=1.05, hair="inca", hat="mascapaicha", garment="tunic_inca", acc=["ear_inca"], eye="almond", brow_style="std", cheek=1.0,
-       scale=1.0, dy=-4)
+       scale=0.96, dy=-2)
 person("moctezuma", "MOTEUCZOMA · XOCOYOTZIN · HUEY · TLATOANI ·", nose=16, hook=4, brow=5, lip=4, lip2=6, chin=8, jaw=1.2, fore=0, age=0.45,
        jowl=0.15, neck=1.1, hair="inca", hat="xiuhhuitzolli", garment="tilmatli", acc=["ear_aztec"], eye="heavy", brow_style="std",
-       cheek=0.4, scale=0.98, dy=-2)
+       cheek=0.4, scale=0.96, dy=-2)
 person("magellan", "FERDINANDVS · MAGELLANVS · LVSITANVS ·", nose=14, hook=2, brow=5, lip=1, lip2=2, chin=10, jaw=1.15, fore=0, age=0.35,
        neck=1.1, hair="crop", hat="seaman_cap", beard="ship", must="short", garment="explorer_doublet", eye="narrow", brow_style="heavy",
        scale=1.1, dy=-16)
@@ -1724,9 +1766,24 @@ person("welser", "BARTHOLOMAEVS · WELSER · AVGVSTANVS ·", nose=11, hook=-2, b
        jowl=0.2, neck=1.1, hair="crop", hat="merchant_cap", beard="trim", garment="fur_gown_merchant", eye="std", brow_style="raised",
        scale=1.06, dy=-8)
 
+# — Karl ve Fransuva için İSTEĞE BAĞLI zengin varyantlar (eski anahtarlar değişmez; *_x anahtarı seçilirse giysili büst gelir) —
+person("karl_genc_x", medal.INSCR["karl_genc"], nose=10, hook=6, brow=4, lip=3, lip2=10, chin=26, jaw=1.0, fore=0, age=0.0, neck=1.0,
+       mouth_open=0.35, hair="child", hat="flatcap_x", garment="fur_jacket", eye="heavy", brow_style="arch", ear=False,
+       scale=1.02, dy=-10)
+person("karl_olgun_x", medal.INSCR["karl_olgun"], nose=12, hook=8, brow=5, lip=3, lip2=11, chin=30, jaw=1.05, fore=0, age=0.45, jowl=0.1,
+       neck=1.05, mouth_open=0.3, hair="crop", hat="barrete", beard="trim", garment="dark_doublet", eye="heavy", brow_style="std",
+       scale=1.08, dy=-14)
+person("karl_yasli_x", medal.INSCR["karl_yasli"], nose=13, hook=9, brow=5, lip=2, lip2=12, chin=32, jaw=1.0, fore=-2, age=0.9, jowl=0.35,
+       neck=0.95, mouth_open=0.4, hair="sides", hat="kalot", beard="full_round", blen=0, garment="black_dress", eye="heavy",
+       brow_style="stern", mouth="stern", scale=1.08, dy=-14)
+person("fransuva_x", medal.INSCR["fransuva"], nose=34, hook=-6, brow=4, lip=4, lip2=5, chin=2, jaw=1.05, fore=2, age=0.2, jowl=0.1,
+       neck=1.0, hair="wavy", hat="beret_feathers", beard="goatee", must="handle", garment="fur_jacket", eye="wide", brow_style="std",
+       ear=False, scale=0.94, dy=-6)
+
 NEW_KEYS = ["filip", "fernando", "maria_burgonya", "isabel_kastilya", "sarlman", "karl_cocuk", "padilla", "bravo", "maldonado",
             "maria_pacheco", "frederik_bilge", "johann_friedrich", "louise_savoy", "catherine_aragon", "mary_macar", "lajos2", "zapolya",
             "doria", "atahualpa", "moctezuma", "magellan", "sepulveda", "welser"]
+VARIANT_KEYS = ["karl_genc_x", "karl_olgun_x", "karl_yasli_x", "fransuva_x"]    # isteğe bağlı zengin (giysili büst) varyantlar
 
 try:
     medal.medal_array.cache_clear()

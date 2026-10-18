@@ -445,7 +445,7 @@ def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, ke
     sk.dust(f, cx.t, n=50)
     am = cx.amt(at, 0.7)
     SH.draw_medal(f, key, 500, 340, 470 * (0.94 + 0.06 * ease_out(am)), "violet", False, alpha=am, tilt=0.16 * math.sin(cx.t * 0.5))
-    X.ic(f, "keys", 860, 430, size=230, metal="violet", alpha=am, glow=0.2)
+    X.ic(f, "chains" if X.has_icon("chains") else "keys", 860, 430, size=240, metal="violet", alpha=am, glow=0.2)
     months = ["MAYIS", "HAZİRAN", "TEMMUZ", "AĞUSTOS", "EYLÜL", "EKİM", "KASIM", "ARALIK"]
     n = len(months)
     cw, y = 190, 760

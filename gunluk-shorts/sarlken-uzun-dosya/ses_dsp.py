@@ -308,6 +308,19 @@ def hall_ir(rt60=2.2, sr=SR, seed=11, predelay=0.024, er_level=0.55, bands=None)
     return ir.astype(np.float32)
 
 
+def measure_rt60(ir_ch, centers=(250, 500, 1000, 2000, 4000), sr=SR):
+    """Schroeder geri-integral ile T30'dan RT60 (oktav bantları). Döner {merkez Hz: RT60 sn}."""
+    out = {}
+    for fc in centers:
+        y = bpz(ir_ch.astype(np.float64), fc / 1.414, fc * 1.414, 2, sr)
+        e = np.cumsum(y[::-1] ** 2)[::-1]
+        edb = 10 * np.log10(e / e[0] + 1e-18)
+        t = np.arange(len(e)) / sr
+        i1, i2 = int(np.argmax(edb < -5)), int(np.argmax(edb < -35))
+        out[fc] = float(2 * (t[i2] - t[i1]))
+    return out
+
+
 def reverb_wet(x, ir):
     """x: mono veya (n,2) gönderim → (n+m-1, 2) ıslak çıkış (yalnız ıslak). Konvolüsyon: scipy fftconvolve."""
     s = x if x.ndim == 1 else (x[:, 0] + x[:, 1]) * np.sqrt(0.5)

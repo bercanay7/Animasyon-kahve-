@@ -115,15 +115,15 @@ def k_c12_forty(cx, at_old=0.0, at_back=0.0, at_young=0.0, at_crown=0.0, x0=330,
             SH.gold_flat(f, "40 YIL", (x0 + x1) / 2, y - 76, face="title", size=104, track=8, alpha=smooth((kk - 0.25) / 0.5))
     # medalyonlar
     if ko > 0:
-        draw_medal_plain(f, "karl_yasli", x1, y - 270, 380 * (0.92 + 0.08 * ease_out(ko)), "gold", alpha=ko, t=cx.t, i=0)
-        f.line(x1, y - 76, x1, y, color="#C9962B", sw=2, alpha=0.5 * ko)
+        draw_medal_plain(f, "karl_yasli", x1, y - 320, 380 * (0.92 + 0.08 * ease_out(ko)), "gold", alpha=ko, t=cx.t, i=0)
+        f.line(x1, y - 124, x1, y, color="#C9962B", sw=2, alpha=0.5 * ko)
     if kyg > 0:
-        draw_medal_plain(f, "karl_genc", x0, y - 270, 380 * (0.92 + 0.08 * ease_out(kyg)), "gold", alpha=kyg, t=cx.t, i=1)
-        f.line(x0, y - 76, x0, y, color="#C9962B", sw=2, alpha=0.5 * kyg)
-        nplate(f, "15 YAŞINDA", None, cx_=x0, y=y - 270 + 195, t=cx.amt(at_young, 0.6, off=0.25), size=36, min_w=300)
+        draw_medal_plain(f, "karl_genc", x0, y - 320, 380 * (0.92 + 0.08 * ease_out(kyg)), "gold", alpha=kyg, t=cx.t, i=1)
+        f.line(x0, y - 124, x0, y, color="#C9962B", sw=2, alpha=0.5 * kyg)
+        nplate(f, "15 YAŞINDA", None, cx_=x0, y=y - 320 + 200, t=cx.amt(at_young, 0.6, off=0.25), size=36, min_w=300)
         kcr = cx.amt(at_crown, 0.7)
         if kcr > 0:
-            icons.draw_icon(f, "crown", x0 + 150, y - 270 - 150, size=100 * (0.8 + 0.2 * back_out(kcr)), metal="gold", alpha=kcr, glow=0.35)
+            icons.draw_icon(f, "crown", x0 + 150, y - 320 - 150, size=100 * (0.8 + 0.2 * back_out(kcr)), metal="gold", alpha=kcr, glow=0.35)
     f.vig(0.58)
 
 
@@ -147,7 +147,7 @@ def k_c12_transfer(cx, at_r1=0.0, at_r2=0.0, at_r3=0.0, at_dates=(0.0, 0.0, 0.0)
         k = cx.amt(r["at"], 0.7)
         if k <= 0:
             continue
-        x0, w, h = 640, 1170, 150
+        x0, w, h = 610, 1210, 150
         yy = r["y"] - h / 2
         # ok: Karl'dan karta
         ka = ease_out(clamp((cx.t - cx.at(r["at"])) / 0.9), 2.4)
@@ -175,14 +175,18 @@ def k_c12_transfer(cx, at_r1=0.0, at_r2=0.0, at_r3=0.0, at_dates=(0.0, 0.0, 0.0)
 
 
 # ───────────────────────────── nedenler ─────────────────────────────
-def _crack(f, cx_, cy_, r, k, seed=3, color="#0A0604", glow="#FFD58A", sw=7):
-    """Küreyi/sikkeyi boydan boya çatlatan çizgi (k: 0..1 ilerleme)."""
+def crack_pts(cx_, cy_, r, seed=3, n=9):
     rs = np.random.RandomState(seed)
-    n = 9
     pts = []
     for i in range(n + 1):
         t = i / n
         pts.append((cx_ + (rs.rand() - 0.5) * r * 0.55 + math.sin(t * 5) * r * 0.08, cy_ - r * 1.05 + t * r * 2.1))
+    return pts
+
+
+def _crack(f, cx_, cy_, r, k, seed=3, color="#0A0604", glow="#FFD58A", sw=7):
+    """Küreyi/sikkeyi boydan boya çatlatan çizgi (k: 0..1 ilerleme)."""
+    pts = crack_pts(cx_, cy_, r, seed)
     path = sk.poly_path(pts, False)
     pm = skia.PathMeasure(path, False)
     part = skia.Path()
@@ -190,8 +194,7 @@ def _crack(f, cx_, cy_, r, k, seed=3, color="#0A0604", glow="#FFD58A", sw=7):
     f.path(part, style="stroke", sw=sw + 8, color=glow, alpha=0.5, blur=6)
     f.path(part, style="stroke", sw=sw, color=color, alpha=0.95, join="miter")
     f.path(part, style="stroke", sw=2, color=glow, alpha=0.7)
-    # yan çatlaklar
-    if k > 0.4:
+    if k > 0.4:                     # yan çatlaklar
         for j, (sx, sy, ex, ey) in enumerate(((0.0, -0.1, -0.45, 0.05), (0.05, 0.25, 0.5, 0.4), (-0.05, 0.55, -0.4, 0.7))):
             kk = clamp((k - 0.4 - 0.15 * j) / 0.35)
             if kk > 0:
@@ -216,29 +219,29 @@ def k_c12_reason(cx, which="gut", at_kick=0.0, at_stamp=None, at_w1=0.0, at_w2=N
         f.text("GUT", cxm - 210, cym + 262, face="title", size=64, color="#F4DD92", align="c", track=12, alpha=k1, shadow=(2, 3, 4, "#000000"))
         f.text("YORGUNLUK", cxm + 230, cym + 262, face="title", size=64, color="#F4DD92", align="c", track=12, alpha=k2, shadow=(2, 3, 4, "#000000"))
     else:
-        R = 150
-        glow_dot(f, cxm, cym, 460, "#E3B54A", 0.4 * ki)
-        # küre iki yarıya ayrılır (çatlak)
+        R = 205
+        cym = 590
+        glow_dot(f, cxm, cym, 470, "#E3B54A", 0.4 * ki)
         kc = ease_out(clamp((cx.t - cx.at(at_crack)) / 1.1), 2.2) if at_crack is not None else 0.0
-        ksplit = smooth((cx.t - cx.at(at_crack) - 0.9) / 1.2) if at_crack is not None else 0.0
-        gl = skia.Path(); gl.addRect(skia.Rect.MakeLTRB(0, 0, W, H))
+        ksplit = smooth((cx.t - cx.at(at_crack) - 0.9) / 1.3) if at_crack is not None else 0.0
+        pts = crack_pts(cxm, cym, R, 3)
+        gsz = R * (0.9 + 0.1 * ease_out(ki))
         for side in (-1, 1):
             f.c.save()
-            f.c.translate(side * ksplit * 22, ksplit * (8 if side > 0 else 0))
-            f.c.rotate(side * ksplit * 3.0)
-            clip = skia.Path()
-            clip.addRect(skia.Rect.MakeLTRB(0 if side > 0 else cxm - 400 - 100, cym - 400, cxm + 400 + 100 if side > 0 else cxm, cym + 400)) if False else None
-            f.c.clipRect(skia.Rect.MakeLTRB(cxm if side > 0 else 0, 0, W if side > 0 else cxm, H) if kc <= 0 else skia.Rect.MakeLTRB(cxm - 40 + (40 if side > 0 else 0) if False else (cxm if side > 0 else 0), 0, (W if side > 0 else cxm), H))
-            D.draw_globe(f, cxm, cym, R * 1.55 * (0.9 + 0.1 * ease_out(ki)), rot=cx.t * 0.25, alpha=ki, glow=0.0)
+            f.c.translate(cxm + side * ksplit * 30, cym + (ksplit * 12 if side > 0 else -ksplit * 4))
+            f.c.rotate(side * ksplit * 4.5)
+            f.c.translate(-cxm, -cym)
+            edge = [(W if side > 0 else 0, -50)] + pts + [(W if side > 0 else 0, H + 50)]
+            f.c.clipPath(sk.poly_path(edge, True), skia.ClipOp.kIntersect, True)
+            D.draw_globe(f, cxm, cym, gsz, rot=cx.t * 0.25, alpha=ki, glow=0.0)
             f.c.restore()
-        # haç + taç üstte
         kcr = cx.amt(A("c12s6", "Hıristiyan", -0.1), 0.7)
         if kcr > 0:
-            icons.draw_icon(f, "cross", cxm, cym - R * 1.55 - 70, size=150 * (0.8 + 0.2 * back_out(kcr)), metal="gold", alpha=kcr * (1 - 0.0 * ksplit), glow=0.3)
-        if kc > 0:
-            _crack(f, cxm, cym, R * 1.55, kc)
+            icons.draw_icon(f, "cross", cxm, cym - R - 78, size=150 * (0.8 + 0.2 * back_out(kcr)), metal="gold", alpha=kcr, glow=0.3)
+        if kc > 0 and ksplit < 0.05:
+            _crack(f, cxm, cym, R, kc)
         k1 = cx.amt(at_w1, 0.7)
-        f.text("EVRENSEL İMPARATORLUK", cxm, cym + R * 1.55 + 120, face="title", size=56, color="#F4DD92", align="c", track=10, alpha=k1 * (1 - 0.55 * ksplit), shadow=(2, 3, 4, "#000000"))
+        f.text("EVRENSEL İMPARATORLUK", cxm, cym + R + 112, face="title", size=56, color="#F4DD92", align="c", track=10, alpha=k1 * (1 - 0.5 * ksplit), shadow=(2, 3, 4, "#000000"))
     if at_stamp is not None:
         SH.stamp(f, "YORUM", W * 0.80, 330, rot=-0.12, size=62, t=cx.amt(at_stamp, 0.3))
     f.vig(0.6)
@@ -258,15 +261,84 @@ def k_c12_crackcoin(cx, at_med=0.0, at_war=0.0, at_crack=0.0, at_broke=0.0):
     kw = cx.amt(at_war, 0.8)
     cxr, cyr = W * 0.69, H * 0.46
     if kw > 0:
-        icons.draw_icon(f, "swords", cxr, cyr - 8, size=470 * (0.9 + 0.1 * ease_out(kw)), metal="bronze", alpha=0.55 * kw, rot=0.0, shadow=False)
+        icons.draw_icon(f, "swords", cxr, cyr - 6, size=600 * (0.9 + 0.1 * ease_out(kw)), metal="bronze", alpha=0.5 * kw, rot=0.0, shadow=False)
     kc = cx.amt(at_war, 0.9)
     if kc > 0:
         kb = cx.amt(at_broke, 1.0)
         glow_dot(f, cxr, cyr, 330, "#E3B54A", 0.35 * kc * (1 - 0.6 * kb))
-        icons.draw_icon(f, "coin", cxr, cyr, size=340 * (0.9 + 0.1 * ease_out(kc)), metal="gold" if kb < 0.5 else "bronze", alpha=kc, glow=0.3 * (1 - kb))
+        icons.draw_icon(f, "coin", cxr, cyr, size=440 * (0.9 + 0.1 * ease_out(kc)), metal="gold" if kb < 0.5 else "bronze", alpha=kc, glow=0.3 * (1 - kb))
         kcr = ease_out(clamp((cx.t - cx.at(at_crack)) / 0.9), 2.4)
         if kcr > 0:
-            _crack(f, cxr, cyr, 170, kcr, seed=8, sw=8)
-    f.text("SAVAŞTA", cxr, cyr - 280, face="title", size=58, color="#F4DD92", align="c", track=12, alpha=cx.amt(at_war, 0.6), shadow=(2, 3, 4, "#000000"))
-    f.text("İFLASA YAKIN", cxr, cyr + 285, face="title", size=58, color="#E8A08A", align="c", track=10, alpha=cx.amt(at_crack, 0.6), shadow=(2, 3, 4, "#000000"))
+            _crack(f, cxr, cyr, 215, kcr, seed=8, sw=9)
+    f.text("SAVAŞTA", cxr, cyr - 300, face="title", size=58, color="#F4DD92", align="c", track=12, alpha=cx.amt(at_war, 0.6), shadow=(2, 3, 4, "#000000"))
+    f.text("İFLASA YAKIN", cxr, cyr + 320, face="title", size=58, color="#E8A08A", align="c", track=10, alpha=cx.amt(at_crack, 0.6), shadow=(2, 3, 4, "#000000"))
     f.vig(0.6)
+
+
+# ───────────────────────────── mum (prosedürel) ─────────────────────────────
+def candle_draw(f, x, yb, h=320, w=46, flame=1.0, t=0.0, glow=1.0, seed=0.0, alpha=1.0):
+    top = yb - h
+    f.rrect(x - w / 2, top, w, h, 9, shader=f.lin(x - w / 2, 0, x + w / 2, 0, [("#8F7A4E", 0.0), ("#F3E6BC", 0.4), ("#E3D2A0", 0.7), ("#7E6A40", 1.0)]), alpha=alpha)
+    for dx, dl in ((-0.28, 0.20), (0.20, 0.32), (0.36, 0.14)):
+        f.rrect(x + dx * w - 5, top - 2, 10, h * dl, 5, color="#F8EDCB", alpha=0.9 * alpha)
+    f.oval(x, top, w / 2, 7, color="#FFF6D6", alpha=alpha)
+    f.line(x, top, x, top - 16, color="#2A1A0C", sw=3, alpha=alpha)
+    f.rrect(x - w * 0.95, yb - 4, w * 1.9, 16, 6, color="#B88A3A", alpha=alpha)
+    f.rrect(x - w * 0.55, yb + 10, w * 1.1, 90, 6, color="#8A6A2A", alpha=alpha)
+    if flame > 0.01:
+        fy = top - 14
+        fl = flame * (0.92 + 0.08 * math.sin(t * 11 + seed) + 0.04 * math.sin(t * 23 + seed * 2))
+        sway = math.sin(t * 7 + seed) * 3.5 * flame
+        glow_dot(f, x, fy - 36 * fl, 330 * fl * glow, "#FFB347", 0.55 * flame * alpha)
+        glow_dot(f, x, fy - 36 * fl, 110 * fl * glow, "#FFE7A0", 0.85 * flame * alpha)
+        p = skia.Path()
+        p.moveTo(x, fy)
+        p.cubicTo(x - 21 * fl, fy - 14 * fl, x - 12 * fl, fy - 54 * fl, x + sway, fy - 92 * fl)
+        p.cubicTo(x + 15 * fl, fy - 54 * fl, x + 21 * fl, fy - 14 * fl, x, fy)
+        f.path(p, shader=f.lin(x, fy - 92 * fl, x, fy, [("#FFF6D0", 0.0), ("#FFC45A", 0.5), ("#E0701A", 1.0)]), alpha=alpha)
+        q = skia.Path()
+        q.moveTo(x, fy - 2)
+        q.cubicTo(x - 8 * fl, fy - 10 * fl, x - 5 * fl, fy - 28 * fl, x + sway * 0.5, fy - 40 * fl)
+        q.cubicTo(x + 6 * fl, fy - 28 * fl, x + 8 * fl, fy - 10 * fl, x, fy - 2)
+        f.path(q, color="#FFFFFF", alpha=0.85 * alpha)
+
+
+# ───────────────────────────── rivayet: hayaletimsi tabut ─────────────────────────────
+@SH.kind("c12_rumor")
+def k_c12_rumor(cx, at_coffin=0.0, at_fig=0.0, at_stamp=0.0):
+    """'Tabutuna yatıp cenazesini prova etti' — yalnız rivayet: soğuk, kesik çizgili hayalet tabut (kanıtsız), yanında iki mum."""
+    f = cx.f
+    f.bg("night")
+    f.rect(0, 0, W, H, color="#0E1C2A", alpha=0.35)
+    f.rays(alpha=0.22)
+    sk.dust(f, cx.t, n=50, color="#BFD0DC", alpha=0.35)
+    k = cx.amt(at_coffin, 1.0)
+    cxm, cym = W / 2, H * 0.55
+    for sx, seed in ((-1, 0.3), (1, 2.1)):
+        candle_draw(f, cxm + sx * 640, cym + 300, h=330, flame=1.0, t=cx.t, glow=0.8, seed=seed, alpha=0.9 * k)
+    sc_ = 1.28
+    pts = [(cxm + dx * sc_, cym + dy * sc_) for dx, dy in ((-340, -62), (-340, 62), (200, 104), (345, 44), (345, -44), (200, -104))]
+    path = sk.poly_path(pts, True)
+    f.path(path, shader=f.lin(0, cym - 104, 0, cym + 104, [("#2A3A4A", 0.0, int(160 * k)), ("#101822", 1.0, int(210 * k))]))
+    p = f.paint("#9FB8C8", style="stroke", sw=3.4, alpha=0.85 * k)
+    p.setPathEffect(skia.DashPathEffect.Make([16, 11], -cx.t * 22))
+    f.c.drawPath(path, p)
+    # iç çerçeve
+    inner = sk.poly_path([(cxm + (px - cxm) * 0.88, cym + (py - cym) * 0.78) for px, py in pts], True)
+    p2 = f.paint("#9FB8C8", style="stroke", sw=1.6, alpha=0.45 * k)
+    p2.setPathEffect(skia.DashPathEffect.Make([8, 8], cx.t * 14))
+    f.c.drawPath(inner, p2)
+    icons.draw_icon(f, "cross", cxm - 150, cym, size=150, metal="silver", alpha=0.55 * k, shadow=False)
+    # yatan hayalet figür (kesik çizgili siluet)
+    kf = cx.amt(at_fig, 1.0)
+    if kf > 0:
+        fig = skia.Path()
+        fig.addOval(skia.Rect.MakeLTRB(cxm + 208 * sc_, cym - 36 * sc_, cxm + 282 * sc_, cym + 36 * sc_))
+        fig.addRoundRect(skia.Rect.MakeLTRB(cxm - 250 * sc_, cym - 34 * sc_, cxm + 215 * sc_, cym + 34 * sc_), 30, 30)
+        pf = f.paint("#E8D8A0", style="stroke", sw=2.6, alpha=0.85 * kf)
+        pf.setPathEffect(skia.DashPathEffect.Make([7, 8], -cx.t * 16))
+        f.c.drawPath(fig, pf)
+        f.path(fig, color="#E8D8A0", alpha=0.07 * kf)
+    icons.draw_icon(f, "question", cxm + 20, cym - 270, size=190, metal="silver", alpha=0.7 * cx.amt(at_fig, 0.8), glow=0.2)
+    SH.stamp(f, "RİVAYET", cxm, cym + 290, rot=-0.07, size=88, t=cx.amt(at_stamp, 0.3))
+    f.vig(0.66)

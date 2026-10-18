@@ -145,7 +145,7 @@ def k_vasal(cx, at_medal=0.0, at_ott=0.0, at_link=0.0, at_chip=0.0):
 
 # ───────────────────────────── c7_unvan: İMPARATOR üstü çizilir → İSPANYA KRALI ─────────────────────────────
 @SH.kind("c7_unvan")
-def k_unvan(cx, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0.0, at_crown=0.0):
+def k_unvan(cx, at_doc=None, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0.0, at_crown=0.0):
     """Osmanlı belgelerinde Şarlken'in unvanı: İMPARATOR üstü çizilir, İSPANYA KRALI yazılır; imparator = sultan."""
     f = cx.f
     f.bg("night")
@@ -153,10 +153,15 @@ def k_unvan(cx, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0
     X.tone(f, GREEN, 0.12, cy=0.5)
     sk.dust(f, cx.t, n=55)
     ak = cx.amt(at_karl, 0.8)
-    xk, ys = 520, 480
-    SH.draw_medal(f, "karl_olgun", xk, ys, 470 * (0.94 + 0.06 * ease_out(ak)) * (1 + 0.03 * cx.u), "gold", False, alpha=ak, tilt=0.14 * math.sin(cx.t * 0.55))
+    if at_doc is not None:
+        kd = cx.amt(at_doc, 0.7)
+        if kd > 0:
+            SH.kicker(f, "OSMANLI BELGELERİ", CX, 150, alpha=kd, size=34, track=14, face="title_m", color="#B6E6C6")
+            X.ic(f, "scroll", CX, 500, size=340 * (0.9 + 0.1 * back_out(kd)), metal="forest", alpha=kd * (1 - ak), glow=0.3 * kd)
+    xk, ys = 520, 430
+    SH.draw_medal(f, "karl_olgun", xk, ys, 430 * (0.94 + 0.06 * ease_out(ak)) * (1 + 0.03 * cx.u), "gold", False, alpha=ak, tilt=0.14 * math.sin(cx.t * 0.55))
     # unvan levhası (Karl altı)
-    py = H * 0.745
+    py = H * 0.695
     ai = cx.amt(at_imp, 0.5)
     ks = ease_out(clamp((cx.t - cx.at(at_strike)) / 0.5))
     kk = cx.amt(at_king, 0.5)
@@ -175,11 +180,11 @@ def k_unvan(cx, at_karl=0.0, at_imp=0.0, at_strike=0.0, at_king=0.0, at_sultan=0
     asu = cx.amt(at_sultan, 0.9)
     if asu > 0:
         xs_ = 1400
-        X.glow(f, xs_, 480, 360, "#5FA878", 0.20 * asu)
-        SH.draw_medal(f, "suleyman", xs_, ys, 470 * (0.94 + 0.06 * ease_out(asu)), "forest", True, alpha=asu, tilt=-0.14 * math.sin(cx.t * 0.55 + 1))
+        X.glow(f, xs_, ys, 360, "#5FA878", 0.20 * asu)
+        SH.draw_medal(f, "suleyman", xs_, ys, 430 * (0.94 + 0.06 * ease_out(asu)), "forest", True, alpha=asu, tilt=-0.14 * math.sin(cx.t * 0.55 + 1))
         kc = cx.amt(at_crown, 0.7)
         if kc > 0:
-            X.ic(f, "imperial_crown", xs_, 190 + (1 - ease_out(kc)) * -60, size=170, metal="gold", alpha=kc, glow=0.5 * kc)
+            X.ic(f, "imperial_crown", xs_, 150 + (1 - ease_out(kc)) * -60, size=160, metal="gold", alpha=kc, glow=0.5 * kc)
             X.chip(f, "İMPARATOR", xs_, H * 0.82, k=kc, size=46, edge="#F0D27A", color="#F4DD92", padx=44, h=100)
             f.text("YALNIZCA SULTAN", xs_, H * 0.82 + 92, face="cap_i", size=32, color="#B6E6C6", align="c", alpha=kc)
     f.vig(0.6)

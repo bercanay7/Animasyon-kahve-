@@ -54,11 +54,11 @@ def hat_parts(kind):
     elif kind == "kavuk":                     # Osmanlı yüksek kavuk
         P.append((sp([KC(0.40, -0.22), (0.46, -0.50), (0.50, -0.90), (0.36, -1.16), (0.0, -1.22), (-0.36, -1.16), (-0.46, -0.90), (-0.44, -0.50), KC(-0.40, -0.22)], True, 0.9), 1.0, 0.0))
         P.append((sp([KC(0.42, -0.36), (0.0, -0.31), KC(-0.42, -0.36), (-0.42, -0.30), (0.0, -0.25), (0.42, -0.30)], True, 0.6), 0.0, 0.14))
-    elif kind == "bork":                      # yeniçeri börkü: kısa koni gövde, sırtta sarkan geniş kollu uç, önde kaşıklık
-        P.append((sp([KC(-0.30, -0.66), (-0.50, -0.50), (-0.72, -0.10), (-0.88, 0.40), (-0.92, 0.82), KC(-0.64, 0.98), (-0.40, 0.84), (-0.32, 0.40), (-0.30, 0.05), KC(-0.28, -0.12)], True, 0.9), 0.85, 0.0, "back"))
-        P.append((sp([KC(0.34, -0.22), (0.42, -0.45), (0.40, -0.78), (0.24, -1.02), (-0.06, -1.10), (-0.34, -0.98), (-0.48, -0.70), (-0.50, -0.38), KC(-0.46, -0.16)], True, 0.9), 1.0, 0.0))
-        P.append((sp([KC(0.30, -0.14), (0.46, -0.20), (0.52, -0.38), (0.42, -0.50), KC(0.30, -0.38)], True, 0.6), 1.0, 0.0))
-        P.append((sp([KC(-0.46, -0.20), (0.0, -0.16), KC(0.34, -0.20), (0.34, -0.30), (0.0, -0.26), (-0.46, -0.30)], True, 0.6), 0.0, 0.14))
+    elif kind == "bork":                      # yeniçeri börkü: alın üstünde oturan kısa koni gövde, sırtta sarkan geniş kollu uç, önde (yukarıda) kaşıklık
+        P.append((sp([KC(-0.30, -0.62), (-0.50, -0.48), (-0.72, -0.14), (-0.88, 0.34), (-0.92, 0.74), KC(-0.66, 0.90), (-0.42, 0.78), (-0.32, 0.36), (-0.30, 0.02), KC(-0.28, -0.14)], True, 0.9), 0.85, 0.0, "back"))
+        P.append((sp([KC(0.33, -0.30), (0.40, -0.50), (0.38, -0.78), (0.24, -0.98), (-0.06, -1.06), (-0.32, -0.96), (-0.46, -0.72), (-0.50, -0.42), KC(-0.46, -0.20)], True, 0.9), 1.0, 0.0))
+        P.append((sp([KC(0.30, -0.36), (0.44, -0.44), (0.50, -0.58), (0.40, -0.68), KC(0.30, -0.56)], True, 0.6), 1.0, 0.0))
+        P.append((sp([KC(-0.46, -0.27), (0.0, -0.24), KC(0.33, -0.28), (0.33, -0.37), (0.0, -0.33), (-0.46, -0.36)], True, 0.6), 0.0, 0.14))
     elif kind == "morion":                    # İspanyol morion: yüksek sırt (comb), kayık biçimli kalkık kenar
         P.append((sp([KC(-0.82, -0.58), (-0.52, -0.34), (-0.12, -0.27), (0.30, -0.30), (0.62, -0.40), KC(0.95, -0.66), (0.66, -0.38), (0.30, -0.22), (-0.10, -0.19), (-0.50, -0.25)], True, 0.8), 1.0, 0.0))
         P.append((sp([KC(-0.42, -0.30), (-0.44, -0.58), (-0.22, -0.78), (0.10, -0.80), (0.36, -0.66), KC(0.44, -0.32)], True, 0.8), 1.0, 0.0))
@@ -160,12 +160,14 @@ def add_arm(F, pts, widths, hand=None, hand_len=0.1, hand_rot=None, flip=False, 
             F.fill(K.hand_pt("thumb", x1, y1, hand_len, ang, flip), rim=1.0)
 
 
-def fur_band(P, w, tuft, side=1, n=None, jag=1.0, phase=0.0):
-    """Kürk şeridi: omurga P boyunca genişlik w; dış kenar (side=±1) yuvarlak 'bulut' kabarcıklı, çukurlar köşe."""
+def fur_band(P, w, tuft, side=1, n=None, jag=0.78, phase=0.0, seed=3):
+    """Kürk şeridi: omurga P boyunca genişlik w; dış kenar (side=±1) yuvarlak 'bulut' kabarcıklı (yükseklik/konum hafif rastgele), çukurlar köşe."""
+    import random
+    rs = random.Random(seed)
     pts = list(P)
     seglen = [math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]) for i in range(len(pts) - 1)]
     total = sum(seglen) or 1.0
-    n = n or max(3, int(total / (tuft * 1.5)))
+    n = n or max(3, int(total / (tuft * 1.25)))
 
     def at(u):
         d = u * total
@@ -175,38 +177,92 @@ def fur_band(P, w, tuft, side=1, n=None, jag=1.0, phase=0.0):
                 return (pts[i][0] + (pts[i + 1][0] - pts[i][0]) * t, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * t,
                         (pts[i + 1][0] - pts[i][0]) / (L or 1), (pts[i + 1][1] - pts[i][1]) / (L or 1))
             d -= L
-    out, inner = [], []
+    out = []
+    edges = [0.0] + sorted(((i / n) + (rs.random() - 0.5) * 0.45 / n) for i in range(1, n)) + [1.0]
     for i in range(n):
-        u0, u1 = i / n, (i + 1) / n
+        u0, u1 = edges[i], edges[i + 1]
         x0, y0, tx, ty = at(u0)
-        xm, ym, tmx, tmy = at((u0 + u1) / 2)
+        um = (u0 + u1) / 2 + (rs.random() - 0.5) * 0.25 * (u1 - u0)
+        xm, ym, tmx, tmy = at(um)
         nx, ny = -ty * side, tx * side
         nmx, nmy = -tmy * side, tmx * side
-        out.append(KC(x0 + nx * w / 2, y0 + ny * w / 2))
-        out.append((xm + nmx * (w / 2 + tuft * jag), ym + nmy * (w / 2 + tuft * jag)))
+        hgt = (0.62 + 0.76 * rs.random()) * tuft * jag
+        out.append(KC(x0 + nx * (w / 2 - tuft * 0.08), y0 + ny * (w / 2 - tuft * 0.08)))
+        out.append((xm + nmx * (w / 2 + hgt), ym + nmy * (w / 2 + hgt)))
     xe, ye, tx, ty = at(1.0)
     nx, ny = -ty * side, tx * side
     out.append(KC(xe + nx * w / 2, ye + ny * w / 2))
+    inner = []
     for i in range(n, -1, -1):
         x, y, tx, ty = at(i / n)
         nx, ny = -ty * side, tx * side
-        out.append((x - nx * w / 2, y - ny * w / 2))
-    return sp(out, True, 1.0)
+        inner.append((x - nx * w / 2, y - ny * w / 2))
+    return sp(out + inner, True, 1.0)
 
 
 # ───────────────────────────── cüppe taslağı ─────────────────────────────
 
 def robe_path(h, sh_y=-0.755, nb=(-0.04, 0.05), back_sh=-0.105, front_sh=0.095, chest=(-0.115, 0.10, -0.66), waist=(-0.095, 0.092, -0.50),
-              hip=(-0.14, 0.14, -0.30), hem=(-0.20, 0.19, -0.012), nfold=4, amp=0.008, ph=0.0, lift=0.0, swing=0.0, nb_y=-0.775, belly=0.0, k=0.95):
-    """Uzun cüppe/elbise gövdesi (omuz→etek). Tüm değerler h oranı. lift: ön (sağ) etek ucunu kaldırır (ayak görünür), swing: adım kayması."""
+              hip=(-0.14, 0.14, -0.30), hem=(-0.20, 0.19, -0.012), nfold=4, amp=0.008, ph=0.0, lift=0.0, swing=0.0, nb_y=-0.775, belly=0.0, k=0.95,
+              wave_b=0.0, wave_f=0.0, dag=0.0):
+    """Uzun/orta boy cüppe gövdesi (omuz→etek). Tüm değerler h oranı.
+    lift: ön (sağ) etek ucunu kaldırır (ayak görünür), swing: adım kayması, wave_b/wave_f: yan kenarlarda kumaş dalgası (S eğrisi),
+    dag: dişli (yaprak biçimli, 'dagging') etek kenarı genliği."""
     pts = [(nb[0] * h, nb_y * h), (back_sh * h, sh_y * h), (chest[0] * h, chest[2] * h), (waist[0] * h, waist[2] * h), (hip[0] * h, hip[2] * h)]
+    # kalça→etek arası ara noktalar (arka kenar): S eğrisi
+    for u, sg in ((0.38, 1.0), (0.72, -0.6)):
+        yy = hip[2] + (hem[2] - hip[2]) * u
+        xx = hip[0] + (hem[0] - hip[0]) * (u ** 1.15) - wave_b * sg
+        pts.append((xx * h, yy * h))
     pts.append(KC((hem[0] + swing * 0.5) * h, (hem[2] - 0.004) * h))
-    for i, (x, y) in enumerate(K.hem_wave(hem[0] * 0.78 + swing * 0.3, hem[1] * 0.80 + swing * 0.3, hem[2], nfold, amp, ph)):
-        u = i / max(1, nfold * 2)
-        pts.append((x * h, (y - lift * (u ** 2.2)) * h))
+    x0, x1 = hem[0] * 0.78 + swing * 0.3, hem[1] * 0.80 + swing * 0.3
+    if dag > 0:
+        n = max(3, nfold * 2)
+        for i in range(n + 1):
+            u = i / n
+            x = x0 + (x1 - x0) * u
+            yy = hem[2] - lift * (u ** 2.2)
+            pts.append(KC(x * h, (yy - dag * 0.35) * h))
+            if i < n:
+                pts.append(KC((x + (x1 - x0) / n * 0.5) * h, (yy + dag) * h))
+    else:
+        for i, (x, y) in enumerate(K.hem_wave(x0, x1, hem[2], nfold, amp, ph)):
+            u = i / max(1, nfold * 2)
+            pts.append((x * h, (y - lift * (u ** 2.2)) * h))
     pts.append(KC((hem[1] + swing * 0.5) * h, (hem[2] - 0.004 - lift) * h))
+    for u, sg in ((0.72, -0.6), (0.38, 1.0)):
+        yy = hip[2] + (hem[2] - hip[2]) * u
+        xx = hip[1] + (hem[1] - hip[1]) * (u ** 1.15) + wave_f * sg
+        pts.append((xx * h, yy * h))
     pts += [((hip[1] + belly * 0.5) * h, hip[2] * h), ((waist[1] + belly) * h, waist[2] * h), ((chest[1] + belly * 0.4) * h, chest[2] * h), (front_sh * h, sh_y * h), (nb[1] * h, nb_y * h)]
     return sp(pts, True, k)
+
+
+def ruff(F, h, cx, cy, rx=0.075, ry=0.020, n=14, tilt=-8.0, rim=1.0):
+    """Katlı yaka (ruff): boyun çevresinde yassı, tırtıklı elips (rim ışıklı); cx,cy px."""
+    pts = []
+    for i in range(n * 2):
+        a = math.pi * 2 * i / (n * 2)
+        r = 1.0 if i % 2 == 0 else 0.84
+        pts.append((math.cos(a) * rx * h * r, math.sin(a) * ry * h * r))
+    path = sp(pts, True, 0.9)
+    q = skia.Matrix()
+    q.setRotate(tilt)
+    q.postTranslate(cx, cy)
+    path.transform(q)
+    F.fill(path, rim=rim, tone=0.05)
+    return path
+
+
+def hem_band(F, h, x0, x1, y, n=9, size=0.010, alpha=0.45, lift=0.0):
+    """Etek şeridi süsü: küçük elmas dizisi (açık ton) + ince çizgi."""
+    pts = []
+    for i in range(n):
+        u = (i + 0.5) / n
+        x = x0 + (x1 - x0) * u
+        yy = y - lift * (u ** 2.2)
+        F.fill(poly([(x * h, (yy - size) * h), ((x + size * 0.8) * h, yy * h), (x * h, (yy + size) * h), ((x - size * 0.8) * h, yy * h)]), rim=0.0, tone=1.0, alpha=alpha, bound=False)
+    F.line(poly([(x0 * h, (y - size * 1.6) * h), (x1 * h, (y - size * 1.6 - lift) * h)], False), h * 0.0025, tone=1.0, alpha=alpha * 0.8)
 
 
 def robe_folds(F, h, x0, x1, y0, y1, n, w, bend=0.008, seed=0, spread=1.0, hi=True, alpha=0.62):
