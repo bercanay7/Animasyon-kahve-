@@ -9,3 +9,12 @@ __pycache__/
 
 # sarlken-uzun-dosya: yeniden üretilebilir harita önbelleği
 **/out/_cache/
+# sarlken-uzun-dosya: büyük ara ses dosyaları (ses_ham/*.mp3 kaynak olarak tutulur)
+sarlken-uzun-dosya/ses_ham/*.wav
+sarlken-uzun-dosya/ses_ham/olc_log.txt
+sarlken-uzun-dosya/out/voice.wav
+sarlken-uzun-dosya/out/voice_for_scribe.mp3
+sarlken-uzun-dosya/out/scribe_raw.json
+sarlken-uzun-dosya/out/scribe_words_full.json
+sarlken-uzun-dosya/out/frames/
+sarlken-uzun-dosya/out/seg/
