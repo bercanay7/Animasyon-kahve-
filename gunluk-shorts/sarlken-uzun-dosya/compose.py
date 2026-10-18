@@ -77,7 +77,7 @@ class Program:
         # kapanış
         last = vc["c13"]
         if "c13" in chs:
-            self._add(SH.shot("outro", a=last["t1"]), last["t1"], last["t1"] + OUTRO + 0.0)
+            self._add(SH.shot("outro", a=last["t1"], tr=("fade", 0.7)), last["t1"], last["t1"] + OUTRO + 0.0)
         self.shots.sort(key=lambda s: s.t0)
         for i, s in enumerate(self.shots):
             s.i = i

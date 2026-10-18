@@ -89,6 +89,8 @@ def _hbfont(name):
 @lru_cache(maxsize=4096)
 def _shape(name, text, size, track):
     """HarfBuzz ile kernlu konumlar: (glyph id'leri, x konumları, toplam genişlik)."""
+    if not text:
+        return (), (), 0.0
     font, upem = _hbfont(name)
     buf = hb.Buffer()
     buf.add_str(text)
@@ -359,6 +361,8 @@ class Frame:
 
     # --- metin
     def text(self, s, x, y, face="cap", size=40, color="#F0E6C8", align="l", track=0.0, alpha=1.0, shadow=None, shader=None, blend=None, outline=None):
+        if not s:
+            return 0.0
         blob, wid = text_blob(face, s, size, track)
         ox = x - (wid / 2 if align == "c" else wid if align == "r" else 0)
         if shadow:
@@ -377,6 +381,8 @@ class Frame:
         return wid
 
     def gold(self, s, x, y, face="title", size=96, track=4.0, align="c", alpha=1.0, metal="gold", scale=1.0, glow=0.0):
+        if not s:
+            return 0.0
         img, ox, oy, w, h = gold_text(s, face, size, track, metal)
         wid = text_width(s, face, size, track)
         sx = x - (wid / 2 if align == "c" else wid if align == "r" else 0)

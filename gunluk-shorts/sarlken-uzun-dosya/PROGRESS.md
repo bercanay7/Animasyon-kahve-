@@ -1,24 +1,56 @@
-# Şarlken Dosyası — Uzun Dosya #1 (çalışma notları ve durum)
+# Şarlken Dosyası — Uzun Dosya #1 (durum ve kullanım)
 
-**Görev (kullanıcı, 2026-10-18 gece):** İmparator Şarlken (V. Karl / I. Carlos) dönemini bütün yönleriyle (hayatı, dünya tarihine etkisi) anlatan ilk uzun video. Süre sınırı yok; soru sorma; animasyon, ses, paylaşım dahil her şeyi ben yönetirim. Ses için ElevenLabs tercih edildi. Geçmiş videolara takılma, öne bak.
+**Konu:** İmparator V. Karl (Şarlken / I. Carlos): hayatı, çağı, dünya tarihine etkisi. Zaman Kuryesi'nin ilk uzun videosu. Soğuk açılış 25 Ekim 1555, Brüksel; sonra beş cephe: bankacı, keşiş, kral, sultan, miras.
+**Durum (18 Ekim 2026):** video, altyazı, kapaklar, Kısa fragman ve yayın paneli hazır. Yükleme ve zamanlama Studio'da kullanıcıda (bu ortamda YouTube'a yayın yapabilen bağlayıcı yok).
 
-## Kararlar (ben verdim, gerekçeli)
-- **Biçim:** Uzun Dosya, 16:9 (1920×1080, 24 fps), hedef ≈15–18 dk, bölümlü (≈12 bölüm × 60–100 sn), soğuk açılış = 25 Ekim 1555 Brüksel abdikasyonu.
-- **Cilt (görsel dil):** "parşömen + mürekkep + yaldız" (Rönesans harita/gravür/el yazması). Önceki videolardan ayrı: guaj kukla (Pellagra), kâğıt kesme (Dune), mavi baskı (Titanik/Sıtma). Karakterler eklemli kuklaların uyarlaması (`kukla.py`), haritalar Natural Earth 50m (kamu malı) + elle çizilmiş tarihsel bölge poligonları (shapely), armalar kodla.
-- **Ses:** ElevenLabs'e bu ortamdan erişilemiyor (ağ politikası `api.elevenlabs.io`'yu 403 ile engelliyor, ortamda anahtar yok). Bu yüzden: (1) animatik için Piper `fahrettin` (en iyi-K + zor sözcük kapısı), (2) `ses_paketi/` ElevenLabs'e yapıştırılacak paragraf bazlı metin + okunuş notları, (3) `ses_ice_aktar.py` dış sesi `timeline.json`'a hizalar → tek komutla yeniden render.
-- **Zaman kaynağı:** `out/timeline.json` (cümle ve kelime zamanları) → `cues.py` → sahneler/altyazı/ses efektleri (Pellagra ile aynı düzen). Ses değişince görüntü otomatik uyar.
-- **Yazı tipleri (OFL, Türkçe glifler denetlendi):** Cinzel (başlık), Cormorant Garamond (altyazı/gövde), IM Fell English/DW Pica (harita etiketi), EB Garamond.
-- **Kaynak kapısı:** her olgu CONFIRMED/NİTELİKLİ/ANEKDOT; anekdotlar "rivayet" diye anlatılır. Çıktı: `kaynaklar.md`.
+## Çıktılar
+| Dosya | Ne |
+|---|---|
+| `out/sarlken_uzun.mp4` | ana video, 1920×1080, 24 k/sn, ≈9 Mb/sn, ses −14 LUFS (git dışı, büyük) |
+| `yayin/sarlken_tr.srt`, `yayin/bolumler.txt` | Türkçe altyazı, bölüm zaman damgaları |
+| `yayin/kapak_A/B/C.jpg` | küçük resim adayları (A önerilen) |
+| `yayin/sarlken_kisa_fragman.mp4` | dikey Kısa (giriş kancası, yakılmış altyazı) |
+| `yayin/YAYIN_PAKETI.md`, `yayin/yayin_paneli.html` | başlık, açıklama, etiket, yorum, Studio adımları (panel: kopyala düğmeli) |
+| `yayin/kulak_kontrol/*.mp3` | dört kısa ses kesiti (kulak kontrolü için) |
+
+## Kararlar (gerekçeli)
+- **Biçim:** 14 bölüm (giriş + 13), ≈21 dk. Süre sınırı yok denildi; her bölümde cümle başına bir görsel olay, kaynak sınıfı ekranda damgalı.
+- **Görsel dil:** kahve-altın "boyalı levha"; diorama (siluet + parallaks), harita, madalya portreleri, belge/damga kartları. Tamamı kodla (Skia), fotoğraf yok. Madalyalar ve figürler stilize; gerçek yüz taklidi yok.
+- **Ses:** ElevenLabs eleven_v4, anlatıcı Emrullah (`DpEiQMnL9WxMsymCsjPY`); aday: Eyyup Okan (`sqN4QwtcnanCCWx6TTYj`). Müzik ve 28 ses efekti sentez; miks −14 LUFS, TP < −1 dBTP. Gerçek kişi sesi klonlanmadı.
+- **Kaynak kapısı:** her olgu CONFIRMED / NİTELİKLİ / ANEKDOT (rivayet) / YORUM / HAFIZA; rivayet ve tartışmalı yerler ekranda damgalı (RİVAYET, TARTIŞMALI, YAKLAŞIK…). Ayrıntı: `kaynaklar.md`, düzeltmeler: `METIN_DEGISIKLIKLERI.md`.
+- **Zaman kaynağı:** `out/timeline.json` (cümle ve kelime zamanları). Çekimler cümle/sözcük çapalarına bağlı; ses değişirse görüntü uyar.
+
+## Nasıl yeniden üretilir
+```
+python3 preview_chapter.py c4 --check          # çekim listesi, uyarılar, ms/kare (CPU süresi)
+python3 preview_chapter.py c4 -k 2 --cols 4 --scale 0.4   # kontak sayfaları → out/frames/
+python3 qa_program.py [--static]               # çapa, yer tutucu sahne, kare örnekleme (hata/ms)
+python3 qa_text.py                             # ekran yazıları: anlatımda geçmeyen sayılar
+python3 render.py --all --workers 4            # parçalı render (kaldığı yerden sürer; --segs 7-16 ile seçmeli)
+python3 render.py --concat && python3 render.py --mux   # birleştir, miksi ekle → out/sarlken_uzun.mp4
+python3 render.py --qa; python3 render.py --overview    # siyah/donuk bölge, kare hatası; genel bakış kareleri
+python3 miks_kur.py                            # müzik + SFX + konuşma miksi (out/sfx_cues.json'dan efektler)
+python3 make_srt.py; python3 kapak.py; python3 kisa_fragman.py; python3 yayin/panel_kur.py
+```
+Tek cümleyi yeniden seslendirmek: `script.py` → `ses_yama.py --prepare` → ElevenLabs (tek cümle, `generations_count=1`) → Scribe hizalama → `ses_yama.py --apply` → `miks_kur.py` → ilgili parçaları yeniden render (`.done` işaretini sil).
+Sesi tümden değiştirmek (ör. B adayı): `script.py`'den tüm bölümleri yeniden seslendir (≈16 bin kredi + Scribe ≈7 bin), yeni zaman çizelgesini kur, `miks_kur.py`, tam render.
 
 ## Dosya haritası
-`engine.py` (16:9 çizim bağlamı) · `inkpaint.py` (boyalı şekil ilkelleri) · `paper.py` (parşömen/çerçeve/mühür/süs) · `mapper.py` + `regions.py` (harita) · `figures.py` (karakterler) · `heraldry.py` (armalar) · `shots.py` (çekim şablonları) · `scenes.py` (bölüm/çekim listesi) · `script.py` (anlatım) · `tts.py`/`tts_best.py`/`dogrula.py` (ses) · `ses_ice_aktar.py` · `cues.py` · `ui.py` (altyazı, bölüm kartı) · `audio.py` · `compose.py` · `render.py` · `qa.py`.
+- **Motor:** `sk.py` (Skia, tipografi, post), `shots.py` (çekim şablonları), `stage.py` (diorama, 1.5× süper-örnekli katmanlar, figür sprite önbelleği), `mapsk.py` (harita, döşeme önbelleği), `compose.py` (program, geçişler, HUD, bölüm kartları, kapanış), `render.py`.
+- **Kütüphaneler:** `medal.py`/`medal_extra.py` (49 madalya), `icons.py`/`icons_extra.py` (64 simge), `figs_*.py` (52 figür tipi), sahne laboratuvarları `scenes_lib.py` (salon), `scenes_sea/field/siege.py` (deniz, ova, kuşatma), `scenes_rooms.py` (11 iç mekân); kataloglar `SAHNE_KATALOGU_*.md`, `notlar_figur_lab.md`, `notlar_madalya_lab.md`.
+- **Bölümler:** `scenes_c0…c13.py` (+ `kinds_c*`, `stage_c*`, `shots_c*`, `kit_a.py`, `bw_lib.py`, `d_common.py`); her bölümün `notlar_cK.md` dosyasında çekim listesi, ekrandaki olgular ve kaynak sınıfı, bilinen kusurlar var.
+- **Ses:** `miks_kur.py` → `miks.py`, `muzik.py`, `sfx.py`, `ses_dsp.py`; `ses_yama.py`; `ses_kontrol_listesi.md` ("şu 10 yeri dinle").
+- **Yayın:** `make_srt.py`, `kapak.py`, `kisa_fragman.py`, `yayin/panel_kur.py`.
+- **Denetim:** `qa_program.py`, `qa_text.py`, `preview_chapter.py`.
 
-## Durum (en son güncelleme aşağıda)
-- [x] Klasör, yazı tipleri, harita verisi
-- [ ] Araştırma (5 ajan: A1 miras/seçim, A2 Reform, A3 Osmanlı/Akdeniz, A4 Yeni Dünya/finans, A5 Fransa/kişisel/abdikasyon)
-- [ ] Senaryo + okunuş + ses paketi
-- [ ] Motor + harita + karakterler + çekim şablonları
-- [ ] Sahneler
-- [ ] Ses (animatik) + müzik + miks
-- [ ] Render + QA + düzeltmeler
-- [ ] Yayın paketi + fragman (Kısa) + özet
+## Bilinen kusurlar (dürüst liste)
+- **Kulak denetimi yapılmadı.** Özel adların telaffuzu (Şarlken, Yörg, Halkulvadi, Tenoçtitlan, Komünero) yalnız otomatik çözümlemeyle denetlendi; müzik ve SFX yalnız sayısal ölçüldü.
+- Kalan HAFIZA maddeleri `kaynaklar.md` §7'de; yayından önce sayfa düzeyinde teyit önerilir.
+- Haritalardaki sınırlar yaklaşık (ekranda yazar). Kuşatma kaleleri, Tenochtitlan ve bazı armalar şematik; figür-lab siluetleri sade (Wartburg yazarı sakalsız, kalabalıklar benzer).
+- c11'de yatak odası c12 ile aynı oda; Mühlberg planı ve gezi ağı şematik (ekranda notlu). Gümüş akışı eğrisi şematik (c10).
+- Sayaçlar animasyon sırasında ara değerlerden geçer (veri iddiası değil).
+- Ses lisansı: ElevenLabs'te ticari kullanım ücretli plan ve Voice Library lisansına bağlı; yayın öncesi kontrol edilmeli. Studio'da "sentetik içerik: Evet" önerilir.
+- Windsor.ai'ye YouTube bağlı değil; ölçüm Studio ekran görüntüleriyle ya da bağlantı kurulunca otomatik (`olcum/VERI_MERKEZI.md`).
+
+## Çalışma günlüğü (özet)
+Araştırma + kaynak kapısı → senaryo → motor → ElevenLabs sesi + yamalar → madalya/figür/sahne laboratuvarları (paralel ajanlar) → bölüm yazarları A–D → müzik/SFX/miks → render, birleştirme, denetim → yayın paketi. Oturum 04:22 ile 08:14 UTC arasında kota sınırı nedeniyle kesildi; A (c1,c2,c3,c10) ve D (c0,c9,c12,c13) bölüm yazarları son cilayı yarıda bıraktı, tüm bölümler çalışır durumda ve denetimden geçti.
