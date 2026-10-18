@@ -2,6 +2,8 @@
 
     prog = Program()                    # tüm film (çekim listesi çözülmüş zamanlarla)
     prog = Program(part=2)              # Parça 2 (c7–c11): c7 t=0'da başlar (bölüm kartı yok), ilk çekimde 4 sn başlık bindirmesi, bitiş ekranı "SIRADAKİ PARÇA"
+                                        #   parçanın kendi zaman çizelgesi (out_pN/timeline.json; parca.py) varsa o kullanılır; yoksa genel çizelge (t_off ile kaydırılır)
+                                        #   part=None → MEDICI_PART ortam değişkeni ya da `out`→out_pN bağlantısı; part=0 → tam film
     prog = Program(shots=[...], end=T)  # çekim listesi (reel / qa_flow): çapasız, `a` = mutlak saniye; T = son çekimin bitişi
     img = prog.frame(n)                 # n. kare (uint8 RGB, post uygulanmış); parçada n=0 parçanın ilk karesi (global süre = n/FPS + prog.t_off)
 
@@ -64,6 +66,37 @@ PART_TITLE_IN, PART_TITLE_OUT = 1.2, 4.8                        # parça başlı
 CARD_TR = ("yikama", 0.9, dict(place="after"))                 # bölüm kartı / ana başlık girişi: malzeme geçişi, sessiz aralıkta
 
 
+def default_part():
+    """part=None iken parça: MEDICI_PART ortam değişkeni (parca.py) ya da `out` bağlantısının out_pN'e çevrilmiş olması; yoksa None (tam film)."""
+    v = os.environ.get("MEDICI_PART", "").strip()
+    if v in ("1", "2", "3"):
+        return int(v)
+    try:
+        import re
+        m = re.search(r"out_p([123])$", os.path.realpath(os.path.join(HERE, "out")))
+        if m:
+            return int(m.group(1))
+    except OSError:
+        pass
+    return None
+
+
+_PART_TL = [False]
+
+
+def _use_part_timeline(part):
+    """Parçanın kendi zaman çizelgesi (parca.py düzeni: out_pN/timeline.json, parçanın ilk bölümü t=0) varsa onu yükle; `out` zaten oraya bağlıysa dokunma.
+    SH.TL önbelleği değiştirilir ki cx.at / SH.timeline() çağıran herkes aynı çizelgeyi görsün. part yoksa varsayılan çizelgeye dön."""
+    tp = os.path.join(HERE, f"out_p{part}", "timeline.json") if part else None
+    if part and os.path.exists(tp):
+        if os.path.realpath(tp) != os.path.realpath(os.path.join(HERE, "out", "timeline.json")):
+            SH.TL = SH.Timeline(tp)
+            _PART_TL[0] = True
+    elif _PART_TL[0]:
+        SH.TL = None
+        _PART_TL[0] = False
+
+
 class _StubTL:
     """timeline.json yokken (reel) çapasız çalışma."""
     total = 0.0
@@ -86,15 +119,20 @@ class _StubTL:
 class Program:
     def __init__(self, chapters=None, fast=False, part=None, shots=None, end=None):
         self.fast = fast
-        self.part = part
         self.hud = True
         self.t_off = 0.0
         self.shots = []
         self._years = []
         self._chap_mod = {}
         self._chap_marks = []
+        self._pf_in = False                                    # parçanın ilk bölümü bu programda mı (başlık bindirmesi + t_off)
+        if shots is None:
+            part = default_part() if part is None else (part or None)      # None → ortam/out bağlantısı; 0/False → tam film
+        else:
+            part = part or None
         if part is not None and part not in PART_CHAPTERS:
             raise ValueError(f"part 1, 2 ya da 3 olmalı: {part!r}")
+        self.part = part
         if shots is not None:
             try:
                 self.tl = SH.timeline()
@@ -103,6 +141,7 @@ class Program:
             self.hud = False                                   # çekim listesi modu: bölüm/HUD mantığı yok (reel, qa_flow)
             self._from_shots(list(shots), end)
             return
+        _use_part_timeline(part)
         self.tl = SH.timeline()
         vc = self.tl.chapters
         present = [c for c in CHAPTER_IDS if c in vc]
@@ -112,14 +151,15 @@ class Program:
             chs = [c for c in PART_CHAPTERS[part] if c in vc]
         else:
             chs = list(present)
-        first = chs[0] if chs else None
+        pf = PART_FIRST.get(part) if part else None
+        self._pf_in = bool(pf and pf in chs)
         for cid in present:
             if cid not in chs:
                 continue
             i = CHAPTER_IDS.index(cid)
             c = vc[cid]
             prev_id = next((p for p in reversed(CHAPTER_IDS[:i]) if p in vc), None)
-            is_first_of_part = bool(part) and cid == first
+            is_first_of_part = self._pf_in and cid == pf
             if prev_id is not None and not is_first_of_part:
                 t0, t1 = vc[prev_id]["t1"], c["t0"]
                 if cid == "c1":
@@ -154,7 +194,7 @@ class Program:
             last = vc[last_id]
             otr = getattr(self._chap_mod.get(last_id), "OUTRO_TR", None) or CARD_TR
             self._add(SH.shot("outro", a=last["t1"], tr=otr, link="material", mode="night", perde=part or 3, part=part, label="bitiş ekranı"), last["t1"], last["t1"] + OUTRO)
-        self.t_off = vc[first]["t0"] if (part and first) else 0.0
+        self.t_off = vc[pf]["t0"] if self._pf_in else 0.0
         self._finalize()
         # yıl çizelgesi: bölüm başlangıç yılı + sahne dosyasının YIL_AT listesi
         for cid in chs:
@@ -192,10 +232,25 @@ class Program:
         assert s.t1 > s.t0 - 1e-6, f"çekim süresi ≤ 0: {s.kind} {s.a} {t0}→{t1}"
         self.shots.append(s)
 
+    def _check_cam(self, s):
+        """cam= biçimini ve çapalarını kurulumda doğrula (hata kare çizerken sessizce yutulmasın)."""
+        if s.cam is None:
+            return
+        import cilt_cam
+        try:
+            for a in cilt_cam.anchors_of(s.cam):
+                if not isinstance(a, (int, float)):
+                    self.tl.t0(a) if isinstance(a, str) else self.tl.resolve(a)
+        except KeyError as e:
+            raise KeyError(f"cam çapası çözülemedi (çekim {s.kind} '{s.label}'): {e}")
+        except ValueError as e:
+            raise ValueError(f"cam= geçersiz (çekim {s.kind} '{s.label}'): {e}")
+
     def _finalize(self):
         self.shots.sort(key=lambda s: s.t0)
         for i, s in enumerate(self.shots):
             s.i = i
+            self._check_cam(s)
         self.total = (self.shots[-1].t1 - self.t_off) if self.shots else 0.0
         self._link_flags()
 
@@ -367,7 +422,7 @@ class Program:
     # ---- HUD / kaplama
     def _overlay(self, f, g, s):
         tp = g - self.t_off
-        if self.part in (2, 3) and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
+        if self.part in (2, 3) and self._pf_in and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
             FX.part_title(f, tp, self.part, PART_TITLE_IN, PART_TITLE_OUT)       # parça başlık bindirmesi (HUD'dan bağımsız)
         if s.kind in HUD_SKIP or not self.hud:
             return

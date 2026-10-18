@@ -137,7 +137,7 @@ def ckind(name):
             spec = _pull_cam(name, cx, kw)
             nested = getattr(cx, "_cam_for", _MISSING) is spec and spec is not None
             if not nested:                                     # iç içe çağrıda (bir tür ötekini çağırırsa) durum yeniden hesaplanmaz
-                CAM.attach(cx, name, kw)
+                CAM.attach(cx, name, kw, fn)
                 cx._cam_for = spec
             if name == "map" and getattr(cx, "cam_state", None) is not None:
                 with CAM.map_patch(cx):

@@ -210,7 +210,8 @@ def static_analysis(prog):
     real = [r for r in rows if not r["card"]]
 
     # 1) kamera varlığı
-    missing = [r for r in real if r["cam"] is None]
+    own = set(cilt_cam.OWN_CAMERA)                      # kendi kamera yolu olan türler (pano/build): yerleşik kamera sayılır
+    missing = [r for r in real if r["cam"] is None and r["kind"] not in own]
     weak, bad = [], []
     for s in shots:
         if s.kind in CARD_KINDS or s.cam is None:
@@ -305,7 +306,9 @@ def static_analysis(prog):
         for t in _walk_anchors(s.params):
             cnt[t] += 1
     tot = sum(cnt.values())
-    if not chap_mode:
+    if tot == 0:
+        gates.append(dict(name="Çapa denetimi", status=SKIP, value="çapa bulunamadı (çekim yok / yer tutucu)", thr="mutlak ≤%10; çapalı ≥%90", detail=[]))
+    elif not chap_mode:
         gates.append(dict(name="Çapa denetimi", status=SKIP, value=f"mutlak {cnt['abs']} / cümle {cnt['sent']} / sözcük {cnt['word']}", thr="mutlak ≤%10; çapalı ≥%90",
                           detail=["reel çapasız (mutlak saniye) çalışır; kapı sahne dosyalarında (Program(chapters=…)) uygulanır"]))
     else:

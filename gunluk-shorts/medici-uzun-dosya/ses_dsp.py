@@ -866,3 +866,56 @@ def noise_riser(dur, f0=250.0, f1=7000.0, rng=None, sr=SR, nb=14, curve=1.6, pea
         out += bp(w, c / 1.25, min(c * 1.25, sr * 0.45), 2, sr) * g
     out *= (t / dur) ** 1.4
     return out / (np.max(np.abs(out)) + 1e-9)
+
+
+# ───────────────────────── MEDICI: zaman çizelgesi çapaları (muzik / sfx / miks ortak) ─────────────────────────
+import re as _re
+
+
+def norm_key(x):
+    """Sözcük eşleştirme anahtarı: Türkçe İ/I düzeltmesi, küçük harf, yalnız harf/rakam (shots.Timeline._n ile aynı mantık)."""
+    x = str(x).replace("İ", "i").replace("I", "ı").lower()
+    return _re.sub(r"[^\w]", "", x)
+
+
+def anchor_time(a, sent):
+    """Çapa → parça ses ekseninde saniye (çözülemezse None).
+    a: sayı (mutlak sn) | "c7s17" | (sid, ofset) | (sid, "end", ofset) | (sid, "sözcük", ofset) | (sid, "sözcük", nth, ofset).
+    sent: {cümle_kimliği: {t0, t1, words:[{w,t0,t1}]}}. JSON'dan gelen listeler de kabul edilir.
+    "end"/"son": cümlenin bitişi; sözcük anahtarı: normalleştirilmiş alt-dize eşleşmesi (ilk eşleşen; nth ile n.)."""
+    if a is None:
+        return None
+    if isinstance(a, bool):
+        return None
+    if isinstance(a, (int, float)):
+        return float(a)
+    if isinstance(a, str):
+        a = (a, 0.0)
+    a = list(a)
+    s = sent.get(a[0])
+    if s is None:
+        return None
+    if len(a) == 1:
+        return float(s["t0"])
+    if len(a) == 2:
+        return float(s["t0"]) + float(a[1])
+    key = a[1]
+    if isinstance(key, str) and key in ("end", "son", "t1"):
+        return float(s["t1"]) + float(a[2])
+    nth = 0
+    off = float(a[-1])
+    if len(a) == 4:
+        nth = int(a[2])
+    if isinstance(key, int):
+        ws = s.get("words") or []
+        return float(ws[key]["t0"]) + off if key < len(ws) else None
+    k = norm_key(key)
+    hits = [w for w in (s.get("words") or []) if k and k in norm_key(w["w"])]
+    if not hits:
+        return None
+    return float(hits[min(nth, len(hits) - 1)]["t0"]) + off
+
+
+def sent_index(timeline):
+    """timeline.json → {id: cümle} sözlüğü ({} olabilir)."""
+    return {s["id"]: s for s in (timeline or {}).get("sentences", [])}

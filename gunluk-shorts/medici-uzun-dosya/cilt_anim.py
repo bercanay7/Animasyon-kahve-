@@ -1135,6 +1135,16 @@ def prop_sprite(name, h, c1="#6A4A2C", c2=GOLD):
         F.col = "#7A5A2A"
         F.fill(K.bar(-0.035 * h, -0.040 * h, 0.035 * h, -0.040 * h, 0.014 * h, 0.014 * h), rim=1.0)
         F.fill(K.bar(0, -0.035 * h, 0, 0.04 * h, 0.018 * h, 0.018 * h), rim=1.0)
+    elif name == "hammer":
+        F.col = "#6A4A2C"
+        F.fill(K.bar(0, 0.05 * h, 0, -0.12 * h, 0.012 * h, 0.010 * h), rim=0.9)
+        F.col = "#6E7480"
+        F.fill(poly([(-0.032 * h, -0.158 * h), (0.050 * h, -0.158 * h), (0.050 * h, -0.108 * h), (-0.032 * h, -0.108 * h)]), rim=1.0)
+    elif name == "trowel":
+        F.col = "#6A4A2C"
+        F.fill(K.bar(0, 0.03 * h, 0, -0.04 * h, 0.012 * h, 0.010 * h), rim=0.9)
+        F.col = "#C8CCD2"
+        F.fill(poly([(0, -0.045 * h), (0.050 * h, -0.062 * h), (0.098 * h, -0.075 * h), (0.050 * h, -0.088 * h), (0.0, -0.075 * h)]), rim=1.0)
     elif name == "coin":
         F.col = "#E0B84E"
         F.fill(ell(0, 0, 0.022 * h, 0.012 * h), rim=1.0)
@@ -1507,7 +1517,74 @@ def act_threat(kit, T, phase=0.0, t0=0.4, dur=1.2, **_):
     return p
 
 
-ACTIONS = dict(idle=act_idle, talk=act_talk, bow=act_bow, kneel=act_kneel, point=act_point, cheer=act_cheer, pray=act_pray, write=act_write, count=act_count, handshake=act_handshake, threat=act_threat)
+def _kf(u, keys):
+    """Anahtar kare enterpolasyonu: keys=[(u, değer…)]; segment içinde ease. Dönüş: değer demeti."""
+    for i in range(len(keys) - 1):
+        a, b = keys[i], keys[i + 1]
+        if u <= b[0] or i == len(keys) - 2:
+            k = ease(clamp((u - a[0]) / max(1e-6, b[0] - a[0])))
+            return tuple(lerp(a[j], b[j], k) for j in range(1, len(a)))
+    return tuple(keys[-1][1:])
+
+
+def act_work(kit, T, phase=0.0, mode="lay", period=None, high=0.0, **_):
+    """Şantiye işi (kalıcı döngü). mode: lay = harç/tuğla alıp duvara yerleştirir (malalı) | strike = çekiçle keski vuruşu | haul = halat çeker (geriye yaslanır).
+    high: duvar yüksekliği (−1 alçak … +1 baş üstü)."""
+    hb = kit.B["hb"]
+    ah = kit.B["ah"]
+    if mode == "strike":
+        per = period or 0.62
+        u = (T / per + phase) % 1.0
+        lift, tor, hx, hy, ang = _kf(u, [(0.0, 0.0, 6.0, 0.26, 0.06, 80.0), (0.58, 1.0, 2.0, 0.17, -0.20, 8.0), (0.70, 0.0, 8.0, 0.27, 0.07, 82.0), (1.0, 0.0, 6.0, 0.26, 0.06, 80.0)])
+
+        def arms(sho):
+            n = ("ik", (sho[0] + hx * hb, sho[1] + hy * hb))
+            fr = ("ik", (sho[0] + 0.25 * hb, sho[1] + 0.12 * hb))
+            return fr, n, "fist", "fist"
+        p = stand(kit, T, phase, arms=arms, tor_add=tor, head_add=-1.5 * (1 - lift))
+        w = p.arms[1][2]
+        p.props.append(_prop_fn("hammer", kit.B["hb"], w, ang, layer="near"))
+        return p
+    if mode == "haul":
+        per = period or 1.5
+        u = (T / per + phase) % 1.0
+        pull, = _kf(u, [(0.0, 0.0), (0.12, 0.0), (0.58, 1.0), (0.70, 1.0), (1.0, 0.0)])
+        ank_n = (0.115 * hb, -ah)
+        ank_f = (-0.090 * hb, -ah)
+
+        def arms(sho):
+            fx = lerp(sho[0] + 0.26 * hb, sho[0] + 0.11 * hb, pull)
+            fy = lerp(sho[1] + 0.02 * hb, sho[1] + 0.27 * hb, pull)
+            return ("ik", (fx - 0.02 * hb, fy - 0.03 * hb)), ("ik", (fx, fy)), "fist", "fist"
+        p = stand(kit, T, phase, arms=arms, tor_add=-9.0 * pull + 3.0 * (1 - pull), head_add=3.0 * pull, hip_add=(-0.035 * hb * pull, 0.012 * hb * pull), feet=(ank_f, ank_n, 0.0, 0.0))
+        w = p.arms[1][2]
+        rp = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(1.5, 0.014 * hb), Color=C("#7A6A44"), StrokeCap=skia.Paint.kRound_Cap)
+
+        def rope(c, w=w, hb=hb, pull=pull, rp=rp):
+            pa = skia.Path()
+            pa.moveTo(w[0], w[1])
+            pa.quadTo(w[0] + 0.30 * hb, w[1] - 0.30 * hb + 0.08 * hb * (1.0 - pull), w[0] + 0.66 * hb, w[1] - 0.86 * hb)
+            c.drawPath(pa, rp)
+        p.props.append(("near", rope))
+        return p
+    per = period or 1.8
+    u = (T / per + phase) % 1.0
+    hy_w = 0.07 - 0.20 * high
+    px, py = 0.12, 0.45
+    wx = 0.30
+    hx, hy, tor, fist = _kf(u, [(0.00, wx, hy_w, 4.0, 0.0), (0.26, px, py, 15.0, 0.0), (0.34, px, py, 15.0, 1.0), (0.44, px, py - 0.06, 11.0, 1.0), (0.74, wx, hy_w, 5.0, 1.0), (0.84, wx + 0.014, hy_w + 0.012, 5.0, 1.0), (0.92, wx, hy_w, 5.0, 0.0), (1.0, wx, hy_w, 4.0, 0.0)])
+
+    def arms(sho):
+        n = ("ik", (sho[0] + hx * hb, sho[1] + hy * hb))
+        fr = ("ik", (sho[0] + 0.07 * hb, sho[1] + 0.24 * hb))
+        return fr, n, "open", ("fist" if fist > 0.5 else "open")
+    p = stand(kit, T, phase, arms=arms, tor_add=tor, head_add=-0.3 * tor)
+    w = p.arms[1][2]
+    p.props.append(_prop_fn("trowel", kit.B["hb"], w, 70.0 - 40.0 * fist, layer="near"))
+    return p
+
+
+ACTIONS = dict(idle=act_idle, talk=act_talk, bow=act_bow, kneel=act_kneel, point=act_point, cheer=act_cheer, pray=act_pray, write=act_write, count=act_count, handshake=act_handshake, threat=act_threat, work=act_work)
 STIL_KEYS = ("robe", "robe2", "hat", "hat_col", "hair", "skin", "hose_l", "hose_r", "pat", "beard", "cloak", "build", "sleeves", "nose", "body", "hem", "head", "barefoot")
 
 

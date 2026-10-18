@@ -909,6 +909,9 @@ def _pool_alpha(shape, cx_, cy_, R, scale=4):
     return np.clip(t ** 0.85, 0.0, 1.0)
 
 
+CANDLE_P = 0.62                                                 # sönme: R = Rfull·(1−e)^P; 0,5 = ışıklı alan doğrusal azalır ama kenardaki alevde son adım 32 luma/kare; 0,62 → en büyük adım ≈23 (24 fps)
+
+
 def blend_candle(a, b, k, g=0.0, d=0.9, at=None, at_b=None, **_):
     """Mum: A'nın mumu söner (ışık havuzunun ALANI doğrusala yakın daralır → parlaklık düzgün düşer, duman), kısa karanlık, yeni mum yanar ve B ışık havuzu genişleyerek açılır.
     Ölüm / gece / zaman atlaması. Mum çekimin üstüne eklenen tek nesnedir (at: alev konumu; at_b: yeni alev)."""
@@ -925,7 +928,7 @@ def blend_candle(a, b, k, g=0.0, d=0.9, at=None, at_b=None, **_):
     mixl = lambda x: 0.5 * smooth(x) + 0.5 * clamp(x)         # yarı-doğrusal geçiş: parlaklık sıçramasız
     if first:
         e1 = mixl(kk / 0.50)
-        R = (Rfull * math.sqrt(max(0.0, 1.0 - e1)) + 60.0 * (1 - smooth((kk - 0.40) / 0.10))) * flick
+        R = (Rfull * max(0.0, 1.0 - e1) ** CANDLE_P + 60.0 * (1 - smooth((kk - 0.40) / 0.10))) * flick
         m = smooth(kk / 0.25)
         px, py, flame_s, fal = ax, ay, 1.0 - smooth((kk - 0.42) / 0.07), smooth(kk / 0.14)
         smoke = clamp((kk - 0.45) / 0.30)

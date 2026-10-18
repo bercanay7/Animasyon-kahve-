@@ -2,11 +2,14 @@
 """KREDİSİZ, ASR-destekli sözcük hizalayıcı (ElevenLabs Scribe yerine; ses_hizala_yerel.py'nin yerini alır).
 
   MEDICI_PART=1 python3 ses_hizala_asr.py                 # koşular → ASR (önbellekli) → hizalama → out_p1/scribe_words.json
-  MEDICI_PART=1 python3 ses_hizala.py                     # (mevcut, değişmedi) → out_p1/timeline.json
-  MEDICI_PART=1 python3 ses_hizala_asr.py --dogrula       # bağımsız doğrulama (cümle pencerelerini yeniden yazdırır) + rapor
+  MEDICI_PART=1 python3 ses_hizala.py                     # (mevcut, değişmedi) → out_p1/timeline.json     [ya da yukarıdakine --timeline ekle]
+  MEDICI_PART=1 python3 ses_hizala_asr.py --dogrula       # bağımsız doğrulama (cümle pencerelerini yeniden yazdırır; eski/yeni karşılaştırması)
   MEDICI_PART=1 python3 ses_hizala_asr.py --karsilastir   # eski (timeline_yerel_eski.json) ↔ yeni timeline.json farkları
+  MEDICI_PART=1 python3 ses_hizala_asr.py --loo           # koşu içi zamanlama doğruluğu (duraktan bir bırak; ağırlık ↔ akustik HMM)
   Seçenekler: --asr-yok (yalnız önbellek) · --yalniz-asr (sadece önbelleği doldur) · --isci N (ASR süreç sayısı; her biri 1 iş
-  parçacığı, toplam ≤2) · --bolum c2 (tek bölüm) · --ham-konusma (rakamlı jetonları birleştirmeden, saf söylenen sözcükler)
+  parçacığı, toplam ≤2) · --bolum c2 (tek bölüm; ana dosyalara dokunmaz, *_c2.* yazar) · --agirlik (akustik HMM kapalı) ·
+  --ham-konusma (rakamlı jetonları birleştirmeden, saf söylenen sözcükler) · --timeline (bitince ses_hizala.py'yi çalıştır)
+  Parça 2/3: MEDICI_PART=2 … aynen çalışır (out_p2/voice.wav + voice_chapters.json içindeki bölümler gezilir).
 
 Yöntem (ayrıntı: notlar_hizalama.md):
  1. Her bölümün sesi 250 Hz üstü süzülmüş 10 ms RMS ile "konuşma koşuları"na bölünür (durak ≥ 0,12 sn; gürültü kırıntıları atılır,
@@ -17,9 +20,12 @@ Yöntem (ayrıntı: notlar_hizalama.md):
     monoton Needleman–Wunsch ile eşlenir.
  4. Eşleşmeler her koşunun senaryo-jeton aralığını belirler; koşular arası eşleşmeyen jetonlar (ve kanıtsız koşular) küçük bir DP ile
     (noktalama ↔ durak uyumu + konuşma hızı/süre uyumu) komşu koşulara dağıtılır.
- 5. Koşu içinde sözcük zamanları, koşu verisinden uydurulmuş hece/harf ağırlıklarıyla dağıtılır; ilk sözcük koşu başına, son sözcük koşu
-    sonuna yaslanır, koşular arası boşluk gerçek durak olarak kalır.
+ 5. Koşu içi sözcük zamanları: ASR ile doğrulanmış koşu↔metin çiftlerinden kendi kendine eğitilen monofon (harf≈ses) GMM-HMM ile zorlamalı
+    Viterbi hizalaması; ilk/son sözcük koşu kenarlarına (VAD) yaslanır, koşular arası boşluk gerçek durak olarak kalır. HMM'in güvenilmediği
+    koşularda hece/sözcük ağırlıklı dağıtıma geri düşülür.
  6. Çıktı out_pN/scribe_words.json (ses_hizala_yerel.py ile aynı biçim: [{text,start,end,type:"word"}], bölümler art arda, mutlak sn).
+    Her GÖSTERİM jetonu bir sözcük olur (rakamlı jetonlar — "1737'de" — tek sözcük): ses_hizala.py eşleşmesi %100 olur ve cümle
+    başı/sonundaki sayılar komşu durakları yutmaz (ses_hizala.py'nin enterpolasyon zayıflığı).
 """
 import os
 
@@ -124,7 +130,8 @@ def kosulari_bul(seg, sr):
     db = enerji_db(seg, sr)
     n = len(db)
     p95 = float(np.percentile(db, 95))
-    thr = p95 - DURAK_ESIK_DB
+    p10 = float(np.percentile(db, 10))
+    thr = max(p95 - DURAK_ESIK_DB, p10 + 10.0)                       # yüksek gürültü tabanında (tıslama) eşik tabana göre yükselir
     sil = db < thr
     if sil.all():
         return [], dict(p95=p95, thr=thr, n_ham=0, n_gurultu=0, n_parca=0, n_bolunen=0)
@@ -437,13 +444,18 @@ def nw_hizala(ref, hyp, band=None):
             if v > best:
                 best, op = v, 2
             if i >= 2:
-                v = D[i - 2][j - 1] + birlesik_puani(ref[i - 2] + ri, hyp[j - 1])
-                if v > best:
-                    best, op = v, 3
+                r1 = ref[i - 2]
+                h1 = hyp[j - 1]
+                if esle_puani(r1, h1) < 2.2 and esle_puani(ri, h1) < 2.2:         # tek parça zaten eşleşiyorsa birleştirme yok (ek sözcük yutma)
+                    v = D[i - 2][j - 1] + birlesik_puani(r1 + ri, h1)
+                    if v > best:
+                        best, op = v, 3
             if j >= 2:
-                v = Dp[j - 2] + birlesik_puani(hyp[j - 2] + hyp[j - 1], ri)
-                if v > best:
-                    best, op = v, 4
+                h0, h1 = hyp[j - 2], hyp[j - 1]
+                if esle_puani(ri, h0) < 2.2 and esle_puani(ri, h1) < 2.2:
+                    v = Dp[j - 2] + birlesik_puani(h0 + h1, ri)
+                    if v > best:
+                        best, op = v, 4
             Di[j] = best
             Pi[j] = op
     ops = []
@@ -639,7 +651,7 @@ def jetonlari_ata(toks, runs, ev, model, w_bos=1.0):
     B[R] = N
     for r in range(R, 0, -1):
         B[r - 1] = bp[r][B[r]]
-    return B, dict(celiski=celiski, maliyet=dp[R].get(N))
+    return B, dict(celiski=celiski, maliyet=dp[R].get(N), lowB=list(lowB), highB=list(highB))
 
 
 def koşu_ici_zamanlar(toks, a, b, t0, t1, model):
@@ -844,8 +856,8 @@ def tablo_yaz(path, sonuclar):
 
 
 def hesapla_hepsi(args, S):
-    """Koşular + ASR (önbellekli) + hizalama, tüm (ya da seçilen) bölümler. → ctx"""
-    secim = {args.bolum} if args.bolum else None
+    """Koşular + ASR (önbellekli) + hizalama (+ akustik HMM iyileştirmesi), tüm (ya da seçilen) bölümler. → ctx"""
+    secim = set(args.bolum.split(",")) if args.bolum else None
     x, sr, vc, wav_path, bol = bolumleri_hazirla(secim)
     isler = asr_isleri(x, sr, bol)
     cache_path = os.path.join(OUT, ASR_ONBELLEK)
@@ -855,12 +867,12 @@ def hesapla_hepsi(args, S):
         log(f"[ASR] önbellekten okunuyor; ASR'siz koşu: {eksik}/{len(isler)}")
     else:
         cache = asr_calistir(_onsel(isler), cache_path, wav_path, isci=args.isci)
-    ctx = dict(x=x, sr=sr, vc=vc, wav_path=wav_path, bol=bol, cache=cache, sonuclar=[], kelimeler=[], rapor=dict(bolumler={}, uyarilar=[]))
+    ctx = dict(x=x, sr=sr, vc=vc, wav_path=wav_path, bol=bol, cache=cache, sonuclar=[], kelimeler=[], hmm=None,
+               rapor=dict(bolumler={}, uyarilar=[]))
     if args.yalniz_asr:
         return ctx
     sents_all = S.sentences(PA.PART)
     rapor = ctx["rapor"]
-    cum_rapor = {}
     for B in bol:
         c = B["c"]
         cid = c["id"]
@@ -871,12 +883,18 @@ def hesapla_hepsi(args, S):
             continue
         sn = hizala_bolum(S, B, ch, cache)
         sn["t0"] = c["t0"]
+        sn["chap"] = B
+        ctx["sonuclar"].append(sn)
+    if not getattr(args, "agirlik", False) and ctx["sonuclar"]:
+        ctx["hmm"] = akustik_iyilestir(S, ctx, n_iter=getattr(args, "hmm_iter", 8))
+    cum_rapor = {}
+    for sn in ctx["sonuclar"]:
+        B, c, cid = sn["chap"], sn["chap"]["c"], sn["id"]
         sents = [s for s in sents_all if s["ch"] == cid]
         words, uyar = kelime_listesi(S, sn, sents, ham=args.ham_konusma)
         for u in uyar:
             rapor["uyarilar"].append(f"{cid} {u}")
             log("UYARI:", cid, u)
-        ctx["sonuclar"].append(sn)
         ctx["kelimeler"].append((c, words))
         # cümle sınırları durağa mı yaslı, koşu içinde mi?
         tok_run = {}
@@ -900,15 +918,18 @@ def hesapla_hepsi(args, S):
         bos = [(a, b, " ".join(t["w"] for t in sn["toks"][a:b])) for a, b in sn["bos"] if b - a >= 2]
         n_ev = sum(1 for e in sn["ev"] if e is not None)
         n_bos_run = sum(1 for r in sn["runs"] if r["tok1"] == r["tok0"])
+        n_hmm = sum(1 for r in sn["runs"] if r.get("hmm_durum") == "tamam")
+        suphe = [(round(c["t0"] + r["a"], 2), round(r["hmm_z"], 1), r["asr_text"], " ".join(t["w"] for t in sn["toks"][r["tok0"]:r["tok1"]]))
+                 for r in sn["runs"] if r.get("hmm_z") is not None and r["hmm_z"] < -3.0]
         rapor["bolumler"][cid] = dict(
             jeton=sn["n_tok"], jeton_eslesen=sn["n_esl"], jeton_oran=round(sn["n_esl"] / sn["n_tok"], 4),
             asr_sozcuk=sn["n_hyp"], asr_eslesen=sn["hyp_esl"], asr_oran=round(sn["hyp_esl"] / max(1, sn["n_hyp"]), 4),
-            kosu=len(sn["runs"]), kanitli_kosu=n_ev, bos_kosu=n_bos_run, kanitsiz_kosu=len(sn["runs"]) - n_ev,
+            kosu=len(sn["runs"]), kanitli_kosu=n_ev, bos_kosu=n_bos_run, kanitsiz_kosu=len(sn["runs"]) - n_ev, hmm_kosu=n_hmm,
             model=dict(hece=round(sn["model"].a, 4), soz=round(sn["model"].b, 4), sabit=round(sn["model"].c, 4), sigma=round(sn["model"].sigma_abs, 3)),
-            celiski=sn["atama"]["celiski"], aykiri_hiz=aykiri, eslesmeyen_bolgeler=bos, kosu_bilgi=B["info"])
+            celiski=sn["atama"]["celiski"], aykiri_hiz=aykiri, akustik_suphe=suphe, eksik_sozcuk=sn.get("eksik", []), eslesmeyen_bolgeler=bos, kosu_bilgi=B["info"])
         log(f"{cid:3s} jeton {sn['n_tok']:4d} eşleşen {sn['n_esl']:4d} (%{100 * sn['n_esl'] / sn['n_tok']:.1f}) | ASR sözcük {sn['n_hyp']:4d} eşleşen "
-            f"{sn['hyp_esl']:4d} (%{100 * sn['hyp_esl'] / max(1, sn['n_hyp']):.1f}) | koşu {len(sn['runs']):3d} (kanıtlı {n_ev}, boş {n_bos_run}) | "
-            f"hece/sn modeli a={sn['model'].a:.3f} b={sn['model'].b:.3f} c={sn['model'].c:.3f} | aykırı hız {len(aykiri)} | eşleşmeyen bölge(≥2) {len(bos)}")
+            f"{sn['hyp_esl']:4d} (%{100 * sn['hyp_esl'] / max(1, sn['n_hyp']):.1f}) | koşu {len(sn['runs']):3d} (kanıtlı {n_ev}, boş {n_bos_run}, HMM {n_hmm}) | "
+            f"hece/sn modeli a={sn['model'].a:.3f} b={sn['model'].b:.3f} c={sn['model'].c:.3f} | aykırı hız {len(aykiri)} | akustik şüphe {len(suphe)} | eşleşmeyen bölge(≥2) {len(bos)}")
     rapor["cumleler"] = cum_rapor
     return ctx
 
@@ -927,7 +948,13 @@ def ana_hizala(args):
     if not tum:
         log("hiç sözcük üretilmedi")
         return
-    ek = f"_{args.bolum}" if args.bolum else ""                      # tek bölüm: ana dosyalara dokunma
+    # kendi kendine denetim: sıralı, çakışmasız, bölüm sınırları içinde
+    cak = sum(1 for a, b in zip(tum[:-1], tum[1:]) if b["start"] < a["end"] - 1e-6)
+    ters = sum(1 for w in tum if w["end"] <= w["start"])
+    log(f"[denetim] {len(tum)} sözcük; çakışan komşu: {cak}; süresi ≤0: {ters}")
+    if cak or ters:
+        rapor["uyarilar"].append(f"scribe_words: çakışan {cak}, süresi ≤0 {ters}")
+    ek = "_" + args.bolum.replace(",", "_") if args.bolum else ""    # bölüm seçimi: ana dosyalara dokunma
     sw_path = os.path.join(OUT, f"scribe_words{ek}.json")
     yedek = os.path.join(OUT, "scribe_words_yerel_eski.json")
     rap_path = os.path.join(OUT, f"hizala_asr_rapor{ek}.json")
@@ -955,6 +982,7 @@ def ana_hizala(args):
     toplam["cumle"] = len(cs)
     toplam["cumle_t0_durakta"] = sum(1 for v in cs.values() if v["t0_durak"])
     toplam["cumle_t1_durakta"] = sum(1 for v in cs.values() if v["t1_durak"])
+    toplam["seste_olmayan_sozcuk"] = sum(len(s.get("eksik", [])) for s in sonuclar)
     rapor.update(toplam=toplam, scribe_md5=_md5(sw_path), uretim=time.strftime("%Y-%m-%d %H:%M:%S"))
     json.dump(rapor, open(rap_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     log(f"TOPLAM jeton {toplam['jeton']} eşleşen {toplam['jeton_eslesen']} (%{100 * toplam['jeton_oran']:.1f}); ASR sözcük {toplam['asr_sozcuk']} "
@@ -1013,6 +1041,33 @@ def karsilastir(args):
         gaps = [b["t0"] - a["t1"] for a, b in zip(sl[:-1], sl[1:]) if a["ch"] == b["ch"]]
         neg = [g for g in gaps if g < -0.0005]
         P(f"  {ad}: cümle arası boşluk (aynı bölüm içinde) n={len(gaps)} · gap<0: {len(neg)} (en kötü {min(gaps):+.3f}) · gap=0: {sum(1 for g in gaps if abs(g) <= 0.0005)} · medyan {np.median(gaps):.3f}")
+    # konuşma etkinliği (miks.py zaman çizelgesi denetimine benzer): cümle içinde konuşma payı ↑, cümleler arası boşlukta ↓ beklenir
+    try:
+        x, sr = load_wav(os.path.join(OUT, "voice.wav"))
+        vc = json.load(open(os.path.join(OUT, "voice_chapters.json"), encoding="utf-8"))
+        n_fr = int(len(x) / sr / HOP) + 1
+        act = np.zeros(n_fr, dtype=bool)
+        for c in vc["chapters"]:
+            seg = x[int(round(c["t0"] * sr)): int(round(c["t1"] * sr))]
+            db = enerji_db(seg, sr)
+            thr = max(np.percentile(db, 95) - DURAK_ESIK_DB, np.percentile(db, 10) + 10.0)
+            i0 = int(round(c["t0"] / HOP))
+            act[i0: i0 + len(db)] = db >= thr
+        for ad, T in (("eski", E), ("yeni", Yn)):
+            sl = list(T.values())
+            ins, btw = [], []
+            for k, sn_ in enumerate(sl):
+                lo, hi = int(sn_["t0"] / HOP), min(int(sn_["t1"] / HOP), n_fr)
+                if hi > lo + 5:
+                    ins.append(float(act[lo:hi].mean()))
+                if k + 1 < len(sl) and sl[k + 1]["ch"] == sn_["ch"]:
+                    g0, g1 = int(sn_["t1"] / HOP) + 5, int(sl[k + 1]["t0"] / HOP) - 5
+                    if g1 > g0 + 10:
+                        btw.append(float(act[g0:g1].mean()))
+            P(f"  konuşma etkinliği ({ad}): cümle içi ort. {np.mean(ins):.3f} (en düşük {np.min(ins):.2f}; <0,8: {int(np.sum(np.array(ins) < 0.8))}) · "
+              f"cümleler arası boşlukta ort. {np.mean(btw) if btw else 0:.3f} (n={len(btw)}; >0,1: {int(np.sum(np.array(btw) > 0.1)) if btw else 0})")
+    except Exception as e:                                           # noqa: BLE001
+        P(f"  konuşma etkinliği hesaplanamadı: {type(e).__name__}: {e}")
     P("  c2s5–c2s7:")
     for i in ("c2s4", "c2s5", "c2s6", "c2s7", "c2s8"):
         if i in Yn and i in E:
@@ -1140,42 +1195,649 @@ def dogrula(args):
 
 
 def loo_testi(args):
-    """Koşu içi zamanlama doğruluğu — 'duraktan bir bırak': ardışık iki koşuyu, aradaki durağı silerek tek koşu gibi birleştir;
-    ağırlık modeli ile tahmin edilen iç sınırı gerçek (durak) konumla karşılaştır. Bu hata, koşu İÇİNDE kalan cümle/sözcük sınırlarının
-    beklenen hatasıdır (koşu sonu uzaması nedeniyle biraz kötümser)."""
+    """Koşu içi sözcük/cümle sınırı doğruluğu — 'duraktan bir bırak': ardışık iki koşu, aradaki durak silinip (ses dalgası düzeyinde,
+    her iki yandan --kirp sn kırpılarak) tek koşu gibi birleştirilir; yöntemin tahmin ettiği iç sınır gerçek (durak) konumla karşılaştırılır.
+    Hece-ağırlığı modeli ile akustik HMM (bölüm bazlı 2 katlı çapraz doğrulama: model, test bölümlerini hiç görmeden eğitilir) karşılaştırılır.
+    Not: durak çevresinde konuşma uzaması olduğundan tahminler hafif kötümserdir; gerçek koşu içi sınırlarda hata genelde daha küçüktür."""
     S = senaryo_yukle()
     args.asr_yok = True
+    args.agirlik = True
     ctx = hesapla_hepsi(args, S)
-    E, kayit = [], []
+    ham, nmu, nsd = hmm_hazirla(ctx)
+    ids = [sn["id"] for sn in ctx["sonuclar"]]
+    fold = {cid: k % 2 for k, cid in enumerate(ids)}
+    log("[LOO] HMM eğitimi (2 katlı, bölüm bazlı)")
+    modeller = {}
+    for f in (0, 1):
+        egit = [h for h in ham if h["guvenli"] and fold[h["sn"]["id"]] != f]
+        modeller[f] = akustik_egit([(h["Xn"], h["ph"], h["pl"], h["pr"]) for h in egit], n_iter=getattr(args, "hmm_iter", 8), verbose=False)
+    tam = akustik_egit([(h["Xn"], h["ph"], h["pl"], h["pr"]) for h in ham if h["guvenli"]], n_iter=getattr(args, "hmm_iter", 8), verbose=False)
+    sr = ctx["sr"]
+    K = args.kirp
+    E = {"agirlik": [], "hmm_capraz": [], "hmm_ici": []}
+    kayit = []
     for sn in ctx["sonuclar"]:
-        toks, runs, m = sn["toks"], sn["runs"], sn["model"]
+        toks, runs, m, seg = sn["toks"], sn["runs"], sn["model"], sn["chap"]["seg"]
         for r in range(len(runs) - 1):
             a, b = runs[r], runs[r + 1]
             a0, a1, b1 = a["tok0"], a["tok1"], b["tok1"]
             if a1 == a0 or b1 == a1 or a1 != b["tok0"]:
                 continue
+            w1 = seg[int(round(a["a"] * sr)): int(round((a["b"] - K) * sr))]
+            w2 = seg[int(round((b["a"] + K) * sr)): int(round(b["b"] * sr))]
+            if len(w1) < 0.15 * sr or len(w2) < 0.15 * sr:
+                continue
+            D1, D2 = len(w1) / sr, len(w2) / sr
             W1 = sum(m.a * t["syl"] + m.b for t in toks[a0:a1])
             W2 = sum(m.a * t["syl"] + m.b for t in toks[a1:b1])
-            pred = (a["dur"] + b["dur"]) * W1 / (W1 + W2)
-            hata = pred - a["dur"]
-            E.append(hata)
-            kayit.append((sn["id"], a["dur"] + b["dur"], a["post"], toks[a1 - 1]["typ"]))
-    e = np.array(E)
-    ae = np.abs(e)
+            E["agirlik"].append((D1 + D2) * W1 / (W1 + W2) - D1)
+            X = (ozellik(np.concatenate([w1, w2]), sr) - nmu) / nsd
+            ph = [fonlar(toks[k]["w"]) for k in range(a0, b1)]
+            n1 = a1 - a0
+            for ad, mod in (("hmm_capraz", modeller[fold[sn["id"]]]), ("hmm_ici", tam)):
+                w, ll = akustik_hizala(mod, X, ph, ilk_sil=False, son_sil=False, sp_arasi=True)
+                est = ((w[n1 - 1][1] + w[n1][0]) / 2) * HOP + 0.0075
+                E[ad].append(est - D1)
+            kayit.append((sn["id"], a["post"], toks[a1 - 1]["typ"]))
     L = []
     P = L.append
-    P(f"DURAKTAN BİR BIRAK (n={len(e)} iç sınır; hece/sözcük ağırlık modeli):")
-    q = _yuzdelik(ae)
-    P(f"  |hata| medyan {q[50]:.3f}  %90 {q[90]:.3f}  %95 {q[95]:.3f}  %99 {q[99]:.3f}  azami {q[100]:.3f} sn · ort işaretli {e.mean():+.3f} · "
-      f"≤0,1: %{100 * (ae <= 0.1).mean():.1f}  ≤0,2: %{100 * (ae <= 0.2).mean():.1f}  >0,3: {int((ae > 0.3).sum())}  >0,6: {int((ae > 0.6).sum())}")
-    for ad, filt in (("cümle sonu (. ? ! paragraf)", lambda k: k[3] in (STRONG, PARA)), ("noktalamasız/virgül", lambda k: k[3] not in (STRONG, PARA))):
+    P(f"DURAKTAN BİR BIRAK (n={len(kayit)} iç sınır; her yandan {K * 1000:.0f} ms kırpıldı; ses dalgası düzeyinde birleştirme):")
+    for ad, baslik in (("agirlik", "hece/sözcük ağırlık modeli"), ("hmm_capraz", "akustik HMM (çapraz doğrulama)"), ("hmm_ici", "akustik HMM (tüm veriyle eğitilmiş)")):
+        e = np.array(E[ad])
+        ae = np.abs(e)
+        q = _yuzdelik(ae)
+        P(f"  {baslik:38s} |hata| medyan {q[50]:.3f}  %90 {q[90]:.3f}  %95 {q[95]:.3f}  %99 {q[99]:.3f}  azami {q[100]:.3f} sn · ort işaretli {e.mean():+.3f} · "
+          f"≤0,1: %{100 * (ae <= 0.1).mean():.1f}  ≤0,2: %{100 * (ae <= 0.2).mean():.1f}  >0,3: {int((ae > 0.3).sum())}  >0,6: {int((ae > 0.6).sum())}")
+    for ad, filt in (("cümle sonu (. ? ! paragraf)", lambda k: k[2] in (STRONG, PARA)), ("noktalamasız/virgül/;:", lambda k: k[2] not in (STRONG, PARA))):
         kk = [i for i, k in enumerate(kayit) if filt(k)]
         if kk:
-            q = _yuzdelik(ae[kk])
-            P(f"  {ad:30s} n={len(kk):3d} medyan {q[50]:.3f} %95 {q[95]:.3f} azami {q[100]:.3f}")
+            for a_, baslik in (("agirlik", "ağırlık"), ("hmm_capraz", "HMM çapraz")):
+                q = _yuzdelik(np.abs(np.array(E[a_]))[kk])
+                P(f"    {ad:30s} {baslik:11s} n={len(kk):3d} medyan {q[50]:.3f} %95 {q[95]:.3f} azami {q[100]:.3f}")
     txt = "\n".join(L)
     print(txt)
     open(os.path.join(OUT, "hizala_asr_loo.txt"), "w", encoding="utf-8").write(txt + "\n")
+    return E
+
+
+def sondaj(args):
+    """Koşu İÇİ sözcük sınırı için bağımsız ASR sondajı: akustik HMM sınırı ↔ hece-ağırlığı sınırı. Seçilen sınırda (her yanda 2 sözcük bağlamı) ses
+    iki parçaya kesilir; sol parça ("w1 w2") ve sağ parça ("w3 w4") ASR ile yazdırılıp beklenen sözcüklerle WER ölçülür. Kesim doğru sınıra
+    yakınsa iki parça da doğru çıkar; yanlışsa sözcük kesilir ya da komşu sözcüğün parçası sızar. Yalnız iki yöntemin ≥50 ms ayrıştığı sınırlar."""
+    import asr
+    S = senaryo_yukle()
+    args.asr_yok = True
+    args.agirlik = False
+    ctx = hesapla_hepsi(args, S)
+    sr = ctx["sr"]
+    rng = random.Random(args.tohum)
+    adaylar = []
+    for sn in ctx["sonuclar"]:
+        toks, m = sn["toks"], sn["model"]
+        for r in sn["runs"]:
+            if r.get("hmm_durum") != "tamam":
+                continue
+            wt = koşu_ici_zamanlar(toks, r["tok0"], r["tok1"], r["a"], r["b"], m)
+            for k in range(r["tok0"] + 2, r["tok1"] - 1):
+                hb = 0.5 * (sn["tm"][k - 1][1] + sn["tm"][k][0])
+                wb = wt[k - r["tok0"]][0]
+                if abs(hb - wb) < 0.05:
+                    continue
+                adaylar.append((sn, r, k, hb, wb))
+    rng.shuffle(adaylar)
+    secim = adaylar[:args.n]
+    log(f"[sondaj] {len(adaylar)} aday sınır, {len(secim)} seçildi")
+    wav_path = ctx["wav_path"]
+    x = ctx["x"]
+    isler, meta = [], []
+    for sn, r, k, hb, wb in secim:
+        c0 = sn["t0"]
+        toks = sn["toks"]
+        sol0 = c0 + sn["tm"][k - 2][0] - 0.04
+        sag1 = c0 + sn["tm"][k + 1][1] + 0.04
+        exp_l = " ".join(t["w"] for t in toks[k - 2:k])
+        exp_r = " ".join(t["w"] for t in toks[k:k + 2])
+        for ad, b in (("hmm", hb), ("agirlik", wb)):
+            bb = c0 + b
+            for yan, (a_, b_), ex in (("sol", (sol0, bb), exp_l), ("sag", (bb, sag1), exp_r)):
+                a_, b_ = round(a_, 3), round(b_, 3)
+                key = f"s|{ad}|{yan}|{sn['id']}|{k}|{a_:.3f}|{b_:.3f}"
+                crc = _crc(x[int(round(a_ * sr)): int(round(b_ * sr))])
+                isler.append((key, a_, b_, crc, dict(ad=ad, yan=yan)))
+                meta.append((key, ad, yan, sn["id"], k, ex))
+    cache = asr_calistir(isler, os.path.join(OUT, "asr_sondaj.json"), wav_path, isci=args.isci, baslik="SONDAJ")
+    res = {"hmm": [], "agirlik": []}
+    per = {}
+    for key, ad, yan, cid, k, ex in meta:
+        e = cache.get(key)
+        if not e:
+            continue
+        w = float(asr.wer(ex, e["text"])) if e["text"].strip() else 1.0
+        per.setdefault((cid, k), {}).setdefault(ad, {})[yan] = (w, e["text"], ex)
+    iyi = kotu = esit = 0
+    for (cid, k), d in per.items():
+        if "hmm" not in d or "agirlik" not in d or len(d["hmm"]) < 2 or len(d["agirlik"]) < 2:
+            continue
+        wh = d["hmm"]["sol"][0] + d["hmm"]["sag"][0]
+        ww = d["agirlik"]["sol"][0] + d["agirlik"]["sag"][0]
+        res["hmm"].append(wh / 2)
+        res["agirlik"].append(ww / 2)
+        if wh < ww - 1e-9:
+            iyi += 1
+        elif wh > ww + 1e-9:
+            kotu += 1
+        else:
+            esit += 1
+    L = []
+    P = L.append
+    n = len(res["hmm"])
+    P(f"ASR SONDAJI (koşu içi sözcük sınırı; n={n} sınır, her biri 2 parça × 2 sözcük):")
+    if n:
+        for ad in ("hmm", "agirlik"):
+            a = np.array(res[ad])
+            P(f"  {ad:8s}: ortalama WER {a.mean():.3f} · tam doğru (iki parça da WER=0) {int((a == 0).sum())}/{n} (%{100 * (a == 0).mean():.0f})")
+        P(f"  eşli karşılaştırma: HMM daha iyi {iyi}, daha kötü {kotu}, eşit {esit}")
+    txt = "\n".join(L)
+    print(txt)
+    open(os.path.join(OUT, "hizala_asr_sondaj.txt"), "w", encoding="utf-8").write(txt + "\n")
+    return res
+
+
+# ════════════════════════════════════════════════════════════ akustik zorlamalı hizalama (kendi verisinden eğitilen monofon HMM)
+# Türkçe yazım ≈ sesbilgisi: her harf bir birim (3 durumlu, tek Gauss/durum, 39 boyutlu MFCC+Δ+ΔΔ). Model, ASR ile doğrulanmış koşu↔jeton
+# eşlemeleriyle (≈15–20 dk, tek konuşmacı) sabit başlangıçtan Viterbi (sert EM) ile eğitilir; sonra her koşu bilinen metniyle zorlamalı hizalanır.
+FS = 16000
+HOP_N, WIN_N, NFFT, NFILT, NCEP = 160, 400, 512, 26, 12
+TR_FON = list("abcçdefgğhıijklmnoöprsştuüvyz")
+FON_ID = {p: i for i, p in enumerate(TR_FON)}
+NSD = 3                                   # fon başına durum
+SIL = len(TR_FON)                         # sil / sp: tek durumlu isteğe bağlı birimler
+SP = SIL + 1
+N_STATES = len(TR_FON) * NSD + 2
+HMM_PAD = 0.03                            # özellik penceresi payı (sn): sil durumunun kareleri olsun
+
+
+def _mel_fb(nfilt=NFILT, nfft=NFFT, fs=FS, lo=60.0, hi=7600.0):
+    def hz2mel(f):
+        return 2595 * np.log10(1 + f / 700.0)
+
+    def mel2hz(m):
+        return 700 * (10 ** (m / 2595.0) - 1)
+    pts = mel2hz(np.linspace(hz2mel(lo), hz2mel(hi), nfilt + 2))
+    bins = np.floor((nfft + 1) * pts / fs).astype(int)
+    fb = np.zeros((nfilt, nfft // 2 + 1))
+    for m in range(1, nfilt + 1):
+        l, c, r = bins[m - 1], bins[m], bins[m + 1]
+        for k in range(l, c):
+            fb[m - 1, k] = (k - l) / max(1, c - l)
+        for k in range(c, r):
+            fb[m - 1, k] = (r - k) / max(1, r - c)
+    return fb
+
+
+_FB = _mel_fb()
+_HAMM = np.hamming(WIN_N)
+
+
+def _delta(f, N=2):
+    T = len(f)
+    pad = np.pad(f, ((N, N), (0, 0)), mode="edge")
+    den = 2 * sum(i * i for i in range(1, N + 1))
+    d = np.zeros_like(f)
+    for i in range(1, N + 1):
+        d += i * (pad[N + i: N + i + T] - pad[N - i: N - i + T])
+    return d / den
+
+
+def ozellik(x, sr):
+    """x (mono, sr) → (T, 39) MFCC(12)+log-enerji+Δ+ΔΔ. Kare t, [10t, 10t+25) ms aralığını kaplar (sınır t ≈ 10t+7,5 ms)."""
+    from scipy.signal import resample_poly
+    from scipy.fft import dct
+    y = resample_poly(x, FS, sr) if sr != FS else np.asarray(x, dtype=np.float64)
+    if len(y) < WIN_N + 2 * HOP_N:
+        return np.zeros((0, 39))
+    y = np.append(y[0], y[1:] - 0.97 * y[:-1])
+    n = 1 + (len(y) - WIN_N) // HOP_N
+    idx = np.arange(n)[:, None] * HOP_N + np.arange(WIN_N)[None, :]
+    P = np.abs(np.fft.rfft(y[idx] * _HAMM[None, :], NFFT, axis=1)) ** 2
+    mel = np.log(P @ _FB.T + 1e-8)
+    c = dct(mel, type=2, axis=1, norm="ortho")[:, 1:NCEP + 1]
+    e = np.log(P.sum(axis=1) + 1e-8)[:, None]
+    f = np.hstack([c, e])
+    return np.hstack([f, _delta(f), _delta(_delta(f))])
+
+
+def fonlar(word):
+    w = word.translate(_KUCUK).lower().replace("i̇", "i")
+    w = w.replace("â", "a").replace("î", "i").replace("û", "u").replace("w", "v").replace("q", "k").replace("x", "ks")
+    return [FON_ID[ch] for ch in w if ch in FON_ID]
+
+
+def _sid(unit, k):
+    return len(TR_FON) * NSD + (unit - SIL) if unit >= SIL else unit * NSD + k
+
+
+class AkustikModel:
+    def __init__(self, dim=39):
+        self.mu = np.zeros((N_STATES, dim))
+        self.var = np.ones((N_STATES, dim))
+        self.nmu = np.zeros(dim)
+        self.nsd = np.ones(dim)
+        self.lp_stay, self.lp_adv = np.log(0.6), np.log(0.4)
+        self.ls_stay, self.ls_leave = np.log(0.8), np.log(0.2)
+
+    def loglik(self, X, sids):
+        mu, iv = self.mu[sids], 1.0 / self.var[sids]
+        const = -0.5 * (np.log(2 * np.pi * self.var[sids]).sum(axis=1) + (mu * mu * iv).sum(axis=1))
+        return -0.5 * (X * X) @ iv.T + X @ (mu * iv).T + const[None, :]
+
+
+ATLA_CEZA = 150.0                         # sözcük atlama cezası (nat): TTS'in söylemediği sözcüğü kabul edilebilir kılar
+
+
+def zincir(sozcuk_fonlari, ilk_sil=True, son_sil=True, sp_arasi=True):
+    """[sil] w1 [sp] w2 … wn [sil]; sil/sp isteğe bağlı. → sids, isteğe_bağlı, sözcük_indisi, birim, yaylar
+    yaylar: (kaynak_durum, hedef_durum, sözcük) — sözcüğün tamamını atlayan geçişler (kaynak: sözcükten önceki durum, hedef: sonraki durum)."""
+    sids, opt, wof, uof = [], [], [], []
+    first, last = {}, {}
+
+    def ekle(unit, k, o, w):
+        sids.append(_sid(unit, k)); opt.append(o); wof.append(w); uof.append(unit)
+        if w >= 0:
+            first.setdefault(w, len(sids) - 1)
+            last[w] = len(sids) - 1
+    if ilk_sil:
+        ekle(SIL, 0, True, -1)
+    for wi, ph in enumerate(sozcuk_fonlari):
+        for p in ph:
+            for k in range(NSD):
+                ekle(p, k, False, wi)
+        if sp_arasi and wi < len(sozcuk_fonlari) - 1:
+            ekle(SP, 0, True, -1)
+    if son_sil:
+        ekle(SIL, 0, True, -1)
+    S = len(sids)
+    yaylar = []
+    for w in range(len(sozcuk_fonlari)):
+        if w in first and first[w] - 1 >= 0 and last[w] + 1 < S:
+            yaylar.append((first[w] - 1, last[w] + 1, w))
+    return np.array(sids), np.array(opt), np.array(wof), np.array(uof), yaylar
+
+
+def viterbi(model, X, sids, opt, uof, yaylar=None, ceza=None):
+    """Doğrusal zincirde zorlamalı Viterbi (kendine, sonrakine, isteğe bağlı durumu atlayarak iki sonrakine; yaylar verilirse ceza karşılığında
+    bütün bir sözcüğü atlayarak). → (yol (T,), log-olasılık)"""
+    T, S = len(X), len(sids)
+    ceza = ATLA_CEZA if ceza is None else ceza
+    L = model.loglik(X, sids)
+    NEG = -1e30
+    stay = np.where(uof >= SIL, model.ls_stay, model.lp_stay)
+    adv = np.where(uof >= SIL, model.ls_leave, model.lp_adv)
+    d = np.full(S, NEG)
+    bp = np.zeros((T, S), dtype=np.int8)
+    d[0] = L[0, 0]
+    j = 0
+    while j + 1 < S and opt[j]:
+        j += 1
+        d[j] = L[0, j]
+    ar = np.arange(S)
+    if yaylar:
+        src = np.array([y[0] for y in yaylar])
+        dst = np.array([y[1] for y in yaylar])
+        bps = np.zeros((T, S), dtype=np.int16)
+    for t in range(1, T):
+        c0 = d + stay
+        c1 = np.concatenate([[NEG], d[:-1] + adv[:-1]])
+        c2 = np.full(S, NEG)
+        if S > 2:
+            c2[2:] = np.where(opt[1:-1], d[:-2] + adv[:-2], NEG)
+        st = np.vstack([c0, c1, c2])
+        a = st.argmax(axis=0)
+        best = st[a, ar]
+        if yaylar:
+            cand = d[src] + adv[src] - ceza
+            iyi = cand > best[dst]
+            if iyi.any():
+                di = dst[iyi]
+                best[di] = cand[iyi]
+                a[di] = 3
+                bps[t, di] = src[iyi]
+        bp[t] = a
+        d = best + L[t]
+    ends = [S - 1]
+    j = S - 1
+    while j - 1 >= 0 and opt[j]:
+        j -= 1
+        ends.append(j)
+    e = max(ends, key=lambda s: d[s])
+    path = np.zeros(T, dtype=int)
+    s = e
+    for t in range(T - 1, -1, -1):
+        path[t] = s
+        if t == 0:
+            break
+        a = bp[t, s]
+        if a == 1:
+            s -= 1
+        elif a == 2:
+            s -= 2
+        elif a == 3:
+            s = int(bps[t, s])
+    return path, float(d[e])
+
+
+def akustik_egit(utts, n_iter=8, verbose=True, atla_tur=2):
+    """utts: [(X (T,D) normalize, sözcük_fonları, pad_sol_kare, pad_sağ_kare)] → AkustikModel.
+    Son atla_tur yinelemede sözcük atlama yayları açılır (TTS'in söylemediği sözcükler istatistiği bozmasın)."""
+    dim = utts[0][0].shape[1]
+    model = AkustikModel(dim)
+    chains = [zincir(tp) for _, tp, _, _ in utts]
+    allX = np.vstack([u[0] for u in utts])
+    gmu, gvar = allX.mean(axis=0), allX.var(axis=0)
+    sx = np.zeros((N_STATES, dim)); sxx = np.zeros((N_STATES, dim)); cnt = np.zeros(N_STATES)
+
+    def topla(sids, path, X):
+        np.add.at(sx, sids[path], X)
+        np.add.at(sxx, sids[path], X * X)
+        np.add.at(cnt, sids[path], 1)
+
+    for (X, tp, pl, pr), (sids, opt, wof, uof, yay) in zip(utts, chains):
+        T = len(X)
+        non = [i for i in range(len(sids)) if not opt[i]]
+        k = len(non)
+        path = np.zeros(T, dtype=int)
+        core = np.arange(pl, T - pr) if T - pr > pl else np.arange(T)
+        idx = np.array(non)
+        path[core] = idx[np.minimum(((core - core[0]) * k) // max(len(core), 1), k - 1)]
+        path[:pl] = 0 if opt[0] else idx[0]
+        path[T - pr:] = len(sids) - 1 if opt[-1] else idx[-1]
+        topla(sids, path, X)
+
+    def guncelle():
+        for s in range(N_STATES):
+            if cnt[s] >= 5:
+                mu = sx[s] / cnt[s]
+                model.mu[s] = mu
+                model.var[s] = np.maximum(sxx[s] / cnt[s] - mu * mu, 0.05 * gvar)
+            else:
+                model.mu[s], model.var[s] = gmu, gvar
+        sp_id = _sid(SP, 0)
+        if cnt[sp_id] < 5:                                           # sp henüz görülmediyse sil gibi başla
+            model.mu[sp_id], model.var[sp_id] = model.mu[_sid(SIL, 0)], model.var[_sid(SIL, 0)]
+    guncelle()
+    for it in range(n_iter):
+        sx[:] = 0; sxx[:] = 0; cnt[:] = 0
+        tot, nfr = 0.0, 0
+        for (X, tp, pl, pr), (sids, opt, wof, uof, yay) in zip(utts, chains):
+            path, ll = viterbi(model, X, sids, opt, uof, yay if it >= n_iter - atla_tur else None)
+            tot += ll; nfr += len(X)
+            topla(sids, path, X)
+        guncelle()
+        if verbose:
+            log(f"    HMM eğitim {it + 1}/{n_iter}: kare başına log-olasılık {tot / nfr:.3f}")
+    return model
+
+
+def akustik_hizala(model, X, sozcuk_fonlari, ilk_sil=True, son_sil=True, sp_arasi=True, atla=False):
+    """→ ([(başlangıç_kare, bitiş_kare_hariç)] sözcük başına (atlanan sözcük: (None, None)), kare başına log-olasılık)"""
+    sids, opt, wof, uof, yay = zincir(sozcuk_fonlari, ilk_sil, son_sil, sp_arasi)
+    path, ll = viterbi(model, X, sids, opt, uof, yay if atla else None)
+    nw = len(sozcuk_fonlari)
+    st, en = [None] * nw, [None] * nw
+    for t, s in enumerate(path):
+        w = wof[s]
+        if w >= 0:
+            if st[w] is None:
+                st[w] = t
+            en[w] = t + 1
+    return list(zip(st, en)), ll / max(1, len(X))
+
+
+def _kosu_ozellik(sn, B, sr, r):
+    """Koşu penceresi [a−pay, b+pay] özellikleri (bölüme göre). → (X, pencere_başı, pad_sol_kare, pad_sağ_kare)"""
+    seg = B["seg"]
+    T = len(seg) / sr
+    pl = min(HMM_PAD, max(0.0, (r["pre"] if r["pre"] is not None else 9.0) / 2))
+    pr = min(HMM_PAD, max(0.0, (r["post"] if r["post"] is not None else 9.0) / 2))
+    a = max(0.0, r["a"] - pl)
+    b = min(T, r["b"] + pr)
+    X = ozellik(seg[int(round(a * sr)): int(round(b * sr))], sr)
+    return X, a, int(round((r["a"] - a) / HOP)), int(round((b - r["b"]) / HOP))
+
+
+def hmm_hazirla(ctx):
+    """Tüm koşuların özellikleri (HMM eğitimi/hizalaması için). → (ham liste, nmu, nsd)"""
+    sr = ctx["sr"]
+    bolmap = {B["c"]["id"]: B for B in ctx["bol"]}
+    ham = []
+    for sn in ctx["sonuclar"]:
+        B = bolmap[sn["id"]]
+        for r in sn["runs"]:
+            if r["tok1"] <= r["tok0"]:
+                continue
+            X, a, pl, pr = _kosu_ozellik(sn, B, sr, r)
+            if len(X) < 8:
+                continue
+            ph = [fonlar(sn["toks"][k]["w"]) for k in range(r["tok0"], r["tok1"])]
+            if not all(ph):
+                continue
+            ev = sn["ev"][r["i"]]
+            guvenli = ev is not None and ev["n_match"] >= 0.5 * (r["tok1"] - r["tok0"])
+            ham.append(dict(sn=sn, r=r, X=X, a=a, pl=pl, pr=pr, ph=ph, guvenli=guvenli))
+    if not ham:
+        return [], None, None
+    allX = np.vstack([h["X"] for h in ham])
+    nmu, nsd = allX.mean(axis=0), allX.std(axis=0) + 1e-6
+    for h in ham:
+        h["Xn"] = (h["X"] - nmu) / nsd
+    return ham, nmu, nsd
+
+
+def akustik_ll(model, Xn, ph, atla=True):
+    """Bir koşunun, verilen sözcük dizisiyle zorlamalı hizalamasının TOPLAM log-olasılığı (boş dizi: yalnız sessizlik).
+    atla=True: söylenmeyen sözcük (ATLA_CEZA nat karşılığında) atlanabilir."""
+    sids, opt, wof, uof, yay = zincir(ph, True, True, True)
+    return viterbi(model, Xn, sids, opt, uof, yay if atla else None)[1]
+
+
+def _kosu_fon(sn, r):
+    return [fonlar(sn["toks"][k]["w"]) for k in range(r["tok0"], r["tok1"])]
+
+
+def sinir_duzelt(ctx, model, ham_idx, esik=20.0, aday_yaricap=4):
+    """ASR kanıtının belirlemediği (komşu kanıtlar arasında serbest) koşu sınırlarında jeton ataması, akustik olabilirliğe göre seçilir:
+    skor(b) = LL(koşu r−1, jetonlar [B[r−1], b)) + LL(koşu r, jetonlar [b, B[r+1])). DP'nin seçimine göre ≥ eşik nat daha iyiyse değiştirilir.
+    Ayrıca TÜM sınırlar için ±1 jeton kaydırma taraması yapılır (kanıtlı sınırlar değiştirilmez, yalnız raporlanır). → (değişen, şüpheli)"""
+    degisen, suphe = [], []
+    for sn in ctx["sonuclar"]:
+        runs, Bn = sn["runs"], sn["B"]
+        low, high = sn["atama"]["lowB"], sn["atama"]["highB"]
+        for sweep in range(2):
+            ch = False
+            for r in range(1, len(runs)):
+                ha, hb = ham_idx.get((sn["id"], r - 1)), ham_idx.get((sn["id"], r))
+                if ha is None or hb is None:
+                    continue
+                lo = max(low[r], Bn[r - 1])
+                hi = min(high[r], Bn[r + 1])
+                if hi <= lo:
+                    continue
+                cur = Bn[r]
+                cands = [b for b in range(max(lo, cur - aday_yaricap), min(hi, cur + aday_yaricap) + 1)]
+                if len(cands) < 2:
+                    continue
+                sk = {}
+                for b in cands:
+                    pa = [fonlar(sn["toks"][k]["w"]) for k in range(Bn[r - 1], b)]
+                    pb = [fonlar(sn["toks"][k]["w"]) for k in range(b, Bn[r + 1])]
+                    if (pa and not all(pa)) or (pb and not all(pb)):
+                        continue
+                    sk[b] = akustik_ll(model, ha["Xn"], pa) + akustik_ll(model, hb["Xn"], pb)
+                if cur not in sk:
+                    continue
+                best = max(sk, key=sk.get)
+                if best != cur and sk[best] - sk[cur] >= esik:
+                    degisen.append((sn["id"], round(sn["t0"] + runs[r]["a"], 2), cur, best, round(sk[best] - sk[cur], 1),
+                                    runs[r - 1].get("asr_text"), runs[r].get("asr_text")))
+                    Bn[r] = best
+                    ch = True
+            if not ch:
+                break
+        for r in range(len(runs)):
+            runs[r]["tok0"], runs[r]["tok1"] = Bn[r], Bn[r + 1]
+        # ±1 kaydırma taraması (bütün sınırlar; yalnız rapor)
+        for r in range(1, len(runs)):
+            ha, hb = ham_idx.get((sn["id"], r - 1)), ham_idx.get((sn["id"], r))
+            if ha is None or hb is None:
+                continue
+            cur = Bn[r]
+            vals = {}
+            for b in (cur - 1, cur, cur + 1):
+                if b < Bn[r - 1] or b > Bn[r + 1]:
+                    continue
+                pa = [fonlar(sn["toks"][k]["w"]) for k in range(Bn[r - 1], b)]
+                pb = [fonlar(sn["toks"][k]["w"]) for k in range(b, Bn[r + 1])]
+                if (pa and not all(pa)) or (pb and not all(pb)):
+                    continue
+                vals[b] = akustik_ll(model, ha["Xn"], pa) + akustik_ll(model, hb["Xn"], pb)
+            if cur in vals:
+                for b in (cur - 1, cur + 1):
+                    if b in vals and vals[b] - vals[cur] >= 20.0:
+                        suphe.append(dict(ch=sn["id"], t=round(sn["t0"] + runs[r]["a"], 2), sinir=cur, alt=b, kazanc=round(vals[b] - vals[cur], 1),
+                                          onceki=runs[r - 1].get("asr_text"), sonraki=runs[r].get("asr_text"),
+                                          kanitli=bool(low[r] >= high[r])))
+    return degisen, suphe
+
+
+def eksik_yerlestir(sn):
+    """Seste bulunmayan (atlanan) sözcüklerin yer tutucuları: AYNI CÜMLEDEKİ sonraki konuşulan sözcüğün başına (yoksa öncekinin sonuna) 1 ms.
+    Böylece cümle başı/sonu yalnızca gerçekten söylenen sözcüklerle belirlenir (atlanan sözcük komşu cümlenin koşusuna düşmüş olsa bile)."""
+    toks, tm = sn["toks"], sn["tm"]
+    miss = {e["tok"] for e in sn.get("eksik", [])}
+    if not miss:
+        return
+    by = {}
+    for k, t in enumerate(toks):
+        by.setdefault(t["si"], []).append(k)
+    for e in sn["eksik"]:
+        k = e["tok"]
+        idx = by[toks[k]["si"]]
+        nxt = next((q for q in idx if q > k and q not in miss), None)
+        prv = next((q for q in reversed(idx) if q < k and q not in miss), None)
+        if nxt is not None:
+            grup = [q for q in idx if k <= q < nxt]
+            geri = len(grup) - 1 - grup.index(k)
+            te = tm[nxt][0] - 0.001 * geri
+            tm[k] = (te - 0.001, te)
+        elif prv is not None:
+            grup = [q for q in idx if prv < q <= k]
+            ileri = grup.index(k)
+            ts = tm[prv][1] + 0.001 * ileri
+            tm[k] = (ts, ts + 0.001)
+        e["t"] = round(sn["t0"] + tm[k][0], 3)
+
+
+def akustik_iyilestir(S, ctx, n_iter=8):
+    """Tüm bölümlerin koşuları ile HMM'i eğit; ASR kanıtının belirlemediği sınır jetonlarını akustik olabilirlikle düzelt; sonra her koşunun
+    sözcük zamanlarını zorlamalı hizalamayla yeniden hesapla. Güvenilmeyen koşular (log-olasılık aykırı / sözcük çok kısa) ağırlık modeline
+    geri düşer. sonuç['tm'] yerinde güncellenir."""
+    ham, nmu, nsd = hmm_hazirla(ctx)
+    if len(ham) < 30:
+        log("[HMM] eğitim için yeterli koşu yok; ağırlık modeli kullanılıyor")
+        return None
+    egit = [h for h in ham if h["guvenli"]]
+    ham_idx = {(h["sn"]["id"], h["r"]["i"]): h for h in ham}
+    tum_degisen = []
+    for tur in range(3):                                               # eğit → sınır jetonlarını düzelt → (değiştiyse) yeniden eğit
+        log(f"[HMM] tur {tur + 1}: {len(ham)} koşu özelliği; {len(egit)} güvenilir koşu ile eğitiliyor ({sum(len(h['Xn']) for h in egit) * HOP:.0f} sn)")
+        t = time.time()
+        model = akustik_egit([(h["Xn"], h["ph"], h["pl"], h["pr"]) for h in egit], n_iter=n_iter, verbose=(tur == 0))
+        model.nmu, model.nsd = nmu, nsd
+        log(f"[HMM] eğitim {time.time() - t:.0f} sn")
+        t = time.time()
+        degisen, suphe = sinir_duzelt(ctx, model, ham_idx)
+        log(f"[HMM] sınır jetonu düzeltmesi: {len(degisen)} sınır akustik olabilirliğe göre değişti; ±1 kaydırma taramasında şüpheli sınır: {len(suphe)} ({time.time() - t:.0f} sn)")
+        for d in degisen:
+            log(f"    düzeltme {d[0]} t={d[1]}: sınır {d[2]}→{d[3]} (+{d[4]} nat) | ASR önceki: {d[5]!r} sonraki: {d[6]!r}")
+        for q in suphe:
+            log(f"    ŞÜPHELİ sınır (kanıtlı) {q['ch']} t={q['t']}: {q['sinir']}→{q['alt']} olsaydı +{q['kazanc']} nat | ASR önceki: {q['onceki']!r} sonraki: {q['sonraki']!r}")
+        tum_degisen += degisen
+        for h in ham:                                                  # değişen koşuların fonları
+            h["ph"] = _kosu_fon(h["sn"], h["r"])
+        if not degisen:
+            break
+    degisen = tum_degisen
+    lls = []
+    for h in ham:
+        w, ll = akustik_hizala(model, h["Xn"], h["ph"], atla=True)
+        h["w"], h["ll"] = w, ll
+        lls.append(ll)
+    lls = np.array(lls)
+    med = float(np.median(lls))
+    mad = float(1.4826 * np.median(np.abs(lls - med)) + 1e-6)
+    n_geri = 0
+    for sn in ctx["sonuclar"]:                                         # ağırlık tabanlı zamanları yeni sınırlarla yenile
+        sn["eksik"] = []
+        for r in sn["runs"]:
+            for k, (s_, e_) in zip(range(r["tok0"], r["tok1"]), koşu_ici_zamanlar(sn["toks"], r["tok0"], r["tok1"], r["a"], r["b"], sn["model"])):
+                sn["tm"][k] = (s_, e_)
+    for h in ham:
+        r, sn = h["r"], h["sn"]
+        w = h["w"]
+        z = (h["ll"] - med) / mad
+        n = len(w)
+        konus = [k for k in range(n) if w[k][0] is not None]
+        kisa = any(w[k][1] - w[k][0] < 3 for k in konus)
+        r["hmm_ll"] = h["ll"]
+        r["hmm_z"] = float(z)
+        if z < -4.0 or kisa or not konus:
+            r["hmm_durum"] = "geri"
+            n_geri += 1
+            continue
+        t0w = h["a"]
+        tt = [None] * n
+        for k in konus:
+            tt[k] = [t0w + w[k][0] * HOP + 0.0075, t0w + w[k][1] * HOP + 0.0075]
+        # koşu kenarları VAD'a yaslanır (HMM ilk/son fonu belirgin geç/erken başlıyorsa — nefes/uzun yumuşak başlangıç — HMM'e uy)
+        if tt[konus[0]][0] - r["a"] <= 0.10:
+            tt[konus[0]][0] = r["a"]
+        if r["b"] - tt[konus[-1]][1] <= 0.10:
+            tt[konus[-1]][1] = r["b"]
+        # sözcükler arası kısa boşluklar: <50 ms ise ortadan böl; daha uzunsa gerçek durak olarak bırak
+        for a_, b_ in zip(konus[:-1], konus[1:]):
+            if b_ == a_ + 1 and tt[b_][0] - tt[a_][1] < 0.05:
+                mid = 0.5 * (tt[a_][1] + tt[b_][0])
+                tt[a_][1] = tt[b_][0] = mid
+        for k in konus:
+            tt[k][0] = max(r["a"], min(tt[k][0], r["b"]))
+            tt[k][1] = max(tt[k][0] + 0.02, min(tt[k][1], r["b"] + 0.02))
+        # söylenmemiş (atlanan) sözcükler: sonraki konuşulan sözcüğün başına 1 ms'lik yer tutucu (yoksa önceki sözcüğün sonuna)
+        eks = [k for k in range(n) if tt[k] is None]
+        for k in sorted(eks, reverse=True):
+            nxt = next((q for q in range(k + 1, n) if tt[q] is not None), None)
+            if nxt is not None:
+                tt[k] = [tt[nxt][0] - 0.001, tt[nxt][0]]
+                tt[nxt] = tt[nxt]
+            else:
+                prv = max(q for q in range(k) if tt[q] is not None)
+                tt[k] = [tt[prv][1], tt[prv][1] + 0.001]
+        # yer tutucuların birbiriyle ve komşuyla çakışmaması: ardışık atlananlar sırayla 1 ms
+        for k in eks:
+            sn["eksik"].append(dict(tok=r["tok0"] + k, kelime=sn["toks"][r["tok0"] + k]["w"], t=round(sn["t0"] + tt[k][0], 2),
+                                    onceki=" ".join(t["w"] for t in sn["toks"][max(r["tok0"], r["tok0"] + k - 2): r["tok0"] + k]),
+                                    sonraki=" ".join(t["w"] for t in sn["toks"][r["tok0"] + k + 1: r["tok0"] + k + 3]), asr=r.get("asr_text")))
+        for k, (s_, e_) in zip(range(r["tok0"], r["tok1"]), tt):
+            sn["tm"][k] = (float(s_), float(e_))
+        r["hmm_durum"] = "tamam"
+    for sn in ctx["sonuclar"]:
+        eksik_yerlestir(sn)
+    n_eks = sum(len(sn.get("eksik", [])) for sn in ctx["sonuclar"])
+    log(f"[HMM] hizalama: {len(ham) - n_geri}/{len(ham)} koşu HMM ile; ağırlık modeline geri düşen: {n_geri}; kare başına log-olasılık medyan {med:.2f} (MAD {mad:.2f}); "
+        f"seste bulunmayan (atlanan) sözcük: {n_eks}")
+    for sn in ctx["sonuclar"]:
+        for e in sn.get("eksik", []):
+            log(f"    SESTE YOK? {sn['id']} t≈{e['t']}: «{e['kelime']}» (önceki: {e['onceki']!r} sonraki: {e['sonraki']!r}) ASR: {e['asr']!r}")
+    return dict(model=model, n_geri=n_geri, n=len(ham), ll_med=med, ll_mad=mad, degisen=degisen, suphe=suphe)
 
 
 def main():
@@ -1183,12 +1845,16 @@ def main():
     ap.add_argument("--yalniz-asr", action="store_true", help="yalnız ASR önbelleğini doldur")
     ap.add_argument("--asr-yok", action="store_true", help="ASR çalıştırma; yalnız önbellek")
     ap.add_argument("--isci", type=int, default=2, help="ASR süreç sayısı (her biri 1 iş parçacığı; toplam ≤2)")
-    ap.add_argument("--bolum", default=None, help="tek bölüm (örn. c2)")
+    ap.add_argument("--bolum", default=None, help="bölüm seçimi (örn. c2 ya da c0,c1); ana dosyalara dokunmaz, *_c2.* yazar")
     ap.add_argument("--ham-konusma", action="store_true", help="scribe_words.json'a saf söylenen sözcükleri yaz (rakamlı jetonları birleştirme)")
+    ap.add_argument("--agirlik", action="store_true", help="akustik HMM'i kapat; yalnız hece-ağırlığı ile koşu içi dağıtım")
+    ap.add_argument("--hmm-iter", type=int, default=8, help="HMM eğitim yinelemesi")
     ap.add_argument("--timeline", action="store_true", help="bitince ses_hizala.py'yi çalıştır (out_pN/timeline.json üretir)")
     ap.add_argument("--dogrula", action="store_true", help="bağımsız doğrulama: timeline cümle pencerelerini ASR ile yeniden yazdır")
     ap.add_argument("--karsilastir", action="store_true", help="eski (timeline_yerel_eski.json) ↔ yeni timeline farkları")
     ap.add_argument("--loo", action="store_true", help="koşu içi zamanlama doğruluğu: her duraktan bir bırak testi")
+    ap.add_argument("--sondaj", action="store_true", help="koşu içi sözcük sınırı: akustik HMM ↔ hece-ağırlığı, bağımsız ASR sondajı")
+    ap.add_argument("--kirp", type=float, default=0.03, help="--loo: birleştirme kenarlarından kırpılan süre (sn)")
     ap.add_argument("--n", type=int, default=40, help="--dogrula: rastgele cümle sayısı")
     ap.add_argument("--tohum", type=int, default=7)
     args = ap.parse_args()
@@ -1198,6 +1864,8 @@ def main():
         return karsilastir(args)
     if args.loo:
         return loo_testi(args)
+    if args.sondaj:
+        return sondaj(args)
     ana_hizala(args)
 
 

@@ -164,9 +164,9 @@ def render_video(workers=2, crf=18, rng=None, out=None):
     lst = os.path.join(OUT, "_reel_concat.txt")
     open(lst, "w").write("".join(f"file '{c[2]}'\n" for c in chunks))
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", "-movflags", "+faststart", out], check=True)
-    for c in chunks:
+    for p_ in [c[2] for c in chunks] + [lst]:
         try:
-            os.remove(c[2])
+            os.remove(p_)
         except OSError:
             pass
     print(f"{out}  ({(time.time() - t0):.0f} sn)", flush=True)

@@ -36,7 +36,8 @@ WALL_K = 0.40                 # duvar paralaks çarpanı (içeriğe göre)
 WALL_MG = (W / 2 + 100.0, H / 2 + 100.0)     # cilt_wall.MG = 100 → duvar görüntüsünün yarı boyutu
 
 TRACKS = {}                   # yol_id → [(u 0..1, (x, y, zoom, rot)), …]  | callable(u) → (x, y, zoom, rot)
-BAND_KINDS = {"skyline", "frieze"}   # tam genişlikte yatay şerit çizen türler: yatay kamera kayması şerit uçlarını açığa çıkarır → sabit örtme zumu (Lab-B pano türleri buraya eklenir)
+BAND_KINDS = {"skyline", "frieze", "procession"}   # tam genişlikte yatay şerit çizen türler: yatay kamera kayması şerit uçlarını açığa çıkarır → sabit örtme zumu (yeni şerit türleri buraya eklenir)
+OWN_CAMERA = {"pano", "build"}        # kendi kamera yolu olan türler (pano: cams=, build: orbit=/crane): cam= alanı kabul edilir, cx.cam_spec'te durur ama CM.Cam'e UYGULANMAZ (çift hareket olmasın)
 _WARNED = set()
 
 
@@ -122,7 +123,11 @@ def _parse(spec):
         if h == "rack":
             if len(a) < 3:
                 raise ValueError("rack: ('rack', (xa,ya), (xb,yb)) bekleniyor")
-            return Plan("rack", spec, a=tuple(a[1]), b=tuple(a[2]), **o)
+
+            def pt(q):                                      # (0..2, 0..2) aralığındaki değerler ekran oranı sayılır: (0.5, 0.45) → (960, 486) px
+                x_, y_ = float(q[0]), float(q[1])
+                return (x_ * W, y_ * H) if (abs(x_) <= 2.0 and abs(y_) <= 2.0) else (x_, y_)
+            return Plan("rack", spec, a=pt(a[1]), b=pt(a[2]), **o)
         if h == "track":
             return Plan("track", spec, id=a[1], **o)
         raise ValueError(f"bilinmeyen cam ön ayarı: {h!r}")
@@ -241,10 +246,19 @@ def wall_cover(wdx, wdy, hx=WALL_MG[0], hy=WALL_MG[1]):
 
 
 def _anchor_t(cx, a):
-    try:
-        return float(cx.at(a))
-    except Exception:
-        return float(a) if isinstance(a, (int, float)) else 0.0
+    return float(cx.at(a))                                  # çözülemeyen çapa KeyError verir (sessiz 0 sn'ye düşmez)
+
+
+def anchors_of(spec):
+    """Spec'teki anlatı çapaları (anahtar kare çapaları, rack at=) — Program kurulurken doğrulanır."""
+    pl = parse(spec)
+    if pl is None:
+        return []
+    if pl.kind == "keys":
+        return [a for a, _ in pl.p["keys"]]
+    if pl.kind == "rack" and pl.p.get("at") is not None:
+        return [pl.p["at"]]
+    return []
 
 
 def _smoothstep(x):
@@ -269,8 +283,9 @@ def h_extent(plan):
     return 0.0
 
 
-def state(cx, spec, plan=None, kind=None):
-    """cam spec'i → CamState (cx: Ctx; t, dur, cam_in/out, seed, at()). spec None ise None. kind: çekim türü adı (şerit türlerinde örtme zumu)."""
+def state(cx, spec, plan=None, kind=None, native_pan=False):
+    """cam spec'i → CamState (cx: Ctx; t, dur, cam_in/out, seed, at()). spec None ise None. kind: çekim türü adı (şerit türlerinde örtme zumu).
+    native_pan: yatay kayma türün kendi kaydırmasına devredildi (adapt) → genel yatay öteleme uygulanmaz."""
     plan = plan or parse(spec)
     if plan is None:
         return None
@@ -293,7 +308,7 @@ def state(cx, spec, plan=None, kind=None):
         z = 1.0 + p["amt"] * (1.0 - g)
     elif k == "pan":
         sgn = 1.0 if p["d"] == "r" else -1.0
-        x = sgn * p["px"] * (g - 0.5)
+        x = 0.0 if native_pan else sgn * p["px"] * (g - 0.5)
         z = 1.0 + p.get("push", 0.02) * g
     elif k == "crane":
         sgn = -1.0 if p["d"] == "up" else 1.0           # kamera yukarı: y azalır, içerik aşağı akar
@@ -382,7 +397,7 @@ def state(cx, spec, plan=None, kind=None):
         a = float(p["hand"]) if not isinstance(p["hand"], bool) else 1.5
         x += a * hand_noise(t, seed, 0)
         y += a * 0.75 * hand_noise(t, seed, 1)
-    if kind in BAND_KINDS:                                 # şerit uçları açığa çıkmasın: kaymayı örtecek sabit zum
+    if kind in BAND_KINDS and not native_pan:              # şerit uçları açığa çıkmasın: kaymayı örtecek sabit zum
         z *= 1.0 + h_extent(plan) / (W / 2.0) * 1.03
     st.x, st.y, st.zoom, st.rot = x, y, z, rot
     st.dx, st.dy, st.s = -x, -y, z
@@ -397,13 +412,57 @@ def state(cx, spec, plan=None, kind=None):
 
 
 # ───────────────────────────── çekim hazırlığı (ckind sarmalayıcısı çağırır) ─────────────────────────────
-def attach(cx, kind_name, kw):
-    """cx.cam_state'i hesapla (spec varsa); map türü için kendi drift'ini sıfırla (çift itme olmasın)."""
+def _sig(fn):
+    import inspect
+    try:
+        return inspect.signature(fn).parameters
+    except (TypeError, ValueError):
+        return {}
+
+
+def _native_skyline(plan, kw, raw):
+    ps = _sig(raw)
+    if not all(k in ps for k in ("pan", "dir", "x0")) or any(k in kw for k in ("pan", "dir", "x0")) or plan.p["px"] > 500:
+        return False
+    kw["pan"] = float(plan.p["px"])
+    kw["dir"] = 1 if plan.p["d"] == "r" else -1
+    kw["x0"] = 0.0 if plan.p["d"] == "r" else float(plan.p["px"])
+    return True
+
+
+def _native_procession(plan, kw, raw):
+    ps = _sig(raw)
+    if "pan" not in ps or "pan" in kw:
+        return False
+    kw["pan"] = (plan.p["d"], float(plan.p["px"]))
+    return True
+
+
+def _native_frieze(plan, kw, raw, dur):
+    ps = _sig(raw)
+    if plan.p["d"] != "r" or not all(k in ps for k in ("speed", "x0")) or any(k in kw for k in ("speed", "x0")):
+        return False
+    kw["speed"] = float(plan.p["px"]) / max(1.0, dur)
+    return True
+
+
+def attach(cx, kind_name, kw, raw=None):
+    """cx.cam_state'i hesapla (spec varsa). map: kendi drift'ini sıfırla (çift itme olmasın). OWN_CAMERA türleri: durum uygulanmaz.
+    Şerit türlerinde (skyline / procession / frieze) ("pan","r"|"l",px) türün kendi kaydırmasına çevrilir (gerçek paralaks; şerit ucu açılmaz); çevrilemezse genel öteleme + örtme zumu."""
     spec = getattr(cx, "cam_spec", None)
     cx.cam_state = None
-    if spec is None:
+    if spec is None or kind_name in OWN_CAMERA:
         return None
-    cx.cam_state = state(cx, spec, kind=kind_name)
+    plan = parse(spec)
+    native = False
+    if plan is not None and plan.kind == "pan" and raw is not None:
+        if kind_name == "skyline":
+            native = _native_skyline(plan, kw, raw)
+        elif kind_name == "procession":
+            native = _native_procession(plan, kw, raw)
+        elif kind_name == "frieze":
+            native = _native_frieze(plan, kw, raw, float(cx.dur))
+    cx.cam_state = state(cx, spec, plan=plan, kind=kind_name, native_pan=native)
     if kind_name == "map" and not kw.get("cams") and "drift" not in kw:
         kw["drift"] = (0.0, 0.0, 0.0)
     return cx.cam_state
