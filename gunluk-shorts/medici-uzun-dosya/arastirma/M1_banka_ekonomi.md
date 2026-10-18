@@ -11,7 +11,7 @@
 |---|---|
 | **WebSearch** | Çalıştı: yaklaşık **73 başarılı çağrı** (7'si `extended`, kalanı `standard`). Tur başına 200 çağrılık **ortak kota** (tüm ajanlarla paylaşılan) doldu; son iki sorgu **hiç çalıştırılmadı** (hata: "web search budget is used up"). Kotayı aşmak için başka yol denenmedi. |
 | **WebFetch** | **Hiç çalışmadı.** 10 deneme (en.wikipedia.org, archive.org ×2, www.gutenberg.org, www.britannica.com, www.british-history.ac.uk, r.jina.ai, www.gwern.net, www.economics.utoronto.ca, arxiv.org, ehs.org.uk) hepsi `getaddrinfo ENOTFOUND`. **Hiçbir sayfa açılıp okunamadı.** |
-| **Bash** | Proxy durum/README okuma denemesi izin sistemi tarafından reddedildi; **dolaşılmadı**. Bash yalnız klasör oluşturmak ve dosya birleştirmek için kullanıldı. |
+| **Bash** | Proxy durum/README okuma denemesi izin sistemi tarafından reddedildi; **dolaşılmadı**. Bash yalnız klasör oluşturmak, dosya birleştirmek ve tablo/sayı denetimi (yerel betikler) için kullanıldı; internete erişmedi. |
 | **Sonuç** | **● (birincil metin gerçekten okundu) sınıfı bu dosyada YOK.** Birincil metinlere (Machiavelli, Villani, Boccaccio, Stefani, Cavalcanti) ait olan parçalar yalnız **arama özetinin aktardığı kadarıyla** görüldü; sayfaları açılmadı. |
 
 **Yararlı bir hile (diğer ajanlar için):** `WebSearch`'e `allowed_domains: ["dokumen.pub"]` verince özet, de Roover (1963), Parks, "Comparative History of Bank Failures" vb. **kitap kopyalarının metninden** cümleler getirdi (aşağıda K58–K63 olarak işaretli). `gutenberg.org` ile de Machiavelli/Ross metinlerinden kısa parçalar geldi. Bunlar **ikincil/aracılı aktarımdır**; sayfa numarası yok.
@@ -309,7 +309,7 @@
 |---|---|---|
 | Usta/işçi **günlük ücretleri** | **Bulunamadı** | Ridolfi–Vasta, Siena WP 928 (>20.000 gözlem, Opera del Duomo/Badia Fiesolana) ve Opera'nın *Libro ordinario dei maestri e manovali* kayıtları (ör. 26 Mart 1425) arama sonuçlarında **göründü, açılmadı**. Goldthwaite (*The Building of Renaissance Florence*) ve Cohn (*The Laboring Classes in Renaissance Florence*, 1980) **benim HAFIZA önerim**; sonuçlarda bulunamadı. |
 | **Palazzo Medici maliyeti** | **Bulunamadı** | Ferretti (UniFi; sonuçlarda göründü, açılmadı); Kent ve Goldthwaite (HAFIZA önerisi). |
-| **Giovanni'nin 1427 beyanı** ve Cosimo'nun 1457 beyanı | **Bulunamadı** | Brown Üniv. Catasto veritabanı; Herlihy–Klapisch-Zuber; Georgia Southern tezi (catasto plutokratları; arama sonuçlarında göründü). |
+| **Giovanni'nin 1427 beyanı** ve Cosimo'nun 1457 beyanı | **Bulunamadı** | Brown Üniv. Catasto veritabanı; Herlihy–Klapisch-Zuber; Georgia Southern tezi (catasto plutokratları; K123; arama sonuçlarında göründü). |
 | Cosimo'nun toplam serveti, bankanın **zirve sermayesi** | **Bulunamadı** (içerik çiftliklerinin "net worth" rakamları kullanılmadı) | de Roover (1963) tabloları. |
 | **Kubbe maliyeti** | **Bulunamadı** | Opera del Duomo belgeleri (MPIWG veritabanı). |
 
@@ -536,6 +536,7 @@
 ## 11. Kaynak anahtarı
 
 > Hepsi **ikincil/aracılı** erişimdir (arama özeti). URL'ler arama sonuçlarında göründüğü gibi. Wikipedia ve kopyaları tek kaynak sayıldı.
+> K15, K16, K37, K42, K47, K87 satırları arama sonuçlarında göründü ama olgu satırlarında doğrudan atıf yapılmadı (ek okuma/yan kaynak).
 
 | Kod | Kaynak | URL |
 |---|---|---|
