@@ -30,7 +30,7 @@ Eksenler: **P** para/banka/ekonomi · **S** siyaset/diplomasi · **A** sanat/oku
 | c4 | Kubbe ve Kefaret | 1418–1460'lar | 4,5 | Brunelleschi'nin kubbesi; sipariş = yatırım mı, kefaret mi? | A P M |
 | c5 | Konsil, Kitap, Platon | 1439–1492 | 3,5 | Floransa Konsili, Ficino, Lascaris'in Doğu seferi | D A O |
 | c6 | Lorenzo | 1449–1478 | 4,5 | Giostra; ailenin kadınları; "Muhteşem" | K A D |
-| c7 | 26 Nisan 1478 | 1478 | 6 | Paskalya ayini; Pazzi | S K |
+| c7 | 26 Nisan 1478 | 1478 | 6 | Pazar yüksek ayini (Paskalya değil); Pazzi | S K |
 | c8 | Aslanın İni | 1478–1481 | 4,5 | Lorenzo'nun Napoli yolculuğu; Bandini'nin İstanbul'dan iadesi | S O |
 | c9 | Defter Kapanıyor | 1470–1494 | 3 | Brugge, Londra, Lyon şubeleri | P K |
 | c10 | Rahip ve Kral | 1492–1498 | 4 | Savonarola; VIII. Charles; 1494 sürgün | S A K |
@@ -65,7 +65,7 @@ Eksenler: **P** para/banka/ekonomi · **S** siyaset/diplomasi · **A** sanat/oku
 1. **18 Şubat 1743** ve **31 Ekim 1737**: Anna Maria Luisa, Aile Antlaşması.
 2. **1433:** Cosimo'nun Palazzo Vecchio kulesinde hapsi (zehirlenme korkusu rivayeti nitelikli), serbest kalışı, Venedik sürgünü.
 3. **1434:** Cosimo'nun dönüşü, şehrin tavrı.
-4. **26 Nisan 1478:** Paskalya, Duomo, kaldırma anı sinyali; Giuliano; Lorenzo'nun sakristiye kaçışı; Palazzo Vecchio pencerelerinden asılanlar; Salviati'nin cübbesi.
+4. **26 Nisan 1478 (Pazar):** yüksek ayin, Duomo; saldırı sinyali (kaynaklarda dört varyant, kesin değil); Giuliano; Lorenzo'nun sakristiye kaçışı; Palazzo Vecchio pencerelerinden asılanlar; Salviati'nin cübbesi. **DÜZELTME (M2-D1):** önceki taslakta "Paskalya" yazıyordu; Jülyen hesabıyla Paskalya 22 Mart 1478'di, 26 Nisan Paskalya'dan sonraki 5. Pazar'dır (birincil kaynakta "Pasqua" geçip geçmediği kontrol edilecek).
 5. **Aralık 1479:** Lorenzo'nun silahsız Napoli yolculuğu (diplomasi).
 6. **1494:** VIII. Charles ve Piero'nun teslimi; sarayın yağması.
 7. **6 Mayıs 1527:** Roma'nın yağması (VII. Clemens kuşatmada; bağ: V. Karl).
@@ -80,7 +80,7 @@ Giovanni di Bicci · Cosimo · Contessina de' Bardi · Piero "Gut" · **Lucrezia
 
 ## 7. Mit / tartışma listesi (doğruluk işi; her biri araştırmada sınıflandırılır)
 
-çifte kayıt "icadı" · Platon Akademisi · Michelangelo'nun heykel bahçesi · Leonardo'nun lirle Milano'ya gönderilişi · Botticelli'nin resim yakması · Savonarola'nın Lorenzo'ya "son ayin" ziyareti · X. Leo'nun "Tanrı bize papalığı verdi" sözü · Catherine'in zehir/çatal/dondurma efsaneleri · Francesco I ve Bianca'nın zehirlenmesi · "Medici laneti" türü popüler anlatılar · "Pazzi'de Papa emri verdi mi" · Lorenzo'nun koku alma duyusu/yüzü gibi portre ayrıntıları (kaynak güvenilirliği).
+çifte kayıt "icadı" · Platon Akademisi · Michelangelo'nun heykel bahçesi · Leonardo'nun lirle Milano'ya gönderilişi · Botticelli'nin resim yakması · Savonarola'nın Lorenzo'ya "son ayin" ziyareti · X. Leo'nun "Tanrı bize papalığı verdi" sözü · Catherine'in zehir/çatal/dondurma efsaneleri · Francesco I ve Bianca'nın zehirlenmesi · "Medici laneti" türü popüler anlatılar · "Pazzi'de Papa emri verdi mi" · **Pazzi "Paskalya ayininde"** (hesap: Paskalya 22 Mart 1478; 26 Nisan değil) · Lorenzo'nun koku alma duyusu/yüzü gibi portre ayrıntıları (kaynak güvenilirliği).
 
 ## 8. Osmanlı–Türkiye bağları (Türk izleyiciye özel çıpa)
 

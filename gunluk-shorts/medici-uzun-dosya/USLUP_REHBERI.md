@@ -37,7 +37,7 @@ Kanal kimliği (kurye) korunur: anlatıcı "bir şeyi teslim eden", dönemin kap
 ## 3. Sözcük ve ton
 
 - **Duyusal sözlük:** koku (balmumu, yün boyası, ter, mürekkep, ıslak taş), ses (çan, nal, lonca davulu), ışık (mum, kireç sıva), doku (kadife, defter kâğıdı). **Yalnız belgelenmişse kesin; çıkarımsa "muhtemelen".**
-- **Zaman damgası:** "26 Nisan 1478, Paskalya Pazarı, sabah" gibi; ilk geçişte kısa bağlam (Anayasa §12-2: yeni olgudan önce kim/ne/ne zaman).
+- **Zaman damgası:** "26 Nisan 1478, bir Pazar sabahı" gibi (Paskalya değil: Paskalya 22 Mart 1478'di); ilk geçişte kısa bağlam (Anayasa §12-2: yeni olgudan önce kim/ne/ne zaman).
 - **Anakronizm:** "banka", "şube", "holding" gibi modern sözcükler kullanılabilir, ilk geçişte kısaca açılır.
 - **Yasak kalıplar:** "ilginç bilgi", "inanılmaz", "şok", "Bugün sizlere…", "unutmayalım ki", ders verir tonda "burada önemli olan şudur".
 - **Sınıf → dil eşlemesi:** ●/◐ → kesin kip; NİTELİKLİ/○ → "anlatılır, aktarılır, yazılır"; ANEKDOT → "rivayete göre" + kim anlattı; YORUM → "şöyle okumak mümkün".
