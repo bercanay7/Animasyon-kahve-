@@ -192,6 +192,51 @@ def smoke_puff(f, x, y, t, n=7, w=90, h=260, color="#2A1D14", alpha=0.35, seed=3
     sk.smoke(f, x, y, t, w=w, h=h, n=n, seed=seed, color=color, alpha=alpha)
 
 
+# ───────────────────────────── kum saati (vektör, akan kum) ─────────────────────────────
+def draw_hourglass(f, x, y, h=360.0, fill_bottom=0.0, alpha=1.0, glass_a=0.30, sand="#E3B54A"):
+    """Kum saati (plakadan plakaya yükseklik h). fill_bottom: alt haznedeki kum oranı (0..1); akış çizgisi görünür.
+    (bw_lib.draw_hourglass'ın bağımsız kopyası: başka yazarın dosyasına bağımlılık olmasın.)"""
+    s = h / 360.0
+
+    def P(a, b):
+        return ((a - 256) * s, (b - 256) * s)
+
+    f.c.save()
+    f.c.translate(x, y)
+    full = sk.smooth_path([P(140, 104), P(372, 104), P(290, 256), P(372, 408), P(140, 408), P(222, 256)], True, 0.1)
+    ga = int(70 * glass_a * alpha * 3)
+    f.path(full, shader=f.lin(-60 * s, 0, 60 * s, 0, [("#BFD6D0", 0.0, ga), ("#FFFFFF", 0.4, int(ga * 0.57)), ("#9FB8B2", 1.0, ga)]))
+    f.c.save()
+    f.c.clipPath(full, skia.ClipOp.kIntersect, True)
+    top_amt = 1.0 - fill_bottom
+    ytop = P(0, 104)[1] + (1 - top_amt) * (P(0, 250)[1] - P(0, 104)[1])
+    f.rect(-200 * s, ytop, 400 * s, (P(0, 256)[1] - ytop) + 2, color=sand, alpha=0.95 * alpha)
+    ybot = P(0, 408)[1] - fill_bottom * (P(0, 408)[1] - P(0, 300)[1]) * 1.05
+    if fill_bottom > 0.01:
+        m = skia.Path()
+        m.moveTo(*P(130, 410))
+        m.lineTo(*P(130, 410 - (408 - 300) * fill_bottom + 22 * min(1, fill_bottom * 3)))
+        m.lineTo(*P(256, 410 - (408 - 300) * fill_bottom - 18 * min(1, fill_bottom * 4)))
+        m.lineTo(*P(382, 410 - (408 - 300) * fill_bottom + 22 * min(1, fill_bottom * 3)))
+        m.lineTo(*P(382, 410))
+        m.close()
+        f.path(m, color=sand, alpha=0.95 * alpha)
+    if 0.02 < fill_bottom < 0.97:
+        f.line(0, P(0, 256)[1], 0, ybot - 14 * s, color=sand, sw=max(2.0, 5 * s), alpha=0.9 * alpha)
+    f.c.restore()
+    f.path(full, style="stroke", sw=max(2.0, 4 * s), color="#F6E9C0", alpha=0.55 * alpha)
+    f.line(P(160, 130)[0], P(160, 130)[1], P(206, 232)[0], P(206, 232)[1], color="#FFFFFF", sw=max(2.0, 5 * s), alpha=0.35 * alpha)
+    for yy in (76, 408):
+        px0, py0 = P(120, yy)
+        w_, h_ = 272 * s, 28 * s
+        f.rrect(px0, py0, w_, h_, 8 * s, shader=f.lin(px0, py0, px0, py0 + h_, [("#F4DC8C", 0.0), ("#C9962B", 0.5), ("#6B4A12", 1.0)]), alpha=alpha)
+        f.rrect(px0, py0, w_, h_, 8 * s, style="stroke", sw=2, color="#3A2610", alpha=0.7 * alpha)
+    for sx in (-1, 1):
+        px = sx * 120 * s
+        f.rect(px - 7 * s, P(0, 104)[1], 14 * s, P(0, 408)[1] - P(0, 104)[1], shader=f.lin(px - 7 * s, 0, px + 7 * s, 0, [("#6B4A12", 0.0), ("#F4DC8C", 0.45), ("#7A5518", 1.0)]), alpha=alpha)
+    f.c.restore()
+
+
 # ───────────────────────────── sayaç (paylaşılan) ─────────────────────────────
 @SH.kind("wd_counter")
 def k_wd_counter(cx, value=100000, unit="FLORİN", lab=None, sub=None, at=0.0, dur=1.8, prefix="", suffix="", size=200, pos=(W / 2, H * 0.5),

@@ -64,7 +64,7 @@ SHOTS = [
                   dict(name="macar_habsburg", color="#D98A2B", at=A("c13s3", "Avusturya", 0.3))],
          extra=S13.branches_extra(A("c13s3", "İspanya", 0.1), A("c13s3", "Felipe'ye", -0.3), A("c13s3", "Avusturya", 0.1), A("c13s3", "Ferdinand'a", -0.5)), label="iki_kol_harita"),
     # s4a — evrensel Hıristiyan imparatorluk hayali gerçekleşmedi (taç çatlar)
-    shot("c13_crown", a=A("c13s4", -0.3), tr=("fade", 0.8), at_kick=A("c13s4", "Evrensel", -0.1), at_crown=A("c13s4", "Evrensel", 0.0), at_crack=A("c13s4", "gerçekleşmedi", -0.05), label="taç_çatlar"),
+    shot("c13_crown", a=A("c13s4", -0.3), tr=("fade", 0.8), at_kick=A("c13s4", "Evrensel", -0.1), at_crown=A("c13s4", "Evrensel", 0.0), at_crack=A("c13s4", "gerçekleşmedi", -0.05), label="tac_catlar"),
     # s4b — Reform durmadı; Augsburg Barışı Lutherciliği tanıdı
     shot("map", a=A("c13s4", "Reform", -0.35), tr=("fade", 0.7), cams=[(0.0, (11.0, 50.2, 3.1)), (AE("c13s4", 0.4), (11.0, 49.6, 3.3))],
          regions=[dict(name="almanya", color="protestan", at=A("c13s4", "Reform", 0.0), alpha=0.6)],

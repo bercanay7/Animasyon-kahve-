@@ -4,7 +4,6 @@ import math
 import numpy as np
 import skia
 
-import bw_lib as BW
 import d_common as D
 import icons
 import shots as SH
@@ -23,7 +22,7 @@ def k_c0_forty(cx, at_num=0.0, at_unit=0.0, count_dur=0.55, value=40, unit="YIL"
     k_in = smooth(clamp(cx.t / 0.6))
     hx, hy, hh = 640, H * 0.50, 560
     glow_dot(f, hx, hy, hh * 0.95, "#FFC46E", 0.20 * k_in)
-    BW.draw_hourglass(f, hx, hy, h=hh * (0.96 + 0.04 * k_in), fill_bottom=fill_to * clamp(cx.u), alpha=k_in, glass_a=0.34)
+    D.draw_hourglass(f, hx, hy, h=hh * (0.96 + 0.04 * k_in), fill_bottom=fill_to * clamp(cx.u), alpha=k_in, glass_a=0.34)
     # sayaç
     nx, ny, size = 1290, H * 0.5, 330
     t_n = cx.at(at_num)
