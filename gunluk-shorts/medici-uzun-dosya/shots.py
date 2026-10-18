@@ -847,3 +847,8 @@ def k_black(cx, text=None, at=0.0, size=60, color="#D9C795"):
     f.clear("#000000")
     if text:
         f.text(text, W / 2, H / 2, face="cap_i", size=size, color=color, align="c", alpha=cx.amt(at, 0.8))
+
+
+# ───────────────────────────── Medici cildi (kanca) ─────────────────────────────
+# Eski türlerin üzerine yazar + yeni türleri (ledger/coin/palle/letter/skyline/network/frieze/fresco_title …) kaydeder. Bkz. cilt_kinds.py
+sk.optional_import("cilt_kinds")
