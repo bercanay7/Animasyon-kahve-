@@ -27,6 +27,8 @@ def A(sid, key=None, off=0.0, nth=0, alt=()):
     tl = SH.timeline()
     if sid not in tl.sent:
         raise KeyError(f"cümle yok: {sid}")
+    if isinstance(key, (int, float)):          # A("c9s3", -0.2) → cümle başı − 0.2
+        key, off = None, float(key)
     t0 = tl.sent[sid]["t0"]
     if key is None:
         return (sid, float(off))
@@ -49,6 +51,11 @@ def AE(sid, off=0.0):
 def icn(name, fb="star"):
     """Simge adı kayıtlıysa döndür, değilse yedeği."""
     return name if name in icons._ICONS else fb
+
+
+def tw(text, face, size, track=0.0):
+    """Güvenli sk.text_width (boş metin → 0)."""
+    return sk.text_width(text, face, size, track) if text else 0.0
 
 
 def has_scene(name):
@@ -143,6 +150,26 @@ def draw_medal_plain(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, t=
     SH.draw_medal(f, key, x, y, size, metal, flip, alpha=alpha, tilt=0.15 * math.sin(t * 0.5 + i), glint=(gl if (glint and gl < 1) else None), shadow=shadow)
 
 
+def nplate(f, name, role=None, cx_=W / 2, y=800, t=1.0, size=44, maxw=None, alpha=1.0, min_w=340):
+    """İsim levhası (yazı boyutu ayarlanabilir; uzun adlar maxw'ye sığdırılır). y = levha üstü."""
+    a = alpha * smooth(t)
+    if a <= 0:
+        return
+    nsz = SH.fit_size(name, "title_m", size, (maxw - 90) if maxw else 10_000, 5)
+    wn = sk.text_width(name, "title_m", nsz, 5)
+    ww = max(wn + 90, min_w)
+    if role:
+        ww = max(ww, sk.text_width(role, "cap_i", 27) + 90)
+    hh = 30 + nsz * 1.0 + 16 + (38 if role else 0)
+    x = cx_ - ww / 2
+    yy = y + (1 - smooth(t)) * 16
+    SH.plate(f, x, yy, ww, hh, alpha=a)
+    f.text(name, cx_, yy + 22 + nsz * 0.98, face="title_m", size=nsz, color="#F3DE9A", align="c", track=5, alpha=a, shadow=(2, 3, 3, "#000000"))
+    if role:
+        f.text(role, cx_, yy + 22 + nsz * 0.98 + 36, face="cap_i", size=27, color="#D9C795", align="c", alpha=a)
+    return ww, hh
+
+
 def cameo(f, cx, key, x, y, size, at, metal="bronze", name=None, role=None, flip=False, plate_dy=None, plate_w=None, i=0, dur=0.7):
     """Çekim içine küçük madalya + isteğe bağlı isim levhası yerleştirir; at: çapa. Dönüş: görünürlük 0..1."""
     k = cx.amt(at, dur)
@@ -151,7 +178,7 @@ def cameo(f, cx, key, x, y, size, at, metal="bronze", name=None, role=None, flip
     sc = 0.9 + 0.1 * ease_out(k)
     draw_medal_plain(f, key, x, y, size * sc, metal, flip, alpha=k, t=cx.t, i=i)
     if name:
-        SH.name_plate(f, name, role, None, cx_=x, y=y + (plate_dy if plate_dy is not None else size * 0.52), t=cx.amt(at, 0.6, off=0.35), w=plate_w)
+        nplate(f, name, role, cx_=x, y=y + (plate_dy if plate_dy is not None else size * 0.52), t=cx.amt(at, 0.6, off=0.35), size=40, maxw=plate_w or 640)
     return k
 
 
@@ -187,7 +214,7 @@ def k_wd_counter(cx, value=100000, unit="FLORİN", label=None, sub=None, at=0.0,
             sc = (0.92 + 0.08 * ease_out(kk)) * (1.0 + zoom * cx.u)
             draw_medal_plain(f, m["key"], m.get("x", W * 0.28), m.get("y", H * 0.48), m.get("size", 560) * sc, m.get("metal", "gold"), m.get("flip", False), alpha=kk, t=cx.t)
             if m.get("name"):
-                SH.name_plate(f, m["name"], m.get("role"), None, cx_=m.get("x", W * 0.28), y=m.get("y", H * 0.48) + m.get("size", 560) * 0.52, t=cx.amt(m.get("at", 0.0) + 0.5, 0.6), w=m.get("plate_w"))
+                nplate(f, m["name"], m.get("role"), cx_=m.get("x", W * 0.28), y=m.get("y", H * 0.48) + m.get("size", 560) * 0.52, t=cx.amt(m.get("at", 0.0), 0.6, off=0.5), size=m.get("plate_size", 42), maxw=m.get("plate_w", 640))
     k = ease_out(clamp((cx.t - cx.at(at)) / dur), 3)
     v = value * k
     s = f"{v:.{decimals}f}".replace(".", ",") if decimals else SH.fmt_int(v)
@@ -200,11 +227,11 @@ def k_wd_counter(cx, value=100000, unit="FLORİN", label=None, sub=None, at=0.0,
     SH.gold_flat(f, prefix + s + suffix, px, py + size * 0.3, face="title", size=size, track=6, alpha=a)
     f.c.restore()
     if unit:
-        f.text(unit.upper(), px, py + size * 0.3 + 78, face="title_m", size=48, color="#E0C682", align="c", track=14, alpha=cx.amt(unit_at if unit_at is not None else at + 0.3, 0.5))
+        f.text(unit, px, py + size * 0.3 + 78, face="title_m", size=48, color="#E0C682", align="c", track=14, alpha=cx.amt(unit_at if unit_at is not None else at, 0.5, off=0.0 if unit_at is not None else 0.3))
     if label:
-        f.text(label, px, py + size * 0.3 + 142, face="cap_i", size=40, color="#C9B27A", align="c", alpha=cx.amt(label_at if label_at is not None else at + 0.6, 0.6))
+        f.text(label, px, py + size * 0.3 + 142, face="cap_i", size=40, color="#C9B27A", align="c", alpha=cx.amt(label_at if label_at is not None else at, 0.6, off=0.0 if label_at is not None else 0.6))
     if sub:
-        f.text(sub, px, py + size * 0.3 + 192, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(sub_at if sub_at is not None else at + 0.9, 0.6), track=3)
+        f.text(sub, px, py + size * 0.3 + 192, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(sub_at if sub_at is not None else at, 0.6, off=0.0 if sub_at is not None else 0.9), track=3)
     if kick:
         SH.kicker(f, kick, W / 2, 150, alpha=cx.amt(kick_at if kick_at is not None else at, 0.7), size=30, track=12, face="title_m", color="#E0C682")
     for st in stamps:
@@ -241,7 +268,7 @@ def k_wd_vs(cx, left=None, right=None, center=None, size=500, y=H * 0.44, gap=64
                 glow_dot(f, sx, y, size * 0.7, "#E3B54A", 0.35 * ka)
                 icons.draw_icon(f, icn(slot["icon"], "star"), sx, y, size=size * 0.78 * sc, metal=slot.get("metal", "gold"), alpha=ka, glow=0.3)
             if slot.get("name"):
-                SH.name_plate(f, slot["name"], slot.get("role"), None, cx_=sx, y=y + (plate_dy if plate_dy is not None else size * 0.54), t=cx.amt(slot.get("at", 0.0) + 0.35, 0.6), w=min(gap - 40, 560))
+                nplate(f, slot["name"], slot.get("role"), cx_=sx, y=y + (plate_dy if plate_dy is not None else size * 0.54), t=cx.amt(slot.get("at", 0.0), 0.6, off=0.35), size=slot.get("plate_size", 42), maxw=min(gap - 30, 620))
     if center:
         kc = cx.amt(center.get("at", 0.0), 0.6)
         if kc > 0:
@@ -277,9 +304,9 @@ def k_wd_medal_swap(cx, key="karl_yasli", metal_a="bronze", metal_b="onyx", swap
     sk.dust(f, cx.t, n=50, alpha=0.4 * (1 - 0.6 * ks))
     if name:
         if pos == "c":
-            SH.name_plate(f, name, role, None, cx_=W / 2, y=H * 0.80, t=cx.amt(plate_at, 0.6))
+            nplate(f, name, role, cx_=W / 2, y=H * 0.80, t=cx.amt(plate_at, 0.6), size=46)
         else:
-            SH.name_plate(f, name, role, None, cx_=(W * 0.78 if pos == "l" else W * 0.22), y=H * 0.44, t=cx.amt(plate_at, 0.6), w=560)
+            nplate(f, name, role, cx_=(W * 0.78 if pos == "l" else W * 0.22), y=H * 0.44, t=cx.amt(plate_at, 0.6), size=46)
     for st in stamps:
         SH.stamp(f, st[0], st[1], st[2], rot=(st[5] if len(st) > 5 else -0.1), t=cx.amt(st[3], 0.3), size=(st[4] if len(st) > 4 else 64))
     if extra:
@@ -339,3 +366,118 @@ def draw_globe(f, x, y, r, rot=0.0, alpha=1.0, glow=0.0, tilt_deg=-20.0, ring=Tr
         f.oval(0, 0, r * 1.12, r * 1.12, style="stroke", sw=max(3.0, r * 0.045), color="#C9962B", alpha=0.95 * alpha)
         f.oval(0, 0, r * 1.12, r * 1.12, style="stroke", sw=max(1.0, r * 0.012), color="#FFF0B8", alpha=0.6 * alpha)
         f.c.restore()
+
+
+# ───────────────────────────── n madalya (çapa güvenli `medals`) ─────────────────────────────
+@SH.kind("wd_medals")
+def k_wd_medals(cx, items=(), size=520, y=H * 0.44, gap=None, bgk="night", title=None, title_at=0.0, center=None, plates=True, stamps=(), extra=None, plate_w=None):
+    """Ortak `medals` türünün çapa-güvenli kopyası: items=[dict(key, name, role, at, metal, flip)]; at → çapa (tuple) ya da yerel sn."""
+    f = cx.f
+    f.bg(bgk)
+    f.rays(alpha=0.3)
+    n = len(items)
+    gap = gap or min(size * 1.15, (W - 200) / max(1, n))
+    x0 = W / 2 - gap * (n - 1) / 2
+    for i, it in enumerate(items):
+        ta = it.get("at", 0.2 + 0.3 * i)
+        a = cx.amt(ta, 0.7)
+        if a <= 0:
+            continue
+        x = x0 + i * gap
+        sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.03 * cx.u)
+        draw_medal_plain(f, it["key"], x, y, size * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a, t=cx.t, i=i)
+        if plates and it.get("name"):
+            nplate(f, it["name"], it.get("role"), cx_=x, y=y + size * 0.52, t=cx.amt(ta, 0.5, off=0.4), size=it.get("plate_size", 42), maxw=plate_w or min(gap - 30, 620))
+    if center:
+        kc = cx.amt(center.get("at", 0.0), 0.5)
+        if kc > 0:
+            icons.draw_icon(f, icn(center["icon"], "swords"), W / 2, y + center.get("dy", 0), size=center.get("size", 120), metal=center.get("metal", "silver"), alpha=kc)
+    sk.dust(f, cx.t, n=50)
+    if title:
+        SH.kicker(f, title, W / 2, 130, alpha=cx.amt(title_at, 0.6), size=30, track=12)
+    for st in stamps:
+        SH.stamp(f, st[0], st[1], st[2], rot=(st[5] if len(st) > 5 else -0.1), t=cx.amt(st[3], 0.3), size=(st[4] if len(st) > 4 else 64))
+    if extra:
+        extra(cx)
+    f.vig(0.55)
+
+
+# ───────────────────────────── belge (çapa güvenli, otomatik vurgu, karalama satırları) ─────────────────────────────
+@SH.kind("wd_doc")
+def k_wd_doc(cx, title="", lines=(), w=1100, h=620, at=0.0, line_dt=0.5, ink="#2A1A0C", seal=None, seal_at=None, tone="#D9C697", rot=-0.015, zoom=0.05,
+             hl=None, face="fell", size=48, head_size=50, bgk="night", pan=(0, 0), caption=None, stamps=(), date=None, scribbles=0, scribble_at=None,
+             align="l", extra=None, mono="K", head_dy=0, scribbles_first=False):
+    """Parşömen belge. lines: [str | (str, çapa)]; hl=dict(line, start, text, at, color) → satır içinde bir ifadeyi altın vurgular;
+    scribbles=n → altta okunmaz el yazısı satırları (uzun mektup hissi); seal: True/renk."""
+    f = cx.f
+    f.bg(bgk)
+    f.rays(alpha=0.25)
+    img, pad = SH.paper_sprite(w, h, seed=sum(map(ord, title)) % 97 + 3, tone=tone)
+    a = cx.amt(at, 0.7)
+    sc = (1.0 + zoom * cx.u) * (0.96 + 0.04 * ease_out(a))
+    cxp, cyp = W / 2 + pan[0] * cx.u, H * 0.5 + pan[1] * cx.u
+    f.c.save(); f.c.translate(cxp, cyp); f.c.rotate(math.degrees(rot * (1 - 0.4 * cx.u))); f.c.scale(sc, sc)
+    p = skia.Paint(AntiAlias=True); p.setAlphaf(a)
+    f.c.drawImage(img, -w / 2 - pad, -h / 2 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    y = -h / 2 + 96 + head_dy
+    if title:
+        tsz = SH.fit_size(title, "fell", head_size, w - 160, 2)
+        f.text(title, 0, y, face="fell", size=tsz, color=ink, align="c", track=2, alpha=a * cx.amt(at, 0.5, off=0.3))
+        f.line(-w * 0.32, y + 18, w * 0.32, y + 18, color=ink, sw=1.6, alpha=0.6 * a)
+        y += size * 1.6
+    xs = -w / 2 + 90
+    base = []
+    scr_pending = None
+    if scribbles and scribbles_first:
+        scr_pending = y - size * 0.2
+        y += scribbles * size * 0.92 + size * 0.55
+    for i, ln in enumerate(lines):
+        isanchor = isinstance(ln, tuple)
+        text = ln[0] if isanchor else ln
+        t_i = cx.at(ln[1]) if isanchor else cx.at(at, off=0.5 + i * line_dt)
+        wt = tw(text, face, size, 0)
+        x0 = xs if align == "l" else -wt / 2
+        base.append((text, y, x0, wt))
+        prog = clamp((cx.t - t_i) / 0.55)
+        if prog > 0:
+            f.c.save()
+            f.c.clipRect(skia.Rect.MakeXYWH(x0 - 6, y - size, (wt + 20) * prog, size * 1.6))
+            f.text(text, x0, y, face=face, size=size, color=ink, align="l", alpha=a)
+            f.c.restore()
+        y += size * 1.42
+    if scribbles:
+        rs = np.random.RandomState(7)
+        ts0 = cx.at(scribble_at) if scribble_at is not None else cx.at(at, off=1.0)
+        for j in range(scribbles):
+            yy = (scr_pending if scr_pending is not None else y - size * 0.2) + j * size * 0.92
+            ln_w = (w - 190) * (0.55 + 0.45 * rs.rand()) if j < scribbles - 1 else (w - 190) * 0.35
+            n = int(ln_w / 20)
+            pts = [(xs + k * 20, yy + 3.2 * math.sin(k * 1.9 + j * 2.1) + rs.randn() * 0.9) for k in range(n)]
+            kk = clamp((cx.t - ts0 - 0.18 * j) / 0.9)
+            if kk > 0 and len(pts) > 2:
+                f.c.save()
+                f.c.clipRect(skia.Rect.MakeXYWH(xs - 8, yy - 20, ln_w * kk + 8, 40))
+                f.path(sk.smooth_path(pts, False, 0.5), style="stroke", sw=2.6, color=ink, alpha=0.20 * a)
+                f.c.restore()
+    if hl and hl.get("at") is not None and base:
+        text, yb, x0, wt = base[hl.get("line", 0)]
+        hx = x0 + tw(hl.get("start", ""), face, size, 0)
+        hw = sk.text_width(hl["text"], face, size, 0)
+        k = clamp((cx.t - cx.at(hl["at"])) / 0.6)
+        col = hl.get("color", "#C9962B")
+        f.rect(hx - 4, yb - size * 0.85, (hw + 8) * k, size * 1.2, color=col, alpha=0.24 * a, blur=5)
+        f.line(hx, yb + 9, hx + hw * k, yb + 9, color=col, sw=4.5, alpha=0.95 * a)
+    if date:
+        f.text(date, w / 2 - 90, h / 2 - 54, face="fell_i", size=34, color=ink, align="r", alpha=a * 0.9)
+    if seal:
+        SH.wax_seal(f, w / 2 - 150, h / 2 - 90, 58, color=seal if isinstance(seal, str) else "#8E1F26",
+                    t=cx.amt(seal_at if seal_at is not None else at, 0.35, off=0.0 if seal_at is not None else 1.4), alpha=a, mono=mono)
+    f.c.restore()
+    if caption:
+        SH.kicker(f, caption, W / 2, H - 70, alpha=cx.amt(at, 0.6, off=0.6), size=24, track=6, face="cap_i", color="#B9A674")
+    for st in stamps:
+        SH.stamp(f, st[0], st[1], st[2], rot=(st[5] if len(st) > 5 else -0.1), t=cx.amt(st[3], 0.3), size=(st[4] if len(st) > 4 else 60))
+    sk.dust(f, cx.t, n=40, alpha=0.35)
+    if extra:
+        extra(cx)
+    f.vig(0.5)

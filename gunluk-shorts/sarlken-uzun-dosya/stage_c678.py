@@ -252,11 +252,11 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
         sz = SH.fit_size(smax, "title", size, colw - 40, 6)
         SH.gold_flat(f, s, xc, y + size * 0.28, face="title", size=sz, track=6, alpha=a)
         if it.get("unit"):
-            f.text(up(it["unit"]), xc, y + size * 0.28 + 74, face="title_m", size=46, color="#E0C682", align="c", track=12, alpha=cx.amt(at + 0.3, 0.5))
+            f.text(up(it["unit"]), xc, y + size * 0.28 + 74, face="title_m", size=46, color="#E0C682", align="c", track=12, alpha=cx.amt(at, 0.5, off=0.3))
         if it.get("label"):
-            f.text(it["label"], xc, y + size * 0.28 + 128, face="cap_i", size=38, color="#C9B27A", align="c", alpha=cx.amt(at + 0.6, 0.6))
+            f.text(it["label"], xc, y + size * 0.28 + 128, face="cap_i", size=38, color="#C9B27A", align="c", alpha=cx.amt(at, 0.6, off=0.6))
         if it.get("sub"):
-            f.text(it["sub"], xc, y + size * 0.28 + 176, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(at + 0.9, 0.6), track=3)
+            f.text(it["sub"], xc, y + size * 0.28 + 176, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(at, 0.6, off=0.9), track=3)
         if i > 0 and sep:
             xs = xc - colw / 2
             f.text(sep, xs, y + size * 0.1, face="title", size=80, color="#C9962B", align="c", alpha=0.8 * a)
@@ -264,3 +264,38 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
         SH.stamp(f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 56,
                  rot=stampt[5] if len(stampt) > 5 else -0.1)
     f.vig(0.6)
+
+
+# ───────────────────────────── çapa-güvenli madalya dizisi ─────────────────────────────
+@SH.kind("c678_medals")
+def k_medals2(cx, items=(), size=520, y=H * 0.46, gap=None, bgk="night", title=None, vs=None, vs_icon="swords", plates=True, tone_col=None, plate_w=None, vs_metal="silver"):
+    """shots.medals'ın çapa-güvenli kopyası (orijinal `at + 0.4` ile demet çapada çöküyor). items: [dict(key,name,role,dates,at,metal,flip,dim)]"""
+    f = cx.f
+    f.bg(bgk)
+    f.rays(alpha=0.3)
+    if tone_col:
+        tone(f, tone_col, 0.14)
+    n = len(items)
+    gap = gap or min(size * 1.15, (Wd - 200) / max(1, n))
+    x0 = Wd / 2 - gap * (n - 1) / 2
+    for i, it in enumerate(items):
+        at = it.get("at", 0.2 + 0.3 * i)
+        a = cx.amt(at, 0.7)
+        if a <= 0:
+            continue
+        x = x0 + i * gap
+        dim = it.get("dim", 1.0)
+        sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.03 * cx.u) * it.get("scale", 1.0)
+        gl = (cx.t * 0.25 + 0.2 * i) % 2.0
+        SH.draw_medal(f, it["key"], x, it.get("y", y), size * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a * dim,
+                      tilt=0.15 * math.sin(cx.t * 0.5 + i), glint=(gl if gl < 1 else None))
+        if plates and it.get("name"):
+            SH.name_plate(f, it["name"], it.get("role"), it.get("dates"), cx_=x, y=it.get("y", y) + size * 0.52 * it.get("scale", 1.0), t=cx.amt(at, 0.5, off=0.4), w=plate_w)
+    if vs:
+        k = cx.amt(vs, 0.4)
+        if k > 0:
+            ic(f, vs_icon, Wd / 2, y, size=130 * (0.8 + 0.2 * back_out(k)), metal=vs_metal, alpha=k, glow=0.2 * k)
+    if title:
+        SH.kicker(f, title, Wd / 2, 120, alpha=cx.fade(0.6, 0.4), size=30, track=12)
+    sk.dust(f, cx.t, n=50)
+    f.vig(0.55)

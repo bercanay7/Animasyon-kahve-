@@ -19,10 +19,18 @@ def fx(name):
     return ST.figx(name)
 
 
-def add_leg(F, h, hip, knee, ankle, wd=(0.070, 0.050, 0.032), toe=1, shoe_kind="square", shoe_w=0.09, rim=0.8, tone=0.0):
-    """Çorap bacak + ayakkabı. hip/knee/ankle (x,y) h oranı."""
-    F.fill(limb([(hip[0] * h, hip[1] * h), (knee[0] * h, knee[1] * h), (ankle[0] * h, ankle[1] * h)], [wd[0] * h, wd[1] * h, wd[2] * h], cap0=0.3, cap1=0.3), rim=rim, tone=tone)
-    F.fill(shoe((ankle[0] - 0.012) * h, 0, shoe_w * h, 0.032 * h, toe, shoe_kind), rim=rim)
+def add_leg(F, h, hip, knee, ankle, wd=(0.070, 0.050, 0.032), toe=1, shoe_kind="square", shoe_w=0.09, rim=0.8, tone=0.0, calf=0.014):
+    """Çorap bacak (uyluk→diz→baldır kabarıklığı→bilek) + ayakkabı. hip/knee/ankle (x,y) h oranı."""
+    hx, hy = hip
+    kx, ky = knee
+    ax, ay = ankle
+    mx, my = hx + (kx - hx) * 0.45, hy + (ky - hy) * 0.45
+    cx, cy = kx + (ax - kx) * 0.28 - calf * toe, ky + (ay - ky) * 0.28
+    qx, qy = kx + (ax - kx) * 0.70, ky + (ay - ky) * 0.70
+    P = [(hx * h, hy * h), (mx * h, my * h), (kx * h, ky * h), (cx * h, cy * h), (qx * h, qy * h), (ax * h, ay * h)]
+    W = [wd[0] * h * 1.04, wd[0] * h * 0.92, wd[1] * h * 0.92, wd[1] * h * 1.18, wd[2] * h * 1.1, wd[2] * h * 0.9]
+    F.fill(limb(P, W, cap0=0.3, cap1=0.25), rim=rim, tone=tone)
+    F.fill(shoe((ankle[0] - 0.014) * h, 0, shoe_w * h, 0.036 * h, toe, shoe_kind), rim=rim)
 
 
 # ───────────────────────────── noble ─────────────────────────────
@@ -93,8 +101,10 @@ def _cardinal(h, lean):
                      hip=(-0.17, 0.155, -0.30), hem=(-0.285, 0.215, -0.01), nfold=4, amp=0.009, lift=0.018, swing=-0.02), rim=0.9, glow=0.10)
     robe_folds(F, h, -0.07, 0.06, -0.50, -0.03, 7, 0.011, bend=0.010, seed=8)
     hem_slits(F, h, [-0.21, -0.12, -0.03, 0.07, 0.16], -0.008, depth=0.08)
-    # kol (önde, konuşan el)
-    add_arm(F, [(0.02 * h, -0.72 * h), (0.075 * h, -0.62 * h), (0.165 * h, -0.655 * h)], [0.07 * h, 0.068 * h, 0.042 * h], hand="open", hand_len=0.085 * h, hand_rot=-18)
+    # kol (önde): göğüste rulo/mektup tutar
+    F.fill(bar(0.045 * h, -0.545 * h, 0.205 * h, -0.64 * h, 0.022 * h, 0.022 * h, True, True), rim=1.0)
+    F.line(poly([(0.19 * h, -0.64 * h), (0.205 * h, -0.633 * h)], False), h * 0.003, tone=1.0, alpha=0.5)
+    add_arm(F, [(0.02 * h, -0.72 * h), (-0.03 * h, -0.60 * h), (0.075 * h, -0.55 * h)], [0.07 * h, 0.07 * h, 0.046 * h], hand="fist", hand_len=0.075 * h, hand_rot=-15)
     # mozzetta (kısa pelerin) kıvrık kenarlı
     F.fill(sp([KC(-0.045 * h, -0.775 * h), (-0.115 * h, -0.752 * h), (-0.158 * h, -0.68 * h), (-0.162 * h, -0.60 * h), (-0.10 * h, -0.575 * h), (-0.04 * h, -0.585 * h), (0.02 * h, -0.575 * h),
                (0.085 * h, -0.59 * h), (0.14 * h, -0.60 * h), (0.145 * h, -0.68 * h), (0.11 * h, -0.752 * h), KC(0.05 * h, -0.775 * h), (0.0 * h, -0.70 * h)], True, 0.95), rim=1.0, glow=0.08)
@@ -105,12 +115,13 @@ def _cardinal(h, lean):
     F.fill(poly([(-0.045 * h, -0.778 * h), (0.055 * h, -0.778 * h), (0.05 * h, -0.752 * h), (-0.04 * h, -0.752 * h)]), rim=0.7, tone=0.1)
     F.line(poly([(0.0, -0.74 * h), (0.0, -0.66 * h)], False), h * 0.004, tone=1.0, alpha=0.7)
     add_head(F, hx, hy, hh, "o", rot=-2, beard=None, hat="galero", nose=1.15, chin=0.025, neck_to=(0.0, -0.768 * h), hat_rot=0)
-    # kardinal püskülleri (iki yandan sarkan kordon)
-    F.line(sp([(-0.10 * h, -0.845 * h), (-0.125 * h, -0.78 * h), (-0.115 * h, -0.70 * h)], False), h * 0.0035, tone=0.8, alpha=0.8)
-    F.line(sp([(0.15 * h, -0.845 * h), (0.162 * h, -0.78 * h), (0.158 * h, -0.70 * h)], False), h * 0.0035, tone=0.8, alpha=0.8)
-    for (x, y) in ((-0.115, -0.69), (0.158, -0.69)):
-        for k in range(3):
-            F.fill(ell((x + (k - 1) * 0.011) * h, (y + 0.012 * (1 - abs(k - 1))) * h, 0.0075 * h, 0.015 * h), rim=0.8)
+    # kardinal püskülleri: şapka kenarından omuza inen kordonlar + püskül kümeleri (1-2-3)
+    for (x0, sx_) in ((-0.12, -1), (0.20, 1)):
+        F.line(sp([(x0 * h, -0.862 * h), ((x0 + 0.012 * sx_) * h, -0.78 * h), ((x0 + 0.018 * sx_) * h, -0.70 * h)], False), h * 0.004, tone=0.8, alpha=0.9)
+        cx_, cy_ = (x0 + 0.018 * sx_) * h, -0.69 * h
+        for row, cnt in enumerate((1, 2, 3)):
+            for k in range(cnt):
+                F.fill(ell(cx_ + (k - (cnt - 1) / 2) * 0.016 * h, cy_ + row * 0.026 * h, 0.0085 * h, 0.017 * h), rim=0.8)
     return F.build()
 
 
@@ -193,28 +204,174 @@ def _woman(h, lean):
 
 
 # ───────────────────────────── emperor_old ─────────────────────────────
-@fx("emperor_old")
-def _emperor_old(h, lean):
+def emperor_fig(h, lean, cane=True, far_arm=False):
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.085 * h, -0.875 * h + 0.5 * hh
-    # baston (yakın el) — yere basar
-    F.fill(bar(0.145 * h, -0.465 * h, 0.205 * h, 0.0, 0.011 * h, 0.009 * h, True, False), rim=0.9)
-    F.fill(sp([(0.13 * h, -0.465 * h), (0.145 * h, -0.49 * h), (0.172 * h, -0.482 * h), (0.172 * h, -0.455 * h), (0.15 * h, -0.45 * h)], True), rim=1.0)
+    if cane:                      # baston (yakın el) — yere basar
+        F.fill(bar(0.15 * h, -0.465 * h, 0.21 * h, 0.0, 0.011 * h, 0.009 * h, True, False), rim=0.9)
+        F.fill(sp([(0.13 * h, -0.465 * h), (0.145 * h, -0.49 * h), (0.172 * h, -0.482 * h), (0.172 * h, -0.455 * h), (0.15 * h, -0.45 * h)], True), rim=1.0)
     F.fill(shoe(0.125 * h, 0, 0.09 * h, 0.03 * h, 1, "round"), rim=0.7)
     F.fill(shoe(-0.05 * h, 0, 0.08 * h, 0.028 * h, 1, "round"), rim=0.6)
-    # eğik, ağır cüppe: kambur sırt
     F.fill(robe_path(h, sh_y=-0.715, nb_y=-0.735, back_sh=-0.13, front_sh=0.105, chest=(-0.16, 0.11, -0.62), waist=(-0.125, 0.105, -0.49), belly=0.02,
                      hip=(-0.17, 0.15, -0.30), hem=(-0.215, 0.205, -0.012), nfold=4, amp=0.007, lift=0.02), rim=0.9, glow=0.10)
     robe_folds(F, h, -0.07, 0.07, -0.49, -0.03, 6, 0.011, bend=0.010, seed=41)
     hem_slits(F, h, [-0.16, -0.07, 0.02, 0.11], -0.008, depth=0.07)
-    # geniş kürk yaka, ön klapa
-    F.fill(fur_band([(-0.14 * h, -0.67 * h), (-0.12 * h, -0.72 * h), (-0.05 * h, -0.752 * h), (0.045 * h, -0.752 * h), (0.10 * h, -0.725 * h), (0.112 * h, -0.67 * h)], 0.056 * h, 0.02 * h, side=1), rim=1.0)
-    F.fill(fur_band([(0.06 * h, -0.735 * h), (0.098 * h, -0.67 * h), (0.11 * h, -0.57 * h), (0.10 * h, -0.45 * h)], 0.046 * h, 0.018 * h, side=-1), rim=1.0)
-    F.fill(fur_band([(-0.07 * h, -0.745 * h), (-0.13 * h, -0.70 * h), (-0.158 * h, -0.60 * h)], 0.046 * h, 0.018 * h, side=1), rim=0.8)
-    # uzak kol: hafifçe öne uzanmış
-    # yakın kol: dirseği bükük, bastonu tutar
+    F.fill(fur_band([(-0.14 * h, -0.67 * h), (-0.12 * h, -0.72 * h), (-0.05 * h, -0.752 * h), (0.045 * h, -0.752 * h), (0.10 * h, -0.725 * h), (0.112 * h, -0.67 * h)], 0.05 * h, 0.016 * h, side=1), rim=1.0)
+    F.fill(fur_band([(0.06 * h, -0.735 * h), (0.098 * h, -0.67 * h), (0.11 * h, -0.57 * h), (0.10 * h, -0.45 * h)], 0.04 * h, 0.015 * h, side=-1), rim=1.0)
+    F.fill(fur_band([(-0.07 * h, -0.745 * h), (-0.13 * h, -0.70 * h), (-0.158 * h, -0.60 * h)], 0.04 * h, 0.015 * h, side=1), rim=0.8)
     add_arm(F, [(-0.03 * h, -0.70 * h), (-0.095 * h, -0.585 * h), (0.14 * h, -0.465 * h)], [0.074 * h, 0.082 * h, 0.05 * h], hand="fist", hand_len=0.075 * h, hand_rot=60)
     F.crease((-0.06 * h, -0.67 * h), (-0.09 * h, -0.58 * h), 0.007 * h, 0.006 * h)
     add_head(F, hx, hy, hh, "o", rot=12, beard="short", hat="flatcap", nose=1.2, chin=0.05, neck_to=(0.0, -0.735 * h), neck_w=(0.55, 0.78), hat_rot=6, hair="short")
+    return F
+
+
+@fx("emperor_old")
+def _emperor_old(h, lean):
+    return emperor_fig(h, lean).build()
+
+
+# ───────────────────────────── prince ─────────────────────────────
+def prince_fig(h, lean, sword=True, hat="beret", ruff=True):
+    F = Fig(h, lean)
+    hh = 0.13 * h
+    hx, hy = 0.05 * h, -0.925 * h + 0.5 * hh
+    # kılıç kını (gövdenin arkasından çapraz)
+    if sword:
+        F.fill(bar(-0.07 * h, -0.50 * h, -0.285 * h, -0.17 * h, 0.017 * h, 0.011 * h, True, True), rim=0.9)
+        F.fill(bar(-0.045 * h, -0.538 * h, -0.095 * h, -0.462 * h, 0.011 * h, 0.011 * h, True, True), rim=0.9)
+        F.fill(bar(-0.115 * h, -0.468 * h, -0.02 * h, -0.55 * h, 0.009 * h, 0.009 * h, True, True), rim=0.9)
+    # kısa pelerin (arkada)
+    F.fill(sp([KC(-0.045 * h, -0.775 * h), (-0.115 * h, -0.75 * h), (-0.15 * h, -0.64 * h), (-0.178 * h, -0.50 * h), (-0.195 * h, -0.37 * h), KC(-0.15 * h, -0.335 * h), (-0.115 * h, -0.40 * h), (-0.09 * h, -0.52 * h), (-0.06 * h, -0.64 * h)], True), rim=0.9, glow=0.08)
+    F.crease((-0.115 * h, -0.70 * h), (-0.165 * h, -0.40 * h), 0.008 * h, 0.01 * h)
+    F.crease((-0.09 * h, -0.68 * h), (-0.12 * h, -0.42 * h), 0.006 * h, -0.006 * h, alpha=0.5)
+    # bacaklar (çorap): arka bacak
+    add_leg(F, h, (-0.025, -0.46), (-0.055, -0.26), (-0.09, -0.046), (0.075, 0.048, 0.032), 1, "square", 0.085, 0.7)
+    add_leg(F, h, (0.03, -0.46), (0.085, -0.27), (0.115, -0.046), (0.08, 0.052, 0.034), 1, "square", 0.09, 0.9)
+    # şişkin pantolon (trunk hose)
+    F.fill(sp([KC(-0.09 * h, -0.49 * h), (-0.125 * h, -0.43 * h), (-0.105 * h, -0.355 * h), (-0.02 * h, -0.325 * h), (0.07 * h, -0.335 * h), (0.13 * h, -0.375 * h), (0.125 * h, -0.45 * h), KC(0.09 * h, -0.49 * h)], True), rim=0.9)
+    for x in (-0.07, -0.025, 0.02, 0.07):
+        F.crease((x * h, -0.47 * h), ((x + 0.005) * h, -0.345 * h), 0.006 * h, 0.004 * h, alpha=0.5)
+    # gövde (doublet)
+    F.fill(sp([KC(-0.04 * h, -0.775 * h), (-0.10 * h, -0.745 * h), (-0.105 * h, -0.65 * h), (-0.085 * h, -0.54 * h), KC(-0.12 * h, -0.45 * h), KC(0.125 * h, -0.45 * h), (0.092 * h, -0.54 * h), (0.108 * h, -0.64 * h), (0.098 * h, -0.74 * h), (0.05 * h, -0.775 * h)], True, 0.95), rim=0.9, glow=0.10)
+    F.line(poly([(0.0, -0.76 * h), (0.0, -0.46 * h)], False), h * 0.0035, tone=0.8, alpha=0.5)
+    for k in range(6):
+        F.fill(ell(0.012 * h, (-0.72 + k * 0.045) * h, 0.0045 * h, 0.0045 * h), rim=0.0, tone=0.8, alpha=0.7, bound=False)
+    # yakın kol: kılıç kabzasında
+    F.fill(ell(-0.04 * h, -0.735 * h, 0.05 * h, 0.032 * h, -15), rim=1.0)
+    add_arm(F, [(-0.035 * h, -0.73 * h), (-0.125 * h, -0.60 * h), (-0.06 * h, -0.505 * h)], [0.066 * h, 0.072 * h, 0.044 * h], hand="fist", hand_len=0.07 * h, hand_rot=15)
+    F.crease((-0.07 * h, -0.70 * h), (-0.12 * h, -0.60 * h), 0.006 * h, 0.006 * h)
+    if ruff:
+        F.fill(fur_band([(-0.045 * h, -0.775 * h), (0.0, -0.785 * h), (0.055 * h, -0.775 * h)], 0.026 * h, 0.012 * h, side=1, jag=0.8), rim=1.0, tone=0.05)
+    add_head(F, hx, hy, hh, "m", rot=-2, beard=None, hat=hat, neck_to=(0.0, -0.775 * h), hat_rot=-4)
+    return F
+
+
+@fx("prince")
+def _prince(h, lean):
+    return prince_fig(h, lean).build()
+
+
+# ───────────────────────────── page ─────────────────────────────
+@fx("page")
+def _page(h, lean):
+    F = Fig(h, lean)
+    hh = 0.152 * h
+    hx, hy = 0.04 * h, -0.93 * h + 0.5 * hh
+    add_leg(F, h, (-0.02, -0.40), (-0.045, -0.23), (-0.075, -0.045), (0.07, 0.044, 0.03), 1, "round", 0.08, 0.7)
+    add_leg(F, h, (0.03, -0.40), (0.075, -0.23), (0.10, -0.045), (0.07, 0.046, 0.032), 1, "round", 0.085, 0.9)
+    # tunik (dize kadar), kemerli
+    F.fill(sp([KC(-0.035 * h, -0.745 * h), (-0.092 * h, -0.72 * h), (-0.096 * h, -0.62 * h), (-0.082 * h, -0.52 * h), KC(-0.125 * h, -0.34 * h), KC(0.12 * h, -0.34 * h), (0.088 * h, -0.52 * h), (0.098 * h, -0.62 * h), (0.09 * h, -0.72 * h), (0.045 * h, -0.745 * h)], True, 0.95), rim=0.9, glow=0.10)
+    F.fill(poly([(-0.085 * h, -0.535 * h), (0.092 * h, -0.535 * h), (0.092 * h, -0.515 * h), (-0.085 * h, -0.515 * h)]), rim=0.5, tone=0.2, bound=False)
+    for x in (-0.07, -0.03, 0.02, 0.07):
+        F.crease((x * h, -0.51 * h), ((x - 0.01) * h, -0.35 * h), 0.006 * h, 0.004 * h, alpha=0.55)
+    # kol: rulo mektubu uzatır
+    add_arm(F, [(-0.02 * h, -0.715 * h), (0.045 * h, -0.62 * h), (0.15 * h, -0.60 * h)], [0.05 * h, 0.05 * h, 0.034 * h], hand="fist", hand_len=0.07 * h, hand_rot=-5)
+    F.fill(bar(0.145 * h, -0.575 * h, 0.168 * h, -0.655 * h, 0.017 * h, 0.017 * h, True, True), rim=1.0)
+    F.line(poly([(0.152 * h, -0.60 * h), (0.162 * h, -0.64 * h)], False), h * 0.003, tone=1.0, alpha=0.45)
+    # hafif sayfa pelerini (tabard) önü
+    add_head(F, hx, hy, hh, "c", rot=6, hat="flatcap", neck_to=(0.0, -0.745 * h), neck_w=(0.5, 0.7), hat_rot=4, hair="bob")
     return F.build()
+
+
+# ───────────────────────────── seated (tahtta, taçlı) ─────────────────────────────
+@fx("seated")
+def _seated(h, lean):
+    F = Fig(h, lean)
+    hh = 0.13 * h
+    hx, hy = 0.03 * h, -0.795 * h + 0.5 * hh
+    # arkadan dökülen mantı (arkalığın gerisinden yere)
+    F.fill(sp([KC(-0.08 * h, -0.63 * h), (-0.165 * h, -0.59 * h), (-0.23 * h, -0.42 * h), (-0.265 * h, -0.18 * h), KC(-0.29 * h, 0.0), KC(-0.02 * h, 0.0), (-0.05 * h, -0.20 * h), (-0.07 * h, -0.40 * h)], True), rim=0.8, glow=0.08)
+    F.crease((-0.15 * h, -0.55 * h), (-0.24 * h, -0.05 * h), 0.009 * h, 0.01 * h)
+    # alt bacak + ayakkabı
+    F.fill(limb([(0.17 * h, -0.26 * h), (0.19 * h, -0.13 * h), (0.20 * h, -0.04 * h)], [0.085 * h, 0.07 * h, 0.05 * h], cap0=0.3, cap1=0.2), rim=0.8)
+    F.fill(shoe(0.185 * h, 0, 0.10 * h, 0.036 * h, 1, "round"), rim=0.8)
+    # dik oturan gövde + kucak (diz örtüsü)
+    F.fill(sp([KC(-0.045 * h, -0.64 * h), (-0.11 * h, -0.61 * h), (-0.125 * h, -0.50 * h), (-0.12 * h, -0.34 * h), KC(-0.115 * h, -0.255 * h), (0.0 * h, -0.245 * h), (0.12 * h, -0.255 * h), (0.215 * h, -0.275 * h),
+               KC(0.238 * h, -0.30 * h), (0.225 * h, -0.34 * h), (0.15 * h, -0.355 * h), (0.115 * h, -0.45 * h), (0.118 * h, -0.56 * h), (0.105 * h, -0.62 * h), (0.055 * h, -0.64 * h)], True, 0.95), rim=0.9, glow=0.10)
+    for (a, b, c) in ((0.0, -0.33, 0.01), (0.07, -0.34, 0.008), (0.14, -0.33, 0.008), (0.2, -0.31, 0.007)):
+        F.crease((a * h, b * h), ((a + 0.02) * h, -0.255 * h), c * h, 0.006 * h, alpha=0.6)
+    F.crease((-0.06 * h, -0.55 * h), (-0.075 * h, -0.30 * h), 0.008 * h, 0.01 * h)
+    # asa (yakın el) ve küre (uzak el, dizde)
+    F.fill(bar(0.215 * h, -0.30 * h, 0.25 * h, -0.93 * h, 0.011 * h, 0.011 * h, True, True), rim=0.9)
+    F.fill(ell(0.253 * h, -0.955 * h, 0.022 * h, 0.022 * h), rim=1.0)
+    F.fill(poly([(0.241 * h, -0.985 * h), (0.265 * h, -0.985 * h), (0.265 * h, -0.977 * h), (0.241 * h, -0.977 * h)]), rim=1.0)
+    F.fill(poly([(0.2485 * h, -1.0 * h), (0.2575 * h, -1.0 * h), (0.2575 * h, -0.965 * h), (0.2485 * h, -0.965 * h)]), rim=1.0)
+    F.fill(ell(0.168 * h, -0.335 * h, 0.034 * h, 0.034 * h), rim=1.0)
+    F.fill(poly([(0.163 * h, -0.385 * h), (0.173 * h, -0.385 * h), (0.173 * h, -0.34 * h), (0.163 * h, -0.34 * h)]), rim=1.0)
+    F.fill(poly([(0.152 * h, -0.372 * h), (0.184 * h, -0.372 * h), (0.184 * h, -0.364 * h), (0.152 * h, -0.364 * h)]), rim=1.0)
+    # ermin yaka + ön klapa
+    F.fill(fur_band([(-0.125 * h, -0.60 * h), (-0.105 * h, -0.64 * h), (-0.04 * h, -0.668 * h), (0.055 * h, -0.668 * h), (0.105 * h, -0.64 * h), (0.118 * h, -0.60 * h)], 0.056 * h, 0.018 * h, side=1), rim=1.0)
+    F.fill(fur_band([(0.06 * h, -0.655 * h), (0.105 * h, -0.58 * h), (0.115 * h, -0.45 * h), (0.15 * h, -0.36 * h), (0.225 * h, -0.335 * h)], 0.046 * h, 0.016 * h, side=-1), rim=1.0)
+    # yakın kol: asayı tutar (dirsek yanda, el önde)
+    add_arm(F, [(-0.03 * h, -0.625 * h), (-0.09 * h, -0.50 * h), (0.10 * h, -0.42 * h)], [0.07 * h, 0.075 * h, 0.046 * h], hand="fist", hand_len=0.065 * h, hand_rot=-25)
+    add_head(F, hx, hy, hh, "m", rot=-3, beard="short", hat="crown_i", nose=1.1, chin=0.04, neck_to=(0.0, -0.645 * h), hat_rot=-3)
+    return F.build()
+
+
+# ───────────────────────────── kneel ─────────────────────────────
+@fx("kneel")
+def _kneel(h, lean):
+    F = Fig(h, lean)
+    hh = 0.125 * h
+    hx, hy = 0.095 * h, -0.70 * h + 0.5 * hh
+    # topuklar (yere paralel baldır uçları)
+    F.fill(shoe(-0.20 * h, 0, 0.09 * h, 0.03 * h, -1, "round"), rim=0.7)
+    # cüppe yığını (diz üstünde, geride kıvrımlı)
+    F.fill(sp([KC(0.02 * h, -0.605 * h), (-0.08 * h, -0.57 * h), (-0.13 * h, -0.42 * h), (-0.17 * h, -0.22 * h), (-0.25 * h, -0.07 * h), KC(-0.30 * h, 0.0), KC(0.19 * h, 0.0),
+               (0.17 * h, -0.10 * h), (0.14 * h, -0.24 * h), (0.115 * h, -0.40 * h), (0.12 * h, -0.52 * h), (0.11 * h, -0.60 * h), (0.07 * h, -0.62 * h)], True, 0.95), rim=0.9, glow=0.10)
+    F.crease((-0.04 * h, -0.50 * h), (-0.19 * h, -0.04 * h), 0.009 * h, 0.012 * h)
+    F.crease((0.0 * h, -0.45 * h), (-0.09 * h, -0.03 * h), 0.008 * h, 0.01 * h)
+    F.crease((0.05 * h, -0.34 * h), (0.02 * h, -0.02 * h), 0.008 * h, 0.006 * h)
+    F.crease((0.09 * h, -0.30 * h), (0.11 * h, -0.02 * h), 0.007 * h, -0.006 * h, alpha=0.5)
+    hem_slits(F, h, [-0.2, -0.13, -0.06, 0.02, 0.1], -0.004, depth=0.05)
+    # pelerin omuzda
+    F.fill(sp([KC(0.0 * h, -0.62 * h), (-0.08 * h, -0.60 * h), (-0.13 * h, -0.50 * h), (-0.14 * h, -0.42 * h), (-0.08 * h, -0.44 * h), (-0.02 * h, -0.50 * h), (0.04 * h, -0.55 * h)], True), rim=0.9, tone=0.04)
+    # eller kavuşmuş (dua)
+    add_arm(F, [(0.0 * h, -0.585 * h), (0.03 * h, -0.49 * h), (0.125 * h, -0.50 * h)], [0.055 * h, 0.052 * h, 0.036 * h], hand="open", hand_len=0.07 * h, hand_rot=-10)
+    add_head(F, hx, hy, hh, "m", rot=18, beard=None, hair="bob", neck_to=(0.03 * h, -0.62 * h), hat_rot=0, nose=1.05)
+    return F.build()
+
+
+# ───────────────────────────── pair_old_prince (c0/c12'nin kilit figürü) ─────────────────────────────
+# Yaşlı, bükülmüş imparator (solda, geride) genç prensin omzuna yaslanır; bastonu önde yere basar. İkisi de sağa bakar; h ≈ prensin boyu.
+def pair_fig(h, lean):
+    F = Fig(h, lean)
+    es = 0.955
+    ex = -0.215 * h
+    px = 0.225 * h
+    F.merge(emperor_fig(h * es, 0, cane=True), dx=ex)
+    F.merge(prince_fig(h, 0, sword=True, hat="beret"), dx=px)
+    # imparatorun uzanan (uzak) kolu: omuzdan prensin omzuna; el omuz üstünde
+    sx, sy = ex + 0.045 * h, -0.70 * h * es
+    tx, ty = px - 0.045 * h, -0.752 * h
+    F.fill(limb([(sx, sy), (sx + (tx - sx) * 0.50, sy + 0.075 * h), (tx - 0.030 * h, ty + 0.045 * h)], [0.074 * h, 0.07 * h, 0.046 * h], cap0=0.5, cap1=0.2), rim=1.0)
+    F.crease((sx + 0.02 * h, sy - 0.005 * h), (sx + (tx - sx) * 0.55, sy + 0.06 * h), 0.006 * h, 0.006 * h)
+    F.fill(K.hand_pt("open", tx - 0.032 * h, ty + 0.05 * h, 0.088 * h, -22), rim=1.0)
+    F.fill(K.hand_pt("thumb", tx - 0.032 * h, ty + 0.05 * h, 0.088 * h, -22), rim=1.0)
+    return F.build()
+
+
+@fx("pair_old_prince")
+def _pair(h, lean):
+    return pair_fig(h, lean)

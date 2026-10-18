@@ -220,10 +220,20 @@ class Program:
 # ───────────────────────────── kapanış çekimi ─────────────────────────────
 @SH.kind("outro")
 def k_outro(cx):
+    """Kapanış: başlık + beş cephe (hepsi yanık) + YouTube bitiş-ekranı yuvaları (sol: video karesi, sağ: abone ol)."""
     f = cx.f
     f.bg("night"); f.rays(alpha=0.35)
     sk.dust(f, cx.t, n=70)
-    a = cx.amt(0.3, 1.2) * (1 - smooth((cx.t - (cx.dur - 1.6)) / 1.6))
-    f.gold("ZAMAN KURYESİ", W / 2, H * 0.47, face="title", size=96, track=14, alpha=a)
-    SH.kicker(f, "TESLİMAT TAMAM", W / 2, H * 0.58, alpha=cx.amt(1.4, 1.0) * (1 - smooth((cx.t - (cx.dur - 1.6)) / 1.6)), size=34, track=18)
+    out = 1 - smooth((cx.t - (cx.dur - 1.2)) / 1.2)
+    a = cx.amt(0.3, 1.2) * out
+    f.gold("ZAMAN KURYESİ", W / 2, H * 0.30, face="title", size=96, track=14, alpha=a)
+    SH.kicker(f, "TESLİMAT TAMAM", W / 2, H * 0.30 + 66, alpha=cx.amt(1.0, 1.0) * out, size=30, track=18)
+    SH.cephe_row(f, [0, 1, 2, 3, 4], None, y=H * 0.47, alpha=cx.amt(1.6, 0.9) * out, t=cx.t, size=58, gap=190)
+    # bitiş ekranı yuvaları (Studio'da öğeler bu karelere hizalanır)
+    k = cx.amt(2.6, 0.9) * out
+    for (x, y, w, h, lab) in ((330, 640, 520, 292, "SIRADAKİ TESLİMAT"), (1070, 640, 520, 292, "ABONE OL  ·  ZAMAN KURYESİ")):
+        f.rrect(x, y, w, h, 14, color="#000000", alpha=0.28 * k)
+        f.rrect(x, y, w, h, 14, style="stroke", sw=2.2, color="#C9962B", alpha=0.85 * k)
+        f.rrect(x + 8, y + 8, w - 16, h - 16, 9, style="stroke", sw=1.0, color="#C9962B", alpha=0.35 * k)
+        SH.kicker(f, lab, x + w / 2, y + h + 44, alpha=0.9 * k, size=24, track=8, face="cap_b")
     f.vig(0.65)

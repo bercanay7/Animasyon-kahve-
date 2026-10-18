@@ -27,6 +27,12 @@ def A(sid, key=None, off=0.0, fb=None, nth=0):
     return (sid, (fb if fb is not None else 0.0) + off)
 
 
+def rel(a, base):
+    """İki çapa arası (sn): `a` anının, `base` çekim başlangıç çapasına göre yerel saniyesi (diorama `p` zaman parametreleri için)."""
+    t = SH.timeline()
+    return round(t.resolve(a) - t.resolve(base), 3)
+
+
 def tr_upper(s):
     return s.replace("i", "İ").replace("ı", "I").upper()
 
@@ -315,6 +321,33 @@ def smoke_wisp(f, x, y, t0, t, h=130, n=5, alpha=0.5, seed=1):
         f.circle(px, py, r, color="#B8B2A8", alpha=alpha * (1 - ph) * math.sin(math.pi * min(1, ph * 3)) * 0.8, blur=r * 0.5)
 
 
+def rays(f, name="night", alpha=0.3):
+    """Ton adına göre ışık huzmesi (warm/cold/green/blood)."""
+    sk._fast_blit(f, sk.rays_image(color=_RAYC.get(name, "#FFE2A0")), alpha=alpha, blend=skia.BlendMode.kPlus)
+
+
+def ribbon(f, x, y, w, h, alpha=1.0, color="#EBDDB5", ink="#2A1A0C", notch=None):
+    """Kırlangıç kuyruklu şerit (deviz bandı). (x,y) = merkez."""
+    if alpha <= 0:
+        return
+    nt = notch if notch is not None else h * 0.5
+    p = skia.Path()
+    p.moveTo(x - w / 2, y - h / 2)
+    p.quadTo(x, y - h / 2 + 16, x + w / 2, y - h / 2)
+    p.lineTo(x + w / 2 - nt, y)
+    p.lineTo(x + w / 2, y + h / 2)
+    p.quadTo(x, y + h / 2 + 16, x - w / 2, y + h / 2)
+    p.lineTo(x - w / 2 + nt, y)
+    p.close()
+    f.path(p, color="#000000", alpha=0.4 * alpha, blur=10)
+    f.path(p, shader=f.lin(0, y - h / 2, 0, y + h / 2, [(mix(color, "#FFFFFF", 0.25), 0.0), (color, 0.5), (mix(color, "#6A5430", 0.5), 1.0)]), alpha=alpha)
+    f.path(p, style="stroke", sw=4, color=ink, alpha=0.85 * alpha)
+    q = skia.Path()
+    q.moveTo(x - w / 2 + nt + 8, y - h / 2 + 12)
+    q.quadTo(x, y - h / 2 + 24, x + w / 2 - nt - 8, y - h / 2 + 12)
+    f.path(q, style="stroke", sw=1.6, color=ink, alpha=0.45 * alpha)
+
+
 # ───────────────────────────── terazi ─────────────────────────────
 def _gold_grad(f, x0, x1, y0=0, y1=0, metal="gold"):
     st = sk.METAL[metal]
@@ -327,9 +360,8 @@ def draw_scale(f, x, y, L, tilt, left=None, right=None, alpha=1.0, metal="gold",
     if alpha <= 0:
         return
     base_y = y + L * 1.55
-    f.c.save()
     if alpha < 1:
-        f.c.saveLayerAlphaf(skia.Rect.MakeLTRB(x - L * 2, y - L * 1.2, x + L * 2, base_y + L * 0.4), clamp(alpha))
+        f.layer_begin(alpha=alpha)
     # ayak/gövde
     f.oval(x, base_y + 6, L * 0.62, L * 0.1, color="#000000", alpha=0.4, blur=8)
     f.path(sk.smooth_path([(x - L * 0.55, base_y + 4), (x - L * 0.36, base_y - L * 0.1), (x + L * 0.36, base_y - L * 0.1), (x + L * 0.55, base_y + 4)], True, 0.25), shader=_gold_grad(f, x - L * 0.5, x + L * 0.5, metal=metal))
@@ -369,7 +401,8 @@ def draw_scale(f, x, y, L, tilt, left=None, right=None, alpha=1.0, metal="gold",
     f.c.restore()
     f.circle(x, y, L * 0.1, shader=f.rad(x - L * 0.03, y - L * 0.03, L * 0.16, [("#FBE9A6", 0.0), ("#C9962B", 0.6), ("#6B4A12", 1.0)]))
     f.circle(x, y, L * 0.1, style="stroke", sw=2.5, color="#3A2610", alpha=0.85)
-    f.c.restore()
+    if alpha < 1:
+        f.layer_end()
 
 
 # ───────────────────────────── kabartma simgeler (kendi) ─────────────────────────────
@@ -513,6 +546,134 @@ def _i_besik(m):
     m.cut(sk.smooth_path([(120, 262), (256, 292), (392, 262)], False), 7)
     m.stroke(sk.smooth_path([(96, 410), (256, 448), (416, 410)], False, 0.5), 16)
     m.circle(256, 300, 4, 0)
+
+
+# ───────────────────────────── güvenli diorama sarmalayıcı ─────────────────────────────
+_WARNED = set()
+
+
+@SH.kind("a_theatre")
+def k_a_theatre(cx, **kw):
+    """Diorama çekimi; lab sahnesi yarım/hatalıysa yer tutucu çizer (önizleme/Program çökmesin)."""
+    try:
+        SH.KINDS["theatre"](cx, **kw)
+    except Exception as e:  # noqa: BLE001
+        f = cx.f
+        key = (kw.get("scene"), type(e).__name__)
+        if key not in _WARNED:
+            _WARNED.add(key)
+            import sys
+            print(f"[a_theatre] '{kw.get('scene')}' sahnesi hata verdi: {type(e).__name__}: {e}", file=sys.stderr)
+        f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#241509", 0.0), ("#0D0704", 1.0)]))
+        f.text(f"[sahne hata: {kw.get('scene')}]", W / 2, H / 2, face="cap_i", size=44, color="#8A7A55", align="c")
+        f.vig(0.6)
+
+
+# ───────────────────────────── çoklu madalya (çapa destekli) ─────────────────────────────
+@SH.kind("a_medals")
+def k_a_medals(cx, items=(), size=520, y=H * 0.46, gap=None, bgname=None, vs=None, vs_icon="swords", vs_size=120, plates=True, stampt=None, rays=0.3, dust_n=50, vig=0.55):
+    """Yan yana madalyalar; `at` değerleri çapa olabilir. items: dict(key,name,role,dates,at,metal,flip,size,dx,y)."""
+    f = cx.f
+    if bgname:
+        bg(f, bgname)
+        f.rays = lambda alpha=1.0, **kk: sk._fast_blit(f, sk.rays_image(color=_RAYC[bgname]), alpha=alpha, blend=skia.BlendMode.kPlus)
+        f.rays(alpha=rays)
+        del f.rays
+    else:
+        f.bg("night")
+        f.rays(alpha=rays)
+    n = len(items)
+    gap = gap or min(size * 1.15, (W - 200) / max(1, n))
+    x0 = W / 2 - gap * (n - 1) / 2
+    for i, it in enumerate(items):
+        a_ = it.get("at", 0.2 + 0.3 * i)
+        a = cx.amt(a_, 0.7)
+        if a <= 0:
+            continue
+        x = x0 + i * gap + it.get("dx", 0)
+        yy = it.get("y", y)
+        sz = it.get("size", size)
+        sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.03 * cx.u)
+        gl = (cx.t * 0.25 + 0.2 * i) % 2.0
+        SH.draw_medal(f, it["key"], x, yy, sz * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a, tilt=0.15 * math.sin(cx.t * 0.5 + i), glint=gl if gl < 1 else None,
+                      inscription=it.get("ins", True))
+        if plates and it.get("name"):
+            SH.name_plate(f, it["name"], it.get("role"), it.get("dates"), cx_=x, y=yy + sz * 0.52, t=cx.amt(a_, 0.5, off=0.4), w=min(gap - 20, it.get("pw", 520)))
+    if vs is not None:
+        icons.draw_icon(f, vs_icon, W / 2, y, size=vs_size, metal="silver", alpha=cx.amt(vs, 0.4), glow=0.3)
+    sk.dust(f, cx.t, n=dust_n)
+    f.vig(vig)
+    if stampt:
+        SH.stamp(f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
+
+
+# ───────────────────────────── ek harita bölgeleri (lon/lat → dünya pikseli; kıyıya gerçek ülke çokgenleriyle kırpılır) ─────────────────────────────
+_CNT = None
+
+
+def countries():
+    global _CNT
+    if _CNT is None:
+        import mapdata
+        _CNT = mapdata._countries()
+    return _CNT
+
+
+def _region_builders():
+    from shapely.geometry import Polygon
+    from shapely.ops import unary_union
+
+    def P(pts):
+        return Polygon(pts).buffer(0)
+    aragon = [(-1.8, 42.8), (0.7, 42.95), (3.4, 42.5), (4.6, 42.0), (4.6, 38.3), (0.3, 37.6), (-0.9, 37.7), (-1.3, 38.4), (-1.55, 39.6), (-1.95, 40.8), (-2.0, 41.8)]
+    B = {
+        "c1_flandre": lambda C: unary_union([C["France"], C["Belgium"], C["Netherlands"]]).intersection(
+            P([(2.4, 51.2), (3.6, 51.7), (4.3, 51.5), (4.15, 51.0), (4.15, 50.85), (3.85, 50.6), (3.3, 50.5), (2.9, 50.68), (2.55, 50.8), (2.4, 51.0)])),
+        "c1_aragon": lambda C: C["Spain"].intersection(P(aragon)),
+        "c1_kastilya": lambda C: C["Spain"].difference(P(aragon)),
+        "c3_castilla_leon": lambda C: C["Spain"].intersection(P([(-6.9, 42.9), (-6.0, 43.3), (-4.5, 43.3), (-3.2, 43.1), (-3.0, 42.7), (-2.6, 42.3), (-2.0, 42.1), (-1.9, 41.3),
+                                                                  (-2.5, 41.1), (-3.2, 41.0), (-3.8, 40.7), (-4.6, 40.2), (-5.2, 40.0), (-5.9, 40.3), (-6.7, 40.3), (-6.9, 40.9), (-6.5, 41.5), (-6.9, 41.9), (-7.1, 42.5)])),
+        "c3_valensiya": lambda C: C["Spain"].intersection(P([(-0.3, 40.9), (0.8, 40.9), (1.4, 39.0), (0.2, 37.8), (-0.8, 37.8), (-1.3, 38.4), (-1.45, 39.4), (-1.2, 40.3)])),
+        "c10_venezuela": lambda C: C["Venezuela"],
+    }
+    return B
+
+
+_RB = None
+
+
+def ensure_region(name):
+    global _RB
+    mv = SH.mapview()
+    if name in mv.D["regions"]:
+        return
+    import mapdata
+    if _RB is None:
+        _RB = _region_builders()
+    g = _RB[name](countries())
+    mv.D["regions"][name] = mapdata._levels(mapdata._project(g))
+    for k in [k for k in mv._paths if isinstance(k, tuple) and k[0] == name]:
+        del mv._paths[k]
+
+
+@SH.kind("a_map")
+def k_a_map(cx, need=(), **kw):
+    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir."""
+    for n in need:
+        ensure_region(n)
+    SH.KINDS["map"](cx, **kw)
+
+
+def _with_stamp(name, base):
+    def k(cx, stampt=None, **kw):
+        SH.KINDS[base](cx, **kw)
+        if stampt:
+            SH.stamp(cx.f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
+    SH.KINDS[name] = k
+
+
+for _b in ("timeline", "bars", "counter", "stacked", "tree", "iconrow"):
+    _with_stamp(f"a_{_b}_s", _b)
 
 
 # ───────────────────────────── taban türlerin tonlu varyantları ─────────────────────────────

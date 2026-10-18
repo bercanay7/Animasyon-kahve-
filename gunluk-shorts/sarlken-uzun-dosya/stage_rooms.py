@@ -251,6 +251,144 @@ def mat_marble(base="#8a7e70", seed=12, size=210.0, vein="#5a5048", tone=0.14):
     return fn
 
 
+def mat_split(upper, lower, b0, trim="#8a6a3a", tw=14.0):
+    """Duvar: b<b0 üst malzeme, b>b0 alt malzeme (lambri), arada çıta. b0: düzlem 'b' koordinatında sınır (aşağı pozitif)."""
+    tcol = hex3(trim)
+
+    def fn(a, b):
+        au, hu = upper(a, b)
+        al, hl = lower(a, b)
+        m = (b > b0)[..., None]
+        alb = np.where(m, al, au)
+        h = np.where(b > b0, hl, hu)
+        strip = sstep(tw * 0.5 - np.abs(b - b0), 0.0, 3.0)
+        alb = alb * (1 - strip[..., None]) + (tcol[None, None, :] * (0.8 + 0.3 * noise2d(a, b, 1 / 260.0, seed=3))[..., None]) * strip[..., None]
+        h = h + strip * 7.0
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+def mat_checker(c1="#2a2420", c2="#4b4036", size=120.0, seed=4, joint=2.0):
+    """Dama taş döşeme (koyu/açık karolar)."""
+    a1, a2 = hex3(c1), hex3(c2)
+
+    def fn(a, b):
+        ci, ri = np.floor(a / size), np.floor(b / size)
+        fu, fv = a / size - ci, b / size - ri
+        ed = np.minimum(np.minimum(fu, 1 - fu), np.minimum(fv, 1 - fv)) * size
+        chk = ((ci + ri) % 2 == 0)[..., None]
+        t = hash2(ci, ri, seed)
+        n1 = noise2d(a, b, 1 / 420.0, seed=seed)
+        n2 = noise2d(a, b, 1 / 150.0, seed=seed + 1)
+        base = np.where(chk, a1[None, None, :], a2[None, None, :])
+        k = 1 + 0.16 * (t - 0.5) * 2 + 0.07 * n1 + 0.05 * n2
+        alb = base * k[..., None]
+        gp = sstep(ed, 0.0, joint * 1.5)[..., None]
+        alb = alb * (0.25 + 0.75 * gp)
+        h = sstep(ed, joint, joint + 5.0) * 1.5 + 0.5 * n2
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+def mat_stone_fine(base="#8a7c66", seed=3, course=46.0, tone=0.12, rough=0.7):
+    """Sade kesme taş: ince sıra çizgileri + dikey derzler, yumuşak lekeler."""
+    col = hex3(base)
+
+    def fn(a, b):
+        r = np.floor(b / course)
+        fv = b / course - r
+        off = hash2(r, r * 0, seed) * course * 3
+        c = np.floor((a + off) / (course * 2.6))
+        fu = (a + off) / (course * 2.6) - c
+        ed = np.minimum(np.minimum(fu * course * 2.6, (1 - fu) * course * 2.6), np.minimum(fv * course, (1 - fv) * course))
+        t = hash2(c, r, seed + 4)
+        n1 = noise2d(a, b, 1 / 650.0, seed=seed)
+        n2 = noise2d(a, b, 1 / 230.0, seed=seed + 1)
+        n3 = noise2d(a, b, 1 / 130.0, seed=seed + 2)
+        k = 1 + tone * (t - 0.5) * 2 + 0.07 * n1 + 0.05 * n2 + 0.03 * n3
+        alb = col[None, None, :] * k[..., None]
+        gp = sstep(ed, 0.0, 2.0)[..., None]
+        alb = alb * (0.55 + 0.45 * gp)
+        h = sstep(ed, 1.0, 5.0) * 2.0 + rough * (0.6 * n2 + 0.4 * n3)
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+def mat_arcade(floor_b, stone="#b3a48a", brick="#8e3a2c", white="#d8cdb0", bay=215.0, off=0.0, lo=(150.0, 230.0, 24.0, 345.0), gal=(100.0, 520.0, 18.0, 600.0),
+               top=760.0, seed=5, recess="#0c0908", base_fn=None):
+    """Aachen tipi iki katlı kemerli galeri (alt: büyük kemerler; üst: galeri kemerleri), kemer taşları kırmızı/beyaz dönüşümlü.
+    floor_b: duvar düzleminde zeminin 'b' koordinatı (aşağı pozitif). lo/gal=(açıklık genişliği, yay başlangıç yüksekliği, halka kalınlığı, korniş yüksekliği)."""
+    st = base_fn or mat_stone_fine(stone, seed=seed)
+    br, wh, rc = hex3(brick), hex3(white), hex3(recess)
+
+    def fn(a, b):
+        alb, h = st(a, b)
+        hf = floor_b - b
+        u = (a + off) / bay
+        k = np.floor(u)
+        x = (u - k - 0.5) * bay
+        out_alb, out_h = alb.copy(), h.copy()
+        for (ow, spring, t, cornice, ymin, ymax) in ((lo[0], lo[1], lo[2], lo[3], -1e9, lo[3] - 18.0), (gal[0], gal[1], gal[2], gal[3], lo[3] + 52.0, gal[3] - 18.0)):
+            r = ow / 2
+            cy = spring
+            lvl = (hf > ymin) & (hf < ymax + 400)
+            dist = np.sqrt(x * x + np.maximum(hf - cy, 0.0) ** 2)
+            in_rect = (np.abs(x) < r) & (hf <= cy) & (hf > ymin)
+            in_arch = (hf > cy) & (dist < r)
+            opening = (in_rect | in_arch) & lvl
+            ring_arch = (hf > cy) & (dist >= r) & (dist < r + t) & lvl
+            ring_jamb = (np.abs(x) >= r) & (np.abs(x) < r + t) & (hf <= cy) & (hf > ymin) & lvl
+            ang = np.arctan2(np.maximum(hf - cy, 0.0), x)
+            idx_a = np.floor(ang / (math.pi / 11.0))
+            idx_j = np.floor(hf / (t * 1.35))
+            par = np.where(ring_arch, idx_a, idx_j) % 2 == 0
+            ringm = (ring_arch | ring_jamb)
+            ring_col = np.where(par[..., None], br[None, None, :], wh[None, None, :]) * (0.9 + 0.2 * hash2(np.where(ring_arch, idx_a, idx_j), k, seed + 9))[..., None]
+            out_alb = np.where(ringm[..., None], ring_col, out_alb)
+            out_h = np.where(ringm, h + 3.0, out_h)
+            # açıklık: koyu girinti (derinlik hissi için gradyan)
+            deep = np.clip((np.minimum(r - np.abs(x), 60.0)) / 60.0, 0, 1)[..., None]
+            rec_alb = rc[None, None, :] * (0.6 + 0.8 * deep)
+            out_alb = np.where(opening[..., None], rec_alb, out_alb)
+            out_h = np.where(opening, h * 0.3 - 14.0, out_h)
+        # korniş şeritleri
+        for ch in (lo[3], gal[3]):
+            band = sstep(11.0 - np.abs(hf - ch), 0.0, 2.5)
+            out_alb = out_alb * (1 - band[..., None] * 0.35) + hex3(stone)[None, None, :] * band[..., None] * 0.35 * 1.2
+            out_h = out_h + band * 6.0
+        # galeri korkuluğu (bronz panel)
+        par_m = (hf > lo[3] + 20) & (hf < lo[3] + 52)
+        bz = hex3("#9a7a38")
+        out_alb = np.where(par_m[..., None], bz[None, None, :] * (0.92 + 0.14 * noise2d(a, b, 1 / 650.0, seed=seed + 3))[..., None], out_alb)
+        out_h = np.where(par_m, 1.0 + 2.0 * (np.abs(((u - k) * 8) % 1 - 0.5) < 0.1), out_h)
+        return out_alb.astype(np.float32), out_h.astype(np.float32)
+    return fn
+
+
+def mat_mosaic(base="#c9962b", seed=2, tile=8.0, rib="#6a4a14"):
+    """Altın mozaik tavan: küçük tesseralar (parlak/mat dalgalı), çok kuvvetli parıltı için yükseklik titreşimi."""
+    col = hex3(base)
+    rc = hex3(rib)
+
+    def fn(a, b):
+        ci, ri = np.floor(a / tile), np.floor(b / tile)
+        fu, fv = a / tile - ci, b / tile - ri
+        ed = np.minimum(np.minimum(fu, 1 - fu), np.minimum(fv, 1 - fv))
+        t = hash2(ci, ri, seed)
+        t2 = hash2(ci, ri, seed + 1)
+        n1 = noise2d(a, b, 1 / 500.0, seed=seed)
+        k = 0.65 + 0.7 * t * t + 0.12 * n1
+        alb = col[None, None, :] * k[..., None]
+        alb[..., 1] *= 0.92 + 0.14 * t2
+        gp = sstep(ed, 0.0, 0.12)[..., None]
+        alb = alb * (0.35 + 0.65 * gp)
+        rb = sstep(24.0 - np.abs(((a / 260.0) % 1.0 - 0.5) * 260.0), 0.0, 3.0)
+        alb = alb * (1 - 0.7 * rb[..., None]) + rc[None, None, :] * 0.7 * rb[..., None]
+        h = (t - 0.5) * 3.0 + (t2 - 0.5) * 1.2 + sstep(ed, 0.02, 0.2) * 0.8
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
 def mat_flat(base="#201710", seed=1, rough=0.2):
     col = hex3(base)
 
@@ -357,6 +495,7 @@ class Box:
                tint=None, holes=()):
         """→ (rgb float32 [CH,CW,3] 0..1 sRGB, kapsama bool [CH,CW]). mats: dict(back,left,right,floor,ceil)=fn(a,b).
         holes: [dict(rect=(x0,y0,x1,y1), T=120, splay=.82, mat=fn)] arka duvarda tünel/pencere (içi şeffaf kalır)."""
+        moon_in = moon
         xs = (np.arange(CW, dtype=np.float32) - M)[None, :] * np.ones((CH, 1), np.float32)
         ys = (np.arange(CH, dtype=np.float32) - M)[:, None] * np.ones((1, CW), np.float32)
         planes = self._planes(xs, ys)
@@ -383,7 +522,9 @@ class Box:
             sl = (slice(y0, y1), slice(x0, x1))
             sx, sy = xs[sl], ys[sl]
             X, Y, Z, a, b, n, ea, eb = self._geom(name, sx, sy)
-            alb, h = mats[name](a, b)
+            res = mats[name](a, b)
+            alb, h = res[0], res[1]
+            emit = res[2] if len(res) > 2 else None
             alb = alb * alb                              # sRGB → ~lineer
             # bump: ekran uzayı gradyanı → düzlem uzayı (J^-T)
             hx, hy = np.gradient(h, axis=1), np.gradient(h, axis=0)
@@ -440,12 +581,39 @@ class Box:
                     sp = np.maximum((nxv * hxv + nyv * hyv + nzv * hzv) * hl, 0.0) ** 36
                     E += (L.spec * L.power * sp * att * (h * 0 + 1.0))[..., None] * L.col[None, None, :] * 0.8
             # ay ışığı (gobo)
-            if moon is not None:
+            for moon in ([] if moon_in is None else (list(moon_in) if isinstance(moon_in, (list, tuple)) else [moon_in])):
                 mp = moon.power
                 D = moon.D
                 ndm = np.maximum(-(nxv * D[0] + nyv * D[1] + nzv * D[2]), 0.0)
                 win = moon.win
                 lit = np.ones_like(X)
+                if win is not None and win.get("axis") == "x":
+                    tau = (win["x"] - X) / (-D[0] if abs(D[0]) > 1e-6 else 1e-6)
+                    ok = tau > 0
+                    zq = Z + tau * (-D[2])
+                    yq = Y + tau * (-D[1])
+                    z0, y0, z1, y1 = win["wrect"]
+                    pitch, nwin = win.get("pitch", 0.0), win.get("n", 1)
+                    if pitch:
+                        idx = np.clip(np.floor((zq - z0) / pitch), 0, nwin - 1)
+                        zl = zq - idx * pitch
+                    else:
+                        zl = zq
+                    pen = moon.pen + moon.pen_k * np.maximum(tau, 0)
+                    zc = (z0 + z1) / 2
+                    hw = np.full_like(zl, (z1 - z0) / 2)
+                    ys = win.get("spring")
+                    if ys is not None:
+                        k_ = np.clip((ys - yq) / max(ys - y0, 1e-3), 0, 1)
+                        hw = hw * (1 - k_ ** 1.7)
+                    lit = sstep(hw - np.abs(zl - zc), -pen, pen) * sstep(yq - y0, -pen, pen) * sstep(y1 - yq, -pen, pen) * ok
+                    win = None
+                    fall = 1.0
+                    wgt = mp * ndm * lit * fall
+                    if ao:
+                        wgt = wgt * (0.7 + 0.3 * occ)
+                    E += wgt[..., None] * moon.col[None, None, :]
+                    continue
                 if win is not None:
                     zw = win["z"]
                     tau = (zw - Z) / (-D[2])
@@ -468,6 +636,8 @@ class Box:
                     wgt = wgt * (0.7 + 0.3 * occ)
                 E += wgt[..., None] * moon.col[None, None, :]
             col = alb * E
+            if emit is not None:
+                col = col + emit
             if tint is not None:
                 col = col * np.array(tint, np.float32)[None, None, :]
             col = 1.0 - np.exp(-col * expo)                # filmik omuz
@@ -482,7 +652,7 @@ class Box:
             outer = self.hole_outer(hd["rect"], hd.get("T", 120.0), hd.get("splay", 0.82))
             sub = Box(outer, vp=(self.vx, self.vy), zb=self.zb + hd.get("T", 120.0), F=self.F)
             tm = hd.get("mat") or mats["back"]
-            r2, c2 = sub.render(dict(left=tm, right=tm, floor=tm, ceil=tm, back=tm), lights, moon, ambient, expo, ao=hd.get("ao", 0.3), region=ring, bump=bump,
+            r2, c2 = sub.render(dict(left=tm, right=tm, floor=tm, ceil=tm, back=tm), lights, moon_in, ambient, expo, ao=hd.get("ao", 0.3), region=ring, bump=bump,
                                 only=("left", "right", "floor", "ceil"), tint=tint)
             out[c2] = r2[c2]
             cov |= c2
@@ -831,27 +1001,38 @@ def _fold(c, pts, col, a=0.25, w=1.4):
     c.drawPath(p, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=w, Color=C(col, int(255 * a)), StrokeCap=skia.Paint.kRound_Cap))
 
 
+def _rot(path, ang, cx, cy, h):
+    """Yolu (cx,cy) birim koordinatı etrafında ang radyan döndür (birim = h)."""
+    m = skia.Matrix()
+    m.setRotate(math.degrees(ang), cx * h, cy * h)
+    q = skia.Path(path)
+    q.transform(m)
+    return q
+
+
 @rfig("woman_seated")
 def _f_woman_seated(h):
-    """Tordesillas: alçak tabureye çökmüş, peçeli kadın (profil, sağa bakar, başı hafif kalkık)."""
-    head = _sp([(0.085, -0.95), (0.14, -0.968), (0.185, -0.94), (0.20, -0.905), (0.222, -0.885), (0.203, -0.870), (0.207, -0.850), (0.19, -0.83),
-                (0.16, -0.815), (0.12, -0.82), (0.085, -0.85), (0.075, -0.90)], h, True, 0.5)
-    veil = _sp([(0.20, -0.955), (0.14, -0.995), (0.065, -0.99), (0.0, -0.955), (-0.07, -0.89), (-0.13, -0.79), (-0.18, -0.66), (-0.19, -0.57),
-                (-0.12, -0.60), (-0.06, -0.70), (0.0, -0.79), (0.06, -0.84), (0.085, -0.90)], h, True, 0.5)
-    torso = _sp([(0.065, -0.805), (0.14, -0.805), (0.225, -0.745), (0.285, -0.645), (0.305, -0.565), (0.245, -0.50), (0.12, -0.50), (0.0, -0.55),
-                 (-0.07, -0.62), (-0.085, -0.72)], h, True, 0.4)
-    skirt = _sp([(-0.24, 0.0), (-0.29, -0.20), (-0.26, -0.42), (-0.10, -0.52), (0.16, -0.50), (0.32, -0.47), (0.41, -0.37), (0.44, -0.19), (0.47, -0.025),
+    """Tordesillas: alçak tabureye oturmuş, peçeli kadın (profil, sağa bakar, başı pencereye doğru hafif kalkık)."""
+    head = _sp([(0.085, -0.95), (0.135, -0.972), (0.18, -0.95), (0.197, -0.915), (0.212, -0.893), (0.197, -0.88), (0.2, -0.862), (0.185, -0.842),
+                (0.155, -0.828), (0.12, -0.835), (0.088, -0.86), (0.078, -0.91)], h, True, 0.5)
+    veil = _sp([(0.19, -0.962), (0.135, -1.0), (0.062, -0.99), (0.0, -0.95), (-0.06, -0.89), (-0.11, -0.80), (-0.15, -0.69), (-0.17, -0.58), (-0.135, -0.50),
+                (-0.07, -0.60), (-0.02, -0.71), (0.035, -0.79), (0.07, -0.84), (0.09, -0.90)], h, True, 0.5)
+    head = _rot(_union(head, veil), -0.10, 0.10, -0.80, h)
+    neck = _pp([(0.07, -0.86), (0.15, -0.86), (0.165, -0.77), (0.055, -0.77)], h)
+    torso = _sp([(-0.035, -0.80), (0.04, -0.815), (0.115, -0.785), (0.16, -0.735), (0.175, -0.68), (0.155, -0.60), (0.125, -0.545), (0.14, -0.50), (0.0, -0.49),
+                 (-0.07, -0.54), (-0.10, -0.62), (-0.085, -0.72)], h, True, 0.4)
+    skirt = _sp([(-0.24, 0.0), (-0.285, -0.20), (-0.255, -0.40), (-0.12, -0.50), (0.12, -0.52), (0.30, -0.49), (0.40, -0.40), (0.44, -0.22), (0.47, -0.03),
                  (0.45, 0.0)], h, True, 0.42)
-    arm = _sp([(0.25, -0.715), (0.325, -0.61), (0.405, -0.525), (0.375, -0.49), (0.30, -0.55), (0.215, -0.635)], h, True, 0.4)
-    neck = _pp([(0.095, -0.86), (0.175, -0.86), (0.20, -0.77), (0.07, -0.76)], h)
+    arm = _sp([(0.015, -0.77), (0.085, -0.73), (0.115, -0.63), (0.17, -0.565), (0.27, -0.525), (0.335, -0.51), (0.34, -0.48), (0.27, -0.475), (0.15, -0.50),
+               (0.065, -0.57), (0.03, -0.66), (-0.01, -0.72)], h, True, 0.4)
 
     def detail(c, col, rim, rimd, rim2, hl):
         rc = rim or "#C58A44"
-        for pts in (((0.02, -0.46), (0.12, -0.30), (0.20, -0.14), (0.24, -0.01)), ((0.14, -0.48), (0.30, -0.34), (0.40, -0.17), (0.45, -0.01)),
+        for pts in (((0.03, -0.46), (0.12, -0.30), (0.20, -0.14), (0.24, -0.01)), ((0.17, -0.48), (0.31, -0.34), (0.40, -0.17), (0.44, -0.01)),
                     ((-0.12, -0.40), (-0.15, -0.24), (-0.19, -0.10), (-0.22, -0.01))):
             _fold(c, [(x * h, y * h) for x, y in pts], rc, 0.16, max(1.0, h * 0.0035))
-        _fold(c, [(x * h, y * h) for x, y in ((-0.05, -0.93), (-0.10, -0.82), (-0.15, -0.70), (-0.17, -0.60))], rc, 0.14, max(1.0, h * 0.003))
-    return _union(head, veil, torso, skirt, arm, neck), detail
+        _fold(c, [(x * h, y * h) for x, y in ((-0.05, -0.93), (-0.09, -0.82), (-0.13, -0.70), (-0.15, -0.60))], rc, 0.14, max(1.0, h * 0.003))
+    return _union(head, neck, torso, skirt, arm), detail
 
 
 @rfig("man_window")
@@ -876,28 +1057,137 @@ def _f_man_window(h):
     return _union(torso, head, arm, back_arm, leg2, mantle), detail
 
 
-@rfig("writer_seated")
-def _f_writer_seated(h):
-    """Wartburg: yazı masasına eğilmiş sakallı yazar (profil), sağ elinde tüy kalem; şövalye tuniği. Masa ayrı prop."""
-    torso = _sp([(-0.07, -0.80), (-0.16, -0.72), (-0.21, -0.57), (-0.225, -0.43), (-0.15, -0.37), (0.10, -0.42), (0.20, -0.50), (0.18, -0.62),
-                 (0.13, -0.73), (0.07, -0.80)], h, True, 0.45)
+def _writer_build(h, beard=True, hat=False):
+    torso = _sp([(-0.06, -0.785), (-0.14, -0.72), (-0.185, -0.57), (-0.20, -0.43), (-0.15, -0.37), (0.10, -0.42), (0.19, -0.50), (0.17, -0.62),
+                 (0.12, -0.73), (0.07, -0.785)], h, True, 0.45)
     thigh = _sp([(-0.14, -0.45), (0.20, -0.46), (0.38, -0.45), (0.445, -0.40), (0.44, -0.30), (0.36, -0.275), (0.0, -0.29), (-0.15, -0.30)], h, True, 0.3)
     shin = _sp([(0.35, -0.33), (0.445, -0.33), (0.455, -0.05), (0.52, -0.025), (0.525, 0.0), (0.30, 0.0), (0.315, -0.10)], h, True, 0.3)
     stool = _union(_pp([(-0.17, -0.30), (0.12, -0.30), (0.12, -0.27), (-0.17, -0.27)], h), _pp([(-0.13, -0.27), (-0.10, -0.27), (-0.11, 0.0), (-0.14, 0.0)], h),
                    _pp([(0.06, -0.27), (0.09, -0.27), (0.10, 0.0), (0.07, 0.0)], h))
-    head = _union(_sp([(0.06, -0.935), (0.095, -0.995), (0.155, -1.02), (0.20, -0.99), (0.215, -0.945), (0.20, -0.915), (0.205, -0.87), (0.19, -0.80),
-                       (0.15, -0.775), (0.11, -0.80), (0.085, -0.85), (0.065, -0.88)], h, True, 0.45),
-                  _sp([(0.12, -0.80), (0.17, -0.80), (0.20, -0.74), (0.17, -0.70), (0.13, -0.73)], h, True, 0.4))
-    arm = _sp([(0.00, -0.78), (0.14, -0.77), (0.30, -0.69), (0.45, -0.60), (0.535, -0.585), (0.545, -0.56), (0.45, -0.55), (0.30, -0.575), (0.16, -0.64),
-               (0.05, -0.68)], h, True, 0.4)
-    quill = _union(_pp([(0.53, -0.585), (0.665, -0.66), (0.675, -0.65), (0.545, -0.56)], h),
-                   _sp([(0.66, -0.655), (0.72, -0.80), (0.765, -0.875), (0.755, -0.79), (0.70, -0.665)], h, True, 0.5))
+    parts = [torso, thigh, shin, stool]
+    hp = [(0.06, -0.935), (0.095, -0.995), (0.155, -1.02), (0.20, -0.99), (0.215, -0.945), (0.20, -0.915), (0.205, -0.87), (0.19, -0.80),
+          (0.15, -0.775), (0.11, -0.80), (0.085, -0.85), (0.065, -0.88)]
+    if not beard:
+        hp = [(0.06, -0.935), (0.095, -0.995), (0.155, -1.02), (0.20, -0.99), (0.212, -0.945), (0.20, -0.92), (0.198, -0.895), (0.18, -0.865),
+              (0.15, -0.85), (0.11, -0.86), (0.085, -0.89), (0.065, -0.91)]
+    parts.append(_sp(hp, h, True, 0.45))
+    parts.append(_sp([(0.12, -0.80), (0.17, -0.80), (0.20, -0.74), (0.17, -0.70), (0.13, -0.73)], h, True, 0.4) if beard else _pp([(0.10, -0.86), (0.17, -0.86), (0.18, -0.78), (0.09, -0.78)], h))
+    if hat:
+        parts.append(_sp([(0.05, -0.985), (0.09, -1.04), (0.17, -1.07), (0.235, -1.04), (0.245, -1.0), (0.20, -0.985), (0.12, -0.99)], h, True, 0.4))
+    parts.append(_sp([(0.00, -0.78), (0.14, -0.77), (0.30, -0.69), (0.45, -0.60), (0.535, -0.585), (0.545, -0.56), (0.45, -0.55), (0.30, -0.575), (0.16, -0.64),
+                      (0.05, -0.68)], h, True, 0.4))
+    parts.append(_pp([(0.53, -0.585), (0.575, -0.612), (0.58, -0.604), (0.54, -0.575)], h))
+    parts.append(_sp([(0.575, -0.608), (0.60, -0.66), (0.615, -0.70), (0.612, -0.655), (0.592, -0.60)], h, True, 0.5))
 
     def detail(c, col, rim, rimd, rim2, hl):
         rc = rim or "#C58A44"
         _fold(c, [(x * h, y * h) for x, y in ((-0.14, -0.62), (-0.17, -0.50), (-0.16, -0.40))], rc, 0.14, max(1.0, h * 0.003))
         _fold(c, [(x * h, y * h) for x, y in ((0.0, -0.44), (0.20, -0.44), (0.36, -0.43))], rc, 0.12, max(1.0, h * 0.003))
-    return _union(torso, thigh, shin, stool, head, arm, quill), detail
+    return _union(*parts), detail
+
+
+@rfig("writer_seated")
+def _f_writer_seated(h):
+    """Wartburg: yazı masasına eğilmiş sakallı yazar (profil), sağ elinde tüy kalem. Masa ayrı prop (tabla y=-0.58h, x>=0.3h)."""
+    return _writer_build(h, True, False)
+
+
+@rfig("clerk_seated")
+def _f_clerk_seated(h):
+    """Sayım odası katibi: berelı, sakalsız, yüksek sıraya eğilmiş (tabla y=-0.58h)."""
+    return _writer_build(h, False, True)
+
+
+def _head_front(h, cx, cy, rx=0.062, ry=0.074):
+    return _ellipse(cx, cy, rx, ry, h)
+
+
+def _headgear(h, kind, cy=-0.86):
+    """Önden başlıklar: mitre | kurhut | crown | galero | cap."""
+    if kind == "mitre":
+        mit = _sp([(-0.078, cy - 0.045), (-0.088, cy - 0.10), (-0.058, cy - 0.185), (-0.012, cy - 0.235), (0.0, cy - 0.248), (0.012, cy - 0.235), (0.058, cy - 0.185), (0.088, cy - 0.10), (0.078, cy - 0.045)], h, True, 0.3)
+        band = _pp([(-0.075, cy - 0.04), (0.075, cy - 0.04), (0.07, cy - 0.065), (-0.07, cy - 0.065)], h)
+        lap = _union(_pp([(-0.06, cy - 0.04), (-0.085, cy + 0.07), (-0.065, cy + 0.075), (-0.045, cy - 0.04)], h), _pp([(0.06, cy - 0.04), (0.085, cy + 0.07), (0.065, cy + 0.075), (0.045, cy - 0.04)], h))
+        return _union(mit, band, lap)
+    if kind == "kurhut":
+        cap = _sp([(-0.075, cy - 0.04), (-0.083, cy - 0.085), (-0.05, cy - 0.125), (0.0, cy - 0.135), (0.05, cy - 0.125), (0.083, cy - 0.085), (0.075, cy - 0.04)], h, True, 0.4)
+        brim = _ellipse(0.0, cy - 0.045, 0.098, 0.028, h)
+        top = _ellipse(0.0, cy - 0.14, 0.018, 0.016, h)
+        return _union(cap, brim, top)
+    if kind == "crown":
+        return _pp([(-0.07, cy - 0.04), (-0.075, cy - 0.12), (-0.04, cy - 0.085), (-0.02, cy - 0.15), (0.0, cy - 0.095), (0.02, cy - 0.15), (0.04, cy - 0.085), (0.075, cy - 0.12), (0.07, cy - 0.04)], h)
+    if kind == "galero":
+        return _union(_ellipse(0.0, cy - 0.06, 0.13, 0.026, h), _sp([(-0.06, cy - 0.06), (-0.05, cy - 0.12), (0.05, cy - 0.12), (0.06, cy - 0.06)], h, True, 0.4))
+    return _sp([(-0.07, cy - 0.05), (-0.065, cy - 0.10), (0.0, cy - 0.12), (0.065, cy - 0.10), (0.07, cy - 0.05)], h, True, 0.4)
+
+
+def _elector(h, gear):
+    robe = _sp([(-0.31, 0.0), (-0.295, -0.20), (-0.29, -0.40), (-0.285, -0.52), (-0.24, -0.66), (-0.20, -0.735), (-0.10, -0.775), (0.10, -0.775), (0.20, -0.735),
+                (0.24, -0.66), (0.285, -0.52), (0.29, -0.40), (0.295, -0.20), (0.31, 0.0)], h, True, 0.35)
+    neck = _pp([(-0.035, -0.81), (0.035, -0.81), (0.04, -0.76), (-0.04, -0.76)], h)
+    head = _head_front(h, 0.0, -0.865)
+    gearp = _headgear(h, gear)
+    hands = _union(_ellipse(-0.115, -0.405, 0.045, 0.030, h), _ellipse(0.115, -0.405, 0.045, 0.030, h))
+    sleeve = _union(_sp([(-0.235, -0.70), (-0.285, -0.54), (-0.27, -0.42), (-0.20, -0.40), (-0.18, -0.52), (-0.17, -0.66)], h, True, 0.4),
+                    _sp([(0.235, -0.70), (0.285, -0.54), (0.27, -0.42), (0.20, -0.40), (0.18, -0.52), (0.17, -0.66)], h, True, 0.4))
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        for dx in (-0.10, 0.0, 0.10):
+            _fold(c, [(dx * h, -0.35 * h), ((dx * 1.3) * h, -0.18 * h), ((dx * 1.5) * h, -0.01 * h)], rc, 0.14, max(1.0, h * 0.003))
+        _fold(c, [(-0.07 * h, -0.76 * h), (0.0, -0.66 * h), (0.07 * h, -0.76 * h)], rc, 0.18, max(1.0, h * 0.0035))
+    return _union(robe, neck, head, gearp, hands, sleeve), detail
+
+
+for _g in ("mitre", "kurhut", "crown", "galero", "cap"):
+    ROOM_FIG["elector_" + _g] = (lambda g: (lambda h: _elector(h, g)))(_g)
+
+
+@rfig("bishop_standing")
+def _f_bishop(h):
+    """Önden ayakta piskopos: pelerin (cope), mitre, asa (crozier) tutan kol."""
+    cope = _sp([(-0.19, 0.0), (-0.175, -0.25), (-0.165, -0.50), (-0.18, -0.705), (-0.095, -0.775), (0.095, -0.775), (0.18, -0.705), (0.165, -0.50), (0.175, -0.25), (0.19, 0.0)], h, True, 0.35)
+    neck = _pp([(-0.03, -0.81), (0.03, -0.81), (0.035, -0.76), (-0.035, -0.76)], h)
+    head = _head_front(h, 0.0, -0.845, 0.05, 0.06)
+    mit = _headgear(h, "mitre", -0.845)
+    staff = _union(_pp([(0.285, 0.0), (0.30, 0.0), (0.30, -1.0), (0.285, -1.0)], h), _sp([(0.285, -1.0), (0.286, -1.06), (0.33, -1.095), (0.375, -1.06), (0.37, -1.00), (0.34, -1.0), (0.345, -1.03), (0.33, -1.045), (0.31, -1.03), (0.30, -1.0)], h, True, 0.5))
+    arm = _sp([(0.15, -0.70), (0.26, -0.63), (0.31, -0.58), (0.30, -0.54), (0.23, -0.57), (0.14, -0.62)], h, True, 0.4)
+    arm2 = _sp([(-0.15, -0.70), (-0.20, -0.58), (-0.15, -0.50), (-0.11, -0.52), (-0.12, -0.60)], h, True, 0.4)
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        for dx in (-0.09, 0.0, 0.09):
+            _fold(c, [(dx * h, -0.55 * h), (dx * 1.25 * h, -0.30 * h), (dx * 1.4 * h, -0.02 * h)], rc, 0.14, max(1.0, h * 0.003))
+        f_ = max(1.0, h * 0.004)
+        c.drawLine(-0.012 * h, -0.76 * h, -0.012 * h, -0.05 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 40), StrokeWidth=f_ * 1.6, Style=skia.Paint.kStroke_Style))
+        c.drawLine(0.012 * h, -0.76 * h, 0.012 * h, -0.05 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 40), StrokeWidth=f_ * 1.6, Style=skia.Paint.kStroke_Style))
+    return _union(cope, neck, head, mit, staff, arm, arm2), detail
+
+
+@rfig("king_kneel")
+def _f_king_kneel(h):
+    """Diz çökmüş genç kral (profil, sağa bakar, başı hafif eğik; arkada yere yayılan manto)."""
+    cloak = _sp([(-0.07, -0.60), (-0.16, -0.50), (-0.30, -0.28), (-0.52, -0.06), (-0.66, 0.0), (-0.10, 0.0), (-0.12, -0.20), (-0.06, -0.40)], h, True, 0.4)
+    shin = _sp([(-0.12, -0.06), (0.06, -0.075), (0.10, -0.03), (0.09, 0.0), (-0.30, 0.0), (-0.34, -0.03), (-0.28, -0.07)], h, True, 0.3)
+    thigh = _sp([(-0.10, -0.30), (0.06, -0.28), (0.11, -0.12), (0.10, -0.01), (0.02, -0.01), (-0.06, -0.10)], h, True, 0.4)
+    torso = _sp([(-0.09, -0.62), (0.0, -0.64), (0.08, -0.60), (0.115, -0.50), (0.10, -0.38), (0.06, -0.29), (-0.10, -0.29), (-0.13, -0.42), (-0.12, -0.55)], h, True, 0.4)
+    head = _sp([(-0.01, -0.725), (0.02, -0.775), (0.085, -0.785), (0.13, -0.745), (0.14, -0.71), (0.158, -0.697), (0.14, -0.685), (0.135, -0.65), (0.105, -0.625), (0.055, -0.63), (0.015, -0.66), (-0.015, -0.69)], h, True, 0.45)
+    hair = _sp([(-0.025, -0.70), (-0.005, -0.765), (0.045, -0.80), (0.108, -0.795), (0.105, -0.75), (0.04, -0.74), (-0.005, -0.70)], h, True, 0.4)
+    neck = _pp([(0.01, -0.67), (0.07, -0.67), (0.08, -0.60), (0.0, -0.60)], h)
+    arm = _sp([(0.04, -0.60), (0.12, -0.55), (0.185, -0.49), (0.215, -0.47), (0.215, -0.445), (0.17, -0.45), (0.10, -0.48), (0.03, -0.53)], h, True, 0.4)
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(-0.12 * h, -0.50 * h), (-0.24 * h, -0.30 * h), (-0.42 * h, -0.10 * h)], rc, 0.18, max(1.0, h * 0.0035))
+        _fold(c, [(-0.10 * h, -0.40 * h), (-0.18 * h, -0.20 * h), (-0.34 * h, -0.04 * h)], rc, 0.14, max(1.0, h * 0.003))
+    return _union(cloak, shin, thigh, torso, neck, head, hair, arm), detail
+
+
+def crown_path(h, cx=0.0, cy=0.0, w=0.14, ht=0.08):
+    """Sekizgen (Şarlman) tacı: ön görünüm — taban bandı + 5 yaprak/ haç."""
+    pts = [(cx - w / 2, cy), (cx - w / 2, cy - ht * 0.55), (cx - w * 0.30, cy - ht * 0.30), (cx - w * 0.22, cy - ht), (cx - w * 0.10, cy - ht * 0.42), (cx, cy - ht * 1.12),
+           (cx + w * 0.10, cy - ht * 0.42), (cx + w * 0.22, cy - ht), (cx + w * 0.30, cy - ht * 0.30), (cx + w / 2, cy - ht * 0.55), (cx + w / 2, cy)]
+    return _pp(pts, h)
 
 
 def shaft_polys(box, outer, zw, D, bars_x=(), bar_w=8.0):
@@ -926,3 +1216,113 @@ def shaft_polys(box, outer, zw, D, bars_x=(), bar_w=8.0):
         hull = cv2.convexHull(np.array(pts, np.float32)).reshape(-1, 2)
         polys.append([tuple(map(float, q)) for q in hull])
     return polys
+
+
+def mat_stripe(base, strip, half_width, edge="#c9962b", ew=5.0):
+    """Zemin: |a|<half_width şerit (halı) başka malzeme, kenarında altın bant."""
+    ecol = hex3(edge)
+
+    def fn(a, b):
+        ab, hb = base(a, b)
+        asr, hs = strip(a, b)
+        m = (np.abs(a) < half_width)[..., None]
+        alb = np.where(m, asr, ab)
+        h = np.where(np.abs(a) < half_width, hs, hb)
+        band = sstep(ew * 0.5 - np.abs(np.abs(a) - half_width + ew * 1.6), 0.0, 1.5)
+        alb = alb * (1 - band[..., None]) + ecol[None, None, :] * band[..., None] * 0.9
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+def mat_carpet(base="#6a1a20", seed=9, pat="#c9962b"):
+    col = hex3(base)
+    pc = hex3(pat)
+
+    def fn(a, b):
+        n1 = noise2d(a, b, 1 / 500.0, seed=seed)
+        n2 = noise2d(a, b, 1 / 140.0, seed=seed + 1)
+        k = 1 + 0.10 * n1 + 0.06 * n2
+        alb = col[None, None, :] * k[..., None]
+        rp = (np.abs(((b / 90.0) % 1.0) - 0.5) < 0.05) & (np.abs(a) < 70)
+        alb = np.where(rp[..., None], pc[None, None, :] * 0.7, alb)
+        h = 0.7 * n2 + 0.4 * n1
+        return alb.astype(np.float32), h.astype(np.float32)
+    return fn
+
+
+def mat_hallwall(floor_b, stone="#6c5e4c", pitch=330.0, a0=720.0, nwin=5, w=170.0, h1=250.0, spring=600.0, h3=760.0, seed=4, glow=(1.0, 0.86, 0.60), power=2.2,
+                 course=56.0):
+    """Yan duvar: kesme taş + periyodik sivri pencereler (emisyonlu cam, çıta). a = duvar boyunca derinlik, b = yükseklik (aşağı +)."""
+    st = mat_stone_fine(stone, seed=seed, course=course)
+    g = np.array(glow, np.float32)
+
+    def fn(a, b):
+        alb, h = st(a, b)
+        hf = floor_b - b
+        idx = np.floor((a - a0) / pitch)
+        valid = (idx >= 0) & (idx < nwin)
+        al = (a - a0) - idx * pitch
+        x = al - w / 2
+        hw = np.full_like(x, w / 2)
+        k_ = np.clip((hf - spring) / max(h3 - spring, 1e-3), 0, 1)
+        hw = hw * (1 - k_ ** 1.7)
+        inside = valid & (np.abs(x) < hw) & (hf > h1) & (hf < h3)
+        frame = valid & (np.abs(x) < hw + 16) & (hf > h1 - 16) & (hf < h3 + 12) & ~inside
+        mull = inside & ((np.abs(x) < 4.0) | (np.abs(hf - (h1 + spring) / 2) < 3.5) | (np.abs(hf - spring) < 3.5))
+        glass = inside & ~mull
+        alb = np.where(frame[..., None], alb * 0.55, alb)
+        alb = np.where(inside[..., None], np.array([0.05, 0.04, 0.03], np.float32)[None, None, :], alb)
+        h = np.where(inside, h - 18.0, np.where(frame, h + 6.0, h))
+        shim = 0.82 + 0.18 * noise2d(a, b, 1 / 90.0, seed=seed + 7)
+        emit = glass[..., None] * (g[None, None, :] * power * shim[..., None])
+        return alb.astype(np.float32), h.astype(np.float32), emit.astype(np.float32)
+    return fn
+
+
+def shaft_polys_x(box, xw, wrect, D, pitch=0.0, n=1):
+    """Yan duvardaki pencerelerden (düzlem X=xw) zemine uzanan huzme çokgenleri (her pencere için bir dışbükey zarf)."""
+    z0, y0, z1, y1 = wrect
+    d = np.array(D, np.float32)
+    d = d / np.linalg.norm(d)
+    YF = (box.by1 - box.vy) * box.zb / box.F
+    polys = []
+    for i in range(n):
+        pts = []
+        for (Zq, Yq) in ((z0 + i * pitch, y0), (z1 + i * pitch, y0), (z1 + i * pitch, y1), (z0 + i * pitch, y1)):
+            pts.append(box.screen(xw, Yq, Zq))
+            tau = (YF - Yq) / d[1]
+            pts.append(box.screen(xw + tau * d[0], YF, Zq + tau * d[2]))
+        hull = cv2.convexHull(np.array(pts, np.float32)).reshape(-1, 2)
+        polys.append([tuple(map(float, q)) for q in hull])
+    return polys
+
+
+def _sitter(h, hat="beret"):
+    torso = _sp([(-0.07, -0.80), (-0.15, -0.70), (-0.18, -0.55), (-0.17, -0.42), (-0.10, -0.38), (0.10, -0.42), (0.16, -0.52), (0.15, -0.64), (0.11, -0.74),
+                 (0.06, -0.80)], h, True, 0.45)
+    thigh = _sp([(-0.14, -0.46), (0.2, -0.46), (0.38, -0.45), (0.44, -0.40), (0.435, -0.31), (0.36, -0.285), (0.0, -0.30), (-0.14, -0.31)], h, True, 0.3)
+    shin = _sp([(0.34, -0.33), (0.435, -0.33), (0.445, -0.05), (0.51, -0.025), (0.515, 0.0), (0.30, 0.0), (0.315, -0.10)], h, True, 0.3)
+    head = _sp([(0.03, -0.87), (0.06, -0.93), (0.115, -0.955), (0.165, -0.93), (0.18, -0.89), (0.195, -0.875), (0.18, -0.86), (0.175, -0.83), (0.14, -0.805), (0.09, -0.81),
+                (0.05, -0.84)], h, True, 0.45)
+    neck = _pp([(0.07, -0.84), (0.14, -0.84), (0.15, -0.77), (0.06, -0.77)], h)
+    arm = _sp([(0.05, -0.74), (0.13, -0.62), (0.22, -0.50), (0.245, -0.47), (0.16, -0.47), (0.06, -0.60)], h, True, 0.4)
+    parts = [torso, thigh, shin, head, neck, arm]
+    if hat == "beret":
+        parts.append(_sp([(0.02, -0.915), (0.05, -0.975), (0.14, -0.995), (0.205, -0.955), (0.185, -0.925), (0.10, -0.935)], h, True, 0.4))
+    elif hat == "galero":
+        parts.append(_union(_ellipse(0.11, -0.94, 0.15, 0.022, h), _sp([(0.05, -0.94), (0.06, -0.99), (0.16, -0.99), (0.17, -0.94)], h, True, 0.4)))
+    elif hat == "mitre":
+        parts.append(_sp([(0.03, -0.925), (0.05, -1.01), (0.095, -1.085), (0.14, -1.01), (0.175, -0.925)], h, True, 0.25))
+    elif hat == "cap":
+        parts.append(_sp([(0.04, -0.915), (0.06, -0.975), (0.15, -0.98), (0.185, -0.93)], h, True, 0.4))
+    elif hat == "hood":
+        parts.append(_sp([(0.0, -0.80), (0.0, -0.93), (0.06, -0.985), (0.14, -0.975), (0.10, -0.90), (0.06, -0.80)], h, True, 0.4))
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(-0.10 * h, -0.62 * h), (-0.13 * h, -0.50 * h), (-0.11 * h, -0.40 * h)], rc, 0.12, max(1.0, h * 0.003))
+    return _union(*parts), detail
+
+
+for _hn in ("beret", "galero", "mitre", "cap", "hood"):
+    ROOM_FIG["sit_" + _hn] = (lambda hn: (lambda h: _sitter(h, hn)))(_hn)

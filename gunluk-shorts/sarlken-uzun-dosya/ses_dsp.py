@@ -602,19 +602,87 @@ def compressor(x, thr_db=-24.0, ratio=2.0, attack=0.010, release=0.120, knee_db=
     return y.astype(x.dtype if x.dtype == np.float32 else np.float64), grs
 
 
-def limiter(x, ceiling_db=-1.2, lookahead=0.005, release=0.120, hop=24, sr=SR):
-    """True-peak duyarlı, ileri bakışlı yumuşak limiter (x: (n,2)). Döner: (y float32, gr_db_dizisi(hop hızında)).
-    Kazanç: hop başına gereken azaltma → komşu hop minimumu → ileri bakış minimum + aynı genişlikte hareketli ortalama
-    (tepe öncesi yumuşak iniş garantili) → üstel bırakma → doğrusal aradeğerleme."""
+def _decay_max(L, a, blk=2048):
+    """L_out[i] = max(L[i], a·L_out[i−1]) özyinelemesinin vektörel (blok blok) çözümü — üstel bırakmalı tepe tutma."""
+    n = len(L)
+    out = np.empty(n)
+    carry = 0.0
+    idx = np.arange(blk, dtype=np.float64)
+    pw = a ** (-idx)
+    for s0 in range(0, n, blk):
+        m = min(blk, n - s0)
+        cm = np.maximum.accumulate(L[s0:s0 + m] * pw[:m])
+        o = np.maximum(cm / pw[:m], carry * a ** (idx[:m] + 1))
+        out[s0:s0 + m] = o
+        carry = o[-1]
+    return out
+
+
+def hop_peaks(x, hop=24, os=4, chunk=None):
+    """x (n,ch) → hop başına true-peak (max |4× aşırı örneklenmiş|) (nh,) ve (varsa) hop başına örnek tepe. Bellek dostu, parça parça."""
+    x = np.asarray(x)
+    if x.ndim == 1:
+        x = x[:, None]
     n = len(x)
-    ceil = 10 ** (ceiling_db / 20.0)
-    tpe = tp_envelope(x)
     nh = n // hop + 1
-    pad = np.zeros(nh * hop)
-    pad[:n] = tpe
-    ph = pad.reshape(nh, hop).max(axis=1)
-    req = np.minimum(1.0, ceil / (ph + 1e-12))
-    # komşu hop min (doğrusal aradeğerleme güvencesi)
+    out = np.zeros(nh * hop)
+    chunk = chunk or hop * 87381
+    pad = 64
+    for c in range(x.shape[1]):
+        for s0 in range(0, n, chunk):
+            a, b = max(0, s0 - pad), min(n, s0 + chunk + pad)
+            seg = x[a:b, c].astype(np.float64)
+            up = np.abs(resample_poly(seg, os, 1))
+            lo = (s0 - a) * os
+            m = min(chunk, n - s0)
+            core = up[lo:lo + m * os].reshape(m, os).max(axis=1)
+            out[s0:s0 + m] = np.maximum(out[s0:s0 + m], core)
+    return out.reshape(nh, hop).max(axis=1)
+
+
+def k_power_hop(x, hop=24, sr=SR, chunk=None):
+    """x (n,ch) → hop başına K-ağırlıklı kare toplamı (kanallar toplanmış) (nh,). Süzgeç durumu parçalar arası taşınır."""
+    x = np.asarray(x)
+    if x.ndim == 1:
+        x = x[:, None]
+    n = len(x)
+    nh = n // hop + 1
+    out = np.zeros(nh * hop)
+    sos = _k_sos(sr)
+    chunk = chunk or hop * 87381
+    for c in range(x.shape[1]):
+        zi = np.zeros((sos.shape[0], 2))
+        for s0 in range(0, n, chunk):
+            seg = x[s0:s0 + chunk, c].astype(np.float64)
+            y, zi = sosfilt(sos, seg, zi=zi)
+            out[s0:s0 + len(seg)] += y * y
+    return out.reshape(nh, hop).sum(axis=1)
+
+
+def lufs_from_hop_power(pw, hop=24, sr=SR):
+    """hop başına (kanal toplamlı) K-ağırlıklı güç toplamlarından entegre LUFS (kapılı). Blok 400 ms, adım 100 ms."""
+    W = int(round(0.4 * sr / hop))
+    H = int(round(0.1 * sr / hop))
+    cs = np.concatenate([[0.0], np.cumsum(pw)])
+    nb = (len(pw) - W) // H + 1
+    if nb < 1:
+        return -70.0
+    idx = np.arange(nb) * H
+    ms = (cs[idx + W] - cs[idx]) / (W * hop)
+    lk = -0.691 + 10 * np.log10(ms + 1e-18)
+    g1 = lk > -70.0
+    if not np.any(g1):
+        return -70.0
+    rel = -0.691 + 10 * np.log10(np.mean(ms[g1]) + 1e-18) - 10.0
+    g2 = g1 & (lk > rel)
+    return float(-0.691 + 10 * np.log10(np.mean(ms[g2]) + 1e-18))
+
+
+def limiter_curve(ph, ceil_lin, hop=24, lookahead=0.008, release=0.120, sr=SR):
+    """hop başına tepe (ph, doğrusal) → hop düzeyinde kazanç eğrisi g (nh,), ≤ 1.
+    Komşu hop minimumu → ileri bakış minimum + aynı genişlikte hareketli ortalama (tepe öncesi yumuşak iniş garantisi) →
+    üstel bırakma (vektörel). Doğrusal aradeğerleme güvencesi için komşu min alınır."""
+    req = np.minimum(1.0, ceil_lin / (ph + 1e-12))
     prev = np.concatenate([[req[0]], req[:-1]])
     nxt = np.concatenate([req[1:], [req[-1]]])
     r2 = np.minimum(req, np.minimum(prev, nxt))
@@ -622,19 +690,27 @@ def limiter(x, ceiling_db=-1.2, lookahead=0.005, release=0.120, hop=24, sr=SR):
     w = 2 * la + 1
     gmin = minimum_filter1d(r2, size=w, mode="nearest")
     gsm = uniform_filter1d(gmin, size=w, mode="nearest")
-    # üstel bırakma (dizisel, hop hızında)
-    a_rel = np.exp(-(hop / sr) / release)
-    g = np.empty(nh)
-    cur = 1.0
-    for i in range(nh):
-        t = gsm[i]
-        rec = cur + (1.0 - cur) * (1.0 - a_rel)
-        cur = t if t < rec else rec
-        g[i] = cur
-    centers = (np.arange(nh) + 0.5) * hop
-    gl = np.interp(np.arange(n), centers, g)
-    y = (x * gl[:, None]).astype(np.float32)
-    return y, 20 * np.log10(g + 1e-12)
+    a = np.exp(-(hop / sr) / release)
+    return 1.0 - _decay_max(1.0 - gsm, a)
+
+
+def apply_hop_gain(x, g, gain_lin=1.0, hop=24, chunk=1 << 22):
+    """x (n,ch) float32 → x·gain_lin·g(t) (g hop merkezlerinde, doğrusal aradeğerleme). Yeni dizi döner."""
+    n = len(x)
+    y = np.empty(x.shape, dtype=np.float32)
+    centers = (np.arange(len(g)) + 0.5) * hop
+    for s0 in range(0, n, chunk):
+        e = min(n, s0 + chunk)
+        gl = np.interp(np.arange(s0, e), centers, g) * gain_lin
+        y[s0:e] = x[s0:e] * gl.astype(np.float32)[:, None]
+    return y
+
+
+def limiter(x, ceiling_db=-1.2, lookahead=0.008, release=0.120, hop=24, sr=SR):
+    """True-peak duyarlı, ileri bakışlı yumuşak limiter (x: (n,2)). Döner: (y float32, gr_db_dizisi(hop hızında))."""
+    ph = hop_peaks(x, hop)
+    g = limiter_curve(ph, 10 ** (ceiling_db / 20.0), hop, lookahead, release, sr)
+    return apply_hop_gain(x, g, 1.0, hop), 20 * np.log10(g + 1e-12)
 
 
 # ───────────────────────── ortak sentez sesleri (müzik + SFX) ─────────────────────────
@@ -661,7 +737,6 @@ def bell_tone(f, dur, vel=0.8, rng=None, ring=1.0, strike=0.5, partials=None, sr
             env = env * np.minimum(1.0, (n - 1 - np.arange(n)) / (0.05 * sr))
         for sgn in (-1, 1):
             out += 0.5 * a * np.sin(PI2 * (fr + sgn * df) * t + rng.uniform(0, PI2)) * env
-    k = int(0.03 * sr)
     cl = bp(rng.standard_normal(n), 1800, 6500, 2, sr) * np.exp(-t / 0.005)
     cl += 0.6 * np.sin(PI2 * f * 3.1 * t) * np.exp(-t / 0.02)
     out += strike * 0.35 * cl

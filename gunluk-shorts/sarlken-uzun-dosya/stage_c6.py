@@ -22,7 +22,7 @@ CX = SW / 2
 class Paper:
     """with Paper(f, x, y, w, h, ...) as p: içinde (0,0) = kâğıt merkezi."""
 
-    def __init__(self, f, x, y, w, h, seed=3, tone="#EBDDB5", rot=0.0, sc=1.0, alpha=1.0, tx=0.0, ty=0.0):
+    def __init__(self, f, x, y, w, h, seed=3, tone="#DCCB9E", rot=0.0, sc=1.0, alpha=1.0, tx=0.0, ty=0.0):
         self.f, self.x, self.y, self.w, self.h = f, x, y, w, h
         self.seed, self.tone, self.rot, self.sc, self.alpha = seed, tone, rot, sc, alpha
 
@@ -125,7 +125,7 @@ def _bars(f, x0, x1, y0, y1, step=118, w=17, alpha=1.0):
 
 
 def _cell_back(f):
-    f.rect(0, 0, SW, H, shader=f.lin(0, 0, 0, H, [("#1A1512", 0.0), ("#0B0807", 1.0)]))
+    f.rect(0, 0, SW, H, shader=f.lin(0, 0, 0, H, [("#2C231C", 0.0), ("#120D0A", 1.0)]))
     for r in range(11):
         yy = r * 100
         f.line(0, yy, SW, yy, color="#000000", sw=2.0, alpha=0.35)
@@ -137,7 +137,7 @@ def _cell_back(f):
     f.path(ST.pointed_arch_path(wx, wy + 150, 190, 330), color="#05060A")
     f.path(ST.pointed_arch_path(wx, wy + 150, 150, 290), shader=f.lin(0, wy - 140, 0, wy + 150, [("#9CB8D8", 0.0), ("#3A5578", 1.0)]))
     sk.light_rays(f, (wx, wy + 80), math.radians(104), 0.36, 1300, n=6, alpha=0.20, color="#9CB8D8", seed=4, blur=22)
-    f.rect(0, 0, SW, H, shader=f.rad(wx, wy + 250, 1100, [("#000000", 0.0, 0), ("#000000", 0.55, 60), ("#000000", 1.0, 215)]))
+    f.rect(0, 0, SW, H, shader=f.rad(wx - 250, wy + 300, 1200, [("#000000", 0.0, 0), ("#000000", 0.55, 40), ("#000000", 1.0, 170)]))
 
 
 @SH.kind("c6_rehin")
@@ -149,14 +149,14 @@ def k_rehin(cx, at=0.0, at_stamp=0.0, at_chip=None):
     sway = math.sin(cx.t * 1.1) * 0.006
     # ay ışığı lekesi zeminde
     f.path(sk.poly_path([(1150, 880), (1350, 880), (1500, 1100), (1000, 1100)]), color="#9CB8D8", alpha=0.07 * a)
-    ST.figure(f, "prince", 900, 1010 + (1 - a) * 30, 640, col="#070505", rim="#8EA8C8", face=1, alpha=a, sway=sway)
-    ST.figure(f, "page", 1230, 1020 + (1 - a) * 30, 540, col="#070505", rim="#8EA8C8", face=-1, alpha=a, sway=-sway)
+    ST.figure(f, "prince", 880, 1040 + (1 - a) * 30, 740, col="#070505", rim="#8EA8C8", face=1, alpha=a, sway=sway)
+    ST.figure(f, "page", 1250, 1050 + (1 - a) * 30, 620, col="#070505", rim="#8EA8C8", face=-1, alpha=a, sway=-sway)
     _bars(f, 130, 1790, -30, H + 10, alpha=1.0)
-    SH.kicker(f, "İKİ OĞLU", CX, 168, alpha=cx.amt(at + 0.15, 0.7), size=34, track=14, face="title_m", color="#E0C682")
+    SH.kicker(f, "İKİ OĞLU", CX, 168, alpha=cx.amt(at, 0.7, off=0.15), size=34, track=14, face="title_m", color="#E0C682")
     t = cx.amt(at_stamp, 0.3)
     if t > 0:
         SH.stamp(f, "REHİN", CX, H * 0.74, rot=-0.07, size=96, t=t)
-    f.vig(0.72)
+    f.vig(0.6)
 
 
 # ───────────────────────────── c6_yirt ─────────────────────────────
@@ -186,8 +186,8 @@ def k_yirt(cx, at_flare=0.0, at_tear=0.0, at_stamp=0.0, at_note=None):
     top, bot = 540 - 350, 540 + 350
     # çatlak çizgisi (pürüzlü, yukarıdan aşağı)
     pts = X.jag_points(CX + 10, top - 20, CX - 14, bot + 20, n=16, amp=22, seed=5)
-    left_poly = [(0, top - 60)] + pts + [(0, bot + 60)]
-    right_poly = [(SW, top - 60)] + pts + [(SW, bot + 60)]
+    left_poly = [(CX - 440, top - 60)] + pts + [(CX - 440, bot + 60)]
+    right_poly = [(CX + 440, top - 60)] + pts + [(CX + 440, bot + 60)]
     dx = sep * 130
     for side, poly, sgn in (("l", left_poly, -1), ("r", right_poly, 1)):
         f.c.save()
@@ -196,8 +196,8 @@ def k_yirt(cx, at_flare=0.0, at_tear=0.0, at_stamp=0.0, at_note=None):
         f.c.translate(-CX, -540)
         if sep > 0:
             f.c.save()
-            f.c.translate(sgn * 14, 18)
-            f.c.drawImage(img, 0, 0, skia.SamplingOptions(), skia.Paint(AntiAlias=True, Alpha=int(90 * sep), ColorFilter=skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0])))
+            f.c.translate(sgn * 10, 18)
+            f.path(X_poly(poly), color="#000000", alpha=0.55 * sep, blur=14)
             f.c.restore()
         f.c.clipPath(X_poly(poly), skia.ClipOp.kIntersect, True)
         f.c.drawImage(img, 0, 0)
@@ -226,24 +226,25 @@ def k_maas(cx, at=0.0, at_strike=0.0, at_men=0.0):
     f = cx.f
     f.bg("night")
     f.rays(alpha=0.3)
-    X.tone(f, "#C0391B", 0.12, cy=0.55)
+    X.tone(f, "#C0391B", 0.14, cy=0.55)
     sk.dust(f, cx.t, n=60)
-    a = cx.amt(at, 0.6)
-    ks = ease_out(clamp((cx.t - cx.at(at_strike)) / 0.45))
-    shake = math.sin(cx.t * 30) * 5 * (1 - cx.amt(at_strike, 0.5, off=0.5)) * ks
-    cxp, cyp = CX + shake, 430
-    X.glow(f, cxp, cyp, 330, "#E3B54A", 0.22 * a * (1 - 0.7 * ks))
-    X.ic(f, "coins", cxp, cyp, size=400 * (0.9 + 0.1 * back_out(a)), metal="gold", alpha=a * (1 - 0.35 * ks), glow=0.35 * a)
-    X.strike_line(f, cxp - 230, cyp - 190, cxp + 230, cyp + 190, ks, sw=20)
-    X.strike_line(f, cxp + 230, cyp - 190, cxp - 230, cyp + 190, clamp(ks * 1.6 - 0.6), sw=20)
-    X.chip(f, "MAAŞ ALINAMADI", CX, 700, k=cx.amt(at_strike, 0.5, off=0.2), size=42, edge="#B02A2A", color="#F8E2D8")
-    # asker siluetleri (alttan)
+    # asker siluetleri (arkada, alttan yükselir)
     am = ease_out(clamp((cx.t - cx.at(at_men)) / 1.1), 2)
     kinds = ["landsknecht", "pikeman", "landsknecht", "pikeman", "landsknecht", "pikeman", "landsknecht", "pikeman", "landsknecht"]
     for i, kd in enumerate(kinds):
         xx = 170 + i * 200 + (i % 2) * 40
-        hh = 440 + (i % 3) * 30
-        ST.figure(f, kd, xx, H + 70 - am * 110 + math.sin(cx.t * 3 + i) * 3, hh, col="#080504", rim="#C58A44", face=1 if i < 5 else -1, alpha=am)
+        hh = 400 + (i % 3) * 26
+        ST.figure(f, kd, xx, H + 90 - am * 130 + math.sin(cx.t * 3 + i) * 3, hh, col="#080504", rim="#C58A44", face=1 if i < 5 else -1, alpha=am)
+    f.rect(0, 0, SW, H, shader=f.lin(0, H * 0.45, 0, H * 0.75, [("#000000", 0.0, 0), ("#000000", 1.0, 0)]))
+    a = cx.amt(at, 0.6)
+    ks = ease_out(clamp((cx.t - cx.at(at_strike)) / 0.45))
+    shake = math.sin(cx.t * 30) * 5 * (1 - cx.amt(at_strike, 0.5, off=0.5)) * ks
+    cxp, cyp = CX + shake, 400
+    X.glow(f, cxp, cyp, 360, "#E3B54A", 0.24 * a * (1 - 0.7 * ks))
+    X.ic(f, "coins", cxp, cyp, size=470 * (0.9 + 0.1 * back_out(a)), metal="gold", alpha=a * (1 - 0.30 * ks), glow=0.35 * a)
+    X.strike_line(f, cxp - 260, cyp - 220, cxp + 260, cyp + 220, ks, sw=22)
+    X.strike_line(f, cxp + 260, cyp - 220, cxp - 260, cyp + 220, clamp(ks * 1.6 - 0.6), sw=22)
+    X.chip(f, "MAAŞ ALINAMADI", CX, 690, k=cx.amt(at_strike, 0.5, off=0.2), size=46, edge="#B02A2A", color="#F8E2D8", padx=34)
     f.vig(0.65)
 
 
@@ -351,19 +352,16 @@ def k_muhafiz(cx, at_total=0.0, at_dead=0.0, dead_dur=1.5, cols=27, rows=7, dead
     f.rays(alpha=0.25)
     X.tone(f, "#4B2D63", 0.14, cy=0.5)
     sk.dust(f, cx.t, n=45)
-    gh, dx, dy = 64, 56, 78
+    gh, dx, dy = 72, 58, 84
     x0 = CX - (cols - 1) * dx / 2
-    y0 = 330
+    y0 = 290
     a_t = cx.amt(at_total, 0.6)
-    SH.kicker(f, label, CX, 200, alpha=a_t, size=34, track=14, face="title_m", color="#E0C682")
+    SH.kicker(f, label, CX, 190, alpha=a_t, size=34, track=14, face="title_m", color="#E0C682")
     t_build = cx.at(at_total)
     t_dead = cx.at(at_dead)
-    # zemin çizgisi
     f.line(x0 - 60, y0 + rows * dy - 4, x0 + (cols - 1) * dx + 60, y0 + rows * dy - 4, color="#7A5518", sw=2, alpha=0.5 * a_t)
     alive_img, ox, oy = guard_sprite(gh, "#D9A83A", "#FBE7A0")
     dead_img, dox, doy = guard_sprite(gh, "#5A2020", "#8A3A32")
-    pulse = 0.55 + 0.45 * math.sin(cx.t * 3.0)
-    ndead_now = 0
     for c_ in range(cols):
         for r in range(rows):
             xx = x0 + c_ * dx
@@ -372,45 +370,40 @@ def k_muhafiz(cx, at_total=0.0, at_dead=0.0, dead_dur=1.5, cols=27, rows=7, dead
             ka = clamp((cx.t - tb) / 0.28)
             if ka <= 0:
                 continue
-            if c_ < dead_cols:
-                td = t_dead + c_ / dead_cols * dead_dur + r * 0.035
-                kd = clamp((cx.t - td) / 0.4)
-            else:
-                kd = 0.0
-            if kd >= 1.0:
-                ndead_now += 1
+            kd = clamp((cx.t - (t_dead + c_ / dead_cols * dead_dur + r * 0.035)) / 0.4) if c_ < dead_cols else 0.0
             f.c.save()
             f.c.translate(xx, yy + (1 - ease_out(ka)) * 16)
+            p = skia.Paint(AntiAlias=True)
             if kd > 0:
-                ang = 86 * ease_in(kd, 2) * (1 if (r + c_) % 2 == 0 else -1) * 0.92
-                f.c.rotate(ang)
-                p = skia.Paint(AntiAlias=True)
+                f.c.rotate(86 * ease_in(kd, 2) * (1 if (r + c_) % 2 == 0 else -1) * 0.92)
                 p.setAlphaf(ka * (1 - 0.35 * kd))
-                f.c.drawImage(dead_img if kd > 0.35 else alive_img, -dox if kd > 0.35 else -ox, -doy if kd > 0.35 else -oy, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+                im, ix, iy = (dead_img, dox, doy) if kd > 0.35 else (alive_img, ox, oy)
+                f.c.drawImage(im, -ix, -iy, skia.SamplingOptions(skia.FilterMode.kLinear), p)
             else:
-                p = skia.Paint(AntiAlias=True)
                 p.setAlphaf(ka)
                 f.c.drawImage(alive_img, -ox, -oy, skia.SamplingOptions(skia.FilterMode.kLinear), p)
             f.c.restore()
-    # hayatta kalanların hafif parıltısı
+    # hayatta kalanların yumuşak parıltısı (radyal)
     kd_all = clamp((cx.t - (t_dead + dead_dur)) / 0.6)
     if kd_all > 0:
         xs = x0 + dead_cols * dx - dx / 2
         xe = x0 + (cols - 1) * dx + dx / 2
-        f.rect(xs, y0 - 40, xe - xs, rows * dy + 70, shader=f.lin(0, y0, 0, y0 + rows * dy, [("#F0D27A", 0.0, int(26 * kd_all * pulse)), ("#F0D27A", 1.0, int(10 * kd_all))]), blend=skia.BlendMode.kPlus)
-    # sayaçlar
+        xm, ym = (xs + xe) / 2, y0 + rows * dy / 2
+        pulse = 0.65 + 0.35 * math.sin(cx.t * 3.0)
+        f.circle(xm, ym, 340, shader=f.rad(xm, ym, 340, [("#F0D27A", 0.0, int(60 * kd_all * pulse)), ("#F0D27A", 1.0, 0)]), blend=skia.BlendMode.kPlus)
+    # sayaçlar: 189 → 147 / 189
     sw_ = ease_io(clamp((cx.t - t_dead) / 0.6))
     ky = ease_out(clamp((cx.t - t_dead) / dead_dur), 2)
-    yb = 990
+    yb = 1000
     if a_t > 0:
-        if sw_ < 1.0:
-            SH.gold_flat(f, f"{total}", CX - sw_ * 270, yb, face="title", size=116 - 20 * sw_, track=6, alpha=a_t)
+        w84 = sk.text_width(str(total), "title", 84, 6)
+        c_final = CX + 70 + w84 / 2
+        SH.gold_flat(f, str(total), lerp(CX, c_final, sw_), yb, face="title", size=lerp(120, 84, sw_), track=6, alpha=a_t * (1 - 0.15 * sw_))
         if sw_ > 0:
-            SH.gold_flat(f, f"/ {total}", CX + 150 * sw_ + 40 * (1 - sw_), yb, face="title", size=84, track=6, alpha=sw_ * 0.8)
+            SH.gold_flat(f, "/", CX + 28, yb, face="title", size=84, track=6, alpha=sw_ * 0.8)
             col = mix("#F0D27A", "#E0624A", ky)
-            wdt = sk.text_width(str(int(round(dead * ky))), "title", 130, 6)
-            f.text(str(int(round(dead * ky))), CX - 120 + 0, yb, face="title", size=130, color=col, align="r", track=6, alpha=sw_, shadow=(3, 4, 5, "#000000"))
-            X.chip(f, "ÖLDÜ", CX - 40, yb - 52, k=sw_, size=30, edge="#B02A2A", color="#F8E2D8", align="l")
+            f.text(str(int(round(dead * ky))), CX - 6, yb, face="title", size=130, color=col, align="r", track=6, alpha=sw_, shadow=(3, 4, 5, "#000000"))
+            X.chip(f, "ÖLDÜ", CX + 70 + w84 + 70, yb - 34, k=sw_, size=30, edge="#B02A2A", color="#F8E2D8", align="l")
     f.vig(0.62)
 
 
@@ -451,8 +444,8 @@ def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, ke
     X.tone(f, "#4B2D63", 0.14, cy=0.4)
     sk.dust(f, cx.t, n=50)
     am = cx.amt(at, 0.7)
-    SH.draw_medal(f, key, 430, 330, 400 * (0.94 + 0.06 * ease_out(am)), "violet", False, alpha=am, tilt=0.16 * math.sin(cx.t * 0.5))
-    X.ic(f, "keys", 700, 400, size=170, metal="violet", alpha=am, glow=0.2)
+    SH.draw_medal(f, key, 500, 340, 470 * (0.94 + 0.06 * ease_out(am)), "violet", False, alpha=am, tilt=0.16 * math.sin(cx.t * 0.5))
+    X.ic(f, "keys", 860, 430, size=230, metal="violet", alpha=am, glow=0.2)
     months = ["MAYIS", "HAZİRAN", "TEMMUZ", "AĞUSTOS", "EYLÜL", "EKİM", "KASIM", "ARALIK"]
     n = len(months)
     cw, y = 190, 760
@@ -470,7 +463,7 @@ def k_aylar(cx, at=0.0, at_start=0.0, at_end=0.0, at_word=0.0, at_stamp=None, ke
         f.text(m, xx + cw / 2, y + 60, face="cap_b", size=30, color="#F4E6BC" if lit > 0.5 else "#8A7A55", align="c", track=3, alpha=am)
     kw = cx.amt(at_word, 0.7)
     if kw > 0:
-        SH.gold_flat(f, "AYLARCA", CX + 200, 360, face="title", size=110, track=10, alpha=kw)
+        SH.gold_flat(f, "AYLARCA", 1360, 400, face="title", size=130, track=10, alpha=kw)
     if at_stamp is not None:
         t = cx.amt(at_stamp, 0.3)
         if t > 0:
@@ -524,7 +517,7 @@ def k_zincir(cx, at_n1=0.0, at_n2=0.0, at_n3=0.0, at_n4=0.0, at_x=0.0, at_break=
         f.circle(xm, y, 40 * back_out(kx), style="stroke", sw=4, color="#B02A2A")
         X.strike_line(f, xm - 18, y - 18, xm + 18, y + 18, kx, sw=8)
         X.strike_line(f, xm + 18, y - 18, xm - 18, y + 18, kx, sw=8)
-        X.chip(f, "BOŞANMA ONAYLANAMADI", xm, y - 96, k=kx, size=24, edge="#B02A2A", color="#F8E2D8")
+        X.chip(f, "BOŞANMA ONAYLANAMADI", xm, y - sz * 0.5 - 56, k=kx, size=26, edge="#B02A2A", color="#F8E2D8")
     # kırık anahtar (Henry: Roma'dan koptu)
     kb = ease_out(clamp((cx.t - cx.at(at_break)) / 0.6))
     ka = cx.amt(at_n4, 0.6, off=0.2)
@@ -633,14 +626,14 @@ def k_hanimlar(cx, at_two=0.0, at_l=0.0, at_r=0.0, at_title=0.0, at_olive=None):
             # henüz isimsiz: siluet kadın
             ks = cx.amt(at_two, 0.8)
             if ks > 0:
-                ST.figure(f, "woman", x, ym + 270, 560, col="#0A0604", rim="#C58A44", face=1 if x < CX else -1, alpha=ks * 0.9)
+                ST.figure(f, "woman", x, ym + 270, 580, col="#140B07", rim="#E3A55C", face=1 if x < CX else -1, alpha=ks * 0.95)
             continue
         X.glow(f, x, ym, 330, "#E3B54A", 0.18 * k)
         SH.draw_medal(f, key, x, ym, ms * (0.92 + 0.08 * ease_out(k)) * (1 + 0.03 * cx.u), metal, flip, alpha=k, tilt=0.12 * math.sin(cx.t * 0.6 + x))
-        SH.name_plate(f, name, role, None, cx_=x, y=ym + ms * 0.52, t=cx.amt(at_, 0.6, off=0.3), w=520)
+        SH.name_plate(f, name, role, None, cx_=x, y=ym + ms * 0.52, t=cx.amt(at_, 0.6, off=0.3))
     # ortada zeytin dalı / defne
     ko = cx.amt(at_title, 0.9)
-    X.ic(f, "laurel", CX, ym, size=250 * (0.8 + 0.2 * back_out(ko)), metal="gold", alpha=ko, glow=0.35 * ko)
+    X.ic(f, "laurel", CX, ym, size=330 * (0.8 + 0.2 * back_out(ko)), metal="gold", alpha=ko, glow=0.35 * ko)
     if ko > 0:
         X.chip(f, "HANIMLAR BARIŞI", CX, H * 0.86, k=ko, size=52, edge="#C9962B", color="#F4DD92", padx=44, h=100)
         SH.kicker(f, "CAMBRAI · 1529", CX, H * 0.86 + 96, alpha=ko, size=28, track=12, face="cap", color="#B9A674")
@@ -650,7 +643,7 @@ def k_hanimlar(cx, at_two=0.0, at_l=0.0, at_r=0.0, at_title=0.0, at_olive=None):
 # ───────────────────────────── c6_fidye ─────────────────────────────
 @SH.kind("c6_fidye")
 def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
-    """2.000.000 ALTIN ECÜ: yağan altın paralar; iki oğul geri."""
+    """İki oğul (siluet) ve 2.000.000 ALTIN ECÜ: yağan paralar; oğullar geri."""
     f = cx.f
     f.bg("night")
     f.rays(alpha=0.3)
@@ -658,28 +651,30 @@ def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
     sk.dust(f, cx.t, n=50)
     a = cx.amt(at, 0.5)
     k = ease_out(clamp((cx.t - cx.at(at)) / dur), 3)
-    # yağan paralar
-    rs = np.random.RandomState(9)
-    for i in range(46):
-        px = rs.rand() * SW
-        ph = (cx.t * (0.22 + 0.2 * rs.rand()) + rs.rand()) % 1.0
-        py = -60 + ph * (H + 120)
-        r = 14 + rs.rand() * 16
-        al = a * (0.35 + 0.35 * rs.rand())
-        sq = abs(math.cos(cx.t * 3 + i))
-        f.oval(px, py, r, r * (0.25 + 0.75 * sq), shader=f.lin(px - r, py, px + r, py, [("#7A5518", 0.0), ("#F4DC8C", 0.5), ("#C9962B", 1.0)]), alpha=al)
-    val = int(round(2000000 * k))
-    s = SH.fmt_int(val)
-    SH.gold_flat(f, s, CX, 560, face="title", size=210, track=6, alpha=a)
-    f.text("ALTIN ECÜ", CX, 650, face="title_m", size=52, color="#E0C682", align="c", track=16, alpha=cx.amt(at + 0.3, 0.5))
-    X.ic(f, "coinbag", CX, 290, size=240 * (0.9 + 0.1 * back_out(a)), metal="gold", alpha=a, glow=0.3 * a)
-    # oğullar
+    # oğullar: önce ortada belirir, para gelince sola kayar
     kb = cx.amt(at_boys, 0.9)
+    sl = ease_io(clamp((cx.t - cx.at(at)) / 0.9))
     if kb > 0:
-        ST.figure(f, "prince", 250, H + 20, 470, col="#070505", rim="#8EA8C8", face=1, alpha=kb)
-        ST.figure(f, "page", 460, H + 20, 380, col="#070505", rim="#8EA8C8", face=1, alpha=kb)
-        X.arrow(f, (700, 880), (1000, 880), kb, color="#6C92E0", width=6, bend=-40, alpha=0.9)
-        X.chip(f, "İKİ OĞUL GERİ", 400, 740, k=kb, size=28, edge="#6C92E0", color="#E0ECFF")
+        bx = lerp(CX - 130, 300, sl)
+        bh = lerp(700, 520, sl)
+        ST.figure(f, "prince", bx - 120, H + 60, bh, col="#0A0605", rim="#8EA8C8", face=1, alpha=kb)
+        ST.figure(f, "page", bx + 120, H + 60, bh * 0.82, col="#0A0605", rim="#8EA8C8", face=-1, alpha=kb)
+        X.chip(f, "İKİ OĞUL", bx, H - bh - 10 if sl > 0.5 else 190, k=kb, size=30, edge="#6C92E0", color="#E0ECFF")
+    if a > 0:
+        rs = np.random.RandomState(9)
+        for i in range(46):
+            px = rs.rand() * SW
+            ph = (cx.t * (0.22 + 0.2 * rs.rand()) + rs.rand()) % 1.0
+            py = -60 + ph * (H + 120)
+            r = 14 + rs.rand() * 16
+            al = a * (0.35 + 0.35 * rs.rand())
+            sq = abs(math.cos(cx.t * 3 + i))
+            f.oval(px, py, r, r * (0.25 + 0.75 * sq), shader=f.lin(px - r, py, px + r, py, [("#7A5518", 0.0), ("#F4DC8C", 0.5), ("#C9962B", 1.0)]), alpha=al)
+        s_ = SH.fmt_int(int(round(2000000 * k)))
+        xc = lerp(CX, 1130, 1.0)
+        SH.gold_flat(f, s_, xc, 520, face="title", size=190, track=6, alpha=a)
+        f.text("ALTIN ECÜ", xc, 610, face="title_m", size=52, color="#E0C682", align="c", track=16, alpha=cx.amt(at, 0.5, off=0.3))
+        X.ic(f, "coinbag", xc, 270, size=260 * (0.9 + 0.1 * back_out(a)), metal="gold", alpha=a, glow=0.3 * a)
     f.vig(0.6)
 
 
@@ -694,7 +689,7 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
     sk.dust(f, cx.t, n=40)
     w = 1560
     x0 = CX - w / 2
-    y = 560
+    y = 600
 
     def XX(yr):
         return x0 + (yr - a0) / (a1 - a0) * w
@@ -707,7 +702,7 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
             L = 20 if yr % 10 == 0 else 11
             f.line(xx, y - L, xx, y + L, color="#C9962B", sw=2, alpha=0.8)
             if yr % 10 == 0:
-                f.text(str(yr), xx, y + 64, face="title_m", size=26, color="#CDBB86", align="c", track=3, alpha=0.9)
+                f.text(str(yr), xx, y + 64, face="title_m", size=28, color="#CDBB86", align="c", track=3, alpha=0.9)
     # savaş dilimleri (yaklaşık)
     segs = [(1521, 1526), (1526, 1529), (1536, 1538), (1542, 1544), (1551, 1558)]
     tw = cx.at(at_war)
@@ -716,9 +711,9 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
         if k <= 0:
             continue
         xa, xb = XX(s0), XX(s1)
-        f.rrect(xa, y - 46, (xb - xa) * k, 36, 8, shader=f.lin(0, y - 46, 0, y - 10, [("#E26A5A", 0.0), ("#B0332B", 0.55), ("#6E1A16", 1.0)]), alpha=0.95)
-        f.rrect(xa, y - 46, (xb - xa) * k, 36, 8, style="stroke", sw=1.8, color="#F4B4A8", alpha=0.7)
-    f.text("SAVAŞ", XX(1523.5), y - 70, face="title_m", size=26, color="#E7B8AA", align="c", track=6, alpha=ease_out(clamp((cx.t - tw) / 0.6)))
+        f.rrect(xa, y - 62, (xb - xa) * k, 50, 10, shader=f.lin(0, y - 62, 0, y - 12, [("#E26A5A", 0.0), ("#B0332B", 0.55), ("#6E1A16", 1.0)]), alpha=0.95)
+        f.rrect(xa, y - 62, (xb - xa) * k, 50, 10, style="stroke", sw=2.0, color="#F4B4A8", alpha=0.7)
+    f.text("SAVAŞ", XX(1523.5), y - 84, face="title_m", size=32, color="#E7B8AA", align="c", track=6, alpha=ease_out(clamp((cx.t - tw) / 0.6)))
     # olay işaretleri (belgelerdeki tarihler)
     marks = [(1525, "PAVIA", 0), (1526, "MADRİD", 1), (1529, "CAMBRAI", 0), (1544, "CRÉPY", 0)]
     for yr, name, lvl in marks:
@@ -729,7 +724,7 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
             yy0 = y + 100 + lvl * 56
             f.line(xx, y + 8, xx, yy0 - 22, color="#B9A674", sw=1.5, alpha=0.7 * k)
             f.circle(xx, y, 7, color="#F0D27A", alpha=k)
-            f.text(name, xx, yy0 + 8, face="cap_b", size=26, color="#EBDDB5", align="c", track=2, alpha=k, shadow=(1, 2, 2, "#000000"))
+            f.text(name, xx, yy0 + 8, face="cap_b", size=30, color="#EBDDB5", align="c", track=2, alpha=k, shadow=(1, 2, 2, "#000000"))
     # barış (Cambrai) defnesi: belirir, sonra çatlar/söner
     kp = cx.amt(at_peace, 0.7)
     kg = cx.amt(at_gap, 0.6)
@@ -747,8 +742,115 @@ def k_savas(cx, at_axis=0.0, at_peace=0.0, at_war=0.0, at_gap=0.0, at_end=0.0, a
     ke = ease_out(clamp((cx.t - cx.at(at_end)) / 0.9), 3)
     if ke > 0:
         xx = XX(1558)
-        f.line(xx, y - 230 * ke, xx, y + 24, color="#F0D27A", sw=4, alpha=0.95)
-        f.text("1558", xx, y - 244 * ke, face="title", size=50, color="#F4DD92", align="c", track=4, alpha=ke, shadow=(2, 3, 4, "#000000"))
-        X.ic(f, "hourglass", xx, y - 330 * ke, size=100, metal="onyx", alpha=ke) if False else None
-    SH.kicker(f, "YAKLAŞIK DÖNEMLER", CX, 170, alpha=cx.amt(at_war, 0.8) * 0.8, size=26, track=10, face="cap_i", color="#A89868")
+        f.line(xx, y - 250 * ke, xx, y + 24, color="#F0D27A", sw=4, alpha=0.95)
+        f.text("1558", xx, y - 270 * ke, face="title", size=56, color="#F4DD92", align="c", track=4, alpha=ke, shadow=(2, 3, 4, "#000000"))
+        f.text("ÖMRÜNÜN SONU", xx, y - 270 * ke - 62, face="cap_i", size=32, color="#D9C795", align="c", alpha=ke, shadow=(2, 2, 3, "#000000"))
+    tk = cx.amt(at_war, 0.3)
+    if tk > 0:
+        SH.stamp(f, "YAKLAŞIK", 400, 300, rot=-0.06, size=40, t=tk, color="#9A7A38")
     f.vig(0.58)
+
+
+def _puffs(f, x, y, t, w=240, h=520, n=14, seed=1, color="#24100D", alpha=0.5):
+    """Yükselen duman: radyal degrade pufları (blur katmanı yok → hızlı)."""
+    rs = np.random.RandomState(seed)
+    for i in range(n):
+        ph = (t * 0.10 + rs.rand()) % 1.0
+        px = x + (rs.rand() - 0.5) * w * 0.35 + math.sin(ph * 5 + i) * w * 0.22 * ph
+        py = y - ph * h
+        r = 44 + ph * 120 + rs.rand() * 22
+        a = alpha * math.sin(math.pi * ph) ** 1.1
+        f.circle(px, py, r, shader=f.rad(px, py, r, [(color, 0.0, int(255 * a)), (color, 0.55, int(185 * a)), (color, 1.0, 0)]))
+
+
+# ───────────────────────────── c6_santangelo (diorama) ─────────────────────────────
+@SL.sc("c6_santangelo")
+class SantAngelo:
+    """Roma 1527, gece: yanan şehir silueti, Tiber, taş köprü ve Castel Sant'Angelo (sığınak). p: fire=0..1, bx (kale x)."""
+
+    def __init__(self, p):
+        self.p = p
+
+    def layers(self):
+        fire = float(self.p.get("fire", 1.0))
+        bx = float(self.p.get("bx", 1180))
+        M = MARGIN
+
+        def L0(f):          # gökyüzü + ufuk yangını + uzak şehir
+            ST.sky_gradient(f, "#10070C", "#6E2410", y1=770)
+            for (x, r, a) in ((330, 980, 190), (980, 800, 130), (1560, 900, 170)):
+                f.circle(x, 750, r, shader=f.rad(x, 750, r, [("#FF8A33", 0.0, int(a * fire)), ("#C0391B", 0.5, int(80 * fire)), ("#C0391B", 1.0, 0)]), blend=skia.BlendMode.kPlus)
+            ST.skyline(f, 770, ["tower", "spire", "dome", "house", "dome", "tower", "spire"], -260, SW + 260, 200, "#1C0C0A", seed=5, win="#FFB347")
+            f.rect(-M, 765, SW + 2 * M, 60, color="#1C0C0A")
+
+        def L1(f):          # yakın şehir + nehir + yansımalar
+            ST.skyline(f, 812, ["house", "tower", "house", "spire", "house", "house"], -260, SW + 260, 150, "#0E0605", seed=9, win="#FFB347", gap=(24, 80))
+            f.rect(-M, 808, SW + 2 * M, H + M - 808, shader=f.lin(0, 808, 0, H, [("#80300F", 0.0), ("#2C1210", 0.35), ("#0A0606", 1.0)]))
+            rs = np.random.RandomState(3)
+            for i in range(110):
+                x = rs.rand() * (SW + 2 * M) - M
+                y = 818 + rs.rand() ** 1.6 * 300
+                w = 20 + rs.rand() * 130
+                f.line(x, y, x + w, y, color="#FF9A4A" if rs.rand() > 0.4 else "#C0391B", sw=1.5 + rs.rand() * 2.2, alpha=0.30 * (1 - (y - 818) / 320))
+
+        def L2(f):          # köprü + Castel Sant'Angelo
+            yb = 812
+            # taş köprü: güverte + kemer delikleri (even-odd)
+            P = skia.Path()
+            P.setFillType(skia.PathFillType.kEvenOdd)
+            P.addRect(skia.Rect.MakeLTRB(-M, yb - 28, bx - 330, yb + 110))
+            for i in range(6):
+                cxp = -100 + i * 190
+                yy = yb + 110
+                P.moveTo(cxp - 72, yy)
+                P.cubicTo(cxp - 72, yy - 62, cxp - 36, yy - 76, cxp, yy - 76)
+                P.cubicTo(cxp + 36, yy - 76, cxp + 72, yy - 62, cxp + 72, yy)
+                P.close()
+            f.path(P, color="#0A0504")
+            f.line(-M, yb - 28, bx - 330, yb - 28, color="#7A4A22", sw=2, alpha=0.5)
+            # kale gövdesi: kare taban
+            base = sk.poly_path([(bx - 310, yb + 30), (bx + 310, yb + 30), (bx + 262, yb - 96), (bx - 262, yb - 96)], True)
+            f.path(base, shader=f.lin(bx - 310, 0, bx + 310, 0, [("#3A1D10", 0.0), ("#150A07", 0.6), ("#0A0504", 1.0)]))
+            for sx in (-1, 1):                          # köşe burçları
+                f.rect(bx + sx * 252 - 36, yb - 170, 72, 90, color="#120806")
+                for k in range(3):
+                    f.rect(bx + sx * 252 - 36 + k * 26, yb - 188, 20, 20, color="#120806")
+            # silindirik gövde
+            f.rect(bx - 178, yb - 360, 356, 264, shader=f.lin(bx - 178, 0, bx + 178, 0, [("#5A2C16", 0.0), ("#2A140B", 0.35), ("#0F0706", 0.8), ("#080403", 1.0)]))
+            f.oval(bx, yb - 360, 178, 26, color="#2A140B")
+            for k in range(12):
+                f.rect(bx - 176 + k * 32, yb - 386, 17, 22, color="#1A0D08")
+            # üst silindir + kubbe + melek
+            f.rect(bx - 92, yb - 450, 184, 92, shader=f.lin(bx - 92, 0, bx + 92, 0, [("#4A2412", 0.0), ("#1A0D08", 0.5), ("#080403", 1.0)]))
+            f.oval(bx, yb - 450, 92, 18, color="#2A140B")
+            f.path(sk.poly_path([(bx - 70, yb - 452), (bx - 40, yb - 520), (bx + 40, yb - 520), (bx + 70, yb - 452)], True), color="#120806")
+            f.rect(bx - 10, yb - 575, 20, 56, color="#120806")
+            # melek (basit siluet): gövde + iki kanat + kılıç
+            ax, ay = bx, yb - 600
+            f.path(sk.poly_path([(ax - 7, ay + 26), (ax - 5, ay - 20), (ax + 5, ay - 20), (ax + 7, ay + 26)], True), color="#0B0605")
+            f.circle(ax, ay - 28, 7, color="#0B0605")
+            for sx in (-1, 1):
+                f.path(sk.smooth_path([(ax, ay - 12), (ax + sx * 40, ay - 52), (ax + sx * 62, ay - 30), (ax + sx * 20, ay + 2)], True, 0.4), color="#0B0605")
+            f.line(ax + 10, ay - 8, ax + 36, ay - 70, color="#0B0605", sw=3)
+            # pencere yarıkları (sıcak)
+            rs = np.random.RandomState(8)
+            for k in range(11):
+                wx = bx - 150 + k * 30 + rs.rand() * 6
+                wy = yb - 300 + (k % 3) * 52 + rs.rand() * 10
+                f.rect(wx, wy, 6, 22, color="#FFB347", alpha=0.85)
+        def L3(f):          # ön plan: parapet + asker siluetleri
+            f.rect(-M, H - 90, SW + 2 * M, 200, color="#060303")
+            for k in range(14):
+                f.rect(-M + k * 190, H - 130, 110, 60, color="#060303")
+            for (x, kd, h, face) in ((150, "landsknecht", 400, 1), (420, "pikeman", 360, 1), (1640, "landsknecht", 390, -1), (1860, "pikeman", 350, -1)):
+                ST.figure(f, kd, x, H + 70, h, col="#050302", rim="#C07838", face=face)
+
+        return [(0.06, L0), (0.35, L1), (0.7, L2), (1.2, L3)]
+
+    def dyn(self):
+        def D1(f, t):
+            _puffs(f, 330, 800, t, w=300, h=560, n=14, seed=1, alpha=0.55)
+            _puffs(f, 960, 790, t, w=280, h=500, n=14, seed=2, alpha=0.5)
+            _puffs(f, 1600, 800, t, w=300, h=560, n=14, seed=3, alpha=0.55)
+            sk.embers(f, t, n=46, seed=6, rect=(-100, 220, SW + 200, 600))
+        return {1: D1}

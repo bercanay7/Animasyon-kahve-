@@ -26,7 +26,7 @@ def cross_pattee(f, cx, cy, size, col, alpha=0.9):
     f.poly([(cx + x, cy + y) for x, y in pts], color=col, alpha=alpha)
 
 
-def _sail_poly(cx, yt, yb, hw_t, hw_b, bulge, br=1.0, seed=0, torn=0.0, n=7):
+def _sail_poly(cx, yt, yb, hw_t, hw_b, bulge, br=1.0, seed=0, torn=0.0, n=9):
     """Kare yelken kenar noktaları: rüzgâr kabarması. torn: yırtık (0..1)."""
     rs = RS(seed)
     pts = [(cx - hw_t, yt)]
@@ -46,7 +46,7 @@ def _sail_poly(cx, yt, yb, hw_t, hw_b, bulge, br=1.0, seed=0, torn=0.0, n=7):
         u = i / n
         dy = bulge * 0.65 * math.sin(math.pi * u) * br
         if torn:
-            dy += (rs.rand() * 2 - 0.3) * torn * 34 * (0.5 + math.sin(math.pi * u))
+            dy += (rs.rand() * 2 - 0.6) * torn * 15 * (0.4 + math.sin(math.pi * u)) + (22 * torn if (i % 4 == 1) else 0)
         pts.append((cx + hw_b - 2 * hw_b * u, yb + dy))
     pts.append((cx - hw_b, yb))
     for i in range(3, 0, -1):
@@ -152,7 +152,7 @@ def draw_carrack(f, st, lod=2):
         f.path(tri, style="stroke", sw=1.4, color=darken(st["sail_d"], 0.5), alpha=0.65)
         # sprit yelkeni (bukalemun altı küçük)
         if lod >= 1 and full:
-            square_sail(f, 322, -178, -128 - 0, 24, 30, st, 7, seed=6, torn=torn, detail=min(lod, 1), burn=burn)
+            square_sail(f, 322, -178, -132, 22, 27, st, 6, seed=6, torn=torn, detail=min(lod, 1), burn=burn, alpha=0.95)
     # ── gövde
     hp = skia.Path()
     hp.moveTo(-236, -128)
@@ -194,7 +194,7 @@ def draw_carrack(f, st, lod=2):
             on = st.get("lamp", False)
             f.rect(x - 7, y - 5, 14, 10, color=st["lamp_col"] if on else "#000000", alpha=0.9 if on else 0.5)
             if on and lod >= 2:
-                PW.glow(f, x, y, 20, st["lamp_col"], 0.35)
+                PW.glow_add(f, x, y, 20, st["lamp_col"], 0.35)
         # kıç camları
         for k in range(3):
             xx = -226 + k * 24
@@ -366,7 +366,7 @@ def draw_galley(f, st, lod=2):
         if st.get("lamp") and lod >= 2:
             for x in range(-100, 170, 52):
                 f.rect(x - 4, -58, 8, 6, color=st["lamp_col"], alpha=0.85)
-                PW.glow(f, x, -55, 16, st["lamp_col"], 0.3)
+                PW.glow_add(f, x, -55, 16, st["lamp_col"], 0.3)
         # halat
         rg = skia.Path()
         rg.moveTo(58, -316); rg.lineTo(270, -92)
@@ -415,7 +415,7 @@ def draw_fishing(f, st, lod=2):
         f.path(sk.smooth_path([(52, -25), (66, -25), (68, -33), (50, -33)], True, 0.2), color=hull)
         if st.get("lamp"):
             f.circle(104, -56, 3.0, color=st["lamp_col"])
-            PW.glow(f, 104, -56, 22, st["lamp_col"], 0.55)
+            PW.glow_add(f, 104, -56, 22, st["lamp_col"], 0.55)
 
 
 # ───────────────────────────── sprite pişirici ─────────────────────────────
@@ -441,6 +441,59 @@ def ship_sprite(kind, ks, hull, rim, sail, sail_l, sail_d, gold, cross, lamp, la
     return im, ox, oy, ks
 
 
+@lru_cache(maxsize=48)
+def ship_reflect(kind, ks, hull, sail, sail_d, haze):
+    """Su yansıması: düşük çözünürlüklü, ters çevrilmiş, bulanık ve sisle karışmış silüet. (img, ox, oy, k) — orijin su hattı."""
+    x0, y0, x1, y1 = BBOX[kind]
+    k = 0.5 * ks
+    w = int((x1 - x0) * k) + 8
+    h = int((-y0) * k * 0.62) + 8
+    ox = int(-x0 * k) + 4
+    oy = 4
+
+    st = dict(hull=hull, rim=hull, sail=sail, sail_l=sail, sail_d=sail_d, gold=hull, cross="", lamp=False, lamp_col="#000000", sails="full", burnt=0.0, light_dir=1, awn=hull)
+
+    def fn(f):
+        f.c.scale(1.0, -0.62)
+        f.c.scale(k, k)
+        DRAW[kind](f, st, 0)
+    s = skia.Surface(w, h)
+    c = s.getCanvas()
+    c.clear(skia.ColorTRANSPARENT)
+    f = sk.Frame.__new__(sk.Frame)
+    f.w, f.h, f.surf, f.c = w, h, s, c
+    c.translate(ox, oy)
+    fn(f)
+    im = s.makeImageSnapshot()
+    # bulanıklaştır
+    s2 = skia.Surface(w, h)
+    c2 = s2.getCanvas()
+    c2.clear(skia.ColorTRANSPARENT)
+    pb = skia.Paint()
+    pb.setImageFilter(skia.ImageFilters.Blur(1.6, 3.2))
+    c2.drawImage(im, 0, 0, skia.SamplingOptions(skia.FilterMode.kLinear), pb)
+    return s2.makeImageSnapshot(), ox, oy, k
+
+
 def ship_style(M, flag, kind):
     """Ruh halinden (mood) gemi renkleri."""
     return dict(hull=M["hull"], rim=M["rim"], sail=M["sail"], sail_l=M["sail_l"], sail_d=M["sail_d"], gold=M["gold"], cross=flag, lamp=M["lamp"], lamp_col=M["lamp_col"], light_dir=M["light_dir"], awn=flag)
+
+
+# ───────────────────────────── kamera / derinlik yardımcıları ─────────────────────────────
+def cam_from_canvas(f, d0):
+    """dyn() içinde, derinliği d0 olan katmanın dönüşümü uygulanmışken kamerayı geri çıkarır → SCam."""
+    m = f.c.getTotalMatrix()
+    s = m.getScaleX()
+    tx, ty = m.getTranslateX(), m.getTranslateY()
+    z = 1 + (s - 1) / d0
+    cx = W / 2 + (W / 2 - s * W / 2 - tx) / (s * d0)
+    cy = H / 2 + (H / 2 - s * H / 2 - ty) / (s * d0)
+    return ST.SCam(cx, cy, z)
+
+
+def push_depth(f, cam, d):
+    """Tuvali (matris sıfırlanıp) derinlik-d katman dönüşümüne al. Çağıran f.c.restore() yapar."""
+    f.c.save()
+    f.c.resetMatrix()
+    ST.layer_transform(f, cam, d)

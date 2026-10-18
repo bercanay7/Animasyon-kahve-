@@ -29,17 +29,14 @@ def hat_parts(kind):
             P.append((feather_path(-0.02 - i * 0.04, -0.66, dx, dy, wd, bend=bd), 0.9, 0.0))
         P.append((sp([KC(0.46, -0.28), (0.82, -0.40), (0.78, -0.52), (0.30, -0.60), (-0.30, -0.66), (-0.84, -0.50), (-0.92, -0.36), KC(-0.60, -0.22), (-0.10, -0.30)], True, 0.9), 1.0, 0.0))
         P.append((sp([KC(0.30, -0.40), (0.26, -0.78), (-0.10, -0.90), (-0.46, -0.76), (-0.50, -0.50), KC(-0.20, -0.46)], True, 0.8), 1.0, 0.0))
-    elif kind == "galero":                    # kardinal şapkası: geniş yassı kenar, alçak tepe, püsküller
-        for sx in (1, -1):
-            for i in range(4):
-                xx = 0.50 * sx + (0.06 if sx > 0 else -0.06) * 0
-                P.append((sp([KC(0.0, 0.0), (0.04, 0.03), (0.04, 0.10), KC(-0.04, 0.10), (-0.04, 0.03)], True, 0.7), 0.0, 0.0)) if False else None
-        P.append((sp([KC(-0.95, -0.34), (-0.60, -0.43), (0.0, -0.46), (0.62, -0.43), KC(1.0, -0.32), (0.62, -0.26), (0.0, -0.25), (-0.62, -0.27)], True, 0.8), 1.0, 0.0))
-        P.append((sp([KC(-0.48, -0.40), (-0.44, -0.58), (-0.12, -0.66), (0.20, -0.65), (0.44, -0.55), KC(0.50, -0.40)], True, 0.8), 1.0, 0.0))
-    elif kind == "cowl":                      # keşiş kukuletası (baş arkasından omuzlara dökülür)
-        P.append((sp([KC(0.34, -0.30), (0.20, -0.58), (-0.12, -0.70), (-0.42, -0.58), (-0.62, -0.24), (-0.74, 0.30), (-0.80, 0.95), (-0.55, 1.12), KC(-0.18, 0.62),
-                      (-0.30, 0.34), (-0.40, 0.12), (-0.30, -0.18), (0.02, -0.26)], True, 0.9), 1.0, 0.0))
-        P.append((sp([KC(0.34, -0.30), (0.40, -0.12), KC(0.34, 0.04), (0.14, -0.14), (0.02, -0.26)], True, 0.7), 0.0, 0.0)) if False else None
+    elif kind == "galero":                    # kardinal şapkası: çok geniş yassı kenar, alçak yuvarlak tepe, püsküllü kordonlar
+        P.append((sp([KC(-1.25, -0.38), (-0.80, -0.47), (-0.2, -0.50), (0.5, -0.49), (1.0, -0.45), KC(1.30, -0.36), (1.0, -0.30), (0.5, -0.31), (-0.2, -0.31), (-0.8, -0.32)], True, 0.85), 1.0, 0.0))
+        P.append((sp([KC(-0.46, -0.44), (-0.46, -0.62), (-0.22, -0.74), (0.12, -0.74), (0.40, -0.62), KC(0.48, -0.44)], True, 0.85), 1.0, 0.0))
+        P.append((sp([KC(-0.46, -0.40), (0.0, -0.36), KC(0.48, -0.40), (0.48, -0.44), (0.0, -0.45), (-0.46, -0.44)], True, 0.6), 0.0, 0.14))
+    elif kind == "cowl":                      # keşiş kukuletası: kafayı saran kütle + omuzlara düşen kıvrım + alın kenarı bandı
+        P.append((sp([KC(0.20, -0.40), (0.02, -0.76), (-0.36, -0.86), (-0.66, -0.58), (-0.78, -0.12), (-0.92, 0.46), (-0.92, 1.00), (-0.66, 1.22), (-0.34, 1.12), KC(-0.14, 0.78),
+                      (-0.30, 0.46), (-0.34, 0.20), (-0.20, -0.10)], True, 0.9), 1.0, 0.0, "back"))
+        P.append((sp([KC(0.36, -0.30), (0.30, -0.50), (0.12, -0.68), (-0.14, -0.74), (-0.42, -0.62), (-0.52, -0.34), (-0.36, -0.40), (-0.12, -0.50), (0.10, -0.42), KC(0.24, -0.26)], True, 0.8), 1.0, 0.05))
     elif kind == "veil":                      # kadın örtüsü/tokası: alından omuza düşen kumaş
         P.append((sp([KC(0.33, -0.26), (0.22, -0.56), (-0.10, -0.66), (-0.44, -0.52), (-0.60, -0.10), (-0.70, 0.55), (-0.76, 1.25), (-0.50, 1.36), (-0.34, 0.95),
                       (-0.22, 0.55), KC(-0.16, 0.30), (-0.34, 0.10), (-0.34, -0.12), (0.0, -0.20)], True, 0.9), 1.0, 0.0))
@@ -57,15 +54,15 @@ def hat_parts(kind):
     elif kind == "kavuk":                     # Osmanlı yüksek kavuk
         P.append((sp([KC(0.40, -0.22), (0.46, -0.50), (0.50, -0.90), (0.36, -1.16), (0.0, -1.22), (-0.36, -1.16), (-0.46, -0.90), (-0.44, -0.50), KC(-0.40, -0.22)], True, 0.9), 1.0, 0.0))
         P.append((sp([KC(0.42, -0.36), (0.0, -0.31), KC(-0.42, -0.36), (-0.42, -0.30), (0.0, -0.25), (0.42, -0.30)], True, 0.6), 0.0, 0.14))
-    elif kind == "bork":                      # yeniçeri börkü: uzun keçe başlık, sırtta salınan kollu uç, önde kaşıklık
-        P.append((sp([KC(-0.30, -0.30), (-0.56, -0.62), (-0.78, -0.20), (-0.88, 0.50), (-0.80, 1.10), (-0.60, 1.18), (-0.52, 0.60), (-0.48, 0.10), KC(-0.36, -0.10)], True, 0.9), 0.8, 0.0))
-        P.append((sp([KC(0.36, -0.20), (0.40, -0.40), (0.38, -0.84), (0.20, -1.22), (-0.08, -1.36), (-0.34, -1.20), (-0.50, -0.80), (-0.50, -0.34), KC(-0.46, -0.12)], True, 0.9), 1.0, 0.0))
-        P.append((sp([KC(0.34, -0.14), (0.52, -0.22), (0.56, -0.44), (0.40, -0.52), KC(0.30, -0.40)], True, 0.6), 1.0, 0.0))
-    elif kind == "morion":                    # İspanyol morion: tepe sırtı, ön-arkası kalkık yassı kenar
-        P.append((sp([KC(-0.20, -0.74), (-0.30, -0.84), (-0.06, -0.96), (0.24, -0.84), (0.30, -0.70)], False, 0.8), 0.0, 0.0)) if False else None
-        P.append((sp([KC(-0.64, -0.30), (-0.46, -0.34), (-0.08, -0.40), (0.34, -0.40), (0.72, -0.34), (0.86, -0.50), KC(0.80, -0.30), (0.40, -0.22), (0.0, -0.22), (-0.42, -0.22), KC(-0.72, -0.40)], True, 0.8), 1.0, 0.0))
-        P.append((sp([KC(-0.40, -0.34), (-0.40, -0.62), (-0.18, -0.84), (0.10, -0.86), (0.36, -0.70), KC(0.42, -0.36)], True, 0.8), 1.0, 0.0))
-        P.append((sp([KC(-0.12, -0.80), (-0.06, -0.98), (0.10, -1.00), (0.20, -0.82)], True, 0.7), 1.0, 0.0))
+    elif kind == "bork":                      # yeniçeri börkü: kısa koni gövde, sırtta sarkan geniş kollu uç, önde kaşıklık
+        P.append((sp([KC(-0.30, -0.66), (-0.50, -0.50), (-0.72, -0.10), (-0.88, 0.40), (-0.92, 0.82), KC(-0.64, 0.98), (-0.40, 0.84), (-0.32, 0.40), (-0.30, 0.05), KC(-0.28, -0.12)], True, 0.9), 0.85, 0.0, "back"))
+        P.append((sp([KC(0.34, -0.22), (0.42, -0.45), (0.40, -0.78), (0.24, -1.02), (-0.06, -1.10), (-0.34, -0.98), (-0.48, -0.70), (-0.50, -0.38), KC(-0.46, -0.16)], True, 0.9), 1.0, 0.0))
+        P.append((sp([KC(0.30, -0.14), (0.46, -0.20), (0.52, -0.38), (0.42, -0.50), KC(0.30, -0.38)], True, 0.6), 1.0, 0.0))
+        P.append((sp([KC(-0.46, -0.20), (0.0, -0.16), KC(0.34, -0.20), (0.34, -0.30), (0.0, -0.26), (-0.46, -0.30)], True, 0.6), 0.0, 0.14))
+    elif kind == "morion":                    # İspanyol morion: yüksek sırt (comb), kayık biçimli kalkık kenar
+        P.append((sp([KC(-0.82, -0.58), (-0.52, -0.34), (-0.12, -0.27), (0.30, -0.30), (0.62, -0.40), KC(0.95, -0.66), (0.66, -0.38), (0.30, -0.22), (-0.10, -0.19), (-0.50, -0.25)], True, 0.8), 1.0, 0.0))
+        P.append((sp([KC(-0.42, -0.30), (-0.44, -0.58), (-0.22, -0.78), (0.10, -0.80), (0.36, -0.66), KC(0.44, -0.32)], True, 0.8), 1.0, 0.0))
+        P.append((sp([KC(-0.38, -0.74), (-0.20, -0.96), (0.02, -1.10), (0.20, -0.96), (0.34, -0.74), (0.16, -0.78), (-0.04, -0.82), (-0.22, -0.80)], True, 0.8), 1.0, 0.0))
     elif kind == "sallet":                    # kasket (zırhsız piyade)
         P.append((sp([KC(-0.50, -0.20), (-0.50, -0.58), (-0.20, -0.80), (0.16, -0.78), (0.38, -0.55), KC(0.44, -0.22), (0.10, -0.30), (-0.30, -0.24)], True, 0.8), 1.0, 0.0))
         P.append((sp([KC(-0.40, -0.18), (-0.56, 0.06), (-0.62, 0.34), KC(-0.40, 0.30), (-0.34, 0.08)], True, 0.7), 0.9, 0.0))
@@ -80,6 +77,26 @@ def hat_parts(kind):
     elif kind == "barrete_k":                 # kardinal/papaz bareti: üç dilimli kare
         P.append((poly([(-0.38, -0.30), (-0.40, -0.62), (-0.18, -0.70), (0.20, -0.70), (0.40, -0.62), (0.40, -0.30)]), 1.0, 0.0))
         P.append((poly([(-0.10, -0.70), (-0.08, -0.80), (0.10, -0.80), (0.12, -0.70)]), 1.0, 0.0))
+    elif kind == "headband":                  # alın bandı + arkada dik tüy yelpazesi (Mezoamerika soylusu)
+        P.append((feather_path(-0.30, -0.42, -0.78, -1.28, 0.20, bend=0.10), 1.0, 0.0, "back"))
+        P.append((feather_path(-0.18, -0.44, -0.40, -1.40, 0.22, bend=0.05), 1.0, 0.0, "back"))
+        P.append((feather_path(-0.05, -0.46, 0.00, -1.38, 0.20, bend=-0.05), 1.0, 0.0, "back"))
+        P.append((sp([KC(0.35, -0.36), (0.20, -0.46), (-0.15, -0.50), (-0.44, -0.40), (-0.44, -0.30), (-0.14, -0.38), (0.20, -0.34), KC(0.34, -0.26)], True, 0.8), 1.0, 0.1))
+    elif kind == "llauto":                    # İnka: sarılı baş bandı (llautu) + alında kırmızı saçak (mascaypacha) + öne dik iki tüy
+        P.append((feather_path(0.18, -0.52, 0.34, -1.30, 0.17, bend=-0.10), 1.0, 0.0))
+        P.append((feather_path(0.04, -0.52, 0.04, -1.36, 0.17, bend=0.08), 1.0, 0.0))
+        P.append((sp([KC(0.36, -0.40), (0.26, -0.50), (-0.14, -0.54), (-0.47, -0.42), (-0.47, -0.22), (-0.16, -0.30), (0.26, -0.28), KC(0.37, -0.22)], True, 0.8), 1.0, 0.1))
+        P.append((sp([KC(0.30, -0.30), (0.36, -0.20), (0.35, -0.04), (0.31, -0.02), (0.29, -0.16), KC(0.25, -0.28)], True, 0.6), 0.9, 0.0))
+    elif kind == "crest":                     # Aztek savaşçı: geniş tüy yelpazesi (quetzal) + alın bandı
+        for k in range(9):
+            a = -1.15 + k * 0.30
+            ex, ey = 0.10 + math.sin(a) * 1.15, -0.55 - math.cos(a) * 1.20
+            P.append((feather_path(0.0 + 0.04 * k, -0.50, ex, ey, 0.17, bend=0.10 * math.sin(a)), 1.0, 0.0, "back"))
+        P.append((sp([KC(0.36, -0.38), (0.24, -0.50), (-0.14, -0.55), (-0.46, -0.44), (-0.46, -0.26), (-0.14, -0.35), (0.24, -0.31), KC(0.36, -0.25)], True, 0.8), 1.0, 0.1))
+    elif kind == "slouch":                    # sarkık kenarlı yüksek yumuşak şapka + tüy (arkebüzcü)
+        P.append((feather_path(-0.1, -0.78, -0.88, -0.88, 0.18, bend=-0.20), 0.9, 0.0))
+        P.append((sp([KC(-0.80, -0.30), (-0.50, -0.46), (0.0, -0.50), (0.55, -0.46), KC(0.92, -0.30), (0.60, -0.34), (0.0, -0.34), (-0.52, -0.36)], True, 0.8), 1.0, 0.0))
+        P.append((sp([KC(-0.40, -0.40), (-0.40, -0.70), (-0.18, -0.92), (0.16, -0.94), (0.38, -0.74), KC(0.42, -0.40)], True, 0.8), 1.0, 0.0))
     elif kind == "straw":                     # köylü hasır şapkası
         P.append((sp([KC(-0.96, -0.30), (-0.56, -0.44), (0.0, -0.48), (0.56, -0.42), KC(1.0, -0.28), (0.56, -0.24), (0.0, -0.22), (-0.56, -0.24)], True, 0.8), 1.0, 0.0))
         P.append((sp([KC(-0.40, -0.40), (-0.36, -0.70), (-0.08, -0.82), (0.26, -0.72), KC(0.40, -0.40)], True, 0.8), 1.0, 0.0))
@@ -94,9 +111,13 @@ def hat_parts(kind):
     return [p for p in P if p]
 
 
-def add_hat(F, kind, hx, hy, hh, rot=0.0):
-    for path, rim, tone in hat_parts(kind):
-        F.fill(place(path, hx, hy, hh, rot), rim=rim, tone=tone)
+def add_hat(F, kind, hx, hy, hh, rot=0.0, back=None):
+    """back=None: hepsi; back=True: yalnız 'back' (kafanın arkasında) parçalar; back=False: ön parçalar."""
+    for part in hat_parts(kind):
+        path, rim, tone = part[0], part[1], part[2]
+        is_back = len(part) > 3 and part[3] == "back"
+        if back is None or back == is_back:
+            F.fill(place(path, hx, hy, hh, rot), rim=rim, tone=tone)
 
 
 def add_head(F, hx, hy, hh, kind="m", rot=0.0, beard=None, hat=None, nose=1.0, chin=0.0, hair=None, neck_to=None, neck_w=(0.52, 0.72), bald=False, hat_rot=None, brow=1.0):
@@ -104,13 +125,15 @@ def add_head(F, hx, hy, hh, kind="m", rot=0.0, beard=None, hat=None, nose=1.0, c
     if neck_to is not None:
         bx, by = neck_to
         F.fill(limb([(hx - 0.08 * hh, hy + 0.30 * hh), (bx, by)], [neck_w[0] * hh, neck_w[1] * hh], cap0=0, cap1=0), rim=0.9)
+    if hat:
+        add_hat(F, hat, hx, hy, hh, rot if hat_rot is None else hat_rot, back=True)
     if hair:
         F.fill(place(hair_path(hair), hx, hy, hh, rot), rim=1.0)
     F.fill(place(K.head_path(kind, nose=nose, chin=chin, brow=brow), hx, hy, hh, rot), rim=1.0)
     if beard:
         F.fill(place(K.beard_path(beard, chin=chin), hx, hy, hh, rot), rim=0.9)
     if hat:
-        add_hat(F, hat, hx, hy, hh, rot if hat_rot is None else hat_rot)
+        add_hat(F, hat, hx, hy, hh, rot if hat_rot is None else hat_rot, back=False)
 
 
 def hair_path(kind):

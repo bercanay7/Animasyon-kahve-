@@ -73,8 +73,8 @@ def glow_sprite(rq, col, a0=255, a1=90, mid=0.38):
     return s.makeImageSnapshot()
 
 
-def glow(f, x, y, r, col="#FFB347", a=1.0, a0=255, a1=90, mid=0.38, blend=PLUS):
-    """Önbellekli radyal parıltı sprite'ı (dyn içinde güvenli)."""
+def glow(f, x, y, r, col="#FFB347", a=1.0, a0=255, a1=90, mid=0.38, blend=None):
+    """Önbellekli radyal parıltı sprite'ı. dyn için HIZLI: SrcOver (kPlus + ölçekli bilinear çok yavaştır, ~7 ms/256px)."""
     if a <= 0.01 or r <= 0.5:
         return
     rq = _rq(r)
@@ -89,6 +89,11 @@ def glow(f, x, y, r, col="#FFB347", a=1.0, a0=255, a1=90, mid=0.38, blend=PLUS):
     f.c.scale(k, k)
     f.c.drawImage(img, -rq, -rq, LIN, p)
     f.c.restore()
+
+
+def glow_add(f, x, y, r, col="#FFB347", a=1.0, a0=255, a1=90, mid=0.38):
+    """Toplamalı (kPlus) parıltı: YALNIZ pişirme (layers()/sprite) içinde kullan."""
+    glow(f, x, y, r, col, a, a0, a1, mid, blend=PLUS)
 
 
 @lru_cache(maxsize=64)
@@ -190,8 +195,7 @@ def cloud_rgba(w, h, seed, cover=0.5, soft=0.22, scale=70, octaves=5, shadow="#3
         d = d * vfade[:, None]
     db = cv2.GaussianBlur(d, (0, 0), sigma)
     dx, dy = light_dir
-    M = np.float32([[1, 0, dx * reach], [0, 1, dy * reach]])
-    sh = cv2.warpAffine(db, M, (w, h), borderMode=cv2.BORDER_WRAP if periodic else cv2.BORDER_REPLICATE)
+    sh = np.roll(db, (-int(round(dy * reach)), -int(round(dx * reach))), axis=(0, 1))
     lit = np.clip(0.5 + (db - sh) * gain, 0, 1)
     if thick_dark:
         lit = lit * (1 - thick_dark * np.clip(db, 0, 1) ** 2)
@@ -225,23 +229,25 @@ def _crest_fn(theta, sharp):
 
 
 @lru_cache(maxsize=96)
-def wave_strip(period, hs, amp, body, crest, foam, seed, sharp=2.2, foam_amt=0.0, glint=None, glint_amt=0.0, facets=3, shade="#000000", comps=((1, 1.0), (3, 0.45), (5, 0.2))):
+def wave_strip(period, hs, amp, body, crest, foam, seed, sharp=2.2, foam_amt=0.0, glint=None, glint_amt=0.0, facets=3, shade="#000000", comps=((2, 1.0), (3, 0.8), (5, 0.5), (8, 0.28), (13, 0.14)), lit_dir=1.0):
     """Yatay dikişsiz dalga şeridi (period × hs). Üst kenar = dalga profili (saydam üstü), gövde: crest→body degrade.
-    Zamanla yatay kaydırılarak basılır. amp: tepeden çukura piksel."""
+    Yüzey eğimine göre aydınlık/gölge (ışığa bakan yüzler parlak). Zamanla yatay kaydırılarak basılır. amp: tepeden çukura piksel."""
     rs = RS(seed)
     img = skia.Surface(period, hs)
     c = img.getCanvas()
     c.clear(skia.ColorTRANSPARENT)
     f = sk.Frame.__new__(sk.Frame)
     f.w, f.h, f.surf, f.c = period, hs, img, c
-    xs = np.arange(0, period + 1, 4, dtype=np.float32)
+    step = 4
+    xs = np.arange(0, period + 1, step, dtype=np.float32)
     prof = np.zeros_like(xs)
     for k, a in comps:
         ph = rs.rand() * 6.283
-        prof += a * _crest_fn(2 * np.pi * k * xs / period + ph, sharp) * (0.7 + 0.6 * rs.rand())
-    prof = prof / max(1e-6, prof.max())
+        prof += a * (0.6 + 0.8 * rs.rand()) * _crest_fn(2 * np.pi * k * xs / period + ph, sharp)
+    prof = (prof - prof.min()) / max(1e-6, prof.max() - prof.min())
     ytop = amp * (1 - prof)               # tepe: y=0, çukur: y=amp
     pts = [(float(x), float(y)) for x, y in zip(xs, ytop)]
+    slope = np.gradient(ytop, step)      # +: aşağı (sağa doğru çukur)
 
     def fill_path(dy=0.0):
         p = skia.Path()
@@ -252,48 +258,55 @@ def wave_strip(period, hs, amp, body, crest, foam, seed, sharp=2.2, foam_amt=0.0
         p.close()
         return p
 
-    # gövde
-    f.path(fill_path(), shader=f.lin(0, 0, 0, hs, [(mix(body, crest, 0.55), 0.0), (body, min(0.9, 0.18 + amp / max(1, hs) * 1.1)), (body, 1.0)]))
-    # çukur gölgeleri (dalga yüzü katmanları)
+    # gövde: üst açık → gövde rengi
+    f.path(fill_path(), shader=f.lin(0, 0, 0, hs, [(mix(body, crest, 0.34), 0.0), (mix(body, crest, 0.10), min(0.5, 0.12 + amp / max(1, hs) * 0.8)), (body, min(0.95, 0.30 + amp / max(1, hs) * 1.4)), (body, 1.0)]))
+    # çukur gölgeleri
     for q in range(facets):
-        dy = amp * (0.28 + 0.34 * q)
-        f.path(fill_path(dy), color=shade, alpha=0.16 + 0.05 * q)
+        dy = amp * (0.30 + 0.30 * q)
+        f.path(fill_path(dy), color=shade, alpha=0.10 + 0.045 * q)
+    # eğime göre parlak/gölgeli yüzler
+    for pass_i, (th, al) in enumerate(((0.42, 0.40), (0.20, 0.55))):
+        for i in range(len(xs) - 1):
+            sl = float(slope[i]) * lit_dir
+            br = max(0.0, min(1.0, 0.45 - sl * 0.07))           # ışığa dönük (eğim aşağı = sol yüz...) basit model
+            col = mix(shade, crest, br)
+            d = amp * th
+            q = [pts[i], pts[i + 1], (pts[i + 1][0], pts[i + 1][1] + d), (pts[i][0], pts[i][1] + d)]
+            f.poly(q, color=col, alpha=al * (0.35 + 0.65 * br) if pass_i == 0 else al * br)
     # tepe ışığı
     top = skia.Path()
     top.moveTo(*pts[0])
     for (x, y) in pts[1:]:
         top.lineTo(x, y)
-    f.path(top, style="stroke", sw=max(1.2, hs * 0.03), color=crest, alpha=0.85)
-    f.path(top, style="stroke", sw=max(3.0, hs * 0.075), color=crest, alpha=0.16)
-    # ışık alan yüz (tepenin hemen altı)
-    lit = skia.Path()
-    lit.moveTo(*pts[0])
-    for (x, y) in pts[1:]:
-        lit.lineTo(x, y + amp * 0.12 + 1.5)
-    f.path(lit, style="stroke", sw=max(1.0, hs * 0.02), color=lighten(crest, 0.25), alpha=0.35)
-    # köpük (fırtına): tepe çevresinde kısa çizgiler ve noktalar
+    f.path(top, style="stroke", sw=max(1.2, hs * 0.028), color=crest, alpha=0.80)
+    f.path(top, style="stroke", sw=max(3.0, hs * 0.07), color=crest, alpha=0.14)
+    # köpük (fırtına)
     if foam_amt > 0:
-        n = int(period / 14 * foam_amt)
+        n = int(period / 12 * foam_amt)
         for _ in range(n):
+            xi = rs.randint(0, len(xs) - 1)
+            if prof[xi] < 0.55:
+                continue
+            x, y = pts[xi]
+            L = 6 + rs.rand() * 30 * (0.4 + foam_amt)
+            yy = y + 1 + rs.rand() * amp * 0.30
+            f.line(x, yy, x + L, yy + (rs.rand() - 0.5) * 2, color=foam, sw=1.2 + rs.rand() * 2.2, alpha=0.25 + 0.55 * rs.rand())
+        for _ in range(int(n * 0.9)):
             xi = rs.randint(0, len(xs) - 1)
             if prof[xi] < 0.5:
                 continue
             x, y = pts[xi]
-            L = 6 + rs.rand() * 26 * (0.4 + foam_amt)
-            f.line(x, y + 1 + rs.rand() * amp * 0.25, x + L, y + 1 + rs.rand() * amp * 0.25, color=foam, sw=1.2 + rs.rand() * 2.0, alpha=0.25 + 0.5 * rs.rand())
-        for _ in range(int(n * 0.8)):
+            f.circle(x + (rs.rand() - 0.5) * 20, y + rs.rand() * amp * 0.55, 0.8 + rs.rand() * 1.9, color=foam, alpha=0.3 + 0.55 * rs.rand())
+    # ışık parıltıları
+    if glint and glint_amt > 0:
+        for _ in range(int(period / 16 * glint_amt)):
             xi = rs.randint(0, len(xs) - 1)
-            if prof[xi] < 0.45:
+            if prof[xi] < 0.35:
                 continue
             x, y = pts[xi]
-            f.circle(x + (rs.rand() - 0.5) * 18, y + rs.rand() * amp * 0.5, 0.8 + rs.rand() * 1.8, color=foam, alpha=0.3 + 0.5 * rs.rand())
-    # ışık parıltıları (gün batımı/ay yolu)
-    if glint and glint_amt > 0:
-        for _ in range(int(period / 18 * glint_amt)):
-            xi = rs.randint(0, len(xs) - 1)
-            x, y = pts[xi]
-            L = 4 + rs.rand() * 18
-            f.line(x, y + 2 + rs.rand() * amp * 0.6, x + L, y + 2 + rs.rand() * amp * 0.6, color=glint, sw=1.0 + rs.rand() * 1.6, alpha=0.2 + 0.55 * rs.rand())
+            L = 4 + rs.rand() * 20
+            yy = y + 2 + rs.rand() * amp * 0.7
+            f.line(x, yy, x + L, yy, color=glint, sw=1.0 + rs.rand() * 1.6, alpha=0.2 + 0.6 * rs.rand())
     return img.makeImageSnapshot().withDefaultMipmaps()
 
 
@@ -398,7 +411,7 @@ def rain_lines(f, t, n=240, seed=8, angle=-0.28, length=34, alpha=0.35, color="#
     d = 0.5 + rs.rand(n) * 0.5
     s = (t * speed * d / 1000.0 + rs.rand(n)) % 1.0
     dx, dy = math.sin(-angle), math.cos(angle)
-    px = (rs.rand(n) * (w + 400) - 200 + s * 400 * dx) % (w + 400) - 200 + x0 + 200
+    px = (rs.rand(n) * (w + 400) + s * 400 * dx) % (w + 400) - 200 + x0
     py = s * (h + 100) - 50 + y0
     p = skia.Path()
     for i in range(n):
@@ -460,3 +473,20 @@ def bake_sprite(draw_fn, w, h, ox, oy, mip=True):
     draw_fn(f)
     im = s.makeImageSnapshot()
     return im.withDefaultMipmaps() if mip else im
+
+
+def draw_rolled(cs, img, ox, oy, theta, samp=None, paint=None, step=8.0, kx=1.0):
+    """Küçük açılı 'dönme'yi dikey dilimlerle taklit eder (Skia'nın hızlı yolu: yalnız ölçek+öteleme; gerçek döndürme ~8× yavaş).
+    cs: tuval — orijin (su hattı) çevirisi ve ölçek (görüntü piksel birimine) uygulanmış olmalı; theta: yerel eksende radyan (+: saat yönü).
+    kx: görüntü pikselinin ekrandaki yaklaşık boyutu (dilim genişliğini ekranda ≈ step px yapmak için)."""
+    samp = samp or LIN
+    paint = paint or skia.Paint()
+    w, h = img.width(), img.height()
+    tn = math.tan(theta)
+    sl = max(4, int(step / max(0.05, kx)))
+    x0 = 0
+    while x0 < w:
+        x1 = min(w, x0 + sl)
+        dy = tn * ((x0 + x1) * 0.5 - ox)
+        cs.drawImageRect(img, skia.Rect.MakeLTRB(x0, 0, x1, h), skia.Rect.MakeLTRB(x0 - ox, -oy + dy, x1 - ox, h - oy + dy), samp, paint, skia.Canvas.kStrict_SrcRectConstraint)
+        x0 = x1

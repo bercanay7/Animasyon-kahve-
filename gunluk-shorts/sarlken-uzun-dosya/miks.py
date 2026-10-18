@@ -36,8 +36,10 @@ OUT = os.path.join(HERE, "out")
 
 FR = 480                      # 10 ms'lik analiz karesi (100 Hz zarf hızı)
 TARGET_LUFS = -14.0
-CEILING_DB = -1.2             # limiter tavanı (dBTP); AAC sonrası ≤ −1,0 doğrulanır
+CEILING_DB = -1.6             # limiter tavanı (dBTP); AAC kodlaması ~0,4 dB ekler → m4a ≤ −1,0 (doğrulanır)
 SNR_TARGET = 14.6             # konuşma − müzik hedef farkı (dB); asgari 14,0 aranır
+SNR_HI = 19.5                 # bundan fazla fark varsa müzik sınırlı yükseltilir (MAX_BOOST) — müzik hep 'duyulur' kalsın
+MAX_BOOST = 3.0
 MUSIC_EQ = [("peak", 420, -2.87, 1.1), ("peak", 900, -1.59, 1.0), ("peak", 1900, -3.01, 1.1)]   # 300 Hz–3 kHz ≈ −3 dB
 VOICE_EQ = [("peak", 3000, +1.5, 0.9), ("highshelf", 7000, -2.5, 0.7)]
 BLOOM_DB = 9.0                # boşlukta müzik, konuşma altı seviyesinin +9 dB üstüne çıkar (8–10 dB)
@@ -84,14 +86,22 @@ def deess(x, lo=5200.0, hi=9800.0, ratio=2.5, max_red=5.0, pct=72, hop=24):
 
 
 def voice_chain(v):
-    """voice (mono float32) → işlenmiş (mono float32) + istatistikler."""
+    """voice (mono float32) → işlenmiş (mono float32) + istatistikler. Sıkıştırma sonrası aktif-kare ortalama gücü girdiye
+    eşitlenir (makyaj kazancı), böylece 'konuşma ≈ −21 dBFS' referansı korunur."""
     x = v.astype(np.float64)
+    pin = frame_power(v)
+    ain = pin > 10 ** (-52.0 / 10)
+    p_in = float(pin[ain].mean())
     x = sosfilt(butter(2, 80, "high", fs=SR, output="sos"), x)
     x, grs = D.compressor(x, thr_db=-24.0, ratio=2.0, attack=0.010, release=0.120, knee_db=6.0)
     comp = dict(max_gr=float(-grs.min()), mean_gr_active=float(-grs[grs < -0.05].mean()) if np.any(grs < -0.05) else 0.0,
                 frac_active=float(np.mean(grs < -0.5)))
     x = D.eq_apply(x, VOICE_EQ)
     x, de = deess(x)
+    pout = frame_power(x)
+    mk = float(np.sqrt(p_in / (pout[ain].mean() + 1e-20)))
+    x *= mk
+    comp["makeup_db"] = float(20 * np.log10(mk))
     return x.astype(np.float32), dict(compressor=comp, deess=de)
 
 
@@ -163,30 +173,34 @@ def window_snr(Pv, Pm, act, G, lo, hi):
     return 10 * np.log10(pv / (pm + 1e-20) + 1e-20)
 
 
-def build_gain_curve(sa, Pm_raw, n_frames, chapters, tail_frames, title_end_frame=None, log_=log):
-    """Müzik kazanç eğrisi (dB, 100 Hz): ducking + SNR kırpması + bölüm kartı yükselişleri. Döner (G, info)."""
+def build_gain_curve(sa, Pm_raw, n_frames, chapters, log_=log):
+    """Müzik kazanç eğrisi (dB, 100 Hz): derinlik (−5…−8 dB) + pencere bazlı kapalı döngü seviyeleme (konuşma−müzik farkı
+    [SNR_TARGET, SNR_HI] aralığına çekilir; alt sınır sert, üst sınır sınırlı yükseltmeyle) + bölüm kartı/başlık yükselişleri."""
     Pv, act, region, gaps = sa["Pv"], sa["act"], sa["region"], sa["gaps"]
     depth = depth_curve(sa["level_db"])
     G = depth.copy()
-    # ── kapalı döngü SNR kırpması (yalnız konuşma bölgesinde): pencere 8 sn / adım 2 sn
     W, H = 800, 200
     trims = np.zeros(n_frames)
-    for it in range(4):
-        need = np.zeros(n_frames)
-        worst = 99.0
+    for it in range(6):
+        trim_need = np.zeros(n_frames)
+        boost = np.full(n_frames, np.inf)
         for lo in range(0, n_frames - W // 2, H):
             hi = min(n_frames, lo + W)
-            s = window_snr(Pv, Pm_raw, act, G + trims, lo, hi)
-            if s is None:
+            s_ = window_snr(Pv, Pm_raw, act, G + trims, lo, hi)
+            if s_ is None:
                 continue
-            worst = min(worst, s)
-            if s < SNR_TARGET:
-                need[lo:hi] = np.maximum(need[lo:hi], SNR_TARGET - s)
-        if need.max() <= 0.01:
+            if s_ < SNR_TARGET:
+                trim_need[lo:hi] = np.maximum(trim_need[lo:hi], SNR_TARGET - s_)
+                boost[lo:hi] = 0.0
+            else:
+                b = float(np.clip(s_ - SNR_HI, 0.0, MAX_BOOST))
+                boost[lo:hi] = np.minimum(boost[lo:hi], b)
+        boost[~np.isfinite(boost)] = 0.0
+        adj = np.where(trim_need > 0, -trim_need, boost)
+        adj = uniform_filter1d(adj, 400, mode="nearest")
+        if np.abs(adj).max() < 0.08:
             break
-        add = uniform_filter1d(need, 400, mode="nearest")          # 4 sn yumuşatma
-        add = np.maximum(add, need * 0.0) * 1.15 + 0.0
-        trims -= add
+        trims += adj
     G = G + trims * region
     # ── bölüm kartı / başlık yükselişleri
     t_title = chapters[0]["t1"]
@@ -197,19 +211,16 @@ def build_gain_curve(sa, Pm_raw, n_frames, chapters, tail_frames, title_end_fram
         p1, r2 = 45, 45
         gd_a = G[max(a - 1, 0)]
         gd_b = G[min(b, n_frames - 1)] if b < n_frames else gd_a
-        # plato aralığı: ham müzik gücü (yükseliş sonrası → düşüşe kadar)
         p0, p1_ = a + max(d1, 0) + int(r1 * 0.7), max(b - p1, a + 20)
         if p1_ <= p0:
             p0, p1_ = a, b
-        pre0, pre1 = max(a - 400, 0), max(a - 30, 1)
-        sel = region[pre0:pre1]
-        Ppre = (Pm_raw[pre0:pre1] * 10 ** (G[pre0:pre1] / 10.0))[sel].mean() if sel.sum() > 20 else None
+        Ppre = pre_level(Pm_raw, G, region, a)
         Pgap = Pm_raw[p0:p1_].mean() if p1_ > p0 else None
         if Ppre is None or Pgap is None or Pgap <= 1e-12:
             gopen = gd_a + BLOOM_DB
         else:
             gopen = 10 * np.log10(Ppre) + BLOOM_DB - 10 * np.log10(Pgap)
-        gopen = float(np.clip(gopen, gd_a - 6.0, gd_a + 12.0))
+        gopen = float(np.clip(gopen, gd_a - 9.0, gd_a + 14.0))
         s0 = a + d1
         for i in range(max(s0, 0), min(b, n_frames)):
             if i < s0 + r1:
@@ -220,10 +231,36 @@ def build_gain_curve(sa, Pm_raw, n_frames, chapters, tail_frames, title_end_fram
                 G[i] = gopen + (gd_b - gopen) * w
             else:
                 G[i] = gopen
-        info_gaps.append(dict(t0=a / 100.0, t1=b / 100.0, rise_db=round(gopen - gd_a, 2), open_db=round(gopen, 2), title=bool(is_title)))
+        info_gaps.append(dict(a=a, b=b, p0=p0, p1=p1_, t0=a / 100.0, t1=b / 100.0, gain_change_db=round(gopen - gd_a, 2), open_db=round(gopen, 2),
+                              title=bool(is_title)))
     G = uniform_filter1d(G, 7, mode="nearest")
-    info = dict(gaps=info_gaps, trim_min=float(trims.min()), worst_window_before=None)
+    info = dict(gaps=info_gaps, trim_min=float(trims[region].min()), trim_max=float(trims[region].max()))
     return G, info
+
+
+def pre_level(Pm_raw, G, region, a):
+    """Boşluk öncesi son ~4 sn'lik konuşma karelerinde (G uygulanmış) ortalama müzik gücü (doğrusal)."""
+    pre0, pre1 = max(a - 400, 0), max(a - 30, 1)
+    sel = region[pre0:pre1]
+    if sel.sum() < 20:
+        return None
+    return float((Pm_raw[pre0:pre1] * 10 ** (G[pre0:pre1] / 10.0))[sel].mean())
+
+
+def measure_rises(Pm_final, region, gaps_info):
+    """Nihai müzik gücünden ölçülen yükseliş: plato ortalaması − boşluk öncesi konuşma altı ortalaması (dB)."""
+    out = []
+    for g in gaps_info:
+        a, p0, p1 = g["a"], g["p0"], g["p1"]
+        pre0, pre1 = max(a - 400, 0), max(a - 30, 1)
+        sel = region[pre0:pre1]
+        if sel.sum() < 20 or p1 <= p0:
+            out.append(None)
+            continue
+        pre = Pm_final[pre0:pre1][sel].mean()
+        pl = Pm_final[p0:p1].mean()
+        out.append(float(10 * np.log10(pl / (pre + 1e-20) + 1e-20)))
+    return out
 
 
 def apply_curve(x, G_db, sr=SR):
@@ -293,25 +330,37 @@ def render_sfx_bus(cues, N, sa, region_s):
 
 
 # ═══════════════════════════ master ═══════════════════════════
-def master(mix, target=TARGET_LUFS, ceiling=CEILING_DB, max_iter=6):
-    """mix (N,2) float32 → (y float32, bilgi). Yinelemeli: kazanç → limiter → LUFS ölç → düzelt."""
-    st0 = D.loudness_stats(mix)
-    g = target - st0["integrated"]
-    log(f"  master: ön-limiter entegre {st0['integrated']:.2f} LUFS → ilk kazanç {g:+.2f} dB")
+def master(mix, target=TARGET_LUFS, ceiling=CEILING_DB, hop=24):
+    """mix (N,2) float32 → (y float32, bilgi). K-ağırlıklı güç ve true-peak zarfı BİR KEZ hop düzeyinde hesaplanır; kazanç ve
+    limiter eğrisi hop düzeyinde yinelenir (saniyeler); sonuç gerçek BS.1770 ölçümüyle doğrulanıp gerekirse bir kez düzeltilir."""
+    t = time.time()
+    pk = D.k_power_hop(mix, hop)
+    ph = D.hop_peaks(mix, hop)
+    log(f"  master: K-ağırlıklı güç + true-peak zarfı hazır ({time.time() - t:.1f} sn)")
+    ceil = D.db2lin(ceiling)
+    g = target - D.lufs_from_hop_power(pk)
+    for it in range(12):
+        gl = D.limiter_curve(ph * D.db2lin(g), ceil, hop, 0.008, 0.120)
+        L = D.lufs_from_hop_power(pk * D.db2lin(g) ** 2 * gl ** 2)
+        err = target - L
+        if abs(err) < 0.004:
+            break
+        g += err
+    log(f"  master: kazanç {g:+.2f} dB, limiter maks. {-20 * np.log10(gl.min()):.2f} dB, tahmini {L:.3f} LUFS")
     y = None
-    for it in range(max_iter):
-        x = mix * np.float32(D.db2lin(g))
-        y, grs = D.limiter(x, ceiling_db=ceiling, lookahead=0.005, release=0.120)
-        del x
+    for fix in range(3):
+        y = D.apply_hop_gain(mix, gl, D.db2lin(g), hop)
         st = D.loudness_stats(y)
         err = target - st["integrated"]
-        log(f"  master it{it}: gain {g:+.2f} dB → {st['integrated']:.2f} LUFS (limiter maks. {-grs.min():.2f} dB)")
+        log(f"  master: ölçülen {st['integrated']:.3f} LUFS (hata {err:+.3f})")
         if abs(err) < 0.03:
             break
         g += err
+        gl = D.limiter_curve(ph * D.db2lin(g), ceil, hop, 0.008, 0.120)
     tp = D.true_peak_db(y)
-    return y, dict(gain_db=float(g), stats=st, true_peak=float(tp), gr_max=float(-grs.min()),
-                   gr_frac_gt1=float(np.mean(grs < -1.0)), gr_frac_gt3=float(np.mean(grs < -3.0)), ceiling=float(ceiling))
+    grdb = 20 * np.log10(gl + 1e-12)
+    return y, dict(gain_db=float(g), stats=st, true_peak=float(tp), gr_max=float(-grdb.min()),
+                   gr_frac_gt1=float(np.mean(grdb < -1.0)), gr_frac_gt3=float(np.mean(grdb < -3.0)), ceiling=float(ceiling))
 
 
 def ffmpeg_loudnorm(path):
@@ -402,6 +451,9 @@ def main():
     voice, chapters, total, timeline = load_inputs()
     tail = float(a.tail)
     Nv = len(voice)
+    if abs(Nv / SR - total) > 0.05:
+        log(f"UYARI: voice.wav süresi {Nv / SR:.3f} sn ≠ voice_chapters.json total {total:.3f} sn (voice.wav esas alınır)")
+    total = Nv / SR            # JSON'daki total ms'ye yuvarlı; örnek-tam süre voice.wav'dan
     N = Nv + int(round(tail * SR))
     nf = N // FR
     log(f"voice {Nv / SR:.2f} sn + kuyruk {tail:.2f} sn = {N / SR:.2f} sn; {len(chapters)} bölüm")
@@ -433,9 +485,9 @@ def main():
     # 4) müzik bus: EQ + ducking/yükseliş
     music = D.eq_apply(music, MUSIC_EQ).astype(np.float32)
     Pm_raw = frame_power(music, nf)
-    G, ginfo = build_gain_curve(sa, Pm_raw, nf, chapters, int(tail * 100), log_=log)
+    G, ginfo = build_gain_curve(sa, Pm_raw, nf, chapters, log_=log)
     music = apply_curve(music, G)
-    log(f"ducking eğrisi: konuşma bölgesi ort. {G[sa['region']].mean():+.2f} dB; yükseliş {len(ginfo['gaps'])} boşlukta; kırpma maks. {ginfo['trim_min']:.2f} dB")
+    log(f"ducking eğrisi: konuşma bölgesi ort. {G[sa['region']].mean():+.2f} dB; yükseliş {len(ginfo['gaps'])} boşlukta; seviyeleme {ginfo['trim_min']:+.2f} … {ginfo['trim_max']:+.2f} dB")
 
     # 5) SFX bus
     if os.path.exists(a.sfx_cues):
@@ -487,7 +539,7 @@ def main():
     # 7) ölçüm/QA
     ff = ffmpeg_loudnorm(wav_path)
     write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, m4a_info, ff, voice_raw_full, vfull, music, sfxbus, final,
-                 rms_nominal, cues, used, nf, pre)
+                 rms_nominal, cues, used, nf, pre, timeline)
     if a.stems:
         D.write_wav(os.path.join(OUT, "music_ducked.wav"), music, SR, 16)
         D.write_wav(os.path.join(OUT, "voice_proc.wav"), vfull, SR, 16)
@@ -497,15 +549,40 @@ def main():
 
 
 # ═══════════════════════════ rapor ═══════════════════════════
+def timeline_check(timeline, act, nf, chapters):
+    """timeline.json ↔ voice.wav uyumu: cümle içi konuşma payı (≥0,85 beklenir), cümle arası aralıkta konuşma payı (≤0,3),
+    bölüm sınırları (ilk cümle başı / son cümle sonu ↔ bölüm t0/t1)."""
+    if not timeline:
+        return None
+    S = timeline["sentences"]
+    inside, between = [], []
+    for k, sn in enumerate(S):
+        lo, hi = int(sn["t0"] * 100), min(int(sn["t1"] * 100), nf)
+        if hi > lo + 5:
+            inside.append(float(act[lo:hi].mean()))
+        if k + 1 < len(S) and S[k + 1]["ch"] == sn["ch"]:
+            g0, g1 = int(sn["t1"] * 100) + 5, int(S[k + 1]["t0"] * 100) - 5
+            if g1 > g0 + 10:
+                between.append(float(act[g0:g1].mean()))
+    offs = []
+    for ch in chapters:
+        ss = [x for x in S if x["ch"] == ch["id"]]
+        if ss:
+            offs.append((ch["id"], ss[0]["t0"] - ch["t0"], ch["t1"] - ss[-1]["t1"]))
+    return dict(n=len(S), inside_mean=float(np.mean(inside)), inside_min=float(np.min(inside)), n_low=int(np.sum(np.array(inside) < 0.8)),
+                between_mean=float(np.mean(between)) if between else 0.0, offs=offs, total=timeline.get("total"))
+
+
 def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, m4a, ff, voice_raw, vproc, music, sfxbus, final,
-                 rms_nominal, cues, used, nf, pre):
+                 rms_nominal, cues, used, nf, pre, timeline=None):
     import muzik
+    from collections import Counter
     L = []
     P = L.append
     st = minf["stats"]
     P("ŞARLKEN — SES RAPORU (miks.py)")
     P("=" * 78)
-    P(f"süre: mix {N / SR:.2f} sn = voice {total:.2f} + kapanış {tail:.2f}; örnekleme 48 kHz stereo; çıktı 16-bit PCM + AAC 192k")
+    P(f"süre: mix {N / SR:.3f} sn = voice {total:.3f} + kapanış {tail:.2f}; örnekleme 48 kHz stereo; çıktı 16-bit PCM + AAC 192k")
     P("")
     P("[1] NİHAİ MİKS — mix_audio.wav")
     P(f"  entegre loudness (BS.1770, kendi ölçümüm) : {st['integrated']:.2f} LUFS   (hedef −14,0)")
@@ -527,10 +604,10 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     act = sa["act"]
     snr_all = rms_db_frames(vproc, act) - rms_db_frames(music, act)
     sfx_all = rms_db_frames(sfxbus, act)
-    P(f"  konuşma RMS (işlenmiş, ön-master) : {rms_db_frames(vproc, act):.1f} dBFS")
+    P(f"  konuşma RMS (işlenmiş, ön-master) : {rms_db_frames(vproc, act):.1f} dBFS   (ham ses {rms_db_frames(voice_raw, act):.1f})")
     P(f"  müzik RMS (konuşma altında)       : {rms_db_frames(music, act):.1f} dBFS   → konuşma − müzik = {snr_all:.1f} dB   (şart ≥ 14)")
     P(f"  SFX RMS (konuşma karelerinde)     : {sfx_all:.1f} dBFS")
-    P(f"  müzik bandı ort. RMS (ducking öncesi, nominal): {rms_nominal:.1f} dBFS   (şart −24…−28)")
+    P(f"  müzik bandı ort. RMS (ducking öncesi, nominal; music.wav): {rms_nominal:.1f} dBFS   (şart −24…−28)")
     P("  bölüm bazında (konuşma-aktif kareler; kare = 10 ms):")
     P("   bölüm   konuşma   müzik    fark   ducking ort.   en kötü 8 sn penceresi")
     Pv, Pm = frame_power(vproc, nf), frame_power(music, nf)
@@ -551,10 +628,13 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
         dk = G[lo:hi][sa["region"][lo:hi]].mean()
         P(f"   {ch['id']:5s} {10 * np.log10(pv):7.1f}  {10 * np.log10(pm):7.1f}  {10 * np.log10(pv / (pm + 1e-20)):6.1f}   {dk:+6.1f} dB      {ws:6.1f} dB")
     P(f"  en kötü 8 sn penceresi (tüm bölümler): {worst_all:.1f} dB")
-    P(f"  ducking: konuşma bölgesinde ort. {G[sa['region']].mean():+.2f} dB (aralık {G[sa['region']].min():+.1f} … {G[sa['region']].max():+.1f}); SNR kırpması maks. {ginfo['trim_min']:.2f} dB")
-    P("  bölüm kartı / başlık boşluklarında müzik yükselişi (konuşma altı seviyeye göre):")
-    for g in ginfo["gaps"]:
-        P(f"   t={g['t0']:8.2f}–{g['t1']:8.2f} sn   yükseliş {g['rise_db']:+5.1f} dB" + ("   [ana başlık]" if g["title"] else ""))
+    reg = sa["region"]
+    P(f"  ducking eğrisi (konuşma bölgesi): ort. {G[reg].mean():+.2f} dB, aralık {G[reg].min():+.1f} … {G[reg].max():+.1f}; kapalı döngü seviyeleme {ginfo['trim_min']:+.2f} … {ginfo['trim_max']:+.2f} dB")
+    rises = measure_rises(Pm, reg, ginfo["gaps"])
+    P("  bölüm kartı / başlık boşluklarında müzik yükselişi (ölçülen: plato − konuşma altı düzey; hedef 8–10 dB):")
+    for g, r in zip(ginfo["gaps"], rises):
+        rs = "   ölçülemedi" if r is None else f"   yükseliş {r:+5.1f} dB"
+        P(f"   t={g['t0']:8.2f}–{g['t1']:8.2f} sn{rs}   (kazanç değişimi {g['gain_change_db']:+.1f} dB)" + ("   [ana başlık]" if g["title"] else ""))
     P("")
     P("[3] SPEKTRAL DENGE (Welch, güç payı %)  düşük<250 Hz | orta 250–4k | yüksek>4k | centroid")
     for nm, arr in (("voice (ham)", voice_raw), ("voice (işlenmiş)", vproc), ("müzik (mikste)", music), ("sfx bus", sfxbus), ("MIKS (nihai)", final)):
@@ -563,21 +643,31 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     P("")
     P("[4] SES (voice) ZİNCİRİ")
     c = vinfo["compressor"]
-    P(f"  HPF 80 Hz; sıkıştırıcı 2:1 / −24 dBFS / 10 ms / 120 ms (maks. azaltma {c['max_gr']:.1f} dB, aktifken ort. {c['mean_gr_active']:.1f} dB, süre %{c['frac_active'] * 100:.1f});")
+    P(f"  HPF 80 Hz; sıkıştırıcı 2:1 / −24 dBFS / 10 ms / 120 ms (maks. azaltma {c['max_gr']:.1f} dB, aktifken ort. {c['mean_gr_active']:.1f} dB, süre %{c['frac_active'] * 100:.1f}); makyaj kazancı {c['makeup_db']:+.1f} dB (ham ses düzeyine);")
     P(f"  +1,5 dB @3 kHz presence; 7 kHz üstü yüksek raf −2,5 dB + dinamik de-ess (5,2–9,8 kHz; eşik {vinfo['deess']['thr_db']:.1f} dB, maks. {vinfo['deess']['max_gr']:.1f} dB)")
     P("")
-    P("[5] MÜZİK CUE'LARI (ham bant; ses/müzik karakteri)")
+    P("[5] MÜZİK CUE'LARI (ham bant; bölüm başına karakter)")
     P("  cue  ruh        mod         bpm  ölçü  başlangıç  bitiş    uzunluk  (bölüm süresi)  çapraz geçiş (giriş/çıkış)  ön-kazanç")
     for ci in minfo["cues"]:
         P(f"  {ci['id']:4s} {ci['mood']:9s}  {ci['mode']:10s} {ci['bpm']:4d}  {ci['meter']:4s} {ci['start']:9.2f} {ci['end']:8.2f} {ci['length']:8.2f}  ({ci['chapter_dur']:6.2f})        {ci['xin']:.0f} / {ci['xout']:.0f} sn          {ci['pre_gain_db']:+.1f} dB")
+    P(f"  c0 başlık vuruşu: c0 t1 + {muzik.TITLE_DELAY:.1f} sn = {chapters[0]['t1'] + muzik.TITLE_DELAY:.2f} sn; kapanış: c13 t1 = {chapters[-1]['t1']:.2f} → çözülme {chapters[-1]['t1'] + 0.25:.2f} sn, sönüş {N / SR:.2f} sn")
     P("")
     P("[6] SFX")
-    from collections import Counter
     cnt = Counter(used)
     P(f"  cue sayısı: {len(cues)} ; kullanılan ad(lar): " + ", ".join(f"{k}×{v}" for k, v in sorted(cnt.items())))
     P(f"  kütüphane ({len(sfx_names())}): " + ", ".join(sfx_names()))
     P("")
-    P("[7] KONTROL LİSTESİ")
+    tc = timeline_check(timeline, act, nf, chapters)
+    P("[7] ZAMAN ÇİZELGESİ UYUMU (timeline.json ↔ voice.wav)")
+    if tc:
+        P(f"  {tc['n']} cümle; cümle içinde konuşma payı ort. {tc['inside_mean']:.3f} (en düşük {tc['inside_min']:.2f}; <0,80 olan: {tc['n_low']}); cümle arası aralıkta konuşma payı ort. {tc['between_mean']:.3f}")
+        bad = [(i, a_, b_) for (i, a_, b_) in tc["offs"] if abs(a_) > 0.6 or abs(b_) > 0.6]
+        P("  bölüm sınırı kayması (ilk cümle başı − t0 | t1 − son cümle sonu): " + ("; ".join(f"{i}: {a_:+.2f}/{b_:+.2f}" for (i, a_, b_) in tc["offs"])))
+        P("  " + ("UYARI: >0,6 sn kayma: " + ", ".join(i for i, _, _ in bad) if bad else "tüm bölüm sınırları ≤0,6 sn içinde uyumlu"))
+    else:
+        P("  timeline.json yok / okunamadı")
+    P("")
+    P("[8] KONTROL LİSTESİ")
     chk = []
 
     def ck(name, ok, val):
@@ -589,14 +679,19 @@ def write_report(a, chapters, total, tail, N, vinfo, sa, G, ginfo, minfo, minf, 
     ck("kırpılan örnek sayısı = 0", clip_count(final) == 0, str(clip_count(final)))
     ck("DC ofset < 1e-3", float(np.max(np.abs(dc))) < 1e-3, f"{np.max(np.abs(dc)):.1e}")
     ck("konuşma − müzik ≥ 14 dB (genel)", snr_all >= 14.0, f"{snr_all:.1f}")
-    ck("konuşma − müzik ≥ 14 dB (en kötü 8 sn pencere ≥ 13)", worst_all >= 13.0, f"{worst_all:.1f}")
+    ck("konuşma − müzik ≥ 14 dB (en kötü 8 sn pencere; ≥13,5)", worst_all >= 13.5, f"{worst_all:.1f}")
     ck("müzik nominal ort. RMS −24…−28 dBFS", -28.2 <= rms_nominal <= -23.8, f"{rms_nominal:.1f}")
     ck("süre = voice + kuyruk (±1 örnek)", abs(len(final) - N) <= 1, f"{len(final) / SR:.3f} sn")
-    rises = [g["rise_db"] for g in ginfo["gaps"]]
-    ck("boşluk yükselişi 8–10 dB (tümü)", all(7.0 <= r <= 11.5 for r in rises) if rises else False, f"min {min(rises):.1f} maks {max(rises):.1f}" if rises else "-")
+    rv = [r for r in rises if r is not None]
+    ck("boşluk yükselişi 8–10 dB (ölçülen, ±0,7)", bool(rv) and all(7.3 <= r <= 10.7 for r in rv), f"min {min(rv):.1f} maks {max(rv):.1f}" if rv else "-")
+    if tc:
+        ck("timeline.json uyumu (cümle içi konuşma ≥ 0,85 ort.)", tc["inside_mean"] >= 0.85, f"{tc['inside_mean']:.3f}")
     for name, ok, val in chk:
         P(f"  [{'GEÇTİ' if ok else 'KALDI'}] {name}  → {val}")
     P("")
+    P("YENİDEN ÜRETME (tek komut): python3 miks_kur.py     (+ --preview ile out/audio_prev/ kesitleri)")
+    P("  girdiler : out/voice.wav, out/voice_chapters.json, out/timeline.json, [out/sfx_cues.json]")
+    P("  çıktılar : out/music.wav, out/sfx_bus.wav, out/mix_audio.wav, out/mix_audio.m4a, out/audio_report.txt")
     P(f"toplam çalışma süresi: {time.time() - T0:.0f} sn")
     txt = "\n".join(L)
     open(os.path.join(OUT, "audio_report.txt"), "w", encoding="utf-8").write(txt + "\n")

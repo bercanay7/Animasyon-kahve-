@@ -111,9 +111,14 @@ def backdrop(f, cx, kind="night", tint=None, tint_a=0.0, rays=0.3, dust_n=50, du
 
 
 # ───────────────────────────── parşömen ─────────────────────────────
+PAPER_TONE = "#D6BF8A"
+
+
 @contextmanager
-def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone="#EBDDB5"):
-    """Parşömen levha; yerel koordinatlar levha merkezinde (−w/2..w/2, −h/2..h/2). `with paper(...): f.text(...)`"""
+def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone=None, shade=0.38):
+    """Parşömen levha (koyu sahneye uygun, kamaşmayan ton + mum ışığı düşüşü); yerel koordinatlar levha merkezinde
+    (−w/2..w/2, −h/2..h/2). `with paper(...): f.text(...)`"""
+    tone = tone or PAPER_TONE
     img, pad = SH.paper_sprite(int(w), int(h), seed=seed, tone=tone)
     f.c.save()
     f.c.translate(x, y)
@@ -123,6 +128,10 @@ def paper(f, x, y, w, h, rot=0.0, sc=1.0, alpha=1.0, seed=3, tone="#EBDDB5"):
     p = skia.Paint(AntiAlias=True)
     p.setAlphaf(clamp(alpha))
     f.c.drawImage(img, -w / 2 - pad, -h / 2 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    if shade > 0 and alpha > 0:
+        sh = skia.GradientShader.MakeRadial((-w * 0.18, -h * 0.22), max(w, h) * 0.78,
+                                            [C("#2A1608", 0), C("#2A1608", 0), C("#1A0D04", int(255 * shade * alpha))], [0.0, 0.35, 1.0])
+        f.c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8), 14, 14), skia.Paint(AntiAlias=True, Shader=sh))
     try:
         yield
     finally:
@@ -236,7 +245,7 @@ def stamp2(f, text, x, y, rot=-0.10, size=62, color="#B02A2A", alpha=1.0, t=1.0,
         return
     sc = 1.0 + (1 - back_out(t)) * 0.9 if t < 1 else 1.0
     a = alpha * min(1.0, t * 3)
-    wd = sk.text_width(text, "title", size, 8) + 64
+    wd = sk.text_width(text, "title", size, 8) + 92
     hh = size * 1.5 + (size * 0.42 if sub else 0)
     f.c.save()
     f.c.translate(x, y)
@@ -404,3 +413,48 @@ def draw_hourglass(f, x, y, h=360.0, fill_bottom=0.0, rot=0.0, alpha=1.0, glass_
         px = sx * 120 * s
         f.rect(px - 7 * s, P(0, 104)[1], 14 * s, P(0, 408)[1] - P(0, 104)[1], shader=f.lin(px - 7 * s, 0, px + 7 * s, 0, [("#6B4A12", 0.0), ("#F4DC8C", 0.45), ("#7A5518", 1.0)]), alpha=alpha)
     f.c.restore()
+
+
+def chain_links(f, p0, p1, bend=0.0, prog=1.0, color="#B58AD8", link=26, alpha=1.0, sw=5.0):
+    """p0→p1 arası eğri boyunca zincir halkaları (dönüşümlü dik/yatay oval)."""
+    if prog <= 0:
+        return
+    mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+    dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+    L = math.hypot(dx, dy) or 1.0
+    path = skia.Path()
+    path.moveTo(*p0)
+    path.quadTo(mx - dy / L * bend, my + dx / L * bend, *p1)
+    pm = skia.PathMeasure(path, False)
+    ln = pm.getLength()
+    n = max(2, int(ln / (link * 0.78)))
+    for i in range(int(n * clamp(prog)) + 1):
+        d = ln * i / n
+        pos, tan = pm.getPosTan(min(d, ln))
+        if pos is None:
+            continue
+        ang = math.degrees(math.atan2(tan.y(), tan.x()))
+        f.c.save()
+        f.c.translate(pos.x(), pos.y())
+        f.c.rotate(ang)
+        rw, rh = (link * 0.62, link * 0.36) if i % 2 == 0 else (link * 0.40, link * 0.22)
+        f.oval(0, 0, rw, rh, style="stroke", sw=sw * (1.0 if i % 2 == 0 else 0.75), color="#000000", alpha=0.45 * alpha)
+        f.oval(0, 0, rw, rh, style="stroke", sw=sw * 0.8, color=color, alpha=alpha)
+        f.c.restore()
+
+
+# ───────────────────────────── güvenli diorama sarmalayıcı ─────────────────────────────
+@SH.kind("bw_theatre")
+def k_bw_theatre(cx, **kw):
+    """`theatre` çekimini çağırır; sahne kodu hata verirse (lab dosyaları yarım/bozuksa) tüm render çökmesin diye yer tutucu çizer ve uyarı basar."""
+    f = cx.f
+    n = f.c.getSaveCount()
+    try:
+        SH.KINDS["theatre"](cx, **kw)
+    except Exception as e:  # noqa: BLE001
+        import sys
+        f.c.restoreToCount(n)
+        print(f"[bw_theatre] '{kw.get('scene')}' sahnesi hata verdi: {type(e).__name__}: {e}", file=sys.stderr)
+        f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#241509", 0.0), ("#0D0704", 1.0)]))
+        f.text(f"[sahne: {kw.get('scene')} — hata]", W / 2, H / 2, face="cap_i", size=44, color="#8A7A55", align="c")
+        f.vig(0.6)

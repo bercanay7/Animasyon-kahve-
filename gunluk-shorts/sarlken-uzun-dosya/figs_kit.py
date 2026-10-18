@@ -211,10 +211,12 @@ class Fig:
     def glowdot(self, x, y, r, color="#FFD58A", alpha=0.85):
         self.ops.append(("glow", x, y, r, color, alpha))
 
-    def merge(self, other, dx=0.0, dy=0.0, s=1.0, flip=False):
-        """Başka bir Fig'in parçalarını (taşı/ölçekle/ayna) bu Fig'e ekle (çiftler, kalabalık grupları)."""
+    def merge(self, other, dx=0.0, dy=0.0, s=1.0, flip=False, rot=0.0):
+        """Başka bir Fig'in parçalarını (ölçekle/ayna/döndür/taşı) bu Fig'e ekle (çiftler, atlı = at + binici). rot: derece (+ = saat yönü)."""
         m = skia.Matrix()
         m.setScale(-s if flip else s, s)
+        if rot:
+            m.postRotate(rot)
         m.postTranslate(dx, dy)
 
         def T(p):
@@ -235,7 +237,8 @@ class Fig:
                 self.ops.append(("solid", T(op[1]), op[2], op[3]))
             elif k == "glow":
                 _, x, y, r, color, alpha = op
-                self.ops.append(("glow", (-x if flip else x) * s + dx, y * s + dy, r * s, color, alpha))
+                pt = m.mapXY(x, y)
+                self.ops.append(("glow", pt.x(), pt.y(), r * s, color, alpha))
         self.bound.addPath(T(other.bound))
 
     # --- çıktı
