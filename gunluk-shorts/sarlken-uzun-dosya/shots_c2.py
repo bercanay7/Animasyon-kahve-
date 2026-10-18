@@ -62,7 +62,7 @@ def k_c2_yedi(cx, mode="intro", t_crown=0.0, t_fam=0.0, t_cross=0.0, t_hats=0.0,
             pulse = max(0.0, math.sin((t - cx.at(t_pulse, off=i * 0.07)) * 5.0)) * (1 if t >= cx.at(t_pulse) else 0) * 0.35
         K.glow_disc(f, x, y, 125, "#F0D27A", (0.3 + pulse) * a)
         f.circle(x, y, 92, style="stroke", sw=2.2, color="#C9962B", alpha=0.55 * a)
-        icons.draw_icon(f, "c2_kurhut", x, y - 12 * (1 - a), size=160 * (0.82 + 0.18 * back_out(a)), metal="crimson", alpha=a, glow=0.28 * a + pulse)
+        icons.draw_icon(f, "elector_hat", x, y - 12 * (1 - a), size=160 * (0.82 + 0.18 * back_out(a)), metal="crimson", alpha=a, glow=0.28 * a + pulse)
         if vote:
             tv = smooth(clamp((t - cx.at(t_vote, off=i * 0.07)) / 0.35))
             if tv > 0:
@@ -235,7 +235,7 @@ def k_c2_para(cx, t_stamp=0.0, t_coins=0.0, t_take=0.0):
         x, y = hat_pos(i, cx_=cxw, cy=cyw - 20, rx=470, ry=210, start=-math.pi / 2)
         a = smooth(clamp((t - 0.1 * i) / 0.5))
         K.glow_disc(f, x, y, 110, "#F0D27A", 0.25 * a + 0.3 * taken * a)
-        icons.draw_icon(f, "c2_kurhut", x, y, size=140, metal="crimson", alpha=a * (0.7 + 0.3 * taken), glow=0.2 * a + 0.35 * taken)
+        icons.draw_icon(f, "elector_hat", x, y, size=140, metal="crimson", alpha=a * (0.7 + 0.3 * taken), glow=0.2 * a + 0.35 * taken)
     # kese
     ba = cx.amt(t_coins, 0.6, off=-0.3)
     if ba > 0:
@@ -285,7 +285,7 @@ def k_c2_borc(cx, t_scale=0.0, t_rus=0.0, t_tart=0.0, t_borc=0.0, t_gercek=0.0, 
 
     K.draw_scale(f, 960, 300, 370, tilt, left, right, alpha=sc_alpha, t=t)
     if cx.amt(t_tart, 0.3) > 0 and cc < 0.5:
-        SH.stamp(f, "TARTIŞMALI", 560, 900, rot=-0.08, size=62, t=cx.amt(t_tart, 0.3), alpha=1 - cc * 2)
+        SH.stamp(f, "TARTIŞMALI", 430, 880, rot=-0.08, size=54, t=cx.amt(t_tart, 0.3), alpha=1 - cc * 2)
     ga = cx.amt(t_gercek, 0.5)
     if ga > 0 and cc < 0.6:
         K.txt(f, "GERÇEK", 1322, 925, face="title_m", size=44, color="#F6DC8A", track=12, alpha=ga * (1 - cc))

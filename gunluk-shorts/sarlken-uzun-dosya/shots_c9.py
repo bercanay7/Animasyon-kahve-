@@ -63,7 +63,7 @@ def open_extra(cx, cam, mv):
 # ───────────────────────────── c9s2: Cortés rotası ─────────────────────────────
 def cortes_extra(cx, cam, mv):
     f = cx.f
-    cameo(f, cx, "kortes", 1560, 560, 300, A("c9s2", "Hernán", -0.2), metal="bronze", name="HERNÁN CORTÉS", role="Konkistador", i=1, plate_dy=170)
+    cameo(f, cx, "kortes", 1540, 690, 290, A("c9s2", "Hernán", -0.2), metal="bronze", name="HERNÁN CORTÉS", role="Konkistador", i=1, plate_dy=165)
     # "izni olmadan" vurgusu: Küba üzerinde kırmızı yasak halkası
     kk = cx.amt(A("c9s2", "izni", -0.1), 0.5)
     if kk > 0:
@@ -77,13 +77,13 @@ def cortes_extra(cx, cam, mv):
 def tenoch_overlay(cx):
     f = cx.f
     k = cx.amt(A("c9s2", "13", -0.15), 0.7)
-    if k > 0:
-        f.rect(0, H - 330, W, 330, shader=f.lin(0, H - 330, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(200 * k))]))
-        f.gold("13 AĞUSTOS 1521", 130 + sk.text_width("13 AĞUSTOS 1521", "title", 62, 6) / 2, H - 112, face="title", size=62, track=6, alpha=k)
     kt = cx.amt(A("c9s2", "Tenochtitlan", -0.15), 0.9)
+    if k > 0:
+        f.rect(0, H - 540, W, 540, shader=f.lin(0, H - 540, 0, H, [("#000000", 0.0, 0), ("#000000", 0.45, int(150 * max(k, kt))), ("#000000", 1.0, int(240 * max(k, kt)))]))
+        f.gold("13 AĞUSTOS 1521", W / 2, H - 100, face="title", size=58, track=8, alpha=k)
     if kt > 0:
-        kick_rule(f, "AZTEK BAŞKENTİ", W / 2, 205, k=kt, size=26, track=14, span=110)
-        reveal_text(f, "TENOCHTİTLAN", W / 2, 292, kt, face="title", size=84, color="#F4DD92", track=12)
+        kick_rule(f, "AZTEK BAŞKENTİ", W / 2, H - 300, k=kt, size=26, track=16, span=100)
+        reveal_text(f, "TENOCHTİTLAN", W / 2, H - 205, kt, face="title", size=88, color="#F4DD92", track=12)
 
 
 # ───────────────────────────── c9s4: Dürer ve Aztek eserleri ─────────────────────────────

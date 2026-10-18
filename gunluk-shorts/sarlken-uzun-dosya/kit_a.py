@@ -707,12 +707,84 @@ def ensure_region(name):
         del mv._paths[k]
 
 
+_RELIEF = {}
+
+
+def _relief_shader():
+    """Dünya koordinatında kusursuz döşenen (FFT, periyodik) kesirli arazi + gölgelendirme (hillshade): kara üstüne tepe/sırt dokusu."""
+    if "sh" not in _RELIEF:
+        N = 1024
+        rs = np.random.RandomState(11)
+        F = np.fft.rfft2(rs.randn(N, N).astype(np.float32))
+        fy = np.fft.fftfreq(N)[:, None]
+        fx = np.fft.rfftfreq(N)[None, :]
+        fr = np.sqrt(fx * fx + fy * fy)
+        fr[0, 0] = 1.0
+        filt = 1.0 / fr ** 1.75
+        filt[0, 0] = 0.0
+        h = np.fft.irfft2(F * filt, s=(N, N)).astype(np.float32)
+        h = (h - h.mean()) / (h.std() + 1e-6)
+        t = np.tanh(h * 0.85)
+        hh = 0.62 * (1.0 - np.abs(t)) ** 1.5 + 0.38 * (t * 0.5 + 0.5)
+        dx = (np.roll(hh, -1, 1) - np.roll(hh, 1, 1)) * 0.5
+        dy = (np.roll(hh, -1, 0) - np.roll(hh, 1, 0)) * 0.5
+        shade = -(dx * 0.72 + dy * 0.69)
+        shade = shade / (shade.std() + 1e-6)
+        g = 128.0 + shade * 26.0 + t * 15.0
+        img = sk.gray_to_image(np.clip(g, 0, 255).astype(np.uint8))
+        _RELIEF["sh"] = img.makeShader(skia.TileMode.kRepeat, skia.TileMode.kRepeat, skia.SamplingOptions(skia.FilterMode.kLinear))
+    return _RELIEF["sh"]
+
+
+def _patched_base(mv, relief):
+    """mv.base yerine geçer: kara kabartması döşeme önbelleğine pişirilir (kare başına ek maliyet yok).
+    Yalnız bu çekim süresince, yalnız bu MapView örneğinde; stil adı 'night_rel' ile ayrı döşeme anahtarı."""
+    orig = type(mv).base
+
+    def base2(f, cam, style="night", t=0.0, mountains=True, ripples=True, tint=None):
+        if style != "night" or cam.rot:
+            return orig(mv, f, cam, style, t=t, mountains=mountains, ripples=ripples, tint=tint)
+        o_dbv, o_sea = type(mv)._draw_base_vector, type(mv).sea
+
+        sname = "night_rel%d" % int(round(relief * 100))
+
+        def dbv(fr, cam_apply, z, st, mtn, rip):
+            if st != sname:
+                return o_dbv(mv, fr, cam_apply, z, st, mtn, rip)
+            o_dbv(mv, fr, cam_apply, z, "night", mtn, rip)
+            c = fr.c
+            c.save()
+            cam_apply(c)
+            pt = skia.Paint(AntiAlias=True)
+            pt.setShader(_relief_shader())
+            pt.setBlendMode(skia.BlendMode.kSoftLight)
+            pt.setAlphaf(relief)
+            c.drawPath(mv.path("__kara__", z), pt)
+            c.restore()
+
+        def sea2(ff, st="night"):
+            return o_sea(mv, ff, "night" if st == sname else st)
+        mv._draw_base_vector, mv.sea = dbv, sea2
+        try:
+            orig(mv, f, cam, sname, t=t, mountains=mountains, ripples=ripples, tint=tint)
+        finally:
+            del mv._draw_base_vector, mv.sea
+    return base2
+
+
 @SH.kind("a_map")
-def k_a_map(cx, need=(), stampt=None, **kw):
-    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir; isteğe bağlı damga."""
+def k_a_map(cx, need=(), stampt=None, relief=0.55, **kw):
+    """Harita çekimi + gerekli özel bölgeleri (c1_aragon …) ilk kullanımda üretir; kara üstüne (döşemeye pişmiş) kabartma dokusu; isteğe bağlı damga."""
     for n in need:
         ensure_region(n)
-    SH.KINDS["map"](cx, **kw)
+    mv = SH.mapview()
+    if relief:
+        mv.base = _patched_base(mv, relief)
+    try:
+        SH.KINDS["map"](cx, **kw)
+    finally:
+        if relief and "base" in mv.__dict__:
+            del mv.base
     if stampt:
         SH.stamp(cx.f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
 

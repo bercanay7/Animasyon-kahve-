@@ -460,6 +460,15 @@ def k_bw_theatre(cx, **kw):
         f.vig(0.6)
 
 
+def scene_pt(cx, cams, x, y, depth=1.0):
+    """theatre sahne koordinatındaki (x,y) noktasının O ANKİ ekran konumu — overlay'i diorama nesnesine kilitler.
+    cams: çekimde verilen aynı cams listesi. Döner (sx, sy, ölçek). depth: nesnenin katman derinliği (props ≈ 1.0)."""
+    import scenes_lib as SL
+    cam = SL._cam_at(cx, cams)
+    s = 1 + (cam.z - 1) * depth
+    return (W / 2 + s * (x - W / 2 - (cam.x - W / 2) * depth), H / 2 + s * (y - H / 2 - (cam.y - H / 2) * depth), s)
+
+
 # ───────────────────────────── hızlı madalya çizimi (önbellekli sprite + gölge) ─────────────────────────────
 from functools import lru_cache  # noqa: E402
 

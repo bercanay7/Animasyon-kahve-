@@ -28,7 +28,7 @@ GROUP1 = ["noble", "merchant", "cardinal", "scribe", "monk", "woman", "emperor_o
           "pikeman", "landsknecht", "janissary", "knight", "conquistador", "sailor", "native"]
 GROUP2 = ["arquebusier", "halberdier", "horse", "horse_walk", "horse_rider", "horse_rider_walk", "cavalry_charge", "cavalry_charge_b", "sipahi", "sipahi_b", "peasant", "fisherman", "bearer",
           "inca_noble", "aztec_warrior", "friar_writing", "scholar_lectern", "child", "woman_seated", "man_seated_bed", "coffin", "crowd_a", "crowd_b", "crowd_c", "crowd_d",
-          "crowd_e", "crowd_f", "torchbearer", "standard_bearer", "litter"]
+          "crowd_e", "crowd_f", "torchbearer", "standard_bearer", "litter", "ottoman_noble", "peasant_scythe", "seated_chair"]
 SIZES = [150, 300, 450, 600, 800]
 
 

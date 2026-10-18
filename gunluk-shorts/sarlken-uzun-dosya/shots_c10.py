@@ -56,7 +56,7 @@ def k_c10_sandik(cx, t_label=0.0, t_count=0.0, t_x=0.0):
     a = cx.amt(0.1, 0.8)
     cxw, cyw = 960, 480
     K.glow_disc(f, cxw, cyw, 360, "#CFE8E0", 0.2 * a)
-    icons.draw_icon(f, "c10_sandik", cxw, cyw, size=480 * (0.92 + 0.08 * ease_out(a)), metal="silver", alpha=a, glow=0.2 * a)
+    icons.draw_icon(f, "chest", cxw, cyw, size=480 * (0.92 + 0.08 * ease_out(a)), metal="silver", alpha=a, glow=0.2 * a)
     # sayma: kasaya düşen gümüş paralar
     t0 = cx.at(t_count)
     for i in range(26):
@@ -135,7 +135,7 @@ def k_c10_sayac(cx, t_num=0.0, t_label=0.0, t_tax=0.0):
     t = cx.t
     na = cx.amt(t_num, 0.5, off=-0.15)
     v = 35 * ease_out(clamp((t - cx.at(t_num)) / 0.9), 3)
-    K.draw_pile(f, 960, 1010, ease_out(clamp(t / (cx.dur * 0.9)), 2), _PILE, alpha=0.55, scale=2.2, col="#C9B27A")
+    K.draw_pile(f, 960, 1040, ease_out(clamp(t / (cx.dur * 0.9)), 2), _PILE, alpha=0.5, scale=1.55, col="#C9B27A")
     K.glow_disc(f, 960, 450, 420, "#CFE8E0", 0.16 * na)
     if na > 0:
         SH.gold_flat(f, f"{int(round(v))}", 880, 560, face="title", size=300, track=10, alpha=na)
@@ -272,7 +272,7 @@ def k_c10_egri(cx, t_flow=0.0, t_boom=0.0, t_after=0.0, t_potosi=0.0, t_year=0.0
 def k_c10_mektup(cx, lines=(), t_summary=0.0, t_seal=None, w=1180, h=620):
     f = _base(cx, 0.22, 35)
     t = cx.t
-    img, pad = SH.paper_sprite(w, h, seed=29, tone="#A3B2A1")
+    img, pad = SH.paper_sprite(w, h, seed=29, tone="#CDBB90")
     a = cx.amt(0.0, 0.7)
     sc = (1.0 + 0.05 * cx.u) * (0.96 + 0.04 * ease_out(a))
     f.c.save()
@@ -314,12 +314,13 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
     f = _base(cx, 0.22, 35)
     t = cx.t
     ya = cx.amt(t_year, 0.6)
-    edge_x, top_y = 1180, 560
+    edge_x, top_y = 1180, 650
     # boşluk (uçurum): koyu degrade + düşen paralar
     f.rect(edge_x, 0, W - edge_x, H, shader=f.lin(0, 0, 0, H, [("#04090A", 0.0), ("#0A1616", 1.0)]))
     for i in range(10):
         ph = (t * (0.18 + 0.05 * (i % 3)) + i * 0.13) % 1.0
         K.coin(f, edge_x + 80 + (i * 61) % 560, 300 + ph * 820, 14 + (i % 3) * 3, alpha=0.5 * (1 - ph) * smooth((t - cx.at(t_edge, off=-0.2)) / 0.5), rot=ph * 9 + i, squash=abs(math.cos(ph * 12 + i)) * 0.7 + 0.3, col="#C8D2D6")
+    f.circle(edge_x + 330, H + 40, 520, shader=f.rad(edge_x + 330, H + 40, 520, [("#B02A2A", 0.0, int(70 * smooth((t - cx.at(t_edge, off=-0.3)) / 0.8))), ("#B02A2A", 1.0, 0)]), blend=skia.BlendMode.kPlus)
     # zemin (plato) ve kaya yüzü
     f.rect(0, top_y, edge_x, H - top_y, shader=f.lin(0, top_y, 0, H, [("#1A2A28", 0.0), ("#0A1413", 1.0)]))
     f.line(0, top_y, edge_x, top_y, color="#9FB8B4", sw=3, alpha=0.5)
@@ -332,7 +333,7 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
         k = ease_out(clamp((t - cx.at(t_debt, off=-0.5 + i * 0.12)) / 0.9), 3)
         if k <= 0:
             continue
-        hgt = (50 + i ** 1.7 * 11) * k
+        hgt = (40 + i ** 1.7 * 8) * k
         bx = 150 + i * 118
         col = mix("#7FA8A0", "#B02A2A", i / (n - 1))
         f.rect(bx, top_y - hgt, 86, hgt, shader=f.lin(bx, 0, bx + 86, 0, [(mix(col, "#000000", 0.4), 0.0), (mix(col, "#FFFFFF", 0.15), 0.4), (mix(col, "#000000", 0.45), 1.0)]), alpha=0.95)
@@ -346,7 +347,7 @@ def k_c10_ucurum(cx, t_year=0.0, t_crown=0.0, t_debt=0.0, t_edge=0.0):
     if ca > 0:
         tilt = 0.14 * smooth((t - cx.at(t_edge)) / 1.2) + 0.012 * math.sin(t * 3)
         cxw = 150 + 7 * 118 + 60
-        cyw = top_y - (50 + 7 ** 1.7 * 11) - 120 - 20 * (1 - ca)
+        cyw = top_y - (40 + 7 ** 1.7 * 8) - 130 - 20 * (1 - ca)
         K.glow_disc(f, cxw, cyw, 230, "#F0D27A", 0.35 * ca)
         icons.draw_icon(f, "imperial_crown", cxw, cyw, size=300, metal="gold", alpha=ca, rot=tilt, glow=0.4 * ca)
     if ya > 0:

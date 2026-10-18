@@ -79,22 +79,21 @@ def _landsknecht(h, lean):
 # ───────────────────────────── pikeman ─────────────────────────────
 @fx("pikeman")
 def _pikeman(h, lean):
+    """Pike piyadesi: sallet/kasket, göğüs zırhı, dizüstü kısa şişkin pantolon + üstüne binen 3 uyluk levhası (tassets), iki elle dik pike; hafif ileri adım."""
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.05 * h, -0.925 * h + 0.5 * hh
-    add_leg(F, h, (-0.03, -0.44), (-0.04, -0.255), (-0.05, -0.046), (0.075, 0.048, 0.032), 1, "round", 0.09, 0.7)
-    add_leg(F, h, (0.03, -0.44), (0.05, -0.265), (0.075, -0.046), (0.08, 0.05, 0.034), 1, "round", 0.095, 0.9)
-    # pike (iki elle, önde)
+    add_leg(F, h, (-0.03, -0.44), (-0.07, -0.255), (-0.09, -0.046), (0.075, 0.048, 0.032), 1, "round", 0.09, 0.7)
+    add_leg(F, h, (0.03, -0.44), (0.065, -0.265), (0.10, -0.046), (0.08, 0.05, 0.034), 1, "round", 0.095, 0.9)
     pike(F, h, 0.17, top=-1.72, lean_x=0.006)
-    # tassets (üst üste bindirilmiş uyluk levhaları) + şişkin pantolon
-    F.fill(sp([KC(-0.10 * h, -0.50 * h), (-0.125 * h, -0.42 * h), (-0.10 * h, -0.34 * h), (0.0, -0.325 * h), (0.095 * h, -0.34 * h), (0.13 * h, -0.42 * h), KC(0.115 * h, -0.50 * h)], True), rim=0.9)
-    for k in range(3):
-        F.line(sp([(-0.12 * h, (-0.47 + k * 0.045) * h), (0.0, (-0.455 + k * 0.045) * h), (0.125 * h, (-0.47 + k * 0.045) * h)], False), h * 0.004, tone=1.0, alpha=0.5)
-    # göğüs zırhı
+    # dizüstü pantolon (kısa, hafif şişkin) — tassets bunun üstünde
+    F.fill(sp([KC(-0.095 * h, -0.50 * h), (-0.112 * h, -0.43 * h), (-0.095 * h, -0.355 * h), (0.0, -0.34 * h), (0.09 * h, -0.355 * h), (0.118 * h, -0.43 * h), KC(0.108 * h, -0.50 * h)], True), rim=0.9)
+    for k in range(3):                                   # uyluk levhaları: aşağı doğru kısalan, ucu sivri
+        y0 = -0.50 + k * 0.034
+        F.fill(sp([KC(-0.108 * h, y0 * h), (0.0, (y0 - 0.008) * h), KC(0.118 * h, y0 * h), (0.105 * h, (y0 + 0.028) * h), (0.0, (y0 + 0.040) * h), (-0.095 * h, (y0 + 0.028) * h)], True, 0.8), rim=0.9)
     torso(F, h, back=-0.108, front=0.105, chest=(-0.112, 0.112, -0.655), waist=(-0.085, 0.092, -0.53), hem=(-0.11, 0.115, -0.49))
     F.line(sp([(0.02 * h, -0.755 * h), (0.045 * h, -0.62 * h), (0.025 * h, -0.50 * h)], False), h * 0.005, tone=1.0, alpha=0.55)
     F.line(sp([(-0.10 * h, -0.72 * h), (-0.02 * h, -0.70 * h), (0.10 * h, -0.72 * h)], False), h * 0.0035, tone=1.0, alpha=0.4)
-    # omuzluklar (pauldron) + kollar
     F.fill(sp([(-0.115 * h, -0.755 * h), (-0.07 * h, -0.795 * h), (0.0 * h, -0.795 * h), (0.02 * h, -0.74 * h), (-0.04 * h, -0.70 * h), (-0.115 * h, -0.70 * h)], True), rim=1.0)
     add_arm(F, [(-0.03 * h, -0.725 * h), (-0.04 * h, -0.60 * h), (0.10 * h, -0.55 * h)], [0.065 * h, 0.06 * h, 0.044 * h], hand="fist", hand_len=0.07 * h, hand_rot=-5)
     add_arm(F, [(0.045 * h, -0.725 * h), (0.11 * h, -0.65 * h), (0.172 * h, -0.64 * h)], [0.055 * h, 0.055 * h, 0.04 * h], hand="fist", hand_len=0.065 * h, hand_rot=-3)
@@ -271,7 +270,7 @@ def _native(h, lean):
     add_arm(F, [(0.045 * h, -0.725 * h), (0.11 * h, -0.62 * h), (0.178 * h, -0.60 * h)], [0.055 * h, 0.052 * h, 0.04 * h], hand="fist", hand_len=0.062 * h, hand_rot=5)
     add_arm(F, [(-0.03 * h, -0.725 * h), (-0.09 * h, -0.63 * h), (0.0 * h, -0.60 * h)], [0.055 * h, 0.055 * h, 0.04 * h], hand="open", hand_len=0.06 * h, hand_rot=0)
     F.line(poly([(0.14 * h, -0.612 * h), (0.152 * h, -0.608 * h)], False), h * 0.006, tone=1.0, alpha=0.7)
-    add_head(F, hx, hy, hh, "m", rot=0, beard=None, hair="long", hat="headband", neck_to=(0.0, -0.775 * h), nose=1.05, hat_rot=0)
+    add_head(F, hx, hy, hh, "m", rot=0, beard=None, hair="bob", hat="headband", neck_to=(0.0, -0.775 * h), nose=1.05, hat_rot=0)
     return F.build()
 
 

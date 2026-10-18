@@ -34,17 +34,19 @@ TIMES = dict(
                cloud_shadow="#0A121C", cloud_light="#5E7894"),
 )
 CITIES = dict(
-    roma=dict(stone="#7A5440", stone2="#5A3C2E", roof="#4A2A22", ground="#6E5A3C", ground2="#2E2616", horizon_hills=True, att="imperial"),
-    viyana=dict(stone="#8E8068", stone2="#645844", roof="#3E4A4A", ground="#5E6638", ground2="#252C16", horizon_hills=True, att="ottoman"),
+    roma=dict(stone="#7A5440", stone2="#5A3C2E", roof="#5A3026", ground="#6E5A3C", ground2="#2E2616", horizon_hills=True, att="imperial"),
+    viyana=dict(stone="#8E8068", stone2="#645844", roof="#6E3C2E", ground="#5E6638", ground2="#252C16", horizon_hills=True, att="ottoman"),
     guns=dict(stone="#8A7C64", stone2="#605440", roof="#4A2E24", ground="#5A6A3A", ground2="#232C16", horizon_hills=True, att="ottoman"),
     halkulvadi=dict(stone="#AA9670", stone2="#7A6848", roof="#6A4A30", ground="#B09C6E", ground2="#4A3E26", horizon_hills=False, att="imperial"),
-    tenochtitlan=dict(stone="#D4C8AC", stone2="#9C9078", roof="#A89878", ground="#4A5A3A", ground2="#1E2A1A", horizon_hills=True, att="spanish"),
+    tenochtitlan=dict(stone="#B9AC90", stone2="#8A7E66", roof="#A89878", ground="#4A5A3A", ground2="#1E2A1A", horizon_hills=True, att="spanish"),
     toledo=dict(stone="#8A7258", stone2="#5E4C3A", roof="#5A3226", ground="#7A6A40", ground2="#2C2616", horizon_hills=True, att="imperial"),
 )
 
 
 def _time(name, weather):
     T = dict(TIMES.get(name, TIMES["day"]))
+    T["snow"] = (weather == "snow")
+    T["time"] = name
     if weather == "rain":
         T["sky"] = [(mix(c, "#3A4348", 0.55), u) for c, u in T["sky"]]
         T["haze"] = mix(T["haze"], "#6E7A7A", 0.55)
@@ -100,8 +102,8 @@ def _cloud_s(time, weather, which):
     vf = np.clip(np.minimum((yy - 0.45) * 4, (1.0 - yy) * 5), 0, 1)
     a = PW.cloud_rgba(w2, h2, 63, cover=T["cover"] * 0.85, soft=0.34, scale=30, octaves=5, shadow=mix(T["cloud_shadow"], T["haze"], 0.25), light=mix(T["cloud_light"], T["haze"], 0.35), rim=None,
                       vfade=vf, stretch=3.4, periodic=True, gamma=1.1, gain=1.3, sigma=2.5, reach=8, light_dir=(0.5, -0.7))
-    r0 = int(h2 * 0.44)
-    return PW.img_from_rgba(np.ascontiguousarray(a[r0:]), mip=False)
+    r0, r1 = int(h2 * 0.50), int(h2 * 0.97)
+    return PW.img_from_rgba(np.ascontiguousarray(a[r0:r1]), mip=False)
 
 
 def _draw_img2(f, img, x, y, alpha=1.0):
@@ -157,7 +159,7 @@ def bake_base(f, city, time, weather):
         _ridge(f, HZ - 6, 30, mix(hz_c, T["haze"], 0.18), 3, wl=0.0030)
         _ridge(f, HZ + 12, 20, mix(hz_c, T["haze"], 0.0), 9, wl=0.0045)
     f.rect(-MARGIN, HZ - 150, W + 2 * MARGIN, 230, shader=f.lin(0, HZ - 150, 0, HZ + 70, [(T["haze"], 0.0, 0), (T["haze"], 0.7, int(255 * 0.35)), (T["haze"], 1.0, int(255 * 0.45))]))
-    f.rect(-MARGIN, HZ + 70, W + 2 * MARGIN, 260, color=mix(C_["ground"], T["haze"], 0.55))
+    f.rect(-MARGIN, HZ + 70, W + 2 * MARGIN, 700, color=(_water_cols(T)[0] if city in ("tenochtitlan", "halkulvadi") else mix(C_["ground"], T["haze"], 0.55)))
 
 
 # ───────────────────────────── yapı ilkelleri ─────────────────────────────
@@ -220,6 +222,8 @@ def tower(f, x, yb, w, h, T, city, lit_dir, rs, kind="round", roof="cone", k=0.0
     f.rect(x0 - 4, yb - h - 4, w + 8, 10, color=darken(col, 0.15))
     f.rect(x0, yb - 26, w, 26, shader=f.lin(0, yb - 26, 0, yb, [("#000000", 0.0, 0), ("#000000", 1.0, 70)]))
     rc = mix(CITIES[city]["roof"], T["haze"], 0.10)
+    if T.get("snow"):
+        rc = mix(rc, "#E6EAED", 0.72)
     ytop = yb - h - 4
     if roof == "cone":
         f.poly([(x0 - 8, ytop), (x, ytop - w * 0.95), (x1 + 8, ytop)], color=rc)
@@ -252,6 +256,8 @@ def _house2(f, x, yb, w, h, rh, wall_c, roof_c, T, lit_dir, rs, lit=False, burn=
     f.rect(x - w / 2, yb - h, w, h, color=wall_c)
     side = x + (w * 0.2 if lit_dir < 0 else -w * 0.5)
     f.rect(side, yb - h, w * 0.3, h, color="#000000", alpha=0.26)
+    if T.get("snow"):
+        roof_c = mix(roof_c, "#E6EAED", 0.72)
     f.poly([(x - w / 2 - 4, yb - h), (x, yb - h - rh), (x + w / 2 + 4, yb - h)], color=roof_c)
     f.line(x - w / 2 - 4, yb - h, x, yb - h - rh, color=T["rim"], sw=1.2, alpha=0.35)
     if win:
@@ -576,8 +582,8 @@ def build_guns(f, T, lit_dir, rs, fire):
     yb = CITY_BASE
     _ridge(f, yb - 100, 34, mix("#2A3622", T["haze"], 0.42), 51, wl=0.0030, bottom=yb + 30)
     # kaya/tepe
-    hill = [(-300, yb + 10), (200, yb - 20), (560, yb - 80), (800, yb - 190), (1000, yb - 300), (1200, yb - 340), (1400, yb - 300), (1560, yb - 200), (1800, yb - 90), (2200, yb - 20), (2300, yb + 10)]
-    f.path(sk.smooth_path(hill + [(2300, yb + 60), (-300, yb + 60)], True, 0.4), shader=f.lin(0, yb - 340, 0, yb + 20, [(mix(CITIES[city]["ground2"], T["haze"], 0.32), 0.0), (mix(CITIES[city]["ground"], T["haze"], 0.28), 1.0)]))
+    hill = [(-300, yb + 10), (200, yb - 20), (520, yb - 70), (760, yb - 150), (900, yb - 250), (960, yb - 312), (1020, yb - 330), (1430, yb - 330), (1490, yb - 312), (1550, yb - 250), (1700, yb - 150), (1900, yb - 80), (2200, yb - 20), (2300, yb + 10)]
+    f.path(sk.smooth_path(hill + [(2300, yb + 120), (-300, yb + 120)], True, 0.3), shader=f.lin(0, yb - 340, 0, yb + 24, [(mix(CITIES[city]["ground2"], T["haze"], 0.32), 0.0), (mix(CITIES[city]["ground"], T["haze"], 0.44), 0.85), (mix(CITIES[city]["ground"], T["haze"], 0.50), 1.0)]))
     hx = lambda x: float(np.interp(x, [p[0] for p in hill], [p[1] for p in hill]))
     for q in range(60):
         x = -240 + rs.rand() * 2400
@@ -594,16 +600,27 @@ def build_guns(f, T, lit_dir, rs, fire):
         _house2(f, x, y, 28 + rs.rand() * 20, 22 + rs.rand() * 14, 14, _stone(city, T, 0.2), mix(CITIES[city]["roof"], T["haze"], 0.1), T, lit_dir, rs, lit=lit, burn=1.0 if rs.rand() < fire * 0.25 else 0.0)
     # kale: sur + iki kule + donjon + şapel
     ty = hx(1200) + 18
-    wall(f, 930, 1480, ty + 10, 96, T, city, lit_dir, rs, k=0.07)
-    tower(f, 940, ty + 10, 80, 170, T, city, lit_dir, rs, kind="round", roof="cone")
-    tower(f, 1470, ty + 10, 80, 170, T, city, lit_dir, rs, kind="round", roof="cone")
+    # kaya şevleri: tepe omuzlarında tabakalı kaya çizgileri
+    hp_ = sk.smooth_path(hill + [(2300, yb + 120), (-300, yb + 120)], True, 0.3)
+    f.c.save()
+    f.c.clipPath(hp_, skia.ClipOp.kIntersect, True)
+    for q in range(34):
+        x = 880 + q * 22 + rs.rand() * 10
+        y = hx(x)
+        f.line(x, y + 4, x + (rs.rand() - 0.5) * 18, y + 60 + rs.rand() * 60, color="#000000", sw=1.6, alpha=0.20)
+    for q in range(6):
+        f.line(860, yb - 300 + q * 26, 1560, yb - 296 + q * 26, color=mix(CITIES[city]["stone2"], "#000000", 0.4), sw=1.6, alpha=0.14)
+    f.c.restore()
+    wall(f, 950, 1450, ty + 10, 96, T, city, lit_dir, rs, k=0.07)
+    tower(f, 960, ty + 10, 80, 170, T, city, lit_dir, rs, kind="round", roof="cone")
+    tower(f, 1440, ty + 10, 80, 170, T, city, lit_dir, rs, kind="round", roof="cone")
     tower(f, 1200, ty - 40, 120, 190, T, city, lit_dir, rs, kind="square", roof="cone")
     f.rect(1052, ty - 120, 40, 120, color=_stone(city, T, 0.1))
     f.poly([(1046, ty - 120), (1072, ty - 188), (1098, ty - 120)], color=mix(CITIES[city]["roof"], T["haze"], 0.1))
     f.line(1072, ty - 188, 1072, ty - 206, color="#0A0705", sw=2.0)
     f.line(1066, ty - 198, 1078, ty - 198, color="#0A0705", sw=2.0)
     for q in range(8):
-        _meta_add("defenders", (950 + q * 70, ty + 10 - 96 - 3, 1 if q % 2 else -1))
+        _meta_add("defenders", (970 + q * 62, ty + 10 - 96 - 3, 1 if q % 2 else -1))
     _meta_add("flags", (1200, ty - 40 - 190 - 100, "#B02A2A"))
     if fire > 0.1:
         _meta_add("fires", (1200, ty - 120, 0.6 + 0.5 * fire))
@@ -679,7 +696,7 @@ def build_tenochtitlan(f, T, lit_dir, rs, fire):
     # ağaç (ahuehuete) kümeleri
     for tx in (330, 760, 1260, 1700):
         for q in range(3):
-            f.circle(tx + q * 20 - 20, yb - 36 - q % 2 * 8, 20 + q * 3, color=mix("#0F1E10", T["haze"], 0.18))
+            f.circle(tx + q * 20 - 20, yb - 30 - q % 2 * 8, 17 + q * 2, color=mix("#1E3220", T["haze"], 0.42))
     # savunucular piramit basamaklarında + sancaklar
     for q in range(10):
         _meta_add("defenders_small", (850 + q * 36 + rs.rand() * 10, yb - 2 - (q % 5) * 66 - 62, 1 if q % 2 else -1))
@@ -700,12 +717,12 @@ def build_toledo(f, T, lit_dir, rs, fire):
     _ridge(f, yb - 90, 30, mix("#4A3C28", T["haze"], 0.52), 81, wl=0.0030, bottom=yb + 30)
     hill = [(-300, yb + 20), (200, yb - 10), (500, yb - 70), (760, yb - 170), (940, yb - 290), (1100, yb - 360), (1260, yb - 330), (1420, yb - 240), (1600, yb - 130), (1900, yb - 40), (2300, yb + 20)]
     hy = lambda x: float(np.interp(x, [p[0] for p in hill], [p[1] for p in hill]))
-    f.path(sk.smooth_path(hill + [(2300, yb + 60), (-300, yb + 60)], True, 0.35), shader=f.lin(0, yb - 360, 0, yb + 20, [(mix(CITIES[city]["ground2"], T["haze"], 0.3), 0.0), (mix(CITIES[city]["ground"], T["haze"], 0.25), 1.0)]))
+    f.path(sk.smooth_path(hill + [(2300, yb + 120), (-300, yb + 120)], True, 0.35), shader=f.lin(0, yb - 360, 0, yb + 24, [(mix(CITIES[city]["ground2"], T["haze"], 0.3), 0.0), (mix(CITIES[city]["ground"], T["haze"], 0.44), 0.85), (mix(CITIES[city]["ground"], T["haze"], 0.50), 1.0)]))
     # yığılı şehir evleri
-    for r in range(5):
-        for q in range(120):
+    for r in range(8):
+        for q in range(110):
             x = -200 + rs.rand() * 2400
-            yy = hy(x) + 6 + r * 20 + rs.rand() * 12
+            yy = hy(x) + 6 + r * 18 + rs.rand() * 12
             if yy > yb + 12:
                 continue
             w = 22 + rs.rand() * 36
@@ -731,20 +748,54 @@ def build_toledo(f, T, lit_dir, rs, fire):
     f.poly([(cx_ - 32, cy_ - 220), (cx_, cy_ - 320), (cx_ + 32, cy_ - 220)], color=mix(CITIES[city]["roof"], T["haze"], 0.1))
     f.line(cx_, cy_ - 320, cx_, cy_ - 346, color="#0A0705", sw=2.4)
     f.line(cx_ - 7, cy_ - 336, cx_ + 7, cy_ - 336, color="#0A0705", sw=2.4)
-    # sur parçaları (yamaç boyunca) + kapı
-    wall(f, 300, 760, hy(520) + 18, 70, T, city, lit_dir, rs, k=0.1)
-    wall(f, 1500, 1980, hy(1750) + 18, 70, T, city, lit_dir, rs, k=0.1)
-    tower(f, 1980, hy(1980) + 18, 70, 130, T, city, lit_dir, rs, kind="round", roof="cone")
-    tower(f, 300, hy(300) + 18, 70, 130, T, city, lit_dir, rs, kind="round", roof="cone")
+    # sur: yamaç boyunca basamaklı parçalar + uç kuleler
+    for x0_ in range(300, 900, 52):
+        wall(f, x0_, x0_ + 54, hy(x0_ + 27) + 16, 64, T, city, lit_dir, rs, k=0.1, slits=False, light=False)
+    for x0_ in range(1480, 1990, 52):
+        wall(f, x0_, x0_ + 54, hy(x0_ + 27) + 16, 64, T, city, lit_dir, rs, k=0.1, slits=False, light=False)
+    tower(f, 1980, hy(1980) + 16, 70, 130, T, city, lit_dir, rs, kind="round", roof="cone")
+    tower(f, 290, hy(290) + 16, 70, 130, T, city, lit_dir, rs, kind="round", roof="cone")
     for q in range(10):
-        x = 320 + q * 48
-        _meta_add("defenders_small", (x, hy(x) + 14 - 70, 1))
-    # nehir boğazı + Alcántara köprüsü (arka bölgede çizilen, zemin katmanında su var)
-    f.path(sk.smooth_path([(1500, yb + 4), (1560, yb - 36), (1640, yb - 60), (1720, yb - 36), (1780, yb + 4)], False, 0.5), style="stroke", sw=10, color=darken(col, 0.3))
-    f.rect(1500, yb - 2, 280, 10, color=darken(col, 0.3))
+        x = 330 + q * 54
+        _meta_add("defenders_small", (x, hy(x + 20) + 16 - 66, 1))
+    # yamaç sıraları (terasların çizgileri)
+    for r in range(5):
+        pts = [(x, hy(x) + 34 + r * 26) for x in range(-300, 2300, 80)]
+        f.path(sk.smooth_path(pts, False, 0.4), style="stroke", sw=2.0, color=darken(col, 0.5), alpha=0.22)
 
 
 BUILDERS = dict(roma=build_roma, viyana=build_viyana, guns=build_guns, halkulvadi=build_halkulvadi, tenochtitlan=build_tenochtitlan, toledo=build_toledo)
+
+
+def _apron(f, city, T, rs):
+    """Şehir tabanı ile orta zemin arasındaki boşluğu dolduran zemin/su önlüğü (şehir katmanı koordinatında)."""
+    C_ = CITIES[city]
+    y_a, y_b = CITY_BASE - 24, 1000
+    if city in ("tenochtitlan", "halkulvadi"):
+        c_top, c_bot = _water_cols(T)
+        f.rect(-MARGIN, y_a, W + 2 * MARGIN, y_b - y_a, shader=f.lin(0, y_a, 0, y_b, [(mix(c_top, T["haze"], 0.22), 0.0), (c_bot, 1.0)]))
+        # kentin suya yansıması (silik dikey çizgiler) + kıyı gölgesi
+        r_ = RS(77)
+        x_lo, x_hi = (200, 1860) if city == "tenochtitlan" else (1000, 1760)
+        for q in range(70):
+            x = x_lo + r_.rand() * (x_hi - x_lo)
+            hh = 10 + r_.rand() * 46
+            f.rect(x, CITY_BASE + 6, 3 + r_.rand() * 8, hh, color=mix(_stone(city, T, 0.1), T["haze"], 0.3), alpha=0.16 + 0.1 * r_.rand())
+        f.rect(-MARGIN, CITY_BASE + 4, W + 2 * MARGIN, 34, shader=f.lin(0, CITY_BASE + 4, 0, CITY_BASE + 38, [("#000000", 0.0, 80), ("#000000", 1.0, 0)]))
+        if city == "halkulvadi":
+            col = mix(C_["ground2"], C_["ground"], 0.45)
+            col = mix(col, T["haze"], 0.28)
+            f.path(sk.smooth_path([(880, CITY_BASE - 40), (1000, CITY_BASE - 34), (1300, CITY_BASE - 30), (1740, CITY_BASE - 34), (1900, CITY_BASE - 14), (1980, CITY_BASE + 30), (1700, CITY_BASE + 70), (1200, CITY_BASE + 80), (900, CITY_BASE + 56), (830, CITY_BASE + 10)], True, 0.45), color=col)
+            f.path(sk.smooth_path([(830, CITY_BASE + 10), (900, CITY_BASE + 56), (1200, CITY_BASE + 80), (1700, CITY_BASE + 70), (1980, CITY_BASE + 30)], False, 0.45), style="stroke", sw=4, color=T["haze"], alpha=0.5)
+    else:
+        a = mix(C_["ground"], T["haze"], 0.50)
+        b = mix(C_["ground"], T["haze"], 0.30)
+        f.rect(-MARGIN, y_a, W + 2 * MARGIN, y_b - y_a, shader=f.lin(0, y_a, 0, y_b, [(a, 0.0), (b, 1.0)]))
+        tex = PW.streak_rgba(W + 2 * MARGIN, 300, 120, col="#000000", alpha=0.20, scale_x=360, scale_y=9, thr=0.56)
+        f.c.drawImage(PW.img_from_rgba(tex), -MARGIN, y_a + 10, LIN, skia.Paint())
+        # sur dibi hendeği (koyu çizgi) + toprak şev
+        f.rect(-MARGIN, CITY_BASE - 2, W + 2 * MARGIN, 16, shader=f.lin(0, CITY_BASE - 2, 0, CITY_BASE + 14, [("#000000", 0.0, 90), ("#000000", 1.0, 0)]))
+    f.rect(-MARGIN, y_a, W + 2 * MARGIN, 90, shader=f.lin(0, y_a, 0, y_a + 90, [(T["haze"], 0.0, 70), (T["haze"], 1.0, 0)]))
 
 
 @lru_cache(maxsize=24)
@@ -762,7 +813,7 @@ def city_asset(city, time, weather, fire_q):
     def fn(f):
         BUILDERS[city](f, T, lit_dir, rs, fire)
     try:
-        img = PW.bake_sprite(fn, W + 2 * MARGIN, hh, MARGIN, -y0, mip=False)
+        img = PW.bake_sprite(lambda f: (_apron(f, city, T, RS(5)), fn(f)), W + 2 * MARGIN, hh + 240, MARGIN, -y0, mip=False)
     finally:
         _META["cur"] = None
     return img, -MARGIN, y0, meta
@@ -785,7 +836,7 @@ ATT = dict(imperial=("landsknecht", "arquebusier", "halberdier", "pikeman"), ott
 
 
 def _water_cols(T):
-    return mix(T["haze"], "#3A5A6C", 0.50), mix("#0E1E28", T["haze"], 0.10)
+    return mix(T["haze"], "#3A5A6C", 0.64), mix("#0C1A24", T["haze"], 0.05)
 
 
 def bake_ground(f, city, time, weather, k):
@@ -851,12 +902,12 @@ def bake_ground(f, city, time, weather, k):
                     continue
                 yb = ey(x) + 66 + (i % 3) * 14
                 if att == "ottoman":
-                    colt = ("#2F6B4A", "#8E1F26", "#B5832A")[i % 3]
-                    colt = mix(colt, T["haze"], 0.18)
+                    colt = ("#2F6B4A", "#8E1F26", "#9A7A3A")[i % 3]
+                    colt = mix(colt, T["haze"], 0.34)
                     _tent_ottoman(f, x, yb, 0.52 + 0.06 * (i % 2), mix(colt, "#000000", 0.0), "#C9962B", T, lit=lit)
                 elif att == "imperial":
-                    colt = ("#8E1F26", "#C8BA8E", "#6A5A3C")[i % 3]
-                    _tent_pavilion(f, x, yb, 0.5, mix(colt, T["haze"], 0.18), "#C9962B", T, lit=lit)
+                    colt = ("#7A2A2A", "#B4A67E", "#5A4C34")[i % 3]
+                    _tent_pavilion(f, x, yb, 0.5, mix(colt, T["haze"], 0.30), "#B88A3A", T, lit=lit)
                 else:
                     _tent_small(f, x, yb, 0.9, mix("#8A7A5A", T["haze"], 0.2), T)
         else:
@@ -926,3 +977,472 @@ def fg_asset(city, time, weather):
             f.oval(x, y0 + 36, 36 + rs.rand() * 50, 12 + rs.rand() * 8, color=col)
     img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -ytop, mip=False)
     return img, -MARGIN, ytop
+
+
+# ───────────────────────────── dinamik: yangın, top, askerler, merdiven ─────────────────────────────
+WALL_TOP = dict(roma=CITY_BASE - 150, viyana=CITY_BASE - 118, halkulvadi=CITY_BASE - 26 - 150)
+LAD_BASE = dict(roma=CITY_BASE + 4, viyana=CITY_BASE + 4, halkulvadi=CITY_BASE - 22)
+DEF_KINDS = dict(roma=("arquebusier", "halberdier"), viyana=("halberdier", "arquebusier"), guns=("halberdier", "arquebusier"), halkulvadi=("janissary", "arquebusier"),
+                 toledo=("halberdier", "peasant"), tenochtitlan=("aztec_warrior",))
+FIRE_PTS = {}
+
+
+def _have(kind):
+    return (kind in ST.FIGX) or (kind in ST.FIG)
+
+
+def _fig(f, kind, x, y, h, col, rim, face=1, rot=0.0, shadow=0.0):
+    if not _have(kind):
+        kind = "pikeman"
+    if shadow > 0:
+        PW.shadow(f, x, y + 2, h * 0.30, h * 0.05, shadow)
+    ST.figure(f, kind, x, y, float(int(h / 2) * 2), col=col, rim=rim, face=face, rot=rot)
+
+
+def _fires(f, meta, t, fire, T, wind):
+    pts = meta["fires"]
+    if fire <= 0.02 or not pts:
+        return
+    n = int(math.ceil(len(pts) * min(1.0, fire * 0.75)))
+    for i, (x, y, s) in enumerate(pts[:n]):
+        sc = s * (0.45 + 0.5 * fire) * (0.8 + 0.4 * ((i * 7) % 5) / 4.0)
+        PW.flame(f, x, y, sc, t, seed=i * 3 + 1, glow_a=0.9)
+        if i % 2 == 0:
+            PW.flame(f, x + 14 * sc, y + 3, sc * 0.7, t, seed=i * 3 + 2, glow_a=0.6)
+        PW.glow(f, x, y - 30 * sc, 210 * sc, "#FF8A2E", 0.42 * T["fire_vis"])
+    for i, (x, y, s) in enumerate(pts[:min(4, n)]):
+        PW.smoke_column(f, x, y - 28 * s, t, n=9, h=340 * (0.6 + 0.7 * fire), w0=12, w1=52, col="#2A2018" if T["time"] != "day" else "#3A3028", a=0.40 * (0.5 + 0.5 * fire), rate=0.09, drift=-wind * 70, seed=i + 5, wobble=10)
+
+
+def _defenders(f, meta, city, T, t):
+    kinds = DEF_KINDS.get(city, ("halberdier",))
+    col = mix("#0C0705", T["haze"], 0.30)
+    rim = mix(T["rim"], T["haze"], 0.3)
+    for i, (x, y, face) in enumerate(meta["defenders"]):
+        _fig(f, kinds[i % len(kinds)], x, y + 2 - abs(math.sin(t * 0.9 + i)) * 1.0, 62, col, rim, face)
+    for i, (x, y, face) in enumerate(meta["defenders_small"]):
+        _fig(f, kinds[i % len(kinds)], x, y + 2, 46, col, rim, face)
+
+
+def _flags_dyn(f, meta, T, t, wind, city=""):
+    for i, (x, y, spec) in enumerate(meta["flags"]):
+        col = spec if isinstance(spec, str) else "#8E1F26"
+        emb = "crescent" if (col.lstrip("#")[2:4] > col.lstrip("#")[0:2] and col.lstrip("#")[2:4] > col.lstrip("#")[4:6]) else "cross"
+        if city == "tenochtitlan":
+            emb = "none"
+            f.line(x, y + 4, x, y - 6, color="#0A0705", sw=2.2)
+            PW.flag_cloth(f, x, y - 60, 52, 62, col, t, emblem="none", trim="#E8C25A", wind=-wind if wind else -1, seed=i, speed=3.0, cut="taper")
+            for q in range(3):                       # tüy süsü (geometrik bant)
+                yy = y - 56 + q * 18
+                f.line(x + 6, yy, x + 44 * (1 if wind <= 0 else -1) * -1, yy + 2, color="#F0E2B8", sw=2.0, alpha=0.5)
+            f.line(x, y - 62, x, y + 2, color="#0A0705", sw=2.4)
+            continue
+        f.line(x, y + 4, x, y - 6, color="#0A0705", sw=2.2)
+        PW.flag_cloth(f, x, y - 54, 74, 44, col, t, emblem=emb, trim="#C9962B", wind=-wind if wind else -1, seed=i, speed=3.4, cut="swallow", emb="#F0E2B8")
+        f.line(x, y - 56, x, y + 2, color="#0A0705", sw=2.4)
+
+
+def _ladders(f, city, T, t, wind):
+    if city not in WALL_TOP:
+        return
+    yt = WALL_TOP[city]
+    yb = LAD_BASE[city]
+    col = mix("#3A2614", T["haze"], 0.10)
+    kind = ATT[CITIES[city]["att"]][0] if CITIES[city]["att"] in ATT else "landsknecht"
+    if CITIES[city]["att"] == "ottoman":
+        kind = "janissary"
+    for li, (xb, xt) in enumerate(LADDERS.get(city, [])):
+        f.line(xb - 6, yb, xt - 6, yt + 2, color=col, sw=3.0)
+        f.line(xb + 6, yb, xt + 6, yt + 2, color=col, sw=3.0)
+        nr = int((yb - yt) / 14)
+        for q in range(nr):
+            u = q / max(1, nr)
+            f.line(xb + (xt - xb) * u - 6, yb - (yb - yt) * u, xb + (xt - xb) * u + 6, yb - (yb - yt) * u, color=col, sw=2.0)
+        f.line(xb - 6, yb, xt - 6, yt + 2, color=T["rim"], sw=0.9, alpha=0.4)
+        th = math.atan2(xt - xb, yb - yt) * 1.25
+        for ci in range(3):
+            u = (0.06 + (t * 0.03 + ci * 0.31 + li * 0.13) % 0.93)
+            if u > 0.96:
+                continue
+            px = xb + (xt - xb) * u
+            py = yb - (yb - yt) * u
+            bob = -abs(math.sin(t * 3.0 + ci * 1.7 + li)) * 2.0
+            _fig(f, kind, px, py + 4 + bob, 66, mix("#0C0705", T["haze"], 0.16), mix(T["rim"], T["haze"], 0.25), 1, rot=th)
+
+
+def _gun(f, T, x, y, sc, face, t, rate, idx, wind, flash_list=None):
+    ks = round(max(0.4, min(1.6, sc * 1.3)) * 8) / 8.0
+    img, ox, oy, k = cannon_sprite(ks, mix("#0C0705", T["haze"], 0.1 + (0.2 if sc < 0.8 else 0.0)), mix(T["rim"], T["haze"], 0.2))
+    if rate > 0.01:
+        period = 5.2 / (0.25 + rate * 1.5)
+        off = (idx * 1.37) % period
+        age = (t - off) % period
+        kk = int((t - off) // period)
+    else:
+        age, kk = 99.0, -1
+    e = math.exp(-age * 7.0) if age < 1.0 else 0.0
+    PW.shadow(f, x, y + 3, 120 * sc, 9 * sc, 0.40)
+    f.c.save()
+    f.c.translate(x - face * e * 16 * sc, y)
+    f.c.scale(face * sc / k, sc / k)
+    f.c.drawImage(img, -ox, -oy, LIN, skia.Paint())
+    f.c.restore()
+    mx, my = x + face * 128 * sc, y - 66 * sc
+    if age < 0.14:
+        ee = 1 - age / 0.14
+        PW.glow(f, mx + face * 10 * sc, my, 110 * sc * (0.5 + ee), "#FFC66B", ee, 255, 140, 0.4)
+        PW.glow(f, mx + face * 6 * sc, my, 40 * sc * (0.5 + ee), "#FFF1C4", ee)
+    if 0 <= age < 6.0 and rate > 0.01:
+        u = age / 6.0
+        a = 0.62 * (1 - u) ** 1.2 * min(1.0, age * 3.5)
+        col = _smoke_col_default(T)
+        PW.puff(f, mx + face * (20 + age * 18) * sc + wind * age * 6, my - 12 * sc - age * 12 * sc, (22 + 100 * u ** 0.6) * sc, col, a, seed=kk + idx, rot=age * 0.2)
+        PW.puff(f, mx + face * (6 + age * 10) * sc, my - 4 * sc - age * 8 * sc, (16 + 60 * u ** 0.6) * sc, col, a * 0.8, seed=kk + idx + 3, rot=-age * 0.25)
+    if flash_list is not None and rate > 0.01 and kk >= 0:
+        flash_list.append((idx, kk, off + kk * period))
+
+
+def _impacts(f, city, T, t, events, wind):
+    """Top mermisi isabetleri: sur üzerinde parlama + toz + moloz (şehir katmanı koordinatında)."""
+    yt = WALL_TOP.get(city, CITY_BASE - 160)
+    n = 0
+    for (gi, kk, T0) in events:
+        age = t - (T0 + 0.5)
+        if age < 0 or age > 2.6 or n >= 7:
+            continue
+        n += 1
+        rs = RS(gi * 131 + kk * 17 + 7)
+        xi = 140 + rs.rand() * (W - 280)
+        yi = yt + 14 + rs.rand() * (CITY_BASE - yt - 30)
+        if age < 0.22:
+            e = 1 - age / 0.22
+            PW.glow(f, xi, yi, 80 * (0.6 + e), "#FFC66B", e)
+            PW.glow(f, xi, yi, 26 * (0.6 + e), "#FFF1C4", e)
+        u = age / 2.6
+        PW.puff(f, xi + age * 4 * -wind, yi - age * 14, 30 + 90 * u ** 0.5, mix(_stone(city, T, 0.0), "#7A6A58", 0.4), 0.55 * (1 - u) ** 1.1, seed=gi + kk, rot=age)
+        if age < 1.4:
+            p_ = skia.Paint(AntiAlias=True, Color=C("#2A1C12", int(255 * (1 - age / 1.4))))
+            for q in range(7):
+                vx = (rs.rand() - 0.5) * 220
+                vy = -90 - rs.rand() * 130
+                f.c.drawRect(skia.Rect.MakeXYWH(xi + vx * age, yi + vy * age + 380 * age * age, 5, 4), p_)
+
+
+def _wall_fire(f, meta, T, t, rate, wind):
+    """Savunucuların küçük ateşleri: sur tepesinde rastgele namlu parlaması + duman (cannon_fire > 0)."""
+    pts = meta["defenders"]
+    if not pts or rate <= 0.01:
+        return
+    n = len(pts)
+    period = 2.4 / (0.3 + rate)
+    for slot in range(4):
+        off = slot * 0.61
+        k = int((t - off) // period)
+        for kk in (k - 1, k):
+            if kk < 0:
+                continue
+            age = (t - off) - kk * period
+            if age < 0 or age > 3.5:
+                continue
+            rs = RS(slot * 997 + kk * 31 + 3)
+            x, y, face = pts[int(rs.rand() * n) % n]
+            if age < 0.12:
+                e = 1 - age / 0.12
+                PW.glow(f, x + face * 14, y - 30, 34 * (0.6 + e), "#FFC66B", e)
+            u = age / 3.5
+            PW.puff(f, x + face * (14 + age * 6) + wind * age * 4, y - 30 - age * 8, 10 + 36 * u ** 0.6, _smoke_col_default(T), 0.5 * (1 - u) ** 1.2 * min(1.0, age * 4), seed=kk + slot, rot=age * 0.3)
+
+
+def _campfires(f, pts, T, t, seed=0):
+    day = T["bright"] > 0.99 and not T["lit"]
+    for i, (x, y) in enumerate(pts):
+        if day:
+            PW.smoke_column(f, x, y - 4, t, n=4, h=120, w0=8, w1=34, col="#4A4038", a=0.35, rate=0.15, drift=24, seed=seed + i)
+        else:
+            PW.flame(f, x, y, 0.7, t, seed=seed + i * 2, glow_a=0.9)
+            PW.sparks(f, x, y - 14, t, n=6, h=90, spread=24, seed=seed + i, size=1.6)
+
+
+def _soldiers(f, city, T, t, layer, density, vis):
+    att = ATT.get(CITIES[city]["att"], ATT["imperial"])
+    col = mix("#0C0705", T["haze"], 0.0 if layer == "near" else 0.16)
+    rim = mix(T["rim"], T["haze"], 0.0 if layer == "near" else 0.2)
+    rs = RS(4040 + len(city) * 9 + (1 if layer == "near" else 0))
+    if layer == "mid":
+        n = int(16 * density)
+        for i in range(n):
+            x = 70 + (i + rs.rand() * 0.8) * (W - 140) / max(1, n)
+            h = 120 + rs.rand() * 14
+            y = MID_Y + 54 + rs.rand() * 26
+            if vis and (x < vis[0] - 80 or x > vis[2] + 80):
+                continue
+            kind = att[int(rs.rand() * len(att)) % len(att)]
+            face = 1 if rs.rand() > 0.45 else -1
+            bob = -abs(math.sin(t * (2.2 + rs.rand()) + rs.rand() * 6)) * 1.6
+            _fig(f, kind, x, y + bob, h, col, rim, face, shadow=0.35)
+    else:
+        xs = [250, 700, 1230, 1640, 980, 130]
+        n = int(len(xs) * density)
+        for i in range(n):
+            x = xs[i] + rs.randn() * 20
+            h = 215 + rs.rand() * 22
+            y = NEAR_Y + 64 + (i % 2) * 22
+            if vis and (x < vis[0] - 140 or x > vis[2] + 140):
+                continue
+            kind = att[i % len(att)]
+            bob = -abs(math.sin(t * (1.8 + 0.3 * i) + i)) * 2.4
+            _fig(f, kind, x, y + bob, h, col, rim, 1 if i % 2 else -1, shadow=0.42)
+
+
+def _canoe(f, T, x, y, s, t, idx, face):
+    col = mix("#0C0705", T["haze"], 0.12)
+    rim = mix(T["rim"], T["haze"], 0.2)
+    bob = math.sin(t * 1.1 + idx * 1.7) * 2.0
+    f.c.save()
+    f.c.translate(x, y + bob)
+    f.c.scale(face * s, s)
+    hull = sk.smooth_path([(-62, -10), (-46, 2), (0, 6), (46, 2), (64, -12), (46, -6), (0, -2), (-46, -6)], True, 0.35)
+    f.path(hull, color=col)
+    f.line(-60, -12, 62, -14, color=rim, sw=1.0, alpha=0.5)
+    f.c.restore()
+    for q, dx in enumerate((-30, 0, 30)):
+        _fig(f, "aztec_warrior" if _have("aztec_warrior") else "native", x + face * dx * s, y + bob - 4 * s, 66 * s, col, rim, face)
+    g = PW.glow_sprite(64, T["haze"], 200, 90, 0.5)
+    pf = skia.Paint()
+    pf.setAlphaf(0.30)
+    f.c.save()
+    f.c.translate(x, y + bob + 3)
+    f.c.scale(70 * s / 64.0, 4.0 * s / 64.0 * 2)
+    f.c.drawImage(g, -64, -64, LIN, pf)
+    f.c.restore()
+
+
+def _ship_at(f, T, tt, kind, x, yw, s, t, flag, idx, gun=0.0, heading=1, sails="full", burn=0.0):
+    """Gemi: scenes_sea.draw_ship'i (row 0 y'sini geçici ayarlayarak) yeniden kullanır."""
+    import scenes_sea as SSea
+    mood = {"day": "calm", "dusk": "dusk", "night": "night"}.get(tt, "calm")
+    M = SSea.MOODS[mood]
+    sh = SSea._ship_defaults(M, mood, dict(kind=kind, x=x / W, row=0, s=s, flag=flag, heading=heading, rock=0.35, gun=gun, sails=sails, burn=burn, drift=0.0, clip=True))
+    old = SSea.ROW_Y[0]
+    SSea.ROW_Y[0] = yw
+    try:
+        SSea.draw_ship(f, M, mood, sh, t, -1, 0.0, 0.0, idx, None)
+    finally:
+        SSea.ROW_Y[0] = old
+
+
+def _water_strips(f, T, t, y, k, wind, glint_x=None):
+    c_top, c_bot = _water_cols(T)
+    if k == 1:
+        c_top = mix(c_top, "#000000", 0.25)
+    a = PW.wave_strip(1180, 46, 8 + 4 * k, c_top, mix(T["haze"], c_top, 0.5), "#EEF2F0", 911 + k, sharp=1.9, glint=T["haze"], glint_amt=0.5, facets=2, shade="#06141C")
+    b = PW.wave_strip(900, 34, 6 + 3 * k, c_top, mix(T["haze"], c_top, 0.45), "#EEF2F0", 921 + k, sharp=2.2, glint=T["haze"], glint_amt=0.7, facets=2, shade="#06141C", comps=((2, 1.0), (5, 0.5), (9, 0.25)))
+    sp = 20.0 * (-wind) * (1 + 0.6 * k)
+    for i, (dy, img, spd, al) in enumerate(((0, a, sp, 1.0), (44, b, sp * 1.4, 0.55), (84, a, sp * 1.8, 0.4))):
+        PW.draw_strip(f, img, -MARGIN, W + MARGIN, y - 4 + dy + math.sin(t * 0.6 + i + k) * 1.5, t * spd + 250 * i, alpha=al)
+
+
+def _fire_reflect(f, meta, fire, T, y_water):
+    """Su üstünde yangın yansıması: dikey uzamış turuncu parıltı sütunları."""
+    if fire <= 0.02:
+        return
+    g = PW.glow_sprite(128, "#FF8A2E", 200, 70, 0.45)
+    pg = skia.Paint()
+    pg.setAlphaf(0.30 * fire * T["fire_vis"])
+    n = int(math.ceil(len(meta["fires"]) * min(1.0, fire * 0.75)))
+    for (x, y, s) in meta["fires"][:n]:
+        f.c.save()
+        f.c.translate(x, y_water + 70)
+        f.c.scale(46 * s / 128.0 * 2, 130 / 128.0)
+        f.c.drawImage(g, -128, -128, LIN, pg)
+        f.c.restore()
+
+
+CAMPFIRES = dict(
+    roma=dict(mid=[330, 880, 1450, 1820], near=[600, 1400]),
+    viyana=dict(mid=[260, 770, 1330, 1760], near=[640, 1380]),
+    guns=dict(mid=[400, 1000, 1600], near=[760]),
+    halkulvadi=dict(mid=[], near=[500, 1200]),
+    tenochtitlan=dict(mid=[], near=[]),
+    toledo=dict(mid=[360, 1000, 1700], near=[700, 1500]),
+)
+
+
+def _vis(f):
+    try:
+        b = f.c.getLocalClipBounds()
+        return (b.left(), b.top(), b.right(), b.bottom())
+    except Exception:
+        return None
+
+
+def _snow(f, t, n):
+    rs = RS(19)
+    for layer, (cnt, size, sp) in enumerate(((n // 2, 1.6, 38), (n // 3, 2.6, 62), (n // 6, 4.0, 90))):
+        pl = []
+        for i in range(cnt):
+            px = (rs.rand() * W + math.sin(t * 0.8 + i * 1.7) * 26 * (layer + 1) + t * 12 * (layer + 1)) % W
+            py = (rs.rand() * H + t * sp) % H
+            pl.append(skia.Point(px, py))
+        pp = skia.Paint(AntiAlias=True, Color=C("#FFFFFF", 200 - layer * 20), StrokeWidth=size, StrokeCap=skia.Paint.kRound_Cap)
+        f.c.drawPoints(skia.Canvas.kPoints_PointMode, pl, pp)
+
+
+@SL.sc("siege")
+class Siege:
+    """Kuşatma. p: city, time, fire, weather, cannon_fire, ladders (+ smoke, soldiers, wind). Bkz. SAHNE_KATALOGU_deniz_savas.md"""
+
+    def __init__(self, p):
+        self.p = p
+        self.city = p.get("city", "roma")
+        if self.city not in CITIES:
+            self.city = "roma"
+        self.time = p.get("time", "day")
+        if self.time not in TIMES:
+            self.time = "day"
+        self.weather = p.get("weather", "clear")
+        if self.weather not in ("clear", "rain", "snow"):
+            self.weather = "clear"
+        self.fire = float(clamp(float(p.get("fire", 0.0)) if not isinstance(p.get("fire"), bool) else (1.0 if p.get("fire") else 0.0)))
+        cf = p.get("cannon_fire", 0.0)
+        self.cf = clamp(1.0 if cf is True else (0.0 if cf is False else float(cf)))
+        self.ladders = bool(p.get("ladders", False))
+        sm = p.get("smoke", None)
+        self.smoke = clamp(0.0 if sm is None else (1.0 if sm is True else float(sm)))
+        self.density = clamp(float(p.get("soldiers", 1.0)))
+        self.wind = 1 if p.get("wind", -1) >= 0 else -1
+        self.T = _time(self.time, self.weather)
+        self.fq = int(round(self.fire * 4))
+
+    def layers(self):
+        c, tm, w = self.city, self.time, self.weather
+
+        def base(f):
+            bake_base(f, c, tm, w)
+        return [(BASE_D, base)]
+
+    def dyn(self):
+        T, city, tm, w = self.T, self.city, self.time, self.weather
+        wind = self.wind
+        fire, cf = self.fire, self.cf
+
+        def master(f, t):
+            cam = SW.cam_from_canvas(f, BASE_D)
+            # gökte kayan alçak bulutlar
+            c1 = _cloud_s(tm, w, "low")
+            wpx = c1.width() * 2
+            off = (t * (4.0 if w != "rain" else 10.0)) % wpx
+            x_a = (-MARGIN - wpx + off) if wind > 0 else (-MARGIN - off)
+            for dx in (0, wpx):
+                _draw_img2(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.50, 0.7)
+            img, cx_, cy_, meta = city_asset(city, tm, w, self.fq)
+            events = []
+            # --- şehir katmanı
+            SW.push_depth(f, cam, CITY_D)
+            if fire > 0.05 and meta["fires"]:
+                fx = sum(p[0] for p in meta["fires"]) / len(meta["fires"])
+                PW.glow(f, fx, CITY_BASE - 190, 760, "#FF8A2E", 0.30 * fire * T["fire_vis"], 255, 110, 0.35)
+            f.c.drawImage(img, cx_, cy_, LIN, skia.Paint())
+            _defenders(f, meta, city, T, t)
+            _flags_dyn(f, meta, T, t, wind, city)
+            if self.ladders:
+                _ladders(f, city, T, t, wind)
+            _fires(f, meta, t, fire, T, wind)
+            _wall_fire(f, meta, T, t, cf, wind * 6)
+            f.c.restore()
+            # --- orta zemin
+            SW.push_depth(f, cam, MID_D)
+            gimg, gx, gy = ground_asset(city, tm, w, 0)
+            f.c.drawImage(gimg, gx, gy, LIN, skia.Paint())
+            vis = _vis(f)
+            if city in WATER_MID:
+                _water_strips(f, T, t, MID_Y, 0, wind)
+                _fire_reflect(f, meta, fire, T, MID_Y)
+            self._boats(f, t, "mid")
+            _soldiers(f, city, T, t, "mid", self.density, vis) if city not in WATER_MID or city == "toledo" else None
+            for gi, x in enumerate(GUNS[city]["mid"]):
+                _gun(f, T, x, MID_Y + 62, 0.52, 1 if gi % 2 == 0 else -1, t, cf, 10 + gi, wind * 6, events)
+            _campfires(f, [(x, MID_Y + 70 + (i % 2) * 10) for i, x in enumerate(CAMPFIRES[city]["mid"])], T, t, seed=5)
+            f.c.restore()
+            # şehir katmanına isabetler (sur üzeri) — orta zemin sonrası çizilir ama şehir koordinatında
+            if events and cf > 0.01:
+                SW.push_depth(f, cam, CITY_D)
+                _impacts(f, city, T, t, events, wind)
+                f.c.restore()
+            # --- yakın zemin
+            SW.push_depth(f, cam, NEAR_D)
+            gimg, gx, gy = ground_asset(city, tm, w, 1)
+            f.c.drawImage(gimg, gx, gy, LIN, skia.Paint())
+            vis = _vis(f)
+            if city in WATER_NEAR:
+                _water_strips(f, T, t, NEAR_Y, 1, wind)
+                _fire_reflect(f, meta, fire, T, NEAR_Y)
+            self._boats(f, t, "near")
+            if city not in WATER_NEAR:
+                _soldiers(f, city, T, t, "near", self.density, vis)
+            ev2 = []
+            for gi, x in enumerate(GUNS[city]["near"]):
+                _gun(f, T, x, NEAR_Y + 108, 1.0, 1 if gi % 2 == 0 else -1, t, cf, gi, wind * 6, ev2)
+            _campfires(f, [(x, NEAR_Y + 120) for x in CAMPFIRES[city]["near"]], T, t, seed=9)
+            if self.smoke > 0.02 or cf > 0.3:
+                self._smoke(f, t, max(self.smoke, cf * 0.5))
+            f.c.restore()
+            if ev2 and cf > 0.01:
+                SW.push_depth(f, cam, CITY_D)
+                _impacts(f, city, T, t, ev2, wind)
+                f.c.restore()
+            # --- ön plan
+            SW.push_depth(f, cam, FG_D)
+            fimg, fx_, fy_ = fg_asset(city, tm, w)
+            f.c.drawImage(fimg, fx_, fy_, LIN, skia.Paint())
+            f.c.restore()
+            self._overlay(f, t)
+        return {0: master}
+
+    def _boats(self, f, t, layer):
+        city, T, tm = self.city, self.T, self.time
+        if city == "halkulvadi" and layer == "mid":
+            for i, (kind, x, dy, s, flag, hd, gun) in enumerate((("galley", 330, 70, 0.60, "#8E1F26", 1, 0.9), ("galley", 860, 118, 0.70, "#8E1F26", 1, 1.0), ("carrack", 1230, 96, 0.50, "#8E1F26", -1, 0.7), ("galley", 90, 150, 0.74, "#8E1F26", 1, 0.8), ("galley", 1650, 130, 0.62, "#2F6B4A", -1, 0.8))):
+                _ship_at(f, T, tm, kind, x, MID_Y + dy, s, t, flag, i, gun=gun * (1.0 if self.cf > 0.01 else 0.0), heading=hd)
+        elif city == "tenochtitlan":
+            if layer == "mid":
+                for i in range(7):
+                    x = (140 + i * 270 + (t * (8 + 3 * (i % 3)) * (1 if i % 2 else -1))) % (W + 400) - 200
+                    _canoe(f, T, x, MID_Y + 40 + (i % 3) * 34, 0.72, t, i, 1 if i % 2 else -1)
+                for i, (x, dy, s) in enumerate(((420, 96, 0.40), (1330, 120, 0.44))):
+                    _ship_at(f, T, tm, "carrack", x, MID_Y + dy, s, t, "#8E1F26", 20 + i, gun=(0.9 if self.cf > 0.01 else 0.0), heading=1 if i == 0 else -1, sails="full")
+            else:
+                for i in range(4):
+                    x = (320 + i * 520 + (t * (14 + 4 * (i % 2)) * (1 if i % 2 else -1))) % (W + 500) - 250
+                    _canoe(f, T, x, NEAR_Y + 54 + (i % 2) * 46, 1.25, t, 30 + i, 1 if i % 2 else -1)
+
+    def _smoke(self, f, t, sm):
+        T = self.T
+        rs = RS(900)
+        col = _smoke_col_default(T)
+        if self.time in ("dusk",):
+            col = "#8C6A58"
+        for i in range(int(2 + 2 * sm)):
+            x = rs.rand() * W + math.sin(t * 0.13 + i) * 40 + t * 5 * -self.wind
+            y = NEAR_Y - 20 - rs.rand() * 150
+            r = 100 + rs.rand() * 80
+            a = (0.20 + 0.34 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
+            PW.puff(f, x, y, r, col, a, seed=i, rot=0.3 * i)
+
+    def _overlay(self, f, t):
+        c = f.c
+        c.save()
+        c.resetMatrix()
+        if self.weather == "rain":
+            PW.rain_lines(f, t, n=170, seed=8, angle=-0.22, length=20, alpha=0.22, color="#C9D6D8", speed=1100, sw=1.1, rect=(0, 0, W, H))
+            PW.rain_lines(f, t, n=140, seed=18, angle=-0.22, length=34, alpha=0.28, color="#C9D6D8", speed=1500, sw=1.4, rect=(0, 0, W, H))
+            PW.rain_lines(f, t, n=76, seed=28, angle=-0.22, length=58, alpha=0.30, color="#C9D6D8", speed=1950, sw=2.0, rect=(0, 0, W, H))
+        elif self.weather == "snow":
+            _snow(f, t, 220)
+        c.restore()
+
+
+def cam_on_gun(near=True, idx=0, zoom=1.6):
+    """Yakın/orta topçu mevzisine kamera."""
+    xs = GUNS["roma"]["near"] if near else GUNS["roma"]["mid"]
+    return safe_cam(W / 2 + (xs[idx % len(xs)] - W / 2) / (NEAR_D if near else MID_D), H / 2 + ((NEAR_Y + 40 if near else MID_Y) - H / 2) / (NEAR_D if near else MID_D), zoom)

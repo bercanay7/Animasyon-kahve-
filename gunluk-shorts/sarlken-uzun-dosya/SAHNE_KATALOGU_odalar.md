@@ -14,7 +14,8 @@ Kamera ipuçları genel: pencere/mum/figür gibi odak noktasına `(x,y)` ver; zo
 - **cell** (Madrid): daha kaba/karanlık taş, küçük yüksek pencere (3 dikey+2 yatay demir), sakallı erkek profilde pencereye uzanmış; sıra+masa+mum. Kamera: `(960,560,1.0)`→`(1010,330,1.8)`.
 - **wartburg**: tahta lambri, kurşun çıtalı baklava pencere (ay+orman), yazı masası: yazan figür (tüy kalem), mum, kitaplar, yeşil çini soba, duvarda kılıç. Kamera: `(960,540,1.0)`→`(1010,600,1.5)` (yazan eli+mum), pencere `(1100,330,1.8)`.
 Animasyon: mum titremesi (flame), alev ışığı, toz (ay huzmesinde mavi, mum çevresinde sıcak), figür nefesi. 
-Kusur: cell'de figür çok koyu/ayrıntısız; wartburg'da yazar sakalsız (profil kaba).
+`figure=` varyant varsayılanından farklıysa (ör. cell + woman) figür kendi uygun boyuna/konumuna yerleşir. `tag=` gibi ek anahtarlar yok sayılır (yalnız önbellek anahtarını ayırır).
+Kusur: cell'de figür siluet-sadeliğinde; wartburg'da yazar sakalsız (profil kaba).
 
 ## `counting_house` — bankacı sayım odası (Augsburg/Anvers)
 `p`: `coins=0.55` (0..1; masadaki sikke sütunu/yığın miktarı), `coins_t=None|(t0,t1)` (yerel sn; 0→coins'e DOLAR, dyn'de çizilir — "850.000 florin" için), `clerks=2` (0..4 katip, iki yan + iki arka), `chandelier=True`, `balance_tilt=None` (rad; None=terazi hafif salınır).
@@ -43,10 +44,10 @@ Anlatı ipucu: "tek başına keşiş" = `monk=True,books=False`; "kitaplar masad
 Ort. kare ≈ 90–130 ms. Kusur: kalabalık siluetleri benzer (7 başlık varyantı); keşiş figürü `stage.figure("monk")` olduğundan figür-lab sürümüyle otomatik güncellenir.
 
 ## `road_night` — gece yolu (Worms→Wartburg · Innsbruck sedye kaçışı)
-`p`: `litter=False` (True: kapalı sedye + 2 taşıyıcı), `riders=3` (0..6 atlı), `torches=3` (0..6 meşaleci), `rain=0.0` (0..1; yağmur+kalın bulut; >0.5 ay kaybolur), `mountains=True` (alp zirveleri; False: yumuşak ormanlı tepeler → Thüringen/Wartburg yolu), `moon=True`, `walk=14` (px/sn; kafile sahnede sağa ilerler, 0=durağan), `x0=None` (kafile başı x; None=ekranda ortalı), `dir=1` (1 sağa, −1 sola), `fog=0.5`.
+`p`: `litter=False` (True: kapalı sedye + 2 taşıyıcı), `riders=3` (0..6 atlı), `torches=3` (0..6 meşaleci), `rain=0.0` (0..1; yağmur+kalın bulut; >0.5 ay kaybolur), `mountains=True` (alp zirveleri; False: yumuşak ormanlı tepeler → Thüringen/Wartburg yolu), `moon=True`, `scale=1.0` (kafile figür boyu+aralık çarpanı; geniş plan için 0.6–0.7), `ground=840` (yol sırtının y'si; 760 → kadrajı yükseltir, alt siyah boşluk azalır), `walk=14` (px/sn; kafile sahnede sağa ilerler, 0=durağan), `x0=None` (kafile başı x; None=ekranda ortalı), `dir=1` (1 sağa, −1 sola), `fog=0.5`.
 Kafile yandan siluet (sırtta yol, ıslak yol/su birikintileri, ön planda kara yamaç+çam+ot), meşale alevleri titrer + kıvılcım, at+binici, sedye direkli taşıyıcılarla.
-Önerilen: **Worms→Wartburg**: `litter=False, riders=4, torches=2, mountains=False, rain=0.3`, kamera `(960,760,1.1)`; **Innsbruck**: `litter=True, riders=2, torches=3, rain=0.8, mountains=True`, kamera `(960,760,1.2)`→ yavaş sağa `(1200,780,1.6)`.
-Kamera: genel `(960,720,1.0)`; sedye yakın `(960,780,1.8)`; meşale `(1150,700,2.0)`.
+**Geniş plan önerisi**: `scale=0.7, ground=760`, kamera `(960,640,1.0)`. Önerilen: **Worms→Wartburg**: `litter=False, riders=4, torches=2, mountains=False, rain=0.3`, kamera `(960,760,1.1)`; **Innsbruck**: `litter=True, riders=2, torches=3, rain=0.8, mountains=True`, kamera `(960,760,1.2)`→ yavaş sağa `(1200,780,1.6)`.
+`riders/torches/rain` için `True` verilirse 3/3/0.6 sayılır. Kamera: genel `(960,720,1.0)`; sedye yakın `(960,780,1.8)`; meşale `(1150,700,2.0)`.
 Ort. kare ≈ 110–165 ms (yağmurlu ≈ 150–200). Kusur: at proporsiyonları basit (siluet için yeterli), alt 1/4 geniş siyah (başlık/altyazı alanı).
 
 ## `cloister` — Yuste manastır avlusu

@@ -4,12 +4,42 @@ import math
 import numpy as np
 import skia
 
+import bw_lib as BW
 import d_common as D
 import icons
 import shots as SH
 import sk
 from d_common import A, glow_dot, kick_rule, ring_pulse, tag
 from sk import W, H, back_out, clamp, ease_io, ease_out, lerp, mix, smooth
+
+
+# ───────────────────────────── kırk yıl: kum saati + sayaç ─────────────────────────────
+@SH.kind("c0_forty")
+def k_c0_forty(cx, at_num=0.0, at_unit=0.0, count_dur=0.55, value=40, unit="YIL", fill_to=0.58):
+    """Solda kum saati (kum akıyor), sağda '40' ('kırk' sözünde sayar, kısa sürede oturur) + 'YIL' ('yıldır' sözünde)."""
+    f = cx.f
+    f.bg("night"); f.rays(alpha=0.32)
+    sk.dust(f, cx.t, n=50)
+    k_in = smooth(clamp(cx.t / 0.6))
+    hx, hy, hh = 640, H * 0.50, 560
+    glow_dot(f, hx, hy, hh * 0.95, "#FFC46E", 0.20 * k_in)
+    BW.draw_hourglass(f, hx, hy, h=hh * (0.96 + 0.04 * k_in), fill_bottom=fill_to * clamp(cx.u), alpha=k_in, glass_a=0.34)
+    # sayaç
+    nx, ny, size = 1290, H * 0.5, 330
+    t_n = cx.at(at_num)
+    a = cx.amt(at_num, 0.35)
+    k = ease_out(clamp((cx.t - t_n) / count_dur), 3)
+    if a > 0:
+        glow_dot(f, nx, ny + 10, 430, "#E3B54A", 0.20 * a)
+        sc = 1.0 + 0.05 * (1 - k)
+        f.c.save(); f.c.translate(nx, ny); f.c.scale(sc, sc); f.c.translate(-nx, -ny)
+        SH.gold_flat(f, SH.fmt_int(value * k), nx, ny + size * 0.3, face="title", size=size, track=6, alpha=a)
+        f.c.restore()
+        ring_pulse(f, nx, ny, t_n + count_dur * 0.8, cx.t, r0=120, r1=330, dur=1.0, color="#FFE7A0", sw=3, a=0.7)
+    ku = cx.amt(at_unit, 0.45)
+    if ku > 0:
+        f.text(unit, nx, ny + size * 0.3 + 92, face="title_m", size=58, color="#E8CF8A", align="c", track=18, alpha=ku, shadow=(2, 2, 3, "#000000"))
+    f.vig(0.6)
 
 
 # ───────────────────────────── beş cephe ─────────────────────────────

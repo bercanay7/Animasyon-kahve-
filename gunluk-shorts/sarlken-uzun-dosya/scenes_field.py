@@ -128,8 +128,8 @@ def _cloud_f(weather, which):
     vf = np.clip(np.minimum((yy - 0.45) * 4, (1.0 - yy) * 5), 0, 1)
     a = PW.cloud_rgba(w2, h2, 35, cover=Wx["cover"] * 0.85, soft=0.34, scale=30, octaves=5, shadow=mix(Wx["cloud_shadow"], Wx["haze"], 0.25), light=mix(Wx["cloud_light"], Wx["haze"], 0.35), rim=None,
                       vfade=vf, stretch=3.4, periodic=True, gamma=1.1, gain=1.3, sigma=2.5, reach=8, light_dir=(0.5, -0.7))
-    r0 = int(h2 * 0.44)
-    return PW.img_from_rgba(np.ascontiguousarray(a[r0:]), mip=False)
+    r0, r1 = int(h2 * 0.50), int(h2 * 0.97)
+    return PW.img_from_rgba(np.ascontiguousarray(a[r0:r1]), mip=False)
 
 
 def _draw_img2(f, img, x, y, alpha=1.0):
@@ -230,7 +230,7 @@ def bake_base(f, ground, weather, castle):
         elif castle == "toledo":
             _castle_toledo(f, cx, HZ + 20, cc, lit)
     f.rect(-MARGIN, HZ - 150, W + 2 * MARGIN, 230, shader=f.lin(0, HZ - 150, 0, HZ + 70, [(Wx["haze"], 0.0, 0), (Wx["haze"], 0.7, int(255 * (0.55 if weather == "fog" else 0.35))), (Wx["haze"], 1.0, int(255 * (0.7 if weather == "fog" else 0.45)))]))
-    f.rect(-MARGIN, HZ + 40, W + 2 * MARGIN, 180, color=_cols(ground, weather, 0))
+    f.rect(-MARGIN, HZ + 40, W + 2 * MARGIN, 620, color=_cols(ground, weather, 0))
 
 
 # ───────────────────────────── zemin bantları ─────────────────────────────
@@ -526,6 +526,13 @@ def draw_army(f, M, ground, weather, army, ai, t, vis, fx_list):
         else:
             step = 3.2 + jv[5] * 0.8
             bob = -abs(math.sin(t * step + ph)) * 0.010 * hh * (0.25 + 0.75 * charge) - math.sin(t * 0.9 + ph) * 0.002 * hh
+        if not ford:
+            PW.shadow(f, x - dirn * 0.02 * hh, y_f + 2, hh * (0.55 if cav else 0.30), hh * (0.07 if cav else 0.05), 0.42 if weather != "fog" else 0.22)
+            if cav and charge > 0.25:                      # dörtnala toz/çamur izi
+                dust = mix(M["haze"], "#6A5A40" if weather not in ("rain", "snow") else "#505A58", 0.55)
+                for q, tau in enumerate((0.10, 0.24, 0.42, 0.66)):
+                    px = x - dirn * speed * tau * 1.1 - dirn * hh * 0.35
+                    PW.puff(f, px, y_f - hh * (0.03 + 0.06 * tau), hh * (0.10 + 0.26 * tau), dust, 0.34 * (1 - tau / 0.8) * charge, seed=int(jv[0] * 9) + q, rot=tau * 3)
         f.c.save()
         wy = y_f - 0.20 * hh
         if ford:
@@ -643,7 +650,7 @@ class Field:
             off = (t * (3.5 if w != "rain" else 9.0)) % wpx
             x_a = (-MARGIN - wpx + off) if wind > 0 else (-MARGIN - off)
             for dx in (0, wpx):
-                _draw_img2(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.44, 0.7)
+                _draw_img2(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.50, 0.7)
             fx_list = []
             rows_by_band = {0: [], 1: [], 2: []}
             fords = []
@@ -684,17 +691,20 @@ class Field:
 
     # --- parçalar
     def _smoke(self, f, t, k):
+        """Barut dumanı: birkaç büyük, yavaş sürüklenen saydam kabarcık (yalnız orta bantta; maliyet piksel alanıyla orantılı)."""
+        if k != 1:
+            return
         sm = self.smoke
         rs = RS(300 + k)
         col = "#8A7F76" if self.M["bright"] > 0.85 else "#4C5258"
         if self.weather in ("dusk", "dawn"):
             col = "#8C6A58"
         by = EDGE_Y[k]
-        for i in range(int(2 + 4 * sm)):
+        for i in range(int(2 + 3 * sm)):
             x = rs.rand() * W + math.sin(t * 0.13 + i) * 40 + t * 5 * -self.wind
-            y = by - 20 - rs.rand() * 130
-            r = 110 + rs.rand() * 100
-            a = (0.16 + 0.34 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
+            y = by - 30 - rs.rand() * 150
+            r = 100 + rs.rand() * 80
+            a = (0.20 + 0.36 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
             PW.puff(f, x, y, r, col, a, seed=i + k, rot=0.3 * i)
 
     def _fires(self, f, t):

@@ -4,8 +4,9 @@ import math
 import icons
 import kit_a as K
 import scenes_lib  # theatre şablonunu kaydeder
+import scenes_siege as SG  # sahne-lab: kuşatma (Toledo)
 import shots as SH
-import shots_c3  # noqa: F401  (c3_bayram + c3_sokak/c3_toledo sahneleri)
+import shots_c3  # noqa: F401  (c3_bayram + c3_sokak sahnesi)
 import sk
 import stage as ST
 from shots import shot
@@ -194,7 +195,7 @@ SHOTS = [
     shot("a_map", a=("c3s4", -0.2), tr=("fade", 0.7), need=("c1_kastilya",), cams=[(0.0, (-4.0, 41.0, 3.4)), (("c3s4", "Villalar'da,", 0.0), (-5.1, 41.7, 7.5))], tint=("#5A1A1A", 0.25),
          date=("23 NİSAN 1521", ("c3s4", "23", -0.1)), extra=_ex_villalar, approx=False, label="villalar_harita"),
     shot("a_theatre", a=("c3s4", "kraliyet", -0.35), tr=("whip", 0.6), scene="field",
-         p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.28, row=1, n=14, dir=1, charge=0.85), dict(side="#5A6A3A", kind="peasants", x=0.74, row=1, n=34, dir=-1, charge=0.0)]),
+         p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.34, row=1, n=14, dir=1, charge=1.0), dict(side="#5A3A8A", kind="peasants", x=0.72, row=1, n=34, dir=-1, charge=0.0)]),
          cams=[(0.0, (960, 600, 1.0)), (("c3s4", "dağıttı", 0.3), (1080, 610, 1.4))], label="villalar_savas"),
     # s5 — ertesi gün üç önder idam edildi
     shot("a_medals", a=("c3s5", -0.2), tr=("dip", 0.9), size=430, y=H * 0.46, gap=500, bgname="blood", date=("24 NİSAN 1521", ("c3s5", "Ertesi", -0.1)),
@@ -203,7 +204,8 @@ SHOTS = [
                 dict(key="bravo", name="BRAVO", role="Komünero önderi", metal="onyx", at=("c3s5", "Bravo", -0.1), pw=460),
                 dict(key="maldonado", name="MALDONADO", role="Komünero önderi", metal="onyx", at=("c3s5", "Maldonado", -0.1), pw=460)], label="uc_onder"),
     # s6 — Toledo: María Pacheco aylarca direndi
-    shot("a_theatre", a=("c3s6", -0.2), tr=("fade", 0.8), scene="c3_toledo", cams=[(0.0, (1000, 520, 1.0)), (("c3s6", "direndi", 0.3), (1060, 480, 1.25))], dust_n=0, vig=0.62, overlay=_toledo_overlay, label="toledo_pacheco"),
+    shot("a_theatre", a=("c3s6", -0.2), tr=("fade", 0.8), scene="siege", p=dict(city="toledo", time="dusk", weather="rain", fire=0.3, cannon_fire=0.4),
+         cams=[(0.0, (960, 540, 1.0)), (("c3s6", "direndi", 0.3), SG.cam_on_city(0.58, 1.6, y=380))], overlay=_toledo_overlay, label="toledo_pacheco"),
     # s7 — Valensiya'da Germanía
     shot("a_map", a=("c3s7", -0.2), tr=("fade", 0.8), need=("c3_valensiya",), cams=[(0.0, (-1.5, 40.2, 3.0)), (("c3s7", "Valensiya'da", -0.1), (-0.38, 39.5, 6.5))], tint=("#5A1A1A", 0.25),
          regions=[dict(name="c3_valensiya", color="#8E1F26", at=("c3s7", "Valensiya'da", -0.1), alpha=0.5)], extra=_ex_valensiya, approx=False, label="valensiya_germania"),

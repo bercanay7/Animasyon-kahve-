@@ -136,8 +136,8 @@ def _cloud_img(mood, seed, which):
         a = PW.cloud_rgba(w2, h2, seed + 2, cover=M["cover"] * 0.85 + (0.1 if storm else 0), soft=0.34, scale=30, octaves=5, gain=1.3, shadow=mix(M["cloud_shadow"], M["haze"], 0.25), light=mix(M["cloud_light"], M["haze"], 0.35), rim=None,
                           vfade=vf, stretch=3.4, periodic=True, gamma=1.1, thick_dark=0.2, sigma=2.5, reach=8, light_dir=(0.5 if M["light_dir"] > 0 else -0.5, -0.7))
     if which == "low":
-        r0 = int(h2 * 0.44)
-        return PW.img_from_rgba(np.ascontiguousarray(a[r0:]), mip=False)
+        r0, r1 = int(h2 * 0.50), int(h2 * 0.97)
+        return PW.img_from_rgba(np.ascontiguousarray(a[r0:r1]), mip=False)
     return PW.img_from_rgba(a, mip=False)
 
 
@@ -631,7 +631,7 @@ def draw_ship(f, M, mood, sh, t, wind, flash, fire_flash, idx, vis=None):
             return
     SAMP = LIN if srow / k >= 0.72 else LINMIP
     cs.save()
-    if sink > 0 or row == 3:
+    if sink > 0 or row == 3 or sh.get("clip"):
         cs.clipRect(skia.Rect.MakeLTRB(-3000, -3000, 6000, yw - 1 + (0 if row == 3 else 9) + heave * 0.2))
     cs.translate(x, yw + heave + dy_sink)
     # yansıma (sakin sularda): ters, soluk, düşük çözünürlük — dönmeden (hızlı yol)
@@ -888,7 +888,7 @@ class Sea:
             off = (t * sp) % wpx
             x_a = (-MARGIN - wpx + off) if wind > 0 else (-MARGIN - off)
             for dx in (0, wpx):
-                _draw_cloud(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.44, 0.7 if mood != "storm" else 0.9)
+                _draw_cloud(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.50, 0.7 if mood != "storm" else 0.9)
             e, ev, age = flash_at(t)
             if mood == "night" or M["stars"] > 0.5:
                 rs = RS(9)
@@ -1050,14 +1050,14 @@ class Sea:
         if self.mood in ("dusk", "dawn"):
             col = "#8C6A58"
         anchors = [s_["x"] * W for s_ in self.ships if s_["gun"] > 0 and s_["row"] in ((0,) if front else (1, 2, 3))] or [W * (0.2 + 0.6 * rs.rand()) for _ in range(3)]
-        n = int(2 + 4 * sm)
+        n = int(2 + 2 * sm)
         by = BAND_Y[k]
         for i in range(n):
             ax = anchors[i % len(anchors)]
             x = ax + (rs.rand() - 0.5) * 360 + math.sin(t * 0.13 + i) * 40 + t * 5 * -self.wind
             y = (by - 40 - rs.rand() * 120) if front else (by - 20 - rs.rand() * 110)
-            r = 120 + rs.rand() * 100
-            a = (0.16 + 0.34 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
+            r = 100 + rs.rand() * 80
+            a = (0.20 + 0.36 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
             PW.puff(f, x, y, r, col, a, seed=i + k, rot=0.3 * i)
 
     def _spray(self, f, t, k, y0):

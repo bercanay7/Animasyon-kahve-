@@ -139,3 +139,45 @@ villalar (3 ordu, 54 kişi) ≈ 150–170 · muhlberg nehir ≈ 115–170 · pav
 - Zemin eğimi yalnız 4 sabit bant: figürler bantlar arasında kayarak "sıra değiştirmez" (row sabit).
 - Kar ve sis sahnelerinde kontrast düşük tutuldu; "snow" yine de en açık sahnedir (kasıtlı).
 - Ön plan çimen/kamış çerçevesi kamera yakındayken alt kenarı kaplar; gerekirse kamerayı yukarı al.
+
+---
+## 3) `siege` — kuşatma  (scenes_siege.py)  ✅ hazır
+
+Gök + uzak tepe/dağ (+ aya/güneşe göre ışık) + **şehir/kale katmanı** (sur, kule, bastiyon, ev dizisi, yapılar; derinlik .42) + orta zemin (hendek, palisad, gabion, çadırlar, top mevzileri; .64) + yakın zemin (büyük çadırlar, gabion, topçu, askerler; .92) + ön plan (kamış/kazık; 1.22) + dyn: yangın/alev/duman, top ateşi + sur isabetleri, merdiven + tırmanan askerler, savunucular, sancaklar, kamp ateşleri, yağmur/kar. Su kentleri (Halkulvadi, Tenochtitlan, Toledo nehri) gerçek dalga şeritleriyle kayan su.
+
+### `p` anahtarları (varsayılan)
+| anahtar | değer | açıklama |
+|---|---|---|
+| `city` | `"roma"`(varsayılan) `"viyana"` `"guns"` `"halkulvadi"` `"tenochtitlan"` `"toledo"` | aşağıda şehir şehir |
+| `time` | `"day"`(varsayılan) `"dusk"` `"night"` | day: güneşli, gök mavi; dusk: kızıl-turuncu, çadır/pencere/ateş ışığı yanar (en sinematik); night: ay + yıldız, soğuk mavi, ateş/meşale ışığı baskın |
+| `weather` | `"clear"`(varsayılan) `"rain"` `"snow"` | rain: koyu bulut, 3 katman yağmur, çamur birikintisi, ıslak zemin; snow: kar yağışı, çatılar/zemin beyaz, gökyüzü soluk |
+| `fire` | 0..1 (0) | şehirde yangın: pencere/çatı alevleri (en fazla ~9 alev, boyu `fire` ile büyür), duman sütunları, gökyüzü/su turuncu parıltı; su kentlerinde suya yansır. Bool da kabul (True=1) |
+| `cannon_fire` | 0..1 veya bool (0) | top ateşi: yakın+orta mevzilerdeki toplar periyodik ateşler (namlu alevi, geri tepme, büyüyen duman) + **surda isabet** (parlama, toz, moloz) + savunucuların küçük ateşleri. 0 = toplar sessiz. Kuşatma gemileri (Halkulvadi/Tenochtitlan) de `gun` ile ateşler |
+| `ladders` | bool (False) | surlara dayalı merdivenler + tırmanan askerler (roma 5, viyana 3, halkulvadi 3, guns/toledo uygun değil → yok sayılır) |
+| `smoke` | 0..1 veya bool | ek barut duman bulutları (yakın plan). `cannon_fire>0.3` zaten biraz üretir |
+| `soldiers` | 0..1 (1) | yakın/orta zemindeki asker yoğunluğu |
+| `wind` | −1/1 | bulut/duman/su yönü (varsayılan −1) |
+| `tag` | str | yok sayılır (yalnız önbellek ayırmak için kullanabilirsin) |
+
+### Şehirler
+| `city` | içerik | saldıran | kamera notu |
+|---|---|---|---|
+| `roma` | Aurelius surları (tuğla, kareli kuleler, kapı + kafes), arkada yanan evler, Eski Aziz Petrus (nef + çan kulesi), **Castel Sant'Angelo** (kare kaide + silindir + melek heykeli) sağda x≈1480; savunucular; papalık sancakları | İmparatorluk (landsknecht/arkebüz/halberd/pike; kırmızı çadır) | c6: `time="dusk"`, `fire=.6–1`, `ladders=True`, `cannon_fire=.8`; sur tepesine yakın plan: `SS.cam_on_city(.30, 1.8)` |
+| `viyana` | taş sur + 2 açılı bastiyon + kapı, **Stephansdom** (sivri kule + mozaik çatı), kırmızı çatılı evler, kule sancakları | Osmanlı (yeniçeri; yeşil/kırmızı/altın çadırlar, yarım ay alemli) | c7: day/dusk/rain/snow; yağmur+çamur: `weather="rain"`; geri çekilme: `time="dusk", weather="snow"` |
+| `guns` | tepe üstünde küçük kale (iki yuvarlak kule + donjon + şapel), yamaçta köy, çam | Osmanlı | küçük, uzak görünür → kamera `SS.cam_on_city(.62, 1.5)` ile kaleye yaklaş |
+| `halkulvadi` | denize uzanan kare kale (bastiyonlar, talus, kapı), Tunus minareleri (sisli), kum bankı; **önde deniz + kuşatma kadırgaları/karaka (top atar)**, kumsalda topçu | İmparatorluk filosu (kırmızı haç) + Osmanlı yeşil kadırga | c8: `time="day"`, `cannon_fire=.8`, `fire=.4` |
+| `tenochtitlan` | göl üstü ada kenti: **Templo Mayor** (5 kademe, çift merdiven, mavi-kırmızı iki tapınak), iki yan piramit, düz çatılı beyaz evler, setyolları, ağaç kümeleri, Popocatépetl/Iztaccíhuatl; **önde göl: kanolar (tüylü savaşçılar) + İspanyol brigantinleri**; yangın göle yansır | İspanyol (brigantin) | c9: `time="dusk", fire=.6–.9` — saygılı, ihtişamlı tasvir (kan/ceset yok) |
+| `toledo` | tepe üstü şehir: Alcázar (dört köşe kuleli kare blok), katedral kulesi, yığılı evler (yanan pencereler), yamaç boyunca basamaklı sur; önde nehir + kuşatma hattı | İmparatorluk/kraliyet | c3: `time="dusk"` veya `"day"`, `fire=.3`, kamera Alcázar'a: `SS.cam_on_city(.58, 1.6, y=380)` |
+
+### Kamera
+`SS.cam_on_city(x, zoom, y=0)` → şehir/sur katmanında (x: 0..1) bir noktaya güvenli kamera (y verilmezse sur tepesi). `SS.cam_on_gun(near, idx, zoom)` topçu mevzisine. Güvenli kayma: zoom 1.0'da |Δx|,|Δy| ≤ 190; zoom 1.7'de ≈ ±500 / ±380; `SS.safe_cam(x,y,z)` sıkıştırır. Öneriler: açılış geniş (960,540,1.0) → yavaş itme (1000,580,1.3); vurgu: sur/merdiven yakın plan.
+
+### Performans (ms/kare, post dahil)
+roma (yangın+merdiven+top) ≈ 170–195 · viyana day+top ≈ 140–170 (yağmurlu ≈ 100–130) · guns ≈ 125–150 · halkulvadi (5 gemi) ≈ 140–170 · tenochtitlan ≈ 140–170 · toledo ≈ 140–185. 810 kombinasyon (6 şehir × 3 zaman × 3 hava × 3 efekt × 5 kamera) hatasız.
+
+### Bilinen kusurlar
+- Toplar yandan çizilir (namlu sağa/sola); ateş yönü sur değil yan — stilize. Sur isabetleri rastgele noktalarda.
+- Askerler sabit konumlarda "nöbet" tutar (hafif bob), saldıran hücum yürüyüşü yok; hücum hissi için merdiven tırmanışı + top ateşi + duman kullan.
+- `ladders=True` yalnız roma/viyana/halkulvadi'de; tırmanan figürler eğik duran küçük siluet (döndürülmüş sprite).
+- Tenochtitlan'da kara askeri yok (göl savaşı): kanolar/brigantinler ve piramit basamaklarındaki savunucular; piramit gece/ateş ışığında çok parlak görünebilir.
+- Şehir katmanı zoom ≥ 1.9'da biraz yumuşaklaşır (katmanlar 1× piksel yoğunluğunda pişer).

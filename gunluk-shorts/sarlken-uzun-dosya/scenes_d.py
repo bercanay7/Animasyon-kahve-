@@ -25,7 +25,7 @@ def _pair_nocane(h, lean):
     ex = -0.215 * h
     px = 0.225 * h
     F.merge(FL.emperor_fig(h * es, 0, cane=False), dx=ex)
-    F.merge(FL.prince_fig(h, 0, sword=True, hat="beret"), dx=px)
+    F.merge(FL.prince_fig(h, 0, sword=False, hat="beret"), dx=px)
     sx, sy = ex + 0.045 * h, -0.70 * h * es
     tx, ty = px - 0.045 * h, -0.752 * h
     F.fill(FL.limb([(sx, sy), (sx + (tx - sx) * 0.50, sy + 0.075 * h), (tx - 0.030 * h, ty + 0.045 * h)], [0.074 * h, 0.07 * h, 0.046 * h], cap0=0.5, cap1=0.2), rim=1.0)
@@ -38,10 +38,12 @@ def _pair_nocane(h, lean):
 ST.figx("d_pair")(_pair_nocane)
 
 
-def draw_pair(f, x, y, h, t=0.0, walk=False, face=1, alpha=1.0, col="#0A0604", rim="#C58A44", blur=0.0):
-    """d_pair figürünü çizer; walk=True → yürüme salınımı (hafif sağ-sol + zıplama)."""
+def draw_pair(f, x, y, h, t=0.0, walk=False, face=1, alpha=1.0, col="#0A0604", rim="#C58A44", blur=0.0, halo=0.34):
+    """d_pair figürünü çizer; walk=True → yürüme salınımı (hafif sağ-sol + zıplama). halo: arkada sıcak ışıma (kalabalıktan ayrışsın)."""
     sway = math.sin(t * 1.7) * 0.010 if walk else math.sin(t * 0.8) * 0.003
     bob = -abs(math.sin(t * 1.7)) * 5.0 * (h / 520.0) if walk else 0.0
+    if halo > 0:
+        D.glow_dot(f, x + 0.02 * h, y - 0.50 * h, 0.95 * h, "#FFC46E", halo * alpha)
     ST.figure(f, "d_pair", x, y + bob, h, col=col, rim=rim, face=face, alpha=alpha, sway=sway, blur=blur)
 
 

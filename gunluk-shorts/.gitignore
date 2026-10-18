@@ -33,3 +33,7 @@ sarlken-uzun-dosya/out/frames/
 sarlken-uzun-dosya/ses_ham/*_48k.wav
 **/__pycache__/
 *.npy
+sarlken-uzun-dosya/out/audio_prev/
+sarlken-uzun-dosya/out/*.npy
+sarlken-uzun-dosya/yayin/*.png
+sarlken-uzun-dosya/yayin/sarlken_kisa_fragman.mp4

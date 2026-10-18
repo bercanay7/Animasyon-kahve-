@@ -498,3 +498,39 @@ def draw_hoard(f, items, rank_lo=0.0, rank_hi=1.0):
             g_bar(f, x, y, 52 * s, 20 * s, rot * 0.6)
         else:
             g_mask(f, x, y, 24 * s, rot * 0.5)
+
+
+def pine_tree(f, x, y, h, col="#020305", seed=1, rim=None, rim_a=0.25, tiers=None, width=0.20):
+    """Ladin/çam siluet: katmanlı, sarkık dal uçlu, düzensiz kenarlı tek çokgen + gövde. (y: gövde dibi)"""
+    rs = np.random.RandomState(seed)
+    n = tiers or int(rs.randint(7, 11))
+    w0 = h * width * (0.85 + 0.3 * rs.rand())
+    right, left = [], []
+    for i in range(n):
+        ub = 0.07 + 0.86 * i / n
+        wi = w0 * (1 - ub) ** 0.95 * (0.88 + 0.24 * rs.rand())
+        tip_r = (x + wi, y - h * (ub - 0.010 + 0.012 * rs.rand()))
+        tip_l = (x - wi * (0.9 + 0.2 * rs.rand()), y - h * (ub - 0.010 + 0.012 * rs.rand()))
+        nr = (x + wi * (0.38 + 0.12 * rs.rand()), y - h * (ub + 0.055 + 0.01 * rs.rand()))
+        nl = (x - wi * (0.38 + 0.12 * rs.rand()), y - h * (ub + 0.055 + 0.01 * rs.rand()))
+        mid_r = (x + wi * 0.72, y - h * (ub + 0.020))
+        mid_l = (x - wi * 0.72, y - h * (ub + 0.020))
+        right += [tip_r, mid_r, nr]
+        left += [tip_l, mid_l, nl]
+    apex = (x + rs.uniform(-2, 2), y - h)
+    pts = [(x + h * 0.012, y + 6)] + right + [apex] + left[::-1] + [(x - h * 0.012, y + 6)]
+    path = sk.poly_path(pts, True)
+    f.path(path, color=col)
+    f.rect(x - h * 0.012, y - h * 0.05, h * 0.024, h * 0.07 + 10, color=col)
+    if rim:
+        f.path(sk.poly_path(right[:: -1] if False else [apex] + right[::-1], False), style="stroke", sw=max(1.0, h * 0.004), color=rim, alpha=rim_a)
+
+
+def pine_row(f, x0, x1, y, hmin, hmax, col, seed=1, gap=(30, 70), rim=None, rim_a=0.2, tiers=None):
+    rs = np.random.RandomState(seed)
+    x = x0
+    k = 0
+    while x < x1:
+        pine_tree(f, x, y + rs.uniform(-6, 10), rs.uniform(hmin, hmax), col=col, seed=seed * 131 + k, rim=rim, rim_a=rim_a, tiers=tiers)
+        x += rs.uniform(*gap)
+        k += 1

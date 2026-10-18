@@ -14,17 +14,17 @@ SHOTS = [
     # s1 — Nisan 1521. Worms.
     shot("map", a=("c4s1", 0.0), tr=F, cams=[(0.0, (9.0, 48.8, 2.9)), (("c4s1", "Worms", 0.0), (9.2, 50.2, 3.9))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.2, alpha=0.30, hatch=True)],
-         labels=[dict(text="KUTSAL ROMA İMPARATORLUĞU", lon=10.4, lat=52.4, size=30, color="#E8D8A0", track=8, at=("c4s1", "1521", 0.3))],
+         labels=[dict(text="ALMANYA", lon=10.4, lat=51.9, size=38, color="#E8D8A0", track=16, at=("c4s1", "1521", 0.3))],
          cities=[dict(lon=8.36, lat=49.63, name="WORMS", kind="seat", at=("c4s1", "Worms", -0.3), side="l", size=44)],
          extra=kinds_c4.make_worms_pulse(("c4s1", "Worms", -0.2)),
          date=("NİSAN 1521", ("c4s1", "Nisan", 0.0)), label="worms_harita"),
     # s2a — Reichstag salonu: imparator tahtta, karşısında küçük keşiş
-    shot("bw_theatre", a=("c4s2", -0.4), tr=F, scene="reichstag", cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
+    shot("bw_theatre", a=("c4s2", -0.4), tr=("fade", 0.4), scene="reichstag", cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
          p=dict(monk=True, emperor=True, books=True, crowd=True, monk_z=1000), label="reichstag"),
     # s2b — Karl ↔ Luther
     shot("c4_duel", a=("c4s2", "bir", 1, -0.15), tr=("zoom", 0.6),
          left=dict(key="karl_genc", name="V. KARL", role="İmparator · 21 yaşında", at=0.2, metal="gold"),
-         right=dict(key="luther", name="MARTIN LUTHER", role="Keşiş", at=("c4s2", "keşiş", -0.1), plate_at=("c4s2", "Martin", -0.15), metal="teal", flip=True),
+         right=dict(key="luther", name="MARTİN LUTHER", role="Keşiş", at=("c4s2", "keşiş", -0.1), plate_at=("c4s2", "Martin", -0.15), metal="teal", flip=True),
          vs_at=("c4s2", "Martin", 0.0), label="karl_luther"),
     # s3a — 95 madde
     shot("c4_theses", a=("c4s3", -0.25), tr=F, at=0.0, year_at=0.5, against_at=("c4s3", "günah", -0.1), slash_at=("c4s3", "karşı", -0.1),
@@ -32,12 +32,12 @@ SHOTS = [
     # s3b — matbaa: Wittenberg'den Almanya'ya
     shot("map", a=("c4s3", "Matbaa", -0.2), tr=F, cams=[(0.0, (10.2, 50.8, 3.3)), (("c4s4", 0.0), (10.0, 50.6, 3.7))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.0, alpha=0.26, hatch=True)],
-         cities=[dict(lon=12.65, lat=51.87, name="WITTENBERG", kind="town", at=("c4s3", "Matbaa", -0.2), side="t", size=34)],
+         cities=[dict(lon=12.65, lat=51.87, name="WİTTENBERG", kind="town", at=("c4s3", "Matbaa", -0.2), side="r", size=34)],
          extra=kinds_c4.make_spread(("c4s3", "Matbaa", 0.0), ("c4s3", "bu", -0.3)), approx=False, label="matbaa_yayildi"),
     # s4 — güvenli geçiş: yirmi bir gün
-    shot("c4_safeconduct", a=("c4s4", -0.25), tr=F, at=0.0, seal_at=("c4s4", "sözü", 0.0), days_at=("c4s4", "yirmi", -0.05), days_dur=1.25, label="guvenli_gecis"),
+    shot("c4_safeconduct", a=("c4s4", -0.25), tr=F, at=0.0, seal_at=("c4s4", "sözü", 0.0), days_at=("c4s4", "yirmi", -0.12), days_dur=0.62, label="guvenli_gecis"),
     # s5 — kitaplar masada
-    shot("c4_books", a=("c4s5", -0.2), tr=F, drop_at=("c4s5", "kitaplarını", -0.15), drop_dt=0.2, q1_at=("c4s5", "senin", -0.1), q2_at=("c4s5", "Hepsinden", -0.1), label="kitaplar"),
+    shot("c4_books", a=("c4s5", 0.0), tr=("fade", 0.4), drop_at=("c4s5", "kitaplarını", -0.15), drop_dt=0.2, q1_at=("c4s5", "senin", -0.1), q2_at=("c4s5", "Hepsinden", -0.1), label="kitaplar"),
     # s6 — bir gün süre; Almanca → Latince; vazgeçmiyor
     shot("c4_answer", a=("c4s6", -0.2), tr=F, day_at=("c4s6", "gün", -0.4), flip_at=("c4s6", "Ertesi", -0.1), de_at=("c4s6", "Almanca", -0.3), la_at=("c4s6", "Latince", -0.3), hold_at=("c4s6", "vazgeçmiyordu", -0.1), label="almanca_latince"),
     # s7 — Ben buradayım: RİVAYET / TUTANAKTA YOK / SONRADAN EKLENMİŞ

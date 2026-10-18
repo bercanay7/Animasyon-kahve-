@@ -84,7 +84,7 @@ def k_c12_clock(cx, at_city=0.0, at_date=0.0, at_clock=0.0, at_hand=0.0, at_thre
                 ring_pulse(f, ccx, ccy, t_3 + 0.35 + 0.45 * j, cx.t, r0=R * 0.9, r1=R * 1.5, dur=1.5, color="#F0D27A", sw=3, a=0.55)
         kt = cx.amt(at_three, 0.7)
         if kt > 0:
-            f.gold("15.00", ccx + R + 190, ccy + 26, face="title", size=84, track=8, alpha=kt)
+            f.gold("≈ 15.00", ccx + R + 230, ccy + 26, face="title", size=84, track=8, alpha=kt)
     f.vig(0.6)
 
 

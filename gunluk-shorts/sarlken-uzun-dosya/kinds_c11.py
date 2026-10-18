@@ -10,8 +10,8 @@ import skia
 import icons
 import shots as SH
 import sk
-from bw_lib import (INK, big_gold, chain_links, curve_arrow, draw_medal2, fadeout, flame, glow, paper, push, reveal, scribbles, shift, spot, stamp2,
-                    strike, tag)
+from bw_lib import (INK, big_gold, chain_links, curve_arrow, draw_medal2, fadeout, flame, glow, paper, push, reveal, scene_pt, scribbles, shift, spot,
+                    stamp2, strike, tag)
 from sk import C, H, W, back_out, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
 WARM = "#FFB347"
@@ -140,24 +140,24 @@ def k_study(cx, year_at=0.0, portrait_at=2.0, face_at=3.1, kin_at=5.2, link_at=6
             # iki kavram: yüz özellikleri ↔ akraba evlilikleri
             fk = cx.amt(face_at, 0.6)
             if fk > 0:
-                f.text("YÜZ ÖZELLİKLERİ", -470, 118, face="title_m", size=42, color="#3A2610", align="c", track=8, alpha=fk)
+                f.text("YÜZ ÖZELLİKLERİ", -470, 118, face="title_m", size=38, color="#3A2610", align="c", track=6, alpha=fk)
             kk = cx.amt(kin_at, 0.6)
             if kk > 0:
-                f.text("AKRABA EVLİLİKLERİ", 470, 118, face="title_m", size=42, color="#3A2610", align="c", track=8, alpha=kk)
+                f.text("AKRABA EVLİLİKLERİ", 450, 118, face="title_m", size=38, color="#3A2610", align="c", track=6, alpha=kk)
             # bağ oku (ilişkilendirdi) → belirsizleşir
             lk = clamp((cx.t - cx.at(link_at)) / 0.9)
             unsure = cx.amt(small_at, 0.8)
             if lk > 0:
                 col = mix("#8E6A1A", "#6B6B6B", unsure)
-                curve_arrow(f, (-170, 104), (170, 104), bend=0, prog=ease_out(lk), color=col, sw=7, head=True, alpha=0.95, shadow=False, dash=((14, 10) if unsure > 0.5 else None))
+                curve_arrow(f, (-200, 104), (120, 104), bend=0, prog=ease_out(lk), color=col, sw=7, head=True, alpha=0.95, shadow=False, dash=((14, 10) if unsure > 0.5 else None))
             if unsure > 0.4:
-                icons.draw_icon(f, "question", 0, 104, size=110 * unsure, metal="silver", alpha=unsure * 0.9, shadow=False)
+                icons.draw_icon(f, "question", -40, 104, size=110 * unsure, metal="silver", alpha=unsure * 0.9, shadow=False)
     sa = cx.amt(small_at, 0.3)
     if sa > 0:
-        stamp2(f, "ÇALIŞMA KÜÇÜK", 1180, 835, rot=-0.06, size=60, t=sa, seed=6, fill_bg="#150D08")
+        stamp2(f, "ÇALIŞMA KÜÇÜK", 610, 850, rot=-0.05, size=56, t=sa, seed=6, fill_bg="#150D08")
     sb = cx.amt(sure_at, 0.3)
     if sb > 0:
-        stamp2(f, "KESİN DEĞİL", 650, 880, rot=0.05, size=56, t=sb, seed=17, fill_bg="#150D08", color="#B03030")
+        stamp2(f, "KESİN DEĞİL", 1370, 872, rot=0.05, size=52, t=sb, seed=17, fill_bg="#150D08", color="#B03030")
     f.vig(0.62)
 
 
@@ -257,9 +257,40 @@ def k_black(cx, black_at=1.3, tag_at=2.0, size=600):
 
 
 # ───────────────────────────── s7: gut, perhiz, bol yemek (sahne üstü etiketler) ─────────────────────────────
-def gout_overlay(gut_at, still_at, diet_at, feast_at, tag_at):
+FOOT = (985, 738)      # bedroom sahnesi: hasta bacağın dayandığı minder (props katmanı, derinlik 1.0)
+PLATE = (1190, 700)    # komodin: tabak + ekmek
+
+
+def gout_overlay(cams, gut_at, still_at, diet_at, feast_at, tag_at):
+    """Bedroom üstü: gut = bacakta kırmızı zonklama (üç atak), PERHİZ = tabağın üstünde yasak halkası, BOL YEMEK = halka erir, yemek ısınır.
+    Altta ince etiket sırası; YAZILIR rozeti sağ üstte. Efektler sahne nesnesine kilitli (bw_lib.scene_pt)."""
     def ov(cx):
         f = cx.f
+        # --- gut atakları: üç zonklama halkası + sürekli ince kızıl ışık
+        tg = cx.t - cx.at(gut_at, off=-0.1)
+        if tg > -0.2:
+            fx, fy, s = scene_pt(cx, cams, *FOOT)
+            base = 0.20 + 0.10 * math.sin(cx.t * 3.2)
+            k_in = clamp(tg / 0.5)
+            glow(f, fx, fy, 120 * s, "#E0392B", base * k_in)
+            for i in range(3):
+                ti = tg - i * 0.62
+                if 0 < ti < 1.15:
+                    u = ti / 1.15
+                    r = (34 + 150 * ease_out(u)) * s
+                    f.circle(fx, fy, r, style="stroke", sw=max(1.5, 6 * (1 - u)) * s, color="#E8493A", alpha=0.85 * (1 - u) ** 1.2)
+                    glow(f, fx, fy, r * 0.9, "#E0392B", 0.35 * (1 - u))
+        # --- perhiz: yasak halkası tabağın üstünde; bol yemekte erir
+        td = cx.amt(diet_at, 0.45)
+        tf = cx.amt(feast_at, 0.7)
+        if td > 0:
+            px, py, s = scene_pt(cx, cams, *PLATE)
+            ring = td * (1.0 - tf)
+            if ring > 0.01:
+                icons.draw_icon(f, "b_forbid", px, py - 10 * s, size=210 * s * (1.2 - 0.2 * ease_out(td)) * (1 + 0.25 * tf), metal="crimson", alpha=0.92 * ring, glow=0.2)
+            if tf > 0:
+                glow(f, px + 10 * s, py - 8 * s, 150 * s, "#FFC060", 0.42 * tf * (0.9 + 0.1 * math.sin(cx.t * 5.0)))
+        # --- alt karartma + etiketler
         f.rect(0, H * 0.74, W, H * 0.26, shader=f.lin(0, H * 0.74, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(205 * cx.amt(gut_at, 0.6)))]))
         for (lab, ta, x) in (("GUT ATAKLARI", gut_at, 380), ("HAREKETSİZ", still_at, 800), ("PERHİZ", diet_at, 1190), ("BOL YEMEK", feast_at, 1560)):
             k = cx.amt(ta, 0.5)
@@ -268,7 +299,7 @@ def gout_overlay(gut_at, still_at, diet_at, feast_at, tag_at):
                 f.line(x - 90, H * 0.90 + 18, x + 90, H * 0.90 + 18, color="#C9962B", sw=2, alpha=0.8 * k)
         tk = cx.amt(tag_at, 0.5)
         if tk > 0:
-            tag(f, "YAZILIR", W - 330, 150 if False else 170, size=30, alpha=tk, track=14)
+            tag(f, "YAZILIR", W - 330, 170, size=30, alpha=tk, track=14)
     return ov
 
 
@@ -312,6 +343,9 @@ def make_travel(times, dur=1.0, all_done=False):
         if head is not None:
             glow(f, head[0], head[1], 70, "#FFD27A", 0.5)
             icons.draw_icon(f, "imperial_crown", head[0], head[1] - 28, size=70, metal="gold", alpha=1.0, glow=0.4)
+        nk = 1.0 if all_done else cx.amt(times[1], 0.8, off=-0.2)
+        if nk > 0:      # güzergâh tarihsel bir rota değil, durakları bağlayan şematik çizgi
+            f.text("güzergâh şematiktir", 110, 1004, face="cap_i", size=28, color="#CDBB88", align="l", alpha=0.72 * nk)
     return extra
 
 

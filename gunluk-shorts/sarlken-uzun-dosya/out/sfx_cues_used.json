@@ -1,0 +1,158 @@
+[
+ {
+  "t": 46.53,
+  "name": "title_hit",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 73.41619197935188
+  }
+ },
+ {
+  "t": 168.76,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 2,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 220.0
+  }
+ },
+ {
+  "t": 260.28,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 3,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 164.81377845643496
+  }
+ },
+ {
+  "t": 313.14,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 4,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 195.99771799087463
+  }
+ },
+ {
+  "t": 429.99,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 5,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 110.0
+  }
+ },
+ {
+  "t": 541.6,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 6,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 164.81377845643496
+  }
+ },
+ {
+  "t": 663.58,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 7,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 146.8323839587038
+  }
+ },
+ {
+  "t": 773.13,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 8,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 220.0
+  }
+ },
+ {
+  "t": 848.03,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 9,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 130.8127826502993
+  }
+ },
+ {
+  "t": 960.11,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 10,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 220.0
+  }
+ },
+ {
+  "t": 1029.27,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 11,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 146.8323839587038
+  }
+ },
+ {
+  "t": 1096.53,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 12,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 146.8323839587038
+  }
+ },
+ {
+  "t": 1195.98,
+  "name": "chapter_stinger",
+  "gain_db": -9.0,
+  "pan": 0.0,
+  "seed": 13,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 146.8323839587038
+  }
+ }
+]

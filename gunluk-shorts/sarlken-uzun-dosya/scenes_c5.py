@@ -16,7 +16,7 @@ def _night_label(cx):
     f = cx.f
     k = cx.amt(("c5s12", "Innsbruck'tan", -0.1), 0.7)
     if k > 0:
-        tag(f, "INNSBRUCK  ·  GECE", 330, H - 120, size=30, alpha=k, track=10)
+        tag(f, "İNNSBRUCK  ·  GECE", 330, H - 120, size=30, alpha=k, track=10)
 
 
 def _hall_out(cx):

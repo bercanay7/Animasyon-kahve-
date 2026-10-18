@@ -9,7 +9,7 @@ import kit_a as K
 import shots as SH
 import sk
 import stage as ST
-import stage_c3  # noqa: F401  (c3_sokak, c3_toledo sahneleri)
+import stage_c3  # noqa: F401  (c3_sokak sahnesi)
 from sk import H, W, clamp, ease_out, lerp, mix, smooth, back_out
 
 

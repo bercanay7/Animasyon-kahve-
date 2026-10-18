@@ -33,7 +33,7 @@ SHOTS = [
     shot("theatre", a=A("c9s2", "13", -0.4), tr=("fade", 1.0), scene="siege", cams=[(0.0, (960, 540, 1.0)), (AE("c9s2", 0.6), (960, 590, 1.28))],
          p=dict(city="tenochtitlan", time="dusk", fire=0.6), overlay=S9.tenoch_overlay, label="tenochtitlan"),
     # s3 — Cortés'in mektupları: fethi anlatan ama kendini savunan
-    shot("wd_doc", a=A("c9s3", -0.15), tr=("fade", 0.8), title="CORTÉS'İN MEKTUPLARI", w=1080, h=700, size=54, head_size=50, line_dt=0.6,
+    shot("wd_doc", a=A("c9s3", -0.15), tr=("fade", 0.8), tone="#C9B484", title="CORTÉS'İN MEKTUPLARI", w=1080, h=700, size=54, head_size=50, line_dt=0.6,
          scribbles=5, scribble_at=A("c9s3", "uzun", 0.0), scribbles_first=True,
          lines=[("Fethi anlatır,", A("c9s3", "fethi", -0.1)), ("ama kendini savunur.", A("c9s3", "kendini", -0.1))],
          hl=dict(line=1, text="ama kendini savunur.", at=A("c9s3", "savunan", -0.2)),
@@ -45,8 +45,8 @@ SHOTS = [
          bg_icons=[dict(icon="sun_disc", x=W * 0.5, y=H * 0.5, size=760, at=0.0, metal="gold", alpha=0.10)],
          stamps=[("TAHMİN", W * 0.76, H * 0.27, A("c9s4", "tahmin", -0.1), 70, -0.12)], label="yuz_bin_florin"),
     # s5a — 1532, Cajamarca (İnka topraklarında)
-    shot("map", a=A("c9s5", -0.15), tr=("fade", 0.8), cams=[(0.0, (-73, -5, 2.2)), (A("c9s5", "Cajamarca", 0.0), (-77.4, -7.6, 3.4))],
-         regions=[dict(name="inka", color="#B5651D", at=0.3, alpha=0.5)],
+    shot("map", a=A("c9s5", -0.15), tr=("fade", 0.8), cams=[(0.0, (-72, -5, 1.9)), (A("c9s5", "Cajamarca", 0.0), (-76.5, -7.6, 2.5))],
+         regions=[dict(name="inka", color="#A8631F", at=0.3, alpha=0.42)],
          labels=[dict(text="İNKA İMPARATORLUĞU", lon=-73.5, lat=-12.5, size=30, color="#F0D8A0", at=A("c9s5", "İnka", -0.2), track=10)],
          cities=[dict(lon=-78.52, lat=-7.16, name="CAJAMARCA", kind="siege", at=A("c9s5", "Cajamarca", -0.1), side="r", size=32)],
          date=("1532", A("c9s5", 0.0)), label="cajamarca_harita"),
@@ -63,7 +63,7 @@ SHOTS = [
     # s8 — kraliyetin payı beşte bir
     shot("c9_fifth", a=A("c9s8", -0.25), tr=("fade", 0.7), at_g=A("c9s8", "ganimetin", -0.1), at_one=A("c9s8", "beşte", -0.1), label="beste_bir"),
     # s9a — Yeni Yasalar 1542
-    shot("wd_doc", a=A("c9s9", -0.2), tr=("fade", 0.8), title="YENİ YASALAR  ·  1542", w=1100, h=400, size=56, head_size=52, line_dt=0.6,
+    shot("wd_doc", a=A("c9s9", -0.2), tr=("fade", 0.8), tone="#C9B484", title="YENİ YASALAR  ·  1542", w=1100, h=400, size=56, head_size=52, line_dt=0.6,
          lines=[("Yerlileri köle yapmak yasaktır.", A("c9s9", "yerlileri", -0.1))],
          hl=dict(line=0, start="Yerlileri ", text="köle yapmak yasaktır.", at=A("c9s9", "köle", -0.15)),
          seal=True, seal_at=A("c9s9", "yasaktı", 0.2), label="yeni_yasalar"),

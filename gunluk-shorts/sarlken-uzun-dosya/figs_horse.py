@@ -64,7 +64,7 @@ def _hleg(F, joints, kind, h, rim=1.0, tone=0.0):
     F.fill(limb(P, [w * h for w in ws], cap0=0.4, cap1=0.0), rim=rim, tone=tone)
     if kind == "h":                              # hokun arkaya çıkıntısı
         hx_, hy_ = j1[0] * h - 0.012 * h, j1[1] * h
-        F.fill(ell(hx_, hy_, 0.026 * h, 0.034 * h, 20), rim=rim * 0.9)
+        F.fill(ell(hx_, hy_, 0.017 * h, 0.028 * h, 16), rim=rim * 0.55)
     # toynak: pastern ucundan sole'a doğru genişleyen yamuk
     dx, dy = j3[0] - j2[0], j3[1] - j2[1]
     Ln = math.hypot(dx, dy) or 1.0
@@ -107,21 +107,21 @@ def _ear(F, base, ang, ln, wd, h, rim):
                (bx + math.cos(th) * ln * 0.55 + nx * wd * 0.42, by + math.sin(th) * ln * 0.55 + ny * wd * 0.42), KC(bx + nx * wd * 0.5, by + ny * wd * 0.5)], True, 0.8), rim=rim)
 
 
-def _mane_locks(F, W0, P0, h, n=8, long=0.9, flick=0.0, rim=1.0):
-    """Yele: ense çizgisi (W0 withers → P0 poll) boyunca üst üste binen, geriye ve aşağıya akan sivri tutamlar."""
+def _mane_locks(F, W0, P0, h, n=7, long=0.9, flick=0.0, rim=1.0):
+    """Yele: ense çizgisi (W0 withers → P0 poll) boyunca üst üste binen, geriye ve aşağıya akan geniş S-eğrili tutamlar."""
     for i in range(n):
-        t = 0.04 + 0.96 * i / (n - 1)
+        t = 0.02 + 0.96 * i / (n - 1)
         bx = W0[0] + (P0[0] - W0[0]) * t
         by = W0[1] + (P0[1] - W0[1]) * t
-        # tutam: tabanı ense çizgisinde (hafif içeride), ucu geriye-aşağıya
-        ln = (0.085 + 0.03 * math.sin(t * 3.1 + 1.0)) * long
-        dx = -(0.50 + 0.55 * flick) * ln
-        dy = (0.80 - 0.45 * flick) * ln * (1.0 if flick < 0.6 else 0.55)
-        a0 = (bx + 0.012, by - 0.012)
-        a1 = (bx - 0.030, by + 0.030)
-        tip = (bx + dx, by + dy)
-        mid = (bx + dx * 0.55 - 0.02 * (1 + flick), by + dy * 0.45 - 0.012)
-        F.fill(sp([KC(a0[0] * h, a0[1] * h), (mid[0] * h + 0.020 * h, mid[1] * h - 0.010 * h), KC(tip[0] * h, tip[1] * h), (mid[0] * h - 0.014 * h, mid[1] * h + 0.026 * h), KC(a1[0] * h, a1[1] * h)], True, 0.9), rim=rim)
+        ln = (0.15 + 0.035 * math.sin(t * 3.1 + 1.0)) * long
+        back = 0.46 + 0.62 * flick
+        drop = (0.88 - 0.55 * flick)
+        tip = (bx - back * ln, by + drop * ln * (1.0 if flick < 0.6 else 0.6))
+        base_a = (bx + 0.015, by - 0.016)
+        base_b = (bx - 0.040, by + 0.040)
+        c1 = (bx - back * ln * 0.30 + 0.030, by + drop * ln * 0.28 - 0.006)       # üst kenar: dışa kabarık
+        c2 = (bx - back * ln * 0.62 - 0.012, by + drop * ln * 0.66 + 0.034)       # alt kenar: içe
+        F.fill(sp([KC(base_a[0] * h, base_a[1] * h), (c1[0] * h, c1[1] * h), KC(tip[0] * h, tip[1] * h), (c2[0] * h, c2[1] * h), KC(base_b[0] * h, base_b[1] * h)], True, 0.95), rim=rim)
 
 
 def horse_body(F, h, pose=HORSE_STAND, mane=True, tail=True, bridle=True, dy=0.0):
@@ -130,9 +130,11 @@ def horse_body(F, h, pose=HORSE_STAND, mane=True, tail=True, bridle=True, dy=0.0
     poll = P["poll"]
     L = 0.31
     top, muz, bot, throat, eye, nostril, lip, (ax, ay, nx, ny) = _head_geometry(poll, L, P["head_ang"])
-    # --- uzak bacaklar
+    # --- bacaklar (gövde üstlerini örter): uzaklar soluk, yakınlar parlak
     _hleg(F, P["ff"], "f", h, rim=0.40)
     _hleg(F, P["hf"], "h", h, rim=0.40)
+    _hleg(F, P["hn"], "h", h, rim=1.0)
+    _hleg(F, P["fn"], "f", h, rim=1.0)
     # --- kuyruk
     if tail:
         if P["tail"] == "stream":
@@ -182,15 +184,12 @@ def horse_body(F, h, pose=HORSE_STAND, mane=True, tail=True, bridle=True, dy=0.0
     # --- sağrı/omuz kas çizgileri
     F.line(sp(_hp([(-0.36, -0.77), (-0.31, -0.62), (-0.30, -0.49)], h), False), h * 0.0035, tone=1.0, alpha=0.30)
     F.line(sp(_hp([(0.16, -0.755), (0.25, -0.62), (0.30, -0.50)], h), False), h * 0.0035, tone=1.0, alpha=0.30)
-    # --- yakın bacaklar (gövdenin önünde; üst uçları gövdeye gömülü)
-    _hleg(F, P["hn"], "h", h, rim=1.0)
-    _hleg(F, P["fn"], "f", h, rim=1.0)
     # --- yakın kulak, perçem, yele
     ex = poll[0] + 0.012
     F.fill(sp(_hp([KC(ex - 0.020, ey + 0.004), (ex - 0.030, ey - 0.054), KC(ex - 0.008, ey - 0.121), (ex + 0.024, ey - 0.056), KC(ex + 0.026, ey + 0.004)], h), True, 0.8), rim=1.0)
     F.fill(sp(_hp([KC(poll[0] + 0.03, poll[1] - 0.012), (poll[0] + 0.07, poll[1] + 0.005), (poll[0] + 0.065, poll[1] + 0.055), (poll[0] + 0.04, poll[1] + 0.07), (poll[0] + 0.035, poll[1] + 0.03)], h), True, 0.8), rim=1.0, bound=False)
     if mane:
-        _mane_locks(F, (W0[0] + 0.02, W0[1] - 0.012), (poll[0] - 0.015, poll[1] + 0.005), h, n=9, long=P["mane_long"], flick=P["mane_flick"])
+        _mane_locks(F, (W0[0] + 0.02, W0[1] - 0.012), (poll[0] - 0.015, poll[1] + 0.005), h, n=7, long=P["mane_long"], flick=P["mane_flick"])
     # --- yüz ayrıntıları: göz parıltısı, burun deliği, ağız çizgisi, boyunluk/kayış
     F.fill(ell(eye[0] * h, eye[1] * h, 0.010 * h, 0.0075 * h, -20), rim=0.0, tone=1.0, alpha=0.65, bound=False)
     F.fill(ell(nostril[0] * h, nostril[1] * h, 0.0085 * h, 0.0125 * h, -30), rim=0.0, tone=1.0, alpha=0.40, bound=False)
@@ -354,28 +353,26 @@ def _rider_sipahi(F, px, py, u, lean_deg=0.0, sword_up=True):
     R.fill(shoe(0.17 * u, 0.95 * u, 0.30 * u, 0.10 * u, 1, "sharp"), rim=1.0)
     R.line(sp([P(0.08, 0.10), P(0.14, 0.50), P(0.19, 0.92)], False), u * 0.02, tone=0.9, alpha=0.7)
     # kılıç kolu: yukarı kaldırılmış
-    hand = P(0.22, -0.98) if sword_up else P(0.34, -0.30)
-    elbow = P(0.14, -0.80) if sword_up else P(-0.14, -0.40)
+    hand = P(0.50, -1.12) if sword_up else P(0.34, -0.30)
+    elbow = P(0.34, -0.80) if sword_up else P(-0.14, -0.40)
     R.fill(limb([P(0.0, -0.63), elbow, hand], [0.19 * u, 0.18 * u, 0.12 * u], cap0=0.4, cap1=0.3), rim=1.0)
     R.fill(K.hand_pt("fist", hand[0] - 0.02 * u, hand[1] + 0.02 * u, 0.2 * u, -90 if sword_up else -10), rim=1.0)
     # boyun + sarık + sorguç (tüy)
     R.fill(limb([P(0.02, -0.80), P(0.02, -0.72)], [0.13 * u, 0.17 * u], cap0=0, cap1=0), rim=0.9)
-    add_head(R, 0.06 * u, -0.91 * u, 0.215 * u, "m", rot=-3.0, beard="stache", hat="turban", nose=1.1, hat_rot=-3.0)
-    R.fill(feather_path(0.10 * u, -1.22 * u, 0.20 * u, -1.52 * u, 0.07 * u, bend=-0.03 * u), rim=1.0)
-    R.fill(ell(0.10 * u, -1.22 * u, 0.025 * u, 0.025 * u), rim=1.0, tone=0.4)
+    add_head(R, 0.07 * u, -0.935 * u, 0.25 * u, "m", rot=-3.0, beard="stache", hat="turban", nose=1.1, hat_rot=-3.0)
     # kılıç (kilij): kavisli bıçak
     if sword_up:
-        bx, by = P(0.22, -0.98)
-        R.fill(sp([KC(bx - 0.03 * u, by - 0.02 * u), (bx + 0.10 * u, by - 0.22 * u), (bx + 0.30 * u, by - 0.40 * u), (bx + 0.55 * u, by - 0.50 * u), KC(bx + 0.78 * u, by - 0.50 * u),
-                   (bx + 0.58 * u, by - 0.39 * u), (bx + 0.34 * u, by - 0.29 * u), (bx + 0.16 * u, by - 0.13 * u), KC(bx + 0.04 * u, by + 0.0)], True, 0.9), rim=1.0)
+        bx, by = P(0.50, -1.12)
+        R.fill(sp([KC(bx - 0.03 * u, by - 0.02 * u), (bx + 0.06 * u, by - 0.26 * u), (bx + 0.20 * u, by - 0.50 * u), (bx + 0.44 * u, by - 0.68 * u), KC(bx + 0.70 * u, by - 0.74 * u),
+                   (bx + 0.50 * u, by - 0.56 * u), (bx + 0.28 * u, by - 0.38 * u), (bx + 0.14 * u, by - 0.16 * u), KC(bx + 0.04 * u, by + 0.0)], True, 0.9), rim=1.0)
         R.fill(bar(bx - 0.08 * u, by + 0.0 * u, bx + 0.10 * u, by - 0.08 * u, 0.035 * u, 0.035 * u, True, True), rim=1.0)
     F.merge(R, dx=px, dy=py, rot=lean_deg)
 
 
 def _horse_with_rider(h, lean, pose, lance, cloth=False, charge=0.0, rot=None, sipahi=False):
-    """h = zeminden binici başlığına toplam boy; at ölçeği atın kulak yüksekliği 0.70 h olacak biçimde."""
+    """h = zeminden binici başlığına toplam boy; at kulak yüksekliği hs = h/1.2, binici oturma boyu u = 0.45·hs (gerçekçi oran: ≈1.55 m withers, ≈0.9 m oturan gövde+baş)."""
     F = Fig(h, lean)
-    hs = h * 0.70
+    hs = h / 1.2
     H = Fig(hs)
     horse_body(H, hs, pose, mane=True, tail=True, bridle=True)
     if cloth:
@@ -385,7 +382,7 @@ def _horse_with_rider(h, lean, pose, lance, cloth=False, charge=0.0, rot=None, s
     m = skia.Matrix()
     m.setRotate(R)
     q = m.mapXY(-0.005 * hs, -0.735 * hs)
-    u = 0.56 * hs
+    u = 0.45 * hs
     if sipahi:
         _rider_sipahi(F, q.x(), q.y(), u, lean_deg=5.0)
     else:

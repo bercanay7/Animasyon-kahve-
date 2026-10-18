@@ -761,8 +761,8 @@ def flicker(t, seed=0.0, k=1.0):
     return 1.0 + 0.16 * k * v
 
 
-def flame(f, x, y, s=1.0, t=0.0, seed=0.0, halo=1.0, a=1.0, col_out="#FF9A2E", col_in="#FFF3C4", halo_col="#FFB45A", hr=170.0):
-    """Mum alevi: damla biçimi + parıltı. (x,y) fitilin ucu; s ölçek (1 ≈ 26 px yüksek)."""
+def flame(f, x, y, s=1.0, t=0.0, seed=0.0, halo=1.0, a=1.0, col_out="#FF9A2E", col_in="#FFF3C4", halo_col="#FFB45A", hr=170.0, body=True):
+    """Mum alevi: damla biçimi + parıltı. (x,y) fitilin ucu; s ölçek (1 ≈ 26 px yüksek). body=False: yalnız parıltı (figürlerin arkasına çizmek için)."""
     if a <= 0.01 or s <= 0.01:
         return
     fl = flicker(t, seed)
@@ -773,6 +773,8 @@ def flame(f, x, y, s=1.0, t=0.0, seed=0.0, halo=1.0, a=1.0, col_out="#FF9A2E", c
         r = hr * s * (0.92 + 0.14 * fl) * halo
         f.c.drawCircle(x, y - hh * 0.45, r, skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus, Shader=skia.GradientShader.MakeRadial(
             (x, y - hh * 0.45), r, [C(halo_col, int(150 * a)), C(halo_col, int(48 * a)), C(halo_col, 0)], [0.0, 0.3, 1.0])))
+    if not body:
+        return
     p = skia.Path()
     p.moveTo(x, y + 3 * s)
     p.cubicTo(x - ww * 1.25, y - hh * 0.12, x - ww * 0.55 + sway * 0.1, y - hh * 0.62, x + sway, y - hh)
@@ -946,6 +948,15 @@ def _rf_sprite(kind, hpx, col, rimc, rimd, rim2, rim2d, rimw, hl):
     c.clear(skia.ColorTRANSPARENT)
     c.translate(-l, -t)
     body = skia.Paint(AntiAlias=True, Color=C(col))
+    if hl and (rimc or rim2):
+        # hacim: ışık yönüne bakan taraftan zıt yöne soluk renkli iç degrade (siluet düz kara kalmasın)
+        lc = rimc or rim2
+        cxm, cym = (b.left() + b.right()) / 2, (b.top() + b.bottom()) / 2
+        ext = max(b.width(), b.height()) * 0.55
+        dx, dy = rimd
+        nrm = math.hypot(dx, dy) or 1.0
+        dx, dy = dx / nrm, dy / nrm
+        body.setShader(skia.GradientShader.MakeLinear([(cxm + dx * ext, cym + dy * ext), (cxm - dx * ext, cym - dy * ext)], [C(mix(col, lc, hl)), C(col)], [0.0, 0.85]))
     c.drawPath(path, body)
     # kenar ışıkları: silueti ışığa doğru kaydırıp iç kenar bırak
     def rim_pass(color, d, w, alpha):
@@ -970,7 +981,7 @@ def _rf_sprite(kind, hpx, col, rimc, rimd, rim2, rim2d, rimw, hl):
     return s.makeImageSnapshot(), -l, -t
 
 
-def rfigure(f, kind, x, y, h, col="#0A0605", rim="#E0A15A", rimd=(-1.0, -0.2), rim2=None, rim2d=(1.0, -0.3), rimw=2.2, face=1, alpha=1.0, sway=0.0, bob=0.0, hl=0.0):
+def rfigure(f, kind, x, y, h, col="#0A0605", rim="#E0A15A", rimd=(-1.0, -0.2), rim2=None, rim2d=(1.0, -0.3), rimw=2.2, face=1, alpha=1.0, sway=0.0, bob=0.0, hl=0.13):
     """Kendi siluet figürüm. y = ayak (veya oturma zemini). face=-1 ayna (rim yönü de aynalanır)."""
     rd = (rimd[0] * face, rimd[1])
     r2 = (rim2d[0] * face, rim2d[1])
@@ -1039,7 +1050,6 @@ def _f_woman_seated(h):
         for pts in (((0.03, -0.46), (0.12, -0.30), (0.20, -0.14), (0.24, -0.01)), ((0.17, -0.48), (0.31, -0.34), (0.40, -0.17), (0.44, -0.01)),
                     ((-0.12, -0.40), (-0.15, -0.24), (-0.19, -0.10), (-0.22, -0.01))):
             _fold(c, [(x * h, y * h) for x, y in pts], rc, 0.16, max(1.0, h * 0.0035))
-        _fold(c, [(x * h, y * h) for x, y in ((-0.05, -0.93), (-0.09, -0.82), (-0.13, -0.70), (-0.15, -0.60))], rc, 0.14, max(1.0, h * 0.003))
     return _union(head, neck, torso, skirt, arm), detail
 
 
@@ -1502,6 +1512,7 @@ def mat_inca_wall(floor_b, inca=None, niches=(), pitch=None, red=None, door=None
     """İnka duvarı: sıkı taş işçiliği + trapez nişler (koyu girinti) + kırmızı çizgi + (isteğe bağlı) parlak trapez kapı.
     niches=[(a_merkez, hf_alt, hf_üst, w_alt, w_üst)] ; pitch: niş a'da periyodik (yan duvar); red=(hf, kalınlık); door=(a_merkez, hf_üst, w_alt, w_üst)."""
     base = inca or mat_inca(seed=seed)
+    base_sill = hex3("#7a6a58")
     rc = hex3("#a3261c")
     dcol = np.array(door_col, np.float32)
 
@@ -1516,6 +1527,14 @@ def mat_inca_wall(floor_b, inca=None, niches=(), pitch=None, red=None, door=None
             depth = np.clip(1.0 - (hf - hb) / max(ht - hb, 1e-3) * 0.3, 0.2, 1.0)
             alb = np.where(inside[..., None], alb * 0.22 * depth[..., None], alb)
             h = np.where(inside, h - 22.0, h)
+            # niş içi: alt eşik (hafif parlak taş), üst lento gölgesi, yan yüzlerde hafif aydınlık
+            sill = inside & (hf < hb + 9.0)
+            lintel = inside & (hf > ht - 14.0)
+            side_i = inside & (np.abs(aa - ac) > ww - 10.0)
+            alb = np.where(sill[..., None], alb * 0.0 + base_sill[None, None, :] * 0.55, alb)
+            alb = np.where(side_i[..., None], alb * 1.9, alb)
+            alb = np.where(lintel[..., None], alb * 0.5, alb)
+            h = np.where(sill, h + 14.0, h)
         if red is not None:
             line = sstep(red[1] * 0.5 - np.abs(hf - red[0]), 0.0, 1.6)
             alb = alb * (1 - line[..., None]) + rc[None, None, :] * (0.85 + 0.2 * noise2d(a, b, 1 / 260.0, seed=9))[..., None] * line[..., None]

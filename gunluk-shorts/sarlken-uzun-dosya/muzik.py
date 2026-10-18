@@ -2,16 +2,20 @@
 muzik.py — "ŞARLKEN" belgeseli için tamamen kodla sentezlenmiş, Rönesans esintili üretken müzik.
 
 Tüm sesler numpy/scipy ile sentezdir (harici örnek/ses dosyası YOK, telifli melodi YOK; besteler tohumlu üretken ve özgün).
-Enstrümanlar : lavta (Karplus–Strong, çift kurs), klavsen benzeri pluck, portatif org, yaylı drone/çello (testere tablosu +
+Enstrümanlar : lavta (Karplus–Strong, çift kurs), klavsen benzeri pluck, portatif org/regal, yaylı drone/çello (testere tablosu +
                vibrato + gövde rezonansı), formant süzgeçli koro pedi, çerçeve davulu, tef, gong, çan, timpani.
-Armoni       : modal (Dorian / Mixolydian / Aeolian; c7'de hafif Frigiyen renk). Tempo 58–84 bpm.
-Yapı         : her bölüm için ayrı 'cue'; cue'lar eşit güçlü çapraz geçişle (4–8 sn) birleşir; c0'da gerilim yükselir,
-               ana başlık anında (c0 t1 + 0,4 sn) tek vuruş + altın tonlu D majör açılış; c13 sonunda çözülür ve söner.
-Reverb       : algoritmik salon IR'ı (RT60≈2,2 sn) + scipy.signal.fftconvolve.
+Armoni       : modal (Dorian / Mixolydian / Aeolian; c7'de Frigiyen, c9'da Lidyen renk). Tempo 58–84 bpm; her cue kendi tonikinde,
+               cue sınırlarında yalnızca açık beşli (üçlüsüz) yatak → komşu cue'larla armonik çatışma olmaz.
+Yapı         : her bölüm için ayrı 'cue'. Cue uzunluğu = bölüm + 3 sn kart + yarım çapraz geçişler (4–8 sn) ≈ bölüm + 7…11 sn;
+               cue'lar eşit güçlü çapraz geçişle birleşir (merkez: bölüm kartı boşluğunun ortası). Yoğunluk eğrileri (tırmanma/boşalma)
+               timeline.json'daki cümle kimliklerine çıpalanır (örn. Villalar, Mühlberg, Viyana, Cezayir fırtınası): ses yamalanınca
+               çıpalar yeni zamanlara göre yeniden çözülür. c0'da gerilim yükselir; ana başlık anında (c0 t1 + 0,4 sn) TEK vuruş + altın tonlu
+               D majör açılış; c13 sonunda soru açık kalır ama müzik çözülür ve söner (kuyruk süresi --tail).
+Reverb       : algoritmik salon IR'ı (RT60≈2,2 sn, 500 Hz–1 kHz) + scipy.signal.fftconvolve.
+Seviye       : ham müzik bandı (ducking ÖNCESİ) ortalama −27,5 dBFS RMS; ducking/yükseliş/EQ miks.py'dedir.
 
 Kullanım (ayrı): python3 muzik.py --cue c3 --out /tmp/c3.wav     (tek cue önizleme)
                  python3 muzik.py --all --out /tmp/music.wav    (ducking'siz tüm müzik)
-Nihai miks (ducking, bölüm kartı yükselişi, EQ, LUFS) miks.py içindedir; bu modül yalnızca ham müzik üretir.
 """
 import argparse
 import json
@@ -115,26 +119,34 @@ def _organ_amp(f0, kind):
     return lambda f: (f0 / f) ** 1.5
 
 
+LO_SR = 16000          # pedler (org/koro/yaylı) düşük örnek hızında üretilir (≤7 kHz içerik) → ~3× hızlı; sonra 48 kHz'e yükseltilir
+UP = SR // LO_SR
+
+
+def _up(y):
+    return D.resample_poly(y, UP, 1)
+
+
 def organ_note(f0, dur, vel, rng, stops=(("flute", 1.0, 1.0), ("principal", 0.45, 1.0), ("flute", 0.3, 2.0)),
                attack=0.06, release=0.35, trem=True, chiff=0.5):
     """Portatif org / regal: seçilen 'perdeler' (tür, seviye, oktav çarpanı) toplanır; chiff + hafif tremulant."""
-    n = int(dur * SR)
+    n = int(round(dur * LO_SR))
     y = np.zeros(n)
     for kind, lvl, mult in stops:
         ff = f0 * mult
-        if ff > 7000:
+        if ff > 6500:
             continue
-        tab = D.additive_table(ff, _organ_amp(ff, kind), rng, phase="random")
-        y += lvl * D.wt_osc(tab, ff * (1 + rng.uniform(-0.0004, 0.0004)), n, phase0=rng.random())
-    t = np.arange(n) / SR
+        tab = D.additive_table(ff, _organ_amp(ff, kind), rng, phase="random", max_hz=7000, sr=LO_SR)
+        y += lvl * D.wt_osc(tab, ff * (1 + rng.uniform(-0.0004, 0.0004)), n, phase0=rng.random(), sr=LO_SR)
+    t = np.arange(n) / LO_SR
     if trem:
         y *= 1 + 0.025 * np.sin(D.PI2 * 4.3 * t + rng.uniform(0, 6.28))
-    env = D.adsr(n, attack, 0.15, 0.9, release)
+    env = D.adsr(n, attack, 0.15, 0.9, release, sr=LO_SR)
     y *= env
     if chiff > 0:
-        ch = D.bp(rng.standard_normal(n), 1400, 4200, 2) * np.exp(-t / 0.03) * (1 - np.exp(-t / 0.004))
+        ch = D.bp(rng.standard_normal(n), 1400, 4200, 2, sr=LO_SR) * np.exp(-t / 0.03) * (1 - np.exp(-t / 0.004))
         y += chiff * 0.25 * ch * np.max(np.abs(y)) / (np.max(np.abs(ch)) + 1e-9)
-    return _level(y, REF["organ"] + 12 * (vel - 0.7), "sustain")
+    return _level(_up(y), REF["organ"] + 12 * (vel - 0.7), "sustain")
 
 
 def _cello_amp(f0):
@@ -144,26 +156,25 @@ def _cello_amp(f0):
 
 def bowed_note(f0, dur, vel, rng, attack=0.35, release=0.9, ens=2, vib=(5.1, 6.5), swell=0.08, bright=0.65):
     """Yaylı drone / çello: testere benzeri tablo × gövde rezonansları, gecikmeli vibrato, yay gürültüsü, yavaş yay baskısı dalgası."""
-    n = int(dur * SR)
+    n = int(round(dur * LO_SR))
     amp = _cello_amp(f0)
     if bright != 1.0:
         amp = (lambda a: (lambda f: a(f) / (1 + ((f / 1800.0) ** 2) * (1 / bright - 1) * 3)))(amp)
-    tab = D.additive_table(f0, amp, rng, phase="saw")
+    tab = D.additive_table(f0, amp, rng, phase="saw", max_hz=7000, sr=LO_SR)
     y = np.zeros(n)
     for k in range(ens):
         cents = (k - (ens - 1) / 2) * 3.6 + rng.uniform(-0.8, 0.8)
-        vb = D.vibrato(n, vib[0] * rng.uniform(0.94, 1.06), vib[1] * rng.uniform(0.7, 1.1), delay=0.45 + 0.2 * rng.random(), rise=1.2, rng=rng)
-        y += D.wt_osc(tab, f0 * 2 ** (cents / 1200) * vb, n, phase0=rng.random())
+        vb = D.vibrato(n, vib[0] * rng.uniform(0.94, 1.06), vib[1] * rng.uniform(0.7, 1.1), delay=0.45 + 0.2 * rng.random(), rise=1.2, rng=rng, sr=LO_SR)
+        y += D.wt_osc(tab, f0 * 2 ** (cents / 1200) * vb, n, phase0=rng.random(), sr=LO_SR)
     y /= ens
-    t = np.arange(n) / SR
-    bn = D.bp(rng.standard_normal(n), 700, 3800, 2)
+    t = np.arange(n) / LO_SR
+    bn = D.bp(rng.standard_normal(n), 700, 3800, 2, sr=LO_SR)
     y = y + 0.05 * bn * (0.4 + 0.6 * (1 - np.exp(-t / 0.2))) * np.max(np.abs(y)) / (np.max(np.abs(bn)) + 1e-9)
     lfo = 1 + swell * np.sin(D.PI2 * rng.uniform(0.11, 0.2) * t + rng.uniform(0, 6.28))
-    y *= D.adsr(n, attack, 0.2, 0.92, release) * lfo
-    return _level(y, REF["bowed"] + 12 * (vel - 0.7), "sustain")
+    y *= D.adsr(n, attack, 0.2, 0.92, release, sr=LO_SR) * lfo
+    return _level(_up(y), REF["bowed"] + 12 * (vel - 0.7), "sustain")
 
 
-# koro ünlüleri: (F1, bw1, dB1), (F2, bw2, dB2), (F3, bw3, dB3)
 VOWELS = {
     "a": [(780, 110, 0), (1150, 130, -7), (2800, 200, -22)],
     "o": [(450, 90, 0), (830, 110, -9), (2650, 200, -24)],
@@ -185,20 +196,19 @@ def _vowel_amp(f0, vowel, shift=1.0):
 
 def choir_note(f0, dur, vel, rng, vowel="o", vowel2=None, morph=(0.3, 0.8), voices=3, attack=1.4, release=2.2, shift=1.0):
     """Koro pedi: formant (ünlü) şekilli tablo, 'voices' adet detune/vibratolu ses, nefes gürültüsü; ünlü morf (ör. o→a)."""
-    n = int(dur * SR)
-    t = np.arange(n) / SR
-    y = np.zeros(n)
-    tab1 = [D.additive_table(f0, _vowel_amp(f0, vowel, shift), rng, phase="random")]
-    tab2 = D.additive_table(f0, _vowel_amp(f0, vowel2, shift), rng, phase="random") if vowel2 else None
+    n = int(round(dur * LO_SR))
+    t = np.arange(n) / LO_SR
+    tab1 = D.additive_table(f0, _vowel_amp(f0, vowel, shift), rng, phase="random", max_hz=7000, sr=LO_SR)
+    tab2 = D.additive_table(f0, _vowel_amp(f0, vowel2, shift), rng, phase="random", max_hz=7000, sr=LO_SR) if vowel2 else None
     ya, yb = np.zeros(n), np.zeros(n)
     for k in range(voices):
         cents = (k - (voices - 1) / 2) * 11.0 + rng.uniform(-3, 3)
-        vb = D.vibrato(n, rng.uniform(4.8, 5.9), rng.uniform(10, 22), delay=0.7 + 0.6 * rng.random(), rise=1.5, rng=rng)
+        vb = D.vibrato(n, rng.uniform(4.8, 5.9), rng.uniform(10, 22), delay=0.7 + 0.6 * rng.random(), rise=1.5, rng=rng, sr=LO_SR)
         ff = f0 * 2 ** (cents / 1200) * vb
         ph0 = rng.random()
-        ya += D.wt_osc(tab1[0], ff, n, phase0=ph0)
+        ya += D.wt_osc(tab1, ff, n, phase0=ph0, sr=LO_SR)
         if tab2 is not None:
-            yb += D.wt_osc(tab2, ff, n, phase0=ph0)
+            yb += D.wt_osc(tab2, ff, n, phase0=ph0, sr=LO_SR)
     if tab2 is not None:
         a, b = morph
         w = D.smoothstep((t - a * dur) / max((b - a) * dur, 1e-3))
@@ -207,10 +217,10 @@ def choir_note(f0, dur, vel, rng, vowel="o", vowel2=None, morph=(0.3, 0.8), voic
         y = ya
     y /= voices
     vf = VOWELS[vowel]
-    br = D.resonator(rng.standard_normal(n), vf[0][0], 220) + 0.6 * D.resonator(rng.standard_normal(n), vf[1][0], 260)
+    br = D.resonator(rng.standard_normal(n), vf[0][0], 220, sr=LO_SR) + 0.6 * D.resonator(rng.standard_normal(n), vf[1][0], 260, sr=LO_SR)
     y = y + 0.05 * br * np.max(np.abs(y)) / (np.max(np.abs(br)) + 1e-9)
-    y *= D.adsr(n, attack, 0.5, 0.92, release)
-    return _level(y, REF["choir"] + 12 * (vel - 0.7), "sustain")
+    y *= D.adsr(n, attack, 0.5, 0.92, release, sr=LO_SR)
+    return _level(_up(y), REF["choir"] + 12 * (vel - 0.7), "sustain")
 
 
 def drum(kind, f, vel, rng):
@@ -1175,7 +1185,10 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         core0, core1 = int((g["xin"] + 1.0) * SR) if g["xin"] else 0, len(x) - int((g["xout"] + 1.0) * SR) if g["xout"] else len(x)
         rdb = _robust_rms_db(x[core0:core1])
         gain = D.db2lin(TARGET_RMS_DB + spec.get("level_db", 0.0) - rdb)
-        x = x * np.float32(gain)
+        # sol/sağ güç dengesi (pan dağılımı bir yana kaymasın): L kanalı ±1,5 dB içinde eşitlenir
+        pl, pr = np.mean(x[core0:core1:7, 0].astype(np.float64) ** 2), np.mean(x[core0:core1:7, 1].astype(np.float64) ** 2)
+        lr = float(np.clip(0.5 * 10 * np.log10((pr + 1e-18) / (pl + 1e-18)), -1.5, 1.5))
+        x = x * np.array([gain * D.db2lin(lr), gain / D.db2lin(lr)], dtype=np.float32)
         env = np.ones(len(x), dtype=np.float32)
         if g["xin"] > 0:
             k = int(g["xin"] * SR)

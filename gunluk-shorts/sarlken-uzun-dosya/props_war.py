@@ -96,6 +96,18 @@ def glow_add(f, x, y, r, col="#FFB347", a=1.0, a0=255, a1=90, mid=0.38):
     glow(f, x, y, r, col, a, a0, a1, mid, blend=PLUS)
 
 
+def shadow(f, x, y, rx, ry, a=0.35, col="#000000"):
+    """Yumuşak elips gölge (ayakların altı): önbellekli radyal sprite'ı ölçekler — dyn'de ucuz."""
+    g = glow_sprite(64, col, 230, 130, 0.5)
+    p = skia.Paint()
+    p.setAlphaf(clamp(a))
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.scale(rx / 64.0, ry / 64.0)
+    f.c.drawImage(g, -64, -64, LIN, p)
+    f.c.restore()
+
+
 @lru_cache(maxsize=64)
 def puff_sprite(col="#2A2420", seed=3, size=160):
     """Düzensiz yumuşak duman kabarcığı (alfa: gürültülü radyal düşüş)."""

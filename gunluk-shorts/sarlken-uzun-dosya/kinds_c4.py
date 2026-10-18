@@ -141,7 +141,8 @@ def k_safeconduct(cx, at=0.0, seal_at=1.6, days_at=3.0, days_dur=1.3):
             r, c = divmod(i, cols)
             x = gx0 + c * (cw + gap)
             y = gy0 + r * (cw + gap)
-            k = clamp((cx.t - cx.at(days_at, off=days_dur * i / (cols * rows))) / 0.22)
+            kci = 1.0 - (1.0 - (i + 1) / 21.0) ** (1 / 1.6)          # sayaçla aynı eğri: hücre, sayı o değere ulaşınca yanar
+            k = clamp((cx.t - cx.at(days_at, off=days_dur * kci)) / 0.16)
             f.rrect(x, y, cw, cw, 12, color="#150D08", alpha=0.85 * ka)
             f.rrect(x, y, cw, cw, 12, style="stroke", sw=2, color="#7A5518", alpha=0.9 * ka)
             if k > 0:
@@ -152,7 +153,7 @@ def k_safeconduct(cx, at=0.0, seal_at=1.6, days_at=3.0, days_dur=1.3):
     if kc > 0:
         v = int(round(21 * ease_out(kc, 1.6)))
         big_gold(f, str(max(1, v)), 1350, 400, size=250, alpha=smooth(kc * 4), track=6, glow_a=0.12)
-        f.text("GÜN", 1350, 472, face="title_m", size=46, color="#E0C682", align="c", track=18, alpha=cx.amt(days_at, 0.5, off=0.3))
+        f.text("GÜN", 1350, 472, face="title_m", size=46, color="#E0C682", align="c", track=18, alpha=cx.amt(days_at, 0.4, off=0.42))
     f.vig(0.58)
 
 
@@ -643,7 +644,7 @@ def k_banned(cx, outlaw_at=1.0, rows=()):
     dim = 1.0 - 0.0 * cx.amt(outlaw_at, 0.6)
     with push(cx, 1.0, 1.04):
         draw_medal2(f, "luther", 520, 520, 520 * (0.95 + 0.05 * ease_out(a)), "teal", False, alpha=a * (1 - 0.18 * cx.amt(outlaw_at, 0.6)), tilt=0.12 * math.sin(cx.t * 0.6))
-        fit_plate(f, "MARTIN LUTHER", None, 520, 820, w=520, t=cx.amt(0.4, 0.6))
+        fit_plate(f, "MARTİN LUTHER", None, 520, 820, w=520, t=cx.amt(0.4, 0.6))
         for i, (lab, ic, metal, ta) in enumerate(rows):
             y = 320 + i * 190
             k = cx.amt(ta, 0.5, off=-0.55)
@@ -731,8 +732,8 @@ def make_spread(press_at, spread_at, dur=1.25, stagger=0.13):
                 pulse = clamp((cx.t - cx.at(spread_at, off=i * stagger + dur)) / 0.7)
                 f.circle(ex, ey, 7, color="#F0D27A", alpha=1.0)
                 f.circle(ex, ey, 7 + 34 * pulse, style="stroke", sw=2.2, color="#F0D27A", alpha=0.7 * (1 - pulse))
-        glow(f, ox, oy - 40, 150, "#FFD27A", 0.4 * pk)
-        icons.draw_icon(f, "b_press", ox, oy - 62, size=(118 * (0.8 + 0.2 * back_out(pk))), metal="gold", alpha=pk, glow=0.35)
+        glow(f, ox, oy - 66, 150, "#FFD27A", 0.4 * pk)
+        icons.draw_icon(f, "b_press", ox, oy - 94, size=(118 * (0.8 + 0.2 * back_out(pk))), metal="gold", alpha=pk, glow=0.35)
     return extra
 
 

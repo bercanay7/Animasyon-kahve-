@@ -8,6 +8,7 @@ Figürler: stage.figure(f, kind, x, y_ayak, h, ...) — siluet + kenar ışığ�
 """
 import math
 import os
+from collections import OrderedDict
 from functools import lru_cache
 
 import numpy as np
@@ -24,9 +25,16 @@ class SCam:
         self.x, self.y, self.z = x, y, z
 
 
-def bake(draw_fn, m=MARGIN):
-    f = Frame(W + 2 * m, H + 2 * m)
+SS = 1.5                 # katman süper-örnekleme: yakın çekimde (zoom ≥1.3) keskinlik; çizim koordinatları değişmez
+SCENE_BUDGET = 760e6     # önbellekteki sahne katmanları için bayt bütçesi (işlem başına)
+
+
+def bake(draw_fn, m=MARGIN, ss=1.0):
+    """draw_fn(f) mantıksal 1920×1080 koordinatında çizer; ss>1 ise yüzey ss× büyük pişirilir (CTM ölçeklenir)."""
+    f = Frame(int(round((W + 2 * m) * ss)), int(round((H + 2 * m) * ss)))
     f.clear(skia.ColorTRANSPARENT)
+    if ss != 1.0:
+        f.c.scale(ss, ss)
     f.c.translate(m, m)
     draw_fn(f)
     return f.surf.makeImageSnapshot()
@@ -35,18 +43,43 @@ def bake(draw_fn, m=MARGIN):
 _SCENES = {}
 
 
+HI_ZOOM = 1.10           # katman ölçeği bunun altındaysa 1× sürüm (SS'den süzülerek türetilir): kare başı maliyet ve titreşim düşük
+
+
 class Scene:
-    def __init__(self, name, layers):
+    def __init__(self, name, layers, ss=1.0):
         self.name = name
-        self.layers = layers     # [(depth, Image)]
+        self.layers = layers     # [(depth, Image)]  ss× büyük pişirilmiş
+        self.ss = ss
+        self._lo = {}
+        self.nbytes = sum(im.width() * im.height() * 4 for _, im in layers)
+
+    def lo(self, i):
+        """i. katmanın 1× sürümü: SS görüntüden mipmap'li süzme (SSAA kalitesi), tembel üretilir."""
+        im = self._lo.get(i)
+        if im is None:
+            src = self.layers[i][1]
+            w, h = int(round(src.width() / self.ss)), int(round(src.height() / self.ss))
+            fr = Frame(w, h)
+            fr.clear(skia.ColorTRANSPARENT)
+            fr.c.scale(w / src.width(), h / src.height())
+            fr.c.drawImage(src, 0, 0, skia.SamplingOptions(skia.FilterMode.kLinear, skia.MipmapMode.kLinear), skia.Paint())
+            im = self._lo[i] = fr.surf.makeImageSnapshot()
+            self.nbytes += w * h * 4
+        return im
 
 
-def scene(name, builder):
+def scene(name, builder, ss=None):
     """builder() → [(depth, draw_fn(f))]  — her katman kendi Frame'ine (1920×1080 koordinatı) çizer."""
-    if name not in _SCENES:
-        if len(_SCENES) > 4:
-            _SCENES.pop(next(iter(_SCENES)))
-        _SCENES[name] = Scene(name, [(d, bake(fn)) for d, fn in builder()])
+    if name in _SCENES:
+        _SCENES[name] = _SCENES.pop(name)        # son kullanılan sona
+        return _SCENES[name]
+    ss = SS if ss is None else ss
+    specs = list(builder())
+    need = len(specs) * (W + 2 * MARGIN) * (H + 2 * MARGIN) * ss * ss * 4
+    while _SCENES and (len(_SCENES) >= 4 or sum(s.nbytes for s in _SCENES.values()) + need > SCENE_BUDGET):
+        _SCENES.pop(next(iter(_SCENES)))          # en eski çıkar (pişirmeden ÖNCE: tepe bellek düşük kalsın)
+    _SCENES[name] = Scene(name, [(d, bake(fn, ss=ss)) for d, fn in specs], ss)
     return _SCENES[name]
 
 
@@ -59,13 +92,21 @@ def layer_transform(f, cam, depth):
 
 def draw(f, sc, cam, t=0.0, dyn=None, alpha=1.0):
     """Katmanları arkadan öne çiz; dyn = {katman_indeksi: fn(f, t)} dinamik öğeler (aynı dönüşümle)."""
+    ss = getattr(sc, "ss", 1.0)
+    samp = skia.SamplingOptions(skia.FilterMode.kLinear)
     for i, (depth, img) in enumerate(sc.layers):
         f.c.save()
         layer_transform(f, cam, depth)
         p = skia.Paint(AntiAlias=True)
         if alpha < 1:
             p.setAlphaf(alpha)
-        f.c.drawImage(img, -MARGIN, -MARGIN, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+        if ss != 1.0 and 1 + (cam.z - 1) * depth > HI_ZOOM:      # yakın çekim: süper-örnekli görüntüden
+            f.c.save()
+            f.c.scale(1.0 / ss, 1.0 / ss)
+            f.c.drawImage(img, -MARGIN * ss, -MARGIN * ss, samp, p)
+            f.c.restore()
+        else:
+            f.c.drawImage(sc.lo(i) if ss != 1.0 else img, -MARGIN, -MARGIN, samp, p)
         if dyn and i in dyn:
             dyn[i](f, t)
         f.c.restore()
@@ -396,9 +437,37 @@ def _fig_path(kind, hpx, lean=0.0):
     return p
 
 
-@lru_cache(maxsize=1024)
+_SPR = OrderedDict()
+_SPR_BYTES = [0]
+SPRITE_BUDGET = 340e6        # figür sprite önbelleği bayt bütçesi (LRU)
+
+
 def _fig_sprite(kind, hpx, col, rim, lean):
-    """Sıkı kırpılmış sprite (boş alan çizim maliyetidir). Dönüş: (img, ox, oy) — ox,oy = yol orijininin sprite içindeki konumu."""
+    """Önbellekli (bayt bütçeli LRU) sıkı kırpılmış sprite. Dönüş: (img, ox, oy) — ox,oy = yol orijininin sprite içindeki konumu."""
+    key = (kind, int(hpx), col, rim, lean)
+    v = _SPR.get(key)
+    if v is not None:
+        _SPR.move_to_end(key)
+        return v
+    v = _fig_sprite_build(kind, int(hpx), col, rim, lean)
+    _SPR[key] = v
+    _SPR_BYTES[0] += v[0].width() * v[0].height() * 4
+    while _SPR_BYTES[0] > SPRITE_BUDGET and len(_SPR) > 1:
+        _, old = _SPR.popitem(last=False)
+        _SPR_BYTES[0] -= old[0].width() * old[0].height() * 4
+    return v
+
+
+def _fig_sprite_clear():
+    _SPR.clear()
+    _SPR_BYTES[0] = 0
+
+
+_fig_sprite.cache_clear = _fig_sprite_clear
+
+
+def _fig_sprite_build(kind, hpx, col, rim, lean):
+    """Sıkı kırpılmış sprite (boş alan çizim maliyetidir)."""
     hpx = int(hpx)
     xdraw = None
     if kind in FIGX:
@@ -424,20 +493,44 @@ def _fig_sprite(kind, hpx, col, rim, lean):
     return s.makeImageSnapshot(), -l, -t
 
 
+_LIN = skia.SamplingOptions(skia.FilterMode.kLinear)
+_QS = (0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0)
+
+
+def _qscale(f):
+    """Geçerli CTM'nin ölçeğini basamaklara yuvarla (sprite önbellek çeşitliliği sınırlı kalsın)."""
+    m = f.c.getTotalMatrix()
+    s = math.hypot(m.getScaleX(), m.getSkewY())
+    for q in _QS:
+        if q >= s * 0.92:
+            return q
+    return _QS[-1]
+
+
+def _qh(hp):
+    """Sprite piksel boyunu kaba basamağa yuvarla (kalabalıkta ±%2 boy farkı → önbellek şişmez); sonra tam boya ölçeklenir."""
+    step = 2 if hp < 120 else (4 if hp < 400 else 8)
+    return max(8, int(round(hp / step)) * step)
+
+
 def figure(f, kind, x, y, h, col="#0C0705", rim="#B07A3A", face=1, alpha=1.0, sway=0.0, rot=0.0, lean=0.0, blur=0.0, bob=0.0):
     """Siluet figür: y = ayak hizası. face=-1 → ayna."""
-    img, ox, oy = _fig_sprite(kind, int(round(h)), col, rim, round(lean, 2))
+    q = _qscale(f)                                   # toplam CTM ölçeği: yakın çekimde sprite büyük pişirilir
+    hp = _qh(h * q)
+    img, ox, oy = _fig_sprite(kind, hp, col, rim, round(lean, 2))
+    k = h / hp                                       # sprite pikseli → mantıksal piksel (tam boy korunur)
     f.c.save()
     f.c.translate(x, y + bob)
     if rot or sway:
         f.c.rotate(math.degrees(rot + sway))
-    f.c.scale(face, 1)
+    f.c.scale(face * k, k)
     p = skia.Paint(AntiAlias=True)
     if alpha < 1:
         p.setAlphaf(alpha)
     if blur > 0:
-        p.setImageFilter(skia.ImageFilters.Blur(blur, blur))
-    f.c.drawImage(img, -ox, -oy, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+        b = blur / k                                 # sigma yerel (sprite) uzayında: mantıksal bulanıklık sabit kalsın
+        p.setImageFilter(skia.ImageFilters.Blur(b, b))
+    f.c.drawImage(img, -ox, -oy, _LIN, p)
     f.c.restore()
 
 

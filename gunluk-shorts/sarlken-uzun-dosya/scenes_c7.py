@@ -78,19 +78,24 @@ def _mohac_water(cx):
 
 
 def _viyana_weather(cx):
+    """Yağmur (sahnenin kendisi) → çamur (zemin kararır) → erken kar (zemin ağarır, taneler artar) → geri çekilme oku."""
     f = cx.f
-    kr = cx.amt(("c7s8", "Yağmur,", -0.2), 0.8)
-    ks = cx.amt(("c7s8", "erken", -0.1), 1.2)
-    if kr > 0:
-        sk.rain(f, cx.t, n=230, alpha=0.38 * kr * (1 - 0.5 * ks))
+    km = cx.amt(("c7s8", "çamur", -0.15), 1.0)
+    ks = cx.amt(("c7s8", "erken", -0.1), 1.4)
+    if km > 0:
+        f.rect(0, 640, W, H - 640, shader=f.lin(0, 640, 0, H, [("#2A1C10", 0.0, 0), ("#2A1C10", 1.0, int(120 * km))]))
     if ks > 0:
-        sk.snow(f, cx.t, n=130, alpha=0.8 * ks)
+        f.rect(0, 560, W, H - 560, shader=f.lin(0, 560, 0, H, [("#F2F6F8", 0.0, 0), ("#F2F6F8", 1.0, int(78 * ks))]))
+        sk.snow(f, cx.t, n=int(30 + 120 * ks), alpha=0.85 * ks)
     k = cx.amt(("c7s8", "Ekim", -0.1), 0.7)
     if k > 0:
-        SH.kicker(f, "EKİM ORTASI", W / 2, 122, alpha=k, size=36, track=14, face="title_m", color="#E0C682")
+        X.scrim(f, W / 2, 112, w=900, h=150, a=0.36 * k)
+        SH.kicker(f, "EKİM ORTASI", W / 2, 122, alpha=k, size=36, track=14, face="title_m", color="#E8CF8A")
     kg = cx.amt(("c7s8", "geri", -0.15), 0.6)
     if kg > 0:
         X.chip(f, "GERİ ÇEKİLME", W / 2, 205, k=kg, size=40, edge="#B02A2A", color="#F8E2D8", padx=40, h=88)
+        pr = ease_out(clamp((cx.t - cx.at(("c7s8", "geri", -0.1))) / 1.5))
+        X.arrow(f, (640, 905), (1560, 905), pr, color="#6FBF8A", width=10, bend=-60, alpha=0.9)
 
 
 SHOTS = [
@@ -105,8 +110,8 @@ SHOTS = [
     shot("map", a=("c7s2", "kadarıyla", 0.1), tr=("fade", 0.7), cams=[(0.0, (16.8, 47.6, 1.18)), (("c7s3", -0.3), (16.8, 47.4, 1.26))],
          regions=[dict(name="osmanli_1520", color="osmanli", at=0.0, alpha=0.55), dict(name="ispanya", color="ispanya", at=0.2, alpha=0.6),
                   dict(name="hollanda", color="burgonya", at=0.3, alpha=0.6), dict(name="avusturya", color="avusturya", at=0.4, alpha=0.6)],
-         cities=[dict(lon=28.98, lat=41.01, name="İSTANBUL", kind="capital", at=0.2, color="#9FE0B4", side="b", size=30),
-                 dict(lon=4.35, lat=50.85, name="BRÜKSEL", kind="capital", at=0.3, color="#F0C080", side="b", size=30)],
+         cities=[dict(lon=28.98, lat=41.01, name=None, kind="capital", at=0.2, color="#9FE0B4"),
+                 dict(lon=4.35, lat=50.85, name=None, kind="capital", at=0.3, color="#F0C080")],
          extra=_dist_extra, label="uzaklik"),
 
     # s3 — Mohaç: Macar ordusu yenildi
@@ -154,13 +159,13 @@ SHOTS = [
 
     # s7 — ordu büyüklüğü (modern tahmin)
     shot("c678_cift", a=("c7s7", -0.2), tr=("fade", 0.6), title="OSMANLI ORDUSU · VİYANA 1529", tone_col="#2F6B4A", y=H * 0.46, size=140, ykick=140,
-         items=[dict(value=(75000, 100000), unit="asker", icon="crescent", metal="forest", at=("c7s7", "yetmiş", -0.15), dur=1.7)],
+         items=[dict(value=(75000, 100000), unit="asker", icon="crescent", metal="forest", at=("c7s7", "Osmanlı", -0.1), count_at=("c7s7", "yetmiş", -0.15), hide0=True, dur=1.7)],
          band=("janissary", 46, ("c7s7", "Osmanlı", 0.0)), stampt=("MODERN TAHMİN", 960, 800, ("c7s7", "modern", -0.1), 54), label="ordu_75_100bin"),
 
     # s8 — yağmur, çamur, erken kar → geri çekilme
     shot("c678_sahne", a=("c7s8", -0.2), tr=("whip", 0.5), scene="siege",
-         cams=[(0.0, (1000, 580, 1.25)), (("c7s9", -0.4), (900, 560, 1.05))],
-         p=dict(tag="c7_viyana2", city="viyana", time="dusk", weather="clear", fire=0.2),
+         cams=[(0.0, (1020, 590, 1.22)), (("c7s9", -0.4), (1240, 560, 1.0))],
+         p=dict(tag="c7_viyana2", city="viyana", time="day", weather="rain", fire=0.0),
          overlay=_viyana_weather, label="yagmur_kar_cekilme"),
 
     # s9 — Şarlken o hafta İtalya'da
@@ -189,7 +194,7 @@ SHOTS = [
 
     # s11 — Güns: küçük kale, garnizon, 25 gün
     shot("c678_sahne", a=("c7s11", -0.2), tr=("whip", 0.5), scene="siege",
-         cams=[(0.0, (960, 560, 1.0)), (("c7s11", "yedi", 0.0), (980, 580, 1.25))],
+         cams=[(0.0, (960, 640, 1.12)), (("c7s11", "Güns,", 0.0), X.kcam(0.62, 1.35, 260))],
          p=dict(tag="c7_guns", city="guns", time="day", weather="clear", cannon_fire=True, fire=0.15),
          overlay=X.ov_kick("GÜNS", ("c7s11", "Güns,", -0.2), y=122, size=40), label="guns_kale"),
     shot("c678_cift", a=("c7s11", "yedi", -0.15), tr=("fade", 0.5), title="GÜNS · 1532", tone_col="#6A7A38", y=H * 0.5, size=140, ykick=140,
@@ -198,10 +203,10 @@ SHOTS = [
 
     # s12 — iki ordu hiç karşılaşmadı
     shot("map", a=("c7s12", -0.2), tr=("fade", 0.6), cams=[(0.0, (17.2, 48.2, 3.3)), (("c7s13", -0.3), (17.2, 48.1, 3.5))],
-         regions=[dict(name="avusturya", color="avusturya", at=0.0, alpha=0.5), dict(name="macar_habsburg", color="avusturya", at=0.0, alpha=0.4),
-                  dict(name="macar_osmanli", color="osmanli", at=0.0, alpha=0.5)],
+         regions=[dict(name="avusturya", color="avusturya", at=0.0, alpha=0.30), dict(name="macar_habsburg", color="avusturya", at=0.0, alpha=0.24),
+                  dict(name="macar_osmanli", color="osmanli", at=0.0, alpha=0.34)],
          cities=[dict(lon=16.37, lat=48.21, name="VİYANA", kind="town", at=0.0, side="t", size=30),
-                 dict(lon=16.54, lat=47.38, name="GÜNS", kind="siege", at=0.0, side="r", size=28)],
+                 dict(lon=16.54, lat=47.38, name="GÜNS", kind="siege", at=0.0, side="l", size=28)],
          extra=lambda cx, cam, mv: _ordular(cx, cam, mv), label="ordular_karsilasmadi"),
 
     # s13 — unvan: İmparator yalnızca sultan

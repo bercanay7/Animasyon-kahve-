@@ -18,11 +18,6 @@ M = MARGIN
 RF = R.rfigure
 
 
-def _lights_xy(items):
-    """[(x,y,r,col,a)] → lit_path ışık listesi"""
-    return items
-
-
 def _shadow_ellipse(f, x, y, rx, ry, a=0.55, blur=14):
     f.c.drawOval(skia.Rect.MakeLTRB(x - rx, y - ry, x + rx, y + ry), skia.Paint(AntiAlias=True, Color=C("#000000", int(255 * a)),
                                                                               MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, blur)))
@@ -107,6 +102,7 @@ class Tower:
         self.c = _TOWER.get(self.v, _TOWER["tordesillas"])
         self.night = p.get("night", True)
         self.fig = p.get("figure", self.c["figure"])
+        self.figxy = self.c["fig_xy"] if self.fig == self.c["figure"] else {"woman": (776, 944, 430), "man": (906, 944, 590), "writer": (930, 944, 420)}.get(self.fig, self.c["fig_xy"])
         self.candle = float(p.get("candle", 1.0))
         self.moonk = float(p.get("moon", 1.0))
 
@@ -233,7 +229,6 @@ class Tower:
             lights = []
             if candle_on:
                 lights.append((cx_, cy_ + 10, 330, "#ff9c40", 0.55))
-            fy = c["fig_xy"][1]
             if v == "tordesillas":
                 self._props_tordesillas(f, lights)
             elif v == "cell":
@@ -256,8 +251,10 @@ class Tower:
 
         def L3(f):          # ön plan: koyu çerçeve
             if v == "tordesillas":
+                f.layer_begin(blur=9)
                 post = R.rect_path(-M - 40, -M, 170, H + 2 * M)
                 R.lit_path(f, post, "#0b0705", [(cx_, cy_, 900, "#ff9c40", 0.08)])
+                f.layer_end()
                 f.rect(120, -M, 18, H + 2 * M, shader=f.lin(120, 0, 138, 0, [("#3a2616", 0.0, 120), ("#000000", 1.0, 0)]))
             elif v == "cell":
                 for x in (-M, W - 40):
@@ -350,7 +347,7 @@ class Tower:
         cs = self.candle
 
         def D2(f, t):
-            fx, fy, fh = c["fig_xy"]
+            fx, fy, fh = self.figxy
             kinds = {"woman": "woman_seated", "man": "man_window", "writer": "writer_seated"}
             if fig in kinds:
                 sway = math.sin(t * 0.7) * 0.004 if fig != "writer" else 0.0
@@ -685,12 +682,14 @@ class ElectorsHall:
                 PR.candelabra(f, sx, 940, branches=5, h=240, arm=64)
                 f.rect(sx - 14, 936, 28, 8, color="#1a120a")
 
-        def L3(f):          # ön plan: koyu sütunlar
+        def L3(f):          # ön plan: koyu sütunlar (odak dışı)
+            f.layer_begin(blur=8)
             for sx in (-1, 1):
                 x = W / 2 + sx * 980
                 col = R.rect_path(x - 90, -M, 180, H + 2 * M)
                 R.lit_path(f, col, "#2a2016", [(W / 2 + sx * 700, 540, 700, "#ffb060", 0.18)], rim=None,
                            grad=f.lin(x - 90, 0, x + 90, 0, [("#0b0705", 0.0), ("#3a2c1e", 0.55), ("#0b0705", 1.0)]))
+            f.layer_end()
             R.vignette_frame(f, 0.72, 0.55)
 
         return [(0.85, L1), (1.0, L2), (1.35, L3)]
@@ -820,11 +819,13 @@ class Aachen:
             _shadow_ellipse(f, 960, 970, 340, 22, 0.6, 18)
 
         def L3(f):
+            f.layer_begin(blur=8)
             for sx in (-1, 1):
                 x = W / 2 + sx * 1010
                 col = R.rect_path(x - 100, -M, 200, H + 2 * M)
                 R.lit_path(f, col, "#2a2016", [(W / 2 + sx * 720, 540, 700, "#ffb060", 0.15)],
                            grad=f.lin(x - 100, 0, x + 100, 0, [("#0b0705", 0.0), ("#3a2c1e", 0.5), ("#0b0705", 1.0)]))
+            f.layer_end()
             R.vignette_frame(f, 0.75, 0.52)
 
         return [(0.82, L1), (1.0, L2), (1.36, L3)]
@@ -1045,10 +1046,10 @@ class Reichstag:
                 top = sk.poly_path([(pt[0] - tw / 2 - 4, pt[1] - th), (pt[0] + tw / 2 + 4, pt[1] - th), (pt[0] + tw / 2, pt[1] - th + 8 * s_), (pt[0] - tw / 2, pt[1] - th + 8 * s_)], True)
                 R.lit_path(f, top, "#4a3220", warm_l + [(pt[0], pt[1] - th - 20, 160, "#ffd9a0", 0.25)], rim="#c99c5a", rim_w=1.0)
                 R.lit_path(f, R.rect_path(pt[0] - tw / 2, pt[1] - th + 8 * s_, tw, th - 8 * s_), "#2a1a0e", warm_l)
+                yb = pt[1] - th
                 for k, (col_, bw, bh) in enumerate((("#5a1c18", 52, 12), ("#2a3a2a", 46, 11), ("#4a3018", 50, 12), ("#6a2a1c", 40, 10), ("#2a2030", 44, 11))):
-                    PR._book if False else None
-                    yb = pt[1] - th - sum(x[2] for x in ((0, 0, 12), (0, 0, 11), (0, 0, 12), (0, 0, 10), (0, 0, 11))[:k]) * s_
                     _book(f, pt[0] + (-4 if k % 2 else 3) * s_, yb, bw * s_, bh * s_, col_, warm_l, ang=(-0.02 if k % 2 else 0.03))
+                    yb -= bh * s_
             # avize halkaları
             for (y_, Z_) in ((337, 1500), (306, 1150), (259, 850)):
                 s_ = 1100.0 / Z_
@@ -1063,10 +1064,12 @@ class Reichstag:
 
         def L3(f):          # ön plan: yakın bankların karanlık siluetleri
             rs = np.random.RandomState(5)
+            f.layer_begin(blur=6)
             for side in (-1, 1):
                 for (rowX, z0) in ((330, 640), (470, 700)):
                     pp = P(side * rowX, 0, z0)
                     RF(f, "sit_" + ["beret", "hood", "galero", "cap"][rs.randint(4)], pp[0], pp[1] + 20, 160 * 1100.0 / z0, col="#040201", rim="#8A5A2A", rimd=(1.0 if side < 0 else -1.0, -0.5), face=-side)
+            f.layer_end()
             f.rect(-M, H - 60, W + 2 * M, 60 + M, shader=f.lin(0, H - 60, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 235)]))
             R.vignette_frame(f, 0.7, 0.55)
 
@@ -1138,8 +1141,8 @@ def _mount_pts(x0, x1, base, amp, seed, step=22, sharp=1.0):
 @SL.sc("road_night")
 class RoadNight:
     """Gece yolu: tepe sırtında ilerleyen kafile (yandan), ay, dağ/orman siluetleri, meşaleler, isteğe yağmur.
-    p: litter=False (sedye + 2 taşıyıcı), riders=3 (0..6 atlı), torches=3 (0..6 meşaleci), rain=0..1 (0), mountains=True (alp zirveleri; False=yumuşak orman tepeleri),
-    moon=True, walk=14 (px/sn ilerleme; 0=durağan), x0=None (kafile başı başlangıç x; None=kafile ekranda ortalanır), dir=1 (1: sağa, -1: sola), fog=0.5."""
+    p: ground=840 (yol sırtı y; 760 → daha yüksek/dengeli kadraj), litter=False (sedye + 2 taşıyıcı), riders=3 (0..6 atlı), torches=3 (0..6 meşaleci), rain=0..1 (0), mountains=True (alp zirveleri; False=yumuşak orman tepeleri),
+    moon=True, scale=1.0 (kafile figür boyu/aralık çarpanı; geniş plan için 0.6), walk=14 (px/sn ilerleme; 0=durağan), x0=None (kafile başı başlangıç x; None=kafile ekranda ortalanır), dir=1 (1: sağa, -1: sola), fog=0.5."""
 
     def __init__(self, p):
         self.p = p
@@ -1154,6 +1157,8 @@ class RoadNight:
         self.x0 = p.get("x0")
         self.dir = 1 if p.get("dir", 1) >= 0 else -1
         self.fog = float(p.get("fog", 0.5))
+        self.scale = float(p.get("scale", 1.0))
+        self.base = float(p.get("ground", 840.0))
 
     def _group(self):
         """Kafile sırası (baştan sona): [(tür, ofset_px, boy_px)] — ofset kafile başından geriye doğru."""
@@ -1180,15 +1185,18 @@ class RoadNight:
         # px konumları
         out = []
         x = 0.0
+        sc_ = self.scale
         for k, i, h in seq:
-            gap = {"rider": 330, "torch": 170, "bearer": 150, "litter": 420}[k]
-            out.append((k, x, h))
+            gap = {"rider": 330, "torch": 170, "bearer": 150, "litter": 420}[k] * sc_
+            out.append((k, x, h * sc_))
             x += gap
         return out
 
     def layers(self):
         mount, moon, rain, fog = self.mount, self.moon, self.rain, self.fog
         litter = self.litter
+        gbase = self.base
+        dy_ = gbase - 840.0                 # tüm arka plan katmanları ridge ile birlikte kayar
 
         def L0(f):          # gökyüzü
             top, mid, hor = ("#04060c", "#0b1424", "#1c2c48") if rain < 0.5 else ("#06080c", "#0e131c", "#1d2735")
@@ -1244,12 +1252,12 @@ class RoadNight:
             for (base, amp, seed, col, y_p, hp, dn) in ((770, 60, 11, "#0a121f", 770, 120, 34), (820, 40, 13, "#070c15", 820, 150, 40)):
                 pts = [(xx, base + math.sin(xx * 0.006 + seed) * amp + math.sin(xx * 0.017 + seed * 1.7) * amp * 0.35) for xx in range(-M, W + M + 40, 40)]
                 f.path(sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True), color=col)
-                ST.pines(f, -M, W + M, base + amp * 0.2, hp, col, seed=seed, dens=dn)
+                PR.pine_row(f, -M, W + M, base + amp * 0.2 + 8, hp * 0.7, hp * 1.25, col, seed=seed, gap=(dn * 0.55, dn * 1.2), rim="#7f9bd0" if moon else None, rim_a=0.12, tiers=7)
                 f.path(sk.poly_path(pts, False), style="stroke", sw=1.6, color="#7f9bd0", alpha=0.18 if moon else 0.06)
             f.rect(-M, 780, W + 2 * M, 160, shader=f.lin(0, 780, 0, 940, [("#6f86b0", 0.0, 0), ("#6f86b0", 1.0, int(50 + 70 * fog))]))
 
         def L3(f):          # yol sırtı (kafile burada yürür)
-            pts = [(xx, _ridge(xx)) for xx in range(-M, W + M + 30, 30)]
+            pts = [(xx, _ridge(xx, base=gbase)) for xx in range(-M, W + M + 30, 30)]
             ground = sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True)
             f.path(ground, shader=f.lin(0, 800, 0, 1100, [("#121a2a", 0.0), ("#080b13", 0.5), ("#04060a", 1.0)]))
             # yol bandı (ay ışıklı ıslak toprak)
@@ -1259,20 +1267,21 @@ class RoadNight:
             rs = np.random.RandomState(8)
             for i in range(22):         # su birikintileri
                 x = rs.uniform(-100, W + 100)
-                y = _ridge(x) + rs.uniform(14, 36)
+                y = _ridge(x, base=gbase) + rs.uniform(14, 36)
                 wd = rs.uniform(30, 90)
                 f.oval(x, y, wd, 3.2, color="#a6bde6" if moon else "#58667f", alpha=0.35 if moon else 0.2)
             # kaya/çalı
             for i in range(14):
                 x = rs.uniform(-150, W + 150)
-                y = _ridge(x) + rs.uniform(40, 120)
+                y = _ridge(x, base=gbase) + rs.uniform(40, 120)
                 f.oval(x, y, rs.uniform(18, 52), rs.uniform(8, 22), color="#04060a")
 
         def L4(f):          # ön plan: kara yamaç + iri çam siluetleri
+            f.layer_begin(blur=3.5)
             pts = [(xx, 1010 + math.sin(xx * 0.005) * 28) for xx in range(-M, W + M + 40, 40)]
             f.path(sk.poly_path(pts + [(W + M, H + M), (-M, H + M)], True), color="#020305")
-            for (x, hh, seed) in ((70, 520, 2), (1840, 600, 5), (-120, 700, 9), (2040, 460, 11)):
-                ST.pines(f, x - 90, x + 90, 1040, hh, "#020305", seed=seed, dens=120)
+            for (x, hh, seed) in ((70, 520, 2), (1840, 600, 5), (-120, 700, 9), (2040, 460, 11), (330, 300, 14), (1640, 340, 15)):
+                PR.pine_tree(f, x, 1050, hh, col="#020305", seed=seed, rim="#6f8fc8" if moon else None, rim_a=0.20, width=0.21)
             rsg = np.random.RandomState(4)
             for i in range(120):             # ön plan ot/çalı kılıçları
                 x = rsg.uniform(-M, W + M)
@@ -1282,6 +1291,7 @@ class RoadNight:
             for (x, w_, h_) in ((260, 130, 60), (1500, 170, 80), (980, 90, 40)):
                 f.oval(x, 1060, w_, h_, color="#020305")
                 f.oval(x - w_ * 0.25, 1060 - h_ * 0.7, w_ * 0.5, h_ * 0.18, color="#5e7aa8", alpha=0.10 if moon else 0.03)
+            f.layer_end()
             f.rect(-M, 940, W + 2 * M, 140 + M, shader=f.lin(0, 940, 0, 1080 + M, [("#000000", 0.0, 0), ("#000000", 1.0, 200)]))
             R.vignette_frame(f, 0.7, 0.5)
 
@@ -1289,6 +1299,8 @@ class RoadNight:
 
     def dyn(self):
         grp = self._group()
+        sc_run = self.scale
+        gbase_d = self.base
         walk, dr = self.walk, self.dir
         Lg = (grp[-1][1] if grp else 0.0)
         x0 = self.x0 if self.x0 is not None else (960.0 + dr * Lg / 2.0 - dr * 100.0)
@@ -1301,15 +1313,17 @@ class RoadNight:
             place = []
             for idx, (k, off, hh) in enumerate(grp):
                 x = xl - off * dr
-                y = _ridge(x) + 34
-                tilt = math.atan2(_ridge(x + 6) - _ridge(x - 6), 12.0) * 0.8 * dr
+                y = _ridge(x, base=gbase_d) + 34
+                tilt = 0.0
                 ph = t * 3.0 + idx * 1.3
                 bob = abs(math.sin(ph)) * -3.5 if walk > 0.1 else 0
                 place.append((idx, k, x, y, hh, tilt, bob))
             # 1) meşale parıltıları (figürlerin ARKASINDA kalsın)
+            tip0 = R.TORCH_TIP["torchbearer"]
             for (idx, k, x, y, hh, tilt, bob) in place:
                 if k == "torch":
                     R.glow(f, x + 40 * dr, y - hh * 0.30, hh * 1.0, "#FF9A3A", 0.12, sy=0.8)
+                    R.flame(f, x + tip0[0] * hh * dr, y + bob + tip0[1] * hh + 6, s=1.4 * max(0.7, sc_run), t=t, seed=idx * 1.7, halo=1.0, hr=170 * max(0.7, sc_run), body=False)
             # 2) figürler
             rimd = (-0.5 * dr, -1.0)
             rc = "#9db6dc" if moon else "#6f84a8"
@@ -1327,7 +1341,7 @@ class RoadNight:
             for (idx, k, x, y, hh, tilt, bob) in place:
                 if k == "torch":
                     fx, fy = x + tip[0] * hh * dr, y + bob + tip[1] * hh
-                    R.flame(f, fx, fy + 6, s=1.4, t=t, seed=idx * 1.7, halo=1.0, hr=170, col_out="#FF8A24")
+                    R.flame(f, fx, fy + 6, s=1.4 * max(0.7, sc_run), t=t, seed=idx * 1.7, halo=0.0, hr=170, col_out="#FF8A24")
                     R.embers_lite(f, t, fx, fy - 20, n=8, seed=idx + 3, rise=70)
             if rain > 0.02:
                 sk.rain(f, t, n=int(110 + 160 * rain), seed=8, angle=-0.28, length=34 + 20 * rain, alpha=0.20 + 0.22 * rain, speed=1500)
@@ -1477,6 +1491,7 @@ class Cloister:
             _shadow_ellipse(f, 960, 985, 260, 14, 0.5, 14)
 
         def L3(f):          # ön plan: yakın galeri sütunları
+            f.layer_begin(blur=7)
             for sx in (-1, 1):
                 x = W / 2 + sx * 1000
                 col = R.rect_path(x - 80, -M, 160, H + 2 * M)
@@ -1484,6 +1499,7 @@ class Cloister:
                            grad=f.lin(x - 80, 0, x + 80, 0, [("#0b0705", 0.0), ("#3a2c1e", 0.5), ("#0b0705", 1.0)]))
                 f.rect(x - 112, 80, 224, 34, color="#0b0705")
                 f.rect(x - 96, 114, 192, 10, color="#14100c")
+            f.layer_end()
             R.vignette_frame(f, 0.7 if tm != "day" else 0.45, 0.55)
 
         return [(0.06, L0), (0.85, L1), (1.0, L2), (1.4, L3)]
@@ -1926,9 +1942,11 @@ class Chapel:
 
         def L3(f):
             # ön plan: sıra/bank siluetleri
+            f.layer_begin(blur=8)
             for sx in (-1, 1):
                 f.rect(W / 2 + sx * 900 - 90, 700, 180, 600, color="#050302")
                 f.rect(W / 2 + sx * 900 - 110, 690, 220, 22, color="#0a0604")
+            f.layer_end()
             f.rect(-M, H - 90, W + 2 * M, 90 + M, shader=f.lin(0, H - 90, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 235)]))
             R.vignette_frame(f, 0.74, 0.5)
 
@@ -2026,9 +2044,7 @@ class RansomRoom:
             moons = []
             if door_on:
                 dxc = 430.0
-                g = dict(z=box.zb, wrect=(dxc - 105.0, fb - 520.0 - (fb - 472.7) * 0 - (472.7 - 472.7) - 472.7 + 472.7 - 520 + 520 - 472.7 + 0, dxc + 105.0, 0.0))
-                # kapı açıklığı: dünya Y (aşağı +) aralığı: zemin=fb → üst = fb-520
-                g["wrect"] = (dxc - 105.0, fb - 520.0, dxc + 105.0, fb)
+                g = dict(z=box.zb, wrect=(dxc - 105.0, fb - 520.0, dxc + 105.0, fb))      # kapı açıklığı (dünya X, Y aşağı +)
                 moons.append(R.Moon((-0.45, 0.32, -0.83), col=(1.0, 0.88, 0.62), power=1.7, win=g, pen=6.0, pen_k=0.014))
             gh = R.window_gobo(box, hole_outer, zw)
             moons.append(R.Moon((0.52, 0.66, -0.54), col=(0.95, 0.92, 0.85), power=1.6, win=gh, pen=3.0, pen_k=0.010))
@@ -2052,8 +2068,9 @@ class RansomRoom:
             for q in R.shaft_polys(box, hole_outer, zw, (0.52, 0.66, -0.54), [], 8):
                 _soft_hull(f, q, "#fff4d8", 0.20)
             if door_on:
-                dr = ((960 + (430 - 105) * 1100.0 / self.ZB), 480 + (fb - 520 - 472.7 + 472.7) * 0 + (fb - 520) * 1100.0 / self.ZB, (960 + (430 + 105) * 1100.0 / self.ZB), 480 + fb * 1100.0 / self.ZB)
-                for q in R.shaft_polys(box, (dr[0], dr[1], dr[2], dr[3]), box.zb, (-0.45, 0.32, -0.83), [], 8):
+                kk_ = 1100.0 / self.ZB
+                dr = (960 + (430 - 105) * kk_, 480 + (fb - 520) * kk_, 960 + (430 + 105) * kk_, 480 + fb * kk_)
+                for q in R.shaft_polys(box, dr, box.zb, (-0.45, 0.32, -0.83), [], 8):
                     _soft_hull(f, q, "#ffe9b8", 0.13)
             # yığın (statik: fill_t yoksa son seviye)
             if self.fill_t is None and fill_static > 0:
@@ -2300,9 +2317,11 @@ class DebateHall:
 
         def L3(f):
             rs = np.random.RandomState(5)
+            f.layer_begin(blur=6)
             for side in (-1, 1):
                 pp = P(side * 520, 0, 700)
                 RF(f, "sit_" + ["beret", "hood", "galero"][rs.randint(3)], pp[0], pp[1] + 22, 165 * 1100.0 / 700, col="#040201", rim="#8A5A2A", rimd=(1.0 if side < 0 else -1.0, -0.5), face=-side)
+            f.layer_end()
             f.rect(-M, H - 70, W + 2 * M, 70 + M, shader=f.lin(0, H - 70, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 230)]))
             R.vignette_frame(f, 0.7, 0.55)
 

@@ -581,7 +581,7 @@ def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
     if mk > 0:
         gap = 780
         sk_ = clamp((cx.t - cx.at(snap_at)) / 0.5)
-        for i, (key, name, role, metal, flip) in enumerate((("moritz", "SAKSONYALI MORITZ", "Eski müttefik", "teal", False), ("karl_olgun", "V. KARL", None, "gold", True))):
+        for i, (key, name, role, metal, flip) in enumerate((("moritz", "SAKSONYALI MORİTZ", "Eski müttefik", "teal", False), ("karl_olgun", "V. KARL", None, "gold", True))):
             x = W / 2 + (-gap / 2 if i == 0 else gap / 2)
             slide = (1 - ease_out(mk)) * (-140 if i == 0 else 140)
             shake = (math.sin(cx.t * 60) * 5 * (1 - ease_out(sk_ * 2)) * (1 if sk_ > 0 else 0))
@@ -713,6 +713,8 @@ def k_plan(cx, at=0.0, date_at=0.0, river_at=0.8, city_at=1.4, army_at=1.9, fog_
                     unit_block(f, x, y + (1 - ease_out(ak)) * 14, 74, 40, "#B4423A", "inf" if i % 2 == 0 else "cav", ak, rot=-0.5)
                 for i, (x, y) in enumerate(((190, -170), (290, -250), (370, -110), (110, -270))):
                     unit_block(f, x, y + (1 - ease_out(ak)) * 14, 74, 40, "#2E7A86", "inf" if i % 2 == 0 else "cav", ak, rot=-0.5)
+            if ak > 0:
+                f.text("şematik çizim", 700, 382, face="fell_i", size=30, color=INK_M, align="r", alpha=0.62 * ak)
             # geçiş oku
             xk = clamp((cx.t - cx.at(cross_at)) / 1.5)
             if xk > 0:

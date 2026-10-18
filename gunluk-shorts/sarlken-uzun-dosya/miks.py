@@ -5,8 +5,15 @@ miks.py — "ŞARLKEN" nihai ses mikseri: voice + müzik + SFX → −14 LUFS / 
     python3 miks.py --preview         # + out/audio_prev/ (her cue'dan ve ana SFX'lerden kısa WAV'lar, miks kesitleri)
     python3 miks.py --tail 7.0        # kapanış kartı süresi (konuşma sonrası müzik sönümü); mix = voice + tail
 
-Girdiler: out/voice.wav (mono 48 kHz), out/voice_chapters.json, out/timeline.json (bilgi/QA), out/sfx_cues.json (isteğe bağlı;
-yoksa yalnız bölüm kartı stinger'ları + c0 sonunda title_hit). sfx_cues.json t değerleri voice.wav zaman eksenindedir.
+Girdiler: out/voice.wav (mono 48 kHz), out/voice_chapters.json, out/timeline.json (müzik hikâye çıpaları + QA), out/sfx_cues.json
+(isteğe bağlı; yoksa yalnız bölüm kartı stinger'ları + c0 sonunda title_hit). t değerleri voice.wav zaman eksenindedir.
+
+sfx_cues.json biçimi (liste):
+  {"t": 12.5, "name": "coin_clink", "gain_db": -6, "pan": 0.0, "seed": 1, "dur": null, "loop": false,
+   "duck_db": null, "params": {}}          # duck_db ve params isteğe bağlı
+  name: sfx.py kütüphanesi (python3 sfx.py --list); dur: sn (null = doğal uzunluk); loop=true + dur → döngü sesi dur boyunca tekrarlanır;
+  duck_db: konuşma altında kısma (varsayılan: döngülerde −4, tekil seslerde 0); params: {"root": Hz} (chapter_stinger/title_hit/church_bell...).
+  Kullanılan cue listesi her çalıştırmada out/sfx_cues_used.json olarak yazılır.
 
 Zincir
   voice : 80 Hz HPF → sıkıştırıcı (2:1, −24 dBFS, atak 10 ms, bırakma 120 ms) → +1,5 dB @3 kHz → 7 kHz üstü yumuşak kısma + dinamik de-ess
@@ -504,6 +511,7 @@ def main():
         cues = default_sfx_cues(chapters, tail)
         log(f"sfx_cues.json yok → varsayılan {len(cues)} cue (title_hit + bölüm kartı stinger'ları)")
     sfxbus, used = render_sfx_bus(cues, N, sa, region_s)
+    json.dump(cues, open(os.path.join(OUT, "sfx_cues_used.json"), "w"), indent=1, ensure_ascii=False)
     D.write_wav(os.path.join(OUT, "sfx_bus.wav"), sfxbus, SR, 16)
     log("out/sfx_bus.wav yazıldı")
 
@@ -535,6 +543,9 @@ def main():
             m4a_info = dict(tp=float(tp_m4a), lufs=float(st_m4a["integrated"]), size_mb=os.path.getsize(m4a_path) / 1e6, len=len(dec) / SR)
             del dec
             if tp_m4a <= -1.0:
+                break
+            if attempt == 2:
+                log(f"  UYARI: AAC sonrası true-peak {tp_m4a:.2f} dBTP > −1,0 (3 deneme sonrası)")
                 break
             ceiling -= (tp_m4a + 1.0) + 0.15
             log(f"  AAC sonrası TP aşımı → tavan {ceiling:.2f} dBTP ile yeniden")
@@ -778,7 +789,7 @@ def write_previews(a, chapters, minfo, final, music_in_mix, sfxbus, vproc, timel
         D.write_wav(os.path.join(pdir, f"mix_{i:02d}_kart_{chapters[i]['id']}.wav"), _excerpt(final, t - 9.0, t + 7.0), SR, 16)
     D.write_wav(os.path.join(pdir, "mix_99_kapanis.wav"), _excerpt(final, chapters[-1]["t1"] - 12.0, len(final) / SR), SR, 16)
     with open(os.path.join(OUT, "audio_report.txt"), "a", encoding="utf-8") as f:
-        f.write("\n[8] ÖNİZLEME DOSYALARI (out/audio_prev/) — cue kesitleri (RMS −20 dBFS'e normalli) ve sayısal özetleri\n")
+        f.write("\n[9] ÖNİZLEME DOSYALARI (out/audio_prev/) — cue kesitleri (RMS −20 dBFS'e normalli) ve sayısal özetleri\n")
         f.write("\n".join(lines) + "\n")
         f.write(f"  + sfx_*.wav ({len(sfx.SFX_NAMES)} adet), mix_*.wav (açılış, {len(chapters) - 1} bölüm kartı, kapanış)\n")
     print("\n".join(lines))

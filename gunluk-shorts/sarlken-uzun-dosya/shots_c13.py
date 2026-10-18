@@ -277,7 +277,7 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
     ku = cx.amt(at_ui, 0.9)
     dim = cx.amt(at_dim, dim_dur) if at_dim is not None else 0.0
     ui_a = ku * (1 - 0.82 * dim)
-    X0, Y0, WW, HH = 190, 150, 1540, 790
+    X0, Y0, WW, HH = 190, 118, 1540, 726
     f.rrect(X0 - 8, Y0 - 8, WW + 16, HH + 16, 22, color="#000000", alpha=0.45 * ui_a, blur=14)
     f.rrect(X0, Y0, WW, HH, 18, shader=f.lin(0, Y0, 0, Y0 + HH, [("#241812", 0.0, int(255 * ui_a)), ("#140D09", 1.0, int(255 * ui_a))]))
     f.rrect(X0, Y0, WW, HH, 18, style="stroke", sw=3, color="#8A6A3A", alpha=0.9 * ui_a)
@@ -292,10 +292,10 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
         f.rrect(x + 36, Y0 + 40, 150 * v * ease_out(clamp((cx.t - cx.at(at_ui)) / 1.4)), 20, 10, color=col, alpha=0.9 * ui_a)
     f.text("HÜKÜMDAR", X0 + WW - 60, Y0 + 62, face="title_m", size=28, color="#D9C48A", align="r", track=8, alpha=ui_a)
     # mini harita paneli (sol)
-    mx0, my0, mw, mh = X0 + 30, Y0 + 112, 960, 640
+    mx0, my0, mw, mh = X0 + 30, Y0 + 106, 960, 560
     f.rrect(mx0, my0, mw, mh, 10, color="#0B1620", alpha=0.95 * ui_a)
     mv = SH.mapview()
-    cam = mapsk.Cam(8.5, 45.8, 1.75)
+    cam = mapsk.Cam(5.2, 45.0, 0.92)
     f.c.save()
     f.c.clipRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(mx0, my0, mw, mh), 10, 10), skia.ClipOp.kIntersect, True)
     f.c.translate(mx0 + mw / 2 - W / 2, my0 + mh / 2 - H / 2)       # harita ekran-merkezli çizilir, panele kaydırılır
@@ -308,7 +308,7 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
     # tek hükümdarın taç simgesi → tüm devletlere ince çizgiler
     kone = cx.amt(at_one, 0.8)
     if kone > 0:
-        cxx, cyy = cam.ll(8.5, 47.2)
+        cxx, cyy = cam.ll(8.0, 47.4)
         for i, (rn, col) in enumerate(STATE_REGIONS):
             if kmany[i] > 0:
                 lon_lat = {"ispanya": (-3.5, 40.2), "napoli": (14.8, 40.8), "hollanda": (5.0, 52.0), "avusturya": (14.2, 47.4), "bohemya": (15.5, 49.8), "milano": (9.2, 45.3)}[rn]
@@ -326,23 +326,23 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
     f.text("DEVLETLER", lx0 + lw / 2, ly0 + 46, face="title_m", size=26, color="#CDB97F", align="c", track=10, alpha=ui_a)
     for i, (nm, col) in enumerate(STATES):
         kr = cx.amt(at_many, 0.6, off=step * i * 0.9)
-        yy = ly0 + 78 + i * 91
+        yy = ly0 + 74 + i * 79
         if kr <= 0:
             continue
-        f.rrect(lx0 + 14, yy, lw - 28, 76, 8, color="#1C130D", alpha=0.95 * kr * ui_a)
-        f.rrect(lx0 + 14, yy, 10, 76, 4, color=SH._fac(col), alpha=kr * ui_a)
-        f.text(nm, lx0 + 44, yy + 47, face="title_m", size=24, color="#F0DDA0", align="l", track=4, alpha=kr * ui_a)
-        draw_medal_plain(f, "karl_olgun", lx0 + lw - 62, yy + 38, 62, "gold", alpha=kr * ui_a, t=cx.t, i=i, glint=False, shadow=False)
+        f.rrect(lx0 + 14, yy, lw - 28, 66, 8, color="#1C130D", alpha=0.95 * kr * ui_a)
+        f.rrect(lx0 + 14, yy, 10, 66, 4, color=SH._fac(col), alpha=kr * ui_a)
+        f.text(nm, lx0 + 44, yy + 42, face="title_m", size=24, color="#F0DDA0", align="l", track=4, alpha=kr * ui_a)
+        draw_medal_plain(f, "karl_olgun", lx0 + lw - 58, yy + 33, 56, "gold", alpha=kr * ui_a, t=cx.t, i=i, glint=False, shadow=False)
     # ipucu kartı
     kt = cx.amt(at_tip, 0.7) * (1 - 0.7 * dim)
     if kt > 0:
-        tx, ty, tw_, th_ = mx0 + 120, 690 + (1 - smooth(kt)) * 20, 720, 190
+        tx, ty, tw_, th_ = W / 2 - 360, 866 + (1 - smooth(kt)) * 18, 720, 176
         f.rrect(tx - 6, ty - 6, tw_ + 12, th_ + 12, 16, color="#000000", alpha=0.5 * kt, blur=12)
         f.rrect(tx, ty, tw_, th_, 14, shader=f.lin(0, ty, 0, ty + th_, [("#2E2018", 0.0, int(250 * kt)), ("#1A100B", 1.0, int(250 * kt))]))
         f.rrect(tx, ty, tw_, th_, 14, style="stroke", sw=2.6, color="#E3B54A", alpha=0.95 * kt)
-        f.gold("KİŞİSEL BİRLİK", tx + tw_ / 2, ty + 82, face="title", size=64, track=10, alpha=kt)
+        f.gold("KİŞİSEL BİRLİK", tx + tw_ / 2, ty + 80, face="title", size=64, track=10, alpha=kt)
         k2 = cx.amt(at_one, 0.7)
-        f.text("1 HÜKÜMDAR  —  ÇOK DEVLET", tx + tw_ / 2, ty + 142, face="title_m", size=30, color="#E0C682", align="c", track=8, alpha=kt * k2)
+        f.text("1 HÜKÜMDAR  —  ÇOK DEVLET", tx + tw_ / 2, ty + 138, face="title_m", size=30, color="#E0C682", align="c", track=8, alpha=kt * k2)
     f.vig(0.58)
 
 

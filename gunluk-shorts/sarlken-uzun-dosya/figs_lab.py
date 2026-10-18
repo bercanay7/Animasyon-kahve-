@@ -257,8 +257,8 @@ def _prince(h, lean):
 @fx("page")
 def _page(h, lean):
     F = Fig(h, lean)
-    hh = 0.152 * h
-    hx, hy = 0.04 * h, -0.93 * h + 0.5 * hh
+    hh = 0.142 * h
+    hx, hy = 0.04 * h, -0.935 * h + 0.5 * hh
     add_leg(F, h, (-0.02, -0.40), (-0.045, -0.23), (-0.075, -0.045), (0.07, 0.044, 0.03), 1, "round", 0.08, 0.7)
     add_leg(F, h, (0.03, -0.40), (0.075, -0.23), (0.10, -0.045), (0.07, 0.046, 0.032), 1, "round", 0.085, 0.9)
     # tunik (dize kadar), kemerli
@@ -276,8 +276,7 @@ def _page(h, lean):
 
 
 # ───────────────────────────── seated (tahtta, taçlı) ─────────────────────────────
-@fx("seated")
-def _seated(h, lean):
+def seated_fig(h, lean):
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.03 * h, -0.795 * h + 0.5 * hh
@@ -310,7 +309,12 @@ def _seated(h, lean):
     # yakın kol: asayı tutar (dirsek yanda, el önde)
     add_arm(F, [(-0.03 * h, -0.625 * h), (-0.045 * h, -0.49 * h), (0.105 * h, -0.415 * h)], [0.066 * h, 0.07 * h, 0.046 * h], hand="fist", hand_len=0.065 * h, hand_rot=-20)
     add_head(F, hx, hy, hh, "m", rot=-3, beard="short", hat="crown_i", nose=1.1, chin=0.04, neck_to=(0.0, -0.645 * h), hat_rot=-3)
-    return F.build()
+    return F
+
+
+@fx("seated")
+def _seated(h, lean):
+    return seated_fig(h, lean).build()
 
 
 # ───────────────────────────── kneel (tek dizi üstünde diz çökmüş dilekçi/biat eden; eller kavuşmuş, baş eğik) ─────────────────────────────
@@ -319,11 +323,12 @@ def _kneel(h, lean):
     F = Fig(h, lean)
     hh = 0.13 * h
     hx, hy = 0.075 * h, -0.755 * h + 0.5 * hh
-    # arka bacak: yerde diz, baldır geriye uzanır (cüppe altından ayakkabı ucu görünür)
-    F.fill(shoe(-0.30 * h, -0.005 * h, 0.09 * h, 0.028 * h, -1, "round"), rim=0.6)
+    # arka bacak: diz yerde, baldır geriye uzanır, ayak tabanı yukarı (cüppe altından görünür)
+    F.fill(limb([(-0.02 * h, -0.06 * h), (-0.16 * h, -0.035 * h), (-0.30 * h, -0.032 * h)], [0.08 * h, 0.062 * h, 0.05 * h], cap0=0.5, cap1=0.3), rim=0.7)
+    F.fill(sp([KC(-0.285 * h, -0.058 * h), (-0.33 * h, -0.075 * h), (-0.385 * h, -0.05 * h), KC(-0.39 * h, -0.02 * h), (-0.34 * h, -0.005 * h), KC(-0.28 * h, -0.004 * h)], True, 0.8), rim=0.7)
     # arkaya dökülen pelerin/cüppe (yerde sürünür)
-    F.fill(sp([KC(0.0 * h, -0.62 * h), (-0.08 * h, -0.58 * h), (-0.14 * h, -0.44 * h), (-0.20 * h, -0.26 * h), (-0.30 * h, -0.10 * h), KC(-0.36 * h, 0.0), KC(-0.04 * h, 0.0),
-               (-0.02 * h, -0.14 * h), (0.0 * h, -0.30 * h), (0.02 * h, -0.46 * h)], True, 0.95), rim=0.9, glow=0.08)
+    F.fill(sp([KC(0.0 * h, -0.62 * h), (-0.08 * h, -0.58 * h), (-0.14 * h, -0.44 * h), (-0.20 * h, -0.30 * h), (-0.27 * h, -0.17 * h), KC(-0.30 * h, -0.09 * h), (-0.20 * h, -0.10 * h), (-0.10 * h, -0.12 * h),
+               (-0.04 * h, -0.17 * h), (0.0 * h, -0.30 * h), (0.02 * h, -0.46 * h)], True, 0.95), rim=0.9, glow=0.08)
     F.crease((-0.05 * h, -0.48 * h), (-0.24 * h, -0.05 * h), 0.009 * h, 0.012 * h)
     F.crease((-0.02 * h, -0.40 * h), (-0.12 * h, -0.03 * h), 0.008 * h, 0.01 * h)
     F.crease((-0.09 * h, -0.52 * h), (-0.30 * h, -0.07 * h), 0.007 * h, 0.01 * h, alpha=0.5)

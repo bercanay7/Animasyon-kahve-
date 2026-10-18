@@ -7,7 +7,7 @@ import skia
 import stage as ST
 import figs_kit as K
 from figs_kit import K as KC, Fig, bar, ell, feather_path, lens, limb, place, poly, shoe, sp
-from figs_parts import add_arm, add_head, add_leg, fur_band, hem_slits, robe_folds, robe_path
+from figs_parts import add_arm, add_head, add_leg, fur_band, hem_band, hem_slits, robe_folds, robe_path
 from figs_war import pike, torso
 
 
@@ -146,7 +146,7 @@ def _friar_writing(h, lean):
     F.fill(poly([(0.395 * h, -0.445 * h), (0.415 * h, -0.445 * h), (0.415 * h, -0.52 * h), (0.395 * h, -0.52 * h)]), rim=1.0)
     F.fill(sp([KC(0.385 * h, -0.445 * h), (0.405 * h, -0.435 * h), KC(0.425 * h, -0.445 * h)], True), rim=0.6, bound=False)
     F.solid(ell(0.405 * h, -0.545 * h, 0.007 * h, 0.016 * h), "#FFE7A8", 0.98, bound=True)
-    F.glowdot(0.405 * h, -0.545 * h, 0.09 * h, "#FFB347", 0.9)
+    F.glowdot(0.405 * h, -0.545 * h, 0.11 * h, "#FFB347", 0.9, bound=True)
     # cüppe (oturan: eğik gövde, dizler önde)
     F.fill(sp([KC(0.0 * h, -0.60 * h), (-0.09 * h, -0.56 * h), (-0.15 * h, -0.42 * h), (-0.19 * h, -0.28 * h), (-0.25 * h, -0.10 * h), KC(-0.29 * h, 0.0), KC(0.12 * h, 0.0),
                (0.13 * h, -0.10 * h), (0.12 * h, -0.26 * h), KC(0.15 * h, -0.31 * h), (0.10 * h, -0.36 * h), (0.07 * h, -0.45 * h), (0.095 * h, -0.55 * h), (0.07 * h, -0.60 * h)], True, 0.95), rim=0.9, glow=0.10)
@@ -379,7 +379,7 @@ def _arquebusier(h, lean):
     # fitil: yanan uç
     F.line(sp([(0.08 * h, -0.685 * h), (0.14 * h, -0.64 * h), (0.15 * h, -0.55 * h), (0.13 * h, -0.45 * h)], False), h * 0.0035, tone=0.6, alpha=0.85)
     F.solid(ell(0.13 * h, -0.45 * h, 0.006 * h, 0.006 * h), "#FFD27A", 1.0, bound=True)
-    F.glowdot(0.13 * h, -0.45 * h, 0.045 * h, "#FFB347", 0.95)
+    F.glowdot(0.13 * h, -0.45 * h, 0.05 * h, "#FFB347", 0.95, bound=True)
     add_leg(F, h, (-0.03, -0.45), (-0.065, -0.265), (-0.10, -0.046), (0.074, 0.048, 0.032), 1, "round", 0.09, 0.7)
     add_leg(F, h, (0.03, -0.45), (0.075, -0.265), (0.115, -0.046), (0.08, 0.05, 0.034), 1, "round", 0.095, 0.9)
     F.fill(sp([KC(-0.09 * h, -0.50 * h), (-0.12 * h, -0.43 * h), (-0.10 * h, -0.345 * h), (-0.01 * h, -0.325 * h), (0.07 * h, -0.34 * h), (0.125 * h, -0.38 * h), (0.12 * h, -0.45 * h), KC(0.095 * h, -0.50 * h)], True), rim=0.9)
@@ -564,4 +564,85 @@ def _litter(h, lean):
         F.fill(ell(x * h, -0.115 * h, 0.012 * h, 0.022 * h), rim=0.8)
     # kabinde yarı açık perde: aralık (negatif alan)
     F.cut(sp([KC(0.07 * h, -0.55 * h), (0.14 * h, -0.45 * h), (0.15 * h, -0.30 * h), KC(0.12 * h, -0.22 * h), (0.09 * h, -0.30 * h), (0.075 * h, -0.45 * h)], True, 0.8))
+    return F.build()
+
+
+# ───────────────────────────── EK türler: ottoman_noble (vezir/paşa), peasant_scythe (tırpanlı köylü), seated_chair (sandalyeli/taht arkalıklı oturan) ─────────────────────────────
+@fx("ottoman_noble")
+def _ottoman_noble(h, lean):
+    """Osmanlı devlet adamı (genel tip; gerçek kişi değil): kavuk, ankle boy kaftan, geniş kuşak + hançer, sivri çizme, bıyıklı. Elleri kuşakta/göğüste."""
+    F = Fig(h, lean)
+    hh = 0.13 * h
+    hx, hy = 0.055 * h, -0.865 * h + 0.5 * hh          # kavuk yüksek: baş biraz alçak
+    # sivri çizmeler (etekten görünür)
+    F.fill(shoe(0.125 * h, 0, 0.10 * h, 0.032 * h, 1, "sharp"), rim=0.8)
+    F.fill(shoe(-0.03 * h, 0, 0.09 * h, 0.03 * h, 1, "sharp"), rim=0.6)
+    # uzun kaftan
+    F.fill(robe_path(h, sh_y=-0.745, nb_y=-0.765, back_sh=-0.115, front_sh=0.108, chest=(-0.125, 0.11, -0.65), waist=(-0.095, 0.092, -0.52),
+                     hip=(-0.145, 0.145, -0.31), hem=(-0.19, 0.185, -0.012), nfold=3, amp=0.006, lift=0.022, wave_b=0.006, wave_f=0.006), rim=0.9, glow=0.10)
+    robe_folds(F, h, -0.06, 0.06, -0.50, -0.03, 6, 0.010, bend=0.009, seed=91)
+    F.line(poly([(0.01 * h, -0.755 * h), (0.02 * h, -0.52 * h)], False), h * 0.004, tone=1.0, alpha=0.55)        # ön açıklık
+    F.line(sp([(0.02 * h, -0.50 * h), (0.045 * h, -0.30 * h), (0.07 * h, -0.05 * h)], False), h * 0.0035, tone=1.0, alpha=0.40)
+    for k in range(5):
+        F.fill(ell(0.014 * h, (-0.72 + k * 0.036) * h, 0.0042 * h, 0.0042 * h), rim=0.0, tone=1.0, alpha=0.65, bound=False)
+    hem_band(F, h, -0.15, 0.15, -0.05, n=10, size=0.0075, alpha=0.38, lift=0.02)
+    # kürk yaka (dar)
+    F.fill(fur_band([(-0.115 * h, -0.718 * h), (-0.095 * h, -0.755 * h), (-0.04 * h, -0.775 * h), (0.05 * h, -0.775 * h), (0.098 * h, -0.755 * h), (0.108 * h, -0.718 * h)], 0.034 * h, 0.012 * h, side=1), rim=1.0)
+    # geniş kuşak + hançer (taş kakmalı kabza)
+    F.fill(poly([(-0.10 * h, -0.555 * h), (0.10 * h, -0.555 * h), (0.10 * h, -0.495 * h), (-0.10 * h, -0.495 * h)]), rim=0.8, tone=0.22)
+    F.line(poly([(-0.10 * h, -0.525 * h), (0.10 * h, -0.525 * h)], False), h * 0.004, tone=1.0, alpha=0.5)
+    F.fill(sp([KC(0.015 * h, -0.535 * h), (0.05 * h, -0.52 * h), (0.085 * h, -0.47 * h), (0.07 * h, -0.45 * h), (0.035 * h, -0.49 * h)], True, 0.8), rim=0.9)
+    F.fill(ell(0.016 * h, -0.532 * h, 0.011 * h, 0.011 * h), rim=0.0, tone=1.0, alpha=0.85, bound=False)
+    # kollar: biri kuşakta, diğeri göğüste (saygılı duruş)
+    add_arm(F, [(-0.035 * h, -0.725 * h), (-0.12 * h, -0.62 * h), (-0.04 * h, -0.545 * h)], [0.068 * h, 0.078 * h, 0.05 * h], hand="fist", hand_len=0.066 * h, hand_rot=10)
+    add_arm(F, [(0.05 * h, -0.725 * h), (0.125 * h, -0.64 * h), (0.075 * h, -0.575 * h)], [0.058 * h, 0.058 * h, 0.042 * h], hand="fist", hand_len=0.058 * h, hand_rot=170)
+    add_head(F, hx, hy, hh, "m", rot=-1, beard="stache", hat="kavuk", nose=1.15, chin=0.02, neck_to=(0.0, -0.765 * h), hat_rot=0)
+    return F.build()
+
+
+@fx("peasant_scythe")
+def _peasant_scythe(h, lean):
+    F = Fig(h, lean)
+    hh = 0.135 * h
+    hx, hy = 0.055 * h, -0.905 * h + 0.5 * hh
+    # tırpan: uzun sap omuz üstünde geriden öne-yukarı; ucunda kıvrık uzun bıçak öne uzanır
+    ax, ay, bx, by = -0.34, -0.12, 0.18, -1.22
+    F.fill(bar(ax * h, ay * h, bx * h, by * h, 0.016 * h, 0.012 * h, False, True), rim=0.95)
+    F.fill(bar((ax + 0.34 * (bx - ax) * 0.55) * h, (ay + (by - ay) * 0.55) * h, (ax + (bx - ax) * 0.60 + 0.045) * h, (ay + (by - ay) * 0.60 - 0.02) * h, 0.012 * h, 0.012 * h, True, True), rim=0.9, bound=False)
+    tx, ty = bx * h, by * h
+    F.fill(sp([KC(tx - 0.006 * h, ty + 0.006 * h), (tx + 0.10 * h, ty - 0.045 * h), (tx + 0.24 * h, ty - 0.02 * h), (tx + 0.36 * h, ty + 0.08 * h), KC(tx + 0.43 * h, ty + 0.20 * h),
+               (tx + 0.34 * h, ty + 0.115 * h), (tx + 0.22 * h, ty + 0.045 * h), (tx + 0.10 * h, ty + 0.025 * h), KC(tx + 0.006 * h, ty + 0.03 * h)], True, 0.9), rim=1.0)
+    for (a, b, c, rim) in (((-0.02, -0.46), (-0.06, -0.24), (-0.10, -0.03), 0.7), ((0.04, -0.46), (0.085, -0.25), (0.125, -0.03), 0.9)):
+        F.fill(limb([(a[0] * h, a[1] * h), (b[0] * h, b[1] * h), (c[0] * h, c[1] * h)], [0.074 * h, 0.05 * h, 0.034 * h], cap0=0.3, cap1=0.3), rim=rim)
+        F.fill(sp([KC((c[0] - 0.02) * h, (c[1] - 0.01) * h), ((c[0] + 0.05) * h, (c[1] - 0.012) * h), KC((c[0] + 0.075) * h, 0.0), KC((c[0] - 0.03) * h, 0.0)], True, 0.8), rim=rim)
+    F.fill(sp([KC(-0.10 * h, -0.50 * h), (-0.11 * h, -0.42 * h), (-0.09 * h, -0.34 * h), KC(0.0, -0.31 * h), KC(0.13 * h, -0.34 * h), (0.125 * h, -0.42 * h), KC(0.11 * h, -0.50 * h)], True), rim=0.9)
+    F.fill(sp([KC(-0.04 * h, -0.755 * h), (-0.105 * h, -0.725 * h), (-0.118 * h, -0.63 * h), (-0.10 * h, -0.54 * h), KC(-0.115 * h, -0.46 * h), KC(0.12 * h, -0.46 * h), (0.10 * h, -0.54 * h), (0.115 * h, -0.64 * h), (0.098 * h, -0.725 * h), (0.05 * h, -0.755 * h)], True, 0.95), rim=0.9, glow=0.10)
+    F.crease((-0.05 * h, -0.70 * h), (-0.07 * h, -0.50 * h), 0.007 * h, 0.006 * h)
+    F.crease((0.03 * h, -0.70 * h), (0.045 * h, -0.50 * h), 0.007 * h, -0.005 * h)
+    F.fill(poly([(-0.105 * h, -0.52 * h), (0.11 * h, -0.52 * h), (0.11 * h, -0.50 * h), (-0.105 * h, -0.50 * h)]), rim=0.5, tone=0.2, bound=False)
+    # kollar: iki el sapta
+    add_arm(F, [(-0.03 * h, -0.72 * h), (-0.12 * h, -0.63 * h), (-0.02 * h, -0.575 * h)], [0.066 * h, 0.07 * h, 0.044 * h], hand="fist", hand_len=0.066 * h, hand_rot=-5)
+    add_arm(F, [(0.04 * h, -0.725 * h), (0.12 * h, -0.70 * h), (0.15 * h, -0.80 * h)], [0.058 * h, 0.056 * h, 0.042 * h], hand="fist", hand_len=0.06 * h, hand_rot=-70)
+    add_head(F, hx, hy, hh, "m", rot=8, beard="short", hat="straw", nose=1.12, neck_to=(0.01 * h, -0.755 * h), hat_rot=3)
+    return F.build()
+
+
+@fx("seated_chair")
+def _seated_chair(h, lean):
+    """Yüksek arkalıklı, oyma tepelikli sandalye/taht + taçlı oturan (arkada taht çizilmeyen sahneler için). Boy birimi `seated` ile aynı."""
+    F = Fig(h, lean)
+    # sandalye: yüksek arka (kemerli tepe + sivri uçlar), oturak bloğu, ayaklar, ön topuzlar
+    F.fill(sp([KC(-0.27 * h, 0.0), KC(-0.30 * h, -0.30 * h), (-0.32 * h, -0.60 * h), (-0.30 * h, -0.90 * h), (-0.27 * h, -1.00 * h), KC(-0.255 * h, -1.07 * h), (-0.23 * h, -1.02 * h), (-0.15 * h, -1.05 * h),
+               (-0.05 * h, -1.00 * h), (-0.02 * h, -0.60 * h), (-0.01 * h, -0.30 * h), KC(-0.02 * h, 0.0)], True, 0.9), rim=1.0, glow=0.06)
+    F.fill(poly([(-0.10 * h, -0.98 * h), (-0.08 * h, -1.08 * h), (-0.05 * h, -0.98 * h)]), rim=1.0)
+    for (x, y) in ((-0.285, -0.82), (-0.255, -0.70), (-0.225, -0.58)):
+        F.line(poly([(x * h, y * h), ((x + 0.18) * h, (y + 0.01) * h)], False), h * 0.003, tone=1.0, alpha=0.25)
+    F.fill(poly([(-0.30 * h, -0.285 * h), (0.26 * h, -0.285 * h), (0.27 * h, -0.255 * h), (-0.30 * h, -0.255 * h)]), rim=1.0)
+    for x in (-0.28, 0.24):
+        F.fill(bar(x * h, -0.255 * h, x * h, 0.0, 0.034 * h, 0.04 * h), rim=0.9)
+    F.fill(ell(0.255 * h, -0.275 * h, 0.022 * h, 0.022 * h), rim=1.0)
+    # oturan figür (seated) yerleştir: sandalye üstünde (seated fig'in ayakları yerde zaten)
+    import figs_lab as FL
+    G = FL.seated_fig(h, 0.0)
+    F.merge(G, 0, 0, 1.0)
     return F.build()

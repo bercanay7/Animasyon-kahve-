@@ -10,6 +10,8 @@ from sk import W, H
 F = ("fade", 0.8)
 D = ("dip", 0.9)
 
+GOUT_CAMS = [(0.0, (960, 560, 1.0)), (("c11s7", "perhiz", -0.5), (960, 560, 1.0)), (("c11s7", "yazılır", 0.3), (1060, 610, 1.22))]
+
 TRAVEL_T = [("c11s8", "Almanya", -0.1), ("c11s8", "İtalya", -0.1), ("c11s8", "İspanya", -0.1), ("c11s8", "Hollanda", -0.1),
             ("c11s8", "Fransa", -0.1), ("c11s8", "Tunus", -0.1), ("c11s8", "Cezayir", -0.1)]
 
@@ -36,9 +38,9 @@ SHOTS = [
          overlay=kinds_c11.cloister_overlay(("c11s5", "yaklaşık", -0.1), ("c11s5", "iki", -0.1), ("c11s5", "daha", -0.2)), label="manastir"),
     # s6 — ömrünün sonuna kadar siyah giydiği anlatılır
     shot("c11_black", a=("c11s6", -0.3), tr=F, black_at=("c11s6", "siyah", -0.4), tag_at=("c11s6", "anlatılır", -0.25), label="siyah"),
-    # s7 — gut atakları, perhiz, bol yemek
-    shot("bw_theatre", a=("c11s7", -0.3), tr=F, scene="bedroom", cams=[(0.0, (960, 560, 1.0)), (("c11s7", "yazılır", 0.0), (940, 580, 1.2))], p=dict(candle=True),
-         overlay=kinds_c11.gout_overlay(("c11s7", "Gut", -0.05), ("c11s7", "hareketsiz", -0.1), ("c11s7", "perhiz", -0.1), ("c11s7", "yemeği", -0.1), ("c11s7", "yazılır", -0.1)), label="gut_perhiz"),
+    # s7 — gut atakları, perhiz, bol yemek (bedroom: hasta yastıklara yaslı; bacakta zonklama, komodinde yemek)
+    shot("bw_theatre", a=("c11s7", -0.3), tr=F, scene="bedroom", cams=GOUT_CAMS, p=dict(candle=1.0),
+         overlay=kinds_c11.gout_overlay(GOUT_CAMS, ("c11s7", "Gut", -0.05), ("c11s7", "hareketsiz", -0.1), ("c11s7", "perhiz", -0.1), ("c11s7", "yemeği", -0.1), ("c11s7", "yazılır", -0.1)), label="gut_perhiz"),
     # s8 — bizzat dolaşarak yönetti: gezi ağı
     shot("map", a=("c11s8", -0.3), tr=F, cams=[(0.0, (5.0, 44.7, 1.10)), (("c11s8", "Cezayir", 0.5), (5.0, 44.7, 1.14))],
          regions=[dict(name="karl_kendi", color="habsburg", at=("c11s8", "imparatorluğu", -0.2), alpha=0.28)],

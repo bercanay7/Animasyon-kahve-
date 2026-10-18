@@ -54,6 +54,20 @@ def scam(row, x, z, rise=0.0, s=1.0):
     return (960 + (x - 0.5) * 600, 556, z)
 
 
+def kcam(x=0.5, z=1.3, y=0.0):
+    """siege sahnesi: şehir/sur katmanında (x: 0..1; y: sahne y'si, 0 = sur tepesi) bir noktaya güvenli kamera."""
+    SG = sk.optional_import("scenes_siege")
+    if SG is not None and hasattr(SG, "cam_on_city"):
+        return SG.cam_on_city(x, z, y)
+    return (960 + (x - 0.5) * 600, 560, z)
+
+
+def layer_pt(cam, depth, x, y):
+    """Katman (derinlik d) koordinatındaki noktanın ekran konumu (stage.layer_transform ile aynı)."""
+    s = 1 + (cam.z - 1) * depth
+    return (Wd / 2 + s * (x - Wd / 2 - (cam.x - Wd / 2) * depth), H / 2 + s * (y - H / 2 - (cam.y - H / 2) * depth))
+
+
 def pushy(amt=0.035, fx=0.5, fy=0.5):
     """Çekim türünü yavaş itme (kamera zoom-in) ile sarar: hiçbir kare tamamen donuk kalmasın."""
     def deco(fn):
@@ -179,12 +193,26 @@ def tone(f, color, a=0.18, cy=0.45, r=1.0):
     f.rect(0, 0, Wd, H, shader=f.rad(x, y, R, [(color, 0.0, int(255 * a)), (color, 1.0, 0)]), blend=skia.BlendMode.kPlus)
 
 
-def kick(cx, text, anchor, y=120, size=30, color="#E0C682", out=None):
-    """Çapa anında beliren kicker (isteğe bağlı: out anında söner)."""
+def scrim(f, x, y, w=760, h=150, a=0.38):
+    """Metnin arkasına yumuşak koyu elips (parlak gökte okunurluk)."""
+    if a <= 0:
+        return
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.scale(w / 2, h / 2)
+    sh = skia.GradientShader.MakeRadial((0, 0), 1.0, [C("#000000", int(255 * clamp(a))), C("#000000", 0)], [0.0, 1.0])
+    f.c.drawCircle(0, 0, 1.0, skia.Paint(AntiAlias=True, Shader=sh))
+    f.c.restore()
+
+
+def kick(cx, text, anchor, y=120, size=30, color="#E0C682", out=None, scr=False):
+    """Çapa anında beliren kicker (isteğe bağlı: out anında söner; scr: arkasına yumuşak koyu elips)."""
     k = cx.amt(anchor, 0.7)
     if out is not None:
         k *= 1 - cx.amt(out, 0.5)
     if k > 0:
+        if scr:
+            scrim(cx.f, Wd / 2, y - size * 0.2, w=max(620, sk.text_width(text, "title_m", size, 12) + 360), h=size * 3.6, a=0.34 * k)
         SH.kicker(cx.f, text, Wd / 2, y, alpha=k, size=size, track=12, face="title_m", color=color)
 
 
@@ -211,9 +239,9 @@ def ov_date(text, anchor):
     return fn
 
 
-def ov_kick(text, anchor, y=118, size=30, out=None, color="#E0C682"):
+def ov_kick(text, anchor, y=118, size=30, out=None, color="#E0C682", scr=True):
     def fn(cx):
-        kick(cx, text, anchor, y=y, size=size, color=color, out=out)
+        kick(cx, text, anchor, y=y, size=size, color=color, out=out, scr=scr)
     return fn
 
 
@@ -250,6 +278,43 @@ def ov_chip(text, anchor, x=Wd / 2, y=H * 0.86, size=36, edge="#C9962B", color="
     return fn
 
 
+def ov_embers(n=46, color="#FFC46A", seed=4, anchor=None):
+    """Kıvılcım/köz parçacıkları (savaş sahnelerine canlılık)."""
+    def fn(cx):
+        a = 1.0 if anchor is None else cx.amt(anchor, 0.8)
+        if a > 0:
+            sk.embers(cx.f, cx.t, n=max(1, int(n * a)), seed=seed, color=color)
+    return fn
+
+
+def ov_flagswap(city, time, fire, anchor, col="#8E1F26", emblem="cross", weather="clear", dur=0.9):
+    """Kuşatma kalesinin yeşil (Osmanlı) sancaklarının üstüne yeni sancak açılır: kale el değiştirir. Kamera: cx.cam."""
+    def fn(cx):
+        k = cx.amt(anchor, dur, ease=lambda v: v)
+        cam = getattr(cx, "cam", None)
+        if k <= 0 or cam is None:
+            return
+        SG = sk.optional_import("scenes_siege")
+        SWr = sk.optional_import("stage_war")
+        PWr = sk.optional_import("props_war")
+        if SG is None or SWr is None or PWr is None:
+            return
+        fq = int(round(clamp(float(fire)) * 4))
+        try:
+            _, _, _, meta = SG.city_asset(city, time, weather, fq)
+        except Exception:
+            return
+        SWr.push_depth(cx.f, cam, SG.CITY_D)
+        for i, (x, y, spec) in enumerate(meta["flags"]):
+            h = spec.lstrip("#") if isinstance(spec, str) else ""
+            if len(h) != 6 or not (h[2:4] > h[0:2] and h[2:4] > h[4:6]):      # yalnız yeşil (Osmanlı) sancaklar
+                continue
+            sc = 0.2 + 0.8 * back_out(k)
+            PWr.flag_cloth(cx.f, x, y - 54, 74 * sc, 44 * sc, col, cx.t, emblem=emblem, trim="#C9962B", wind=1, seed=i, speed=3.4, cut="swallow", emb="#F0E2B8")
+        cx.f.c.restore()
+    return fn
+
+
 def ov_all(*fns):
     def fn(cx):
         for g in fns:
@@ -262,6 +327,10 @@ def ov_all(*fns):
 def k_sahne(cx, overlay_always=None, **kw):
     """theatre'a delege eder. Sahne kayıtsızsa (lab henüz teslim etmedi) yer tutucu çizer ama kaplamayı yine uygular."""
     import scenes_lib as SL
+    try:
+        cx.cam = SL._cam_at(cx, kw.get("cams") or ((0.0, (960, 540, 1.0)),))      # kaplamalar kameraya göre konumlanabilsin
+    except Exception:
+        cx.cam = None
     SH.KINDS["theatre"](cx, **kw)
     if kw.get("scene") not in SL.SCENES and kw.get("overlay"):
         kw["overlay"](cx)
@@ -296,11 +365,12 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
         cnt = int(nb * kk)
         for i in range(cnt):
             xx = 40 + (i + rs.rand() * 0.7) * (Wd - 80) / nb
-            row = i % 3
-            hh = 120 - row * 14
-            ST.figure(f, kind, xx, H + 8 - row * 34, hh * 1.15, col="#0A0604", rim="#79B58C", face=-1 if rs.rand() > 0.5 else 1, alpha=0.95 - row * 0.12)
+            row = i % 4
+            hh = 172 - row * 20
+            ST.figure(f, kind, xx, H + 12 - row * 40, hh * 1.15, col="#0A0604", rim="#79B58C", face=-1 if rs.rand() > 0.5 else 1, alpha=0.96 - row * 0.1)
+    m_vis = max(1.0, sum(cx.amt(it.get("at", 0.0), 0.8) for it in items))     # görünen sayaç sayısı (yumuşak): grup ortada başlar, yenisi gelince kayar
     for i, it in enumerate(items):
-        xc = Wd / 2 - colw * (n - 1) / 2 + i * colw
+        xc = Wd / 2 + (i - (m_vis - 1) / 2) * colw
         at = it.get("at", 0.0)
         a = cx.amt(at, 0.5)
         if a <= 0:
@@ -312,11 +382,14 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
         s = it.get("prefix", "") + _numstr(it["value"], k) + it.get("suffix", "")
         smax = it.get("prefix", "") + _numstr(it["value"], 1.0) + it.get("suffix", "")
         sz = SH.fit_size(smax, "title", size, colw - 40, 6)
-        SH.gold_flat(f, s, xc, y + size * 0.28, face="title", size=sz, track=6, alpha=a)
+        if it.get("hide0") and k < 0.004:        # sayım başlayana dek yalnız simge + birim görünsün
+            pass
+        else:
+            SH.gold_flat(f, s, xc, y + size * 0.28, face="title", size=sz, track=6, alpha=a)
         if it.get("unit"):
             f.text(up(it["unit"]), xc, y + size * 0.28 + 74, face="title_m", size=46, color="#E0C682", align="c", track=12, alpha=cx.amt(at, 0.5, off=0.3))
         if it.get("label"):
-            f.text(it["label"], xc, y + size * 0.28 + 128, face="cap_i", size=38, color="#C9B27A", align="c", alpha=cx.amt(at, 0.6, off=0.6))
+            f.text(it["label"], xc, y + size * 0.28 + 128, face="cap_i", size=40, color="#E4D4A2", align="c", alpha=cx.amt(at, 0.6, off=0.6), shadow=(2, 2, 3, "#000000"))
         if it.get("sub"):
             f.text(it["sub"], xc, y + size * 0.28 + 176, face="cap", size=28, color="#A89868", align="c", alpha=cx.amt(at, 0.6, off=0.9), track=3)
         if i > 0 and sep:
@@ -339,7 +412,8 @@ def k_medals2(cx, items=(), size=520, y=H * 0.46, gap=None, bgk="night", title=N
         tone(f, tone_col, 0.14)
     n = len(items)
     gap = gap or min(size * 1.15, (Wd - 200) / max(1, n))
-    x0 = Wd / 2 - gap * (n - 1) / 2
+    m_vis = max(1.0, sum(cx.amt(it.get("at", 0.2 + 0.3 * i), 1.0) for i, it in enumerate(items)))     # ilk madalya ortada başlar, ikincisi gelince kayar
+    x0 = Wd / 2 - gap * (m_vis - 1) / 2
     for i, it in enumerate(items):
         at = it.get("at", 0.2 + 0.3 * i)
         a = cx.amt(at, 0.7)

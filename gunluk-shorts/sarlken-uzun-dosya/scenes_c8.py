@@ -1,5 +1,6 @@
 """Bölüm 8 — Akdeniz'de Barbaros (c8): Tunus 1534–35, Preveze 1538, Cezayir 1541. Yazar: bölüm yazarı C."""
 import math
+import skia
 from shots import shot
 import scenes_lib  # noqa: F401
 import icons       # noqa: F401
@@ -42,6 +43,10 @@ def _ripples(center_ll, at, color="#5FA878", n=3, maxr=900, period=2.8):
 def _preveze_ov():
     def fn(cx):
         f = cx.f
+        kp = cx.amt(("c8s7", "Preveze'de,", -0.2), 0.5)
+        if kp > 0:
+            X.scrim(f, W / 2, 112, w=860, h=170, a=0.5 * kp)
+            SH.kicker(f, "PREVEZE · 28 EYLÜL 1538", W / 2, 122, alpha=kp, size=36, track=12, face="title_m", color="#F6E2A8")
         items = [("PAPALIK", "keys", "violet", ("c8s7", "papanın,", -0.1)), ("VENEDİK", "laurel", "teal", ("c8s7", "Venedik'in", -0.1)),
                  ("İMPARATOR", "imperial_crown", "gold", ("c8s7", "imparatorun", -0.1))]
         kgo = cx.amt(("c8s7", "geri", -0.1), 0.6)
@@ -78,10 +83,11 @@ def _zafer_ov(cx):
         if k <= 0:
             continue
         f.c.save()
-        f.c.translate(bx, -40)
-        f.c.rotate(math.sin(cx.t * 1.6 + i * 1.3) * 2.2)
-        f.c.translate(-bx, 40)
-        ST.banner(f, bx, -40 - (1 - ease_out(k)) * 420, 170, 560, color=col, icon=icn, wave=math.sin(cx.t * 2 + i) * 2)
+        f.c.clipRect(skia.Rect.MakeXYWH(bx - 220, 100, 440, 24 + 470 * ease_out(k)))      # sancak çubuktan aşağı açılır (HUD bölgesi boş kalır)
+        f.c.translate(bx, 116)
+        f.c.rotate(math.sin(cx.t * 1.6 + i * 1.3) * 1.6)
+        f.c.translate(-bx, -116)
+        ST.banner(f, bx, 116, 170, 470, color=col, icon=icn, wave=math.sin(cx.t * 2 + i) * 2)
         f.c.restore()
     if X.has_icon("bell"):
         kb = cx.amt(("c8s5", "Habsburg", 0.0), 0.8, off=0.3)
@@ -153,9 +159,10 @@ SHOTS = [
          X.chip(cx.f, "BİZZAT", 510, 840 + 120, k=cx.amt(("c8s3", "bizzat", -0.1), 0.5), size=34, edge="#E3B54A", color="#F4DD92", padx=40), label="karl_doria"),
 
     # s4 — Halkulvadi düştü; yirmi bin esir
-    shot("c678_sahne", a=("c8s4", -0.3), tr=("whip", 0.5), scene="siege", cams=[(0.0, (960, 560, 1.0)), (("c8s4", "Yaklaşık", -0.3), (1000, 580, 1.3))],
+    shot("c678_sahne", a=("c8s4", -0.3), tr=("whip", 0.5), scene="siege", cams=[(0.0, (960, 540, 1.0)), (("c8s4", "alındı.", 0.0), X.kcam(0.70, 1.4, 470))],
          p=dict(tag="c8_halk", city="halkulvadi", time="day", weather="clear", cannon_fire=True, fire=0.4),
-         overlay=X.ov_all(X.ov_date("TEMMUZ 1535", ("c8s4", "Temmuz", -0.1)), X.ov_kick("HALKULVADİ", ("c8s4", "Halkulvadi", -0.2), y=122, size=38),
+         overlay=X.ov_all(X.ov_flagswap("halkulvadi", "day", 0.4, ("c8s4", "düştü,", -0.1)),
+                          X.ov_date("TEMMUZ 1535", ("c8s4", "Temmuz", -0.1)), X.ov_kick("HALKULVADİ", ("c8s4", "Halkulvadi", -0.2), y=122, size=38),
                           X.ov_stamp("TUNUS ALINDI", ("c8s4", "Tunus", -0.15), x=W / 2, y=900, size=56, rot=-0.05)), label="halkulvadi"),
     shot("c678_cift", a=("c8s4", "Yaklaşık", -0.2), tr=("fade", 0.5), bgk="sea", title="HALKULVADİ · TUNUS", y=H * 0.5, size=190, ykick=150,
          items=[dict(value=20000, unit="esir", label="SERBEST KALDI", icon=CHAINS, metal="gold", at=("c8s4", "yirmi", -0.15), dur=1.3)],
@@ -175,8 +182,8 @@ SHOTS = [
 
     # s7 — Preveze: harita + deniz savaşı
     shot("map", a=("c8s7", -0.3), tr=("fade", 0.7), cams=[(0.0, (20.2, 38.6, 3.0)), (("c8s7", "papanın,", -0.3), (20.7, 38.95, 4.4))],
-         regions=[dict(name="osmanli_1520", color="osmanli", at=0.0, alpha=0.55), dict(name="venedik", color="venedik", at=0.2, alpha=0.6)],
-         cities=[dict(lon=20.75, lat=38.95, name="PREVEZE", kind="battle", at=("c8s7", "Preveze'de,", -0.6), side="r", size=36)],
+         regions=[dict(name="osmanli_1520", color="osmanli", at=0.0, alpha=0.55)],
+         cities=[dict(lon=20.75, lat=38.95, name="PREVEZE", kind="battle", at=("c8s7", "Preveze'de,", -0.9), side="l", size=40, color="#FFF1C2")],
          date=("28 EYLÜL 1538", ("c8s7", "28", -0.1)), label="preveze_harita"),
     shot("c678_sahne", a=("c8s7", "papanın,", -0.25), tr=("whip", 0.5), scene="sea", cams=[(0.0, (900, 548, 1.0)), (("c8s7", "geri", -0.2), (1010, 566, 1.3))],
          p=dict(tag="c8_preveze", mood="dusk", smoke=0.85, coast=None, ships=[
@@ -189,8 +196,8 @@ SHOTS = [
     # s8 — Sonraki yıllarda doğu Akdeniz'de Osmanlı üstün
     shot("map", a=("c8s8", -0.2), tr=("fade", 0.7), cams=[(0.0, (23.0, 38.2, 2.5)), (("c8s9", -0.4), (22.0, 37.8, 2.7))],
          regions=[dict(name="osmanli_1550", color="osmanli", at=("c8s8", "Osmanlı", -0.5), alpha=0.6, dur=1.4)],
-         labels=[dict(text="AKDENİZ'İN DOĞUSU", lon=26.2, lat=35.6, size=40, color="#BFE9D0", at=("c8s8", "Akdeniz'in", -0.1), track=12),
-                 dict(text="OSMANLI DONANMASI", lon=21.0, lat=36.2, size=34, color="#9FE0B4", at=("c8s8", "donanması", -0.3), track=10)],
+         labels=[dict(text="AKDENİZ'İN DOĞUSU", lon=26.6, lat=35.2, size=40, color="#BFE9D0", at=("c8s8", "Akdeniz'in", -0.1), track=12),
+                 dict(text="OSMANLI DONANMASI", lon=18.9, lat=36.9, size=34, color="#9FE0B4", at=("c8s8", "donanması", -0.3), track=10)],
          icons_=[dict(kind="ship", lon=26.0, lat=36.5, size=86, at=("c8s8", "Osmanlı", -0.2), metal="forest", route=[(28.5, 36.2), (25.0, 36.0), (21.0, 36.8)], move_at=("c8s8", "Osmanlı", -0.2), move_dur=3.6, bob=3),
                  dict(kind="ship", lon=24.0, lat=38.0, size=86, at=("c8s8", "Osmanlı", 0.0), metal="forest", route=[(26.0, 39.0), (23.0, 37.6), (19.8, 37.8)], move_at=("c8s8", "Osmanlı", 0.0), move_dur=3.6, bob=3),
                  dict(kind="ship", lon=23.0, lat=35.0, size=86, at=("c8s8", "Osmanlı", 0.3), metal="forest", route=[(27.0, 35.0), (23.5, 34.8), (19.5, 35.4)], move_at=("c8s8", "Osmanlı", 0.3), move_dur=3.6, bob=3)],

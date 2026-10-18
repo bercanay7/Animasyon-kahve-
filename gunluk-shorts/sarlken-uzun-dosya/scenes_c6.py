@@ -17,7 +17,7 @@ def _pavia_ov():
         X.ov_kick("PAVIA", ("c6s3", "Pavia'da", -0.1), y=122, size=34),
         X.ov_stamp("BOZGUN", ("c6s3", "bozguna", -0.1), x=640, y=300, size=72, rot=-0.08),
         X.ov_medal("fransuva", ("c6s3", "François", -0.15), 1560, 440, size=320, metal="royal", flip=True, name="I. FRANÇOIS", role="Fransa Kralı", plate_y=610),
-        X.ov_stamp("ESİR", ("c6s3", "esir", -0.1), x=1560, y=800, size=76, rot=-0.10),
+        X.ov_stamp("ESİR", ("c6s3", "esir", -0.1), x=1560, y=835, size=76, rot=-0.10),
     )
 
 
@@ -48,11 +48,11 @@ SHOTS = [
                  dict(pts=[(5.0, 52.0), (3.8, 50.2), (2.6, 48.4)], at=("c6s2", "kuzeyde", 0.15), dur=1.5, color="#E8C25A", width=7),
                  dict(pts=[(7.6, 46.4), (5.6, 46.5), (3.8, 46.6)], at=("c6s2", "doğuda", 0.2), dur=1.3, color="#E8C25A", width=7),
                  dict(pts=[(15.2, 40.6), (11.8, 43.6), (8.2, 45.0)], at=("c6s2", "İtalya'da", 0.0), dur=1.6, color="#E8C25A", width=7)],
-         labels=[dict(text="FRANSA", lon=2.4, lat=46.9, size=54, color="#C4D4F8", at=("c6s2", "Fransa,", 0.1), track=16),
+         labels=[dict(text="FRANSA", lon=1.5, lat=46.5, size=52, color="#C4D4F8", at=("c6s2", "Fransa,", 0.1), track=14),
                  dict(text="İSPANYA", lon=-3.4, lat=39.6, size=38, at=("c6s2", "İspanya,", 0.0)),
                  dict(text="HOLLANDA", lon=5.2, lat=52.7, size=30, at=("c6s2", "Hollanda,", -0.4), track=8),
                  dict(text="BURGONYA", lon=8.9, lat=47.4, size=28, at=("c6s2", "Burgonya", -0.1), track=6),
-                 dict(text="NAPOLİ", lon=12.6, lat=39.3, size=30, at=("c6s2", "Napoli.", -0.3), track=8)],
+                 dict(text="NAPOLİ", lon=12.4, lat=39.3, size=30, color="#F0C8BE", at=("c6s2", "Napoli.", -0.3), track=8)],
          cities=[dict(lon=2.35, lat=48.86, name="PARİS", kind="capital", at=("c6s2", "Fransa,", 0.3), color="#9CB8E8", side="l")],
          label="fransa_kusatma"),
 
@@ -94,7 +94,7 @@ SHOTS = [
     shot("c678_sahne", a=("c6s7", "Roma'ya", -0.7), tr=("whip", 0.45), scene="siege",
          cams=[(0.0, (900, 600, 1.1)), (("c6s8", 0.0), (1000, 560, 1.5))],
          p=dict(tag="c6_roma2", city="roma", time="night", fire=1.0, ladders=True, cannon_fire=True, weather="clear"),
-         label="roma_giris"),
+         overlay=X.ov_embers(70, seed=7), label="roma_giris"),
 
     # s8 — Papa sığınır; muhafızlar
     shot("c678_sahne", a=("c6s8", -0.2), tr=("fade", 0.7), scene="c6_santangelo",
@@ -109,7 +109,7 @@ SHOTS = [
          at_word=("c6s9", "aylarca", -0.1), at_stamp=("c6s9", "kaldı", 0.2), label="papa_aylarca"),
 
     # s10 — uzak sonuç: Roma → İngiltere; zincir
-    shot("map", a=("c6s10", -0.2), tr=("fade", 0.8), cams=[(0.0, (6.5, 46.6, 1.5)), (("c6s10", "papa,", -0.3), (5.6, 46.9, 1.6))],
+    shot("map", a=("c6s10", -0.2), tr=("fade", 0.8), cams=[(0.0, (4.7, 47.4, 1.34)), (("c6s10", "papa,", -0.3), (4.3, 47.5, 1.42))],
          regions=[dict(name="papalik", color="papalik", at=("c6s10", "Sıkça", 0.0), alpha=0.7),
                   dict(name="britanya", color="ingiliz", at=("c6s10", "İngiltere'de", -0.3))],
          routes=[dict(pts=[(12.5, 41.9), (8.0, 45.4), (2.0, 49.4), (-0.12, 51.4)], at=("c6s10", "uzak", -0.1), dur=2.2, color="#E26A5A", width=7, dash=(16, 10))],

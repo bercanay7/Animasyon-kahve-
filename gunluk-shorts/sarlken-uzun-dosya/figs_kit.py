@@ -259,17 +259,17 @@ class Fig:
         return m
 
     def _crescent(self, c, path, rim, w, rs, shader):
-        r = path.getBounds().makeOutset(w * 2 + 2, w * 2 + 2)
-        c.saveLayer(r, None)
+        """Kenar ışığı: parçanın kendisi ∖ (sağ-aşağı kaydırılmış kendisi) = sol-üst ince hilal. Katman (saveLayer) yerine çift kırpma (≈2× hızlı)."""
+        c.save()
+        c.clipPath(path, skia.ClipOp.kIntersect, True)
+        off = skia.Path(path)
+        off.offset(w * 1.05, w * 0.85)
+        c.clipPath(off, skia.ClipOp.kDifference, True)
         p1 = skia.Paint(AntiAlias=True)
         p1.setShader(shader)
         if rs < 1.0:
             p1.setAlphaf(max(0.0, rs))
-        c.drawPath(path, p1)
-        c.save()
-        c.translate(w * 1.05, w * 0.85)
-        c.drawPath(path, self._dstout)
-        c.restore()
+        c.drawPaint(p1)
         c.restore()
 
     def _draw(self, c, col, rim):

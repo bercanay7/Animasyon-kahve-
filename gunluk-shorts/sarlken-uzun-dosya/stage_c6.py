@@ -150,8 +150,8 @@ def k_rehin(cx, at=0.0, at_stamp=0.0, at_chip=None):
     sway = math.sin(cx.t * 1.1) * 0.006
     # ay ışığı lekesi zeminde
     f.path(sk.poly_path([(1150, 880), (1350, 880), (1500, 1100), (1000, 1100)]), color="#9CB8D8", alpha=0.07 * a)
-    ST.figure(f, "prince", 880, 1040 + (1 - a) * 30, 740, col="#070505", rim="#8EA8C8", face=1, alpha=a, sway=sway)
-    ST.figure(f, "page", 1250, 1050 + (1 - a) * 30, 620, col="#070505", rim="#8EA8C8", face=-1, alpha=a, sway=-sway)
+    ST.figure(f, "page", 880, 1040 + (1 - a) * 30, 720, col="#070505", rim="#8EA8C8", face=1, alpha=a, sway=sway)        # iki oğul: biri ergenliğe yakın, biri çocuk
+    ST.figure(f, "child", 1250, 1050 + (1 - a) * 30, 660, col="#070505", rim="#8EA8C8", face=-1, alpha=a, sway=-sway)
     _bars(f, 130, 1790, -30, H + 10, alpha=1.0)
     SH.kicker(f, "İKİ OĞLU", CX, 168, alpha=cx.amt(at, 0.7, off=0.15), size=34, track=14, face="title_m", color="#E0C682")
     t = cx.amt(at_stamp, 0.3)
@@ -300,7 +300,7 @@ def k_mektup(cx, key="fransuva", at_a="bana", at_b="kaldı", at_hedge=0.0, at_se
         # sınıf damgası
         t = cx.amt(at_stamp, 0.3)
         if t > 0:
-            SH.stamp(f, "SONRADAN YAYGINLAŞTI", CX + 40, H * 0.80, rot=-0.07, size=66, t=t)
+            SH.stamp(f, "SONRADAN YAYGINLAŞTI", CX + 20, H * 0.885, rot=-0.05, size=62, t=t)
     f.vig(0.6)
 
 
@@ -490,9 +490,9 @@ def k_zincir(cx, at_n1=0.0, at_n2=0.0, at_n3=0.0, at_n4=0.0, at_x=0.0, at_break=
     y = 480
     sz = 330
     # kenarlar
-    X.arrow(f, (xs[0] + 105, y), (xs[1] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - cx.at(at_n2, off=-0.5)) / 0.7)), color="#E3B54A", width=7)
-    X.arrow(f, (xs[1] + sz * 0.5 + 10, y), (xs[2] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - cx.at(at_n3, off=-0.5)) / 0.7)), color="#E3B54A", width=7)
-    X.arrow(f, (xs[2] + sz * 0.5 + 10, y), (xs[3] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - cx.at(at_n4, off=-0.5)) / 0.7)), color="#E3B54A", width=7)
+    X.arrow(f, (xs[0] + 105, y), (xs[1] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - max(0.05, cx.at(at_n2, off=-0.5))) / 0.7)), color="#E3B54A", width=7)
+    X.arrow(f, (xs[1] + sz * 0.5 + 10, y), (xs[2] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - max(0.05, cx.at(at_n3, off=-0.5))) / 0.7)), color="#E3B54A", width=7)
+    X.arrow(f, (xs[2] + sz * 0.5 + 10, y), (xs[3] - sz * 0.5 - 10, y), ease_io(clamp((cx.t - max(0.05, cx.at(at_n4, off=-0.5))) / 0.7)), color="#E3B54A", width=7)
     # düğüm 1: Roma (kılıçlar)
     k1 = cx.amt(at_n1, 0.6)
     if k1 > 0:
@@ -666,8 +666,8 @@ def k_fidye(cx, at=0.0, dur=1.7, at_boys=0.0):
     if kb > 0:
         bx = lerp(CX - 130, 300, sl)
         bh = lerp(700, 520, sl)
-        ST.figure(f, "prince", bx - 120, H + 60, bh, col="#0A0605", rim="#8EA8C8", face=1, alpha=kb)
-        ST.figure(f, "page", bx + 120, H + 60, bh * 0.82, col="#0A0605", rim="#8EA8C8", face=-1, alpha=kb)
+        ST.figure(f, "page", bx - 120, H + 60, bh * 0.98, col="#0A0605", rim="#8EA8C8", face=1, alpha=kb)
+        ST.figure(f, "child", bx + 120, H + 60, bh * 0.86, col="#0A0605", rim="#8EA8C8", face=-1, alpha=kb)
         X.chip(f, "İKİ OĞUL", bx, H - bh - 10 if sl > 0.5 else 190, k=kb, size=30, edge="#6C92E0", color="#E0ECFF")
     if a > 0:
         rs = np.random.RandomState(9)
