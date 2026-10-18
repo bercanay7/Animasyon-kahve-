@@ -75,7 +75,7 @@ CHECK = [
     ("cocuk", "Çocuklara özel değil · yaş sınırı yok."),
     ("liste", "Oynatma listesi: Uzun Dosya (yoksa oluştur)."),
     ("bitis", "Bitiş ekranı (son 7 sn): sol kare son/önerilen video, sağ kare Abone ol. Videodaki iki altın çerçeve bu yuvalara denk gelir."),
-    ("zaman", "Zamanla: Pazar 25 Ekim 2026, 20:00 (+03). Konusu olan olayın (25 Ekim 1555, Brüksel) 471. yıldönümü."),
+    ("zaman", "Yayın zamanı: hemen yayınla ya da Zamanla → bugün 20:00 (+03). Yıldönümü bağı istersen 25 Ekim 2026, 20:00 (olayın 471. yıldönümü)."),
     ("yorum", "Yayından hemen sonra: sabit yorumu yapıştır ve sabitle."),
     ("kisa", "Kısa fragmanı ayrı yükle (aynı gün ya da ertesi sabah), tam videoya bağla."),
     ("olcum", "24. saat, 72. saat ve 7. gün Studio ekran görüntüsünü gönder; Windsor'a YouTube bağlanırsa kendim çekerim."),
@@ -167,7 +167,8 @@ th{color:var(--muted);font-weight:500;border-top:0}
   <section class="plate" aria-labelledby="h-when">
     <header><h2 id="h-when">Yayın saati</h2><span class="count">25 Ekim 1555 → 25 Ekim 2026 · 471. yıl</span></header>
     <div class="when"><strong>Pazar 25 Ekim 2026 · 20:00</strong><span id="left" class="count"></span></div>
-    <p>Konusu olan feragatin yıldönümü, ayrıca planlı Pazar 20:00 slotu. Studio'da "Zamanla" ile bu saate kur; saat dilimi İstanbul (+03).</p>
+    <div class="when"><strong>Bugün · 20:00</strong><span id="left0" class="count"></span></div>
+    <p>Bugün de Pazar: haftalık 20:00 slotu bugün açık. İstersen hemen de yayınlayabilirsin; 25 Ekim yalnızca yıldönümü artısıdır. Studio'da "Zamanla" ile kur; saat dilimi İstanbul (+03).</p>
   </section>
 
   <section class="plate" aria-labelledby="h-steps">
@@ -260,7 +261,14 @@ function tick() {
   const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
   $("#left").textContent = `${d} gün ${h} sa ${m} dk kaldı`;
 }
-tick(); setInterval(tick, 30000);
+function tick0() {
+  const now = new Date(), m = new Date(now.getTime() + 3 * 36e5);
+  const t = Date.UTC(m.getUTCFullYear(), m.getUTCMonth(), m.getUTCDate(), 17, 0, 0) - now.getTime();
+  const el = $("#left0"); if (!el) return;
+  if (t <= 0) { el.textContent = "bugünkü 20:00 geçti"; return; }
+  el.textContent = `${Math.floor(t / 36e5)} sa ${Math.floor(t % 36e5 / 6e4)} dk kaldı`;
+}
+tick(); tick0(); setInterval(() => { tick(); tick0(); }, 30000);
 </script>
 """
 
