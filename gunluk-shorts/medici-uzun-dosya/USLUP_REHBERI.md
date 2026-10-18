@@ -52,7 +52,7 @@ Kanal kimliği (kurye) korunur: anlatıcı "bir şeyi teslim eden", dönemin kap
 
 **A. Açılış (c0) — yıldız an + dramatik ironi + bir göz kırpma** *(olgular: ölüm tarihi, Aile Antlaşması 31 Ekim 1737 ve "hiçbir şey çıkarılmayacak" şartı ◐; sözleşme ifadesi tek ikincil kaynakta → NİTELİKLİ, "aktarıldığına göre")*
 
-> 18 Şubat 1743, Floransa. Yetmiş beş yaşında bir kadın ölüyor; adı Anna Maria Luisa. Kocası çoktan gömüldü, kardeşi Gian Gastone altı yıl önce gitti; babası, dedesi, büyük dedesi… hepsi gitti. Floransa'yı yönetmiş Medici hattının son üyesi o.
+> 18 Şubat 1743, Floransa. Yetmiş beş yaşında bir kadın ölüyor; adı Anna Maria Luisa. Kocası çoktan gömüldü, kardeşi Gian Gastone beş buçuk yıl önce gitti; babası, dedesi, büyük dedesi… hepsi gitti. Floransa'yı yönetmiş Medici hattının son üyesi o.
 >
 > Ama ölmeden önce, hanedanın belki de en akıllı hamlesini yapmış durumda. Kâğıda ne yazdırdığını biliyoruz: tablolar, heykeller, kitaplar, sarayların içindeki her şey Floransa'da kalacak. Tek şart var: hiçbiri bu şehirden çıkmayacak. Gerekçesi de sözleşmeden aktarıldığına göre şöyle: devletin süsü olsun, halkın yararına olsun, yabancıların merakını çeksin.
 >
