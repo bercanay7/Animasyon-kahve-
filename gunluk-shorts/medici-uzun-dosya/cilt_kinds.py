@@ -193,49 +193,82 @@ def _slab(f, x, y, w, h, alpha=1.0, seed=2):
 CW_MG = 100
 
 
+# canlı bölüm kartı: perde başına pigment bulutu renkleri (koyu duvarda ışıyan yıkama)
+CARD_PIGMENTS = {1: ("#C79A3C", "#B8742A", "#E2BC5E"), 2: ("#2F4FA8", "#9A2A1C", "#4468C0"), 3: ("#8A5A32", "#B8706A", "#C79A3C")}
+CARD_TEXT_IN, CARD_TEXT_OUT = 0.28, 2.55          # yazı görünür aralığı (≤2,5 sn); kart 3 sn kalır, kalan süre canlı arka plan
+
+
+def _card_life(f, cx, pd):
+    """Kartın canlı arka planı: duvar üzerinde yavaş kayan pigment bulutları + eğik tarama ışığı (1/4 çözünürlükte hesaplanır, tek toplamsal çizim)."""
+    t = cx.t
+    cols = CARD_PIGMENTS.get(pd, CARD_PIGMENTS[2])
+    items = []
+    for i, (col, (bx, by, R, vx, vy, ph)) in enumerate(zip(cols, ((0.20, 0.30, 620, 52, 14, 0.0), (0.74, 0.62, 700, -44, -10, 2.1), (0.48, 0.86, 560, 30, -18, 4.2)))):
+        x = W * bx + vx * (t - 1.5) + math.sin(t * 0.9 + ph) * 46
+        y = H * by + vy * (t - 1.5) + math.cos(t * 0.7 + ph) * 34
+        items.append((x, y, R * (1.0 + 0.05 * math.sin(t * 1.3 + ph)), col, 0.125 + 0.03 * math.sin(t * 1.1 + ph), 1.35))
+    layer = FX._glow_small(items)
+    # eğik tarama ışığı: köşegen eksende kayan yumuşak bant
+    xx, yy = FX._grid4()
+    ang = math.radians(-24)
+    u = xx * math.cos(ang) + yy * math.sin(ang)
+    pos = -300 + (t / 3.0) * 2500 + 0
+    bd = np.exp(-((u - pos) / 150.0) ** 2) * 0.16
+    add = np.stack([bd * 150, bd * 205, bd * 246], -1)
+    layer[..., :3] = np.clip(layer[..., :3].astype(np.float32) + add, 0, 255).astype(np.uint8)
+    layer[..., 3] = layer[..., :3].max(axis=2)
+    FX._add_small(f.c, layer)
+
+
 @ckind("chapter_card")
 def k_chapter_card(cx, n="I", title="", years="", perde_label=None, seed=0, **_):
-    """Bölüm kartı (3 sn): koyu duvarda sıva levha; oyma Cinzel başlık + roma rakamı + palle arması. perde_label: 'PERDE II — GÜZELLİK' (yeni perdede)."""
+    """Bölüm kartı (3 sn, CANLI): koyu duvarda kayan pigment/ışık + kamera sürüklenmesi; sıva levha, oyma Cinzel başlık + roma rakamı + palle arması.
+    Yazı yalnız 0,28–2,55 sn görünür (≤2,5 sn); kalan süre arka plan tek başına akar. perde_label: 'PERDE II — BEDEL' (yeni perdede)."""
     f = cx.f
     pd = getattr(cx, "perde", None) or 2
     CM.use("night", pd)
     cx.f.cilt_mode = "night"
     cx.f.cilt_perde = pd
-    cam = CM.bgfill(f, cx, seed=seed + 1, cam=CM.Cam(cx, push=0.03, drift=(5.0, 2.0)))
+    cam = CM.bgfill(f, cx, seed=seed + 1, cam=CM.Cam(cx, push=0.065, drift=(20.0, 6.0)))
+    _card_life(f, cx, pd)
     cam.begin(f)
-    a = cx.fade(0.30, 0.35)
+    t = cx.t
+    a = smooth((t - CARD_TEXT_IN) / 0.42) * (1.0 - smooth((t - (CARD_TEXT_OUT - 0.42)) / 0.42))
     sx, sy, sw, sh = 190, 168, 1540, 720
+    sy = sy - 10 * smooth(t / 3.0)                                   # levha hafifçe yükselir (kamera paralaksından bağımsız canlılık)
     CM.use("day", pd)          # levha üstü: gündüz renkleri (mürekkep/sinabar)
-    _slab(f, sx, sy, sw, sh, alpha=a)
-    ORN.hairline_frame(f, sx + 40, sy + 40, sw - 80, sh - 80, alpha=0.9 * a, color="#8A6A36", gap=9)
-    ak = cx.amt(0.10, 0.6)
-    CP.draw_arms(f, sx + 310, sy + sh / 2 + 4, 340 * (0.95 + 0.05 * ak), alpha=a * ak, shadow=0.5, glow=0.0, glint=((cx.t * 0.5) % 2.0) if (cx.t * 0.5) % 2.0 < 1 else None)
-    xr = sx + 310 + 340 / 2 + 130
-    xc = (xr + sx + sw - 70) / 2
-    if perde_label:
-        CM.ink(f, perde_label, xc, sy + 112, face="title_m", size=28, color=TH.acc, align="c", track=10, alpha=a * cx.amt(0.1, 0.4))
-    CM.ink(f, "BÖLÜM", xc, sy + 176, face="title_m", size=34, color=TH.fg2, align="c", track=16, alpha=a * cx.amt(0.15, 0.4))
-    nsp = CM.painted(str(n), "title", 190, 12.0, "#9A2A18", 1.2, 5)
-    kn = cx.amt(0.25, 0.5)
-    CM.draw_spr(f, nsp, xc, sy + 352, "c", alpha=a * kn, reveal=clamp(kn * 1.2))
-    CM.flourish_rule(f, xc, sy + 396, 560, alpha=a * cx.amt(0.55, 0.5), grow=cx.amt(0.55, 0.7))
-    tt = sk.tr_upper(title)
-    size = 62
-    mw = sw - (xr - sx) - 150
-    lines = wrap_lines(tt, "title", size, mw, 5.0, 3)
-    while (len(lines) > 2 or max(sk.text_width(l, "title", size, 5.0) for l in lines) > mw) and size > 46:
-        size -= 3
+    if a > 0.002:
+        _slab(f, sx, sy, sw, sh, alpha=a)
+        ORN.hairline_frame(f, sx + 40, sy + 40, sw - 80, sh - 80, alpha=0.9 * a, color="#8A6A36", gap=9)
+        ak = cx.amt(CARD_TEXT_IN, 0.55)
+        gl_ = (t * 0.55) % 2.0
+        CP.draw_arms(f, sx + 310, sy + sh / 2 + 4, 340 * (0.95 + 0.05 * ak), alpha=a * ak, shadow=0.5, glow=0.0, glint=gl_ if gl_ < 1 else None)
+        xr = sx + 310 + 340 / 2 + 130
+        xc = (xr + sx + sw - 70) / 2
+        if perde_label:
+            CM.ink(f, perde_label, xc, sy + 112, face="title_m", size=28, color=TH.acc, align="c", track=10, alpha=a * cx.amt(CARD_TEXT_IN + 0.0, 0.4))
+        CM.ink(f, "BÖLÜM", xc, sy + 176, face="title_m", size=34, color=TH.fg2, align="c", track=16, alpha=a * cx.amt(CARD_TEXT_IN + 0.05, 0.4))
+        nsp = CM.painted(str(n), "title", 190, 12.0, "#9A2A18", 1.2, 5)
+        kn = cx.amt(CARD_TEXT_IN + 0.12, 0.5)
+        CM.draw_spr(f, nsp, xc, sy + 352, "c", alpha=a * kn, reveal=clamp(kn * 1.2))
+        CM.flourish_rule(f, xc, sy + 396, 560, alpha=a * cx.amt(CARD_TEXT_IN + 0.40, 0.5), grow=cx.amt(CARD_TEXT_IN + 0.40, 0.7))
+        tt = sk.tr_upper(title)
+        size = 62
+        mw = sw - (xr - sx) - 150
         lines = wrap_lines(tt, "title", size, mw, 5.0, 3)
-    y0 = sy + 486 - (len(lines) - 1) * size * 0.30
-    for i, ln in enumerate(lines):
-        sp = CM.engraved(ln, "title", int(size), 5.0, TH.fg, 1.0)
-        kt = cx.amt(0.6 + 0.12 * i, 0.6)
-        CM.draw_spr(f, sp, xc, y0 + i * size * 1.30, "c", alpha=a * kt, reveal=clamp(kt * 1.2))
-    if years:
-        CM.ink(f, years, xc, sy + sh - 84, face="cap_i", size=46, color=TH.fg2, align="c", alpha=a * cx.amt(1.1, 0.6))
+        while (len(lines) > 2 or max(sk.text_width(l, "title", size, 5.0) for l in lines) > mw) and size > 46:
+            size -= 3
+            lines = wrap_lines(tt, "title", size, mw, 5.0, 3)
+        y0 = sy + 486 - (len(lines) - 1) * size * 0.30
+        for i, ln in enumerate(lines):
+            sp = CM.engraved(ln, "title", int(size), 5.0, TH.fg, 1.0)
+            kt = cx.amt(CARD_TEXT_IN + 0.42 + 0.12 * i, 0.55)
+            CM.draw_spr(f, sp, xc, y0 + i * size * 1.30, "c", alpha=a * kt, reveal=clamp(kt * 1.2))
+        if years:
+            CM.ink(f, years, xc, sy + sh - 84, face="cap_i", size=46, color=TH.fg2, align="c", alpha=a * cx.amt(CARD_TEXT_IN + 0.85, 0.5))
     cam.end(f)
     CM.use("night", pd)
-    CM.finish(f, cx, motes_n=26, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.5), r=1050))
+    CM.finish(f, cx, motes_n=44, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.5), r=1050))
 
 
 # ───────────────────────────── quote ─────────────────────────────

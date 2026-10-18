@@ -23,7 +23,7 @@ HEROES = [
     dict(ad="title_day", kind="title", params=dict(text="MEDİCİ", sub="BANKACILAR AİLESİ", kick="FLORANSA", at=0.3), t=[3.2], dur=8.0, sayfa=1, mode="day", perde=2),
     dict(ad="palle_day", kind="palle", params=dict(kick="ALTI TOP", caption="Medici arması", at=0.2), t=[3.0], dur=8.0, sayfa=1, mode="day", perde=2),
     dict(ad="coin_day", kind="coin", params=dict(kick="1252", sub="Florin", caption="Bir yüzünde zambak, ötekinde Vaftizci Yahya", at=0.2, n=4), t=[3.0], dur=8.0, sayfa=1, mode="day", perde=1),
-    dict(ad="chapter_card", kind="chapter_card", params=dict(n="IV", title="Kubbe ve Kefaret", years="1418 – 1460'lar", perde_label="PERDE II — GÜZELLİK"), t=[1.6], dur=3.0, sayfa=2, mode="night", perde=2),
+    dict(ad="chapter_card", kind="chapter_card", params=dict(n="IV", title="Kubbe ve Kefaret", years="1418 – 1460'lar", perde_label="PERDE II — BEDEL"), t=[1.6], dur=3.0, sayfa=2, mode="night", perde=2),
     dict(ad="quote_day", kind="quote", params=dict(text="Hiçbir şey buradan çıkmayacak.", who="ANNA MARIA LUISA", src="Aile Antlaşması, 1737", at=0.2), t=[3.5], dur=8.0, sayfa=1, mode="day", perde=2),
     dict(ad="ledger", kind="ledger", params=dict(left=LEDGER_L, right=LEDGER_R, head="MCCCXCVII", total=dict(text="Somma", amt=(2469, 2, 6), at=9.2, row=8), focus=(900, 420)),
          t=[10.5], dur=12.0, sayfa=1, mode="day", perde=1),
@@ -115,6 +115,7 @@ def hero_hud(render):
 
 
 def hero_trans(render):
+    """Malzeme geçişleri (yıkama / sayfa / giornata) ortada."""
     import cilt_fx as FX
     out = []
     A = lambda: _frame_of("quote", dict(text="Hiçbir şey buradan çıkmayacak.", who="ANNA MARIA LUISA", at=0.1), 4.0, 8.0, "day", 2)
@@ -126,4 +127,25 @@ def hero_trans(render):
     return out
 
 
-CUSTOM = dict(hud=hero_hud, trans=hero_trans)
+def hero_trans2(render):
+    """Yeni geçişler (YONETMENLIK §3): iris · slide · zoomthru · carry · light · candle — her biri k=0,5'te (gerçek kullanım: preview_reel.py)."""
+    import cilt_fx as FX
+    out = []
+    qa = dict(text="Hiçbir şey buradan çıkmayacak.", who="ANNA MARIA LUISA", at=0.1)
+    pa = dict(kick="ALTI TOP", caption="Medici arması", at=0.0)
+    co = dict(kick="1252", sub="Florin", at=0.0, n=1)
+    sk_ = dict(seed=1, pan=200, kick="FLORANSA")
+    cases = [("iris", ("coin", co, 3.0), ("skyline", sk_, 2.0), dict(at=(960, 508), obj="florin", r=252)),
+             ("slide", ("skyline", sk_, 4.0), ("quote", qa, 3.0), dict(dir="r")),
+             ("zoomthru", ("skyline", sk_, 4.0), ("palle", pa, 3.0), dict(at=(1150, 560))),
+             ("carry", ("palle", pa, 3.0), ("quote", qa, 3.0), dict(dir="r", strip="ribbon")),
+             ("light", ("quote", qa, 4.0), ("palle", pa, 3.0), dict()),
+             ("candle", ("quote", qa, 4.0), ("palle", pa, 3.0), dict(at=(1700, 600)))]
+    for kind, (ka, pa_, ta), (kb, pb, tb), opts in cases:
+        f = FX.blend(kind, _frame_of(ka, pa_, ta, 8.0, "day", 2), _frame_of(kb, pb, tb, 8.0, "day", 2), 0.5, 9.0, d=0.9, **opts)
+        f.cilt_mode, f.cilt_perde = "day", 2
+        out.append(CM.post(f.rgb(), 3, "day", 2))
+    return out
+
+
+CUSTOM = dict(hud=hero_hud, trans=hero_trans, trans2=hero_trans2)

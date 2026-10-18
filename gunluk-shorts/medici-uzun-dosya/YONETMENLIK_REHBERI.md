@@ -22,38 +22,42 @@
 
 ## 2. Kamera sözlüğü (`cam=` ön ayarları)
 
-Her `shot(...)` çağrısı `cam=` alır (yoksa varsayılan `"push"`). Hepsi tüm çekim türlerinde çalışır (motor: `cilt_cam.py`, `CM.Cam` üzerinden).
+Her `shot(...)` çağrısı `cam=` alır. **Her çekimde açıkça yaz:** `cam=` verilmezse türün eski varsayılanı (yavaş push + drift) çalışır; `qa_flow` bunu "örtük" sayıp Kamera kapısını KALDI yapar. Hepsi tüm cilt çekim türlerinde çalışır (motor: `cilt_cam.py`; `cilt_medici.ckind` sarmalayıcısı `cam/link/longtake/montage` alanlarını ayıklar, `CM.Cam` uygular; `map` türünde `mapsk.Cam` yamalanır). `map` türünün eski `cam=(lon, lat, zoom)` parametresi (üç sayı) tür parametresi olarak kalır; kamera ön ayarıyla birlikte harita görünümü için `view=(lon, lat, zoom)` kullan.
 
 | `cam=` | Ne | Ne zaman |
 |---|---|---|
-| `"push"` / `("push", 0.08)` | yavaş itme (varsayılan %6–8) | gerilim, nesne vurgusu, hikâye vuruşu |
-| `"pull"` | yavaş çekme | bağlam açma, ifşa ("meğer…"), bölüm sonu |
-| `("pan", "r"\|"l", px)` | yatay kayma + paralaks | geçit, alay, yolculuk; yükseliş = `r`, düşüş = `l` |
-| `("crane", "up"\|"down", px)` | dikey kayma | kule, kubbe, merdiven; `up` = yükseliş/umut, `down` = düşüş |
-| `("orbit", derece)` | dioramada hafif yörünge (≤12°) | yıldız an, maket/mimari |
-| `"hand"` / `"hand2"` | elde kamera mikro titremesi (genlik 1,5 / 4 px) | `hand` canlı sokak; `hand2` yalnız Pazzi/Roma 1527 şiddet anları |
-| `("rack", odak_a, odak_b)` | odak kaydırma (katman bulanıklığı önceden pişirilir) | iki nesne arasında dikkat taşıma |
-| `("track", yol_id)` | panoramada **uzun plan**: anahtar kareli yol (`pano`) | imza sekanslar, "akan" bölümler |
-| `[(çapa,(x,y,zoom,rot)),…]` | anahtar kareli serbest kamera | theatre/map/pano; çapalar sözcüğe bağlanır |
+| `"push"` / `("push", 0.08)` | yavaş itme (varsayılan %7; ikinci eleman oran) | gerilim, nesne vurgusu, hikâye vuruşu |
+| `"pull"` / `("pull", 0.07)` | yavaş çekme (%7'den 1'e) | bağlam açma, ifşa ("meğer…"), bölüm sonu |
+| `("pan", "r"\|"l", px)` | yatay kayma + duvar paralaksı (×0,4). **`r`: kamera sağa gider, içerik ekranda SOLA akar** (zaman çizgisi soldan sağa okunur) | geçit, alay, yolculuk; yükseliş = `r`, düşüş = `l` |
+| `("crane", "up"\|"down", px)` | dikey kayma; `up`: kamera yükselir (içerik AŞAĞI akar) | kule, kubbe, merdiven; `up` = yükseliş/umut, `down` = düşüş |
+| `("orbit", derece)` | dioramada hafif yörünge (≤12°): içerik bir yöne, duvar ters yöne kayar (paralaks) + içeriğe ≤1° yuvarlanma | yıldız an, maket/mimari |
+| `"hand"` / `"hand2"` | elde kamera mikro titremesi (genlik 1,5 / 4 px; seed'li, deterministik) + altta %6 itme | `hand` canlı sokak; `hand2` yalnız Pazzi/Roma 1527 şiddet anları |
+| `("rack", (xa, ya), (xb, yb)[, dict(at=çapa, dur=sn, r=px, sigma=px)])` | odak kaydırma: odak NOKTASI a→b kayar, odak dairesi keskin, çevre bulanık (son-kare 1/4 çözünürlük bulanıklığı) | iki nesne arasında dikkat taşıma (madalya → levha) |
+| `("track", yol_id)` | kayıtlı anahtar kareli uzun plan (`cilt_cam.register_track(ad, [(u, (x, y, zoom, rot)), …])`; hazır: `sweep_r`, `arc_up`, `drop_l`; pano yolları aynı kayıt defterine eklenir) | imza sekanslar, "akan" bölümler |
+| `[(çapa, (x, y, zoom, rot)), …]` | anahtar kareli serbest kamera. x, y = kamera konumu px (**+x kamera sağa → içerik sola**, +y kamera aşağı), zoom çarpan (1 = nötr), rot derece (+ = içerik saat yönünde); ara değer monoton kübik; çapa = yerel sn \| (sid[, sözcük], ofset) | theatre/map/pano; çapalar sözcüğe bağlanır |
 
-Kurallar: kamera **ease_io** ile başlar/biter (doğrusal yok); aynı çekimde iki ters hareket yok; `push` ile `pull` art arda gelirse (nefes) arada gerekçe vardır; yazı taşıyan nesne kamera kaymasıyla altyazı bölgesine (y≈1250–1390) girmez (Anayasa §12-7); HUD alanı (sağ üst 420×110, sol üst bölüm etiketi) boş kalır.
+Her biçimin sonuna isteğe bağlı `dict` eklenebilir: `pivot=(x,y)` (zum merkezi), `push=0.03` (pan/crane ek itme), `hand=genlik`, `drift=(dx,dy)`.
 
-## 3. Geçiş sözlüğü (`tr=(ad, süre)` + `link=`)
+Kurallar: kamera **ease_io** ile başlar/biter (Hermite/smoothstep; doğrusal yok) — **geçişli uçlarda durmaz** (uç hızı ortalama hızın %65'i; `cx.cam_in/cam_out`); aynı çekimde iki ters hareket yok; `push` ile `pull` art arda gelirse (nefes) arada gerekçe vardır; yazı taşıyan nesne kamera kaymasıyla altyazı bölgesine girmez (Anayasa §12-7; `qa_flow` tür düzen tablosundan denetler); HUD alanı (sağ üst 420×110, sol üst bölüm etiketi) boş kalır. Tam genişlikte yatay şerit çizen türlerde (`skyline`, `frieze`; `cilt_cam.BAND_KINDS`) yatay kayma şerit uçlarını açığa çıkarmasın diye sabit örtme zumu eklenir.
 
-**Mevcut (motorda):** `yikama` (pigment yıkama: ıslak boya yayılır) · `sayfa` (defter sayfası çevrilir) · `giornata` (fresk günlüğü: sıva parçaları sırayla) · `fade` · `dip` · `zoom` · `whip` · `wipe`.
-**Eklenecek (cilt-lab, `cilt_fx.py`; hepsi sözcük çapalı):**
+## 3. Geçiş sözlüğü (`tr=(ad, süre[, opts])` + `link=`)
 
-| ad | Tarif | `link=` |
-|---|---|---|
-| `iris` | ekrandaki yuvarlak nesne (florin, palle, güneş/ay, kubbe gözü, mercek, mühür) büyüyüp ekranı doldurur ya da daralır; yeni sahne ondan açılır (kenarında nesnenin halka/kabartması) | `shape` |
-| `slide` | iki çekim aynı yönde birlikte kayar (eşit hız + paralaks): "tek kamera, iki yer" hissi | `dir` |
-| `zoomthru` | A'nın bir ayrıntısına zum sürer, içinden B yerleşik pozdan geri çekilerek açılır (harita → şehir, defter satırı → oda, göz → manzara) | `scale` |
-| `carry` | ön plandan bir öğe (bayrak, kurdele, mürekkep çizgisi, figür siluet, kâğıt şerit) ekranı süpürür, perdesinin arkasında B belirir | `carry` |
-| `light` | sıcak ışık patlaması/ışık huzmesi yükselir, B ondan doğar (ifşa, ilham, yıldız an) | `light` |
-| `candle` | mum sönmesi (A kararır) ve yeni mum yanışı (B yanar); ölüm/gece/zaman atlaması | `light` |
-| `yikama`/`sayfa`/`giornata` | malzeme geçişi (bölüm geçişleri ve zaman sıçramaları) | `material` |
+**Mevcut (motorda, aynen):** `yikama` (pigment yıkama: ıslak boya yayılır) · `sayfa` (defter sayfası çevrilir) · `giornata` (fresk günlüğü: sıva parçaları sırayla) · `fade` · `dip` · `zoom` · `whip` · `wipe`.
+**Eklenen (`cilt_fx.py`; süre ≤ 1,0 sn; `opts` sözlüğü; `dir` her yerde KAMERA yönüdür: `r` içerik sola akar):**
 
-Her geçişte önceki çekimin son 0,4 sn'sinde hareket **devam eder** (durup beklemez); sonraki çekim girişinde aynı hareket yönünde başlar. `whip` yalnız savaş/aksiyon; `dip` yalnız ölüm/zaman uçurumu; çıplak `fade` yalnız sayfa/pigment dışında nefes gereken tek yerde (bölüm başına ≤1).
+| ad | Tarif | `opts` | `link=` |
+|---|---|---|---|
+| `iris` | ekrandaki yuvarlak nesne (florin, palle, güneş/ay, kubbe gözü, mercek, mühür) A ile birlikte büyür, kenarında nesnenin halkası/kabartması; B halkanın içinde açılır, ekranı doldurur | `at=(x,y)` nesne merkezi · `r=` nesnenin ekrandaki yarıçapı (px) · `obj="florin\|palle\|sun\|moon\|dome\|lens\|seal"` · `inv=True` (ters) | `shape` |
+| `slide` | iki çekim aynı yönde birlikte kayar (eşit hız, hareket bulanıklığı, zum vuruşu, fresk dikişi): "tek kamera, iki yer" | `dir="r\|l\|u\|d"` · `seam=True` · `punch=0.03` | `dir` |
+| `zoomthru` | A'nın bir ayrıntısına (`at`) hızlanarak zum sürer; içinden B yerleşik pozdan (`at_b`) geri çekilerek açılır (harita → şehir, defter satırı → oda) | `at=(x,y)` · `at_b=(x,y)` · `depth=5.0` | `scale` |
+| `carry` | ön plandan bir öğe ekranı süpürür; değişim şeridin arkasında olur | `strip="ribbon\|ink\|banner\|paper"` · `dir="r\|l"` | `carry` |
+| `light` | sıcak ışık huzmesi yükselir, çevre kararır, B ışığın içinden doğar (ifşa, ilham, yıldız an) | `at=(x,y)` kaynak · `col` · `rays=True` · `dim` · `tint` | `light` |
+| `candle` | mum sönmesi (A'nın ışık havuzu daralır, duman) + kısa karanlık + yeni mum yanışı (B havuzla açılır); ölüm/gece/zaman atlaması | `at=(x,y)` alev · `at_b=(x,y)` yeni alev | `light` |
+| `yikama`/`sayfa`/`giornata` | malzeme geçişi (bölüm geçişleri ve zaman sıçramaları) | — | `material` |
+
+Ortak `opts`: `place="before"` (varsayılan: geçiş gelen çekimin başında BİTER) \| `"after"` (gelen çekimin ilk `süre` sn'sinde sürer; bölüm kartları bunu kullanır) · `lead=True\|False` (gelen çekimin yerel saati geçiş BAŞLARKEN doğar: yeni geçişlerde varsayılan açık, eski üçünde `lead=True` ile açılır) · `birth=sn` (doğum payı). `link` sözlüğü: `shape \| color \| dir \| cam \| scale \| carry \| light \| material \| audio` (`None`/`"none"` = gerekçesiz).
+
+Her geçişte önceki çekimin son 0,4 sn'sinde hareket **devam eder** (durup beklemez); sonraki çekim girişinde aynı hareket yönünde başlar (Program `cam_in/cam_out` bayraklarını koyar; `dip` ve `candle` hariç). `whip` yalnız savaş/aksiyon; `dip` yalnız ölüm/zaman uçurumu; çıplak `fade` yalnız sayfa/pigment dışında nefes gereken tek yerde (bölüm başına ≤1).
 
 ## 4. Ritim ve kurgu eğrisi
 

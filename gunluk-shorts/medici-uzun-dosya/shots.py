@@ -87,19 +87,42 @@ def timeline():
 
 
 class Shot:
-    def __init__(self, kind_name, a, params, tr=None, label=""):
+    """Bir çekim tanımı. Yönetmenlik alanları (YONETMENLIK_REHBERI §2-3, qa_flow okur):
+    cam (kamera ön ayarı), link (geçiş gerekçesi), longtake / montage (süre ve tür-tekrarı istisnaları).
+    Program doldurur: cam_in/cam_out (geçişte kamera devri), lead (gelen çekimin saatinin geçiş başına öne alınması, sn)."""
+
+    def __init__(self, kind_name, a, params, tr=None, label="", cam=None, link=None, longtake=False, montage=False):
         self.kind, self.a, self.params, self.tr, self.label = kind_name, a, params, tr, label
+        self.cam, self.link, self.longtake, self.montage = cam, link, bool(longtake), bool(montage)
         self.t0 = 0.0
         self.t1 = 0.0
         self.i = 0
+        self.cam_in = False
+        self.cam_out = False
+        self.lead = 0.0
 
     @property
     def dur(self):
         return self.t1 - self.t0
 
+    @property
+    def origin(self):
+        """Yerel saatin (cx.t = 0) küresel karşılığı: t0 − lead (geçişli girişte çekim, geçiş başlarken doğar)."""
+        return self.t0 - self.lead
 
-def shot(kind_name, a, tr=None, label="", **params):
-    return Shot(kind_name, a, params, tr, label)
+
+def _is_map_view(v):
+    """map türünün eski cam=(lon, lat, zoom) parametresi (üç sayı)."""
+    return isinstance(v, (tuple, list)) and len(v) == 3 and all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in v)
+
+
+def shot(kind_name, a, tr=None, label="", cam=None, link=None, longtake=False, montage=False, **params):
+    """shot(tür, a=çapa, tr=(ad, süre[, opts]), label=…, cam=ön ayar, link=gerekçe, longtake=bool, montage=bool, **tür parametreleri).
+    map türünde cam=(lon,lat,zoom) (üç sayı) eski anlamıyla tür parametresi olarak kalır; kamera ön ayarı cam=("push", …) vb. ya da view= ile birlikte verilir."""
+    if kind_name == "map" and _is_map_view(cam):
+        params["cam"] = cam
+        cam = None
+    return Shot(kind_name, a, params, tr, label, cam, link, longtake, montage)
 
 
 class Ctx:
@@ -107,19 +130,26 @@ class Ctx:
 
     def __init__(self, f, t, sh, tl):
         self.f, self.t, self.sh, self.tl = f, t, sh, tl
-        self.dur = sh.dur
-        self.u = clamp(t / max(1e-6, sh.dur))
-        self.g = sh.t0 + t               # global saniye
+        self.lead = float(getattr(sh, "lead", 0.0) or 0.0)       # geçişli giriş: yerel saat t0−lead'de başlar
+        self.dur = sh.dur + self.lead
+        self.u = clamp(t / max(1e-6, self.dur))
+        self.g = sh.t0 - self.lead + t   # global saniye
         self.seed = sh.i * 7 + 3
+        # yönetmenlik alanları (cilt_medici.ckind ve cilt_cam okur)
+        self.cam_spec = getattr(sh, "cam", None)
+        self.cam_in = bool(getattr(sh, "cam_in", False))
+        self.cam_out = bool(getattr(sh, "cam_out", False))
+        self.link = getattr(sh, "link", None)
 
     def at(self, a, key=None, off=0.0):
-        """Anlatımdaki an → bu çekimin yerel saniyesi."""
+        """Anlatımdaki an → bu çekimin yerel saniyesi (yerel saat başlangıcı = t0 − lead)."""
+        org = self.sh.t0 - self.lead
         if isinstance(a, (int, float)):
             return float(a) + off
         if isinstance(a, str):
             s = self.tl.word(a, key) if key is not None else self.tl.t0(a)
-            return s - self.sh.t0 + off
-        return self.tl.resolve(a) - self.sh.t0 + off
+            return s - org + off
+        return self.tl.resolve(a) - org + off
 
     def amt(self, a, dur=0.5, key=None, off=0.0, ease=smooth):
         return ease(clamp((self.t - self.at(a, key, off)) / dur))

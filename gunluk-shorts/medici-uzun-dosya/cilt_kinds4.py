@@ -219,3 +219,7 @@ def k_skyline(cx, seed=1, tod=None, pan=340.0, x0=0.0, dir=1, kick=None, caption
         CM.finish(f, cx, motes_n=22, light=CM.candle_light(cx.t, seed, base=(W * 0.5, H * 0.46), r=1500.0, sway=12.0))
     else:
         CM.finish(f, cx, motes_n=26)
+
+
+# ───────────────────────────── dünya ve figür animasyonu (hareketli figür kiti, pano, yapım, alay) ─────────────────────────────
+import cilt_anim, cilt_pano, cilt_build  # noqa: E402,F401

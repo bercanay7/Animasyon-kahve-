@@ -94,18 +94,59 @@ def use(mode="day", perde=2):
     return TH
 
 
+_MISSING = object()
+
+
+def _pull_cam(name, cx, kw):
+    """kw'dan yönetmenlik alanlarını (cam, link, longtake, montage; map için view=) ayıkla; cam spec'ini cx.cam_spec'e koy.
+    map türünde cam=(lon,lat,zoom) (üç sayı) eski anlamıyla (harita görünümü) kw'da kalır."""
+    import shots as SH
+    if name == "map" and "view" in kw:
+        kw["cam"] = kw.pop("view")
+    spec = _MISSING
+    if "cam" in kw:
+        v = kw["cam"]
+        if not (name == "map" and SH._is_map_view(v)):
+            spec = kw.pop("cam")
+    for k_ in ("link", "longtake", "montage"):             # çekim alanları: kw'dan ayıkla, cx'e de yaz (Shot'tan gelen değer ezilmez)
+        v_ = kw.pop(k_, _MISSING)
+        if v_ is not _MISSING:
+            setattr(cx, k_, v_)
+        elif not hasattr(cx, k_):
+            setattr(cx, k_, getattr(getattr(cx, "sh", None), k_, None if k_ == "link" else False))
+    if spec is _MISSING:
+        return getattr(cx, "cam_spec", None)
+    cx.cam_spec = spec
+    return spec
+
+
 def ckind(name):
-    """@ckind('ad'): shots.KINDS'e kayıt; çekim parametrelerine mode='day'|'night', perde=1|2|3, seed= eklenir (Ctx'ten de okunur)."""
+    """@ckind('ad'): shots.KINDS'e kayıt; çekim parametrelerine mode='day'|'night', perde=1|2|3, seed= eklenir (Ctx'ten de okunur).
+    Yönetmenlik alanları (cam, link, longtake, montage) kw'dan ayıklanır: cam → cx.cam_spec / cx.cam_state (cilt_cam); `CM.Cam` onu uygular.
+    map türü için kamera mapsk.Cam yamasıyla, rack odak bulanıklığı çekim sonunda (postfx) uygulanır."""
     def deco(fn):
         @functools.wraps(fn)
         def wrapper(cx, mode=None, perde=None, **kw):
+            import cilt_cam as CAM
             m = mode or getattr(cx, "mode", None) or "day"
             p = perde or getattr(cx, "perde", None) or 2
             use(m, p)
             cx.mode, cx.perde = m, p
             cx.f.cilt_mode = m
             cx.f.cilt_perde = p
-            return fn(cx, **kw)
+            spec = _pull_cam(name, cx, kw)
+            nested = getattr(cx, "_cam_for", _MISSING) is spec and spec is not None
+            if not nested:                                     # iç içe çağrıda (bir tür ötekini çağırırsa) durum yeniden hesaplanmaz
+                CAM.attach(cx, name, kw)
+                cx._cam_for = spec
+            if name == "map" and getattr(cx, "cam_state", None) is not None:
+                with CAM.map_patch(cx):
+                    r = fn(cx, **kw)
+            else:
+                r = fn(cx, **kw)
+            if not nested:
+                CAM.postfx(cx)
+            return r
         import shots as SH
         SH.KINDS[name] = wrapper
         wrapper._raw = fn
@@ -288,10 +329,22 @@ def sparks(f, t, x, y, n=18, seed=3, h=260, alpha=0.8):
 
 # ───────────────────────────── kamera ─────────────────────────────
 class Cam:
-    """Çekim boyunca yavaş itme + kayma. içerik (s,dx,dy); duvar daha az hareket eder (paralaks)."""
+    """Çekim boyunca yavaş itme + kayma. içerik (s,dx,dy); duvar daha az hareket eder (paralaks).
+    cx.cam_state varsa (shot(cam=…) verilmişse) tür varsayılanı (push/drift) yerine cilt_cam durumu uygulanır; yoksa davranış değişmez."""
 
     def __init__(self, cx, push=0.045, drift=(9.0, 4.0), base=1.0, ease=None, pivot=None):
-        tt = clamp(cx.t, 0.0, cx.dur)                     # geçişte çekim giriş öncesi (t<0) de çizilir
+        st = getattr(cx, "cam_state", None)
+        self.state = st
+        self.rot = 0.0
+        if st is not None:
+            self.s = base * st.s
+            self.dx, self.dy = st.dx, st.dy
+            self.rot = st.rot
+            self.ws, self.wdx, self.wdy = st.ws, st.wdx, st.wdy
+            self.pivot = st.pivot or pivot or (W / 2, H / 2)
+            return
+        carry = bool(getattr(cx, "cam_in", False) or getattr(cx, "cam_out", False))
+        tt = cx.t if carry else clamp(cx.t, 0.0, cx.dur)  # geçişte çekim giriş öncesi (t<0) ve bitiş sonrası (t>dur) hareket sürer (doğrusal uzatma); aksi hâlde uçlarda sabit
         u = tt / max(1e-6, cx.dur)
         e = ease(u) if ease else u
         self.s = base * (1.0 + push * e)
@@ -305,12 +358,14 @@ class Cam:
         draw_wall(f, s=self.ws * 1.015, dx=self.wdx, dy=self.wdy, flip=flip, seed=seed)
 
     def begin(self, f, layer=1.0):
-        """İçerik dönüşümünü uygula (layer: paralaks çarpanı; 1 = içerik)."""
+        """İçerik dönüşümünü uygula (layer: paralaks çarpanı; 1 = içerik). rot (derece) yalnız içeriğe: tam-kare döndürme pahalı (~90 ms), duvar dönmez."""
         c = f.c
         c.save()
         px, py = self.pivot
         s = 1.0 + (self.s - 1.0) * layer
         c.translate(px + self.dx * layer, py + self.dy * layer)
+        if self.rot and layer:
+            c.rotate(self.rot * layer)
         c.scale(s, s)
         c.translate(-px, -py)
 

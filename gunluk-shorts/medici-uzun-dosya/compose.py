@@ -1,9 +1,19 @@
-"""Zaman çizelgesi birleştirme + kare çizimi (MEDICI: geçişler, bölüm kartları, HUD = yıl rulosu + perde göstergesi).
+"""Zaman çizelgesi birleştirme + kare çizimi (MEDICI: geçişler, bölüm kartları, HUD = yıl rulosu + perde göstergesi, parça desteği).
 
-    prog = Program()             # çekim listesi (çözülmüş zamanlarla)
-    img = prog.frame(n)          # n. kare (uint8 RGB, post uygulanmış)
-Sahne dosyaları: scenes_c0.py … scenes_c16.py → SHOTS (shots.shot(...) listesi) ve isteğe bağlı YIL_AT = [(çapa/saniye, yıl), …].
-Bölüm kartları, ana başlık (fresco_title) ve kapanış burada üretilir. Bölüm kartı = 3 sn sessizlik aralığı (önceki bölümün sonu → bu bölümün başı).
+    prog = Program()                    # tüm film (çekim listesi çözülmüş zamanlarla)
+    prog = Program(part=2)              # Parça 2 (c7–c11): c7 t=0'da başlar (bölüm kartı yok), ilk çekimde 4 sn başlık bindirmesi, bitiş ekranı "SIRADAKİ PARÇA"
+    prog = Program(shots=[...], end=T)  # çekim listesi (reel / qa_flow): çapasız, `a` = mutlak saniye; T = son çekimin bitişi
+    img = prog.frame(n)                 # n. kare (uint8 RGB, post uygulanmış); parçada n=0 parçanın ilk karesi (global süre = n/FPS + prog.t_off)
+
+Sahne dosyaları: scenes_c0.py … scenes_c16.py → SHOTS (shots.shot(...) listesi), isteğe bağlı YIL_AT = [(çapa/saniye, yıl), …] ve OUTRO_TR (kapanış geçişi).
+Bölüm kartı = 3 sn sessizlik aralığı (önceki bölümün sonu → bu bölümün başı): canlı arka plan + ≤2,5 sn yazı. Ana başlık (fresco_title) Parça 1'de c0'dan sonra.
+
+Geçiş modeli (YONETMENLIK_REHBERI §3): tr=(ad, süre[, opts]).
+  * place="before" (varsayılan): geçiş gelen çekimin başlangıcında BİTER (giden çekimin son `süre` sn'si); "after": gelen çekimin ilk `süre` sn'sinde sürer
+    (giden çekim kamerasıyla bitişinden sonra da sürer) — bölüm kartları bunu kullanır (anlatının son sözcükleri örtülmez).
+  * Kamera devri: geçişli girişte gelen çekim `cam_in`, giden `cam_out` (kamera ucu durmaz; cilt_cam uç eğimini korur).
+  * lead: yeni geçişlerde (iris/slide/zoomthru/carry/light/candle; opts lead=True/False ile değişir) gelen çekimin yerel saati geçiş BAŞLARKEN başlar
+    (Shot.lead = süre): yeni sahne boş duvar değil yaşayan çekim olarak açılır. Anlatı çapaları (cx.at) etkilenmez; mutlak yerel saniyeler (at=0.4) süre kadar erken gelir.
 """
 import importlib
 import math
@@ -43,39 +53,83 @@ TITLES = {
     "c15": ("XV", "Son Medici'ler", "1587 – 1737", 1587),
     "c16": ("XVI", "Hesap", "1737 – bugün", 1737),
 }
-# perde: I PARA (c0–c3), II GÜZELLİK (c4–c10), III MİRAS (c11–c16)
-PERDE_OF = {**{f"c{i}": 1 for i in range(0, 4)}, **{f"c{i}": 2 for i in range(4, 11)}, **{f"c{i}": 3 for i in range(11, 17)}}
-PERDE_FIRST = {"c1": 1, "c4": 2, "c11": 3}                     # perde etiketi bu bölüm kartında gösterilir
+# perde = parça: I ALTIN (c0–c6), II BEDEL (c7–c11), III MİRAS (c12–c16)
+PERDE_OF = {**{f"c{i}": 1 for i in range(0, 7)}, **{f"c{i}": 2 for i in range(7, 12)}, **{f"c{i}": 3 for i in range(12, 17)}}
+PERDE_FIRST = {"c1": 1, "c7": 2, "c12": 3}                     # perde etiketi bu bölüm kartında gösterilir (tam film modunda)
+PART_CHAPTERS = {1: [f"c{i}" for i in range(0, 7)], 2: [f"c{i}" for i in range(7, 12)], 3: [f"c{i}" for i in range(12, 17)]}
+PART_FIRST = {1: "c0", 2: "c7", 3: "c12"}
 HUD_SKIP = ("chapter_card", "fresco_title", "outro", "black")
+CARD_KINDS = ("chapter_card", "fresco_title", "outro", "black")
+PART_TITLE_IN, PART_TITLE_OUT = 1.2, 4.8                        # parça başlık bindirmesi: girer / çıkar (parça başından sn)
+CARD_TR = ("yikama", 0.9, dict(place="after"))                 # bölüm kartı / ana başlık girişi: malzeme geçişi, sessiz aralıkta
+
+
+class _StubTL:
+    """timeline.json yokken (reel) çapasız çalışma."""
+    total = 0.0
+    chapters = {}
+    sent = {}
+    order = []
+
+    def resolve(self, a):
+        if isinstance(a, (int, float)):
+            return float(a)
+        raise KeyError(f"çapa çözülemez (zaman çizelgesi yok): {a!r}")
+
+    def t0(self, sid):
+        raise KeyError(sid)
+
+    def word(self, *a, **k):
+        raise KeyError(a)
 
 
 class Program:
-    def __init__(self, chapters=None, fast=False):
-        self.tl = SH.timeline()
-        self.shots = []
+    def __init__(self, chapters=None, fast=False, part=None, shots=None, end=None):
         self.fast = fast
-        self.total = self.tl.total + OUTRO
-        vc = self.tl.chapters
-        chs = chapters or [c for c in CHAPTER_IDS if c in vc]
-        present = [c for c in CHAPTER_IDS if c in vc]
+        self.part = part
+        self.hud = True
+        self.t_off = 0.0
+        self.shots = []
         self._years = []
         self._chap_mod = {}
+        self._chap_marks = []
+        if part is not None and part not in PART_CHAPTERS:
+            raise ValueError(f"part 1, 2 ya da 3 olmalı: {part!r}")
+        if shots is not None:
+            try:
+                self.tl = SH.timeline()
+            except (FileNotFoundError, OSError):
+                self.tl = _StubTL()
+            self.hud = False                                   # çekim listesi modu: bölüm/HUD mantığı yok (reel, qa_flow)
+            self._from_shots(list(shots), end)
+            return
+        self.tl = SH.timeline()
+        vc = self.tl.chapters
+        present = [c for c in CHAPTER_IDS if c in vc]
+        if chapters:
+            chs = [c for c in CHAPTER_IDS if c in chapters and c in vc]
+        elif part:
+            chs = [c for c in PART_CHAPTERS[part] if c in vc]
+        else:
+            chs = list(present)
+        first = chs[0] if chs else None
         for cid in present:
             if cid not in chs:
                 continue
             i = CHAPTER_IDS.index(cid)
             c = vc[cid]
             prev_id = next((p for p in reversed(CHAPTER_IDS[:i]) if p in vc), None)
-            if prev_id is not None:
+            is_first_of_part = bool(part) and cid == first
+            if prev_id is not None and not is_first_of_part:
                 t0, t1 = vc[prev_id]["t1"], c["t0"]
                 if cid == "c1":
-                    self._add(SH.shot("fresco_title", a=t0, mode="night", perde=1), t0, t1)
+                    self._add(SH.shot("fresco_title", a=t0, mode="night", perde=1, tr=CARD_TR, link="material", label="ana başlık"), t0, t1)
                 elif t1 - t0 > 0.5:
                     n, title, years, _ = TITLES[cid]
                     kw = {}
                     if cid in PERDE_FIRST:
                         kw["perde_label"] = f"PERDE {FX.ROMAN[PERDE_OF[cid]]} — {FX.PERDE_NAMES[PERDE_OF[cid]]}"
-                    self._add(SH.shot("chapter_card", a=t0, n=n, title=title, years=years, perde=PERDE_OF[cid], **kw), t0, t1)
+                    self._add(SH.shot("chapter_card", a=t0, n=n, title=title, years=years, perde=PERDE_OF[cid], tr=CARD_TR, link="material", label=f"bölüm kartı {cid}", **kw), t0, t1)
             try:
                 mod = importlib.import_module(f"scenes_{cid}")
                 lst = mod.SHOTS
@@ -89,18 +143,21 @@ class Program:
                 if k == 0:
                     ts = c["t0"] if cid != "c0" else 0.0
                 self._add(s, ts, te)
-        # kapanış
-        if present and (chapters is None or present[-1] in chs):
-            last = vc[present[-1]]
-            self._add(SH.shot("outro", a=last["t1"], tr=("fade", 0.7), mode="night", perde=3), last["t1"], last["t1"] + OUTRO)
-        self.shots.sort(key=lambda s: s.t0)
-        for i, s in enumerate(self.shots):
-            s.i = i
-        self.total = self.shots[-1].t1
+        # kapanış (bitiş ekranı): parçada parçanın son bölümünden sonra; tam filmde son bölümden sonra
+        if part:
+            last_id = chs[-1] if chs else None
+        elif chapters is None:
+            last_id = present[-1] if present else None
+        else:
+            last_id = present[-1] if (present and present[-1] in chs) else None
+        if last_id:
+            last = vc[last_id]
+            otr = getattr(self._chap_mod.get(last_id), "OUTRO_TR", None) or CARD_TR
+            self._add(SH.shot("outro", a=last["t1"], tr=otr, link="material", mode="night", perde=part or 3, part=part, label="bitiş ekranı"), last["t1"], last["t1"] + OUTRO)
+        self.t_off = vc[first]["t0"] if (part and first) else 0.0
+        self._finalize()
         # yıl çizelgesi: bölüm başlangıç yılı + sahne dosyasının YIL_AT listesi
-        for cid in present:
-            if cid not in chs:
-                continue
+        for cid in chs:
             c = vc[cid]
             self._years.append((c["t0"] if cid != "c0" else 0.0, TITLES[cid][3]))
             mod = self._chap_mod.get(cid)
@@ -111,12 +168,59 @@ class Program:
                 except KeyError:
                     pass
         self.ys = FX.YearState(self._years)
-        self._chap_marks = [vc[c]["t0"] / self.total for c in present[1:]]
+        span = max(1e-6, self.total)
+        base = chs if (part or chapters) else present
+        self._chap_marks = [(vc[c]["t0"] - self.t_off) / span for c in base[1:]]
+
+    # ---- kurulum
+    def _from_shots(self, lst, end):
+        """Çekim listesi (reel / qa_flow): a = mutlak saniye (sayı); son çekim end'e kadar (yoksa +5 sn)."""
+        for k, s in enumerate(lst):
+            ts = float(self.tl.resolve(s.a))
+            if k + 1 < len(lst):
+                te = float(self.tl.resolve(lst[k + 1].a))
+            else:
+                te = float(end) if end is not None else ts + 5.0
+            self._add(s, ts, te)
+        self.t_off = self.shots[0].t0 if self.shots else 0.0
+        self._finalize()
+        self.ys = FX.YearState([])
+        self._chap_marks = []
 
     def _add(self, s, t0, t1):
         s.t0, s.t1 = float(t0), float(t1)
         assert s.t1 > s.t0 - 1e-6, f"çekim süresi ≤ 0: {s.kind} {s.a} {t0}→{t1}"
         self.shots.append(s)
+
+    def _finalize(self):
+        self.shots.sort(key=lambda s: s.t0)
+        for i, s in enumerate(self.shots):
+            s.i = i
+        self.total = (self.shots[-1].t1 - self.t_off) if self.shots else 0.0
+        self._link_flags()
+
+    def _link_flags(self):
+        """Geçişlerde kamera devri (cam_in/cam_out), etkin geçiş (tr_eff) ve gelen çekim saati (lead)."""
+        for s in self.shots:
+            s.cam_in = s.cam_out = False
+            s.lead = 0.0
+            s.tr_eff = None
+        for i in range(1, len(self.shots)):
+            s, p = self.shots[i], self.shots[i - 1]
+            t = FX.norm_tr(s.tr)
+            if not t:
+                continue
+            name, d, o = t
+            if name not in FX.TR and name not in ("fade", "dip", "zoom", "whip", "wipe"):
+                raise ValueError(f"bilinmeyen geçiş '{name}' (çekim #{s.i} {s.kind} '{s.label}'); geçerli: {sorted(list(FX.TR) + ['fade', 'dip', 'zoom', 'whip', 'wipe'])}")
+            place = o.get("place", "before")
+            cap = (p.dur if place != "after" else s.dur) * 0.85
+            d = max(0.2, min(d, cap)) if cap > 0.2 else max(0.05, cap)
+            s.tr_eff = (name, d, o)
+            if name not in FX.NO_CARRY:
+                s.cam_in = True
+                p.cam_out = True
+            s.lead = FX.lead_for(name, d, o)
 
     # ---- kare
     def shot_at(self, g):
@@ -139,6 +243,10 @@ class Program:
     def _perde_at(self, g, s=None):
         if s is not None and "perde" in s.params and s.params["perde"]:
             return s.params["perde"]
+        if not self.hud:
+            return 2
+        if self.part:
+            return self.part
         cid = self._chapter_of(g)
         if cid is None and g < 0:
             cid = "c0"
@@ -153,42 +261,68 @@ class Program:
 
     def _render_shot(self, s, g, frame=None):
         f = frame or Frame()
-        cx = SH.Ctx(f, g - s.t0, s, self.tl)
+        cx = SH.Ctx(f, g - s.t0 + s.lead, s, self.tl)
         cx.perde = self._perde_at(g, s)
         cx.year = self.ys.at(g)[0]
         SH.KINDS[s.kind](cx, **s.params)
         return f
 
-    def frame(self, n, post=True):
-        g = n / FPS
-        i = self.shot_at(g)
+    def _trans_at(self, g, i):
+        """g anında etkin geçiş → (idx_a, idx_b, ad, süre, opts, k) | None."""
         s = self.shots[i]
-        f = self._render_shot(s, g)
-        mode, pd = CM.mode_of(f)
-        # geçiş: sonraki çekim girişi
+        if i > 0 and s.tr_eff:
+            name, d, o = s.tr_eff
+            if o.get("place") == "after" and g < s.t0 + d:
+                return i - 1, i, name, d, o, clamp((g - s.t0) / d)
         if i + 1 < len(self.shots):
             nx = self.shots[i + 1]
-            tr = nx.tr
-            if tr:
-                kind_, d = tr[0], tr[1]
-                if g >= nx.t0 - d:
-                    k = clamp((g - (nx.t0 - d)) / d)
-                    f2 = self._render_shot(nx, g)
-                    m2, p2 = CM.mode_of(f2)
-                    f = self._blend(f, f2, k, kind_, g)
-                    if k > 0.5:
-                        mode, pd = m2, p2
-                    s = nx if k > 0.5 else s
+            if nx.tr_eff:
+                name, d, o = nx.tr_eff
+                if o.get("place") != "after" and g >= nx.t0 - d:
+                    return i, i + 1, name, d, o, clamp((g - (nx.t0 - d)) / d)
+        return None
+
+    def frame(self, n, post=True):
+        g = n / FPS + self.t_off
+        i = self.shot_at(g)
+        s = self.shots[i]
+        pmix = None
+        tr = self._trans_at(g, i)
+        if tr is None:
+            f = self._render_shot(s, g)
+            mode, pd = CM.mode_of(f)
+        else:
+            ia, ib, name, d, opts, k = tr
+            sa, sb = self.shots[ia], self.shots[ib]
+            fa = self._render_shot(sa, g)
+            fb = self._render_shot(sb, g)
+            ma, pa = CM.mode_of(fa)
+            mb, pb = CM.mode_of(fb)
+            f = self._blend(fa, fb, k, name, g, d, opts)
+            if (ma, pa) != (mb, pb):                         # renk derecelendirme geçişte yumuşakça karışır (LUT sıçraması yok)
+                pmix = (ma, pa, mb, pb, smooth((k - 0.20) / 0.60))
+            mode, pd = (mb, pb) if k > 0.5 else (ma, pa)
+            s = sb if k > 0.5 else sa
         f.cilt_mode, f.cilt_perde = mode, pd
         self._overlay(f, g, s)
         img = f.rgb()
         if post:
-            img = CM.post(img, n, mode, pd)
+            if pmix is not None:
+                ma, pa, mb, pb, w = pmix
+                if w <= 0.001:
+                    img = CM.post(img, n, ma, pa)
+                elif w >= 0.999:
+                    img = CM.post(img, n, mb, pb)
+                else:
+                    img = cv2.addWeighted(CM.post(img, n, ma, pa), 1.0 - w, CM.post(img, n, mb, pb), w, 0)
+            else:
+                img = CM.post(img, n, mode, pd)
         return img
 
-    def _blend(self, a, b, k, kind_, g):
+    def _blend(self, a, b, k, kind_, g, d=0.8, opts=None):
+        opts = {x: v for x, v in (opts or {}).items() if x not in ("place", "lead")}
         if kind_ in FX.TR:
-            return FX.blend(kind_, a, b, k, g)
+            return FX.blend(kind_, a, b, k, g, d=d, **opts)
         kk = smooth(k)
         if kind_ == "fade":
             a.blit(b, alpha=kk)
@@ -232,14 +366,17 @@ class Program:
 
     # ---- HUD / kaplama
     def _overlay(self, f, g, s):
-        if s.kind in HUD_SKIP:
+        tp = g - self.t_off
+        if self.part in (2, 3) and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
+            FX.part_title(f, tp, self.part, PART_TITLE_IN, PART_TITLE_OUT)       # parça başlık bindirmesi (HUD'dan bağımsız)
+        if s.kind in HUD_SKIP or not self.hud:
             return
         cid = self._chapter_of(g)
         if cid is None:
             return
         c = self.tl.chapters[cid]
         tl_ = g - c["t0"]
-        FX.progress_line(f, g / self.total, self._chap_marks)
+        FX.progress_line(f, (g - self.t_off) / max(1e-6, self.total), self._chap_marks)
         if cid != "c0" and tl_ < 5.5:
             n, title, _, _ = TITLES[cid]
             a = smooth(tl_ / 0.6) * (1 - smooth((tl_ - 4.6) / 0.9))
@@ -249,8 +386,9 @@ class Program:
 
 # ───────────────────────────── kapanış çekimi ─────────────────────────────
 @CM.ckind("outro")
-def k_outro(cx, **_):
-    """Kapanış: palle arması + yaldız 'ZAMAN KURYESİ' + YouTube bitiş-ekranı yuvaları (sol: video karesi, sağ: abone ol)."""
+def k_outro(cx, part=None, **_):
+    """Kapanış: palle arması + yaldız 'ZAMAN KURYESİ' + YouTube bitiş-ekranı yuvaları. Parça 1/2: sol 'SIRADAKİ PARÇA'; Parça 3: sol 'TÜM FİLM'; sağ 'ABONE OL · ZAMAN KURYESİ'.
+    part=None (tek parça / tam film): mevcut etiketler ('SIRADAKİ TESLİMAT')."""
     import cilt_orn as ORN
     import cilt_props as CP
     f = cx.f
@@ -259,13 +397,17 @@ def k_outro(cx, **_):
     out = 1 - smooth((cx.t - (cx.dur - 1.2)) / 1.2)
     a = cx.amt(0.3, 1.2) * out
     sp = CM.gilt("ZAMAN KURYESİ", "title", 92, 16.0)
-    CM.draw_spr(f, sp, W / 2, H * 0.27, "c", alpha=a, glow=0.25 * a, shadow=0.6)
+    gl = ((cx.t - 1.6) * 0.30) % 2.4 if cx.t > 1.6 else None
+    CM.draw_spr(f, sp, W / 2, H * 0.27, "c", alpha=a, glow=0.25 * a, shadow=0.6, glint=gl if (gl is not None and gl < 1) else None)
     CM.kick(f, "TESLİMAT TAMAM", W / 2, H * 0.27 + 62, alpha=cx.amt(1.0, 1.0) * out, size=30, track=18, color="#E6C472")
-    CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5)
+    CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5, glint=((cx.t * 0.30 + 0.2) % 2.2) if (cx.t * 0.30 + 0.2) % 2.2 < 1 else None)
     k = cx.amt(2.6, 0.9) * out
-    for (x, y, w, h, lab) in ((330, 640, 520, 292, "SIRADAKİ TESLİMAT"), (1070, 640, 520, 292, "ABONE OL  ·  ZAMAN KURYESİ")):
+    left = {1: "SIRADAKİ PARÇA", 2: "SIRADAKİ PARÇA", 3: "TÜM FİLM"}.get(part, "SIRADAKİ TESLİMAT")
+    right = "ABONE OL · ZAMAN KURYESİ" if part else "ABONE OL  ·  ZAMAN KURYESİ"
+    br = 0.80 + 0.20 * (0.5 + 0.5 * math.sin(cx.t * 1.7))          # yuvaların çerçevesi hafif nefes alır (durağan değil)
+    for (x, y, w, h, lab) in ((330, 640, 520, 292, left), (1070, 640, 520, 292, right)):
         f.rrect(x, y, w, h, 12, color="#000000", alpha=0.30 * k)
-        ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k, color="#D8B25A", gap=8)
+        ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k * br, color="#D8B25A", gap=8)
         CM.ink(f, lab, x + w / 2, y + h + 46, face="cap_b", size=28, color="#E6D3A0", align="c", track=7, alpha=0.95 * k)
     cam.end(f)
     CM.finish(f, cx, motes_n=36)
