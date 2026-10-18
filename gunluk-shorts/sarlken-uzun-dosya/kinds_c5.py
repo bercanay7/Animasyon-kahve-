@@ -12,6 +12,7 @@ import shots as SH
 import sk
 from bw_lib import (INK, backdrop, big_gold, chain_links, curve_arrow, duo_glow, fadeout, glow, paper, push, reveal, scribbles, shift,
                     spot, stamp2, strike, tag)
+from bw_lib import draw_icon2, dust2, glow_blit, gold2, static_backdrop  # noqa: E402
 from bw_lib import draw_medal2  # noqa: E402
 from sk import C, H, W, back_out, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
@@ -48,20 +49,20 @@ def make_leave(go_at, year_at, block_at):
         if k > 0:
             mv.route(f, cam, ROUTE_LEAVE, prog=k, color="#F0D27A", width=6, arrow=True)
             (x, y), ang = mv.point_on(cam, ROUTE_LEAVE, k)
-            icons.draw_icon(f, "crown", x, y - 36, size=64, metal="gold", alpha=min(1.0, k * 6), glow=0.4)
+            draw_icon2(f, "crown", x, y - 36, size=64, metal="gold", alpha=min(1.0, k * 6), glow=0.4)
         # geri dönüş: kesikli kırmızı ok + yasak
         bk = clamp((cx.t - cx.at(block_at)) / 0.9)
         if bk > 0:
             mv.route(f, cam, [(-3.5, 42.5), (2.4, 46.4), (7.4, 49.2)], prog=bk, color="#C0392B", width=5, dash=(12, 10), arrow=True, alpha=0.95)
             mx, my = cam.ll(1.8, 46.1)
-            icons.draw_icon(f, "b_forbid", mx, my, size=150 * (1.2 - 0.2 * ease_out(bk)), metal="crimson", alpha=bk, glow=0.25)
+            draw_icon2(f, "b_forbid", mx, my, size=150 * (1.2 - 0.2 * ease_out(bk)), metal="crimson", alpha=bk, glow=0.25)
         # 9 YIL
         ya = cx.amt(year_at, 0.6)
         if ya > 0:
             px, py = 320, 430
             f.rrect(px - 215, py - 190, 430, 420, 24, color="#150D08", alpha=0.82 * ya)
             f.rrect(px - 215, py - 190, 430, 420, 24, style="stroke", sw=3, color="#C9962B", alpha=0.9 * ya)
-            icons.draw_icon(f, "hourglass", px, py - 100, size=150, metal="gold", alpha=ya, shadow=False, glow=0.2)
+            draw_icon2(f, "hourglass", px, py - 100, size=150, metal="gold", alpha=ya, shadow=False, glow=0.2)
             big_gold(f, "9", px, py + 100, size=190, alpha=ya, track=4)
             f.text("YIL", px, py + 170, face="title_m", size=50, color="#E0C682", align="c", track=18, alpha=ya)
     return extra
@@ -77,7 +78,7 @@ def make_pressure(es_at, fr_at, ot_at):
         # merkez: taç (imparator)
         ck = cx.amt(0.1, 0.8)
         glow(f, cxp, cyp, 120, "#FFD27A", 0.35 * ck)
-        icons.draw_icon(f, "imperial_crown", cxp, cyp, size=110 * (0.85 + 0.15 * ck), metal="gold", alpha=ck, glow=0.35)
+        draw_icon2(f, "imperial_crown", cxp, cyp, size=110 * (0.85 + 0.15 * ck), metal="gold", alpha=ck, glow=0.35)
         specs = [(es_at, (-3.8, 40.2), "#C0392B", "İSPANYA", (-1.0, 38.4), 60),
                  (fr_at, (0.6, 46.6), "#4B6DB5", "FRANSA", (-0.5, 49.2), -50),
                  (ot_at, (26.0, 40.6), "#4FA57A", "OSMANLI", (23.0, 39.6), 70)]
@@ -100,15 +101,13 @@ def make_pressure(es_at, fr_at, ot_at):
 @SH.kind("c5_ideas")
 def k_ideas(cx, tag_at=0.9, n=34):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.22)
-    duo_glow(f, PETROL, "#6B3F1E", a=0.30, y=H * 0.5)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.22, (PETROL, "#6B3F1E", 0.30, H * 0.5))
+    dust2(f, cx.t, n=50)
     rs = np.random.RandomState(12)
     # merkezde alev (fikir)
     fk = cx.amt(0.0, 0.7)
     glow(f, 560, 560, 380, "#FFB347", 0.28 * fk)
-    icons.draw_icon(f, "b_flame", 560, 560 - 6 * math.sin(cx.t * 3), size=250 * (0.85 + 0.15 * fk), metal="gold", alpha=fk, glow=0.5)
+    draw_icon2(f, "b_flame", 560, 560 - 6 * math.sin(cx.t * 3), size=250 * (0.85 + 0.15 * fk), metal="gold", alpha=fk, glow=0.5)
     # uçuşan sayfalar: soldan sağa, derinlik katmanlı
     for i in range(n):
         t0 = 0.15 + rs.rand() * 1.9
@@ -149,7 +148,7 @@ def peasants_overlay(year_at, war_at, notl_at, num_at):
         k1 = cx.amt(year_at, 0.7) if year_at is not None else 0.0
         if k1 > 0:
             f.rect(0, H * 0.70, W, H * 0.30, shader=f.lin(0, H * 0.70, 0, H, [("#000000", 0.0, 0), ("#000000", 1.0, int(215 * k1))]))
-            f.gold("1524", 260, H * 0.90, face="title", size=118, track=10, alpha=k1, glow=0.3 * k1, align="c")
+            gold2(f, "1524", 260, H * 0.90, face="title", size=118, track=10, alpha=k1, glow=0.3 * k1, align="c")
         k2 = cx.amt(war_at, 0.7) if war_at is not None else 0.0
         if k2 > 0:
             f.text("KÖYLÜ SAVAŞI", 560, H * 0.90 - 10, face="title_m", size=50, color="#F0DDA0", align="l", track=12, alpha=k2, shadow=(2, 3, 4, "#000000"))
@@ -157,7 +156,7 @@ def peasants_overlay(year_at, war_at, notl_at, num_at):
         k3 = cx.amt(notl_at, 0.7) if notl_at is not None else 0.0
         if k3 > 0:
             draw_medal2(f, "luther", 1560, 330, 330 * (0.92 + 0.08 * ease_out(k3)), "teal", True, alpha=k3, tilt=0.1 * math.sin(cx.t * 0.7))
-            icons.draw_icon(f, "b_forbid", 1560, 330, size=260 * (1.25 - 0.25 * ease_out(k3)), metal="crimson", alpha=0.92 * k3, glow=0.2)
+            draw_icon2(f, "b_forbid", 1560, 330, size=260 * (1.25 - 0.25 * ease_out(k3)), metal="crimson", alpha=0.92 * k3, glow=0.2)
             tag(f, "LUTHER İSTEMEMİŞTİ", 1560, 530, size=28, alpha=k3, track=6)
         # sayı
         k4 = cx.amt(num_at, 0.7) if num_at is not None else 0.0
@@ -176,15 +175,13 @@ def peasants_overlay(year_at, war_at, notl_at, num_at):
 @SH.kind("c5_speyer")
 def k_speyer(cx, year_at=0.0, city_at=1.5, maj_at=2.9, ferman_at=4.0, stamp_at=5.3):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, "#7A5D1E", PETROL, a=0.26)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, ("#7A5D1E", PETROL, 0.26))
+    dust2(f, cx.t, n=50)
     with push(cx, 1.0, 1.05):
         # üst başlık: 1529 · SPEYER
         ya = cx.amt(year_at, 0.8)
         if ya > 0:
-            f.gold("1529", 520, 215, face="title", size=130, track=14, alpha=ya, glow=0.3 * ya)
+            gold2(f, "1529", 520, 215, face="title", size=130, track=14, alpha=ya, glow=0.3 * ya)
         ca = cx.amt(city_at, 0.7)
         if ca > 0:
             f.text("SPEYER", 520, 300, face="title_m", size=56, color="#F0DDA0", align="c", track=24, alpha=ca, shadow=(2, 3, 4, "#000000"))
@@ -202,7 +199,7 @@ def k_speyer(cx, year_at=0.0, city_at=1.5, maj_at=2.9, ferman_at=4.0, stamp_at=5
                 f.oval(xc, y - 6, 105, 19, style="stroke", sw=2, color=mix(col, "#000000", 0.55), alpha=0.85 * ki)
             ka = cx.amt(maj_at, 0.6, off=0.11 * nt * 0.6)
             if ka > 0:
-                icons.draw_icon(f, "cross", xc, top_y - 66, size=112, metal=metal, alpha=ka, shadow=False, glow=0.15)
+                draw_icon2(f, "cross", xc, top_y - 66, size=112, metal=metal, alpha=ka, shadow=False, glow=0.15)
                 f.text(lab, xc, base_y + 60, face="title_m", size=34, color="#E7D5A0", align="c", track=8, alpha=ka)
                 if sub_:
                     f.text(sub_, xc, base_y + 100, face="cap_i", size=34, color="#C9B27A", align="c", track=4, alpha=ka)
@@ -225,10 +222,8 @@ def k_speyer(cx, year_at=0.0, city_at=1.5, maj_at=2.9, ferman_at=4.0, stamp_at=5
 @SH.kind("c5_protest")
 def k_protest(cx, prince_at=0.0, city_at=1.1, objection_at=2.0, protesto_at=3.3, protestan_at=5.1):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, "#6B3F1E", a=0.26)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, (PETROL, "#6B3F1E", 0.26))
+    dust2(f, cx.t, n=50)
     with push(cx, 1.0, 1.05):
         # sol: birkaç prens (kalkanlar)
         pk = cx.amt(prince_at, 0.4)
@@ -238,14 +233,14 @@ def k_protest(cx, prince_at=0.0, city_at=1.1, objection_at=2.0, protesto_at=3.3,
                 continue
             x = 250 + i * 150
             y = 360 + (30 if i % 2 else 0)
-            icons.draw_icon(f, "shield", x, y - (1 - ease_out(k)) * 40, size=150, metal=["gold", "silver", "bronze", "gold"][i], alpha=k, glow=0.12)
+            draw_icon2(f, "shield", x, y - (1 - ease_out(k)) * 40, size=150, metal=["gold", "silver", "bronze", "gold"][i], alpha=k, glow=0.12)
         if pk > 0:
             f.text("BİRKAÇ PRENS", 400, 510, face="title_m", size=34, color="#E7D5A0", align="c", track=8, alpha=pk)
         # sağ: 14 şehir
         ck = cx.amt(city_at, 0.6)
         if ck > 0:
             v = int(round(14 * ease_out(clamp((cx.t - cx.at(city_at)) / 0.9), 2)))
-            icons.draw_icon(f, "tower", 1160, 360, size=170, metal="bronze", alpha=ck, glow=0.1)
+            draw_icon2(f, "tower", 1160, 360, size=170, metal="bronze", alpha=ck, glow=0.1)
             big_gold(f, str(max(1, v)), 1430, 400, size=190, alpha=ck, track=4)
             f.text("ŞEHİR", 1430, 470, face="title_m", size=44, color="#E0C682", align="c", track=18, alpha=ck)
         # itiraz: ünlem / ok
@@ -265,12 +260,12 @@ def k_protest(cx, prince_at=0.0, city_at=1.1, objection_at=2.0, protesto_at=3.3,
         pa = cx.amt(protesto_at, 0.7)
         if pa > 0:
             swap = cx.amt(protestan_at, 0.55)
-            f.gold(stem, x_stem, y, face="title", size=size, track=track, alpha=pa, glow=0.3 * pa)
+            gold2(f, stem, x_stem, y, face="title", size=size, track=track, alpha=pa, glow=0.3 * pa)
             xo = W / 2 - wt / 2 + w_stem + track + (w_o / 2 if swap < 1 else 0)
             if swap < 1:
-                f.gold("O", W / 2 - wt / 2 + w_stem + track + w_o / 2, y, face="title", size=size, track=track, alpha=pa * (1 - swap))
+                gold2(f, "O", W / 2 - wt / 2 + w_stem + track + w_o / 2, y, face="title", size=size, track=track, alpha=pa * (1 - swap))
             if swap > 0:
-                f.gold("AN", W / 2 - wt / 2 + w_stem + track + w_an / 2, y, face="title", size=size, track=track, alpha=swap, glow=0.5 * swap, scale=1.0 + (1 - swap) * 0.25)
+                gold2(f, "AN", W / 2 - wt / 2 + w_stem + track + w_an / 2, y, face="title", size=size, track=track, alpha=swap, glow=0.5 * swap, scale=1.0 + (1 - swap) * 0.25)
         la = cx.amt(protesto_at, 0.5, off=0.15)
         if la > 0 and cx.amt(protestan_at, 0.4) < 1:
             f.text("PROTESTO ETTİ", 960, 905, face="cap_i", size=36, color="#B9A674", align="c", track=6, alpha=la * (1 - cx.amt(protestan_at, 0.4)))
@@ -281,22 +276,20 @@ def k_protest(cx, prince_at=0.0, city_at=1.1, objection_at=2.0, protesto_at=3.3,
 @SH.kind("c5_confession")
 def k_confession(cx, year_at=0.0, city_at=1.4, seal_at=2.7, write_at=3.4, offer_at=5.0):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, CRIM, a=0.26)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, (PETROL, CRIM, 0.26))
+    dust2(f, cx.t, n=50)
     with push(cx, 1.0, 1.04, pan=(-14, 0)):
         # sağda: taç ve taht
         ok = cx.amt(offer_at, 0.9)
         glow(f, 1610, 560, 380, "#FFB347", 0.18 + 0.12 * ok)
-        icons.draw_icon(f, "imperial_crown", 1610, 470, size=300, metal="gold", alpha=0.92, glow=0.3 + 0.2 * ok)
+        draw_icon2(f, "imperial_crown", 1610, 470, size=300, metal="gold", alpha=0.92, glow=0.3 + 0.2 * ok)
         f.rrect(1470, 668, 280, 36, 8, color="#5A141A")
         f.rrect(1470, 668, 280, 36, 8, style="stroke", sw=2, color="#C9962B", alpha=0.8)
         f.rrect(1430, 704, 360, 30, 8, color="#3A0E12")
         # solda: yıl + şehir + etiket
         ya = cx.amt(year_at, 0.8)
         if ya > 0:
-            f.gold("1530", 330, 470, face="title", size=170, track=12, alpha=ya, glow=0.3 * ya)
+            gold2(f, "1530", 330, 470, face="title", size=170, track=12, alpha=ya, glow=0.3 * ya)
         ca = cx.amt(city_at, 0.7)
         if ca > 0:
             f.text("AUGSBURG", 330, 570, face="title_m", size=58, color="#F0DDA0", align="c", track=18, alpha=ca, shadow=(2, 3, 4, "#000000"))
@@ -321,10 +314,8 @@ def k_confession(cx, year_at=0.0, city_at=1.4, seal_at=2.7, write_at=3.4, offer_
 @SH.kind("c5_authors")
 def k_authors(cx, at=0.0, luther_at=1.4, mel_at=2.4, size=540, y=H * 0.46):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, "#6B4A12", a=0.28, y=y)
-    sk.dust(f, cx.t, n=55)
+    static_backdrop(f, 0.28, (PETROL, "#6B4A12", 0.28, y))
+    dust2(f, cx.t, n=55)
     a = cx.amt(at, 0.8)
     lk = cx.amt(luther_at, 0.6)
     mk = cx.amt(mel_at, 0.7)
@@ -340,11 +331,11 @@ def k_authors(cx, at=0.0, luther_at=1.4, mel_at=2.4, size=540, y=H * 0.46):
         fit_plate(f, name, role, x, y + size * 0.53, w=620, t=cx.amt(at, 0.6, off=0.3) * (dim if i == 0 else 1.0))
     # Luther: üstü çizilir
     if lk > 0:
-        icons.draw_icon(f, "b_forbid", W / 2 - gap / 2, y, size=300 * (1.2 - 0.2 * ease_out(lk)), metal="crimson", alpha=0.9 * lk, glow=0.2)
+        draw_icon2(f, "b_forbid", W / 2 - gap / 2, y, size=300 * (1.2 - 0.2 * ease_out(lk)), metal="crimson", alpha=0.9 * lk, glow=0.2)
     # Melanchthon: ana yazar etiketi + kalem
     if mk > 0:
         glow(f, W / 2 + gap / 2, y - 60, 330, "#FFD27A", 0.20 * mk)
-        icons.draw_icon(f, "quill", W / 2 + gap / 2 + 220, y - 230, size=190, metal="gold", alpha=mk, rot=0.3, glow=0.3)
+        draw_icon2(f, "quill", W / 2 + gap / 2 + 220, y - 230, size=190, metal="gold", alpha=mk, rot=0.3, glow=0.3)
         tag(f, "ANA YAZAR", W / 2 + gap / 2, y - size * 0.62, size=32, alpha=mk, track=12, color="#F4DD92")
     f.vig(0.58)
 
@@ -353,10 +344,8 @@ def k_authors(cx, at=0.0, luther_at=1.4, mel_at=2.4, size=540, y=H * 0.46):
 @SH.kind("c5_refuse")
 def k_refuse(cx, at=0.0, listen_at=0.6, no_at=1.4, stamp_at=1.6, key="karl_olgun"):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, CRIM, PETROL, a=0.28)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, (CRIM, PETROL, 0.28))
+    dust2(f, cx.t, n=50)
     a = cx.amt(at, 0.8)
     with push(cx, 1.0, 1.04):
         # Karl: sonunda arkasını döner (yatay ölçek 1 → −1)
@@ -398,10 +387,8 @@ def k_refuse(cx, at=0.0, listen_at=0.6, no_at=1.4, stamp_at=1.6, key="karl_olgun
 @SH.kind("c5_league")
 def k_league(cx, shield_at=0.0, name_at=1.0, close_at=1.9, flash_at=2.5, n=8):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, "#6B3F1E", a=0.30)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, (PETROL, "#6B3F1E", 0.30))
+    dust2(f, cx.t, n=50)
     cxm, cym = W / 2, 520
     rx, ry = 560, 300
     with push(cx, 1.0, 1.05):
@@ -423,11 +410,11 @@ def k_league(cx, shield_at=0.0, name_at=1.0, close_at=1.9, flash_at=2.5, n=8):
             if k <= 0:
                 continue
             glow(f, x, y, 120, PETROL_L, 0.22 * k)
-            icons.draw_icon(f, "shield", x, y - (1 - ease_out(k)) * 40, size=170 * (0.8 + 0.2 * back_out(k)), metal="teal", alpha=k, glow=0.2)
+            draw_icon2(f, "shield", x, y - (1 - ease_out(k)) * 40, size=170 * (0.8 + 0.2 * back_out(k)), metal="teal", alpha=k, glow=0.2)
         na = cx.amt(name_at, 0.8)
         if na > 0:
-            f.gold("ŞMALKALDEN", cxm, cym - 10, face="title", size=96, track=14, alpha=na, glow=0.3 * na, scale=1.0 + (1 - na) * 0.05)
-            f.gold("BİRLİĞİ", cxm, cym + 100, face="title", size=96, track=18, alpha=cx.amt(name_at, 0.8, off=0.35), glow=0.3)
+            gold2(f, "ŞMALKALDEN", cxm, cym - 10, face="title", size=96, track=14, alpha=na, glow=0.3 * na, scale=1.0 + (1 - na) * 0.05)
+            gold2(f, "BİRLİĞİ", cxm, cym + 100, face="title", size=96, track=18, alpha=cx.amt(name_at, 0.8, off=0.35), glow=0.3)
     fl = cx.amt(flash_at, 0.3) * (1 - cx.amt(flash_at, 0.8, off=0.3))
     if fl > 0:
         glow(f, cxm, cym, 900, "#9FE0E8", 0.45 * fl)
@@ -438,10 +425,8 @@ def k_league(cx, shield_at=0.0, name_at=1.0, close_at=1.9, flash_at=2.5, n=8):
 @SH.kind("c5_wait")
 def k_wait(cx, at=0.0, fr_at=1.0, ot_at=1.4, calm_at=2.8, war_at=3.95, a0=1520, a1=1548):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.25)
-    duo_glow(f, "#6B3F1E", CRIM, a=0.2)
-    sk.dust(f, cx.t, n=45)
+    static_backdrop(f, 0.25, ("#6B3F1E", CRIM, 0.2))
+    dust2(f, cx.t, n=45)
     x0, x1, y = 170, 1750, 640
     def X(yr):
         return x0 + (yr - a0) / (a1 - a0) * (x1 - x0)
@@ -472,7 +457,7 @@ def k_wait(cx, at=0.0, fr_at=1.0, ot_at=1.4, calm_at=2.8, war_at=3.95, a0=1520, 
         xx = X(xyr)
         hot = (1 - calm)
         glow(f, xx, 400, 150, "#C0392B", 0.35 * hot * kk)
-        icons.draw_icon(f, ic, xx, 400 - 6 * math.sin(cx.t * 3 + xyr) * hot, size=170, metal=metal, alpha=kk * (0.4 + 0.6 * hot), glow=0.25 * hot)
+        draw_icon2(f, ic, xx, 400 - 6 * math.sin(cx.t * 3 + xyr) * hot, size=170, metal=metal, alpha=kk * (0.4 + 0.6 * hot), glow=0.25 * hot)
         f.text(lab, xx, 525, face="title_m", size=30, color="#E7D5A0", align="c", track=8, alpha=kk * (0.5 + 0.5 * hot))
     if calm > 0:
         tag(f, "YATIŞTI", (X(1535) + X(1541)) / 2, 330, size=32, alpha=calm, track=14, color="#B7D8C4", edge="#4FA57A")
@@ -482,8 +467,8 @@ def k_wait(cx, at=0.0, fr_at=1.0, ot_at=1.4, calm_at=2.8, war_at=3.95, a0=1520, 
         xx = X(1546)
         glow(f, xx, y, 200, "#FF8A2A", 0.45 * wk)
         f.line(xx, y, xx, y - 150 * wk, color="#C0392B", sw=4, alpha=wk)
-        icons.draw_icon(f, "swords", xx, y - 220, size=210 * (0.7 + 0.3 * back_out(wk)), metal="crimson", alpha=wk, glow=0.35)
-        f.gold("1546", xx, y + 120, face="title", size=84, track=8, alpha=wk, glow=0.35)
+        draw_icon2(f, "swords", xx, y - 220, size=210 * (0.7 + 0.3 * back_out(wk)), metal="crimson", alpha=wk, glow=0.35)
+        gold2(f, "1546", xx, y + 120, face="title", size=84, track=8, alpha=wk, glow=0.35)
         f.text("SAVAŞ", xx, y + 176, face="title_m", size=40, color="#F0DDA0", align="c", track=16, alpha=cx.amt(war_at, 0.5, off=0.25))
     f.vig(0.6)
 
@@ -509,10 +494,8 @@ def _frame_gold(f, x, y, w, h, alpha=1.0):
 def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3, armor_at=5.5, alone_at=7.6):
     from rider_b import draw_rider
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.25)
-    duo_glow(f, "#6B3F1E", "#4A1E10", a=0.24)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.25, ("#6B3F1E", "#4A1E10", 0.24))
+    dust2(f, cx.t, n=50)
     a = cx.amt(at, 0.8)
     with push(cx, 1.0, 1.06, pan=(-18, 0)):
         # sol: Tiziano madalyası + etiket
@@ -549,7 +532,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
             # 'zafer simgesi': defne
             sk_ = cx.amt(symbol_at, 0.7)
             if sk_ > 0:
-                icons.draw_icon(f, "laurel", fx_ - fw / 2 - 95, fy_ - 150, size=140, metal="gold", alpha=sk_, glow=0.35)
+                draw_icon2(f, "laurel", fx_ - fw / 2 - 95, fy_ - 150, size=140, metal="gold", alpha=sk_, glow=0.35)
             # zırh parıltısı
             ak = cx.amt(armor_at, 0.6) * (1 - cx.amt(armor_at, 0.9, off=1.2))
             if ak > 0:
@@ -565,16 +548,14 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
 @SH.kind("c5_moritz")
 def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, CRIM, a=0.26)
-    sk.dust(f, cx.t, n=55)
+    static_backdrop(f, 0.28, (PETROL, CRIM, 0.26))
+    dust2(f, cx.t, n=55)
     # Faz A: defne solar
     la = cx.amt(short_at, 0.6) * (1 - cx.amt(year_at, 0.8, off=-0.4))
     if la > 0:
         fade = 1.0 - 0.7 * cx.amt(short_at, 1.6, off=0.7)
         glow(f, W / 2, 500, 420, "#FFD27A", 0.3 * la * fade)
-        icons.draw_icon(f, "laurel", W / 2, 500, size=420, metal="gold" if fade > 0.55 else "bronze", alpha=la * (0.45 + 0.55 * fade), glow=0.3 * fade)
+        draw_icon2(f, "laurel", W / 2, 500, size=420, metal="gold" if fade > 0.55 else "bronze", alpha=la * (0.45 + 0.55 * fade), glow=0.3 * fade)
         f.text("ZAFER", W / 2, 840, face="title", size=64, color="#E7D5A0", align="c", track=22, alpha=la * fade)
     # Faz B: iki madalya, ortada kopan zincir
     mk = cx.amt(year_at, 0.8)
@@ -601,12 +582,12 @@ def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
                 glow(f, W / 2, 440, 380 * (1 - sk_) + 60, "#FF5A3A", 0.5 * (1 - sk_))
         yk = cx.amt(year_at, 0.8, off=0.1)
         if yk > 0:
-            f.gold("1552", W / 2, 190, face="title", size=110, track=14, alpha=yk, glow=0.3 * yk)
+            gold2(f, "1552", W / 2, 190, face="title", size=110, track=14, alpha=yk, glow=0.3 * yk)
         tg = cx.amt(ally_at, 0.6)
         if tg > 0 and sk_ <= 0:
             tag(f, "ESKİ MÜTTEFİK", W / 2, 560, size=30, alpha=tg, track=12)
         if sk_ > 0:
-            icons.draw_icon(f, "swords", W / 2, 440, size=190 * ease_out(sk_), metal="crimson", alpha=sk_, glow=0.3)
+            draw_icon2(f, "swords", W / 2, 440, size=190 * ease_out(sk_), metal="crimson", alpha=sk_, glow=0.3)
     f.vig(0.6)
 
 
@@ -614,10 +595,8 @@ def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
 @SH.kind("c5_peace")
 def k_peace(cx, at=0.0, date_at=0.9, title_at=2.8, seal_at=3.8, luther_at=5.2, open_at=6.2):
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.28)
-    duo_glow(f, PETROL, "#7A5D1E", a=0.26)
-    sk.dust(f, cx.t, n=50)
+    static_backdrop(f, 0.28, (PETROL, "#7A5D1E", 0.26))
+    dust2(f, cx.t, n=50)
     a = cx.amt(at, 0.8)
     with push(cx, 1.0, 1.05):
         yy = 540 + (1 - ease_out(a)) * 140
@@ -646,7 +625,7 @@ def k_peace(cx, at=0.0, date_at=0.9, title_at=2.8, seal_at=3.8, luther_at=5.2, o
                 else:
                     f.c.drawPath(path, f.paint("#7A5518", style="stroke", sw=4, alpha=0.9))
                 if k > 0:
-                    icons.draw_icon(f, ic, nx, ny + 10 - (1 - ease_out(k)) * 30, size=230 * (0.85 + 0.15 * back_out(k)), metal=metal, alpha=k, glow=0.12)
+                    draw_icon2(f, ic, nx, ny + 10 - (1 - ease_out(k)) * 30, size=230 * (0.85 + 0.15 * back_out(k)), metal=metal, alpha=k, glow=0.12)
                     f.text(lab, nx, ny + 260, face="fell", size=40, color=INK, align="c", track=4, alpha=0.9 * k)
             SH.wax_seal(f, 500, -210, 62, color="#8E1F26", t=cx.amt(seal_at, 0.35), alpha=a, mono="A")
     f.vig(0.6)
@@ -676,10 +655,8 @@ def unit_block(f, x, y, w, h, col, kind="inf", alpha=1.0, rot=0.0):
 def k_plan(cx, at=0.0, date_at=0.0, river_at=0.8, city_at=1.4, army_at=1.9, fog_at=3.4, cross_at=4.9):
     """Mühlberg: parşömen savaş planı — Elbe, iki yakada birlikler, sis, geçiş oku."""
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=0.26)
-    duo_glow(f, "#4A2A18", PETROL, a=0.2)
-    sk.dust(f, cx.t, n=45)
+    static_backdrop(f, 0.26, ("#4A2A18", PETROL, 0.2))
+    dust2(f, cx.t, n=45)
     a = cx.amt(at, 0.8)
     with push(cx, 1.0, 1.05, pan=(-10, 0)):
         yy = 560 + (1 - ease_out(a)) * 120

@@ -107,7 +107,7 @@ def backdrop(f, cx, kind="night", tint=None, tint_a=0.0, rays=0.3, dust_n=50, du
     if tint:
         duo_glow(f, tint[0], tint[1], a=tint_a or 0.25)
     if dust_n:
-        sk.dust(f, cx.t, n=dust_n, alpha=dust_a)
+        dust2(f, cx.t, n=dust_n, alpha=dust_a)
 
 
 # ───────────────────────────── parşömen ─────────────────────────────
@@ -287,7 +287,7 @@ def tag(f, text, x, y, size=26, color="#E8D49A", edge="#C9962B", alpha=1.0, alig
     f.rrect(x0, y - h * 0.68, w, h, 10, color=bg, alpha=0.88 * alpha)
     f.rrect(x0, y - h * 0.68, w, h, 10, style="stroke", sw=2, color=edge, alpha=0.9 * alpha)
     if icon:
-        icons.draw_icon(f, icon, x0 + pad + size * 0.55, y - size * 0.18, size=size * 1.25, metal=icon_metal, alpha=alpha, shadow=False)
+        draw_icon2(f, icon, x0 + pad + size * 0.55, y - size * 0.18, size=size * 1.25, metal=icon_metal, alpha=alpha, shadow=False)
     f.text(text, x0 + pad + iw, y, face=face, size=size, color=color, align="l", track=track, alpha=alpha)
     return w, h
 
@@ -522,3 +522,189 @@ def draw_medal2(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, tilt=0.
         f.c.drawRect(skia.Rect.MakeLTRB(-380, -380, 380, 380), skia.Paint(Shader=shd, BlendMode=skia.BlendMode.kSrcATop))
         f.c.restore()
     f.c.restore()
+
+
+# ───────────────────────────── hız: önbellekli arka plan / ikon / altın yazı / toz ─────────────────────────────
+from collections import OrderedDict  # noqa: E402
+
+_BD = OrderedDict()
+
+
+def static_backdrop(f, rays=0.28, duo=None, kind="night", amp=0.06, seed=3, vig=0.55, glows=None):
+    """f.bg + f.rays + duo_glow (+ sabit glow listesi) tek önbellekli tam-ekran görüntüde: kare başına tek blit.
+    duo=(sol, sağ, a[, y]); glows=[(x, y, r, renk, a), ...] (hepsi çekim boyunca sabit olmalı). Önbellek LRU (6 girdi)."""
+    key = (kind, amp, seed, vig, rays, tuple(duo) if duo else None, tuple(tuple(g) for g in glows) if glows else None)
+    img = _BD.get(key)
+    if img is None:
+        g = sk.Frame()
+        g.clear(skia.ColorTRANSPARENT)
+        g.bg(kind, amp, seed, vig)
+        if rays:
+            g.rays(alpha=rays)
+        if duo:
+            duo_glow(g, duo[0], duo[1], a=duo[2], y=(duo[3] if len(duo) > 3 else H * 0.5))
+        for (gx, gy, gr, gc, ga) in (glows or ()):
+            glow(g, gx, gy, gr, gc, ga)
+        img = g.surf.makeImageSnapshot()
+        _BD[key] = img
+        while len(_BD) > 6:
+            _BD.popitem(last=False)
+    else:
+        _BD.move_to_end(key)
+    f.c.drawImage(img, 0, 0, skia.SamplingOptions(), skia.Paint())
+
+
+_GL = OrderedDict()
+
+
+def glow_blit(f, x, y, r, color="#FFB347", a=0.5):
+    """glow() ile aynı görünüm; değişken alfa (titreme/animasyon) için: gradyan sprite bir kez pişer, kare başına alfa'lı kPlus blit."""
+    if a <= 0:
+        return
+    key = (round(x), round(y), round(r), color)
+    img = _GL.get(key)
+    if img is None:
+        g = sk.Frame(int(2 * r), int(2 * r))
+        g.clear(skia.ColorTRANSPARENT)
+        glow(g, r, r, r, color, 1.0)
+        img = g.surf.makeImageSnapshot()
+        _GL[key] = img
+        while len(_GL) > 6:
+            _GL.popitem(last=False)
+    else:
+        _GL.move_to_end(key)
+    p = skia.Paint()
+    p.setAlphaf(clamp(a))
+    p.setBlendMode(skia.BlendMode.kPlus)
+    f.c.drawImage(img, round(x) - round(r) + (x - round(x)), round(y) - round(r) + (y - round(y)), skia.SamplingOptions(skia.FilterMode.kLinear), p)
+
+
+def dust2(f, t, n=70, seed=2, speed=(6, 3), depth=1.0, alpha=0.5, color="#FFE8B0", rect=None):
+    """sk.dust ile aynı toz; tam-ekran saveLayer yerine daireler doğrudan kPlus ile çizilir (~8 ms/kare kazanç)."""
+    rs = np.random.RandomState(seed)
+    x0, y0, w, h = rect if rect else (0, 0, f.w, f.h)
+    for i in range(n):
+        d = 0.3 + rs.rand() * 0.7
+        px = (rs.rand() * w + t * speed[0] * d * depth + math.sin(t * 0.4 + i) * 12 * d) % w
+        py = (rs.rand() * h + t * speed[1] * d * depth + math.cos(t * 0.31 + i * 1.7) * 10 * d) % h
+        r = (1.0 + 3.2 * d) * (0.6 + 0.4 * math.sin(t * 1.3 + i))
+        a = alpha * d * (0.4 + 0.6 * abs(math.sin(t * 0.5 + i * 2.1)))
+        f.c.drawCircle(x0 + px, y0 + py, r, skia.Paint(AntiAlias=True, Color=C(color, int(255 * a)), BlendMode=skia.BlendMode.kPlus,
+                                                      MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 0.8 + 2.2 * d)))
+
+
+@lru_cache(maxsize=160)
+def _icon_fx(name, metal, kind):
+    """İkonun bulanık gölge / ışıma sprite'ı (512 uzayında, kenar boşluklu). Kare başına blur çalıştırmamak için bir kez pişer."""
+    img = icons.icon_image(name, metal, 512)
+    pad = 56
+    surf = skia.Surface(512 + 2 * pad, 512 + 2 * pad)
+    c = surf.getCanvas()
+    c.clear(skia.ColorTRANSPARENT)
+    p = skia.Paint(AntiAlias=True)
+    if kind == "shadow":
+        p.setImageFilter(skia.ImageFilters.Blur(15, 15))
+        p.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.55, 0]))
+    else:
+        p.setImageFilter(skia.ImageFilters.Blur(10, 10))
+    c.drawImage(img, pad, pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    return surf.makeImageSnapshot(), pad
+
+
+def draw_icon2(f, name, x, y, size=120, metal="gold", alpha=1.0, rot=0.0, shadow=True, glow=0.0, flip=False):
+    """icons.draw_icon ile aynı görünüm; gölge ve ışıma bulanıklığı önbellekli sprite'tan (kare başına ~15-25 ms kazanç/ikon)."""
+    if alpha <= 0:
+        return
+    s = size / 512.0
+    sgn = -1 if flip else 1
+    samp = skia.SamplingOptions(skia.FilterMode.kLinear)
+    if shadow:
+        sh, pad = _icon_fx(name, metal, "shadow")
+        f.c.save()
+        f.c.translate(x + size * 0.04, y + size * 0.06)
+        if rot:
+            f.c.rotate(math.degrees(rot))
+        f.c.scale(s * sgn, s)
+        p = skia.Paint(AntiAlias=True)
+        p.setAlphaf(clamp(alpha))
+        f.c.drawImage(sh, -256 - pad, -256 - pad, samp, p)
+        f.c.restore()
+    if glow > 0:
+        gl, pad = _icon_fx(name, metal, "glow")
+        f.c.save()
+        f.c.translate(x, y)
+        f.c.scale(s * 1.04, s * 1.04)
+        p = skia.Paint(AntiAlias=True, Alpha=int(255 * glow * alpha))
+        p.setBlendMode(skia.BlendMode.kPlus)
+        f.c.drawImage(gl, -256 - pad, -256 - pad, samp, p)
+        f.c.restore()
+    img = icons.icon_image(name, metal, 512)
+    f.c.save()
+    f.c.translate(x, y)
+    if rot:
+        f.c.rotate(math.degrees(rot))
+    f.c.scale(s * sgn, s)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(clamp(alpha))
+    f.c.drawImage(img, -256, -256, samp, p)
+    f.c.restore()
+
+
+@lru_cache(maxsize=96)
+def _gold_glow(text, face, size, track, metal):
+    img, ox, oy, w, h = sk.gold_text(text, face, size, track, metal)
+    pad = int(size * 0.12 * 3.2) + 6
+    surf = skia.Surface(img.width() + 2 * pad, img.height() + 2 * pad)
+    c = surf.getCanvas()
+    c.clear(skia.ColorTRANSPARENT)
+    gp = skia.Paint(AntiAlias=True)
+    gp.setImageFilter(skia.ImageFilters.Blur(size * 0.12, size * 0.12))
+    gp.setColorFilter(skia.ColorFilters.Matrix([1.2, 0, 0, 0, 0.1, 0, 1.0, 0, 0, 0.05, 0, 0, 0.6, 0, 0, 0, 0, 0, 1, 0]))
+    c.drawImage(img, pad, pad, skia.SamplingOptions(skia.FilterMode.kLinear), gp)
+    return surf.makeImageSnapshot(), pad
+
+
+def gold2(f, s, x, y, face="title", size=96, track=4.0, align="c", alpha=1.0, metal="gold", scale=1.0, glow=0.0):
+    """Frame.gold ile aynı; ışıma bulanıklığı önbellekli (kare başına blur yok). Dönüş: ölçekli genişlik."""
+    img, ox, oy, w, h = sk.gold_text(s, face, size, track, metal)
+    wid = sk.text_width(s, face, size, track)
+    sx = x - (wid / 2 if align == "c" else wid if align == "r" else 0)
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.scale(scale, scale)
+    f.c.translate(sx - x - ox, -oy)
+    samp = skia.SamplingOptions(skia.FilterMode.kLinear)
+    if glow > 0 and alpha > 0:
+        gimg, pad = _gold_glow(s, face, size, track, metal)
+        f.c.drawImage(gimg, -pad, -pad, samp, skia.Paint(AntiAlias=True, Alpha=int(255 * clamp(alpha * glow))))
+    f.c.drawImage(img, 0, 0, samp, skia.Paint(AntiAlias=True, Alpha=int(255 * clamp(alpha))))
+    f.c.restore()
+    return wid * scale
+
+
+@SH.kind("bw_medal")
+def k_bw_medal(cx, key="karl_genc", metal="gold", name=None, role=None, dates=None, pos="c", size=700, flip=False,
+               at=0.0, plate_at=0.5, bgk="night", note=None, stampt=None, zoom=0.05, extra=None):
+    """shots.medal ile aynı yerleşim/hareket; madalya çizimi önbellekli sprite'tan (draw_medal2): kare başına ~80-100 ms daha ucuz."""
+    f = cx.f
+    f.bg(bgk)
+    xc = {"c": W / 2, "l": W * 0.34, "r": W * 0.66}[pos]
+    yc = H * 0.46 if name else H * 0.5
+    f.rays(alpha=0.35 + 0.1 * math.sin(cx.t * 0.7))
+    a = cx.amt(at, 0.8)
+    sc = (1.0 + zoom * cx.u) * (0.94 + 0.06 * ease_out(a))
+    tl = 0.22 * math.sin(cx.t * 0.55 + 0.4)
+    gl = (cx.t * 0.28 + 0.15) % 1.8
+    draw_medal2(f, key, xc, yc, size * sc, metal, flip, alpha=a, tilt=tl, glint=(gl if gl < 1 else None))
+    dust2(f, cx.t, n=60, alpha=0.45)
+    if name:
+        tx = xc if pos == "c" else (W * 0.78 if pos == "l" else W * 0.22)
+        if pos == "c":
+            SH.name_plate(f, name, role, dates, cx_=W / 2, y=H * 0.80, t=cx.amt(plate_at, 0.6))
+        else:
+            SH.name_plate(f, name, role, dates, cx_=tx, y=H * 0.44, t=cx.amt(plate_at, 0.6), w=560)
+    if extra:
+        extra(cx)
+    if stampt:
+        SH.stamp(f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 64)
+    f.vig(0.55)

@@ -34,12 +34,12 @@ SHOTS = [
     # s5a — 1539: İsabel otuz beş yaşında öldü
     shot("c11_loss", a=("c11s5", -0.2), tr=F, year_at=("c11s5", "1539'da", -0.1), age_at=("c11s5", "otuz", -0.1), death_at=("c11s5", "öldü", -0.25), label="isabel_oldu"),
     # s5b — yaklaşık iki ay manastıra çekildi; bir daha da evlenmedi
-    shot("bw_theatre", a=("c11s5", "Şarlken", -0.3), tr=D, scene="cloister", cams=[(0.0, (960, 560, 1.0)), (("c11s5", "evlenmedi", 0.4), (980, 580, 1.2))], p=dict(time="dusk", monks=1, lamps=True),
+    shot("bw_theatre", a=("c11s5", "Şarlken", -0.3), tr=D, scene="cloister", dust_n=36, cams=[(0.0, (960, 560, 1.0)), (("c11s5", "evlenmedi", 0.4), (980, 580, 1.2))], p=dict(time="dusk", monks=1, lamps=True),
          overlay=kinds_c11.cloister_overlay(("c11s5", "yaklaşık", -0.1), ("c11s5", "iki", -0.1), ("c11s5", "daha", -0.2)), label="manastir"),
     # s6 — ömrünün sonuna kadar siyah giydiği anlatılır
     shot("c11_black", a=("c11s6", -0.3), tr=F, black_at=("c11s6", "siyah", -0.4), tag_at=("c11s6", "anlatılır", -0.25), label="siyah"),
     # s7 — gut atakları, perhiz, bol yemek (bedroom: hasta yastıklara yaslı; bacakta zonklama, komodinde yemek)
-    shot("bw_theatre", a=("c11s7", -0.3), tr=F, scene="bedroom", cams=GOUT_CAMS, p=dict(candle=1.0),
+    shot("bw_theatre", a=("c11s7", -0.3), tr=F, scene="bedroom", dust_n=36, cams=GOUT_CAMS, p=dict(candle=1.0),
          overlay=kinds_c11.gout_overlay(GOUT_CAMS, ("c11s7", "Gut", -0.05), ("c11s7", "hareketsiz", -0.1), ("c11s7", "perhiz", -0.1), ("c11s7", "yemeği", -0.1), ("c11s7", "yazılır", -0.1)), label="gut_perhiz"),
     # s8 — bizzat dolaşarak yönetti: gezi ağı
     shot("map", a=("c11s8", -0.3), tr=F, cams=[(0.0, (5.0, 44.7, 1.10)), (("c11s8", "Cezayir", 0.5), (5.0, 44.7, 1.14))],

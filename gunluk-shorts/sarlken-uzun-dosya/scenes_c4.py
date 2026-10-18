@@ -19,7 +19,7 @@ SHOTS = [
          extra=kinds_c4.make_worms_pulse(("c4s1", "Worms", -0.2)),
          date=("NİSAN 1521", ("c4s1", "Nisan", 0.0)), label="worms_harita"),
     # s2a — Reichstag salonu: imparator tahtta, karşısında küçük keşiş
-    shot("bw_theatre", a=("c4s2", -0.4), tr=("fade", 0.4), scene="reichstag", cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
+    shot("bw_theatre", a=("c4s2", -0.4), tr=("fade", 0.4), scene="reichstag", dust_n=36, cams=[(0.0, (960, 600, 1.0)), (("c4s2", "bir", 1, 0.2), (960, 700, 1.45))],
          p=dict(monk=True, emperor=True, books=True, crowd=True, monk_z=1000), label="reichstag"),
     # s2b — Karl ↔ Luther
     shot("c4_duel", a=("c4s2", "bir", 1, -0.15), tr=("zoom", 0.6),
@@ -65,11 +65,11 @@ SHOTS = [
     shot("c4_banned", a=("c4s13", -0.2), tr=F, outlaw_at=("c4s13", "kanun", -0.1),
          rows=[("OKUMAK", "book", "ivory", ("c4s13", "okumak", 0.0)), ("BASMAK", "b_press", "gold", ("c4s13", "basmak", 0.0)), ("SATMAK", "coin", "gold", ("c4s13", "satmak", 0.0))], label="yasak"),
     # s14a — gece yolu
-    shot("bw_theatre", a=("c4s14", -0.2), tr=D, scene="road_night", cams=[(0.0, (960, 540, 1.0)), (("c4s14", "korumak", 0.0), (1000, 560, 1.3))], p=dict(riders=4, torches=4, rain=0.0, mountains=True, walk=16, fog=0.5), overlay=kinds_c4.road_overlay(("c4s14", "kaçırıldı", -0.15), 0), label="gece_yolu"),
+    shot("bw_theatre", a=("c4s14", -0.2), tr=D, scene="road_night", dust_n=36, cams=[(0.0, (960, 540, 1.0)), (("c4s14", "korumak", 0.0), (1000, 560, 1.3))], p=dict(riders=4, torches=4, rain=0.0, mountains=True, walk=16, fog=0.5), overlay=kinds_c4.road_overlay(("c4s14", "kaçırıldı", -0.15), 0), label="gece_yolu"),
     # s14b — Saksonya Seçmeni'nin adamları
-    shot("medal", a=("c4s14", "korumak", -0.35), tr=F, key="frederik_bilge", metal="teal", name="SAKSONYA SEÇMENİ", role="Frederik", pos="c", size=640, plate_at=("c4s14", "Saksonya", -0.2), label="seçmen"),
+    shot("bw_medal", a=("c4s14", "korumak", -0.35), tr=F, key="frederik_bilge", metal="teal", name="SAKSONYA SEÇMENİ", role="Frederik", pos="c", size=640, plate_at=("c4s14", "Saksonya", -0.2), label="seçmen"),
     # s15a — Wartburg: Şövalye Jörg
-    shot("bw_theatre", a=("c4s15", -0.25), tr=D, scene="tower", cams=[(0.0, (960, 560, 1.0)), (("c4s15", "Orada", 0.0), (960, 520, 1.35))], p=dict(variant="wartburg", night=True, figure="writer", candle=1.0), overlay=kinds_c4.wartburg_overlay(("c4s15", "Wartburg", -0.1), ("c4s15", "Şövalye", -0.15)), label="wartburg"),
+    shot("bw_theatre", a=("c4s15", -0.25), tr=D, scene="tower", dust_n=36, cams=[(0.0, (960, 560, 1.0)), (("c4s15", "Orada", 0.0), (960, 520, 1.35))], p=dict(variant="wartburg", night=True, figure="writer", candle=1.0), overlay=kinds_c4.wartburg_overlay(("c4s15", "Wartburg", -0.1), ("c4s15", "Şövalye", -0.15)), label="wartburg"),
     # s15b — Yeni Ahit Almancaya
     shot("c4_book", a=("c4s15", "Orada", -0.3), tr=F, head_at=("c4s15", "Yeni", -0.1), de_at=("c4s15", "Almancaya", -0.2), write_at=("c4s15", "Almancaya", 0.0), write_dur=1.5, label="yeni_ahit"),
     # s16 — fikri durduramadı

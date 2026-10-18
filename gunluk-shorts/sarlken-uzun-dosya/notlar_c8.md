@@ -1,32 +1,35 @@
 # notlar_c8 — Bölüm VIII · Akdeniz'de Barbaros (c8)  ·  yazar: bölüm yazarı C
 
-Dosyalar: `scenes_c8.py`, `stage_c8.py` (c8_konsey, c8_zafer [yedek kutlama kartı]), `stage_c678.py` (ortak).
+Dosyalar: `scenes_c8.py`, `stage_c8.py` (c8_konsey, c8_zafer [yedek kutlama kartı, kullanılmıyor]), `stage_c678.py` (ortak).
 Yeni (yamalı) anlatıya göre: c8s5 "Habsburg çevresinde kutlandı", c8s8 "Sonraki yıllarda" ('30 YIL' sayacı YOK), c8s9 "beş yüz kadar" (≈500), c8s11 "çağrılmadığı anlatılır" (damga ANLATILIR).
+Son durum: 15 çekim + bölüm kartı, 71.9 sn; sahne-lab `sea` ve `siege` (Halkulvadi) bağlı; "[sahne: … henüz yok]" yok.
 
-## (a) Çekim listesi özeti (15 çekim + bölüm kartı, ≈ 72 sn)
-| # | tür | etiket | ne gösteriyor |
-|---|---|---|---|
-| 1 | c678_sahne (sea) | akdeniz_kadirgalar | şafakta 8 yeşil bayraklı Osmanlı kadırgası; AKDENİZ |
-| 2 | medal | barbaros | BARBAROS HAYREDDİN PAŞA (forest madalya); "1534" |
-| 3 | map | istanbul_tunus | İstanbul → Tunus rotası (gemi simgesi ilerler), KAPTAN-I DERYA, 1534 |
-| 4 | c678_medals | karl_doria | V. Karl + Andrea Doria; BİZZAT; TUNUS SEFERİ · 1535 |
-| 5 | c678_sahne (siege) | halkulvadi | Halkulvadi kuşatması; TEMMUZ 1535; TUNUS ALINDI |
-| 6 | c678_cift | 20bin_esir | 20.000 ESİR · SERBEST KALDI (zincir simgesi) + YAKLAŞIK damgası |
-| 7 | c678_sahne (sea harbor) | zafer_kutlama | liman alacakaranlığı: sallanan çanlar, Habsburg sancakları, defne, ZAFER; HABSBURG ÇEVRESİNDE |
-| 8 | c678_sahne (sea night) | gece_deniz_filo | gece denizi, ufukta Osmanlı filosu; Barbaros madalyası |
-| 9 | map | preveze_harita | Preveze, "28 EYLÜL 1538" |
-| 10 | c678_sahne (sea) | preveze_savas | Preveze deniz savaşı; PAPALIK/VENEDİK/İMPARATOR (birleşik filo) vs BARBAROS; GERİ ÇEKİLDİ |
-| 11 | map | dogu_akdeniz_ustunluk | doğu Akdeniz'de yeşil dalga, Osmanlı donanması; AKDENİZ'İN DOĞUSU (30 YIL YOK) |
-| 12 | map | cezayir_harita | Cezayir, 1541, kuzeyden kıyıya okla çıkış |
-| 13 | c678_cift | 500_24bin | ≈ 500 YELKENLİ · ≈ 24.000 ASKER |
-| 14 | c678_sahne (sea storm) | cezayir_firtina | fırtına, şimşek (flashes anlatıya bağlı), gemiler batar; BARUT ISLANDI; ≈ 150 GEMİ BATTI (YAKLAŞIK) |
-| 15 | c8_konsey | cortes_konsey | savaş konseyi masası, BOŞ sandalye, kapıda Cortés madalyası; KONSEYE ÇAĞRILMADI + ANLATILIR damgası |
+## (a) Çekim listesi özeti (15 çekim + bölüm kartı)
+| # | tür | etiket | süre | ne gösteriyor |
+|---|---|---|---|---|
+| 1 | c678_sahne (sea) | akdeniz_kadirgalar | 3.5 | şafakta 8 yeşil bayraklı Osmanlı kadırgası; AKDENİZ |
+| 2 | medal | barbaros | 3.8 | BARBAROS HAYREDDİN PAŞA (forest madalya); "1534" |
+| 3 | map | istanbul_tunus | 4.1 | İstanbul → Tunus rotası (gemi simgesi ilerler), KAPTAN-I DERYA, 1534 |
+| 4 | c678_medals | karl_doria | 5.9 | V. Karl + Andrea Doria; BİZZAT; TUNUS SEFERİ · 1535 |
+| 5 | c678_sahne (siege) | halkulvadi | 5.6 | Halkulvadi kalesi (`city="halkulvadi"`, gündüz, top ateşi, kıyıda kadırgalar); "düştü" deyince yeşil hilal sancaklar yerini Habsburg haçlı sancaklara bırakır (`ov_flagswap`); TEMMUZ 1535, HALKULVADİ, TUNUS ALINDI |
+| 6 | c678_cift | 20bin_esir | 2.9 | 20.000 ESİR · SERBEST KALDI (zincir simgesi) + YAKLAŞIK damgası |
+| 7 | c678_sahne (sea harbor) | zafer_kutlama | 4.1 | liman alacakaranlığı: sallanan çanlar, çubuktan açılan Habsburg sancakları, defne, ZAFER; HABSBURG ÇEVRESİNDE |
+| 8 | c678_sahne (sea night) | gece_deniz_filo | 5.0 | gece denizi, ufukta Osmanlı filosu; Barbaros madalyası |
+| 9 | map | preveze_harita | 3.7 | Preveze işareti, "28 EYLÜL 1538" |
+| 10 | c678_sahne (sea) | preveze_savas | 6.8 | Preveze deniz savaşı (dusk, toplar, duman, köz); PREVEZE · 28 EYLÜL 1538; PAPALIK/VENEDİK/İMPARATOR (birleşik filo) vs BARBAROS; GERİ ÇEKİLDİ |
+| 11 | map | dogu_akdeniz_ustunluk | 5.7 | doğu Akdeniz'de yeşil dalga, Osmanlı donanması; AKDENİZ'İN DOĞUSU (30 YIL YOK) |
+| 12 | map | cezayir_harita | 3.8 | Cezayir, 1541, kuzeyden kıyıya okla çıkış |
+| 13 | c678_cift | 500_24bin | 4.2 | ≈ 500 YELKENLİ · ≈ 24.000 ASKER (ikinci sayaç gelince ilki sola kayar) |
+| 14 | c678_sahne (sea storm) | cezayir_firtina | 6.8 | fırtına, şimşek (anlatıya bağlı flashes), gemiler batar; BARUT ISLANDI; ≈ 150 GEMİ BATTI (YAKLAŞIK) |
+| 15 | c8_konsey | cortes_konsey | 6.0 | savaş konseyi masası, BOŞ sandalye, kapıda Cortés madalyası; KONSEYE ÇAĞRILMADI + ANLATILIR damgası |
 
 ## (b) Bilinen kusurlar
-- Halkulvadi çekimi (#5) `siege` (sahne-lab) teslimine bağlı; o zamana dek yer tutucu.
+- #14 fırtına: `flashes=[1.45, 3.4, 4.7, 5.8]` ve `sink_t=(...)` yerel saniye cinsinden sabit yazıldı (çekim c8s10 −0.2 sn'de başlar); anlatı süreleri değişirse yeniden hesap gerekir.
 - #13 etiketleri: "≈" Cinzel'de var (denetlendi); oklar (→) Cinzel'de yok (kullanılmadı).
 - c8_zafer (alternatif kutlama kartı) kullanılmıyor; yedek olarak kodda duruyor.
-- Preveze çekiminde tarafların renkleri/yarım ay–haç otomatik (sea sahnesi): Venedik bayrağı turkuaz, Papalık altın.
+- Preveze çekiminde tarafların renkleri/yarım ay–haç otomatik (sea sahnesi): Venedik bayrağı turkuaz, Papalık altın. Bölge çokgenleri mapdata'ya ait; Preveze haritasındaki dikdörtgen Osmanlı alanı kaba (alpha düşük).
+- Halkulvadi sahnesindeki kale lab'ın şematik çizimi (gerçek La Goulette değil); sancak değişimi yalnız kale sancaklarında (gemilerdeki sancaklar sabit).
+- `--check` ms/kare duvar saatiyle ölçüldüğünden yoğun makinede geçiş penceresine düşen kısa çekimler sahte uyarı verebilir. CPU süresiyle en yüksek 205 ms (c8 ortalama ≈ 140 ms).
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - Barbaros Hayreddin Paşa, sultanın amirali; 1534 kaptan-ı derya, Tunus — CONFIRMED (A3 #12; gün tutarsız, yalnız yıl).
@@ -38,5 +41,6 @@ Yeni (yamalı) anlatıya göre: c8s5 "Habsburg çevresinde kutlandı", c8s8 "Son
 - Cortés orada, savaş konseyine çağrılmadığı anlatılır — CONFIRMED/NİTELİKLİ (A3 #16, Gómara hattı): damga ANLATILIR. (A3 #17 zümrüt anekdotu KONMADI.)
 
 ## (d) Ana ajandan istekler / uyarılar
-1. Sea sahnesi harika çalışıyor; `flashes=[...]` ve `sink_t=(...)` yerel saniyelerle yazıldı (anlatı değişirse yeniden hesap gerekir: c8s10 çekimi c8s10−0.2 sn'de başlar).
-2. `siege` (halkulvadi) geldiğinde #5'in kamera/p ayarı yapılacak.
+1. Sea ve siege sahneleri sorunsuz çalışıyor; `flashes=[...]` ve `sink_t=(...)` yerel saniyelerle yazıldı (anlatı değişirse yeniden hesap gerekir).
+2. Aynı `sea` sahnesini farklı gemi listeleriyle kullanan çekimlerde `theatre` önbellek anahtarı listeleri dışladığı için benzersiz skaler `tag=` kullandım (diğer yazarlar için de geçerli).
+3. `shots.py` genel şablonlarındaki demet çapa çökmesi için bkz. notlar_c6.md (d)-1.

@@ -87,6 +87,34 @@ def tenoch_overlay(cx):
         reveal_text(f, "TENOCHTİTLAN", W / 2, H - 205, kt, face="title", size=88, color="#F4DD92", track=12)
 
 
+def sun_disc(f, x, y, size, alpha=1.0, glow=0.4, rot=0.0):
+    """Altın güneş diski (yüzsüz; Dürer'in günlüğündeki 'bütünüyle altın güneş'): ışınlı kenar, halka oyma, orta tomurcuk."""
+    R = size * 0.5
+    glow_dot(f, x, y, R * 1.25, "#FFD58A", glow * alpha)
+    pts_long, pts_short = [], []
+    n = 16
+    for i in range(n):
+        a0 = rot + 2 * math.pi * i / n
+        aw = math.pi / n * 0.55
+        pts_long.append([(x + math.cos(a0 - aw) * R * 0.62, y + math.sin(a0 - aw) * R * 0.62), (x + math.cos(a0) * R * 1.0, y + math.sin(a0) * R * 1.0), (x + math.cos(a0 + aw) * R * 0.62, y + math.sin(a0 + aw) * R * 0.62)])
+        a1 = a0 + math.pi / n
+        aw2 = math.pi / n * 0.38
+        pts_short.append([(x + math.cos(a1 - aw2) * R * 0.62, y + math.sin(a1 - aw2) * R * 0.62), (x + math.cos(a1) * R * 0.80, y + math.sin(a1) * R * 0.80), (x + math.cos(a1 + aw2) * R * 0.62, y + math.sin(a1 + aw2) * R * 0.62)])
+    sh = f.lin(x - R, y - R, x + R, y + R, [("#FFEBB0", 0.0), ("#E3B54A", 0.5), ("#9A6516", 1.0)])
+    for tri in pts_short + pts_long:
+        f.path(sk.poly_path(tri, True), shader=sh, alpha=alpha)
+        f.path(sk.poly_path(tri, True), style="stroke", sw=1.6, color="#5A3A0C", alpha=0.55 * alpha)
+    f.circle(x, y, R * 0.64, shader=f.rad(x - R * 0.18, y - R * 0.22, R * 0.9, [("#FFF1C4", 0.0), ("#EBC25A", 0.45), ("#A8701C", 1.0)]), alpha=alpha)
+    f.circle(x, y, R * 0.64, style="stroke", sw=3.0, color="#5A3A0C", alpha=0.6 * alpha)
+    for rr, sw_ in ((0.52, 2.4), (0.40, 2.0), (0.27, 2.0)):
+        f.circle(x, y, R * rr, style="stroke", sw=sw_, color="#6B4510", alpha=0.45 * alpha)
+    for i in range(24):
+        a_ = rot + 2 * math.pi * (i + 0.5) / 24
+        f.circle(x + math.cos(a_) * R * 0.46, y + math.sin(a_) * R * 0.46, R * 0.018, color="#6B4510", alpha=0.5 * alpha)
+    f.circle(x, y, R * 0.13, shader=f.rad(x - R * 0.04, y - R * 0.05, R * 0.2, [("#FFF6D6", 0.0), ("#D9A93A", 1.0)]), alpha=alpha)
+    f.circle(x, y, R * 0.13, style="stroke", sw=2.0, color="#5A3A0C", alpha=0.6 * alpha)
+
+
 # ───────────────────────────── c9s4: Dürer ve Aztek eserleri ─────────────────────────────
 @SH.kind("c9_durer")
 def k_c9_durer(cx, at_br=0.0, at_az=0.0, at_ob=0.0, at_ch=0.0):
@@ -108,7 +136,7 @@ def k_c9_durer(cx, at_br=0.0, at_az=0.0, at_ob=0.0, at_ch=0.0):
         f.path(sk.poly_path([(cxr - 40, 250), (cxr + 40, 250), (cxr + 340, 790), (cxr - 340, 790)], True), shader=f.lin(0, 250, 0, 790, [("#FFE8B0", 0.0, int(60 * ko)), ("#FFE8B0", 1.0, 0)]), blend=skia.BlendMode.kPlus, blur=14)
         f.rrect(cxr - 410, 782, 820, 54, 12, shader=f.lin(0, 782, 0, 836, [("#5A1A20", 0.0), ("#2A0A0E", 1.0)]), alpha=ko)
         f.rect(cxr - 410, 782, 820, 5, color="#C9962B", alpha=0.9 * ko)
-        icons.draw_icon(f, icn("sun_disc", "star"), cxr + 10, 560, size=340 * (0.9 + 0.1 * ease_out(ko)), metal="gold", alpha=ko, glow=0.45)
+        sun_disc(f, cxr + 10, 560, 340 * (0.9 + 0.1 * ease_out(ko)), alpha=ko, glow=0.45, rot=cx.t * 0.05)
         kf = cx.amt(at_ob, 0.8)
         if kf > 0:
             icons.draw_icon(f, icn("feather", "quill"), cxr - 262, 650, size=220 * (0.9 + 0.1 * ease_out(kf)), metal="gold", alpha=kf, rot=-0.25, glow=0.3)

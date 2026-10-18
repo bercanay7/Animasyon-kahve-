@@ -205,15 +205,16 @@ def scrim(f, x, y, w=760, h=150, a=0.38):
     f.c.restore()
 
 
-def kick(cx, text, anchor, y=120, size=30, color="#E0C682", out=None, scr=False):
+def kick(cx, text, anchor, y=120, size=30, color="#E0C682", out=None, scr=False, x=None):
     """Çapa anında beliren kicker (isteğe bağlı: out anında söner; scr: arkasına yumuşak koyu elips)."""
     k = cx.amt(anchor, 0.7)
     if out is not None:
         k *= 1 - cx.amt(out, 0.5)
     if k > 0:
+        xx = Wd / 2 if x is None else x
         if scr:
-            scrim(cx.f, Wd / 2, y - size * 0.2, w=max(620, sk.text_width(text, "title_m", size, 12) + 360), h=size * 3.6, a=0.34 * k)
-        SH.kicker(cx.f, text, Wd / 2, y, alpha=k, size=size, track=12, face="title_m", color=color)
+            scrim(cx.f, xx, y - size * 0.2, w=max(620, sk.text_width(text, "title_m", size, 12) + 360), h=size * 3.6, a=0.34 * k)
+        SH.kicker(cx.f, text, xx, y, alpha=k, size=size, track=12, face="title_m", color=color)
 
 
 def name_plate2(f, name, role, cx_, y, size=44, t=1.0, minw=420):
@@ -239,9 +240,9 @@ def ov_date(text, anchor):
     return fn
 
 
-def ov_kick(text, anchor, y=118, size=30, out=None, color="#E0C682", scr=True):
+def ov_kick(text, anchor, y=118, size=30, out=None, color="#E0C682", scr=True, x=None):
     def fn(cx):
-        kick(cx, text, anchor, y=y, size=size, color=color, out=out, scr=scr)
+        kick(cx, text, anchor, y=y, size=size, color=color, out=out, scr=scr, x=x)
     return fn
 
 
@@ -284,6 +285,27 @@ def ov_embers(n=46, color="#FFC46A", seed=4, anchor=None):
         a = 1.0 if anchor is None else cx.amt(anchor, 0.8)
         if a > 0:
             sk.embers(cx.f, cx.t, n=max(1, int(n * a)), seed=seed, color=color)
+    return fn
+
+
+def ov_haze(n=9, y0=380, y1=820, col="#7A6250", a=0.16, seed=3, speed=18, rmin=170, rmax=300, anchor=None):
+    """Savaş dumanı: yatay süzülen yumuşak, büyük, düşük opaklıklı sis/duman lekeleri (ucuz: yalnız radyal degrade daireler)."""
+    def fn(cx):
+        k = 1.0 if anchor is None else cx.amt(anchor, 1.0)
+        if k <= 0:
+            return
+        rs = np.random.RandomState(seed)
+        f = cx.f
+        span = Wd + 700
+        for i in range(n):
+            bx = rs.rand() * span - 350
+            by = lerp(y0, y1, rs.rand())
+            r = lerp(rmin, rmax, rs.rand())
+            sp = speed * (0.5 + rs.rand())
+            x = (bx + cx.t * sp) % span - 350
+            y = by + math.sin(cx.t * 0.4 + i * 1.7) * 14
+            al = a * k * (0.65 + 0.35 * math.sin(cx.t * 0.5 + i * 2.3))
+            f.circle(x, y, r, shader=f.rad(x, y, r, [(col, 0.0, int(255 * clamp(al))), (col, 1.0, 0)]))
     return fn
 
 

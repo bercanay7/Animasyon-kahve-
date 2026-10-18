@@ -191,7 +191,7 @@ SHOTS = [
              dict(kind="carrack", x=0.46, row=1, s=1.0, flag="#8E1F26", heading=1, gun=0.7, sink=0.5), dict(kind="galley", x=0.22, row=2, flag="#8E1F26", heading=1, gun=0.8),
              dict(kind="galley", x=0.58, row=0, s=1.05, flag="#2F6B4A", heading=-1, gun=1.0, emblem="crescent"), dict(kind="galley", x=0.78, row=1, s=1.0, flag="#2F6B4A", heading=-1, gun=0.9),
              dict(kind="galley", x=0.92, row=0, s=1.1, flag="#2F6B4A", heading=-1, gun=0.8, burn=0.0), dict(kind="galley", x=0.68, row=2, flag="#2F6B4A", heading=-1, gun=0.8)]),
-         overlay=_preveze_ov(), label="preveze_savas"),
+         overlay=X.ov_all(X.ov_haze(n=9, y0=500, y1=840, col="#4E3B30", a=0.42, seed=5, rmin=190, rmax=330, speed=22), _preveze_ov(), X.ov_embers(34, seed=9, color="#FFB75E")), label="preveze_savas"),
 
     # s8 — Sonraki yıllarda doğu Akdeniz'de Osmanlı üstün
     shot("map", a=("c8s8", -0.2), tr=("fade", 0.7), cams=[(0.0, (23.0, 38.2, 2.5)), (("c8s9", -0.4), (22.0, 37.8, 2.7))],

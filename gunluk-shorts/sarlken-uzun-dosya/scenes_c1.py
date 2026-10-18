@@ -173,7 +173,7 @@ SHOTS = [
     shot("quote", a=("c1s12", -0.2), tr=("fade", 0.8), size=60, wrap=1500, at=0.2, who="ŞARLKEN'E ATFEDİLEN SÖZ",
          text="Tanrı'yla İspanyolca, kadınlarla İtalyanca, erkeklerle Fransızca, atıyla Almanca konuşurdu.", label="soz_alinti"),
     shot("a_timeline_s", a=("c1s12", "ölümünden", -0.25), tr=("fade", 0.7), a0=1550, a1=1610, step=10, at=0.0,
-         events=[(1558, "ÖLÜM", ("c1s12", "ölümünden", -0.1)), (1601, "İLK YAZILI KAYIT", ("c1s12", "yazıya", -0.15))],
+         events=[(1601, "İLK YAZILI KAYIT", ("c1s12", "yazıya", -0.15)), (1558, "ÖLÜM", ("c1s12", "ölümünden", -0.1))],
          hl=(1558, 1601, "YAKLAŞIK 43 YIL", ("c1s12", "kırk", -0.2)),
          stampt=("BELGE BİLİNMİYOR", 960, 880, ("c1s12", "belge", 0.2), 70), label="43_yil"),
     # s13 — Fernando ölür; Şarlken anneyle birlikte kral
@@ -204,7 +204,7 @@ SHOTS = [
          cams=[(0.0, (-3.5, 41.0, 3.2)), (("c1s16", "1518'de", 0.0), (-4.72, 41.65, 8.0))],
          regions=[dict(name="c1_kastilya", color="ispanya", at=0.3, alpha=0.17)], need=("c1_kastilya",),
          date=("1518", ("c1s16", "1518'de", -0.1)), extra=_ex_valladolid, label="valladolid_harita"),
-    shot("doc", a=("c1s16", "talebini", -0.3), tr=("fade", 0.8), title="VALLADOLID KORTESİ · 1518", w=1200, h=350, size=64, head_size=56, at=0.0, align="c", tone="#D2BE8E",
+    shot("a_doc", a=("c1s16", "talebini", -0.3), tr=("fade", 0.8), title="VALLADOLID KORTESİ · 1518", w=1200, h=350, size=64, head_size=56, at=0.0, align="c", tone="#D2BE8E",
          lines=[("Kastilyacayı öğren.", ("c1s16", "Kastilyacayı", -0.1)), ("Yabancı danışmanlarını gönder.", ("c1s16", "yabancı", -0.1))],
          hl=(-sk.text_width("Kastilyacayı öğren.", "fell", 64, 0) / 2, -4, sk.text_width("Kastilyacayı öğren.", "fell", 64, 0)), hl_at=("c1s16", "öğren", -0.1), label="kortes_talebi"),
 ]

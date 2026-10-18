@@ -10,6 +10,7 @@ import skia
 import icons
 import shots as SH
 import sk
+from bw_lib import draw_icon2, dust2, glow_blit, gold2, static_backdrop  # noqa: E402
 from bw_lib import (INK, big_gold, chain_links, curve_arrow, draw_medal2, fadeout, flame, glow, paper, push, reveal, scene_pt, scribbles, shift, spot,
                     stamp2, strike, tag)
 from sk import C, H, W, back_out, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
@@ -20,11 +21,10 @@ WARM = "#FFB347"
 def warm_bg(cx, rays=0.22, glow_a=0.22, gx=W * 0.5, gy=H * 0.42, dust_n=45):
     """Mum ışığı zemini: koyu kehribar + hafifçe titreyen sıcak ışık havuzu."""
     f = cx.f
-    f.bg("night")
-    f.rays(alpha=rays)
+    static_backdrop(f, rays)
     fl = 0.9 + 0.1 * math.sin(cx.t * 7.3) * math.sin(cx.t * 3.1 + 1.0)
-    glow(f, gx, gy, 900, WARM, glow_a * fl)
-    sk.dust(f, cx.t, n=dust_n, alpha=0.4)
+    glow_blit(f, gx, gy, 900, WARM, glow_a * fl)
+    dust2(f, cx.t, n=dust_n, alpha=0.4)
 
 
 def fit_plate(f, name, role, cx_, y, w=560, t=1.0):
@@ -59,8 +59,8 @@ def k_machine(cx, man_at=0.0, plate_at=2.2, q_at=2.6):
     with push(cx, 1.0, 1.06):
         for (x, y, sz, d, ic, sp) in GEARS:
             rot = d * cx.t * 0.10 * sp
-            icons.draw_icon(f, "b_gear", x, y, size=sz, metal="bronze", alpha=0.42 * ga, rot=rot, shadow=False)
-            icons.draw_icon(f, ic, x, y, size=sz * 0.17, metal="gold", alpha=0.55 * ga, shadow=False)
+            draw_icon2(f, "b_gear", x, y, size=sz, metal="bronze", alpha=0.42 * ga, rot=rot, shadow=False)
+            draw_icon2(f, ic, x, y, size=sz * 0.17, metal="gold", alpha=0.55 * ga, shadow=False)
         # adam: madalya
         a = cx.amt(man_at, 1.0)
         glow(f, W / 2, 500, 460, WARM, 0.22 * a)
@@ -68,7 +68,7 @@ def k_machine(cx, man_at=0.0, plate_at=2.2, q_at=2.6):
         fit_plate(f, "V. KARL", None, W / 2, 800, w=420, t=cx.amt(plate_at, 0.6))
         qa = cx.amt(q_at, 0.7)
         if qa > 0:
-            icons.draw_icon(f, "question", 1320, 470, size=210 * (0.85 + 0.15 * back_out(qa)), metal="gold", alpha=0.9 * qa, glow=0.3)
+            draw_icon2(f, "question", 1320, 470, size=210 * (0.85 + 0.15 * back_out(qa)), metal="gold", alpha=0.9 * qa, glow=0.3)
     f.vig(0.62)
 
 
@@ -136,7 +136,7 @@ def k_study(cx, year_at=0.0, portrait_at=2.0, face_at=3.1, kin_at=5.2, link_at=6
                 if i < n - 1:
                     lk = cx.amt(kin_at, 0.4, off=0.12 * i)
                     if lk > 0:
-                        icons.draw_icon(f, "ring", x + 120, -400 + 330, size=58, metal="bronze", alpha=lk, shadow=False)
+                        draw_icon2(f, "ring", x + 120, -400 + 330, size=58, metal="bronze", alpha=lk, shadow=False)
             # iki kavram: yüz özellikleri ↔ akraba evlilikleri
             fk = cx.amt(face_at, 0.6)
             if fk > 0:
@@ -151,7 +151,7 @@ def k_study(cx, year_at=0.0, portrait_at=2.0, face_at=3.1, kin_at=5.2, link_at=6
                 col = mix("#8E6A1A", "#6B6B6B", unsure)
                 curve_arrow(f, (-200, 104), (120, 104), bend=0, prog=ease_out(lk), color=col, sw=7, head=True, alpha=0.95, shadow=False, dash=((14, 10) if unsure > 0.5 else None))
             if unsure > 0.4:
-                icons.draw_icon(f, "question", -40, 104, size=110 * unsure, metal="silver", alpha=unsure * 0.9, shadow=False)
+                draw_icon2(f, "question", -40, 104, size=110 * unsure, metal="silver", alpha=unsure * 0.9, shadow=False)
     sa = cx.amt(small_at, 0.3)
     if sa > 0:
         stamp2(f, "ÇALIŞMA KÜÇÜK", 610, 850, rot=-0.05, size=56, t=sa, seed=6, fill_bg="#150D08")
@@ -185,7 +185,7 @@ def k_wed(cx, age_at=0.0, isabel_at=1.6, ring_at=3.2, size=500, y=H * 0.5):
     rk = cx.amt(ring_at, 0.5)
     if rk > 0:
         glow(f, W / 2, y + 40, 220, "#FFE2A0", 0.5 * rk * (1 - 0.4 * cx.amt(ring_at, 1.0, off=0.5)))
-        icons.draw_icon(f, "ring", W / 2, y + 40, size=170 * (0.6 + 0.4 * back_out(rk)), metal="gold", alpha=rk, glow=0.45)
+        draw_icon2(f, "ring", W / 2, y + 40, size=170 * (0.6 + 0.4 * back_out(rk)), metal="gold", alpha=rk, glow=0.45)
     f.vig(0.62)
 
 
@@ -202,7 +202,7 @@ def k_loss(cx, year_at=0.0, age_at=2.4, death_at=3.3, size=560, y=H * 0.48):
         fit_plate(f, "İSABEL", None, W / 2, y + size * 0.53, w=420, t=cx.amt(0.3, 0.6))
     yk = cx.amt(year_at, 0.8)
     if yk > 0:
-        f.gold("1539", 420, 260, face="title", size=120, track=12, alpha=yk, glow=0.3 * yk)
+        gold2(f, "1539", 420, 260, face="title", size=120, track=12, alpha=yk, glow=0.3 * yk)
     ak = cx.amt(age_at, 0.6)
     if ak > 0:
         tag(f, "35 YAŞINDA", 1500, 330, size=34, alpha=ak, track=12)
@@ -223,14 +223,14 @@ def cloister_overlay(approx_at, two_at, never_at):
             f.text("YAKLAŞIK", x0, H * 0.905, face="title_m", size=48, color="#C9B27A", align="l", track=14, alpha=k, shadow=(2, 3, 4, "#000000"))
             k2 = cx.amt(two_at, 0.6)
             if k2 > 0:
-                f.gold("İKİ AY", x0 + w1 + 46, H * 0.905 + 4, face="title", size=104, track=12, alpha=k2, glow=0.25 * k2, align="l")
+                gold2(f, "İKİ AY", x0 + w1 + 46, H * 0.905 + 4, face="title", size=104, track=12, alpha=k2, glow=0.25 * k2, align="l")
                 tag(f, "MANASTIR", x0 + tot + 130, H * 0.905 - 6, size=32, alpha=cx.amt(two_at, 0.5, off=0.3), track=14, align="l")
         k3 = cx.amt(never_at, 0.6)
         if k3 > 0:
-            icons.draw_icon(f, "ring", 1700, 260, size=170, metal="gold", alpha=k3 * (1 - 0.5 * cx.amt(never_at, 0.7, off=0.2)), glow=0.2)
+            draw_icon2(f, "ring", 1700, 260, size=170, metal="gold", alpha=k3 * (1 - 0.5 * cx.amt(never_at, 0.7, off=0.2)), glow=0.2)
             sl = clamp((cx.t - cx.at(never_at, off=0.35)) / 0.4)
             if sl > 0:
-                icons.draw_icon(f, "b_forbid", 1700, 260, size=240 * (1.2 - 0.2 * ease_out(sl)), metal="crimson", alpha=0.95 * sl, glow=0.2)
+                draw_icon2(f, "b_forbid", 1700, 260, size=240 * (1.2 - 0.2 * ease_out(sl)), metal="crimson", alpha=0.95 * sl, glow=0.2)
     return ov
 
 
@@ -287,7 +287,7 @@ def gout_overlay(cams, gut_at, still_at, diet_at, feast_at, tag_at):
             px, py, s = scene_pt(cx, cams, *PLATE)
             ring = td * (1.0 - tf)
             if ring > 0.01:
-                icons.draw_icon(f, "b_forbid", px, py - 10 * s, size=210 * s * (1.2 - 0.2 * ease_out(td)) * (1 + 0.25 * tf), metal="crimson", alpha=0.92 * ring, glow=0.2)
+                draw_icon2(f, "b_forbid", px, py - 10 * s, size=210 * s * (1.2 - 0.2 * ease_out(td)) * (1 + 0.25 * tf), metal="crimson", alpha=0.92 * ring, glow=0.2)
             if tf > 0:
                 glow(f, px + 10 * s, py - 8 * s, 150 * s, "#FFC060", 0.42 * tf * (0.9 + 0.1 * math.sin(cx.t * 5.0)))
         # --- alt karartma + etiketler
@@ -342,7 +342,7 @@ def make_travel(times, dur=1.0, all_done=False):
             f.text(name, x, y + dy_, face="title_m", size=34, color="#F6ECCB", align="c", track=8, alpha=k, shadow=(2, 2, 4, "#000000"))
         if head is not None:
             glow(f, head[0], head[1], 70, "#FFD27A", 0.5)
-            icons.draw_icon(f, "imperial_crown", head[0], head[1] - 28, size=70, metal="gold", alpha=1.0, glow=0.4)
+            draw_icon2(f, "imperial_crown", head[0], head[1] - 28, size=70, metal="gold", alpha=1.0, glow=0.4)
         nk = 1.0 if all_done else cx.amt(times[1], 0.8, off=-0.2)
         if nk > 0:      # güzergâh tarihsel bir rota değil, durakları bağlayan şematik çizgi
             f.text("güzergâh şematiktir", 110, 1004, face="cap_i", size=28, color="#CDBB88", align="l", alpha=0.72 * nk)
@@ -357,8 +357,8 @@ def road_overlay(desk_at, road_at):
         if k > 0:
             f.rrect(90, 250, 560, 190, 18, color="#150D08", alpha=0.84 * k)
             f.rrect(90, 250, 560, 190, 18, style="stroke", sw=2.5, color="#7A5518", alpha=0.9 * k)
-            icons.draw_icon(f, "scroll", 200, 345, size=120, metal="ivory", alpha=k, shadow=False)
-            icons.draw_icon(f, "quill", 350, 335, size=120, metal="gold", alpha=k, shadow=False)
+            draw_icon2(f, "scroll", 200, 345, size=120, metal="ivory", alpha=k, shadow=False)
+            draw_icon2(f, "quill", 350, 335, size=120, metal="gold", alpha=k, shadow=False)
             f.text("MASA", 540, 372, face="title_m", size=44, color="#E7D5A0", align="c", track=12, alpha=k)
             sl = clamp((cx.t - cx.at(desk_at, off=0.35)) / 0.45)
             if sl > 0:
@@ -366,5 +366,5 @@ def road_overlay(desk_at, road_at):
         rk = cx.amt(road_at, 0.6)
         if rk > 0:
             f.rect(0, 470, 760, 200, shader=f.lin(0, 470, 0, 670, [("#000000", 0.0, 0), ("#000000", 0.5, int(190 * rk)), ("#000000", 1.0, 0)]))
-            f.gold("YOLLARDA", 380, 600, face="title", size=96, track=18, alpha=rk, glow=0.4 * rk)
+            gold2(f, "YOLLARDA", 380, 600, face="title", size=96, track=18, alpha=rk, glow=0.4 * rk)
     return ov

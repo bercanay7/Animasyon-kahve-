@@ -123,7 +123,8 @@ SHOTS = [
                         dict(side="#2F6B4A", kind="mixed", x=0.74, row=1, n=16, dir=-1, charge=0.3),
                         dict(side="#2F6B4A", kind="arquebus", x=0.86, row=2, n=12, dir=-1, fire=1.0),
                         dict(side="#2F6B4A", kind="cavalry", x=0.68, row=0, n=6, dir=-1, charge=0.45)]),
-         overlay=X.ov_all(X.ov_date("29 AĞUSTOS 1526", ("c7s3", "29", -0.1)), X.ov_kick("MOHAÇ", ("c7s3", "Mohaç'ta,", -0.2), y=122, size=38)), label="mohac"),
+         overlay=X.ov_all(X.ov_haze(n=8, y0=560, y1=800, col="#6A4A30", a=0.30, seed=11, rmin=160, rmax=260, speed=26),
+                          X.ov_date("29 AĞUSTOS 1526", ("c7s3", "29", -0.1)), X.ov_kick("MOHAÇ", ("c7s3", "Mohaç'ta,", -0.2), y=122, size=38)), label="mohac"),
     shot("medal", a=("c7s3", "Kral", -0.2), tr=("dip", 0.6), key="lajos2", metal="onyx", name="II. LAJOS", role="Macaristan Kralı", pos="l", size=700,
          at=("c7s3", "Kral", -0.1), plate_at=("c7s3", "Lajos,", -0.1), extra=_mohac_water, label="lajos"),
 
@@ -143,7 +144,7 @@ SHOTS = [
          at_chip=("c7s5", "vasalı", -0.1), label="zapolya_vasal"),
 
     # s6 — 1529: Viyana önünde
-    shot("map", a=("c7s6", -0.2), tr=("fade", 0.7), cams=[(0.0, (23.2, 44.8, 1.55)), (("c7s6", "Kuşatma", 0.0), (21.0, 46.2, 1.85))],
+    shot("map", a=("c7s6", -0.2), tr=("fade", 0.5), cams=[(0.0, (23.2, 44.8, 1.55)), (("c7s6", "Kuşatma", 0.0), (21.0, 46.2, 1.85))],
          regions=[dict(name="osmanli_1520", color="osmanli", at=0.0, alpha=0.5), dict(name="avusturya", color="avusturya", at=("c7s6", "Viyana", -0.3), alpha=0.6),
                   dict(name="macar_habsburg", color="avusturya", at=("c7s6", "Viyana", -0.3), alpha=0.5)],
          routes=[dict(pts=[(28.98, 41.01), (26.56, 41.67), (23.3, 42.7), (20.46, 44.82), (19.04, 47.5), (16.37, 48.21)], at=("c7s6", "Süleyman,", -0.2), dur=2.6, color="#5FA878", width=9)],
@@ -155,7 +156,7 @@ SHOTS = [
     shot("c678_sahne", a=("c7s6", "Kuşatma", -0.15), tr=("whip", 0.5), scene="siege",
          cams=[(0.0, (960, 560, 1.0)), (("c7s7", 0.0), (1000, 580, 1.3))],
          p=dict(tag="c7_viyana1", city="viyana", time="day", weather="clear", cannon_fire=True, fire=0.3),
-         overlay=X.ov_all(X.ov_date("27 EYLÜL 1529", ("c7s6", "27", -0.1)), X.ov_kick("VİYANA", ("c7s6", "Kuşatma", -0.1), y=122, size=38)), label="viyana_kusatma"),
+         overlay=X.ov_all(X.ov_date("27 EYLÜL 1529", ("c7s6", "27", -0.1)), X.ov_kick("VİYANA", ("c7s6", "Kuşatma", -0.1), y=122, size=38, x=620)), label="viyana_kusatma"),
 
     # s7 — ordu büyüklüğü (modern tahmin)
     shot("c678_cift", a=("c7s7", -0.2), tr=("fade", 0.6), title="OSMANLI ORDUSU · VİYANA 1529", tone_col="#2F6B4A", y=H * 0.46, size=140, ykick=140,
@@ -196,7 +197,7 @@ SHOTS = [
     shot("c678_sahne", a=("c7s11", -0.2), tr=("whip", 0.5), scene="siege",
          cams=[(0.0, (960, 640, 1.12)), (("c7s11", "Güns,", 0.0), X.kcam(0.62, 1.35, 260))],
          p=dict(tag="c7_guns", city="guns", time="day", weather="clear", cannon_fire=True, fire=0.15),
-         overlay=X.ov_kick("GÜNS", ("c7s11", "Güns,", -0.2), y=122, size=40), label="guns_kale"),
+         overlay=X.ov_kick("GÜNS", ("c7s11", "Güns,", -0.2), y=122, size=40, x=560), label="guns_kale"),
     shot("c678_cift", a=("c7s11", "yedi", -0.15), tr=("fade", 0.5), title="GÜNS · 1532", tone_col="#6A7A38", y=H * 0.5, size=140, ykick=140,
          items=[dict(value=(700, 800), unit="kişi", label="GARNİZON", icon="castle", metal="gold", at=("c7s11", "yedi", -0.1), dur=1.5),
                 dict(value=25, unit="gün", label="ORDUYU OYALADI", icon="hourglass", metal="gold", at=("c7s11", "yirmi", -0.15), dur=1.2)], label="guns_700_800_25"),
@@ -255,4 +256,4 @@ def _ordular(cx, cam, mv):
         p.setPathEffect(skia.DashPathEffect.Make([12, 12], -cx.t * 22))
         f.c.drawLine(xa + 40, ya + 20, xo - 40, yo - 10, p)
         X.ic(f, "question", xm, ym - 4, size=96, metal="silver", alpha=0.9 * kg)
-        X.chip(f, "İKİ ORDU HİÇ KARŞILAŞMADI", W / 2, 205, k=kg, size=38, edge="#B02A2A", color="#F8E2D8", padx=40, h=90)
+        X.chip(f, "İKİ ORDU HİÇ KARŞILAŞMADI", W / 2 + 270, 205, k=kg, size=38, edge="#B02A2A", color="#F8E2D8", padx=40, h=90)

@@ -6,6 +6,7 @@ import skia
 
 import icons
 import medal
+import props_war as PW
 import scenes_lib as SL
 import shots as SH
 import sk
@@ -808,8 +809,8 @@ class SantAngelo:
             # taş köprü: güverte + kemer delikleri (even-odd)
             P = skia.Path()
             P.setFillType(skia.PathFillType.kEvenOdd)
-            P.addRect(skia.Rect.MakeLTRB(-M, yb - 28, bx - 330, yb + 110))
-            for i in range(6):
+            P.addRect(skia.Rect.MakeLTRB(-M, yb - 28, bx - 262, yb + 110))
+            for i in range(5):
                 cxp = -100 + i * 190
                 yy = yb + 110
                 P.moveTo(cxp - 72, yy)
@@ -817,7 +818,11 @@ class SantAngelo:
                 P.cubicTo(cxp + 36, yy - 76, cxp + 72, yy - 62, cxp + 72, yy)
                 P.close()
             f.path(P, color="#0A0504")
-            f.line(-M, yb - 28, bx - 330, yb - 28, color="#7A4A22", sw=2, alpha=0.5)
+            f.line(-M, yb - 28, bx - 262, yb - 28, color="#7A4A22", sw=2, alpha=0.5)
+            # kıyı duvarı (köprü güvertesiyle aynı hatta oturur → köprü kaleye bağlanır)
+            f.rect(bx - 340, yb + 30, 680, 80, shader=f.lin(0, yb + 30, 0, yb + 110, [("#1A0D08", 0.0), ("#0A0504", 1.0)]))
+            for k in range(6):
+                f.line(bx - 300 + k * 120, yb + 40, bx - 300 + k * 120, yb + 108, color="#000000", sw=2, alpha=0.5)
             # kale gövdesi: kare taban
             base = sk.poly_path([(bx - 310, yb + 30), (bx + 310, yb + 30), (bx + 262, yb - 96), (bx - 262, yb - 96)], True)
             f.path(base, shader=f.lin(bx - 310, 0, bx + 310, 0, [("#3A1D10", 0.0), ("#150A07", 0.6), ("#0A0504", 1.0)]))
@@ -859,8 +864,9 @@ class SantAngelo:
 
     def dyn(self):
         def D1(f, t):
-            _puffs(f, 330, 800, t, w=300, h=560, n=14, seed=1, alpha=0.55)
-            _puffs(f, 960, 790, t, w=280, h=500, n=14, seed=2, alpha=0.5)
-            _puffs(f, 1600, 800, t, w=300, h=560, n=14, seed=3, alpha=0.55)
+            for i, (x, y, s, dr) in enumerate(((330, 752, 1.4, 70), (960, 744, 1.3, -50), (1600, 756, 1.4, 60))):
+                PW.smoke_column(f, x, y - 16, t, n=11, h=540, w0=28, w1=125, col="#1B0D0A", a=0.50, rate=0.10, drift=dr, seed=3 + i, wobble=24)
+                for k in range(5):
+                    PW.flame(f, x + (k - 2) * 40, y + (k % 2) * 7, s * (0.78 + 0.12 * (k % 3)), t, seed=i * 7 + k, glow_a=0.55)
             sk.embers(f, t, n=46, seed=6, rect=(-100, 220, SW + 200, 600))
         return {1: D1}

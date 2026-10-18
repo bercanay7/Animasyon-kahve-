@@ -308,7 +308,7 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
     # tek hükümdarın taç simgesi → tüm devletlere ince çizgiler
     kone = cx.amt(at_one, 0.8)
     if kone > 0:
-        cxx, cyy = cam.ll(8.0, 47.4)
+        cxx, cyy = cam.ll(5.5, 41.0)          # hükümdar simgesi denizde (hiçbir devletin üstünde değil)
         for i, (rn, col) in enumerate(STATE_REGIONS):
             if kmany[i] > 0:
                 lon_lat = {"ispanya": (-3.5, 40.2), "napoli": (14.8, 40.8), "hollanda": (5.0, 52.0), "avusturya": (14.2, 47.4), "bohemya": (15.5, 49.8), "milano": (9.2, 45.3)}[rn]

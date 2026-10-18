@@ -48,7 +48,7 @@ SHOTS = [
                  dict(pts=[(5.0, 52.0), (3.8, 50.2), (2.6, 48.4)], at=("c6s2", "kuzeyde", 0.15), dur=1.5, color="#E8C25A", width=7),
                  dict(pts=[(7.6, 46.4), (5.6, 46.5), (3.8, 46.6)], at=("c6s2", "doğuda", 0.2), dur=1.3, color="#E8C25A", width=7),
                  dict(pts=[(15.2, 40.6), (11.8, 43.6), (8.2, 45.0)], at=("c6s2", "İtalya'da", 0.0), dur=1.6, color="#E8C25A", width=7)],
-         labels=[dict(text="FRANSA", lon=1.5, lat=46.5, size=52, color="#C4D4F8", at=("c6s2", "Fransa,", 0.1), track=14),
+         labels=[dict(text="FRANSA", lon=0.8, lat=46.4, size=52, color="#C4D4F8", at=("c6s2", "Fransa,", 0.1), track=14),
                  dict(text="İSPANYA", lon=-3.4, lat=39.6, size=38, at=("c6s2", "İspanya,", 0.0)),
                  dict(text="HOLLANDA", lon=5.2, lat=52.7, size=30, at=("c6s2", "Hollanda,", -0.4), track=8),
                  dict(text="BURGONYA", lon=8.9, lat=47.4, size=28, at=("c6s2", "Burgonya", -0.1), track=6),
@@ -89,7 +89,7 @@ SHOTS = [
     shot("c678_sahne", a=("c6s7", -0.3), tr=("whip", 0.6), scene="siege",
          cams=[(0.0, (960, 560, 1.0)), (("c6s7", "maaşını", 0.0), (1000, 600, 1.3))],
          p=dict(tag="c6_roma1", city="roma", time="dusk", fire=0.6, ladders=True, weather="clear"),
-         overlay=X.ov_all(X.ov_date("6 MAYIS 1527", ("c6s7", "6", -0.1)), X.ov_kick("ROMA", ("c6s7", "1527'de", -0.15), y=122, size=36)), label="roma_kusatma"),
+         overlay=X.ov_all(X.ov_embers(40, seed=5), X.ov_date("6 MAYIS 1527", ("c6s7", "6", -0.1)), X.ov_kick("ROMA", ("c6s7", "1527'de", -0.15), y=122, size=36)), label="roma_kusatma"),
     shot("c6_maas", a=("c6s7", "maaşını", -0.15), tr=("fade", 0.4), at=0.0, at_strike=("c6s7", "alamayan", -0.15), at_men=("c6s7", "imparatorluk", -0.15), label="maas_yok"),
     shot("c678_sahne", a=("c6s7", "Roma'ya", -0.5), tr=("whip", 0.3), scene="siege",
          cams=[(0.0, (900, 600, 1.1)), (("c6s8", 0.0), (1000, 560, 1.5))],
@@ -100,7 +100,7 @@ SHOTS = [
     shot("c678_sahne", a=("c6s8", -0.2), tr=("fade", 0.7), scene="c6_santangelo",
          cams=[(0.0, (900, 560, 1.0)), (("c6s8", "189", -0.2), (1100, 580, 1.4))], p=dict(tag="c6_sant", fire=1.0, bx=1180),
          overlay=X.ov_all(X.ov_medal("klemens", ("c6s8", "Papa,", -0.15), 340, 470, size=330, metal="violet", name="KLEMENS VII", role="Papa", plate_y=640),
-                          X.ov_kick("CASTEL SANT'ANGELO", ("c6s8", "Castel", -0.1), y=122, size=34)), label="sant_angelo"),
+                          X.ov_kick("CASTEL SANT'ANGELO", ("c6s8", "Castel", -0.1), y=122, size=34, x=720)), label="sant_angelo"),
     shot("c6_muhafiz", a=("c6s8", "189", -0.15), tr=("fade", 0.6), at_total=("c6s8", "189", -0.1), at_dead=("c6s8", "147'si", -0.05), dead_dur=1.5, label="muhafiz_189_147"),
 
     # s9 — emir yok; aylarca

@@ -847,11 +847,73 @@ for _b in ("timeline", "bars", "counter", "stacked", "tree", "iconrow"):
     _with_stamp(f"a_{_b}_s", _b)
 
 
+# ───────────────────────────── düzeltilmiş belge (doc) ─────────────────────────────
+@SH.kind("a_doc")
+def k_a_doc(cx, title="", lines=(), w=1100, h=760, at=0.0, line_dt=0.35, ink="#2A1A0C", seal=None, seal_at=None, tone="#EBDDB5",
+            rot=-0.015, zoom=0.06, hl=None, hl_at=None, hl_color="#C9962B", face="fell", size=40, head_size=50, bgk="night", pan=(0, 0),
+            caption=None, stampt=None, date=None, align="l"):
+    """shots.doc'un düzeltilmiş kopyası: (1) kâğıt tohumu süreçler arası kararlı (crc32; hash() her süreçte değişir → kâğıt kenarı titrerdi),
+    (2) ortalı (align='c') satırlarda açılış kırpması metnin kendi sol kenarından başlar (özgün sürüm satırın sağını hiç açmıyordu)."""
+    import zlib
+    f = cx.f
+    f.bg(bgk)
+    f.rays(alpha=0.25)
+    img, pad = SH.paper_sprite(w, h, seed=zlib.crc32(title.encode("utf-8")) % 97 + 3, tone=tone)
+    a = cx.amt(at, 0.7)
+    sc = (1.0 + zoom * cx.u) * (0.96 + 0.04 * ease_out(a))
+    cxp, cyp = W / 2 + pan[0] * cx.u, H * 0.5 + pan[1] * cx.u
+    f.c.save()
+    f.c.translate(cxp, cyp)
+    f.c.rotate(math.degrees(rot * (1 - 0.4 * cx.u)))
+    f.c.scale(sc, sc)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(a)
+    f.c.drawImage(img, -w / 2 - pad, -h / 2 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    y = -h / 2 + 90
+    if title:
+        tsz = SH.fit_size(title, "fell", head_size, w - 160, 2)
+        f.text(title, 0, y, face="fell", size=tsz, color=ink, align="c", track=2, alpha=a * cx.amt(at + 0.3, 0.5))
+        f.line(-w * 0.32, y + 18, w * 0.32, y + 18, color=ink, sw=1.6, alpha=0.6 * a)
+        y += 76
+    xs = -w / 2 + 90
+    for i, ln in enumerate(lines):
+        t_i = cx.at(at, off=0.5 + i * line_dt) if not isinstance(ln, tuple) else cx.at(ln[1], off=0.0)
+        text = ln if not isinstance(ln, tuple) else ln[0]
+        prog = clamp((cx.t - t_i) / 0.55)
+        if prog > 0:
+            wt = sk.text_width(text, face, size, 0)
+            x_left = (-wt / 2) if align == "c" else xs
+            f.c.save()
+            f.c.clipRect(skia.Rect.MakeXYWH(x_left - 8, y - size, (wt + 24) * prog, size * 1.6))
+            if align == "c":
+                f.text(text, 0, y, face=face, size=size, color=ink, align="c", alpha=a)
+            else:
+                f.text(text, xs, y, face=face, size=size, color=ink, align="l", alpha=a)
+            f.c.restore()
+        y += size * 1.42
+    if hl and hl_at is not None:
+        k = clamp((cx.t - cx.at(hl_at)) / 0.6)
+        hx, hy, hw = hl
+        f.rect(hx, hy - size * 0.9, hw * k, size * 1.25, color=hl_color, alpha=0.22 * a, blur=6)
+        f.line(hx, hy + 8, hx + hw * k, hy + 8, color=hl_color, sw=4.5, alpha=0.95 * a)
+    if date:
+        f.text(date, w / 2 - 90, h / 2 - 54, face="fell_i", size=34, color=ink, align="r", alpha=a * 0.9)
+    if seal:
+        SH.wax_seal(f, w / 2 - 150, h / 2 - 90, 58, color=seal if isinstance(seal, str) else "#8E1F26", t=cx.amt(seal_at if seal_at is not None else at + 1.4, 0.35), alpha=a, mono="K")
+    f.c.restore()
+    if caption:
+        SH.kicker(f, caption, W / 2, H - 70, alpha=cx.amt(at + 0.6, 0.6), size=24, track=6, face="cap_i", color="#B9A674")
+    if stampt:
+        SH.stamp(f, stampt[0], stampt[1], stampt[2], t=cx.amt(stampt[3], 0.3), size=stampt[4] if len(stampt) > 4 else 60)
+    sk.dust(f, cx.t, n=40, alpha=0.35)
+    f.vig(0.5)
+
+
 # ───────────────────────────── taban türlerin tonlu varyantları ─────────────────────────────
 def register_variants():
     for base in ("medal", "medals", "doc", "quote", "counter", "bars", "stacked", "timeline", "emblem", "tree", "iconrow"):
         for pre, bgn in (("g_", "green"), ("c_", "cold"), ("r_", "blood")):
-            variant(f"a_{pre}{base}", base, bgn)
+            variant(f"a_{pre}{base}", "a_doc" if base == "doc" else base, bgn)
 
 
 register_variants()

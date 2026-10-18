@@ -77,7 +77,7 @@ SHOTS = [
     shot("bw_theatre", a=("c5s9", "geçti", 0.15), tr=F, scene="field", cams=[(0.0, (960, 560, 1.0)), (("c5s9", "dağıttı", 0.0), (1000, 580, 1.3))],
          p=FIELD_P, label="sis_elbe"),
     # s9c — Saksonya Seçmeni esir düştü
-    shot("medal", a=("c5s9", "Saksonya", -0.35), tr=D, key="johann_friedrich", metal="teal", name="SAKSONYA SEÇMENİ", role="Johann Friedrich", pos="c", size=640,
+    shot("bw_medal", a=("c5s9", "Saksonya", -0.35), tr=D, key="johann_friedrich", metal="teal", name="SAKSONYA SEÇMENİ", role="Johann Friedrich", pos="c", size=640,
          plate_at=("c5s9", "Saksonya", -0.1), stampt=("ESİR", 1330, 330, ("c5s9", "esir", -0.1), 84), label="secmen_esir"),
     # s10 — Tiziano, bir yıl sonra: altın çerçevede atlı imparator
     shot("c5_titian", a=("c5s10", -0.3), tr=F, at=0.0, year_at=("c5s10", "bir", -0.1), frame_at=("c5s10", "imparatoru", -0.6), symbol_at=("c5s10", "zaferin", -0.1),
@@ -85,14 +85,14 @@ SHOTS = [
     # s11 — zafer kısa sürdü; 1552 Moritz
     shot("c5_moritz", a=("c5s11", -0.2), tr=D, short_at=("c5s11", "Zafer", -0.05), year_at=("c5s11", "1552'de", -0.1), ally_at=("c5s11", "müttefiki", -0.3), snap_at=("c5s11", "karşı", -0.2), label="moritz"),
     # s12 — Innsbruck, gece kaçış (sedye yok: meşaleli atlı kafile)
-    shot("bw_theatre", a=("c5s12", -0.2), tr=D, scene="road_night", cams=[(0.0, (960, 560, 1.0)), (("c5s12", "kaldı", 0.0), (1000, 560, 1.28))],
+    shot("bw_theatre", a=("c5s12", -0.2), tr=D, scene="road_night", dust_n=36, cams=[(0.0, (960, 560, 1.0)), (("c5s12", "kaldı", 0.0), (1000, 560, 1.28))],
          p=dict(riders=5, torches=5, rain=0.45, mountains=True, litter=False, walk=11, fog=0.6, dir=-1), overlay=_night_label, label="innsbruck_gece"),
     # s13 — Augsburg Barışı, Eylül 1555
     shot("c5_peace", a=("c5s13", -0.2), tr=D, at=0.0, date_at=("c5s13", "Eylül", -0.1), title_at=("c5s13", "Augsburg", -0.1), seal_at=("c5s13", "imzalandı", -0.1),
          luther_at=("c5s13", "Lutherciliğe", -0.2), open_at=("c5s13", "yer", -0.25), label="augsburg_barisi"),
     # s14 — Barışı o yapmadı; kardeşi Ferdinand yürüttü
-    shot("medal", a=("c5s14", -0.25), tr=F, key="ferdinand", name="FERDİNAND", role="Kardeşi · yürüten", pos="c", size=640, plate_at=("c5s14", "Ferdinand", -0.35), label="ferdinand"),
+    shot("bw_medal", a=("c5s14", -0.25), tr=F, key="ferdinand", name="FERDİNAND", role="Kardeşi · yürüten", pos="c", size=640, plate_at=("c5s14", "Ferdinand", -0.35), label="ferdinand"),
     # s15 — Tam bir ay sonra, o büyük salonda (c0 ile aynı sahne): siyaha çözülür
-    shot("bw_theatre", a=("c5s15", -0.3), tr=F, scene="hall", cams=[(0.0, (960, 540, 1.0)), (("c5s15", "duruyordu", 0.6), (975, 600, 1.16))], p=dict(),
+    shot("bw_theatre", a=("c5s15", -0.3), tr=F, scene="hall", dust_n=36, cams=[(0.0, (960, 540, 1.0)), (("c5s15", "duruyordu", 0.6), (975, 600, 1.16))], p=dict(),
          overlay=_hall_out, label="salon_son"),
 ]

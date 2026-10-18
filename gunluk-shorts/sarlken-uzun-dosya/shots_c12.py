@@ -34,8 +34,6 @@ def _dial_builder(cx_, cy_, R):
             x, y = cx_ + math.cos(a) * R * 0.69, cy_ + math.sin(a) * R * 0.69
             sz = R * 0.15
             f.gold(rn, x, y + sz * 0.36, face="title", size=sz, track=1.5)
-        # güneş/ay süsü (kadran iç halkası)
-        f.circle(cx_, cy_ + R * 0.30, R * 0.055, color="#C9962B", alpha=0.35)
     return b
 
 
@@ -63,7 +61,7 @@ def k_c12_clock(cx, at_city=0.0, at_date=0.0, at_clock=0.0, at_hand=0.0, at_thre
     f.gold("25 EKİM 1555", W / 2, 322, face="title", size=118, track=14, alpha=ka, scale=1.05 - 0.05 * ease_out(clamp(cx.t / 6.0), 2), glow=0.5 * ka)
     kd = cx.amt(at_clock, 1.0)
     if kd > 0:
-        img = sk.baked(("c12_dial", R, int(ccx), int(ccy)), _dial_builder(ccx, ccy, R))
+        img = sk.baked(("c12_dial2", R, int(ccx), int(ccy)), _dial_builder(ccx, ccy, R))
         p = skia.Paint(AntiAlias=True)
         p.setAlphaf(kd)
         f.c.drawImage(img, 0, 0, skia.SamplingOptions(skia.FilterMode.kLinear), p)

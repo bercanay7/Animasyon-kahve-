@@ -301,7 +301,7 @@ def k_c10_mektup(cx, lines=(), t_summary=0.0, t_seal=None, w=1180, h=620):
     if sa > 0:
         f.rrect(w / 2 - 190, -h / 2 + 38, 150, 58, 10, style="stroke", sw=3, color="#8E1F26", alpha=0.85 * sa)
         f.text("ÖZET", w / 2 - 115, -h / 2 + 78, face="title", size=32, color="#8E1F26", align="c", track=8, alpha=0.9 * sa)
-        f.text("kelimesi kelimesine değil", w / 2 - 50, -h / 2 + 128, face="fell_i", size=28, color=ink, align="r", alpha=0.8 * sa)
+        f.text("kelimesi kelimesine değil", w / 2 - 50, -h / 2 + 158, face="fell_i", size=28, color=ink, align="r", alpha=0.8 * sa)
     if t_seal is not None:
         SH.wax_seal(f, w / 2 - 150, h / 2 - 96, 58, color="#2F5232", t=cx.amt(t_seal, 0.35), alpha=a, mono="F")
     f.c.restore()

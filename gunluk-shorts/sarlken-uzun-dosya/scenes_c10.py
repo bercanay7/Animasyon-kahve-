@@ -79,7 +79,7 @@ SHOTS = [
     shot("a_c_medal", a=("c10s5", "Jakob", -0.35), tr=("fade", 0.8), key="fugger", metal="bronze", name="JAKOB FUGGER", role="banker", pos="c", size=620,
          at=0.0, plate_at=("c10s5", "Jakob", -0.05), label="fugger"),
     # s6 — mektup, özetle, tacın kimin parasıyla alındığını hatırlatıyordu
-    shot("c10_mektup", a=("c10s6", -0.2), tr=("fade", 0.8), t_summary=("c10s6", "özetle,", -0.1), t_seal=("c10s6", "hatırlatıyordu", -0.1),
+    shot("c10_mektup", a=("c10s6", -0.2), tr=("fade", 0.8), h=500, t_summary=("c10s6", "özetle,", -0.1), t_seal=("c10s6", "hatırlatıyordu", -0.1),
          lines=[("Alacağın ödenmesi isteniyor.", ("c10s6", "Mektup,", 0.0)), ("Tacın kimin parasıyla alındığı hatırlatılıyor.", ("c10s6", "tacını", -0.1))], label="mektup_ozeti"),
     # s7 — Welser'ler Venezuela'da yönetim hakkı
     shot("a_map", a=("c10s7", -0.2), tr=("fade", 0.8), need=("c10_venezuela",), cams=[(0.0, (-30.0, 22.0, 0.8)), (("c10s7", "Venezuela'da", -0.4), (-66.5, 7.6, 3.0))],

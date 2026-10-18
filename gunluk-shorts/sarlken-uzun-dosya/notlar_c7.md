@@ -2,39 +2,44 @@
 
 Dosyalar: `scenes_c7.py`, `stage_c7.py` (c7_hukum, c7_taht, c7_vasal, c7_unvan, c7_yuk, c7_gunluk, c7_ates), `stage_c678.py` (ortak).
 Yeni (yamalı) anlatıya göre: c7s11 "yedi yüz ile sekiz yüz arası bir garnizonla" → sayaç 700 – 800 KİŞİ · GARNİZON.
+Son durum: 23 çekim + bölüm kartı, 106.5 sn; sahne-lab `field` (Mohaç) ve `siege` (Viyana ×2, Güns) bağlı; "[sahne: … henüz yok]" yok.
 
-## (a) Çekim listesi özeti (23 çekim + bölüm kartı, ≈ 106 sn)
-| # | tür | etiket | ne gösteriyor |
-|---|---|---|---|
-| 1 | medal | suleyman | KANUNİ SULTAN SÜLEYMAN (forest madalya) |
-| 2 | c7_hukum | ayni_yillar | iki saltanat çubuğu: ŞARLKEN 1516→1556, SÜLEYMAN 1520→; kesişim "AYNI YILLAR" |
-| 3 | map | uzaklik | İstanbul ↔ Brüksel: uçlarda iki madalya, kesikli çizgi, "BİLDİĞİMİZ KADARIYLA", HİÇ KARŞILAŞMADILAR |
-| 4 | c678_sahne (field) | mohac | Mohaç: bataklık/nehir, alacakaranlık, süvari çarpışması; "29 AĞUSTOS 1526" |
-| 5 | medal | lajos | II. LAJOS (onyx) + alttan yükselen su/halkalar: kaçarken derede boğuldu |
-| 6 | c7_taht | bos_taht_ferdinand | boş taç + soru işareti → Ferdinand madalyası |
-| 7 | map | macar_bolunme | Macaristan: Ferdinand (Habsburg) ↔ Zapolya; MOHAÇ işareti |
-| 8 | c7_vasal | zapolya_vasal | Zapolya madalyası – zincir – Osmanlı hilali: VASAL |
-| 9 | map | viyana_yolu | İstanbul → Viyana yeşil rota, Süleyman madalyası rota başında; 1529 |
-| 10 | c678_sahne (siege) | viyana_kusatma | Viyana kuşatması; "27 EYLÜL 1529" |
-| 11 | c678_cift | ordu_75_100bin | 75.000 – 100.000 ASKER; yeniçeri bandı; MODERN TAHMİN damgası |
-| 12 | c678_sahne (siege) | yagmur_kar_cekilme | yağmur → kar kaplaması; EKİM ORTASI · GERİ ÇEKİLME |
-| 13 | map | karl_italya | Barselona→Cenova→Bologna rotası, Karl madalyası, imparatorluk tacı; Viyana: kuşatma |
-| 14 | map | 1532_sefer | 1532: İstanbul → Güns yönü rota; HEDEF: İMPARATOR |
-| 15 | c7_gunluk | sefer_gunlugu | OSMANLI SEFER GÜNLÜĞÜ 1532: okunur tek ifade “İspanya kralı” (gerisi karalama) |
-| 16 | c678_sahne (siege) | guns_kale | Güns küçük kale |
-| 17 | c678_cift | guns_700_800_25 | 700 – 800 KİŞİ (GARNİZON) · 25 GÜN |
-| 18 | map | ordular_karsilasmadi | Viyana yakınında imparatorluk ordusu (BEKLEDİ) / Güns yönünde Osmanlı ordusu; İKİ ORDU HİÇ KARŞILAŞMADI |
-| 19 | c7_unvan | unvan_imparator_sultan | OSMANLI BELGELERİ → Karl: GENELLİKLE İMPARATOR (üstü çizilir) → İSPANYA KRALI; Süleyman: İMPARATOR · YALNIZCA SULTAN |
-| 20 | c7_ates | ates_kes_1547 | ATEŞKES 1547, SÜRE: BEŞ YIL, iki mühür (S, F) |
-| 21 | c678_cift | 30bin_altin | FERDİNAND ÖDEYECEKTİ: 30.000 ALTIN · HER YIL |
-| 22 | map | macaristan_kayip | Habsburg (Viyana TUTULDU) / Macaristan'ın büyük bölümü KAYIP (yeşil) |
-| 23 | c7_yuk | yuku_kardesi_tasidi | YÜKÜN ÇOĞU: Şarlken üstü çizili/soluk (ŞARLKEN DEĞİL) — Ferdinand parlak (Kardeşi) |
+## (a) Çekim listesi özeti (23 çekim + bölüm kartı)
+| # | tür | etiket | süre | ne gösteriyor |
+|---|---|---|---|---|
+| 1 | medal | suleyman | 4.7 | KANUNİ SULTAN SÜLEYMAN (forest madalya) |
+| 2 | c7_hukum | ayni_yillar | 3.4 | iki saltanat çubuğu: ŞARLKEN 1516→1556, SÜLEYMAN 1520→; kesişim "AYNI YILLAR" |
+| 3 | map | uzaklik | 2.8 | İstanbul ↔ Brüksel: uçlarda iki madalya, kesikli çizgi, "BİLDİĞİMİZ KADARIYLA", HİÇ KARŞILAŞMADILAR |
+| 4 | c678_sahne (field) | mohac | 5.8 | Mohaç: bataklık/nehir, alacakaranlık, süvari çarpışması, toz sisi; "29 AĞUSTOS 1526", MOHAÇ |
+| 5 | medal | lajos | 4.0 | II. LAJOS (onyx) + alttan yükselen su/halkalar: kaçarken derede boğuldu |
+| 6 | c7_taht | bos_taht_ferdinand | 5.9 | boş taç + soru işareti → Ferdinand madalyası |
+| 7 | map | macar_bolunme | 2.5 | Macaristan: Ferdinand (Habsburg) ↔ Zapolya; MOHAÇ işareti |
+| 8 | c7_vasal | zapolya_vasal | 3.8 | Zapolya madalyası – zincir – Osmanlı hilali: VASAL |
+| 9 | map | viyana_yolu | 3.8 | İstanbul → Viyana yeşil rota, Süleyman madalyası rota başında; 1529 |
+| 10 | c678_sahne (siege) | viyana_kusatma | 3.1 | Viyana kuşatması (`city="viyana"`, gündüz, top ateşi); "27 EYLÜL 1529", VİYANA |
+| 11 | c678_cift | ordu_75_100bin | 5.8 | simge + ASKER → "yetmiş beş" deyince 75.000 – 100.000 sayılır; yeniçeri bandı büyür; MODERN TAHMİN damgası |
+| 12 | c678_sahne (siege) | yagmur_kar_cekilme | 5.5 | aynı kale, yağmur (sahnenin kendisi) → "çamur" zemin kararır → "erken kar" zemin ağarır + kar taneleri; EKİM ORTASI; GERİ ÇEKİLME + yeşil ok |
+| 13 | map | karl_italya | 6.6 | Barselona→Cenova→Bologna rotası, Karl madalyası, imparatorluk tacı; Viyana: kuşatma |
+| 14 | map | 1532_sefer | 4.8 | 1532: İstanbul → Güns yönü rota; HEDEF: İMPARATOR |
+| 15 | c7_gunluk | sefer_gunlugu | 5.0 | OSMANLI SEFER GÜNLÜĞÜ 1532: okunur tek ifade “İspanya kralı” (gerisi karalama) |
+| 16 | c678_sahne (siege) | guns_kale | 2.6 | Güns: tepe üstünde küçük kale (`city="guns"`), top ateşi; GÜNS |
+| 17 | c678_cift | guns_700_800_25 | 5.3 | 700 – 800 KİŞİ (GARNİZON) · 25 GÜN |
+| 18 | map | ordular_karsilasmadi | 5.9 | Viyana yakınında imparatorluk ordusu (BEKLEDİ) / Güns yönünde Osmanlı ordusu; İKİ ORDU HİÇ KARŞILAŞMADI |
+| 19 | c7_unvan | unvan_imparator_sultan | 9.0 | OSMANLI BELGELERİ → Karl: GENELLİKLE İMPARATOR (üstü çizilir) → İSPANYA KRALI; Süleyman: İMPARATOR · YALNIZCA SULTAN |
+| 20 | c7_ates | ates_kes_1547 | 4.1 | ATEŞKES 1547, SÜRE: BEŞ YIL, iki mühür (S, F) |
+| 21 | c678_cift | 30bin_altin | 3.5 | FERDİNAND ÖDEYECEKTİ: 30.000 ALTIN · HER YIL |
+| 22 | map | macaristan_kayip | 5.1 | Habsburg (Viyana TUTULDU) / Macaristan'ın büyük bölümü KAYIP (yeşil) |
+| 23 | c7_yuk | yuku_kardesi_tasidi | 3.4 | YÜKÜN ÇOĞU: Şarlken üstü çizili/soluk (ŞARLKEN DEĞİL) — Ferdinand parlak (Kardeşi) |
+
+Not: Viyana kuşatma kicker'ı (x=620) ve GÜNS kicker'ı (x=560) katedral kulesi/kale ile çakışmasın diye sola alındı. Geçişler: savaşlarda `whip`, harita/belge çekimlerinde `fade`/`wipe`/`zoom`.
 
 ## (b) Bilinen kusurlar
-- Mohaç/Viyana/Güns çekimlerinden `field` hazır; `siege` (Viyana ×2, Güns) sahne-lab teslimine bağlı.
-- Macaristan bölgeleri (`macar_habsburg`, `macar_osmanli`, `erdel`) yaklaşık çokgenler; 1526'daki Zapolya/Ferdinand tarafları şematik.
+- Macaristan bölgeleri (`macar_habsburg`, `macar_osmanli`, `erdel`) yaklaşık çokgenler; 1526'daki Zapolya/Ferdinand tarafları şematik. Harita taban kitindeki kaba dikdörtgen bölgeler (ör. Preveze/Rodos yakınları) mapdata'ya ait.
 - İki ordunun konumları (Viyana yakını / Güns) şematik: Şarlken'in o ordudaki varlığı iddia edilmedi (A3 #9 çelişkili) → yalnız "İMPARATORLUK ORDUSU"; hedef olarak "İMPARATOR" tacı çizildi, kişi madalyası konmadı.
 - c7_hukum: Süleyman çubuğu 1560'a ok ile açık uçlu (ölüm yılı ekrana konmadı).
+- Siege sahnesinde Viyana ve Güns'ün kale silüetleri lab'ın şematik şehir/kale çizimleri (gerçek mimariye birebir uymaz); bayrak/sancak renkleri tarafları gösterir (Habsburg kızıl-beyaz haç, Osmanlı yeşil hilal).
+- Güns top isabetinde tek tük blok piksel enkaz kalıntısı görülebiliyor (lab'ın `_impacts`'i; hareket içinde belli olmuyor).
+- `--check` ms/kare duvar saatiyle ölçüldüğünden yoğun makinede c7_vasal / c7_unvan gibi geçiş penceresine düşen çekimler sahte uyarı verebiliyor. CPU süresiyle en yüksek 376 ms (c7_vasal, fade penceresinde iki çekim birden), tipik 100–230 ms.
 
 ## (c) Ekrana koyduğum olgular ve kaynak sınıfı
 - Süleyman Kanuni; 1520'den sultan; Şarlken İspanya kralı 1516 / seçim 1519 — CONFIRMED (A3 #20). "AYNI YILLAR": Şarlken 1516–1556 (1556 = feragat; A5 #19 NİTELİKLİ).
@@ -49,5 +54,5 @@ Yeni (yamalı) anlatıya göre: c7s11 "yedi yüz ile sekiz yüz arası bir garni
 
 ## (d) Ana ajandan istekler / uyarılar
 1. `shots.py` genel şablonlarında demet çapa çöküyor (bkz. notlar_c6.md (d)-1); `c678_medals`, `c678_cift` ile aştım.
-2. Aynı `theatre` sahnesini farklı p ile kullanırken ek `tag=` skaler anahtarı verdim.
-3. `siege` sahnesi geldiğinde Viyana kuşatması için kamera/p ayarı yeniden yapılacak (rapor güncellenir).
+2. Aynı `theatre` sahnesini farklı p (özellikle liste: `armies`, `ships`) ile kullanırken önbellek anahtarı listeleri dışladığı için benzersiz skaler `tag=` verdim; diğer yazarlar için de geçerli.
+3. `check` ölçümü CPU süresine (`time.process_time`) alınırsa yoğun makinede sahte uyarılar kalkar (isteğe bağlı).

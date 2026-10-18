@@ -11,6 +11,7 @@ Ortak kurallar (üç aile için de geçerli):
 - **Kamera**: `cams=[(çapa,(x,y,zoom)),…]`, zoom 1.0–2.2. Pişirilen katmanlarda 220 px pay var; sınırı aşan kamera kayması kenarda boşluk gösterir. **Güvenli aralık**: zoom 1.0'da |x−960| ≤ 190 ve |y−540| ≤ 190; zoom 1.5'te ≈ ±480 / ±360; zoom 2.0'da ≈ ±620 / ±440. Emin değilsen `SS.safe_cam(x, y, z)` (sıkıştırır) kullan. Paralaks: yakın katman daha çok kayar (derinlik 0.08 → 1.14).
 - Yerel zaman `cx.t` (sn): dalga, bayrak, alev, duman, kürek hep yerel zamana bağlı sürekli animasyon; çekim başında "donmuş" kare yok.
 - Her aile `dyn()` içinde bulanıklık/degrade/ışık huzmesi çizmez (hepsi pişirmede). Ağır işler `lru_cache`'li sprite'tır; ilk karede ~1–2 sn pişirme gecikmesi olur (sonraki çekimler aynı `p` ile anında).
+- **İlk kare gecikmesi**: yeni bir `p` (gök/zemin/şehir) kombinasyonunun ilk karesi 1–2 sn'lik pişirme içerir (sonraki çekimler aynı `p` ile anında). Görüntü önbellekleri sınırlıdır (tepe bellek ≈ 1.2 GB, 98 farklı yapılandırmada) — ayrı `tag=` ile gereksiz farklı yapılandırma üretme.
 - **Önbellek notu**: pişirme anahtarı `p`'nin yalnız *skaler* (str/sayı/bool/tuple) alanlarından çıkar; listeler (`ships`, `armies`) pişirmeyi etkilemez → aynı sahnede gemi/ordu listesini çekimler arasında serbestçe değiştir.
 - Renk: bölüm kodları — Habsburg/İspanya kırmızı `#8E1F26`, Fransa mavi `#27427A`, Osmanlı yeşil `#2F6B4A`, Portekiz `#2D5A8E`, Venedik turkuaz `#2F7A8A`, Papalık altın `#D4B64E`, Protestan petrol `#1E5560`.
 - Ölçülen süreler **post dahil** (sk.post ≈ 30–60 ms), 4 çekirdekli paylaşımlı makinede; boş makinede ≈ %25 daha hızlı.
@@ -42,7 +43,7 @@ Gök + ufuk + 5 derinlikli dalga bandı (kayan dikişsiz dalga şeritleri) + gem
 | `x` | 0.5 | yatay konum 0..1 (1920 px'e oranlı; −0.2..1.2 ekran dışından giriş için geçerli) |
 | `row` | 0 | **0 = en yakın/en büyük**, 1 orta, 2 uzak, 3 ufuk (gövdesi ufukta batık "hull-down", çok küçük). Ölçek çarpanı: 1.0 / 0.68 / 0.42 / 0.22 |
 | `s` | 1.0 | sıra ölçeğine ek çarpan |
-| `flag` | `"#8E1F26"` | bayrak/tente rengi (yelken haçı da bu renk). **Yeşil ağırlıklı renk (ör. `#2F6B4A`) otomatik yarım ay + yıldız**, diğerleri haç/çapraz damga |
+| `flag` | `"#8E1F26"` | bayrak/tente rengi (yelken haçı da bu renk). **Belirgin yeşil (ör. `#2F6B4A`) otomatik yarım ay + yıldız**; zeytin/haki (`#5A6A3A`), turkuaz (`#2F7A8A`), altın, mavi, kırmızı → haç. Zorlamak için `emblem` |
 | `emblem` | `"auto"` | `"cross"` `"crescent"` ile zorla (haç bayrağı vs yarım ay bayrağı: Preveze) |
 | `heading` | 1 | +1 pruva sağa, −1 pruva sola |
 | `rock` | storm 1.0, diğer 0.28 | sallanma (yalpa ≤ ±5.5°, dikey çırpınma) |
@@ -102,7 +103,7 @@ Ordular `ST.figure` sprite'larıyla çizilir: pikeman, landsknecht, arquebusier,
 ### Ordu sözlüğü `armies=[dict(...)]`
 | anahtar | varsayılan | açıklama |
 |---|---|---|
-| `side` | `"#8E1F26"` | taraf rengi (sancak, hafif siluet tonu). Yeşil ağırlıklıysa: atlı → sipahi, piyade → janissary |
+| `side` | `"#8E1F26"` | taraf rengi (sancak, hafif siluet tonu). **Belirgin yeşil** (`#2F6B4A` gibi; zeytin/haki `#5A6A3A`/`#6A7A38` sayılmaz) ise: atlı → sipahi, piyade → janissary, sancak → yarım ay. Zorlamak/kapatmak için `ottoman=True/False`, sancak arması için `emblem="cross|crescent|saltire|none"` |
 | `kind` | `"pike"` | `"pike"` (pike/landsknecht/halberd karışık blok) · `"arquebus"` (arkebüzcü + halberd; periyodik namlu alevi + duman) · `"cavalry"` (dörtnala; iki pozlu yürüyüş) · `"peasants"` (yabalı köylüler + kalabalık; `torch` ile meşale) · `"mixed"` (pike+arkebüz karışık) |
 | `x` | 0.5 | grubun merkezi (0..1 × 1920). Birlikler `dir*hız*t` ile ilerler (x'i ekran dışına taşırma) |
 | `row` | 1 | **0 = en yakın/en büyük** (boy ≈ 250 px piyade / 262 atlı), 1 orta (×0.66), 2 uzak (×0.43). Yakın sıra alttaki bandda durur (ground eğimini izler) |
@@ -166,7 +167,7 @@ Gök + uzak tepe/dağ (+ aya/güneşe göre ışık) + **şehir/kale katmanı** 
 | `viyana` | taş sur + 2 açılı bastiyon + kapı, **Stephansdom** (sivri kule + mozaik çatı), kırmızı çatılı evler, kule sancakları | Osmanlı (yeniçeri; yeşil/kırmızı/altın çadırlar, yarım ay alemli) | c7: day/dusk/rain/snow; yağmur+çamur: `weather="rain"`; geri çekilme: `time="dusk", weather="snow"` |
 | `guns` | tepe üstünde küçük kale (iki yuvarlak kule + donjon + şapel), yamaçta köy, çam | Osmanlı | küçük, uzak görünür → kamera `SS.cam_on_city(.62, 1.5)` ile kaleye yaklaş |
 | `halkulvadi` | denize uzanan kare kale (bastiyonlar, talus, kapı), Tunus minareleri (sisli), kum bankı; **önde deniz + kuşatma kadırgaları/karaka (top atar)**, kumsalda topçu | İmparatorluk filosu (kırmızı haç) + Osmanlı yeşil kadırga | c8: `time="day"`, `cannon_fire=.8`, `fire=.4` |
-| `tenochtitlan` | göl üstü ada kenti: **Templo Mayor** (5 kademe, çift merdiven, mavi-kırmızı iki tapınak), iki yan piramit, düz çatılı beyaz evler, setyolları, ağaç kümeleri, Popocatépetl/Iztaccíhuatl; **önde göl: kanolar (tüylü savaşçılar) + İspanyol brigantinleri**; yangın göle yansır | İspanyol (brigantin) | c9: `time="dusk", fire=.6–.9` — saygılı, ihtişamlı tasvir (kan/ceset yok) |
+| `tenochtitlan` | göl üstü ada kenti: **Templo Mayor** (5 kademe, çift merdiven, mavi-kırmızı iki tapınak; tepelerinde haçsız tüy/geometrik bantlı renkli sancaklar), iki yan piramit, düz çatılı beyaz evler, setyolları, ağaç kümeleri, Popocatépetl/Iztaccíhuatl; **önde göl: kanolar (tüylü savaşçılar) + İspanyol brigantinleri**; yangın göle yansır | İspanyol (brigantin) | c9: `time="dusk", fire=.6–.9` — saygılı, ihtişamlı tasvir (kan/ceset yok) |
 | `toledo` | tepe üstü şehir: Alcázar (dört köşe kuleli kare blok), katedral kulesi, yığılı evler (yanan pencereler), yamaç boyunca basamaklı sur; önde nehir + kuşatma hattı | İmparatorluk/kraliyet | c3: `time="dusk"` veya `"day"`, `fire=.3`, kamera Alcázar'a: `SS.cam_on_city(.58, 1.6, y=380)` |
 
 ### Kamera

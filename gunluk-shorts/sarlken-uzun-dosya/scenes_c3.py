@@ -4,6 +4,7 @@ import math
 import icons
 import kit_a as K
 import scenes_lib  # theatre şablonunu kaydeder
+import scenes_field as SF  # sahne-lab: savaş alanı (Villalar)
 import scenes_siege as SG  # sahne-lab: kuşatma (Toledo)
 import shots as SH
 import shots_c3  # noqa: F401  (c3_bayram + c3_sokak sahnesi)
@@ -195,10 +196,10 @@ SHOTS = [
     shot("a_map", a=("c3s4", -0.2), tr=("fade", 0.7), need=("c1_kastilya",), cams=[(0.0, (-4.0, 41.0, 3.4)), (("c3s4", "Villalar'da,", 0.0), (-5.1, 41.7, 7.5))], tint=("#5A1A1A", 0.25),
          date=("23 NİSAN 1521", ("c3s4", "23", -0.1)), extra=_ex_villalar, approx=False, label="villalar_harita"),
     shot("a_theatre", a=("c3s4", "kraliyet", -0.35), tr=("whip", 0.4), scene="field",
-         p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.34, row=1, n=14, dir=1, charge=1.0), dict(side="#5A3A8A", kind="peasants", x=0.72, row=1, n=34, dir=-1, charge=0.0)]),
-         cams=[(0.0, (960, 600, 1.0)), (("c3s4", "dağıttı", 0.3), (1080, 610, 1.4))], label="villalar_savas"),
+         p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.26, row=0, n=10, dir=1, charge=1.0), dict(side="#5A3A8A", kind="peasants", x=0.74, row=1, n=34, dir=-1, charge=0.0)]),
+         cams=[(0.0, SF.cam_on(0, 0.30, 1.2)), (("c3s4", "dağıttı", 0.3), SF.cam_on(0, 0.56, 1.5))], label="villalar_savas"),
     # s5 — ertesi gün üç önder idam edildi
-    shot("a_medals", a=("c3s5", -0.2), tr=("dip", 0.9), size=430, y=H * 0.46, gap=500, bgname="blood", date=("24 NİSAN 1521", ("c3s5", "Ertesi", -0.1)),
+    shot("a_medals", a=("c3s5", -0.2), tr=("dip", 0.9), size=430, y=H * 0.46, gap=500, bgname="blood", date=("ERTESİ GÜN", ("c3s5", "Ertesi", -0.1)),
          stampt=("İDAM", 960, 190, ("c3s5", "idam", -0.1), 78),
          items=[dict(key="padilla", name="PADILLA", role="Komünero önderi", metal="onyx", at=("c3s5", "Padilla,", -0.1), pw=460),
                 dict(key="bravo", name="BRAVO", role="Komünero önderi", metal="onyx", at=("c3s5", "Bravo", -0.1), pw=460),

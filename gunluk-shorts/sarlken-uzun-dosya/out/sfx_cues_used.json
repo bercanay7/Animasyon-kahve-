@@ -1,158 +1,200 @@
 [
  {
-  "t": 46.53,
-  "name": "title_hit",
-  "gain_db": -9.0,
+  "t": 3.0,
+  "name": "crowd_murmur",
+  "gain_db": -24,
   "pan": 0.0,
-  "seed": 0,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "root": 73.41619197935188
-  }
+  "seed": 1,
+  "dur": 11.0,
+  "loop": true
  },
  {
-  "t": 168.76,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
-  "seed": 2,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "root": 220.0
-  }
- },
- {
-  "t": 260.28,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
+  "t": 21.94,
+  "name": "church_bell",
+  "gain_db": -17,
+  "pan": -0.2,
   "seed": 3,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 164.81377845643496
-  }
+  "loop": false
  },
  {
-  "t": 313.14,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
+  "t": 194.7,
+  "name": "coin_pile",
+  "gain_db": -17,
+  "pan": 0.3,
   "seed": 4,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 195.99771799087463
-  }
+  "loop": false
  },
  {
-  "t": 429.99,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 207.34,
+  "name": "paper_rustle",
+  "gain_db": -22,
   "pan": 0.0,
   "seed": 5,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 110.0
-  }
+  "loop": false
  },
  {
-  "t": 541.6,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 246.56,
+  "name": "wax_seal_stamp",
+  "gain_db": -15,
   "pan": 0.0,
   "seed": 6,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 164.81377845643496
-  }
+  "loop": false
  },
  {
-  "t": 663.58,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 274.04,
+  "name": "crowd_murmur",
+  "gain_db": -22,
   "pan": 0.0,
   "seed": 7,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "root": 146.8323839587038
-  }
+  "dur": 14.0,
+  "loop": true
  },
  {
-  "t": 773.13,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 284.0,
+  "name": "gate_thud",
+  "gain_db": -16,
   "pan": 0.0,
   "seed": 8,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 220.0
-  }
+  "loop": false
  },
  {
-  "t": 848.03,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
+  "t": 316.12,
+  "name": "church_bell",
+  "gain_db": -18,
+  "pan": 0.3,
   "seed": 9,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 130.8127826502993
-  }
+  "loop": false
  },
  {
-  "t": 960.11,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
+  "t": 341.52,
+  "name": "page_turn",
+  "gain_db": -18,
+  "pan": -0.3,
   "seed": 10,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 220.0
-  }
+  "loop": false
  },
  {
-  "t": 1029.27,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
-  "pan": 0.0,
+  "t": 417.524,
+  "name": "quill_scratch",
+  "gain_db": -20,
+  "pan": 0.2,
   "seed": 11,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "root": 146.8323839587038
-  }
+  "dur": 3.0,
+  "loop": false
  },
  {
-  "t": 1096.53,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 493.284,
+  "name": "wind",
+  "gain_db": -26,
   "pan": 0.0,
   "seed": 12,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "root": 146.8323839587038
-  }
+  "dur": 12.0,
+  "loop": true
  },
  {
-  "t": 1195.98,
-  "name": "chapter_stinger",
-  "gain_db": -9.0,
+  "t": 497.784,
+  "name": "horse_hooves",
+  "gain_db": -20,
   "pan": 0.0,
   "seed": 13,
+  "dur": 4.0,
+  "loop": false
+ },
+ {
+  "t": 561.464,
+  "name": "cannon_boom",
+  "gain_db": -15,
+  "pan": -0.3,
+  "seed": 14,
   "dur": null,
-  "loop": false,
-  "params": {
-   "root": 146.8323839587038
-  }
+  "loop": false
+ },
+ {
+  "t": 596.984,
+  "name": "fire_crackle",
+  "gain_db": -24,
+  "pan": 0.0,
+  "seed": 15,
+  "dur": 12.0,
+  "loop": true
+ },
+ {
+  "t": 677.604,
+  "name": "cannon_boom",
+  "gain_db": -16,
+  "pan": 0.3,
+  "seed": 16,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 775.62,
+  "name": "sea_waves",
+  "gain_db": -26,
+  "pan": 0.0,
+  "seed": 18,
+  "dur": 16.0,
+  "loop": true
+ },
+ {
+  "t": 835.26,
+  "name": "thunder",
+  "gain_db": -16,
+  "pan": 0.0,
+  "seed": 19,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 836.26,
+  "name": "ship_creak",
+  "gain_db": -22,
+  "pan": -0.3,
+  "seed": 20,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 857.48,
+  "name": "gong_hit",
+  "gain_db": -17,
+  "pan": 0.0,
+  "seed": 21,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 892.34,
+  "name": "coin_clink",
+  "gain_db": -20,
+  "pan": 0.2,
+  "seed": 22,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 1163.908,
+  "name": "bell_toll_low",
+  "gain_db": -18,
+  "pan": 0.0,
+  "seed": 24,
+  "dur": null,
+  "loop": false
+ },
+ {
+  "t": 1275.447,
+  "name": "magic_chime",
+  "gain_db": -18,
+  "pan": 0.0,
+  "seed": 25,
+  "dur": null,
+  "loop": false
  }
 ]

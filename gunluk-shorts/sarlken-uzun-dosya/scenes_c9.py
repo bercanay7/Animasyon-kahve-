@@ -21,9 +21,9 @@ SHOTS = [
                  dict(text="YENİ DÜNYA", lon=-96, lat=33, size=36, at=A("c9s1", "Yeni", -0.1), track=12)],
          extra=S9.open_extra, label="atlantik_hic"),
     # s2a — Cortés: Küba → Veracruz → Tenochtitlan (izinsiz)
-    shot("map", a=A("c9s2", -0.1), tr=("fade", 0.8), cams=[(0.0, (-86.5, 21.4, 1.85)), (A("c9s2", "yola", -0.4), (-87.6, 21.0, 2.05))],
+    shot("map", a=A("c9s2", -0.1), tr=("fade", 0.8), cams=[(0.0, (-87.0, 21.4, 1.85)), (A("c9s2", "yola", -0.4), (-88.2, 21.0, 2.05))],
          regions=[dict(name="aztek", color="#C0762B", at=A("c9s2", "Hernán", 0.0), alpha=0.40)],
-         labels=[dict(text="KÜBA", lon=-79.0, lat=21.9, size=34, at=A("c9s2", "Küba", -0.1)), dict(text="AZTEK", lon=-100.8, lat=21.9, size=30, color="#F0D8A0", at=A("c9s2", "Hernán", 0.3))],
+         labels=[dict(text="KÜBA", lon=-79.0, lat=21.9, size=34, at=A("c9s2", "Küba", -0.1)), dict(text="AZTEK", lon=-98.4, lat=22.9, size=30, color="#F0D8A0", at=A("c9s2", "Hernán", 0.3))],
          routes=[dict(pts=[(-82.4, 23.1), (-86.9, 20.6), (-92.5, 19.5), (-96.1, 19.2), (-99.13, 19.43)], at=A("c9s2", "yola", -0.25), dur=2.3, color="#F0D27A", width=6)],
          cities=[dict(lon=-96.1, lat=19.2, name="VERACRUZ", kind="town", at=A("c9s2", "yola", 0.9), side="b", size=28),
                  dict(lon=-99.13, lat=19.43, name="TENOCHTİTLAN", kind="capital", at=A("c9s2", "yola", 1.7), side="t", size=28)],
@@ -68,9 +68,9 @@ SHOTS = [
          hl=dict(line=0, start="Yerlileri ", text="köle yapmak yasaktır.", at=A("c9s9", "köle", -0.15)),
          seal=True, seal_at=A("c9s9", "yasaktı", 0.2), label="yeni_yasalar"),
     # s9b — yerleşimciler öfkelendi; yasayı getiren Peru valisi öldürüldü
-    shot("map", a=A("c9s9", "Yerleşimciler", -0.3), tr=("fade", 0.8), cams=[(0.0, (-42, 13.5, 0.45)), (AE("c9s9", 0.0), (-46, 11.5, 0.5))],
+    shot("map", a=A("c9s9", "Yerleşimciler", -0.3), tr=("fade", 0.8), cams=[(0.0, (-38.5, 14.2, 0.45)), (AE("c9s9", 0.0), (-39.6, 13.7, 0.46))],
          regions=[dict(name="ispanya", color="ispanya", at=0.0, alpha=0.5), dict(name="peru_ispanya", color="ispanya", at=0.2, alpha=0.5)],
-         labels=[dict(text="ATLANTİK OKYANUSU", lon=-30, lat=22, size=28, color="#9FB8C8", at=0.4, track=12), dict(text="PERU", lon=-72.5, lat=-8.5, size=32, at=A("c9s9", "Yerleşimciler", 0.2), track=14)],
+         labels=[dict(text="ATLANTİK OKYANUSU", lon=-16, lat=-10, size=28, color="#9FB8C8", at=0.4, track=12), dict(text="PERU", lon=-70.5, lat=-3.5, size=32, at=A("c9s9", "Yerleşimciler", 0.2), track=14)],
          routes=[dict(pts=[(-6.3, 37.2), (-30, 27), (-58, 14), (-79.5, 9), (-77.0, -12.0)], at=A("c9s9", "yasayı", -0.1), dur=2.3, color="#F0D27A", width=4, dash=(12, 10), arrow=False)],
          icons_=[dict(kind="torch", lon=-76.0, lat=-7.0, size=84, at=A("c9s9", "öfkelendi", -0.5), metal="crimson", bob=3, glow=0.3),
                  dict(kind="torch", lon=-72.0, lat=-10.5, size=84, at=A("c9s9", "öfkelendi", -0.3), metal="crimson", bob=3, glow=0.3),
