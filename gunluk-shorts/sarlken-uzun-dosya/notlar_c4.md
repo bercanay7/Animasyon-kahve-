@@ -1,7 +1,7 @@
 # Bölüm 4 — Worms'ta Bir Keşiş · yazar notları (BÖLÜM YAZARI B)
 
 **Dosyalar:** `scenes_c4.py` (SHOTS) · `kinds_c4.py` (c4_ önekli çekim türleri + `c4_nave` sahnesi) · `bw_lib.py` (ortak yardımcılar: push, paper, stamp2, tag, curve_arrow, chain_links, draw_medal2, `bw_theatre` güvenli sarmalayıcı, `scene_pt`) · `icons_b.py` (b_ simgeleri: b_press, b_friends, b_body, b_drop, b_heart, b_flame, b_saltire, b_forbid…).
-**Süre** 113.9 sn · **20 çekim** (bölüm kartı hariç) · ort. 5.7 sn/çekim · `--check`: **uyarı yok** (ort. ≈ 190–225 ms/kare, en ağır çekim < 320 ms).
+**Süre** 113.9 sn · **20 çekim** (bölüm kartı hariç) · ort. 5.7 sn/çekim · `--check`: **uyarı yok** (ort. ≈ 100 ms/kare, en ağır `c4_dawn_scroll` ≈ 195 ms; paylaşılan makinede CPU yoğunken değerler ≈ 2× çıkabilir).
 **Renk kodu:** Habsburg kızıl/altın · Protestan petrol (teal) · mühür/damga kırmızı · parşömen sıcak bej. Anlatı ritmi: yargı salonu gerilimi; sayfa/damga/sayaç çekimleri arasına lab dioramaları serpiştirildi.
 
 ## 1. Çekim listesi
@@ -23,7 +23,7 @@
 | 14 | c4_backdate | 1:19.4 | 7.3 | ferman_geriye | WORMS FERMANI parşömeni; zaman ekseni (LUTHER AYRILDI → FERMANIN TARİHİ ← İMZA); geri ok; **GERİYE DÖNÜK TARİHLİ** damgası |
 | 15 | c4_banned | 1:26.6 | 6.2 | yasak | Luther madalyası + **KANUN DIŞI** damgası; OKUMAK / BASMAK / SATMAK satırları üstü çizilir |
 | 16 | bw_theatre / road_night | 1:32.9 | 3.7 | gece_yolu | Lab `road_night`: meşaleli atlılar (4), “KAÇIRILDI” |
-| 17 | medal | 1:36.6 | 4.3 | seçmen | Frederik madalyası, levha "SAKSONYA SEÇMENİ" (dip geçişi) |
+| 17 | bw_medal | 1:36.6 | 4.3 | seçmen | Frederik madalyası, levha "SAKSONYA SEÇMENİ" (dip geçişi) |
 | 18 | bw_theatre / tower (wartburg) | 1:40.8 | 6.0 | wartburg | Lab `tower/wartburg`: yazan figür, mum; "WARTBURG KALESİ", “ŞÖVALYE JÖRG” |
 | 19 | c4_book | 1:46.8 | 3.3 | yeni_ahit | Açık kitap; "YENİ AHİT"; sağ sayfaya "ALMANCA" başlığıyla yazı yazılır (tüy kalem, mum) |
 | 20 | c4_finale | 1:50.1 | 3.7 | fikir | FERMAN parşömeni alttan yanar; sağda altın alev "FİKİR" |
@@ -77,4 +77,5 @@ RİVAYET damgası 361.7 · TUTANAKTA YOK damgası 364.3 · SONRADAN EKLENMİŞ d
 3. **Varsayılan geçiş:** `tr` verilmezse sert kesme; bütün çekimlerimde `tr=` açık verildi (başka yazarlar da dikkat etmeli).
 4. **Sahne önbelleği** (`stage._SCENES`) yalnız 5 sahne tutuyor; aynı sahneye başka `p` ile dönülürse yeniden pişer (3–8 sn).
 5. **`bw_theatre`** (bw_lib): lab sahnesi hata verirse render çökmesin diye yer tutucu çizer ve stderr'e "[bw_theatre] '…' sahnesi hata verdi" yazar — final render logunda bu satırı arayın (şu an 0 hata).
-6. Ekranda yeni **WİTTENBERG** etiketi ve **1517** (türetilmiş) var; ikisi de YONETMEN_NOTLARI s3'ten — kaynak kapısı için onay/ret sizde (kaldırmak: `scenes_c4.py`'de `cities=[…]` ve `c4_theses`'de `year_at`).
+6. **Hız ipucu (tüm yazarlar için):** `bw_lib.py` içinde kare başı maliyeti ≈ yarıya indiren önbellekli yardımcılar var — `static_backdrop` (bg+ışın+duo_glow tek blit), `dust2` (saveLayer'sız toz), `draw_icon2` (gölge/ışıma bulanıklığı önbellekli), `gold2` (altın yazı ışıması önbellekli), `glow_blit`, `bw_medal` (önbellekli madalya; `shots.medal` ile aynı parametreler). Paylaşılan `sk.dust`, `icons.draw_icon`, `Frame.gold(glow=)` ve `SH.draw_medal` en pahalı kalemler; ortak dosyalara yazmadım.
+7. Ekranda yeni **WİTTENBERG** etiketi ve **1517** (türetilmiş) var; ikisi de YONETMEN_NOTLARI s3'ten — kaynak kapısı için onay/ret sizde (kaldırmak: `scenes_c4.py`'de `cities=[…]` ve `c4_theses`'de `year_at`).

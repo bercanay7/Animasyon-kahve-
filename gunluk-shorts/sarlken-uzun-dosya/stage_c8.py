@@ -176,8 +176,8 @@ def k_konsey(cx, at_scene=0.0, at_kort=0.0, at_kick=0.0, at_chip=0.0, at_stamp=0
         SH.kicker(f, "SAVAŞ KONSEYİ", CX + 150, 150, alpha=kk, size=34, track=14, face="title_m", color="#E0C682")
     kc = cx.amt(at_chip, 0.5)
     if kc > 0:
-        X.chip(f, "KONSEYE ÇAĞRILMADI", 1190, 900, k=kc, size=36, edge="#B02A2A", color="#F8E2D8", padx=40, h=90)
+        X.chip(f, "KONSEYE ÇAĞRILMADI", 1060, 890, k=kc, size=36, edge="#B02A2A", color="#F8E2D8", padx=40, h=90)
     t = cx.amt(at_stamp, 0.3)
     if t > 0:
-        SH.stamp(f, "ANLATILIR", 1500, 960, rot=-0.07, size=62, t=t)
+        SH.stamp(f, "ANLATILIR", 1630, 962, rot=-0.07, size=54, t=t)
     f.vig(0.62)

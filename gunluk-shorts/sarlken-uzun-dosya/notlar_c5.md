@@ -1,7 +1,7 @@
 # Bölüm 5 — İmparator Hep Başka Yerde · yazar notları (BÖLÜM YAZARI B)
 
 **Dosyalar:** `scenes_c5.py` (SHOTS) · `kinds_c5.py` (c5_ önekli çekim türleri, harita `extra`'ları, köylü overlay'i) · `bw_lib.py` · `icons_b.py` · `rider_b.py` (Tiziano çerçevesindeki atlı siluet).
-**Süre** 108.6 sn · **21 çekim** (kart hariç; hedef 16–20'nin bir fazlası — #4/#5 aynı lab sahnesinde iki ayrı overlay, #10/#11 kısa anlatı parçaları) · ort. 5.2 sn/çekim · `--check`: **uyarı yok** (ort. ≈ 205–225 ms/kare; en ağır `c5_ideas` ≈ 390 ms, sınırın altında).
+**Süre** 108.6 sn · **21 çekim** (kart hariç; hedef 16–20'nin bir fazlası — #4/#5 aynı lab sahnesinde iki ayrı overlay, #10/#11 kısa anlatı parçaları) · ort. 5.2 sn/çekim · `--check`: **uyarı yok** (ort. ≈ 106 ms/kare; en ağır `c5_authors` ≈ 220 ms [ilk-kullanım ikon pişirmesi], `c5_ideas` ≈ 160 ms; CPU yoğunken ≈ 2× çıkabilir).
 **Ton:** yol/kervan — toprak, duman, harita okları; sonunda c0'ın salonuna dönüş. Renk kodu: Habsburg kızıl · Protestan petrol · Fransa kraliyet mavisi · Osmanlı orman yeşili · gümüş = Tiziano/anma.
 
 ## 1. Çekim listesi
@@ -21,12 +21,12 @@
 | 12 | c5_wait | 0:53.6 | 7.1 | yatisinca_1546 | Zaman çizelgesi 1521 WORMS · 1529 SPEYER · 1530 AUGSBURG; FRANSA/OSMANLI simgeleri "YATIŞTI" ile sönükleşir; 1546 SAVAŞ |
 | 13 | c5_plan | 1:00.7 | 5.9 | muhlberg_plan | Parşömen savaş planı: 24 NİSAN 1547, ELBE, MÜHLBERG, iki yakada birlikler, sis, kızıl geçiş oku; "şematik çizim" |
 | 14 | bw_theatre / field | 1:06.6 | 3.0 | sis_elbe | Lab `field`: sisli sabah, nehirde (sığ geçit) atlı/süngülü Habsburg ordusu, kızıl Burgonya haçı bayrağı |
-| 15 | medal | 1:09.6 | 2.5 | secmen_esir | Johann Friedrich madalyası, levha "SAKSONYA SEÇMENİ", **ESİR** damgası (dip geçişi) |
+| 15 | bw_medal | 1:09.6 | 2.5 | secmen_esir | Johann Friedrich madalyası, levha "SAKSONYA SEÇMENİ", **ESİR** damgası (dip geçişi) |
 | 16 | c5_titian | 1:12.1 | 9.5 | tiziano_cerceve | Tiziano madalyası + "BİR YIL SONRA"; altın çerçevede fırça darbeleriyle boyanan zırhlı atlı siluet, defne; "tek başına" anında kararma |
 | 17 | c5_moritz | 1:21.6 | 8.0 | moritz | ZAFER: defne solar → 1552; SAKSONYALI MORİTZ ↔ V. KARL madalyaları, aralarında zincir kopar (ESKİ MÜTTEFİK) |
 | 18 | bw_theatre / road_night | 1:29.6 | 4.5 | innsbruck_gece | Lab `road_night`: yağmurlu dağ gecesi, meşaleli atlı kafile (**sedye yok**); "İNNSBRUCK · GECE" |
 | 19 | c5_peace | 1:34.0 | 7.7 | augsburg_barisi | AUGSBURG BARIŞI · EYLÜL 1555; iki niş KATOLİK / LUTHERCİLİK (ikincisi kesikli → açılır); mühür |
-| 20 | medal | 1:41.7 | 3.7 | ferdinand | Ferdinand madalyası, levha "FERDİNAND · Kardeşi · yürüten" |
+| 20 | bw_medal | 1:41.7 | 3.7 | ferdinand | Ferdinand madalyası, levha "FERDİNAND · Kardeşi · yürüten" |
 | 21 | bw_theatre / hall | 1:45.4 | 3.2 | salon_son | Lab `hall` — **c0 ile aynı sahne** (`p=dict()`); kamera yavaş yaklaşır, son 1 sn siyaha çözülür |
 
 ## 2. Bilinen kusurlar / dürüst notlar
@@ -36,7 +36,7 @@
 - **Tiziano çerçevesi:** gerçek tablo değil; fırça darbesiyle boyanan, esinlenmiş atlı siluet. "Simge" vurgusu anlatıdaki gibi; yıl (1548) ekranda yok.
 - **Köylü Savaşı** çekimlerinde bayraklı kalabalık jenerik; "TAHMİN" etiketi 70–100 bin aralığının kesin olmadığını vurgular.
 - **Kısa çekimler:** #10 (2.9 sn), #11 (3.2 sn), #15 (2.5 sn) anlatının kendi parçalanmasından; geçişler kısaltıldı.
-- **c5_ideas** en ağır tür (≈ 390 ms/kare): uçuşan şeffaf yapraklar; sınırın (450 ms) altında.
+- **c5_ideas**: uçuşan şeffaf yapraklar (≈ 160 ms/kare); bir sonraki çekime whip geçişi sırasında iki çekim birlikte çizildiği için o pencerede ≈ 2× görünür (normal).
 - İlk-kare pişirme (tek seferlik): harita ≈ 2.6 sn, lab sahneleri 3–7 sn.
 - Büyük harf Türkçe kuralına göre: **SAKSONYALI MORİTZ, İNNSBRUCK, FERDİNAND, TİZİANO**.
 
@@ -69,7 +69,7 @@ Köylü Savaşı etiketi 449.0 · LUTHER İSTEMEMİŞTİ levhası 450.3 · 70.00
 
 ## 5. Ana ajana istekler / bulgular
 1. **compose.py Türkçe büyük harf hatası** (bkz. notlar_c4.md #1): bölüm kartı / HUD başlığı.
-2. **`SH.draw_medal` önbelleksiz** — c5'te 7 madalya kullanımı var (authors, refuse, moritz, medal ×3, titian): `bw_lib.draw_medal2` önbellekli sürümü 2–3× hızlı.
+2. **`SH.draw_medal` önbelleksiz** — c5'te 7 madalya kullanımı var (authors, refuse, moritz, titian, bw_medal ×2): `bw_lib.draw_medal2` / `bw_medal` önbellekli sürümü 2–3× hızlı. **Hız ipucu:** `bw_lib.py` ayrıca `static_backdrop`, `dust2`, `draw_icon2`, `gold2`, `glow_blit` içerir (kare başı maliyeti ≈ yarıya indirir; ayrıntı notlar_c4.md #6).
 3. **Hall (c0 geri çağrı):** `p=dict()` kullanıldı (varsayılan çift figür x=1000); c0'daki çift figür `extra` ile x≈1130'da çiziliyor — birebir eşleşme istenirse c5s15'te `p=dict(emperor=False, extra=…)` ile c0'ın `_pair_extra`'sı kullanılabilir (c0 yazarının dosyasına dokunmadım).
 4. **`bw_theatre`** sarmalayıcı: lab hatası stderr'e "[bw_theatre] … hata verdi" yazar; şu an 0 hata (field, road_night, hall çalışıyor).
 5. Sahne önbelleği 5 sahne: c5'te `field` farklı `p` ile 3 kez (köylü ×2 aynı `p` → önbellekten; Mühlberg ayrı) — sorunsuz.

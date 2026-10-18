@@ -206,7 +206,7 @@ SHOTS = [
                 dict(key="maldonado", name="MALDONADO", role="Komünero önderi", metal="onyx", at=("c3s5", "Maldonado", -0.1), pw=460)], label="uc_onder"),
     # s6 — Toledo: María Pacheco aylarca direndi
     shot("a_theatre", a=("c3s6", -0.2), tr=("fade", 0.8), scene="siege", p=dict(city="toledo", time="dusk", weather="rain", fire=0.3, cannon_fire=0.4),
-         cams=[(0.0, (960, 540, 1.0)), (("c3s6", "direndi", 0.3), SG.cam_on_city(0.58, 1.6, y=380))], overlay=_toledo_overlay, label="toledo_pacheco"),
+         cams=[(0.0, (960, 540, 1.0)), (("c3s6", "direndi", 0.3), SG.cam_on_city(0.58, 1.4, y=340))], overlay=_toledo_overlay, label="toledo_pacheco"),
     # s7 — Valensiya'da Germanía
     shot("a_map", a=("c3s7", -0.2), tr=("fade", 0.8), need=("c3_valensiya",), cams=[(0.0, (-1.5, 40.2, 3.0)), (("c3s7", "Valensiya'da", -0.1), (-0.38, 39.5, 6.5))], tint=("#5A1A1A", 0.25),
          regions=[dict(name="c3_valensiya", color="#8E1F26", at=("c3s7", "Valensiya'da", -0.1), alpha=0.5)], extra=_ex_valensiya, approx=False, label="valensiya_germania"),

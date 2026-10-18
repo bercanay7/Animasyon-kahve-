@@ -41,7 +41,8 @@ def _dist_extra(cx, cam, mv):
         X.ic(f, "question", (xi + xb) / 2, (yi + yb) / 2 + 20, size=110, metal="silver", alpha=0.85 * km)
 
 
-def _route_medal(key, metal, pts, at, dur, size=210, flip=False):
+def _route_medal(key, metal, pts, at, dur, size=210, flip=False, tag=None):
+    """Rota üzerinde ilerleyen madalya. tag=(metin,): varışta madalyanın yanına (sağ) kent adı yazılır (madalya kent etiketini örtmesin)."""
     def fn(cx, cam, mv):
         pr = ease_io(clamp((cx.t - cx.at(at)) / dur))
         if pr <= 0:
@@ -49,6 +50,9 @@ def _route_medal(key, metal, pts, at, dur, size=210, flip=False):
         (x, y), ang = mv.point_on(cam, pts, pr)
         cx.f.circle(x, y, size * 0.7, shader=cx.f.rad(x, y, size * 0.7, [("#000000", 0.0, 110), ("#000000", 1.0, 0)]))
         SH.draw_medal(cx.f, key, x, y, size * (0.9 + 0.1 * ease_out(clamp(pr * 6))), metal, flip, alpha=clamp(pr * 8), tilt=0.1)
+        if tag and pr > 0.82:
+            ka = clamp((pr - 0.82) / 0.18)
+            cx.f.text(tag[0], x + size * 0.56, y + 10, face="title_m", size=30, color="#F6E6B8", align="l", track=5, alpha=ka, shadow=(2, 2, 3, "#000000"))
     return fn
 
 
@@ -176,10 +180,10 @@ SHOTS = [
          routes=[dict(pts=[(2.17, 41.39), (5.2, 42.9), (8.93, 44.41), (11.34, 44.49)], at=("c7s9", "İtalya'daydı;", -0.4), dur=2.6, color="#E8C25A", width=8)],
          cities=[dict(lon=2.17, lat=41.39, name="BARSELONA", kind="town", at=0.0, side="b", size=26),
                  dict(lon=8.93, lat=44.41, name="CENOVA", kind="town", at=("c7s9", "İtalya'daydı;", 0.3), side="b", size=26),
-                 dict(lon=11.34, lat=44.49, name="BOLOGNA", kind="capital", at=("c7s9", "papadan", -0.3), side="r", size=30),
+                 dict(lon=11.34, lat=44.49, name=None, kind="capital", at=("c7s9", "papadan", -0.3), side="r", size=30),
                  dict(lon=16.37, lat=48.21, name="VİYANA · KUŞATMA", kind="siege", at=("c7s9", "hafta", -0.2), side="t", size=28)],
          icons_=[dict(kind="imperial_crown", lon=11.34, lat=46.2, size=110, at=("c7s9", "tacını", -0.2), metal="gold", bob=5)],
-         extra=_route_medal("karl_olgun", "gold", [(2.17, 41.39), (5.2, 42.9), (8.93, 44.41), (11.34, 44.49)], ("c7s9", "İtalya'daydı;", -0.4), 2.6, size=210),
+         extra=_route_medal("karl_olgun", "gold", [(2.17, 41.39), (5.2, 42.9), (8.93, 44.41), (11.34, 44.49)], ("c7s9", "İtalya'daydı;", -0.4), 2.6, size=210, tag=("BOLOGNA",)),
          label="karl_italya"),
 
     # s10 — 1532: doğrudan imparatora; sefer günlüğü
@@ -195,7 +199,7 @@ SHOTS = [
 
     # s11 — Güns: küçük kale, garnizon, 25 gün
     shot("c678_sahne", a=("c7s11", -0.2), tr=("whip", 0.5), scene="siege",
-         cams=[(0.0, (960, 640, 1.12)), (("c7s11", "Güns,", 0.0), X.kcam(0.62, 1.35, 260))],
+         cams=[(0.0, (960, 500, 1.0)), (("c7s11", "yedi", 0.0), (1010, 305, 1.14))],
          p=dict(tag="c7_guns", city="guns", time="day", weather="clear", cannon_fire=True, fire=0.15),
          overlay=X.ov_kick("GÜNS", ("c7s11", "Güns,", -0.2), y=122, size=40, x=560), label="guns_kale"),
     shot("c678_cift", a=("c7s11", "yedi", -0.15), tr=("fade", 0.5), title="GÜNS · 1532", tone_col="#6A7A38", y=H * 0.5, size=140, ykick=140,

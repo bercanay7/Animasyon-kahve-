@@ -264,8 +264,9 @@ def k_c13_balance(cx, at_av=0.0, at_crown=0.0, at_crown_off=0.0, at_shields=0.0,
 
 
 # ───────────────────────────── s7: strateji oyunu paneli ─────────────────────────────
-STATES = [("KASTİLYA", "ispanya"), ("ARAGON", "#C9962B"), ("NAPOLİ", "papalik"), ("HOLLANDA", "burgonya"), ("AVUSTURYA", "avusturya"), ("BOHEMYA", "macar")]
-STATE_REGIONS = [("ispanya", "ispanya"), ("napoli", "papalik"), ("hollanda", "burgonya"), ("avusturya", "avusturya"), ("bohemya", "macar"), ("milano", "venedik")]
+# Yalnız Karl'ın kendi hükmettiği devletler (Avusturya/Bohemya Ferdinand'ındı: listeye KONMAZ)
+STATES = [("KASTİLYA", "ispanya"), ("ARAGON", "#C9962B"), ("NAPOLİ", "papalik"), ("SARDUNYA", "ispanya"), ("HOLLANDA", "burgonya"), ("MİLANO", "venedik")]
+STATE_REGIONS = [("ispanya", "ispanya"), ("napoli", "papalik"), ("sardunya", "ispanya"), ("hollanda", "burgonya"), ("milano", "venedik"), ("franche_comte", "burgonya")]
 
 
 @SH.kind("c13_game")
@@ -311,7 +312,7 @@ def k_c13_game(cx, at_ui=0.0, at_tip=0.0, at_one=0.0, at_many=0.0, step=0.28, at
         cxx, cyy = cam.ll(5.5, 41.0)          # hükümdar simgesi denizde (hiçbir devletin üstünde değil)
         for i, (rn, col) in enumerate(STATE_REGIONS):
             if kmany[i] > 0:
-                lon_lat = {"ispanya": (-3.5, 40.2), "napoli": (14.8, 40.8), "hollanda": (5.0, 52.0), "avusturya": (14.2, 47.4), "bohemya": (15.5, 49.8), "milano": (9.2, 45.3)}[rn]
+                lon_lat = {"ispanya": (-3.5, 40.2), "napoli": (14.8, 40.8), "sardunya": (9.0, 40.0), "hollanda": (5.0, 52.0), "milano": (9.2, 45.3), "franche_comte": (5.9, 46.9)}[rn]
                 tx, ty = cam.ll(*lon_lat)
                 f.line(cxx, cyy, lerp(cxx, tx, ease_out(kmany[i])), lerp(cyy, ty, ease_out(kmany[i])), color="#FFE7A0", sw=2.2, alpha=0.8)
                 f.circle(tx, ty, 6, color="#FFE7A0", alpha=0.9 * kmany[i])

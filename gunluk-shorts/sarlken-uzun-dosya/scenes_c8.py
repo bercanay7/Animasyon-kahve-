@@ -122,9 +122,10 @@ def _storm_ov(cx):
     kn = cx.amt(("c8s10", "yaklaşık", -0.15), 0.5)
     if kn > 0:
         v = ease_out(clamp((cx.t - cx.at(("c8s10", "yüz", -0.15))) / 1.0), 3)
-        SH.gold_flat(f, f"≈ {int(round(150 * v))}", W / 2, 520, face="title", size=200, track=8, alpha=kn)
-        f.text("GEMİ BATTI", W / 2, 610, face="title_m", size=56, color="#E0C682", align="c", track=16, alpha=cx.amt(("c8s10", "yüz", -0.15), 0.5, off=0.3))
-        SH.stamp(f, "YAKLAŞIK", W / 2 + 430, 400, rot=-0.07, size=40, t=cx.amt(("c8s10", "yaklaşık", -0.1), 0.3), color="#9A7A38")
+        X.scrim(f, W / 2, 300, w=1200, h=470, a=0.46 * kn)
+        SH.gold_flat(f, f"≈ {int(round(150 * v))}", W / 2, 330, face="title", size=200, track=8, alpha=kn)
+        f.text("GEMİ BATTI", W / 2, 424, face="title_m", size=56, color="#EBD28F", align="c", track=16, alpha=cx.amt(("c8s10", "yüz", -0.15), 0.5, off=0.3), shadow=(2, 3, 4, "#000000"))
+        SH.stamp(f, "YAKLAŞIK", W / 2 + 470, 215, rot=-0.07, size=40, t=cx.amt(("c8s10", "yaklaşık", -0.1), 0.3), color="#B8903E")
 
 
 SHOTS = [
@@ -163,7 +164,7 @@ SHOTS = [
          p=dict(tag="c8_halk", city="halkulvadi", time="day", weather="clear", cannon_fire=True, fire=0.4),
          overlay=X.ov_all(X.ov_flagswap("halkulvadi", "day", 0.4, ("c8s4", "düştü,", -0.1)),
                           X.ov_date("TEMMUZ 1535", ("c8s4", "Temmuz", -0.1)), X.ov_kick("HALKULVADİ", ("c8s4", "Halkulvadi", -0.2), y=122, size=38),
-                          X.ov_stamp("TUNUS ALINDI", ("c8s4", "Tunus", -0.15), x=W / 2, y=900, size=56, rot=-0.05)), label="halkulvadi"),
+                          X.ov_stamp("TUNUS ALINDI", ("c8s4", "Tunus", -0.15), x=430, y=400, size=54, rot=-0.06)), label="halkulvadi"),
     shot("c678_cift", a=("c8s4", "Yaklaşık", -0.2), tr=("fade", 0.5), bgk="sea", title="HALKULVADİ · TUNUS", y=H * 0.5, size=190, ykick=150,
          items=[dict(value=20000, unit="esir", label="SERBEST KALDI", icon=CHAINS, metal="gold", at=("c8s4", "yirmi", -0.15), dur=1.3)],
          stampt=("YAKLAŞIK", 1330, 330, ("c8s4", "Yaklaşık", -0.1), 44, -0.07), label="20bin_esir"),
@@ -196,8 +197,8 @@ SHOTS = [
     # s8 — Sonraki yıllarda doğu Akdeniz'de Osmanlı üstün
     shot("map", a=("c8s8", -0.2), tr=("fade", 0.7), cams=[(0.0, (23.0, 38.2, 2.5)), (("c8s9", -0.4), (22.0, 37.8, 2.7))],
          regions=[dict(name="osmanli_1550", color="osmanli", at=("c8s8", "Osmanlı", -0.5), alpha=0.6, dur=1.4)],
-         labels=[dict(text="AKDENİZ'İN DOĞUSU", lon=26.6, lat=35.2, size=40, color="#BFE9D0", at=("c8s8", "Akdeniz'in", -0.1), track=12),
-                 dict(text="OSMANLI DONANMASI", lon=18.9, lat=36.9, size=34, color="#9FE0B4", at=("c8s8", "donanması", -0.3), track=10)],
+         labels=[dict(text="AKDENİZ'İN DOĞUSU", lon=26.4, lat=33.9, size=40, color="#BFE9D0", at=("c8s8", "Akdeniz'in", -0.1), track=12),
+                 dict(text="OSMANLI DONANMASI", lon=18.2, lat=36.9, size=34, color="#9FE0B4", at=("c8s8", "donanması", -0.3), track=10)],
          icons_=[dict(kind="ship", lon=26.0, lat=36.5, size=86, at=("c8s8", "Osmanlı", -0.2), metal="forest", route=[(28.5, 36.2), (25.0, 36.0), (21.0, 36.8)], move_at=("c8s8", "Osmanlı", -0.2), move_dur=3.6, bob=3),
                  dict(kind="ship", lon=24.0, lat=38.0, size=86, at=("c8s8", "Osmanlı", 0.0), metal="forest", route=[(26.0, 39.0), (23.0, 37.6), (19.8, 37.8)], move_at=("c8s8", "Osmanlı", 0.0), move_dur=3.6, bob=3),
                  dict(kind="ship", lon=23.0, lat=35.0, size=86, at=("c8s8", "Osmanlı", 0.3), metal="forest", route=[(27.0, 35.0), (23.5, 34.8), (19.5, 35.4)], move_at=("c8s8", "Osmanlı", 0.3), move_dur=3.6, bob=3)],
