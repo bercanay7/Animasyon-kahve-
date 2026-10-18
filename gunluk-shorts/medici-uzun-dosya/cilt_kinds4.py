@@ -223,3 +223,15 @@ def k_skyline(cx, seed=1, tod=None, pan=340.0, x0=0.0, dir=1, kick=None, caption
 
 # ───────────────────────────── dünya ve figür animasyonu (hareketli figür kiti, pano, yapım, alay) ─────────────────────────────
 import cilt_anim, cilt_pano, cilt_build  # noqa: E402,F401
+
+# Lab-C / Lab-D dünyaları (yazılırken yarım olabilir: hata başkalarını durdurmasın, uyarı basılır)
+for _m in ("cilt_deniz", "cilt_oda"):
+    try:
+        __import__(_m)
+    except ModuleNotFoundError as _e:
+        if _e.name != _m:
+            import sys as _sys
+            print(f"[uyarı] {_m} yüklenemedi: {_e!r}", file=_sys.stderr)
+    except Exception as _e:  # noqa: BLE001
+        import sys as _sys
+        print(f"[uyarı] {_m} yüklenemedi: {_e!r}", file=_sys.stderr)
