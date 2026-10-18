@@ -1068,6 +1068,28 @@ def karsilastir(args):
               f"cümleler arası boşlukta ort. {np.mean(btw) if btw else 0:.3f} (n={len(btw)}; >0,1: {int(np.sum(np.array(btw) > 0.1)) if btw else 0})")
     except Exception as e:                                           # noqa: BLE001
         P(f"  konuşma etkinliği hesaplanamadı: {type(e).__name__}: {e}")
+    # cümle sınırlarının durağa yaslılığı: t0 bir koşu başına, t1 bir koşu sonuna ≤ 20 ms mi?
+    try:
+        _x, _sr, _vc, _wp, _bol = bolumleri_hazirla(None)
+        bas, son = [], []
+        for B_ in _bol:
+            for r_ in B_["runs"]:
+                bas.append(B_["c"]["t0"] + r_["a"])
+                son.append(B_["c"]["t0"] + r_["b"])
+        bas, son = np.array(sorted(bas)), np.array(sorted(son))
+
+        def yakin(arr, t):
+            i = int(np.searchsorted(arr, t))
+            return min(abs(t - arr[j]) for j in (i - 1, i) if 0 <= j < len(arr))
+        d0 = {i: yakin(bas, s_["t0"]) for i, s_ in Yn.items()}
+        d1 = {i: yakin(son, s_["t1"]) for i, s_ in Yn.items()}
+        i0 = [i for i, d in d0.items() if d > 0.02]
+        i1 = [i for i, d in d1.items() if d > 0.02]
+        P(f"  yeni: cümle başı bir konuşma koşusunun başına ≤20 ms: {len(d0) - len(i0)}/{len(d0)}; cümle sonu koşu sonuna ≤20 ms: {len(d1) - len(i1)}/{len(d1)}")
+        if i0 or i1:
+            P(f"        koşu içinde kalan (HMM/hece ile konumlanan) sınırlar: başlangıç {[(i, round(d0[i], 2)) for i in i0]} · bitiş {[(i, round(d1[i], 2)) for i in i1]}")
+    except Exception as e:                                           # noqa: BLE001
+        P(f"  durak yaslılığı hesaplanamadı: {type(e).__name__}: {e}")
     P("  c2s5–c2s7:")
     for i in ("c2s4", "c2s5", "c2s6", "c2s7", "c2s8"):
         if i in Yn and i in E:
@@ -1776,6 +1798,7 @@ def akustik_iyilestir(S, ctx, n_iter=8):
     med = float(np.median(lls))
     mad = float(1.4826 * np.median(np.abs(lls - med)) + 1e-6)
     n_geri = 0
+    n_nefes = 0
     for sn in ctx["sonuclar"]:                                         # ağırlık tabanlı zamanları yeni sınırlarla yenile
         sn["eksik"] = []
         for r in sn["runs"]:
@@ -1801,8 +1824,14 @@ def akustik_iyilestir(S, ctx, n_iter=8):
         # koşu kenarları VAD'a yaslanır (HMM ilk/son fonu belirgin geç/erken başlıyorsa — nefes/uzun yumuşak başlangıç — HMM'e uy)
         if tt[konus[0]][0] - r["a"] <= 0.10:
             tt[konus[0]][0] = r["a"]
+        else:
+            n_nefes += 1
+            r["hmm_bas_gec"] = round(tt[konus[0]][0] - r["a"], 3)
         if r["b"] - tt[konus[-1]][1] <= 0.10:
             tt[konus[-1]][1] = r["b"]
+        else:
+            n_nefes += 1
+            r["hmm_son_erken"] = round(r["b"] - tt[konus[-1]][1], 3)
         # sözcükler arası kısa boşluklar: <50 ms ise ortadan böl; daha uzunsa gerçek durak olarak bırak
         for a_, b_ in zip(konus[:-1], konus[1:]):
             if b_ == a_ + 1 and tt[b_][0] - tt[a_][1] < 0.05:
@@ -1833,7 +1862,7 @@ def akustik_iyilestir(S, ctx, n_iter=8):
         eksik_yerlestir(sn)
     n_eks = sum(len(sn.get("eksik", [])) for sn in ctx["sonuclar"])
     log(f"[HMM] hizalama: {len(ham) - n_geri}/{len(ham)} koşu HMM ile; ağırlık modeline geri düşen: {n_geri}; kare başına log-olasılık medyan {med:.2f} (MAD {mad:.2f}); "
-        f"seste bulunmayan (atlanan) sözcük: {n_eks}")
+        f"seste bulunmayan (atlanan) sözcük: {n_eks}; koşu kenarında >100 ms nefes/yumuşak kenar (HMM'e uyuldu): {n_nefes}")
     for sn in ctx["sonuclar"]:
         for e in sn.get("eksik", []):
             log(f"    SESTE YOK? {sn['id']} t≈{e['t']}: «{e['kelime']}» (önceki: {e['onceki']!r} sonraki: {e['sonraki']!r}) ASR: {e['asr']!r}")
