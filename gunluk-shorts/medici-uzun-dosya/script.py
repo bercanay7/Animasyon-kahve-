@@ -51,7 +51,7 @@ BASE_PRON = [
     (r"\bUffizi\b", "Uffitsi"), (r"\bPalazzo Pitti\b", "Palattso Pitti"), (r"\bToskana\b", "Toskana"),
     (r"\bGiovanni\b", "Covanni"), (r"\bCosimo\b", "Kozimo"), (r"\bLorenzo\b", "Lorentso"), (r"\bPiero\b", "Pyero"),
     (r"\bGiuliano\b", "Culyano"), (r"\bClarice\b", "Klariçe"), (r"\bLucrezia\b", "Lukretsya"), (r"\bContessina\b", "Kontessina"),
-    (r"\bFirenze\b", "Firentse"), (r"\bRoma\b", "Roma"),
+    (r"\bFirenze\b", "Firentse"), (r"\bRoma\b", "Roma"), (r"\bTreccani\b", "Trekkani"),
 ]
 
 PRON = list(BASE_PRON)

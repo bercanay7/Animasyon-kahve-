@@ -18,12 +18,13 @@ import wave
 
 import numpy as np
 
+import parca as PA
 import script as S
 import ses_birlestir as B
 from ses_hizala import align, norm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out")
+OUT = PA.OUT
 RAW = os.path.join(HERE, "ses_ham")
 CACHE = os.path.join(OUT, "_cache")
 SR = B.SR

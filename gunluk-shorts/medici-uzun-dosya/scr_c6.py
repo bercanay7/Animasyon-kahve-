@@ -30,7 +30,7 @@ CH = dict(id="c6", n="VI", title="Lorenzo", years="1449 – 1478", mood="warm", 
               ("1476 ile 1477 arasında Lorenzo ve Poliziano, Napoli'nin isteğiyle bir Toskana şiir derlemesi hazırladı; içinde Dante'nin Vita nova'sı da vardı.", None, "◐ M3:K43,C43"),
               ("“Muhteşem”, yani Magnifico, bir saygı sözcüğüydü; Machiavelli Prens'i Lorenzo'nun önce oğluna, sonra torununa ithaf etti ve ikisine de “Muhteşem” diye seslendi.", None, "◐ kullanım M3b:bd13,b52,bm6; HAFIZA-D unvan genelliği → \"kullanılırdı\" (mizah a: unvan enflasyonu)"),
           ], [
-              ("Condivi'ye göre Lorenzo, genç Michelangelo'nun yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz.", None, "ANEKDOT ◐ M3:C31,b102,bd23 (Condivi 1553; \"sarayında büyüdü\" DENMEZ)"),
+              ("Michelangelo'nun biyografisini yazan Condivi'ye göre Lorenzo, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz.", None, "ANEKDOT ◐ M3:C31,b102,bd23 (Condivi 1553; \"sarayında büyüdü\" DENMEZ)"),
               ("Michelangelo bir dişi kırıp diş etini oymuş; Lorenzo da onu eve almış: oda, sofra, ayda beş dukat.", None, "ANEKDOT ◐ M3b:b101,bd24 (\"anlatılır\")"),
           ], [
               ("29 Ocak 1475'te Santa Croce Meydanı'nda, Venedik ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Giostra.", None, "◐ M5:K23; M3:K41"),

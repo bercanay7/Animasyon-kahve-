@@ -21,7 +21,7 @@ CH = dict(id="c5", n="V", title="Konsil, Kitap, Platon", years="1439 – 1492", 
               ("1463 dolaylarında, Ficino'nun derlemesindeki bir mektupta Cosimo, Careggi'ye tarlasını değil, zihnini işlemek için geldiğini yazar.", None, "◐ M3:C16,K31 (tarih editör notu; İngilizce çeviri; birebir söylenmez)"),
               ("Ardından Ficino'dan Platon'un En Yüksek İyi üzerine kitabını ve Orfik lirini getirmesini ister.", None, "◐ M3:C16 (Philebus teşhisi editör notu)"),
               ("Bir bankacı için fena bir alışveriş listesi değil: en yüksek iyi, bir de lir.", None, "YORUM (laf sokma; Cosimo'nun sözü gibi sunulmaz)"),
-              ("Cosimo, Ficino'ya Platon'un bütün eserlerinin bir el yazmasını, şehirde bir ev, Careggi yakınında bir ev daha vermişti.", None, "◐ M3:C17,K30"),
+              ("Cosimo, Ficino'ya Platon'un bütün eserlerinin bir el yazmasını, şehirde bir ev ve Careggi yakınında bir ev daha armağan etmişti.", None, "◐ M3:C17,K30"),
               ("Buna sonradan “Platon Akademisi” dendi; ama tüzüğü yoktu, üye kaydı tutulmadı.", None, "◐ M3:C18,§5.6; M3b:b98,bm10 (\"Akademi\" tırnaklı)"),
               ("Cosimo bu mektuptan yaklaşık bir yıl sonra öldü.", None, "◐ M1:K56 (mektup tarihi kesin değil → \"yaklaşık\")"),
           ], [

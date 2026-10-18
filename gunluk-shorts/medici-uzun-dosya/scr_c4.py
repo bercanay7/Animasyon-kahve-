@@ -27,7 +27,7 @@ CH = dict(id="c4", n="IV", title="Kubbe ve Kefaret", years="1418 – 1460'lar", 
               ("Kubbe yıllar süren bir işçilikle, ahşap kalıp kullanılmadan örülmüştü; kaynaklar böyle aktarır.", None, "◐ rehber/blog düzeyi M3:K6,S4,D2 (\"iskelesiz\" DENMEZ)"),
               ("Medici'nin belgeli Brunelleschi'si ise hemen yanındaki San Lorenzo'daydı: Eski Sakristi.", None, "◐ M3:D1,K5,§5.2"),
           ], [
-              ("Cosimo'nun kitapçısı Vespasiano, ölümünden sonra şunu yazar: Cosimo'nun vicdanında hayli şey birikmişti, devlet yönetip başkalarının önüne geçmek isteyen çoğu adamın başına geldiği gibi.", None, "ANEKDOT ◐ M1:D26,M3:C1,C3 (Vespasiano ≈1495, övgücü; yazar sesi; mizah a)"),
+              ("Cosimo'nun ölümünden sonra, kitapçısı Vespasiano şunu yazar: Cosimo'nun vicdanında hayli şey birikmişti, devlet yönetip başkalarının önüne geçmek isteyen çoğu adamın başına geldiği gibi.", None, "ANEKDOT ◐ M1:D26,M3:C1,C3 (Vespasiano ≈1495, övgücü; yazar sesi; mizah a)"),
               ("Bu yükü atmak için Papa'yla konuşmaya gitmiş.", None, "ANEKDOT ◐ M3:C1"),
               ("Papa ona San Marco'daki Dominiken manastırını yaptırmasını, on bin florin harcamasını önermiş.", None, "ANEKDOT ◐ M3:C2,M1:K43 (\"önermiş\")"),
               ("On bin yetmemiş; Cosimo işi bitirmek için kırk binden fazla florin harcamış.", None, "ANEKDOT ◐ M3:C2,S9"),

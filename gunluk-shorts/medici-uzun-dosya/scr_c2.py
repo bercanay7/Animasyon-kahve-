@@ -43,9 +43,9 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
           ], [
               ("Giovanni 1420'de bankanın yönetimini oğullarına bırakmıştı; 1397'den o yıla kadar defterler yüz elli bini aşkın florin kâr gösterir.", None, "◐ M1b:U5,b33; ◐ toplam M1:#35 (\"gösterir\")"),
               ("20 Şubat 1429'da öldü; Floransa takvimine göre hâlâ 1428'di.", None, "◐ M1:#40; M5:P1"),
-              ("Büyük torunu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\")"),
+              ("İleride Muhteşem diye anılacak büyük torunu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\")"),
               ("Son sözlerini ise iki kalemden, iki ayrı biçimde okuyoruz.", None, "ANEKDOT M1:D11–D14"),
-              ("Machiavelli, bir asra yakın sonra, ona oğullarına bir konuşma yaptırır: huzurla gidiyordur ve kıskançlık, insana verilenden değil, istediğinden doğar.", None, "ANEKDOT ◐ M1:D11,M5:K01 (\"Machiavelli'ye göre\"; kurgu payı)"),
+              ("Machiavelli, bir asra yakın sonra, onun ağzından oğullarına bir konuşma yazar: huzurla gidiyordur ve kıskançlık, insana verilenden değil, istediğinden doğar.", None, "ANEKDOT ◐ M1:D11,M5:K01 (\"Machiavelli'ye göre\"; kurgu payı)"),
               ("Cavalcanti ise 1440'larda, olaya daha yakın bir kalemle, başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "ANEKDOT ○ M1:D12 (İngilizce çeviriden dolaylı; birebir söz yok)"),
               ("Hangisi gerçekten söylendi, bilmiyoruz.", None, "YORUM"),
               ("Machiavelli onu, yoksulun ihtiyacını kimse istemeden de sık sık gideren biri olarak çizer.", None, "ANEKDOT ◐ M1:D14"),

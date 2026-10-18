@@ -9,16 +9,19 @@ import numpy as np
 from scipy.signal import resample_poly
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import parca as PA
+import script as S
 RAW = os.path.join(HERE, "ses_ham")
-OUT = os.path.join(HERE, "out")
+OUT = PA.OUT
 os.makedirs(OUT, exist_ok=True)
 SR = 48000
 MAXGAP = 0.85          # bundan uzun sessizlik bu değere indirilir
 GAP_THR_DB = -42       # tepe RMS'e göre sessizlik eşiği
-CARD_GAP = {"c0": 3.0}  # c0'dan sonra ana başlık kartı
+CARD_GAP = {"c0": 3.0}  # c0'dan sonra ana başlık kartı (P1); diğer bölüm geçişleri DEFAULT_GAP
 DEFAULT_GAP = 3.0       # bölüm kartı boşluğu
 TARGET_RMS_DB = -21.0   # aktif konuşma RMS hedefi (nihai miks −14 LUFS'a ayrıca ayarlanır)
-CHAPTERS = [f"c{i}" for i in range(14)]
+CHAPTERS = S.PARTS[PA.PART] if PA.PART else [c["id"] for c in S.CHAPTERS]
 VERSION = {c: "v1" for c in CHAPTERS}
 for a in sys.argv[1:]:
     if "=" in a:
@@ -93,13 +96,17 @@ def active_rms_db(y):
 def main():
     parts, meta, t = [], [], 0.0
     total_saved = 0.0
-    for cid in CHAPTERS:
+    avail = [c for c in CHAPTERS if os.path.exists(os.path.join(RAW, f"{c}_{VERSION[c]}.mp3"))]
+    missing = [c for c in CHAPTERS if c not in avail]
+    if missing:
+        print('UYARI: ham ses yok, atlandı:', missing)
+    for cid in avail:
         x = load(cid)
         y, saved = squeeze_gaps(x)
         total_saved += saved
         g = TARGET_RMS_DB - active_rms_db(y)
         y = y * (10 ** (g / 20))
-        gap = CARD_GAP.get(cid, DEFAULT_GAP) if cid != CHAPTERS[-1] else 0.0
+        gap = CARD_GAP.get(cid, DEFAULT_GAP) if cid != avail[-1] else 0.0
         meta.append(dict(id=cid, t0=round(t, 3), t1=round(t + len(y) / SR, 3), dur=round(len(y) / SR, 3),
                          raw=round(len(x) / SR, 3), saved=round(saved, 2), gain_db=round(g, 2), gap_after=gap))
         parts.append(y)
