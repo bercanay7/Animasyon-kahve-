@@ -6,7 +6,10 @@ Hazırlayan: Claude (18 Ekim 2026). Yükleme için gereken her şey bu klasörde
 
 | Dosya | Ne |
 |---|---|
-| `out/sarlken_uzun.mp4` | ana video (1920×1080, 24 kare/sn, ses −14 LUFS; son hâli ve süresi `PROGRESS.md`'de) |
+| `out/sarlken_uzun.mp4` | ana video: 21:26, 1920×1080, 24 kare/sn, ≈9 Mb/sn, 1,47 GB; ses −14,1 LUFS, true peak −1,9 dBFS (YouTube'a bunu yükle) |
+| `out/sarlken_onizleme_720p.mp4` | hızlı izleme sürümü (720p, ≈120 MB); yüklemek için değil |
+| `yayin/kulak_kontrol/*.mp3` | dört kısa ses kesiti: giriş, Worms, Akdeniz fırtınası, kapanış (kulak kontrolü) |
+| `yayin/yayin_paneli.html` | bu paketin kopyala düğmeli tek sayfa hâli (Artifact olarak da yayınlandı) |
 | `yayin/sarlken_tr.srt` | Türkçe altyazı (Studio → Altyazılar → Dosya yükle → "zamanlamalı") |
 | `yayin/kapak_A.jpg` (önerilen), `kapak_B.jpg`, `kapak_C.jpg` | küçük resim adayları (1280×720, <2 MB) |
 | `yayin/sarlken_kisa_fragman.mp4` | dikey Kısa fragman (kanca bölümü, yakılmış altyazı) |
