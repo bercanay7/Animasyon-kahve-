@@ -141,7 +141,9 @@ class MapView:
     def _draw_base_vector(self, f, cam_apply, z, style, mountains, ripples):
         """Yalnız kara+dalga+kıyı (deniz zemini hariç); cam_apply(c) tuvale dünya dönüşümünü uygular, z=çözünürlük/zoom."""
         c = f.c
-        night = style == "night"
+        night = style in ("night", "lapis")
+        fresco = style == "fresco"
+        lapis = style == "lapis"
         c.save()
         cam_apply(c)
         land = self.path("__kara__", z)
@@ -149,10 +151,10 @@ class MapView:
         if ripples:
             for i, (d, p) in enumerate(self.ripple_paths()):
                 a = [0.34, 0.20, 0.11][i] * (1.0 if z > 0.45 else clamp(z / 0.45))
-                col = "#6FA3B8" if night else "#7A5F36"
+                col = "#7FA0E0" if lapis else ("#5E8088" if fresco else ("#6FA3B8" if night else "#7A5F36"))
                 lw = (1.4 if night else 1.2) * sw
-                c.drawPath(p, f.paint(col, style="stroke", sw=lw, alpha=a))
-        c.drawPath(land, f.paint("#3C2B1D" if night else "#E7D3A4"))
+                c.drawPath(p, f.paint(col, style="stroke", sw=lw, alpha=a * (0.9 if fresco else 1.0)))
+        c.drawPath(land, f.paint("#2F2418" if lapis else ("#E9DDB4" if fresco else ("#3C2B1D" if night else "#E7D3A4"))))
         if mountains and z > 1.6:
             mp = skia.Path()
             for x, y, s_, sd in self.mount:
@@ -163,7 +165,10 @@ class MapView:
                 mp.moveTo(x, y - ss * 0.7)
                 mp.lineTo(x + ss * 0.25, y + ss * 0.5)
             c.drawPath(mp, f.paint("#8A6A44" if night else "#8C6B3E", style="stroke", sw=1.3 * sw, alpha=0.55 if night else 0.7))
-        if night:
+        if fresco:
+            c.drawPath(land, f.paint("#7A5C34", style="stroke", sw=6 * sw, alpha=0.20, blur=2.5 * sw))
+            c.drawPath(land, f.paint("#3E2A16", style="stroke", sw=1.7 * sw, alpha=0.95))
+        elif night:
             c.drawPath(land, f.paint("#E3B54A", style="stroke", sw=7 * sw, alpha=0.16, blur=3.5 * sw))
             c.drawPath(land, f.paint("#E3B54A", style="stroke", sw=1.6 * sw, alpha=0.85))
         else:
@@ -192,7 +197,11 @@ class MapView:
         return img
 
     def sea(self, f, style="night"):
-        if style == "night":
+        if style == "lapis":
+            img = baked(("mapsea", "lapis"), lambda ff: ff.rect(0, 0, W, H, shader=ff.rad(W / 2, H / 2, H * 1.1, [("#1C3274", 0.0), ("#101F52", 0.6), ("#080F2E", 1.0)])))
+        elif style == "fresco":
+            img = baked(("mapsea", "fresco"), lambda ff: ff.rect(0, 0, W, H, shader=ff.rad(W / 2, H * 0.45, H * 1.15, [("#C6D4C6", 0.0), ("#B3C6BE", 0.6), ("#9DB5B0", 1.0)])))
+        elif style == "night":
             img = baked(("mapsea", "night"), lambda ff: ff.rect(0, 0, W, H, shader=ff.lin(0, 0, 0, H, [("#16293A", 0.0), ("#0D1822", 1.0)])))
         else:
             img = baked(("mapsea", "paper"), lambda ff: ff.rect(0, 0, W, H, shader=ff.rad(W / 2, H / 2, H * 1.0, [("#EBDDB8", 0.0), ("#D9C697", 1.0)])))
@@ -226,6 +235,8 @@ class MapView:
 
     # ---- bölge
     def region(self, f, cam, name, color, alpha=0.62, edge=None, glow=True, amt=1.0, hatch=False, style="night"):
+        if style == "fresco" and edge is None:
+            edge = mix(color, "#2A1A0C", 0.55)
         if amt <= 0:
             return
         c = f.c
@@ -269,7 +280,7 @@ class MapView:
                shadow=(2, 2, 3, "#000000") if shadow else None)
         f.c.restore()
 
-    def city(self, f, cam, lon, lat, name=None, kind="town", t=0.0, alpha=1.0, color="#F0D27A", size=26, dx=14, dy=-10, name_side="r", amt=1.0):
+    def city(self, f, cam, lon, lat, name=None, kind="town", t=0.0, alpha=1.0, color="#F0D27A", size=26, dx=14, dy=-10, name_side="r", amt=1.0, txt="#F6ECCB", shadow=True):
         x, y = cam.ll(lon, lat)
         a = alpha * amt
         if a <= 0:
@@ -295,14 +306,15 @@ class MapView:
             f.circle(x, y, r, color=color, alpha=a)
             f.circle(x, y, r, color="#2A1A0C", style="stroke", sw=1.6, alpha=a)
         if name:
+            shd = (2, 2, 3, "#000000") if shadow is True else (shadow or None)
             if name_side == "r":
-                f.text(name, x + dx, y + dy + size * 0.3, face="cap_b", size=size, color="#F6ECCB", align="l", alpha=a, shadow=(2, 2, 3, "#000000"))
+                f.text(name, x + dx, y + dy + size * 0.3, face="cap_b", size=size, color=txt, align="l", alpha=a, shadow=shd)
             elif name_side == "l":
-                f.text(name, x - dx, y + dy + size * 0.3, face="cap_b", size=size, color="#F6ECCB", align="r", alpha=a, shadow=(2, 2, 3, "#000000"))
+                f.text(name, x - dx, y + dy + size * 0.3, face="cap_b", size=size, color=txt, align="r", alpha=a, shadow=shd)
             elif name_side == "t":
-                f.text(name, x, y - 20 - size * 0.2, face="cap_b", size=size, color="#F6ECCB", align="c", alpha=a, shadow=(2, 2, 3, "#000000"))
+                f.text(name, x, y - 20 - size * 0.2, face="cap_b", size=size, color=txt, align="c", alpha=a, shadow=shd)
             else:
-                f.text(name, x, y + 22 + size * 0.8, face="cap_b", size=size, color="#F6ECCB", align="c", alpha=a, shadow=(2, 2, 3, "#000000"))
+                f.text(name, x, y + 22 + size * 0.8, face="cap_b", size=size, color=txt, align="c", alpha=a, shadow=shd)
 
     def route(self, f, cam, pts, prog=1.0, color="#F0D27A", width=5.0, dash=None, arrow=True, glow=True, alpha=1.0, dash_phase=0.0, smooth_t=0.5, taper=False):
         """pts: [(lon,lat)...]; prog 0..1 kısmen çizer. Yumuşak eğri + ok başı."""
@@ -367,7 +379,7 @@ class MapView:
             f.circle(cx, cy, 4, color="#2A1A0C", alpha=0.9 * a)
 
     def compass(self, f, x, y, r=70, rot=0.0, alpha=0.9, style="night"):
-        col = "#E3B54A" if style == "night" else "#4E3419"
+        col = "#E3B54A" if style in ("night", "lapis") else "#4E3419"
         c = f.c
         c.save(); c.translate(x, y); c.rotate(math.degrees(rot))
         f.circle(0, 0, r * 0.98, style="stroke", sw=1.5, color=col, alpha=0.8 * alpha)
@@ -381,6 +393,6 @@ class MapView:
             b2 = (-b1[0], -b1[1])
             f.poly([tip, b1, b2], color=col, alpha=(0.95 if i % 4 == 0 else 0.7) * alpha)
         # kuzey oku
-        f.poly([(0, -r * 1.22), (r * 0.12, -r * 0.88), (-r * 0.12, -r * 0.88)], color="#C0392B" if style == "night" else "#8E1F26", alpha=alpha)
+        f.poly([(0, -r * 1.22), (r * 0.12, -r * 0.88), (-r * 0.12, -r * 0.88)], color="#C0392B" if style in ("night", "lapis") else "#8E1F26", alpha=alpha)
         c.restore()
-        f.text("K", x, y - r * 1.3 - 8, face="title", size=22, color=col, align="c", alpha=alpha)
+        f.text("K", x, y - r * 1.3 - 8, face="title", size=28, color=col, align="c", alpha=alpha)

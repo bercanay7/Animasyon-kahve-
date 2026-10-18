@@ -320,23 +320,31 @@ def plinth_image(perde=2, w=W + 260, h=124):
     return sk.np_to_image(np.dstack([np.clip(col, 0, 255), a]).astype(np.uint8))
 
 
+@functools.lru_cache(maxsize=4)
+def cornice_image(day=True, w=W + 260, h=76):
+    """Korniş şeridi (üst): ocre zemin + palle yuvarlakları + altın filet + alt gölge (önbellekli)."""
+    fr = Frame(w, h)
+    fr.clear(skia.ColorTRANSPARENT)
+    base = mix(PIG["PLASTER_D"], PIG["OCHRE"], 0.45) if day else mix(PIG["PLASTER_D"], PIG["OCHRE_D"], 0.5)
+    fr.c.translate(130, 0)
+    fr.rect(-130, 0, w, 46, shader=fr.lin(0, 0, 0, 46, [(mix(base, "#FFFFFF", 0.18), 0.0), (base, 1.0)]))
+    band_roundels(fr, -130, 2, w, 38, ground=mix(base, "#FFFFFF", 0.10), dot=PIG["CINNABAR"], alpha=0.95)
+    fr.c.drawLine(-130, 46, w, 46, fr.paint(CM.TH.gold, style="stroke", sw=2.4, alpha=0.9))
+    fr.rect(-130, 47, w, 16, shader=fr.lin(0, 47, 0, 63, [("#2A1C0E", 0.0, 80), ("#2A1C0E", 1.0, 0)]))
+    return fr.surf.makeImageSnapshot()
+
+
 def dress(f, cam, top=True, bottom=True, alpha=1.0, perde=None):
     """Duvar giydirmesi (duvarla birlikte paralaks): üstte palle'li korniş şeridi, altta mermer sövme. relight() ile aynı ışığı alır."""
     perde = perde or CM.TH.perde
     c = f.c
     c.save()
     CM.cam_xf(c, cam.ws * 1.015, cam.wdx, cam.wdy)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(alpha)
     if top:
-        h = 46
-        base = mix(PIG["PLASTER_D"], PIG["OCHRE"], 0.45) if CM.TH.day else mix(PIG["PLASTER_D"], PIG["OCHRE_D"], 0.5)
-        f.rect(-120, -60, W + 240, 60 + h, shader=f.lin(0, -10, 0, h, [(mix(base, "#FFFFFF", 0.18), 0.0), (base, 1.0)]), alpha=alpha)
-        band_roundels(f, -120, 2, W + 120, h - 8, ground=mix(base, "#FFFFFF", 0.10), dot=PIG["CINNABAR"], alpha=0.95 * alpha)
-        c.drawLine(-120, h, W + 120, h, f.paint(CM.TH.gold, style="stroke", sw=2.4, alpha=0.9 * alpha))
-        f.rect(-120, h + 1, W + 240, 16, shader=f.lin(0, h, 0, h + 16, [("#2A1C0E", 0.30 * alpha * 255 / 255.0), ("#2A1C0E", 0.0)]) if False else f.lin(0, h, 0, h + 16, [("#2A1C0E", 0.0, 80), ("#2A1C0E", 1.0, 0)]))
+        c.drawImage(cornice_image(CM.TH.day), -130, -20, CM._LIN, p)
     if bottom:
-        img = plinth_image(perde)
-        p = skia.Paint(AntiAlias=True)
-        p.setAlphaf(alpha)
-        c.drawImage(img, -130, H - 100, CM._LIN, p)
+        c.drawImage(plinth_image(perde), -130, H - 100, CM._LIN, p)
         f.rect(-130, H - 112, W + 260, 12, shader=f.lin(0, H - 112, 0, H - 100, [("#2A1C0E", 0.0, 0), ("#2A1C0E", 1.0, 70)]))
     c.restore()

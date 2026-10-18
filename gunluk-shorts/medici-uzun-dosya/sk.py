@@ -210,11 +210,24 @@ def noise_tex(w, h, scale, octaves, seed):
 
 
 def np_to_image(arr):
-    """uint8 (H,W,4 RGBA, premultiplied olmayan) → skia.Image."""
+    """uint8 (H,W,4 RGBA, premultiplied olmayan) veya (H,W,3) → skia.Image.
+    HIZ: görüntü yüzeyin yerel biçiminde (BGRA; opak ya da önceden çarpılmış alfa) üretilir — RGBA/unpremul görüntü her çizimde piksel dönüştürür
+    (2120×1280 duvar: 87 ms → 8 ms)."""
     a = np.ascontiguousarray(arr)
     if a.shape[2] == 3:
         a = np.concatenate([a, np.full(a.shape[:2] + (1,), 255, np.uint8)], 2)
-    return skia.Image.fromarray(a, colorType=skia.ColorType.kRGBA_8888_ColorType, alphaType=skia.AlphaType.kUnpremul_AlphaType)
+    al = a[..., 3]
+    if al.min() == 255:
+        bgra = np.ascontiguousarray(a[..., [2, 1, 0, 3]])
+        return skia.Image.fromarray(bgra, colorType=skia.ColorType.kBGRA_8888_ColorType, alphaType=skia.AlphaType.kOpaque_AlphaType)
+    p = a.astype(np.uint16)
+    rgb = (p[..., :3] * p[..., 3:4] + 127) // 255
+    bgra = np.empty(a.shape, np.uint8)
+    bgra[..., 0] = rgb[..., 2]
+    bgra[..., 1] = rgb[..., 1]
+    bgra[..., 2] = rgb[..., 0]
+    bgra[..., 3] = a[..., 3]
+    return skia.Image.fromarray(bgra, colorType=skia.ColorType.kBGRA_8888_ColorType, alphaType=skia.AlphaType.kPremul_AlphaType)
 
 
 def gray_to_image(g):

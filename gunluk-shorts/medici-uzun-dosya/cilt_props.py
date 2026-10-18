@@ -262,6 +262,15 @@ def arms_image(size=1000, field="gold", flat=False):
     return sk.np_to_image(arms_array(size, field, flat))
 
 
+@functools.lru_cache(maxsize=8)
+def arms_soft(kind="shadow"):
+    """Önbellekli bulanık gölge / sıcak ışıma (1000×1000 uzayında)."""
+    a = arms_array(1000)[..., 3]
+    if kind == "shadow":
+        return CM.blur_sil(a, 14.0, (0, 0, 0))
+    return CM.blur_sil(a, 24.0, (255, 214, 140))
+
+
 def draw_arms(f, x, y, size=400, alpha=1.0, rot=0.0, shadow=0.55, glow=0.0, field="gold", glint=None):
     """Palle armasını (x,y) merkezine çiz. glint: 0..1 yaldız üzerinde gezinen parlama bandı."""
     img = arms_image(1000, field)
@@ -273,31 +282,34 @@ def draw_arms(f, x, y, size=400, alpha=1.0, rot=0.0, shadow=0.55, glow=0.0, fiel
             c.rotate(math.degrees(rot))
         c.scale(s, s)
         p = skia.Paint(AntiAlias=True)
-        p.setImageFilter(skia.ImageFilters.Blur(14, 14))
-        p.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, shadow * alpha, 0]))
-        c.drawImage(img, -500, -515, CM._LIN, p)
+        p.setAlphaf(clamp(shadow * alpha))
+        c.drawImage(arms_soft("shadow"), -500, -515, CM._LIN, p)
         c.restore()
     if glow > 0:
         c.save(); c.translate(x, y); c.scale(s * 1.03, s * 1.03)
-        p = skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus)
+        p = skia.Paint(AntiAlias=True)
         p.setAlphaf(clamp(glow * alpha))
-        p.setImageFilter(skia.ImageFilters.Blur(22, 22))
-        c.drawImage(img, -500, -515, CM._LIN, p)
+        c.drawImage(arms_soft("glow"), -500, -515, CM._LIN, p)
         c.restore()
     c.save(); c.translate(x, y)
     if rot:
         c.rotate(math.degrees(rot))
     c.scale(s, s)
-    if glint is not None:
-        c.saveLayer(skia.Rect.MakeLTRB(-520, -540, 520, 540), None)
     p = skia.Paint(AntiAlias=True)
     p.setAlphaf(clamp(alpha))
     c.drawImage(img, -500, -515, CM._LIN, p)
     if glint is not None:
         gx = -700 + 1400 * glint
-        sh = skia.GradientShader.MakeLinear([(gx - 150, -400), (gx + 150, 400)], [C("#FFFFFF", 0), C("#FFF1BE", int(150 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-        c.drawRect(skia.Rect.MakeLTRB(-520, -540, 520, 540), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-        c.restore()
+        L_, R_ = max(-520.0, gx - 170), min(520.0, gx + 170)
+        if R_ > L_:
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(L_, -540, R_, 540))
+            c.saveLayer(skia.Rect.MakeLTRB(L_, -540, R_, 540), None)
+            c.drawImage(img, -500, -515, CM._LIN, skia.Paint(AntiAlias=True))
+            sh = skia.GradientShader.MakeLinear([(gx - 150, -400), (gx + 150, 400)], [C("#FFFFFF", 0), C("#FFF1BE", int(150 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+            c.drawRect(skia.Rect.MakeLTRB(L_, -540, R_, 540), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
+            c.restore()
+            c.restore()
     c.restore()
 
 
@@ -392,6 +404,14 @@ def coin_image(face="obv", size=760):
     return sk.np_to_image(coin_array(face, size))
 
 
+@functools.lru_cache(maxsize=8)
+def coin_soft(kind="shadow"):
+    a = coin_array("obv", 760)[..., 3]
+    if kind == "shadow":
+        return CM.blur_sil(a, 10.0, (0, 0, 0))
+    return CM.blur_sil(a, 18.0, (255, 214, 140))
+
+
 def draw_coin(f, x, y, size=420, spin=0.0, alpha=1.0, shadow=0.5, glow=0.0, thick=0.075, tilt=0.0, glint=None):
     """Florin: spin (radyan, dikey eksen etrafında): cos>0 → ön yüz (zambak), cos<0 → arka (Yahya). Kalınlık kenarı koyu altın bant."""
     cs = math.cos(spin)
@@ -406,16 +426,14 @@ def draw_coin(f, x, y, size=420, spin=0.0, alpha=1.0, shadow=0.5, glow=0.0, thic
         c.save(); c.translate(x + size * 0.03, y + size * 0.06 + size * 0.02)
         c.scale(k * sx, k)
         p = skia.Paint(AntiAlias=True)
-        p.setImageFilter(skia.ImageFilters.Blur(10 / max(k, 0.3), 10 / max(k, 0.3)))
-        p.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, shadow * alpha, 0]))
-        c.drawImage(img, -380, -380, CM._LIN, p)
+        p.setAlphaf(clamp(shadow * alpha))
+        c.drawImage(coin_soft("shadow"), -380, -380, CM._LIN, p)
         c.restore()
     if glow > 0:
         c.save(); c.translate(x, y); c.scale(k * sx * 1.04, k * 1.04)
-        p = skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus)
+        p = skia.Paint(AntiAlias=True)
         p.setAlphaf(clamp(glow * alpha))
-        p.setImageFilter(skia.ImageFilters.Blur(18, 18))
-        c.drawImage(img, -380, -380, CM._LIN, p)
+        c.drawImage(coin_soft("glow"), -380, -380, CM._LIN, p)
         c.restore()
     c.save(); c.translate(x, y)
     if tilt:
@@ -436,14 +454,19 @@ def draw_coin(f, x, y, size=420, spin=0.0, alpha=1.0, shadow=0.5, glow=0.0, thic
     # açıya bağlı parlaklık (dönerken ışığı yakalar)
     br = 0.78 + 0.30 * abs(cs) + 0.25 * max(0.0, math.sin(spin * 2 + 0.6)) ** 3
     p.setColorFilter(skia.ColorFilters.Matrix([br, 0, 0, 0, 0, 0, br, 0, 0, 0, 0, 0, br, 0, 0, 0, 0, 0, alpha, 0]))
-    if glint is not None:
-        c.saveLayer(skia.Rect.MakeLTRB(-390, -390, 390, 390), None)
     c.drawImage(img, -380, -380, CM._LIN, p)
     if glint is not None:
         gx = -520 + 1040 * glint
-        sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFF4C8", int(190 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-        c.drawRect(skia.Rect.MakeLTRB(-390, -390, 390, 390), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-        c.restore()
+        L_, R_ = max(-390.0, gx - 130), min(390.0, gx + 130)
+        if R_ > L_:
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(L_, -390, R_, 390))
+            c.saveLayer(skia.Rect.MakeLTRB(L_, -390, R_, 390), None)
+            c.drawImage(img, -380, -380, CM._LIN, skia.Paint(AntiAlias=True))
+            sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFF4C8", int(190 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+            c.drawRect(skia.Rect.MakeLTRB(L_, -390, R_, 390), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
+            c.restore()
+            c.restore()
     c.restore()
     c.restore()
 

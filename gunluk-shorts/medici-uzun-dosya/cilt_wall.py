@@ -27,7 +27,7 @@ WALL_VER = 3
 WALLS = {
     ("day", 1): dict(base=(214, 202, 174), stain=(148, 118, 68), crack=(78, 58, 36), tone=0.034),
     ("day", 2): dict(base=(214, 209, 194), stain=(150, 124, 78), crack=(74, 56, 38), tone=0.030),
-    ("day", 3): dict(base=(198, 160, 122), stain=(128, 84, 54), crack=(70, 40, 28), tone=0.034),
+    ("day", 3): dict(base=(190, 148, 124), stain=(128, 84, 54), crack=(70, 40, 28), tone=0.034),
     ("night", 1): dict(dark=(15, 21, 36), lit=(186, 150, 104), stain=(96, 70, 44), crack=(30, 20, 14), tone=0.045),
     ("night", 2): dict(dark=(11, 17, 44), lit=(184, 148, 100), stain=(92, 66, 42), crack=(26, 18, 14), tone=0.045),
     ("night", 3): dict(dark=(28, 10, 13), lit=(158, 100, 68), stain=(88, 50, 34), crack=(34, 14, 12), tone=0.045),

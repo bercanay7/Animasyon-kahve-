@@ -155,25 +155,39 @@ def _slab_path(x, y, w, h, seed=2, ch=16):
     return p
 
 
+_SLAB = {}
+
+
+def _slab_image(w, h, seed=2):
+    """Sıva levha görüntüsü (önbellekli, 60 px taşmalı): gerçek sıva dokusu (duvar görüntüsünden), pahlı kenar (sol-üst açık, sağ-alt koyu),
+    kırık köşeler, yumuşak gölge."""
+    key = (w, h, seed)
+    if key not in _SLAB:
+        pad = 60
+        fr = Frame(w + 2 * pad, h + 2 * pad)
+        fr.clear(skia.ColorTRANSPARENT)
+        c = fr.c
+        path = _slab_path(pad, pad, w, h, seed)
+        c.drawPath(path, fr.paint("#000000", alpha=0.60, blur=18))
+        c.save()
+        c.clipPath(path, skia.ClipOp.kIntersect, True)
+        im = CM.wall_images("day", 2, 1)["lit"]
+        c.drawImage(im, -CW_MG - 140 + pad, -CW_MG - 90 + pad, CM._LIN)
+        c.drawPaint(skia.Paint(Color=C("#F5ECD2", 70)))
+        c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=18, Color=C("#FFFFFF", 150), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 4)))
+        c.save(); c.translate(9, 10)
+        c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=20, Color=C("#5A4426", 190), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
+        c.restore()
+        c.restore()
+        c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C("#6A5230", 170)))
+        _SLAB[key] = fr.surf.makeImageSnapshot()
+    return _SLAB[key]
+
+
 def _slab(f, x, y, w, h, alpha=1.0, seed=2):
-    """Sıva levha: gerçek sıva dokusu (duvar görüntüsünden), pahlı kenar (sol-üst açık, sağ-alt koyu), kırık köşeler, yumuşak gölge."""
-    c = f.c
-    path = _slab_path(x, y, w, h, seed)
-    c.drawPath(path, f.paint("#000000", alpha=0.60 * alpha, blur=18))
-    c.save()
-    c.clipPath(path, skia.ClipOp.kIntersect, True)
-    im = CM.wall_images("day", 2, 1)["lit"]
     p = skia.Paint(AntiAlias=True)
-    p.setAlphaf(alpha)
-    c.drawImage(im, x - CW_MG - 140, y - CW_MG - 90, CM._LIN, p)
-    c.drawPaint(skia.Paint(Color=C("#F5ECD2", int(70 * alpha))))
-    # pah: iç kenar şeritleri
-    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=18, Color=C("#FFFFFF", int(150 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 4)))
-    c.save(); c.translate(9, 10)
-    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=20, Color=C("#5A4426", int(190 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
-    c.restore()
-    c.restore()
-    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C("#6A5230", int(170 * alpha))))
+    p.setAlphaf(clamp(alpha))
+    f.c.drawImage(_slab_image(w, h, seed), x - 60, y - 60, CM._LIN, p)
 
 
 CW_MG = 100
@@ -373,3 +387,9 @@ def k_black(cx, text=None, at=0.0, size=60, **_):
     f.clear("#06070C" if not TH.day else "#1A140C")
     if text:
         CM.ink(f, text, W / 2, H / 2, face="cap_i", size=size, color="#D9C795", align="c", alpha=cx.amt(at, 0.8), emboss=False)
+
+
+# ikinci grup (ledger, letter, doc, medal …)
+import cilt_kinds2  # noqa: E402,F401
+import cilt_kinds3  # noqa: E402,F401
+import cilt_kinds4  # noqa: E402,F401

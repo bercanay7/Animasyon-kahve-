@@ -192,44 +192,45 @@ def _baked(key, builder):
     return _LAYER[key]
 
 
-def daylight(f, k=1.0, dx=0.0):
-    """Gün ışığı: sol-üstten sıcak aydınlık + sağ-alta ılık gölge (iki önbellekli katman)."""
-    def b_shadow(fr):
-        sh = skia.GradientShader.MakeLinear([(W * 0.15, H * 0.05), (W * 0.95, H * 1.0)], [C("#7A7A88", 0), C("#7A7A88", 0), C("#5E5C66", 112)], [0.0, 0.42, 1.0])
-        fr.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=sh))
-    def b_glow(fr):
-        sh = skia.GradientShader.MakeRadial((W * 0.20, H * 0.12), W * 0.85, [C("#FFEFC4", 92), C("#FFEFC4", 36), C("#FFEFC4", 0)], [0.0, 0.5, 1.0])
-        fr.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=sh))
-    sh_img = _baked(("dl_shadow",), b_shadow)
-    gl_img = _baked(("dl_glow",), b_glow)
-    p = skia.Paint(BlendMode=skia.BlendMode.kMultiply)
-    if k < 1:
-        p.setAlphaf(k)
-    f.c.drawImage(sh_img, 0, 0, skia.SamplingOptions(), p)
-    p2 = skia.Paint(BlendMode=skia.BlendMode.kScreen)
-    if k < 1:
-        p2.setAlphaf(k)
-    f.c.drawImage(gl_img, dx, 0, skia.SamplingOptions(), p2)
-
-
-def shaft(f, t, alpha=0.10, mode=None):
-    """Pencereden süzülen yumuşak ışık huzmeleri (önbellekli; yavaşça kayar)."""
+def _day_overlay():
+    """Gündüz ışığı tek önbellekli katman (SrcOver): sol-üst sıcak aydınlık + sağ-alt serin gölge + yumuşak pencere huzmeleri.
+    40 px taşmalı (yavaş kayma için)."""
     def b(fr):
+        e = 40
+        fr.c.translate(e, e)
+        sh = skia.GradientShader.MakeLinear([(W * 0.15, H * 0.05), (W * 0.95, H * 1.0)], [C("#6E6E80", 0), C("#6E6E80", 0), C("#575566", 120)], [0.0, 0.42, 1.0])
+        fr.c.drawRect(skia.Rect.MakeLTRB(-e, -e, W + e, H + e), skia.Paint(Shader=sh))
+        gl = skia.GradientShader.MakeRadial((W * 0.20, H * 0.12), W * 0.85, [C("#FFF0C8", 70), C("#FFF0C8", 28), C("#FFF0C8", 0)], [0.0, 0.5, 1.0])
+        fr.c.drawRect(skia.Rect.MakeLTRB(-e, -e, W + e, H + e), skia.Paint(Shader=gl))
         rs = np.random.RandomState(4)
         fr.layer_begin(blur=26)
         for i in range(5):
             x0 = -120 + i * 190 + rs.rand() * 60
             wd = 70 + rs.rand() * 90
             pts = [(x0, -60), (x0 + wd, -60), (x0 + wd + 980, H + 80), (x0 + 980, H + 80)]
-            sh = skia.GradientShader.MakeLinear([(x0, -60), (x0 + 980, H + 80)], [C("#FFEFC0", int(255 * (0.55 + 0.4 * rs.rand()))), C("#FFEFC0", 0)], [0, 1])
-            fr.c.drawPath(sk.poly_path(pts), skia.Paint(Shader=sh, AntiAlias=True))
+            shf = skia.GradientShader.MakeLinear([(x0, -60), (x0 + 980, H + 80)], [C("#FFF2CC", int(255 * 0.10 * (0.55 + 0.4 * rs.rand()))), C("#FFF2CC", 0)], [0, 1])
+            fr.c.drawPath(sk.poly_path(pts), skia.Paint(Shader=shf, AntiAlias=True))
         fr.layer_end()
-    img = _baked(("shaft",), b)
-    mode = mode or TH.mode
-    a = alpha * (0.85 + 0.15 * math.sin(t * 0.35))
-    p = skia.Paint(BlendMode=skia.BlendMode.kPlus if mode == "night" else skia.BlendMode.kScreen)
-    p.setAlphaf(clamp(a))
-    f.c.drawImage(img, math.sin(t * 0.12) * 26, 0, skia.SamplingOptions(), p)
+    fr = Frame(W + 80, H + 80)
+    fr.clear(skia.ColorTRANSPARENT)
+    b(fr)
+    return fr.surf.makeImageSnapshot()
+
+
+def daylight(f, k=1.0, t=0.0):
+    """Gün ışığı (tek blit)."""
+    img = _LAYER.get(("daylight",))
+    if img is None:
+        img = _LAYER[("daylight",)] = _day_overlay()
+    p = skia.Paint()
+    if k < 1:
+        p.setAlphaf(k)
+    f.c.drawImage(img, -40 + math.sin(t * 0.12) * 18, -40, skia.SamplingOptions(), p)
+
+
+def shaft(f, t, alpha=0.10, mode=None):
+    """(eski ad) huzmeler artık daylight() katmanında; gece için ışık huzmesi yok."""
+    return
 
 
 # ───────────────────────────── parçacıklar ─────────────────────────────
@@ -378,11 +379,12 @@ def post(img, n=0, mode="day", perde=2, bloom=None, grain=1.35, tooth=1.0, fade=
         small = cv2.resize(a, (W // 8, H // 8), interpolation=cv2.INTER_AREA)
         gray = cv2.cvtColor(small, cv2.COLOR_RGB2GRAY)
         mask = cv2.subtract(gray, thr)
-        mask = cv2.multiply(mask, 255.0 / max(8, 255 - thr))
-        hi = cv2.bitwise_and(small, small, mask=mask)
-        hi = cv2.addWeighted(cv2.GaussianBlur(hi, (0, 0), 2.5), 0.7, cv2.GaussianBlur(hi, (0, 0), 7.0), 0.7, 0)
-        up = cv2.resize(hi, (W, H), interpolation=cv2.INTER_LINEAR)
-        a = cv2.addWeighted(a, 1.0, up, bloom, 0)
+        if cv2.countNonZero(mask) > 6:
+            mask = cv2.multiply(mask, 255.0 / max(8, 255 - thr))
+            hi = cv2.bitwise_and(small, small, mask=mask)
+            hi = cv2.addWeighted(cv2.GaussianBlur(hi, (0, 0), 2.5), 0.7 * bloom, cv2.GaussianBlur(hi, (0, 0), 7.0), 0.7 * bloom, 0)
+            up = cv2.resize(hi, (W, H), interpolation=cv2.INTER_LINEAR)
+            a = cv2.add(a, up)
     a = cv2.LUT(a, _lut(mode, perde))
     if tooth > 0:
         a = cv2.multiply(a, tooth_img(tooth), scale=1.0 / 230.0)
@@ -413,11 +415,39 @@ def _crinkle(shape, seed=7, k=1.0):
 
 
 class Spr:
-    """Önbellekli yazı sprite'ı: img, (ox,oy) taban çizgisi noktası, genişlik."""
-    __slots__ = ("img", "ox", "oy", "w", "h", "wid")
+    """Önbellekli yazı sprite'ı: img, (ox,oy) taban çizgisi noktası, genişlik. Yumuşak gölge/ışıma görüntüleri tembel üretilir ve önbelleğe alınır
+    (kare başına ImageFilter bulanıklığı yok)."""
+    __slots__ = ("img", "ox", "oy", "w", "h", "wid", "alpha", "_sh", "_gl")
 
-    def __init__(self, img, ox, oy, w, h, wid):
-        self.img, self.ox, self.oy, self.w, self.h, self.wid = img, ox, oy, w, h, wid
+    def __init__(self, img, ox, oy, w, h, wid, alpha=None):
+        self.img, self.ox, self.oy, self.w, self.h, self.wid, self.alpha = img, ox, oy, w, h, wid, alpha
+        self._sh = self._gl = None
+
+    def shadow_img(self):
+        if self._sh is None:
+            self._sh = blur_sil(self.alpha, max(1.5, self.h * 0.02), (0, 0, 0))
+        return self._sh
+
+    def glow_img(self, color=None):
+        if self._gl is None:
+            self._gl = {}
+        key = color or "-"
+        if key not in self._gl:
+            self._gl[key] = blur_sil(self.alpha, self.h * 0.07, sk.rgb(color) if color else (255, 255, 255), keep_color=(color is None), src=self)
+        return self._gl[key]
+
+
+def blur_sil(alpha_u8, sigma, color=(0, 0, 0), keep_color=False, src=None):
+    """alfa kanalından bulanık siluet görüntüsü (renk sabit; keep_color: kaynak sprite renklerini bulanıkla). Yerel biçimli skia.Image."""
+    a = alpha_u8.astype(np.float32)
+    ab = cv2.GaussianBlur(a, (0, 0), sigma)
+    if keep_color and src is not None:
+        rgba = src.img.toarray(colorType=skia.ColorType.kRGBA_8888_ColorType, alphaType=skia.AlphaType.kUnpremul_AlphaType)
+        rgb = cv2.GaussianBlur(rgba[..., :3].astype(np.float32), (0, 0), sigma)
+        arr = np.dstack([rgb, ab]).astype(np.uint8)
+    else:
+        arr = np.dstack([np.full(a.shape, color[0], np.uint8), np.full(a.shape, color[1], np.uint8), np.full(a.shape, color[2], np.uint8), np.clip(ab, 0, 255).astype(np.uint8)])
+    return sk.np_to_image(arr)
 
 
 @functools.lru_cache(maxsize=700)
@@ -445,7 +475,7 @@ def engraved(text, face="title", size=90, track=6.0, color="#1B140D", depth=1.0,
     rgb = (col * a[..., None] + lipc[None, None, :] * (lip * (1 - a))[..., None]) / np.clip(ta, 1e-4, 1)[..., None]
     arr = np.dstack([np.clip(rgb, 0, 255), np.clip(ta, 0, 1) * 255]).astype(np.uint8)
     wid = sk.text_width(text, face, size, track)
-    return Spr(sk.np_to_image(arr), ox, oy, arr.shape[1], arr.shape[0], wid)
+    return Spr(sk.np_to_image(arr), ox, oy, arr.shape[1], arr.shape[0], wid, arr[..., 3])
 
 
 @functools.lru_cache(maxsize=700)
@@ -463,7 +493,7 @@ def painted(text, face="title", size=90, track=6.0, color="#A8321E", rough=1.0, 
     rgb = np.clip(np.array([r, g, b], np.float32)[None, None, :] * dens[..., None], 0, 255)
     arr = np.dstack([rgb, np.clip(mr * 0.96, 0, 1) * 255]).astype(np.uint8)
     wid = sk.text_width(text, face, size, track)
-    return Spr(sk.np_to_image(arr), ox, oy, arr.shape[1], arr.shape[0], wid)
+    return Spr(sk.np_to_image(arr), ox, oy, arr.shape[1], arr.shape[0], wid, arr[..., 3])
 
 
 @functools.lru_cache(maxsize=300)
@@ -482,7 +512,7 @@ def gilt(text, face="title", size=120, track=8.0, metal="leaf", spec=0.85, bevel
     rgb = rgb * (1 - edge[..., None] * 0.28) + bole * edge[..., None] * 0.28
     spr[..., :3] = np.clip(rgb, 0, 255).astype(np.uint8)
     wid = sk.text_width(text, face, size, track)
-    return Spr(sk.np_to_image(spr), ox, oy, spr.shape[1], spr.shape[0], wid)
+    return Spr(sk.np_to_image(spr), ox, oy, spr.shape[1], spr.shape[0], wid, spr[..., 3])
 
 
 def draw_spr(f, spr, x, y, align="c", alpha=1.0, scale=1.0, glow=0.0, reveal=None, glow_color=None, shadow=0.0, glint=None):
@@ -501,26 +531,29 @@ def draw_spr(f, spr, x, y, align="c", alpha=1.0, scale=1.0, glow=0.0, reveal=Non
         c.saveLayer(skia.Rect.MakeWH(spr.w, spr.h), None)
     if shadow > 0:
         pp = skia.Paint(AntiAlias=True)
-        pp.setImageFilter(skia.ImageFilters.Blur(max(1.5, spr.h * 0.02), max(1.5, spr.h * 0.02)))
-        pp.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.55 * shadow * alpha, 0]))
-        c.drawImage(spr.img, spr.h * 0.012, spr.h * 0.02, _LIN, pp)
+        pp.setAlphaf(clamp(0.55 * shadow * alpha))
+        c.drawImage(spr.shadow_img(), spr.h * 0.012, spr.h * 0.02, _LIN, pp)
     if glow > 0:
-        gp = skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus)
+        gp = skia.Paint(AntiAlias=True)
         gp.setAlphaf(clamp(glow * alpha))
-        gp.setImageFilter(skia.ImageFilters.Blur(spr.h * 0.07, spr.h * 0.07))
-        if glow_color:
-            gp.setColorFilter(skia.ColorFilters.Blend(C(glow_color), skia.BlendMode.kSrcIn))
-        c.drawImage(spr.img, 0, 0, _LIN, gp)
+        c.drawImage(spr.glow_img(glow_color), 0, 0, _LIN, gp)
     p = skia.Paint(AntiAlias=True)
     p.setAlphaf(clamp(alpha))
-    if glint is not None and 0.0 <= glint <= 1.0:
-        c.saveLayer(skia.Rect.MakeWH(spr.w, spr.h), None)
     c.drawImage(spr.img, 0, 0, _LIN, p)
     if glint is not None and 0.0 <= glint <= 1.0:
-        gx = -spr.h * 0.6 + (spr.w + spr.h * 1.2) * glint
-        sh = skia.GradientShader.MakeLinear([(gx - spr.h * 0.20, 0), (gx + spr.h * 0.07, spr.h * 0.5)], [C("#FFFFFF", 0), C("#FFF2C0", int(125 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-        c.drawRect(skia.Rect.MakeWH(spr.w, spr.h), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-        c.restore()
+        # parlama: yalnız dar bir bant içinde (saveLayer + SrcATop yalnız bu bantta → ucuz)
+        bw = spr.h * 0.34
+        gx = -spr.h * 0.5 + (spr.w + spr.h) * glint
+        L_, R_ = max(0.0, gx - bw), min(float(spr.w), gx + bw)
+        if R_ > L_:
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(L_, 0, R_, spr.h))
+            c.saveLayer(skia.Rect.MakeLTRB(L_, 0, R_, spr.h), None)
+            c.drawImage(spr.img, 0, 0, _LIN, skia.Paint(AntiAlias=True))
+            sh = skia.GradientShader.MakeLinear([(gx - bw * 0.7, 0), (gx + bw * 0.25, spr.h * 0.5)], [C("#FFFFFF", 0), C("#FFF2C0", int(125 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+            c.drawRect(skia.Rect.MakeLTRB(L_, 0, R_, spr.h), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
+            c.restore()
+            c.restore()
     if reveal is not None and reveal < 1.0:
         fw = max(8.0, spr.h * 0.25)
         sh = skia.GradientShader.MakeLinear([(x_edge - fw, 0), (x_edge, 0)], [skia.ColorBLACK, skia.ColorTRANSPARENT], [0, 1])
@@ -722,27 +755,60 @@ def bgfill(f, cx, seed=0, flip=False, cam=None, dress=None):
 _RL = {}
 
 
+_POOL = {}
+POOL_STOPS = [(0.0, 0.22), (0.18, 0.25), (0.42, 0.42), (0.70, 0.66), (1.00, 0.86), (1.30, 0.945)]
+
+
+def _pool_img(hue, n=640):
+    """Mum havuzu kaplaması (önbellekli, n×n, [-1.3R,1.3R] kapsar): merkezde sıcak-koyu kahve, dışa doğru lacivert-siyah (alfa artar)."""
+    key = (hue, n)
+    if key not in _POOL:
+        yy, xx = np.mgrid[0:n, 0:n].astype(np.float32)
+        p = np.hypot(xx - n / 2 + 0.5, yy - n / 2 + 0.5) / (n / 2) * 1.3
+        ps = [q for q, _ in POOL_STOPS]
+        al = np.interp(p, ps, [a_ for _, a_ in POOL_STOPS]).astype(np.float32)
+        rs = np.random.RandomState(3)
+        al = np.clip(al + rs.uniform(-0.004, 0.004, al.shape).astype(np.float32), 0, 1)
+        t = np.clip((p - 0.05) / 0.55, 0, 1)
+        t = t * t * (3 - 2 * t)
+        warm = np.array([46, 22, 10], np.float32)
+        cool = np.array(hue, np.float32)
+        col = warm[None, None, :] * (1 - t[..., None]) + cool[None, None, :] * t[..., None]
+        arr = np.dstack([col, al * 255]).astype(np.uint8)
+        _POOL[key] = sk.np_to_image(arr)
+    return _POOL[key]
+
+
 def relight(f, cx=None, light=None, k=1.0, shaft_a=None, t=None):
-    """İçerik çizildikten SONRA ışık: gündüz → sol-üstten sıcak aydınlık + sağ-alt gölge + huzme; gece → mum havuzu dışı lacivert-siyaha batar
-    (tek geçiş: tüm kareyi etkiler, böylece duvara işlenmiş içerik de aynı ışıkla aydınlanır)."""
+    """İçerik çizildikten SONRA ışık: gündüz → sol-üstten sıcak aydınlık + sağ-alt gölge + huzme (tek blit); gece → mum havuzu dışı lacivert-siyaha batar
+    (tek geçiş: tüm kareyi etkiler, böylece duvara işlenmiş içerik de aynı ışıkla aydınlanır). Hepsi SrcOver (hızlı yol)."""
     t = cx.t if (cx is not None and t is None) else (t or 0.0)
     if TH.mode == "day":
-        daylight(f, k)
-        shaft(f, t, alpha=0.085 if shaft_a is None else shaft_a)
+        daylight(f, k, t)
         return
     if light is None:
         light = candle_light(t, getattr(cx, "seed", 0) if cx is not None else 0)
     x, y, r, kk = light
     kk = clamp(kk * k, 0.0, 1.3)
     hue = (6, 12, 46) if TH.perde != 3 else (30, 7, 10)
-    # mum havuzu: merkezde bile hafif loş (gece), r yarıçapında lacivert-siyaha batar
-    stops = [(0.0, 0.30), (0.18, 0.32), (0.42, 0.46), (0.70, 0.70), (1.00, 0.88), (1.30, 0.95)]
-    gain = 1.0 - 0.45 * (kk - 1.0)            # kk>1: ışık güçlenir → karanlık azalır
-    cols = [skia.Color(hue[0], hue[1], hue[2], int(255 * clamp(a * gain))) for _, a in stops]
-    sh = skia.GradientShader.MakeRadial((x, y), r * 1.30, cols, [p / 1.30 for p, _ in stops])
-    f.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=sh))
-    glow = skia.GradientShader.MakeRadial((x, y), r * 0.75, [C("#FFB45A", int(26 * kk)), C("#FFB45A", 0)], [0.0, 1.0])
-    f.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=glow, BlendMode=skia.BlendMode.kPlus))
+    n = 640
+    img = _pool_img(hue, n)
+    D = 1.3 * r
+    gain = clamp(1.0 - 0.45 * (kk - 1.0), 0.0, 1.0)
+    p = skia.Paint()
+    p.setAlphaf(gain)
+    c = f.c
+    c.drawImageRect(img, skia.Rect.MakeWH(n, n), skia.Rect.MakeLTRB(x - D, y - D, x + D, y + D), _LIN, p)
+    edge = skia.Paint(Color=skia.Color(hue[0], hue[1], hue[2], int(255 * 0.945 * gain)))
+    L, T_, R_, B_ = x - D, y - D, x + D, y + D
+    if L > 0:
+        c.drawRect(skia.Rect.MakeLTRB(0, 0, L, H), edge)
+    if R_ < W:
+        c.drawRect(skia.Rect.MakeLTRB(R_, 0, W, H), edge)
+    if T_ > 0:
+        c.drawRect(skia.Rect.MakeLTRB(max(0, L), 0, min(W, R_), T_), edge)
+    if B_ < H:
+        c.drawRect(skia.Rect.MakeLTRB(max(0, L), B_, min(W, R_), H), edge)
 
 
 def finish(f, cx, motes_n=34, vig_s=None, seed=2, dust=True, light=None, k=1.0, shaft_a=None):
