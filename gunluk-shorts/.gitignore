@@ -6,3 +6,6 @@ __pycache__/
 
 # yeniden üretilebilir ara çıktılar (tts_best.py parça önbelleği)
 **/_chunk_cache/
+
+# sarlken-uzun-dosya: yeniden üretilebilir harita önbelleği
+**/out/_cache/

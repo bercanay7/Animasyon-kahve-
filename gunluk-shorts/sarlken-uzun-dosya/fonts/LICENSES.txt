@@ -1,0 +1,12 @@
+Bu klasördeki yazı tipleri SIL Open Font License 1.1 (OFL) ile lisanslıdır.
+Ticari kullanım, video içine gömme ve yeniden dağıtım serbesttir; yazı tipinin
+kendisi tek başına satılamaz ve OFL metni korunmalıdır.
+
+Cinzel            — Natanael Gama (Google Fonts) — OFL 1.1
+Cormorant Garamond — Christian Thalmann / Catharsis Fonts (Google Fonts) — OFL 1.1
+EB Garamond       — Georg Duffner, Octavio Pardo (Google Fonts) — OFL 1.1
+IM Fell English   — Igino Marini (iginomarini.com, Google Fonts) — OFL 1.1
+IM Fell DW Pica   — Igino Marini (iginomarini.com, Google Fonts) — OFL 1.1
+
+Kaynak: npm paketleri @expo-google-fonts/* (Google Fonts dağıtımı).
+Lisans metni: https://openfontlicense.org
