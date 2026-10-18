@@ -28,6 +28,15 @@ def kullan(n: int):
     print("out →", tgt)
 
 
+def assert_gercek_ses(out=None):
+    """Final mux/render öncesi: geçici (Piper) anlatım varsa DUR. ses_birlestir.py `cN=g` ile birleştirince GECICI_SES.json yazar."""
+    import json
+    flag = os.path.join(out or OUT, "GECICI_SES.json")
+    if os.path.exists(flag):
+        ch = json.load(open(flag)).get("chapters")
+        raise SystemExit(f"DURDU: {flag} — geçici (scratch) anlatım var {ch}. Gerçek (ElevenLabs) ses gelmeden final mux/render YAPILMAZ.")
+
+
 if __name__ == "__main__":
     if len(sys.argv) == 3 and sys.argv[1] == "--kullan":
         kullan(int(sys.argv[2]))

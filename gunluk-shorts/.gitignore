@@ -54,6 +54,17 @@ medici-uzun-dosya/out/scribe_raw.json
 medici-uzun-dosya/out/scribe_words_full.json
 medici-uzun-dosya/out/timeline.json
 medici-uzun-dosya/ses_ham/*.wav
+medici-uzun-dosya/out_p*/*.wav
+medici-uzun-dosya/out_p*/*.mp3
+medici-uzun-dosya/out_p*/*.m4a
+medici-uzun-dosya/out_p*/*.mp4
+medici-uzun-dosya/out_p*/seg/
+medici-uzun-dosya/out_p*/frames/
+medici-uzun-dosya/out_p*/_cache/
+medici-uzun-dosya/out_p*/_audio_cache/
+medici-uzun-dosya/out_p*/audio_prev/
+medici-uzun-dosya/out_p*/asr_cache.json
+medici-uzun-dosya/out_base/
 medici-uzun-dosya/yayin/*.png
 medici-uzun-dosya/yayin/*.mp4
 medici-uzun-dosya/teslim_parcalar/

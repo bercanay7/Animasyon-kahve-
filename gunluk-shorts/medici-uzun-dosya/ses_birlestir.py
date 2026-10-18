@@ -96,7 +96,7 @@ def active_rms_db(y):
 def main():
     parts, meta, t = [], [], 0.0
     total_saved = 0.0
-    avail = [c for c in CHAPTERS if os.path.exists(os.path.join(RAW, f"{c}_{VERSION[c]}.mp3"))]
+    avail = [c for c in CHAPTERS if os.path.exists(os.path.join(RAW, f"{c}_{VERSION[c]}.mp3")) or os.path.exists(os.path.join(RAW, f"{c}_{VERSION[c]}_48k.wav"))]
     missing = [c for c in CHAPTERS if c not in avail]
     if missing:
         print('UYARI: ham ses yok, atlandı:', missing)
@@ -124,6 +124,13 @@ def main():
     json.dump(dict(sr=SR, total=round(len(v) / SR, 3), chapters=meta), open(os.path.join(OUT, "voice_chapters.json"), "w"), indent=1)
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", os.path.join(OUT, "voice.wav"), "-ar", "44100", "-ac", "1",
                     "-b:a", "96k", os.path.join(OUT, "voice_for_scribe.mp3")], check=True)
+    scratch = [c for c in avail if VERSION[c] != "v1"]
+    flag = os.path.join(OUT, "GECICI_SES.json")
+    if scratch:
+        json.dump(dict(chapters=scratch, not_="Piper geçici anlatım — NİHAİ ÜRÜNDE KULLANILMAZ"), open(flag, "w"), ensure_ascii=False, indent=1)
+        print("UYARI: GEÇİCİ (scratch) ses var:", scratch, "→ final mux/render durdurulur (parca.assert_gercek_ses)")
+    elif os.path.exists(flag):
+        os.remove(flag)
     print(f"voice.wav {len(v)/SR:.1f} s ({len(v)/SR/60:.2f} dk); kısaltılan boşluk toplamı {total_saved:.1f} s")
     for m in meta:
         print(f"  {m['id']:4s} t0={m['t0']:7.2f} dur={m['dur']:6.1f} (ham {m['raw']:6.1f}, -{m['saved']:4.1f}s) kazanç {m['gain_db']:+.1f} dB")
