@@ -14,7 +14,7 @@ import cilt_medici as CM
 import cilt_props as CP
 import cilt_wall as CW
 import sk
-from sk import C, Frame, clamp, mix
+from sk import C, Frame, H, W, clamp, mix
 
 PIG = CM.PIG
 
@@ -236,11 +236,11 @@ def star_sprite(n=8, size=128):
 
 
 @functools.lru_cache(maxsize=6)
-def lapis_field(w, h, seed=1, stars=True, loss=0.5, tone="lapis"):
+def lapis_field(w, h, seed=1, stars=True, loss=0.35, tone="lapis"):
     """Lapis lazuli fresk alanı (RGBA skia.Image): fırça izli pigment, kenarda birikmiş koyu, kırılgan çatlak ağı, kenar kayıpları
     (sıva görünür), altın 8 köşeli yıldızlar. tone: 'lapis' | 'oxblood' (Perde III)."""
     rs = np.random.RandomState(seed)
-    base = {"lapis": (28, 48, 128), "oxblood": (96, 22, 24), "terra": (70, 90, 60)}[tone]
+    base = {"lapis": (26, 44, 120), "oxblood": (96, 22, 24), "terra": (70, 90, 60)}[tone]
     # fırça izleri: yatay uzamış gürültü
     st = rs.standard_normal((h // 2 + 2, w // 2 + 2)).astype(np.float32)
     st = cv2.GaussianBlur(st, (0, 0), sigmaX=40, sigmaY=2.2)
@@ -265,7 +265,8 @@ def lapis_field(w, h, seed=1, stars=True, loss=0.5, tone="lapis"):
     # kayıp (lacuna): kenara yakın gürültü eşiği → alfa düşer, sıva rengi görünür
     ln = CW.lf(rs, h, w, 26) * 0.7 + CW.lf(rs, h, w, 7) * 0.5
     edge_w = np.clip(1.0 - ed * 3.0, 0, 1)
-    lossm = CW.sstep(1.05 - 0.28 * loss, 1.45 - 0.28 * loss, ln + edge_w * 1.0)
+    cen = np.exp(-(((xx - w / 2) / (w * 0.30)) ** 2 + ((yy - h / 2) / (h * 0.36)) ** 2))
+    lossm = CW.sstep(1.50 - 0.20 * loss, 1.90 - 0.20 * loss, ln + edge_w * 1.0 - cen * 0.75)
     alpha = np.clip(1.0 - lossm, 0, 1)
     # kayıp kenarında açık çizgi
     edge = np.clip(cv2.GaussianBlur(lossm, (0, 0), 1.6) - lossm * 0.7, 0, 1)
@@ -283,3 +284,59 @@ def lapis_field(w, h, seed=1, stars=True, loss=0.5, tone="lapis"):
             fr.c.drawImage(star, -64, -64, CM._LIN)
             fr.c.restore()
     return fr.surf.makeImageSnapshot()
+
+
+# ───────────────────────────── duvar giydirmesi: korniş + sövme (zoccolo) ─────────────────────────────
+@functools.lru_cache(maxsize=6)
+def plinth_image(perde=2, w=W + 260, h=124):
+    """Sövme (alt şerit): sahte mermer; Perde I umber-bej damarlı, II terra verde, III porfir kırmızısı. Üst kenarda kabartma silme."""
+    rs = np.random.RandomState(8 + perde)
+    base = {1: (96, 80, 62), 2: (78, 96, 66), 3: (112, 44, 40)}[perde]
+    mf = CW.lf(rs, h, w, 70) * 0.10 + CW.lf(rs, h, w, 24) * 0.05
+    col = np.empty((h, w, 3), np.float32)
+    col[:] = base
+    col *= (1 + mf)[..., None]
+    veins = np.zeros((h, w), np.uint8)
+    for i in range(16):
+        x = rs.uniform(0, w)
+        y = rs.uniform(10, h)
+        pts = []
+        ang = rs.uniform(-0.5, 0.5)
+        for k in range(22):
+            ang += rs.normal(0, 0.18)
+            x += math.cos(ang) * 22
+            y += math.sin(ang) * 9
+            pts.append((int(x), int(y)))
+        cv2.polylines(veins, [np.array(pts, np.int32).reshape(-1, 1, 2)], False, int(rs.uniform(120, 255)), 1 if rs.rand() < 0.7 else 2, cv2.LINE_AA)
+    veins = cv2.GaussianBlur(veins.astype(np.float32) / 255.0, (0, 0), 0.9)
+    vcol = np.array({1: (205, 192, 160), 2: (206, 214, 188), 3: (232, 190, 170)}[perde], np.float32)
+    col = col * (1 - veins[..., None] * 0.45) + vcol * veins[..., None] * 0.45
+    # silme (üstte): açık çizgi + alt gölge
+    col[0:7] = col[0:7] * 0.3 + np.array([226, 214, 184], np.float32) * 0.7
+    col[7:9] *= 0.55
+    shade = np.linspace(1.0, 0.82, h)[:, None, None]
+    col *= shade
+    a = np.full((h, w), 255, np.uint8)
+    return sk.np_to_image(np.dstack([np.clip(col, 0, 255), a]).astype(np.uint8))
+
+
+def dress(f, cam, top=True, bottom=True, alpha=1.0, perde=None):
+    """Duvar giydirmesi (duvarla birlikte paralaks): üstte palle'li korniş şeridi, altta mermer sövme. relight() ile aynı ışığı alır."""
+    perde = perde or CM.TH.perde
+    c = f.c
+    c.save()
+    CM.cam_xf(c, cam.ws * 1.015, cam.wdx, cam.wdy)
+    if top:
+        h = 46
+        base = mix(PIG["PLASTER_D"], PIG["OCHRE"], 0.45) if CM.TH.day else mix(PIG["PLASTER_D"], PIG["OCHRE_D"], 0.5)
+        f.rect(-120, -60, W + 240, 60 + h, shader=f.lin(0, -10, 0, h, [(mix(base, "#FFFFFF", 0.18), 0.0), (base, 1.0)]), alpha=alpha)
+        band_roundels(f, -120, 2, W + 120, h - 8, ground=mix(base, "#FFFFFF", 0.10), dot=PIG["CINNABAR"], alpha=0.95 * alpha)
+        c.drawLine(-120, h, W + 120, h, f.paint(CM.TH.gold, style="stroke", sw=2.4, alpha=0.9 * alpha))
+        f.rect(-120, h + 1, W + 240, 16, shader=f.lin(0, h, 0, h + 16, [("#2A1C0E", 0.30 * alpha * 255 / 255.0), ("#2A1C0E", 0.0)]) if False else f.lin(0, h, 0, h + 16, [("#2A1C0E", 0.0, 80), ("#2A1C0E", 1.0, 0)]))
+    if bottom:
+        img = plinth_image(perde)
+        p = skia.Paint(AntiAlias=True)
+        p.setAlphaf(alpha)
+        c.drawImage(img, -130, H - 100, CM._LIN, p)
+        f.rect(-130, H - 112, W + 260, 12, shader=f.lin(0, H - 112, 0, H - 100, [("#2A1C0E", 0.0, 0), ("#2A1C0E", 1.0, 70)]))
+    c.restore()

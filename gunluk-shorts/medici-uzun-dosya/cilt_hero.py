@@ -22,10 +22,58 @@ def render_hero(h, render, k=1):
 
 
 def measure(h, render):
+    """Tek iş parçacığı (render.py ile aynı: cv2.setNumThreads(1)); duvar saati ms/kare, ısınmadan sonra."""
+    import cv2
+    cv2.setNumThreads(1)
     t = h["t"][0]
     render(h["kind"], h["params"], [t], dur=h["dur"], perde=h.get("perde"), mode=h.get("mode"))
-    t0 = time.process_time()
-    n = 4
+    t0 = time.perf_counter()
+    n = 5
     for i in range(n):
         render(h["kind"], h["params"], [t + 0.1 * (i + 1)], dur=h["dur"], perde=h.get("perde"), mode=h.get("mode"))
-    print(f"{h['ad']:14s} {(time.process_time() - t0) / n * 1000:6.0f} ms/kare")
+    ms = (time.perf_counter() - t0) / n * 1000
+    print(f"{h['ad']:14s} {ms:6.0f} ms/kare")
+    return ms
+
+
+# ───────────────────────────── bileşik kahramanlar (HUD / geçişler) ─────────────────────────────
+def _frame_of(kind, params, t, dur, mode, perde):
+    import shots as SH
+    import sk
+    sh = SH.shot(kind, 0.0, **params)
+    sh.t0, sh.t1, sh.i = 0.0, dur, 1
+    f = sk.Frame()
+    cx = SH.Ctx(f, t, sh, SH.timeline())
+    cx.perde, cx.mode = perde, mode
+    SH.KINDS[kind](cx, **params)
+    return f
+
+
+def hero_hud(render):
+    """Gündüz çekimi + HUD (yıl rulosu orta kare) + bölüm adı levhası; ayrıca gece çekimi + HUD."""
+    import cilt_fx as FX
+    out = []
+    for mode, perde, year_from, year_to, kw in (("day", 2, 1417, 1418, dict(text="1418", sub="Brunelleschi kubbe için yarışmaya girer", kick="FLORANSA", at=0.2)),
+                                               ("night", 3, 1511, 1512, dict(text="1512", sub="Medici'ler Floransa'ya döner", kick="FLORANSA", at=0.2))):
+        f = _frame_of("title", kw, 3.4, 8.0, mode, perde)
+        ys = FX.YearState([(0.0, year_from), (3.0, year_to)], roll_dur=1.0)
+        FX.hud(f, 3.45, ys, perde)
+        FX.chapter_tag(f, "IV · KUBBE VE KEFARET", 1.0)
+        img = f.rgb()
+        out.append(CM.post(img, 3, mode, perde))
+    return out
+
+
+def hero_trans(render):
+    import cilt_fx as FX
+    out = []
+    A = lambda: _frame_of("quote", dict(text="Hiçbir şey buradan çıkmayacak.", who="ANNA MARIA LUISA", at=0.1), 4.0, 8.0, "day", 2)
+    B = lambda: _frame_of("palle", dict(kick="ALTI TOP", caption="Medici arması", at=0.0), 2.0, 8.0, "day", 2)
+    for kind, k in (("yikama", 0.5), ("sayfa", 0.5), ("giornata", 0.5)):
+        f = FX.blend(kind, A(), B(), k)
+        f.cilt_mode, f.cilt_perde = "day", 2
+        out.append(CM.post(f.rgb(), 3, "day", 2))
+    return out
+
+
+CUSTOM = dict(hud=hero_hud, trans=hero_trans)

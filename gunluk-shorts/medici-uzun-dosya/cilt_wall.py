@@ -25,12 +25,12 @@ WALL_VER = 3
 # ───────────────────────────── paletler ─────────────────────────────
 # (mod, perde) → duvar renkleri. Perde I: defter bejı; II: kireç beyazı (fresk renkleri öne çıksın); III: derin kırmızı-altın (barok).
 WALLS = {
-    ("day", 1): dict(base=(212, 198, 168), stain=(148, 118, 68), crack=(78, 58, 36), tone=0.034),
-    ("day", 2): dict(base=(217, 210, 191), stain=(150, 124, 78), crack=(74, 56, 38), tone=0.030),
+    ("day", 1): dict(base=(214, 202, 174), stain=(148, 118, 68), crack=(78, 58, 36), tone=0.034),
+    ("day", 2): dict(base=(214, 209, 194), stain=(150, 124, 78), crack=(74, 56, 38), tone=0.030),
     ("day", 3): dict(base=(198, 160, 122), stain=(128, 84, 54), crack=(70, 40, 28), tone=0.034),
     ("night", 1): dict(dark=(15, 21, 36), lit=(186, 150, 104), stain=(96, 70, 44), crack=(30, 20, 14), tone=0.045),
     ("night", 2): dict(dark=(11, 17, 44), lit=(184, 148, 100), stain=(92, 66, 42), crack=(26, 18, 14), tone=0.045),
-    ("night", 3): dict(dark=(28, 10, 13), lit=(196, 130, 88), stain=(88, 50, 34), crack=(34, 14, 12), tone=0.045),
+    ("night", 3): dict(dark=(28, 10, 13), lit=(158, 100, 68), stain=(88, 50, 34), crack=(34, 14, 12), tone=0.045),
 }
 
 
@@ -240,7 +240,7 @@ def pits(rs, h, w, n=80):
     return dk, hi
 
 
-def chips(rs, h, w, n=5):
+def chips(rs, h, w, n=3):
     """Plaster kaybı: kenarlara yakın küçük düzensiz kırıklar → (maske, kenar gölgesi)."""
     m = np.zeros((h, w), np.uint8)
     for i in range(n):
@@ -281,7 +281,7 @@ def structure(seed, w=WW, h=WH):
     gy = cv2.Sobel(hgt, cv2.CV_32F, 0, 1, ksize=3)
     sh = 0.55 * gx + 0.65 * gy
     S["relief"] = sh / (np.abs(sh).std() + 1e-6)
-    h2 = 0.7 * lf(rs, h, w, 15) + 0.9 * lf(rs, h, w, 34) + 0.6 * lf(rs, h, w, 70)
+    h2 = 0.35 * lf(rs, h, w, 22) + 0.9 * lf(rs, h, w, 52) + 0.9 * lf(rs, h, w, 110)
     sh2 = 0.55 * cv2.Sobel(h2, cv2.CV_32F, 1, 0, ksize=3) + 0.65 * cv2.Sobel(h2, cv2.CV_32F, 0, 1, ksize=3)
     S["relief2"] = sh2 / (np.abs(sh2).std() + 1e-6)
     # giornata
@@ -290,7 +290,7 @@ def structure(seed, w=WW, h=WH):
     for i, p in enumerate(polys):
         cv2.fillPoly(lab, [p.astype(np.int32)], i + 1)
     nb = len(polys) + 1
-    bvals = np.clip(rs.normal(0, 0.017, nb), -0.036, 0.036).astype(np.float32)
+    bvals = np.clip(rs.normal(0, 0.012, nb), -0.026, 0.026).astype(np.float32)
     wvals = np.clip(rs.normal(0, 0.011, nb), -0.022, 0.022).astype(np.float32)
     gvals = rs.uniform(0.8, 1.25, nb).astype(np.float32)
     S["gi_b"] = cv2.GaussianBlur(bvals[lab], (0, 0), 0.8)
@@ -316,9 +316,9 @@ def structure(seed, w=WW, h=WH):
     S["chip"], S["chip_edge"] = chips(rs, h, w)
     # kenar yaşlanması
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    ex = np.minimum(xx, w - 1 - xx) / 180.0
-    ey = np.minimum(yy, h - 1 - yy) / 160.0
-    S["edge"] = sstep(1.0, 0.0, np.minimum(ex, ey)) * (0.6 + 0.4 * sstep(-1, 1, S["lf"]))
+    ex = np.minimum(xx, w - 1 - xx) / 110.0
+    ey = np.minimum(yy, h - 1 - yy) / 100.0
+    S["edge"] = sstep(1.0, 0.0, np.minimum(ex, ey)) ** 1.5 * 0.9
     return S
 
 
@@ -340,9 +340,9 @@ def colorize(S, pal, kind="day", raking=1.0):
     col[..., 0] *= 1 + wsh
     col[..., 2] *= 1 - wsh * 1.5
     # orta kabartma
-    k_rel = {"day": 0.007, "dark": 0.018, "lit": 0.020 * raking}[kind]
+    k_rel = {"day": 0.004, "dark": 0.010, "lit": 0.007 * raking}[kind]
     col *= (1 + k_rel * S["relief"] * S["gi_g"])[..., None]
-    k_rel2 = {"day": 0.019, "dark": 0.022, "lit": 0.045 * raking}[kind]
+    k_rel2 = {"day": 0.010, "dark": 0.012, "lit": 0.015 * raking}[kind]
     col *= (1 + k_rel2 * S["relief2"])[..., None]
     # su lekeleri
     st = np.array(pal["stain"], np.float32)
@@ -370,25 +370,33 @@ def colorize(S, pal, kind="day", raking=1.0):
     col *= (1 + (0.16 if kind != "dark" else 0.10) * chi)[..., None]
     # kenar yaşlanması
     if kind == "day":
-        col = _tint(col, np.array(pal["base"], np.float32) * np.array([0.80, 0.74, 0.62], np.float32), S["edge"] * 0.55)
+        col = _tint(col, np.array(pal["base"], np.float32) * np.array([0.84, 0.80, 0.70], np.float32), S["edge"] * 0.30)
     elif kind == "lit":
-        col *= (1 - 0.30 * S["edge"])[..., None]
+        col *= (1 - 0.10 * S["edge"])[..., None]
     return np.clip(col, 0, 255).astype(np.uint8)
 
 
 # ───────────────────────────── ince tane (ekran-uzayı çarpan) ─────────────────────────────
 def tooth(seed=5, strength=1.0):
-    """1920×1080 uint8 (kazanç·230): fine sıva taneciği + toz lekeleri. 230 ≈ 1.0, aralık ≈ 0.90–1.07."""
+    """1920×1080 uint8 (kazanç·230): intonaco kum tanesi + gözenek. 230 ≈ 1.0, aralık ≈ 0.90–1.07.
+    Model: seyrek kum taneleri (kubbe) + çok ince gaussian + birkaç iri tane + gözenekler; tek ışık sol-üst."""
     rs = np.random.RandomState(seed)
-    h = 0.34 * gn(rs, H, W, 0.7) + 0.42 * gn(rs, H, W, 1.5) + 0.46 * gn(rs, H, W, 3.2) + 0.34 * gn(rs, H, W, 7.0)
+    h = 0.30 * gn(rs, H, W, 0.65)
+    for dens, sg, amp in ((0.10, 0.95, 0.55), (0.035, 1.6, 0.75), (0.006, 2.6, 1.0)):
+        g = (rs.rand(H, W) < dens).astype(np.float32) * rs.uniform(0.5, 1.0, (H, W)).astype(np.float32)
+        h += amp * cv2.GaussianBlur(g, (0, 0), sg) * (sg * 2.2)
+    h += 0.18 * gn(rs, H, W, 7.0)
     gx = cv2.Sobel(h, cv2.CV_32F, 1, 0, ksize=3)
     gy = cv2.Sobel(h, cv2.CV_32F, 0, 1, ksize=3)
     sh = 0.55 * gx + 0.65 * gy
     sh /= (np.abs(sh).std() + 1e-6)
-    gain = 1.0 + 0.019 * strength * sh + 0.007 * strength * h
-    # seyrek koyu/açık benekler (kum/kömür)
+    gain = 1.0 + 0.020 * strength * sh + 0.012 * strength * (h - h.mean()) / (h.std() + 1e-6)
+    # gözenek: seyrek koyu noktalar (+ alt-sağ parlak dudak)
     sp = rs.rand(H, W)
-    gain *= np.where(sp < 0.0035, 0.90, 1.0) * np.where(sp > 0.9975, 1.04, 1.0)
+    pores = (sp < 0.0016).astype(np.float32)
+    pores = cv2.GaussianBlur(pores, (0, 0), 0.8) * 3.0
+    gain *= 1.0 - 0.10 * np.clip(pores, 0, 1)
+    gain *= np.where(sp > 0.9988, 1.035, 1.0)
     return np.clip(gain * 230.0, 0, 255).astype(np.uint8)
 
 

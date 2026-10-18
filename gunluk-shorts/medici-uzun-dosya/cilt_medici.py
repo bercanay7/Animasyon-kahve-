@@ -195,7 +195,7 @@ def _baked(key, builder):
 def daylight(f, k=1.0, dx=0.0):
     """Gün ışığı: sol-üstten sıcak aydınlık + sağ-alta ılık gölge (iki önbellekli katman)."""
     def b_shadow(fr):
-        sh = skia.GradientShader.MakeLinear([(W * 0.15, H * 0.05), (W * 0.95, H * 1.0)], [C("#B8A47C", 0), C("#B8A47C", 0), C("#7B6038", 125)], [0.0, 0.45, 1.0])
+        sh = skia.GradientShader.MakeLinear([(W * 0.15, H * 0.05), (W * 0.95, H * 1.0)], [C("#7A7A88", 0), C("#7A7A88", 0), C("#5E5C66", 112)], [0.0, 0.42, 1.0])
         fr.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=sh))
     def b_glow(fr):
         sh = skia.GradientShader.MakeRadial((W * 0.20, H * 0.12), W * 0.85, [C("#FFEFC4", 92), C("#FFEFC4", 36), C("#FFEFC4", 0)], [0.0, 0.5, 1.0])
@@ -290,11 +290,12 @@ class Cam:
     """Çekim boyunca yavaş itme + kayma. içerik (s,dx,dy); duvar daha az hareket eder (paralaks)."""
 
     def __init__(self, cx, push=0.045, drift=(9.0, 4.0), base=1.0, ease=None, pivot=None):
-        u = cx.t / max(1e-6, cx.dur)
+        tt = clamp(cx.t, 0.0, cx.dur)                     # geçişte çekim giriş öncesi (t<0) de çizilir
+        u = tt / max(1e-6, cx.dur)
         e = ease(u) if ease else u
         self.s = base * (1.0 + push * e)
-        self.dx = drift[0] * (cx.t - cx.dur / 2)
-        self.dy = drift[1] * (cx.t - cx.dur / 2)
+        self.dx = drift[0] * (tt - cx.dur / 2)
+        self.dy = drift[1] * (tt - cx.dur / 2)
         self.ws = 1.0 + push * 0.45 * e
         self.wdx, self.wdy = self.dx * 0.40, self.dy * 0.40
         self.pivot = pivot or (W / 2, H / 2)
@@ -370,7 +371,7 @@ def tooth_img(strength=1.0):
 def post(img, n=0, mode="day", perde=2, bloom=None, grain=1.35, tooth=1.0, fade=1.0):
     """img uint8 RGB (H,W,3) → uint8 RGB. Işıma (yumuşak diz eşikli) + renk derecelendirme + sıva tanesi (ekran-uzayı) + ince film greni (σ≈grain düzey)."""
     a = img
-    thr, kb = (238, 0.16) if mode == "day" else (150, 0.22)
+    thr, kb = (238, 0.16) if mode == "day" else (206, 0.24)
     if bloom is None:
         bloom = kb
     if bloom > 0:
@@ -517,7 +518,7 @@ def draw_spr(f, spr, x, y, align="c", alpha=1.0, scale=1.0, glow=0.0, reveal=Non
     c.drawImage(spr.img, 0, 0, _LIN, p)
     if glint is not None and 0.0 <= glint <= 1.0:
         gx = -spr.h * 0.6 + (spr.w + spr.h * 1.2) * glint
-        sh = skia.GradientShader.MakeLinear([(gx - spr.h * 0.28, 0), (gx + spr.h * 0.10, spr.h * 0.6)], [C("#FFFFFF", 0), C("#FFF6D0", int(200 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+        sh = skia.GradientShader.MakeLinear([(gx - spr.h * 0.20, 0), (gx + spr.h * 0.07, spr.h * 0.5)], [C("#FFFFFF", 0), C("#FFF2C0", int(125 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
         c.drawRect(skia.Rect.MakeWH(spr.w, spr.h), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
         c.restore()
     if reveal is not None and reveal < 1.0:
@@ -708,10 +709,13 @@ def fmt_int(v):
     return f"{int(round(v)):,}".replace(",", ".")
 
 
-def bgfill(f, cx, seed=0, flip=False, cam=None):
-    """Ortak arka plan: yalnız duvar (ışık içerikten sonra `finish/relight` ile). Dönüş: Cam."""
+def bgfill(f, cx, seed=0, flip=False, cam=None, dress=None):
+    """Ortak arka plan: duvar (+ isteğe bağlı giydirme: dress='both'|'top'|'bottom'|None). Işık içerikten sonra `finish/relight` ile. Dönüş: Cam."""
     cam = cam or Cam(cx)
     cam.wall(f, seed=seed % 3, flip=flip)
+    if dress:
+        import cilt_orn
+        cilt_orn.dress(f, cam, top=dress in ("both", "top"), bottom=dress in ("both", "bottom"))
     return cam
 
 
@@ -730,14 +734,14 @@ def relight(f, cx=None, light=None, k=1.0, shaft_a=None, t=None):
         light = candle_light(t, getattr(cx, "seed", 0) if cx is not None else 0)
     x, y, r, kk = light
     kk = clamp(kk * k, 0.0, 1.3)
-    hue = (4, 8, 28) if TH.perde != 3 else (22, 6, 8)
-    stops = [(0.0, 0.0), (0.16, 0.04), (0.36, 0.30), (0.62, 0.64), (0.88, 0.86), (1.2, 0.94)]
-    # mum parlak: merkez şiddeti kk ile ölçeklenir (kk>1 → daha geniş, daha aydınlık)
-    cols = [skia.Color(hue[0], hue[1], hue[2], int(255 * clamp(a * (1.0 - 0.55 * (kk - 1.0) * (1 - p) if kk > 1 else a)))) for p, a in stops]
-    sh = skia.GradientShader.MakeRadial((x, y), r * 1.55 * (0.9 + 0.1 * kk), cols, [p / 1.2 for p, _ in stops])
+    hue = (6, 12, 46) if TH.perde != 3 else (30, 7, 10)
+    # mum havuzu: merkezde bile hafif loş (gece), r yarıçapında lacivert-siyaha batar
+    stops = [(0.0, 0.30), (0.18, 0.32), (0.42, 0.46), (0.70, 0.70), (1.00, 0.88), (1.30, 0.95)]
+    gain = 1.0 - 0.45 * (kk - 1.0)            # kk>1: ışık güçlenir → karanlık azalır
+    cols = [skia.Color(hue[0], hue[1], hue[2], int(255 * clamp(a * gain))) for _, a in stops]
+    sh = skia.GradientShader.MakeRadial((x, y), r * 1.30, cols, [p / 1.30 for p, _ in stops])
     f.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=sh))
-    # sıcak ışıma: mum çevresinde hafif toplamsal sıcak ton
-    glow = skia.GradientShader.MakeRadial((x, y), r * 0.8, [C("#FFB45A", int(46 * kk)), C("#FFB45A", 0)], [0.0, 1.0])
+    glow = skia.GradientShader.MakeRadial((x, y), r * 0.75, [C("#FFB45A", int(26 * kk)), C("#FFB45A", 0)], [0.0, 1.0])
     f.c.drawRect(skia.Rect.MakeWH(W, H), skia.Paint(Shader=glow, BlendMode=skia.BlendMode.kPlus))
 
 

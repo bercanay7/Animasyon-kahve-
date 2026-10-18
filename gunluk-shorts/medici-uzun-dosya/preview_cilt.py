@@ -53,10 +53,10 @@ def render(kind, params, ts, dur=DUR, post=True, perde=None, mode=None):
 
 
 def label(img, text):
-    im = img.copy()
-    cv2.rectangle(im, (0, 0), (im.shape[1], 46), (0, 0, 0), -1)
-    cv2.putText(im, text, (12, 33), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (240, 215, 140), 2, cv2.LINE_AA)
-    return im
+    """Etiket görüntünün ÜSTÜNE ayrı şerit olarak eklenir (HUD/kenar içeriğini örtmesin)."""
+    strip = np.zeros((46, img.shape[1], 3), np.uint8)
+    cv2.putText(strip, text, (12, 33), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (240, 215, 140), 2, cv2.LINE_AA)
+    return np.vstack([strip, img])
 
 
 def sheet(imgs, cols=2, scale=0.5, path="out/frames/sheet.png"):
@@ -104,6 +104,13 @@ def main():
             if a.only and h["ad"] not in a.only.split(","):
                 continue
             cilt_hero.measure(h, render)
+        return
+    if a.only and set(a.only.split(",")) & set(cilt_hero.CUSTOM):
+        imgs = []
+        for nm in a.only.split(","):
+            if nm in cilt_hero.CUSTOM:
+                imgs += [label(im, nm) for im in cilt_hero.CUSTOM[nm](render)]
+        print(sheet(imgs, a.cols, a.scale, "out/frames/cilt_only.png"))
         return
     pages = {"1": [h for h in H_ if h["sayfa"] == 1], "2": [h for h in H_ if h["sayfa"] == 2]}
     if a.only:

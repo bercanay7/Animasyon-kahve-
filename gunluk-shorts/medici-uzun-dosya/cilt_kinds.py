@@ -45,10 +45,10 @@ def title_spr(text, size, track, style=None, color=None):
 # ───────────────────────────── title ─────────────────────────────
 @ckind("title")
 def k_title(cx, text="MEDİCİ", sub=None, kick=None, at=0.0, size=170, style=None, color=None, face="title", sub_at=None, kick_at=None, y=0.50,
-            seed=0, rule=True, glow=True, **_):
-    """Büyük başlık kartı (tarih/yıl kartları, bölüm içi başlıklar). gündüz: oyma mürekkep; gece: yaldız."""
+            seed=0, rule=True, glow=True, dress="both", **_):
+    """Büyük başlık kartı (tarih/yıl kartları, bölüm içi başlıklar). gündüz: oyma mürekkep; gece: yaldız. dress: korniş+sövme giydirmesi."""
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=seed)
+    cam = CM.bgfill(f, cx, seed=seed, dress=dress)
     cam.begin(f)
     k = cx.amt(at, 1.1)
     size = CM.fit_size(text, "title", size, 1560, size * 0.14)
@@ -81,7 +81,7 @@ def panel_image(w, h, b, tone, mode, perde, seed):
     if key not in _PANEL:
         fr = Frame(w + 2 * b, h + 2 * b)
         fr.clear(skia.ColorTRANSPARENT)
-        fr.c.drawImage(ORN.lapis_field(w, h, seed, True, 0.5, tone), b, b)
+        fr.c.drawImage(ORN.lapis_field(w, h, seed, True, 0.35, tone), b, b)
         ORN.frame_panel(fr, b, b, w, h, band=b, kind="lozenge")
         _PANEL[key] = fr.surf.makeImageSnapshot()
     return _PANEL[key]
@@ -130,100 +130,118 @@ def k_fresco_title(cx, text="MEDİCİ", sub="BANKA ÖLDÜ, GÜZELLİK KALDI", ki
         szs = CM.fit_size(sub, sub_face, 56, 1240)
         CM.ink(f, sub, W / 2, 772, face=sub_face, size=szs, color=CREAM, align="c", alpha=sa, track=0)
     cam.end(f)
-    CM.finish(f, cx, motes_n=40, light=CM.candle_light(cx.t, 1, base=(W * 0.5, H * 0.47), r=900))
+    CM.finish(f, cx, motes_n=40, light=CM.candle_light(cx.t, 1, base=(W * 0.5, H * 0.47), r=980))
 
 
 # ───────────────────────────── chapter_card ─────────────────────────────
-def _slab(f, x, y, w, h, alpha=1.0, seed=2):
-    """Sıva levha: kenarı hafif kırık-düzensiz, bevel, iç gölge, sıva tanesi."""
-    c = f.c
+def _slab_path(x, y, w, h, seed=2, ch=16):
+    """Köşeleri kırık-pahlı, kenarı hafif dalgalı dikdörtgen yol."""
     rs = np.random.RandomState(seed)
     pts = []
-    n = 60
-    for i in range(n):
-        pts.append((x + w * i / n, y + rs.randn() * 1.6))
-    for i in range(n // 2):
-        pts.append((x + w + rs.randn() * 1.6, y + h * i / (n // 2)))
-    for i in range(n):
-        pts.append((x + w - w * i / n, y + h + rs.randn() * 1.6))
-    for i in range(n // 2):
-        pts.append((x + rs.randn() * 1.6, y + h - h * i / (n // 2)))
-    path = sk.smooth_path(pts, True, 0.25)
-    c.drawPath(path, f.paint("#000000", alpha=0.55 * alpha, blur=16))
-    c.save(); c.translate(0, 0)
-    sh = skia.GradientShader.MakeLinear([(x, y), (x + w * 0.7, y + h)], [C("#F1E8D0"), C("#DCD0B0")], [0, 1])
-    c.drawPath(path, skia.Paint(AntiAlias=True, Shader=sh, Alpha=int(255 * alpha)))
-    c.restore()
+
+    def edge(p0, p1, n):
+        for i in range(n):
+            t = i / n
+            pts.append((p0[0] + (p1[0] - p0[0]) * t + rs.randn() * 0.7, p0[1] + (p1[1] - p0[1]) * t + rs.randn() * 0.7))
+    cs = [(x + ch * rs.uniform(0.6, 1.8), y), (x + w - ch * rs.uniform(0.6, 1.8), y), (x + w, y + ch * rs.uniform(0.6, 1.8)), (x + w, y + h - ch * rs.uniform(0.6, 1.8)),
+          (x + w - ch * rs.uniform(0.6, 1.8), y + h), (x + ch * rs.uniform(0.6, 1.8), y + h), (x, y + h - ch * rs.uniform(0.6, 1.8)), (x, y + ch * rs.uniform(0.6, 1.8))]
+    for i in range(8):
+        edge(cs[i], cs[(i + 1) % 8], 14 if i % 2 == 0 else 3)
+    p = skia.Path()
+    p.moveTo(*pts[0])
+    for q in pts[1:]:
+        p.lineTo(*q)
+    p.close()
+    return p
+
+
+def _slab(f, x, y, w, h, alpha=1.0, seed=2):
+    """Sıva levha: gerçek sıva dokusu (duvar görüntüsünden), pahlı kenar (sol-üst açık, sağ-alt koyu), kırık köşeler, yumuşak gölge."""
+    c = f.c
+    path = _slab_path(x, y, w, h, seed)
+    c.drawPath(path, f.paint("#000000", alpha=0.60 * alpha, blur=18))
     c.save()
     c.clipPath(path, skia.ClipOp.kIntersect, True)
-    # bevel: üst-sol açık, alt-sağ koyu
-    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=14, Color=C("#FFFFFF", int(120 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 5)))
-    c.save(); c.translate(7, 8)
-    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=16, Color=C("#6A5230", int(150 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 7)))
+    im = CM.wall_images("day", 2, 1)["lit"]
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(alpha)
+    c.drawImage(im, x - CW_MG - 140, y - CW_MG - 90, CM._LIN, p)
+    c.drawPaint(skia.Paint(Color=C("#F5ECD2", int(70 * alpha))))
+    # pah: iç kenar şeritleri
+    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=18, Color=C("#FFFFFF", int(150 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 4)))
+    c.save(); c.translate(9, 10)
+    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=20, Color=C("#5A4426", int(190 * alpha)), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
     c.restore()
     c.restore()
+    c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C("#6A5230", int(170 * alpha))))
+
+
+CW_MG = 100
 
 
 @ckind("chapter_card")
 def k_chapter_card(cx, n="I", title="", years="", perde_label=None, seed=0, **_):
     """Bölüm kartı (3 sn): koyu duvarda sıva levha; oyma Cinzel başlık + roma rakamı + palle arması. perde_label: 'PERDE II — GÜZELLİK' (yeni perdede)."""
     f = cx.f
-    CM.use("night", cx.perde if hasattr(cx, "perde") and cx.perde else 2)
+    pd = getattr(cx, "perde", None) or 2
+    CM.use("night", pd)
     cx.f.cilt_mode = "night"
+    cx.f.cilt_perde = pd
     cam = CM.bgfill(f, cx, seed=seed + 1, cam=CM.Cam(cx, push=0.03, drift=(5.0, 2.0)))
     cam.begin(f)
     a = cx.fade(0.30, 0.35)
     sx, sy, sw, sh = 190, 168, 1540, 720
-    # sıva levha içeriği ışık altında olsun → gündüz teması ile çiz
-    CM.use("day", TH.perde)
-    slide = (1 - smooth(cx.t / 0.55)) * 24
-    _slab(f, sx, sy + slide * 0.0, sw, sh, alpha=a)
-    ORN.hairline_frame(f, sx + 34, sy + 34, sw - 68, sh - 68, alpha=0.9 * a, color="#8A6A36", gap=9)
-    # sol: arma
-    ak = cx.amt(0.15, 0.7)
-    CP.draw_arms(f, sx + 310, sy + sh / 2 + 6, 330 * (0.95 + 0.05 * ak), alpha=a * ak, shadow=0.45, glow=0.0, glint=((cx.t * 0.55) % 2.0) if (cx.t * 0.55) % 2.0 < 1 else None)
-    # sağ: BÖLÜM + rakam + başlık + yıllar
-    xr = sx + 310 + 330 / 2 + 150
-    xc = (xr + sx + sw - 60) / 2
-    CM.ink(f, "BÖLÜM", xc, sy + 150, face="title_m", size=34, color=TH.fg2, align="c", track=16, alpha=a * cx.amt(0.2, 0.5))
+    CM.use("day", pd)          # levha üstü: gündüz renkleri (mürekkep/sinabar)
+    _slab(f, sx, sy, sw, sh, alpha=a)
+    ORN.hairline_frame(f, sx + 40, sy + 40, sw - 80, sh - 80, alpha=0.9 * a, color="#8A6A36", gap=9)
+    ak = cx.amt(0.10, 0.6)
+    CP.draw_arms(f, sx + 310, sy + sh / 2 + 4, 340 * (0.95 + 0.05 * ak), alpha=a * ak, shadow=0.5, glow=0.0, glint=((cx.t * 0.5) % 2.0) if (cx.t * 0.5) % 2.0 < 1 else None)
+    xr = sx + 310 + 340 / 2 + 130
+    xc = (xr + sx + sw - 70) / 2
     if perde_label:
-        CM.ink(f, perde_label, xc, sy + 112, face="title_m", size=28, color=TH.acc, align="c", track=10, alpha=a * cx.amt(0.1, 0.5))
-    nsp = CM.painted(str(n), "title", 190, 12.0, TH.acc, 1.2, 5)
-    kn = cx.amt(0.35, 0.55)
-    CM.draw_spr(f, nsp, xc, sy + 330, "c", alpha=a * kn, reveal=clamp(kn * 1.2))
-    CM.flourish_rule(f, xc, sy + 372, 560, alpha=a * cx.amt(0.8, 0.6), grow=cx.amt(0.8, 0.8))
+        CM.ink(f, perde_label, xc, sy + 112, face="title_m", size=28, color=TH.acc, align="c", track=10, alpha=a * cx.amt(0.1, 0.4))
+    CM.ink(f, "BÖLÜM", xc, sy + 176, face="title_m", size=34, color=TH.fg2, align="c", track=16, alpha=a * cx.amt(0.15, 0.4))
+    nsp = CM.painted(str(n), "title", 190, 12.0, "#9A2A18", 1.2, 5)
+    kn = cx.amt(0.25, 0.5)
+    CM.draw_spr(f, nsp, xc, sy + 352, "c", alpha=a * kn, reveal=clamp(kn * 1.2))
+    CM.flourish_rule(f, xc, sy + 396, 560, alpha=a * cx.amt(0.55, 0.5), grow=cx.amt(0.55, 0.7))
     tt = sk.tr_upper(title)
     size = 62
-    lines = wrap_lines(tt, "title", size, sw - (xr - sx) - 150, 5.0, 3)
-    while len(lines) > 2 and size > 46:
-        size -= 4
-        lines = wrap_lines(tt, "title", size, sw - (xr - sx) - 150, 5.0, 3)
-    y0 = sy + 460 - (len(lines) - 1) * size * 0.5
+    mw = sw - (xr - sx) - 150
+    lines = wrap_lines(tt, "title", size, mw, 5.0, 3)
+    while (len(lines) > 2 or max(sk.text_width(l, "title", size, 5.0) for l in lines) > mw) and size > 46:
+        size -= 3
+        lines = wrap_lines(tt, "title", size, mw, 5.0, 3)
+    y0 = sy + 486 - (len(lines) - 1) * size * 0.30
     for i, ln in enumerate(lines):
         sp = CM.engraved(ln, "title", int(size), 5.0, TH.fg, 1.0)
-        kt = cx.amt(0.9 + 0.15 * i, 0.8)
-        CM.draw_spr(f, sp, xc, y0 + i * size * 1.28, "c", alpha=a * kt, reveal=clamp(kt * 1.2))
+        kt = cx.amt(0.6 + 0.12 * i, 0.6)
+        CM.draw_spr(f, sp, xc, y0 + i * size * 1.30, "c", alpha=a * kt, reveal=clamp(kt * 1.2))
     if years:
-        CM.ink(f, years, xc, sy + sh - 120, face="cap_i", size=44, color=TH.fg2, align="c", alpha=a * cx.amt(1.5, 0.7))
+        CM.ink(f, years, xc, sy + sh - 84, face="cap_i", size=46, color=TH.fg2, align="c", alpha=a * cx.amt(1.1, 0.6))
     cam.end(f)
-    CM.use("night", TH.perde)
-    CM.finish(f, cx, motes_n=26, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.5), r=1150))
+    CM.use("night", pd)
+    CM.finish(f, cx, motes_n=26, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.5), r=1050))
 
 
 # ───────────────────────────── quote ─────────────────────────────
 @ckind("quote")
-def k_quote(cx, text="", who=None, src=None, at=0.0, size=64, stampt=None, face="cap_i", wrap=1380, y0=None, mark=True, seed=0, **_):
+def k_quote(cx, text="", who=None, src=None, at=0.0, size=78, stampt=None, face="cap_i", wrap=1300, y0=None, mark=True, seed=0, dress="both", **_):
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=seed)
+    cam = CM.bgfill(f, cx, seed=seed, dress=dress)
     cam.begin(f)
     lines = sk.wrap_text(text, face, size, wrap)
     a = cx.amt(at, 0.9)
-    lh = size * 1.30
+    lh = size * 1.28
     total = len(lines) * lh
-    y = (y0 if y0 is not None else H * 0.47 - total / 2 + size * 0.7)
-    ORN.hairline_frame(f, 150, 120, W - 300, 740, alpha=0.9 * a, gap=10)
+    y = (y0 if y0 is not None else H * 0.44 - total / 2 + size * 0.7)
+    lw = max(sk.text_width(l, face, size) for l in lines)
+    extra = (200 if (who or src) else 120)
+    fx0, fx1 = W / 2 - lw / 2 - 150, W / 2 + lw / 2 + 150
+    fy0, fy1 = y - size * 1.25 - 40, y + total + extra
+    ORN.hairline_frame(f, fx0, fy0, fx1 - fx0, fy1 - fy0, alpha=0.9 * a, gap=10)
     if mark:
-        CM.draw_spr(f, CM.painted("“", "title", 230, 0.0, TH.acc if TH.day else "#D9A95A", 1.3, 9), W / 2 - wrap / 2 - 60, y + 40, "l", alpha=0.85 * a)
+        CM.draw_spr(f, CM.painted("“", "title", 200, 0.0, TH.acc if TH.day else "#D9A95A", 1.3, 9), fx0 + 22, fy0 + 150, "l", alpha=0.85 * a)
     for i, ln in enumerate(lines):
         ai = cx.amt(at + 0.16 * i, 0.75)
         CM.ink(f, ln, W / 2, y + i * lh, face=face, size=size, color=TH.fg, align="c", alpha=ai)
@@ -242,9 +260,9 @@ def k_quote(cx, text="", who=None, src=None, at=0.0, size=64, stampt=None, face=
 # ───────────────────────────── counter ─────────────────────────────
 @ckind("counter")
 def k_counter(cx, value=850000, unit="florin", label="", at=0.0, dur=1.7, coin=False, sub=None, size=200, prefix="", suffix="", decimals=0,
-              seed=0, color=None, **_):
+              seed=0, color=None, dress="both", **_):
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=seed)
+    cam = CM.bgfill(f, cx, seed=seed, dress=dress)
     cam.begin(f)
     k = ease_out(clamp((cx.t - cx.at(at)) / dur), 3)
     v = value * k
@@ -255,7 +273,7 @@ def k_counter(cx, value=850000, unit="florin", label="", at=0.0, dur=1.7, coin=F
     wd = sk.text_width(txt, "title", size, 6)
     xc = W / 2 + (130 if coin else 0)
     if coin:
-        CP.draw_coin(f, xc - wd / 2 - 150, H * 0.47, 240, spin=cx.t * 1.4, alpha=a, shadow=0.55, glint=((cx.t * 0.5) % 2.0) if (cx.t * 0.5) % 2.0 < 1 else None)
+        CP.draw_coin(f, xc - wd / 2 - 190, H * 0.47, 300, spin=cx.t * 1.1 + 0.4, alpha=a, shadow=0.55, glint=((cx.t * 0.5) % 2.0) if (cx.t * 0.5) % 2.0 < 1 else None)
     sp = CM.engraved(txt, "title", int(size), 6.0, color or (TH.fg if TH.day else GOLD_T)) if TH.day else CM.gilt(txt, "title", int(size), 6.0)
     CM.draw_spr(f, sp, xc, H * 0.47 + size * 0.34, "c", alpha=a, shadow=0.5 if not TH.day else 0.0)
     y = H * 0.47 + size * 0.34
@@ -271,10 +289,10 @@ def k_counter(cx, value=850000, unit="florin", label="", at=0.0, dur=1.7, coin=F
 
 # ───────────────────────────── palle ─────────────────────────────
 @ckind("palle")
-def k_palle(cx, at=0.0, size=520, kick=None, caption=None, sub=None, stampt=None, field="gold", seed=0, pos=(W / 2, H * 0.47), **_):
+def k_palle(cx, at=0.0, size=620, kick=None, caption=None, sub=None, stampt=None, field="gold", seed=0, pos=(W / 2, H * 0.47), dress="both", **_):
     """Altı top (palle) Medici arması: yaldızlı sivri-tane zemin, kırmızı mine toplar, lapis top üstünde 3 zambak. Parıltı taranır."""
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=seed)
+    cam = CM.bgfill(f, cx, seed=seed, dress=dress)
     cam.begin(f)
     a = cx.amt(at, 0.9)
     sc = (0.92 + 0.08 * ease_out(a)) * (1.0 + 0.02 * cx.u)
@@ -295,10 +313,10 @@ def k_palle(cx, at=0.0, size=520, kick=None, caption=None, sub=None, stampt=None
 
 # ───────────────────────────── coin ─────────────────────────────
 @ckind("coin")
-def k_coin(cx, at=0.0, size=520, kick=None, caption=None, sub=None, spin_rate=0.9, stampt=None, n=1, seed=0, pos=(W / 2, H * 0.47), **_):
+def k_coin(cx, at=0.0, size=520, kick=None, caption=None, sub=None, spin_rate=0.9, stampt=None, n=1, seed=0, pos=(W / 2, H * 0.47), dress="both", **_):
     """Florin: dönen sikke (bir yüzünde zambak, diğerinde Vaftizci Yahya). n>1: arkada yan yana soluk sikkeler (yığın hissi)."""
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=seed)
+    cam = CM.bgfill(f, cx, seed=seed, dress=dress)
     cam.begin(f)
     a = cx.amt(at, 0.9)
     gl = (cx.t * 0.42 + 0.2) % 2.0

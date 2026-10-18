@@ -35,20 +35,37 @@ def giornata_paths(seed, w=W, h=H):
     return paths, [float(o) for o in order]
 
 
-def giornata_reveal(c, paths, order, k, draw_fn, span=0.72, soft=0.30, seam=True, wet=0.20):
+def giornata_reveal(c, paths, order, k, draw_fn, span=0.72, soft=0.30, seam=True, wet=0.20, sweep=False):
     """k (0..1) ilerlemesinde yamaları sırayla açar. draw_fn(alpha): görüntüyü (kırpılmış tuvale) alfa ile çizer.
-    Her yamada: ıslak sıva koyulaşması + dikiş çizgisi (açılırken parlar, sonra söner)."""
-    n = len(paths)
+    sweep=True: her yama mala darbesi gibi soldan sağa (yumuşak kenarlı) açılır — hayalet/çapraz-solma yok.
+    Her yamada: ıslak sıva koyulaşması (yeni açılan, sonra söner) + dikiş çizgisi."""
     for pth, o in zip(paths, order):
         a = smooth((k - o * span) / soft)
         if a <= 0:
             continue
         c.save()
         c.clipPath(pth, skia.ClipOp.kIntersect, True)
-        draw_fn(a)
-        e = 4 * a * (1 - a)
-        if wet > 0 and e > 0.01:
-            c.drawPaint(skia.Paint(Color=C("#3A2A14", int(255 * wet * e))))
+        if sweep:
+            b = pth.getBounds()
+            x_edge = b.left() - 30 + (b.width() + 60) * a
+            # üç kademeli yumuşak kenar
+            for j, (off, al) in enumerate(((0, 1.0), (14, 0.66), (28, 0.33))):
+                c.save()
+                c.clipRect(skia.Rect.MakeLTRB(b.left() - 40, b.top() - 4, x_edge - off, b.bottom() + 4))
+                draw_fn(1.0 if j == 0 else 1.0)
+                c.restore()
+                if j == 0:
+                    pass
+            # ıslak koyulaşma: yalnız kenarın hemen gerisinde
+            wl = wet * 4 * a * (1 - a)
+            if wl > 0.004:
+                sh = skia.GradientShader.MakeLinear([(x_edge - 160, 0), (x_edge, 0)], [C("#3A2A14", 0), C("#3A2A14", int(255 * wl))], [0, 1])
+                c.drawRect(skia.Rect.MakeLTRB(b.left() - 40, b.top(), x_edge, b.bottom()), skia.Paint(Shader=sh))
+        else:
+            draw_fn(a)
+            e = 4 * a * (1 - a)
+            if wet > 0 and e > 0.01:
+                c.drawPaint(skia.Paint(Color=C("#3A2A14", int(255 * wet * e))))
         c.restore()
         if seam:
             e = 0.25 + 0.75 * 4 * a * (1 - a)
@@ -68,9 +85,9 @@ def _wash_field(seed=3):
     rs = np.random.RandomState(seed)
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     diag = (xx / w * 0.78 + yy / h * 0.22)
-    n = CW.lf(rs, h, w, 52) * 0.55 + CW.lf(rs, h, w, 16) * 0.25 + CW.lf(rs, h, w, 120) * 0.45
+    n = CW.lf(rs, h, w, 120) * 0.60 + CW.lf(rs, h, w, 46) * 0.30 + CW.lf(rs, h, w, 200) * 0.40
     n = (n - n.min()) / (n.max() - n.min())
-    R = diag * 0.60 + n * 0.40
+    R = diag * 0.55 + n * 0.45
     return (R - R.min()) / (R.max() - R.min())
 
 
@@ -82,14 +99,16 @@ def _alpha_img(m):
 
 
 def blend_wash(a, b, k, g=0.0):
-    """Pigment yıkaması (suluboya silme): yeni görüntü ıslak, sızan bir cepheyle açılır; cephe kenarında koyu pigment halkası."""
+    """Pigment yıkaması (suluboya silme): yeni görüntü ıslak, geniş yumuşak bir cepheyle açılır; cephede sulu pigment camı (ocre/lapis),
+    en uçta birikmiş ince koyu halka (kahve-halkası etkisi)."""
     kk = smooth(k)
     R = _wash_field(3)
-    th = kk * 1.28 - 0.16
-    wsoft = 0.12
+    th = kk * 1.34 - 0.20
+    wsoft = 0.20
     m = np.clip((th - R) / wsoft, 0, 1).astype(np.float32)
     m = m * m * (3 - 2 * m)
-    edge = (4 * m * (1 - m)).astype(np.float32)
+    glaze = (4 * m * (1 - m)).astype(np.float32)                       # cephe ortası = 1
+    ring = np.exp(-((th - R - 0.015) / 0.018) ** 2).astype(np.float32)  # ince uç halkası
     out = Frame()
     out.c.drawImage(a.surf.makeImageSnapshot(), 0, 0)
     dst = skia.Rect.MakeWH(W, H)
@@ -98,9 +117,13 @@ def blend_wash(a, b, k, g=0.0):
     out.c.drawImage(b.surf.makeImageSnapshot(), 0, 0)
     out.c.drawImageRect(_alpha_img(m), src_r, dst, CM._LIN, skia.Paint(BlendMode=skia.BlendMode.kDstIn))
     out.c.restore()
-    # pigment halkası: ocre-umber kenar (çarpma) + hafif lapis sızıntısı
-    ring = skia.Paint(BlendMode=skia.BlendMode.kMultiply, ColorFilter=skia.ColorFilters.Blend(C("#8A6A3C"), skia.BlendMode.kSrcIn))
-    out.c.drawImageRect(_alpha_img(edge * 0.55), src_r, dst, CM._LIN, ring)
+    # sulu cam: çarpma ile ılık pigment (ocre) + hafif lapis kayması
+    gl = skia.Paint(BlendMode=skia.BlendMode.kMultiply, ColorFilter=skia.ColorFilters.Blend(C("#C8A86A"), skia.BlendMode.kSrcIn))
+    out.c.drawImageRect(_alpha_img(glaze * 0.55), src_r, dst, CM._LIN, gl)
+    gl2 = skia.Paint(BlendMode=skia.BlendMode.kMultiply, ColorFilter=skia.ColorFilters.Blend(C("#5A6FA8"), skia.BlendMode.kSrcIn))
+    out.c.drawImageRect(_alpha_img(np.roll(glaze, 6, 1) * 0.16), src_r, dst, CM._LIN, gl2)
+    rg = skia.Paint(BlendMode=skia.BlendMode.kMultiply, ColorFilter=skia.ColorFilters.Blend(C("#7A5A30"), skia.BlendMode.kSrcIn))
+    out.c.drawImageRect(_alpha_img(ring * 0.40), src_r, dst, CM._LIN, rg)
     return out
 
 
@@ -145,7 +168,7 @@ def blend_page(a, b, k, g=0.0):
     # katlanan sayfada silindirik shading (kıvrımda parlak, uzaklaştıkça koyu) + kenar çizgisi
     c.save(); c.translate(*P); c.rotate(math.degrees(th))
     Lw = min(W * 1.1 * kk + 4, 1900)
-    sh3 = skia.GradientShader.MakeLinear([(-Lw, 0), (-Lw * 0.82, 0), (-Lw * 0.10, 0), (0, 0)],
+    sh3 = skia.GradientShader.MakeLinear([(-Lw, 0), (0, 0)],
                                          [C("#2A1C0C", 150), C("#2A1C0C", 40), C("#FFF8E0", 70), C("#6A5030", 160)], [0.0, 0.16, 0.86, 1.0])
     c.save()
     c.clipRect(skia.Rect.MakeLTRB(-Lw, -BIG, 0, BIG))
@@ -168,7 +191,7 @@ def blend_giornata(a, b, k, g=0.0, seed=7):
         p = skia.Paint()
         p.setAlphaf(clamp(al))
         c.drawImage(imgB, 0, 0, skia.SamplingOptions(), p)
-    giornata_reveal(c, paths, order, smooth(k), dr, span=0.70, soft=0.30)
+    giornata_reveal(c, paths, order, smooth(k), dr, span=0.70, soft=0.30, sweep=True)
     return out
 
 
