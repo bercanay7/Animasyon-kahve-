@@ -11,7 +11,7 @@ from shapely.prepared import prep
 
 import mapdata
 import skia
-from sk import (C, Frame, H, P, W, clamp, ease_io, ease_out, lerp, mix, poly_path, smooth, smooth_path, text_width)
+from sk import (C, Frame, H, P, W, baked, clamp, ease_io, ease_out, lerp, mix, poly_path, smooth, smooth_path, text_width)
 
 LEVELS = mapdata.LEVELS
 
@@ -115,51 +115,100 @@ class MapView:
     def cam(self, lon, lat, zoom, rot=0.0):
         return Cam(lon, lat, zoom, rot)
 
-    # ---- zemin
-    def base(self, f, cam, style="night", t=0.0, mountains=True, ripples=True, tint=None):
+    # ---- zemin (döşemeli önbellek: kıyı/dalga/ışıma bir kez pişer; kare başına yalnız basım)
+    TILE = 2048
+    TIERS = (0.35, 0.5, 0.7, 1.0, 1.4, 2.0, 2.8, 4.0, 5.6, 8.0)
+
+    def tier(self, zoom):
+        for t in self.TIERS:
+            if t >= zoom * 0.999:
+                return t
+        return self.TIERS[-1]
+
+    def _draw_base_vector(self, f, cam_apply, z, style, mountains, ripples):
+        """Yalnız kara+dalga+kıyı (deniz zemini hariç); cam_apply(c) tuvale dünya dönüşümünü uygular, z=çözünürlük/zoom."""
         c = f.c
         night = style == "night"
-        if night:
-            f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#16293A", 0.0), ("#0D1822", 1.0)]))
-        else:
-            f.rect(0, 0, W, H, shader=f.rad(W / 2, H / 2, H * 1.0, [("#EBDDB8", 0.0), ("#D9C697", 1.0)]))
         c.save()
-        cam.apply(c)
-        z = cam.zoom
+        cam_apply(c)
         land = self.path("__kara__", z)
         sw = 1.0 / z
-        # kıyı dalgaları
         if ripples:
             for i, (d, p) in enumerate(self.ripple_paths()):
                 a = [0.34, 0.20, 0.11][i] * (1.0 if z > 0.45 else clamp(z / 0.45))
                 col = "#6FA3B8" if night else "#7A5F36"
                 lw = (1.4 if night else 1.2) * sw
                 c.drawPath(p, f.paint(col, style="stroke", sw=lw, alpha=a))
-        # kara dolgusu
-        if night:
-            c.drawPath(land, f.paint(shader=skia.GradientShader.MakeLinear([(0, 0), (0, H)], [C("#4A3524"), C("#33241A")], None) if False else None, color="#3C2B1D"))
-        else:
-            c.drawPath(land, f.paint("#E7D3A4"))
-        if tint:
-            c.drawPath(land, f.paint(tint[0], alpha=tint[1]))
-        # dağlar
+        c.drawPath(land, f.paint("#3C2B1D" if night else "#E7D3A4"))
         if mountains and z > 1.6:
             mp = skia.Path()
-            for x, y, s, sd in self.mount:
-                ss = s * 0.9
+            for x, y, s_, sd in self.mount:
+                ss = s_ * 0.9
                 mp.moveTo(x - ss, y + ss * 0.5)
                 mp.lineTo(x, y - ss * 0.7)
                 mp.lineTo(x + ss, y + ss * 0.5)
                 mp.moveTo(x, y - ss * 0.7)
                 mp.lineTo(x + ss * 0.25, y + ss * 0.5)
             c.drawPath(mp, f.paint("#8A6A44" if night else "#8C6B3E", style="stroke", sw=1.3 * sw, alpha=0.55 if night else 0.7))
-        # kıyı çizgisi: dış ışıma + keskin hat
         if night:
             c.drawPath(land, f.paint("#E3B54A", style="stroke", sw=7 * sw, alpha=0.16, blur=3.5 * sw))
             c.drawPath(land, f.paint("#E3B54A", style="stroke", sw=1.6 * sw, alpha=0.85))
         else:
             c.drawPath(land, f.paint("#4E3419", style="stroke", sw=1.5 * sw, alpha=0.9))
         c.restore()
+
+    def _tile(self, style, s, i, j, mountains, ripples):
+        key = ("tile", style, s, i, j, bool(mountains), bool(ripples))
+        img = self._paths.get(key)
+        if img is None:
+            T, M = self.TILE, 16
+            fr = Frame(T + 2 * M, T + 2 * M)
+            fr.clear(skia.ColorTRANSPARENT)
+            wx0, wy0 = (i * T - M) / s, (j * T - M) / s
+
+            def ap(c):
+                c.scale(s, s)
+                c.translate(-wx0, -wy0)
+            self._draw_base_vector(fr, ap, s, style, mountains, ripples)
+            img = fr.surf.makeImageSnapshot()
+            if len([k for k in self._paths if isinstance(k, tuple) and k[0] == "tile"]) > 80:
+                for k in [k for k in self._paths if isinstance(k, tuple) and k[0] == "tile"][:20]:
+                    del self._paths[k]
+            self._paths[key] = img
+        return img
+
+    def sea(self, f, style="night"):
+        if style == "night":
+            img = baked(("mapsea", "night"), lambda ff: ff.rect(0, 0, W, H, shader=ff.lin(0, 0, 0, H, [("#16293A", 0.0), ("#0D1822", 1.0)])))
+        else:
+            img = baked(("mapsea", "paper"), lambda ff: ff.rect(0, 0, W, H, shader=ff.rad(W / 2, H / 2, H * 1.0, [("#EBDDB8", 0.0), ("#D9C697", 1.0)])))
+        f.c.drawImage(img, 0, 0)
+
+    def base(self, f, cam, style="night", t=0.0, mountains=True, ripples=True, tint=None):
+        c = f.c
+        self.sea(f, style)
+        if cam.rot:                      # döndürmeli kamera: eski (yavaş) vektör yolu
+            self._draw_base_vector(f, cam.apply, cam.zoom, style, mountains, ripples)
+        else:
+            s = self.tier(cam.zoom)
+            T, M = self.TILE, 16
+            hw, hh = (W / 2) / cam.zoom + 2, (H / 2) / cam.zoom + 2
+            i0, i1 = int(math.floor((cam.wx - hw) * s / T)), int(math.floor((cam.wx + hw) * s / T))
+            j0, j1 = int(math.floor((cam.wy - hh) * s / T)), int(math.floor((cam.wy + hh) * s / T))
+            smp = skia.SamplingOptions(skia.FilterMode.kLinear, skia.MipmapMode.kNone)
+            for j in range(j0, j1 + 1):
+                for i in range(i0, i1 + 1):
+                    img = self._tile(style, s, i, j, mountains and s > 1.6, ripples)
+                    c.save()
+                    cam.apply(c)
+                    c.clipRect(skia.Rect.MakeLTRB(i * T / s, j * T / s, (i + 1) * T / s, (j + 1) * T / s), skia.ClipOp.kIntersect, False)
+                    c.scale(1.0 / s, 1.0 / s)
+                    c.drawImage(img, i * T - M, j * T - M, smp)
+                    c.restore()
+        if tint:
+            c.save(); cam.apply(c)
+            c.drawPath(self.path("__kara__", cam.zoom), f.paint(tint[0], alpha=tint[1]))
+            c.restore()
 
     # ---- bölge
     def region(self, f, cam, name, color, alpha=0.62, edge=None, glow=True, amt=1.0, hatch=False, style="night"):

@@ -602,7 +602,7 @@ def baked(key, builder):
     return _BAKED[key]
 
 
-def bg_image(kind="night", amp=0.12, seed=3, vig=0.55):
+def bg_image(kind="night", amp=0.06, seed=3, vig=0.55):
     def b(f):
         background(f, kind)
         if amp > 0:
@@ -630,7 +630,7 @@ def _fast_blit(f, img, alpha=1.0, blend=None, dx=0, dy=0):
     f.c.drawImage(img, dx, dy, skia.SamplingOptions(), p)
 
 
-Frame.bg = lambda self, kind="night", amp=0.12, seed=3, vig=0.55: _fast_blit(self, bg_image(kind, amp, seed, vig))
+Frame.bg = lambda self, kind="night", amp=0.06, seed=3, vig=0.55: _fast_blit(self, bg_image(kind, amp, seed, vig))
 Frame.vig = lambda self, strength=0.6, inner=0.45: _fast_blit(self, vig_image(strength, inner))
 Frame.rays = lambda self, alpha=1.0, dx=0, dy=0, **kw: _fast_blit(self, rays_image(**kw), alpha=alpha, blend=skia.BlendMode.kPlus, dx=dx, dy=dy)
 
@@ -677,8 +677,8 @@ def post(img, frame_idx=0, grain=1.0, bloom=0.22, grade=(1.06, 0.035, 2.0), fade
     if bloom > 0:
         small = cv2.resize(a, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
         gray = cv2.cvtColor(small, cv2.COLOR_RGB2GRAY)
-        mask = cv2.subtract(gray, 140)
-        mask = cv2.multiply(mask, 2)
+        mask = cv2.subtract(gray, 168)
+        mask = cv2.multiply(mask, 3)
         hi = cv2.bitwise_and(small, small, mask=mask)  # parlak bölgeler
         hi = cv2.GaussianBlur(hi, (0, 0), 6)
         hi2 = cv2.GaussianBlur(hi, (0, 0), 14)
