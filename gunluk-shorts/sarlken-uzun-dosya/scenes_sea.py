@@ -134,6 +134,9 @@ def _cloud_img(mood, seed, which):
         vf = np.clip(np.minimum((yy - 0.45) * 4, (1.0 - yy) * 5), 0, 1)
         a = PW.cloud_rgba(w2, h2, seed + 2, cover=M["cover"] * 0.85 + (0.1 if storm else 0), soft=0.34, scale=30, octaves=5, gain=1.3, shadow=mix(M["cloud_shadow"], M["haze"], 0.25), light=mix(M["cloud_light"], M["haze"], 0.35), rim=None,
                           vfade=vf, stretch=3.4, periodic=True, gamma=1.1, thick_dark=0.2, sigma=2.5, reach=8, light_dir=(0.5 if M["light_dir"] > 0 else -0.5, -0.7))
+    if which == "low":
+        r0 = int(h2 * 0.44)
+        return PW.img_from_rgba(np.ascontiguousarray(a[r0:]), mip=False)
     return PW.img_from_rgba(a, mip=False)
 
 
@@ -239,7 +242,7 @@ def bake_band(f, M, k):
     f.c.drawImage(im, -MARGIN, y0 + 4, LIN, skia.Paint())
 
 
-STRIP_H = (46, 62, 90, 132, 190)
+STRIP_H = (34, 46, 62, 84, 112)
 STRIP_AMP = (8, 13, 22, 36, 56)
 STRIP_P = (900, 1020, 1160, 1320, 1540)
 
@@ -259,7 +262,7 @@ def _strip_set(M, mood, k, which):
         return PW.wave_strip(STRIP_P[k], STRIP_H[k], int(a), body, mix(crest, body, 0.74 - 0.13 * k), M["foam"], 100 + k * 7, sharp=2.0 + (0.8 if storm else 0.0), foam_amt=foam_amt,
                              glint=M["glint"], glint_amt=M["glint_amt"] * (0.5 if k < 2 else 0.3), facets=3, shade=M["shade"])
     # ikincil: daha ince, yarı saydam, farklı periyot (kayma/paralaks hissi)
-    h2 = int(STRIP_H[k] * 0.7)
+    h2 = int(STRIP_H[k] * 0.78)
     return PW.wave_strip(int(STRIP_P[k] * 0.77) // 2 * 2, h2, int(a * 0.8), body, mix(crest, body, 0.45), M["foam"], 200 + k * 5, sharp=2.4, foam_amt=foam_amt * 1.4,
                          glint=M["glint"], glint_amt=M["glint_amt"] * 0.8, facets=2, shade=M["shade"], comps=((2, 1.0), (4, 0.5), (7, 0.25)))
 
@@ -860,7 +863,7 @@ class Sea:
             off = (t * sp) % wpx
             x_a = (-MARGIN - wpx + off) if wind > 0 else (-MARGIN - off)
             for dx in (0, wpx):
-                _draw_cloud(f, c1, x_a + dx, -MARGIN + 150, 0.7 if mood != "storm" else 0.9)
+                _draw_cloud(f, c1, x_a + dx, -MARGIN + 150 + (HZ + MARGIN + 60) * 0.44, 0.7 if mood != "storm" else 0.9)
             e, ev, age = flash_at(t)
             if mood == "night" or M["stars"] > 0.5:
                 rs = RS(9)
@@ -972,8 +975,7 @@ class Sea:
         wd = 60 + 420 * u_mid
         g = PW.glow_sprite(128, col, 160, 60, 0.45)
         pg = skia.Paint()
-        pg.setAlphaf(0.22 * strength)
-        pg.setBlendMode(PLUS)
+        pg.setAlphaf(0.28 * strength)
         f.c.save()
         f.c.translate(xl, (ytop + ybot) / 2 + 10)
         f.c.scale(wd / 128.0, (ybot - ytop) * 0.75 / 128.0)

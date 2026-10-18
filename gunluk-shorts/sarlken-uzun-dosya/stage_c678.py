@@ -268,7 +268,7 @@ def k_cift(cx, items=(), title=None, bgk="night", y=H * 0.5, size=150, icon_size
 
 # ───────────────────────────── çapa-güvenli madalya dizisi ─────────────────────────────
 @SH.kind("c678_medals")
-def k_medals2(cx, items=(), size=520, y=H * 0.46, gap=None, bgk="night", title=None, vs=None, vs_icon="swords", plates=True, tone_col=None, plate_w=None, vs_metal="silver"):
+def k_medals2(cx, items=(), size=520, y=H * 0.46, gap=None, bgk="night", title=None, vs=None, vs_icon="swords", plates=True, tone_col=None, plate_w=None, vs_metal="silver", extra=None):
     """shots.medals'ın çapa-güvenli kopyası (orijinal `at + 0.4` ile demet çapada çöküyor). items: [dict(key,name,role,dates,at,metal,flip,dim)]"""
     f = cx.f
     f.bg(bgk)
@@ -298,4 +298,6 @@ def k_medals2(cx, items=(), size=520, y=H * 0.46, gap=None, bgk="night", title=N
     if title:
         SH.kicker(f, title, Wd / 2, 120, alpha=cx.fade(0.6, 0.4), size=30, track=12)
     sk.dust(f, cx.t, n=50)
+    if extra:
+        extra(cx)
     f.vig(0.55)

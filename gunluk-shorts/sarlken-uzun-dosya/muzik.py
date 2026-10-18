@@ -876,6 +876,36 @@ CUES = {
 }
 
 
+def junction_pads(c, cid, level_db=-1.0):
+    """Cue başında/sonunda (çapraz geçiş bölgesi) kökün açık beşlisinde (kök, beşli, oktav, beşli+8) org + koro yatağı:
+    çapraz geçiş çukuru kapanır; seviye cue gövdesinin ölçülen gücüne (diag) göre ayarlanır."""
+    d = c.diag
+    a, b = int(c.t_open + 2), int(c.t_close - 2)
+    if b <= a + 3 or not d:
+        return
+    e = sum(arr[a:b].sum() for arr in d.values()) / (b - a) / SR
+    body_db = 10 * np.log10(e + 1e-18)
+    root = c.tonic + 12 if c.tonic < 41 else c.tonic
+    notes = [root, root + 7, root + 12, root + 19]
+    unit_db = 10 * np.log10(len(notes) * 10 ** (REF["organ"] / 10) + 3 * 10 ** (REF["choir"] / 10))
+    gain = 10 ** ((body_db + level_db - unit_db) / 20)
+
+    def place(t0, dur, attack, release):
+        for k, m in enumerate(notes):
+            y = organ_note(_hz(m), dur, 0.7, c.rng, stops=(("flute", 1.0, 1.0), ("principal", 0.30, 1.0), ("flute", 0.25, 2.0)),
+                           attack=attack, release=release, trem=False, chiff=0.0)
+            c.put("organ", y, t0, gain=gain, pan=[-0.15, 0.15, -0.25, 0.25][k])
+        for k, m in enumerate(notes[:3]):
+            y = choir_note(_hz(m), dur, 0.7, c.rng, vowel="o", voices=3, attack=attack, release=release)
+            c.put("choir", y, t0, gain=gain, pan=[-0.3, 0.3, 0.0][k])
+
+    if cid != "c0":
+        place(0.0, min(c.open_sec + 4.0, c.T), 1.5, 2.5)
+    if cid not in ("c0", "c13"):
+        t0 = c.t_close - 3.0
+        place(t0, c.T - t0, 2.0, 1.0)
+
+
 # ═══════════════════════════ özel sahneler: c0 açılışı ve c13 kapanışı ═══════════════════════════
 def _gate(c, t0, t1, ramp=0.008):
     """[t0,t1] aralığında dry ve send'i (ramp'lı) susturur — vuruş öncesi 'nefes kesen' boşluk."""
@@ -999,6 +1029,7 @@ def build_cue(cid, g, tail, seed=0):
                     ("melody", layer_melody), ("perc", layer_perc), ("bell", layer_bell)):
         if spec.get(key):
             fn(c, spec[key])
+    junction_pads(c, cid, spec.get("pad_db", -1.0))
     fin = spec.get("finale")
     if fin == "c0":
         FINALES["c0"](c, g["t1c"] + TITLE_DELAY, spec.get("finale_gain"))

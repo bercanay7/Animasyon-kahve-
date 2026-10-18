@@ -12,6 +12,7 @@ import shots as SH
 import sk
 from bw_lib import (INK, backdrop, big_gold, chain_links, curve_arrow, duo_glow, fadeout, glow, paper, push, reveal, scribbles, shift,
                     spot, stamp2, strike, tag)
+from bw_lib import draw_medal2  # noqa: E402
 from sk import C, H, W, back_out, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
 PETROL = "#1E5560"
@@ -155,7 +156,7 @@ def peasants_overlay(year_at, war_at, notl_at, num_at):
         # Luther istememişti
         k3 = cx.amt(notl_at, 0.7) if notl_at is not None else 0.0
         if k3 > 0:
-            SH.draw_medal(f, "luther", 1560, 330, 330 * (0.92 + 0.08 * ease_out(k3)), "teal", True, alpha=k3, tilt=0.1 * math.sin(cx.t * 0.7))
+            draw_medal2(f, "luther", 1560, 330, 330 * (0.92 + 0.08 * ease_out(k3)), "teal", True, alpha=k3, tilt=0.1 * math.sin(cx.t * 0.7))
             icons.draw_icon(f, "b_forbid", 1560, 330, size=260 * (1.25 - 0.25 * ease_out(k3)), metal="crimson", alpha=0.92 * k3, glow=0.2)
             tag(f, "LUTHER İSTEMEMİŞTİ", 1560, 530, size=28, alpha=k3, track=6)
         # sayı
@@ -325,7 +326,7 @@ def k_authors(cx, at=0.0, luther_at=1.4, mel_at=2.4, size=540, y=H * 0.46):
         dim = (1 - 0.62 * lk) if i == 0 else (0.62 + 0.38 * mk)
         sc = (0.94 + 0.06 * ease_out(a)) * (1.0 + (0.05 * mk if i == 1 else -0.03 * lk))
         gl = (cx.t * 0.25 + 0.3 * i) % 2.0
-        SH.draw_medal(f, key, x + sl, y, size * sc, "teal", flip=(i == 0), alpha=a * dim, tilt=(0.18 if i == 0 else -0.18) * math.sin(cx.t * 0.5 + i) + (0.12 if i == 0 else -0.12),
+        draw_medal2(f, key, x + sl, y, size * sc, "teal", flip=(i == 0), alpha=a * dim, tilt=(0.18 if i == 0 else -0.18) * math.sin(cx.t * 0.5 + i) + (0.12 if i == 0 else -0.12),
                       glint=(gl if (gl < 1 and i == 1 and mk > 0.5) else None))
         fit_plate(f, name, role, x, y + size * 0.53, w=620, t=cx.amt(at, 0.6, off=0.3) * (dim if i == 0 else 1.0))
     # Luther: üstü çizilir
@@ -357,7 +358,7 @@ def k_refuse(cx, at=0.0, listen_at=0.6, no_at=1.4, stamp_at=1.6, key="karl_olgun
         f.c.translate(mx, my)
         f.c.scale(sx if abs(sx) > 0.03 else 0.03, 1.0)
         f.c.translate(-mx, -my)
-        SH.draw_medal(f, key, mx, my, ms * (0.94 + 0.06 * ease_out(a)), "gold", False, alpha=a, tilt=0.0)
+        draw_medal2(f, key, mx, my, ms * (0.94 + 0.06 * ease_out(a)), "gold", False, alpha=a, tilt=0.0)
         f.c.restore()
         fit_plate(f, "V. KARL", None, mx, my + ms * 0.53, w=420, t=cx.amt(at, 0.6, off=0.3))
         # belge (sağda) ve ses halkaları
@@ -507,7 +508,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
     with push(cx, 1.0, 1.06, pan=(-18, 0)):
         # sol: Tiziano madalyası + etiket
         sl = (1 - ease_out(a)) * -120
-        SH.draw_medal(f, "tiziano", 470 + sl, 440, 470 * (0.94 + 0.06 * ease_out(a)), "ivory", False, alpha=a, tilt=0.2 * math.sin(cx.t * 0.5) + 0.1)
+        draw_medal2(f, "tiziano", 470 + sl, 440, 470 * (0.94 + 0.06 * ease_out(a)), "ivory", False, alpha=a, tilt=0.2 * math.sin(cx.t * 0.5) + 0.1)
         fit_plate(f, "TİZİANO", None, 470, 700, w=460, t=cx.amt(at, 0.6, off=0.35))
         yk = cx.amt(year_at, 0.7)
         if yk > 0:
@@ -575,7 +576,7 @@ def k_moritz(cx, short_at=0.0, year_at=2.0, ally_at=3.5, snap_at=6.4):
             x = W / 2 + (-gap / 2 if i == 0 else gap / 2)
             slide = (1 - ease_out(mk)) * (-140 if i == 0 else 140)
             shake = (math.sin(cx.t * 60) * 5 * (1 - ease_out(sk_ * 2)) * (1 if sk_ > 0 else 0))
-            SH.draw_medal(f, key, x + slide + shake, 440, 470 * (0.94 + 0.06 * ease_out(mk)), metal, flip, alpha=mk, tilt=(0.16 if i == 0 else -0.16) * math.sin(cx.t * 0.5 + i))
+            draw_medal2(f, key, x + slide + shake, 440, 470 * (0.94 + 0.06 * ease_out(mk)), metal, flip, alpha=mk, tilt=(0.16 if i == 0 else -0.16) * math.sin(cx.t * 0.5 + i))
             fit_plate(f, name, role, x, 700, w=560, t=cx.amt(year_at, 0.6, off=0.4))
         # zincir ortada (müttefiklik)
         ak = cx.amt(ally_at, 0.6)

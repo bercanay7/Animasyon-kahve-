@@ -602,9 +602,9 @@ class Box:
                     pen = moon.pen + moon.pen_k * np.maximum(tau, 0)
                     zc = (z0 + z1) / 2
                     hw = np.full_like(zl, (z1 - z0) / 2)
-                    ys = win.get("spring")
-                    if ys is not None:
-                        k_ = np.clip((ys - yq) / max(ys - y0, 1e-3), 0, 1)
+                    spr_ = win.get("spring")
+                    if spr_ is not None:
+                        k_ = np.clip((spr_ - yq) / max(spr_ - y0, 1e-3), 0, 1)
                         hw = hw * (1 - k_ ** 1.7)
                     lit = sstep(hw - np.abs(zl - zc), -pen, pen) * sstep(yq - y0, -pen, pen) * sstep(y1 - yq, -pen, pen) * ok
                     win = None

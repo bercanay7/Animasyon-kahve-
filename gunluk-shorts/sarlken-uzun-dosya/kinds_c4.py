@@ -12,6 +12,7 @@ import shots as SH
 import sk
 from bw_lib import (INK, anc, backdrop, big_gold, curve_arrow, duo_glow, fadeout, glow, paper, plate_text, push, reveal, scribbles,
                     shift, spot, stamp2, strike, tag)
+from bw_lib import draw_medal2  # noqa: E402
 from sk import C, H, W, back_out, clamp, ease_io, ease_out, lerp, mix, smooth
 
 PETROL = "#1E5560"
@@ -35,7 +36,7 @@ def k_duel(cx, left=None, right=None, vs_at=0.6, size=560, y=H * 0.46, tint_a=0.
         slide = (1 - ease_out(a)) * (-140 if i == 0 else 140)
         sc = (0.93 + 0.07 * ease_out(a)) * (1.0 + 0.035 * cx.u)
         gl = (cx.t * 0.25 + 0.2 * i) % 2.0
-        SH.draw_medal(f, it["key"], x + slide, y, size * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a,
+        draw_medal2(f, it["key"], x + slide, y, size * sc, it.get("metal", "gold"), it.get("flip", False), alpha=a,
                       tilt=(0.22 if i == 0 else -0.22) * math.sin(cx.t * 0.5 + i) + (0.12 if i == 0 else -0.12), glint=(gl if gl < 1 else None))
         pa = cx.amt(it.get("plate_at", shift(it.get("at", 0.2), 0.5)), 0.6)
         if pa > 0:
@@ -624,7 +625,7 @@ def k_banned(cx, outlaw_at=1.0, rows=()):
     a = cx.amt(0.0, 0.7)
     dim = 1.0 - 0.0 * cx.amt(outlaw_at, 0.6)
     with push(cx, 1.0, 1.04):
-        SH.draw_medal(f, "luther", 520, 520, 520 * (0.95 + 0.05 * ease_out(a)), "teal", False, alpha=a * (1 - 0.18 * cx.amt(outlaw_at, 0.6)), tilt=0.12 * math.sin(cx.t * 0.6))
+        draw_medal2(f, "luther", 520, 520, 520 * (0.95 + 0.05 * ease_out(a)), "teal", False, alpha=a * (1 - 0.18 * cx.amt(outlaw_at, 0.6)), tilt=0.12 * math.sin(cx.t * 0.6))
         fit_plate(f, "MARTIN LUTHER", None, 520, 820, w=520, t=cx.amt(0.4, 0.6))
         for i, (lab, ic, metal, ta) in enumerate(rows):
             y = 320 + i * 190

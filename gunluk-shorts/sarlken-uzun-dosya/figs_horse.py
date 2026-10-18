@@ -131,3 +131,139 @@ def _horse_walk(h, lean):
     F = Fig(h, lean)
     horse_body(F, h, HORSE_WALK)
     return F.build()
+
+
+# ───────────────────────────── gallop pozları ─────────────────────────────
+GALLOP_A = dict(     # uzamış (iki ön bacak ileri, arka bacaklar geride, arka toynak itişte)
+    legs=dict(
+        fn=[(0.30, -0.50), (0.40, -0.43), (0.55, -0.37), (0.67, -0.31), (0.745, -0.28)],
+        ff=[(0.235, -0.50), (0.33, -0.45), (0.46, -0.41), (0.58, -0.36), (0.655, -0.33)],
+        hn=[(-0.405, -0.62), (-0.52, -0.50), (-0.65, -0.37), (-0.76, -0.22), (-0.815, -0.075)],
+        hf=[(-0.34, -0.58), (-0.44, -0.48), (-0.56, -0.38), (-0.66, -0.28), (-0.72, -0.16)]),
+    head=0.045, tail=1.0, rot=2.0)
+
+GALLOP_B = dict(     # toplanmış (bacaklar gövde altında, ön yakın bacak iniyor)
+    legs=dict(
+        fn=[(0.30, -0.50), (0.37, -0.36), (0.40, -0.22), (0.415, -0.10), (0.42, -0.03)],
+        ff=[(0.235, -0.50), (0.30, -0.40), (0.385, -0.31), (0.335, -0.20), (0.285, -0.155)],
+        hn=[(-0.405, -0.62), (-0.355, -0.46), (-0.295, -0.32), (-0.34, -0.20), (-0.275, -0.16)],
+        hf=[(-0.34, -0.58), (-0.28, -0.45), (-0.20, -0.34), (-0.25, -0.22), (-0.17, -0.18)]),
+    head=-0.04, tail=-0.5, rot=-3.0)
+
+
+def _armet(F, hx, hy, hh, plume=True, rot=0.0, crest_col=None):
+    """Kapalı miğfer (armet) + tüy. hx,hy baş merkezi (px), hh baş yüksekliği (px)."""
+    top_y = hy - 0.58 * hh
+    if plume:
+        F.fill(feather_path(hx - 0.02 * hh, top_y + 0.02 * hh, hx - 1.9 * hh, top_y - 0.50 * hh + rot * 0.02 * hh, 0.42 * hh, bend=0.36 * hh), rim=1.0)
+        F.fill(feather_path(hx + 0.04 * hh, top_y + 0.02 * hh, hx - 1.1 * hh, top_y - 1.05 * hh, 0.40 * hh, bend=0.30 * hh), rim=1.0)
+    F.fill(place(sp([KC(-0.36, 0.52), (-0.50, 0.15), (-0.46, -0.28), (-0.20, -0.56), (0.12, -0.60), (0.36, -0.46), (0.50, -0.12), (0.62, 0.14), (0.54, 0.36), (0.40, 0.58), (0.10, 0.66), KC(-0.14, 0.58)], True, 0.95), hx, hy, hh, rot), rim=1.0, glow=0.10)
+    F.cut(place(sp([KC(0.16, -0.05), (0.42, -0.07), KC(0.60, 0.02), (0.58, 0.07), (0.40, 0.01), KC(0.16, 0.0)], True, 0.6), hx, hy, hh, rot))
+    F.line(place(sp([(-0.10, -0.58), (0.0, -0.50), (0.20, -0.30), (0.34, -0.10)], False), hx, hy, hh, rot), hh * 0.03, tone=1.0, alpha=0.5)
+
+
+def _rider(F, px, py, u, lance="up", charge=0.0, style="armor"):
+    """Zırhlı binici. (px,py) = eyerdeki kalça noktası (px), u = oturma boyu (kalça→baş tepesi, px). Sağa bakar."""
+    def P(x, y):
+        return (px + x * u, py + y * u)
+
+    def KP(x, y):
+        return KC(*P(x, y))
+    # uzak bacak (at gövdesinin arkasında; yalnız alt kısmı görünür)
+    F.fill(limb([P(0.02, 0.05), P(0.30, 0.30), P(0.17, 0.88)], [0.26 * u, 0.20 * u, 0.15 * u], cap0=0.4, cap1=0.3), rim=0.4)
+    F.fill(shoe(px + 0.15 * u, py + 0.92 * u, 0.26 * u, 0.09 * u, 1, "sharp"), rim=0.4)
+    # eyer: arka kabara + ön topuz
+    F.fill(sp([KP(-0.30, -0.36), P(-0.34, -0.12), P(-0.22, 0.08), KP(0.0, 0.10), P(-0.12, -0.10), P(-0.16, -0.30)], True, 0.9), rim=1.0)
+    F.fill(sp([KP(0.20, -0.10), P(0.26, 0.0), KP(0.24, 0.12), P(0.12, 0.10), P(0.14, -0.02)], True, 0.8), rim=0.9)
+    # lance (gövdenin arkasında başlar)
+    if lance == "up":
+        F.fill(bar(*P(0.30, 0.55), *P(0.34, -2.15), 0.06 * u, 0.045 * u), rim=0.95)
+        tx, ty = P(0.34, -2.15)
+        F.fill(sp([KC(tx - 0.045 * u, ty + 0.01 * u), (tx - 0.06 * u, ty - 0.12 * u), KC(tx, ty - 0.36 * u), (tx + 0.06 * u, ty - 0.12 * u), KC(tx + 0.045 * u, ty + 0.01 * u)], True), rim=1.0)
+        F.fill(sp([KC(tx + 0.045 * u, ty + 0.35 * u), (tx + 0.40 * u, ty + 0.40 * u), (tx + 0.70 * u, ty + 0.34 * u), (tx + 0.52 * u, ty + 0.50 * u), (tx + 0.72 * u, ty + 0.66 * u), (tx + 0.40 * u, ty + 0.60 * u), KC(tx + 0.045 * u, ty + 0.64 * u)], True, 0.8), rim=1.0)
+    elif lance == "couched":
+        x0, y0, x1, y1 = P(-0.55, 0.0)[0], P(-0.55, 0.0)[1], P(3.2, 0.40 + charge)[0], P(3.2, 0.40 + charge)[1]
+        F.fill(bar(x0, y0, x1, y1, 0.075 * u, 0.035 * u), rim=0.95)
+        dx, dy = x1 - x0, y1 - y0
+        L = math.hypot(dx, dy)
+        ux, uy = dx / L, dy / L
+        F.fill(sp([KC(x1 - ux * 0.02 * u, y1 - uy * 0.02 * u), (x1 + ux * 0.2 * u - uy * 0.05 * u, y1 + uy * 0.2 * u + ux * 0.05 * u), KC(x1 + ux * 0.55 * u, y1 + uy * 0.55 * u), (x1 + ux * 0.2 * u + uy * 0.05 * u, y1 + uy * 0.2 * u - ux * 0.05 * u)], True), rim=1.0)
+        # flama
+        mx, my = x1 - ux * 0.9 * u, y1 - uy * 0.9 * u
+        F.fill(sp([KC(mx, my - 0.01 * u), (mx - ux * 0.0 - 0.45 * u, my + 0.30 * u), (mx - 0.75 * u, my + 0.14 * u), (mx - 0.58 * u, my + 0.34 * u), KC(mx, my + 0.05 * u)], True, 0.8), rim=1.0, bound=True)
+    # gövde (zırh): sırt-kalça-göğüs; peascod karın
+    F.fill(sp([KP(-0.06, -0.70), P(-0.17, -0.62), P(-0.21, -0.42), P(-0.19, -0.18), KP(-0.16, 0.0), KP(0.19, 0.0), P(0.22, -0.20), P(0.23, -0.42), P(0.17, -0.62), P(0.08, -0.70)], True, 0.95), rim=1.0, glow=0.12)
+    F.line(sp([P(0.06, -0.69), P(0.15, -0.42), P(0.10, -0.12)], False), u * 0.025, tone=1.0, alpha=0.5)
+    # tassets (üst üste uyluk levhaları)
+    for k in range(3):
+        F.fill(sp([KP(-0.17 + k * 0.01, -0.02 + k * 0.10), P(0.0, 0.03 + k * 0.10), KP(0.24 - k * 0.01, -0.02 + k * 0.10), P(0.22, 0.08 + k * 0.10), P(0.0, 0.12 + k * 0.10), P(-0.15, 0.08 + k * 0.10)], True), rim=0.9)
+    # omuzluk
+    F.fill(sp([P(-0.20, -0.68), P(-0.10, -0.76), P(0.04, -0.74), P(0.06, -0.62), P(-0.06, -0.52), P(-0.20, -0.54)], True), rim=1.0)
+    # yakın bacak: uyluk → diz (poleyn) → kaval → ayak (üzengide)
+    F.fill(limb([P(0.0, 0.05), P(0.32, 0.30), P(0.20, 0.90)], [0.28 * u, 0.22 * u, 0.17 * u], cap0=0.4, cap1=0.3), rim=1.0)
+    F.fill(sp([KP(0.26, 0.20), P(0.42, 0.24), P(0.44, 0.38), P(0.30, 0.44), KP(0.22, 0.34)], True, 0.8), rim=1.0)
+    F.fill(shoe(px + 0.17 * u, py + 0.95 * u, 0.30 * u, 0.10 * u, 1, "sharp"), rim=1.0)
+    F.line(sp([P(0.08, 0.06), P(0.14, 0.50), P(0.20, 0.92)], False), u * 0.018, tone=0.9, alpha=0.7)   # üzengi kayışı
+    # kollar: yakın kol dirseği geride, el önde (dizgin/mızrak)
+    if lance == "couched":
+        hand = P(0.22, -0.30)
+        F.fill(limb([P(-0.02, -0.62), P(-0.15, -0.38), hand], [0.17 * u, 0.17 * u, 0.12 * u], cap0=0.4, cap1=0.3), rim=1.0)
+    else:
+        hand = P(0.34, -0.22)
+        F.fill(limb([P(-0.02, -0.62), P(-0.12, -0.36), hand], [0.17 * u, 0.17 * u, 0.12 * u], cap0=0.4, cap1=0.3), rim=1.0)
+    F.fill(K.hand_pt("fist", hand[0] - 0.02 * u, hand[1], 0.20 * u, -10), rim=1.0)
+    # boyun + miğfer
+    F.fill(limb([P(0.0, -0.78), P(0.0, -0.70)], [0.12 * u, 0.16 * u], cap0=0, cap1=0), rim=0.9)
+    _armet(F, *P(0.04, -0.90), 0.20 * u, plume=True, rot=-2.0 if lance == "couched" else 0.0)
+
+
+def _caparison(F, h, hem=-0.30, col_tone=0.04, trim=True):
+    """At örtüsü (kapariş): sırt-sağrı-karın boyunca asılı, ucu dilimli."""
+    pts = [KC(0.18 * h, -0.755 * h), (0.0 * h, -0.735 * h), (-0.25 * h, -0.755 * h), (-0.48 * h, -0.74 * h), (-0.58 * h, -0.62 * h), (-0.57 * h, -0.45 * h)]
+    # alt kenar dilimleri
+    n = 8
+    for i in range(n + 1):
+        u = i / n
+        x = -0.56 + (0.37 - -0.56) * u
+        y = hem + 0.0 + 0.03 * math.sin(u * math.pi * n)
+        pts.append((x * h, y * h) if (i % 2 == 0) else (x * h, (y + 0.05) * h))
+    pts += [(0.34 * h, -0.44 * h), (0.31 * h, -0.62 * h)]
+    F.fill(sp(pts, True, 0.9), rim=0.9, tone=col_tone)
+    if trim:
+        F.line(sp([(-0.57 * h, -0.45 * h), (-0.40 * h, hem * h), (-0.2 * h, (hem + 0.03) * h), (0.0, hem * h), (0.2 * h, (hem + 0.03) * h), (0.35 * h, -0.44 * h)], False), h * 0.005, tone=1.0, alpha=0.55)
+    for x in (-0.38, -0.22, -0.06, 0.10, 0.24):
+        F.crease((x * h, -0.72 * h), ((x - 0.01) * h, (hem + 0.02) * h), 0.008 * h, 0.01 * h, alpha=0.5)
+
+
+def _horse_with_rider(h, lean, pose, lance, cloth=False, charge=0.0, rot=None):
+    """h = zeminden binici başlığına toplam boy; at ölçeği atın kulak yüksekliği 0.70 h olacak biçimde."""
+    F = Fig(h, lean)
+    hs = h * 0.70
+    H = Fig(hs)
+    horse_body(H, hs, pose, mane=True, tail=True, bridle=True)
+    if cloth:
+        _caparison(H, hs)
+    R = pose.get("rot", 0.0) if rot is None else rot
+    F.merge(H, 0, 0, 1.0, rot=R)
+    # eyer noktası (at koordinatında (-0.05,-0.745)) → döndürülmüş
+    m = skia.Matrix()
+    m.setRotate(R)
+    q = m.mapXY(-0.045 * hs, -0.735 * hs)
+    u = 0.46 * hs * 1.0
+    _rider(F, q.x(), q.y(), u, lance=lance, charge=charge)
+    return F
+
+
+@fx("horse_rider")
+def _horse_rider(h, lean):
+    return _horse_with_rider(h, lean, HORSE_STAND, "up", cloth=True).build()
+
+
+@fx("cavalry_charge")
+def _cavalry_charge(h, lean):
+    return _horse_with_rider(h, lean, GALLOP_A, "couched", cloth=False, charge=0.12).build()
+
+
+@fx("cavalry_charge_b")
+def _cavalry_charge_b(h, lean):
+    return _horse_with_rider(h, lean, GALLOP_B, "couched", cloth=False, charge=0.05).build()

@@ -79,6 +79,9 @@ _BGS = {"cold": _b_cold, "green": _b_green, "blood": _b_blood, "dusk": _b_dusk}
 
 
 def bg(f, name):
+    if name == "night":
+        sk._fast_blit(f, sk.bg_image("night"))
+        return
     sk._fast_blit(f, sk.baked(("a_bg", name), _BGS[name]))
 
 

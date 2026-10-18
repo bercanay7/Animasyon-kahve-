@@ -878,3 +878,204 @@ class Aachen:
             R.motes(f, t, (440, 120, 1040, 800), n=40, seed=6, col="#FFE2A8", a=0.5, drift=(3, 4))
 
         return {1: D2}
+
+
+# ═══════════════════════════════════════════════════════════════════════
+#  REICHSTAG — Worms (1521)
+# ═══════════════════════════════════════════════════════════════════════
+def _persp(box, YF=None):
+    YF = (box.by1 - box.vy) * box.zb / box.F if YF is None else YF
+
+    def P(X, hf, Z):
+        return (box.vx + X * box.F / Z, box.vy + (YF - hf) * box.F / Z)
+    return P, YF
+
+
+def _quad(f, pts, col, lights=(), rim=None, grad=None, a=1.0):
+    p = sk.poly_path(pts, True)
+    R.lit_path(f, p, col, lights, rim=rim, grad=grad, a=a)
+
+
+@SL.sc("reichstag")
+class Reichstag:
+    """Worms Reichstag'ı: yüksek gotik salon (sol duvarda sivri pencereler, huzmeler yatay çapraz), uzakta kürsüde küçük Karl (taht + sancak),
+    iki yanda sıralar ve kalabalık, ortada halı koridor, tek başına keşiş.
+    p: monk=True, books=True (masada kitap yığını), emperor=True (tahtta Karl + yan seçmenler), crowd=True (yan sıralar), monk_z=1000 (keşişin koridordaki derinliği; 700..1500),
+    sun=1.0 (pencere ışığı)."""
+
+    BACK = (620, 200, 1300, 660)
+    VP = (960, 440)
+    ZB = 2000.0
+
+    def __init__(self, p):
+        self.p = p
+        self.monk = p.get("monk", True)
+        self.books = p.get("books", True)
+        self.emp = p.get("emperor", True)
+        self.crowd = p.get("crowd", True)
+        self.monk_z = float(p.get("monk_z", 1000.0))
+        self.sun = float(p.get("sun", 1.0))
+
+    def _box(self):
+        return R.Box(self.BACK, vp=self.VP, zb=self.ZB, F=1100.0)
+
+    def layers(self):
+        box = self._box()
+        P, YF = _persp(box)
+        cache = {}
+        sun = self.sun
+        XL = (self.BACK[0] - self.VP[0]) * self.ZB / 1100.0
+
+        # pencere geometrisi (a: duvar boyunca derinlik arka duvardan kameraya; Z = ZB - a)
+        PITCH, NWIN, A0, WW = 300.0, 4, 180.0, 170.0
+        H1, SPR, H3 = 250.0, 600.0, 760.0
+        Zmin = self.ZB - (A0 + (NWIN - 1) * PITCH + WW)     # en yakın pencerenin Z başlangıcı
+        D = (0.78, 0.60, -0.33)
+
+        def room():
+            if "r" in cache:
+                return cache["r"]
+            fb = YF
+            left = R.mat_hallwall(fb, stone="#6a5c4a", pitch=PITCH, a0=A0, nwin=NWIN, w=WW, h1=H1, spring=SPR, h3=H3, seed=4, power=2.6 * sun)
+            right = R.mat_stone_fine("#5a4d3d", seed=9, course=56)
+            back = R.mat_stone_fine("#5b4e3e", seed=6, course=56)
+            floor = R.mat_stripe(R.mat_flags("#3a3229", seed=5, size=200), R.mat_carpet("#6a1a20"), 95.0)
+            ceil = R.mat_beams("#33241a", seed=7, pitch=300, bwid=100, plaster="#40362a", axis="b")
+            mats = dict(back=back, left=left, right=right, floor=floor, ceil=ceil)
+            lights = []
+            for (y_, Z_) in ((337, 1500), (306, 1150), (259, 850)):
+                lights.append(R.Light((960, y_, Z_), R.warm(1.0), 1.2, 340, spec=0.2))
+            lights.append(R.Light((960, 520, 1900), R.warm(1.0), 1.4, 260, spec=0.2))
+            win = dict(axis="x", x=XL, wrect=(Zmin, YF - H3, Zmin + WW, YF - H1), pitch=PITCH, n=NWIN, spring=YF - SPR)
+            moon = R.Moon(D, col=(1.0, 0.86, 0.60), power=1.5 * sun, win=win, pen=7.0, pen_k=0.02)
+            rgb, cov = box.render(mats, lights, moon=moon, ambient=(0.008, 0.008, 0.012), expo=1.15, ao=0.6)
+            cache["r"] = (rgb, cov)
+            return cache["r"]
+
+        def L1(f):
+            rgb, cov = room()
+            R.draw_np(f, rgb, cov)
+
+        def L2(f):
+            warm_l = [(960, 520, 520, "#ff9c40", 0.22), (960, 300, 700, "#ffb060", 0.10)]
+            # pencere huzmeleri (statik; pişirmede)
+            for q in R.shaft_polys_x(box, XL, (Zmin, YF - H3, Zmin + WW, YF - H1), D, PITCH, NWIN):
+                _soft_hull(f, q, "#ffe2a8", 0.17 * sun)
+            # ── kürsü (dais): 3 basamak
+            steps = [(420, 0, 45, 1700), (330, 45, 90, 1790), (205, 90, 135, 1880)]
+            for (hx, h0, h1, zf) in steps:
+                front = [P(-hx, h0, zf), P(hx, h0, zf), P(hx, h1, zf), P(-hx, h1, zf)]
+                topq = [P(-hx, h1, zf), P(hx, h1, zf), P(hx * 0.98, h1, 2000), P(-hx * 0.98, h1, 2000)]
+                _quad(f, front, "#3a2a1e", warm_l, rim=None, grad=f.lin(0, front[2][1], 0, front[0][1], [("#5a4630", 0.0), ("#241812", 1.0)]))
+                _quad(f, topq, "#5a1a20", warm_l, rim="#c9962b", grad=f.lin(0, topq[2][1], 0, topq[0][1], [("#7a2028", 0.0), ("#4a1218", 1.0)]))
+            # arka sancak/halı + gölgelik (baldachin)
+            tx0, ty0 = P(-300, 560, 1995)
+            tx1, ty1 = P(300, 90, 1995)
+            PR.banner_hang(f, 960, ty0, (tx1 - tx0), (ty1 - ty0) + 10, "#6b1a22", "#c9962b", warm_l, icon="eagle")
+            cy_top = P(0, 640, 1900)[1]
+            cx0, cx1 = P(-330, 0, 1900)[0], P(330, 0, 1900)[0]
+            canopy = sk.poly_path([(cx0 - 20, cy_top - 12), (cx1 + 20, cy_top - 12), (cx1 + 8, cy_top + 40), (960, cy_top + 62), (cx0 - 8, cy_top + 40)], True)
+            R.lit_path(f, canopy, "#7a1c26", warm_l, rim="#c9962b", rim_w=2.0, grad=f.lin(0, cy_top - 12, 0, cy_top + 60, [("#9a2630", 0.0), ("#5a1018", 1.0)]))
+            for sx in (-1, 1):
+                dr = sk.poly_path([(960 + sx * (cx1 - 960) + sx * 14, cy_top + 20), (960 + sx * (cx1 - 960) - sx * 10, cy_top + 44), (960 + sx * (cx1 - 960) * 0.84, P(0, 200, 1900)[1]),
+                                   (960 + sx * (cx1 - 960) * 1.05, P(0, 140, 1900)[1])], True)
+                R.lit_path(f, dr, "#5a1018", warm_l, rim=None)
+            # taht + Karl + seçmenler
+            tp = P(0, 135, 1965)
+            sc_t = 1100.0 / 1965.0
+            ST.throne(f, tp[0], tp[1] + 6, 0.52 * 1.0, c="#6A1E26")
+            if self.emp:
+                for (X, kind, hh) in ((-110, "elector_kurhut", 130), (110, "elector_cap", 130), (-225, "elector_mitre", 132), (225, "elector_mitre", 132)):
+                    pp = P(X, 90, 1840)
+                    RF(f, kind, pp[0], pp[1], hh * 1100.0 / 1840.0, rim="#FFD890", rimd=(0.3, -1.0), rim2="#E39A4A", rim2d=(0.9, 0.1))
+                RF(f, "elector_crown", tp[0], tp[1] + 2, 150 * sc_t * 1.0, rim="#FFE2A8", rimd=(0.0, -1.0), rim2="#E39A4A", rim2d=(0.9, 0.1))
+            # koruyucular
+            for sx in (-1, 1):
+                pp = P(sx * 330, 0, 1700)
+                ST.figure(f, "landsknecht", pp[0], pp[1], 170 * 1100.0 / 1700.0, col="#0C0705", rim="#C58A44", face=-sx)
+            # sıralar + kalabalık (derinlikten öne; dışta olan önce)
+            if self.crowd:
+                rs = np.random.RandomState(21)
+                hats = ["beret", "cap", "galero", "mitre", "hood", "beret", "cap", "beret"]
+                for side in (-1, 1):
+                    for (rowX, hf0) in ((520, 0), (410, 0), (310, 0)):
+                        X = side * rowX
+                        zA, zB = 760, 1700
+                        # bank: yan yüz + oturak
+                        inner = side * (rowX - 52)
+                        outer = side * (rowX + 36)
+                        q_front = [P(inner, 0, zA), P(inner, 0, zB), P(inner, 46, zB), P(inner, 46, zA)]
+                        q_top = [P(inner, 46, zA), P(inner, 46, zB), P(outer, 46, zB), P(outer, 46, zA)]
+                        _quad(f, q_front, "#2a1a10", warm_l, rim=None, grad=f.lin(0, q_front[2][1], 0, q_front[0][1], [("#3a2616", 0.0), ("#150d08", 1.0)]))
+                        _quad(f, q_top, "#34200f", warm_l, rim="#8a6a3a")
+                        z = zB
+                        while z > zA:
+                            pp = P(X + rs.uniform(-8, 8), 0, z)
+                            hh = rs.uniform(150, 168) * 1100.0 / z
+                            col = "#0c0705" if rowX > 400 else "#0a0604"
+                            RF(f, "sit_" + hats[rs.randint(len(hats))], pp[0], pp[1], hh, col=col, rim="#C58A44" if side < 0 else "#B07A3A", rimd=(1.0, -0.5) if side < 0 else (-1.0, -0.4),
+                               rim2="#7FA0E8", rim2d=(0.0, -1.0), face=-side)
+                            z -= rs.uniform(66, 96) * (z / 1300.0)
+            # masa + kitaplar
+            if self.books:
+                pt = P(0, 0, 1290)
+                s_ = 1100.0 / 1290.0
+                tw, th = 135 * s_, 82 * s_
+                top = sk.poly_path([(pt[0] - tw / 2 - 4, pt[1] - th), (pt[0] + tw / 2 + 4, pt[1] - th), (pt[0] + tw / 2, pt[1] - th + 8 * s_), (pt[0] - tw / 2, pt[1] - th + 8 * s_)], True)
+                R.lit_path(f, top, "#4a3220", warm_l + [(pt[0], pt[1] - th - 20, 160, "#ffd9a0", 0.25)], rim="#c99c5a", rim_w=1.0)
+                R.lit_path(f, R.rect_path(pt[0] - tw / 2, pt[1] - th + 8 * s_, tw, th - 8 * s_), "#2a1a0e", warm_l)
+                for k, (col_, bw, bh) in enumerate((("#5a1c18", 52, 12), ("#2a3a2a", 46, 11), ("#4a3018", 50, 12), ("#6a2a1c", 40, 10), ("#2a2030", 44, 11))):
+                    PR._book if False else None
+                    yb = pt[1] - th - sum(x[2] for x in ((0, 0, 12), (0, 0, 11), (0, 0, 12), (0, 0, 10), (0, 0, 11))[:k]) * s_
+                    _book(f, pt[0] + (-4 if k % 2 else 3) * s_, yb, bw * s_, bh * s_, col_, warm_l, ang=(-0.02 if k % 2 else 0.03))
+            # avize halkaları
+            for (y_, Z_) in ((337, 1500), (306, 1150), (259, 850)):
+                s_ = 1100.0 / Z_
+                rr = 150 * s_
+                f.line(960, -M, 960, y_ - 14, color="#1a120a", sw=3.0)
+                f.oval(960, y_, rr, rr * 0.2, style="stroke", sw=max(3, 8 * s_), color="#9a7430")
+                f.oval(960, y_, rr * 0.55, rr * 0.11, style="stroke", sw=max(2, 4 * s_), color="#9a7430")
+                for i in range(8):
+                    a = math.pi * 2 * i / 8
+                    cx_, cy_ = 960 + math.cos(a) * rr, y_ + math.sin(a) * rr * 0.2
+                    f.rect(cx_ - 3 * s_, cy_ - 24 * s_, 6 * s_, 24 * s_, color="#e9dcb4")
+
+        def L3(f):          # ön plan: yakın bankların karanlık siluetleri
+            rs = np.random.RandomState(5)
+            for side in (-1, 1):
+                for (rowX, z0) in ((330, 640), (470, 700)):
+                    pp = P(side * rowX, 0, z0)
+                    RF(f, "sit_" + ["beret", "hood", "galero", "cap"][rs.randint(4)], pp[0], pp[1] + 20, 160 * 1100.0 / z0, col="#040201", rim="#8A5A2A", rimd=(1.0 if side < 0 else -1.0, -0.5), face=-side)
+            f.rect(-M, H - 60, W + 2 * M, 60 + M, shader=f.lin(0, H - 60, 0, H + M, [("#000000", 0.0, 0), ("#000000", 1.0, 235)]))
+            R.vignette_frame(f, 0.7, 0.55)
+
+        return [(0.8, L1), (1.0, L2), (1.3, L3)]
+
+    def dyn(self):
+        box = self._box()
+        P, YF = _persp(box)
+        monk, books, emp = self.monk, self.books, self.emp
+        mz = self.monk_z
+        PITCH, NWIN, A0, WW = 300.0, 4, 180.0, 170.0
+        Zmin = self.ZB - (A0 + (NWIN - 1) * PITCH + WW)
+        XL = (self.BACK[0] - self.VP[0]) * self.ZB / 1100.0
+        D = (0.78, 0.60, -0.33)
+        polys = None
+
+        def D2(f, t):
+            nonlocal polys
+            if polys is None:
+                polys = R.shaft_polys_x(box, XL, (Zmin, YF - 760, Zmin + WW, YF - 250), D, PITCH, NWIN)
+            # huzmeler: SABİT ama pişirmede çizilemedi (dyn'de pahalı) → yalnız kıvılcım/toz; huzme L2'de değil burada ucuz çizim yerine statik çokgen kullanılmadı
+            pp = P(0, 0, mz)
+            if monk:
+                ST.figure(f, "monk", pp[0], pp[1], 205 * 1100.0 / mz, col="#0B0705", rim="#E0A15A", face=1, sway=math.sin(t * 0.8) * 0.004, bob=math.sin(t * 1.1) * 0.8)
+            R.motes(f, t, (360, 150, 1200, 720), n=44, seed=7, col="#FFE8B8", a=0.5, drift=(6, 4))
+            for (y_, Z_) in ((337, 1500), (306, 1150), (259, 850)):
+                s_ = 1100.0 / Z_
+                rr = 150 * s_
+                for i in range(8):
+                    a = math.pi * 2 * i / 8
+                    R.flame(f, 960 + math.cos(a) * rr, y_ + math.sin(a) * rr * 0.2 - 24 * s_, s=0.75 * s_ + 0.2, t=t, seed=i * 1.3 + Z_, halo=0.4, hr=80 * s_ + 30)
+
+        return {1: D2}

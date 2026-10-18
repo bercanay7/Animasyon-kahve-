@@ -458,3 +458,58 @@ def k_bw_theatre(cx, **kw):
         f.rect(0, 0, W, H, shader=f.lin(0, 0, 0, H, [("#241509", 0.0), ("#0D0704", 1.0)]))
         f.text(f"[sahne: {kw.get('scene')} — hata]", W / 2, H / 2, face="cap_i", size=44, color="#8A7A55", align="c")
         f.vig(0.6)
+
+
+# ───────────────────────────── hızlı madalya çizimi (önbellekli sprite + gölge) ─────────────────────────────
+from functools import lru_cache  # noqa: E402
+
+import medal as _medal  # noqa: E402
+
+
+@lru_cache(maxsize=96)
+def _mimg(key, metal, flip, inscr):
+    return _medal.medal_image(key, metal, _medal.INSCR.get(key) if inscr else None, flip, size=720)
+
+
+@lru_cache(maxsize=96)
+def _mshadow(key, metal, flip, inscr):
+    img = _mimg(key, metal, flip, inscr)
+    pad = 60
+    s = skia.Surface(720 + 2 * pad, 720 + 2 * pad)
+    c = s.getCanvas()
+    c.clear(skia.ColorTRANSPARENT)
+    p = skia.Paint(AntiAlias=True)
+    p.setImageFilter(skia.ImageFilters.Blur(18, 18))
+    p.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6, 0]))
+    c.drawImage(img, pad, pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    return s.makeImageSnapshot(), pad
+
+
+def draw_medal2(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, tilt=0.0, glint=None, inscription=True, shadow=True):
+    """SH.draw_medal ile aynı görünüm, ~2-3× hızlı (sprite ve gölge önbellekli)."""
+    img = _mimg(key, metal, bool(flip), bool(inscription))
+    s = size / 720.0
+    cs = math.cos(tilt * 0.55)
+    if shadow:
+        sh, pad = _mshadow(key, metal, bool(flip), bool(inscription))
+        f.c.save()
+        f.c.translate(x + size * 0.03, y + size * 0.05)
+        f.c.scale(s * cs, s)
+        p = skia.Paint(AntiAlias=True)
+        p.setAlphaf(clamp(alpha))
+        f.c.drawImage(sh, -360 - pad, -360 - pad, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+        f.c.restore()
+    f.c.save()
+    f.c.translate(x, y)
+    f.c.scale(s * cs, s)
+    if glint is not None:
+        f.c.saveLayer(skia.Rect.MakeLTRB(-380, -380, 380, 380), None)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(clamp(alpha))
+    f.c.drawImage(img, -360, -360, skia.SamplingOptions(skia.FilterMode.kLinear), p)
+    if glint is not None:
+        gx = lerp(-520, 520, glint)
+        shd = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFF4D0", int(170 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+        f.c.drawRect(skia.Rect.MakeLTRB(-380, -380, 380, 380), skia.Paint(Shader=shd, BlendMode=skia.BlendMode.kSrcATop))
+        f.c.restore()
+    f.c.restore()
