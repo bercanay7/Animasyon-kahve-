@@ -1,0 +1,138 @@
+ŞARLKEN — YOUTUBE STUDIO ADIM ADIM REHBER
+Hazırlayan: Claude · 18 Ekim 2026
+
+Video yüklendi ve akşam 20:00'ye zamanlandı. Aşağıdakiler yayından önce ve sonra yapılacak işler. Hepsi zorunlu değil; "ÖNEMLİ" yazanlar önemli.
+
+
+════════ 0. ÖNCE BUNU BİL ════════
+
+• YouTube uygulaması: videoyu yüklediğin yer (bunu yaptın).
+• YouTube Studio: kanalının yönetim paneli. İki yolu var:
+  1) "YouTube Studio" uygulaması (App Store'da ayrı uygulama).
+  2) Bilgisayar sürümü: studio.youtube.com (telefonda da açılır).
+• Altyazı (SRT) yükleme, bitiş ekranı ve etiketler çoğu zaman yalnız bilgisayar sürümünde çıkar. Bilgisayarın yoksa telefonda şöyle aç:
+  Safari'de studio.youtube.com → adres çubuğunun solundaki "aA" → "Masaüstü Web Sitesi İste" → hesabınla giriş yap. (Chrome'da: ⋯ → "Masaüstü sitesi".)
+• Bu paketteki dosyaları sohbetten önce "Dosyalara Kaydet" ile kaydet.
+  TXT dosyasını aç → metne uzun bas → "Tümünü Seç" → "Kopyala". Studio'da ilgili alana uzun bas → "Yapıştır".
+
+
+════════ 1. ŞİMDİ KONTROL ET (5 dk) ════════
+
+1.1 ÖNEMLİ — Zamanlama
+    Studio → İçerik → Videolar. Videonun satırında "Zamanlandı" ve tarih/saat görünmeli: 18 Eki 2026, 20:00.
+    Saatin 20:00 olduğundan (08:00 değil!) emin ol. Yanlışsa videoyu aç → Görünürlük → Zamanla → düzelt → Kaydet.
+
+1.2 İşlem durumu
+    Satırda "HD işleniyor" gibi bir uyarı olabilir, normaldir. 21 dakikalık 1080p videoda yarım saatten birkaç saate kadar sürer.
+    20:00'ye kadar bitmezse video yine yayına girer, ilk saatlerde düşük çözünürlükte oynayabilir; işlem bitince kalite kendiliğinden yükselir. Bir şey yapman gerekmez.
+
+1.3 "Kontroller" (telif ve reklam uygunluğu)
+    Sonuç "Sorun bulunamadı" olmalı. Müzik ve ses efektleri sentez üretim olduğu için telif sorunu beklenmez.
+
+
+════════ 2. VİDEO AYRINTILARI (10 dk) ════════
+
+Videonun üzerine dokun/tıkla → "Ayrıntılar" sayfası açılır. Sırayla:
+
+2.1 Başlık
+    01_baslik.txt içindeki önerilen başlığı yapıştır: Şarlken: Dünyayı Teslim Eden İmparator
+
+2.2 Açıklama
+    02_aciklama.txt'nin TAMAMINI yapıştır. Bölüm zaman damgaları içinde. İlk satır 0:00 olmalı.
+    YouTube bölümleri (chapters) bu damgalardan kendiliğinden oluşturur; videonun zaman çubuğunda 14 bölüm görünür.
+
+2.3 Küçük resim
+    "Küçük resim yükle" → kapak_A.jpg (1280×720, 2 MB altı).
+    İsteğe bağlı: "Küçük resmi test et ve karşılaştır" seçeneğini görüyorsan A, B, C'yi birlikte yükle; YouTube izleyicilere dağıtıp kazananı seçer. Görmüyorsan atla.
+
+2.4 Oynatma listesi
+    "Uzun Dosya" listen yoksa: "Yeni oynatma listesi" → ad: Uzun Dosya → Oluştur → işaretle → Bitti.
+
+2.5 Kitle
+    "Hayır, çocuklara özel değil." Yaş sınırlaması: Hayır.
+
+2.6 "Daha fazla göster" (aşağıdaki küçük bağlantı) → şunlar:
+    • Ücretli tanıtım: işaretleme (ücretli sponsor yok).
+    • ÖNEMLİ — Değiştirilmiş içerik: EVET. (Anlatıcı yapay ses. Görseller çizim/animasyon olduğu için ek ifşa gerekmez.)
+    • Etiketler: 04_etiketler.txt'yi yapıştır. (Telefon uygulamasında çıkmazsa bilgisayar sürümünde yap; etiketler ikinci derecede önemli, atlayabilirsin.)
+    • Video dili: Türkçe.
+    • Kategori: Eğitim.
+    • Lisans: Standart YouTube lisansı. Yerleştirmeye izin ver: açık.
+    • Abonelere bildirim: açık ("yayınlandığında abonelere bildir").
+    • Yorumlar: "Yorumlara izin ver" → "Uygunsuz olabilecek yorumları inceleme için beklet" (önerilen). Yorumlar kapalı olmasın, sabit yorum için gerekli.
+    • Shorts remix: istersen izin ver (isteğe bağlı).
+
+2.7 Sağ üstten KAYDET.
+
+
+════════ 3. ALTYAZI (SRT) YÜKLEME (5 dk, bilgisayar sürümü) ════════
+
+3.1 Studio'nun sol menüsü → "Altyazılar".
+3.2 Zamanlanmış videonu seç.
+3.3 "Dil ekle" → Türkçe (video dili Türkçeyse zaten ekli görünür).
+3.4 Türkçe satırında Altyazı sütunundaki "EKLE".
+3.5 "Dosya yükle" → "Zamanlamalı" → Devam → sarlken_tr.srt dosyasını seç.
+3.6 Önizlemede altyazı sesle uyuyor mu bak (ilk satır: "25 Ekim 1555.", 0:00–0:02 civarı). Doğruysa "Yayınla".
+Notlar:
+ • YouTube kendi otomatik altyazısını üretmişse, yüklediğin dosya onun yerine geçer.
+ • Dosyada 361 altyazı satırı var; her satır en çok 43 karakter, en çok iki satır.
+ • Dosya UTF-8; Türkçe karakterler bozulmaz.
+
+
+════════ 4. BİTİŞ EKRANI (5 dk, bilgisayar sürümü) ════════
+
+Videonun son 7 saniyesinde (21:19'dan sonra) ekranda iki altın çerçeve var: solda "SIRADAKİ TESLİMAT", sağda "ABONE OL · ZAMAN KURYESİ". Bu çerçevelerin üstüne YouTube'un bitiş ekranı öğelerini yerleştireceksin.
+
+4.1 Studio → İçerik → videoyu seç → sol menüde "Düzenleyici" → "Bitiş ekranı" (bazı hesaplarda Ayrıntılar sayfasında "Video öğeleri" altında "Bitiş ekranı ekle").
+4.2 "Öğe" → "Video" → "İzleyici için en iyisi" (YouTube kişiye göre seçer). Soldaki altın çerçevenin üstüne sürükle, boyutu çerçeveye uydur.
+4.3 "Öğe" → "Abone ol" → sağdaki altın çerçeveye yerleştir.
+4.4 Zaman çizelgesinde öğelerin başlangıcını 21:19 civarına çek (videonun son 7 saniyesi); bitişi videonun sonu.
+4.5 Kaydet.
+Notlar: Bitiş ekranı yalnız 25 saniyeden uzun videolara eklenir; bu video 21 dakika, sorun yok. Telefon uygulamasında bu bölüm yoktur.
+
+
+════════ 5. 20:00 — VİDEO YAYINA GİRİNCE ════════
+
+5.1 Linke tıkla; videoyu hesapsız/başka tarayıcıda da aç: oynuyor mu, ses var mı, kalite 1080p'ye çıkabiliyor mu, altyazı (CC) ve bölümler (zaman çubuğunda 14 bölüm) görünüyor mu.
+5.2 ÖNEMLİ — Sabit yorum
+    Videonun altına "Yorum ekle" → 03_sabit_yorum.txt'yi yapıştır → Yorum yap → yorumun yanındaki ⋮ → "Sabitle" → onayla.
+5.3 İlk saat: gelen yorumlara cevap ver (YouTube etkileşimi sever; ilk saat önemlidir).
+5.4 Linki bana yaz: açıklama, bölümler ve altyazıyı birlikte son kez kontrol ederim.
+
+
+════════ 6. KISA FRAGMAN (aynı gün akşam ya da ertesi sabah) ════════
+
+Dosya: sarlken_kisa_fragman.mp4 (46 sn, dikey). Metin: 06_kisa_fragman_metni.txt.
+6.1 YouTube uygulaması → + → "Video yükle" → videoyu seç. Dikey ve 3 dakikadan kısa olduğu için Shorts olur.
+6.2 Başlık: Kimse Onu Tahttan İndirmedi: Şarlken
+    Açıklama: 06_kisa_fragman_metni.txt içindeki metin (#Shorts içinde).
+6.3 Uzun video yayınlandıktan sonra Studio'da Shorts'un ayrıntılarında "İlgili video" alanından tam videoyu seç.
+6.4 Önerim: Kısa'yı uzun videodan 2–3 saat sonra ya da ertesi sabah yayınla; ikisi birbirini gölgelemez.
+
+
+════════ 7. ÖLÇÜM ════════
+
+Studio → Analiz → "İçerik" → videon. 24. saatte, 72. saatte ve 7. günde ekran görüntüsü al, bana at.
+Bakılacaklar: ortalama izlenme süresi ve izlenme yüzdesi, izleyici tutma eğrisi (hangi bölüm geçişinde izleyici düşüyor), abone kazanımı. Bunlar bir sonraki videoyu iyileştirmek için.
+YouTube'u Windsor.ai'ye bağlarsan (sohbette verdiğim bağlantı; markanın kanal hesabını seç) ölçümü kendim çekerim.
+
+
+════════ 8. SORUN GİDERME ════════
+
+• Saat geçti ama video yayınlanmadı: İçerik → videoyu aç → Görünürlük → "Herkese açık" → Kaydet. (İşlem bitmediyse yayın biraz gecikebilir.)
+• Altyazı yüklenmiyor: dosya uzantısı .srt olmalı; "Zamanlamalı dosya" seç.
+• Bitiş ekranı seçeneği yok: bilgisayar sürümünü ("masaüstü sitesi") kullan.
+• Bir şeyi yanlış yaptıysan Studio'da hepsi geri alınabilir; yayından sonra bile başlık, açıklama ve küçük resim değiştirilebilir.
+• Menü adları hesabına göre biraz farklı olabilir. Takıldığın yerin ekran görüntüsünü bana at, nerede olduğunu söylerim.
+
+
+════════ PAKETTEKİ DOSYALAR ════════
+
+01_baslik.txt              başlık (önerilen + 2 alternatif)
+02_aciklama.txt            açıklama (bölüm zaman damgalarıyla, tamamı)
+03_sabit_yorum.txt         yayından sonra sabitlenecek yorum
+04_etiketler.txt           etiketler (virgülle ayrılmış)
+05_bolumler.txt            bölüm zaman damgaları (açıklamada zaten var)
+06_kisa_fragman_metni.txt  Kısa fragmanın başlığı ve açıklaması
+sarlken_tr.srt             Türkçe altyazı (zamanlamalı dosya)
+(ayrıca sohbette: kapak A/B/C görselleri, Kısa fragman videosu)
