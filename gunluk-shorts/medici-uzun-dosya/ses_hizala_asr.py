@@ -881,6 +881,10 @@ def hesapla_hepsi(args, S):
             rapor["uyarilar"].append(f"{cid}: senaryoda bölüm yok/boş, atlandı")
             log("UYARI:", rapor["uyarilar"][-1])
             continue
+        if not B["runs"]:
+            rapor["uyarilar"].append(f"{cid}: seste konuşma koşusu bulunamadı, atlandı")
+            log("UYARI:", rapor["uyarilar"][-1])
+            continue
         sn = hizala_bolum(S, B, ch, cache)
         sn["t0"] = c["t0"]
         sn["chap"] = B
@@ -1099,12 +1103,26 @@ def karsilastir(args):
     open(os.path.join(OUT, "hizala_asr_karsilastirma.txt"), "w", encoding="utf-8").write(txt + "\n")
 
 
+def _wer_katlamali(exp, hyp):
+    """Katlanmış (ç→c… kesme işareti yapışık) sözcüklerle klasik WER (Levenshtein; tam eşitlik)."""
+    n, m = len(exp), len(hyp)
+    if n == 0:
+        return 0.0 if m == 0 else 1.0
+    d = list(range(m + 1))
+    for i in range(1, n + 1):
+        prev, d[0] = d[0], i
+        for j in range(1, m + 1):
+            cur = min(d[j] + 1, d[j - 1] + 1, prev + (exp[i - 1] != hyp[j - 1]))
+            prev, d[j] = d[j], cur
+    return d[m] / n
+
+
 def pencere_kontrol(S, bekle, hyp_text, onceki, sonraki):
     """Pencere ASR çıktısı ↔ beklenen cümle (söylenen metin). → dict(wer, bas_fazla, son_fazla, bas_sizinti, son_sizinti, bas_eksik, son_eksik)"""
     import asr
     exp = [k for k in (katla(w) for w in bekle.split()) if k]
     hyp = asr_sozcukleri(hyp_text, S)
-    res = dict(wer=float(asr.wer(bekle, hyp_text)) if hyp_text.strip() else 1.0, hyp=hyp_text)
+    res = dict(wer=float(asr.wer(bekle, hyp_text)) if hyp_text.strip() else 1.0, hyp=hyp_text, wer_k=_wer_katlamali(exp, hyp))
     if not hyp:
         res.update(bas_fazla=0, son_fazla=0, bas_sizinti=False, son_sizinti=False, bas_eksik=len(exp), son_eksik=len(exp), bos=True)
         return res
@@ -1153,10 +1171,11 @@ def dogrula(args):
     x, sr = load_wav(wav_path)
     dur = len(x) / sr
     isler, meta = [], {}
+    tum_yeni = [i for i in sira if i not in secim] if getattr(args, "tum", False) else []
     for ver, pay, ad in (("yeni", 0.1, "yeni"), ("yeni", 0.0, "yeni_sikis"), ("eski", 0.1, "eski")):
         if ver not in T:
             continue
-        for sid in secim:
+        for sid in (secim + (tum_yeni if ad == "yeni" else [])):
             if sid not in T[ver]:
                 continue
             s = T[ver][sid]
@@ -1191,7 +1210,9 @@ def dogrula(args):
         sz = [sid for sid, r in R.items() if r["bas_sizinti"] or r["son_sizinti"]]
         fz = [sid for sid, r in R.items() if (r["bas_fazla"] >= 1 or r["son_fazla"] >= 1) and sid not in sz]
         ek = [sid for sid, r in R.items() if r["bas_eksik"] >= 2 or r["son_eksik"] >= 2]
-        P(f"{baslik}: {len(R)} cümle · WER ort {w.mean():.3f} medyan {np.median(w):.3f} %90 {np.percentile(w, 90):.3f} azami {w.max():.3f} · "
+        wk = np.array([r.get("wer_k", np.nan) for r in R.values()])
+        P(f"{baslik}: {len(R)} cümle · WER(asr.wer) ort {w.mean():.3f} medyan {np.median(w):.3f} %90 {np.percentile(w, 90):.3f} azami {w.max():.3f} · "
+          f"WER(katlamalı) ort {np.nanmean(wk):.3f} medyan {np.nanmedian(wk):.3f} · "
           f"WER>0,3: {int((w > 0.3).sum())} · komşu sızıntısı: {len(sz)} {sz} · başka fazlalık: {len(fz)} · uçta ≥2 sözcük eksik: {len(ek)} {ek}")
     P("")
     P("c2s4–c2s8 ve ayrıntı (YENİ ±0,1 sn penceresi):")
@@ -1884,6 +1905,7 @@ def main():
     ap.add_argument("--loo", action="store_true", help="koşu içi zamanlama doğruluğu: her duraktan bir bırak testi")
     ap.add_argument("--sondaj", action="store_true", help="koşu içi sözcük sınırı: akustik HMM ↔ hece-ağırlığı, bağımsız ASR sondajı")
     ap.add_argument("--kirp", type=float, default=0.03, help="--loo: birleştirme kenarlarından kırpılan süre (sn)")
+    ap.add_argument("--tum", action="store_true", help="--dogrula: YENİ timeline'ın TÜM cümlelerini (±0,1 sn) ayrıca doğrula")
     ap.add_argument("--n", type=int, default=40, help="--dogrula: rastgele cümle sayısı")
     ap.add_argument("--tohum", type=int, default=7)
     args = ap.parse_args()

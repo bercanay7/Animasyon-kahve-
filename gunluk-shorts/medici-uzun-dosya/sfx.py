@@ -1,15 +1,20 @@
 """
-sfx.py — "ŞARLKEN" için tamamen sentezlenmiş SFX kütüphanesi (numpy/scipy; harici ses dosyası YOK).
+sfx.py — "MEDICI" için tamamen sentezlenmiş SFX kütüphanesi + geçiş→ses eşlemesi + JSON sözleşmesi (numpy/scipy; harici ses dosyası YOK).
 
     sfx(name, seed=0, dur=None, loop=False, **kw) -> np.ndarray float32 (n, 2), 48 kHz, tepe = −3 dBFS
 
-* Hepsi deterministik (aynı ad+seed → aynı örnekler). dur: istenen uzunluk (sn); verilmezse varsayılan.
-* Döngü sesleri (crowd_murmur, sea_waves, wind, rain, fire_crackle): varsayılan 8 sn ve DİKİŞSİZ
-  (dur verilirse döngü o uzunluğa dek tekrarlanır; loop=True bayrağı miks.py'de aynı anlama gelir).
-* Her ses fiziksel olarak modellenir: filtrelenmiş gürültü + gövde sinüsleri/modlar + zarflar (düz 'bip' yok).
-* chapter_stinger / title_hit / church_bell / bell_toll_low: root=<Hz> ile müziğin ana sesine akort edilebilir.
+* Hepsi deterministik (aynı ad+seed → aynı örnekler). dur: istenen uzunluk (sn); verilmezse doğal uzunluk.
+* Döngü sesleri (crowd_murmur, sea_waves, wind, rain, fire_crackle, church_ambience, water_lap, candle_flame): varsayılan 8 sn ve DİKİŞSİZ.
+* Fiziksel modelleme: filtrelenmiş gürültü + gövde sinüsleri/modlar + zarflar (düz 'bip' yok).
+* KATALOG (python3 sfx.py --list): kâğıt/yazı (sayfa, kâğıt, kalem, mühür, damga, mektup, defter kapanışı, harf dizimi, baskı, harita iğnesi, fırça),
+  para (sikke, yığın, yuvarlanma), kapı/metal (sürgü, TUNÇ KAPI, kilit, tahta/metal vuruş, klavye mekanizması, lens/cam tınısı, taş oyma),
+  kalabalık/mekân (SÖZSÜZ uğultu, ritmik haykırış, uzak alkış, kilise oda tonu, adımlar, nal, uzaklaşan at, uzak trompet),
+  doğa (ateş, mum alevi/sönmesi, deniz, liman suyu, halat, gemi, rüzgâr), çan/gong/vuruş (YALNIZ kaynaklı olay), geçişler (yıkama, sıva, dip, ışık, zum, şerit, kayma, iris, mum).
+* ÇAN KURALI: church_bell / bell_toll_low / gong_hit c7, c10, c13'te OLAY sesi olarak kullanılamaz (resolve_cues atlar ve uyarır).
+* Geçiş türü → ses eşlemesi: TRANSITION_MAP + transition_cues(); ses köprüsü / J-kesme kancaları: j_cut, l_cut, ses_koprusu.
+* JSON sözleşmesi (sfx_cues_pN.json): bkz. normalize_cue / resolve_cues ve notlar_ses.md.
 
-CLI: python3 sfx.py --list | --render ad [--out dosya.wav] | --all --out klasör
+CLI: python3 sfx.py --list | --render ad [--out dosya.wav] | --all --out klasör | --katalog
 """
 import argparse
 import os
@@ -778,6 +783,710 @@ def _ship_creak(rng, dur, **kw):
     return _room(D.lp(x, 6000), 0.2, 0.8)[:n]
 
 
+# ═══════════════════════════ MEDICI: kapı / kilit / metal ═══════════════════════════
+def _door_bolt(rng, dur, **kw):
+    """Sürgü: demir sürtünmesi (pürüzlü kayma) + demir-ahşap çarpma + küçük sıçrama."""
+    dur = dur or 1.3
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    L = _n(0.28)
+    ts = np.arange(L) / SR
+    env = np.minimum(1.0, ts / 0.03) * np.minimum(1.0, (0.28 - ts) / 0.05)
+    w = rng.standard_normal(L)
+    scr = D.bp(w, 700, 3600, 2) * env * (0.6 + 0.4 * np.sin(D.PI2 * 38 * ts + rng.uniform(0, 6)))
+    scr += 0.5 * D.resonator(w, 1300, 500) * env
+    _place(x, scr, 0.02, 0.9, -0.1)
+    t0 = 0.31
+    m = _n(0.5)
+    tm = np.arange(m) / SR
+    hit = np.zeros(m)
+    for fr, a, tau in [(820, 1.0, 0.045), (1630, 0.6, 0.03), (2450, 0.4, 0.02), (310, 0.9, 0.06)]:
+        hit += a * np.sin(D.PI2 * fr * tm * (1 + rng.uniform(-0.01, 0.01))) * np.exp(-tm / tau)
+    hit += 1.1 * D.bp(rng.standard_normal(m), 400, 3000, 2) * np.exp(-tm / 0.012)
+    hit += 0.8 * np.sin(D.PI2 * 95 * tm) * np.exp(-tm / 0.05)
+    _place(x, hit, t0, 1.0, 0.05)
+    _place(x, hit[:_n(0.15)] * 0.25, t0 + 0.07, 1.0, 0.1)
+    return _room(x, 0.18, 0.8)[:n]
+
+
+def _door_bronze(rng, dur, **kw):
+    """Tunç kapı çarpması: alçak gövde darbesi + büyük metal levhanın uzun, hafif uyumsuz kipleri (sessizliğe uzanan kuyruk) + zincir/halka şıngırtısı."""
+    dur = dur or 6.5
+    n = _n(dur)
+    t = np.arange(n) / SR
+    x = np.zeros((n, 2))
+    body = np.sin(D.PI2 * np.cumsum(55 + 75 * np.exp(-t / 0.06)) / SR) * np.exp(-t / 0.35)
+    imp = D.bp(rng.standard_normal(n), 200, 5000, 2) * np.exp(-t / 0.018) * 1.8
+    ring = np.zeros(n)
+    for fr, a, tau in [(96, 1.0, 2.6), (143, 0.8, 2.2), (231, 0.7, 1.8), (318, 0.55, 1.5), (472, 0.5, 1.2), (655, 0.4, 0.9), (930, 0.3, 0.6), (1380, 0.2, 0.4)]:
+        fr = fr * (1 + rng.uniform(-0.012, 0.012))
+        for sgn in (-1, 1):
+            ring += 0.5 * a * np.sin(D.PI2 * (fr + sgn * rng.uniform(0.2, 1.1)) * t + rng.uniform(0, 6.28)) * np.exp(-t / tau)
+    y = np.tanh(1.1 * (body * 0.9 + imp + ring))
+    _place(x, y, 0.0, 1.0, 0.0)
+    for _ in range(int(rng.integers(3, 6))):
+        c = float(rng.uniform(1800, 4800))
+        m = _n(0.3)
+        ts = np.arange(m) / SR
+        _place(x, np.sin(D.PI2 * c * ts) * np.exp(-ts / rng.uniform(0.04, 0.12)) * rng.uniform(0.05, 0.2), float(rng.uniform(0.05, 0.5)), 1.0, float(rng.uniform(-0.5, 0.5)))
+    return _room(x, 0.3, 2.4)[:n]
+
+
+def _lock_click(rng, dur, **kw):
+    """Kilit: anahtar dönüşü (iki küçük tık) + sürgü/dil 'klak' + kısa metal tınısı."""
+    dur = dur or 0.9
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    for t0, a in ((0.0, 0.6), (0.17, 0.7)):
+        m = _n(0.05)
+        ts = np.arange(m) / SR
+        c = D.bp(rng.standard_normal(m), 1800, 6000, 2) * np.exp(-ts / 0.004) + 0.4 * np.sin(D.PI2 * 2300 * ts) * np.exp(-ts / 0.01)
+        _place(x, c, t0, a, 0.05)
+    m = _n(0.45)
+    ts = np.arange(m) / SR
+    k = np.zeros(m)
+    for fr, a, tau in [(640, 1.0, 0.05), (1280, 0.6, 0.04), (2100, 0.4, 0.03)]:
+        k += a * np.sin(D.PI2 * fr * ts) * np.exp(-ts / tau)
+    k += D.bp(rng.standard_normal(m), 500, 3500, 2) * np.exp(-ts / 0.01) * 1.2
+    _place(x, k, 0.40, 1.0, 0.0)
+    return _room(D.lp(x, 9000), 0.15, 0.6)[:n]
+
+
+def _knock(rng, dur, kind="wood", n_hits=1, **kw):
+    """Tahta/metal vuruş: kind='wood' (tok) | 'metal' (parlak tık)."""
+    dur = dur or 0.5
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.02
+    for _ in range(int(n_hits)):
+        m = _n(0.25)
+        ts = np.arange(m) / SR
+        if kind == "metal":
+            y = sum(a * np.sin(D.PI2 * f * ts) * np.exp(-ts / tau) for f, a, tau in [(2400, 1.0, 0.03), (3900, 0.6, 0.02), (5300, 0.3, 0.012)]) + D.hp(rng.standard_normal(m), 3000, 2) * np.exp(-ts / 0.002)
+        else:
+            y = D.bp(rng.standard_normal(m), 180, 1100, 2) * np.exp(-ts / 0.012) * 1.6 + np.sin(D.PI2 * 240 * ts) * np.exp(-ts / 0.03) * 0.8
+        _place(x, y, t, rng.uniform(0.8, 1.0), float(rng.uniform(-0.2, 0.2)))
+        t += float(rng.uniform(0.16, 0.30))
+    return _room(x, 0.12, 0.5)[:n]
+
+
+# ═══════════════════════════ kalabalık / mekân (SÖZSÜZ) ═══════════════════════════
+def _crowd_chant(rng, dur, **kw):
+    """Ritmik kalabalık haykırışı (SÖZSÜZ): iki heceli ('pal-le') ünlü patlamaları a–e; 24 ses, hafif eşgüdümsüz. Medici: 'palle, palle' alayı (c7)."""
+    dur = dur or 5.0
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    period = float(kw.get("period", 0.66))
+    forms = {"a": (700, 1100, 2600), "e": (430, 1750, 2600)}
+    for v in range(24):
+        f0 = float(rng.uniform(105, 230))
+        pan = float(rng.uniform(-0.9, 0.9))
+        amp = float(rng.uniform(0.5, 1.0))
+        t = float(rng.uniform(0.0, 0.08))
+        while t < dur - 0.1:
+            for off, vow, L in ((0.0, "a", 0.22), (0.30, "e", 0.20)):
+                jit = float(rng.normal(0, 0.035))
+                m = _n(L) + 600
+                ts = np.arange(m) / SR
+                fr = f0 * (1 + 0.05 * np.sin(D.PI2 * 4.0 * ts + rng.uniform(0, 6)) + (0.08 if vow == "e" else 0.0) * (ts / L))
+                src = (2 * ((np.cumsum(fr) / SR) % 1) - 1) * 0.7 + 0.25 * rng.standard_normal(m)
+                f1, f2, f3 = forms[vow]
+                y = D.resonator(src, f1, 120) + 0.7 * D.resonator(src, f2, 150) + 0.3 * D.resonator(src, f3, 230)
+                env = np.sin(np.pi * np.clip(np.arange(m) / (m - 600), 0, 1)) ** 1.3
+                _place(x, y[:m] * env, t + off + jit, amp * float(rng.uniform(0.6, 1.0)), pan)
+            t += period * float(rng.uniform(0.97, 1.03))
+    x = x / (np.std(x) + 1e-9)
+    x = D.lp(x, 4200, 2)
+    x = D.fade_edges(x, 0.5, 0.9)
+    return _room(x, 0.25, 1.4)[:n]
+
+
+def _applause_far(rng, dur, **kw):
+    """Uzak alkış: yoğunluğu yükselip sönen küçük el çırpma patlamaları + mesafe süzgeci ve reverb."""
+    dur = dur or 6.0
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.0
+    while t < dur:
+        u = t / dur
+        rate = 90 * (np.clip(u / 0.2, 0, 1) ** 1.2) * (1 - np.clip((u - 0.55) / 0.45, 0, 1) ** 1.5) + 4
+        t += float(rng.exponential(1.0 / rate))
+        m = _n(float(rng.uniform(0.007, 0.016)))
+        ts = np.arange(m) / SR
+        c = D.bp(rng.standard_normal(m + 64), 1200, 4800, 2)[:m] * np.exp(-ts / (m / SR * 0.3))
+        _place(x, c, t, float(rng.lognormal(-0.8, 0.5)), float(rng.uniform(-0.9, 0.9)))
+    x = D.lp(x, 3800, 2)
+    x = D.fade_edges(x, 0.35, 1.2)
+    return _room(x, 0.5, 1.8)[:n]
+
+
+def _circ_reverb(x, rt60, wet=0.9, dry=0.35, seed=31):
+    """Döngüsel (dikişsiz) reverb: periyodik x (n,2) ile IR'nin dairesel evrişimi (FFT). IR < n olmalı."""
+    n = len(x)
+    ir = D.hall_ir(rt60, seed=seed)
+    ir = ir[:min(len(ir), n - 1)]
+    out = np.zeros_like(x)
+    for ch in range(2):
+        h = np.zeros(n)
+        h[:len(ir)] = ir[:, ch]
+        out[:, ch] = np.fft.irfft(np.fft.rfft(x[:, ch]) * np.fft.rfft(h), n)
+    return dry * x + wet * out * (np.std(x) / (np.std(out) + 1e-12))
+
+
+def _church_ambience(rng, dur, **kw):
+    """Kilise içi oda tonu (DÖNGÜ): uzak, sözsüz kalabalık uğultusu + uzun reverb + çok alçak oda uğultusu. 'Ayin yankısı' olarak: müzik değil, doku."""
+    n = _n(dur)
+    base = _crowd_murmur(rng, dur)
+    base = base / (np.std(base) + 1e-9)
+    x = _circ_reverb(base, 3.4, wet=1.0, dry=0.28)
+    hum = np.stack([_periodic_noise(rng, n, _bandshape(55, 190, 3)), _periodic_noise(rng, n, _bandshape(55, 190, 3))], axis=1)
+    x = x + 0.28 * hum
+    sos = np.concatenate([D.biquad("lp", 2300, 0, 0.7), D.biquad("lp", 2300, 0, 0.7)])
+    return D.periodic_filter(sos, x)
+
+
+def _hoof_far(rng, dur, **kw):
+    """Tek atın uzaklaşan nal sesi (yürüyüş): adım adım sönen, giderek donuklaşan, sağa/sola kayan."""
+    dur = dur or 3.8
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    pan0 = float(kw.get("pan0", -0.2))
+    for k in range(7):
+        t = 0.15 + k * 0.52 * float(rng.uniform(0.97, 1.03))
+        for o, a in ((0.0, 1.0), (0.26, 0.8)):
+            dist = 0.85 ** (k + o)
+            m = _n(0.25)
+            ts = np.arange(m) / SR
+            thud = np.sin(D.PI2 * 135 * ts * (1 + 0.3 * np.exp(-ts / 0.02))) * np.exp(-ts / 0.03)
+            thud += D.bp(rng.standard_normal(m), 180, 1000, 2) * np.exp(-ts / 0.022) * 1.2
+            clack = D.bp(rng.standard_normal(m), 1500, 4500, 2) * np.exp(-ts / 0.004) * 0.9
+            y = D.lp(thud + clack * (0.3 + 0.7 * dist), 5500 * dist + 900)
+            _place(x, y, t + o, a * dist, np.clip(pan0 + 0.12 * k, -1, 1))
+    return _room(x, 0.35, 1.4)[:n]
+
+
+def _footsteps(rng, dur, kind="stone", n_steps=6, pace=0.62, **kw):
+    """Adımlar (taş/ahşap zemin, yankılı mekân): ağır topuk darbesi + tık; hafif sağ-sol."""
+    dur = dur or (0.3 + n_steps * pace + 1.2)
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.12
+    for k in range(int(n_steps)):
+        m = _n(0.3)
+        ts = np.arange(m) / SR
+        if kind == "wood":
+            y = D.bp(rng.standard_normal(m), 150, 900, 2) * np.exp(-ts / 0.03) * 1.4 + np.sin(D.PI2 * 120 * ts) * np.exp(-ts / 0.04)
+        else:
+            y = D.lp(rng.standard_normal(m), 600, 2) * np.exp(-ts / 0.025) * 1.2 + np.sin(D.PI2 * 90 * ts) * np.exp(-ts / 0.035)
+            y += D.bp(rng.standard_normal(m), 1500, 3800, 2) * np.exp(-ts / 0.004) * 0.45
+        _place(x, y, t, float(rng.uniform(0.75, 1.0)), (-0.15 if k % 2 else 0.15))
+        t += pace * float(rng.uniform(0.94, 1.07))
+    return _room(x, 0.55 if kind == "stone" else 0.3, 2.2 if kind == "stone" else 0.9)[:n]
+
+
+def _distant_trumpet(rng, dur, **kw):
+    """Uzaktan trompet: iki nota (boş beşli), nefesli ataklı pirinç tınısı, güçlü mesafe süzgeci + uzun reverb. (c10: 9 Kasım → Capponi köprüsü)"""
+    dur = dur or 4.4
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    for f, t0, L in ((392.0, 0.0, 1.15), (587.33, 1.35, 1.9)):
+        m = _n(L)
+        tm = np.arange(m) / SR
+        tab = D.additive_table(f, lambda ff: (f / ff) ** 0.9 * (1 + 2.2 * np.exp(-((ff - 1500.0) / 800.0) ** 2)) / (1 + (ff / 3500.0) ** 4), rng, phase="random", max_hz=8000)
+        y = D.wt_osc(tab, f * (1 + 0.004 * np.sin(D.PI2 * 5.2 * tm)), m, phase0=rng.random())
+        y *= np.minimum(1.0, tm / 0.07) * np.minimum(1.0, (L - tm) / 0.25) * (0.85 + 0.15 * np.sin(D.PI2 * 4.0 * tm))
+        y += 0.05 * D.bp(rng.standard_normal(m), 3000, 6500, 2) * np.minimum(1.0, tm / 0.05) * np.exp(-tm / 0.3)
+        _place(x, y, t0, 1.0, 0.1)
+    x = D.lp(x, 2600, 2)
+    return _room(x, 0.9, 2.2)[:n]
+
+
+# ═══════════════════════════ deniz / halat / su / ateş / mum ═══════════════════════════
+def _rope_creak(rng, dur, **kw):
+    """Halat gerilimi: ince, yüksek perdeli sürtünme gıcırtısı (stick-slip) + alçak gerilme homurtusu."""
+    dur = dur or 2.6
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    for k in range(int(rng.integers(2, 4))):
+        t0 = float(rng.uniform(0.0, max(dur - 1.3, 0.1)))
+        L = float(rng.uniform(0.6, 1.2))
+        m = _n(L)
+        ts = np.arange(m) / SR
+        u = ts / L
+        f0 = float(rng.uniform(420, 760))
+        fr = f0 * (1 + 0.25 * np.sin(np.pi * u) + 0.05 * D.lp(rng.standard_normal(m), 10, 1) / 0.03)
+        rate = 52 + 18 * np.sin(np.pi * u)
+        gate = np.clip(1.0 - ((np.cumsum(rate) / SR) % 1.0) * 1.7, 0, 1) ** 0.8
+        saw = 2 * ((np.cumsum(fr) / SR) % 1.0) - 1
+        y = D.resonator_tv(saw * gate, 1100 + 700 * u, 260) * 2.4 + 0.3 * D.lp(saw * gate, 500, 2)
+        env = np.sin(np.pi * np.clip(u, 0, 1)) ** 0.9
+        _place(x, y * env * 0.35, t0, float(rng.uniform(0.7, 1.0)), float(rng.uniform(-0.4, 0.4)))
+    return _room(D.lp(x, 6500), 0.2, 0.9)[:n]
+
+
+def _water_lap(rng, dur, **kw):
+    """Liman suyu (DÖNGÜ): yumuşak yalama, küçük baloncuk 'plip'leri, düşük hışırtı."""
+    n = _n(dur)
+    out = np.zeros((n, 2))
+    t = np.arange(n) / SR
+    for ch in range(2):
+        low = _periodic_noise(rng, n, _bandshape(60, 520, 2))
+        swell = 0.55 + 0.45 * np.sin(D.PI2 * 2 * t / dur + rng.uniform(0, 6)) * np.sin(D.PI2 * 3 * t / dur + rng.uniform(0, 6))
+        hi = _periodic_noise(rng, n, _bandshape(1800, 6500, 2))
+        out[:, ch] = low * swell * 0.9 + hi * (swell ** 2) * 0.12
+    for _ in range(int(dur * 6)):
+        m = _n(0.025)
+        ts = np.arange(m) / SR
+        f = float(rng.uniform(300, 800))
+        y = np.sin(D.PI2 * np.cumsum(f * (1 + 2.0 * ts / 0.025)) / SR) * np.exp(-ts / 0.007)
+        _place_wrap(out, y, float(rng.uniform(0, dur)), float(rng.uniform(0.05, 0.2)), float(rng.uniform(-0.8, 0.8)))
+    return out
+
+
+def _candle_flame(rng, dur, **kw):
+    """Mum alevi (DÖNGÜ): çok yumuşak titreşim (alçak gürültü + 6–12 Hz kıpırtı), seyrek minik çıtırtı, ara sıra hafif 'fış'."""
+    n = _n(dur)
+    out = np.zeros((n, 2))
+    t = np.arange(n) / SR
+    for ch in range(2):
+        bed = _periodic_noise(rng, n, _bandshape(90, 800, 2))
+        flick = 0.65 + 0.2 * np.sin(D.PI2 * 3 * t / dur + rng.uniform(0, 6)) + 0.15 * np.sin(D.PI2 * 8 * t / dur + rng.uniform(0, 6))
+        flut = _periodic_noise(rng, n, _bandshape(3, 14, 2))
+        flut = 1 + 0.35 * np.clip(flut / (np.std(flut) + 1e-9), -2, 2) / 2
+        mid = _periodic_noise(rng, n, _bandshape(400, 1800, 2)) * 0.22
+        out[:, ch] = bed * flick * 0.6 + mid * flick * np.clip(flut, 0.3, 1.7)
+    for _ in range(int(dur * 1.1)):
+        c = float(np.exp(rng.uniform(np.log(1500), np.log(6500))))
+        L = int(rng.uniform(0.001, 0.003) * SR) + 40
+        b = D.bp(rng.standard_normal(L + 32), c / 1.5, min(c * 1.5, 14000), 2)[:L] * np.exp(-np.arange(L) / (L * 0.3))
+        _place_wrap(out, b / (np.max(np.abs(b)) + 1e-9), float(rng.uniform(0, dur)), float(rng.lognormal(-2.3, 0.6)), float(rng.uniform(-0.6, 0.6)))
+    for _ in range(max(1, int(dur / 3.0))):
+        L = int(0.4 * SR)
+        ts = np.arange(L) / SR
+        b = D.lp(rng.standard_normal(L), 700, 2) * np.sin(np.pi * ts / 0.4) ** 2 * 0.5
+        _place_wrap(out, b, float(rng.uniform(0, dur)), 0.4, float(rng.uniform(-0.5, 0.5)))
+    return out
+
+
+def _candle_snuff(rng, dur, **kw):
+    """Mum sönmesi: nefes/üfleme + fitil çızırtısı ve kısa duman fışırtısı."""
+    dur = dur or 1.8
+    n = _n(dur)
+    t = np.arange(n) / SR
+    puff = D.bp(rng.standard_normal(n), 500, 3500, 2) * np.exp(-t / 0.05) * (1 - np.exp(-t / 0.012)) * 1.0
+    hiss = D.hp(rng.standard_normal(n), 2200, 2) * np.exp(-t / 0.35) * (1 - np.exp(-t / 0.05)) * 0.22
+    poof = np.sin(D.PI2 * 70 * t) * np.exp(-t / 0.06) * 0.3
+    x = np.stack([puff + hiss + poof, (puff + hiss + poof) * 0.95], axis=1)
+    for _ in range(int(rng.integers(3, 7))):
+        c = float(rng.uniform(2500, 6000))
+        L = _n(0.004)
+        ts = np.arange(L) / SR
+        _place(x, np.sin(D.PI2 * c * ts) * np.exp(-ts / 0.0012), float(rng.uniform(0.1, 0.9)), float(rng.uniform(0.05, 0.15)), float(rng.uniform(-0.4, 0.4)))
+    return _room(x, 0.1, 0.5)[:n]
+
+
+def _candle_out_in(rng, dur, **kw):
+    """Mum sönmesi + karanlık + yeni mum yanışı (geçiş 'candle'): snuff, ~1 sn sessizlik, hafif 'fış' + alev titremesi yükselir."""
+    dur = dur or 3.0
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    sn = _candle_snuff(rng, 1.4)
+    _place(x, sn[:, 0], 0.0, 1.0, -0.1)
+    t0 = 1.15
+    m = _n(0.35)
+    ts = np.arange(m) / SR
+    ig = D.lp(rng.standard_normal(m), 900, 2) * np.sin(np.pi * ts / 0.35) ** 1.5
+    _place(x, ig, t0, 0.5, 0.1)
+    fl = _candle_flame(rng_for("cof", int(rng.integers(1 << 30))), 4.0)
+    L = min(len(fl), n - _n(t0 + 0.2))
+    env = np.minimum(1.0, np.arange(L) / (0.8 * SR))[:, None]
+    x[_n(t0 + 0.2):_n(t0 + 0.2) + L] += fl[:L] * env * 0.7
+    return x
+
+
+# ═══════════════════════════ mekanizma / yazı / kâğıt / taş ═══════════════════════════
+def _keyboard_action(rng, dur, kind="harpsichord", n_keys=6, **kw):
+    """Klavye mekanizması: tuş 'tok'u + (klavsen) çubuk-pena çıtlaması / (piyano) çekiç darbesi + sönümleyici. Telsiz: yalnız mekanizma sesi (nota yok)."""
+    dur = dur or (0.4 + 0.4 * n_keys + 0.8)
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.1
+    for k in range(int(n_keys)):
+        m = _n(0.22)
+        ts = np.arange(m) / SR
+        key = D.lp(rng.standard_normal(m), 900, 2) * np.exp(-ts / 0.012) + np.sin(D.PI2 * 180 * ts) * np.exp(-ts / 0.02) * 0.8
+        if kind == "piano":
+            ham = D.lp(rng.standard_normal(m), 1800, 2) * np.exp(-ts / 0.02) * 0.9 + np.sin(D.PI2 * 120 * ts) * np.exp(-ts / 0.03) * 0.7
+            y = key * 0.8 + ham
+        else:
+            jack = D.hp(rng.standard_normal(m), 3500, 2) * np.exp(-ts / 0.004) * 0.9 + D.resonator(rng.standard_normal(m), 2300, 800) * np.exp(-ts / 0.008) * 0.6
+            y = key + jack
+        _place(x, y, t, float(rng.uniform(0.6, 1.0)), float(rng.uniform(-0.25, 0.25)))
+        if rng.random() < 0.6:        # tuş bırakma
+            _place(x, D.bp(rng.standard_normal(m), 400, 2500, 2) * np.exp(-ts / 0.01) * 0.3, t + float(rng.uniform(0.12, 0.3)), 0.5, 0.0)
+        t += float(rng.uniform(0.22, 0.52))
+    return _room(x, 0.15, 0.7)[:n]
+
+
+def _glass_chime(rng, dur, root=None, **kw):
+    """Lens/cam tınısı: cam kadeh benzeri uyumsuz kısmiler (hafif vurma çiftleri), uzun parlak sönüm. root: Hz."""
+    dur = dur or 3.6
+    n = _n(dur)
+    t = np.arange(n) / SR
+    f = float(root or 1568.0)
+    y = np.zeros(n)
+    for r, a, tau in [(1.0, 1.0, 2.6), (2.32, 0.5, 1.9), (4.25, 0.32, 1.3), (6.63, 0.18, 0.9), (9.38, 0.1, 0.55)]:
+        fr = f * r
+        if fr > 17000:
+            continue
+        for sgn in (-1, 1):
+            y += 0.5 * a * np.sin(D.PI2 * (fr + sgn * rng.uniform(1.0, 3.2)) * t + rng.uniform(0, 6.28)) * np.exp(-t / tau)
+    y += 0.4 * D.hp(rng.standard_normal(n), 4000, 2) * np.exp(-t / 0.003)
+    y *= np.minimum(1.0, t / 0.0012)
+    x = np.stack([y, y * 0.92], axis=1)
+    return _room(x, 0.3, 1.5)[:n]
+
+
+def _stamp_thud(rng, dur, **kw):
+    """Damga çarpması (mürekkepli ahşap damga): tok darbe + kâğıt tokadı + kısa mürekkep 'cık'."""
+    dur = dur or 0.9
+    n = _n(dur)
+    t = np.arange(n) / SR
+    thump = D.lp(rng.standard_normal(n), 600, 2) * np.exp(-t / 0.03) * 1.3 + np.sin(D.PI2 * 105 * t * (1 + 0.25 * np.exp(-t / 0.02))) * np.exp(-t / 0.055) * 1.0
+    slap = D.hp(rng.standard_normal(n), 1500, 2) * np.exp(-t / 0.008) * 0.45
+    ink = D.bp(rng.standard_normal(n), 250, 1300, 2) * (1 - np.exp(-t / 0.02)) * np.exp(-t / 0.15) * 0.25
+    y = thump + slap + ink
+    x = np.stack([y, y], axis=1)
+    return _room(x, 0.1, 0.5)[:n]
+
+
+def _coin_roll(rng, dur, **kw):
+    """Sikke yuvarlanıp yerleşir: hızlanan sallantı (wobble) + sönen halka tınısı, sonda 3 hızlı tık."""
+    dur = dur or 2.5
+    n = _n(dur)
+    t = np.arange(n) / SR
+    f = float(rng.uniform(3000, 3600))
+    rate = 5.0 + 26.0 * (t / 1.9) ** 2.2
+    wob = 0.5 + 0.5 * np.cos(D.PI2 * np.cumsum(rate) / SR)
+    env = np.exp(-t / 1.4) * np.clip((1.95 - t) / 0.2, 0, 1) * np.minimum(1.0, t / 0.01)
+    y = (np.sin(D.PI2 * f * t) + 0.5 * np.sin(D.PI2 * f * 2.39 * t)) * wob * env * 0.5
+    y += D.bp(rng.standard_normal(n), 250, 900, 2) * wob * env * 0.12
+    x = np.stack([y, y], axis=1)
+    for dt, a in ((1.93, 1.0), (2.01, 0.7), (2.07, 0.5)):
+        _place(x, _coin_ring(rng, f0=f, tau=0.05) * 0.5, dt, a, 0.05)
+    return D.lp(x, 14000)[:n]
+
+
+def _type_set(rng, dur, **kw):
+    """Matbaa harf dizimi: harf kalıplarının dizgi çubuğuna tek tek yerleşen metal tıkları; sonda büyük 'klak'."""
+    dur = dur or 2.6
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.1
+    while t < dur - 0.5:
+        m = _n(0.06)
+        ts = np.arange(m) / SR
+        y = sum(a * np.sin(D.PI2 * f * ts * (1 + rng.uniform(-0.02, 0.02))) * np.exp(-ts / tau)
+                for f, a, tau in [(rng.uniform(3200, 4200), 1.0, 0.012), (rng.uniform(5200, 7000), 0.5, 0.008)])
+        y += D.hp(rng.standard_normal(m), 3500, 2) * np.exp(-ts / 0.0025) * 0.8
+        _place(x, y, t, float(rng.uniform(0.35, 0.9)), float(rng.uniform(-0.4, 0.4)))
+        t += float(rng.uniform(0.11, 0.26))
+    m = _n(0.2)
+    ts = np.arange(m) / SR
+    big = D.bp(rng.standard_normal(m), 600, 3500, 2) * np.exp(-ts / 0.015) * 1.2 + np.sin(D.PI2 * 420 * ts) * np.exp(-ts / 0.04) * 0.8
+    _place(x, big, t + 0.05, 0.9, 0.0)
+    return _room(D.lp(x, 11000), 0.12, 0.6)[:n]
+
+
+def _press_thud(rng, dur, **kw):
+    """Vidalı baskı: yükselen ahşap gıcırtısı + ağır tok baskı darbesi + kâğıt soyulma hışırtısı."""
+    dur = dur or 2.6
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    L = _n(0.95)
+    ts = np.arange(L) / SR
+    u = ts / 0.95
+    saw = 2 * ((np.cumsum(150 + 90 * u) / SR) % 1.0) - 1
+    gate = np.clip(1.0 - ((np.cumsum(30 + 20 * u) / SR) % 1.0) * 1.6, 0, 1) ** 0.8
+    cr = D.resonator_tv(saw * gate, 420 + 300 * u, 200) * 1.4 * np.sin(np.pi * np.clip(u, 0, 1)) ** 0.7
+    _place(x, cr * 0.5, 0.0, 0.8, -0.1)
+    t0 = 1.0
+    m = _n(0.6)
+    tm = np.arange(m) / SR
+    th = D.lp(rng.standard_normal(m), 400, 2) * np.exp(-tm / 0.05) * 1.4 + np.sin(D.PI2 * 70 * tm) * np.exp(-tm / 0.12) * 1.1
+    _place(x, th, t0, 1.0, 0.0)
+    m = _n(0.35)
+    tm = np.arange(m) / SR
+    pe = D.hp(rng.standard_normal(m), 2000, 2) * np.sin(np.pi * tm / 0.35) ** 1.5 * 0.35
+    _place(x, pe, t0 + 0.4, 0.6, 0.2)
+    return _room(D.lp(x, 9000), 0.2, 0.9)[:n]
+
+
+def _book_close(rng, dur, **kw):
+    """Defter kapanışı: ağır cilt darbesi + hava üflemesi + kâğıt kıpırtısı (c9: şubeler tek tek kapanır). pitch: 1.0 = varsayılan (alçalan seri için <1)."""
+    dur = dur or 1.5
+    n = _n(dur)
+    t = np.arange(n) / SR
+    p = float(kw.get("pitch", 1.0))
+    thump = np.sin(D.PI2 * np.cumsum((100 * p) * (0.6 + 0.4 * np.exp(-t / 0.05))) / SR) * np.exp(-t / 0.09) * 1.3
+    thump += D.lp(rng.standard_normal(n), 500, 2) * np.exp(-t / 0.03) * 1.1
+    puff = D.bp(rng.standard_normal(n), 300, 2500, 2) * np.exp(-t / 0.12) * (1 - np.exp(-t / 0.01)) * 0.5
+    x = np.stack([thump + puff, (thump + puff) * 0.97], axis=1)
+    cr = _crinkles(rng, dur, 140, lambda tt: float(0.5 * np.exp(-tt / 0.3) + 0.03), lo=1500, hi=6000, amp=0.4)
+    x[:len(cr)] += cr[:n]
+    return _room(x, 0.15, 0.7)[:n]
+
+
+def _letter_open(rng, dur, **kw):
+    """Mektup açılışı: mühür mumunun çatlaması + kâğıdın açılıp düzleşmesi."""
+    dur = dur or 1.8
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    m = _n(0.05)
+    ts = np.arange(m) / SR
+    cr = D.hp(rng.standard_normal(m), 2000, 2) * np.exp(-ts / 0.006) * 1.2 + np.sin(D.PI2 * 2800 * ts) * np.exp(-ts / 0.004) * 0.5
+    _place(x, cr, 0.05, 0.9, 0.0)
+    pa = _crinkles(rng, 1.3, 190, lambda tt: float(0.9 * np.exp(-0.5 * ((tt - 0.45) / 0.22) ** 2) + 0.04), amp=0.8)
+    _place(x, pa[:, 0], 0.18, 0.7, -0.15)
+    _place(x, pa[:, 1], 0.18, 0.7, 0.15)
+    return D.lp(x, 11000)[:n]
+
+
+def _pin_stick(rng, dur, **kw):
+    """Harita iğnesi dikme: küçük ahşap 'tak' + ince metal tınısı."""
+    dur = dur or 0.4
+    n = _n(dur)
+    t = np.arange(n) / SR
+    y = D.bp(rng.standard_normal(n), 800, 2600, 2) * np.exp(-t / 0.008) * 1.2 + np.sin(D.PI2 * 4300 * t) * np.exp(-t / 0.06) * 0.25 + np.sin(D.PI2 * 260 * t) * np.exp(-t / 0.02) * 0.5
+    x = np.stack([y, y], axis=1)
+    return _room(x, 0.1, 0.4)[:n]
+
+
+def _chisel_tap(rng, dur, **kw):
+    """Sert taş atölyesi: kalemle taş oyma vuruşları (parlak tık + kısa alçak gövde), düzensiz aralık."""
+    dur = dur or 2.2
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    t = 0.1
+    while t < dur - 0.4:
+        m = _n(0.12)
+        ts = np.arange(m) / SR
+        y = np.sin(D.PI2 * float(rng.uniform(1500, 2200)) * ts) * np.exp(-ts / 0.012) + D.bp(rng.standard_normal(m), 1000, 5000, 2) * np.exp(-ts / 0.004) * 0.9 + np.sin(D.PI2 * 300 * ts) * np.exp(-ts / 0.015) * 0.4
+        _place(x, y, t, float(rng.uniform(0.6, 1.0)), float(rng.uniform(-0.3, 0.3)))
+        t += float(rng.uniform(0.17, 0.42))
+    return _room(x, 0.2, 0.9)[:n]
+
+
+def _brush_stroke(rng, dur, **kw):
+    """Fırça darbesi (duvara yazı): yumuşak ataklı sürtünme hışırtısı."""
+    dur = dur or 0.7
+    n = _n(dur)
+    t = np.arange(n) / SR
+    y = D.bp(rng.standard_normal(n), 800, 6000, 2) * np.sin(np.pi * np.clip(t / dur, 0, 1)) ** 1.6 * (0.7 + 0.3 * np.sin(D.PI2 * 30 * t))
+    return np.stack([y, y * 0.95], axis=1)
+
+
+# ═══════════════════════════ MEDICI geçiş sesleri ═══════════════════════════
+def _wash_swell(rng, dur, **kw):
+    """Pigment yıkama ('yikama'): ıslak boyanın yayılması — yumuşak, bantlı gürültü kabarması + hafif damlama dokusu."""
+    dur = dur or 1.1
+    n = _n(dur)
+    t = np.arange(n) / SR
+    u = t / dur
+    env = np.sin(np.pi * np.clip(u, 0, 1)) ** 1.6
+    nz = _stereo_noise(rng, n)
+    y = D.bp(nz, 250, 2600, 2) * (env * (0.75 + 0.25 * np.sin(D.PI2 * 3.1 * t + 0.5)))[:, None]
+    y += D.bp(nz, 80, 300, 2) * (env ** 1.5)[:, None] * 0.5
+    for _ in range(int(dur * 9)):
+        m = _n(0.02)
+        ts = np.arange(m) / SR
+        f = float(rng.uniform(500, 1400))
+        _place(y, np.sin(D.PI2 * np.cumsum(f * (1 + 1.5 * ts / 0.02)) / SR) * np.exp(-ts / 0.006), float(rng.uniform(0.1, dur - 0.1)), float(rng.uniform(0.03, 0.1)) * float(env[min(int(rng.uniform(0.1, dur - 0.1) * SR), n - 1)]), float(rng.uniform(-0.7, 0.7)))
+    return D.lp(y, 9000)
+
+
+def _plaster_scrape(rng, dur, **kw):
+    """Fresko günlüğü ('giornata'): sıva yamalarının mala ile sürülmesi — kısa, taneli kazıma vuruşları."""
+    dur = dur or 1.0
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    k = int(rng.integers(3, 5))
+    for i in range(k):
+        L = float(rng.uniform(0.14, 0.26))
+        m = _n(L)
+        ts = np.arange(m) / SR
+        env = np.sin(np.pi * ts / L) ** 1.2
+        g = 0.55 + 0.45 * (D.lp(rng.standard_normal(m), 160, 2) / 0.1)
+        y = D.bp(rng.standard_normal(m), 900, 5500, 2) * env * np.clip(g, 0.1, 2.0)
+        _place(x, y, 0.04 + i * dur / (k + 0.5) * float(rng.uniform(0.8, 1.1)), float(rng.uniform(0.6, 1.0)), float(rng.uniform(-0.5, 0.5)))
+    return D.lp(x, 8500)
+
+
+def _dip_drop(rng, dur, **kw):
+    """'dip' (siyaha iniş): alçalan alt-bas + havanın çekilmesi (düşen bantlı gürültü) + uzun reverb kuyruğu."""
+    dur = dur or 2.6
+    n = _n(dur)
+    t = np.arange(n) / SR
+    f = 32 + 58 * np.exp(-t / 0.55)
+    sub = np.sin(D.PI2 * np.cumsum(f) / SR) * np.exp(-t / 0.9) * np.minimum(1.0, t / 0.02)
+    nz = rng.standard_normal(n)
+    sweep = np.zeros(n)
+    for c in np.exp(np.linspace(np.log(3000), np.log(220), 12)):
+        pos = np.log(3000 / c) / np.log(3000 / 220) * 0.7
+        g = np.exp(-0.5 * ((t - pos) / 0.12) ** 2)
+        sweep += D.bp(nz, c / 1.3, min(c * 1.3, 12000), 2) * g
+    sweep *= 0.5
+    th = D.lp(rng.standard_normal(n), 250, 2) * np.exp(-t / 0.06) * 0.8
+    y = sub * 1.1 + sweep + th
+    x = np.stack([y, y * 0.98], axis=1)
+    return _room(x, 0.4, 2.2)[:n]
+
+
+def _light_swell(rng, dur, root=None, **kw):
+    """'light' (sıcak ışık huzmesi): yavaş kabaran uyumlu harmonik örtü (add9) + havadar parıltı. root: Hz (müziğin ana sesine akort)."""
+    dur = dur or 2.6
+    n = _n(dur)
+    t = np.arange(n) / SR
+    f = float(root or 392.0)
+    y = np.zeros(n)
+    for r, a in [(1.0, 1.0), (1.5, 0.7), (2.0, 0.6), (2.5, 0.35), (3.0, 0.3)]:
+        for dt_ in (-0.7, 0.7):
+            y += 0.5 * a * np.sin(D.PI2 * (f * r + dt_) * t + rng.uniform(0, 6.28)) * (1 - np.exp(-t / 0.7)) * np.exp(-np.maximum(t - 0.8, 0) / 1.1)
+    air = D.bp(rng.standard_normal(n), 3500, 9500, 2) * (1 - np.exp(-t / 0.6)) * np.exp(-np.maximum(t - 0.8, 0) / 0.9) * 0.05
+    x = np.stack([y + air, y * 0.94 - air], axis=1)
+    return _room(x, 0.3, 1.8)[:n]
+
+
+def _zoom_rush(rng, dur, long=False, **kw):
+    """'zoom' / 'zoomthru': hızlanan hava hücumu (yükselen bantlı gürültü) + yükselen alt-bas, sonda yumuşak oturma darbesi."""
+    dur = dur or (1.5 if long else 0.9)
+    n = _n(dur)
+    t = np.arange(n) / SR
+    u = t / dur
+    nz = _stereo_noise(rng, n)
+    out = np.zeros((n, 2))
+    nb = 14
+    cs = np.exp(np.linspace(np.log(260), np.log(5200), nb))
+    for i, c in enumerate(cs):
+        pos = ((i + 0.5) / nb) ** 1.3 * 0.82
+        g = np.exp(-0.5 * ((u - pos) / 0.14) ** 2)
+        out += D.bp(nz, c / 1.3, min(c * 1.3, 14000), 2) * g[:, None]
+    out *= (u ** 1.5 * np.clip((1.0 - u) / 0.12, 0, 1))[:, None]
+    sub = np.sin(D.PI2 * np.cumsum(40 + 80 * u ** 2) / SR) * u ** 2 * np.clip((1 - u) / 0.1, 0, 1) * 0.35
+    out += np.stack([sub, sub], axis=1)
+    m = _n(0.25)
+    tm = np.arange(m) / SR
+    th = D.lp(rng.standard_normal(m), 260, 2) * np.exp(-tm / 0.05) * 0.5 + np.sin(D.PI2 * 70 * tm) * np.exp(-tm / 0.08) * 0.5
+    _place(out, th, max(dur - 0.12, 0.1), 0.8, 0.0)
+    return D.hp(out, 60, 2)
+
+
+def _cloth_sweep(rng, dur, dir="r", **kw):
+    """'carry' (öne gelen şerit ekranı süpürür): kumaş/kâğıt şeridin hışırtılı süpürüşü; dir: şeridin gittiği yön ('r' soldan sağa)."""
+    dur = dur or 1.0
+    n = _n(dur)
+    t = np.arange(n) / SR
+    u = t / dur
+    env = np.sin(np.pi * np.clip(u, 0, 1)) ** 1.3
+    y = D.bp(rng.standard_normal(n), 500, 3800, 2) * env * (0.8 + 0.2 * np.sin(D.PI2 * 9 * t))
+    pan = (np.clip(u, 0, 1) * 2 - 1) * 0.8 * (1 if dir == "r" else -1)
+    gl, gr = D.pan_gains(pan)
+    x = np.stack([y * gl, y * gr], axis=1)
+    m = _n(0.05)
+    fl = D.hp(rng.standard_normal(m), 1500, 2) * np.exp(-np.arange(m) / (0.01 * SR))
+    _place(x, fl, dur * 0.8, 0.35, 0.8 * (1 if dir == "r" else -1))
+    return D.lp(x, 10000)
+
+
+def _slide_glide(rng, dur, dir="r", **kw):
+    """'slide' (iki çekim birlikte kayar): alçak, yumuşak ahşap-kâğıt kayma + hava; dir: kameranın yönü ('r': içerik sola akar → pan sağdan sola)."""
+    dur = dur or 1.0
+    n = _n(dur)
+    t = np.arange(n) / SR
+    u = t / dur
+    env = np.sin(np.pi * np.clip(u, 0, 1)) ** 1.2
+    nz = rng.standard_normal(n)
+    y = D.bp(nz, 150, 1300, 2) * env * 1.0 + D.resonator(nz, 380, 200) * env * 0.6
+    pan = (np.clip(u, 0, 1) * 2 - 1) * 0.6 * (-1 if dir == "r" else 1)
+    gl, gr = D.pan_gains(pan)
+    return np.stack([y * gl, y * gr], axis=1)
+
+
+def _iris_ring(rng, dur, obj="florin", root=None, **kw):
+    """'iris' (yuvarlak nesne ekranı doldurur): nesneye göre — florin: sikke halkası; palle: oyuk ahşap top 'tok'; sun/moon: ışık kabarması; dome: alçak kubbe rezonansı;
+    lens: cam tınısı; seal: mühür darbesi."""
+    dur = dur or 1.2
+    if obj == "florin":
+        n = _n(dur)
+        x = np.zeros((n, 2))
+        _place(x, _coin_ring(rng, f0=float(rng.uniform(3000, 3800)), tau=0.16), 0.0, 0.8, 0.0)
+        _place(x, _coin_ring(rng, f0=float(rng.uniform(2600, 3300)), tau=0.12), 0.09, 0.5, 0.2)
+        sw = _whoosh(rng_for("iris", int(rng.integers(1 << 30))), dur, False) * 0.35
+        x[:len(sw)] += sw[:n]
+        return D.lp(x, 14000)[:n]
+    if obj == "palle":
+        n = _n(dur)
+        t = np.arange(n) / SR
+        y = D.resonator(rng.standard_normal(n), 320, 70) * np.exp(-t / 0.14) * 1.4 + np.sin(D.PI2 * 190 * t) * np.exp(-t / 0.09) * 0.8
+        y += D.bp(rng.standard_normal(n), 900, 3200, 2) * np.exp(-t / 0.008) * 0.5
+        x = np.stack([y, y], axis=1)
+        return _room(x, 0.15, 0.7)[:n]
+    if obj in ("sun", "moon"):
+        return _light_swell(rng, dur + 0.8, root=float(root or (392.0 if obj == "sun" else 329.63)))
+    if obj == "dome":
+        n = _n(dur + 0.8)
+        t = np.arange(n) / SR
+        y = (np.sin(D.PI2 * 82.4 * t) + 0.6 * np.sin(D.PI2 * 123.5 * t) + 0.4 * np.sin(D.PI2 * 165 * t)) * (1 - np.exp(-t / 0.35)) * np.exp(-np.maximum(t - 0.5, 0) / 0.9) * 0.6
+        y += D.bp(rng.standard_normal(n), 150, 900, 2) * (1 - np.exp(-t / 0.3)) * np.exp(-np.maximum(t - 0.4, 0) / 0.6) * 0.25
+        return _room(np.stack([y, y], axis=1), 0.5, 2.4)[:n]
+    if obj == "lens":
+        return _glass_chime(rng, dur + 1.5)
+    if obj == "seal":
+        return _wax_seal_stamp(rng, dur)
+    return _whoosh(rng, dur, False)
+
+
+def _whoosh_dir(rng, dur, dir="l", soft=False, **kw):
+    """Yönlü whoosh (whip/wipe): dir KAMERA yönüdür; içerik tersine akar → 'r' için ses sağdan sola kayar. soft=True: wipe (daha yumuşak, parıltılı)."""
+    x = _whoosh(rng, dur or (0.9 if soft else 0.7), False)
+    pan_sign = -1.0 if dir == "r" else 1.0
+    # _whoosh varsayılanı soldan sağa; ters yön için kanalları çevir
+    if pan_sign < 0:
+        x = x[:, ::-1].copy()
+    return D.lp(x, 6500) if soft else x
+
+
+def _chapter_stinger_flavor(rng, dur, root=None, flavor="altin", **kw):
+    """Bölüm kartı vurgusu — perde rengine göre: altin (P1: sıcak org + lavta/çan parıltısı), bedel (P2: koyu — alçak org beşlisi + gamba + hafif gong, çan yok),
+    miras (P3: sakin — yumuşak org + üç notalık lavta hücresi)."""
+    dur = dur or 2.6
+    r = float(root or 146.83)
+    n = _n(dur)
+    x = np.zeros((n, 2))
+    if flavor == "bedel":
+        for i, st in enumerate((0, 7, 12)):
+            f = r * 2 ** (st / 12)
+            tab = D.additive_table(f, lambda ff: (f / ff) ** 1.6 / (1 + (ff / 3200.0) ** 4), rng, phase="random")
+            y = D.wt_osc(tab, f * (1 + rng.uniform(-0.0004, 0.0004)), n, phase0=rng.random()) * D.adsr(n, 0.25, 0.2, 0.8, 1.4)
+            gl, gr = D.pan_gains((-0.2, 0.2, 0.0)[i])
+            x[:, 0] += y * gl
+            x[:, 1] += y * gr
+        g = D.gong_tone(r * 0.5, dur, 1.0, rng, bloom=1.0)
+        x += 0.22 * np.stack([g, g * 0.85], axis=1)
+        return _room(x, 0.3, 2.0)[:n]
+    if flavor == "miras":
+        xo = _golden_chord(rng, r, dur, organ=0.7, gong=0.0, bell=0.0, attack=0.25, release=1.4, voicing=(0, 7, 12, 16))
+        x += xo
+        for k, (dt, st) in enumerate(((0.35, 7), (0.75, 7), (1.2, 4))):     # üç nota: tekrar eden iki + düşen üçlü
+            f = r * 4 * 2 ** (st / 12)
+            y = D.ks_string(f, 1.6, rng, S=0.5, t60=2.0, bright=0.5, pick=0.15, damp=0.3, vel=1.0)
+            y = D.fade_edges(y, 0.0004, 0.05)
+            _place(x, y / (np.max(np.abs(y)) + 1e-9) * 0.5, dt, 1.0, 0.15)
+        return _room(x, 0.25, 1.8)[:n]
+    xo = _golden_chord(rng, r, dur, organ=1.0, gong=0.4, bell=0.45, attack=0.07, release=1.2)
+    return _room(xo, 0.25, 1.8)[:n]
+
+
 # ═══════════════════════════ kayıt defteri ═══════════════════════════
 REGISTRY = {
     "paper_rustle": _paper_rustle, "page_turn": _page_turn, "wax_seal_stamp": _wax_seal_stamp, "quill_scratch": _quill_scratch,
@@ -819,6 +1528,305 @@ def sfx(name, seed=0, dur=None, loop=False, **kw):
     if dur is not None:
         x = _fit(x, dur, loop=False)
     return _finish(x, name=name)
+
+
+# ═══════════════════════════ MEDICI kayıt defteri ek girişleri ═══════════════════════════
+REGISTRY.update({
+    # kapı / kilit / metal / tahta
+    "door_bolt": _door_bolt, "door_bronze": _door_bronze, "lock_click": _lock_click,
+    "knock_wood": lambda rng, dur, **kw: _knock(rng, dur, "wood", **kw), "knock_metal": lambda rng, dur, **kw: _knock(rng, dur, "metal", **kw),
+    # kalabalık / mekân (sözsüz)
+    "crowd_chant": _crowd_chant, "applause_far": _applause_far, "church_ambience": _church_ambience,
+    "hoof_far": _hoof_far, "footsteps": _footsteps, "distant_trumpet": _distant_trumpet,
+    # deniz / halat / su / ateş / mum
+    "rope_creak": _rope_creak, "water_lap": _water_lap, "candle_flame": _candle_flame, "candle_snuff": _candle_snuff, "candle_out_in": _candle_out_in,
+    # mekanizma / yazı / kâğıt / taş
+    "keyboard_action": _keyboard_action, "glass_chime": _glass_chime, "stamp_thud": _stamp_thud, "coin_roll": _coin_roll,
+    "type_set": _type_set, "press_thud": _press_thud, "book_close": _book_close, "letter_open": _letter_open,
+    "pin_stick": _pin_stick, "chisel_tap": _chisel_tap, "brush_stroke": _brush_stroke,
+    # geçiş sesleri
+    "wash_swell": _wash_swell, "plaster_scrape": _plaster_scrape, "dip_drop": _dip_drop, "light_swell": _light_swell,
+    "zoom_rush": _zoom_rush, "zoom_rush_long": lambda rng, dur, **kw: _zoom_rush(rng, dur, True), "cloth_sweep": _cloth_sweep,
+    "slide_glide": _slide_glide, "iris_ring": _iris_ring, "whoosh_dir": _whoosh_dir,
+    # perde rengine göre bölüm vurgusu (flavor=altin|bedel|miras); eski ad korunur
+    "chapter_stinger": _chapter_stinger_flavor,
+})
+LOOPABLE |= {"church_ambience", "water_lap", "candle_flame"}
+CREST.update({"door_bolt": 22, "door_bronze": 20, "lock_click": 22, "knock_wood": 22, "knock_metal": 22, "crowd_chant": 16, "applause_far": 16,
+              "hoof_far": 20, "footsteps": 20, "distant_trumpet": 16, "rope_creak": 18, "candle_snuff": 18, "candle_out_in": 18,
+              "keyboard_action": 24, "glass_chime": 20, "stamp_thud": 22, "coin_roll": 20, "type_set": 24, "press_thud": 20,
+              "book_close": 20, "letter_open": 20, "pin_stick": 22, "chisel_tap": 22, "brush_stroke": 16, "dip_drop": 18, "zoom_rush": 18,
+              "zoom_rush_long": 18, "cloth_sweep": 16, "slide_glide": 16, "iris_ring": 20, "plaster_scrape": 18, "wash_swell": 16})
+SFX_NAMES = sorted(REGISTRY)
+
+# ───────────────────────── katalog meta: Türkçe ad, tür, doğal süre, not ─────────────────────────
+CATALOG = {   # ad: (Türkçe, grup)
+    "page_turn": ("sayfa çevirme", "kâğıt/yazı"), "paper_rustle": ("kâğıt hışırtısı", "kâğıt/yazı"), "quill_scratch": ("kalem/tüy çiziği", "kâğıt/yazı"),
+    "wax_seal_stamp": ("mühür", "kâğıt/yazı"), "stamp_thud": ("damga çarpması", "kâğıt/yazı"), "letter_open": ("mektup açılışı", "kâğıt/yazı"),
+    "book_close": ("defter kapanışı", "kâğıt/yazı"), "type_set": ("harf dizimi (matbaa)", "kâğıt/yazı"), "press_thud": ("baskı presi", "kâğıt/yazı"),
+    "pin_stick": ("harita iğnesi", "kâğıt/yazı"), "brush_stroke": ("fırça darbesi", "kâğıt/yazı"),
+    "coin_clink": ("sikke şıngırtısı", "para"), "coin_pile": ("sikke yığını", "para"), "coin_roll": ("sikke yuvarlanır", "para"),
+    "door_bolt": ("kapı sürgüsü", "kapı/metal"), "door_bronze": ("tunç kapı çarpması", "kapı/metal"), "lock_click": ("kilit/anahtar", "kapı/metal"),
+    "gate_thud": ("ağır kapı çarpması (ahşap+zincir)", "kapı/metal"), "knock_wood": ("tahta vuruş", "kapı/metal"), "knock_metal": ("metal tık", "kapı/metal"),
+    "keyboard_action": ("klavye mekanizması (klavsen/piyano)", "kapı/metal"), "glass_chime": ("lens/cam tınısı", "kapı/metal"), "chisel_tap": ("sert taş oyma", "kapı/metal"),
+    "crowd_murmur": ("kalabalık uğultusu (sözsüz)", "kalabalık/mekân"), "crowd_chant": ("ritmik kalabalık haykırışı (sözsüz)", "kalabalık/mekân"),
+    "applause_far": ("uzak alkış", "kalabalık/mekân"), "church_ambience": ("kilise içi oda tonu", "kalabalık/mekân"), "footsteps": ("adımlar (taş/ahşap)", "kalabalık/mekân"),
+    "horse_hooves": ("nal sesi (dörtnala/yürüyüş)", "kalabalık/mekân"), "hoof_far": ("uzaklaşan tek at", "kalabalık/mekân"), "distant_trumpet": ("uzak trompet", "kalabalık/mekân"),
+    "fire_crackle": ("ateş çıtırtısı", "doğa"), "candle_flame": ("mum alevi (döngü)", "doğa"), "candle_snuff": ("mum sönmesi", "doğa"),
+    "sea_waves": ("deniz dalgaları", "doğa"), "water_lap": ("liman suyu (döngü)", "doğa"), "ship_creak": ("gemi ahşap gıcırtısı", "doğa"), "rope_creak": ("halat gerilimi", "doğa"),
+    "wind": ("rüzgâr", "doğa"), "rain": ("yağmur", "doğa"), "thunder": ("gök gürültüsü", "doğa"),
+    "church_bell": ("kilise çanı (YALNIZ kaynaklı olay)", "çan/gong/vuruş"), "bell_toll_low": ("alçak çan (YALNIZ kaynaklı olay)", "çan/gong/vuruş"), "gong_hit": ("gong", "çan/gong/vuruş"),
+    "title_hit": ("ana başlık vuruşu", "çan/gong/vuruş"), "chapter_stinger": ("bölüm kartı vurgusu (flavor=altin|bedel|miras)", "çan/gong/vuruş"),
+    "drum_hit": ("çerçeve davulu vuruşu", "çan/gong/vuruş"), "heartbeat": ("kalp atışı", "çan/gong/vuruş"), "tick": ("kuru tık", "çan/gong/vuruş"),
+    "cannon_boom": ("top (uzak, YALNIZ kuşatma)", "çan/gong/vuruş"), "sword_clash": ("kılıç (kullanma: şiddet gösterilmez)", "çan/gong/vuruş"), "magic_chime": ("büyülü çınlama (Şarlken'den; Medici'de kullanılmaz)", "çan/gong/vuruş"),
+    "whoosh": ("whoosh (soldan sağa)", "geçiş"), "whoosh_long": ("uzun whoosh", "geçiş"), "whoosh_dir": ("yönlü whoosh (whip/wipe)", "geçiş"),
+    "wash_swell": ("pigment yıkama", "geçiş"), "plaster_scrape": ("fresko sıva", "geçiş"), "dip_drop": ("siyaha iniş", "geçiş"), "light_swell": ("ışık huzmesi", "geçiş"),
+    "zoom_rush": ("zum hücumu", "geçiş"), "zoom_rush_long": ("uzun zum-geçiş", "geçiş"), "cloth_sweep": ("şerit süpürüşü", "geçiş"), "slide_glide": ("kayma", "geçiş"),
+    "iris_ring": ("iris (obj=florin|palle|sun|moon|dome|lens|seal)", "geçiş"), "candle_out_in": ("mum söner-yanar (candle)", "geçiş"),
+}
+
+# ───────────────────────── kaynak politikası: olay sesi olarak YASAK adlar (bölüm → ad kümesi) ─────────────────────────
+_BELLS = {"church_bell", "bell_toll_low", "gong_hit"}
+POLICY_FORBID = {
+    "c7": _BELLS,       # 26 Nisan 1478: çan çalma iddiası kaynakta yok ("SAAT/HAVA/KOKU/ÇAN YOK")
+    "c10": _BELLS,      # 9 Kasım 1494: saat/ışık/ÇAN yok (Capponi'nin 'çanlarla yanıt' sözü anlatıda söylenir; olay sesi DEĞİL)
+    "c13": _BELLS,      # 24 Ağustos 1572: şiddet yok, çan yok
+}
+POLICY_NOTE = {"c7": "c7: çan olay sesi yasak (kaynakta yok)", "c10": "c10: çan olay sesi yasak (kaynakta yok)", "c13": "c13: çan olay sesi yasak (1572: şiddet yok, çan yok)"}
+ALWAYS_AVOID = {"sword_clash": "şiddet gösterilmez (hançer/kılıç sesi yok)", "magic_chime": "Şarlken sesi; Medici paletinde yok"}
+
+# ───────────────────────── JSON sözleşmesi: sfx_cues_pN.json ─────────────────────────
+"""
+Biçim (UTF-8 JSON; kökte nesne ya da doğrudan liste):
+{ "surum": 1, "parca": 2,
+  "ayar": { "varsayilan_stinger": true, "gecis_sesleri": true },
+  "cues": [ { "id": "c7-oda", "ad": "church_ambience", "capa": ["c7s2", "katedralinde", -0.4], "bitis_capa": ["c7s3", "end", -1.5],
+              "seviye": -26, "pan": 0.0, "tohum": 3, "dongu": true, "gir": 1.0, "cik": 1.5, "bastir_db": -4, "parametre": {}, "bolum": "c7",
+              "not": "J-kesme: ayin yankısı görüntüden 0,4 sn önce", "kaynak": "scenes_c7.py V1" }, ... ] }
+Alanlar (Türkçe birincil, İngilizce Şarlken adı eşdeğerdir):
+  t | capa (anchor)     başlangıç: parça ses ekseninde saniye YA DA zaman çizelgesi çapası ["c7s17"] | ["c7s17", 0.3] | ["c7s17","sözcük",-0.1] | ["c7s17","end",0]
+  erken (lead)           sesi çapadan X sn ÖNCE başlat (J-kesme / ses köprüsü); varsayılan 0
+  ad (name)              sfx.py adı (python3 sfx.py --list)           seviye (gain_db)  dB (tepe −3 dBFS'e göre; ambiyans −24…−30, olay −14…−22)
+  sure (dur)             sn | null (doğal)                            dongu (loop)      true + sure (ya da bitis_capa) → dikişsiz döngü
+  bitis_capa (end_anchor) döngü/yatak bitişi (sure yerine)             gir/cik (fade_in/fade_out) yumuşatma sn
+  bastir_db (duck_db)    konuşma altında kısma (döngüde varsayılan −4)  parametre (params)  {"root": Hz, "obj": "florin", "dir": "r", "flavor": "bedel"...}
+  tohum (seed)           tekrarlanabilirlik                           bolum (ch)         yalnız kaynak-politikası denetimi için ipucu
+  kapali                 true → atlanır (silmeden devre dışı)          not / kaynak       serbest metin
+"""
+CUE_ALIASES = {"capa": "anchor", "ad": "name", "seviye": "gain_db", "tohum": "seed", "sure": "dur", "dongu": "loop", "erken": "lead",
+               "bitis_capa": "end_anchor", "gir": "fade_in", "cik": "fade_out", "bastir_db": "duck_db", "parametre": "params", "bolum": "ch",
+               "not": "note", "kapali": "off"}
+
+
+def normalize_cue(raw):
+    """Ham (Türkçe/İngilizce anahtarlı) cue → kanonik sözlük (İngilizce anahtarlar). Bilinmeyen anahtarlar 'extra'da saklanır."""
+    c = {}
+    for k, v in raw.items():
+        c[CUE_ALIASES.get(k, k)] = v
+    if "name" not in c:
+        raise ValueError(f"cue'da 'ad' yok: {raw}")
+    if c["name"] not in REGISTRY:
+        raise KeyError(f"bilinmeyen SFX adı '{c['name']}' (python3 sfx.py --list)")
+    if "t" not in c and "anchor" not in c:
+        raise ValueError(f"cue'da 't' ya da 'capa' yok: {raw}")
+    c.setdefault("gain_db", -20.0)
+    c.setdefault("pan", 0.0)
+    c.setdefault("seed", 0)
+    c.setdefault("dur", None)
+    c.setdefault("loop", False)
+    c.setdefault("lead", 0.0)
+    c.setdefault("params", {})
+    return c
+
+
+def load_cue_file(path):
+    """sfx_cues_pN.json → (cue listesi [ham], ayar sözlüğü). Dosya yoksa ([], {})."""
+    import json
+    if not path or not os.path.exists(path):
+        return [], {}
+    d = json.load(open(path, encoding="utf-8"))
+    if isinstance(d, list):
+        return d, {}
+    return d.get("cues", []), d.get("ayar", {})
+
+
+def resolve_cues(raw_cues, sent, chapters=None, quiet_zones=(), warn=print):
+    """Ham cue'ları mutlak zamana çözer. Döner: (cues [miks.render_sfx_bus biçimi], uyarılar).
+    - t / capa(+erken) → 't' (sn); bitis_capa → 'dur'. Çözülemeyen çapa: cue ATLANIR ve uyarılır (ses yamalanınca yeniden çözülür).
+    - kaynak politikası: POLICY_FORBID (bölüme göre yasak adlar) ve ALWAYS_AVOID → cue atlanır, uyarı verilir.
+    - quiet_zones (müzik sessizlik kapıları): bu aralıklarda başlayan cue için bilgi uyarısı (atlanmaz)."""
+    import ses_dsp as DD
+    out, warns = [], []
+    ch_spans = [(c["id"], c["t0"], c["t1"]) for c in (chapters or [])]
+
+    def chapter_at(t):
+        for cid, a, b in ch_spans:
+            if a - 0.01 <= t <= b + 0.01:
+                return cid
+        return None
+    for raw in raw_cues:
+        try:
+            c = normalize_cue(raw)
+        except (KeyError, ValueError) as e:
+            warns.append(f"cue atlandı: {e}")
+            continue
+        if c.get("off"):
+            continue
+        if "t" in c and c["t"] is not None:
+            t = float(c["t"])
+        else:
+            t = DD.anchor_time(c["anchor"], sent)
+            if t is None:
+                warns.append(f"çapa çözülemedi, atlandı: {c.get('id', c['name'])} {c['anchor']}")
+                continue
+        t -= float(c.get("lead") or 0.0)
+        dur = c.get("dur")
+        if c.get("end_anchor") is not None:
+            te = DD.anchor_time(c["end_anchor"], sent)
+            if te is None:
+                warns.append(f"bitiş çapası çözülemedi, atlandı: {c.get('id', c['name'])} {c['end_anchor']}")
+                continue
+            dur = max(0.2, te - t)
+        ch = c.get("ch") or chapter_at(t)
+        if c["name"] in ALWAYS_AVOID:
+            warns.append(f"POLİTİKA: '{c['name']}' kullanılmaz ({ALWAYS_AVOID[c['name']]}); cue atlandı: {c.get('id', '')} t={t:.2f}")
+            continue
+        if ch in POLICY_FORBID and c["name"] in POLICY_FORBID[ch] and not c.get("kaynakli"):
+            warns.append(f"POLİTİKA: {POLICY_NOTE[ch]}; '{c['name']}' atlandı (t={t:.2f}). Kaynak gösterilirse cue'ya \"kaynakli\": true ekleyin.")
+            continue
+        for (qa, qb) in quiet_zones:
+            if qa - 0.6 <= t <= qb and not c.get("sessizlik_izni") and c["name"] not in ("door_bronze", "lock_click", "door_bolt", "gate_thud"):
+                warns.append(f"bilgi: '{c['name']}' müzik sessizlik bölgesinde başlıyor (t={t:.2f}; bölge {qa:.1f}–{qb:.1f}); bilinçliyse \"sessizlik_izni\": true")
+        d = dict(t=t, name=c["name"], gain_db=float(c["gain_db"]), pan=float(c["pan"]), seed=int(c["seed"]), dur=(None if dur is None else float(dur)),
+                 loop=bool(c["loop"]), params=dict(c.get("params") or {}))
+        for k in ("duck_db", "fade_in", "fade_out"):
+            if c.get(k) is not None:
+                d[k] = c[k]
+        if c.get("id"):
+            d["id"] = c["id"]
+        if c.get("note"):
+            d["note"] = c["note"]
+        d["ch"] = ch
+        out.append(d)
+    for w in warns:
+        warn("  UYARI (sfx):", w)
+    return out, warns
+
+
+# ───────────────────────── ses köprüsü / J-kesme kancaları ─────────────────────────
+def j_cut(name, t_pic, lead=0.4, **kw):
+    """J-kesme: sesi görüntüden `lead` sn ÖNCE başlat. t_pic = yeni çekimin başladığı an (sn). Döner: cue sözlüğü (kanonik)."""
+    d = dict(name=name, t=float(t_pic) - float(lead), gain_db=-22.0, pan=0.0, seed=0, dur=None, loop=False, params={})
+    d.update(kw)
+    return d
+
+
+def l_cut(name, t_cut, tail=0.6, dur=None, **kw):
+    """L-kesme: eski çekimin sesi kesmeden `tail` sn sonra da sürer (cue t_cut'tan önce başlamış olmalı; dur = t_cut − t_başlangıç + tail)."""
+    d = dict(name=name, t=float(t_cut) - float(dur or 2.0) + float(tail), gain_db=-22.0, pan=0.0, seed=0, dur=float(dur or 2.0), loop=False, params={})
+    d.update(kw)
+    return d
+
+
+def ses_koprusu(name_out, name_in, t_cut, tail=0.5, lead=0.4, **kw):
+    """İki çekim arasında ses köprüsü: giden sesin kuyruğu t_cut'tan sonra `tail` sn sürer; gelen ses t_cut'tan `lead` sn önce girer. [cue, cue] döner."""
+    return [l_cut(name_out, t_cut, tail=tail, **kw), j_cut(name_in, t_cut, lead=lead, **kw)]
+
+
+# ───────────────────────── motor geçişi → ses eşlemesi ─────────────────────────
+# ad: (sfx adı, süre ('tr' = geçiş süresi | sn), tepe_oranı (sesin tepe noktası, ses süresi içinde), seviye dB, varsayılan parametreler)
+TRANSITION_MAP = {
+    "fade":     None,
+    "yikama":   ("wash_swell", "tr", 0.45, -23.0, {}),
+    "sayfa":    ("page_turn", 1.1, 0.35, -20.0, {}),
+    "giornata": ("plaster_scrape", "tr", 0.5, -23.0, {}),
+    "dip":      ("dip_drop", 2.6, 0.12, -20.0, {}),
+    "zoom":     ("zoom_rush", 0.9, 0.80, -24.0, {}),
+    "whip":     ("whoosh_dir", 0.7, 0.45, -20.0, {"soft": False}),
+    "wipe":     ("whoosh_dir", 0.9, 0.5, -24.0, {"soft": True}),
+    "iris":     ("iris_ring", 1.2, 0.35, -21.0, {"obj": "florin"}),
+    "slide":    ("slide_glide", "tr", 0.5, -24.0, {"dir": "r"}),
+    "zoomthru": ("zoom_rush_long", 1.5, 0.80, -22.0, {}),
+    "carry":    ("cloth_sweep", "tr", 0.5, -23.0, {"dir": "r"}),
+    "light":    ("light_swell", 2.6, 0.35, -22.0, {}),
+    "candle":   ("candle_out_in", 3.0, 0.15, -21.0, {}),
+}
+# ağır/ciddi bölümlerde geçiş sesleri kısılır (dB); sessizlik kapılarında hiç çalmaz
+TRANSITION_CH_TRIM = {"c7": -5.0, "c9": -2.0, "c10": -4.0, "c11": -4.0, "c12": -2.0, "c15": -3.0, "c16": -2.0}
+
+
+def transition_cues(shots, quiet_zones=(), chapter_of=None):
+    """Çekim listesinden otomatik geçiş sesleri. shots: [{t0, t1, tr: (ad, süre, opts)|None, link, kind, label}] (t0/t1 parça ekseni; tr = Program'ın tr_eff'i).
+    place='before': geçiş gelen çekimin başında BİTER ([t0−d, t0]); place='after': gelen çekimin ilk d sn'sinde sürer ([t0, t0+d]).
+    link='audio' (ses köprüsü) ise otomatik ses atlanır: sahne yazarı açık cue verir. Sessizlik kapılarında (müzik çekilen yıldız anlar) çalmaz.
+    Döner: [cue sözlüğü (kanonik)]."""
+    out = []
+    for i, s in enumerate(shots):
+        tr = s.get("tr")
+        if not tr:
+            continue
+        name, d, opts = tr[0], float(tr[1]), (tr[2] if len(tr) > 2 else {}) or {}
+        spec = TRANSITION_MAP.get(name)
+        if spec is None:
+            continue
+        if s.get("link") == "audio":
+            continue
+        if str(s.get("label", "")).startswith(("bölüm kartı", "ana başlık", "bitiş ekranı")):
+            continue        # kartların kendi ses tasarımı var (chapter_stinger / title_hit)
+        snd, dur, peak, gdb, prm = spec
+        prm = dict(prm)
+        if name == "iris" and opts.get("obj"):
+            prm["obj"] = opts["obj"]
+        if name in ("slide", "carry", "whip", "wipe") and opts.get("dir") in ("r", "l"):
+            prm["dir"] = opts["dir"]
+        if name in ("slide", "carry") and opts.get("dir") in ("u", "d"):
+            prm["dir"] = "r"
+        place = opts.get("place", "before")
+        t_a, t_b = (s["t0"], s["t0"] + d) if place == "after" else (s["t0"] - d, s["t0"])
+        mid = 0.5 * (t_a + t_b)
+        sd = d if dur == "tr" else float(dur)
+        sd = max(sd, 0.4)
+        t_start = mid - peak * sd
+        if any(qa - 0.6 <= mid <= qb for (qa, qb) in quiet_zones):
+            continue
+        ch = chapter_of(mid) if chapter_of else None
+        g = gdb + TRANSITION_CH_TRIM.get(ch, 0.0)
+        out.append(dict(t=round(t_start, 3), name=snd, gain_db=round(g, 2), pan=0.0, seed=1000 + i, dur=(round(sd, 3) if dur == "tr" or snd in ("page_turn",) else None),
+                        loop=False, params=prm, id=f"gecis-{i}-{name}", note=f"geçiş '{name}' ({s.get('label', '')})", ch=ch))
+    return out
+
+
+def shots_from_program(prog):
+    """compose.Program → transition_cues girdisi (duck-typed: prog.shots[i].t0/t1/tr_eff/link/kind/label, prog.t_off). Görüntü motoruna bağımlılık yok."""
+    off = float(getattr(prog, "t_off", 0.0) or 0.0)
+    out = []
+    for s in prog.shots:
+        out.append(dict(t0=float(s.t0) - off, t1=float(s.t1) - off, tr=getattr(s, "tr_eff", None), link=getattr(s, "link", None),
+                        kind=getattr(s, "kind", ""), label=getattr(s, "label", "")))
+    return out
+
+
+def sfx_hints_from_program(prog):
+    """Çekimlere ileride eklenecek `sfx=` ipucu (shot(..., sfx=[...])). Her öğe: (ad, dt[, seviye]) demeti ya da cue sözlüğü.
+    dt / sözlükte 't': ÇEKİM BAŞINDAN saniye (mutlak istenirse sözlüğe "mutlak": true) ya da çapa listesi (["c7s17","sözcük",-0.1]).
+    Döner: ham cue listesi (resolve_cues girdisi). Çekimde `sfx` yoksa boş."""
+    off = float(getattr(prog, "t_off", 0.0) or 0.0)
+    raw = []
+    for s in prog.shots:
+        for h in (getattr(s, "sfx", None) or []):
+            if isinstance(h, dict):
+                c = dict(h)
+                if "t" in c and not c.pop("mutlak", False):
+                    c["t"] = float(s.t0) - off + float(c["t"])
+            else:
+                c = dict(ad=h[0], seviye=(h[2] if len(h) > 2 else -20))
+                if isinstance(h[1], (int, float)):
+                    c["t"] = float(s.t0) - off + float(h[1])
+                else:
+                    c["capa"] = h[1]
+            c.setdefault("kaynak", f"çekim #{getattr(s, 'i', '?')} {getattr(s, 'kind', '')} '{getattr(s, 'label', '')}'")
+            raw.append(c)
+    return raw
 
 
 # ═══════════════════════════ CLI ═══════════════════════════

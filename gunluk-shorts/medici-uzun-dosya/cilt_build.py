@@ -131,27 +131,7 @@ def draw_sky(c, p, night, hz=0.80 * BH):
     c.drawImageRect(im, skia.Rect.MakeWH(1, BH), skia.Rect.MakeXYWH(0, dy, W, BH), NEAR, None)
 
 
-_GS = {}
-_GP = skia.Paint()
-SRC128 = skia.Rect.MakeWH(128, 128)
-
-
-def glow_sprite(col):
-    im = _GS.get(col)
-    if im is None:
-        n = 128
-        fr = sk.Frame(n, n)
-        fr.clear(skia.ColorTRANSPARENT)
-        sh = skia.GradientShader.MakeRadial((n / 2, n / 2), n / 2, [C(col, 255), C(col, 96), C(col, 0)], [0.0, 0.28, 1.0])
-        fr.c.drawCircle(n / 2, n / 2, n / 2, skia.Paint(Shader=sh))
-        im = _GS[col] = fr.surf.makeImageSnapshot()
-    return im
-
-
-def glow(c, x, y, r, col, a, plus=True):
-    """Önbellekli, ÖNCEDEN RENKLENDİRİLMİŞ radyal parıltı (renk filtresi/kPlus bu CPU'da ≈6× yavaş; srcover + LIN ≈5 ms)."""
-    _GP.setAlphaf(clamp(a))
-    c.drawImageRect(glow_sprite(col), SRC128, skia.Rect.MakeXYWH(x - r, y - r, 2 * r, 2 * r), LIN, _GP)
+glow_sprite, glow = PN.glow_sprite, PN.glow          # önceden renklendirilmiş parıltı (cilt_pano)
 
 
 def draw_sun(c, x, y, col, night=False, k=1.0):
@@ -829,7 +809,7 @@ def draw_dome(f, cx, p, t, night, S, a_orbit):
         sy = lerp(gy - 190.0, 150.0, el) - 40.0 * (1 - el)
         draw_sun(c, sx, sy, sun_col, False, 1.0)
     draw_clouds(c, t, night, y_shift=(gy - 700.0) * 0.12, speed=1.6)
-    FA.atmo_birds(c, t, 6, 1.0, 0, W, 190, 420, 24.0, night, 3, 1.1)
+    FA.atmo_birds(c, t, 9, 1.0, 0, W, 170, 430, 26.0, night, 3, 1.3)
     # şehir: uzak sıra + zemin
     c.save()
     c.translate(W / 2, gy)
@@ -907,6 +887,13 @@ def draw_dome(f, cx, p, t, night, S, a_orbit):
     c.translate(-W / 2, 0)
     S.town.draw(c, "near")
     c.drawRect(skia.Rect.MakeLTRB(-S.town.EX, NEAR_Y, W + S.town.EX, 700), pf(S.tc("#A09068")))
+    # bacalardan duman (ön sıra evler): yavaş yükselen, rüzgârla savrulan tütün
+    for hi_, (hx, hw, hh, hsd) in enumerate(S.town.near):
+        if hi_ % 4 != 1 or hx < -300 or hx > W + 300:
+            continue
+        for q in range(5):
+            ph = (t * 0.10 + q / 5.0 + hi_ * 0.173) % 1.0
+            FA._puff(c, hx + hw * 0.7 + ph * 70 + math.sin(ph * 6 + hi_) * 8, NEAR_Y - hh - 22 - ph * 150, 6 + 26 * ph, 0.30 * (1 - ph) ** 1.3, "#A9A397" if not night else "#6A7A9A")
     kx = 190
     ky = 62.0
     c.drawRect(skia.Rect.MakeLTRB(kx - 46, ky - 66, kx + 46, ky), pf(S.tc("#8A6A48")))
@@ -1390,6 +1377,14 @@ def draw_uffizi(f, cx, p, t, night, S, u_cam):
             c.drawPath(wfr, pf(S.tc("#EFE6CE"), 200))
             c.drawPath(wins, pf(dk, 215))
             c.drawPath(doors, pf(S.tc("#4A3420"), 235))
+            if r_ == 0:
+                for hi_, (z, w, h, wc, rc) in enumerate(S.side[si][r_]):
+                    if hi_ % 3 != si % 3 or z + w * 0.5 < zc + 4.0 or z - zc > 70:
+                        continue
+                    for q in range(4):
+                        ph = (t * 0.10 + q / 4.0 + hi_ * 0.21) % 1.0
+                        x_, y_ = P.pt(X0 + sd * (1.2 + 1.5 * ph), h + 2.6 + ph * 7.0, z + w * 0.5)
+                        FA._puff(c, x_, y_, (0.5 + 2.2 * ph) * P.sc(z + w * 0.5), 0.26 * (1 - ph) ** 1.3 * (1.0 - 0.7 * smooth(p * 1.0)), "#A9A397" if not night else "#6A7A9A")
     # avlu zemini
     zn = max(zc + 0.6, 0.0)
     poly(c, [P.pt(-HWC, 0.0, zn), P.pt(HWC, 0.0, zn), P.pt(HWC, 0.0, Z_END), P.pt(-HWC, 0.0, Z_END)], pf(S.tc("#BFAE86")))
@@ -1555,7 +1550,7 @@ def k_build(cx, build="dome", p=None, orbit=10.0, tod=None, kick=None, caption=N
     if build == "dome":
         draw_dome(f, cx, pr, cx.t, night, S, (clamp(cx.t / dur) - 0.5) * min(12.0, abs(orbit)))
     else:
-        draw_uffizi(f, cx, pr, cx.t, night, S, pr)
+        draw_uffizi(f, cx, pr, cx.t, night, S, pr if not isinstance(p, (int, float)) else ease_io(clamp(cx.t / dur)))
     c.restore()
     FA.set_scale_hint(1.0)
     if frame:

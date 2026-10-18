@@ -1257,6 +1257,24 @@ def plan_segments(chapters, total, tail, sent):
     return segs
 
 
+def first_tonic(cid):
+    """Bölümün ilk kesitinin tonik MIDI'si (bölüm kartı vurgusu bu sese akortlanır)."""
+    sp = CUES[cid]
+    secs = sp.get("sections")
+    return int(secs[0].get("tonic", sp["tonic"]) if secs else sp["tonic"])
+
+
+def gate_windows(chapters, total, tail, timeline):
+    """Render ETMEDEN müzik sessizlik kapılarını (parça ses ekseninde) döndürür: [dict(seg, a, b, lead, rel, floor_db, note)]."""
+    sent = D.sent_index(timeline)
+    out = []
+    for sg in plan_segments(chapters, total, tail, sent):
+        sp = resolve_spec(sg["spec"], sg, sent)
+        for (a, b, lead, rel, floor_db, note) in sp.get("_gates", []):
+            out.append(dict(seg=sg["id"], a=round(sg["s0"] + a, 3), b=round(sg["s0"] + b, 3), lead=lead, rel=rel, floor_db=floor_db, note=note))
+    return out
+
+
 def _anchor_t(anchor, sent, seg):
     """Çıpa → parça ekseninde saniye. timeline'da cümle yoksa (ör. c6: ses henüz yok) DEFAULT_U tablosundan kestirir."""
     t = D.anchor_time(anchor, sent)

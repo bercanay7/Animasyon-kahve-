@@ -549,6 +549,29 @@ def cloud_sprite():
     return _CLOUD["c"]
 
 
+_GS = {}
+_GP = skia.Paint()
+SRC128 = skia.Rect.MakeWH(128, 128)
+
+
+def glow_sprite(col):
+    """Önceden renklendirilmiş 128² radyal parıltı sprite'ı (renk filtresi/kPlus bu CPU'da ≈6× yavaş; srcover + LIN ≈ 2–5 ms)."""
+    im = _GS.get(col)
+    if im is None:
+        n = 128
+        fr = sk.Frame(n, n)
+        fr.clear(skia.ColorTRANSPARENT)
+        sh = skia.GradientShader.MakeRadial((n / 2, n / 2), n / 2, [C(col, 255), C(col, 96), C(col, 0)], [0.0, 0.28, 1.0])
+        fr.c.drawCircle(n / 2, n / 2, n / 2, skia.Paint(Shader=sh))
+        im = _GS[col] = fr.surf.makeImageSnapshot()
+    return im
+
+
+def glow(c, x, y, r, col, a, plus=True):
+    _GP.setAlphaf(clamp(a))
+    c.drawImageRect(glow_sprite(col), SRC128, skia.Rect.MakeXYWH(x - r, y - r, 2 * r, 2 * r), LIN, _GP)
+
+
 def tint_mode(tod):
     return "night" if tod == "night" else "day"
 
@@ -1333,6 +1356,15 @@ def st_banker(ctx, st):
     FA.actor(f, "tuccar", x + 270, yg + 6, 228, t, action="talk", dir=-1, seed=6, phase=0.4, energy=1.3)
     # arkadaki çırak
     FA.walker(f, "cocuk", x + 560 - 55 * (t % 14.0), yg + 20, 200, t, speed=55.0, dir=-1, seed=8, phase=0.1)
+    if ctx.night:
+        # masa üstü mum: titreyen sıcak ışık havuzu + alev
+        c = ctx.c
+        fl = 1.0 + 0.07 * math.sin(t * 9.0) + 0.04 * math.sin(t * 13.7 + 1.0)
+        cxg, cyg = x + 150, yg - 96
+        c.drawRect(skia.Rect.MakeLTRB(cxg - 3, cyg - 22, cxg + 3, cyg), skia.Paint(Color=C("#EFE6CE")))
+        c.drawOval(skia.Rect.MakeLTRB(cxg - 3.2 * fl, cyg - 40 * fl, cxg + 3.2 * fl, cyg - 20), skia.Paint(AntiAlias=True, Color=C("#FF9A3A")))
+        c.drawOval(skia.Rect.MakeLTRB(cxg - 1.6, cyg - 34 * fl, cxg + 1.6, cyg - 21), skia.Paint(AntiAlias=True, Color=C("#FFE9A0")))
+        glow(c, cxg, cyg - 28, 210 * fl, "#FFB454", 0.50)
 
 
 def st_dyers(ctx, st):

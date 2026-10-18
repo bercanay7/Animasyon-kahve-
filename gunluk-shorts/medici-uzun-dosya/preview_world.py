@@ -66,51 +66,61 @@ KINDS12 = ["tuccar", "banker", "rahip", "kardinal", "soylu", "soylu_f", "asker",
 
 @ckind("world_kit_walk")
 def k_kit_walk(cx, **_):
-    """12 kostüm tipi yürür (iki sıra; her biri kendi hızında, ayak kaymaz)."""
+    """12 kostüm tipi yürür (iki sıra; satır başına sabit hız, eşit aralık → üst üste binmez; ayak kaymaz); etiket figürü izler."""
     f = cx.f
     _stage(f, cx)
+    L = W + 420
     for i, k in enumerate(KINDS12):
         row, col = divmod(i, 6)
         y = 560 + row * 350
-        v = 78.0 + 11.0 * (i % 5)
-        x = ((col * 330 + 120 + v * cx.t + row * 90) % (W + 420)) - 210
+        v = 86.0 + 12.0 * row
+        x = ((col * L / 6.0 + 120 + 190 * row + v * cx.t) % L) - 210
         FA.walker(f, k, x, y, 300 if k != "cocuk" else 250, cx.t, speed=v, seed=2 + i, phase=(i * 0.17) % 1.0)
-        _label(f, k, 180 + col * 330, y + 44)
+        _label(f, k, x, y + 44)
 
 
 ACT_GRID = [
-    ("tuccar", "idle", {}, 0), ("banker", "talk", {}, 0), ("rahip", "bow", {"t0": 0.6}, 6.0), ("soylu", "kneel", {"t0": 0.5, "rise_at": 3.4}, 6.0),
-    ("halk", "point", {"t0": 0.6, "dur": 2.4}, 6.0), ("halk", "cheer", {}, 0), ("kardinal", "pray", {}, 0),
-    ("banker", "write", {}, 0), ("banker", "count", {}, 0), ("halk", "work", {"mode": "lay"}, 0), ("halk", "work", {"mode": "strike"}, 0),
-    ("denizci", "work", {"mode": "haul"}, 0), ("soylu_f", "talk", {"energy": 0.8}, 0), ("asker", "idle", {}, 0)]
+    [("tuccar", "idle", {}, 0), ("banker", "talk", {}, 0), ("rahip", "bow", {"t0": 0.6}, 6.0), ("soylu", "kneel", {"t0": 0.5, "rise_at": 3.4}, 6.0),
+     ("halk", "point", {"t0": 0.6, "dur": 2.4}, 6.0), ("halk", "cheer", {}, 0), ("kardinal", "pray", {}, 0)],
+    [("banker", "write", {}, 0), ("banker", "count", {}, 0), ("halk", "work", {"mode": "lay"}, 0), ("halk", "work", {"mode": "strike"}, 0),
+     ("denizci", "work", {"mode": "haul"}, 0), ("soylu_f", "talk", {"energy": 0.8}, 0)]]
 
 
 @ckind("world_kit_acts")
 def k_kit_acts(cx, **_):
-    """Eylemler: bekleme, konuşma, selam, diz çökme, işaret, coşku, dua, yazı, para sayma, mala/çekiç/halat işi; el sıkışma + şiddet SİLUETİ ayrı hücrelerde."""
+    """Eylemler (aralık 235 px, etiketler çakışmaz): bekleme, konuşma, selam, diz çökme, işaret, coşku, dua, yazı, para sayma, mala/çekiç/halat işi;
+    el sıkışma ve şiddet SİLUETİ (yalnız jest) çift hücrelerde."""
     f = cx.f
     _stage(f, cx)
-    for i, (kind, act, kw, per) in enumerate(ACT_GRID):
-        row, col = divmod(i, 7)
-        x = 150 + col * 270
-        y = 520 + row * 380
-        tt = (cx.t % per) if per else cx.t
-        FA.actor(f, kind, x, y, 270, tt, action=act, seed=3 + i, phase=(i * 0.21) % 1.0, **kw)
-        _label(f, act + ("/" + kw["mode"] if "mode" in kw else ""), x, y + 44, 22)
-    FA.handshake(f, "tuccar", "banker", W - 360, 900 - 30, 250, cx.t % 7.0, seedA=21, seedB=22)
-    _label(f, "handshake", W - 360, 944, 22)
+    for r_, row in enumerate(ACT_GRID):
+        y = 520 + r_ * 380
+        for i, (kind, act, kw, per) in enumerate(row):
+            x = 130 + i * 235
+            tt = (cx.t % per) if per else cx.t
+            FA.actor(f, kind, x, y, 250, tt, action=act, seed=3 + i + 7 * r_, phase=(i * 0.21) % 1.0, **kw)
+            _label(f, act + ("/" + kw["mode"] if "mode" in kw else ""), x, y + 44, 22)
+    FA.threat(f, cx.t % 5.0, 1740, 520, 250, seed=7)
+    _label(f, "threat (siluet)", 1740, 564, 22)
+    FA.handshake(f, "tuccar", "banker", 1600, 900, 250, cx.t % 7.0, seedA=21, seedB=22)
+    _label(f, "handshake", 1600, 944, 22)
 
 
 @ckind("world_kit_riders")
 def k_kit_riders(cx, **_):
-    """Atlılar: yürüyüş / tırıs / dörtnala (toynak kaymaz; gövde sallanır), iki yön."""
+    """Atlılar: yürüyüş / tırıs / dörtnala. Atlı yerinde durur, ZEMİN İŞARETLERİ hızla kayar (toynak kaymasını göstermek için); iki yön."""
     f = cx.f
+    c = f.c
     _stage(f, cx)
     for i, (g, v, y) in enumerate((("walk", 70.0, 400), ("trot", 150.0, 660), ("gallop", 330.0, 920))):
-        d = 1 if i % 2 == 0 else -1
-        x = ((i * 500 + 300 + d * v * cx.t) % (W + 700)) - 350
-        FA.rider(f, x, y, 270, cx.t, speed=v, gait=g, dir=d, seed=5 + i)
-        _label(f, g, 160, y - 120, 30)
+        for j in range(11):
+            xa = (j * 90.0 - v * cx.t) % 990.0
+            xb = 960.0 + (j * 90.0 + v * cx.t) % 990.0
+            for xx in (xa, xb):
+                if 0 <= xx < W - 20:
+                    c.drawLine(xx, y + 6, xx + 26, y + 6, f.paint("#6A5A3A", style="stroke", sw=2.0, alpha=0.55))
+        FA.rider(f, 520, y, 270, cx.t, speed=v, gait=g, dir=1, seed=5 + i)
+        FA.rider(f, 1400, y, 270, cx.t, speed=v, gait=g, dir=-1, seed=9 + i)
+        _label(f, g, 140, y - 130, 30)
 
 
 @ckind("world_kit_crowd")
