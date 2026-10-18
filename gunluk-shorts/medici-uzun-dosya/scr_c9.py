@@ -11,7 +11,8 @@ CH = dict(id="c9", n="IX", title="Defter Kapanıyor", years="1470 – 1494", moo
           paras=[[
               ("Lorenzo'nun Floransa'sı parlarken, bankanın defteri sessizce incelmeye başlamıştı.", None, "◐ M1:düz10 (fiilî çözülme 1470'lerden beri) + YORUM"),
               ("Bankanın yolu şapa da düştü: boyayı kumaşa tutturan, Floransa'nın boyahanelerinin ihtiyaç duyduğu bir mineral.", None, "◐ M1b:§6B#1,KB26 (Floransa yünüyle bağ = çıkarım)"),
-              ("Batı'nın şapı Foça'dan geliyordu; Foça 1455'te Osmanlı'ya geçince papalık kendi topraklarında, Tolfa'da yatak buldu ve pazarlama hakkını 1466'da, Piero de' Medici'nin de içinde olduğu bir gruba verdi.", None, "◐ M1b:b5,b7,b11 (Piero, Lorenzo DEĞİL; \"II. Pius Medici'ye verdi\" DENMEZ)"),
+              ("Batı'nın şapı Foça'dan geliyordu; Foça 1455'te Osmanlı'ya geçince papalık kendi topraklarında, Tolfa'da yatak buldu.", None, "◐ M1b:b5,b7 (Foça 1455; Tolfa)"),
+              ("Pazarlama hakkını 1466'da, Piero de' Medici'nin de içinde olduğu bir gruba verdi.", None, "◐ M1b:b11 (Piero, Lorenzo DEĞİL; \"II. Pius Medici'ye verdi\" DENMEZ)"),
               ("Papa, Türk şapı alanları aforozla tehdit etti; alıcılar yine de daha ucuz Türk şapına yöneldi.", None, "○ tehdit ayrıntısı Parks / ◐ Türk şapı sürdü M1b:bM5,bD15 (mizah a: kurumun silahı ↔ fiyat)"),
               ("Medici'nin şaptan ne kazandığını bilmiyoruz; yalnız, 1475'te banka şapta zarar yazıyordu diye aktarılır.", None, "○ M1b:b22,X1 (yokluk cümlesi; Parks; rakam yok)"),
           ], [

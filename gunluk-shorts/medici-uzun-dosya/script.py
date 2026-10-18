@@ -112,6 +112,7 @@ def _num_sub(m):
 def to_speech(s: str) -> str:
     s = re.sub(r"\{[^|{}]*\|([^{}]*)\}", r"\1", s)                  # {göster|söyle}
     s = re.sub(r"\b([IVXLC]{1,6})\.(?=\s+[A-ZÇĞİÖŞÜ])", _roman_sub, s)           # Romen sıra sayısı
+    s = re.sub(r"\b(\d{1,2})\.(?=\s+[a-zçğıöşü])", lambda m: tr_ord(int(m.group(1))), s)       # "19. yüzyıl" → "on dokuzuncu yüzyıl"
     s = re.sub(r"(\d{1,3}(?:\.\d{3})+|\d+)(['’][A-Za-zçğıöşüÇĞİÖŞÜ]+)?", _num_sub, s)
     for pat, rep in PRON:
         s = re.sub(pat, rep, s)
