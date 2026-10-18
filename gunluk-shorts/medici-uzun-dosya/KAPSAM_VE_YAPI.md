@@ -42,11 +42,11 @@ Eksenler: **P** para/banka/ekonomi · **S** siyaset/diplomasi · **A** sanat/oku
 | c16 | Hesap | 1737–bugün | 3,5 | 1743 sahnesine dönüş; ne kaldı, ne mit | M P A D |
 | | **Toplam (tahmini)** | | **≈68** | | |
 
-- Süre tahmindir; senaryo yazılınca netleşir (hedef 60–70 dk). **Yayın biçimi (karar, 18 Ekim 2026 — kullanıcı "çok uzun olacaksa part part yayınlayabiliriz" dedi, seçim bana bırakıldı):** **3 parça**, her biri tek başına izlenebilir, Şarlken'e (21 dk) yakın uzunlukta; bölüm kapıları kanca olarak kullanılır.
-  - **Parça 1 — ALTIN (Perde I): c0–c6, ≈26 dk.** Tezgâhtan Muhteşem'e: para → güven → iktidar → sanat. Kapanış kapısı: Giuliano'ya düşen gölge, "26 Nisan 1478".
-  - **Parça 2 — BEDEL (Perde II): c7–c11, ≈23,5 dk.** Pazzi, Napoli ve Osmanlı, defterin kapanışı, rahip ve kral, papa oğulları, Roma 1527 ve Floransa kuşatması. Parça **c7 ile açılır** (soğuk açılış = en güçlü sahne). Kapanış kapısı: Alessandro'nun sonu, "17 yaşında bir çocuk" (Cosimo).
-  - **Parça 3 — MİRAS (Perde III): c12–c16, ≈19,5 dk.** Dük, iki kraliçe, yıldızlar/notalar/taşlar, son Medici'ler, hesap; **1743 odasına dönüş**. Parça **c12 ile açılır**.
-  - Önceki parçanın özeti ayrı "önceki bölümde" bandı olarak değil, **anlatının ilk cümlelerine gömülerek** verilir. Bitiş ekranı: "SIRADAKİ PARÇA" / "ABONE OL" (Parça 3: "TÜM FİLM"). Yayın: +7 gün aralıkla, tek oynatma listesi; sonda isteğe bağlı **Tam Film** (≈68 dk). Ayrıntı ve gerekçe: `YONETMENLIK_REHBERI.md` §9.
+- **Gerçekleşen (senaryo bitti, 18 Ekim 2026): 7.270 söz ≈ 71 dk** (P1 2.575 söz ≈ 25,3 dk · P2 2.536 söz ≈ 24,9 dk · P3 2.159 söz ≈ 21,2 dk; 1,7 söz/sn duraklar dahil). Aşağıdaki parça süreleri plan değeriydi; gerçek değerler bunlar. **Yayın biçimi (karar, 18 Ekim 2026 — kullanıcı "çok uzun olacaksa part part yayınlayabiliriz" dedi, seçim bana bırakıldı):** **3 parça**, her biri tek başına izlenebilir, Şarlken'e (21 dk) yakın uzunlukta; bölüm kapıları kanca olarak kullanılır.
+  - **Parça 1 — ALTIN (Perde I): c0–c6, ≈25 dk (2.575 söz).** Tezgâhtan Muhteşem'e: para → güven → iktidar → sanat. Kapanış kapısı: Giuliano'ya düşen gölge, "26 Nisan 1478".
+  - **Parça 2 — BEDEL (Perde II): c7–c11, ≈25 dk (2.536 söz).** Pazzi, Napoli ve Osmanlı, defterin kapanışı, rahip ve kral, papa oğulları, Roma 1527 ve Floransa kuşatması. Parça **c7 ile açılır** (soğuk açılış = en güçlü sahne). Kapanış kapısı: Alessandro'nun sonu, "17 yaşında bir çocuk" (Cosimo).
+  - **Parça 3 — MİRAS (Perde III): c12–c16, ≈21 dk (2.159 söz).** Dük, iki kraliçe, yıldızlar/notalar/taşlar, son Medici'ler, hesap; **1743 odasına dönüş**. Parça **c12 ile açılır**.
+  - Önceki parçanın özeti ayrı "önceki bölümde" bandı olarak değil, **anlatının ilk cümlelerine gömülerek** verilir. Bitiş ekranı: "SIRADAKİ PARÇA" / "ABONE OL" (Parça 3: "TÜM FİLM"). Yayın: +7 gün aralıkla, tek oynatma listesi; sonda isteğe bağlı **Tam Film** (≈71 dk). Ayrıntı ve gerekçe: `YONETMENLIK_REHBERI.md` §9.
 - **Perde (HUD'da ve bölüm kartında) = parça adı:** **I — ALTIN (c0–c6), II — BEDEL (c7–c11), III — MİRAS (c12–c16).** (Eski taslaktaki PARA/GÜZELLİK/MİRAS ayrımı kaldırıldı; Parça 1'in içinde para güzelliğe dönüşür.)
 
 ## 4. "Dünyaya etkisi" iddiaları: ön sağlamlık haritası (araştırma sonrası güncellenecek)
@@ -105,7 +105,7 @@ Alum (Foça, Tolfa) ve Fetih sonrası pazar · Bandini'nin İstanbul'a kaçış�
 3. **Ses** (ElevenLabs; önce maliyet tahmini, `generations_count=1`, tek sefer; Scribe hizalama) → `timeline.json`.
 4. **Motor ve sahneler** (mevcut Skia motoru; yeni sahne kütüphaneleri: Floransa dokusu, Duomo/Palazzo Vecchio, defter, harita).
 5. **Müzik/SFX/miks**, **render**, **QA**, **paketleme** (3 başlık, 3 kapak, açıklama, bölüm damgaları, altyazı).
-6. **Kapasite notu:** 60–70 dk ≈ 5.000–6.500 söylenen sözcük (Şarlken: 21 dk ≈ 2.100 sözcük). ElevenLabs maliyeti ≈ 3 katı olacağından **tahmin önce, onaysız büyük üretim yok** (Anayasa/ElevenLabs kuralı). Render süresi ≈ 3 kat; bölümlü (segmentli) render kaldığı yerden sürer.
+6. **Kapasite notu:** 60–70 dk ≈ 5.000–6.500 söylenen sözcük (Şarlken: 21 dk ≈ 2.100 sözcük). ElevenLabs maliyeti ≈ 3 katı olacağından **tahmin önce, onaysız büyük üretim yok** (Anayasa/ElevenLabs kuralı). Render süresi ≈ 3 kat; bölümlü (segmentli) render kaldığı yerden sürer. **Gerçekleşen maliyet:** 7.270 söz ≈ 53.000 karakter ≈ 53.000 ElevenLabs kredisi (≈ $10,6, 1 kredi ≈ $0,0002); c0–c5 üretildi (≈ 15.700 kredi), kalan c6–c16 ≈ 37.000 kredi (≈ $7,4). Ses üretimi `generations_count=1`; hesap kotası (40.000) tükendiği için kalan bölümler kredi yenilenince üretilir.
 
 ## 11. Riskler
 
