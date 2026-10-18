@@ -54,6 +54,7 @@ Sesi tümden değiştirmek (ör. B adayı): `script.py`'den tüm bölümleri yen
 - Sayaçlar animasyon sırasında ara değerlerden geçer (veri iddiası değil).
 - Ses lisansı: ElevenLabs'te ticari kullanım ücretli plan ve Voice Library lisansına bağlı; yayın öncesi kontrol edilmeli. Studio'da "sentetik içerik: Evet" önerilir.
 - Windsor.ai'ye YouTube bağlı değil; ölçüm Studio ekran görüntüleriyle ya da bağlantı kurulunca otomatik (`olcum/VERI_MERKEZI.md`).
+- Supermetrics: deneme süresi 14 Ekim 2026'da bitti (sorgular TRIAL_EXPIRED döner), YouTube (YT2) bağlı değil. Yazma yetkisi yalnız reklam kampanyalarında; YouTube'a yükleme, altyazı ya da Studio ayarı yapılamaz. Chrome eklentisi köprüsü bulut oturumunda yok. Studio işleri kullanıcıda.
 
 ## Çalışma günlüğü (özet)
 Araştırma + kaynak kapısı → senaryo → motor → ElevenLabs sesi + yamalar → madalya/figür/sahne laboratuvarları (paralel ajanlar) → bölüm yazarları A–D → müzik/SFX/miks → render, birleştirme, denetim → yayın paketi. Oturum 04:22 ile 08:14 UTC arasında kota sınırı nedeniyle kesildi; A (c1,c2,c3,c10) ve D (c0,c9,c12,c13) bölüm yazarları son cilayı yarıda bıraktı, tüm bölümler çalışır durumda ve denetimden geçti.
