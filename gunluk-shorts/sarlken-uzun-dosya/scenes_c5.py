@@ -27,7 +27,7 @@ FIELD_P = dict(ground="river", weather="fog", river=True, smoke=True)
 
 SHOTS = [
     # s1 — Almanya'dan ayrıldı, dokuz yıl dönemedi
-    shot("map", a=("c5s1", 0.0), tr=F, cams=[(0.0, (6.0, 46.5, 2.0)), (("c5s1", "ayrıldı", 0.0), (2.6, 45.6, 2.4))],
+    shot("map", a=("c5s1", 0.0), tr=F, cams=[(0.0, (6.5, 47.2, 1.7)), (("c5s1", "ayrıldı", 0.0), (4.6, 46.0, 2.0))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.2, alpha=0.30, hatch=True), dict(name="ispanya", color="ispanya", at=("c5s1", "ayrıldı", 1.2), alpha=0.45)],
          labels=[dict(text="ALMANYA", lon=10.6, lat=51.2, size=36, track=14, at=0.6)],
          cities=[dict(lon=8.36, lat=49.63, name="WORMS", kind="seat", at=0.3, side="r", size=34)],
@@ -65,13 +65,14 @@ SHOTS = [
          close_at=("c5s7", "Birliği'ni", -0.2), flash_at=("c5s7", "kurdu", -0.05), label="smalkalden"),
     # s8 — ancak cepheler yatışınca, 1546'da savaş
     shot("c5_wait", a=("c5s8", -0.3), tr=F, at=0.0, fr_at=("c5s8", "Fransa", -0.2), ot_at=("c5s8", "Osmanlı", -0.2), calm_at=("c5s8", "yatışınca", -0.2), war_at=("c5s8", "1546'da", -0.1), label="yatisinca_1546"),
-    # s9a — Mühlberg, 24 Nisan 1547
-    shot("map", a=("c5s9", -0.3), tr=F, cams=[(0.0, (13.9, 51.6, 4.6)), (("c5s9", "Mühlberg'de", 0.6), (13.25, 51.45, 7.2))],
+    # s9a — Mühlberg, 24 Nisan 1547; sisli sabah; Elbe geçişi
+    shot("map", a=("c5s9", -0.3), tr=F, cams=[(0.0, (13.9, 51.6, 4.6)), (("c5s9", "Mühlberg'de", 0.6), (13.3, 51.45, 7.0))],
          regions=[dict(name="almanya", color="#7A6A3A", at=0.0, alpha=0.2, hatch=True)],
          cities=[dict(lon=13.22, lat=51.43, name="MÜHLBERG", kind="battle", at=("c5s9", "Mühlberg'de", -0.2), side="b", size=40)],
-         date=("24 NİSAN 1547", ("c5s9", 0.0)), extra=kinds_c5.make_elbe(("c5s9", "Nisan", 0.0), 99), approx=False, label="muhlberg_harita"),
-    # s9b — sisli sabah, Elbe geçişi, Protestan ordusu dağıldı
-    shot("bw_theatre", a=("c5s9", "sisli", -0.4), tr=F, scene="field", cams=[(0.0, (960, 560, 1.0)), (("c5s9", "dağıttı", 0.0), (1000, 580, 1.3))],
+         date=("24 NİSAN 1547", ("c5s9", 0.0)),
+         extra=kinds_c5.make_elbe(("c5s9", "Nisan", 0.0), ("c5s9", "sisli", -0.3), ("c5s9", "Elbe", -0.1), ("c5s9", "nehrini", 0.0)), approx=False, label="muhlberg_harita"),
+    # s9b — Protestan ordusu dağıldı
+    shot("bw_theatre", a=("c5s9", "geçti", 0.15), tr=F, scene="field", cams=[(0.0, (960, 560, 1.0)), (("c5s9", "dağıttı", 0.0), (1000, 580, 1.3))],
          p=FIELD_P, label="sis_elbe"),
     # s9c — Saksonya Seçmeni esir düştü
     shot("medal", a=("c5s9", "Saksonya", -0.35), tr=D, key="johann_friedrich", metal="teal", name="SAKSONYA SEÇMENİ", role="Johann Friedrich", pos="c", size=640,

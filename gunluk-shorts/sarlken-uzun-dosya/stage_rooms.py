@@ -1326,3 +1326,109 @@ def _sitter(h, hat="beret"):
 
 for _hn in ("beret", "galero", "mitre", "cap", "hood"):
     ROOM_FIG["sit_" + _hn] = (lambda hn: (lambda h: _sitter(h, hn)))(_hn)
+
+
+# ═════════════ yol/at/sedye figürleri (road_night) ═════════════
+def _limb(pts, w0, w1, h):
+    """Çizgi eklemli (omuz-diz-bilek) uzuv: noktalar arası daralan kalınlıkta çokgen. pts birim koordinat."""
+    P_ = [(x * h, y * h) for x, y in pts]
+    n = len(P_)
+    left, right = [], []
+    for i in range(n):
+        if i == 0:
+            dx, dy = P_[1][0] - P_[0][0], P_[1][1] - P_[0][1]
+        elif i == n - 1:
+            dx, dy = P_[-1][0] - P_[-2][0], P_[-1][1] - P_[-2][1]
+        else:
+            dx, dy = P_[i + 1][0] - P_[i - 1][0], P_[i + 1][1] - P_[i - 1][1]
+        L = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / L, dx / L
+        w = (w0 + (w1 - w0) * i / (n - 1)) * h * 0.5
+        left.append((P_[i][0] + nx * w, P_[i][1] + ny * w))
+        right.append((P_[i][0] - nx * w, P_[i][1] - ny * w))
+    pts2 = left + right[::-1]
+    if _area(pts2) < 0:
+        pts2 = pts2[::-1]
+    return sk.smooth_path(pts2, True, 0.25)
+
+
+@rfig("horse_rider")
+def _f_horse_rider(h):
+    """Yan görünüş yürüyen at + binici (sağa). h: binicinin tepesine kadar toplam boy."""
+    body = _sp([(-0.34, -0.60), (-0.29, -0.655), (-0.10, -0.645), (0.10, -0.62), (0.22, -0.64), (0.30, -0.585), (0.315, -0.47), (0.23, -0.375), (0.0, -0.36),
+                (-0.20, -0.38), (-0.325, -0.47)], h, True, 0.45)
+    neck = _sp([(0.19, -0.63), (0.26, -0.72), (0.34, -0.83), (0.42, -0.885), (0.455, -0.925), (0.48, -0.88), (0.555, -0.805), (0.605, -0.725), (0.59, -0.685),
+                (0.525, -0.695), (0.47, -0.745), (0.41, -0.70), (0.34, -0.60), (0.30, -0.50)], h, True, 0.4)
+    legs = _union(
+        _limb([(0.27, -0.46), (0.375, -0.28), (0.40, -0.12), (0.43, 0.0)], 0.075, 0.032, h),
+        _limb([(0.24, -0.46), (0.225, -0.27), (0.185, -0.11), (0.15, 0.0)], 0.07, 0.03, h),
+        _limb([(-0.26, -0.47), (-0.22, -0.31), (-0.34, -0.18), (-0.335, -0.07), (-0.32, 0.0)], 0.085, 0.032, h),
+        _limb([(-0.23, -0.47), (-0.16, -0.29), (-0.12, -0.15), (-0.10, -0.04), (-0.07, 0.0)], 0.08, 0.03, h))
+    tail = _limb([(-0.33, -0.62), (-0.43, -0.57), (-0.48, -0.42), (-0.47, -0.27)], 0.06, 0.018, h)
+    rider = _union(
+        _sp([(-0.07, -0.64), (-0.075, -0.78), (-0.03, -0.90), (0.03, -0.935), (0.075, -0.90), (0.085, -0.78), (0.07, -0.65)], h, True, 0.45),
+        _ellipse(0.04, -0.975, 0.045, 0.052, h),
+        _sp([(-0.04, -0.995), (0.0, -1.03), (0.07, -1.035), (0.12, -1.0), (0.10, -0.985), (0.03, -0.99)], h, True, 0.4),
+        _limb([(0.02, -0.66), (0.12, -0.58), (0.115, -0.46), (0.105, -0.38)], 0.07, 0.04, h),
+        _limb([(0.04, -0.86), (0.13, -0.80), (0.20, -0.75)], 0.045, 0.03, h),
+        _sp([(-0.03, -0.90), (-0.17, -0.82), (-0.30, -0.66), (-0.27, -0.58), (-0.09, -0.68)], h, True, 0.4))
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(0.27 * h, -0.64 * h), (0.34 * h, -0.78 * h), (0.43 * h, -0.88 * h)], rc, 0.22, max(1.0, h * 0.004))
+        _fold(c, [(-0.10 * h, -0.64 * h), (0.05 * h, -0.62 * h), (0.2 * h, -0.62 * h)], rc, 0.16, max(1.0, h * 0.003))
+    return _union(body, neck, legs, tail, rider), detail
+
+
+@rfig("torchbearer")
+def _f_torchbearer(h):
+    """Yürüyen meşaleci (sağa): pelerin, yükseltilmiş kolda meşale. Meşale ucu: TORCH_TIP."""
+    cloak = _sp([(-0.09, -0.80), (0.10, -0.80), (0.14, -0.62), (0.15, -0.42), (0.145, -0.30), (-0.17, -0.30), (-0.16, -0.46), (-0.13, -0.66)], h, True, 0.4)
+    head = _union(_ellipse(0.015, -0.875, 0.055, 0.064, h), _sp([(-0.05, -0.86), (-0.04, -0.935), (0.03, -0.955), (0.09, -0.92), (0.05, -0.90), (-0.01, -0.85)], h, True, 0.4))
+    neck = _pp([(-0.02, -0.83), (0.05, -0.83), (0.055, -0.78), (-0.03, -0.78)], h)
+    legs = _union(_limb([(-0.02, -0.34), (0.08, -0.18), (0.16, -0.02)], 0.09, 0.05, h), _limb([(-0.04, -0.34), (-0.10, -0.18), (-0.15, -0.01)], 0.09, 0.05, h))
+    arm = _limb([(0.06, -0.78), (0.17, -0.90), (0.23, -1.00)], 0.07, 0.04, h)
+    back_arm = _limb([(-0.08, -0.76), (-0.14, -0.60), (-0.11, -0.46)], 0.07, 0.04, h)
+    stick = _union(_pp([(0.225, -0.98), (0.24, -0.98), (0.265, -1.24), (0.25, -1.24)], h), _ellipse(0.258, -1.255, 0.032, 0.04, h))
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        _fold(c, [(-0.10 * h, -0.70 * h), (-0.14 * h, -0.50 * h), (-0.15 * h, -0.32 * h)], rc, 0.14, max(1.0, h * 0.003))
+    return _union(cloak, head, neck, legs, arm, back_arm, stick), detail
+
+
+TORCH_TIP = {"torchbearer": (0.262, -1.285)}
+
+
+@rfig("bearer")
+def _f_bearer(h):
+    """Sedye taşıyıcısı (sağa): omzunda direk, iki eli direkte, hafif öne eğik."""
+    body = _sp([(-0.10, -0.79), (0.10, -0.79), (0.15, -0.60), (0.15, -0.40), (0.13, -0.30), (-0.16, -0.30), (-0.16, -0.46), (-0.14, -0.66)], h, True, 0.4)
+    head = _union(_ellipse(0.04, -0.865, 0.055, 0.064, h), _sp([(-0.015, -0.855), (-0.005, -0.93), (0.07, -0.95), (0.115, -0.905), (0.08, -0.89), (0.02, -0.84)], h, True, 0.4))
+    neck = _pp([(0.0, -0.82), (0.07, -0.82), (0.075, -0.78), (-0.01, -0.78)], h)
+    legs = _union(_limb([(-0.02, -0.34), (0.07, -0.18), (0.14, -0.02)], 0.09, 0.05, h), _limb([(-0.04, -0.34), (-0.09, -0.18), (-0.14, -0.01)], 0.09, 0.05, h))
+    arms = _union(_limb([(0.07, -0.76), (0.16, -0.78), (0.21, -0.82)], 0.065, 0.04, h), _limb([(-0.05, -0.76), (0.04, -0.80), (0.10, -0.83)], 0.065, 0.04, h))
+    pad = _pp([(-0.13, -0.835), (0.30, -0.835), (0.30, -0.805), (-0.13, -0.805)], h)
+    return _union(body, head, neck, legs, arms, pad), None
+
+
+@rfig("litter")
+def _f_litter(h):
+    """Kapalı sedye (yandan): iki direk + perdeli kabin + kubbe. h: taşıyıcı boyu; ön/arka taşıyıcılar x=±1.0h."""
+    poles = _pp([(-1.12, -0.822), (1.12, -0.822), (1.12, -0.795), (-1.12, -0.795)], h)
+    cabin = _sp([(-0.56, -0.78), (-0.56, -0.28), (-0.50, -0.20), (0.50, -0.20), (0.56, -0.28), (0.56, -0.78), (0.0, -0.80)], h, True, 0.18)
+    roof = _sp([(-0.62, -0.74), (-0.46, -0.93), (0.0, -0.99), (0.46, -0.93), (0.62, -0.74)], h, True, 0.35)
+    hang = _union(_pp([(-0.40, -0.80), (-0.37, -0.80), (-0.37, -0.79), (-0.40, -0.79)], h), _pp([(0.37, -0.80), (0.40, -0.80), (0.40, -0.79), (0.37, -0.79)], h))
+
+    def detail(c, col, rim, rimd, rim2, hl):
+        rc = rim or "#C58A44"
+        for k in range(8):
+            x = (-0.48 + k * 0.137) * h
+            c.drawLine(x, -0.74 * h, x + 0.01 * h, -0.30 * h, skia.Paint(AntiAlias=True, Color=C(rc, 60), StrokeWidth=max(1.0, h * 0.004), Style=skia.Paint.kStroke_Style))
+        c.drawLine(-0.58 * h, -0.28 * h, 0.58 * h, -0.28 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 120), StrokeWidth=max(1.2, h * 0.006), Style=skia.Paint.kStroke_Style))
+        c.drawLine(-0.62 * h, -0.74 * h, 0.62 * h, -0.74 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 110), StrokeWidth=max(1.2, h * 0.006), Style=skia.Paint.kStroke_Style))
+        # püskül
+        for k in range(12):
+            x = (-0.52 + k * 0.095) * h
+            c.drawLine(x, -0.20 * h, x, -0.14 * h, skia.Paint(AntiAlias=True, Color=C("#c9962b", 130), StrokeWidth=max(1.2, h * 0.006), Style=skia.Paint.kStroke_Style))
+    return _union(poles, cabin, roof, hang), detail

@@ -80,7 +80,7 @@ def make_pressure(es_at, fr_at, ot_at):
         icons.draw_icon(f, "imperial_crown", cxp, cyp, size=110 * (0.85 + 0.15 * ck), metal="gold", alpha=ck, glow=0.35)
         specs = [(es_at, (-3.8, 40.2), "#C0392B", "İSPANYA", (-3.8, 38.2), 60),
                  (fr_at, (0.6, 46.6), "#4B6DB5", "FRANSA", (-0.5, 49.2), -50),
-                 (ot_at, (26.0, 40.6), "#4FA57A", "OSMANLI", (26.0, 38.6), 70)]
+                 (ot_at, (26.0, 40.6), "#4FA57A", "OSMANLI", (23.0, 39.6), 70)]
         for (ta, src, col, lab, lpos, bend) in specs:
             k = clamp((cx.t - cx.at(ta)) / 1.0)
             if k <= 0:
@@ -116,8 +116,8 @@ def k_ideas(cx, tag_at=0.9, n=34):
         k = (cx.t - t0) / dur
         d = 0.45 + rs.rand() * 0.9                # derinlik (ölçek)
         y0 = 560 + rs.randn() * 40
-        y1 = 120 + rs.rand() * 860
-        x0, x1 = 600 + rs.rand() * 80, 2050 + rs.rand() * 200
+        y1 = 90 + rs.rand() * 900
+        x0, x1 = 600 + rs.rand() * 80, 760 + rs.rand() * 1250
         sd = rs.rand() * 6
         if k <= 0 or k >= 1.15:
             continue
@@ -515,7 +515,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
             tag(f, "BİR YIL SONRA", 470, 860, size=34, alpha=yk, track=14, color="#F4DD92")
         # sağ: altın çerçeve
         fk = cx.amt(frame_at, 0.9)
-        fx_, fy_, fw, fh = 1290, 520, 640, 820
+        fx_, fy_, fw, fh = 1250, 575, 620, 780
         if fk > 0:
             glow(f, fx_, fy_, 560, "#FFB347", 0.18 * fk)
             # tuval: alacakaranlık gökyüzü + uzak ağaçlar
@@ -530,7 +530,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
             pk = clamp((cx.t - cx.at(paint_at)) / 2.2)
             if pk > 0:
                 f.c.saveLayer(skia.Rect.MakeXYWH(fx_ - fw / 2, fy_ - fh / 2, fw, fh), None)
-                draw_rider(f, fx_ - 20, fy_ + 290, 1.12, alpha=1.0)
+                draw_rider(f, fx_ - 20, fy_ + 280, 1.06, alpha=1.0)
                 edge = fx_ - fw / 2 + (fw + 200) * ease_out(pk, 1.4) - 100
                 sh = skia.GradientShader.MakeLinear([(edge - 140, 0), (edge, 0)], [C("#000000", 255), C("#000000", 0)], [0, 1])
                 f.c.drawRect(skia.Rect.MakeXYWH(fx_ - fw / 2 - 20, fy_ - fh / 2 - 20, fw + 40, fh + 40), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kDstIn))
@@ -540,7 +540,7 @@ def k_titian(cx, at=0.0, year_at=1.0, frame_at=2.2, symbol_at=3.0, paint_at=4.3,
             # 'zafer simgesi': defne
             sk_ = cx.amt(symbol_at, 0.7)
             if sk_ > 0:
-                icons.draw_icon(f, "laurel", fx_, fy_ - fh / 2 - 70, size=150, metal="gold", alpha=sk_, glow=0.35)
+                icons.draw_icon(f, "laurel", fx_ - fw / 2 - 20, fy_ - fh / 2 + 60, size=130, metal="gold", alpha=sk_, glow=0.35)
             # zırh parıltısı
             ak = cx.amt(armor_at, 0.6) * (1 - cx.amt(armor_at, 0.9, off=1.2))
             if ak > 0:
@@ -639,7 +639,7 @@ def k_peace(cx, at=0.0, date_at=0.9, title_at=2.8, seal_at=3.8, luther_at=5.2, o
                 if k > 0:
                     icons.draw_icon(f, ic, nx, ny + 10 - (1 - ease_out(k)) * 30, size=230 * (0.85 + 0.15 * back_out(k)), metal=metal, alpha=k, glow=0.12)
                     f.text(lab, nx, ny + 260, face="fell", size=40, color=INK, align="c", track=4, alpha=0.9 * k)
-            SH.wax_seal(f, 470, 300, 66, color="#8E1F26", t=cx.amt(seal_at, 0.35), alpha=a, mono="K")
+            SH.wax_seal(f, 500, -210, 62, color="#8E1F26", t=cx.amt(seal_at, 0.35), alpha=a, mono="A")
     f.vig(0.6)
 
 
@@ -647,7 +647,7 @@ def k_peace(cx, at=0.0, date_at=0.9, title_at=2.8, seal_at=3.8, luther_at=5.2, o
 ELBE = [(11.2, 53.0), (11.9, 52.3), (12.35, 51.95), (12.75, 51.75), (13.0, 51.58), (13.22, 51.43), (13.45, 51.26), (13.74, 51.05), (14.2, 50.8)]
 
 
-def make_elbe(river_at, cross_at):
+def make_elbe(river_at, fog_at, army_at, cross_at):
     def extra(cx, cam, mv):
         f = cx.f
         k = ease_out(clamp((cx.t - cx.at(river_at)) / 1.4), 2)
@@ -655,7 +655,21 @@ def make_elbe(river_at, cross_at):
             mv.route(f, cam, ELBE, prog=k, color="#5FA0C8", width=9, arrow=False, glow=True, alpha=0.95)
             lx, ly = cam.ll(13.62, 51.14)
             f.text("ELBE", lx + 40, ly + 46, face="map_i", size=34, color="#BFE0F0", align="c", alpha=k, shadow=(2, 2, 3, "#000000"))
-        ck = clamp((cx.t - cx.at(cross_at)) / 1.4)
+        # Protestan ordusu (karşı yaka: teal kalkanlar)
+        ak = cx.amt(army_at, 0.6)
+        if ak > 0:
+            bx, by = cam.ll(13.62, 51.66)
+            for i, (dx, dy) in enumerate(((-46, 6), (0, -24), (46, 8), (-8, 34))):
+                icons.draw_icon(f, "shield", bx + dx, by + dy - (1 - ease_out(ak)) * 20, size=92, metal="teal", alpha=ak, glow=0.15)
+        ck = clamp((cx.t - cx.at(cross_at)) / 1.5)
         if ck > 0:
-            mv.route(f, cam, [(12.75, 51.12), (13.2, 51.40), (13.75, 51.72)], prog=ease_io(ck), color="#E8C25A", width=8, arrow=True)
+            mv.route(f, cam, [(12.45, 50.95), (13.15, 51.38), (13.95, 51.88)], prog=ease_io(ck), color="#E8C25A", width=9, arrow=True)
+        # sis: yavaşça sürüklenen büyük yumuşak lekeler
+        fk = cx.amt(fog_at, 1.6)
+        if fk > 0:
+            for i in range(16):
+                x = ((i * 211 + cx.t * (14 + 3 * (i % 4))) % (W + 700)) - 350
+                y = 180 + (i * 137) % 760
+                r = 230 + (i % 5) * 50
+                f.circle(x, y, r, shader=f.rad(x, y, r, [("#C9D2D6", 0.0, int(70 * fk)), ("#C9D2D6", 0.6, int(32 * fk)), ("#C9D2D6", 1.0, 0)]))
     return extra

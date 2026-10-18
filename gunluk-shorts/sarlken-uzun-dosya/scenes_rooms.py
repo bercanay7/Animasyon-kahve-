@@ -883,6 +883,10 @@ class Aachen:
 # ═══════════════════════════════════════════════════════════════════════
 #  REICHSTAG — Worms (1521)
 # ═══════════════════════════════════════════════════════════════════════
+def shade_(c, k):
+    return R.shade(c, k)
+
+
 def _persp(box, YF=None):
     YF = (box.by1 - box.vy) * box.zb / box.F if YF is None else YF
 
@@ -939,7 +943,7 @@ class Reichstag:
             left = R.mat_hallwall(fb, stone="#6a5c4a", pitch=PITCH, a0=A0, nwin=NWIN, w=WW, h1=H1, spring=SPR, h3=H3, seed=4, power=2.6 * sun)
             right = R.mat_stone_fine("#5a4d3d", seed=9, course=56)
             back = R.mat_stone_fine("#5b4e3e", seed=6, course=56)
-            floor = R.mat_stripe(R.mat_flags("#3a3229", seed=5, size=200), R.mat_carpet("#6a1a20"), 95.0)
+            floor = R.mat_stripe(R.mat_flags("#211c17", seed=5, size=200), R.mat_carpet("#4e1218"), 95.0)
             ceil = R.mat_beams("#33241a", seed=7, pitch=300, bwid=100, plaster="#40362a", axis="b")
             mats = dict(back=back, left=left, right=right, floor=floor, ceil=ceil)
             lights = []
@@ -947,14 +951,23 @@ class Reichstag:
                 lights.append(R.Light((960, y_, Z_), R.warm(1.0), 1.2, 340, spec=0.2))
             lights.append(R.Light((960, 520, 1900), R.warm(1.0), 1.4, 260, spec=0.2))
             win = dict(axis="x", x=XL, wrect=(Zmin, YF - H3, Zmin + WW, YF - H1), pitch=PITCH, n=NWIN, spring=YF - SPR)
-            moon = R.Moon(D, col=(1.0, 0.86, 0.60), power=1.5 * sun, win=win, pen=7.0, pen_k=0.02)
-            rgb, cov = box.render(mats, lights, moon=moon, ambient=(0.008, 0.008, 0.012), expo=1.15, ao=0.6)
+            moon = R.Moon(D, col=(1.0, 0.86, 0.60), power=1.15 * sun, win=win, pen=7.0, pen_k=0.02)
+            rgb, cov = box.render(mats, lights, moon=moon, ambient=(0.007, 0.007, 0.011), expo=0.95, ao=0.6)
             cache["r"] = (rgb, cov)
             return cache["r"]
 
         def L1(f):
             rgb, cov = room()
             R.draw_np(f, rgb, cov)
+            # sağ duvara asılı sancaklar (duvarla aynı katmanda: kayma yok)
+            for Zc in (1750, 1400, 1050, 780):
+                q = [P(618, 600, Zc - 90), P(618, 600, Zc + 90), P(618, 280, Zc + 90), P(618, 280, Zc - 90)]
+                col = "#5a1016" if Zc % 2 else "#1c3326"
+                _quad(f, q, col, [(960, 400, 800, "#ff9c40", 0.15)], rim="#c9962b",
+                      grad=f.lin(0, q[0][1], 0, q[2][1], [(shade_(col, 0.12), 0.0), (col, 0.5), (shade_(col, -0.4), 1.0)]))
+                mid = [P(618, 560, Zc - 90), P(618, 560, Zc + 90)]
+                f.line(mid[0][0], mid[0][1], mid[1][0], mid[1][1], color="#c9962b", sw=2.0, alpha=0.6)
+                f.circle((q[0][0] + q[1][0] + q[2][0] + q[3][0]) / 4, (q[0][1] + q[2][1]) / 2, max(6.0, abs(q[1][0] - q[0][0]) * 0.18), style="stroke", sw=2.0, color="#c9962b", alpha=0.7)
 
         def L2(f):
             warm_l = [(960, 520, 520, "#ff9c40", 0.22), (960, 300, 700, "#ffb060", 0.10)]

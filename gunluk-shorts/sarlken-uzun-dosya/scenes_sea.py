@@ -81,15 +81,24 @@ def cam_on(row=0, x=0.5, zoom=1.4, rise=0.0, s=1.0):
     return safe_cam(cx, cy, zoom)
 
 
-@lru_cache(maxsize=40)
-def band_image(mood, k):
-    """Bant k gövdesi: yalnız içerik yüksekliği kadar kırpılmış görüntü → (img, x, y) katman koordinatında."""
+@lru_cache(maxsize=60)
+def band_image(mood, k, mist_q=0):
+    """Bant k gövdesi + önündeki derinlik buğusu: yalnız içerik yüksekliği kadar kırpılmış görüntü → (img, x, y) katman koordinatında.
+    Buğu bandın üstüne doğru uzanır: önceki sıradaki gemilerin üstüne biner (sıralar arası hava perspektifi)."""
     M = _mood(mood)
-    ytop = int(BAND_Y[k] - _amp(M, k) + STRIP_H[k] - 8)
+    ycrest = BAND_Y[k] - _amp(M, k)
+    ytop_fill = int(ycrest + STRIP_H[k] - 8)
+    up = 210 if k > 0 else 120
+    ytop = int(ycrest - up)
     h = int(H + MARGIN + 70 - ytop)
+    mist = mist_q / 4.0
 
     def fn(f):
         bake_band(f, M, k)
+        fa = M["fog_a"] * (1.0 - 0.18 * k) * (0.85 if k > 0 else 1.0) + mist * 0.55
+        fa = min(0.85, fa)
+        if fa > 0.01:
+            f.rect(-MARGIN, ytop, W + 2 * MARGIN, up + 40, shader=f.lin(0, ytop, 0, ycrest + 40, [(M["fog"], 0.0, 0), (M["fog"], 0.75, int(255 * fa * 0.8)), (M["fog"], 1.0, int(255 * fa))]))
     img = PW.bake_sprite(fn, W + 2 * MARGIN, h, MARGIN, -ytop, mip=False)
     return img, -MARGIN, ytop
 
@@ -684,7 +693,7 @@ def draw_ship(f, M, mood, sh, t, wind, flash, fire_flash, idx, vis=None):
         PW.glow(f, 0, -80, 240 * burn + 60, "#FF8A2E", 0.5 * burn)
     # ── namlu alevi + duman
     if sh["gun"] > 0:
-        _guns(f, M, t, idx, kind, sh["gun"], wind=wf)
+        _guns(f, M, t, idx, kind, sh["gun"], wind=wf, srow=srow)
     cs.restore()
     if burn > 0.05:
         # kuru duman sütunu (dünya ekseninde, gemiyle birlikte kayar)
@@ -733,35 +742,31 @@ def _oars(f, M, t, idx, rock, sink):
     f.c.drawPath(path, skia.Paint(AntiAlias=True, Color=C(M["rim"], 90), Style=skia.Paint.kStroke_Style, StrokeWidth=0.9))
 
 
-def _guns(f, M, t, idx, kind, amount, wind=-1):
-    """Top atışları: periyodik namlu alevi + büyüyen/dağılan duman."""
-    period = 3.6 / (0.25 + amount)
-    nguns = 3
+def _guns(f, M, t, idx, kind, amount, wind=-1, srow=1.0):
+    """Top atışları: periyodik namlu alevi + büyüyen/dağılan tek duman kabarcığı."""
+    period = 3.4 / (0.25 + amount)
+    nguns = 2
     for g in range(nguns):
-        off = (g * 1.37 + idx * 0.83) % period
+        off = (g * 1.57 + idx * 0.83) % period
         k = int((t - off) // period)
         for kk in (k - 1, k):
             T = kk * period + off
             age = t - T
-            if age < 0 or age > 7.5 or kk < 0:
+            if age < 0 or age > 6.0 or kk < 0:
                 continue
             rs = RS(idx * 977 + g * 31 + kk)
             gx = lerp(-70, 170, rs.rand())
-            gy = {"carrack": -42, "galley": -64}.get(kind, -40)
-            if kind == "carrack":
-                gy = -34 - rs.rand() * 10
-            if age < 0.16:
-                e = 1 - age / 0.16
-                PW.glow(f, gx + 10, gy, 120 * (0.5 + e), "#FFC66B", 1.0 * e, 255, 140, 0.4)
-                PW.glow(f, gx + 10, gy, 44 * (0.5 + e), "#FFF1C4", 1.0 * e)
-            # duman
-            u = age / 7.5
-            r = 26 + 120 * u ** 0.6
-            a = 0.62 * (1 - u) ** 1.2 * min(1.0, age * 3)
-            px = gx + wind * (age * 16 + 6) * (1.0 if wind else 0) - 6
+            gy = {"carrack": -34 - rs.rand() * 10, "galley": -64}.get(kind, -40)
+            if age < 0.14:
+                e = 1 - age / 0.14
+                PW.glow(f, gx + 10, gy, 90 * (0.5 + e), "#FFC66B", 1.0 * e, 255, 140, 0.4)
+                PW.glow(f, gx + 10, gy, 34 * (0.5 + e), "#FFF1C4", 1.0 * e)
+            u = age / 6.0
+            r = 22 + 90 * u ** 0.6
+            a = 0.6 * (1 - u) ** 1.2 * min(1.0, age * 3)
+            px = gx + wind * (age * 16 + 6) - 6
             py = gy - 14 - age * 11
             PW.puff(f, px, py, r, "#9C9288" if M["bright"] > 0.85 else "#5C5C60", a, seed=kk + g, rot=age * 0.2)
-            PW.puff(f, px + wind * r * 0.45, py - r * 0.2, r * 0.7, "#8A8078" if M["bright"] > 0.85 else "#505458", a * 0.8, seed=kk + g + 2, rot=-age * 0.3)
 
 
 def _sink_fx(f, M, t, x, yw, srow, sink, idx, mood):
@@ -897,7 +902,7 @@ class Sea:
             rowmap = {0: 2, 1: 1, 2: 0}
             for k in range(5):
                 SW.push_depth(f, cam, BAND_D[k])
-                bimg, bx, by = band_image(mood, k)
+                bimg, bx, by = band_image(mood, k, int(round(clamp(self.mist) * 4)))
                 f.c.drawImage(bimg, bx, by, LIN, skia.Paint())
                 self._strips(f, t, k)
                 if k in rowmap:
@@ -907,8 +912,6 @@ class Sea:
                             draw_ship(f, M, mood, sh, t, wind, e, 0.0, i, vis)
                 if k == 0:
                     self._battle_smoke(f, t, 0, False)
-                if k in (0, 1, 3):
-                    self._mist(f, t, k)
                 if k == 2:
                     self._battle_smoke(f, t, 2, True)
                 f.c.restore()
@@ -1015,7 +1018,7 @@ class Sea:
             PW.puff(f, x, y, r, col, a, seed=i + k, rot=0.4 * i)
 
     def _battle_smoke(self, f, t, k, front):
-        """Barut dumanı: yavaş sürüklenen büyük saydam kabarcıklar (smoke=0..1)."""
+        """Barut dumanı (smoke=0..1): gun>0 olan gemilerin çevresinde birkaç büyük, yavaş sürüklenen saydam kabarcık."""
         sm = self.smoke
         if sm <= 0.02:
             return
@@ -1024,14 +1027,15 @@ class Sea:
         col = "#8A7F76" if M["bright"] > 0.85 else "#4C5258"
         if self.mood in ("dusk", "dawn"):
             col = "#8C6A58"
-        n = int(6 + 12 * sm)
+        anchors = [s_["x"] * W for s_ in self.ships if s_["gun"] > 0 and s_["row"] in ((0,) if front else (1, 2, 3))] or [W * (0.2 + 0.6 * rs.rand()) for _ in range(3)]
+        n = int(2 + 4 * sm)
         by = BAND_Y[k]
         for i in range(n):
-            ph = rs.rand()
-            x = ((rs.rand() * (W + 900) - 450) + t * (6 + 10 * rs.rand()) * -self.wind) % (W + 900) - 450
-            y = (by + 10 - rs.rand() * 190) if front else (by - 40 - rs.rand() * 150)
-            r = 110 + rs.rand() * 170
-            a = (0.14 + 0.36 * sm) * (0.55 + 0.45 * math.sin(t * 0.25 + i * 1.7)) * (1.0 if front else 0.85)
+            ax = anchors[i % len(anchors)]
+            x = ax + (rs.rand() - 0.5) * 360 + math.sin(t * 0.13 + i) * 40 + t * 5 * -self.wind
+            y = (by - 40 - rs.rand() * 120) if front else (by - 20 - rs.rand() * 110)
+            r = 120 + rs.rand() * 100
+            a = (0.16 + 0.34 * sm) * (0.6 + 0.4 * math.sin(t * 0.25 + i * 1.7))
             PW.puff(f, x, y, r, col, a, seed=i + k, rot=0.3 * i)
 
     def _spray(self, f, t, k, y0):

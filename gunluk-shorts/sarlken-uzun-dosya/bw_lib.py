@@ -111,7 +111,7 @@ def backdrop(f, cx, kind="night", tint=None, tint_a=0.0, rays=0.3, dust_n=50, du
 
 
 # ───────────────────────────── parşömen ─────────────────────────────
-PAPER_TONE = "#D6BF8A"
+PAPER_TONE = "#CBB27C"
 
 
 @contextmanager
