@@ -10,7 +10,7 @@
 | `out/sarlken_uzun.mp4` | ana kopya, ≈9 Mb/sn, 1,47 GB (git dışı; gönderim sınırı 500 MB'ı aştığı için yalnız bu ortamda) |
 | `out/sarlken_onizleme_720p.mp4` | hızlı izleme sürümü (720p) |
 | `teslim_parcalar/sarlken_uzun_ANA.mp4.001…004` | ana kopyanın dört parçası (≈350 MB'lık, gönderim sınırı için); birleştirme: `cat sarlken_uzun_ANA.mp4.00* > sarlken_uzun.mp4` ya da Windows'ta `copy /b …`; SHA-256 `402a4ec4856cacb7…` (git dışı) |
-| `yayin/sarlken_tr.srt`, `yayin/bolumler.txt` | Türkçe altyazı, bölüm zaman damgaları |
+| `yayin/sarlken_tr.srt` (+ `.vtt`, `_zamansiz.txt`), `yayin/bolumler.txt` | Türkçe altyazı (v2: çakışmasız; v1'deki 23 çakışma Studio'da "Failed" verebiliyor), yedek biçimler, bölüm zaman damgaları |
 | `yayin/kapak_A/B/C.jpg` | küçük resim adayları (A önerilen) |
 | `yayin/sarlken_kisa_fragman.mp4` | dikey Kısa (giriş kancası, yakılmış altyazı) |
 | `yayin/YAYIN_PAKETI.md`, `yayin/yayin_paneli.html` | başlık, açıklama, etiket, yorum, Studio adımları (panel: kopyala düğmeli) |

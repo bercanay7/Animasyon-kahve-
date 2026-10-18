@@ -222,11 +222,11 @@ Ocak 1519'da dedesi Maksimilian öldü.
 Yedi seçmen karar verirdi.
 
 52
-00:03:01,310 --> 00:03:03,400
+00:03:01,310 --> 00:03:03,210
 Başlıca rakip, Fransa Kralı I.
 
 53
-00:03:03,230 --> 00:03:05,100
+00:03:03,230 --> 00:03:04,910
 François'ydı.
 
 54
@@ -268,7 +268,7 @@ Augsburglu bankacı Jakob Fugger'den geldi.
 yedi seçmenin yedisi de ona oy verdi.
 
 63
-00:03:34,070 --> 00:03:37,680
+00:03:34,070 --> 00:03:37,570
 Bazı tarihçilere göre
 seçmenler parayı aldı,
 
@@ -333,7 +333,7 @@ Tacı almak için İspanya'dan
 ayrılması gerekti.
 
 77
-00:04:26,950 --> 00:04:32,020
+00:04:26,950 --> 00:04:31,910
 Bu ayrılış, yabancı danışmanlara ve
 vergilere öfkeli Kastilya şehirlerinde
 
@@ -380,7 +380,7 @@ loncaları da ayaklanmıştı:
 Germanía İsyanı.
 
 88
-00:05:01,610 --> 00:05:07,100
+00:05:01,610 --> 00:05:06,950
 Bugün Kastilya-León bölgesi, Villalar'ın
 yıldönümünü kendi bayramı olarak
 
@@ -398,7 +398,7 @@ tahtların başında duramazsın.
 Nisan 1521. Worms.
 
 92
-00:05:20,070 --> 00:05:23,080
+00:05:20,070 --> 00:05:22,950
 Yirmi bir yaşındaki
 imparatorun karşısında,
 
@@ -411,7 +411,7 @@ bir keşiş duruyor:
 Martin Luther.
 
 95
-00:05:26,670 --> 00:05:31,520
+00:05:26,670 --> 00:05:31,410
 Dört yıl önce, günah affı satışına
 karşı doksan beş maddelik bir metin
 
@@ -731,7 +731,7 @@ Meşhur “şeref dışında her şey kayıp”
 sözü ise sonradan yaygınlaştı.
 
 168
-00:09:42,454 --> 00:09:47,664
+00:09:42,454 --> 00:09:47,514
 Madrid'de esirken, İtalya ve Flandre'daki
 iddialarından vazgeçen bir antlaşma
 
@@ -754,7 +754,7 @@ esirin sözü geçersizdi.
 imparatorluk askerleri Roma'ya girdi.
 
 173
-00:10:03,714 --> 00:10:06,524
+00:10:03,714 --> 00:10:06,334
 Papa, Castel Sant'Angelo'ya sığındı.
 
 174
@@ -785,7 +785,7 @@ Catherine'in boşanmasını onaylayamadı.
 Henry, Roma'dan koptu.
 
 180
-00:10:31,574 --> 00:10:37,603
+00:10:31,574 --> 00:10:37,473
 1528'de iki hükümdar birbirine
 “yalancı” dedi ve düelloya davet
 
@@ -1002,7 +1002,7 @@ hâlâ filosuyla ortadaydı.
 28 Eylül 1538'de, Preveze'de, papanın,
 
 229
-00:13:35,670 --> 00:13:40,520
+00:13:35,670 --> 00:13:40,390
 Venedik'in ve imparatorun birleşik
 filosu Barbaros'la karşılaştı ve geri
 
@@ -1073,7 +1073,7 @@ fethi anlatan, ama aslında
 kendini savunan mektuplar.
 
 245
-00:14:36,330 --> 00:14:41,340
+00:14:36,330 --> 00:14:41,190
 Ressam Dürer, Brüksel'de sergilenen
 Aztek eserlerini görüp değerlerini
 
@@ -1082,7 +1082,7 @@ Aztek eserlerini görüp değerlerini
 yaklaşık yüz bin florin tahmin etti.
 
 247
-00:14:44,370 --> 00:14:50,660
+00:14:44,370 --> 00:14:50,550
 1532'de, Cajamarca'da, Francisco
 Pizarro İnka hükümdarı Atahualpa'yı
 
@@ -1091,7 +1091,7 @@ Pizarro İnka hükümdarı Atahualpa'yı
 esir aldı.
 
 249
-00:14:51,990 --> 00:14:54,840
+00:14:51,990 --> 00:14:54,650
 Fidye olarak bir oda dolusu altın verildi:
 
 250
@@ -1124,7 +1124,7 @@ yasayı uygulamaya giden
 Peru valisi öldürüldü.
 
 257
-00:15:18,150 --> 00:15:23,880
+00:15:18,150 --> 00:15:23,770
 1550'de, Valladolid'de, imparator
 fetihleri geçici olarak durdurdu ve
 
@@ -1175,7 +1175,7 @@ on sekiz Avrupalı sağ kaldı.
 Şarlken ona bir arma verdi:
 
 269
-00:15:53,410 --> 00:15:55,180
+00:15:53,410 --> 00:15:54,990
 bir küre ve şu yazı:
 
 270
@@ -1241,12 +1241,12 @@ Mektup, özetle, imparatora tacını kimin
 parasıyla aldığını hatırlatıyordu.
 
 284
-00:16:48,110 --> 00:16:52,860
+00:16:48,110 --> 00:16:52,709
 Welser'ler adlı başka bir banker ailesi
 ise Venezuela'da yönetim hakkı elde
 
 285
-00:16:52,729 --> 00:16:53,799
+00:16:52,729 --> 00:16:53,790
 etti.
 
 286
@@ -1289,7 +1289,7 @@ ağzını tam kapatamadığı ve
 2019'daki bir çalışma,
 
 295
-00:17:24,950 --> 00:17:29,500
+00:17:24,950 --> 00:17:29,370
 portrelerindeki yüz özelliklerini
 hanedanın akraba evlilikleriyle
 
@@ -1298,7 +1298,7 @@ hanedanın akraba evlilikleriyle
 ilişkilendirdi. Ama çalışma küçüktü;
 
 297
-00:17:32,530 --> 00:17:33,960
+00:17:32,530 --> 00:17:33,770
 kesin bir şey söylemiyor.
 
 298
@@ -1406,7 +1406,7 @@ Hollanda'yı oğluna devrediyor.
 İspanya, Ocak 1556'da gelecek.
 
 322
-00:19:00,198 --> 00:19:06,728
+00:19:00,198 --> 00:19:06,578
 İmparatorluk unvanı ise ancak
 1556 ile 1558 arasında kardeşi
 
@@ -1419,7 +1419,7 @@ Ferdinand'a geçecek.
 Tarihçilerin saydığı nedenler şunlar:
 
 325
-00:19:11,358 --> 00:19:15,308
+00:19:11,358 --> 00:19:15,218
 gut ve yorgunluk, ve evrensel
 bir Hıristiyan imparatorluğunun
 
@@ -1442,7 +1442,7 @@ ve iflasa yakın devralacaktı.
 yanındaki küçük konuta yerleşti.
 
 330
-00:19:34,478 --> 00:19:39,648
+00:19:34,478 --> 00:19:39,498
 Bir çalışma, ölümünden kısa süre önce
 kendi adına okunan ayine katıldığını
 
@@ -1507,7 +1507,7 @@ Reform durmadı; Augsburg
 Barışı Lutherciliği tanıdı.
 
 345
-00:20:30,858 --> 00:20:35,988
+00:20:30,858 --> 00:20:35,858
 Sonuçta Avrupa, tek imparatorluk yerine
 birbirini dengeleyen devletlerden
 

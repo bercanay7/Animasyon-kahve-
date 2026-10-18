@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """timeline.json → Türkçe altyazı (SRT) + YouTube bölüm zaman damgaları.
 
-  python3 make_srt.py            # yayin/sarlken_tr.srt ve yayin/bolumler.txt
-Altyazı satırları: ≤2 satır × ≤42 karakter, ≤5,5 sn, noktalama/duraklarda bölünür; sözcük zamanları timeline.json'dan."""
+  python3 make_srt.py            # yayin/sarlken_tr.srt (+ .vtt, _zamansiz.txt) ve yayin/bolumler.txt
+Altyazı satırları: ≤2 satır × ≤42 karakter, ≤5,5 sn, noktalama/duraklarda bölünür; sözcük zamanları timeline.json'dan.
+Ardışık satırlar çakışmaz (YouTube Studio çakışan altyazıyı kabul etmiyor): satır, sonrakinin başlamasından GAP önce kapanır."""
 import json
 import os
 import re
@@ -13,6 +14,7 @@ os.makedirs(OUT, exist_ok=True)
 
 MAXCH = 42
 MAXDUR = 5.5
+GAP = 0.02
 TITLES = {
     "c0": "Giriş: 25 Ekim 1555",
     "c1": "Dört Tahtın Çocuğu (1500–1518)",
@@ -32,10 +34,11 @@ TITLES = {
 
 
 def ts(t):
-    t = max(0.0, t)
-    h, r = divmod(t, 3600)
-    m, s = divmod(r, 60)
-    return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{int(round((s - int(s)) * 1000)):03d}"
+    ms = int(round(max(0.0, t) * 1000))  # önce tam milisaniye: 59,9996 sn "00:00:59,1000" yazmasın
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    s, ms = divmod(ms, 1000)
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
 def wrap2(text):
@@ -79,14 +82,22 @@ def cues_for(sent):
 
 def main():
     tl = json.load(open(os.path.join(HERE, "out", "timeline.json"), encoding="utf-8"))
-    n = 0
-    lines = []
+    cues = []
     for s in tl["sentences"]:
         for a, b, txt in cues_for(s):
-            n += 1
             b = max(b, a + 0.9)
-            lines.append(f"{n}\n{ts(a - 0.05)} --> {ts(b + 0.12)}\n{wrap2(txt)}\n")
+            cues.append([max(0.0, a - 0.05), b + 0.12, wrap2(txt)])
+    for p, q in zip(cues, cues[1:]):
+        if p[1] > q[0] - GAP:
+            p[1] = max(q[0] - GAP, p[0] + 0.2)
+    n = len(cues)
+    lines = [f"{i}\n{ts(a)} --> {ts(b)}\n{t}\n" for i, (a, b, t) in enumerate(cues, 1)]
     open(os.path.join(OUT, "sarlken_tr.srt"), "w", encoding="utf-8").write("\n".join(lines))
+    # yedek biçimler: WebVTT (iPhone .srt'yi seçtirmezse) ve zamansız metin (Studio "Without timing" kendisi hizalar)
+    esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    vtt = ["WEBVTT", ""] + [f"{ts(a).replace(',', '.')} --> {ts(b).replace(',', '.')}\n{esc(t)}\n" for a, b, t in cues]
+    open(os.path.join(OUT, "sarlken_tr.vtt"), "w", encoding="utf-8").write("\n".join(vtt))
+    open(os.path.join(OUT, "sarlken_tr_zamansiz.txt"), "w", encoding="utf-8").write("\n\n".join(t for _, _, t in cues) + "\n")
     # bölüm zaman damgaları: kart başlangıcı (t0 − 3 sn) ; c0 için 0:00
     rows = []
     for c in tl["chapters"]:
@@ -96,7 +107,7 @@ def main():
         stamp = f"{h}:{mm:02d}:{ss:02d}" if h else f"{mm}:{ss:02d}"
         rows.append(f"{stamp} {TITLES[c['id']]}")
     open(os.path.join(OUT, "bolumler.txt"), "w", encoding="utf-8").write("\n".join(rows) + "\n")
-    print(f"{n} altyazı satırı → yayin/sarlken_tr.srt ; bölüm damgaları → yayin/bolumler.txt")
+    print(f"{n} altyazı satırı → yayin/sarlken_tr.srt (+ .vtt, _zamansiz.txt) ; bölüm damgaları → yayin/bolumler.txt")
     print("\n".join(rows))
 
 

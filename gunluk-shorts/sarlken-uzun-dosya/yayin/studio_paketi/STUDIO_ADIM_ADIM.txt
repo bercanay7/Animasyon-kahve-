@@ -77,6 +77,7 @@ Notlar:
  • YouTube kendi otomatik altyazısını üretmişse, yüklediğin dosya onun yerine geçer.
  • Dosyada 361 altyazı satırı var; her satır en çok 43 karakter, en çok iki satır.
  • Dosya UTF-8; Türkçe karakterler bozulmaz.
+ • ÖNEMLİ — v2: ilk sürümde 23 yerde ardışık altyazılar 0,07–0,19 sn çakışıyordu; Studio bunu "Failed" diye reddedebiliyor. v2'de çakışma yok (içerik aynı, yalnız bitiş zamanları düzeltildi). Sohbette "1_sarlken_tr_v2.srt" adıyla gönderildi; eski sarlken_tr.srt'yi kullanma.
 
 
 ════════ 4. BİTİŞ EKRANI (5 dk, bilgisayar sürümü) ════════
@@ -120,7 +121,7 @@ YouTube'u Windsor.ai'ye bağlarsan (sohbette verdiğim bağlantı; markanın kan
 ════════ 8. SORUN GİDERME ════════
 
 • Saat geçti ama video yayınlanmadı: İçerik → videoyu aç → Görünürlük → "Herkese açık" → Kaydet. (İşlem bitmediyse yayın biraz gecikebilir.)
-• Altyazı yüklenmiyor: dosya uzantısı .srt olmalı; "Zamanlamalı dosya" seç.
+• Altyazı yüklenmiyor ya da "Failed": sırayla dene → 1) 1_sarlken_tr_v2.srt (With timing), 2) 2_sarlken_tr_v2.vtt (With timing; iPhone .srt'yi seçtirmezse), 3) 3_sarlken_tr_zamansiz.txt (Without timing; YouTube zamanı kendisi ayarlar). Hiçbiri olmazsa bırak: YouTube genelde Türkçe otomatik altyazıyı kendisi üretir, yayını etkilemez; altyazı yayından sonra bilgisayardan da yüklenebilir.
 • Bitiş ekranı seçeneği yok: bilgisayar sürümünü ("masaüstü sitesi") kullan.
 • Bir şeyi yanlış yaptıysan Studio'da hepsi geri alınabilir; yayından sonra bile başlık, açıklama ve küçük resim değiştirilebilir.
 • Menü adları hesabına göre biraz farklı olabilir. Takıldığın yerin ekran görüntüsünü bana at, nerede olduğunu söylerim.
@@ -134,5 +135,7 @@ YouTube'u Windsor.ai'ye bağlarsan (sohbette verdiğim bağlantı; markanın kan
 04_etiketler.txt           etiketler (virgülle ayrılmış)
 05_bolumler.txt            bölüm zaman damgaları (açıklamada zaten var)
 06_kisa_fragman_metni.txt  Kısa fragmanın başlığı ve açıklaması
-sarlken_tr.srt             Türkçe altyazı (zamanlamalı dosya)
+sarlken_tr.srt             Türkçe altyazı, v2 (çakışmasız; sohbette 1_sarlken_tr_v2.srt)
+yedek/sarlken_tr.vtt       aynı altyazı WebVTT biçiminde (sohbette 2_sarlken_tr_v2.vtt)
+yedek/sarlken_tr_zamansiz.txt   zamansız metin, "Without timing" için (sohbette 3_sarlken_tr_zamansiz.txt)
 (ayrıca sohbette: kapak A/B/C görselleri, Kısa fragman videosu)
