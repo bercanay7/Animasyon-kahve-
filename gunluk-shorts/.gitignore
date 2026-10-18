@@ -38,3 +38,22 @@ sarlken-uzun-dosya/out/*.npy
 sarlken-uzun-dosya/yayin/*.png
 sarlken-uzun-dosya/yayin/sarlken_kisa_fragman.mp4
 sarlken-uzun-dosya/teslim_parcalar/
+
+# Medici: üretilen büyük/ara dosyalar (git'e girmez)
+medici-uzun-dosya/out/frames/
+medici-uzun-dosya/out/seg/
+medici-uzun-dosya/out/*.wav
+medici-uzun-dosya/out/*.m4a
+medici-uzun-dosya/out/*.mp4
+medici-uzun-dosya/out/*.npy
+medici-uzun-dosya/out/_audio_cache/
+medici-uzun-dosya/out/_cache/
+medici-uzun-dosya/out/audio_prev/
+medici-uzun-dosya/out/voice_for_scribe.mp3
+medici-uzun-dosya/out/scribe_raw.json
+medici-uzun-dosya/out/scribe_words_full.json
+medici-uzun-dosya/out/timeline.json
+medici-uzun-dosya/ses_ham/*.wav
+medici-uzun-dosya/yayin/*.png
+medici-uzun-dosya/yayin/*.mp4
+medici-uzun-dosya/teslim_parcalar/
