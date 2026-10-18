@@ -34,9 +34,10 @@ def circum_extra(t_a, dur_a=2.5, dur_b=2.6, gap=0.0, color="#F0D27A", width=6, s
                     (x, y), ang = mv.point_on(cam, pts, k)
                     icons.draw_icon(f, "ship", x, y - 30, size=74, metal="gold", glow=0.35)
         if labels:
-            for txt, lon, lat in (("ATLANTİK", -34, 18), ("PASİFİK", -136, -22), ("HİNT OKYANUSU", 78, -14)):
+            # konumlar rotaya ve karaya değmeyecek şekilde hesaplandı (zoom 0.165, merkez 0,-7)
+            for txt, lon, lat, trk in (("ATLANTİK", -51, 25, 8), ("PASİFİK", -147, -31, 8), ("HİNT OKYANUSU", 71, -3, 3)):
                 x, y = cam.ll(lon, lat)
-                f.text(txt, x, y, face="map_i", size=30, color="#8FA9BA", align="c", track=10, alpha=0.75 * smooth((cx.t - ta) / 0.8), shadow=(2, 2, 3, "#000000"))
+                f.text(txt, x, y, face="map_i", size=26, color="#9FB8C8", align="c", track=trk, alpha=0.8 * smooth((cx.t - ta) / 0.8), shadow=(2, 2, 3, "#000000"))
         if flag_at is not None:
             kf = cx.amt(flag_at, 0.6)
             if kf > 0:

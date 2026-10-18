@@ -319,7 +319,7 @@ def draw_medal(f, key, x, y, size, metal="gold", flip=False, alpha=1.0, tilt=0.0
     f.c.drawImage(img, -360, -360, skia.SamplingOptions(skia.FilterMode.kLinear), p)
     if glint is not None:
         gx = lerp(-520, 520, glint)
-        sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFF4D0", int(170 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
+        sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFE9A8", int(105 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
         f.c.drawRect(skia.Rect.MakeLTRB(-380, -380, 380, 380), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
         f.c.restore()
     f.c.restore()

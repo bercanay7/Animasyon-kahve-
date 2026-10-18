@@ -194,7 +194,7 @@ SHOTS = [
     # s4 — 23 Nisan 1521, Villalar
     shot("a_map", a=("c3s4", -0.2), tr=("fade", 0.7), need=("c1_kastilya",), cams=[(0.0, (-4.0, 41.0, 3.4)), (("c3s4", "Villalar'da,", 0.0), (-5.1, 41.7, 7.5))], tint=("#5A1A1A", 0.25),
          date=("23 NİSAN 1521", ("c3s4", "23", -0.1)), extra=_ex_villalar, approx=False, label="villalar_harita"),
-    shot("a_theatre", a=("c3s4", "kraliyet", -0.35), tr=("whip", 0.6), scene="field",
+    shot("a_theatre", a=("c3s4", "kraliyet", -0.35), tr=("whip", 0.4), scene="field",
          p=dict(ground="plain", weather="rain", armies=[dict(side="#8E1F26", kind="cavalry", x=0.34, row=1, n=14, dir=1, charge=1.0), dict(side="#5A3A8A", kind="peasants", x=0.72, row=1, n=34, dir=-1, charge=0.0)]),
          cams=[(0.0, (960, 600, 1.0)), (("c3s4", "dağıttı", 0.3), (1080, 610, 1.4))], label="villalar_savas"),
     # s5 — ertesi gün üç önder idam edildi

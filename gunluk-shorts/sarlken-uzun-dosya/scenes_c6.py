@@ -91,7 +91,7 @@ SHOTS = [
          p=dict(tag="c6_roma1", city="roma", time="dusk", fire=0.6, ladders=True, weather="clear"),
          overlay=X.ov_all(X.ov_date("6 MAYIS 1527", ("c6s7", "6", -0.1)), X.ov_kick("ROMA", ("c6s7", "1527'de", -0.15), y=122, size=36)), label="roma_kusatma"),
     shot("c6_maas", a=("c6s7", "maaşını", -0.15), tr=("fade", 0.4), at=0.0, at_strike=("c6s7", "alamayan", -0.15), at_men=("c6s7", "imparatorluk", -0.15), label="maas_yok"),
-    shot("c678_sahne", a=("c6s7", "Roma'ya", -0.7), tr=("whip", 0.45), scene="siege",
+    shot("c678_sahne", a=("c6s7", "Roma'ya", -0.5), tr=("whip", 0.3), scene="siege",
          cams=[(0.0, (900, 600, 1.1)), (("c6s8", 0.0), (1000, 560, 1.5))],
          p=dict(tag="c6_roma2", city="roma", time="night", fire=1.0, ladders=True, cannon_fire=True, weather="clear"),
          overlay=X.ov_embers(70, seed=7), label="roma_giris"),
