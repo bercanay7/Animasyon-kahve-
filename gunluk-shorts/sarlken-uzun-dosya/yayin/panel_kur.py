@@ -53,17 +53,19 @@ def thumb_uri(name, w=720):
 
 def probe_stats():
     st = {}
-    vid = os.path.join(ROOT, "out", "sarlken_uzun.mp4")
+    vid = os.path.join(ROOT, "out", "sarlken_uzun_yukleme.mp4")
+    if not os.path.exists(vid):
+        vid = os.path.join(ROOT, "out", "sarlken_uzun.mp4")
     if os.path.exists(vid):
         d = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", vid]).decode().strip())
         st["sure"] = f"{int(d // 60)}:{int(d % 60):02d}"
-        st["boyut"] = f"{os.path.getsize(vid) / 1e9:.2f} GB".replace(".", ",")
+        st["boyut"] = (f"{os.path.getsize(vid) / 1e9:.2f} GB" if os.path.getsize(vid) > 1e9 else f"{os.path.getsize(vid) / 1e6:.0f} MB").replace(".", ",")
     return st
 
 
 CHECK = [
     ("kulak", "Kulak kontrolü: dört kısa ses kesitini dinle (giriş, Worms, Akdeniz fırtınası, kapanış). Telaffuz ya da müzik hoşuna gitmeyen yer olursa tek cümle yamalanır."),
-    ("yukle", "Studio → Video yükle: sarlken_uzun.mp4"),
+    ("yukle", "Studio → Video yükle: sarlken_uzun_yukleme.mp4 (YouTube yüklemesi için hazır sürüm)."),
     ("baslik", "Başlık: önerilen başlığı yapıştır (aşağıdaki Kopyala düğmesi)."),
     ("aciklama", "Açıklama: bölüm zaman damgalarıyla birlikte yapıştır. İlk satır 0:00 olmalı; bölümler otomatik oluşur."),
     ("kapak", "Küçük resim: kapak_A.jpg yükle (B ve C yedek; Test ve Karşılaştır ile üçünü de sınayabilirsin)."),
@@ -279,7 +281,8 @@ def build(stats):
         if uri:
             thumbs += f'<figure><img src="{uri}" alt="Küçük resim {k}"><figcaption>{k}{" · önerilen" if k == "A" else ""} · {nm}</figcaption></figure>'
     files = [
-        ("sarlken_uzun.mp4", "ana video, 1920×1080, 24 kare/sn"),
+        ("sarlken_uzun_yukleme.mp4", "YouTube'a yüklenecek video: 1920×1080, 24 kare/sn, ≈2,6 Mb/sn, ses −14,1 LUFS"),
+        ("sarlken_onizleme_720p.mp4", "hızlı izleme sürümü (720p); yüklemek için değil"),
         ("sarlken_tr.srt", "Türkçe altyazı (zamanlamalı dosya)"),
         ("kapak_A / B / C.jpg", "küçük resim adayları"),
         ("sarlken_kisa_fragman.mp4", "dikey Kısa fragman"),

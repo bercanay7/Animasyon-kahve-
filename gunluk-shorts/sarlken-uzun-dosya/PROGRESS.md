@@ -6,7 +6,9 @@
 ## Çıktılar
 | Dosya | Ne |
 |---|---|
-| `out/sarlken_uzun.mp4` | ana video, 1920×1080, 24 k/sn, ≈9 Mb/sn, ses −14 LUFS (git dışı, büyük) |
+| `out/sarlken_uzun_yukleme.mp4` | **YouTube'a yüklenecek video**: 21:26, 1920×1080, 24 k/sn, CRF 22 (tune animation), ses −14,1 LUFS; kullanıcıya gönderilen sürüm (git dışı) |
+| `out/sarlken_uzun.mp4` | ana kopya, ≈9 Mb/sn, 1,47 GB (git dışı; gönderim sınırı 500 MB'ı aştığı için yalnız bu ortamda) |
+| `out/sarlken_onizleme_720p.mp4` | hızlı izleme sürümü (720p) |
 | `yayin/sarlken_tr.srt`, `yayin/bolumler.txt` | Türkçe altyazı, bölüm zaman damgaları |
 | `yayin/kapak_A/B/C.jpg` | küçük resim adayları (A önerilen) |
 | `yayin/sarlken_kisa_fragman.mp4` | dikey Kısa (giriş kancası, yakılmış altyazı) |

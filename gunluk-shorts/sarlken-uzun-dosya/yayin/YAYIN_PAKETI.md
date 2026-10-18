@@ -6,7 +6,8 @@ Hazırlayan: Claude (18 Ekim 2026). Yükleme için gereken her şey bu klasörde
 
 | Dosya | Ne |
 |---|---|
-| `out/sarlken_uzun.mp4` | ana video: 21:26, 1920×1080, 24 kare/sn, ≈9 Mb/sn, 1,47 GB; ses −14,1 LUFS, true peak −1,9 dBFS (YouTube'a bunu yükle) |
+| `out/sarlken_uzun_yukleme.mp4` | **YouTube'a yüklenecek video**: 21:26, 1920×1080, 24 kare/sn, ≈2,6 Mb/sn, ≈395 MB; ses −14,1 LUFS, true peak −1,9 dBFS |
+| `out/sarlken_uzun.mp4` | aynı videonun ana kopyası (≈9 Mb/sn, 1,47 GB; gönderim sınırını aştığı için yalnız bu ortamda; istenirse yeniden üretilir) |
 | `out/sarlken_onizleme_720p.mp4` | hızlı izleme sürümü (720p, ≈120 MB); yüklemek için değil |
 | `yayin/kulak_kontrol/*.mp3` | dört kısa ses kesiti: giriş, Worms, Akdeniz fırtınası, kapanış (kulak kontrolü) |
 | `yayin/yayin_paneli.html` | bu paketin kopyala düğmeli tek sayfa hâli (Artifact olarak da yayınlandı) |
