@@ -1,6 +1,6 @@
 # Ölçüm günlüğü (Kanal Anayasası §8 ve §16)
 
-`olcum.csv` her video için **okuma başına bir satır** tutar. Üretim/yayın olguları (kulvar, kanca türü, bilinçli değişiklik) `../yayin_gunlugu.jsonl`'dadır; **metrikler burada**. Başlangıç satırları 2026-10-14 Studio ekran görüntülerinden (`../konsey/veri/`) alındı; boş hücre = bilinmiyor.
+`olcum.csv` her video için **okuma başına bir satır** tutar. Üretim/yayın olguları (kulvar, kanca türü, bilinçli değişiklik) `../yayin_gunlugu.jsonl`'dadır; **metrikler burada**. Başlangıç satırları 2026-10-14 Studio ekran görüntülerinden, Sıtma ve Dune satırları 2026-10-18 ekran görüntülerinden (`../konsey/veri/`) alındı; boş hücre = bilinmiyor.
 
 ## Ne zaman okunur (her video için 3 okuma)
 
@@ -30,9 +30,10 @@ Ekran görüntüsünde **metrik adı ve tarih görünsün**; dosya adı `video_o
 | `okuma`, `okuma_tarihi` | `24sa`, `72sa`, `7g` ya da "yayından beri" |
 | `gosterilme` | Shown in feed (sayı) |
 | `stayed_to_watch_pct`, `swiped_away_pct` | Viewed vs swiped away |
-| `ort_izlenme_sn`, `ort_izlenme_pct` | Average view duration / % |
+| `ort_izlenme_sn`, `ort_izlenme_pct` | Average view duration / % (**≈ Watch time ÷ Engaged views**: yalnız kalanların ortalaması; % süreye bağlıdır, kulvarlar arası kıyaslanmaz) |
 | `views`, `engaged_views`, `unique_viewers` | `tekrar_orani` = views ÷ unique_viewers |
 | `abone_kazanimi`, `begeni`, `yorum` | etkileşim |
+| `watch_time_sa` | Watch time (hours); **izleme süresi / görüntülenme (sn) = watch_time_sa × 3600 ÷ views**: kulvarlar arası kıyas ölçütü (Emu ≈10,2 · Sıtma ≈12,2 · Dune ≈24,0) |
 | `akis_pct`, `arama_pct`, `kanal_sayfasi_pct` | trafik kaynağı payları |
 | `tutma_notu` | eğrinin gözle okunan özeti (ilk 3 sn, ilk 10 sn, ortası, sonu) |
 | `not` | n<300 etiketi, ek gözlem, bilinçli değişiklik |
@@ -42,6 +43,7 @@ Ekran görüntüsünde **metrik adı ve tarih görünsün**; dosya adı `video_o
 - **≥300 gösterilme** olmadan oran okunmaz (`not`: "n<300"); 300'de %43'ün %95 aralığı ≈ ±5,6 puan, 1.000'de ≈ ±3,1.
 - Referans: **aynı kulvarın son 5 videosunun medyanı.** <5 puan = ayırt edilemedi; 5–10 = ipucu; ≥10 = etki olası. **Tek video kural değiştirmez** (≥3 aynı yönde).
 - **Çatlak:** 7 günde kanal medyanının ≥10 katı görüntülenme **ve** stayed to watch ≥%60 → otopsi (kanca, süre, tempo, konu, ses, saat).
+- **Kulvarlar arası (Kısa/Özel/Uzun) kıyas** ort. izlenme %'siyle yapılmaz (156 sn'lik video 39 sn'lik kadar yüksek yüzde alamaz); stayed to watch ve **izleme süresi / görüntülenme** kullanılır.
 - "Views" kalite ölçütü değildir (24 Ağustos 2026'dan beri tüm biçimlerde ilk karede sayılır [P]).
 
 ## Haftalık gözden geçirme notu (Pazartesi, ≤30 dk; `YOL_HARITASI.md` §4)

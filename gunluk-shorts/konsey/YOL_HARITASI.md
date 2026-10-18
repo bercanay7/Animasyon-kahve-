@@ -18,10 +18,10 @@ Bu belge `KANAL_ANAYASASI.md` v2.1'in işletim planıdır; **vizyon, amaç ve ka
 | Başlık | Durum | Kaynak |
 |---|---|---|
 | Kanal | 4 günlük, **6 abone**, 28 günde 1.728 görüntülenme (%94'ü Emu) | Studio 14 Eki [V] |
-| Canlı videolar | Zanzibar, Emu, Dans, Titanik v1 + 3 depoda kaydı olmayan (Antik Mısır, Romalılar, Moğol) | Studio [V] |
-| Hazır, yayınlanmamış | #5 Sıtma (39 sn, mavi baskı; kullanıcı tempo/bağlam/çizim eleştirdi), #6 Dune (156 sn), #7 Pellagra (93 sn; `fahrettin` ile yeniden seslendirildi, onay bekliyor) + Titanik v2 (40 sn, düzeltilmiş; ses hâlâ `dfki`) | yayın günlüğü, git |
+| Canlı videolar | Zanzibar, Emu, Dans, Titanik v1 + 3 depoda kaydı olmayan (Antik Mısır, Romalılar, Moğol) + **Sıtma (#5) ve Dune (#6): 16 Eki'de yayınlandı** (≈2 günde ≈1,3K ve 1.003 görüntülenme; stayed %50,4 ve %46,1) | Studio 14 ve 18 Eki [V] (`veri/sitma_dune_2026-10-18.md`) |
+| Hazır, yayınlanmamış | #7 Pellagra (93 sn; `fahrettin` ile yeniden seslendirildi, onay bekliyor) + Titanik v2 (40 sn, düzeltilmiş; ses hâlâ `dfki`). *(#5 Sıtma ve #6 Dune bu tabloda önce "hazır" yazılmıştı; kullanıcı ikisini de 16 Eki'de yayınlamıştı, 18 Eki'de düzeltildi.)* | yayın günlüğü, git |
 | Üretim hızı | ≈1 Özel video/gün (15–17 Eki); #6 ve #7 yeni cilt, #5 Titanik'le aynı cilt | git [V] |
-| Ses | Piper `dfki` (kullanıcı: "ses iyi"); veri seti CC BY-NC-SA 4.0. **2026-10-18'den beri anlatıcı `fahrettin`** (kör test A, CC0); `dfki` sesli hazır videolar (Titanik v2, Dune, Sıtma) yeniden seslendirilmeden yayınlanmaz | MODEL_CARD [V] |
+| Ses | Piper `dfki` (kullanıcı: "ses iyi"); veri seti CC BY-NC-SA 4.0. **2026-10-18'den beri anlatıcı `fahrettin`** (kör test A, CC0). **Yayındaki `dfki` sesli videolar:** Emu, Dans, Sıtma, Dune (Titanik v1 özel yapılıyor) → açıklamaya atıf satırı (madde 4c); Titanik v2 yayından önce `fahrettin` ile yeniden seslendirilir | MODEL_CARD [V] |
 | Konu havuzu | 9 aday (2 kullanıldı), öncelik belirsiz | `../konu-havuzu/` |
 | Ölçüm | ekran görüntüsü, elle; şema yoktu | — |
 
@@ -44,12 +44,14 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 | 2 | **Pellagra'yı Pazar 18 Eki 20:00'ye zamanla.** Başlık/açıklama/sabit yorum hazır; açıklamanın sonuna atıf satırı; Studio'da kare 0 küçük resim; "Değiştirilmiş içerik: Hayır"; "Çocuklara özel değil"; oynatma listesi: Tarih | **[K]** | 15 dk | Atıf satırı: *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* |
 | 3 | **Titanik v1'i özel (private) yap** (silme yok) | **[K]** | 2 dk | v2 Salı yayında |
 | 4 | ~~Ses A/B/C kör testi~~ **Yapıldı (2026-10-18): A = `fahrettin` (CC0) seçildi.** Pellagra bu sesle yeniden seslendirildi (93 sn; kullanıcı onayı bekleniyor) | **[K]** ✔ | — | `dfki` bırakıldı; bkz. Anayasa §12-14 |
-| 4b | **Titanik v2'yi `fahrettin` ile yeniden seslendir** (Sal 20 Eki'den önce; metin/okunuş + en iyi-5 + miks + render + QA); Dune 15 Ara'dan önce, Sıtma yeniden yapılırken | **[C]** | Titanik ≈1 saat | `dfki` = CC BY-NC-SA (Anayasa §4 ses kapısı); araçlar `ses-lab/OKUNUS_NOTLARI.md` |
+| 4b | **Titanik v2'yi `fahrettin` ile yeniden seslendir** (Sal 20 Eki'den önce; metin/okunuş + en iyi-5 + miks + render + QA) | **[C]** | ≈1 saat | `dfki` = CC BY-NC-SA (Anayasa §4 ses kapısı); araçlar `ses-lab/OKUNUS_NOTLARI.md` |
+| 4c | **Yayındaki `dfki` sesli videoların (Emu, Dans, Sıtma, Dune) açıklamasının son satırına atıf ekle:** *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* | **[K]** | 5 dk | Anayasa §4-2; eksik olabilir. YPP/ticari kullanım öncesi (G60) bu videolar için karar: `fahrettin` ile yeniden seslendirip yükle (görüntülenme sıfırlanır) / private / yazılı risk kabulü (`dfki` NC) |
 | 5 | **Antik Mısır, Romalılar, Moğol, Zanzibar'ı özel (private) yap** (öneri) ya da bana durumlarını söyle | **[K]** | 5 dk | Kaynak denetiminden geçenler geri açılır |
 | 6 | **Emu sabit yorum** ve **Dans başlık + sabit yorum** düzeltmeleri (metinleri ben yazarım) | **[C]** yazar, **[K]** yapıştırır | 10 dk | §10 |
 | 7 | **Kanal vitrini** (§8) | **[K]** | 20 dk | metinler hazır |
 | 8 | **K1 (Cuma) ve Ö2 (Pazar) üretimi:** kaynak kapısı, metin, kanca adayları | **[C]** | 2 oturum | §5 |
 | 9 | **Pellagra 24. sa okuması** (Pzt 19 Eki 20:00) ve **72. sa okuması** (Çar 21 Eki 20:00): Reach + Engagement ekran görüntüleri | **[K]** ekran, **[C]** `olcum.csv` | 10 dk/okuma | E1 ilk işareti |
+| 9b | **Sıtma ve Dune 72. sa okuması** (Sıtma: Pzt 19 Eki sabahı; Dune: Pzt 19 Eki öğleden sonra; 7. gün: Cum 23 Eki): Engagement'ta **Audience retention** (tutma eğrisi; Dune'unki 18 Eki'de henüz işlenmemişti), Reach'te **Shown in feed**; ayrıca Studio'dan kesin yayın saati | **[K]** ekran, **[C]** `olcum.csv` | 10 dk/okuma | Dune'un ilk kanıtı 51. sn'de: eğride 40–55. sn arası düşüş var mı? |
 | 10a | **Vizyonu oku ve onayla/değiştir** (`VIZYON.md` §2–§4, 5 dk): vizyon cümlesi, üç alan, kesişim imzası | **[K]** | 5 dk | Anayasa §12-11..13 zaten senin sözün; geri kalanı öneri |
 | 10b | **Ses yolu için ilk adım:** `ses_testi/SES_BRIFI.md` içindeki 60 sn test metnini (a) kendi sesinle telefonda oku ve gönder **ya da** (b) bir seslendirmene yolla **ya da** (c) Google Cloud Text-to-Speech demo sayfasında tr-TR Chirp 3 HD erkek seslerinde oku/dinle; çıktıları bana ilet | **[K]** | 20–30 dk | Karar Gün 28; bütçe bandını (0/düşük/orta) yaz |
 | 10 | (Opsiyonel) **Rakip/niş taraması:** Supermetrics "YouTube Public Data"yı bağla; ben niş kanalların son Shorts'larını (süre, görüntülenme, başlık kalıbı) çekip analiz ederim | **[K]** bağlar, **[C]** analiz | 2 dk + 1 oturum | Bağlantı sohbette verildi |
@@ -88,9 +90,9 @@ Gün sayımı: **Gün 0 = Pazar 18 Ekim.** Gün 14 = 1 Kas (Paz), **Gün 28 = 15
 | 9 | Paz 8 Kas | Özel | Ö4: **Oralit (ORS)** (P1) | üretilecek |
 | 10 | Sal 10 Kas | Kısa | K6: **Tarih** (P1: iyot ya da karantina) | üretilecek |
 | 11 | Cum 13 Kas | Kısa | K7: **Kesişim** (iki alan; E5 sonuçlarına göre) | üretilecek |
-| 12 | Paz 15 Kas | Özel | Ö5: **Sıtma (yeniden)** — Özel + yeni cilt | üretilecek |
-| — | **Sal 15 Ara** | Özel | **Dune × Star Wars** (çıpa: *Dune: Part Three*, 18 Aralık 2026 [P]); yayın öncesi ilk kanıt 51. sn → ≤30. sn'ye çekilir | hazır; çıpaya saklanır |
-| — | 18–20 Ara (hedef) | **Uzun Dosya** | **Pilot adayı: Dune × Star Wars (8–10 dk, 16:9)** — araştırma hazır; 15 Ara Özel video onun tanıtımı (Related video). Ses kapısı geçmezse Ocak'a kayar. Alternatif pilot: *Frankenstein* 1816 | G60'ta kesinleşir |
+| 12 | Paz 15 Kas | Özel | Ö5: **yeni konu** (Sıtma 16 Eki'de yayınlandı, stayed %50,4: yeniden yapma gerekçesi kalmadı; sıtma hikâyesi Özel'e uzatılacaksa konu havuzundan karar) | konu seçilecek |
+| — | ~~Sal 15 Ara~~ | Özel | ~~Dune × Star Wars~~ → **16 Eki'de yayınlandı** (1.003 görüntülenme, stayed %46,1, ≈24 sn izleme/görüntülenme). 15 Ara'da çıpa (*Dune: Part Three*, 18 Aralık 2026 [P]) için **yeni** bir kesim ya da Uzun Dosya fragmanı; aynı videoyu yeniden yükleme (kopya içerik) | slot serbest |
+| — | 18–20 Ara (hedef) | **Uzun Dosya** | **Pilot adayı: Dune × Star Wars (8–10 dk, 16:9)** — araştırma hazır; 16 Eki'de yayınlanan Dune Short'u ilgili video olarak bağlanır. Ses kapısı geçmezse Ocak'a kayar. Alternatif pilot: *Frankenstein* 1816 | G60'ta kesinleşir |
 
 \* Kısa kulvarı için fikirler **doğrulanmamış adaylardır** (kaynak kapısından geçmediler; edebiyat/oyun konularında telif kuralı §14-U10): *Frankenstein* ve 1816, Tolkien ve Somme, Tetris ve Soğuk Savaş, "Nükleer Gandi" efsanesi (efsane mi gerçek mi), Domuz Savaşı (1859), Boston melas seli (1919), Kova Savaşı (1325), Serçe kampanyası (Çin, 1958), "Jenkins'in Kulağı" savaşı (1739). Havuz hedefi ≥10 kaynaklı aday (Anayasa §15); haftada +3 aday araştırılır.
 
@@ -128,7 +130,7 @@ Puanlar yalnız ilk sıralama içindir; kanca adayları ve arama önerisi kontro
 
 | # | Soru | Nasıl | Ölçüt | Karar |
 |---|---|---|---|---|
-| **E1** | Özel (75–150 sn) mi, Kısa (35–50 sn) mı? | iki kulvar zaten dönüşümlü | gösterilme, stayed to watch, ort. izlenme sn ve %, tekrar oranı | Gün 28: ort. izlenme % farkı ≥15 puan (her biri ≥4 video) → iyi kulvarın payı %70 |
+| **E1** | Özel (75–150 sn) mi, Kısa (35–50 sn) mı? | iki kulvar zaten dönüşümlü | gösterilme, **stayed to watch, izleme süresi / görüntülenme (sn)**, tekrar oranı (ort. izlenme % kulvarlar arası kıyaslanmaz: süreye bağlı, 18 Eki düzeltmesi) | Gün 28 (her kulvardan ≥4 video): izleme süresi/görüntülenme oranı ≥1,5 ve stayed farkı <5 puan → yüksek olanın payı %70; stayed farkı ≥10 puan → stayed belirleyici. İlk veri (18 Eki): Dune ≈24 sn, Kısa ≈10–12 sn; stayed %46,1 ve %43–50 |
 | **E2** | Kanca türü: R (çelişki) mu, S (soru) mu? | ardışık iki videoda aynı tür yok | stayed to watch | Gün 60: ≥6 video/tür, fark ≥10 puan + ≥3 aynı yön |
 | **E3** | Saat: 20:00 mi, 12:30 mu? | Gün 28'den sonra dönüşümlü | gösterilme (24. sa), stayed to watch | Gün 60 |
 | **E4** (Faz 2) | Açılış sesi: 0,05 sn mi, 0,3 sn sessizlik + vuruş mu? | tek değişiklik | stayed to watch | Gün 90 |
@@ -164,7 +166,7 @@ Metrikler ve protokol: Anayasa §8 ve §16, `../olcum/README.md`. **Hedefler "ç
 | | Gün 28 (15 Kas) | Gün 60 (17 Ara) | Gün 90 (16 Oca) |
 |---|---|---|---|
 | Yayınlanan video (kümülatif) | ≥11 (13 slotun ≈%85'i) | ≥23 | ≥35 |
-| Medyan stayed to watch (baz Emu %43) | ≥%50; en iyi ≥%60 | ≥%55 | ≥%60 |
+| Medyan stayed to watch (baz: Emu %43, Sıtma %50,4, Dune %46,1 → medyan %46,1) | ≥%50; en iyi ≥%60 | ≥%55 | ≥%60 |
 | Dağıtım | ≥3 video ≥2.000 gösterilme | ≥1 çatlak | ≥2 çatlak benzeri kalıp |
 | Abone (toplam) | ≥50 | ≥250 | ≥500 |
 | Abone / 1.000 görüntülenme | ≥2 | ≥3 | ≥3 |
@@ -191,8 +193,8 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | K1 | **Kadans** | Haftada 3 (Sal/Cum/Paz 20:00); günlük değil (kapasite). Günlük istenirse önce Kısa kulvarı yeniden kullanılabilir cilde taşınır. |
 | K2 | **Titanik v1** | Private yap; v2 Salı yayınlanır. |
 | K3 | **Eski 4 video** (Zanzibar, Antik Mısır, Romalılar, Moğol) | Private; kaynak denetimini geçerlerse geri açılır. |
-| K4 | **Sıtma (#5)** | Yayınlanmaz; Özel + yeni cilt ile yeniden yapılır (Slot 12). |
-| K5 | **Dune (#6)** | 15 Aralık'a (Dune: Part Three çıpası) saklanır; yayın öncesi ilk kanıt ≤30. sn'ye çekilir. Alternatif: hemen yayınla. |
+| K4 | **Sıtma (#5)** | ~~Yayınlanmaz, Özel ile yeniden yapılır~~ → **kullanıcı 16 Eki'de yayınladı** (stayed %50,4: şimdiye kadarki en yüksek). Yeniden yapma önerisi geri çekildi; ses `dfki` olduğundan yeniden seslendirme/özel yapma kararı G60 ses kapısında (madde 4c). Slot 12 serbest. |
+| K5 | **Dune (#6)** | ~~15 Aralık'a saklanır~~ → **kullanıcı 16 Eki'de yayınladı** ("alternatif: hemen yayınla"). Tutma eğrisi 72. sa'te okunur (ilk kanıt 51. sn'de). 15 Ara slotu serbest; Uzun Dosya pilotu Dune ise bu Short ilgili video olarak bağlanır. |
 | K6 | **Ses (Shorts)** | **Karar verildi:** `fahrettin` (kör test A). Atıf satırı: *Ses: yapay (Piper TTS; veri seti CC0).* |
 | K7 | **Cilt politikası** | Özel: her video yeni cilt [K]; Kısa: "sezon" cildi (guaj kukla kiti). |
 | K8 | **Kısa kulvarı** | 35–50 sn, ≤1,9 sözcük/sn (§12-2 ile uyumlu). |
@@ -213,7 +215,7 @@ Cevap gelmezse **varsayılan** uygulanır (üretim durmasın); her karar sonrada
 | # | Risk | Olasılık / etki | Önlem | Sahip |
 |---|---|---|---|---|
 | R1 | Dağıtım yine gelmez (soğuk başlangıç) | orta / yüksek | kadans, ilk 2 sn, G14 teşhisi, Pellagra'nın 72. sa okuması | K+C |
-| R2 | Ses lisansı: `fahrettin` veri seti CC0 ama taban model "lessac" (araştırma amaçlı okunan veri seti) belirsiz; `dfki` açıkça NC | düşük-orta / orta (gelir yok) | `dfki` bırakıldı; atıf satırı; ticari kullanım (YPP/sponsor) öncesi insan/lisanslı ses ya da yazılı risk kabulü (G60) | K+C |
+| R2 | Ses lisansı: `fahrettin` veri seti CC0 ama taban model "lessac" (araştırma amaçlı okunan veri seti) belirsiz; `dfki` açıkça NC | düşük-orta / orta (gelir yok) | `dfki` bırakıldı; yayındaki `dfki` videolara (Emu, Dans, Sıtma, Dune) atıf satırı (4c); ticari kullanım (YPP/sponsor) öncesi insan/lisanslı ses ya da yazılı risk kabulü (G60) | K+C |
 | R3 | "Özgün olmayan içerik" izlenimi (şablon, TTS, yüksek hacim) | düşük-orta / yüksek (gelir) | Anayasa §14-U1, her videoya özgü görsel, kayıtlar | C |
 | R4 | Yayında maddi hata | orta / yüksek | kapı 1, sabit yorumda niteleme, ≤48 sa istisnası | C+K |
 | R5 | Kapasite/tükenme (Özel ≈4–6 saat) | yüksek / yüksek | iki kulvar, tampon ≥2, kadans düşer (kapı değil) | C |

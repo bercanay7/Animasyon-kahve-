@@ -100,7 +100,7 @@
 - **Anlatıcı (mevcut):** Piper **`fahrettin`** (2026-10-18'den; kullanıcı kör testte seçti; önceki videolar `dfki`), tek erkek ses, **kuru** (yankı/ıslak pay = 0). Konuşma hızı ≤1,0 (0,90–1,0 arası, değer sürüm künyesine yazılır); virgül/iki nokta boşlukları §12-2.
 - **Ses lisansı kapısı [V: model kartları; V2: ikincil kaynaklar]:** `dfki` modelinin MODEL_CARD'ı veri seti lisansını **CC BY-NC-SA 4.0** gösterir (ticari kullanım yok, atıf gerekir, aynı lisansla paylaşım). `fettah` ve `fahrettin` modellerinin veri setleri **CC0**'dır. **Ancak üç model de ABD İngilizcesi "lessac" sesinden ince ayarlıdır;** lessac'ın Blizzard 2013 veri seti lisansı yaygın olarak *yalnız araştırma amaçlı* okunur ve türev (ince ayarlı) modellere etkisi hakkında yetkili bir yanıt bulunamadı (Piper yazarı ek lisans koymadığını, nihai kararın kullanıcıya ait olduğunu söyler). Sonuç: **CC0 sesler `dfki`'den açıkça daha düşük risklidir ama sıfır riskli değildir** (hukuki görüş değildir). Kurallar:
   1. **Seçim (2026-10-18) [K]:** Shorts anlatıcısı **`fahrettin`** (kör test A). `dfki` bırakıldı.
-  2. **Atıf satırı** (açıklamanın son satırı): `fahrettin`/`fettah` → *Ses: yapay (Piper TTS; veri seti CC0). Çizimler kodla üretilmiştir.* `dfki` kullanılmış eski videolarda → *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.*
+  2. **Atıf satırı** (açıklamanın son satırı): `fahrettin`/`fettah` → *Ses: yapay (Piper TTS; veri seti CC0). Çizimler kodla üretilmiştir.* `dfki` kullanılmış eski videolarda → *Ses: yapay (Piper TTS; veri seti MaryTTS/DFKI, CC BY-NC-SA 4.0). Çizimler kodla üretilmiştir.* (Yayında olan `dfki` sesli videolar: Emu, Dans, Sıtma, Dune; Titanik v1 özel yapılıyor.)
   3. **Ticari kullanım (YPP, sponsor, ürün satışı) başlamadan önce** ses ya insan anlatıcıya / ticari lisanslı sese taşınır ya da kalan taban-model riski kullanıcı tarafından yazılı kabul edilir. Karar tarihi: Gün 60 (2026-12-17).
   4. **Uzun Dosya için ses kapısı ayrıdır:** kör test; insan/premium adayları (`ses_testi/SES_BRIFI.md`).
   5. Ses kimliği 30 gün sabit kalır; geçişler tek seferde ve izleyiciye duyurularak yapılır (`dfki` → `fahrettin` geçişi 2026-10-18 ile erken yapıldı: kanal 6 abonedir).
@@ -149,14 +149,14 @@
 
 ## 8. Ölçüt ve karar kuralları
 
-- **Metrik sırası (Shorts):** (1) **Gösterilme** (Shown in feed) — dağıtım; (2) **Stayed to watch %** (= viewed vs swiped away); (3) ort. izlenme süresi (sn) ve ort. izlenme %; (4) **tekrar oranı** = Views ÷ Unique viewers; (5) Engaged views ÷ Views; (6) abone / 1.000 görüntülenme; (7) yorum / 1.000. Ham "Views" yardımcıdır: Shorts'ta Mart 2025'ten, tüm biçimlerde 24 Ağustos 2026'dan beri ilk karede sayılır [P].
+- **Metrik sırası (Shorts):** (1) **Gösterilme** (Shown in feed) — dağıtım; (2) **Stayed to watch %** (= viewed vs swiped away); (3) ort. izlenme süresi (sn) ve ort. izlenme % (≈ Watch time ÷ Engaged views: yalnız kalanların ortalaması, süreye bağlıdır, **kulvarlar arası kıyaslanmaz**) ve **izleme süresi / görüntülenme** (Watch time ÷ Views; kulvarlar arası kıyas ölçütü); (4) **tekrar oranı** = Views ÷ Unique viewers; (5) Engaged views ÷ Views; (6) abone / 1.000 görüntülenme; (7) yorum / 1.000. Ham "Views" yardımcıdır: Shorts'ta Mart 2025'ten, tüm biçimlerde 24 Ağustos 2026'dan beri ilk karede sayılır [P].
 - **Okuma pencereleri:** 24. sa (işaret), **72. sa (okuma)**, 7. gün (karar). Her ekran görüntüsü metrik adı ve tarihiyle saklanır (`../olcum/`).
 - **En az örnek:** ≥300 gösterilmeden oran okunmaz ("n<300" etiketi); 300'de bir oranın %95 aralığı ≈ ±5,6 puan, 1.000'de ≈ ±3,1 puan. Videolar arası değişim örnekleme gürültüsünden büyüktür.
 - **Referans sınıfı:** aynı kulvarın son 5 videosunun medyanı. Başlangıç referansı [V]: Emu.
 - **Fark yorumu:** <5 puan = ayırt edilemedi (≠ "etkisiz"); 5–10 = ipucu; ≥10 = etki olası. **Tek video kanıt değildir:** kural değişikliği için aynı yönde ≥3 video gerekir.
 - **Bilinçli değişiklik:** bir videoda önceki aynı-kulvar videoya göre en çok 1 bilinçli değişiklik (kanca türü / süre / saat); `yayin_gunlugu.jsonl: not_` alanına yazılır. (v1'in 2×2 yazı-tura tasarımı ve hücre başına ≥7 video kuralı kaldırıldı: n=1 kanıt kuralı yeterli değil, 28 videoluk pencere gerçek tempoyla 3+ ay sürer.)
 - **"Çatlak" (breakout):** 7 gün içinde kanal medyanının ≥10 katı görüntülenme **ve** stayed to watch ≥%60. Çatlak olursa **otopsi** yapılır (kanca, süre, tempo, konu, ses, saat) ve çıkan kalıp sonraki 3 videoda uygulanır.
-- **Baz çizgi [V]** (2026-10-14, Studio ekran görüntüleri): **Emu** (canlı sürüm 0:40, 11 Eki, ilk ses): stayed to watch %43,0 / swiped away %57,0; ort. izlenme 0:22 (%54,2); Views 1.625, Engaged views 683 (%42), Unique viewers 643 (**izleyici başına 2,53 izleme**); Shorts akışı %97,2; abone +2 (%0,12). **Dans:** akış %0 (28 görüntülenme; arama %71,4, kanal sayfası %28,6). Diğer 4 video 15–25 görüntülenme (gösterilme verisi yok). Kanal: 28 gün 1.728 görüntülenme, 4,8 saat, +5 abone (toplam 6).
+- **Baz çizgi [V]** (2026-10-14, Studio ekran görüntüleri): **Emu** (canlı sürüm 0:40, 11 Eki, ilk ses): stayed to watch %43,0 / swiped away %57,0; ort. izlenme 0:22 (%54,2); Views 1.625, Engaged views 683 (%42), Unique viewers 643 (**izleyici başına 2,53 izleme**); Shorts akışı %97,2; abone +2 (%0,12). **Dans:** akış %0 (28 görüntülenme; arama %71,4, kanal sayfası %28,6). Diğer 4 video 15–25 görüntülenme (gösterilme verisi yok). Kanal: 28 gün 1.728 görüntülenme, 4,8 saat, +5 abone (toplam 6). **Sıtma** (K, 39 sn, 16 Eki; 18 Eki okuması ≈2,1 gün): stayed %50,4, ort. izlenme 0:23 (%59), Views ≈1.300, Engaged 635, Unique 595, izleme süresi/görüntülenme ≈12 sn, akış %95,4. **Dune** (Özel, 156 sn, 16 Eki; ≈1,6 gün): stayed %46,1, ort. izlenme 0:47 (%30), Views 1.003, Engaged 492, izleme süresi/görüntülenme ≈24 sn, akış %93,5 (`veri/sitma_dune_2026-10-18.md`).
 
 ## 9. Gözden geçirme tetikleyicileri
 
@@ -165,7 +165,7 @@
 | Gün 14 (2026-11-01): hedeflenen 7 slotun <6'sı yayında | Kadans haftada 2'ye iner; kapı bütçesi/üretim darboğazı incelenir |
 | Son 5 videonun medyan stayed to watch <%45 | Kanca/ilk 2 sn ve ilk cümle yeniden yazılır; Kısa kulvarı öne çıkar |
 | ≥1 video "çatlak" | Otopsi; kalıp 3 videoda tekrar |
-| Özel vs Kısa: ort. izlenme % farkı ≥15 puan (her biri ≥4 video) | İyi kulvarın payı %70'e çıkar |
+| Özel vs Kısa (her biri ≥4 video): izleme süresi/görüntülenme oranı ≥1,5 ve stayed farkı <5 puan (stayed farkı ≥10 puansa stayed belirleyici) | Yüksek olanın payı %70'e çıkar (ort. izlenme % kıyas ölçütü değildir: süreye bağlı) |
 | Tekrar oranı ≥2 ve stayed to watch <%50 | İlk saniye sorunu: kanca; döngü işe yarıyor, korunur |
 | Abone / 1.000 görüntülenme <2 (≥3 video, ≥3.000 görüntülenme) | Kanal vitrini, seri vaadi, sözlü çağrı denenir |
 | Yorumların ≥%30'u "robot ses" | Ses önceliği öne çekilir |
