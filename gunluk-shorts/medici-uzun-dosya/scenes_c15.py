@@ -49,7 +49,7 @@ SHOTS = [
          tr=("dip", 0.9), link="light", label="söylenti ipleri; turta anekdot; ilk anlatıcı yok"),
     # ── 5. Dört yüzyıllık ölçek: 1587 → 2006 · 2010 · 2026 ───────────────────────────────────────
     shot("c15_cetvel", ("c15s4", -0.1), mode="night", a0=("c15s4", -0.1), a_br=("c15s4", 0.2), a06=("c15s4", "2006'da", -0.15), a10=("c15s4", "2010'da", -0.1), a26=("c15s5", "2026'da", -0.1),
-         cam=[(("c15s4", -0.1), look(720, 560, 1.0)), (("c15s4", "2006'da", -0.1), look(1000, 560, 1.12)), (("c15s5", "2026'da", -0.2), look(1230, 560, 1.28))],
+         cam=[(("c15s4", -0.1), look(960, 560, 1.0)), (("c15s4", "2006'da", -0.1), look(1020, 560, 1.1)), (("c15s5", "2026'da", -0.2), look(1120, 560, 1.22))],
          tr=("slide", 0.9, dict(dir="r")), link="dir", label="1587 ····· dört yüzyıl ····· 2006 · 2010 · 2026"),
     # ── 6. 2026: üç numune, iki parazit DNA'sı ───────────────────────────────────────────────────
     shot("c15_dna", ("c15s5", "Francesco'nun", -0.2), mode="night", vials_at=("c15s5", "Francesco'nun", 0.0), three_at=("c15s5", "üç", -0.1), helix_at=("c15s5", "örneklerde", 0.0), two_at=("c15s5", "iki", -0.1),

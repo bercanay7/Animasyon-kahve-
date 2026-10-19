@@ -109,6 +109,27 @@ def _stand(f, c, x0, x1, y, t, seed):
             c.drawLine(xx + sway + 12, y - 130 - h * 0.4, xx + sway + 22, y - 130 - h * 0.95 + math.sin(t * 5 + i) * 4, S(col, 4, 255))
 
 
+def _lance(c, hk):
+    """Turnuva mızrağı (binici elinde): seat noktasından öne, hafif yukarı; ucunda metal uç + flama. (c: binicinin oturak noktasında, öne bakar.)"""
+    hs = hk.hs
+    p0, p1 = (-0.18 * hs, -0.34 * hs), (1.62 * hs, -0.56 * hs)
+    c.drawLine(p0[0], p0[1], p1[0], p1[1], S("#2A170B", 0.040 * hs, 255))
+    c.drawLine(p0[0], p0[1], p1[0], p1[1], S("#8A5A32", 0.026 * hs, 255))
+    tip = skia.Path()
+    tip.moveTo(p1[0] + 0.14 * hs, p1[1] - 0.03 * hs)
+    tip.lineTo(p1[0] - 0.01 * hs, p1[1] - 0.03 * hs)
+    tip.lineTo(p1[0] - 0.01 * hs, p1[1] + 0.03 * hs)
+    tip.close()
+    c.drawPath(tip, P("#C8CCD4", 255))
+    c.drawPath(tip, S("#2A2A32", 0.008 * hs, 255))
+    fl = skia.Path()
+    fl.moveTo(p1[0] - 0.12 * hs, p1[1] - 0.02 * hs)
+    fl.lineTo(p1[0] - 0.46 * hs, p1[1] - 0.09 * hs)
+    fl.lineTo(p1[0] - 0.40 * hs, p1[1] + 0.04 * hs)
+    fl.close()
+    c.drawPath(fl, P("#B8261A", 255))
+
+
 @CM.ckind("c13_turnuva")
 def k_turnuva(cx, t_meet=4.4, seed=61, ovl=None, **_):
     """Turnuva alanı: gökyüzü, tribün, bayraklar, ahşap bariyer; iki atlı (soldan sağa / sağdan sola) birbirine dörtnala koşar. Çarpışma GÖSTERİLMEZ:
@@ -148,8 +169,8 @@ def k_turnuva(cx, t_meet=4.4, seed=61, ovl=None, **_):
     vA = (900 - (-380)) / tm
     xa = -380 + vA * t
     xb = 2300 - (2300 - 1280) / tm * t
-    FA.rider(f, xb, 800, 330, t, speed=(2300 - 1280) / tm, gait="gallop", dir=-1, seed=7, prop="spear")
-    FA.rider(f, xa, 932, 400, t, speed=vA, gait="gallop", dir=1, seed=3, prop="spear")
+    FA.rider(f, xb, 800, 330, t, speed=(2300 - 1280) / tm, gait="gallop", dir=-1, seed=7, prop=_lance)
+    FA.rider(f, xa, 932, 400, t, speed=vA, gait="gallop", dir=1, seed=3, prop=_lance)
     # toz
     for i in range(14):
         ph = (t * 0.9 + i / 14.0) % 1.0
