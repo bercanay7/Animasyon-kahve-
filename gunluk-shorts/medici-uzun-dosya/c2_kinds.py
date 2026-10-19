@@ -247,12 +247,12 @@ def k_borc(cx, give_at=None, pope_at=None, fall_at=None, council_at=None, names_
         f.circle(cr_x, cr_y, 150, shader=f.rad(cr_x, cr_y, 150, [("#F0D27A", 0.0, int(110 * kp * (1 - kf))), ("#F0D27A", 1.0, 0)]))
         icons.draw_icon(f, "crown", cr_x, yy + 8 * math.sin(T * 2.4) * (1 - kf), size=200 * (0.7 + 0.3 * sk.back_out(kp)), metal="gold", alpha=kp * (1 - 0.7 * kf), rot=rot, glow=0.0)
         if names_at and len(names_at) > 2:
-            CM.name_plate(f, "XXIII. JOHANNES", "PAPA", None, cx_=1690, y=520, t=kp * (1 - kf), w=470)
+            CM.name_plate(f, "XXIII. JOHANNES", "PAPA", None, cx_=1650, y=440, t=kp * (1 - kf), w=480)
     # Konstanz: konsil levhası + tokmak
     kk = cx.amt(council_at, 0.5) if council_at is not None else 0.0
     if kk > 0.003:
-        CM.tablet(f, 160, 50, 800, 110, alpha=kk, corner=10)
-        CM.ink(f, "KONSTANZ KONSİLİ · 1415", 560, 125, face="title_m", size=46, color=TH.fg, align="c", track=8, alpha=kk, emboss=False)
+        CM.tablet(f, 100, 50, 760, 110, alpha=kk, corner=10)
+        CM.ink(f, "KONSTANZ KONSİLİ · 1415", 480, 125, face="title_m", size=46, color=TH.fg, align="c", track=8, alpha=kk, emboss=False)
         if fall_at is not None:
             kh = clamp((cx.t - cx.at(fall_at) + 0.5) / 0.35)
             hy = lerp(180, 430, ease_in(kh, 2.0))
@@ -451,7 +451,7 @@ def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at
         bx = lerp(1350, 560, u)
         by = lerp(380, 400, u) - 140 * math.sin(math.pi * u)
         icons.draw_icon(f, "c2_bulla", bx, by, size=220 * (0.7 + 0.3 * kt), metal="gold", alpha=kt, rot=-0.18 + 0.4 * u, glow=0.0)
-        CM.stamp(f, "AFOROZ TEHDİDİ", 900, 250, rot=-0.06, size=56, t=cx.amt(threat_at, 0.3, off=0.5))
+        CM.stamp(f, "AFOROZ TEHDİDİ", 1000, 845, rot=-0.04, size=56, t=cx.amt(threat_at, 0.3, off=0.5))
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
 

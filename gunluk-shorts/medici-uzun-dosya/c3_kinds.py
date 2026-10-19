@@ -560,7 +560,17 @@ def PP_sheet(w, h, seed=1, tone=(236, 224, 192)):
 
 
 def PP_hand(f, text, x, y, size, color, alpha, seed=3, jitter=1.3):
-    L.PP.hand(f, text, x, y, face="fell_i", size=size, color=color, alpha=alpha, jitter=jitter, seed=seed, align="c")
+    """El yazısı (ortalı, taban çizgisi y). Önbellekli: metin bir kez pişirilir, her karede yalnız blit edilir (hızlı)."""
+    if alpha <= 0.003:
+        return
+    w = int(sk.text_width(text, "fell_i", size) + 80)
+    h = int(size * 2.0)
+    key = ("hand", text, int(size), str(color), int(seed), float(jitter))
+
+    def draw(fr):
+        L.PP.hand(fr, text, w / 2.0, h * 0.68, face="fell_i", size=size, color=color, alpha=1.0, jitter=jitter, seed=seed, align="c")
+    im = bake(key, w, h, draw)
+    blit(f.c, im, x, y - 0.18 * h, a=min(1.0, alpha))
 
 
 # ═══════════════════════════ c3s7: gravür — ekmek, zehir korkusu, bekçi (ANEKDOT) ═══════════════════════════

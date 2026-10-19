@@ -717,7 +717,7 @@ def hazine_ovl(items, stamp_at=None, y_icon=760, y_lab=888, size=118, gap=330):
         ks = [cx.amt(a, 0.5) for (_, _, a) in items]
         band = max(ks) if ks else 0.0
         if band > 0.003:
-            f.rect(0, y_icon - 96, W, 232, shader=f.lin(0, y_icon - 96, 0, y_icon + 136, [("#000000", 0.0, 0), ("#120C06", 0.45, int(150 * band)), ("#120C06", 1.0, 0)]))
+            f.rect(0, y_icon - 110, W, 310, shader=f.lin(0, y_icon - 110, 0, y_icon + 200, [("#120C06", 0.0, 0), ("#120C06", 0.24, int(185 * band)), ("#120C06", 0.80, int(185 * band)), ("#120C06", 1.0, 0)]))
         for i, (ic, lab, a) in enumerate(items):
             k = cx.amt(a, 0.45)
             if k <= 0.003:

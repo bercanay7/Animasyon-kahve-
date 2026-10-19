@@ -49,7 +49,7 @@ SHOTS = [
     # ── 6. 1338: kenti de saydı (90.000) ─────────────────────────────────────
     shot("p1_sehir", ("c1s6", -0.15), scene="meydan", act="kalabalik", dir="r", flags="lily", mode="day", perde=1, cam=("push", 0.07),
          ovl=P.ov(P.label("1338", 960, 215, ("c1s6", "1338'de", -0.1), size=84, face="title", track=14),
-                  P.count_up(960, 430, ("c1s6", "doksan", -0.2), 90000, dur=1.5, unit="KİŞİ", size=190, bg=True),
+                  P.count_up(960, 430, ("c1s6", "yaklaşık", -0.45), 90000, dur=1.4, unit="KİŞİ", size=190, bg=True),
                   P.stamp("VILLANI'YE GÖRE", 1470, 700, ("c1s6", "göre", 0.0), rot=-0.07, size=46, out=("c1s6", "çocuklar", -0.4))),
          tr=("slide", 0.9, dict(dir="r")), link="dir", label="1338: 90.000 kişi"),
     # ── 7. hesap okulları ─────────────────────────────────────────────────────
@@ -72,9 +72,9 @@ SHOTS = [
          plate_at=("c1s9", "İngiltere", -0.2), flow_at=("c1s9", "III.", -0.1), stop_at=("c1s9", "ödemediği", -0.2), stamp_at=("c1s9", "borçlar", 0.0),
          cam=("push", 0.07), tr=("carry", 0.9, dict(strip="ink", dir="r")), link="carry", label="Edward'ın ödemediği borç"),
     # ── 10a. kronikçi Villani (sol) ──────────────────────────────────────────
-    shot("c1_kardes", ("c1s10", -0.1), mode="day", perde=1, chron_at=("c1s10", "kronikçi", -0.4), brother_at=("c1s10", "kardeşi", -0.4),
+    shot("c1_kardes", ("c1s10", -0.1), mode="day", perde=1, chron_at=("c1s10", -0.15), brother_at=("c1s10", "kardeşi", -0.4),
          link_at=("c1s10", "Peruzzi", -0.2), owner_at=("c1s10", "kaybedenlerin", -0.1),
-         cam=[(("c1s10", -0.1), (-300, 0, 1.4, 0)), (("c1s10", "kardeşi", -0.3), (-300, 0, 1.5, 0))],
+         cam=[(("c1s10", -0.1), (-240, 20, 1.08, 0)), (("c1s10", "kardeşi", -0.3), (-240, 20, 1.16, 0))],
          tr=("slide", 0.9, dict(dir="l")), link="dir", label="kronikçi Villani"),
     # ── 10b. kardeşi Peruzzi'de çalışıyordu: kadraj sağa kayar, ip bağlanır ──
     shot("c1_kardes", ("c1s10", "kardeşi", -0.3), mode="day", perde=1, chron_at=("c1s10", "kronikçi", -0.4), brother_at=("c1s10", "kardeşi", -0.4),
@@ -110,7 +110,7 @@ SHOTS = [
                  dict(kind="halk", x0=1560, dir=-1, speed=70, h=226, seed=8, at=("c1s13", -0.2), cf="#2A2018")],
          ovl=P.ov(P.desat(("c1s13", -0.2), ("c1s13", 0.0), k_max=0.93, dark=0.5, tint="#59607A", tint_a=0.18, k_start=0.95),
                   P.plate("MARCHIONNE DI COPPO STEFANI", 960, 205, ("c1s13", "Stefani", -0.1), w=900),
-                  P.count_up(1500, 520, ("c1s13", "iki", -0.2), 12, dur=0.9, unit="YAŞINDA", size=170)),
+                  P.count_up(1500, 520, ("c1s13", "yıl", 0.0), 12, dur=0.6, unit="YAŞINDA", size=170, bg=True, min_w=300, unit_size=40)),
          cam=("pull", 0.08), tr=("slide", 0.9, dict(dir="r")), link="dir", label="Stefani: on iki yaşında"),
     # ── 13b. yıllar sonra: kronik yazılır ────────────────────────────────────
     shot("p1_oda", ("c1s13", "yıllar", -0.4), room="calisma", variant="kutuphane", figure="desk", tod="day", mode="day", perde=1,
@@ -128,15 +128,17 @@ SHOTS = [
          ovl=P.label("1378", 960, 215, ("c1s15", "1378'de", -0.1), size=88, face="title", track=14),
          cam=("push", 0.08), tr=("yikama", 0.9), link="color", label="1378: öfke sokakta (sağdan sola kabarır)"),
     # ── 16a. Medici ailesinin başka bir kolundan Salvestro ───────────────────
-    shot("p1_tree", ("c1s16", -0.1), title="MEDİCİ AİLESİ", mode="day", perde=1, cam=("push", 0.07),
-         nodes=[dict(id="r", icon="shield", name="MEDİCİ AİLESİ", x=0.5, y=0.30, at=("c1s16", "Medici", -0.2), size=170, nsize=34),
-                dict(id="s", icon="flag", name="SALVESTRO", x=0.30, y=0.66, at=("c1s16", "Salvestro", -0.25), size=170, nsize=34),
-                dict(id="g", icon="family", name="BAŞKA BİR KOL", x=0.70, y=0.66, at=("c1s16", "başka", -0.3), size=170, nsize=34)],
+    shot("p1_tree", ("c1s16", -0.1), mode="day", perde=1, cam=("push", 0.07),
+         nodes=[dict(id="r", icon="shield", name="MEDİCİ AİLESİ", x=0.5, y=0.34, at=("c1s16", -0.1), size=230, nsize=38),
+                dict(id="s", icon="flag", name="SALVESTRO", x=0.28, y=0.70, at=("c1s16", "Salvestro", -0.25), size=210, nsize=36),
+                dict(id="g", icon="family", name="BAŞKA BİR KOL", x=0.72, y=0.70, at=("c1s16", "başka", -0.3), size=210, nsize=36)],
          edges=[("r", "s", ("c1s16", "kolundan", -0.1)), ("r", "g", ("c1s16", "başka", 0.0))],
+         ovl=P.ov(P.label("1378", 960, 215, ("c1s16", -0.0), size=78, face="title", track=14),
+                  P.stamp("AKTARILANA GÖRE", 1500, 330, ("c1s16", "Aktarılana", 0.0), rot=-0.06, size=44)),
          tr=("slide", 0.9, dict(dir="r")), link="dir", label="Medici ailesinin başka bir kolu: Salvestro"),
     # ── 16b. halkın alkışıyla gonfaloniere ───────────────────────────────────
     shot("p1_sehir", ("c1s16", "halkın", -0.3), scene="meydan", act="kalabalik", dir="r", flags="medici", mode="day", perde=1, cam=("push", 0.07),
-         ovl=P.ov(P.plate("SALVESTRO DE' MEDİCİ", 400, 215, ("c1s16", "halkın", 0.2), role="GONFALONIERE SEÇİLDİ", w=760),
+         ovl=P.ov(P.plate("SALVESTRO", 520, 215, ("c1s16", "halkın", 0.2), role="MEDİCİ AİLESİNİN BAŞKA KOLU · GONFALONIERE SEÇİLDİ", w=880),
                   P.icon_at("flag", 1400, 330, ("c1s16", "gonfaloniere", -0.15), size=210, glow=True, bob=6),
                   P.stamp("AKTARILIR", 1390, 660, ("c1s16", "gonfaloniere", 0.4), rot=-0.07, size=44)),
          tr=("zoomthru", 0.9, dict(at=(960, 560), at_b=(960, 520))), link="scale", label="halkın alkışıyla gonfaloniere"),
@@ -200,7 +202,7 @@ SHOTS = [
          cam=("push", 0.07), tr=("sayfa", 0.9), link="material", label="alacak ve borçlar devralınır"),
     # ── 27a. Piccarda Bueri'nin çeyizi: 1.500 florin ─────────────────────────
     shot("p1_coin", ("c1s27", -0.1), n=1, size=420, pos=(520, 560), mode="day", perde=1, cam=("push", 0.07),
-         ovl=P.ov(P.count_up(1290, 540, ("c1s27", "bin", -0.25), 1500, dur=1.5, unit="FLORİN", size=200),
+         ovl=P.ov(P.count_up(1290, 540, ("c1s27", "bin", -0.25), 1500, dur=1.1, unit="FLORİN", size=200),
                   P.icon_at("ring", 1630, 330, ("c1s27", "Piccarda", -0.1), size=170, glow=True, bob=6),
                   P.label("EVLİLİK ÇEYİZİ", 1630, 450, ("c1s27", "çeyiziyle", -0.15), size=38, face="title_m", track=10),
                   P.label("PICCARDA BUERI'NİN ÇEYİZİ", 960, 215, ("c1s27", "Piccarda", -0.15), size=54, face="title", track=12)),
@@ -222,12 +224,16 @@ SHOTS = [
          cam=("push", 0.07), tr=("zoomthru", 0.9, dict(at=(1500, 300), at_b=(960, 520))), link="scale", label="Orsanmichele köşesi: iğne"),
     # ── 29–32. köşede bir masa ve bir defter; sermaye on bin florin; faiz günahtır (uzun plan) ──
     shot("p1_oda", ("c1s29", -0.1), room="banka", tod="day", mode="day", perde=1, longtake=True,
-         cams=[(("c1s29", -0.1), (1500, 20, 1.05)), (("c1s30", -0.1), (900, 40, 1.15)), (("c1s30", "masa", 0.0), (640, 70, 1.5)), (("c1s32", "faiz", 0.0), (560, 80, 1.62))],
+         cams=[(("c1s29", -0.1), (1500, 20, 1.05)), (("c1s30", -0.1), (900, 40, 1.15)), (("c1s30", "masa", 0.0), (640, 70, 1.5)), (("c1s32", "faiz", 0.0), (580, 80, 1.62)), (("c1s32", "kazanmaktı", 0.6), (400, 100, 1.9))],
          ovl=P.ov(P.count_up(960, 400, ("c1s29", "on", -0.15), 10000, dur=1.1, unit="FLORİN", size=190, out=("c1s30", -0.0), bg=True),
-                  P.label("BİR MASA VE BİR DEFTER", 960, 215, ("c1s30", "masa", -0.2), size=58, face="title", track=14, out=("c1s31", 0.0)),
+                  P.pop_label("BİR MASA VE BİR DEFTER", 960, 215, ("c1s30", "masa", -0.2), size=58, face="title", track=14, out=("c1s31", 0.0)),
+                  P.glint(960, 640, ("c1s31", "Para", -0.1), r=260, dur=1.0),
+                  P.coin_arc((330, 780), (1000, 620), ("c1s31", "kazanmanın", -0.3), n=5, lift=140, size=64),
                   P.tablet_text("“FAİZ GÜNAHTIR”", 960, 270, ("c1s32", "faiz", -0.25), size=66, face="title_m", pad=60),
                   P.icon_at("cross", 1560, 400, ("c1s32", "Kilise'nin", -0.1), size=230, glow=True, bob=5),
-                  P.glint(700, 700, ("c1s32", "huzurla", 0.0), r=220, dur=1.2)),
+                  P.glint(700, 700, ("c1s32", "huzurla", 0.0), r=220, dur=1.2),
+                  P.coin_arc((330, 760), (900, 600), ("c1s32", "huzurla", 0.0), n=6, lift=160, size=70),
+                  P.glint(1200, 560, ("c1s32", "kazanmaktı", -0.3), r=240, dur=1.4)),
          cam=("push", 0.06), tr=("zoomthru", 0.9, dict(at=(960, 520), at_b=(960, 520))), link="scale", label="köşede bir masa, bir defter; faiz günahtır"),
 ]
 YIL_AT = [(("c1s6", "1338'de", -0.1), 1338), (("c1s11", "Veba", -0.1), 1348), (("c1s15", "1378'de", -0.1), 1378), (("c1s28", "1397'de", -0.1), 1397)]

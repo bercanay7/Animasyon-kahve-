@@ -15,7 +15,22 @@
     "dir": "r"
    },
    "id": "gecis-1-carry",
-   "note": "geçiş 'carry' (Valori sayfası + Lorenzo madalyası)",
+   "note": "geçiş 'carry' (Valori'nin sayfası: üvey ana / şefkatli ana (kalem yazar))",
+   "ch": "c6"
+  },
+  {
+   "t": 10.17,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1002,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-2-slide",
+   "note": "geçiş 'slide' (Lorenzo madalyası belirir: yüzü güzel sayılmazdı ama vakarlıydı)",
    "ch": "c6"
   },
   {
@@ -23,15 +38,625 @@
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1002,
+   "seed": 1003,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-2-slide",
-   "note": "geçiş 'slide' (ansiklopedi tarifi, koku göstergesi)",
+   "id": "gecis-3-slide",
+   "note": "geçiş 'slide' (ansiklopedi tarifi: basık burun, öne çıkık alt çene, zayıf görme)",
    "ch": "c6"
+  },
+  {
+   "t": 23.85,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1004,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-4-zoomthru",
+   "note": "geçiş 'zoomthru' (koku göstergesi: neredeyse yok (Valori'ye atfedilen))",
+   "ch": "c6"
+  },
+  {
+   "t": 29.525,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1005,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-5-sayfa",
+   "note": "geçiş 'sayfa' (defter → şiir (büyükbaba/torun))",
+   "ch": "c6"
+  },
+  {
+   "t": 33.395,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1006,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-6-sayfa",
+   "note": "geçiş 'sayfa' (Piero öldü; ağırlık Lorenzo'ya)",
+   "ch": "c6"
+  },
+  {
+   "t": 38.893,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1007,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-7-slide",
+   "note": "geçiş 'slide' (şehrin ve devletin yükü (ölçek: madalya → şehir))",
+   "ch": "c6"
+  },
+  {
+   "t": 41.52,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1008,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-8-light",
+   "note": "geçiş 'light' (hatıra defteri: Ricordi (çeviri bize ait))",
+   "ch": "c6"
+  },
+  {
+   "t": 48.078,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1009,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-9-zoomthru",
+   "note": "geçiş 'zoomthru' (servet kefesi; devletsiz zengin)",
+   "ch": "c6"
+  },
+  {
+   "t": 53.085,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1010,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-10-sayfa",
+   "note": "geçiş 'sayfa' (gerekçe; ama anlatan yine kendisi (ayna))",
+   "ch": "c6"
+  },
+  {
+   "t": 60.96,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1011,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-11-slide",
+   "note": "geçiş 'slide' (Lucrezia Tornabuoni, şair)",
+   "ch": "c6"
+  },
+  {
+   "t": 70.63,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1012,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-12-zoomthru",
+   "note": "geçiş 'zoomthru' (1467: Roma → Piero'ya üç mektup)",
+   "ch": "c6"
+  },
+  {
+   "t": 79.96,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1013,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-13-carry",
+   "note": "geçiş 'carry' (28 Mart tarihli ilk mektup)",
+   "ch": "c6"
+  },
+  {
+   "t": 91.362,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1014,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-14-sayfa",
+   "note": "geçiş 'sayfa' (defter kaydı: aldım ya da bana verildi (mizah: evlilik pazarı))",
+   "ch": "c6"
+  },
+  {
+   "t": 96.92,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1015,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-15-slide",
+   "note": "geçiş 'slide' (düğün şenlikleri (alay soldan sağa))",
+   "ch": "c6"
+  },
+  {
+   "t": 105.465,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1016,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-16-yikama",
+   "note": "geçiş 'yikama' (Clarice, Poliziano'yu evden çıkarır (siluet))",
+   "ch": "c6"
+  },
+  {
+   "t": 109.947,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1017,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-17-zoomthru",
+   "note": "geçiş 'zoomthru' (Clarice: ona uygun bir eğitmen olmadığına ikna olmuştu (yakın plan siluet))",
+   "ch": "c6"
+  },
+  {
+   "t": 114.18,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1018,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-18-slide",
+   "note": "geçiş 'slide' (okul yoktu, atölyeler vardı)",
+   "ch": "c6"
+  },
+  {
+   "t": 116.967,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1019,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-19-zoomthru",
+   "note": "geçiş 'zoomthru' (Verrocchio'nun atölyesinden Leonardo, Perugino, Botticelli geçer)",
+   "ch": "c6"
+  },
+  {
+   "t": 123.69,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1020,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-20-carry",
+   "note": "geçiş 'carry' (1476–77: Lorenzo ve Poliziano derleme)",
+   "ch": "c6"
+  },
+  {
+   "t": 130.417,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1021,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-21-sayfa",
+   "note": "geçiş 'sayfa' (Napoli'nin isteği; içinde Vita nova)",
+   "ch": "c6"
+  },
+  {
+   "t": 135.98,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1022,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-22-light",
+   "note": "geçiş 'light' («Muhteşem» — bir saygı sözcüğü)",
+   "ch": "c6"
+  },
+  {
+   "t": 140.16,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1023,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-23-slide",
+   "note": "geçiş 'slide' (Prens'in ithafı: iki «Muhteşem» damgası (unvan enflasyonu))",
+   "ch": "c6"
+  },
+  {
+   "t": 147.8,
+   "name": "plaster_scrape",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1024,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-24-giornata",
+   "note": "geçiş 'giornata' (Condivi: genç sanatçının yonttuğu yaşlı faun (gravür))",
+   "ch": "c6"
+  },
+  {
+   "t": 154.277,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1025,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-25-slide",
+   "note": "geçiş 'slide' (Lorenzo: yaşlıların dişleri tam olmaz (gravür))",
+   "ch": "c6"
+  },
+  {
+   "t": 158.13,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1026,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-26-slide",
+   "note": "geçiş 'slide' (diş kırılır; Lorenzo eve alır: oda, sofra, ayda beş dukat (gravür))",
+   "ch": "c6"
+  },
+  {
+   "t": 166.01,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1027,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "sun"
+   },
+   "id": "gecis-27-iris",
+   "note": "geçiş 'iris' (Santa Croce Meydanı (temsil): tören, ittifak)",
+   "ch": "c6"
+  },
+  {
+   "t": 174.608,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1028,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-28-slide",
+   "note": "geçiş 'slide' (mızrak koşusu: hızlı yatay kayma)",
+   "ch": "c6"
+  },
+  {
+   "t": 177.268,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1029,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-29-slide",
+   "note": "geçiş 'slide' (kazanan Giuliano; seçtiği kadın Simonetta (madalyalar))",
+   "ch": "c6"
+  },
+  {
+   "t": 183.72,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1030,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-30-carry",
+   "note": "geçiş 'carry' (Botticelli sancağı (temsil); asıl sancak kayıp)",
+   "ch": "c6"
+  },
+  {
+   "t": 190.815,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1031,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-31-sayfa",
+   "note": "geçiş 'sayfa' (Poliziano'nun şiiri yarım kaldı)",
+   "ch": "c6"
+  },
+  {
+   "t": 195.84,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1032,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-32-slide",
+   "note": "geçiş 'slide' (Simonetta (1476, yirmi üç yaşında); Giuliano — bilmiyoruz)",
+   "ch": "c6"
+  },
+  {
+   "t": 204.24,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1033,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-33-carry",
+   "note": "geçiş 'carry' (Canzona (1490): ne güzel şey gençlik, ama kaçıp gidiyor)",
+   "ch": "c6"
+  },
+  {
+   "t": 211.28,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1034,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-34-zoomthru",
+   "note": "geçiş 'zoomthru' (üç yıl üç ay: ay cetveli (Giostra → 26 Nisan 1478, Pazar))",
+   "ch": "c6"
+  },
+  {
+   "t": 218.095,
+   "name": "dip_drop",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1035,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-35-dip",
+   "note": "geçiş 'dip' (Giostra meydanı boş; ışık soğur; uzun gölge (Giuliano) — kapı: c7)",
+   "ch": "c6"
+  },
+  {
+   "t": 224.33,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1037,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-37-zoomthru",
+   "note": "geçiş 'zoomthru' (Pazar sabahı: Duomo'ya yaklaşma)",
+   "ch": null
+  },
+  {
+   "t": 245.48,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1041,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-41-slide",
+   "note": "geçiş 'slide' (unvansız bankacı ailesi: Medici)",
+   "ch": "c7"
+  },
+  {
+   "t": 252.255,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1042,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-42-sayfa",
+   "note": "geçiş 'sayfa' (1474: bankerlik Medici'den Pazzi'ye (defter))",
+   "ch": "c7"
+  },
+  {
+   "t": 257.482,
+   "name": "zoom_rush_long",
+   "gain_db": -27.0,
+   "pan": 0.0,
+   "seed": 1043,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-43-zoomthru",
+   "note": "geçiş 'zoomthru' (1476: şap tekeli de (yazılır, tek kaynak))",
+   "ch": "c7"
+  },
+  {
+   "t": 262.7,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1044,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-44-slide",
+   "note": "geçiş 'slide' (Imola: Lorenzo para vermemiş)",
+   "ch": "c7"
+  },
+  {
+   "t": 267.545,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1045,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-45-yikama",
+   "note": "geçiş 'yikama' (Salviati: Pisa'ya girişi iki yıl engellendi)",
+   "ch": "c7"
+  },
+  {
+   "t": 273.145,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1046,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-46-sayfa",
+   "note": "geçiş 'sayfa' (1477: Riario, Salviati, Francesco anlaştı (komplo panosu))",
+   "ch": "c7"
+  },
+  {
+   "t": 283.53,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1047,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-47-slide",
+   "note": "geçiş 'slide' (ilk plan ziyafette; Giuliano gelmeyince kiliseye (gravür))",
+   "ch": "c7"
+  },
+  {
+   "t": 290.38,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1048,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-48-yikama",
+   "note": "geçiş 'yikama' (Montesecco: kilisede kan dökmeyi reddetti)",
+   "ch": "c7"
+  },
+  {
+   "t": 297.015,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1049,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-49-sayfa",
+   "note": "geçiş 'sayfa' (yerine iki papaz seçildi)",
+   "ch": "c7"
+  },
+  {
+   "t": 301.727,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1050,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-50-slide",
+   "note": "geçiş 'slide' (Treccani: bu değişiklik planın kısmen çökmesinin nedenlerinden)",
+   "ch": "c7"
+  },
+  {
+   "t": 307.82,
+   "name": "zoom_rush_long",
+   "gain_db": -27.0,
+   "pan": 0.0,
+   "seed": 1051,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-51-zoomthru",
+   "note": "geçiş 'zoomthru' (Stefano: Jacopo de' Pazzi'nin kızına Latince öğreten papaz)",
+   "ch": "c7"
   }
  ]
 }

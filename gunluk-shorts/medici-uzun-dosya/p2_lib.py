@@ -396,8 +396,10 @@ def draw_bag(c, x, y, s=1.0, a=255, fill=0.0, col="#7A4A28", tie="#C79A3C", seed
     w, h = 58 * s, 76 * s
     p = skia.Path()
     p.moveTo(-w * 0.28, -h * 0.82)
-    p.cubicTo(-w * 1.25, -h * 0.28, -w * 1.05, h * 0.92, 0, h * 0.94)
-    p.cubicTo(w * 1.05, h * 0.92, w * 1.25, -h * 0.28, w * 0.28, -h * 0.82)
+    p.cubicTo(-w * 0.70, -h * 0.62, -w * 1.34, -h * 0.12, -w * 1.20, h * 0.66)
+    p.cubicTo(-w * 1.15, h * 0.92, -w * 0.62, h * 1.00, 0, h * 1.00)
+    p.cubicTo(w * 0.62, h * 1.00, w * 1.15, h * 0.92, w * 1.20, h * 0.66)
+    p.cubicTo(w * 1.34, -h * 0.12, w * 0.70, -h * 0.62, w * 0.28, -h * 0.82)
     p.close()
     sh = skia.GradientShader.MakeRadial((-w * 0.3, -h * 0.2), w * 1.7, [C(mix(col, "#FFFFFF", 0.30), a), C(col, a), C(mix(col, "#000000", 0.5), a)], [0.0, 0.5, 1.0])
     c.drawPath(p, skia.Paint(Shader=sh, AntiAlias=True))
@@ -447,8 +449,9 @@ def draw_bag(c, x, y, s=1.0, a=255, fill=0.0, col="#7A4A28", tie="#C79A3C", seed
     c.drawCircle(0, -h * 0.80, 5.5 * s, P(tie, a))
     # yan dikiş
     sm = skia.Path()
-    sm.moveTo(w * 0.62, -h * 0.30)
-    sm.quadTo(w * 0.80, h * 0.20, w * 0.60, h * 0.80)
+    sm.moveTo(w * 0.70, -h * 0.20)
+    sm.quadTo(w * 0.92, h * 0.28, w * 0.74, h * 0.86)
+    c.drawLine(-w * 0.70, h * 0.88, w * 0.70, h * 0.88, S("#2A1608", 1.2 * s, 90))
     c.drawPath(sm, S("#2A1608", 1.2 * s, 110))
     if mark and mark > 0.02:
         sc = s * 0.55 * mark

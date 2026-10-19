@@ -1,5 +1,48 @@
 [
  {
+  "t": 3.298,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1001,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-1-carry",
+  "note": "geçiş 'carry' (aforoz belgesi, kurşun mühür)",
+  "ch": "c8"
+ },
+ {
+  "t": 9.653,
+  "name": "iris_ring",
+  "gain_db": -21.0,
+  "pan": 0.0,
+  "seed": 1002,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "obj": "seal"
+  },
+  "id": "gecis-2-iris",
+  "note": "geçiş 'iris' (interdikt: şehir sessizleşir)",
+  "ch": "c8"
+ },
+ {
+  "t": 12.21,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1003,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-3-zoomthru",
+  "note": "geçiş 'zoomthru' (Latince satır ve çeviri)",
+  "ch": "c8"
+ },
+ {
   "t": 15.678,
   "name": "paper_rustle",
   "gain_db": -26.0,
@@ -9,6 +52,77 @@
   "loop": false,
   "params": {},
   "id": "c8-belge",
+  "ch": "c8"
+ },
+ {
+  "t": 20.64,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1004,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-4-carry",
+  "note": "geçiş 'carry' (harita: Napoli ve Papalık Toskana'ya)",
+  "ch": "c8"
+ },
+ {
+  "t": 24.067,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1005,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-5-slide",
+  "note": "geçiş 'slide' (ordu yürür (Alfonso, Federico))",
+  "ch": "c8"
+ },
+ {
+  "t": 29.8,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1006,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-6-zoomthru",
+  "note": "geçiş 'zoomthru' (Siena geçit verir, Chianti kaleleri)",
+  "ch": "c8"
+ },
+ {
+  "t": 35.78,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1007,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-7-slide",
+  "note": "geçiş 'slide' (Poggio Imperiale, Colle)",
+  "ch": "c8"
+ },
+ {
+  "t": 44.48,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1008,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-8-light",
+  "note": "geçiş 'light' (hazine boşalır, kapak çarpar)",
   "ch": "c8"
  },
  {
@@ -38,6 +152,19 @@
   "ch": "c8"
  },
  {
+  "t": 48.545,
+  "name": "page_turn",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1009,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-9-sayfa",
+  "note": "geçiş 'sayfa' (harita: Floransa → Napoli (6 Aralık 1479))",
+  "ch": "c8"
+ },
+ {
   "t": 53.267,
   "name": "sea_waves",
   "gain_db": -30.0,
@@ -52,6 +179,19 @@
   "ch": "c8"
  },
  {
+  "t": 55.06,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1010,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-10-zoomthru",
+  "note": "geçiş 'zoomthru' (Pisa mektubu, Signoria'nın yetkisi)",
+  "ch": "c8"
+ },
+ {
   "t": 58.738,
   "name": "quill_scratch",
   "gain_db": -25.0,
@@ -61,6 +201,79 @@
   "loop": false,
   "params": {},
   "id": "c8-pisa-mektubu",
+  "ch": "c8"
+ },
+ {
+  "t": 64.29,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1011,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-11-slide",
+  "note": "geçiş 'slide' (yola çıktı, yetki sonra geldi)",
+  "ch": "c8"
+ },
+ {
+  "t": 69.17,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1012,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-12-slide",
+  "note": "geçiş 'slide' (Napoli limanı (18 Aralık))",
+  "ch": "c8"
+ },
+ {
+  "t": 71.35,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1013,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-13-light",
+  "note": "geçiş 'light' (Napoli salonu: konuk mu, rehine mi?)",
+  "ch": "c8"
+ },
+ {
+  "t": 79.26,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1014,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-14-slide",
+  "note": "geçiş 'slide' (harita: doğudan Floransa'ya yolculuk)",
+  "ch": "c8"
+ },
+ {
+  "t": 84.07,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1015,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-15-slide",
+  "note": "geçiş 'slide' (Pera: İstanbul'a ulaşmıştı)",
   "ch": "c8"
  },
  {
@@ -79,6 +292,75 @@
   "ch": "c8"
  },
  {
+  "t": 90.59,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1016,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-16-zoomthru",
+  "note": "geçiş 'zoomthru' (mektup yolda: temsilci yazdı, Sultan tutuklattı)",
+  "ch": "c8"
+ },
+ {
+  "t": 101.06,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1017,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-17-zoomthru",
+  "note": "geçiş 'zoomthru' (Antonio'nun aceleyle yolculuğu)",
+  "ch": "c8"
+ },
+ {
+  "t": 112.13,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1018,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-18-carry",
+  "note": "geçiş 'carry' (Pera: neden bilmiyoruz; ticaret ayrıcalıkları)",
+  "ch": "c8"
+ },
+ {
+  "t": 119.3,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1019,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-19-slide",
+  "note": "geçiş 'slide' (Bargello: heyet (24 Aralık), 29 Aralık)",
+  "ch": "c8"
+ },
+ {
+  "t": 133.365,
+  "name": "page_turn",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1021,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-21-sayfa",
+  "note": "geçiş 'sayfa' (Leonardo'nun sayfası: giysi etüdü ve notlar)",
+  "ch": "c8"
+ },
+ {
   "t": 135.758,
   "name": "quill_scratch",
   "gain_db": -25.0,
@@ -89,6 +371,60 @@
   "params": {},
   "id": "c8-leonardo",
   "note": "Leonardo asılı adamı çizdi (kod çizimi; ses yalnız kalem)",
+  "ch": "c8"
+ },
+ {
+  "t": 138.38,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1022,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-22-carry",
+  "note": "geçiş 'carry' (harita: Ferrante ayrıldı, Lorenzo yukarı döndü)",
+  "ch": "c8"
+ },
+ {
+  "t": 144.655,
+  "name": "page_turn",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1023,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-23-sayfa",
+  "note": "geçiş 'sayfa' (barış maddeleri ve mühür)",
+  "ch": "c8"
+ },
+ {
+  "t": 158.47,
+  "name": "plaster_scrape",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1024,
+  "dur": 0.9,
+  "loop": false,
+  "params": {},
+  "id": "gecis-24-giornata",
+  "note": "geçiş 'giornata' (Yetmişler Konseyi (70 iskemle, 1480-85-90))",
+  "ch": "c8"
+ },
+ {
+  "t": 168.358,
+  "name": "dip_drop",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1025,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-25-dip",
+  "note": "geçiş 'dip' (denizden haber: Osmanlı donanması ufukta)",
   "ch": "c8"
  },
  {
@@ -106,6 +442,60 @@
   "ch": "c8"
  },
  {
+  "t": 171.448,
+  "name": "dip_drop",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1026,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-26-dip",
+  "note": "geçiş 'dip' (Otranto: donanma çıkar, şehir düşer)",
+  "ch": "c8"
+ },
+ {
+  "t": 178.65,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1027,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-27-light",
+  "note": "geçiş 'light' (harita: ordu Toskana'dan geri çağrılır)",
+  "ch": "c8"
+ },
+ {
+  "t": 183.84,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1028,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-28-light",
+  "note": "geçiş 'light' (bulla düşer, affedildiler (Aralık 1480))",
+  "ch": "c8"
+ },
+ {
+  "t": 193.65,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1029,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-29-carry",
+  "note": "geçiş 'carry' (döküm: bronz akar, kalıp açılır)",
+  "ch": "c8"
+ },
+ {
   "t": 201.648,
   "name": "knock_metal",
   "gain_db": -26.0,
@@ -117,6 +507,88 @@
    "n_hits": 3
   },
   "id": "c8-bertoldo",
+  "ch": "c8"
+ },
+ {
+  "t": 201.7,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1030,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-30-zoomthru",
+  "note": "geçiş 'zoomthru' (madalya: ısmarlanmış olabilir)",
+  "ch": "c8"
+ },
+ {
+  "t": 210.2,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1031,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-31-zoomthru",
+  "note": "geçiş 'zoomthru' (madalyanın ters yüzü)",
+  "ch": "c8"
+ },
+ {
+  "t": 218.43,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1032,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-32-slide",
+  "note": "geçiş 'slide' (olası saldırıya imâ; tuhaf hediye; ölüm)",
+  "ch": "c8"
+ },
+ {
+  "t": 229.626,
+  "name": "dip_drop",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1033,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-33-dip",
+  "note": "geçiş 'dip' (Otranto Napoli'ye döner (Eylül 1481))",
+  "ch": "c8"
+ },
+ {
+  "t": 233.48,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1034,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-34-carry",
+  "note": "geçiş 'carry' (savaş barışa çevrildi (Medici arması, defne))",
+  "ch": "c8"
+ },
+ {
+  "t": 236.64,
+  "name": "candle_out_in",
+  "gain_db": -21.0,
+  "pan": 0.0,
+  "seed": 1035,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-35-candle",
+  "note": "geçiş 'candle' (KAPI: şube ışıkları birer birer söner)",
   "ch": "c8"
  },
  {
@@ -196,6 +668,148 @@
   "ch": "c8"
  },
  {
+  "t": 247.427,
+  "name": "zoom_rush_long",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1038,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-38-zoomthru",
+  "note": "geçiş 'zoomthru' (defter incelir)",
+  "ch": "c9"
+ },
+ {
+  "t": 251.45,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1039,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-39-carry",
+  "note": "geçiş 'carry' (şap kristalleri)",
+  "ch": "c9"
+ },
+ {
+  "t": 254.965,
+  "name": "wash_swell",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1040,
+  "dur": 0.9,
+  "loop": false,
+  "params": {},
+  "id": "gecis-40-yikama",
+  "note": "geçiş 'yikama' (boyahaneler: bezler rüzgârda)",
+  "ch": "c9"
+ },
+ {
+  "t": 259.24,
+  "name": "iris_ring",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1041,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "obj": "seal"
+  },
+  "id": "gecis-41-iris",
+  "note": "geçiş 'iris' (harita: Foça yolu kesilir, Tolfa)",
+  "ch": "c9"
+ },
+ {
+  "t": 267.69,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1042,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-42-carry",
+  "note": "geçiş 'carry' (belge: dört mühür, biri Medici)",
+  "ch": "c9"
+ },
+ {
+  "t": 274.33,
+  "name": "iris_ring",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1043,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "obj": "seal"
+  },
+  "id": "gecis-43-iris",
+  "note": "geçiş 'iris' (aforoz damgası, altından gemi geçer)",
+  "ch": "c9"
+ },
+ {
+  "t": 281.085,
+  "name": "page_turn",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1044,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-44-sayfa",
+  "note": "geçiş 'sayfa' (defter: kazanç ?, 1475 zarar)",
+  "ch": "c9"
+ },
+ {
+  "t": 289.37,
+  "name": "zoom_rush_long",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1045,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-45-zoomthru",
+  "note": "geçiş 'zoomthru' (Brugge şubesi, yardımcı Portinari)",
+  "ch": "c9"
+ },
+ {
+  "t": 296.138,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1046,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-46-slide",
+  "note": "geçiş 'slide' (Cosimo'nun mumu söner, Portinari parlar)",
+  "ch": "c9"
+ },
+ {
+  "t": 300.81,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1047,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-47-carry",
+  "note": "geçiş 'carry' (sikkeler Portinari'den dükün yanına akar)",
+  "ch": "c9"
+ },
+ {
   "t": 304.858,
   "name": "coin_clink",
   "gain_db": -24.0,
@@ -205,6 +819,34 @@
   "loop": false,
   "params": {},
   "id": "c9-kredi",
+  "ch": "c9"
+ },
+ {
+  "t": 307.03,
+  "name": "zoom_rush_long",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1048,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-48-zoomthru",
+  "note": "geçiş 'zoomthru' (marionet: palle ve taç çeker)",
+  "ch": "c9"
+ },
+ {
+  "t": 312.53,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1049,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-49-carry",
+  "note": "geçiş 'carry' (harita: Brugge bayrak değişir, ışık söner)",
   "ch": "c9"
  },
  {
@@ -222,6 +864,49 @@
   "ch": "c9"
  },
  {
+  "t": 322.54,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1050,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-50-slide",
+  "note": "geçiş 'slide' (Londra: krediler krala akar, sayaç 26.000+)",
+  "ch": "c9"
+ },
+ {
+  "t": 332.92,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1051,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-51-carry",
+  "note": "geçiş 'carry' (geri ödenen sikkeler, güller, ≠ kaynaklar)",
+  "ch": "c9"
+ },
+ {
+  "t": 339.825,
+  "name": "page_turn",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1052,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-52-sayfa",
+  "note": "geçiş 'sayfa' (Londra çubuğu biter, lamba söner, zarar kartı)",
+  "ch": "c9"
+ },
+ {
   "t": 345.48999999999995,
   "name": "book_close",
   "gain_db": -22.0,
@@ -233,6 +918,19 @@
    "pitch": 0.95
   },
   "id": "c9-londra",
+  "ch": "c9"
+ },
+ {
+  "t": 345.74,
+  "name": "candle_out_in",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1053,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-53-candle",
+  "note": "geçiş 'candle' (KAPANIŞ: kandiller tek tek söner)",
   "ch": "c9"
  },
  {
@@ -292,6 +990,193 @@
   "ch": "c9"
  },
  {
+  "t": 353.518,
+  "name": "light_swell",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1054,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-54-light",
+  "note": "geçiş 'light' (suçlama çarkı döner (Suçlu kimdi?))",
+  "ch": "c9"
+ },
+ {
+  "t": 356.76,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1055,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-55-carry",
+  "note": "geçiş 'carry' (Machiavelli yazar (Medici siparişi))",
+  "ch": "c9"
+ },
+ {
+  "t": 360.497,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1056,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-56-slide",
+  "note": "geçiş 'slide' (çark AJANLAR'da durur)",
+  "ch": "c9"
+ },
+ {
+  "t": 368.22,
+  "name": "iris_ring",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1057,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "obj": "florin"
+  },
+  "id": "gecis-57-iris",
+  "note": "geçiş 'iris' (Sassetti: ≈30 yıl genel müdür)",
+  "ch": "c9"
+ },
+ {
+  "t": 375.147,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1058,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-58-slide",
+  "note": "geçiş 'slide' (Treccani tanımı)",
+  "ch": "c9"
+ },
+ {
+  "t": 381.18,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1059,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-59-carry",
+  "note": "geçiş 'carry' (de Roover: devlet adamı ✓, iş adamı ✗)",
+  "ch": "c9"
+ },
+ {
+  "t": 385.858,
+  "name": "zoom_rush_long",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1060,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-60-zoomthru",
+  "note": "geçiş 'zoomthru' (Goldthwaite: sakin çizgi, kriz yok)",
+  "ch": "c9"
+ },
+ {
+  "t": 392.22,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1061,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-61-carry",
+  "note": "geçiş 'carry' (çark oturmaz: kime sorduğunuza bağlı)",
+  "ch": "c9"
+ },
+ {
+  "t": 395.89,
+  "name": "light_swell",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1062,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-62-light",
+  "note": "geçiş 'light' (şapel: giornata, ironi (defter incelirken))",
+  "ch": "c9"
+ },
+ {
+  "t": 404.44,
+  "name": "candle_out_in",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1063,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-63-candle",
+  "note": "geçiş 'candle' (Piero kaçar (siluet), sürgün)",
+  "ch": "c9"
+ },
+ {
+  "t": 411.09,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1064,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-64-slide",
+  "note": "geçiş 'slide' (Palazzo Medici: mühür bandı, EL KONDU)",
+  "ch": "c9"
+ },
+ {
+  "t": 415.84,
+  "name": "slide_glide",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 1065,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-65-slide",
+  "note": "geçiş 'slide' (bronzlar Palazzo Vecchio'ya taşınır)",
+  "ch": "c9"
+ },
+ {
+  "t": 420.09,
+  "name": "cloth_sweep",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 1066,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-66-carry",
+  "note": "geçiş 'carry' (kesit: alt kat kalabalık, üst kat ışıklı ve boş)",
+  "ch": "c9"
+ },
+ {
   "t": 421.29,
   "name": "crowd_murmur",
   "gain_db": -29.0,
@@ -308,6 +1193,19 @@
   "ch": "c9"
  },
  {
+  "t": 424.9,
+  "name": "zoom_rush_long",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1067,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-67-zoomthru",
+  "note": "geçiş 'zoomthru' (bankanın masası kayyumlara)",
+  "ch": "c9"
+ },
+ {
   "t": 430.468,
   "name": "wax_seal_stamp",
   "gain_db": -20.0,
@@ -318,6 +1216,60 @@
   "params": {},
   "id": "c9-kayyum-muhru",
   "note": "KAYYUM mührü (brif §7)",
+  "ch": "c9"
+ },
+ {
+  "t": 431.195,
+  "name": "page_turn",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1068,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-68-sayfa",
+  "note": "geçiş 'sayfa' (aralık çubukları: resmî son 1494, fiilî çözülme)",
+  "ch": "c9"
+ },
+ {
+  "t": 438.15,
+  "name": "light_swell",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1069,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-69-light",
+  "note": "geçiş 'light' (bronzlar altın ışıkta (güzellik kaldı))",
+  "ch": "c9"
+ },
+ {
+  "t": 444.018,
+  "name": "dip_drop",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1070,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-70-dip",
+  "note": "geçiş 'dip' (defter kapanır (banka öldü))",
+  "ch": "c9"
+ },
+ {
+  "t": 446.81,
+  "name": "iris_ring",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1071,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "obj": "palle"
+  },
+  "id": "gecis-71-iris",
+  "note": "geçiş 'iris' (KAPI: kral Alpler'i aşar, rahip vaaz verir)",
   "ch": "c9"
  }
 ]

@@ -36,6 +36,41 @@
    "seed": 2
   },
   {
+   "id": "c3-hucre-yanki",
+   "bolum": "c3",
+   "ad": "church_ambience",
+   "capa": [
+    "c3s2",
+    0.3
+   ],
+   "bitis_capa": [
+    "c3s4",
+    "end",
+    0.0
+   ],
+   "seviye": -34,
+   "dongu": true,
+   "gir": 0.8,
+   "cik": 1.5,
+   "erken": 0.3,
+   "bastir_db": -3,
+   "not": "yonetmen_c3: hücre taş yankısı (çekim 2–3); ardından yarıktan rüzgâr (c3-kule-ruzgar)",
+   "kaynak": "yonetmen_c3.md ses köprüleri"
+  },
+  {
+   "id": "c3-tabela",
+   "bolum": "c3",
+   "ad": "rope_creak",
+   "capa": [
+    "c3s2",
+    "end",
+    0.1
+   ],
+   "seviye": -31,
+   "not": "mizah boşluğu: 'Küçük Han' hücre tabelası sallanır",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
    "id": "c3-kule-ruzgar",
    "bolum": "c3",
    "ad": "wind",
@@ -55,6 +90,19 @@
    "not": "dar yarık: kule rüzgârı"
   },
   {
+   "id": "c3-damga-anekdot",
+   "bolum": "c3",
+   "ad": "stamp_thud",
+   "capa": [
+    "c3s7",
+    1.0
+   ],
+   "seviye": -23,
+   "seed": 4,
+   "not": "çekim 6: ANEKDOT damgası (gravür)",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
    "id": "c3-kucuk-kagit",
    "bolum": "c3",
    "ad": "paper_rustle",
@@ -65,6 +113,33 @@
    ],
    "seviye": -25,
    "dur": 1.5
+  },
+  {
+   "id": "c3-para",
+   "bolum": "c3",
+   "ad": "coin_clink",
+   "capa": [
+    "c3s8",
+    "bin",
+    0.0
+   ],
+   "seviye": -25,
+   "seed": 3,
+   "not": "çekim 7: bin yüz duka yığını",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
+   "id": "c3-damga-yorum",
+   "bolum": "c3",
+   "ad": "stamp_thud",
+   "capa": [
+    "c3s9",
+    0.5
+   ],
+   "seviye": -24,
+   "seed": 5,
+   "not": "çekim 8: ANEKDOT damgası YORUM'a döner",
+   "kaynak": "yonetmen_c3.md"
   },
   {
    "id": "c3-venedik",
@@ -87,6 +162,32 @@
    "not": "Venedik (diplomat gibi karşılandı)"
   },
   {
+   "id": "c3-kura-ip",
+   "bolum": "c3",
+   "ad": "rope_creak",
+   "capa": [
+    "c3s16",
+    0.8
+   ],
+   "seviye": -31,
+   "seed": 6,
+   "not": "çekim 14: torba bağı ipi (kura)",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
+   "id": "c3-damga-tek-kaynak",
+   "bolum": "c3",
+   "ad": "stamp_thud",
+   "capa": [
+    "c3s18",
+    0.6
+   ],
+   "seviye": -24,
+   "seed": 7,
+   "not": "çekim 17: ○ TEK KAYNAK damgası",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
    "id": "c3-torba",
    "bolum": "c3",
    "ad": "paper_rustle",
@@ -99,6 +200,19 @@
    "dur": 1.6
   },
   {
+   "id": "c3-torba-ip",
+   "bolum": "c3",
+   "ad": "rope_creak",
+   "capa": [
+    "c3s23",
+    0.5
+   ],
+   "seviye": -31,
+   "seed": 8,
+   "not": "çekim 22: Cosimo torba doldurur (bağ ipi)",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
    "id": "c3-defter",
    "bolum": "c3",
    "ad": "page_turn",
@@ -109,6 +223,20 @@
    ],
    "seviye": -21,
    "pan": -0.2
+  },
+  {
+   "id": "c3-kalem-defter",
+   "bolum": "c3",
+   "ad": "quill_scratch",
+   "capa": [
+    "c3s26",
+    1.2
+   ],
+   "sure": 2.2,
+   "seviye": -26,
+   "seed": 2,
+   "not": "çekim 25: şehir adları satır satır yazılır",
+   "kaynak": "yonetmen_c3.md"
   },
   {
    "id": "c3-kar",
@@ -124,6 +252,60 @@
    "seed": 5
   },
   {
+   "id": "c3-kalem-kar",
+   "bolum": "c3",
+   "ad": "quill_scratch",
+   "capa": [
+    "c3s28",
+    1.4
+   ],
+   "sure": 1.8,
+   "seviye": -27,
+   "seed": 9,
+   "not": "çekim 27: kâr cetveli",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
+   "id": "c3-etiket-sak",
+   "bolum": "c3",
+   "ad": "stamp_thud",
+   "capa": [
+    "c3s29",
+    0.8
+   ],
+   "seviye": -27,
+   "seed": 10,
+   "not": "çekim 28: 'holding' etiketi yapışır",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
+   "id": "c3-etiket-soyulma",
+   "bolum": "c3",
+   "ad": "paper_rustle",
+   "capa": [
+    "c3s29",
+    1.9
+   ],
+   "sure": 1.2,
+   "seviye": -28,
+   "seed": 11,
+   "not": "çekim 28: etiket soyulur",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
+   "id": "c3-damga-belirsiz",
+   "bolum": "c3",
+   "ad": "stamp_thud",
+   "capa": [
+    "c3s31",
+    0.3
+   ],
+   "seviye": -21,
+   "seed": 12,
+   "not": "çekim 30: 'KAYNAĞI BELİRSİZ' damgası tek vuruş",
+   "kaynak": "yonetmen_c3.md"
+  },
+  {
    "id": "c4-ilan",
    "bolum": "c4",
    "ad": "quill_scratch",
@@ -134,6 +316,59 @@
    ],
    "seviye": -26,
    "dur": 2.0
+  },
+  {
+   "id": "c4-civi-1",
+   "bolum": "c4",
+   "ad": "knock_wood",
+   "capa": [
+    "c4s3",
+    0.5
+   ],
+   "seviye": -24,
+   "not": "çekim 4: ilan tahtasına çivi/çekiç vuruşları",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 40
+  },
+  {
+   "id": "c4-civi-2",
+   "bolum": "c4",
+   "ad": "knock_wood",
+   "capa": [
+    "c4s3",
+    1.05
+   ],
+   "seviye": -24,
+   "not": "çivi",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 41
+  },
+  {
+   "id": "c4-civi-3",
+   "bolum": "c4",
+   "ad": "knock_wood",
+   "capa": [
+    "c4s3",
+    1.6
+   ],
+   "seviye": -24,
+   "not": "çivi",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 42
+  },
+  {
+   "id": "c4-odul-florin",
+   "bolum": "c4",
+   "ad": "coin_pile",
+   "capa": [
+    "c4s3",
+    "kullanılacak",
+    0.3
+   ],
+   "seviye": -25,
+   "not": "çekim 5: 200 florin ödül (florin sütunu)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 4
   },
   {
    "id": "c4-yumurta",
@@ -148,6 +383,33 @@
    "not": "yumurta kırılır (hafif mizah)"
   },
   {
+   "id": "c4-yumurta-2",
+   "bolum": "c4",
+   "ad": "knock_wood",
+   "capa": [
+    "c4s5",
+    "tabanını",
+    0.4
+   ],
+   "seviye": -27,
+   "not": "çekim 7: yumurta tıkırtısı",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 41
+  },
+  {
+   "id": "c4-takvim",
+   "bolum": "c4",
+   "ad": "page_turn",
+   "capa": [
+    "c4s8",
+    0.3
+   ],
+   "seviye": -24,
+   "not": "çekim 11: takvim yaprağı (25 Mart 1436)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 42
+  },
+  {
    "id": "c4-kubbe-iscilik",
    "bolum": "c4",
    "ad": "chisel_tap",
@@ -158,6 +420,62 @@
    ],
    "seviye": -29,
    "dur": 4.0
+  },
+  {
+   "id": "c4-vinc-1",
+   "bolum": "c4",
+   "ad": "rope_creak",
+   "capa": [
+    "c4s12",
+    0.6
+   ],
+   "seviye": -28,
+   "not": "çekim 16: kubbe kalıpsız örülür — vinç gıcırtısı",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 43,
+   "sure": 2.6
+  },
+  {
+   "id": "c4-vinc-2",
+   "bolum": "c4",
+   "ad": "rope_creak",
+   "capa": [
+    "c4s12",
+    4.2
+   ],
+   "seviye": -29,
+   "not": "çekim 16: vinç gıcırtısı",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 44,
+   "sure": 2.6
+  },
+  {
+   "id": "c4-tas-2",
+   "bolum": "c4",
+   "ad": "chisel_tap",
+   "capa": [
+    "c4s12",
+    2.8
+   ],
+   "seviye": -28,
+   "not": "çekim 16: taş işçiliği",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 45,
+   "sure": 2.2
+  },
+  {
+   "id": "c4-kalem-vespasiano",
+   "bolum": "c4",
+   "ad": "quill_scratch",
+   "capa": [
+    "c4s14",
+    1.2
+   ],
+   "seviye": -26,
+   "not": "çekim 18: kitapçı Vespasiano yazar (ANEKDOT)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 46,
+   "sure": 2.4
   },
   {
    "id": "c4-kirk-bin",
@@ -171,6 +489,59 @@
    "seviye": -23,
    "pan": 0.2,
    "seed": 6
+  },
+  {
+   "id": "c4-florin-sutunu",
+   "bolum": "c4",
+   "ad": "coin_pile",
+   "capa": [
+    "c4s17",
+    1.2
+   ],
+   "seviye": -24,
+   "not": "çekim 23: florin sütunu kırmızı sınırı aşar",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 47
+  },
+  {
+   "id": "c4-etiket-kefaret",
+   "bolum": "c4",
+   "ad": "stamp_thud",
+   "capa": [
+    "c4s18",
+    1.0
+   ],
+   "seviye": -27,
+   "not": "çekim 24: 'KEFARET' etiketi yapışır (şak)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 48
+  },
+  {
+   "id": "c4-etiket-soyulma",
+   "bolum": "c4",
+   "ad": "paper_rustle",
+   "capa": [
+    "c4s18",
+    2.2
+   ],
+   "seviye": -29,
+   "not": "çekim 24: etiket soyulur",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 49,
+   "sure": 1.2
+  },
+  {
+   "id": "c4-etiket-vip",
+   "bolum": "c4",
+   "ad": "stamp_thud",
+   "capa": [
+    "c4s20",
+    0.9
+   ],
+   "seviye": -27,
+   "not": "çekim 26: VIP etiketi (şak)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 50
   },
   {
    "id": "c4-rucellai",
@@ -211,6 +582,99 @@
    "pan": -0.2
   },
   {
+   "id": "c4-kalem-defter-ac",
+   "bolum": "c4",
+   "ad": "quill_scratch",
+   "capa": [
+    "c4s28",
+    0.6
+   ],
+   "seviye": -27,
+   "not": "çekim 37–38: toplam satırı yazılır",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 51,
+   "sure": 3.5
+  },
+  {
+   "id": "c4-terazi",
+   "bolum": "c4",
+   "ad": "knock_metal",
+   "capa": [
+    "c4s30",
+    0.9
+   ],
+   "seviye": -29,
+   "not": "çekim 41: terazi (kefaret mi yatırım mı)",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 52
+  },
+  {
+   "id": "c4-kitap-kulesi",
+   "bolum": "c4",
+   "ad": "paper_rustle",
+   "capa": [
+    "c4s32",
+    0.3
+   ],
+   "seviye": -30,
+   "not": "çekim 43: kitap kulesi yükselirken kâğıt sürtünmesi",
+   "kaynak": "yonetmen_c4.md",
+   "seed": 53,
+   "sure": 3.5
+  },
+  {
+   "id": "c5-heyet-adimlar",
+   "bolum": "c5",
+   "ad": "footsteps",
+   "capa": [
+    "c5s2",
+    0.4
+   ],
+   "seviye": -27,
+   "not": "çekim 3–4: yaklaşık yedi yüz kişilik Rum heyeti — kalabalık ayak sesi",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 60,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 10,
+    "pace": 0.45
+   }
+  },
+  {
+   "id": "c5-heyet-kalabalik",
+   "bolum": "c5",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c5s2",
+    0.0
+   ],
+   "seviye": -33,
+   "not": "çekim 3–4: kalabalık misafir (sözsüz uğultu)",
+   "kaynak": "yonetmen_c5.md",
+   "bitis_capa": [
+    "c5s2",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c5-birlik-muhur",
+   "bolum": "c5",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c5s3",
+    1.2
+   ],
+   "seviye": -22,
+   "not": "çekim 5: Temmuz 1439 birlik ilanı (mühür)",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 61
+  },
+  {
    "id": "c5-niccoli",
    "bolum": "c5",
    "ad": "quill_scratch",
@@ -223,6 +687,20 @@
    "dur": 2.4
   },
   {
+   "id": "c5-kitap-800",
+   "bolum": "c5",
+   "ad": "book_close",
+   "capa": [
+    "c5s7",
+    "sekiz",
+    0.5
+   ],
+   "seviye": -25,
+   "not": "çekim 13: ≈800 el yazması",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 62
+  },
+  {
    "id": "c5-kitaplik",
    "bolum": "c5",
    "ad": "page_turn",
@@ -233,6 +711,20 @@
    ],
    "seviye": -21,
    "pan": 0.2
+  },
+  {
+   "id": "c5-mektup-kagit",
+   "bolum": "c5",
+   "ad": "paper_rustle",
+   "capa": [
+    "c5s9",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 15: Ficino'nun derlemesindeki mektup",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 63,
+   "sure": 1.4
   },
   {
    "id": "c5-lascaris-deniz",
@@ -275,6 +767,106 @@
    ],
    "seviye": -22,
    "pan": -0.2
+  },
+  {
+   "id": "c5-kalem-defter-1",
+   "bolum": "c5",
+   "ad": "quill_scratch",
+   "capa": [
+    "c5s17",
+    0.5
+   ],
+   "seviye": -27,
+   "not": "çekim 27: cep defterinde Lorenzo'nun listesi",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 64,
+   "sure": 2.4
+  },
+  {
+   "id": "c5-kalem-defter-2",
+   "bolum": "c5",
+   "ad": "quill_scratch",
+   "capa": [
+    "c5s17",
+    "kütüphanesinin",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 28: Medici kütüphanesinin içeriği",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 65,
+   "sure": 2.4
+  },
+  {
+   "id": "c5-kitap-200",
+   "bolum": "c5",
+   "ad": "book_close",
+   "capa": [
+    "c5s18",
+    0.8
+   ],
+   "seviye": -26,
+   "not": "çekim 29: Lascaris'in 200'ü (kitap yığını)",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 66
+  },
+  {
+   "id": "c5-kitap-liste",
+   "bolum": "c5",
+   "ad": "book_close",
+   "capa": [
+    "c5s18",
+    "defterdeki",
+    1.0
+   ],
+   "seviye": -26,
+   "not": "çekim 30: defterdeki liste neredeyse iki katı",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 67
+  },
+  {
+   "id": "c5-kapanis-kagit",
+   "bolum": "c5",
+   "ad": "paper_rustle",
+   "capa": [
+    "c5s20",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 33: liste Lorenzo için yazılmıştı",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 68,
+   "sure": 1.4
+  },
+  {
+   "id": "c5-kapanis-muhur",
+   "bolum": "c5",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c5s20",
+    2.0
+   ],
+   "seviye": -23,
+   "not": "çekim 33: palla mührü",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 69
+  },
+  {
+   "id": "c5-kapanis-yanki",
+   "bolum": "c5",
+   "ad": "light_swell",
+   "capa": [
+    "c5s21",
+    0.4
+   ],
+   "seviye": -28,
+   "not": "çekim 33 / P2 kapanışı: palla büyürken sıcak 'yankı' (iris palla → bitiş ekranı)",
+   "kaynak": "yonetmen_c5.md",
+   "seed": 70,
+   "parametre": {
+    "root": 293.66
+   },
+   "sessizlik_izni": true
   }
  ]
 }

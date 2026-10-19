@@ -696,6 +696,504 @@
    "id": "gecis-55-zoomthru",
    "note": "geçiş 'zoomthru' (köşede bir masa, bir defter; faiz günahtır)",
    "ch": "c1"
+  },
+  {
+   "t": 351.38,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1058,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-58-light",
+   "note": "geçiş 'light' (bankacılar bir yol buldu)",
+   "ch": "c2"
+  },
+  {
+   "t": 353.37,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1059,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-59-zoomthru",
+   "note": "geçiş 'zoomthru' (kambiyo: Brugge → Barselona)",
+   "ch": "c2"
+  },
+  {
+   "t": 360.115,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1060,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-60-sayfa",
+   "note": "geçiş 'sayfa' (poliçe: Barselona'ya çekilmiş)",
+   "ch": "c2"
+  },
+  {
+   "t": 363.65,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1061,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-61-slide",
+   "note": "geçiş 'slide' (tahsil, ikinci poliçe, kazanç = kur farkı)",
+   "ch": "c2"
+  },
+  {
+   "t": 371.38,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1062,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-62-carry",
+   "note": "geçiş 'carry' (BORÇ ✗ FAİZ ✗ KUR FARKI ✓)",
+   "ch": "c2"
+  },
+  {
+   "t": 375.92,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1063,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-63-slide",
+   "note": "geçiş 'slide' (vicdan komitesi)",
+   "ch": "c2"
+  },
+  {
+   "t": 381.775,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1064,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-64-sayfa",
+   "note": "geçiş 'sayfa' (mevduat sözleşmesi: faiz yazılmaz)",
+   "ch": "c2"
+  },
+  {
+   "t": 386.65,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1065,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-65-zoomthru",
+   "note": "geçiş 'zoomthru' (faiz değil, hediye)",
+   "ch": "c2"
+  },
+  {
+   "t": 393.54,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1066,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-66-slide",
+   "note": "geçiş 'slide' (müşteri: Kilise'nin ta kendisi)",
+   "ch": "c2"
+  },
+  {
+   "t": 398.47,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1067,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-67-zoomthru",
+   "note": "geçiş 'zoomthru' (Roma şubesi: kasayı Kilise doldurdu)",
+   "ch": "c2"
+  },
+  {
+   "t": 406.695,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1068,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-68-yikama",
+   "note": "geçiş 'yikama' (25 Mart 1402: Venedik şubesi; yılbaşı)",
+   "ch": "c2"
+  },
+  {
+   "t": 413.455,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1069,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-69-sayfa",
+   "note": "geçiş 'sayfa' (çifte kayıt: Medici icadı mı? MİT)",
+   "ch": "c2"
+  },
+  {
+   "t": 416.63,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1070,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-70-carry",
+   "note": "geçiş 'carry' (çifte kayıt: Cenova 1340 → …)",
+   "ch": "c2"
+  },
+  {
+   "t": 424.04,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1071,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-71-light",
+   "note": "geçiş 'light' (her şubenin kendi ortaklığı ve defteri)",
+   "ch": "c2"
+  },
+  {
+   "t": 431.48,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1072,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-72-zoomthru",
+   "note": "geçiş 'zoomthru' (Giovanni → Cossa: borç, papalık, Konstanz)",
+   "ch": "c2"
+  },
+  {
+   "t": 445.54,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1073,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-73-slide",
+   "note": "geçiş 'slide' (kefalet mi fidye mi: yol ayrımı)",
+   "ch": "c2"
+  },
+  {
+   "t": 452.77,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1074,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-74-light",
+   "note": "geçiş 'light' (Cossa'nın mezarı: ESKİ PAPA)",
+   "ch": "c2"
+  },
+  {
+   "t": 465.455,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1075,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-75-sayfa",
+   "note": "geçiş 'sayfa' (rivayet: mitra, aforoz tehdidi (ANEKDOT))",
+   "ch": "c2"
+  },
+  {
+   "t": 477.52,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1076,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-76-light",
+   "note": "geçiş 'light' (papalığın resmî kasa memurluğu)",
+   "ch": "c2"
+  },
+  {
+   "t": 482.67,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1077,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-77-carry",
+   "note": "geçiş 'carry' (22 yıl Medici'de)",
+   "ch": "c2"
+  },
+  {
+   "t": 486.975,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1078,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-78-sayfa",
+   "note": "geçiş 'sayfa' (catasto: hanelerin servetini tek tek)",
+   "ch": "c2"
+  },
+  {
+   "t": 494.11,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1079,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-79-slide",
+   "note": "geçiş 'slide' (137 hane ≈ %30)",
+   "ch": "c2"
+  },
+  {
+   "t": 499.59,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1080,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-80-zoomthru",
+   "note": "geçiş 'zoomthru' (en zengini Palla Strozzi)",
+   "ch": "c2"
+  },
+  {
+   "t": 503.34,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1081,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "seal"
+   },
+   "id": "gecis-81-iris",
+   "note": "geçiş 'iris' (Giovanni catasto'yu destekledi)",
+   "ch": "c2"
+  },
+  {
+   "t": 507.16,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1082,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-82-carry",
+   "note": "geçiş 'carry' (1420: yönetim oğullarına)",
+   "ch": "c2"
+  },
+  {
+   "t": 512.175,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1083,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-83-sayfa",
+   "note": "geçiş 'sayfa' (defterler: 152.820 florin kâr)",
+   "ch": "c2"
+  },
+  {
+   "t": 518.75,
+   "name": "candle_out_in",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1084,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-84-candle",
+   "note": "geçiş 'candle' (20 Şubat 1429; takvimde hâlâ 1428)",
+   "ch": "c2"
+  },
+  {
+   "t": 525.82,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1085,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-85-zoomthru",
+   "note": "geçiş 'zoomthru' (Lorenzo'nun kaydına göre 180 bin florin)",
+   "ch": "c2"
+  },
+  {
+   "t": 535.14,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1086,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-86-slide",
+   "note": "geçiş 'slide' (iki kalem, iki biçim)",
+   "ch": "c2"
+  },
+  {
+   "t": 540.145,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1087,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-87-sayfa",
+   "note": "geçiş 'sayfa' (Machiavelli yazar (ANEKDOT))",
+   "ch": "c2"
+  },
+  {
+   "t": 553.12,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1088,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-88-carry",
+   "note": "geçiş 'carry' (Cavalcanti yazar (ANEKDOT))",
+   "ch": "c2"
+  },
+  {
+   "t": 566.46,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1089,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-89-slide",
+   "note": "geçiş 'slide' (hangisi söylendi: bilmiyoruz)",
+   "ch": "c2"
+  },
+  {
+   "t": 569.28,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1090,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-90-slide",
+   "note": "geçiş 'slide' (yoksulun ihtiyacını kimse istemeden)",
+   "ch": "c2"
+  },
+  {
+   "t": 575.05,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1091,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-91-zoomthru",
+   "note": "geçiş 'zoomthru' (o kalem Medici'nin siparişiyle çalışıyordu)",
+   "ch": "c2"
+  },
+  {
+   "t": 580.31,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1092,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "seal"
+   },
+   "id": "gecis-92-iris",
+   "note": "geçiş 'iris' (Cosimo: kırk yaşına yaklaşıyordu)",
+   "ch": "c2"
+  },
+  {
+   "t": 584.61,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1093,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-93-light",
+   "note": "geçiş 'light' (kapı: şehrin en yüksek kulesi)",
+   "ch": "c2"
   }
  ]
 }

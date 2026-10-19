@@ -40,6 +40,173 @@
    "not": "sözleşme imzalandı"
   },
   {
+   "id": "c0-takvim-114-1",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    -0.4
+   ],
+   "seviye": -27.0,
+   "not": "çekim 6: 114 yaprak hızlanan takvim",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 21,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-2",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    0.15000000000000002
+   ],
+   "seviye": -26.4,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 22,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-3",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    0.6
+   ],
+   "seviye": -25.8,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 23,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-4",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    0.9500000000000001
+   ],
+   "seviye": -25.2,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 24,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-5",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    1.25
+   ],
+   "seviye": -24.6,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 25,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-6",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    1.5
+   ],
+   "seviye": -24.0,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 26,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-takvim-114-7",
+   "bolum": "c0",
+   "ad": "page_turn",
+   "capa": [
+    "c0s6",
+    "ölümünden",
+    1.7000000000000002
+   ],
+   "seviye": -23.4,
+   "not": "114 yaprak (hızlanıyor)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 27,
+   "sure": 0.6
+  },
+  {
+   "id": "c0-muhur-imza",
+   "bolum": "c0",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c0s6",
+    "imzalandı",
+    0.35
+   ],
+   "seviye": -21,
+   "not": "çekim 7: 'imzalandı' mührü",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 1
+  },
+  {
+   "id": "c0-mum-koprusu",
+   "bolum": "c0",
+   "ad": "candle_flame",
+   "capa": [
+    "c0s6",
+    -0.15
+   ],
+   "seviye": -33,
+   "not": "çekim 5 candle geçişi: mum tıkırtısı 0,4 sn ÖNCE girer (J-kesme)",
+   "kaynak": "yonetmen_c0.md",
+   "erken": 0.4,
+   "bitis_capa": [
+    "c0s6",
+    "sözleşme",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 0.3,
+   "cik": 1.0,
+   "bastir_db": -3
+  },
+  {
+   "id": "c0-muhur-iki-1",
+   "bolum": "c0",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c0s7",
+    0.7
+   ],
+   "seviye": -22,
+   "not": "çekim 8: iki mühür (1)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 2
+  },
+  {
+   "id": "c0-muhur-iki-2",
+   "bolum": "c0",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c0s7",
+    2.6
+   ],
+   "seviye": -22,
+   "not": "çekim 8: iki mühür (2)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 3
+  },
+  {
    "id": "c0-belge",
    "bolum": "c0",
    "ad": "paper_rustle",
@@ -52,25 +219,304 @@
    "dur": 1.6
   },
   {
+   "id": "c0-kalem-sayfa",
+   "bolum": "c0",
+   "ad": "quill_scratch",
+   "capa": [
+    "c0s8",
+    "Fransızca",
+    0.8
+   ],
+   "seviye": -27,
+   "not": "çekim 8: sayfa yazımı",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 4,
+   "sure": 2.2
+  },
+  {
+   "id": "c0-damga-fransizca",
+   "bolum": "c0",
+   "ad": "stamp_thud",
+   "capa": [
+    "c0s8",
+    "Fransızca",
+    0.1
+   ],
+   "seviye": -21,
+   "not": "çekim 8: FRANSIZCA damgası",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 5
+  },
+  {
+   "id": "c0-damga-iii",
+   "bolum": "c0",
+   "ad": "stamp_thud",
+   "capa": [
+    "c0s11",
+    0.4
+   ],
+   "seviye": -21,
+   "not": "çekim 10: III. madde damgası",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 6
+  },
+  {
+   "id": "c0-damga-ceviri-1",
+   "bolum": "c0",
+   "ad": "stamp_thud",
+   "capa": [
+    "c0s12",
+    "çevirisine",
+    1.5
+   ],
+   "seviye": -23,
+   "not": "çekim 11: ÇEVİRİ damgası",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 7
+  },
+  {
+   "id": "c0-zincir-kilit",
+   "bolum": "c0",
+   "ad": "lock_click",
+   "capa": [
+    "c0s12",
+    "Floransa",
+    0.6
+   ],
+   "seviye": -24,
+   "not": "çekim 12: zincir/kilit tık (sınır)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 2
+  },
+  {
+   "id": "c0-damga-ceviri-2",
+   "bolum": "c0",
+   "ad": "stamp_thud",
+   "capa": [
+    "c0s13",
+    3.0
+   ],
+   "seviye": -24,
+   "not": "çekim 13: ÇEVİRİ damgası",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 8
+  },
+  {
    "id": "c0-uffizi-kuyrugu",
    "bolum": "c0",
    "ad": "crowd_murmur",
    "capa": [
+    "c0s14",
+    "end",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c0s16",
+    -0.1
+   ],
+   "dongu": true,
+   "gir": 0.5,
+   "cik": 1.2,
+   "bastir_db": -4,
+   "not": "yonetmen_c0 ses köprüsü (b): 'Yabancıların merakı.' sonunda 0,3 sn ÖNCE başlar (J-kesme); bugünün kuyruğu, sözsüz",
+   "erken": 0.3
+  },
+  {
+   "id": "c0-sikkeler-kuyruk",
+   "bolum": "c0",
+   "ad": "coin_pile",
+   "capa": [
     "c0s15",
-    "Uffizi'nin",
+    "müşterisi",
+    0.0
+   ],
+   "seviye": -23,
+   "not": "çekim 14: 11 sikke kuyruktan uçar",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 2
+  },
+  {
+   "id": "c0-sikke-giris",
+   "bolum": "c0",
+   "ad": "coin_clink",
+   "capa": [
+    "c0s17",
+    "sikkede",
+    0.0
+   ],
+   "seviye": -21,
+   "not": "çekim 16: sikke girişi",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 9
+  },
+  {
+   "id": "c0-sikke-yuvarlan",
+   "bolum": "c0",
+   "ad": "coin_roll",
+   "capa": [
+    "c0s17",
+    "sikkede",
+    0.4
+   ],
+   "seviye": -27,
+   "not": "çekim 16: sikke yuvarlanır",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 2
+  },
+  {
+   "id": "c0-saat-tersi-1",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
     0.0
    ],
    "seviye": -31,
-   "bitis_capa": [
-    "c0s17",
-    "end",
-    -0.3
+   "not": "çekim 16: geri sarma halkası, saat tersi tık-tık (72 çentik, hızlı)",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 30
+  },
+  {
+   "id": "c0-saat-tersi-2",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.15
    ],
-   "dongu": true,
-   "gir": 1.0,
-   "cik": 1.5,
-   "bastir_db": -5,
-   "not": "bugünün kuyruğu (sözsüz uğultu)"
+   "seviye": -30,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 31
+  },
+  {
+   "id": "c0-saat-tersi-3",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.3
+   ],
+   "seviye": -31,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 32
+  },
+  {
+   "id": "c0-saat-tersi-4",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.44999999999999996
+   ],
+   "seviye": -30,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 33
+  },
+  {
+   "id": "c0-saat-tersi-5",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.6
+   ],
+   "seviye": -31,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 34
+  },
+  {
+   "id": "c0-saat-tersi-6",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.75
+   ],
+   "seviye": -30,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 35
+  },
+  {
+   "id": "c0-saat-tersi-7",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    0.8999999999999999
+   ],
+   "seviye": -31,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 36
+  },
+  {
+   "id": "c0-saat-tersi-8",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    1.05
+   ],
+   "seviye": -30,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 37
+  },
+  {
+   "id": "c0-saat-tersi-9",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    1.2
+   ],
+   "seviye": -31,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 38
+  },
+  {
+   "id": "c0-saat-tersi-10",
+   "bolum": "c0",
+   "ad": "tick",
+   "capa": [
+    "c0s18",
+    "geri",
+    1.3499999999999999
+   ],
+   "seviye": -30,
+   "not": "saat tersi tık",
+   "kaynak": "yonetmen_c0.md",
+   "seed": 39
+  },
+  {
+   "id": "c1-florin-giris",
+   "bolum": "c1",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s1",
+    -0.1
+   ],
+   "seviye": -22,
+   "not": "yonetmen_c0 (c) + c1 (a): florin cıngırtısı iris'ten ÖNCE girer (c0 → c1 köprüsü)",
+   "kaynak": "yonetmen_c1.md",
+   "erken": 0.45,
+   "seed": 11
   },
   {
    "id": "c1-florin",
@@ -86,6 +532,110 @@
    "seed": 3
   },
   {
+   "id": "c1-cekic-1",
+   "bolum": "c1",
+   "ad": "knock_metal",
+   "capa": [
+    "c1s4",
+    0.1
+   ],
+   "seviye": -23,
+   "not": "çekim 5–6: darphane çekici, vuruş başına florin cıngırtısı",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 40
+  },
+  {
+   "id": "c1-cekic-florin-1",
+   "bolum": "c1",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s4",
+    0.25
+   ],
+   "seviye": -27,
+   "not": "darphane: florin yığına uçar",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 50
+  },
+  {
+   "id": "c1-cekic-2",
+   "bolum": "c1",
+   "ad": "knock_metal",
+   "capa": [
+    "c1s4",
+    0.9
+   ],
+   "seviye": -23,
+   "not": "darphane çekici",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 41
+  },
+  {
+   "id": "c1-cekic-florin-2",
+   "bolum": "c1",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s4",
+    1.05
+   ],
+   "seviye": -27,
+   "not": "darphane: florin yığına uçar",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 51
+  },
+  {
+   "id": "c1-cekic-3",
+   "bolum": "c1",
+   "ad": "knock_metal",
+   "capa": [
+    "c1s4",
+    1.7
+   ],
+   "seviye": -23,
+   "not": "darphane çekici",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 42
+  },
+  {
+   "id": "c1-cekic-florin-3",
+   "bolum": "c1",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s4",
+    1.8499999999999999
+   ],
+   "seviye": -27,
+   "not": "darphane: florin yığına uçar",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 52
+  },
+  {
+   "id": "c1-cekic-4",
+   "bolum": "c1",
+   "ad": "knock_metal",
+   "capa": [
+    "c1s4",
+    2.5
+   ],
+   "seviye": -23,
+   "not": "darphane çekici",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 43
+  },
+  {
+   "id": "c1-cekic-florin-4",
+   "bolum": "c1",
+   "ad": "coin_clink",
+   "capa": [
+    "c1s4",
+    2.65
+   ],
+   "seviye": -27,
+   "not": "darphane: florin yığına uçar",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 53
+  },
+  {
    "id": "c1-villani",
    "bolum": "c1",
    "ad": "quill_scratch",
@@ -97,6 +647,163 @@
    "seviye": -25,
    "dur": 2.6,
    "pan": 0.2
+  },
+  {
+   "id": "c1-sayac-90000-1",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.0
+   ],
+   "seviye": -31,
+   "not": "çekim 7: '90.000 KİŞİ' sayaç tıkırtısı",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 60
+  },
+  {
+   "id": "c1-sayac-90000-2",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.11
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 61
+  },
+  {
+   "id": "c1-sayac-90000-3",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.22
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 62
+  },
+  {
+   "id": "c1-sayac-90000-4",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.33
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 63
+  },
+  {
+   "id": "c1-sayac-90000-5",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.44
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 64
+  },
+  {
+   "id": "c1-sayac-90000-6",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s6",
+    1.55
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 65
+  },
+  {
+   "id": "c1-damga-villani",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s6",
+    1.7
+   ],
+   "seviye": -22,
+   "not": "çekim 7: VILLANI'YE GÖRE damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 13
+  },
+  {
+   "id": "c1-sayac-15-1",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s8",
+    1.2
+   ],
+   "seviye": -31,
+   "not": "çekim 9: Peruzzi'nin 15 şubesi sayaç tıkırtısı",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 70
+  },
+  {
+   "id": "c1-sayac-15-2",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s8",
+    1.3599999999999999
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 71
+  },
+  {
+   "id": "c1-sayac-15-3",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s8",
+    1.52
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 72
+  },
+  {
+   "id": "c1-sayac-15-4",
+   "bolum": "c1",
+   "ad": "tick",
+   "capa": [
+    "c1s8",
+    1.68
+   ],
+   "seviye": -31,
+   "not": "sayaç tık",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 73
+  },
+  {
+   "id": "c1-damga-odenmedi",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s9",
+    "sebep",
+    1.4
+   ],
+   "seviye": -21,
+   "not": "çekim 10: ÖDENMEDİ damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 14
   },
   {
    "id": "c1-veba-ruzgar",
@@ -118,6 +825,62 @@
    "not": "veba: boş sokak; çok kısık"
   },
   {
+   "id": "c1-kapi-tek-hamle",
+   "bolum": "c1",
+   "ad": "gate_thud",
+   "capa": [
+    "c1s12",
+    "evlerde",
+    0.2
+   ],
+   "seviye": -27,
+   "not": "çekim 16: kapı kapanışı, tek hamle (veba: ağır, ÇAN YOK)",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 3
+  },
+  {
+   "id": "c1-damga-yazildigina",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s13",
+    "yıllar",
+    1.2
+   ],
+   "seviye": -24,
+   "not": "çekim 18: YAZILDIĞINA GÖRE damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 15
+  },
+  {
+   "id": "c1-toprak",
+   "bolum": "c1",
+   "ad": "plaster_scrape",
+   "capa": [
+    "c1s13",
+    "ölülerin",
+    0.4
+   ],
+   "seviye": -31,
+   "not": "çekim 19: toprak serpme (çukur kesiti; ceset çizilmez)",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 4
+  },
+  {
+   "id": "c1-kalem-20",
+   "bolum": "c1",
+   "ad": "quill_scratch",
+   "capa": [
+    "c1s14",
+    0.6
+   ],
+   "seviye": -26,
+   "not": "çekim 20: kalem satır yazar",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 5,
+   "sure": 2.4
+  },
+  {
    "id": "c1-ciompi",
    "bolum": "c1",
    "ad": "crowd_murmur",
@@ -135,7 +898,67 @@
    "gir": 2.5,
    "cik": 0.25,
    "bastir_db": -4,
-   "not": "Ciompi: öfke sokakta; 'ezdi'de keskin kesilir"
+   "not": "Ciompi: öfke sokakta; 'ezdi'de keskin kesilir",
+   "pan": 0.45
+  },
+  {
+   "id": "c1-ciompi-sol",
+   "bolum": "c1",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c1s15",
+    2.0
+   ],
+   "seviye": -31,
+   "not": "çekim 21: sokak uğultusu sağdan sola büyür (sağ: c1-ciompi, sol: bu)",
+   "kaynak": "yonetmen_c1.md",
+   "pan": -0.4,
+   "seed": 2,
+   "sure": 14.0,
+   "dongu": true,
+   "gir": 2.5,
+   "cik": 1.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c1-damga-aktarilir",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s16",
+    1.5
+   ],
+   "seviye": -23,
+   "not": "çekim 22: AKTARILANA GÖRE damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 16
+  },
+  {
+   "id": "c1-damga-kurgu",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s20",
+    1.8
+   ],
+   "seviye": -23,
+   "not": "çekim 28: KURGU damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 17
+  },
+  {
+   "id": "c1-kalem-28",
+   "bolum": "c1",
+   "ad": "quill_scratch",
+   "capa": [
+    "c1s20",
+    1.5
+   ],
+   "seviye": -26,
+   "not": "çekim 28: Machiavelli yazar (kurgu)",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 6,
+   "sure": 3.0
   },
   {
    "id": "c1-giovanni-defter",
@@ -150,6 +973,48 @@
    "dur": 2.4
   },
   {
+   "id": "c1-damga-devraldi",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s26",
+    "Vieri",
+    1.2
+   ],
+   "seviye": -22,
+   "not": "çekim 34: DEVRALDI damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 18
+  },
+  {
+   "id": "c1-damga-ilk-sermaye",
+   "bolum": "c1",
+   "ad": "stamp_thud",
+   "capa": [
+    "c1s27",
+    "hanedanın",
+    1.0
+   ],
+   "seviye": -22,
+   "not": "çekim 36: İLK SERMAYE damgası",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 19
+  },
+  {
+   "id": "c1-igne",
+   "bolum": "c1",
+   "ad": "pin_stick",
+   "capa": [
+    "c1s28",
+    "Orsanmichele",
+    0.8
+   ],
+   "seviye": -24,
+   "not": "çekim 38: iğne kesişime düşer",
+   "kaynak": "yonetmen_c1.md",
+   "seed": 2
+  },
+  {
    "id": "c1-on-bin-florin",
    "bolum": "c1",
    "ad": "coin_pile",
@@ -161,6 +1026,26 @@
    "seviye": -21,
    "pan": 0.2,
    "seed": 4
+  },
+  {
+   "id": "c1-oda-tonu",
+   "bolum": "c1",
+   "ad": "candle_flame",
+   "capa": [
+    "c1s29",
+    -0.1
+   ],
+   "seviye": -37,
+   "not": "çekim 39 → c2 ilk çekim: masa/defter oda tonu kesilmeden taşınır (ses köprüsü e)",
+   "kaynak": "yonetmen_c1.md",
+   "bitis_capa": [
+    "c2s2",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 2.0,
+   "bastir_db": -3
   },
   {
    "id": "c1-masa-ve-defter",
@@ -199,6 +1084,34 @@
    "pan": 0.2
   },
   {
+   "id": "c2-rota-kalem",
+   "bolum": "c2",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s3",
+    "Brugge",
+    0.2
+   ],
+   "seviye": -27,
+   "not": "çekim 3: harita rota çizgisi (kalem/kâğıt hışırtısı)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 7,
+   "sure": 2.4
+  },
+  {
+   "id": "c2-damga-klasik",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s3",
+    0.9
+   ],
+   "seviye": -23,
+   "not": "çekim 3: KLASİK BİR ÖRNEK damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 20
+  },
+  {
    "id": "c2-police",
    "bolum": "c2",
    "ad": "paper_rustle",
@@ -209,6 +1122,127 @@
    ],
    "seviye": -26,
    "dur": 1.5
+  },
+  {
+   "id": "c2-hediye",
+   "bolum": "c2",
+   "ad": "coin_clink",
+   "capa": [
+    "c2s7",
+    "banker",
+    1.5
+   ],
+   "seviye": -24,
+   "not": "çekim 9: hediye paketi açılır, florinler fışkırır",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 21
+  },
+  {
+   "id": "c2-kasa",
+   "bolum": "c2",
+   "ad": "coin_pile",
+   "capa": [
+    "c2s10",
+    2.0
+   ],
+   "seviye": -24,
+   "not": "çekim 11: kasa dolar (haçtan florinler)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 3
+  },
+  {
+   "id": "c2-damga-mit",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s12",
+    1.0
+   ],
+   "seviye": -23,
+   "not": "çekim 13: MİT damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 22
+  },
+  {
+   "id": "c2-damga-etmediler",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s13",
+    "Etmediler",
+    0.1
+   ],
+   "seviye": -23,
+   "not": "çekim 14: ETMEDİLER (zaman çizelgesi)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 23
+  },
+  {
+   "id": "c2-defter",
+   "bolum": "c2",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s14",
+    "defterde",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.8
+  },
+  {
+   "id": "c2-borc",
+   "bolum": "c2",
+   "ad": "coin_clink",
+   "capa": [
+    "c2s15",
+    1.5
+   ],
+   "seviye": -25,
+   "not": "çekim 16: borç yayı (florin)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 24
+  },
+  {
+   "id": "c2-tokmak",
+   "bolum": "c2",
+   "ad": "knock_wood",
+   "capa": [
+    "c2s16",
+    0.3
+   ],
+   "seviye": -22,
+   "not": "çekim 16: Konstanz tokmak vuruşu",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 3
+  },
+  {
+   "id": "c2-eskipapa-oyma",
+   "bolum": "c2",
+   "ad": "chisel_tap",
+   "capa": [
+    "c2s18",
+    "şuydu",
+    0.0
+   ],
+   "seviye": -26,
+   "not": "çekim 18: ESKİ PAPA harf harf oyulur",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 2,
+   "sure": 2.2
+  },
+  {
+   "id": "c2-eskipapa-yaldiz",
+   "bolum": "c2",
+   "ad": "glass_chime",
+   "capa": [
+    "c2s18",
+    "papa",
+    0.6
+   ],
+   "seviye": -31,
+   "not": "çekim 18: yaldız yaprak parıltısı",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 2
   },
   {
    "id": "c2-itiraz-damga",
@@ -224,16 +1258,30 @@
    "not": "Martinus'un mührüne İTİRAZ damgası"
   },
   {
-   "id": "c2-defter",
+   "id": "c2-damga-anekdot-1",
    "bolum": "c2",
-   "ad": "quill_scratch",
+   "ad": "stamp_thud",
    "capa": [
-    "c2s14",
-    "defterde",
-    0.0
+    "c2s20",
+    0.8
    ],
-   "seviye": -25,
-   "dur": 2.8
+   "seviye": -24,
+   "not": "çekim 19: ANEKDOT damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 25
+  },
+  {
+   "id": "c2-damga-aforoz",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s20",
+    3.2
+   ],
+   "seviye": -24,
+   "not": "çekim 19: AFOROZ damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 26
   },
   {
    "id": "c2-catasto",
@@ -248,6 +1296,76 @@
    "dur": 1.8
   },
   {
+   "id": "c2-kalem-catasto",
+   "bolum": "c2",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s22",
+    1.5
+   ],
+   "seviye": -27,
+   "not": "çekim 22: catasto kutuları kalemle yazılır",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 8,
+   "sure": 3.0
+  },
+  {
+   "id": "c2-damga-bir-hesaba-gore",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s23",
+    1.4
+   ],
+   "seviye": -24,
+   "not": "çekim 23: BİR HESABA GÖRE damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 27
+  },
+  {
+   "id": "c2-damga-destekledi",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s24",
+    1.2
+   ],
+   "seviye": -23,
+   "not": "çekim 25: DESTEKLEDİ damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 28
+  },
+  {
+   "id": "c2-kalem-defterler",
+   "bolum": "c2",
+   "ad": "quill_scratch",
+   "capa": [
+    "c2s25",
+    "1397'den",
+    1.0
+   ],
+   "seviye": -27,
+   "not": "çekim 27: 1397–1420 defterleri toplam satırı",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 9,
+   "sure": 2.5
+  },
+  {
+   "id": "c2-mum-sonme",
+   "bolum": "c2",
+   "ad": "candle_snuff",
+   "capa": [
+    "c2s26",
+    "öldü",
+    0.1
+   ],
+   "seviye": -27,
+   "not": "çekim 28: mum söner (ölüm: ağır, mizah yok); müzik de kısa süre susar",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 2,
+   "sessizlik_izni": true
+  },
+  {
    "id": "c2-machiavelli",
    "bolum": "c2",
    "ad": "quill_scratch",
@@ -259,6 +1377,19 @@
    "seviye": -25,
    "dur": 2.0,
    "pan": -0.2
+  },
+  {
+   "id": "c2-damga-anekdot-2",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s29",
+    1.0
+   ],
+   "seviye": -24,
+   "not": "çekim 31: ANEKDOT damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 29
   },
   {
    "id": "c2-cavalcanti",
@@ -275,6 +1406,45 @@
    "seed": 2
   },
   {
+   "id": "c2-damga-anekdot-3",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s30",
+    1.0
+   ],
+   "seviye": -24,
+   "not": "çekim 32: ANEKDOT damgası",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 30
+  },
+  {
+   "id": "c2-sadaka",
+   "bolum": "c2",
+   "ad": "coin_clink",
+   "capa": [
+    "c2s32",
+    1.5
+   ],
+   "seviye": -26,
+   "not": "çekim 34: sadaka florin yayı",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 31
+  },
+  {
+   "id": "c2-damga-siparis",
+   "bolum": "c2",
+   "ad": "stamp_thud",
+   "capa": [
+    "c2s33",
+    1.0
+   ],
+   "seviye": -23,
+   "not": "çekim 35: MEDİCİ SİPARİŞİ damgası (büyük palle mühür)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 32
+  },
+  {
    "id": "c2-hucre-habercisi",
    "bolum": "c2",
    "ad": "lock_click",
@@ -285,6 +1455,21 @@
    ],
    "seviye": -23,
    "not": "kapıya: Cosimo'nun hücresi (c3 tutuklama habercisi)"
+  },
+  {
+   "id": "c2-yaldiz-tini",
+   "bolum": "c2",
+   "ad": "glass_chime",
+   "capa": [
+    "c2s35",
+    "end",
+    1.7
+   ],
+   "seviye": -26,
+   "not": "P1 sonu: kapı cümlesinden ≥1 sn sessizlik, sonra bitiş ekranı yaldız tınısı (müzikte 'yaldiz' kapanışı)",
+   "kaynak": "yonetmen_c2.md",
+   "seed": 3,
+   "sessizlik_izni": true
   }
  ]
 }

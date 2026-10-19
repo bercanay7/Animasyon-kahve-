@@ -19,6 +19,7 @@ import cilt_medici as CM
 import cilt_oda as OD
 import cilt_pano as PN
 import icons
+import icons_b  # noqa: F401  (b_ simgeleri: b_flame vb.)
 import shots as SH
 import sk
 from cilt_medici import PIG, TH
@@ -118,7 +119,9 @@ def tag(text, x, y, at, size=34, face="title_m", track=6.0, sub=None, w=None, du
 
 
 def stamp(text, x, y, at, rot=-0.10, size=52, color=None, out=None, dur=0.3, off=0.0):
-    """Damga çarpması (0,3 sn)."""
+    """Damga çarpması (0,3 sn). Not: Cinzel'de '○' (U+25CB) glifi YOK (tofu çıkar) → başındaki '○ ' sessizce atılır; anlam sözcüklerde (TEK KAYNAK, YAKLAŞIK ÖZET)."""
+    text = text[2:] if text.startswith("○ ") else text
+
     def fn(cx):
         t = cx.amt(at, dur, off=off)
         if t <= 0:
@@ -401,3 +404,77 @@ def mglow(lon, lat, at, out=None, color="#FFD27A", r=44.0, dur=0.5, pulse=0.0):
         cx.f.circle(x, y, r * 2.4 * fl, shader=cx.f.rad(x, y, r * 2.4 * fl, [(color, 0.0, int(120 * k)), (color, 1.0, 0)]))
         cx.f.circle(x, y, r * 0.5 * fl, color="#FFF4CC", alpha=0.95 * k)
     return fn
+
+
+def mbadge(pts, at, dur=2.4, size=56.0, out=None, ease=None):
+    """Rota üstünde ilerleyen Medici rozeti (altın yuvarlak + altı top); rota ucunda durur."""
+    def fn(cx, cam, mv):
+        k = (cx.t - cx.at(at)) / dur
+        if k <= 0.0:
+            return
+        ke = (ease or ease_io)(clamp(k))
+        (x, y), ang = mv.point_on(cam, pts, ke)
+        a = clamp(k * 6.0) * (1.0 - (cx.amt(out, 0.5) if out is not None else 0.0))
+        f = cx.f
+        f.circle(x + 3, y + 6, size * 0.56, color="#000000", alpha=0.33 * a, blur=4.0)
+        f.circle(x, y, size * 0.54, shader=f.rad(x - size * 0.15, y - size * 0.2, size * 0.9, [("#FFF0A8", 0.0), ("#E0B040", 0.55), ("#8A6420", 1.0)]), alpha=a)
+        f.circle(x, y, size * 0.54, style="stroke", sw=2.2, color="#3A2808", alpha=0.9 * a)
+        CM.mini_palle(f, x, y, size * 0.78, mono=True, color="#8A2018", alpha=0.95 * a)
+    return fn
+
+
+# ───────────────────────────── 6) küçük çizimler: alev, gül, kristal ─────────────────────────────
+def flame(f, x, y, h, t, seed=0, k=1.0, col_in="#FFF4CC", col_out="#FF9A2A"):
+    """Küçük mum alevi (taban (x,y), boy h): titreşir/eğilir; k: 0..1 (söner)."""
+    if k <= 0.003:
+        return
+    c = f.c
+    fl = math.sin(t * 9.1 + seed) * 0.5 + math.sin(t * 13.7 + seed * 2.3) * 0.35
+    hh = h * k * (1.0 + 0.06 * fl)
+    sway = fl * h * 0.07
+    p = skia.Path()
+    p.moveTo(x, y)
+    p.cubicTo(x - h * 0.26, y - hh * 0.35, x - h * 0.10 + sway * 0.4, y - hh * 0.72, x + sway, y - hh)
+    p.cubicTo(x + h * 0.10 + sway * 0.4, y - hh * 0.72, x + h * 0.26, y - hh * 0.35, x, y)
+    f.circle(x + sway * 0.5, y - hh * 0.5, h * 1.5, shader=f.rad(x + sway * 0.5, y - hh * 0.5, h * 1.5, [("#FFB55A", 0.0, int(120 * k)), ("#FFB55A", 1.0, 0)]))
+    c.drawPath(p, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(x, y), (x, y - hh)], [C(col_out, int(240 * k)), C(col_in, int(255 * k))], [0.0, 1.0])))
+
+
+def rose(c, x, y, r, col="#B3301F", edge="#5A1209", a=255):
+    """Gül (Güller Savaşı): yarım örtüşen taç yapraklar + iç sarmal."""
+    for i in range(5):
+        ang = i * 2 * math.pi / 5 - math.pi / 2
+        px, py = x + math.cos(ang) * r * 0.52, y + math.sin(ang) * r * 0.52
+        c.drawCircle(px, py, r * 0.52, P(col, a))
+        c.drawCircle(px, py, r * 0.52, S(edge, max(1.2, r * 0.04), int(a * 0.8)))
+    c.drawCircle(x, y, r * 0.45, P(mix(col, "#FFFFFF", 0.12), a))
+    p = skia.Path()
+    for i in range(40):
+        u = i / 39.0
+        ang = u * 11.0
+        rr = r * (0.04 + 0.36 * u)
+        px, py = x + math.cos(ang) * rr, y + math.sin(ang) * rr
+        p.moveTo(px, py) if i == 0 else p.lineTo(px, py)
+    c.drawPath(p, S(edge, max(1.4, r * 0.05), int(a * 0.85)))
+    c.drawCircle(x, y, r * 0.1, P("#E8C25A", a))
+
+
+def crystal(c, x, y, ang, length, w, a=255, tint="#EAF2F0", seed=0):
+    """Altıgen prizma kristal (şap): taban (x,y), açı ang (derece, 0 = yukarı), uzunluk/genişlik."""
+    c.save()
+    c.translate(x, y)
+    c.rotate(ang)
+    hw = w / 2
+    tipy = -length
+    body_top = -length * 0.84
+    left = sk.poly_path([(-hw, 0), (-hw * 0.12, 0), (-hw * 0.12, body_top), (-hw, body_top * 0.96)])
+    mid = sk.poly_path([(-hw * 0.12, 0), (hw * 0.55, 0), (hw * 0.55, body_top * 0.98), (-hw * 0.12, body_top)])
+    right = sk.poly_path([(hw * 0.55, 0), (hw, 0), (hw, body_top * 0.94), (hw * 0.55, body_top * 0.98)])
+    for pth, col in ((left, mix(tint, "#FFFFFF", 0.45)), (mid, tint), (right, mix(tint, "#8FA8B8", 0.45))):
+        c.drawPath(pth, P(col, a))
+    tip = sk.poly_path([(-hw, body_top * 0.96), (-hw * 0.12, body_top), (hw * 0.55, body_top * 0.98), (hw, body_top * 0.94), (hw * 0.2, tipy)])
+    c.drawPath(tip, P(mix(tint, "#FFFFFF", 0.3), a))
+    for pth in (left, mid, right, tip):
+        c.drawPath(pth, S("#6A7E86", max(1.2, w * 0.035), int(a * 0.9)))
+    c.drawLine(-hw * 0.5, -length * 0.1, -hw * 0.5, -length * 0.7, S("#FFFFFF", max(1.5, w * 0.05), int(a * 0.65)))
+    c.restore()

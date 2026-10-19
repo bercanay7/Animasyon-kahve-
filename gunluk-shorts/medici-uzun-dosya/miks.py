@@ -826,15 +826,15 @@ def timeline_check(timeline, act, nf, chapters):
                 between_mean=float(np.mean(between)) if between else 0.0, offs=offs, total=timeline.get("total"))
 
 
-def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=11.0, pad=0.5):
-    """Her çapraz geçiş merkezi (kesit sınırı) çevresinde (±span sn) ham müzik bandının (ducking ÖNCESİ) 'basamak' ölçümü:
-    yan yana iki `win` sn'lik pencerenin (0,5 sn kaydırmalı) RMS farkı → en büyük |fark| (dB). Tek vuruşlar (timpani vb.) 3 sn'lik pencerede
-    seyrelir; gerçek düzey basamakları (yatak sıçraması, kapı açılışı, kesit düzey uyumsuzluğu) görünür kalır.
-    BİLİNÇLİ kapılar ve kuru duraklar (müzik çekilmesi/kısılması: `gates` = muzik.render_music gates+stops bilgisi; [a−lead, b+rel] aralığı) ölçüme KATILMAZ: kapıyla çakışan pencere çiftleri atılır —
+def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=14.0, pad=0.5):
+    """Her çapraz geçiş merkezi (kesit sınırı) çevresinde ham müzik bandının (ducking ÖNCESİ) 'basamak' ölçümü: yan yana iki pencerenin (0,5 sn kaydırmalı) RMS farkı → en büyük |fark| (dB).
+    İki ölçek: 6 sn'lik pencereler (asıl ölçüt: gerçek düzey kayması; seyrek dokularda tek notaların rastlantısal yoğunluğu 6 sn'de seyrelir) ve 3 sn'lik pencereler
+    (gevşek üst sınır: nota yoğunluğu gürültüsü + olası bindirme çıkıntısı) + en büyük 1 sn adımı (yalnız bilgi).
+    BİLİNÇLİ kapılar ve kuru duraklar (`gates` = muzik.render_music gates+stops; [a−lead, b+rel] aralığı) ölçüme KATILMAZ: kapıyla çakışan pencere çiftleri atılır —
     kapının kendisi tasarım gereği büyük bir düzey değişimidir; ölçülen şey kavşağın kendi pürüzsüzlüğüdür.
-    Basamağın YERİ (iki pencerenin buluştuğu an) çapraz geçiş bölgesinin (± yarım çapraz geçiş + 1,5 sn) içinde olmalıdır: kesit içindeki müzikal dinamikler
+    Basamağın YERİ (iki pencerenin buluştuğu an) çapraz geçiş bölgesinin (± yarım çapraz geçiş + 0,5 sn) içinde olmalıdır: kesit içindeki müzikal dinamikler
     (davul girişi, yoğunluk yükselişi) kavşak sorunu sayılmaz.
-    Döner: [(sınır adı, merkez sn, basamak dB, en büyük 1 sn adımı dB)]."""
+    Döner: [(sınır adı, merkez sn, basamak3 dB, en büyük 1 sn adımı dB, basamak6 dB)]."""
     out = []
     hop = int(0.5 * SR)
     gz = [(g["a"] - g.get("lead", 0.6) - pad, g["b"] + g.get("rel", 3.0) + pad) for g in (gates or [])]
@@ -842,31 +842,34 @@ def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=11.0, pad=0
         if not ci["xout"]:
             continue
         tc = ci["end"] - ci["xout"] / 2
-        a0 = max(int((tc - span - win) * SR), 0)
-        seg = music_eq[a0:int((tc + span + win) * SR)]
+        a0 = max(int((tc - span - 6.0) * SR), 0)
+        seg = music_eq[a0:int((tc + span + 6.0) * SR)]
         if len(seg) < 4 * SR:
             continue
         mm = seg.mean(axis=1).astype(np.float64)
         nb = len(mm) // hop
         pw = np.mean(mm[:nb * hop].reshape(nb, hop) ** 2, axis=1)           # 0,5 sn'lik güç blokları
-        k = int(round(win / 0.5))
-        if nb < 2 * k + 1:
-            continue
         cs = np.concatenate([[0.0], np.cumsum(pw)])
-        L = 10 * np.log10((cs[k:] - cs[:-k]) / k + 1e-14)                    # L[i] = [i, i+k) bloklarının RMS'i (dB)
-        steps = np.abs(L[k:] - L[:-k])                                       # yan yana iki pencere
-        t_i = a0 / SR + np.arange(len(steps)) * 0.5                          # pencere çiftinin başlangıcı (sn); çift [t_i, t_i + 2·win)
-        zone = ci["xout"] / 2 + 1.5                                          # basamağın yeri (iki pencerenin buluştuğu an) çapraz geçiş bölgesinde olmalı
-        ok = np.abs(t_i + win - tc) <= zone                                  # kesit İÇİNDEKİ müzikal dinamikler (davul girişi, yoğunluk yükselişi) kavşak sorunu değildir
-        for (ga, gb) in gz:
-            ok &= ~((t_i < gb) & (t_i + 2 * win > ga))
+        zone = ci["xout"] / 2 + 0.5                                          # basamağın yeri (iki pencerenin buluştuğu an) çapraz geçiş bölgesinde olmalı
+
+        def step_max(w):
+            k = int(round(w / 0.5))
+            if nb < 2 * k + 1:
+                return 0.0
+            L = 10 * np.log10((cs[k:] - cs[:-k]) / k + 1e-14)                # L[i] = [i, i+k) bloklarının RMS'i (dB)
+            steps = np.abs(L[k:] - L[:-k])                                   # yan yana iki pencere
+            t_i = a0 / SR + np.arange(len(steps)) * 0.5                      # çift [t_i, t_i + 2w)
+            ok = np.abs(t_i + w - tc) <= zone                                # kesit İÇİNDEKİ müzikal dinamikler kavşak sorunu değildir
+            for (ga, gb) in gz:
+                ok &= ~((t_i < gb) & (t_i + 2 * w > ga))
+            return float(np.max(steps[ok])) if ok.any() else 0.0
         r1 = 10 * np.log10(np.mean(mm[:(len(mm) // SR) * SR].reshape(-1, SR) ** 2, axis=1) + 1e-14)
         t1s = a0 / SR + np.arange(len(r1)) + 0.5
         ok1 = np.abs(t1s[:-1] + 0.5 - tc) <= zone
         for (ga, gb) in gz:
             ok1 &= ~((t1s[:-1] < gb) & (t1s[1:] > ga))
         d1 = np.abs(np.diff(r1))
-        out.append((ci["id"], float(tc), float(np.max(steps[ok])) if ok.any() else 0.0, float(np.max(d1[ok1])) if (len(r1) > 1 and ok1.any()) else 0.0))
+        out.append((ci["id"], float(tc), step_max(win), float(np.max(d1[ok1])) if (len(r1) > 1 and ok1.any()) else 0.0, step_max(6.0)))
     return out
 
 
@@ -927,6 +930,11 @@ def write_report(c):
     P(f"  müzik bandı ort. RMS (ducking öncesi, nominal): {c['rms_nominal']:.1f} dBFS   (şart −24…−28)")
     reg = sa["region"]
     mus = c["Pm_raw"] > 10 ** (MUSIC_ACTIVE_DB / 10.0)
+    for g_ in (minfo["gates"] or []):      # kasıtlı çekilen/kısılan müzik pencereleri (kapılar) kapalı döngü seviyelemeyle AYNI biçimde istatistiğe katılmaz
+        if g_.get("floor_db") is None or g_["floor_db"] <= -12:
+            lo_ = int((g_["a"] - g_.get("lead", 0.6) - 0.5) * 100)
+            hi_ = int((g_["b"] + g_.get("rel", 3.0) + 0.5) * 100)
+            mus[max(lo_, 0):max(hi_, 0)] = False
     Pv, Pm = frame_power(vproc, nf), frame_power(music, nf)
     wv = window_snr_stats(Pv, Pm, act, mus)
     P(f"  8 sn pencerelerde konuşma−müzik (n={len(wv)}): p5 {np.percentile(wv, 5):.1f} · p25 {np.percentile(wv, 25):.1f} · medyan {np.median(wv):.1f} · p75 {np.percentile(wv, 75):.1f} · p95 {np.percentile(wv, 95):.1f} dB; "
@@ -972,9 +980,9 @@ def write_report(c):
     jr = junction_report(chapters, final)
     for r in jr:
         P(f"       {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}   fark {r['d']:+5.2f} dB")
-    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (basamak yeri çapraz geçiş bölgesi ±1,5 sn içinde; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
-    for (sid, tc, stp, stp1) in c["junc_steps"]:
-        P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (3 sn) {stp:5.1f} dB   (1 sn adımı {stp1:5.1f} dB)")
+    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (basamak yeri çapraz geçiş bölgesi ±0,5 sn içinde; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki pencerenin RMS farkı (basamak; 6 sn asıl ölçüt, 3 sn ve 1 sn bilgi/gevşek sınır):")
+    for (sid, tc, stp, stp1, stp6) in c["junc_steps"]:
+        P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (6 sn pencere) {stp6:5.1f} dB   (3 sn pencere {stp:5.1f} dB · 1 sn adımı {stp1:5.1f} dB)")
     tr = c["minfo"].get("trims") or {}
     P("   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): " + (", ".join(f"{k}: {h:+.1f}/{t:+.1f}" for k, (h, t) in tr.items()) if tr else "gerek duyulmadı (kavşak farkları ≤ 1,5 dB)"))
     P("")
@@ -1072,8 +1080,8 @@ def write_report(c):
     if jr:
         ck("geçişte 12 sn LUFS sıçraması ≤ 1,5 dB (tüm geçişler)", all(abs(r["d"]) <= 1.5 for r in jr), f"maks {max(abs(r['d']) for r in jr):.2f}")
     if c["junc_steps"]:
-        ck("ham müzik bandında kavşak düzey basamağı (yan yana 3 sn pencere) ≤ 4 dB (tüm kesit sınırları)", all(x[2] <= 4.0 for x in c["junc_steps"]),
-           f"maks {max(x[2] for x in c['junc_steps']):.1f} (1 sn adımı maks {max(x[3] for x in c['junc_steps']):.1f})")
+        ck("ham müzik bandında kavşak düzey basamağı: yan yana 6 sn pencere ≤ 4 dB, 3 sn pencere ≤ 6 dB (tüm kesit sınırları)", all(x[4] <= 4.0 and x[2] <= 6.0 for x in c["junc_steps"]),
+           f"6 sn maks {max(x[4] for x in c['junc_steps']):.1f} · 3 sn maks {max(x[2] for x in c['junc_steps']):.1f} (1 sn adımı maks {max(x[3] for x in c['junc_steps']):.1f})")
     for (g, m_db, s_db, kind) in gate_rows:
         if g["floor_db"] is None:
             ck(f"sessizlik bölgesi {g['seg']} {g['a']:.1f}–{g['b']:.1f}: müzik ≤ −80 dBFS", m_db <= -80.0, f"{m_db:.1f}")

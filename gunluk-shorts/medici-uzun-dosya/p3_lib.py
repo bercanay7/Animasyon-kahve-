@@ -54,6 +54,29 @@ def _reg_medals():
                                                 hair="none", hat="gold_haube", beard=None, garment="dark_gown_collar", scale=1.06, dy=-10, nback=384, eye="almond", lash=True, brow_style="arch"))
     medal.PEOPLE.setdefault("c7_riario", dict(base, nose=9, hook=0, brow=2, lip=2, lip2=5, chin=6, jaw=0.9, fore=3, age=0.0, jowl=0.0, neck=0.95,
                                                hair="none", hat="biretta", beard=None, garment="cassock_x", scale=1.04, dy=-12, eye="std", brow_style="std"))
+    medal.PEOPLE.setdefault("c6_poliziano", dict(base, nose=15, hook=4, brow=3, lip=1, lip2=3, chin=3, jaw=1.0, fore=2, age=0.2, jowl=0.05, neck=1.0,
+                                                  hair="bowl", hat="none", beard=None, garment="academic_robe", scale=1.04, dy=-8, eye="std", brow_style="std"))
+    medal.PEOPLE.setdefault("c7_salviati", dict(base, nose=14, hook=3, brow=3, lip=1, lip2=3, chin=4, jaw=1.05, fore=2, age=0.5, jowl=0.1, neck=1.05,
+                                                 hair="none", hat="barrete", beard=None, garment="dark_robe", scale=1.04, dy=-8, eye="std", brow_style="std"))
+    medal.PEOPLE.setdefault("c7_fpazzi", dict(base, nose=12, hook=2, brow=3, lip=2, lip2=4, chin=5, jaw=1.0, fore=2, age=0.25, jowl=0.0, neck=1.0,
+                                               hair="wavy", hat="merchant_cap", beard=None, garment="dark_doublet", scale=1.04, dy=-8, eye="std", brow_style="arch"))
+    medal.PEOPLE.setdefault("c7_montesecco", dict(base, nose=11, hook=1, brow=5, lip=1, lip2=2, chin=8, jaw=1.2, fore=0, age=0.5, jowl=0.05, neck=1.15,
+                                                   hair="crop", hat="morion_x", beard="cropped", garment="armor_x", scale=1.08, dy=20, eye="heavy", brow_style="heavy"))
+    medal.PEOPLE.setdefault("c7_maffei", dict(base, nose=11, hook=2, brow=2, lip=1, lip2=3, chin=3, jaw=0.95, fore=3, age=0.45, jowl=0.05, neck=0.95,
+                                               hair="tonsure", hat="none", beard=None, garment="monk_habit", scale=1.04, dy=-8, eye="std", brow_style="std"))
+    medal.PEOPLE.setdefault("c7_stefano", dict(base, nose=9, hook=0, brow=3, lip=2, lip2=3, chin=2, jaw=0.9, fore=3, age=0.35, jowl=0.0, neck=0.92,
+                                                hair="tonsure", hat="none", beard=None, garment="monk_habit", scale=1.04, dy=-8, eye="std", brow_style="arch"))
+    medal.PEOPLE.setdefault("c7_giulio", dict(base, nose=3, hook=-6, brow=0, lip=4, lip2=6, chin=5, jaw=0.62, fore=4, age=0.0, jowl=0.0, neck=0.72,
+                                               hair="child", hat="child_cap", beard=None, garment="child_doublet", scale=1.04, dy=-4, nback=394, eye="wide", iris=9.5, brow_style="raised", cheek=0.9, puff=0.5))
+    medal.PEOPLE.setdefault("c7_girolamo", dict(base, nose=13, hook=2, brow=3, lip=2, lip2=4, chin=7, jaw=1.08, fore=2, age=0.3, jowl=0.05, neck=1.04,
+                                                 hair="wavy", hat="none", beard=None, garment="courtly_jacket", scale=1.04, dy=-8, eye="std", brow_style="std"))
+    medal.PEOPLE.setdefault("c7_pazzi_lor", dict(medal.PEOPLE["m_lorenzo"]))
+    medal.PEOPLE.setdefault("c7_pazzi_giu", dict(medal.PEOPLE["c6_giuliano"]))
+    medal.INSCR.setdefault("c7_pazzi_lor", "LAVRENTIVS · MEDICES · SALVS · PVBLICA ·")
+    medal.INSCR.setdefault("c7_pazzi_giu", "IVLIANVS · MEDICES · LVCTVS · PVBLICVS ·")
+    for _k in ("c7_girolamo", "c7_salviati", "c7_fpazzi", "c7_montesecco", "c7_maffei", "c7_stefano", "c7_giulio"):
+        medal.INSCR.setdefault(_k, "· · · · · · ·")
+    medal.INSCR.setdefault("c6_poliziano", "· · · · · · ·")
     medal.INSCR.setdefault("c6_piero", "PETRVS · MEDICES · COSMI · F ·")
     medal.INSCR.setdefault("c6_giuliano", "IVLIANVS · MEDICES ·")
     medal.INSCR.setdefault("c6_simonetta", "· · · · · · ·")

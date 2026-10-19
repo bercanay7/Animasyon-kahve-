@@ -608,7 +608,7 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, seed=
 # c1_machiavelli — tarihçi, isyancının ağzına koca bir konuşma koyar (KURGU)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_machiavelli")
-def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, seed=2, **_):
+def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, stamp_text="KURGU", rebel_who="isyancı", order_big=None, plate_text="MACHIAVELLİ", seed=2, **_):
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
@@ -621,7 +621,7 @@ def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=Non
     FA.actor(f, "banker", wx, gy, 560, cx.t, action="write", seed=4)
     kp = cx.amt(plate_at, 0.6) if plate_at is not None else 0.0
     if kp > 0.003:
-        CM.name_plate(f, "MACHIAVELLİ", None, None, cx_=wx + 60, y=gy - 840, t=kp)
+        CM.name_plate(f, plate_text, None, None, cx_=wx + 60, y=gy - 840, t=kp)
     # Medici siparişi: masa köşesinde palle mührü
     ko = cx.amt(order_at, 0.5) if order_at is not None else 0.0
     if ko > 0.003:
@@ -630,7 +630,7 @@ def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=Non
     rx = 1500
     kr = cx.amt(rebel_at, 0.6) if rebel_at is not None else 0.0
     if kr > 0.003:
-        OD.sil_actor(f, "halk", rx, gy + 6, 560, cx.t, action="idle", dir=-1, seed=8, color="#241A14", rim="#E8B070", rim_dir=-1)
+        OD.sil_actor(f, "tuccar" if rebel_who == "old" else "halk", rx, gy + 6, 560 if rebel_who != "old" else 520, cx.t, action="idle", dir=-1, seed=8, color="#241A14", rim="#E8B070", rim_dir=-1)
         hx_, hy_ = rx + 0.02 * 560, gy - 0.905 * 560
         kn = cx.amt(nameless_at, 0.5) if nameless_at is not None else 0.0
         if kn > 0.003:
@@ -675,7 +675,17 @@ def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=Non
             ex_, ey_ = pts[m]
             OD.quill(c, ex_ + 6, ey_ + 8, -58.0, 0.9)
     if stamp_at is not None:
-        CM.stamp(f, "KURGU", 960, 340, rot=-0.08, size=96, t=cx.amt(stamp_at, 0.3))
+        CM.stamp(f, stamp_text, 960, 340, rot=-0.08, size=96, t=cx.amt(stamp_at, 0.3))
+    if order_big is not None:
+        kb = cx.amt(order_big, 0.4)
+        if kb > 0.003:
+            sx_, sy_ = 1180, 520
+            drop = (1.0 - ease_out(kb, 3)) * 220
+            CM.wax_seal(f, sx_, sy_ - drop, 150, "#A52A1C", alpha=1.0, t=1.0, palle=True)
+            if kb >= 1.0:
+                ph = ((cx.t - cx.at(order_big)) * 0.9) % 1.0
+                f.circle(sx_, sy_, 160 + 120 * ph, style="stroke", sw=4, color="#E8C468", alpha=0.5 * (1 - ph))
+            CM.ink(f, "MEDİCİ SİPARİŞİ", sx_, sy_ + 230, face="title_m", size=44, color=TH.fg, align="c", track=10, alpha=kb, emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
@@ -945,7 +955,7 @@ def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜ�
     p = ease_io(clamp((cx.t - ta) / max(0.4, tb - ta)), 1.4)
     if p > 0.003:
         pts = _scribble(300, 1620, 540, 160, seed)
-        m = max(2, int(len(pts) * p))
+        m = min(len(pts) - 1, max(2, int(len(pts) * p)))
         pth = skia.Path()
         pth.moveTo(*pts[0])
         for q in pts[1:m + 1]:

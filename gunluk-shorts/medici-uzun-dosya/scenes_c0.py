@@ -23,7 +23,7 @@ SHOTS = [
     shot("p1_oda", ("c0s2", -0.1), room="oda1743", figure="lying", **ODA_DUSK,
          cams=[(("c0s2", -0.1), (1000, 30, 1.12)), (("c0s2", "Luisa", 0.0), (985, 30, 1.2)), (("c0s3", 0.0), (1150, 20, 1.15)), (("c0s4", -0.3), (1740, 30, 1.25))],
          ovl=P.plate("ANNA MARIA LUISA", 1400, 790, ("c0s2", "Anna", -0.1), out=("c0s3", "Medici", 0.9)),
-         tr=("zoomthru", 0.9, dict(at=(1000, 560))), link="scale", label="1743 odası: yatak, arma"),
+         tr=("zoomthru", 0.9, dict(at=(1000, 560))), link="scale", cam=("push", 0.07), label="1743 odası: yatak, arma"),
     # ── 3. Boş taht, yabancı birlik siluetleri girer ───────────────────────
     shot("p1_oda", ("c0s4", -0.1), room="salon", variant="taht", path="taht_in", **ODA_DUSK,
          actors=[dict(kind="asker", x=2430, y=872, h=300, sil=True, prop="halberd", walk=(2080, 140), walk_at=("c0s4", "yabancı", -0.7), seed=3),
@@ -31,7 +31,7 @@ SHOTS = [
                  dict(kind="asker", x=980, y=872, h=300, sil=True, prop="halberd", walk=(1330, 140), walk_at=("c0s4", "yabancı", -0.7), seed=7, dir=1),
                  dict(kind="asker", x=850, y=884, h=300, sil=True, prop="halberd", walk=(1200, 140), walk_at=("c0s4", "yabancı", -0.5), seed=9, dir=1)],
          ovl=P.tablet_text("5 YIL 7 AY ÖNCE", 560, 860, ("c0s4", "beş", -0.1), size=38, out=("c0s4", "ölmüştü", 0.9)),
-         tr=("iris", 0.9, dict(obj="palle", at=(1410, 290), r=95)), link="shape", label="boş taht, yabancı birlik"),
+         tr=("iris", 0.9, dict(obj="palle", at=(1410, 290), r=95)), link="shape", cam=("push", 0.07), label="boş taht, yabancı birlik"),
     # ── 4. Medici salonu: palle frizi; tek siluet "hâlâ o duruyordu" ──────
     shot("oda", ("c0s5", -0.1), room="salon", variant="medici", **ODA_DUSK,
          cams=[(("c0s5", -0.1), (1100, 0, 1.0)), (("c0s5", "yüzyıllarca", 0.0), (1450, 20, 1.1)), (("c0s5", "hâlâ", 0.0), (1760, 50, 1.45))],
@@ -59,7 +59,8 @@ SHOTS = [
          pen_at=("c0s7", "Bir", 0.0),
          num_at=("c0s8", "on", 0.0), num_dur=1.2, fr_at=("c0s8", "Fransızca", 0.0),
          it_at=("c0s9", "diliyle", 0.0), it_strike_at=("c0s9", "yazılmamıştı", -0.2),
-         tr=("zoomthru", 0.9, dict(at=(960, 520), at_b=(960, 520))), link="scale", label="belge: iki mühür, 13 madde, FRANSIZCA"),
+         ovl=P.count_up(235, 440, ("c0s8", "on", -0.35), 13, dur=0.9, unit="MADDE", size=180, bg=True, min_w=300, unit_size=40, out=("c0s9", -0.1)),
+         tr=("zoomthru", 0.9, dict(at=(960, 520), at_b=(960, 520))), link="scale", cam=("push", 0.07), label="belge: iki mühür, 13 madde, FRANSIZCA"),
     # ── 9. Masa başı siluet: odak (bilmiyoruz → biliyoruz) ─────────────────
     shot("p1_oda", ("c0s10", -0.1), room="oda1743", figure="seated", **ODA_DUSK,
          cams=[(("c0s10", -0.1), DOC), (("c0s10", "düşündüğünü", 0.0), (1850, 70, 1.6)), (("c0s11", 0.0), (1880, 60, 1.75))],
@@ -70,7 +71,7 @@ SHOTS = [
     shot("c0_belge", ("c0s11", -0.1), mode="night", perde=1,
          cams=[(("c0s11", -0.1), (0, 0, 1.0)), (("c0s11", "üçüncü", 0.0), (0, -60, 1.7)), (("c0s12", "İtalyanca", 0.3), (0, -160, 2.5))],
          seals=(("c0s7", 0.0), ("c0s7", 0.0)), num_at=("c0s8", "on", 0.0), num_dur=0.01, fr_at=("c0s8", 0.0), hl_at=("c0s11", "üçüncü", -0.2), scrim_at=("c0s11", "üçüncü", -0.2),
-         tr=("zoomthru", 0.9, dict(at=(960, 560), at_b=(960, 520))), link="scale", label="III. madde"),
+         tr=("zoomthru", 0.9, dict(at=(960, 560), at_b=(960, 520))), link="scale", cam=("push", 0.07), label="III. madde"),
     # ── 11. Galeri: zoomthru ile açılan Vasari koridoru; beş kalem sıralanır ──
     shot("p1_pano", ("c0s12", -0.1), pano="corridor", tod="day", mode="day", perde=1, stations=[],
          cams=[(("c0s12", -0.1), (2300, 0, 1.08)), (("c0s12", "kütüphaneler", 0.0), (3300, 10, 1.12)), (("c0s12", "Floransa", -0.3), (4300, 0, 1.2))],
@@ -78,7 +79,7 @@ SHOTS = [
                                 ("book_open", "KÜTÜPHANELER", ("c0s12", "kütüphaneler", -0.15)), ("c0_mucevher", "MÜCEVHERLER", ("c0s12", "mücevherler", -0.15)),
                                 ("chest", "ÖTEKİ\nKIYMETLİ ŞEYLER", ("c0s12", "öteki", -0.1))], gap=310, size=100),
                   P.stamp("ÇEVİRİ", 1480, 250, ("c0s12", "İtalyanca", 0.3), rot=-0.08, size=50)),
-         tr=("zoomthru", 0.9, dict(at=(960, 230), at_b=(960, 520))), link="scale", label="galeri: Vasari koridoru, 5 kalem"),
+         tr=("zoomthru", 0.9, dict(at=(960, 230), at_b=(960, 520))), link="scale", cam=("push", 0.07), label="galeri: Vasari koridoru, 5 kalem"),
     # ── 12. Harita: Büyük Dukalık sınırı, zincir, 3. maddenin özeti ────────
     shot("c0_harita", ("c0s12", "Floransa", -0.4), mode="day", perde=1, approx=False,
          cams=[(("c0s12", "Floransa", -0.4), (11.1, 43.4, 5.0)), (("c0s12", "çıkarılamayacaktı", 0.6), (11.12, 43.4, 6.3))],
@@ -101,7 +102,7 @@ SHOTS = [
     # ── 16. Bankacı ailesi: geriye kayma, soru işareti ─────────────────────
     shot("p1_oda", ("c0s16", -0.1), room="banka", path="corner", **ODA_DUSK,
          ovl=P.ov(K.soru_ovl(("c0s16", "geldi", -0.15), out=("c0s17", 0.0))),
-         tr=("slide", 0.9, dict(dir="l")), link="dir", label="banka köşesi: nasıl geldi?"),
+         tr=("slide", 0.9, dict(dir="l")), link="dir", cam=("push", 0.07), label="banka köşesi: nasıl geldi?"),
     # ── 17–18. Kılıçlar değil, altın sikke; geri sarma: 1252 ───────────────
     shot("c0_sikke", ("c0s17", -0.05), mode="night", perde=1, cam=("push", 0.07),
          sw_at=("c0s17", "kılıçlarda", -0.1), no_at=("c0s17", "değil", -0.1), coin_at=("c0s17", "altın", -0.2),

@@ -121,7 +121,7 @@ def tablet_text(text, x, y, at, size=40, face="cap_b", pad=34, dur=0.5, out=None
     return fn
 
 
-def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=None, prefix="", suffix="", unit_size=44, shadow=True, align="c", fmt=None, out=None, bg=False):
+def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=None, prefix="", suffix="", unit_size=44, shadow=True, align="c", fmt=None, out=None, bg=False, min_w=420):
     """Sayı sayar (0→value, ease_out). Büyük Cinzel; altında birim. Yaldız (gece) / oyma (gündüz)."""
     def fn(cx):
         k0 = cx.amt(at, 0.35)
@@ -136,12 +136,12 @@ def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=
         sz = CM.fit_size(txt, face, size, 1500, 6)
         sp = CM.gilt(txt, face, int(sz), 6.0) if not TH.day else CM.engraved(txt, face, int(sz), 6.0, color or TH.fg)
         if bg:
-            wd = max(sk.text_width(txt, face, sz, 6.0), 420) + 120
+            wd = max(sk.text_width(txt, face, sz, 6.0), min_w) + 120
             hh_ = sz * 0.95 + (unit_size * 1.7 if unit else 40) + 40
             CM.tablet(cx.f, x - wd / 2, y - sz * 0.80, wd, hh_, alpha=0.93 * k0, corner=14)
         CM.draw_spr(cx.f, sp, x, y, "c" if align == "c" else "l", alpha=k0, shadow=0.5 if shadow and not TH.day else 0.0)
         if unit:
-            CM.ink(cx.f, unit, x, y + unit_size * 1.25 + 8, face="title_m", size=unit_size, color=TH.acc, align="c", track=14, alpha=k0 * cx.amt(at, 0.8, off=0.3), emboss=False)
+            CM.ink(cx.f, unit, x, y + unit_size * 1.25 + 8, face="title_m", size=unit_size, color=TH.acc, align="c", track=14, alpha=k0 * cx.amt(at, min(0.8, 0.8 * dur), off=min(0.3, 0.3 * dur)), emboss=False)
     return fn
 
 
