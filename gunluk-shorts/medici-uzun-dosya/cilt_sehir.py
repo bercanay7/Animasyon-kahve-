@@ -560,6 +560,33 @@ def loggia(c, x0, x1, y, h, T, depth=0.0, nb=3, seed=2):
     R(c, x0, y - 7, x1, y, T("#B8A67E", depth))
 
 
+def narrow_house(c, x0, x1, y, h, T, seed=1, depth=0.22):
+    """İki bina arasındaki dar araya sıkışmış gölgeli ev: kiremit beşik çatı, kemerli pencereler, alta doğru koyulaşma (sokak derinliği)."""
+    rs = _RS(seed)
+    w = x1 - x0
+    wall = mix(T(CT.WALLS[rs.randint(len(CT.WALLS))], depth), "#2A1A0C", 0.26)
+    R(c, x0 - 2, y - h, x1 + 2, y, wall)
+    nx = max(1, int(w / 66))
+    ny = max(2, int((h - 40) / 92))
+    for iy in range(ny):
+        for ix in range(nx):
+            wx = x0 + (ix + 0.5) * w / nx
+            wy = y - 46 - iy * (h - 90) / ny
+            ww = min(34.0, w / nx * 0.52)
+            wp = arch_path(wx, wy, ww, 58)
+            c.drawPath(wp, _pt(T("#1E140C", 0.3)))
+            INKP(c, wp, 1.0, 150)
+            R(c, wx - ww * 0.6, wy - 2, wx + ww * 0.6, wy + 3, T("#B8A67E", depth))
+    roof = sk.poly_path([(x0 - 7, y - h), (x0 + w * 0.5, y - h - w * 0.30), (x1 + 7, y - h)])
+    c.drawPath(roof, _pt(mix(T("#B4552E", depth), "#2A1A0C", 0.18)))
+    INKP(c, roof, 1.1, 165)
+    for k in range(1, 6):
+        yy = y - h - w * 0.30 * k / 6.0
+        c.drawLine(x0 + w * 0.5 * k / 6.0 - 4, yy, x1 - w * 0.5 * k / 6.0 + 4, yy, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#3A160A", 80)))
+    GRAD_V(c, x0 - 2, y - h, x1 + 2, y, [("#000000", 0.0, 20), ("#000000", 1.0, 125)])
+    c.drawRect(skia.Rect.MakeLTRB(x0 - 2, y - h, x1 + 2, y), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C(INK, 150)))
+
+
 def torch_bracket(c, x, y, T=None):
     """Duvar meşale/fener demiri (konsol + halka): x,y = tutucu orta nokta."""
     col = "#2A2622"
@@ -570,40 +597,63 @@ def torch_bracket(c, x, y, T=None):
 
 # ═════════════════════════════ ateş / duman / kıvılcım (önceden renklendirilmiş sprite'lar) ═════════════════════════════
 _FIRE = {}
-NFL = 12
+NFL = 16
+FW, FH = 320, 520
 
 
 def _flame_frames():
-    """12 karelik alev döngüsü: 256×420, taban alt-orta (128, 410). Kuyruklu dilimler; dıştan içe kızıl→turuncu→sarı→krem. Tam döngü (tam sayı frekans)."""
+    """16 karelik alev döngüsü (320×520, taban alt-orta (160,508)): her dilim kendi dikey degradesiyle (taban sıcak sarı → turuncu → kızıl, uç saydam),
+    dıştan içe 4 katman + sürüklenen kıvılcım dilleri; kenarlar hafif yumuşatılmış. Tam döngü (tam sayı frekans)."""
     if "fr" in _FIRE:
         return _FIRE["fr"]
     fr_list = []
-    layers = [("#B3321A", 1.0, 1.0), ("#E5601E", 0.88, 0.93), ("#F59A2A", 0.70, 0.84), ("#FFD157", 0.50, 0.76), ("#FFF1B4", 0.30, 0.68)]
+    # (katman, dilim sayısı, yükseklik, taban genişliği, degrade durakları)
+    layers = [
+        (7, 1.00, 1.00, [("#F58A22", 255, 0.0), ("#E04A1A", 248, 0.42), ("#A8200F", 175, 0.84), ("#7A140C", 0, 1.0)]),
+        (6, 0.84, 0.84, [("#FFC845", 255, 0.0), ("#F59A2A", 252, 0.50), ("#E8631F", 205, 0.90), ("#E8631F", 0, 1.0)]),
+        (4, 0.62, 0.66, [("#FFF3B8", 255, 0.0), ("#FFD761", 252, 0.55), ("#FFB43A", 160, 0.92), ("#FFB43A", 0, 1.0)]),
+        (2, 0.36, 0.50, [("#FFFCEA", 255, 0.0), ("#FFF3B8", 235, 0.60), ("#FFF3B8", 0, 1.0)]),
+    ]
+    blur = skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 1.5)
     for k in range(NFL):
         ph = 2 * math.pi * k / NFL
-        fr = sk.Frame(256, 420)
+        fr = sk.Frame(FW, FH)
         fr.clear(skia.ColorTRANSPARENT)
         c = fr.c
-        bx, by = 128.0, 410.0
-        for li, (col, sc, wsc) in enumerate(layers):
-            rs = _RS(11)                                                                 # her katmanda aynı dilim düzeni
-            nt = 5
+        bx, by = FW / 2.0, FH - 12.0
+        for li, (nt, hs, ws, stops) in enumerate(layers):
+            rs = _RS(7 + li * 3)
             for i in range(nt):
-                u = (i - (nt - 1) / 2.0) / ((nt - 1) / 2.0)                              # -1..1
-                hh = (330 - 62 * abs(u)) * sc * (0.84 + 0.16 * math.sin(ph + i * 1.9 + rs.uniform(0, 1))) * (0.92 + 0.08 * math.sin(2 * ph + i * 2.7))
-                bw = (62 - 14 * abs(u)) * wsc * sc ** 0.4
-                xo = u * 62 * (0.9 - 0.3 * sc)
-                sway = (20 + 10 * sc) * math.sin(ph + i * 2.3) * 0.5 + u * 18 * (1 - sc) + 9 * math.sin(2 * ph + i * 1.3)
-                tipx = bx + xo + sway
-                tipy = by - hh
+                u = (i - (nt - 1) / 2.0) / max(1.0, (nt - 1) / 2.0)                    # -1..1
+                r1, r2 = rs.uniform(0, 6.28), rs.uniform(0, 6.28)
+                hh = (404 - 118 * abs(u) ** 1.2) * hs * (0.86 + 0.14 * math.sin(ph + r1)) * (0.94 + 0.06 * math.sin(2 * ph + r2)) * (0.96 + 0.04 * math.sin(3 * ph + i))
+                bw = (58 - 13 * abs(u)) * ws
+                xo = u * 70 * (1.0 - 0.28 * li / 3.0)
+                sway = (22 + 8 * li) * math.sin(ph + r1 * 0.7 + i * 1.3) * 0.5 + u * 26 * (1 - 0.3 * li) + 9 * math.sin(2 * ph + r2)
+                tipx, tipy = bx + xo + sway, by - hh
+                midx = bx + xo + sway * 0.35 + 6 * math.sin(2 * ph + i)
                 p = skia.Path()
                 p.moveTo(bx + xo - bw, by)
-                p.cubicTo(bx + xo - bw * 1.25, by - hh * 0.42, tipx - bw * 0.35 - sway * 0.2, by - hh * 0.72, tipx, tipy)
-                p.cubicTo(tipx + bw * 0.30 + sway * 0.1, by - hh * 0.68, bx + xo + bw * 1.25, by - hh * 0.38, bx + xo + bw, by)
+                p.cubicTo(bx + xo - bw * 1.18, by - hh * 0.34, midx - bw * 0.62, by - hh * 0.66, tipx, tipy)
+                p.cubicTo(midx + bw * 0.42, by - hh * 0.62, bx + xo + bw * 1.22, by - hh * 0.30, bx + xo + bw, by)
                 p.close()
-                c.drawPath(p, skia.Paint(AntiAlias=True, Color=C(col, 255)))
-                if li == 0:
-                    c.drawPath(p, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C("#6A1A0C", 95)))
+                sh = skia.GradientShader.MakeLinear([(0, by), (0, tipy)], [C(cc, aa) for cc, aa, _ in stops], [pp for _, _, pp in stops])
+                c.drawPath(p, skia.Paint(AntiAlias=True, Shader=sh, MaskFilter=blur if li < 2 else None))
+        # sürüklenen kıvılcım dilleri (yükselir, küçülür, solar)
+        for j in range(4):
+            u = (k / NFL + j / 4.0) % 1.0
+            yy = by - FH * (0.50 + 0.46 * u)
+            xx = bx + (j - 1.5) * 34 + 14 * math.sin(2 * math.pi * u * 1.5 + j * 2.0)
+            hh = 54 * (1 - u) ** 0.8 + 6
+            ww = 11 * (1 - 0.6 * u)
+            lp = skia.Path()
+            lp.moveTo(xx - ww, yy)
+            lp.cubicTo(xx - ww, yy - hh * 0.5, xx - ww * 0.2, yy - hh * 0.8, xx, yy - hh)
+            lp.cubicTo(xx + ww * 0.2, yy - hh * 0.8, xx + ww, yy - hh * 0.5, xx + ww, yy)
+            lp.close()
+            al = int(255 * math.sin(math.pi * u) ** 0.7)
+            sh = skia.GradientShader.MakeLinear([(0, yy), (0, yy - hh)], [C("#FFD761", al), C("#F0742A", int(al * 0.5))], [0.0, 1.0])
+            c.drawPath(lp, skia.Paint(AntiAlias=True, Shader=sh, MaskFilter=blur))
         fr_list.append(fr.surf.makeImageSnapshot())
     _FIRE["fr"] = fr_list
     return fr_list
@@ -630,10 +680,11 @@ def _blit_dot(c, im, x, y, r, a):
     c.drawImageRect(im, skia.Rect.MakeWH(im.width(), im.height()), skia.Rect.MakeXYWH(x - r, y - r, 2 * r, 2 * r), LIN, _DP)
 
 
-def smoke_plume(f, x, y, t, size=120.0, n=9, k=1.0, col="#5A544E", seed=3, rise=260.0, wind=40.0, a0=0.34):
-    """Yükselen duman: büyüyüp solan yumuşak topaklar (önceden renklendirilmiş sprite, SrcOver). y = çıkış noktası."""
+def smoke_plume(f, x, y, t, size=120.0, n=9, k=1.0, col="#5A544E", seed=3, rise=260.0, wind=40.0, a0=0.34, warm=None):
+    """Yükselen duman: büyüyüp solan yumuşak topaklar (önceden renklendirilmiş sprite, SrcOver). y = çıkış noktası. warm: genç topaklar ateş ışığıyla ısınır."""
     c = _cv(f)
     im = _soft_dot(col, 56, 1.25)
+    imw = _soft_dot(warm, 56, 1.25) if warm else None
     rs = _RS(seed)
     for i in range(n):
         per = 3.4 + 1.5 * rs.rand()
@@ -642,7 +693,10 @@ def smoke_plume(f, x, y, t, size=120.0, n=9, k=1.0, col="#5A544E", seed=3, rise=
         px = x + wind * ph * ph * 2.2 + math.sin(ph * 5.5 + i * 1.7) * size * 0.16 * ph + rs.uniform(-1, 1) * size * 0.1
         py = y - rise * (0.15 + ph) * (0.6 + 0.5 * k)
         a = a0 * k * math.sin(math.pi * min(1.0, ph * 1.15)) ** 1.4 * (1 - ph) ** 0.6
-        _blit_dot(c, im, px, py, r, a)
+        wmix = (1.0 - smooth(clamp(ph / 0.42))) if imw is not None else 0.0
+        _blit_dot(c, im, px, py, r, a * (1 - 0.7 * wmix))
+        if wmix > 0.02:
+            _blit_dot(c, imw, px, py, r * 0.9, a * 0.55 * wmix)
 
 
 def ember_field(f, x, y, t, n=40, spread=140.0, h=520.0, wind=60.0, k=1.0, seed=5, col="#FFB347", size=1.0):
@@ -685,38 +739,48 @@ def ash_field(f, x, y, t, n=60, span=900.0, wind=90.0, k=1.0, seed=8):
         c.restore()
 
 
-def bonfire(f, x, y, size, t, seed=1, k=1.0, glow_a=1.0, tod="night"):
-    """Alev + kıvılcım + duman (önceden renklendirilmiş sprite; ≈3–6 ms). x,y = ateş tabanı (alt orta), size = taban genişliği (px), k = 0..1 (kıvılcım→inferno).
-    k<0.15 tek küçük alev; k büyüdükçe dilim sayısı/boyu artar. Dönüş: alevin tepe y'si."""
+# alev yerleşimi: (k eşiği, dx/size, dy/size, ölçek)  — küçük kıvılcımdan inferno'ya sprite sprite çoğalır
+FIRE_LAYOUT = [(0.00, -0.20, 0.00, 0.62), (0.08, 0.18, 0.00, 0.66), (0.20, 0.00, 0.00, 0.92), (0.34, -0.36, 0.00, 0.62), (0.40, 0.38, 0.00, 0.66),
+               (0.50, -0.12, -0.26, 0.80), (0.58, 0.16, -0.30, 0.74), (0.70, 0.02, -0.52, 0.78), (0.82, -0.24, -0.46, 0.55), (0.88, 0.30, -0.44, 0.58)]
+
+
+def bonfire(f, x, y, size, t, seed=1, k=1.0, glow_a=1.0, tod="night", layout=None, smoke=True, embers=True):
+    """Alev + kıvılcım + duman (önceden renklendirilmiş degrade sprite'lar, SrcOver; ≈4–8 ms). x,y = ateş tabanı (alt orta), size = taban genişliği (px),
+    k = 0..1: kıvılcım → tek küçük alev → çok dilli ateş → inferno (sprite sayısı ve boyu büyür; dilimler bağımsız fazla titreşir). layout=[(k_eşik, dx, dy, ölçek)…] (size oranı).
+    Dönüş: alevin tepe y'si."""
     c = _cv(f)
     k = clamp(k)
     if k <= 0.003:
         return y
     fr = _flame_frames()
-    rs = _RS(seed)
-    nfl = 1 + int(round(5 * smooth(clamp(k * 1.25))))
-    tops = []
-    gl = glow_a * (0.35 + 0.65 * k)
-    # zemin parıltısı
-    glow(c, x, y - size * 0.18 * k, size * (0.9 + 1.1 * k), "#FF8A2A", 0.26 * gl)
-    glow(c, x, y - size * 0.30 * k, size * (0.55 + 0.65 * k), "#FFC25A", 0.34 * gl)
-    order = sorted(range(nfl), key=lambda i: abs(i - (nfl - 1) / 2.0), reverse=True)
+    lay = layout or FIRE_LAYOUT
+    gl = glow_a * (0.30 + 0.70 * k)
+    glow(c, x, y - size * 0.20 * (0.4 + k), size * (0.8 + 1.3 * k), "#FF7A22", 0.22 * gl)
+    glow(c, x, y - size * 0.34 * (0.4 + k), size * (0.5 + 0.7 * k), "#FFB347", 0.32 * gl)
+    top = y
     pd = _DP
-    for i in order:
-        u = (i - (nfl - 1) / 2.0) / max(1.0, (nfl - 1) / 2.0)
-        sc = size / 190.0 * (0.50 + 0.65 * (1 - 0.35 * abs(u))) * (0.30 + 0.70 * smooth(clamp(k * 1.15)))
-        fi = int(t * 13.0 + i * 5 + seed * 3) % NFL
-        wob = 1.0 + 0.045 * math.sin(t * 7.3 + i * 2.2 + seed)
-        xx = x + u * size * 0.34 * min(1.0, 0.4 + k)
-        hh = 410 * sc * wob
-        ww = 256 * sc * (1.0 + 0.04 * math.sin(t * 5.1 + i))
-        pd.setAlphaf(1.0)
-        c.drawImageRect(fr[fi], skia.Rect.MakeWH(256, 420), skia.Rect.MakeXYWH(xx - ww / 2, y - hh * (410.0 / 420.0), ww, hh), LIN, pd)
-        tops.append(y - hh * 0.84)
-    top = min(tops)
-    # kıvılcım + duman
-    ember_field(f, x, y - size * 0.25, t, n=int(10 + 34 * k), spread=size * 0.30, h=size * (1.0 + 1.8 * k), wind=50 + 40 * k, k=1.0, seed=seed + 4, size=1.0)
-    smoke_plume(f, x, top + size * 0.12, t, size=size * 0.34, n=int(4 + 6 * k), k=k, col={"day": "#6A645C", "dusk": "#4E4850", "night": "#2C3042"}.get(tod, "#4E4850"), seed=seed + 9, rise=size * 1.5, wind=30 + 30 * k, a0=0.30)
+    items = []
+    for i, (k0, dxf, dyf, sc0) in enumerate(lay):
+        g = smooth(clamp((k - k0) / 0.24))
+        if g < 0.02:
+            continue
+        items.append((dyf, i, dxf, sc0, g))
+    items.sort(key=lambda q: (q[0], -abs(q[2])))                          # yüksek ve dışta olan önce, alt/orta ön
+    for (dyf, i, dxf, sc0, g) in items:
+        fi = int(t * 14.0 + i * 5 + seed * 3) % NFL
+        wob = 1.0 + 0.05 * math.sin(t * 7.3 + i * 2.2 + seed) + 0.025 * math.sin(t * 13.1 + i)
+        ww = size * 0.80 * sc0 * (0.22 + 0.78 * g) * (1.0 + 0.04 * math.sin(t * 5.1 + i))
+        hh = ww * (FH / FW) * wob * (0.55 + 0.45 * g) * 1.22
+        xx = x + dxf * size * min(1.0, 0.45 + 0.55 * k)
+        yy = y + dyf * size
+        pd.setAlphaf(clamp(0.35 + 0.9 * g))
+        c.drawImageRect(fr[fi], skia.Rect.MakeWH(FW, FH), skia.Rect.MakeXYWH(xx - ww / 2, yy - hh * ((FH - 8.0) / FH), ww, hh), LIN, pd)
+        top = min(top, yy - hh * 0.80)
+    if embers:
+        ember_field(f, x, y - size * 0.30, t, n=int(12 + 40 * k), spread=size * 0.34, h=size * (0.9 + 1.9 * k), wind=50 + 45 * k, k=1.0, seed=seed + 4, size=1.0 + 0.4 * k)
+    if smoke:
+        smoke_plume(f, x, top + size * 0.15, t, size=size * 0.36, n=int(5 + 7 * k), k=k, col={"day": "#6A645C", "dusk": "#4E4650", "night": "#2A2E40"}.get(tod, "#4E4650"),
+                    seed=seed + 9, rise=size * 2.0, wind=30 + 34 * k, a0=0.46, warm="#D8743A")
     return top
 
 
@@ -997,45 +1061,66 @@ def draw_actor(ctx, a, ground=YG):
         FA.actor(f, a.get("kind", "halk"), x, y, h, tt, action=act, dir=d, seed=a.get("seed", 0), phase=a.get("phase", 0.0), alpha=a.get("alpha", 1.0), cf=cf, prop=a.get("prop"), **kw)
 
 
-def ring_members(cx0, n, seed, side_rx=(240, 800), rows=((YG - 24, 146), (YG + 4, 168), (YG + 32, 192)), behind=4, front=4):
-    """Çevrede halka olan kalabalık üyeleri (deterministik): merkeze (cx0) bakar. Dönüş: y'ye göre sıralı liste; row: 0 arka, 2 ön."""
+RING_ROWS = ((YG - 62, 126), (YG - 38, 139), (YG - 14, 152), (YG + 10, 166), (YG + 34, 182), (YG + 58, 198))
+
+
+def ring_members(cx0, n, seed, side_rx=(240, 820), rows=RING_ROWS, behind=5, front=5):
+    """Çevrede halka olan kalabalık üyeleri (deterministik): merkeze (cx0) bakar. Dönüş: y'ye göre sıralı liste; row: 0 arka … 5 ön."""
     rs = _RS(seed * 31 + 7)
     kinds = ["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "rahip", "banker", "kesis", "halk", "denizci", "halk"]
     out = []
     for i in range(n):
         if i < behind:
-            side, dx, row = (1 if i % 2 else -1), rs.uniform(40, 190), 0
+            side, dx, row = (1 if i % 2 else -1), rs.uniform(30, 180), rs.randint(0, 2)
         elif i < behind + front:
-            side, dx, row = (1 if i % 2 else -1), rs.uniform(110, 300), 2
+            side, dx, row = (1 if i % 2 else -1), rs.uniform(130, 320), 4 + (i % 2)
         else:
-            side, dx, row = (1 if rs.rand() < 0.5 else -1), rs.uniform(*side_rx), rs.randint(0, 3)
+            side, dx, row = (1 if rs.rand() < 0.5 else -1), rs.uniform(*side_rx), rs.randint(0, 6)
         yb, hh = rows[row]
         k = kinds[rs.randint(len(kinds))]
         if k == "cocuk":
             hh *= 0.82
         out.append(dict(x=cx0 + side * dx, y=yb + rs.uniform(-5, 5), h=hh * rs.uniform(0.94, 1.06), kind=k, seed=int(rs.randint(0, 40)), phase=rs.rand(), face=-side, row=row,
-                        act=("cheer" if rs.rand() < 0.38 else ("talk" if rs.rand() < 0.55 else "idle")), amt=rs.uniform(0.55, 1.0), hop=rs.uniform(0.2, 0.7), off=rs.uniform(-1.0, 1.0)))
+                        act=("cheer" if rs.rand() < 0.40 else ("talk" if rs.rand() < 0.55 else "idle")), amt=rs.uniform(0.55, 1.0), hop=rs.uniform(0.2, 0.7), off=rs.uniform(-1.0, 1.0)))
     out.sort(key=lambda m: m["y"])
     return out
 
 
-def draw_ring(ctx, members, rows, cheer_k=1.0, t_gate=None, cf=None, xa=None, xb=None, alpha=1.0):
-    """halka üyelerinin belirtilen sıralarını çiz (cheer_k: coşku düzeyi 0..1 — cheer eylemi bu oranda kollarını kaldırır)."""
+def draw_member(ctx, m, cheer_k=1.0, cf=None, alpha=1.0, x=None):
+    """Tek halka üyesi: cheer (kollar havada, cheer_k oranında) | talk | bekleme."""
     f, t = ctx.f, ctx.t
+    act = m["act"]
+    if act == "cheer" and cheer_k < 0.18:
+        act = "talk"
+    xx = m["x"] if x is None else x
+    if act == "cheer":
+        FA.actor(f, m["kind"], xx, m["y"], m["h"], t, action="cheer", dir=m["face"], seed=m["seed"], phase=m["phase"], amount=m["amt"] * cheer_k, hop=m["hop"], cf=cf, alpha=alpha)
+    elif act == "talk":
+        FA.actor(f, m["kind"], xx, m["y"], m["h"], t, action="talk", dir=m["face"], seed=m["seed"], phase=m["phase"], energy=0.7, cf=cf, alpha=alpha)
+    else:
+        FA.walker(f, m["kind"], xx, m["y"], m["h"], t, speed=0.0, dir=m["face"], phase=m["phase"], seed=m["seed"], cf=cf, alpha=alpha)
+
+
+def draw_ring(ctx, members, rows, cheer_k=1.0, t_gate=None, cf=None, xa=None, xb=None, alpha=1.0):
+    """halka üyelerinin belirtilen sıralarını çiz (cheer_k: coşku düzeyi 0..1)."""
     for m in members:
         if m["row"] not in rows:
             continue
         if xa is not None and (m["x"] < xa - 160 or m["x"] > xb + 160):
             continue
-        act = m["act"]
-        if act == "cheer" and cheer_k < 0.18:
-            act = "talk"
-        if act == "cheer":
-            FA.actor(f, m["kind"], m["x"], m["y"], m["h"], t, action="cheer", dir=m["face"], seed=m["seed"], phase=m["phase"], amount=m["amt"] * cheer_k, hop=m["hop"], cf=cf, alpha=alpha)
-        elif act == "talk":
-            FA.actor(f, m["kind"], m["x"], m["y"], m["h"], t, action="talk", dir=m["face"], seed=m["seed"], phase=m["phase"], energy=0.7, cf=cf, alpha=alpha)
-        else:
-            FA.walker(f, m["kind"], m["x"], m["y"], m["h"], t, speed=0.0, dir=m["face"], phase=m["phase"], seed=m["seed"], cf=cf, alpha=alpha)
+        draw_member(ctx, m, cheer_k, cf, alpha)
+
+
+_LIGHT_CF = {}
+
+
+def lit_cf(tod):
+    """Ateş ışığı altındaki ön figürler için sıcak/koyu çarpan (grade sonrası çizilen figürler arka planla uyumlu görünsün)."""
+    cf = _LIGHT_CF.get(tod)
+    if cf is None:
+        col = {"day": "#FFFFFF", "dusk": "#E4C8B0", "night": "#D8B890"}[tod]
+        cf = _LIGHT_CF[tod] = skia.ColorFilters.Blend(C(col), skia.BlendMode.kModulate)
+    return cf
 
 
 # ═════════════════════════════ MEYDAN (Piazza della Signoria) ═════════════════════════════
@@ -1061,8 +1146,6 @@ def _pile_sprite(kind="ates", seed=3):
     return r
 
 
-def _poly_sky(c, x0, x1, y, col):
-    pass
 
 
 class Meydan(SWorld):
@@ -1109,7 +1192,7 @@ class Meydan(SWorld):
         self.ring = ring_members(PILE_X, 30, 4)
         self.pile = _pile_sprite("ates")
         self.pile_odun = _pile_sprite("odun", 5)
-        self.fgs = [(-520, 1.0), (-330, 0.8), (-150, 1.1), (160, 0.9), (360, 1.15), (560, 0.85), (-700, 0.9)]
+        self.fgs = [(-560, 1.0), (-300, 0.85), (-110, 1.05), (210, 0.95), (440, 1.1), (640, 0.9)]
         self.win_order = list(_RS(9).permutation(len(self.G_PV["wins"])))
 
     # ── kamera yolları (act'e göre) ──
@@ -1177,10 +1260,7 @@ class Meydan(SWorld):
         for (g0, g1) in ((MED_X0 + MED_W - 4, PV_X0 + 4), (PV_X0 + PV_W - 4, LOG_X0 + 4), (LOG_X1 - 4, GEN_X0 + 4)):
             if g1 < xa - 40 or g0 > xb + 40:
                 continue
-            GRAD_V(c, g0, YG - 470, g1, YG - 8, [(T("#8E7F62", 0.25), 0.0), (T("#6A5C44", 0.15), 1.0)])
-            for k in range(3):
-                wx = g0 + (g1 - g0) * (0.3 + 0.4 * (k % 2))
-                R(c, wx - 9, YG - 300 - k * 90, wx + 9, YG - 262 - k * 90, "#2A1E14", 200)
+            narrow_house(c, g0, g1, YG - 8, 330 + (int(g0) % 5) * 12, T, seed=int(g0) % 97)
         if xa < MED_X0 + MED_W + 80 and xb > MED_X0 - 80:
             palazzo_front(c, MED_X0, YG, MED_W, MED_H, "medici", door=0.0, T=T, seed=21)
         if xa < PV_X0 + PV_W + 80 and xb > PV_X0 - 80 or (xb > self.G_PV["tower"][0] - 200 and xa < self.G_PV["tower"][0] + 200):
@@ -1285,55 +1365,113 @@ class Meydan(SWorld):
             self._act_odun(ctx, back=False)
 
     def dyn_front(self, ctx):
-        """Ön plan (paralaks 1,38): ateş başında büyük siluet başlar/omuzlar (arkadan görünüm) — derinlik + çerçeve."""
+        """Ön plan (paralaks 1,38): ateş başında arkadan görünen siluet başlar/omuzlar (kukuleta, bere, çıplak baş) — derinlik + çerçeve; ateşe bakan kenarda sıcak ışık."""
         act = ctx.p.get("act")
         if act not in ("ates", "odun"):
             return
         c, t = ctx.c, ctx.t
-        f = ctx.world_fct if hasattr(ctx, "world_fct") else 1.38
-        kf = ctx.fire_k
+        kf = ctx.fire_k if act == "ates" else ctx.coal * 0.8
         base = W / 2 + (PILE_X - W / 2) * 1.38
         for i, (dx, sc) in enumerate(self.fgs):
-            x = base + dx * 1.2
+            x = base + dx * 1.25
             if x < ctx.xa - 150 or x > ctx.xb + 150:
                 continue
-            sway = math.sin(t * 0.7 + i * 1.9) * 3.0
-            hy = 888 + (i % 3) * 14 + sway * 0.4
-            r_ = 34 * sc
-            hood = (i % 2 == 0)
-            col = "#0E0B10"
-            # omuzlar
-            sh = skia.Path()
-            sh.moveTo(x - r_ * 2.35, 990)
-            sh.cubicTo(x - r_ * 2.3, hy + r_ * 1.5, x - r_ * 1.2, hy + r_ * 0.7, x, hy + r_ * 0.6)
-            sh.cubicTo(x + r_ * 1.2, hy + r_ * 0.7, x + r_ * 2.3, hy + r_ * 1.5, x + r_ * 2.35, 990)
+            sway = math.sin(t * 0.6 + i * 1.9) * 2.5
+            r_ = 27 * sc
+            hy = 836 + (i % 3) * 12 + sway * 0.3
+            col = "#0C0A0E"
+            kind = i % 3
+            sh = skia.Path()                                            # omuzlar (boyun daralır, omuz eğimi)
+            sh.moveTo(x - r_ * 2.5, 1000)
+            sh.cubicTo(x - r_ * 2.6, hy + r_ * 2.1, x - r_ * 1.6, hy + r_ * 1.15, x - r_ * 0.55, hy + r_ * 0.95)
+            sh.lineTo(x - r_ * 0.45, hy + r_ * 0.30)
+            sh.lineTo(x + r_ * 0.45, hy + r_ * 0.30)
+            sh.lineTo(x + r_ * 0.55, hy + r_ * 0.95)
+            sh.cubicTo(x + r_ * 1.6, hy + r_ * 1.15, x + r_ * 2.6, hy + r_ * 2.1, x + r_ * 2.5, 1000)
             sh.close()
             c.drawPath(sh, _pt(col, 255))
-            c.drawCircle(x + sway, hy - r_ * 0.1, r_, _pt(col, 255))
-            if hood:
-                c.drawPath(sk.poly_path([(x - r_ * 0.9 + sway, hy - r_ * 0.3), (x + sway, hy - r_ * 1.5), (x + r_ * 0.9 + sway, hy - r_ * 0.3)]), _pt(col, 255))
-            if kf > 0.05:                                                          # ateşe bakan kenarda sıcak ışık
+            c.drawOval(skia.Rect.MakeLTRB(x - r_ * 0.86 + sway, hy - r_ * 1.0, x + r_ * 0.86 + sway, hy + r_ * 0.72), _pt(col, 255))
+            if kind == 0:                                               # kukuleta
+                c.drawPath(sk.poly_path([(x - r_ * 1.15 + sway, hy + r_ * 0.55), (x - r_ * 0.35 + sway, hy - r_ * 1.35), (x + r_ * 0.35 + sway, hy - r_ * 1.35), (x + r_ * 1.15 + sway, hy + r_ * 0.55)]), _pt(col, 255))
+            elif kind == 1:                                             # bere
+                c.drawOval(skia.Rect.MakeLTRB(x - r_ * 1.15 + sway, hy - r_ * 1.35, x + r_ * 1.05 + sway, hy - r_ * 0.45), _pt(col, 255))
+            if kf > 0.05:                                               # ateşe bakan kenarda sıcak ışık
                 side = 1 if dx < 0 else -1
-                c.drawArc(skia.Rect.MakeLTRB(x - r_ + sway, hy - r_ * 1.1, x + r_ + sway, hy + r_ * 0.9), (-60 if side > 0 else 120), 100, False,
-                          skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.0, Color=C("#FF9A3A", int(170 * kf))))
+                c.drawArc(skia.Rect.MakeLTRB(x - r_ * 0.95 + sway, hy - r_ * 1.05, x + r_ * 0.95 + sway, hy + r_ * 0.75), (-70 if side > 0 else 130), 70, False,
+                          skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.6, Color=C("#FF9A3A", int(190 * min(1.0, kf)))))
         return
 
     # ── act: ates (Kibirlerin Yakılması) ──
+    def _carriers(self, ctx):
+        """Her eşya için bir taşıyıcı: sepet/çuvalla yığına yürür, durur, eşyayı fırlatır; sonra halkaya katılıp coşar. Dönüş: [(y, çizici)] ve eşya kaynakları."""
+        t = ctx.t
+        out = []
+        n = len(ctx.items)
+        for i, (t_land, kind, _src) in enumerate(ctx.items):
+            side = 1 if i % 2 else -1
+            xs = PILE_X + side * (215 + 36 * (i % 4) + 14 * (i % 3))
+            y = YG + 10 + (i % 3) * 22 - (i % 5) * 4
+            h = 164 + (i % 3) * 9
+            v = 112.0 + 8 * (i % 3)
+            t_throw = t_land - 0.95
+            t_arr = t_throw - 0.40
+            x = xs + side * v * max(0.0, t_arr - t)
+            ctx.items[i] = (t_land, kind, (xs - side * 4, y - h * 0.66))
+            out.append((y, i, x, xs, y, h, v, t_arr, t_throw, side))
+        return out
+
+    def _draw_carrier(self, ctx, q, kf):
+        f, t = ctx.f, ctx.t
+        (y, i, x, xs, _y, h, v, t_arr, t_throw, side) = q
+        if x < ctx.xa - 200 or x > ctx.xb + 200:
+            return
+        kind = ["halk", "tuccar", "soylu", "soylu_f", "halk", "cocuk", "banker", "halk"][i % 8]
+        sd = 3 + i * 5
+        if t < t_arr:
+            FA.walker(f, kind, x, y, h, t, speed=v, dir=-side, phase=(i * 0.173) % 1.0, seed=sd, prop=("basket" if i % 2 else "sack"))
+        elif t < t_throw + 0.35:
+            FA.walker(f, kind, x, y, h, t, speed=0.0, dir=-side, phase=(i * 0.173) % 1.0, seed=sd, prop=("basket" if i % 2 else "sack"))
+        elif kf > 0.2 and i % 2 == 0:
+            FA.actor(f, kind, x, y, h, t, action="cheer", dir=-side, seed=sd, phase=(i * 0.173) % 1.0, amount=0.5 + 0.5 * kf, hop=0.4)
+        else:
+            FA.actor(f, kind, x, y, h, t, action="talk", dir=-side, seed=sd, phase=(i * 0.173) % 1.0, energy=0.8)
+
     def _act_ates(self, ctx, back=True):
         f, c, t = ctx.f, ctx.c, ctx.t
-        p = ctx.p
         xa, xb = ctx.xa, ctx.xb
         kf = ctx.fire_k
+        ck = 0.35 + 0.65 * kf
+        thr = YG + 12
         if back:
-            draw_ring(ctx, self.ring, (0,), cheer_k=0.4 + 0.6 * kf, xa=xa, xb=xb)
-            draw_ring(ctx, self.ring, (1,), cheer_k=0.4 + 0.6 * kf, xa=xa, xb=xb)
-            # yığın
+            car = self._carriers(ctx)
+            figs = [(m["y"], 0, m) for m in self.ring if m["y"] <= thr] + [(q[0], 1, q) for q in car if q[0] <= thr]
+            figs.sort(key=lambda q: q[0])
+            for (_, kd, o) in figs:
+                if kd == 0:
+                    if xa - 160 < o["x"] < xb + 160:
+                        draw_member(ctx, o, ck)
+                else:
+                    self._draw_carrier(ctx, o, kf)
             img, ox, oy, slots = self.pile
             c.drawImage(img, PILE_X - ox, PILE_Y - oy, LIN)
-            # eşyalar
             self._items(ctx, slots)
-        else:
-            draw_ring(ctx, self.ring, (2,), cheer_k=0.4 + 0.6 * kf, xa=xa, xb=xb)
+            ctx._car_front = [q for q in car if q[0] > thr]
+        # ön sıra (y > eşik) → fx aşamasında, ateşten SONRA çizilir (ateşin önünde durur)
+
+    def _act_ates_front(self, ctx):
+        xa, xb = ctx.xa, ctx.xb
+        kf = ctx.fire_k
+        ck = 0.35 + 0.65 * kf
+        cf = lit_cf(ctx.tod)
+        thr = YG + 12
+        figs = [(m["y"], 0, m) for m in self.ring if m["y"] > thr] + [(q[0], 1, q) for q in getattr(ctx, "_car_front", [])]
+        figs.sort(key=lambda q: q[0])
+        for (_, kd, o) in figs:
+            if kd == 0:
+                if xa - 160 < o["x"] < xb + 160:
+                    draw_member(ctx, o, ck, cf=cf)
+            else:
+                self._draw_carrier(ctx, o, kf)
 
     def _items(self, ctx, slots):
         c, t = ctx.c, ctx.t
@@ -1342,7 +1480,7 @@ class Meydan(SWorld):
         burn = clamp((t - ctx.fire_t0 - 0.6) / 4.0) if ctx.fire_t0 is not None else 0.0
         for i, (t_land, kind, src) in enumerate(items):
             sl = slots[min(len(slots) - 1, int(i * len(slots) / max(1, n)))]
-            dst = (PILE_X + sl[0], PILE_Y + sl[1] - 18)
+            dst = (PILE_X + sl[0], PILE_Y + sl[1] - 14)
             fl = 0.95
             u = (t - (t_land - fl)) / fl
             if u < 0:
@@ -1350,19 +1488,19 @@ class Meydan(SWorld):
             if u < 1.0:
                 e = ease_io(u)
                 x = src[0] + (dst[0] - src[0]) * e
-                y = src[1] + (dst[1] - src[1]) * e - 260 * 4 * u * (1 - u)
-                ang = (i * 57 % 90 - 45) + 540 * u * (1 if i % 2 else -1)
+                y = src[1] + (dst[1] - src[1]) * e - 240 * 4 * u * (1 - u)
+                ang = (i * 57 % 90 - 45) * u + 480 * u * (1 if i % 2 else -1) * (1 - 0.15 * u)
             else:
                 x, y = dst
-                ang = (i * 57 % 90 - 45) * 0.6 + 540 * (1 if i % 2 else -1)
+                ang = (i * 57 % 90 - 45) + 480 * (1 if i % 2 else -1)
                 y += 3 * math.exp(-(t - t_land) * 7) * math.sin((t - t_land) * 22)
-            sc = 0.82 if i % 5 != 4 else 0.9
+            sc = 0.60 if i % 5 != 4 else 0.68
             c.save()
             c.translate(x, y)
             c.rotate(ang)
             c.scale(sc, sc)
             pt = skia.Paint()
-            pt.setAlphaf(1.0 - 0.85 * burn if u >= 1.0 else 1.0)
+            pt.setAlphaf(1.0 - 0.9 * burn if u >= 1.0 else 1.0)
             c.drawImage(item_sprite(kind), -56, -56, LIN, pt)
             c.restore()
 
@@ -1493,7 +1631,8 @@ class Meydan(SWorld):
         if act in ("ates", "odun"):
             kf = ctx.fire_k
             if act == "ates":
-                bonfire(c, PILE_X, PILE_Y - 18, 330, t, seed=2, k=kf, glow_a=1.0, tod=ctx.tod)
+                bonfire(c, PILE_X, PILE_Y - 20, 330, t, seed=2, k=kf, glow_a=1.0, tod=ctx.tod)
+                self._act_ates_front(ctx)
             else:
                 kodun = kf
                 coal = ctx.coal

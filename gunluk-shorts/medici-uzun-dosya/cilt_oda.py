@@ -717,6 +717,31 @@ def door_bronze(f, x, y, h, open_amount=0.0, w=None, seed=1, light=True, t=0.0, 
 
 # ═════════════════════════════ siluet ve masa başı figürler ═════════════════════════════
 _CF = {}
+_SILCF = [None]
+_BLIT0 = FA.blit if not getattr(FA.blit, "_oda_cf", False) else FA.blit._orig
+
+
+def _blit_cf(c, spr, jx, jy, X, Y, ang=0.0, sx=1.0):
+    """FA.blit yaması: siluet bağlamında (_SILCF) baş/ayakkabı sprite'larına da renk filtresi uygular (FA.draw_fig bunları süzmez)."""
+    cf = _SILCF[0]
+    if cf is None:
+        return _BLIT0(c, spr, jx, jy, X, Y, ang, sx)
+    ix, iy = spr.ox + jx, spr.oy + jy
+    pt = skia.Paint(AntiAlias=False)
+    pt.setColorFilter(cf)
+    c.save()
+    c.translate(X, Y)
+    if ang:
+        c.rotate(ang)
+    if sx != 1.0:
+        c.scale(sx, 1.0)
+    c.drawImage(spr.img, -ix, -iy, LIN, pt)
+    c.restore()
+
+
+_blit_cf._oda_cf = True
+_blit_cf._orig = _BLIT0
+FA.blit = _blit_cf
 
 
 def flat_cf(color="#1A1008"):
@@ -731,67 +756,127 @@ def sil_actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, colo
     flat = flat_cf(color)
     warm = flat_cf(rim) if rim else None
     c = f.c
+    rim_w = rim_w * 1.4 / max(1.0, FA.SCALE_HINT ** 0.6)
     for off, cf in ((rim_w, warm), (0.0, flat)):
         if cf is None:
             continue
         c.save()
         c.translate(off * rim_dir * 0.9, -off * 0.5)
-        if walker is not None:
-            FA.walker(f, kind, x, y, h, t, speed=walker, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
-        else:
-            FA.actor(f, kind, x, y, h, t, action=action, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
+        _SILCF[0] = cf
+        try:
+            if walker is not None:
+                FA.walker(f, kind, x, y, h, t, speed=walker, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
+            else:
+                FA.actor(f, kind, x, y, h, t, action=action, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
+        finally:
+            _SILCF[0] = None
         c.restore()
 
 
-def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=None, rim="#E8A860", rim_dir=1, t0=0.0, alpha=1.0, **stil):
+def act_sit_talk(kit, T, phase=0.0, t0=0.0, energy=1.0, **_):
+    """Masa başında OTURAN konuşma: bir el masada, öteki el jestle kalkıp iner; baş hafif sallanır, gövde öne-arkaya."""
+    hb = kit.B["hb"]
+    ph = phase * 6.283
+    cyc = 3.1 / max(0.4, energy)
+    u = ((T - t0 + phase * 2.0) % cyc) / cyc
+    k = math.sin(math.pi * min(1.0, u * 1.25)) ** 1.4 if u < 0.8 else 0.0
+    wob = math.sin(T * 5.3 + ph) * 0.004 * k
+
+    def arms(sho):
+        far = ("ik", (0.215 * hb, (FA.DESK_Y - 0.003) * hb))
+        near = ("ik", ((0.28 + 0.13 * k + wob) * hb, (FA.DESK_Y - 0.035 - 0.15 * k) * hb))
+        return far, near, "open", "open"
+    lean = 6.0 + 3.0 * k + 1.5 * math.sin(T * 0.8 + ph)
+    head = 13.0 + 3.5 * math.sin(T * 1.7 + ph) * (0.5 + 0.5 * k) - 2.0 * k
+    p = FA._sit_base(kit, T, phase, lean, head, arms)
+    p.extra = None
+    return p
+
+
+def act_sit_listen(kit, T, phase=0.0, t0=0.0, **_):
+    """Oturan dinleyen: iki el masada/dizde, baş hafif eğik, ara sıra başını sallar."""
+    hb = kit.B["hb"]
+    ph = phase * 6.283
+    nod = max(0.0, math.sin(T * 0.9 + ph)) ** 6
+
+    def arms(sho):
+        return ("ik", (0.22 * hb, (FA.DESK_Y - 0.003) * hb)), ("ik", (0.33 * hb, (FA.DESK_Y - 0.004) * hb)), "open", "fist"
+    p = FA._sit_base(kit, T, phase, 5.0, 14.0 + 4.0 * nod, arms)
+    p.extra = None
+    return p
+
+
+def act_sit_read(kit, T, phase=0.0, t0=0.0, **_):
+    """Oturan okuyan: iki el masa üstünde kâğıdı tutar, baş aşağı eğik, yavaş kayar."""
+    hb = kit.B["hb"]
+    ph = phase * 6.283
+    sl = 0.03 * math.sin(T * 0.5 + ph)
+
+    def arms(sho):
+        return ("ik", ((0.27 + sl) * hb, (FA.DESK_Y - 0.01) * hb)), ("ik", ((0.35 + sl) * hb, (FA.DESK_Y - 0.012) * hb)), "open", "open"
+    p = FA._sit_base(kit, T, phase, 11.0, 26.0 + 2.0 * math.sin(T * 0.7 + ph), arms)
+    p.extra = None
+    return p
+
+
+SEATED_ACTS = {}
+
+
+def seated_act(name):
+    if not SEATED_ACTS:
+        SEATED_ACTS.update(write=FA.act_write, count=FA.act_count, talk=act_sit_talk, listen=act_sit_listen, read=act_sit_read)
+    return SEATED_ACTS[name]
+
+
+def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=None, rim="#E8A860", rim_dir=1, t0=0.0, alpha=1.0, energy=1.0, **stil):
     """Masa başında oturan figür (masa/sandalye odanın kendi çizimidir; FA masası ÇİZİLMEZ). action: write | count | idle(oturan) …
     sil=renk → siluet. Dönüş: act_write ek bilgisi (satır, ilerleme) — belge yazılışını elle eşlemek için."""
     kit, bh = FA.kit_for(kind, seed, h, **stil)
-    fn = FA.ACTIONS[action]
-    pz = fn(kit, t, phase=phase, t0=t0) if action in ("write", "count") else fn(kit, t, phase=phase)
+    fn = seated_act(action)
+    pz = fn(kit, t, phase=phase, t0=t0, **({'energy': energy} if action == 'talk' else {}))
     ex = dict(pz.extra) if getattr(pz, "extra", None) else {}
     FA.cloth_for(kit, pz, t, phase * 6.28, lag=0.0, wave=0.0)
     c = f.c
-    passes = [(0.0, None)] if not sil else [(1.5, flat_cf(rim)), (0.0, flat_cf(sil))]
+    rw = 2.1 / max(1.0, FA.SCALE_HINT ** 0.6)
+    passes = [(0.0, None)] if not sil else [(rw, flat_cf(rim)), (0.0, flat_cf(sil))]
     for off, cf in passes:
         c.save()
         c.translate(off * rim_dir * 0.9, -off * 0.5)
         c.save()
         FA.place_fig(c, x, y, h, bh, dir)
-        FA.draw_fig(c, kit, pz, alpha, cf)
+        _SILCF[0] = cf
+        try:
+            FA.draw_fig(c, kit, pz, alpha, cf)
+        finally:
+            _SILCF[0] = None
         c.restore()
         c.restore()
     return ex
 
 
 def lying_sil(f, x, y, t, scale=1.0, color="#1A1008", rim="#E8A860", rim_dir=1, breath=1.0):
-    """Yatakta yatan kadın SİLÜETİ (yandan; baş solda yastıkta, örtü altında gövde; yüz/ayrıntı yok): yavaş nefes. (x,y) = yastığın alt-sol köşesi."""
+    """Yatakta yatan kadın SİLÜETİ (yandan; baş solda yastıkta, örtü altında omuz/kalça/diz/ayak kabarıklıkları; yüz/ayrıntı yok): yavaş nefes.
+    (x,y) = yastığın alt-sol köşesi (mindere değdiği çizgi)."""
     c = f.c
-    b = 1.0 + 0.012 * math.sin(t * 1.15) * breath
+    b = 1.0 + 0.045 * math.sin(t * 1.15) * breath
     s = scale
-    # örtü yığını (omuz → ayak): düz koyu + kenar ışığı
-    def mound(dx, dy, col, a=255):
-        p = skia.Path()
-        p.moveTo(x + 40 * s + dx, y - 6 * s + dy)
-        p.cubicTo(x + 60 * s + dx, y - 62 * s * b + dy, x + 110 * s + dx, y - 66 * s * b + dy, x + 170 * s + dx, y - 54 * s * b + dy)
-        p.cubicTo(x + 240 * s + dx, y - 44 * s * b + dy, x + 330 * s + dx, y - 38 * s * b + dy, x + 410 * s + dx, y - 22 * s + dy)
-        p.lineTo(x + 410 * s + dx, y - 4 * s + dy)
-        p.lineTo(x + 40 * s + dx, y - 4 * s + dy)
-        p.close()
-        c.drawPath(p, PT(col, a))
-        # baş (yandan, yastıkta) + omuz hattı
+    pts = [(40, 8), (46, -22), (64, -52), (96, -62), (136, -58), (176, -46), (214, -50), (252, -48), (292, -40), (330, -44), (366, -34), (398, -24), (410, -6), (410, 8)]
+
+    def mound(dx, dy, col):
+        q = [(x + (px * s) + dx, y + (py * s * (b if py < -4 else 1.0)) + dy) for px, py in pts]
+        p = sk.smooth_path(q, True, 0.42)
+        c.drawPath(p, PT(col))
         hd = skia.Path()
-        hd.addOval(skia.Rect.MakeLTRB(x + 4 * s + dx, y - 62 * s + dy, x + 58 * s + dx, y - 14 * s + dy))
-        c.drawPath(hd, PT(col, a))
-        # tülbent/bone (başın arkası)
+        hd.addOval(skia.Rect.MakeLTRB(x + 4 * s + dx, y - 64 * s + dy, x + 62 * s + dx, y - 12 * s + dy))
+        c.drawPath(hd, PT(col))
         bn = skia.Path()
         bn.moveTo(x + 2 * s + dx, y - 40 * s + dy)
-        bn.quadTo(x + 4 * s + dx, y - 74 * s + dy, x + 40 * s + dx, y - 70 * s + dy)
-        bn.quadTo(x + 60 * s + dx, y - 56 * s + dy, x + 50 * s + dx, y - 38 * s + dy)
+        bn.quadTo(x + 2 * s + dx, y - 78 * s + dy, x + 40 * s + dx, y - 72 * s + dy)
+        bn.quadTo(x + 64 * s + dx, y - 58 * s + dy, x + 54 * s + dx, y - 36 * s + dy)
         bn.close()
-        c.drawPath(bn, PT(col, a))
+        c.drawPath(bn, PT(col))
     if rim:
-        mound(1.4 * rim_dir, -1.6, rim)
+        mound(1.6 * rim_dir, -1.8, rim)
     mound(0, 0, color)
 
 
@@ -852,6 +937,9 @@ class Room:
 
     def post_light(self, ctx):
         pass
+
+    def default_actors(self):
+        return []
 
     def bake_all(self):
         n = 0
@@ -915,6 +1003,11 @@ def draw_actor(ctx, d):
     d.pop("layer", None)
     walk = d.pop("walk", None)
     rim_dir = d.pop("rim_dir", 1)
+    if d.pop("seated", False):
+        stil = {k: v for k, v in d.items() if k in FA.STIL_KEYS}
+        seated(f, kind, x, y, h, t, action if action in ("write", "count", "talk", "listen", "read") else "listen", dirn, seed=seed, phase=phase,
+               sil=(sil if isinstance(sil, str) else "#1A1008") if sil else None, rim_dir=rim_dir if rim_dir else (1 if dirn > 0 else -1), t0=_anchor_t(ctx, at, 0.0), energy=d.get("energy", 1.0), **stil)
+        return
     t_at = _anchor_t(ctx, at, 0.0)
     for k in ("rise_at", "t_exit", "exit_at"):
         if k in d and not isinstance(d[k], (int, float)):
@@ -1081,7 +1174,7 @@ def k_oda(cx, room="oda1743", variant=None, tod=None, path=None, cams=None, acto
     tod = tod or ("night" if night_theme else "day")
     world = get_room(room, variant, tod)
     world.opts = opts
-    world.actors_extra = actors or []
+    world.actors_extra = actors            # None → odanın varsayılan figürleri; liste (boş dâhil) → onları kullan
     world.props_extra = props or []
     a = cx.amt(at, 0.9) if at else 1.0
     dur = max(cx.dur, 1e-3)
@@ -1150,7 +1243,10 @@ def k_oda(cx, room="oda1743", variant=None, tod=None, path=None, cams=None, acto
         if lt is not None:
             lx, ly, lr, lk = lt
             sx, sy = ctx.to_screen(1.0, lx, ly)
-            base = CM.candle_light(cx.t, seed, base=(sx, sy), r=lr * z, sway=2.0 * z)
+            spread = clamp((abs(sx - W / 2) - 350) / 900.0, 0.0, 1.0)        # mum ekran dışına çıktıkça havuz genişler ve merkeze kayar
+            sx = sx + (W / 2 - sx) * spread * 0.72
+            sy = sy + (H / 2 - sy) * spread * 0.4
+            base = CM.candle_light(cx.t, seed, base=(sx, sy), r=lr * z * (1.0 + 0.85 * spread), sway=2.0 * z)
             CM.finish(f, cx, motes_n=10, light=(base[0], base[1], base[2], base[3] * 1.0), k=lk)
         else:
             CM.finish(f, cx, motes_n=10, light=CM.candle_light(cx.t, seed, base=(W * 0.5, H * 0.5), r=1200.0, sway=6.0))
@@ -1162,12 +1258,13 @@ def k_oda(cx, room="oda1743", variant=None, tod=None, path=None, cams=None, acto
 def draw_extra(ctx, layer):
     """Çağıranın verdiği actors/props (layer='back' → dyn_main; 'front' → dyn_front)."""
     room = ctx.room
-    for d in sorted([a for a in getattr(room, "actors_extra", []) if a.get("layer", "back") == layer], key=lambda q: q.get("y", 0)):
+    lst = room.actors_extra if getattr(room, "actors_extra", None) is not None else room.default_actors()
+    for d in sorted([a for a in lst if a.get("layer", "back") == layer], key=lambda q: q.get("y", 0)):
         x = d["x"]
         if ctx.xa - 700 < x < ctx.xb + 700:
             draw_actor(ctx, d)
     if layer == "back":
-        for d in getattr(room, "props_extra", []):
+        for d in (getattr(room, "props_extra", None) or []):
             if ctx.xa - 300 < d["x"] < ctx.xb + 300:
                 draw_prop(ctx, d)
 
@@ -1578,16 +1675,51 @@ def draw_chair(c, T, x, yb, back_h=270, seat_h=74, w=92, facing=1, col="#6E4524"
 
 
 def sconce(c, T, x, y, s=1.0, side=1):
-    """Duvar şamdanı (demir kol + kap); mum canlı çizilir. (x,y) duvara bağlantı."""
+    """Duvar şamdanı: pirinç arka plaka + S kıvrımlı kol + damla tabla. (x,y) = plaka merkezi. Dönüş: mum tabanı (x,y) — canlı mum buraya çizilir."""
+    pl = skia.Path()
+    pl.addOval(skia.Rect.MakeLTRB(x - 12 * s, y - 24 * s, x + 12 * s, y + 24 * s))
+    FILLP(c, pl, "#B8903A", 255, 1.2, 200, shader=LGP((x - 12 * s, y - 24 * s), (x + 12 * s, y + 24 * s), [("#F0D27A", 0.0), ("#B8903A", 0.5), ("#6A4E1A", 1.0)]))
+    c.drawCircle(x, y - 10 * s, 2.6 * s, PT("#3A2A12"))
+    c.drawCircle(x, y + 10 * s, 2.6 * s, PT("#3A2A12"))
+    ex, ey = x + side * 40 * s, y + 20 * s
     p = skia.Path()
-    p.moveTo(x, y)
-    p.cubicTo(x + side * 20 * s, y - 6 * s, x + side * 34 * s, y + 14 * s, x + side * 40 * s, y + 4 * s)
-    c.drawPath(p, STK("#2A2018", 4.0 * s, 255))
-    c.drawOval(skia.Rect.MakeLTRB(x + side * 40 * s - 14 * s, y + 2 * s, x + side * 40 * s + 14 * s, y + 10 * s), PT("#3A2A1C"))
-    c.drawOval(skia.Rect.MakeLTRB(x + side * 40 * s - 14 * s, y + 2 * s, x + side * 40 * s + 14 * s, y + 10 * s), STK(INK, 1.0, 190))
-    c.drawCircle(x, y, 7 * s, PT("#3A2A1C"))
-    c.drawCircle(x, y, 7 * s, STK(INK, 1.0, 190))
-    return x + side * 40 * s, y + 4 * s
+    p.moveTo(x, y + 2 * s)
+    p.cubicTo(x + side * 8 * s, y + 24 * s, x + side * 30 * s, y - 6 * s, ex, ey)
+    c.drawPath(p, STK("#2A2018", 5.2 * s, 255))
+    c.drawPath(p, STK("#B8903A", 2.2 * s, 255))
+    dish = skia.Path()
+    dish.moveTo(ex - 17 * s, ey)
+    dish.quadTo(ex, ey + 9 * s, ex + 17 * s, ey)
+    dish.quadTo(ex, ey - 4 * s, ex - 17 * s, ey)
+    FILLP(c, dish, "#B8903A", 255, 1.1, 200)
+    c.drawLine(ex, ey + 6 * s, ex, ey + 20 * s, STK("#2A2018", 3.0 * s, 255))
+    return ex, ey
+
+
+def candelabra_floor(c, x, ytop, ybase, col="#1E140C", arms=3, spread=46.0):
+    """Demir yer şamdanı (koyu siluet; ön plan): üç ayaklı taban, boğumlu gövde, kıvrık kollar + kupalar. Dönüş: mum tabanları [(x,y)…]."""
+    R(c, x - 4, ytop + 24, x + 4, ybase, col)
+    for yy in (ytop + 150, ytop + 330, ytop + 470):
+        c.drawOval(skia.Rect.MakeLTRB(x - 12, yy - 9, x + 12, yy + 9), PT(col))
+    for sg in (-1, 0, 1):
+        p = skia.Path()
+        p.moveTo(x, ybase - 34)
+        p.quadTo(x + sg * 30, ybase - 10, x + sg * 46, ybase + 6)
+        c.drawPath(p, STK(col, 6.0, 255))
+    c.drawOval(skia.Rect.MakeLTRB(x - 20, ybase - 40, x + 20, ybase - 24), PT(col))
+    bases = []
+    n = arms
+    for i in range(n):
+        u = (i - (n - 1) / 2) / max(1.0, (n - 1) / 2)
+        bx = x + u * spread
+        by = ytop + 14 + abs(u) * 18
+        p = skia.Path()
+        p.moveTo(x, ytop + 52)
+        p.cubicTo(x + u * 8, ytop + 52, bx - u * 4, ytop + 44 + abs(u) * 10, bx, by + 8)
+        c.drawPath(p, STK(col, 4.6, 255))
+        c.drawOval(skia.Rect.MakeLTRB(bx - 13, by + 6, bx + 13, by + 15), PT(col))
+        bases.append((bx, by + 8))
+    return bases
 
 
 @functools.lru_cache(maxsize=32)
@@ -1702,8 +1834,8 @@ class Oda1743(Room):
             draw_crucifix(c, T, wx(800), 262, 1.0) if False else None
         if _vis(wx(1420), 180, xa, xb):
             draw_tapestry(c, T, wx(1420), 178, 250, 310, seed=3, field="#2F5A5A", accent="#8E2A30")
-        if _vis(wx(1660), 60, xa, xb):
-            sconce(c, T, wx(1660), 330, 1.0, 1)
+        if _vis(wx(1660), 80, xa, xb):
+            sconce(c, T, wx(1660), 300, 1.1, 1)
         if _vis(wx(2150), 100, xa, xb):
             draw_arms(c, T, wx(2150), 208, 1.0)
         if _vis(wx(2560), 70, xa, xb):
@@ -1733,19 +1865,8 @@ class Oda1743(Room):
         c, T = fr.c, self.T
         fx = lambda x: W / 2 + (x - W / 2) * F_FG
         x = fx(1560)
-        if _vis(x, 60, xa, xb):
-            # yüksek demir şamdan siluet (ön plan, koyu)
-            col = "#1E140C"
-            R(c, x - 4, 330, x + 4, 880, col)
-            c.drawOval(skia.Rect.MakeLTRB(x - 36, 862, x + 36, 892), PT(col))
-            for yy in (500, 700):
-                c.drawOval(skia.Rect.MakeLTRB(x - 11, yy - 8, x + 11, yy + 8), PT(col))
-            p = skia.Path()
-            p.moveTo(x - 46, 322)
-            p.quadTo(x - 46, 346, x, 348)
-            p.quadTo(x + 46, 346, x + 46, 322)
-            c.drawPath(p, STK(col, 5.0, 255))
-            R(c, x - 3, 308, x + 3, 330, "#2A1E14")
+        if _vis(x, 90, xa, xb):
+            candelabra_floor(c, x, 300, 878, "#1E140C", 3, 48.0)
 
     # ── canlı katmanlar ─────────────────────────────────────────────────
     def dyn_wall(self, ctx):
@@ -1753,12 +1874,13 @@ class Oda1743(Room):
         night = ctx.tod == "night"
         wx = self.wx
         if ctx.tod in ("day", "dusk"):
-            window_light(f, wx(1010), 232, 170, 300, t, dx=-330 if False else 300, y_floor=Y_FL + 40, a=0.17 if ctx.tod == "day" else 0.12, seed=3, patch=False, dust=16, night=False, part="shaft")
+            window_light(f, wx(1010), 232, 170, 300, t, dx=-330 if False else 300, y_floor=Y_FL + 40, a=0.23 if ctx.tod == "day" else 0.14, seed=3, patch=False, dust=16, night=False, part="shaft")
         elif night:
             window_light(f, wx(1010), 232, 170, 300, t, dx=260, y_floor=Y_FL + 40, a=0.10, seed=3, patch=False, dust=6, night=True, part="shaft")
         # duvar şamdanı mumu
-        sx, sy = wx(1660) + 40, 334
-        candle(f, sx, sy, 46, t, seed=4.7, holder=False, wax="#EAE0C4", lit=1.0 if night or ctx.tod == "dusk" else 0.0, smoke=False, halo=0.9)
+        if _vis(wx(1660), 120, ctx.xa, ctx.xb):
+            sx, sy = wx(1660) + 44, 300 + 22
+            candle(f, sx, sy, 54, t, seed=4.7, holder=False, wax="#EAE0C4", lit=1.0 if night or ctx.tod == "dusk" else 0.0, smoke=night, halo=0.9)
 
     def _fig_state(self, ctx):
         fig = ctx.opts.get("figure", "seated")
@@ -1782,7 +1904,7 @@ class Oda1743(Room):
         # yatan siluet
         if fig in ("lying", "both"):
             px, py = getattr(self, "pillow", (self.BX0 + 68, self.BYB - 156))
-            lying_sil(f, px + 8, py + 2, t, 1.0, color="#1A1008", rim="#E8A860" if night else "#C79A5A", rim_dir=1)
+            lying_sil(f, px + 8, py + 10, t, 1.0, color="#1A1008", rim="#E8A860" if night else "#C79A5A", rim_dir=1)
         # masa tablası + eşyalar
         table_top(c, g, T, self.CLOTH)
         dxx, dyy = self.doc_xy
@@ -1839,7 +1961,9 @@ class Oda1743(Room):
         fx = lambda x: W / 2 + (x - W / 2) * F_FG
         # şamdan mumu (ön plan; koyu siluet üstünde küçük alev)
         night = ctx.tod != "day"
-        candle(f, fx(1560), 310, 38, t, seed=8.8, holder=False, lit=1.0 if night else 0.0, smoke=False, halo=0.8, wax="#D8CDB0")
+        for i, (bx, by) in enumerate(((fx(1560) - 48, 322), (fx(1560), 314), (fx(1560) + 48, 322))):
+            if _vis(bx, 80, ctx.xa, ctx.xb):
+                candle(f, bx, by + 6, 42, t, seed=8.8 + i * 1.7, holder=False, lit=1.0 if night else 0.0, smoke=False, halo=0.8, wax="#D8CDB0")
         rs = _RS(44)
         xa, xb = ctx.xa, ctx.xb
         for k in range(14):

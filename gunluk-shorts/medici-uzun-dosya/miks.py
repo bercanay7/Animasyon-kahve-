@@ -16,6 +16,7 @@ t değerleri voice.wav zaman eksenindedir (parça başı = 0).
 
 Zincir
   voice : 80 Hz HPF → sıkıştırıcı (2:1, −24 dBFS, atak 10 ms, bırakma 120 ms) → +1,5 dB @3 kHz → 7 kHz üstü yumuşak kısma + dinamik de-ess
+          → konuşma-yalnız tepe sınırlayıcı (tavan −6,8 dBTP; master limiter'ın müzik yatağını konuşma tepeleriyle "nefes aldırmasını" önler)
   müzik : muzik.render_music (ham, −27,5 dBFS RMS; kesit/çıpa/kapılar) → 300 Hz–3 kHz arası −3 dB çukur → konuşmaya duyarlı ducking: konuşma−müzik farkı
           [SNR_TARGET, SNR_HI] = [20, 24] dB aralığına kapalı döngüyle çekilir (Şarlken: ≥14 dB) → bölüm kartı/başlık boşluğunda +9 dB yükseliş;
           müziğin sustuğu (kapı) pencereler seviyelemeye katılmaz → sessizlik bölgeleri gerçekten sessiz kalır
@@ -54,6 +55,7 @@ SNR_HI = 24.0                 # bundan fazla fark varsa müzik sınırlı yükse
 MAX_BOOST = 3.0
 MUSIC_EQ = [("peak", 420, -2.87, 1.1), ("peak", 900, -1.59, 1.0), ("peak", 1900, -3.01, 1.1)]   # 300 Hz–3 kHz ≈ −3 dB
 VOICE_EQ = [("peak", 3000, +1.5, 0.9), ("highshelf", 7000, -2.5, 0.7)]
+VOICE_PEAK_DB = -6.8          # konuşma-yalnız tepe sınırlayıcı tavanı (dBTP, master öncesi); master kazancı ≈ +5 dB → mikste ≈ −1,5 dBTP
 BLOOM_DB = 9.0                # boşlukta müzik, konuşma altı seviyesinin +9 dB üstüne çıkar (8–10 dB)
 MIN_GAP_SEC = 1.5             # bundan kısa konuşma araları 'konuşma' sayılır (pompalama yok)
 MUSIC_ACTIVE_DB = -70.0       # müzik kare gücü (dBFS²) bunun altındaysa 'müzik yok' (kapı) sayılır; seviyelemeye katılmaz
@@ -121,7 +123,16 @@ def voice_chain(v):
     mk = float(np.sqrt(p_in / (pout[ain].mean() + 1e-20)))
     x *= mk
     comp["makeup_db"] = float(20 * np.log10(mk))
-    return x.astype(np.float32), dict(compressor=comp, deess=de)
+    # SADECE KONUŞMAYA tepe sınırlayıcı (ileri bakışlı yumuşak): konuşma tepeleri master limiter'a (müzik yatağını da kısan) değil burada ezilir.
+    # Konuşma crest'i ≈14 dB; −14 LUFS'ta tepeler tavanı aşar → master limiter her hecede müziği "nefes aldırırdı". RMS makyajla geri eşitlenir.
+    y2, grl = D.limiter(np.stack([x, x], axis=1).astype(np.float32), VOICE_PEAK_DB, 0.005, 0.080)
+    x = y2[:, 0].astype(np.float64)
+    pl = frame_power(x)
+    dl = float(np.sqrt(p_in / (pl[ain].mean() + 1e-20)))
+    x *= dl
+    lim = dict(ceiling_db=VOICE_PEAK_DB, gr_max=float(-grl.min()), frac_gt1=float(np.mean(grl < -1.0)), frac_gt3=float(np.mean(grl < -3.0)),
+               makeup_db=float(20 * np.log10(dl)))
+    return x.astype(np.float32), dict(compressor=comp, deess=de, limiter=lim)
 
 
 # ═══════════════════════════ konuşma analizi ═══════════════════════════
@@ -929,6 +940,8 @@ def write_report(c):
     cc = vinfo["compressor"]
     P(f"  HPF 80 Hz; sıkıştırıcı 2:1 / −24 dBFS / 10 ms / 120 ms (maks. azaltma {cc['max_gr']:.1f} dB, aktifken ort. {cc['mean_gr_active']:.1f} dB, süre %{cc['frac_active'] * 100:.1f}); makyaj kazancı {cc['makeup_db']:+.1f} dB (ham ses düzeyine);")
     P(f"  +1,5 dB @3 kHz presence; 7 kHz üstü yüksek raf −2,5 dB + dinamik de-ess (5,2–9,8 kHz; eşik {vinfo['deess']['thr_db']:.1f} dB, maks. {vinfo['deess']['max_gr']:.1f} dB)")
+    lm = vinfo["limiter"]
+    P(f"  konuşma-yalnız tepe sınırlayıcı: tavan {lm['ceiling_db']:.1f} dBTP (master öncesi), 5 ms ileri bakış / 80 ms bırakma; maks. azaltma {lm['gr_max']:.1f} dB, >1 dB %{lm['frac_gt1'] * 100:.1f}, >3 dB %{lm['frac_gt3'] * 100:.2f}; RMS makyajı {lm['makeup_db']:+.2f} dB")
     P("")
     P("[7] MÜZİK KESİTLERİ (ham bant; bölüm/kesit başına karakter)")
     P("  kesit    ruh       mod         bpm  ölçü  başlangıç  bitiş    uzunluk  (bölüm süresi)  çapraz geçiş (giriş/çıkış)  ön-kazanç  snr_bias  olay/tema/kapı")
