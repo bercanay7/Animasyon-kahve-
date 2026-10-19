@@ -48,9 +48,9 @@ SHOTS = [
                 L.icon("question", 190, 300, 120, ("c15s3", "gösteremiyoruz.", -0.5), glow=0.3, bob=4)),
          tr=("dip", 0.9), link="light", label="söylenti ipleri; turta anekdot; ilk anlatıcı yok"),
     # ── 5. Dört yüzyıllık ölçek: 1587 → 2006 · 2010 · 2026 ───────────────────────────────────────
-    shot("p7_timeline", ("c15s4", -0.1), mode="night", a0=1580, a1=2030, step=50, title="DÖRT YÜZYIL", at=("c15s4", -0.1), cam=("pan", "r", 150),
-         events=[(1587, "EKİM 1587", ("c15s4", 0.0)), (2006, "ARSENİK", ("c15s4", "2006'da", -0.1), "ochre"), (2010, "SITMA ANTİJENİ", ("c15s4", "2010'da", -0.1), "ochre"), (2026, "SITMA DNA'sı", ("c15s5", "2026'da", -0.1), "lapis")],
-         tr=("slide", 0.9, dict(dir="r")), link="dir", label="1587 ———— 2006 · 2010 · 2026"),
+    shot("c15_cetvel", ("c15s4", -0.1), mode="night", a0=("c15s4", -0.1), a_br=("c15s4", 0.2), a06=("c15s4", "2006'da", -0.15), a10=("c15s4", "2010'da", -0.1), a26=("c15s5", "2026'da", -0.1),
+         cam=[(("c15s4", -0.1), look(720, 560, 1.0)), (("c15s4", "2006'da", -0.1), look(1000, 560, 1.12)), (("c15s5", "2026'da", -0.2), look(1230, 560, 1.28))],
+         tr=("slide", 0.9, dict(dir="r")), link="dir", label="1587 ····· dört yüzyıl ····· 2006 · 2010 · 2026"),
     # ── 6. 2026: üç numune, iki parazit DNA'sı ───────────────────────────────────────────────────
     shot("c15_dna", ("c15s5", "Francesco'nun", -0.2), mode="night", vials_at=("c15s5", "Francesco'nun", 0.0), three_at=("c15s5", "üç", -0.1), helix_at=("c15s5", "örneklerde", 0.0), two_at=("c15s5", "iki", -0.1),
          cam=("push", 0.07), tr=("zoomthru", 0.9, dict(at=(1726, 560), at_b=(1060, 540))), link="scale", label="DNA: üç numune, iki parazit"),
@@ -77,7 +77,7 @@ SHOTS = [
     shot("p7_liman", ("c15s10", -0.15), mode="day", variant="livorno", year=1598, delegation=dict(side="osmanli", n=5, t0=("c15s10", "elçisi", -0.2)), cam=("push", 0.07),
          ovl=ov(L.tag("SULTAN III. MEHMED'İN MEKTUPLARI", 960, 150, ("c15s10", "mektuplarını", -0.15), size=34, w=900, out=("c15s10", "Mustafa", 0.0)),
                 L.tag("MUSTAFA AĞA", 1480, 330, ("c15s10", "Mustafa", -0.1), size=36, sub="OSMANLI ELÇİSİ", w=460),
-                L.stamp("BAŞARISIZLIKLA BİTTİ", 1380, 560, ("c15s10", "başarısızlıkla", -0.2), size=44, rot=-0.06)),
+                L.stamp("BAŞARISIZLIKLA BİTTİ", 1400, 820, ("c15s10", "başarısızlıkla", -0.2), size=44, rot=-0.06)),
          tr=("slide", 0.9, dict(dir="r")), link="dir", label="Mustafa Ağa'nın gelişi (saygılı)"),
     # ── 13. Fahreddin: 1608 antlaşması, sığınma güvencesi (yazılır) ───────────────────────────────
     shot("p7_map", ("c15s11", -0.1), mode="day", approx=False, cam=("push", 0.07),
@@ -120,7 +120,7 @@ SHOTS = [
                  dict(kind="asker", x=850, y=884, h=300, sil=True, prop="halberd", walk=(1200, 140), walk_at=("c15s17", "birlikleri", -0.7), seed=9, dir=1)],
          cam=("push", 0.07),
          ovl=ov(L.date_plate("9 TEMMUZ 1737", ("c15s17", "9", -0.1), out=("c15s17", "çünkü", 0.0)),
-                L.tag("«non era già più sovrano del suo stato»", 960, 140, ("c15s17", "hükümdarı", -0.3), size=34, w=1160, sub="artık kendi devletinin hükümdarı değildi (çeviri bize ait)"),
+                L.tag("«non era già più sovrano del suo stato»", 960, 200, ("c15s17", "hükümdarı", -0.3), size=34, w=1160, sub="artık kendi devletinin hükümdarı değildi (çeviri bize ait)"),
                 L.tag("LORRAINE DÜKÜ FRANCIS STEPHEN", 700, 860, ("c15s17", "Lorraine", -0.1), size=32, w=700)),
          tr=("candle", 1.0, dict(at=(960, 500), at_b=(1000, 560))), link="light", label="boş taht odası; yabancı birlikler girer"),
     # ── 20. Viyana'da karar; Floransa'ya yalnızca bir kez ─────────────────────────────────────────

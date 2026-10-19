@@ -565,10 +565,10 @@ def k_hat(cx, lit_at=0.0, out_at=1.6, out_dt=0.34, woman_at=3.4, doc_at=4.6, nam
         ti = to + i * out_dt
         lit = (1.0 - ease_in(clamp((t - ti) / 0.8), 1.6)) * kl
         OD.candle(f, xi, 800, 230, t, seed=3 + i * 3, lit=lit, holder=True)
-        wd = sk.text_width(nm, "title_m", 24, 3) + 44
+        wd = sk.text_width(nm, "title_m", 19, 1) + 30
         al = kl * (0.45 + 0.55 * (1.0 if t < ti + 0.3 else 0.0))
-        CM.tablet(f, xi - wd / 2, 830, wd, 60, alpha=al, corner=8)
-        CM.ink(f, nm, xi, 870, face="title_m", size=24, color=TH.fg, align="c", track=3, alpha=al, emboss=False)
+        CM.tablet(f, xi - wd / 2, 830, wd, 52, alpha=al, corner=8)
+        CM.ink(f, nm, xi, 864, face="title_m", size=19, color=TH.fg, align="c", track=1, alpha=al, emboss=False)
     kw = cx.amt(woman_at, 1.0)
     kd = cx.amt(doc_at, 0.8)
     xw = 1750.0
@@ -589,6 +589,86 @@ def k_hat(cx, lit_at=0.0, out_at=1.6, out_dt=0.34, woman_at=3.4, doc_at=4.6, nam
         light = CM.candle_light(t, seed, base=(1000 + 600 * clamp((t - cx.at(woman_at)) / 1.5), 560), r=760.0, sway=6.0)
     cam.end(f)
     CM.finish(f, cx, motes_n=24, light=light, vig_s=0.6)
+    if ovl is not None:
+        ovl(cx)
+
+
+
+# ═══════════════════════════ c15_cetvel: kırık eksen — 1587 ·····(dört yüzyıl)····· 2006 · 2010 · 2026 ═══════════════════════════
+@CM.ckind("c15_cetvel")
+def k_cetvel(cx, a0=0.0, a_br=1.0, a06=1.6, a10=3.2, a26=5.4, seed=5, ovl=None, **_):
+    """Gece cetveli. Sol uçta 1587 (mum sarısı), ortada KOPUK eksen (dört yüzyıllık boşluk, üstünde ayraç), sağ uçta 2006 · 2010 · 2026 yıl başına 20 px ile açılır.
+    Etiketler yalnız script sözcükleri: EKİM 1587, ARSENİK, SITMA ANTİJENİ, SITMA DNA'sı, DÖRT YÜZYIL. DNA katmanı mavi (lapis)."""
+    f = cx.f
+    cam = CM.Cam(cx, push=0.03, drift=(0.0, 0.0))
+    CM.bgfill(f, cx, seed=seed % 3, cam=cam, dress=None)
+    cam.begin(f)
+    c = f.c
+    t = cx.t
+    y = 580.0
+    gold = "#D8B25A"
+    k0 = cx.amt(a0, 0.8)
+
+    def X06(yr):
+        return 1240.0 + (yr - 2006) * 20.0
+    # eksen parçaları
+    gl = P(gold, A(255 * k0))
+    pl = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=5.0, Color=C(gold, A(235 * k0)))
+    c.drawLine(160, y, 560, y, pl)
+    kb = cx.amt(a_br, 1.2)
+    # kopuş işaretleri
+    for xb_ in (590.0, 1110.0):
+        for dx_ in (-9, 9):
+            c.drawLine(xb_ + dx_ - 8, y + 26, xb_ + dx_ + 8, y - 26, S(gold, 3.0, A(220 * k0)))
+    dash = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.0, Color=C(gold, A(120 * kb)),
+                      PathEffect=skia.DashPathEffect.Make([4, 16], 0.0))
+    if kb > 0.003:
+        c.drawLine(630, y, 630 + 440 * ease_out(kb), y, dash)
+    k6 = cx.amt(a06, 0.8)
+    xr1 = 1180.0 + 640.0 * ease_out(clamp((t - cx.at(a06)) / 1.6))
+    if k6 > 0.003:
+        c.drawLine(1140, y, xr1, y, pl)
+        for yr in range(2006, 2031, 5):
+            xx = X06(yr)
+            if xx <= xr1:
+                c.drawLine(xx, y - 11, xx, y + 11, S(gold, 2.4, A(200 * k6)))
+    # 1587 işareti (mum sarısı)
+
+    def marker(x, col, k, up, lab, yr, lab_col, stem=130.0):
+        if k <= 0.003:
+            return
+        L_ = stem * ease_out(k)
+        c.drawLine(x, y, x, y + up * L_, S(gold, 3.0, A(230 * k)))
+        c.drawCircle(x, y, 40 * k, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((x, y), 40 * k + 1, [C(col, A(170 * k)), C(col, 0)], [0, 1])))
+        c.drawCircle(x, y, 15 * k, P(col, A(255 * k)))
+        c.drawCircle(x, y, 15 * k, S("#2A1A0E", 2.0, A(200 * k)))
+        if up > 0:
+            ty_y, ty_l = y + stem + 52, y + stem + 106
+        else:
+            ty_y, ty_l = y - stem - 28, y - stem - 82
+        CM.ink(f, str(yr), x, ty_y, face="title", size=50, color=col, align="c", track=4, alpha=k)
+        CM.ink(f, lab, x, ty_l, face="cap_b", size=38, color=lab_col, align="c", alpha=k)
+    marker(360.0, "#FFD27A", cx.amt(a0, 0.7), 1, "EKİM 1587", 1587, "#F4E9CB")
+    ochre, lapis = "#E0A83A", "#78A4F0"
+    marker(X06(2006), ochre, cx.amt(a06, 0.6), 1, "ARSENİK", 2006, "#F4E9CB")
+    marker(X06(2010), ochre, cx.amt(a10, 0.6), -1, "SITMA ANTİJENİ", 2010, "#F4E9CB")
+    marker(X06(2026), lapis, cx.amt(a26, 0.6), 1, "SITMA DNA'sı", 2026, "#F4E9CB")
+    # üst ayraç: DÖRT YÜZYIL (1587 → 2006)
+    kbr = cx.amt(a06, 1.4)
+    if kbr > 0.003:
+        xa, xb = 360.0, X06(2006)
+        xe = xa + (xb - xa) * ease_out(kbr)
+        yb = y - 150.0
+        pb = S(gold, 3.2, A(235 * kbr))
+        c.drawLine(xa, yb, xe, yb, pb)
+        c.drawLine(xa, yb, xa, yb + 34, pb)
+        if kbr > 0.97:
+            c.drawLine(xb, yb, xb, yb + 34, pb)
+        ka2 = clamp((kbr - 0.35) / 0.5)
+        CM.ink(f, "DÖRT YÜZYIL", (xa + xb) / 2, yb - 40, face="title", size=64, color="#EDB968", align="c", track=10, alpha=ka2)
+    light = CM.candle_light(t, seed, base=(900, 620), r=1100.0, sway=5.0)
+    cam.end(f)
+    CM.finish(f, cx, motes_n=20, light=light, vig_s=0.55)
     if ovl is not None:
         ovl(cx)
 

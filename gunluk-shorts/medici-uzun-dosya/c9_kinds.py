@@ -86,10 +86,14 @@ def k_defter(cx, phase="thin", thin_at=None, thin_dur=2.6, close_at=None, snuff_
         T = lerp(124.0, 22.0, k)
     else:
         T = 52.0
-    # kapak (deri) — alt kenarda görünen
-    c.drawRoundRect(skia.Rect.MakeLTRB(cxs - bw - T - 26, top - 16, cxs + bw + T + 26, top + bh + 24), 14, 14, P("#4A2A18"))
-    c.drawRoundRect(skia.Rect.MakeLTRB(cxs - bw - T - 26, top - 16, cxs + bw + T + 26, top + bh + 24), 14, 14, S("#1E1008", 3.0, 235))
+    # kapak (deri) — alt kenarda görünen (kapanırken sağ yarı sola devrilir)
+    sxp0 = math.cos(closing * math.pi)
+    rbase = cxs + (bw + T + 26) * max(sxp0, 0.0)
+    c.drawRoundRect(skia.Rect.MakeLTRB(cxs - bw - T - 26, top - 16, rbase, top + bh + 24), 14, 14, P("#4A2A18"))
+    c.drawRoundRect(skia.Rect.MakeLTRB(cxs - bw - T - 26, top - 16, rbase, top + bh + 24), 14, 14, S("#1E1008", 3.0, 235))
     for sg in (-1, 1):
+        if sg > 0 and sxp0 <= 0.02:
+            continue
         # sayfa yığını (kenar çizgileri)
         xo = cxs + sg * bw
         n = 18
@@ -921,13 +925,16 @@ def bronze_fig(c, x, y, h, kind="david", a=255, lit=1.0, t=0.0):
         poly([(-0.135, -0.915), (0.135, -0.915), (0.07, -0.935), (-0.07, -0.935)])       # geniş şapka kenarı
         poly([(-0.05, -0.935), (0.05, -0.935), (0.03, -0.985), (-0.03, -0.985)])
     else:
-        poly([(-0.15, 0.0), (0.15, 0.0), (0.095, -0.62), (-0.095, -0.62)])
-        poly([(-0.095, -0.62), (0.095, -0.62), (0.075, -0.80), (-0.075, -0.80)])
-        limb((0.075, -0.78), (0.03, -0.64), 0.04)
-        limb((-0.075, -0.78), (-0.03, -0.66), 0.04)
-        c.drawCircle(x, y - 0.87 * h, 0.058 * h, pt)
-        c.drawCircle(x, y - 0.87 * h, 0.058 * h, S(edge, max(1.6, h * 0.012), int(a * 0.9)))
-        poly([(-0.07, -0.90), (0.07, -0.90), (0.10, -0.78), (-0.10, -0.78)])               # örtü
+        poly([(-0.16, 0.0), (0.16, 0.0), (0.075, -0.58), (-0.075, -0.58)])                 # etek (kıvrımlı)
+        c.drawLine(x - 0.05 * h, y - 0.05 * h, x - 0.02 * h, y - 0.52 * h, S(edge, max(1.4, h * 0.008), int(a * 0.55)))
+        c.drawLine(x + 0.05 * h, y - 0.05 * h, x + 0.02 * h, y - 0.52 * h, S(edge, max(1.4, h * 0.008), int(a * 0.55)))
+        poly([(-0.075, -0.58), (0.075, -0.58), (0.088, -0.78), (-0.088, -0.78)])           # gövde + omuz
+        poly([(-0.09, -0.60), (0.09, -0.60), (0.09, -0.625), (-0.09, -0.625)])             # kemer
+        limb((-0.088, -0.77), (-0.105, -0.50), 0.042)
+        limb((0.088, -0.77), (0.105, -0.50), 0.042)
+        c.drawCircle(x, y - 0.855 * h, 0.052 * h, pt)
+        c.drawCircle(x, y - 0.855 * h, 0.052 * h, S(edge, max(1.6, h * 0.012), int(a * 0.9)))
+        poly([(-0.062, -0.89), (0.062, -0.89), (0.118, -0.73), (-0.118, -0.73)])           # örtü
     # kenar parıltısı
     if lit > 0.2:
         c.drawLine(x - h * 0.04, y - 0.80 * h, x - h * 0.05, y - 0.50 * h, S("#FFF0C0", max(1.5, h * 0.012), int(a * 0.55 * lit)))
@@ -981,7 +988,7 @@ def k_saray(cx, phase="el", ovl=None, seed=21, **_):
         CM.bgfill(f, cx, seed=seed % 3, cam=cam, dress=None)
         cam.begin(f)
         # arka duvar + kemerler
-        kw = cx.amt(("c9s26", "bronzları", -0.3), 1.6)
+        kw = cx.amt(("c9s26", "ama", -0.15), 1.5)
         T = CT.Tint("day")
         SE.stone_wall(c, -200, 120, 2120, 860, "#B8A27A", T, 0.0, seed, ch=62.0, bw=(110.0, 190.0), rustic=True)
         for xc_ in (360.0, 960.0, 1560.0):
@@ -1014,7 +1021,7 @@ def k_saray(cx, phase="el", ovl=None, seed=21, **_):
         cam.end(f)
         light = None
         if not TH.day:
-            light = CM.candle_light(t, seed, base=(lerp(1700.0, 960.0, kw), 520.0), r=lerp(900.0, 1700.0, kw), sway=10.0)
+            light = CM.candle_light(t, seed, base=(lerp(1300.0, 960.0, kw), 520.0), r=lerp(1250.0, 1800.0, kw), sway=10.0)
         CM.finish(f, cx, motes_n=18, light=light)
         # sönük (kapanan) banka için soğuk örtü: kw küçükken ekran hafif lacivert
         if ovl is not None:

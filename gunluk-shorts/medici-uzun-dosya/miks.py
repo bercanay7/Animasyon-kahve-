@@ -360,7 +360,7 @@ def apply_curve(x, G_db, sr=SR):
 
 # ═══════════════════════════ SFX bus ═══════════════════════════
 def default_sfx_cues(chapters, tail, part):
-    """Varsayılan cue'lar: c0 parçadaysa (P1) c0 sonunda title_hit (c0 t1 + 0,4 sn; c1 kartı = ana başlık, stinger yok); her bölüm kartında (parçanın 2. bölümünden
+    """Varsayılan cue'lar: c0 parçadaysa (P1) c0 sonunda title_hit (c0 t1 + muzik.TITLE_DELAY ≈ 2,8 sn: başlık yaldızı belirdiğinde, kart aralığı 6,5 sn; c1 kartı = ana başlık, stinger yok); her bölüm kartında (parçanın 2. bölümünden
     itibaren) chapter_stinger — GELEN bölümün perde rengine göre (altin c0–c6 / bedel c7–c11 / miras c12–c16), bölümün ana sesine akortlu.
     Parçanın ilk bölümünde kart yoktur (t=0'da doğrudan açılır; 1,2–4,8 sn parça başlığı bindirmesi görüntüde, ses tasarımı müzikte)."""
     import muzik

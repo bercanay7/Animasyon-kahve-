@@ -54,7 +54,7 @@
    "aykiri_hiz": [],
    "akustik_suphe": [
     [
-     113.41,
+     116.91,
      -3.0,
      "yaklaşık 3,5 gram ağırlığında",
      "yaklaşık üç buçuk gram ağırlığında,"
@@ -64,7 +64,7 @@
     {
      "tok": 337,
      "kelime": "Roma'da",
-     "t": 296.139,
+     "t": 299.639,
      "onceki": "pay aldı.",
      "sonraki": "Vyeri di",
      "asr": "babasının mütevazı mirasından küçük bir pay aldı."
@@ -117,20 +117,20 @@
    "celiski": 0,
    "aykiri_hiz": [
     [
-     347.18,
+     350.68,
      9.7,
      "Cambio'daydı"
     ]
    ],
    "akustik_suphe": [
     [
-     347.18,
+     350.68,
      -3.9,
      "Cambio'daydı",
      "Çözüm, kambiyodaydı."
     ],
     [
-     576.8,
+     580.3,
      -3.3,
      "Ama o kalem",
      "Ama o kalem,"
@@ -140,7 +140,7 @@
     {
      "tok": 0,
      "kelime": "Çözüm,",
-     "t": 347.179,
+     "t": 350.679,
      "onceki": "",
      "sonraki": "kambiyodaydı. Kilise",
      "asr": "Cambio'daydı"
@@ -694,6 +694,6 @@
   "cumle_t1_durakta": 84,
   "seste_olmayan_sozcuk": 2
  },
- "scribe_md5": "03f9a2032155ce03ad5ef508e51c087c",
- "uretim": "2026-10-19 00:44:17"
+ "scribe_md5": "818d68cdffa6dddb8d9911ffc8ab8d44",
+ "uretim": "2026-10-19 05:56:46"
 }

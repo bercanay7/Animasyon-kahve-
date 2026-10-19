@@ -16,7 +16,7 @@ Yapı        : her bölüm için 'cue' (bölüm + 3 sn kart + yarım çapraz ge�
               ses yamalanınca (geçici Piper → ElevenLabs) çıpalar yeni zamanlara göre YENİDEN ÇÖZÜLÜR; çözülemeyen çıpa varsayılan u'ya düşer.
 Parça       : 7 yayın parçası (script.PARTS: P1=c0–c2 · P2=c3–c5 · P3=c6–c7 · P4=c8–c9 · P5=c10–c11 · P6=c12–c13 · P7=c14–c16; ≈10 dk), her parça AYRI
               üretilir: MEDICI_PART=1..7 → out_pN/ (voice_chapters.json, timeline.json). Parçanın ilk bölümü t=0'da açılır (P1: c0 sonunda ana başlık
-              vuruşu = c0 t1 + 0,4 sn; P2…P7: bölüm kartı yok, ilk çekimde 1,2–4,8 sn başlık bindirmesi); P1…P6 sonu "SIRADAKİ PARÇA" ekranı için 7 sn
+              vuruşu = c0 t1 + 2,8 sn, c0→c1 kartı 6,5 sn: müzik kart boyunca yataklı sürer; P2…P7: bölüm kartı yok, ilk çekimde 1,2–4,8 sn başlık bindirmesi); P1…P6 sonu "SIRADAKİ PARÇA" ekranı için 7 sn
               çözülme (varsayılan 'dissolve'; bölüm özel kapanış: spec'te end_kind — c11 'p2' çözülmeyen sus4, c16 'p3' çözülüş), P7 sonu "TÜM FİLM" +
               çözülüp söner. Parça sınırları BU DOSYADA sabit değildir: script.PARTS okunur (yoksa aşağıdaki PARTS_FALLBACK).
 Reverb      : algoritmik salon IR'ı (RT60≈2,2 sn) + scipy.signal.fftconvolve.
@@ -1272,7 +1272,7 @@ XFADE = {   # (önceki bölüm, sonraki bölüm): çapraz geçiş süresi (sn); 
     ("c6", "c7"): 5.0, ("c7", "c8"): 5.0, ("c8", "c9"): 6.0, ("c9", "c10"): 5.0, ("c10", "c11"): 6.0,
     ("c12", "c13"): 6.0, ("c13", "c14"): 5.0, ("c14", "c15"): 6.0, ("c15", "c16"): 7.0,
 }
-TITLE_DELAY = 0.4        # P1 ana başlık vuruşu: c0 t1 + 0,4 sn
+TITLE_DELAY = 2.8        # P1 ana başlık vuruşu: c0 t1 + 2,8 sn (c0→c1 kart aralığı 6,5 sn; fresk paneli açılır, yaldız başlık ≈2,6 sn'de belirir); hazırlık (yükseliş) kart aralığında sürer
 TARGET_RMS_DB = -27.5    # ducking ÖNCESİ müzik bandının ortalama RMS hedefi (dBFS)
 FINAL_FADE = 3.4         # parça sonunda son çıkış sönümü (sn)
 
@@ -1435,7 +1435,7 @@ def build_cue(seg, tail, seed=0):
         layer_events(c, spec["events"])
     for (a, b, lead, rel, floor_db, _note) in spec.get("_gates", []):
         c.add_gate(a, b, lead=lead, rel=rel, floor_db=floor_db)
-    fin = spec.get("finale")                              # "c0": P1 ana başlık vuruşu (c0 t1 + 0,4 sn)
+    fin = spec.get("finale")                              # "c0": P1 ana başlık vuruşu (c0 t1 + TITLE_DELAY = 2,8 sn)
     if fin is None and seg["final"]:                      # parçanın son kesiti: 7 sn'lik 'SIRADAKİ PARÇA' / 'TÜM FİLM' süresince çözülme
         fin = spec.get("end_kind", "dissolve")
     junction_pads(c, spec.get("pad_db", -1.0), start=xin > 0, end=(xout > 0 and fin != "c0"))

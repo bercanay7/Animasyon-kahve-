@@ -10,7 +10,7 @@ import c8_kinds as K8
 import c9_kinds as K
 look = L.look
 
-OUTRO_TR = ("candle", 1.2, dict(at=(960, 540), at_b=(960, 540)))
+OUTRO_TR = ("candle", 1.2, dict(at=(1500, 720), at_b=(960, 700)))
 
 SHOTS = [
     # ── 1. Lorenzo'nun parlayan Floransa'sı: Duomo yürüyüşünden bankacının masasına kayış ───────────────────────
@@ -213,10 +213,11 @@ SHOTS = [
          cams=[(("c9s28", -0.25), (10.2, 44.4, 3.2)), (("c9s28", "kralın", 0.0), (8.6, 45.0, 3.8)), (("c9s28", "rahibin", -0.2), (10.6, 44.2, 4.3))],
          cities=[dict(lon=11.2558, lat=43.7696, name="FLORANSA", kind="capital", at=("c9s28", "Medici'yi", -0.2), size=32, side="b", color="#FFD27A")],
          icons_=[dict(kind="mountain", lon=7.4, lat=45.7, size=120, at=("c9s28", "Alpler'i", -0.4), metal="silver"), dict(kind="mountain", lon=9.0, lat=46.3, size=100, at=("c9s28", "Alpler'i", -0.2), metal="silver"),
-                 dict(kind="monk", lon=11.2558, lat=43.62, size=108, at=("c9s28", "rahibin", -0.15), metal="gold")],
+                 dict(kind="monk", lon=11.2558, lat=43.62, size=108, at=("c9s28", "rahibin", -0.15), metal="gold"),
+                 dict(kind="crown", route=[(5.8, 45.2), (6.7, 44.95), (7.7, 45.0), (8.9, 44.7), (10.2, 44.1), (11.1, 43.85)], at=("c9s28", "kralın", -0.1), move_at=("c9s28", "kralın", -0.05), move_dur=2.5, size=132, metal="gold")],
          extra=L.mx(L.mglow(11.2558, 43.7696, ("c9s28", "Medici'yi", -0.2), r=30.0), L.mflag(11.2558, 43.7696, ("c9s28", "Medici'yi", -0.1), color="#8A2018", emblem="palle", h=96.0, w=58.0, out=("c9s28", "sürgüne", 0.3)),
                     L.marrow([(11.2558, 43.9), (10.2, 44.4), (9.0, 44.9)], ("c9s28", "sürgüne", 0.0), dur=1.2, color="#C95A40", width=7.0, dash=(18, 12)),
-                    L.mbadge([(5.8, 45.2), (6.7, 44.95), (7.7, 45.0), (8.9, 44.7), (10.2, 44.1), (11.2, 43.8)], ("c9s28", "kralın", -0.1), dur=2.6, size=60.0),
+                    
                     L.mimpact(11.2558, 43.77, ("c9s28", "vaazlarıyla.", -0.9), dur=2.2, color="#E8B060", n=4)),
          ovl=L.ov(L.date_plate("KASIM 1494", ("c9s28", "Medici'yi", -0.2), out=("c9s28", "kralın", 0.0)), L.dim(("c9s28", "vaazlarıyla.", 0.3), alpha=0.42, dur=1.2)),
          tr=("iris", 1.0, dict(obj="palle", at=(960, 535), r=130)), link="shape", label="KAPI: kral Alpler'i aşar, rahip vaaz verir"),
