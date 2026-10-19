@@ -6,7 +6,7 @@ P1=c0–c2 · P2=c3–c5 · P3=c6–c7 · P4=c8–c9 · P5=c10–c11 · P6=c12�
     MEDICI_PART=2 python3 miks_kur.py                  # final miks → out_p2/mix_audio.m4a (+ stem'ler); geçici ses varsa DURUR
     MEDICI_PART=2 python3 miks_kur.py --onizleme       # geçici (Piper) ses ya da eksik bölüm: ONIZLEME_ önekiyle; final adıyla YAZILMAZ
     MEDICI_PART=2 python3 miks_kur.py --onizleme --preview      # + out_p2/ses_onizleme/*.mp3 (20–30 sn kesitler)
-    MEDICI_PART=2 python3 miks_kur.py --kontrol        # yalnız girdi tutarlılığı denetimi
+    MEDICI_PART=2 python3 miks_kur.py --kontrol        # yalnız girdi tutarlılığı: dosyalar, süre, bölüm dizilimi, parça dışı bölüm, geçici ses + sfx_cues ve müzik (CUES) çıpalarının çizelgede çözülmesi
     MEDICI_PART=2 python3 miks_kur.py --gecis-sesleri  # önce görüntü motorundan (compose.Program) geçişleri okuyup out_p2/sfx_gecis.json üretir, sonra miks
     MEDICI_PART=2 python3 miks_kur.py --sadece-gecis   # yalnız out_p2/sfx_gecis.json üret
     (--fresh: müzik önbelleğini yok say · --snr 20,24: konuşma−müzik penceresi · --workers N: en çok 1 (paylaşımlı makine) · --no-gecis / --no-stinger · --no-stems)

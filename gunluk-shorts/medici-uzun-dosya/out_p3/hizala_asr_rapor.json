@@ -1,0 +1,608 @@
+{
+ "bolumler": {
+  "c6": {
+   "jeton": 432,
+   "jeton_eslesen": 419,
+   "jeton_oran": 0.9699,
+   "asr_sozcuk": 437,
+   "asr_eslesen": 418,
+   "asr_oran": 0.9565,
+   "kosu": 58,
+   "kanitli_kosu": 57,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 1,
+   "hmm_kosu": 58,
+   "model": {
+    "hece": 0.1316,
+    "soz": 0.1144,
+    "sabit": 0.0765,
+    "sigma": 0.314
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [
+    [
+     34.28,
+     -3.8,
+     "İLKAR",
+     "İki Aralık"
+    ],
+    [
+     165.0,
+     -3.6,
+     "Aydabestukat",
+     "ayda beş dukat."
+    ]
+   ],
+   "eksik_sozcuk": [],
+   "eslesmeyen_bolgeler": [
+    [
+     66,
+     68,
+     "İki Aralık"
+    ],
+    [
+     308,
+     310,
+     "kırıp diş"
+    ],
+    [
+     319,
+     321,
+     "ayda beş"
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -17.092266513124613,
+    "thr": -51.09226651312461,
+    "n_ham": 60,
+    "n_gurultu": 0,
+    "n_parca": 2,
+    "n_bolunen": 0
+   }
+  },
+  "c7": {
+   "jeton": 603,
+   "jeton_eslesen": 587,
+   "jeton_oran": 0.9735,
+   "asr_sozcuk": 620,
+   "asr_eslesen": 586,
+   "asr_oran": 0.9452,
+   "kosu": 80,
+   "kanitli_kosu": 79,
+   "bos_kosu": 1,
+   "kanitsiz_kosu": 1,
+   "hmm_kosu": 78,
+   "model": {
+    "hece": 0.1269,
+    "soz": 0.1154,
+    "sabit": 0.1295,
+    "sigma": 0.259
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [
+    [
+     352.65,
+     -3.6,
+     "düştü.",
+     "düştü."
+    ],
+    [
+     498.31,
+     -4.0,
+     "Roma",
+     "Roma,"
+    ]
+   ],
+   "eksik_sozcuk": [
+    {
+     "tok": 74,
+     "kelime": "gittiği",
+     "t": 262.279,
+     "onceki": "aynı yoldan",
+     "sonraki": "yazılır. Lorentso,",
+     "asr": "2 yıl sonra şap tekelinin de aynı yoldan gitti."
+    },
+    {
+     "tok": 293,
+     "kelime": "yattı.",
+     "t": 389.95,
+     "onceki": "dek yerde",
+     "sonraki": "Genç kardinal",
+     "asr": "katedralin papazları gelip toplayana dek yerde yattı."
+    },
+    {
+     "tok": 492,
+     "kelime": "etti;",
+     "t": 502.437,
+     "onceki": "",
+     "sonraki": "gerekçe, bir",
+     "asr": "Gerekçe bir başpırs koposun kilise mahkemesine çıkarılmadan asılmasıydı."
+    }
+   ],
+   "eslesmeyen_bolgeler": [
+    [
+     64,
+     66,
+     "Pattsi'ye verdi;"
+    ],
+    [
+     155,
+     157,
+     "Yakopo de"
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -17.03179824973996,
+    "thr": -51.031798249739964,
+    "n_ham": 83,
+    "n_gurultu": 0,
+    "n_parca": 3,
+    "n_bolunen": 0
+   }
+  }
+ },
+ "uyarilar": [],
+ "cumleler": {
+  "c6s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 2
+  },
+  "c6s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 3,
+   "run_b": 4
+  },
+  "c6s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 5,
+   "run_b": 6
+  },
+  "c6s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 7,
+   "run_b": 7
+  },
+  "c6s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 8,
+   "run_b": 8
+  },
+  "c6s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 9,
+   "run_b": 10
+  },
+  "c6s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 11,
+   "run_b": 12
+  },
+  "c6s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 13,
+   "run_b": 14
+  },
+  "c6s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 15,
+   "run_b": 16
+  },
+  "c6s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 17,
+   "run_b": 18
+  },
+  "c6s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 19,
+   "run_b": 20
+  },
+  "c6s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 21,
+   "run_b": 21
+  },
+  "c6s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 22,
+   "run_b": 23
+  },
+  "c6s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 24,
+   "run_b": 26
+  },
+  "c6s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 27,
+   "run_b": 29
+  },
+  "c6s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 32
+  },
+  "c6s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 33,
+   "run_b": 35
+  },
+  "c6s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 36,
+   "run_b": 37
+  },
+  "c6s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 38,
+   "run_b": 42
+  },
+  "c6s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 43,
+   "run_b": 44
+  },
+  "c6s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 46
+  },
+  "c6s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 47,
+   "run_b": 47
+  },
+  "c6s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 48,
+   "run_b": 49
+  },
+  "c6s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 50,
+   "run_b": 52
+  },
+  "c6s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 53,
+   "run_b": 55
+  },
+  "c6s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 56,
+   "run_b": 56
+  },
+  "c6s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 57,
+   "run_b": 57
+  },
+  "c7s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 0
+  },
+  "c7s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 1,
+   "run_b": 1
+  },
+  "c7s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 2,
+   "run_b": 3
+  },
+  "c7s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 4,
+   "run_b": 6
+  },
+  "c7s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 7,
+   "run_b": 9
+  },
+  "c7s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 10,
+   "run_b": 11
+  },
+  "c7s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 12,
+   "run_b": 13
+  },
+  "c7s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 14,
+   "run_b": 14
+  },
+  "c7s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 15,
+   "run_b": 16
+  },
+  "c7s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 17,
+   "run_b": 18
+  },
+  "c7s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 19,
+   "run_b": 20
+  },
+  "c7s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 21,
+   "run_b": 23
+  },
+  "c7s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 24,
+   "run_b": 25
+  },
+  "c7s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 26,
+   "run_b": 27
+  },
+  "c7s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 28,
+   "run_b": 28
+  },
+  "c7s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 29,
+   "run_b": 29
+  },
+  "c7s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 32
+  },
+  "c7s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 33,
+   "run_b": 34
+  },
+  "c7s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 35
+  },
+  "c7s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 36,
+   "run_b": 36
+  },
+  "c7s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 37,
+   "run_b": 38
+  },
+  "c7s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 39,
+   "run_b": 39
+  },
+  "c7s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 40,
+   "run_b": 41
+  },
+  "c7s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 42,
+   "run_b": 43
+  },
+  "c7s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 45
+  },
+  "c7s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 46,
+   "run_b": 47
+  },
+  "c7s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 48,
+   "run_b": 49
+  },
+  "c7s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 50,
+   "run_b": 50
+  },
+  "c7s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 51,
+   "run_b": 51
+  },
+  "c7s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 52,
+   "run_b": 54
+  },
+  "c7s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 55,
+   "run_b": 55
+  },
+  "c7s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 56,
+   "run_b": 57
+  },
+  "c7s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 58,
+   "run_b": 58
+  },
+  "c7s34": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 59,
+   "run_b": 59
+  },
+  "c7s35": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 60,
+   "run_b": 60
+  },
+  "c7s36": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 61,
+   "run_b": 61
+  },
+  "c7s37": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 62,
+   "run_b": 62
+  },
+  "c7s38": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 63,
+   "run_b": 65
+  },
+  "c7s39": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 66,
+   "run_b": 67
+  },
+  "c7s40": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 68,
+   "run_b": 70
+  },
+  "c7s41": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 71,
+   "run_b": 71
+  },
+  "c7s42": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 72,
+   "run_b": 72
+  },
+  "c7s43": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 73,
+   "run_b": 73
+  },
+  "c7s44": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 74,
+   "run_b": 74
+  },
+  "c7s45": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 75,
+   "run_b": 75
+  },
+  "c7s46": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 76,
+   "run_b": 77
+  },
+  "c7s47": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 78,
+   "run_b": 79
+  }
+ },
+ "toplam": {
+  "jeton": 1035,
+  "jeton_eslesen": 1006,
+  "asr_sozcuk": 1057,
+  "asr_eslesen": 1004,
+  "kosu": 138,
+  "jeton_oran": 0.972,
+  "asr_oran": 0.9499,
+  "cumle": 74,
+  "cumle_t0_durakta": 74,
+  "cumle_t1_durakta": 74,
+  "seste_olmayan_sozcuk": 3
+ },
+ "scribe_md5": "4cb6db3de52800066f32733dcc2ce5b1",
+ "uretim": "2026-10-19 02:03:07"
+}

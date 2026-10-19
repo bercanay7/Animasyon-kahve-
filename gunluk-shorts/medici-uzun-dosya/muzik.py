@@ -2089,7 +2089,7 @@ CUES = {
                                TH("lorenzo", "c6s25", dt=0.4, inst="lute", vel=0.45, stretch=1.45, g=0.9)],
                         events=[STOP(END("c6s19", -0.1), hold=0.8)]),
                    dict(mood="grave", mode="dorian", bpm=54, level_db=-1.0,
-                        arc=[(-1, .22), (0, .24), A("c6s26", .30), A("c6s27", .42), (1.0, .36)],
+                        arc=[(-1, .22), (0, .24), A("c6s26", .30), A("c6s27", .38), (1.0, .26)],            # son: c7'nin sessiz açılışına (arc .16) köprü; kavşak basamağı ≤ 4 dB
                         prog=[[(0, 2, "5"), (6, 2, ""), (3, 2, ""), (0, 2, "sus2")]], b_thr=2.0,
                         drone=dict(lvl=0.8, chunk_bars=4, fifth=True, bright=0.5),
                         choir=dict(inst="organ", stops=STOP_OPEN, lvl=0.45, lo=0.22, hi=0.32, voices=4, attack=0.9),
@@ -2115,7 +2115,7 @@ CUES = {
                         bass=dict(inst="lute", pattern="pedal", lvl=0.7, lo=0.34, hi=0.46),
                         choir=dict(inst="organ", stops=REED, lvl=0.5, lo=0.30, hi=0.44, voices=4, attack=0.7),
                         perc=dict(pattern="heartbeat", lvl=0.8, lo=0.32, hi=0.44, pitch=80, amp=0.7, win=[W("c7s5", END("c7s14", 0.0))]),
-                        theme=[TH("bedel", "c7s1", dt=0.7, inst="gamba", vel=0.7, bend=-30, g=1.0)],
+                        theme=[TH("bedel", "c7s1", dt=0.7, inst="gamba", vel=0.55, bend=-30, g=0.8)],
                         gates=[GATE(("c7s2", 1.0), END("c7s3", -2.0), lead=0.6, rel=2.5, floor_db=None, note="kilise girişi: ayin yankısı + kalabalık uğultusu (SFX), müzik yok"),
                                GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")]),
                    dict(mode="phrygian", level_db=-1.0,

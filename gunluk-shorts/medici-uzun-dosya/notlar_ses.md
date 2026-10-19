@@ -191,18 +191,18 @@ Mevcut kuyruk: 7 dosyada 143 cue (37 farklı ses; parça başına ≈20) (anlat�
 ---
 ## 8. Ölçüm sonuçları
 
-| Parça | Bölümler | Ses | Mix süresi | LUFS (BS.1770 / pyln) | TP wav / m4a (dBTP) | Konuşma−müzik ort. · p5 · en kötü 8 sn (dB) | Duck ort. (dB) | Limiter maks. / >1 dB | Bölüm geçişi 12 sn LUFS · 3 sn basamak (dB) | Kontrol |
+| Parça | Bölümler | Ses | Mix süresi | LUFS (BS.1770 / pyln) | TP wav / m4a (dBTP) | Konuşma−müzik ort. · p5 · en kötü 8 sn (dB) | Duck ort. (dB) | Konuşma limiter >1 dB / master limiter maks. | Bölüm geçişi 12 sn LUFS · 3 sn basamak (dB) | Kontrol |
 |---|---|---|---|---|---|---|---|---|---|---|
-| P1 | c0–c2 | ElevenLabs (gerçek) | 598 sn | -14.00 / -14.04 | -1.80 / -1.52 | 21.7 · 20.0 · 19.4 | -13.5 | 0.9 dB / %0.0 | 0.84 · 3.6 | 17 geçti / 0 kaldı |
-| P2 | c3–c5 | ElevenLabs (gerçek) | 642 sn | -14.00 / -14.04 | -1.80 / -1.41 | 21.5 · 20.0 · 19.4 | -13.9 | 0.8 dB / %0.0 | 1.12 · 3.8 | 16 geçti / 1 kaldı |
+| P1 | c0–c2 | ElevenLabs (gerçek) | 598 sn | -14.00 / -14.04 | -1.80 / -1.52 | 21.7 · 20.0 · 19.4 | -13.5 | %4.5 / 0.9 dB | 0.84 · 3.6 | 17 geçti / 0 kaldı |
+| P2 | c3–c5 | ElevenLabs (gerçek) | 642 sn | -14.00 / -14.04 | -1.80 / -1.48 | 21.5 · 20.0 · 19.4 | -13.9 | %4.9 / 0.8 dB | 1.12 · 3.8 | 16 geçti / 1 kaldı |
 | P3 | c6–c7 | — | (miks henüz alınmadı) | | | | | | | |
 | P4 | c8–c9 | — | (miks henüz alınmadı) | | | | | | | |
 | P5 | c10–c11 | — | (miks henüz alınmadı) | | | | | | | |
 | P6 | c12–c13 | — | (miks henüz alınmadı) | | | | | | | |
 | P7 | c14–c16 | — | (miks henüz alınmadı) | | | | | | | |
 
-- **P1** sessizlik kapıları (müzik ≤ −80 dBFS beklenir): —
-- **P2** sessizlik kapıları (müzik ≤ −80 dBFS beklenir): —; KALAN: ['timeline.json uyumu (cümle içi konuşma ≥ 0,70; cümle arası ≤ 0,10; bölüm sınırı ≤ 0,6 sn)  → 0.835 / 0.145']
+- **P1** müzik kapıları: c1 275–280 sn kısık (-30 dB) → müzik -80.3 dBFS (Ciompi ezildi); müzik çıpaları 76 (çözülemeyen 0)
+- **P2** müzik kapıları: c4 457–458 sn kısık (-18 dB) → müzik -65.1 dBFS (Duvarlar dikilmişti); c5 498–499 sn kısık (-20 dB) → müzik -58.1 dBFS (1453); müzik çıpaları 99 (çözülemeyen 0); KALDI: timeline.json uyumu (cümle içi konuşma ≥ 0,70; cümle arası ≤ 0,10; böl
 
 Kontrol listesi (her `audio_report.txt` [10]): −14 ± 0,5 LUFS · pyloudnorm bağımsız ±0,6 · TP wav ve m4a ≤ −1,0 dBTP · kırpılma 0 · DC < 1e-3 · konuşma−müzik ≥ 19 dB (en kötü 8 sn ≥ 18,5; pencerelerin %80'i [19, 26]) ·
 müzik nominal −24…−28 dBFS · süre = voice + 7 sn · boşluk yükselişi 8–10 dB · 12 sn LUFS sıçraması ≤ 1,5 dB · kavşakta 3 sn pencere basamağı ≤ 4 dB · her sessizlik kapısında müzik ≤ −80 dBFS · timeline uyumu.

@@ -1,0 +1,323 @@
+[
+ {
+  "t": 15.678,
+  "name": "paper_rustle",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 1.6,
+  "loop": false,
+  "params": {},
+  "id": "c8-belge",
+  "ch": "c8"
+ },
+ {
+  "t": 46.958,
+  "name": "coin_pile",
+  "gain_db": -22.0,
+  "pan": 0.2,
+  "seed": 7,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-hazine",
+  "note": "coin yığını boşalır (brif V2)",
+  "ch": "c8"
+ },
+ {
+  "t": 48.47,
+  "name": "knock_wood",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-kasa-kapagi",
+  "note": "ses köprüsü: kasa kapağı V3'e taşar",
+  "ch": "c8"
+ },
+ {
+  "t": 53.267,
+  "name": "sea_waves",
+  "gain_db": -30.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 16.1,
+  "loop": true,
+  "params": {},
+  "fade_in": 1.5,
+  "fade_out": 1.5,
+  "id": "c8-napoli-yolu",
+  "ch": "c8"
+ },
+ {
+  "t": 58.738,
+  "name": "quill_scratch",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 2.6,
+  "loop": false,
+  "params": {},
+  "id": "c8-pisa-mektubu",
+  "ch": "c8"
+ },
+ {
+  "t": 88.767,
+  "name": "water_lap",
+  "gain_db": -31.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 13.38300000000001,
+  "loop": true,
+  "params": {},
+  "fade_in": 1.0,
+  "fade_out": 1.5,
+  "id": "c8-pera",
+  "note": "Pera limanı",
+  "ch": "c8"
+ },
+ {
+  "t": 135.758,
+  "name": "quill_scratch",
+  "gain_db": -25.0,
+  "pan": 0.15,
+  "seed": 0,
+  "dur": 2.8,
+  "loop": false,
+  "params": {},
+  "id": "c8-leonardo",
+  "note": "Leonardo asılı adamı çizdi (kod çizimi; ses yalnız kalem)",
+  "ch": "c8"
+ },
+ {
+  "t": 169.778,
+  "name": "sea_waves",
+  "gain_db": -31.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 9.682000000000016,
+  "loop": true,
+  "params": {},
+  "fade_in": 1.0,
+  "fade_out": 1.5,
+  "id": "c8-otranto-deniz",
+  "ch": "c8"
+ },
+ {
+  "t": 201.648,
+  "name": "knock_metal",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 1.2,
+  "loop": false,
+  "params": {
+   "n_hits": 3
+  },
+  "id": "c8-bertoldo",
+  "ch": "c8"
+ },
+ {
+  "t": 239.567,
+  "name": "candle_snuff",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-isik-1",
+  "ch": "c8"
+ },
+ {
+  "t": 241.067,
+  "name": "candle_snuff",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 2,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-isik-2",
+  "ch": "c8"
+ },
+ {
+  "t": 242.767,
+  "name": "candle_snuff",
+  "gain_db": -29.0,
+  "pan": 0.0,
+  "seed": 3,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-isik-3",
+  "ch": "c8"
+ },
+ {
+  "t": 243.44,
+  "name": "chapter_stinger",
+  "gain_db": -12.5,
+  "pan": 0.0,
+  "seed": 41,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 195.99771799087463,
+   "flavor": "bedel"
+  },
+  "id": "kart-c9",
+  "note": "bölüm kartı c9 (bedel)"
+ },
+ {
+  "t": 244.767,
+  "name": "candle_snuff",
+  "gain_db": -30.0,
+  "pan": 0.0,
+  "seed": 4,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-isik-4",
+  "ch": "c8"
+ },
+ {
+  "t": 247.167,
+  "name": "candle_snuff",
+  "gain_db": -31.0,
+  "pan": 0.0,
+  "seed": 5,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c8-isik-5",
+  "note": "şube ışıkları birer birer söner (lavta notalarıyla eşzamanlı)",
+  "ch": "c8"
+ },
+ {
+  "t": 304.858,
+  "name": "coin_clink",
+  "gain_db": -24.0,
+  "pan": 0.2,
+  "seed": 8,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c9-kredi",
+  "ch": "c9"
+ },
+ {
+  "t": 322.16999999999996,
+  "name": "book_close",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 1.0
+  },
+  "id": "c9-brugge",
+  "ch": "c9"
+ },
+ {
+  "t": 345.48999999999995,
+  "name": "book_close",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 2,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 0.95
+  },
+  "id": "c9-londra",
+  "ch": "c9"
+ },
+ {
+  "t": 346.94,
+  "name": "book_close",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 3,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 0.92
+  },
+  "id": "c9-milano",
+  "ch": "c9"
+ },
+ {
+  "t": 347.83,
+  "name": "book_close",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 4,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 0.88
+  },
+  "id": "c9-avignon",
+  "ch": "c9"
+ },
+ {
+  "t": 348.577,
+  "name": "book_close",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 5,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 0.84
+  },
+  "id": "c9-brugge2",
+  "ch": "c9"
+ },
+ {
+  "t": 349.298,
+  "name": "book_close",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 6,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "pitch": 0.8
+  },
+  "id": "c9-venedik",
+  "ch": "c9"
+ },
+ {
+  "t": 421.29,
+  "name": "crowd_murmur",
+  "gain_db": -29.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 4.9599999999999795,
+  "loop": true,
+  "params": {},
+  "duck_db": -4,
+  "fade_in": 1.0,
+  "fade_out": 1.5,
+  "id": "c9-yagma",
+  "note": "Kalabalık bahçelere daldı (sözsüz; şiddet sesi yok)",
+  "ch": "c9"
+ },
+ {
+  "t": 430.468,
+  "name": "wax_seal_stamp",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c9-kayyum-muhru",
+  "note": "KAYYUM mührü (brif §7)",
+  "ch": "c9"
+ }
+]

@@ -14,7 +14,7 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   master kazancı (toplamdan sonra)          : +4.75 dB
   örnek tepe: -1.81 dBFS ; kırpılan örnek sayısı (|x|≥0,9995): 0
   DC ofset: L -4.01e-04  R -3.99e-04
-  mix_audio.m4a (AAC 192k): 15.4 MB, 598.40 sn; çözülmüş TP -1.52 dBTP; -14.05 LUFS
+  mix_audio.m4a (AAC 192k): 15.5 MB, 598.40 sn; çözülmüş TP -1.52 dBTP; -14.05 LUFS
 
 [2] KONUŞMA / MÜZİK (kendi ölçümüm; konuşma-aktif karelerde ortalama güç)
   konuşma RMS (işlenmiş, ön-master) : -20.2 dBFS   (ham ses -20.2)
@@ -43,8 +43,8 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
    (a) bölümler arası, nihai mikste konuşmalı bölgelerde 12 sn entegre LUFS (önceki sonu → sonraki başı):
          c0→c1      -14.37 →   -13.53   fark +0.84 dB
          c1→c2      -14.51 →   -14.59   fark -0.08 dB
-   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:
-       c0      sınırı @    104.6 sn   basamak (3 sn)   3.3 dB   (1 sn adımı   4.1 dB)
+   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (basamak yeri çapraz geçiş bölgesi ±1,5 sn içinde; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:
+       c0      sınırı @    104.6 sn   basamak (3 sn)   2.5 dB   (1 sn adımı   3.3 dB)
        c1      sınırı @    345.6 sn   basamak (3 sn)   3.6 dB   (1 sn adımı   4.1 dB)
    (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): c0: +0.0/-0.6, c1: +0.6/+1.7, c2: -1.7/+0.0
 
@@ -86,6 +86,7 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   85 cümle; cümle içinde konuşma payı ort. 0.825 (en düşük 0.70); cümle arası aralıkta konuşma payı ort. 0.075 (≈0 beklenir)
   bölüm sınırı kayması (ilk cümle başı − t0 | t1 − son cümle sonu): c0: +0.14/+0.03; c1: +0.17/+0.02; c2: +0.12/+0.12
   tüm bölüm sınırları ≤0,6 sn içinde uyumlu
+  müzik çıpaları (CUES): 76 çıpa, 0 çözülemedi (hepsi cümle/sözcük kimliğine bağlandı)
 
 [10] KONTROL LİSTESİ
   [GEÇTİ] entegre loudness −14 ± 0,5 LUFS  → -14.00
@@ -109,4 +110,4 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
 YENİDEN ÜRETME (tek komut): MEDICI_PART=1 python3 miks_kur.py     (+ --preview ile out_pN/ses_onizleme/ mp3 kesitleri)
   girdiler : out_p1/voice.wav, voice_chapters.json, timeline.json, sfx_cues_p1.json, [out_p1/sfx_gecis.json]
   çıktılar : out_p1/mix_audio.m4a, stem_music|voice|sfx.flac, sfx_cues_used.json, audio_report.txt
-toplam çalışma süresi: 153 sn
+toplam çalışma süresi: 191 sn

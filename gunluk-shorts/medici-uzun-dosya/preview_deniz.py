@@ -41,13 +41,18 @@ WORLD = [
         dict(kind="nao", x0=1750, x1=1250, y=500, scale=0.8, flag="venedik", t0=0.0, t1=12.0, ease="lin")]), 12.0, "day", 1, 12.0),
 ]
 WORLD += [
-    ("filo_inebahti", "deniz_filo", dict(tod="day", n=14, highlight=12, gap=(1700, 420), horizon=292, smoke_at=("") if False else 9.0, smoke_dur=3.5, dim=0.5), 12.0, "day", 3, 12.0),
+    ("filo_inebahti", "deniz_filo", dict(tod="day", n=24, highlight=12, gap=(1700, 420), horizon=292, smoke_at=9.0, smoke_dur=3.5, dim=0.5), 12.0, "day", 3, 12.0),
     ("filo_yogun", "deniz_filo", dict(tod="day", n=90, highlight=12, gap=(1700, 520), horizon=292), 12.0, "day", 3, 12.0),
 ]
 WORLD += [
     ("kiyi_otranto", "deniz_kiyi", dict(tod="fire", n=16, fire_at=0.5), 12.0, "day", 2, 12.0),
 ]
 WORLD += [
+    ("acik_ufuk_yaklasan", "deniz", dict(scene="acik", tod="day", birds=7, ships=[
+        dict(kind="nao", route=[(1330, 352), (1220, 430), (1040, 560), (860, 690)], t0=0.0, t1=13.0, ease="io", scale=1.0, flag="toskana", arms="medici", highlight=True),
+        dict(kind="kadirga", x0=-200, x1=700, y=470, scale=0.9, flag="osmanli", t0=0.0, t1=13.0, ease="lin")],
+        cams=[(0.0, (960, 6, 1.0)), (1.0, (960, -10, 1.12))]), 13.0, "day", 2, 13.0),
+    ("liman_generic", "liman", dict(variant="generic", name="LİMAN ADI", year=None, ship=dict(kind="nao", flag="genel")), 14.0, "day", 2, 14.0),
     ("acik_nao_gece", "deniz", dict(scene="acik", tod="night", ships=[
         dict(kind="nao", x0=1650, x1=380, y=600, scale=1.0, flag="venedik", t0=0.0, t1=12.0, ease="lin", arms="cross"),
         dict(kind="tekne", x0=400, x1=1100, y=520, scale=0.9, flag="genel", t0=0.0, t1=12.0, ease="lin")], wind_dir=1), 12.0, "night", 2, 12.0),
@@ -55,8 +60,9 @@ WORLD += [
         dict(kind="nao", x0=200, x1=1500, y=620, scale=0.95, flag="toskana", t0=0.0, t1=12.0, ease="lin", arms="medici", highlight=True)]), 12.0, "day", 2, 12.0),
     ("rota_pisa_napoli", "deniz_rota", dict(scene="rota", tod="day", ship_kind="kadirga", flag="toskana", route=[(240, 664), (900, 620), (1700, 590), (2500, 560), (3200, 600)], thread=True,
         labels=[dict(name="PİSA", at_xy=(300.0, 300.0), f=0.40, t=0.4, dy=-90), dict(name="NAPOLİ", at_xy=(3500.0, 300.0), f=0.40, t=8.0, dy=-90)], scale=0.9), 14.0, "day", 2, 14.0),
-    ("liman_marsilya_1533", "liman", dict(variant="marsilya", year=1533), 14.0, "day", 3, 14.0),
+    ("liman_marsilya_1533", "liman", dict(variant="marsilya", year=1533, thread=True), 14.0, "day", 3, 14.0),
     ("liman_marsilya_1600", "liman", dict(variant="marsilya", year=1600), 14.0, "day", 3, 14.0),
+    ("liman_napoli_yedi", "liman", dict(variant="napoli", year=1539, ship=dict(mode="depart", dir=-1, flag="toskana", kind="kadirga"), followers=6, t_dock=3.0), 14.0, "day", 3, 14.0),
     ("liman_pera", "liman", dict(variant="pera", year=1479), 14.0, "day", 2, 14.0),
     ("liman_napoli", "liman", dict(variant="napoli", year=1479, followers=0), 14.0, "day", 2, 14.0),
     ("liman_livorno_elci", "liman", dict(variant="livorno", year=1598, delegation=dict(side="osmanli", n=5, t0=3.0)), 14.0, "day", 3, 14.0),
@@ -151,17 +157,25 @@ def make_clip(name, scale=0.5, fps=None):
     return path, time.time() - t0, nfr
 
 
-def measure(name, n=8):
-    """ms/kare (post dâhil): çekimin farklı anlarından n kare (ısınma 1 kare). Dönüş: (duvar ort, duvar maks, ilk kare, CPU ort)."""
+def measure(name, n=24):
+    """ms/kare (post dâhil), klipteki gibi ARDIŞIK kareler: çekimin %45'inden başlayan n kare; önce aynı kareler bir kez ısındırılır (sprite/evre pişirmeleri klipte tüm süreye yayılır).
+    Dönüş: (duvar ort, duvar maks, ilk (soğuk) kare, CPU ort)."""
     ad, kind, params, dur, mode, perde, clip_s = BY_NAME[name]
-    ts = [(0.1 + 0.8 * i / n) * dur for i in range(n + 1)]
+    T0 = 0.45 * dur
+    ts = [T0 + i / FPS for i in range(n)]
+    first = None
+    for t in ts:                                   # ısınma geçişi (ilk kare soğuk süreyi verir)
+        t1 = time.perf_counter()
+        list(frames_iter(kind, params, dur, [t], mode, perde, True))
+        if first is None:
+            first = (time.perf_counter() - t1) * 1000
     tm, cp = [], []
     for t in ts:
         t1, c1 = time.perf_counter(), time.process_time()
         list(frames_iter(kind, params, dur, [t], mode, perde, True))
         tm.append((time.perf_counter() - t1) * 1000)
         cp.append((time.process_time() - c1) * 1000)
-    return float(np.mean(tm[1:])), float(np.max(tm[1:])), tm[0], float(np.mean(cp[1:]))
+    return float(np.mean(tm)), float(np.max(tm)), first, float(np.mean(cp))
 
 
 def bake_times():

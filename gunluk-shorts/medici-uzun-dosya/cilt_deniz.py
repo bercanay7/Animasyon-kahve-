@@ -1,19 +1,23 @@
-"""cilt_deniz — DENİZ, LİMAN ve GEMİ DÜNYASI (Lab-C): `deniz` ve `liman` çekim türleri + yeniden kullanılabilir çizim işlevleri.
+"""cilt_deniz — DENİZ, LİMAN ve GEMİ DÜNYASI (Lab-C): `deniz`, `liman` çekim türleri + yeniden kullanılabilir çizim işlevleri.
 
-"Fresk ve defter" cildi (mürekkep dış hatlı, pigmentli, kâğıt-kesim kukla stili; fresk bandı y 150–950, asma bandı + altın filet):
-  * DENİZ (`deniz`, `deniz_rota`, `deniz_filo`, `deniz_kiyi`): paralaks dalga sıraları (analitik dalga: tepe konumları kapalı formda → köpük/parıltı/gemi aynı dalgayı sürer),
-    güneş/ay + dönen ışık huzmesi + parıltı yolu, bulut/kuş, gemiler: KADIRGA (senkron kürek çekişi, flama, tente, fener), NAO/KARRAK (üç direk, şişen yelkenler, dalgalanan sancaklar,
-    halat çeken denizciler), küçük tekne/kayık; rota boyunca ilerleyen gemi + kuyruk köpüğü + iplik; filo (n kadırga, iki filo karşılıklı yaklaşır; vurgulu altın flamalar; duman perdesi);
-    Otranto kıyısı (kale-kent silueti, stilize alev + duman, turuncu→altın ışık; insan/kan yok).
-  * LİMAN (`liman`; variant = marsilya | pera | napoli | livorno | generic; year=): rıhtım, ambarlar, çarklı vinç, bayraklar, yanaşan gemi (halat atılır, tahta iner), kalabalık el sallar.
-    marsilya 1533/1600 AYNI kadraj ve kamera yoludur; yalnız yıl damgası, bayrak/kıyafet/gemi tipi ve ışık değişir.
-  * Bağımsız çizim işlevleri: `ship(...)`, `wave_layers(...)`, `flag(...)`, `gulls(...)`, `sky_layers(...)` (bkz. notlar_deniz.md §3).
-Mimari: ağır katmanlar (gökyüzü, uzak siluetler, rıhtım) tembel pişirilir → `out/_cache/world/deniz_*.png`; gemi gövdeleri kare-aş değil, ölçek kovalarında sprite (önceden renklendirilmiş; kPlus/renk filtresi yok);
-kare başına yalnız dalga yolları, kürekler, yelken/bayrak meshleri, figürler çizilir. Deterministik (seed). Şiddet yok: çarpışma/ateşleme/ölü/kan gösterilmez.
+"Fresk ve defter" cildi (mürekkep dış hatlı, pigmentli, kâğıt-kesim kukla stili; fresk bandı y 150–950, asma bandı + altın filet).
+Çekim türleri (hepsi `cilt_cam.OWN_CAMERA`'ya çalışma anında eklenir; `cams=[(çapa,(x,y,zoom)),…]` ya da `cam=`):
+  * `deniz` (scene="acik"|"rota"|"filo"|"kiyi") + takma türler `deniz_rota`, `deniz_filo`, `deniz_kiyi`:
+      acik — paralaks dalga sıraları, güneş/ay + dönen huzme + parıltı yolu, bulut/martı, gemiler (kadırga: senkron kürek çekişi, flama, tente, fener; nao/karrak: üç direk, şişen yelken, bayrak,
+             halat çeken denizciler; tekne/kayık); rota — gemi `route=[(x,y),…]` boyunca ilerler (kamera izler, kuyruk köpüğü, yaldız "iplik"); filo — n kadırgalı iki filo karşılıklı yaklaşır
+             (vurgulu altın flamalar, isteğe bağlı duman perdesi; şiddet yok); kiyi — Otranto: tepede kale-kent, stilize alev + duman, turuncu→altın ışık (insan/kan yok).
+  * `liman` (variant = marsilya | pera | napoli | livorno | generic; year=): rıhtım, ambar, çarklı vinç, bayrak, yeldeğirmeni, duman; gemi yanaşır/ayrılır (halat atılır, tahta iner, kürekler kalkar),
+      rıhtım kalabalığı el sallar, iskele işçileri halat çeker; marsilya 1533/1600 AYNI kadraj ve kamera yolu (yalnız yıl damgası, bayrak, kıyafet, gemi tipi, ışık değişir).
+  * Bağımsız işlevler: `ship(...)`, `wave_layers(...)`, `flag(...)`, `gulls(...)`, `sky_image/draw_sun/draw_clouds`, `draw_smoke_column`, `flame_cluster`, `draw_route_thread` (bkz. notlar_deniz.md §2).
+Mimari: analitik dalga satırları (tepe konumları kapalı formda: köpük/parıltı/gemi sallanması aynı dalgayı sürer); ağır katmanlar (gök, uzak siluet, liman yapıları, rıhtım) tembel pişirilir →
+`out/_cache/world/deniz_*.png` (sürüm = dosya özeti); gemi gövdeleri ölçek kovalarında önceden renklendirilmiş sprite (kPlus/renk filtresi yok); yelken/bayrak `drawVertices` mesh;
+uzak filo gemileri sprite sayfası (LOD). Kare başına yalnız dalga yolları, kürekler, mesh'ler, figürler çizilir. Deterministik (seed). Şiddet yok: çarpışma/ateşleme/ölü/kan gösterilmez.
 """
+import collections
 import functools
 import math
 import os
+import re
 import time
 
 import cv2
@@ -58,6 +62,7 @@ OV = 70                                 # dikey taşma (kamera y kayması)
 BAND = (150, 800)                       # fresk bandı: (y0, yükseklik) — cilt_pano ile aynı
 INK = "#2A1A0C"
 LIN = skia.SamplingOptions(skia.FilterMode.kLinear)
+NEAR = skia.SamplingOptions(skia.FilterMode.kNearest)
 D2R = math.pi / 180.0
 TAU = 2.0 * math.pi
 
@@ -484,6 +489,26 @@ def _rays_small(col):
     return fr.surf.makeImageSnapshot()
 
 
+_RAY_PH = 24
+_RAY_PERIOD = 360.0 / 14.0
+
+
+@functools.lru_cache(maxsize=96)
+def _ray_phase(col, r, k):
+    """Huzme sprite'ının k. dönüş evresi (son boyutta, r*11 px kare)."""
+    base = _rays_small(col)
+    S = int(r * 11.0)
+    fr = sk.Frame(S, S)
+    fr.clear(skia.ColorTRANSPARENT)
+    c = fr.c
+    c.translate(S / 2.0, S / 2.0)
+    c.rotate(k * _RAY_PERIOD / _RAY_PH)
+    s_ = S / base.width()
+    c.scale(s_, s_)
+    c.drawImage(base, -base.width() / 2.0, -base.height() / 2.0, LIN, skia.Paint())
+    return fr.surf.makeImageSnapshot()
+
+
 def draw_sun(ctx, sx, sy, r=46, rays=True, fct=0.04):
     """Güneş (gündüz/alacakaranlık/ateş) ya da ay (gece): disk + parıltı (tek sprite) + yavaş dönen huzmeler. (sx, sy) gökyüzü koordinatı."""
     P = ctx.P
@@ -492,16 +517,19 @@ def draw_sun(ctx, sx, sy, r=46, rays=True, fct=0.04):
     c = ctx.c
     pulse = 1.0 + 0.012 * math.sin(t * 1.3) + 0.008 * math.sin(t * 3.1 + 1.0)
     if ctx.tod != "night" and rays and P["ray_a"] > 0:
-        im = _rays_small(P["sun"][1])
-        c.save()
-        c.translate(sx, sy)
-        c.rotate((t * 1.8) % 360.0)
-        s_ = r * 11.0 / im.width()
-        c.scale(s_, s_)
-        pp = skia.Paint()
-        pp.setAlphaf(P["ray_a"] * (0.8 + 0.2 * math.sin(t * 0.7)))
-        c.drawImage(im, -im.width() / 2, -im.height() / 2, LIN, pp)
-        c.restore()
+        # huzmeler: 14 kollu simetri → dönme periyodu 360/14°; _RAY_PH önceden döndürülmüş evre, iki komşu evre çapraz geçişle (eksen hizalı ucuz blit; döndürerek örnekleme yok)
+        u = (((t * 1.8) % _RAY_PERIOD) / _RAY_PERIOD) * _RAY_PH
+        k0 = int(u) % _RAY_PH
+        wgt = u - int(u)
+        a0 = P["ray_a"] * (0.8 + 0.2 * math.sin(t * 0.7))
+        col_ = P["sun"][1]
+        for kk, ww in ((k0, 1.0 - wgt), ((k0 + 1) % _RAY_PH, wgt)):
+            if ww < 0.02:
+                continue
+            im = _ray_phase(col_, float(r), kk)
+            pp = skia.Paint()
+            pp.setAlphaf(a0 * ww)
+            c.drawImage(im, sx - im.width() / 2, sy - im.height() / 2, LIN, pp)
     im, half = sun_sprite(ctx.tod, float(r))
     sc = pulse
     c.drawImageRect(im, skia.Rect.MakeWH(im.width(), im.height()), skia.Rect.MakeXYWH(sx - half * sc, sy - half * sc, 2 * half * sc, 2 * half * sc), LIN, skia.Paint())
@@ -730,7 +758,7 @@ class Sea:
                 if abs(dx) < span:
                     k = 1.0 - abs(dx) / span
                     tw = 0.5 + 0.5 * math.sin(t * (3.2 + 4 * h) + h * 50.0)
-                    a = clamp(0.95 * k * tw * (0.5 + 0.5 * h) * glitter)
+                    a = clamp(0.95 * k * tw * (0.5 + 0.5 * h) * glitter * (1.35 if night else 1.0))
                     if a > 0.05:
                         ln = (10 + 34 * h) * sc * (0.5 + k)
                         c.drawLine(xm - ln / 2, ym - 0.6 * sc, xm + ln / 2, ym - 0.6 * sc, _P(P["glint"], int(255 * a), style="stroke", sw=(1.6 + 2.6 * r.d) * max(0.7, sc * 0.6)))
@@ -1056,7 +1084,7 @@ LIVERY = {
     "toskana": dict(hull="#6A4226", wale="#B33620", trim="#E0B84E", awn=("#B33620", "#F2E6C2"), flag=("swallow", "medici", "#E0B84E", "#B33620", "#B33620"), pen=("#E0B84E", "#B33620", "medici"), sail=("#EDE4CC", "#B33620", "medici", "#B33620")),
     "papalik": dict(hull="#6A4226", wale="#E0B84E", trim="#E0B84E", awn=("#E0B84E", "#F2E6C2"), flag=("swallow", "plain", "#E0B84E", "#F4EEDC", "#F4EEDC"), pen=("#E0B84E", "#F4EEDC", None), sail=("#EDE4CC", "#C79A3C", "cross", "#A8321E")),
     "fransa": dict(hull="#5A3A22", wale="#233C8C", trim="#E0B84E", awn=("#233C8C", "#E0B84E"), flag=("swallow", "lily", "#233C8C", "#E0B84E", "#E0B84E"), pen=("#233C8C", "#E0B84E", "lily"), sail=("#EDE4CC", "#233C8C", "lily", "#233C8C")),
-    "venedik": dict(hull="#6A4226", wale="#233C8C", trim="#E0B84E", awn=("#B33620", "#E0B84E"), flag=("swallow", "star", "#B33620", "#E0B84E", "#E0B84E"), pen=("#B33620", "#E0B84E", "star"), sail=("#EDE4CC", "#B33620", None, "#B33620")),
+    "venedik": dict(hull="#6A4226", wale="#233C8C", trim="#E0B84E", awn=("#B33620", "#E0B84E"), flag=("swallow", "bands", "#B33620", "#E0B84E", "#E0B84E"), pen=("#B33620", "#E0B84E", "bands"), sail=("#EDE4CC", "#B33620", None, "#B33620")),
     "genel": dict(hull="#5A3A22", wale="#8A6A3A", trim="#C79A3C", awn=("#C79A3C", "#EDE4CC"), flag=("swallow", "stripes", "#233C8C", "#E0B84E", "#E0B84E"), pen=("#233C8C", "#E0B84E", None), sail=("#EDE4CC", "#8A6A3A", None, "#8A6A3A")),
 }
 LIVERY["hristiyan"]["name"] = "hristiyan"
@@ -1282,11 +1310,52 @@ def galley_hull(tod, liv, bs=1.0):
         c.drawPath(poly([(-310, -256), (-300, -268), (-290, -256)]), _P(INK, 180, style="stroke", sw=1.0))
 
     spr = bake_local((-322, -276, 392, 22), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
-_SPR = {}
+def _nbytes(v):
+    """Sprite / sprite listesi bellek tahmini (RGBA bayt)."""
+    if isinstance(v, LSpr):
+        return v.img.width() * v.img.height() * 4
+    if isinstance(v, (list, tuple)):
+        return sum(_nbytes(e) for e in v)
+    return 0
+
+
+class _LRU(collections.OrderedDict):
+    """Bayt bütçeli LRU önbellek: bütçe aşılınca en az kullanılan sprite atılır (tembel yeniden pişer); tümünü silip yeniden pişirme (takılma) yok."""
+
+    def __init__(self, budget):
+        super().__init__()
+        self.budget = budget
+        self.size = 0
+
+    def __getitem__(self, k):
+        v = super().__getitem__(k)
+        self.move_to_end(k)
+        return v
+
+    def get(self, k, d=None):
+        return self[k] if k in self else d
+
+    def put(self, k, v):
+        if k in self:
+            self.size -= _nbytes(super().__getitem__(k))
+        super().__setitem__(k, v)
+        self.move_to_end(k)
+        self.size += _nbytes(v)
+        while self.size > self.budget and len(self) > 1:
+            _, old = self.popitem(last=False)
+            self.size -= _nbytes(old)
+
+
+_SPR = _LRU(150 * 1024 * 1024)
+
+
+def _spr_put(key, spr):
+    """Gemi sprite önbelleği (bayt bütçeli LRU: 150 MB)."""
+    _SPR.put(key, spr)
 
 
 def galley_rig(tod, liv, sails=True, bs=1.0):
@@ -1331,7 +1400,7 @@ def galley_rig(tod, liv, sails=True, bs=1.0):
             c.drawLine(190, -224, x1, y1, _P(INK, 140, style="stroke", sw=0.8))
 
     spr = bake_local((-160, -322, 280, -30), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
@@ -1412,6 +1481,7 @@ class ShipSpec:
         self.label = d.get("label")
         self.tilt = float(d.get("tilt", 1.0))
         self.wake = float(d.get("wake", 1.0))
+        self.ph = hash01(self.seed, 5)
         self.extra = d
 
     def length(self):
@@ -1706,6 +1776,9 @@ def draw_galley(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
     draw_flags_galley(c, S, t, fl, wind, tod)
     if S.highlight:
         glow(c, 30 + fl * 70, -296, 90, "#FFE08A", 0.35 + 0.1 * math.sin(t * 3.0))
+    if tod in ("night", "dusk", "fire"):
+        fk = 0.8 + 0.2 * math.sin(t * 9.0 + S.seed) + 0.06 * math.sin(t * 23.0)
+        glow(c, -300, -244, 80 * fk, "#FFC060", (0.62 if tod == "night" else 0.34) * fk)
     c.restore()
     om = _oar_mode(S, t)
     if om is None:
@@ -1978,7 +2051,7 @@ def nao_hull(tod, liv, arms=None, bs=1.0):
         c.drawPath(poly([(-212, -280), (-200, -292), (-188, -280)]), _P(INK, 180, style="stroke", sw=1.0))
 
     spr = bake_local((-262, -300, 262, 24), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
@@ -2056,7 +2129,7 @@ def nao_rig(tod, liv, sails=True, bs=1.0):
             c.drawLine(x1, y1, x2, y2, _P(INK, 130, style="stroke", sw=0.9))
 
     spr = bake_local((-262, -444, 346, -80), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
@@ -2127,6 +2200,10 @@ def draw_nao(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
         flag(c, -196, -316, 120, 70, t, fg[0], fg[1], fg[2], fg[3], fg[4], wind=wind, ph=S.seed * 0.9, flipx=flip)
     if S.highlight:
         glow(c, -14 + flip * 90, -420, 100, "#FFE08A", 0.35 + 0.1 * math.sin(t * 3.0))
+    if tod in ("night", "dusk", "fire"):
+        fk = 0.8 + 0.2 * math.sin(t * 9.0 + S.seed) + 0.06 * math.sin(t * 23.0)
+        glow(c, -200, -266, 86 * fk, "#FFC060", (0.62 if tod == "night" else 0.34) * fk)
+        glow(c, -146, -170, 46 * fk, "#FFB04A", 0.40 * fk) if tod == "night" else None
     c.restore()
     return None
 
@@ -2376,10 +2453,12 @@ def land_sprite(kind, w, h, tod, seed=1, depth=0.5):
             ys = base - (h * (0.26 + 0.74 * (1 - dy)) * amp * 1.9) * prof * (1 + 0.15 * np.sin(xs / 37 + li + seed))
         elif kind == "headland":
             xs = np.linspace(0, w, 60)
-            prof = (1 - xs / w) ** 0.6 * (xs / w) ** 0.0
-            ys = base - (h * (0.34 + 0.46 * (1 - dy))) * prof * (0.9 + 0.1 * np.sin(xs / 41 + li)) * amp * 2.2
+            prof = (1 - xs / w) ** 0.7 * np.clip(xs / (w * 0.06), 0, 1)
+            ys = base - (h * (0.34 + 0.46 * (1 - dy))) * prof * (0.9 + 0.1 * np.sin(xs / 41 + li)) * amp * 2.4
         else:
-            xs, ys = _ridge_pts(0, w, base - h * (0.30 + 0.20 * (1 - dy)), h * amp * 0.55, w * sc_ * 0.5, seed + li * 2.0, 10)
+            xs, ys = _ridge_pts(0, w, base - h * (0.18 + 0.10 * (1 - dy)), h * amp * 1.05, w * sc_ * 0.5, seed + li * 2.0, 10)
+            env = np.sin(np.pi * np.clip(xs / w, 0, 1)) ** 0.55
+            ys = base - (base - ys) * env
             ys = np.minimum(ys, base - 3)
         pts = list(zip(xs.tolist(), ys.tolist())) + [(float(xs[-1]), h), (float(xs[0]), h)]
         c.drawPath(poly(pts, True), _P(cc))
@@ -2507,7 +2586,7 @@ def _deniz(cx, scene="acik", tod=None, ships=None, cams=None, kick=None, caption
         d0 = dict(kind="kadirga", flag="hristiyan", x0=260, x1=1600, y=650, scale=1.0, t0=0.0, t1=dur, ease="lin")
         ship_list = _norm_ships(cx, ships if ships else [d0], dur)
         co = coast if coast is not None else []
-        default = [(0.0, (900, 12, 1.0)), (1.0, (1040, -8, 1.10))]
+        default = [(0.0, (820, 18, 1.0)), (0.55, (940, 4, 1.07)), (1.0, (1080, -12, 1.17))]
         camf = None
     pre = (lambda ctx, sea: draw_coast(ctx, co, ctx.t)) if co else None
     cam_override = camf() if camf is not None else None
@@ -2774,7 +2853,7 @@ def _scene_kiyi(cx, f, tod, kw, cams, kick, caption, at, band, labels, ships):
     rs = _RS(cfg["seed"] * 3 + 9)
     # yanan çatılar: kale yanı ve orta yamaç ağırlıklı
     spots = [roofs[i] for i in rs.permutation(len(roofs))[: int(kw.get("n_fire", 10))]]
-    default = [(0.0, (1050, 20, 1.0)), (0.6, (1010, 4, 1.08)), (1.0, (940, -8, 1.20))]
+    default = [(0.0, (1130, 26, 1.0)), (0.6, (1000, 6, 1.10)), (1.0, (860, -12, 1.24))]
     hill_y0 = shore_y - HILL_H + 8                                   # sprite üstü (katman y)
     state = {"drawn": False}
 
@@ -2825,7 +2904,7 @@ def _scene_kiyi(cx, f, tod, kw, cams, kick, caption, at, band, labels, ships):
 
 # ═════════════════════════════ FİLO: sprite sayfaları (LOD), formasyon, duman perdesi ═════════════════════════════
 GAL_BBOX = (-326, -334, 398, 64)
-_SHEETS = {}
+_SHEETS = _LRU(220 * 1024 * 1024)
 NPH = 14
 
 
@@ -2850,7 +2929,7 @@ def galley_sheet(tod, liv, bs):
             hull.draw(c)
             galley_oars(c, p / NPH, d, tod, 1.0, 0.0)
         frames.append(bake_local(GAL_BBOX, bs, draw))
-    _SHEETS[key] = frames
+    _SHEETS.put(key, frames)
     return frames
 
 
@@ -2948,14 +3027,14 @@ def make_fleet(cx, dur, yh, n=14, left="hristiyan", right="osmanli", highlight=0
     return ships
 
 
-def render_fleet_ship(ctx, sea, S, t):
+def render_fleet_ship(ctx, sea, S, t, force=False):
     """Küçük/uzak filo gemisi: sprite sayfasından tek blit + ucuz flama + köpük çizgisi. Büyükse render_ship (tam dinamik)."""
     x, y, dirn, sp = S.pos(t)
     k = sea.row_before(y)
     ru = sea.rows[max(0, k - 1)]
     s = S.scale * persp(y, sea.yh)
     Lh = GAL_L * s
-    if Lh * ctx.z > 330:
+    if Lh * ctx.z > 330 and not force:
         return render_ship(ctx, sea, S, t)
     if not ctx.visible(ru.f, x - Lh * 0.7, x + Lh * 0.7, 0.0):
         return
@@ -3568,11 +3647,11 @@ class Harbor:
             # Fortezza Vecchia: tuğla-bej bastionlar, beyaz yuvarlak "Mastio", kare "Quadratura" kulesi
             def bastion(x0_, x1_, hgt):
                 p = poly([(x0_, yb + 6), (x0_ + 26, yb - hgt), (x1_ - 26, yb - hgt), (x1_, yb + 6)])
-                fink(c, p, T("#C9A98A", 0.04), 1.5, 255, 175)
+                fink(c, p, T("#B98C68", 0.04), 1.5, 255, 175)
                 c.save()
                 c.clipPath(p, skia.ClipOp.kIntersect, True)
                 for r in range(int(hgt / 14)):
-                    c.drawLine(x0_, yb - hgt + r * 14, x1_, yb - hgt + r * 14, _P("#6A3A22", 52, style="stroke", sw=1.0))
+                    c.drawLine(x0_, yb - hgt + r * 14, x1_, yb - hgt + r * 14, _P("#4A2412", 90, style="stroke", sw=1.1))
                 c.drawRect(skia.Rect.MakeLTRB(x1_ - (x1_ - x0_) * 0.30, yb - hgt, x1_, yb + 6), _P("#2A1A0C", 50))
                 c.restore()
             bastion(380, 700, 96)
@@ -3893,7 +3972,7 @@ def tekne_hull(tod, liv, bs=1.0):
         c.drawPath(p, _P(INK, 210, style="stroke", sw=1.8))
 
     spr = bake_local((-110, -64, 112, 18), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
@@ -3959,7 +4038,7 @@ def kayik_hull(tod, liv, bs=1.0):
             c.drawPath(sc, _P(T(liv["trim"]), 255, style="stroke", sw=3.0))
 
     spr = bake_local((-124, -90, 126, 14), bs, draw)
-    _SPR[key] = spr
+    _spr_put(key, spr)
     return spr
 
 
@@ -4022,6 +4101,7 @@ def _hull_for(S, tod, bs):                                                   # n
 # ═════════════════════════════ ÇEKİM TÜRÜ: liman ═════════════════════════════
 _HARBORS = {}
 LIMAN_CAMS = [(0.0, (770.0, 24.0, 1.0)), (0.40, (900.0, 12.0, 1.05)), (0.78, (1120.0, -6.0, 1.18)), (1.0, (1220.0, -16.0, 1.28))]      # marsilya 1533 = 1600: AYNI kamera yolu (kesir tabanlı)
+DEPART_CAMS = [(0.0, (1200.0, 20.0, 1.20)), (0.45, (1090.0, 10.0, 1.10)), (1.0, (900.0, -8.0, 1.0))]
 LIMAN_POLES = {"marsilya": (840.0, 1760.0, 2540.0), "napoli": (920.0, 1620.0, 2400.0), "livorno": (760.0, 1700.0, 2600.0), "pera": (760.0, 1500.0, 2200.0), "generic": (800.0, 1600.0, 2400.0)}
 LIMAN_CRANE = {"marsilya": 2120.0, "napoli": 2060.0, "livorno": 2420.0, "pera": 1700.0, "generic": 2200.0}
 
@@ -4063,6 +4143,14 @@ def _liman(cx, variant="generic", year=None, tod=None, ship=None, followers=0, c
     dur = max(cx.dur, 1e-3)
     band = band or (BAND if frame else (0, 800))
     v = variant if variant in ("marsilya", "pera", "napoli", "livorno", "generic") else "generic"
+    year_txt = None                                  # damga metni (parametre olduğu gibi); mantık için sayısal yıl
+    if isinstance(year, str):
+        year_txt = year.strip() or None
+        _ys = re.findall(r"\d{4}", year)
+        year = int(_ys[-1]) if _ys else None
+    elif year is not None:
+        year = int(year)
+        year_txt = str(year)
     if tod is None:
         tod = "night" if not TH.day else ("dusk" if (v == "marsilya" and (year or 0) >= 1590) else "day")
     H_ = _harbor(v, tod, year)
@@ -4103,7 +4191,7 @@ def _liman(cx, variant="generic", year=None, tod=None, ship=None, followers=0, c
     ships = [hero]
     for i in range(int(followers)):
         d2 = dict(sp_d)
-        d2.update(y=SHIP_Y - 12.0 - 13.0 * (i % 3), scale=scale * (0.9 - 0.04 * (i % 3)), seed=7 + i * 5, crew=False, highlight=False, flag=sp_d.get("flag"))
+        d2.update(y=SHIP_Y - 12.0 - 13.0 * (i % 3), scale=scale * (0.9 - 0.04 * (i % 3)), seed=7 + i * 5, crew=False, highlight=False, flag=sp_d.get("flag"), lod=True, sails=False)
         lag = 0.9 * (i + 1)
         if mode == "arrive":
             d2.update(x0=sp_d["x0"] - dirn * 560 * (i + 1), x1=x_dock - dirn * 600 * (i + 1), t0=t0 + lag * 0.5, t1=td + lag * 0.6)
@@ -4210,19 +4298,26 @@ def _liman(cx, variant="generic", year=None, tod=None, ship=None, followers=0, c
         sea_.skirt(ctx, ru, max(xa2, qx - 10), xb2, WALL_BOT + 2.0, t, depth=14.0)
         ctx.pop()
 
+    th_spec = None
+    if kw.get("thread"):
+        th_spec = ShipSpec(dict(kind="tekne", route=[(sp_d["x0"] - 1100.0 * dirn, SHIP_Y + 16.0), (x_dock - dirn * 40.0, SHIP_Y + 16.0)], t0=sp_d["t0"], t1=sp_d["t1"], ease="out"), cx, dur, 99)
+        th_spec.ease = "out"
+
     def post(ctx, sea_):
         t = ctx.t
         c = ctx.c
         _draw_moorings(ctx, c, hero, sea_, t, td, mode, dock_dir, qx, x_dock)
+        if th_spec is not None and mode == "arrive":
+            draw_route_thread(ctx, sea_, th_spec, t, kw.get("thread") if isinstance(kw.get("thread"), dict) else {})
 
-    ship_fn = lambda ctx, sea_, S, t: render_ship(ctx, sea_, S, t)
+    ship_fn = lambda ctx, sea_, S, t: (render_fleet_ship(ctx, sea_, S, t, force=True) if (S.extra.get("lod") and S.kind == "kadirga") else render_ship(ctx, sea_, S, t))
     cams_use = cams
-    ctx_, sea_ = render_sea_scene(cx, f, cfg, ships, band, cams_use, LIMAN_CAMS, "liman", pre=pre, post=post, mid=mid, ship_fn=ship_fn)
+    ctx_, sea_ = render_sea_scene(cx, f, cfg, ships, band, cams_use, (LIMAN_CAMS if mode == "arrive" else DEPART_CAMS), "liman", pre=pre, post=post, mid=mid, ship_fn=ship_fn)
     # etiketler
     def decor(f_, cx_, band_):
         by0, bh = band_
-        if stamp and year:
-            txt = f"{int(year)}"
+        if stamp and year_txt:
+            txt = year_txt
             wd = sk.text_width(txt, "title_m", 56, 6) + 78
             CM.tablet(f_, 92, by0 + bh - 112, wd, 82, alpha=cx_.amt(at + 0.5, 0.7), corner=10)
             CM.ink(f_, txt, 92 + wd / 2, by0 + bh - 112 + 58, face="title_m", size=56, color=TH.fg, align="c", track=6, alpha=cx_.amt(at + 0.5, 0.7), emboss=False)
@@ -4316,7 +4411,7 @@ def _draw_delegation(ctx, f, d, x_land, dirn, t, td, qx, v, year, seed):
     side = d.get("side", "osmanli")
     t0 = _tcall(ctx.cx, d.get("t0", 0.0), 0.0)
     x_stop = float(d.get("x_stop", x_land + dirn * 0.0 - 120.0))
-    x_from = float(d.get("x_from", x_stop - 520.0))
+    x_from = float(d.get("x_from", x_stop - 330.0))
     sp = 44.0
     c = ctx.c
     rs = _RS(seed * 3 + 1)
@@ -4353,7 +4448,7 @@ def k_liman(cx, **kw):
     return _liman(cx, **kw)
 
 
-def draw_route_thread(ctx, sea, S, t, opt):
+def draw_route_thread(ctx, sea, S, t, opt):                     # noqa: C901
     """Rota ipliği (c13 'iplik'): geminin kat ettiği yol boyunca denizin üstüne ince, yaldız-mürekkep kesik çizgi; gemiyle birlikte uzar. opt: col, w, dash, ahead (0..1: yolun tamamı soluk gösterilir)."""
     if not S.route:
         return

@@ -1,0 +1,11 @@
+MEDICI P3 — ses önizleme kesitleri (ÖNİZLEME miksi: geçici ses / eksik bölüm)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  ONIZLEME_01_c6_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P3 açılışı (t=0): Lorenzo teması (lavta), parça başlığı bindirmesi
+  ONIZLEME_02_c6_lorenzo_temasi_mix.mp3 (+_muzik.mp3)  t=  136.4–  164.4 sn  — c6: Lorenzo teması (org+lavta), turnuva davulu
+  ONIZLEME_03_c6_c7_golge_ve_kart_mix.mp3 (+_muzik.mp3)  t=  204.2–  234.2 sn  — c6 → c7: gölge (D dorian) → bölüm kartı → c7'nin ağır açılışı (bedel yayı)
+  ONIZLEME_04_c7_kilise_girisi_mix.mp3 (+_muzik.mp3)  t=  229.7–  259.7 sn  — c7: kilise girişi — müzik yok, ayin yankısı + kalabalık uğultusu (SFX), ÇAN YOK
+  ONIZLEME_05_c7_yildiz_an_girisi_mix.mp3 (+_muzik.mp3)  t=  325.6–  355.6 sn  — c7 V4→V5: müzik sessizliğe giriş (0,6 sn önce) — YILDIZ AN
+  ONIZLEME_06_c7_yildiz_an_cikisi_mix.mp3 (+_muzik.mp3)  t=  370.8–  400.8 sn  — c7 V7→V8: tunç kapı, sessizlikten yavaş dönüş
+  ONIZLEME_07_c7_palle_meydan_mix.mp3 (+_muzik.mp3)  t=  419.5–  447.5 sn  — c7 V10: 'palle, palle' (altılı ritim) ve Lorenzo pencerede
+  ONIZLEME_08_c7_kapanis_mix.mp3 (+_muzik.mp3)  t=  536.1–  566.1 sn  — P3 sonu: c7'nin sonrası, 7 sn çözülme
