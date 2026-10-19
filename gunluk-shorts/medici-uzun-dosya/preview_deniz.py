@@ -47,6 +47,20 @@ WORLD += [
 WORLD += [
     ("kiyi_otranto", "deniz_kiyi", dict(tod="fire", n=16, fire_at=0.5), 12.0, "day", 2, 12.0),
 ]
+WORLD += [
+    ("acik_nao_gece", "deniz", dict(scene="acik", tod="night", ships=[
+        dict(kind="nao", x0=1650, x1=380, y=600, scale=1.0, flag="venedik", t0=0.0, t1=12.0, ease="lin", arms="cross"),
+        dict(kind="tekne", x0=400, x1=1100, y=520, scale=0.9, flag="genel", t0=0.0, t1=12.0, ease="lin")], wind_dir=1), 12.0, "night", 2, 12.0),
+    ("acik_nao_alacakaranlik", "deniz", dict(scene="acik", tod="dusk", ships=[
+        dict(kind="nao", x0=200, x1=1500, y=620, scale=0.95, flag="toskana", t0=0.0, t1=12.0, ease="lin", arms="medici", highlight=True)]), 12.0, "day", 2, 12.0),
+    ("rota_pisa_napoli", "deniz_rota", dict(scene="rota", tod="day", ship_kind="kadirga", flag="toskana", route=[(240, 664), (900, 620), (1700, 590), (2500, 560), (3200, 600)], thread=True,
+        labels=[dict(name="PİSA", at_xy=(300.0, 300.0), f=0.40, t=0.4, dy=-90), dict(name="NAPOLİ", at_xy=(3500.0, 300.0), f=0.40, t=8.0, dy=-90)], scale=0.9), 14.0, "day", 2, 14.0),
+    ("liman_marsilya_1533", "liman", dict(variant="marsilya", year=1533), 14.0, "day", 3, 14.0),
+    ("liman_marsilya_1600", "liman", dict(variant="marsilya", year=1600), 14.0, "day", 3, 14.0),
+    ("liman_pera", "liman", dict(variant="pera", year=1479), 14.0, "day", 2, 14.0),
+    ("liman_napoli", "liman", dict(variant="napoli", year=1479, followers=0), 14.0, "day", 2, 14.0),
+    ("liman_livorno_elci", "liman", dict(variant="livorno", year=1598, delegation=dict(side="osmanli", n=5, t0=3.0)), 14.0, "day", 3, 14.0),
+]
 BY_NAME = {w[0]: w for w in WORLD}
 
 

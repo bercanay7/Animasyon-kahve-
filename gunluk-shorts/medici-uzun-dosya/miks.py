@@ -832,6 +832,8 @@ def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=11.0, pad=0
     seyrelir; gerçek düzey basamakları (yatak sıçraması, kapı açılışı, kesit düzey uyumsuzluğu) görünür kalır.
     BİLİNÇLİ kapılar ve kuru duraklar (müzik çekilmesi/kısılması: `gates` = muzik.render_music gates+stops bilgisi; [a−lead, b+rel] aralığı) ölçüme KATILMAZ: kapıyla çakışan pencere çiftleri atılır —
     kapının kendisi tasarım gereği büyük bir düzey değişimidir; ölçülen şey kavşağın kendi pürüzsüzlüğüdür.
+    Basamağın YERİ (iki pencerenin buluştuğu an) çapraz geçiş bölgesinin (± yarım çapraz geçiş + 1,5 sn) içinde olmalıdır: kesit içindeki müzikal dinamikler
+    (davul girişi, yoğunluk yükselişi) kavşak sorunu sayılmaz.
     Döner: [(sınır adı, merkez sn, basamak dB, en büyük 1 sn adımı dB)]."""
     out = []
     hop = int(0.5 * SR)
@@ -854,12 +856,13 @@ def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=11.0, pad=0
         L = 10 * np.log10((cs[k:] - cs[:-k]) / k + 1e-14)                    # L[i] = [i, i+k) bloklarının RMS'i (dB)
         steps = np.abs(L[k:] - L[:-k])                                       # yan yana iki pencere
         t_i = a0 / SR + np.arange(len(steps)) * 0.5                          # pencere çiftinin başlangıcı (sn); çift [t_i, t_i + 2·win)
-        ok = np.ones(len(steps), dtype=bool)
+        zone = ci["xout"] / 2 + 1.5                                          # basamağın yeri (iki pencerenin buluştuğu an) çapraz geçiş bölgesinde olmalı
+        ok = np.abs(t_i + win - tc) <= zone                                  # kesit İÇİNDEKİ müzikal dinamikler (davul girişi, yoğunluk yükselişi) kavşak sorunu değildir
         for (ga, gb) in gz:
             ok &= ~((t_i < gb) & (t_i + 2 * win > ga))
         r1 = 10 * np.log10(np.mean(mm[:(len(mm) // SR) * SR].reshape(-1, SR) ** 2, axis=1) + 1e-14)
         t1s = a0 / SR + np.arange(len(r1)) + 0.5
-        ok1 = np.ones(len(r1) - 1, dtype=bool)
+        ok1 = np.abs(t1s[:-1] + 0.5 - tc) <= zone
         for (ga, gb) in gz:
             ok1 &= ~((t1s[:-1] < gb) & (t1s[1:] > ga))
         d1 = np.abs(np.diff(r1))
@@ -969,7 +972,7 @@ def write_report(c):
     jr = junction_report(chapters, final)
     for r in jr:
         P(f"       {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}   fark {r['d']:+5.2f} dB")
-    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
+    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (basamak yeri çapraz geçiş bölgesi ±1,5 sn içinde; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
     for (sid, tc, stp, stp1) in c["junc_steps"]:
         P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (3 sn) {stp:5.1f} dB   (1 sn adımı {stp1:5.1f} dB)")
     tr = c["minfo"].get("trims") or {}
@@ -1038,6 +1041,9 @@ def write_report(c):
         P("  " + ("UYARI: >0,6 sn kayma: " + ", ".join(i for i, _, _ in bad) if bad else "tüm bölüm sınırları ≤0,6 sn içinde uyumlu"))
     else:
         P("  timeline.json yok / okunamadı")
+    if c["timeline"]:
+        n_anc, bad_anc = muzik.anchor_audit(chapters, c["timeline"])
+        P(f"  müzik çıpaları (CUES): {n_anc} çıpa, {len(bad_anc)} çözülemedi" + ("; çözülemeyenler: " + ", ".join(f"{b[0]} {b[2]} ({b[3]})" for b in bad_anc[:10]) if bad_anc else " (hepsi cümle/sözcük kimliğine bağlandı)"))
     P("")
     P("[10] KONTROL LİSTESİ")
     chk = []

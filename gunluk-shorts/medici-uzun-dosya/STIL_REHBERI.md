@@ -88,7 +88,7 @@ YIL_AT = [(("c7s1", 0), 1478)]
 - **Her geçişe `link=` yaz:** `shape|color|dir|cam|scale|carry|light|material|audio` (gerekçeli geçiş ≥%70; çıplak fade ≤%10). Giden çekimin hareketi geçişte DEVAM eder, gelen çekim aynı yönde başlar — yön sözleşmesi: yükseliş/Medici **soldan sağa ve yukarı**, düşüş/tehdit **sağdan sola ve aşağı** (bölümde ≤1 bilinçli kırılma).
 
 ---
-## 5. Çekim türleri kataloğu (`shots.KINDS`; 27 tür)
+## 5. Çekim türleri kataloğu (`shots.KINDS`; 27 temel tür + §7b `oda`/`sehir`/`deniz`)
 
 Parametreleri görmek için: `grep -n "ckind(\"ad\"" cilt_*.py` ve ilgili fonksiyonun imzası/docstring'i. Ortak: `at`/`*_at` çapa kabul eder; `mode="day"|"night"`; `perde` Program'dan otomatik gelir (bölüm perdesi); `seed`.
 
@@ -127,6 +127,18 @@ Parametreleri görmek için: `grep -n "ckind(\"ad\"" cilt_*.py` ve ilgili fonksi
 **Figür kiti** (kendi çekim türünde — `@CM.ckind("cK_ad")` — ya da `extra=fn(cx)` içinde): `FA.walker`, `FA.actor(kind, x, y, h, t, action=…)` (`idle talk bow kneel point cheer pray write count handshake threat work`), `FA.rider` (at: walk/trot/gallop), `FA.crowd(mode="mill|stand|kneel|cheer|march|run")`, `FA.procession`, `FA.threat` (hançer/şiddet **yalnız siluet jesti**; kan yok), `FA.atmo_birds`. Tipler: `tuccar banker rahip kardinal papa kesis soylu soylu_f asker halk cocuk denizci` (+takma adlar `FA.ALIAS`); `prop=` aksesuar (`staff crosier spear halberd pole book cross torch sack basket dagger quill hammer trowel coin`). Kostüm `seed` ile belirlenir (tekrarlanabilir). Ayrıntı ve kısıtlar notlar_dunya §1.1.
 
 **Kısıtlar / dikkat:** (1) `pano=nave` varsayılan istasyonlarında **çan sarkacı (`st_bell`) var** — c7 (26 Nisan) ve c10 (9 Kasım) için kaynakta çan olayı YOK: `stations=[…]` ile çanı çıkar. (2) Ağır sahnede kalabalık/figür yalnız jest/siluet; kan yok. (3) Figürler yandan "kesme-bebek": yakın plan yüz için `medal`/madalya portresi kullan. (4) Yok/eksik (notlar_dunya §4–5): giostra çekimi (c6), dikey kule panosu, **gemi/deniz/liman** ve **iç mekân (oda/sokak/meydan/kale)** dünyaları (ayrı laboratuvarlarda yazılıyor: `cilt_deniz.py`, `cilt_oda.py` — hazır olunca buraya eklenir), veba renk solması. (5) Performans: pano/build/procession 100–175 ms/kare; `kit_crowd (58 kişi)` en ağır.
+
+## 7b. İç mekân, dış mekân (ve deniz) dünyaları (Lab-D/E/C teslimleri)
+
+Üç yeni çekim türü; her biri kendi `notlar_*.md` dosyasında tam API + örnek `shot(...)` satırları + c0–c16 uyum tablosu taşır. **Önce ilgili notu oku, hazır önizlemelere bak** (`out/frames/<tür>_*.png`, `out/clips/<tür>_*.mp4`; yeniden üretmek için `python3 preview_<tür>.py [ad…]`, işçi 1).
+
+| tür | not | ne | önemli parametreler |
+|---|---|---|---|
+| `oda` | `notlar_oda.md` | **iç mekân:** `room="oda1743"` (c0 `path="in"` / c16 `path="out"` ters sıra; belgeye `zoomthru`; `figure="seated|lying|both"`), `salon` (`variant=medici|napoli|signoria|pitti|taht`; Napoli'de iki siluet + `cam=("rack",…)`), `banka` (4 masa; `close_at/close_dur` ile şube kapanışı: kandiller söner), `calisma` (`variant=hucre|kutuphane|studiolo`; `empty_frac` boş raf; studiolo dört bölge `zone_at`), `sakristi` (tunç kapı kapanması `close_at`; `shadow_at`; `door="wood"`), `bos` (`variant=blois|koln`; `exit_at`, `fade_at`, `thread_at` iplik kopar), `perde` (Pitti sahnesi `open_at`) | `room`, `variant`, `tod\|mode`, `path\|cams`, `actors=[dict(kind,x,y,h,action,at,…)]`, `props`, `kick`, `caption`, `*_at` çapaları |
+| `sehir` | `notlar_sehir.md` | **dış mekân:** `meydan` (`act=ates` Kibirlerin Yakılması, `odun`, `palle`, `pencere`, `kalabalik`), `sokak` (`door="close\|open"`, `door_at`), `kale` (`sur`, `castel`/passetto), `skyline_dikey` (kule boyunca tek dikey plan; `crane up`) | `scene`, `act`, `cams`, `cam=`, `dir="l\|r"`, `items_at`, `mode="night"` (gece çekimlerinde ver) |
+| `deniz` | `notlar_deniz.md` (Lab-C teslim edilince) | **deniz/liman/gemi** | — |
+
+Ortak kurallar: yalnız 1 işçiyle önizle; gece/alacakaranlıkta `mode="night"` ver; yüz yok, şiddet yok (siluet/işaret/gölge); ekrana kaynaksız metin koyma (`kick`/`caption` yalnız senin verdiğin script metni); `oda`/`sehir` kamerası kendi `cams`/`path` ile çalışır — varsayılan yollar yumuşaktır, `qa_flow` "kamera varlığı/durgunluk" kapıları için hareketi sen güçlendir (path/cams, geçişle birlikte).
 
 ---
 ## 8. Ses–görüntü kilidi

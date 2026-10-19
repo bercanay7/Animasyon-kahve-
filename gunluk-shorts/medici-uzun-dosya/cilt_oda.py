@@ -2851,10 +2851,10 @@ class Banka(Room):
     def light(self, ctx):
         kc, lits, tc = self._close_info(ctx)
         tot = sum(lits)
-        if tot < 0.02:
-            return (self.LAMPS[-1] - 16, 330, 30.0, 1.0)
+        if tot < 1e-4:
+            return (self.LAMPS[-1] - 16, 330, 40.0, 1.0)
         cxl = sum(l * x for l, x in zip(lits, self.LAMPS)) / tot
-        return (cxl - 16, 330, 520.0 + 560.0 * (tot / 4.0), 1.0)
+        return (cxl - 16, 330, 40.0 + 480.0 * clamp(tot) ** 0.7 + 520.0 * (tot / 4.0), 1.0)
 
     def after_finish(self, ctx):
         """Karanlık havuzun ÜSTÜNE kandil başına küçük sıcak ışıma (her kandil kendi çevresini aydınlatır)."""
@@ -3443,7 +3443,7 @@ class Calisma(Room):
         inkwell(c, ix, iy, 0.9, t)
         qx, qy = g.pt(0.70, 0.62)
         quill(c, qx, qy, -12.0, 0.42)
-        if o.get("figure") == "desk":
+        if o.get("figure", "desk") == "desk":
             seated(f, "banker", g.x - 34, 823, 280, t, "write", 1, seed=7, sil="#1A1008", rim="#E8A860", rim_dir=1)
         ox, oy = g.pt(0.54, 0.74)
         oil_lamp(f, ox, oy, 30, t, seed=2.2, lit=1.0)
@@ -4129,13 +4129,23 @@ class Bos(Room):
         else:
             k = 1.0 - self._fade_k(ctx)
             window_light(f, 1250, 206, 160, 350, t, dx=320, y_floor=Y_FL + 70, a=0.30 * k, seed=3, patch=True, dust=0, night=True, part="patch", patch_h=120, col="#DCE6FF")
+            # pencere tülü (hafif esinti): iki ince panel
+            for sg, ph in ((-1, 0.2), (1, 1.3)):
+                c.save()
+                c.translate(1250 + sg * 118 - 28, 196)
+                draw_drape(c, 0, 0, 56, 420, t, col="#B8C0D2", col2="#98A4BC", amp=0.10, seed=6, ph=ph)
+                c.restore()
+            # soğuk ocaktan kalkan çok ince kül zerreleri
+            rs = _RS(61)
+            for q in range(10):
+                ph = (t * 0.07 * (0.6 + rs.rand()) + rs.rand()) % 1.0
+                xx = self.FP_X + (rs.rand() - 0.5) * 120 + math.sin(t * 0.8 + q) * 18 * ph
+                c.drawCircle(xx, 770 - ph * 330, 1.2 + 1.2 * rs.rand(), PT("#9AA4B8", int(150 * (1 - ph) * k + 20)))
+            dust_motes(c, t, 1100, 250, 1700, 700, n=int(18 * k) + 2, seed=71, a=0.9 * k, size=2.4, drift=(4, 3), col="#E8F0FF")
             draw_extra(ctx, "back")
 
-    def dyn_front(self, ctx):
+    def _draw_thread(self, ctx):
         f, t, cx = ctx.f, ctx.t, ctx.cx
-        draw_extra(ctx, "front")
-        if self.variant == "blois" and _vis(780, 2000, ctx.xa, ctx.xb) or self.variant == "koln":
-            pass
         o = self.opts
         if "thread_at" in o or o.get("thread", False):
             ts = cx.at(o["thread_at"]) if "thread_at" in o else None
@@ -4145,6 +4155,12 @@ class Bos(Room):
             if "thread_to" in o:
                 pB = tuple(o["thread_to"])
             thread_line(f, pA, pB, t, ts)
+
+    def dyn_front(self, ctx):
+        f, t, cx = ctx.f, ctx.t, ctx.cx
+        draw_extra(ctx, "front")
+        if self.variant != "koln":
+            self._draw_thread(ctx)
         # blois: bağlı yatak perdesi
         if self.variant == "blois" and _vis(700, 200, ctx.xa, ctx.xb):
             draw_drape(ctx.c, 110 + 560 + 14, 785 - 492 + 28 + 30, 74, 395, t, col="#233C8C", col2=GOLD, amp=0.04, seed=4, ph=1.1, tie=0.62)
@@ -4171,8 +4187,17 @@ class Bos(Room):
         c = f.c
         k = self._fade_k(ctx)
         c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), PT("#3A4A7C", 84))
-        c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), PT("#060A16", int(255 * 0.80 * k)))
+        c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), PT("#060A16", int(255 * 0.76 * k)))
         CM.vig(f, 0.60, mode="night")
+        # karanlıkta da canlı kalanlar: iplik (kendinden ışıklı ince çizgi) ve süzülen zerreler
+        by0, bh = ctx.band
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(0, by0, W, by0 + bh))
+        ctx.xf(1.0)
+        self._draw_thread(ctx)
+        dust_motes(c, ctx.t, ctx.xa, 220, ctx.xb, 780, n=14, seed=83, a=0.55, size=2.0, drift=(3, 2), col="#C8D4F0")
+        ctx.end()
+        c.restore()
         return True
 
 

@@ -1569,6 +1569,49 @@ def _trim_curve(n, xin, xout, head_db, tail_db):
     return (10 ** (db / 20.0)).astype(np.float32)
 
 
+def _spec_anchors(spec):
+    """Bir cue/kesit spec'indeki tüm çıpaları (yer, çıpa) olarak döndürür: arc, events/theme 'at', gates a/b, katman pencereleri (win), kesit sınırı (until)."""
+    out = []
+    for a in spec.get("arc", []) or []:
+        if isinstance(a[0], (str, tuple, list)):
+            out.append(("arc", a[0]))
+    for key in ("events", "theme"):
+        for ev in spec.get(key, []) or []:
+            if ev.get("at") is not None:
+                out.append((key, ev["at"]))
+    for gt in spec.get("gates", []) or []:
+        out.append(("gate", gt["a"]))
+        out.append(("gate", gt["b"]))
+    for k, v in spec.items():
+        if isinstance(v, dict) and v.get("win"):
+            for w in v["win"]:
+                for x in w:
+                    out.append((f"{k}.win", x[0] if isinstance(x, (tuple, list)) else x))
+    for sc in spec.get("sections", []) or []:
+        out.append(("until", sc["until"][0]) if sc.get("until") else ("until", None))
+        out.extend(_spec_anchors(sc))
+    return [(w, a) for (w, a) in out if a is not None]
+
+
+def anchor_audit(chapters, timeline):
+    """Parçadaki bölümlerin CUES çıpalarını timeline.json'a karşı denetler. Döner: (toplam, [(bölüm, yer, çıpa, durum)]); durum: 'cümle yok' (kimlik çizelgede yok → DEFAULT_U'ya düşer)
+    | 'sözcük yok' (cümle var, sözcük anahtarı bulunamadı → cümle başına düşer)."""
+    sent = D.sent_index(timeline)
+    bad, n = [], 0
+    for ch in chapters:
+        cid = ch["id"] if isinstance(ch, dict) else ch
+        if cid not in CUES:
+            continue
+        for where, anc in _spec_anchors(CUES[cid]):
+            n += 1
+            a = [anc] if isinstance(anc, str) else list(anc)
+            if a[0] not in sent:
+                bad.append((cid, where, anc, "cümle yok"))
+            elif len(a) >= 3 and isinstance(a[1], str) and a[1] not in ("end", "son", "t1") and D.anchor_time(a, sent) is None:
+                bad.append((cid, where, anc, "sözcük yok"))
+    return n, bad
+
+
 def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0, verbose=True, only=None, timeline=None):
     """Tüm kesitleri üretir, çapraz geçişle birleştirir, ortalama RMS'i TARGET_RMS_DB'ye getirir.
     Döner: (music float32 (N,2), info dict). N = (total + tail)·SR. Ducking YOK (miks.py uygular).

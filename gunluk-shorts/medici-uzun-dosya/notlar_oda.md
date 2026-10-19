@@ -95,22 +95,18 @@ chandelier, candelabra_table, candelabra_floor, balance_scale, map_sheet, sparkl
 ```
 Not: `cilt_oda` `FA.blit`'i YAMAR (`_blit_cf`): `FA.draw_fig` baş ve ayakkabı sprite'larına renk filtresi uygulamadığı için siluetlerde yüz/ayakkabı görünüyordu; yama yalnız `_SILCF` doluyken (siluet çizerken) etkindir, diğer çağrıları değiştirmez.
 
-## 3. Ölçümler (bu makine, paylaşımlı; çekim + RGB + `CM.post`, ms/kare, 1 çekirdek)
-| girdi | ort | maks | not |
-|---|---:|---:|---|
-| oda1743 gece `in` | 170 | 256 | belgeye zum (tam ekran) |
-| oda1743 gece `out` / gün / yatak | 142 / 134 / 99 | 251 / 183 / 103 | |
-| salon napoli (gece, 2 siluet, 2 avize) | 204 | 295 | |
-| salon medici / signoria / pitti / taht | 163 / 144 / 193 / 126 | 219 / 199 / 397 / 178 | pitti 1 kare 397 (soğuk ısınma) |
-| banka gün / gece / kapanış | 146 / 145 / 145 | 233 / 177 / 214 | 4 istasyon, 8 figür |
-| hücre gece / diz | 135 / 120 | 152 / 172 | |
-| kütüphane gün / boş | 142 / 154 | 204 / 251 | |
-| studiolo turu | 159 | 222 | ocak ateşi + alembik + armiller |
-| sakristi gün / gece | 154 / 127 | 218 / 133 | |
-| blois / koln | 99–117 / 102 | 136 / 124 | |
-| perde (Euridice) | 144 | 196 | |
-| salon napoli + `cam=rack` | 248 | 298 | rack bulanıklığı ≈ +45–90 ms |
-Hedef ≤250 ms/kare (çekim + post, 1 çekirdek): ortalamalar hepsinde ≤250 (en ağır: rack'li napoli 248). Kareaş pişirme (soğuk önbellek): oda başına 1,0–2,3 sn (10–18 kareaş, ≈4 MB); ilk kare (kit/sprite ısınması) 0,1–2,7 sn.
+## 3. Ölçümler (bu makine, paylaşımlı; çekim + RGB + `CM.post`, ms/kare ort / maks, 1 çekirdek; son ölçüm)
+| girdi | ort | maks | | girdi | ort | maks |
+|---|---:|---:|---|---|---:|---:|
+| oda1743 gece `in` (belgeye zum) | 145 | 207 | | kütüphane gün / boş raf | 113 / 116 | 194 / 195 |
+| oda1743 gece `out` / gün / yatak | 117 / 117 / 97 | 190 / 200 / 135 | | studiolo turu (ateş+alembik+armiller) | 162 | 249 |
+| salon napoli (gece, 2 siluet, 2 avize) | 166 | 236 | | sakristi gün (kapı kapanışı) / gece | 158 / 112 | 195 / 120 |
+| salon medici / signoria / pitti / taht | 141 / 124 / 138 / 110 | 165 / 159 / 219 / 155 | | blois kapı / pencere | 83 / 100 | 92 / 111 |
+| banka gün / gece / kapanış | 125 / 124 / 121 | 238 / 149 / 195 | | köln (ışık solar + iplik) | 84 | 90 |
+| hücre gece / diz çöken | 110 / 94 | 142 / 114 | | perde (Euridice) | 104 | 128 |
+| salon napoli + `cam=rack` | 185 | 250 | | (rack bulanıklığı ≈ +45–90 ms) | | |
+Hedef ≤250 ms/kare (çekim + post, 1 çekirdek): tüm girdilerde ortalama ≤185 ms; en yavaş tek kare 250 ms (rack'li napoli, studiolo turu). Kareaş pişirme (soğuk önbellek, oda başına): 1,0–2,3 sn (10–18 kareaş, ≈4 MB/oda); ilk kare (kit/sprite ısınması) 0,1–2,1 sn (süreç başına bir kez).
+Klipler (`out/clips/oda_*.mp4`, 960×540, 24 fps, 6–14 sn, 0,2–1,2 MB): kare-farkı (240×135 gri, ardışık kare ort. mutlak fark) ortalaması 0,3–4,4 (gündüz salonlar/kütüphane/banka 2–4,4; gece odaları 1–2,5; Blois/Köln/Perde 0,3–0,7 = yavaş sahneler; sakristi kapı kapanışı maks 12 = sarsıntı). Özdeş (ölü) kare: yalnız tam karanlığa solan uçlarda birkaç kare; `qa_flow` için sahne yazarı `cam=`/`path` hareketini güçlendirmelidir (varsayılan yollar yumuşaktır).
 
 ## 4. İyi olanlar
 * Her çekimde üç katman: kamera + ana eylem + ortam hayatı (mum/yağ alevi esintiyle titrer ve eğilir; güve alevin çevresinde döner; toz zerreleri huzmede süzülür; pencere huzmesi yavaş kayar; avize sarkaç gibi sallanır; perde/sancak rüzgârla dalgalanır; ocak ateşi/alembik/armiller; florin sayarken ışıltı).

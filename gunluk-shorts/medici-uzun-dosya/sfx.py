@@ -143,7 +143,9 @@ def _finish(x, loop=False, name=None):
         x = np.stack([x, x], axis=1)
     if not loop:
         x = D.sosfilt(D.biquad("hp", 18, 0, 0.7), x, axis=0)
-        x = D.fade_edges(x, 0.0006, 0.012)
+        pk0 = float(np.max(np.abs(x))) + 1e-12
+        end_rms = float(np.sqrt(np.mean(x[-_n(0.012):] ** 2)))
+        x = D.fade_edges(x, 0.0006, 0.060 if end_rms > pk0 * 10 ** (-50 / 20) else 0.012)       # kesik kuyruk (çan, cam, zum…): 60 ms sönüm; doğal sönen sesler: 12 ms
     x = _tame(x, CREST.get(name, 16))
     return D.peak_norm(x, PEAK_DB)
 

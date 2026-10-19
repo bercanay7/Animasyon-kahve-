@@ -103,6 +103,15 @@ def kontrol():
             uyarilar.extend("   sfx: " + w for w in warns[:12])
     except Exception as e:   # noqa
         uyarilar.append(f"sfx kuyruğu denetlenemedi: {type(e).__name__}: {e}")
+    # müzik çıpaları (muzik.CUES): çizelgede bulunmayan cümle/sözcük çıpaları varsayılan konuma düşer
+    try:
+        if os.path.exists(tp):
+            import muzik
+            n, bad = muzik.anchor_audit(chs, json.load(open(tp)))
+            uyarilar.append(f"müzik çıpaları (CUES): {n} çıpa, {len(bad)} çözülemedi" + (" (aşağıda; bu çıpalar varsayılan konuma düşer)" if bad else ""))
+            uyarilar.extend(f"   müzik: {c} {w}: {a} → {d}" for (c, w, a, d) in bad[:15])
+    except Exception as e:   # noqa
+        uyarilar.append(f"müzik çıpaları denetlenemedi: {type(e).__name__}: {e}")
     return hatalar, uyarilar, meta
 
 

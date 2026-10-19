@@ -91,7 +91,8 @@
    "cik": 1.8,
    "erken": 0.4,
    "bastir_db": -3,
-   "not": "V1 J-kesme: ayin yankısı + kalabalık uğultusu görüntüden 0,4 sn önce girer; müzik yok"
+   "not": "V1 J-kesme: ayin yankısı + kalabalık uğultusu görüntüden 0,4 sn önce girer; müzik yok",
+   "sessizlik_izni": true
   },
   {
    "id": "c7-ayin-yankisi-2",

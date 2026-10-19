@@ -1408,6 +1408,7 @@ class ShipSpec:
         self.ensign = d.get("ensign", True)
         self.wind = float(d.get("wind", 1.0))
         self.arms = d.get("arms")
+        self.sail_set = d.get("sail_set")
         self.label = d.get("label")
         self.tilt = float(d.get("tilt", 1.0))
         self.wake = float(d.get("wake", 1.0))
@@ -1611,12 +1612,12 @@ def draw_wake(c, S, t, s, sea_row, P, stern_off, n=16, life=3.4, bump=0.0):
 
 # ═════════════════════════════ KADIRGA ÇİZİMİ (dinamik) ═════════════════════════════
 GAL_CREW = [  # (tür, x, y(ayak), eylem, boy, kw)
-    ("soylu", -208, -112, "point", 54, dict(t0=0.5, dur=3.0)),
-    ("denizci", -170, -112, "idle", 50, {}),
-    ("denizci", -26, -42, "work", 46, dict(mode="haul", period=1.5)),
-    ("denizci", 6, -42, "work", 46, dict(mode="haul", period=1.5)),
-    ("asker", 238, -76, "idle", 46, dict(prop="spear")),
-    ("asker", 268, -82, "idle", 46, {}),
+    ("soylu", -208, -112, "point", 62, dict(t0=0.5, dur=3.0)),
+    ("denizci", -170, -112, "idle", 58, {}),
+    ("denizci", -26, -42, "work", 56, dict(mode="haul", period=1.5)),
+    ("denizci", 6, -42, "work", 56, dict(mode="haul", period=1.5)),
+    ("asker", 238, -76, "idle", 54, dict(prop="spear")),
+    ("asker", 268, -82, "idle", 54, {}),
 ]
 OSM_ROBES = ["#2E6A4F", "#A8321E", "#233C8C", "#C79A3C", "#1F5A7A"]
 
@@ -1648,9 +1649,11 @@ def draw_crew(ctx, S, spots, t, s, dirn, lod_ok=True):
     FA.set_scale_hint(1.0)
 
 
-def _oar_mode(S):
-    """oars: True → çekiyor (0.0) · False → kürekler toplanmış, çizilmez (None) · sayı 0..1 → kısmen/tam kaldırılmış (1 = dikey)."""
+def _oar_mode(S, t=0.0):
+    """oars: True → çekiyor (0.0) · False → kürekler toplanmış, çizilmez (None) · sayı 0..1 → kısmen/tam kaldırılmış (1 = dikey) · callable(t) → yukarıdakilerden biri."""
     o = S.oars
+    if callable(o):
+        o = o(t)
     if o is True:
         return 0.0
     if o is False or o is None:
@@ -1704,7 +1707,7 @@ def draw_galley(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
     if S.highlight:
         glow(c, 30 + fl * 70, -296, 90, "#FFE08A", 0.35 + 0.1 * math.sin(t * 3.0))
     c.restore()
-    om = _oar_mode(S)
+    om = _oar_mode(S, t)
     if om is None:
         return None
 
@@ -2095,16 +2098,17 @@ def draw_nao(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
         col, trim, dev, devc = T(sl[0]), T(sl[1]), sl[2], T(sl[3])
         st = S.sails if isinstance(S.sails, str) else "full"
         sway = math.sin(t * 0.9 + S.seed) * 3.0 * min(1.0, wind)
+        sset = S.sail_set(t) if callable(S.sail_set) else (1.0 if S.sail_set is None else float(S.sail_set))
         c.save()
         c.rotate(roll * 0.5 * dirn)
         # ana: course / topsail / gallant
         if st in ("full", "reduced"):
-            square_sail(c, -14, -238, -132, 196, 236, t, wind, ph=S.seed * 0.7, col=col, trim=trim, dev=dev, devcol=devc, seed=S.seed, sway=sway)
-            square_sail(c, -14, -328, -242, 140, 160, t, wind, ph=S.seed * 0.9 + 1.0, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 1, sway=sway * 0.7)
+            square_sail(c, -14, -238, -132, 196, 236, t, wind, ph=S.seed * 0.7, col=col, trim=trim, dev=dev, devcol=devc, seed=S.seed, sway=sway, set_=max(0.12, sset))
+            square_sail(c, -14, -328, -242, 140, 160, t, wind, ph=S.seed * 0.9 + 1.0, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 1, sway=sway * 0.7, set_=max(0.12, sset))
             if st == "full":
-                square_sail(c, -14, -398, -332, 88, 98, t, wind, ph=S.seed * 1.1 + 2.0, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 2, sway=sway * 0.5)
-            square_sail(c, 104, -192, -112, 150, 176, t, wind, ph=S.seed * 1.3 + 0.5, col=col, trim=trim, dev=dev, devcol=devc, seed=S.seed + 3, sway=sway)
-            square_sail(c, 104, -284, -200, 112, 124, t, wind, ph=S.seed * 1.5 + 1.5, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 4, sway=sway * 0.7)
+                square_sail(c, -14, -398, -332, 88, 98, t, wind, ph=S.seed * 1.1 + 2.0, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 2, sway=sway * 0.5, set_=max(0.12, sset))
+            square_sail(c, 104, -192, -112, 150, 176, t, wind, ph=S.seed * 1.3 + 0.5, col=col, trim=trim, dev=dev, devcol=devc, seed=S.seed + 3, sway=sway, set_=max(0.12, sset))
+            square_sail(c, 104, -284, -200, 112, 124, t, wind, ph=S.seed * 1.5 + 1.5, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 4, sway=sway * 0.7, set_=max(0.12, sset))
         lateen_sail(c, (-34, -152), (-186, -306), (-178, -172), t, wind, ph=S.seed * 0.5 + 3.0, col=col, trim=trim, dev=None, devcol=devc, seed=S.seed + 5)
         c.restore()
     # bayraklar
@@ -2507,9 +2511,10 @@ def _deniz(cx, scene="acik", tod=None, ships=None, cams=None, kick=None, caption
         camf = None
     pre = (lambda ctx, sea: draw_coast(ctx, co, ctx.t)) if co else None
     cam_override = camf() if camf is not None else None
-    ctx, sea = render_sea_scene(cx, f, cfg, ship_list, band, cams, default, "deniz", pre=pre, cam_override=cam_override)
+    post = None
     if scene == "rota" and thread:
-        pass
+        post = lambda ctx, sea_: draw_route_thread(ctx, sea_, ship_list[0], ctx.t, thread if isinstance(thread, dict) else {})
+    ctx, sea = render_sea_scene(cx, f, cfg, ship_list, band, cams, default, "deniz", pre=pre, post=post, cam_override=cam_override)
     _deco_labels(f, cx, ctx, sea, labels, at)
     _frame_decor(f, cx, band, 1.0, kick, caption, at)
     _finish(f, cx, tod, seed)
@@ -2530,16 +2535,19 @@ def k_deniz(cx, scene="acik", **kw):
 
 @ckind("deniz_rota")
 def k_deniz_rota(cx, **kw):
+    kw.pop("scene", None)
     return _deniz(cx, scene="rota", **kw)
 
 
 @ckind("deniz_filo")
 def k_deniz_filo(cx, **kw):
+    kw.pop("scene", None)
     return _deniz(cx, scene="filo", **kw)
 
 
 @ckind("deniz_kiyi")
 def k_deniz_kiyi(cx, **kw):
+    kw.pop("scene", None)
     return _deniz(cx, scene="kiyi", **kw)
 
 
@@ -3095,3 +3103,1285 @@ def _render_scene_custom(cx, f, cfg, ships, band, cams, default, kind, pre=None,
         pre0 = pre
         pre = (lambda ctx, sea: ((pre0(ctx, sea) if pre0 else None), draw_coast(ctx, coast, ctx.t)))
     return render_sea_scene(cx, f, cfg, ships, band, cams, default, kind, pre=pre, post=post, mid=mid, cam_override=cam_override, ship_fn=ship_fn)
+
+
+# ═════════════════════════════ LİMAN: ortak yapı taşları ═════════════════════════════
+import cilt_build as CB                                  # çarklı vinç (treadwheel), yük bloğu, yük döngüsü
+
+LX0, LW = -500, 3600                                     # liman katmanları: x ∈ [−500, 3100] (nötr kamera ekran pikseli)
+YH_L = 360.0                                             # liman ufku (bant yerel y)
+PAVE_TOP, EDGE, WALL_BOT = 470.0, 506.0, 598.0           # rıhtım: yüzey üst (arka), ön kenar, su hattı (duvar dibi)
+SHIP_Y = 652.0                                           # yanaşan geminin su hattı
+QUAY_FEET = (486.0, 500.0)                               # kalabalığın ayak y aralığı (rıhtım yüzeyi üstü)
+
+
+def bake_layer(key, fn, scale=1.0, w=LW, x0=LX0):
+    """Liman katmanını (x0..x0+w × −OV..800+OV) önbellekli pişir; dönüş: (Image, x0, y0, w, h) yerleştirme bilgisi."""
+    h = 800 + 2 * OV
+    im = baked(key, w, h, lambda c: (c.translate(-x0, OV), fn(c)), scale)
+    return im, x0, -OV, w, h
+
+
+def blit_layer(c, L):
+    im, x0, y0, w, h = L
+    c.drawImageRect(im, skia.Rect.MakeWH(im.width(), im.height()), skia.Rect.MakeXYWH(x0, y0, w, h), LIN, skia.Paint())
+
+
+def draw_quay_wall(c, T, x0, x1, seed=1, stone="#B7A47C", rings=True, bollards=True):
+    """Taş rıhtım: arka kaldırım şeridi (derinlik derzleri) + ön kenar silmesi + blok sıralı duvar yüzü (alt kısım rutubetli) + halkalar + babalar."""
+    rs = _RS(seed)
+    grad_v(c, x0, PAVE_TOP, x1, EDGE, [(T("#D3C49E", 0.0), 0.0), (T("#BFAC84", 0.0), 1.0)])
+    y, k, gap = PAVE_TOP, 0, 5.0
+    while y < EDGE:
+        c.drawLine(x0, y, x1, y, _P("#4A3A22", 55 + k * 8, style="stroke", sw=1.0 + k * 0.18))
+        off = (k % 2) * 40
+        xx = x0 - (x0 % 80) + off
+        while xx < x1:
+            c.drawLine(xx, y, xx - 2 - k, y + gap, _P("#4A3A22", 48, style="stroke", sw=0.9))
+            xx += 80 + k * 6
+        y += gap
+        gap *= 1.22
+        k += 1
+    for i in range(int((x1 - x0) / 55)):
+        x = rs.uniform(x0, x1)
+        oval(c, x, rs.uniform(PAVE_TOP + 6, EDGE - 4), rs.uniform(2, 6), rs.uniform(1, 2.6), "#6A5A3A", 70)
+    # ön kenar silmesi
+    rect(c, x0, EDGE - 2, x1, EDGE + 11, T("#D9CBA4", 0.0))
+    c.drawLine(x0, EDGE - 2, x1, EDGE - 2, _P(INK, 170, style="stroke", sw=1.4))
+    c.drawLine(x0, EDGE + 11, x1, EDGE + 11, _P(INK, 150, style="stroke", sw=1.2))
+    # duvar yüzü
+    grad_v(c, x0, EDGE + 11, x1, WALL_BOT, [(T(stone, 0.0), 0.0), (T(mix(stone, "#6A5A44", 0.35), 0.0), 0.75), (T("#4A4A3A", 0.0), 1.0)])
+    yy = EDGE + 11
+    row = 0
+    while yy < WALL_BOT:
+        hh = 21.0
+        c.drawLine(x0, yy, x1, yy, _P("#2A1A0C", 95, style="stroke", sw=1.1))
+        off = (row % 2) * 36
+        xx = x0 - (x0 % 72) + off
+        while xx < x1:
+            c.drawLine(xx, yy, xx, min(WALL_BOT, yy + hh), _P("#2A1A0C", 80, style="stroke", sw=1.0))
+            if rs.rand() < 0.10:
+                rect(c, xx + 3, yy + 3, xx + 28, yy + hh - 3, "#FFFFFF", 22)
+            xx += 72
+        yy += hh
+        row += 1
+    wl = skia.GradientShader.MakeLinear([(0, WALL_BOT - 26), (0, WALL_BOT)], [C("#1B2A1A", 0), C("#1B2A1A", 140)], [0.0, 1.0])
+    c.drawRect(skia.Rect.MakeLTRB(x0, WALL_BOT - 26, x1, WALL_BOT), skia.Paint(Shader=wl))
+    shade = skia.GradientShader.MakeLinear([(0, EDGE + 11), (0, EDGE + 30)], [C("#1A1008", 70), C("#1A1008", 0)], [0.0, 1.0])
+    c.drawRect(skia.Rect.MakeLTRB(x0, EDGE + 11, x1, EDGE + 30), skia.Paint(Shader=shade))
+    if rings:
+        for x in np.arange(x0 + 140, x1, 236.0):
+            c.drawCircle(float(x), EDGE + 42, 7.5, _P("#2A2A2A", 255, style="stroke", sw=2.6))
+            c.drawCircle(float(x), EDGE + 34, 2.6, _P("#2A2A2A", 255))
+    if bollards:
+        for x in np.arange(x0 + 90, x1, 330.0):
+            x = float(x)
+            rect(c, x - 9, EDGE - 24, x + 9, EDGE, T("#8A8A7E", 0.0))
+            oval(c, x, EDGE - 26, 12, 5, T("#9A9A8E", 0.0))
+            c.drawRect(skia.Rect.MakeLTRB(x - 9, EDGE - 24, x + 9, EDGE), _P(INK, 170, style="stroke", sw=1.2))
+            c.drawOval(skia.Rect.MakeLTRB(x - 12, EDGE - 31, x + 12, EDGE - 21), _P(INK, 150, style="stroke", sw=1.1))
+    # sağ uca doğru kayma yok: sol ucu yuvarlak baş (kıyı başı)
+    rect(c, x0 - 10, EDGE - 2, x0 + 8, WALL_BOT, T("#A99674", 0.0))
+    c.drawRect(skia.Rect.MakeLTRB(x0 - 10, EDGE - 2, x0 + 8, WALL_BOT), _P(INK, 160, style="stroke", sw=1.3))
+
+
+def draw_row_houses(c, T, x0, x1, yb, rs, hmin=90, hmax=170, wmin=54, wmax=96, depth=0.10, wins=None, roofs=None):
+    """Bitişik sıra evler (kat kat pencereli; cilt_city.draw_house yeniden kullanılır). roofs: (x_orta, çatı_tepesi_y) kayıtları (duman/bayrak için)."""
+    x = x0
+    while x < x1:
+        w = rs.uniform(wmin, wmax)
+        h = rs.uniform(hmin, hmax)
+        CT.draw_house(c, x, yb, w, h, rs, T, depth, wins, hip=(rs.rand() < 0.5))
+        if roofs is not None:
+            roofs.append((x + w / 2, yb - h - min(h * 0.45, w * 0.4) * 1.1))
+        x += w + rs.uniform(-3, 2)
+
+
+def draw_warehouse(c, T, x, yb, w, h, rs, hoist=True, arches=3):
+    """Ambar: kalın taş duvar, ağır kemerli kapılar (karanlık iç), beşik/kiremit çatı, tepede makaralı çıkrık kirişi (halat + kanca) ve küçük pencereler."""
+    wall = T(["#D8C79C", "#CDB486", "#E0CCA2"][rs.randint(3)], 0.05)
+    roof = T(CT.ROOFS[rs.randint(len(CT.ROOFS))], 0.05)
+    rect(c, x, yb - h, x + w, yb, wall)
+    c.drawRect(skia.Rect.MakeLTRB(x + w * 0.74, yb - h, x + w, yb), _P("#2A1A0C", 36))
+    rh = h * 0.40
+    rp = poly([(x - 6, yb - h), (x + w * 0.5, yb - h - rh), (x + w + 6, yb - h)])
+    fink(c, rp, roof, 1.3, 255, 170)
+    for k in range(1, 6):
+        yy = yb - h - rh + k * rh / 6
+        c.drawLine(x + w * 0.5 - (w * 0.5 + 6) * k / 6, yy, x + w * 0.5 + (w * 0.5 + 6) * k / 6, yy, _P("#5A2412", 60, style="stroke", sw=0.9))
+    aw = w / (arches + 0.6)
+    for i in range(arches):
+        ax = x + w * 0.5 + (i - (arches - 1) / 2) * (aw * 1.18)
+        ah = h * 0.52
+        p = skia.Path()
+        p.moveTo(ax - aw / 2, yb)
+        p.lineTo(ax - aw / 2, yb - ah + aw / 2)
+        p.arcTo(skia.Rect.MakeLTRB(ax - aw / 2, yb - ah, ax + aw / 2, yb - ah + aw), 180, 180, False)
+        p.lineTo(ax + aw / 2, yb)
+        p.close()
+        c.drawPath(p, _P(T("#2E2016", 0.0)))
+        c.drawPath(p, _P(INK, 190, style="stroke", sw=1.4))
+        c.drawRect(skia.Rect.MakeXYWH(ax - aw * 0.34, yb - ah * 0.36, aw * 0.68, ah * 0.30), _P(T("#8A6A3A", 0.0), 255))
+    for wx in (x + w * 0.16, x + w * 0.84):
+        c.drawRect(skia.Rect.MakeXYWH(wx - 5, yb - h + 12, 10, 16), _P(T("#3A2A1C", 0.0), 210))
+    c.drawRect(skia.Rect.MakeLTRB(x, yb - h, x + w, yb), _P(INK, 150, style="stroke", sw=1.2))
+    if hoist:
+        bx = x + w * 0.5
+        by = yb - h - rh + 3
+        c.drawLine(bx, by, bx + 34, by - 6, _P(INK, 230, style="stroke", sw=5.4))
+        c.drawLine(bx, by, bx + 34, by - 6, _P(T("#7A5230", 0.0), 255, style="stroke", sw=3.4))
+        c.drawCircle(bx + 33, by - 6, 4.0, _P("#2A2A2A"))
+    return (x + w / 2, yb - h - rh - 6)
+
+
+def draw_tower_sq(c, T, x, yb, w, h, rs, cap="conical", crenel=True, base_w=None):
+    """Kare kule/burç: taş sıraları, mazgal, aşağıya sarkık alçı gölgesi, dar pencereler, koni ya da kiremit külah. Dönüş: tepe noktası (bayrak için)."""
+    stone = T(["#C9B68C", "#BCA67E", "#CDBB92"][rs.randint(3)], 0.04)
+    rect(c, x - w / 2, yb - h, x + w / 2, yb, stone)
+    for r in range(int(h / 15)):
+        c.drawLine(x - w / 2, yb - h + r * 15, x + w / 2, yb - h + r * 15, _P("#6A5A3A", 70, style="stroke", sw=1.0))
+    c.drawRect(skia.Rect.MakeLTRB(x + w * 0.2, yb - h, x + w / 2, yb), _P("#2A1A0C", 46))
+    c.drawRect(skia.Rect.MakeLTRB(x - w / 2, yb - h, x + w / 2, yb), _P(INK, 170, style="stroke", sw=1.4))
+    top = yb - h
+    if crenel:
+        n = max(3, int(w / 14))
+        for k in range(n):
+            xx = x - w / 2 - 2 + k * (w + 4) / n
+            rect(c, xx, top - 11, xx + (w + 4) / n * 0.55, top, stone)
+            c.drawRect(skia.Rect.MakeLTRB(xx, top - 11, xx + (w + 4) / n * 0.55, top), _P(INK, 150, style="stroke", sw=1.0))
+        rect(c, x - w / 2 - 3, top, x + w / 2 + 3, top + 6, T("#8A7452", 0.04))
+    for ry in (0.28, 0.58):
+        yy = yb - h * (1 - ry)
+        c.drawRect(skia.Rect.MakeXYWH(x - 3.2, yy, 6.4, 15), _P(T("#2A1C10", 0.0), 230))
+    if cap == "conical":
+        cp = poly([(x - w * 0.60, top - 10), (x, top - 10 - w * 1.05), (x + w * 0.60, top - 10)])
+        fink(c, cp, T("#B4552E", 0.04), 1.3, 255, 170)
+        return (x, top - 10 - w * 1.05)
+    return (x, top - 11)
+
+
+def draw_tower_round(c, T, x, yb, r, h, rs, cap="conical", crenel=True):
+    stone = T(["#C4B088", "#B8A27A", "#CDBA90"][rs.randint(3)], 0.04)
+    rect(c, x - r, yb - h, x + r, yb, stone)
+    c.drawRect(skia.Rect.MakeLTRB(x + r * 0.30, yb - h, x + r, yb), _P("#2A1A0C", 54))
+    c.drawRect(skia.Rect.MakeLTRB(x - r, yb - h + 2, x - r * 0.62, yb), _P("#FFF4D0", 26))
+    for rr in range(int(h / 16)):
+        c.drawLine(x - r, yb - h + rr * 16, x + r, yb - h + rr * 16, _P("#6A5A3A", 60, style="stroke", sw=0.9))
+    c.drawRect(skia.Rect.MakeLTRB(x - r, yb - h, x + r, yb), _P(INK, 170, style="stroke", sw=1.4))
+    top = yb - h
+    if crenel:
+        n = max(4, int(r * 2 / 9))
+        for k in range(n):
+            xx = x - r - 2 + k * (2 * r + 4) / n
+            rect(c, xx, top - 10, xx + (2 * r + 4) / n * 0.55, top, stone)
+            c.drawRect(skia.Rect.MakeLTRB(xx, top - 10, xx + (2 * r + 4) / n * 0.55, top), _P(INK, 150, style="stroke", sw=0.9))
+        rect(c, x - r - 3, top, x + r + 3, top + 5, T("#8A7452", 0.04))
+    c.drawRect(skia.Rect.MakeXYWH(x - 3, yb - h * 0.62, 6, 14), _P(T("#2A1C10", 0.0), 230))
+    c.drawRect(skia.Rect.MakeXYWH(x - 3, yb - h * 0.34, 6, 14), _P(T("#2A1C10", 0.0), 230))
+    if cap == "conical":
+        cp = poly([(x - r * 1.12, top - 8), (x, top - 8 - r * 1.6), (x + r * 1.12, top - 8)])
+        fink(c, cp, T("#B4552E", 0.04), 1.3, 255, 170)
+        return (x, top - 8 - r * 1.6)
+    return (x, top - 10)
+
+
+def minaret(c, T, x, yb, h, w=9.0, cap_col="#9A8E7A", stone="#E4D8BC"):
+    """İnce minare: gövde, şerefe (balkon) halkası, kurşun külah ve alem. Dönüş: tepe."""
+    rect(c, x - w / 2, yb - h, x + w / 2, yb, T(stone, 0.2))
+    c.drawRect(skia.Rect.MakeLTRB(x + w * 0.1, yb - h, x + w / 2, yb), _P("#2A1A0C", 44))
+    c.drawRect(skia.Rect.MakeLTRB(x - w / 2, yb - h, x + w / 2, yb), _P(INK, 150, style="stroke", sw=1.0))
+    sy = yb - h * 0.78
+    rect(c, x - w * 1.05, sy, x + w * 1.05, sy + 5, T("#CFC2A2", 0.2))
+    c.drawRect(skia.Rect.MakeLTRB(x - w * 1.05, sy, x + w * 1.05, sy + 5), _P(INK, 150, style="stroke", sw=0.9))
+    c.drawLine(x - w * 1.05, sy - 5, x + w * 1.05, sy - 5, _P(INK, 120, style="stroke", sw=0.9))
+    ct_ = poly([(x - w * 0.62, yb - h), (x, yb - h - w * 3.4), (x + w * 0.62, yb - h)])
+    fink(c, ct_, T(cap_col, 0.2), 1.0, 255, 150)
+    c.drawLine(x, yb - h - w * 3.4, x, yb - h - w * 4.4, _P("#C79A3C", 255, style="stroke", sw=1.6))
+    return (x, yb - h - w * 4.4)
+
+
+def dome_mass(c, T, x, yb, r, h_drum=14, col="#C9BFA4", lead="#8E8E8A", windows=True):
+    """Kubbe: kısa tambur (pencere sırası) + yarım küre (kurşun) + alem. Dönüş: tepe."""
+    rect(c, x - r, yb - h_drum, x + r, yb, T("#E0D4B4", 0.2))
+    c.drawRect(skia.Rect.MakeLTRB(x - r, yb - h_drum, x + r, yb), _P(INK, 140, style="stroke", sw=1.0))
+    if windows:
+        for k in range(int(r / 9)):
+            wx = x - r + 9 + k * (2 * r - 18) / max(1, int(r / 9) - 1)
+            c.drawRect(skia.Rect.MakeXYWH(wx - 2.2, yb - h_drum + 3, 4.4, h_drum - 6), _P(T("#3A2A1C", 0.0), 190))
+    p = skia.Path()
+    p.moveTo(x - r, yb - h_drum)
+    p.cubicTo(x - r, yb - h_drum - r * 1.15, x + r, yb - h_drum - r * 1.15, x + r, yb - h_drum)
+    p.close()
+    fink(c, p, T(lead, 0.2), 1.2, 255, 160)
+    c.save()
+    c.clipPath(p, skia.ClipOp.kIntersect, True)
+    c.drawRect(skia.Rect.MakeLTRB(x + r * 0.25, yb - h_drum - r * 1.2, x + r, yb - h_drum), _P("#1A1008", 40))
+    c.drawOval(skia.Rect.MakeLTRB(x - r * 0.7, yb - h_drum - r * 0.95, x - r * 0.1, yb - h_drum - r * 0.45), _P("#FFFFFF", 38, blur=3))
+    c.restore()
+    c.drawLine(x, yb - h_drum - r * 0.86, x, yb - h_drum - r * 1.12, _P("#C79A3C", 255, style="stroke", sw=1.6))
+    return (x, yb - h_drum - r * 1.12)
+
+
+def draw_stack(c, T, x, yb, w, h, rs, kind="bales"):
+    """Rıhtım yığınları (kaldırım üstü): balya/çuval/varil/sandık."""
+    if kind == "barrels":
+        n = max(2, int(w / 20))
+        for i in range(n):
+            bx = x + i * 20 + 10
+            hh = h * (0.7 + 0.3 * rs.rand())
+            ovalink(c, bx, yb - hh / 2, 9.5, hh / 2, T("#9A6A3A", 0.0), 1.0, 255, 170)
+            c.drawLine(bx - 9, yb - hh * 0.75, bx + 9, yb - hh * 0.75, _P("#3A2410", 190, style="stroke", sw=1.4))
+            c.drawLine(bx - 9, yb - hh * 0.25, bx + 9, yb - hh * 0.25, _P("#3A2410", 190, style="stroke", sw=1.4))
+    elif kind == "crates":
+        rectink(c, x, yb - h, x + w, yb, T("#A87C4A", 0.0), 1.2, 255, 170)
+        c.drawLine(x, yb - h, x + w, yb, _P("#4A2E16", 140, style="stroke", sw=1.2))
+        c.drawLine(x + w, yb - h, x, yb, _P("#4A2E16", 140, style="stroke", sw=1.2))
+        rectink(c, x + w * 0.2, yb - h * 1.7, x + w * 0.85, yb - h, T("#B88E58", 0.0), 1.2, 255, 170)
+    else:
+        for i in range(int(w / 24)):
+            bx = x + i * 24 + 12
+            hh = h * (0.7 + 0.5 * rs.rand())
+            p = smoothp([(bx - 11, yb), (bx - 13, yb - hh * 0.6), (bx - 6, yb - hh), (bx + 6, yb - hh), (bx + 13, yb - hh * 0.6), (bx + 11, yb)], True, 0.5)
+            fink(c, p, T(["#C8B27A", "#B89A62", "#D6C18E"][i % 3], 0.0), 1.2, 255, 170)
+            c.drawLine(bx - 8, yb - hh * 0.62, bx + 8, yb - hh * 0.62, _P("#4A3A22", 120, style="stroke", sw=1.0))
+
+
+# ═════════════════════════════ LİMAN: varyantlar (marsilya | napoli | livorno | pera | generic) ═════════════════════════════
+def _ridge_fill(c, T, x0, x1, base, amp, scale, ph, col, depth, ink=True, step=10, trees=0, rs=None, tree_col=None):
+    xs, ys = _ridge_pts(x0, x1, base, amp, scale, ph, step)
+    ys = np.minimum(ys, base - 2)
+    pts = list(zip(xs.tolist(), ys.tolist())) + [(float(xs[-1]), base + 80), (float(xs[0]), base + 80)]
+    c.drawPath(poly(pts, True), _P(T(col, depth)))
+    if ink:
+        c.drawPath(poly(list(zip(xs.tolist(), ys.tolist())), False), _P(INK, 70, style="stroke", sw=1.2))
+    if trees and rs is not None:
+        for k in range(trees):
+            x = rs.uniform(x0, x1)
+            y = float(np.interp(x, xs, ys))
+            SC.cypress(c, x, y + 2, rs.uniform(18, 40), T(tree_col or "#2E4A33", depth), T("#4F6E4A", depth))
+    return xs, ys
+
+
+def _haze(c, x0, x1, y0, y1, col, a0, a1):
+    sh = skia.GradientShader.MakeLinear([(0, y0), (0, y1)], [C(col, a0), C(col, a1)], [0.0, 1.0])
+    c.drawRect(skia.Rect.MakeLTRB(x0, y0, x1, y1), skia.Paint(Shader=sh))
+
+
+class Harbor:
+    """Liman dünyası: uzak siluet (f=0,30) + yapı katmanı (f=0,82) + rıhtım (f=1) önceden pişirilir; dinamik bayrak/duman/yeldeğirmeni/çark/kalabalık çağıran tarafta."""
+
+    def __init__(self, variant, tod, year=None):
+        self.v = variant if variant in ("marsilya", "napoli", "livorno", "pera", "generic") else "generic"
+        self.tod = tod
+        self.year = year
+        self.T = Tint(tod)
+        self.flags, self.smokes, self.mills, self.cranes = [], [], [], []
+        self.quay_x0 = {"marsilya": 600.0, "napoli": 640.0, "livorno": 520.0, "pera": 480.0, "generic": 560.0}[self.v]
+        self.yc = "y0"
+        if self.v == "pera" and year:
+            self.yc = "y1" if year < 1500 else ("y2" if year < 1574 else "y3")
+        self.far = bake_layer(f"lm_{self.v}_{tod}_{self.yc}_far", self._draw_far, 1.0)
+        self.bld = bake_layer(f"lm_{self.v}_{tod}_{self.yc}_bld", self._draw_bld, 1.0)
+        self.quay = bake_layer(f"lm_{self.v}_{tod}_{self.yc}_quay", self._draw_quay, 1.2, x0=int(self.quay_x0 - 40), w=3140 - int(self.quay_x0 - 40) + 200)
+        self.lit = tod in ("night", "dusk", "fire")
+
+    # ── uzak siluet (f=0,30): ufuk tabanı YH_L ──────────────────────────────
+    def _draw_far(self, c):
+        T, v = self.T, self.v
+        rs = _RS({"marsilya": 31, "napoli": 32, "livorno": 33, "pera": 34, "generic": 35}[v])
+        yh = YH_L + 6
+        if v == "marsilya":
+            # kireçtaşı tepeler: açık, çıplak; solda iki yeldeğirmeni
+            _ridge_fill(c, T, -500, 3100, yh, 130, 380, 0.4, "#D9D1B8", 0.55, trees=0)
+            xs, ys = _ridge_fill(c, T, -500, 3100, yh, 96, 260, 2.1, "#C7BFA2", 0.38, trees=26, rs=rs, tree_col="#4A5E3E")
+            xs2, ys2 = _ridge_fill(c, T, -500, 3100, yh, 60, 170, 4.1, "#B5AC8E", 0.22, trees=30, rs=rs, tree_col="#3A5236")
+            for mx in (-60.0, 250.0, 520.0):
+                my = float(np.interp(mx, xs, ys))
+                self.mills.append((mx, my + 4.0, 38.0))
+            for k in range(46):
+                x = rs.uniform(-480, 3080)
+                y = float(np.interp(x, xs2, ys2)) + rs.uniform(8, 40)
+                if y < yh - 2:
+                    CT.draw_house(c, x, y, rs.uniform(16, 28), rs.uniform(12, 22), rs, T, 0.45)
+        elif v == "napoli":
+            # Vezüv: Monte Somma (sol, yırtık kenar) + Vezüv konisi (sağ, kraterli) — soluk lila mavi
+            lil = "#A59CC0"
+            pts = [(1050, yh), (1180, yh - 90), (1300, yh - 168), (1420, yh - 214), (1520, yh - 196), (1580, yh - 150), (1640, yh - 198), (1700, yh - 262), (1760, yh - 282), (1800, yh - 270), (1850, yh - 286),
+                   (1930, yh - 254), (2060, yh - 168), (2220, yh - 96), (2400, yh - 40), (2560, yh)]
+            xs_, ys_ = zip(*pts)
+            f_ = PN.pchip(list(xs_), list(ys_))
+            xx = np.arange(1050, 2561, 8)
+            yy = np.array([f_(x) for x in xx])
+            c.drawPath(poly(list(zip(xx.tolist(), yy.tolist())) + [(2560, yh + 60), (1050, yh + 60)], True), _P(T(lil, 0.52)))
+            c.drawPath(poly(list(zip(xx.tolist(), yy.tolist())), False), _P(INK, 80, style="stroke", sw=1.4))
+            # yamaç gölgesi (ışık solda → sağ yamaç koyu)
+            c.save()
+            c.clipPath(poly(list(zip(xx.tolist(), yy.tolist())) + [(2560, yh + 60), (1050, yh + 60)], True), skia.ClipOp.kIntersect, True)
+            c.drawPath(poly([(1760, yh - 284), (2100, yh - 150), (2560, yh), (1850, yh)], True), _P(T("#6E6490", 0.3), 120))
+            for q in range(18):
+                x = rs.uniform(1100, 2500)
+                c.drawLine(x, yh - rs.uniform(30, 120), x + rs.uniform(10, 60), yh, _P("#4A3F68", 34, style="stroke", sw=1.4))
+            c.restore()
+            _ridge_fill(c, T, -500, 3100, yh, 70, 220, 1.3, "#B2B0A0", 0.36, trees=18, rs=rs)
+            _ridge_fill(c, T, -500, 3100, yh, 46, 140, 3.7, "#9FA48C", 0.2, trees=26, rs=rs)
+            for k in range(60):
+                x = rs.uniform(1100, 2700)
+                y = yh - rs.uniform(2, 26)
+                CT.draw_house(c, x, y, rs.uniform(10, 20), rs.uniform(8, 16), rs, T, 0.45)
+        elif v == "livorno":
+            # alçak kıyı + uzak Apenin tepeleri (mavi)
+            _ridge_fill(c, T, -500, 3100, yh - 6, 120, 520, 0.9, "#A9B7C4", 0.62)
+            _ridge_fill(c, T, -500, 3100, yh, 60, 300, 2.7, "#9FAE9C", 0.4, trees=24, rs=rs)
+            _ridge_fill(c, T, -500, 3100, yh, 24, 160, 4.2, "#94A58A", 0.22, trees=30, rs=rs)
+        elif v == "pera":
+            self._far_pera(c, T, rs, yh)
+        else:
+            _ridge_fill(c, T, -500, 3100, yh, 90, 360, 0.6, "#B8CFC4", 0.5)
+            _ridge_fill(c, T, -500, 3100, yh, 60, 220, 2.6, "#9DB8AC", 0.3, trees=22, rs=rs)
+        _haze(c, -500, 3100, yh - 110, yh + 10, T(pal(self.tod)["haze"], 0.0), 0, 130 if self.tod != "night" else 70)
+
+    def _far_pera(self, c, T, rs, yh):
+        """Tarihî yarımada silueti (Haliç karşı kıyısı): Ayasofya (ana kubbe + yarım kubbeler + payandalar + minare[ler]), cami grupları, Topkapı köşkleri, servi, sur."""
+        yc = self.yc
+        # arka plan: ikinci sıra (açık) — küçük camiler ve sur
+        base = yh
+        for k in range(14):
+            x = -300 + k * 240 + rs.uniform(-40, 40)
+            r = rs.uniform(18, 30)
+            dome_mass(c, T, x, base - 18, r, 8, "#D9CFB0", "#9C9C98", True)
+            if k % 2 == 0:
+                minaret(c, T, x + r + 10, base - 18, rs.uniform(70, 96), 6.0)
+        # sur (kıyı boyunca mazgallı, kuleli)
+        rect(c, -500, base - 16, 3100, base + 6, T("#C9B68C", 0.3))
+        for x in np.arange(-500, 3100, 14.0):
+            rect(c, float(x), base - 22, float(x) + 7, base - 16, T("#C9B68C", 0.3))
+        for x in np.arange(-440, 3100, 210.0):
+            draw_tower_sq(c, T, float(x), base + 6, 18, 38, rs, cap="flat", crenel=True)
+        c.drawLine(-500, base - 16, 3100, base - 16, _P(INK, 110, style="stroke", sw=1.0))
+        # Topkapı: sivri külahlı köşkler + servi
+        for k in range(7):
+            x = 1500 + k * 78 + rs.uniform(-12, 12)
+            h = rs.uniform(26, 42)
+            rect(c, x - 16, base - 18 - h, x + 16, base - 18, T("#E7D6B0", 0.3))
+            fink(c, poly([(x - 20, base - 18 - h), (x, base - 18 - h - 22), (x + 20, base - 18 - h)]), T("#9E5A3A", 0.3), 1.0, 255, 140)
+        for k in range(26):
+            x = rs.uniform(1380, 2240)
+            SC.cypress(c, x, base - 16, rs.uniform(26, 50), T("#2E4A33", 0.3), T("#4F6E4A", 0.3))
+        # Fatih Camii (sol): geniş kubbe + iki minare (1470'te tamamlanmış)
+        xf = 340.0
+        rect(c, xf - 120, base - 58, xf + 120, base - 16, T("#E2D5B4", 0.25))
+        c.drawRect(skia.Rect.MakeLTRB(xf - 120, base - 58, xf + 120, base - 16), _P(INK, 130, style="stroke", sw=1.1))
+        dome_mass(c, T, xf, base - 58, 62, 16, "#D9CFB0", "#8E918E")
+        for sx in (-148.0, 148.0):
+            minaret(c, T, xf + sx, base - 16, 160, 9.0)
+        for sx in (-84.0, 84.0):
+            dome_mass(c, T, xf + sx, base - 58, 26, 8, "#D9CFB0", "#8E918E", False)
+        # Ayasofya (orta-sağ): ana kubbe, doğu/batı yarım kubbeler, payandalar, minare(ler)
+        xa = 1010.0
+        yb = base - 16
+        rect(c, xa - 150, yb - 70, xa + 150, yb, T("#D9C7A2", 0.25))
+        c.drawRect(skia.Rect.MakeLTRB(xa - 150, yb - 70, xa + 150, yb), _P(INK, 140, style="stroke", sw=1.2))
+        for k in range(7):
+            bx = xa - 140 + k * 46.7
+            fink(c, poly([(bx - 9, yb), (bx - 4, yb - 66), (bx + 4, yb - 66), (bx + 9, yb)]), T("#B5A07C", 0.25), 1.0, 255, 130)
+        for sx, rr in ((-96.0, 52.0), (96.0, 52.0)):                         # yarım kubbeler
+            dome_mass(c, T, xa + sx, yb - 70, rr, 0, "#D9CFB0", "#9A9C98", False)
+        dome_mass(c, T, xa, yb - 74, 70, 20, "#D9CFB0", "#8E918E", True)       # ana kubbe
+        minarets = {"y1": [(xa + 168, 150)], "y2": [(xa + 168, 150), (xa - 168, 150)], "y3": [(xa + 168, 170), (xa - 168, 170), (xa + 214, 150), (xa - 214, 150)]}.get(yc, [(xa + 168, 150)])
+        for (mx, mh) in minarets:
+            minaret(c, T, mx, yb, mh, 10.0)
+        # küçük cami grubu (sağ)
+        for k in range(5):
+            x = 2300 + k * 150 + rs.uniform(-20, 20)
+            dome_mass(c, T, x, base - 20, rs.uniform(24, 36), 10, "#D9CFB0", "#9A9C98", True)
+            minaret(c, T, x + 44, base - 20, rs.uniform(90, 130), 7.0)
+
+    # ── yapı katmanı (f=0,82): kıyı yapıları; taban PAVE_TOP ────────────────
+    def _draw_bld(self, c):
+        T, v = self.T, self.v
+        rs = _RS({"marsilya": 41, "napoli": 42, "livorno": 43, "pera": 44, "generic": 45}[v])
+        yb = PAVE_TOP
+        wins, roofs = [], []
+        qx = self.quay_x0
+        if v == "marsilya":
+            # Fort Saint-Jean benzeri burç: kare kule + sivri kule + sur (limanın başında)
+            draw_tower_sq(c, T, 420, yb + 4, 108, 210, rs, "flat", True)
+            draw_tower_round(c, T, 340, yb + 4, 24, 150, rs)
+            draw_tower_round(c, T, 500, yb + 4, 24, 160, rs)
+            rect(c, 180, yb - 70, 380, yb + 6, T("#CBB88E", 0.04))
+            c.drawRect(skia.Rect.MakeLTRB(180, yb - 70, 380, yb + 6), _P(INK, 160, style="stroke", sw=1.3))
+            for k in range(14):
+                rect(c, 180 + k * 15, yb - 80, 180 + k * 15 + 8, yb - 70, T("#CBB88E", 0.04))
+            self.flags.append(dict(x=420, y=yb - 210 - 14, f=0.82, w=96, h=60, shape="swallow", dev="lily", c1="#233C8C", c2="#E0B84E", c3="#E0B84E", tag="fort"))
+            draw_row_houses(c, T, qx + 40, 1280, yb, rs, 110, 190, 56, 98, 0.06, wins, roofs)
+            # ambar grubu (çıkrıklı)
+            wx_ = 1290
+            for k, ww in enumerate((150, 130, 160)):
+                top = draw_warehouse(c, T, wx_, yb, ww, 118 + 16 * k, rs, True, 3)
+                wx_ += ww + 6
+            draw_row_houses(c, T, wx_, 3120, yb, rs, 110, 200, 56, 100, 0.06, wins, roofs)
+            # çan alınlıklı kilise (sağ)
+            ch = draw_tower_sq(c, T, 2250, yb, 52, 250, rs, "conical", True)
+        elif v == "napoli":
+            T0 = T
+            # Castel Nuovo: beş yuvarlak kule, sur, zafer kemeri (iki ön kule arasında)
+            rect(c, 560, yb - 124, 1250, yb + 6, T("#BDA47C", 0.04))
+            c.drawRect(skia.Rect.MakeLTRB(560, yb - 124, 1250, yb + 6), _P(INK, 160, style="stroke", sw=1.4))
+            for k in range(46):
+                rect(c, 560 + k * 15, yb - 134, 560 + k * 15 + 8, yb - 124, T("#BDA47C", 0.04))
+            for r in range(8):
+                c.drawLine(560, yb - 120 + r * 16, 1250, yb - 120 + r * 16, _P("#6A5A3A", 55, style="stroke", sw=1.0))
+            tw = [(590, 56, 190), (770, 52, 170), (990, 52, 170), (1190, 56, 190), (880, 46, 236)]
+            for (tx, tr, th) in sorted(tw, key=lambda q: -q[2]):
+                top = draw_tower_round(c, T, tx, yb + 6, tr, th, rs, cap="flat", crenel=True)
+            # zafer kemeri (beyaz mermer)
+            ax = 880
+            rect(c, ax - 72, yb - 150, ax + 72, yb + 6, T("#E6DFCC", 0.04))
+            c.drawRect(skia.Rect.MakeLTRB(ax - 72, yb - 150, ax + 72, yb + 6), _P(INK, 160, style="stroke", sw=1.3))
+            for lv, (yy0, ww) in enumerate(((yb + 6, 46), (yb - 78, 40))):
+                ap = skia.Path()
+                ap.moveTo(ax - ww / 2, yy0)
+                ap.lineTo(ax - ww / 2, yy0 - 40 + ww / 2)
+                ap.arcTo(skia.Rect.MakeLTRB(ax - ww / 2, yy0 - 40, ax + ww / 2, yy0 - 40 + ww), 180, 180, False)
+                ap.lineTo(ax + ww / 2, yy0)
+                ap.close()
+                c.drawPath(ap, _P(T("#3A2A1C", 0.0), 235))
+                c.drawPath(ap, _P(INK, 170, style="stroke", sw=1.3))
+            for sx in (-52.0, 52.0):
+                rect(c, ax + sx - 6, yb - 148, ax + sx + 6, yb - 126, T("#D6CDB4", 0.04))
+            self.flags.append(dict(x=880, y=yb - 282, f=0.82, w=90, h=58, shape="swallow", dev="plain", c1="#E0B84E", c2="#B33620", c3="#B33620", tag="fort"))
+            # şehir: teraslı yamaç, düz çatılı evler, majolika kubbe + çan kuleleri
+            for r in range(4):
+                x = 1290.0
+                while x < 3120:
+                    w_ = rs.uniform(50, 86)
+                    h_ = rs.uniform(70, 130)
+                    yb_ = yb - r * 10
+                    CT.draw_house(c, x, yb_, w_, h_, rs, T, 0.05 + 0.03 * r, wins, hip=(rs.rand() < 0.15))
+                    roofs.append((x + w_ / 2, yb_ - h_ - 14))
+                    x += w_ + rs.uniform(-3, 2)
+            dm = dome_mass(c, T, 1800, yb - 120, 46, 24, "#E4D8B8", "#4E8A6E")                       # majolika yeşil kubbe
+            c.drawLine(1760, yb - 150, 1840, yb - 150, _P("#E0C04E", 255, style="stroke", sw=2.0))
+            draw_tower_sq(c, T, 2280, yb, 46, 240, rs, "conical", True)
+            draw_tower_sq(c, T, 2680, yb, 44, 210, rs, "conical", True)
+        elif v == "livorno":
+            # Fortezza Vecchia: tuğla-bej bastionlar, beyaz yuvarlak "Mastio", kare "Quadratura" kulesi
+            def bastion(x0_, x1_, hgt):
+                p = poly([(x0_, yb + 6), (x0_ + 26, yb - hgt), (x1_ - 26, yb - hgt), (x1_, yb + 6)])
+                fink(c, p, T("#C9A98A", 0.04), 1.5, 255, 175)
+                c.save()
+                c.clipPath(p, skia.ClipOp.kIntersect, True)
+                for r in range(int(hgt / 14)):
+                    c.drawLine(x0_, yb - hgt + r * 14, x1_, yb - hgt + r * 14, _P("#6A3A22", 52, style="stroke", sw=1.0))
+                c.drawRect(skia.Rect.MakeLTRB(x1_ - (x1_ - x0_) * 0.30, yb - hgt, x1_, yb + 6), _P("#2A1A0C", 50))
+                c.restore()
+            bastion(380, 700, 96)
+            bastion(660, 1080, 120)
+            top_m = draw_tower_round(c, T, 860, yb - 60, 54, 150, rs, cap="flat", crenel=True)
+            top_q = draw_tower_sq(c, T, 1010, yb - 40, 66, 150, rs, "flat", True)
+            for k in range(10):
+                rect(c, 380 + k * 32, yb - 106, 380 + k * 32 + 17, yb - 96, T("#C9A98A", 0.04))
+            self.flags.append(dict(x=860, y=yb - 60 - 150 - 20, f=0.82, w=84, h=54, shape="swallow", dev="medici", c1="#E0B84E", c2="#B33620", c3="#B33620", tag="fort"))
+            # düzenli planlı şehir: dört katlı, birbirine benzer renkli cepheler; kanal boşluğu 1880–2060
+            x = 1110.0
+            while x < 3120:
+                if 1860 < x < 2080:
+                    x = 2080.0
+                    continue
+                w_ = rs.uniform(54, 74)
+                h_ = rs.uniform(120, 150)
+                CT.draw_house(c, x, yb, w_, h_, rs, T, 0.05, wins, hip=False)
+                roofs.append((x + w_ / 2, yb - h_ - 18))
+                x += w_ + rs.uniform(-2, 1)
+            # kanal köprüsü kemeri (yapı katmanında arka plan)
+            rect(c, 1850, yb - 20, 2090, yb + 6, T("#A99674", 0.04))
+            # deniz feneri (Fanale): sekizgen kule + fener odası
+            fx = 2860.0
+            top_f = draw_tower_sq(c, T, fx, yb, 44, 280, rs, "flat", True)
+            rect(c, fx - 20, yb - 280 - 40, fx + 20, yb - 280 - 10, T("#E4D8B8", 0.04))
+            c.drawRect(skia.Rect.MakeLTRB(fx - 20, yb - 320, fx + 20, yb - 290), _P(INK, 160, style="stroke", sw=1.2))
+            c.drawRect(skia.Rect.MakeLTRB(fx - 12, yb - 314, fx + 12, yb - 296), _P(T("#FFE9B0", 0.0) if self.tod != "day" else T("#E8D6A0", 0.0), 255))
+            fink(c, poly([(fx - 24, yb - 320), (fx, yb - 348), (fx + 24, yb - 320)]), T("#8A6422", 0.04), 1.2, 255, 170)
+            self.smokes.append(("fanal", fx, yb - 305))
+        elif v == "pera":
+            # Galata yamacı (sağ): kat kat taş/ahşap evler + Galata Kulesi; sol: rıhtım yapıları, gümrük ambarı
+            for r in range(6):
+                x = 1650.0 + (r % 2) * 20
+                while x < 3120:
+                    w_ = rs.uniform(40, 70)
+                    h_ = rs.uniform(70, 120)
+                    yb_ = yb - 14 - r * 22
+                    CT.draw_house(c, x, yb_, w_, h_, rs, T, 0.05 + 0.02 * r, wins, hip=(rs.rand() < 0.5))
+                    roofs.append((x + w_ / 2, yb_ - h_ - 12))
+                    x += w_ + rs.uniform(-2, 3)
+            # Galata kulesi: silindir gövde, çıkma, konik külah
+            gx, gh, gr = 2300.0, 290.0, 36.0
+            rect(c, gx - gr, yb - 140 - gh, gx + gr, yb - 140, T("#C8B692", 0.03))
+            c.drawRect(skia.Rect.MakeLTRB(gx + gr * 0.3, yb - 140 - gh, gx + gr, yb - 140), _P("#2A1A0C", 56))
+            c.drawRect(skia.Rect.MakeLTRB(gx - gr, yb - 140 - gh, gx - gr * 0.6, yb - 140), _P("#FFF4D0", 24))
+            for r_ in range(int(gh / 15)):
+                c.drawLine(gx - gr, yb - 140 - gh + r_ * 15, gx + gr, yb - 140 - gh + r_ * 15, _P("#6A5A3A", 55, style="stroke", sw=0.9))
+            c.drawRect(skia.Rect.MakeLTRB(gx - gr, yb - 140 - gh, gx + gr, yb - 140), _P(INK, 170, style="stroke", sw=1.4))
+            rect(c, gx - gr - 8, yb - 140 - gh, gx + gr + 8, yb - 140 - gh + 22, T("#B8A47E", 0.03))
+            c.drawRect(skia.Rect.MakeLTRB(gx - gr - 8, yb - 140 - gh, gx + gr + 8, yb - 140 - gh + 22), _P(INK, 160, style="stroke", sw=1.2))
+            for k in range(5):
+                c.drawRect(skia.Rect.MakeXYWH(gx - gr - 3 + k * (2 * gr + 6) / 5, yb - 140 - gh + 4, 8, 14), _P(T("#2A1C10", 0.0), 230))
+            fink(c, poly([(gx - gr - 10, yb - 140 - gh), (gx, yb - 140 - gh - 74), (gx + gr + 10, yb - 140 - gh)]), T("#8E5A3A", 0.04), 1.3, 255, 170)
+            for k in range(3):
+                c.drawRect(skia.Rect.MakeXYWH(gx - 4, yb - 140 - gh + 40 + k * 78, 8, 20), _P(T("#2A1C10", 0.0), 230))
+            self.flags.append(dict(x=gx, y=yb - 140 - gh - 74 - 24, f=0.82, w=70, h=44, shape="swallow", dev="plain", c1="#E0B84E", c2="#B33620", c3="#B33620", tag="tower"))
+            draw_row_houses(c, T, qx + 30, 1640, yb, rs, 80, 140, 52, 86, 0.06, wins, roofs)
+            draw_warehouse(c, T, 1000, yb, 190, 120, rs, True, 3)
+        else:
+            draw_row_houses(c, T, qx + 30, 1500, yb, rs, 90, 150, 54, 90, 0.06, wins, roofs)
+            draw_warehouse(c, T, 1500, yb, 170, 120, rs, True, 3)
+            top_ = draw_tower_sq(c, T, 1840, yb, 70, 230, rs, "conical", True)
+            self.flags.append(dict(x=1840, y=yb - 230 - 10 - 74 - 22, f=0.82, w=84, h=52, shape="swallow", dev="plain", c1="#233C8C", c2="#E0B84E", c3="#E0B84E", tag="tower"))
+            draw_row_houses(c, T, 1930, 3120, yb, rs, 90, 160, 54, 92, 0.06, wins, roofs)
+        # gece/alacakaranlık: pencere ışıkları
+        if self.tod in ("night", "dusk", "fire"):
+            p_ = 0.55 if self.tod == "night" else 0.22
+            for (wx, wy, ww, wh) in wins:
+                if rs.rand() < p_:
+                    c.drawRect(skia.Rect.MakeXYWH(wx - 2, wy - 2, ww + 4, wh + 4), _P("#FFB04A", 55, blur=2.5))
+                    c.drawRect(skia.Rect.MakeXYWH(wx, wy, ww, wh), _P("#FFD27A", 235))
+        # baca dumanı: çatı kayıtlarından seç
+        for i in range(0, len(roofs), 5):
+            self.smokes.append(("house", roofs[i][0], roofs[i][1] + 4))
+
+    # ── rıhtım katmanı (f=1,0) ───────────────────────────────────────────────
+    def _draw_quay(self, c):
+        T, v = self.T, self.v
+        rs = _RS({"marsilya": 51, "napoli": 52, "livorno": 53, "pera": 54, "generic": 55}[v])
+        qx = self.quay_x0
+        x1 = 3140.0
+        draw_quay_wall(c, T, qx, x1, seed=3)
+        # kaldırım üstü yığınlar
+        kinds = ["barrels", "bales", "crates", "bales", "barrels", "crates"]
+        for i, x in enumerate(np.arange(qx + 160, x1 - 100, 260.0)):
+            if rs.rand() < 0.55:
+                draw_stack(c, T, float(x) + rs.uniform(-30, 30), rs.uniform(488, 496), rs.uniform(44, 84), rs.uniform(24, 40), rs, kinds[i % 6])
+        if v == "livorno":                                                       # kanal ağzı: rıhtımda boşluk + köprü
+            rect(c, 1900, PAVE_TOP - 4, 2060, WALL_BOT, T("#1E3A4A", 0.0))
+            for r in range(10):
+                c.drawLine(1900, EDGE + 11 + r * 9, 2060, EDGE + 11 + r * 9, _P("#FFFFFF", 22, style="stroke", sw=1.0))
+            bp = skia.Path()
+            bp.moveTo(1880, EDGE - 2)
+            bp.lineTo(1880, EDGE - 36)
+            bp.quadTo(1980, EDGE - 70, 2080, EDGE - 36)
+            bp.lineTo(2080, EDGE - 2)
+            bp.close()
+            fink(c, bp, T("#B7A47C", 0.0), 1.5, 255, 180)
+            ap = skia.Path()
+            ap.moveTo(1912, EDGE + 11)
+            ap.lineTo(1912, EDGE - 6)
+            ap.quadTo(1980, EDGE - 40, 2048, EDGE - 6)
+            ap.lineTo(2048, EDGE + 11)
+            ap.close()
+            c.drawPath(ap, _P(T("#1E3A4A", 0.0)))
+            c.drawPath(ap, _P(INK, 170, style="stroke", sw=1.3))
+
+
+# ═════════════════════════════ LİMAN: dinamik parçalar (halat, tahta, vinç, kalabalık, yeldeğirmeni) ═════════════════════════════
+def ship_point(sea, S, t, lx, ly):
+    """Geminin yerel (lx,ly) noktasının katman koordinatı (dalga sürüşü + eğim dâhil; render_ship ile aynı dönüşüm)."""
+    x, y, dirn, sp = S.pos(t)
+    ru = sea.rows[max(0, sea.row_before(y) - 1)]
+    s = S.scale * persp(y, sea.yh)
+    heave = 0.8 * float(sea.wave(ru, x, t))
+    sl = float(sea.slope(ru, x, t))
+    pitch = clamp(math.degrees(math.atan(sl * 0.85)) * S.tilt, -5.0, 5.0)
+    px, py = xf_point(x, y + heave, pitch, s, dirn, lx, ly)
+    return px, py, ru.f
+
+
+def draw_rope(c, p0, p1, sag, t, col="#CDB57E", w=3.4, ph=0.0, sway=1.0):
+    """Halat: iki nokta arası sarkan eğri (sag px); titreşim yavaşça sönen sinüs. Dönüş: yok."""
+    mx, my = (p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2
+    sg = sag + math.sin(t * 2.3 + ph) * 1.6 * sway * min(1.0, sag / 8.0 + 0.2)
+    pth = skia.Path()
+    pth.moveTo(*p0)
+    pth.quadTo(mx, my + sg, *p1)
+    c.drawPath(pth, _P(INK, 200, style="stroke", sw=w + 2.0))
+    c.drawPath(pth, _P(col, 255, style="stroke", sw=w))
+
+
+def rope_throw(c, p0, p1, u, t, arc=70.0, col="#CDB57E"):
+    """Atılan halat: u 0..1; serbest uç p0→p1 parabolik süzülür, halat arkasından sarkar. u≥1: gergin bağ (kıç/baş)."""
+    u = clamp(u)
+    ex = p0[0] + (p1[0] - p0[0]) * u
+    ey = p0[1] + (p1[1] - p0[1]) * u - arc * math.sin(math.pi * u) * (1.0 - 0.0 * u)
+    sag = (1.0 - u) * 26.0 + (28.0 * (1 - u) ** 0.5 if u < 1 else 0.0) + (3.0 if u >= 1 else 0.0)
+    draw_rope(c, p0, (ex, ey), sag, t, col, 3.4, 0.0, 1.0 if u < 1 else 0.4)
+
+
+def draw_plank(c, a, b, k, t, wood="#8A6A3C"):
+    """İniş tahtası: a = gemi küpeştesi, b = rıhtım kenarı; k 0..1 (0: dikine kaldırılmış, 1: yatmış). Tahta + iki korkuluk halatı + payandalar."""
+    k = ease_io(k)
+    # kaldırılmış konum: a'dan yukarı-geriye
+    bx0 = a[0] + (b[0] - a[0]) * 0.18
+    by0 = a[1] - 98.0
+    bx = bx0 + (b[0] - bx0) * k
+    by = by0 + (b[1] - by0) * k
+    dx, dy = bx - a[0], by - a[1]
+    L = math.hypot(dx, dy) or 1.0
+    nx, ny = -dy / L, dx / L
+    wd = 7.0
+    quad = poly([(a[0] + nx * wd, a[1] + ny * wd), (bx + nx * wd, by + ny * wd), (bx - nx * wd, by - ny * wd), (a[0] - nx * wd, a[1] - ny * wd)])
+    fink(c, quad, wood, 1.3, 255, 190)
+    nsl = int(L / 14)
+    for i in range(1, nsl):
+        u = i / nsl
+        c.drawLine(a[0] + dx * u + nx * wd, a[1] + dy * u + ny * wd, a[0] + dx * u - nx * wd, a[1] + dy * u - ny * wd, _P("#2A1A0C", 120, style="stroke", sw=1.2))
+    if k > 0.85:
+        ka = (k - 0.85) / 0.15
+        for sgn in (-1.0, 1.0):
+            pa = (a[0] + nx * sgn * 22 + 0, a[1] + ny * sgn * 22 - 24)
+            pb = (bx + nx * sgn * 22 + 0, by + ny * sgn * 22 - 24)
+            c.drawLine(pa[0], pa[1], pb[0], pb[1], _P("#6A5A3A", int(220 * ka), style="stroke", sw=1.6))
+    # payanda (iki bağ halatı)
+    c.drawLine(a[0] + dx * 0.5, a[1] + dy * 0.5, a[0] + dx * 0.5 + nx * 12, a[1] + dy * 0.5 + 40, _P("#6A5A3A", 130, style="stroke", sw=1.2)) if False else None
+
+
+def draw_windmill(c, x, y, s, t, wind=1.0, seed=0, T=None):
+    """Uzak yeldeğirmeni (tepe üstü): gövde + dönen dört kanat (kare kanat çerçevesi). Katman çerçevesinde."""
+    T = T or (lambda col, d=0.0: col)
+    body = poly([(x - 9 * s, y), (x + 9 * s, y), (x + 6 * s, y - 34 * s), (x - 6 * s, y - 34 * s)])
+    fink(c, body, T("#D8CCA8", 0.4), 1.0, 255, 150)
+    fink(c, poly([(x - 8 * s, y - 34 * s), (x, y - 46 * s), (x + 8 * s, y - 34 * s)]), T("#8E6A44", 0.4), 1.0, 255, 150)
+    a0 = t * (0.55 + 0.35 * wind) + seed
+    hx, hy = x, y - 36 * s
+    for k in range(4):
+        a = a0 + k * math.pi / 2
+        ex, ey = hx + math.cos(a) * 34 * s, hy + math.sin(a) * 34 * s
+        c.drawLine(hx, hy, ex, ey, _P(INK, 210, style="stroke", sw=max(1.0, 2.2 * s)))
+        nx, ny = -math.sin(a), math.cos(a)
+        sx, sy = hx + math.cos(a) * 12 * s, hy + math.sin(a) * 12 * s
+        pth = poly([(sx, sy), (ex, ey), (ex + nx * 9 * s, ey + ny * 9 * s), (sx + nx * 9 * s, sy + ny * 9 * s)])
+        c.drawPath(pth, _P(T("#EDE4CC", 0.4), 235))
+        c.drawPath(pth, _P(INK, 150, style="stroke", sw=0.8))
+    c.drawCircle(hx, hy, 2.6 * s, _P(INK, 255))
+
+
+def draw_house_smoke(c, x, y, t, seed, tod, a=0.5, wind_dx=-30.0):
+    """Baca dumanı: küçük yumuşak bulutlar (3–4 sprite) — ucuz."""
+    for i in range(4):
+        ph = (t * 0.16 + i / 4 + hash01(seed, i) * 0.1) % 1.0
+        r = 8 + 20 * ph
+        im = smoke_sprite(i % 4, tod, 0.0)
+        p = skia.Paint()
+        p.setAlphaf(clamp(a * (1 - ph) * math.sin(min(1.0, ph * 3.0) * math.pi / 2)))
+        c.drawImageRect(im, skia.Rect.MakeWH(im.width(), im.height()), skia.Rect.MakeXYWH(x + wind_dx * ph + math.sin(t + i + seed) * 3 - r, y - ph * 70 - r, 2 * r, 2 * r), LIN, p)
+
+
+def harbor_crane(ctx, x, yb, t, T, tod, wood="#7A5230", seed=3):
+    """Çarklı liman vinci (çark + yürüyen adam, bom, yük bloğu): A-çerçeve direk, jib sola (denize doğru). Yük rıhtım yüzeyinden kalkar, sallanır, iner. Katman çerçevesinde (f=1)."""
+    c = ctx.c
+    f = ctx.f
+    k, sgn = CB.hoist_cycle(t, 12.0, seed)
+    k2, _ = CB.hoist_cycle(t + 0.05, 12.0, seed)
+    omega = (k2 - k) / 0.05 * 150.0
+    dk = "#3A2410"
+    apex = (x, yb - 250)
+    tip = (x - 190, yb - 218)
+    for dx in (-34, 34):
+        c.drawLine(x + dx, yb, apex[0] + dx * 0.10, apex[1], _P(dk, 235, style="stroke", sw=7.0))
+        c.drawLine(x + dx, yb, apex[0] + dx * 0.10, apex[1], _P(T(wood, 0.0), 255, style="stroke", sw=4.4))
+    c.drawLine(x - 30, yb - 90, x + 30, yb - 150, _P(T(wood, 0.0), 255, style="stroke", sw=2.8))
+    c.drawLine(x + 30, yb - 90, x - 30, yb - 150, _P(T(wood, 0.0), 255, style="stroke", sw=2.8))
+    c.drawLine(apex[0], apex[1], tip[0], tip[1], _P(dk, 235, style="stroke", sw=7.0))
+    c.drawLine(apex[0], apex[1], tip[0], tip[1], _P(T(wood, 0.0), 255, style="stroke", sw=4.4))
+    c.drawLine(x - 24, yb - 80, tip[0] + 26, tip[1] + 4, _P(T(wood, 0.0), 255, style="stroke", sw=3.0))
+    R = 58.0
+    wx, wy = x + 128, yb - 60
+    CB.treadwheel(f, wx, wy, R, k * 150.0, omega, t, tod == "night", 1.0, seed=seed + 18)
+    c.drawLine(wx - R * 0.1, wy - R * 0.1, apex[0] + 6, apex[1] + 3, _P("#6A5A3A", 215, style="stroke", sw=1.8))
+    y_low = yb - 12
+    y_hi = tip[1] + 56
+    ly = y_low + (y_hi - y_low) * k
+    sway = math.sin(t * 1.4 + seed) * 4.0 * min(1.0, k * 2.0) * (1 - 0.5 * abs(sgn))
+    c.drawLine(tip[0], tip[1], tip[0] + sway, ly, _P("#6A5A3A", 235, style="stroke", sw=1.8))
+    c.drawCircle(tip[0], tip[1], 6.0, _P(dk, 255))
+    CB.load_block(c, tip[0] + sway, ly, 34.0, "brick" if int(t / 12.0 + seed) % 2 == 0 else "stone", 1.0)
+
+
+STYLE_RICH = [dict(robe="#A8321E"), dict(robe="#233C8C"), dict(robe="#2E7A5A"), dict(robe="#7A2E56"), dict(robe="#C79A3C"), dict(robe="#1F5A7A")]
+
+
+def person_style(variant, year, kind, i, rs):
+    """Yöre/yıl kıyafeti: marsilya 1533 → bereli parlak Rönesans; 1600 → koyu, uzun şapkalı İspanyol modası; pera/livorno heyeti → sarık + uzun kaftan; diğerleri → öntanımlı karışım."""
+    st = {}
+    if variant == "pera" and kind in ("soylu", "tuccar", "halk", "asker"):
+        st = dict(hat="turban", hat_col=["#EDE4CC", "#A8321E", "#2E6A4F", "#233C8C"][rs.randint(4)])
+        if kind in ("soylu", "tuccar"):
+            st["robe"] = ["#2E6A4F", "#A8321E", "#233C8C", "#7A2E56", "#C79A3C"][rs.randint(5)]
+    elif variant == "marsilya" and year is not None:
+        if year >= 1590 and kind in ("soylu", "tuccar", "soylu_f"):
+            st = dict(robe=["#1E1A18", "#2A1F18", "#34261C", "#1E2438"][rs.randint(4)], hat_col="#1E1A18")
+            if kind != "soylu_f":
+                st["hat"] = "tall"
+        elif kind in ("soylu", "tuccar", "soylu_f"):
+            st = dict(robe=["#A8321E", "#233C8C", "#2E7A5A", "#7A2E56", "#C79A3C"][rs.randint(5)])
+            if kind != "soylu_f":
+                st["hat"] = "beret"
+                st["hat_col"] = ["#A8321E", "#233C8C", "#1E1A18"][rs.randint(3)]
+    return st
+
+
+def make_quay_people(variant, year, x_land, n, seed, qx, side=1):
+    """Rıhtım kalabalığı: iniş noktası çevresinde (±45 px koridor boş) n kişi; her biri dict(kind, x, y, h, st, ph, hop, amt0)."""
+    rs = _RS(seed * 11 + 5)
+    kinds = ["halk", "tuccar", "soylu", "soylu_f", "halk", "cocuk", "soylu", "halk", "tuccar", "soylu_f", "halk", "asker"]
+    out = []
+    for i in range(n):
+        dx = rs.uniform(48, 430) * (1 if rs.rand() < 0.55 else -1)
+        x = x_land + dx
+        if x < qx + 40:
+            x = x_land + abs(dx)
+        kind = kinds[i % len(kinds)]
+        y = rs.uniform(*QUAY_FEET)
+        h = rs.uniform(86, 100) * (0.76 if kind == "cocuk" else 1.0) * (0.9 + 0.1 * (y - QUAY_FEET[0]) / (QUAY_FEET[1] - QUAY_FEET[0]))
+        out.append(dict(kind=kind, x=x, y=y, h=h, st=person_style(variant, year, kind, i, rs), ph=rs.rand(), hop=rs.uniform(0.3, 0.9), seed=int(rs.randint(0, 999)), face=(1 if dx < 0 else -1)))
+    out.sort(key=lambda d: d["y"])
+    return out
+
+
+def draw_people(ctx, people, t, t_wave, x_ship_fn=None):
+    """Kalabalık: bekler → t_wave'den itibaren el sallar (cheer amount 0→1 yumuşak). Figürler gemiye (iniş noktasına) bakar."""
+    f = ctx.f
+    FA.set_scale_hint(ctx.z)
+    amt = clamp((t - t_wave) / 1.4)
+    for p in people:
+        amount = ease_io(clamp((t - t_wave - p["ph"] * 0.9) / 1.2))
+        try:
+            if amount > 0.02:
+                FA.actor(f, p["kind"], p["x"], p["y"], p["h"], t, action="cheer", dir=p["face"], seed=p["seed"], phase=p["ph"], amount=amount, hop=p["hop"] * amount, **p["st"])
+            else:
+                FA.actor(f, p["kind"], p["x"], p["y"], p["h"], t, action=("talk" if (int(p["seed"]) % 3 == 0) else "idle"), dir=p["face"], seed=p["seed"], phase=p["ph"], **p["st"])
+        except Exception:
+            pass
+    FA.set_scale_hint(1.0)
+
+
+# ═════════════════════════════ KÜÇÜK TEKNE ve KAYIK ═════════════════════════════
+def tekne_hull(tod, liv, bs=1.0):
+    """Küçük balıkçı/yük teknesi (yerel: ileri → +x; boy ≈190): yuvarlak karina, kıvrık baş, renkli kuşak."""
+    key = ("tekne", tod, liv["wale"], liv["hull"], round(bs, 2))
+    if key in _SPR:
+        return _SPR[key]
+    T = Tint(tod)
+
+    def draw(c):
+        p = skia.Path()
+        p.moveTo(-90, -30)
+        p.lineTo(90, -38)
+        p.quadTo(106, -40, 100, -58)
+        p.quadTo(98, -8, 66, 6)
+        p.cubicTo(20, 12, -40, 12, -68, 4)
+        p.quadTo(-98, -6, -90, -30)
+        p.close()
+        sh = skia.GradientShader.MakeLinear([(0, -40), (0, 10)], [C(mix(T(liv["hull"]), "#FFFFFF", 0.14)), C(T(liv["hull"])), C(mix(T(liv["hull"]), "#000000", 0.28))], [0.0, 0.55, 1.0])
+        c.drawPath(p, skia.Paint(AntiAlias=True, Shader=sh))
+        c.save()
+        c.clipPath(p, skia.ClipOp.kIntersect, True)
+        for off in (12, 22):
+            c.drawLine(-100, -34 + off, 100, -40 + off, _P("#1A0E06", 80, style="stroke", sw=1.0))
+        c.drawPath(poly([(-100, -34), (102, -42), (102, -34), (-100, -26)]), _P(T(liv["wale"])))
+        c.drawLine(-100, -25, 102, -33, _P(T(liv["trim"]), 255, style="stroke", sw=1.6))
+        c.restore()
+        _lit(c, p, 46, 40)
+        c.drawPath(p, _P(INK, 210, style="stroke", sw=1.8))
+
+    spr = bake_local((-110, -64, 112, 18), bs, draw)
+    _SPR[key] = spr
+    return spr
+
+
+def draw_tekne(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
+    c = ctx.c
+    liv = S.liv
+    z = ctx.z
+    bs = bucket(s * z)
+    tod = ctx.tod
+    T = Tint(tod)
+    fl = getattr(ctx, "wind_dir", 1) * dirn
+    wind = S.wind * getattr(ctx, "wind", 1.0)
+    c.save()
+    c.translate(x, y)
+    c.rotate(pitch)
+    c.scale(dirn * s, s)
+    mm = T("#6A4A2C")
+    _mast(c, 6, -34, -176, 5.0, 3.4, mm)
+    _yard(c, 62, -38, -54, -172, 3.6, T("#7A5A34"))
+    if S.crew and s * z * 190 > 90:
+        draw_crew(ctx, S, [("denizci", -56, -28, "idle", 44, {}), ("halk", 14, -28, "work", 40, dict(mode="haul", period=1.7))], t, s, dirn)
+    tekne_hull(tod, liv, bs).draw(c)
+    if S.sails:
+        sl = liv["sail"]
+        lateen_sail(c, (62, -38), (-54, -172), (-50, -50), t, wind, ph=S.seed * 0.7, col=T(sl[0]), trim=T(sl[1]), dev=None, devcol=T(sl[3]), seed=S.seed)
+    flag(c, 6, -180, 56, 14, t, "pennant", "plain", liv["pen"][0], liv["pen"][1], liv["pen"][1], wind=wind, ph=S.seed, flipx=1 if fl > 0 else -1)
+    c.restore()
+    return None
+
+
+def kayik_hull(tod, liv, bs=1.0):
+    """Kayık (İstanbul/Haliç): ince, iki ucu yükselen; yaldızlı kıvrım uçlar, renkli kuşak (yerel: ileri → +x; boy ≈210)."""
+    key = ("kayik", tod, liv["wale"], liv["trim"], round(bs, 2))
+    if key in _SPR:
+        return _SPR[key]
+    T = Tint(tod)
+
+    def draw(c):
+        p = skia.Path()
+        p.moveTo(-104, -34)
+        p.quadTo(0, -20, 104, -36)
+        p.quadTo(118, -44, 114, -62)
+        p.quadTo(104, -30, 80, -12)
+        p.cubicTo(40, 6, -40, 6, -80, -6)
+        p.quadTo(-108, -22, -104, -34)
+        p.close()
+        hull = T("#8A5A30")
+        sh = skia.GradientShader.MakeLinear([(0, -40), (0, 8)], [C(mix(hull, "#FFFFFF", 0.18)), C(hull), C(mix(hull, "#000000", 0.28))], [0.0, 0.55, 1.0])
+        c.drawPath(p, skia.Paint(AntiAlias=True, Shader=sh))
+        c.save()
+        c.clipPath(p, skia.ClipOp.kIntersect, True)
+        c.drawLine(-110, -28, 112, -34, _P(T(liv["wale"]), 255, style="stroke", sw=7.0))
+        c.drawLine(-110, -23, 112, -29, _P(T(liv["trim"]), 255, style="stroke", sw=2.0))
+        for off in (6, 14):
+            c.drawLine(-100, -20 + off, 100, -24 + off, _P("#1A0E06", 80, style="stroke", sw=1.0))
+        c.restore()
+        _lit(c, p, 46, 40)
+        c.drawPath(p, _P(INK, 210, style="stroke", sw=1.8))
+        for sx_, (a, b_) in ((1, (112, -62)), (-1, (-104, -50))):
+            sc = skia.Path()
+            sc.moveTo(a, b_)
+            sc.cubicTo(a + sx_ * 10, b_ - 14, a + sx_ * 2, b_ - 24, a - sx_ * 4, b_ - 18)
+            c.drawPath(sc, _P(T(liv["trim"]), 255, style="stroke", sw=3.0))
+
+    spr = bake_local((-124, -90, 126, 14), bs, draw)
+    _SPR[key] = spr
+    return spr
+
+
+def draw_kayik(ctx, sea, S, t, x, y, s, dirn, sp, pitch):
+    c = ctx.c
+    liv = S.liv
+    z = ctx.z
+    bs = bucket(s * z)
+    tod = ctx.tod
+    c.save()
+    c.translate(x, y)
+    c.rotate(pitch)
+    c.scale(dirn * s, s)
+    if S.crew and s * z * 210 > 80:
+        draw_crew(ctx, S, [("soylu", 30, -24, "idle", 46, dict(seed=0)), ("denizci", -46, -20, "idle", 44, {})], t, s, dirn)
+    kayik_hull(tod, liv, bs).draw(c)
+    c.restore()
+
+    def late(cl):
+        """İki kürek (yalnız yakın kenar): senkron çekiş; ripple noktaları döner."""
+        wood = Tint(tod)("#9A6A3A")
+        pts = []
+        hz = 0.9 * (0.5 + 0.5 * clamp(sp / 40.0))
+        for i, ox in enumerate((-30.0, 28.0)):
+            u = (t * hz + 0.07 * i) % 1.0
+            a, lf = _oar_pose(u)
+            dx = 92.0 * math.sin(a * D2R)
+            ty = 30.0 * math.cos(a * D2R) * (1.0 - 0.58 * lf) - 14.0 * lf
+            oy = -26.0
+            tx, tyy = ox + dx, ty
+            cl.drawLine(ox, oy, tx, tyy, _P(INK, 190, style="stroke", sw=3.6))
+            cl.drawLine(ox, oy, tx, tyy, _P(wood, 255, style="stroke", sw=2.2))
+            L = math.hypot(tx - ox, tyy - oy) or 1.0
+            nx, ny = (tx - ox) / L, (tyy - oy) / L
+            px_, py_ = -ny, nx
+            bx0, by0 = tx - nx * L * 0.22, tyy - ny * L * 0.22
+            cl.drawPath(poly([(bx0 + px_ * 2.0, by0 + py_ * 2.0), (tx + px_ * 3.4, tyy + py_ * 3.4), (tx - px_ * 3.4, tyy - py_ * 3.4), (bx0 - px_ * 2.0, by0 - py_ * 2.0)]), _P(Tint(tod)("#C99B5A")))
+            if lf < 0.5:
+                pts.append((tx, tyy, clamp(u / 0.44)))
+        return pts
+    return late
+
+
+KIND_DRAW["tekne"] = draw_tekne
+KIND_DRAW["kayik"] = draw_kayik
+
+
+def _hull_for(S, tod, bs):                                                   # noqa: F811  (kadırga/nao/tekne/kayık yansıması)
+    if S.kind == "kadirga":
+        return galley_hull(tod, S.liv, bs)
+    if S.kind == "nao":
+        return nao_hull(tod, S.liv, S.arms, bs)
+    if S.kind == "tekne":
+        return tekne_hull(tod, S.liv, bs)
+    if S.kind == "kayik":
+        return kayik_hull(tod, S.liv, bs)
+    return None
+
+
+# ═════════════════════════════ ÇEKİM TÜRÜ: liman ═════════════════════════════
+_HARBORS = {}
+LIMAN_CAMS = [(0.0, (770.0, 24.0, 1.0)), (0.40, (900.0, 12.0, 1.05)), (0.78, (1120.0, -6.0, 1.18)), (1.0, (1220.0, -16.0, 1.28))]      # marsilya 1533 = 1600: AYNI kamera yolu (kesir tabanlı)
+LIMAN_POLES = {"marsilya": (840.0, 1760.0, 2540.0), "napoli": (920.0, 1620.0, 2400.0), "livorno": (760.0, 1700.0, 2600.0), "pera": (760.0, 1500.0, 2200.0), "generic": (800.0, 1600.0, 2400.0)}
+LIMAN_CRANE = {"marsilya": 2120.0, "napoli": 2060.0, "livorno": 2420.0, "pera": 1700.0, "generic": 2200.0}
+
+
+def _harbor(variant, tod, year):
+    yc = "y0"
+    if variant == "pera" and year:
+        yc = "y1" if year < 1500 else ("y2" if year < 1574 else "y3")
+    key = (variant, tod, yc)
+    h = _HARBORS.get(key)
+    if h is None:
+        if len(_HARBORS) > 3:
+            _HARBORS.clear()                                  # bellek: aynı anda ≤4 liman katman takımı
+            _IMGS.clear()
+        h = _HARBORS[key] = Harbor(variant, tod, year)
+    return h
+
+
+def _hero_defaults(variant, year):
+    y = year or 0
+    if variant == "marsilya":
+        return dict(kind="kadirga", flag="papalik" if y < 1590 else "toskana", highlight=(y >= 1590), mode="arrive", dir=1)
+    if variant == "napoli":
+        return dict(kind="kadirga", flag="toskana", highlight=False, mode="arrive", dir=1)
+    if variant == "livorno":
+        return dict(kind="kadirga", flag="osmanli", highlight=False, mode="arrive", dir=1)
+    if variant == "pera":
+        return dict(kind="nao", flag="toskana", highlight=False, mode="depart", dir=-1)
+    return dict(kind="nao", flag="genel", highlight=False, mode="arrive", dir=1)
+
+
+def _liman(cx, variant="generic", year=None, tod=None, ship=None, followers=0, cams=None, kick=None, caption=None, at=0.0, frame=True, seed=1, band=None, name=None, labels=None,
+           crowd=14, delegation=None, x_dock=None, t_dock=None, wave_at=None, extra_ships=None, ambient=True, stamp=True, wind=1.0, wind_dir=-1, swell=0.8, foam=0.5, birds=5, clouds=7, sun=None, **kw):
+    """Liman çekimi. variant: marsilya | pera | napoli | livorno | generic; year: yıl damgası (+ kıyafet/ışık ayrımı). ship=dict(...): hero gemi (yoksa varyanta özgü);
+    mode "arrive": gemi soldan gelir → yanaşır (kürekler kaldırılır, halat atılır, tahta iner, kalabalık el sallar); "depart": ters (halat çözülür, tahta kalkar, gemi ayrılır).
+    x_dock/t_dock: yanaşma konumu/anı (çapa olabilir). followers: arkadan gelen/giden ek kadırga sayısı. delegation=dict(side='osmanli', n=5, t0=…): rıhtımda yürüyen heyet (+ mektup rulosu).
+    marsilya için 1533 ve 1600 AYNI kadraj/kamera yolunu paylaşır: yalnız yıl damgası, bayrak, kıyafet, gemi tipi ve ışık değişir."""
+    f = cx.f
+    dur = max(cx.dur, 1e-3)
+    band = band or (BAND if frame else (0, 800))
+    v = variant if variant in ("marsilya", "pera", "napoli", "livorno", "generic") else "generic"
+    if tod is None:
+        tod = "night" if not TH.day else ("dusk" if (v == "marsilya" and (year or 0) >= 1590) else "day")
+    H_ = _harbor(v, tod, year)
+    hd = _hero_defaults(v, year)
+    sh = dict(hd)
+    if ship:
+        sh.update(ship)
+    mode = sh.pop("mode", "arrive")
+    qx = H_.quay_x0
+    dirn = int(sh.pop("dir", hd["dir"]))
+    if x_dock is None:
+        m = round((1250.0 - (qx + 90 + 165)) / 330.0)
+        x_dock = qx + 90 + 165 + 330 * m
+        if dirn < 0:
+            x_dock = qx + 90 + 165 + 330 * (m + 1)
+    x_dock = float(x_dock)
+    td = _tcall(cx, t_dock, None) if t_dock is not None else (dur * 0.60 if mode == "arrive" else dur * 0.30)
+    kind = KIND_ALIAS.get(sh.pop("kind", hd["kind"]), "kadirga")
+    scale = float(sh.pop("scale", 0.92 if kind == "kadirga" else 0.86))
+    t0 = _tcall(cx, sh.pop("t0", 0.0), 0.0)
+    if mode == "arrive":
+        x0 = float(sh.pop("x0", -260.0 if dirn > 0 else 2300.0))
+        sp_d = dict(kind=kind, x0=x0, x1=x_dock, t0=t0, t1=td, ease="out", y=SHIP_Y, scale=scale, dir=dirn, sails=(False if kind == "kadirga" else True), crew=True, highlight=sh.pop("highlight", False), flag=sh.pop("flag", "genel"))
+        t_off_start = td - 2.0
+        sp_d["oars"] = (lambda t, td=td: 0.0 if t < td - 2.2 else (ease_io((t - (td - 2.2)) / 1.1)))
+        sp_d["sail_set"] = (lambda t, td=td: 1.0 - 0.88 * ease_io((t - (td - 3.6)) / 2.2))
+        if kind != "kadirga":
+            sp_d["sails"] = True
+    else:
+        tl = _tcall(cx, sh.pop("t_leave", None), td) if sh.get("t_leave") is not None else td
+        x1 = float(sh.pop("x1", -700.0 if dirn < 0 else 2700.0))
+        sp_d = dict(kind=kind, x0=x_dock, x1=x1, t0=tl, t1=tl + (dur - tl) * 0.98, ease="in", y=SHIP_Y, scale=scale, dir=dirn, sails=(False if kind == "kadirga" else True), crew=True, highlight=sh.pop("highlight", False), flag=sh.pop("flag", "genel"))
+        sp_d["oars"] = (lambda t, tl=tl: 1.0 if t < tl - 0.2 else (1.0 - ease_io((t - (tl - 0.2)) / 0.9)))
+        sp_d["sail_set"] = (lambda t, tl=tl: 0.14 + 0.86 * ease_io((t - tl) / 2.4))
+        td = tl
+    sp_d.update({k_: v_ for k_, v_ in sh.items() if k_ not in ("t_leave",)})
+    hero = ShipSpec(sp_d, cx, dur, 0)
+    ships = [hero]
+    for i in range(int(followers)):
+        d2 = dict(sp_d)
+        d2.update(y=SHIP_Y - 12.0 - 13.0 * (i % 3), scale=scale * (0.9 - 0.04 * (i % 3)), seed=7 + i * 5, crew=False, highlight=False, flag=sp_d.get("flag"))
+        lag = 0.9 * (i + 1)
+        if mode == "arrive":
+            d2.update(x0=sp_d["x0"] - dirn * 560 * (i + 1), x1=x_dock - dirn * 600 * (i + 1), t0=t0 + lag * 0.5, t1=td + lag * 0.6)
+            d2["oars"] = (lambda t, tt=td + lag * 0.6: 0.0 if t < tt - 2.2 else ease_io((t - (tt - 2.2)) / 1.1))
+        else:
+            d2.update(x0=x_dock - dirn * 600 * (i + 1) * 0.0 - dirn * 560 * (i + 1), x1=sp_d["x1"] + dirn * 0, t0=sp_d["t0"] + lag, t1=sp_d["t1"] + lag * 0.5)
+            d2["oars"] = True
+        ships.append(ShipSpec(d2, cx, dur, 10 + i))
+    # arka plan gemileri: açık suda demirli/yelken (ufka yakın)
+    if ambient:
+        bgs = _harbor_bg_ships(v, year, qx, tod)
+        ships += _norm_ships(cx, bgs, dur)
+    ships += _norm_ships(cx, extra_ships or [], dur)
+    t_wave = _tcall(cx, wave_at, None) if wave_at is not None else (td - 2.6 if mode == "arrive" else td - 2.4)
+    dock_dir = dirn
+    x_land = x_dock + dock_dir * 92.0
+    people = make_quay_people(v, year, x_land, int(crowd), seed + (year or 0) % 17, qx)
+    cfg = dict(tod=tod, seed=seed, wind=wind, wind_dir=wind_dir, swell=swell, foam=foam, horizon=YH_L, sun=sun if sun is not None else ((1560, 170, 46) if tod == "day" else None), glitter=0.0 if tod != "dusk" else 0.7,
+               birds=birds, clouds=clouds, rays=True, fore=True, at=at, fore_y=(792.0,), cloud_y=(40, 250))
+    if v == "napoli" and tod == "day" and sun is None:
+        cfg["sun"] = (260, 170, 46)
+    sea = get_sea(tod, YH_L, seed, swell, foam, wind_dir, 1.0)
+    k0 = sea.row_before(WALL_BOT + 2.0)
+    T = H_.T
+    state = {"mid": False}
+    cranex = LIMAN_CRANE[v]
+    # rıhtım bayrak direkleri (yıla göre bayrak)
+    poles = []
+    for px in LIMAN_POLES[v]:
+        poles.append(px)
+    fl_col = _quay_flag(v, year)
+    por_rs = _RS(seed * 5 + 3)
+    porters = [dict(x0=qx + 120 + i * 560 + por_rs.uniform(0, 200), v=por_rs.choice([-1, 1]) * por_rs.uniform(26, 38), y=por_rs.uniform(474, 484), kind=["halk", "tuccar", "halk", "banker"][i % 4], prop=["sack", "basket", "sack", "book"][i % 4], seed=40 + i) for i in range(4)]
+    deleg = delegation
+
+    def pre(ctx, sea_):
+        c = ctx.c
+        ctx.push(0.30)
+        blit_layer(c, H_.far)
+        for (mx, my, ms) in H_.mills:
+            draw_windmill(c, mx, my, ms / 38.0, ctx.t, ctx.wind, mx * 0.01, T)
+        ctx.pop()
+
+    def mid(ctx, sea_, k):
+        if k != k0 or state["mid"]:
+            return
+        state["mid"] = True
+        c = ctx.c
+        t = ctx.t
+        # yapı katmanı (f=0,82) + bayrak/duman/yeldeğirmeni
+        ctx.push(0.82)
+        blit_layer(c, H_.bld)
+        if ambient:
+            for fg in H_.flags:
+                if ctx.visible(0.82, fg["x"] - 120, fg["x"] + 160, 20):
+                    c.drawLine(fg["x"], fg["y"] + 74, fg["x"], fg["y"] - 4, _P(INK, 220, style="stroke", sw=4.2))
+                    c.drawLine(fg["x"], fg["y"] + 74, fg["x"], fg["y"] - 4, _P(T("#8A6A3C"), 255, style="stroke", sw=2.4))
+                    flag(c, fg["x"], fg["y"], fg["w"], fg["h"], t, fg["shape"], fg["dev"], fg["c1"], fg["c2"], fg["c3"], wind=ctx.wind, ph=fg["x"] * 0.013, flipx=1 if ctx.wind_dir > 0 else -1)
+            for i, (kd, sx, sy) in enumerate(H_.smokes):
+                if ctx.visible(0.82, sx - 80, sx + 80, 20):
+                    if kd == "fanal":
+                        glow(c, sx, sy + 8, 46, "#FFC060", 0.5 + 0.12 * math.sin(t * 7 + i)) if tod != "day" else None
+                    else:
+                        draw_house_smoke(c, sx, sy, t, i, tod, 0.50 if tod != "night" else 0.30, -26.0 * (1 if ctx.wind_dir < 0 else -1))
+        ctx.pop()
+        # rıhtım (f=1)
+        ctx.push(1.0)
+        blit_layer(c, H_.quay)
+        # direk bayrakları
+        if ambient:
+            for px in poles:
+                if ctx.visible(1.0, px - 100, px + 130, 20):
+                    c.drawLine(px, PAVE_TOP + 16, px, PAVE_TOP - 190, _P(INK, 220, style="stroke", sw=5.2))
+                    c.drawLine(px, PAVE_TOP + 16, px, PAVE_TOP - 190, _P(T("#8A6A3C"), 255, style="stroke", sw=3.2))
+                    c.drawCircle(px, PAVE_TOP - 192, 4.2, _P(T("#C79A3C")))
+                    flag(c, px, PAVE_TOP - 188, 96, 60, t, "swallow", fl_col[0], fl_col[1], fl_col[2], fl_col[3], wind=ctx.wind, ph=px * 0.011, flipx=1 if ctx.wind_dir > 0 else -1)
+            if ctx.visible(1.0, cranex - 330, cranex + 220, 20):
+                harbor_crane(ctx, cranex, PAVE_TOP + 22, t, T, tod, seed=3)
+        # taşıyıcılar (rıhtım boyunca yürür)
+        FA.set_scale_hint(ctx.z)
+        xa, xb = ctx.view(1.0, 60)
+        for p in porters:
+            span = 1500.0
+            xx = qx + 60 + ((p["x0"] - qx - 60 + p["v"] * t) % span)
+            if xx < xa - 60 or xx > xb + 60:
+                continue
+            try:
+                FA.walker(f, p["kind"], xx, p["y"], 78, t, speed=abs(p["v"]), dir=1 if p["v"] > 0 else -1, phase=p["seed"] * 0.13 % 1.0, seed=p["seed"], prop=p["prop"], **person_style(v, year, p["kind"], p["seed"], _RS(p["seed"])))
+            except Exception:
+                pass
+        # heyet (livorno / pera): yürüyüş → duruş → selam; mektup rulosu
+        if deleg:
+            _draw_delegation(ctx, f, deleg, x_land, dock_dir, t, td, qx, v, year, seed)
+        # kalabalık + iskele işçileri
+        if ctx.visible(1.0, x_land - 520, x_land + 520, 40):
+            draw_people(ctx, people, t, t_wave)
+            _draw_dockers(ctx, f, hero, sea_, t, td, mode, dock_dir, qx)
+        FA.set_scale_hint(1.0)
+        ctx.pop()
+        # rıhtım dibi su köpüğü
+        ru = sea_.row_of(WALL_BOT)
+        ctx.push(ru.f)
+        xa2, xb2 = ctx.view(ru.f, 60)
+        sea_.skirt(ctx, ru, max(xa2, qx - 10), xb2, WALL_BOT + 2.0, t, depth=14.0)
+        ctx.pop()
+
+    def post(ctx, sea_):
+        t = ctx.t
+        c = ctx.c
+        _draw_moorings(ctx, c, hero, sea_, t, td, mode, dock_dir, qx, x_dock)
+
+    ship_fn = lambda ctx, sea_, S, t: render_ship(ctx, sea_, S, t)
+    cams_use = cams
+    ctx_, sea_ = render_sea_scene(cx, f, cfg, ships, band, cams_use, LIMAN_CAMS, "liman", pre=pre, post=post, mid=mid, ship_fn=ship_fn)
+    # etiketler
+    def decor(f_, cx_, band_):
+        by0, bh = band_
+        if stamp and year:
+            txt = f"{int(year)}"
+            wd = sk.text_width(txt, "title_m", 56, 6) + 78
+            CM.tablet(f_, 92, by0 + bh - 112, wd, 82, alpha=cx_.amt(at + 0.5, 0.7), corner=10)
+            CM.ink(f_, txt, 92 + wd / 2, by0 + bh - 112 + 58, face="title_m", size=56, color=TH.fg, align="c", track=6, alpha=cx_.amt(at + 0.5, 0.7), emboss=False)
+        if name:
+            _label_plate(f_, cx_, name, W / 2, by0 + 92, at + 0.6, 40)
+    _deco_labels(f, cx, ctx_, sea_, labels, at)
+    _frame_decor(f, cx, band, 1.0, kick, caption, at, extra=decor)
+    _finish(f, cx, tod, seed, motes=26)
+
+
+def _quay_flag(v, year):
+    y = year or 0
+    if v == "marsilya":
+        return ("lily", "#233C8C", "#E0B84E", "#E0B84E") if y < 1590 else ("lily", "#F4EEDC", "#E0B84E", "#E0B84E")
+    if v == "napoli":
+        return ("plain", "#F4EEDC", "#B33620", "#B33620")
+    if v == "livorno":
+        return ("medici", "#E0B84E", "#B33620", "#B33620")
+    if v == "pera":
+        return ("crescent", "#A8321E", "#E0B84E", "#E0B84E")
+    return ("stripes", "#233C8C", "#E0B84E", "#E0B84E")
+
+
+def _harbor_bg_ships(v, year, qx, tod):
+    """Açık suda (rıhtımdan önceki boşluk) demirli/yelkenli arka plan gemileri."""
+    liv = {"marsilya": ("fransa", "hristiyan"), "napoli": ("hristiyan", "papalik"), "livorno": ("toskana", "osmanli"), "pera": ("osmanli", "hristiyan"), "generic": ("genel", "genel")}[v]
+    out = [dict(kind="nao", x0=qx - 230, y=432, scale=0.9, flag=liv[0], dir=1, speed=0.0, oars=False, crew=False, seed=11, sails=False),
+           dict(kind="kadirga", x0=qx - 470, y=480, scale=0.8, flag=liv[1], dir=-1, speed=0.0, oars=False, crew=False, seed=12, sails=False, ensign=False)]
+    if v == "pera":
+        out += [dict(kind="kayik", x0=qx - 120, y=560, scale=0.8, flag="osmanli", dir=1, x1=qx + 420, t0=0.0, t1=14.0, ease="lin", crew=True, seed=21),
+                dict(kind="kayik", x0=qx - 20, y=585, scale=0.76, flag="osmanli", dir=-1, x1=qx - 700, t0=0.0, t1=16.0, ease="lin", crew=True, seed=22)]
+    elif v in ("marsilya", "livorno", "napoli"):
+        out += [dict(kind="tekne", x0=qx - 160, y=545, scale=0.8, flag="genel", dir=1, x1=qx + 200, t0=0.0, t1=16.0, ease="lin", seed=31)]
+    return out
+
+
+def _draw_dockers(ctx, f, hero, sea, t, td, mode, dirn, qx):
+    """İskele işçileri: halat başında bekler → halat atılınca çeker (work haul)."""
+    L = KIND_LEN[hero.kind] * hero.scale * persp(hero.y, sea.yh)
+    xs = [hero.pos(td)[0] + dirn * L * 0.34, hero.pos(td)[0] - dirn * L * 0.34]
+    for i, bx in enumerate(xs):
+        bx = qx + 90 + 330 * round((bx - (qx + 90)) / 330.0)
+        for j in range(2):
+            try:
+                pulling = (t > td - (1.6 if i == 0 else 1.0)) and (t < td + 4.5 if mode == "arrive" else t < td + 0.2)
+                if pulling:
+                    FA.actor(f, "halk" if j == 0 else "denizci", bx + (j * 30 - 15) * (-dirn), 494 + j * 5, 90, t, action="work", dir=dirn if i == 0 else -dirn, seed=70 + i * 3 + j, phase=0.35 * j, mode="haul", period=1.5)
+                else:
+                    FA.actor(f, "halk" if j == 0 else "denizci", bx + (j * 30 - 15) * (-dirn), 494 + j * 5, 90, t, action="idle", dir=dirn if i == 0 else -dirn, seed=70 + i * 3 + j, phase=0.35 * j)
+            except Exception:
+                pass
+
+
+def _draw_moorings(ctx, c, hero, sea, t, td, mode, dirn, qx, x_dock):
+    """Halatlar (baş/kıç) ve iniş tahtası: gemi ve rıhtım noktaları arasında (gemi çizildikten SONRA)."""
+    kind = hero.kind
+    if kind == "kadirga":
+        bow_l, stern_l, plank_l = (258.0, -66.0), (-250.0, -112.0), (-40.0, -52.0)
+    else:
+        bow_l, stern_l, plank_l = (204.0, -138.0), (-196.0, -198.0), (-30.0, -90.0)
+    pb = ship_point(sea, hero, t, bow_l[0], bow_l[1])
+    ps_ = ship_point(sea, hero, t, stern_l[0], stern_l[1])
+    pk = ship_point(sea, hero, t, plank_l[0], plank_l[1])
+    L = KIND_LEN[kind] * hero.scale * persp(hero.y, sea.yh)
+    bx_bow = qx + 90 + 330 * round((x_dock + dirn * L * 0.34 - (qx + 90)) / 330.0)
+    bx_str = qx + 90 + 330 * round((x_dock - dirn * L * 0.34 - (qx + 90)) / 330.0)
+    q_bow = (bx_bow, EDGE - 22.0)
+    q_str = (bx_str, EDGE - 22.0)
+    q_land = (x_dock + dirn * 92.0, EDGE - 4.0)
+    ctx.push(1.0)
+    if mode == "arrive":
+        ub = (t - (td - 1.7)) / 1.0
+        us = (t - (td - 1.1)) / 1.0
+        kp = (t - (td - 0.3)) / 1.3
+    else:
+        ub = 1.0 - (t - (td - 1.3)) / 1.0
+        us = 1.0 - (t - (td - 0.9)) / 1.0
+        kp = 1.0 - (t - (td - 2.2)) / 1.3
+    if ub > 0.001:
+        rope_throw(c, (pb[0], pb[1]), q_bow, ub, t, 80.0)
+    if us > 0.001:
+        rope_throw(c, (ps_[0], ps_[1]), q_str, us, t, 70.0)
+    if kp > 0.001:
+        draw_plank(c, (pk[0], pk[1]), q_land, kp, t, Tint(ctx.tod)("#8A6A3C"))
+    ctx.pop()
+
+
+def _draw_delegation(ctx, f, d, x_land, dirn, t, td, qx, v, year, seed):
+    """Rıhtımda yürüyen heyet: sarıklı/uzun kaftanlı figürler (saygılı), önde mektup rulosu; iniş noktasına varınca durup selam verir."""
+    n = int(d.get("n", 5))
+    side = d.get("side", "osmanli")
+    t0 = _tcall(ctx.cx, d.get("t0", 0.0), 0.0)
+    x_stop = float(d.get("x_stop", x_land + dirn * 0.0 - 120.0))
+    x_from = float(d.get("x_from", x_stop - 520.0))
+    sp = 44.0
+    c = ctx.c
+    rs = _RS(seed * 3 + 1)
+    for i in range(n):
+        xi = x_from + i * 46.0
+        xs = x_stop + i * 46.0 - (n - 1) * 46.0 * 0.0
+        tt = t - t0
+        x = min(xs, xi + sp * max(0.0, tt)) if tt > 0 else xi
+        moving = x < xs - 0.5 and tt > 0
+        kind = "soylu" if i < 2 else ("asker" if i == n - 1 else "halk")
+        st = dict(hat="turban", hat_col=["#EDE4CC", "#A8321E", "#2E6A4F"][i % 3], robe=["#2E6A4F", "#233C8C", "#A8321E", "#7A2E56", "#1F5A7A"][i % 5], robe2="#E0B84E") if side == "osmanli" else {}
+        y = 494.0 + (i % 2) * 5
+        try:
+            if moving:
+                FA.walker(ctx.f, kind, x, y, 74, t, speed=sp, dir=1, phase=0.2 * i, seed=300 + i, **st)
+            else:
+                FA.actor(ctx.f, kind, x, y, 74, t, action=("bow" if i == 0 else "idle"), dir=1, seed=300 + i, phase=0.2 * i, t0=max(0.2, td - 0.5 - t0) if False else 0.4, **st)
+        except Exception:
+            pass
+        if i == 0:                                   # mektup rulosu (el hizasında): krem silindir + kırmızı bağ
+            hx, hy = x + 20.0, y - 74 * 0.52 + (math.sin(t * 6.0) * 1.6 if moving else 0.0)
+            c.save()
+            c.translate(hx, hy)
+            c.rotate(-18)
+            rr = skia.Rect.MakeLTRB(-14, -4, 14, 4)
+            c.drawRoundRect(rr, 4, 4, _P("#EFE4C6"))
+            c.drawRoundRect(rr, 4, 4, _P(INK, 190, style="stroke", sw=1.1))
+            c.drawRect(skia.Rect.MakeLTRB(-2, -4.5, 2.5, 4.5), _P("#B33620"))
+            c.restore()
+
+
+@ckind("liman")
+def k_liman(cx, **kw):
+    return _liman(cx, **kw)
+
+
+def draw_route_thread(ctx, sea, S, t, opt):
+    """Rota ipliği (c13 'iplik'): geminin kat ettiği yol boyunca denizin üstüne ince, yaldız-mürekkep kesik çizgi; gemiyle birlikte uzar. opt: col, w, dash, ahead (0..1: yolun tamamı soluk gösterilir)."""
+    if not S.route:
+        return
+    Q, cum = S._rb
+    u_now = clamp((t - S.t0) / max(1e-6, (S.t1 - S.t0))) if S.t1 is not None else 1.0
+    u_now = _ease(S.ease if S.ease != "lin" else "io", u_now)
+    n = len(Q)
+    k_end = max(2, int(np.searchsorted(cum, u_now * cum[-1])))
+    col = opt.get("col", "#E0B84E")
+    w = opt.get("w", 3.0)
+    c = ctx.c
+    ymid = float(np.mean(Q[:, 1]))
+    fr = sea.row_of(ymid).f
+    ctx.push(fr)
+    dash = skia.DashPathEffect.Make([12.0, 9.0], -t * 14.0)
+    pts = [(float(a), float(b) + 8.0) for a, b in Q[:k_end]]
+    if len(pts) >= 2:
+        pth = skia.Path.Polygon(pts, False)
+        p1 = _P(INK, 150, style="stroke", sw=w + 1.6, cap=skia.Paint.kButt_Cap)
+        p1.setPathEffect(dash)
+        c.drawPath(pth, p1)
+        p2 = _P(col, 255, style="stroke", sw=w, cap=skia.Paint.kButt_Cap)
+        p2.setPathEffect(dash)
+        c.drawPath(pth, p2)
+    if opt.get("ahead", 0.28) > 0 and k_end < n - 1:
+        pts2 = [(float(a), float(b) + 8.0) for a, b in Q[k_end - 1:]]
+        pth2 = skia.Path.Polygon(pts2, False)
+        p3 = _P(col, int(255 * opt.get("ahead", 0.28)), style="stroke", sw=w * 0.7, cap=skia.Paint.kButt_Cap)
+        p3.setPathEffect(skia.DashPathEffect.Make([4.0, 14.0], 0.0))
+        c.drawPath(pth2, p3)
+    ctx.pop()
