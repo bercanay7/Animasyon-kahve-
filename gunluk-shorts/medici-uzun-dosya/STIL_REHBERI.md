@@ -1,10 +1,10 @@
 # MEDICI — Stil Rehberi ve Teknik Sözleşme (sahne yazarları için)
 
-Bu belge, "Zaman Kuryesi — Medici (3 parça, 1920×1080, 24 fps)" videosunun görsel katmanını yazan herkesin (insan/ajan) uyacağı **teknik sözleşme ve iş akışıdır**.
+Bu belge, "Zaman Kuryesi — Medici (7 parça × ≈10 dk, 1920×1080, 24 fps)" videosunun görsel katmanını yazan herkesin (insan/ajan) uyacağı **teknik sözleşme ve iş akışıdır**.
 Üç sözleşme birlikte okunur: `USLUP_REHBERI.md` (nasıl anlatılır) · `YONETMENLIK_REHBERI.md` (nasıl çekilir/kesilir/akar; on emir, kapılar) · **bu belge** (motor API'si, dosya sahipliği, komutlar, teslim).
 Motor ayrıntısı: `notlar_yonetmen_motoru.md` (kamera/geçiş/Program/qa_flow) ve `notlar_dunya.md` (figür/panorama/yapım animasyonu; §7). Kullanıcının tek şartı: **"oldukça uğraşılmış ve profesyonel gözükmesi"**; isteği: **"olabildiğince akan ve çok animasyon; yönetmenlik olarak usta ol."**
 
-> **Ses durumu:** P1 c0–c5 **gerçek** (ElevenLabs); c6 ve P2/P3 **GEÇİCİ** (Piper; kredi bekleniyor). Gerçek ses gelince zamanlar DEĞİŞİR. Bu yüzden sahne zamanlarını **cümle/sözcük çapasına** bağla (`("c7s5", -0.2)`, `("c7s17", "silahı", -0.1)`); mutlak saniye ≤%10 (qa_flow ölçer).
+> **Ses durumu:** P1–P2 (c0–c5) **gerçek** (ElevenLabs); P3–P7 (c6–c16) **GEÇİCİ** (Piper; kredi bekleniyor). Gerçek ses gelince zamanlar DEĞİŞİR. Bu yüzden sahne zamanlarını **cümle/sözcük çapasına** bağla (`("c7s5", -0.2)`, `("c7s17", "silahı", -0.1)`); mutlak saniye ≤%10 (qa_flow ölçer).
 
 ---
 ## 0. Hızlı başlangıç
@@ -15,9 +15,9 @@ cat isemri/c7.md                               # BÖLÜM İŞ EMRİN: cümleler+
 python3 preview_chapter.py c7 --script         # cümle kimlikleri + zaman + kaynak sınıfı (çapa seçmek için)
 python3 preview_chapter.py c7 --words c7s17    # cümlenin sözcükleri ve zamanları (sözcük çapası için)
 python3 preview_chapter.py c7 --check          # çekim listesi (cam/geçiş dahil), uyarılar, ms/kare
-python3 preview_chapter.py c7                  # kontak sayfası → out_p2/frames/c7_sheet_1.png  (MUTLAKA Read ile gör!)
+python3 preview_chapter.py c7                  # kontak sayfası → out_pN/frames/c7_sheet_1.png (N = c7’nin parçası: 3)  (MUTLAKA Read ile gör!)
 python3 preview_chapter.py c7 --shots 4,5 -k 4 # yalnız bu çekimler, çekim başına 4 kare
-python3 preview_chapter.py c7 --at 83.4        # PARÇA-İÇİ saniyede tam çözünürlüklü kare → out_p2/frames/c7_t83.4.png
+python3 preview_chapter.py c7 --at 83.4        # PARÇA-İÇİ saniyede tam çözünürlüklü kare → out_pN/frames/c7_t83.4.png
 python3 preview_chapter.py c7 --clip 80 6      # 6 sn'lik küçük mp4 (sessiz)
 python3 preview_chapter.py c7 --flow           # yönetmenlik kapıları (kamera/geçiş/link/çapa/olay yoğunluğu/durgunluk)
 ```
@@ -28,7 +28,7 @@ python3 preview_chapter.py c7 --flow           # yönetmenlik kapıları (kamera
 ## 1. Film ve anlatı özeti
 
 - Konu: Medici ailesi (1252–2026 bakışı): **para → itibar → iktidar → güzellik** zinciri; kaynak zorluğu: ● hiçbir olgu yok (birincil metin okunmadı), ◐/○ düzeyinde; rivayetler "rivayet", tartışmalı yerler "tartışmalı" denir.
-- **3 parça = 3 Perde:** P1 ALTIN (c0–c6) · P2 BEDEL (c7–c11) · P3 MİRAS (c12–c16). P2 c7 ile, P3 c12 ile **doğrudan** açılır (bölüm kartı yok; ilk çekimde "MEDİCİ — PARÇA II/III" başlık bindirmesi 1,2–4,8 sn; Program ekler — sen çizmezsin, ilk çekimin sol üst/orta bandını boş bırak). P1'de c0 → ana başlık (`fresco_title`) → c1.
+- **7 parça (≈10 dk) · 3 Perde:** Yayın parçaları: P1 c0–c2 · P2 c3–c5 · P3 c6–c7 · P4 c8–c9 · P5 c10–c11 · P6 c12–c13 · P7 c14–c16 (`script.PARTS`). Perde (ALTIN c0–c6 · BEDEL c7–c11 · MİRAS c12–c16) bölüm bazlı ışık/renk paletidir, parçadan bağımsız. P2…P7 ilk bölümleriyle **doğrudan** açılır (bölüm kartı yok; ilk çekimde "MEDİCİ — PARÇA N — ad" başlık bindirmesi 1,2–4,8 sn; Program ekler — sen çizmezsin, ilk çekimin sol üst/orta bandını boş bırak). P1'de c0 → ana başlık (`fresco_title`) → c1. Parça içindeki bölümler arası normal bölüm kartı.
 - Bölüm kartları (3 sn, canlı) ve parça kapanışı (bitiş ekranı 7 sn: "SIRADAKİ PARÇA"/"TÜM FİLM" + "ABONE OL") `compose.py` tarafından otomatik eklenir. **Sahne dosyası yalnız bölümün KENDİ çekimlerini içerir.**
 - HUD (yıl rulosu + perde göstergesi) Program çizer; yıl değişimleri için isteğe bağlı `YIL_AT = [(çapa/saniye, yıl), …]`. HUD alanını (sağ üst, sol üst bölüm başı) boş bırak.
 - Ses: ElevenLabs "Emrullah Uzun". **Altyazı ayrı (SRT) — ekrana altyazı basma;** ekrandaki yazılar anlatıyı tamamlar, tekrar etmez. Altyazı şeridini (1080p'de alt ≈ y 938–1042) metin/etiketlerle işgal etme (qa_flow denetler; tür düzeni gereği bazı türlerde uyarı normaldir).

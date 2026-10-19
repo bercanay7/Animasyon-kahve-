@@ -4,92 +4,60 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 
 | gösterim | okunuş | adet | ilk geçtiği yerler |
 |---|---|---:|---|
-| Cosimo | Kozimo | 25 | c12s1, c12s2, c12s3, c12s5 |
-| Felipe | Felipe | 1 | c12s10 |
-| Siena | Siyena | 1 | c12s10 |
-| Vasari | Vazari | 3 | c12s11, c12s26, c16s11 |
-| Uffizi | Uffitsi | 5 | c12s12, c14s6, c16s4, c16s16 |
-| Palazzo Vecchio | Palattso Vekkyo | 3 | c12s14, c15s1, c16s23 |
-| Santo Stefano | Santo Stefano | 1 | c12s16 |
-| Pisa | Piza | 1 | c12s17 |
-| Giovanni | Covanni | 1 | c12s20 |
-| Garzia | Gartsiya | 4 | c12s21, c12s23, c12s23, c12s24 |
-| Medici | Mediçi | 18 | c12s26, c12s35, c13s3, c13s23 |
-| Michelangelo | Mikelancelo | 1 | c12s27 |
-| Francesco | Françesko | 4 | c12s29, c15s1, c15s2, c15s5 |
-| Pius | Pius | 1 | c12s30 |
-| Roma | Roma | 5 | c12s30, c12s31, c14s1, c14s23 |
-| Lepanto | Lepanto | 1 | c12s32 |
-| Toskana | Toskana | 5 | c12s32, c13s25, c15s9, c15s11 |
-| Villa di Castello | Villa di Kastello | 1 | c12s34 |
-| Montemurlo | Montemurlo | 1 | c12s4 |
-| Treccani | Trekkani | 3 | c12s4, c15s15, c15s17 |
-| Eleonora di Toledo | Eleonora di Toledo | 1 | c12s5 |
-| Lorenzino | Lorentsino | 1 | c12s9 |
-| Catherine | Katrin | 7 | c13s1, c13s8, c13s9, c13s13 |
-| Coligny | Kolinyi | 1 | c13s11 |
-| Henri Estienne | Anri Estyen | 1 | c13s16 |
-| Balet comique | Bale komik | 1 | c13s21 |
-| Kirke | Kirke | 1 | c13s21 |
-| Blois | Blua | 3 | c13s22, c13s29, c13s34 |
-| Guise | Giz | 1 | c13s22 |
-| Marie | Mari | 9 | c13s23, c13s27, c13s28, c13s31 |
-| écu | ekü | 1 | c13s25 |
-| Concini | Konçini | 1 | c13s29 |
-| Clemens | Klemens | 1 | c13s3 |
-| Henri | Anri | 5 | c13s3, c13s5, c13s7, c13s16 |
-| Louis | Lui | 1 | c13s30 |
-| Richelieu | Rişölyö | 1 | c13s30 |
-| Rubens | Rubens | 3 | c13s32, c13s36, c13s36 |
-| Louvre | Luvr | 2 | c13s33, c13s37 |
-| Köln | Köln | 1 | c13s35 |
-| Siegen | Zigen | 1 | c13s36 |
-| Marsilya | Marsilya | 2 | c13s4, c13s27 |
-| Diane de Poitiers | Dyan dö Puatye | 1 | c13s5 |
-| Charles | Şarl | 1 | c13s9 |
-| Gregorius | Gregoryus | 1 | c14s1 |
-| Caccini | Kaççini | 1 | c14s10 |
-| Vincenzo Galilei | Vinçentso Galilei | 1 | c14s11 |
-| Sidereus Nuncius | Sidereus Nuntsius | 1 | c14s14 |
-| Marius | Maryus | 1 | c14s17 |
-| Dialogo | Dialogo | 1 | c14s18 |
-| Granjon | Granjon | 1 | c14s2 |
-| Bartolomeo | Bartolomeo | 1 | c14s20 |
-| Cristofori | Kristofori | 4 | c14s20, c14s21, c14s23, c14s24 |
-| arpicembalo | arpiçembalo | 1 | c14s21 |
-| Maffei | Maffei | 1 | c14s22 |
-| Leipzig | Layptsig | 1 | c14s23 |
-| Bandini | Bandini | 1 | c14s4 |
-| Giuliano | Culyano | 1 | c14s4 |
-| Orazio Bandini | Orattsyo Bandini | 1 | c14s4 |
-| Opificio delle Pietre Dure | Opifiçyo delle Piyetre Dure | 2 | c14s6, c16s20 |
-| Euridice | Euridiçe | 3 | c14s7, c14s8, c14s10 |
-| Medici'nin | Mediçi'nin | 4 | c14s7, c16s10, c16s11, c16s15 |
-| de'  | de  | 1 | c14s7 |
-| Jacopo | Yakopo | 1 | c14s8 |
-| Jacopo Peri | Yakopo Peri | 1 | c14s8 |
-| Orfeo | Orfeo | 1 | c14s8 |
-| Peri | Peri | 2 | c14s8, c14s10 |
-| Vittoria Archilei | Vittorya Arkilei | 1 | c14s8 |
-| Mustafa Ağa | Mustafa Ağa | 1 | c15s10 |
-| Fahreddin | Fahreddin | 2 | c15s11, c15s12 |
-| Gian Gastone | Can Gastone | 2 | c15s14, c15s17 |
-| ruspanti | ruspanti | 1 | c15s14 |
-| ruspi | ruspi | 1 | c15s14 |
-| Francis Stephen | Fransis Stifın | 2 | c15s17, c15s18 |
-| Lorraine | Loren | 2 | c15s17, c16s3 |
-| Bianca Cappello | Bianka Kappello | 1 | c15s2 |
-| Livornina | Livornina | 1 | c15s9 |
-| Anna Maria Luisa | Anna Maria Luiza | 3 | c16s1, c16s5, c16s23 |
-| Goldthwaite | Goldtveyt | 1 | c16s10 |
-| Gombrich | Gombrih | 1 | c16s10 |
-| Vespasiano | Vespazyano | 1 | c16s11 |
-| Capitoline | Kapitolin | 1 | c16s16 |
-| Fugger | Fugır | 2 | c16s17, c16s17 |
-| Rothschild | Rotşild | 1 | c16s17 |
-| Harvard | Harvard | 1 | c16s19 |
-| Medici'ler | Mediçiler | 1 | c16s7 |
-| Primavera | Primavera | 1 | c16s9 |
-| Rucellai | Ruçellay | 1 | c16s9 |
-| Strozzi | Strottsi | 1 | c16s9 |
-| Tornabuoni | Tornabuvoni | 1 | c16s9 |
+| Lorenzo | Lorentso | 20 | c6s1, c6s6, c6s12, c6s15 |
+| Niccolò Valori | Nikkolo Valori | 1 | c6s1 |
+| Clarice | Klariçe | 3 | c6s10, c6s12, c6s14 |
+| Roma | Roma | 3 | c6s10, c6s13, c7s40 |
+| Poliziano | Politsyano | 5 | c6s14, c6s16, c6s23, c7s22 |
+| Botticelli | Botiçelli | 2 | c6s15, c6s22 |
+| Leonardo | Leonardo | 1 | c6s15 |
+| Perugino | Peruçino | 1 | c6s15 |
+| Verrocchio | Verrokyo | 1 | c6s15 |
+| Toskana | Toskana | 1 | c6s16 |
+| Vita nova | Vita nova | 1 | c6s16 |
+| Machiavelli | Makyavelli | 4 | c6s17, c7s29, c6s17, c7s29 |
+| Magnifico | Manyifiko | 1 | c6s17 |
+| Condivi | Kondivi | 1 | c6s18 |
+| Michelangelo | Mikelancelo | 2 | c6s18, c6s19 |
+| Giostra | Costra | 2 | c6s20, c6s26 |
+| Santa Croce | Santa Kroçe | 1 | c6s20 |
+| Giuliano | Culyano | 14 | c6s21, c6s24, c6s27, c7s7 |
+| Marco Vespucci | Marko Vespuççi | 1 | c6s21 |
+| Simonetta | Simonetta | 3 | c6s21, c6s22, c6s24 |
+| Piero | Pyero | 2 | c6s6, c6s10 |
+| Ricordi | Rikordi | 1 | c6s7 |
+| Lucrezia | Lukretsya | 1 | c6s9 |
+| Lucrezia Tornabuoni | Lukretsya Tornabuvoni | 1 | c6s9 |
+| Morgante | Morgante | 1 | c6s9 |
+| Pulci | Pulçi | 1 | c6s9 |
+| Tornabuoni | Tornabuvoni | 1 | c6s9 |
+| Antonio | Antonyo | 1 | c7s10 |
+| Maffei | Maffei | 2 | c7s10, c7s42 |
+| Stefano da Bagnone | Stefano da Banyone | 1 | c7s10 |
+| Treccani | Trekkani | 2 | c7s10, c7s41 |
+| Jacopo | Yakopo | 3 | c7s11, c7s28, c7s36 |
+| de'  | de  | 4 | c7s11, c7s13, c7s28, c7s32 |
+| Bandini | Bandini | 3 | c7s13, c7s17, c7s23 |
+| Santa Maria del Fiore | Santa Maria del Fyore | 1 | c7s2 |
+| Luca della Robbia | Luka della Robbya | 1 | c7s22 |
+| Michelozzo | Mikelottso | 1 | c7s22 |
+| Palazzo Vecchio | Palattso Vekkyo | 2 | c7s26, c7s32 |
+| Cesare | Çezare | 1 | c7s27 |
+| Petrucci | Petrutçi | 1 | c7s27 |
+| Medici'nin | Mediçi'nin | 2 | c7s29, c7s43 |
+| Raffaele Riario | Rafaele Riaryo | 1 | c7s3 |
+| Riario | Riaryo | 3 | c7s3, c7s6, c7s7 |
+| Guicciardini | Gviçardini | 1 | c7s30 |
+| Cosimo | Kozimo | 1 | c7s4 |
+| Medici | Mediçi | 6 | c7s4, c7s5, c7s29, c7s30 |
+| San Lorenzo | San Lorentso | 1 | c7s44 |
+| Giulio | Culyo | 1 | c7s45 |
+| Pazzi | Pattsi | 7 | c7s5, c7s7, c7s11, c7s13 |
+| Sixtus | Sikstus | 1 | c7s5 |
+| Girolamo | Cirolamo | 2 | c7s6, c7s7 |
+| Girolamo Riario | Cirolamo Riaryo | 2 | c7s6, c7s7 |
+| Imola | İmola | 1 | c7s6 |
+| Pisa | Piza | 1 | c7s6 |
+| Salviati | Salvyati | 7 | c7s6, c7s7, c7s26, c7s27 |
+| Francesco | Françesko | 7 | c7s7, c7s13, c7s14, c7s18 |
+| Montesecco | Montesekko | 2 | c7s9, c7s39 |

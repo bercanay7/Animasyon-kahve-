@@ -1,12 +1,14 @@
 """
-miks.py — "MEDICI" parça miksleri: voice + müzik + SFX → −14 LUFS / ≤ −1 dBTP. HER PARÇA AYRI miks edilir.
+miks.py — "MEDICI" parça miksleri: voice + müzik + SFX → −14 LUFS / ≤ −1 dBTP. HER PARÇA AYRI miks edilir (7 yayın parçası; script.PARTS).
 
     MEDICI_PART=2 python3 miks_kur.py                # tam miks → out_p2/mix_audio.m4a (+ stem'ler: stem_music.flac, stem_voice.flac, stem_sfx.flac, audio_report.txt)
     MEDICI_PART=2 python3 miks_kur.py --onizleme     # GEÇİCİ (Piper) ses ya da eksik bölüm varken: çıktılar ONIZLEME_ önekiyle yazılır, final adıyla ASLA
     MEDICI_PART=2 python3 miks_kur.py --onizleme --preview   # + out_p2/ses_onizleme/*.mp3 (20–30 sn'lik kesitler; kullanıcı dinler)
 
-`out/` sembolik bağlantısına ve parca.kullan()'a DOKUNULMAZ; tüm yollar parca.OUT (= out_pN) üzerinden.
-Final miks öncesi parca.assert_gercek_ses() ÇAĞRILIR (GECICI_SES.json varsa DURUR); --onizleme bunu atlar. Eksik bölümlü parça (ör. P1'de c6 yok) da yalnız önizleme olarak miks edilir.
+`out/` sembolik bağlantısına ve parca.kullan()'a DOKUNULMAZ; tüm yollar parca.OUT (= out_pN) üzerinden (deneme için MEDICI_OUT_DIR=/yol ile değiştirilebilir).
+Final miks öncesi parca.assert_gercek_ses() ÇAĞRILIR (GECICI_SES.json varsa DURUR); --onizleme bunu atlar. Eksik bölümlü parça (ör. P3'te c6 sesi henüz yok) da yalnız önizleme olarak miks edilir.
+Parça açılışı/kapanışı: parçanın ilk bölümü t=0'da açılır (P1: c0 sonunda ana başlık vuruşu; P2…P7 doğrudan, kart yok); her parçanın sonunda 7 sn'lik bitiş ekranı kuyruğu.
+Perde (altın/bedel/miras) BÖLÜM bazlıdır: bölüm kartı vurguları gelen bölümün perdesine göre.
 
 Girdiler: out_pN/voice.wav (mono 48 kHz), voice_chapters.json, timeline.json (müzik hikâye çıpaları + SFX çapaları + QA),
           sfx_cues_pN.json (proje kökü; elle/sahne yazarlarınca beslenen kuyruk — JSON sözleşmesi sfx.py'de), out_pN/sfx_gecis.json (otomatik geçiş sesleri; isteğe bağlı).
@@ -41,7 +43,7 @@ sys.path.insert(0, HERE)
 import parca as PA  # noqa: E402  (yalnız PA.PART / PA.OUT / PA.assert_gercek_ses kullanılır; kullan() ÇAĞRILMAZ)
 
 PART = PA.PART
-OUT = PA.OUT
+OUT = os.environ.get("MEDICI_OUT_DIR") or PA.OUT          # MEDICI_OUT_DIR: yalnız deneme/fixture; varsayılan out_pN
 MAX_WORKERS = 2
 
 FR = 480                      # 10 ms'lik analiz karesi (100 Hz zarf hızı)
@@ -56,8 +58,6 @@ BLOOM_DB = 9.0                # boşlukta müzik, konuşma altı seviyesinin +9 
 MIN_GAP_SEC = 1.5             # bundan kısa konuşma araları 'konuşma' sayılır (pompalama yok)
 MUSIC_ACTIVE_DB = -70.0       # müzik kare gücü (dBFS²) bunun altındaysa 'müzik yok' (kapı) sayılır; seviyelemeye katılmaz
 T0 = time.time()
-PERDE_FLAVOR = {1: "altin", 2: "bedel", 3: "miras"}
-PART_CHAPTERS = {1: [f"c{i}" for i in range(0, 7)], 2: [f"c{i}" for i in range(7, 12)], 3: [f"c{i}" for i in range(12, 17)]}
 
 
 def log(*a):
@@ -79,11 +79,9 @@ def load_inputs():
 
 
 def expected_chapters():
-    try:
-        import script as S
-        return list(S.PARTS[PART])
-    except Exception:   # noqa
-        return PART_CHAPTERS[PART]
+    """Bu parçanın bölümleri: script.PARTS (muzik.part_table; sabit kodlanmaz)."""
+    import muzik
+    return muzik.part_chapters(PART)
 
 
 # ═══════════════════════════ ses (voice) zinciri ═══════════════════════════
@@ -227,7 +225,7 @@ def build_gain_curve(sa, Pm_raw, n_frames, chapters, bias=None, part=None, gates
         trims = np.minimum(trims + adj, MAX_BOOST)      # toplam yükseltme MAX_BOOST'u aşamaz (yinelemeler birikmesin)
     G = G + trims * region
     # ── bölüm kartı / başlık yükselişleri
-    t_title = chapters[0]["t1"] if (part == 1 and chapters and chapters[0]["id"] == "c0") else None
+    t_title = chapters[0]["t1"] if (chapters and chapters[0]["id"] == "c0") else None          # P1: c0 sonu = ana başlık
     info_gaps = []
     for (a, b) in gaps:
         is_title = t_title is not None and abs(a / 100.0 - t_title) < 0.25
@@ -304,22 +302,27 @@ def apply_curve(x, G_db, sr=SR):
 
 # ═══════════════════════════ SFX bus ═══════════════════════════
 def default_sfx_cues(chapters, tail, part):
-    """Varsayılan cue'lar: P1'de c0 sonunda title_hit (c0 t1 + 0,4 sn; c1 kartı = ana başlık, stinger yok); her bölüm kartında (parçanın 2. bölümünden itibaren)
-    chapter_stinger — perde rengine göre (altin/bedel/miras), gelen bölümün ana sesine akortlu. P2/P3'ün ilk bölümünde kart yoktur (doğrudan açılır)."""
+    """Varsayılan cue'lar: c0 parçadaysa (P1) c0 sonunda title_hit (c0 t1 + 0,4 sn; c1 kartı = ana başlık, stinger yok); her bölüm kartında (parçanın 2. bölümünden
+    itibaren) chapter_stinger — GELEN bölümün perde rengine göre (altin c0–c6 / bedel c7–c11 / miras c12–c16), bölümün ana sesine akortlu.
+    Parçanın ilk bölümünde kart yoktur (t=0'da doğrudan açılır; 1,2–4,8 sn parça başlığı bindirmesi görüntüde, ses tasarımı müzikte)."""
     import muzik
+    import sfx
     cues = []
     start_i = 1
-    if part == 1 and chapters and chapters[0]["id"] == "c0":
+    if chapters and chapters[0]["id"] == "c0":
         cues.append(dict(t=round(chapters[0]["t1"] + muzik.TITLE_DELAY, 3), name="title_hit", gain_db=-9.0, pan=0.0, seed=0, dur=None, loop=False,
                          params={"root": float(D.midi_hz(muzik.CUES["c0"]["tonic"]))}, id="p1-ana-baslik", note="ana başlık vuruşu"))
         start_i = 2
-    fl = PERDE_FLAVOR[part]
-    gdb = {"altin": -9.0, "bedel": -12.5, "miras": -11.0}[fl]
+    gdb_of = {"altin": -9.0, "bedel": -12.5, "miras": -11.0}
     for i in range(start_i, len(chapters)):
         prev, ch = chapters[i - 1], chapters[i]
+        fl = muzik.flavor_of(ch["id"])
         root = float(D.midi_hz(muzik.first_tonic(ch["id"]) + 12))
-        cues.append(dict(t=round(prev["t1"] + 0.2, 3), name="chapter_stinger", gain_db=gdb, pan=0.0, seed=i + 10 * part, dur=None, loop=False,
-                         params={"root": root, "flavor": fl}, id=f"kart-{ch['id']}", note=f"bölüm kartı {ch['id']}"))
+        prm = {"root": root, "flavor": fl}
+        if fl == "bedel" and ch["id"] in sfx.POLICY_FORBID:          # çan yasaklı bölümlerin (c7/c10) kartında gong bile yok: yalnız org + gamba
+            prm["gong"] = 0.0
+        cues.append(dict(t=round(prev["t1"] + 0.2, 3), name="chapter_stinger", gain_db=gdb_of[fl], pan=0.0, seed=i + 10 * int(part), dur=None, loop=False,
+                         params=prm, id=f"kart-{ch['id']}", note=f"bölüm kartı {ch['id']} ({fl})"))
     return cues
 
 
@@ -591,14 +594,19 @@ def main():
     if a.snr:
         SNR_TARGET, SNR_HI = [float(x) for x in a.snr.split(",")]
     if PART is None:
-        raise SystemExit("MEDICI_PART=1|2|3 gerekli (out/ sembolik bağlantısı KULLANILMAZ): MEDICI_PART=2 python3 miks_kur.py")
+        raise SystemExit("MEDICI_PART=1..7 gerekli (out/ sembolik bağlantısı KULLANILMAZ): MEDICI_PART=2 python3 miks_kur.py")
     a.sfx_cues = a.sfx_cues or os.path.join(HERE, f"sfx_cues_p{PART}.json")
 
     import muzik
     import sfx
     voice, chapters, total, timeline = load_inputs()
     present = [c["id"] for c in chapters]
-    missing = [c for c in expected_chapters() if c not in present]
+    exp = expected_chapters()
+    missing = [c for c in exp if c not in present]
+    extra = [c for c in present if c not in exp]
+    if extra:
+        raise SystemExit(f"DURDU: out_p{PART}/voice_chapters.json içinde P{PART}'e ait olmayan bölüm {extra} (beklenen {exp}) — eski parça düzeninden kalmış olabilir; "
+                         f"ses birleştirmeyi (ses_birlestir.py) bu parça için yeniden çalıştırın.")
     temp = os.path.exists(os.path.join(OUT, "GECICI_SES.json"))
     if not a.onizleme:
         PA.assert_gercek_ses(OUT)          # geçici ses varsa DURUR (SystemExit)
@@ -890,8 +898,10 @@ def write_report(c):
     P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
     for (sid, tc, stp, stp1) in c["junc_steps"]:
         P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (3 sn) {stp:5.1f} dB   (1 sn adımı {stp1:5.1f} dB)")
+    tr = c["minfo"].get("trims") or {}
+    P("   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): " + (", ".join(f"{k}: {h:+.1f}/{t:+.1f}" for k, (h, t) in tr.items()) if tr else "gerek duyulmadı (kavşak farkları ≤ 1,5 dB)"))
     P("")
-    P("[4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an vb.)")
+    P("[4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an, c10 9 Kasım, c13 1572 vb.)")
     P("   kesit   başlangıç–bitiş (sn)   tür             müzik RMS (ducking sonrası)   SFX RMS   miks−ses RMS (kestirim)   not")
     gate_rows = []
     for g in minfo["gates"]:
@@ -925,7 +935,7 @@ def write_report(c):
     ir = D.hall_ir(2.2)
     rt = D.measure_rt60(ir[:, 0])
     P(f"  reverb: algoritmik salon IR'ı, fftconvolve; ölçülen RT60: 500 Hz {rt[500]:.2f} sn, 1 kHz {rt[1000]:.2f} sn (ort. {0.5 * (rt[500] + rt[1000]):.2f} sn), 2 kHz {rt[2000]:.2f} sn")
-    if PART == 1 and chapters[0]["id"] == "c0":
+    if chapters[0]["id"] == "c0":
         P(f"  c0 başlık vuruşu: c0 t1 + {muzik.TITLE_DELAY:.1f} sn = {chapters[0]['t1'] + muzik.TITLE_DELAY:.2f} sn")
     P(f"  parça kapanışı: son bölüm t1 = {chapters[-1]['t1']:.2f} → çözülme {chapters[-1]['t1'] + 0.25:.2f} sn, sönüş {N / SR:.2f} sn (kuyruk {tail:.1f} sn)")
     P("")
@@ -993,36 +1003,51 @@ def write_report(c):
 
 
 # ═══════════════════════════ önizleme mp3'leri ═══════════════════════════
-PREVIEWS = {
-    1: [("01_c0_baslik_vurusu", ("c0s16", 0.0), 30, True, "c0 sonu: yükseliş → TEK vuruş → altın D majör → florin figürü (ana başlık)"),
-        ("02_c1_florin_ve_veba", ("c1s28", 0.0), 28, True, "c1: sermaye on bin florin (florin motifi) — kısa kesit"),
-        ("03_c1_veba_ve_ciompi", ("c1s13", 0.0), 30, True, "c1: veba (renk solar) → Ciompi (davul yükselir)"),
-        ("04_c3_donus_1434", ("c3s16", 0.0), 28, True, "c3: Cosimo'nun dönüşü ('dönüş' motifi)"),
-        ("05_c4_kubbe_kutsama", ("c4s8", 0.0), 30, True, "c4: kubbe + kutsama korali (duomo motifi)"),
-        ("06_c5_lir_ve_lorenzo", ("c5s10", 0.0), 28, True, "c5: Orfik lir kadansı ... Lorenzo'ya geçiş"),
-        ("07_c6_lorenzo_temasi", ("c6s17", 0.0), 28, True, "c6: Lorenzo teması (c6 sesi gelince)"),
-        ("08_p1_kapanis_golge", ("c6s25", 0.0), 30, True, "P1 sonu: altın → gölge, bedel yayı, 7 sn çözülme (c6 sesi gelince)")],
-    2: [("01_c7_acilis_parca_basligi", 0.0, 26, True, "P2 açılışı: 'bedel' yayı (başlık bindirmesi 1,2–4,8 sn), kilise girişinde müzik çekilir"),
-        ("02_c7_yildiz_an_girisi", ("c7s14", 0.0), 30, True, "c7 V4→V5: müzik sessizliğe giriş (0,6 sn önce) — YILDIZ AN"),
-        ("03_c7_yildiz_an_cikisi", ("c7s22", 0.0), 30, True, "c7 V7→V8: tunç kapı, sessizlikten yavaş dönüş"),
-        ("04_c7_palle_meydan", ("c7s29", 0.0), 28, True, "c7 V10: 'palle, palle' (altılı ritim) ve Lorenzo pencerede"),
-        ("05_c8_konuk_mu_rehine_mi", ("c8s10", 0.0), 28, True, "c8: müzik çekilir — 'Konuk muydu, rehine mi?'"),
-        ("06_c8_isiklar_sonuyor", ("c8s33", 0.0), 30, True, "c8 sonu: şube ışıkları birer birer sönüyor"),
-        ("07_c10_9_kasim", ("c10s12", 0.0), 30, True, "c10: 9 Kasım — kısa vuruşlar, kapı, 1 sn sessizlik, uzak trompet"),
-        ("08_c10_ates", ("c10s24", 0.0), 30, True, "c10: ilk ateş ... (ateş çıtırtısı + ağır org)"),
-        ("09_c11_roma_1527", ("c11s16", 0.0), 30, True, "c11: Roma 1527 — sakin sayaç, ağır"),
-        ("10_p2_kapanis_nasil", ("c11s36", 0.0), 30, True, "P2 sonu: Alessandro → 'Nasıl?' → çözülmeyen sus4, 7 sn çözülme")],
-    3: [("01_c12_acilis_parca_basligi", 0.0, 26, True, "P3 açılışı: 'miras' hücresi (başlık bindirmesi), makine gibi tık-tık"),
-        ("02_c12_uffizi", ("c12s11", 0.0), 28, True, "c12: Uffizi kendini kurar (Vasari koridoru)"),
-        ("03_c12_1562_sessizlik", ("c12s19", 0.0), 30, True, "c12: 1562 — neredeyse sessizlik, 'dört haftada üç ölüm'de tam sessizlik"),
-        ("04_c13_catherine_marie", ("c13s22", 0.0), 30, True, "c13: Catherine → Marie (A aeolian → C lidyen, kesit geçişi)"),
-        ("05_c13_1572_sessizlik", ("c13s11", 0.0), 30, True, "c13: 1572 — ses çekilir, tam sessizlik 3 sn (çan yok)"),
-        ("06_c14_yildizlar", ("c14s11", 0.0), 30, True, "c14: Galileo'nun dört yıldızı (klavsen)"),
-        ("07_c14_euridice_recitativo", ("c14s7", 0.0), 30, True, "c14: Euridice — özgün recitativo-tarzı süreklilik"),
-        ("08_c15_yorgun", ("c15s17", 0.0), 30, True, "c15: yorgun, seyrek — soy ağacı solar"),
-        ("09_c16_donus_ters_motif", ("c16s1", 0.0), 30, True, "c16: c0'ın odası — 'miras' hücresi TERS çevrilmiş"),
-        ("10_p3_kapanis", ("c16s24", 0.0), 30, True, "P3 sonu: çözülüş, son lavta notası, son sessizlik")],
-}
+# (parça, kesit adı, başlangıç, süre sn, müzik de ver mi, açıklama). Başlangıç: çapa (cümle kimliği / (kimlik, sözcük, dt)) | sn (≥0, parça başı) | negatif sn
+# (−X: miksin SON X saniyesi = parça kapanışı + 7 sn bitiş ekranı). Parça sınırları script.PARTS'tan gelir; çapası çözülemeyen kesit atlanır (OKU_BENI.txt'de yazılır).
+PREVIEWS = [
+    (1, "01_c0_baslik_vurusu", ("c0s16", 0.0), 30, True, "c0 sonu: yükseliş → TEK vuruş → altın D majör → florin figürü (ana başlık)"),
+    (1, "02_c1_veba_ve_ciompi", ("c1s13", 0.0), 30, True, "c1: veba (renk solar) → Ciompi (davul yükselir)"),
+    (1, "03_c1_florin_tezgah", ("c1s28", 0.0), 28, True, "c1: Giovanni'nin tezgâhı — florin motifi geri döner"),
+    (1, "04_c2_defter_tik_tik", ("c2s5", 0.0), 28, True, "c2: kambiyo/defter — kuru 'tık-tık' arpej, ölçülü kuru duraklar (mizah)"),
+    (1, "05_c2_kapanis", -30, 30, True, "P1 sonu: Giovanni'nin ölümü, son sözler → kule habercisi; 7 sn çözülme (SIRADAKİ PARÇA)"),
+    (2, "01_c3_acilis_parca_basligi", 0.0, 26, True, "P2 açılışı (t=0): kule/hücre — seyrek damla, parça başlığı bindirmesi 1,2–4,8 sn"),
+    (2, "02_c3_donus_1434", ("c3s16", 0.0), 28, True, "c3: Cosimo'nun dönüşü ('dönüş' motifi)"),
+    (2, "03_c4_kubbe_kutsama", ("c4s8", 0.0), 30, True, "c4: kubbe + kutsama korali (duomo motifi)"),
+    (2, "04_c5_lir_ve_lorenzo", ("c5s10", 0.0), 28, True, "c5: Orfik lir kadansı … Lorenzo'ya geçiş"),
+    (2, "05_c5_kapanis", -30, 30, True, "P2 sonu: Lorenzo'ya köprü; 7 sn çözülme"),
+    (3, "01_c6_acilis_parca_basligi", 0.0, 26, True, "P3 açılışı (t=0): Lorenzo teması (lavta), parça başlığı bindirmesi"),
+    (3, "02_c6_lorenzo_temasi", ("c6s17", 0.0), 28, True, "c6: Lorenzo teması (org+lavta), turnuva davulu"),
+    (3, "03_c6_c7_golge_ve_kart", ("c6s25", 0.0), 30, True, "c6 → c7: gölge (D dorian) → bölüm kartı → c7'nin ağır açılışı (bedel yayı)"),
+    (3, "04_c7_kilise_girisi", ("c7s2", 0.0), 30, True, "c7: kilise girişi — müzik yok, ayin yankısı + kalabalık uğultusu (SFX), ÇAN YOK"),
+    (3, "05_c7_yildiz_an_girisi", ("c7s14", 0.0), 30, True, "c7 V4→V5: müzik sessizliğe giriş (0,6 sn önce) — YILDIZ AN"),
+    (3, "06_c7_yildiz_an_cikisi", ("c7s22", 0.0), 30, True, "c7 V7→V8: tunç kapı, sessizlikten yavaş dönüş"),
+    (3, "07_c7_palle_meydan", ("c7s29", 0.0), 28, True, "c7 V10: 'palle, palle' (altılı ritim) ve Lorenzo pencerede"),
+    (3, "08_c7_kapanis", -30, 30, True, "P3 sonu: c7'nin sonrası, 7 sn çözülme"),
+    (4, "01_c8_acilis_parca_basligi", 0.0, 26, True, "P4 açılışı (t=0): Aslanın İni — 6/8 deniz, parça başlığı bindirmesi"),
+    (4, "02_c8_konuk_mu_rehine_mi", ("c8s10", 0.0), 28, True, "c8: müzik çekilir — 'Konuk muydu, rehine mi?'"),
+    (4, "03_c8_isiklar_sonuyor", ("c8s33", 0.0), 30, True, "c8 sonu: şube ışıkları birer birer sönüyor"),
+    (4, "04_c9_defter_kapaniyor", ("c9s13", 0.0), 30, True, "c9: şubeler tek tek kapanır (inen lavta notaları), kuru tık-tık"),
+    (4, "05_c9_kapanis", -30, 30, True, "P4 sonu: 'güzellik kaldı' sıcak akor → tehdit; 7 sn çözülme"),
+    (5, "01_c10_acilis_parca_basligi", 0.0, 26, True, "P5 açılışı (t=0): Rahip ve Kral — ağır, E frigiyen"),
+    (5, "02_c10_9_kasim", ("c10s12", 0.0), 30, True, "c10: 9 Kasım — kısa vuruşlar, kapı, 1 sn sessizlik, uzak trompet (ÇAN YOK)"),
+    (5, "03_c10_ates", ("c10s24", 0.0), 30, True, "c10: ilk ateş … (ateş çıtırtısı + ağır org)"),
+    (5, "04_c11_leo_alayi", ("c11s5", 0.0), 28, True, "c11: Leo X alayı — görkemli-ironik (mizah izni)"),
+    (5, "05_c11_roma_1527", ("c11s16", 0.0), 30, True, "c11: Roma 1527 — sakin sayaç, ağır"),
+    (5, "06_c11_kapanis", -30, 30, True, "P5 sonu: Alessandro → çözülmeyen sus4, 7 sn çözülme"),
+    (6, "01_c12_acilis_parca_basligi", 0.0, 26, True, "P6 açılışı (t=0): 'miras' hücresi (lavta), makine gibi tık-tık"),
+    (6, "02_c12_uffizi", ("c12s11", 0.0), 28, True, "c12: Uffizi kendini kurar (Vasari koridoru)"),
+    (6, "03_c12_1562_sessizlik", ("c12s19", 0.0), 30, True, "c12: 1562 — neredeyse sessizlik, 'dört haftada üç ölüm'de tam sessizlik"),
+    (6, "04_c13_1572_sessizlik", ("c13s11", 0.0), 30, True, "c13: 1572 — ses çekilir, tam sessizlik 3 sn (çan yok)"),
+    (6, "05_c13_catherine_marie", ("c13s22", 0.0), 30, True, "c13: Catherine → Marie (A aeolian → C lidyen, kesit geçişi)"),
+    (6, "06_c13_kapanis", -30, 30, True, "P6 sonu: Marie'nin sonu, 7 sn çözülme"),
+    (7, "01_c14_acilis_parca_basligi", 0.0, 26, True, "P7 açılışı (t=0): matbaa/sert taş — parlak-meraklı F lidyen"),
+    (7, "02_c14_euridice_recitativo", ("c14s7", 0.0), 30, True, "c14: Euridice — özgün recitativo-tarzı süreklilik"),
+    (7, "03_c14_yildizlar", ("c14s11", 0.0), 30, True, "c14: Galileo'nun dört yıldızı (klavsen)"),
+    (7, "04_c15_yorgun", ("c15s17", 0.0), 30, True, "c15: yorgun, seyrek — soy ağacı solar"),
+    (7, "05_c16_donus_ters_motif", ("c16s1", 0.0), 30, True, "c16: c0'ın odası — 'miras' hücresi TERS çevrilmiş"),
+    (7, "06_c16_kapanis", -30, 30, True, "P7 sonu (TÜM FİLM): çözülüş, son lavta notası, son sessizlik"),
+]
 
 
 def write_previews(c):
@@ -1037,13 +1062,19 @@ def write_previews(c):
     G = c["G"]
     gl = (10 ** (-G / 20.0)).astype(np.float32)
     lines = []
-    for (stem, start, dur, with_music, label) in PREVIEWS.get(PART, []):
-        t0 = D.anchor_time(start, sent) if not isinstance(start, (int, float)) else float(start)
-        if t0 is None:
-            lines.append(f"  (atlandı: {stem} — çapa çözülemedi: {start})")
+    for (prt, stem, start, dur, with_music, label) in PREVIEWS:
+        if prt != PART:
             continue
-        t0 = max(0.0, t0 - 1.0)
-        t1 = min(t0 + dur, len(final) / SR)
+        if isinstance(start, (int, float)) and start < 0:                      # parça kapanışı: miksin son |start| saniyesi
+            t1 = len(final) / SR
+            t0 = max(0.0, t1 - float(dur))
+        else:
+            t0 = D.anchor_time(start, sent) if not isinstance(start, (int, float)) else float(start)
+            if t0 is None:
+                lines.append(f"  (atlandı: {stem} — çapa çözülemedi: {start})")
+                continue
+            t0 = max(0.0, t0 - (1.0 if t0 > 1.0 else 0.0))
+            t1 = min(t0 + dur, len(final) / SR)
         ex = final[int(t0 * SR):int(t1 * SR)]
         if len(ex) < 5 * SR:
             lines.append(f"  (atlandı: {stem} — kesit çok kısa)")
@@ -1061,8 +1092,10 @@ def write_previews(c):
                     y = y * (D.db2lin(-3.0) / pk)
                 encode_mp3(y.astype(np.float32), os.path.join(pdir, f"{pref}{stem}_muzik.mp3"))
         lines.append(f"  {pref}{stem}_mix.mp3 (+_muzik.mp3)  t={t0:7.1f}–{t1:7.1f} sn  — {label}")
-    # SFX demo
+    # SFX demo (yalnız P1 klasöründe: katalog parçadan bağımsızdır)
     try:
+        if PART != 1:
+            raise RuntimeError("yalnız P1")
         import sfx
         demo = []
         gap = np.zeros((int(0.5 * SR), 2), dtype=np.float32)
@@ -1073,6 +1106,8 @@ def write_previews(c):
             demo += [(x * 0.35).astype(np.float32), gap]
         encode_mp3(np.concatenate(demo), os.path.join(pdir, f"{pref}00_sfx_katalog_demo.mp3"), fade=0.05)
         lines.append(f"  {pref}00_sfx_katalog_demo.mp3  — SFX kataloğundan seçmeler (sırayla: sayfa, kalem, mühür, damga, sikke, sürgü, kilit, tunç kapı, kalabalık, haykırış, ateş, nal, uzak at, deniz, halat, kâğıt, klavye, cam, mum, trompet)")
+    except RuntimeError:
+        pass
     except Exception as e:   # noqa
         lines.append(f"  (SFX demo yazılamadı: {type(e).__name__}: {e})")
     hdr = [f"MEDICI P{PART} — ses önizleme kesitleri ({'ÖNİZLEME miksi: geçici ses / eksik bölüm' if c['onizleme'] else 'final miks'})",

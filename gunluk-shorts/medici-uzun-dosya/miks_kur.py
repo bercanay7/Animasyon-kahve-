@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-miks_kur.py — TEK KOMUTLA bir PARÇANIN ses hattını baştan kurar (müzik + SFX + miks + ölçüm raporu). MEDICI_PART zorunludur.
+miks_kur.py — TEK KOMUTLA bir PARÇANIN ses hattını baştan kurar (müzik + SFX + miks + ölçüm raporu). MEDICI_PART=1..7 zorunludur (script.PARTS:
+P1=c0–c2 · P2=c3–c5 · P3=c6–c7 · P4=c8–c9 · P5=c10–c11 · P6=c12–c13 · P7=c14–c16; her parça ≈10 dk, AYRI miks edilir).
 
     MEDICI_PART=2 python3 miks_kur.py                  # final miks → out_p2/mix_audio.m4a (+ stem'ler); geçici ses varsa DURUR
     MEDICI_PART=2 python3 miks_kur.py --onizleme       # geçici (Piper) ses ya da eksik bölüm: ONIZLEME_ önekiyle; final adıyla YAZILMAZ
@@ -10,7 +11,8 @@ miks_kur.py — TEK KOMUTLA bir PARÇANIN ses hattını baştan kurar (müzik + 
     MEDICI_PART=2 python3 miks_kur.py --sadece-gecis   # yalnız out_p2/sfx_gecis.json üret
     (--fresh: müzik önbelleğini yok say · --snr 20,24: konuşma−müzik penceresi · --workers N: en çok 2 · --no-gecis / --no-stinger · --no-stems)
 
-`out/` sembolik bağlantısı ve parca.kullan() KULLANILMAZ; tüm yollar out_pN altındadır (MEDICI_PART).
+`out/` sembolik bağlantısı ve parca.kullan() KULLANILMAZ; tüm yollar out_pN altındadır (MEDICI_PART; deneme için MEDICI_OUT_DIR=/yol).
+Parçadaki bölümler script.PARTS'tan okunur (sabit kodlanmaz); voice_chapters.json'da parça dışı bölüm varsa (eski düzen kalıntısı) DURUR.
 
 Girdiler (voice yamalandığında/ElevenLabs gerçek sesi gelince bu komut yeniden çalıştırılır; müzik çıpaları cümle kimliklerinden YENİDEN çözülür):
     out_pN/voice.wav            anlatım kanalı (mono, 48 kHz)
@@ -32,7 +34,7 @@ sys.path.insert(0, HERE)
 import parca as PA  # noqa: E402
 
 PART = PA.PART
-OUT = PA.OUT
+OUT = os.environ.get("MEDICI_OUT_DIR") or PA.OUT          # MEDICI_OUT_DIR: yalnız deneme/fixture
 
 
 def kontrol():
@@ -61,7 +63,11 @@ def kontrol():
         import script as S
         beklenen = list(S.PARTS[PART])
     except Exception:   # noqa
-        beklenen = [f"c{i}" for i in {1: range(0, 7), 2: range(7, 12), 3: range(12, 17)}[PART]]
+        import muzik
+        beklenen = muzik.part_chapters(PART)
+    fazla = [x["id"] for x in chs if x["id"] not in beklenen]
+    if fazla:
+        hatalar.append(f"P{PART}'e ait olmayan bölüm {fazla} (beklenen {beklenen}) — out_p{PART} eski parça düzeninden kalmış olabilir; ses birleştirmeyi yeniden çalıştırın")
     eksik = [c for c in beklenen if c not in [x["id"] for x in chs]]
     if eksik:
         uyarilar.append(f"KISMİ PARÇA: eksik bölüm {eksik} — yalnız --onizleme ile miks edilebilir")
@@ -121,7 +127,7 @@ def gecis_cikar():
 def main():
     t0 = time.time()
     if PART is None:
-        raise SystemExit("MEDICI_PART=1|2|3 gerekli (örn. MEDICI_PART=2 python3 miks_kur.py); out/ sembolik bağlantısı KULLANILMAZ.")
+        raise SystemExit("MEDICI_PART=1..7 gerekli (örn. MEDICI_PART=2 python3 miks_kur.py); out/ sembolik bağlantısı KULLANILMAZ.")
     args = sys.argv[1:]
     only_check = "--kontrol" in args
     gecis = "--gecis-sesleri" in args or "--sadece-gecis" in args

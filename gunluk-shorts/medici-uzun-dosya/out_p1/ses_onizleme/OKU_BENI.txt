@@ -1,0 +1,9 @@
+MEDICI P1 — ses önizleme kesitleri (final miks)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  01_c0_baslik_vurusu_mix.mp3 (+_muzik.mp3)  t=   85.7–  115.7 sn  — c0 sonu: yükseliş → TEK vuruş → altın D majör → florin figürü (ana başlık)
+  02_c1_veba_ve_ciompi_mix.mp3 (+_muzik.mp3)  t=  195.7–  225.7 sn  — c1: veba (renk solar) → Ciompi (davul yükselir)
+  03_c1_florin_tezgah_mix.mp3 (+_muzik.mp3)  t=  316.3–  344.3 sn  — c1: Giovanni'nin tezgâhı — florin motifi geri döner
+  04_c2_defter_tik_tik_mix.mp3 (+_muzik.mp3)  t=  371.4–  399.4 sn  — c2: kambiyo/defter — kuru 'tık-tık' arpej, ölçülü kuru duraklar (mizah)
+  05_c2_kapanis_mix.mp3 (+_muzik.mp3)  t=  568.4–  598.4 sn  — P1 sonu: Giovanni'nin ölümü, son sözler → kule habercisi; 7 sn çözülme (SIRADAKİ PARÇA)
+  00_sfx_katalog_demo.mp3  — SFX kataloğundan seçmeler (sırayla: sayfa, kalem, mühür, damga, sikke, sürgü, kilit, tunç kapı, kalabalık, haykırış, ateş, nal, uzak at, deniz, halat, kâğıt, klavye, cam, mum, trompet)

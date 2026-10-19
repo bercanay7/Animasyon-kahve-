@@ -1,27 +1,31 @@
 """
-muzik.py — "MEDICI" belgeseli (3 parça, 17 bölüm) için tamamen kodla sentezlenmiş, Rönesans esintili üretken müzik.
+muzik.py — "MEDICI" belgeseli (7 yayın parçası, 17 bölüm) için tamamen kodla sentezlenmiş, Rönesans esintili üretken müzik.
 
 Tüm sesler numpy/scipy ile sentezdir (harici örnek/ses dosyası YOK, telifli melodi YOK; besteler tohumlu üretken ve özgün).
 Ses kimliği : lavta (Karplus–Strong, çift kurs), klavsen, portatif org/regal, viola da gamba (drone + "çekilen yay"), formant süzgeçli koro pedi,
               çerçeve davulu (dum/tek/ka) + tef zilleri, gong/çan (YALNIZ müzikal tını; olay çanı değil), timpani/alt-bas (yalnız vurgu).
-Perde paleti: P1 ALTIN (Mixolydian/Ionian — sıcak, altın tonlu) · P2 BEDEL (Dorian → Frigiyen/Aeolian — koyulaşan) ·
-              P3 MİRAS (Lidyen/Aeolian — ağıt–parlak karışımı). Tempo 52–84 bpm. Her cue/bölüm kendi tonikinde; cue sınırlarında yalnız
-              açık beşli (üçlüsüz) yatak → komşu cue'larla armonik çatışma olmaz.
-Motifler    : "florin" (3–4 notalık yükselen parlak figür, P1) · "palle" (altılı ritim: 2+2+2 hemiola) · "bedel" (alçak, tek çekilen yay, P2) ·
+Perde paleti: BÖLÜM bazlı (parçadan bağımsız): ALTIN c0–c6 (Mixolydian/Ionian — sıcak, altın tonlu) · BEDEL c7–c11 (Dorian → Frigiyen/Aeolian —
+              koyulaşan) · MİRAS c12–c16 (Lidyen/Aeolian — ağıt–parlak karışımı). Tempo 52–84 bpm. Her cue/bölüm kendi tonikinde; cue sınırlarında
+              yalnız açık beşli (üçlüsüz) yatak → komşu cue'larla armonik çatışma olmaz.
+Motifler    : "florin" (3–4 notalık yükselen parlak figür, ALTIN) · "palle" (altılı ritim: 2+2+2 hemiola) · "bedel" (alçak, tek çekilen yay, BEDEL) ·
               "miras" (sakin, tekrar eden üç nota; c0'da düşen, c16'da TERS çevrilmiş yankı) · Lorenzo teması (c6) · Duomo kubbesi (c4) ·
               "dönüş" (1434; c10'da geri sarılmış). Hepsi özgün, mod derecesi cinsinden tanımlı.
 Yapı        : her bölüm için 'cue' (bölüm + 3 sn kart + yarım çapraz geçişler); bir bölüm birden çok 'kesit'e (section) bölünebilir (mod/tempo/
               çalgı değişimi, çapraz geçiş = cümle çıpasında). Yoğunluk eğrileri, olaylar (events), tema girişleri (theme), SESSİZLİK
               KAPILARI (gates: c7 yıldız an — sessizliğe giriş 0,6 sn önce) ve kuru duraklar (stops) timeline.json CÜMLE KİMLİKLERİNE çıpalı:
               ses yamalanınca (geçici Piper → ElevenLabs) çıpalar yeni zamanlara göre YENİDEN ÇÖZÜLÜR; çözülemeyen çıpa varsayılan u'ya düşer.
-Parça       : her parça AYRI üretilir. MEDICI_PART=1|2|3 → out_pN/ (voice_chapters.json, timeline.json). P1: c0 sonunda ana başlık vuruşu
-              (c0 t1 + 0,4 sn); P2/P3 doğrudan açılır; P1/P2 sonu "SIRADAKİ PARÇA" ekranı için 7 sn çözülme; P3 sonu soru açık değil, çözülüp söner.
+Parça       : 7 yayın parçası (script.PARTS: P1=c0–c2 · P2=c3–c5 · P3=c6–c7 · P4=c8–c9 · P5=c10–c11 · P6=c12–c13 · P7=c14–c16; ≈10 dk), her parça AYRI
+              üretilir: MEDICI_PART=1..7 → out_pN/ (voice_chapters.json, timeline.json). Parçanın ilk bölümü t=0'da açılır (P1: c0 sonunda ana başlık
+              vuruşu = c0 t1 + 0,4 sn; P2…P7: bölüm kartı yok, ilk çekimde 1,2–4,8 sn başlık bindirmesi); P1…P6 sonu "SIRADAKİ PARÇA" ekranı için 7 sn
+              çözülme (varsayılan 'dissolve'; bölüm özel kapanış: spec'te end_kind — c11 'p2' çözülmeyen sus4, c16 'p3' çözülüş), P7 sonu "TÜM FİLM" +
+              çözülüp söner. Parça sınırları BU DOSYADA sabit değildir: script.PARTS okunur (yoksa aşağıdaki PARTS_FALLBACK).
 Reverb      : algoritmik salon IR'ı (RT60≈2,2 sn) + scipy.signal.fftconvolve.
 Seviye      : ham müzik bandı (ducking ÖNCESİ) ortalama −27,5 dBFS RMS; ducking/yükseliş/EQ miks.py'dedir.
-Önbellek    : kesit başına .npy (float16); anahtar = kod özeti + çözülmüş spec (çıpalardan gelen zamanlar dahil) + geometri + tohum.
+Önbellek    : kesit başına .npy (float16); anahtar = SENTEZ kodu özeti + çözülmüş spec (çıpalardan gelen zamanlar dahil) + geometri + tohum.
 
-Kullanım (ayrı):  MEDICI_PART=2 python3 muzik.py --cue c7 --out /tmp/c7.wav      (tek cue/kesit önizleme; tüm kesitleri: --cue c13)
-                  MEDICI_PART=2 python3 muzik.py --all --out /tmp/music.wav      (ducking'siz tüm parça müziği)
+Kullanım (ayrı):  MEDICI_PART=3 python3 muzik.py --cue c7 --out /tmp/c7.wav      (tek cue/kesit önizleme; tüm kesitleri: --cue c13)
+                  MEDICI_PART=3 python3 muzik.py --all --out /tmp/music.wav      (ducking'siz tüm parça müziği)
+                  MEDICI_OUT_DIR=/yol  → out_pN yerine başka dizin (deneme/fixture için)
 """
 import argparse
 import hashlib
@@ -38,6 +42,39 @@ from ses_dsp import SR, rng_for
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 MAX_WORKERS = 2          # paylaşımlı 4 çekirdekli makine: en çok 2 işçi
+
+# ═══════════════════════════ parça tablosu (script.PARTS'tan; sabit kodlanmaz) ═══════════════════════════
+PARTS_FALLBACK = {1: ["c0", "c1", "c2"], 2: ["c3", "c4", "c5"], 3: ["c6", "c7"], 4: ["c8", "c9"], 5: ["c10", "c11"], 6: ["c12", "c13"], 7: ["c14", "c15", "c16"]}
+PERDE_FLAVOR = {1: "altin", 2: "bedel", 3: "miras"}
+
+
+def part_table():
+    """{parça: [bölüm kimlikleri]} — script.PARTS (tek doğru kaynak); script yüklenemezse PARTS_FALLBACK (2026-10-19 kararı: 7 parça)."""
+    try:
+        import script as S
+        return {int(k): list(v) for k, v in S.PARTS.items()}
+    except Exception:   # noqa
+        return {k: list(v) for k, v in PARTS_FALLBACK.items()}
+
+
+def part_chapters(n):
+    return part_table()[int(n)]
+
+
+def perde_of(cid):
+    """Bölümün perdesi (1 ALTIN c0–c6 · 2 BEDEL c7–c11 · 3 MİRAS c12–c16). Perde BÖLÜM bazlıdır, parçaya bağlı değildir."""
+    i = int(str(cid).lstrip("c"))
+    return 1 if i <= 6 else (2 if i <= 11 else 3)
+
+
+def flavor_of(cid):
+    return PERDE_FLAVOR[perde_of(cid)]
+
+
+def out_dir(part):
+    """Parça çıktı dizini: out_pN (MEDICI_OUT_DIR ile değiştirilebilir — deneme/fixture). `out/` sembolik bağlantısı KULLANILMAZ."""
+    return os.environ.get("MEDICI_OUT_DIR") or os.path.join(HERE, f"out_p{int(part)}")
+
 
 
 # ═══════════════════════════ modlar ve akorlar ═══════════════════════════
@@ -543,8 +580,8 @@ THEMES = {
     "florin": [(0, 1), (2, 1), (4, 1), (7, 5)],
     "florin3": [(2, 1), (4, 1), (7, 4)],
     "florin_uzun": [(0, 2), (2, 2), (4, 2), (7, 8)],
-    "miras": [(4, 3), (4, 3), (2, 10)],                     # düşen üçlü ile kapanan hücre (c0 ve P3)
-    "bedel": [(0, 16)],                                     # tek uzun nota; alçak, çekilen yay (gamba)
+    "miras": [(4, 3), (4, 3), (2, 10)],                     # düşen üçlü ile kapanan hücre (c0, c12, c15; c16'da invert=True ile TERS)
+    "bedel": [(0, 16)],                                     # tek uzun nota; alçak, çekilen yay (gamba) — BEDEL perdesinin imzası
     "lorenzo": [(2, 2), (4, 2), (5, 3), (4, 1),             # 4 ölçülük tema (4/4, 32 adım): yay biçimi, tonikte kapanır
                 (2, 2), (1, 2), (2, 4),
                 (4, 2), (5, 2), (7, 3), (6, 1),
@@ -1165,10 +1202,12 @@ def finale_c0(c, t_hit, G=None):
 
 
 def finale_end(c, t_final, kind, G=None):
-    """Parça kapanışları (7 sn'lik 'SIRADAKİ PARÇA' / son ekran süresince çözülme).
-    p1  : altın majör → minöre soğuyan akor ('gölge') + alçak 'bedel' yayı (P2'nin habercisi); açık uç
-    p2  : çözülmeyen sus4 akoru; çok hafif 'miras' hücresi (P3'ün habercisi); açık uç
-    p3  : D majör çözülüş (Picardy), ters çevrilmiş 'miras' hücresi (yükselen üçlü), son lavta notası ve sessizlik"""
+    """Parça kapanışları (7 sn'lik 'SIRADAKİ PARÇA' / 'TÜM FİLM' ekranı süresince çözülme). Spec'te bölüm/kesit düzeyinde end_kind=… ile seçilir
+    (yoksa 'dissolve'); yalnız PARÇANIN SON kesitinde çalışır.
+    dissolve : bölümün kendi tonikinde açık beşli + gamba drone + tek hafif lavta notası; sade çözülme (P1…P6 varsayılanı)
+    p1  : altın majör → minöre soğuyan akor ('gölge') + alçak 'bedel' yayı; açık uç (D tonikli bölümler için; şu an hiçbir bölümde seçili değil)
+    p2  : çözülmeyen sus4 akoru; çok hafif 'miras' hücresi (sonraki parçanın habercisi); açık uç (c11 → P5 sonu)
+    p3  : D majör çözülüş (Picardy), ters çevrilmiş 'miras' hücresi (yükselen üçlü), son lavta notası ve sessizlik (c16 → P7 sonu, film sonu)"""
     g = dict(organ=0.55, choir=0.6, bowed=0.8, lute=0.8, bell=0.5)
     g.update(G or {})
     rng = c.rng
@@ -1205,10 +1244,12 @@ def finale_end(c, t_final, kind, G=None):
         for dt, m, v in ((0.5, 69, 0.55), (1.7, 69, 0.5), (2.9, 73, 0.55), (4.6, 62, 0.5)):
             c.put("lute", lute_note(_hz(m), v, rng, ring=1.8), t_final + dt, gain=g["lute"], pan=0.12)
         c.put("bell", bell(_hz(86), 6.5, 0.6, rng, ring=1.5, strike=0.35), t_final + 3.4, gain=g["bell"] * 0.6, pan=0.2)
-    else:   # "dissolve": kısmi parça (sonraki bölüm henüz yok) — açık beşliyle sade çözülme
+    else:   # "dissolve": açık beşliyle sade çözülme (üçlüsüz: sonraki parçanın tonuyla çatışmaz) + tek hafif lavta notası
         for kk, m in enumerate((c.tonic + 12, c.tonic + 19, c.tonic + 24)):
             c.put("organ", organ_note(_hz(m), cd, 0.6, rng, stops=st_o, attack=1.0, release=4.0), t_final + 0.05 * kk, gain=g["organ"], pan=pans[kk])
         c.put("drone", bowed_note(_hz(max(c.tonic, 38)), cd, 0.7, rng, attack=1.2, release=4.0, bright=0.5, body="gamba"), t_final, gain=g["bowed"])
+        if cd > 5.0:
+            c.put("lute", lute_note(_hz(c.tonic + 19), 0.42, rng, ring=1.8), t_final + 2.8, gain=g["lute"] * 0.8, pan=0.12)
 
 
 FINALES = {"c0": finale_c0}
@@ -1216,9 +1257,9 @@ FINALES = {"c0": finale_c0}
 
 # ═══════════════════════════ cue geometrisi ve çalma ═══════════════════════════
 DEFAULT_XF = 5.0
-XFADE = {   # (önceki bölüm, sonraki bölüm): çapraz geçiş süresi (sn); merkez = bölüm kartı boşluğunun ortası
+XFADE = {   # (önceki bölüm, sonraki bölüm): çapraz geçiş süresi (sn); merkez = bölüm kartı boşluğunun ortası. Yalnız AYNI parçadaki komşu bölümler kullanılır
     ("c0", "c1"): 6.0, ("c1", "c2"): 5.0, ("c2", "c3"): 5.0, ("c3", "c4"): 6.0, ("c4", "c5"): 5.0, ("c5", "c6"): 5.0,
-    ("c7", "c8"): 5.0, ("c8", "c9"): 6.0, ("c9", "c10"): 5.0, ("c10", "c11"): 6.0,
+    ("c6", "c7"): 5.0, ("c7", "c8"): 5.0, ("c8", "c9"): 6.0, ("c9", "c10"): 5.0, ("c10", "c11"): 6.0,
     ("c12", "c13"): 6.0, ("c13", "c14"): 5.0, ("c14", "c15"): 6.0, ("c15", "c16"): 7.0,
 }
 TITLE_DELAY = 0.4        # P1 ana başlık vuruşu: c0 t1 + 0,4 sn
@@ -1384,9 +1425,9 @@ def build_cue(seg, tail, seed=0):
         layer_events(c, spec["events"])
     for (a, b, lead, rel, floor_db, _note) in spec.get("_gates", []):
         c.add_gate(a, b, lead=lead, rel=rel, floor_db=floor_db)
-    fin = spec.get("finale")
-    if fin is None and seg["final"]:
-        fin = "dissolve"
+    fin = spec.get("finale")                              # "c0": P1 ana başlık vuruşu (c0 t1 + 0,4 sn)
+    if fin is None and seg["final"]:                      # parçanın son kesiti: 7 sn'lik 'SIRADAKİ PARÇA' / 'TÜM FİLM' süresince çözülme
+        fin = spec.get("end_kind", "dissolve")
     junction_pads(c, spec.get("pad_db", -1.0), start=xin > 0, end=(xout > 0 and fin != "c0"))
     if fin == "c0":
         FINALES["c0"](c, c.t1c + TITLE_DELAY, spec.get("finale_gain"))
@@ -1435,9 +1476,12 @@ def _robust_rms_db(x, sr=SR, mask=None):
 
 
 def _code_hash():
+    """Önbellek anahtarının kod payı: SENTEZ kodu (muzik.py'nin 'POST-SENTEZ' işaretine kadar olan kısmı + ses_dsp.py). Kavşak düzeltmesi, birleştirme, CLI ve
+    CUES/DEFAULT_U tabloları hariçtir: cue tanımı değişince yalnız o kesit (çözülmüş spec anahtarda) yeniden üretilir, birleştirme koduna dokunmak her şeyi silmez."""
     h = hashlib.md5()
-    for f in ("muzik.py", "ses_dsp.py"):
-        h.update(open(os.path.join(HERE, f), "rb").read())
+    src = open(os.path.join(HERE, "muzik.py"), "rb").read()
+    h.update(src[:src.index(b"# @@POST" b"-SENTEZ@@")])
+    h.update(open(os.path.join(HERE, "ses_dsp.py"), "rb").read())
     return h.hexdigest()[:12]
 
 
@@ -1449,6 +1493,80 @@ def _window_mask(core0_s, n_win, gates_cue, pad=0.6):
         i1 = int(np.ceil(b + rel + pad - core0_s))
         m[max(i0, 0):max(min(i1 + 1, n_win), 0)] = False
     return m
+
+
+# @@POST-SENTEZ@@ — bu işaretten sonrası (kavşak düzeltmesi, birleştirme, CLI, DEFAULT_U, CUES) önbellek anahtarına girmez
+TRIM_MAX_DB = 3.0        # kavşak düzey eşlemesinde bir kesit ucuna uygulanabilecek en çok düzeltme (dB)
+TRIM_TOL_DB = 1.5        # kesit sonu ↔ sonraki kesit başı düzey farkı bunun altındaysa dokunulmaz
+TRIM_RAMP = 10.0         # düzeltmenin gövdede sıfıra döndüğü yumuşak geçiş süresi (sn)
+TRIM_WIN = 9.0           # kavşağa komşu ölçüm penceresi (sn): çapraz geçişin hemen dışındaki 9 sn
+
+
+def _edge_level_db(x, a_s, b_s, gates=(), pad=0.6):
+    """x (n,2) içinde [a_s, b_s) sn aralığındaki 1 sn'lik pencere güçlerinin ORTANCASI (dB). Kapılı (sessiz/kısık) bölgelerle çakışan ve
+    sessiz (< −80 dB) pencereler atılır; 3'ten az pencere kalırsa None (düzeltme yapılmaz). gates: (a, b, lead, rel) — cue süresi ekseni."""
+    i0, i1 = max(int(a_s), 0), int(b_s)
+    if i1 - i0 < 3:
+        return None
+    m = x.mean(axis=1) if x.ndim == 2 else x
+    ps = []
+    for k in range(i0, i1):
+        if (k + 1) * SR > len(m):
+            break
+        if any(k + 1 > ga - gl - pad and k < gb + gr + pad for (ga, gb, gl, gr) in gates):
+            continue
+        p = float(np.mean(m[k * SR:(k + 1) * SR].astype(np.float64) ** 2))
+        if p > 1e-8:
+            ps.append(p)
+    if len(ps) < 3:
+        return None
+    return float(10 * np.log10(np.median(ps) + 1e-18))
+
+
+def _junction_trims(plan, xs):
+    """Kavşak düzey eşlemesi: ardışık iki kesit (çapraz geçiş merkezi) için önceki kesit sonunun ve sonraki kesit başının (çapraz geçiş bölgesinin hemen
+    dışındaki 9 sn) ortanca düzeyini (kapılı bölgeler hariç) karşılaştırır; fark > TRIM_TOL_DB ise iki ucu birbirine doğru çeker (her uca en çok ±TRIM_MAX_DB).
+    Döner: {kesit_id: (baş_dB, son_dB)}. Çıpalara bağlı olduğundan ses yamalanınca otomatik yeniden hesaplanır (kesit önbelleği bozulmaz)."""
+    trims = {}
+    ordered = sorted([g for g in plan if g["id"] in xs], key=lambda g: g["start"])
+    for p, q in zip(ordered[:-1], ordered[1:]):
+        if p["xout"] <= 0 or q["xin"] <= 0 or abs(p["xout"] - q["xin"]) > 0.05:
+            continue
+        xp, xq = xs[p["id"]], xs[q["id"]]
+        gp = [(a + (p["s0"] - p["start"]), b + (p["s0"] - p["start"]), l, r) for (a, b, l, r, f, n) in p["spec"].get("_gates", [])]
+        gq = [(a + (q["s0"] - q["start"]), b + (q["s0"] - q["start"]), l, r) for (a, b, l, r, f, n) in q["spec"].get("_gates", [])]
+        Tp = len(xp) / SR
+        lp = _edge_level_db(xp, Tp - p["xout"] - 1.0 - TRIM_WIN, Tp - p["xout"] - 1.0, gp)
+        lq = _edge_level_db(xq, q["xin"] + 1.0, q["xin"] + 1.0 + TRIM_WIN, gq)
+        if lp is None or lq is None:
+            continue
+        d = lq - lp
+        if abs(d) <= TRIM_TOL_DB:
+            continue
+        half = float(np.clip(d / 2.0, -TRIM_MAX_DB, TRIM_MAX_DB))
+        tp, hq = trims.get(p["id"], (0.0, 0.0)), trims.get(q["id"], (0.0, 0.0))
+        trims[p["id"]] = (tp[0], +half)          # önceki kesit sonu sonrakine doğru
+        trims[q["id"]] = (-half, hq[1])          # sonraki kesit başı öncekine doğru
+    return trims
+
+
+def _trim_curve(n, xin, xout, head_db, tail_db):
+    """Kesit boyunca doğrusal kazanç eğrisi (n,): baş ucunda head_db (çapraz geçiş + 1 sn boyunca sabit) → TRIM_RAMP sn'de 0 dB; son ucunda 0 dB → tail_db
+    (çapraz geçiş bölgesinden önce biter, sonuna dek sabit). Yarım kosinüs geçişler; kısa kesitte geçiş süresi küçülür."""
+    db = np.zeros(n, dtype=np.float64)
+    hb = int((xin + 1.0) * SR) if xin > 0 else 0
+    tb = n - int((xout + 1.0) * SR) if xout > 0 else n
+    room = max(tb - hb, 0)
+    ramp = int(min(TRIM_RAMP * SR, room / 2))
+    if abs(head_db) > 1e-6 and hb > 0:
+        db[:hb] += head_db
+        if ramp > 0:
+            db[hb:hb + ramp] += head_db * 0.5 * (1 + np.cos(np.linspace(0, np.pi, ramp)))
+    if abs(tail_db) > 1e-6 and tb < n:
+        db[tb:] += tail_db
+        if ramp > 0:
+            db[tb - ramp:tb] += tail_db * 0.5 * (1 - np.cos(np.linspace(0, np.pi, ramp)))
+    return (10 ** (db / 20.0)).astype(np.float32)
 
 
 def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0, verbose=True, only=None, timeline=None):
@@ -1527,6 +1645,7 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         gains[g["id"]] = gain
     # 2. aşama: kavşak düzey eşlemesi (kesit sonu ↔ sonraki kesit başı ortanca düzeyleri birbirine yaklaştırılır)
     jtrim = _junction_trims(plan, xs)
+    info["trims"] = {k: (round(float(h), 2), round(float(t), 2)) for k, (h, t) in jtrim.items()}
     for g in plan:
         if g["id"] not in xs:
             continue
@@ -1574,8 +1693,8 @@ def _part_dir():
     """MEDICI_PART zorunlu: out/ sembolik bağlantısına DOKUNULMAZ; her şey out_pN/ altında."""
     p = os.environ.get("MEDICI_PART")
     if not p:
-        raise SystemExit("MEDICI_PART=1|2|3 gerekli (örn. MEDICI_PART=2 python3 muzik.py --cue c7)")
-    return int(p), os.path.join(HERE, f"out_p{int(p)}")
+        raise SystemExit("MEDICI_PART=1..7 gerekli (örn. MEDICI_PART=3 python3 muzik.py --cue c7)")
+    return int(p), out_dir(int(p))
 
 
 def _load_chapters(outdir):
@@ -1784,7 +1903,7 @@ STOP_OPEN = (("flute", 1.0, 1.0), ("principal", 0.35, 1.0), ("flute", 0.25, 2.0)
 REED = (("reed", 1.0, 1.0), ("principal", 0.4, 1.0))
 
 CUES = {
-    # ───────────────────────────── PARÇA 1 · ALTIN ─────────────────────────────
+    # ───────────────────────────── ALTIN perdesi (c0–c6) ─────────────────────────────
     # c0: soğuk açılış — 1743 ölüm odası; sakin, ağırbaşlı. 'miras' hücresi (düşen üçlü) lavtada; başlık anında TEK vuruş + altın D majör, ardından florin figürü
     "c0": dict(mood="solemn", tonic=38, mode="dorian", bpm=58, meter="4/4", level_db=0.0,
                arc=[(-1, .05), (0, .08), A("c0s2", .10), A("c0s6", .16), A("c0s9", .18), A("c0s11", .24), A("c0s12", .28), A("c0s14", .16),
@@ -1899,7 +2018,7 @@ CUES = {
                        E("gamba", ("c5s4", "düştü", 0.0), deg=[0], oct=0, vel=0.6, dur=5.0, attack=0.8, bend=-30, g=0.7),
                        STOP(END("c5s11", -0.1))],
                gates=[GATE(("c5s4", "düştü", 0.0), END("c5s4", 0.6), lead=0.2, rel=2.5, floor_db=-20, note="1453")]),
-    # c6: Lorenzo — sıcak, hafif; Lorenzo teması (4 ölçü, yay biçimi). Giostra: davul + hızlı arpej. İki kesit: [parlak D ionian] → [gölge: D dorian, açık uç]. P1 sonu: 'p1' kapanışı.
+    # c6: Lorenzo — sıcak, hafif; Lorenzo teması (4 ölçü, yay biçimi). Giostra: davul + hızlı arpej. İki kesit: [parlak D ionian] → [gölge: D dorian, açık uç; 'bedel' yayı c7'ye köprü]. P3'ün ilk bölümü (t=0'da açılır); c7'ye normal kartla geçer.
     "c6": dict(mood="warm", tonic=38, mode="ionian", bpm=72, meter="4/4", level_db=0.0,
                sections=[
                    dict(until=(END("c6s25", 0.0), 0.965), xf=4.0,
@@ -1921,7 +2040,7 @@ CUES = {
                                TH("lorenzo", ("c6s20", "turnuva", -0.2), inst="lute", vel=0.7, stretch=0.85, oct=1),
                                TH("lorenzo", "c6s25", dt=0.4, inst="lute", vel=0.45, stretch=1.45, g=0.9)],
                         events=[STOP(END("c6s19", -0.1), hold=0.8)]),
-                   dict(mood="grave", mode="dorian", bpm=54, level_db=-1.0, finale="p1",
+                   dict(mood="grave", mode="dorian", bpm=54, level_db=-1.0,
                         arc=[(-1, .22), (0, .24), A("c6s26", .30), A("c6s27", .42), (1.0, .36)],
                         prog=[[(0, 2, "5"), (6, 2, ""), (3, 2, ""), (0, 2, "sus2")]], b_thr=2.0,
                         drone=dict(lvl=0.8, chunk_bars=4, fifth=True, bright=0.5),
@@ -1931,9 +2050,9 @@ CUES = {
                         theme=[TH("lorenzo", "c6s26", dt=0.5, inst="lute", vel=0.42, stretch=1.5, g=0.9),
                                TH("bedel", ("c6s27", "ölecekti", -1.0), inst="gamba", vel=0.6, bend=-40, g=1.0)])]),
 
-    # ───────────────────────────── PARÇA 2 · BEDEL ─────────────────────────────
+    # ───────────────────────────── BEDEL perdesi (c7–c11) ─────────────────────────────
     # c7: 26 Nisan 1478 — AĞIR, mizah kapalı. İki kesit: [D dorian: kilise girişi, defter ve kin, plan] → (V5–V7 sessizliğinin İÇİNDE mod değişir) → [D frigiyen: sonrası].
-    # 'bedel' motifi (alçak, tek çekilen yay). Kilise girişinde müzik yok (ayin yankısı + kalabalık uğultusu — SFX);
+    # 'bedel' motifi (alçak, tek çekilen yay). c6'dan sonra normal bölüm kartıyla gelir (P3: c6–c7). Kilise girişinde müzik yok (ayin yankısı + kalabalık uğultusu — SFX);
     # V5–V7 (c7s15–c7s23) yıldız an: müzik ÇEKİLİR (sessizliğe giriş 0,6 sn önce), tam sessizlik; V8'de yavaşça geri döner. ÇAN YOK.
     "c7": dict(mood="heavy", tonic=38, mode="dorian", bpm=56, meter="4/4", level_db=-1.0, snr_bias=0.5,
                sections=[
@@ -2037,7 +2156,7 @@ CUES = {
                         E("gamba", "c10s36", dt=0.3, deg=[0], oct=0, vel=0.55, dur=7.0, attack=1.0, bend=-30, g=0.6)],
                 gates=[GATE(("c10s15", "kapandı", 0.30), ("c10s15", "kapandı", 1.7), lead=0.05, rel=0.5, floor_db=None, note="kapı çarptı: 1 sn sessizlik (uzak trompet = SFX)"),
                        GATE(END("c10s34", 0.0), END("c10s35", 0.0), lead=0.4, rel=2.5, floor_db=-20, note="küller Arno'ya")]),
-    # c11: Papa Oğulları — üç kesit: [Prato: ağır] → [Leo X alayı: görkemli-ironik, mizah V2–V3] → [Roma 1527 → kuşatma → Alessandro: ağır, sonda sessizlik]. P2 sonu: 'p2' kapanışı (çözülmeyen sus4).
+    # c11: Papa Oğulları — üç kesit: [Prato: ağır] → [Leo X alayı: görkemli-ironik, mizah V2–V3] → [Roma 1527 → kuşatma → Alessandro: ağır, sonda sessizlik]. P5 sonu: end_kind='p2' kapanışı (çözülmeyen sus4; P6'nın 'miras' hücresine köprü).
     "c11": dict(mood="heavy", tonic=38, mode="phrygian", bpm=54, meter="4/4", level_db=-1.0,
                 sections=[
                     dict(until=(END("c11s3", 0.0), 0.12), xf=4.0, mood="heavy", mode="phrygian", bpm=54, level_db=-1.0,
@@ -2058,7 +2177,7 @@ CUES = {
                          perc=dict(pattern="ceremony", tef="sparse", lvl=0.7, lo=0.40, hi=0.52, pitch=96, amp=0.55, win=[W("c11s5", END("c11s6", 0.0))]),
                          melody=dict(inst="harp", lvl=0.6, lo=0.40, hi=0.50, play=2, rest=2, dens=0.4, reg=(66, 81), motif="florin"),
                          events=[STOP(END("c11s6", -0.1), hold=0.8), STOP(END("c11s10", -0.1), hold=1.0), STOP(END("c11s12", -0.1))]),
-                    dict(mood="heavy", mode="aeolian", bpm=52, level_db=-1.5, finale="p2", snr_bias=0.5,
+                    dict(mood="heavy", mode="aeolian", bpm=52, level_db=-1.5, end_kind="p2", snr_bias=0.5,
                          arc=[(-1, .22), (0, .30), A("c11s14", .38), A("c11s15", .50), A("c11s16", .56), A("c11s17", .60), A("c11s18", .50), A("c11s19", .44),
                               A("c11s20", .40), A("c11s21", .34), A("c11s22", .30), A("c11s23", .26), A("c11s24", .44), A("c11s25", .50), A("c11s26", .54),
                               A("c11s27", .46), A("c11s28", .62), A("c11s29", .50), A("c11s30", .36), A("c11s31", .30), A("c11s32", .30), A("c11s33", .24),
@@ -2078,9 +2197,9 @@ CUES = {
                                  E("dum", ("c11s34", "döndü", 0.0), vel=0.55, f=76, g=0.5), E("dum", ("c11s34", "öldürdüler", 0.0), vel=0.6, f=76, g=0.5)],
                          gates=[GATE(END("c11s34", -1.0), END("c11s35", -0.6), lead=0.6, rel=3.0, floor_db=None, note="kısa olay → sessizlik")])]),
 
-    # ───────────────────────────── PARÇA 3 · MİRAS ─────────────────────────────
+    # ───────────────────────────── MİRAS perdesi (c12–c16) ─────────────────────────────
     # c12: Dük — soğukkanlı-otoriter; makine gibi tık-tık + org pedalı; Uffizi kendini kurar; 1562 (c12s19–c12s25) AĞIR: neredeyse sessizlik, "dört haftada üç ölüm"de tam sessizlik;
-    # Lepanto saygılı-nötr (zafer fanfarı yok). P3 açılışı: 'miras' hücresi (lavta). (A aeolian, 66 bpm)
+    # Lepanto saygılı-nötr (zafer fanfarı yok). P6 açılışı (t=0): 'miras' hücresi (lavta). (A aeolian, 66 bpm)
     "c12": dict(mood="cold", tonic=45, mode="aeolian", bpm=66, meter="4/4", level_db=0.0,
                 arc=[(-1, .30), (0, .34), A("c12s1", .36), A("c12s3", .42), A("c12s4", .50), A("c12s5", .44), A("c12s7", .38), A("c12s9", .40), A("c12s10", .46),
                      A("c12s11", .52), A("c12s13", .50), A("c12s14", .58), A("c12s15", .50), A("c12s16", .56), A("c12s18", .58), A("c12s19", .22), A("c12s22", .12),
@@ -2210,7 +2329,7 @@ CUES = {
                          choir=dict(inst="organ", stops=STOP_OPEN, lvl=0.4, lo=0.44, hi=0.56, voices=4, attack=0.5),
                          melody=dict(inst="lute", lvl=0.6, lo=0.40, hi=0.50, play=2, rest=2, dens=0.3, reg=(57, 72), motif="defter"),
                          events=[STOP(END("c16s7", -0.1), hold=0.8), STOP(END("c16s14", -0.1)), STOP(END("c16s16", -0.1)), STOP(END("c16s17", -0.1), hold=1.0)]),
-                    dict(mood="solemn", mode="dorian", bpm=54, meter="4/4", tonic=38, level_db=-0.5, finale="p3",
+                    dict(mood="solemn", mode="dorian", bpm=54, meter="4/4", tonic=38, level_db=-0.5, end_kind="p3",
                          arc=[(-1, .24), (0, .26), A("c16s22", .28), A("c16s23", .34), A("c16s24", .30), A("c16s25", .34), (1.0, .30)],
                          prog=[[(0, 2, "5"), (6, 2, ""), (3, 2, ""), (0, 2, "sus2")], [(0, 2, "add9"), (4, 2, ""), (3, 2, ""), (0, 2, "")]], b_thr=0.5,
                          drone=dict(lvl=0.8, chunk_bars=4, fifth=True),

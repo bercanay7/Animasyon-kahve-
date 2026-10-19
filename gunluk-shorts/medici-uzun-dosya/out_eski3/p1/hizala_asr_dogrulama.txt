@@ -1,0 +1,49 @@
+YENİ  (pencere = cümle ±0,1 sn): 45 cümle · WER ort 0.152 medyan 0.115 %90 0.445 azami 0.714 · WER>0,3: 8 · komşu sızıntısı: 0 [] · başka fazlalık: 0 · uçta ≥2 sözcük eksik: 0 []
+YENİ  (sıkı pencere = tam t0–t1, pay yok): 45 cümle · WER ort 0.158 medyan 0.130 %90 0.352 azami 0.714 · WER>0,3: 8 · komşu sızıntısı: 0 [] · başka fazlalık: 0 · uçta ≥2 sözcük eksik: 0 []
+ESKİ  (pencere = cümle ±0,1 sn): 45 cümle · WER ort 0.468 medyan 0.292 %90 1.000 azami 1.667 · WER>0,3: 21 · komşu sızıntısı: 16 ['c2s4', 'c2s5', 'c2s6', 'c2s7', 'c2s10', 'c2s17', 'c1s6', 'c2s13', 'c5s19', 'c5s18', 'c1s17', 'c2s30', 'c5s6', 'c1s13', 'c1s9', 'c3s16'] · başka fazlalık: 0 · uçta ≥2 sözcük eksik: 16 ['c2s4', 'c2s5', 'c2s6', 'c2s7', 'c4s25', 'c4s17', 'c2s10', 'c3s29', 'c2s13', 'c5s19', 'c5s18', 'c2s12', 'c2s30', 'c5s6', 'c2s34', 'c1s9']
+
+c2s4–c2s8 ve ayrıntı (YENİ ±0,1 sn penceresi):
+  c2s4 364.65–371.83 WER 0.13 sızıntı(baş/son) False/False | ASR: Vadesi gelince, poliçe tahsil edilir. İkinci bir poliçe ile de para geri döner. Kazanç kur farkıdır.
+      eski 365.67–374.69 WER 1.67 sızıntı False/True | ASR: Polise tahsil edilir, ikinci bir polise ile de para geri döner. Kazanç kur farkıdır. Ortada borç yok, faiz yok, ya da bir kere daha da bir kere daha da bir kere daha da bir
+      beklenen: Vadesi gelince poliçe tahsil edilir, ikinci bir poliçeyle de para geri döner; kazanç, kur farkıdır.
+  c2s5 372.38–376.10 WER 0.00 sızıntı(baş/son) False/False | ASR: Ortada borç yok, faiz yok, yalnızca kur farkı var.
+      eski 374.31–379.28 WER 1.11 sızıntı False/True | ASR: Yalnızca kur farkı var. Orta Çağ'ın en yaratıcı departmanı...
+      beklenen: Ortada borç yok, faiz yok; yalnızca kur farkı var.
+  c2s6 376.92–381.95 WER 0.00 sızıntı(baş/son) False/False | ASR: Orta Çağ'ın en yaratıcı departmanı muhtemelen buydu. Vicdan Komitesi.
+      eski 379.05–384.72 WER 1.00 sızıntı False/True | ASR: muhtemelen buydu. Vicdan Komitesi Tracy Parks'ın aktardığına göre
+      beklenen: Orta Çağ'ın en yaratıcı departmanı muhtemelen buydu: vicdan komitesi.
+  c2s7 382.71–391.85 WER 0.06 sızıntı(baş/son) False/False | ASR: Tracy Parks'ın aktardığına göre, mevduata gelince "Faiz sözleşmeye yazılmaz, banker bunu kendi takdiriyle bir lütuf olarak öderdi."
+      eski 384.72–394.55 WER 0.50 sızıntı False/True | ASR: Merduata gelince faiz sözleşmeye yazılmaz, banker bunu kendi takdiriyle bir lütuf olarak öderdi. Faiz değil, hediye.
+      beklenen: Treysi Parks'ın aktardığına göre mevduata gelince, faiz sözleşmeye yazılmaz; banker bunu kendi takdiriyle, bir lütuf olarak öderdi.
+  c2s8 392.35–393.86 WER 0.00 sızıntı(baş/son) False/False | ASR: Faiz değil hediye.
+      eski 393.86–396.92 WER 1.67 sızıntı False/False | ASR: Üstelik bu işin müşterilerinden biri
+      beklenen: Faiz değil, hediye.
+
+WER > 0,25 olan YENİ cümleler:
+  c3s3 606.17–608.53 WER 0.71 fazla(b/s) 0/0 eksik(b/s) 0/1 sızıntı False/False
+      ASR: Bir tutuk evi için fazla konuk sever, Birat.
+      BEK: Bir tutukevi için fazla konuksever bir ad.
+  c3s14 678.11–680.34 WER 0.50 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: Yanında Mimar Mikheil Otso vardı.
+      BEK: Yanında mimar Mikelottso vardı.
+  c5s4 1088.75–1093.23 WER 0.36 fazla(b/s) 0/0 eksik(b/s) 1/0 sızıntı False/False
+      ASR: Vadedilen yardım gelmedi. 1453'te İstanbul düştü.
+      BEK: Vaat edilen yardım gelmedi; bin dört yüz elli üçte İstanbul düştü.
+  c4s17 936.31–941.59 WER 0.33 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: 10.000 yetmemiş. Cozimo işi bitirmek için 40.000'den fazla fluorin harcamış.
+      BEK: On bin yetmemiş; Kozimo işi bitirmek için kırk binden fazla florin harcamış.
+  c2s10 400.22–406.82 WER 0.27 fazla(b/s) 0/0 eksik(b/s) 1/0 sızıntı False/False
+      ASR: Derover'a göre Roma şubesine ayrı sermaye verilmedi. Kasayı kilisenin yatırdığı para doldurdu.
+      BEK: De Rover'a göre Roma şubesine ayrı sermaye verilmedi; kasayı Kilise'nin yatırdığı para doldurdu.
+  c2s17 446.54–453.71 WER 0.33 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: İndirilen kos sayı, Kovanni'nin kefaletle ya da fidye ile kurtardığı yazılır. Kaynaklar bu konuda ayrışıyor.
+      BEK: İndirilen Kossa'yı Covanni'nin kefaletle ya da fidyeyle kurtardığı yazılır; kaynaklar bu konuda ayrışıyor.
+  c4s32 1050.94–1052.07 WER 0.50 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: Duvarlar dikilmiş
+      BEK: Duvarlar dikilmişti.
+  c2s12 414.39–417.08 WER 0.50 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: çifte kaydı Medici derler.
+      BEK: Çifte kaydı Mediçiler icat etti derler.
+  c1s29 327.84–329.50 WER 0.50 fazla(b/s) 0/0 eksik(b/s) 0/0 sızıntı False/False
+      ASR: Sermaye 10.000 floryn'di
+      BEK: Sermaye on bin florindi.

@@ -1,0 +1,34 @@
+ESKİ (yerel DP) ↔ YENİ (ASR destekli): 172 ortak cümle
+  |Δ| başlangıç t0           medyan 0.875  %90 4.176  %95 5.823  azami 10.980 sn   ort işaretli Δ -0.940   >0,2: 159  >0,5: 154  >1,0: 69  (n=172)
+  |Δ| bitiş t1               medyan 0.962  %90 5.435  %95 7.077  azami 12.380 sn   ort işaretli Δ -2.245   >0,2: 166  >0,5: 165  >1,0: 81  (n=172)
+  |Δ| her ikisi (t0 ve t1)   medyan 0.905  %90 5.094  %95 6.834  azami 12.380 sn   ort işaretli Δ -1.592   >0,2: 325  >0,5: 319  >1,0: 150  (n=344)
+  en büyük 10 fark (cümle | eski t0–t1 | yeni t0–t1 | Δt0 Δt1):
+   c5s10   |  1153.64– 1164.10 |  1145.10– 1151.72 |  -8.54 -12.38 | Ardından Ficino'dan Platon'un En Yüksek İyi üzerine kitabını
+   c5s11   |  1163.64– 1168.83 |  1152.66– 1158.50 | -10.98 -10.33 | Bir bankacı için fena bir alışveriş listesi değil: en yüksek
+   c5s12   |  1168.01– 1178.79 |  1159.59– 1167.98 |  -8.42 -10.81 | Cosimo, Ficino'ya Platon'un bütün eserlerinin bir el yazması
+   c5s13   |  1178.36– 1184.41 |  1168.83– 1174.45 |  -9.53  -9.96 | Buna sonradan “Platon Akademisi” dendi; ama tüzüğü yoktu, üy
+   c5s9    |  1142.41– 1153.94 |  1134.85– 1144.42 |  -7.56  -9.52 | 1463 dolaylarında, Ficino'nun derlemesindeki bir mektupta Co
+   c5s14   |  1184.41– 1187.00 |  1175.17– 1178.36 |  -9.24  -8.64 | Cosimo bu mektuptan yaklaşık bir yıl sonra öldü.
+   c5s8    |  1136.60– 1142.41 |  1130.55– 1133.81 |  -6.05  -8.60 | Böylece Floransa'nın halka açık bir kitaplığı doğdu.
+   c2s29   |   546.16–  560.65 |   541.08–  553.15 |  -5.08  -7.50 | Machiavelli, bir asra yakın sonra, onun ağzından oğullarına 
+   c5s15   |  1186.75– 1197.69 |  1179.43– 1190.95 |  -7.32  -6.74 | Torunu Lorenzo, Janus Lascaris'i 1490 ve 1491'de iki kez Doğ
+   c5s7    |  1124.09– 1136.99 |  1118.34– 1129.72 |  -5.75  -7.27 | Kitap meraklısı Niccolò Niccoli borç içinde öldü; Cosimo bor
+  bölüm bazında medyan / %95 / azami |Δ| (t0,t1 birlikte):
+   c0  n= 18  0.840 / 0.922 / 1.110
+   c1  n= 32  0.855 / 2.809 / 3.990
+   c2  n= 35  3.145 / 5.788 / 7.500
+   c3  n= 33  0.825 / 1.927 / 3.180
+   c4  n= 33  0.875 / 2.027 / 2.650
+   c5  n= 21  5.812 / 10.786 / 12.380
+  eski: cümle arası boşluk (aynı bölüm içinde) n=166 · gap<0: 138 (en kötü -1.310) · gap=0: 28 · medyan -0.650
+  yeni: cümle arası boşluk (aynı bölüm içinde) n=166 · gap<0: 0 (en kötü +0.120) · gap=0: 0 · medyan 0.820
+  konuşma etkinliği (eski): cümle içi ort. 0.617 (en düşük 0.31; <0,8: 170) · cümleler arası boşlukta ort. 0.000 (n=0; >0,1: 0)
+  konuşma etkinliği (yeni): cümle içi ort. 0.771 (en düşük 0.61; <0,8: 125) · cümleler arası boşlukta ort. 0.015 (n=165; >0,1: 12)
+  yeni: cümle başı bir konuşma koşusunun başına ≤20 ms: 169/172; cümle sonu koşu sonuna ≤20 ms: 171/172
+        koşu içinde kalan (HMM/hece ile konumlanan) sınırlar: başlangıç [('c1s22', np.float64(0.31)), ('c3s10', np.float64(0.14)), ('c4s7', np.float64(0.14))] · bitiş [('c1s2', np.float64(0.11))]
+  c2s5–c2s7:
+   c2s4: eski 365.67–374.69 → yeni 364.65–371.83
+   c2s5: eski 374.31–379.28 → yeni 372.38–376.10
+   c2s6: eski 379.05–384.72 → yeni 376.92–381.95
+   c2s7: eski 384.72–394.55 → yeni 382.71–391.85
+   c2s8: eski 393.86–396.92 → yeni 392.35–393.86

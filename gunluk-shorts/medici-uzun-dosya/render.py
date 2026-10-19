@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""Şarlken — parçalı paralel render + birleştirme + ses ekleme + denetim.
+"""Medici — PARÇA (1–7) bazlı paralel render + birleştirme + ses ekleme + denetim.
 
-  python3 render.py --list                         # parça planı
-  python3 render.py --all [--workers 4] [--seg 1200] [--crf 18] [--segs 7-16]   # tüm videoyu (veya yalnız seçili parçaları) üret (devam edilebilir)
-  python3 render.py --range 120 180 --out out/prev.mp4 [--scale 1280]   # kısa önizleme (global sn; sessiz)
-  python3 render.py --concat                       # parçaları sessiz tek dosyada birleştir → out/sarlken_noaudio.mp4
-  python3 render.py --mux [--audio out/mix_audio.m4a] [--out out/sarlken_uzun.mp4]   # video + miks
-  python3 render.py --qa                           # ffprobe/blackdetect/freezedetect denetimi
-  python3 render.py --overview [--every 20]        # tüm videodan her N sn'de bir kare → out/frames/overview_N.png (genel bakış)
+Her komut bir parçayla çalışır: `--part N` (ya da MEDICI_PART=N). Çıktılar `out_pN/` altındadır (seg/, medici_pN_noaudio.mp4, medici_P{N}.mp4).
 
-Parçalar out/seg/seg_0000.mp4 …; tamamlananlar `.done` işaretiyle atlanır (kaldığı yerden devam).
-Kare hataları out/seg/errors.log'a yazılır ve önceki kare tekrarlanır (video yine tamamlanır; QA'da listelenir)."""
+  python3 render.py --part 3 --list                        # parça planı (segmentler)
+  python3 render.py --part 3 --all [--workers 4] [--seg 1200] [--crf 19] [--segs 0-3]   # parçayı üret (kaldığı yerden devam eder)
+  python3 render.py --part 3 --range 120 180 --out out_p3/prev.mp4 [--scale 1280]       # kısa önizleme (parça-içi sn; sessiz)
+  python3 render.py --part 3 --concat                      # segmentleri sessiz tek dosyada birleştir → out_p3/medici_p3_noaudio.mp4
+  python3 render.py --part 3 --mux [--audio out_p3/mix_audio.m4a] [--onizleme]          # video + miks → out_p3/medici_P3.mp4
+  python3 render.py --part 3 --qa                          # ffprobe/blackdetect/freezedetect denetimi
+  python3 render.py --part 3 --overview [--every 20]       # parçadan her N sn'de bir kare → out_p3/frames/overview_N.png
+  python3 render.py --tam [--out out_tam/medici_tam_film.mp4]   # 7 final parçayı art arda birleştir (Tam Film)
+
+GERÇEK SES KORUMASI: `--mux` (ve `--tam`) geçici (Piper) anlatım varsa DURUR (parca.assert_gercek_ses). `--onizleme` ile geçici sesle
+`ONIZLEME_medici_P{N}.mp4` adıyla üretilebilir (yayına GİRMEZ). Kare hataları out_pN/seg/errors.log'a yazılır; önceki kare tekrarlanır."""
 import argparse
 import glob
 import json
@@ -25,16 +28,22 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 os.chdir(HERE)
 
-OUT = os.path.join(HERE, "out")
-SEG = os.path.join(OUT, "seg")
+import parca as PA  # noqa: E402
+
 FPS = 24
 MAXRATE, BUFSIZE = "9M", "18M"      # YouTube önerisi (1080p24 SDR ≈ 8 Mb/sn); film greni tepe bit hızını şişirmesin
 W, H = 1920, 1080
+N_PARTS = 7
 
 
-def total_frames():
+def part_dirs(part):
+    out = os.path.join(HERE, f"out_p{part}")
+    return out, os.path.join(out, "seg")
+
+
+def total_frames(part):
     import compose
-    prog = compose.Program()
+    prog = compose.Program(part=part)
     return int(math.ceil(prog.total * FPS)), prog.total
 
 
@@ -52,16 +61,17 @@ def ff_cmd(out, crf, preset, scale=None, threads=2):
 
 
 def render_segment(args):
-    idx, n0, n1, crf, preset = args
+    part, idx, n0, n1, crf, preset = args
     import numpy as np
     import cv2
     cv2.setNumThreads(1)
+    _, SEG = part_dirs(part)
     os.makedirs(SEG, exist_ok=True)
     final = os.path.join(SEG, f"seg_{idx:04d}.mp4")
     if os.path.exists(final + ".done"):
         return idx, 0.0, 0
     import compose
-    prog = compose.Program()
+    prog = compose.Program(part=part)
     tmp = final + ".tmp.mp4"
     ff = subprocess.Popen(ff_cmd(tmp, crf, preset), stdin=subprocess.PIPE)
     t0 = time.time()
@@ -80,43 +90,45 @@ def render_segment(args):
         k = n - n0 + 1
         if k % 120 == 0:
             el = time.time() - t0
-            print(f"[seg {idx:02d}] {k}/{n1 - n0}  {el / k * 1000:.0f} ms/kare  ETA {el / k * (n1 - n0 - k) / 60:.1f} dk", flush=True)
+            print(f"[P{part} seg {idx:02d}] {k}/{n1 - n0}  {el / k * 1000:.0f} ms/kare  ETA {el / k * (n1 - n0 - k) / 60:.1f} dk", flush=True)
     ff.stdin.close()
     rc = ff.wait()
     if rc != 0:
-        raise RuntimeError(f"ffmpeg hata kodu {rc} (seg {idx})")
+        raise RuntimeError(f"ffmpeg hata kodu {rc} (P{part} seg {idx})")
     os.replace(tmp, final)
     open(final + ".done", "w").write(f"{n0} {n1} {time.time() - t0:.1f}\n")
     return idx, time.time() - t0, errs
 
 
 def cmd_list(a):
-    nf, tot = total_frames()
+    _, SEG = part_dirs(a.part)
+    nf, tot = total_frames(a.part)
     p = plan(nf, a.seg)
-    print(f"toplam {tot:.2f} sn = {nf} kare; {len(p)} parça × ≤{a.seg} kare")
+    print(f"PARÇA {a.part}: toplam {tot:.2f} sn = {nf} kare; {len(p)} segment × ≤{a.seg} kare")
     for i, n0, n1 in p:
         done = os.path.exists(os.path.join(SEG, f"seg_{i:04d}.mp4.done"))
         print(f"  seg {i:02d}: kare {n0}–{n1}  ({n0 / FPS:7.1f}–{n1 / FPS:7.1f} sn) {'✓' if done else ''}")
 
 
 def cmd_all(a):
-    nf, tot = total_frames()
+    _, SEG = part_dirs(a.part)
+    nf, tot = total_frames(a.part)
     p = plan(nf, a.seg)
     only = None
     if a.segs:
         only = set()
-        for part in a.segs.split(","):
-            lo, _, hi = part.partition("-")
+        for s in a.segs.split(","):
+            lo, _, hi = s.partition("-")
             only.update(range(int(lo), int(hi or lo) + 1))
-    todo = [(i, n0, n1, a.crf, a.preset) for i, n0, n1 in p if not os.path.exists(os.path.join(SEG, f"seg_{i:04d}.mp4.done")) and (only is None or i in only)]
-    print(f"{len(p)} parçadan {len(todo)} tanesi üretilecek; {a.workers} işlem", flush=True)
+    todo = [(a.part, i, n0, n1, a.crf, a.preset) for i, n0, n1 in p if not os.path.exists(os.path.join(SEG, f"seg_{i:04d}.mp4.done")) and (only is None or i in only)]
+    print(f"PARÇA {a.part}: {len(p)} segmentten {len(todo)} tanesi üretilecek; {a.workers} işlem", flush=True)
     t0 = time.time()
     ctx = mp.get_context("spawn")
     errs = 0
     with ctx.Pool(a.workers, maxtasksperchild=1) as pool:
         for idx, dt, e in pool.imap_unordered(render_segment, todo):
             errs += e
-            print(f"== seg {idx:02d} bitti ({dt / 60:.1f} dk, hata {e}); geçen {(time.time() - t0) / 60:.1f} dk", flush=True)
+            print(f"== P{a.part} seg {idx:02d} bitti ({dt / 60:.1f} dk, hata {e}); geçen {(time.time() - t0) / 60:.1f} dk", flush=True)
     print(f"tamam: {(time.time() - t0) / 60:.1f} dk; kare hatası toplam {errs}")
 
 
@@ -125,7 +137,8 @@ def cmd_range(a):
     import cv2
     import compose
     cv2.setNumThreads(2)
-    prog = compose.Program()
+    OUT, _ = part_dirs(a.part)
+    prog = compose.Program(part=a.part)
     n0, n1 = int(a.range[0] * FPS), int(a.range[1] * FPS)
     out = a.out or os.path.join(OUT, "prev.mp4")
     ff = subprocess.Popen(ff_cmd(out, 22, "veryfast", scale=a.scale, threads=2), stdin=subprocess.PIPE)
@@ -136,41 +149,80 @@ def cmd_range(a):
     print(f"{out}  ({(n1 - n0) / FPS:.1f} sn, {(time.time() - t0) / (n1 - n0) * 1000:.0f} ms/kare)")
 
 
+def noaudio_path(part):
+    return os.path.join(part_dirs(part)[0], f"medici_p{part}_noaudio.mp4")
+
+
 def cmd_concat(a):
-    nf, tot = total_frames()
+    _, SEG = part_dirs(a.part)
+    nf, tot = total_frames(a.part)
     p = plan(nf, a.seg)
     files = [os.path.join(SEG, f"seg_{i:04d}.mp4") for i, _, _ in p]
     missing = [f for f in files if not os.path.exists(f + ".done")]
     if missing:
-        raise SystemExit(f"eksik parça: {len(missing)} (ör. {os.path.basename(missing[0])}); önce --all")
+        raise SystemExit(f"eksik segment: {len(missing)} (ör. {os.path.basename(missing[0])}); önce --all")
     lst = os.path.join(SEG, "concat.txt")
     open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
-    out = os.path.join(OUT, "sarlken_noaudio.mp4")
+    out = noaudio_path(a.part)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", out], check=True)
     print(out, os.path.getsize(out) // 1_000_000, "MB")
 
 
+def find_audio(part, explicit=None):
+    OUT, _ = part_dirs(part)
+    if explicit:
+        return explicit
+    cands = [os.path.join(OUT, n) for n in ("mix_audio.m4a", "mix_audio.wav")] + sorted(glob.glob(os.path.join(OUT, "mix_audio*ONIZLEME*.m4a")) + glob.glob(os.path.join(OUT, "ONIZLEME*.m4a")))
+    return next((p for p in cands if os.path.exists(p)), None)
+
+
 def cmd_mux(a):
-    vid = os.path.join(OUT, "sarlken_noaudio.mp4")
+    OUT, _ = part_dirs(a.part)
+    if not a.onizleme:
+        PA.assert_gercek_ses(OUT)              # geçici (Piper) anlatım varsa DURUR
+    vid = noaudio_path(a.part)
     if not os.path.exists(vid):
         cmd_concat(a)
-    audio = a.audio or next((p for p in (os.path.join(OUT, "mix_audio.m4a"), os.path.join(OUT, "mix_audio.wav"), os.path.join(OUT, "voice.wav")) if os.path.exists(p)), None)
+    audio = find_audio(a.part, a.audio)
     if not audio:
-        raise SystemExit("ses dosyası yok")
-    out = a.out or os.path.join(OUT, "sarlken_uzun.mp4")
+        raise SystemExit(f"ses dosyası yok (miks): önce MEDICI_PART={a.part} python3 miks_kur.py")
+    if (not a.onizleme) and "ONIZLEME" in os.path.basename(audio).upper():
+        raise SystemExit("önizleme miksi final mux'a girmez; gerçek sesle yeniden miksleyin")
+    name = f"ONIZLEME_medici_P{a.part}.mp4" if a.onizleme else f"medici_P{a.part}.mp4"
+    out = a.out or os.path.join(OUT, name)
     vd = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", vid]).decode().strip())
     ad = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audio]).decode().strip())
-    print(f"video {vd:.2f} sn, ses {ad:.2f} sn (fark {vd - ad:+.2f})")
+    print(f"PARÇA {a.part}: video {vd:.2f} sn, ses {ad:.2f} sn (fark {vd - ad:+.2f})")
     acodec = ["-c:a", "copy"] if audio.endswith(".m4a") else ["-c:a", "aac", "-b:a", "256k"]
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", vid, "-i", audio, "-map", "0:v", "-map", "1:a", "-c:v", "copy", *acodec,
                     "-shortest", "-movflags", "+faststart", out], check=True)
     print(out, os.path.getsize(out) // 1_000_000, "MB")
 
 
+def cmd_tam(a):
+    """7 final parçayı art arda (kodek kopyası) birleştirir → Tam Film. Yalnız gerçek sesli final parçalar."""
+    files = []
+    for n in range(1, N_PARTS + 1):
+        OUT, _ = part_dirs(n)
+        PA.assert_gercek_ses(OUT)
+        f = os.path.join(OUT, f"medici_P{n}.mp4")
+        if not os.path.exists(f):
+            raise SystemExit(f"eksik final parça: {f}")
+        files.append(f)
+    out = a.out or os.path.join(HERE, "out_tam", "medici_tam_film.mp4")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    lst = os.path.join(os.path.dirname(out), "concat.txt")
+    open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", "-movflags", "+faststart", out], check=True)
+    print(out, os.path.getsize(out) // 1_000_000, "MB")
+
+
 def cmd_qa(a):
-    vid = a.out or os.path.join(OUT, "sarlken_uzun.mp4")
-    if not os.path.exists(vid):
-        vid = os.path.join(OUT, "sarlken_noaudio.mp4")
+    OUT, SEG = part_dirs(a.part)
+    cands = [a.out] if a.out else [os.path.join(OUT, f"medici_P{a.part}.mp4"), os.path.join(OUT, f"ONIZLEME_medici_P{a.part}.mp4"), noaudio_path(a.part)]
+    vid = next((c for c in cands if c and os.path.exists(c)), None)
+    if not vid:
+        raise SystemExit("denetlenecek dosya yok")
     print("denetlenen:", vid)
     info = subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type,codec_name,width,height,r_frame_rate,duration,nb_frames", "-of", "json", vid]).decode()
     for s in json.loads(info)["streams"]:
@@ -195,7 +247,8 @@ def cmd_overview(a):
     import compose
     import preview
     cv2.setNumThreads(2)
-    prog = compose.Program()
+    OUT, _ = part_dirs(a.part)
+    prog = compose.Program(part=a.part)
     ts = [t for t in np.arange(2.0, prog.total - 1.0, a.every)]
     imgs = []
     for t in ts:
@@ -213,6 +266,7 @@ def cmd_overview(a):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--part", type=int, default=PA.PART, help="1–7 (ya da MEDICI_PART)")
     ap.add_argument("--overview", action="store_true")
     ap.add_argument("--every", type=float, default=20.0)
     ap.add_argument("--list", action="store_true")
@@ -220,9 +274,11 @@ def main():
     ap.add_argument("--range", nargs=2, type=float)
     ap.add_argument("--concat", action="store_true")
     ap.add_argument("--mux", action="store_true")
+    ap.add_argument("--tam", action="store_true")
     ap.add_argument("--qa", action="store_true")
+    ap.add_argument("--onizleme", action="store_true", help="geçici sesle önizleme muxu (ONIZLEME_ adıyla; yayına girmez)")
     ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--segs", default=None, help="yalnız bu parçalar, ör. 7-16 veya 3,5,9-11")
+    ap.add_argument("--segs", default=None, help="yalnız bu segmentler, ör. 0-3 veya 1,3,5-6")
     ap.add_argument("--seg", type=int, default=1200)
     ap.add_argument("--crf", type=int, default=19)
     ap.add_argument("--preset", default="medium")
@@ -230,6 +286,13 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--audio", default=None)
     a = ap.parse_args()
+    if a.tam:
+        return cmd_tam(a)
+    if not a.part:
+        print(__doc__)
+        raise SystemExit("--part N (1–7) gerekli")
+    if not 1 <= a.part <= N_PARTS:
+        raise SystemExit("part 1–7 olmalı")
     if a.list:
         cmd_list(a)
     elif a.all:

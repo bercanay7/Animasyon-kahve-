@@ -7,202 +7,111 @@
 | sınıf | cümle |
 |---|---:|
 | ANEKDOT | 3 |
-| ○ | 9 |
-| ◐ | 111 |
-| YORUM | 13 |
-| — | 6 |
-| HAFIZA | 1 |
-| **toplam** | **143** |
-
-**UYARI:** HAFIZA sınıfında cümle var; metne girmemeli.
+| ○ | 7 |
+| ◐ | 60 |
+| YORUM | 4 |
+| **toplam** | **74** |
 
 ## Yayın öncesi teyit listesi (○ · ANEKDOT · MİT düzeltmesi · kritik tarih/sayı)
 
 | id | sınıf | cümle (ekran metni) | dayanak / kip |
 |---|---|---|---|
-| c12s9 | ○ | 26 Şubat 1548'de Venedik'te Lorenzino pusuya düşürülüp öldürüldü; emri Cosimo'nun verdiği uzun süre kabul edildi, yeni bir çalışma buna kuşku düşürüyor. | ◐ olgu / ○ yorum M4b:b15,bM3 (Dall'Aglio; kesin kip YOK) |
-| c12s18 | ○ | Kaynaklara göre amaç, Osmanlı ve korsan gemileriyle savaşmak ve Hristiyan esirleri kurtarmaktı; ganimet satışının Livorno'yu zenginleştirdiği yazılır. | ◐ amaç M4b:b21,b22 / ○ ganimet bM6 (esire mizah YOK; bagno ÇIKMADI) |
-| c12s23 | ANEKDOT | Sonra bir hikâye doğdu: Garzia kardeşini, Cosimo da Garzia'yı öldürmüş. Rivayetin ilk yazanı bilinmiyor; ölümlerden çok sonra ortaya çıktı. | ANEKDOT/◐ mit M4b:bM1 ("rivayete göre"; belge yok) |
-| c12s31 | ○ | İmparatorun onayı ancak yıllar sonra, para karşılığı geldi, diye anlatılır: kentin birincisi dük oldu, Roma ona taç verdi, Viyana fatura kesti. | ○ M4b:b27,bM5 (100.000 duka SÖYLENMEZ; mizah a: ünvan zinciri) |
-| c12s33 | HAFIZA | Osmanlı donanması o gün ağır bir yenilgi aldı. | HAFIZA-Y M4:T7 (yayın öncesi Türkçe/Osmanlı kaynakla teyit; kayıp rakamı verilmez; nötr ve saygılı) |
-| c13s2 | ANEKDOT | Çocukken, doğduğu şehir kuşatma altındayken, bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır. | ANEKDOT ◐; ilk yazan bulunamadı; çıplaklık/teslim ayrıntısı bilinçle söylenmez; kim önerdi söylenmez M4c:B05,C16 |
-| c13s8 | ○ | Catherine'in bundan sonra uzun yıllar siyah giydiği yazılır. | ○ bir çalışma M4c:C20,D80 (opsiyonel; "yazılır") |
-| c14s5 | ○ | İstanbul'da bu baskıların satışının beklenenin altında kaldığı anlatılır. | ○ M3:C60 ("anlatılır"; el yazması nüshaya talep ayrı) |
-| c14s15 | ○ | Kitap Cosimo'ya ithaf edilmişti; Galileo bir nüshayı, teleskopla birlikte Büyük Dük'e gönderdiği yazılır. | ◐ ithaf / ○ teleskop (19 Mart) M3b:b9,b13 ("gönderdi" = teslimat çerçevesi; ekranda "TESLİMAT #N" YOK) |
-| c15s3 | ANEKDOT | Zehir söylentisinin o günlerde dolaştığı söylenir; zehirli turta hikâyesi ise sonradan anlatılmıştır, ilk anlatıcısı bilinmez. | H / ANEKDOT M4:3E#3,§5.15 ("söylenir"; çağdaş kayıt H) |
-| c15s4 | — | 2006'da bir çalışma kalıntılarda arsenik, 2010'da bir başkası sıtma antijeni bulduğunu bildirdi. | H künyeler (Mari ve ark. BMJ 2006; Fornaciari ve ark. 2010) M4:#90,#91 — yayın öncesi teyit |
-| c15s13 | ○ | III. Cosimo elli üç yıl hüküm sürdü; dönemi çoğu anlatıda gerileme diye geçer, ama bu anlatı tek bir kaynak hattına dayanıyor. | ○ M4b:b63,bM12 ("53 yıl" ○ → "yazılır"; sektörel nüans) |
-| c15s17 | ◐ | Gian Gastone 9 Temmuz 1737'de öldü; Treccani'ye göre artık kendi devletinin hükümdarı değildi, çünkü devleti Lorraine Dükü Francis Stephen'ın birlikleri işgal etmişti. | ◐ M4b:b68,bD22 (IT + TR çeviri bize ait; Dami "29 Temmuz" çelişkisi söylenmez) |
-| c16s2 | ○ | Bir anlatıya göre, yüzünü ve ellerini yalnız nedimeleri yıkasın, bedeni açılmasın istemiş; istediği yerine gelmemiş. | ○ M4b:b79,bD26 (blog zinciri; birincil görülmedi — "bir anlatıya göre"; opsiyonel) |
-| c16s3 | ○ | Sözleşmeye çoğu zaman bağış denir; bir akademik yoruma göre ise o bir devir koşuluydu: Lorraine mülkiyeti alırken eserlerin Floransa'dan çıkarılamayacağını kabul ediyordu. | ◐ "devredilemezlik" / ○ akademik yorum tek özet M4b:b75,bM13,D11 ("bir yoruma göre"; "bağışladı" DENMEZ) |
+| c6s4 | ◐ | Valori'ye göre koku bile alamıyordu. | ◐ zayıf M5:K19; M3:C27 (yayın öncesi teyit) |
+| c6s6 | ○ | 2 Aralık 1469'da babası Piero öldü; günler içinde yirmi yaşındaki Lorenzo şehrin ve devletin yükünü üstlendi. | ◐ ölüm / ○ "günler içinde" M5:P4,P6,K21 |
+| c6s8 | ○ | İsteksiz davrandığını, yaşını ve tehlikeyi gerekçe gösterdiğini de yazar; ama bunu anlatan yine kendisi. | ◐/○ M5:K21 (kendi imajı uyarısı) |
+| c6s12 | ○ | Lorenzo evliliği defterine şöyle geçirir, diye aktarılır: Clarice'yi aldım ya da bana verildi. | ○ M5:K27 (mizah b; hedef evlilik pazarı, Clarice değil) |
+| c6s13 | ○ | Roma'da vekâletle nikâh kıyıldıktan sonra düğün şenlikleri 4 Haziran 1469'da Floransa'da başladı. | ◐/○ M5:P6,P8 |
+| c6s18 | ANEKDOT | Michelangelo'nun biyografisini yazan Condivi'ye göre Lorenzo, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz. | ANEKDOT ◐ M3:C31,b102,bd23 (Condivi 1553; "sarayında büyüdü" DENMEZ) |
+| c6s19 | ANEKDOT | Michelangelo bir dişi kırıp diş etini oymuş; Lorenzo da onu eve almış: oda, sofra, ayda beş dukat. | ANEKDOT ◐ M3b:b101,bd24 ("anlatılır") |
+| c6s22 | ○ | Botticelli sancağa Simonetta'yı miğferli bir Pallas olarak resmetmişti; asıl sancak kayıp. | ◐ olay / ○ görünüş M3:C36 ("anlatılır") |
+| c7s5 | ○ | 1474'te Papa IV. Sixtus, papalığın bankerliğini Medici'den alıp Pazzi'ye verdi; iki yıl sonra şap tekelinin de aynı yoldan gittiği yazılır. | ◐ 1474 M1b:b21,U14 / ○ Haz 1476 M1b:b23 ("yazılır") |
+| c7s33 | ANEKDOT | Poliziano'ya göre Salviati, can çekişirken dişlerini Francesco'nun göğsüne geçirdi. | ANEKDOT ◐ DBI Salviati özeti ("cannibalism") + Weinstein; D51 (alaysız, tek cümle) |
+| c7s34 | ◐ | O gün yaklaşık otuz kişi daha idam edildi; aralarında Salviati'nin kardeşi de vardı. | ◐ M2c:Y26 DBI Lorenzo özeti ("daha" okuması teyit) + EI |
+| c7s36 | ○ | Jacopo kaçtı, birkaç gün içinde yakalanıp asıldı; cesedinin sonraki pazar mezardan çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır. | ◐ olgu / ○ gün 27–29 / ○ ceset tek DBI M2c:Y27,Y28,D52,D53 ("yazılır") |
 
 ## Tüm cümleler
 
-### c12 — Dük
+### c6 — Lorenzo
 
 | id | sınıf | cümle | dayanak |
 |---|---|---|---|
-| c12s1 | ◐ | Ocak 1537'de bir dükü kuzeni öldürmüş, Senato da yerine 17 yaşında Cosimo'yu seçmişti. | ◐ M4b:b5 (Parça 3 özeti; c11 sonu) |
-| c12s2 | ◐ | Ertesi gün Senato koşulu yazıya geçirdi: Cosimo dük olmayacak, yalnızca “kentin başı ve birincisi” diye anılacaktı. | ◐ M4b:b5,bD3,D14 (Treccani DBI; çeviri bize ait) |
-| c12s3 | ◐ | Onu çağıran soylular muhtemelen yönetilebilir birini istemişti; Cosimo Mugello'da yetişmiş, şehirde pek tanınmayan bir çocuktu. | ◐ iskelet; "yönetilebilir" YORUM M4b:bD4,b6 ("muhtemelen" + gerekçe) |
-| c12s4 | ◐ | Ağustos başında, Montemurlo'da, aceleyle toplanmış sürgün ordusunu yendi; Treccani bu zaferi cumhuriyetçi restorasyon tehdidinin sonu sayar. | ◐ olgu, ○ gün (31 Tem–2 Ağu) M4b:b8 ("ağustos başı") |
-| c12s5 | ◐ | 1539'da Cosimo, İspanyol soylusu Eleonora di Toledo ile evlendi. | ◐ M4b:b10 ("Pedro de Toledo" HAFIZA, söylenmez) |
-| c12s6 | ◐ | Sözleşme 29 Mart'ta Napoli'de imzalandı ve evlilik vekâleten kutlandı; Eleonora 29 Haziran'da Floransa'ya girdi, resmî düğün ise 29 Temmuz'da yapıldı. | ◐ M4b:b10,b11,b12,D9 (M4 #52 "29 Haziran evlendi" YANLIŞ) |
-| c12s7 | ◐ | Yani Cosimo evlenmek için üç ayrı 29'a ihtiyaç duymuştu. | ◐ M4b:b10–b12 (mizah b: takvim/protokol) |
-| c12s8 | ◐ | Yüzyılın ortasında Pitti Sarayı'nı Eleonora satın aldı. | ◐ M4b:b16; M3b:b80 (1549 ↔ 1550 → "yüzyılın ortasında") |
-| c12s9 | ○ | 26 Şubat 1548'de Venedik'te Lorenzino pusuya düşürülüp öldürüldü; emri Cosimo'nun verdiği uzun süre kabul edildi, yeni bir çalışma buna kuşku düşürüyor. | ◐ olgu / ○ yorum M4b:b15,bM3 (Dall'Aglio; kesin kip YOK) |
-| c12s10 | ◐ | Siena yaklaşık on beş ay direndi ve açlıktan teslim oldu; 1557'de II. Felipe şehri Cosimo'ya bıraktı. | ◐ M4b:b18,b20 ("nisan 1555" gün ○) |
-| c12s11 | ◐ | 1560'ta Cosimo, Vasari'den bir bina istedi: Floransa'ya dağılmış 13 idari makamı tek çatı altında toplayacaktı. | ◐ M3:#56,cd49 |
-| c12s12 | ◐ | Binanın adı da bunu söylüyordu: Uffizi, yani ofisler. | ◐ M3:cd49 (mizah a) |
-| c12s13 | YORUM | Dünyanın en ünlü galerilerinden biri, doğduğunda bir memur binasıydı. | YORUM (mizah a; c0 geri çağrısı) |
-| c12s14 | ◐ | Üst galerisi 1565'te Palazzo Vecchio'yu Pitti Sarayı'na bağlayan koridora dönüştü: iktidarın ofisinden evine kapalı bir yol. | ◐ koridor; "iktidarın ofisinden evine" YORUM M3:cd50 ("5 ay", "düğün için" H) |
-| c12s15 | ◐ | Müze olması çok sonra: bina halka ancak 1769'da açıldı. | ◐ M3:#64,#72; M3b:b76,b78 ("ilk modern müze" DENMEZ; Francesco/Tribuna ≈1581 söylenmez) |
-| c12s16 | ◐ | Cosimo bir de kendi şövalye tarikatını kurdu: Santo Stefano. | ◐ M4b:b21 |
-| c12s17 | ◐ | Papa 1561'de onayladı; 1562'de Pisa'da Cosimo, tarikatın büyük ustası olarak giydirildi. | ◐ M4b:b21 (1 Ekim 1561 / 15 Mart 1562 — günler ekranda) |
-| c12s18 | ○ | Kaynaklara göre amaç, Osmanlı ve korsan gemileriyle savaşmak ve Hristiyan esirleri kurtarmaktı; ganimet satışının Livorno'yu zenginleştirdiği yazılır. | ◐ amaç M4b:b21,b22 / ○ ganimet bM6 (esire mizah YOK; bagno ÇIKMADI) |
-| c12s19 | ◐ | Kasım 1562'de aile kıyıda bir geziye çıktı ve sıtmaya yakalandı. | ◐ M4b:b23,bM1 (tek tarih tek cümle; Zweig yavaşlatması) |
-| c12s20 | ◐ | 20 Kasım'da Cosimo'nun kardinal oğlu Giovanni öldü; on dokuz yaşındaydı. | ◐ M4b:b23 |
-| c12s21 | ◐ | Aralığın ilk yarısında kardeşi Garzia gitti; on beş ya da on altı yaşındaydı. | ◐ (6 ↔ 12 Aralık çelişir) M4b:b23,§5.1 |
-| c12s22 | ◐ | 17 Aralık'ta Eleonora öldü: dört haftada üç ölüm. | ◐ M4b:b23 ("27 gün" hesap bize ait) |
-| c12s23 | ANEKDOT | Sonra bir hikâye doğdu: Garzia kardeşini, Cosimo da Garzia'yı öldürmüş. Rivayetin ilk yazanı bilinmiyor; ölümlerden çok sonra ortaya çıktı. | ANEKDOT/◐ mit M4b:bM1 ("rivayete göre"; belge yok) |
-| c12s24 | ◐ | 1857'de mezar açıldığında Garzia'nın iskeletinde kırmızı atlas bir ceket vardı, şiddet izi yoktu; ölümlerin sıtmadan olduğu sonucuna varıldı. | ◐ M4b:b24,bD8,bM1 (2026 DNA çalışması GİRMEZ — D16) |
-| c12s25 | — | Cosimo'nun o haftalarda ne düşündüğünü bilmiyoruz. | kalıp (bölümde 1; mektup yok) |
-| c12s26 | ◐ | 13 Ocak 1563'te, Cosimo'nun desteğiyle, Vasari'nin yönetiminde Sanatlar Akademisi kuruldu: yarı lonca, yarı akademi, Medici devletindeki sanat üretimini denetleyen bir kurul. | ◐ M3:#57,cd51; M3b:b71 (Accademia delle Arti del Disegno; "ilk" DENMEZ) |
-| c12s27 | ◐ | Michelangelo da kurumun başındaki adlardan biriydi; 1564'te ölünce cenazesini Akademi düzenledi. | ◐ M3:cd51,#60 (14 Temmuz San Lorenzo ekranda; "mal gibi" ANEKDOT söylenmez) |
-| c12s28 | YORUM | Cosimo güzelliği de bir devlet dairesi gibi örgütledi. | YORUM (karakter cümlesi) |
-| c12s29 | ◐ | 1564'te Cosimo günlük yönetimi oğlu Francesco'ya bıraktı ama dük unvanını korudu. | ◐ M4b:b25 |
-| c12s30 | ◐ | 1569'da V. Pius ona Büyük Dük unvanını verdi, 1570'te de Roma'da taç giydi. | ◐ M4b:b26,b27 (27 Ağustos 1569 / 5 Mart 1570 — ekranda; taç: bir kaynak Ocak 1570) |
-| c12s31 | ○ | İmparatorun onayı ancak yıllar sonra, para karşılığı geldi, diye anlatılır: kentin birincisi dük oldu, Roma ona taç verdi, Viyana fatura kesti. | ○ M4b:b27,bM5 (100.000 duka SÖYLENMEZ; mizah a: ünvan zinciri) |
-| c12s32 | ◐ | 7 Ekim 1571'de Lepanto'da, Türkçedeki adıyla İnebahtı'da, Hristiyan devletlerin yaklaşık iki yüz kadırgalık donanmasında, kaynaklara göre, Toskana'dan on iki gemi vardı. | ◐ 12 ↔ papalık hizmetinde/kiralanmış (iki anlatım) M4b:b28,T17 (şövalye ○ söylenmez; komutan H) |
-| c12s33 | HAFIZA | Osmanlı donanması o gün ağır bir yenilgi aldı. | HAFIZA-Y M4:T7 (yayın öncesi Türkçe/Osmanlı kaynakla teyit; kayıp rakamı verilmez; nötr ve saygılı) |
-| c12s34 | ◐ | Cosimo, Nisan 1574'te Villa di Castello'da öldü. | ◐ yıl+yer; gün H M4b:b29 |
-| c12s35 | ◐ | Cosimo Floransa'da bir devlet kuruyordu. Aynı yıllarda Paris'te, Floransa doğumlu bir Medici kızı, adı 24 Ağustos 1572 ile anılacak bir krizin ortasındaydı. | ◐ tarih; sorumluluk tartışmalı → c13 M4b:b32–b35,bM7 (K1) |
+| c6s1 | ◐ | Lorenzo'yu en iyi dostu Niccolò Valori anlatır: doğa, görünüşü konusunda ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş. | ◐ M5:K16; M3:C26 (özgün görülmedi → "Valori'ye atfedilir") |
+| c6s2 | ◐ | Valori'ye göre yüzü güzel sayılmazdı, ama saygı uyandıracak kadar vakarlıydı. | ◐ M5:K16 |
+| c6s3 | ◐ | Ansiklopedilerin tarifi daha çıplak: basık burun, öne çıkık alt çene, zayıf görme. | ◐ M5:K15 (EI 1934; ten rengi ve ses söylenmez) |
+| c6s4 | ◐ | Valori'ye göre koku bile alamıyordu. | ◐ zayıf M5:K19; M3:C27 (yayın öncesi teyit) |
+| c6s5 | YORUM | Büyükbabası defter tutardı; torunu şiir yazdı. | YORUM (Plutarkhos paraleli) |
+| c6s6 | ○ | 2 Aralık 1469'da babası Piero öldü; günler içinde yirmi yaşındaki Lorenzo şehrin ve devletin yükünü üstlendi. | ◐ ölüm / ○ "günler içinde" M5:P4,P6,K21 |
+| c6s7 | ◐ | Bunu hatıra defterinde, Ricordi'sinde, şöyle gerekçelendirir: dostlarını ve servetini korumak için; çünkü Floransa'da devletsiz zengin yaşamak zordu. | ◐ M5:K21 ("Ricordi'ye göre"; çeviri bize ait; PARA→İKTİDAR halkasının Lorenzo'dan teyidi) |
+| c6s8 | ○ | İsteksiz davrandığını, yaşını ve tehlikeyi gerekçe gösterdiğini de yazar; ama bunu anlatan yine kendisi. | ◐/○ M5:K21 (kendi imajı uyarısı) |
+| c6s9 | ◐ | Annesi Lucrezia Tornabuoni bir şairdi: dua şarkıları ve beş manzum anlatı yazdı, Pulci'nin dostuydu, Morgante'ye ilham verdi. | ◐ M5:K10,K11 |
+| c6s10 | ◐ | Oğluna eş seçmeyi de kendisi üstlendi: 1467 baharında Roma'da Clarice'yi görüp Piero'ya üç mektup yazdı. | ◐ M5:K13,P5 |
+| c6s11 | ◐ | 28 Mart tarihli ilk mektupta kızın uzun boylu, narin, açık tenli ve bol saçlı olduğunu, yüzünün çok güzel olmasa da hoş olduğunu yazar. | ◐ "aktarılır" M5:K13; M2:C6.1 (Salvadori edisyonu; çeviri bize ait) |
+| c6s12 | ○ | Lorenzo evliliği defterine şöyle geçirir, diye aktarılır: Clarice'yi aldım ya da bana verildi. | ○ M5:K27 (mizah b; hedef evlilik pazarı, Clarice değil) |
+| c6s13 | ○ | Roma'da vekâletle nikâh kıyıldıktan sonra düğün şenlikleri 4 Haziran 1469'da Floransa'da başladı. | ◐/○ M5:P6,P8 |
+| c6s14 | ◐ | Clarice, 1479'da çocuklarının hocası Poliziano'yu evden çıkarttı; ona uygun bir eğitmen olmadığına ikna olmuştu. | ◐ M5:K25 (iki Treccani maddesi) |
+| c6s15 | ◐ | Lorenzo'nun çevresinde okul yoktu, atölyeler vardı: Verrocchio'nun atölyesinden Leonardo, Perugino ve Botticelli geçtiği söylenir. | ◐ atıflar zor M3:K40,Y10 ("Medici sanat okulu" DENMEZ) |
+| c6s16 | ◐ | 1476 ile 1477 arasında Lorenzo ve Poliziano, Napoli'nin isteğiyle bir Toskana şiir derlemesi hazırladı; içinde Dante'nin Vita nova'sı da vardı. | ◐ M3:K43,C43 |
+| c6s17 | ◐ | “Muhteşem”, yani Magnifico, bir saygı sözcüğüydü; Machiavelli Prens'i Lorenzo'nun önce oğluna, sonra torununa ithaf etti ve ikisine de “Muhteşem” diye seslendi. | ◐ kullanım M3b:bd13,b52,bm6; HAFIZA-D unvan genelliği → "kullanılırdı" (mizah a: unvan enflasyonu) |
+| c6s18 | ANEKDOT | Michelangelo'nun biyografisini yazan Condivi'ye göre Lorenzo, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz. | ANEKDOT ◐ M3:C31,b102,bd23 (Condivi 1553; "sarayında büyüdü" DENMEZ) |
+| c6s19 | ANEKDOT | Michelangelo bir dişi kırıp diş etini oymuş; Lorenzo da onu eve almış: oda, sofra, ayda beş dukat. | ANEKDOT ◐ M3b:b101,bd24 ("anlatılır") |
+| c6s20 | ◐ | 29 Ocak 1475'te Santa Croce Meydanı'nda, Venedik ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Giostra. | ◐ M5:K23; M3:K41 |
+| c6s21 | ◐ | Kazanan Lorenzo değil, kardeşi Giuliano'ydu; seçtiği kadın, Marco Vespucci'nin eşi Simonetta'ydı. | ◐ M5:K23,P7; M3:D11 |
+| c6s22 | ○ | Botticelli sancağa Simonetta'yı miğferli bir Pallas olarak resmetmişti; asıl sancak kayıp. | ◐ olay / ○ görünüş M3:C36 ("anlatılır") |
+| c6s23 | ◐ | Poliziano bu günü bir şiire döktü; şiir, kahramanı ölünce yarım kaldı. | ◐ M5:K23 (Stanze per la giostra) |
+| c6s24 | ◐ | Simonetta, 1476 Nisanında yirmi üç yaşında veremden öldü; Giuliano'yla sevgili olup olmadıklarını bilmiyoruz. | ◐ M5:K23; M3:K42 ("bilmiyoruz" kalıbı) |
+| c6s25 | ◐ | Lorenzo yıllar sonra bir karnaval şarkısına şunu yazacaktı: ne güzel şey gençlik, ama kaçıp gidiyor. | ◐ tarih/biçim M3:K52,C42 (1490; çeviri bize ait; sahneye bağlama YORUM) |
+| c6s26 | ◐ | Giostra'dan 26 Nisan 1478'e, bir Pazar sabahına, üç yıl üç ay vardı. | ◐ M2:K45; hesap bize ait ("Paskalya" DEĞİL, Pazar ayini) |
+| c6s27 | ◐ | Giuliano yirmi dört yaşında ölecekti. | ◐ M5:P7,D24 (Zweig: izleyici bilir, kahraman bilmez; bölümde tek kullanım) |
 
-### c13 — İki Kraliçe
+### c7 — 26 Nisan 1478
 
 | id | sınıf | cümle | dayanak |
 |---|---|---|---|
-| c13s1 | ◐ | Onun adı Catherine'di. 1519'da Floransa'da doğdu; annesi ve babası, doğumundan sonraki haftalarda öldü. | ◐ Britannica + Treccani EI + PUF; M4c:B01–B03 (gün kartı ekranda: 13 Nisan → 28 Nisan → 4 Mayıs) |
-| c13s2 | ANEKDOT | Çocukken, doğduğu şehir kuşatma altındayken, bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır. | ANEKDOT ◐; ilk yazan bulunamadı; çıplaklık/teslim ayrıntısı bilinçle söylenmez; kim önerdi söylenmez M4c:B05,C16 |
-| c13s3 | ◐ | 1533'te Medici papası VII. Clemens onu Fransa Kralı'nın oğlu Henri ile evlendirdi. | ◐ Britannica M4c:B06,D83 ("amcası" DENMEZ — uzak akraba; 28 Ekim ↔ 27 ekranda) |
-| c13s4 | ◐ | Marsilya, 14 yaşında bir gelin. | ◐ 14 = hesap bize ait (çeyiz "yüz bin altın" ekran kartı) |
-| c13s5 | ◐ | Evlilikten sonraki on yıl çocuk olmadı; Henri'nin gönlü Diane de Poitiers'deydi. | ◐ Britannica "10 anxious years" + Diane M4c:B07,D79 (tıbbi/cinsel ayrıntı GİRMEZ) |
-| c13s6 | ◐ | Sonra çocukları oldu, hem de çok. | ◐ Britannica "ten children" (sayı kartta) M4c:B07 |
-| c13s7 | ◐ | 10 Temmuz 1559'da Henri, bir turnuvada başına isabet eden mızrak yüzünden öldü. | ◐ Britannica + Guizot + Thompson M4c:B08,D80 (29 ↔ 30 Haziran söylenmez; çarpışma gösterilmez) |
-| c13s8 | ○ | Catherine'in bundan sonra uzun yıllar siyah giydiği yazılır. | ○ bir çalışma M4c:C20,D80 (opsiyonel; "yazılır") |
-| c13s9 | ◐ | 1560 sonunda küçük IX. Charles tahta çıkınca devleti fiilen Catherine yönetti. | ◐ Guizot + Thompson M4c:B09,D73 ("naip" unvanı verilmedi → "fiilen") |
-| c13s10 | ◐ | Din savaşını uzlaşmayla durdurmak istedi; Ocak 1562 fermanı Fransız Protestanlarına kent surlarının dışında, silahsız ibadet izni verdi. | ◐ Britannica + dokumen.pub M4c:B10,D74 (adil portre; iki yorum söylenmez) |
-| c13s11 | ◐ | 22 Ağustos 1572'de Amiral Coligny'ye suikast girişimi oldu; ertesi gün konsey, Protestan liderlerin öldürülmesine karar verdi. | ◐ Britannica; azmettirici ○ M4c:B11; M4b:b32–b33 (saat/çan/şafak YOK) |
-| c13s12 | ◐ | 24 Ağustos'ta Paris'te başlayan katliam başka şehirlere yayıldı; yalnız Paris'te üç bin kadar ölü olduğu tahmin edilir. | ◐ Britannica (tahmin); ülke rakamı H M4c:B11,D75 |
-| c13s13 | ◐ | Britannica'ya göre Catherine, liderlerin öldürülmesini onaylamıştı; ardından gelen katliamı büyük olasılıkla onaylamamıştı. | ◐ Britannica M4b:bM7; M4c:D75 ("Britannica'ya göre") |
-| c13s14 | ◐ | Tarihçiler tam bu noktada ayrılır. | ◐ Mariéjol "tuzak", Jouanna "konsey", Knecht M4c:§5.14 (tek tarihçi kesin tutum olarak verilmez) |
-| c13s15 | ◐ | Katliamdan sonra Catherine'in çevresinde bir efsane büyüdü: kötü İtalyan kraliçe. | ◐ Britannica M4c:C21,B12 (geçiş cümlesi: düz; mizah 1572'den hemen sonra başlamaz) |
-| c13s16 | ◐ | İlk saldırılardan biri 1573'te Protestan bir broşürdeki şiirdi; 1575'te adsız bir kitapçık çıktı, sonradan Henri Estienne'e atfedildi. | ◐ McIlvenna + IA + EB 1911 M4c:B12,D76 ("atfedildi") |
-| c13s17 | ◐ | Sonra faturalar kesilmeye başladı: çatalı o getirmiş, dondurmayı o getirmiş, topuklu ayakkabıyı da, parfümü de… ve tabii zehri. | ◐ M4b:bM9 + M4c:D77 (hepsi "anlatılır" düzeyi; mizah a+c) |
-| c13s18 | ◐ | Oysa çatal Catherine'den çok önce İtalya'daydı; bir anlatı onu Venedik'e gelen bir Bizans prensesine bağlar. | ◐ "Catherine'den önce İtalya'da" (California Academy + NatGeo + The Florentine); ANEKDOT ○ prenses M4c:D77,§5.8 (1071 söylenmez) |
-| c13s19 | ◐ | Dondurma hikâyesinin izi ise 19. yüzyıla çıkıyor. | ◐ Liddell–Weir + Colonial Williamsburg + Cooks Info M4b:bM9 |
-| c13s20 | YORUM | Bir ülke inceliğini de günahını da tek bir yabancıya yazmış; pratik bir düzen. | YORUM (mizah b; hedef mit düzeni, kadın değil; opsiyonel) |
-| c13s21 | ◐ | Gerçek olan bir gösteriydi: 15 Ekim 1581'de sahnelenen Balet comique, Kirke efsanesini anlatan, beş saati aşan, basılı metni olan bir saray balesiydi. | ◐ M4b:b38 (Britannica, Wikipedia, EBSCO); "ilk" denmez; mekân çelişir M4c:B13,§5.13 |
-| c13s22 | ◐ | Catherine, 5 Ocak 1589'da Blois'da öldü; Guise Dükü aynı şatoda, bir önceki yılın son günlerinde öldürülmüştü. | ◐ Britannica (Catherine + Blois) M4c:B14–B15,D78 (plörezi söylenmez) |
-| c13s23 | ◐ | Bir başka Medici kızı, Marie, Fransa'ya gelin gitti. | ◐ Britannica M4c:B16–B18 (doğum yılı SÖYLENMEZ: 1573 ↔ 1575) |
-| c13s24 | ◐ | Evlilik 1600'de Floransa'da vekâleten kıyıldı; kral orada değildi. | ◐ M4b:b40 (5 Ekim; vekilin kimliği söylenmez) M4c:B18 |
-| c13s25 | ◐ | Çeyiz 600.000 écu'ydu ve Fransa'nın Toskana Büyük Dükü'ne olan borcundan düşüldüğü yazılır: gelinin parası, damadın borcuna mahsup edildi. | ◐ herodote.net + sept.info + Britannica + Gutenberg M4b:b41; M4c:B17,D72 (borç miktarı ○ söylenmez; mizah a) |
-| c13s26 | YORUM | Borcu ödemenin en kibar yolu, borç verenin kızıyla evlenmek. | YORUM (mizah b; hedef kraliyet maliyesi) M4c:D72 |
-| c13s27 | ◐ | Marie, 3 Kasım 1600'de Marsilya'ya indi. | ◐ Louvre başlığı M4c:C22 (aynı liman — V1 ile eşleşir) |
-| c13s28 | ◐ | 13 Mayıs 1610'da taç giydi; ertesi gün Henri IV öldürüldü, Marie naip oldu. | ◐ Gutenberg Pardoe + Louvre başlıkları M4c:B19–B20 |
-| c13s29 | ◐ | Favorisi Concini 1617'de öldürülünce Blois Şatosu'na gönderildi. Ne düşündüğünü bilmiyoruz; ama ne yaptığını biliyoruz: 1619'da bir gece kaçtı. | ◐ yıllar; Louvre başlığı "nuit du 21 au 22 février 1619" M4c:B21–B23 (iç-dünya kalıbı, bölümde tek; ip/merdiven H söylenmez) |
-| c13s30 | ◐ | 1630'daki Aldatılanlar Günü'nde oğlu Kral Louis, Richelieu'yu seçti, annesini değil. | ◐ Versailles + Britannica M4c:B26,D81 (10–11 Kasım ekranda) |
-| c13s31 | ◐ | Marie 1631'de Fransa'dan çıktı ve bir daha dönmedi. | ◐ Versailles + Osborne M4c:B27 |
-| c13s32 | ◐ | 1622'de Marie, Rubens'e yaşamını anlatan yirmi dört dev tablo ısmarladı: hayatını yeniden yazdırmanın en pahalı yolu. | ◐ Louvre (1622, 24 tablo) M4c:B25,D70; ikinci yarı YORUM (mizah: kibir; Marie'nin yoksulluğuna değil) |
-| c13s33 | ◐ | Louvre'a göre bu seri Marie'ye kendi anlatısını sunma fırsatı verdi; ressam kralı gücendirmemeye de dikkat etmek zorundaydı. | ◐ Louvre sayfası (çeviri bize ait) M4c:C23 ("Louvre'a göre") |
-| c13s34 | ◐ | Kader tanrıçaları Marie'nin yaşam ipliğini eğirir; Blois'dan gece kaçış bile kahramanca bir sahne olarak yer alır. | ◐ Louvre başlıkları (Les Parques filant le destin…, La Reine s'enfuit du château de Blois…) M4c:C22 |
-| c13s35 | ◐ | Marie, 3 Temmuz 1642'de Köln'de, yoksul öldü. | ◐ Britannica + Osborne + Pardoe M4c:B28 (oda betimi, son söz, tanık YOK) |
-| c13s36 | ◐ | Ev, Rubens ailesinin yıllarca oturduğu evdi; sonradan Rubens'in orada doğduğu söylendi, oysa doğduğu yer Siegen'di. | ◐ Britannica (Siegen) + M4b:b48 + Köln levhaları M4c:D69,§5.16 (efsane "söylendi") |
-| c13s37 | ◐ | Tablolar ise Paris'te kaldı; bugün Louvre'da, ayrı bir galerideler. | ◐ M4b:b44 (Luxembourg 1625, Louvre 1816, Galerie Médicis 1993) M4c:B29 (restorasyon güncelliği söylenmez) |
-| c13s38 | YORUM | İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu adını gökyüzüne yazdırıyordu. | YORUM + ◐ c14 (K3 uyarlaması; Galileo 1610 — "Floransa'da" yanlış; Medici adı = uydular) |
-
-### c14 — Yıldızlar, Notalar, Taşlar
-
-| id | sınıf | cümle | dayanak |
-|---|---|---|---|
-| c14s1 | ◐ | 16. yüzyılın sonunda Roma'da, Papa XIII. Gregorius'un desteğiyle ve Cosimo'nun oğlu Kardinal Ferdinando'nun himayesinde, bir Medici Doğu Dilleri Matbaası kuruldu. | ◐ M3:K66,D5 (Roma'da, Floransa'da DEĞİL; yıl 1584 HUD'da) |
-| c14s2 | ◐ | Arapça harfleri Robert Granjon kesti; Arapça İncil, İbn Sina'nın Kanun'u ve Öklid bu harflerle basıldı. | ◐ M3:K66,K69,C58 (1590–91, 1593, 1594 HUD) |
-| c14s3 | ◐ | Sonra İstanbul'dan bir ferman çıktı: III. Murad, Arapça ve Farsça kitap getiren iki Avrupalı tüccarı koruma altına alıyordu; yasak değil, koruma. | ◐ M3:K68,C59,D9 (1588 HUD; "Osmanlı matbaayı yasakladı" ile karıştırılmaz) |
-| c14s4 | ◐ | Tüccarlardan biri Orazio Bandini'ydi; evet, Giuliano'nun katiliyle aynı soyadı, ama bağ gösteren bir kayıt yok. | ◐ ad / bağ yok M3:TR#4; M2:§5.11 (göz kırpması; c8 geri çağrısı) |
-| c14s5 | ○ | İstanbul'da bu baskıların satışının beklenenin altında kaldığı anlatılır. | ○ M3:C60 ("anlatılır"; el yazması nüshaya talep ayrı) |
-| c14s6 | ◐ | Aynı yıllarda büyük dük olan Ferdinando, Uffizi'nin doğu kanadında sert taşla resim yapılan bir atölye kurdu: Opificio delle Pietre Dure; kurum bugün de çalışıyor. | ◐ M3:K67,K74,C57 ("Avrupa'nın ilk saray manufakturası" V&A betimi — söylenmez) |
-| c14s7 | ◐ | 5 Ekim 1600'de Marie de' Medici'nin vekâleten evlendiği Floransa'da, ertesi gün Pitti Sarayı'nda bu düğün için Euridice ilk kez sahnelendi. | ◐ M3b:b4,b5; M4b:b40 ("ertesi gün" hesap bize ait; vekil kimliği söylenmez; salon/ışık/alkış kaynakta YOK) |
-| c14s8 | ◐ | Jacopo Peri, Orfeo'yu kendisi söyledi; Euridice'yi Vittoria Archilei canlandırdı. | ◐ M3b:b5,b6,bd6 |
-| c14s9 | ◐ | Günümüze müziği ve librettosuyla tam ulaşan en eski opera budur; Dafne daha önceydi, ama müziği kayıp. | ◐ M3b:b3,b5,bm3 ("ilk opera / Medici icat etti" DENMEZ) |
-| c14s10 | ◐ | Caccini, kendi Euridice'sinin notalarını Peri'ninkinden altı hafta önce bastırmıştı. | ◐ M3b:b7,bd7 (mizah: rekabet/kibir) |
-| c14s11 | ◐ | Bu işin kuramcılarından Vincenzo Galilei, astronom Galileo'nun babasıydı. | ◐ M3b:b1 (Britannica; Plutarkhos bağı) |
-| c14s12 | ◐ | 7 Ocak 1610'da Galileo, Jüpiter'in yanında üç küçük “yıldız” fark etti; ocak bitmeden sayı dörde çıktı. | ◐ M3b:b10 (gecenin havası/sesi/ışığı kaynakta YOK; Galileo'nun iç dünyası YOK) |
-| c14s13 | ◐ | Şubat'ta saraya iki seçenek sundu: yeni gökcisimlerine yalnız genç Büyük Dük II. Cosimo'nun adı mı verilsin, yoksa dört kardeşin adı mı? | ◐ M3b:b11,bd1,bs4 (kardeşler Cosimo, Francesco, Carlo, Lorenzo; mektup tarihleri söylenmez) |
-| c14s14 | ◐ | Saray ikincisini seçti; 13 Mart'ta Venedik'te çıkan Sidereus Nuncius'un, yani Yıldız Habercisi'nin kapağında “Medici yıldızları” yazıyordu. | ◐ M3b:bm1,b9,bd3 (seçimi kimin yaptığı ÇELİŞİR → kişi atfı YOK; "teleskop gözlemine dayanan ilk eser" DENMEZ) |
-| c14s15 | ○ | Kitap Cosimo'ya ithaf edilmişti; Galileo bir nüshayı, teleskopla birlikte Büyük Dük'e gönderdiği yazılır. | ◐ ithaf / ○ teleskop (19 Mart) M3b:b9,b13 ("gönderdi" = teslimat çerçevesi; ekranda "TESLİMAT #N" YOK) |
-| c14s16 | ◐ | O yaz Padua'dan ayrılıp “Büyük Dük'ün Birinci Matematikçisi ve Filozofu” oldu; ders verme yükü yoktu. | ◐ M3b:b14 (atama günü 10 Haz ↔ Tem ↔ 1611: "o yaz"; maaş söylenmez) |
-| c14s17 | ◐ | Ama adlar tutmadı: bugün kullandığımız uydu adları Marius'un. | ◐ olgu; adların kendisi HAFIZA-Y M3b:bm1 (mizah: yıldızlar aileye zimmetlendi, kayıtlar tutmadı) |
-| c14s18 | ◐ | 1633'te Galileo yargılandı. Yargılanan kitabı Dialogo, Büyük Dük II. Ferdinando'ya ithaf edilmişti; Ferdinando aklanmasını istedi, mahkûmiyetten sonra da temkinli girişimlerde bulundu. | ◐ M3b:b18 (MİZAH KAPALI; masraf iki anlatımı söylenmez — b19,bd5,bm2) |
-| c14s19 | YORUM | Medici Galileo'yu kollayabildiği yere kadar kolladı. | YORUM/◐ M3b:bm2 (ağır sahne: süssüz) |
-| c14s20 | ◐ | 17. yüzyılın sonlarında Büyük Dük III. Cosimo'nun oğlu Prens Ferdinando, Padovalı klavsen ustası Bartolomeo Cristofori'yi sarayın enstrümanlarına bakması için çağırdı. | ◐ M3b:b24,b25 (1688/≈1690 HUD; iç dünya YOK) |
-| c14s21 | ◐ | 1700 tarihli Medici envanterinde bir satır var: Cristofori'nin “yeni icat ettiği”, çekiçli ve sönümleyicili bir arpicembalo. | ◐ M3b:b26,bd8 (çeviri bize ait; İtalyanca metin görülmedi; mizah: bürokratik ad) |
-| c14s22 | ◐ | Bugünkü adının ilk biçimi, 18. yüzyılın başında Scipione Maffei'nin bir gazete makalesinde geçer: piano ve forte'li klavsen. | ◐ M3b:b28,bd10 (1711 HUD) |
-| c14s23 | ◐ | Cristofori'nin yaptığı üç piyano bugüne kaldı; New York'ta, Roma'da, Leipzig'de. | ◐ M3b:b31 (1720, 1722, 1726 ekran kartı) |
-| c14s24 | YORUM | Piyanoyu Medici icat etmedi; Cristofori'ye maaş verdi, aleti envantere yazdı. | YORUM M3b:bm5,b30 (bölümün ipi: sahne, maaş, envanter) |
-| c14s25 | YORUM | Büyük icatlar bazen envanterde tek bir satır olarak doğar. | YORUM M3b:Aday3 |
-| c14s26 | YORUM | Envanterdeki satırlar sürdü; ama o envanteri tutan ailenin kendi satırları azalıyordu. | YORUM (K1 → c15) |
-
-### c15 — Son Medici'ler
-
-| id | sınıf | cümle | dayanak |
-|---|---|---|---|
-| c15s1 | ◐ | I. Francesco, Palazzo Vecchio'da kendine bir oda yaptırmıştı: yarı ofis, yarı laboratuvar, yarı saklanma yeri, yarı merak kabini; kendisi dışında çok az kişi o odayı görmüştü. | ◐ M3:#62,cd55 ("bugün şöyle tarif ediliyor"; mizah a: kaynağın tarifi; porselen ○ söylenmez) |
-| c15s2 | ◐ | Ekim 1587'de Francesco, eşi Bianca Cappello'yla birkaç gün arayla öldü. | ◐ Francesco 19 Ekim (Ferdinando'nun tahta çıkışı) M4b:b50 / H Bianca, "bir gün arayla" — hedge: "birkaç gün arayla" |
-| c15s3 | ANEKDOT | Zehir söylentisinin o günlerde dolaştığı söylenir; zehirli turta hikâyesi ise sonradan anlatılmıştır, ilk anlatıcısı bilinmez. | H / ANEKDOT M4:3E#3,§5.15 ("söylenir"; çağdaş kayıt H) |
-| c15s4 | — | 2006'da bir çalışma kalıntılarda arsenik, 2010'da bir başkası sıtma antijeni bulduğunu bildirdi. | H künyeler (Mari ve ark. BMJ 2006; Fornaciari ve ark. 2010) M4:#90,#91 — yayın öncesi teyit |
-| c15s5 | ◐ | 2026'da ise Francesco'nun üç kaburgasından alınan örneklerde iki sıtma parazitinin DNA'sı bulundu. | ◐ basın (Yale, CNN, Science; makale açılmadı) M4:#92,3E#1 — "basına göre"; yöntem/örnek ayrıntısı verilmez |
-| c15s6 | ◐ | Bir haber başlığı “kitabı kapattı” dedi, bir başkası “çözülmüş olabilir”; aynı çalışma, iki ayrı kesinlik. | ◐ M4:3E#1 (mizah a: kaynağın kendi tutarsızlığı; kişiye değil) |
-| c15s7 | YORUM | DNA bir enfeksiyonu gösterir, ölümün nedenini tek başına kanıtlamaz; ama dört yüzyıllık zehir hikâyesinin ağırlığı bugün sıtmanın tarafında. | YORUM M4:3E#2,§5.15,D7 ("büyük olasılıkla sıtma" kalıbı) |
-| c15s8 | ◐ | Kardeşi Ferdinando, 13 yaşında kardinal yapılmıştı ve hiçbir zaman rahip olmadı; ağabeyinin ölümüyle 19 Ekim 1587'de büyük dük oldu. | ◐ M4b:b50 (EN Wikipedia + britishinstitute.it) |
-| c15s9 | ◐ | Livorno'nun ticareti onun döneminde büyüdü; 1593'te ilan edilen Livornina, oraya gelen tüccara dinî özgürlük, af ve Toskana vatandaşlığı vaat ediyordu. | ◐ M4b:b52,b53,b31 (10 Haziran 1593 / taslak 1591; "ilk serbest liman" DENMEZ; hitap listesi ○ söylenmez) |
-| c15s10 | ◐ | 1598'de Sultan III. Mehmed'in mektuplarını getiren Osmanlı elçisi Mustafa Ağa Floransa'da ağırlandı, ama müzakere başarısızlıkla bitti. | ◐ M4b:b54,bD28 (Mercan 2023 özet; başarısızlığın nedeni araştırmada YOK) |
-| c15s11 | ◐ | Ferdinando'nun 1608'de Dürzi Emiri Fahreddin'le yaptığı antlaşmanın, İstanbul sıkıştırırsa Toskana'da sığınma güvencesi içerdiği yazılır. | ◐ M4b:b58,bD30 (Aramco World 2014; journals.ku.edu) |
-| c15s12 | ◐ | Fahreddin gerçekten 1613'te, II. Cosimo döneminde geldi. | ◐ M4b:b59,bD30 (sürgün Cosimo II dönemi) |
-| c15s13 | ○ | III. Cosimo elli üç yıl hüküm sürdü; dönemi çoğu anlatıda gerileme diye geçer, ama bu anlatı tek bir kaynak hattına dayanıyor. | ○ M4b:b63,bM12 ("53 yıl" ○ → "yazılır"; sektörel nüans) |
-| c15s14 | ◐ | Oğlu Gian Gastone 1723'te büyük dük oldu; çevresindeki 379 adama “ruspanti” derlerdi, çünkü adlarını altın sikkelerden, yani “ruspi”den alırlardı. | ◐ M4b:b66,bD19 (Treccani DBI Paoli 2000; mizah a: adını paradan alan çevre; yatak/hastalık ANEKDOT söylenmez) |
-| c15s15 | ◐ | Treccani'nin 1932 tarihli maddesi onu devlet işlerine kayıtsız bulur ama saltanatını bir onarım sayar. | ◐ M4b:bD20 (çeviri bize ait) |
-| c15s16 | ◐ | 2010 tarihli maddesi ise tek reformunun üniversiteyi Aristotelesçilikten kurtarmak olduğunu yazar. | ◐ M4b:bD21 (iki hüküm ayrışır; çeviri bize ait) |
-| c15s17 | ◐ | Gian Gastone 9 Temmuz 1737'de öldü; Treccani'ye göre artık kendi devletinin hükümdarı değildi, çünkü devleti Lorraine Dükü Francis Stephen'ın birlikleri işgal etmişti. | ◐ M4b:b68,bD22 (IT + TR çeviri bize ait; Dami "29 Temmuz" çelişkisi söylenmez) |
-| c15s18 | ◐ | Toskana'nın geleceği Viyana'da kararlaştırılmıştı; yeni büyük dük Francis Stephen Floransa'ya yalnızca bir kez, 1739 başında geldi. | ◐ M4b:b69,b70 (mizah a kuru: yönetmeyen varis) |
-| c15s19 | ◐ | Erkek hat kapanmıştı; geriye bir kadın ve imzalanacak bir sözleşme kalmıştı. | ◐ M4b:b68,b73 (K1 → c16) |
-
-### c16 — Hesap
-
-| id | sınıf | cümle | dayanak |
-|---|---|---|---|
-| c16s1 | ◐ | 18 Şubat 1743. Yetmiş beş yaşındaki kadın, Anna Maria Luisa, ölüyor. | ◐ M4:#107; M4b:b78 (ölüm yeri Pitti ◐ zayıf; saat, tanık, son söz YOK; c0'a dönüş) |
-| c16s2 | ○ | Bir anlatıya göre, yüzünü ve ellerini yalnız nedimeleri yıkasın, bedeni açılmasın istemiş; istediği yerine gelmemiş. | ○ M4b:b79,bD26 (blog zinciri; birincil görülmedi — "bir anlatıya göre"; opsiyonel) |
-| c16s3 | ○ | Sözleşmeye çoğu zaman bağış denir; bir akademik yoruma göre ise o bir devir koşuluydu: Lorraine mülkiyeti alırken eserlerin Floransa'dan çıkarılamayacağını kabul ediyordu. | ◐ "devredilemezlik" / ○ akademik yorum tek özet M4b:b75,bM13,D11 ("bir yoruma göre"; "bağışladı" DENMEZ) |
-| c16s4 | ◐ | Uffizi'ye göre madde, yeni hanedanın Floransa'nın hazinelerini yağmalamasını hukuken önlemek içindi. | ◐ M4b:b74 ("Uffizi'ye göre") |
-| c16s5 | ◐ | “Hiçbir şey buradan çıkmayacak” demek, maddenin bizim özetimizdir; Anna Maria Luisa'nın söylediği bilinen bir söz değil. | ◐ M4b:bD23 (3. madde çevirisinin özeti; "dedi" DEĞİL — c0 başlık/alıntı kartı da "sözleşmeye yazıldı" biçiminde) |
-| c16s6 | — | Maddenin sonradan nasıl uygulandığını ise bilmiyoruz. | uygulama araştırmada YOK (Patto'nun UYGULANMASI: Lorraine dönemi taşınmalar/mücevherlerin akıbeti aranmadı) |
-| c16s7 | — | Peki Medici'ler Rönesans'ı yarattı mı? | — |
-| c16s8 | YORUM | Kaynaklar “tek yaratıcı” demiyor; “en görünür patronlardan biri” diyor. | YORUM/◐ M3:§5.1,Y3 (değerlendirme) |
-| c16s9 | ◐ | Kubbeyi yün loncası yaptırdı; Strozzi, Rucellai, Tornabuoni da sipariş verdi; Primavera bile ailenin başka bir kolunun siparişiydi. | ◐ M3:D1,K18,K20,K44,§5.13; M3b:b83,b87 |
-| c16s10 | ◐ | Tarihçiler de tartışır: Gombrich, benzersiz konumdaki Medici'nin “tipik” patron sayılmasına itiraz etti; Goldthwaite sanat talebini şehirde biriken zenginliğe bağladı. | ◐ özet düzeyi M3:C65,C67 (1993 tartışması; Burckhardt/Baron/Kent/Welch adları ANILMAZ — HAFIZA) |
-| c16s11 | ◐ | Görünürlüğün bir kısmı kaynaklardan geliyor: Vespasiano Cosimo'yu övdü; Vasari de Medici'nin hizmetindeydi. | ◐ Vespasiano M3:C1; Vasari Medici hizmeti c12/c14'te belgeli ("Vasari Cosimo I sarayında yazdı" H söylenmez) |
-| c16s12 | YORUM | Medici'yi ayıran, ölçek ve siyasi görünürlüktü. | YORUM M3:Y3 ("şöyle okumak mümkün") |
-| c16s13 | — | Şimdi anlattıklarımızı sağlamlığına göre ayıralım. | — (ekran: altın SAĞLAM / lacivert NİTELİKLİ / kızıl MİT) |
-| c16s14 | ◐ | Çifte kaydı Medici icat etmedi; Cenova'da ve Venedik'te bu yöntem onlardan çok önce kullanılıyordu. | ◐ mit M1:mit1,K71,K73 (Cenova 1340 / Venedik 1407 ekranda) |
-| c16s15 | ◐ | Opera ve piyano Medici'nin sarayında ortaya çıktı, ama icat onların değil. | ◐ M3b:bm3,bm5 |
-| c16s16 | ◐ | Uffizi çoğu yerde ilk modern müze diye anılır; oysa Roma'daki Capitoline ondan önce açılmıştı. | ◐ M3b:b78,b79,bm12 (Capitoline 1734 ekranda; "ilk modern müze" DENMEZ) |
-| c16s17 | ◐ | Medici'den Fugger'e, Fugger'den Rothschild'e uzanan zincir de bir benzetmeden ibaret; kurumsal süreklilik yok. | ◐ M1b:bM11 |
-| c16s18 | ◐ | Banka resmen 1494'te bitti; ama çözülme çok önceden, şube şube sürüyordu ve suçlu tek kişi değildi. | ◐ M1:K69,DÜZ#10; M1b:b58,U33,bM8,U31 ("1494'te battı" DENMEZ; resmen bitti) |
-| c16s19 | ◐ | Defterlerin bir kısmı bugün Floransa Devlet Arşivi'nde, bir kısmı Harvard'da. | ◐ M1:D50 |
-| c16s20 | ◐ | Banka öldü; kurumlar kaldı: Opificio delle Pietre Dure bugün de çalışıyor, Uffizi 1769'dan beri halka açık. | ◐ M3:Y13,K74,K72 |
-| c16s21 | — | Yol boyunca çürüttüğümüz hikâyeleri ekranda bir arada bırakıyoruz. | — (ekran: mit kapanış tablosu §3c; sessiz 6–8 sn) |
-| c16s22 | ◐ | Mezarı yakın zamanda açıldığında iç organları ayrı bir kapta bulundu; ölüm nedeni belirsiz kaldı. | ◐ M4b:b81,bM15 (açım Aralık 2012–Şubat 2013 ekranda; frengi izi yoktu — ekran notu) |
-| c16s23 | ◐ | Her 18 Şubat'ta Floransa, Anna Maria Luisa'yı tarihî bir alayla anar: Palazzo Vecchio'dan Medici Şapelleri'ndeki mezarına yürünür, o gün belediye müzeleri ücretsizdir. | ◐ M4b:b82 ("Elettrice Palatina günü"; 18 Şubat belediye müzeleri ücretsiz; Uffizi 31 Ekim ○ söylenmez) |
-| c16s24 | YORUM | Para gitti, banka gitti. | YORUM (kapanış K2 uyarlaması) |
-| c16s25 | ◐ | Kalan şey, bir kadının da imzaladığı bir cümle ve o kadını her yıl yürüyerek anan bir şehir. | ◐ b82 + YORUM |
+| c7s1 | ◐ | 26 Nisan 1478, bir pazar sabahı. | ◐ M2c:Y08 (gün = hesap bize ait; "Paskalya" DENMEZ; saat YOK) |
+| c7s2 | ◐ | Floransa'nın katedralinde, Santa Maria del Fiore'de, yüksek ayin yapılıyordu. | ◐ M2c:Y08; EI Pazzi |
+| c7s3 | ◐ | Ayin, şehre yeni gelmiş genç bir konuğun onuruna yapılıyordu: 17 yaşındaki Kardinal Raffaele Riario, Papa'nın akrabası. | ◐ 17 yaş DBI Riario; "onuruna" Enc. machiavelliana; akrabalık M2:K41 ○ ("kardinal yönetti" söylenmez) |
+| c7s4 | ◐ | Floransa'yı Cosimo'dan beri, hiçbir unvan taşımadan, bir bankacı ailesi yönetiyordu: Medici. | ◐ M2:K11, C3.7 (Parça 2 özeti) |
+| c7s5 | ○ | 1474'te Papa IV. Sixtus, papalığın bankerliğini Medici'den alıp Pazzi'ye verdi; iki yıl sonra şap tekelinin de aynı yoldan gittiği yazılır. | ◐ 1474 M1b:b21,U14 / ○ Haz 1476 M1b:b23 ("yazılır") |
+| c7s6 | ◐ | Lorenzo, Papa'nın yeğeni Girolamo Riario'nun Imola'yı alması için para vermemiş, Salviati'nin Pisa başpiskoposluğuna girmesini de iki yıl engellemişti. | ◐ M1b:b21 (tutar söylenmez); M2c:Y01 DBI Salviati (kin = iç dünya DEĞİL) |
+| c7s7 | ◐ | 1477'de Girolamo Riario, Başpiskopos Salviati ve Pazzi'lerden Francesco, Lorenzo'yla Giuliano'yu ortadan kaldırmak için anlaştı. | ◐ M2c:Y05 EdP/DBI Salviati |
+| c7s8 | ◐ | İlk planın bir ziyafette uygulanacağı, Giuliano gelmeyince saldırının kiliseye kaydırıldığı anlatılır. | ◐ çekirdek, ayrıntı ÇELİŞİR M2c:Y09,D55 (gün/yer söylenmez) |
+| c7s9 | ◐ | Lorenzo'yu öldürmekle görevli paralı asker Montesecco, kilisede kan dökmeyi reddetti. | ◐ M2c:Y10 DBI Montesecco |
+| c7s10 | ◐ | Yerine aceleyle iki papaz seçildi: Antonio Maffei ve Stefano da Bagnone; Treccani bu değişikliği planın kısmen çökmesinin nedenlerinden sayar. | ◐ DBI Montesecco özet tırnağı ("Treccani'ye göre") |
+| c7s11 | ◐ | Stefano, Jacopo de' Pazzi'nin kızına Latince öğreten papazdı. | ◐ Machiavelli VIII özeti (opsiyonel; kurbana alay YOK) |
+| c7s12 | ◐ | Kilise doluydu, ayin başlamıştı; Giuliano ise henüz gelmemişti. | ◐ M2c:Y11 Machiavelli VIII özeti |
+| c7s13 | ◐ | Francesco de' Pazzi ile Bernardo Bandini onun evine gidip dil dökerek onu kiliseye getirdi. | ◐ Machiavelli özeti "preghi e arti"; M2:K45 |
+| c7s14 | ◐ | Yol boyunca şakalaştıkları, Francesco'nun sarılır gibi yapıp Giuliano'nun giysisinin altında zırh olup olmadığını yokladığı anlatılır. | ◐ M2:K45/C7.2 ("anlatılır") |
+| c7s15 | ◐ | İşaret konusunda anlatılar ayrışır: kimi ayini yöneten papazın komünyon alışını söyler, kimi ekmeğin kaldırıldığı anı. | ◐ ↔ ◐ M2c:T1,D56 (Poliziano'ya atıf YOK) |
+| c7s16 | ◐ | Ekmek kaldırılırken herkesin diz çökmesi gelenekti. | ◐ liturji bilgisi (opsiyonel) |
+| c7s17 | ◐ | Bandini kısa bir silahı Giuliano'nun göğsüne sapladı; Giuliano birkaç adım gidip düştü. | ◐ M2c:Y14 Machiavelli VIII özeti (kan gösterilmez) |
+| c7s18 | ◐ | Francesco üstüne kapanıp defalarca vurdu; yara sayısı 19 diye sayılır. | ◐ 19: Wikipedia, Gardner/Staley, Magenta; 18 bir kaynakta M2c:Y15 |
+| c7s19 | ◐ | Giuliano 24 yaşındaydı. | ◐ M5:D24 (25/16 yanlış) |
+| c7s20 | ◐ | Aynı anda Lorenzo'ya iki papaz saldırdı. | ◐ M2c:Y16 EI + DBI Lorenzo + Gardner |
+| c7s21 | ◐ | Lorenzo boynundan hafifçe yaralandı, kendini savundu ve sakristiye kaçtı. | ◐ M2c:Y16 ("kılıç çekti", "pelerin kolunda" söylenmez) |
+| c7s22 | ◐ | Dostlarının, Michelozzo ve Luca della Robbia'nın tunç kapısını arkasından kapattığı anlatılır; aralarında şair Poliziano da vardı. | ◐ Gardner + Britannica; adlar ÇELİŞİR M2c:T3 ("anlatılır") |
+| c7s23 | ◐ | Onu korumaya çalışan arkadaşı Francesco Nori, Bandini'nin hançerinden öldü. | ◐ Gardner + Staley + M2:C7.6 |
+| c7s24 | ◐ | Giuliano'nun bedeni, katedralin papazları gelip toplayana dek yerde yattı. | ◐ M2c:Y19 DBI Lorenzo özeti |
+| c7s25 | ◐ | Genç kardinal tutuklandı; halkın elinden kurtuldu ve haftalarca rehin kaldı. | ◐ M2c:Y20 DBI Riario + Enc. machiavelliana (12 Haziran söylenmez) |
+| c7s26 | ◐ | Aynı sırada Palazzo Vecchio'da Başpiskopos Salviati, bir grup adamla cumhuriyetin başı olan gonfaloniereyi öldürüp sarayı almaya çalışıyordu. | ◐ M2c:Y21 DBI Salviati ("≈30 adam" söylenmez; Petrucci'nin "şişi" YOK) |
+| c7s27 | ◐ | Gonfaloniere Cesare Petrucci hileyi sezip alarm verdi; Salviati'nin adamları sarayda bir odada kapana kısıldı. | ◐ DBI Salviati + Reumont |
+| c7s28 | ◐ | Jacopo de' Pazzi, yüz kadar silahlı adamla meydana gelip halkı ve özgürlüğü yardıma çağırdı. | ◐ M2c:Y22 Machiavelli VIII özeti + Reumont |
+| c7s29 | ◐ | Machiavelli'ye göre karşılık veren çıkmadı: halkı Medici'nin talihi ve cömertliği sağır etmişti, özgürlüğü ise Floransa pek tanımıyordu. | ◐ özet tırnağı; çeviri bize ait ("Machiavelli'ye göre") |
+| c7s30 | ◐ | Sokaklarda ise Medici armasındaki toplara gönderme yapan “palle, palle” sesleri yükseliyordu; bunu Guicciardini yazar. | ◐ Guicciardini IV özet tırnağı M2c:Y23,D52 (Machiavelli'den DEĞİL) |
+| c7s31 | ◐ | Lorenzo'nun silahlı gençlerin koruması altında Medici Sarayı'na götürüldüğü, yaralı boynuyla pencerede göründüğü ve alkışlandığı anlatılır. | ◐ Gardner + Reumont (19. yy.) M2c:Y24 ("anlatılır") |
+| c7s32 | ◐ | Salviati, başpiskoposluk giysileriyle Palazzo Vecchio'nun penceresinden asıldı; yanına Francesco de' Pazzi getirildi. | ◐ M2c:Y25 DBI Salviati + DBI Francesco (asılı beden gösterilmez) |
+| c7s33 | ANEKDOT | Poliziano'ya göre Salviati, can çekişirken dişlerini Francesco'nun göğsüne geçirdi. | ANEKDOT ◐ DBI Salviati özeti ("cannibalism") + Weinstein; D51 (alaysız, tek cümle) |
+| c7s34 | ◐ | O gün yaklaşık otuz kişi daha idam edildi; aralarında Salviati'nin kardeşi de vardı. | ◐ M2c:Y26 DBI Lorenzo özeti ("daha" okuması teyit) + EI |
+| c7s35 | ◐ | Kalabalık başkalarını kendi eliyle öldürdü. | ◐ M2c:Y26 EI |
+| c7s36 | ○ | Jacopo kaçtı, birkaç gün içinde yakalanıp asıldı; cesedinin sonraki pazar mezardan çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır. | ◐ olgu / ○ gün 27–29 / ○ ceset tek DBI M2c:Y27,Y28,D52,D53 ("yazılır") |
+| c7s37 | ◐ | Toplamda seksenden fazla kişinin öldüğü de yazılır. | ◐ M2:§3 (tek sayı verilmez) |
+| c7s38 | YORUM | Bu işte Papa'nın payı bugün de tartışılır; iki taraf iki ayrı hikâye anlattı. | YORUM + ◐ M2c:T2 |
+| c7s39 | ◐ | Floransa, Montesecco'nun hapisteyken, idamından kısa süre önce yazdığı itirafı yayımlayıp Papa'yı suçladı. | ◐ M2c:Y32 DBI Montesecco + Excusatio (öz-bildirim niteliği söylenir) |
+| c7s40 | ◐ | Roma, Papa'nın bu işle ilgisini reddetti ve Lorenzo'yu aforoz etti; gerekçe, bir başpiskoposun kilise mahkemesine çıkarılmadan asılmasıydı. | ◐ M2c:Y35 EdP + DBI Salviati (düz ton; tarih c8'de) |
+| c7s41 | ◐ | Treccani'ye göre Papa komployu büyük olasılıkla biliyordu; iki kardeşin öldürülmesini isteyip istemediği ise belli değil. | ◐ EI Pazzi + DBI Sisto IV M2c:T2 ("Treccani'ye göre"; Papa'nın "sözü" YOK) |
+| c7s42 | ◐ | 2023'te ortaya çıktığı anlatılan Maffei itirafı, Papa'yı, Napoli Kralı'nı ve Urbino Dükü'nü teşvikçi diye anar; ama o da zorla yazılmış olabilir. | ◐ M2:C7.11 (opsiyonel; "anlatılır"; kardinalin habersizliği söylenmez) |
+| c7s43 | YORUM | Üstelik bu anlatıların çoğu Medici'nin süzgecinden geçti; Pazzi'lerin kendi sesi bu kaynaklarda yok. | YORUM + ◐ M2c genel kaynak uyarısı (Poliziano, Excusatio, Machiavelli, itiraflar) |
+| c7s44 | ◐ | Giuliano 30 Nisan'da San Lorenzo'ya gömüldü. | ◐ M2c:Y30 DBI Giuliano |
+| c7s45 | ◐ | Saldırıdan tam bir ay sonra, 26 Mayıs'ta, Giuliano'nun gayrimeşru oğlu Giulio doğdu. | ◐ M2c:Y34; M5:K24,P12 (Clemens adı c11'de) |
+| c7s46 | ◐ | O sabah bir de bronza döküldü: Bertoldo'ya atfedilen bir madalyanın bir yüzünde Lorenzo, ötekinde Giuliano var; yazılar “Halkın Esenliği” ve “Halkın Yası”. | ◐ NGA + V&A M2c:Y40 (atıf ○; çeviri bize ait) |
+| c7s47 | YORUM | Lorenzo yaşıyordu; ama Floransa'nın Papa'yla barışı o sabah ölmüştü. | YORUM (K1 — bölümde tek 'tanrısal kesinlik' hakkı) |
 

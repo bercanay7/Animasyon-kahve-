@@ -1,0 +1,347 @@
+{
+ "surum": 1,
+ "parca": 4,
+ "bolumler": [
+  "c8",
+  "c9"
+ ],
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c8-belge",
+   "bolum": "c8",
+   "ad": "paper_rustle",
+   "capa": [
+    "c8s2",
+    "belgeleri",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c8-hazine",
+   "bolum": "c8",
+   "ad": "coin_pile",
+   "capa": [
+    "c8s6",
+    "hazineyi",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2,
+   "seed": 7,
+   "not": "coin yığını boşalır (brif V2)"
+  },
+  {
+   "id": "c8-kasa-kapagi",
+   "bolum": "c8",
+   "ad": "knock_wood",
+   "capa": [
+    "c8s6",
+    "end",
+    0.0
+   ],
+   "seviye": -24,
+   "not": "ses köprüsü: kasa kapağı V3'e taşar"
+  },
+  {
+   "id": "c8-pisa-mektubu",
+   "bolum": "c8",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s8",
+    "yazıp",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.6
+  },
+  {
+   "id": "c8-napoli-yolu",
+   "bolum": "c8",
+   "ad": "sea_waves",
+   "capa": [
+    "c8s7",
+    "ayrılıp",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c8s9",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5
+  },
+  {
+   "id": "c8-pera",
+   "bolum": "c8",
+   "ad": "water_lap",
+   "capa": [
+    "c8s13",
+    "İstanbul'a",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c8s14",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "not": "Pera limanı"
+  },
+  {
+   "id": "c8-leonardo",
+   "bolum": "c8",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s20",
+    "çizdi",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.8,
+   "pan": 0.15,
+   "not": "Leonardo asılı adamı çizdi (kod çizimi; ses yalnız kalem)"
+  },
+  {
+   "id": "c8-bertoldo",
+   "bolum": "c8",
+   "ad": "knock_metal",
+   "capa": [
+    "c8s28",
+    "bronza",
+    0.0
+   ],
+   "seviye": -26,
+   "parametre": {
+    "n_hits": 3
+   },
+   "dur": 1.2
+  },
+  {
+   "id": "c8-otranto-deniz",
+   "bolum": "c8",
+   "ad": "sea_waves",
+   "capa": [
+    "c8s24",
+    "denizden",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c8s25",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c8-isik-1",
+   "bolum": "c8",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    0.0
+   ],
+   "seviye": -28
+  },
+  {
+   "id": "c8-isik-2",
+   "bolum": "c8",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    1.5
+   ],
+   "seviye": -28,
+   "seed": 2
+  },
+  {
+   "id": "c8-isik-3",
+   "bolum": "c8",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    3.2
+   ],
+   "seviye": -29,
+   "seed": 3
+  },
+  {
+   "id": "c8-isik-4",
+   "bolum": "c8",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    5.2
+   ],
+   "seviye": -30,
+   "seed": 4
+  },
+  {
+   "id": "c8-isik-5",
+   "bolum": "c8",
+   "ad": "candle_snuff",
+   "capa": [
+    "c8s34",
+    "Londra",
+    7.6
+   ],
+   "seviye": -31,
+   "seed": 5,
+   "not": "şube ışıkları birer birer söner (lavta notalarıyla eşzamanlı)"
+  },
+  {
+   "id": "c9-kredi",
+   "bolum": "c9",
+   "ad": "coin_clink",
+   "capa": [
+    "c9s8",
+    "teminatsız",
+    0.0
+   ],
+   "seviye": -24,
+   "pan": 0.2,
+   "seed": 8
+  },
+  {
+   "id": "c9-brugge",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s10",
+    "end",
+    -0.6
+   ],
+   "seviye": -22,
+   "parametre": {
+    "pitch": 1.0
+   }
+  },
+  {
+   "id": "c9-londra",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s13",
+    "end",
+    -0.6
+   ],
+   "seviye": -22,
+   "seed": 2,
+   "parametre": {
+    "pitch": 0.95
+   }
+  },
+  {
+   "id": "c9-milano",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Milano",
+    0.0
+   ],
+   "seviye": -22,
+   "seed": 3,
+   "parametre": {
+    "pitch": 0.92
+   }
+  },
+  {
+   "id": "c9-avignon",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Avignon",
+    0.0
+   ],
+   "seviye": -23,
+   "seed": 4,
+   "parametre": {
+    "pitch": 0.88
+   }
+  },
+  {
+   "id": "c9-brugge2",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Brugge",
+    0.0
+   ],
+   "seviye": -24,
+   "seed": 5,
+   "parametre": {
+    "pitch": 0.84
+   }
+  },
+  {
+   "id": "c9-venedik",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s14",
+    "Venedik",
+    0.0
+   ],
+   "seviye": -25,
+   "seed": 6,
+   "parametre": {
+    "pitch": 0.8
+   }
+  },
+  {
+   "id": "c9-yagma",
+   "bolum": "c9",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c9s23",
+    "Kalabalık",
+    0.0
+   ],
+   "seviye": -29,
+   "bitis_capa": [
+    "c9s23",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4,
+   "not": "Kalabalık bahçelere daldı (sözsüz; şiddet sesi yok)"
+  },
+  {
+   "id": "c9-kayyum-muhru",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s24",
+    "kayyumlara",
+    0.0
+   ],
+   "seviye": -20,
+   "not": "KAYYUM mührü (brif §7)"
+  }
+ ]
+}

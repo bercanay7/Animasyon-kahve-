@@ -118,18 +118,24 @@ Her bölümün kendi **renk anahtarı** vardır (yönetmen kartında yazılır):
 
 ## 9. Parça planı ("part part") ve kanca/kapı
 
-Süre ≈68 dk (tahmin) → **3 parça** (her biri tek başına izlenebilir, Şarlken'e yakın uzunlukta, bölüm kapıları kanca olarak seçilir):
+Süre ≈68 dk → **7 parça, her biri ≈10 dk** (kullanıcı kararı, 19 Ekim 2026; eski 3×≈24 dk planın yerini aldı). Kesim noktaları bölüm sınırlarıdır; her bölümün son cümlesi zaten bir kapıdır (parça kancası):
 
-| Parça | Perde | Bölümler | ≈dk | Kapanış kapısı |
-|---|---|---|---:|---|
-| **1 — Altın** | I ALTIN | c0 + c1–c6 | ≈26 | Giuliano'ya gölge; "26 Nisan 1478" kapısı |
-| **2 — Bedel** | II BEDEL | c7–c11 | ≈23,5 | Alessandro'nun sonu; "17 yaşında bir çocuk" kapısı |
-| **3 — Miras** | III MİRAS | c12–c16 | ≈19,5 | 1743 kapanışı; "hiçbir şey buradan çıkmayacak" |
+| Parça | Bölümler | ≈dk | Bindirme adı | Kapanış kapısı |
+|---|---|---:|---|---|
+| **1** | c0–c2 | 9,9 | ALTIN FLORİN | Cosimo'nun kuledeki hücresi (kapı: "…bir hücreye kapatılacaktı") |
+| **2** | c3–c5 | 10,6 | KULE, KUBBE, KİTAP | "Şimdi listenin sahibine, Lorenzo'ya bakalım." |
+| **3** | c6–c7 | 9,2 | LORENZO VE 26 NİSAN | Katedral; "Floransa'nın Papa'yla barışı o sabah ölmüştü." |
+| **4** | c8–c9 | 7,3 | ASLANIN İNİ, KAPANAN DEFTER | "Bir kralın Alpler'i aşmasıyla, bir rahibin vaazlarıyla." |
+| **5** | c10–c11 | 9,8 | RAHİP, KRAL, PAPALAR | "…otuz yedi yıl hüküm sürecekti. Nasıl?" |
+| **6** | c12–c13 | 9,2 | DÜK VE İKİ KRALİÇE | "…adını gökyüzüne yazdırıyordu." |
+| **7** | c14–c16 | 9,3 | YILDIZLAR VE HESAP | 1743 odası; "…her yıl yürüyerek anan bir şehir." |
 
-- Parça 2 **c7 ile açılır** (soğuk açılış = videonun en güçlü sahnesi); önceki parçanın özeti anlatının ilk cümlelerine gömülür ("Floransa'nın en zengin ailesi…"), ayrı "önceki bölümde" bandı **yok** (izleyiciyi kaybettirir). Parça 3 **c12 ile açılır**; Parça 3'ün ilk 30 sn'sinde 1743 odasına iki çekimlik gönderme (c16'daki dönüşü hazırlar).
-- Her parçanın **bitiş ekranı:** sol "SIRADAKİ PARÇA" (bir sonraki parça kapağı/fragmanı), sağ "ABONE OL"; Parça 3'te sol "TÜM FİLM / ÖNCEKİ PARÇALAR". Parça sonu 20 sn: ağırlık merkezi bir vuruş + sessiz kapanış + bitiş ekranı.
-- Yayın: Parça 1 → +7 gün Parça 2 → +7 gün Parça 3 (kadans kararı sonuç verisiyle ayarlanır); Parçalar tek **oynatma listesi**; her parçanın başlığı ve kapağı kendi içinde bağımsız; sonda isteğe bağlı **Tam Film** (≈68 dk, parçalar peş peşe) ayrı yüklenir.
-- Perde etiketi her parçanın ilk bölüm kartında: "PERDE I — ALTIN" (c1), "PERDE II — BEDEL" (c7), "PERDE III — MİRAS" (c12).
+- **Perde (ALTIN/BEDEL/MİRAS) parçadan bağımsız, bölüm bazlıdır** (c0–c6 / c7–c11 / c12–c16): ışık/renk/HUD/müzik paleti perdeye göre. Perde etiketi (PERDE II — BEDEL gibi) tam film modunda bölüm kartlarında görünür (c1, c7, c12).
+- **Parça açılışı (P2…P7) soğuktur:** ilk bölüm t=0'da başlar, bölüm kartı yok; ilk çekimin ÜZERİNDE 1,2–4,8 sn "MEDİCİ / PARÇA N — ad" bindirmesi (Program ekler; sahne yazarı ilk çekimin orta bandını boş bırakır). "Önceki bölümde" bandı yok. Parçanın ilk 15 sn'si bağımsız izleyiciye yeter: her parça kendi tarih/yer/kişi bağlamını ilk iki cümlede verir (script'ler bunu yapar; sahne yazarı yıl/yer etiketiyle destekler).
+- **Parça içi bölüm geçişleri** normal bölüm kartıdır (3 sn sessizlik, ≤2,5 sn yazı).
+- Her parçanın **bitiş ekranı** (7 sn): sol "SIRADAKİ PARÇA", sağ "ABONE OL"; P7'de sol "TÜM FİLM". Parça sonu: ağırlık merkezi bir vuruş + sessiz kapanış + bitiş ekranı.
+- Yayın: haftada 1 parça (7 hafta) ya da kanal verisine göre hafta başı 2 parça; tek **oynatma listesi**; her parçanın başlığı/kapağı kendi içinde bağımsız; sonda isteğe bağlı **Tam Film** (≈68 dk) ayrı yüklenir.
+- Parça sınırları kod tarafında tek yerde: `script.PARTS` (compose, parca, ses_birlestir, is_emri, miks hepsi buradan okur).
 
 ## 10. Ölçülebilir kapılar (`qa_flow.py`; her bölümde ve parçada çalışır)
 

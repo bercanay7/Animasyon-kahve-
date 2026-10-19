@@ -63,14 +63,17 @@ medici-uzun-dosya/out_p*/frames/
 medici-uzun-dosya/out_p*/_cache/
 medici-uzun-dosya/out_p*/_audio_cache/
 medici-uzun-dosya/out_p*/audio_prev/
-medici-uzun-dosya/out_p*/asr_cache.json
 medici-uzun-dosya/out_base/
 medici-uzun-dosya/yayin/*.png
 medici-uzun-dosya/yayin/*.mp4
 medici-uzun-dosya/teslim_parcalar/
 medici-uzun-dosya/out/
-medici-uzun-dosya/out_p1/
-medici-uzun-dosya/out_p2/
-medici-uzun-dosya/out_p3/
 medici-uzun-dosya/isemri/
 medici-uzun-dosya/ses_ham/GECICI.json
+
+# Medici: 3 parçalı eski ara çıktılar ve Tam Film birleşimi (büyük, yeniden üretilebilir)
+medici-uzun-dosya/out_eski3/**/*.wav
+medici-uzun-dosya/out_eski3/**/*.mp3
+medici-uzun-dosya/out_tam/
+medici-uzun-dosya/out_p*/*.flac
+medici-uzun-dosya/out_eski3/**/*.m4a

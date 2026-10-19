@@ -3,7 +3,7 @@
 
   python3 qa_flow.py --reel                     # reel (preview_reel.py) üzerinde: statik + örnekleme analizi
   python3 qa_flow.py --reel --fast              # yalnız statik analiz (hızlı; kare çizmez)
-  python3 qa_flow.py --part 2 [--fast]          # Parça 2 (c7–c11)        · --chapters c3,c4  yalnız bu bölümler · (bayraksız: tüm film)
+  python3 qa_flow.py --part 2 [--fast]          # Parça 2 (c3–c5)        · --chapters c3,c4  yalnız bu bölümler · (bayraksız: tüm film)
   python3 qa_flow.py --reel --video out/reel_yonetmen.mp4   # + ffmpeg freezedetect (n=-55dB d=1 s)
   python3 qa_flow.py --calibrate                # durgunluk eşiği τ'yu ölçerek kalibre et (sabit çekim + reel)
 Seçenekler: --workers 2 (≤4), --tau 0.40, --json out/qa_flow.json, --quiet. Python'dan: qa_flow.run(prog, fast=False, workers=2, spec=…) / qa_flow.main([...]).
@@ -642,7 +642,7 @@ def calibrate(workers=2):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="MEDICI yönetmenlik kapıları (qa_flow)")
     ap.add_argument("--reel", action="store_true")
-    ap.add_argument("--part", type=int, choices=(1, 2, 3))
+    ap.add_argument("--part", type=int, choices=tuple(range(1, 8)))
     ap.add_argument("--chapters", default=None)
     ap.add_argument("--fast", action="store_true")
     ap.add_argument("--workers", type=int, default=2)

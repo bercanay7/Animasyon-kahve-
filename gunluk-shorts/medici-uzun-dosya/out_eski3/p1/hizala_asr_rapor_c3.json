@@ -1,0 +1,250 @@
+{
+ "bolumler": {
+  "c3": {
+   "jeton": 386,
+   "jeton_eslesen": 380,
+   "jeton_oran": 0.9845,
+   "asr_sozcuk": 386,
+   "asr_eslesen": 379,
+   "asr_oran": 0.9819,
+   "kosu": 111,
+   "kanitli_kosu": 111,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 0,
+   "hmm_kosu": 111,
+   "model": {
+    "hece": 0.1305,
+    "soz": 0.0455,
+    "sabit": 0.1222,
+    "sigma": 0.116
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [],
+   "eslesmeyen_bolgeler": [],
+   "kosu_bilgi": {
+    "p95": -18.395619177639873,
+    "thr": -52.39561917763987,
+    "n_ham": 120,
+    "n_gurultu": 6,
+    "n_parca": 3,
+    "n_bolunen": 0
+   }
+  }
+ },
+ "uyarilar": [],
+ "cumleler": {
+  "c3s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 3
+  },
+  "c3s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 4,
+   "run_b": 6
+  },
+  "c3s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 7,
+   "run_b": 7
+  },
+  "c3s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 8,
+   "run_b": 9
+  },
+  "c3s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 10,
+   "run_b": 13
+  },
+  "c3s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 14,
+   "run_b": 16
+  },
+  "c3s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 17,
+   "run_b": 22
+  },
+  "c3s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 23,
+   "run_b": 27
+  },
+  "c3s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 28,
+   "run_b": 29
+  },
+  "c3s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 31
+  },
+  "c3s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 32,
+   "run_b": 34
+  },
+  "c3s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 40
+  },
+  "c3s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 41,
+   "run_b": 44
+  },
+  "c3s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 46
+  },
+  "c3s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 47,
+   "run_b": 48
+  },
+  "c3s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 49,
+   "run_b": 53
+  },
+  "c3s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 54,
+   "run_b": 57
+  },
+  "c3s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 58,
+   "run_b": 58
+  },
+  "c3s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 59,
+   "run_b": 62
+  },
+  "c3s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 63,
+   "run_b": 66
+  },
+  "c3s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 67,
+   "run_b": 69
+  },
+  "c3s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 70,
+   "run_b": 72
+  },
+  "c3s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 73,
+   "run_b": 74
+  },
+  "c3s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 75,
+   "run_b": 77
+  },
+  "c3s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 78,
+   "run_b": 82
+  },
+  "c3s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 83,
+   "run_b": 84
+  },
+  "c3s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 85,
+   "run_b": 90
+  },
+  "c3s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 91,
+   "run_b": 96
+  },
+  "c3s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 97,
+   "run_b": 99
+  },
+  "c3s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 100,
+   "run_b": 101
+  },
+  "c3s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 102,
+   "run_b": 106
+  },
+  "c3s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 107,
+   "run_b": 107
+  },
+  "c3s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 108,
+   "run_b": 110
+  }
+ },
+ "toplam": {
+  "jeton": 386,
+  "jeton_eslesen": 380,
+  "asr_sozcuk": 386,
+  "asr_eslesen": 379,
+  "kosu": 111,
+  "jeton_oran": 0.9845,
+  "asr_oran": 0.9819,
+  "cumle": 33,
+  "cumle_t0_durakta": 33,
+  "cumle_t1_durakta": 33
+ },
+ "scribe_md5": "2405cd069897274d4ccc007bdb245ec0",
+ "uretim": "2026-10-18 20:44:47"
+}

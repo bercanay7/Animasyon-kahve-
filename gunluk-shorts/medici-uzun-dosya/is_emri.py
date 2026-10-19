@@ -17,7 +17,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import script as S  # noqa: E402
 
-PERDE = {1: "ALTIN", 2: "BEDEL", 3: "MİRAS"}
+def PERDE_CH(cid):
+    n = int(cid[1:])   # perde bölüm bazlı: ALTIN c0–c6 · BEDEL c7–c11 · MİRAS c12–c16
+    return "ALTIN" if n < 7 else ("BEDEL" if n < 12 else "MİRAS")
 CHIDS = [c["id"] for c in S.CHAPTERS]
 
 
@@ -58,12 +60,12 @@ def build(cid):
     first_in_part = S.PARTS[part][0] == cid
     last_in_part = S.PARTS[part][-1] == cid
     L = []
-    L.append(f"# İŞ EMRİ — {cid} · {ch['title']} ({ch['years']}) · PARÇA {part} · PERDE {PERDE[part]}")
+    L.append(f"# İŞ EMRİ — {cid} · {ch['title']} ({ch['years']}) · PARÇA {part}/{len(S.PARTS)} · PERDE {PERDE_CH(cid)}")
     L.append("")
     dur = (sents[-1]["t1"] - sents[0]["t0"]) if sents else 0
     L.append(f"- **Ruh hâli (script):** `{ch.get('mood')}` · **Sıra:** bölüm {idx + 1}/{len(CHIDS)}; parça içinde {S.PARTS[part].index(cid) + 1}/{len(S.PARTS[part])}"
              + (" · **PARÇA AÇILIŞI** (kart ayrı değil; ilk çekimde başlık bindirmesi; 'önceki bölümde' bandı YOK)" if first_in_part and part > 1 else "")
-             + (" · **PARÇA KAPANIŞI** (bitiş ekranı: " + ("ABONE OL + TÜM FİLM" if part == 3 else "SIRADAKİ PARÇA + ABONE OL") + ")" if last_in_part else ""))
+             + (" · **PARÇA KAPANIŞI** (bitiş ekranı: " + ("ABONE OL + TÜM FİLM" if part == len(S.PARTS) else "SIRADAKİ PARÇA + ABONE OL") + ")" if last_in_part else ""))
     L.append(f"- **Süre:** {dur:.0f} sn ({len(sents)} cümle) — ses: **{'GEÇİCİ (Piper; gerçek ElevenLabs sesi gelince zamanlar DEĞİŞİR → sahneleri cümle/sözcük ÇAPALARINA bağla, mutlak saniyeye değil)' if scratch else 'gerçek (ElevenLabs)'}**" if sents else "- **Süre:** timeline yok")
     if prev:
         pl = prev["paras"][-1][-1][0]

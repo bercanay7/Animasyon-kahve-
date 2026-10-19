@@ -970,8 +970,10 @@ def blend(kind, a, b, k, g=0.0, d=0.8, **opts):
 
 # ───────────────────────────── HUD ─────────────────────────────
 PERDE_NAMES = {1: "ALTIN", 2: "BEDEL", 3: "MİRAS"}
-PART_LABEL = {1: "PARÇA I — ALTIN", 2: "PARÇA II — BEDEL", 3: "PARÇA III — MİRAS"}
-ROMAN = {1: "I", 2: "II", 3: "III"}
+PART_LABEL = {1: "PARÇA I — ALTIN FLORİN", 2: "PARÇA II — KULE, KUBBE, KİTAP", 3: "PARÇA III — LORENZO VE 26 NİSAN",
+              4: "PARÇA IV — ASLANIN İNİ, KAPANAN DEFTER", 5: "PARÇA V — RAHİP, KRAL, PAPALAR", 6: "PARÇA VI — DÜK VE İKİ KRALİÇE",
+              7: "PARÇA VII — YILDIZLAR VE HESAP"}
+ROMAN = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII"}   # PERDE_NAMES için yalnız 1–3 kullanılır; PART_LABEL 1–7
 
 
 class YearState:
@@ -1095,5 +1097,6 @@ def part_title(f, t, part, t_in=1.2, t_out=4.8):
     ka = smooth((t - t_in - 0.55) / 0.7) * fo
     CM.flourish_rule(f, W / 2, cy + size * 0.30 + 44, 760, alpha=ka, color="#E9C770", grow=smooth((t - t_in - 0.55) / 0.9))
     lab = PART_LABEL.get(part, "")
-    f.text(lab, W / 2 + 3, cy + size * 0.30 + 118, face="title_m", size=50, color="#F8EBC0", align="c", track=15, alpha=ka, shadow=(2, 3, 6, "#120C06"))
+    lsz, ltr = (50, 15) if len(lab) <= 26 else ((42, 11) if len(lab) <= 34 else (36, 8))   # uzun parça adları 1920 px'e sığsın
+    f.text(lab, W / 2 + 3, cy + size * 0.30 + 118, face="title_m", size=lsz, color="#F8EBC0", align="c", track=ltr, alpha=ka, shadow=(2, 3, 6, "#120C06"))
     c.restore()

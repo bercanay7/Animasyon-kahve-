@@ -1,7 +1,7 @@
 """Zaman çizelgesi birleştirme + kare çizimi (MEDICI: geçişler, bölüm kartları, HUD = yıl rulosu + perde göstergesi, parça desteği).
 
     prog = Program()                    # tüm film (çekim listesi çözülmüş zamanlarla)
-    prog = Program(part=2)              # Parça 2 (c7–c11): c7 t=0'da başlar (bölüm kartı yok), ilk çekimde 4 sn başlık bindirmesi, bitiş ekranı "SIRADAKİ PARÇA"
+    prog = Program(part=2)              # Parça 2 (c3–c5): c3 t=0'da başlar (bölüm kartı yok), ilk çekimde 4 sn başlık bindirmesi, bitiş ekranı "SIRADAKİ PARÇA" (P1–P6; P7: "TÜM FİLM")
                                         #   parçanın kendi zaman çizelgesi (out_pN/timeline.json; parca.py) varsa o kullanılır; yoksa genel çizelge (t_off ile kaydırılır)
                                         #   part=None → MEDICI_PART ortam değişkeni ya da `out`→out_pN bağlantısı; part=0 → tam film
     prog = Program(shots=[...], end=T)  # çekim listesi (reel / qa_flow): çapasız, `a` = mutlak saniye; T = son çekimin bitişi
@@ -55,11 +55,13 @@ TITLES = {
     "c15": ("XV", "Son Medici'ler", "1587 – 1737", 1587),
     "c16": ("XVI", "Hesap", "1737 – bugün", 1737),
 }
-# perde = parça: I ALTIN (c0–c6), II BEDEL (c7–c11), III MİRAS (c12–c16)
+# perde (bölüm bazlı): I ALTIN (c0–c6), II BEDEL (c7–c11), III MİRAS (c12–c16). Yayın PARÇALARI (7 adet) ayrıdır: script.PARTS'tan gelir.
 PERDE_OF = {**{f"c{i}": 1 for i in range(0, 7)}, **{f"c{i}": 2 for i in range(7, 12)}, **{f"c{i}": 3 for i in range(12, 17)}}
 PERDE_FIRST = {"c1": 1, "c7": 2, "c12": 3}                     # perde etiketi bu bölüm kartında gösterilir (tam film modunda)
-PART_CHAPTERS = {1: [f"c{i}" for i in range(0, 7)], 2: [f"c{i}" for i in range(7, 12)], 3: [f"c{i}" for i in range(12, 17)]}
-PART_FIRST = {1: "c0", 2: "c7", 3: "c12"}
+import script as _S                                            # noqa: E402  (PARTS tek yerde tanımlı)
+PART_CHAPTERS = {p: list(cs) for p, cs in _S.PARTS.items()}
+PART_FIRST = {p: cs[0] for p, cs in PART_CHAPTERS.items()}
+N_PARTS = len(PART_CHAPTERS)
 HUD_SKIP = ("chapter_card", "fresco_title", "outro", "black")
 CARD_KINDS = ("chapter_card", "fresco_title", "outro", "black")
 PART_TITLE_IN, PART_TITLE_OUT = 1.2, 4.8                        # parça başlık bindirmesi: girer / çıkar (parça başından sn)
@@ -131,7 +133,7 @@ class Program:
         else:
             part = part or None
         if part is not None and part not in PART_CHAPTERS:
-            raise ValueError(f"part 1, 2 ya da 3 olmalı: {part!r}")
+            raise ValueError(f"part 1..{len(PART_CHAPTERS)} olmalı: {part!r}")
         self.part = part
         if shots is not None:
             try:
@@ -193,7 +195,7 @@ class Program:
         if last_id:
             last = vc[last_id]
             otr = getattr(self._chap_mod.get(last_id), "OUTRO_TR", None) or CARD_TR
-            self._add(SH.shot("outro", a=last["t1"], tr=otr, link="material", mode="night", perde=part or 3, part=part, label="bitiş ekranı"), last["t1"], last["t1"] + OUTRO)
+            self._add(SH.shot("outro", a=last["t1"], tr=otr, link="material", mode="night", perde=PERDE_OF.get(last_id, 3), part=part, label="bitiş ekranı"), last["t1"], last["t1"] + OUTRO)
         self.t_off = vc[pf]["t0"] if self._pf_in else 0.0
         self._finalize()
         # yıl çizelgesi: bölüm başlangıç yılı + sahne dosyasının YIL_AT listesi
@@ -300,8 +302,6 @@ class Program:
             return s.params["perde"]
         if not self.hud:
             return 2
-        if self.part:
-            return self.part
         cid = self._chapter_of(g)
         if cid is None and g < 0:
             cid = "c0"
@@ -422,7 +422,7 @@ class Program:
     # ---- HUD / kaplama
     def _overlay(self, f, g, s):
         tp = g - self.t_off
-        if self.part in (2, 3) and self._pf_in and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
+        if self.part and self.part >= 2 and self._pf_in and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
             FX.part_title(f, tp, self.part, PART_TITLE_IN, PART_TITLE_OUT)       # parça başlık bindirmesi (HUD'dan bağımsız)
         if s.kind in HUD_SKIP or not self.hud:
             return
@@ -442,7 +442,7 @@ class Program:
 # ───────────────────────────── kapanış çekimi ─────────────────────────────
 @CM.ckind("outro")
 def k_outro(cx, part=None, **_):
-    """Kapanış: palle arması + yaldız 'ZAMAN KURYESİ' + YouTube bitiş-ekranı yuvaları. Parça 1/2: sol 'SIRADAKİ PARÇA'; Parça 3: sol 'TÜM FİLM'; sağ 'ABONE OL · ZAMAN KURYESİ'.
+    """Kapanış: palle arması + yaldız 'ZAMAN KURYESİ' + YouTube bitiş-ekranı yuvaları. Parça 1–6: sol 'SIRADAKİ PARÇA'; son parça (7): sol 'TÜM FİLM'; sağ 'ABONE OL · ZAMAN KURYESİ'.
     part=None (tek parça / tam film): mevcut etiketler ('SIRADAKİ TESLİMAT')."""
     import cilt_orn as ORN
     import cilt_props as CP
@@ -457,7 +457,7 @@ def k_outro(cx, part=None, **_):
     CM.kick(f, "TESLİMAT TAMAM", W / 2, H * 0.27 + 62, alpha=cx.amt(1.0, 1.0) * out, size=30, track=18, color="#E6C472")
     CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5, glint=((cx.t * 0.30 + 0.2) % 2.2) if (cx.t * 0.30 + 0.2) % 2.2 < 1 else None)
     k = cx.amt(2.6, 0.9) * out
-    left = {1: "SIRADAKİ PARÇA", 2: "SIRADAKİ PARÇA", 3: "TÜM FİLM"}.get(part, "SIRADAKİ TESLİMAT")
+    left = ("TÜM FİLM" if part == N_PARTS else "SIRADAKİ PARÇA") if part else "SIRADAKİ TESLİMAT"
     right = "ABONE OL · ZAMAN KURYESİ" if part else "ABONE OL  ·  ZAMAN KURYESİ"
     br = 0.80 + 0.20 * (0.5 + 0.5 * math.sin(cx.t * 1.7))          # yuvaların çerçevesi hafif nefes alır (durağan değil)
     for (x, y, w, h, lab) in ((330, 640, 520, 292, left), (1070, 640, 520, 292, right)):

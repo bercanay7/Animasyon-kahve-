@@ -57,7 +57,8 @@ BASE_PRON = [
 PRON = list(BASE_PRON)
 CHAPTERS = []
 PART_OF = {}
-PARTS = {1: [f"c{i}" for i in range(0, 7)], 2: [f"c{i}" for i in range(7, 12)], 3: [f"c{i}" for i in range(12, 17)]}
+# YAYIN PARÇALARI (kullanıcı kararı, 19 Ekim 2026: ≈10 dk'lık 7 parça). Perde (ALTIN/BEDEL/MİRAS) bölüm bazlıdır, parçadan bağımsız.
+PARTS = {1: ["c0", "c1", "c2"], 2: ["c3", "c4", "c5"], 3: ["c6", "c7"], 4: ["c8", "c9"], 5: ["c10", "c11"], 6: ["c12", "c13"], 7: ["c14", "c15", "c16"]}
 for _p, _cs in PARTS.items():
     for _c in _cs:
         PART_OF[_c] = _p

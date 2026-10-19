@@ -14,7 +14,7 @@ sfx.py — "MEDICI" için tamamen sentezlenmiş SFX kütüphanesi + geçiş→se
 * Geçiş türü → ses eşlemesi: TRANSITION_MAP + transition_cues(); ses köprüsü / J-kesme kancaları: j_cut, l_cut, ses_koprusu.
 * JSON sözleşmesi (sfx_cues_pN.json): bkz. normalize_cue / resolve_cues ve notlar_ses.md.
 
-CLI: python3 sfx.py --list | --render ad [--out dosya.wav] | --all --out klasör | --katalog
+CLI: python3 sfx.py --list | --render ad [--out dosya.wav] [--dur sn] [--seed n] | --all --out klasör | --katalog | --gecis-ornegi
 """
 import argparse
 import os
@@ -1457,9 +1457,9 @@ def _whoosh_dir(rng, dur, dir="l", soft=False, **kw):
     return D.lp(x, 6500) if soft else x
 
 
-def _chapter_stinger_flavor(rng, dur, root=None, flavor="altin", **kw):
-    """Bölüm kartı vurgusu — perde rengine göre: altin (P1: sıcak org + lavta/çan parıltısı), bedel (P2: koyu — alçak org beşlisi + gamba + hafif gong, çan yok),
-    miras (P3: sakin — yumuşak org + üç notalık lavta hücresi)."""
+def _chapter_stinger_flavor(rng, dur, root=None, flavor="altin", gong=0.22, **kw):
+    """Bölüm kartı vurgusu — perde rengine göre: altin (c0–c6: sıcak org + lavta/çan parıltısı), bedel (c7–c11: koyu — alçak org beşlisi + gamba + hafif gong, çan yok),
+    miras (c12–c16: sakin — yumuşak org + üç notalık lavta hücresi). 'gong' (yalnız bedel): hafif gong payı; çan-yasaklı bölüm kartlarında (c7/c10/c13) miks.py gong=0 verir."""
     dur = dur or 2.6
     r = float(root or 146.83)
     n = _n(dur)
@@ -1473,7 +1473,7 @@ def _chapter_stinger_flavor(rng, dur, root=None, flavor="altin", **kw):
             x[:, 0] += y * gl
             x[:, 1] += y * gr
         g = D.gong_tone(r * 0.5, dur, 1.0, rng, bloom=1.0)
-        x += 0.22 * np.stack([g, g * 0.85], axis=1)
+        x += float(gong) * np.stack([g, g * 0.85], axis=1)
         return _room(x, 0.3, 2.0)[:n]
     if flavor == "miras":
         xo = _golden_chord(rng, r, dur, organ=0.7, gong=0.0, bell=0.0, attack=0.25, release=1.4, voicing=(0, 7, 12, 16))
@@ -1811,12 +1811,13 @@ def shots_from_program(prog):
 
 def sfx_hints_from_program(prog):
     """Çekimlere ileride eklenecek `sfx=` ipucu (shot(..., sfx=[...])). Her öğe: (ad, dt[, seviye]) demeti ya da cue sözlüğü.
-    dt / sözlükte 't': ÇEKİM BAŞINDAN saniye (mutlak istenirse sözlüğe "mutlak": true) ya da çapa listesi (["c7s17","sözcük",-0.1]).
+    dt / sözlükte 't': çekimin GÖRÜNÜR başlangıcından (Shot.t0; lead payı sayılmaz) saniye (mutlak parça saniyesi istenirse sözlüğe "mutlak": true) ya da çapa listesi (["c7s17","sözcük",-0.1]).
     Döner: ham cue listesi (resolve_cues girdisi). Çekimde `sfx` yoksa boş."""
     off = float(getattr(prog, "t_off", 0.0) or 0.0)
     raw = []
     for s in prog.shots:
-        for h in (getattr(s, "sfx", None) or []):
+        hints = getattr(s, "sfx", None) or (getattr(s, "params", None) or {}).get("sfx") or []      # Shot.sfx ya da shot(..., sfx=[...]) → Shot.params["sfx"]
+        for h in hints:
             if isinstance(h, dict):
                 c = dict(h)
                 if "t" in c and not c.pop("mutlak", False):
@@ -1836,6 +1837,8 @@ def sfx_hints_from_program(prog):
 def main():
     ap = argparse.ArgumentParser(description="SFX kütüphanesi")
     ap.add_argument("--list", action="store_true")
+    ap.add_argument("--katalog", action="store_true", help="Türkçe katalog: ad, grup, doğal süre, tepe (sentezleyip ölçer)")
+    ap.add_argument("--gecis-ornegi", action="store_true", help="geçiş türü → ses eşlemesinin örnek çıktısı (yapay çekim listesiyle)")
     ap.add_argument("--render")
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
@@ -1845,6 +1848,24 @@ def main():
     if a.list:
         for k in SFX_NAMES:
             print(k + ("  [döngü]" if k in LOOPABLE else ""))
+        return
+    if a.katalog:
+        print(f"{'ad':18s} {'Türkçe':44s} {'grup':16s} süre(sn)  not")
+        for k in SFX_NAMES:
+            tr, grup = CATALOG.get(k, ("", ""))
+            x = sfx(k, 0)
+            nt = "döngü (8 sn dikişsiz)" if k in LOOPABLE else ""
+            if k in ALWAYS_AVOID:
+                nt = "KULLANMA: " + ALWAYS_AVOID[k]
+            elif k in _BELLS:
+                nt = "c7/c10/c13'te olay sesi olarak YASAK"
+            print(f"{k:18s} {tr:44s} {grup:16s} {len(x) / SR:7.2f}  {nt}")
+        return
+    if a.gecis_ornegi:
+        shots = [dict(t0=10.0 * i, t1=10.0 * i + 10, tr=(n, 1.0 if n not in ("candle", "light", "dip") else 2.4, {}), link=None, kind="demo", label=f"deneme {n}")
+                 for i, n in enumerate(k for k, v in TRANSITION_MAP.items())]
+        for c in transition_cues(shots, chapter_of=lambda t: None):
+            print(f"t={c['t']:7.2f}  {c['name']:15s} {c['gain_db']:+6.1f} dB  dur={c['dur']}  {c['params']}  — {c['note']}")
         return
     if a.all:
         out = a.out or "sfx_out"

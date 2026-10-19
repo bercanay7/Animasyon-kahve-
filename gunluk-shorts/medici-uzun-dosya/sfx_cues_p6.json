@@ -1,0 +1,315 @@
+{
+ "surum": 1,
+ "parca": 6,
+ "bolumler": [
+  "c12",
+  "c13"
+ ],
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c12-senato-karari",
+   "bolum": "c12",
+   "ad": "quill_scratch",
+   "capa": [
+    "c12s2",
+    "yazıya",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.4
+  },
+  {
+   "id": "c12-evlilik-sozlesmesi",
+   "bolum": "c12",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c12s6",
+    "Sözleşme",
+    0.0
+   ],
+   "seviye": -21,
+   "seed": 11
+  },
+  {
+   "id": "c12-vasari-koridoru",
+   "bolum": "c12",
+   "ad": "footsteps",
+   "capa": [
+    "c12s14",
+    "koridora",
+    0.0
+   ],
+   "seviye": -26,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 8,
+    "pace": 0.6
+   },
+   "not": "Vasari Koridoru (kapalı yol)"
+  },
+  {
+   "id": "c12-santo-stefano-deniz",
+   "bolum": "c12",
+   "ad": "sea_waves",
+   "capa": [
+    "c12s16",
+    0.0
+   ],
+   "seviye": -30,
+   "bitis_capa": [
+    "c12s18",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5
+  },
+  {
+   "id": "c12-kadirga-halat",
+   "bolum": "c12",
+   "ad": "rope_creak",
+   "capa": [
+    "c12s18",
+    "gemileriyle",
+    0.0
+   ],
+   "seviye": -28,
+   "dur": 2.4
+  },
+  {
+   "id": "c12-lepanto-deniz",
+   "bolum": "c12",
+   "ad": "sea_waves",
+   "capa": [
+    "c12s32",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c12s33",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 2.0,
+   "not": "Lepanto: saygılı-nötr; top/zafer sesi YOK"
+  },
+  {
+   "id": "c13-marsilya-liman",
+   "bolum": "c13",
+   "ad": "water_lap",
+   "capa": [
+    "c13s1",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c13s5",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "not": "V1→V2: deniz ve halat sesi yumuşak davula dönüşür"
+  },
+  {
+   "id": "c13-halat",
+   "bolum": "c13",
+   "ad": "rope_creak",
+   "capa": [
+    "c13s4",
+    "Marsilya",
+    0.0
+   ],
+   "seviye": -27,
+   "dur": 2.2
+  },
+  {
+   "id": "c13-gelin-alayi",
+   "bolum": "c13",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c13s3",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c13s4",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4
+  },
+  {
+   "id": "c13-turnuva",
+   "bolum": "c13",
+   "ad": "horse_hooves",
+   "capa": [
+    "c13s7",
+    "turnuvada",
+    -0.4
+   ],
+   "seviye": -23,
+   "dur": 2.8,
+   "parametre": {
+    "kind": "gallop"
+   },
+   "not": "iki atlı koşar; çarpışma anında kesilir (dip + sessizlik); çarpışma sesi YOK"
+  },
+  {
+   "id": "c13-v5-ilk-ses",
+   "bolum": "c13",
+   "ad": "paper_rustle",
+   "capa": [
+    "c13s15",
+    0.0
+   ],
+   "seviye": -23,
+   "dur": 1.8,
+   "not": "1572 sessizliğinden sonra ilk ses: kâğıt hışırtısı (brif V4→V5)"
+  },
+  {
+   "id": "c13-damga-catal",
+   "bolum": "c13",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "çatalı",
+    0.6
+   ],
+   "seviye": -19
+  },
+  {
+   "id": "c13-damga-dondurma",
+   "bolum": "c13",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "dondurmayı",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 2
+  },
+  {
+   "id": "c13-damga-topuk",
+   "bolum": "c13",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "ayakkabıyı",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 3
+  },
+  {
+   "id": "c13-damga-parfum",
+   "bolum": "c13",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "parfümü",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 4
+  },
+  {
+   "id": "c13-damga-zehir",
+   "bolum": "c13",
+   "ad": "stamp_thud",
+   "capa": [
+    "c13s17",
+    "zehri",
+    0.6
+   ],
+   "seviye": -19,
+   "seed": 5
+  },
+  {
+   "id": "c13-gercek-muhru",
+   "bolum": "c13",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c13s21",
+    "gerçek",
+    0.5
+   ],
+   "seviye": -19,
+   "not": "balet: damgasız, altın GERÇEK mührü"
+  },
+  {
+   "id": "c13-ecu-yuvarlanir",
+   "bolum": "c13",
+   "ad": "coin_roll",
+   "capa": [
+    "c13s25",
+    "Çeyiz",
+    0.0
+   ],
+   "seviye": -22,
+   "not": "écu yuvarlanır (brif V7)"
+  },
+  {
+   "id": "c13-marsilya-1600",
+   "bolum": "c13",
+   "ad": "water_lap",
+   "capa": [
+    "c13s27",
+    0.0
+   ],
+   "seviye": -29,
+   "bitis_capa": [
+    "c13s27",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c13-galeri",
+   "bolum": "c13",
+   "ad": "footsteps",
+   "capa": [
+    "c13s32",
+    0.0
+   ],
+   "seviye": -28,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 7,
+    "pace": 0.7
+   },
+   "not": "Rubens galerisi: dolly (uzak adımlar)"
+  },
+  {
+   "id": "c13-koln-adimlar",
+   "bolum": "c13",
+   "ad": "footsteps",
+   "capa": [
+    "c13s37",
+    0.0
+   ],
+   "seviye": -31,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 5,
+    "pace": 0.85
+   },
+   "not": "Köln: oda sessizliği, uzak galeri adımları (yalnız ses)"
+  }
+ ]
+}
