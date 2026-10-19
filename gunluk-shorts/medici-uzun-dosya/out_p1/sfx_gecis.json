@@ -2,5 +2,700 @@
  "surum": 1,
  "parca": 1,
  "uretim": "miks_kur.py --gecis-sesleri (compose.Program geçişlerinden)",
- "cues": []
+ "cues": [
+  {
+   "t": 2.1,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1001,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-1-zoomthru",
+   "note": "geçiş 'zoomthru' (1743 odası: yatak, arma)",
+   "ch": "c0"
+  },
+  {
+   "t": 12.46,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1002,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "palle"
+   },
+   "id": "gecis-2-iris",
+   "note": "geçiş 'iris' (boş taht, yabancı birlik)",
+   "ch": "c0"
+  },
+  {
+   "t": 19.13,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1003,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-3-slide",
+   "note": "geçiş 'slide' (Medici salonu, tek siluet)",
+   "ch": "c0"
+  },
+  {
+   "t": 25.22,
+   "name": "candle_out_in",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1004,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-4-candle",
+   "note": "geçiş 'candle' (imza masası 1737)",
+   "ch": "c0"
+  },
+  {
+   "t": 28.692,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1005,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-5-sayfa",
+   "note": "geçiş 'sayfa' (114 GÜN takvim)",
+   "ch": "c0"
+  },
+  {
+   "t": 30.477,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1006,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-6-zoomthru",
+   "note": "geçiş 'zoomthru' (imza, mühür, belgeye iniş)",
+   "ch": "c0"
+  },
+  {
+   "t": 32.92,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1007,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-7-zoomthru",
+   "note": "geçiş 'zoomthru' (belge: iki mühür, 13 madde, FRANSIZCA)",
+   "ch": "c0"
+  },
+  {
+   "t": 48.43,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1008,
+   "dur": 0.95,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-8-carry",
+   "note": "geçiş 'carry' (masa başı: bilmiyoruz → biliyoruz)",
+   "ch": "c0"
+  },
+  {
+   "t": 52.65,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1009,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-9-zoomthru",
+   "note": "geçiş 'zoomthru' (III. madde)",
+   "ch": "c0"
+  },
+  {
+   "t": 55.08,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1010,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-10-zoomthru",
+   "note": "geçiş 'zoomthru' (galeri: Vasari koridoru, 5 kalem)",
+   "ch": "c0"
+  },
+  {
+   "t": 64.0,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1011,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-11-slide",
+   "note": "geçiş 'slide' (harita: Büyük Dukalık, zincir)",
+   "ch": "c0"
+  },
+  {
+   "t": 67.93,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1012,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-12-light",
+   "note": "geçiş 'light' (gerekçe: süs, yarar, merak)",
+   "ch": "c0"
+  },
+  {
+   "t": 85.65,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1014,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-14-slide",
+   "note": "geçiş 'slide' (banka köşesi: nasıl geldi?)",
+   "ch": "c0"
+  },
+  {
+   "t": 91.545,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1015,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-15-yikama",
+   "note": "geçiş 'yikama' (kılıç değil sikke; 1252)",
+   "ch": "c0"
+  },
+  {
+   "t": 103.33,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1017,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "palle"
+   },
+   "id": "gecis-17-iris",
+   "note": "geçiş 'iris' (florin, 1252)",
+   "ch": null
+  },
+  {
+   "t": 105.688,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1018,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "florin"
+   },
+   "id": "gecis-18-iris",
+   "note": "geçiş 'iris' (Floransa kendi altınını basıyor)",
+   "ch": "c1"
+  },
+  {
+   "t": 110.44,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1019,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-19-zoomthru",
+   "note": "geçiş 'zoomthru' (3,5 g · 2 cm)",
+   "ch": "c1"
+  },
+  {
+   "t": 116.98,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1020,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "florin"
+   },
+   "id": "gecis-20-iris",
+   "note": "geçiş 'iris' (lanetli çiçek)",
+   "ch": "c1"
+  },
+  {
+   "t": 124.29,
+   "name": "light_swell",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1021,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-21-light",
+   "note": "geçiş 'light' (darphane: basmaya devam)",
+   "ch": "c1"
+  },
+  {
+   "t": 134.86,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1023,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-23-slide",
+   "note": "geçiş 'slide' (1338: 90.000 kişi)",
+   "ch": "c1"
+  },
+  {
+   "t": 141.823,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1024,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-24-carry",
+   "note": "geçiş 'carry' (hesap okulları: defterlerin şehri)",
+   "ch": "c1"
+  },
+  {
+   "t": 149.845,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1025,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-25-sayfa",
+   "note": "geçiş 'sayfa' (Peruzzi'nin 15 şubesi; Bardi; çöküş)",
+   "ch": "c1"
+  },
+  {
+   "t": 163.49,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1026,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-26-carry",
+   "note": "geçiş 'carry' (Edward'ın ödemediği borç)",
+   "ch": "c1"
+  },
+  {
+   "t": 169.64,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1027,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-27-slide",
+   "note": "geçiş 'slide' (kronikçi Villani)",
+   "ch": "c1"
+  },
+  {
+   "t": 180.195,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1029,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-29-yikama",
+   "note": "geçiş 'yikama' (veba: renk solar)",
+   "ch": "c1"
+  },
+  {
+   "t": 184.78,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1030,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-30-zoomthru",
+   "note": "geçiş 'zoomthru' (Boccaccio: sağlıklılar kaçar)",
+   "ch": "c1"
+  },
+  {
+   "t": 188.077,
+   "name": "candle_out_in",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1031,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-31-candle",
+   "note": "geçiş 'candle' (hasta yalnız)",
+   "ch": "c1"
+  },
+  {
+   "t": 192.087,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1032,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-32-slide",
+   "note": "geçiş 'slide' (kapılar kapanır, sokak boş)",
+   "ch": "c1"
+  },
+  {
+   "t": 195.73,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1033,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-33-slide",
+   "note": "geçiş 'slide' (Stefani: on iki yaşında)",
+   "ch": "c1"
+  },
+  {
+   "t": 199.67,
+   "name": "candle_out_in",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1034,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-34-candle",
+   "note": "geçiş 'candle' (yıllar sonra: kronik)",
+   "ch": "c1"
+  },
+  {
+   "t": 202.098,
+   "name": "dip_drop",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1035,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-35-dip",
+   "note": "geçiş 'dip' (çukur, katman katman toprak)",
+   "ch": "c1"
+  },
+  {
+   "t": 208.12,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1036,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-36-slide",
+   "note": "geçiş 'slide' (bilmiyoruz → yazdığını biliyoruz)",
+   "ch": "c1"
+  },
+  {
+   "t": 212.895,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1037,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-37-yikama",
+   "note": "geçiş 'yikama' (1378: öfke sokakta (sağdan sola kabarır))",
+   "ch": "c1"
+  },
+  {
+   "t": 218.01,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1038,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-38-slide",
+   "note": "geçiş 'slide' (Medici ailesinin başka bir kolu: Salvestro)",
+   "ch": "c1"
+  },
+  {
+   "t": 223.02,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1039,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-39-zoomthru",
+   "note": "geçiş 'zoomthru' (halkın alkışıyla gonfaloniere)",
+   "ch": "c1"
+  },
+  {
+   "t": 229.12,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1040,
+   "dur": 0.95,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-40-carry",
+   "note": "geçiş 'carry' (21 lonca; yün işçisinin yeri boş)",
+   "ch": "c1"
+  },
+  {
+   "t": 236.23,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1041,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-41-slide",
+   "note": "geçiş 'slide' (Ciompi Palazzo Vecchio'yu ele geçirir)",
+   "ch": "c1"
+  },
+  {
+   "t": 241.21,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1042,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-42-zoomthru",
+   "note": "geçiş 'zoomthru' (kule: Michele di Lando gonfaloniere)",
+   "ch": "c1"
+  },
+  {
+   "t": 248.07,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1043,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-43-zoomthru",
+   "note": "geçiş 'zoomthru' (Ciompi'nin talepleri)",
+   "ch": "c1"
+  },
+  {
+   "t": 257.195,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1044,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-44-sayfa",
+   "note": "geçiş 'sayfa' (Machiavelli: isyancının ağzına konuşma (kurgu))",
+   "ch": "c1"
+  },
+  {
+   "t": 271.238,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1045,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-45-slide",
+   "note": "geçiş 'slide' (loncaların milisleri)",
+   "ch": "c1"
+  },
+  {
+   "t": 280.485,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1047,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-47-yikama",
+   "note": "geçiş 'yikama' (bir kademe altta; kır gelirleri)",
+   "ch": "c1"
+  },
+  {
+   "t": 288.62,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1048,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "palle"
+   },
+   "id": "gecis-48-iris",
+   "note": "geçiş 'iris' (Giovanni di Bicci: küçük pay)",
+   "ch": "c1"
+  },
+  {
+   "t": 294.389,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1049,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-49-zoomthru",
+   "note": "geçiş 'zoomthru' (Roma: Vieri di Cambio'nun bankası)",
+   "ch": "c1"
+  },
+  {
+   "t": 298.305,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1050,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-50-sayfa",
+   "note": "geçiş 'sayfa' (alacak ve borçlar devralınır)",
+   "ch": "c1"
+  },
+  {
+   "t": 305.64,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1051,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-51-carry",
+   "note": "geçiş 'carry' (1.500 florinlik çeyiz)",
+   "ch": "c1"
+  },
+  {
+   "t": 311.23,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1052,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-52-slide",
+   "note": "geçiş 'slide' (hanedanın ilk sermayesi: evlilik sözleşmesi)",
+   "ch": "c1"
+  },
+  {
+   "t": 316.375,
+   "name": "wash_swell",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1053,
+   "dur": 0.9,
+   "loop": false,
+   "params": {},
+   "id": "gecis-53-yikama",
+   "note": "geçiş 'yikama' (1397: Roma'dan Floransa'ya taşınma)",
+   "ch": "c1"
+  },
+  {
+   "t": 319.5,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1054,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-54-zoomthru",
+   "note": "geçiş 'zoomthru' (Orsanmichele köşesi: iğne)",
+   "ch": "c1"
+  },
+  {
+   "t": 326.09,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1055,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-55-zoomthru",
+   "note": "geçiş 'zoomthru' (köşede bir masa, bir defter; faiz günahtır)",
+   "ch": "c1"
+  }
+ ]
 }

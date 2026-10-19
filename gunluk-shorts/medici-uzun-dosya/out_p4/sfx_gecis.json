@@ -1,0 +1,50 @@
+{
+ "surum": 1,
+ "parca": 4,
+ "uretim": "miks_kur.py --gecis-sesleri (compose.Program geçişlerinden)",
+ "cues": [
+  {
+   "t": 3.298,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1001,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-1-carry",
+   "note": "geçiş 'carry' (aforoz belgesi, kurşun mühür)",
+   "ch": "c8"
+  },
+  {
+   "t": 9.653,
+   "name": "iris_ring",
+   "gain_db": -21.0,
+   "pan": 0.0,
+   "seed": 1002,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "seal"
+   },
+   "id": "gecis-2-iris",
+   "note": "geçiş 'iris' (interdikt: şehir sessizleşir)",
+   "ch": "c8"
+  },
+  {
+   "t": 12.21,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1003,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-3-zoomthru",
+   "note": "geçiş 'zoomthru' (Latince satır ve çeviri)",
+   "ch": "c8"
+  }
+ ]
+}

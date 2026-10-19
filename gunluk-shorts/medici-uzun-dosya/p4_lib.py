@@ -281,3 +281,123 @@ def coin_flat(c, x, y, r=18.0, a=255):
     c.drawCircle(x, y, r * 0.66, S("#8A6420", 1.0, 170))
     c.drawLine(x, y - r * 0.42, x, y + r * 0.38, S("#7A5418", 2.0, 170))
     c.drawLine(x - r * 0.28, y - r * 0.12, x + r * 0.28, y - r * 0.12, S("#7A5418", 1.6, 170))
+
+
+# ───────────────────────────── 5) harita yardımcıları (`map` türünün extra= kancası: fn(cx, cam, mv)) ─────────────────────────────
+def mx(*fns):
+    """Birden çok harita extra'sını art arda çalıştırır."""
+    fns = [x for x in fns if x]
+
+    def fn(cx, cam, mv):
+        for it in fns:
+            it(cx, cam, mv)
+    return fn
+
+
+def mpin(lon, lat, at, color="#B33620", label=None, side="r", size=30, r=11.0, out=None, ring=True, txt=None, dx=18, dy=-10):
+    """İğneyle dikilen harita pimi: baş yukarıdan iner, iğne saplanır, halka yayılır; isteğe bağlı etiket. out: pim söner (kararır)."""
+    def fn(cx, cam, mv):
+        k = cx.amt(at, 0.40, ease=lambda u: ease_out(u, 3))
+        if k <= 0.003:
+            return
+        f = cx.f
+        x, y = cam.ll(lon, lat)
+        dim_ = 1.0 - (cx.amt(out, 0.7) if out is not None else 0.0) * 0.72
+        hy = y - 18 - 90.0 * (1 - k)
+        sc = 1.0 + 0.7 * (1 - k)
+        a = k
+        c = f.c
+        f.circle(x, y + 2, 5.0 * k, color="#000000", alpha=0.35 * a, blur=2.5)
+        c.drawLine(x, hy + r * sc * 0.6, x, y, S("#2A1A0C", 2.4, int(230 * a)))
+        col = mix(color, "#303030", 1.0 - dim_)
+        f.circle(x + 2, hy + 3, r * sc * 1.15, color="#000000", alpha=0.30 * a, blur=3.0)
+        f.circle(x, hy, r * sc, shader=f.rad(x - r * 0.35, hy - r * 0.4, r * sc * 1.8, [(mix(col, "#FFFFFF", 0.55), 0.0), (col, 0.5), (mix(col, "#000000", 0.45), 1.0)]), alpha=a)
+        f.circle(x, hy, r * sc, style="stroke", sw=1.6, color="#2A1A0C", alpha=0.85 * a)
+        if ring:
+            u = (cx.t - cx.at(at) - 0.30) / 0.9
+            if 0 < u < 1:
+                f.circle(x, y, 10 + 54 * ease_out(u, 2), style="stroke", sw=2.4, color=color, alpha=0.65 * (1 - u))
+        if label:
+            ka = clamp((k - 0.4) / 0.6)
+            shd = (0, 0, 3.2, "#F3EAD2") if TH.day else (2, 2, 3, "#000000")
+            tx = x + (dx if side == "r" else -dx if side == "l" else 0)
+            ty = y + dy + size * 0.3 + (-34 if side == "t" else 36 if side == "b" else 0)
+            f.text(label, tx, ty, face="cap_b", size=size, color=txt or (TH.fg if TH.day else "#F6ECCB"), align="l" if side == "r" else "r" if side == "l" else "c", alpha=ka * (0.55 + 0.45 * dim_), shadow=shd)
+    return fn
+
+
+def mflag(lon, lat, at, color="#B33620", emblem="plain", h=70.0, out=None, w=46.0, flip=False):
+    """Harita üstünde direkli, dalgalanan küçük sancak."""
+    def fn(cx, cam, mv):
+        k = cx.amt(at, 0.4)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        f = cx.f
+        c = f.c
+        x, y = cam.ll(lon, lat)
+        top = y - h * k
+        c.drawLine(x, y, x, top, S("#2A1A0C", 3.2, int(240 * k)))
+        pts = [(x, top)]
+        n = 8
+        for i in range(1, n + 1):
+            u = i / n
+            wv = math.sin(cx.t * 5.2 - u * 3.6) * 4.2 * u
+            pts.append((x + (-1 if flip else 1) * u * w, top + wv))
+        pts2 = [(x + (-1 if flip else 1) * u_ * w, top + 0.52 * h * 0.55 + math.sin(cx.t * 5.2 - u_ * 3.6) * 4.2 * u_) for u_ in (1.0, 0.875, 0.75, 0.625, 0.5, 0.375, 0.25, 0.125, 0.0)]
+        poly = sk.poly_path(pts + pts2)
+        c.drawPath(poly, P(color, int(255 * k)))
+        c.drawPath(poly, S("#2A1A0C", 1.4, int(210 * k)))
+        if emblem == "crescent":
+            f.circle(x + (-1 if flip else 1) * w * 0.40, top + h * 0.15, 7.5 * k, color="#F4E4B0", alpha=k)
+            f.circle(x + (-1 if flip else 1) * w * 0.45, top + h * 0.15, 6.0 * k, color=color, alpha=k)
+        elif emblem == "palle":
+            f.circle(x + (-1 if flip else 1) * w * 0.40, top + h * 0.15, 5.5 * k, color="#E8C25A", alpha=k)
+    return fn
+
+
+def marrow(pts, at, dur=1.6, color="#A8321E", width=8.0, dash=None, out=None, alpha=1.0, label=None, arrow=True):
+    """Rota oku (çizilir); out çapasında çekilir (kuyruktan silinir)."""
+    def fn(cx, cam, mv):
+        k = ease_io(clamp((cx.t - cx.at(at)) / dur))
+        if k <= 0.002:
+            return
+        al = alpha * (1.0 - (cx.amt(out, 0.6) if out is not None else 0.0))
+        if al <= 0.01:
+            return
+        end = mv.route(cx.f, cam, pts, prog=k, color=color, width=width, dash=dash, arrow=arrow, alpha=al, dash_phase=-cx.t * 36)
+        if label and end is not None and k > 0.5:
+            CM.ink(cx.f, label, end[0] + 18, end[1] - 14, face="cap_b", size=30, color=TH.fg if TH.day else "#FFF1C4", align="l", alpha=al * cx.amt(at, 0.4, off=dur * 0.5), emboss=TH.day)
+    return fn
+
+
+def mimpact(lon, lat, at, dur=1.4, color="#C0392B", n=3):
+    """Çatışma/olay halkaları (kan YOK: yayılan halka + kor)."""
+    def fn(cx, cam, mv):
+        u0 = (cx.t - cx.at(at)) / dur
+        if u0 < 0:
+            return
+        x, y = cam.ll(lon, lat)
+        for i in range(n):
+            u = u0 - i * 0.22
+            if 0 < u < 1:
+                cx.f.circle(x, y, 14 + 90 * ease_out(u, 2), style="stroke", sw=3.2, color=color, alpha=0.7 * (1 - u))
+        if u0 < 1.6:
+            cx.f.circle(x, y, 30, color=color, alpha=0.20 * (1 - clamp(u0 / 1.6)), blur=10)
+    return fn
+
+
+def mglow(lon, lat, at, out=None, color="#FFD27A", r=44.0, dur=0.5, pulse=0.0):
+    """Şube ışığı: yanar (a), out'ta söner (karanlıkta kor). Haritada mum/kandil."""
+    def fn(cx, cam, mv):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.7)
+        if k <= 0.003:
+            return
+        x, y = cam.ll(lon, lat)
+        fl = 1.0 + 0.10 * math.sin(cx.t * 7.3 + lon) + 0.06 * math.sin(cx.t * 11.1 + lat)
+        cx.f.circle(x, y, r * 2.4 * fl, shader=cx.f.rad(x, y, r * 2.4 * fl, [(color, 0.0, int(120 * k)), (color, 1.0, 0)]))
+        cx.f.circle(x, y, r * 0.5 * fl, color="#FFF4CC", alpha=0.95 * k)
+    return fn

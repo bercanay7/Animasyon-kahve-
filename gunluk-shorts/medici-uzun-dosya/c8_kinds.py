@@ -76,6 +76,17 @@ def bulla_image(size=420, text="SIXTVS · PP · IIII"):
     return sk.np_to_image(rgba)
 
 
+@functools.lru_cache(maxsize=4)
+def bulla_shadow(size=420):
+    S_ = size
+    sa = skia.Surface(S_, S_)
+    ca = sa.getCanvas()
+    ca.clear(skia.ColorTRANSPARENT)
+    ca.drawCircle(S_ / 2, S_ / 2, S_ * 0.47, skia.Paint(AntiAlias=True, Color=skia.ColorWHITE))
+    al = sa.makeImageSnapshot().toarray(colorType=skia.ColorType.kRGBA_8888_ColorType)[..., 3]
+    return CM.blur_sil(al, 12.0, (10, 8, 6))
+
+
 @functools.lru_cache(maxsize=2)
 def lump_image(size=240):
     """Basılmadan önceki kurşun topağı (yumru, mat)."""
@@ -212,10 +223,8 @@ def draw_bulla(f, cx, t_imp, rest=None, drop_t=None, spin=0.0, alpha=1.0, flat_k
         c.scale(BULLA_R * 2 / 420.0 * sx * 1.0, BULLA_R * 2 / 420.0 * sy * 1.0)
         # gölge
         sp = skia.Paint(AntiAlias=True)
-        sp.setAlphaf(0.35 * alpha)
-        sp.setColorFilter(skia.ColorFilters.Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]))
-        sp.setImageFilter(skia.ImageFilters.Blur(8, 8))
-        c.drawImage(img, -210 + 14, -210 + 20, CM._LIN, sp)
+        sp.setAlphaf(0.55 * alpha)
+        c.drawImage(bulla_shadow(420), -210 + 16, -210 + 26, CM._LIN, sp)
         pp = skia.Paint(AntiAlias=True)
         pp.setAlphaf(alpha)
         c.drawImage(img, -210, -210, CM._LIN, pp)
@@ -244,7 +253,7 @@ def draw_dies(f, cx, t_imp, bx, by):
         k = 1.0
     else:
         k = 1.0 - ease_out(clamp((u - 0.62) / 0.6), 2)   # çekilir
-    gap = lerp(300.0, 40.0, k)
+    gap = lerp(330.0, 112.0, k)
     for sgn in (-1, 1):
         x = bx + sgn * gap
         c.save()
@@ -255,8 +264,8 @@ def draw_dies(f, cx, t_imp, bx, by):
         jaw.moveTo(-26, -60); jaw.lineTo(26, -50); jaw.lineTo(26, 50); jaw.lineTo(-26, 60); jaw.close()
         c.drawPath(jaw, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(-26, 0), (26, 0)], [C("#6A6E76"), C("#2A2C32")], [0, 1])))
         c.drawPath(jaw, S("#0E0F12", 2.2, 220))
-        c.drawRect(skia.Rect.MakeLTRB(26 * 0 - 240, -14, -26, 14), P("#3A2A1C"))                # sap
-        c.drawRect(skia.Rect.MakeLTRB(-240, -14, -26, 14), S("#16100A", 1.6, 200))
+        c.drawRect(skia.Rect.MakeLTRB(26, -14, 260, 14), P("#3A2A1C"))                # sap (dışa)
+        c.drawRect(skia.Rect.MakeLTRB(26, -14, 260, 14), S("#16100A", 1.6, 200))
         c.restore()
 
 
@@ -331,6 +340,8 @@ def k_aforoz(cx, phase="giris", imp_at=None, drop_at=None, seal_at=None, unroll_
     tlines = cx.at(("c8s1", "Haziran", -0.3)) if phase == "giris" else -100.0
     last_end = None
     for i, (xa, xb, yy) in enumerate(rows):
+        if phase == "satir" and 340 <= yy <= 560:
+            continue
         t_i = (tlines if phase == "giris" else -100) + 0.12 + i * 0.30
         kk = clamp((t - t_i) / 0.62) if phase == "giris" else 1.0
         if phase == "satir":
@@ -387,5 +398,130 @@ def k_aforoz(cx, phase="giris", imp_at=None, drop_at=None, seal_at=None, unroll_
         CM.finish(f, cx, motes_n=26, light=CM.candle_light(t, seed, base=(W * 0.5, H * 0.46), r=1250.0, sway=14.0))
     else:
         CM.finish(f, cx, motes_n=22)
+    if ovl is not None:
+        ovl(cx)
+
+
+# ═══════════════════════════ interdikt bindirmesi: kurşun mühür şehri örter ═══════════════════════════
+def interdikt(at, stamp_at, dur=1.2, cxy=(960.0, 560.0), r1=620.0):
+    """Skyline üstüne: büyük kurşun mühür gölgesi şehri örter (halka + haç), şehir kararır; `İNTERDİKT` damgası vurur."""
+    def fn(cx):
+        k = cx.amt(at, dur, ease=lambda u: ease_out(u, 3))
+        if k <= 0.003:
+            return
+        f = cx.f
+        c = f.c
+        x, y = cxy
+        r = lerp(r1 * 0.35, r1, k)
+        sh = skia.GradientShader.MakeRadial((x, y), r, [C("#3A3E48", int(70 * k)), C("#3A3E48", int(120 * k)), C("#1E2026", int(200 * k)), C("#1E2026", 0)], [0.0, 0.6, 0.92, 1.0])
+        c.drawCircle(x, y, r, skia.Paint(AntiAlias=True, Shader=sh))
+        for rr, ww, aa in ((r * 0.96, 10, 0.55), (r * 0.80, 4, 0.40), (r * 0.52, 3, 0.35)):
+            c.drawCircle(x, y, rr, S("#B8BCC6", ww, int(255 * aa * k)))
+        arm = r * 0.17
+        for dx, dy in ((1, 0), (0, 1)):
+            c.drawLine(x - dx * arm, y - dy * arm, x + dx * arm, y + dy * arm, S("#B8BCC6", 12, int(150 * k)))
+        # yasak: üstte dönen kesik halka (sessizlik)
+        ph = cx.t * 0.25
+        pa = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.0, Color=C("#C8CCD6", int(110 * k)))
+        pa.setPathEffect(skia.DashPathEffect.Make([16.0, 20.0], -cx.t * 18))
+        c.drawCircle(x, y, r * 0.66, pa)
+        ks = cx.amt(stamp_at, 0.3)
+        if ks > 0.003:
+            CM.stamp(f, "İNTERDİKT", x, y + r * 0.14, rot=-0.07, size=78, color="#C9D2E6" if not TH.day else None, alpha=1.0, t=ks)
+    return fn
+
+
+# ═══════════════════════════ c8_kasa: hazine boşalıyor ═══════════════════════════
+@CM.ckind("c8_kasa")
+def k_kasa(cx, close_at=None, ovl=None, seed=3, **_):
+    """Demir bantlı sandık: sikke yığını erir, sikkeler yay çizerek dışarı (sola) uçar; sonunda kapak çarpar (toz + sarsıntı)."""
+    f = cx.f
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    CM.bgfill(f, cx, seed=seed % 3, cam=cam, dress=None)
+    cam.begin(f)
+    c = f.c
+    t = cx.t
+    tc = cx.at(close_at) if close_at is not None else cx.dur - 0.5
+    sx_, sy_ = _shake(t - tc, amp=10.0)
+    c.save()
+    c.translate(sx_, sy_)
+    bx0, bx1, by0, by1 = 730.0, 1190.0, 650.0, 880.0
+    hy_ = 612.0                                                  # menteşe
+    # zemin gölgesi
+    SOFT(c, 960, by1 + 14, 330, 34, "#000000", 120)
+    # arka duvar parıltısı (sikke ışığı)
+    h_lvl = clamp(1.0 - ease_io(clamp((t - 0.15) / max(0.5, tc - 0.15 - 0.3)), 1.4) * 0.97)
+    SOFT(c, 960, by0 - 40, 520, 260, "#FFD27A", 70 * (0.3 + 0.7 * h_lvl))
+    # kapak (açık): arkada
+    k_lid = ease_in(clamp((t - tc) / 0.28), 2.4)
+    yf = lerp(402.0, by0 - 6.0, k_lid)
+    xf0, xf1 = lerp(762.0, 722.0, k_lid), lerp(1158.0, 1198.0, k_lid)
+    lid = sk.poly_path([(bx0 + 36, hy_), (bx1 - 36, hy_), (xf1, yf), (xf0, yf)])
+    c.drawPath(lid, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, yf), (0, hy_)], [C("#7A4C26"), C("#5A3418")], [0, 1])))
+    c.drawPath(lid, S("#1E1008", 2.4, 230))
+    if k_lid < 0.9:
+        for xb in (860, 1060):
+            c.drawLine(xb + (xf0 - 762) * 0.2, yf + 6, xb, hy_ - 4, S("#2A2C32", 12, 230, cap=False))
+    # gövde içi (karanlık ağız)
+    c.drawOval(skia.Rect.MakeLTRB(bx0 + 14, by0 - 36, bx1 - 14, by0 + 36), P("#120B06"))
+    # sikke yığını (gövde ağzında yükselen tepecik)
+    rs = np.random.RandomState(seed)
+    n = 170
+    coins = sorted(((rs.rand(), rs.rand(), rs.rand()) for _ in range(n)), key=lambda q: q[1])
+    for (a_, b_, thr) in coins:
+        if thr > h_lvl:
+            continue
+        w_ = (bx1 - bx0 - 80) * 0.5 * (1.0 - b_ ** 1.5 * 0.0)
+        px = 960 + (a_ - 0.5) * 2 * w_ * (1.0 - 0.75 * (1 - b_) ** 1.0 * (1 - h_lvl * 0.2))
+        py = by0 - 6 - (1 - b_) * 150 * h_lvl * (1 - abs(a_ - 0.5) * 1.35) - 6
+        L.coin_flat(c, px, py, r=15 + 3 * b_)
+    # gövde ön yüz
+    body = skia.Rect.MakeLTRB(bx0, by0, bx1, by1)
+    c.drawRect(body, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, by0), (0, by1)], [C("#8A5A30"), C("#5A3418")], [0, 1])))
+    for i in range(6):
+        yy = by0 + 10 + i * 36
+        c.drawLine(bx0, yy, bx1, yy + rs.uniform(-1.5, 1.5), S("#2A1608", 1.4, 90))
+    c.drawRect(body, S("#1E1008", 2.6, 235, cap=False))
+    for xb in (bx0 + 38, bx1 - 38):
+        c.drawRect(skia.Rect.MakeLTRB(xb - 15, by0, xb + 15, by1), P("#3A3C44"))
+        c.drawRect(skia.Rect.MakeLTRB(xb - 15, by0, xb + 15, by1), S("#0E0F12", 1.6, 220, cap=False))
+        for yb in (by0 + 30, by0 + 110, by1 - 26):
+            c.drawCircle(xb, yb, 4.0, P("#9AA0AA"))
+    c.drawRect(skia.Rect.MakeLTRB(bx0, by0 + 22, bx1, by0 + 46), P("#3A3C44"))
+    c.drawRect(skia.Rect.MakeLTRB(bx0, by0 + 22, bx1, by0 + 46), S("#0E0F12", 1.4, 200, cap=False))
+    # kilit plakası
+    c.drawRoundRect(skia.Rect.MakeLTRB(930, by0 + 14, 990, by0 + 94), 8, 8, P("#B08828"))
+    c.drawRoundRect(skia.Rect.MakeLTRB(930, by0 + 14, 990, by0 + 94), 8, 8, S("#3A2A08", 2.0, 230))
+    c.drawCircle(960, by0 + 50, 8.0, P("#1A1208"))
+    # uçan sikkeler (sola yay)
+    nf = 30
+    for i in range(nf):
+        t0 = 0.10 + i * (max(0.8, tc - 0.45) / nf) * 0.92
+        u = t - t0
+        if u < 0 or u > 1.5:
+            continue
+        r2 = np.random.RandomState(100 + i)
+        vx = -(260 + r2.rand() * 380)
+        vy = -(520 + r2.rand() * 340)
+        xx = 960 + (r2.rand() - 0.5) * 200 + vx * u
+        yy = by0 - 40 + vy * u + 0.5 * 1500 * u * u
+        a_ = clamp(1.0 - max(0.0, u - 1.0) / 0.5)
+        sq = abs(math.cos(u * (7 + r2.rand() * 4)))
+        c.save()
+        c.translate(xx, yy)
+        c.scale(1.0, 0.35 + 0.65 * sq)
+        L.coin_flat(c, 0, 0, r=16, a=int(255 * a_))
+        c.restore()
+    # çarpma tozu
+    uu = t - tc - 0.26
+    if 0 < uu < 0.9:
+        for i in range(14):
+            r3 = np.random.RandomState(500 + i)
+            ang = r3.rand() * math.pi
+            dd = (50 + 160 * r3.rand()) * ease_out(clamp(uu / 0.9), 2)
+            SOFT(c, 960 + math.cos(ang) * dd * (1 if i % 2 else -1), by0 - 14 - math.sin(ang) * dd * 0.35, 30 + 20 * uu, 22 + 12 * uu, "#CBB894", 90 * (1 - clamp(uu / 0.9)))
+    c.restore()
+    cam.end(f)
+    CM.finish(f, cx, motes_n=20, light=CM.candle_light(t, seed, base=(960, 640), r=1300.0, sway=12.0) if not TH.day else None)
     if ovl is not None:
         ovl(cx)

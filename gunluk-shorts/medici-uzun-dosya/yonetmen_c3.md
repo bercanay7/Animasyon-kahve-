@@ -1,0 +1,45 @@
+# c3 — Yönetmen kartı (Kule ve Sürgün, 1433–1464)
+Renk anahtarı: ALTIN perdesi; belgeli olaylar renkli (sıva-kâğıt zemin, sinabar + altın vurgu); ANEKDOT/rivayet sahneleri **gravür sepyası** (ekmek-bekçi, küçük kâğıt, elli yıl sözü); hücre ve yarık gece lapisi + tek ışık huzmesi. Medici işareti (palle) yalnız iktidar/ağ çekimlerinde (kral, torba, ağ, kâr, holding).
+Işık: kaynakta olmayan saat/hava iddiası yok — gündüz sıva ışığı; hücrede yarıktan huzme (yalnız 'dar yarık' cümlesinin görseli); final yalnız "bugün" ile gün batımı skyline'ına açılır (c4'ün altın ışığına köprü).
+Ana hareket yönü: Medici yükselişi soldan sağa ve yukarı (kule crane-up, kağıt yolu, dönüş, Careggi'ye iniş hariç); tehdit/sürgün sağdan sola (kura→Rinaldo, sürgün kapısı) — bölümdeki bilinçli kırılma ikisi de bu tek 'tehdit' çizgisi içinde.
+İmza sekans: **Kule, tek dikey plan** — çekim 1–3 (kule dikeyinde yarığa tırmanış → hücre → yarıktan şehir) ve kapanış dikeyi (çekim 31); aradaki 'tahtsız iktidar' = boş koltuk + dev gölge + inmeyen taç (çekim 19–20) ve 'dostlar ağı' = Padgett–Ansell ağının canlanması, merkez Medici (çekim 24).
+
+| çekim | çapa | tür | cam | giriş geçişi (tr, link) | neden böyle (bir cümle) |
+|---|---|---|---|---|---|
+| 1. kule | c3s1 -0.15 | sehir | kendi kamerası (cams) | — | Bölüm doğrudan kuleyle açılır (kart yok): tek dikey plan Palazzo Vecchio'nun gövdesinden yarığa çıkar, 'Floransa'nın yüksek kulesi' cümlesini ölçekle kurar. |
+| 2. hücre | c3s2 | c3_hucre | anahtar kareli ×4 | zoomthru 1, scale | Dikey kuleden hücreye zoomthru: aynı yarık, içeriden; 'Alberghettino / Küçük Han' adı kazınır, han tabelasıyla mizah çıpası. |
+| 3. yarıktan şehir | c3s4 | c3_yarik | push 0.3 | light 0.9, light | Hücrenin yarığı ters çevrilir (omuz üstü POV): 'dar yarıktan şehre bakar' — şehir panoraması tarar, ışık geçişi hücrenin tek ışığını taşır. |
+| 4. gonfaloniere ve Albizzi | c3s5 -0.2 | p2_oda | kendi kamerası (cams) | light 0.9, light | Işıkla salona çıkış: gonfaloniere ve arkasındaki Rinaldo iki silüet olarak, adlar levha olarak söylendiği an gelir. |
+| 5. suçlama | c3s6 | c3_suclama | anahtar kareli ×5 | zoomthru 1, scale | Salondan suçlamaya zoomthru: yurttaşların üstüne çıkan tek figür (paraya basan) ve masadaki ölüm cezası kâğıdı, vinç inişle 'masadaydı'. |
+| 6. ekmek ve bekçi (gravür) | c3s7 | c3_gravur_masa | anahtar kareli ×5 | yikama 0.8, material | Rivayet gravüre yıkanır: ekmek, kâseler, bekçinin tadı — renk gider çünkü Machiavelli ≈90 yıl sonra; ANEKDOT damgası. |
+| 7. küçük kâğıdın yolu | c3s8 | c3_kagit_yolu | anahtar kareli ×7 | slide 0.8 dir=r, dir | Tek yatay plan: küçük kâğıt elden ele, hastane revağına, 1.100 duka yığınına, 1.000'in gonfaloniere'ye gidişi (sağdan başlayıp sola dönmeden). |
+| 8. ölüm cezası → sürgün; küçük kâğıt | c3s9 -0.15 | c3_karar | anahtar kareli ×4 | sayfa 0.8, material | Sayfa çevrilir: ölüm cezası çizilir, SÜRGÜN yazılır; ANEKDOT damgası YORUM'a döner ('aradaki fark küçük bir kâğıt'). |
+| 9. Floransa → Padova | c3s11 -0.1 | p2_map | push 0.1 | zoomthru 0.9, scale | Zoomthru ile haritaya: 3 Ekim 1433, Floransa'dan Padova'ya rota yazılır. |
+| 10. sürgünün süresi: kaynaklar anlaşamıyor | c3s12 -0.15 | c3_sure | push 0.07 | carry 0.9 strip=ribbon dir=r, carry | Kaynakların 1/5/10/20 yıl çubukları: çelişki bir bakışta, '10 yıl' vurgulu, 'çoğu anlatıda'. |
+| 11. Padova → Venedik; elçi Floransa'ya | c3s13 -0.1 | p2_map | push 0.07 | slide 0.8 dir=r, dir | Slide ile rotaya devam: Padova'dan Venedik'e, elçi tomarı Floransa'ya (kamera zayıf itme, harita kendi hareketli). |
+| 12. yanında Michelozzo | c3s14 -0.1 | c3_michelozzo | pan r 170 | carry 0.8 strip=ink dir=r, carry | Mürekkep şeridi taşır: yanında Michelozzo — kısa tanıtım çekimi. |
+| 13. rüzgâr değişiyor | c3s15 -0.1 | c3_ruzgar | push 0.1 | slide 0.8 dir=r, dir | Rüzgâr değişir: bayrak, duman, bulutlar tersine döner ('Floransa'da rüzgâr değişiyordu'). |
+| 14. kura ve Rinaldo'nun kurulu | c3s16 -0.2 | c3_kura | anahtar kareli ×7 | carry 0.9 strip=banner dir=l, carry | Banner şeridiyle kuraya: torba panosu, kura çekimi, sola dönüp Rinaldo'nun kurulu — tek uzun plan, bilinçli sola kırılma (tehdit çizgisi başlar). |
+| 15. sürgün kararı kalktı | c3s17 -0.1 | c3_ilan | anahtar kareli ×3 | slide 0.8 dir=l, dir | Kararın kalkışı: ilan tahtası; ilan kalkar, '6 EKİM 1434' tarihine kamera yükselir. |
+| 16. 6 Ekim 1434: yalnız yolcu | c3s17 «6» -0.4 | c3_donus | pan r 150 | carry 0.9 strip=paper dir=r, carry | Kâğıt şeridi taşır: yalnız yolcu kente döner (kalabalık alayı brif §10 gereği yok); kapıya yürüyüş. |
+| 17. Albizzi konakları ıssız | c3s18 -0.1 | c3_issiz | pan r 200 | giornata 0.9, material | Giornata ile ıssız konaklar: kepenkler kapalı, gevşek kepenk, ○ TEK KAYNAK damgası ('anlatılır'). |
+| 18. Rinaldo ve Strozzi sürgüne yürür | c3s19 -0.1 | c3_surgun_kapi | pan l 220 | sayfa 0.8, material | Sayfa ile sürgün: Rinaldo ve Strozzi sağdan sola kente sırtını dönüp çuvalla çıkar (tehdit çizgisinin ikinci ve son durağı). |
+| 19. boş koltuk, takılmayan taç, otuz yıl | c3s20 -0.1 | c3_koltuk | anahtar kareli ×3 | light 0.9, light | Işık dönüşü: boş koltuk, dev gölge, inmeyen taç, otuz yıl cetveli — tahtsız iktidar. |
+| 20. adı ve statüsü dışında bir kral | c3s21 -0.1 | c3_kral | push 0.09 | iris 0.9 obj=sun, shape | Güneş irisi ile kalkan: palle, hayalet taç altın dolar; ADI/HUKUKİ STATÜSÜ levhaları çizilir ('adı ve statüsü dışında'). |
+| 21. düzenin sırrı: torbalar | c3s22 -0.1 | c3_dolap | anahtar kareli ×3 | carry 0.9 strip=ribbon dir=r, carry | Kanat açılır: dolap, torbalar, kurayla çekilen Signoria — düzenin sırrı. |
+| 22. Cosimo torbaları doldurur | c3s23 -0.1 | c3_doldur | anahtar kareli ×3 | slide 0.8 dir=r, dir | Slide ile masa: Cosimo torba doldurur, kum saati döner ('yıllarca'). |
+| 23. torbaya kimin gireceğine kura karar vermiyordu | c3s24 -0.1 | c3_bekci | anahtar kareli ×3 | zoomthru 0.9, shape | Torbadan torbaya zoomthru: bekçi işaretsizleri eler — kura ↔ torba mizah çıpası. |
+| 24. Padgett-Ansell ağı: yalnız Medici üzerinden | c3s25 -0.1 | c3_ag | push 0.07 | slide 0.8 dir=r, dir | Kayarak ağ: üç aile kümesi, aralarında çarpılar; Medici düğümü gelince altın bağlar uzar. |
+| 25. arka odadaki defter | c3s26 -0.1 | p2_ledger | push 0.08 | zoomthru 0.9, scale | Medici işaretine zoomthru: palle defter sayfasına dönüşür, şehir adları satır satır yazılır ('arka odada defter'). |
+| 26. şube müdürleri: ayrı ortaklık kutuları | c3s27 -0.1 | p2_map | push 0.08 | sayfa 0.8, material | Sayfa çevrilir: Avrupa haritasında yedi ayrı ortaklık kutusu; sermaye payı küçük, kâr payı büyük çubuk; anahtar = kendi hesabını kollar. |
+| 27. kâr 186.382 → 290.791 FL; yarıdan fazlası Roma | c3s28 -0.1 | c3_kar | push 0.06 | slide 0.8 dir=r, dir | Kaydırarak kâr kartı: 1435–1450 cetveli, 186.382 → 290.791 FL; Roma dilimi yarıyı aşar (○ TEK KAYNAK). |
+| 28. holding etiketi, compagnia | c3s29 -0.1 | c3_holding | push 0.08 | carry 0.9 strip=paper dir=r, carry | Kâğıt şeridi: 'holding' etiketi sonradan yapıştırılır ve soyulur, eski kelime compagnia elle yazılır. |
+| 29. Careggi villası, 1 Ağustos 1464 | c3s30 -0.1 | c3_careggi | crane down 120 | yikama 0.9, material | Pigment yıkaması: Careggi villası, 1 Ağustos 1464 — ölüm odası/son söz yok, yalnız yer ve tarih; yavaş iniş. |
+| 30. elli yıl: sürgün gelir, binalar kalır (ANEKDOT) | c3s31 -0.1 | c3_sehir_kalir | pan r 260 | giornata 0.9, material | Giornata ile gravüre dönüş: ANEKDOT sokağı, elli yıl tutanak çizgileri, kalabalık sola çekilir, binalar ışıkla renklenir; 'KAYNAĞI BELİRSİZ' damgası. |
+| 31. 1494: sürgün geldi, binalar ayakta (dikey çıkış) | c3s33 -0.1 | p2_sehir | kendi kamerası (cams) | light 0.9, light | Işıkla finale: renk geri gelir, dikey çıkış 1494'e kadar tırmanır; 'binalar bugün de ayakta' — c4'e (kubbeye) köprü. |
+
+Ölçek geçişleri: kule→hücre (zoomthru, 1→2) · salon→suçlama masası (zoomthru) · harita (Floransa→Padova) zoomthru · torba→torba zoomthru (22→23) · palle→defter zoomthru (24→25) · hücre yarığı→şehir panoraması (kamera yarığa girer).
+Uzun plan(lar): ekmek ve bekçi (gravür, 10,3 sn) · küçük kâğıdın yolu (10,9 sn yatay) · kura ve Rinaldo'nun kurulu (11,4 sn) · Padgett–Ansell ağı (10,9 sn) · kâr kartı (11,7 sn) · elli yıl sözü (11,7 sn).
+Mizah vuruşları: Alberghettino/Küçük Han tabelası (2) · bin yüz duka ve küçük kâğıt (7–8) · sürgün 1/5/10/20 yıl (10) · boş koltuk ve inmeyen taç (19) · kura ↔ torba, bekçi (23).
+Ses köprüleri (sfx dileği; sfx_cues dosyasına dokunulmadı): hücre taş yankısı + yarıktan rüzgâr (2–3) · kâğıt hışırtısı + para şıngırtısı (7) · mühür/torba bağı ipi (14, 22) · kum saati (22) · tüy kalem sürtmesi (25, 27) · etiket 'şak' ve soyulma (28) · damga vuruşları (6, 8, 17, 30). Ses köprüsü: 'Küçük Han' cümlesinin sonundaki espri boşluğunda hücre tabelasının sallanması; 'KAYNAĞI BELİRSİZ' damgası tek vuruşla 1 sn'lik cümlenin tamamını taşır.
+Bilinen kusur / ana ajandan ortak-kit isteği: bkz. notlar_c3.md (skyline_dikey kubbesiz seçeneği; kalabalık alayı brif §10 gereği çıkarıldı; medyan çekim 6,3 sn — uzun cümleler nedeniyle).

@@ -319,3 +319,37 @@ def tablet_icon(icon, text, x, y, at, size=38, w=620, out=None, metal="gold", du
         sz = CM.fit_size(text, "title_m", size, w - 190, 5)
         CM.ink(cx.f, text, xx - w / 2 + 120, y + sz * 0.36, face="title_m", size=sz, color=TH.fg, align="l", track=5, alpha=k, emboss=False)
     return fn
+
+
+def coin_arc(p0, p1, at, n=6, dur=1.0, gap=0.16, lift=170, size=64, out=None):
+    """Florinler p0 → p1 yayında uçar (ekran uzayı); n tane, `gap` aralıkla; iner inmez solar."""
+    import cilt_props as CP
+
+    def fn(cx):
+        t0 = cx.at(at)
+        for i in range(n):
+            u = (cx.t - (t0 + gap * i)) / dur
+            if u <= 0 or u >= 1.0:
+                continue
+            e = ease_io(u, 1.6)
+            x = p0[0] + (p1[0] - p0[0]) * e
+            y = p0[1] + (p1[1] - p0[1]) * e - lift * math.sin(math.pi * e)
+            a = min(1.0, u * 6) * min(1.0, (1 - u) * 6 + 0.2)
+            CP.draw_coin(cx.f, x, y, size, spin=cx.t * 14 + i, alpha=a, shadow=0.25)
+    return fn
+
+
+def pop_label(text, x, y, at, size=56, face="title", color=None, out=None, track=12.0):
+    """Çarpma ölçekli (back_out) büyük yazı."""
+    def fn(cx):
+        k = cx.amt(at, 0.3)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        sc = 0.6 + 0.4 * sk.back_out(k)
+        f = cx.f
+        sz = CM.fit_size(text, face, size, 1500, track)
+        sp = CM.gilt(text, face, int(sz), track) if not TH.day else CM.engraved(text, face, int(sz), track, color or TH.fg)
+        CM.draw_spr(f, sp, x, y, "c", alpha=k, scale=sc, shadow=0.0)
+    return fn

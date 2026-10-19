@@ -606,6 +606,30 @@ def draw_over(cx, over):
             if o.get("hold") is not None:
                 k *= 1.0 - cx.amt(o["hold"], 0.5)
             CM.kick(f, o["text"], o.get("x", W / 2), o.get("y", 128), alpha=k, size=o.get("size", 32), track=o.get("track", 12))
+        elif t_ == "palle":
+            import cilt_props as CP
+            k = cx.amt(o["at"], 0.6, off=o.get("off", 0.0))
+            if o.get("hold") is not None:
+                k *= 1.0 - cx.amt(o["hold"], 0.5)
+            if k > 0.003:
+                CP.draw_arms(f, o["x"], o["y"], o.get("size", 160) * (0.9 + 0.1 * ease_out(k)), alpha=k, shadow=0.6, glow=o.get("glow", 0.2) * k, glint=None)
+        elif t_ == "strike":
+            k = ease_io(cx.amt(o["at"], o.get("dur", 0.5), off=o.get("off", 0.0)), 2)
+            if k > 0.003:
+                x, y, r = o["x"], o["y"], o.get("size", 90)
+                pp = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=o.get("w", 11.0), Color=C("#8E2A1E", 235), StrokeCap=skia.Paint.kRound_Cap)
+                pp.setPathEffect(skia.DiscretePathEffect.Make(9.0, 1.6, 4))
+                f.c.drawLine(x - r, y - r, lerp(x - r, x + r, min(1.0, k * 2)), lerp(y - r, y + r, min(1.0, k * 2)), pp)
+                if k > 0.5:
+                    kk = (k - 0.5) * 2
+                    f.c.drawLine(x + r, y - r, lerp(x + r, x - r, kk), lerp(y - r, y + r, kk), pp)
+        elif t_ == "icon":
+            import icons as _ic
+            k = cx.amt(o["at"], 0.5, off=o.get("off", 0.0))
+            if o.get("hold") is not None:
+                k *= 1.0 - cx.amt(o["hold"], 0.5)
+            if k > 0.003:
+                _ic.draw_icon(f, o["name"], o["x"], o["y"] + o.get("bob", 0.0) * math.sin(cx.t * 2.0), size=o.get("size", 100) * (0.8 + 0.2 * ease_out(k)), metal=o.get("metal", "gold"), alpha=k, shadow=o.get("shadow", True), glow=o.get("glow", 0.0))
         elif t_ == "counter":
             k = clamp((cx.t - cx.at(o["at"])) / o.get("dur", 1.6))
             if k <= 0:

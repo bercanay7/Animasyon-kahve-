@@ -1,0 +1,37 @@
+{
+ "surum": 1,
+ "parca": 3,
+ "uretim": "miks_kur.py --gecis-sesleri (compose.Program geçişlerinden)",
+ "cues": [
+  {
+   "t": 3.127,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1001,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-1-carry",
+   "note": "geçiş 'carry' (Valori sayfası + Lorenzo madalyası)",
+   "ch": "c6"
+  },
+  {
+   "t": 18.06,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1002,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-2-slide",
+   "note": "geçiş 'slide' (ansiklopedi tarifi, koku göstergesi)",
+   "ch": "c6"
+  }
+ ]
+}

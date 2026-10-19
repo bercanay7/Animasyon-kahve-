@@ -1204,7 +1204,7 @@ def finale_c0(c, t_hit, G=None):
 def finale_end(c, t_final, kind, G=None):
     """Parça kapanışları (7 sn'lik 'SIRADAKİ PARÇA' / 'TÜM FİLM' ekranı süresince çözülme). Spec'te bölüm/kesit düzeyinde end_kind=… ile seçilir
     (yoksa 'dissolve'); yalnız PARÇANIN SON kesitinde çalışır.
-    dissolve : bölümün kendi tonikinde açık beşli + gamba drone + tek hafif lavta notası; sade çözülme (P1…P6 varsayılanı)
+    dissolve : son cümleden hemen sonra tek yumuşak alçak timpani ("ağırlık merkezi vuruş", YONETMENLIK §9) + bölümün kendi tonikinde açık beşli + gamba drone + tek hafif lavta notası; sade çözülme (P1…P6 varsayılanı; p1/p2'de de aynı vuruş)
     p1  : altın majör → minöre soğuyan akor ('gölge') + alçak 'bedel' yayı; açık uç (D tonikli bölümler için; şu an hiçbir bölümde seçili değil)
     p2  : çözülmeyen sus4 akoru; çok hafif 'miras' hücresi (sonraki parçanın habercisi); açık uç (c11 → P5 sonu)
     p3  : D majör çözülüş (Picardy), ters çevrilmiş 'miras' hücresi (yükselen üçlü), son lavta notası ve sessizlik (c16 → P7 sonu, film sonu)"""
@@ -1214,6 +1214,8 @@ def finale_end(c, t_final, kind, G=None):
     cd = c.T - t_final + 0.5
     pans = [-0.2, 0.2, -0.3, 0.3, 0.1, -0.1]
     st_o = (("flute", 1.0, 1.0), ("principal", 0.35, 1.0), ("flute", 0.3, 2.0))
+    if kind in ("dissolve", "p1", "p2"):          # YONETMENLIK §9: "parça sonu: ağırlık merkezi bir vuruş + sessiz kapanış" — son cümlenin hemen ardından tek, yumuşak, alçak timpani
+        c.put("perc", timp(_hz(max(c.tonic - 12, 28)), 0.5, rng, dur=3.4), t_final, gain=g.get("timp", 0.4), pan=0.0)
     if kind == "p1":
         for kk, m in enumerate((50, 57, 62, 66, 69)):               # D majör (altın) — 2,6 sn
             c.put("organ", organ_note(_hz(m), 3.4, 0.7, rng, stops=st_o, attack=0.5, release=1.6), t_final + 0.04 * kk, gain=g["organ"], pan=pans[kk])
@@ -2194,9 +2196,9 @@ CUES = {
                        TH("donus_ters", ("c10s20", "Şimdi", -0.1), inst="lute", vel=0.55, stretch=1.7, oct=0, g=0.9),
                        TH("bedel", "c10s34", dt=1.0, inst="gamba", vel=0.6, bend=-35, g=1.0),
                        TH("florin3", ("c10s36", "ordunun", 0.0), inst="lute", vel=0.45, stretch=1.3, g=0.8)],
-                events=[E("timp", "c10s13", dt=0.1, f=54.0, vel=0.85, dur=3.0, g=0.7),
+                events=[E("timp", "c10s13", dt=0.1, f=54.0, vel=0.85, dur=3.0, g=0.55),
                         E("dum", ("c10s14", "Palazzo", 0.0), vel=0.7, f=80, g=0.6), E("tek", ("c10s14", "girmek", 0.0), vel=0.6, f=80, g=0.5),
-                        E("seq", ("c10s15", "kapandı", -0.05), hits=[(0.0, "timp", 1.0), (0.0, "dum", 1.0), (0.10, "tek", .6)], f=84.0, tf=54.0, g=0.85),
+                        E("seq", ("c10s15", "kapandı", -0.05), hits=[(0.0, "timp", 1.0), (0.0, "dum", 1.0), (0.10, "tek", .6)], f=84.0, tf=54.0, g=0.6),
                         E("tek", ("c10s16", "saat", 0.0), vel=0.55, f=84, g=0.45), E("tek", ("c10s16", "saat", 0.42), vel=0.5, f=84, g=0.4),
                         E("dum", ("c10s18", "özgürlük", -0.5), vel=0.6, f=84, g=0.5), E("dum", ("c10s18", "özgürlük", 0.0), vel=0.7, f=84, g=0.55),
                         STOP(("c10s22", "yırttı", 0.0), hold=1.1), STOP(END("c10s28", -0.1)),
@@ -2216,7 +2218,7 @@ CUES = {
                          events=[E("timp", "c11s1", dt=0.3, f=54.0, vel=0.75, dur=3.0, g=0.5)]),
                     dict(until=(END("c11s13", 0.0), 0.30), xf=4.0, mood="epic", mode="mixolydian", bpm=80, level_db=0.0,
                          arc=[(-1, .30), (0, .34), A("c11s4", .42), A("c11s5", .54), A("c11s6", .52), A("c11s7", .40), A("c11s8", .34), A("c11s9", .46),
-                              A("c11s10", .50), A("c11s11", .42), A("c11s12", .44), A("c11s13", .22), (1.0, .20)],
+                              A("c11s10", .50), A("c11s11", .42), A("c11s12", .44), A("c11s13", .24), (1.0, .24)],
                          prog=[[(0, 2, ""), (6, 2, ""), (3, 2, ""), (0, 2, "")], [(0, 2, ""), (3, 2, ""), (4, 2, ""), (0, 2, "")]], b_thr=0.4,
                          drone=dict(lvl=0.55, chunk_bars=4, fifth=True),
                          arp=dict(inst="harp", pattern="florin", lvl=0.6, lo=0.30, hi=0.42, p0=0.85, p1=0.15),
@@ -2226,7 +2228,7 @@ CUES = {
                          melody=dict(inst="harp", lvl=0.6, lo=0.40, hi=0.50, play=2, rest=2, dens=0.4, reg=(66, 81), motif="florin"),
                          events=[STOP(END("c11s6", -0.1), hold=0.8), STOP(END("c11s10", -0.1), hold=1.0), STOP(END("c11s12", -0.1))]),
                     dict(mood="heavy", mode="aeolian", bpm=52, level_db=-1.5, end_kind="p2", snr_bias=0.5,
-                         arc=[(-1, .22), (0, .30), A("c11s14", .38), A("c11s15", .50), A("c11s16", .56), A("c11s17", .60), A("c11s18", .50), A("c11s19", .44),
+                         arc=[(-1, .22), (0, .28), A("c11s14", .34), A("c11s15", .50), A("c11s16", .56), A("c11s17", .60), A("c11s18", .50), A("c11s19", .44),
                               A("c11s20", .40), A("c11s21", .34), A("c11s22", .30), A("c11s23", .26), A("c11s24", .44), A("c11s25", .50), A("c11s26", .54),
                               A("c11s27", .46), A("c11s28", .62), A("c11s29", .50), A("c11s30", .36), A("c11s31", .30), A("c11s32", .30), A("c11s33", .24),
                               A("c11s34", .30), A("c11s35", .20), A("c11s36", .20), A("c11s37", .16), A("c11s38", .12), (1.0, .10)],
