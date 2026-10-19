@@ -225,7 +225,7 @@ def k_skyline(cx, seed=1, tod=None, pan=340.0, x0=0.0, dir=1, kick=None, caption
 import cilt_anim, cilt_pano, cilt_build  # noqa: E402,F401
 
 # Lab-C / Lab-D dünyaları (yazılırken yarım olabilir: hata başkalarını durdurmasın, uyarı basılır)
-for _m in ("cilt_deniz", "cilt_oda"):
+for _m in ("cilt_deniz", "cilt_oda", "cilt_sehir"):
     try:
         __import__(_m)
     except ModuleNotFoundError as _e:

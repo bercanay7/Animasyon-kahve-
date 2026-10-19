@@ -916,8 +916,10 @@ def write_report(c):
         P("   (bu parçada tanımlı kapı yok)")
     P("")
     P("[5] SPEKTRAL DENGE (Welch, güç payı %)  düşük<250 Hz | orta 250–4k | yüksek>4k | centroid")
+    spec_ = {}
     for nm, arr in (("voice (ham)", voice_raw), ("voice (işlenmiş)", vproc), ("müzik (mikste)", music), ("sfx bus", sfxbus), ("MIKS (nihai)", final)):
         b, cen = band_energy(arr)
+        spec_[nm] = (b, cen)
         P(f"  {nm:18s} {b[0]:5.1f} | {b[1]:5.1f} | {b[2]:5.1f} | {cen:6.0f} Hz")
     P("  oktav profili (göreli dB; bantlar 63–125–250–500–1k–2k–4k–8k–16k Hz):")
     for nm, arr in (("voice (işlenmiş)", vproc), ("müzik (mikste)", music), ("MIKS (nihai)", final)):
@@ -975,6 +977,9 @@ def write_report(c):
     ck(f"konuşma − müzik en kötü 8 sn pencere ≥ {SNR_TARGET - 1.5:.1f} dB", worst_all >= SNR_TARGET - 1.5, f"{worst_all:.1f}")
     ck("konuşma − müzik pencerelerinin %80'i [hedef−1, hedef_üst+2] içinde", np.mean((wv >= SNR_TARGET - 1) & (wv <= SNR_HI + 2)) >= 0.8,
        f"%{100 * np.mean((wv >= SNR_TARGET - 1) & (wv <= SNR_HI + 2)):.0f}")
+    (bm, cm), (bv, cv) = spec_["MIKS (nihai)"], spec_["voice (işlenmiş)"]
+    ck("spektral denge: MIKS centroid, işlenmiş sesin ±%15'i içinde (müzik/efekt sesi matlaştırmaz, boğmaz)", 0.85 <= cm / max(cv, 1.0) <= 1.15, f"{cm:.0f} Hz / ses {cv:.0f} Hz")
+    ck("spektral denge: MIKS düşük bant (<250 Hz) payı ≤ %65 ve yüksek bant (>4 kHz) payı ≥ %0,5", bm[0] <= 65.0 and bm[2] >= 0.5, f"düşük %{bm[0]:.1f} · yüksek %{bm[2]:.1f}")
     ck("müzik nominal ort. RMS −24…−28 dBFS", -28.2 <= c["rms_nominal"] <= -23.8, f"{c['rms_nominal']:.1f}")
     ck("süre = voice + kuyruk (±1 örnek)", abs(len(final) - N) <= 1, f"{len(final) / SR:.3f} sn")
     rv = [r for r in rises if r is not None]
