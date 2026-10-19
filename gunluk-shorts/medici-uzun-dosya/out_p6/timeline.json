@@ -1,0 +1,5560 @@
+{
+ "total": 559.99,
+ "chapters": [
+  {
+   "id": "c12",
+   "t0": 0.0,
+   "t1": 280.97,
+   "dur": 280.97,
+   "raw": 283.592,
+   "saved": 1.71,
+   "gain_db": -0.15,
+   "gap_after": 3.0
+  },
+  {
+   "id": "c13",
+   "t0": 283.97,
+   "t1": 559.99,
+   "dur": 276.02,
+   "raw": 279.144,
+   "saved": 2.26,
+   "gain_db": -0.27,
+   "gap_after": 0.0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "c12s1",
+   "ch": "c12",
+   "disp": "Ocak 1537'de Floransa Dükü Alessandro'yu kuzeni öldürmüş, Senato da yerine Medici'nin yan kolundan 17 yaşındaki Cosimo'yu seçmişti.",
+   "speech": "Ocak bin beş yüz otuz yedide Floransa Dükü Alessandro'yu kuzeni öldürmüş, Senato da yerine Mediçi'nin yan kolundan on yedi yaşındaki Kozimo'yu seçmişti.",
+   "t0": 0.04,
+   "t1": 9.09,
+   "words": [
+    {
+     "w": "Ocak",
+     "t0": 0.04,
+     "t1": 0.448
+    },
+    {
+     "w": "1537'de",
+     "t0": 0.537,
+     "t1": 1.888
+    },
+    {
+     "w": "Floransa",
+     "t0": 1.888,
+     "t1": 2.417
+    },
+    {
+     "w": "Dükü",
+     "t0": 2.417,
+     "t1": 2.677
+    },
+    {
+     "w": "Alessandro'yu",
+     "t0": 2.677,
+     "t1": 3.437
+    },
+    {
+     "w": "kuzeni",
+     "t0": 3.437,
+     "t1": 3.817
+    },
+    {
+     "w": "öldürmüş,",
+     "t0": 3.817,
+     "t1": 4.458
+    },
+    {
+     "w": "Senato",
+     "t0": 4.558,
+     "t1": 5.053
+    },
+    {
+     "w": "da",
+     "t0": 5.053,
+     "t1": 5.188
+    },
+    {
+     "w": "yerine",
+     "t0": 5.188,
+     "t1": 5.567
+    },
+    {
+     "w": "Medici'nin",
+     "t0": 5.567,
+     "t1": 6.067
+    },
+    {
+     "w": "yan",
+     "t0": 6.067,
+     "t1": 6.328
+    },
+    {
+     "w": "kolundan",
+     "t0": 6.328,
+     "t1": 6.888
+    },
+    {
+     "w": "17",
+     "t0": 7.008,
+     "t1": 7.388
+    },
+    {
+     "w": "yaşındaki",
+     "t0": 7.388,
+     "t1": 7.888
+    },
+    {
+     "w": "Cosimo'yu",
+     "t0": 7.888,
+     "t1": 8.408
+    },
+    {
+     "w": "seçmişti.",
+     "t0": 8.408,
+     "t1": 9.09
+    }
+   ],
+   "gap": 0.868
+  },
+  {
+   "id": "c12s2",
+   "ch": "c12",
+   "disp": "Ertesi gün Senato koşulu yazıya geçirdi: Cosimo dük olmayacak, yalnızca “kentin başı ve birincisi” diye anılacaktı.",
+   "speech": "Ertesi gün Senato koşulu yazıya geçirdi: Kozimo dük olmayacak, yalnızca “kentin başı ve birincisi” diye anılacaktı.",
+   "t0": 9.958,
+   "t1": 17.76,
+   "words": [
+    {
+     "w": "Ertesi",
+     "t0": 9.958,
+     "t1": 10.473
+    },
+    {
+     "w": "gün",
+     "t0": 10.473,
+     "t1": 10.708
+    },
+    {
+     "w": "Senato",
+     "t0": 10.708,
+     "t1": 11.228
+    },
+    {
+     "w": "koşulu",
+     "t0": 11.228,
+     "t1": 11.618
+    },
+    {
+     "w": "yazıya",
+     "t0": 11.618,
+     "t1": 11.998
+    },
+    {
+     "w": "geçirdi:",
+     "t0": 11.998,
+     "t1": 12.528
+    },
+    {
+     "w": "Cosimo",
+     "t0": 12.528,
+     "t1": 13.073
+    },
+    {
+     "w": "dük",
+     "t0": 13.073,
+     "t1": 13.288
+    },
+    {
+     "w": "olmayacak,",
+     "t0": 13.288,
+     "t1": 14.058
+    },
+    {
+     "w": "yalnızca",
+     "t0": 14.128,
+     "t1": 14.938
+    },
+    {
+     "w": "“kentin",
+     "t0": 14.938,
+     "t1": 15.538
+    },
+    {
+     "w": "başı",
+     "t0": 15.538,
+     "t1": 15.928
+    },
+    {
+     "w": "ve",
+     "t0": 15.928,
+     "t1": 16.088
+    },
+    {
+     "w": "birincisi”",
+     "t0": 16.148,
+     "t1": 16.658
+    },
+    {
+     "w": "diye",
+     "t0": 16.658,
+     "t1": 16.848
+    },
+    {
+     "w": "anılacaktı.",
+     "t0": 16.848,
+     "t1": 17.76
+    }
+   ],
+   "gap": 0.75
+  },
+  {
+   "id": "c12s3",
+   "ch": "c12",
+   "disp": "Onu çağıran soylular muhtemelen yönetilebilir birini istemişti; Cosimo Mugello'da yetişmiş, şehirde pek tanınmayan bir çocuktu.",
+   "speech": "Onu çağıran soylular muhtemelen yönetilebilir birini istemişti; Kozimo Mucello'da yetişmiş, şehirde pek tanınmayan bir çocuktu.",
+   "t0": 18.51,
+   "t1": 26.34,
+   "words": [
+    {
+     "w": "Onu",
+     "t0": 18.51,
+     "t1": 18.717
+    },
+    {
+     "w": "çağıran",
+     "t0": 18.717,
+     "t1": 19.127
+    },
+    {
+     "w": "soylular",
+     "t0": 19.127,
+     "t1": 19.667
+    },
+    {
+     "w": "muhtemelen",
+     "t0": 19.667,
+     "t1": 20.337
+    },
+    {
+     "w": "yönetilebilir",
+     "t0": 20.337,
+     "t1": 21.027
+    },
+    {
+     "w": "birini",
+     "t0": 21.027,
+     "t1": 21.377
+    },
+    {
+     "w": "istemişti;",
+     "t0": 21.377,
+     "t1": 22.127
+    },
+    {
+     "w": "Cosimo",
+     "t0": 22.127,
+     "t1": 22.677
+    },
+    {
+     "w": "Mugello'da",
+     "t0": 22.677,
+     "t1": 23.247
+    },
+    {
+     "w": "yetişmiş,",
+     "t0": 23.247,
+     "t1": 24.007
+    },
+    {
+     "w": "şehirde",
+     "t0": 24.067,
+     "t1": 24.617
+    },
+    {
+     "w": "pek",
+     "t0": 24.617,
+     "t1": 24.937
+    },
+    {
+     "w": "tanınmayan",
+     "t0": 24.937,
+     "t1": 25.567
+    },
+    {
+     "w": "bir",
+     "t0": 25.567,
+     "t1": 25.717
+    },
+    {
+     "w": "çocuktu.",
+     "t0": 25.717,
+     "t1": 26.34
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c12s4",
+   "ch": "c12",
+   "disp": "Ağustos başında, Montemurlo'da, aceleyle toplanmış sürgün ordusunu yendi; İtalyan Ansiklopedisi Treccani bu zaferi cumhuriyetçi restorasyon tehdidinin sonu sayar.",
+   "speech": "Ağustos başında, Montemurlo'da, aceleyle toplanmış sürgün ordusunu yendi; İtalyan Ansiklopedisi Trekkani bu zaferi cumhuriyetçi restorasyon tehdidinin sonu sayar.",
+   "t0": 27.03,
+   "t1": 37.79,
+   "words": [
+    {
+     "w": "Ağustos",
+     "t0": 27.03,
+     "t1": 27.662
+    },
+    {
+     "w": "başında,",
+     "t0": 27.662,
+     "t1": 28.267
+    },
+    {
+     "w": "Montemurlo'da,",
+     "t0": 28.377,
+     "t1": 29.327
+    },
+    {
+     "w": "aceleyle",
+     "t0": 29.457,
+     "t1": 30.107
+    },
+    {
+     "w": "toplanmış",
+     "t0": 30.187,
+     "t1": 30.837
+    },
+    {
+     "w": "sürgün",
+     "t0": 30.837,
+     "t1": 31.187
+    },
+    {
+     "w": "ordusunu",
+     "t0": 31.187,
+     "t1": 31.637
+    },
+    {
+     "w": "yendi;",
+     "t0": 31.637,
+     "t1": 32.087
+    },
+    {
+     "w": "İtalyan",
+     "t0": 32.197,
+     "t1": 32.697
+    },
+    {
+     "w": "Ansiklopedisi",
+     "t0": 32.697,
+     "t1": 33.667
+    },
+    {
+     "w": "Treccani",
+     "t0": 33.737,
+     "t1": 34.258
+    },
+    {
+     "w": "bu",
+     "t0": 34.258,
+     "t1": 34.398
+    },
+    {
+     "w": "zaferi",
+     "t0": 34.398,
+     "t1": 34.817
+    },
+    {
+     "w": "cumhuriyetçi",
+     "t0": 34.817,
+     "t1": 35.597
+    },
+    {
+     "w": "restorasyon",
+     "t0": 35.597,
+     "t1": 36.467
+    },
+    {
+     "w": "tehdidinin",
+     "t0": 36.467,
+     "t1": 37.047
+    },
+    {
+     "w": "sonu",
+     "t0": 37.047,
+     "t1": 37.327
+    },
+    {
+     "w": "sayar.",
+     "t0": 37.327,
+     "t1": 37.79
+    }
+   ],
+   "gap": 0.86
+  },
+  {
+   "id": "c12s5",
+   "ch": "c12",
+   "disp": "1539'da Cosimo, İspanyol soylusu Eleonora di Toledo ile evlendi.",
+   "speech": "Bin beş yüz otuz dokuzda Kozimo, İspanyol soylusu Eleonora di Toledo ile evlendi.",
+   "t0": 38.65,
+   "t1": 44.41,
+   "words": [
+    {
+     "w": "1539'da",
+     "t0": 38.65,
+     "t1": 40.273
+    },
+    {
+     "w": "Cosimo,",
+     "t0": 40.273,
+     "t1": 40.878
+    },
+    {
+     "w": "İspanyol",
+     "t0": 41.008,
+     "t1": 41.618
+    },
+    {
+     "w": "soylusu",
+     "t0": 41.618,
+     "t1": 42.188
+    },
+    {
+     "w": "Eleonora",
+     "t0": 42.188,
+     "t1": 42.793
+    },
+    {
+     "w": "di",
+     "t0": 42.793,
+     "t1": 42.968
+    },
+    {
+     "w": "Toledo",
+     "t0": 42.968,
+     "t1": 43.383
+    },
+    {
+     "w": "ile",
+     "t0": 43.383,
+     "t1": 43.658
+    },
+    {
+     "w": "evlendi.",
+     "t0": 43.788,
+     "t1": 44.41
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c12s6",
+   "ch": "c12",
+   "disp": "Sözleşme 29 Mart'ta Napoli'de imzalandı ve evlilik vekâleten kutlandı; Eleonora 29 Haziran'da Floransa'ya girdi, resmî düğün ise 29 Temmuz'da yapıldı.",
+   "speech": "Sözleşme yirmi dokuz Mart'ta Napoli'de imzalandı ve evlilik vekâleten kutlandı; Eleonora yirmi dokuz Haziran'da Floransa'ya girdi, resmî düğün ise yirmi dokuz Temmuz'da yapıldı.",
+   "t0": 45.1,
+   "t1": 57.21,
+   "words": [
+    {
+     "w": "Sözleşme",
+     "t0": 45.1,
+     "t1": 45.848
+    },
+    {
+     "w": "29",
+     "t0": 45.848,
+     "t1": 46.528
+    },
+    {
+     "w": "Mart'ta",
+     "t0": 46.528,
+     "t1": 46.977
+    },
+    {
+     "w": "Napoli'de",
+     "t0": 46.977,
+     "t1": 47.627
+    },
+    {
+     "w": "imzalandı",
+     "t0": 47.708,
+     "t1": 48.578
+    },
+    {
+     "w": "ve",
+     "t0": 48.648,
+     "t1": 48.907
+    },
+    {
+     "w": "evlilik",
+     "t0": 49.008,
+     "t1": 49.517
+    },
+    {
+     "w": "vekâleten",
+     "t0": 49.517,
+     "t1": 50.157
+    },
+    {
+     "w": "kutlandı;",
+     "t0": 50.157,
+     "t1": 50.848
+    },
+    {
+     "w": "Eleonora",
+     "t0": 50.917,
+     "t1": 51.348
+    },
+    {
+     "w": "29",
+     "t0": 51.348,
+     "t1": 52.108
+    },
+    {
+     "w": "Haziran'da",
+     "t0": 52.108,
+     "t1": 52.8
+    },
+    {
+     "w": "Floransa'ya",
+     "t0": 52.98,
+     "t1": 53.623
+    },
+    {
+     "w": "girdi,",
+     "t0": 53.623,
+     "t1": 54.088
+    },
+    {
+     "w": "resmî",
+     "t0": 54.188,
+     "t1": 54.678
+    },
+    {
+     "w": "düğün",
+     "t0": 54.678,
+     "t1": 54.928
+    },
+    {
+     "w": "ise",
+     "t0": 54.928,
+     "t1": 55.33
+    },
+    {
+     "w": "29",
+     "t0": 55.5,
+     "t1": 56.188
+    },
+    {
+     "w": "Temmuz'da",
+     "t0": 56.188,
+     "t1": 56.667
+    },
+    {
+     "w": "yapıldı.",
+     "t0": 56.667,
+     "t1": 57.21
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c12s7",
+   "ch": "c12",
+   "disp": "Yani Cosimo evlenmek için üç ayrı 29'a ihtiyaç duymuştu.",
+   "speech": "Yani Kozimo evlenmek için üç ayrı yirmi dokuza ihtiyaç duymuştu.",
+   "t0": 57.9,
+   "t1": 62.64,
+   "words": [
+    {
+     "w": "Yani",
+     "t0": 57.9,
+     "t1": 58.348
+    },
+    {
+     "w": "Cosimo",
+     "t0": 58.348,
+     "t1": 58.878
+    },
+    {
+     "w": "evlenmek",
+     "t0": 58.968,
+     "t1": 59.518
+    },
+    {
+     "w": "için",
+     "t0": 59.518,
+     "t1": 59.838
+    },
+    {
+     "w": "üç",
+     "t0": 59.978,
+     "t1": 60.128
+    },
+    {
+     "w": "ayrı",
+     "t0": 60.128,
+     "t1": 60.398
+    },
+    {
+     "w": "29'a",
+     "t0": 60.398,
+     "t1": 61.378
+    },
+    {
+     "w": "ihtiyaç",
+     "t0": 61.478,
+     "t1": 61.998
+    },
+    {
+     "w": "duymuştu.",
+     "t0": 62.058,
+     "t1": 62.64
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c12s8",
+   "ch": "c12",
+   "disp": "Yüzyılın ortasında Pitti Sarayı'nı Eleonora satın aldı.",
+   "speech": "Yüzyılın ortasında Pitti Sarayı'nı Eleonora satın aldı.",
+   "t0": 63.38,
+   "t1": 66.7,
+   "words": [
+    {
+     "w": "Yüzyılın",
+     "t0": 63.38,
+     "t1": 63.958
+    },
+    {
+     "w": "ortasında",
+     "t0": 63.958,
+     "t1": 64.632
+    },
+    {
+     "w": "Pitti",
+     "t0": 64.632,
+     "t1": 64.987
+    },
+    {
+     "w": "Sarayı'nı",
+     "t0": 64.987,
+     "t1": 65.468
+    },
+    {
+     "w": "Eleonora",
+     "t0": 65.468,
+     "t1": 66.017
+    },
+    {
+     "w": "satın",
+     "t0": 66.017,
+     "t1": 66.337
+    },
+    {
+     "w": "aldı.",
+     "t0": 66.337,
+     "t1": 66.7
+    }
+   ],
+   "gap": 0.88
+  },
+  {
+   "id": "c12s9",
+   "ch": "c12",
+   "disp": "26 Şubat 1548'de Venedik'te Lorenzino pusuya düşürülüp öldürüldü; emri Cosimo'nun verdiği uzun süre kabul edildi, yeni bir çalışma buna kuşku düşürüyor.",
+   "speech": "Yirmi altı Şubat bin beş yüz kırk sekizde Venedik'te Lorentsino pusuya düşürülüp öldürüldü; emri Kozimo'nun verdiği uzun süre kabul edildi, yeni bir çalışma buna kuşku düşürüyor.",
+   "t0": 67.58,
+   "t1": 78.44,
+   "words": [
+    {
+     "w": "26",
+     "t0": 67.58,
+     "t1": 68.312
+    },
+    {
+     "w": "Şubat",
+     "t0": 68.312,
+     "t1": 68.767
+    },
+    {
+     "w": "1548'de",
+     "t0": 68.767,
+     "t1": 70.357
+    },
+    {
+     "w": "Venedik'te",
+     "t0": 70.357,
+     "t1": 70.957
+    },
+    {
+     "w": "Lorenzino",
+     "t0": 70.957,
+     "t1": 71.567
+    },
+    {
+     "w": "pusuya",
+     "t0": 71.567,
+     "t1": 71.982
+    },
+    {
+     "w": "düşürülüp",
+     "t0": 71.982,
+     "t1": 72.55
+    },
+    {
+     "w": "öldürüldü;",
+     "t0": 72.67,
+     "t1": 73.387
+    },
+    {
+     "w": "emri",
+     "t0": 73.497,
+     "t1": 73.757
+    },
+    {
+     "w": "Cosimo'nun",
+     "t0": 73.757,
+     "t1": 74.477
+    },
+    {
+     "w": "verdiği",
+     "t0": 74.477,
+     "t1": 74.877
+    },
+    {
+     "w": "uzun",
+     "t0": 74.877,
+     "t1": 75.188
+    },
+    {
+     "w": "süre",
+     "t0": 75.188,
+     "t1": 75.477
+    },
+    {
+     "w": "kabul",
+     "t0": 75.477,
+     "t1": 75.787
+    },
+    {
+     "w": "edildi,",
+     "t0": 75.787,
+     "t1": 76.297
+    },
+    {
+     "w": "yeni",
+     "t0": 76.367,
+     "t1": 76.637
+    },
+    {
+     "w": "bir",
+     "t0": 76.637,
+     "t1": 76.787
+    },
+    {
+     "w": "çalışma",
+     "t0": 76.787,
+     "t1": 77.262
+    },
+    {
+     "w": "buna",
+     "t0": 77.262,
+     "t1": 77.452
+    },
+    {
+     "w": "kuşku",
+     "t0": 77.452,
+     "t1": 77.877
+    },
+    {
+     "w": "düşürüyor.",
+     "t0": 77.877,
+     "t1": 78.44
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c12s10",
+   "ch": "c12",
+   "disp": "Siena yaklaşık on beş ay direndi ve açlıktan teslim oldu; 1557'de II. Felipe şehri Cosimo'ya bıraktı.",
+   "speech": "Siyena yaklaşık on beş ay direndi ve açlıktan teslim oldu; bin beş yüz elli yedide İkinci Felipe şehri Kozimo'ya bıraktı.",
+   "t0": 79.18,
+   "t1": 86.82,
+   "words": [
+    {
+     "w": "Siena",
+     "t0": 79.18,
+     "t1": 79.587
+    },
+    {
+     "w": "yaklaşık",
+     "t0": 79.587,
+     "t1": 80.197
+    },
+    {
+     "w": "on",
+     "t0": 80.197,
+     "t1": 80.397
+    },
+    {
+     "w": "beş",
+     "t0": 80.397,
+     "t1": 80.602
+    },
+    {
+     "w": "ay",
+     "t0": 80.602,
+     "t1": 80.817
+    },
+    {
+     "w": "direndi",
+     "t0": 80.817,
+     "t1": 81.237
+    },
+    {
+     "w": "ve",
+     "t0": 81.237,
+     "t1": 81.367
+    },
+    {
+     "w": "açlıktan",
+     "t0": 82.076,
+     "t1": 82.077
+    },
+    {
+     "w": "teslim",
+     "t0": 82.077,
+     "t1": 82.527
+    },
+    {
+     "w": "oldu;",
+     "t0": 82.527,
+     "t1": 82.86
+    },
+    {
+     "w": "1557'de",
+     "t0": 82.96,
+     "t1": 84.487
+    },
+    {
+     "w": "II.",
+     "t0": 84.557,
+     "t1": 84.967
+    },
+    {
+     "w": "Felipe",
+     "t0": 84.967,
+     "t1": 85.357
+    },
+    {
+     "w": "şehri",
+     "t0": 85.357,
+     "t1": 85.727
+    },
+    {
+     "w": "Cosimo'ya",
+     "t0": 85.727,
+     "t1": 86.267
+    },
+    {
+     "w": "bıraktı.",
+     "t0": 86.267,
+     "t1": 86.82
+    }
+   ],
+   "gap": 0.88
+  },
+  {
+   "id": "c12s11",
+   "ch": "c12",
+   "disp": "1560'ta Cosimo, Vasari'den bir bina istedi: Floransa'ya dağılmış 13 idari makamı tek çatı altında toplayacaktı.",
+   "speech": "Bin beş yüz altmışta Kozimo, Vazari'den bir bina istedi: Floransa'ya dağılmış on üç idari makamı tek çatı altında toplayacaktı.",
+   "t0": 87.7,
+   "t1": 95.69,
+   "words": [
+    {
+     "w": "1560'ta",
+     "t0": 87.7,
+     "t1": 88.887
+    },
+    {
+     "w": "Cosimo,",
+     "t0": 88.887,
+     "t1": 89.42
+    },
+    {
+     "w": "Vasari'den",
+     "t0": 89.61,
+     "t1": 90.357
+    },
+    {
+     "w": "bir",
+     "t0": 90.357,
+     "t1": 90.527
+    },
+    {
+     "w": "bina",
+     "t0": 90.527,
+     "t1": 90.727
+    },
+    {
+     "w": "istedi:",
+     "t0": 90.807,
+     "t1": 91.31
+    },
+    {
+     "w": "Floransa'ya",
+     "t0": 91.44,
+     "t1": 92.107
+    },
+    {
+     "w": "dağılmış",
+     "t0": 92.107,
+     "t1": 92.607
+    },
+    {
+     "w": "13",
+     "t0": 92.607,
+     "t1": 93.047
+    },
+    {
+     "w": "idari",
+     "t0": 93.047,
+     "t1": 93.317
+    },
+    {
+     "w": "makamı",
+     "t0": 93.317,
+     "t1": 93.737
+    },
+    {
+     "w": "tek",
+     "t0": 93.737,
+     "t1": 93.997
+    },
+    {
+     "w": "çatı",
+     "t0": 93.997,
+     "t1": 94.217
+    },
+    {
+     "w": "altında",
+     "t0": 94.217,
+     "t1": 94.697
+    },
+    {
+     "w": "toplayacaktı.",
+     "t0": 94.697,
+     "t1": 95.69
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c12s12",
+   "ch": "c12",
+   "disp": "Binanın adı da bunu söylüyordu: Uffizi, yani ofisler.",
+   "speech": "Binanın adı da bunu söylüyordu: Uffitsi, yani ofisler.",
+   "t0": 96.36,
+   "t1": 100.33,
+   "words": [
+    {
+     "w": "Binanın",
+     "t0": 96.36,
+     "t1": 96.927
+    },
+    {
+     "w": "adı",
+     "t0": 96.927,
+     "t1": 97.137
+    },
+    {
+     "w": "da",
+     "t0": 97.137,
+     "t1": 97.257
+    },
+    {
+     "w": "bunu",
+     "t0": 97.257,
+     "t1": 97.517
+    },
+    {
+     "w": "söylüyordu:",
+     "t0": 97.517,
+     "t1": 98.267
+    },
+    {
+     "w": "Uffizi,",
+     "t0": 98.347,
+     "t1": 99.0
+    },
+    {
+     "w": "yani",
+     "t0": 99.11,
+     "t1": 99.577
+    },
+    {
+     "w": "ofisler.",
+     "t0": 99.577,
+     "t1": 100.33
+    }
+   ],
+   "gap": 0.6
+  },
+  {
+   "id": "c12s13",
+   "ch": "c12",
+   "disp": "Dünyanın en ünlü galerilerinden biri, doğduğunda bir memur binasıydı.",
+   "speech": "Dünyanın en ünlü galerilerinden biri, doğduğunda bir memur binasıydı.",
+   "t0": 100.93,
+   "t1": 105.45,
+   "words": [
+    {
+     "w": "Dünyanın",
+     "t0": 100.93,
+     "t1": 101.667
+    },
+    {
+     "w": "en",
+     "t0": 101.797,
+     "t1": 102.007
+    },
+    {
+     "w": "ünlü",
+     "t0": 102.007,
+     "t1": 102.257
+    },
+    {
+     "w": "galerilerinden",
+     "t0": 102.257,
+     "t1": 103.127
+    },
+    {
+     "w": "biri,",
+     "t0": 103.127,
+     "t1": 103.417
+    },
+    {
+     "w": "doğduğunda",
+     "t0": 103.517,
+     "t1": 104.172
+    },
+    {
+     "w": "bir",
+     "t0": 104.172,
+     "t1": 104.417
+    },
+    {
+     "w": "memur",
+     "t0": 104.417,
+     "t1": 104.777
+    },
+    {
+     "w": "binasıydı.",
+     "t0": 104.777,
+     "t1": 105.45
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c12s14",
+   "ch": "c12",
+   "disp": "1565'te Uffizi'nin üst katı, Palazzo Vecchio'yu Pitti Sarayı'na bağlayan, Arno'yu aşan bir koridora ulandı: iktidarın ofisinden evine kapalı bir yol.",
+   "speech": "Bin beş yüz altmış beşte Uffitsi'nin üst katı, Palattso Vekkyo'yu Pitti Sarayı'na bağlayan, Arno'yu aşan bir koridora ulandı: iktidarın ofisinden evine kapalı bir yol.",
+   "t0": 106.19,
+   "t1": 116.15,
+   "words": [
+    {
+     "w": "1565'te",
+     "t0": 106.19,
+     "t1": 107.747
+    },
+    {
+     "w": "Uffizi'nin",
+     "t0": 107.747,
+     "t1": 108.367
+    },
+    {
+     "w": "üst",
+     "t0": 108.477,
+     "t1": 108.747
+    },
+    {
+     "w": "katı,",
+     "t0": 108.747,
+     "t1": 109.237
+    },
+    {
+     "w": "Palazzo",
+     "t0": 109.237,
+     "t1": 109.837
+    },
+    {
+     "w": "Vecchio'yu",
+     "t0": 109.837,
+     "t1": 110.287
+    },
+    {
+     "w": "Pitti",
+     "t0": 110.287,
+     "t1": 110.597
+    },
+    {
+     "w": "Sarayı'na",
+     "t0": 110.597,
+     "t1": 111.167
+    },
+    {
+     "w": "bağlayan,",
+     "t0": 111.167,
+     "t1": 111.837
+    },
+    {
+     "w": "Arno'yu",
+     "t0": 111.947,
+     "t1": 112.347
+    },
+    {
+     "w": "aşan",
+     "t0": 112.347,
+     "t1": 112.757
+    },
+    {
+     "w": "bir",
+     "t0": 112.757,
+     "t1": 112.877
+    },
+    {
+     "w": "koridora",
+     "t0": 112.877,
+     "t1": 113.367
+    },
+    {
+     "w": "ulandı:",
+     "t0": 113.367,
+     "t1": 113.957
+    },
+    {
+     "w": "iktidarın",
+     "t0": 114.017,
+     "t1": 114.537
+    },
+    {
+     "w": "ofisinden",
+     "t0": 114.537,
+     "t1": 115.087
+    },
+    {
+     "w": "evine",
+     "t0": 115.087,
+     "t1": 115.437
+    },
+    {
+     "w": "kapalı",
+     "t0": 115.437,
+     "t1": 115.807
+    },
+    {
+     "w": "bir",
+     "t0": 115.807,
+     "t1": 115.927
+    },
+    {
+     "w": "yol.",
+     "t0": 115.927,
+     "t1": 116.15
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c12s15",
+   "ch": "c12",
+   "disp": "Müze olması çok sonra: bina halka ancak 1769'da açıldı.",
+   "speech": "Müze olması çok sonra: bina halka ancak bin yedi yüz altmış dokuzda açıldı.",
+   "t0": 116.87,
+   "t1": 121.67,
+   "words": [
+    {
+     "w": "Müze",
+     "t0": 116.87,
+     "t1": 117.217
+    },
+    {
+     "w": "olması",
+     "t0": 117.217,
+     "t1": 117.647
+    },
+    {
+     "w": "çok",
+     "t0": 117.647,
+     "t1": 117.877
+    },
+    {
+     "w": "sonra:",
+     "t0": 117.877,
+     "t1": 118.327
+    },
+    {
+     "w": "bina",
+     "t0": 118.417,
+     "t1": 118.677
+    },
+    {
+     "w": "halka",
+     "t0": 118.677,
+     "t1": 119.077
+    },
+    {
+     "w": "ancak",
+     "t0": 119.077,
+     "t1": 119.497
+    },
+    {
+     "w": "1769'da",
+     "t0": 119.567,
+     "t1": 121.132
+    },
+    {
+     "w": "açıldı.",
+     "t0": 121.132,
+     "t1": 121.67
+    }
+   ],
+   "gap": 0.9
+  },
+  {
+   "id": "c12s16",
+   "ch": "c12",
+   "disp": "Cosimo bir de kendi şövalye tarikatını kurdu: Santo Stefano.",
+   "speech": "Kozimo bir de kendi şövalye tarikatını kurdu: Santo Stefano.",
+   "t0": 122.57,
+   "t1": 126.62,
+   "words": [
+    {
+     "w": "Cosimo",
+     "t0": 122.57,
+     "t1": 123.007
+    },
+    {
+     "w": "bir",
+     "t0": 123.007,
+     "t1": 123.167
+    },
+    {
+     "w": "de",
+     "t0": 123.167,
+     "t1": 123.377
+    },
+    {
+     "w": "kendi",
+     "t0": 123.377,
+     "t1": 123.767
+    },
+    {
+     "w": "şövalye",
+     "t0": 123.767,
+     "t1": 124.247
+    },
+    {
+     "w": "tarikatını",
+     "t0": 124.247,
+     "t1": 124.937
+    },
+    {
+     "w": "kurdu:",
+     "t0": 124.937,
+     "t1": 125.4
+    },
+    {
+     "w": "Santo",
+     "t0": 125.51,
+     "t1": 125.967
+    },
+    {
+     "w": "Stefano.",
+     "t0": 125.967,
+     "t1": 126.62
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c12s17",
+   "ch": "c12",
+   "disp": "Papa 1561'de onayladı; 1562'de Pisa'da Cosimo, tarikatın büyük ustası olarak giydirildi.",
+   "speech": "Papa bin beş yüz altmış birde onayladı; bin beş yüz altmış ikide Piza'da Kozimo, tarikatın büyük ustası olarak giydirildi.",
+   "t0": 127.29,
+   "t1": 134.93,
+   "words": [
+    {
+     "w": "Papa",
+     "t0": 127.29,
+     "t1": 127.597
+    },
+    {
+     "w": "1561'de",
+     "t0": 127.597,
+     "t1": 129.047
+    },
+    {
+     "w": "onayladı;",
+     "t0": 129.107,
+     "t1": 129.7
+    },
+    {
+     "w": "1562'de",
+     "t0": 129.83,
+     "t1": 131.218
+    },
+    {
+     "w": "Pisa'da",
+     "t0": 131.218,
+     "t1": 131.692
+    },
+    {
+     "w": "Cosimo,",
+     "t0": 131.692,
+     "t1": 132.3
+    },
+    {
+     "w": "tarikatın",
+     "t0": 132.41,
+     "t1": 133.118
+    },
+    {
+     "w": "büyük",
+     "t0": 133.118,
+     "t1": 133.408
+    },
+    {
+     "w": "ustası",
+     "t0": 133.408,
+     "t1": 133.858
+    },
+    {
+     "w": "olarak",
+     "t0": 133.858,
+     "t1": 134.278
+    },
+    {
+     "w": "giydirildi.",
+     "t0": 134.278,
+     "t1": 134.93
+    }
+   ],
+   "gap": 0.68
+  },
+  {
+   "id": "c12s18",
+   "ch": "c12",
+   "disp": "Kaynaklara göre amaç, Osmanlı ve korsan gemileriyle savaşmak ve Hristiyan esirleri kurtarmaktı; ganimet satışının Livorno'yu zenginleştirdiği yazılır.",
+   "speech": "Kaynaklara göre amaç, Osmanlı ve korsan gemileriyle savaşmak ve Hristiyan esirleri kurtarmaktı; ganimet satışının Livorno'yu zenginleştirdiği yazılır.",
+   "t0": 135.61,
+   "t1": 145.81,
+   "words": [
+    {
+     "w": "Kaynaklara",
+     "t0": 135.61,
+     "t1": 136.268
+    },
+    {
+     "w": "göre",
+     "t0": 136.268,
+     "t1": 136.528
+    },
+    {
+     "w": "amaç,",
+     "t0": 136.608,
+     "t1": 137.132
+    },
+    {
+     "w": "Osmanlı",
+     "t0": 137.132,
+     "t1": 137.877
+    },
+    {
+     "w": "ve",
+     "t0": 137.877,
+     "t1": 138.108
+    },
+    {
+     "w": "korsan",
+     "t0": 138.108,
+     "t1": 138.657
+    },
+    {
+     "w": "gemileriyle",
+     "t0": 138.657,
+     "t1": 139.368
+    },
+    {
+     "w": "savaşmak",
+     "t0": 139.418,
+     "t1": 140.108
+    },
+    {
+     "w": "ve",
+     "t0": 140.108,
+     "t1": 140.268
+    },
+    {
+     "w": "Hristiyan",
+     "t0": 140.268,
+     "t1": 140.907
+    },
+    {
+     "w": "esirleri",
+     "t0": 140.907,
+     "t1": 141.377
+    },
+    {
+     "w": "kurtarmaktı;",
+     "t0": 141.377,
+     "t1": 142.388
+    },
+    {
+     "w": "ganimet",
+     "t0": 142.448,
+     "t1": 143.088
+    },
+    {
+     "w": "satışının",
+     "t0": 143.088,
+     "t1": 143.678
+    },
+    {
+     "w": "Livorno'yu",
+     "t0": 143.678,
+     "t1": 144.208
+    },
+    {
+     "w": "zenginleştirdiği",
+     "t0": 144.208,
+     "t1": 145.298
+    },
+    {
+     "w": "yazılır.",
+     "t0": 145.298,
+     "t1": 145.81
+    }
+   ],
+   "gap": 0.81
+  },
+  {
+   "id": "c12s19",
+   "ch": "c12",
+   "disp": "Kasım 1562'de aile kıyıda bir geziye çıktı ve sıtmaya yakalandı.",
+   "speech": "Kasım bin beş yüz altmış ikide aile kıyıda bir geziye çıktı ve sıtmaya yakalandı.",
+   "t0": 146.62,
+   "t1": 151.58,
+   "words": [
+    {
+     "w": "Kasım",
+     "t0": 146.62,
+     "t1": 147.137
+    },
+    {
+     "w": "1562'de",
+     "t0": 147.137,
+     "t1": 148.588
+    },
+    {
+     "w": "aile",
+     "t0": 148.588,
+     "t1": 148.958
+    },
+    {
+     "w": "kıyıda",
+     "t0": 148.958,
+     "t1": 149.312
+    },
+    {
+     "w": "bir",
+     "t0": 149.312,
+     "t1": 149.517
+    },
+    {
+     "w": "geziye",
+     "t0": 149.517,
+     "t1": 149.998
+    },
+    {
+     "w": "çıktı",
+     "t0": 149.998,
+     "t1": 150.327
+    },
+    {
+     "w": "ve",
+     "t0": 150.327,
+     "t1": 150.458
+    },
+    {
+     "w": "sıtmaya",
+     "t0": 150.458,
+     "t1": 150.898
+    },
+    {
+     "w": "yakalandı.",
+     "t0": 150.898,
+     "t1": 151.58
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c12s20",
+   "ch": "c12",
+   "disp": "20 Kasım'da Cosimo'nun kardinal oğlu Giovanni öldü; on dokuz yaşındaydı.",
+   "speech": "Yirmi Kasım'da Kozimo'nun kardinal oğlu Covanni öldü; on dokuz yaşındaydı.",
+   "t0": 152.31,
+   "t1": 156.89,
+   "words": [
+    {
+     "w": "20",
+     "t0": 152.31,
+     "t1": 152.627
+    },
+    {
+     "w": "Kasım'da",
+     "t0": 152.627,
+     "t1": 153.047
+    },
+    {
+     "w": "Cosimo'nun",
+     "t0": 153.047,
+     "t1": 153.657
+    },
+    {
+     "w": "kardinal",
+     "t0": 153.657,
+     "t1": 154.227
+    },
+    {
+     "w": "oğlu",
+     "t0": 154.227,
+     "t1": 154.468
+    },
+    {
+     "w": "Giovanni",
+     "t0": 154.468,
+     "t1": 154.947
+    },
+    {
+     "w": "öldü;",
+     "t0": 154.947,
+     "t1": 155.34
+    },
+    {
+     "w": "on",
+     "t0": 155.53,
+     "t1": 155.778
+    },
+    {
+     "w": "dokuz",
+     "t0": 155.778,
+     "t1": 156.097
+    },
+    {
+     "w": "yaşındaydı.",
+     "t0": 156.097,
+     "t1": 156.89
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c12s21",
+   "ch": "c12",
+   "disp": "Aralığın ilk yarısında kardeşi Garzia gitti; on beş ya da on altı yaşındaydı.",
+   "speech": "Aralığın ilk yarısında kardeşi Gartsiya gitti; on beş ya da on altı yaşındaydı.",
+   "t0": 157.6,
+   "t1": 162.84,
+   "words": [
+    {
+     "w": "Aralığın",
+     "t0": 157.6,
+     "t1": 158.128
+    },
+    {
+     "w": "ilk",
+     "t0": 158.188,
+     "t1": 158.388
+    },
+    {
+     "w": "yarısında",
+     "t0": 158.388,
+     "t1": 158.898
+    },
+    {
+     "w": "kardeşi",
+     "t0": 158.898,
+     "t1": 159.498
+    },
+    {
+     "w": "Garzia",
+     "t0": 159.498,
+     "t1": 160.018
+    },
+    {
+     "w": "gitti;",
+     "t0": 160.018,
+     "t1": 160.22
+    },
+    {
+     "w": "on",
+     "t0": 160.618,
+     "t1": 160.898
+    },
+    {
+     "w": "beş",
+     "t0": 160.898,
+     "t1": 161.188
+    },
+    {
+     "w": "ya",
+     "t0": 161.188,
+     "t1": 161.292
+    },
+    {
+     "w": "da",
+     "t0": 161.292,
+     "t1": 161.447
+    },
+    {
+     "w": "on",
+     "t0": 161.558,
+     "t1": 161.727
+    },
+    {
+     "w": "altı",
+     "t0": 161.727,
+     "t1": 162.077
+    },
+    {
+     "w": "yaşındaydı.",
+     "t0": 162.077,
+     "t1": 162.84
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c12s22",
+   "ch": "c12",
+   "disp": "17 Aralık'ta Eleonora öldü: dört haftada üç ölüm.",
+   "speech": "On yedi Aralık'ta Eleonora öldü: dört haftada üç ölüm.",
+   "t0": 163.58,
+   "t1": 167.38,
+   "words": [
+    {
+     "w": "17",
+     "t0": 163.58,
+     "t1": 164.067
+    },
+    {
+     "w": "Aralık'ta",
+     "t0": 164.148,
+     "t1": 164.638
+    },
+    {
+     "w": "Eleonora",
+     "t0": 164.638,
+     "t1": 165.157
+    },
+    {
+     "w": "öldü:",
+     "t0": 165.257,
+     "t1": 165.67
+    },
+    {
+     "w": "dört",
+     "t0": 165.83,
+     "t1": 166.158
+    },
+    {
+     "w": "haftada",
+     "t0": 166.158,
+     "t1": 166.75
+    },
+    {
+     "w": "üç",
+     "t0": 166.85,
+     "t1": 167.04
+    },
+    {
+     "w": "ölüm.",
+     "t0": 167.04,
+     "t1": 167.38
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c12s23",
+   "ch": "c12",
+   "disp": "Sonra bir hikâye doğdu: Garzia kardeşini, Cosimo da Garzia'yı öldürmüş. Rivayet ölümlerden çok sonra ortaya çıktı; ilk yazanını gösteremiyoruz.",
+   "speech": "Sonra bir hikâye doğdu: Gartsiya kardeşini, Kozimo da Gartsiya'yı öldürmüş. Rivayet ölümlerden çok sonra ortaya çıktı; ilk yazanını gösteremiyoruz.",
+   "t0": 168.11,
+   "t1": 178.16,
+   "words": [
+    {
+     "w": "Sonra",
+     "t0": 168.11,
+     "t1": 168.702
+    },
+    {
+     "w": "bir",
+     "t0": 168.702,
+     "t1": 168.918
+    },
+    {
+     "w": "hikâye",
+     "t0": 168.918,
+     "t1": 169.358
+    },
+    {
+     "w": "doğdu:",
+     "t0": 169.358,
+     "t1": 169.78
+    },
+    {
+     "w": "Garzia",
+     "t0": 169.88,
+     "t1": 170.513
+    },
+    {
+     "w": "kardeşini,",
+     "t0": 170.513,
+     "t1": 171.278
+    },
+    {
+     "w": "Cosimo",
+     "t0": 171.278,
+     "t1": 171.803
+    },
+    {
+     "w": "da",
+     "t0": 171.803,
+     "t1": 171.958
+    },
+    {
+     "w": "Garzia'yı",
+     "t0": 171.958,
+     "t1": 172.678
+    },
+    {
+     "w": "öldürmüş.",
+     "t0": 172.678,
+     "t1": 173.238
+    },
+    {
+     "w": "Rivayet",
+     "t0": 173.378,
+     "t1": 173.978
+    },
+    {
+     "w": "ölümlerden",
+     "t0": 173.978,
+     "t1": 174.678
+    },
+    {
+     "w": "çok",
+     "t0": 174.678,
+     "t1": 174.958
+    },
+    {
+     "w": "sonra",
+     "t0": 174.958,
+     "t1": 175.468
+    },
+    {
+     "w": "ortaya",
+     "t0": 175.558,
+     "t1": 175.903
+    },
+    {
+     "w": "çıktı;",
+     "t0": 175.903,
+     "t1": 176.318
+    },
+    {
+     "w": "ilk",
+     "t0": 176.428,
+     "t1": 176.668
+    },
+    {
+     "w": "yazanını",
+     "t0": 176.668,
+     "t1": 177.108
+    },
+    {
+     "w": "gösteremiyoruz.",
+     "t0": 177.108,
+     "t1": 178.16
+    }
+   ],
+   "gap": 0.59
+  },
+  {
+   "id": "c12s24",
+   "ch": "c12",
+   "disp": "1857'de mezar açıldığında Garzia'nın iskeletinde kırmızı atlas bir ceket vardı, şiddet izi görülmedi; sonraki kemik incelemeleri sıtmayla uyumlu bulgular verdi.",
+   "speech": "Bin sekiz yüz elli yedide mezar açıldığında Gartsiya'nın iskeletinde kırmızı atlas bir ceket vardı, şiddet izi görülmedi; sonraki kemik incelemeleri sıtmayla uyumlu bulgular verdi.",
+   "t0": 178.75,
+   "t1": 190.31,
+   "words": [
+    {
+     "w": "1857'de",
+     "t0": 178.75,
+     "t1": 180.367
+    },
+    {
+     "w": "mezar",
+     "t0": 180.367,
+     "t1": 180.778
+    },
+    {
+     "w": "açıldığında",
+     "t0": 180.778,
+     "t1": 181.417
+    },
+    {
+     "w": "Garzia'nın",
+     "t0": 181.487,
+     "t1": 182.237
+    },
+    {
+     "w": "iskeletinde",
+     "t0": 182.237,
+     "t1": 183.037
+    },
+    {
+     "w": "kırmızı",
+     "t0": 183.037,
+     "t1": 183.567
+    },
+    {
+     "w": "atlas",
+     "t0": 183.567,
+     "t1": 184.092
+    },
+    {
+     "w": "bir",
+     "t0": 184.092,
+     "t1": 184.317
+    },
+    {
+     "w": "ceket",
+     "t0": 184.317,
+     "t1": 184.838
+    },
+    {
+     "w": "vardı,",
+     "t0": 184.838,
+     "t1": 185.227
+    },
+    {
+     "w": "şiddet",
+     "t0": 185.308,
+     "t1": 185.808
+    },
+    {
+     "w": "izi",
+     "t0": 185.808,
+     "t1": 185.968
+    },
+    {
+     "w": "görülmedi;",
+     "t0": 185.968,
+     "t1": 186.547
+    },
+    {
+     "w": "sonraki",
+     "t0": 186.627,
+     "t1": 187.157
+    },
+    {
+     "w": "kemik",
+     "t0": 187.157,
+     "t1": 187.537
+    },
+    {
+     "w": "incelemeleri",
+     "t0": 187.537,
+     "t1": 188.218
+    },
+    {
+     "w": "sıtmayla",
+     "t0": 188.218,
+     "t1": 188.847
+    },
+    {
+     "w": "uyumlu",
+     "t0": 188.927,
+     "t1": 189.327
+    },
+    {
+     "w": "bulgular",
+     "t0": 189.327,
+     "t1": 189.767
+    },
+    {
+     "w": "verdi.",
+     "t0": 189.767,
+     "t1": 190.31
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c12s25",
+   "ch": "c12",
+   "disp": "Cosimo'nun o haftalarda ne düşündüğünü bilmiyoruz.",
+   "speech": "Kozimo'nun o haftalarda ne düşündüğünü bilmiyoruz.",
+   "t0": 191.03,
+   "t1": 193.96,
+   "words": [
+    {
+     "w": "Cosimo'nun",
+     "t0": 191.03,
+     "t1": 191.707
+    },
+    {
+     "w": "o",
+     "t0": 191.707,
+     "t1": 191.778
+    },
+    {
+     "w": "haftalarda",
+     "t0": 191.778,
+     "t1": 192.468
+    },
+    {
+     "w": "ne",
+     "t0": 192.468,
+     "t1": 192.607
+    },
+    {
+     "w": "düşündüğünü",
+     "t0": 192.607,
+     "t1": 193.207
+    },
+    {
+     "w": "bilmiyoruz.",
+     "t0": 193.207,
+     "t1": 193.96
+    }
+   ],
+   "gap": 0.82
+  },
+  {
+   "id": "c12s26",
+   "ch": "c12",
+   "disp": "13 Ocak 1563'te, Cosimo'nun desteğiyle, Vasari'nin yönetiminde Sanatlar Akademisi kuruldu: yarı lonca, yarı akademi, Medici devletindeki sanat üretimini denetleyen bir kurul.",
+   "speech": "On üç Ocak bin beş yüz altmış üçte, Kozimo'nun desteğiyle, Vazari'nin yönetiminde Sanatlar Akademisi kuruldu: yarı lonca, yarı akademi, Mediçi devletindeki sanat üretimini denetleyen bir kurul.",
+   "t0": 194.78,
+   "t1": 207.55,
+   "words": [
+    {
+     "w": "13",
+     "t0": 194.78,
+     "t1": 195.297
+    },
+    {
+     "w": "Ocak",
+     "t0": 195.297,
+     "t1": 195.647
+    },
+    {
+     "w": "1563'te,",
+     "t0": 195.718,
+     "t1": 197.327
+    },
+    {
+     "w": "Cosimo'nun",
+     "t0": 197.327,
+     "t1": 198.088
+    },
+    {
+     "w": "desteğiyle,",
+     "t0": 198.088,
+     "t1": 198.827
+    },
+    {
+     "w": "Vasari'nin",
+     "t0": 198.927,
+     "t1": 199.537
+    },
+    {
+     "w": "yönetiminde",
+     "t0": 199.537,
+     "t1": 200.327
+    },
+    {
+     "w": "Sanatlar",
+     "t0": 200.377,
+     "t1": 200.947
+    },
+    {
+     "w": "Akademisi",
+     "t0": 200.947,
+     "t1": 201.567
+    },
+    {
+     "w": "kuruldu:",
+     "t0": 201.567,
+     "t1": 202.13
+    },
+    {
+     "w": "yarı",
+     "t0": 202.28,
+     "t1": 202.657
+    },
+    {
+     "w": "lonca,",
+     "t0": 202.657,
+     "t1": 203.218
+    },
+    {
+     "w": "yarı",
+     "t0": 203.308,
+     "t1": 203.547
+    },
+    {
+     "w": "akademi,",
+     "t0": 203.547,
+     "t1": 204.248
+    },
+    {
+     "w": "Medici",
+     "t0": 204.317,
+     "t1": 204.767
+    },
+    {
+     "w": "devletindeki",
+     "t0": 204.767,
+     "t1": 205.477
+    },
+    {
+     "w": "sanat",
+     "t0": 205.477,
+     "t1": 205.857
+    },
+    {
+     "w": "üretimini",
+     "t0": 205.857,
+     "t1": 206.308
+    },
+    {
+     "w": "denetleyen",
+     "t0": 206.308,
+     "t1": 207.028
+    },
+    {
+     "w": "bir",
+     "t0": 207.028,
+     "t1": 207.188
+    },
+    {
+     "w": "kurul.",
+     "t0": 207.188,
+     "t1": 207.55
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c12s27",
+   "ch": "c12",
+   "disp": "Michelangelo da kurumun başındaki adlardan biriydi; 1564'te ölünce cenazesini Akademi düzenledi.",
+   "speech": "Mikelancelo da kurumun başındaki adlardan biriydi; bin beş yüz altmış dörtte ölünce cenazesini Akademi düzenledi.",
+   "t0": 208.29,
+   "t1": 215.81,
+   "words": [
+    {
+     "w": "Michelangelo",
+     "t0": 208.29,
+     "t1": 209.153
+    },
+    {
+     "w": "da",
+     "t0": 209.153,
+     "t1": 209.288
+    },
+    {
+     "w": "kurumun",
+     "t0": 209.288,
+     "t1": 209.778
+    },
+    {
+     "w": "başındaki",
+     "t0": 209.778,
+     "t1": 210.368
+    },
+    {
+     "w": "adlardan",
+     "t0": 210.368,
+     "t1": 211.048
+    },
+    {
+     "w": "biriydi;",
+     "t0": 211.048,
+     "t1": 211.52
+    },
+    {
+     "w": "1564'te",
+     "t0": 211.7,
+     "t1": 213.438
+    },
+    {
+     "w": "ölünce",
+     "t0": 213.528,
+     "t1": 213.907
+    },
+    {
+     "w": "cenazesini",
+     "t0": 213.907,
+     "t1": 214.627
+    },
+    {
+     "w": "Akademi",
+     "t0": 214.627,
+     "t1": 215.127
+    },
+    {
+     "w": "düzenledi.",
+     "t0": 215.127,
+     "t1": 215.81
+    }
+   ],
+   "gap": 0.63
+  },
+  {
+   "id": "c12s28",
+   "ch": "c12",
+   "disp": "Cosimo güzelliği de bir devlet dairesi gibi örgütledi.",
+   "speech": "Kozimo güzelliği de bir devlet dairesi gibi örgütledi.",
+   "t0": 216.44,
+   "t1": 220.02,
+   "words": [
+    {
+     "w": "Cosimo",
+     "t0": 216.44,
+     "t1": 216.908
+    },
+    {
+     "w": "güzelliği",
+     "t0": 216.908,
+     "t1": 217.508
+    },
+    {
+     "w": "de",
+     "t0": 217.508,
+     "t1": 217.688
+    },
+    {
+     "w": "bir",
+     "t0": 217.688,
+     "t1": 217.968
+    },
+    {
+     "w": "devlet",
+     "t0": 217.968,
+     "t1": 218.388
+    },
+    {
+     "w": "dairesi",
+     "t0": 218.478,
+     "t1": 218.938
+    },
+    {
+     "w": "gibi",
+     "t0": 218.938,
+     "t1": 219.198
+    },
+    {
+     "w": "örgütledi.",
+     "t0": 219.288,
+     "t1": 220.02
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c12s29",
+   "ch": "c12",
+   "disp": "1564'te Cosimo günlük yönetimi oğlu Francesco'ya bıraktı ama dük unvanını korudu.",
+   "speech": "Bin beş yüz altmış dörtte Kozimo günlük yönetimi oğlu Françesko'ya bıraktı ama dük unvanını korudu.",
+   "t0": 220.87,
+   "t1": 226.95,
+   "words": [
+    {
+     "w": "1564'te",
+     "t0": 220.87,
+     "t1": 222.648
+    },
+    {
+     "w": "Cosimo",
+     "t0": 222.648,
+     "t1": 223.148
+    },
+    {
+     "w": "günlük",
+     "t0": 223.148,
+     "t1": 223.648
+    },
+    {
+     "w": "yönetimi",
+     "t0": 223.648,
+     "t1": 224.077
+    },
+    {
+     "w": "oğlu",
+     "t0": 224.077,
+     "t1": 224.413
+    },
+    {
+     "w": "Francesco'ya",
+     "t0": 224.413,
+     "t1": 225.237
+    },
+    {
+     "w": "bıraktı",
+     "t0": 225.237,
+     "t1": 225.637
+    },
+    {
+     "w": "ama",
+     "t0": 225.637,
+     "t1": 225.873
+    },
+    {
+     "w": "dük",
+     "t0": 225.873,
+     "t1": 226.088
+    },
+    {
+     "w": "unvanını",
+     "t0": 226.088,
+     "t1": 226.487
+    },
+    {
+     "w": "korudu.",
+     "t0": 226.487,
+     "t1": 226.95
+    }
+   ],
+   "gap": 0.76
+  },
+  {
+   "id": "c12s30",
+   "ch": "c12",
+   "disp": "1569'da V. Pius ona Büyük Dük unvanını verdi, 1570'te de Roma'da taç giydi.",
+   "speech": "Bin beş yüz altmış dokuzda Beşinci Pius ona Büyük Dük unvanını verdi, bin beş yüz yetmişte de Roma'da taç giydi.",
+   "t0": 227.71,
+   "t1": 234.56,
+   "words": [
+    {
+     "w": "1569'da",
+     "t0": 227.71,
+     "t1": 229.352
+    },
+    {
+     "w": "V.",
+     "t0": 229.352,
+     "t1": 229.847
+    },
+    {
+     "w": "Pius",
+     "t0": 229.847,
+     "t1": 230.178
+    },
+    {
+     "w": "ona",
+     "t0": 230.248,
+     "t1": 230.398
+    },
+    {
+     "w": "Büyük",
+     "t0": 230.398,
+     "t1": 230.7
+    },
+    {
+     "w": "Dük",
+     "t0": 231.874,
+     "t1": 231.875
+    },
+    {
+     "w": "unvanını",
+     "t0": 231.875,
+     "t1": 231.876
+    },
+    {
+     "w": "verdi,",
+     "t0": 231.876,
+     "t1": 231.877
+    },
+    {
+     "w": "1570'te",
+     "t0": 231.877,
+     "t1": 233.148
+    },
+    {
+     "w": "de",
+     "t0": 233.148,
+     "t1": 233.308
+    },
+    {
+     "w": "Roma'da",
+     "t0": 233.308,
+     "t1": 233.798
+    },
+    {
+     "w": "taç",
+     "t0": 233.868,
+     "t1": 234.233
+    },
+    {
+     "w": "giydi.",
+     "t0": 234.233,
+     "t1": 234.56
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c12s31",
+   "ch": "c12",
+   "disp": "İmparatorun onayı ancak yıllar sonra, para karşılığı geldi, diye anlatılır: kentin birincisi dük oldu, Roma ona taç verdi, Viyana fatura kesti.",
+   "speech": "İmparatorun onayı ancak yıllar sonra, para karşılığı geldi, diye anlatılır: kentin birincisi dük oldu, Roma ona taç verdi, Viyana fatura kesti.",
+   "t0": 235.27,
+   "t1": 245.17,
+   "words": [
+    {
+     "w": "İmparatorun",
+     "t0": 235.27,
+     "t1": 236.028
+    },
+    {
+     "w": "onayı",
+     "t0": 236.028,
+     "t1": 236.377
+    },
+    {
+     "w": "ancak",
+     "t0": 236.377,
+     "t1": 236.847
+    },
+    {
+     "w": "yıllar",
+     "t0": 236.847,
+     "t1": 237.218
+    },
+    {
+     "w": "sonra,",
+     "t0": 237.218,
+     "t1": 237.718
+    },
+    {
+     "w": "para",
+     "t0": 237.778,
+     "t1": 238.023
+    },
+    {
+     "w": "karşılığı",
+     "t0": 238.023,
+     "t1": 238.618
+    },
+    {
+     "w": "geldi,",
+     "t0": 238.618,
+     "t1": 239.188
+    },
+    {
+     "w": "diye",
+     "t0": 239.257,
+     "t1": 239.488
+    },
+    {
+     "w": "anlatılır:",
+     "t0": 239.488,
+     "t1": 240.23
+    },
+    {
+     "w": "kentin",
+     "t0": 240.37,
+     "t1": 240.797
+    },
+    {
+     "w": "birincisi",
+     "t0": 240.797,
+     "t1": 241.322
+    },
+    {
+     "w": "dük",
+     "t0": 241.322,
+     "t1": 241.577
+    },
+    {
+     "w": "oldu,",
+     "t0": 241.577,
+     "t1": 242.01
+    },
+    {
+     "w": "Roma",
+     "t0": 242.14,
+     "t1": 242.398
+    },
+    {
+     "w": "ona",
+     "t0": 242.398,
+     "t1": 242.708
+    },
+    {
+     "w": "taç",
+     "t0": 242.708,
+     "t1": 243.093
+    },
+    {
+     "w": "verdi,",
+     "t0": 243.093,
+     "t1": 243.668
+    },
+    {
+     "w": "Viyana",
+     "t0": 243.787,
+     "t1": 244.233
+    },
+    {
+     "w": "fatura",
+     "t0": 244.233,
+     "t1": 244.593
+    },
+    {
+     "w": "kesti.",
+     "t0": 244.593,
+     "t1": 245.17
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c12s32",
+   "ch": "c12",
+   "disp": "7 Ekim 1571'de Lepanto'da, Türkçedeki adıyla İnebahtı'da, Hristiyan devletlerin yaklaşık iki yüz kadırgalık donanmasında, kaynaklara göre, Toskana'dan on iki gemi vardı.",
+   "speech": "Yedi Ekim bin beş yüz yetmiş birde Lepanto'da, Türkçedeki adıyla İnebahtı'da, Hristiyan devletlerin yaklaşık iki yüz kadırgalık donanmasında, kaynaklara göre, Toskana'dan on iki gemi vardı.",
+   "t0": 246.02,
+   "t1": 258.87,
+   "words": [
+    {
+     "w": "7",
+     "t0": 246.02,
+     "t1": 246.458
+    },
+    {
+     "w": "Ekim",
+     "t0": 246.537,
+     "t1": 246.887
+    },
+    {
+     "w": "1571'de",
+     "t0": 246.887,
+     "t1": 248.417
+    },
+    {
+     "w": "Lepanto'da,",
+     "t0": 248.507,
+     "t1": 249.317
+    },
+    {
+     "w": "Türkçedeki",
+     "t0": 249.317,
+     "t1": 250.058
+    },
+    {
+     "w": "adıyla",
+     "t0": 250.058,
+     "t1": 250.567
+    },
+    {
+     "w": "İnebahtı'da,",
+     "t0": 250.648,
+     "t1": 251.477
+    },
+    {
+     "w": "Hristiyan",
+     "t0": 251.597,
+     "t1": 252.257
+    },
+    {
+     "w": "devletlerin",
+     "t0": 252.257,
+     "t1": 252.988
+    },
+    {
+     "w": "yaklaşık",
+     "t0": 252.988,
+     "t1": 253.678
+    },
+    {
+     "w": "iki",
+     "t0": 253.678,
+     "t1": 253.928
+    },
+    {
+     "w": "yüz",
+     "t0": 253.928,
+     "t1": 254.118
+    },
+    {
+     "w": "kadırgalık",
+     "t0": 254.118,
+     "t1": 254.63
+    },
+    {
+     "w": "donanmasında,",
+     "t0": 254.74,
+     "t1": 255.623
+    },
+    {
+     "w": "kaynaklara",
+     "t0": 255.623,
+     "t1": 256.342
+    },
+    {
+     "w": "göre,",
+     "t0": 256.342,
+     "t1": 256.728
+    },
+    {
+     "w": "Toskana'dan",
+     "t0": 256.788,
+     "t1": 257.577
+    },
+    {
+     "w": "on",
+     "t0": 257.678,
+     "t1": 257.877
+    },
+    {
+     "w": "iki",
+     "t0": 257.957,
+     "t1": 258.147
+    },
+    {
+     "w": "gemi",
+     "t0": 258.147,
+     "t1": 258.433
+    },
+    {
+     "w": "vardı.",
+     "t0": 258.433,
+     "t1": 258.87
+    }
+   ],
+   "gap": 0.7
+  },
+  {
+   "id": "c12s33",
+   "ch": "c12",
+   "disp": "Osmanlı donanması o gün ağır bir yenilgi aldı.",
+   "speech": "Osmanlı donanması o gün ağır bir yenilgi aldı.",
+   "t0": 259.57,
+   "t1": 262.69,
+   "words": [
+    {
+     "w": "Osmanlı",
+     "t0": 259.57,
+     "t1": 260.188
+    },
+    {
+     "w": "donanması",
+     "t0": 260.188,
+     "t1": 260.887
+    },
+    {
+     "w": "o",
+     "t0": 260.988,
+     "t1": 261.127
+    },
+    {
+     "w": "gün",
+     "t0": 261.127,
+     "t1": 261.327
+    },
+    {
+     "w": "ağır",
+     "t0": 261.327,
+     "t1": 261.618
+    },
+    {
+     "w": "bir",
+     "t0": 261.618,
+     "t1": 261.778
+    },
+    {
+     "w": "yenilgi",
+     "t0": 261.778,
+     "t1": 262.268
+    },
+    {
+     "w": "aldı.",
+     "t0": 262.268,
+     "t1": 262.69
+    }
+   ],
+   "gap": 0.7
+  },
+  {
+   "id": "c12s34",
+   "ch": "c12",
+   "disp": "Cosimo, Nisan 1574'te Villa di Castello'da öldü.",
+   "speech": "Kozimo, Nisan bin beş yüz yetmiş dörtte Villa di Kastello'da öldü.",
+   "t0": 263.39,
+   "t1": 268.22,
+   "words": [
+    {
+     "w": "Cosimo,",
+     "t0": 263.39,
+     "t1": 264.0
+    },
+    {
+     "w": "Nisan",
+     "t0": 264.1,
+     "t1": 264.618
+    },
+    {
+     "w": "1574'te",
+     "t0": 264.618,
+     "t1": 266.448
+    },
+    {
+     "w": "Villa",
+     "t0": 266.448,
+     "t1": 266.808
+    },
+    {
+     "w": "di",
+     "t0": 266.808,
+     "t1": 266.938
+    },
+    {
+     "w": "Castello'da",
+     "t0": 266.938,
+     "t1": 267.788
+    },
+    {
+     "w": "öldü.",
+     "t0": 267.788,
+     "t1": 268.22
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c12s35",
+   "ch": "c12",
+   "disp": "Cosimo Floransa'da bir devlet kurarken, aynı yıllarda Paris'te, Floransa doğumlu bir Medici kızı, adı 24 Ağustos 1572 ile anılacak bir krizin ortasındaydı.",
+   "speech": "Kozimo Floransa'da bir devlet kurarken, aynı yıllarda Paris'te, Floransa doğumlu bir Mediçi kızı, adı yirmi dört Ağustos bin beş yüz yetmiş iki ile anılacak bir krizin ortasındaydı.",
+   "t0": 268.89,
+   "t1": 280.61,
+   "words": [
+    {
+     "w": "Cosimo",
+     "t0": 268.89,
+     "t1": 269.358
+    },
+    {
+     "w": "Floransa'da",
+     "t0": 269.358,
+     "t1": 270.048
+    },
+    {
+     "w": "bir",
+     "t0": 270.048,
+     "t1": 270.317
+    },
+    {
+     "w": "devlet",
+     "t0": 270.317,
+     "t1": 270.718
+    },
+    {
+     "w": "kurarken,",
+     "t0": 270.718,
+     "t1": 271.488
+    },
+    {
+     "w": "aynı",
+     "t0": 271.588,
+     "t1": 271.868
+    },
+    {
+     "w": "yıllarda",
+     "t0": 271.868,
+     "t1": 272.473
+    },
+    {
+     "w": "Paris'te,",
+     "t0": 272.473,
+     "t1": 273.298
+    },
+    {
+     "w": "Floransa",
+     "t0": 273.387,
+     "t1": 273.967
+    },
+    {
+     "w": "doğumlu",
+     "t0": 273.967,
+     "t1": 274.308
+    },
+    {
+     "w": "bir",
+     "t0": 274.308,
+     "t1": 274.457
+    },
+    {
+     "w": "Medici",
+     "t0": 274.457,
+     "t1": 274.808
+    },
+    {
+     "w": "kızı,",
+     "t0": 274.808,
+     "t1": 275.248
+    },
+    {
+     "w": "adı",
+     "t0": 275.338,
+     "t1": 275.558
+    },
+    {
+     "w": "24",
+     "t0": 275.558,
+     "t1": 276.207
+    },
+    {
+     "w": "Ağustos",
+     "t0": 276.267,
+     "t1": 276.793
+    },
+    {
+     "w": "1572",
+     "t0": 276.793,
+     "t1": 278.197
+    },
+    {
+     "w": "ile",
+     "t0": 278.197,
+     "t1": 278.327
+    },
+    {
+     "w": "anılacak",
+     "t0": 278.327,
+     "t1": 278.908
+    },
+    {
+     "w": "bir",
+     "t0": 279.007,
+     "t1": 279.158
+    },
+    {
+     "w": "krizin",
+     "t0": 279.158,
+     "t1": 279.623
+    },
+    {
+     "w": "ortasındaydı.",
+     "t0": 279.623,
+     "t1": 280.61
+    }
+   ],
+   "gap": 3.45
+  },
+  {
+   "id": "c13s1",
+   "ch": "c13",
+   "disp": "Onun adı Catherine'di. 1519'da Floransa'da doğdu; annesi ve babası, doğumundan sonraki haftalarda öldü.",
+   "speech": "Onun adı Katrin'di. Bin beş yüz on dokuzda Floransa'da doğdu; annesi ve babası, doğumundan sonraki haftalarda öldü.",
+   "t0": 284.06,
+   "t1": 291.46,
+   "words": [
+    {
+     "w": "Onun",
+     "t0": 284.06,
+     "t1": 284.358
+    },
+    {
+     "w": "adı",
+     "t0": 284.358,
+     "t1": 284.598
+    },
+    {
+     "w": "Catherine'di.",
+     "t0": 284.598,
+     "t1": 285.35
+    },
+    {
+     "w": "1519'da",
+     "t0": 285.47,
+     "t1": 286.828
+    },
+    {
+     "w": "Floransa'da",
+     "t0": 286.888,
+     "t1": 287.528
+    },
+    {
+     "w": "doğdu;",
+     "t0": 287.528,
+     "t1": 287.94
+    },
+    {
+     "w": "annesi",
+     "t0": 288.04,
+     "t1": 288.498
+    },
+    {
+     "w": "ve",
+     "t0": 288.498,
+     "t1": 288.628
+    },
+    {
+     "w": "babası,",
+     "t0": 288.628,
+     "t1": 289.15
+    },
+    {
+     "w": "doğumundan",
+     "t0": 289.28,
+     "t1": 289.888
+    },
+    {
+     "w": "sonraki",
+     "t0": 289.888,
+     "t1": 290.368
+    },
+    {
+     "w": "haftalarda",
+     "t0": 290.368,
+     "t1": 291.058
+    },
+    {
+     "w": "öldü.",
+     "t0": 291.108,
+     "t1": 291.46
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c13s2",
+   "ch": "c13",
+   "disp": "Çocukken, doğduğu şehir kuşatma altındayken, bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır.",
+   "speech": "Çocukken, doğduğu şehir kuşatma altındayken, bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır.",
+   "t0": 292.13,
+   "t1": 299.89,
+   "words": [
+    {
+     "w": "Çocukken,",
+     "t0": 292.13,
+     "t1": 292.888
+    },
+    {
+     "w": "doğduğu",
+     "t0": 292.948,
+     "t1": 293.398
+    },
+    {
+     "w": "şehir",
+     "t0": 293.398,
+     "t1": 293.728
+    },
+    {
+     "w": "kuşatma",
+     "t0": 293.728,
+     "t1": 294.238
+    },
+    {
+     "w": "altındayken,",
+     "t0": 294.238,
+     "t1": 295.16
+    },
+    {
+     "w": "bazı",
+     "t0": 295.3,
+     "t1": 295.578
+    },
+    {
+     "w": "seslerin",
+     "t0": 295.578,
+     "t1": 296.163
+    },
+    {
+     "w": "onu",
+     "t0": 296.163,
+     "t1": 296.348
+    },
+    {
+     "w": "surlara",
+     "t0": 296.348,
+     "t1": 296.798
+    },
+    {
+     "w": "çıkarıp",
+     "t0": 296.798,
+     "t1": 297.258
+    },
+    {
+     "w": "düşmanın",
+     "t0": 297.328,
+     "t1": 297.848
+    },
+    {
+     "w": "önüne",
+     "t0": 297.908,
+     "t1": 298.208
+    },
+    {
+     "w": "koymayı",
+     "t0": 298.208,
+     "t1": 298.768
+    },
+    {
+     "w": "önerdiği",
+     "t0": 298.768,
+     "t1": 299.228
+    },
+    {
+     "w": "anlatılır.",
+     "t0": 299.228,
+     "t1": 299.89
+    }
+   ],
+   "gap": 0.6
+  },
+  {
+   "id": "c13s3",
+   "ch": "c13",
+   "disp": "1533'te Medici papası VII. Clemens onu Fransa Kralı'nın oğlu Henri ile evlendirdi.",
+   "speech": "Bin beş yüz otuz üçte Mediçi papası Yedinci Klemens onu Fransa Kralı'nın oğlu Anri ile evlendirdi.",
+   "t0": 300.49,
+   "t1": 306.79,
+   "words": [
+    {
+     "w": "1533'te",
+     "t0": 300.49,
+     "t1": 302.098
+    },
+    {
+     "w": "Medici",
+     "t0": 302.168,
+     "t1": 302.638
+    },
+    {
+     "w": "papası",
+     "t0": 302.638,
+     "t1": 303.088
+    },
+    {
+     "w": "VII.",
+     "t0": 303.088,
+     "t1": 303.448
+    },
+    {
+     "w": "Clemens",
+     "t0": 303.448,
+     "t1": 303.978
+    },
+    {
+     "w": "onu",
+     "t0": 304.058,
+     "t1": 304.238
+    },
+    {
+     "w": "Fransa",
+     "t0": 304.238,
+     "t1": 304.668
+    },
+    {
+     "w": "Kralı'nın",
+     "t0": 304.668,
+     "t1": 305.208
+    },
+    {
+     "w": "oğlu",
+     "t0": 305.208,
+     "t1": 305.418
+    },
+    {
+     "w": "Henri",
+     "t0": 305.418,
+     "t1": 305.708
+    },
+    {
+     "w": "ile",
+     "t0": 305.708,
+     "t1": 305.998
+    },
+    {
+     "w": "evlendirdi.",
+     "t0": 305.998,
+     "t1": 306.79
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c13s4",
+   "ch": "c13",
+   "disp": "Düğün Marsilya'daydı; gelin 14 yaşındaydı.",
+   "speech": "Düğün Marsilya'daydı; gelin on dört yaşındaydı.",
+   "t0": 307.51,
+   "t1": 310.79,
+   "words": [
+    {
+     "w": "Düğün",
+     "t0": 307.51,
+     "t1": 307.948
+    },
+    {
+     "w": "Marsilya'daydı;",
+     "t0": 307.948,
+     "t1": 308.968
+    },
+    {
+     "w": "gelin",
+     "t0": 309.048,
+     "t1": 309.478
+    },
+    {
+     "w": "14",
+     "t0": 309.478,
+     "t1": 310.138
+    },
+    {
+     "w": "yaşındaydı.",
+     "t0": 310.138,
+     "t1": 310.79
+    }
+   ],
+   "gap": 0.84
+  },
+  {
+   "id": "c13s5",
+   "ch": "c13",
+   "disp": "Evlilikten sonraki on yıl çocuk olmadı; Henri'nin gönlü Diane de Poitiers'deydi.",
+   "speech": "Evlilikten sonraki on yıl çocuk olmadı; Anri'nin gönlü Dyan dö Puatye'deydi.",
+   "t0": 311.63,
+   "t1": 316.36,
+   "words": [
+    {
+     "w": "Evlilikten",
+     "t0": 311.63,
+     "t1": 312.368
+    },
+    {
+     "w": "sonraki",
+     "t0": 312.368,
+     "t1": 312.888
+    },
+    {
+     "w": "on",
+     "t0": 312.888,
+     "t1": 313.098
+    },
+    {
+     "w": "yıl",
+     "t0": 313.098,
+     "t1": 313.318
+    },
+    {
+     "w": "çocuk",
+     "t0": 313.318,
+     "t1": 313.668
+    },
+    {
+     "w": "olmadı;",
+     "t0": 313.668,
+     "t1": 314.158
+    },
+    {
+     "w": "Henri'nin",
+     "t0": 314.228,
+     "t1": 314.748
+    },
+    {
+     "w": "gönlü",
+     "t0": 314.748,
+     "t1": 315.078
+    },
+    {
+     "w": "Diane",
+     "t0": 315.078,
+     "t1": 315.408
+    },
+    {
+     "w": "de",
+     "t0": 315.408,
+     "t1": 315.508
+    },
+    {
+     "w": "Poitiers'deydi.",
+     "t0": 315.508,
+     "t1": 316.36
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c13s6",
+   "ch": "c13",
+   "disp": "Sonra çocukları oldu, hem de çok.",
+   "speech": "Sonra çocukları oldu, hem de çok.",
+   "t0": 317.05,
+   "t1": 319.64,
+   "words": [
+    {
+     "w": "Sonra",
+     "t0": 317.05,
+     "t1": 317.628
+    },
+    {
+     "w": "çocukları",
+     "t0": 317.718,
+     "t1": 318.208
+    },
+    {
+     "w": "oldu,",
+     "t0": 318.208,
+     "t1": 318.65
+    },
+    {
+     "w": "hem",
+     "t0": 318.87,
+     "t1": 319.118
+    },
+    {
+     "w": "de",
+     "t0": 319.118,
+     "t1": 319.228
+    },
+    {
+     "w": "çok.",
+     "t0": 319.228,
+     "t1": 319.64
+    }
+   ],
+   "gap": 0.92
+  },
+  {
+   "id": "c13s7",
+   "ch": "c13",
+   "disp": "10 Temmuz 1559'da Henri, bir turnuvada başına isabet eden mızrak yüzünden öldü.",
+   "speech": "On Temmuz bin beş yüz elli dokuzda Anri, bir turnuvada başına isabet eden mızrak yüzünden öldü.",
+   "t0": 320.56,
+   "t1": 327.3,
+   "words": [
+    {
+     "w": "10",
+     "t0": 320.56,
+     "t1": 320.838
+    },
+    {
+     "w": "Temmuz",
+     "t0": 320.838,
+     "t1": 321.338
+    },
+    {
+     "w": "1559'da",
+     "t0": 321.338,
+     "t1": 323.068
+    },
+    {
+     "w": "Henri,",
+     "t0": 323.198,
+     "t1": 323.608
+    },
+    {
+     "w": "bir",
+     "t0": 323.668,
+     "t1": 323.918
+    },
+    {
+     "w": "turnuvada",
+     "t0": 323.918,
+     "t1": 324.562
+    },
+    {
+     "w": "başına",
+     "t0": 324.562,
+     "t1": 324.968
+    },
+    {
+     "w": "isabet",
+     "t0": 324.968,
+     "t1": 325.518
+    },
+    {
+     "w": "eden",
+     "t0": 325.518,
+     "t1": 325.868
+    },
+    {
+     "w": "mızrak",
+     "t0": 325.868,
+     "t1": 326.368
+    },
+    {
+     "w": "yüzünden",
+     "t0": 326.368,
+     "t1": 326.868
+    },
+    {
+     "w": "öldü.",
+     "t0": 326.868,
+     "t1": 327.3
+    }
+   ],
+   "gap": 0.81
+  },
+  {
+   "id": "c13s8",
+   "ch": "c13",
+   "disp": "Catherine'in bundan sonra uzun yıllar siyah giydiği yazılır.",
+   "speech": "Katrin'in bundan sonra uzun yıllar siyah giydiği yazılır.",
+   "t0": 328.11,
+   "t1": 331.66,
+   "words": [
+    {
+     "w": "Catherine'in",
+     "t0": 328.11,
+     "t1": 328.698
+    },
+    {
+     "w": "bundan",
+     "t0": 328.698,
+     "t1": 329.078
+    },
+    {
+     "w": "sonra",
+     "t0": 329.078,
+     "t1": 329.478
+    },
+    {
+     "w": "uzun",
+     "t0": 329.478,
+     "t1": 329.808
+    },
+    {
+     "w": "yıllar",
+     "t0": 329.808,
+     "t1": 330.248
+    },
+    {
+     "w": "siyah",
+     "t0": 330.248,
+     "t1": 330.688
+    },
+    {
+     "w": "giydiği",
+     "t0": 330.798,
+     "t1": 331.158
+    },
+    {
+     "w": "yazılır.",
+     "t0": 331.158,
+     "t1": 331.66
+    }
+   ],
+   "gap": 0.63
+  },
+  {
+   "id": "c13s9",
+   "ch": "c13",
+   "disp": "1560 sonunda küçük IX. Charles tahta çıkınca devleti fiilen Catherine yönetti.",
+   "speech": "Bin beş yüz altmış sonunda küçük Dokuzuncu Şarl tahta çıkınca devleti fiilen Katrin yönetti.",
+   "t0": 332.29,
+   "t1": 337.96,
+   "words": [
+    {
+     "w": "1560",
+     "t0": 332.29,
+     "t1": 333.458
+    },
+    {
+     "w": "sonunda",
+     "t0": 333.458,
+     "t1": 333.923
+    },
+    {
+     "w": "küçük",
+     "t0": 333.923,
+     "t1": 334.323
+    },
+    {
+     "w": "IX.",
+     "t0": 334.323,
+     "t1": 334.898
+    },
+    {
+     "w": "Charles",
+     "t0": 334.898,
+     "t1": 335.208
+    },
+    {
+     "w": "tahta",
+     "t0": 335.258,
+     "t1": 335.578
+    },
+    {
+     "w": "çıkınca",
+     "t0": 335.578,
+     "t1": 335.983
+    },
+    {
+     "w": "devleti",
+     "t0": 335.983,
+     "t1": 336.468
+    },
+    {
+     "w": "fiilen",
+     "t0": 336.468,
+     "t1": 336.918
+    },
+    {
+     "w": "Catherine",
+     "t0": 336.918,
+     "t1": 337.358
+    },
+    {
+     "w": "yönetti.",
+     "t0": 337.358,
+     "t1": 337.96
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c13s10",
+   "ch": "c13",
+   "disp": "Din savaşını uzlaşmayla durdurmak istedi; Ocak 1562 fermanı Fransız Protestanlarına kent surlarının dışında, silahsız ibadet izni verdi.",
+   "speech": "Din savaşını uzlaşmayla durdurmak istedi; Ocak bin beş yüz altmış iki fermanı Fransız Protestanlarına kent surlarının dışında, silahsız ibadet izni verdi.",
+   "t0": 338.68,
+   "t1": 349.46,
+   "words": [
+    {
+     "w": "Din",
+     "t0": 338.68,
+     "t1": 338.968
+    },
+    {
+     "w": "savaşını",
+     "t0": 338.968,
+     "t1": 339.478
+    },
+    {
+     "w": "uzlaşmayla",
+     "t0": 339.478,
+     "t1": 340.248
+    },
+    {
+     "w": "durdurmak",
+     "t0": 340.248,
+     "t1": 340.858
+    },
+    {
+     "w": "istedi;",
+     "t0": 340.858,
+     "t1": 341.348
+    },
+    {
+     "w": "Ocak",
+     "t0": 341.438,
+     "t1": 341.908
+    },
+    {
+     "w": "1562",
+     "t0": 341.978,
+     "t1": 343.418
+    },
+    {
+     "w": "fermanı",
+     "t0": 343.418,
+     "t1": 343.918
+    },
+    {
+     "w": "Fransız",
+     "t0": 343.918,
+     "t1": 344.538
+    },
+    {
+     "w": "Protestanlarına",
+     "t0": 344.608,
+     "t1": 345.573
+    },
+    {
+     "w": "kent",
+     "t0": 345.573,
+     "t1": 345.998
+    },
+    {
+     "w": "surlarının",
+     "t0": 345.998,
+     "t1": 346.608
+    },
+    {
+     "w": "dışında,",
+     "t0": 346.608,
+     "t1": 347.158
+    },
+    {
+     "w": "silahsız",
+     "t0": 347.268,
+     "t1": 348.018
+    },
+    {
+     "w": "ibadet",
+     "t0": 348.018,
+     "t1": 348.533
+    },
+    {
+     "w": "izni",
+     "t0": 348.533,
+     "t1": 348.908
+    },
+    {
+     "w": "verdi.",
+     "t0": 348.908,
+     "t1": 349.46
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c13s11",
+   "ch": "c13",
+   "disp": "22 Ağustos 1572'de Amiral Coligny'ye suikast girişimi oldu; ertesi gün konsey, Protestan liderlerin öldürülmesine karar verdi.",
+   "speech": "Yirmi iki Ağustos bin beş yüz yetmiş ikide Amiral Kolinyi'ye suikast girişimi oldu; ertesi gün konsey, Protestan liderlerin öldürülmesine karar verdi.",
+   "t0": 350.31,
+   "t1": 360.11,
+   "words": [
+    {
+     "w": "22",
+     "t0": 350.31,
+     "t1": 350.908
+    },
+    {
+     "w": "Ağustos",
+     "t0": 350.908,
+     "t1": 351.528
+    },
+    {
+     "w": "1572'de",
+     "t0": 351.528,
+     "t1": 352.988
+    },
+    {
+     "w": "Amiral",
+     "t0": 352.988,
+     "t1": 353.538
+    },
+    {
+     "w": "Coligny'ye",
+     "t0": 353.538,
+     "t1": 354.058
+    },
+    {
+     "w": "suikast",
+     "t0": 354.058,
+     "t1": 354.707
+    },
+    {
+     "w": "girişimi",
+     "t0": 354.707,
+     "t1": 355.098
+    },
+    {
+     "w": "oldu;",
+     "t0": 355.098,
+     "t1": 355.52
+    },
+    {
+     "w": "ertesi",
+     "t0": 355.65,
+     "t1": 356.148
+    },
+    {
+     "w": "gün",
+     "t0": 356.148,
+     "t1": 356.368
+    },
+    {
+     "w": "konsey,",
+     "t0": 356.368,
+     "t1": 357.038
+    },
+    {
+     "w": "Protestan",
+     "t0": 357.108,
+     "t1": 357.817
+    },
+    {
+     "w": "liderlerin",
+     "t0": 357.817,
+     "t1": 358.438
+    },
+    {
+     "w": "öldürülmesine",
+     "t0": 358.507,
+     "t1": 359.308
+    },
+    {
+     "w": "karar",
+     "t0": 359.308,
+     "t1": 359.658
+    },
+    {
+     "w": "verdi.",
+     "t0": 359.658,
+     "t1": 360.11
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c13s12",
+   "ch": "c13",
+   "disp": "24 Ağustos'ta Paris'te başlayan katliam başka şehirlere yayıldı; yalnız Paris'te üç bin kadar ölü olduğu tahmin edilir.",
+   "speech": "Yirmi dört Ağustos'ta Paris'te başlayan katliam başka şehirlere yayıldı; yalnız Paris'te üç bin kadar ölü olduğu tahmin edilir.",
+   "t0": 360.76,
+   "t1": 368.58,
+   "words": [
+    {
+     "w": "24",
+     "t0": 360.76,
+     "t1": 361.408
+    },
+    {
+     "w": "Ağustos'ta",
+     "t0": 361.408,
+     "t1": 362.043
+    },
+    {
+     "w": "Paris'te",
+     "t0": 362.043,
+     "t1": 362.538
+    },
+    {
+     "w": "başlayan",
+     "t0": 362.538,
+     "t1": 363.127
+    },
+    {
+     "w": "katliam",
+     "t0": 363.127,
+     "t1": 363.678
+    },
+    {
+     "w": "başka",
+     "t0": 363.678,
+     "t1": 364.087
+    },
+    {
+     "w": "şehirlere",
+     "t0": 364.087,
+     "t1": 364.707
+    },
+    {
+     "w": "yayıldı;",
+     "t0": 364.707,
+     "t1": 365.197
+    },
+    {
+     "w": "yalnız",
+     "t0": 365.288,
+     "t1": 365.903
+    },
+    {
+     "w": "Paris'te",
+     "t0": 365.903,
+     "t1": 366.428
+    },
+    {
+     "w": "üç",
+     "t0": 366.528,
+     "t1": 366.717
+    },
+    {
+     "w": "bin",
+     "t0": 366.717,
+     "t1": 366.908
+    },
+    {
+     "w": "kadar",
+     "t0": 366.908,
+     "t1": 367.228
+    },
+    {
+     "w": "ölü",
+     "t0": 367.228,
+     "t1": 367.368
+    },
+    {
+     "w": "olduğu",
+     "t0": 367.368,
+     "t1": 367.738
+    },
+    {
+     "w": "tahmin",
+     "t0": 367.738,
+     "t1": 368.168
+    },
+    {
+     "w": "edilir.",
+     "t0": 368.168,
+     "t1": 368.58
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c13s13",
+   "ch": "c13",
+   "disp": "Britannica'ya göre Catherine, liderlerin öldürülmesini onaylamıştı; ardından gelen katliamı büyük olasılıkla onaylamamıştı.",
+   "speech": "Britannica'ya göre Katrin, liderlerin öldürülmesini onaylamıştı; ardından gelen katliamı büyük olasılıkla onaylamamıştı.",
+   "t0": 369.3,
+   "t1": 377.56,
+   "words": [
+    {
+     "w": "Britannica'ya",
+     "t0": 369.3,
+     "t1": 370.197
+    },
+    {
+     "w": "göre",
+     "t0": 370.197,
+     "t1": 370.528
+    },
+    {
+     "w": "Catherine,",
+     "t0": 370.598,
+     "t1": 371.21
+    },
+    {
+     "w": "liderlerin",
+     "t0": 371.38,
+     "t1": 372.108
+    },
+    {
+     "w": "öldürülmesini",
+     "t0": 372.108,
+     "t1": 372.827
+    },
+    {
+     "w": "onaylamıştı;",
+     "t0": 372.827,
+     "t1": 373.76
+    },
+    {
+     "w": "ardından",
+     "t0": 373.86,
+     "t1": 374.638
+    },
+    {
+     "w": "gelen",
+     "t0": 374.638,
+     "t1": 374.998
+    },
+    {
+     "w": "katliamı",
+     "t0": 374.998,
+     "t1": 375.528
+    },
+    {
+     "w": "büyük",
+     "t0": 375.528,
+     "t1": 375.858
+    },
+    {
+     "w": "olasılıkla",
+     "t0": 375.858,
+     "t1": 376.438
+    },
+    {
+     "w": "onaylamamıştı.",
+     "t0": 376.438,
+     "t1": 377.56
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c13s14",
+   "ch": "c13",
+   "disp": "Tarihçiler tam bu noktada ayrılır.",
+   "speech": "Tarihçiler tam bu noktada ayrılır.",
+   "t0": 378.27,
+   "t1": 380.63,
+   "words": [
+    {
+     "w": "Tarihçiler",
+     "t0": 378.27,
+     "t1": 379.028
+    },
+    {
+     "w": "tam",
+     "t0": 379.098,
+     "t1": 379.368
+    },
+    {
+     "w": "bu",
+     "t0": 379.368,
+     "t1": 379.447
+    },
+    {
+     "w": "noktada",
+     "t0": 379.447,
+     "t1": 379.908
+    },
+    {
+     "w": "ayrılır.",
+     "t0": 380.018,
+     "t1": 380.63
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c13s15",
+   "ch": "c13",
+   "disp": "Katliamdan sonra Catherine'in çevresinde bir efsane büyüdü: kötü İtalyan kraliçe.",
+   "speech": "Katliamdan sonra Katrin'in çevresinde bir efsane büyüdü: kötü İtalyan kraliçe.",
+   "t0": 381.46,
+   "t1": 386.83,
+   "words": [
+    {
+     "w": "Katliamdan",
+     "t0": 381.46,
+     "t1": 382.298
+    },
+    {
+     "w": "sonra",
+     "t0": 382.298,
+     "t1": 382.658
+    },
+    {
+     "w": "Catherine'in",
+     "t0": 382.658,
+     "t1": 383.228
+    },
+    {
+     "w": "çevresinde",
+     "t0": 383.228,
+     "t1": 383.938
+    },
+    {
+     "w": "bir",
+     "t0": 383.938,
+     "t1": 384.108
+    },
+    {
+     "w": "efsane",
+     "t0": 384.197,
+     "t1": 384.697
+    },
+    {
+     "w": "büyüdü:",
+     "t0": 384.697,
+     "t1": 385.12
+    },
+    {
+     "w": "kötü",
+     "t0": 385.33,
+     "t1": 385.588
+    },
+    {
+     "w": "İtalyan",
+     "t0": 385.588,
+     "t1": 386.208
+    },
+    {
+     "w": "kraliçe.",
+     "t0": 386.208,
+     "t1": 386.83
+    }
+   ],
+   "gap": 0.59
+  },
+  {
+   "id": "c13s16",
+   "ch": "c13",
+   "disp": "İlk saldırılardan biri 1573'te Protestan bir broşürdeki şiirdi; 1575'te adsız bir kitapçık çıktı, sonradan Henri Estienne'e atfedildi.",
+   "speech": "İlk saldırılardan biri bin beş yüz yetmiş üçte Protestan bir broşürdeki şiirdi; bin beş yüz yetmiş beşte adsız bir kitapçık çıktı, sonradan Anri Estyen'e atfedildi.",
+   "t0": 387.42,
+   "t1": 398.1,
+   "words": [
+    {
+     "w": "İlk",
+     "t0": 387.42,
+     "t1": 387.638
+    },
+    {
+     "w": "saldırılardan",
+     "t0": 387.638,
+     "t1": 388.628
+    },
+    {
+     "w": "biri",
+     "t0": 388.628,
+     "t1": 388.88
+    },
+    {
+     "w": "1573'te",
+     "t0": 389.0,
+     "t1": 390.317
+    },
+    {
+     "w": "Protestan",
+     "t0": 390.317,
+     "t1": 391.108
+    },
+    {
+     "w": "bir",
+     "t0": 391.108,
+     "t1": 391.268
+    },
+    {
+     "w": "broşürdeki",
+     "t0": 391.268,
+     "t1": 391.938
+    },
+    {
+     "w": "şiirdi;",
+     "t0": 391.938,
+     "t1": 392.508
+    },
+    {
+     "w": "1575'te",
+     "t0": 392.588,
+     "t1": 394.158
+    },
+    {
+     "w": "adsız",
+     "t0": 394.288,
+     "t1": 394.648
+    },
+    {
+     "w": "bir",
+     "t0": 394.648,
+     "t1": 394.817
+    },
+    {
+     "w": "kitapçık",
+     "t0": 394.817,
+     "t1": 395.62
+    },
+    {
+     "w": "çıktı,",
+     "t0": 395.947,
+     "t1": 395.948
+    },
+    {
+     "w": "sonradan",
+     "t0": 395.947,
+     "t1": 396.577
+    },
+    {
+     "w": "Henri",
+     "t0": 396.577,
+     "t1": 396.958
+    },
+    {
+     "w": "Estienne'e",
+     "t0": 397.088,
+     "t1": 397.458
+    },
+    {
+     "w": "atfedildi.",
+     "t0": 397.458,
+     "t1": 398.1
+    }
+   ],
+   "gap": 0.68
+  },
+  {
+   "id": "c13s17",
+   "ch": "c13",
+   "disp": "Sonra her şey onun hanesine yazılmaya başladı: çatalı o getirmiş, dondurmayı o getirmiş, topuklu ayakkabıyı da, parfümü de… ve tabii zehri.",
+   "speech": "Sonra her şey onun hanesine yazılmaya başladı: çatalı o getirmiş, dondurmayı o getirmiş, topuklu ayakkabıyı da, parfümü de… ve tabii zehri.",
+   "t0": 398.78,
+   "t1": 408.03,
+   "words": [
+    {
+     "w": "Sonra",
+     "t0": 398.78,
+     "t1": 399.388
+    },
+    {
+     "w": "her",
+     "t0": 399.508,
+     "t1": 399.738
+    },
+    {
+     "w": "şey",
+     "t0": 399.738,
+     "t1": 400.018
+    },
+    {
+     "w": "onun",
+     "t0": 400.018,
+     "t1": 400.288
+    },
+    {
+     "w": "hanesine",
+     "t0": 400.288,
+     "t1": 400.788
+    },
+    {
+     "w": "yazılmaya",
+     "t0": 400.788,
+     "t1": 401.258
+    },
+    {
+     "w": "başladı:",
+     "t0": 401.258,
+     "t1": 401.8
+    },
+    {
+     "w": "çatalı",
+     "t0": 402.07,
+     "t1": 402.507
+    },
+    {
+     "w": "o",
+     "t0": 402.588,
+     "t1": 402.658
+    },
+    {
+     "w": "getirmiş,",
+     "t0": 402.658,
+     "t1": 403.383
+    },
+    {
+     "w": "dondurmayı",
+     "t0": 403.383,
+     "t1": 404.178
+    },
+    {
+     "w": "o",
+     "t0": 404.288,
+     "t1": 404.368
+    },
+    {
+     "w": "getirmiş,",
+     "t0": 404.368,
+     "t1": 405.08
+    },
+    {
+     "w": "topuklu",
+     "t0": 405.24,
+     "t1": 405.668
+    },
+    {
+     "w": "ayakkabıyı",
+     "t0": 405.668,
+     "t1": 406.278
+    },
+    {
+     "w": "da,",
+     "t0": 406.278,
+     "t1": 406.428
+    },
+    {
+     "w": "parfümü",
+     "t0": 406.428,
+     "t1": 406.968
+    },
+    {
+     "w": "de…",
+     "t0": 406.968,
+     "t1": 407.098
+    },
+    {
+     "w": "ve",
+     "t0": 407.098,
+     "t1": 407.207
+    },
+    {
+     "w": "tabii",
+     "t0": 407.207,
+     "t1": 407.598
+    },
+    {
+     "w": "zehri.",
+     "t0": 407.598,
+     "t1": 408.03
+    }
+   ],
+   "gap": 0.61
+  },
+  {
+   "id": "c13s18",
+   "ch": "c13",
+   "disp": "Oysa çatal Catherine'den çok önce İtalya'daydı; bir anlatı onu Venedik'e gelen bir Bizans prensesine bağlar.",
+   "speech": "Oysa çatal Katrin'den çok önce İtalya'daydı; bir anlatı onu Venedik'e gelen bir Bizans prensesine bağlar.",
+   "t0": 408.64,
+   "t1": 415.3,
+   "words": [
+    {
+     "w": "Oysa",
+     "t0": 408.64,
+     "t1": 409.018
+    },
+    {
+     "w": "çatal",
+     "t0": 409.018,
+     "t1": 409.368
+    },
+    {
+     "w": "Catherine'den",
+     "t0": 409.368,
+     "t1": 410.018
+    },
+    {
+     "w": "çok",
+     "t0": 410.018,
+     "t1": 410.298
+    },
+    {
+     "w": "önce",
+     "t0": 410.358,
+     "t1": 410.678
+    },
+    {
+     "w": "İtalya'daydı;",
+     "t0": 410.678,
+     "t1": 411.588
+    },
+    {
+     "w": "bir",
+     "t0": 411.678,
+     "t1": 411.868
+    },
+    {
+     "w": "anlatı",
+     "t0": 411.868,
+     "t1": 412.348
+    },
+    {
+     "w": "onu",
+     "t0": 412.348,
+     "t1": 412.598
+    },
+    {
+     "w": "Venedik'e",
+     "t0": 412.598,
+     "t1": 413.118
+    },
+    {
+     "w": "gelen",
+     "t0": 413.118,
+     "t1": 413.498
+    },
+    {
+     "w": "bir",
+     "t0": 413.498,
+     "t1": 413.638
+    },
+    {
+     "w": "Bizans",
+     "t0": 413.638,
+     "t1": 414.138
+    },
+    {
+     "w": "prensesine",
+     "t0": 414.188,
+     "t1": 414.808
+    },
+    {
+     "w": "bağlar.",
+     "t0": 414.808,
+     "t1": 415.3
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c13s19",
+   "ch": "c13",
+   "disp": "Dondurma hikâyesinin izi ise 19. yüzyıla çıkıyor.",
+   "speech": "Dondurma hikâyesinin izi ise on dokuzuncu yüzyıla çıkıyor.",
+   "t0": 415.95,
+   "t1": 420.07,
+   "words": [
+    {
+     "w": "Dondurma",
+     "t0": 415.95,
+     "t1": 416.678
+    },
+    {
+     "w": "hikâyesinin",
+     "t0": 416.678,
+     "t1": 417.388
+    },
+    {
+     "w": "izi",
+     "t0": 417.388,
+     "t1": 417.668
+    },
+    {
+     "w": "ise",
+     "t0": 417.668,
+     "t1": 418.05
+    },
+    {
+     "w": "19.",
+     "t0": 418.16,
+     "t1": 419.058
+    },
+    {
+     "w": "yüzyıla",
+     "t0": 419.058,
+     "t1": 419.528
+    },
+    {
+     "w": "çıkıyor.",
+     "t0": 419.528,
+     "t1": 420.07
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c13s20",
+   "ch": "c13",
+   "disp": "Bir ülke inceliğini de günahını da tek bir yabancıya yazmış; pratik bir düzen.",
+   "speech": "Bir ülke inceliğini de günahını da tek bir yabancıya yazmış; pratik bir düzen.",
+   "t0": 420.81,
+   "t1": 425.6,
+   "words": [
+    {
+     "w": "Bir",
+     "t0": 420.81,
+     "t1": 421.048
+    },
+    {
+     "w": "ülke",
+     "t0": 421.048,
+     "t1": 421.418
+    },
+    {
+     "w": "inceliğini",
+     "t0": 421.468,
+     "t1": 422.028
+    },
+    {
+     "w": "de",
+     "t0": 422.028,
+     "t1": 422.197
+    },
+    {
+     "w": "günahını",
+     "t0": 422.197,
+     "t1": 422.648
+    },
+    {
+     "w": "da",
+     "t0": 422.648,
+     "t1": 422.808
+    },
+    {
+     "w": "tek",
+     "t0": 422.808,
+     "t1": 423.05
+    },
+    {
+     "w": "bir",
+     "t0": 423.16,
+     "t1": 423.268
+    },
+    {
+     "w": "yabancıya",
+     "t0": 423.268,
+     "t1": 423.878
+    },
+    {
+     "w": "yazmış;",
+     "t0": 423.878,
+     "t1": 424.433
+    },
+    {
+     "w": "pratik",
+     "t0": 424.433,
+     "t1": 424.923
+    },
+    {
+     "w": "bir",
+     "t0": 424.923,
+     "t1": 425.118
+    },
+    {
+     "w": "düzen.",
+     "t0": 425.118,
+     "t1": 425.6
+    }
+   ],
+   "gap": 0.79
+  },
+  {
+   "id": "c13s21",
+   "ch": "c13",
+   "disp": "Gerçek olan bir gösteriydi: 15 Ekim 1581'de sahnelenen Balet comique, Kirke efsanesini anlatan, beş saati aşan, basılı metni olan bir saray balesiydi.",
+   "speech": "Gerçek olan bir gösteriydi: on beş Ekim bin beş yüz seksen birde sahnelenen Bale komik, Kirke efsanesini anlatan, beş saati aşan, basılı metni olan bir saray balesiydi.",
+   "t0": 426.39,
+   "t1": 437.63,
+   "words": [
+    {
+     "w": "Gerçek",
+     "t0": 426.39,
+     "t1": 426.978
+    },
+    {
+     "w": "olan",
+     "t0": 426.978,
+     "t1": 427.228
+    },
+    {
+     "w": "bir",
+     "t0": 427.228,
+     "t1": 427.368
+    },
+    {
+     "w": "gösteriydi:",
+     "t0": 427.368,
+     "t1": 428.178
+    },
+    {
+     "w": "15",
+     "t0": 428.268,
+     "t1": 428.738
+    },
+    {
+     "w": "Ekim",
+     "t0": 428.738,
+     "t1": 429.048
+    },
+    {
+     "w": "1581'de",
+     "t0": 429.048,
+     "t1": 430.488
+    },
+    {
+     "w": "sahnelenen",
+     "t0": 430.488,
+     "t1": 431.238
+    },
+    {
+     "w": "Balet",
+     "t0": 431.238,
+     "t1": 431.528
+    },
+    {
+     "w": "comique,",
+     "t0": 431.528,
+     "t1": 431.988
+    },
+    {
+     "w": "Kirke",
+     "t0": 431.988,
+     "t1": 432.478
+    },
+    {
+     "w": "efsanesini",
+     "t0": 432.478,
+     "t1": 433.067
+    },
+    {
+     "w": "anlatan,",
+     "t0": 433.067,
+     "t1": 433.8
+    },
+    {
+     "w": "beş",
+     "t0": 433.98,
+     "t1": 434.248
+    },
+    {
+     "w": "saati",
+     "t0": 434.248,
+     "t1": 434.638
+    },
+    {
+     "w": "aşan,",
+     "t0": 434.638,
+     "t1": 435.168
+    },
+    {
+     "w": "basılı",
+     "t0": 435.248,
+     "t1": 435.668
+    },
+    {
+     "w": "metni",
+     "t0": 435.668,
+     "t1": 435.978
+    },
+    {
+     "w": "olan",
+     "t0": 435.978,
+     "t1": 436.298
+    },
+    {
+     "w": "bir",
+     "t0": 436.298,
+     "t1": 436.408
+    },
+    {
+     "w": "saray",
+     "t0": 436.408,
+     "t1": 436.788
+    },
+    {
+     "w": "balesiydi.",
+     "t0": 436.788,
+     "t1": 437.63
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c13s22",
+   "ch": "c13",
+   "disp": "Catherine, 5 Ocak 1589'da Blois'da öldü; Guise Dükü aynı şatoda, bir önceki yılın son günlerinde öldürülmüştü.",
+   "speech": "Katrin, beş Ocak bin beş yüz seksen dokuzda Blua'da öldü; Giz Dükü aynı şatoda, bir önceki yılın son günlerinde öldürülmüştü.",
+   "t0": 438.48,
+   "t1": 446.97,
+   "words": [
+    {
+     "w": "Catherine,",
+     "t0": 438.48,
+     "t1": 438.968
+    },
+    {
+     "w": "5",
+     "t0": 439.028,
+     "t1": 439.303
+    },
+    {
+     "w": "Ocak",
+     "t0": 439.303,
+     "t1": 439.688
+    },
+    {
+     "w": "1589'da",
+     "t0": 439.768,
+     "t1": 441.403
+    },
+    {
+     "w": "Blois'da",
+     "t0": 441.403,
+     "t1": 441.818
+    },
+    {
+     "w": "öldü;",
+     "t0": 441.928,
+     "t1": 442.36
+    },
+    {
+     "w": "Guise",
+     "t0": 442.53,
+     "t1": 442.848
+    },
+    {
+     "w": "Dükü",
+     "t0": 442.848,
+     "t1": 443.128
+    },
+    {
+     "w": "aynı",
+     "t0": 443.128,
+     "t1": 443.418
+    },
+    {
+     "w": "şatoda,",
+     "t0": 443.418,
+     "t1": 443.968
+    },
+    {
+     "w": "bir",
+     "t0": 444.058,
+     "t1": 444.258
+    },
+    {
+     "w": "önceki",
+     "t0": 444.258,
+     "t1": 444.718
+    },
+    {
+     "w": "yılın",
+     "t0": 444.718,
+     "t1": 444.957
+    },
+    {
+     "w": "son",
+     "t0": 444.957,
+     "t1": 445.317
+    },
+    {
+     "w": "günlerinde",
+     "t0": 445.317,
+     "t1": 445.888
+    },
+    {
+     "w": "öldürülmüştü.",
+     "t0": 446.028,
+     "t1": 446.97
+    }
+   ],
+   "gap": 0.94
+  },
+  {
+   "id": "c13s23",
+   "ch": "c13",
+   "disp": "Bir başka Medici kızı, Marie, Fransa'ya gelin gitti.",
+   "speech": "Bir başka Mediçi kızı, Mari, Fransa'ya gelin gitti.",
+   "t0": 447.91,
+   "t1": 451.58,
+   "words": [
+    {
+     "w": "Bir",
+     "t0": 447.91,
+     "t1": 448.168
+    },
+    {
+     "w": "başka",
+     "t0": 448.168,
+     "t1": 448.608
+    },
+    {
+     "w": "Medici",
+     "t0": 448.608,
+     "t1": 448.968
+    },
+    {
+     "w": "kızı,",
+     "t0": 448.968,
+     "t1": 449.36
+    },
+    {
+     "w": "Marie,",
+     "t0": 449.49,
+     "t1": 450.098
+    },
+    {
+     "w": "Fransa'ya",
+     "t0": 450.168,
+     "t1": 450.803
+    },
+    {
+     "w": "gelin",
+     "t0": 450.803,
+     "t1": 451.148
+    },
+    {
+     "w": "gitti.",
+     "t0": 451.148,
+     "t1": 451.58
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c13s24",
+   "ch": "c13",
+   "disp": "Evlilik 1600'de Floransa'da vekâleten kıyıldı; kral orada değildi.",
+   "speech": "Evlilik bin altı yüzde Floransa'da vekâleten kıyıldı; kral orada değildi.",
+   "t0": 452.32,
+   "t1": 456.827,
+   "words": [
+    {
+     "w": "Evlilik",
+     "t0": 452.32,
+     "t1": 452.838
+    },
+    {
+     "w": "1600'de",
+     "t0": 452.838,
+     "t1": 453.828
+    },
+    {
+     "w": "Floransa'da",
+     "t0": 453.828,
+     "t1": 454.538
+    },
+    {
+     "w": "vekâleten",
+     "t0": 454.538,
+     "t1": 455.118
+    },
+    {
+     "w": "kıyıldı;",
+     "t0": 455.118,
+     "t1": 455.61
+    },
+    {
+     "w": "kral",
+     "t0": 455.72,
+     "t1": 456.008
+    },
+    {
+     "w": "orada",
+     "t0": 456.008,
+     "t1": 456.348
+    },
+    {
+     "w": "değildi.",
+     "t0": 456.348,
+     "t1": 456.827
+    }
+   ],
+   "gap": 0.713
+  },
+  {
+   "id": "c13s25",
+   "ch": "c13",
+   "disp": "Çeyiz 600.000 écu'ydu ve Fransa'nın Toskana Büyük Dükü'ne olan borcundan düşüldüğü yazılır: gelinin parası, damadın borcuna mahsup edildi.",
+   "speech": "Çeyiz altı yüz bin ekü'ydu ve Fransa'nın Toskana Büyük Dükü'ne olan borcundan düşüldüğü yazılır: gelinin parası, damadın borcuna mahsup edildi.",
+   "t0": 457.54,
+   "t1": 466.5,
+   "words": [
+    {
+     "w": "Çeyiz",
+     "t0": 457.54,
+     "t1": 457.938
+    },
+    {
+     "w": "600.000",
+     "t0": 457.938,
+     "t1": 458.628
+    },
+    {
+     "w": "écu'ydu",
+     "t0": 458.628,
+     "t1": 459.18
+    },
+    {
+     "w": "ve",
+     "t0": 459.33,
+     "t1": 459.558
+    },
+    {
+     "w": "Fransa'nın",
+     "t0": 459.558,
+     "t1": 460.238
+    },
+    {
+     "w": "Toskana",
+     "t0": 460.238,
+     "t1": 460.793
+    },
+    {
+     "w": "Büyük",
+     "t0": 460.793,
+     "t1": 461.128
+    },
+    {
+     "w": "Dükü'ne",
+     "t0": 461.128,
+     "t1": 461.447
+    },
+    {
+     "w": "olan",
+     "t0": 461.447,
+     "t1": 461.768
+    },
+    {
+     "w": "borcundan",
+     "t0": 461.768,
+     "t1": 462.438
+    },
+    {
+     "w": "düşüldüğü",
+     "t0": 462.438,
+     "t1": 462.878
+    },
+    {
+     "w": "yazılır:",
+     "t0": 462.878,
+     "t1": 463.378
+    },
+    {
+     "w": "gelinin",
+     "t0": 463.468,
+     "t1": 463.968
+    },
+    {
+     "w": "parası,",
+     "t0": 463.968,
+     "t1": 464.548
+    },
+    {
+     "w": "damadın",
+     "t0": 464.608,
+     "t1": 465.208
+    },
+    {
+     "w": "borcuna",
+     "t0": 465.208,
+     "t1": 465.618
+    },
+    {
+     "w": "mahsup",
+     "t0": 465.618,
+     "t1": 466.078
+    },
+    {
+     "w": "edildi.",
+     "t0": 466.078,
+     "t1": 466.5
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c13s26",
+   "ch": "c13",
+   "disp": "Borcu ödemenin en kibar yolu, borç verenin kızıyla evlenmek.",
+   "speech": "Borcu ödemenin en kibar yolu, borç verenin kızıyla evlenmek.",
+   "t0": 467.22,
+   "t1": 471.29,
+   "words": [
+    {
+     "w": "Borcu",
+     "t0": 467.22,
+     "t1": 467.718
+    },
+    {
+     "w": "ödemenin",
+     "t0": 467.718,
+     "t1": 468.308
+    },
+    {
+     "w": "en",
+     "t0": 468.388,
+     "t1": 468.567
+    },
+    {
+     "w": "kibar",
+     "t0": 468.567,
+     "t1": 468.938
+    },
+    {
+     "w": "yolu,",
+     "t0": 468.938,
+     "t1": 469.327
+    },
+    {
+     "w": "borç",
+     "t0": 469.398,
+     "t1": 469.882
+    },
+    {
+     "w": "verenin",
+     "t0": 469.882,
+     "t1": 470.248
+    },
+    {
+     "w": "kızıyla",
+     "t0": 470.248,
+     "t1": 470.718
+    },
+    {
+     "w": "evlenmek.",
+     "t0": 470.718,
+     "t1": 471.29
+    }
+   ],
+   "gap": 0.84
+  },
+  {
+   "id": "c13s27",
+   "ch": "c13",
+   "disp": "Marie, 3 Kasım 1600'de Marsilya'ya indi.",
+   "speech": "Mari, üç Kasım bin altı yüzde Marsilya'ya indi.",
+   "t0": 472.13,
+   "t1": 475.46,
+   "words": [
+    {
+     "w": "Marie,",
+     "t0": 472.13,
+     "t1": 472.7
+    },
+    {
+     "w": "3",
+     "t0": 472.85,
+     "t1": 473.058
+    },
+    {
+     "w": "Kasım",
+     "t0": 473.058,
+     "t1": 473.478
+    },
+    {
+     "w": "1600'de",
+     "t0": 473.478,
+     "t1": 474.263
+    },
+    {
+     "w": "Marsilya'ya",
+     "t0": 474.263,
+     "t1": 475.048
+    },
+    {
+     "w": "indi.",
+     "t0": 475.048,
+     "t1": 475.46
+    }
+   ],
+   "gap": 0.88
+  },
+  {
+   "id": "c13s28",
+   "ch": "c13",
+   "disp": "13 Mayıs 1610'da taç giydi; ertesi gün Henri IV öldürüldü, Marie naip oldu.",
+   "speech": "On üç Mayıs bin altı yüz onda taç giydi; ertesi gün Dördüncü Anri öldürüldü, Mari naip oldu.",
+   "t0": 476.34,
+   "t1": 482.62,
+   "words": [
+    {
+     "w": "13",
+     "t0": 476.34,
+     "t1": 476.853
+    },
+    {
+     "w": "Mayıs",
+     "t0": 476.853,
+     "t1": 477.203
+    },
+    {
+     "w": "1610'da",
+     "t0": 477.203,
+     "t1": 478.188
+    },
+    {
+     "w": "taç",
+     "t0": 478.188,
+     "t1": 478.558
+    },
+    {
+     "w": "giydi;",
+     "t0": 478.558,
+     "t1": 478.878
+    },
+    {
+     "w": "ertesi",
+     "t0": 478.978,
+     "t1": 479.498
+    },
+    {
+     "w": "gün",
+     "t0": 479.498,
+     "t1": 479.788
+    },
+    {
+     "w": "Henri",
+     "t0": 479.788,
+     "t1": 480.308
+    },
+    {
+     "w": "IV",
+     "t0": 480.308,
+     "t1": 480.608
+    },
+    {
+     "w": "öldürüldü,",
+     "t0": 480.608,
+     "t1": 481.21
+    },
+    {
+     "w": "Marie",
+     "t0": 481.45,
+     "t1": 481.838
+    },
+    {
+     "w": "naip",
+     "t0": 481.838,
+     "t1": 482.298
+    },
+    {
+     "w": "oldu.",
+     "t0": 482.298,
+     "t1": 482.62
+    }
+   ],
+   "gap": 0.68
+  },
+  {
+   "id": "c13s29",
+   "ch": "c13",
+   "disp": "Favorisi Concini 1617'de öldürülünce Marie, Blois Şatosu'na gönderildi; 1619'da bir gece oradan kaçtı.",
+   "speech": "Favorisi Konçini bin altı yüz on yedide öldürülünce Mari, Blua Şatosu'na gönderildi; bin altı yüz on dokuzda bir gece oradan kaçtı.",
+   "t0": 483.3,
+   "t1": 492.3,
+   "words": [
+    {
+     "w": "Favorisi",
+     "t0": 483.3,
+     "t1": 483.878
+    },
+    {
+     "w": "Concini",
+     "t0": 483.878,
+     "t1": 484.408
+    },
+    {
+     "w": "1617'de",
+     "t0": 484.408,
+     "t1": 485.888
+    },
+    {
+     "w": "öldürülünce",
+     "t0": 486.008,
+     "t1": 486.673
+    },
+    {
+     "w": "Marie,",
+     "t0": 486.673,
+     "t1": 487.028
+    },
+    {
+     "w": "Blois",
+     "t0": 487.138,
+     "t1": 487.548
+    },
+    {
+     "w": "Şatosu'na",
+     "t0": 487.628,
+     "t1": 488.123
+    },
+    {
+     "w": "gönderildi;",
+     "t0": 488.123,
+     "t1": 488.928
+    },
+    {
+     "w": "1619'da",
+     "t0": 489.008,
+     "t1": 490.658
+    },
+    {
+     "w": "bir",
+     "t0": 490.728,
+     "t1": 490.898
+    },
+    {
+     "w": "gece",
+     "t0": 490.898,
+     "t1": 491.208
+    },
+    {
+     "w": "oradan",
+     "t0": 491.298,
+     "t1": 491.788
+    },
+    {
+     "w": "kaçtı.",
+     "t0": 491.788,
+     "t1": 492.3
+    }
+   ],
+   "gap": 0.64
+  },
+  {
+   "id": "c13s30",
+   "ch": "c13",
+   "disp": "1630'daki Aldatılanlar Günü'nde oğlu Kral Louis, Richelieu'yu seçti, annesini değil.",
+   "speech": "Bin altı yüz otuzdaki Aldatılanlar Günü'nde oğlu Kral Lui, Rişölyö'yu seçti, annesini değil.",
+   "t0": 492.94,
+   "t1": 498.8,
+   "words": [
+    {
+     "w": "1630'daki",
+     "t0": 492.94,
+     "t1": 494.328
+    },
+    {
+     "w": "Aldatılanlar",
+     "t0": 494.328,
+     "t1": 495.208
+    },
+    {
+     "w": "Günü'nde",
+     "t0": 495.298,
+     "t1": 495.708
+    },
+    {
+     "w": "oğlu",
+     "t0": 495.708,
+     "t1": 495.998
+    },
+    {
+     "w": "Kral",
+     "t0": 495.998,
+     "t1": 496.408
+    },
+    {
+     "w": "Louis,",
+     "t0": 496.408,
+     "t1": 496.668
+    },
+    {
+     "w": "Richelieu'yu",
+     "t0": 496.778,
+     "t1": 497.298
+    },
+    {
+     "w": "seçti,",
+     "t0": 497.298,
+     "t1": 497.828
+    },
+    {
+     "w": "annesini",
+     "t0": 497.958,
+     "t1": 498.498
+    },
+    {
+     "w": "değil.",
+     "t0": 498.498,
+     "t1": 498.8
+    }
+   ],
+   "gap": 0.66
+  },
+  {
+   "id": "c13s31",
+   "ch": "c13",
+   "disp": "Marie 1631'de Fransa'dan çıktı ve bir daha dönmedi.",
+   "speech": "Mari bin altı yüz otuz birde Fransa'dan çıktı ve bir daha dönmedi.",
+   "t0": 499.46,
+   "t1": 503.87,
+   "words": [
+    {
+     "w": "Marie",
+     "t0": 499.46,
+     "t1": 499.827
+    },
+    {
+     "w": "1631'de",
+     "t0": 499.827,
+     "t1": 501.518
+    },
+    {
+     "w": "Fransa'dan",
+     "t0": 501.518,
+     "t1": 502.248
+    },
+    {
+     "w": "çıktı",
+     "t0": 502.248,
+     "t1": 502.567
+    },
+    {
+     "w": "ve",
+     "t0": 502.567,
+     "t1": 502.758
+    },
+    {
+     "w": "bir",
+     "t0": 502.758,
+     "t1": 503.048
+    },
+    {
+     "w": "daha",
+     "t0": 503.048,
+     "t1": 503.288
+    },
+    {
+     "w": "dönmedi.",
+     "t0": 503.288,
+     "t1": 503.87
+    }
+   ],
+   "gap": 0.84
+  },
+  {
+   "id": "c13s32",
+   "ch": "c13",
+   "disp": "1622'de Marie, Rubens'e yaşamını anlatan yirmi dört dev tablo ısmarladı: hayatını yeniden yazdırmanın en pahalı yolu.",
+   "speech": "Bin altı yüz yirmi ikide Mari, Rubens'e yaşamını anlatan yirmi dört dev tablo ısmarladı: hayatını yeniden yazdırmanın en pahalı yolu.",
+   "t0": 504.71,
+   "t1": 513.55,
+   "words": [
+    {
+     "w": "1622'de",
+     "t0": 504.71,
+     "t1": 506.408
+    },
+    {
+     "w": "Marie,",
+     "t0": 506.408,
+     "t1": 506.898
+    },
+    {
+     "w": "Rubens'e",
+     "t0": 506.998,
+     "t1": 507.518
+    },
+    {
+     "w": "yaşamını",
+     "t0": 507.518,
+     "t1": 507.918
+    },
+    {
+     "w": "anlatan",
+     "t0": 507.918,
+     "t1": 508.538
+    },
+    {
+     "w": "yirmi",
+     "t0": 508.538,
+     "t1": 508.918
+    },
+    {
+     "w": "dört",
+     "t0": 508.918,
+     "t1": 509.238
+    },
+    {
+     "w": "dev",
+     "t0": 509.338,
+     "t1": 509.538
+    },
+    {
+     "w": "tablo",
+     "t0": 509.588,
+     "t1": 510.048
+    },
+    {
+     "w": "ısmarladı:",
+     "t0": 510.048,
+     "t1": 510.748
+    },
+    {
+     "w": "hayatını",
+     "t0": 510.838,
+     "t1": 511.288
+    },
+    {
+     "w": "yeniden",
+     "t0": 511.288,
+     "t1": 511.758
+    },
+    {
+     "w": "yazdırmanın",
+     "t0": 511.758,
+     "t1": 512.588
+    },
+    {
+     "w": "en",
+     "t0": 512.727,
+     "t1": 512.878
+    },
+    {
+     "w": "pahalı",
+     "t0": 512.878,
+     "t1": 513.248
+    },
+    {
+     "w": "yolu.",
+     "t0": 513.248,
+     "t1": 513.55
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c13s33",
+   "ch": "c13",
+   "disp": "Louvre'a göre bu seri Marie'ye kendi anlatısını sunma fırsatı verdi; ressam kralı gücendirmemeye de dikkat etmek zorundaydı.",
+   "speech": "Luvr'a göre bu seri Mari'ye kendi anlatısını sunma fırsatı verdi; ressam kralı gücendirmemeye de dikkat etmek zorundaydı.",
+   "t0": 514.24,
+   "t1": 522.26,
+   "words": [
+    {
+     "w": "Louvre'a",
+     "t0": 514.24,
+     "t1": 514.668
+    },
+    {
+     "w": "göre",
+     "t0": 514.668,
+     "t1": 515.018
+    },
+    {
+     "w": "bu",
+     "t0": 515.018,
+     "t1": 515.197
+    },
+    {
+     "w": "seri",
+     "t0": 515.197,
+     "t1": 515.498
+    },
+    {
+     "w": "Marie'ye",
+     "t0": 515.498,
+     "t1": 515.99
+    },
+    {
+     "w": "kendi",
+     "t0": 516.12,
+     "t1": 516.447
+    },
+    {
+     "w": "anlatısını",
+     "t0": 516.447,
+     "t1": 517.128
+    },
+    {
+     "w": "sunma",
+     "t0": 517.128,
+     "t1": 517.457
+    },
+    {
+     "w": "fırsatı",
+     "t0": 517.457,
+     "t1": 517.957
+    },
+    {
+     "w": "verdi;",
+     "t0": 517.957,
+     "t1": 518.4
+    },
+    {
+     "w": "ressam",
+     "t0": 518.59,
+     "t1": 519.128
+    },
+    {
+     "w": "kralı",
+     "t0": 519.128,
+     "t1": 519.528
+    },
+    {
+     "w": "gücendirmemeye",
+     "t0": 519.528,
+     "t1": 520.487
+    },
+    {
+     "w": "de",
+     "t0": 520.487,
+     "t1": 520.618
+    },
+    {
+     "w": "dikkat",
+     "t0": 520.618,
+     "t1": 521.148
+    },
+    {
+     "w": "etmek",
+     "t0": 521.148,
+     "t1": 521.508
+    },
+    {
+     "w": "zorundaydı.",
+     "t0": 521.508,
+     "t1": 522.26
+    }
+   ],
+   "gap": 0.66
+  },
+  {
+   "id": "c13s34",
+   "ch": "c13",
+   "disp": "Kader tanrıçaları Marie'nin yaşam ipliğini eğirir; Blois'dan gece kaçış bile kahramanca bir sahne olarak yer alır.",
+   "speech": "Kader tanrıçaları Mari'nin yaşam ipliğini eğirir; Blua'dan gece kaçış bile kahramanca bir sahne olarak yer alır.",
+   "t0": 522.92,
+   "t1": 529.9,
+   "words": [
+    {
+     "w": "Kader",
+     "t0": 522.92,
+     "t1": 523.293
+    },
+    {
+     "w": "tanrıçaları",
+     "t0": 523.293,
+     "t1": 524.048
+    },
+    {
+     "w": "Marie'nin",
+     "t0": 524.048,
+     "t1": 524.548
+    },
+    {
+     "w": "yaşam",
+     "t0": 524.548,
+     "t1": 524.967
+    },
+    {
+     "w": "ipliğini",
+     "t0": 524.967,
+     "t1": 525.358
+    },
+    {
+     "w": "eğirir;",
+     "t0": 525.358,
+     "t1": 525.888
+    },
+    {
+     "w": "Blois'dan",
+     "t0": 525.947,
+     "t1": 526.538
+    },
+    {
+     "w": "gece",
+     "t0": 526.538,
+     "t1": 526.798
+    },
+    {
+     "w": "kaçış",
+     "t0": 526.798,
+     "t1": 527.223
+    },
+    {
+     "w": "bile",
+     "t0": 527.223,
+     "t1": 527.467
+    },
+    {
+     "w": "kahramanca",
+     "t0": 527.467,
+     "t1": 528.317
+    },
+    {
+     "w": "bir",
+     "t0": 528.378,
+     "t1": 528.558
+    },
+    {
+     "w": "sahne",
+     "t0": 528.558,
+     "t1": 528.988
+    },
+    {
+     "w": "olarak",
+     "t0": 528.988,
+     "t1": 529.438
+    },
+    {
+     "w": "yer",
+     "t0": 529.438,
+     "t1": 529.618
+    },
+    {
+     "w": "alır.",
+     "t0": 529.618,
+     "t1": 529.9
+    }
+   ],
+   "gap": 0.84
+  },
+  {
+   "id": "c13s35",
+   "ch": "c13",
+   "disp": "Marie, 3 Temmuz 1642'de Köln'de, yoksul öldü.",
+   "speech": "Mari, üç Temmuz bin altı yüz kırk ikide Köln'de, yoksul öldü.",
+   "t0": 530.74,
+   "t1": 535.47,
+   "words": [
+    {
+     "w": "Marie,",
+     "t0": 530.74,
+     "t1": 531.33
+    },
+    {
+     "w": "3",
+     "t0": 531.49,
+     "t1": 531.678
+    },
+    {
+     "w": "Temmuz",
+     "t0": 531.678,
+     "t1": 532.168
+    },
+    {
+     "w": "1642'de",
+     "t0": 532.168,
+     "t1": 533.788
+    },
+    {
+     "w": "Köln'de,",
+     "t0": 533.788,
+     "t1": 534.38
+    },
+    {
+     "w": "yoksul",
+     "t0": 534.53,
+     "t1": 535.098
+    },
+    {
+     "w": "öldü.",
+     "t0": 535.098,
+     "t1": 535.47
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c13s36",
+   "ch": "c13",
+   "disp": "Ev, Rubens ailesinin yıllarca oturduğu evdi; sonradan Rubens'in orada doğduğu söylendi, oysa doğduğu yer Siegen'di.",
+   "speech": "Ev, Rubens ailesinin yıllarca oturduğu evdi; sonradan Rubens'in orada doğduğu söylendi, oysa doğduğu yer Zigen'di.",
+   "t0": 536.14,
+   "t1": 544.27,
+   "words": [
+    {
+     "w": "Ev,",
+     "t0": 536.14,
+     "t1": 536.438
+    },
+    {
+     "w": "Rubens",
+     "t0": 536.558,
+     "t1": 537.078
+    },
+    {
+     "w": "ailesinin",
+     "t0": 537.078,
+     "t1": 537.748
+    },
+    {
+     "w": "yıllarca",
+     "t0": 537.748,
+     "t1": 538.358
+    },
+    {
+     "w": "oturduğu",
+     "t0": 538.358,
+     "t1": 538.988
+    },
+    {
+     "w": "evdi;",
+     "t0": 538.988,
+     "t1": 539.388
+    },
+    {
+     "w": "sonradan",
+     "t0": 539.498,
+     "t1": 540.197
+    },
+    {
+     "w": "Rubens'in",
+     "t0": 540.197,
+     "t1": 540.758
+    },
+    {
+     "w": "orada",
+     "t0": 540.858,
+     "t1": 541.197
+    },
+    {
+     "w": "doğduğu",
+     "t0": 541.197,
+     "t1": 541.618
+    },
+    {
+     "w": "söylendi,",
+     "t0": 541.618,
+     "t1": 542.388
+    },
+    {
+     "w": "oysa",
+     "t0": 542.487,
+     "t1": 542.938
+    },
+    {
+     "w": "doğduğu",
+     "t0": 542.938,
+     "t1": 543.348
+    },
+    {
+     "w": "yer",
+     "t0": 543.348,
+     "t1": 543.638
+    },
+    {
+     "w": "Siegen'di.",
+     "t0": 543.638,
+     "t1": 544.27
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c13s37",
+   "ch": "c13",
+   "disp": "Tablolar ise Paris'te kaldı; bugün Louvre'da, ayrı bir galerideler.",
+   "speech": "Tablolar ise Paris'te kaldı; bugün Luvr'da, ayrı bir galerideler.",
+   "t0": 545.0,
+   "t1": 549.27,
+   "words": [
+    {
+     "w": "Tablolar",
+     "t0": 545.0,
+     "t1": 545.538
+    },
+    {
+     "w": "ise",
+     "t0": 545.538,
+     "t1": 545.913
+    },
+    {
+     "w": "Paris'te",
+     "t0": 545.913,
+     "t1": 546.458
+    },
+    {
+     "w": "kaldı;",
+     "t0": 546.458,
+     "t1": 546.898
+    },
+    {
+     "w": "bugün",
+     "t0": 546.948,
+     "t1": 547.418
+    },
+    {
+     "w": "Louvre'da,",
+     "t0": 547.418,
+     "t1": 547.938
+    },
+    {
+     "w": "ayrı",
+     "t0": 548.038,
+     "t1": 548.318
+    },
+    {
+     "w": "bir",
+     "t0": 548.318,
+     "t1": 548.478
+    },
+    {
+     "w": "galerideler.",
+     "t0": 548.478,
+     "t1": 549.27
+    }
+   ],
+   "gap": 0.61
+  },
+  {
+   "id": "c13s38",
+   "ch": "c13",
+   "disp": "İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu Arapça harf kestirip, opera sahnelettirip, gökyüzüne de adını yazdırıyordu.",
+   "speech": "İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu Arapça harf kestirip, opera sahnelettirip, gökyüzüne de adını yazdırıyordu.",
+   "t0": 549.88,
+   "t1": 559.62,
+   "words": [
+    {
+     "w": "İki",
+     "t0": 549.88,
+     "t1": 550.148
+    },
+    {
+     "w": "kraliçe",
+     "t0": 550.148,
+     "t1": 550.758
+    },
+    {
+     "w": "Fransa'da",
+     "t0": 550.758,
+     "t1": 551.408
+    },
+    {
+     "w": "imgesini",
+     "t0": 551.408,
+     "t1": 551.908
+    },
+    {
+     "w": "savunurken,",
+     "t0": 551.908,
+     "t1": 552.818
+    },
+    {
+     "w": "ailenin",
+     "t0": 552.928,
+     "t1": 553.508
+    },
+    {
+     "w": "Floransa'daki",
+     "t0": 553.508,
+     "t1": 554.408
+    },
+    {
+     "w": "kolu",
+     "t0": 554.408,
+     "t1": 554.638
+    },
+    {
+     "w": "Arapça",
+     "t0": 554.638,
+     "t1": 555.118
+    },
+    {
+     "w": "harf",
+     "t0": 555.118,
+     "t1": 555.468
+    },
+    {
+     "w": "kestirip,",
+     "t0": 555.468,
+     "t1": 556.03
+    },
+    {
+     "w": "opera",
+     "t0": 556.29,
+     "t1": 556.673
+    },
+    {
+     "w": "sahnelettirip,",
+     "t0": 556.673,
+     "t1": 557.56
+    },
+    {
+     "w": "gökyüzüne",
+     "t0": 557.67,
+     "t1": 558.368
+    },
+    {
+     "w": "de",
+     "t0": 558.368,
+     "t1": 558.457
+    },
+    {
+     "w": "adını",
+     "t0": 558.457,
+     "t1": 558.788
+    },
+    {
+     "w": "yazdırıyordu.",
+     "t0": 558.788,
+     "t1": 559.62
+    }
+   ],
+   "gap": 0.0
+  }
+ ]
+}

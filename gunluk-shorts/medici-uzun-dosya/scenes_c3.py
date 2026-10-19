@@ -1,6 +1,7 @@
 from shots import shot
 import cilt_medici as CM
 import c3_kinds as K
+import cilt_sehir as SE
 look = K.look
 SHOTS = [
     shot("sehir", ("c3s1", -0.15), scene="skyline_dikey_p2", tod="day", cams=[(("c3s1", -0.15), (1120, 300, 1.14)), (("c3s2", -0.3), (K.SLIT_X_R, K.SLIT_H[4], 1.9))], label="kule", link=None),
@@ -27,7 +28,7 @@ SHOTS = [
          routes=[dict(pts=[(11.2558, 43.7696), (11.50, 44.55), (11.8768, 45.4064)], at=("c3s11", "Padova'ya", -0.5), dur=1.5, color="#233C8C", width=10.0)],
          date=("3 EKİM 1433", ("c3s11", 0.1)), tr=("zoomthru", 0.9, dict(at=(960, 540), at_b=(960, 540))), link="scale", label="Floransa → Padova"),
     shot("c3_sure", ("c3s12", -0.15), mode="day", cam=("push", 0.07), tr=("carry", 0.9, dict(strip="ribbon", dir="r")), link="carry", label="sürgünün süresi: kaynaklar anlaşamıyor"),
-    shot("p2_map", ("c3s13", -0.1), mode="day", cam=("push", 0.04), regions=[],
+    shot("p2_map", ("c3s13", -0.1), mode="day", cam=("push", 0.07), regions=[],
          cams=[(("c3s13", 0.0), (12.0, 45.12, 10.0)), (("c3s13", "elçi", -0.5), (11.85, 44.55, 6.6)), (("c3s14", 0.0), (11.85, 44.45, 6.4))],
          cities=[dict(lon=11.2558, lat=43.7696, name="FLORANSA", kind="capital", at=("c3s13", 0.0), size=40, color="#B33620", side="r"), dict(lon=11.8768, lat=45.4064, name="PADOVA", kind="town", at=("c3s13", 0.0), size=40, color="#233C8C", side="l"),
                  dict(lon=12.3155, lat=45.4408, name="VENEDİK", kind="capital", at=("c3s13", "Venedik'e", -0.4), size=40, color="#2F7A8A", side="r")],
@@ -39,12 +40,12 @@ SHOTS = [
     shot("c3_ruzgar", ("c3s15", -0.1), mode="day", cam=("push", 0.10), tr=("slide", 0.8, dict(dir="r")), link="dir", label="rüzgâr değişiyor"),
     shot("c3_kura", ("c3s16", -0.2), mode="day", cam=[(("c3s16", 0.0), K.look(1560, 520, 1.12)), (("c3s16", "kura", 0.0), K.look(1540, 560, 1.28)), (("c3s16", "Signoria", 0.2), K.look(1560, 640, 1.18)),
          (("c3s16", "Rinaldo", -1.0), K.look(1450, 620, 1.05)), (("c3s16", "Rinaldo", 0.3), K.look(640, 600, 1.15)), (("c3s16", "toplatmaya", 0.0), K.look(560, 620, 1.22)), (("c3s17", -0.3), K.look(540, 640, 1.26))],
-         tr=("slide", 0.8, dict(dir="l")), link="dir", longtake=True, label="kura ve Rinaldo'nun kurulu"),
+         tr=("carry", 0.9, dict(strip="banner", dir="l")), link="carry", longtake=True, label="kura ve Rinaldo'nun kurulu"),
     shot("c3_ilan", ("c3s17", -0.1), mode="day", cam=[(("c3s17", 0.0), K.look(960, 560, 1.15)), (("c3s17", "kalktı;", 0.0), K.look(980, 520, 1.1)), (("c3s17", "6", -0.2), K.look(1200, 140, 1.0))],
-         tr=("slide", 0.8, dict(dir="r")), link="dir", label="sürgün kararı kalktı"),
+         tr=("slide", 0.8, dict(dir="l")), link="dir", label="sürgün kararı kalktı"),
     shot("c3_donus", ("c3s17", "6", -0.4), mode="day", cam=("pan", "r", 150), tr=("carry", 0.9, dict(strip="paper", dir="r")), link="carry", longtake=True, label="6 Ekim 1434: yalnız yolcu"),
     shot("c3_issiz", ("c3s18", -0.1), mode="day", cam=("pan", "r", 200), tr=("giornata", 0.9), link="material", label="Albizzi konakları ıssız"),
-    shot("c3_surgun_kapi", ("c3s19", -0.1), mode="day", cam=("pan", "l", 220), tr=("slide", 0.8, dict(dir="l")), link="dir", label="Rinaldo ve Strozzi sürgüne yürür"),
+    shot("c3_surgun_kapi", ("c3s19", -0.1), mode="day", cam=("pan", "l", 220), tr=("sayfa", 0.8), link="material", label="Rinaldo ve Strozzi sürgüne yürür"),
     shot("c3_koltuk", ("c3s20", -0.1), mode="day", cam=[(("c3s20", 0.0), K.look(960, 560, 1.0)), (("c3s20", "otuz", 0.0), K.look(960, 520, 1.12)), (("c3s21", -0.3), K.look(960, 520, 1.2))],
          tr=("light", 0.9, dict(at=(960, 520))), link="light", label="boş koltuk, takılmayan taç, otuz yıl"),
     shot("c3_kral", ("c3s21", -0.1), mode="day", cam=("push", 0.09), tr=("iris", 0.9, dict(at=(960, 270), obj="sun", r=150)), link="shape", label="adı ve statüsü dışında bir kral"),
@@ -53,5 +54,22 @@ SHOTS = [
     shot("c3_doldur", ("c3s23", -0.1), mode="day", cam=[(("c3s23", 0.0), K.look(640, 560, 1.06)), (("c3s23", "torbaların", 0.0), K.look(1100, 540, 1.1)), (("c3s24", -0.3), K.look(1300, 560, 1.18))],
          tr=("slide", 0.8, dict(dir="r")), link="dir", label="Cosimo torbaları doldurur"),
     shot("c3_bekci", ("c3s24", -0.1), mode="day", cam=[(("c3s24", 0.0), K.look(900, 600, 1.0)), (("c3s24", "torbaya", 0.0), K.look(1100, 580, 1.1)), (("c3s25", -0.3), K.look(1250, 560, 1.18))],
-         tr=("slide", 0.8, dict(dir="r")), link="dir", label="torbaya kimin gireceğine kura karar vermiyordu"),
+         tr=("zoomthru", 0.9, dict(at=(1450, 640), at_b=(1480, 600))), link="shape", label="torbaya kimin gireceğine kura karar vermiyordu"),
+    shot("c3_ag", ("c3s25", -0.1), mode="day", cam=("push", 0.07), tr=("slide", 0.8, dict(dir="r")), link="dir", label="Padgett-Ansell ağı: yalnız Medici üzerinden"),
+    shot("p2_ledger", ("c3s26", -0.1), mode="day", cam=("push", 0.08), at=0.0, seed=5, head="",
+         left=[dict(text="ROMA", at=("c3s26", "arka", -0.1)), dict(text="VENEDİK", at=("c3s26", "odasında", -0.1)), dict(text="CENEVRE", at=("c3s26", "yine", -0.2)), dict(text="BRUGGE", at=("c3s26", "defter", -0.4))],
+         right=[dict(text="LONDRA", at=("c3s26", "bir", -0.1)), dict(text="MİLANO", at=("c3s26", "defter", -0.1)), dict(text="AVİGNON", at=("c3s26", "vardı.", -0.5))],
+         tr=("zoomthru", 0.9, dict(at=K.HUB, at_b=(960, 560))), link="scale", label="arka odadaki defter"),
+    shot("p2_map", ("c3s27", -0.1), view=(5.8, 46.9, 1.6), mode="day", cam=("push", 0.08), regions=[], extra=K.branch_extra,
+         tr=("sayfa", 0.8), link="material", label="şube müdürleri: ayrı ortaklık kutuları"),
+    shot("c3_kar", ("c3s28", -0.1), mode="day", cam=("push", 0.06), tr=("slide", 0.8, dict(dir="r")), link="dir", label="kâr 186.382 → 290.791 FL; yarıdan fazlası Roma"),
+    shot("c3_holding", ("c3s29", -0.1), mode="day", cam=("push", 0.08), tr=("carry", 0.9, dict(strip="paper", dir="r")), link="carry", label="holding etiketi, compagnia"),
+    shot("c3_careggi", ("c3s30", -0.1), mode="day", cam=("crane", "down", 120), tr=("yikama", 0.9), link="material", label="Careggi villası, 1 Ağustos 1464"),
+    shot("c3_sehir_kalir", ("c3s31", -0.1), mode="day", cam=("pan", "r", 260), tr=("giornata", 0.9), link="material", longtake=True, label="elli yıl: sürgün gelir, binalar kalır (ANEKDOT)"),
+    shot("p2_sehir", ("c3s33", -0.1), scene="skyline_dikey", tod="dusk", mode="day", cams=[(("c3s33", -0.1), (SE.VX, 2600, 1.05)), (("c3s33", "1494'te", 0.2), (SE.VX, 3400, 1.02)), (("c3s33", "ayakta.", 0.0), (SE.VX, 4658, 1.0))],
+         tr=("light", 0.9, dict(at=(960, 520))), link="light", label="1494: sürgün geldi, binalar ayakta (dikey çıkış)",
+         over=[dict(t="tag", text="1494", x=500, y=240, at=("c3s33", "1494'te", -0.1), size=84, w=380, track=14, hold=("c3s33", "binalar", -0.2)),
+               dict(t="stamp", text="SÜRGÜN", x=1500, y=330, at=("c3s33", "gerçekten", -0.1), size=64, rot=-0.08, hold=("c3s33", "binalar", -0.2)),
+               dict(t="tag", text="BUGÜN", x=500, y=240, at=("c3s33", "bugün", -0.2), size=64, w=380, track=12)]),
 ]
+YIL_AT = [(("c3s16", "Ağustos", -0.2), 1434), (("c3s28", "1435'ten", -0.1), 1435), (("c3s28", "1450'ye", -0.1), 1450), (("c3s30", "1464'te", -0.3), 1464), (("c3s33", "1494'te", -0.3), 1494)]

@@ -1353,7 +1353,7 @@ def k_issiz_impl(cx, **_):
         c.restore()
     cam.end(f)
     CM.finish(f, cx, motes_n=16)
-    L.stamp_at(f, cx, "○ TEK KAYNAK", 1530, 220, at=("c3s18", "anlatılır", -0.3), size=40, rot=-0.07)
+    L.stamp_src(f, cx, "TEK KAYNAK", 1530, 220, at=("c3s18", "anlatılır", -0.3), size=40, rot=-0.07)
 
 
 @CM.ckind("c3_issiz")
@@ -1485,17 +1485,17 @@ def k_kral_impl(cx, **_):
     # üst etiket + Papa anahtarları
     k0 = cx.amt(("c3s21", "Pius'a", 0.0), 0.6)
     if k0 > 0.003:
-        icons.draw_icon(f, "keys", 720, 190, size=96, metal="gold", alpha=k0, shadow=False)
-        L.tag(f, cx, "II. PIUS'A GÖRE", 1010, 190, at=("c3s21", "Pius'a", 0.0), size=36, w=520)
+        icons.draw_icon(f, "keys", 720, 100, size=84, metal="gold", alpha=k0, shadow=False)
+        L.tag(f, cx, "II. PIUS'A GÖRE", 1010, 100, at=("c3s21", "Pius'a", 0.0), size=36, w=520)
     # palle kalkanı
-    ks = cx.amt(("c3s21", "Cosimo,", -0.2), 0.8)
+    ks = cx.amt(("c3s21", "Papa", 0.0), 0.7)
     if ks > 0.003:
-        CP.draw_arms(f, 960, 640, 400 * (0.92 + 0.08 * ease_out(ks)), alpha=ks, shadow=0.6, glow=0.0, glint=((t * 0.3) % 2.0) if (t * 0.3) % 2.0 < 1 else None)
+        CP.draw_arms(f, 960, 700, 380 * (0.92 + 0.08 * ease_out(ks)), alpha=ks, shadow=0.6, glow=0.0, glint=((t * 0.3) % 2.0) if (t * 0.3) % 2.0 < 1 else None)
     # hayalet taç (kesikli) → 'bir kraldı' ile altın dolar
     kg = cx.amt(("c3s21", "kraldı.", -0.15), 0.7)
     kcr = cx.amt(("c3s21", "Cosimo,", 0.3), 0.8)
     if kcr > 0.003:
-        cy = 270 + 6 * math.sin(t * 2.0)
+        cy = 330 + 6 * math.sin(t * 2.0)
         icons.draw_icon(f, "crown", 960, cy, size=250, metal="gold", alpha=(0.22 + 0.78 * kg) * kcr, glow=0.30 * kg, shadow=False)
         halo = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C("#C79A3C", int(220 * kcr)))
         halo.setPathEffect(skia.DashPathEffect.Make([18.0, 12.0], -t * 40))
@@ -1620,7 +1620,7 @@ def k_dolap_impl(cx, **_):
         u = (t - tp) / 0.8
         if 0 < u < 0.45:
             bag = (CX_ + CW_ * (0.20 + 0.30 * (i % 3)), GY - CH_ + 160 + (i % 3) * 200)
-            arm_to(c, (bag[0] - 420, 40), (bag[0] + 6, bag[1] + 20 - 70 * ease_out(u / 0.45)), s=2.2, sleeve="#4A3422")
+            arm_to(c, (bag[0] - 420, 40), (bag[0] + 6, bag[1] + 20 - 70 * ease_out(u / 0.45)), s=2.2, sleeve="#2F5A8A")
     L.end(cx, cam, motes_n=14)
     L.tag(f, cx, "SIGNORIA", 1540, 250, at=("c3s22", "Signoria", 0.0), size=36, w=300)
 
@@ -1738,7 +1738,7 @@ def k_bekci_impl(cx, **_):
     # bekçi (kapıdaki): çantanın önünde, sola bakar
     t_g = cx.at(("c3s24", "torbaya", -0.3))
     kg = cx.amt(("c3s24", "torbaya", -0.3), 0.5)
-    L.sil(f, "asker", 1110, GY + 10, 360, t, action="idle", dir=-1, seed=8, color="#14100C", rim="#FFE2A0", rim_dir=-1, alpha=kg, prop="halberd")
+    L.sil(f, "asker", 1110, GY + 10, 360, t, action="point", dir=-1, seed=8, color="#14100C", rim="#FFE2A0", rim_dir=-1, alpha=kg, prop="halberd")
     # konveyör çizgisi
     c.drawLine(-300, 830, 1050, 830, S("#5A3C22", 6.0, 200))
     t_q = cx.at(("c3s24", 0.0))
@@ -1773,10 +1773,6 @@ def k_bekci_impl(cx, **_):
             L.draw_slip(c, x, y, w=104, h=70, rot=rot, lines=1, seed=i + 1, a=a)
             if marked:
                 draw_palle_badge(c, x, y + 6, s=0.95, a=a)
-        # bekçinin eli: bayrağı kaldırır / eler
-        if 0.5 < u < 0.9 and kg > 0.5:
-            hand_t = (1010 + 40 * math.sin((u - 0.5) * 14), 740 - (30 if marked else -20))
-            arm_to(c, (1020, GY - 410), hand_t, s=1.3, sleeve="#2A2620", a=255)
     L.end(cx, cam, motes_n=12)
     L.tag(f, cx, "KURA", 520, 250, at=("c3s24", "Kura", 0.0), size=46, w=260, hold=("c3s24", "torbaya", -0.2))
     L.stamp_at(f, cx, "YORUM", 1560, 230, at=("c3s24", "vermiyordu.", -0.3), size=46, rot=-0.07)
@@ -1785,3 +1781,503 @@ def k_bekci_impl(cx, **_):
 @CM.ckind("c3_bekci")
 def k_bekci(cx, **kw):
     k_bekci_impl(cx, **kw)
+
+
+# ═══════════════════════════ c3s25: Padgett–Ansell ağı (kümeler yalnız Medici üzerinden bağlanır) ═══════════════════════════
+_AG = {}
+HUB = (960.0, 525.0)
+
+
+def _ag_layout():
+    if "L" in _AG:
+        return _AG["L"]
+    spec = [((420.0, 540.0), 8, "#233C8C", 2), ((1480.0, 290.0), 7, "#8A6A2A", 5), ((1480.0, 760.0), 7, "#3A7A52", 9)]
+    out = []
+    for (cc, n, col, sd) in spec:
+        pts = []
+        for i in range(n):
+            ang = i * 2.39996 + sd
+            rr = 34 + 40 * math.sqrt(i)
+            pts.append((cc[0] + rr * math.cos(ang) * 1.3, cc[1] + rr * math.sin(ang) * 0.95))
+        edges = []
+        for i in range(1, n):
+            ds = sorted(range(i), key=lambda j: (pts[i][0] - pts[j][0]) ** 2 + (pts[i][1] - pts[j][1]) ** 2)
+            for j in ds[:(1 if i == 1 else 2)]:
+                edges.append((i, j))
+        gate = min(range(n), key=lambda i: (pts[i][0] - HUB[0]) ** 2 + (pts[i][1] - HUB[1]) ** 2)
+        out.append(dict(c=cc, pts=pts, edges=edges, gate=gate, col=col))
+    _AG["L"] = out
+    return out
+
+
+def k_ag_impl(cx, **_):
+    import cilt_props as CP
+    f, c, cam = L.begin(cx, bg="wall", seed=4, dress=None)
+    t = cx.t
+    lay = _ag_layout()
+    t_n0 = cx.at(("c3s25", "Padgett", -0.3))
+    t_hub = cx.at(("c3s25", "Medici", 0.0))
+    kb = cx.amt(("c3s25", "bağlı", -0.1), 0.9)
+    kh = cx.amt(("c3s25", "yalnız", 0.0), 0.7)
+    kdim = 1.0 - 0.55 * cx.amt(("c3s25", "Medici", 0.0), 0.8)
+    # kümeler: yarı saydam bölge + kesikli çerçeve
+    for d in lay:
+        if kb > 0.003:
+            cxx, cyy = d["c"]
+            rc = skia.Rect.MakeLTRB(cxx - 270, cyy - 180, cxx + 270, cyy + 180)
+            c.drawOval(rc, P(d["col"], 34 * kb))
+            dp = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.0, Color=C(d["col"], int(150 * kb)))
+            dp.setPathEffect(skia.DashPathEffect.Make([14.0, 10.0], -t * 14))
+            c.drawOval(rc, dp)
+    # kümeler arası kopukluk: çarpı işaretleri
+    kg = cx.amt(("c3s25", "olmayan", 0.0), 0.7)
+    if kg > 0.003:
+        for (xa, ya, xb, yb) in ((690, 470, 835, 420), (690, 610, 835, 650), (1480, 485, 1480, 565)):
+            dashed(c, xa, ya, xb, yb, col="#8A7A62", w=3.0, a=int(210 * kg * kdim), dash=(10.0, 12.0))
+            mx, my = (xa + xb) / 2, (ya + yb) / 2
+            xs = 16 * (0.6 + 0.4 * ease_out(kg))
+            c.drawLine(mx - xs, my - xs, mx + xs, my + xs, S("#A8321E", 5.0, int(235 * kg * kdim)))
+            c.drawLine(mx - xs, my + xs, mx + xs, my - xs, S("#A8321E", 5.0, int(235 * kg * kdim)))
+    # küme içi bağlar + düğümler
+    for k, d in enumerate(lay):
+        pts = d["pts"]
+        tn = [t_n0 + 0.8 * k + 0.14 * i for i in range(len(pts))]
+        for (i, j) in d["edges"]:
+            pe = clamp((t - max(tn[i], tn[j]) - 0.05) / 0.28)
+            if pe > 0:
+                (x0, y0), (x1, y1) = pts[j], pts[i]
+                c.drawLine(x0, y0, lerp(x0, x1, pe), lerp(y0, y1, pe), S(mix(d["col"], "#2A1A0C", 0.35), 3.0, 200))
+    # Medici bağları (altın)
+    for k, d in enumerate(lay):
+        gx, gy = d["pts"][d["gate"]]
+        pe = ease_io(clamp((t - (t_hub + 0.45 * k)) / 0.75), 2)
+        if pe > 0:
+            ex, ey = lerp(HUB[0], gx, pe), lerp(HUB[1], gy, pe)
+            c.drawLine(HUB[0], HUB[1], ex, ey, S("#FFD060", 18.0, 60))
+            c.drawLine(HUB[0], HUB[1], ex, ey, S("#C79A3C", 7.0, 245))
+            c.drawLine(HUB[0], HUB[1], ex, ey, S("#FFF0B0", 2.0, 220))
+            if pe > 0.99:                                          # akış: ışık noktaları
+                for q in range(2):
+                    ph = ((t * 0.55 + q * 0.5 + k * 0.23) % 1.0)
+                    px_, py_ = lerp(HUB[0], gx, ph), lerp(HUB[1], gy, ph)
+                    SOFT(c, px_, py_, 14, 14, "#FFF2B0", 200)
+    for k, d in enumerate(lay):
+        pts = d["pts"]
+        for i, (x, y) in enumerate(pts):
+            tn = t_n0 + 0.8 * k + 0.14 * i
+            kk = ease_out(clamp((t - tn) / 0.3), 3)
+            if kk <= 0.003:
+                continue
+            gate = (i == d["gate"])
+            rr = (19 if gate else 14) * kk
+            sh = skia.GradientShader.MakeRadial((x - rr * 0.3, y - rr * 0.35), rr * 1.6, [C(mix(d["col"], "#FFFFFF", 0.45)), C(d["col"]), C(mix(d["col"], "#000000", 0.45))], [0.0, 0.5, 1.0])
+            c.drawCircle(x, y + 3, rr, P("#000000", 70))
+            c.drawCircle(x, y, rr, skia.Paint(AntiAlias=True, Shader=sh))
+            c.drawCircle(x, y, rr, S("#1A100A", 1.6, 220))
+            if gate and kh > 0.5:
+                c.drawCircle(x, y, rr + 6, S("#FFD060", 3.0, int(230 * (kh - 0.5) * 2)))
+    # merkez: Medici arması
+    if kh > 0.003:
+        SOFT(c, HUB[0], HUB[1], 200, 200, "#FFD060", 70 * kh)
+        CP.draw_arms(f, HUB[0], HUB[1], 190 * (0.9 + 0.1 * ease_out(kh)), alpha=kh, shadow=0.6, glow=0.35 * kh, glint=((t * 0.3) % 2.0) if (t * 0.3) % 2.0 < 1 else None)
+    L.end(cx, cam, motes_n=14)
+    L.tag(f, cx, "PADGETT · ANSELL", 960, 100, at=("c3s25", "Padgett", -0.1), size=36, sub="SOSYOLOGLAR", w=640)
+    L.tag(f, cx, "AİLE GRUPLARI", 420, 322, at=("c3s25", "aile", 0.0), size=30, w=400)
+    L.tag(f, cx, "MEDICI", 960, 700, at=("c3s25", "Medici", 0.0), size=36, w=300)
+
+
+@CM.ckind("c3_ag")
+def k_ag(cx, **kw):
+    k_ag_impl(cx, **kw)
+
+
+# ═══════════════════════════ c3s27: şube kutuları (harita bindirmesi; p2_map extra=) ═══════════════════════════
+BRANCHES = [
+    ("ROMA", 12.4964, 41.9028, (210, -45)),
+    ("VENEDİK", 12.3155, 45.4408, (215, -35)),
+    ("MİLANO", 9.19, 45.4642, (-30, -125)),
+    ("CENEVRE", 6.1432, 46.2044, (-215, -35)),
+    ("AVİGNON", 4.8055, 43.9493, (-215, 40)),
+    ("BRUGGE", 3.2247, 51.2093, (175, -20)),
+    ("LONDRA", -0.1276, 51.5072, (-215, 25)),
+]
+
+
+def branch_extra(cx, cm, mv):
+    f = cx.f
+    c = f.c
+    t = cx.t
+    t0 = cx.at(("c3s27", "Şube", -0.2))
+    t_cap = cx.at(("c3s27", "sermayeden", 0.0))
+    t_pro = cx.at(("c3s27", "kârdan", 0.0))
+    t_lock = cx.at(("c3s27", "kendi", -0.3))
+    fx, fy = cm.ll(11.2558, 43.7696)
+    kf = cx.amt(("c3s27", "Şube", -0.4), 0.5)
+    if kf > 0.003:
+        c.drawCircle(fx, fy, 15 * kf, P("#B33620", 255 * kf))
+        c.drawCircle(fx, fy, 15 * kf, S("#2A1A0C", 2.0, 220 * kf))
+        CM.ink(f, "FLORANSA", fx + 24, fy + 10, face="title_m", size=26, color=TH.fg, align="l", track=4, alpha=kf, emboss=False)
+    for i, (name, lon, lat, (dx, dy)) in enumerate(BRANCHES):
+        x, y = cm.ll(lon, lat)
+        k = ease_out(clamp((t - (t0 + 0.30 * i)) / 0.45), 3)
+        if k <= 0.003:
+            continue
+        bx, by = x + dx, y + dy
+        c.drawLine(x, y, bx, by, S("#2A1A0C", 2.0, int(200 * k)))
+        c.drawCircle(x, y, 8 * k, P("#A8321E", 255 * k))
+        c.drawCircle(x, y, 8 * k, S("#2A1A0C", 1.6, 230 * k))
+        w_, h_ = 236, 104
+        CM.tablet(f, bx - w_ / 2, by - h_ / 2 + (1 - k) * 16, w_, h_, alpha=k, corner=8)
+        CM.ink(f, name, bx, by - 12, face="title_m", size=27, color=TH.fg, align="c", track=4, alpha=k, emboss=False)
+        x0b = bx - 100
+        kc = ease_out(clamp((t - (t_cap - 0.1 + 0.07 * i)) / 0.5), 3)
+        kp = ease_out(clamp((t - (t_pro - 0.1 + 0.10 * i)) / 0.7), 3)
+        if kc > 0.003:
+            R(c, x0b, by + 10, x0b + 30 * kc, by + 22, "#3A5A9A")
+            INKR(c, x0b, by + 10, x0b + 30 * kc, by + 22, 1.2, 200)
+        if kp > 0.003:
+            R(c, x0b, by + 28, x0b + 188 * kp, by + 40, "#C79A3C")
+            INKR(c, x0b, by + 28, x0b + 188 * kp, by + 40, 1.2, 200)
+        kl = ease_out(clamp((t - (t_lock + 0.22 * i)) / 0.4), 3)
+        if kl > 0.003:
+            c.drawRect(skia.Rect.MakeLTRB(bx - w_ / 2 - 4, by - h_ / 2 - 4, bx + w_ / 2 + 4, by + h_ / 2 + 4), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C("#8E2A1E", int(230 * kl))))
+            icons.draw_icon(f, "keys", bx + w_ / 2 - 12, by - h_ / 2 - 6, size=56 * (0.7 + 0.3 * kl), metal="gold", alpha=kl, shadow=True)
+    kl_ = cx.amt(("c3s27", "sermayeden", -0.2), 0.5)
+    if kl_ > 0.003:
+        for (lx, col, txt) in ((330, "#3A5A9A", "SERMAYE PAYI"), (700, "#C79A3C", "KÂR PAYI")):
+            R(c, lx, 900, lx + 44, 920, col, 255 * kl_)
+            INKR(c, lx, 900, lx + 44, 920, 1.4, 220 * kl_)
+            CM.ink(f, txt, lx + 60, 918, face="cap_b", size=28, color=TH.fg, align="l", track=3, alpha=kl_, emboss=False)
+
+
+# ═══════════════════════════ c3s28: kâr kartı (186.382 → 290.791 FL; yarıdan fazlası Roma) ═══════════════════════════
+def k_kar_impl(cx, **_):
+    f, c, cam = L.begin(cx, bg="wall", seed=5, dress=None)
+    t = cx.t
+    GY = 800.0
+    SC_ = 1.7
+    # yıl cetveli 1435 → 1450 (önce büyük, çubuklar gelirken küçülüp yukarı çıkar)
+    t_a = cx.at(("c3s28", "1435'ten", 0.0))
+    t_b = cx.at(("c3s28", "1450'ye", 0.0))
+    kr = cx.amt(("c3s28", "1435'ten", -0.2), 0.6)
+    ek = ease_io(cx.amt(("c3s28", "kadar", 0.3), 1.0), 2)
+    if kr > 0.003:
+        x0, x1 = lerp(420.0, 500.0, ek), lerp(1500.0, 1420.0, ek)
+        yy = lerp(400.0, 150.0, ek)
+        al = kr * (1.0 - 0.45 * ek)
+        u = clamp((t - t_a) / max(0.3, t_b - t_a))
+        c.drawLine(x0, yy, x1, yy, S(TH.rule, 3.0, int(150 * al)))
+        for i in range(16):
+            xx = lerp(x0, x1, i / 15.0)
+            big = i in (0, 15)
+            c.drawLine(xx, yy - (lerp(26, 14, ek) if big else lerp(13, 7, ek)), xx, yy + (lerp(26, 14, ek) if big else lerp(13, 7, ek)), S(TH.rule, 2.0, int(200 * al)))
+        xe = lerp(x0, x1, ease_io(u, 1.6))
+        c.drawRect(skia.Rect.MakeLTRB(x0, yy - lerp(14, 8, ek), xe, yy + lerp(14, 8, ek)), P("#C79A3C", 235 * al))
+        INKR(c, x0, yy - lerp(14, 8, ek), max(x0 + 2, xe), yy + lerp(14, 8, ek), 1.4, 200 * al)
+        lsz = lerp(76, 34, ek)
+        CM.draw_spr(f, CM.engraved("1435", "title", int(lsz), 4.0, TH.fg), x0, yy + lsz * 1.25, "c", alpha=al, shadow=0.0)
+        if u > 0.85:
+            CM.draw_spr(f, CM.engraved("1450", "title", int(lsz), 4.0, TH.fg), x1, yy + lsz * 1.25, "c", alpha=al * clamp((u - 0.85) * 8), shadow=0.0)
+    # çubuklar
+    c.drawLine(420, GY, 1300, GY, S(TH.rule, 4.0, 230))
+    t_l = cx.at(("c3s28", "kadar", 0.0))
+    kl = ease_out(clamp((t - t_l) / 0.9), 3)
+    HL = 186.382 * SC_ * kl
+    if kl > 0.003:
+        GRAD_V(c, 480, GY - HL, 700, GY, [("#8A9AC0", 0.0), ("#4A5A86", 1.0)])
+        c.drawRect(skia.Rect.MakeLTRB(490, GY - HL, 514, GY), P("#FFFFFF", 46))
+        INKR(c, 480, GY - HL, 700, GY, 2.4, 230)
+        CM.ink(f, "1420–35", 590, GY + 56, face="title_m", size=32, color=TH.fg2, align="c", track=4, alpha=kl, emboss=False)
+        txt = CM.fmt_int(186382 * kl) + " FL"
+        CM.draw_spr(f, CM.engraved(txt, "title", 44, 4.0, TH.fg2), 590, GY - HL - 44, "c", alpha=kl, shadow=0.0)
+    t_r = cx.at(("c3s28", "iki", -0.1))
+    kg = ease_out(clamp((t - t_r) / 2.4), 2.6)
+    HR = 290.791 * SC_ * kg
+    xr0, xr1 = 940.0, 1180.0
+    if kg > 0.003:
+        GRAD_V(c, xr0, GY - HR, xr1, GY, [("#EBC65A", 0.0), ("#A8761E", 1.0)])
+        # Roma bölümü (alttan, yarıyı geçer)
+        kro = ease_io(clamp((t - cx.at(("c3s28", "fazlası", -0.5))) / 1.1), 2)
+        HRo = HR * 0.54 * kro
+        if kro > 0.003:
+            GRAD_V(c, xr0, GY - HRo, xr1, GY, [("#C8452E", 0.0), ("#7E2216", 1.0)])
+            c.drawLine(xr0, GY - HRo, xr1, GY - HRo, S("#2A1008", 2.4, 230))
+        c.drawRect(skia.Rect.MakeLTRB(xr0 + 12, GY - HR, xr0 + 38, GY), P("#FFFFFF", 50))
+        INKR(c, xr0, GY - HR, xr1, GY, 2.6, 235)
+        CM.ink(f, "1435–50", (xr0 + xr1) / 2, GY + 56, face="title_m", size=32, color=TH.fg, align="c", track=4, alpha=kg, emboss=False)
+        txt = CM.fmt_int(290791 * kg) + " FL"
+        CM.draw_spr(f, CM.engraved(txt, "title", 60, 4.0, TH.fg), (xr0 + xr1) / 2, GY - HR - 54, "c", alpha=smooth(kg * 5), shadow=0.0)
+        if kg > 0.2:
+            icons.draw_icon(f, "coins", (xr0 + xr1) / 2 + 150, GY - HR - 20 + 6 * math.sin(t * 2.2), size=104 * smooth((kg - 0.2) * 3), metal="gold", alpha=1.0)
+        # yarı çizgisi
+        kh = ease_io(cx.amt(("c3s28", "yarıdan", -0.1), 0.7), 2)
+        if kh > 0.003:
+            yh = GY - 0.5 * HR
+            dashed(c, xr0 - 70, yh, xr0 - 70 + (xr1 - xr0 + 140) * kh, yh, col="#2A1A0C", w=3.0, a=235, dash=(14.0, 9.0))
+            CM.ink(f, "YARISI", xr0 - 86, yh + 9, face="cap_b", size=28, color=TH.fg, align="r", track=3, alpha=kh, emboss=False)
+        if kro > 0.5:
+            ka = clamp((kro - 0.5) * 2)
+            CM.ink(f, "ROMA", (xr0 + xr1) / 2, GY - HRo / 2 + 12, face="title", size=44, color="#F4E9CB", align="c", track=8, alpha=ka, emboss=False)
+    L.end(cx, cam, motes_n=14)
+    L.tag(f, cx, "19.386 FL / YIL", 1530, 560, at=("c3s28", "yazdı;", -0.4), size=40, sub="ORTALAMA · HESAPLANMIŞ", w=500)
+    L.stamp_src(f, cx, "TEK KAYNAK", 1560, 300, at=("c3s28", "Roma'dan", -0.1), size=40, rot=-0.07)
+
+
+@CM.ckind("c3_kar")
+def k_kar(cx, **kw):
+    k_kar_impl(cx, **kw)
+
+
+# ═══════════════════════════ c3s29: «holding» sonradan eklenen etiket; o günlerde compagnia ═══════════════════════════
+def k_holding_impl(cx, **_):
+    import cilt_props as CP
+    f, c, cam = L.begin(cx, bg="wall", seed=6, dress=None)
+    t = cx.t
+    # eski defter kapağı / levha
+    pk = cx.amt(("c3s29", -0.2), 0.7)
+    PX, PY, PW, PH = 960.0, 540.0, 1180.0, 430.0
+    CM.tablet(f, PX - PW / 2, PY - PH / 2 + (1 - pk) * 20, PW, PH, alpha=pk, corner=14)
+    CP.draw_arms(f, PX - 400, PY, 200, alpha=pk, shadow=0.6, glow=0.0, glint=None)
+    c.drawLine(PX - 230, PY + 78, PX + 480, PY + 78, S("#5A3C22", 2.4, int(200 * pk)))
+    # compagnia: yazılır
+    t_w = cx.at(("c3s29", "compagnia", -0.1))
+    kw_ = clamp((t - t_w) / 0.95)
+    if kw_ > 0.003:
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(PX - 250, PY - 120, PX - 250 + 760 * ease_io(kw_, 1.4), PY + 120))
+        PP_hand(f, "compagnia", PX + 130, PY + 48, 150, "#2A1608", 1.0, seed=7, jitter=1.6)
+        c.restore()
+    # HOLDING etiketi: havadan gelir, yapışır; 'o günlerde' ile soyulup savrulur
+    t_in = cx.at(("c3s29", "Holding", -0.2))
+    t_hit = cx.at(("c3s29", "eklendi;", -0.1))
+    t_pl = cx.at(("c3s29", "günlerde", -0.1))
+    kin = ease_out(clamp((t - t_in) / 0.6), 3)
+    kfall = ease_in(clamp((t - (t_hit - 0.55)) / 0.55), 2)
+    sx, sy = PX + 130, PY + 8
+    if t < t_hit:
+        px_ = lerp(PX + 520, sx, kfall)
+        py_ = lerp(130.0, sy, kfall) - 12 * math.sin(t * 2.4) * (1 - kfall)
+        sc = lerp(1.45, 1.0, kfall)
+        rot = lerp(-0.22, -0.035, kfall)
+        a = kin
+        peel = 0.0
+    else:
+        px_, py_, sc, rot = sx, sy, 1.0, -0.035
+        a = 1.0
+        kp_ = clamp((t - t_pl) / 0.85)
+        peel = kp_
+        a = 1.0 - clamp((kp_ - 0.55) / 0.45)
+        sc = 1.0 + 0.04 * (1 - clamp((t - t_hit) / 0.2)) 
+    if a > 0.003:
+        L.draw_sticker(f, px_, py_, 560, 190, "“HOLDING”", a=a, rot=rot, scale=sc, peel=peel, size=70, track=6.0)
+    if t >= t_hit and t < t_hit + 0.45:                        # yapışma halkası
+        kk = (t - t_hit) / 0.45
+        c.drawCircle(sx, sy, 150 + 190 * kk, S("#FFF2B0", 4.0, int(160 * (1 - kk))))
+    L.end(cx, cam, motes_n=14)
+    L.stamp_at(f, cx, "SONRADAN", 520, 250, at=("c3s29", "sonradan", -0.1), size=52, rot=-0.08, hold=("c3s29", "günlerde", 0.3))
+    L.tag(f, cx, "O GÜNLERDE", 1450, 250, at=("c3s29", "günlerde", -0.1), size=34, w=420)
+
+
+@CM.ckind("c3_holding")
+def k_holding(cx, **kw):
+    k_holding_impl(cx, **kw)
+
+
+# ═══════════════════════════ c3s30: Careggi villası, 1 Ağustos 1464 ═══════════════════════════
+def draw_villa(c, T, x, yb, t=0.0):
+    """Careggi tipi taş villa (genel temsil; ön görünüş): terasta istinat duvarı, iki kat, üç kemerli revak, kapalı kepenkler."""
+    # teras duvarı
+    L.stone_wall(c, x - 560, x + 560, yb, yb + 130, T, col="#B4A27C", course=44, seed=4)
+    INKR(c, x - 560, yb, x + 560, yb + 130, 2.0, 200)
+    R(c, x - 575, yb - 8, x + 575, yb + 6, T("#CDBB92"))
+    INKR(c, x - 575, yb - 8, x + 575, yb + 6, 1.4, 200)
+    # gövde
+    GRAD_V(c, x - 330, yb - 260, x + 330, yb, [(T("#EADCB6"), 0.0), (T("#CDBB92"), 1.0)])
+    INKR(c, x - 330, yb - 260, x + 330, yb, 2.4, 230)
+    c.drawLine(x - 330, yb - 130, x + 330, yb - 130, S("#2A1A0C", 1.6, 150))
+    # çatı (kırma) + saçak
+    roof = [(x - 372, yb - 260), (x + 372, yb - 260), (x + 290, yb - 350), (x - 290, yb - 350)]
+    c.drawPath(sk.poly_path(roof), P(T("#C0603A")))
+    for k_ in range(1, 6):
+        yy = yb - 260 - k_ * 15
+        c.drawLine(x - 372 + k_ * 16, yy, x + 372 - k_ * 16, yy, S("#5A2412", 1.0, 120))
+    INKP(c, sk.poly_path(roof), 2.2, 220)
+    R(c, x + 150, yb - 410, x + 190, yb - 340, T("#B8A47C"))
+    INKR(c, x + 150, yb - 410, x + 190, yb - 340, 1.6, 200)
+    # üst kat pencereleri (kapalı kepenk)
+    for k_ in range(5):
+        wx = x - 250 + k_ * 125
+        if abs(wx - x) < 40:
+            wx = x
+        R(c, wx - 24, yb - 238, wx + 24, yb - 150, "#5A3C22")
+        for j in range(5):
+            c.drawLine(wx - 24, yb - 238 + j * 17.6 + 8, wx + 24, yb - 238 + j * 17.6 + 8, S("#2A1608", 1.0, 170))
+        INKR(c, wx - 24, yb - 238, wx + 24, yb - 150, 1.6, 220)
+    # revak (3 kemer)
+    for k_ in range(3):
+        ax = x - 120 + k_ * 120
+        pth = skia.Path()
+        pth.moveTo(ax - 44, yb)
+        pth.lineTo(ax - 44, yb - 74)
+        pth.cubicTo(ax - 44, yb - 124, ax + 44, yb - 124, ax + 44, yb - 74)
+        pth.lineTo(ax + 44, yb)
+        pth.close()
+        c.drawPath(pth, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, yb - 124), (0, yb)], [C("#2A1C10"), C("#6A4A2A")], [0, 1])))
+        INKP(c, pth, 2.0, 230)
+    for k_ in range(4):
+        px = x - 180 + k_ * 120
+        R(c, px - 7, yb - 80, px + 7, yb, T("#E0D2AC"))
+        INKR(c, px - 7, yb - 80, px + 7, yb, 1.2, 200)
+    # yan kapalı pencereler (zemin kat)
+    for sg in (-1, 1):
+        for k_ in range(2):
+            wx = x + sg * (250 + k_ * 62)
+            R(c, wx - 20, yb - 110, wx + 20, yb - 40, "#5A3C22")
+            INKR(c, wx - 20, yb - 110, wx + 20, yb - 40, 1.4, 210)
+
+
+def k_careggi_impl(cx, **_):
+    f = cx.f
+    c = f.c
+    t = cx.t
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    cam.begin(f)
+    T = CT.Tint("day")
+    sh = skia.GradientShader.MakeLinear([(0, -500), (0, 780)], [C("#9CBBDC"), C("#EFE6C8")], [0, 1])
+    c.drawRect(skia.Rect.MakeLTRB(-1200, -1000, 3200, 800), skia.Paint(Shader=sh))
+    # yavaş bulutlar
+    for i in range(6):
+        cxx = ((i * 520 + t * (6 + i * 1.5)) % 2800) - 400
+        cyy = 60 + (i * 97) % 340
+        SOFT(c, cxx, cyy, 220 + 20 * i, 36, "#FFFFFF", 150)
+        SOFT(c, cxx + 110, cyy - 18, 150, 30, "#FFFFFF", 120)
+    LH = 900.0
+    for (col, amp, scl, base, ph, al) in (("#A9BDB6", 40, 600, 420, 0.0, 0.0), ("#93AFA5", 46, 420, 340, 2.1, 0.0), ("#7F9E92", 52, 300, 270, 4.3, 0.0)):
+        cc = T(col, 0.2)
+        pts = []
+        x = -1200
+        while x <= 3200:
+            pts.append((x, LH - L.PN.ridge_y(x, base, amp, scl, ph)))
+            x += 10
+        poly = pts + [(pts[-1][0], LH + 900), (pts[0][0], LH + 900)]
+        c.drawPath(sk.poly_path(poly), skia.Paint(AntiAlias=True, Color=C(cc)))
+        c.drawPath(sk.poly_path(pts, False), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C(mix(cc, "#1A2A22", 0.5), 150)))
+    # ön tepe (villanın oturduğu yamaç)
+    pts = []
+    x = -1200
+    while x <= 3200:
+        pts.append((x, 760 - 40 * math.sin(x * 0.0021 + 0.6) - 24 * math.sin(x * 0.0057)))
+        x += 12
+    poly = pts + [(pts[-1][0], 1500), (pts[0][0], 1500)]
+    c.drawPath(sk.poly_path(poly), skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, 700), (0, 1200)], [C("#8FA070"), C("#5E7A48")], [0, 1])))
+    c.drawPath(sk.poly_path(pts, False), S("#2A3A20", 2.0, 200))
+    VX_ = 1000.0
+    draw_villa(c, T, VX_, 790.0, t)
+    for (cxx, hh) in ((300, 300), (410, 250), (1620, 290), (1710, 240), (1830, 280), (190, 230)):
+        SE.SC.cypress(c, cxx, 800 + (cxx % 7) * 4, hh, T("#2E4A33", 0.1), T("#4F6E4A", 0.1))
+    # rüzgârda kıpırdayan yapraklar / kuş değil; sade: uçuşan yapraklar
+    for i in range(6):
+        ph = (t * 0.10 + i * 0.17) % 1.0
+        x = -100 + ph * 2200
+        y = 640 + 140 * abs(math.sin(ph * 7 + i)) + 18 * i
+        c.save()
+        c.translate(x, y)
+        c.rotate(math.degrees(ph * 12 + i))
+        c.drawOval(skia.Rect.MakeLTRB(-8, -4, 8, 4), P("#7A8A4A", 190))
+        c.restore()
+    cam.end(f)
+    CM.finish(f, cx, motes_n=12)
+    L.date_plate(f, cx, "1 AĞUSTOS 1464", ("c3s30", "Ağustos", -0.2), x=96, y=860, size=48)
+    L.tag(f, cx, "CAREGGİ", 1180, 250, at=("c3s30", "Careggi'deki", -0.1), size=38, w=420)
+    L.stamp_src(f, cx, "TEK KAYNAK", 1580, 360, at=("c3s30", "yazılır", -0.3), size=40, rot=-0.07)
+
+
+@CM.ckind("c3_careggi")
+def k_careggi(cx, **kw):
+    k_careggi_impl(cx, **kw)
+
+
+# ═══════════════════════════ c3s31–32: şehrin mizacı (gravür, ANEKDOT): elli yıl, sürgün, binalar kalır ═══════════════════════════
+def _sokak_strip(fr):
+    c = fr.c
+    T = CT.Tint("day")
+    GYs = 960.0
+    sh = skia.GradientShader.MakeLinear([(0, 0), (0, 560)], [C("#9CBBDC"), C("#E8E4D0")], [0, 1])
+    c.drawRect(skia.Rect.MakeLTRB(0, 0, 4200, 700), skia.Paint(Shader=sh))
+    rr = _RS(5)
+    wins0 = []
+    x = -40
+    while x < 4300:
+        bw, bh = rr.uniform(120, 220), rr.uniform(220, 360)
+        CT.draw_house(c, x, 560, bw, bh, _RS(int(rr.randint(1, 10 ** 6))), T, 0.40, wins0)
+        x += bw + rr.uniform(-8, 10)
+    R(c, 0, 556, 4200, 700, T("#B8A888", 0.3))
+    SE.street_facade(c, 0, 4200, 0, 4200, GYs, 700, T, seed=8, door_x=-99999, arch_x=-99999)
+    for dx in (700, 1900, 3100):
+        SE.portal(c, dx, GYs, 190, 340, T)
+    L.PN.draw_pavement(c, 0, 4200, GYs - 6, 1220, T, seed=3)
+
+
+_KALIR = [("soylu", 31, 180, 70, 305, 1, "talk"), ("banker", 32, 300, 100, 312, -1, "talk"), ("tuccar", 33, 440, 40, 296, 1, "idle"), ("halk", 34, 560, 96, 292, -1, "talk"),
+          ("soylu", 35, 690, 64, 306, 1, "idle"), ("banker", 36, 800, 22, 300, -1, "point"), ("tuccar", 37, 920, 92, 296, 1, "talk"), ("soylu_f", 38, 1030, 50, 296, -1, "idle"),
+          ("halk", 39, 380, 14, 290, 1, "idle"), ("soylu", 40, 1110, 20, 300, -1, "idle")]
+
+
+def k_sehir_kalir_impl(cx, **_):
+    f = cx.f
+    c = f.c
+    t = cx.t
+    kcol = cx.amt(("c3s31", "binaları", -0.3), 1.4)
+    L.mono_begin(f, 1.0 - 0.7 * kcol)
+    f.clear("#0B0A08")
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    im = bake(("sokak_strip", 1), 4200, 1300, _sokak_strip)
+    cam.begin(f)
+    c.drawRect(skia.Rect.MakeLTRB(-600, -800, 5000, 1900), P("#9CBBDC"))
+    c.save()
+    c.translate(-700, -20)
+    c.drawImage(im, 0, 0, L.LIN)
+    c.restore()
+    GY = 940.0
+    t_leave = cx.at(("c3s31", "hepsi", -0.1))
+    for i, (kd, sd, x0, dy, hh, dr, act) in enumerate(_KALIR):
+        td = t_leave + 0.11 * i + (0.3 if i % 3 == 1 else 0.0)
+        if t < td:
+            L.sil(f, kd, x0, GY + dy - 20, hh, t, action=act, dir=dr, seed=sd, color="#14100C", rim="#FFE2A0", rim_dir=dr, energy=1.0)
+        else:
+            x = x0 - 240.0 * (t - td)
+            if x > -260:
+                L.sil(f, kd, x, GY + dy - 20, hh, t, dir=-1, seed=sd, color="#14100C", rim="#FFE2A0", rim_dir=-1, walker=240.0, prop="sack")
+    cam.end(f)
+    L.mono_end(f)
+    # binalar kalır: sıcak ışık süpürmesi (renk geri gelir)
+    ks = cx.amt(("c3s31", "binaları", -0.2), 1.8)
+    if ks > 0.003:
+        a0, a1, a2 = clamp(ks - 0.45), clamp(ks), clamp(ks + 0.45)
+        sh = skia.GradientShader.MakeLinear([(0, 0), (W, 0)], [C("#FFD890", 0), C("#FFD890", int(130 * ks)), C("#FFD890", 0)], [a0, a1, max(a2, a1 + 1e-4)])
+        c.drawRect(skia.Rect.MakeLTRB(0, 300, W, 900), skia.Paint(Shader=sh))
+    CM.finish(f, cx, motes_n=12, light=(960.0, 520.0, 1500.0, 0.9))
+    # elli yıl: tutanak çizgileri (beşli demetler)
+    t_y = cx.at(("c3s31", "elli", -0.1))
+    ky = clamp((t - t_y) / 1.5)
+    if ky > 0.003:
+        n = int(50 * ky)
+        for g in range(10):
+            gx = 360 + g * 120
+            for j in range(5):
+                idx = g * 5 + j
+                if idx >= n:
+                    break
+                if j < 4:
+                    c.drawLine(gx + j * 15, 330, gx + j * 15, 400, S("#8E2A1E", 5.0, 235))
+                else:
+                    c.drawLine(gx - 8, 392, gx + 66, 338, S("#8E2A1E", 5.0, 235))
+        L.tag(f, cx, "50 YIL", 960, 235, at=("c3s31", "elli", -0.1), size=72, w=420, track=12)
+    L.tag(f, cx, "COSİMO'YA ATFEDİLEN", 560, 180, at=("c3s31", "atfedilen", -0.3), size=34, w=620, hold=("c3s31", "elli", -0.1))
+    L.stamp_at(f, cx, "ANEKDOT", 1480, 200, at=("c3s31", "atfedilen", 0.0), size=50, rot=-0.07)
+    L.stamp_at(f, cx, "KAYNAĞI BELİRSİZ", 960, 520, at=("c3s32", "Kaynağı", -0.1), size=84, rot=-0.06)
+
+
+@CM.ckind("c3_sehir_kalir")
+def k_sehir_kalir(cx, **kw):
+    k_sehir_kalir_impl(cx, **kw)

@@ -141,6 +141,32 @@ def stamp_at(f, cx, text, x, y, at, rot=-0.10, size=52, color=None, dur=0.3, off
     CM.stamp(f, text, x, y, rot=rot, size=size, color=color, alpha=al, t=k)
 
 
+def stamp_src(f, cx, text, x, y, at, rot=-0.08, size=44, color=None, dur=0.3, off=0.0, hold=None):
+    """Kaynak sınıfı damgası '○ TEK KAYNAK': Cinzel'de ○ glifi yok → halka elle çizilir (damganın sol başında)."""
+    k = cx.amt(at, dur, off=off)
+    if k <= 0.003:
+        return
+    al = 1.0 - (cx.amt(hold, 0.5) if hold is not None else 0.0)
+    lead = "   "
+    full = lead + text
+    CM.stamp(f, full, x, y, rot=rot, size=size, color=color, alpha=al, t=k)
+    col = color or (TH.acc if TH.day else "#E56A52")
+    wd = sk.text_width(full, "title", size, 7) + 64
+    sw = sk.text_width(lead, "title", size, 7)
+    x0 = -(wd - 64) / 2 + sw * 0.46
+    sc = 1.0 + (1 - sk.back_out(k)) * 0.8 if k < 1 else 1.0
+    a = al * min(1.0, k * 3)
+    c = f.c
+    c.save()
+    c.translate(x, y)
+    c.rotate(math.degrees(rot))
+    c.scale(sc, sc)
+    p = f.paint(col, style="stroke", sw=5.0, alpha=0.9 * a)
+    CM.wobble(p, 7.0, 0.9, 7)
+    c.drawCircle(x0, -size * 0.04, size * 0.27, p)
+    c.restore()
+
+
 def date_plate(f, cx, text, at, x=96, y=860, size=50):
     """Sol altta tarih levhası (HUD'a değil, sahneye ait; altyazı bölgesi y≈938–1042 dışında kalır)."""
     k = cx.amt(at, 0.55)
@@ -170,6 +196,44 @@ def breath(cx, a=0.008, hz=0.45, ph=0.0):
 
 def wob(t, hz, amp, ph=0.0):
     return amp * math.sin(t * hz * 6.283 + ph)
+
+
+def draw_sticker(f, x, y, w, h, text, a=1.0, rot=0.0, scale=1.0, peel=0.0, tone="#F2F0E8", ink="#1B2A4A", size=62, track=6.0, face="title", sub=None):
+    """«Sonradan eklenen» modern etiket (beyaz yapışkan): (x,y) merkez; peel 0..1 sol-alt köşeden kalkıp savrulur; a şeffaflık."""
+    if a <= 0.003:
+        return
+    c = f.c
+    c.save()
+    c.translate(x, y)
+    c.rotate(math.degrees(rot))
+    c.scale(scale, scale)
+    if peel > 0:
+        px, py = -w / 2, h / 2
+        c.translate(px, py)
+        c.rotate(-math.degrees(1.25 * smooth(peel)))
+        c.translate(-px + 40 * peel * peel, -py - 90 * peel * peel)
+    if a < 0.999:
+        _lp = skia.Paint()
+        _lp.setAlphaf(clamp(a))
+        c.saveLayer(None, _lp)
+    SOFT(c, 6, 12, w * 0.52, h * 0.58, "#000000", 90)
+    rr = skia.Rect.MakeLTRB(-w / 2, -h / 2, w / 2, h / 2)
+    sh = skia.GradientShader.MakeLinear([(0, -h / 2), (0, h / 2)], [C(mix(tone, "#FFFFFF", 0.5)), C(tone), C(mix(tone, "#9A9484", 0.25))], [0.0, 0.55, 1.0])
+    c.drawRoundRect(rr, 14, 14, skia.Paint(AntiAlias=True, Shader=sh))
+    c.drawRoundRect(skia.Rect.MakeLTRB(-w / 2 + 9, -h / 2 + 9, w / 2 - 9, h / 2 - 9), 9, 9, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.0, Color=C(ink, 110)))
+    c.drawRoundRect(rr, 14, 14, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C("#2A2A2A", 120)))
+    CM.ink(f, text, 0, size * (0.12 if sub else 0.34), face=face, size=size, color=ink, align="c", track=track, alpha=1.0, emboss=False)
+    if sub:
+        CM.ink(f, sub, 0, h * 0.30, face="cap_b", size=max(20, size * 0.34), color=ink, align="c", track=3, alpha=0.8, emboss=False)
+    cp = skia.Path()
+    cp.moveTo(w / 2 - 54, h / 2)
+    cp.lineTo(w / 2, h / 2 - 54)
+    cp.lineTo(w / 2, h / 2)
+    cp.close()
+    c.drawPath(cp, skia.Paint(AntiAlias=True, Color=C("#FFFFFF", 150)))
+    if a < 0.999:
+        c.restore()
+    c.restore()
 
 
 # ───────────────────────────── gravür dilinde küçük nesneler ─────────────────────────────
@@ -347,25 +411,45 @@ def draw_bag(c, x, y, s=1.0, a=255, fill=0.0, col="#7A4A28", tie="#C79A3C", seed
         qp.moveTo(xa, yy)
         qp.quadTo(xa + w * 0.4, yy + rs.uniform(-8, 8) * s, xa + w * rs.uniform(0.6, 1.1), yy + rs.uniform(-3, 5) * s)
         c.drawPath(qp, S("#2A1608", 1.2 * s, 70))
-    # boğaz + bağ
-    neck = skia.Path()
-    neck.moveTo(-w * 0.30, -h * 0.80)
-    neck.quadTo(0, -h * 1.02, w * 0.30, -h * 0.80)
-    neck.quadTo(0, -h * 0.72, -w * 0.30, -h * 0.80)
-    c.drawPath(neck, P(mix(col, "#000000", 0.35), a))
-    INKP(c, neck, 1.4, 200)
-    c.drawLine(-w * 0.34, -h * 0.80, w * 0.34, -h * 0.80, S(tie, 5 * s, a))
-    c.drawLine(-w * 0.34, -h * 0.80, w * 0.34, -h * 0.80, S("#2A1A0C", 0.9, 160))
+    # ağız (içi karanlık) + kâğıt uçları + kıvrık yaka + bağ
+    mo = skia.Path()
+    mo.addOval(skia.Rect.MakeLTRB(-w * 0.56, -h * 1.17, w * 0.56, -h * 1.05))
+    c.drawPath(mo, P(mix(col, "#000000", 0.78), a))
     if slips:
         for i in range(slips):
             rr = _RS(seed * 5 + i)
-            sx = rr.uniform(-w * 0.18, w * 0.18)
+            sx = rr.uniform(-w * 0.22, w * 0.22)
             c.save()
-            c.translate(sx, -h * 0.92)
+            c.translate(sx, -h * 1.08)
             c.rotate(rr.uniform(-0.5, 0.5))
-            c.drawRect(skia.Rect.MakeLTRB(-8 * s, -22 * s, 8 * s, 4 * s), P("#EFE3C2", a))
-            INKR(c, -8 * s, -22 * s, 8 * s, 4 * s, 0.9, 160)
+            c.drawRect(skia.Rect.MakeLTRB(-8 * s, -24 * s, 8 * s, 6 * s), P("#EFE3C2", a))
+            INKR(c, -8 * s, -24 * s, 8 * s, 6 * s, 0.9, 160)
             c.restore()
+    fl = skia.Path()
+    fl.moveTo(-w * 0.30, -h * 0.80)
+    fl.quadTo(-w * 0.42, -h * 0.95, -w * 0.58, -h * 1.12)
+    fl.quadTo(-w * 0.38, -h * 1.03, -w * 0.20, -h * 1.12)
+    fl.quadTo(0, -h * 1.01, w * 0.20, -h * 1.12)
+    fl.quadTo(w * 0.38, -h * 1.03, w * 0.58, -h * 1.12)
+    fl.quadTo(w * 0.42, -h * 0.95, w * 0.30, -h * 0.80)
+    fl.close()
+    c.drawPath(fl, P(mix(col, "#000000", 0.18), a))
+    INKP(c, fl, 1.5, 200)
+    for fx in (-0.34, -0.12, 0.12, 0.34):
+        c.drawLine(w * fx * 0.9, -h * 0.84, w * fx * 1.35, -h * 1.08, S("#2A1608", 1.0 * s, 90))
+    c.drawLine(-w * 0.34, -h * 0.80, w * 0.34, -h * 0.80, S(tie, 6 * s, a))
+    c.drawLine(-w * 0.34, -h * 0.80, w * 0.34, -h * 0.80, S("#2A1A0C", 0.9, 160))
+    for sg in (-1, 1):
+        cp = skia.Path()
+        cp.moveTo(sg * w * 0.05, -h * 0.80)
+        cp.quadTo(sg * w * 0.30, -h * 0.60, sg * w * 0.20, -h * 0.40)
+        c.drawPath(cp, S(tie, 3.2 * s, a))
+    c.drawCircle(0, -h * 0.80, 5.5 * s, P(tie, a))
+    # yan dikiş
+    sm = skia.Path()
+    sm.moveTo(w * 0.62, -h * 0.30)
+    sm.quadTo(w * 0.80, h * 0.20, w * 0.60, h * 0.80)
+    c.drawPath(sm, S("#2A1608", 1.2 * s, 110))
     if mark and mark > 0.02:
         sc = s * 0.55 * mark
         CM.mini_palle(f_dummy(c), 0, h * 0.18, 56 * sc * 2.0, color="#8A2A1E", alpha=0.85)

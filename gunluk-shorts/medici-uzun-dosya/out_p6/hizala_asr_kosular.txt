@@ -1,0 +1,127 @@
+=== c12  (jeton 559, koşu 58) ===
+    0.04-    9.09 d 9.05 p 0.71 [  0: 22)  6.1h/s ev 0-21 (21/22)        ASR: Ocak 1537'de Florence'a dükkü Alessandro'yu kuze | SEN: Ocak bin beş yüz otuz yedide Floransa Dükü Alessandro'yu kuzeni öldürmüş, Senato da yerine Mediçi'nin yan kolundan on yedi yaşındaki Kozimo'yu seçmişti.
+    9.80-   17.76 d 7.96 p 0.75 [ 22: 38)  5.4h/s ev 22-37 (16/15)       ASR: Ertesi gün Senato koşulu yazıya geçirdi. Kozmodü | SEN: Ertesi gün Senato koşulu yazıya geçirdi: Kozimo dük olmayacak, yalnızca “kentin başı ve birincisi” diye anılacaktı.
+   18.51-   26.34 d 7.83 p 0.69 [ 38: 53)  6.0h/s ev 38-52 (15/15)       ASR: Onu çağıran soylular muhtemelen yönetilebilir bi | SEN: Onu çağıran soylular muhtemelen yönetilebilir birini istemişti; Kozimo Mucello'da yetişmiş, şehirde pek tanınmayan bir çocuktu.
+   27.03-   37.79 d10.76 p 0.86 [ 53: 71)  5.5h/s ev 53-70 (18/19)       ASR: Ağustos başında, Montemurlo'da acele ile toplanm | SEN: Ağustos başında, Montemurlo'da, aceleyle toplanmış sürgün ordusunu yendi; İtalyan Ansiklopedisi Trekkani bu zaferi cumhuriyetçi restorasyon tehdidinin sonu sayar.
+   38.65-   44.41 d 5.76 p 0.69 [ 71: 84)  5.4h/s ev 71-83 (12/13)       ASR: 1539'da Kozimo, İspanyol soylusu Eleonora de Tol | SEN: Bin beş yüz otuz dokuzda Kozimo, İspanyol soylusu Eleonora di Toledo ile evlendi.
+   45.10-   52.80 d 7.70 p 0.18 [ 84: 98)  5.3h/s ev 84-97 (14/14)       ASR: Sözleşme 29 Mart'tan Napoli'de inzalandı ve evli | SEN: Sözleşme yirmi dokuz Mart'ta Napoli'de imzalandı ve evlilik vekâleten kutlandı; Eleonora yirmi dokuz Haziran'da
+   52.98-   55.33 d 2.35 p 0.17 [ 98:103)  5.1h/s ev 98-102 (5/6)        ASR: Floransa'ya girdi ve resmi düğün ise             | SEN: Floransa'ya girdi, resmî düğün ise
+   55.50-   57.21 d 1.71 p 0.69 [103:107)  5.8h/s ev 103-106 (4/4)       ASR: 29 Temmuz'da yapıldı.                            | SEN: yirmi dokuz Temmuz'da yapıldı.
+   57.90-   62.64 d 4.74 p 0.74 [107:117)  5.1h/s ev 107-116 (9/9)       ASR: Yani Kozmo evlenmek için 3/29'a ihtiyaç duymuştu | SEN: Yani Kozimo evlenmek için üç ayrı yirmi dokuza ihtiyaç duymuştu.
+   63.38-   66.70 d 3.32 p 0.88 [117:124)  6.6h/s ev 117-123 (7/7)       ASR: Yüzyılın ortasında Pitti sarayını Eleonora satın | SEN: Yüzyılın ortasında Pitti Sarayı'nı Eleonora satın aldı.
+   67.58-   72.55 d 4.97 p 0.12 [124:136)  5.6h/s ev 124-135 (12/12)     ASR: 26 Şubat 1548'de Venedik'te Loren Sinopus'uya dü | SEN: Yirmi altı Şubat bin beş yüz kırk sekizde Venedik'te Lorentsino pusuya düşürülüp
+   72.67-   78.44 d 5.77 p 0.74 [136:150)  6.2h/s ev 136-149 (14/14)     ASR: Öldürüldü. Emri Kozimo'nun verdiği uzun süre kab | SEN: öldürüldü; emri Kozimo'nun verdiği uzun süre kabul edildi, yeni bir çalışma buna kuşku düşürüyor.
+   79.18-   81.72 d 2.54 p 0.11 [150:158)  6.3h/s ev 151-157 (7/8)       ASR: CNA yaklaşık 15 ay direndi ve açlıktı.           | SEN: Siyena yaklaşık on beş ay direndi ve açlıktan
+   81.83-   82.86 d 1.03 p 0.10 [158:160)  3.9h/s ev 158-158 (1/5)       ASR: Ben de bir tane testim                           | SEN: teslim oldu;
+   82.96-   86.82 d 3.86 p 0.88 [160:170)  6.0h/s ev 160-169 (10/10)     ASR: 1557'de 2. Felipe şehri Kozmoy'a bıraktı.        | SEN: bin beş yüz elli yedide İkinci Felipe şehri Kozimo'ya bıraktı.
+   87.70-   89.42 d 1.72 p 0.19 [170:175)  5.2h/s ev 170-174 (5/5)       ASR: 1560'ta Kozimo,                                  | SEN: Bin beş yüz altmışta Kozimo,
+   89.61-   91.31 d 1.70 p 0.13 [175:179)  5.9h/s ev 175-178 (4/4)       ASR: Vazari'den bir bine istedi.                      | SEN: Vazari'den bir bina istedi:
+   91.44-   95.69 d 4.25 p 0.67 [179:189)  6.1h/s ev 179-188 (8/11)      ASR: Flurasa'yı da almış on üç iğleri makamı tek çete | SEN: Floransa'ya dağılmış on üç idari makamı tek çatı altında toplayacaktı.
+   96.36-   99.00 d 2.64 p 0.11 [189:195)  5.7h/s ev 189-194 (6/6)       ASR: Bina'nın adı da bunu söylüyordu. Uffizi.         | SEN: Binanın adı da bunu söylüyordu: Uffitsi,
+   99.11-  100.33 d 1.22 p 0.60 [195:197)  4.1h/s ev 195-196 (2/2)       ASR: Yani ofisler.                                    | SEN: yani ofisler.
+  100.93-  105.45 d 4.52 p 0.74 [197:206)  5.5h/s ev 197-205 (9/9)       ASR: Dünyanın en ünlü galerilerinden biri doğduğunda  | SEN: Dünyanın en ünlü galerilerinden biri, doğduğunda bir memur binasıydı.
+  106.19-  116.15 d 9.96 p 0.72 [206:230)  5.8h/s ev 206-228 (22/23)     ASR: 1565'te Ufitsi'nin üst katı, Palatsovec Yoyupitt | SEN: Bin beş yüz altmış beşte Uffitsi'nin üst katı, Palattso Vekkyo'yu Pitti Sarayı'na bağlayan, Arno'yu aşan bir koridora ulandı: iktidarın ofisinden evine kapalı bir yol.
+  116.87-  121.67 d 4.80 p 0.90 [230:243)  5.4h/s ev 230-242 (13/13)     ASR: Müze olması çok sonra Bine halka ancak 1769'da a | SEN: Müze olması çok sonra: bina halka ancak bin yedi yüz altmış dokuzda açıldı.
+  122.57-  125.40 d 2.83 p 0.11 [243:250)  6.0h/s ev 243-249 (7/6)       ASR: Kozimobil de kendi şovare tarikatını kurdu.      | SEN: Kozimo bir de kendi şövalye tarikatını kurdu:
+  125.51-  126.62 d 1.11 p 0.67 [250:252)  4.5h/s ev -                   ASR: S.S.                                             | SEN: Santo Stefano.
+  127.29-  129.70 d 2.41 p 0.13 [252:259)  5.4h/s ev 252-258 (7/7)       ASR: Papa 1561'de onayladı.                           | SEN: Papa bin beş yüz altmış birde onayladı;
+  129.83-  132.30 d 2.47 p 0.11 [259:266)  5.7h/s ev 259-265 (7/7)       ASR: 1562'de Pizzada Kozimo                           | SEN: bin beş yüz altmış ikide Piza'da Kozimo,
+  132.41-  134.93 d 2.52 p 0.68 [266:271)  6.3h/s ev 266-270 (5/5)       ASR: Tarikat'ın büyük ustası olarak giydirildi.       | SEN: tarikatın büyük ustası olarak giydirildi.
+  135.61-  145.81 d10.20 p 0.81 [271:288)  5.3h/s ev 271-287 (17/17)     ASR: Kaynaklara göre amaç Osmanlı ve Korsan gemileriy | SEN: Kaynaklara göre amaç, Osmanlı ve korsan gemileriyle savaşmak ve Hristiyan esirleri kurtarmaktı; ganimet satışının Livorno'yu zenginleştirdiği yazılır.
+  146.62-  151.58 d 4.96 p 0.73 [288:302)  6.0h/s ev 288-301 (14/15)     ASR: Kasım 1562'de ay ile kıyıda bir geziye çıktı ve  | SEN: Kasım bin beş yüz altmış ikide aile kıyıda bir geziye çıktı ve sıtmaya yakalandı.
+  152.31-  155.34 d 3.03 p 0.19 [302:309)  6.3h/s ev 302-308 (7/6)       ASR: 20 Kasım'da Kozimo'nun Kardinaloğlu Cohane öldü  | SEN: Yirmi Kasım'da Kozimo'nun kardinal oğlu Covanni öldü;
+  155.53-  156.89 d 1.36 p 0.71 [309:312)  5.1h/s ev 309-311 (3/3)       ASR: 19 yaşındaydı.                                   | SEN: on dokuz yaşındaydı.
+  157.60-  160.22 d 2.62 p 0.12 [312:318)  6.5h/s ev 312-317 (6/6)       ASR: Aralığın ilk yarısında kardeşi Garci'ya gitti.   | SEN: Aralığın ilk yarısında kardeşi Gartsiya gitti;
+  160.34-  162.84 d 2.50 p 0.74 [318:325)  4.4h/s ev 318-324 (7/7)       ASR: 15 ya da 16 yaşındaydı.                          | SEN: on beş ya da on altı yaşındaydı.
+  163.58-  165.67 d 2.09 p 0.16 [325:330)  6.7h/s ev 325-329 (5/5)       ASR: 17 Aralık'tay Leonora öldü.                      | SEN: On yedi Aralık'ta Eleonora öldü:
+  165.83-  166.75 d 0.92 p 0.10 [330:332)  4.3h/s ev 330-331 (2/2)       ASR: 4 haftada                                        | SEN: dört haftada
+  166.85-  167.38 d 0.53 p 0.73 [332:334)  5.7h/s ev 332-333 (2/2)       ASR: 3 Gölüm                                          | SEN: üç ölüm.
+  168.11-  169.78 d 1.67 p 0.10 [334:338)  4.8h/s ev 334-337 (4/4)       ASR: Sonra bir hikaye doldu.                          | SEN: Sonra bir hikâye doğdu:
+  169.88-  178.16 d 8.28 p 0.59 [338:353)  5.3h/s ev 338-352 (15/15)     ASR: Garcia kardeşini, Cozimo da Garcia'yı öldürmüş.  | SEN: Gartsiya kardeşini, Kozimo da Gartsiya'yı öldürmüş. Rivayet ölümlerden çok sonra ortaya çıktı; ilk yazanını gösteremiyoruz.
+  178.75-  190.31 d11.56 p 0.72 [353:377)  5.6h/s ev 353-376 (24/24)     ASR: 1857'de mezar açıldığında Garcian'ın iskeletinde | SEN: Bin sekiz yüz elli yedide mezar açıldığında Gartsiya'nın iskeletinde kırmızı atlas bir ceket vardı, şiddet izi görülmedi; sonraki kemik incelemeleri sıtmayla uyumlu bulgular verdi.
+  191.03-  193.96 d 2.93 p 0.82 [377:383)  6.5h/s ev 377-382 (6/6)       ASR: Kozimo'nun o haftalarda ne düşündüğünü bilmiyoru | SEN: Kozimo'nun o haftalarda ne düşündüğünü bilmiyoruz.
+  194.78-  202.13 d 7.35 p 0.15 [383:398)  5.3h/s ev 383-397 (15/15)     ASR: 13 Ocak 1563'te Kozimo'nun desteğiyle Vazari'nin | SEN: On üç Ocak bin beş yüz altmış üçte, Kozimo'nun desteğiyle, Vazari'nin yönetiminde Sanatlar Akademisi kuruldu:
+  202.28-  207.55 d 5.27 p 0.74 [398:409)  6.1h/s ev 398-407 (10/12)     ASR: Yarı lonca, yarı akademi, meyliçi devletindeki s | SEN: yarı lonca, yarı akademi, Mediçi devletindeki sanat üretimini denetleyen bir kurul.
+  208.29-  211.52 d 3.23 p 0.18 [409:415)  5.9h/s ev 409-414 (6/7)       ASR: Mikkel Ancelo da kurumun başındaki adlardan biri | SEN: Mikelancelo da kurumun başındaki adlardan biriydi;
+  211.70-  215.81 d 4.11 p 0.63 [415:424)  5.6h/s ev 415-423 (9/9)       ASR: 1564'te ölünce cenazesini akademi düzenledi.     | SEN: bin beş yüz altmış dörtte ölünce cenazesini Akademi düzenledi.
+  216.44-  220.02 d 3.58 p 0.85 [424:432)  5.9h/s ev 424-431 (8/8)       ASR: Kozimo güzelliği de bir devlet dairesi gibi örgü | SEN: Kozimo güzelliği de bir devlet dairesi gibi örgütledi.
+  220.87-  226.95 d 6.08 p 0.76 [432:447)  5.8h/s ev 432-446 (15/14)     ASR: 1564'te Cozimo günlük yönetimi oğlu Francesco'ya | SEN: Bin beş yüz altmış dörtte Kozimo günlük yönetimi oğlu Françesko'ya bıraktı ama dük unvanını korudu.
+  227.71-  230.70 d 2.99 p 0.10 [447:459)  8.0h/s ev 447-458 (10/12)     ASR: 1569'da 5. Pius ona büyük bir kılık veriyor.     | SEN: Bin beş yüz altmış dokuzda Beşinci Pius ona Büyük Dük unvanını verdi,
+  230.80-  234.56 d 3.76 p 0.71 [459:467)  3.5h/s ev 459-466 (8/8)       ASR: 1570'te de Roma'da taç giydi.                    | SEN: bin beş yüz yetmişte de Roma'da taç giydi.
+  235.27-  240.23 d 4.96 p 0.14 [467:477)  5.6h/s ev 467-476 (10/10)     ASR: İmparatorun ona yanacak yıllar sonra para karşıl | SEN: İmparatorun onayı ancak yıllar sonra, para karşılığı geldi, diye anlatılır:
+  240.37-  242.01 d 1.64 p 0.13 [477:481)  5.5h/s ev 477-480 (4/4)       ASR: Kentin birincisi Dük oldu.                       | SEN: kentin birincisi dük oldu,
+  242.14-  245.17 d 3.03 p 0.85 [481:488)  5.0h/s ev 481-487 (7/7)       ASR: Roma ona taç verdi, Viana fatura kesti.          | SEN: Roma ona taç verdi, Viyana fatura kesti.
+  246.02-  254.63 d 8.61 p 0.11 [488:505)  5.1h/s ev 488-504 (17/17)     ASR: 7 Ekim 1571'de Lepanto'da, Türkçedeki adıyla İni | SEN: Yedi Ekim bin beş yüz yetmiş birde Lepanto'da, Türkçedeki adıyla İnebahtı'da, Hristiyan devletlerin yaklaşık iki yüz kadırgalık
+  254.74-  258.87 d 4.13 p 0.70 [505:513)  5.3h/s ev 505-512 (8/8)       ASR: Donanmasında kaynaklara göre Toskana'dan 12 gemi | SEN: donanmasında, kaynaklara göre, Toskana'dan on iki gemi vardı.
+  259.57-  262.69 d 3.12 p 0.70 [513:521)  5.4h/s ev 513-520 (7/8)       ASR: Osmanlı donanması o gün ağır bir iğni yaldı.     | SEN: Osmanlı donanması o gün ağır bir yenilgi aldı.
+  263.39-  264.00 d 0.61 p 0.10 [521:522)  4.9h/s ev 521-521 (1/1)       ASR: Kozimo                                           | SEN: Kozimo,
+  264.10-  268.22 d 4.12 p 0.67 [522:532)  4.4h/s ev 522-531 (10/10)     ASR: Nisan 1574'te Villa di Castello'da öldü.         | SEN: Nisan bin beş yüz yetmiş dörtte Villa di Kastello'da öldü.
+  268.89-  280.61 d11.72 p-1.00 [532:559)  5.3h/s ev 532-558 (27/26)     ASR: Kozimo, Florensa'da bir devlet kurarken aynı yıl | SEN: Kozimo Floransa'da bir devlet kurarken, aynı yıllarda Paris'te, Floransa doğumlu bir Mediçi kızı, adı yirmi dört Ağustos bin beş yüz yetmiş iki ile anılacak bir krizin ortasındaydı.
+
+=== c13  (jeton 548, koşu 66) ===
+  284.06-  285.35 d 1.29 p 0.12 [  0:  3)  5.4h/s ev 0-2 (3/3)           ASR: Onun adı Katrinde.                               | SEN: Onun adı Katrin'di.
+  285.47-  287.94 d 2.47 p 0.10 [  3: 10)  5.3h/s ev 3-9 (7/7)           ASR: 1519'da Floransa'da doğdu.                       | SEN: Bin beş yüz on dokuzda Floransa'da doğdu;
+  288.04-  289.15 d 1.11 p 0.13 [ 10: 13)  6.3h/s ev 10-12 (3/3)         ASR: Annesi ve babası                                 | SEN: annesi ve babası,
+  289.28-  291.46 d 2.18 p 0.67 [ 13: 17)  6.0h/s ev 13-16 (4/5)         ASR: Doğumundan sonraki haffalar da öldü              | SEN: doğumundan sonraki haftalarda öldü.
+  292.13-  295.16 d 3.03 p 0.14 [ 17: 22)  5.0h/s ev 17-21 (5/5)         ASR: Çocukken, doğduğu şehir kuşatma altındayken,     | SEN: Çocukken, doğduğu şehir kuşatma altındayken,
+  295.30-  299.89 d 4.59 p 0.60 [ 22: 32)  6.5h/s ev 22-31 (10/11)       ASR: Bazı seslerin onu surlara çıkarıp düşmanın önüne | SEN: bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır.
+  300.49-  306.79 d 6.30 p 0.72 [ 32: 48)  5.6h/s ev 32-47 (16/16)       ASR: 1533'te Medici papası 7. Kremes onu Fransa Kralı | SEN: Bin beş yüz otuz üçte Mediçi papası Yedinci Klemens onu Fransa Kralı'nın oğlu Anri ile evlendirdi.
+  307.51-  310.79 d 3.28 p 0.84 [ 48: 54)  4.6h/s ev 48-53 (6/6)         ASR: Düğün Marsilya'daydı. Gelin 14 yaşındaydı.       | SEN: Düğün Marsilya'daydı; gelin on dört yaşındaydı.
+  311.63-  316.36 d 4.73 p 0.69 [ 54: 65)  5.5h/s ev 54-62 (9/12)        ASR: Evlilikten sonraki 10 yıl çocuk olmadı. Anne-Ren | SEN: Evlilikten sonraki on yıl çocuk olmadı; Anri'nin gönlü Dyan dö Puatye'deydi.
+  317.05-  318.65 d 1.60 p 0.22 [ 65: 68)  5.0h/s ev 65-67 (3/3)         ASR: Sonra çocuklar oldu.                             | SEN: Sonra çocukları oldu,
+  318.87-  319.64 d 0.77 p 0.92 [ 68: 71)  3.9h/s ev 68-70 (3/3)         ASR: Hem de çok.                                      | SEN: hem de çok.
+  320.56-  327.30 d 6.74 p 0.81 [ 71: 87)  4.9h/s ev 71-86 (15/16)       ASR: 10 Temmuz 1559'da Henry bir turnuvada başına isa | SEN: On Temmuz bin beş yüz elli dokuzda Anri, bir turnuvada başına isabet eden mızrak yüzünden öldü.
+  328.11-  331.66 d 3.55 p 0.63 [ 87: 95)  5.4h/s ev 87-94 (8/8)         ASR: Katrin'in bundan sonra uzun yıllar siyah 7'i yaz | SEN: Katrin'in bundan sonra uzun yıllar siyah giydiği yazılır.
+  332.29-  337.96 d 5.67 p 0.72 [ 95:109)  5.5h/s ev 95-108 (12/13)      ASR: 1560 sonunda küçük 9.şar tahta çıkınca devleti P | SEN: Bin beş yüz altmış sonunda küçük Dokuzuncu Şarl tahta çıkınca devleti fiilen Katrin yönetti.
+  338.68-  349.46 d10.78 p 0.85 [109:130)  4.9h/s ev 109-129 (21/21)     ASR: Din savaşını uzlaşmanla durdurmak istedi. Ocak 1 | SEN: Din savaşını uzlaşmayla durdurmak istedi; Ocak bin beş yüz altmış iki fermanı Fransız Protestanlarına kent surlarının dışında, silahsız ibadet izni verdi.
+  350.31-  355.52 d 5.21 p 0.13 [130:143)  6.0h/s ev 130-142 (13/12)     ASR: 22 Ağustos 1572'de Amira Koliniyesuikast girişim | SEN: Yirmi iki Ağustos bin beş yüz yetmiş ikide Amiral Kolinyi'ye suikast girişimi oldu;
+  355.65-  360.11 d 4.46 p 0.65 [143:151)  5.2h/s ev 143-150 (8/8)       ASR: Ertesi gün Konsey, protestan liderlerin öldürülm | SEN: ertesi gün konsey, Protestan liderlerin öldürülmesine karar verdi.
+  360.76-  368.58 d 7.82 p 0.72 [151:169)  5.6h/s ev 151-168 (18/18)     ASR: 24 Ağustos'ta Paris'te başlayan katliam başka şe | SEN: Yirmi dört Ağustos'ta Paris'te başlayan katliam başka şehirlere yayıldı; yalnız Paris'te üç bin kadar ölü olduğu tahmin edilir.
+  369.30-  371.21 d 1.91 p 0.17 [169:172)  4.7h/s ev 169-171 (3/3)       ASR: Britanniceye göre Catherine                      | SEN: Britannica'ya göre Katrin,
+  371.38-  373.76 d 2.38 p 0.10 [172:175)  6.3h/s ev 172-174 (3/3)       ASR: liderlerin öldürülmesini onaylamıştı.            | SEN: liderlerin öldürülmesini onaylamıştı;
+  373.86-  377.56 d 3.70 p 0.71 [175:181)  5.9h/s ev 175-180 (6/6)       ASR: Ardından gelen katliamı büyük olasılıkla omanlam | SEN: ardından gelen katliamı büyük olasılıkla onaylamamıştı.
+  378.27-  380.63 d 2.36 p 0.83 [181:186)  5.1h/s ev 181-185 (5/5)       ASR: Tarihçiler tam bu noktada ayrılır.               | SEN: Tarihçiler tam bu noktada ayrılır.
+  381.46-  385.12 d 3.66 p 0.21 [186:193)  5.5h/s ev 186-192 (7/7)       ASR: Cartliam'dan sonra Catherine'in çevresinde bir e | SEN: Katliamdan sonra Katrin'in çevresinde bir efsane büyüdü:
+  385.33-  386.83 d 1.50 p 0.59 [193:196)  5.3h/s ev 193-195 (3/3)       ASR: Kötü İtalyan Krali                               | SEN: kötü İtalyan kraliçe.
+  387.42-  388.88 d 1.46 p 0.12 [196:199)  5.5h/s ev 196-198 (3/3)       ASR: İlk saldırılardan biri                           | SEN: İlk saldırılardan biri
+  389.00-  395.62 d 6.62 p 0.10 [199:217)  5.0h/s ev 199-216 (18/19)     ASR: 1573'te protestan bir broşürdeki şiirdi. 1575'te | SEN: bin beş yüz yetmiş üçte Protestan bir broşürdeki şiirdi; bin beş yüz yetmiş beşte adsız bir kitapçık çıktı,
+  395.72-  398.10 d 2.38 p 0.68 [217:221)  5.0h/s ev 217-220 (4/5)       ASR: Sonra da Nani, Estin'e atfedildi.                | SEN: sonradan Anri Estyen'e atfedildi.
+  398.78-  401.80 d 3.02 p 0.27 [221:228)  5.6h/s ev 221-227 (7/7)       ASR: Sonra her şey onun hanesine yazılmaya başladı.   | SEN: Sonra her şey onun hanesine yazılmaya başladı:
+  402.07-  405.08 d 3.01 p 0.16 [228:234)  5.0h/s ev 228-233 (6/6)       ASR: Çatal'ı o getirmiş. Dondurmayı o getirmiş.       | SEN: çatalı o getirmiş, dondurmayı o getirmiş,
+  405.24-  408.03 d 2.79 p 0.61 [234:242)  6.8h/s ev 234-241 (8/7)       ASR: Topuklu ayakkabıyı da parfümü deve tabi zehri    | SEN: topuklu ayakkabıyı da, parfümü de… ve tabii zehri.
+  408.64-  415.30 d 6.66 p 0.65 [242:257)  5.4h/s ev 242-256 (15/15)     ASR: Oysa Çatar Katrinden çok önce İtalya'daydı. Bir  | SEN: Oysa çatal Katrin'den çok önce İtalya'daydı; bir anlatı onu Venedik'e gelen bir Bizans prensesine bağlar.
+  415.95-  418.05 d 2.10 p 0.11 [257:261)  5.7h/s ev 257-260 (4/4)       ASR: Dondum ahikaesinin izi ise                       | SEN: Dondurma hikâyesinin izi ise
+  418.16-  420.07 d 1.91 p 0.74 [261:265)  5.8h/s ev 261-264 (4/4)       ASR: 19. Yüzyıla çıkıyor.                             | SEN: on dokuzuncu yüzyıla çıkıyor.
+  420.81-  423.05 d 2.24 p 0.11 [265:272)  6.7h/s ev 265-271 (7/7)       ASR: Bir ülke inceliğini de günahını da tek...        | SEN: Bir ülke inceliğini de günahını da tek
+  423.16-  425.60 d 2.44 p 0.79 [272:278)  4.9h/s ev 272-277 (6/6)       ASR: bir yabancıya yazmış pratik bir düze             | SEN: bir yabancıya yazmış; pratik bir düzen.
+  426.39-  433.80 d 7.41 p 0.18 [278:296)  5.1h/s ev 278-295 (18/18)     ASR: Gerçek olan bir gösteriydi. 15 Ekim 1581'de sahn | SEN: Gerçek olan bir gösteriydi: on beş Ekim bin beş yüz seksen birde sahnelenen Bale komik, Kirke efsanesini anlatan,
+  433.98-  437.63 d 3.65 p 0.85 [296:305)  5.5h/s ev 296-304 (9/9)       ASR: 5 saati aşan, basılı metne olan bir saray bahale | SEN: beş saati aşan, basılı metni olan bir saray balesiydi.
+  438.48-  442.36 d 3.88 p 0.17 [305:315)  4.6h/s ev 305-314 (10/10)     ASR: Katrin 5 Ocak 1589'da bloğda öldü.               | SEN: Katrin, beş Ocak bin beş yüz seksen dokuzda Blua'da öldü;
+  442.53-  446.97 d 4.44 p 0.94 [315:325)  5.4h/s ev 315-324 (10/9)      ASR: Gizdükü Ayni Şatoda bir önceki yılın son günleri | SEN: Giz Dükü aynı şatoda, bir önceki yılın son günlerinde öldürülmüştü.
+  447.91-  449.36 d 1.45 p 0.13 [325:329)  5.5h/s ev 325-328 (4/4)       ASR: Bir Başka Medici Kızı                            | SEN: Bir başka Mediçi kızı,
+  449.49-  451.58 d 2.09 p 0.74 [329:333)  4.3h/s ev 329-332 (4/4)       ASR: Mali, Fransa'ya gelin gitti.                     | SEN: Mari, Fransa'ya gelin gitti.
+  452.32-  455.61 d 3.29 p 0.11 [333:340)  5.8h/s ev 333-339 (7/8)       ASR: Evlilik 1600'de Floransa'da ve kaleten kıyıldı.  | SEN: Evlilik bin altı yüzde Floransa'da vekâleten kıyıldı;
+  455.72-  456.93 d 1.21 p 0.61 [340:343)  5.8h/s ev 340-342 (3/3)       ASR: Kral orada değildi.                              | SEN: kral orada değildi.
+  457.54-  459.18 d 1.64 p 0.15 [343:348)  5.5h/s ev 344-347 (4/5)       ASR: She's at 100 bin eküydü.                         | SEN: Çeyiz altı yüz bin ekü'ydu
+  459.33-  466.50 d 7.17 p 0.72 [348:363)  5.7h/s ev 348-362 (15/15)     ASR: ve Fransa'nın Tosca'na büyük dükküne olan borcun | SEN: ve Fransa'nın Toskana Büyük Dükü'ne olan borcundan düşüldüğü yazılır: gelinin parası, damadın borcuna mahsup edildi.
+  467.22-  471.29 d 4.07 p 0.84 [363:372)  5.2h/s ev 363-371 (9/9)       ASR: Borcu ödemenin en kibar yolu borç verenin kızıyl | SEN: Borcu ödemenin en kibar yolu, borç verenin kızıyla evlenmek.
+  472.13-  472.70 d 0.57 p 0.15 [372:373)  3.5h/s ev 372-372 (1/1)       ASR: Mari                                             | SEN: Mari,
+  472.85-  475.46 d 2.61 p 0.88 [373:380)  5.4h/s ev 373-379 (7/7)       ASR: 3 Kasım 1600'de Marsilya'ya indi.                | SEN: üç Kasım bin altı yüzde Marsilya'ya indi.
+  476.34-  481.21 d 4.87 p 0.24 [380:394)  5.3h/s ev 380-393 (13/14)     ASR: 13 Mayıs 1610'da Taç giydi. Ertesi gün 4. ana öl | SEN: On üç Mayıs bin altı yüz onda taç giydi; ertesi gün Dördüncü Anri öldürüldü,
+  481.45-  482.62 d 1.17 p 0.68 [394:397)  5.1h/s ev 394-396 (3/3)       ASR: Marin Naip oldu.                                 | SEN: Mari naip oldu.
+  483.30-  492.30 d 9.00 p 0.64 [397:418)  5.3h/s ev 397-417 (21/22)     ASR: Faoist conçini 1617'de öldürülün Cemali. Bu luak | SEN: Favorisi Konçini bin altı yüz on yedide öldürülünce Mari, Blua Şatosu'na gönderildi; bin altı yüz on dokuzda bir gece oradan kaçtı.
+  492.94-  498.80 d 5.86 p 0.66 [418:431)  5.6h/s ev 418-430 (12/15)     ASR: 1630'daki adı atılanlar gününde oğlu Kral Louis, | SEN: Bin altı yüz otuzdaki Aldatılanlar Günü'nde oğlu Kral Lui, Rişölyö'yu seçti, annesini değil.
+  499.46-  503.87 d 4.41 p 0.84 [431:443)  5.0h/s ev 431-442 (12/12)     ASR: Marie 1006 131'de Fransa'dan çıktı ve bir daha d | SEN: Mari bin altı yüz otuz birde Fransa'dan çıktı ve bir daha dönmedi.
+  504.71-  513.55 d 8.84 p 0.69 [443:463)  5.4h/s ev 443-462 (20/20)     ASR: 1622'de Mari, Rubens'e yaşamını anlatan 24 dev t | SEN: Bin altı yüz yirmi ikide Mari, Rubens'e yaşamını anlatan yirmi dört dev tablo ısmarladı: hayatını yeniden yazdırmanın en pahalı yolu.
+  514.24-  515.99 d 1.75 p 0.13 [463:468)  5.7h/s ev 463-467 (5/5)       ASR: Louvre'a göre bu seri Mari'ye                    | SEN: Luvr'a göre bu seri Mari'ye
+  516.12-  518.40 d 2.28 p 0.19 [468:473)  6.1h/s ev 468-472 (5/5)       ASR: kendi anlatısını sunma fırsatı verdi.            | SEN: kendi anlatısını sunma fırsatı verdi;
+  518.59-  522.26 d 3.67 p 0.66 [473:480)  5.2h/s ev 473-479 (7/8)       ASR: ve Sam Kral'ı gücendirmemeye de dikkat etmek zor | SEN: ressam kralı gücendirmemeye de dikkat etmek zorundaydı.
+  522.92-  529.90 d 6.98 p 0.84 [480:496)  5.9h/s ev 480-495 (16/16)     ASR: Kader Tanrıçaları Mari'nin yaşam ipbini eğirir.  | SEN: Kader tanrıçaları Mari'nin yaşam ipliğini eğirir; Blua'dan gece kaçış bile kahramanca bir sahne olarak yer alır.
+  530.74-  531.33 d 0.59 p 0.16 [496:497)  3.4h/s ev 496-496 (1/1)       ASR: Mare                                             | SEN: Mari,
+  531.49-  534.38 d 2.89 p 0.15 [497:505)  4.5h/s ev 497-504 (8/8)       ASR: 3 Temmuz 1642'de könde                           | SEN: üç Temmuz bin altı yüz kırk ikide Köln'de,
+  534.53-  535.47 d 0.94 p 0.67 [505:507)  4.3h/s ev 505-506 (2/2)       ASR: Yoksul öldü.                                     | SEN: yoksul öldü.
+  536.14-  544.27 d 8.13 p 0.73 [507:522)  5.0h/s ev 508-521 (14/15)     ASR: Eyre, Rubens ailesinin yıllarca oturduğu evdi. S | SEN: Ev, Rubens ailesinin yıllarca oturduğu evdi; sonradan Rubens'in orada doğduğu söylendi, oysa doğduğu yer Zigen'di.
+  545.00-  549.27 d 4.27 p 0.61 [522:531)  5.2h/s ev 522-530 (9/9)       ASR: Tablolar ise Paris'te kaldı. Bugün Lourdes ayrı  | SEN: Tablolar ise Paris'te kaldı; bugün Luvr'da, ayrı bir galerideler.
+  549.88-  556.03 d 6.15 p 0.26 [531:542)  5.5h/s ev 531-541 (11/11)     ASR: İki kraliçe Fransa'da imgesini savunurken, ailen | SEN: İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu Arapça harf kestirip,
+  556.29-  557.56 d 1.27 p 0.11 [542:544)  6.3h/s ev 542-543 (2/3)       ASR: opera sahne ilettirip                            | SEN: opera sahnelettirip,
+  557.67-  559.62 d 1.95 p-1.00 [544:548)  6.7h/s ev 544-547 (4/6)       ASR: Gök yüzüne de adı ne yazdırıyordu                | SEN: gökyüzüne de adını yazdırıyordu.

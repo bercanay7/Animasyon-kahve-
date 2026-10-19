@@ -36,9 +36,25 @@ def _wrap(inner):
     return k
 
 
-for _n in ("oda", "pano", "sehir", "build", "coin", "medal", "emblem", "palle", "map", "frieze", "procession", "iconrow", "counter", "bars", "doc", "ledger", "quote"):
+for _n in ("oda", "pano", "sehir", "build", "coin", "medal", "emblem", "palle", "map", "frieze", "procession", "iconrow", "counter", "bars", "doc", "ledger", "quote",
+           "skyline", "network", "timeline", "stacked", "tree", "medals", "letter"):
     if _n in SH.KINDS:
         _wrap(_n)
+
+
+def add_ovl(names):
+    """Verilen (ckind ile kayıtlı) türleri YERİNDE sarar: `ovl=` parametresi türün tüm çizimi (ışık/vinyet dahil) bittikten sonra çalışır."""
+    for n in names:
+        orig = SH.KINDS[n]
+
+        def mk(orig):
+            def k(cx, ovl=None, **kw):
+                orig(cx, **kw)
+                if ovl is not None:
+                    ovl(cx)
+            k._raw = getattr(orig, "_raw", orig)
+            return k
+        SH.KINDS[n] = mk(orig)
 
 
 # ───────────────────────────── ovl kurucuları ─────────────────────────────
@@ -105,7 +121,7 @@ def tablet_text(text, x, y, at, size=40, face="cap_b", pad=34, dur=0.5, out=None
     return fn
 
 
-def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=None, prefix="", suffix="", unit_size=44, shadow=True, align="c", fmt=None, out=None):
+def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=None, prefix="", suffix="", unit_size=44, shadow=True, align="c", fmt=None, out=None, bg=False):
     """Sayı sayar (0→value, ease_out). Büyük Cinzel; altında birim. Yaldız (gece) / oyma (gündüz)."""
     def fn(cx):
         k0 = cx.amt(at, 0.35)
@@ -119,6 +135,10 @@ def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=
         txt = prefix + s + suffix
         sz = CM.fit_size(txt, face, size, 1500, 6)
         sp = CM.gilt(txt, face, int(sz), 6.0) if not TH.day else CM.engraved(txt, face, int(sz), 6.0, color or TH.fg)
+        if bg:
+            wd = max(sk.text_width(txt, face, sz, 6.0), 420) + 120
+            hh_ = sz * 0.95 + (unit_size * 1.7 if unit else 40) + 40
+            CM.tablet(cx.f, x - wd / 2, y - sz * 0.80, wd, hh_, alpha=0.93 * k0, corner=14)
         CM.draw_spr(cx.f, sp, x, y, "c" if align == "c" else "l", alpha=k0, shadow=0.5 if shadow and not TH.day else 0.0)
         if unit:
             CM.ink(cx.f, unit, x, y + unit_size * 1.25 + 8, face="title_m", size=unit_size, color=TH.acc, align="c", track=14, alpha=k0 * cx.amt(at, 0.8, off=0.3), emboss=False)
@@ -178,11 +198,11 @@ def lerp_pt(a, b, t):
 
 
 # ───────────────────────────── renk/atmosfer örtüleri ─────────────────────────────
-def desat(a_from, a_to, k_max=0.92, dark=0.0, tint="#6E7480", tint_a=0.0):
-    """Doygunluk söner (veba: renk solar): a_from→a_to arası 0→k_max; isteğe bağlı kararma (dark) ve soğuk ton (tint_a)."""
+def desat(a_from, a_to, k_max=0.92, dark=0.0, tint="#6E7480", tint_a=0.0, k_start=0.0):
+    """Doygunluk söner (veba: renk solar): a_from→a_to arası k_start→1 (×k_max); isteğe bağlı kararma (dark) ve soğuk ton (tint_a)."""
     def fn(cx):
         t0, t1 = cx.at(a_from), cx.at(a_to)
-        k = smooth(clamp((cx.t - t0) / max(1e-3, t1 - t0)))
+        k = k_start + (1.0 - k_start) * smooth(clamp((cx.t - t0) / max(1e-3, t1 - t0)))
         if k <= 0.003:
             return
         cx.f.rect(0, 0, W, H, color="#808080", alpha=k * k_max, blend=skia.BlendMode.kSaturation)
@@ -221,4 +241,81 @@ def dim(a_from, a_to, alpha=0.5, dur=0.8, col="#06060C"):
         k = cx.amt(a_from, dur) * (1.0 - cx.amt(a_to, dur))
         if k > 0.003:
             cx.f.rect(0, 0, W, H, color=col, alpha=alpha * k)
+    return fn
+
+
+def dimline(x0, x1, y, at, text, size=34, out=None):
+    """Ölçü çizgisi (uçlarda çentik; ortada etiket)."""
+    def fn(cx):
+        k = cx.amt(at, 0.6)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        f = cx.f
+        xm = (x0 + x1) / 2
+        e = ease_out(k, 2)
+        xa, xb = xm - (xm - x0) * e, xm + (x1 - xm) * e
+        col = TH.fg if TH.day else "#F0D27A"
+        f.line(xa, y, xb, y, color=col, sw=3, alpha=0.9 * k)
+        for xx in (xa, xb):
+            f.line(xx, y - 16, xx, y + 16, color=col, sw=3, alpha=0.9 * k)
+        wd = sk.text_width(text, "title_m", size, 6) + 30
+        f.rrect(xm - wd / 2, y - 24, wd, 48, 8, color="#E9DDBB" if TH.day else "#10162E", alpha=0.96 * k)
+        CM.ink(f, text, xm, y + size * 0.36, face="title_m", size=size, color=col, align="c", track=6, alpha=k, emboss=False)
+    return fn
+
+
+def crossout(x, y, r, at, out=None, col="#A8201A", sw=16, dur=0.32):
+    """Kırmızı çarpı (iki çizgi sırayla çizilir)."""
+    def fn(cx):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        f = cx.f
+        p1 = clamp(k * 2.0)
+        p2 = clamp(k * 2.0 - 1.0)
+        f.line(x - r, y - r, x - r + 2 * r * p1, y - r + 2 * r * p1, color=col, sw=sw, alpha=0.95)
+        if p2 > 0:
+            f.line(x + r, y - r, x + r - 2 * r * p2, y - r + 2 * r * p2, color=col, sw=sw, alpha=0.95)
+    return fn
+
+
+def icon_at(name, x, y, at, size=160, metal="gold", out=None, rot=0.0, dur=0.5, glow=False, bob=0.0):
+    """Ekran uzayında simge (çapada pop ile girer)."""
+    import icons
+
+    def fn(cx):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        sc = 0.7 + 0.3 * sk.back_out(k)
+        yy = y + bob * math.sin(cx.t * 2.0)
+        if glow:
+            cx.f.circle(x, yy, size * 0.8, shader=cx.f.rad(x, yy, size * 0.8, [("#F0D27A", 0.0, int(80 * k)), ("#F0D27A", 1.0, 0)]))
+        icons.draw_icon(cx.f, name, x, yy, size=size * sc, metal=metal, alpha=k, rot=rot, glow=0.0)
+    return fn
+
+
+def tablet_icon(icon, text, x, y, at, size=38, w=620, out=None, metal="gold", dur=0.5):
+    """Soldan kayarak giren sıva levha: sol simge + Cinzel metin (x,y = levha merkezi)."""
+    import icons
+
+    def fn(cx):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        e = ease_out(k, 3)
+        xx = x - (1 - e) * 260
+        hh = 104
+        CM.tablet(cx.f, xx - w / 2, y - hh / 2, w, hh, alpha=k, corner=10)
+        icons.draw_icon(cx.f, icon, xx - w / 2 + 62, y, size=74, metal=metal, alpha=k, glow=0.0)
+        sz = CM.fit_size(text, "title_m", size, w - 190, 5)
+        CM.ink(cx.f, text, xx - w / 2 + 120, y + sz * 0.36, face="title_m", size=sz, color=TH.fg, align="l", track=5, alpha=k, emboss=False)
     return fn

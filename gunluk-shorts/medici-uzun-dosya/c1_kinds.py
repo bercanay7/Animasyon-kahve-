@@ -39,7 +39,8 @@ def _gilt_or_ink(txt, face, size, track, color=None):
 # c1_darphane
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_darphane")
-def k_darphane(cx, period=0.62, phase=0.0, master_at=None, seed=3, pile0=6, gy=808, **_):
+def k_darphane(cx, period=0.62, phase=0.0, master_at=None, seed=3, pile0=6, gy=808, toff=0.0, **_):
+    T = cx.t + toff
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
@@ -54,7 +55,7 @@ def k_darphane(cx, period=0.62, phase=0.0, master_at=None, seed=3, pile0=6, gy=8
     fa_ = skia.Path(); fa_.moveTo(110, gy); fa_.lineTo(110, gy - 190); fa_.arcTo(skia.Rect.MakeLTRB(110, gy - 190 - 90, 300, gy - 190 + 90), 180, 180, False); fa_.lineTo(300, gy); fa_.close()
     c.drawPath(fa_, f.paint("#2A1208"))
     f.circle(205, gy - 120, 150, shader=f.rad(205, gy - 120, 150, [("#FFB040", 0.0, 220), ("#FF7020", 0.6, 120), ("#FF7020", 1.0, 0)]))
-    SE.bonfire(f, 205, gy - 8, 120, cx.t, 5, k=1.0, glow_a=0.4, tod="day", smoke=False, embers=True)
+    SE.bonfire(f, 205, gy - 8, 120, T, 5, k=1.0, glow_a=0.4, tod="day", smoke=False, embers=True)
     # zemin/tezgâh
     f.rect(-200, gy, W + 400, 500, shader=f.lin(0, gy, 0, gy + 300, [("#7A5430", 0.0), ("#4E3218", 1.0)]))
     for i in range(-2, 16):
@@ -80,26 +81,26 @@ def k_darphane(cx, period=0.62, phase=0.0, master_at=None, seed=3, pile0=6, gy=8
     c.drawPath(anv, f.paint("#14141A", style="stroke", sw=3, alpha=0.9))
     f.rect(hx - 130, hy - 2, 248, 8, color="#C8C8D4", alpha=0.7)
     # çalışan
-    FA.actor(f, "tuccar", wx, gy + 18, hh, cx.t, action="work", mode="strike", period=period, phase=phase, seed=seed)
+    FA.actor(f, "tuccar", wx, gy + 18, hh, T, action="work", mode="strike", period=period, phase=phase, seed=seed)
     # vuruşlar: u = 0.70 anında çekiç iner
     t0 = (0.70 - phase) * period
-    k0 = max(0, int(math.floor((cx.t - t0) / period)) - 3)
+    k0 = max(0, int(math.floor((T - t0) / period)) - 3)
     px, py0 = 1290.0, gy - 6
     landed = 0
-    k_hits = int(math.floor((cx.t - t0) / period)) + 1
+    k_hits = int(math.floor((T - t0) / period)) + 1
     for k in range(max(0, k_hits)):
         tk = t0 + k * period
-        a = cx.t - tk
+        a = T - tk
         if a < 0:
             continue
         if a >= 0.62:
             landed += 1
     nn = pile0 + landed
     if nn > 0:
-        OD.draw_coins(c, px, py0, min(nn, 45), 3.3, cx.t, seed=1, glint=True)
+        OD.draw_coins(c, px, py0, min(nn, 45), 3.3, T, seed=1, glint=True)
     for k in range(max(0, k_hits - 5), k_hits + 1):
         tk = t0 + k * period
-        a = cx.t - tk
+        a = T - tk
         if a < -0.02 or a > 0.7:
             continue
         if a >= 0:
@@ -123,7 +124,7 @@ def k_darphane(cx, period=0.62, phase=0.0, master_at=None, seed=3, pile0=6, gy=8
     if master_at is not None:
         km = cx.amt(master_at, 0.6)
         if km > 0.003:
-            FA.actor(f, "banker", 1690, gy + 14, 520, cx.t, action="count", dir=-1, seed=11, alpha=km)
+            FA.actor(f, "banker", 1690, gy + 14, 520, T, action="count", dir=-1, seed=11, alpha=km)
     cam.end(f)
     CM.finish(f, cx, motes_n=26)
 
@@ -318,7 +319,7 @@ def _shield(f, x, y, w, h, c1, c2, charge="cross", alpha=1.0, scale=1.0, rot=0.0
 # c1_agi — şube ağı (Peruzzi / Bardi)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_agi")
-def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=None, seed=1, **_):
+def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=None, intro_at=None, seed=1, **_):
     """hubs=[dict(label, x, y, rx, ry, n, build=(a0,a1), die=(a0,a1), ang0, col)]; count=dict(at, to, x, y, label) → büyük sayaç (şube sayısı)."""
     f = cx.f
     c = f.c
@@ -379,6 +380,26 @@ def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=N
             yy = hy + ry + 76
             CM.tablet(f, hx - wd / 2, yy - 38, wd, 66, alpha=kl * (1 - 0.25 * hd), corner=8)
             CM.ink(f, lab, hx, yy + 8, face="title_m", size=36, color=TH.fg if hd < 0.5 else TH.fg3, align="c", track=6, alpha=kl, emboss=False)
+    if intro_at is not None and medici_at is not None:
+        # genel "çok şubeli banka" şeması: ortada merkez, etrafında şubeler tek tek kurulur; Medici arması gelince solar
+        ti = cx.at(intro_at)
+        fade = 1.0 - cx.amt(medici_at, 0.5, off=0.1)
+        if fade > 0.003:
+            gx, gy2 = 960.0, 560.0
+            for q in range(8):
+                kq = clamp((cx.t - (ti + 0.16 * q)) / 0.4)
+                if kq <= 0:
+                    continue
+                a = math.radians(q * 45 + 12)
+                px, py = gx + 330 * math.cos(a), gy2 + 190 * math.sin(a)
+                ex, ey = lerp(gx, px, ease_out(kq, 2)), lerp(gy2, py, ease_out(kq, 2))
+                c.drawLine(gx, gy2, ex, ey, f.paint("#6A4A2A", style="stroke", sw=4, alpha=0.8 * fade))
+                f.circle(px, py, 22 * ease_out(kq, 3), shader=f.rad(px - 6, py - 6, 30, [("#9AB0E0", 0.0), ("#4A64B0", 1.0)]), alpha=fade)
+                f.circle(px, py, 22 * ease_out(kq, 3), style="stroke", sw=3, color="#D8B25A", alpha=fade)
+            f.circle(gx, gy2, 52, shader=f.rad(gx - 14, gy2 - 14, 70, [("#7A94D8", 0.0), ("#2A4090", 1.0)]), alpha=fade)
+            f.circle(gx, gy2, 52, style="stroke", sw=5, color="#E8C468", alpha=fade)
+            icons.draw_icon(f, "coinbag", gx, gy2, size=62, metal="gold", alpha=fade, glow=0.0, shadow=False)
+            CM.ink(f, "ÇOK ŞUBELİ BANKA", gx, 330, face="title_m", size=46, color=TH.fg, align="c", track=12, alpha=fade * cx.amt(intro_at, 0.5), emboss=False)
     if medici_at is not None:
         km = cx.amt(medici_at, 0.5)
         if km > 0.003:
@@ -413,13 +434,13 @@ def k_edward(cx, flow_at=None, stop_at=None, plate_at=None, stamp_at=None, seed=
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
     CM.bgfill(f, cx, seed=seed, cam=cam, dress="both")
     cam.begin(f)
-    ax, bx, yy = 430.0, 1500.0, 520.0
+    ax, bx, yy = 520.0, 1500.0, 520.0
     tf = cx.at(flow_at) if flow_at is not None else 0.0
     ts = cx.at(stop_at) if stop_at is not None else 1e9
     # sol: florin yığını (şehir bankaları) — azalır
     left = max(6, 40 - int(max(0.0, (cx.t - tf)) * 5))
     f.circle(ax, yy + 150, 260, shader=f.rad(ax, yy + 150, 260, [("#F0D27A", 0.0, 80), ("#F0D27A", 1.0, 0)]))
-    OD.draw_coins(c, ax, yy + 150, left, 4.0, cx.t, seed=2, glint=True)
+    OD.draw_coins(c, ax, yy + 150, left, 3.2, cx.t, seed=2, glint=True)
     icons.draw_icon(f, "coinbag", ax, yy - 20, size=230, metal="gold", alpha=1.0, glow=0.0)
     # sağ: taç
     kp = cx.amt(plate_at, 0.6) if plate_at is not None else 1.0
@@ -775,3 +796,169 @@ def k_kose(cx, orsa_at=None, street1_at=None, street2_at=None, pin_at=None, seed
             f.circle(ox, oy, 40 + 120 * ph, style="stroke", sw=4, color="#A8201A", alpha=0.6 * (1 - ph))
     cam.end(f)
     CM.finish(f, cx, motes_n=18)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# c1_okul — hesap okulu: çocuklar yazar/sayar, hoca hesap tahtasında boncuk kaydırır
+# ─────────────────────────────────────────────────────────────────────────────
+@ckind("c1_okul")
+def k_okul(cx, kids_at=None, board_at=None, plate_at=None, seed=4, **_):
+    f = cx.f
+    c = f.c
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    CM.bgfill(f, cx, seed=seed, cam=cam, dress="both")
+    cam.begin(f)
+    gy = 900
+    f.rect(-100, gy, W + 200, 300, shader=f.lin(0, gy, 0, gy + 200, [("#8A6038", 0.0), ("#563820", 1.0)]))
+    for i in range(-2, 16):
+        c.drawLine(i * 140, gy, i * 140 - 70, gy + 200, f.paint("#3A2410", style="stroke", sw=2.5, alpha=0.5))
+    # hesap tahtası (sağ): çerçeveli tahta + 5 sıra boncuk
+    bx, by, bw, bh = 1120, 250, 640, 430
+    kb = cx.amt(board_at, 0.7) if board_at is not None else 1.0
+    f.rrect(bx + 8, by + 12, bw, bh, 12, color="#000000", alpha=0.3 * kb, blur=10)
+    f.rrect(bx, by, bw, bh, 12, shader=f.lin(bx, by, bx, by + bh, [("#6A4222", 0.0), ("#4A2C14", 1.0)]), alpha=kb)
+    f.rrect(bx + 22, by + 22, bw - 44, bh - 44, 6, shader=f.lin(bx, by, bx, by + bh, [("#2E3A2E", 0.0), ("#1E2820", 1.0)]), alpha=kb)
+    tb = cx.at(board_at) if board_at is not None else 0.0
+    for r in range(5):
+        yy = by + 78 + r * 70
+        c.drawLine(bx + 44, yy, bx + bw - 44, yy, f.paint("#D8C9A4", style="stroke", sw=3, alpha=0.8 * kb))
+        for q in range(9):
+            slide = 0.5 + 0.5 * math.sin((cx.t - tb) * (0.9 + 0.17 * r) + r * 1.7 + q * 0.31)
+            xx = bx + 70 + q * 52 + slide * (46 if q < 4 + (r % 3) else 0) * smooth(clamp((cx.t - tb) / 1.0))
+            f.circle(xx, yy, 19, shader=f.rad(xx - 6, yy - 6, 26, [("#F0D27A", 0.0), ("#B08A34", 1.0)]), alpha=kb)
+            f.circle(xx, yy, 19, style="stroke", sw=1.8, color="#3A2610", alpha=0.7 * kb)
+    # çocuklar (üç sıra masa) + hoca
+    kk = cx.amt(kids_at, 0.5) if kids_at is not None else 1.0
+    xs = (260, 520, 780)
+    kinds = [("cocuk", "write"), ("cocuk", "count"), ("cocuk", "write")]
+    for i, x in enumerate(xs):
+        if kk * 1.4 - i * 0.2 <= 0.01:
+            continue
+        FA.actor(f, "cocuk", x, gy + 36 - i * 8, 360, cx.t, action=kinds[i][1], seed=21 + i * 3, phase=0.31 * i, alpha=clamp(kk * 1.4 - i * 0.2))
+    FA.actor(f, "rahip" if False else "banker", 1010, gy + 24, 560, cx.t, action="point", dir=1, seed=33, t0=0.0, target=(160, -250), alpha=kk)
+    if plate_at is not None:
+        CM.name_plate(f, "HESAP OKULLARI", None, None, cx_=bx + bw / 2, y=by + bh + 40, t=cx.amt(plate_at, 0.6))
+    cam.end(f)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# c1_kardes — kronikçi Villani (yazar) ve kardeşi (Peruzzi'de sayar): ip bağlanır
+# ─────────────────────────────────────────────────────────────────────────────
+@ckind("c1_kardes")
+def k_kardes(cx, chron_at=None, brother_at=None, link_at=None, owner_at=None, seed=5, toff=0.0, **_):
+    T = cx.t + toff
+    f = cx.f
+    c = f.c
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    CM.bgfill(f, cx, seed=seed, cam=cam, dress="both")
+    cam.begin(f)
+    gy = 900
+    f.rect(-100, gy, W + 200, 300, shader=f.lin(0, gy, 0, gy + 200, [("#8A6038", 0.0), ("#563820", 1.0)]))
+    for i in range(-2, 16):
+        c.drawLine(i * 140, gy, i * 140 - 70, gy + 200, f.paint("#3A2410", style="stroke", sw=2.5, alpha=0.5))
+    # iki masa (iki ayrı alan): sol: kronik; sağ: Peruzzi kasası
+    k1 = cx.amt(chron_at, 0.6) if chron_at is not None else 1.0
+    k2 = cx.amt(brother_at, 0.6) if brother_at is not None else 1.0
+    if k1 > 0.003:
+        FA.actor(f, "banker", 480, gy + 20, 500, T, action="write", seed=4, alpha=k1)
+        CM.name_plate(f, "GIOVANNI VILLANI", "KRONİKÇİ", None, cx_=520, y=gy - 790, t=k1)
+        # kronik defteri: açık kitap + yanında "borç" satırı
+        OD.draw_book(c, 760, gy - 150, 150, 26, "#6A2E24", True) if False else None
+    if k2 > 0.003:
+        FA.actor(f, "banker", 1440, gy + 20, 500, T, action="count", dir=-1, seed=9, alpha=k2)
+        # Peruzzi kalkanı: kasa üstünde asılı
+        _shield(f, 1440, 350, 130, 162, "#3E5FB8", "#F0E6CC", "bars", alpha=k2, scale=1.0)
+        CM.name_plate(f, "VILLANI'NİN KARDEŞİ", "PERUZZİ'DE ÇALIŞIYORDU", None, cx_=1400, y=gy - 790, t=k2, w=660)
+    # ip: kronikçi → kardeş (aile bağı), üzerinde "kaybedenlerin ailesi"
+    kl = cx.amt(link_at, 0.8) if link_at is not None else 0.0
+    if kl > 0.003:
+        a, b = (600, gy - 440), (1330, gy - 440)
+        pth = skia.Path(); pth.moveTo(*a); pth.quadTo(960, gy - 700, *b)
+        pm = skia.PathMeasure(pth, False)
+        part = skia.Path(); pm.getSegment(0, pm.getLength() * ease_io(kl, 2.0), part, True)
+        c.drawPath(part, f.paint("#A8201A", style="stroke", sw=7, alpha=0.9))
+        pa = f.paint("#E8C468", style="stroke", sw=2.5, alpha=0.9)
+        pa.setPathEffect(skia.DashPathEffect.Make([10, 12], -cx.t * 18))
+        c.drawPath(part, pa)
+    ko = cx.amt(owner_at, 0.5) if owner_at is not None else 0.0
+    if ko > 0.003:
+        CM.stamp(f, "KAYBEDENLERİN AİLESİNDEN", 780, 400, rot=-0.04, size=44, t=ko)
+    cam.end(f)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# c1_sokak — `sehir/sokak` sarmalayıcısı: figürlerin başlama anları çapa (at=) ile verilir
+# ─────────────────────────────────────────────────────────────────────────────
+cilt_cam.OWN_CAMERA.add("c1_sokak")
+
+
+@ckind("c1_sokak")
+def k_c1_sokak(cx, people=(), door_at=None, **kw):
+    import shots as SH
+    acts = []
+    for d in people:
+        d = dict(d)
+        an = d.pop("at", None)
+        d["t0"] = cx.at(an) if an is not None else d.get("t0", 0.0)
+        acts.append(d)
+    if door_at is not None:
+        kw["door"] = "close"
+        kw["door_at"] = door_at
+    SH.KINDS["sehir"](cx, scene="sokak", actors=acts, **kw)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# c1_yazi — "ne düşündüğünü bilmiyoruz; ne gördüğünü yazdığını biliyoruz": soru işareti söner, kalem satır yazar
+# ─────────────────────────────────────────────────────────────────────────────
+def _scribble(x0, x1, y, n, seed=3):
+    """El yazısını andıran dalgalı iz (döngüler + eğim); noktalar listesi."""
+    pts = []
+    for i in range(n + 1):
+        u = i / n
+        x = lerp(x0, x1, u) + 18 * math.sin(u * 95 + seed) 
+        yy = y + 22 * math.sin(u * 61 + seed * 2) * (0.6 + 0.4 * math.sin(u * 9)) - 10 * math.cos(u * 95 + seed)
+        pts.append((x, yy))
+    return pts
+
+
+@ckind("c1_yazi")
+def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜĞÜNÜ BİLMİYORUZ", bottom="NE GÖRDÜĞÜNÜ, NE YAZDIĞINI BİLİYORUZ", seed=2, **_):
+    f = cx.f
+    c = f.c
+    cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
+    CM.bgfill(f, cx, seed=seed, cam=cam, dress="both")
+    cam.begin(f)
+    col = TH.fg if TH.day else "#F0E2B8"
+    # soru işareti
+    kq = cx.amt(q_at, 0.5) if q_at is not None else 0.0
+    if q_out is not None:
+        kq *= 1.0 - cx.amt(q_out, 0.6)
+    if kq > 0.003:
+        f.circle(960, 400, 300, shader=f.rad(960, 400, 300, [("#F0D27A", 0.0, int(80 * kq)), ("#F0D27A", 1.0, 0)]))
+        icons.draw_icon(f, "question", 960, 400, size=360 * (0.85 + 0.15 * sk.back_out(kq)), metal="gold", alpha=kq, rot=0.06 * math.sin(cx.t * 3.0), glow=0.0)
+        CM.ink(f, top, 960, 650, face="title_m", size=CM.fit_size(top, "title_m", 44, 1500, 8), color=col, align="c", track=8, alpha=kq, emboss=False)
+    # yazı: kalem satırı çizer
+    ta = cx.at(w_at) if w_at is not None else 1e9
+    tb = cx.at(w_to) if w_to is not None else ta + 2.4
+    p = ease_io(clamp((cx.t - ta) / max(0.4, tb - ta)), 1.4)
+    if p > 0.003:
+        pts = _scribble(300, 1620, 540, 160, seed)
+        m = max(2, int(len(pts) * p))
+        pth = skia.Path()
+        pth.moveTo(*pts[0])
+        for q in pts[1:m + 1]:
+            pth.lineTo(*q)
+        pp = f.paint("#1E1208" if TH.day else "#E8D8A8", style="stroke", sw=5.0, alpha=0.95)
+        c.drawPath(pth, pp)
+        qx, qy = pts[m]
+        OD.quill(c, qx + 4, qy + 6, -58.0, 1.0)
+        kb = cx.amt(w_at, 0.7, off=0.3) if w_at is not None else 0.0
+        CM.ink(f, bottom, 960, 740, face="title_m", size=CM.fit_size(bottom, "title_m", 42, 1560, 8), color=col, align="c", track=8, alpha=kb, emboss=False)
+    cam.end(f)
+    CM.finish(f, cx, motes_n=20, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.52), r=1500.0, sway=4.0))
+
+
+import p1_ortak as _P  # noqa: E402
+_P.add_ovl(['c1_yazi', 'c1_sokak', 'c1_okul', 'c1_kardes', 'c1_darphane', 'c1_cicek', 'c1_agi', 'c1_edward', 'c1_toprak', 'c1_lonca', 'c1_machiavelli', 'c1_kademe', 'c1_kose'])

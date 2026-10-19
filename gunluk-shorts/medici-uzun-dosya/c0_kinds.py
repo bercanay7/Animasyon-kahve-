@@ -865,3 +865,7 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
             CM.ink(f, it["label"], x, yc + R + 74 + (1 - ka) * 10, face="title_m", size=CM.fit_size(it["label"], "title_m", 34, gap - 30, 6), color=TH.fg, align="c", track=6, alpha=ka, emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
+
+
+import p1_ortak as _P  # noqa: E402
+_P.add_ovl(['c0_takvim', 'c0_belge', 'c0_kuyruk', 'c0_sikke', 'c0_harita', 'c0_gerekce'])

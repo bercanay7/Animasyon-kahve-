@@ -1,0 +1,598 @@
+{
+ "bolumler": {
+  "c12": {
+   "jeton": 559,
+   "jeton_eslesen": 544,
+   "jeton_oran": 0.9732,
+   "asr_sozcuk": 560,
+   "asr_eslesen": 539,
+   "asr_oran": 0.9625,
+   "kosu": 58,
+   "kanitli_kosu": 57,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 1,
+   "hmm_kosu": 57,
+   "model": {
+    "hece": 0.1633,
+    "soz": 0.045,
+    "sabit": 0.0,
+    "sigma": 0.399
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [
+    [
+     166.85,
+     -4.8,
+     "3 Gölüm",
+     "üç ölüm."
+    ],
+    [
+     230.8,
+     -3.2,
+     "1570'te de Roma'da taç giydi.",
+     "bin beş yüz yetmişte de Roma'da taç giydi."
+    ]
+   ],
+   "eksik_sozcuk": [
+    {
+     "tok": 157,
+     "kelime": "açlıktan",
+     "t": 82.076,
+     "onceki": "direndi ve",
+     "sonraki": "teslim oldu;",
+     "asr": "CNA yaklaşık 15 ay direndi ve açlıktı."
+    },
+    {
+     "tok": 456,
+     "kelime": "Dük",
+     "t": 231.874,
+     "onceki": "ona Büyük",
+     "sonraki": "unvanını verdi,",
+     "asr": "1569'da 5. Pius ona büyük bir kılık veriyor."
+    },
+    {
+     "tok": 457,
+     "kelime": "unvanını",
+     "t": 231.875,
+     "onceki": "Büyük Dük",
+     "sonraki": "verdi, bin",
+     "asr": "1569'da 5. Pius ona büyük bir kılık veriyor."
+    },
+    {
+     "tok": 458,
+     "kelime": "verdi,",
+     "t": 231.876,
+     "onceki": "Dük unvanını",
+     "sonraki": "bin beş",
+     "asr": "1569'da 5. Pius ona büyük bir kılık veriyor."
+    }
+   ],
+   "eslesmeyen_bolgeler": [
+    [
+     250,
+     252,
+     "Santo Stefano."
+    ],
+    [
+     456,
+     458,
+     "Dük unvanını"
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -17.41781562780055,
+    "thr": -51.41781562780055,
+    "n_ham": 62,
+    "n_gurultu": 0,
+    "n_parca": 4,
+    "n_bolunen": 0
+   }
+  },
+  "c13": {
+   "jeton": 548,
+   "jeton_eslesen": 539,
+   "jeton_oran": 0.9836,
+   "asr_sozcuk": 557,
+   "asr_eslesen": 536,
+   "asr_oran": 0.9623,
+   "kosu": 66,
+   "kanitli_kosu": 66,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 0,
+   "hmm_kosu": 66,
+   "model": {
+    "hece": 0.1345,
+    "soz": 0.1106,
+    "sabit": 0.0972,
+    "sigma": 0.206
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [],
+   "eksik_sozcuk": [
+    {
+     "tok": 216,
+     "kelime": "çıktı,",
+     "t": 395.947,
+     "onceki": "bir kitapçık",
+     "sonraki": "sonradan Anri",
+     "asr": "1573'te protestan bir broşürdeki şiirdi. 1575'te adsız bir kitap çık çık."
+    }
+   ],
+   "eslesmeyen_bolgeler": [
+    [
+     63,
+     65,
+     "dö Puatye'deydi."
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -17.105955049634897,
+    "thr": -51.1059550496349,
+    "n_ham": 71,
+    "n_gurultu": 2,
+    "n_parca": 3,
+    "n_bolunen": 0
+   }
+  }
+ },
+ "uyarilar": [
+  "scribe_words: çakışan 1, süresi ≤0 0"
+ ],
+ "cumleler": {
+  "c12s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 0
+  },
+  "c12s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 1,
+   "run_b": 1
+  },
+  "c12s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 2,
+   "run_b": 2
+  },
+  "c12s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 3,
+   "run_b": 3
+  },
+  "c12s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 4,
+   "run_b": 4
+  },
+  "c12s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 5,
+   "run_b": 7
+  },
+  "c12s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 8,
+   "run_b": 8
+  },
+  "c12s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 9,
+   "run_b": 9
+  },
+  "c12s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 10,
+   "run_b": 11
+  },
+  "c12s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 12,
+   "run_b": 14
+  },
+  "c12s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 15,
+   "run_b": 17
+  },
+  "c12s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 18,
+   "run_b": 19
+  },
+  "c12s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 20,
+   "run_b": 20
+  },
+  "c12s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 21,
+   "run_b": 21
+  },
+  "c12s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 22,
+   "run_b": 22
+  },
+  "c12s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 23,
+   "run_b": 24
+  },
+  "c12s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 25,
+   "run_b": 27
+  },
+  "c12s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 28,
+   "run_b": 28
+  },
+  "c12s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 29,
+   "run_b": 29
+  },
+  "c12s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 31
+  },
+  "c12s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 32,
+   "run_b": 33
+  },
+  "c12s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 34,
+   "run_b": 36
+  },
+  "c12s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 37,
+   "run_b": 38
+  },
+  "c12s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 39,
+   "run_b": 39
+  },
+  "c12s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 40,
+   "run_b": 40
+  },
+  "c12s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 41,
+   "run_b": 42
+  },
+  "c12s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 43,
+   "run_b": 44
+  },
+  "c12s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 45
+  },
+  "c12s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 46,
+   "run_b": 46
+  },
+  "c12s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 47,
+   "run_b": 48
+  },
+  "c12s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 49,
+   "run_b": 51
+  },
+  "c12s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 52,
+   "run_b": 53
+  },
+  "c12s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 54,
+   "run_b": 54
+  },
+  "c12s34": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 55,
+   "run_b": 56
+  },
+  "c12s35": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 57,
+   "run_b": 57
+  },
+  "c13s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 3
+  },
+  "c13s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 4,
+   "run_b": 5
+  },
+  "c13s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 6,
+   "run_b": 6
+  },
+  "c13s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 7,
+   "run_b": 7
+  },
+  "c13s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 8,
+   "run_b": 8
+  },
+  "c13s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 9,
+   "run_b": 10
+  },
+  "c13s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 11,
+   "run_b": 11
+  },
+  "c13s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 12,
+   "run_b": 12
+  },
+  "c13s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 13,
+   "run_b": 13
+  },
+  "c13s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 14,
+   "run_b": 14
+  },
+  "c13s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 15,
+   "run_b": 16
+  },
+  "c13s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 17,
+   "run_b": 17
+  },
+  "c13s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 18,
+   "run_b": 20
+  },
+  "c13s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 21,
+   "run_b": 21
+  },
+  "c13s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 22,
+   "run_b": 23
+  },
+  "c13s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 24,
+   "run_b": 26
+  },
+  "c13s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 27,
+   "run_b": 29
+  },
+  "c13s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 30
+  },
+  "c13s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 31,
+   "run_b": 32
+  },
+  "c13s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 33,
+   "run_b": 34
+  },
+  "c13s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 36
+  },
+  "c13s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 37,
+   "run_b": 38
+  },
+  "c13s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 39,
+   "run_b": 40
+  },
+  "c13s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 41,
+   "run_b": 42
+  },
+  "c13s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 43,
+   "run_b": 44
+  },
+  "c13s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 45
+  },
+  "c13s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 46,
+   "run_b": 47
+  },
+  "c13s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 48,
+   "run_b": 49
+  },
+  "c13s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 50,
+   "run_b": 50
+  },
+  "c13s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 51,
+   "run_b": 51
+  },
+  "c13s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 52,
+   "run_b": 52
+  },
+  "c13s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 53,
+   "run_b": 53
+  },
+  "c13s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 54,
+   "run_b": 56
+  },
+  "c13s34": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 57,
+   "run_b": 57
+  },
+  "c13s35": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 58,
+   "run_b": 60
+  },
+  "c13s36": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 61,
+   "run_b": 61
+  },
+  "c13s37": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 62,
+   "run_b": 62
+  },
+  "c13s38": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 63,
+   "run_b": 65
+  }
+ },
+ "toplam": {
+  "jeton": 1107,
+  "jeton_eslesen": 1083,
+  "asr_sozcuk": 1117,
+  "asr_eslesen": 1075,
+  "kosu": 124,
+  "jeton_oran": 0.9783,
+  "asr_oran": 0.9624,
+  "cumle": 73,
+  "cumle_t0_durakta": 73,
+  "cumle_t1_durakta": 73,
+  "seste_olmayan_sozcuk": 5
+ },
+ "scribe_md5": "eeb566a848d8384472dc6289dbe9c3eb",
+ "uretim": "2026-10-19 03:13:57"
+}
