@@ -90,21 +90,22 @@ shot("sehir", ("c3s1", 0.0), scene="skyline_dikey", tod="day", link="cam", longt
 
 | girdi | medyan | en az | maks | döküm |
 |---|---|---|---|---|
-| meydan_ates | 226 | 162 | 304 | sahne 173 = fx 48 (alev+ön sıra) · dyn_main 39 (halka+taşıyıcı+yığın) · katmanlar ≈35 · grade 7 |
-| meydan_odun | 162 | 155 | 196 | dyn_main 52 · fx 15 · grade 8 |
-| meydan_palle | 200 | 130 | 299 | dyn_main 112 (24 kişi + 5 atlı + sancaklar) |
-| meydan_pencere | 99 | 92 | 122 | |
-| meydan_kalabalik | (ölçülecek) | | | |
-| sokak_kapi_gunduz / gece | 114 / 114 | 97 / 108 | 290 / 300 (kapı çarpma kareleri: toz) | dyn_main 15–27 |
-| sokak_yuruyus | 94 | 89 | 100 | |
-| kale_sur | 105 | 93 | 170 | dyn_camp 10 |
-| kale_castel | 108 | 102 | 152 | dyn_city 32 (duman sütunları) |
-| kale_passetto | 157 | 124 | 200 | dyn_main 33 · dyn_city 19 |
-| skyline_dikey | 211 | 99 | 273 | VLayer blit'leri (kare başına 3–6 büyük kareaş) |
+| meydan_ates | 215 | 153 | 346 | sahne 158 = dyn_main 42 (halka+taşıyıcı+yığın) · fx 42 (alev+ön sıra) · katmanlar ≈29 · grade 10 |
+| meydan_odun | 189 | 154 | 239 | dyn_main 54 · fx 17 · grade 10 |
+| meydan_palle | 233 | 143 | 329 | dyn_main 127 (24 kişi + 5 atlı + sancaklar) |
+| meydan_pencere | 104 | 93 | 139 | grade 9 · fx 6 |
+| meydan_kalabalik | 147 | 128 | 159 | dyn_main 65 (32 kişi + sancaklar) |
+| sokak_kapi_gunduz | 109 | 86 | 239 | dyn_main 26 (kapı çarpma karelerinde toz → tepe) |
+| sokak_kapi_gece | 116 | 104 | 274 | dyn_main 14 · grade 7 · fx 7 |
+| sokak_yuruyus | 94 | 88 | 100 | dyn_main 9 |
+| kale_sur | 94 | 83 | 112 | dyn_camp 9 |
+| kale_castel | 151 | 108 | 158 | dyn_city 39 (duman sütunları) |
+| kale_passetto | 137 | 116 | 188 | dyn_main 30 · dyn_city 18 |
+| skyline_dikey | 155 | 96 | 198 | VLayer blit'leri (kare başına 3–6 büyük kareaş) |
 
 Hedef ≤250 ms/kare (çekim+post, 1 çekirdek): hepsi medyanda altında; ates/palle yük altında 250'ye yaklaşır (tek tek kareler 300 civarı çıkabilir — paylaşımlı CPU gürültüsü; `en az` sütunu boş makine tahminidir).
 İlk kare (kit/kareaş pişirme): 0,2–2,3 s (ates 2,3 s: 40+ kostüm kiti ısınır; süreç başına bir kez).
-Kareaş pişirme (soğuk önbellek): bkz. `--bake` çıktısı aşağıda (tek koşu; hepsi ≪15 s).
+Kareaş pişirme (soğuk önbellek, `--bake`, tek koşu): meydan dusk/night/day 0,6–0,7 s (19 kareaş) · sokak day/night 0,8/1,0 s (20) · kale_sur 0,8 s (15) · kale_castel 0,6 s (18) · kale_passetto 0,8 s (14) · skyline_dikey 1,8 s (14); toplam disk ≈ 158 dosya `out/_cache/world/sehir_*`.
 Klipler: 24 fps, 960×540, 10–14 sn; hareket enerjisi (ardışık kare farkı, 240×135 gri) ve ölü kare sayısı `preview_sehir` çıktısında (ates 2,52 · odun 0,34 [gece: düşük kontrast; ölü kare 0]); ölü (kopya) kare yok.
 
 ## 4. Bilinen kusurlar

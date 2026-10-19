@@ -9,7 +9,7 @@ Sahneler (hepsi `cilt_pano` motoruyla aynı kalıpta: ≥3 paralaks derinliği, 
   scene="sokak"   dar sokak + palazzo cephesi + ağır kapı (`door="close"|"open"`, `door_at=çapa`: kapı TEK HAMLEDE kapanır), yürüyen figürler, ters yönde akan siluetler, kemerli eşik
   scene="kale"    act="sur" (Floransa surları, San Miniato çan kulesi yün balyalarıyla sarılı, ufukta çadır dizisi) | "castel" (Castel Sant'Angelo + Passetto) | "passetto" (örtülü koridor yan görünüm, tek plan)
   scene="skyline_dikey"  Palazzo Vecchio kulesine tek dikey plan (`crane up`): gövde → mazgal → çan odası → flama; yanlarda çatılar, kuşlar
-Yeniden kullanılabilir işlevler: `palazzo_front`, `door_heavy`, `bonfire`, `tent_row` (+ `smoke_plume`, `ember_field`, `pyre`, `item_sprite`, `light_pool`).
+Yeniden kullanılabilir işlevler: `palazzo_front`, `door_heavy`, `bonfire`, `tent_row` (+ `smoke_plume`, `ember_field`, `pyre`, `item_sprite`, `light_pool`); SFX için `olaylar(scene, act, dur, **p)`.
 Kısıt: şiddet/ceset/kan/asılı beden yok (siluet, işaret, gölge); ışık/saat iddiası yalnız görsel dil; ağır katmanlar tembel pişirilir; SrcOver (kPlus yavaş).
 """
 import functools
@@ -1320,7 +1320,7 @@ class Meydan(SWorld):
         if act == "pencere":                                 # ağır pull: cepheye yakın → geri
             return [(0.0, (PV_X0 + PV_W * 0.55, 150, 1.34)), (1.0, (PV_X0 + PV_W * 0.52, 80, 1.0))]
         if act == "kalabalik":                               # kalabalığın içinde yavaş itme (kabaran halk)
-            return [(0.0, (PV_X0 + PV_W * 0.50, 70, 1.0)), (1.0, (PV_X0 + PV_W * 0.50 + (60 if (p or {}).get("dir", "l") in ("r", 1) else -60), 50, 1.10))]
+            return [(0.0, (PV_X0 + PV_W * 0.56, 90, 1.12)), (1.0, (PV_X0 + PV_W * 0.56 + (70 if (p or {}).get("dir", "l") in ("r", 1) else -70), 60, 1.26))]
         return [(0.0, (1400, 0, 1.0)), (1.0, (2600, 0, 1.0))]
 
     def stack(self, ctx):
@@ -1698,25 +1698,22 @@ class Meydan(SWorld):
         self._cdir = sg
         fk = p.get("flags", "medici" if pal else "lily")
         self._cdev = {"medici": ("medici", "#E0B84E", "#B33620"), "lily": ("lily", "#F4EEDC", "#B33620"), "stripes": ("stripes", "#233C8C", "#E0B84E"), "cross": ("cross", "#F4EEDC", "#B33620")}.get(fk) if fk else None
-        n = int(p.get("n", 24))
+        n = int(p.get("n", 24 if pal else 32))
         kinds = ["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk"]
         self._palle_crowd = []
         for i in range(n):
             if pal:
                 x1 = rs.uniform(700, 1350) if rs.rand() < 0.62 else rs.uniform(1350, 1750)
                 x0 = rs.uniform(-300, 380)
-            elif sg > 0:
-                x1 = rs.uniform(PV_X0 + 250, PV_X0 + 1050)
-                x0 = rs.uniform(PV_X0 - 1250, PV_X0 - 100)
-            else:
-                x1 = rs.uniform(PV_X0 + 250, PV_X0 + 1050)
-                x0 = rs.uniform(PV_X0 + PV_W + 100, PV_X0 + PV_W + 1250)
+            else:                                                             # genel kabaran kalabalık: kısa mesafeden hızla gelir, durur, coşar
+                x1 = rs.uniform(PV_X0 + 200, PV_X0 + 1100)
+                x0 = x1 - sg * rs.uniform(520, 1050)
             if sg * (x1 - x0) < 120:
                 x0 = x1 - sg * rs.uniform(250, 700)
             self._palle_crowd.append(dict(x0=x0, x1=x1, y=YG + rs.uniform(-18, 40), h=rs.uniform(156, 192), kind=kinds[rs.randint(8)], seed=int(rs.randint(0, 40)), phase=rs.rand(),
                                           d=0.05 * dur * rs.rand() + 0.012 * dur * (i % 8), T=0.0, flag=(i % 4 == 1), amt=rs.uniform(0.6, 1.0), hop=rs.uniform(0.2, 0.7)))
         for m in self._palle_crowd:
-            m["T"] = abs(m["x1"] - m["x0"]) / rs.uniform(112, 150)
+            m["T"] = abs(m["x1"] - m["x0"]) / (rs.uniform(112, 150) if pal else rs.uniform(150, 205))
         self._palle_crowd.sort(key=lambda m: m["y"])
         self._palle_riders = []
         nr = int(p.get("riders", 5 if pal else 0))

@@ -14,24 +14,24 @@ bölümler: c3, c4, c5; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   master kazancı (toplamdan sonra)          : +4.43 dB
   örnek tepe: -1.81 dBFS ; kırpılan örnek sayısı (|x|≥0,9995): 0
   DC ofset: L -3.98e-04  R -3.97e-04
-  mix_audio.m4a (AAC 192k): 16.5 MB, 642.45 sn; çözülmüş TP -1.41 dBTP; -14.05 LUFS
+  mix_audio.m4a (AAC 192k): 16.4 MB, 642.45 sn; çözülmüş TP -1.41 dBTP; -14.04 LUFS
 
 [2] KONUŞMA / MÜZİK (kendi ölçümüm; konuşma-aktif karelerde ortalama güç)
   konuşma RMS (işlenmiş, ön-master) : -20.1 dBFS   (ham ses -20.1)
   müzik RMS (konuşma altında)       : -41.6 dBFS   → konuşma − müzik = 21.5 dB   (hedef 20…24)
   SFX RMS (konuşma karelerinde)     : -57.9 dBFS
   müzik bandı ort. RMS (ducking öncesi, nominal): -27.5 dBFS   (şart −24…−28)
-  8 sn pencerelerde konuşma−müzik (n=159): p5 20.0 · p25 20.5 · medyan 21.2 · p75 22.6 · p95 24.9 dB; [19, 26] içinde %99
-  DUCK DERİNLİĞİ (müzik kazancı; nominal bandına göre, konuşma bölgesi): ort. -13.96 dB, aralık -17.8 … -8.7; kapalı döngü seviyeleme -3.78 … +3.00 dB
+  8 sn pencerelerde konuşma−müzik (n=159): p5 20.0 · p25 20.5 · medyan 21.2 · p75 22.6 · p95 24.9 dB; [19, 26] içinde %98
+  DUCK DERİNLİĞİ (müzik kazancı; nominal bandına göre, konuşma bölgesi): ort. -13.94 dB, aralık -17.7 … -8.0; kapalı döngü seviyeleme -3.75 … +3.00 dB
   bölüm bazında (konuşma-aktif kareler; kare = 10 ms):
    bölüm   konuşma   müzik    fark   ducking ort.   en kötü 8 sn penceresi   en iyi 8 sn
-   c3      -19.8    -41.2    21.3    -14.1 dB        20.0 dB            24.9 dB
-   c4      -20.0    -41.5    21.5    -13.6 dB        19.8 dB            27.1 dB
-   c5      -20.6    -42.3    21.7    -14.3 dB        19.4 dB            27.9 dB
-  en kötü 8 sn penceresi (tüm bölümler): 19.4 dB ; en iyi: 27.9 dB
+   c3      -19.8    -41.2    21.4    -14.1 dB        20.0 dB            24.9 dB
+   c4      -20.0    -41.5    21.5    -13.6 dB        19.8 dB            28.9 dB
+   c5      -20.6    -42.2    21.6    -14.3 dB        19.4 dB            27.9 dB
+  en kötü 8 sn penceresi (tüm bölümler): 19.4 dB ; en iyi: 28.9 dB
   bölüm kartı / başlık boşluklarında müzik yükselişi (ölçülen: plato − konuşma altı düzey; hedef 8–10 dB):
-   t=  216.34–  219.51 sn   yükseliş  +8.9 dB   (kazanç değişimi +8.6 dB)
-   t=  462.10–  465.25 sn   yükseliş  +8.9 dB   (kazanç değişimi +4.0 dB)
+   t=  216.34–  219.51 sn   yükseliş  +8.9 dB   (kazanç değişimi +8.3 dB)
+   t=  462.10–  465.25 sn   yükseliş  +9.0 dB   (kazanç değişimi +0.6 dB)
    t=  635.44–  642.44 sn   yükseliş  +9.0 dB   (kazanç değişimi +5.2 dB)
   bölüm bazında nihai miks loudness (gerçek BS.1770; bölüm süresi boyunca, kart boşlukları hariç):
    bölüm  entegre LUFS  kısa-dönem maks.  anlık maks.
@@ -42,26 +42,26 @@ bölümler: c3, c4, c5; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
 [3] GEÇİŞ SIÇRAMALARI (dB)
    (a) bölümler arası, nihai mikste konuşmalı bölgelerde 12 sn entegre LUFS (önceki sonu → sonraki başı):
          c3→c4      -15.19 →   -14.07   fark +1.12 dB
-         c4→c5      -14.54 →   -14.41   fark +0.13 dB
-   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn; bilinçli kapılarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:
-       c3      sınırı @    217.8 sn   basamak (3 sn)   8.6 dB   (1 sn adımı   8.1 dB)
-       c4      sınırı @    463.6 sn   basamak (3 sn)   2.6 dB   (1 sn adımı   2.9 dB)
-   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): c3: +0.0/-1.3, c4: +1.3/+3.0, c5: -3.0/+0.0
+         c4→c5      -14.54 →   -14.40   fark +0.14 dB
+   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:
+       c3      sınırı @    217.8 sn   basamak (3 sn)   3.8 dB   (1 sn adımı   4.9 dB)
+       c4      sınırı @    463.6 sn   basamak (3 sn)   1.4 dB   (1 sn adımı   3.0 dB)
+   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): c3: +0.0/-1.7, c4: +1.7/+0.0
 
 [4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an, c10 9 Kasım, c13 1572 vb.)
    kesit   başlangıç–bitiş (sn)   tür             müzik RMS (ducking sonrası)   SFX RMS   miks−ses RMS (kestirim)   not
-   c4       456.56–  457.69   kısık (-18 dB)     -62.7 dBFS                  -200.0      -58.3 dBFS (final ölçeği)   Duvarlar dikilmişti
+   c4       456.56–  457.69   kısık (-18 dB)     -65.1 dBFS                  -200.0      -60.7 dBFS (final ölçeği)   Duvarlar dikilmişti
    c5       498.48–  499.45   kısık (-20 dB)     -58.1 dBFS                  -200.0      -53.7 dBFS (final ölçeği)   1453
 
 [5] SPEKTRAL DENGE (Welch, güç payı %)  düşük<250 Hz | orta 250–4k | yüksek>4k | centroid
   voice (ham)         56.2 |  41.0 |   2.8 |    519 Hz
   voice (işlenmiş)    53.7 |  44.6 |   1.7 |    460 Hz
-  müzik (mikste)      36.7 |  61.8 |   1.4 |    655 Hz
+  müzik (mikste)      36.4 |  62.2 |   1.4 |    659 Hz
   sfx bus             15.7 |  83.2 |   1.1 |    654 Hz
   MIKS (nihai)        53.4 |  44.9 |   1.7 |    463 Hz
   oktav profili (göreli dB; bantlar 63–125–250–500–1k–2k–4k–8k–16k Hz):
     voice (işlenmiş)     -1.1   -0.5    0.0   -5.7  -11.8  -11.4  -15.4  -16.1
-    müzik (mikste)       -2.2   -0.3    0.0   -0.1   -4.1   -6.4  -12.4  -27.6
+    müzik (mikste)       -2.2   -0.3    0.0   -0.0   -4.1   -6.4  -12.4  -27.5
     MIKS (nihai)         -1.1   -0.5    0.0   -5.6  -11.6  -11.4  -15.3  -16.1
 
 [6] SES (voice) ZİNCİRİ
@@ -96,17 +96,17 @@ bölümler: c3, c4, c5; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   [GEÇTİ] DC ofset < 1e-3  → 4.0e-04
   [GEÇTİ] konuşma − müzik genel ≥ 19 dB  → 21.5
   [GEÇTİ] konuşma − müzik en kötü 8 sn pencere ≥ 18.5 dB  → 19.4
-  [GEÇTİ] konuşma − müzik pencerelerinin %80'i [hedef−1, hedef_üst+2] içinde  → %99
+  [GEÇTİ] konuşma − müzik pencerelerinin %80'i [hedef−1, hedef_üst+2] içinde  → %98
   [GEÇTİ] spektral denge: MIKS centroid, işlenmiş sesin ±%15'i içinde (müzik/efekt sesi matlaştırmaz, boğmaz)  → 463 Hz / ses 460 Hz
   [GEÇTİ] spektral denge: MIKS düşük bant (<250 Hz) payı ≤ %65 ve yüksek bant (>4 kHz) payı ≥ %0,5  → düşük %53.4 · yüksek %1.7
   [GEÇTİ] müzik nominal ort. RMS −24…−28 dBFS  → -27.5
   [GEÇTİ] süre = voice + kuyruk (±1 örnek)  → 642.440 sn
   [GEÇTİ] boşluk yükselişi 8–10 dB (ölçülen, ±0,7)  → min 8.9 maks 9.0
   [GEÇTİ] geçişte 12 sn LUFS sıçraması ≤ 1,5 dB (tüm geçişler)  → maks 1.12
-  [KALDI] ham müzik bandında kavşak düzey basamağı (yan yana 3 sn pencere) ≤ 4 dB (tüm kesit sınırları)  → maks 8.6 (1 sn adımı maks 8.1)
+  [GEÇTİ] ham müzik bandında kavşak düzey basamağı (yan yana 3 sn pencere) ≤ 4 dB (tüm kesit sınırları)  → maks 3.8 (1 sn adımı maks 4.9)
   [KALDI] timeline.json uyumu (cümle içi konuşma ≥ 0,70; cümle arası ≤ 0,10; bölüm sınırı ≤ 0,6 sn)  → 0.835 / 0.145
 
 YENİDEN ÜRETME (tek komut): MEDICI_PART=2 python3 miks_kur.py     (+ --preview ile out_pN/ses_onizleme/ mp3 kesitleri)
   girdiler : out_p2/voice.wav, voice_chapters.json, timeline.json, sfx_cues_p2.json, [out_p2/sfx_gecis.json]
   çıktılar : out_p2/mix_audio.m4a, stem_music|voice|sfx.flac, sfx_cues_used.json, audio_report.txt
-toplam çalışma süresi: 172 sn
+toplam çalışma süresi: 206 sn
