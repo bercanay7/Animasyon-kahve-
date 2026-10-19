@@ -300,8 +300,12 @@ def asr_calistir(isler, cache_path, wav_path, isci=2, baslik="ASR"):
 # ════════════════════════════════════════════════════════════ bölüm verisi
 def bolumleri_hazirla(secim=None):
     """voice_chapters.json'daki bölümler + ses + koşular. → (x, sr, vc, [bolum])"""
-    vc = json.load(open(os.path.join(OUT, "voice_chapters.json"), encoding="utf-8"))
+    vcp = os.path.join(OUT, "voice_chapters.json")
     wav_path = os.path.join(OUT, "voice.wav")
+    for q in (vcp, wav_path):
+        if not os.path.exists(q):
+            raise SystemExit(f"{q} yok — önce MEDICI_PART={PA.PART or '?'} python3 ses_birlestir.py (parça sesini birleştir)")
+    vc = json.load(open(vcp, encoding="utf-8"))
     x, sr = load_wav(wav_path)
     bol = []
     for c in vc["chapters"]:

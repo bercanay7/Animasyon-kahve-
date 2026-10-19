@@ -756,21 +756,32 @@ def timeline_check(timeline, act, nf, chapters):
                 between_mean=float(np.mean(between)) if between else 0.0, offs=offs, total=timeline.get("total"))
 
 
-def junction_raw_steps(minfo_cues, music_eq):
-    """Her çapraz geçiş merkezi (kesit sınırı) çevresinde (±8 sn) ham müzik bandının (ducking ÖNCESİ) 1 sn RMS dizisi → en büyük ardışık adım (dB).
-    Bölüm sınırları ve bölüm içi kesit sınırları dahil. Döner: [(sınır adı, merkez sn, adım dB)]."""
+def junction_raw_steps(minfo_cues, music_eq, win=3.0, span=11.0):
+    """Her çapraz geçiş merkezi (kesit sınırı) çevresinde (±span sn) ham müzik bandının (ducking ÖNCESİ) 'basamak' ölçümü:
+    yan yana iki `win` sn'lik pencerenin (0,5 sn kaydırmalı) RMS farkı → en büyük |fark| (dB). Tek vuruşlar (timpani vb.) 3 sn'lik pencerede
+    seyrelir; gerçek düzey basamakları (yatak sıçraması, kapı açılışı, kesit düzey uyumsuzluğu) görünür kalır.
+    Bölüm sınırları ve bölüm içi kesit sınırları dahil. Döner: [(sınır adı, merkez sn, basamak dB, en büyük 1 sn adımı dB)]."""
     out = []
+    hop = int(0.5 * SR)
     for ci in minfo_cues:
         if not ci["xout"]:
             continue
         tc = ci["end"] - ci["xout"] / 2
-        seg = music_eq[max(int((tc - 8.0) * SR), 0):int((tc + 8.0) * SR)]
+        a0 = max(int((tc - span - win) * SR), 0)
+        seg = music_eq[a0:int((tc + span + win) * SR)]
         if len(seg) < 4 * SR:
             continue
-        mm = seg.mean(axis=1)
-        nwin = len(mm) // SR
-        r = 10 * np.log10(np.mean(mm[:nwin * SR].reshape(nwin, SR).astype(np.float64) ** 2, axis=1) + 1e-14)
-        out.append((ci["id"], float(tc), float(np.max(np.abs(np.diff(r)))) if len(r) > 1 else 0.0))
+        mm = seg.mean(axis=1).astype(np.float64)
+        nb = len(mm) // hop
+        pw = np.mean(mm[:nb * hop].reshape(nb, hop) ** 2, axis=1)           # 0,5 sn'lik güç blokları
+        k = int(round(win / 0.5))
+        if nb < 2 * k + 1:
+            continue
+        cs = np.concatenate([[0.0], np.cumsum(pw)])
+        L = 10 * np.log10((cs[k:] - cs[:-k]) / k + 1e-14)                    # L[i] = [i, i+k) bloklarının RMS'i (dB)
+        steps = np.abs(L[k:] - L[:-k])                                       # yan yana iki pencere
+        r1 = 10 * np.log10(np.mean(mm[:(len(mm) // SR) * SR].reshape(-1, SR) ** 2, axis=1) + 1e-14)
+        out.append((ci["id"], float(tc), float(np.max(steps)), float(np.max(np.abs(np.diff(r1)))) if len(r1) > 1 else 0.0))
     return out
 
 
@@ -876,9 +887,9 @@ def write_report(c):
     jr = junction_report(chapters, final)
     for r in jr:
         P(f"       {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}   fark {r['d']:+5.2f} dB")
-    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±8 sn) en büyük ardışık 1 sn RMS adımı:")
-    for (sid, tc, stp) in c["junc_steps"]:
-        P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   maks. adım {stp:5.1f} dB")
+    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
+    for (sid, tc, stp, stp1) in c["junc_steps"]:
+        P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (3 sn) {stp:5.1f} dB   (1 sn adımı {stp1:5.1f} dB)")
     P("")
     P("[4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an vb.)")
     P("   kesit   başlangıç–bitiş (sn)   tür             müzik RMS (ducking sonrası)   SFX RMS   miks−ses RMS (kestirim)   not")
@@ -961,7 +972,8 @@ def write_report(c):
     if jr:
         ck("geçişte 12 sn LUFS sıçraması ≤ 1,5 dB (tüm geçişler)", all(abs(r["d"]) <= 1.5 for r in jr), f"maks {max(abs(r['d']) for r in jr):.2f}")
     if c["junc_steps"]:
-        ck("ham müzik bandında kavşak 1 sn adımı ≤ 4 dB (tüm kesit sınırları)", all(x[2] <= 4.0 for x in c["junc_steps"]), f"maks {max(x[2] for x in c['junc_steps']):.1f}")
+        ck("ham müzik bandında kavşak düzey basamağı (yan yana 3 sn pencere) ≤ 4 dB (tüm kesit sınırları)", all(x[2] <= 4.0 for x in c["junc_steps"]),
+           f"maks {max(x[2] for x in c['junc_steps']):.1f} (1 sn adımı maks {max(x[3] for x in c['junc_steps']):.1f})")
     for (g, m_db, s_db, kind) in gate_rows:
         if g["floor_db"] is None:
             ck(f"sessizlik bölgesi {g['seg']} {g['a']:.1f}–{g['b']:.1f}: müzik ≤ −80 dBFS", m_db <= -80.0, f"{m_db:.1f}")

@@ -1082,6 +1082,7 @@ def _candle_snuff(rng, dur, **kw):
         L = _n(0.004)
         ts = np.arange(L) / SR
         _place(x, np.sin(D.PI2 * c * ts) * np.exp(-ts / 0.0012), float(rng.uniform(0.1, 0.9)), float(rng.uniform(0.05, 0.15)), float(rng.uniform(-0.4, 0.4)))
+    x = np.stack([D.lp(x[:, 0], 7000, 2), D.lp(x[:, 1], 7000, 2)], axis=1)      # yumuşatma: tiz çıtırtı/tıslama 7 kHz üstünde kesik
     return _room(x, 0.1, 0.5)[:n]
 
 

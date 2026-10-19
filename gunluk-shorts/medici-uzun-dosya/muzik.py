@@ -1052,21 +1052,37 @@ def layer_recit(c, cfg):
 
 
 # ═══════════════════════════ kavşak yatakları ═══════════════════════════
+def _span_db(d, a, b):
+    """diag (saniye başına enerji) → [a,b) sn aralığının ortalama gücü (dB); boşsa None."""
+    a, b = max(int(a), 0), int(b)
+    if b <= a:
+        return None
+    e = sum(arr[a:b].sum() for arr in d.values()) / (b - a) / SR
+    return 10 * np.log10(e + 1e-18)
+
+
 def junction_pads(c, level_db=-1.0, start=True, end=True):
     """Cue başında/sonunda (çapraz geçiş bölgesi) kökün açık beşlisinde (kök, beşli, oktav, beşli+8) org + koro yatağı:
-    çapraz geçiş çukuru kapanır; seviye cue gövdesinin ölçülen gücüne (diag) göre ayarlanır."""
+    çapraz geçiş çukuru kapanır. Seviye = cue gövdesinin gücü ile KENARIN YEREL gücünün küçüğü (diag) + level_db:
+    cue sönerek bitiyorsa (düşük yoğunluk) yatak gövde düzeyine zıplayıp kavşakta 8–9 dB'lik basamak yapmaz."""
     d = c.diag
     a, b = int(c.t_open + 2), int(c.t_close - 2)
     if b <= a + 3 or not d:
         return
-    e = sum(arr[a:b].sum() for arr in d.values()) / (b - a) / SR
-    body_db = 10 * np.log10(e + 1e-18)
+    body_db = _span_db(d, a, b)
     root = c.tonic + 12 if c.tonic < 41 else c.tonic
     notes = [root, root + 7, root + 12, root + 19]
     unit_db = 10 * np.log10(len(notes) * 10 ** (REF["organ"] / 10) + 3 * 10 ** (REF["choir"] / 10))
-    gain = 10 ** ((body_db + level_db - unit_db) / 20)
 
-    def place(t0, dur, attack, release):
+    def gain_for(local_db):
+        ref = body_db if local_db is None else min(body_db, local_db)
+        return 10 ** ((ref + level_db - unit_db) / 20)
+
+    # kenarın yerel gücü: açılışta çapraz geçişin hemen ardından 8 sn, kapanışta çapraz geçişten hemen önceki 8 sn
+    loc_start = _span_db(d, c.t_open + 1.0, c.t_open + 9.0)
+    loc_end = _span_db(d, c.t_close - 9.0, c.t_close - 1.0)
+
+    def place(t0, dur, attack, release, gain):
         for k, m in enumerate(notes):
             y = organ_note(_hz(m), dur, 0.7, c.rng, stops=(("flute", 1.0, 1.0), ("principal", 0.30, 1.0), ("flute", 0.25, 2.0)),
                            attack=attack, release=release, trem=False, chiff=0.0)
@@ -1076,10 +1092,10 @@ def junction_pads(c, level_db=-1.0, start=True, end=True):
             c.put("choir", y, t0, gain=gain, pan=[-0.3, 0.3, 0.0][k])
 
     if start:
-        place(0.0, min(c.open_sec + 4.0, c.T), 1.5, 2.5)
+        place(0.0, min(c.open_sec + 4.0, c.T), 1.5, 2.5, gain_for(loc_start))
     if end:
         t0 = c.t_close - 3.0
-        place(t0, c.T - t0, 2.0, 1.0)
+        place(t0, c.T - t0, 2.0, 1.0, gain_for(loc_end))
 
 
 # ═══════════════════════════ özel sahneler: c0 başlık vuruşu ve parça kapanışları ═══════════════════════════
@@ -1339,7 +1355,11 @@ def resolve_spec(spec, seg, sent):
     for gt in sp.get("gates", []) or []:
         a = _sec_of(gt["a"], gt.get("ua"), seg, sent, gt.get("adt", 0.0))
         b = _sec_of(gt["b"], gt.get("ub"), seg, sent, gt.get("bdt", 0.0))
-        gates.append((a, max(b, a + 0.2), float(gt.get("lead", 0.6)), float(gt.get("rel", 3.0)), gt.get("floor_db"), gt.get("note", "")))
+        rel = float(gt.get("rel", 3.0))
+        if gt.get("floor_db") is not None:
+            # 'kısık' kapı (tam sessizlik değil): müzik geri gelirken sıçramasın — açılma hızı en çok ~3,5 dB/sn (en çok 8 sn)
+            rel = max(rel, min(8.0, abs(float(gt["floor_db"])) / 3.5))
+        gates.append((a, max(b, a + 0.2), float(gt.get("lead", 0.6)), rel, gt.get("floor_db"), gt.get("note", "")))
     sp["_gates"] = gates
     return sp
 
@@ -1483,9 +1503,10 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
                     except OSError:
                         pass
                 np.save(j["_fp"], results[j["seg"]["id"]].astype(np.float16))
-    # birleştir
+    # birleştir — 1. aşama: kesit başına düzey (TARGET_RMS_DB + level_db) ve sol/sağ dengesi
     out = np.zeros((N, 2), dtype=np.float32)
     info = dict(cues=[], plan=plan, gates=[], code=code)
+    xs, gains = {}, {}
     for g in plan:
         if g["id"] not in results:
             continue
@@ -1502,7 +1523,17 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
         # sol/sağ güç dengesi (pan dağılımı bir yana kaymasın): L kanalı ±1,5 dB içinde eşitlenir
         pl, pr = np.mean(x[core0:core1:7, 0].astype(np.float64) ** 2), np.mean(x[core0:core1:7, 1].astype(np.float64) ** 2)
         lr = float(np.clip(0.5 * 10 * np.log10((pr + 1e-18) / (pl + 1e-18)), -1.5, 1.5))
-        x = x * np.array([gain * D.db2lin(lr), gain / D.db2lin(lr)], dtype=np.float32)
+        xs[g["id"]] = x * np.array([gain * D.db2lin(lr), gain / D.db2lin(lr)], dtype=np.float32)
+        gains[g["id"]] = gain
+    # 2. aşama: kavşak düzey eşlemesi (kesit sonu ↔ sonraki kesit başı ortanca düzeyleri birbirine yaklaştırılır)
+    jtrim = _junction_trims(plan, xs)
+    for g in plan:
+        if g["id"] not in xs:
+            continue
+        x, gain, spec = xs.pop(g["id"]), gains[g["id"]], g["spec"]
+        th, tt = jtrim.get(g["id"], (0.0, 0.0))
+        if abs(th) > 1e-3 or abs(tt) > 1e-3:
+            x = x * _trim_curve(len(x), g["xin"], g["xout"], th, tt)[:, None]
         env = np.ones(len(x), dtype=np.float32)
         if g["xin"] > 0:
             k = int(g["xin"] * SR)
