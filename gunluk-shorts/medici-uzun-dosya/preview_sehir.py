@@ -45,6 +45,7 @@ SEHIR = [
     ("meydan_pencere", "sehir", dict(scene="meydan", act="pencere"), 12.0, "night", 2, 12.0),
     ("sokak_kapi_gunduz", "sehir", dict(scene="sokak", door="close", door_at=6.0), 10.0, "day", 2, 10.0),
     ("sokak_kapi_gece", "sehir", dict(scene="sokak", door="close", door_at=5.0, tod="night"), 10.0, "night", 2, 10.0),
+    ("sokak_yuruyus", "sehir", dict(scene="sokak"), 12.0, "day", 2, 12.0),
     ("kale_sur", "sehir", dict(scene="kale", act="sur"), 12.0, "day", 3, 12.0),
     ("kale_castel", "sehir", dict(scene="kale", act="castel"), 10.0, "day", 3, 10.0),
     ("kale_passetto", "sehir", dict(scene="kale", act="passetto"), 14.0, "day", 3, 14.0),
@@ -158,17 +159,27 @@ def motion_energy(path):
     return float(d.mean()), int((d < 0.02).sum()), len(d) + 1
 
 
+LAST_BREAKDOWN = {}
+
+
 def measure(name, n=8):
-    """ms/kare (post dâhil): çekimin ortasından n kare (ısınma 1 kare). Dönüş: (duvar ort, duvar maks, ilk kare, CPU ort)."""
+    """ms/kare (post dâhil): çekimin 0,1–0,9 aralığından n+1 kare (ilk kare ısınma sayılır, ortalamaya girmez). Şablon/zaman çizelgesi bir kez kurulur;
+    yalnız kare çizimi + RGB okuma + CM.post ölçülür. Dönüş: (duvar ort, maks, ilk kare, CPU ort, medyan, en az). Paylaşımlı CPU'da ortalama şişer: medyan/en az daha güvenilirdir."""
     ad, kind, params, dur, mode, perde, clip_s = BY_NAME[name]
     ts = [(0.1 + 0.8 * i / n) * dur for i in range(n + 1)]
+    it = frames_iter(kind, params, dur, ts, mode, perde, True)
     tm, cp = [], []
-    for t in ts:
+    global LAST_BREAKDOWN
+    bd = {}
+    for _ in ts:
         t1, c1 = time.perf_counter(), time.process_time()
-        list(frames_iter(kind, params, dur, [t], mode, perde, True))
+        next(it)
         tm.append((time.perf_counter() - t1) * 1000)
         cp.append((time.process_time() - c1) * 1000)
-    return float(np.mean(tm[1:])), float(np.max(tm[1:])), tm[0], float(np.mean(cp[1:]))
+        for k_, v_ in SE.TIMES.items():
+            bd.setdefault(k_, []).append(v_)
+    LAST_BREAKDOWN = {k_: float(np.median(v_[1:])) for k_, v_ in bd.items()}
+    return float(np.mean(tm[1:])), float(np.max(tm[1:])), tm[0], float(np.mean(cp[1:])), float(np.median(tm[1:])), float(np.min(tm[1:]))
 
 
 def bake_times():
@@ -236,8 +247,9 @@ def main():
         return
     if a.ms:
         for n in names:
-            avg, mx, first, cpu = measure(n)
-            print(f"{n:20s} duvar ort {avg:6.1f} ms  maks {mx:6.1f} ms  CPU ort {cpu:6.1f} ms  ilk kare {first:6.0f} ms")
+            avg, mx, first, cpu, med, mn = measure(n)
+            print(f"{n:20s} duvar ort {avg:6.1f} ms  medyan {med:6.1f}  en az {mn:6.1f}  maks {mx:6.1f} ms  CPU ort {cpu:6.1f} ms  ilk kare {first:6.0f} ms")
+            print("    döküm (medyan ms): " + "  ".join(f"{k_}={v_:.0f}" for k_, v_ in sorted(LAST_BREAKDOWN.items(), key=lambda kv: -kv[1]) if v_ >= 2.0))
         return
     jobs = [(n, a.scale, not a.no_sheet, not a.no_clip) for n in names]
     workers = max(1, min(2, a.workers))

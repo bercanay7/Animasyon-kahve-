@@ -16,6 +16,7 @@ import functools
 import math
 import os
 import time
+import zlib
 
 import cv2
 import numpy as np
@@ -32,7 +33,16 @@ from sk import C, H, W, clamp, mix, smooth
 
 HERE = PN.HERE
 CACHE = PN.CACHE
-VER = "s1"                      # kareaş önbelleği sürümü (çizim kodu değişince artır)
+def _src_ver():
+    """Önbellek sürümü = bu dosyanın içerik özeti: çizim kodu değişince eski kareaşlar otomatik geçersiz olur."""
+    try:
+        with open(__file__, "rb") as fh_:
+            return "s" + format(zlib.crc32(fh_.read()) & 0xFFFFFF, "x")
+    except Exception:   # noqa: BLE001
+        return "s1"
+
+
+VER = _src_ver()
 OV = PN.OV
 INK = PN.INK
 LIN = PN.LIN
@@ -77,9 +87,20 @@ class SWorld(PN.World):
         self.layers[name] = L
         return L
 
-    # ana ajanın tembel pişirme/ısıtma çağrısı için
     def default_stations(self):
         return []
+
+    def prepare(self, ctx):
+        ctx.fire_k, ctx.fire_t0, ctx.coal, ctx.items, ctx.win_off, ctx.win_gold_t0 = 0.0, None, 0.0, [], None, None
+
+    def grade(self, ctx):
+        _grade_generic(self, ctx)
+
+    def lights(self, ctx):
+        return []
+
+    def fx(self, ctx):
+        pass
 
 
 # ═════════════════════════════ mimari yardımcılar ═════════════════════════════
@@ -95,11 +116,15 @@ def arch_path(xc, yb, w, h):
     return p
 
 
-def stone_wall(c, x0, y0, x1, y1, col, T, depth=0.0, seed=1, ch=30.0, bw=(64.0, 110.0), rustic=True, joint_a=105):
-    """Taş blok duvar (bugnato/kesme): sıra yüksekliği ch, blok genişliği bw; üstte açık, altta koyu kenar; tek yol ile derz çizgileri."""
+def stone_wall(c, x0, y0, x1, y1, col, T, depth=0.0, seed=1, ch=30.0, bw=(64.0, 110.0), rustic=True, joint_a=105, clip=None):
+    """Taş blok duvar (bugnato/kesme): sıra yüksekliği ch, blok genişliği bw; üstte açık, altta koyu kenar; tek yol ile derz çizgileri.
+    clip=(xa,xb): yalnız bu aralıktaki blokları çiz (rastgele dizi aynı kalır → kareaşlar arası süreklilik; uzun cepheler için)."""
     rs = _RS(seed)
     base = T(col, depth)
-    R(c, x0, y0, x1, y1, base)
+    cx0, cx1 = (x0, x1) if clip is None else (max(x0, clip[0] - 4), min(x1, clip[1] + 4))
+    if cx1 <= cx0:
+        return
+    R(c, cx0, y0, cx1, y1, base)
     n = max(1, int(round((y1 - y0) / ch)))
     chh = (y1 - y0) / n
     jp = skia.Path()
@@ -108,9 +133,9 @@ def stone_wall(c, x0, y0, x1, y1, col, T, depth=0.0, seed=1, ch=30.0, bw=(64.0, 
         x = x0 - rs.uniform(0, bw[1] * 0.9)
         while x < x1:
             w_ = rs.uniform(*bw)
-            xa, xb = max(x, x0), min(x + w_, x1)
-            if xb - xa > 3:
-                k = rs.uniform(-0.075, 0.075)
+            k = rs.uniform(-0.075, 0.075)
+            xa, xb = max(x, cx0), min(x + w_, cx1)
+            if xb - xa > 3 and x + w_ > cx0 and x < cx1:
                 R(c, xa, yy, xb, yy + chh, mix(base, "#FFF4DC" if k > 0 else "#2A1A0C", abs(k)))
                 if rustic:
                     R(c, xa + 1, yy + 1, xb - 1, yy + 1 + min(3.4, chh * 0.12), "#FFFFFF", 44)
@@ -118,8 +143,8 @@ def stone_wall(c, x0, y0, x1, y1, col, T, depth=0.0, seed=1, ch=30.0, bw=(64.0, 
                 jp.moveTo(xb, yy)
                 jp.lineTo(xb, yy + chh)
             x += w_
-        jp.moveTo(x0, yy)
-        jp.lineTo(x1, yy)
+        jp.moveTo(cx0, yy)
+        jp.lineTo(cx1, yy)
     c.drawPath(jp, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#4A3A22", joint_a)))
 
 
@@ -326,7 +351,7 @@ def portal(c, xc, yb, dw, dh, T, depth=0.0, interior="#1A120A"):
 _WOOD = {}
 
 
-def door_heavy(f, x, y, h, open_amount=0.0, w=None, alpha=1.0, glow_k=0.0, seed=1):
+def door_heavy(f, x, y, h, open_amount=0.0, w=None, alpha=1.0, glow_k=0.0, seed=1, swing=0.0):
     """Ağır ahşap kapı (iki kanat, demir kuşak + perçin + halka): x orta, y taban, h yükseklik. open_amount 0 = kapalı, 1 = iki kanat içe sonuna kadar açık
     (kanatlar eşik taşında menteşeli; açık kanat yatayda kısalır, serbest kenar perspektifle küçülür). glow_k: iç mekândan gelen sıcak ışık (0..1)."""
     c = _cv(f)
@@ -384,7 +409,7 @@ def door_heavy(f, x, y, h, open_amount=0.0, w=None, alpha=1.0, glow_k=0.0, seed=
         c.restore()
         INKP(c, path, 1.4, int(190 * alpha))
         # halka (kapalıyken orta çizgiye yakın; açıkken serbest kenarda)
-        rx = fx + sgn * (w * 0.06) * (1 if abs(ct) > 0.2 else 0)
+        rx = fx + sgn * (w * 0.06) * (1 if abs(ct) > 0.2 else 0) + swing * h * 0.02
         ry_ = y - h * 0.40
         rr_ = h * 0.036
         c.drawCircle(rx, ry_, rr_, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(2.0, h * 0.009), Color=C("#B8A27A", int(240 * alpha))))
@@ -699,6 +724,20 @@ def smoke_plume(f, x, y, t, size=120.0, n=9, k=1.0, col="#5A544E", seed=3, rise=
             _blit_dot(c, imw, px, py, r * 0.9, a * 0.55 * wmix)
 
 
+def torch_flame(c, x, y, t, size=36.0, seed=1):
+    """Duvar meşalesi alevi (ucuz: 2 sprite + küçük parıltı + birkaç kıvılcım)."""
+    fr = _flame_frames()
+    fi = int(t * 14.0 + seed * 3) % NFL
+    fl = 0.86 + 0.14 * math.sin(t * 9.0 + seed) + 0.06 * math.sin(t * 23 + seed * 2)
+    glow(c, x, y - size * 0.7, size * 2.3 * fl, "#FFB04A", 0.42)
+    for j, (dx, sc) in enumerate(((0.0, 1.0), (size * 0.12, 0.7))):
+        ww = size * sc * 1.25
+        hh = ww * (FH / FW) * (0.92 + 0.08 * math.sin(t * 8.0 + j + seed)) * fl
+        _DP.setAlphaf(1.0)
+        c.drawImageRect(fr[(fi + j * 5) % NFL], skia.Rect.MakeWH(FW, FH), skia.Rect.MakeXYWH(x + dx - ww / 2, y - hh * 0.985, ww, hh), LIN, _DP)
+    ember_field(c, x, y - size * 0.8, t, n=7, spread=size * 0.35, h=size * 3.2, wind=30.0, k=1.0, seed=seed + 1, size=0.7)
+
+
 def ember_field(f, x, y, t, n=40, spread=140.0, h=520.0, wind=60.0, k=1.0, seed=5, col="#FFB347", size=1.0):
     """Kıvılcım/kor uçuşu: yukarı süzülür, rüzgârla sağa sürüklenir, solar. x,y = çıkış."""
     c = _cv(f)
@@ -755,8 +794,8 @@ def bonfire(f, x, y, size, t, seed=1, k=1.0, glow_a=1.0, tod="night", layout=Non
     fr = _flame_frames()
     lay = layout or FIRE_LAYOUT
     gl = glow_a * (0.30 + 0.70 * k)
-    glow(c, x, y - size * 0.20 * (0.4 + k), size * (0.8 + 1.3 * k), "#FF7A22", 0.22 * gl)
-    glow(c, x, y - size * 0.34 * (0.4 + k), size * (0.5 + 0.7 * k), "#FFB347", 0.32 * gl)
+    glow(c, x, y - size * 0.20 * (0.4 + k), size * (0.60 + 0.80 * k), "#FF7A22", 0.26 * gl)          # (büyük SrcOver parıltılar pahalı: yarıçap kısa tutulur)
+    glow(c, x, y - size * 0.34 * (0.4 + k), size * (0.38 + 0.50 * k), "#FFB347", 0.36 * gl)
     top = y
     pd = _DP
     items = []
@@ -782,6 +821,24 @@ def bonfire(f, x, y, size, t, seed=1, k=1.0, glow_a=1.0, tod="night", layout=Non
         smoke_plume(f, x, top + size * 0.15, t, size=size * 0.36, n=int(5 + 7 * k), k=k, col={"day": "#6A645C", "dusk": "#4E4650", "night": "#2A2E40"}.get(tod, "#4E4650"),
                     seed=seed + 9, rise=size * 2.0, wind=30 + 34 * k, a0=0.46, warm="#D8743A")
     return top
+
+
+_WASH = {}
+
+
+def wash(c, y0, h, stops, pos, alpha=1.0):
+    """Bant boyunca dikey degrade örtü (bir kez pişirilir; alfa ayarlanabilir). stops=[(renk, alfa)]."""
+    key = (int(y0), int(h), tuple(stops), tuple(pos))
+    img = _WASH.get(key)
+    if img is None:
+        fr = sk.Frame(W, int(h))
+        fr.clear(skia.ColorTRANSPARENT)
+        sh = skia.GradientShader.MakeLinear([(0, 0), (0, h)], [C(c_, a_) for c_, a_ in stops], list(pos))
+        fr.c.drawRect(skia.Rect.MakeLTRB(0, 0, W, h), skia.Paint(Shader=sh))
+        img = _WASH[key] = fr.surf.makeImageSnapshot()
+    p = skia.Paint()
+    p.setAlphaf(clamp(alpha))
+    c.drawImage(img, 0, y0, skia.SamplingOptions(), p)
 
 
 # ═════════════════════════════ ışık havuzu (alacakaranlık/gece: kaynağa göre karartma + sıcak ton) ═════════════════════════════
@@ -1051,14 +1108,71 @@ def draw_actor(ctx, a, ground=YG):
     cf = a.get("cf")
     if isinstance(cf, str):
         cf = dark_cf(cf)
+    alpha_g = a.get("alpha", 1.0)
+    gt = a.get("gate")
+    if gt:                                                          # geçide (androne) girer: derinleşir (küçülür, yukarı kayar) ve kararıp kaybolur
+        u = clamp((x - (gt[0] - gt[1] / 2 + 60)) / (gt[1] * 0.80))
+        if u > 0:
+            h = h * (1.0 - 0.30 * u)
+            y = y - 22 * u
+            alpha_g = alpha_g * (1.0 - clamp((u - 0.45) / 0.55))
+            if alpha_g <= 0.02:
+                return
     act = a.get("action", "walk" if sp > 1 else "idle")
     fl = a.get("flag")
+    stil = a.get("stil") or {}
     if act in ("walk", "idle"):
-        FA.walker(f, a.get("kind", "halk"), x, y, h, t, speed=sp if act == "walk" else 0.0, dir=d, phase=a.get("phase", 0.0), seed=a.get("seed", 0), alpha=a.get("alpha", 1.0), cf=cf, prop=a.get("prop"), flag=fl)
+        FA.walker(f, a.get("kind", "halk"), x, y, h, t, speed=sp if act == "walk" else 0.0, dir=d, phase=a.get("phase", 0.0), seed=a.get("seed", 0), alpha=alpha_g, cf=cf, prop=a.get("prop"), flag=fl, **stil)
     else:
         kw = {k: v for k, v in a.items() if k in ("t0", "dur", "depth", "target", "rise_at", "energy", "amount", "hop", "mode", "period", "high")}
         kw.pop("t0", None)
-        FA.actor(f, a.get("kind", "halk"), x, y, h, tt, action=act, dir=d, seed=a.get("seed", 0), phase=a.get("phase", 0.0), alpha=a.get("alpha", 1.0), cf=cf, prop=a.get("prop"), **kw)
+        FA.actor(f, a.get("kind", "halk"), x, y, h, tt, action=act, dir=d, seed=a.get("seed", 0), phase=a.get("phase", 0.0), alpha=alpha_g, cf=cf, prop=a.get("prop"), **stil, **kw)
+
+
+def silhouettize(img, col="#14101A", detail=0.30):
+    """Sprite'ı tek renkli siluete çevir (alfa korunur; `detail`: parlaklığa bağlı çok hafif iç doku → kıvrım/kenar ipucu). FA'nın baş/ayakkabı sprite'ları cf'yi
+    yok saydığı için renk filtresi yerine piksel düzeyinde yapılır (bir kez, pişirmede)."""
+    arr = img.toarray(colorType=skia.ColorType.kRGBA_8888_ColorType, alphaType=skia.AlphaType.kUnpremul_AlphaType).astype(np.float32)
+    base = np.array(sk.rgb(col), np.float32)
+    lum = arr[..., :3].mean(axis=2, keepdims=True) / 255.0
+    arr[..., :3] = np.clip(base[None, None, :] + (lum - 0.35) * 70.0 * detail, 0, 255)
+    return sk.np_to_image(np.ascontiguousarray(arr.astype(np.uint8)))
+
+
+_SIL = {}
+
+
+def sil_sprite(kind, seed, h, pose="stand", col="#14101A"):
+    """Önceden pişirilmiş siluet figür (renk filtresi bir kez uygulanır; kare başına tek blit). Dönüş: (img, ox, oy, ölçek) — ayak (ox,oy)."""
+    key = (kind, seed, int(h), pose, col)
+    r = _SIL.get(key)
+    if r is None:
+        k = 1.3
+        hh = h * k
+        fr = sk.Frame(int(hh * 0.95) + 20, int(hh * 1.25) + 20)
+        fr.clear(skia.ColorTRANSPARENT)
+        ox, oy = fr.w / 2.0, fr.h - 10.0
+        old_hint = FA.SCALE_HINT
+        FA.set_scale_hint(1.0)
+        if pose == "cheer":
+            FA.actor(fr, kind, ox, oy, hh, 0.9, action="cheer", dir=1, seed=seed, phase=0.3, amount=1.0, hop=0.0)
+        else:
+            FA.walker(fr, kind, ox, oy, hh, 0.0, speed=0.0, dir=1, seed=seed)
+        FA.set_scale_hint(old_hint)
+        r = _SIL[key] = (silhouettize(fr.surf.makeImageSnapshot(), col), ox, oy, 1.0 / k)
+    return r
+
+
+def draw_sil(c, kind, seed, x, y, h, face, t, phase=0.0, pose="stand", col="#14101A", sway=1.0):
+    """Siluet figürü çiz: ayak çevresinde hafif sallanma + nefes (cheer pozunda zıplama)."""
+    img, ox, oy, s = sil_sprite(kind, seed, h, pose, col)
+    c.save()
+    hop = abs(math.sin(t * 3.2 + phase * 6.28)) * h * 0.04 if pose == "cheer" else 0.0
+    c.translate(x, y - hop)
+    c.rotate(math.sin(t * 0.7 + phase * 6.28) * 1.1 * sway)
+    c.scale(face * s, s * (1.0 + 0.012 * math.sin(t * 1.6 + phase * 3.0)))
+    c.drawImage(img, -ox, -oy, LIN)
+    c.restore()
 
 
 RING_ROWS = ((YG - 62, 126), (YG - 38, 139), (YG - 14, 152), (YG + 10, 166), (YG + 34, 182), (YG + 58, 198))
@@ -1196,13 +1310,13 @@ class Meydan(SWorld):
         self.win_order = list(_RS(9).permutation(len(self.G_PV["wins"])))
 
     # ── kamera yolları (act'e göre) ──
-    def default_cams(self, act=None):
+    def default_cams(self, act=None, p=None):
         if act == "ates":                                    # yığının etrafında yarım daire (paralaks) → yığın merkezinde SABİT (sonraki odun çekimi aynı noktadan başlar)
             return [(0.0, (PILE_X - 560, 30, 1.0)), (0.80, (PILE_X - 40, 30, 1.13)), (1.0, (PILE_X, 30, 1.15))]
         if act == "odun":
             return [(0.0, (PILE_X, 30, 1.15)), (1.0, (PILE_X + 20, 30, 1.19))]
         if act == "palle":
-            return [(0.0, (2350, 40, 1.0)), (0.50, (1950, 30, 1.0)), (0.78, (950, 110, 1.12)), (1.0, (430, 110, 1.55))]
+            return [(0.0, (2200, 40, 1.0)), (0.42, (1800, 36, 1.0)), (0.72, (1150, 96, 1.14)), (1.0, (640, 104, 1.40))]
         if act == "pencere":                                 # ağır pull: cepheye yakın → geri
             return [(0.0, (PV_X0 + PV_W * 0.55, 150, 1.34)), (1.0, (PV_X0 + PV_W * 0.52, 80, 1.0))]
         return [(0.0, (1400, 0, 1.0)), (1.0, (2600, 0, 1.0))]
@@ -1462,7 +1576,7 @@ class Meydan(SWorld):
         xa, xb = ctx.xa, ctx.xb
         kf = ctx.fire_k
         ck = 0.35 + 0.65 * kf
-        cf = lit_cf(ctx.tod)
+        cf = None
         thr = YG + 12
         figs = [(m["y"], 0, m) for m in self.ring if m["y"] > thr] + [(q[0], 1, q) for q in getattr(ctx, "_car_front", [])]
         figs.sort(key=lambda q: q[0])
@@ -1508,83 +1622,86 @@ class Meydan(SWorld):
     def _act_odun(self, ctx, back=True):
         f, c, t = ctx.f, ctx.c, ctx.t
         xa, xb = ctx.xa, ctx.xb
-        dk = dark_cf("#16121A")
+        ck = ctx.coal
         if back:
-            # uzak siluet kalabalık (halka; yüz/ayrıntı yok)
-            for m in self.ring:
-                if m["row"] == 2:
+            for m in self.ring:                                                  # uzak siluet kalabalık (yüz/ayrıntı yok): sallanır, bir kısmı kolunu kaldırır
+                if m["row"] >= 4 or m["x"] < xa - 200 or m["x"] > xb + 200:
                     continue
-                if m["x"] < xa - 200 or m["x"] > xb + 200:
-                    continue
-                FA.walker(f, m["kind"], m["x"], m["y"], m["h"], t, speed=0.0, dir=m["face"], phase=m["phase"], seed=m["seed"], cf=dk)
+                pose = "cheer" if (m["act"] == "cheer" and math.sin(t * 0.8 + m["phase"] * 6.28) > 0.55) else "stand"
+                draw_sil(c, m["kind"], m["seed"], m["x"], m["y"], m["h"], m["face"], t, m["phase"], pose)
             img, ox, oy, slots = self.pile_odun
             c.drawImage(img, PILE_X - ox, PILE_Y - oy, LIN)
             gallows_silhouette(c, PILE_X + 6, PILE_Y - 120, 430, "#0F0D0C", 252)
         else:
             for m in self.ring:
-                if m["row"] != 2:
+                if m["row"] < 4 or m["x"] < xa - 200 or m["x"] > xb + 200:
                     continue
-                if m["x"] < xa - 200 or m["x"] > xb + 200:
-                    continue
-                FA.walker(f, m["kind"], m["x"], m["y"], m["h"], t, speed=0.0, dir=m["face"], phase=m["phase"], seed=m["seed"], cf=dk)
+                draw_sil(c, m["kind"], m["seed"], m["x"], m["y"], m["h"], m["face"], t, m["phase"], "stand")
 
     # ── act: palle ──
     def _act_palle(self, ctx):
         f, c, t = ctx.f, ctx.c, ctx.t
         xa, xb = ctx.xa, ctx.xb
-        T0 = ctx.p.get("t_meet", None)
-        dur = max(ctx.cx.dur, 1e-3)
         # Medici kalkanı (yalnız bu act'te)
         medici_shield(c, MED_X0 + MED_W * 0.30, YG - 0.52 * MED_H, MED_H * 0.12, self.T)
-        # Medici kalabalığı: Medici palazzosunun kapısından çıkıp SAĞA kabarır, sonra coşar
+        # Medici kalabalığı: soldan SAĞA kabarır (yürüyüş → durma → coşku); sancaktarlar "PALLE" sancaklarını taşır
         for m in self._palle_crowd:
             tt = t - m["d"]
+            if tt < 0:
+                continue
+            dist = m["x1"] - m["x0"]
             u = clamp(tt / m["T"])
-            x = m["x0"] + (m["x1"] - m["x0"]) * ease_out(u)
-            v = (m["x1"] - m["x0"]) * (3 * (1 - u) ** 2) / m["T"] if 0 < u < 1 else 0.0
-            if tt < 0 or x < xa - 200 or x > xb + 200:
+            x = m["x0"] + dist * u * u * (3 - 2 * u)
+            v = dist / m["T"] * 6 * u * (1 - u) if 0 < u < 1 else 0.0
+            if x < xa - 200 or x > xb + 200:
                 continue
             fl = ("medici", 0.62, 0.44, "#E0B84E", "#B33620") if m["flag"] else None
-            if v > 18:
+            if v > 14:
                 FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=v, dir=1, phase=m["phase"], seed=m["seed"], prop=("pole" if m["flag"] else None), flag=fl)
             elif m["flag"]:
                 FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=1, phase=m["phase"], seed=m["seed"], prop="pole", flag=fl)
             else:
-                amt = clamp((tt - m["T"]) / 1.2) * m["amt"]
+                amt = clamp((tt - m["T"]) / 0.9) * m["amt"]
                 if amt > 0.05:
                     FA.actor(f, m["kind"], x, m["y"], m["h"], t, action="cheer", dir=1, seed=m["seed"], phase=m["phase"], amount=amt, hop=m["hop"])
                 else:
                     FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=1, phase=m["phase"], seed=m["seed"])
-        # atlılar: sağdan sola gelir, yavaşlayıp DURUR (şiddet yok)
+        # atlılar: sağdan sola dörtnaldan tırısa, yürüyüşe yavaşlar ve DURUR (şiddet yok); toz izi
         for r_ in self._palle_riders:
             tt = t - r_["d"]
             if tt < -0.2:
                 continue
             u = clamp(tt / r_["T"])
-            x = r_["x0"] + (r_["x1"] - r_["x0"]) * ease_out(u)
-            v = abs(r_["x1"] - r_["x0"]) * 3 * (1 - u) ** 2 / r_["T"] if u < 1 else 0.0
+            dist = r_["x1"] - r_["x0"]
+            x = r_["x0"] + dist * (1 - (1 - u) ** 2)
+            v = abs(dist) * 2 * (1 - u) / r_["T"] if u < 1 else 0.0
             if x < xa - 320 or x > xb + 320:
                 continue
-            g_ = "trot" if v > 130 else "walk"
+            g_ = "gallop" if v > 300 else ("trot" if v > 120 else "walk")
             FA.rider(f, x, r_["y"], r_["h"], t, speed=v, gait=g_, dir=-1, seed=r_["seed"], phase=r_["phase"])
-            if v > 60:
-                for k in range(4):
-                    ph = (t * 1.4 + k / 4.0) % 1.0
-                    FA._puff(c, x + 130 + ph * 80, r_["y"] - 6 - ph * 30, 14 + 22 * ph, 0.30 * (1 - ph), "#CDB98E")
+            if v > 50:
+                for k in range(5):
+                    ph = (t * 1.3 + k / 5.0 + r_["phase"]) % 1.0
+                    _blit_dot(c, _soft_dot("#CDB98E", 40, 1.2), x + 120 + ph * (60 + 0.25 * v), r_["y"] - 8 - ph * 36, 14 + 26 * ph, 0.34 * (1 - ph) * min(1.0, v / 200))
 
     def _prepare_palle(self, cx):
         dur = max(cx.dur, 1e-3)
         rs = _RS(14)
         self._palle_crowd = []
-        n = 22
-        for i in range(n):
-            x1 = rs.uniform(1550, 2480)
-            self._palle_crowd.append(dict(x0=MED_X0 + MED_W * 0.14 + rs.uniform(-60, 80), x1=x1, y=YG + rs.uniform(-12, 36), h=rs.uniform(158, 192), kind=["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk"][rs.randint(8)],
-                                          seed=int(rs.randint(0, 40)), phase=rs.rand(), d=0.15 * dur * rs.rand() + 0.04 * dur * (i % 6), T=rs.uniform(0.34, 0.50) * dur, flag=(i % 4 == 1), amt=rs.uniform(0.6, 1.0), hop=rs.uniform(0.2, 0.7)))
+        kinds = ["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk"]
+        for i in range(24):
+            x1 = rs.uniform(700, 1350) if rs.rand() < 0.62 else rs.uniform(1350, 1750)
+            x0 = rs.uniform(-300, 380)
+            if x0 >= x1 - 120:
+                x0 = x1 - rs.uniform(250, 700)
+            self._palle_crowd.append(dict(x0=x0, x1=x1, y=YG + rs.uniform(-18, 40), h=rs.uniform(156, 192), kind=kinds[rs.randint(8)], seed=int(rs.randint(0, 40)), phase=rs.rand(),
+                                          d=0.05 * dur * rs.rand() + 0.012 * dur * (i % 8), T=0.0, flag=(i % 4 == 1), amt=rs.uniform(0.6, 1.0), hop=rs.uniform(0.2, 0.7)))
+        for m in self._palle_crowd:
+            m["T"] = (m["x1"] - m["x0"]) / rs.uniform(112, 150)
         self._palle_crowd.sort(key=lambda m: m["y"])
         self._palle_riders = []
-        for i in range(6):
-            self._palle_riders.append(dict(x0=3900 + 170 * i, x1=2760 + 150 * i + rs.uniform(-40, 40), y=YG + 18 + (i % 3) * 14, h=262 + (i % 2) * 8, seed=3 + i, phase=rs.rand(), d=0.03 * dur * i, T=0.42 * dur))
+        for i in range(5):
+            self._palle_riders.append(dict(x0=3950 + 190 * i, x1=2200 + 150 * i + rs.uniform(-40, 40), y=YG + 18 + (i % 3) * 14, h=262 + (i % 2) * 8, seed=3 + i, phase=rs.rand(), d=0.012 * dur * i, T=0.46 * dur))
         self._palle_riders.sort(key=lambda r: r["y"])
 
     # ── fx: grade sonrası (ateş, parıltı, yanan pencereler) ──
@@ -1621,9 +1738,7 @@ class Meydan(SWorld):
             # meşaleler
             for tx in (self.G_PV["door"][0] - 120, self.G_PV["door"][0] + 120, PV_X0 + PV_W * 0.62, PV_X0 + PV_W * 0.86):
                 if xa - 60 < tx < xb + 60:
-                    fi = 0.86 + 0.14 * math.sin(t * 9.0 + tx * 0.01) + 0.06 * math.sin(t * 23 + tx)
-                    glow(c, tx - 7, YG - 192, 74 * fi, "#FFB04A", 0.40)
-                    bonfire(c, tx - 7, YG - 176, 34, t, seed=int(tx) % 50, k=0.55, glow_a=0.2, tod=ctx.tod)
+                    torch_flame(c, tx - 7, YG - 176, t, seed=int(tx) % 50)
         if act == "palle":
             self._palle_fx(ctx)
         if act == "pencere":
@@ -1660,8 +1775,9 @@ class Meydan(SWorld):
         wins.sort(key=lambda w: abs(w[0] - 470))
         w0 = wins[0]
         flick = 0.92 + 0.08 * math.sin(t * 6.1) + 0.04 * math.sin(t * 17.0)
+        glow(c, w0[0], w0[1] - w0[3] * 0.5, w0[3] * 3.2, "#FFB020", 0.40 * a * flick)
         lit_bifora(c, w0[:4], a * flick, col="#FFC23D", core="#FFE79A")
-        glow(c, w0[0], w0[1] - w0[3] * 0.5, w0[3] * 2.4, "#FFC23D", 0.34 * a * flick)
+        glow(c, w0[0], w0[1] - w0[3] * 0.5, w0[3] * 1.3, "#FFE08A", 0.45 * a * flick)
         for w_ in wins[1:3]:
             lit_bifora(c, w_[:4], a * 0.35 * flick, col="#E8A83A")
 
@@ -1744,44 +1860,1495 @@ def _grade_generic(world, ctx):
     """Alacakaranlık/gece derecelendirmesi (ekran uzayı; bant içine): ışık kaynağı varsa ışık havuzu, yoksa düz örtü. day → CM.finish günışığı yapar."""
     f, c = ctx.f, ctx.c
     tod = ctx.tod
-    if tod == "day":
-        return
     by0, bh = ctx.band
     rect = (0, by0, W, by0 + bh)
     p = ctx.p
     act = p.get("act")
+    if act == "palle":                                                           # gün → sıcak akşam rengi (yalnız görsel dil): pencere ışığı öne çıkar
+        dur = max(ctx.cx.dur, 1e-3)
+        nk = ease_io((ctx.t / dur - 0.38) / 0.5)
+        if nk > 0.01:
+            wash(c, by0, bh, [("#6A3E78", 120), ("#E8803A", 70), ("#E8803A", 130)], [0.0, 0.55, 1.0], 0.95 * nk)
+    if tod == "day":
+        return
     dusk = (tod == "dusk")
     hue = (78, 46, 96) if dusk else (8, 12, 44)
     gain = 0.50 if dusk else 0.88
     if act == "pencere":                                                      # alacakaranlık → gece
         dur = max(ctx.cx.dur, 1e-3)
         nk = ease_io(ctx.t / dur)
-        PN.tint_overlay(c, by0, bh, [("#5A3E78", 70), ("#E8905A", 26), ("#E8905A", 40)], [0.0, 0.55, 1.0])
-        R(c, 0, by0, W, by0 + bh, "#0A1034", int(140 * nk))
+        wash(c, by0, bh, [("#5A3E78", 70), ("#E8905A", 26), ("#E8905A", 40)], [0.0, 0.55, 1.0], 1.0 - 0.6 * nk)
+        R(c, 0, by0, W, by0 + bh, "#0A1034", int(150 * nk))
         return
     L = world.lights(ctx) if hasattr(world, "lights") else []
     if L:
         wx, wy, r, kk = L[0]
         sx, sy = ctx.to_screen(1.0, wx, wy)
         R_ = r * ctx.z
-        light_pool(f, sx, sy, R_, gain=gain, hue=hue, warm_a=0.0, edge=0.94 if not dusk else 0.80, rect=rect)
-        glow(c, sx, sy, R_ * 1.1, "#FF8A2A", 0.16 * kk)
+        light_pool(f, sx, sy, R_, gain=gain, hue=hue, warm_a=round(0.20 * clamp(kk) / 0.04) * 0.04, edge=0.94 if not dusk else 0.80, rect=rect)
     else:
         if dusk:
-            PN.tint_overlay(c, by0, bh, [("#5A3E78", 78), ("#E8905A", 28), ("#E8905A", 46)], [0.0, 0.55, 1.0])
+            wash(c, by0, bh, [("#5A3E78", 78), ("#E8905A", 28), ("#E8905A", 46)], [0.0, 0.55, 1.0])
         else:
             R(c, 0, by0, W, by0 + bh, "#0A1034", 150)
             light_pool(f, W / 2, by0 + bh * 0.5, 1100, gain=0.5, hue=hue, warm_a=0.04, edge=0.55, rect=rect)
 
 
+# ═════════════════════════════ SOKAK (dar sokak + palazzo cephesi + ağır kapı) ═════════════════════════════
+DOOR_X = 3600
+ARCH_X = 1850
+DOOR_W, DOOR_H = 270, 372
+FAC_H = 556                     # cephe yüksekliği (zemin → saçak)
+
+_WALKSIL = {}
+
+
+def walk_sil_set(kind, seed, h=300, col="#120F14", n=12):
+    """Siluet yürüme döngüsü (n kare, önceden pişirilmiş): [(img…), ox, oy, f_cyc (döngü/sn), v_px (pişirme zemin hızı)]. Kare başına tek blit."""
+    key = (kind, seed, h, col, n)
+    r = _WALKSIL.get(key)
+    if r is None:
+        old = FA.SCALE_HINT
+        FA.set_scale_hint(1.0)
+        kit, bh = FA.kit_for(kind, seed, h)
+        s_ = h / bh
+        hb = kit.B["hb"]
+        v_px = 0.80 * h
+        vh = (v_px / s_) / hb
+        s_len = hb * clamp(0.43 * (max(vh, 1e-3) / 0.8) ** 0.4 * kit.d.get("stride", 1.0), 0.09, 0.52)
+        f_cyc = ((v_px / s_) / s_len) / 2.0
+        frames = []
+        ox = oy = 0.0
+        for k in range(n):
+            fr = sk.Frame(int(h * 1.0) + 40, int(h * 1.2) + 20)
+            fr.clear(skia.ColorTRANSPARENT)
+            ox, oy = fr.w / 2.0, fr.h - 10.0
+            FA.walker(fr, kind, ox, oy, h, k / (n * f_cyc), speed=v_px, dir=1, seed=seed)
+            frames.append(silhouettize(fr.surf.makeImageSnapshot(), col))
+        FA.set_scale_hint(old)
+        r = _WALKSIL[key] = (frames, ox, oy, f_cyc, v_px)
+    return r
+
+
+def draw_walk_sil(c, st, x, y, scale, face, t, v_ground, phase=0.0):
+    """Siluet yürüyüşü: oynatma hızı zemin hızına oranlanır (paralaks silüetlerinde ayak kayması gözetilmez)."""
+    frames, ox, oy, f_cyc, v_px = st
+    rate = abs(v_ground) / v_px
+    n = len(frames)
+    idx = int(((t * f_cyc * rate + phase) % 1.0) * n) % n
+    c.save()
+    c.translate(x, y)
+    c.scale(face * scale, scale)
+    c.drawImage(frames[idx], -ox, -oy, LIN)
+    c.restore()
+
+
+def tunnel_arch(c, xc, yb, w, h, T, depth=0.0, warm=0.0):
+    """Androne (geçit): taş çerçeveli kemer + içte küçülen iç içe tonozlar; uçta ışık (gün ışığı/lamba). warm: uç ışığın sıcaklığı."""
+    portal(c, xc, yb, w, h, T, depth, interior="#120C07")
+    for i in range(1, 7):
+        sc = 1.0 - i * 0.135
+        col = mix("#1A120A", "#6A4A2A" if warm < 0.5 else "#B8803A", (i / 7.0) ** 2)
+        c.drawPath(arch_path(xc, yb - 4 * i, w * sc, h * sc - 6 * i), _pt(col, 235))
+    c.drawPath(arch_path(xc, yb - 26, w * 0.16, h * 0.36), _pt("#F4E2B0" if warm < 0.5 else "#FFD27A", 245))
+    for k in range(5):                                                        # zemin perspektif çizgileri
+        yy = yb - 3 - k * 3
+        c.drawLine(xc - w * 0.5 * (1 - k * 0.17), yy, xc + w * 0.5 * (1 - k * 0.17), yy, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#000000", 70)))
+
+
+def window_grille(c, xc, yb, w, h, T, depth=0.0):
+    """Zemin kat pencere: taş söveli, demir parmaklıklı (yatay-dikey kafes) küçük pencere + konsol."""
+    R(c, xc - w * 0.62, yb - h - 8, xc + w * 0.62, yb + 6, T("#D2C096", depth))
+    INKR(c, xc - w * 0.62, yb - h - 8, xc + w * 0.62, yb + 6, 1.2, 160)
+    R(c, xc - w / 2, yb - h, xc + w / 2, yb, T("#1E140C", 0.2))
+    for k in range(1, 5):
+        c.drawLine(xc - w / 2 + k * w / 5, yb - h, xc - w / 2 + k * w / 5, yb, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C("#6A6258", 235)))
+    for k in range(1, 4):
+        c.drawLine(xc - w / 2, yb - k * h / 4, xc + w / 2, yb - k * h / 4, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.8, Color=C("#6A6258", 225)))
+    R(c, xc - w * 0.7, yb + 2, xc + w * 0.7, yb + 10, T("#BDAB82", depth))
+
+
+def street_windows(xa, xb, y, h, door_x=DOOR_X, arch_x=ARCH_X):
+    """Sokak cephesi pencere geometrisi (çizimsiz): [(tür 'grille'|'bifora'|'arch', xc, yb, w, h, kat)]; [xa,xb] aralığı."""
+    out = []
+    i0 = max(0, int((xa - 260) // 215) - 1)
+    for i in range(i0, int((xb - 260) // 215) + 2):
+        xc = 260 + i * 215
+        if xc < xa - 60 or xc > xb + 60:
+            continue
+        near_door = abs(xc - door_x) < 330
+        near_arch = abs(xc - arch_x) < 440
+        if not near_door and not near_arch:
+            out.append(("grille", xc, y - 0.13 * h, 78, 96, 0))
+        if not near_arch and not (near_door and abs(xc - door_x) < 120):
+            out.append(("bifora", xc, y - 0.405 * h, 84, 150, 1))
+        if not (near_door and abs(xc - door_x) < 120):
+            out.append(("arch", xc, y - 0.77 * h, 62, 112, 2))
+    return out
+
+
+def street_facade(c, xa, xb, X0, X1, y, h, T, seed=5, door_x=DOOR_X, arch_x=ARCH_X):
+    """Uzun sokak cephesi (X0..X1; yalnız [xa,xb] aralığı çizilir): bugnato zemin → ince bugnato → sıva üst kat, taş bank, pencere sıraları, saçak + çatı + bacalar.
+    Dönüş: pencere kutuları [(xc,yb,w,h,kat)]."""
+    wins = []
+    cl = (xa, xb)
+    stone_wall(c, X0, y - 0.31 * h, X1, y, "#C2AC82", T, 0.0, seed, ch=h * 0.062, bw=(86, 150), rustic=True, clip=cl)
+    stone_wall(c, X0, y - 0.64 * h, X1, y - 0.31 * h, "#CDB98E", T, 0.0, seed + 1, ch=h * 0.048, bw=(70, 120), rustic=True, joint_a=84, clip=cl)
+    cx0, cx1 = max(X0, xa - 4), min(X1, xb + 4)
+    R(c, cx0, y - h, cx1, y - 0.64 * h, T("#E0CFA6", 0.0))
+    # üst kat sıva: ince derz izleri + leke
+    rs = _RS(seed + 9)
+    for i in range(int((cx1 - cx0) / 90)):
+        px = rs.uniform(cx0, cx1)
+        py = rs.uniform(y - h + 20, y - 0.66 * h)
+        OVAL(c, px, py, rs.uniform(20, 70), rs.uniform(6, 22), "#B8A47A", 26)
+    for fy in (y - 0.31 * h, y - 0.64 * h):
+        R(c, cx0, fy - 5, cx1, fy + 4, T("#D8C79E", 0.0))
+        c.drawLine(cx0, fy + 4, cx1, fy + 4, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 150)))
+    # taş bank (panchina)
+    R(c, cx0, y - 54, cx1, y, T("#B9A57C", 0.0))
+    R(c, cx0, y - 62, cx1, y - 52, T("#D9C9A0", 0.0))
+    c.drawLine(cx0, y - 62, cx1, y - 62, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 160)))
+    c.drawLine(cx0, y - 52, cx1, y - 52, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C(INK, 120)))
+    gx = int(cx0 // 150) * 150
+    pj = skia.Path()
+    while gx < cx1:
+        pj.moveTo(gx, y - 52)
+        pj.lineTo(gx, y)
+        gx += 150
+    c.drawPath(pj, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#4A3A22", 90)))
+    # pencereler (küresel ızgara)
+    for (kind, xc, yb, ww, wh, kat) in street_windows(max(X0, xa - 300), min(X1, xb + 300), y, h, door_x, arch_x):
+        if xc < cx0 - 60 or xc > cx1 + 60:
+            continue
+        if kind == "grille":
+            window_grille(c, xc, yb, ww, wh, T)
+        elif kind == "bifora":
+            bifora(c, xc, yb, ww, wh, T)
+            wins.append((xc, yb, ww, wh, kat))
+        else:
+            wp = arch_path(xc, yb, ww, wh)
+            c.drawPath(wp, _pt(T("#241810", 0.2)))
+            INKP(c, wp, 1.1, 160)
+            R(c, xc - 40, yb - 2, xc + 40, yb + 4, T("#CDBB92", 0.0))
+            R(c, xc - 31, yb - 56, xc, yb, T("#5A7650", 0.0), 235)                  # yarı açık kepenk
+            wins.append((xc, yb, ww, wh, kat))
+    # kapı üstü balkon penceresi + stemma
+    if cx0 - 200 < door_x < cx1 + 200:
+        bifora(c, door_x, y - 0.56 * h, 120, 190, T)
+        R(c, door_x - 96, y - 0.56 * h + 4, door_x + 96, y - 0.56 * h + 20, T("#C6B488", 0.0))
+        INKR(c, door_x - 96, y - 0.56 * h + 4, door_x + 96, y - 0.56 * h + 20, 1.2, 160)
+        for k in range(7):
+            R(c, door_x - 90 + k * 30, y - 0.56 * h + 20, door_x - 78 + k * 30, y - 0.56 * h + 34, T("#B4A07A", 0.0))
+        sx_, sy_ = door_x, y - DOOR_H - 96
+        sp = skia.Path()
+        sp.moveTo(sx_ - 36, sy_ - 34)
+        sp.lineTo(sx_ + 36, sy_ - 34)
+        sp.lineTo(sx_ + 36, sy_ + 10)
+        sp.cubicTo(sx_ + 36, sy_ + 40, sx_ + 12, sy_ + 54, sx_, sy_ + 64)
+        sp.cubicTo(sx_ - 12, sy_ + 54, sx_ - 36, sy_ + 40, sx_ - 36, sy_ + 10)
+        sp.close()
+        c.drawPath(sp, _pt(T("#D6C8A0", 0.0)))
+        INKP(c, sp, 1.6, 190)
+        c.drawLine(sx_ - 36, sy_ - 6, sx_ + 36, sy_ - 6, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=9, Color=C("#9C8A64", 200)))
+    # saçak + çatı
+    R(c, cx0, y - h - 22, cx1, y - h, T("#CDBB92", 0.0))
+    nb = int((cx1 - cx0) / 36) + 2
+    bx0 = int(cx0 // 36) * 36
+    for i in range(nb):
+        bx = bx0 + i * 36
+        c.drawPath(sk.poly_path([(bx, y - h), (bx + 24, y - h), (bx + 12, y - h + 20)]), _pt(T("#9C8A64", 0.0)))
+    c.drawLine(cx0, y - h - 22, cx1, y - h - 22, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 165)))
+    R(c, cx0, y - h - 62, cx1, y - h - 22, T("#B4552E", 0.0))
+    for k in range(1, 5):
+        c.drawLine(cx0, y - h - 22 - k * 8, cx1, y - h - 22 - k * 8, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#5A2412", 90)))
+    tj = skia.Path()
+    gx = int(cx0 // 22) * 22
+    while gx < cx1:
+        tj.moveTo(gx, y - h - 62)
+        tj.lineTo(gx, y - h - 22)
+        gx += 22
+    c.drawPath(tj, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#5A2412", 55)))
+    c.drawLine(cx0, y - h - 62, cx1, y - h - 62, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C(INK, 150)))
+    for bxc in (620, 1480, 2250, 3380, 4040, 5250, 6000):                      # bacalar
+        if cx0 - 60 < bxc < cx1 + 60:
+            R(c, bxc, y - h - 130, bxc + 36, y - h - 62, T("#A8684A", 0.0))
+            R(c, bxc - 5, y - h - 140, bxc + 41, y - h - 128, T("#8A5236", 0.0))
+            INKR(c, bxc, y - h - 130, bxc + 36, y - h - 62, 1.1, 150)
+    return wins
+
+
+class Sokak(SWorld):
+    name = "sehir_sokak"
+    PW = 6400
+    _draw_sky = PN.Florence._draw_sky
+    _draw_hills = PN.Florence._draw_hills
+    dyn_sky = PN.Florence.dyn_sky
+    _draw_city = Meydan._draw_city
+
+    def build(self):
+        PW = self.PW
+        cam_span = PW - W
+
+        def Lw(f):
+            return int(W + cam_span * f + 500)
+        self.cloud_seed = 7
+        rr = _RS(6)
+        self.city_houses = []
+        x = -40
+        while x < Lw(0.30) + 60:
+            bw, bh = rr.uniform(34, 74), rr.uniform(30, 70)
+            self.city_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6)), 0.46, 0))
+            x += bw + rr.uniform(-4, 8)
+        x = 20
+        while x < Lw(0.30) + 60:
+            bw, bh = rr.uniform(40, 80), rr.uniform(34, 76)
+            self.city_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6)), 0.26, 20))
+            x += bw + rr.uniform(-6, 6)
+        self.mid_houses = []
+        x = -60
+        rr = _RS(23)
+        while x < Lw(0.60) + 60:
+            bw, bh = rr.uniform(120, 200), rr.uniform(500, 650)
+            self.mid_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6))))
+            x += bw + rr.uniform(-10, 10)
+        self.layer("sky", 0.05, Lw(0.05), self._draw_sky, opaque=True, scale=0.5, wear=3, loss=0.5, yr=(0, 700))
+        self.layer("hills", 0.14, Lw(0.14), self._draw_hills, scale=0.5, wear=2, yr=(330, 800))
+        self.layer("city", 0.30, Lw(0.30), self._draw_city, wear=2, yr=(60, 620))
+        self.layer("mid", 0.60, Lw(0.60), self._draw_mid, wear=2, yr=(60, 860))
+        self.layer("main", 1.0, PW, self._draw_main, wear=4)
+        self.walk_wins = []
+        self.sil_kinds = [("halk", 3), ("tuccar", 5), ("kesis", 2), ("soylu_f", 4), ("halk", 9), ("rahip", 6), ("soylu", 8), ("banker", 11), ("cocuk", 4), ("halk", 14), ("tuccar", 17), ("soylu_f", 21)]
+        rs = _RS(41)
+        self.fg_sils = []
+        x = 400.0
+        for i in range(16):
+            k, sd = self.sil_kinds[i % len(self.sil_kinds)]
+            self.fg_sils.append(dict(kind=k, seed=sd, x0=x, v=-rs.uniform(120, 190), h=rs.uniform(0.85, 1.15), ph=rs.rand()))
+            x += rs.uniform(750, 1250)
+        self.amb = []
+        rs = _RS(77)
+        for i in range(9):
+            self.amb.append(dict(kind=["halk", "tuccar", "soylu_f", "cocuk", "banker", "kesis", "denizci", "halk", "rahip"][i % 9], x0=rs.uniform(300, 6000), dir=1 if rs.rand() < 0.5 else -1, v=rs.uniform(38, 70),
+                                 seed=int(rs.randint(0, 40)), h=rs.uniform(150, 178), y=YG - 28 + rs.uniform(-6, 8), phase=rs.rand(), prop=(["sack", "basket", "staff", None][rs.randint(4)])))
+        self.talk = [dict(kind="tuccar", x=1180, seed=3, face=1), dict(kind="banker", x=1262, seed=5, face=-1), dict(kind="halk", x=3560, seed=9, face=1), dict(kind="soylu_f", x=3650, seed=12, face=-1)]
+
+    def default_cams(self, act=None, p=None):
+        p = p or {}
+        d = p.get("door")
+        if d:                                                 # kapıya itiş: sokak seviyesinde yaklaşır
+            return [(0.0, (DOOR_X - 620, 70, 1.0)), (0.55, (DOOR_X - 200, 80, 1.10)), (1.0, (DOOR_X + 30, 96, 1.30))]
+        return [(0.0, (900, 40, 1.0)), (0.66, (1480, 40, 1.05)), (1.0, (ARCH_X - 50, 44, 1.20))]       # yürüyen figürleri izler, sonunda kemerli eşiğe oturur
+
+    def stack(self, ctx):
+        return [("L", "sky"), ("D", "dyn_sky", 0.05), ("L", "hills"), ("L", "city"), ("D", "dyn_city", 0.30), ("L", "mid"), ("D", "dyn_mid", 0.60), ("L", "main"), ("D", "dyn_main", 1.0), ("D", "dyn_front", 1.45)]
+
+    def _draw_mid(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        wins = []
+        for (x, bw, bh, sd) in self.mid_houses:
+            if x + bw < xa - 40 or x > xb + 40:
+                continue
+            rs = _RS(sd)
+            CT.draw_house(c, x, YG - 40, bw, bh, rs, T, 0.26, wins)
+            if rs.rand() < 0.5:
+                cxh = x + bw * rs.uniform(0.2, 0.75)
+                R(c, cxh, YG - 40 - bh - bw * 0.40 - 26, cxh + 12, YG - 40 - bh - bw * 0.20, T("#9C6A4A", 0.26))
+        if self.tod != "day":
+            PN._lit_boxes(c, _RS(int(xa) % 991 + 5), wins, True, 0.42 if self.tod == "night" else 0.2)
+
+    def _draw_main(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        PN.draw_pavement(c, xa, xb, YG - 8, 960, T, seed=int(xa) // 1024)
+        street_facade(c, xa, xb, 0, self.PW, YG, FAC_H, T, seed=5)
+        if xa < DOOR_X + 400 and xb > DOOR_X - 400:
+            portal(c, DOOR_X, YG, DOOR_W, DOOR_H, T)
+        if xa < ARCH_X + 500 and xb > ARCH_X - 500:
+            tunnel_arch(c, ARCH_X, YG, 400, 400, T, warm=0.0 if self.tod == "day" else 1.0)
+        # meşale/fener demirleri
+        for tx in (DOOR_X - 230, DOOR_X + 230, ARCH_X - 300, ARCH_X + 300, 1500, 3950):
+            if xa - 40 < tx < xb + 40:
+                torch_bracket(c, tx, YG - 300, T)
+        # kaldırım taşları, varil, çuval
+        rs = _RS(77)
+        for i in range(60):
+            x = rs.uniform(0, self.PW)
+            if not (xa - 30 < x < xb + 30):
+                continue
+            OVAL(c, x, YG + rs.uniform(40, 100), rs.uniform(10, 28), rs.uniform(2, 5), "#7A6A48", 90)
+        for bx in (700, 1900, 3300, 4300, 5600):
+            if xa - 60 < bx < xb + 60:
+                OVAL(c, bx, YG - 26, 22, 30, T("#7A5230", 0.0))
+                c.drawOval(skia.Rect.MakeLTRB(bx - 22, YG - 56, bx + 22, YG + 4), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 170)))
+                for hy in (-40, -14):
+                    c.drawLine(bx - 21, YG + hy, bx + 21, YG + hy, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C("#2A2622", 200)))
+
+    # ── hazırlık: kapı hareketi ──
+    def prepare(self, ctx):
+        cx, p, t = ctx.cx, ctx.p, ctx.t
+        dur = max(cx.dur, 1e-3)
+        d = p.get("door")
+        dat = _anchor(cx, p.get("door_at"), 0.60 * dur)
+        op, slam, glow_k = 0.0, -1.0, 0.0
+        if d == "close":
+            if t < dat:
+                op = 0.92 + 0.035 * math.sin(t * 1.4)
+            else:
+                u = (t - dat) / 0.20
+                if u < 1.0:
+                    op = 0.92 * (1.0 - u * u)                    # hızlanarak TEK HAMLEDE kapanır
+                else:
+                    slam = t - dat - 0.20
+                    op = 0.05 * math.exp(-slam * 11) * abs(math.sin(slam * 24))
+            glow_k = 0.85 if ctx.tod != "day" else 0.25
+        elif d == "open":
+            if p.get("door_at") is None:
+                op = 0.9
+            else:
+                u = (t - dat) / 0.9
+                op = 0.92 * ease_out(u) + (0.03 * math.sin(max(0.0, t - dat - 0.9) * 5) * math.exp(-max(0.0, t - dat - 0.9) * 3) if u > 1 else 0.0)
+            glow_k = 0.85 if ctx.tod != "day" else 0.25
+        ctx.door_open, ctx.slam_t, ctx.door_glow, ctx.door_at = op, slam, glow_k, dat
+        if slam >= 0.0 and slam < 0.9:                           # çarpma sarsıntısı (kamera ofseti)
+            amp = 10.0 * math.exp(-slam * 7.5)
+            ctx.camx += math.sin(slam * 71.0) * amp * 0.55
+            ctx.camy += math.cos(slam * 87.0) * amp
+        ctx.fire_k = 0.0
+
+    def lights(self, ctx):
+        if ctx.tod == "day":
+            return []
+        return [(DOOR_X, YG - 200, 1100, 0.55)]
+
+    def grade(self, ctx):
+        _grade_generic(self, ctx)
+
+    # ── dinamik ──
+    def dyn_city(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        FA.atmo_birds(c, t, 7, 1.0, xa, xb, 190, 350, speed=24.0, night=ctx.night, seed=5, size=0.8)
+
+    def dyn_mid(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        rs = _RS(61)
+        for i in range(14):
+            x = -40 + i * 330 + rs.uniform(-60, 60)
+            if x < xa - 60 or x > xb + 60:
+                continue
+            for k in range(4):
+                ph = (t * 0.18 + k / 4.0 + i * 0.29) % 1.0
+                _blit_dot(c, _soft_dot("#C8C0B4" if not ctx.night else "#6A7A9A", 40, 1.2), x + math.sin(ph * 5 + i) * 6 * ph, YG - 40 - 640 - ph * 90, 5 + 11 * ph, 0.22 * (1 - ph))
+
+    def dyn_main(self, ctx):
+        f, c, t = ctx.f, ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        p = ctx.p
+        # çatıdan bacalar: duman
+        for bxc in (620, 1480, 2250, 3380, 4040, 5250, 6000):
+            if xa - 80 < bxc < xb + 80:
+                smoke_plume(c, bxc + 18, YG - FAC_H - 140, t, size=26, n=5, k=0.8, col="#B8B0A4" if not ctx.night else "#566080", seed=bxc % 17, rise=130, wind=26, a0=0.34)
+        # asılı kumaş (üst kat pencerelerinden) + kırlangıçlar
+        for i, bx in enumerate((900, 2050, 3500, 5100)):
+            if xa - 100 < bx < xb + 60:
+                LINE(c, bx - 6, YG - 0.78 * FAC_H - 60, bx + 90, YG - 0.78 * FAC_H - 60, "#4A3220", 3.0)
+                PN.draw_cloth(c, bx, YG - 0.78 * FAC_H - 60, ["#B3361F", "#233C8C", "#C79A3C", "#2E6A4F"][i % 4], "#EDE4CC", 74, 150, t, ph=i * 1.4, wind=1.0, kind="tente", seed=90 + i)
+        # banktaki konuşanlar
+        for m in self.talk:
+            if xa - 120 < m["x"] < xb + 120:
+                FA.actor(f, m["kind"], m["x"], YG - 6, 168, t, action="talk", dir=m["face"], seed=m["seed"], phase=(m["x"] * 0.013) % 1.0, energy=0.9)
+        # ortam yürüyenleri (iki yönlü)
+        vis = []
+        for a_ in self.amb:
+            x = a_["x0"] + a_["dir"] * a_["v"] * t
+            if xa - 160 < x < xb + 160:
+                vis.append((a_["y"], a_, x))
+        vis.sort(key=lambda q: q[0])
+        for (_, a_, x) in vis:
+            FA.walker(f, a_["kind"], x, a_["y"], a_["h"], t, speed=a_["v"], dir=a_["dir"], phase=a_["phase"], seed=a_["seed"], prop=a_["prop"])
+        # kapı
+        if p.get("door") and xa - 300 < DOOR_X < xb + 300:
+            door_heavy(f, DOOR_X, YG, DOOR_H, ctx.door_open, w=DOOR_W, glow_k=ctx.door_glow, seed=3, swing=(math.sin(max(0.0, ctx.slam_t) * 30) * math.exp(-max(0.0, ctx.slam_t) * 5) if ctx.slam_t >= 0 else 0.0) * 6)
+            if ctx.slam_t >= 0.0 and ctx.slam_t < 1.6:
+                st_ = ctx.slam_t
+                for k in range(10):                                  # çarpma tozu (tabandan yayılır)
+                    ph_ = clamp(st_ / 1.3)
+                    dx_ = (k - 4.5) * 34 * (0.35 + ph_)
+                    _blit_dot(c, _soft_dot("#D8C69C", 40, 1.0), DOOR_X + dx_, YG - 12 - ph_ * (30 + (k % 3) * 22), 22 + 46 * ph_, 0.72 * (1 - ph_) ** 1.1)
+                for k in range(14):                                  # lento'dan dökülen toz taneleri
+                    ph_ = clamp((st_ - 0.02 * k) / 0.9)
+                    if 0 < ph_ < 1:
+                        _blit_dot(c, _soft_dot("#B8A47A", 20, 1.0), DOOR_X + (k - 6.5) * 18, YG - DOOR_H - 16 + ph_ * 130 + (k % 4) * 6, 3.0, 0.7 * (1 - ph_))
+        # kullanıcı/varsayılan figürler (yürüyüş)
+        acts = p.get("actors")
+        if acts is None:
+            dur_ = max(ctx.cx.dur, 1e-3)
+            vw = clamp(1060.0 / (0.76 * dur_), 70.0, 150.0)
+            gate = (ARCH_X, 400)
+            acts = [dict(kind="soylu", x0=640, dir=1, speed=vw, h=214, seed=2, phase=0.0, y=YG - 8, gate=gate, stil=dict(robe="#2F5FB8", robe2="#E0B84E", hat_col="#B33620")),
+                    dict(kind="tuccar", x0=478, dir=1, speed=vw, h=206, seed=7, phase=0.35, y=YG - 2, gate=gate, stil=dict(robe="#9C3A2A", robe2="#D8B070")),
+                    dict(kind="banker", x0=330, dir=1, speed=vw, h=208, seed=11, phase=0.66, y=YG - 12, gate=gate, stil=dict(robe="#2E6A4F", robe2="#C79A3C"))]
+        for a_ in sorted(acts, key=lambda q: q.get("y", YG)):
+            draw_actor(ctx, a_)
+        for st in ctx.stations:
+            fn = st.get("fn")
+            if fn is None:
+                continue
+            if abs(st.get("x", 0) - (xa + xb) / 2) > 1400:
+                continue
+            ctx.st = st
+            fn(ctx, st)
+
+    def dyn_front(self, ctx):
+        """Ön plan (paralaks 1,45): ters yönde (sağdan sola) akan SİLUET kalabalık; yürüme döngüsü önceden pişirilmiş (kare başına tek blit)."""
+        c, t = ctx.c, ctx.t
+        for m in self.fg_sils:
+            x = m["x0"] + m["v"] * t
+            if x < ctx.xa - 300 or x > ctx.xb + 300:
+                continue
+            st = walk_sil_set(m["kind"], m["seed"], 300, {"day": "#2B2118", "dusk": "#1E1620", "night": "#08080F"}[ctx.tod])
+            draw_walk_sil(c, st, x, 930 + (m["seed"] % 3) * 14, m["h"], -1, t, abs(m["v"]) * 1.0, m["ph"])
+
+    # ── fx: ateş/ışık ──
+    def fx(self, ctx):
+        c, t = ctx.c, ctx.t
+        if ctx.tod == "day":
+            return
+        ctx.xf(1.0)
+        xa, xb = ctx.xa, ctx.xb
+        for tx in (DOOR_X - 230, DOOR_X + 230, ARCH_X - 300, ARCH_X + 300, 1500, 3950):
+            if xa - 60 < tx < xb + 60:
+                torch_flame(c, tx - 7, YG - 284, t, size=54.0, seed=int(tx) % 50)
+        # yanan pencereler: yarısı sıcak ışık (üst katlar), sakin titreme; geçit ucundaki ışık
+        for (kind, xc, yb, ww, wh, kat) in street_windows(xa - 100, xb + 100, YG, FAC_H):
+            if kind == "grille":
+                continue
+            hsh = (int(xc) * 7919 + kat * 31) % 11
+            if hsh > 5:
+                continue
+            a_ = (0.70 + 0.2 * math.sin(t * 2.3 + xc * 0.07)) * (1.0 if hsh % 2 == 0 else 0.55)
+            if kind == "bifora":
+                lit_bifora(c, (xc, yb, ww, wh), a_)
+            else:
+                c.drawPath(arch_path(xc, yb, ww, wh), _pt("#FFC862", int(215 * a_)))
+                glow(c, xc, yb - wh * 0.5, wh * 0.85, "#FFB04A", 0.30 * a_)
+        if xa - 500 < ARCH_X < xb + 500:
+            fl = 0.9 + 0.1 * math.sin(t * 6.0)
+            glow(c, ARCH_X, YG - 120, 240 * fl, "#FFC070", 0.40)
+        if ctx.p.get("door") and xa - 300 < DOOR_X < xb + 300 and ctx.door_open > 0.05:
+            glow(c, DOOR_X, YG - 130, 300 * (0.5 + 0.5 * ctx.door_open), "#FFB04A", 0.38 * ctx.door_open)
+        ctx.end()
+
+
+# ═════════════════════════════ KALE (surlar, kuşatma, Castel Sant'Angelo, Passetto) ═════════════════════════════
+def _lerp(a, b, u):
+    return a + (b - a) * u
+
+
+def wool_bale(c, x, y, w, h, seed=1, col=None):
+    """Yün balyası: yuvarlak köşeli bej bohça, iple bağlı (dikey şeritler + düğüm), yün kılları dokusu; (x,y) sol-üst."""
+    rs = _RS(seed)
+    base = col or mix("#EADFC4", "#CDBE9A", rs.rand() * 0.55)
+    rr = skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(x, y, w, h), h * 0.30, h * 0.30)
+    sh = skia.GradientShader.MakeLinear([(0, y), (0, y + h)], [C(mix(base, "#FFFFFF", 0.22)), C(base), C(mix(base, "#5A4630", 0.30))], [0.0, 0.5, 1.0])
+    c.drawRRect(rr, skia.Paint(AntiAlias=True, Shader=sh))
+    c.save()
+    c.clipRRect(rr, skia.ClipOp.kIntersect, True)
+    for i in range(int(w * h / 190)):
+        px, py = x + rs.uniform(3, w - 3), y + rs.uniform(3, h - 3)
+        L = rs.uniform(5, 13)
+        ang = rs.uniform(-0.7, 0.7)
+        c.drawLine(px, py, px + L * math.cos(ang), py + L * math.sin(ang), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C("#FFFBEA" if rs.rand() < 0.55 else "#9C8A66", 110 if rs.rand() < 0.55 else 80), StrokeCap=skia.Paint.kRound_Cap))
+    for fx in (0.27, 0.73):
+        c.drawLine(x + w * fx, y, x + w * fx, y + h, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.6, Color=C("#5A4630", 225)))
+        c.drawCircle(x + w * fx, y + h * 0.5, 2.6, _pt("#3A2A18", 235))
+    c.drawLine(x, y + h * 0.5, x + w, y + h * 0.5, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C("#5A4630", 150)))
+    c.restore()
+    c.drawRRect(rr, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 185)))
+
+
+def cannon(c, x, y, s=1.0, dirn=1, col="#2A2420", metal="#7A6648"):
+    """Top siluet (tekerlekli kızak + hafif yukarı bakan namlu): x,y = kızağın zemin noktası; dirn namlu yönü; renkler koyu (duman/ateş/insan yok)."""
+    c.save()
+    c.translate(x, y)
+    c.scale(dirn * s, s)
+    c.drawPath(sk.poly_path([(-30, 0), (24, 0), (32, -16), (-22, -34)]), _pt(col))
+    c.save()
+    c.translate(-4, -33)
+    c.rotate(-11)
+    bp = skia.Path()
+    bp.moveTo(-14, -10)
+    bp.lineTo(70, -8)
+    bp.lineTo(88, -9)
+    bp.lineTo(88, 9)
+    bp.lineTo(70, 8)
+    bp.lineTo(-14, 11)
+    bp.close()
+    c.drawPath(bp, _pt(metal))
+    for rx in (6, 34, 68):
+        c.drawRect(skia.Rect.MakeLTRB(rx, -11, rx + 5, 12), _pt(col, 235))
+    c.drawRect(skia.Rect.MakeLTRB(84, -12, 93, 12), _pt(col, 240))
+    INKP(c, bp, 1.3, 200)
+    c.restore()
+    for wx in (-14, 16):
+        c.drawCircle(wx, -7, 11, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C(col, 255)))
+        c.drawCircle(wx, -7, 2.6, _pt(col))
+        for k in range(4):
+            a = k * math.pi / 4
+            c.drawLine(wx - math.cos(a) * 10, -7 - math.sin(a) * 10, wx + math.cos(a) * 10, -7 + math.sin(a) * 10, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.8, Color=C(col, 255)))
+    c.restore()
+
+
+def gabion(c, x, y, w, h, T, seed=1):
+    """Toprak dolu hasır sepet (cesto): kahverengi örgü, üstte toprak yığını; (x,y) sol-alt."""
+    R(c, x, y - h, x + w, y, T("#7A5A34", 0.0))
+    for i in range(1, 6):
+        c.drawLine(x + i * w / 6, y - h, x + i * w / 6, y, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#3A2410", 150)))
+    for i in range(1, 4):
+        c.drawLine(x, y - i * h / 4, x + w, y - i * h / 4, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.0, Color=C("#4A3018", 130)))
+    c.drawOval(skia.Rect.MakeLTRB(x - 2, y - h - h * 0.22, x + w + 2, y - h + h * 0.22), _pt(T("#8A6E48", 0.0)))
+    INKR(c, x, y - h, x + w, y, 1.1, 170)
+
+
+def tent_layout(x0, x1, y, size, seed=0, jitter=0.35):
+    """Çadır dizisi yerleşimi (çizimsiz; önbellekten yüklenen kareaşlarda da bayrak konumları bilinsin): [dict(x, y, w, h, kind, flag)]."""
+    rs = _RS(seed)
+    out = []
+    x = x0
+    while x < x1:
+        w = size * rs.uniform(0.85, 1.35)
+        h = w * rs.uniform(0.70, 0.95)
+        kind = ("pavilion" if rs.rand() < 0.62 else "long")
+        out.append(dict(x=x + w / 2, y=y + rs.uniform(-1, 1) * size * 0.12, w=w, h=h, kind=kind, flag=(rs.rand() < 0.55), fk=int(rs.randint(0, 3)), pole=h * rs.uniform(0.55, 0.9)))
+        x += w * rs.uniform(1.05, 1.0 + jitter + 0.6)
+    return out
+
+
+def tent_row(f, x0, x1, y, size, T=None, seed=0, depth=0.5, jitter=0.35):
+    """İmparatorluk ordusu çadır dizisi (ufukta; insan yok): koni/uzun çadırlar, iki tonlu paneller, direk; döner: bayrak noktaları [(x, y, tür)]. Bayraklar dinamik (`tent_flags`)."""
+    c = _cv(f)
+    T = T or CT.Tint("day")
+    pts = []
+    for tt in tent_layout(x0, x1, y, size, seed, jitter):
+        x, yb, w, h = tt["x"], tt["y"], tt["w"], tt["h"]
+        wall = T("#EFE6D0", depth)
+        stripe = T("#B8452C" if tt["fk"] != 1 else "#2E4F8A", depth)
+        if tt["kind"] == "pavilion":
+            body = sk.poly_path([(x - w / 2, yb), (x - w * 0.10, yb - h), (x + w * 0.10, yb - h), (x + w / 2, yb)])
+            c.drawPath(body, _pt(wall))
+            c.save()
+            c.clipPath(body, skia.ClipOp.kIntersect, True)
+            n = 5
+            for k in range(n):
+                if k % 2 == 0:
+                    c.drawPath(sk.poly_path([(x - w / 2 + k * w / n, yb), (x - w * 0.10 + k * w * 0.2 / n, yb - h), (x - w * 0.10 + (k + 1) * w * 0.2 / n, yb - h), (x - w / 2 + (k + 1) * w / n, yb)]), _pt(stripe))
+            c.restore()
+            INKP(c, body, 1.0, 165)
+            c.drawPath(sk.poly_path([(x - w * 0.09, yb), (x, yb - h * 0.46), (x + w * 0.09, yb)]), _pt(T("#3A2A1C", depth), 235))
+        else:
+            body = sk.poly_path([(x - w / 2, yb), (x - w / 2, yb - h * 0.40), (x, yb - h), (x + w / 2, yb - h * 0.40), (x + w / 2, yb)])
+            c.drawPath(body, _pt(wall))
+            c.drawPath(sk.poly_path([(x - w / 2, yb - h * 0.40), (x, yb - h), (x + w / 2, yb - h * 0.40), (x + w / 2, yb - h * 0.52), (x, yb - h * 1.10), (x - w / 2, yb - h * 0.52)]), _pt(stripe, 190))
+            INKP(c, body, 1.0, 165)
+            c.drawPath(sk.poly_path([(x - w * 0.07, yb), (x - w * 0.07, yb - h * 0.34), (x + w * 0.07, yb - h * 0.34), (x + w * 0.07, yb)]), _pt(T("#3A2A1C", depth), 235))
+        if tt["flag"]:
+            R(c, x + w * 0.02, yb - h, x + w * 0.02 + 1.6, yb - h - tt["pole"], INK, 235)
+        R(c, x + w / 2 - w * 0.07, yb - 2, x + w / 2 + w * 0.06, yb, "#3A2A1C", 120)
+        if tt["flag"]:
+            pts.append((x + w * 0.02 + 0.8, yb - h - tt["pole"], tt["fk"], size))
+    return pts
+
+
+def tent_flags(c, pts, t, scale=1.0):
+    """Çadır bayrakları: kızıl çapraz (Burgonya) / altın zeminde kara kartal / lacivert; rüzgârda dalgalanır."""
+    for i, (x, y, fk, size) in enumerate(pts):
+        w, h = size * 0.62 * scale, size * 0.34 * scale
+        top, bot = [], []
+        n = 6
+        for k in range(n + 1):
+            u = k / n
+            wv = math.sin(t * 5.2 - u * 3.6 + i) * h * 0.16 * u
+            top.append((x + u * w, y + wv))
+            bot.append((x + u * w, y + h + wv))
+        path = sk.poly_path(top + bot[::-1])
+        col = ("#F2EBD9", "#E0B84E", "#2E4F8A")[fk % 3]
+        c.drawPath(path, _pt(col))
+        c.save()
+        c.clipPath(path, skia.ClipOp.kIntersect, True)
+        if fk % 3 == 0:                                                         # kızıl çapraz (sade X)
+            c.drawLine(x, y, x + w, y + h, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(1.4, h * 0.20), Color=C("#B3301F", 235)))
+            c.drawLine(x, y + h, x + w, y, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(1.4, h * 0.20), Color=C("#B3301F", 235)))
+        elif fk % 3 == 1:                                                       # kartal: kara gövde + iki kanat (stilize)
+            cxp, cyp = x + w * 0.5, y + h * 0.55
+            c.drawOval(skia.Rect.MakeLTRB(cxp - w * 0.07, cyp - h * 0.30, cxp + w * 0.07, cyp + h * 0.32), _pt("#1A1008", 240))
+            c.drawPath(sk.poly_path([(cxp, cyp - h * 0.1), (cxp - w * 0.32, cyp - h * 0.40), (cxp - w * 0.22, cyp + h * 0.08)]), _pt("#1A1008", 240))
+            c.drawPath(sk.poly_path([(cxp, cyp - h * 0.1), (cxp + w * 0.32, cyp - h * 0.40), (cxp + w * 0.22, cyp + h * 0.08)]), _pt("#1A1008", 240))
+        c.restore()
+        c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C(INK, 190)))
+
+
+def circling_birds(c, cx, cy, rx, ry, t, n=6, seed=1, size=1.0, col="#2A1A0C"):
+    """Kule çevresinde dönen kuşlar (elips yörünge; kanat çırpar; önde/arkada ölçek değişir)."""
+    rs = _RS(seed)
+    for i in range(n):
+        w = (0.30 + 0.12 * rs.rand()) * (1 if i % 2 else -1)
+        ph = rs.uniform(0, 6.28)
+        a = t * w + ph
+        bx = cx + math.cos(a) * rx * (0.7 + 0.3 * rs.rand())
+        by = cy + math.sin(a) * ry + math.sin(t * 0.8 + i) * 8
+        near = 0.5 + 0.5 * math.sin(a)
+        s_ = (0.7 + 0.5 * near) * size
+        fl = math.sin(t * 9.0 + i * 2.3) * 5.5
+        pth = skia.Path()
+        pth.moveTo(bx - 9 * s_, by + fl * s_ * 0.4)
+        pth.quadTo(bx - 4 * s_, by - 4 * s_ - fl * s_, bx, by)
+        pth.quadTo(bx + 4 * s_, by - 4 * s_ - fl * s_, bx + 9 * s_, by + fl * s_ * 0.4)
+        c.drawPath(pth, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.0 * s_, Color=C(col, 200), StrokeCap=skia.Paint.kRound_Cap))
+
+
+def smoke_column(c, x, y, t, h=500.0, w=90.0, col="#5A5048", seed=1, wind=60.0, a0=0.5, glow_col="#E8803A", glow_a=0.35, n=30):
+    """Uzakta yükselen kalın duman sütunu (stilize): tabanında sıcak parıltı, yükseldikçe genişler/eğilir/solar. Ceset/kan/yağma ayrıntısı yok."""
+    im = _soft_dot(col, 64, 1.15)
+    rs = _RS(seed)
+    if glow_a > 0:
+        glow(c, x, y, w * 1.5, glow_col, glow_a)
+    for i in range(n):
+        per = 7.0 + 3.0 * rs.rand()
+        ph = (t / per + i / n + rs.rand() * 0.04) % 1.0
+        r = w * (0.36 + 1.15 * ph)
+        px = x + wind * ph ** 1.4 * (h / 400.0) + math.sin(ph * 6.0 + i * 1.3) * w * 0.20 * ph
+        py = y - h * ph
+        a = a0 * math.sin(math.pi * min(1.0, ph * 1.25)) ** 0.8 * (1 - ph) ** 0.30
+        _blit_dot(c, im, px, py, r, a)
+        _blit_dot(c, im, px + w * 0.10, py + r * 0.15, r * 0.7, a * 0.7)
+
+
+def bale_tower(c, cx, yb, tw, Hs, T, seed=3, depth=0.0):
+    """Çan kulesi yün balyalarıyla sarılı: çekirdek tuğla gövde + sıra sıra balyalar (kaydırmalı), üstte taş galeri (top platformu) ve çan odası. Dönüş: dict(top, deck=(x,y,w), flag)."""
+    brick = T("#B4704A", depth)
+    R(c, cx - tw / 2, yb - Hs, cx + tw / 2, yb, brick)
+    rs = _RS(seed)
+    bh = tw * 0.30
+    bw0 = tw * 0.52
+    rows = int(Hs / (bh * 0.94)) + 1
+    for r_ in range(rows):
+        yy = yb - (r_ + 1) * bh * 0.94
+        if yy < yb - Hs - bh * 0.3:
+            break
+        off = (r_ % 2) * bw0 * 0.5
+        x = cx - tw / 2 - 10 - off
+        while x < cx + tw / 2 + 10:
+            wv = bw0 * rs.uniform(0.92, 1.08)
+            wool_bale(c, x, yy, wv, bh, seed=int(rs.randint(0, 10 ** 6)), col=T(mix("#EADFC4", "#CDBE9A", rs.rand() * 0.5), depth))
+            x += wv - 2
+    # kule kenarlarını taşan balyaları düzeltmek için yan gölge
+    R(c, cx + tw * 0.34, yb - Hs, cx + tw / 2 + 12, yb, "#1A1008", 26)
+    # üst galeri (taş platform + korkuluk)
+    gy = yb - Hs
+    R(c, cx - tw * 0.80, gy - 14, cx + tw * 0.80, gy + 4, T("#8A7452", depth))
+    for k in range(7):
+        c.drawPath(sk.poly_path([(cx - tw * 0.80 + k * tw * 1.6 / 7, gy + 4), (cx - tw * 0.80 + (k + 0.5) * tw * 1.6 / 7, gy + 16), (cx - tw * 0.80 + (k + 1) * tw * 1.6 / 7, gy + 4)]), _pt("#3A2A1C", 190))
+    INKR(c, cx - tw * 0.80, gy - 14, cx + tw * 0.80, gy + 4, 1.2, 170)
+    for k in range(6):                                                         # korkuluk dişleri (balya çuvalı ile örtülü)
+        R(c, cx - tw * 0.80 + k * tw * 1.6 / 6, gy - 34, cx - tw * 0.80 + k * tw * 1.6 / 6 + tw * 1.6 / 12, gy - 14, T("#8A7452", depth))
+    # çan odası
+    bw_ = tw * 0.92
+    bh_ = tw * 0.95
+    R(c, cx - bw_ / 2, gy - 14 - bh_, cx + bw_ / 2, gy - 14, T("#CFA882", depth))
+    for sgn in (-1, 1):
+        c.drawPath(arch_path(cx + sgn * bw_ * 0.22, gy - 24, bw_ * 0.28, bh_ * 0.72), _pt("#22160D", 235))
+    c.drawRect(skia.Rect.MakeLTRB(cx - bw_ / 2, gy - 14 - bh_, cx + bw_ / 2, gy - 14), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 170)))
+    roof = sk.poly_path([(cx - bw_ * 0.58, gy - 14 - bh_), (cx, gy - 14 - bh_ - tw * 0.62), (cx + bw_ * 0.58, gy - 14 - bh_)])
+    c.drawPath(roof, _pt(T("#B4552E", depth)))
+    INKP(c, roof, 1.2, 175)
+    top = gy - 14 - bh_ - tw * 0.62
+    c.drawLine(cx, top, cx, top - tw * 0.45, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.4, Color=C(INK, 220)))
+    return dict(top=top - tw * 0.45, flag=(cx, top - tw * 0.45), deck=(cx, gy - 14, tw * 1.6))
+
+
+def san_miniato_front(c, x0, y, w, h, T, depth=0.0):
+    """San Miniato al Monte cephesi (stilize): beyaz-yeşil mermer panelli alt arkad, üstte alınlık + mozaik, arkada alçak nef gövdesi ve çatısı. x0 sol, y zemin."""
+    x1 = x0 + w
+    nave_w = w * 0.95
+    R(c, x1 - 4, y - h * 0.58, x1 + nave_w, y, T("#E3DAC2", depth))                                # nef gövdesi (arkada, sağa)
+    c.drawPath(sk.poly_path([(x1 - 6, y - h * 0.58), (x1 + 20, y - h * 0.82), (x1 + nave_w - 10, y - h * 0.82), (x1 + nave_w + 8, y - h * 0.58)]), _pt(T("#A8502C", depth)))
+    for k in range(1, 5):
+        c.drawLine(x1 + 14 - k * 2, y - h * 0.58 - k * h * 0.06, x1 + nave_w - 4 + k * 0, y - h * 0.58 - k * h * 0.06, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#5A2412", 80)))
+    for k in range(5):
+        c.drawPath(arch_path(x1 + 40 + k * nave_w / 5.2, y - h * 0.18, 18, 46), _pt("#2A2018", 200))
+    c.drawRect(skia.Rect.MakeLTRB(x1 - 4, y - h * 0.58, x1 + nave_w, y), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 160)))
+    R(c, x0, y - h * 0.66, x1, y, T("#EFE9D8", depth))
+    n = 5
+    for i in range(n):                                                                             # alt arkad: 5 kemer
+        ax = x0 + (i + 0.5) * w / n
+        c.drawPath(arch_path(ax, y, w / n * 0.66, h * 0.50), _pt("#2A2018", 235))
+        INKP(c, arch_path(ax, y, w / n * 0.66, h * 0.50), 1.0, 160)
+    for i in range(n + 1):
+        R(c, x0 + i * w / n - 7, y - h * 0.50, x0 + i * w / n + 7, y, T("#C7D0BE", depth))
+    R(c, x0, y - h * 0.58, x1, y - h * 0.50, T("#4A6E5A", depth))
+    for k in range(int(w / 22)):
+        R(c, x0 + k * 22 + 4, y - h * 0.575, x0 + k * 22 + 14, y - h * 0.505, T("#EFE9D8", depth))
+    R(c, x0 + w * 0.03, y - h * 0.66, x1 - w * 0.03, y - h * 0.58, T("#D8C48A", depth))
+    R(c, x0 + w * 0.12, y - h * 1.0, x1 - w * 0.12, y - h * 0.66, T("#EFE9D8", depth))
+    for k in range(3):
+        c.drawPath(arch_path(x0 + w * (0.30 + 0.20 * k), y - h * 0.70, w * 0.06, h * 0.12), _pt("#3A2A1C", 215))
+    pedi = sk.poly_path([(x0 + w * 0.10, y - h * 1.0), (x0 + w * 0.5, y - h * 1.30), (x1 - w * 0.10, y - h * 1.0)])
+    c.drawPath(pedi, _pt(T("#EFE9D8", depth)))
+    mos = sk.poly_path([(x0 + w * 0.22, y - h * 1.04), (x0 + w * 0.5, y - h * 1.22), (x1 - w * 0.22, y - h * 1.04)])
+    c.drawPath(mos, _pt(T("#2E4F8A", depth)))
+    c.drawCircle(x0 + w * 0.5, y - h * 1.09, w * 0.05, _pt(T("#E0B84E", depth)))
+    for rr_ in (pedi, mos):
+        INKP(c, rr_, 1.2, 170)
+    c.drawRect(skia.Rect.MakeLTRB(x0, y - h * 0.66, x1, y), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 165)))
+    c.drawRect(skia.Rect.MakeLTRB(x0 + w * 0.12, y - h * 1.0, x1 - w * 0.12, y - h * 0.66), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 165)))
+
+
+def castel_sant_angelo(c, x, yb, s, T, depth=0.0, col="#B09A72"):
+    """Castel Sant'Angelo (silindirik kale): mazgallı kare taban + dört yuvarlak köşe burcu (yan görünümde iki uç), kalın silindir gövde (kör kemer şeridi),
+    üstte daha küçük silindir kule + mazgal; x orta, yb zemin; s ölçek (gövde genişliği ≈ 400·s)."""
+    stone = T(col, depth)
+    stone2 = T(mix(col, "#2A1A0C", 0.30), depth)
+    # taban blok + yan burçlar
+    bw, bh = 640 * s, 120 * s
+    R(c, x - bw / 2, yb - bh, x + bw / 2, yb, stone)
+    for r_ in range(4):
+        R(c, x - bw / 2, yb - bh + r_ * bh / 4, x + bw / 2, yb - bh + r_ * bh / 4 + 1.5, stone2, 150)
+    for sgn in (-1, 1):
+        bx = x + sgn * (bw / 2)
+        c.drawOval(skia.Rect.MakeLTRB(bx - 66 * s, yb - bh * 1.12, bx + 66 * s, yb - bh * 0.1), _pt(stone))
+        R(c, bx - 66 * s, yb - bh * 0.62, bx + 66 * s, yb, stone)
+        c.drawPath(arch_path(bx, yb - bh * 0.1, 14 * s, 42 * s), _pt("#241810", 225))
+        crenel(c, bx - 60 * s, bx + 60 * s, yb - bh * 1.18, 15 * s, 18 * s, 9 * s, T, depth, col="#8A7452")
+        INKR(c, bx - 66 * s, yb - bh * 0.62, bx + 66 * s, yb, 1.3, 160)
+    crenel(c, x - bw / 2 + 60 * s, x + bw / 2 - 60 * s, yb - bh - 18 * s, 20 * s, 18 * s, 12 * s, T, depth, col="#8A7452")
+    c.drawRect(skia.Rect.MakeLTRB(x - bw / 2, yb - bh, x + bw / 2, yb), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 170)))
+    # silindir gövde
+    dw, dh = 430 * s, 190 * s
+    y0 = yb - bh
+    sh = skia.GradientShader.MakeLinear([(x - dw / 2, 0), (x + dw / 2, 0)], [C(mix(stone, "#FFF4DC", 0.20)), C(stone), C(mix(stone, "#2A1A0C", 0.38))], [0.0, 0.45, 1.0])
+    c.drawRect(skia.Rect.MakeLTRB(x - dw / 2, y0 - dh, x + dw / 2, y0), skia.Paint(Shader=sh))
+    for r_ in range(1, 7):                                                       # taş sıraları (hafif eğri)
+        yy = y0 - r_ * dh / 7
+        c.drawLine(x - dw / 2, yy, x + dw / 2, yy + 3, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#4A3A22", 80)))
+    na = 9                                                                       # kör kemer şeridi
+    for i in range(na):
+        ax = x - dw / 2 + (i + 0.5) * dw / na
+        c.drawPath(arch_path(ax, y0 - dh * 0.58, dw / na * 0.46, dh * 0.34), _pt("#2A1E14", 140 + int(55 * (1 - abs(i - na / 2) / (na / 2)))))
+    R(c, x - dw / 2 - 6 * s, y0 - dh - 18 * s, x + dw / 2 + 6 * s, y0 - dh + 4, T("#8A7452", depth))
+    crenel(c, x - dw / 2 - 4 * s, x + dw / 2 + 4 * s, y0 - dh - 40 * s, 22 * s, 22 * s, 12 * s, T, depth, col="#8A7452")
+    c.drawRect(skia.Rect.MakeLTRB(x - dw / 2, y0 - dh, x + dw / 2, y0), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 170)))
+    # üst küçük kule + bayrak direği
+    uw, uh = 200 * s, 96 * s
+    yt = y0 - dh - 18 * s
+    R(c, x - uw / 2, yt - uh, x + uw / 2, yt, T("#B8A47C", depth))
+    for k in range(3):
+        c.drawPath(arch_path(x - uw * 0.30 + k * uw * 0.30, yt - 8 * s, 28 * s, 56 * s), _pt("#241810", 220))
+    crenel(c, x - uw / 2 - 4 * s, x + uw / 2 + 4 * s, yt - uh - 20 * s, 16 * s, 20 * s, 10 * s, T, depth, col="#8A7452")
+    c.drawRect(skia.Rect.MakeLTRB(x - uw / 2, yt - uh, x + uw / 2, yt), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 170)))
+    c.drawLine(x, yt - uh - 20 * s, x, yt - uh - 100 * s, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=max(2.4, 3.2 * s), Color=C(INK, 225)))
+    return dict(flag=(x, yt - uh - 98 * s), top=yt - uh - 100 * s, left=x - bw / 2, right=x + bw / 2)
+
+
+KS_PLAT = 690                    # plato (San Miniato tepesi) ana düzlem y
+KS_TX, KS_TW, KS_THS = 1100, 140, 268          # balyalı çan kulesi: x, genişlik, balyalı gövde yüksekliği
+KS_CHX = 1440                    # kilise cephesi sol x
+KS_W0, KS_W1 = 1980, 3250        # sur duvarı aralığı
+
+
+def bale_tower_geom(cx, yb, tw, Hs):
+    """bale_tower'ın çizimsiz geometrisi: bayrak noktası, top güvertesi."""
+    gy = yb - Hs
+    top = gy - 14 - tw * 0.95 - tw * 0.62
+    return dict(flag=(cx, top - tw * 0.45), deck=(cx, gy - 14, tw * 1.6), top=top - tw * 0.45)
+
+
+def ks_ground(x):
+    """San Miniato tepesi zemin profili (ana düzlem y): plato → iniş → vadi → karşı yamaç."""
+    if x < 1900:
+        return KS_PLAT + 6 * math.sin(x / 190.0)
+    if x < 2800:
+        u = (x - 1900) / 900.0
+        return _lerp(KS_PLAT, 792, u * u * (3 - 2 * u))
+    if x < 3250:
+        return 792 + 4 * math.sin(x / 90.0)
+    u = min(1.0, (x - 3250) / 700.0)
+    return _lerp(792, 735, u * u * (3 - 2 * u))
+
+
+class KaleSur(SWorld):
+    name = "sehir_kale_sur"
+    PW = 3800
+    _draw_sky = PN.Florence._draw_sky
+    _draw_hills = PN.Florence._draw_hills
+    dyn_sky = PN.Florence.dyn_sky
+    CAMP = (100, 2300)
+    TENT_Y = (534, 545, 557)
+    TENT_SZ = (26, 31, 37)
+
+    def build(self):
+        PW = self.PW
+        cam_span = PW - W
+
+        def Lw(f):
+            return int(W + cam_span * f + 500)
+        self.cloud_seed = 11
+        rr = _RS(8)
+        self.city_houses = []
+        x = -40
+        while x < Lw(0.46) + 60:
+            bw, bh = rr.uniform(44, 90), rr.uniform(34, 80)
+            self.city_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6)), 0.32, 0))
+            x += bw + rr.uniform(-6, 8)
+        self.layer("sky", 0.05, Lw(0.05), self._draw_sky, opaque=True, scale=0.5, wear=3, loss=0.5, yr=(0, 700))
+        self.layer("hills", 0.12, Lw(0.12), self._draw_hills, scale=0.5, wear=2, yr=(330, 800))
+        self.layer("camp", 0.22, Lw(0.22), self._draw_camp, wear=2, yr=(380, 760))
+        self.layer("city", 0.46, Lw(0.46), self._draw_city2, wear=2, yr=(260, 760))
+        self.layer("main", 1.0, PW, self._draw_main, wear=4)
+        self.tg = bale_tower_geom(KS_TX, KS_PLAT, KS_TW, KS_THS)
+
+    def default_cams(self, act=None, p=None):                       # yavaş pull: balyalı kuleye yakından başlar, geri açılıp surları ve ufuktaki çadırları gösterir
+        return [(0.0, (1180, -150, 1.46)), (0.55, (1460, -40, 1.16)), (1.0, (1860, 36, 1.0))]
+
+    def stack(self, ctx):
+        return [("L", "sky"), ("D", "dyn_sky", 0.05), ("L", "hills"), ("L", "camp"), ("D", "dyn_camp", 0.22), ("L", "city"), ("D", "dyn_city", 0.46), ("L", "main"), ("D", "dyn_main", 1.0), ("D", "dyn_front", 1.30)]
+
+    def _draw_camp(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        GRAD_V(c, xa, 520, xb, 760, [(T("#CDBC90", 0.55), 0.0), (T("#BCA974", 0.45), 0.5), (T("#A89A62", 0.3), 1.0)])
+        for i, (yy, sz) in enumerate(zip(self.TENT_Y, self.TENT_SZ)):
+            tent_row(c, max(xa - 80, self.CAMP[0]), min(xb + 80, self.CAMP[1]), yy, sz, T, seed=11 + i, depth=0.55 - 0.05 * i)
+        GRAD_V(c, xa, 500, xb, 590, [("#E8D6A8", 0.0, 0), ("#E8D6A8", 0.55, 80), ("#E8D6A8", 1.0, 0)])          # ufuk tozu
+
+    def _draw_city2(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        wins = []
+        for (x, bw, bh, sd, dep, dy) in self.city_houses:
+            if x + bw < xa - 60 or x > xb + 60:
+                continue
+            rs = _RS(sd)
+            CT.draw_house(c, x, 640 + (rs.rand() * 8 - 4), bw, bh, rs, T, dep, wins)
+        base = 646
+        XD = 1500
+        if xa - 900 < XD < xb + 900:
+            CT.draw_nave(c, XD + 60, XD + 480, base + 4, 100, T, 0.24)
+            CT.draw_dome(c, XD, base - 88, 176, 108, 40, 60, T, 0.22)
+            CT.draw_campanile(c, XD + 178, base + 4, 44, 210, T, 0.22)
+            CT.draw_pv(c, XD + 800, base + 4, 0.80, T, 0.28)
+        GRAD_V(c, xa, 636, xb, 760, [(T("#97A468", 0.3), 0.0), (T("#8C9A5A", 0.2), 1.0)])
+
+    def _draw_main(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        PW = self.PW
+        pts = [(xa - 8, ks_ground(xa - 8))]
+        x = xa - 8
+        while x <= xb + 8:
+            pts.append((x, ks_ground(x)))
+            x += 12
+        poly = pts + [(pts[-1][0], 960), (pts[0][0], 960)]
+        sh = skia.GradientShader.MakeLinear([(0, 660), (0, 960)], [C(T("#A8B067", 0.0)), C(T("#8C9A55", 0.0)), C(T("#6E7A42", 0.0))], [0.0, 0.5, 1.0])
+        c.drawPath(sk.poly_path(poly), skia.Paint(AntiAlias=True, Shader=sh))
+        c.drawPath(sk.poly_path(pts, False), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.8, Color=C(INK, 140)))
+        rs = _RS(int(xa) // 7 + 5)
+        for i in range(int((xb - xa) / 9)):                                       # çimen çizgileri + koyu/açık yama
+            gx = rs.uniform(xa, xb)
+            gy = ks_ground(gx) + rs.uniform(6, 170)
+            c.drawLine(gx, gy, gx + rs.uniform(-3, 3), gy - rs.uniform(5, 14), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#4E5A2A" if rs.rand() < 0.6 else "#B8C078", 130)))
+        for i in range(int((xb - xa) / 120)):
+            gx = rs.uniform(xa, xb)
+            OVAL(c, gx, ks_ground(gx) + rs.uniform(30, 150), rs.uniform(40, 120), rs.uniform(8, 20), "#5A6A30", 40)
+        # toprak yol: platodan yamaçtan iner
+        pj = []
+        for gx in range(1250, 3000, 20):
+            pj.append((gx, ks_ground(gx) + 46 + 9 * math.sin(gx / 60.0)))
+        if not (pj[-1][0] < xa - 40 or pj[0][0] > xb + 40):
+            c.drawPath(sk.poly_path([(p_[0], p_[1] - 8) for p_ in pj] + [(p_[0], p_[1] + 11) for p_ in pj[::-1]]), _pt(T("#CDBB8C", 0.0), 190))
+        # San Miniato + balyalı çan kulesi (plato)
+        if xa < KS_CHX + 1000 and xb > 400:
+            san_miniato_front(c, KS_CHX, KS_PLAT, 400, 214, T)
+            bale_tower(c, KS_TX, KS_PLAT, KS_TW, KS_THS, T, seed=3)
+            rs2 = _RS(55)
+            for (bx0, rows_) in ((820, 3), (1280, 2), (1900, 3)):                  # yerde balya yığınları
+                for r_ in range(rows_):
+                    for k in range(rows_ - r_):
+                        wool_bale(c, bx0 + k * 70 + r_ * 35, KS_PLAT - (r_ + 1) * 40 + 10, 68, 42, seed=int(rs2.randint(0, 10 ** 6)))
+            dx_, dy_, dw_ = self.tg["deck"]
+            cannon(c, dx_ - dw_ * 0.36, dy_ - 14, 0.66, -1)                          # tepede iki top siluet (namlular dışa)
+            cannon(c, dx_ + dw_ * 0.36, dy_ - 14, 0.66, 1)
+        # Floransa surları: yamacı izleyen duvar
+        if xb > KS_W0 - 60 and xa < KS_W1 + 60:
+            xs = list(range(max(KS_W0, int(xa) - 30), min(KS_W1, int(xb) + 30), 10))
+            if len(xs) > 1:
+                top = [(x_, ks_ground(x_) - 20 - 96) for x_ in xs]
+                bot = [(x_, ks_ground(x_) + 6) for x_ in xs]
+                wall = sk.poly_path(top + bot[::-1])
+                shw = skia.GradientShader.MakeLinear([(0, 560), (0, 900)], [C(T("#C4AE84", 0.0)), C(T("#A8926A", 0.0))], [0.0, 1.0])
+                c.drawPath(wall, skia.Paint(AntiAlias=True, Shader=shw))
+                c.save()
+                c.clipPath(wall, skia.ClipOp.kIntersect, True)
+                jp = skia.Path()
+                for r_ in range(6):
+                    for x_ in xs[::5]:
+                        jy = ks_ground(x_) - 20 - 96 + r_ * 18
+                        jp.moveTo(x_, jy)
+                        jp.lineTo(x_ + 50, jy + 0.5)
+                        jp.moveTo(x_ + (r_ % 2) * 25, jy)
+                        jp.lineTo(x_ + (r_ % 2) * 25, jy + 18)
+                c.drawPath(jp, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#4A3A22", 95)))
+                c.restore()
+                c.drawPath(sk.poly_path(top, False), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C(INK, 175)))
+                for x_ in range(int(max(KS_W0, xa - 30)) // 34 * 34, int(min(KS_W1, xb + 30)), 34):
+                    yy = ks_ground(x_) - 20 - 96
+                    R(c, x_, yy - 20, x_ + 18, yy + 2, T("#A8926A", 0.0))
+                    c.drawRect(skia.Rect.MakeLTRB(x_, yy - 20, x_ + 18, yy + 2), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C(INK, 150)))
+                    c.drawPath(arch_path(x_ + 9, yy + 44, 6, 24), _pt("#241810", 160))
+                for tx in (2290, 2740, 3150):                                          # kuleler
+                    if xa - 90 < tx < xb + 90:
+                        gy = ks_ground(tx)
+                        R(c, tx - 44, gy - 168, tx + 44, gy + 4, T("#B9A37A", 0.0))
+                        crenel(c, tx - 50, tx + 50, gy - 190, 18, 22, 10, T, 0.0, col="#8A7452")
+                        for ry in (0.38, 0.66):
+                            c.drawPath(arch_path(tx, gy - 168 * (1 - ry) - 20, 8, 28), _pt("#241810", 225))
+                        c.drawRect(skia.Rect.MakeLTRB(tx - 44, gy - 168, tx + 44, gy + 4), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 175)))
+                        R(c, tx + 28, gy - 168, tx + 44, gy + 4, "#1A1008", 36)
+                gx_ = 3000                                                              # kapı kulesi
+                if xa - 110 < gx_ < xb + 110:
+                    gy = ks_ground(gx_)
+                    R(c, gx_ - 70, gy - 186, gx_ + 70, gy + 4, T("#B09A72", 0.0))
+                    crenel(c, gx_ - 76, gx_ + 76, gy - 210, 20, 24, 10, T, 0.0, col="#8A7452")
+                    c.drawPath(arch_path(gx_, gy + 2, 62, 110), _pt("#1E140C", 245))
+                    INKP(c, arch_path(gx_, gy + 2, 62, 110), 1.4, 190)
+                    c.drawRect(skia.Rect.MakeLTRB(gx_ - 70, gy - 186, gx_ + 70, gy + 4), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.5, Color=C(INK, 180)))
+                for gx2 in range(2000, 2900, 70):                                      # hasır sepetler (cesto)
+                    if xa - 60 < gx2 < xb + 60:
+                        gabion(c, gx2, ks_ground(gx2) - 116, 40, 42, T, seed=gx2)
+        # servi ağaçları + ön taşlar
+        rs3 = _RS(66)
+        for i in range(40):
+            tx = rs3.uniform(0, PW)
+            if not (xa - 40 < tx < xb + 40):
+                continue
+            if KS_W0 - 40 < tx < KS_W1 + 70 or KS_CHX - 40 < tx < KS_CHX + 520 or abs(tx - KS_TX) < 150:
+                continue
+            SC.cypress(c, tx, ks_ground(tx) + 5, rs3.uniform(96, 170), T("#2E4A33", 0.0), T("#4F6E4A", 0.0))
+        for i in range(40):
+            tx = rs3.uniform(0, PW)
+            if xa - 20 < tx < xb + 20:
+                OVAL(c, tx, ks_ground(tx) + rs3.uniform(50, 160), rs3.uniform(8, 22), rs3.uniform(3, 8), "#7A6A48", 80)
+
+    # ── dinamik ──
+    def dyn_camp(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        for i, (yy, sz) in enumerate(zip(self.TENT_Y, self.TENT_SZ)):
+            pts = []
+            for tt in tent_layout(max(xa - 80, self.CAMP[0]), min(xb + 80, self.CAMP[1]), yy, sz, 11 + i):
+                if tt["flag"]:
+                    pts.append((tt["x"] + tt["w"] * 0.02 + 0.8, tt["y"] - tt["h"] - tt["pole"], tt["fk"], sz))
+            tent_flags(c, pts, t, 1.0)
+        rs = _RS(81)
+        for i in range(18):                                                       # ocak dumanları (ince)
+            x = 150 + i * 118 + rs.uniform(-30, 30)
+            if x < xa - 40 or x > xb + 40:
+                continue
+            smoke_plume(c, x, 545 + (i % 3) * 8, t, size=13, n=4, k=0.9, col="#B8A88A", seed=i, rise=90, wind=30, a0=0.40)
+        dust = _soft_dot("#D8C69C", 64, 1.1)
+        for i in range(10):                                                       # sürüklenen toz bulutları
+            ph = (t * 0.05 + i * 0.131) % 1.0
+            _blit_dot(c, dust, 120 + i * 210 + ph * 320, 552 + (i % 3) * 10, 70 + 26 * math.sin(i * 1.7), 0.22 * math.sin(math.pi * ph))
+        FA.atmo_birds(c, t, 4, 1.0, xa, xb, 380, 500, speed=18.0, night=ctx.night, seed=21, size=0.6)
+
+    def dyn_city(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        rs = _RS(33)
+        for i in range(14):
+            x = 120 + i * 230 + rs.uniform(-40, 40)
+            if x < xa - 40 or x > xb + 40:
+                continue
+            smoke_plume(c, x, 586, t, size=20, n=5, k=0.8, col="#B8B0A4", seed=i + 3, rise=130, wind=26, a0=0.34)
+
+    def dyn_main(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        fx_, fy_ = self.tg["flag"]
+        flag_pennant(c, fx_ + 1, fy_ + 2, t, 54.0, 19.0, "#B3301F", seed=1)
+        circling_birds(c, fx_ + 20, fy_ + 170, 200, 70, t, 6, seed=4)
+        for i, tx in enumerate((2290, 2740, 3150, 3000)):
+            if xa - 90 < tx < xb + 90:
+                gy = ks_ground(tx)
+                top = gy - (232 if tx == 3000 else 190) - 6
+                c.drawLine(tx, top, tx, top - 70, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.4, Color=C(INK, 225)))
+                flag_pennant(c, tx + 1, top - 68, t, 40.0, 15.0, "#E0B84E" if i % 2 else "#B3301F", seed=i * 2 + 1)
+        fluff = _soft_dot("#F6EEDB", 24, 1.2)                                     # rüzgârda uçuşan yün tutamları
+        for i in range(12):
+            ph = (t * 0.10 + i * 0.121) % 1.0
+            px = KS_TX - 90 + ph * 560 + math.sin(t * 1.3 + i * 2.1) * 12
+            py = KS_PLAT - 60 - i * 20 - ph * 100 + math.sin(t * 2.0 + i) * 8
+            _blit_dot(c, fluff, px, py, 4.0 + (i % 3), 0.8 * math.sin(math.pi * ph))
+
+    def dyn_front(self, ctx):
+        """Ön plan (1,30): rüzgârda salınan uzun otlar."""
+        c, t = ctx.c, ctx.t
+        rs = _RS(91)
+        p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C("#4E5A2A", 210), StrokeCap=skia.Paint.kRound_Cap)
+        for i in range(80):
+            gx = ctx.xa + rs.uniform(0, 1) * (ctx.xb - ctx.xa)
+            gy = 846 + rs.uniform(0, 40)
+            hh = rs.uniform(30, 70)
+            sw = math.sin(t * 2.0 + gx * 0.02 + i) * 8 + math.sin(t * 3.4 + i * 1.7) * 3
+            pth = skia.Path()
+            pth.moveTo(gx, gy)
+            pth.quadTo(gx + sw * 0.4, gy - hh * 0.6, gx + sw, gy - hh)
+            p.setColor(C("#4E5A2A" if i % 3 else "#8E9A4E", 215))
+            c.drawPath(pth, p)
+
+
+# ─────────── Roma 1527: Castel Sant'Angelo + Passetto ───────────
+def _draw_sky_smoky(self, fr, xa, xb):
+    """Dumanlı gök (gün: gri-mavi → kül-ocher → turuncu ufuk; yumuşak duman bantları); dusk/night: Florence gökleri."""
+    if self.tod != "day":
+        return PN.Florence._draw_sky(self, fr, xa, xb)
+    c = fr.c
+    GRAD_V(c, xa, 0, xb, 760, [("#76828E", 0.0), ("#B9AE9C", 0.50), ("#E6C18F", 0.86), ("#F2CB92", 1.0)])
+    R(c, xa, 759, xb, 960, "#F2CB92")
+    rs = _RS(int(xa) // 7 + 17)
+    for i in range(int((xb - xa) / 300) + 1):
+        x = xa + rs.uniform(0, 300) + i * 300
+        y = rs.uniform(OV + 60, 470)
+        for k in range(3):
+            c.drawOval(skia.Rect.MakeLTRB(x + k * 80, y - 10, x + k * 80 + 260, y + 14), skia.Paint(AntiAlias=True, Color=C("#6A625C", 46), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 10)))
+    GRAD_V(c, xa, 480, xb, 700, [("#E8803A", 0.0, 0), ("#E8803A", 0.7, 52), ("#E8803A", 1.0, 70)])           # ufukta ateş ışığının sıcak yansıması
+
+
+def _rome_far(self, fr, xa, xb):
+    """Uzak Roma silueti (0,34): çatılar, kuleler, şemsiye çamları, eski San Pietro cephesi (stilize); gün/dusk/night Tint."""
+    c = fr.c
+    T = self.T
+    wins = []
+    for (x, bw, bh, sd, dep, dy) in self.city_houses:
+        if x + bw < xa - 60 or x > xb + 60:
+            continue
+        rs = _RS(sd)
+        CT.draw_house(c, x, 700 + dy + (rs.rand() * 8 - 4), bw, bh, rs, T, dep, wins)
+    for tx, th in ((300, 210), (880, 170), (1650, 232), (2300, 186), (2980, 214), (3500, 176)):
+        if xa - 80 < tx < xb + 80:
+            CT.draw_tower(c, tx, 700, 30, th, T, 0.34, spire=(tx % 3 == 0))
+    XP = 1230                                                                              # eski San Pietro (cephe + nef + çan kulesi)
+    if xa - 600 < XP < xb + 600:
+        R(c, XP - 210, 700 - 150, XP + 210, 700, T("#E6D6B0", 0.30))
+        c.drawPath(sk.poly_path([(XP - 190, 700 - 150), (XP, 700 - 262), (XP + 190, 700 - 150)]), _pt(T("#C9B890", 0.30)))
+        INKP(c, sk.poly_path([(XP - 190, 700 - 150), (XP, 700 - 262), (XP + 190, 700 - 150)]), 1.2, 150)
+        for k in range(7):
+            c.drawPath(arch_path(XP - 156 + k * 52, 700, 26, 72), _pt(T("#3A2A1C", 0.3), 190))
+        R(c, XP + 214, 700 - 220, XP + 252, 700, T("#C4AE88", 0.30))
+        c.drawPath(sk.poly_path([(XP + 210, 700 - 220), (XP + 233, 700 - 262), (XP + 256, 700 - 220)]), _pt(T("#A8502C", 0.30)))
+        INKR(c, XP - 210, 700 - 150, XP + 210, 700, 1.2, 140)
+    rs = _RS(int(xa) // 11 + 3)
+    for i in range(int((xb - xa) / 180) + 1):                                              # şemsiye çamları
+        x = xa + i * 180 + rs.uniform(0, 140)
+        SC.umbrella_pine(c, x, 706, rs.uniform(86, 130), T("#3C5A38", 0.34))
+    if self.tod != "day":
+        PN._lit_boxes(c, _RS(int(xa) % 997 + 1), wins, True, 0.34 if self.tod == "night" else 0.14)
+
+
+class KaleCastel(SWorld):
+    name = "sehir_kale_castel"
+    PW = 4200
+    _draw_sky = _draw_sky_smoky
+    _draw_hills = PN.Florence._draw_hills
+    dyn_sky = PN.Florence.dyn_sky
+    _draw_city = _rome_far
+    CX = 2420                                  # kale merkezi
+    BASE = 790                                 # kale/duvar zemin hizası (ana düzlem)
+    CS = 1.22                                  # kale ölçeği
+
+    def build(self):
+        PW = self.PW
+        cam_span = PW - W
+
+        def Lw(f):
+            return int(W + cam_span * f + 500)
+        self.cloud_seed = 13
+        rr = _RS(12)
+        self.city_houses = []
+        x = -40
+        while x < Lw(0.34) + 60:
+            bw, bh = rr.uniform(40, 86), rr.uniform(34, 76)
+            self.city_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6)), 0.42, 0))
+            x += bw + rr.uniform(-6, 8)
+        self.layer("sky", 0.05, Lw(0.05), self._draw_sky, opaque=True, scale=0.5, wear=3, loss=0.5, yr=(0, 700))
+        self.layer("hills", 0.12, Lw(0.12), self._draw_hills, scale=0.5, wear=2, yr=(330, 800))
+        self.layer("city", 0.34, Lw(0.34), self._draw_city, wear=2, yr=(260, 760))
+        self.layer("main", 1.0, PW, self._draw_main, wear=4)
+        self.layer("river", 0.9, Lw(0.9), self._draw_river, yr=(600, 900))
+        self.tgeo = None
+
+    def default_cams(self, act=None, p=None):
+        return [(0.0, (1650, 60, 1.0)), (1.0, (2330, 40, 1.16))]                    # yavaş itme: Passetto duvarından kaleye
+
+    def stack(self, ctx):
+        return [("L", "sky"), ("D", "dyn_sky", 0.05), ("L", "hills"), ("L", "city"), ("D", "dyn_city", 0.34), ("L", "main"), ("D", "dyn_main", 1.0), ("L", "river"), ("D", "dyn_river", 0.9), ("D", "dyn_front", 1.3)]
+
+    def _draw_river(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        GRAD_V(c, xa, self.BASE + 4, xb, 900, [(T("#7FA0A0", 0.1), 0.0), (T("#4E7C86", 0.0), 0.5), (T("#2E566A", 0.0), 1.0)])
+        rs = _RS(int(xa) // 3 + 5)
+        for i in range(int((xb - xa) / 12)):
+            yy = rs.uniform(self.BASE + 14, 880)
+            x = rs.uniform(xa, xb)
+            L = rs.uniform(14, 56)
+            c.drawLine(x, yy, x + L, yy, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4 + (yy - self.BASE) * 0.012, Color=C("#FFFFFF" if rs.rand() < 0.55 else "#1E3A4A", int(rs.uniform(26, 72))), StrokeCap=skia.Paint.kRound_Cap))
+        if self.tod == "dusk":                                                                # gökyüzü yansıması (turuncu → mor)
+            GRAD_V(c, xa, self.BASE + 4, xb, 900, [("#FF9A4A", 0.0, 120), ("#C0607A", 0.5, 90), ("#4A3A7A", 1.0, 70)])
+        elif self.tod == "day":
+            GRAD_V(c, xa, self.BASE + 4, xb, 900, [("#E8A060", 0.0, 70), ("#6A8CA0", 1.0, 20)])
+        R(c, xa, self.BASE - 2, xb, self.BASE + 8, T("#7C6C4E", 0.0))                      # rıhtım kenarı
+        c.drawLine(xa, self.BASE + 8, xb, self.BASE + 8, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.6, Color=C(INK, 150)))
+
+    def _draw_main(self, fr, xa, xb):
+        c = fr.c
+        T = self.T
+        B = self.BASE
+        PW = self.PW
+        # Passetto: kalın taş duvar + kör kemer sırası + üstte örtülü koridor (ok yarıkları, kiremit çatı, mazgal dişleri)
+        W0, W1 = -200, self.CX - 520 * self.CS / 1.22
+        if xb > W0 and xa < W1 + 60:
+            x0, x1 = max(W0, xa - 10), min(W1, xb + 10)
+            stone_wall(c, W0, B - 200, W1, B, "#C6B18A", T, 0.0, 41, ch=34, bw=(80, 140), rustic=False, joint_a=90, clip=(xa, xb))
+            nar = int((W1 - W0) / 190)
+            for i in range(nar):                                                              # kör kemerler
+                ax = W0 + (i + 0.5) * (W1 - W0) / nar
+                if ax < xa - 100 or ax > xb + 100:
+                    continue
+                c.drawPath(arch_path(ax, B, (W1 - W0) / nar * 0.62, 150), _pt(T("#6A5A40", 0.0), 215))
+                INKP(c, arch_path(ax, B, (W1 - W0) / nar * 0.62, 150), 1.1, 150)
+            R(c, x0, B - 214, x1, B - 196, T("#CDBB92", 0.0))
+            c.drawLine(x0, B - 196, x1, B - 196, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 160)))
+            # üstte koridor gövdesi
+            R(c, x0, B - 314, x1, B - 214, T("#D3BF98", 0.0))
+            stone_wall(c, W0, B - 314, W1, B - 214, "#D3BF98", T, 0.0, 43, ch=24, bw=(60, 100), rustic=False, joint_a=70, clip=(xa, xb))
+            gx = int(x0 // 86) * 86
+            while gx < x1 + 86:                                                              # ok yarıkları
+                c.drawPath(arch_path(gx + 43, B - 232, 12, 52), _pt("#1E140C", 235))
+                gx += 86
+            R(c, x0, B - 336, x1, B - 312, T("#A8502C", 0.0))                                # çatı saçağı
+            c.drawLine(x0, B - 336, x1, B - 336, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C(INK, 160)))
+            for k in range(1, 4):
+                c.drawLine(x0, B - 336 + k * 6, x1, B - 336 + k * 6, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#5A2412", 90)))
+            crenel(c, W0, W1, B - 360, 22, 24, 14, T, 0.0, col="#8A7452")
+            R(c, x1 - 28, B - 360, x1, B, "#1A1008", 32)
+        # Castel Sant'Angelo
+        if xa - 600 < self.CX < xb + 600:
+            castel_sant_angelo(c, self.CX, B, self.CS, T, col="#B27C58")
+            c.drawPath(arch_path(self.CX, B, 78 * self.CS, 104 * self.CS), _pt("#1E140C", 245))                  # giriş kapısı (kapı + kemer)
+            INKP(c, arch_path(self.CX, B, 78 * self.CS, 104 * self.CS), 1.4, 190)
+        # sağ: rıhtım duvarı + alçak Borgo evleri + torrione
+        RX0 = self.CX + 420
+        if xb > RX0 - 40:
+            stone_wall(c, RX0, B - 130, PW + 100, B, "#B09A72", T, 0.0, 47, ch=30, bw=(80, 130), rustic=False, joint_a=88, clip=(xa, xb))
+            crenel(c, RX0, PW + 100, B - 152, 20, 22, 12, T, 0.0, col="#8A7452")
+            for tx in (self.CX + 940, self.CX + 1540):
+                if xa - 80 < tx < xb + 80:
+                    R(c, tx - 40, B - 220, tx + 40, B, T("#B9A37A", 0.0))
+                    crenel(c, tx - 46, tx + 46, B - 244, 17, 22, 10, T, 0.0, col="#8A7452")
+                    c.drawPath(arch_path(tx, B - 100, 8, 30), _pt("#241810", 225))
+                    INKR(c, tx - 40, B - 220, tx + 40, B, 1.3, 170)
+        # servi/çam
+        rs = _RS(77)
+        for i in range(26):
+            tx = rs.uniform(0, PW)
+            if xa - 40 < tx < xb + 40 and not (self.CX - 520 < tx < self.CX + 520) and tx > W1:
+                SC.umbrella_pine(c, tx, B - 130 + 6, rs.uniform(90, 140), T("#3C5A38", 0.0))
+
+    def dyn_city(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        # uzaktaki Roma'dan yükselen duman sütunları (stilize; olay yok)
+        for i, (sx, h, w_) in enumerate(((520, 560, 86), (980, 470, 72), (1380, 640, 100), (1760, 500, 78), (2150, 600, 96), (2530, 470, 74), (2900, 590, 90), (3300, 460, 70))):
+            if xa - 200 < sx < xb + 200:
+                smoke_column(c, sx, 700, t, h=h, w=w_, col="#322A28" if ctx.tod == "day" else "#2A2634", seed=i + 1, wind=80, a0=0.85, glow_a=0.45 if ctx.tod != "day" else 0.30)
+        FA.atmo_birds(c, t, 6, 1.0, xa, xb, 250, 480, speed=20.0, night=ctx.night, seed=9, size=0.8)
+
+    def dyn_main(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        B = self.BASE
+        s_ = self.CS
+        fx_, fy_ = self.CX, B - 522 * s_
+        if xa - 100 < fx_ < xb + 100:
+            flag_pennant(c, fx_ + 1, fy_ + 2, t, 70.0, 26.0, "#E0B84E", seed=2)
+            circling_birds(c, fx_, fy_ + 190 * s_, 380 * s_, 100, t, 8, seed=8)
+        for sgn in (-1, 1):                                                            # burç direkleri: flama
+            bx = self.CX + sgn * 320 * s_
+            if xa - 80 < bx < xb + 80:
+                top = B - 120 * s_ * 1.18 - 18 * s_
+                c.drawLine(bx, top, bx, top - 96, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.4, Color=C(INK, 225)))
+                flag_pennant(c, bx + 1, top - 94, t, 38.0, 15.0, "#B3301F", seed=3 + sgn)
+        # Passetto üstünde direkler/flamalar
+        for px in range(100, int(self.CX - 600), 560):
+            if xa - 60 < px < xb + 60:
+                c.drawLine(px, B - 360, px, B - 430, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C(INK, 220)))
+                flag_pennant(c, px + 1, B - 428, t, 32.0, 12.0, "#B3301F" if (px // 560) % 2 else "#E0B84E", seed=px % 7)
+        # küller (havada uçuşan, çok seyrek): ash_field
+        ash_field(c, (xa + xb) / 2, 560, t, n=26, span=1400, wind=70, k=0.55, seed=3)
+
+    def dyn_river(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        rs = _RS(14)
+        col = "#FFF4D0" if ctx.night else "#FFFFFF"
+        for i in range(34):
+            yy = self.BASE + 16 + rs.uniform(0, 74)
+            k = (yy - self.BASE) / 90.0
+            L = 16 + 40 * k
+            span = (xb - xa) + 200
+            xx = xa - 100 + (rs.uniform(0, span) + t * (6 + 12 * k)) % span
+            al = (0.22 + 0.22 * math.sin(t * 1.7 + i * 1.3) ** 2) * (0.6 if ctx.night else 1.0)
+            c.drawLine(xx, yy, xx + L, yy, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4 + 1.2 * k, Color=C(col, int(255 * al)), StrokeCap=skia.Paint.kRound_Cap))
+
+    def dyn_front(self, ctx):
+        pass
+
+    def grade(self, ctx):
+        _grade_generic(self, ctx)
+
+
+# Passetto (örtülü koridor) — yan görünüm tek plan
+YF = 700            # koridor zemin arka kenarı
+YFOOT = 744         # figür ayak hizası
+YCE = 334           # tavan alt hizası
+BAYW = 420          # sütun aralığı
+
+
+def passetto_slits(xa, xb):
+    """Ok yarığı konumları (her bayın ortası)."""
+    i0 = max(0, int(xa // BAYW) - 1)
+    return [(i + 0.5) * BAYW for i in range(i0, int(xb // BAYW) + 2) if xa - 40 <= (i + 0.5) * BAYW <= xb + 40]
+
+
+class KalePassetto(SWorld):
+    name = "sehir_kale_passetto"
+    PW = 5600
+    _draw_sky = _draw_sky_smoky
+    _draw_hills = PN.Florence._draw_hills
+    dyn_sky = PN.Florence.dyn_sky
+    _draw_city = _rome_far
+
+    def build(self):
+        PW = self.PW
+        cam_span = PW - W
+
+        def Lw(f):
+            return int(W + cam_span * f + 500)
+        self.cloud_seed = 15
+        rr = _RS(18)
+        self.city_houses = []
+        x = -40
+        while x < Lw(0.30) + 60:
+            bw, bh = rr.uniform(44, 96), rr.uniform(60, 150)
+            self.city_houses.append((x, bw, bh, int(rr.randint(1, 10 ** 6)), 0.40, 0))
+            x += bw + rr.uniform(-6, 8)
+        self.layer("sky", 0.05, Lw(0.05), self._draw_sky, opaque=True, scale=0.5, wear=3, loss=0.5, yr=(0, 700))
+        self.layer("hills", 0.12, Lw(0.12), self._draw_hills, scale=0.5, wear=2, yr=(330, 800))
+        self.layer("city", 0.30, Lw(0.30), self._draw_city, wear=2, yr=(260, 760))
+        self.layer("main", 1.0, PW, self._draw_main, wear=4)
+        self.cast = []                                                                           # heyet: (tür, seed, dx(ekranda), boy, prop)
+        self.cast = [("asker", 4, 360, 250, "halberd"), ("asker", 9, 300, 252, "halberd"), ("asker", 13, 214, 248, "halberd"),
+                     ("kardinal", 3, 120, 236, None), ("papa", 2, 24, 240, None), ("kardinal", 5, -70, 234, None),
+                     ("rahip", 7, -150, 230, None), ("asker", 17, -222, 250, "halberd"), ("asker", 21, -296, 248, "halberd"), ("asker", 25, -366, 250, "halberd")]
+
+    def default_cams(self, act=None, p=None):
+        dur = (p or {}).get("_dur", 14.0)
+        v = 168.0
+        keys = [(f_, (900 + v * dur * f_, 0, 1.0)) for f_ in (0.0, 0.25, 0.5, 0.75, 1.0)]
+        return keys
+
+    def stack(self, ctx):
+        return [("L", "sky"), ("D", "dyn_sky", 0.05), ("L", "hills"), ("L", "city"), ("D", "dyn_city", 0.30), ("L", "main"), ("D", "dyn_main", 1.0), ("D", "dyn_front", 1.32)]
+
+    def _draw_main(self, fr, xa, xb):
+        c = fr.c
+        T0 = self.T
+        T = lambda col, d=0.0: mix(T0(col, d), "#1A1008", 0.34)                    # koridor içi loş: figürler/meşale ışığı öne çıkar  # noqa: E731
+        PW = self.PW
+        cl = (xa, xb)
+        # çatı kenarı + kiremit (koridorun dışı: üstte)
+        R(c, xa, YCE - 58, xb, YCE - 6, T0("#A8502C", 0.0))
+        for k in range(1, 5):
+            c.drawLine(xa, YCE - 58 + k * 10, xb, YCE - 58 + k * 10, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#5A2412", 90)))
+        tj = skia.Path()
+        gx = int(xa // 24) * 24
+        while gx < xb + 24:
+            tj.moveTo(gx, YCE - 58)
+            tj.lineTo(gx, YCE - 6)
+            gx += 24
+        c.drawPath(tj, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C("#5A2412", 55)))
+        c.drawLine(xa, YCE - 58, xb, YCE - 58, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 165)))
+        for mx in range(int(xa // 40) * 40, int(xb) + 40, 40):                                       # çatı sırtında mazgal dişleri (örtülü koridor çatısı)
+            R(c, mx, YCE - 76, mx + 22, YCE - 58, T0("#8A7452", 0.0))
+            c.drawRect(skia.Rect.MakeLTRB(mx, YCE - 76, mx + 22, YCE - 58), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C(INK, 150)))
+        R(c, xa, YCE - 8, xb, YCE + 6, T("#CDBB92", 0.0))                                          # saçak taşı
+        # geri duvar (sıva + taş izi)
+        GRAD_V(c, xa, YCE + 6, xb, YF, [(T("#CDB78C", 0.0), 0.0), (T("#D8C59C", 0.0), 0.55), (T("#BFA980", 0.0), 1.0)])
+        stone_wall(c, 0, YCE + 6, PW, YF, "#D2BE94", T, 0.0, 51, ch=36, bw=(90, 150), rustic=False, joint_a=40, clip=cl)
+        # tavan kirişleri (koyu tonoz bandı) + pilastr/kemer sırası
+        GRAD_V(c, xa, YCE + 6, xb, YCE + 60, [("#1A120A", 0.0, 235), ("#1A120A", 1.0, 0)])
+        i0 = max(0, int(xa // BAYW) - 1)
+        for i in range(i0, int(xb // BAYW) + 3):
+            px = i * BAYW
+            if px < xa - 80 or px > xb + 80:
+                continue
+            R(c, px - 22, YCE + 6, px + 22, YF, T("#B9A57C", 0.0))                                   # pilastr
+            R(c, px + 8, YCE + 6, px + 22, YF, "#1A1008", 40)
+            R(c, px - 30, YCE + 6, px + 30, YCE + 26, T("#CDBB92", 0.0))                              # başlık
+            R(c, px - 28, YF - 22, px + 28, YF, T("#A8946C", 0.0))                                    # kaide
+            INKR(c, px - 22, YCE + 26, px + 22, YF - 22, 1.1, 130)
+            # kemer (sığ)
+            cxp = px + BAYW / 2
+            p = skia.Path()
+            p.moveTo(px + 22, YCE + 70)
+            p.cubicTo(px + 90, YCE + 20, px + BAYW - 90, YCE + 20, px + BAYW - 22, YCE + 70)
+            c.drawPath(p, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=14, Color=C(T("#C0AC84", 0.0))))
+            c.drawPath(p, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C(INK, 140)))
+        # ok yarıkları: geri duvarda dar delikler (arkadaki gökyüzü/şehir/duman görünür) + ışık huzmesi
+        for sx in passetto_slits(xa, xb):
+            hole = arch_path(sx, 590, 24, 128)
+            splay = sk.poly_path([(sx - 34, 596), (sx - 12, 590), (sx - 12, 462), (sx - 34, 456)])
+            splay2 = sk.poly_path([(sx + 34, 596), (sx + 12, 590), (sx + 12, 462), (sx + 34, 456)])
+            c.drawPath(splay, _pt("#8C7A58", 190))
+            c.drawPath(splay2, _pt("#7A6A4A", 190))
+            c.drawPath(hole, skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kClear))
+            INKP(c, hole, 1.3, 190)
+            sh = skia.GradientShader.MakeLinear([(0, 470), (0, YFOOT + 20)], [C("#FFC278", 70), C("#FFC278", 26), C("#FFC278", 4)], [0.0, 0.7, 1.0])
+            shaft = sk.poly_path([(sx - 12, 470), (sx + 12, 470), (sx + 150, YFOOT + 14), (sx + 52, YFOOT + 14)])
+            c.drawPath(shaft, skia.Paint(AntiAlias=True, Shader=sh))
+        # zemin: taş döşeme (arkadan öne) + alt kalın duvar (kesit)
+        GRAD_V(c, xa, YF, xb, YFOOT + 34, [(T("#8E7C58", 0.0), 0.0), (T("#B09C74", 0.0), 0.6), (T("#9C8862", 0.0), 1.0)])
+        c.drawLine(xa, YF, xb, YF, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 150)))
+        pj = skia.Path()
+        gx = int(xa // 70) * 70
+        while gx < xb + 70:
+            pj.moveTo(gx, YF)
+            pj.lineTo(gx - 26, YFOOT + 34)
+            gx += 70
+        for k in range(1, 5):
+            pj.moveTo(xa, YF + k * 10)
+            pj.lineTo(xb, YF + k * 10)
+        c.drawPath(pj, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#4A3A22", 90)))
+        stone_wall(c, 0, YFOOT + 34, PW, 900, "#A8926A", T, 0.0, 53, ch=34, bw=(80, 140), rustic=False, joint_a=95, clip=cl)
+        for i in range(int(xa // 300) - 1, int(xb // 300) + 2):                                   # alt kör kemerler
+            ax = (i + 0.5) * 300
+            c.drawPath(arch_path(ax, 900, 180, 108), _pt(T("#5E4E36", 0.0), 215))
+        R(c, xa, YFOOT + 30, xb, YFOOT + 40, T("#C6B488", 0.0))
+        c.drawLine(xa, YFOOT + 40, xb, YFOOT + 40, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 160)))
+
+    def dyn_city(self, ctx):
+        c, t = ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        for i, (sx, h, w_) in enumerate(((300, 560, 74), (760, 470, 62), (1250, 640, 86), (1730, 520, 70), (2200, 600, 80), (2700, 480, 64), (3200, 620, 84))):
+            if xa - 200 < sx < xb + 200:
+                smoke_column(c, sx, 700, t, h=h, w=w_, col="#2E2824" if ctx.tod == "day" else "#2E2C3A", seed=i + 5, wind=80, a0=0.92, glow_a=0.45)
+        FA.atmo_birds(c, t, 5, 1.0, xa, xb, 200, 330, speed=22.0, night=ctx.night, seed=19, size=0.8)
+
+    def dyn_main(self, ctx):
+        f, c, t = ctx.f, ctx.c, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        # meşale/fener: yarıkların arasında duvar konsolları
+        for sx in passetto_slits(xa - 400, xb + 400):
+            tx = sx + BAYW * 0.5
+            if xa - 60 < tx < xb + 60:
+                torch_bracket(c, tx, 560)
+                torch_flame(c, tx - 7, 544, t, size=46.0, seed=int(tx) % 40)
+            glow(c, sx, 530, 130 * (0.9 + 0.1 * math.sin(t * 2.1 + sx)), "#FFB04A", 0.22)
+            glow(c, sx + BAYW * 0.5, 540, 190 * (0.92 + 0.08 * math.sin(t * 7.3 + sx)), "#FF9A3A", 0.30)                # meşale ışık havuzu
+        # ışık huzmelerinde süzülen toz
+        dot = _soft_dot("#FFE2A8", 24, 1.2)
+        for sx in passetto_slits(xa - 100, xb + 100):
+            for k in range(6):
+                ph = (t * (0.12 + 0.03 * k) + k * 0.17 + sx * 0.003) % 1.0
+                px = sx - 10 + ph * (150 + 40 * k % 3) * 0.9 + math.sin(t * 1.4 + k) * 6
+                py = 480 + ph * (YFOOT - 470)
+                _blit_dot(c, dot, px, py, 2.6 + (k % 3), 0.7 * math.sin(math.pi * ph))
+        # heyet: kamera hızına eşit zemin hızıyla hızla yürür (ayak kaymaz); Papa'yı muhafızlar ve kardinaller sarmalar
+        v = max(0.0, ctx.cam_vx)
+        base = ctx.camx
+        jost = math.sin(t * 3.0)
+        order = []
+        for (kind, sd, dx, hh, prop) in self.cast:
+            x = base + dx - 40 + 10 * math.sin(t * 2.2 + dx * 0.02) + 6 * jost
+            y = YFOOT + (6 if kind in ("papa",) else 0) - (8 if kind == "asker" and dx > 0 else 0) + 4 * math.sin(dx)
+            order.append((y, kind, sd, x, hh, prop, dx))
+        order.sort(key=lambda q: q[0])
+        for (y, kind, sd, x, hh, prop, dx) in order:
+            if x < xa - 200 or x > xb + 200:
+                continue
+            stil = {}
+            if kind == "papa":
+                stil = dict(robe="#F2EDE0", robe2="#E0B84E", cloak=None) if False else dict(robe="#F2EDE0", robe2="#E0B84E")
+            FA.walker(f, kind, x, y, hh, t, speed=max(v, 1.0), dir=1, phase=((dx * 0.0031) % 1.0), seed=sd, prop=prop, **stil)
+
+    def dyn_front(self, ctx):
+        """Ön plan (1,32): koridorun önündeki kalın taş payandalar (figürler arkalarından geçer)."""
+        c = ctx.c
+        for i in range(0, 14):
+            px = 700 + i * 1180
+            if px < ctx.xa - 80 or px > ctx.xb + 80:
+                continue
+            R(c, px - 32, 60, px + 32, 900, "#4A3C2E", 255)
+            R(c, px - 32, 60, px - 18, 900, "#6A5844", 255)
+            R(c, px + 16, 60, px + 32, 900, "#22180F", 255)
+            R(c, px - 46, 60, px + 46, 92, "#5A4A38", 255)
+            R(c, px - 44, 846, px + 44, 900, "#5A4A38", 255)
+            c.drawLine(px - 32, 92, px - 32, 846, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 180)))
+            c.drawLine(px + 32, 92, px + 32, 846, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(INK, 180)))
+
+    def prepare(self, ctx):
+        super().prepare(ctx)
+        pc = ctx.pc
+        dt = 0.05
+        ctx.cam_vx = (pc.at(clamp(ctx.t + dt, 0, ctx.cx.dur))[0] - pc.at(clamp(ctx.t - dt, 0, ctx.cx.dur))[0]) / (2 * dt)
+
+    def grade(self, ctx):
+        _grade_generic(self, ctx)
+
+
+
 # ═════════════════════════════ sahne kayıtları + `sehir` çekim türü ═════════════════════════════
 _SW = {}
-ACT_TOD = {("meydan", "ates"): "dusk", ("meydan", "odun"): "night", ("meydan", "palle"): "day", ("meydan", "pencere"): "dusk"}
+TIMES = {}      # son karenin bölüm süreleri (ms): katman/dinamik/grade/fx — preview_sehir --ms dökümü için
+ACT_TOD = {("meydan", "ates"): "dusk", ("meydan", "odun"): "night", ("meydan", "palle"): "day", ("meydan", "pencere"): "dusk", ("kale", "castel"): "dusk"}
 DEFAULT_ACT = {"meydan": "ates", "sokak": None, "kale": "sur", "skyline_dikey": None}
 CLASSES = {}   # (scene, act|None) → sınıf; alt bölümlerde doldurulur
 
 
+_CLEANED = []
+
+
+def _clean_stale():
+    """Eski sürümlerin kareaşlarını sil (yalnız bu modülün `sehir_*` dosyaları)."""
+    if _CLEANED:
+        return
+    _CLEANED.append(1)
+    try:
+        for fn in os.listdir(CACHE):
+            if fn.startswith("sehir_") and not fn.endswith(f"_{VER}.png"):
+                try:
+                    os.remove(os.path.join(CACHE, fn))
+                except OSError:
+                    pass
+    except OSError:
+        pass
+
+
 def get_sworld(scene, act, tod):
+    _clean_stale()
     cls = CLASSES.get((scene, act)) or CLASSES.get((scene, None))
     if cls is None:
         raise ValueError(f"sehir: bilinmeyen sahne/act: {scene!r}/{act!r} (meydan: ates|odun|palle|pencere · sokak · kale: sur|castel|passetto · skyline_dikey)")
@@ -1793,6 +3360,10 @@ def get_sworld(scene, act, tod):
 
 
 CLASSES[("meydan", None)] = Meydan
+CLASSES[("sokak", None)] = Sokak
+CLASSES[("kale", "sur")] = KaleSur
+CLASSES[("kale", "castel")] = KaleCastel
+CLASSES[("kale", "passetto")] = KalePassetto
 
 
 @ckind("sehir")
@@ -1812,7 +3383,8 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
         band = (150, 800) if frame else (0, 800)
     a = cx.amt(at, 0.9) if at else 1.0
     dur = max(cx.dur, 1e-3)
-    pc = PN.PanoCam(cx, cams, world.default_cams(act), dur)
+    pdict = dict(scene=scene, act=act, actors=actors, items_at=items_at, fire_at=fire_at, door=door, door_at=door_at, _dur=dur, **{k: v for k, v in kw.items() if k not in ("cam",)})
+    pc = PN.PanoCam(cx, cams, world.default_cams(act, pdict), dur)
     t_cam = clamp(cx.t, 0.0, dur)
     camx, camy, z = pc.at(t_cam)
     if not cams:
@@ -1830,7 +3402,8 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
     c.restore()
     ctx = PN.Ctx(f, cx, world, camx, camy, z, band if frame else (0, 800), tod, a)
     ctx.band = (band[0], band[1]) if frame else (140, 800)
-    ctx.p = dict(scene=scene, act=act, actors=actors, items_at=items_at, fire_at=fire_at, door=door, door_at=door_at, **{k: v for k, v in kw.items() if k not in ("cam",)})
+    ctx.p = pdict
+    ctx.pc = pc
     sts = stations if stations is not None else world.default_stations()
     ctx.stations = []
     for s_ in sts:
@@ -1841,8 +3414,12 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
     by0, bh = ctx.band
     c.save()
     c.clipRect(skia.Rect.MakeLTRB(0, by0, W, by0 + bh))
+    tm = TIMES
+    tm.clear()
+    pc0 = time.perf_counter()
     for item in world.stack(ctx):
         kind = item[0]
+        t0_ = time.perf_counter()
         if kind == "L":
             L = world.layers[item[1]]
             dy_ = item[2] if len(item) > 2 else 0.0
@@ -1850,6 +3427,7 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
             xa, xb = ctx.view(L.f)
             L.draw_view(c, xa, xb)
             ctx.end()
+            key = "L:" + item[1]
         elif kind == "D":
             fct = item[2]
             dy_ = item[3] if len(item) > 3 else 0.0
@@ -1858,12 +3436,19 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
             ctx.xa, ctx.xb = xa, xb
             getattr(world, item[1])(ctx)
             ctx.end()
+            key = item[1]
+        tm[key] = tm.get(key, 0.0) + (time.perf_counter() - t0_) * 1000
+    t0_ = time.perf_counter()
     world.grade(ctx)
+    tm["grade"] = (time.perf_counter() - t0_) * 1000
     if hasattr(world, "fx"):
+        t0_ = time.perf_counter()
         xa, xb = ctx.view(1.0)
         ctx.xa, ctx.xb = xa, xb
         world.fx(ctx)
+        tm["fx"] = (time.perf_counter() - t0_) * 1000
     c.restore()
+    tm["_toplam_sahne"] = (time.perf_counter() - pc0) * 1000
     if frame:
         for yy in (by0 - 40, by0 + bh):
             FA.vine_band(f, yy, a)

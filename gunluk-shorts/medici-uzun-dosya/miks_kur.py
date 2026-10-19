@@ -88,6 +88,21 @@ def kontrol():
         uyarilar.append(f"sfx_cues_p{PART}.json yok: yalnız başlık/kart vurguları (+varsa otomatik geçiş sesleri)")
     elif os.path.getmtime(sp) < os.path.getmtime(os.path.join(OUT, "voice_chapters.json")) - 5:
         uyarilar.append(f"sfx_cues_p{PART}.json, voice_chapters.json'dan eski: mutlak 't' kullanan cue'lar eski ses eksenine göre olabilir (çapalı olanlar yeniden çözülür)")
+    # SFX kuyruğu çapa denetimi: timeline varsa cue'lar çözülür; çözülemeyen çapa / politika ihlali / sessizlik kapısında başlayan cue raporlanır
+    try:
+        if os.path.exists(tp) and os.path.exists(sp):
+            import muzik
+            import sfx
+            import ses_dsp as D
+            tl_ = json.load(open(tp))
+            raw, _ayar = sfx.load_cue_file(sp)
+            gates = muzik.gate_windows(chs, float(meta["total"]), 7.0, tl_)
+            quiet = [(g["a"], g["b"]) for g in gates if g["floor_db"] is None or g["floor_db"] <= -24]
+            cues, warns = sfx.resolve_cues(raw, D.sent_index(tl_), chs, quiet_zones=quiet, warn=lambda *a: None)
+            uyarilar.append(f"sfx_cues_p{PART}.json: {len(raw)} cue → {len(cues)} çözüldü, {len(warns)} uyarı" + (" (aşağıda)" if warns else ""))
+            uyarilar.extend("   sfx: " + w for w in warns[:12])
+    except Exception as e:   # noqa
+        uyarilar.append(f"sfx kuyruğu denetlenemedi: {type(e).__name__}: {e}")
     return hatalar, uyarilar, meta
 
 
