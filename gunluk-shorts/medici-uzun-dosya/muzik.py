@@ -1497,9 +1497,9 @@ def _window_mask(core0_s, n_win, gates_cue, pad=0.6):
 
 # @@POST-SENTEZ@@ — bu işaretten sonrası (kavşak düzeltmesi, birleştirme, CLI, DEFAULT_U, CUES) önbellek anahtarına girmez
 TRIM_MAX_DB = 3.0        # kavşak düzey eşlemesinde bir kesit ucuna uygulanabilecek en çok düzeltme (dB)
-TRIM_TOL_DB = 1.5        # kesit sonu ↔ sonraki kesit başı düzey farkı bunun altındaysa dokunulmaz
+TRIM_TOL_DB = 1.0        # kesit sonu ↔ sonraki kesit başı düzey farkı bunun altındaysa dokunulmaz
 TRIM_RAMP = 10.0         # düzeltmenin gövdede sıfıra döndüğü yumuşak geçiş süresi (sn)
-TRIM_WIN = 9.0           # kavşağa komşu ölçüm penceresi (sn): çapraz geçişin hemen dışındaki 9 sn
+TRIM_WIN = 6.0           # kavşağa komşu ölçüm penceresi (sn): çapraz geçişin hemen dışındaki 6 sn
 
 
 def _edge_level_db(x, a_s, b_s, gates=(), pad=0.6):
@@ -1623,7 +1623,7 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
                 np.save(j["_fp"], results[j["seg"]["id"]].astype(np.float16))
     # birleştir — 1. aşama: kesit başına düzey (TARGET_RMS_DB + level_db) ve sol/sağ dengesi
     out = np.zeros((N, 2), dtype=np.float32)
-    info = dict(cues=[], plan=plan, gates=[], code=code)
+    info = dict(cues=[], plan=plan, gates=[], stops=[], code=code)
     xs, gains = {}, {}
     for g in plan:
         if g["id"] not in results:
@@ -1674,6 +1674,11 @@ def render_music(chapters, total, tail=7.0, workers=None, cache_dir=None, seed=0
                 dup[0]["seg"] += "+" + gg["seg"]
             else:
                 info["gates"].append(gg)
+        for ev in spec.get("events", []) or []:          # kuru duraklar (stop): kısa, bilinçli düzey çukurları — kavşak ölçümünde kapı gibi sayılır
+            if ev.get("kind") == "stop":
+                a_ = round(g["s0"] + ev["sec"], 3)
+                if not any(abs(x["a"] - a_) < 0.02 for x in info["stops"]):
+                    info["stops"].append(dict(seg=g["id"], a=a_, b=round(a_ + ev.get("hold", 0.9), 3), lead=ev.get("lead", 0.04), rel=ev.get("rel", 0.30)))
         info["cues"].append(dict(id=g["id"], ch=g["ch"], mood=spec["mood"], mode=spec["mode"], bpm=spec["bpm"], meter=spec["meter"], arc=spec["arc"],
                                  tonic_midi=spec["tonic"], start=round(g["start"], 2), end=round(g["end"], 2),
                                  length=round(g["end"] - g["start"], 2), chapter_dur=round(g["s1"] - g["s0"], 2), xin=g["xin"], xout=g["xout"],

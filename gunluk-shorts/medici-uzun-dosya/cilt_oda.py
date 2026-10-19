@@ -25,7 +25,7 @@ from cilt_medici import TH, ckind
 from sk import C, H, W, clamp, ease_io, mix, smooth
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OVER = "o2"                      # önbellek sürümü (çizim kodu değişince artır)
+OVER = "o3"                      # önbellek sürümü (çizim kodu değişince artır)
 OV = PN.OV
 LIN = PN.LIN
 INK = PN.INK

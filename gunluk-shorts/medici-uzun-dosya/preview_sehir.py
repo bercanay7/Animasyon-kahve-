@@ -10,7 +10,7 @@
   python3 preview_sehir.py meydan_ates --at 6.5     # tek tam çözünürlüklü kare → out/frames/sehir_meydan_ates_t6.5.png
   python3 preview_sehir.py --workers 2 --scale 0.5
 
-Girdiler: meydan_ates, meydan_odun, meydan_palle, meydan_pencere, sokak_kapi_gunduz, sokak_kapi_gece, kale_sur, kale_castel, kale_passetto, skyline_dikey.
+Girdiler: meydan_ates, meydan_odun, meydan_palle, meydan_pencere, meydan_kalabalik, sokak_kapi_gunduz, sokak_kapi_gece, sokak_yuruyus, kale_sur, kale_castel, kale_passetto, skyline_dikey.
 Kare = preview_cilt.render ile aynı çizim yolu (CM.post dâhil). İşçi ≤2, ölçek 0.5. Arka planda süreç bırakmaz. `out` bağlantısına/parca.kullan()'a dokunmaz.
 """
 import argparse
@@ -43,6 +43,7 @@ SEHIR = [
     ("meydan_odun", "sehir", dict(scene="meydan", act="odun"), 10.0, "night", 2, 10.0),
     ("meydan_palle", "sehir", dict(scene="meydan", act="palle", kick="PALLE! PALLE!"), 12.0, "day", 2, 12.0),
     ("meydan_pencere", "sehir", dict(scene="meydan", act="pencere"), 12.0, "night", 2, 12.0),
+    ("meydan_kalabalik", "sehir", dict(scene="meydan", act="kalabalik", dir="l"), 10.0, "day", 1, 10.0),
     ("sokak_kapi_gunduz", "sehir", dict(scene="sokak", door="close", door_at=6.0), 10.0, "day", 2, 10.0),
     ("sokak_kapi_gece", "sehir", dict(scene="sokak", door="close", door_at=5.0, tod="night"), 10.0, "night", 2, 10.0),
     ("sokak_yuruyus", "sehir", dict(scene="sokak"), 12.0, "day", 2, 12.0),

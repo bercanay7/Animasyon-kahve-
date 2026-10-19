@@ -1319,6 +1319,8 @@ class Meydan(SWorld):
             return [(0.0, (2200, 40, 1.0)), (0.42, (1800, 36, 1.0)), (0.72, (1150, 96, 1.14)), (1.0, (640, 104, 1.40))]
         if act == "pencere":                                 # ağır pull: cepheye yakın → geri
             return [(0.0, (PV_X0 + PV_W * 0.55, 150, 1.34)), (1.0, (PV_X0 + PV_W * 0.52, 80, 1.0))]
+        if act == "kalabalik":                               # kalabalığın içinde yavaş itme (kabaran halk)
+            return [(0.0, (PV_X0 + PV_W * 0.50, 70, 1.0)), (1.0, (PV_X0 + PV_W * 0.50 + (60 if (p or {}).get("dir", "l") in ("r", 1) else -60), 50, 1.10))]
         return [(0.0, (1400, 0, 1.0)), (1.0, (2600, 0, 1.0))]
 
     def stack(self, ctx):
@@ -1461,6 +1463,8 @@ class Meydan(SWorld):
             self._act_odun(ctx, back=True)
         elif act == "palle":
             self._act_palle(ctx)
+        elif act == "kalabalik":
+            self._act_crowd(ctx)
         # kullanıcı figürleri / istasyonlar
         for a_ in (p.get("actors") or []):
             draw_actor(ctx, a_)
@@ -1492,7 +1496,7 @@ class Meydan(SWorld):
                 continue
             sway = math.sin(t * 0.6 + i * 1.9) * 2.5
             r_ = 27 * sc
-            hy = 836 + (i % 3) * 12 + sway * 0.3
+            hy = 806 + (i % 3) * 12 + sway * 0.3
             col = "#0C0A0E"
             kind = i % 3
             sh = skia.Path()                                            # omuzlar (boyun daralır, omuz eğimi)
@@ -1640,11 +1644,17 @@ class Meydan(SWorld):
 
     # ── act: palle ──
     def _act_palle(self, ctx):
+        """act="palle": Medici kalkanı + soldan sağa kabaran Medici kalabalığı (PALLE sancakları) + sağdan sola gelip duran atlılar."""
+        c = ctx.c
+        medici_shield(c, MED_X0 + MED_W * 0.30, YG - 0.52 * MED_H, MED_H * 0.12, self.T)
+        self._act_crowd(ctx)
+
+    def _act_crowd(self, ctx):
+        """Kabaran kalabalık (act="palle" ve act="kalabalik"): yürüyüş → durma → coşku; sancaktarlar; (varsa) atlılar sağdan sola yavaşlayıp durur."""
         f, c, t = ctx.f, ctx.c, ctx.t
         xa, xb = ctx.xa, ctx.xb
-        # Medici kalkanı (yalnız bu act'te)
-        medici_shield(c, MED_X0 + MED_W * 0.30, YG - 0.52 * MED_H, MED_H * 0.12, self.T)
-        # Medici kalabalığı: soldan SAĞA kabarır (yürüyüş → durma → coşku); sancaktarlar "PALLE" sancaklarını taşır
+        sg = self._cdir
+        dev = self._cdev
         for m in self._palle_crowd:
             tt = t - m["d"]
             if tt < 0:
@@ -1652,20 +1662,20 @@ class Meydan(SWorld):
             dist = m["x1"] - m["x0"]
             u = clamp(tt / m["T"])
             x = m["x0"] + dist * u * u * (3 - 2 * u)
-            v = dist / m["T"] * 6 * u * (1 - u) if 0 < u < 1 else 0.0
+            v = abs(dist) / m["T"] * 6 * u * (1 - u) if 0 < u < 1 else 0.0
             if x < xa - 200 or x > xb + 200:
                 continue
-            fl = ("medici", 0.62, 0.44, "#E0B84E", "#B33620") if m["flag"] else None
+            fl = (dev[0], 0.62, 0.44, dev[1], dev[2]) if (m["flag"] and dev) else None
             if v > 14:
-                FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=v, dir=1, phase=m["phase"], seed=m["seed"], prop=("pole" if m["flag"] else None), flag=fl)
-            elif m["flag"]:
-                FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=1, phase=m["phase"], seed=m["seed"], prop="pole", flag=fl)
+                FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=v, dir=sg, phase=m["phase"], seed=m["seed"], prop=("pole" if fl else None), flag=fl)
+            elif fl:
+                FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=sg, phase=m["phase"], seed=m["seed"], prop="pole", flag=fl)
             else:
                 amt = clamp((tt - m["T"]) / 0.9) * m["amt"]
                 if amt > 0.05:
-                    FA.actor(f, m["kind"], x, m["y"], m["h"], t, action="cheer", dir=1, seed=m["seed"], phase=m["phase"], amount=amt, hop=m["hop"])
+                    FA.actor(f, m["kind"], x, m["y"], m["h"], t, action="cheer", dir=sg, seed=m["seed"], phase=m["phase"], amount=amt, hop=m["hop"])
                 else:
-                    FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=1, phase=m["phase"], seed=m["seed"])
+                    FA.walker(f, m["kind"], x, m["y"], m["h"], t, speed=0.0, dir=sg, phase=m["phase"], seed=m["seed"])
         # atlılar: sağdan sola dörtnaldan tırısa, yürüyüşe yavaşlar ve DURUR (şiddet yok); toz izi
         for r_ in self._palle_riders:
             tt = t - r_["d"]
@@ -1684,24 +1694,40 @@ class Meydan(SWorld):
                     ph = (t * 1.3 + k / 5.0 + r_["phase"]) % 1.0
                     _blit_dot(c, _soft_dot("#CDB98E", 40, 1.2), x + 120 + ph * (60 + 0.25 * v), r_["y"] - 8 - ph * 36, 14 + 26 * ph, 0.34 * (1 - ph) * min(1.0, v / 200))
 
-    def _prepare_palle(self, cx):
+    def _prepare_crowd(self, cx, act, p):
         dur = max(cx.dur, 1e-3)
-        rs = _RS(14)
-        self._palle_crowd = []
+        pal = (act == "palle")
+        rs = _RS(14 if pal else 15)
+        d = p.get("dir", "r" if pal else "l")
+        sg = 1 if d in ("r", 1, "R") else -1
+        self._cdir = sg
+        fk = p.get("flags", "medici" if pal else "lily")
+        self._cdev = {"medici": ("medici", "#E0B84E", "#B33620"), "lily": ("lily", "#F4EEDC", "#B33620"), "stripes": ("stripes", "#233C8C", "#E0B84E"), "cross": ("cross", "#F4EEDC", "#B33620")}.get(fk) if fk else None
+        n = int(p.get("n", 24))
         kinds = ["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk"]
-        for i in range(24):
-            x1 = rs.uniform(700, 1350) if rs.rand() < 0.62 else rs.uniform(1350, 1750)
-            x0 = rs.uniform(-300, 380)
-            if x0 >= x1 - 120:
-                x0 = x1 - rs.uniform(250, 700)
+        self._palle_crowd = []
+        for i in range(n):
+            if pal:
+                x1 = rs.uniform(700, 1350) if rs.rand() < 0.62 else rs.uniform(1350, 1750)
+                x0 = rs.uniform(-300, 380)
+            elif sg > 0:
+                x1 = rs.uniform(PV_X0 + 250, PV_X0 + 1050)
+                x0 = rs.uniform(PV_X0 - 1250, PV_X0 - 100)
+            else:
+                x1 = rs.uniform(PV_X0 + 250, PV_X0 + 1050)
+                x0 = rs.uniform(PV_X0 + PV_W + 100, PV_X0 + PV_W + 1250)
+            if sg * (x1 - x0) < 120:
+                x0 = x1 - sg * rs.uniform(250, 700)
             self._palle_crowd.append(dict(x0=x0, x1=x1, y=YG + rs.uniform(-18, 40), h=rs.uniform(156, 192), kind=kinds[rs.randint(8)], seed=int(rs.randint(0, 40)), phase=rs.rand(),
                                           d=0.05 * dur * rs.rand() + 0.012 * dur * (i % 8), T=0.0, flag=(i % 4 == 1), amt=rs.uniform(0.6, 1.0), hop=rs.uniform(0.2, 0.7)))
         for m in self._palle_crowd:
-            m["T"] = (m["x1"] - m["x0"]) / rs.uniform(112, 150)
+            m["T"] = abs(m["x1"] - m["x0"]) / rs.uniform(112, 150)
         self._palle_crowd.sort(key=lambda m: m["y"])
         self._palle_riders = []
-        for i in range(5):
-            self._palle_riders.append(dict(x0=3950 + 190 * i, x1=2200 + 150 * i + rs.uniform(-40, 40), y=YG + 18 + (i % 3) * 14, h=262 + (i % 2) * 8, seed=3 + i, phase=rs.rand(), d=0.012 * dur * i, T=0.46 * dur))
+        nr = int(p.get("riders", 5 if pal else 0))
+        for i in range(nr):
+            self._palle_riders.append(dict(x0=(3950 if pal else PV_X0 + PV_W + 1500) + 190 * i, x1=(2200 if pal else PV_X0 + PV_W + 300) + 150 * i + rs.uniform(-40, 40), y=YG + 18 + (i % 3) * 14, h=262 + (i % 2) * 8,
+                                           seed=3 + i, phase=rs.rand(), d=0.012 * dur * i, T=0.46 * dur))
         self._palle_riders.sort(key=lambda r: r["y"])
 
     # ── fx: grade sonrası (ateş, parıltı, yanan pencereler) ──
@@ -1846,10 +1872,11 @@ class Meydan(SWorld):
             order = self.win_order
             rank = {int(w): r for r, w in enumerate(order)}
             ctx.win_off = [0.10 * dur + 0.74 * dur * (rank[i] / max(1, n - 1)) for i in range(n)] + [0.90 * dur]
-        elif act == "palle":
-            if getattr(self, "_pd", None) != dur:
-                self._prepare_palle(cx)
-                self._pd = dur
+        elif act in ("palle", "kalabalik"):
+            key_ = (dur, act, p.get("dir"), p.get("n"), p.get("flags"), p.get("riders"))
+            if getattr(self, "_pd", None) != key_:
+                self._prepare_crowd(cx, act, p)
+                self._pd = key_
             ctx.win_gold_t0 = _anchor(cx, p.get("gold_at"), 0.55 * dur)
 
     def grade(self, ctx):
@@ -3320,10 +3347,363 @@ class KalePassetto(SWorld):
 
 
 
+# ═════════════════════════════ SKYLINE DİKEY (Palazzo Vecchio kulesine tek dikey plan: crane up) ═════════════════════════════
+class VLayer:
+    """Dikey kareaşlı paralaks katmanı: genişlik LW, yükseklik LH; kareaşlar yukarıdan aşağı 1024 satırlık dilimler; disk önbelleği `sehir_*`.
+    draw(fr, r0, r1): katman tuval koordinatında (y aşağı; satır 0 = katmanın tepesi; zemin = LH) [r0,r1] satırlarını çizer."""
+    TH = 1024
+
+    def __init__(self, world, name, fy, width, ground, pad, draw, tod="day", fx=0.0):
+        self.world, self.name, self.fy, self.fx = world, name, fy, fx
+        self.ground, self.pad = int(ground), int(pad)
+        self.width, self.height, self.draw, self.tod = int(width), int(ground + pad), draw, tod
+        self.tiles = {}
+
+    def n_tiles(self):
+        return int(math.ceil(self.height / self.TH))
+
+    def _path(self, i):
+        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}_{VER}.png")
+
+    def tile(self, i):
+        t = self.tiles.get(i)
+        if t is None:
+            t = self.tiles[i] = self._bake(i)
+        return t
+
+    def _bake(self, i):
+        path = self._path(i)
+        try:
+            if os.path.exists(path):
+                a = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+                if a is not None and a.shape[2] == 4:
+                    return sk.np_to_image(cv2.cvtColor(a, cv2.COLOR_BGRA2RGBA))
+        except Exception:   # noqa: BLE001
+            pass
+        r0 = i * self.TH
+        r1 = min(self.height, r0 + self.TH)
+        fr = sk.Frame(self.width, int(r1 - r0))
+        fr.clear(skia.ColorTRANSPARENT)
+        c = fr.c
+        c.translate(0, -r0)
+        c.clipRect(skia.Rect.MakeLTRB(0, r0, self.width, r1))
+        self.draw(fr, r0, r1)
+        img = fr.surf.makeImageSnapshot()
+        try:
+            os.makedirs(CACHE, exist_ok=True)
+            arr = img.toarray(colorType=skia.ColorType.kRGBA_8888_ColorType, alphaType=skia.AlphaType.kUnpremul_AlphaType)
+            cv2.imwrite(path, cv2.cvtColor(arr, cv2.COLOR_RGBA2BGRA), [cv2.IMWRITE_PNG_COMPRESSION, 1])
+        except Exception:   # noqa: BLE001
+            pass
+        return img
+
+    def draw_view(self, c, hcam, camx, z, cyb):
+        """Ekranda görünen kareaşları çiz. hcam: kamera yüksekliği (px, zeminden), cyb: bant merkezinin ekran y'si."""
+        hl = hcam * self.fy                                             # katmanın ekran merkezindeki yüksekliği
+        half = 420.0 / z + 40
+        hlo, hhi = hl - half, hl + half
+        cxl = W / 2 + (camx - W / 2) * (1.0 if self.fx else 1.0)
+        for i in range(self.n_tiles()):
+            top_h = self.ground - i * self.TH
+            bot_h = top_h - min(self.TH, self.height - i * self.TH)
+            if bot_h > hhi or top_h < hlo:
+                continue
+            img = self.tile(i)
+            sy = cyb - (top_h - hl) * z
+            sx = W / 2 - cxl * z
+            c.save()
+            c.translate(sx, sy)
+            c.scale(z, z)
+            c.drawImage(img, 0, 0, LIN)
+            c.restore()
+
+
+VH = 5200            # ana katman yüksekliği
+VX = 1120            # kule ekseni (dünya x)
+VTW = 290            # kule gövde genişliği
+VHS = 3560           # kule gövdesi yüksekliği (taban 480'den)
+VLW = 2300
+
+
+def vt_geom():
+    """Dikey sahnede kulenin yükseklik (zeminden) geometrisi: [gövde başı, galeri, çan odası, külah, direk üstü]."""
+    tw = VTW
+    base = 480
+    gy = base + VHS
+    gal_h = tw * 0.34
+    b1 = gy + gal_h + 1
+    b0 = b1 + tw * 1.15
+    rh = tw * 0.95
+    top = b0 + rh + tw * 0.55
+    return dict(base=base, gal=gy, bell0=b1, bell1=b0, roof=b0 + rh, top=top, flag=top - 4)
+
+
+class SkylineDikey(SWorld):
+    name = "sehir_dikey"
+    PW = VLW
+    CAM_Y_SIGN = -1                      # cam=("crane","up",px): kamera yüksekliği artar (camy = zeminden yükseklik)
+
+    def build(self):
+        self.vl = {}
+        self.vl["far"] = VLayer(self.name, "far", 0.10, VLW, 700, 760, self._draw_far, self.tod)
+        self.vl["city"] = VLayer(self.name, "city", 0.22, VLW, 900, 760, self._draw_city_v, self.tod)
+        self.vl["mid"] = VLayer(self.name, "mid", 0.50, VLW, 2000, 760, self._draw_mid_v, self.tod)
+        self.vl["main"] = VLayer(self.name, "main", 1.0, VLW, VH, 760, self._draw_main_v, self.tod)
+        self.vl["near"] = VLayer(self.name, "near", 1.45, VLW, 760, 0, self._draw_near_v, self.tod)
+        self.layers = {k: v for k, v in self.vl.items()}
+        self.G = vt_geom()
+        rs = _RS(7)
+        self.clouds = [(rs.uniform(-200, VLW), rs.uniform(250, 4600), rs.uniform(300, 760), rs.uniform(4, 14), rs.uniform(0.55, 0.95)) for _ in range(34)]
+
+    def bake_all(self, cam_x_range=None):
+        n = 0
+        for L in self.vl.values():
+            for i in range(L.n_tiles()):
+                L.tile(i)
+                n += 1
+        return n
+
+    def default_cams(self, act=None, p=None):
+        g = self.G
+        return [(0.0, (VX, 300, 1.14)), (0.30, (VX - 30, 1500, 1.06)), (0.70, (VX + 20, 3500, 1.02)), (0.90, (VX, g["top"] - 250, 1.0)), (1.0, (VX, g["top"] - 250, 1.0))]
+
+    # ── katman boyaları (satır = LH - yükseklik) ──
+    def _draw_far(self, fr, r0, r1):
+        c = fr.c
+        T = self.T
+        LH = 700
+        for (col, amp, sc, base, ph) in (("#A9BDB6", 40, 600, 330, 0.0), ("#93AFA5", 46, 420, 250, 2.1), ("#7F9E92", 52, 300, 170, 4.3)):
+            cc = T(col, 0.2)
+            pts = []
+            x = -8
+            while x <= VLW + 8:
+                pts.append((x, LH - PN.ridge_y(x, base, amp, sc, ph)))
+                x += 10
+            poly = pts + [(pts[-1][0], LH + 800), (pts[0][0], LH + 800)]
+            c.drawPath(sk.poly_path(poly), skia.Paint(AntiAlias=True, Color=C(cc)))
+            c.drawPath(sk.poly_path(pts, False), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.5, Color=C(mix(cc, "#1A2A22", 0.5), 150)))
+            for gi in range(int(VLW // 150) + 1):
+                r_ = _RS(gi * 7 + int(ph * 10) + 1)
+                if r_.rand() < 0.55:
+                    x = gi * 150 + r_.uniform(0, 150)
+                    SC.cypress(c, x, LH - PN.ridge_y(x, base, amp, sc, ph) + 3, r_.uniform(30, 54), T("#2E4A33", 0.3), T("#4F6E4A", 0.3))
+                if r_.rand() < 0.10:
+                    SC.castle(c, gi * 150 + 70, LH - PN.ridge_y(gi * 150 + 70, base, amp, sc, ph) + 3, r_.uniform(26, 38), T("#E6D9B8", 0.3), T("#B4552E", 0.3))
+
+    def _draw_city_v(self, fr, r0, r1):
+        c = fr.c
+        T = self.T
+        LH = 900
+        rr = _RS(5)
+        wins = []
+        x = -40
+        while x < VLW + 40:
+            bw, bh = rr.uniform(44, 94), rr.uniform(34, 84)
+            rs = _RS(int(rr.randint(1, 10 ** 6)))
+            CT.draw_house(c, x, LH - 120 + (rs.rand() * 8 - 4), bw, bh, rs, T, 0.40, wins)
+            x += bw + rr.uniform(-6, 8)
+        base = LH - 124
+        XD = 700
+        c.save()
+        c.translate(XD, base)
+        c.scale(1.5, 1.5)
+        c.translate(-XD, -base)
+        CT.draw_nave(c, XD + 70, XD + 640, base + 4, 124, T, 0.26)
+        CT.draw_dome(c, XD, base - 108, 214, 132, 48, 74, T, 0.22)
+        CT.draw_campanile(c, XD + 205, base + 4, 54, 262, T, 0.22)
+        c.restore()
+        for tx, th in ((200, 210), (1500, 250), (1860, 180), (2150, 220)):
+            CT.draw_tower(c, tx, base, 32, th, T, 0.32, spire=(tx == 1500))
+        GRAD_V(c, 0, LH - 124, VLW, LH + 800, [(T("#B8A888", 0.35), 0.0), (T("#A89A78", 0.30), 1.0)])
+        rs2 = _RS(61)
+        for i in range(int(VLW / 70)):                                                      # alt çatı sıraları: ufuk altı yoğun kiremit dokusu
+            hx = i * 70 + rs2.uniform(-10, 10)
+            hy = LH - 110 + rs2.uniform(0, 600)
+            bw_, bh_ = rs2.uniform(50, 100), rs2.uniform(30, 60)
+            CT.draw_house(c, hx, hy, bw_, bh_, _RS(int(rs2.randint(1, 10 ** 6))), T, 0.34, wins)
+        if self.tod != "day":
+            PN._lit_boxes(c, _RS(21), wins, True, 0.4 if self.tod == "night" else 0.16)
+
+    def _draw_mid_v(self, fr, r0, r1):
+        c = fr.c
+        T = self.T
+        LH = 2000
+        DEP = 0.52                                                                   # uzak kuleler: sisli (atmosferik perspektif)
+
+        def slender(x, w, h, spire):
+            yb = LH - 20
+            col = "#D8C8A4" if spire else "#C8B48C"
+            stone_wall(c, x - w / 2, yb - h, x + w / 2, yb, col, T, DEP, 90 + int(x) % 50, ch=40, bw=(w * 0.4, w * 0.7), rustic=False, joint_a=45)
+            c.drawRect(skia.Rect.MakeLTRB(x - w / 2, yb - h, x + w / 2, yb), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C(INK, 110)))
+            for k in range(int(h / 300)):
+                c.drawPath(arch_path(x, yb - 140 - k * 300, w * 0.11, 50), _pt("#2A2018", 170))
+            if spire:
+                c.drawPath(sk.poly_path([(x - w * 0.62, yb - h), (x, yb - h - w * 2.6), (x + w * 0.62, yb - h)]), _pt(T("#8E8878", DEP)))
+                R(c, x - w * 0.56, yb - h - 56, x + w * 0.56, yb - h + 2, T("#E6DCBF", DEP))
+                for k in range(2):
+                    c.drawPath(arch_path(x - w * 0.18 + k * w * 0.36, yb - h - 4, w * 0.20, 48), _pt("#2A1E14", 190))
+            else:
+                machico(c, x - w * 0.78, x + w * 0.78, yb - h, w * 0.30, T, DEP, unit=w * 0.22)
+                crenel(c, x - w * 0.78, x + w * 0.78, yb - h - w * 0.52, w * 0.15, w * 0.22, w * 0.07, T, DEP)
+        slender(250, 96, 1460, True)          # Badia (iğne külahlı)
+        slender(1980, 104, 1240, False)       # Bargello (mazgallı)
+        slender(2220, 84, 1700, True)
+        slender(640, 80, 860, False)
+        rs = _RS(29)
+        wins = []
+        x = -60
+        while x < VLW + 60:                                                          # çatı sırası (ufka yakın, alçak) + zemin dolgusu
+            bw, bh = rs.uniform(120, 220), rs.uniform(100, 250)
+            CT.draw_house(c, x, LH - 4, bw, bh, _RS(int(rs.randint(1, 10 ** 6))), T, 0.40, wins)
+            x += bw + rs.uniform(-8, 10)
+        GRAD_V(c, 0, LH - 6, VLW, LH + 800, [(T("#C4B08A", 0.40), 0.0), (T("#B0A07A", 0.35), 1.0)])
+        for i in range(int(VLW / 110)):
+            hx = i * 110 + rs.uniform(-20, 20)
+            CT.draw_house(c, hx, LH + 20 + rs.uniform(0, 640), rs.uniform(100, 170), rs.uniform(70, 150), _RS(int(rs.randint(1, 10 ** 6))), T, 0.36, wins)
+        if self.tod != "day":
+            PN._lit_boxes(c, _RS(33), wins, True, 0.4 if self.tod == "night" else 0.16)
+
+    def _draw_main_v(self, fr, r0, r1):
+        c = fr.c
+        T = self.T
+        LH = VH
+        g = self.G
+        yb = LH - g["base"]
+        vecchio_tower(c, VX, yb, VTW, VHS, T, 0.0, 77, roof_h=VTW * 0.95)
+        # kule gövdesine ince detay: kuşak silmeleri + küçük pencereler (yarıklar zaten çizildi)
+        for hh in range(g["base"] + 520, g["base"] + VHS - 120, 520):
+            R(c, VX - VTW / 2 - 4, LH - hh - 6, VX + VTW / 2 + 4, LH - hh + 4, T("#D6C49C", 0.0))
+            c.drawLine(VX - VTW / 2 - 4, LH - hh + 4, VX + VTW / 2 + 4, LH - hh + 4, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C(INK, 150)))
+        for hh in range(g["base"] + 260, g["base"] + VHS - 200, 380):
+            for sgn in (-1, 1):
+                c.drawPath(arch_path(VX + sgn * VTW * 0.26, LH - hh, 12, 44), _pt("#241810", 225))
+        # palazzo gövdesi (zemin: LH) + kaldırım dolgusu (zemin altı)
+        PN.draw_pavement(c, 0, VLW, LH - 2, LH + 800, T, seed=3)
+        palazzo_front(c, VX - 800, LH, 1600, 600, "vecchio", door=0.0, T=T, seed=31, tower=False)
+
+    def _draw_near_v(self, fr, r0, r1):
+        """Çok yakın çatılar (yalnız tırmanışın başında, ekran kenarlarında geçer): iri kiremit çatı + baca."""
+        c = fr.c
+        T = self.T
+        LH = 760
+        for (x0, x1, h) in ((-80, 360, 190), (1840, 2380, 150)):
+            poly = [(x0, LH), (x0, LH - h), ((x0 + x1) / 2, LH - h - 90), (x1, LH - h), (x1, LH)]
+            c.drawPath(sk.poly_path(poly), _pt(T("#B4552E", 0.0)))
+            INKP(c, sk.poly_path(poly), 1.6, 190)
+            for k in range(1, 8):
+                c.drawLine(x0 + k * 6, LH - h - 90 * (1 - k / 8.0) + 30 * 0 + k * 10 - 10 * 0, x1 - k * 6, LH - h - 90 * (1 - k / 8.0) + k * 10, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#5A2412", 90)))
+            R(c, x0 + 80, LH - h - 140, x0 + 130, LH - h - 40, T("#A8684A", 0.0))
+            R(c, x0 + 72, LH - h - 154, x0 + 138, LH - h - 138, T("#8A5236", 0.0))
+
+    # ── render ──
+    def render(self, ctx):
+        f, c, t = ctx.f, ctx.c, ctx.t
+        by0, bh = ctx.band
+        h = ctx.camy                                      # kamera yüksekliği (zeminden px)
+        z = ctx.z
+        cyb = by0 + bh / 2
+        g = self.G
+        k = clamp(h / g["top"])
+        tod = ctx.tod
+        # gökyüzü degradesi (yüksekliğe göre derinleşir)
+        if tod == "night":
+            stops = [("#04081C", 0.0), ("#0C1A4A", 0.5), ("#3A5088", 1.0)]
+        elif tod == "dusk":
+            stops = [(mix("#4E5E9E", "#262A6A", k), 0.0), (mix("#E8A07A", "#B87898", k), 0.58), (mix("#F8D9A0", "#E6A878", k * 0.5), 1.0)]
+        else:
+            stops = [(mix("#6F9ED6", "#2E5CAA", k), 0.0), (mix("#BDD0DC", "#7EA4D4", k), 0.55), (mix("#F4E8C8", "#E4E4DC", k), 1.0)]
+        sh = skia.GradientShader.MakeLinear([(0, by0), (0, by0 + bh)], [C(s_[0]) for s_ in stops], [s_[1] for s_ in stops])
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(0, by0, W, by0 + bh))
+        c.drawRect(skia.Rect.MakeLTRB(0, by0, W, by0 + bh), skia.Paint(Shader=sh))
+        if tod == "night":
+            rs = _RS(3)
+            for i in range(120):
+                c.drawCircle(rs.uniform(0, W), by0 + rs.uniform(0, bh * 0.8), rs.uniform(0.8, 2.0), skia.Paint(AntiAlias=True, Color=C("#FFF2C4", int(rs.uniform(90, 230)))))
+        # bulutlar (iki derinlik: 0,30 ve 0,70) + uzak katmanlar
+        cl = PN.cloud_sprite()
+        pt = skia.Paint()
+        for (cx0, hc, L, sp, a_) in self.clouds:
+            fyc = 0.30 if hc < 2400 else 0.62
+            sy = cyb - (hc - h * fyc) * z
+            if sy < by0 - 120 or sy > by0 + bh + 120:
+                continue
+            x = (cx0 + t * sp) % (VLW + 600) - 300
+            sx = W / 2 + (x - (W / 2 + (ctx.camx - W / 2) * 0.1)) * z + W / 2 * 0
+            pt.setAlphaf(a_ * (0.7 if tod != "day" else 1.0))
+            c.drawImageRect(cl, skia.Rect.MakeWH(cl.width(), cl.height()), skia.Rect.MakeXYWH(sx - L * z * 0.5, sy - L * z * 0.11, L * z, L * z * 0.22), LIN, pt)
+        for nm in ("far", "city", "mid"):
+            self.vl[nm].draw_view(c, h, ctx.camx, z, cyb)
+        # orta katman: kuş sürüleri (kulelerin çevresinde)
+        # ana katman
+        self.vl["main"].draw_view(c, h, ctx.camx, z, cyb)
+        # ana düzlem dinamikleri (y: yükseklik → ekran)
+        def sy_(hh):
+            return cyb - (hh - h) * z
+
+        def sx_(xx):
+            return W / 2 + (xx - ctx.camx) * z
+        c.save()
+        c.translate(W / 2, cyb)
+        c.scale(z, z)
+        c.translate(-ctx.camx, h)                                  # artık (x, -yükseklik) koordinatı: yükseklik hh → y = -hh
+        FA.set_scale_hint(z)
+        # kule tepesi flaması + çan odası (sakin) + kuş halkaları
+        flag_pennant(c, VX + 1, -(g["flag"]), t, 140.0, 48.0, "#B3301F", seed=2)
+        circling_birds(c, VX + 30, -(g["flag"] - 260), 330, 120, t, 9, seed=3, size=1.6)
+        for hh, nb, sd in ((1500, 6, 11), (2600, 7, 12), (3500, 6, 13)):
+            if abs(hh - h) < 700:
+                circling_birds(c, VX, -hh, 360, 90, t, nb, seed=sd, size=1.5)
+        # kule yanlarından sarkan demir kollarda flamalar (yükselirken akan hareket) + yarıklardan havalanan güvercinler
+        for i, hh in enumerate((860, 1480, 2100, 2720, 3340)):
+            if abs(hh - h) > 640:
+                continue
+            side = 1 if i % 2 else -1
+            bx = VX + side * VTW / 2
+            c.drawLine(bx, -hh, bx + side * 44, -hh - 8, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C("#2A2622", 245), StrokeCap=skia.Paint.kRound_Cap))
+            c.save()
+            c.translate(bx + side * 44, -hh - 10)
+            c.scale(side, 1)
+            flag_pennant(c, 0, 0, t, 70.0, 26.0, ("#B3301F", "#E0B84E", "#233C8C")[i % 3], seed=i + 4, wind=1.0)
+            c.restore()
+        for kk, hh in enumerate(range(g["base"] + 260, g["base"] + VHS - 200, 380)):
+            if abs(hh - h) > 640:
+                continue
+            for sgn in (-1, 1):
+                per = 7.0 + (kk % 3) * 1.3 + (0.7 if sgn > 0 else 0.0)
+                ph = (t / per + kk * 0.37 + (0.5 if sgn > 0 else 0.0)) % 1.0
+                if ph > 0.38:
+                    continue
+                u = ph / 0.38
+                bx = VX + sgn * VTW * 0.26 + sgn * u * 300
+                by = -(hh + 20) - u * 120 + 60 * math.sin(math.pi * u) * 0.0
+                fl = math.sin(t * 13.0 + kk + sgn) * 7
+                pth = skia.Path()
+                pth.moveTo(bx - 14, by + fl * 0.4)
+                pth.quadTo(bx - 6, by - 7 - fl, bx, by)
+                pth.quadTo(bx + 6, by - 7 - fl, bx + 14, by + fl * 0.4)
+                c.drawPath(pth, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.2, Color=C("#3A3430", int(255 * (1 - u ** 3))), StrokeCap=skia.Paint.kRound_Cap))
+        # mazgallı galeri/dam kuşları: tepeden uçarak geçen sürü
+        FA.atmo_birds(c, t, 8, 1.0, VX - 900, VX + 900, -(g["bell1"] - 200), -(g["bell1"] + 500), speed=30.0, night=(tod == "night"), seed=17, size=1.6)
+        FA.atmo_birds(c, t, 6, 1.0, VX - 900, VX + 900, -(1400), -(2100), speed=24.0, night=(tod == "night"), seed=18, size=1.4)
+        FA.set_scale_hint(1.0)
+        c.restore()
+        # ön yakın çatılar
+        self.vl["near"].draw_view(c, h, ctx.camx, z, cyb)
+        if tod != "night":                                                                      # tırmandıkça güneş parıltısı
+            glow(c, W * 0.22, by0 + 130, 760, "#FFF1C0" if tod == "day" else "#FFC890", 0.10 + 0.22 * k)
+        c.restore()
+        # derecelendirme: alacakaranlık/gece
+        if tod == "dusk":
+            wash(c, by0, bh, [("#5A3E78", 56), ("#E8905A", 20), ("#E8905A", 40)], [0.0, 0.55, 1.0], 1.0)
+        elif tod == "night":
+            R(c, 0, by0, W, by0 + bh, "#0A1034", 70)
+
+
 # ═════════════════════════════ sahne kayıtları + `sehir` çekim türü ═════════════════════════════
 _SW = {}
 TIMES = {}      # son karenin bölüm süreleri (ms): katman/dinamik/grade/fx — preview_sehir --ms dökümü için
-ACT_TOD = {("meydan", "ates"): "dusk", ("meydan", "odun"): "night", ("meydan", "palle"): "day", ("meydan", "pencere"): "dusk", ("kale", "castel"): "dusk"}
+ACT_TOD = {("meydan", "ates"): "dusk", ("meydan", "odun"): "night", ("meydan", "palle"): "day", ("meydan", "pencere"): "dusk", ("meydan", "kalabalik"): "day", ("kale", "castel"): "dusk"}
 DEFAULT_ACT = {"meydan": "ates", "sokak": None, "kale": "sur", "skyline_dikey": None}
 CLASSES = {}   # (scene, act|None) → sınıf; alt bölümlerde doldurulur
 
@@ -3362,6 +3742,7 @@ def get_sworld(scene, act, tod):
 CLASSES[("meydan", None)] = Meydan
 CLASSES[("sokak", None)] = Sokak
 CLASSES[("kale", "sur")] = KaleSur
+CLASSES[("skyline_dikey", None)] = SkylineDikey
 CLASSES[("kale", "castel")] = KaleCastel
 CLASSES[("kale", "passetto")] = KalePassetto
 
@@ -3369,7 +3750,7 @@ CLASSES[("kale", "passetto")] = KalePassetto
 @ckind("sehir")
 def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stations=None, kick=None, caption=None, at=0.0, frame=True, seed=1, band=None,
             door=None, door_at=None, items_at=None, fire_at=None, **kw):
-    """Dış mekân/şehir dünyası. scene: meydan | sokak | kale | skyline_dikey; act: (meydan) ates|odun|palle|pencere · (kale) sur|castel|passetto.
+    """Dış mekân/şehir dünyası. scene: meydan | sokak | kale | skyline_dikey; act: (meydan) ates|odun|palle|pencere|kalabalik · (kale) sur|castel|passetto.
     tod: day|dusk|night (yoksa act'e göre varsayılan). cams=[(çapa,(x,y,zoom)),…] (x: ana düzlemde ekran merkezi; y: + aşağı; skyline_dikey'de (x, yükseklik_px, zoom)).
     actors=[dict(kind, x0, y, h, dir, speed, action, seed, prop, flag, t0, cf)] ek figürler; stations=[dict(x, fn)] pano ile aynı. door="close"|"open", door_at=çapa (sokak).
     items_at=[çapa…] eşyaların yığına düştüğü anlar, fire_at=çapa ilk kıvılcım (meydan/ates). cam=("push"|"pull"|"pan"|"crane",…) `cams` yokken varsayılan yolun üstüne uygulanır."""
@@ -3389,7 +3770,7 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
     camx, camy, z = pc.at(t_cam)
     if not cams:
         dx, dy, zm = _cam_mod(getattr(cx, "cam_spec", None), ease_io(t_cam / dur))
-        camx, camy, z = camx + dx, camy + dy, z * zm
+        camx, camy, z = camx + dx, camy + dy * getattr(world, "CAM_Y_SIGN", 1), z * zm
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
     mb0, mbh = band
     c.save()
@@ -3412,6 +3793,14 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
         ctx.stations.append(s2)
     world.prepare(ctx)
     by0, bh = ctx.band
+    if hasattr(world, "render"):                                  # kendi çizim akışı olan dünya (skyline_dikey)
+        TIMES.clear()
+        t0_ = time.perf_counter()
+        world.render(ctx)
+        TIMES["_toplam_sahne"] = (time.perf_counter() - t0_) * 1000
+        c.save()
+        c.restore()
+        return _sehir_finish(f, cx, c, ctx, world, tod, frame, by0, bh, a, kick, caption, at)
     c.save()
     c.clipRect(skia.Rect.MakeLTRB(0, by0, W, by0 + bh))
     tm = TIMES
@@ -3449,6 +3838,11 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
         tm["fx"] = (time.perf_counter() - t0_) * 1000
     c.restore()
     tm["_toplam_sahne"] = (time.perf_counter() - pc0) * 1000
+    return _sehir_finish(f, cx, c, ctx, world, tod, frame, by0, bh, a, kick, caption, at)
+
+
+def _sehir_finish(f, cx, c, ctx, world, tod, frame, by0, bh, a, kick, caption, at):
+    """Bant süsleri + metin + günışığı/toz/vinyet (tüm sahneler için ortak son)."""
     if frame:
         for yy in (by0 - 40, by0 + bh):
             FA.vine_band(f, yy, a)
@@ -3465,3 +3859,30 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
         CM.relight(f, cx)
     CM.motes(f, cx.t, n=22 if tod != "day" else 26, seed=2)
     CM.vig(f, 0.78 if tod == "night" else None)
+
+
+def olaylar(scene="meydan", act=None, dur=10.0, **p):
+    """Müzik/SFX ajanı için çekim-içi OLAY ZAMANLARI (yerel saniye; çapalar sayı olarak verilmişse): [(t, ad)]. Küresel zaman = Shot.origin + t.
+    ates: ilk_kivilcim, esya_dustu×n, alev_tam · sokak: kapi_hamlesi (kapanma/açılma başlar), kapi_carpar (yalnız close) · palle: atlilar_gelir/atlilar_durur, kalabalik_coser · pencere: pencere_kararir×n."""
+    act = act or DEFAULT_ACT.get(scene)
+    ev = []
+
+    def num(a, d_):
+        return float(a) if isinstance(a, (int, float)) else d_
+    if scene == "meydan" and act == "ates":
+        ia = p.get("items_at")
+        n = len(ia) if ia else 14
+        times = [num(a, 0.0) for a in ia] if ia else [0.06 * dur + (0.50 * dur - 0.06 * dur) * i / max(1, n - 1) for i in range(n)]
+        ev += [(t_, "esya_dustu") for t_ in times]
+        f0 = num(p.get("fire_at"), 0.58 * dur)
+        ev += [(f0, "ilk_kivilcim"), (f0 + float(p.get("fire_dur", max(2.5, 0.40 * dur))), "alev_tam")]
+    elif scene == "sokak" and p.get("door"):
+        dat = num(p.get("door_at"), 0.60 * dur)
+        ev.append((dat, "kapi_hamlesi"))
+        if p.get("door") == "close":
+            ev.append((dat + 0.20, "kapi_carpar"))
+    elif scene == "meydan" and act in ("palle", "kalabalik"):
+        ev += [(0.06 * dur, "kalabalik_kabarir"), (0.46 * dur, "atlilar_durur"), (0.62 * dur, "kalabalik_coser")]
+    elif scene == "meydan" and act == "pencere":
+        ev += [(0.10 * dur + 0.74 * dur * i / 13.0, "pencere_kararir") for i in range(14)]
+    return sorted(ev)

@@ -106,6 +106,53 @@ def deess(x, lo=5200.0, hi=9800.0, ratio=2.5, max_red=5.0, pct=72, hop=24):
     return y, dict(thr_db=thr, max_gr=float(-grs.min()), mean_gr_active=float(-grs[act].mean()) if np.any(act) else 0.0)
 
 
+def voice_edge_match(v, chapters, win=12.0, ramp=6.0, tol=1.0, cap=1.5):
+    """Bölüm sınırlarında anlatım seviyesi eşlemesi (ses_birlestir bölümleri aynı ortalama RMS'e getirir, ama bölüm sonu/başı 12 sn'lik pencerelerinde
+    doğal ifade farkları 2 dB'yi bulabilir). Sınırın iki yanındaki 12 sn'de KONUŞMA-AKTİF karelerin ortalama gücü karşılaştırılır; fark > tol ise iki uç
+    birbirine doğru çekilir (her uca en çok ±cap dB). Düzeltme sınırdan itibaren 12 sn boyunca SABİTTİR (pencere ortalaması gerçekten eşleşsin), sonra 6 sn'lik
+    yarım kosinüsle sıfırlanır; kart boşluğunda (sessiz) sabit kalır → duyulabilir basamak yok. Döner: (v2, [(a, b, fark_dB, a_sonu_dB, b_başı_dB)])."""
+    P = frame_power(v)
+    act = P > 10 ** (-52.0 / 10)
+    nfr = len(P)
+
+    def lvl(t0, t1):
+        i0, i1 = max(int(t0 * 100), 0), min(int(t1 * 100), nfr)
+        m = act[i0:i1]
+        if m.sum() < 200:
+            return None
+        return 10 * np.log10(P[i0:i1][m].mean() + 1e-20)
+
+    def add_ramp(db, i0, i1, amp, rising):
+        """[i0,i1) karelerinde 0→amp (rising) ya da amp→0 yarım kosinüs ekler (sınır dışı kırpılır)."""
+        n = i1 - i0
+        if n <= 0:
+            return
+        w = 0.5 * (1 - np.cos(np.linspace(0, np.pi, n)))
+        w = w if rising else w[::-1]
+        lo, hi = max(i0, 0), min(i1, nfr)
+        if hi > lo:
+            db[lo:hi] += amp * w[lo - i0:hi - i0]
+    db = np.zeros(nfr)
+    info = []
+    W, R = int(win * 100), int(ramp * 100)
+    for a, b in zip(chapters[:-1], chapters[1:]):
+        la, lb = lvl(a["t1"] - win, a["t1"] - 0.3), lvl(b["t0"] + 0.3, b["t0"] + win)
+        if la is None or lb is None or abs(lb - la) <= tol:
+            continue
+        half = float(np.clip((lb - la) / 2.0, -cap, cap))
+        ta, tb = int(a["t1"] * 100), int(b["t0"] * 100)
+        mid = (ta + tb) // 2
+        add_ramp(db, ta - W - R, ta - W, half, True)         # a'nın son 12 sn'inden önce 6 sn'de yükselir
+        db[max(ta - W, 0):mid] += half                          # 12 sn + kart boşluğunun yarısı sabit
+        db[mid:tb + W] += -half                                 # b: kart boşluğunun ikinci yarısı + ilk 12 sn sabit
+        add_ramp(db, tb + W, tb + W + R, -half, False)       # sonra 6 sn'de sıfırlanır
+        info.append((a["id"], b["id"], float(lb - la), half, -half))
+    if not info:
+        return v, info
+    g = 10 ** (np.interp(np.arange(len(v)) / float(FR), np.arange(nfr) + 0.5, db) / 20.0)
+    return (v * g).astype(np.float32), info
+
+
 def voice_chain(v):
     """voice (mono float32) → işlenmiş (mono float32) + istatistikler. Sıkıştırma sonrası aktif-kare ortalama gücü girdiye
     eşitlenir (makyaj kazancı), böylece 'konuşma ≈ −21 dBFS' referansı korunur."""
@@ -639,8 +686,12 @@ def main():
     nf = N // FR
     log(f"P{PART}: voice {Nv / SR:.2f} sn + kuyruk {tail:.2f} sn = {N / SR:.2f} sn; {len(chapters)} bölüm ({', '.join(present)})")
 
-    # 1) ses zinciri
+    # 1) ses zinciri (önce bölüm sınırlarında seviye eşlemesi)
+    voice, vmatch = voice_edge_match(voice, chapters)
+    if vmatch:
+        log("bölüm sınırı ses seviye eşlemesi: " + "; ".join(f"{a}→{b} {d:+.1f} dB (uçlar {x:+.1f}/{y:+.1f})" for a, b, d, x, y in vmatch))
     vproc, vinfo = voice_chain(voice)
+    vinfo["edge_match"] = vmatch
     log(f"voice zinciri tamam: sıkıştırma maks. {vinfo['compressor']['max_gr']:.1f} dB, de-ess maks. {vinfo['deess']['max_gr']:.1f} dB")
     vfull = np.zeros(N, dtype=np.float32)
     vfull[:Nv] = vproc
@@ -664,7 +715,7 @@ def main():
     # 4) müzik bus: EQ + ducking/yükseliş (bölüm başına SNR yanlılığı: snr_bias)
     music_eq = D.eq_apply(music, MUSIC_EQ).astype(np.float32)
     del music
-    junc_steps = junction_raw_steps(minfo["cues"], music_eq)
+    junc_steps = junction_raw_steps(minfo["cues"], music_eq, list(minfo["gates"]) + list(minfo.get("stops", [])))
     Pm_raw = frame_power(music_eq, nf)
     bias = np.zeros(nf)
     for c in minfo["cues"]:
@@ -775,13 +826,16 @@ def timeline_check(timeline, act, nf, chapters):
                 between_mean=float(np.mean(between)) if between else 0.0, offs=offs, total=timeline.get("total"))
 
 
-def junction_raw_steps(minfo_cues, music_eq, win=3.0, span=11.0):
+def junction_raw_steps(minfo_cues, music_eq, gates=(), win=3.0, span=11.0, pad=0.5):
     """Her çapraz geçiş merkezi (kesit sınırı) çevresinde (±span sn) ham müzik bandının (ducking ÖNCESİ) 'basamak' ölçümü:
     yan yana iki `win` sn'lik pencerenin (0,5 sn kaydırmalı) RMS farkı → en büyük |fark| (dB). Tek vuruşlar (timpani vb.) 3 sn'lik pencerede
     seyrelir; gerçek düzey basamakları (yatak sıçraması, kapı açılışı, kesit düzey uyumsuzluğu) görünür kalır.
-    Bölüm sınırları ve bölüm içi kesit sınırları dahil. Döner: [(sınır adı, merkez sn, basamak dB, en büyük 1 sn adımı dB)]."""
+    BİLİNÇLİ kapılar ve kuru duraklar (müzik çekilmesi/kısılması: `gates` = muzik.render_music gates+stops bilgisi; [a−lead, b+rel] aralığı) ölçüme KATILMAZ: kapıyla çakışan pencere çiftleri atılır —
+    kapının kendisi tasarım gereği büyük bir düzey değişimidir; ölçülen şey kavşağın kendi pürüzsüzlüğüdür.
+    Döner: [(sınır adı, merkez sn, basamak dB, en büyük 1 sn adımı dB)]."""
     out = []
     hop = int(0.5 * SR)
+    gz = [(g["a"] - g.get("lead", 0.6) - pad, g["b"] + g.get("rel", 3.0) + pad) for g in (gates or [])]
     for ci in minfo_cues:
         if not ci["xout"]:
             continue
@@ -799,8 +853,17 @@ def junction_raw_steps(minfo_cues, music_eq, win=3.0, span=11.0):
         cs = np.concatenate([[0.0], np.cumsum(pw)])
         L = 10 * np.log10((cs[k:] - cs[:-k]) / k + 1e-14)                    # L[i] = [i, i+k) bloklarının RMS'i (dB)
         steps = np.abs(L[k:] - L[:-k])                                       # yan yana iki pencere
+        t_i = a0 / SR + np.arange(len(steps)) * 0.5                          # pencere çiftinin başlangıcı (sn); çift [t_i, t_i + 2·win)
+        ok = np.ones(len(steps), dtype=bool)
+        for (ga, gb) in gz:
+            ok &= ~((t_i < gb) & (t_i + 2 * win > ga))
         r1 = 10 * np.log10(np.mean(mm[:(len(mm) // SR) * SR].reshape(-1, SR) ** 2, axis=1) + 1e-14)
-        out.append((ci["id"], float(tc), float(np.max(steps)), float(np.max(np.abs(np.diff(r1)))) if len(r1) > 1 else 0.0))
+        t1s = a0 / SR + np.arange(len(r1)) + 0.5
+        ok1 = np.ones(len(r1) - 1, dtype=bool)
+        for (ga, gb) in gz:
+            ok1 &= ~((t1s[:-1] < gb) & (t1s[1:] > ga))
+        d1 = np.abs(np.diff(r1))
+        out.append((ci["id"], float(tc), float(np.max(steps[ok])) if ok.any() else 0.0, float(np.max(d1[ok1])) if (len(r1) > 1 and ok1.any()) else 0.0))
     return out
 
 
@@ -906,7 +969,7 @@ def write_report(c):
     jr = junction_report(chapters, final)
     for r in jr:
         P(f"       {r['a']:>4s}→{r['b']:<4s}  {r['lufs_a']:8.2f} → {r['lufs_b']:8.2f}   fark {r['d']:+5.2f} dB")
-    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
+    P("   (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (±11 sn; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki 3 sn'lik pencerenin RMS farkı (basamak) ve en büyük 1 sn adımı:")
     for (sid, tc, stp, stp1) in c["junc_steps"]:
         P(f"       {sid:7s} sınırı @ {tc:8.1f} sn   basamak (3 sn) {stp:5.1f} dB   (1 sn adımı {stp1:5.1f} dB)")
     tr = c["minfo"].get("trims") or {}
@@ -940,6 +1003,9 @@ def write_report(c):
     cc = vinfo["compressor"]
     P(f"  HPF 80 Hz; sıkıştırıcı 2:1 / −24 dBFS / 10 ms / 120 ms (maks. azaltma {cc['max_gr']:.1f} dB, aktifken ort. {cc['mean_gr_active']:.1f} dB, süre %{cc['frac_active'] * 100:.1f}); makyaj kazancı {cc['makeup_db']:+.1f} dB (ham ses düzeyine);")
     P(f"  +1,5 dB @3 kHz presence; 7 kHz üstü yüksek raf −2,5 dB + dinamik de-ess (5,2–9,8 kHz; eşik {vinfo['deess']['thr_db']:.1f} dB, maks. {vinfo['deess']['max_gr']:.1f} dB)")
+    em = vinfo.get("edge_match") or []
+    P("  bölüm sınırı seviye eşlemesi (anlatım, 12 sn konuşma-aktif pencereler; fark > 1 dB ise uçlar ≤ ±1,5 dB çekilir; 12 sn sabit + 6 sn yumuşak rampa): " +
+      ("; ".join(f"{a}→{b}: fark {d:+.1f} dB → {x:+.1f}/{y:+.1f}" for a, b, d, x, y in em) if em else "gerek duyulmadı (tüm sınır farkları ≤ 1 dB)"))
     lm = vinfo["limiter"]
     P(f"  konuşma-yalnız tepe sınırlayıcı: tavan {lm['ceiling_db']:.1f} dBTP (master öncesi), 5 ms ileri bakış / 80 ms bırakma; maks. azaltma {lm['gr_max']:.1f} dB, >1 dB %{lm['frac_gt1'] * 100:.1f}, >3 dB %{lm['frac_gt3'] * 100:.2f}; RMS makyajı {lm['makeup_db']:+.2f} dB")
     P("")

@@ -34,7 +34,7 @@
  },
  {
   "id": "c3",
-  "part": 1,
+  "part": 2,
   "chars": 2784,
   "words": 386,
   "credits": 2784,
@@ -45,7 +45,7 @@
  },
  {
   "id": "c4",
-  "part": 1,
+  "part": 2,
   "chars": 3103,
   "words": 423,
   "credits": 3103,
@@ -56,7 +56,7 @@
  },
  {
   "id": "c5",
-  "part": 1,
+  "part": 2,
   "chars": 2237,
   "words": 306,
   "credits": 2237,
@@ -67,7 +67,7 @@
  },
  {
   "id": "c6",
-  "part": 1,
+  "part": 3,
   "chars": 3029,
   "words": 420,
   "credits": 3029,
@@ -78,7 +78,7 @@
  },
  {
   "id": "c7",
-  "part": 2,
+  "part": 3,
   "chars": 4691,
   "words": 598,
   "credits": 4691,
@@ -89,7 +89,7 @@
  },
  {
   "id": "c8",
-  "part": 2,
+  "part": 4,
   "chars": 3376,
   "words": 440,
   "credits": 3376,
@@ -100,7 +100,7 @@
  },
  {
   "id": "c9",
-  "part": 2,
+  "part": 4,
   "chars": 2755,
   "words": 382,
   "credits": 2755,
@@ -111,7 +111,7 @@
  },
  {
   "id": "c10",
-  "part": 2,
+  "part": 5,
   "chars": 3771,
   "words": 504,
   "credits": 3771,
@@ -122,7 +122,7 @@
  },
  {
   "id": "c11",
-  "part": 2,
+  "part": 5,
   "chars": 4486,
   "words": 612,
   "credits": 4486,
@@ -133,7 +133,7 @@
  },
  {
   "id": "c12",
-  "part": 3,
+  "part": 6,
   "chars": 3843,
   "words": 547,
   "credits": 3843,
@@ -144,7 +144,7 @@
  },
  {
   "id": "c13",
-  "part": 3,
+  "part": 6,
   "chars": 3753,
   "words": 544,
   "credits": 3753,
@@ -155,7 +155,7 @@
  },
  {
   "id": "c14",
-  "part": 3,
+  "part": 7,
   "chars": 2952,
   "words": 390,
   "credits": 2952,
@@ -166,7 +166,7 @@
  },
  {
   "id": "c15",
-  "part": 3,
+  "part": 7,
   "chars": 2522,
   "words": 351,
   "credits": 2522,
@@ -177,7 +177,7 @@
  },
  {
   "id": "c16",
-  "part": 3,
+  "part": 7,
   "chars": 2435,
   "words": 327,
   "credits": 2435,

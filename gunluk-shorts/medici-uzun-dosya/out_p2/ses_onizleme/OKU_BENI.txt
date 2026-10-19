@@ -1,0 +1,8 @@
+MEDICI P2 — ses önizleme kesitleri (final miks)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  01_c3_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P2 açılışı (t=0): kule/hücre — seyrek damla, parça başlığı bindirmesi 1,2–4,8 sn
+  02_c3_donus_1434_mix.mp3 (+_muzik.mp3)  t=   89.2–  117.2 sn  — c3: Cosimo'nun dönüşü ('dönüş' motifi)
+  03_c4_kubbe_kutsama_mix.mp3 (+_muzik.mp3)  t=  276.4–  306.4 sn  — c4: kubbe + kutsama korali (duomo motifi)
+  04_c5_lir_ve_lorenzo_mix.mp3 (+_muzik.mp3)  t=  549.7–  577.7 sn  — c5: Orfik lir kadansı … Lorenzo'ya geçiş
+  05_c5_kapanis_mix.mp3 (+_muzik.mp3)  t=  612.4–  642.4 sn  — P2 sonu: Lorenzo'ya köprü; 7 sn çözülme

@@ -40,6 +40,13 @@ WORLD = [
         dict(kind="kadirga", x0=300, x1=1500, y=650, scale=1.0, flag="hristiyan", t0=0.0, t1=10.0, ease="lin"),
         dict(kind="nao", x0=1750, x1=1250, y=500, scale=0.8, flag="venedik", t0=0.0, t1=12.0, ease="lin")]), 12.0, "day", 1, 12.0),
 ]
+WORLD += [
+    ("filo_inebahti", "deniz_filo", dict(tod="day", n=14, highlight=12, gap=(1700, 420), horizon=292, smoke_at=("") if False else 9.0, smoke_dur=3.5, dim=0.5), 12.0, "day", 3, 12.0),
+    ("filo_yogun", "deniz_filo", dict(tod="day", n=90, highlight=12, gap=(1700, 520), horizon=292), 12.0, "day", 3, 12.0),
+]
+WORLD += [
+    ("kiyi_otranto", "deniz_kiyi", dict(tod="fire", n=16, fire_at=0.5), 12.0, "day", 2, 12.0),
+]
 BY_NAME = {w[0]: w for w in WORLD}
 
 
