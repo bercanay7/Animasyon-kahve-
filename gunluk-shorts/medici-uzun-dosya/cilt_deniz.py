@@ -29,7 +29,31 @@ from sk import C, H, W, clamp, mix, smooth
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, "out", "_cache", "world")
-VER = "d1"
+def _ver():
+    """Önbellek sürümü = bu dosyanın içerik özeti (kod değişince eski kareaşlar otomatik geçersiz olur)."""
+    import zlib
+    try:
+        with open(os.path.abspath(__file__), "rb") as fh:
+            return "d%06x" % (zlib.crc32(fh.read()) & 0xFFFFFF)
+    except Exception:
+        return "d0"
+
+
+VER = _ver()
+_STALE_DONE = [False]
+
+
+def _purge_stale():
+    """Eski sürümlerin deniz_* önbellek dosyalarını sil (bir kez)."""
+    if _STALE_DONE[0]:
+        return
+    _STALE_DONE[0] = True
+    try:
+        for fn in os.listdir(CACHE):
+            if fn.startswith("deniz_") and f"_{VER}_" not in fn:
+                os.remove(os.path.join(CACHE, fn))
+    except Exception:
+        pass
 OV = 70                                 # dikey taşma (kamera y kayması)
 BAND = (150, 800)                       # fresk bandı: (y0, yükseklik) — cilt_pano ile aynı
 INK = "#2A1A0C"
@@ -189,6 +213,7 @@ def baked(key, w, h, draw, scale=1.0, disk=True):
         return im
     path = os.path.join(CACHE, f"deniz_{key}_{VER}_{int(round(scale * 100))}.png")
     if disk:
+        _purge_stale()
         try:
             if os.path.exists(path):
                 a = cv2.imread(path, cv2.IMREAD_UNCHANGED)

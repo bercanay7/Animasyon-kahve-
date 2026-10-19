@@ -6,7 +6,7 @@
   python3 preview_deniz.py --no-clip | --no-sheet | --ms | --bake | --workers 2 | --scale 0.5
   python3 preview_deniz.py --at acik_kadirga 4.0   # tam çözünürlüklü tek kare → out/frames/deniz_<ad>_t<sn>.png
 
-Kare = preview_world ile aynı çizim yolu (CM.post dâhil). İşçi ≤2, ölçek 0,5. Arka planda süreç bırakmaz.
+Kare = preview_world ile aynı çizim yolu (CM.post dâhil). TEK işçi (havuz yok), ölçek 0,5, kare kare yazım (RAM'de biriktirme yok). Arka planda süreç bırakmaz.
 """
 import argparse
 import math
@@ -204,7 +204,7 @@ def main():
     ap.add_argument("--bake", action="store_true")
     ap.add_argument("--energy", action="store_true")
     ap.add_argument("--at", nargs=2, metavar=("AD", "SN"))
-    ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--scale", type=float, default=0.5)
     a = ap.parse_args()
     if a.at:
@@ -230,7 +230,7 @@ def main():
             print(f"{n:24s} hareket enerjisi ort {m:5.2f}  min {mn:5.2f}  ölü pencere {dead}", flush=True)
         return
     jobs = [(n, a.scale, not a.no_sheet, not a.no_clip) for n in names]
-    workers = max(1, min(2, a.workers))
+    workers = 1                                  # koordinatör kuralı: tek işçi, aynı anda tek ağır süreç
     t0 = time.time()
     if workers == 1 or len(jobs) == 1:
         for j in jobs:
