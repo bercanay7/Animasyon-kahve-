@@ -84,9 +84,10 @@ def kontrol():
     else:
         uyarilar.append("timeline.json yok: müzik/SFX çıpaları varsayılan konumlara düşer, QA zayıflar")
     sp = os.path.join(HERE, f"sfx_cues_p{PART}.json")
+    import sfx as sfx_mod
     if not os.path.exists(sp):
         uyarilar.append(f"sfx_cues_p{PART}.json yok: yalnız başlık/kart vurguları (+varsa otomatik geçiş sesleri)")
-    elif os.path.getmtime(sp) < os.path.getmtime(os.path.join(OUT, "voice_chapters.json")) - 5:
+    elif os.path.getmtime(sp) < os.path.getmtime(os.path.join(OUT, "voice_chapters.json")) - 5 and any("t" in c for c in sfx_mod.load_cue_file(sp)[0]):
         uyarilar.append(f"sfx_cues_p{PART}.json, voice_chapters.json'dan eski: mutlak 't' kullanan cue'lar eski ses eksenine göre olabilir (çapalı olanlar yeniden çözülür)")
     # SFX kuyruğu çapa denetimi: timeline varsa cue'lar çözülür; çözülemeyen çapa / politika ihlali / sessizlik kapısında başlayan cue raporlanır
     try:

@@ -309,7 +309,8 @@
     "n_steps": 5,
     "pace": 0.85
    },
-   "not": "Köln: oda sessizliği, uzak galeri adımları (yalnız ses)"
+   "not": "KAPALI: Köln 1642 ölüm odası — kaynaksız 'uzak adım' iddiası yok; oda sessizliği (kapı: müzik −28 dB) yalnız ortam tonuyla",
+   "kapali": true
   }
  ]
 }
