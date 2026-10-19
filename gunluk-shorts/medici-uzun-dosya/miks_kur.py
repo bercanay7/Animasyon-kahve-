@@ -9,7 +9,7 @@ P1=c0–c2 · P2=c3–c5 · P3=c6–c7 · P4=c8–c9 · P5=c10–c11 · P6=c12�
     MEDICI_PART=2 python3 miks_kur.py --kontrol        # yalnız girdi tutarlılığı denetimi
     MEDICI_PART=2 python3 miks_kur.py --gecis-sesleri  # önce görüntü motorundan (compose.Program) geçişleri okuyup out_p2/sfx_gecis.json üretir, sonra miks
     MEDICI_PART=2 python3 miks_kur.py --sadece-gecis   # yalnız out_p2/sfx_gecis.json üret
-    (--fresh: müzik önbelleğini yok say · --snr 20,24: konuşma−müzik penceresi · --workers N: en çok 2 · --no-gecis / --no-stinger · --no-stems)
+    (--fresh: müzik önbelleğini yok say · --snr 20,24: konuşma−müzik penceresi · --workers N: en çok 1 (paylaşımlı makine) · --no-gecis / --no-stinger · --no-stems)
 
 `out/` sembolik bağlantısı ve parca.kullan() KULLANILMAZ; tüm yollar out_pN altındadır (MEDICI_PART; deneme için MEDICI_OUT_DIR=/yol).
 Parçadaki bölümler script.PARTS'tan okunur (sabit kodlanmaz); voice_chapters.json'da parça dışı bölüm varsa (eski düzen kalıntısı) DURUR.

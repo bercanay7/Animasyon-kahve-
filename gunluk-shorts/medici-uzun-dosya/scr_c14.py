@@ -10,14 +10,15 @@ PRON = [
     (r"\bEuridice\b", "Euridiçe"), (r"\bOrfeo\b", "Orfeo"), (r"\bVincenzo Galilei\b", "Vinçentso Galilei"),
     (r"\bCristofori\b", "Kristofori"), (r"\barpicembalo\b", "arpiçembalo"), (r"\bBartolomeo\b", "Bartolomeo"),
     (r"\bLeipzig\b", "Layptsig"), (r"\bNiccolini\b", "Nikkolini"), (r"\bGalileo Galilei\b", "Galileo Galilei"),
+    (r"\bScipione\b", "Şipyone"),
 ]
 
 CH = dict(id="c14", n="XIV", title="Yıldızlar, Notalar, Taşlar", years="1584 – 1737", mood="bright", front="",
           paras=[[
-              ("16. yüzyılın sonunda Roma'da, Papa XIII. Gregorius'un desteğiyle ve Cosimo'nun oğlu Kardinal Ferdinando'nun himayesinde, bir Medici Doğu Dilleri Matbaası kuruldu.", None, "◐ M3:K66,D5 (Roma'da, Floransa'da DEĞİL; yıl 1584 HUD'da)"),
+              ("16. yüzyılın sonunda Roma'da, Papa XIII. Gregorius'un desteğiyle ve Büyük Dük Cosimo'nun oğlu Kardinal Ferdinando'nun himayesinde, bir Medici Doğu Dilleri Matbaası kuruldu.", None, "◐ M3:K66,D5 (Roma'da, Floransa'da DEĞİL; yıl 1584 HUD'da); P7 açılışı: hangi Cosimo (Cosimo I, Büyük Dük) — il Vecchio ile karışmasın"),
               ("Arapça harfleri Robert Granjon kesti; Arapça İncil, İbn Sina'nın Kanun'u ve Öklid bu harflerle basıldı.", None, "◐ M3:K66,K69,C58 (1590–91, 1593, 1594 HUD)"),
-              ("Sonra İstanbul'dan bir ferman çıktı: III. Murad, Arapça ve Farsça kitap getiren iki Avrupalı tüccarı koruma altına alıyordu; yasak değil, koruma.", None, "◐ M3:K68,C59,D9 (1588 HUD; \"Osmanlı matbaayı yasakladı\" ile karıştırılmaz)"),
-              ("Tüccarlardan biri Orazio Bandini'ydi; evet, Giuliano'nun katiliyle aynı soyadı, ama bağ gösteren bir kayıt yok.", None, "◐ ad / bağ yok M3:TR#4; M2:§5.11 (göz kırpması; c8 geri çağrısı)"),
+              ("Bunlar basılmadan önce İstanbul'dan bir ferman çıkmıştı: III. Murad, Arapça ve Farsça kitap getiren iki Avrupalı tüccarı koruma altına alıyordu; yasak değil, koruma.", None, "◐ M3:K68,C59,D9 (ferman Ekim 1588 HUD; Arapça İncil 1590–91, Kanun 1593, Öklid 1594 → \"Sonra\" yanıltıyordu; \"Osmanlı matbaayı yasakladı\" ile karıştırılmaz; ferman yılı 1587/1588 ayrışır ○ — yayın öncesi teyit)"),
+              ("Tüccarlardan biri Orazio Bandini'ydi; evet, 1478'de Giuliano'yu vuranlardan biriyle aynı soyadı, ama bağ gösteren bir kayıt yok.", None, "◐ ad / bağ yok M3:TR#4; M2:§5.11 (göz kırpması; c8s10 geri çağrısı — P4'ten uzak izleyen için yıl+\"vuranlardan biri\" eklendi)"),
               ("İstanbul'da bu baskıların satışının beklenenin altında kaldığı anlatılır.", None, "○ M3:C60 (\"anlatılır\"; el yazması nüshaya talep ayrı)"),
           ], [
               ("Aynı yıllarda büyük dük olan Ferdinando, Uffizi'nin doğu kanadında sert taşla resim yapılan bir atölye kurdu: Opificio delle Pietre Dure; kurum bugün de çalışıyor.", None, "◐ M3:K67,K74,C57 (\"Avrupa'nın ilk saray manufakturası\" V&A betimi — söylenmez)"),

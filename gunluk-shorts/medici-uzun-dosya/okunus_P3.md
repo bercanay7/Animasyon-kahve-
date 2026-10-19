@@ -4,8 +4,11 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 
 | gösterim | okunuş | adet | ilk geçtiği yerler |
 |---|---|---:|---|
+| Cosimo | Kozimo | 2 | c6s1, c7s4 |
 | Lorenzo | Lorentso | 20 | c6s1, c6s6, c6s12, c6s15 |
+| Medici | Mediçi | 7 | c6s1, c7s4, c7s5, c7s29 |
 | Niccolò Valori | Nikkolo Valori | 1 | c6s1 |
+| de'  | de  | 5 | c6s1, c7s11, c7s13, c7s28 |
 | Clarice | Klariçe | 3 | c6s10, c6s12, c6s14 |
 | Roma | Roma | 3 | c6s10, c6s13, c7s40 |
 | Poliziano | Politsyano | 5 | c6s14, c6s16, c6s23, c7s22 |
@@ -32,15 +35,12 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Pulci | Pulçi | 1 | c6s9 |
 | Tornabuoni | Tornabuvoni | 1 | c6s9 |
 | Antonio | Antonyo | 1 | c7s10 |
-| Maffei | Maffei | 2 | c7s10, c7s42 |
+| Maffei | Maffey | 2 | c7s10, c7s42 |
 | Stefano da Bagnone | Stefano da Banyone | 1 | c7s10 |
 | Treccani | Trekkani | 2 | c7s10, c7s41 |
 | Jacopo | Yakopo | 3 | c7s11, c7s28, c7s36 |
-| de'  | de  | 4 | c7s11, c7s13, c7s28, c7s32 |
 | Bandini | Bandini | 3 | c7s13, c7s17, c7s23 |
 | Santa Maria del Fiore | Santa Maria del Fyore | 1 | c7s2 |
-| Luca della Robbia | Luka della Robbya | 1 | c7s22 |
-| Michelozzo | Mikelottso | 1 | c7s22 |
 | Palazzo Vecchio | Palattso Vekkyo | 2 | c7s26, c7s32 |
 | Cesare | Çezare | 1 | c7s27 |
 | Petrucci | Petrutçi | 1 | c7s27 |
@@ -48,8 +48,6 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Raffaele Riario | Rafaele Riaryo | 1 | c7s3 |
 | Riario | Riaryo | 3 | c7s3, c7s6, c7s7 |
 | Guicciardini | Gviçardini | 1 | c7s30 |
-| Cosimo | Kozimo | 1 | c7s4 |
-| Medici | Mediçi | 6 | c7s4, c7s5, c7s29, c7s30 |
 | San Lorenzo | San Lorentso | 1 | c7s44 |
 | Giulio | Culyo | 1 | c7s45 |
 | Pazzi | Pattsi | 7 | c7s5, c7s7, c7s11, c7s13 |

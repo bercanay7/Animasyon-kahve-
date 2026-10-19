@@ -85,14 +85,61 @@ shot("sehir", ("c3s1", 0.0), scene="skyline_dikey", tod="day", link="cam", longt
 * Kare başına ağır işler: ışık havuzu (≈8 ms), büyük parıltılar yarıçap kısıtlı; `FA.actor` ≈1,5 ms/figür (halka+taşıyıcı ≈35 figür); siluet figürler tek blit.
 * Deterministik: tüm rastgelelik tohumlu (`_RS`); zaman çapaları `cx.at` ile çözülür (çözülemezse sayı/varsayılan).
 
-## 3. Ölçümler
-(aşağıda — son koşu)
+## 3. Ölçümler (bu makine: 4 çekirdek, başka ajanlarla PAYLAŞIMLI; yük ortalaması 3–17 → süreler şişkin, boş makinede yaklaşık yarısı)
+`python3 preview_sehir.py --ms` (çekim + RGB okuma + `CM.post`, tek çekirdek, 9 kare; ilk kare ısınma sayılmaz). Medyan / en az / maks (ms/kare) ve bölüm dökümü (medyan ms):
+
+| girdi | medyan | en az | maks | döküm |
+|---|---|---|---|---|
+| meydan_ates | 226 | 162 | 304 | sahne 173 = fx 48 (alev+ön sıra) · dyn_main 39 (halka+taşıyıcı+yığın) · katmanlar ≈35 · grade 7 |
+| meydan_odun | 162 | 155 | 196 | dyn_main 52 · fx 15 · grade 8 |
+| meydan_palle | 200 | 130 | 299 | dyn_main 112 (24 kişi + 5 atlı + sancaklar) |
+| meydan_pencere | 99 | 92 | 122 | |
+| meydan_kalabalik | (ölçülecek) | | | |
+| sokak_kapi_gunduz / gece | 114 / 114 | 97 / 108 | 290 / 300 (kapı çarpma kareleri: toz) | dyn_main 15–27 |
+| sokak_yuruyus | 94 | 89 | 100 | |
+| kale_sur | 105 | 93 | 170 | dyn_camp 10 |
+| kale_castel | 108 | 102 | 152 | dyn_city 32 (duman sütunları) |
+| kale_passetto | 157 | 124 | 200 | dyn_main 33 · dyn_city 19 |
+| skyline_dikey | 211 | 99 | 273 | VLayer blit'leri (kare başına 3–6 büyük kareaş) |
+
+Hedef ≤250 ms/kare (çekim+post, 1 çekirdek): hepsi medyanda altında; ates/palle yük altında 250'ye yaklaşır (tek tek kareler 300 civarı çıkabilir — paylaşımlı CPU gürültüsü; `en az` sütunu boş makine tahminidir).
+İlk kare (kit/kareaş pişirme): 0,2–2,3 s (ates 2,3 s: 40+ kostüm kiti ısınır; süreç başına bir kez).
+Kareaş pişirme (soğuk önbellek): bkz. `--bake` çıktısı aşağıda (tek koşu; hepsi ≪15 s).
+Klipler: 24 fps, 960×540, 10–14 sn; hareket enerjisi (ardışık kare farkı, 240×135 gri) ve ölü kare sayısı `preview_sehir` çıktısında (ates 2,52 · odun 0,34 [gece: düşük kontrast; ölü kare 0]); ölü (kopya) kare yok.
 
 ## 4. Bilinen kusurlar
-(aşağıda — son koşu)
+1. Figürler yandan kesme-bebek (FA kiti sınırı): yüz ayrıntısı yok; halka üyeleri yalnız `idle/talk/cheer` (geçişler yok); taşıyıcıların fırlatma hareketi ayrı bir jest değil, durup eşyanın uçması (el pozu `idle`).
+2. `ates`: alev dilimli degrade sprite (fresk stilizasyonu; akışkan değil), 14 fps adımlı titreşim; yanan eşyalar kararmak yerine alfa ile solar; kalabalığın derinliği iki katman (y eşiği: arka/ön). Duman koyu mor; gündüz ateşi yok.
+3. `odun`: siluet halka iki poz (duran/kolu kalkık) arasında yalnız sallanır; hareket enerjisi düşük (karanlık sahne). Darağacı yalnız siluet (kasıtlı).
+4. `palle`: Medici sarayı mekânsal kısaltma (Signoria'nın solunda; gerçekte Via Larga); kalkan yalnız bu act'te; Lorenzo silüeti çizilmedi (yüz/kişi iddiası yok) — yalnız altın pencere. Gün→akşam rengi örtüyle (katmanlar gündüz pişirilmiş).
+5. `pencere`: ip çizgisi ucu püskül (ilmik/beden yok); gölge basit paralelkenar; çan odası penceresi tek ışık.
+6. `sokak`: androne'ye giren figür "derinleşme" efekti (küçül + yukarı + solarak kaybolur) gerçek 3B değil; ön plan siluet yürüme döngüsü zemin hızına oranlı oynatılır (ayak kayması gözetilmez); androne tonozu iç içe kemer şeritleri; kapı açıkken içeri bakış karanlık+sıcak ışık (iç mekân yok).
+7. `kale/sur`: San Miniato cephesi stilize ("tapınak" hissi), insan yok → canlılık bayrak/duman/toz/kuş/yün tutamı/ot; sur yamacı basamaksız rampa; çadırlar ≤46 px.
+8. `kale/castel`: Castel yan görünümde "kutu üstü kutu" (silindir yalnız yatay degrade ile); köprü yok; duman sütunları kalın/stilize.
+9. `kale/passetto`: ok yarıkları dar, ışık huzmesi hafif; heyet hızı kamera hızından türetilir (kamera sabitse heyet durur); koridor iç aydınlık (gündüz); pelerin çizilmedi.
+10. `skyline_dikey`: kule gövdesi sade (yarık+kuşak+flamalar); uzak kuleler 4 tekrar eden stil; kamera hızlı (≈350 px/s ortalama); `cam=("crane","up",px)` varsayılan yolun ÜSTÜNE biner (aşırıya kaçabilir: tek başına `cams` ver).
+11. FA `cf=` renk filtresi baş/ayakkabıyı etkilemez (siluetler bu yüzden piksel düzeyinde); renk filtreli figür çizimi ≈2,2× yavaş — ön sıra figürlerde kullanılmadı.
+12. Ortam: skia `Fontconfig warning … reset-dirs` satırları sistemden (bizden değil). Kapı çarpma karelerinde toz sprite'ları yüzünden tek kareler 250–300 ms.
 
-## 5. c0–c16 uyum tablosu
-(aşağıda — son koşu)
+## 5. c0–c16 uyum tablosu (brif §7 "Ekran önerileri / AKIŞ NOTU" bölümlerinden çıkarılan beklentiler)
+| # | dünyanın karşıladığı | eksik / not |
+|---|---|---|
+| c0 / c16 | Palazzo Vecchio/Uffizi çevresi yok (metin/oda sekansları); `skyline_dikey` kule + `meydan` gün sahnesi kapı sonrası bağlantı için kullanılabilir | oda/belge sekansları Lab-D |
+| c1 | V6 Ciompi/Palazzo Vecchio: `meydan` `act="kalabalik", dir="l"` (sağdan sola kabaran halk, zambak sancakları), `skyline_dikey` Palazzo Vecchio kulesi; V1–V9 Arno panoraması Lab-B (`pano florence`) | yün tarayıcısı silueti: `actors` ile `kesis`/`halk` + `prop` |
+| c2 / c4 / c5 / c9 / c13 / c14 / c15 | c13 V4 "gece sokak dioraması (pencereler, şiddet yok, çan yok)": `sokak` `tod="night"`, `actors=[]`, `door=None` (Paris mimarisi değil, genel cephe); c9 V6 "Palazzo Medici saldırı": `meydan palle`'nin Medici cephesi (kalkan açık) ya da `sokak` — şiddet gösterilmez | defter/harita/grafik sekansları bu işin dışında |
+| c3 | V1 Kule: `skyline_dikey` (`crane up` tek dikey plan; kule gövdesi→mazgal→çan odası→flama; yanlarda çatı/kuş); V4 dönüş alayı: `meydan kalabalik dir="r"` (soldan sağa kabaran halk) + Lab-B `procession` | Alberghettino dar yarık kadrajı (iç mekân) yok |
+| c6 | giostra için atlı/kalabalık parçaları (`palle` atlıları, `kalabalik`) | giostra çekimi (iki atlı + bariyer) hazır değil |
+| c7 | V4 `sokak` yürüyüş (üç figür soldan sağa, kemerli eşiğe girer, ters yönde siluet kalabalık); V9 Palazzo Vecchio cephesi (`pencere`/`ates` cephesi); V10–V11 `meydan palle` (atlılar sağdan sola durur, kalabalık soldan sağa kabarır, PALLE sancakları, Medici penceresi altın, kamera pencereye zum); V12 `meydan pencere` (alacakaranlık→gece, pencereler tek tek kararır, ip çizgisi + gölge) | nef/sakristi/Giuliano sahneleri Lab-B `nave` + Lab-D; Lorenzo siluet yok |
+| c8 | — | rota haritası/Otranto: Lab-C/Lab-A |
+| c10 | V4 9 Kasım `sokak door="close"` (tek hamle, toz+sarsıntı+sekme, kalabalık siluet ters paralaks, kapı gece/gündüz); V6 `meydan ates` (taşıyıcılar eşyayı getirip fırlatır, ilk kıvılcım→alev→yükselen ateş, halka, kamera yarım daire→sabit); V7 `meydan odun` **aynı kamera noktası/aynı yığın merkezi** (`PILE_X`), közer→kül, kül sağa sürüklenir, siluet halka; V7 sonu nehir/kül geçişi Lab-A | "KANIT YOK" damgası/manşet şeridi: dış `quote/title` türü; yazı fırça darbeleri dış tür |
+| c11 | Floransa kuşatması: `kale sur` (San Miniato yün balyalı kule, iki top siluet, ufukta çadır/sancak, yavaş pull); Roma 1527: `kale castel` + `kale passetto` (yan görünüm tek plan, ok yarıkları, kemerler, papalık heyeti, uzakta duman) | Prato 1512, Michelangelo sur planı/Yeni Sakristi (harita/plan) bu işin dışında |
+| c12 | Palazzo Vecchio–Uffizi–Pitti çevresi: `meydan` (gün), `skyline_dikey`; Uffizi yapımı Lab-B `build uffizi`, Vasari koridoru Lab-B `pano corridor` | Boboli/Pitti cepheleri ayrı (`palazzo_front kind="generic"` ile hızlı cephe) |
 
 ## 6. Ana ajandan istekler
-(aşağıda — son koşu)
+* (isteğe bağlı) `cilt_cam.OWN_CAMERA` kümesine `"sehir"`'in dosyada da yazılması (şimdilik `cilt_sehir` içe aktarılırken çalışma anında ekleniyor; qa_flow bu kümeyi okuyor).
+* (isteğe bağlı) sfx ajanı `cilt_sehir.olaylar(scene, act, dur, **parametreler)` çıktısını kuyruğa çevirebilir (ateş çıtırtısı, kapı çarpması, atlı nalları, kalabalık coşkusu).
+* Çekimlerde `mode="night"` / `tod=` uyumu: gece/alacakaranlık sahnelerine `mode="night"` verilmeli (post LUT + duvar).
+* Çalışma kuralı notu: `preview_sehir.py --workers 2` bile iki ağır süreç açar; bellek paylaşımlı olduğundan `--workers 1` kullan; aynı mp4'e iki koşu YAZDIRMA (ffmpeg dosyası bozulur).
+
+## 7. Ekrana konan olgular / kaynak sınıfı
+Bu dünya **hiçbir metin/sayı/tarih çizmez** (yalnız `kick/caption` parametresiyle gelen yazı, dış çağrının sorumluluğu). Görsel olgular: Palazzo Vecchio (kule, mazgal, çan odası), Loggia dei Lanzi, Medici kalkanı (altın zemin + altı kırmızı top; yalnız `palle`), Kibirler yığınında brif c10 V6'nın saydığı beş eşya türü (ayna, iskambil, zar, peruk, çalgı), San Miniato çan kulesinin balyalarla sarılması + iki top (görev tanımı, c11), imparatorluk çadırı/sancakları (kızıl çapraz, kartal; stilize), Castel Sant'Angelo + Passetto (örtülü koridor, ok yarıkları), İsviçreli muhafız (`asker`+`halberd`). Kaynaksız saat/hava/ışık iddiası yok: alacakaranlık/gece/dumanlı gök "görsel dil" (brif c7/c10 ile uyumlu); çan sesi/çalması yok (çan siluetleri hareketsiz); şiddet/ceset/kan/asılı beden yok (siluet, işaret, gölge, ip çizgisi).

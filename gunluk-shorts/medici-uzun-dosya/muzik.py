@@ -41,7 +41,7 @@ import ses_dsp as D
 from ses_dsp import SR, rng_for
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-MAX_WORKERS = 2          # paylaşımlı 4 çekirdekli makine: en çok 2 işçi
+MAX_WORKERS = 1          # paylaşımlı 4 çekirdekli, 16 GB makine: tek işçi (koordinatör kuralı; bellek taşmasını önler)
 
 # ═══════════════════════════ parça tablosu (script.PARTS'tan; sabit kodlanmaz) ═══════════════════════════
 PARTS_FALLBACK = {1: ["c0", "c1", "c2"], 2: ["c3", "c4", "c5"], 3: ["c6", "c7"], 4: ["c8", "c9"], 5: ["c10", "c11"], 6: ["c12", "c13"], 7: ["c14", "c15", "c16"]}

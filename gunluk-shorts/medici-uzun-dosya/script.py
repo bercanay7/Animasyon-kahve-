@@ -8,7 +8,7 @@ Her cümle:  (gösterim_metni,)  |  (gösterim, söylenen)  |  (gösterim, söyl
 Bölüm = paragraf listesi; paragraf = cümle listesi. Cümle kimlikleri: c<bölüm>s<sıra> (bölüm içinde 1'den).
 Üslup: USLUP_REHBERI.md · yönetmenlik: YONETMENLIK_REHBERI.md · olgu dayanakları: arastirma/*.md ve brif/cK_brif.md.
 
-Parçalar: P1 = c0–c6 (ALTIN) · P2 = c7–c11 (BEDEL) · P3 = c12–c16 (MİRAS).
+Yayın parçaları (aşağıda PARTS): P1 c0–c2 · P2 c3–c5 · P3 c6–c7 · P4 c8–c9 · P5 c10–c11 · P6 c12–c13 · P7 c14–c16. Perdeler (ALTIN c0–c6 · BEDEL c7–c11 · MİRAS c12–c16) bölüm bazlıdır, parçadan bağımsız.
 Kullanım: `python3 script.py` (parça/bölüm istatistikleri) · `python3 script.py c3` (bölüm metni) · `python3 script.py --part 1`.
 """
 import importlib

@@ -16,7 +16,7 @@ CH = dict(id="c13", n="XIII", title="İki Kraliçe", years="1519 – 1642", mood
               ("Onun adı Catherine'di. 1519'da Floransa'da doğdu; annesi ve babası, doğumundan sonraki haftalarda öldü.", None, "◐ Britannica + Treccani EI + PUF; M4c:B01–B03 (gün kartı ekranda: 13 Nisan → 28 Nisan → 4 Mayıs)"),
               ("Çocukken, doğduğu şehir kuşatma altındayken, bazı seslerin onu surlara çıkarıp düşmanın önüne koymayı önerdiği anlatılır.", None, "ANEKDOT ◐; ilk yazan bulunamadı; çıplaklık/teslim ayrıntısı bilinçle söylenmez; kim önerdi söylenmez M4c:B05,C16"),
               ("1533'te Medici papası VII. Clemens onu Fransa Kralı'nın oğlu Henri ile evlendirdi.", None, "◐ Britannica M4c:B06,D83 (\"amcası\" DENMEZ — uzak akraba; 28 Ekim ↔ 27 ekranda)"),
-              ("Marsilya, 14 yaşında bir gelin.", None, "◐ 14 = hesap bize ait (çeyiz \"yüz bin altın\" ekran kartı)"),
+              ("Düğün Marsilya'daydı; gelin 14 yaşındaydı.", None, "◐ 14 = hesap bize ait (çeyiz \"yüz bin altın\" ekran kartı); yer adı özne gibi okunmasın diye cümle düzeltildi"),
           ], [
               ("Evlilikten sonraki on yıl çocuk olmadı; Henri'nin gönlü Diane de Poitiers'deydi.", None, "◐ Britannica \"10 anxious years\" + Diane M4c:B07,D79 (tıbbi/cinsel ayrıntı GİRMEZ)"),
               ("Sonra çocukları oldu, hem de çok.", None, "◐ Britannica \"ten children\" (sayı kartta) M4c:B07"),
@@ -33,7 +33,7 @@ CH = dict(id="c13", n="XIII", title="İki Kraliçe", years="1519 – 1642", mood
           ], [
               ("Katliamdan sonra Catherine'in çevresinde bir efsane büyüdü: kötü İtalyan kraliçe.", None, "◐ Britannica M4c:C21,B12 (geçiş cümlesi: düz; mizah 1572'den hemen sonra başlamaz)"),
               ("İlk saldırılardan biri 1573'te Protestan bir broşürdeki şiirdi; 1575'te adsız bir kitapçık çıktı, sonradan Henri Estienne'e atfedildi.", None, "◐ McIlvenna + IA + EB 1911 M4c:B12,D76 (\"atfedildi\")"),
-              ("Sonra faturalar kesilmeye başladı: çatalı o getirmiş, dondurmayı o getirmiş, topuklu ayakkabıyı da, parfümü de… ve tabii zehri.", None, "◐ M4b:bM9 + M4c:D77 (hepsi \"anlatılır\" düzeyi; mizah a+c)"),
+              ("Sonra her şey onun hanesine yazılmaya başladı: çatalı o getirmiş, dondurmayı o getirmiş, topuklu ayakkabıyı da, parfümü de… ve tabii zehri.", None, "◐ M4b:bM9 + M4c:D77 (hepsi \"anlatılır\" düzeyi; mizah a+c; \"fatura\" metaforu c12s31'de kullanıldı → defter metaforuna çevrildi)"),
               ("Oysa çatal Catherine'den çok önce İtalya'daydı; bir anlatı onu Venedik'e gelen bir Bizans prensesine bağlar.", None, "◐ \"Catherine'den önce İtalya'da\" (California Academy + NatGeo + The Florentine); ANEKDOT ○ prenses M4c:D77,§5.8 (1071 söylenmez)"),
               ("Dondurma hikâyesinin izi ise 19. yüzyıla çıkıyor.", None, "◐ Liddell–Weir + Colonial Williamsburg + Cooks Info M4b:bM9"),
               ("Bir ülke inceliğini de günahını da tek bir yabancıya yazmış; pratik bir düzen.", None, "YORUM (mizah b; hedef mit düzeni, kadın değil; opsiyonel)"),
@@ -47,8 +47,8 @@ CH = dict(id="c13", n="XIII", title="İki Kraliçe", years="1519 – 1642", mood
               ("Borcu ödemenin en kibar yolu, borç verenin kızıyla evlenmek.", None, "YORUM (mizah b; hedef kraliyet maliyesi) M4c:D72"),
               ("Marie, 3 Kasım 1600'de Marsilya'ya indi.", None, "◐ Louvre başlığı M4c:C22 (aynı liman — V1 ile eşleşir)"),
           ], [
-              ("13 Mayıs 1610'da taç giydi; ertesi gün Henri IV öldürüldü, Marie naip oldu.", None, "◐ Gutenberg Pardoe + Louvre başlıkları M4c:B19–B20"),
-              ("Favorisi Concini 1617'de öldürülünce Blois Şatosu'na gönderildi. Ne düşündüğünü bilmiyoruz; ama ne yaptığını biliyoruz: 1619'da bir gece kaçtı.", None, "◐ yıllar; Louvre başlığı \"nuit du 21 au 22 février 1619\" M4c:B21–B23 (iç-dünya kalıbı, bölümde tek; ip/merdiven H söylenmez)"),
+              ("13 Mayıs 1610'da taç giydi; ertesi gün {Henri IV|Dördüncü Henri} öldürüldü, Marie naip oldu.", None, "◐ Gutenberg Pardoe + Louvre başlıkları M4c:B19–B20 (satır içi değişken: Romen regex'i sonda \"IV\"yi yakalamaz → \"Dördüncü Anri\")"),
+              ("Favorisi Concini 1617'de öldürülünce Marie, Blois Şatosu'na gönderildi; 1619'da bir gece oradan kaçtı.", None, "◐ yıllar; Louvre başlığı \"nuit du 21 au 22 février 1619\" M4c:B21–B23 (\"Ne düşündüğünü…\" kalıbı tekrarı kaldırıldı; ip/merdiven H söylenmez)"),
               ("1630'daki Aldatılanlar Günü'nde oğlu Kral Louis, Richelieu'yu seçti, annesini değil.", None, "◐ Versailles + Britannica M4c:B26,D81 (10–11 Kasım ekranda)"),
               ("Marie 1631'de Fransa'dan çıktı ve bir daha dönmedi.", None, "◐ Versailles + Osborne M4c:B27"),
           ], [
@@ -59,5 +59,5 @@ CH = dict(id="c13", n="XIII", title="İki Kraliçe", years="1519 – 1642", mood
               ("Marie, 3 Temmuz 1642'de Köln'de, yoksul öldü.", None, "◐ Britannica + Osborne + Pardoe M4c:B28 (oda betimi, son söz, tanık YOK)"),
               ("Ev, Rubens ailesinin yıllarca oturduğu evdi; sonradan Rubens'in orada doğduğu söylendi, oysa doğduğu yer Siegen'di.", None, "◐ Britannica (Siegen) + M4b:b48 + Köln levhaları M4c:D69,§5.16 (efsane \"söylendi\")"),
               ("Tablolar ise Paris'te kaldı; bugün Louvre'da, ayrı bir galerideler.", None, "◐ M4b:b44 (Luxembourg 1625, Louvre 1816, Galerie Médicis 1993) M4c:B29 (restorasyon güncelliği söylenmez)"),
-              ("İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu adını gökyüzüne yazdırıyordu.", None, "YORUM + ◐ c14 (K3 uyarlaması; Galileo 1610 — \"Floransa'da\" yanlış; Medici adı = uydular)"),
+              ("İki kraliçe Fransa'da imgesini savunurken, ailenin Floransa'daki kolu Arapça harf kestirip, opera sahnelettirip, gökyüzüne de adını yazdırıyordu.", None, "YORUM + ◐ c14 (K3 uyarlaması: c14'ün üç vuruşunu sırayla önceden duyurur — matbaa 1584 Roma, Euridice 1600, Galileo 1610; Medici adı = uydular; çekim -ip bağlaçlı, tek zaman)"),
           ]])

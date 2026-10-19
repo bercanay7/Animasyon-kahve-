@@ -6,7 +6,7 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 |---|---|---:|---|
 | Cosimo | Kozimo | 7 | c14s1, c14s13, c14s15, c14s20 |
 | Gregorius | Gregoryus | 1 | c14s1 |
-| Medici | Mediçi | 14 | c14s1, c14s7, c14s14, c14s19 |
+| Medici | Mediçi | 15 | c14s1, c14s7, c14s14, c14s19 |
 | Roma | Roma | 3 | c14s1, c14s23, c16s16 |
 | Caccini | Kaççini | 1 | c14s10 |
 | Vincenzo Galilei | Vinçentso Galilei | 1 | c14s11 |
@@ -17,7 +17,8 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Bartolomeo | Bartolomeo | 1 | c14s20 |
 | Cristofori | Kristofori | 4 | c14s20, c14s21, c14s23, c14s24 |
 | arpicembalo | arpiçembalo | 1 | c14s21 |
-| Maffei | Maffei | 1 | c14s22 |
+| Maffei | Maffey | 1 | c14s22 |
+| Scipione | Şipyone | 1 | c14s22 |
 | Leipzig | Layptsig | 1 | c14s23 |
 | Bandini | Bandini | 1 | c14s4 |
 | Giuliano | Culyano | 1 | c14s4 |
@@ -45,7 +46,7 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Lorraine | Loren | 2 | c15s17, c16s3 |
 | Bianca Cappello | Bianka Kappello | 1 | c15s2 |
 | Livornina | Livornina | 1 | c15s9 |
-| Toskana | Toskana | 3 | c15s9, c15s11, c15s18 |
+| Toskana | Toskana | 4 | c15s9, c15s11, c15s18, c15s19 |
 | Anna Maria Luisa | Anna Maria Luiza | 3 | c16s1, c16s5, c16s23 |
 | Goldthwaite | Goldtveyt | 1 | c16s10 |
 | Gombrich | Gombrih | 1 | c16s10 |

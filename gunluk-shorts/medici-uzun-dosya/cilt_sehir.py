@@ -1446,11 +1446,6 @@ class Meydan(SWorld):
         if fl is not None and xa - 80 < fl[0] < xb + 80:
             flag_pennant(c, fl[0] + 1.0, fl[1] + 3, t, 48.0, 17.0, "#B3301F")
 
-    def _items_state(self, ctx):
-        p = ctx.p
-        act = p["act"]
-        return act
-
     def dyn_main(self, ctx):
         f, c, t = ctx.f, ctx.c, ctx.t
         xa, xb = ctx.xa, ctx.xb
@@ -3316,9 +3311,7 @@ class KalePassetto(SWorld):
         for (y, kind, sd, x, hh, prop, dx) in order:
             if x < xa - 200 or x > xb + 200:
                 continue
-            stil = {}
-            if kind == "papa":
-                stil = dict(robe="#F2EDE0", robe2="#E0B84E", cloak=None) if False else dict(robe="#F2EDE0", robe2="#E0B84E")
+            stil = dict(robe="#F2EDE0", robe2="#E0B84E") if kind == "papa" else {}
             FA.walker(f, kind, x, y, hh, t, speed=max(v, 1.0), dir=1, phase=((dx * 0.0031) % 1.0), seed=sd, prop=prop, **stil)
 
     def dyn_front(self, ctx):

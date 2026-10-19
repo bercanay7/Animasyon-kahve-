@@ -11,7 +11,7 @@ PRON = [
 
 CH = dict(id="c10", n="X", title="Rahip ve Kral", years="1492 – 1498", mood="heavy", front="",
           paras=[[
-              ("Nisan 1492'de Lorenzo, 43 yaşında, rahatlama umuduyla taşındığı Careggi villasında öldü.", None, "◐ M4c:A02,D47; \"43\" = M5 hesap (gün söylenmez: 8 ↔ 9 Nisan)"),
+              ("Nisan 1492'de Floransa'nın efendisi Lorenzo de' Medici, 43 yaşında, rahatlama umuduyla taşındığı Careggi villasında öldü.", None, "◐ M4c:A02,D47; \"43\" = M5 hesap (gün söylenmez: 8 ↔ 9 Nisan); P5 açılışı: kim/nerede/ne zaman"),
               ("Başucunda iki dostu vardı: şair Poliziano ve genç filozof Pico della Mirandola.", None, "◐ DBI (c. 73) M4c:C01"),
               ("Poliziano'nun mektubuna göre Lorenzo, Pico'ya, kütüphanesi bitmeden ölümün kendisini esirgemesini dilediğini söyledi.", None, "◐ iki özet; mektup metni GÖRÜLMEDİ M4c:C04,D49 (\"mektuba göre\"; 1494 el koyma söylenmez — ekranda boş raf)"),
               ("Savonarola da oradaydı; Poliziano'ya göre Lorenzo'nun günah çıkarmasını dinledi.", None, "◐ üç özet M4c:C02,D48 (opsiyonel; kutsama ayrıntısı söylenmez)"),
@@ -24,7 +24,7 @@ CH = dict(id="c10", n="X", title="Rahip ve Kral", years="1492 – 1498", mood="h
           ], [
               ("Babasının yerine genç Piero geçti; konseyler onu itirazsız ama destek gösterisi olmadan onayladı.", None, "◐ M4c:A09,D54 (yaş 20 = M5)"),
               ("Babasının kurduğu denge çözülüyordu: 1493'te kurulan bir ittifakın dışında Floransa ve Napoli kalmıştı.", None, "◐ DBI Orsini + Cambridge M4c:A11,D54 (üyeler söylenmez)"),
-              ("Piero görüşmeyi kendi eliyle yürütmek istedi; ekimin sonunda, Sarzana'daki Fransız kampında, şehrin kalelerini Signoria'ya sormadan krala bıraktı.", None, "◐ Treccani/Cambridge M4c:A13,D55 (kale sayısı, gün söylenmez; \"beceriksiz\" DENMEZ)"),
+              ("Piero görüşmeyi kendi eliyle yürütmek istedi; ekimin sonunda, Sarzana'daki kampta, Alpler'i aşıp gelen Fransa Kralı VIII. Charles'a şehrin kalelerini Signoria'ya sormadan bıraktı.", None, "◐ Treccani/Cambridge M4c:A13,D55 (kale sayısı, gün söylenmez; \"beceriksiz\" DENMEZ); c9 kapısının \"kral\"ını burada adlandırır (VIII. Charles → \"Sekizinci Şarl\")"),
           ], [
               ("9 Kasım 1494, bir pazar.", None, "◐ Landucci ikincil + Cambridge M4c:A14,D56 (saat/çan YOK)"),
               ("Piero, Fransız kampından dönmüş, silahlı adamlarıyla Palazzo Vecchio'ya girmek istiyordu.", None, "◐ M4c:A14,A15"),

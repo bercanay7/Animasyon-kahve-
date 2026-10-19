@@ -19,6 +19,7 @@
 
 | id | sınıf | cümle (ekran metni) | dayanak / kip |
 |---|---|---|---|
+| c8s1 | ◐ | Pazzi suikastının ve başpiskopos Salviati'nin asılmasının ardından, Haziran 1478'de Papa IV. Sixtus Lorenzo'yu aforoz etti; çok geçmeden Floransa'ya da yasak, yani interdikt kondu. | ◐ M2c:Y35,Y37 (gün söylenmez: 1 Haziran ihtar mı kesin karar mı ○, interdikt günü 20/22 Haz ○ — Reumont/EdP/DBI Lorenzo teyit); P4 açılışı: kim/neden; c7s32,s40 ile uyumlu |
 | c8s2 | ○ | Aktarıldığına göre papalık belgeleri, alışılmış üslupla, Lorenzo'ya “kötülüğün oğlu ve yıkımın evladı” diyordu. | ○ Reumont (Latince iniquitatis filius et perditionis alumnus); çeviri bize ait (mizah a: kurumun üslubu) |
 | c8s8 | ○ | Pisa'ya varınca Signoria'ya yazıp nedenini bildirdiği, Signoria'nın da ona elçilik ve tam yetki verdiği anlatılır. | ○ M2c:Y49 ("anlatılır") |
 | c8s13 | ◐ | Giuliano'yu vuranlardan Bernardo Bandini, kiliseden kaçıp İstanbul'a ulaşmıştı; orada akrabaları vardı. | ◐ M2c:Y57 DBI Bandini + Louvre + Treccani ("ilk darbe" T4 çelişkisi → söylenmez) |
@@ -30,10 +31,11 @@
 | c9s6 | ○ | Medici'nin şaptan ne kazandığını bilmiyoruz; yalnız, 1475'te banka şapta zarar yazıyordu diye aktarılır. | ○ M1b:b22,X1 (yokluk cümlesi; Parks; rakam yok) |
 | c9s8 | ○ | Portinari, Burgonya Dükü Cesur Şarl'a büyük, teminatsız krediler verdi; borç geri ödenmedi. | ○ "yazılır" M1:#63,D41 (kapsamı tartışmalı; Memling portreleri ekranda, M1:D43) |
 | c9s9 | ○ | Hem Medici'nin müdürüydü hem dükün danışmanı: iki efendiye hizmet. | ○ M1:D42 (mizah b) |
-| c9s11 | ○ | Londra şubesi Kral IV. Edward'a yirmi altı bin sterlinden fazla borç verdi. | ○ M1:#60,D44 (popüler £10.500 söylenmez) |
-| c9s12 | ○ | Güller Savaşı yüzünden kralın ödeyemediği yazılır; başka bir kaynağa göre sonradan ödedi. | ○ çelişkili M1b:U23,b50 (mizah a: kaynaklar da uzlaşmıyor) |
+| c9s11 | ○ | Londra şubesi, 1466 ile 1471 arasında Kral IV. Edward'a toplam yirmi altı bin sterlinden fazla kredi verdi. | ○ M1:#60,D44 (Holmes/Cambridge: TOPLAM kredi, kalan borç DEĞİL; popüler £10.500 SÖYLENMEZ) |
+| c9s12 | ○ | Bir kısmı geri ödendi; kalanı için Güller Savaşı suçlanır, ama rakamlar kaynaktan kaynağa değişir. | ○ çelişkili M1:#60; M1b:U23,b50 (mizah a: kaynaklar da uzlaşmıyor) |
 | c9s14 | ○ | Milano, Avignon, Brugge, Venedik: şubeler 1470'lerin sonundan 1481'e dek tek tek kapandı. | ◐/○ aralıklar M1b:b53,b54,b52,b55 (kesin yıl söylenmez) |
-| c9s18 | ○ | Tarihçi de Roover'a göre Lorenzo parlak bir devlet adamıydı, iş adamı değil; Goldthwaite ise 1500 öncesi Floransa'da banka krizi görmez. | ○ yaklaşık M1b:bD17,b82 (birebir tırnak yok) |
+| c9s17 | ◐ | Sassetti 1463'ten 1490'daki ölümüne dek, yaklaşık otuz yıl, genel müdürdü; İtalyan Ansiklopedisi Treccani sorunu “verimsiz bir mali örgütlenme” diye özetler. | ◐ M1b:bD11,b47,U18 (parçada ilk Treccani → kısa tanım; 1463 ↔ 1458/59 ve "otuz yıl" yayın öncesi teyit) |
+| c9s18 | ○ | Tarihçi Raymond de Roover'a göre Lorenzo parlak bir devlet adamıydı, iş adamı değil; Goldthwaite ise 1500 öncesi Floransa'da genel bir banka krizi görmez. | ○ yaklaşık M1b:bD17,b82 (birebir tırnak yok; "genel" eklendi; Goldthwaite özeti ○; "Tarihçi de" bağlaç okunmasın diye ad tam) |
 | c9s23 | ○ | Kalabalık bahçelere daldı; saray kısmen yağmalandı, resmen el kondu. | ◐/○ M1b:b66,bD12,bM16 (üst kat ayrıntısı tek müze sitesi → söylenmez) |
 
 ## Tüm cümleler
@@ -42,7 +44,7 @@
 
 | id | sınıf | cümle | dayanak |
 |---|---|---|---|
-| c8s1 | ◐ | Aforoz kararı 1 Haziran 1478'de çıktı; çok geçmeden Floransa'nın kendisine de yasak, yani interdikt kondu. | ◐ M2c:Y35,Y37 (interdikt günü söylenmez) |
+| c8s1 | ◐ | Pazzi suikastının ve başpiskopos Salviati'nin asılmasının ardından, Haziran 1478'de Papa IV. Sixtus Lorenzo'yu aforoz etti; çok geçmeden Floransa'ya da yasak, yani interdikt kondu. | ◐ M2c:Y35,Y37 (gün söylenmez: 1 Haziran ihtar mı kesin karar mı ○, interdikt günü 20/22 Haz ○ — Reumont/EdP/DBI Lorenzo teyit); P4 açılışı: kim/neden; c7s32,s40 ile uyumlu |
 | c8s2 | ○ | Aktarıldığına göre papalık belgeleri, alışılmış üslupla, Lorenzo'ya “kötülüğün oğlu ve yıkımın evladı” diyordu. | ○ Reumont (Latince iniquitatis filius et perditionis alumnus); çeviri bize ait (mizah a: kurumun üslubu) |
 | c8s3 | ◐ | Napoli Kralı Ferrante Papa'nın yanında savaşa girdi; ordunun başında oğlu Alfonso, generali ise Urbino'dan Federico da Montefeltro vardı. | ◐ M2c:Y43 Reumont + Collector + DBI Alfonso II |
 | c8s4 | ◐ | Siena ordunun geçişine izin verdi; Alfonso Chianti'ye girip kaleleri aldı. | ◐ M2c:Y44 Reumont |
@@ -87,26 +89,26 @@
 | c9s4 | ◐ | Pazarlama hakkını 1466'da, Piero de' Medici'nin de içinde olduğu bir gruba verdi. | ◐ M1b:b11 (Piero, Lorenzo DEĞİL; "II. Pius Medici'ye verdi" DENMEZ) |
 | c9s5 | ○ | Papa, Türk şapı alanları aforozla tehdit etti; alıcılar yine de daha ucuz Türk şapına yöneldi. | ○ tehdit ayrıntısı Parks / ◐ Türk şapı sürdü M1b:bM5,bD15 (mizah a: kurumun silahı ↔ fiyat) |
 | c9s6 | ○ | Medici'nin şaptan ne kazandığını bilmiyoruz; yalnız, 1475'te banka şapta zarar yazıyordu diye aktarılır. | ○ M1b:b22,X1 (yokluk cümlesi; Parks; rakam yok) |
-| c9s7 | ◐ | Brugge şubesini Tommaso Portinari yönetiyordu; Cosimo'nun ona pek güvenmediği anlatılır, ama Cosimo ölünce Portinari genel müdür ve ortak oldu. | ◐ "anlatılır" M1:#57,D40 (yıl ≈1465–68 belirsiz) |
+| c9s7 | ◐ | Brugge'de yıllarca yardımcı olarak çalışan Tommaso Portinari'ye Cosimo'nun pek güvenmediği anlatılır; ama Cosimo ölünce Portinari şubenin müdürü ve ortağı oldu. | ◐ "anlatılır" M1:#57,D40 (yıl ≈1465–68 belirsiz; "genel müdür" = yalnız Brugge şubesi — banka genel müdürü Sassetti, s17 ile karışmasın) |
 | c9s8 | ○ | Portinari, Burgonya Dükü Cesur Şarl'a büyük, teminatsız krediler verdi; borç geri ödenmedi. | ○ "yazılır" M1:#63,D41 (kapsamı tartışmalı; Memling portreleri ekranda, M1:D43) |
 | c9s9 | ○ | Hem Medici'nin müdürüydü hem dükün danışmanı: iki efendiye hizmet. | ○ M1:D42 (mizah b) |
 | c9s10 | ◐ | Medici sonunda Brugge'yi tasfiyeye karar verip Portinari'yi şubeyi üstlenmeye zorladı; şube 1480 ya da 1481'de kapandı. | ◐ M1b:b52,bD7 (kapanış aralık) |
-| c9s11 | ○ | Londra şubesi Kral IV. Edward'a yirmi altı bin sterlinden fazla borç verdi. | ○ M1:#60,D44 (popüler £10.500 söylenmez) |
-| c9s12 | ○ | Güller Savaşı yüzünden kralın ödeyemediği yazılır; başka bir kaynağa göre sonradan ödedi. | ○ çelişkili M1b:U23,b50 (mizah a: kaynaklar da uzlaşmıyor) |
+| c9s11 | ○ | Londra şubesi, 1466 ile 1471 arasında Kral IV. Edward'a toplam yirmi altı bin sterlinden fazla kredi verdi. | ○ M1:#60,D44 (Holmes/Cambridge: TOPLAM kredi, kalan borç DEĞİL; popüler £10.500 SÖYLENMEZ) |
+| c9s12 | ○ | Bir kısmı geri ödendi; kalanı için Güller Savaşı suçlanır, ama rakamlar kaynaktan kaynağa değişir. | ○ çelişkili M1:#60; M1b:U23,b50 (mizah a: kaynaklar da uzlaşmıyor) |
 | c9s13 | ◐ | Şube 1477 ile 1478 arasında tasfiye edildi. | ◐ aralık M1b:b51,bM9 (51.533 florin zarar ekran kartı, ○) |
 | c9s14 | ○ | Milano, Avignon, Brugge, Venedik: şubeler 1470'lerin sonundan 1481'e dek tek tek kapandı. | ◐/○ aralıklar M1b:b53,b54,b52,b55 (kesin yıl söylenmez) |
 | c9s15 | — | Suçlu kimdi? | — |
 | c9s16 | ◐ | Medici'nin siparişiyle tarih yazan Machiavelli, suçu ajanlara atar: Lorenzo ticarette talihsizdi, ajanlarının uygunsuz davranışları yüzünden. | ◐ M1b:bD4,M1:D39 (EN çeviri özeti; çeviri bize ait) |
-| c9s17 | ◐ | Sassetti 1463'ten 1490'daki ölümüne dek, yaklaşık otuz yıl, genel müdürdü; Treccani sorunu “verimsiz bir mali örgütlenme” diye özetler. | ◐ M1b:bD11,b47,U18 |
-| c9s18 | ○ | Tarihçi de Roover'a göre Lorenzo parlak bir devlet adamıydı, iş adamı değil; Goldthwaite ise 1500 öncesi Floransa'da banka krizi görmez. | ○ yaklaşık M1b:bD17,b82 (birebir tırnak yok) |
+| c9s17 | ◐ | Sassetti 1463'ten 1490'daki ölümüne dek, yaklaşık otuz yıl, genel müdürdü; İtalyan Ansiklopedisi Treccani sorunu “verimsiz bir mali örgütlenme” diye özetler. | ◐ M1b:bD11,b47,U18 (parçada ilk Treccani → kısa tanım; 1463 ↔ 1458/59 ve "otuz yıl" yayın öncesi teyit) |
+| c9s18 | ○ | Tarihçi Raymond de Roover'a göre Lorenzo parlak bir devlet adamıydı, iş adamı değil; Goldthwaite ise 1500 öncesi Floransa'da genel bir banka krizi görmez. | ○ yaklaşık M1b:bD17,b82 (birebir tırnak yok; "genel" eklendi; Goldthwaite özeti ○; "Tarihçi de" bağlaç okunmasın diye ad tam) |
 | c9s19 | YORUM | Yani bankayı kimin batırdığı, kime sorduğunuza bağlı. | YORUM |
 | c9s20 | ◐ | Genel müdür Sassetti ise 1480'lerde Santa Trinita'da Ghirlandaio'ya kendi şapelini yaptırıyordu. | ◐ M3:k21 (yıllar HAFIZA 1483–85 → "1480'lerde"; ironi YORUM) |
-| c9s21 | ◐ | Kasım 1494'te Piero kaçtı; Signoria Medici'yi sürgün etti. | ◐ M1b:b64; M2:K91 (8↔9 Kasım söylenmez; öyküsü c10) |
+| c9s21 | ◐ | Kasım 1494'te Lorenzo'nun oğlu Piero kaçtı; Signoria Medici'yi sürgün etti. | ◐ M1b:b64; M2:K91 (8↔9 Kasım söylenmez; öyküsü c10) |
 | c9s22 | ◐ | Cumhuriyet Palazzo Medici'ye ve öteki Medici konutlarına resmen el koydu; Donatello'nun David'i ve Judith'i Palazzo Vecchio'ya taşındı. | ◐ M1b:b65 |
 | c9s23 | ○ | Kalabalık bahçelere daldı; saray kısmen yağmalandı, resmen el kondu. | ◐/○ M1b:b66,bD12,bM16 (üst kat ayrıntısı tek müze sitesi → söylenmez) |
 | c9s24 | ◐ | Bankanın bütün mülkü, Floransa'daki masası dahil, kayyumlara verildi. | ◐ M1b:b67 (15.445 florin alacak ekran kartı, ○) |
 | c9s25 | ◐ | Resmî son 1494'tü; fiilî çözülme 1470'lerden beri şube şube sürüyordu. | ◐ M1:düz10,mit17; M1b:U33 |
 | c9s26 | ◐ | Banka sona ermişti; ama Donatello'nun bronzları Palazzo Vecchio'ya taşındı. | ◐ M1b:b65 + YORUM |
 | c9s27 | YORUM | Banka öldü, güzellik kaldı. | YORUM (tez cümlesi) |
-| c9s28 | YORUM | Peki o güne nasıl gelindi? Bir kralın Alpler'i aşmasıyla, bir rahibin vaazlarıyla. | YORUM (c10 kapısı; c10 metnine göre uyarlanacak) |
+| c9s28 | YORUM | Peki Medici'yi sürgüne gönderen o güne nasıl gelindi? Bir kralın Alpler'i aşmasıyla, bir rahibin vaazlarıyla. | YORUM (c10 kapısı; "o gün" = Kasım 1494; kral c10s12'de VIII. Charles diye adlandırılır) |
 

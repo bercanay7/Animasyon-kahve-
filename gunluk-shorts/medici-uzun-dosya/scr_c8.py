@@ -3,16 +3,16 @@ Yıldız an: V4 paralel kurgu — 29 Aralık 1479'da Bandini Floransa'da asılı
 Kapı: K1 (c9: şube ışıkları sönüyor)."""
 PRON = [
     (r"\bFerrante\b", "Ferrante"), (r"\bAlfonso\b", "Alfonso"), (r"\bSiena\b", "Siyena"), (r"\bChianti\b", "Kyanti"),
-    (r"\bColle Val d'Elsa\b", "Kolle Val d'Elsa"), (r"\bPoggio Imperiale\b", "Poççio İmperyale"),
+    (r"\bColle Val d'Elsa\b", "Kolle Val d'Elsa"), (r"\bPoggio Imperiale\b", "Pocco İmperyale"),
     (r"\bPera\b", "Pera"), (r"\bAntonio de' Medici\b", "Antonyo de Mediçi"), (r"\bBandini\b", "Bandini"),
-    (r"\bBargello\b", "Bargello"), (r"\bLeonardo\b", "Leonardo"), (r"\bBertoldo di Giovanni\b", "Bertoldo di Covanni"),
+    (r"\bBargello\b", "Barcello"), (r"\bLeonardo\b", "Leonardo"), (r"\bBertoldo di Giovanni\b", "Bertoldo di Covanni"),
     (r"\bOtranto\b", "Otranto"), (r"\bGedik Ahmed\b", "Gedik Ahmed"), (r"\bVolterra\b", "Volterra"),
     (r"\binterdikt\b", "interdikt"),
 ]
 
 CH = dict(id="c8", n="VIII", title="Aslanın İni", years="1478 – 1481", mood="serious", front="",
           paras=[[
-              ("Aforoz kararı 1 Haziran 1478'de çıktı; çok geçmeden Floransa'nın kendisine de yasak, yani interdikt kondu.", None, "◐ M2c:Y35,Y37 (interdikt günü söylenmez)"),
+              ("Pazzi suikastının ve başpiskopos Salviati'nin asılmasının ardından, Haziran 1478'de Papa IV. Sixtus Lorenzo'yu aforoz etti; çok geçmeden Floransa'ya da yasak, yani interdikt kondu.", None, "◐ M2c:Y35,Y37 (gün söylenmez: 1 Haziran ihtar mı kesin karar mı ○, interdikt günü 20/22 Haz ○ — Reumont/EdP/DBI Lorenzo teyit); P4 açılışı: kim/neden; c7s32,s40 ile uyumlu"),
               ("Aktarıldığına göre papalık belgeleri, alışılmış üslupla, Lorenzo'ya “kötülüğün oğlu ve yıkımın evladı” diyordu.", None, "○ Reumont (Latince iniquitatis filius et perditionis alumnus); çeviri bize ait (mizah a: kurumun üslubu)"),
               ("Napoli Kralı Ferrante Papa'nın yanında savaşa girdi; ordunun başında oğlu Alfonso, generali ise Urbino'dan Federico da Montefeltro vardı.", None, "◐ M2c:Y43 Reumont + Collector + DBI Alfonso II"),
           ], [

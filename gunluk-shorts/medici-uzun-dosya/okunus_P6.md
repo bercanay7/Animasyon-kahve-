@@ -4,19 +4,22 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 
 | gösterim | okunuş | adet | ilk geçtiği yerler |
 |---|---|---:|---|
+| Alessandro | Alessandro | 1 | c12s1 |
 | Cosimo | Kozimo | 18 | c12s1, c12s2, c12s3, c12s5 |
+| Medici | Mediçi | 5 | c12s1, c12s26, c12s35, c13s3 |
+| Medici'nin | Mediçi'nin | 1 | c12s1 |
 | Felipe | Felipe | 1 | c12s10 |
 | Siena | Siyena | 1 | c12s10 |
 | Vasari | Vazari | 2 | c12s11, c12s26 |
-| Uffizi | Uffitsi | 1 | c12s12 |
+| Uffizi | Uffitsi | 2 | c12s12, c12s14 |
 | Palazzo Vecchio | Palattso Vekkyo | 1 | c12s14 |
 | Santo Stefano | Santo Stefano | 1 | c12s16 |
 | Pisa | Piza | 1 | c12s17 |
 | Giovanni | Covanni | 1 | c12s20 |
 | Garzia | Gartsiya | 4 | c12s21, c12s23, c12s23, c12s24 |
-| Medici | Mediçi | 4 | c12s26, c12s35, c13s3, c13s23 |
 | Michelangelo | Mikelancelo | 1 | c12s27 |
 | Francesco | Françesko | 1 | c12s29 |
+| Mugello | Mucello | 1 | c12s3 |
 | Pius | Pius | 1 | c12s30 |
 | Roma | Roma | 2 | c12s30, c12s31 |
 | Lepanto | Lepanto | 1 | c12s32 |
@@ -33,7 +36,7 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Kirke | Kirke | 1 | c13s21 |
 | Blois | Blua | 3 | c13s22, c13s29, c13s34 |
 | Guise | Giz | 1 | c13s22 |
-| Marie | Mari | 8 | c13s23, c13s27, c13s28, c13s31 |
+| Marie | Mari | 9 | c13s23, c13s27, c13s28, c13s29 |
 | écu | ekü | 1 | c13s25 |
 | Concini | Konçini | 1 | c13s29 |
 | Clemens | Klemens | 1 | c13s3 |

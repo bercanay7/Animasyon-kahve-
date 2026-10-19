@@ -45,7 +45,7 @@ import parca as PA  # noqa: E402  (yalnız PA.PART / PA.OUT / PA.assert_gercek_s
 
 PART = PA.PART
 OUT = os.environ.get("MEDICI_OUT_DIR") or PA.OUT          # MEDICI_OUT_DIR: yalnız deneme/fixture; varsayılan out_pN
-MAX_WORKERS = 2
+MAX_WORKERS = 1                 # tek işçi (paylaşımlı makine; bellek)
 
 FR = 480                      # 10 ms'lik analiz karesi (100 Hz zarf hızı)
 TARGET_LUFS = -14.0

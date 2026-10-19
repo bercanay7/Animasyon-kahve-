@@ -9,10 +9,10 @@ PRON = [
 
 CH = dict(id="c6", n="VI", title="Lorenzo", years="1449 – 1478", mood="warm", front="",
           paras=[[
-              ("Lorenzo'yu en iyi dostu Niccolò Valori anlatır: doğa, görünüşü konusunda ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş.", None, "◐ M5:K16; M3:C26 (özgün görülmedi → \"Valori'ye atfedilir\")"),
-              ("Valori'ye göre yüzü güzel sayılmazdı, ama saygı uyandıracak kadar vakarlıydı.", None, "◐ M5:K16"),
+              ("Cosimo'nun torunu Lorenzo de' Medici'yi yakın dostu Niccolò Valori anlatır: doğa, görünüşü konusunda ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş.", None, "◐ M5:K16; M3:C26 (özgün görülmedi → \"Valori'ye atfedilir\"); P3 açılışı: kimin torunu; \"en iyi dost\" → \"yakın dost\" (kaynakta yakın dost)"),
+              ("Valori'ye göre Floransa'nın bu tahtsız efendisinin yüzü güzel sayılmazdı, ama saygı uyandıracak kadar vakarlıydı.", None, "◐ M5:K16 (\"tahtsız efendi\" = c5s19 geri çağrısı; P3 açılışı: şehir Floransa)"),
               ("Ansiklopedilerin tarifi daha çıplak: basık burun, öne çıkık alt çene, zayıf görme.", None, "◐ M5:K15 (EI 1934; ten rengi ve ses söylenmez)"),
-              ("Valori'ye göre koku bile alamıyordu.", None, "◐ zayıf M5:K19; M3:C27 (yayın öncesi teyit)"),
+              ("Valori'ye atfedilen tarife göre koku duyusu da neredeyse yoktu.", None, "◐ zayıf M5:K19; M3:C27 (iki ikincil; \"atfedilen\"; yayın öncesi teyit; \"bile\" kalktı — alaysı okunmasın)"),
               ("Büyükbabası defter tutardı; torunu şiir yazdı.", None, "YORUM (Plutarkhos paraleli)"),
           ], [
               ("2 Aralık 1469'da babası Piero öldü; günler içinde yirmi yaşındaki Lorenzo şehrin ve devletin yükünü üstlendi.", None, "◐ ölüm / ○ \"günler içinde\" M5:P4,P6,K21"),
@@ -35,7 +35,7 @@ CH = dict(id="c6", n="VI", title="Lorenzo", years="1449 – 1478", mood="warm", 
           ], [
               ("29 Ocak 1475'te Santa Croce Meydanı'nda, Venedik ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Giostra.", None, "◐ M5:K23; M3:K41"),
               ("Kazanan Lorenzo değil, kardeşi Giuliano'ydu; seçtiği kadın, Marco Vespucci'nin eşi Simonetta'ydı.", None, "◐ M5:K23,P7; M3:D11"),
-              ("Botticelli sancağa Simonetta'yı miğferli bir Pallas olarak resmetmişti; asıl sancak kayıp.", None, "◐ olay / ○ görünüş M3:C36 (\"anlatılır\")"),
+              ("Botticelli'nin sancağa Simonetta'yı miğferli bir Pallas olarak resmettiği anlatılır; asıl sancak kayıp.", None, "○ olay / ○ görünüş M3:C36 (\"anlatılır\"; cümle artık etiketle aynı kipte)"),
               ("Poliziano bu günü bir şiire döktü; şiir, kahramanı ölünce yarım kaldı.", None, "◐ M5:K23 (Stanze per la giostra)"),
               ("Simonetta, 1476 Nisanında yirmi üç yaşında veremden öldü; Giuliano'yla sevgili olup olmadıklarını bilmiyoruz.", None, "◐ M5:K23; M3:K42 (\"bilmiyoruz\" kalıbı)"),
               ("Lorenzo yıllar sonra bir karnaval şarkısına şunu yazacaktı: ne güzel şey gençlik, ama kaçıp gidiyor.", None, "◐ tarih/biçim M3:K52,C42 (1490; çeviri bize ait; sahneye bağlama YORUM)"),

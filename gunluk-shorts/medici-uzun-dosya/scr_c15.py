@@ -10,8 +10,8 @@ PRON = [
 CH = dict(id="c15", n="XV", title="Son Medici'ler", years="1587 – 1737", mood="weary", front="",
           paras=[[
               ("I. Francesco, Palazzo Vecchio'da kendine bir oda yaptırmıştı: yarı ofis, yarı laboratuvar, yarı saklanma yeri, yarı merak kabini; kendisi dışında çok az kişi o odayı görmüştü.", None, "◐ M3:#62,cd55 (\"bugün şöyle tarif ediliyor\"; mizah a: kaynağın tarifi; porselen ○ söylenmez)"),
-              ("Ekim 1587'de Francesco, eşi Bianca Cappello'yla birkaç gün arayla öldü.", None, "◐ Francesco 19 Ekim (Ferdinando'nun tahta çıkışı) M4b:b50 / H Bianca, \"bir gün arayla\" — hedge: \"birkaç gün arayla\""),
-              ("Zehir söylentisinin o günlerde dolaştığı söylenir; zehirli turta hikâyesi ise sonradan anlatılmıştır, ilk anlatıcısı bilinmez.", None, "H / ANEKDOT M4:3E#3,§5.15 (\"söylenir\"; çağdaş kayıt H)"),
+              ("Ekim 1587'de Francesco, eşi Bianca Cappello'yla bir gün arayla öldü.", None, "◐ Francesco 19 Ekim, Bianca 20 Ekim (EN Wikipedia; italyonthisday) M4b:b50 — \"birkaç gün\" yanlıştı; yayın öncesi teyit (DBI)"),
+              ("Zehir söylentisinin o günlerde dolaştığı söylenir; zehirli turta hikâyesi ise sonradan anlatılmıştır, ilk anlatıcısını gösteremiyoruz.", None, "H / ANEKDOT M4:3E#3,§5.15 (\"söylenir\"; çağdaş kayıt H; \"ilk anlatıcısı bilinmez\" = bizim araştırma sınırımız, literatür iddiası değil)"),
               ("2006'da bir çalışma kalıntılarda arsenik, 2010'da bir başkası sıtma antijeni bulduğunu bildirdi.", None, "H künyeler (Mari ve ark. BMJ 2006; Fornaciari ve ark. 2010) M4:#90,#91 — yayın öncesi teyit"),
               ("2026'da ise Francesco'nun üç kaburgasından alınan örneklerde iki sıtma parazitinin DNA'sı bulundu.", None, "◐ basın (Yale, CNN, Science; makale açılmadı) M4:#92,3E#1 — \"basına göre\"; yöntem/örnek ayrıntısı verilmez"),
               ("Bir haber başlığı “kitabı kapattı” dedi, bir başkası “çözülmüş olabilir”; aynı çalışma, iki ayrı kesinlik.", None, "◐ M4:3E#1 (mizah a: kaynağın kendi tutarsızlığı; kişiye değil)"),
@@ -23,12 +23,12 @@ CH = dict(id="c15", n="XV", title="Son Medici'ler", years="1587 – 1737", mood=
               ("Ferdinando'nun 1608'de Dürzi Emiri Fahreddin'le yaptığı antlaşmanın, İstanbul sıkıştırırsa Toskana'da sığınma güvencesi içerdiği yazılır.", None, "◐ M4b:b58,bD30 (Aramco World 2014; journals.ku.edu)"),
               ("Fahreddin gerçekten 1613'te, II. Cosimo döneminde geldi.", None, "◐ M4b:b59,bD30 (sürgün Cosimo II dönemi)"),
           ], [
-              ("III. Cosimo elli üç yıl hüküm sürdü; dönemi çoğu anlatıda gerileme diye geçer, ama bu anlatı tek bir kaynak hattına dayanıyor.", None, "○ M4b:b63,bM12 (\"53 yıl\" ○ → \"yazılır\"; sektörel nüans)"),
+              ("III. Cosimo elli üç yıl hüküm sürdü; dönemi çoğu anlatıda gerileme diye geçer, ama bu tablo her sektör için aynı değildi: yün geriledi, ipek gelişti diye yazılır.", None, "◐/○ M4b:b63,b64,bM12 (bir akademik özet; \"tek kaynak hattı\" iddiası KALKTI — o, araştırma sınırımızdı, literatür bilgisi değil; \"53 yıl\" ○)"),
               ("Oğlu Gian Gastone 1723'te büyük dük oldu; çevresindeki 379 adama “ruspanti” derlerdi, çünkü adlarını altın sikkelerden, yani “ruspi”den alırlardı.", None, "◐ M4b:b66,bD19 (Treccani DBI Paoli 2000; mizah a: adını paradan alan çevre; yatak/hastalık ANEKDOT söylenmez)"),
-              ("Treccani'nin 1932 tarihli maddesi onu devlet işlerine kayıtsız bulur ama saltanatını bir onarım sayar.", None, "◐ M4b:bD20 (çeviri bize ait)"),
+              ("İtalyan Ansiklopedisi Treccani'nin 1932 tarihli maddesi onu devlet işlerine kayıtsız bulur ama saltanatını bir onarım sayar.", None, "◐ M4b:bD20 (çeviri bize ait; parçada ilk Treccani → kısa tanım)"),
               ("2010 tarihli maddesi ise tek reformunun üniversiteyi Aristotelesçilikten kurtarmak olduğunu yazar.", None, "◐ M4b:bD21 (iki hüküm ayrışır; çeviri bize ait)"),
           ], [
               ("Gian Gastone 9 Temmuz 1737'de öldü; Treccani'ye göre artık kendi devletinin hükümdarı değildi, çünkü devleti Lorraine Dükü Francis Stephen'ın birlikleri işgal etmişti.", None, "◐ M4b:b68,bD22 (IT + TR çeviri bize ait; Dami \"29 Temmuz\" çelişkisi söylenmez)"),
               ("Toskana'nın geleceği Viyana'da kararlaştırılmıştı; yeni büyük dük Francis Stephen Floransa'ya yalnızca bir kez, 1739 başında geldi.", None, "◐ M4b:b69,b70 (mizah a kuru: yönetmeyen varis)"),
-              ("Erkek hat kapanmıştı; geriye bir kadın ve imzalanacak bir sözleşme kalmıştı.", None, "◐ M4b:b68,b73 (K1 → c16)"),
+              ("Toskana'yı yöneten erkek hat kapanmıştı; geriye bir kadın ve imzalanacak bir sözleşme kalmıştı.", None, "◐ M4b:b68,b73 (K1 → c16; Ottajano kolu ○ — \"tüm Medici'ler bitti\" çağrışımından kaçınılır)"),
           ]])

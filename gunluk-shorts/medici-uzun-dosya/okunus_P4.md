@@ -4,18 +4,20 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 
 | gösterim | okunuş | adet | ilk geçtiği yerler |
 |---|---|---:|---|
+| Lorenzo | Lorentso | 12 | c8s1, c8s2, c8s7, c8s19 |
+| Pazzi | Pattsi | 2 | c8s1, c8s22 |
+| Salviati | Salvyati | 1 | c8s1 |
+| Sixtus | Sikstus | 1 | c8s1 |
 | interdikt | interdikt | 1 | c8s1 |
 | Bandini | Bandini | 2 | c8s13, c8s18 |
 | Giuliano | Culyano | 1 | c8s13 |
 | Pera | Pera | 1 | c8s14 |
 | Antonio | Antonyo | 1 | c8s15 |
 | Antonio de' Medici | Antonyo de Mediçi | 1 | c8s15 |
-| Medici | Mediçi | 9 | c8s15, c9s4, c9s6, c9s9 |
+| Medici | Mediçi | 10 | c8s15, c9s4, c9s6, c9s9 |
 | de'  | de  | 2 | c8s15, c9s4 |
-| Bargello | Bargello | 1 | c8s18 |
-| Lorenzo | Lorentso | 10 | c8s2, c8s7, c8s19, c8s21 |
+| Bargello | Barcello | 1 | c8s18 |
 | Leonardo | Leonardo | 1 | c8s20 |
-| Pazzi | Pattsi | 1 | c8s22 |
 | Volterra | Volterra | 1 | c8s22 |
 | Gedik Ahmed | Gedik Ahmed | 1 | c8s25 |
 | Otranto | Otranto | 2 | c8s25, c8s32 |
@@ -28,7 +30,7 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Chianti | Kyanti | 1 | c8s4 |
 | Siena | Siyena | 1 | c8s4 |
 | Colle Val d'Elsa | Kolle Val d'Elsa | 1 | c8s5 |
-| Poggio Imperiale | Poççio İmperyale | 1 | c8s5 |
+| Poggio Imperiale | Pocco İmperyale | 1 | c8s5 |
 | Pisa | Piza | 1 | c8s8 |
 | Signoria | Sinyoriya | 3 | c8s8, c8s8, c9s21 |
 | Edward | Edvard | 1 | c9s11 |
@@ -37,6 +39,7 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Sassetti | Sassetti | 2 | c9s17, c9s20 |
 | Treccani | Trekkani | 1 | c9s17 |
 | Goldthwaite | Goldtveyt | 1 | c9s18 |
+| Raymond | Reymond | 1 | c9s18 |
 | de Roover | de Rover | 1 | c9s18 |
 | Ghirlandaio | Girlandayo | 1 | c9s20 |
 | Santa Trinita | Santa Trinita | 1 | c9s20 |
