@@ -1,0 +1,348 @@
+{
+ "voice": "Emrullah (DpEiQMnL9WxMsymCsjPY), eleven_v4",
+ "revizyon": 2,
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Açılış",
+   "tts": "[slowly] [deep voice] Ölümü zincire vuran bir adam düşün.",
+   "alt": "Ölümü zincire vuran bir adam düşün."
+  },
+  {
+   "id": "A02",
+   "bolum": "Açılış",
+   "tts": "[knowingly] Tanrıları bir kez değil… iki kez kandırmış bir adam.",
+   "alt": "Tanrıları bir kez değil… iki kez kandırmış bir adam."
+  },
+  {
+   "id": "A03",
+   "bolum": "Açılış",
+   "tts": "[ominous] Ve bunun bedelini… sonsuza dek, dev bir kayayı tepeye iterek ödeyen bir adam.",
+   "alt": "Ve bunun bedelini… sonsuza dek, dev bir kayayı tepeye iterek ödeyen bir adam."
+  },
+  {
+   "id": "A04",
+   "bolum": "Açılış",
+   "tts": "[softly] Zirveye her yaklaştığında, kaya geri yuvarlanır. O da aşağı iner… ve yeniden başlar.",
+   "alt": "Zirveye her yaklaştığında, kaya geri yuvarlanır. O da aşağı iner… ve yeniden başlar."
+  },
+  {
+   "id": "A05",
+   "bolum": "Açılış",
+   "tts": "[mysterious] Adı… Sisifos.",
+   "alt": "Adı… Sisifos."
+  },
+  {
+   "id": "A06",
+   "bolum": "Açılış",
+   "tts": "[curious] Peki tanrılar ona neden bu cezayı verdi? [mysterious] Ve binlerce yıl sonra bir düşünür, ona neden \"mutlu\" dedi?",
+   "alt": "Peki tanrılar ona neden bu cezayı verdi? Ve binlerce yıl sonra bir düşünür, ona neden “mutlu” dedi?"
+  },
+  {
+   "id": "B01",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "[warmly] Hikâye, iki denizin arasındaki dar bir kara parçasında başlar. Efira… ya da bugünkü adıyla, Korint.",
+   "alt": "Hikâye, iki denizin arasındaki dar bir kara parçasında başlar. Efira… ya da bugünkü adıyla, Korint."
+  },
+  {
+   "id": "B02",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "Şehrin kralı Sisifos'tu. Anlatılana göre denizciliği ve ticareti geliştirdi, şehrini zenginleştirdi.",
+   "alt": "Şehrin kralı Sisifos'tu. Anlatılana göre denizciliği ve ticareti geliştirdi, şehrini zenginleştirdi."
+  },
+  {
+   "id": "B03",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "[wryly] Ama onu asıl ünlü yapan, zekâsıydı. Homeros ona, \"insanların en kurnazı\" der.",
+   "alt": "Ama onu asıl ünlü yapan, zekâsıydı. Homeros ona “insanların en kurnazı” der."
+  },
+  {
+   "id": "B04",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "Komşusu Otolikos, ünlü bir hırsızdı. Öyle ki, çaldığı hayvanların rengini bile değiştirebiliyordu. Sisifos'un sürüsü her gece biraz daha azalıyor, ama kimse bir şey kanıtlayamıyordu.",
+   "alt": "Komşusu Autolykos, ünlü bir hırsızdı. Öyle ki, çaldığı hayvanların rengini bile değiştirebiliyordu. Sisifos'un sürüsü her gece biraz daha azalıyor, ama kimse bir şey kanıtlayamıyordu."
+  },
+  {
+   "id": "B05",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "[mischievously] Sisifos da sığırlarının toynaklarının altına küçük harfler kazıdı. Sığırlar yürüdükçe toprağa bir cümle yazılıyordu: \"Beni Otolikos çaldı.\"",
+   "alt": "Sisifos da sığırlarının toynaklarının altına küçük harfler kazıdı. Sığırlar yürüdükçe toprağa bir cümle yazılıyordu: “Beni Autolykos çaldı.”"
+  },
+  {
+   "id": "B06",
+   "bolum": "Korint'in kurnaz kralı",
+   "tts": "[amused] İzler, doğruca hırsızın ahırına çıkıyordu. [darkly] Ne var ki bu zekâ, sonunda onu tanrıların hedefi yapacaktı.",
+   "alt": "İzler, doğruca hırsızın ahırına çıkıyordu. Ne var ki bu zekâ, sonunda onu tanrıların hedefi yapacaktı."
+  },
+  {
+   "id": "C01",
+   "bolum": "Kartal ve pınar",
+   "tts": "[slowly] Bir gün Sisifos, şehrinin tepesinden gökyüzünü izlerken bir şey gördü.",
+   "alt": "Bir gün Sisifos, şehrinin tepesinden gökyüzünü izlerken bir şey gördü."
+  },
+  {
+   "id": "C02",
+   "bolum": "Kartal ve pınar",
+   "tts": "[in awe] Devasa bir kartal… pençelerinde genç bir kız taşıyordu.",
+   "alt": "Devasa bir kartal… pençelerinde genç bir kız taşıyordu."
+  },
+  {
+   "id": "C03",
+   "bolum": "Kartal ve pınar",
+   "tts": "[mysterious] Kartal, kılık değiştirmiş Zeus'tu. Kız ise ırmak tanrısı Asopos'un kızı, Egina.",
+   "alt": "Kartal, kılık değiştirmiş Zeus'tu. Kız ise ırmak tanrısı Asopos'un kızı, Egina."
+  },
+  {
+   "id": "C04",
+   "bolum": "Kartal ve pınar",
+   "tts": "Ertesi gün Asopos, kızını aramaya çıktı. Dağları, ovaları dolaştı… ve sonunda Korint'e geldi.",
+   "alt": "Ertesi gün Asopos, kızını aramaya çıktı. Dağları, ovaları dolaştı… ve sonunda Korint'e geldi."
+  },
+  {
+   "id": "C05",
+   "bolum": "Kartal ve pınar",
+   "tts": "[mischievously] Sisifos gülümsedi: \"Kızını kimin kaçırdığını biliyorum. Ama önce… şehrime bir pınar ver.\"",
+   "alt": "Sisifos gülümsedi: “Kızını kimin kaçırdığını biliyorum. Ama önce… şehrime bir pınar ver.”"
+  },
+  {
+   "id": "C06",
+   "bolum": "Kartal ve pınar",
+   "tts": "Asopos, kayaların arasından tatlı bir su fışkırttı. Sisifos da sırrı söyledi.",
+   "alt": "Asopos, kayaların arasından tatlı bir su fışkırttı. Sisifos da sırrı söyledi."
+  },
+  {
+   "id": "C07",
+   "bolum": "Kartal ve pınar",
+   "tts": "[darkly] Şehir suyuna kavuştu. Ama Sisifos, tanrıların kralını ele vermişti.",
+   "alt": "Şehir suyuna kavuştu. Ama Sisifos, tanrıların kralını ele vermişti."
+  },
+  {
+   "id": "C08",
+   "bolum": "Kartal ve pınar",
+   "tts": "[ominous] [slowly] Ve Zeus… asla unutmazdı.",
+   "alt": "Ve Zeus… asla unutmazdı."
+  },
+  {
+   "id": "D01",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[slowly] Zeus, Sisifos'a en korkunç elçisini gönderdi: ölümün kendisini… Tanatos'u.",
+   "alt": "Zeus, Sisifos'a en korkunç elçisini gönderdi: Ölüm'ün kendisini… Thanatos'u."
+  },
+  {
+   "id": "D02",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[tense] Tanatos, elinde ağır zincirlerle sarayın kapısında belirdi.",
+   "alt": "Thanatos, elinde ağır zincirlerle sarayın kapısında belirdi."
+  },
+  {
+   "id": "D03",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[calmly] Anlatılana göre Sisifos ne kaçtı, ne yalvardı. Sadece merakla zincirlere baktı.",
+   "alt": "Anlatılana göre Sisifos ne kaçtı, ne yalvardı. Sadece merakla zincirlere baktı."
+  },
+  {
+   "id": "D04",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[curious] \"Bunlar nasıl takılıyor? Bir gösterir misin?\"",
+   "alt": "“Bunlar nasıl takılıyor? Bir gösterir misin?”"
+  },
+  {
+   "id": "D05",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[wryly] Tanatos zincirleri kendi bileklerine geçirdi… ve Sisifos kilidi kapattı.",
+   "alt": "Thanatos zincirleri kendi bileklerine geçirdi… ve Sisifos kilidi kapattı."
+  },
+  {
+   "id": "D06",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[slowly] [gravely] Ölüm, zincirlenmişti.",
+   "alt": "Ölüm, zincirlenmişti."
+  },
+  {
+   "id": "D07",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[in awe] Artık dünyada kimse ölmüyordu. Ölümcül yara alan askerler bile ayağa kalkıyor, sunaklarda tek bir kurban kesilemiyordu.",
+   "alt": "Artık dünyada kimse ölmüyordu. Ölümcül yara alan askerler bile ayağa kalkıyor, sunaklarda tek bir kurban kesilemiyordu."
+  },
+  {
+   "id": "D08",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[wryly] Savaş tanrısı Ares öfkeden deliye döndü. Kimsenin ölmediği bir savaşın ne anlamı vardı?",
+   "alt": "Savaş tanrısı Ares öfkeden deliye döndü. Kimsenin ölmediği bir savaşın ne anlamı vardı?"
+  },
+  {
+   "id": "D09",
+   "bolum": "Ölümü zincirleyen adam",
+   "tts": "[grimly] Ares, Tanatos'u zincirlerinden kurtardı… ve Sisifos'u kendi elleriyle Ölüm'e teslim etti.",
+   "alt": "Ares, Thanatos'u zincirlerinden kurtardı… ve Sisifos'u kendi elleriyle Ölüm'e teslim etti."
+  },
+  {
+   "id": "E01",
+   "bolum": "İkinci hile",
+   "tts": "[slowly] Ama Sisifos, ölmeden önce karısı Merope'nin kulağına bir şey fısıldamıştı.",
+   "alt": "Ama Sisifos, ölmeden önce karısı Merope'nin kulağına bir şey fısıldamıştı."
+  },
+  {
+   "id": "E02",
+   "bolum": "İkinci hile",
+   "tts": "[whispers] \"Bedenimi gömme. Benim için tören yapma. Hiçbir adak sunma.\"",
+   "alt": "“Bedenimi gömme. Benim için tören yapma. Hiçbir adak sunma.”"
+  },
+  {
+   "id": "E03",
+   "bolum": "İkinci hile",
+   "tts": "Sisifos, yeraltı dünyasında, ölülerin kraliçesi Persefoni'nin karşısına çıktı.",
+   "alt": "Sisifos, yeraltı dünyasında, ölülerin kraliçesi Persefoni'nin karşısına çıktı."
+  },
+  {
+   "id": "E04",
+   "bolum": "İkinci hile",
+   "tts": "[indignant] \"Karım bana saygısızlık etti! Ne bir tören, ne bir adak… İzin ver, yukarı çıkıp onu cezalandırayım. Sonra hemen dönerim.\"",
+   "alt": "“Karım bana saygısızlık etti! Ne bir tören, ne bir adak… İzin ver, yukarı çıkıp onu cezalandırayım. Sonra hemen dönerim.”"
+  },
+  {
+   "id": "E05",
+   "bolum": "İkinci hile",
+   "tts": "[wryly] Persefoni ona inandı.",
+   "alt": "Persefoni ona inandı."
+  },
+  {
+   "id": "E06",
+   "bolum": "İkinci hile",
+   "tts": "[warmly] Sisifos yeniden güneşi gördü. Denizi, şarabı, şehrini… [wryly] Ve geri dönmedi.",
+   "alt": "Sisifos yeniden güneşi gördü. Denizi, şarabı, şehrini… Ve geri dönmedi."
+  },
+  {
+   "id": "E07",
+   "bolum": "İkinci hile",
+   "tts": "[warmly] Yıllarca yaşadı. [darkly] Ta ki tanrıların habercisi Hermes gelip onu zorla geri götürene kadar.",
+   "alt": "Yıllarca yaşadı. Ta ki tanrıların habercisi Hermes gelip onu zorla geri götürene kadar."
+  },
+  {
+   "id": "F01",
+   "bolum": "Ceza",
+   "tts": "[solemn] Bu kez tanrılar, Sisifos için özel bir ceza hazırladı.",
+   "alt": "Bu kez tanrılar, Sisifos için özel bir ceza hazırladı."
+  },
+  {
+   "id": "F02",
+   "bolum": "Ceza",
+   "tts": "[slowly] Tartaros'un derinliklerinde, dik bir tepe. Tepenin dibinde, dev bir kaya.",
+   "alt": "Tartaros'un derinliklerinde, dik bir tepe. Tepenin dibinde, dev bir kaya."
+  },
+  {
+   "id": "F03",
+   "bolum": "Ceza",
+   "tts": "Görevi basitti: kayayı zirveye çıkarmak.",
+   "alt": "Görevi basitti: kayayı zirveye çıkarmak."
+  },
+  {
+   "id": "F04",
+   "bolum": "Ceza",
+   "tts": "[tense] Omzunu kayaya dayadı. İtti. Ayakları kaydı, kasları titredi… zirveye bir adım kalmıştı ki…",
+   "alt": "Omzunu kayaya dayadı. İtti. Ayakları kaydı, kasları titredi… zirveye bir adım kalmıştı ki…"
+  },
+  {
+   "id": "F05",
+   "bolum": "Ceza",
+   "tts": "[sharply] Kaya elinden kurtuldu. Ve gürleyerek, en dibe kadar yuvarlandı.",
+   "alt": "Kaya elinden kurtuldu. Ve gürleyerek, en dibe kadar yuvarlandı."
+  },
+  {
+   "id": "F06",
+   "bolum": "Ceza",
+   "tts": "[slowly] Sisifos aşağı indi. Ve yeniden başladı.",
+   "alt": "Sisifos aşağı indi. Ve yeniden başladı."
+  },
+  {
+   "id": "F07",
+   "bolum": "Ceza",
+   "tts": "[softly] Ertesi gün de. Ondan sonraki gün de. Yüz yıl sonra da… bin yıl sonra da.",
+   "alt": "Ertesi gün de. Ondan sonraki gün de. Yüz yıl sonra da… bin yıl sonra da."
+  },
+  {
+   "id": "F08",
+   "bolum": "Ceza",
+   "tts": "[darkly] Çünkü tanrılar bir şeyi biliyordu: Hiçbir işe yaramayan, umutsuz bir emekten daha korkunç bir ceza yoktur.",
+   "alt": "Çünkü tanrılar bir şeyi biliyordu: Hiçbir işe yaramayan, umutsuz bir emekten daha korkunç bir ceza yoktur."
+  },
+  {
+   "id": "G01",
+   "bolum": "Camus",
+   "tts": "[thoughtfully] Aradan iki bin yıldan fazla zaman geçti. Bin dokuz yüz kırk iki yılında, dünya yeniden savaştayken, Albert Kamü adında genç bir yazar, Sisifos Söyleni adlı denemesinde bu hikâyeye bambaşka bir gözle baktı.",
+   "alt": "Aradan iki bin yıldan fazla zaman geçti. 1942 yılında, dünya yeniden savaştayken, Albert Camus adında genç bir yazar, “Sisifos Söyleni” adlı denemesinde bu hikâyeye bambaşka bir gözle baktı."
+  },
+  {
+   "id": "G03",
+   "bolum": "Camus",
+   "tts": "[warmly] Kamü'ye göre hepimizin içinde biraz Sisifos vardır. Her sabah kalkarız, çalışırız, aynı yollardan geçeriz… ve bir gün kendimize sorarız: \"Bütün bunlar ne için?\"",
+   "alt": "Camus'ye göre hepimizin içinde biraz Sisifos vardır. Her sabah kalkarız, çalışırız, aynı yollardan geçeriz… ve bir gün kendimize sorarız: “Bütün bunlar ne için?”"
+  },
+  {
+   "id": "G04",
+   "bolum": "Camus",
+   "tts": "[slowly] Evren bu soruya cevap vermez. Kamü, anlam arayan insanla sessiz kalan dünya arasındaki bu çatlağa, \"absürt\" der.",
+   "alt": "Evren bu soruya cevap vermez. Camus, anlam arayan insanla sessiz kalan dünya arasındaki bu çatlağa “absürt” der."
+  },
+  {
+   "id": "G05",
+   "bolum": "Camus",
+   "tts": "[thoughtfully] Ama Kamü'yü asıl ilgilendiren, tırmanış değildir. Kaya yuvarlandıktan sonra, Sisifos'un ağır ama kararlı adımlarla aşağı indiği o dönüş yoludur.",
+   "alt": "Ama Camus'yü asıl ilgilendiren, tırmanış değildir. Kaya yuvarlandıktan sonra, Sisifos'un ağır ama kararlı adımlarla aşağı indiği o dönüş yoludur."
+  },
+  {
+   "id": "G06",
+   "bolum": "Camus",
+   "tts": "[softly] O dönüş, bir nefes gibidir. Kamü'ye göre bu, bilincin saatidir. Sisifos o an, kaderinin tamamen farkındadır. Ve tam da bu yüzden… kayasından daha güçlüdür.",
+   "alt": "O dönüş, bir nefes gibidir. Camus'ye göre bu, bilincin saatidir. Sisifos o an, kaderinin tamamen farkındadır. Ve tam da bu yüzden… kayasından daha güçlüdür."
+  },
+  {
+   "id": "G07",
+   "bolum": "Camus",
+   "tts": "[warmly] Kaya onundur. Kaderi de onundur. Tanrılar ona bir anlam vermedi… ama onu ezemediler de.",
+   "alt": "Kaya onundur. Kaderi de onundur. Tanrılar ona bir anlam vermedi… ama onu ezemediler de."
+  },
+  {
+   "id": "G08",
+   "bolum": "Camus",
+   "tts": "[slowly] Kamü, denemesini şu sözlerle bitirir:",
+   "alt": "Camus, denemesini şu sözlerle bitirir:"
+  },
+  {
+   "id": "G09",
+   "bolum": "Camus",
+   "tts": "[reverently] \"Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.\"",
+   "alt": "“Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”"
+  },
+  {
+   "id": "G10",
+   "bolum": "Camus",
+   "tts": "[softly] [slowly] \"Sisifos'u mutlu hayal etmek gerekir.\"",
+   "alt": "“Sisifos'u mutlu hayal etmek gerekir.”"
+  },
+  {
+   "id": "H01",
+   "bolum": "Kapanış",
+   "tts": "[warmly] Belki hepimizin bir kayası vardır. Bir iş, bir sorumluluk, bir hayal… ya da sadece, her sabah yeniden başlamak.",
+   "alt": "Belki hepimizin bir kayası vardır. Bir iş, bir sorumluluk, bir hayal… ya da sadece, her sabah yeniden başlamak."
+  },
+  {
+   "id": "H02",
+   "bolum": "Kapanış",
+   "tts": "[softly] Belki mesele, kayayı zirveye çıkarmak değildir. Ona omuz verirken, nasıl biri olacağımızı seçmektir.",
+   "alt": "Belki mesele, kayayı zirveye çıkarmak değildir. Ona omuz verirken, nasıl biri olacağımızı seçmektir."
+  },
+  {
+   "id": "H03",
+   "bolum": "Kapanış",
+   "tts": "[softly] Peki ya sen? Senin kayan ne?",
+   "alt": "Peki ya sen? Senin kayan ne?"
+  },
+  {
+   "id": "H04",
+   "bolum": "Kapanış",
+   "tts": "[warmly] Senin kayan neyse, yorumlarda anlat. Bir sonraki hikâyede görüşmek üzere.",
+   "alt": "Senin kayan neyse, yorumlarda anlat. Bir sonraki hikâyede görüşmek üzere."
+  }
+ ]
+}

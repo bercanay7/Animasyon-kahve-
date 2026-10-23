@@ -1,0 +1,80 @@
+Toplam süre: 424.97 sn (anlatım 410.69 sn'de biter; sonrası ~14 sn bitiş ekranı/end screen müziği)
+
+## Bölümler (anlatım başlangıç/bitiş, sn)
+- Açılış (soğuk açılış + başlık): 0.90 – 33.57
+- I. Korint'in kurnaz kralı: 36.13 – 91.59
+- II. Kartal ve pınar: 93.55 – 142.03
+- III. Ölümü zincirleyen adam: 144.45 – 197.13
+- IV. İkinci hile: 199.38 – 240.96
+- V. Ceza: 243.26 – 292.65
+- VI. Camus: 295.51 – 380.85
+- Kapanış: 384.29 – 410.69
+
+## Tüm cümleler
+- A01 0.90–3.10: Ölümü zincire vuran bir adam düşün.
+- A02 4.05–7.35: Tanrıları bir kez değil… iki kez kandırmış bir adam.
+- A03 8.17–13.65: Ve bunun bedelini… sonsuza dek, dev bir kayayı tepeye iterek ödeyen bir adam.
+- A04 14.63–21.13: Zirveye her yaklaştığında, kaya geri yuvarlanır. O da aşağı iner… ve yeniden başlar.
+- A05 22.43–23.87: Adı… Sisifos.
+- A06 26.89–33.57: Peki tanrılar ona neden bu cezayı verdi? Ve binlerce yıl sonra bir düşünür, ona neden “mutlu” dedi?
+- B01 36.13–44.07: Hikâye, iki denizin arasındaki dar bir kara parçasında başlar. Efira… ya da bugünkü adıyla, Korint.
+- B02 45.15–52.27: Şehrin kralı Sisifos'tu. Anlatılana göre denizciliği ve ticareti geliştirdi, şehrini zenginleştirdi.
+- B03 53.05–59.23: Ama onu asıl ünlü yapan, zekâsıydı. Homeros ona “insanların en kurnazı” der.
+- B04 60.51–73.15: Komşusu Autolykos, ünlü bir hırsızdı. Öyle ki, çaldığı hayvanların rengini bile değiştirebiliyordu. Sisifos'un sürüsü her gece biraz daha azalıyor, ama kimse bir şey kanıtlayamıyordu.
+- B05 73.84–83.37: Sisifos da sığırlarının toynaklarının altına küçük harfler kazıdı. Sığırlar yürüdükçe toprağa bir cümle yazılıyordu: “Beni Autolykos çaldı.”
+- B06 84.29–91.59: İzler, doğruca hırsızın ahırına çıkıyordu. Ne var ki bu zekâ, sonunda onu tanrıların hedefi yapacaktı.
+- C01 93.55–98.93: Bir gün Sisifos, şehrinin tepesinden gökyüzünü izlerken bir şey gördü.
+- C02 99.63–103.61: Devasa bir kartal… pençelerinde genç bir kız taşıyordu.
+- C03 105.03–111.41: Kartal, kılık değiştirmiş Zeus'tu. Kız ise ırmak tanrısı Asopos'un kızı, Egina.
+- C04 112.69–119.63: Ertesi gün Asopos, kızını aramaya çıktı. Dağları, ovaları dolaştı… ve sonunda Korint'e geldi.
+- C05 120.49–126.65: Sisifos gülümsedi: “Kızını kimin kaçırdığını biliyorum. Ama önce… şehrime bir pınar ver.”
+- C06 127.47–133.13: Asopos, kayaların arasından tatlı bir su fışkırttı. Sisifos da sırrı söyledi.
+- C07 133.81–138.57: Şehir suyuna kavuştu. Ama Sisifos, tanrıların kralını ele vermişti.
+- C08 139.47–142.03: Ve Zeus… asla unutmazdı.
+- D01 144.45–151.65: Zeus, Sisifos'a en korkunç elçisini gönderdi: Ölüm'ün kendisini… Thanatos'u.
+- D02 152.17–156.17: Thanatos, elinde ağır zincirlerle sarayın kapısında belirdi.
+- D03 157.31–163.17: Anlatılana göre Sisifos ne kaçtı, ne yalvardı. Sadece merakla zincirlere baktı.
+- D04 163.95–166.07: “Bunlar nasıl takılıyor? Bir gösterir misin?”
+- D05 166.95–171.77: Thanatos zincirleri kendi bileklerine geçirdi… ve Sisifos kilidi kapattı.
+- D06 173.13–174.75: Ölüm, zincirlenmişti.
+- D07 175.95–183.95: Artık dünyada kimse ölmüyordu. Ölümcül yara alan askerler bile ayağa kalkıyor, sunaklarda tek bir kurban kesilemiyordu.
+- D08 184.85–190.23: Savaş tanrısı Ares öfkeden deliye döndü. Kimsenin ölmediği bir savaşın ne anlamı vardı?
+- D09 191.03–197.13: Ares, Thanatos'u zincirlerinden kurtardı… ve Sisifos'u kendi elleriyle Ölüm'e teslim etti.
+- E01 199.38–204.42: Ama Sisifos, ölmeden önce karısı Merope'nin kulağına bir şey fısıldamıştı.
+- E02 205.21–209.42: “Bedenimi gömme. Benim için tören yapma. Hiçbir adak sunma.”
+- E03 210.96–216.34: Sisifos, yeraltı dünyasında, ölülerin kraliçesi Persefoni'nin karşısına çıktı.
+- E04 217.34–224.64: “Karım bana saygısızlık etti! Ne bir tören, ne bir adak… İzin ver, yukarı çıkıp onu cezalandırayım. Sonra hemen dönerim.”
+- E05 225.34–226.90: Persefoni ona inandı.
+- E06 228.11–233.86: Sisifos yeniden güneşi gördü. Denizi, şarabı, şehrini… Ve geri dönmedi.
+- E07 235.06–240.96: Yıllarca yaşadı. Ta ki tanrıların habercisi Hermes gelip onu zorla geri götürene kadar.
+- F01 243.26–247.26: Bu kez tanrılar, Sisifos için özel bir ceza hazırladı.
+- F02 248.39–254.14: Tartaros'un derinliklerinde, dik bir tepe. Tepenin dibinde, dev bir kaya.
+- F03 255.32–258.20: Görevi basitti: kayayı zirveye çıkarmak.
+- F04 259.36–266.12: Omzunu kayaya dayadı. İtti. Ayakları kaydı, kasları titredi… zirveye bir adım kalmıştı ki…
+- F05 266.27–270.79: Kaya elinden kurtuldu. Ve gürleyerek, en dibe kadar yuvarlandı.
+- F06 273.23–276.43: Sisifos aşağı indi. Ve yeniden başladı.
+- F07 277.97–283.69: Ertesi gün de. Ondan sonraki gün de. Yüz yıl sonra da… bin yıl sonra da.
+- F08 285.47–292.65: Çünkü tanrılar bir şeyi biliyordu: Hiçbir işe yaramayan, umutsuz bir emekten daha korkunç bir ceza yoktur.
+- G01 295.51–309.75: Aradan iki bin yıldan fazla zaman geçti. 1942 yılında, dünya yeniden savaştayken, Albert Camus adında genç bir yazar, “Sisifos Söyleni” adlı denemesinde bu hikâyeye bambaşka bir gözle baktı.
+- G03 311.03–322.63: Camus'ye göre hepimizin içinde biraz Sisifos vardır. Her sabah kalkarız, çalışırız, aynı yollardan geçeriz… ve bir gün kendimize sorarız: “Bütün bunlar ne için?”
+- G04 324.03–332.35: Evren bu soruya cevap vermez. Camus, anlam arayan insanla sessiz kalan dünya arasındaki bu çatlağa “absürt” der.
+- G05 333.97–344.13: Ama Camus'yü asıl ilgilendiren, tırmanış değildir. Kaya yuvarlandıktan sonra, Sisifos'un ağır ama kararlı adımlarla aşağı indiği o dönüş yoludur.
+- G06 345.07–357.65: O dönüş, bir nefes gibidir. Camus'ye göre bu, bilincin saatidir. Sisifos o an, kaderinin tamamen farkındadır. Ve tam da bu yüzden… kayasından daha güçlüdür.
+- G07 359.15–365.47: Kaya onundur. Kaderi de onundur. Tanrılar ona bir anlam vermedi… ama onu ezemediler de.
+- G08 366.94–369.55: Camus, denemesini şu sözlerle bitirir:
+- G09 370.65–375.73: “Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”
+- G10 378.19–380.85: “Sisifos'u mutlu hayal etmek gerekir.”
+- H01 384.29–392.85: Belki hepimizin bir kayası vardır. Bir iş, bir sorumluluk, bir hayal… ya da sadece, her sabah yeniden başlamak.
+- H02 393.87–400.91: Belki mesele, kayayı zirveye çıkarmak değildir. Ona omuz verirken, nasıl biri olacağımızı seçmektir.
+- H03 402.45–404.39: Peki ya sen? Senin kayan ne?
+- H04 406.23–410.69: Senin kayan neyse, yorumlarda anlat. Bir sonraki hikâyede görüşmek üzere.
+
+## Önemli vuruş anları (sn)
+- 1.70: Zincir kilitlenir (metal çarpma)
+- 22.85: Başlık 'SİSİFOS' kelimesi
+- 141.21: 'Ve Zeus… asla unutmazdı' — gök gürültüsü
+- 173.13: 'Ölüm, zincirlenmişti.'
+- 266.27: Kaya elinden kurtulur
+- 271.09: Kaya dibe çarpar
+- 294.01: Camus bölümü başlar (stil değişimi: modern, sıcak)
+- 378.19: 'Sisifos'u mutlu hayal etmek gerekir.' (doruk / çözülme)

@@ -1,0 +1,26 @@
+{
+ "A": {
+  "take": "e0_a.mp3"
+ },
+ "B": {
+  "take": "e1_a.mp3"
+ },
+ "C": {
+  "take": "e2_b.mp3"
+ },
+ "D": {
+  "take": "e3_a.mp3"
+ },
+ "E": {
+  "take": "e4_a.mp3"
+ },
+ "F": {
+  "take": "e5_a.mp3"
+ },
+ "G": {
+  "take": "e6_b.mp3"
+ },
+ "H": {
+  "take": "e7_a.mp3"
+ }
+}
