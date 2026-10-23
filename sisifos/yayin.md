@@ -9,7 +9,7 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 | `sisifos_master.mp4` (yoksa `sisifos.mp4`) | Uzun video, 1920×1080, Türkçe ses |
 | `sisifos_en_master.mp4` (yoksa `sisifos_en.mp4`) | Aynı görüntü, İngilizce ses (ayrı İngilizce video seçeneği için) |
 | `kapak.png` | Uzun videonun kapağı (1280×720): "ÖLÜMÜ ZİNCİRLEDİ" |
-| `kapak_b.png` | İkinci kapak ("MUTLU MU?", kayayı iten gülümseyen Sisifos): YouTube "Test ve Karşılaştır" için |
+| `kapak_b.png` | İkinci kapak ("NEDEN GÜLÜYOR?", kayaya omuz vermiş gülümseyen Sisifos yakın planı): YouTube "Test ve Karşılaştır" için |
 | `en/kapak_en.png` | İngilizce kapak: "HE CHAINED DEATH" (ayrı İngilizce video için) |
 | `sisifos.tr.srt` | Türkçe altyazı |
 | `sisifos_en.m4a` (ya da `audio/mix_en.wav`) | İngilizce dublaj ses kanalı (görüntüyle aynı süre) |
