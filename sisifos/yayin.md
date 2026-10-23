@@ -9,6 +9,7 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 | `sisifos_master.mp4` (yoksa `sisifos.mp4`) | Uzun video, 1920×1080, Türkçe ses |
 | `sisifos_en_master.mp4` (yoksa `sisifos_en.mp4`) | Aynı görüntü, İngilizce ses (ayrı İngilizce video seçeneği için) |
 | `kapak.png` | Uzun videonun kapağı (1280×720): "ÖLÜMÜ ZİNCİRLEDİ" |
+| `kapak_b.png` | İkinci kapak ("MUTLU MU?", kayayı iten gülümseyen Sisifos): YouTube "Test ve Karşılaştır" için |
 | `en/kapak_en.png` | İngilizce kapak: "HE CHAINED DEATH" (ayrı İngilizce video için) |
 | `sisifos.tr.srt` | Türkçe altyazı |
 | `sisifos_en.m4a` (ya da `audio/mix_en.wav`) | İngilizce dublaj ses kanalı (görüntüyle aynı süre) |
@@ -26,7 +27,7 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 2. **Ayrıntılar** sekmesi:
    - Başlık: `Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt`
    - Açıklama: `youtube.md` içindeki "Açıklama" bölümünün tamamı (bölüm zaman damgaları dahil).
-   - Küçük resim: `kapak.png`.
+   - Küçük resim: `kapak.png`. Kanalda "Test ve Karşılaştır" açıksa ikinci kapak olarak `kapak_b.png` eklenir; YouTube izlenme süresine göre kazananı seçer.
    - Kitle: "Hayır, çocuklara özel değil".
    - Daha fazla göster:
      - Etiketler: `youtube.md` → Etiketler.
