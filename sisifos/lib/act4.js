@@ -28,7 +28,9 @@ shot(S('E02') - .2, (ctx, st) => {
   const hear = ramp(t, Wd('E02', 'bedenimi') - .2, Wd('E02', 'bedenimi') + .4);
   figure(ctx, { x: 820, y: 1170, s: 15, dir: 1, lk: LK.merope, p: { torso: .02, neck: .02, head: .05 + hear * .05, shN: .1, shF: 0, brow: hear * .8 + ramp(t, Wd('E02', 'adak'), Wd('E02', 'adak') + .4) * .6, blink: (lt > 2.4 && lt < 2.52) ? 1 : 0 }, margin: 40,
     onJoints: (J, M) => { ear = headPt(ctx, J, M, [-1.2, -6.2]); } });
-  if (ear) figure(ctx, { x: ear[0] - 475, y: ear[1] + 560, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .38, neck: .25, head: .22, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
+  // Sisifos'un arkasında sıcak ışık (siyah figür koyu duvarda kaybolmasın); başlar arasında boşluk kalır
+  if (ear) glow(ctx, ear[0] - 230, ear[1] + 40, 420, 'rgba(255,170,90,.32)');
+  if (ear) figure(ctx, { x: ear[0] - 600, y: ear[1] + 590, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .26, neck: .38, head: .26, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
   // simgeler
   const icons = [
     [Wd('E02', 'bedenimi'), 'GÖMME', (c) => { c.fillStyle = C.ink; c.beginPath(); c.moveTo(-70, 40); c.quadraticCurveTo(0, -60, 70, 40); c.fill(); c.fillRect(-12, -70, 24, 50); c.beginPath(); c.arc(0, -72, 14, PI, TAU); c.fill(); }],
@@ -153,11 +155,19 @@ shot(S('E07') - .2, (ctx, st) => {
   // tutma noktası: Hermes Sisifos'un bileğini yakalar ve onu zorla yukarı/öne çeker
   const gP = [lerp(935, 905, grab), gy - 445 + grab * 25 + down * 560];
   ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, gy + 2); ctx.clip();
-  figure(ctx, { x: 820 + grab * 40, y: gy - 116 - lerp(14, 34, grab) * 5.4 + down * 540, s: 5.4, lk: old ? { ...LK.sis, beard: 'long', old: true } : LK.sis,
-    p: grab > 0 ? { torso: lerp(-.1, -.38, grab), neck: -.1, head: -.25, shF: -.9, elF: .7, handN: 'fist', handF: 'open', hipN: .4, knN: .6, hipF: -.5, knF: .35, brow: 1.4, mouthOpen: .7 }
-      : { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.1, head: -.1, shN: 1.4, elN: 1.4, handN: 'fist', blink: .3 },
-    ik: grab > 0 ? { hN: gP } : {},
-    hold: grab > 0 ? null : { N: HOLD.kylix() } });
+  // oturuştan ayağa: pozlar arasında yumuşak geçiş (sıçrama yok); kâse elinden düşer
+  const seat = { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.1, neck: 0, head: -.1, shF: .2, elF: .4, brow: 0, mouthOpen: 0 };
+  const stand = { hipN: .4, knN: .6, hipF: -.5, knF: .35, ankN: 0, ankF: 0, torso: -.38, neck: -.1, head: -.25, shF: -.9, elF: .7, brow: 1.4, mouthOpen: .7 };
+  const pz = {}; for (const k in stand) pz[k] = lerp(seat[k] ?? 0, stand[k], grab);
+  const hasCup = grab < .15;
+  figure(ctx, { x: 820 + grab * 40, y: gy - 116 - lerp(3, 34, grab) * 5.4 + down * 540, s: 5.4, lk: old ? { ...LK.sis, beard: 'long', old: true } : LK.sis,
+    p: { ...pz, shN: 1.4, elN: 1.4, handN: 'fist', handF: grab > .5 ? 'open' : 'fist', blink: .3 * (1 - grab) },
+    ik: grab > 0 ? { hN: lerp2([872, gy - 330], gP, E.io2(clamp(grab * 1.4))) } : {},
+    hold: hasCup ? { N: HOLD.kylix() } : null });
+  // düşen kâse
+  const cf = ramp(t, th + .62, th + 1.15, E.in2);
+  if (cf > 0 && cf < 1.02) { ctx.save(); ctx.translate(lerp(880, 930, cf), lerp(gy - 300, gy - 8, cf)); ctx.rotate(cf * 2.4); ctx.fillStyle = C.ink;
+    ctx.beginPath(); ctx.moveTo(-40, -8); ctx.quadraticCurveTo(0, 26, 40, -8); ctx.closePath(); ctx.fill(); ctx.fillRect(-5, 6, 10, 18); ctx.fillRect(-16, 22, 32, 6); ctx.restore(); }
   // Hermes uçarak iner, bileği yakalar
   const arr = ramp(t, th - .2, th + .7, E.out3);
   const hx = lerp(2100, 1060, arr) + grab * 30, hy = lerp(-200, 470, arr) + grab * 20 + down * 760;

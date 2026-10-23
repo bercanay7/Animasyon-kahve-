@@ -49,9 +49,9 @@ SCENES.kapak = ctx => kapakDraw(ctx, 'ÖLÜMÜ', 'ZİNCİRLEDİ', 168, 118);
 SCENES.kapak_en = ctx => kapakDraw(ctx, 'HE CHAINED', 'DEATH', 112, 176);
 // B kapağı (YouTube "Test ve Karşılaştır" için): yüz yakın planı — kayaya omuz vermiş, gülümseyen Sisifos; "NEDEN GÜLÜYOR?"
 SCENES.kapak_b = ctx => {
-  const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 19, T: 1.12, hB: -.28 };
+  const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 19, T: 1.12, hA: -.55, hB: -.62 };
   const P = pushScene(ctx, null, xr, 150, 4.0, 5, { ...po, dry: true });
-  const z = 4.6, c = { x: P.head[0] + (W / 2 - 1330) / z, y: P.head[1] + (H / 2 - 560) / z, z };
+  const z = 6.2, c = { x: P.head[0] + (W / 2 - 1300) / z, y: P.head[1] + (H / 2 - 520) / z, z };
   const zk = 1 + (z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
   tartarosBG(ctx, 5, c, { warm: 1, diskX: cxk + (1500 - W / 2) / zk, diskY: cyk + (300 - H / 2) / zk, diskR: 360 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });

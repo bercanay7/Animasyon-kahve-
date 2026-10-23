@@ -239,8 +239,14 @@ def place(bus, x, t0, pan=0.0):
         bus[:, a:a + m] += x[:, :m]
 
 
-def build_sfx():
+# dile özel efekt düzeltmeleri (İngilizce anlatımın sözcük yerleri farklı): (yaklaşık zaman, ad, ek dB)
+EN_SFX = [(1.70, 'chains', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -3)]
+def build_sfx(lang='tr'):
     ev = json.load(open(A('audio/sfx_events.json')))
+    if lang == 'en':
+        for e in ev:
+            for t_, n_, d_ in EN_SFX:
+                if e['name'] == n_ and abs(e['t'] - t_) < .5: e['g'] = e.get('g', 0) + d_
     dry = np.zeros((2, N)); send = np.zeros((2, N))
     for e in ev:
         name = e['name']; g = db(e.get('g', 0)); rate = e.get('rate', 1)
@@ -263,6 +269,8 @@ def build_sfx():
             y = SYNTH[name](**kw)
             if 'len' in e and name not in ('whoosh', 'riser', 'shimmer', 'pen'):
                 y = y[:int(e['len'] * SR)]
+            if name == 'shimmer' and 'len' in e:  # parıltı kuyruğu len + .4 sn'de biter
+                y = y[:int((e['len'] + .4) * SR)]
         else:
             y = resample_rate(clip(name), rate)
             y = y[int(e.get('off', 0) * SR):]
@@ -382,7 +390,7 @@ def main():
         mu *= db(-21 - meter.integrated_loudness(mu.T))
         cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
         extra = np.ones(N)
-        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 271.8, -6)]:
+        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6)]:
             extra[int(a_ * SR):int(b_ * SR)] = db(d_)
         extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra
@@ -397,7 +405,7 @@ def main():
         print('UYARI: audio/music.wav yok, müziksiz miks')
         mu = np.zeros((2, N))
 
-    fx, fx_send = build_sfx()
+    fx, fx_send = build_sfx('en' if 'vo_en' in vo_path else 'tr')
     hp30 = signal.butter(4, 30, 'highpass', fs=SR, output='sos')
     fx = np.stack([signal.sosfilt(hp30, ch) for ch in fx]); fx_send = np.stack([signal.sosfilt(hp30, ch) for ch in fx_send])
     # efektleri konuşma altında hafifçe kıs (-3 dB), anlamı örtmesin

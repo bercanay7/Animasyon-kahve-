@@ -198,7 +198,11 @@ function drawBody(G, f, J, tor, tP) {
   // bir uzvun parçalarını birleşik çiz: önce hepsinin dış hattını kes, sonra hepsini doldur
   const limb = (shapes, o) => {
     if (G.pass === 'fig' && o.cut !== false) for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.cut(path, o.cutW || .55));
-    for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false }));
+    if (o.outline) {
+      // dış hat önce, dolgular sonra: parçaların birleştiği yerde iç çizgi (dikiş) görünmez
+      if (G.pass === 'fig') for (const [pos, ang, path] of shapes) G.at(pos, ang, () => { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * 2; g.beginPath(); path(g); g.stroke(); });
+      for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false, outline: null }));
+    } else for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false }));
   };
   const drawLeg = (L, near) => {
     const shapes = [

@@ -316,14 +316,14 @@ function fountainHouse(ctx, x, y, s, t, col = C.ink, inc = C.clay) {
   ctx.fillRect(-260, -300, 520, 30);
   ctx.beginPath(); ctx.moveTo(-280, -300); ctx.lineTo(0, -380); ctx.lineTo(280, -300); ctx.fill();
   for (const cx of [-240, 240]) column(ctx, cx, -270, 0, 36, col, inc);
-  ctx.fillRect(-200, -150, 400, 14);
+  ctx.fillRect(-200, -186, 400, 12); // raf aslan başlarının arkasında (su önünden düşer)
   // aslan başları
   for (const lx of [-90, 90]) {
     ctx.beginPath(); ctx.arc(lx, -170, 18, 0, TAU); ctx.fill();
     ctx.beginPath(); ctx.moveTo(lx + 10, -168); ctx.lineTo(lx + 26, -160); ctx.lineTo(lx + 10, -156); ctx.fill();
     // su akışı
     ctx.save(); ctx.strokeStyle = '#F4EEDD'; ctx.lineWidth = 6; ctx.globalAlpha = .9;
-    ctx.beginPath(); ctx.moveTo(lx + 24, -160); ctx.quadraticCurveTo(lx + 40, -150, lx + 42 + Math.sin(t * 20 + lx) * 1.5, -60); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(lx + 24, -160); ctx.quadraticCurveTo(lx + 40, -150, lx + 42 + Math.sin(t * 20 + lx) * 1.5, -40); ctx.stroke(); // havuza kadar
     ctx.restore();
   }
   ctx.fillRect(-220, -40, 440, 40);

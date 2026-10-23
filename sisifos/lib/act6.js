@@ -189,7 +189,7 @@ shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
 }, { tr: { type: 'cut' }, post: TP });
 shot(Wd('G06', 'sisifos') - .15, (ctx, st) => {
   // yüz: sakin, açık gözler
-  drawG6(ctx, st.t, x => ({ x: x + 10, y: hillY(x) - 360, z: 4.0 }));
+  drawG6(ctx, st.t, x => ({ x: x + 10, y: hillY(x) - 210, z: 4.0 })); // yüz kadrajın ortasında
 }, { tr: { type: 'cut' }, post: TP });
 shot(Wd('G06', 've') - .1, (ctx, st) => {
   const pull = E.io3(clamp(st.lt / 2.4));
@@ -260,10 +260,10 @@ shot(S('G10') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt, tm = Wd('G10', 'mutlu');
   const xr = 260 + lt * 12;
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
-  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12, hB: -.28 }; // uzak el kayanın yanında: başla birleşmez
+  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12, hA: -.55, hB: -.62 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
-  const push = ramp(t, tm - .4, tm + 2.3, E.io3);
+  const push = ramp(t, tm - .35, tm + 1.5, E.io3);
   const z = lerp(2.5, 2.7, E.sine(clamp(lt / st.d))) + push * 2.5;
   const c = { x: P.head[0] + lerp(70, 26, push), y: P.head[1] + lerp(70, -6, push), z };
   // güneş G9'daki gibi ekranın sağında kalır (paralaks .15 katmanında ekran konumundan geri hesaplanır)
@@ -274,7 +274,9 @@ shot(S('G10') - .3, (ctx, st) => {
   motes(ctx, t, 50, 33, 'rgba(255,225,160,.85)', [0, 0, W, H], 12, 2.2, .7);
   // alıntı üstte (YouTube altyazı bölgesi olan alt kısım boş kalır); sonraki geçişten önce söner
   const qa = 1 - ramp(t, S('H01') - .85, S('H01') - .5);
-  ctx.save(); ctx.globalAlpha = qa;
+  ctx.save(); ctx.globalAlpha = qa * ramp(t, S('G10') - .1, S('G10') + .5);
+  { const bg = ctx.createLinearGradient(0, 60, 0, 290); bg.addColorStop(0, 'rgba(20,8,4,0)'); bg.addColorStop(.3, 'rgba(20,8,4,.78)'); bg.addColorStop(.75, 'rgba(20,8,4,.78)'); bg.addColorStop(1, 'rgba(20,8,4,0)'); ctx.fillStyle = bg; ctx.fillRect(0, 60, W, 230); }
+  ctx.globalAlpha = qa;
   quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 150, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18, band: true });
   txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 226, { font: 'italic 600 46px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
   ctx.restore();

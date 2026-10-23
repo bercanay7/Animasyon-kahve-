@@ -15,7 +15,7 @@ shot(S('C01') - .35, (ctx, st) => {
   temple(ctx, 1350, acroY(1350) + 4, .9, 6, C.ink, C.clay);
   const look = ramp(lt, .6, 2.2);
   walkScene(ctx, null, 760, 5.2, t, 1, { noCam: true, ground: ACRO, dist: 0, lk: LK.sisKing, lean: -.08,
-    neck: -.2 * look, head: -.45 * look, p: { shN: lerp(.2, 2.6, look), elN: lerp(.3, 1.9, look), shF: .1, elF: .4, handN: 'flat', brow: .3, hipN: .08, hipF: -.08 } });
+    neck: -.2 * look, head: -.45 * look, p: { shN: lerp(.2, 2.1, look), elN: lerp(.3, 1.75, look), shF: .1, elF: .4, handN: 'flat', brow: .3, hipN: .08, hipF: -.08 } }); // el alnın üstünde, profil açıkta
   ctx.restore();
   chapterCard(ctx, 'BÖLÜM II', 'KARTAL VE PINAR', lt - .1, 3.4, { x: 1430, y: 270 }); // figürün başının üstünde değil
 }, { tr: { type: 'black', dur: .9 }, post: { tex: .9, vig: .8 } });
@@ -169,8 +169,10 @@ shot(S('C07') - .2, (ctx, st) => {
   figure(ctx, { x: 960 - 70, y: gy - 47 * 4.4, s: 4.4, lk: LK.woman, hold: { N: HOLD.hydria() },
     p: { torso: .3, neck: .1, head: .2, shN: 1.2, elN: .5, shF: .8, elF: 1.0, hipN: .1, hipF: -.1 } });
   const wx = lerp(1250, 1600, ramp(lt, .2, 4.2, E.lin));
-  walkScene(ctx, null, wx, 4.4, t, 1, { noCam: true, ground: FLAT(gy), dist: wx, lk: LK.woman, p: { shN: 2.9, elN: 1.6, handN: 'flat', head: -.05, smile: .5 } });
-  ctx.save(); ctx.translate(wx + 4, gy - 101 * 4.4); amphora(ctx, 0, 0, 1.1, C.ink, C.red); ctx.restore();
+  // başında testi: tabanı başına oturur, elleri testiyi tutar
+  walkScene(ctx, null, wx, 4.4, t, 1, { noCam: true, ground: FLAT(gy), dist: wx, lk: LK.woman, p: { handN: 'flat', handF: 'flat', head: -.05, smile: .5 },
+    ik: { hN: [wx + 30, gy - 101 * 4.4], hF: [wx - 22, gy - 100 * 4.4] } });
+  ctx.save(); ctx.translate(wx + 4, gy - 96 * 4.4); amphora(ctx, 0, 0, 1.1, C.ink, C.red); ctx.restore();
   if (dk > 0) { ctx.fillStyle = `rgba(15,6,4,${dk * .45})`; ctx.fillRect(0, 0, W, H); }
 }, { tr: { type: 'fade', dur: .5 }, post: { tex: .9, vig: .85 } });
 

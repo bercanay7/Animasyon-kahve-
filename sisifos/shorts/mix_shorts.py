@@ -31,7 +31,7 @@ ve = M.envelope(v); act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
 look = int(.12 * SR); tg = np.concatenate([db(-9 * act)[look:], np.ones(look)])
 bed *= M.smooth_gain(tg, .1, .6)
 # kapanış cümlesinin altında müzik ek -5 dB ("mutlu" öne çıksın)
-ex = np.ones(N); ex[int(34.4 * SR):int(36.3 * SR)] = db(-5); ex = np.convolve(ex, np.ones(int(.2 * SR)) / int(.2 * SR), 'same'); bed *= ex
+ex = np.ones(N); ex[int(34.4 * SR):int(36.3 * SR)] = db(-5); ex[int(24.8 * SR):int(26.6 * SR)] = db(-5); ex = np.convolve(ex, np.ones(int(.2 * SR)) / int(.2 * SR), 'same'); bed *= ex
 # efektler: her kesitin film anındaki efekt stemi (kısa çapraz geçişlerle)
 fx_st, _ = sf.read(os.path.join(R, 'audio', 'stems', 'sfx.wav'), always_2d=True); fx_st = fx_st.T
 fx = np.zeros((2, N)); xf = int(.06 * SR)
@@ -46,7 +46,7 @@ for c in ed['EDL']:
 fx *= db(-2)
 # vurgulu sözcüklerin altında efekt -4 dB
 fe = np.ones(N)
-for a0, b0 in [(19.3, 20.2), (25.4, 26.3)]: fe[int(a0 * SR):int(b0 * SR)] = db(-4)
+for a0, b0, d0 in [(19.5, 20.1, -10), (25.4, 26.3, -4), (.6, 1.5, -6), (8.1, 8.9, -6)]: fe[int(a0 * SR):int(b0 * SR)] = db(d0)
 fx *= np.convolve(fe, np.ones(int(.1 * SR)) / int(.1 * SR), 'same')
 mixd = np.stack([v, v]) + bed + fx
 mixd = M.limiter(mixd, .7)

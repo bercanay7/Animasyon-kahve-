@@ -22,7 +22,7 @@ shot(S('D01') - .25, (ctx, st) => {
   figure(ctx, { x: 400, y: gy - 27 * 6, s: 6, lk: LK.zeus, hold: { F: HOLD.scepter(80), N: HOLD.bolt() },
     p: { ...oturan(), torso: .05, head: .05, shN: lerp(.4, 1.75, ramp(lt, .3, 1.1, E.outBack)), elN: .15, handN: 'fist', shF: .3, elF: 1.2, brow: -1 } });
   { const bl = ramp(lt, .9, 1.3) * (1 - ramp(lt, 1.3, 2.2)); if (bl > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 520, gy - 520, 240, `rgba(255,220,140,${.5 * bl})`); ctx.restore(); } }
-  nameTag(ctx, 'ZEUS', 'Tanrıların kralı', 140, 250, lt - .4, 3.0, { col: C.white });
+  nameTag(ctx, 'ZEUS', 'Tanrıların kralı', 140, 250, lt - 3.3, 2.4, { col: C.white }); // bölüm kartından sonra
   // duman sütunu ve Thanatos'un yükselişi
   const rise = ramp(t, tt - 2.4, tt + .2, E.io3);
   ctx.save(); ctx.fillStyle = `rgba(6,2,1,${.7 * ramp(lt, 0, 1.5)})`; ctx.beginPath(); ctx.ellipse(1300, gy + 4, 260, 22, 0, 0, TAU); ctx.fill(); ctx.restore();
@@ -36,7 +36,7 @@ shot(S('D01') - .25, (ctx, st) => {
     onJoints: (J, M) => { hp = wrW(ctx, M, J, 'N'); } });
   if (hp && rise > .3) { ctx.save(); ctx.globalAlpha = clamp(rise * 1.4); handChain(ctx, hp, Math.min(220, gy - hp[1] + 3), t); ctx.restore(); }
   ctx.restore();
-  nameTag(ctx, 'THANATOS', 'Ölüm', 1180, 190, t - Wd('D01', 'kendisini') + .2, 3.8, { col: C.white, align: 'center' });
+  nameTag(ctx, 'THANATOS', 'Ölüm', 1140, 150, t - Wd('D01', 'kendisini') + .2, 3.8, { col: C.white, align: 'center' });
   chapterCard(ctx, 'BÖLÜM III', 'ÖLÜMÜ ZİNCİRLEYEN ADAM', lt - .1, 3.2);
 }, { tr: { type: 'black', dur: 1.0 }, post: { tex: .7, vig: .95 } });
 
@@ -179,15 +179,18 @@ shot(S('D07') - .2, (ctx, st) => {
   const pel = lerp(gy - 46 * 5.2, gy - 9 * 5.2, fall), x0 = 860 + fall * 60;
   // ayaklar hep zeminde: ayakta duruştan sırtüstü yatışa (bacaklar yerde öne uzanır)
   const ikF = fall > 0 ? { fN: [lerp(x0 - 48, x0 - 205, fall), gy - 3 * 5.2, 0], fF: [lerp(x0 + 30, x0 - 180, fall), gy - 3 * 5.2, 0] } : undefined;
-  figure(ctx, { x: x0, y: pel, s: 5.2, dir: -1, lk: LK.hoplite, hold: { N: HOLD.spear(95), F: HOLD.shield(17) }, ik: ikF,
+  // düşerken mızrak ve kalkan elinden yere düşer
+  if (fall > .35) { ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 7; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x0 - 330, gy - 5); ctx.lineTo(x0 + 40, gy - 9); ctx.stroke();
+    ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(x0 + 120, gy - 20, 64, 18, 0, 0, TAU); ctx.fill(); ctx.strokeStyle = C.clay; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(x0 + 120, gy - 22, 48, 11, 0, 0, TAU); ctx.stroke(); ctx.restore(); }
+  figure(ctx, { x: x0, y: pel, s: 5.2, dir: -1, lk: LK.hoplite, hold: fall > .35 ? null : { N: HOLD.spear(95), F: HOLD.shield(17) }, ik: ikF,
     p: { torso: lerp(.1, -1.3, fall), neck: -.2 * fall, hipN: lerp(.3, 1.4, fall), knN: lerp(.2, .1, fall), hipF: lerp(-.3, 1.2, fall), knF: .2, shN: lerp(1.0, 2.6, fall), elN: .5, shF: 1.0, elF: 1.2, handN: 'fist', handF: 'fist', brow: 1, mouthOpen: fall * .6 } });
   if (t > tk) txt(ctx, '?', 900, gy - 520, { font: '700 80px Cinzel', col: C.ink, a: ramp(t, tk, tk + .4) * (1 - ramp(t, ts - .5, ts)) });
   // sunak: rahip bıçağı kaldırır, "kesilemiyordu"da indirir — bıçak boğanın boynundan seker (kıvılcım), boğa başını kaldırır, yarasız
   altar(ctx, 2470, gy, 2.2, C.ink, C.clay, 1, t);
   const tK = Wd('D07', 'kesilemiyordu');
-  const kn = ramp(t, ts + .2, ts + .9, E.outBack), strike = ramp(t, tK - .28, tK - .02, E.in3), rec = ramp(t, tK, tK + .35, E.out3); // şaşkın rahip bıçağı havada tutar (ikinci darbe yok)
+  const kn = ramp(t, ts + .2, ts + .9, E.outBack), strike = ramp(t, tK - .28, tK - .02, E.in3), rec = ramp(t, tK + .02, tK + .4, E.io2); // geri sekme: ~10 karede bıçak başın yanına, gövde geriye (ikinci darbe yok)
   figure(ctx, { x: 1930, y: gy - 47 * 5.2, s: 5.2, lk: LK.priest, hold: { N: G => { G.part(c => { c.moveTo(-1, -2); c.lineTo(1, -2); c.lineTo(.6, 12); c.lineTo(-.6, 12); c.closePath(); }, { fill: '#D9C9A8', cut: false }); } },
-    p: { torso: .05 + strike * .5 - rec * .25, head: .1 + strike * .2, shN: lerp(1.0, 3.0, kn) - strike * 2.2 + rec * 1.0, elN: lerp(lerp(1.2, .3, kn), .15, strike), shF: .7, elF: 1.3, handN: 'fist',
+    p: { torso: .05 + strike * .5 - rec * .65, head: .1 + strike * .2 - rec * .55, shN: lerp(1.0, 3.0, kn) - strike * 2.2 + rec * 1.9, elN: lerp(lerp(lerp(1.2, .3, kn), .15, strike), 1.5, rec), shF: lerp(.7, .1, rec), elF: lerp(1.3, 2.1, rec), handN: 'fist',
       brow: ramp(t, tK + .05, tK + .5) * 1.4, mouthOpen: ramp(t, tK + .05, tK + .5) * .6 } });
   const sp = clamp(1 - Math.abs(t - tK - .04) * 6) * (t > tK - .03 ? 1 : 0);
   if (sp > 0) sparkle(ctx, 2080, 728, 70 * sp, sp);
@@ -246,41 +249,43 @@ shot(S('D09') - .2, (ctx, st) => {
   const broken = t > tb;
   const free = ramp(t, tb + .15, tb + 1.1, E.out3);
   column(ctx, 1070, 80, gy, 80, '#2A140C', '#6A3020');
-  ctx.save(); ctx.strokeStyle = '#2A140C'; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(1070, 318, 22, 0, TAU); ctx.stroke(); ctx.strokeStyle = '#8A4A2A'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(1070, 318, 22, 0, TAU); ctx.stroke(); ctx.restore(); // demir halka
+  // demir halka zemine çakılı (zincir yüzün önünden geçmez)
+  ctx.save(); ctx.fillStyle = '#2A140C'; ctx.fillRect(799, gy - 10, 42, 12); ctx.strokeStyle = '#2A140C'; ctx.lineWidth = 11; ctx.beginPath(); ctx.ellipse(820, gy - 26, 20, 18, 0, 0, TAU); ctx.stroke(); ctx.strokeStyle = '#8A4A2A'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(820, gy - 26, 20, 18, 0, 0, TAU); ctx.stroke(); ctx.restore();
   // D8'deki mızrak ve kalkan: Ares onları kenara bırakmış (süreklilik)
   ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(60, gy - 7); ctx.lineTo(430, gy - 12); ctx.stroke();
   ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(430, gy - 22); ctx.lineTo(472, gy - 12); ctx.lineTo(430, gy - 2); ctx.closePath(); ctx.fill();
   ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(250, gy - 74, 30, 76, -.18, 0, TAU); ctx.fill(); ctx.strokeStyle = '#C7683C'; ctx.lineWidth = 4; ctx.beginPath(); ctx.ellipse(250, gy - 74, 22, 62, -.18, 0, TAU); ctx.stroke(); ctx.restore();
-  const ring = [1070, 300];
-  // Ares sütuna yürür, zinciri kavrar ve çekip koparır (çıplak elle: savaş tanrısının gücü)
-  const ax = lerp(500, 770, ramp(t, tb - 1.5, tb - .55, E.io2));
-  const grab = ramp(t, tb - .6, tb - .3, E.io2), yank = ramp(t, tb - .08, tb + .18, E.out3), letGo = ramp(t, tb + .7, tb + 1.0);
-  const gP = [lerp(lerp(ax + 80, 1010, grab), 900, yank), lerp(lerp(600, 512, grab), 610, yank)];
-  // Thanatos: diz çökmüş, bilekleri sütundaki zincire kalkık; kurtulunca kollar iner, ayağa kalkar
+  const ring = [820, gy - 26];
+  // Ares yürür, ayağını kaldırır ve zemindeki halkaya bağlı zincire basarak koparır (savaş tanrısının gücü)
+  const ax = lerp(360, 620, ramp(t, tb - 1.5, tb - .6, E.io2));
+  const lift = ramp(t, tb - .55, tb - .15, E.io2), stomp = ramp(t, tb - .15, tb, E.in3), rec2 = ramp(t, tb + .25, tb + .8, E.io2);
+  const sp = [lerp(lerp(ax + 120, 780, lift), 808, stomp), lerp(lerp(gy - 18, gy - 190, lift), gy - 18, stomp)];
+  const footT = rec2 > 0 ? lerp2([808, gy - 18], [ax + 60, gy - 18], rec2) : sp;
+  // Thanatos: diz çökmüş, bilekleri zemindeki halkaya zincirli; kurtulunca ayağa kalkar
   const tx = 1060, ty = gy - lerp(25.5, 47, free) * 6.6;
   let wN = null, wF = null;
   figure(ctx, { x: tx, y: ty, s: 6.6, dir: -1, lk: LK.thanatos, ...THS, cutCol: '#140A07',
     p: { torso: lerp(.25, .05, free), neck: lerp(.1, 0, free), head: lerp(.12, .05, free), hipN: lerp(1.35, .1, free), knN: lerp(1.45, .05, free), hipF: lerp(-.05, -.1, free), knF: lerp(1.62, .05, free), ankF: lerp(-.5, 0, free),
       wingSpread: lerp(.38, 1.0, free), wingF: t * .5, handN: 'fist', handF: 'fist', brow: -1 },
-    ik: { hN: lerp2([1062, 560], [tx - 60, ty + 30], free), hF: lerp2([1080, 568], [tx + 20, ty + 40], free) },
+    ik: { hN: lerp2([985, 690], [tx - 60, ty + 30], free), hF: lerp2([1000, 700], [tx + 20, ty + 40], free) },
     onJoints: (J, M) => { wN = wrW(ctx, M, J, 'N'); wF = wrW(ctx, M, J, 'F'); } });
   if (wN && wF) {
     shackle(ctx, wN[0], wN[1], 17, .2, '#E1B07A'); shackle(ctx, wF[0], wF[1], 17, .2, '#E1B07A');
     const w = lerp2(wN, wF, .5);
-    if (!broken) chain(ctx, grab > 0 ? [w, gP, ring] : [w, [1066, 440], ring], 22, '#E1B07A', '#5A2A16', 6);
+    if (!broken) chain(ctx, [w, [lerp(w[0], ring[0], .5) - 6, lerp(w[1], ring[1], .5) + 10], ring], 22, '#E1B07A', '#5A2A16', 6);
     else {
-      // kopan uç Ares'in elinde, sonra bırakılır ve bilekten sarkar
-      const end = letGo > 0 ? lerp2(gP, [w[0] - 20, w[1] + 170], E.in2(letGo)) : gP;
-      chain(ctx, [w, lerp2(w, end, .5), end], 22, '#E1B07A', '#5A2A16', 6);
+      // kopan zincir bilekten sarkar, halkalar sıçrar
       const u = t - tb;
-      for (let i = 0; i < 3; i++) { const x = ring[0] + (i - 1) * 30 * u, y = Math.min(gy - 8, ring[1] + 20 + 1200 * u * u + i * 30);
+      chain(ctx, [w, [w[0] - 14, w[1] + 70 + Math.sin(u * 9) * 8 * Math.exp(-u * 2)], [w[0] - 8, w[1] + 130]], 22, '#E1B07A', '#5A2A16', 6);
+      for (let i = 0; i < 3; i++) { const x = ring[0] + 20 + (i - 1) * 60 * u, y = Math.min(gy - 8, ring[1] - 10 - 380 * u + 1500 * u * u);
         ctx.save(); ctx.translate(x, y); ctx.rotate(u * (4 + i)); chain(ctx, [[-20, 0], [20, 0]], 20, '#E1B07A', '#5A2A16', 6); ctx.restore(); }
-      if (u < .3) sparkle(ctx, ring[0], ring[1] + 14, 70 * (1 - u * 3.3), 1 - u * 3.3);
+      if (u < .3) sparkle(ctx, ring[0] + 10, ring[1] - 10, 80 * (1 - u * 3.3), 1 - u * 3.3);
     }
   }
-  // Ares: öne eğilip çeker
-  walkScene(ctx, null, ax, 6.4, t, 1, { noCam: true, ground: FLAT(gy), dist: ax, lk: LK.ares, lean: .12 + grab * .1 - yank * .2,
-    p: { brow: -1.4, mouthOpen: yank * (1 - letGo) * .6, handN: 'fist', shF: .4 + yank * .3, elF: 1.2 }, ik: grab > 0 && letGo < 1 ? { hN: gP } : {} });
+  // Ares: ayak kalkar, iner (arka kolu dengede), sonra geri çekilir
+  walkScene(ctx, null, ax, 6.4, t, 1, { noCam: true, ground: FLAT(gy), dist: ax, lk: LK.ares, lean: -.08 * lift + .12 * stomp,
+    p: { brow: -1.4, mouthOpen: stomp * (1 - rec2) * .6, handN: 'fist', handF: 'fist', shN: .6 + lift * .5, elN: 1.2, shF: -.3 - lift * .3, elF: .8 },
+    ik: lift > 0 ? { fN: [footT[0], footT[1], 0] } : {} });
   const fl = clamp(1 - Math.abs(t - tb - .05) * 5) * (t > tb - .02 ? 1 : 0);
   if (fl > 0) { ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = `rgba(255,220,170,${fl * .35})`; ctx.fillRect(0, 0, W, H); ctx.restore(); }
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: 1, grain: .07 }, mb: 12 });

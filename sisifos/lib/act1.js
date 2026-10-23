@@ -104,14 +104,14 @@ shot(S('B02') - .3, (ctx, st) => {
   figure(ctx, { x: 345, y: gy - 27 * 5.2, s: 5.2, lk: LK.sisKing, hold: { F: HOLD.scepter(85) },
     p: { ...oturan(), torso: .02, head: .05, shN: .9 + Math.sin(lt * 1.3) * .08, elN: .55, shF: .55, elF: 1.1, handN: 'open', handF: 'fist', smile: .4, blink: (Math.sin(t * 1.7) > .97) ? 1 : 0 } });
   // amfora taşıyan tüccarlar (krala doğru yürür), amfora omuzda (figürün arkasında, kil kenar çizgisiyle ayrılır)
-  for (const [x0, ph, stopX] of [[1180, 0, 990], [1470, 66, 1180]]) {
+  for (const [x0, ph, stopX, lkP] of [[1180, 0, 1065, LK.citizen], [1470, 66, 1320, { ...LK.citizen, beard: 'pointed', hair: 'long' }]]) {
     // yarım adım faz farkı (klon değil); amfora yığınının önünde dururlar
     const x = Math.max(x0 - lt * 70, stopX);
     const ax = x + 9 * 4.4, ay = gy - 83 * 4.4;
     ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
     ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
     amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
-    walkScene(ctx, null, x, 4.4, t, -1, { noCam: true, ground: FLAT(gy), lk: LK.citizen, dist: (x0 - x) + ph, stride: 30, lean: .14,
+    walkScene(ctx, null, x, 4.4, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14,
       p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
       ik: { hN: [ax - 4, ay + 10] } });
   }
