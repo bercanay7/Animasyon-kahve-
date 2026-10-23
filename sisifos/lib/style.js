@@ -86,7 +86,7 @@ function clayBG(ctx, top = C.clayL, bot = C.clayD, glow = null) {
   }
 }
 function applyTexture(ctx, amt = 1) {
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.save(); baseT(ctx);
   ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = amt;
   ctx.drawImage(TEX.clay, 0, 0);
   ctx.restore();
@@ -96,11 +96,11 @@ function applyGrain(ctx, t, amt = .07) {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = amt;
   const ox = -r() * 512, oy = -r() * 512;
-  for (let y = oy; y < H; y += 512) for (let x = ox; x < W; x += 512) ctx.drawImage(TEX.grain[i], x, y);
+  for (let y = oy; y < DH; y += 512) for (let x = ox; x < DW; x += 512) ctx.drawImage(TEX.grain[i], x, y);
   ctx.restore();
 }
 function applyVignette(ctx, amt = 1) {
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.save(); baseT(ctx);
   ctx.globalAlpha = amt; ctx.drawImage(TEX.vig, 0, 0); ctx.restore();
 }
 
@@ -184,7 +184,7 @@ function palmettes(ctx, x0, x1, y, h, col) {
 function friezeFrame(ctx, opt = {}) {
   const col = opt.col || C.ink, bg = opt.bg || null, th = opt.h || 54, a = opt.alpha ?? 1, off = opt.off || 0;
   if (a <= 0) return;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = a;
+  ctx.save(); baseT(ctx); ctx.globalAlpha = a;
   ctx.translate(0, 0);
   ctx.save(); ctx.translate(-off % (th * 2), 0);
   meander(ctx, -th * 2, W + th * 2, -th * (opt.hideTop || 0), th, col, bg);

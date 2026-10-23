@@ -66,22 +66,25 @@ shot(S('A02') - .12, (ctx, st) => {
     ctx.restore();
   };
   const lt = st.lt;
+  // iki pano da kırmızı figür (ölüm ve yeraltı kuralı): siyah zemin, kil renkli figürler
+  const RF = { sty: STY.red, cutCol: C.ink };
   panel('I', 520, 520, 700, 520, t1, (c, w, h) => {
-    c.fillStyle = C.ink; c.fillRect(-w / 2, 200, w, 4);
-    column(c, 40, -200, 200, 46);
-    figure(c, { x: 60, y: 200 - 40 * 4.2, s: 4.2, dir: -1, lk: LK.thanatos, p: { ...oturan({ hipN: 1.2, knN: 1.9, hipF: 1.1, knF: 2.0 }), torso: .25, head: .3, shN: .2, elN: 1.4, shF: .1, elF: 1.5, handN: 'fist', handF: 'fist', wingSpread: .25 } });
-    chain(c, [[30, 10], [10, 60], [-20, 40]], 16, C.ink, C.clay, 4);
-    figure(c, { x: -170, y: 200 - 47 * 4.2, s: 4.2, lk: LK.sisKing, p: { shN: .9 + Math.sin(lt * 3) * .1, elN: .6, shF: -.1, elF: .4, smile: 1, hipN: .05, hipF: -.05, handN: 'fist' }, hold: { N: HOLD.key() } });
+    c.fillStyle = C.ink; c.fillRect(-w / 2, -h / 2, w, h);
+    c.fillStyle = '#C7683C'; c.fillRect(-w / 2, 200, w, 4);
+    column(c, 40, -200, 200, 46, '#C7683C', C.ink);
+    figure(c, { x: 60, y: 200 - 40 * 4.2, s: 4.2, dir: -1, lk: LK.thanatos, ...RF, p: { ...oturan({ hipN: 1.2, knN: 1.9, hipF: 1.1, knF: 2.0 }), torso: .25, head: .3, shN: .2, elN: 1.4, shF: .1, elF: 1.5, handN: 'fist', handF: 'fist', wingSpread: .25 } });
+    chain(c, [[30, 10], [10, 60], [-20, 40]], 16, '#E1B07A', '#5A2A16', 4);
+    figure(c, { x: -170, y: 200 - 47 * 4.2, s: 4.2, lk: LK.sisKing, ...RF, p: { shN: .9 + Math.sin(lt * 3) * .1, elN: .6, shF: -.1, elF: .4, smile: 1, hipN: .05, hipF: -.05, handN: 'fist' }, hold: { N: HOLD.key() } });
   });
   panel('II', 1400, 520, 700, 520, t2, (c, w, h) => {
-    c.fillStyle = C.ink; c.fillRect(-w / 2, 200, w, 4);
-    // ışıklı kapı
-    glow(c, 250, 40, 260, 'rgba(255,236,190,.8)');
+    c.fillStyle = C.ink; c.fillRect(-w / 2, -h / 2, w, h);
+    c.fillStyle = '#C7683C'; c.fillRect(-w / 2, 200, w, 4);
+    glow(c, 250, 40, 260, 'rgba(255,236,190,.6)');
     c.fillStyle = '#F6E6C0'; c.beginPath(); c.moveTo(190, 200); c.lineTo(190, -60); c.quadraticCurveTo(250, -150, 310, -60); c.lineTo(310, 200); c.fill();
-    throne(c, -250, 200, 4.2, 1, C.ink, C.clayL, { high: true });
-    figure(c, { x: -228, y: 200 - 27 * 4.2, s: 4.2, lk: LK.persephone, p: { ...oturan(), shN: .9, elN: .5, shF: .2, elF: 1.2, head: .1 } });
+    throne(c, -250, 200, 4.2, 1, '#C7683C', C.ink, { high: true });
+    figure(c, { x: -228, y: 200 - 27 * 4.2, s: 4.2, lk: LK.persephone, ...RF, p: { ...oturan(), shN: .9, elN: .5, shF: .2, elF: 1.2, head: .1 } });
     const wx = 40 + lt * 30;
-    figure(c, { x: wx, y: 200 - 46 * 4.2, s: 4.2, lk: LK.sis, p: { torso: .06, shN: Math.sin(lt * 5) * .4, elN: .3, shF: -Math.sin(lt * 5) * .4 - .3, elF: .2, hipN: Math.sin(lt * 5) * .35, knN: .3 + Math.max(0, Math.cos(lt * 5)) * .5, hipF: -Math.sin(lt * 5) * .35, knF: .3 + Math.max(0, -Math.cos(lt * 5)) * .5, smile: 1, head: -.1 } });
+    figure(c, { x: wx, y: 200 - 46 * 4.2, s: 4.2, lk: LK.sis, ...RF, p: { torso: .06, shN: Math.sin(lt * 5) * .4, elN: .3, shF: -Math.sin(lt * 5) * .4 - .3, elF: .2, hipN: Math.sin(lt * 5) * .35, knN: .3 + Math.max(0, Math.cos(lt * 5)) * .5, hipF: -Math.sin(lt * 5) * .35, knF: .3 + Math.max(0, -Math.cos(lt * 5)) * .5, smile: 1, head: -.1 } });
   });
 }, { tr: { type: 'fade', dur: .35 }, post: { tex: .9, vig: .8 } });
 
@@ -94,7 +97,7 @@ shot(S('A03') - .35, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, t - 1, xr - 200, hillY(xr - 200), 6, 'rgba(90,50,30,.18)', 60, Math.floor(t)); ctx.restore();
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr });
   motes(ctx, t, 40, 8, 'rgba(240,170,110,.6)', [0, 0, W, H], 14, 1.6, .5);
-}, { tr: { type: 'clay', dur: .9 }, post: { tex: .55, vig: 1, grain: .06 } });
+}, { tr: { type: 'fade', dur: .6 }, post: { tex: .55, vig: 1, grain: .06 } });
 
 // A4 — zirveye yakın: kaya sallanır, ayaklar kayar; eylem üstünde kesme → geniş plan: kaya aşağıda, Sisifos kenarda
 shot(S('A04') - .2, (ctx, st) => {
@@ -107,7 +110,8 @@ shot(S('A04') - .2, (ctx, st) => {
     tartarosBG(ctx, t, c, {});
     tartarosHill(ctx, c, { groove: .4 });
     ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, tg - .35, pushX - 230, hillY(pushX - 230), 10, 'rgba(110,60,35,.4)', 90, 5); ctx.restore();
-    pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: ant * .6,
+    const dv = ramp(t, tg - .28, tg, E.in2);
+    pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: ant * .6, dive: dv, handsOff: dv,
       rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
     return;
   }
@@ -118,9 +122,9 @@ shot(S('A04') - .2, (ctx, st) => {
   const [sx, sy] = shake(t, tg + .05, 9, 3); c.sx = sx; c.sy = sy;
   tartarosBG(ctx, t, c, {});
   tartarosHill(ctx, c, { groove: .4 });
-  const look = ramp(u, 0, .5, E.out3);
-  walkScene(ctx, c, sx0, 4.0, t, -1, { dist: 0, lean: -.12, neck: .25 + look * .1, head: .35 + look * .1,
-    p: { shN: lerp(1.6, .9, look), elN: .7, shF: lerp(2.4, 1.8, look), elF: 1.0, handN: 'open', handF: 'open', brow: .9, mouthOpen: .45 } });
+  const look = ramp(u, 0, .5, E.out3), up = ramp(u, .05, .9, E.io2);
+  walkScene(ctx, c, sx0, 4.0, t, -1, { dist: 0, lean: lerp(.55, -.12, up), neck: .25 + look * .1, head: .35 + look * .1,
+    p: { shN: lerp(.5, .9, up), elN: .7, shF: lerp(.3, 1.8, up), elF: 1.0, handN: 'open', handF: 'open', brow: .9, mouthOpen: .45, hipN: lerp(.9, .05, up), knN: lerp(1.3, .05, up), hipF: lerp(.5, -.05, up), knF: lerp(1.1, .05, up) } });
   ctx.save(); cam(ctx, c, 1);
   const hop = Math.abs(Math.sin(u * 7)) * 14 * clamp(1 - u * .3);
   const n = hillN(xr);

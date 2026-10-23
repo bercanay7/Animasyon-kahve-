@@ -2,6 +2,7 @@
 
 python3 tools/mix.py            # tam miks
 python3 tools/mix.py --stems    # ayrıca audio/stems/*.wav
+python3 tools/mix.py --vo en/vo_en.wav --out audio/mix_en.wav   # İngilizce dublajlı miks
 """
 import json, sys, os, re
 import numpy as np, soundfile as sf, librosa, pyloudnorm as pyln
@@ -318,8 +319,10 @@ def true_peak(x):
 
 def main():
     stems = '--stems' in sys.argv
+    arg = lambda k, d: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
+    vo_path, out_path = A(arg('--vo', 'vo/vo.wav')), A(arg('--out', 'audio/mix.wav'))
     meter = pyln.Meter(SR)
-    vo, sr = sf.read(A('vo/vo.wav'), always_2d=False)
+    vo, sr = sf.read(vo_path, always_2d=False)
     assert sr == SR
     vo = np.pad(vo, (0, max(0, N - len(vo))))[:N].astype(np.float64)
     vo = hp(vo, 70)
@@ -341,7 +344,7 @@ def main():
         # konuşma altında kısma (-7 dB), ön-bakışlı
         ve = envelope(vo); thr = db(-42)
         act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
-        target = db(-7 * act)
+        target = db(-3 * act)  # müzik zaten konuşma altına göre bestelendi; hafif ek kısma
         look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look)])
         duck = smooth_gain(target, .1, .7)
         mu *= duck
@@ -368,7 +371,7 @@ def main():
         mix = limiter(mix, db(-1.6 - (tp + 1.0) - .1))
     L2 = meter.integrated_loudness(mix.T)
     print(f'LUFS {L2:.2f}  TP {true_peak(mix):.2f} dBTP  süre {N / SR:.2f}s')
-    sf.write(A('audio/mix.wav'), mix.T.astype(np.float32), SR, subtype='PCM_24')
+    sf.write(out_path, mix.T.astype(np.float32), SR, subtype='PCM_24')
     if stems:
         os.makedirs(A('audio/stems'), exist_ok=True)
         for nm, x in [('vo', vo2 + vo_send), ('music', mu), ('sfx', fx + wet)]:

@@ -134,12 +134,14 @@ shot(S('C06') - .2, (ctx, st) => {
   // kaya öbeği
   ctx.fillStyle = C.ink; ctx.beginPath(); spline(ctx, [[780, gy + 4], [800, gy - 90], [880, gy - 150], [980, gy - 120], [1040, gy - 40], [1060, gy + 4]]); ctx.fill();
   // asa kalkar, kayaya iner (temas karesi + parlama), su vuruş noktasından fışkırır
-  const lift = ramp(t, tf - 1.1, tf - .45, E.io2), strike = ramp(t, tf - .14, tf, E.in3);
-  const hand = [lerp(lerp(990, 968, lift), 948, strike), lerp(lerp(500, 360, lift), 470, strike)];
-  figure(ctx, { x: 1110, y: gy - 47 * 6.0, s: 6.0, dir: -1, lk: LK.asopos, extra: asoposWaves,
+  // vuruştan sonra asa kalkar, Asopos geri çekilir (Sisifos'la siluetleri karışmasın)
+  const rel = ramp(t, tf + .5, tf + 1.1, E.io2), lift = ramp(t, tf - 1.1, tf - .45, E.io2) * (1 - rel), strike = ramp(t, tf - .14, tf, E.in3) * (1 - rel);
+  const ax = lerp(1110, 1360, ramp(t, tf + .9, ts - .3, E.io2)), dxA = ax - 1110;
+  const hand = [lerp(lerp(990, 968, lift), 948, strike) + dxA, lerp(lerp(500, 360, lift), 470, strike)];
+  figure(ctx, { x: ax, y: gy - 47 * 6.0, s: 6.0, dir: -1, lk: LK.asopos, extra: asoposWaves,
     p: { torso: .12 + strike * .12, neck: .1, head: .25, shF: .2, elF: .4, hipN: .2, hipF: -.15, handN: 'fist', brow: -.3 }, ik: { hN: hand } });
   // asa (dünya koordinatında): ucu vuruşta kayanın tepesine değer
-  { const tip = [lerp(hand[0] - 6, 932, strike), lerp(hand[1] + 258, gy - 150, strike)], dx = hand[0] - tip[0], dy = hand[1] - tip[1], L = Math.hypot(dx, dy);
+  { const tip = [hand[0] - 6, hand[1] + 258], dx = hand[0] - tip[0], dy = hand[1] - tip[1], L = Math.hypot(dx, dy);
     const top = [tip[0] + dx / L * 520, tip[1] + dy / L * 520];
     ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 12; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(tip[0], tip[1]); ctx.lineTo(top[0], top[1]); ctx.stroke();
     ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(top[0], top[1], 15, 0, TAU); ctx.fill(); ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(top[0], top[1], 7, 0, TAU); ctx.fill(); ctx.restore(); }
@@ -149,9 +151,9 @@ shot(S('C06') - .2, (ctx, st) => {
   dustBurst(ctx, t, tf, 930, gy - 120, 14, 'rgba(70,40,25,.4)', 120, 4);
   // Sisifos yaklaşır, fısıldar ve yukarıyı gösterir
   const lean = ramp(t, ts - .2, ts + .5, E.io2);
-  const sx = lerp(420, 980, ramp(t, tf + .6, ts, E.io2));
+  const sx = lerp(420, 960, ramp(t, tf + .6, ts, E.io2));
   if (t < ts - .1) walkScene(ctx, null, sx, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: sx, lk: LK.sisKing, p: { smile: .6 } });
-  else figure(ctx, { x: 1000, y: gy - 47 * 5.0, s: 5.0, lk: LK.sisKing, p: { torso: .25 * lean, neck: .1, head: -.1, shN: lerp(.2, 2.9, lean), elN: .2, handN: 'point', shF: .4, elF: 1.6, smile: 1, hipN: .1, hipF: -.1 } });
+  else figure(ctx, { x: 960, y: gy - 47 * 5.0, s: 5.0, lk: LK.sisKing, p: { torso: .25 * lean, neck: .1, head: -.1, shN: lerp(.2, 2.9, lean), elN: .2, handN: 'point', shF: .4, elF: 1.6, smile: 1, hipN: .1, hipF: -.1 } });
 }, { tr: { type: 'fade', dur: .4 }, post: { tex: .9, vig: .8 } });
 
 // C7 — çeşme evi, mutlu şehir; sonra gök kararır
@@ -174,7 +176,7 @@ shot(S('C07') - .2, (ctx, st) => {
 // C8 — Zeus unutmaz: fırtınada dev yüz
 shot(S('C08') - .25, (ctx, st) => {
   const t = st.t, lt = st.lt;
-  clayBG(ctx, '#3A1A12', '#140906');
+  clayBG(ctx, '#7A3A22', '#2E140C');
   for (let i = 0; i < 8; i++) cloud(ctx, i * 280 - 100 + Math.sin(t * .5 + i) * 30, 120 + (i % 3) * 300, 1.8, 'rgba(10,4,3,.85)', 'rgba(140,70,40,.4)', i + 51);
   const nar = ramp(t, Wd('C08', 'unutmazdı') - .2, Wd('C08', 'unutmazdı') + .6);
   ctx.save(); ctx.globalAlpha = ramp(lt, 0, .8);

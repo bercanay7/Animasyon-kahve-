@@ -67,7 +67,7 @@ shot(S('F04') - .2, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   dustBurst(ctx, t, tk + .02, xr - 250, hillY(xr - 250), 26, 'rgba(120,64,36,.5)', 170, 22);
   ctx.restore();
-  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 1.0, strain: 1 + tr * .9, slip: slipA * 1.6, mouthOpen: Math.max(tr * .5, slipA * .8), T: 1.3 + tr * .08 + slipA * .18, jitter: tr * 1.1,
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 1.0, strain: 1 + tr * .9, slip: slipA * 1.0, mouthOpen: Math.max(tr * .5, slipA * .8), T: 1.3 + tr * .08 + slipA * .18, jitter: tr * 1.1,
     rockAng: xr / 150 + tr * Math.sin(t * 30) * .015 });
 }, { tr: { type: 'cut' }, post: TP });
 
@@ -92,7 +92,7 @@ shot(S('F05') - .1, (ctx, st) => {
     const c = { x: xr + 120, y: hillY(xr) - 260, z: .78 };
     c.sx = noise1(t * 40, 1) * 6; c.sy = noise1(t * 40, 2) * 5;
     tartarosBG(ctx, t, c, {}); tartarosHill(ctx, c, { groove: .4 });
-    pushScene(ctx, c, xr, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.6, handsOff: u, mouthOpen: .8, T: 1.48, rockAng: xr / R - u * .4 });
+    pushScene(ctx, c, xr, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.0, handsOff: u, dive: ramp(t, F5.tc - .25, F5.tc, E.in2), mouthOpen: .8, T: 1.48, rockAng: xr / R - u * .4 });
     return;
   }
   const xr = F5.xAt(t), crash = t > F5.tend;
@@ -117,6 +117,25 @@ shot(S('F05') - .1, (ctx, st) => {
   ctx.restore();
 }, { tr: { type: 'cut' }, post: TP });
 
+// F5c — "gürleyerek": sabit geniş plan, kaya tüm yamacı katederek dibe iner
+shot(Wd('F05', 'gürleyerek') - .05, (ctx, st) => {
+  const t = st.t, R = 150, xr = F5.xAt(t), crash = t > F5.tend;
+  const c = { x: 330, y: 520, z: .47 };
+  const [sx, sy] = shake(t, F5.tend, 26, 4); c.sx = sx; c.sy = sy;
+  for (const b of F5.B) { const [bx, by] = shake(t, b.t, 2 + b.h * .05, 7); c.sx += bx; c.sy += by; }
+  tartarosBG(ctx, t, c, {});
+  tartarosHill(ctx, c, { groove: .4 });
+  walkScene(ctx, c, F5.xs + 360, 4.0, t, -1, { dist: 0, lean: .15, neck: .3, head: .45, p: { shN: 1.2, elN: .6, shF: 2.1, elF: 1.0, handN: 'open', handF: 'open', brow: 1.2, mouthOpen: .55 } });
+  ctx.save(); cam(ctx, c, 1);
+  const n = hillN(xr);
+  if (!crash) for (let k = 1; k < 4; k++) { const tt = t - k * .04, xx = F5.xAt(tt), nn = hillN(xx); ctx.globalAlpha = .14 / k; boulder(ctx, xx + nn[0] * R, hillY(xx) + nn[1] * R - F5.hopAt(tt), R, xx / R, { shadow: false, light: -1.2 }); }
+  ctx.globalAlpha = 1;
+  boulder(ctx, xr + n[0] * R, hillY(xr) + n[1] * R - F5.hopAt(t), R, xr / R, { shadow: false, light: -1.2 });
+  for (const b of F5.B) { const bx = F5.xAt(b.t); dustBurst(ctx, t, b.t, bx, hillY(bx), 10, 'rgba(110,60,35,.35)', 120, Math.floor(b.t * 10)); }
+  dustBurst(ctx, t, F5.tend, F5.x1, hillY(F5.x1), 60, 'rgba(120,64,36,.55)', 520, 41);
+  ctx.restore();
+}, { tr: { type: 'cut' }, post: TP });
+
 shot(S('F06') - .2, (ctx, st) => {
   const t = st.t, lt = st.lt, ty = Wd('F06', 'yeniden');
   if (t < ty - .2) {
@@ -130,7 +149,7 @@ shot(S('F06') - .2, (ctx, st) => {
     tartarosBG(ctx, t, c, {}); tartarosHill(ctx, c, { groove: .45 });
     pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, handsOff: 1 - ramp(t, ty - .1, ty + .4, E.out3) });
   }
-}, { tr: { type: 'fade', dur: .4 }, post: TP });
+}, { tr: { type: 'cut' }, post: TP });
 
 // F7 — tekrar: ertesi gün, sonraki gün, yüz yıl, bin yıl
 shot(S('F07') - .2, (ctx, st) => {

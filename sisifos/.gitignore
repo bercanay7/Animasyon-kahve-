@@ -9,3 +9,5 @@ tools/__pycache__/
 en/*.wav
 en/words/
 **/__pycache__/
+.parts_shorts/
+shorts/*.wav

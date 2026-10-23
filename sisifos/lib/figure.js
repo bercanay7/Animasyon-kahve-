@@ -4,7 +4,7 @@
 const BL = { torso: 30, neck: 5, up: 16, fo: 14, th: 23, sh: 22, ank: 3 };
 const FIG_CV = { sil: null, fig: null };
 function figCanvases() {
-  if (!FIG_CV.sil) { FIG_CV.sil = makeCanvas(W, H); FIG_CV.fig = makeCanvas(W, H); }
+  if (!FIG_CV.sil) { FIG_CV.sil = makeCanvas(DW, DH); FIG_CV.fig = makeCanvas(DW, DH); }
   return FIG_CV;
 }
 
@@ -135,7 +135,7 @@ function figure(ctx, f) {
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
   for (const q of pts) { const r = M.transformPoint(new DOMPoint(q[0], q[1])); x0 = Math.min(x0, r.x); x1 = Math.max(x1, r.x); y0 = Math.min(y0, r.y); y1 = Math.max(y1, r.y); }
   const sc = Math.hypot(M.a, M.b), mg = (f.margin || 34) * sc;
-  x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(W, Math.ceil(x1 + mg)); y1 = Math.min(H, Math.ceil(y1 + mg));
+  x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(DW, Math.ceil(x1 + mg)); y1 = Math.min(DH, Math.ceil(y1 + mg));
   if (x1 <= x0 || y1 <= y0) return J;
   const bw = x1 - x0, bh = y1 - y0;
   const cv = figCanvases();
@@ -315,7 +315,7 @@ function drawGarment(G, f, J, tP, det) {
     G.paint(c => { c.moveTo(...tP([7.4, -15])); c.lineTo(...tP([-7, -15.2])); }, sty.red, 1.2, false);
     if (lk.robeDots) for (let i = 0; i < 14; i++) {
       const u = hash(i * 3.1), v = hash(i * 7.7);
-      const q = [lerp(bk[0] - 2, fr[0] + 3, u), lerp(kneeFr[1] - 4, hem - 5, v)];
+      const q = [lerp(bk[0] + 1.6, fr[0] - 1.6, u), lerp(kneeFr[1] - 2, hem - 6.5, v)];
       G.paint(c => c.arc(q[0], q[1], .55, 0, TAU), sty.red);
     }
     if (lk.himation) { // omuz şalı (çapraz)
@@ -352,7 +352,7 @@ function drawHead(G, f, J, det) {
       G.part(c => spline(c, headOutline({ ...lk, hair: 'short' })), {});
       G.part(c => spline(c, HELMET), {});
       // tepelik (kırmızı)
-      G.part(c => spline(c, [[2.2, -13.6], [4.2, -17.6], [1.2, -21.8], [-5, -22.8], [-10.6, -21.2], [-13.8, -16.4], [-12.4, -12.0], [-9.2, -13.0], [-6.2, -12.6], [-3.0, -14.0], [0, -14.4]]), { fill: sty.red });
+      G.part(c => spline(c, [[2.2, -12.6], [4.2, -16.8], [1.2, -21.0], [-5, -22.0], [-10.6, -20.4], [-13.8, -15.6], [-12.4, -11.2], [-9.2, -12.2], [-6.2, -11.8], [-3.0, -13.2], [0, -13.6]]), { fill: sty.red });
       det(c => { c.moveTo(-10.5, -17); c.lineTo(1.5, -18.5); }, .3);
       for (let i = 0; i < 6; i++) det(c => { const x = -11 + i * 2.2; c.moveTo(x, -21.6 + Math.abs(i - 2.5) * .2); c.lineTo(x + .6, -17.2); }, .25);
       // göz deliği

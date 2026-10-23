@@ -125,6 +125,8 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);
   const shadeRock = () => boulder(ctx, cx, cy, R, rockAng, { shadow: false, light: o.light ?? -1.2 });
   if (!o.rockFront) shadeRock();
+  const dv = o.dive || 0;
+  if (dv > 0) { ctx.save(); ctx.translate(pel[0], pel[1]); ctx.rotate(-dv * .7); ctx.scale(1 + dv * .1, 1 + dv * .1); ctx.translate(-pel[0] - dv * 34 * s, -pel[1] + dv * 52 * s); }
   figure(ctx, {
     x: pel[0], y: pel[1], s, sty: o.sty || STY.black, cutCol: o.cutCol,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, alpha: o.alpha,
@@ -132,6 +134,7 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
       brow: -strain, smile: o.smile || 0, breath: Math.sin(t * 2.4) * .5, blink: o.blink || 0, mouthOpen: o.mouthOpen || 0 },
     ik: { hN, hF, fN: footPos(fN), fF: footPos(fF) },
   });
+  if (dv > 0) ctx.restore();
   if (o.rockFront) shadeRock();
   ctx.restore();
   return { cx, cy, pel, head };

@@ -12,7 +12,7 @@ function Wd(id, w, n = 0, end = false) {
 const SHOTS = [];
 // shot(başlangıç, çizim, {tr:{type,dur}, post:{...}})
 function shot(at, draw, o = {}) { SHOTS.push({ at, draw, ...o }); }
-const bufA = makeCanvas(W, H), bufAx = bufA.getContext('2d');
+const bufA = makeCanvas(DW, DH), bufAx = bufA.getContext('2d');
 const maskC = makeCanvas(480, 270), maskX = maskC.getContext('2d');
 let NOISE_MASK = null;
 function noiseMask() {
@@ -48,7 +48,7 @@ function drawFilm(ctx, t) {
   if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
     const p = clamp((t - sh.at) / tr.dur);
     drawShot(ctx, i, t);
-    bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'source-over';
+    baseT(bufAx); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'source-over';
     bufAx.clearRect(0, 0, W, H);
     drawShot(bufAx, i - 1, t);
     composite(ctx, bufA, tr, p);
@@ -62,11 +62,11 @@ function composite(ctx, buf, tr, p) {
   if (tr.type === 'fade') { ctx.globalAlpha = 1 - E.sine(p); ctx.drawImage(buf, 0, 0); }
   else if (tr.type === 'black') {
     // önce eski kararır, sonra yeni açılır
-    if (p < .5) { ctx.drawImage(buf, 0, 0); ctx.fillStyle = '#000'; ctx.globalAlpha = E.sine(p * 2); ctx.fillRect(0, 0, W, H); }
-    else { ctx.fillStyle = '#000'; ctx.globalAlpha = 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, W, H); }
+    if (p < .5) { ctx.drawImage(buf, 0, 0); ctx.fillStyle = '#000'; ctx.globalAlpha = E.sine(p * 2); ctx.fillRect(0, 0, DW, DH); }
+    else { ctx.fillStyle = '#000'; ctx.globalAlpha = 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, DW, DH); }
   } else if (tr.type === 'white') {
-    if (p < .5) { ctx.drawImage(buf, 0, 0); ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = E.sine(p * 2); ctx.fillRect(0, 0, W, H); }
-    else { ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, W, H); }
+    if (p < .5) { ctx.drawImage(buf, 0, 0); ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = E.sine(p * 2); ctx.fillRect(0, 0, DW, DH); }
+    else { ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, DW, DH); }
   } else if (tr.type === 'clay' || tr.type === 'ink') {
     // organik çözülme: gürültü eşiği ile yumuşak kenarlı maske
     const nm = noiseMask(), id = maskX.createImageData(480, 270), d = id.data;
@@ -76,18 +76,18 @@ function composite(ctx, buf, tr, p) {
       d[k * 4 + 3] = v * 255;
     }
     maskX.putImageData(id, 0, 0);
-    bufAx.save(); bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalCompositeOperation = 'destination-in';
+    bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in';
     bufAx.imageSmoothingQuality = 'high'; bufAx.drawImage(maskC, 0, 0, W, H); bufAx.restore();
     ctx.drawImage(buf, 0, 0);
   } else if (tr.type === 'wipe') {
     const x = lerp(-200, W + 200, E.io3(p)), dir = tr.dir || 1;
     const g = bufAx.createLinearGradient(x - 120, 0, x + 120, 0);
     g.addColorStop(0, dir > 0 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(1, dir > 0 ? '#000' : 'rgba(0,0,0,0)');
-    bufAx.save(); bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalCompositeOperation = 'destination-in'; bufAx.fillStyle = g; bufAx.fillRect(0, 0, W, H); bufAx.restore();
+    bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.fillStyle = g; bufAx.fillRect(0, 0, W, H); bufAx.restore();
     ctx.drawImage(buf, 0, 0);
   } else if (tr.type === 'iris') {
     const cx = tr.x ?? W / 2, cy = tr.y ?? H / 2, r = lerp(0, 1300, E.io3(p));
-    bufAx.save(); bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalCompositeOperation = 'destination-out';
+    bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-out';
     const g = bufAx.createRadialGradient(cx, cy, Math.max(0, r - 60), cx, cy, r);
     g.addColorStop(0, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
     bufAx.fillStyle = g; bufAx.beginPath(); bufAx.arc(cx, cy, r + 2, 0, TAU); bufAx.fill(); bufAx.restore();
@@ -102,7 +102,7 @@ function post(ctx, t) {
   if (POST.tex > 0) applyTexture(ctx, POST.tex);
   if (POST.vig > 0) applyVignette(ctx, POST.vig);
   if (POST.grain > 0) applyGrain(ctx, t, POST.grain);
-  if (POST.flicker) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#000'; ctx.globalAlpha = (noise1(t * 9, 3) * .5 + .5) * POST.flicker; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  if (POST.flicker) { ctx.save(); baseT(ctx); ctx.fillStyle = '#000'; ctx.globalAlpha = (noise1(t * 9, 3) * .5 + .5) * POST.flicker; ctx.fillRect(0, 0, W, H); ctx.restore(); }
 }
 // Kamera: dünya koordinatından ekrana (merkez cx,cy, yakınlık z, dönüş r); katman derinliği k ile paralaks
 function cam(ctx, c, k = 1) {
@@ -120,7 +120,10 @@ function shake(t, t0, amp, dec = 6, f = 23) {
   return [noise1(t * f, 1) * e, noise1(t * f, 2) * e];
 }
 // Metin yardımcıları
+// Shorts gibi kurgularda film içi yazılar kapatılabilir (?notext=1)
+const NOTEXT = typeof location !== 'undefined' && new URLSearchParams(location.search).has('notext');
 function txt(ctx, s, x, y, o = {}) {
+  if (NOTEXT && !o.force) return;
   ctx.save();
   ctx.font = o.font || '600 48px Cinzel';
   ctx.textAlign = o.align || 'center'; ctx.textBaseline = o.base || 'middle';
@@ -148,10 +151,11 @@ function txtReveal(ctx, s, x, y, p, o = {}) {
 }
 // Bölüm kartı
 function chapterCard(ctx, num, title, lt, d = 3.6) {
+  if (NOTEXT) return;
   // vazo etiketi gibi kil levha: her zeminde okunur
   const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
   if (a <= 0) return;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.save(); baseT(ctx);
   ctx.font = '700 50px Cinzel'; ctx.letterSpacing = '4px';
   const tw = ctx.measureText(title).width;
   const pw = Math.max(520, tw + 150), ph = 136, y = 150;
@@ -170,9 +174,10 @@ function chapterCard(ctx, num, title, lt, d = 3.6) {
 }
 // Karakter adı etiketi
 function nameTag(ctx, name, sub, x, y, lt, d = 3.2, o = {}) {
+  if (NOTEXT) return;
   const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
   if (a <= 0) return;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = a;
+  ctx.save(); baseT(ctx); ctx.globalAlpha = a;
   const col = o.col || C.white, al = o.align || 'left';
   txt(ctx, name, x, y, { font: '700 40px Cinzel', col, align: al, ls: 6, shadow: 'rgba(0,0,0,.6)', blur: 12 });
   if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 40, { font: 'italic 500 30px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.6)', blur: 10 });

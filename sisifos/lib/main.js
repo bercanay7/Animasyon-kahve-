@@ -1,17 +1,20 @@
 // Ana döngü: kare çizimi, hareket bulanıklığı, canlı önizleme
 'use strict';
 const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+cv.width = DW; cv.height = DH;
 const Q = new URLSearchParams(location.search);
 window.FPS = 30;
-const acc = makeCanvas(W, H), accx = acc.getContext('2d');
+const acc = makeCanvas(DW, DH), accx = acc.getContext('2d');
 function renderFrame(t) {
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  baseT(ctx);
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   drawFilm(ctx, t);
 }
 // 180° obtüratör: kare süresinin yarısı içinde n alt kare ortalaması
 function renderFrameMB(t, n) {
+  const sh = typeof SHOTS !== 'undefined' ? SHOTS[shotAt(t)] : null;
+  if (sh && sh.mb) n = Math.max(n, sh.mb);
   const dt = 1 / FPS * .5;
   accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';
   for (let i = 0; i < n; i++) {

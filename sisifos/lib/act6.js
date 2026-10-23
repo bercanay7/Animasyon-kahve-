@@ -9,14 +9,15 @@ shot(S('G01') - .35, (ctx, st) => {
     // yüzyıllar akar: kil frizden kâğıda
     const p = clamp((t - (S('G01') - .35)) / (td - .3 - (S('G01') - .35)));
     clayBG(ctx, mixCol(C.clayL, C.paper, E.io2(p)), mixCol(C.clayD, C.paperD, E.io2(p)));
-    const yr = Math.round(lerp(-700, 1942, E.in2(p)) / 10) * 10;
+    const pq = clamp((Math.floor(t * 30 + 1e-6) / 30 - (S('G01') - .35)) / (td - .3 - (S('G01') - .35)));
+    const yr = Math.round(lerp(-700, 1942, E.in2(pq)) / 10) * 10;
     const lab = yr < 0 ? `MÖ ${-yr}` : `MS ${Math.max(1, yr)}`;
     ctx.save(); ctx.translate(-((lt * 900) % 1600), 0);
     for (let k = 0; k < 4; k++) { meander(ctx, k * 1600, k * 1600 + 1600, 300, 46, mixCol(C.ink, C.inkSoft, p)); tongues(ctx, k * 1600, k * 1600 + 1600, 734, 46, mixCol(C.ink, C.inkSoft, p)); }
     ctx.restore();
     // akan küçük siluetler
     for (let i = 0; i < 9; i++) { const x = ((i * 260 - lt * 900) % 2340 + 2340) % 2340 - 200; figure(ctx, { x, y: 700 - 46 * 3.4, s: 3.4, sty: p < .6 ? STY.black : WG, lk: i % 3 === 0 ? LK.sis : i % 3 === 1 ? LK.hoplite : LK.woman, alpha: .55, p: { hipN: .3, hipF: -.3, knF: .2, shN: .3, shF: -.3 } }); }
-    txt(ctx, lab, W / 2, 540, { font: '700 120px Cinzel', col: mixCol(C.ink, C.inkSoft, p), ls: 10 });
+    txt(ctx, lab, W / 2, 540, { font: '700 120px Cinzel', col: mixCol(C.ink, C.inkSoft, p), ls: 10, force: true });
   } else {
     paperBG(ctx);
     const gy = 880;
@@ -72,7 +73,7 @@ shot(S('G01') - .35, (ctx, st) => {
     }
   }
   chapterCard(ctx, 'BÖLÜM VI', 'CAMUS VE ABSÜRT', st.lt - .25, 3.4);
-}, { tr: { type: 'white', dur: 1.2 }, post: { tex: .3, vig: .5, grain: .045 } });
+}, { tr: { type: 'white', dur: 1.2 }, post: { tex: .3, vig: .5, grain: .045 }, mb: 10 });
 
 // G3 — modern hayatın döngüsü: "Bütün bunlar ne için?"
 shot(S('G03') - .3, (ctx, st) => {
@@ -107,7 +108,7 @@ shot(S('G03') - .3, (ctx, st) => {
   const look = ramp(t, tq, tq + .8, E.io2);
   walkScene(ctx, null, 960, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: scroll, sty: WG, lk: LK.modern, hold: { N: HOLD.bag() }, neck: -.3 * look, head: -.45 * look,
     p: { brow: look * .8, shN: Math.sin(scroll / 52) * .3 * (1 - look), shF: -Math.sin(scroll / 52) * .3 * (1 - look) } });
-  quote(ctx, '“Bütün bunlar ne için?”', W / 2, 330, 1200, t - tb + .1, { font: 'italic 600 84px "Cormorant Garamond"', col: C.inkSoft });
+  quote(ctx, '“Bütün bunlar ne için?”', W / 2, 250, 1200, t - tb + .1, { font: 'italic 600 84px "Cormorant Garamond"', col: C.inkSoft });
 }, { tr: { type: 'fade', dur: .6 }, post: { tex: .3, vig: .5, grain: .045 } });
 
 // G4 — sessiz evren, çatlak: ABSÜRT
@@ -128,7 +129,7 @@ shot(S('G04') - .2, (ctx, st) => {
     const n = Math.max(2, Math.ceil(pts.length * q));
     ctx.save(); ctx.strokeStyle = '#F3E6C8'; ctx.shadowColor = '#FFE9B8'; ctx.shadowBlur = 30; ctx.lineWidth = 5; ctx.lineJoin = 'miter';
     ctx.beginPath(); poly(ctx, pts.slice(0, n), false); ctx.stroke(); ctx.restore();
-    txtReveal(ctx, 'ABSÜRT', 1240, 440, ramp(t, tc + .5, tc + 2.0, E.lin), { font: '700 110px Cinzel', col: '#F3E6C8', ls: 30, rise: 0 });
+    txtReveal(ctx, 'ABSÜRT', 1570, 440, ramp(t, tc + .5, tc + 2.0, E.lin), { font: '700 110px Cinzel', col: '#F3E6C8', ls: 30, rise: 0 });
   }
   quote(ctx, 'anlam arayan insan  ·  sessiz kalan dünya', W / 2, 160, 1600, t - Wd('G04', 'anlam') + .1, { font: 'italic 500 44px "Cormorant Garamond"', col: '#CFC2A8' });
 }, { tr: { type: 'black', dur: .8 }, post: { tex: .2, vig: .9, grain: .06 } });
@@ -141,13 +142,14 @@ shot(S('G05') - .3, (ctx, st) => {
   if (t < tk) {
     const xr = 1100 + lt * 25, c = { x: 900, y: 380, z: .55 };
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-    pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr });
+    pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, dive: ramp(t, tk - .28, tk, E.in2), handsOff: ramp(t, tk - .28, tk, E.in2) });
   } else if (t < ta - .2) {
     // eylem üstünde kesme: kaya çoktan aşağıda, Sisifos kenarda durmuş bakıyor
     const u = t - tk, xr = 880 - 220 * u - 330 * u * u;
     const c = { x: lerp(1020, 900, ramp(u, 0, 1.5, E.io2)), y: hillY(1020) - 190, z: .85 };
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-    walkScene(ctx, c, 1140, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: .05, p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2 } });
+    const up = ramp(u, .05, .9, E.io2);
+    walkScene(ctx, c, 1140, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: lerp(.55, .05, up), p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2, hipN: lerp(.9, .05, up), knN: lerp(1.3, .05, up), hipF: lerp(.5, -.05, up), knF: lerp(1.1, .05, up) } });
     ctx.save(); cam(ctx, c, 1); const n = hillN(xr); boulder(ctx, xr + n[0] * 150, hillY(xr) + n[1] * 150 - Math.abs(Math.sin(u * 6)) * 10, 150, xr / 150, { shadow: false }); ctx.restore();
   } else {
     const x = lerp(1000, 640, ramp(t, ta - .2, st.end, E.lin));
@@ -224,7 +226,7 @@ shot(S('G09') - .25, (ctx, st) => {
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: .6 });
   motes(ctx, t, 60, 12, 'rgba(255,220,150,.8)', [0, 0, W, H], 16, 2, .6);
-  quote(ctx, '“Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”', W / 2, 190, 1500, lt - .3, { font: 'italic 600 64px "Cormorant Garamond"', col: '#FFF0D0', lh: 80, shadow: 'rgba(40,15,5,.7)', blur: 16, stagger: .9, band: true });
+  quote(ctx, '“Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”', W / 2, 190, 1500, lt - .3, { font: 'italic 600 64px "Cormorant Garamond"', col: '#FFF0D0', lh: 80, shadow: 'rgba(40,15,5,.7)', blur: 16, stagger: .9 });
 }, { tr: { type: 'fade', dur: .7 }, post: TP });
 
 // G10 — doruk: gülümseme
@@ -235,8 +237,8 @@ shot(S('G10') - .3, (ctx, st) => {
   const po = { dist: xr, smile: sm * 1.8, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12 };
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   const push = ramp(t, tm - .5, tm + 1.4, E.io3);
-  const z = lerp(2.5, 2.8, E.sine(clamp(lt / st.d))) + push * 1.5;
-  const c = { x: P.head[0] + lerp(70, 40, push), y: P.head[1] + lerp(70, 90, push), z };
+  const z = lerp(2.5, 2.7, E.sine(clamp(lt / st.d))) + push * .9;
+  const c = { x: P.head[0] + lerp(70, 60, push), y: P.head[1] + lerp(70, 35, push), z };
   tartarosBG(ctx, t, c, { warm: 1, diskX: P.head[0] + 260, diskY: P.head[1] - 260, diskR: 300 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
   pushScene(ctx, c, xr, 150, 4.0, t, po);

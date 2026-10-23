@@ -52,8 +52,8 @@ function dustBurst(ctx, t, t0, x, y, n = 30, col = 'rgba(120,70,40,.5)', spread 
   for (let i = 0; i < n; i++) {
     const a = PI + r() * PI, v = (r() * .8 + .2) * spread;
     const px = x + Math.cos(a) * v * E.out3(clamp(u / 1.4)) * 1.4, py = y + Math.sin(a) * v * .45 * E.out3(clamp(u / 1.4)) - u * 14;
-    const s = (8 + r() * 26) * (.6 + u * .8);
-    ctx.globalAlpha = clamp(1 - u / 2.4) * .55;
+    const s = (2.5 + r() * 8) * (.6 + u * .7);
+    ctx.globalAlpha = clamp(1 - u / 2.4) * .5;
     ctx.beginPath(); ctx.arc(px, py, s, 0, TAU); ctx.fill();
   }
   ctx.restore();
@@ -290,9 +290,10 @@ function spring(ctx, x, y, t, t0, col = '#F4EEDD', power = 1) {
     const a = -PI / 2 + (i - 4) * .16, v = (520 + hash(i) * 140) * grow, g = 900;
     ctx.lineWidth = 7 - Math.abs(i - 4) * .8; ctx.globalAlpha = .85;
     ctx.beginPath();
-    for (let k = 0; k <= 24; k++) {
-      const tt = k / 24 * 1.1 * grow + Math.sin(t * 12 + i) * .004;
+    for (let k = 0; k <= 40; k++) {
+      const tt = k / 40 * 1.9 * grow + Math.sin(t * 12 + i) * .004;
       const px = x + Math.cos(a) * v * tt, py = y + Math.sin(a) * v * tt + .5 * g * tt * tt;
+      if (py > y + 150) { ctx.lineTo(px, y + 150); break; }
       k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
     }
     ctx.stroke();
@@ -411,9 +412,13 @@ function skyline(ctx, x0, x1, y, col, seed = 3, hmax = 260, win = null) {
 }
 function plane(ctx, x, y, s, col) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = col;
-  ctx.beginPath(); ctx.ellipse(0, 0, 40, 6, 0, 0, TAU); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(-6, 0); ctx.lineTo(-18, -34); ctx.lineTo(-4, -34); ctx.lineTo(10, 0); ctx.lineTo(-4, 34); ctx.lineTo(-18, 34); ctx.closePath(); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(-34, 0); ctx.lineTo(-44, -14); ctx.lineTo(-38, 0); ctx.lineTo(-44, 14); ctx.fill();
+  // 1940'lar pervaneli bombardıman uçağı (yandan)
+  ctx.beginPath(); ctx.ellipse(0, 0, 52, 7.5, 0, 0, TAU); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(-40, -2); ctx.lineTo(-54, -22); ctx.lineTo(-46, -22); ctx.lineTo(-30, -4); ctx.closePath(); ctx.fill();
+  ctx.fillRect(-56, -2, 22, 3);
+  ctx.fillRect(-14, 1, 34, 4);
+  for (const ex of [6, 20]) { ctx.beginPath(); ctx.ellipse(ex, 5, 7, 4, 0, 0, TAU); ctx.fill(); ctx.fillRect(ex + 7, -3, 2, 16); }
+  ctx.beginPath(); ctx.ellipse(46, -3, 8, 4, 0, 0, TAU); ctx.fill();
   ctx.restore();
 }
 function clock(ctx, x, y, r, t, col = C.inkSoft, face = '#FFF9EC', ring = 0) {

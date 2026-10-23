@@ -28,7 +28,7 @@ shot(S('E02') - .2, (ctx, st) => {
   const hear = ramp(t, Wd('E02', 'bedenimi') - .2, Wd('E02', 'bedenimi') + .4);
   figure(ctx, { x: 820, y: 1170, s: 15, dir: 1, lk: LK.merope, p: { torso: .02, neck: .02, head: .05 + hear * .05, shN: .1, shF: 0, brow: hear * .8 + ramp(t, Wd('E02', 'adak'), Wd('E02', 'adak') + .4) * .6, blink: (lt > 2.4 && lt < 2.52) ? 1 : 0 }, margin: 40,
     onJoints: (J, M) => { ear = headPt(ctx, J, M, [-1.2, -6.2]); } });
-  if (ear) figure(ctx, { x: ear[0] - 330, y: ear[1] + 520, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .38, neck: .25, head: .22, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
+  if (ear) figure(ctx, { x: ear[0] - 372, y: ear[1] + 520, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .38, neck: .25, head: .22, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
   // simgeler
   const icons = [
     [Wd('E02', 'bedenimi'), 'GÖMME', (c) => { c.fillStyle = C.ink; c.beginPath(); c.moveTo(-70, 40); c.quadraticCurveTo(0, -60, 70, 40); c.fill(); c.fillRect(-12, -70, 24, 50); c.beginPath(); c.arc(0, -72, 14, PI, TAU); c.fill(); }],
@@ -80,10 +80,10 @@ function drawE3(ctx, t, c) {
 shot(S('E03') - .3, (ctx, st) => {
   drawE3(ctx, st.t, { x: 960, y: 540, z: 1 });
   nameTag(ctx, 'PERSEFONİ', 'Ölülerin kraliçesi', 140, 170, st.t - Wd('E03', 'persefoni'), 3.4, { col: '#E9C29A' });
-  nameTag(ctx, 'HADES', 'Yeraltının kralı', 140, 290, st.t - Wd('E03', 'persefoni') - .6, 2.8, { col: '#E9C29A' });
+  nameTag(ctx, 'HADES', 'Yeraltının kralı', 140, 290, st.t - S('E03') - 1.0, 3.2, { col: '#E9C29A' });
 }, { tr: { type: 'clay', dur: .9 }, post: { tex: .45, vig: 1, grain: .07 } });
 shot(S('E04') - .1, (ctx, st) => drawE3(ctx, st.t, { x: 700, y: 520, z: lerp(1.55, 1.65, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
-shot(Wd('E04', 'izin') - .15, (ctx, st) => drawE3(ctx, st.t, { x: 1380, y: 600, z: lerp(1.45, 1.55, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
+shot(Wd('E04', 'izin') - .15, (ctx, st) => drawE3(ctx, st.t, { x: 1480, y: 600, z: lerp(1.45, 1.55, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
 shot(S('E05') - .1, (ctx, st) => drawE3(ctx, st.t, { x: 1170, y: 520, z: lerp(2.3, 2.45, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
 shot(S('E05') + 1.2, (ctx, st) => drawE3(ctx, st.t, { x: 860, y: 540, z: 1.05 }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
 
@@ -94,6 +94,7 @@ shot(S('E06') - .2, (ctx, st) => {
   disk(ctx, 1500, 230, 110, '#FFF0C8', 'rgba(255,230,160,.5)');
   const gy = 860;
   sea(ctx, 900, 2200, gy + 6, 3, 40, t, C.ink, '#2B1A12');
+  city(ctx, 1660, gy - 4, .7, '#5A2A18', '#8E4426', 4);
   ship(ctx, 1550 + lt * 10, gy, .8, t, C.ink, C.clay);
   ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(-50, gy); ctx.lineTo(1000, gy); ctx.quadraticCurveTo(1060, gy + 40, 1000, H); ctx.lineTo(-50, H); ctx.fill();
   const rise = ramp(lt, 0, 1.2, E.out3);
@@ -117,7 +118,7 @@ shot(S('E06') - .2, (ctx, st) => {
     figure(ctx, { x: 600, y: gy - 22 * 5.4, s: 5.4, lk: LK.sis, hold: { N: HOLD.kylix() },
       p: { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.15, neck: -.1, head: -.25, shN: 1.5 + Math.sin(lt * 2) * .05, elN: 1.4, handN: 'fist', shF: lerp(.3, -1.2, ramp(t, tw, tw + .4, E.outBack)), elF: .6, handF: 'open', smile: 1.3 } });
   }
-}, { tr: { type: 'white', dur: .7 }, post: { tex: .9, vig: .7 } });
+}, { tr: { type: 'iris', dur: 1.1, x: 372, y: 670 }, post: { tex: .9, vig: .7 } });
 
 // E7 — yıllar geçer; Hermes gelir
 shot(S('E07') - .2, (ctx, st) => {
@@ -146,4 +147,4 @@ shot(S('E07') - .2, (ctx, st) => {
   ctx.restore();
   if (yrs < 1 && t < th - .5) txt(ctx, 'yıllar…', W / 2, 160, { font: 'italic 500 56px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .3, .9) * (1 - ramp(t, th - 1.2, th - .5)) });
   nameTag(ctx, 'HERMES', 'Tanrıların habercisi', 140, 160, t - th - .2, 3, { col: C.white });
-}, { tr: { type: 'fade', dur: .5 }, post: { tex: .8, vig: .9 } });
+}, { tr: { type: 'fade', dur: .5 }, post: { tex: .8, vig: .9 }, mb: 10 });

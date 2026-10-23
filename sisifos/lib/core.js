@@ -1,6 +1,10 @@
 // Temel yardımcılar: zaman, yumuşatma, rastgelelik, gürültü, şekil çizimi
 'use strict';
 const W = 1920, H = 1080;
+// çizim ölçeği (?rs=2 → 3840×2160 cihaz pikseli); mantıksal koordinatlar hep W×H kalır
+const RS = (typeof location !== 'undefined' && +new URLSearchParams(location.search).get('rs')) || 1;
+const DW = W * RS, DH = H * RS;
+const baseT = c => c.setTransform(RS, 0, 0, RS, 0, 0);
 const PI = Math.PI, TAU = Math.PI * 2;
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const lerp = (a, b, t) => a + (b - a) * t;

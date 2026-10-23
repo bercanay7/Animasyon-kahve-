@@ -2,9 +2,11 @@
 'use strict';
 const flatWalk = (ctx, x, y, s, t, dir, o = {}) => walkScene(ctx, null, x, s, t, dir, { noCam: true, ground: FLAT(y), ...o });
 
-// B1 — iki deniz arasında Efira/Korint panoraması
-shot(S('B01') - .45, (ctx, st) => {
-  const t = st.t, lt = st.lt, tk = Wd('B01', 'korint');
+// B1 — iki deniz arasında Efira/Korint panoraması (araya kıstak haritası girer)
+const B1T0 = S('B01') - .45, B1T1 = S('B02') - .3;
+function drawB1(ctx, t) {
+  const st = { t, lt: t - B1T0, p: clamp((t - B1T0) / (B1T1 - B1T0)) };
+  const lt = st.lt, tk = Wd('B01', 'korint');
   daySky(ctx);
   const c = { x: lerp(1500, 2050, E.io2(st.p)), y: lerp(520, 560, st.p), z: lerp(.62, .82, E.io2(st.p)) };
   ctx.save(); cam(ctx, c, .25); disk(ctx, 2300, 230, 120, '#F3E2BC', 'rgba(255,230,170,.35)'); ctx.restore();
@@ -44,8 +46,43 @@ shot(S('B01') - .45, (ctx, st) => {
   txt(ctx, 'EFİRA', W / 2, 250, { font: '700 72px Cinzel', col: C.ink, ls: 18, a: a1 });
   txt(ctx, 'KORİNT', W / 2, 250, { font: '700 72px Cinzel', col: C.ink, ls: 18, a: a2 });
   txt(ctx, 'iki deniz arasında', W / 2, 315, { font: 'italic 500 36px "Cormorant Garamond"', col: C.ink, a: Math.max(a1, a2) * .9 });
-  chapterCard(ctx, 'BÖLÜM I', "KORİNT'İN KURNAZ KRALI", lt - .2, 3.4);
-}, { tr: { type: 'clay', dur: 1.0 }, post: { tex: .9, vig: .75 } });
+  chapterCard(ctx, 'BÖLÜM I', "KORİNT'İN KURNAZ KRALI", lt - .2, 2.4);
+}
+shot(B1T0, (ctx, st) => drawB1(ctx, st.t), { tr: { type: 'clay', dur: 1.0 }, post: { tex: .9, vig: .75 } });
+// kıstak haritası (yukarıdan, vazo üslubunda): iki deniz arasındaki dar kara
+function isthmusMap(ctx, t, lt) {
+  const z = lerp(.94, 1.16, E.io2(clamp(lt / 3)));
+  ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-960, -560);
+  ctx.fillStyle = C.ink; ctx.fillRect(-400, -400, W + 800, H + 800);
+  const seaP = [
+    [[-400, 360], [300, 380], [600, 410], [800, 440], [900, 470], [925, 505], [890, 535], [760, 548], [500, 562], [200, 576], [-400, 600]],
+    [[1000, 480], [1100, 432], [1250, 382], [1450, 332], [1700, 302], [2400, 290], [2400, 1500], [1700, 920], [1450, 870], [1250, 780], [1120, 668], [1035, 590], [998, 530]],
+  ];
+  ctx.save(); ctx.beginPath(); for (const P of seaP) spline(ctx, P); ctx.fillStyle = C.clay; ctx.fill();
+  ctx.clip();
+  ctx.strokeStyle = 'rgba(23,16,12,.32)'; ctx.lineWidth = 2.4;
+  for (let y = 300; y < 1400; y += 34) for (let x = -400 + (y % 68 ? 0 : 30); x < 2400; x += 60) { ctx.beginPath(); ctx.arc(x + Math.sin(t * .8 + y) * 6, y, 11, PI * 1.1, PI * 1.9); ctx.stroke(); }
+  ctx.restore();
+  // kıyı kazıması
+  ctx.strokeStyle = C.clayD; ctx.lineWidth = 3; ctx.beginPath(); for (const P of seaP) spline(ctx, P); ctx.stroke();
+  // adalar: Egina ve Salamis
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(1360, 600, 70, 46, .3, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.ellipse(1330, 410, 60, 30, -.2, 0, TAU); ctx.fill();
+  ctx.strokeStyle = C.clayD; ctx.beginPath(); ctx.ellipse(1360, 600, 70, 46, .3, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.ellipse(1330, 410, 60, 30, -.2, 0, TAU); ctx.stroke();
+  // Korint: nabız atan altın nokta
+  const pul = (lt * 1.1) % 1;
+  ctx.strokeStyle = `rgba(231,184,94,${1 - pul})`; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(955, 590, 14 + pul * 46, 0, TAU); ctx.stroke();
+  ctx.fillStyle = C.gold; ctx.beginPath(); ctx.arc(955, 590, 13, 0, TAU); ctx.fill();
+  txt(ctx, 'KORİNT', 955, 640, { font: '700 30px Cinzel', col: C.gold, ls: 6, a: ramp(lt, .6, 1.2) });
+  txt(ctx, 'Korint Körfezi', 430, 490, { font: 'italic 600 34px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .3, .9) });
+  txt(ctx, 'Saron Körfezi', 1560, 700, { font: 'italic 600 34px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .5, 1.1) });
+  txt(ctx, 'Egina', 1360, 668, { font: 'italic 500 26px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .9, 1.5) * .8 });
+  txt(ctx, 'PELOPONNESOS', 620, 800, { font: '600 26px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
+  txt(ctx, 'ATTİKA', 1500, 200, { font: '600 26px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
+  ctx.restore();
+  friezeFrame(ctx, { h: 40 });
+}
+shot(Wd('B01', 'dar') - .2, (ctx, st) => isthmusMap(ctx, st.t, st.lt), { tr: { type: 'fade', dur: .35 }, post: { tex: .9, vig: .8 } });
+shot(Wd('B01', 'efira') - .45, (ctx, st) => drawB1(ctx, st.t), { tr: { type: 'fade', dur: .35 }, post: { tex: .9, vig: .75 } });
 
 // B2 — kral Sisifos, liman ve ticaret
 shot(S('B02') - .3, (ctx, st) => {
@@ -106,12 +143,15 @@ shot(Wd('B03', 'homeros') - .2, (ctx, st) => {
   friezeFrame(ctx, { h: 44 });
   const z = lerp(1, 1.04, st.p);
   ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
-  figure(ctx, { x: 470, y: 1330, s: 19, lk: { ...LK.sisOld, beard: 'long', headgear: 'wreath', robeDots: true },
-    p: { torso: .02, neck: .02, head: -.12 + Math.sin(lt * .9) * .03, shN: .3, elN: .2, shF: -.1, elF: .2, blink: 1, mouthOpen: Math.max(0, Math.sin(lt * 7)) * .3 * (1 - ramp(lt, 2.2, 2.6)) }, margin: 60 });
+  // kör ozan: sola bakar, elinde lir (Sisifos'un büstünden ayrışsın)
+  const lyre = G => G.at([0, 2], -.3, () => { G.part(c => { c.moveTo(-9, 6); c.quadraticCurveTo(-12, -14, -5, -22); c.lineTo(-3, -20); c.quadraticCurveTo(-8, -10, -5, 4); c.closePath(); c.moveTo(9, 6); c.quadraticCurveTo(12, -14, 5, -22); c.lineTo(3, -20); c.quadraticCurveTo(8, -10, 5, 4); c.closePath(); c.rect(-10, -21, 20, 2.2); c.ellipse(0, 6, 10, 5, 0, 0, TAU); }, {}); G.cut(c => { for (let k = -2; k <= 2; k++) { c.moveTo(k * 1.6, -19); c.lineTo(k * 1.6, 4); } }, .25); });
+  figure(ctx, { x: 1450, y: 1330, s: 19, dir: -1, lk: { ...LK.sisOld, beard: 'long', headgear: 'wreath', robeDots: true },
+    p: { torso: .02, neck: .02, head: -.12 + Math.sin(lt * .9) * .03, shN: .3, elN: .2, handN: 'fist', shF: -.1, elF: .2, blink: 1, mouthOpen: Math.max(0, Math.sin(lt * 7)) * .3 * (1 - ramp(lt, 2.2, 2.6)) }, margin: 60 });
   ctx.restore();
-  txt(ctx, 'κέρδιστος ἀνδρῶν', 1300, 330, { font: 'italic 500 44px "Cormorant Garamond"', col: C.ink, a: .65 * ramp(lt, .1, .7) });
-  quote(ctx, '“insanların en kurnazı”', 1300, 460, 900, t - Wd('B03', 'insanların') + .15, { font: 'italic 600 88px "Cormorant Garamond"', col: C.ink, lh: 96 });
-  txt(ctx, '— HOMEROS, İLYADA VI.153', 1300, 580, { font: '600 28px Cinzel', col: C.ink, ls: 6, a: ramp(t, Wd('B03', 'der') - .3, Wd('B03', 'der') + .5) });
+  nameTag(ctx, 'HOMEROS', 'Kör ozan, İlyada ve Odysseia', 140, 170, t - Wd('B03', 'homeros') + .2, 3.0, { col: C.ink, line: C.ink });
+  txt(ctx, 'κέρδιστος ἀνδρῶν', 620, 330, { font: 'italic 500 44px "Cormorant Garamond"', col: C.ink, a: .65 * ramp(lt, .1, .7) });
+  quote(ctx, '“insanların en kurnazı”', 620, 460, 900, t - Wd('B03', 'insanların') + .15, { font: 'italic 600 88px "Cormorant Garamond"', col: C.ink, lh: 96 });
+  txt(ctx, '— HOMEROS, İLYADA VI.153', 620, 580, { font: '600 28px Cinzel', col: C.ink, ls: 6, a: ramp(t, Wd('B03', 'der') - .3, Wd('B03', 'der') + .5) });
 }, { tr: { type: 'fade', dur: .35 }, post: { tex: .9, vig: .8 } });
 
 // B4 — gece: Autolykos ve renk değiştiren inek
@@ -142,9 +182,9 @@ shot(S('B04') - .85, (ctx, st) => {
 function drawB4b(ctx, st, ts) {
   const t = st.t, lt2 = t - ts;
   // gün-gece döngüsü ve azalan sürü
-  const cyc = clamp(lt2 / 4.2) * 3;
+  const cyc = clamp(lt2 / 5.6) * 3;
   const night = .5 + .5 * Math.cos(cyc * TAU);
-  clayBG(ctx, mixCol('#4A2117', '#E09A68', night), mixCol('#24100B', '#B85C33', night));
+  clayBG(ctx, mixCol('#6A3020', '#E09A68', night), mixCol('#3A1810', '#B85C33', night));
   const gy = 860;
   ctx.fillStyle = C.ink; ctx.fillRect(0, gy, W, H - gy);
   const sunA = PI + (cyc % 1) * PI;
@@ -245,7 +285,7 @@ shot(S('B06') - .3, (ctx, st) => {
   // üç sıra fırtına bulutu: kamera yukarı döndükçe kadrajı doldurur
   for (let row = 0; row < 4; row++) for (let i = 0; i < 7; i++) {
     const cx = -60 + i * 330 + (row % 2) * 165 + Math.sin(t * .3 + i + row) * 40 + (row - 1) * t * 6;
-    cloud(ctx, cx, -200 + row * 170, 1.4 + row * .2, mixCol('rgba(120,60,35,.5)', 'rgba(30,14,10,.94)', dark), mixCol('rgba(0,0,0,0)', 'rgba(200,120,70,.5)', dark), i + 3 + row * 7);
+    cloud(ctx, cx, -200 + row * 170, 1.4 + row * .2, mixCol('#C98A5E', '#1E0E0A', dark), mixCol('rgba(150,78,46,.45)', 'rgba(200,120,70,.55)', dark), i + 3 + row * 7);
   }
   // şimşek: gök gürültüsü sesiyle aynı anda (tn + 2.0)
   const tl = tn + 2.0;

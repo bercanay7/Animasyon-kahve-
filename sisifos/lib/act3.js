@@ -133,11 +133,13 @@ shot(S('D06') - .25, (ctx, st) => {
   const gy = 900;
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(-300, gy, W + 600, 400);
   column(ctx, 1010, 80, gy, 80, '#2A140C', '#6A3020');
+  // zincirler bileklerden sütuna ve yere bağlı (figürün arkasından geçer)
+  chain(ctx, [[1004, 604], [1012, 520], [1012, 300]], 22, '#E1B07A', '#5A2A16', 6);
+  chain(ctx, [[1010, 612], [1060, 760], [1010, gy]], 22, '#E1B07A', '#5A2A16', 6);
   figure(ctx, { x: 960, y: gy - 25.5 * 6.6, s: 6.6, lk: LK.thanatos, sty: STY.red, cutCol: '#0D0605',
     p: { torso: .45, neck: .4, head: .5, hipN: 1.35, knN: 1.45, hipF: -.05, knF: 1.62, ankF: -1.4, wingSpread: .38, wingF: 0, handN: 'fist', handF: 'fist', brow: -1, blink: .4 },
     ik: { hN: [1000, 600], hF: [1016, 612] } });
-  chain(ctx, [[1000, 600], [1010, 520], [1010, 300]], 22, '#E1B07A', '#5A2A16', 6);
-  chain(ctx, [[1010, 640], [1060, 760], [1010, gy]], 22, '#E1B07A', '#5A2A16', 6);
+  shackle(ctx, 1018, 614, 17, .2, '#E1B07A');
   shackle(ctx, 1004, 604, 17, .2, '#E1B07A');
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: 1, grain: .07 } });
@@ -201,7 +203,7 @@ shot(Wd('D08', 'kimsenin') - .15, (ctx, st) => {
   ctx.save(); ctx.translate(sx, sy);
   const z = lerp(1, 1.08, st.p);
   ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
-  figure(ctx, { x: 900, y: 1060, s: 11, lk: LK.ares, hold: { F: HOLD.shield(17) }, p: { torso: -.12, neck: -.25, head: -.4 + Math.sin(lt * 6) * .04, shN: 2.0 + Math.sin(lt * 5) * .12, elN: .5, handN: 'open', shF: 1.7, elF: .6, handF: 'open', brow: -1.8, mouthOpen: .55 + Math.max(0, Math.sin(lt * 7)) * .45 }, margin: 60 });
+  figure(ctx, { x: 820, y: 1060, s: 11, lk: LK.ares, hold: { F: HOLD.shield(17) }, p: { torso: .22, neck: .05, head: .02 + Math.sin(lt * 6) * .04, shN: 1.55 + Math.sin(lt * 9) * .18, elN: 1.15, handN: 'fist', shF: .35, elF: 1.3, handF: 'fist', brow: -1.8, mouthOpen: .55 + Math.max(0, Math.sin(lt * 7)) * .45 }, margin: 60 });
   ctx.restore();
   friezeFrame(ctx, { h: 40 });
 }, { tr: { type: 'cut' }, post: { tex: .8, vig: .9 } });
@@ -209,8 +211,8 @@ shot(Wd('D08', 'kimsenin') - .15, (ctx, st) => {
 // D9 — Ares zinciri kırar, Thanatos serbest kalır…
 shot(S('D09') - .2, (ctx, st) => {
   const t = st.t, lt = st.lt, tb = Wd('D09', 'kurtardı') - .2;
-  ctx.fillStyle = '#140A07'; ctx.fillRect(0, 0, W, H);
-  glow(ctx, 960, 500, 900, 'rgba(160,70,30,.3)');
+  ctx.fillStyle = '#3A1C12'; ctx.fillRect(0, 0, W, H);
+  glow(ctx, 960, 480, 1000, 'rgba(210,110,60,.42)');
   const gy = 900;
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300);
   const broken = t > tb;
@@ -230,8 +232,8 @@ shot(S('D09') - .2, (ctx, st) => {
 // D9b — …ve Sisifos'u kendi elleriyle Ölüm'e teslim eder: Ares iter, Thanatos bileğinden yakalar; kanatlar kapanır
 shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const t = st.t, lt = st.lt, tg = Wd('D09', 'teslim');
-  ctx.fillStyle = '#140A07'; ctx.fillRect(0, 0, W, H);
-  glow(ctx, 1100, 500, 900, 'rgba(160,70,30,.3)');
+  ctx.fillStyle = '#3A1C12'; ctx.fillRect(0, 0, W, H);
+  glow(ctx, 1100, 480, 1000, 'rgba(210,110,60,.42)');
   const gy = 900;
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300);
   const shove = ramp(t, tg - .9, tg + .1, E.io2);
@@ -243,7 +245,7 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
       hipN: .5 * shove, knN: .5 * shove, hipF: -.5 * shove, knF: .7 * shove, brow: 1.6, mouthOpen: .8 },
     onJoints: (J, M) => { wrS = wrW(ctx, M, J, 'N'); } });
   // Ares: arkadan iter (eli Sisifos'un sırtında)
-  figure(ctx, { x: xs - 330, y: gy - 46 * 6.4, s: 6.4, lk: LK.ares, hold: { F: HOLD.spear(100) },
+  figure(ctx, { x: xs - 330, y: gy - 46 * 6.4, s: 6.4, lk: LK.ares,
     p: { torso: .3, neck: -.1, head: -.1, handN: 'open', shF: .3, elF: 1.4, hipN: .6, knN: .4, hipF: -.5, knF: .1, brow: -1.2 },
     ik: { hN: [xs - 70, gy - 46 * 5.6 - 120 + shove * 10] } });
   // Thanatos: kanatlar açık, Sisifos'un bileğini yakalar
