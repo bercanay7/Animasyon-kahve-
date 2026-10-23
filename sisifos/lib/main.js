@@ -13,15 +13,19 @@ function renderFrame(t) {
 }
 // 180° obtüratör: kare süresinin yarısı içinde n alt kare ortalaması
 function renderFrameMB(t, n) {
-  const sh = typeof SHOTS !== 'undefined' ? SHOTS[shotAt(t)] : null;
+  const si = typeof SHOTS !== 'undefined' ? shotAt(t) : -1, sh = si >= 0 ? SHOTS[si] : null;
   if (sh && sh.mb) n = Math.max(n, sh.mb);
   const dt = 1 / FPS * .5;
+  // alt kareler kesmenin öbür yanına taşmaz: her örnek o anki planın [başlangıç, sonraki plan) aralığına kısılır (kesmede tek karelik bindirme olmaz)
+  const lo = sh ? sh.at : 0, hi = si >= 0 && si + 1 < SHOTS.length ? SHOTS[si + 1].at - 1e-4 : Infinity;
   accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';
+  window.FRAME_T = t; // ayrık değişen öğeler (sayaçlar) alt karelerde değil karenin kendisinde değişsin
   for (let i = 0; i < n; i++) {
-    renderFrame(Math.max(0, t + dt * (i / n - .5)));
+    renderFrame(Math.max(0, Math.min(hi, Math.max(lo, t + dt * (i / n - .5)))));
     accx.globalAlpha = 1 / (i + 1);
     accx.drawImage(cv, 0, 0);
   }
+  window.FRAME_T = null;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
   ctx.drawImage(acc, 0, 0);
 }

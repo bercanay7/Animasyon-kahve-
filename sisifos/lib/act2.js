@@ -138,8 +138,9 @@ shot(S('C06') - .2, (ctx, st) => {
   const rel = ramp(t, tf + .5, tf + 1.1, E.io2), lift = ramp(t, tf - 1.1, tf - .45, E.io2) * (1 - rel), strike = ramp(t, tf - .14, tf, E.in3) * (1 - rel);
   const ax = lerp(1110, 1360, ramp(t, tf + .9, ts - .3, E.io2)), dxA = ax - 1110;
   const hand = [lerp(lerp(990, 968, lift), 948, strike) + dxA, lerp(lerp(500, 360, lift), 470, strike)];
-  figure(ctx, { x: ax, y: gy - 47 * 6.0, s: 6.0, dir: -1, lk: LK.asopos, extra: asoposWaves,
-    p: { torso: .12 + strike * .12, neck: .1, head: .25, shF: .2, elF: .4, hipN: .2, hipF: -.15, handN: 'fist', brow: -.3 }, ik: { hN: hand } });
+  // Asopos geri geri adımlarla çekilir (ayaklar zeminde kilitli; kayma yok)
+  walkScene(ctx, null, ax, 6.0, t, -1, { noCam: true, ground: FLAT(gy), dist: -ax, stride: 30, lk: LK.asopos, extra: asoposWaves,
+    p: { torso: .12 + strike * .12, neck: .1, head: .25, shF: .2, elF: .4, handN: 'fist', brow: -.3 }, ik: { hN: hand } });
   // asa (dünya koordinatında): ucu vuruşta kayanın tepesine değer
   { const tip = [hand[0] - 6, hand[1] + 258], dx = hand[0] - tip[0], dy = hand[1] - tip[1], L = Math.hypot(dx, dy);
     const top = [tip[0] + dx / L * 520, tip[1] + dy / L * 520];
@@ -154,7 +155,7 @@ shot(S('C06') - .2, (ctx, st) => {
   const sx = lerp(220, 470, ramp(t, tf + .6, ts, E.io2)); // pınarın solunda durur (fıskiyelerin içine girmez)
   if (t < ts - .1) walkScene(ctx, null, sx, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: sx, lk: LK.sisKing, p: { smile: .6 } });
   else figure(ctx, { x: 470, y: gy - 47 * 5.0, s: 5.0, lk: LK.sisKing, p: { torso: .25 * lean, neck: .1, head: -.1, shN: lerp(.2, 2.9, lean), elN: .2, handN: 'point', shF: .4, elF: 1.6, smile: 1, hipN: .1, hipF: -.1 } });
-}, { tr: { type: 'fade', dur: .4 }, post: { tex: .9, vig: .8 } });
+}, { tr: { type: 'cut' }, post: { tex: .9, vig: .8 } });
 
 // C7 — çeşme evi, mutlu şehir; sonra gök kararır
 shot(S('C07') - .2, (ctx, st) => {

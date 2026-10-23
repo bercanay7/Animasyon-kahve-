@@ -2,7 +2,7 @@
 'use strict';
 const TP = { tex: .55, vig: 1, grain: .06 };
 // F1 — dev kaya düşer
-shot(S('F01') - .3, (ctx, st) => {
+shot(S('F01') - .6, (ctx, st) => {
   const t = st.t, lt = st.lt, tc = Wd('F01', 'ceza');
   const fall = ramp(t, tc - .9, tc, E.in2);
   const c = { x: 160, y: 560, z: .72 };
@@ -17,7 +17,7 @@ shot(S('F01') - .3, (ctx, st) => {
   ctx.restore();
   walkScene(ctx, c, -760, 4.0, t, 1, { dist: 0, neck: -.1, head: -.2 - (1 - fall) * .3, lean: -.06 + ramp(t, tc, tc + .2) * -.1, p: { brow: 1 } });
   chapterCard(ctx, 'BÖLÜM V', 'CEZA', lt - .2, 3.0);
-}, { tr: { type: 'black', dur: 1.0 }, post: TP });
+}, { tr: { type: 'fade', dur: .6 }, post: TP });
 
 // F2 — tepeye doğru kaydırma ve geri
 shot(S('F02') - .2, (ctx, st) => {
@@ -45,9 +45,9 @@ shot(S('F03') - .2, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   ctx.setLineDash([22, 22]); ctx.strokeStyle = 'rgba(240,210,160,.85)'; ctx.lineWidth = 7;
   ctx.beginPath(); let first = true;
-  for (let x = -250; x <= lerp(-250, HILL.sx, q); x += 20) { const y = hillY(x) - 220; first ? ctx.moveTo(x, y) : ctx.lineTo(x, y); first = false; }
+  for (let x = -250; x <= lerp(-250, HILL.sx, q); x += 20) { const y = hillY(x) - 18; first ? ctx.moveTo(x, y) : ctx.lineTo(x, y); first = false; } // yol yamacın üstünden zirveye
   ctx.stroke(); ctx.setLineDash([]);
-  if (q > .95) txt(ctx, 'ZİRVE', HILL.sx, HILL.sy - 300, { font: '700 64px Cinzel', col: '#F3E2BC', ls: 14, a: ramp(t, tz + 1, tz + 1.5) });
+  if (q > .95) txt(ctx, 'ZİRVE', HILL.sx - 560, HILL.sy - 130, { font: '700 64px Cinzel', col: '#F3E2BC', ls: 14, a: ramp(t, tz + 1, tz + 1.5) }); // ay diskinin üstüne binmez
   ctx.restore();
   pushScene(ctx, c, -300, 150, 4.0, t, { dist: -300, handsOff: 1 - ramp(lt, .1, .8), strain: .5 });
 }, { tr: { type: 'fade', dur: .4 }, post: TP });
@@ -119,7 +119,7 @@ shot(S('F05') - .1, (ctx, st) => {
     const up = ramp(t, tStand, tStand + .9, E.io2);
     walkScene(ctx, c, ro.X + 30, 4.0, t, -1, { dist: 0, lean: lerp(.6, .15, up), neck: .3, head: .45, p: { shN: lerp(.4, 1.2, up), elN: .6, shF: lerp(.2, 2.1, up), elF: 1.0, handN: 'open', handF: 'open', brow: 1.2, mouthOpen: .55, hipN: lerp(1.0, .1, up), knN: lerp(1.6, .1, up), hipF: lerp(.6, -.1, up), knF: lerp(1.4, .1, up) } });
   }
-}, { tr: { type: 'cut' }, post: TP });
+}, { tr: { type: 'cut' }, post: TP, mb: 14 });
 
 shot(S('F06') - .2, (ctx, st) => {
   const t = st.t, lt = st.lt, ty = Wd('F06', 'yeniden');
@@ -170,7 +170,7 @@ shot(S('F07') - .2, (ctx, st) => {
     pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 2 });
     txt(ctx, '1000. YIL', 160, 120, { font: '700 48px Cinzel', col: '#F0D2A8', ls: 10, align: 'left', a: .95, shadow: 'rgba(0,0,0,.6)', blur: 10 });
   }
-}, { tr: { type: 'fade', dur: .35 }, post: TP });
+}, { tr: { type: 'cut' }, post: TP });
 
 // F8 — yakın plan ve alıntı
 shot(S('F08') - .2, (ctx, st) => {

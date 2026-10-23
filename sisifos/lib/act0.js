@@ -121,7 +121,7 @@ shot(S('A04') - .2, (ctx, st) => {
   pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: Math.max(ant * .6, pr * .5 * (1 - ro.rise(t))),
     handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk,
     rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
-}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
+}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 }, mb: 14 });
 
 shot(Wd('A04', 'aşağı') - .1, (ctx, st) => {
   const t = st.t;
@@ -139,7 +139,7 @@ shot(Wd('A04', 'yeniden') - .15, (ctx, st) => {
   tartarosBG(ctx, t, c, {});
   tartarosHill(ctx, c, { groove: .4 });
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, handsOff: 1 - ramp(st.lt, 0, .45, E.out3) });
-}, { tr: { type: 'fade', dur: .3 }, post: { tex: .55, vig: 1, grain: .06 } });
+}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 
 // A5 — BAŞLIK
 shot(S('A05') - .6, (ctx, st) => {

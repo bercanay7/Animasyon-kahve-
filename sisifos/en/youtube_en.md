@@ -3,7 +3,9 @@
 Use these when adding the English audio track ("Languages → Add language → English → Audio: upload `sisifos_en.m4a`") and English title/description translations in YouTube Studio, or when uploading `sisifos_en_master.mp4` as a separate English video (thumbnail: `en/kapak_en.png`).
 
 ## Title
-**Sisyphus: The Man Who Chained Death — and Why Camus Called Him Happy**
+**Why Must We Imagine Sisyphus Happy? | Camus and the Absurd** (the thumbnail carries the myth hook: "HE CHAINED DEATH")
+
+Alternative: Sisyphus: The Man Who Chained Death — and Why Camus Called Him Happy
 
 ## Description
 A king who put Death in chains, fooled the gods twice… and was sentenced to push a boulder up a hill forever.

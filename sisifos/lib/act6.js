@@ -9,7 +9,7 @@ shot(S('G01') - .35, (ctx, st) => {
     // yüzyıllar akar: kil frizden kâğıda
     const p = clamp((t - (S('G01') - .35)) / (td - .3 - (S('G01') - .35)));
     clayBG(ctx, mixCol(C.clayL, C.paper, E.io2(p)), mixCol(C.clayD, C.paperD, E.io2(p)));
-    const pq = clamp((Math.floor(t * 30 + 1e-6) / 30 - (S('G01') - .35)) / (td - .3 - (S('G01') - .35)));
+    const pq = clamp((Math.floor((window.FRAME_T ?? t) * 30 + 1e-6) / 30 - (S('G01') - .35)) / (td - .3 - (S('G01') - .35)));
     const yr = Math.round(lerp(-700, 1942, E.in2(pq)) / 10) * 10;
     const lab = yr < 0 ? `MÖ ${-yr}` : `MS ${Math.max(1, yr)}`;
     ctx.save(); ctx.translate(-((lt * 900) % 1600), 0);
@@ -73,7 +73,7 @@ shot(S('G01') - .35, (ctx, st) => {
     }
   }
   chapterCard(ctx, 'BÖLÜM VI', 'CAMUS VE ABSÜRT', st.lt - .25, 3.4);
-}, { tr: { type: 'white', dur: 1.2 }, post: { tex: .3, vig: .5, grain: .045 }, mb: 10 });
+}, { tr: { type: 'white', dur: 1.2 }, post: { tex: .3, vig: .5, grain: .045 }, mb: 16 });
 
 // G3 — modern hayatın döngüsü: "Bütün bunlar ne için?"
 shot(S('G03') - .3, (ctx, st) => {
@@ -131,7 +131,7 @@ shot(S('G04') - .2, (ctx, st) => {
     ctx.beginPath(); poly(ctx, pts.slice(0, n), false); ctx.stroke(); ctx.restore();
     txtReveal(ctx, 'ABSÜRT', 1570, 440, ramp(t, tc + .5, tc + 2.0, E.lin), { font: '700 110px Cinzel', col: '#F3E6C8', ls: 30, rise: 0 });
   }
-  quote(ctx, 'anlam arayan insan  ·  sessiz kalan dünya', W / 2, 160, 1600, t - Wd('G04', 'anlam') + .1, { font: 'italic 600 56px "Cormorant Garamond"', col: '#E2D6BC', shadow: 'rgba(0,0,0,.5)', blur: 10 });
+  quote(ctx, 'anlam arayan insan  ·  sessiz kalan dünya', W / 2 - 170, 160, 1400, t - Wd('G04', 'anlam') + .1, { font: 'italic 600 56px "Cormorant Garamond"', col: '#E2D6BC', shadow: 'rgba(0,0,0,.5)', blur: 10 });
 }, { tr: { type: 'black', dur: .8 }, post: { tex: .2, vig: .9, grain: .06 } });
 
 // G5 — Tartaros'a dönüş: kaya yuvarlanır, ağır ama kararlı iniş
@@ -162,12 +162,12 @@ shot(S('G05') - .3, (ctx, st) => {
       walkScene(ctx, c, ro.X + 30, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: lerp(.6, .05, up), p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2, hipN: lerp(1.0, .05, up), knN: lerp(1.6, .05, up), hipF: lerp(.6, -.05, up), knF: lerp(1.4, .05, up) } });
     }
   } else {
-    const x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, st.end, E.lin));
-    const c = { x: x - 40, y: hillY(x) - 230, z: .95 };
+    const x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, st.end, E.lin)), xm = (G5.ro.X + 30 + 640) / 2;
+    const c = { x: xm - 40, y: hillY(xm) - 230, z: .95 }; // sabit kamera: yamaçtan aşağı inişi kadrajın içinde görürüz (yerinde yürüme etkisi yok)
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
     walkScene(ctx, c, x, 4.0, t, -1, { lean: -.04, neck: .05, head: .05, stride: 26, p: { brow: 0 } });
   }
-}, { tr: { type: 'clay', dur: 1.0 }, post: TP });
+}, { tr: { type: 'clay', dur: 1.0 }, post: TP, mb: 14 });
 
 // G6 — iniş: orta plan → ayaklar ("bilincin saati") → yüz ("farkındadır") → geniş: aşağıda bekleyen kaya ("kayasından daha güçlüdür")
 function drawG6(ctx, t, cf) {
@@ -210,7 +210,20 @@ shot(S('G07') - .2, (ctx, st) => {
   walkScene(ctx, c, xs, 4.0, t, 1, { dist: 0, lean: .04 - tall * .06, neck: -.1 - tall * .15, head: -.15 - tall * .25,
     p: { shF: .1, elF: .3, handN: 'flat', brow: .2 - tall * .3, smile: tall * .3, breath: Math.sin(t * 1.4) * 1.0 },
     ik: { hN: [lerp(xs + 60, contact[0], hand), lerp(hillY(xs) - 100, contact[1], hand)] } });
-}, { tr: { type: 'fade', dur: .5 }, post: TP });
+}, { tr: { type: 'cut' }, post: TP });
+// G7b — "ama onu ezemediler de": eylem üstünde kesme; omzunu verir, tüm ağırlığıyla iter, kaya yerinden oynar
+shot(Wd('G07', 'ama') - .12, (ctx, st) => {
+  const t = st.t, lt = st.lt, te = Wd('G07', 'ezemediler');
+  const w = .6 + warmAt(t) * .35;
+  const mv = ramp(t, te - .25, st.end + .4, E.in2), xr = -470 + mv * 46;
+  const c = { x: xr + 40, y: hillY(xr) - 210, z: lerp(1.3, 1.4, E.sine(clamp(lt / st.d))) };
+  c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
+  tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
+  ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te - .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 9); ctx.restore();
+  const set = ramp(lt, 0, .45, E.out3);
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, te + .5, te + 1.2) * .4), T: lerp(.95, 1.12, set), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
+    rockAng: -3.1 + mv * 46 / 150, jitter: ramp(t, te - .3, te + .2) * (1 - ramp(t, te + .4, te + .9)) * .8, light: -1.2 });
+}, { tr: { type: 'cut' }, post: TP });
 
 // G8 — kitabın son sayfası
 shot(S('G08') - .2, (ctx, st) => {
@@ -250,7 +263,9 @@ shot(S('G10') - .3, (ctx, st) => {
   const push = ramp(t, tm - .5, tm + 1.4, E.io3);
   const z = lerp(2.5, 2.7, E.sine(clamp(lt / st.d))) + push * .9;
   const c = { x: P.head[0] + lerp(70, 60, push), y: P.head[1] + lerp(70, 35, push), z };
-  tartarosBG(ctx, t, c, { warm: 1, diskX: P.head[0] + 260, diskY: P.head[1] - 260, diskR: 300 });
+  // güneş G9'daki gibi ekranın sağında kalır (paralaks .15 katmanında ekran konumundan geri hesaplanır)
+  const zk = 1 + (c.z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
+  tartarosBG(ctx, t, c, { warm: 1, diskX: cxk + (1560 - W / 2) / zk, diskY: cyk + (330 - H / 2) / zk, diskR: 300 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
   pushScene(ctx, c, xr, 150, 4.0, t, po);
   motes(ctx, t, 50, 33, 'rgba(255,225,160,.85)', [0, 0, W, H], 12, 2.2, .7);

@@ -196,7 +196,7 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
   const fN = gait(d, S2, 6 * s, 0), fF = gait(d, S2, 6 * s, .5);
   const footPos = f => { const fx = x + (f.x - d) * dir; return [fx, hillY(fx) - 3 * s - f.lift, -(hillAng(fx) * dir + f.heel)]; };
   // kalça yüksekliği: duruş bacağı neredeyse düz kalacak kadar yüksek (çömelmiş yürüyüşü önler)
-  const L = (o.legL || 43.4) * s * .955, PF = [footPos(fN), footPos(fF)]; // hafif dizle: ne çömelme ne parmak ucu
+  const L = (o.legL || 43.4) * s * .968, PF = [footPos(fN), footPos(fF)]; // hafif dizle: ne çömelme ne parmak ucu
   let py = -1e9;
   for (const [fx, fy] of PF) { const dx = Math.min(Math.abs(fx - x), L * .97); py = Math.max(py, fy - Math.sqrt(L * L - dx * dx)); }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);

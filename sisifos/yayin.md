@@ -24,7 +24,7 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 ## 1. Uzun video
 1. YouTube Studio'da **Oluştur → Video yükle** ile `sisifos_master.mp4` dosyasını seçin.
 2. **Ayrıntılar** sekmesi:
-   - Başlık: `Sisifos: Ölümü Zincirleyen Adam Neden Mutlu? | Camus ve Absürt`
+   - Başlık: `Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt`
    - Açıklama: `youtube.md` içindeki "Açıklama" bölümünün tamamı (bölüm zaman damgaları dahil).
    - Küçük resim: `kapak.png`.
    - Kitle: "Hayır, çocuklara özel değil".
@@ -59,7 +59,7 @@ Yükleme işlendikten sonra videonun sayfasında: **Altyazılar** (Languages) �
      ```
    - Etiketler: Sisifos, Sisyphus, Camus, Yunan mitolojisi, mitoloji, absürt, felsefe, shorts
    - Kitle: çocuklara özel değil. Kategori: Eğitim.
-3. **İlgili video:** uzun video (Sisifos: Ölümü Zincirleyen Adam…). Uzun video yayında değilse de planlanmış videolar listede görünür; görünmüyorsa uzun video yayınlandıktan sonra eklenir.
+3. **İlgili video:** uzun video (Sisifos'u Neden Mutlu Hayal Etmeliyiz?…). Uzun video yayında değilse de planlanmış videolar listede görünür; görünmüyorsa uzun video yayınlandıktan sonra eklenir.
 4. **Görünürlük:** Planla → 25.10.2026, 18:00 (GMT+3).
 
 ## 4. Yayından sonra

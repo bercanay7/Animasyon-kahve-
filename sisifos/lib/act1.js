@@ -158,22 +158,22 @@ shot(Wd('B03', 'homeros') - .2, (ctx, st) => {
 shot(S('B04') - .85, (ctx, st) => {
   const t = st.t, lt = st.lt, tr = Wd('B04', 'rengini'), ts = Wd('B04', 'sisifosun');
   if (t >= ts - .1) return drawB4b(ctx, st, ts);
-  nightSky(ctx);
+  clayBG(ctx, '#64301E', '#2E140C'); // gece, ama siluetler okunacak kadar açık
   stars(ctx, t, 180, 9, 'rgba(255,230,190,.8)', [0, 0, W, H * .55]);
   disk(ctx, 1520, 200, 70, '#F2E3C2', 'rgba(255,235,190,.25)');
   const gy = 860;
   ctx.fillStyle = '#140A07'; ctx.fillRect(0, gy, W, H - gy); ctx.fillStyle = '#6A3220'; ctx.fillRect(0, gy, W, 3);
   // çit
   ctx.fillStyle = '#140A07'; for (let k = 60; k < 1300; k += 90) ctx.fillRect(k, gy - 90, 10, 90); ctx.fillRect(40, gy - 76, 1270, 8); ctx.fillRect(40, gy - 40, 1270, 8);
-  const cows = [[190, 0], [520, .3], [850, .6]];
-  for (const [cx, ph] of cows) cow(ctx, cx, gy, 2.4, 1, ph, { walk: 0, head: .25 + Math.sin(t + ph * 5) * .08, col: '#140A07', inc: '#8E4A2E' });
+  const cows = [[110, 0], [400, .3], [690, .6]];
+  for (const [cx, ph] of cows) cow(ctx, cx, gy, 2.0, 1, ph, { walk: 0, head: .25 + Math.sin(t + ph * 5) * .08, col: '#140A07', inc: '#B0603A' });
   // Autolykos sağdan sinsice gelir
-  const ax = lerp(1750, 1260, ramp(lt, 0, 3.4, E.io2));
+  const ax = lerp(1800, 1390, ramp(lt, 0, 3.4, E.io2));
   const sneak = { lean: .35, neck: -.2, head: .1, stride: 40, p: { shN: .9, elN: 1.3, shF: -.4, elF: 1.4, handN: 'open', handF: 'open', brow: -.5 } };
   const gone = ramp(t, tr + 1.2, tr + 3.2, E.io2);
   // çalınan inek: renk değiştirir
   const col = t < tr ? '#140A07' : mixCol('#140A07', C.white, ramp(t, tr, tr + .8));
-  const ccx = 1120 + gone * 520;
+  const ccx = 1090 + gone * 520;
   cow(ctx, ccx, gy, 2.6, gone > 0 ? 1 : -1, gone > 0 ? lt * .7 : 0, { walk: gone > 0 ? 1 : 0, col, inc: t < tr ? '#8E4A2E' : C.ink, farCol: col });
   if (t > tr && t < tr + 1.2) for (let i = 0; i < 10; i++) sparkle(ctx, ccx - 120 + hash(i) * 240, gy - 160 + hash(i + 9) * 120, 14, clamp(1 - Math.abs(t - tr - .4 - hash(i) * .5) * 3));
   flatWalk(ctx, ax + gone * 520, gy, 4.2, t, gone > 0 ? 1 : -1, { lk: LK.autolykos, dist: lt * 50, ...sneak });
@@ -279,7 +279,7 @@ shot(S('B06') - .3, (ctx, st) => {
   const tilt = ramp(t, tn - .2, tn + 2.4, E.io3);
   daySky(ctx);
   const gy = 880;
-  const c = { x: 960, y: lerp(560, 300, tilt), z: lerp(1, .9, tilt) };
+  const c = { x: 960, y: lerp(560, 350, tilt), z: lerp(1, .9, tilt) };
   ctx.save(); cam(ctx, c, .3);
   const dark = ramp(t, tn + .4, tn + 3.2);
   // üç sıra fırtına bulutu: kamera yukarı döndükçe kadrajı doldurur; en üst sıranın üstü kesintisiz bulut örtüsü (çentik/boşluk yok)

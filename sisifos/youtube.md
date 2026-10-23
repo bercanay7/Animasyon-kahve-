@@ -1,9 +1,9 @@
 # YouTube yükleme bilgileri
 
 ## Başlık (öneriler)
-1. **Sisifos: Ölümü Zincirleyen Adam Neden Mutlu? | Camus ve Absürt**
-2. Tanrıları İki Kez Kandıran Adam: Sisifos'un Hikâyesi
-3. Sisifos Efsanesi ve Camus: Kayayı İten Adamı Mutlu Hayal Etmek
+1. **Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt** (önerilen: kapak efsanenin kancasını, başlık Camus'nün kancasını taşır; birbirini tekrar etmez)
+2. Sisifos: Ölümü Zincirleyen Adam Neden Mutlu? | Camus ve Absürt
+3. Tanrıları İki Kez Kandıran Adam: Sisifos'un Hikâyesi
 
 ## Açıklama
 
