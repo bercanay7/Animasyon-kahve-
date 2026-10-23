@@ -43,15 +43,17 @@ function shortOverlay(g, ts) {
   if (gi >= 0) {
     const gr = groups[gi], a = clamp((ts - gr.s + .05) / .12);
     g.save(); g.font = '800 84px Cinzel'; g.letterSpacing = '2px'; g.textAlign = 'left'; g.textBaseline = 'middle';
+    // tek satıra az farkla sığmayan kısa grup ("SENİN KAYAN NE?") bölünmesin: yazı biraz küçülür
+    { const tot = g.measureText(gr.words.map(w => w.w.toLocaleUpperCase('tr')).join(' ')).width; if (tot > 830 && tot < 830 / .86) g.font = `800 ${Math.floor(84 * 830 / tot)}px Cinzel`; }
     const words = gr.words, sp = g.measureText(' ').width;
-    // satırlara böl (en fazla 900 px)
+    // satırlara böl (en fazla 830 px; merkez 510: sağdaki Shorts düğme sütununa değmez)
     const lines = []; let cur = [], wsum = 0;
-    for (const w of words) { const ww = g.measureText(w.w.toLocaleUpperCase('tr')).width; if (cur.length && wsum + sp + ww > 860) { lines.push(cur); cur = []; wsum = 0; } cur.push({ ...w, ww }); wsum += (cur.length > 1 ? sp : 0) + ww; }
+    for (const w of words) { const ww = g.measureText(w.w.toLocaleUpperCase('tr')).width; if (cur.length && wsum + sp + ww > 830) { lines.push(cur); cur = []; wsum = 0; } cur.push({ ...w, ww }); wsum += (cur.length > 1 ? sp : 0) + ww; }
     if (cur.length) lines.push(cur);
     const y0 = capY - (lines.length - 1) * 54;
     lines.forEach((ln, li) => {
       const tw = ln.reduce((q, w) => q + w.ww, 0) + sp * (ln.length - 1);
-      let x = SHW / 2 - tw / 2;
+      let x = 510 - tw / 2;
       for (const w of ln) {
         const on = ts >= w.s - .03, cur2 = on && ts < w.e + .05;
         const pop = cur2 ? 1 + .06 * clamp(1 - (ts - w.s) / .15) : 1;

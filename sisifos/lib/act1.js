@@ -257,7 +257,7 @@ shot(S('B05') - .3, (ctx, st) => {
       ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(0, 30, 190, 150, 0, 0, TAU); ctx.fill();
       ctx.fillStyle = '#4A2C1C'; ctx.beginPath(); ctx.ellipse(-82, 30, 80, 120, -.12, 0, TAU); ctx.ellipse(82, 30, 80, 120, .12, 0, TAU); ctx.fill();
       const q = ramp(lt, 1.0, 5.0, E.lin);
-      const word = ['AUTO', 'LYKOS'];
+      const word = LA(['AUTO', 'LYKOS']);
       ctx.save(); ctx.beginPath(); ctx.rect(-170, -100, 340 * Math.min(1, q * 2), 140); ctx.clip();
       txt(ctx, word[0], -82, 30, { font: '700 44px Cinzel', col: '#E8C9A0', ls: 2 }); ctx.restore();
       ctx.save(); ctx.beginPath(); ctx.rect(-10, -100, 340 * Math.max(0, q * 2 - 1), 140); ctx.clip();
@@ -275,7 +275,7 @@ shot(S('B05') - .3, (ctx, st) => {
     ctx.save(); cam(ctx, c, 1);
     ctx.fillStyle = '#9C4A27'; ctx.fillRect(-500, gy, 3200, 70);
     ctx.fillStyle = C.ink; ctx.fillRect(-500, gy + 70, 3200, 400);
-    const words = ['BENİ', 'AUTOLYKOS', 'ÇALDI'];
+    const words = LA(['BENİ', 'AUTOLYKOS', 'ÇALDI']);
     const cx = 200 + u * 260;
     // her kelime, toynak geçince damgalanır
     let wx = 300;

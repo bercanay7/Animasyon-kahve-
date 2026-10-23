@@ -27,12 +27,16 @@ for op, i1, i2, j1, j2 in sm.get_opcodes():
         j = j1 + min(k, max(0, j2 - j1 - 1)) if j2 > j1 else max(0, j1 - 1)
         words[i1 + k] = {'w': SCRIPT[i1 + k], 's': round(hw2[j]['s'] + VO_OFF, 3), 'e': round(hw2[j]['e'] + VO_OFF, 3)}
 # altyazı grupları: noktalama ya da en fazla 3 sözcük
+# anlam öbeğini bölmemek için zorunlu kesme noktaları ("Sonunda tanrılar / en korkunç cezayı verdi:", "Ama iki bin yıl sonra / Albert Camus,", "“Sisifos'u mutlu / hayal etmek gerekir.”")
+FB = {'tanrılar', 'sonra', 'mutlu'}
 groups, cur = [], []
 P = '.,:?!…”'
 for i, w in enumerate(words):
     cur.append(w)
-    rest = next((k for k in range(i + 1, len(words)) if words[k]['w'][-1] in P), len(words) - 1) - i  # sonraki noktalamaya kalan sözcük
-    if w['w'][-1] in P or (len(cur) >= 3 and rest > 1) or len(cur) == 4:
+    nxp = next((k for k in range(i + 1, len(words)) if words[k]['w'][-1] in P), len(words) - 1)
+    rest = nxp - i  # sonraki noktalamaya kalan sözcük
+    fb_ahead = any(words[k]['w'] in FB for k in range(i + 1, nxp + 1)) and len(cur) < 5
+    if w['w'][-1] in P or w['w'] in FB or (not fb_ahead and ((len(cur) >= 3 and rest > 1) or len(cur) == 4)):
         groups.append({'s': cur[0]['s'], 'e': cur[-1]['e'], 'words': cur}); cur = []
 if cur: groups.append({'s': cur[0]['s'], 'e': cur[-1]['e'], 'words': cur})
 for i in range(len(groups) - 1): groups[i]['e'] = min(groups[i]['e'] + .25, groups[i + 1]['s'] - .02)

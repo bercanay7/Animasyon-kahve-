@@ -62,12 +62,12 @@ shot(S('G01') - .35, (ctx, st) => {
       }
       ctx.save(); ctx.translate(-250, 0); ctx.scale(Math.cos(open * PI * .95), 1);
       ctx.fillStyle = '#E9DEC6'; ctx.fillRect(0, -330, 500, 640); ctx.strokeStyle = C.inkSoft; ctx.lineWidth = 6; ctx.strokeRect(14, -316, 472, 612);
-      if (open < .5) {
-        txt(ctx, 'ALBERT CAMUS', 250, -230, { font: '600 34px Cinzel', col: C.inkSoft, ls: 6 });
-        txt(ctx, 'Le Mythe', 250, -120, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F' });
-        txt(ctx, 'de Sisyphe', 250, -50, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F' });
-        txt(ctx, 'Sisifos Söyleni', 250, 60, { font: '600 36px Cinzel', col: C.inkSoft, ls: 2 });
-        txt(ctx, '1942', 250, 250, { font: '400 40px "Courier Prime"', col: C.inkSoft });
+      if (open < .5) { // kitap kapağı sahnenin parçasıdır: Shorts'ta (notext) da görünür
+        txt(ctx, 'ALBERT CAMUS', 250, -230, { font: '600 34px Cinzel', col: C.inkSoft, ls: 6, force: true });
+        txt(ctx, 'Le Mythe', 250, -120, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F', force: true });
+        txt(ctx, 'de Sisyphe', 250, -50, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F', force: true });
+        txt(ctx, 'Sisifos Söyleni', 250, 60, { font: '600 36px Cinzel', col: C.inkSoft, ls: 2, force: true });
+        txt(ctx, '1942', 250, 250, { font: '400 40px "Courier Prime"', col: C.inkSoft, force: true });
       }
       ctx.restore();
       ctx.restore();
@@ -191,7 +191,7 @@ function drawG6(ctx, t, cf, kp) {
   walkScene(ctx, c, x, 4.0, t, -1, { lean: -.02, neck: kp?.neck ?? .02, head: kp?.head ?? -.05, stride: 24, p: { breath: Math.sin(t * 1.6) * 1.4, blink: kp?.blink, brow: 0 } });
   return x;
 }
-shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 330, z: 2.3 })), { tr: { type: 'cut' }, post: TP });
+shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 205, z: 2.0 })), { tr: { type: 'cut' }, post: TP }); // boydan, az baş boşluğu
 // "Camus'ye göre bu, bilincin saatidir … Sisifos o an kaderinin tamamen farkındadır": göğüs planından yüze tek, yavaş itiş (atlama kesmesi yok).
 // Alıntı itiş hızlanmadan söner; "farkındadır"da başını kaldırır, gözleri açılır; yüz "tam"a kadar tutulur.
 shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
@@ -217,8 +217,10 @@ shot(S('G07') - .2, (ctx, st) => {
   const hand = ramp(lt, .3, 1.3, E.io2), tall = ramp(t, te - .4, te + .6, E.io2);
   const rc = [xr + n[0] * 150, hillY(xr) + n[1] * 150];
   ctx.save(); cam(ctx, c, 1); boulder(ctx, rc[0], rc[1], 150, -3.1, { shadow: false, light: -1.2 }); ctx.restore();
-  const xs = rc[0] - 215, contact = [rc[0] + Math.cos(PI + .55) * 156, rc[1] + Math.sin(PI + .55) * 156];
-  walkScene(ctx, c, xs, 4.0, t, 1, { dist: 0, lean: .04 - tall * .06, neck: -.1 - tall * .15, head: -.15 - tall * .25,
+  // "Tanrılar ona bir anlam vermedi": eli kayaya oturduktan sonra ağırlığını verip kayaya yaslanır (G7b'deki itişe hazırlık)
+  const lean = ramp(t, Wd('G07', 'tanrılar') - .2, Wd('G07', 'ama') - .1, E.io2);
+  const xs = rc[0] - 215 + lean * 18, contact = [rc[0] + Math.cos(PI + .55) * 156, rc[1] + Math.sin(PI + .55) * 156];
+  walkScene(ctx, c, xs, 4.0, t, 1, { dist: 0, lean: .04 + lean * .3 - tall * .06, neck: -.1 + lean * .12 - tall * .15, head: -.15 + lean * .1 - tall * .25,
     p: { shF: .1, elF: .3, handN: 'flat', brow: .2 - tall * .3, smile: tall * .3, breath: Math.sin(t * 1.4) * 1.0 },
     ik: { hN: [lerp(xs + 60, contact[0], hand), lerp(hillY(xs) - 100, contact[1], hand)] } });
 }, { tr: { type: 'cut' }, post: TP });
@@ -263,7 +265,7 @@ shot(S('G09') - .25, (ctx, st) => {
   tartarosBG(ctx, t, c, { warm: w, diskX: 1480, diskY: 560, diskR: 230 }); tartarosHill(ctx, c, { groove: .9, warm: w });
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: .6 });
   motes(ctx, t, 60, 12, 'rgba(255,220,150,.8)', [0, 0, W, H], 16, 2, .6);
-  quote(ctx, '“Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”', W / 2, 190, 1500, lt - .3, { font: 'italic 600 64px "Cormorant Garamond"', col: '#FFF0D0', lh: 80, shadow: 'rgba(40,15,5,.7)', blur: 16, stagger: .9 });
+  quote(ctx, '“Zirvelere doğru verilen mücadelenin kendisi,\nbir insan yüreğini doldurmaya yeter.”', W / 2, 190, 1500, lt - .3, { font: 'italic 600 64px "Cormorant Garamond"', col: '#FFF0D0', lh: 80, shadow: 'rgba(40,15,5,.7)', blur: 16, stagger: .9 });
 }, { tr: { type: 'fade', dur: .7 }, post: TP });
 
 // G10 — doruk: gülümseme

@@ -38,7 +38,7 @@ function buildStrip(t = 0, reveal = 1) {
     } else {
       const P = pushScene(tx, null, xr, R, 3.3, t + i * 1.3, { noCam: true, ground: g, dist: xr + i * 13 + t * 12, lk: sc.lk, light: -2.3, cutCol: '#C8693D', T: 1.1, hA: .85, hB: .85 });
       if (sc.label) { // büyük etiket; iki kelimeli etiket iki satıra
-        const ls = sc.label.split(' '), big = 120;
+        const ls = L(sc.label).split(' '), big = 120;
         tx.font = `italic 700 ${big}px "Cormorant Garamond"`; const wmax = Math.max(...ls.map(l => tx.measureText(l).width));
         const fs = Math.floor(Math.min(big, big * 1.75 * R / wmax)), lh = fs * .92;
         ls.forEach((l, i) => txt(tx, l, P.cx, P.cy + 10 + (i - (ls.length - 1) / 2) * lh, { font: `italic 700 ${fs}px "Cormorant Garamond"`, col: C.ink, force: true })); }

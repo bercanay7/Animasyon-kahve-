@@ -68,7 +68,7 @@ shot(S('A02') - .12, (ctx, st) => {
   const lt = st.lt;
   // iki pano da kırmızı figür (ölüm ve yeraltı kuralı): siyah zemin, kil renkli figürler
   const RF = { sty: STY.red, cutCol: C.ink };
-  panel('I', 520, 520, 700, 520, t1, (c, w, h) => {
+  panel('I', 520, 520, 700, 520, t1 - .4, (c, w, h) => { // ilk pano kesmeden hemen sonra açılır (boş kil kare kalmaz)
     c.fillStyle = C.ink; c.fillRect(-w / 2, -h / 2, w, h);
     c.fillStyle = '#C7683C'; c.fillRect(-w / 2, 200, w, 4);
     column(c, 40, -200, 200, 46, '#C7683C', C.ink);

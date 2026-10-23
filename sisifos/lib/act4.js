@@ -43,7 +43,7 @@ shot(S('E01') - .3, (ctx, st) => {
   ctx.restore();
   chapterCard(ctx, 'BÖLÜM IV', 'İKİNCİ HİLE', lt - .1, 3.0);
   nameTag(ctx, 'MEROPE', 'Sisifos\'un karısı', 140, 170, t - Wd('E01', 'merope') + .1, 3.0, { col: C.white });
-}, { tr: { type: 'black', dur: 1.0 }, post: { tex: .6, vig: 1, grain: .07 } });
+}, { tr: { type: 'black', dur: .5 }, post: { tex: .6, vig: 1, grain: .07 } }); // D9b zaten iris ile kararır: "Ama"da görüntü açılmış olur
 
 // E2 — fısıltı: üç yasak (gömme, tören, adak)
 shot(S('E02') - .2, (ctx, st) => {

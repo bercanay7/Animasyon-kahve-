@@ -124,6 +124,7 @@ function shake(t, t0, amp, dec = 6, f = 23) {
 const NOTEXT = typeof location !== 'undefined' && new URLSearchParams(location.search).has('notext');
 function txt(ctx, s, x, y, o = {}) {
   if (NOTEXT && !o.force) return;
+  s = L(s);
   ctx.save();
   ctx.font = o.font || '600 48px Cinzel';
   ctx.textAlign = o.align || 'center'; ctx.textBaseline = o.base || 'middle';
@@ -136,6 +137,7 @@ function txt(ctx, s, x, y, o = {}) {
 }
 // Harf harf beliren metin (p: 0..1)
 function txtReveal(ctx, s, x, y, p, o = {}) {
+  s = L(s);
   ctx.save(); ctx.font = o.font || '600 48px Cinzel'; if (o.ls) ctx.letterSpacing = o.ls + 'px';
   const wTot = ctx.measureText(s).width; ctx.restore();
   let cx = x - (o.align === 'left' ? 0 : wTot / 2);
@@ -152,6 +154,7 @@ function txtReveal(ctx, s, x, y, p, o = {}) {
 // Bölüm kartı
 function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   if (NOTEXT) return;
+  num = L(num); title = L(title);
   // vazo etiketi gibi kil levha: her zeminde okunur
   const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
   if (a <= 0) return;
@@ -194,9 +197,11 @@ function softPanel(ctx, x, y, rx, ry, a = .7, col = '20,8,4') {
 }
 // Alıntı tipografisi (satır kırma ile)
 function quote(ctx, s, x, y, maxW, lt, o = {}) {
+  s = L(s);
   const font = o.font || 'italic 500 56px "Cormorant Garamond"', lh = o.lh || 70;
   ctx.save(); ctx.font = font;
-  const words = s.split(' '), lines = []; let cur = '';
+  // \n ile verilen satır kırma (çeviride dengeli satırlar) yoksa genişliğe göre kır
+  const words = s.includes('\n') ? [] : s.split(' '), lines = s.includes('\n') ? s.split('\n') : []; let cur = '';
   for (const w of words) { const tt = cur ? cur + ' ' + w : w; if (ctx.measureText(tt).width > maxW && cur) { lines.push(cur); cur = w; } else cur = tt; }
   if (cur) lines.push(cur);
   ctx.restore();

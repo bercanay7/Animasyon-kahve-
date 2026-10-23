@@ -125,6 +125,19 @@ def s_thud(**_):
     y = np.sin(2 * np.pi * np.cumsum(55 + 50 * np.exp(-t * 25)) / SR) * np.exp(-t * 9) + lp(rng.standard_normal(n), 500) * np.exp(-t * 35) * .7
     return norm(np.tanh(1.5 * y))
 
+def s_thump(rate=1, **_):
+    """küçük hoparlörde duyulan çarpma: 160 Hz-1 kHz gövde + 300 Hz-2 kHz toz/çakıl taneleri (telefonda kaya/beden darbesi kaybolmasın)"""
+    n = int(.45 * SR); t = np.arange(n) / SR
+    y = sum(a * np.sin(2 * np.pi * f * rate * t + ph) * np.exp(-t * d) for f, a, d, ph in [(165, .8, 20, 0), (290, 1, 25, .5), (520, .6, 33, 1.1), (910, .28, 46, .3)])
+    y += bp(rng.standard_normal(n), 300, 2000) * np.exp(-t * 42) * .9
+    gr = np.zeros(n)
+    for _k in range(22):
+        i = int(rng.exponential(.06) * SR)
+        if i < n: gr[i] += rng.uniform(.3, 1) * rng.choice([-1, 1])
+    y += bp(gr, 700, 3200) * 2.2
+    y *= np.minimum(1, t / .002)
+    return norm(np.tanh(1.3 * y))
+
 def s_sting(rate=1, **_):
     n = int(2.2 * SR); t = np.arange(n) / SR
     y = np.zeros(n)
@@ -186,13 +199,13 @@ def s_room(len=10, **_):
     y = lp(rng.standard_normal(n), 380, 2) + .3 * lp(rng.standard_normal(n), 1800, 2)
     return norm(y, .5)
 
-SYNTH = dict(whoosh=s_whoosh, boom=s_boom, knock=s_knock, chime=s_chime, clink=s_clink, shimmer=s_shimmer, tick=s_tick, hoof=s_hoof,
+SYNTH = dict(whoosh=s_whoosh, boom=s_boom, knock=s_knock, thump=s_thump, chime=s_chime, clink=s_clink, shimmer=s_shimmer, tick=s_tick, hoof=s_hoof,
              thud=s_thud, sting=s_sting, riser=s_riser, scratch=s_scratch, pen=s_pen, page=s_page, crack=s_crack, stop=s_stop, ticks=s_ticks, room=s_room)
 # döngü sentezleri tam uzunlukta üretilir
 LOOP_SYNTH = {'ticks', 'room'}
 # yankı gönderimi (dB), ad başına
 SEND = dict(chime=-6, shimmer=-6, boom=-10, thunder=-12, eagle=-9, wings=-14, sting=-8, clink=-8, lock=-12, chains=-12, crack=-6,
-            rock_crash=-12, knock=-12, door=-12, riser=-10, whoosh=-14, thud=-14, alarm=-14, page=-18)
+            rock_crash=-12, knock=-12, thump=-16, door=-12, riser=-10, whoosh=-14, thud=-14, alarm=-14, page=-18)
 
 CLIPS = {}
 def clip(name):
@@ -242,8 +255,12 @@ def place(bus, x, t0, pan=0.0):
 
 # dile özel efekt düzeltmeleri (İngilizce anlatımın sözcük yerleri farklı): (yaklaşık zaman, ad, ek dB)
 EN_SFX = [(1.70, 'chains', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -3),
-          (192.3, 'whoosh', -6), (192.75, 'chains', -3), (102.43, 'eagle', -5), (225.94, 'shimmer', -5), (282.04, 'whoosh', -5)]
+          (192.3, 'whoosh', -6), (192.75, 'chains', -7), (102.43, 'eagle', -8), (225.94, 'shimmer', -5), (282.04, 'whoosh', -5),
+          (207.81, 'scratch', -5)]
+# dile özel müzik kısmaları (s, e, dB)
+EN_DIPS = [(1.4, 1.9, -3)]
 def build_sfx(lang='tr'):
+    global rng
     ev = json.load(open(A('audio/sfx_events.json')))
     if lang == 'en':
         for e in ev:
@@ -255,6 +272,7 @@ def build_sfx(lang='tr'):
         if e.get('loop'):
             n = int(e['len'] * SR)
             if name in LOOP_SYNTH:
+                global rng; rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))  # döngü sentezi de kendi tohumuyla
                 L = SYNTH[name](len=e['len'] + .1); R = SYNTH[name](len=e['len'] + .1) if name == 'room' else L
                 L, R = L[:n], R[:n]
             else:
@@ -268,7 +286,7 @@ def build_sfx(lang='tr'):
             continue
         if name in SYNTH:
             # her olayın kendi rastgele tohumu: bir işaret değişince diğer sentez sesleri değişmez
-            global rng; rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
+            rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
             kw = {k: e[k] for k in ('len', 'rev', 'down', 'big', 'rate') if k in e}
             y = SYNTH[name](**kw)
             if 'len' in e and name not in ('whoosh', 'riser', 'shimmer', 'pen'):
@@ -283,7 +301,7 @@ def build_sfx(lang='tr'):
         t0 = e['t'] - (peak_pos(y) / SR if e.get('at') == 'peak' else 0)
         pan = e.get('pan', 0.0)
         place(dry, y * g, t0, pan)
-        if name in SEND: place(send, y * g * db(SEND[name]), t0, pan)
+        if name in SEND and not e.get('dry'): place(send, y * g * db(SEND[name]), t0, pan)  # dry: yankı kuyruğu sonraki sözcüğü örtmesin
     return dry, send
 
 
@@ -402,7 +420,7 @@ def main():
         cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
         extra = np.ones(N)
         for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 142.1, -9), (266.0, 267.3, -9), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6), (272.4, 272.9, -3),
-                           (278.5, 279.0, -3), (343.6, 344.2, -3), (283.3, 283.7, -3), (196.8, 197.2, -3)]:
+                           (278.4, 279.1, -5), (343.4, 344.3, -5), (275.6, 276.4, -3), (46.6, 47.3, -3), (283.3, 283.7, -3), (196.8, 197.2, -3)] + (EN_DIPS if 'vo_en' in vo_path else []):
             extra[int(a_ * SR):int(b_ * SR)] = db(d_)
         extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra
