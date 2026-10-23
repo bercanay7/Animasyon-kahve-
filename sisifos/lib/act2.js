@@ -183,6 +183,6 @@ shot(S('C08') - .25, (ctx, st) => {
   figure(ctx, { x: 820, y: 1480, s: 26, lk: LK.zeus, sty: { ...STY.black, fill: '#120806', cut: '#A0522D' }, cutCol: '#A0522D',
     p: { torso: .02, neck: 0, head: .05, brow: -1.2 * nar, blink: nar * .55, shN: 0, shF: 0 }, margin: 30 });
   ctx.restore();
-  const tz = Wd('C08', 'unutmazdı') + .4;
+  const tz = Wd('C08', 'unutmazdı', 0, true) + .1;
   for (const [k, x] of [[0, 1500], [1, 1250]]) { const tt = tz + k * .35; if (t > tt && t < tt + .25) { lightning(ctx, x, -40, x - 200, 900, 7 + k, 8); ctx.fillStyle = 'rgba(255,240,210,.35)'; ctx.fillRect(0, 0, W, H); } }
 }, { tr: { type: 'cut' }, post: { tex: .6, vig: 1, grain: .07 } });

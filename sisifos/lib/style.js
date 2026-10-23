@@ -92,7 +92,7 @@ function applyTexture(ctx, amt = 1) {
   ctx.restore();
 }
 function applyGrain(ctx, t, amt = .07) {
-  const i = Math.floor(t * 24) % TEX.grain.length, r = rng(Math.floor(t * 24) + 1);
+  const L = TEX.grain.length, i = ((Math.floor(t * 24) % L) + L) % L, r = rng(Math.floor(t * 24) + 1);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = amt;
   const ox = -r() * 512, oy = -r() * 512;

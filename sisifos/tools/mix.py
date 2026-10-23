@@ -74,7 +74,7 @@ def s_whoosh(len=.8, rev=False, down=False, **_):
 
 def s_boom(big=False, **_):
     d = 3.2 if big else 1.6; n = int(d * SR); t = np.arange(n) / SR
-    f = 34 + 46 * np.exp(-t * 7); ph = 2 * np.pi * np.cumsum(f) / SR
+    f = 46 + 44 * np.exp(-t * 7); ph = 2 * np.pi * np.cumsum(f) / SR
     body = np.sin(ph) * np.exp(-t * (1.4 if big else 2.6))
     click = lp(rng.standard_normal(n), 900) * np.exp(-t * 40) * .6
     rum = lp(rng.standard_normal(n), 140, 4) * np.exp(-t * 1.6) * (2.4 if big else 1.2)
@@ -204,6 +204,8 @@ def clip(name):
         else:
             y, _ = librosa.load(A(f'audio/sfx/{name}.mp3'), sr=SR, mono=True)
             y = y - np.mean(y)
+            e = np.abs(y); on = np.argmax(e > e.max() * .03)
+            y = y[max(0, on - int(.008 * SR)):]
             CLIPS[name] = norm(y)
     return CLIPS[name]
 
@@ -224,7 +226,9 @@ def loop_to(y, n, xf=.6):
 
 def place(bus, x, t0, pan=0.0):
     a = int(round(t0 * SR))
-    if a < 0: x = x[-a:]; a = 0
+    if a < 0:
+        x = x[..., -a:].copy(); a = 0
+        k = min(int(.015 * SR), x.shape[-1]); x[..., :k] *= np.linspace(0, 1, k)
     m = min(len(x), N - a)
     if m <= 0: return
     if x.ndim == 1:
@@ -299,6 +303,37 @@ def smooth_gain(target, att=.08, rel=.6):
     return np.interp(np.arange(len(target)), np.arange(len(g)) * hop, g)
 
 
+def peq(x, f0, gdb, q=1.0):
+    A = 10 ** (gdb / 40); w = 2 * np.pi * f0 / SR; al = np.sin(w) / (2 * q)
+    b = [1 + al * A, -2 * np.cos(w), 1 - al * A]; a = [1 + al / A, -2 * np.cos(w), 1 - al / A]
+    return signal.lfilter(np.array(b) / a[0], np.array(a) / a[0], x)
+
+def compress(x, thr_db, ratio=3.0, att=.008, rel=.1):
+    w = int(.005 * SR); p = np.sqrt(np.convolve(x ** 2, np.ones(w) / w, 'same')) + 1e-9
+    lvl = 20 * np.log10(p); over = np.maximum(0, lvl - thr_db); gr = -over * (1 - 1 / ratio)
+    hop = SR // 1000; g = gr[::hop]; out = np.empty_like(g); cur = 0.0
+    aa, ar = np.exp(-1 / (att * 1000)), np.exp(-1 / (rel * 1000))
+    for i, v in enumerate(g):
+        c = aa if v < cur else ar; cur = c * cur + (1 - c) * v; out[i] = cur
+    gg = np.interp(np.arange(len(x)), np.arange(len(out)) * hop, out)
+    return x * 10 ** (gg / 20), gg
+
+def voice_chain(vo, sentence_gains=True):
+    cues = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
+    gains = {'F05': -5, 'E04': -3.5, 'F04': -3, 'H04': -3, 'C08': 2, 'E02': 2.5} if sentence_gains else {}
+    g = np.ones(len(vo))
+    for k, d in gains.items():
+        if k in cues:
+            a, b = int(cues[k]['s'] * SR) - int(.05 * SR), int(cues[k]['e'] * SR) + int(.1 * SR)
+            g[a:b] = db(d)
+    g = np.convolve(g, np.ones(int(.04 * SR)) / int(.04 * SR), 'same')
+    vo = vo * g
+    vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
+    L = pyln.Meter(SR).integrated_loudness(vo)
+    vo, gr = compress(vo, L + 6, 3.0)
+    vo = limiter(vo[None, :], db(pyln.Meter(SR).integrated_loudness(vo) + 13))[0]
+    return vo
+
 def limiter(x, ceil=.89, look=.005, rel=.08):
     a = np.max(np.abs(x), axis=0)
     w = int(look * SR)
@@ -326,6 +361,8 @@ def main():
     assert sr == SR
     vo = np.pad(vo, (0, max(0, N - len(vo))))[:N].astype(np.float64)
     vo = hp(vo, 70)
+    vo *= db(-16 - meter.integrated_loudness(vo))
+    vo = voice_chain(vo, sentence_gains=vo_path.endswith('vo/vo.wav'))
     vo *= db(-16 - meter.integrated_loudness(vo))   # anlatım -16 LUFS
     ir = reverb_ir()
     # anlatım: hafif oda sıcaklığı
@@ -340,7 +377,15 @@ def main():
         if msr != SR: mu = librosa.resample(mu, orig_sr=msr, target_sr=SR)
         if mu.shape[0] == 1: mu = np.vstack([mu, mu])
         mu = np.pad(mu, ((0, 0), (0, max(0, N - mu.shape[1]))))[:, :N]
+        mu = np.stack([signal.sosfilt(signal.butter(4, 35, 'highpass', fs=SR, output='sos'), ch) for ch in mu])
+        mu = np.stack([peq(ch, 60, -2.5, .7) for ch in mu])
         mu *= db(-21 - meter.integrated_loudness(mu.T))
+        cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
+        extra = np.ones(N)
+        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (270.95, 271.5, -2)]:
+            extra[int(a_ * SR):int(b_ * SR)] = db(d_)
+        extra = np.convolve(extra, np.ones(int(.08 * SR)) / int(.08 * SR), 'same')
+        mu *= extra
         # konuşma altında kısma (-7 dB), ön-bakışlı
         ve = envelope(vo); thr = db(-42)
         act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
@@ -353,6 +398,8 @@ def main():
         mu = np.zeros((2, N))
 
     fx, fx_send = build_sfx()
+    hp30 = signal.butter(4, 30, 'highpass', fs=SR, output='sos')
+    fx = np.stack([signal.sosfilt(hp30, ch) for ch in fx]); fx_send = np.stack([signal.sosfilt(hp30, ch) for ch in fx_send])
     # efektleri konuşma altında hafifçe kıs (-3 dB), anlamı örtmesin
     ve = envelope(vo); act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
     fduck = smooth_gain(db(-3 * act), .05, .5)
@@ -375,7 +422,7 @@ def main():
     if stems:
         os.makedirs(A('audio/stems'), exist_ok=True)
         for nm, x in [('vo', vo2 + vo_send), ('music', mu), ('sfx', fx + wet)]:
-            sf.write(A(f'audio/stems/{nm}.wav'), x.T.astype(np.float32), SR, subtype='PCM_24')
+            sf.write(A(f'audio/stems/{nm}.wav'), x.T.astype(np.float32), SR, subtype='FLOAT')
 
 
 if __name__ == '__main__':

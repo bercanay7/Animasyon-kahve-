@@ -20,8 +20,8 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   amb(tA3, tg + .1, 'stone_scrape', -16, .6, .15);
   sfx(tg - .45, 'scrape', { g: -9 });
   sfx(tg - .02, 'whoosh', { g: -13, len: .45 });
-  sfx(tg, 'rock_roll', { g: -6, len: tw - tg + .4, fo: .5 });
-  sfx(tg + .12, 'thud', { g: -9 });
+  sfx(tg, 'rock_roll', { g: -12, len: tw - tg + .4, fo: .5 });
+  sfx(tg + .12, 'thud', { g: -15 });
   amb(tw, ty, 'footsteps', -12, .2, .3);
   amb(ty, S('A05') - .6, 'stone_scrape', -18, .4, .4);
   const tt = Wd('A05', 'sisifos');
@@ -56,25 +56,25 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const tC1 = S('C01') - .35;
   chapter(tC1, 0);
   amb(tC1, S('C03') - .2, 'wind', -22, 1, .1);
-  sfx(S('C02') - .1, 'eagle', { g: -6 });
+  sfx(S('C02') - .1, 'eagle', { g: -11 });
   sfx(S('C02') + 1.6, 'wings', { g: -8 });
   sfx(S('C02') + 2.8, 'eagle', { g: -12, rate: .94, off: .1 });
-  sfx(Wd('C03', 'zeus') - .25, 'thunder', { at: 'peak', g: -4 });
+  sfx(Wd('C03', 'zeus', 0, true) + .15, 'thunder', { at: 'peak', g: -7 });
   const tC4 = S('C04') - .25;
   amb(tC4, S('C05') - .2, 'sea', -20, .6, .5);
   amb(tC4, S('C05') - .2, 'water', -26, .6, .5);
   const tf = Wd('C06', 'fışkırttı') - .25;
   sfx(tf - 1.0, 'whoosh', { g: -18, len: .5 });
-  sfx(tf, 'knock', { g: -6, rate: .7 });
+  sfx(tf, 'knock', { g: -12, rate: .7 });
   sfx(tf, 'thud', { g: -7 });
-  sfx(tf, 'rock_crash', { g: -16 });
+  sfx(tf, 'rock_crash', { g: -22 });
   sfx(tf + .05, 'water', { at: 'peak', g: -6 });
   amb(tf + 1, S('C08') - .25, 'water', -22, 1, .3);
   sfx(Wd('C07', 'ama') + .6, 'thunder', { g: -20, off: .4, fi: .8 });
-  const tz8 = Wd('C08', 'unutmazdı') + .4;
+  const tz8 = Wd('C08', 'unutmazdı', 0, true) + .1;
   amb(S('C08') - .25, S('D01') - .25, 'wind', -20, .2, .8);
   sfx(tz8, 'thunder', { at: 'peak', g: -1 });
-  sfx(tz8 + .35, 'thunder', { at: 'peak', g: -9, rate: .9 });
+  sfx(tz8 + .4, 'thunder', { at: 'peak', g: -9, rate: .9 });
 
   // — III. ÖLÜMÜ ZİNCİRLEYEN ADAM —
   const tD1 = S('D01') - .25, tt1 = Wd('D01', 'tanatos');
@@ -84,7 +84,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   sfx(tt1 - .1, 'wings', { g: -6 });
   const tD2 = S('D02') - .2;
   amb(tD2, S('D06') - .25, 'torches', -14, .5, .4);
-  sfx(tD2 + .05, 'door', { g: -6 });
+  sfx(tD2 + 1.2, 'door', { at: 'peak', g: -6 });
   sfx(Wd('D02', 'zincirlerle') - .15, 'chains', { g: -12, len: 1.8, fo: .6 });
   sfx(Wd('D03', 'sadece') - .1, 'chains', { g: -17, len: 1.6, fo: .7, rate: 1.1 });
   sfx(Wd('D04', 'gösterir') - .2, 'chains', { g: -16, len: 1.2, fo: .5 });
@@ -113,7 +113,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const tE1 = S('E01') - .3;
   chapter(tE1, 0);
   amb(tE1, S('E03') - .3, 'torches', -12, 1, .5);
-  for (const w of ['bedenimi', 'tören', 'adak']) { const ti = Wd('E02', w); sfx(ti - .1, 'knock', { g: -14 }); sfx(ti + .4, 'scratch', { g: -12 }); sfx(ti + .6, 'scratch', { g: -13, rate: 1.1 }); }
+  for (const w of ['bedenimi', 'tören', 'adak']) { const ti = Wd('E02', w); sfx(ti + .35, 'knock', { g: -20 }); sfx(ti + .55, 'scratch', { g: -15 }); sfx(ti + .75, 'scratch', { g: -13, rate: 1.1 }); }
   const tE3 = S('E03') - .3;
   amb(tE3, S('E06') - .2, 'wind', -22, .9, .4, { rate: .8 });
   amb(tE3, S('E06') - .2, 'torches', -10, .9, .4);
@@ -133,7 +133,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   chapter(tF1, .2);
   amb(tF1, S('G01') - .35, 'wind', -17, 1.2, 1.5);
   sfx(tc - .9, 'whoosh', { g: -8, len: .9, down: true });
-  sfx(tc + .05, 'rock_crash', { at: 'peak', g: -6 });
+  sfx(tc + .4, 'rock_crash', { at: 'peak', g: -10 });
   sfx(tc + .05, 'boom', { g: -10 });
   sfx(Wd('F03', 'zirveye') + 1.0, 'chime', { g: -16 });
   const tF4 = S('F04') - .2, tk4 = Wd('F04', 'kaydı');
@@ -143,7 +143,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const t0 = S('F05') + .05, tend = Se('F05') + .3;
   sfx(t0 - .05, 'scrape', { g: -8 });
   sfx(t0 + .38, 'whoosh', { g: -14, len: .5 });
-  sfx(t0 + .3, 'rock_roll', { g: -2, len: tend - t0 + .2, fo: .3 });
+  sfx(t0 + .3, 'rock_roll', { g: -7, len: tend - t0 + .2, fo: .3 });
   (window.F5_BOUNCES || []).forEach((tb, k, arr) => sfx(tb, 'thud', { g: -15 + 6 * k / arr.length }));
   sfx(tend, 'rock_crash', { at: 'peak', g: 1 });
   const ty6 = Wd('F06', 'yeniden');
@@ -160,7 +160,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   sfx(tG1, 'riser', { g: -12, len: td - tG1 });
   amb(tG1 + .3, td, 'ticks', -16, .3, .2);
   sfx(td, 'boom', { g: -12 });
-  amb(td, tsg + .3, 'planes', -15, .4, 1.2);
+  amb(td, tsg + .3, 'planes', -21, .4, 1.2);
   amb(ta - 1.2, ta + .4, 'footsteps', -16, .2, .3, { rate: 1.1 });
   sfx(tsg - .4, 'knock', { g: -14 });
   sfx(tbg - .2, 'page', { g: -10 });
@@ -172,7 +172,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   sfx(tq - .3, 'stop', { g: -12 });
   const tG4 = S('G04') - .2, tc4 = Wd('G04', 'çatlağa') - .2;
   amb(tG4, S('G05') - .3, 'wind', -32, 1.2, .6, { rate: .7 });
-  sfx(tc4, 'crack', { g: -6 });
+  sfx(tc4, 'crack', { g: -14 });
   sfx(tc4 + .5, 'shimmer', { g: -12, len: 2.5 });
   const tG5 = S('G05') - .3, tk5 = Wd('G05', 'kaya') - .2, ta5 = Wd('G05', 'ağır');
   amb(tG5, S('G08') - .2, 'wind', -22, 1, .4);
@@ -183,7 +183,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   sfx(S('G08') - .2, 'page', { g: -11 });
   amb(S('G09') - .25, S('G10') - .3, 'stone_scrape', -22, .6, .4);
   amb(S('G09') - .25, S('H01') - .45, 'wind', -26, .8, 1);
-  sfx(Wd('G10', 'mutlu') - .2, 'chime', { g: -16, rate: .75 });
+  sfx(Se('G10') + .15, 'chime', { g: -16, rate: .75 });
 
   // — KAPANIŞ —
   const tH1 = S('H01') - .45;

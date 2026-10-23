@@ -18,7 +18,7 @@ function renderFrameMB(t, n) {
   const dt = 1 / FPS * .5;
   accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';
   for (let i = 0; i < n; i++) {
-    renderFrame(t + dt * (i / n - .5));
+    renderFrame(Math.max(0, t + dt * (i / n - .5)));
     accx.globalAlpha = 1 / (i + 1);
     accx.drawImage(cv, 0, 0);
   }
