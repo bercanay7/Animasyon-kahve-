@@ -49,20 +49,25 @@ SCENES.kapak = ctx => kapakDraw(ctx, 'ÖLÜMÜ', 'ZİNCİRLEDİ', 168, 118);
 SCENES.kapak_en = ctx => kapakDraw(ctx, 'HE CHAINED', 'DEATH', 112, 176);
 // B kapağı (YouTube "Test ve Karşılaştır" için): yüz yakın planı — kayaya omuz vermiş, gülümseyen Sisifos; "NEDEN GÜLÜYOR?"
 SCENES.kapak_b = ctx => {
-  const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 19, T: 1.12, hA: -.55, hB: -.62 };
+  // avuç kayaya düz yaslı, uzak el yakın elin arkasında gizli (boynuz gibi bir şekil kalmaz); yüz çizgileri küçük boyutta okunsun diye kalın
+  const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 14, T: .9, hA: -.35, hB: -.35, wrN: 1, wrF: 1, hIn: 8, hFrel: [0, 0], faceW: 1.75 };
   const P = pushScene(ctx, null, xr, 150, 4.0, 5, { ...po, dry: true });
-  const z = 7.6, c = { x: P.head[0] + (W / 2 - 1180) / z, y: P.head[1] + (H / 2 - 600) / z, z };
+  const z = 7.6, c = { x: P.head[0] + (W / 2 - 1250) / z, y: P.head[1] + (H / 2 - 610) / z, z };
   const zk = 1 + (z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
   tartarosBG(ctx, 5, c, { warm: 1, diskX: cxk + (1500 - W / 2) / zk, diskY: cyk + (300 - H / 2) / zk, diskR: 360 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 1180, 600, 520, 'rgba(255,190,110,.22)'); ctx.restore(); // yüzde sıcak ışık
-  pushScene(ctx, c, xr, 150, 4.0, 5, po);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 1250, 610, 520, 'rgba(255,190,110,.22)'); ctx.restore(); // yüzde sıcak ışık
+  // kaya + arkadan vuran güneşle parlayan kenar (omzun değdiği yerde kaya açıkça okunur); figür önde çizilir
+  ctx.save(); cam(ctx, c, 1); boulder(ctx, P.cx, P.cy, 150, xr / 150, { shadow: false, light: -1.2 });
+  ctx.translate(P.cx, P.cy); ctx.rotate(xr / 150); ctx.beginPath(); spline(ctx, BOULDER.map(q => [q[0] * 150, q[1] * 150]));
+  ctx.shadowColor = 'rgba(255,190,100,1)'; ctx.shadowBlur = 40; ctx.strokeStyle = 'rgba(255,226,160,1)'; ctx.lineWidth = 2.4; ctx.stroke(); ctx.stroke(); ctx.restore();
+  pushScene(ctx, c, xr, 150, 4.0, 5, { ...po, noRock: true });
   motes(ctx, 5, 40, 33, 'rgba(255,225,160,.8)', [0, 0, W, H], 12, 2.2, .7);
   const g = ctx.createLinearGradient(0, 0, W * .62, 0);
   g.addColorStop(0, 'rgba(14,6,4,.88)'); g.addColorStop(.7, 'rgba(14,6,4,.55)'); g.addColorStop(1, 'rgba(14,6,4,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W * .62, H);
   const sh = { shadow: 'rgba(0,0,0,.75)', blur: 22 };
-  txt(ctx, 'NEDEN', 70, 300, { font: '900 190px Cinzel', col: '#FFF1D2', align: 'left', ls: 8, ...sh });
-  txt(ctx, 'GÜLÜYOR?', 70, 500, { font: '900 150px Cinzel', col: '#FFD27A', align: 'left', ls: 4, ...sh });
+  txt(ctx, 'NEDEN', 40, 250, { font: '900 190px Cinzel', col: '#FFF1D2', align: 'left', ls: 8, ...sh });
+  txt(ctx, 'GÜLÜYOR?', 40, 440, { font: '900 150px Cinzel', col: '#FFD27A', align: 'left', ls: 4, ...sh });
   applyVignette(ctx, .55);
 };

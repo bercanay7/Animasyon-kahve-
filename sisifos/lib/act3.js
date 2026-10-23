@@ -109,9 +109,12 @@ function drawD5(ctx, t, c, phase) {
   throne(ctx, 360, gy, 5.6, 1, C.ink, C.clay, { high: true });
   if (phase === 0) {
     // tahttan kalkar ve merakla Thanatos'a doğru yürür (kilit planındaki yerine gelir)
-    const su = ramp(t, S('D05') - .1, S('D05') + .7, E.io2), wk = ramp(t, S('D05') + .65, Wd('D05', 've') - .25, E.io2);
+    // kalkış: önce gövde öne eğilir (ağırlık ayaklara), kalça ancak sonra yükselir; doğrulurken baş öne bakar
+    const t0s = S('D05') - .15;
+    const lean = keyed(t, [[t0s, { torso: .2, head: .05 }], [t0s + .38, { torso: .66, head: -.12 }, E.io2], [t0s + 1.0, { torso: .12, head: .08 }, E.io2]]);
+    const su = ramp(t, t0s + .28, t0s + 1.0, E.io2), wk = ramp(t, t0s + .9, Wd('D05', 've') - .25, E.io2);
     if (wk <= 0) { const o = oturan(), k = 1 - su; figure(ctx, { x: 455 + su * 24, y: lerp(gy - 27 * 5.6, gy - 46.5 * 5.6, su), s: 5.6, lk: LK.sisKing,
-      p: { ...o, hipN: o.hipN * k, knN: o.knN * k, hipF: o.hipF * k, knF: o.knF * k, torso: .2 + su * .25 * (1 - su) * 4 * .3, head: .05, shN: lerp(1.2, .3, su), elN: .6, smile: .6 } }); }
+      p: { ...o, hipN: o.hipN * k, knN: o.knN * k, hipF: o.hipF * k, knF: o.knF * k, torso: lean.torso, head: lean.head, shN: lerp(1.2, .3, su), elN: .6, smile: .6 } }); }
     else { const x = lerp(479, 860, wk); walkScene(ctx, null, x, 5.6, t, 1, { noCam: true, ground: FLAT(gy), dist: x, lk: LK.sisKing, stride: lerp(6, 30, ramp(wk, 0, .2)), stand: 1 - ramp(wk, 0, .15), p: { smile: .6, head: .08, shN: Math.sin(x / 40) * .25, shF: -Math.sin(x / 40) * .25 } }); }
   }
   else {
@@ -299,9 +302,12 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const t = st.t, lt = st.lt, tg = Wd('D09', 'teslim');
   clayBG(ctx, '#8A4326', '#4A2214', { x: 1100, y: 460, r: 1000, c: 'rgba(240,150,90,.45)' });
   const gy = 900;
-  ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(0, gy, W, 3);
+  // D9'dan farklı açı: daha yakın, hafif eğik (gerilim) kadraj; aynı salon
+  const c9 = { x: 1020, y: 562, z: 1.2, r: -.035 };
+  ctx.save(); cam(ctx, c9, 1);
+  ctx.fillStyle = '#1A0D09'; ctx.fillRect(-400, gy, W + 800, 600); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(-400, gy, W + 800, 3);
   // zorla teslim: Ares ilk kareden omzunu kavrar ve sürükler; Sisifos geriye yaslanır, topukları kayar, kolu savunmada; son itiş "teslim"de
-  column(ctx, 96, 80, gy, 80, '#2A140C', '#6A3020'); // aynı salon: D9'daki sütunlardan biri kadrajın kenarında
+  column(ctx, 250, 0, gy, 80, '#2A140C', '#6A3020'); // aynı salon: D9'daki sütunlardan biri kadrajın kenarında
   const t0 = st.start ?? (Wd('D09', 'sisifos') - .15), drag = ramp(t, t0, tg - .5, E.io2), shove = ramp(t, tg - .5, tg + .1, E.in2), pull = ramp(t, tg + .3, tg + 1.3, E.io2);
   const xs = lerp(760, 900, drag) + shove * 110 + pull * 110;
   const strug = (1 - shove) * Math.sin(t * 9) * .05;
@@ -327,6 +333,9 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
       for (const sd of ['N', 'F']) { const q = wrW(ctx, M, J, sd); shackle(ctx, q[0], q[1], 16, .2, '#E1B07A'); chain(ctx, [q, [q[0] - 6, q[1] + 60], [q[0] - 2, q[1] + 110]], 18, '#E1B07A', '#5A2A16', 5); } } }); // el ancak "teslim"de uzanır
   // kanatlar ekranı kaplar
   // temiz iris kapanışı: Ölüm ve kurbanı üzerinde daralan daire
+  const ic = ctx.getTransform().transformPoint(new DOMPoint(1220, 560));
+  ctx.restore();
+  const icS = ctx.getTransform().inverse().transformPoint(ic); // iris merkezi ekran koordinatında
   const env = ramp(t, tg + 1.0, st.end, E.in2);
-  if (env > 0) { const r = lerp(1500, 0, env); ctx.save(); ctx.fillStyle = '#000'; ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(1220, 560, Math.max(0, r), 0, TAU, true); ctx.fill('evenodd'); ctx.restore(); }
+  if (env > 0) { const r = lerp(1600, 0, env); ctx.save(); ctx.fillStyle = '#000'; ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(icS.x, icS.y, Math.max(0, r), 0, TAU, true); ctx.fill('evenodd'); ctx.restore(); }
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: 1, grain: .07 } });

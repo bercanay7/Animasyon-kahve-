@@ -192,18 +192,16 @@ function drawG6(ctx, t, cf, kp) {
   return x;
 }
 shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 330, z: 2.3 })), { tr: { type: 'cut' }, post: TP });
-// "Camus'ye göre bu, bilincin saatidir": göğüs planı, başın üstünde boşluk; alıntı sağda
+// "Camus'ye göre bu, bilincin saatidir … Sisifos o an kaderinin tamamen farkındadır": göğüs planından yüze tek, yavaş itiş (atlama kesmesi yok).
+// Alıntı itiş hızlanmadan söner; "farkındadır"da başını kaldırır, gözleri açılır; yüz "tam"a kadar tutulur.
 shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
-  drawG6(ctx, st.t, x => ({ x: x + 60, y: hillY(x) - 300, z: 3.2 }));
-  quote(ctx, 'bilincin saati', 1400, 330, 820, st.t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14 });
+  const t = st.t, t0 = t - st.lt, t1 = Wd('G06', 'tam', 1) - .1, tf = Wd('G06', 'farkındadır'), ts = Wd('G06', 'sisifos');
+  const u = E.io2(clamp((t - t0) / (t1 - t0)));
+  const kf = keyed(t, [[t0, { head: -.05, neck: .02, blink: 0 }], [ts - .2, { blink: 0 }], [ts + .3, { blink: .35 }], [tf - .3, { head: .02, neck: .04, blink: .45 }], [tf + .4, { head: -.18, neck: -.06, blink: 0 }, E.outBack]]);
+  drawG6(ctx, t, x => ({ x: lerp(x + 60, x + 40, u), y: hillY(x) - lerp(300, 322, u), z: lerp(3.2, 5.2, u) }), kf);
+  quote(ctx, 'bilincin saati', 1400, 330, 820, t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14, a: 1 - ramp(t, ts - .5, ts) });
 }, { tr: { type: 'cut' }, post: TP });
-// "Sisifos o an kaderinin tamamen farkındadır": daha yakın yüz; "farkındadır"da başını kaldırır, gözleri açılır
-shot(Wd('G06', 'sisifos') - .15, (ctx, st) => {
-  const tf = Wd('G06', 'farkındadır');
-  const kf = keyed(st.t, [[st.t - st.lt, { head: -.05, neck: .02, blink: .35 }], [tf - .3, { head: .02, neck: .04, blink: .45 }], [tf + .4, { head: -.18, neck: -.06, blink: 0 }, E.outBack]]);
-  drawG6(ctx, st.t, x => ({ x: x + 40, y: hillY(x) - 312, z: lerp(4.0, 4.3, clamp(st.lt / 3.2)) }), kf);
-}, { tr: { type: 'cut' }, post: TP });
-shot(Wd('G06', 've') - .1, (ctx, st) => {
+shot(Wd('G06', 'tam', 1) - .1, (ctx, st) => {
   const pull = E.io3(clamp(st.lt / 2.4));
   drawG6(ctx, st.t, x => ({ x: lerp(x - 40, x - 330, pull), y: lerp(hillY(x) - 250, hillY(x) - 200, pull), z: lerp(1.6, .75, pull) }));
 }, { tr: { type: 'cut' }, post: TP });
@@ -276,7 +274,7 @@ shot(S('G10') - .3, (ctx, st) => {
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
   const k10 = keyed(t, [[S('G10') - .3, { look: -.15, blink: 0, T: 1.14, strain: .3 }], [tm - .25, { look: -.12 }],
     [tm + .7, { look: -.42, blink: .78, T: 1.06, strain: 0 }, E.outBack], [tm + 1.7, { blink: .3 }], [tm + 2.6, { look: -.34, T: 1.08 }]]);
-  const po = { dist: xr, smile: sm * 2.2, blink: k10.blink, strain: k10.strain, look: k10.look, reach: 19, T: k10.T, hA: -.3, hB: -.24, breath: Math.sin(t * 1.3) * 1.2 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
+  const po = { dist: xr, smile: sm * 2.2, blink: k10.blink, strain: k10.strain, look: k10.look, reach: 16, T: k10.T, hA: -.3, hB: -.24, wrN: 1, wrF: 1, hIn: 6, hFrel: [0, 0], breath: Math.sin(t * 1.3) * 1.2 }; // avuç kayaya düz yaslı, parmaklar yukarı; uzak el yakın önkolun arkasında: baş ve gülümseme açıkta
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
   const push = ramp(t, tm - .35, tm + 1.5, E.io3);
@@ -291,9 +289,9 @@ shot(S('G10') - .3, (ctx, st) => {
   // alıntı üstte (YouTube altyazı bölgesi olan alt kısım boş kalır); sonraki geçişten önce söner
   const qa = 1 - ramp(t, S('H01') - .85, S('H01') - .5);
   ctx.save(); ctx.globalAlpha = qa * ramp(t, S('G10') - .1, S('G10') + .5);
-  { const bg = ctx.createLinearGradient(0, 60, 0, 290); bg.addColorStop(0, 'rgba(20,8,4,0)'); bg.addColorStop(.3, 'rgba(20,8,4,.78)'); bg.addColorStop(.75, 'rgba(20,8,4,.78)'); bg.addColorStop(1, 'rgba(20,8,4,0)'); ctx.fillStyle = bg; ctx.fillRect(0, 60, W, 230); }
+  softPanel(ctx, W / 2, 186, 840, 150, .72); // metin genişliğinde yumuşak zemin: açık kayanın üstünde şerit bırakmaz
   ctx.globalAlpha = qa;
-  quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 150, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18, band: true });
+  quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 150, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18 });
   txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 226, { font: 'italic 600 46px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: .9, grain: .05 } });

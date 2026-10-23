@@ -378,6 +378,7 @@ function drawHead(G, f, J, det) {
     }
     G.part(c => spline(c, headOutline(lk)), {});
     // göz
+    const FW = f.faceW || 1; // yüz çizgisi kalınlık çarpanı (küçük boyutta okunan kapak gibi yakın planlar için)
     const bl = clamp(1 - (p.blink || 0));
     const ey = lk.eyeY ?? -7.0;
     if (lk.whiteEye) {
@@ -388,8 +389,8 @@ function drawHead(G, f, J, det) {
       const smE = clamp((p.smile || 0) / 2);
       if (smE > .55) {
         // gülen göz: tek kavis (^), uçlarda kaz ayağı
-        det(c => { c.moveTo(2.1, ey + .2); c.quadraticCurveTo(3.5, ey - 1.15, 4.95, ey + .05); }, .42);
-        det(c => { c.moveTo(1.85, ey - .1); c.lineTo(.95, ey - .55); c.moveTo(1.85, ey + .35); c.lineTo(.95, ey + .6); }, .26);
+        det(c => { c.moveTo(2.1, ey + .2); c.quadraticCurveTo(3.5, ey - 1.15, 4.95, ey + .05); }, .42 * FW);
+        det(c => { c.moveTo(1.85, ey - .1); c.lineTo(.95, ey - .55); c.moveTo(1.85, ey + .35); c.lineTo(.95, ey + .6); }, .26 * FW);
       } else {
         det(c => { c.moveTo(2.2, ey); c.quadraticCurveTo(3.5, ey - .9 * bl, 4.9, ey - .2); c.quadraticCurveTo(3.5, ey + .6 * bl, 2.2, ey); }, .36);
         if (bl > .3) G.cut(c => c.arc(3.75, ey - .12, .5, 0, TAU), .3, true);
@@ -397,13 +398,13 @@ function drawHead(G, f, J, det) {
     }
     // kaş
     const br = p.brow || 0;
-    det(c => { c.moveTo(2.2, -8.4 - br * .3); c.quadraticCurveTo(3.8, -9.3 - br * .6, 5.4, -8.6 + br * .45); }, .34);
+    det(c => { c.moveTo(2.2, -8.4 - br * .3); c.quadraticCurveTo(3.8, -9.3 - br * .6, 5.4, -8.6 + br * .45); }, .34 * FW);
     // kulak
     if (hb !== 'petasos' || true) det(c => { c.moveTo(-.4, -7.8); c.bezierCurveTo(-2.4, -7.6, -2.4, -4.6, -.6, -4.6); c.moveTo(-1.0, -6.8); c.quadraticCurveTo(-1.6, -6, -1.0, -5.4); }, .32);
     // ağız
     const sm = p.smile || 0;
     // ağız: gülümsedikçe köşe yanağa doğru yükselir ve çizgi kalınlaşır; yanakta gülme çizgisi
-    det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, .3 + clamp(sm / 2) * .14);
+    det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, (.3 + clamp(sm / 2) * .14) * FW);
     if (p.mouthOpen) G.cut(c => { c.moveTo(5.8, -3.95); c.quadraticCurveTo(5.0, -3.2 - p.mouthOpen * .6, 4.6, -3.7); c.closePath(); }, .3, true);
     // sakal ve saç kazımaları
     if (lk.beard) {

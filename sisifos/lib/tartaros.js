@@ -127,7 +127,9 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   const bob = Math.sin((d / S2) * TAU * 2) * 1.0 * s;
   const jit = (o.jitter || 0) * s; // kas titremesi
   const pel = [px + noise1(t * 38, 7) * jit, py0 + bob + noise1(t * 38, 8) * jit];
-  let hN = add(onR(hA), [-off * 30 * s, 0]), hF = add(onR(hB), [-off * 30 * s, 0]);
+  const hIn = -(o.hIn || 0) * s; // ellerin kaya silüetine gömülme payı (avuç kayaya yaslanmış görünür)
+  let hN = add(onR(hA, hIn), [-off * 30 * s, 0]), hF = add(onR(hB, hIn), [-off * 30 * s, 0]);
+  if (o.hFrel) hF = add(hN, scl(o.hFrel, s)); // uzak el yakın elin hemen arkasında (önkol altında gizli)
   let head = add(pel, scl(rot([.4, -36], T), s));
   if (o.dry) return { cx, cy, pel, head };
   // yere kapanma (prone) ve dört ayak üstünde doğrulma (rise): itme pozundan yamaç üstündeki pozlara karışım
@@ -162,9 +164,9 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   const shadeRock = () => { if (o.noRock) return; if (rk) boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: o.light ?? -1.2 }); else boulder(ctx, cx, cy, R, rockAng, { shadow: false, light: o.light ?? -1.2 }); };
   if (!o.rockFront) shadeRock();
   figure(ctx, {
-    x: P[0], y: P[1], s, sty: o.sty || STY.black, cutCol: o.cutCol,
+    x: P[0], y: P[1], s, sty: o.sty || STY.black, cutCol: o.cutCol, faceW: o.faceW,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, alpha: o.alpha,
-    p: { torso: TT, neck: nk, head: hd, handN: 'flat', handF: 'flat',
+    p: { torso: TT, neck: nk, head: hd, handN: o.handN || 'flat', handF: o.handF || 'flat', wrN: o.wrN || 0, wrF: o.wrF || 0,
       brow: -strain, smile: o.smile || 0, breath: o.breath ?? Math.sin(t * 2.4) * (.5 + .4 * strain), blink: o.blink, mouthOpen: o.mouthOpen || 0 },
     ik: { hN, hF, fN: fNp, fF: fFp },
   });

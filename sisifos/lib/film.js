@@ -185,6 +185,13 @@ function nameTag(ctx, name, sub, x, y, lt, d = 3.2, o = {}) {
   ctx.fillStyle = o.line || C.gold; ctx.fillRect(al === 'left' ? x : x - lw / 2, y + 22 + (sub ? 46 : 0) + 4, lw, 2);
   ctx.restore();
 }
+// Yazının arkasına yumuşak, metin genişliğinde eliptik koyu zemin (tam genişlik şerit yerine)
+function softPanel(ctx, x, y, rx, ry, a = .7, col = '20,8,4') {
+  ctx.save(); ctx.translate(x, y); ctx.scale(1, ry / rx);
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+  g.addColorStop(0, `rgba(${col},${a})`); g.addColorStop(.55, `rgba(${col},${a * .75})`); g.addColorStop(1, `rgba(${col},0)`);
+  ctx.fillStyle = g; ctx.fillRect(-rx, -rx, 2 * rx, 2 * rx); ctx.restore();
+}
 // Alıntı tipografisi (satır kırma ile)
 function quote(ctx, s, x, y, maxW, lt, o = {}) {
   const font = o.font || 'italic 500 56px "Cormorant Garamond"', lh = o.lh || 70;
@@ -194,7 +201,7 @@ function quote(ctx, s, x, y, maxW, lt, o = {}) {
   if (cur) lines.push(cur);
   ctx.restore();
   const y0 = y - (lines.length - 1) * lh / 2;
-  if (o.band) { const qa = ramp(lt, o.delay || 0, (o.delay || 0) + .8); const hh = lines.length * lh + 90; const g = ctx.createLinearGradient(0, y - hh / 2, 0, y + hh / 2); g.addColorStop(0, 'rgba(20,8,4,0)'); g.addColorStop(.5, `rgba(20,8,4,${.55 * qa})`); g.addColorStop(1, 'rgba(20,8,4,0)'); ctx.fillStyle = g; ctx.fillRect(0, y - hh / 2, W, hh); }
+  if (o.band) { ctx.save(); ctx.font = font; const ww = Math.max(...lines.map(l => ctx.measureText(l).width)); ctx.restore(); softPanel(ctx, x, y, ww / 2 + 200, lines.length * lh / 2 + 70, .6 * ramp(lt, o.delay || 0, (o.delay || 0) + .8)); }
   lines.forEach((ln, i) => {
     const q = ramp(lt, (o.delay || 0) + i * (o.stagger ?? .35), (o.delay || 0) + i * (o.stagger ?? .35) + .9);
     txt(ctx, ln, x, y0 + i * lh + (1 - q) * 12, { font, col: o.col || C.white, a: q * (o.a ?? 1), shadow: o.shadow, blur: o.blur, align: o.align });

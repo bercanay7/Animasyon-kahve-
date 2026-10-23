@@ -104,16 +104,35 @@ shot(S('B02') - .3, (ctx, st) => {
   figure(ctx, { x: 345, y: gy - 27 * 5.2, s: 5.2, lk: LK.sisKing, hold: { F: HOLD.scepter(85) },
     p: { ...oturan(), torso: .02, head: .05, shN: .9 + Math.sin(lt * 1.3) * .08, elN: .55, shF: .55, elF: 1.1, handN: 'open', handF: 'fist', smile: .4, blink: (Math.sin(t * 1.7) > .97) ? 1 : 0 } });
   // amfora taşıyan tüccarlar (krala doğru yürür), amfora omuzda (figürün arkasında, kil kenar çizgisiyle ayrılır)
-  for (const [x0, ph, stopX, lkP, sc] of [[1180, 0, 1065, LK.citizen, 4.4], [1470, 66, 1320, { ...LK.citizen, beard: 'pointed', hair: 'long' }, 4.7]]) {
-    // yarım adım faz farkı (klon değil); amfora yığınının önünde dururlar
-    const x = Math.max(x0 - lt * 70, stopX);
-    const ax = x + 9 * sc, ay = gy - 83 * sc;
-    ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
-    ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
-    amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
-    walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14,
-      p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
-      ik: { hN: [ax - 4, ay + 10] } });
+  // ikincisi sırtında ağır bir çuval taşır: daha öne eğik, daha kısa ve yavaş adım (klon değil)
+  for (const [x0, ph, stopX, lkP, sc, sp, sack] of [[1180, 0, 1065, LK.citizen, 4.4, 70, false], [1470, 41, 1320, { ...LK.citizen, beard: 'pointed', hair: 'long' }, 4.7, 52, true]]) {
+    const x = Math.max(x0 - lt * sp, stopX);
+    if (!sack) {
+      const ax = x + 9 * sc, ay = gy - 83 * sc;
+      ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
+      ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
+      amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14,
+        p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
+        ik: { hN: [ax - 4, ay + 10] } });
+    } else {
+      const bob = Math.abs(Math.sin(((x0 - x) + ph) / 26 * PI)) * 1.2 * sc * (x > stopX ? 1 : 0);
+      const sx = x + 10 * sc, sy = gy - 76 * sc + bob;
+      ctx.save(); ctx.translate(sx, sy); ctx.rotate(.35);
+      // çuval: ağzı büzülüp bağlanmış, dibi sarkık, düzensiz torba (kalkan ya da kap gibi okunmasın)
+      const sackP = c => { c.beginPath(); c.moveTo(-2.5 * sc, -15 * sc); c.bezierCurveTo(-9 * sc, -11 * sc, -15 * sc, -2 * sc, -13 * sc, 9 * sc);
+        c.bezierCurveTo(-11 * sc, 17 * sc, 7 * sc, 18 * sc, 12 * sc, 9 * sc); c.bezierCurveTo(15 * sc, 1 * sc, 9 * sc, -10 * sc, 2.5 * sc, -15 * sc); c.closePath(); };
+      ctx.fillStyle = C.ink; sackP(ctx); ctx.fill(); ctx.lineWidth = 2.4 * sc; ctx.strokeStyle = C.ink; ctx.stroke();
+      ctx.fillStyle = C.red; ctx.save(); ctx.scale(.9, .9); ctx.translate(0, .8 * sc); sackP(ctx); ctx.fill(); ctx.restore();
+      ctx.strokeStyle = C.ink; ctx.lineWidth = .9 * sc; ctx.lineCap = 'round';
+      for (const [a0, a1] of [[-6, 7], [-1, 13], [5, 9]]) { ctx.beginPath(); ctx.moveTo(a0 * sc, -9 * sc); ctx.quadraticCurveTo((a0 + a1) * .5 * sc - 2 * sc, 3 * sc, a1 * sc - 4 * sc, 13 * sc); ctx.stroke(); } // büzgü kırışıkları
+      ctx.fillStyle = C.ink; ctx.fillRect(-3.4 * sc, -16.6 * sc, 6.8 * sc, 2.2 * sc); // bağ
+      ctx.beginPath(); ctx.moveTo(-2.4 * sc, -16 * sc); ctx.lineTo(-4.2 * sc, -21 * sc); ctx.lineTo(4.2 * sc, -21 * sc); ctx.lineTo(2.4 * sc, -16 * sc); ctx.closePath(); ctx.fill(); // büzülmüş ağız
+      ctx.restore();
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 24, lean: .26,
+        p: { handN: 'fist', handF: 'fist', head: -.05, brow: .8 },
+        ik: { hN: [sx - 9 * sc, sy - 12 * sc], hF: [sx - 5 * sc, sy - 15 * sc] } });
+    }
   }
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .9, vig: .75 } });
