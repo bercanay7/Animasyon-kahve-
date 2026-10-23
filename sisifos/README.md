@@ -8,7 +8,7 @@ Görseller Yunan siyah figürlü vazo resmi üslubunda (yeraltı sahneleri kırm
 |---|---|
 | `sisifos_master.mp4` | 1920×1080, 30 fps, H.264 (CRF 18) + AAC, -14 LUFS (yerel; depoya girmez) |
 | `sisifos_shorts.mp4` | Shorts: 1080×1920, 42,7 sn, kelime vurgulu altyazılar |
-| `sisifos_en_master.mp4`, `sisifos_en.m4a` | İngilizce dublaj: aynı görüntü + İngilizce ses / YouTube'a ikinci ses kanalı olarak eklenecek ses (-2 dBTP) |
+| `sisifos_en_master.mp4`, `sisifos_en.m4a` | İngilizce sürüm: ekran yazıları İngilizce + İngilizce ses / YouTube'a ikinci ses kanalı olarak eklenecek ses (-2 dBTP) |
 | `kapak.png`, `en/kapak_en.png` | YouTube kapakları, 1280×720 ("ÖLÜMÜ ZİNCİRLEDİ" / "HE CHAINED DEATH") |
 | `sisifos.tr.srt`, `en/sisifos.en.srt` | Türkçe ve İngilizce altyazı |
 | `youtube.md`, `en/youtube_en.md` | Başlık, bölüm zaman damgalı açıklama, kaynaklar, etiketler |
@@ -25,6 +25,7 @@ Görseller Yunan siyah figürlü vazo resmi üslubunda (yeraltı sahneleri kırm
    - Her çekim, anlatımdaki bir cümleye (`S('B04')`) ya da kelimeye (`Wd('B04','rengini')`) bağlıdır. Ses değişirse görüntü de kendiliğinden kayar.
    - `lib/figure.js`: ileri ve ters kinematikli profil figür iskeleti.
    - `lib/act0.js` … `act7.js`: sahneler.
+   - `lib/i18n.js`: ekrandaki yazıların İngilizce karşılıkları; sayfa `?lang=en` ile açılınca kullanılır.
 4. **Ses tasarımı:**
    - `lib/sfx.js` efekt işaretlerini aynı zaman ifadeleriyle tanımlar. `tools/export_sfx.js` bunları `audio/sfx_events.json` dosyasına yazar.
    - Doğal sesler ElevenLabs ses efekti modelinden (`audio/sfx/*.mp3`). Vuruş, çan, rüzgâr geçişi gibi sesler `tools/mix.py` içinde sentezlenir.
@@ -45,6 +46,7 @@ python3 tools/mix.py --vo en/vo_en.wav --out audio/mix_en.wav --tp -2.0   # İng
 python3 shorts/mix_shorts.py      # Shorts sesi
 node render.js sisifos_master.mp4 # WORKERS=4 MB=4 CRF=18; parçalar .parts/ içinde kalıcı, ONLY=3,7 ile kısmi
 SHORTS=1 CHUNK=6 node render.js sisifos_shorts.mp4   # dikey Shorts
+Q='lang=en' PARTS=.parts_en AUDIO=audio/mix_en.wav node render.js sisifos_en_master.mp4   # İngilizce yazılı sürüm
 python3 tools/srt.py              # altyazı
 SCENE=kapak node shot.js out 5    # kapak karesi (SCENE=kapak_en: İngilizce)
 node shot.js out 12.5 140.2       # tek tek kareler (inceleme için)

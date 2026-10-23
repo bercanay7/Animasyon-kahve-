@@ -42,4 +42,4 @@ Sisyphus, myth of Sisyphus, The Myth of Sisyphus, Albert Camus, Camus, absurdism
 - English audio track: `sisifos_en.m4a` (or `audio/mix_en.wav`; same timing as the picture; -14 LUFS)
 - Thumbnail for a separate English upload: `en/kapak_en.png` ("HE CHAINED DEATH")
 - English subtitles: `en/sisifos.en.srt`
-- English-audio video (same picture, Turkish on-screen titles): `sisifos_en_master.mp4`
+- English video for a separate upload: `sisifos_en_master.mp4` (English audio and English on-screen titles: chapter cards, name tags, quotes, end card)

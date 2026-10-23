@@ -7,9 +7,9 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 | Dosya | Ne için |
 |---|---|
 | `sisifos_master.mp4` (yoksa `sisifos.mp4`) | Uzun video, 1920×1080, Türkçe ses |
-| `sisifos_en_master.mp4` (yoksa `sisifos_en.mp4`) | Aynı görüntü, İngilizce ses (ayrı İngilizce video seçeneği için) |
+| `sisifos_en_master.mp4` | Aynı film; ekran yazıları (bölüm kartları, isimler, alıntılar, kapanış) İngilizce, ses İngilizce. Ayrı İngilizce video seçeneği için |
 | `kapak.png` | Uzun videonun kapağı (1280×720): "ÖLÜMÜ ZİNCİRLEDİ" |
-| `kapak_b.png` | İkinci kapak ("NEDEN GÜLÜYOR?", kayaya omuz vermiş gülümseyen Sisifos yakın planı): YouTube "Test ve Karşılaştır" için |
+| `kapak_b.png` | İkinci kapak ("NEDEN GÜLÜYOR?", avucunu kayaya dayamış gülümseyen Sisifos yakın planı, arkadan aydınlanan kaya kenarı): YouTube "Test ve Karşılaştır" için |
 | `en/kapak_en.png` | İngilizce kapak: "HE CHAINED DEATH" (ayrı İngilizce video için) |
 | `sisifos.tr.srt` | Türkçe altyazı |
 | `sisifos_en.m4a` (ya da `audio/mix_en.wav`) | İngilizce dublaj ses kanalı (görüntüyle aynı süre) |
@@ -43,7 +43,8 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 Yükleme işlendikten sonra videonun sayfasında: **Altyazılar** (Languages) → **Dil ekle** → İngilizce.
 - **Ses** sütunu → Ekle → `sisifos_en.m4a` (ya da `audio/mix_en.wav`) → Yayınla.
   - Ses kanalının süresi videoyla aynıdır (424,9 sn); kaydırma gerekmez.
-  - Çoklu ses kanalı özelliği kanalda açık değilse bu satır görünmez. Bu durumda `sisifos_en_master.mp4` ayrı bir İngilizce video olarak yüklenebilir (aynı adımlar, `en/youtube_en.md` metinleri ve `en/kapak_en.png` kapağıyla).
+  - Bu yolda görüntüdeki yazılar Türkçe kalır; İngilizce altyazı kanalı (`en/sisifos.en.srt`) bunu karşılar.
+  - Çoklu ses kanalı özelliği kanalda açık değilse bu satır görünmez. Bu durumda `sisifos_en_master.mp4` ayrı bir İngilizce video olarak yüklenir (aynı adımlar, `en/youtube_en.md` metinleri ve `en/kapak_en.png` kapağıyla). Bu dosyada ekran yazıları da İngilizcedir.
 - **Başlık ve açıklama** sütunu → Ekle → `en/youtube_en.md` içindeki başlık ve açıklama.
 - **Altyazılar** sütunu → Ekle → `en/sisifos.en.srt`.
 
