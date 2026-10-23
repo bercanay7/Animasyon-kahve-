@@ -68,6 +68,13 @@ function tartarosHill(ctx, c, o = {}) {
   // kenar ışığı
   ctx.strokeStyle = mixCol('rgba(214,130,80,.55)', 'rgba(255,190,100,.85)', warm); ctx.lineWidth = 3 / Math.max(.15, c.z ?? 1);
   ctx.beginPath(); for (let x = X0; x <= X1; x += stp) { const y = Math.min(hillY(x), 1060) + fbm1(x * .02, 4) * 3; x === X0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke();
+  // yüzeyde çakıllar (dünya koordinatında): yürüyüşte ve kamerayla kayar, ayaklar zemine basıyor okunur
+  ctx.fillStyle = mixCol('#2A1710', '#3A2414', warm);
+  for (let x = Math.ceil(X0 / 29) * 29; x <= X1; x += 29) {
+    const h = hash(x * .137); if (h < .45) continue;
+    const xx = x + (hash(x * .71) - .5) * 20, r = 2 + hash(x * .29) * 5;
+    ctx.beginPath(); ctx.ellipse(xx, Math.min(hillY(xx), 1060) - r * .45, r * 1.4, r * .7, hillAng(xx), 0, TAU); ctx.fill();
+  }
   // kazınmış katmanlar (tabakalar) ve aşınmış yol
   ctx.strokeStyle = mixCol('rgba(160,80,45,.35)', 'rgba(200,130,60,.45)', warm); ctx.lineWidth = 2;
   for (let k = 1; k < 9; k++) {
@@ -203,7 +210,11 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
   const fN = gait(d, S2, 6 * s, 0), fF = gait(d, S2, 6 * s, .5);
   const footPos = f => { const fx = x + (f.x - d) * dir; return [fx, hillY(fx) - 3 * s - f.lift, -(hillAng(fx) * dir + f.heel)]; };
   // kalça yüksekliği: duruş bacağı neredeyse düz kalacak kadar yüksek (çömelmiş yürüyüşü önler)
-  const L = (o.legL || 43.4) * s * .968, PF = [footPos(fN), footPos(fF)]; // hafif dizle: ne çömelme ne parmak ucu
+  let PF = [footPos(fN), footPos(fF)];
+  // durma: ayaklar yan yana yere basar, bacaklar düzleşir (adım ortasında donmaz)
+  const sd = o.stand || 0;
+  if (sd > 0) { const fs = [x + 6 * s * dir, x - 5 * s * dir]; PF = PF.map((q, i) => [lerp(q[0], fs[i], sd), lerp(q[1], hillY(fs[i]) - 3 * s, sd), lerp(q[2], -hillAng(fs[i]) * dir, sd)]); }
+  const L = (o.legL || 43.4) * s * lerp(.968, .99, sd); // hafif dizle: ne çömelme ne parmak ucu
   let py = -1e9;
   for (const [fx, fy] of PF) { const dx = Math.min(Math.abs(fx - x), L * .97); py = Math.max(py, fy - Math.sqrt(L * L - dx * dx)); }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);

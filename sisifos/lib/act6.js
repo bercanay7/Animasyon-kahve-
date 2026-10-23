@@ -107,7 +107,7 @@ shot(S('G03') - .3, (ctx, st) => {
   ctx.restore();
   // kahraman: yerinde yürür, durur, yukarı bakar
   const look = ramp(t, tq, tq + .8, E.io2);
-  walkScene(ctx, null, 960, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: scroll, sty: WG, lk: LK.modern, hold: { N: HOLD.bag() }, neck: -.3 * look, head: -.45 * look,
+  walkScene(ctx, null, 960, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: scroll, sty: WG, lk: LK.modern, hold: { N: HOLD.bag() }, neck: -.3 * look, head: -.45 * look, stand: look,
     p: { brow: look * .8, shN: Math.sin(scroll / 52) * .3 * (1 - look), shF: -Math.sin(scroll / 52) * .3 * (1 - look) } });
   quote(ctx, '“Bütün bunlar ne için?”', W / 2, 250, 1200, t - tb + .1, { font: 'italic 600 84px "Cormorant Garamond"', col: C.inkSoft });
 }, { tr: { type: 'fade', dur: .6 }, post: { tex: .3, vig: .5, grain: .045 }, mb: 12 });
@@ -140,7 +140,7 @@ const warmAt = t => ramp(t, S('G05'), S('G10'), E.io2);
 const G5 = (() => { const t0 = S('G05') - .3, tk = Wd('G05', 'kaya') - .2, xAt = t => 1100 + (Math.min(t, tk) - t0) * 25;
   return { t0, tk, xAt, ro: rockOver(xAt(tk), 150, 4.0, tk, { pre: .36, fly: .46, hop: 88 }) }; })();
 window.ROCK_OVER = Object.assign(window.ROCK_OVER || {}, { G5: G5.ro });
-shot(S('G05') - .3, (ctx, st) => {
+function drawG5(ctx, st) {
   const t = st.t, { tk, ro } = G5, ta = Wd('G05', 'ağır');
   const w = warmAt(t) * .45;
   if (t < ta - .2) {
@@ -163,15 +163,24 @@ shot(S('G05') - .3, (ctx, st) => {
       walkScene(ctx, c, ro.X + 30, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: lerp(.6, .05, up), p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2, hipN: lerp(1.0, .05, up), knN: lerp(1.6, .05, up), hipF: lerp(.6, -.05, up), knF: lerp(1.4, .05, up) } });
     }
   } else {
-    const x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, st.end, E.lin)), xm = (G5.ro.X + 30 + 640) / 2;
+    const x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, S('G06') - .2, E.lin)), xm = (G5.ro.X + 30 + 640) / 2;
     const c = { x: xm - 40, y: hillY(xm) - 230, z: .95 }; // sabit kamera: yamaçtan aşağı inişi kadrajın içinde görürüz (yerinde yürüme etkisi yok)
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
     walkScene(ctx, c, x, 4.0, t, -1, { lean: -.04, neck: .05, head: .05, stride: 26, p: { brow: 0 } });
   }
-}, { tr: { type: 'clay', dur: 1.0 }, post: TP, mb: 14 });
+}
+shot(S('G05') - .3, drawG5, { tr: { type: 'clay', dur: 1.0 }, post: TP, mb: 14 });
+// "ağır ama kararlı adımlarla": ayak yakın planı (ayaklar yamaca basar), sonra iniş sürer
+shot(Wd('G05', 'kararlı') - .05, (ctx, st) => {
+  const t = st.t, ta = Wd('G05', 'ağır'), x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, S('G06') - .2, E.lin));
+  const w = warmAt(t) * .45, c = { x: x - 10, y: hillY(x) - 40, z: 3.4 };
+  tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
+  walkScene(ctx, c, x, 4.0, t, -1, { lean: -.04, neck: .05, head: .05, stride: 26, p: { brow: 0 } });
+}, { tr: { type: 'cut' }, post: TP });
+shot(Wd('G05', 'aşağı') - .1, drawG5, { tr: { type: 'cut' }, post: TP });
 
 // G6 — iniş: orta plan → ayaklar ("bilincin saati") → yüz ("farkındadır") → geniş: aşağıda bekleyen kaya ("kayasından daha güçlüdür")
-function drawG6(ctx, t, cf) {
+function drawG6(ctx, t, cf, kp) {
   const t0 = S('G06') - .2, t1 = S('G07') - .2, lt = t - t0;
   const w = .3 + warmAt(t) * .5;
   const x = lerp(640, 120, clamp((t - t0) / (t1 - t0)));
@@ -179,17 +188,20 @@ function drawG6(ctx, t, cf) {
   tartarosBG(ctx, t, c, { warm: w, diskX: x + 300, diskY: hillY(x) - 900 });
   tartarosHill(ctx, c, { groove: .9, warm: w });
   ctx.save(); cam(ctx, c, 1); const n = hillN(-470); boulder(ctx, -470 + n[0] * 150, hillY(-470) + n[1] * 150, 150, -3.1, { shadow: false }); ctx.restore();
-  walkScene(ctx, c, x, 4.0, t, -1, { lean: -.02, neck: .02, head: -.05, stride: 24, p: { breath: Math.sin(t * 1.6) * 1.4, blink: (lt % 3.4 > 3.25) ? 1 : 0, brow: 0 } });
+  walkScene(ctx, c, x, 4.0, t, -1, { lean: -.02, neck: kp?.neck ?? .02, head: kp?.head ?? -.05, stride: 24, p: { breath: Math.sin(t * 1.6) * 1.4, blink: kp?.blink, brow: 0 } });
   return x;
 }
 shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 330, z: 2.3 })), { tr: { type: 'cut' }, post: TP });
+// "Camus'ye göre bu, bilincin saatidir": göğüs planı, başın üstünde boşluk; alıntı sağda
 shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
-  drawG6(ctx, st.t, x => ({ x: x - 20, y: hillY(x) - 40, z: 3.4 }));
-  quote(ctx, 'bilincin saati', 1380, 330, 900, st.t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14 });
+  drawG6(ctx, st.t, x => ({ x: x + 60, y: hillY(x) - 300, z: 3.2 }));
+  quote(ctx, 'bilincin saati', 1400, 330, 820, st.t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14 });
 }, { tr: { type: 'cut' }, post: TP });
+// "Sisifos o an kaderinin tamamen farkındadır": daha yakın yüz; "farkındadır"da başını kaldırır, gözleri açılır
 shot(Wd('G06', 'sisifos') - .15, (ctx, st) => {
-  // yüz: sakin, açık gözler
-  drawG6(ctx, st.t, x => ({ x: x + 10, y: hillY(x) - 210, z: 4.0 })); // yüz kadrajın ortasında
+  const tf = Wd('G06', 'farkındadır');
+  const kf = keyed(st.t, [[st.t - st.lt, { head: -.05, neck: .02, blink: .35 }], [tf - .3, { head: .02, neck: .04, blink: .45 }], [tf + .4, { head: -.18, neck: -.06, blink: 0 }, E.outBack]]);
+  drawG6(ctx, st.t, x => ({ x: x + 40, y: hillY(x) - 312, z: lerp(4.0, 4.3, clamp(st.lt / 3.2)) }), kf);
 }, { tr: { type: 'cut' }, post: TP });
 shot(Wd('G06', 've') - .1, (ctx, st) => {
   const pull = E.io3(clamp(st.lt / 2.4));
@@ -216,15 +228,16 @@ shot(S('G07') - .2, (ctx, st) => {
 shot(Wd('G07', 'ama') - .12, (ctx, st) => {
   const t = st.t, lt = st.lt, te = Wd('G07', 'ezemediler');
   const w = .6 + warmAt(t) * .35;
-  const mv = ramp(t, te - .25, st.end + .4, E.in2), xr = -470 + mv * 46;
+  // "ezeMEdiler"de: küçük geri çekiliş (hazırlık), sonra omuz darbesiyle kaya ~60 px kayar ve yerine oturur
+  const tE2 = te + .18, mv = keyed(t, [[te - .3, { d: 0 }], [tE2 - .05, { d: -6 }, E.io2], [tE2 + .4, { d: 62 }, E.out3], [tE2 + 1.4, { d: 66 }]]).d, xr = -470 + mv;
   // farklı açı (daha yakın, alçak) ve sabit kamera: kayanın yerinden oynaması kadrajda görünür
   const c = { x: -470 + 20, y: hillY(-470) - 150, z: lerp(1.85, 1.95, E.sine(clamp(lt / st.d))) };
   c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-  ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te - .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 9); ctx.restore();
+  ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te + .2, xr - 60, hillY(xr - 60), 14, 'rgba(110,60,35,.4)', 110, 9); dustBurst(ctx, t, te + .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 19); ctx.restore();
   const set = lerp(.94, 1, ramp(lt, 0, .3, E.out3)); // plan, eller zaten kayadayken açılır (eylem üstünde kesme)
-  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, te + .5, te + 1.2) * .4), T: lerp(.95, 1.12, set), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
-    rockAng: -3.1 + mv * 46 / 150, jitter: ramp(t, te - .3, te + .2) * (1 - ramp(t, te + .4, te + .9)) * .8, light: -1.2 });
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, te + .5, te + 1.2) * .4), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
+    rockAng: -3.1 + mv / 150, jitter: ramp(t, te - .3, te + .15) * (1 - ramp(t, te + .5, te + 1.0)) * .8, T: 1.12 + ramp(t, te + .1, te + .35, E.out3) * .1 * (1 - ramp(t, te + .8, te + 1.6)), light: -1.2 });
 }, { tr: { type: 'cut' }, post: TP });
 
 // G8 — kitabın son sayfası
@@ -263,7 +276,7 @@ shot(S('G10') - .3, (ctx, st) => {
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
   const k10 = keyed(t, [[S('G10') - .3, { look: -.15, blink: 0, T: 1.14, strain: .3 }], [tm - .25, { look: -.12 }],
     [tm + .7, { look: -.42, blink: .78, T: 1.06, strain: 0 }, E.outBack], [tm + 1.7, { blink: .3 }], [tm + 2.6, { look: -.34, T: 1.08 }]]);
-  const po = { dist: xr, smile: sm * 2.2, blink: k10.blink, strain: k10.strain, look: k10.look, reach: 19, T: k10.T, hA: -.3, hB: -.42, breath: Math.sin(t * 1.3) * 1.2 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
+  const po = { dist: xr, smile: sm * 2.2, blink: k10.blink, strain: k10.strain, look: k10.look, reach: 19, T: k10.T, hA: -.3, hB: -.24, breath: Math.sin(t * 1.3) * 1.2 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
   const push = ramp(t, tm - .35, tm + 1.5, E.io3);

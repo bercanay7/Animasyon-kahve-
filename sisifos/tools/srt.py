@@ -29,16 +29,32 @@ for sg in segs:
     if len(ws) != len(toks):
         print('UYARI: kelime sayısı uyuşmuyor', sg['id'], len(ws), len(toks))
     n = min(len(ws), len(toks))
-    # cümle sonları ve virgüllerde bölünen parçalar (≤ MAXC)
-    chunk = []
+    # önce cümlelere, uzun cümleleri dengeli parçalara böl (tek kelimelik yetim altyazı kalmasın; virgül tercih edilir)
+    sents, cur = [], []
     for i in range(n):
-        chunk.append(i)
-        txt = ' '.join(toks[j] for j in chunk)
-        end_sent = toks[i][-1] in '.?!…' or toks[i].endswith('.”') or toks[i].endswith('?”')
-        nxt = ' '.join(toks[j] for j in chunk + [i + 1]) if i + 1 < n else ''
-        if i == n - 1 or (end_sent and len(txt) > 18) or len(nxt) > MAXC:
-            cues.append([ws[chunk[0]]['s'], ws[chunk[-1]]['e'], wrap([toks[j] for j in chunk])])
-            chunk = []
+        cur.append(i)
+        if i == n - 1 or toks[i][-1] in '.?!…' or toks[i].endswith('.”') or toks[i].endswith('?”'):
+            sents.append(cur); cur = []
+    # çok kısa cümleleri (≤ 2 kelime) bir sonrakiyle birleştir
+    merged = []
+    for sn in sents:
+        if merged and len(merged[-1]) <= 2 and len(' '.join(toks[j] for j in merged[-1] + sn)) <= MAXC: merged[-1] += sn
+        else: merged.append(sn)
+    for sn in merged:
+        L = len(' '.join(toks[j] for j in sn))
+        k = max(1, -(-L // MAXC))
+        if k == 1: parts = [sn]
+        else:
+            # k parçaya böl: hedef uzunluklara en yakın, virgüllü sınırları ödüllendiren dinamik bölme
+            import itertools
+            best, parts = 1e9, None
+            for cuts in itertools.combinations(range(1, len(sn)), k - 1):
+                ps = [sn[a_:b_] for a_, b_ in zip((0,) + cuts, cuts + (len(sn),))]
+                ls = [len(' '.join(toks[j] for j in pp)) for pp in ps]
+                cost = sum(abs(l - L / k) for l in ls) + 200 * sum(max(0, l - MAXC) for l in ls) - sum(10 for pp in ps[:-1] if toks[pp[-1]][-1] in ',;:') + 100 * sum(1 for pp in ps if len(pp) < 2)
+                if cost < best: best, parts = cost, ps
+        for pp in parts:
+            cues.append([ws[pp[0]]['s'], ws[pp[-1]]['e'], wrap([toks[j] for j in pp])])
 
 # süreleri düzenle: en az 1.0 sn, bir sonrakine 80 ms boşluk, okunabilirlik için en fazla +0.6 sn uzat
 for i, c in enumerate(cues):

@@ -4,7 +4,9 @@
 shot(S('E01') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt;
   palace(ctx, t, { dark: .82, cols: [120, 1800] });
-  const gy = 880, c = { x: lerp(980, 900, st.p), y: 560, z: lerp(1, 1.12, E.sine(st.p)) };
+  // fısıltıda orta iki kişilik plana yaklaşma
+  const gy = 880, tw = Wd('E01', 'kulağına'), two = ramp(t, tw - .45, tw + .45, E.io3);
+  const c = { x: lerp(lerp(980, 930, st.p), 860, two), y: lerp(560, 520, two), z: lerp(lerp(1, 1.08, E.sine(st.p)), 1.9, two) };
   ctx.save(); cam(ctx, c, 1);
   oilLamp(ctx, 1380, gy - 240, 2.4, t);
   ctx.fillStyle = C.ink; ctx.fillRect(1340, gy - 236, 80, 236);
@@ -18,21 +20,23 @@ shot(S('E01') - .3, (ctx, st) => {
     [tK - .1, { shN: .05, elN: 2.0 }],
     [tO, { head: .12, blink: .1 }],
     [tK - .1, { torso: -.68 }, E.io2],                       // hazırlık: geri çöker
-    [tM + .1, { torso: -.12, neck: .12, head: .06, shN: 1.35, elN: .55 }, E.outBack],
+    [tK + .45, { torso: -.4, neck: .2, head: .1 }, E.io2],   // dirseğinin üstünde doğrulur (~16 kare)
+    [tM - .1, { shN: .05, elN: 2.0 }],
+    [tM + .25, { torso: -.12, neck: .12, head: .06, shN: 1.35, elN: .55 }, E.io2],
     [tE + .2, { torso: -.04, neck: .05, head: .16 }],
     [tF + 1.2, { torso: -.06, head: .2 }],
   ]);
   const ms = keyed(t, [[S('E01') - .3, { torso: .02, neck: .05, head: .08, shN: .25, elN: .35 }], [tE - .35, { torso: .02, neck: .05, head: .08, shN: .25, elN: .35 }],
-    [tE + .25, { torso: -.14, neck: -.2, head: -.1, shN: .55, elN: 1.75 }, E.outBack], [tF + 1.5, { torso: -.12, neck: -.18, head: -.06 }]]); // dinlerken eli göğsünde
+    [tE + .25, { torso: -.07, neck: -.12, head: -.08, shN: .55, elN: 1.75 }, E.outBack], [tF + 1.5, { torso: -.06, neck: -.1, head: -.05 }]]); // dinlerken eli göğsünde
   const whisper = t > tF - .1 && t < tF + 1.2 ? Math.max(0, Math.sin(t * 11)) * .45 : 0;
   // sıcak kandil ışığı Sisifos'un arkasında (siyah figür koyu duvarda kaybolmasın)
-  glow(ctx, 760, 560, 420, 'rgba(255,170,90,.26)');
-  const mx = 960, my = gy - 46 * 5.0;
+  glow(ctx, 790, 520, 420, 'rgba(255,170,90,.34)'); glow(ctx, 805, 480, 170, 'rgba(255,200,130,.28)');
+  const mx = 948, my = gy - 46 * 5.0;
   let shM = null;
   // Merope'nin omuz noktası (Sisifos'un eli için) önce kuru hesaplanır
   const mPose = { ...ms, hipN: .12, hipF: -.1, shF: .15, elF: .5, handN: 'flat' };
   figure(ctx, { x: mx, y: my, s: 5.0, lk: LK.merope, p: mPose, alpha: 0, still: true, onJoints: (J, M) => { shM = jointPt(ctx, M, J.shoulder); } });
-  figure(ctx, { x: 820, y: gy - 30 * 5.2 - 26, s: 5.2, lk: LK.sisKing, p: { ...S1, hipN: 1.6, knN: .05, hipF: 1.55, knF: .1, ankN: -.2, ankF: -.2, shF: .55, elF: 1.6, handN: 'open', breath: Math.sin(t * 1.1) * 1.3, mouthOpen: whisper },
+  figure(ctx, { x: 820, y: gy - 30 * 5.2 - 26, s: 5.2, lk: LK.sisKing, p: { ...S1, hipN: 1.6, knN: .05, hipF: 1.55, knF: .1, ankN: -.2, ankF: -.2, shF: lerp(-.9, .55, ramp(t, tK, tM)), elF: lerp(2.3, 1.6, ramp(t, tK, tM)), handN: 'open', breath: Math.sin(t * 1.1) * 1.3, mouthOpen: whisper },
     ik: shM && t > tM - .3 ? { hN: lerp2([900, gy - 300], [shM[0] - 18, shM[1] + 6], E.io2(ramp(t, tM - .3, tM + .35))) } : undefined });
   figure(ctx, { x: mx, y: my, s: 5.0, lk: LK.merope, p: mPose });
   ctx.restore();

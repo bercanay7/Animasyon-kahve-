@@ -51,10 +51,11 @@ SCENES.kapak_en = ctx => kapakDraw(ctx, 'HE CHAINED', 'DEATH', 112, 176);
 SCENES.kapak_b = ctx => {
   const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 19, T: 1.12, hA: -.55, hB: -.62 };
   const P = pushScene(ctx, null, xr, 150, 4.0, 5, { ...po, dry: true });
-  const z = 6.2, c = { x: P.head[0] + (W / 2 - 1300) / z, y: P.head[1] + (H / 2 - 520) / z, z };
+  const z = 7.6, c = { x: P.head[0] + (W / 2 - 1180) / z, y: P.head[1] + (H / 2 - 600) / z, z };
   const zk = 1 + (z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
   tartarosBG(ctx, 5, c, { warm: 1, diskX: cxk + (1500 - W / 2) / zk, diskY: cyk + (300 - H / 2) / zk, diskR: 360 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 1180, 600, 520, 'rgba(255,190,110,.22)'); ctx.restore(); // yüzde sıcak ışık
   pushScene(ctx, c, xr, 150, 4.0, 5, po);
   motes(ctx, 5, 40, 33, 'rgba(255,225,160,.8)', [0, 0, W, H], 12, 2.2, .7);
   const g = ctx.createLinearGradient(0, 0, W * .62, 0);

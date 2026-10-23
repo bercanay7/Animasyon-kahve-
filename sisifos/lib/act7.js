@@ -24,7 +24,7 @@ function buildStrip(t = 0, reveal = 1) {
   // figür ara tuvali W×H olduğundan her sahne kendi küçük tuvalinde çizilip şeride kopyalanır
   STRIP_SCENES.forEach((sc, i) => {
     tx.setTransform(1, 0, 0, 1, 0, 0); tx.clearRect(0, 0, SEG, SH);
-    const cx = SEG * .5, xr = cx + 110, R = 118, g = groundOf(() => gy);
+    const cx = SEG * .5, xr = cx + 120, R = 148, g = groundOf(() => gy);
     if (sc.empty) {
       // boş yer: soru sorulana kadar boş kil; sonra soluk siluet + kaya + "sen?"
       if (reveal > 0) {
@@ -37,7 +37,11 @@ function buildStrip(t = 0, reveal = 1) {
       }
     } else {
       const P = pushScene(tx, null, xr, R, 3.3, t + i * 1.3, { noCam: true, ground: g, dist: xr + i * 13 + t * 12, lk: sc.lk, light: -2.3, cutCol: '#C8693D', T: 1.1, hA: .85, hB: .85 });
-      if (sc.label) { tx.font = 'italic 700 84px "Cormorant Garamond"'; const fs = Math.floor(Math.min(84, 84 * 1.62 * R / tx.measureText(sc.label).width)); txt(tx, sc.label, P.cx, P.cy + 6, { font: `italic 700 ${fs}px "Cormorant Garamond"`, col: C.ink, force: true }); }
+      if (sc.label) { // büyük etiket; iki kelimeli etiket iki satıra
+        const ls = sc.label.split(' '), big = 120;
+        tx.font = `italic 700 ${big}px "Cormorant Garamond"`; const wmax = Math.max(...ls.map(l => tx.measureText(l).width));
+        const fs = Math.floor(Math.min(big, big * 1.75 * R / wmax)), lh = fs * .92;
+        ls.forEach((l, i) => txt(tx, l, P.cx, P.cy + 10 + (i - (ls.length - 1) / 2) * lh, { font: `italic 700 ${fs}px "Cormorant Garamond"`, col: C.ink, force: true })); }
     }
     x.drawImage(STRIP.tmp, SEG * i, 0);
   });

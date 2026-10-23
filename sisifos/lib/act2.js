@@ -170,8 +170,8 @@ shot(S('C07') - .2, (ctx, st) => {
     p: { torso: .3, neck: .1, head: .2, shN: 1.2, elN: .5, shF: .8, elF: 1.0, hipN: .1, hipF: -.1 } });
   const wx = lerp(1250, 1600, ramp(lt, .2, 4.2, E.lin));
   // başında testi: tabanı başına oturur, elleri testiyi tutar
-  walkScene(ctx, null, wx, 4.4, t, 1, { noCam: true, ground: FLAT(gy), dist: wx, lk: LK.woman, p: { handN: 'flat', handF: 'flat', head: -.05, smile: .5 },
-    ik: { hN: [wx + 30, gy - 101 * 4.4], hF: [wx - 22, gy - 100 * 4.4] } });
+  walkScene(ctx, null, wx, 4.4, t, 1, { noCam: true, ground: FLAT(gy), dist: wx, lk: LK.woman,
+    p: { handN: 'flat', handF: 'flat', head: -.05, smile: .5, shN: .15, elN: .3 }, ik: { hF: [wx - 20, gy - 100 * 4.4] } }); // yakın kol aşağıda, yüz açık
   ctx.save(); ctx.translate(wx + 4, gy - 96 * 4.4); amphora(ctx, 0, 0, 1.1, C.ink, C.red); ctx.restore();
   if (dk > 0) { ctx.fillStyle = `rgba(15,6,4,${dk * .45})`; ctx.fillRect(0, 0, W, H); }
 }, { tr: { type: 'fade', dur: .5 }, post: { tex: .9, vig: .85 } });

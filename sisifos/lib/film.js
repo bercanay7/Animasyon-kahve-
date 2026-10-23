@@ -180,7 +180,7 @@ function nameTag(ctx, name, sub, x, y, lt, d = 3.2, o = {}) {
   ctx.save(); baseT(ctx); ctx.globalAlpha = a;
   const col = o.col || C.white, al = o.align || 'left';
   txt(ctx, name, x, y, { font: '700 40px Cinzel', col, align: al, ls: 6, shadow: 'rgba(0,0,0,.6)', blur: 12 });
-  if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 40, { font: 'italic 500 30px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.6)', blur: 10 });
+  if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 42, { font: 'italic 600 36px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.8)', blur: 12 });
   const lw = lerp(0, 120, E.out3(ramp(lt, .2, .9)));
   ctx.fillStyle = o.line || C.gold; ctx.fillRect(al === 'left' ? x : x - lw / 2, y + 22 + (sub ? 46 : 0) + 4, lw, 2);
   ctx.restore();

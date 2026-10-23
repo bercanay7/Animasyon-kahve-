@@ -57,7 +57,7 @@ EDL = [
     dict(s=29.9, f=302.6, cx0=700, cx1=1100),                        # Camus ve kitap
     dict(s=33.3, f=377.9, cx0=860, cx1=900),                         # mutlu
     dict(s=36.3, f=384.0, cx0=960),                                  # vazo
-    dict(s=38.9, f=402.3, cx0=960),                                  # senin kayan ne?
+    dict(s=38.9, f=402.3, cx0=960, capY=760, ctaY=1090),             # senin kayan ne? (altyazı ve çağrı "sen?" kayasının üstünde)
 ]
 DUR = round(words[-1]['e'] + 1.6, 2)
 for i, c in enumerate(EDL): c['e'] = EDL[i + 1]['s'] if i + 1 < len(EDL) else DUR

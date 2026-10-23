@@ -112,7 +112,7 @@ function drawD5(ctx, t, c, phase) {
     const su = ramp(t, S('D05') - .1, S('D05') + .7, E.io2), wk = ramp(t, S('D05') + .65, Wd('D05', 've') - .25, E.io2);
     if (wk <= 0) { const o = oturan(), k = 1 - su; figure(ctx, { x: 455 + su * 24, y: lerp(gy - 27 * 5.6, gy - 46.5 * 5.6, su), s: 5.6, lk: LK.sisKing,
       p: { ...o, hipN: o.hipN * k, knN: o.knN * k, hipF: o.hipF * k, knF: o.knF * k, torso: .2 + su * .25 * (1 - su) * 4 * .3, head: .05, shN: lerp(1.2, .3, su), elN: .6, smile: .6 } }); }
-    else { const x = lerp(479, 860, wk); walkScene(ctx, null, x, 5.6, t, 1, { noCam: true, ground: FLAT(gy), dist: x, lk: LK.sisKing, stride: 30, p: { smile: .6, head: .08, shN: Math.sin(x / 40) * .25, shF: -Math.sin(x / 40) * .25 } }); }
+    else { const x = lerp(479, 860, wk); walkScene(ctx, null, x, 5.6, t, 1, { noCam: true, ground: FLAT(gy), dist: x, lk: LK.sisKing, stride: lerp(6, 30, ramp(wk, 0, .2)), stand: 1 - ramp(wk, 0, .15), p: { smile: .6, head: .08, shN: Math.sin(x / 40) * .25, shF: -Math.sin(x / 40) * .25 } }); }
   }
   else {
     const turn = phase === 1 ? ramp(t, tk - .1, tk + .25, E.out3) : 1;
@@ -151,13 +151,18 @@ shot(S('D06') - .25, (ctx, st) => {
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(-300, gy, W + 600, 400);
   column(ctx, 1010, 80, gy, 80, '#2A140C', '#6A3020');
   // zincirler bileklerden sütuna ve yere bağlı (figürün arkasından geçer)
-  chain(ctx, [[1004, 604], [1012, 520], [1012, 300]], 22, '#E1B07A', '#5A2A16', 6);
-  chain(ctx, [[1010, 612], [1060, 760], [1010, gy]], 22, '#E1B07A', '#5A2A16', 6);
-  figure(ctx, { x: 960, y: gy - 25.5 * 6.6, s: 6.6, lk: LK.thanatos, sty: STY.red, cutCol: '#0D0605',
-    p: { torso: .45, neck: .4, head: .5, hipN: 1.35, knN: 1.45, hipF: -.05, knF: 1.62, ankF: -1.4, wingSpread: .38, wingF: 0, handN: 'fist', handF: 'fist', brow: -1, blink: .4 },
-    ik: { hN: [1000, 600], hF: [1016, 612] } });
-  shackle(ctx, 1018, 614, 17, .2, '#E1B07A');
-  shackle(ctx, 1004, 604, 17, .2, '#E1B07A');
+  // diz çökmüş Ölüm: gövde dik, baş eğik, bilekleri sütundaki halkaya zincirli; kanatlar sırtta toplu (yavaş, ağır nefes)
+  ctx.save(); ctx.strokeStyle = '#2A140C'; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(992, 560, 22, 0, TAU); ctx.stroke(); ctx.strokeStyle = '#8A4A2A'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(992, 560, 22, 0, TAU); ctx.stroke(); ctx.restore();
+  const br = Math.sin(lt * 1.3);
+  let wN = null, wF = null;
+  figure(ctx, { x: 800, y: gy - 25.5 * 6.6, s: 6.6, lk: LK.thanatos, sty: STY.red, cutCol: '#0D0605',
+    p: { torso: .12 + br * .02, neck: .32, head: .38, hipN: 1.35, knN: 1.45, hipF: -.05, knF: 1.62, ankF: -.5, wingSpread: .22, wingF: .55, handN: 'fist', handF: 'fist', brow: -1, blink: .45, breath: br * 1.4 },
+    ik: { hN: [940, 588], hF: [956, 600] }, onJoints: (J, M) => { wN = wrW(ctx, M, J, 'N'); wF = wrW(ctx, M, J, 'F'); } });
+  if (wN && wF) {
+    chain(ctx, [wN, [lerp(wN[0], 992, .5), 600], [992, 572]], 22, '#E1B07A', '#5A2A16', 6);
+    chain(ctx, [wF, [wF[0] + 20, 760], [960, gy - 4]], 22, '#E1B07A', '#5A2A16', 6);
+    shackle(ctx, wN[0], wN[1], 17, .2, '#E1B07A'); shackle(ctx, wF[0], wF[1], 17, .2, '#E1B07A');
+  }
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: 1, grain: .07 } });
 
@@ -301,7 +306,9 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const xs = lerp(760, 900, drag) + shove * 110 + pull * 110;
   const strug = (1 - shove) * Math.sin(t * 9) * .05;
   let wrS = null, shS = null;
-  figure(ctx, { x: xs, y: gy - 45 * 5.6 + shove * 14, s: 5.6, lk: LK.sisKing,
+  // topuklar sürtünür: toz
+  for (let k = 0; k < 4; k++) dustBurst(ctx, t, t0 + .3 + k * .45, xs + 30, gy, 6, 'rgba(120,64,36,.4)', 60, 70 + k);
+  figure(ctx, { x: xs, y: gy - 45 * 5.6 + shove * 14, s: 5.6, lk: LK.sisKing, shadowBlur: 22, shadowCol: 'rgba(255,170,90,.85)',
     p: { torso: lerp(-.22, .2, shove) + strug, neck: -.1, head: lerp(-.25, .15, shove), shN: 2.25, elN: 1.45, handN: 'open', shF: lerp(-.9, -1.2, shove), elF: .4, handF: 'open',
       hipN: lerp(.55, .5, shove), knN: lerp(.15, .5, shove), hipF: lerp(.2, -.5, shove), knF: lerp(.1, .7, shove), ankN: -.3 * (1 - shove), ankF: -.3 * (1 - shove), brow: 1.6, mouthOpen: .5 + Math.max(0, Math.sin(t * 7)) * .3 },
     onJoints: (J, M) => { wrS = wrW(ctx, M, J, 'N'); const tr = ctx.getTransform().inverse(); const q = tr.transformPoint(M.transformPoint(new DOMPoint(J.shoulder[0], J.shoulder[1]))); shS = [q.x, q.y]; } });

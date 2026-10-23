@@ -1,3 +1,4 @@
+import zlib
 """Son miks: anlatım + müzik (konuşma altında kısılır) + ses efektleri → audio/mix.wav (-14 LUFS, ≤ -1 dBTP)
 
 python3 tools/mix.py            # tam miks
@@ -240,7 +241,8 @@ def place(bus, x, t0, pan=0.0):
 
 
 # dile özel efekt düzeltmeleri (İngilizce anlatımın sözcük yerleri farklı): (yaklaşık zaman, ad, ek dB)
-EN_SFX = [(1.70, 'chains', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -3)]
+EN_SFX = [(1.70, 'chains', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -3),
+          (192.3, 'whoosh', -6), (192.75, 'chains', -3), (102.43, 'eagle', -5), (225.94, 'shimmer', -5), (282.04, 'whoosh', -5)]
 def build_sfx(lang='tr'):
     ev = json.load(open(A('audio/sfx_events.json')))
     if lang == 'en':
@@ -265,6 +267,8 @@ def build_sfx(lang='tr'):
             if name in SEND: place(send, x * db(SEND[name]), e['t'])
             continue
         if name in SYNTH:
+            # her olayın kendi rastgele tohumu: bir işaret değişince diğer sentez sesleri değişmez
+            global rng; rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
             kw = {k: e[k] for k in ('len', 'rev', 'down', 'big', 'rate') if k in e}
             y = SYNTH[name](**kw)
             if 'len' in e and name not in ('whoosh', 'riser', 'shimmer', 'pen'):
@@ -390,7 +394,8 @@ def main():
         mu *= db(-21 - meter.integrated_loudness(mu.T))
         cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
         extra = np.ones(N)
-        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6)]:
+        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 142.1, -9), (266.0, 267.3, -9), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6), (272.4, 272.9, -3),
+                           (278.5, 279.0, -3), (343.6, 344.2, -3), (283.3, 283.7, -3), (196.8, 197.2, -3)]:
             extra[int(a_ * SR):int(b_ * SR)] = db(d_)
         extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra

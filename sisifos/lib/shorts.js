@@ -27,15 +27,17 @@ function renderShortFrame(ts, mb = 1) {
 }
 // üst/alt vazo şeritleri, başlık ve altyazı
 function shortOverlay(g, ts) {
-  const S_ = window.SHORT;
+  const S_ = window.SHORT, clip = S_.EDL.find(c => ts >= c.s && ts < c.e) || {};
+  const capY = clip.capY ?? 1235, ctaY = clip.ctaY ?? 1330;
   // üst şerit + başlık
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,6,4,.75)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);
   meander(g, 0, SHW, 34, 40, '#E7B85E');
   txt(g, 'SİSİFOS', SHW / 2, 140, { font: '900 64px Cinzel', col: '#F6E3BE', ls: 14, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
   // altyazı bandı (parlak karelerde okunurluk)
-  const cb = g.createLinearGradient(0, 1230, 0, 1640); cb.addColorStop(0, 'rgba(12,6,4,0)'); cb.addColorStop(.35, 'rgba(12,6,4,.55)'); cb.addColorStop(.7, 'rgba(12,6,4,.55)'); cb.addColorStop(1, 'rgba(12,6,4,0)');
-  g.fillStyle = cb; g.fillRect(0, 1230, SHW, 410);
+  // YouTube Shorts arayüzü (başlık, kanal, düğmeler) alt ~%25'i ve sağ kenarı kapatır: altyazı 1080–1400 aralığında
+  const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, 'rgba(12,6,4,0)'); cb.addColorStop(.3, 'rgba(12,6,4,.55)'); cb.addColorStop(.75, 'rgba(12,6,4,.55)'); cb.addColorStop(1, 'rgba(12,6,4,0)');
+  g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
   // altyazı: kelime grupları, etkin kelime altın
   const groups = S_.GROUPS, gi = groups.findIndex(gr => ts >= gr.s - .05 && ts < gr.e + .15);
   if (gi >= 0) {
@@ -44,9 +46,9 @@ function shortOverlay(g, ts) {
     const words = gr.words, sp = g.measureText(' ').width;
     // satırlara böl (en fazla 900 px)
     const lines = []; let cur = [], wsum = 0;
-    for (const w of words) { const ww = g.measureText(w.w.toLocaleUpperCase('tr')).width; if (cur.length && wsum + sp + ww > 900) { lines.push(cur); cur = []; wsum = 0; } cur.push({ ...w, ww }); wsum += (cur.length > 1 ? sp : 0) + ww; }
+    for (const w of words) { const ww = g.measureText(w.w.toLocaleUpperCase('tr')).width; if (cur.length && wsum + sp + ww > 860) { lines.push(cur); cur = []; wsum = 0; } cur.push({ ...w, ww }); wsum += (cur.length > 1 ? sp : 0) + ww; }
     if (cur.length) lines.push(cur);
-    const y0 = 1435 - (lines.length - 1) * 54;
+    const y0 = capY - (lines.length - 1) * 54;
     lines.forEach((ln, li) => {
       const tw = ln.reduce((q, w) => q + w.ww, 0) + sp * (ln.length - 1);
       let x = SHW / 2 - tw / 2;
@@ -65,7 +67,7 @@ function shortOverlay(g, ts) {
   }
   // son: kanal çağrısı
   const ce = S_.CTA ?? 1e9;
-  if (ts > ce) { const q = clamp((ts - ce) / .4); g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.7)'; g.fillRect(140, 1620, 800, 110); g.strokeStyle = '#E7B85E'; g.lineWidth = 4; g.strokeRect(140, 1620, 800, 110);
-    txt(g, 'TAM HİKÂYE KANALDA', SHW / 2, 1676, { font: '700 46px Cinzel', col: '#F6E3BE', ls: 4, force: true }); g.restore(); }
+  if (ts > ce) { const q = clamp((ts - ce) / .4); g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.7)'; g.fillRect(120, ctaY, 780, 110); g.strokeStyle = '#E7B85E'; g.lineWidth = 4; g.strokeRect(120, ctaY, 780, 110);
+    txt(g, 'TAM HİKÂYE KANALDA', 510, ctaY + 56, { font: '700 46px Cinzel', col: '#F6E3BE', ls: 4, force: true }); g.restore(); }
 }
 window.renderShortFrame = renderShortFrame;
