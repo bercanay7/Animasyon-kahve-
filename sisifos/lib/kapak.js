@@ -47,21 +47,21 @@ function kapakDraw(ctx, L1, L2, f1 = 168, f2 = 132) {
 }
 SCENES.kapak = ctx => kapakDraw(ctx, 'ÖLÜMÜ', 'ZİNCİRLEDİ', 168, 118);
 SCENES.kapak_en = ctx => kapakDraw(ctx, 'HE CHAINED', 'DEATH', 112, 176);
-// B kapağı (YouTube "Test ve Karşılaştır" için): tanıdık imge — kayayı iten, gülümseyen Sisifos; "MUTLU MU?"
+// B kapağı (YouTube "Test ve Karşılaştır" için): yüz yakın planı — kayaya omuz vermiş, gülümseyen Sisifos; "NEDEN GÜLÜYOR?"
 SCENES.kapak_b = ctx => {
-  const xr = 330, po = { dist: xr, smile: 2.2, blink: .4, strain: .3, look: -.3, reach: 19, T: 1.12 };
+  const xr = 330, po = { dist: xr, smile: 2.4, blink: .45, strain: .2, look: -.35, reach: 19, T: 1.12, hB: -.28 };
   const P = pushScene(ctx, null, xr, 150, 4.0, 5, { ...po, dry: true });
-  const z = 1.75, c = { x: P.head[0] - (1180 - W / 2) / z, y: P.head[1] - (470 - H / 2) / z, z };
+  const z = 4.6, c = { x: P.head[0] + (W / 2 - 1330) / z, y: P.head[1] + (H / 2 - 560) / z, z };
   const zk = 1 + (z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
-  tartarosBG(ctx, 5, c, { warm: 1, diskX: cxk + (1600 - W / 2) / zk, diskY: cyk + (360 - H / 2) / zk, diskR: 320 });
+  tartarosBG(ctx, 5, c, { warm: 1, diskX: cxk + (1500 - W / 2) / zk, diskY: cyk + (300 - H / 2) / zk, diskR: 360 });
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
   pushScene(ctx, c, xr, 150, 4.0, 5, po);
   motes(ctx, 5, 40, 33, 'rgba(255,225,160,.8)', [0, 0, W, H], 12, 2.2, .7);
-  const g = ctx.createLinearGradient(0, 0, W * .6, 0);
-  g.addColorStop(0, 'rgba(14,6,4,.85)'); g.addColorStop(.75, 'rgba(14,6,4,.5)'); g.addColorStop(1, 'rgba(14,6,4,0)');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W * .6, H);
+  const g = ctx.createLinearGradient(0, 0, W * .62, 0);
+  g.addColorStop(0, 'rgba(14,6,4,.88)'); g.addColorStop(.7, 'rgba(14,6,4,.55)'); g.addColorStop(1, 'rgba(14,6,4,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W * .62, H);
   const sh = { shadow: 'rgba(0,0,0,.75)', blur: 22 };
-  txt(ctx, 'MUTLU', 70, 300, { font: '900 200px Cinzel', col: '#FFF1D2', align: 'left', ls: 8, ...sh });
-  txt(ctx, 'MU?', 70, 500, { font: '900 200px Cinzel', col: '#FFD27A', align: 'left', ls: 8, ...sh });
+  txt(ctx, 'NEDEN', 70, 300, { font: '900 190px Cinzel', col: '#FFF1D2', align: 'left', ls: 8, ...sh });
+  txt(ctx, 'GÜLÜYOR?', 70, 500, { font: '900 150px Cinzel', col: '#FFD27A', align: 'left', ls: 4, ...sh });
   applyVignette(ctx, .55);
 };

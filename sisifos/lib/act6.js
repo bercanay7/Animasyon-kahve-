@@ -217,7 +217,8 @@ shot(Wd('G07', 'ama') - .12, (ctx, st) => {
   const t = st.t, lt = st.lt, te = Wd('G07', 'ezemediler');
   const w = .6 + warmAt(t) * .35;
   const mv = ramp(t, te - .25, st.end + .4, E.in2), xr = -470 + mv * 46;
-  const c = { x: xr + 40, y: hillY(xr) - 210, z: lerp(1.3, 1.4, E.sine(clamp(lt / st.d))) };
+  // farklı açı (daha yakın, alçak) ve sabit kamera: kayanın yerinden oynaması kadrajda görünür
+  const c = { x: -470 + 20, y: hillY(-470) - 150, z: lerp(1.85, 1.95, E.sine(clamp(lt / st.d))) };
   c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
   ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te - .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 9); ctx.restore();
@@ -259,7 +260,7 @@ shot(S('G10') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt, tm = Wd('G10', 'mutlu');
   const xr = 260 + lt * 12;
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
-  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12 };
+  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12, hB: -.28 }; // uzak el kayanın yanında: başla birleşmez
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
   const push = ramp(t, tm - .4, tm + 2.3, E.io3);
@@ -271,6 +272,10 @@ shot(S('G10') - .3, (ctx, st) => {
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
   pushScene(ctx, c, xr, 150, 4.0, t, po);
   motes(ctx, t, 50, 33, 'rgba(255,225,160,.85)', [0, 0, W, H], 12, 2.2, .7);
-  quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 930, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18, band: true });
-  txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 1000, { font: 'italic 600 46px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
+  // alıntı üstte (YouTube altyazı bölgesi olan alt kısım boş kalır); sonraki geçişten önce söner
+  const qa = 1 - ramp(t, S('H01') - .85, S('H01') - .5);
+  ctx.save(); ctx.globalAlpha = qa;
+  quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 150, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18, band: true });
+  txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 226, { font: 'italic 600 46px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
+  ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .5, vig: .9, grain: .05 } });

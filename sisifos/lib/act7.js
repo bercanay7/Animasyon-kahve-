@@ -142,10 +142,10 @@ shot(S('H04') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt;
   museum(ctx, t, .7);
   const a = ramp(lt, 0, 1.2, E.io2);
-  drawVase(ctx, lerp(W / 2, 470, a), lerp(600, 520, a), lerp(1.0, .7, a), segRot(STRIP_N - 1) + Math.sin(lt * .5) * .005, { t });
+  drawVase(ctx, lerp(W / 2, 470, a), lerp(600, 610, a), lerp(1.0, .7, a), segRot(STRIP_N - 1) + Math.sin(lt * .5) * .005, { t });
   ctx.save(); ctx.globalAlpha = ramp(lt, .6, 1.6);
-  txt(ctx, 'SİSİFOS', 470, 935, { font: '900 68px Cinzel', col: '#F3E2BC', ls: 16 });
+  txt(ctx, 'SİSİFOS', 470, 120, { font: '900 68px Cinzel', col: '#F3E2BC', ls: 16 });
   ctx.restore();
-  quote(ctx, 'Senin kayan neyse, yorumlarda anlat.', 470, 1005, 900, lt - .6, { font: 'italic 600 46px "Cormorant Garamond"', col: '#E9D3AE' });
+  quote(ctx, 'Senin kayan neyse, yorumlarda anlat.', 470, 192, 900, lt - .6, { font: 'italic 600 46px "Cormorant Garamond"', col: '#E9D3AE' });
   // sağ taraf YouTube bitiş ekranı öğeleri için boş bırakılır
 }, { tr: { type: 'cut' }, post: { tex: .35, vig: 1, grain: .05 } });

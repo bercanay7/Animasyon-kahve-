@@ -158,7 +158,9 @@ shot(Wd('B03', 'homeros') - .2, (ctx, st) => {
 shot(S('B04') - .85, (ctx, st) => {
   const t = st.t, lt = st.lt, tr = Wd('B04', 'rengini'), ts = Wd('B04', 'sisifosun');
   if (t >= ts - .1) return drawB4b(ctx, st, ts);
-  clayBG(ctx, '#64301E', '#2E140C'); // gece, ama siluetler okunacak kadar açık
+  // alacakaranlıktan geceye (bölüm içi zaman geçişi; bölüm sonu gibi kararmaz)
+  const dusk = 1 - ramp(lt, .2, 1.6, E.io2);
+  clayBG(ctx, mixCol('#64301E', '#C26A3C', dusk), mixCol('#2E140C', '#7A3A1E', dusk));
   stars(ctx, t, 180, 9, 'rgba(255,230,190,.8)', [0, 0, W, H * .55]);
   disk(ctx, 1520, 200, 70, '#F2E3C2', 'rgba(255,235,190,.25)');
   const gy = 860;
@@ -178,7 +180,7 @@ shot(S('B04') - .85, (ctx, st) => {
   if (t > tr && t < tr + 1.2) for (let i = 0; i < 10; i++) sparkle(ctx, ccx - 120 + hash(i) * 240, gy - 160 + hash(i + 9) * 120, 14, clamp(1 - Math.abs(t - tr - .4 - hash(i) * .5) * 3));
   flatWalk(ctx, ax + gone * 520, gy, 4.2, t, gone > 0 ? 1 : -1, { lk: LK.autolykos, dist: lt * 50, ...sneak });
   nameTag(ctx, 'AUTOLYKOS', 'Ünlü hırsız', 120, 140, t - Wd('B04', 'otolikos') + .1, 3.0, { col: C.white });
-}, { tr: { type: 'black', dur: .7 }, post: { tex: .6, vig: 1, grain: .07 }, mb: 12 });
+}, { tr: { type: 'cut' }, post: { tex: .6, vig: 1, grain: .07 }, mb: 12 });
 function drawB4b(ctx, st, ts) {
   const t = st.t, lt2 = t - ts;
   // gün-gece döngüsü ve azalan sürü

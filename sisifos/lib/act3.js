@@ -291,6 +291,7 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const gy = 900;
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(0, gy, W, 3);
   // zorla teslim: Ares ilk kareden omzunu kavrar ve sürükler; Sisifos geriye yaslanır, topukları kayar, kolu savunmada; son itiş "teslim"de
+  column(ctx, 96, 80, gy, 80, '#2A140C', '#6A3020'); // aynı salon: D9'daki sütunlardan biri kadrajın kenarında
   const t0 = st.start ?? (Wd('D09', 'sisifos') - .15), drag = ramp(t, t0, tg - .5, E.io2), shove = ramp(t, tg - .5, tg + .1, E.in2), pull = ramp(t, tg + .3, tg + 1.3, E.io2);
   const xs = lerp(760, 900, drag) + shove * 110 + pull * 110;
   const strug = (1 - shove) * Math.sin(t * 9) * .05;
@@ -304,7 +305,7 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const fy = gy - 3 * 6.4;
   figure(ctx, { x: ax, y: gy - 44 * 6.4, s: 6.4, lk: LK.ares,
     p: { torso: .3 + shove * .15, neck: -.1, head: -.1, handN: 'open', shF: .3, elF: 1.4, brow: -1.2, mouthOpen: shove * (1 - pull) * .4 },
-    ik: { hN: shS ? [shS[0] - 10, shS[1] + 6] : [xs - 60, gy - 380], fN: [lerp(520, 790, st1), fy - Math.sin(st1 * PI) * 36, 0], fF: [lerp(400, 690, st2), fy - Math.sin(st2 * PI) * 30, 0] } }); // ayaklar zemine kilitli: iki adım
+    ik: { hN: shS ? lerp2([shS[0] - 10, shS[1] + 6], [ax + 70, gy - 330], pull) : [xs - 60, gy - 380], fN: [lerp(520, 790, st1), fy - Math.sin(st1 * PI) * 36, 0], fF: [lerp(400, 690, st2), fy - Math.sin(st2 * PI) * 30, 0] } }); // ayaklar zemine kilitli: iki adım
   // Thanatos: kanatlar açık, Sisifos'un bileğini yakalar
   const grab = ramp(t, tg - .2, tg + .3, E.out3);
   figure(ctx, { x: 1420 - pull * 40, y: gy - 47 * 6.6, s: 6.6, dir: -1, lk: LK.thanatos, ...THS, cutCol: '#140A07',
