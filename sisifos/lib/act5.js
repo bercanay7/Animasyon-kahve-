@@ -113,7 +113,7 @@ shot(S('F05') - .1, (ctx, st) => {
   if (t < tStand) {
     const pr = ro.prone(t);
     pushScene(ctx, c, 1330 - u * 40, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.0, handsOff: Math.max(u, pr), mouthOpen: .8, T: 1.48,
-      rockAng: (1330 - u * 40) / R - u * .4, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk });
+      rockAng: (1330 - u * 40) / R - u * .4, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t) });
   } else {
     if (rk) { ctx.save(); cam(ctx, c, 1); boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: -1.2 }); ctx.restore(); }
     const up = ramp(t, tStand, tStand + .9, E.io2);

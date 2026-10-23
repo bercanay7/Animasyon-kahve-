@@ -119,7 +119,7 @@ shot(S('A04') - .2, (ctx, st) => {
   ctx.restore();
   const pr = ro.prone(t), rk = t < tg ? null : ro.rockAt(t);
   pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: Math.max(ant * .6, pr * .5 * (1 - ro.rise(t))),
-    handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk,
+    handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t),
     rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 }, mb: 14 });
 

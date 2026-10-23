@@ -76,7 +76,16 @@ const HELMET = [[6.4, -4.6], [6.9, -7.0], [6.0, -9.8], [4.4, -12.6], [1.0, -14.6
 // Figür çizimi
 // f = { x, y, s, dir, sty, lk:{...görünüm}, p:{...poz}, ik:{hN,hF,fN,fF}, alpha, hold:{N(g),F(g)}, extra }
 function figure(ctx, f) {
-  const sty = f.sty || STY.black, lk = f.lk || {}, p = f.p || {};
+  const sty = f.sty || STY.black, lk = f.lk || {};
+  let p = f.p || {};
+  // canlılık (animatör geçişi): her figür duruşta hafifçe nefes alır, başı oynar ve doğal aralıklarla göz kırpar
+  if (!f.still && typeof idleOffsets === 'function') {
+    const sd = f.seed ?? ((Math.round((f.s || 5) * 10) * 7 + (lk.fem ? 3 : 0) + (lk.beard ? lk.beard.length * 5 : 0) + (lk.hair ? lk.hair.length * 3 : 0) + (f.dir || 1) * 2 + (f.sty === STY.red ? 11 : 0)) % 97);
+    const io = idleOffsets(window.FIG_T || 0, sd, f.idle ?? 1);
+    p = { ...p, torso: (p.torso || 0) + io.torso, neck: (p.neck || 0) + io.neck, head: (p.head || 0) + io.head,
+      breath: p.breath ?? io.breath, blink: p.blink ?? blinkAt(window.FIG_T || 0, sd) };
+    f = { ...f, p };
+  }
   const s = f.s || 5, dir = f.dir || 1;
   const T = p.torso || 0;
   const base = ctx.getTransform();
@@ -209,6 +218,7 @@ function drawBody(G, f, J, tor, tP) {
       [L.knee, -L.shA, c => spline(c, limbPts(PROF.shin, BL.sh, thin))],
       [L.ank, -L.footA, c => spline(c, FOOT.map(q => [q[0] * (lk.fem ? .9 : 1), q[1]]))],
       [J.hip, -L.thA, c => spline(c, limbPts(PROF.thigh, BL.th, thin))],
+      [L.knee, 0, c => c.arc(0, 0, 3.25 * thin, 0, TAU)], // diz eklemi: uyluk-baldır birleşiminde çentik kalmaz
     ];
     limb(shapes, lk.fem ? skin : {});
     if (!lk.fem) {
@@ -229,6 +239,7 @@ function drawBody(G, f, J, tor, tP) {
       [A.wr, -A.haA, c => spline(c, HAND[hs] || HAND.open)],
       [A.elb, -A.foA, c => spline(c, limbPts(PROF.fo, BL.fo, thin))],
       [J.shoulder, -A.upA, c => spline(c, limbPts(PROF.up, BL.up, thin))],
+      [A.elb, 0, c => c.arc(0, 0, 2.45 * thin, 0, TAU)], // dirsek eklemi
     ];
     if (hs === 'open' || hs === 'flat') shapes.unshift([A.wr, -A.haA, c => spline(c, THUMB)]);
     limb(shapes, lk.fem ? skin : {});

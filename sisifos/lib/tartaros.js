@@ -103,7 +103,8 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   // eller kaya yüzeyinde; omuz, ellerden kol boyu kadar geride; leğen omuzdan hesaplanır
   const strain = o.strain ?? 1;
   const off = o.handsOff || 0;
-  const T = (o.T ?? 1.3) + a * .3 + Math.sin(t * 7) * .01 * strain - off * .5;
+  // itiş ritmi: titreşime ek olarak yavaş bir yüklenme-bırakma döngüsü (her itişte gövde öne yüklenir)
+  const T = (o.T ?? 1.3) + a * .3 + Math.sin(t * 7) * .01 * strain + Math.max(0, Math.sin(t * 1.9)) * .03 * Math.min(1, strain) - off * .5;
   const hA = PI - .62 + a * .35 + (o.hA || 0), hB = PI - .22 + a * .35 + (o.hB || 0);
   const onR = (th, k = 0) => [cx + Math.cos(th) * (R + 1.5 * s + k), cy + Math.sin(th) * (R + 1.5 * s + k)];
   const hm = onR((hA + hB) / 2);
@@ -144,6 +145,10 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
     // baş: yere kapanınca içe çekili, doğrulurken aşağı (kayanın gittiği yöne değil, yorgun) bakar
     nk = lerp(nk, lerp(.15, .25, r), e); hd = lerp(hd, lerp(.9 - TP - .15, .55 - TK - .25, r) + (o.look || 0), e);
     head = add(P, scl(rot([.4, -36], TT), s));
+    // kaya üstünden geçerken kollarıyla başını korur; yere çarpınca gövde hafifçe seker (sönümlü)
+    const cv = o.cover || 0;
+    if (cv > 0) { hN = lerp2(hN, add(head, scl(rot([2, -4], TT), s)), cv); hF = lerp2(hF, add(head, scl(rot([-3, -6], TT), s)), cv); }
+    if (o.bounce) P = add(P, scl(n2, o.bounce * 4 * s));
   }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);
   const rk = o.rock;
@@ -153,7 +158,7 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
     x: P[0], y: P[1], s, sty: o.sty || STY.black, cutCol: o.cutCol,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, alpha: o.alpha,
     p: { torso: TT, neck: nk, head: hd, handN: 'flat', handF: 'flat',
-      brow: -strain, smile: o.smile || 0, breath: Math.sin(t * 2.4) * .5, blink: o.blink || 0, mouthOpen: o.mouthOpen || 0 },
+      brow: -strain, smile: o.smile || 0, breath: o.breath ?? Math.sin(t * 2.4) * (.5 + .4 * strain), blink: o.blink, mouthOpen: o.mouthOpen || 0 },
     ik: { hN, hF, fN: fNp, fF: fFp },
   });
   if (o.rockFront) shadeRock();
@@ -185,8 +190,10 @@ function rockOver(xr0, R, s, tg, o = {}) {
   };
   const rockAt = t => { const x = xAt(t), n = hillN(x); return [x + n[0] * R, hillY(x) + n[1] * R - hopAt(t), x / R]; };
   const prone = t => ramp(t, tg - .3, tg + .08, E.in2);
-  const rise = t => ramp(t, td + (o.riseAt ?? .35), td + (o.riseAt ?? .35) + (o.riseDur ?? .7), E.io2);
-  return { X, headX, feetX, xl, xd, tg, tl, td, B, xAt, hopAt, rockAt, prone, rise, bounces: [td, ...B.slice(1).map(b => b.a)] };
+  const rise = t => { const t0 = td + (o.riseAt ?? .35), d = o.riseDur ?? .7; return Math.max(0, anticip(t, t0, t0 + d, .12)); }; // önce bastırır, sonra kalkar
+  const cover = t => ramp(t, tl - .2, tl + .05, E.out3) * (1 - ramp(t, td + .15, td + .5, E.io2));
+  const bounce = t => settle(t, tg + .08, 1, 3.2, 7) + settle(t, td, .6, 4, 8);
+  return { cover, bounce, X, headX, feetX, xl, xd, tg, tl, td, B, xAt, hopAt, rockAt, prone, rise, bounces: [td, ...B.slice(1).map(b => b.a)] };
 }
 // Tepe boyunca yürüyen Sisifos (aşağı ya da yukarı), x konumu, yön dir
 function walkScene(ctx, c, x, s, t, dir, o = {}) {
@@ -204,9 +211,13 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
     x, y: py, s, dir, sty: o.sty || STY.black, cutCol: o.cutCol, alpha: o.alpha, onJoints: o.onJoints, hold: o.hold, extra: o.extra, margin: o.margin,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true },
     p: {
-      torso: (o.lean ?? .08) + (dir > 0 ? hillAng(x) * .3 : -hillAng(x) * .25), neck: o.neck || 0, head: o.head || 0,
-      shN: Math.sin((d / S2) * TAU) * .35, elN: .35, shF: -Math.sin((d / S2) * TAU) * .35, elF: .35,
-      handN: 'open', handF: 'open', smile: o.smile || 0, brow: o.brow || 0, breath: Math.sin(t * 2) * .6, blink: o.blink || 0,
+      // ikincil hareket: kollar bacaklardan biraz geç sallanır (gecikme), dirsek ileri salınımda bükülür,
+      // baş adımla ters yönde hafif dengelenir, gövde her basışta hafifçe çöker
+      torso: (o.lean ?? .08) + (dir > 0 ? hillAng(x) * .3 : -hillAng(x) * .25) + Math.sin((d / S2) * TAU * 2 - .6) * .02,
+      neck: (o.neck || 0) - Math.sin((d / S2) * TAU * 2 - .9) * .035, head: o.head || 0,
+      shN: Math.sin((d / S2) * TAU - .35) * .36, elN: .3 + Math.max(0, Math.sin((d / S2) * TAU - .6)) * .3,
+      shF: -Math.sin((d / S2) * TAU - .35) * .36, elF: .3 + Math.max(0, -Math.sin((d / S2) * TAU - .6)) * .3,
+      handN: 'open', handF: 'open', smile: o.smile || 0, brow: o.brow || 0, breath: Math.sin(t * 2) * .6, blink: o.blink,
       ...(o.p || {}),
     },
     ik: { fN: PF[0], fF: PF[1], ...(o.ik || {}) },

@@ -6,6 +6,7 @@ const Q = new URLSearchParams(location.search);
 window.FPS = 30;
 const acc = makeCanvas(DW, DH), accx = acc.getContext('2d');
 function renderFrame(t) {
+  window.FIG_T = t;
   baseT(ctx);
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);

@@ -156,7 +156,7 @@ shot(S('G05') - .3, (ctx, st) => {
     const tStand = ta - 1.0, rk = t < tk ? null : ro.rockAt(t);
     if (t < tStand) {
       const pr = ro.prone(t);
-      pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk });
+      pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t) });
     } else {
       if (rk) { ctx.save(); cam(ctx, c, 1); boulder(ctx, rk[0], rk[1], 150, rk[2], { shadow: false }); ctx.restore(); }
       const up = ramp(t, tStand, ta - .25, E.io2);
@@ -259,8 +259,11 @@ shot(S('G09') - .25, (ctx, st) => {
 shot(S('G10') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt, tm = Wd('G10', 'mutlu');
   const xr = 260 + lt * 12;
+  // animatör geçişi: "mutlu"da itmeyi bir an bırakır, başını kaldırır, gözlerini yumup açar, nefesini verir; gülümseme yavaşça yayılır
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
-  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12, hA: -.55, hB: -.62 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
+  const k10 = keyed(t, [[S('G10') - .3, { look: -.15, blink: 0, T: 1.14, strain: .3 }], [tm - .25, { look: -.12 }],
+    [tm + .7, { look: -.42, blink: .78, T: 1.06, strain: 0 }, E.outBack], [tm + 1.7, { blink: .3 }], [tm + 2.6, { look: -.34, T: 1.08 }]]);
+  const po = { dist: xr, smile: sm * 2.2, blink: k10.blink, strain: k10.strain, look: k10.look, reach: 19, T: k10.T, hA: -.3, hB: -.42, breath: Math.sin(t * 1.3) * 1.2 }; // eller kayanın yanında, yüzün altında: baş ve gülümseme açıkta
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
   // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
   const push = ramp(t, tm - .35, tm + 1.5, E.io3);
