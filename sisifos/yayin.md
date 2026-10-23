@@ -7,9 +7,11 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 | Dosya | Ne için |
 |---|---|
 | `sisifos_master.mp4` (yoksa `sisifos.mp4`) | Uzun video, 1920×1080, Türkçe ses |
-| `kapak.png` | Uzun videonun kapağı (1280×720) |
+| `sisifos_en_master.mp4` (yoksa `sisifos_en.mp4`) | Aynı görüntü, İngilizce ses (ayrı İngilizce video seçeneği için) |
+| `kapak.png` | Uzun videonun kapağı (1280×720): "ÖLÜMÜ ZİNCİRLEDİ" |
+| `en/kapak_en.png` | İngilizce kapak: "HE CHAINED DEATH" (ayrı İngilizce video için) |
 | `sisifos.tr.srt` | Türkçe altyazı |
-| `audio/mix_en.wav` (ya da `sisifos_en.m4a`) | İngilizce dublaj ses kanalı (görüntüyle aynı süre) |
+| `sisifos_en.m4a` (ya da `audio/mix_en.wav`) | İngilizce dublaj ses kanalı (görüntüyle aynı süre) |
 | `en/sisifos.en.srt` | İngilizce altyazı |
 | `en/youtube_en.md` | İngilizce başlık / açıklama / etiketler |
 | `sisifos_shorts.mp4` | Shorts, 1080×1920, 42,7 sn |
@@ -38,9 +40,9 @@ YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bi
 
 ## 2. İngilizce dublaj (aynı videoya ikinci ses kanalı)
 Yükleme işlendikten sonra videonun sayfasında: **Altyazılar** (Languages) → **Dil ekle** → İngilizce.
-- **Ses** sütunu → Ekle → `audio/mix_en.wav` (ya da `sisifos_en.m4a`) → Yayınla.
+- **Ses** sütunu → Ekle → `sisifos_en.m4a` (ya da `audio/mix_en.wav`) → Yayınla.
   - Ses kanalının süresi videoyla aynıdır (424,9 sn); kaydırma gerekmez.
-  - Çoklu ses kanalı özelliği kanalda açık değilse bu satır görünmez. Bu durumda `sisifos_en.mp4` ayrı bir İngilizce video olarak yüklenebilir (aynı adımlar, `en/youtube_en.md` metinleriyle).
+  - Çoklu ses kanalı özelliği kanalda açık değilse bu satır görünmez. Bu durumda `sisifos_en_master.mp4` ayrı bir İngilizce video olarak yüklenebilir (aynı adımlar, `en/youtube_en.md` metinleri ve `en/kapak_en.png` kapağıyla).
 - **Başlık ve açıklama** sütunu → Ekle → `en/youtube_en.md` içindeki başlık ve açıklama.
 - **Altyazılar** sütunu → Ekle → `en/sisifos.en.srt`.
 

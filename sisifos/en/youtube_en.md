@@ -1,6 +1,6 @@
 # YouTube — English dub / English metadata
 
-Use these when adding the English audio track ("Languages → Add language → English → Audio: upload `audio/mix_en` as M4A/WAV") and English title/description translations in YouTube Studio, or when uploading `sisifos_en.mp4` as a separate English video.
+Use these when adding the English audio track ("Languages → Add language → English → Audio: upload `sisifos_en.m4a`") and English title/description translations in YouTube Studio, or when uploading `sisifos_en_master.mp4` as a separate English video (thumbnail: `en/kapak_en.png`).
 
 ## Title
 **Sisyphus: The Man Who Chained Death — and Why Camus Called Him Happy**
@@ -37,6 +37,7 @@ Animated in the style of Greek black-figure vase painting, drawn entirely in cod
 Sisyphus, myth of Sisyphus, The Myth of Sisyphus, Albert Camus, Camus, absurdism, the absurd, Greek mythology, mythology, Thanatos, Zeus, Corinth, philosophy, existentialism, animated history, one must imagine Sisyphus happy
 
 ## Files
-- English audio track: `audio/mix_en.wav` (same timing as the picture; -14 LUFS)
+- English audio track: `sisifos_en.m4a` (or `audio/mix_en.wav`; same timing as the picture; -14 LUFS)
+- Thumbnail for a separate English upload: `en/kapak_en.png` ("HE CHAINED DEATH")
 - English subtitles: `en/sisifos.en.srt`
-- English-audio video (same picture, Turkish on-screen titles): `sisifos_en.mp4`
+- English-audio video (same picture, Turkish on-screen titles): `sisifos_en_master.mp4`

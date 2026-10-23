@@ -41,5 +41,5 @@ Sisifos, Sisyphus, Sisifos efsanesi, Sisifos söyleni, Albert Camus, Camus, abs�
 ## Diğer
 - Kategori: Eğitim
 - Dil: Türkçe; altyazı dosyası `sisifos.tr.srt`
-- Kapak: `kapak.png` (1280×720)
+- Kapak: `kapak.png` (1280×720). Başlığı tekrar etmeyen iki sözcük: "ÖLÜMÜ ZİNCİRLEDİ"; taçlı Sisifos ve zincirli Ölüm.
 - Bitiş ekranı: son 14 saniyede (6:51–7:05) sağ yarı boş bırakıldı; abone ol ve video öğeleri oraya yerleştirilebilir.
