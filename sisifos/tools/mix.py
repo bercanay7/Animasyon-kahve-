@@ -341,6 +341,13 @@ def voice_chain(vo, sentence_gains=True):
     g = np.convolve(g, np.ones(int(.04 * SR)) / int(.04 * SR), 'same')
     vo = vo * g
     vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
+    if not sentence_gains:
+        # İngilizce sesin sibilantları AAC kodlamada tepe aşımı yapıyor: 5.5 kHz üstüne dinamik de-esser
+        hi = signal.sosfiltfilt(signal.butter(4, 5500, 'highpass', fs=SR, output='sos'), vo)
+        w = int(.004 * SR); env = np.sqrt(np.convolve(hi ** 2, np.ones(w) / w, 'same')) + 1e-9
+        thr = np.percentile(env[env > 1e-5], 92)
+        gr = np.minimum(1, (thr / env) ** .6); gr = np.convolve(gr, np.ones(w) / w, 'same')
+        vo = vo - hi + hi * gr
     L = pyln.Meter(SR).integrated_loudness(vo)
     vo, gr = compress(vo, L + 6, 3.0)
     vo = limiter(vo[None, :], db(pyln.Meter(SR).integrated_loudness(vo) + 13))[0]
