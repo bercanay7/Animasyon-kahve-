@@ -60,7 +60,7 @@ function shortOverlay(g, ts) {
         g.save(); g.translate(x + w.ww / 2, y0 + li * 108); g.scale(pop, pop); g.globalAlpha = a;
         g.lineWidth = 12; g.strokeStyle = 'rgba(15,7,4,.9)'; g.lineJoin = 'round'; g.textAlign = 'center';
         const T = w.w.toLocaleUpperCase('tr');
-        g.strokeText(T, 0, 0); g.fillStyle = cur2 ? '#F2C25A' : (on ? '#FFF4DE' : 'rgba(255,244,222,.55)'); g.fillText(T, 0, 0);
+        g.strokeText(T, 0, 0); g.fillStyle = cur2 ? '#F2C25A' : (on ? '#FFF4DE' : 'rgba(255,244,222,.78)'); g.fillText(T, 0, 0);
         g.restore();
         x += w.ww + sp;
       }

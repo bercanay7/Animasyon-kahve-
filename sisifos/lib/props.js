@@ -64,10 +64,18 @@ function boulder(ctx, x, y, R, ang, opt = {}) {
   ctx.fillStyle = sg; ctx.fillRect(-R * 1.3, -R * 1.3, R * 2.6, R * 2.6);
   ctx.strokeStyle = 'rgba(23,16,12,.62)'; ctx.lineCap = 'round';
   const ox = lx * R * .55, oy = ly * R * .55;
-  for (let i = 0; i < 9; i++) {
-    const u = i / 8, rr = R * (1.05 + u * .55);
-    ctx.lineWidth = Math.max(1, R * (.016 - u * .006));
-    ctx.beginPath(); ctx.arc(ox, oy, rr, light + PI - .9 + u * .25, light + PI + .9 - u * .25); ctx.stroke();
+  // tarama ekranda sabit kalınlıkta (yakın planda kalınlaşıp "plak" gibi görünmez); yakınlaşınca daha az, kesik yaylar
+  const m = ctx.getTransform(), zs = Math.max(.2, Math.hypot(m.a, m.b) / RS);
+  const nL = zs > 2 ? 5 : zs > 1.4 ? 7 : 9;
+  for (let i = 0; i < nL; i++) {
+    const u = i / (nL - 1), rr = R * (1.05 + u * .55);
+    ctx.lineWidth = Math.max(1, R * (.016 - u * .006)) * Math.min(zs, 1.5) / zs;
+    const A0 = light + PI - .9 + u * .25, A1 = light + PI + .9 - u * .25, gp = .07 + .05 * hash(i * 7 + 3);
+    const f1 = .28 + .2 * hash(i * 13 + 1), f2 = .62 + .2 * hash(i * 17 + 5); // iki kesinti: el çizimi kesik tarama
+    for (const [p0, p1] of [[0, f1], [f1, f2], [f2, 1]]) {
+      const a0 = lerp(A0, A1, p0) + (p0 > 0 ? gp / 2 : 0), a1 = lerp(A0, A1, p1) - (p1 < 1 ? gp / 2 : 0);
+      if (a1 > a0) { ctx.beginPath(); ctx.arc(ox, oy, rr, a0, a1); ctx.stroke(); }
+    }
   }
   ctx.restore();
   ctx.restore();

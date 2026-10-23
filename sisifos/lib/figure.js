@@ -49,6 +49,8 @@ const HAND = {
   fist: [[-1.8, 0], [1.8, 0], [2.6, 2.2], [2.5, 4.4], [.8, 5.0], [-1.6, 4.7], [-2.3, 2.6]],
   flat: [[-1.6, 0], [1.6, 0], [2.0, 2.6], [1.7, 6.0], [.6, 7.8], [-.6, 7.6], [-1.6, 4.4]],
   point: [[-1.8, 0], [1.8, 0], [2.4, 2.2], [2.5, 4.2], [1.2, 4.6], [1.3, 8.6], [.4, 8.8], [-.2, 4.8], [-1.6, 4.6], [-2.3, 2.6]],
+  // yüzeye bastıran avuç: yandan ince görünür, iki parmak ucu ayrık (el sallama gibi okunmaz)
+  press: [[-1.3, 0], [1.3, 0], [1.7, 2.4], [2.0, 5.2], [1.4, 7.4], [.7, 6.0], [.3, 7.7], [-.5, 7.3], [-1.3, 4.2]],
 };
 const THUMB = [[1.5, .8], [3.6, 2.6], [3.4, 3.8], [1.4, 3.0]];
 
@@ -61,6 +63,7 @@ function headOutline(lk) {
   let chin;
   if (lk.beard === 'pointed') chin = [[2.0, .9], [3.0, 2.2], [5.0, 3.9], [6.1, 1.6], [6.35, -.8], [6.05, -2.7]];
   else if (lk.beard === 'long') chin = [[1.6, 1.4], [3.2, 4.4], [5.0, 6.0], [6.2, 3.0], [6.4, -.6], [6.05, -2.7]];
+  else if (lk.beard === 'full') chin = [[.9, 2.2], [2.4, 6.6], [4.6, 8.9], [6.7, 5.6], [7.1, 1.4], [6.7, -1.4], [6.05, -2.7]]; // Zeus: dolgun, uzun, kıvırcık sakal
   else if (lk.beard === 'short') chin = [[2.0, .8], [3.6, 1.2], [5.6, .6], [6.3, -1.0], [6.05, -2.7]];
   else chin = lk.fem ? [[2.3, .6], [3.6, -.7], [4.9, -1.4], [5.4, -2.2], [5.5, -2.7]] : [[2.2, .8], [3.4, -.6], [5.0, -1.4], [5.6, -2.2], [5.55, -2.95]];
   let back;
@@ -206,10 +209,11 @@ function drawBody(G, f, J, tor, tP) {
 
   // bir uzvun parçalarını birleşik çiz: önce hepsinin dış hattını kes, sonra hepsini doldur
   const limb = (shapes, o) => {
-    if (G.pass === 'fig' && o.cut !== false) for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.cut(path, o.cutW || .55));
+    // eklem diskleri (4. öğe true) kazıma/dış hat almaz: yalnız dolgu, raptiye gibi halka görünmez
+    if (G.pass === 'fig' && o.cut !== false) for (const [pos, ang, path, nc] of shapes) if (!nc) G.at(pos, ang, () => G.cut(path, o.cutW || .55));
     if (o.outline) {
       // dış hat önce, dolgular sonra: parçaların birleştiği yerde iç çizgi (dikiş) görünmez
-      if (G.pass === 'fig') for (const [pos, ang, path] of shapes) G.at(pos, ang, () => { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * 2; g.beginPath(); path(g); g.stroke(); });
+      if (G.pass === 'fig') for (const [pos, ang, path, nc] of shapes) if (!nc) G.at(pos, ang, () => { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * 2; g.beginPath(); path(g); g.stroke(); });
       for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false, outline: null }));
     } else for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false }));
   };
@@ -218,7 +222,7 @@ function drawBody(G, f, J, tor, tP) {
       [L.knee, -L.shA, c => spline(c, limbPts(PROF.shin, BL.sh, thin))],
       [L.ank, -L.footA, c => spline(c, FOOT.map(q => [q[0] * (lk.fem ? .9 : 1), q[1]]))],
       [J.hip, -L.thA, c => spline(c, limbPts(PROF.thigh, BL.th, thin))],
-      [L.knee, 0, c => c.arc(0, 0, 3.25 * thin, 0, TAU)], // diz eklemi: uyluk-baldır birleşiminde çentik kalmaz
+      [L.knee, 0, c => c.arc(0, 0, 3.25 * thin, 0, TAU), true], // diz eklemi: uyluk-baldır birleşiminde çentik kalmaz
     ];
     limb(shapes, lk.fem ? skin : {});
     if (!lk.fem) {
@@ -239,13 +243,14 @@ function drawBody(G, f, J, tor, tP) {
       [A.wr, -A.haA, c => spline(c, HAND[hs] || HAND.open)],
       [A.elb, -A.foA, c => spline(c, limbPts(PROF.fo, BL.fo, thin))],
       [J.shoulder, -A.upA, c => spline(c, limbPts(PROF.up, BL.up, thin))],
-      [A.elb, 0, c => c.arc(0, 0, 2.45 * thin, 0, TAU)], // dirsek eklemi
+      [A.elb, 0, c => c.arc(0, 0, 2.45 * thin, 0, TAU), true], // dirsek eklemi
     ];
-    if (hs === 'open' || hs === 'flat') shapes.unshift([A.wr, -A.haA, c => spline(c, THUMB)]);
+    if (hs === 'open' || hs === 'flat' || hs === 'press') shapes.unshift([A.wr, -A.haA, c => spline(c, THUMB)]);
     limb(shapes, lk.fem ? skin : {});
     G.at(A.wr, -A.haA, () => {
       if (!lk.fem && hs === 'fist') det(c => { c.moveTo(1.6, 2.4); c.lineTo(-.6, 2.6); c.moveTo(1.8, 3.6); c.lineTo(-.4, 3.8); }, .3);
       if (!lk.fem && (hs === 'open' || hs === 'flat')) det(c => { c.moveTo(1.4, 3.2); c.lineTo(.2, 6.4); c.moveTo(.2, 3.0); c.lineTo(-.7, 6.2); }, .26);
+      if (!lk.fem && hs === 'press') det(c => { c.moveTo(.9, 3.4); c.lineTo(.6, 6.0); }, .24);
       if (lk.fem && (hs === 'open' || hs === 'flat')) G.paint(c => { c.moveTo(1.4, 3.2); c.lineTo(.2, 6.4); }, sty.line, .2, false);
     });
     if (!lk.fem && near) {
@@ -392,12 +397,13 @@ function drawHead(G, f, J, det) {
         det(c => { c.moveTo(2.1, ey + .2); c.quadraticCurveTo(3.5, ey - 1.15, 4.95, ey + .05); }, .42 * FW);
         det(c => { c.moveTo(1.85, ey - .1); c.lineTo(.95, ey - .55); c.moveTo(1.85, ey + .35); c.lineTo(.95, ey + .6); }, .26 * FW);
       } else {
-        det(c => { c.moveTo(2.2, ey); c.quadraticCurveTo(3.5, ey - .9 * bl, 4.9, ey - .2); c.quadraticCurveTo(3.5, ey + .6 * bl, 2.2, ey); }, .36);
-        if (bl > .3) G.cut(c => c.arc(3.75, ey - .12, .5, 0, TAU), .3, true);
+        const es = lk.eyeS || 1, ex = x => 3.55 + (x - 3.55) * es, eY = y => ey + (y - ey) * es; // lk.eyeS: daha iri göz (karakter ayrımı)
+        det(c => { c.moveTo(ex(2.2), eY(ey)); c.quadraticCurveTo(ex(3.5), eY(ey - .9 * bl), ex(4.9), eY(ey - .2)); c.quadraticCurveTo(ex(3.5), eY(ey + .6 * bl), ex(2.2), eY(ey)); }, .36 * Math.sqrt(es));
+        if (bl > .3) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true);
       }
     }
     // kaş
-    const br = p.brow || 0;
+    const br = (p.brow || 0) + (lk.brow || 0); // lk.brow: karakterin kalıcı kaş açısı (Zeus sert)
     det(c => { c.moveTo(2.2, -8.4 - br * .3); c.quadraticCurveTo(3.8, -9.3 - br * .6, 5.4, -8.6 + br * .45); }, .34 * FW);
     // kulak
     if (hb !== 'petasos' || true) det(c => { c.moveTo(-.4, -7.8); c.bezierCurveTo(-2.4, -7.6, -2.4, -4.6, -.6, -4.6); c.moveTo(-1.0, -6.8); c.quadraticCurveTo(-1.6, -6, -1.0, -5.4); }, .32);
@@ -409,10 +415,18 @@ function drawHead(G, f, J, det) {
     // sakal ve saç kazımaları
     if (lk.beard) {
       det(c => { c.moveTo(-.2, -4.4); c.quadraticCurveTo(2.2, -3.0, 4.6, -3.6); }, .34);
-      const n = lk.beard === 'long' ? 5 : 4;
-      for (let i = 0; i < n; i++) {
-        const u = i / (n - 1);
-        det(c => { c.moveTo(lerp(.6, 4.6, u), lerp(-3.2, -3.4, u)); c.quadraticCurveTo(lerp(1.4, 5.4, u), lerp(-.5, -.8, u), lerp(2.6, 5.2, u) - .3, lerp(1.6, 3.4, u) + (lk.beard === 'long' ? 2 : 0)); }, .26);
+      if (lk.beard === 'full') {
+        // sıra sıra kıvırcık bukleler (siyah figür Zeus sakalı)
+        for (let r = 0; r < 4; r++) for (let i = 0; i < 4 - (r > 2 ? 1 : 0); i++) {
+          const x = lerp(1.6, 6.0, i / 3) - r * .2 + (r % 2) * .5, y = -2.0 + r * 2.4 + i * .5;
+          det(c => { c.moveTo(x - .7, y); c.arc(x, y, .7, PI, TAU * .95); }, .24);
+        }
+      } else {
+        const n = lk.beard === 'long' ? 5 : 4;
+        for (let i = 0; i < n; i++) {
+          const u = i / (n - 1);
+          det(c => { c.moveTo(lerp(.6, 4.6, u), lerp(-3.2, -3.4, u)); c.quadraticCurveTo(lerp(1.4, 5.4, u), lerp(-.5, -.8, u), lerp(2.6, 5.2, u) - .3, lerp(1.6, 3.4, u) + (lk.beard === 'long' ? 2 : 0)); }, .26);
+        }
       }
       if (lk.old) for (let i = 0; i < 6; i++) G.paint(c => { const u = i / 5; c.moveTo(lerp(1, 5, u), -2.6); c.quadraticCurveTo(lerp(2, 5.6, u), 0, lerp(2.8, 5.1, u), lerp(1.4, 3.2, u)); }, sty.white, .3, false);
     }
@@ -423,7 +437,10 @@ function drawHead(G, f, J, det) {
         G.paint(c => { c.moveTo(5.2, -11.0); c.quadraticCurveTo(.2, -13.6, -6.4, -10.8); }, sty.red, 1.4, false);
         for (let i = 0; i < 4; i++) G.paint(c => { const u = i / 3, x = lerp(4.2, -4.8, u), y = lerp(-12.0, -11.9, u) - Math.sin(u * PI) * 1.4; c.moveTo(x - .8, y + .2); c.lineTo(x, y - 2.2); c.lineTo(x + .8, y + .2); c.closePath(); }, sty.red);
       } else if (hb === 'wreath') {
-        for (let i = 0; i < 7; i++) { const u = i / 6, x = lerp(4.6, -5.6, u), y = lerp(-11.4, -10.4, u) - Math.sin(u * PI) * 2.0; G.cut(c => c.ellipse(x, y, .5, 1.1, -.6 + u * 1.2, 0, TAU), .3, true); }
+        // yaprak çelengi: eklenmiş kırmızı sap ve çift sıra yapraklar (taç bandından ayrı okunur)
+        G.paint(c => { c.moveTo(5.0, -11.2); c.quadraticCurveTo(-.2, -13.8, -6.2, -10.4); }, sty.red, .5, false);
+        for (let i = 0; i < 9; i++) { const u = i / 8, x = lerp(4.6, -5.8, u), y = lerp(-11.5, -10.6, u) - Math.sin(u * PI) * 2.1;
+          for (const sg of [-1, 1]) G.paint(c => c.ellipse(x + sg * .35, y + sg * .55, .42, 1.15, (-.6 + u * 1.2) + sg * .9, 0, TAU), sty.red); }
       } else det(c => { c.moveTo(5.0, -11.1); c.quadraticCurveTo(.2, -13.2, -5.8, -10.0); }, .34);
       // alın üstü bukleler
       if (!lk.modern) for (let i = 0; i < 3; i++) det(c => c.arc(4.8 - i * .9, -10.2 - i * .45, .42, 0, TAU), .24);

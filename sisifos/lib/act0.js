@@ -30,8 +30,10 @@ shot(0, (ctx, st) => {
     onJoints: (J, M) => { const a = M.transformPoint(new DOMPoint(...J.AN.wr)), b = M.transformPoint(new DOMPoint(...J.AF.wr)); const inv = ctx.getTransform().inverse(); const pa = inv.transformPoint(a), pb = inv.transformPoint(b); wr = [[pa.x, pa.y], [pb.x, pb.y]]; },
     margin: 110,
   });
-  // zincirler: kenarlardan bileklere uçar
+  // ilk kareden: Ölüm kendi zincirini iki yumruğu arasında tutar (yumruklar boks gibi okunmaz; hikâyedeki "kendi zincirleri")
   const fly = ramp(t, tz - .25, snap, E.in2);
+  if (wr && fly < 1) { const sw = Math.sin(t * 2.3) * 14; ctx.save(); ctx.globalAlpha = 1 - fly; chain(ctx, [wr[0], [lerp(wr[0][0], wr[1][0], .5) + sw, Math.max(wr[0][1], wr[1][1]) + 150], wr[1]], 24, '#E1B07A', '#5A2A16', 6); ctx.restore(); }
+  // zincirler: kenarlardan bileklere uçar
   if (wr && fly > 0) {
     // zincir yukarıdan iner, sonra yere çivili halkalara gerilir
     for (const [k, from, anchor] of [[0, [W + 200, 120], [1460, 905]], [1, [-200, 140], [520, 905]]]) {
@@ -101,7 +103,7 @@ shot(S('A03') - .35, (ctx, st) => {
 
 // A4 — zirveye yakın: kaya sallanır, ayaklar kayar; kaya geri kaçar, Sisifos yere kapanır, kaya sırtından sekerek aşar
 const A4 = (() => { const t0 = S('A04') - .2, tg = Wd('A04', 'geri') - .05; const pushAt = t => 1180 + (Math.min(t, tg) - t0) * 26;
-  return { t0, tg, pushAt, ro: rockOver(pushAt(tg) - 16, 150, 4.0, tg, { pre: .34, fly: .44, hop: 88 }) }; })();
+  return { t0, tg, pushAt, ro: rockOver(pushAt(tg) - 16, 150, 4.0, tg, { pre: .34, fly: .44, hop: 36 }) }; })();
 window.ROCK_OVER = { A4: A4.ro };
 shot(S('A04') - .2, (ctx, st) => {
   const t = st.t, { tg, ro } = A4, R = 150, pushX = A4.pushAt(t);
@@ -119,7 +121,7 @@ shot(S('A04') - .2, (ctx, st) => {
   ctx.restore();
   const pr = ro.prone(t), rk = t < tg ? null : ro.rockAt(t);
   pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: Math.max(ant * .6, pr * .5 * (1 - ro.rise(t))),
-    handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t),
+    handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t), squash: ro.squash(t),
     rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 }, mb: 14 });
 

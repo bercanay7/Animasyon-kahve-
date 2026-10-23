@@ -5,7 +5,7 @@ const LK = {
   sisKing: { beard: 'pointed', hair: 'long', headgear: 'diadem', garment: 'robe', himation: true, robeDots: true },
   sisOld: { beard: 'long', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, old: true },
   thanatos: { beard: 'short', hair: 'long', garment: 'short', wings: 'huge', whiteEye: true, thin: .92 },
-  zeus: { beard: 'long', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true },
+  zeus: { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true, eyeS: 1.3, brow: -.6 },
   hades: { beard: 'long', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, old: true },
   ares: { beard: 'pointed', headgear: 'helmet', garment: 'short', greaves: true },
   hoplite: { beard: 'short', headgear: 'helmet', garment: 'short', greaves: true },

@@ -51,6 +51,7 @@ EDL = [
     dict(s=10.9, f=170.25, cx0=960),                                 # kilit
     dict(s=12.6, f=177.0, cx0=1000, speed=1.8),                      # kimse ölmez
     dict(s=15.05, f=225.6, cx0=1000),                                # Persefoni inanır
+    dict(s=15.99, f=226.54, cx0=560),                                # geniş plan: Sisifos ışık kapısına (kadraj öznede)
     dict(s=16.6, f=228.6, cx0=380, cx1=430),                         # güneşe döner
     dict(s=18.2, f=244.32, cx0=470),                                 # kaya iner (ceza)
     dict(s=21.4, f=260.4, cx0=820, z0=1.0, z1=1.05),                 # tepeye itmek
@@ -60,8 +61,8 @@ EDL = [
     dict(s=28.15, f=296.0, cx0=960),                                 # iki bin yıl
     dict(s=29.9, f=302.6, cx0=700, cx1=1100),                        # Camus ve kitap
     dict(s=33.3, f=377.9, cx0=860, cx1=900),                         # mutlu
-    dict(s=36.3, f=384.0, cx0=960),                                  # vazo
-    dict(s=38.9, f=402.3, cx0=960, capY=760, ctaY=1090),             # senin kayan ne? (altyazı ve çağrı "sen?" kayasının üstünde)
+    dict(s=36.3, f=384.0, cx0=960, capY=470),                        # vazo (altyazı koyu vazo omzunda, figürlerin üstünde)
+    dict(s=38.9, f=402.3, cx0=960, capY=760, ctaY=470),              # senin kayan ne? (çağrı kutusu üstte, kayayı kesmez)
 ]
 DUR = round(words[-1]['e'] + 1.6, 2)
 for i, c in enumerate(EDL): c['e'] = EDL[i + 1]['s'] if i + 1 < len(EDL) else DUR

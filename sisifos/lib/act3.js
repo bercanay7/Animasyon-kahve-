@@ -65,10 +65,11 @@ function drawD3(ctx, st) {
   figure(ctx, { x: 455, y: gy - 27 * 5.6, s: 5.6, lk: LK.sisKing,
     p: { ...oturan(), torso: .1 + cur * .18 + calm * .02, neck: .1 * cur, head: .15 * cur - .05 + calm * .03, shN: lerp(.4, 1.5, ask), elN: lerp(1.3, .35, ask), handN: 'open', shF: .3, elF: 1.3, smile: .3 + ask * .4, brow: .6 * cur, blink: (lt % 3.1 > 2.98) ? 1 : 0 } });
   const ax = lerp(1500, 1180, ramp(lt, 0, 2.6, E.io2));
-  const lift = ramp(t, tg - .2, tg + .5, E.outBack);
+  // varınca ayaklar yan yana durur (adım ortasında donmaz); D5 kesmesinden 0.5 sn önce zinciri bel hizasına indirir (D5'in ilk pozu)
+  const drop = ramp(t, S('D05') - .8, S('D05') - .3, E.io2), lift = ramp(t, tg - .2, tg + .5, E.outBack) * (1 - drop), sdT = ramp(lt, 2.3, 2.9, E.io2);
   let hN = null, hF = null;
-  walkScene(ctx, null, ax, 6.4, t, -1, { noCam: true, ground: FLAT(gy), dist: ax, lk: LK.thanatos, ...THS, cutCol: '#3A1A10',
-    p: { wingSpread: .45, wingF: t * .25, shN: lerp(.6, 1.3, lift), elN: lerp(.8, 1.2, lift), shF: lerp(.3, 1.2, lift), elF: lerp(.6, 1.3, lift), handN: 'fist', handF: 'fist', head: .25 * lift, brow: lerp(-1, .3, lift) },
+  walkScene(ctx, null, ax, 6.4, t, -1, { noCam: true, ground: FLAT(gy), dist: ax, stand: sdT, lk: LK.thanatos, ...THS, cutCol: '#3A1A10',
+    p: { wingSpread: .45, wingF: t * .25, shN: lerp(lerp(.6, 1.3, lift), .55, drop), elN: lerp(lerp(.8, 1.2, lift), .45, drop), shF: lerp(lerp(.3, 1.2, lift), .7, drop), elF: lerp(lerp(.6, 1.3, lift), .4, drop), handN: 'fist', handF: 'fist', head: .25 * lift + .35 * drop, brow: lerp(-1, .3, lift) },
     onJoints: (J, M) => { hN = wrW(ctx, M, J, 'N'); hF = wrW(ctx, M, J, 'F'); } });
   if (hN && hF) { chain(ctx, [hN, [lerp(hN[0], hF[0], .5), Math.max(hN[1], hF[1]) + 150 - lift * 80], hF], 18, '#E1B07A', '#5A2A16', 6); }
 }
@@ -130,7 +131,7 @@ function drawD5(ctx, t, c, phase) {
   ctx.restore();
 }
 shot(S('D05') - .2, (ctx, st) => {
-  const c = { x: lerp(1010, 1040, st.p), y: 560, z: lerp(1.45, 1.6, st.p) };
+  const c = { x: lerp(915, 950, st.p), y: 560, z: lerp(1.45, 1.6, st.p) }; // tahtın yüksek arkalığı kadrajın kenarında görünür (aynı taht)
   drawD5(ctx, st.t, c, 0);
 }, { tr: { type: 'cut' }, post: { tex: .75, vig: .95 } });
 shot(Wd('D05', 'sisifos') - .25, (ctx, st) => {
@@ -302,8 +303,8 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   const t = st.t, lt = st.lt, tg = Wd('D09', 'teslim');
   clayBG(ctx, '#8A4326', '#4A2214', { x: 1100, y: 460, r: 1000, c: 'rgba(240,150,90,.45)' });
   const gy = 900;
-  // D9'dan farklı açı: daha yakın, hafif eğik (gerilim) kadraj; aynı salon
-  const c9 = { x: 1020, y: 562, z: 1.2, r: -.035 };
+  // D9'dan farklı açı: daha yakın kadraj; aynı salon
+  const c9 = { x: 1020, y: 562, z: 1.2, r: 0 }; // figürler kamera dönüşüyle dönmediği için zemin düz
   ctx.save(); cam(ctx, c9, 1);
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(-400, gy, W + 800, 600); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(-400, gy, W + 800, 3);
   // zorla teslim: Ares ilk kareden omzunu kavrar ve sürükler; Sisifos geriye yaslanır, topukları kayar, kolu savunmada; son itiş "teslim"de
@@ -319,11 +320,11 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
       hipN: lerp(.55, .5, shove), knN: lerp(.15, .5, shove), hipF: lerp(.2, -.5, shove), knF: lerp(.1, .7, shove), ankN: -.3 * (1 - shove), ankF: -.3 * (1 - shove), brow: 1.6, mouthOpen: .5 + Math.max(0, Math.sin(t * 7)) * .3 },
     onJoints: (J, M) => { wrS = wrW(ctx, M, J, 'N'); const tr = ctx.getTransform().inverse(); const q = tr.transformPoint(M.transformPoint(new DOMPoint(J.shoulder[0], J.shoulder[1]))); shS = [q.x, q.y]; } });
   // Ares: arkasında; eli ilk kareden Sisifos'un omzunda, adım adım sürükler
-  const ax = xs - 300 - pull * 110, st1 = ramp(t, t0 + .2, tg - .2), st2 = ramp(t, t0 + .6, tg + .1);
+  const ax = xs - 300 - pull * 110, AS2 = 30 * 6.4, gN = gait(ax, AS2, 5 * 6.4, 0), gF = gait(ax, AS2, 5 * 6.4, .5);
   const fy = gy - 3 * 6.4;
   figure(ctx, { x: ax, y: gy - 44 * 6.4, s: 6.4, lk: LK.ares,
     p: { torso: .3 + shove * .15, neck: -.1, head: -.1, handN: 'open', shF: .3, elF: 1.4, brow: -1.2, mouthOpen: shove * (1 - pull) * .4 },
-    ik: { hN: shS ? lerp2([shS[0] - 10, shS[1] + 6], [ax + 70, gy - 330], pull) : [xs - 60, gy - 380], fN: [lerp(520, 790, st1), fy - Math.sin(st1 * PI) * 36, 0], fF: [lerp(400, 690, st2), fy - Math.sin(st2 * PI) * 30, 0] } }); // ayaklar zemine kilitli: iki adım
+    ik: { hN: shS ? lerp2([shS[0] - 10, shS[1] + 6], [ax + 70, gy - 330], pull) : [xs - 60, gy - 380], fN: [gN.x, fy - gN.lift, -gN.heel], fF: [gF.x, fy - gF.lift, -gF.heel] } }); // yürüme döngüsü: basan ayak yerinde, adımlar sırayla (bacaklar çapraz geçmez)
   // Thanatos: kanatlar açık, Sisifos'un bileğini yakalar
   const grab = ramp(t, tg - .2, tg + .3, E.out3);
   figure(ctx, { x: 1420 - pull * 40, y: gy - 47 * 6.6, s: 6.6, dir: -1, lk: LK.thanatos, ...THS, cutCol: '#140A07',

@@ -163,6 +163,9 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   const rk = o.rock;
   const shadeRock = () => { if (o.noRock) return; if (rk) boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: o.light ?? -1.2 }); else boulder(ctx, cx, cy, R, rockAng, { shadow: false, light: o.light ?? -1.2 }); };
   if (!o.rockFront) shadeRock();
+  if (o.afterRock) o.afterRock(ctx, { cx, cy, hN, hF });
+  const sq = o.squash ?? 1;
+  if (sq < 1) { const gx0 = P[0], gy0 = hillY(P[0]), an = hillAng(P[0]); ctx.save(); ctx.translate(gx0, gy0); ctx.rotate(an); ctx.scale(1, sq); ctx.rotate(-an); ctx.translate(-gx0, -gy0); }
   figure(ctx, {
     x: P[0], y: P[1], s, sty: o.sty || STY.black, cutCol: o.cutCol, faceW: o.faceW,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, alpha: o.alpha,
@@ -170,6 +173,7 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
       brow: -strain, smile: o.smile || 0, breath: o.breath ?? Math.sin(t * 2.4) * (.5 + .4 * strain), blink: o.blink, mouthOpen: o.mouthOpen || 0 },
     ik: { hN, hF, fN: fNp, fF: fFp },
   });
+  if (sq < 1) ctx.restore();
   if (o.rockFront) shadeRock();
   ctx.restore();
   return { cx, cy, pel: P, head };
@@ -193,7 +197,7 @@ function rockOver(xr0, R, s, tg, o = {}) {
     const u = t - td; return xd - v1 * u - .5 * acc * u * u;
   };
   const hopAt = t => {
-    if (t >= tl && t < td) { const v = (t - tl) / (td - tl); return 4 * Hm * v * (1 - v); }
+    if (t >= tl && t < td) { const v = (t - tl) / (td - tl); return Hm * Math.pow(Math.sin(v * PI), .55); } // gövdenin üstünden yuvarlanır (havaya sıçramaz)
     for (const b of B) if (t >= b.a && t < b.b) { const v = (t - b.a) / (b.b - b.a); return 4 * b.h * v * (1 - v); }
     return 0;
   };
@@ -202,7 +206,8 @@ function rockOver(xr0, R, s, tg, o = {}) {
   const rise = t => { const t0 = td + (o.riseAt ?? .35), d = o.riseDur ?? .7; return Math.max(0, anticip(t, t0, t0 + d, .12)); }; // önce bastırır, sonra kalkar
   const cover = t => ramp(t, tl - .2, tl + .05, E.out3) * (1 - ramp(t, td + .15, td + .5, E.io2));
   const bounce = t => settle(t, tg + .08, 1, 3.2, 7) + settle(t, td, .6, 4, 8);
-  return { cover, bounce, X, headX, feetX, xl, xd, tg, tl, td, B, xAt, hopAt, rockAt, prone, rise, bounces: [td, ...B.slice(1).map(b => b.a)] };
+  const squash = t => 1 - .15 * Math.sin(PI * clamp((t - tl) / (td - tl)));     // kaya üstünden geçerken beden ezilir
+  return { cover, bounce, squash, X, headX, feetX, xl, xd, tg, tl, td, B, xAt, hopAt, rockAt, prone, rise, bounces: [td, ...B.slice(1).map(b => b.a)] };
 }
 // Tepe boyunca yürüyen Sisifos (aşağı ya da yukarı), x konumu, yön dir
 function walkScene(ctx, c, x, s, t, dir, o = {}) {

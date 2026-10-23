@@ -105,18 +105,21 @@ shot(S('B02') - .3, (ctx, st) => {
     p: { ...oturan(), torso: .02, head: .05, shN: .9 + Math.sin(lt * 1.3) * .08, elN: .55, shF: .55, elF: 1.1, handN: 'open', handF: 'fist', smile: .4, blink: (Math.sin(t * 1.7) > .97) ? 1 : 0 } });
   // amfora taşıyan tüccarlar (krala doğru yürür), amfora omuzda (figürün arkasında, kil kenar çizgisiyle ayrılır)
   // ikincisi sırtında ağır bir çuval taşır: daha öne eğik, daha kısa ve yavaş adım (klon değil)
-  for (const [x0, ph, stopX, lkP, sc, sp, sack] of [[1180, 0, 1065, LK.citizen, 4.4, 70, false], [1470, 41, 1320, { ...LK.citizen, beard: 'pointed', hair: 'long' }, 4.7, 52, true]]) {
-    const x = Math.max(x0 - lt * sp, stopX);
+  // gerçek yürüyüş hızı (adım uzunluğu × adım sıklığı); yığının önüne gelince ayaklar yan yana durur, nefes alır
+  // ikincisi iskelenin ucunda çuvalı sırtına oturtup bekler, sonra yürür (suyun üstünde yürümez)
+  for (const [x0, ph, stopX, lkP, sc, sp, sack, dl] of [[1170, 0, 985, LK.citizen, 4.4, 170, false, 0], [1310, 41, 1215, { ...LK.citizen, beard: 'pointed', hair: 'long' }, 4.7, 130, true, 1.6]]) {
+    const lw = Math.max(0, lt - dl), x = Math.max(x0 - lw * sp, stopX), tStop = dl + (x0 - stopX) / sp;
+    const sd = Math.max(clamp((lt - tStop + .1) / .5), 1 - clamp((lt - dl + .35) / .35));
     if (!sack) {
-      const ax = x + 9 * sc, ay = gy - 83 * sc;
+      const ax = x + 12.5 * sc, ay = gy - 80 * sc + sd * Math.sin(t * 1.7) * .4 * sc; // amfora omzun üstünde (kol boyundan çıkmaz)
       ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
       ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
       amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
-      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14,
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14, stand: sd,
         p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
-        ik: { hN: [ax - 4, ay + 10] } });
+        ik: { hN: [ax - 7 * sc, ay + 4 * sc] } });
     } else {
-      const bob = Math.abs(Math.sin(((x0 - x) + ph) / 26 * PI)) * 1.2 * sc * (x > stopX ? 1 : 0);
+      const bob = Math.abs(Math.sin(((x0 - x) + ph) / 26 * PI)) * 1.2 * sc * (1 - sd) + sd * Math.sin(t * 1.5) * .4 * sc;
       const sx = x + 10 * sc, sy = gy - 76 * sc + bob;
       ctx.save(); ctx.translate(sx, sy); ctx.rotate(.35);
       // çuval: ağzı büzülüp bağlanmış, dibi sarkık, düzensiz torba (kalkan ya da kap gibi okunmasın)
@@ -129,7 +132,7 @@ shot(S('B02') - .3, (ctx, st) => {
       ctx.fillStyle = C.ink; ctx.fillRect(-3.4 * sc, -16.6 * sc, 6.8 * sc, 2.2 * sc); // bağ
       ctx.beginPath(); ctx.moveTo(-2.4 * sc, -16 * sc); ctx.lineTo(-4.2 * sc, -21 * sc); ctx.lineTo(4.2 * sc, -21 * sc); ctx.lineTo(2.4 * sc, -16 * sc); ctx.closePath(); ctx.fill(); // büzülmüş ağız
       ctx.restore();
-      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 24, lean: .26,
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 24, lean: .26, stand: sd,
         p: { handN: 'fist', handF: 'fist', head: -.05, brow: .8 },
         ik: { hN: [sx - 9 * sc, sy - 12 * sc], hF: [sx - 5 * sc, sy - 15 * sc] } });
     }

@@ -75,7 +75,7 @@ shot(S('F04') - .2, (ctx, st) => {
 // Tek kesintisiz plan: yakın plandan kayayı izleyen kamerayla tüm yamacı gösteren geniş plana açılır.
 const F5 = (() => {
   const t0 = S('F05') + .05, tc = t0 + .42, tend = Se('F05') + .3, x1 = -980;
-  const ro = rockOver(1290, 150, 4.0, tc, { dist: 1330, T: 1.48, pre: .5, fly: .55, hop: 90, nb: 1 });
+  const ro = rockOver(1290, 150, 4.0, tc, { dist: 1330, T: 1.48, pre: .5, fly: .55, hop: 40, nb: 1 });
   const xs = ro.xd, td = ro.td, U = tend - td, v0 = 320, acc = 2 * (xs - x1 - v0 * U) / (U * U);
   // inişte ilk sekme, ardından hızlanan iniş boyunca ayrık temaslar
   const B = [{ t: td + .42, h: 34 }];
@@ -113,7 +113,7 @@ shot(S('F05') - .1, (ctx, st) => {
   if (t < tStand) {
     const pr = ro.prone(t);
     pushScene(ctx, c, 1330 - u * 40, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.0, handsOff: Math.max(u, pr), mouthOpen: .8, T: 1.48,
-      rockAng: (1330 - u * 40) / R - u * .4, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t) });
+      rockAng: (1330 - u * 40) / R - u * .4, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk, cover: ro.cover(t), bounce: ro.bounce(t), squash: ro.squash(t) });
   } else {
     if (rk) { ctx.save(); cam(ctx, c, 1); boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: -1.2 }); ctx.restore(); }
     const up = ramp(t, tStand, tStand + .9, E.io2);
