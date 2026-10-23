@@ -6,10 +6,13 @@ Görseller Yunan siyah figürlü vazo resmi üslubunda (yeraltı sahneleri kırm
 ## Teslim dosyaları
 | Dosya | İçerik |
 |---|---|
-| `sisifos.mp4` | 1920×1080, 30 fps, H.264 + AAC, -14 LUFS |
-| `kapak.png` | YouTube kapak görseli, 1280×720 |
-| `sisifos.tr.srt` | Türkçe altyazı |
-| `youtube.md` | Başlık, bölüm zaman damgalı açıklama, kaynaklar, etiketler |
+| `sisifos_master.mp4` | 1920×1080, 30 fps, H.264 (CRF 18) + AAC, -14 LUFS (yerel; depoya girmez) |
+| `sisifos_shorts.mp4` | Shorts: 1080×1920, 42,7 sn, kelime vurgulu altyazılar |
+| `sisifos_en_master.mp4`, `sisifos_en.m4a` | İngilizce dublaj: aynı görüntü + İngilizce ses / YouTube'a ikinci ses kanalı olarak eklenecek ses (-2 dBTP) |
+| `kapak.png`, `en/kapak_en.png` | YouTube kapakları, 1280×720 ("ÖLÜMÜ ZİNCİRLEDİ" / "HE CHAINED DEATH") |
+| `sisifos.tr.srt`, `en/sisifos.en.srt` | Türkçe ve İngilizce altyazı |
+| `youtube.md`, `en/youtube_en.md` | Başlık, bölüm zaman damgalı açıklama, kaynaklar, etiketler |
+| `yayin.md` | YouTube Studio'da yükleme, İngilizce ses kanalı, Shorts ve zamanlama adımları |
 
 ## Nasıl üretildi
 1. **Senaryo:** `senaryo.json`. 58 cümle, 8 bölüm. `tts` alanı seslendirme, `alt` alanı altyazı metnidir.
@@ -37,9 +40,12 @@ Görseller Yunan siyah figürlü vazo resmi üslubunda (yeraltı sahneleri kırm
 ```bash
 python3 audio/score.py            # müzik → audio/music.wav
 node tools/export_sfx.js          # efekt işaretleri
-python3 tools/mix.py              # → audio/mix.wav
-node render.js sisifos.mp4        # WORKERS=4 MB=4 CRF=20; FROM/TO ile kısmi render
+python3 tools/mix.py --stems      # → audio/mix.wav (+ stems)
+python3 tools/mix.py --vo en/vo_en.wav --out audio/mix_en.wav --tp -2.0   # İngilizce dublaj miksi
+python3 shorts/mix_shorts.py      # Shorts sesi
+node render.js sisifos_master.mp4 # WORKERS=4 MB=4 CRF=18; parçalar .parts/ içinde kalıcı, ONLY=3,7 ile kısmi
+SHORTS=1 CHUNK=6 node render.js sisifos_shorts.mp4   # dikey Shorts
 python3 tools/srt.py              # altyazı
-SCENE=kapak node shot.js out 5    # kapak karesi
+SCENE=kapak node shot.js out 5    # kapak karesi (SCENE=kapak_en: İngilizce)
 node shot.js out 12.5 140.2       # tek tek kareler (inceleme için)
 ```
