@@ -17,7 +17,7 @@ shot(S('C01') - .35, (ctx, st) => {
   walkScene(ctx, null, 760, 5.2, t, 1, { noCam: true, ground: ACRO, dist: 0, lk: LK.sisKing, lean: -.08,
     neck: -.2 * look, head: -.45 * look, p: { shN: lerp(.2, 2.6, look), elN: lerp(.3, 1.9, look), shF: .1, elF: .4, handN: 'flat', brow: .3, hipN: .08, hipF: -.08 } });
   ctx.restore();
-  chapterCard(ctx, 'BÖLÜM II', 'KARTAL VE PINAR', lt - .1, 3.4);
+  chapterCard(ctx, 'BÖLÜM II', 'KARTAL VE PINAR', lt - .1, 3.4, { x: 1430, y: 270 }); // figürün başının üstünde değil
 }, { tr: { type: 'black', dur: .9 }, post: { tex: .9, vig: .8 } });
 
 // C2 — kartal ve Egina gökyüzünde

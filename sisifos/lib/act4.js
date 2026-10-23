@@ -28,7 +28,7 @@ shot(S('E02') - .2, (ctx, st) => {
   const hear = ramp(t, Wd('E02', 'bedenimi') - .2, Wd('E02', 'bedenimi') + .4);
   figure(ctx, { x: 820, y: 1170, s: 15, dir: 1, lk: LK.merope, p: { torso: .02, neck: .02, head: .05 + hear * .05, shN: .1, shF: 0, brow: hear * .8 + ramp(t, Wd('E02', 'adak'), Wd('E02', 'adak') + .4) * .6, blink: (lt > 2.4 && lt < 2.52) ? 1 : 0 }, margin: 40,
     onJoints: (J, M) => { ear = headPt(ctx, J, M, [-1.2, -6.2]); } });
-  if (ear) figure(ctx, { x: ear[0] - 430, y: ear[1] + 548, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .38, neck: .25, head: .22, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
+  if (ear) figure(ctx, { x: ear[0] - 475, y: ear[1] + 560, s: 15, dir: 1, lk: LK.sisKing, p: { torso: .38, neck: .25, head: .22, shN: .1, shF: 0, blink: .35, mouthOpen: Math.max(0, Math.sin(t * 9)) * .35 * (t < S('E02') + 4.1 ? 1 : 0) }, margin: 40 });
   // simgeler
   const icons = [
     [Wd('E02', 'bedenimi'), 'GÖMME', (c) => { c.fillStyle = C.ink; c.beginPath(); c.moveTo(-70, 40); c.quadraticCurveTo(0, -60, 70, 40); c.fill(); c.fillRect(-12, -70, 24, 50); c.beginPath(); c.arc(0, -72, 14, PI, TAU); c.fill(); }],
@@ -160,7 +160,7 @@ shot(S('E07') - .2, (ctx, st) => {
     hold: grab > 0 ? null : { N: HOLD.kylix() } });
   // Hermes uçarak iner, bileği yakalar
   const arr = ramp(t, th - .2, th + .7, E.out3);
-  const hx = lerp(2100, 1060, arr) + grab * 30, hy = lerp(-200, 470, arr) + grab * 20 + down * 600;
+  const hx = lerp(2100, 1060, arr) + grab * 30, hy = lerp(-200, 470, arr) + grab * 20 + down * 760;
   if (t > th - .3) figure(ctx, { x: hx, y: hy, s: 5.2, dir: -1, lk: LK.hermes, hold: { F: HOLD.caduceus() },
     p: { torso: lerp(1.2, .45, arr), neck: -.4, head: -.2, hipN: -.9, knN: .9, hipF: -.6, knF: 1.3, shN: 1.9, elN: .2, handN: 'fist', shF: .7, elF: .8, brow: -.4, smile: .1 },
     ik: arr > .5 ? { hN: grab > 0 ? gP : [lerp(1060, 960, arr), gy - 420] } : {} });

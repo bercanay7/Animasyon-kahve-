@@ -38,7 +38,7 @@ shot(S('F02') - .2, (ctx, st) => {
 shot(S('F03') - .2, (ctx, st) => {
   const t = st.t, lt = st.lt, tz = Wd('F03', 'zirveye');
   const c = { x: 500, y: 430, z: .5 };
-  tartarosBG(ctx, t, c, {});
+  tartarosBG(ctx, t, c, { diskY: -40 }); // ay zirveye değmesin
   tartarosHill(ctx, c, { groove: 0 });
   // kesik yol çizgisi zirveye
   const q = ramp(t, tz - .2, tz + 1.2, E.io2);
@@ -67,9 +67,9 @@ shot(S('F04') - .2, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   dustBurst(ctx, t, tk + .02, xr - 250, hillY(xr - 250), 26, 'rgba(120,64,36,.5)', 170, 22);
   ctx.restore();
-  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 1.0, strain: 1 + tr * .9, slip: slipA * 1.0, mouthOpen: Math.max(tr * .5, slipA * .8), T: 1.3 + tr * .08 + slipA * .18, jitter: tr * 1.1,
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr + slipA * 45, strain: 1 + tr * .9, slip: slipA * 1.0, mouthOpen: Math.max(tr * .5, slipA * .8), T: 1.3 + tr * .08 + slipA * .18, jitter: tr * 1.1,
     rockAng: xr / 150 + tr * Math.sin(t * 30) * .015 });
-}, { tr: { type: 'cut' }, post: TP });
+}, { tr: { type: 'cut' }, post: TP, mb: 12 });
 
 // F5 — kaya elinden kurtulur: eller kayar, Sisifos yere kapanır, kaya sırtından sekip aşar, yamaçtan gürleyerek dibe iner.
 // Tek kesintisiz plan: yakın plandan kayayı izleyen kamerayla tüm yamacı gösteren geniş plana açılır.
@@ -179,7 +179,7 @@ shot(S('F08') - .2, (ctx, st) => {
   clayBG(ctx, '#7E3A22', '#2A120B', { x: 600, y: 380, r: 820, c: 'rgba(214,120,70,.45)' });
   const bow = ramp(t, Wd('F08', 'umutsuz') - .2, Wd('F08', 'emekten'), E.io2), shut = ramp(t, Wd('F08', 'ceza') - .1, Wd('F08', 'yoktur') + .3, E.io2);
   const blink = (lt % 2.9 > 2.78 && shut < .5) ? 1 : 0;
-  ctx.save(); const z = lerp(1, 1.07, E.sine(clamp(lt / st.d))); ctx.translate(480, 760); ctx.scale(z, z); ctx.translate(-480, -760);
+  ctx.save(); const z = lerp(1, 1.16, E.io2(clamp(lt / st.d))); ctx.translate(480, 760); ctx.scale(z, z); ctx.translate(-480, -760);
   figure(ctx, { x: 480, y: 1080 + bow * 10, s: 15, lk: LK.sis, p: { torso: .3 + bow * .04, neck: .15 + bow * .05, head: .12 + bow * .12, blink: Math.max(blink, .25 + shut * .75), brow: -.8 - bow * .4,
     shN: .3, shF: .1, breath: Math.sin(t * 1.5) * 1.2 }, margin: 40 });
   ctx.restore();

@@ -36,7 +36,7 @@ shot(S('D01') - .25, (ctx, st) => {
     onJoints: (J, M) => { hp = wrW(ctx, M, J, 'N'); } });
   if (hp && rise > .3) { ctx.save(); ctx.globalAlpha = clamp(rise * 1.4); handChain(ctx, hp, Math.min(220, gy - hp[1] + 3), t); ctx.restore(); }
   ctx.restore();
-  nameTag(ctx, 'THANATOS', 'Ölüm', 1300, 190, t - Wd('D01', 'kendisini') + .2, 3.8, { col: C.white, align: 'center' });
+  nameTag(ctx, 'THANATOS', 'Ölüm', 1180, 190, t - Wd('D01', 'kendisini') + .2, 3.8, { col: C.white, align: 'center' });
   chapterCard(ctx, 'BÖLÜM III', 'ÖLÜMÜ ZİNCİRLEYEN ADAM', lt - .1, 3.2);
 }, { tr: { type: 'black', dur: 1.0 }, post: { tex: .7, vig: .95 } });
 
@@ -167,7 +167,8 @@ shot(S('D07') - .2, (ctx, st) => {
   daySky(ctx);
   const gy = 880;
   const pan = ramp(t, ts, ts + 1.0, E.io3);
-  const c = { x: lerp(820, 2120, pan), y: 540, z: 1 };
+  const pin = ramp(t, ts + .3, ts + 1.4, E.io2); // sunakta yakınlaşma: kurban şakası okunsun
+  const c = { x: lerp(lerp(820, 2120, pan), 2110, pin), y: lerp(540, 690, pin), z: lerp(1, 1.4, pin) };
   ctx.save(); cam(ctx, c, 1);
   ctx.fillStyle = C.ink; ctx.fillRect(-400, gy, 4600, 400);
   // savaş: biri saplanır, düşer, kalkar
@@ -184,7 +185,7 @@ shot(S('D07') - .2, (ctx, st) => {
   // sunak: rahip bıçağı kaldırır, "kesilemiyordu"da indirir — bıçak boğanın boynundan seker (kıvılcım), boğa başını kaldırır, yarasız
   altar(ctx, 2470, gy, 2.2, C.ink, C.clay, 1, t);
   const tK = Wd('D07', 'kesilemiyordu');
-  const kn = ramp(t, ts + .2, ts + .9, E.outBack), strike = ramp(t, tK - .28, tK - .02, E.in3), rec = ramp(t, tK, tK + .35, E.out3) * (1 - ramp(t, tK + .9, tK + 1.6, E.io2));
+  const kn = ramp(t, ts + .2, ts + .9, E.outBack), strike = ramp(t, tK - .28, tK - .02, E.in3), rec = ramp(t, tK, tK + .35, E.out3); // şaşkın rahip bıçağı havada tutar (ikinci darbe yok)
   figure(ctx, { x: 1930, y: gy - 47 * 5.2, s: 5.2, lk: LK.priest, hold: { N: G => { G.part(c => { c.moveTo(-1, -2); c.lineTo(1, -2); c.lineTo(.6, 12); c.lineTo(-.6, 12); c.closePath(); }, { fill: '#D9C9A8', cut: false }); } },
     p: { torso: .05 + strike * .5 - rec * .25, head: .1 + strike * .2, shN: lerp(1.0, 3.0, kn) - strike * 2.2 + rec * 1.0, elN: lerp(lerp(1.2, .3, kn), .15, strike), shF: .7, elF: 1.3, handN: 'fist',
       brow: ramp(t, tK + .05, tK + .5) * 1.4, mouthOpen: ramp(t, tK + .05, tK + .5) * .6 } });
@@ -192,7 +193,7 @@ shot(S('D07') - .2, (ctx, st) => {
   if (sp > 0) sparkle(ctx, 2080, 728, 70 * sp, sp);
   cow(ctx, 2250, gy, 2.6, -1, 0, { walk: 0, head: -.1 + Math.sin(t * .8) * .05 + ramp(t, tK + .05, tK + .5, E.out3) * .45, col: C.ink, inc: C.clay });
   ctx.restore();
-}, { tr: { type: 'clay', dur: .8 }, post: { tex: .9, vig: .8 } });
+}, { tr: { type: 'clay', dur: .8 }, post: { tex: .9, vig: .8 }, mb: 12 });
 
 // D8 — Ares öfkeden deliye döner; arkada canı sıkılan askerler zar oynar (Exekias'a selam)
 shot(S('D08') - .2, (ctx, st) => {
@@ -244,24 +245,29 @@ shot(S('D09') - .2, (ctx, st) => {
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(0, gy, W, 3);
   const broken = t > tb;
   const free = ramp(t, tb + .15, tb + 1.1, E.out3);
-  column(ctx, 1010, 80, gy, 80, '#2A140C', '#6A3020');
-  const ring = [1010, 300];
+  column(ctx, 1070, 80, gy, 80, '#2A140C', '#6A3020');
+  ctx.save(); ctx.strokeStyle = '#2A140C'; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(1070, 318, 22, 0, TAU); ctx.stroke(); ctx.strokeStyle = '#8A4A2A'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(1070, 318, 22, 0, TAU); ctx.stroke(); ctx.restore(); // demir halka
+  // D8'deki mızrak ve kalkan: Ares onları kenara bırakmış (süreklilik)
+  ctx.save(); ctx.strokeStyle = C.ink; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(60, gy - 7); ctx.lineTo(430, gy - 12); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(430, gy - 22); ctx.lineTo(472, gy - 12); ctx.lineTo(430, gy - 2); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(250, gy - 74, 30, 76, -.18, 0, TAU); ctx.fill(); ctx.strokeStyle = '#C7683C'; ctx.lineWidth = 4; ctx.beginPath(); ctx.ellipse(250, gy - 74, 22, 62, -.18, 0, TAU); ctx.stroke(); ctx.restore();
+  const ring = [1070, 300];
   // Ares sütuna yürür, zinciri kavrar ve çekip koparır (çıplak elle: savaş tanrısının gücü)
-  const ax = lerp(500, 735, ramp(t, tb - 1.5, tb - .55, E.io2));
+  const ax = lerp(500, 770, ramp(t, tb - 1.5, tb - .55, E.io2));
   const grab = ramp(t, tb - .6, tb - .3, E.io2), yank = ramp(t, tb - .08, tb + .18, E.out3), letGo = ramp(t, tb + .7, tb + 1.0);
-  const gP = [lerp(lerp(ax + 80, 952, grab), 860, yank), lerp(lerp(600, 512, grab), 610, yank)];
+  const gP = [lerp(lerp(ax + 80, 1010, grab), 900, yank), lerp(lerp(600, 512, grab), 610, yank)];
   // Thanatos: diz çökmüş, bilekleri sütundaki zincire kalkık; kurtulunca kollar iner, ayağa kalkar
-  const tx = 980, ty = gy - lerp(25.5, 47, free) * 6.6;
+  const tx = 1060, ty = gy - lerp(25.5, 47, free) * 6.6;
   let wN = null, wF = null;
   figure(ctx, { x: tx, y: ty, s: 6.6, dir: -1, lk: LK.thanatos, ...THS, cutCol: '#140A07',
-    p: { torso: lerp(.35, .05, free), neck: lerp(.3, 0, free), head: lerp(.45, .05, free), hipN: lerp(1.35, .1, free), knN: lerp(1.45, .05, free), hipF: lerp(-.05, -.1, free), knF: lerp(1.62, .05, free), ankF: lerp(-.5, 0, free),
+    p: { torso: lerp(.25, .05, free), neck: lerp(.1, 0, free), head: lerp(.12, .05, free), hipN: lerp(1.35, .1, free), knN: lerp(1.45, .05, free), hipF: lerp(-.05, -.1, free), knF: lerp(1.62, .05, free), ankF: lerp(-.5, 0, free),
       wingSpread: lerp(.38, 1.0, free), wingF: t * .5, handN: 'fist', handF: 'fist', brow: -1 },
-    ik: { hN: lerp2([1000, 560], [tx - 60, ty + 30], free), hF: lerp2([1018, 568], [tx + 20, ty + 40], free) },
+    ik: { hN: lerp2([1062, 560], [tx - 60, ty + 30], free), hF: lerp2([1080, 568], [tx + 20, ty + 40], free) },
     onJoints: (J, M) => { wN = wrW(ctx, M, J, 'N'); wF = wrW(ctx, M, J, 'F'); } });
   if (wN && wF) {
     shackle(ctx, wN[0], wN[1], 17, .2, '#E1B07A'); shackle(ctx, wF[0], wF[1], 17, .2, '#E1B07A');
     const w = lerp2(wN, wF, .5);
-    if (!broken) chain(ctx, grab > 0 ? [w, gP, ring] : [w, [1008, 440], ring], 22, '#E1B07A', '#5A2A16', 6);
+    if (!broken) chain(ctx, grab > 0 ? [w, gP, ring] : [w, [1066, 440], ring], 22, '#E1B07A', '#5A2A16', 6);
     else {
       // kopan uç Ares'in elinde, sonra bırakılır ve bilekten sarkar
       const end = letGo > 0 ? lerp2(gP, [w[0] - 20, w[1] + 170], E.in2(letGo)) : gP;
@@ -284,26 +290,28 @@ shot(Wd('D09', 'sisifos') - .15, (ctx, st) => {
   clayBG(ctx, '#8A4326', '#4A2214', { x: 1100, y: 460, r: 1000, c: 'rgba(240,150,90,.45)' });
   const gy = 900;
   ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, 300); ctx.fillStyle = 'rgba(214,130,80,.5)'; ctx.fillRect(0, gy, W, 3);
-  const shove = ramp(t, tg - .9, tg + .1, E.io2), pull = ramp(t, tg + .3, tg + 1.3, E.io2);
-  const xs = lerp(820, 1010, shove) + pull * 110;
-  // Sisifos (önce): öne doğru tökezler, kolu Ölüm'e uzanmış
-  let wrS = null;
-  figure(ctx, { x: xs, y: gy - 46 * 5.6 + shove * 14, s: 5.6, lk: LK.sisKing,
-    p: { torso: .25 + shove * .1, neck: -.1, head: -.15 + shove * .2, shN: lerp(.9, 2.25, shove), elN: lerp(.3, 1.45, shove), handN: 'open', shF: lerp(-.6, -1.2, shove), elF: .4, handF: 'open',
-      hipN: .5 * shove, knN: .5 * shove, hipF: -.5 * shove, knF: .7 * shove, brow: 1.6, mouthOpen: .8 },
-    onJoints: (J, M) => { wrS = wrW(ctx, M, J, 'N'); } });
-  // Ares: arkadan iter (eli Sisifos'un sırtında)
-  // Ares: itişte adım atar (ön ayak öne, arka ayak sonra toparlanır); itişten sonra durur
-  const ax = lerp(820, 1010, shove) - 330, st1 = ramp(shove, 0, .55), st2 = ramp(shove, .45, 1);
+  // zorla teslim: Ares ilk kareden omzunu kavrar ve sürükler; Sisifos geriye yaslanır, topukları kayar, kolu savunmada; son itiş "teslim"de
+  const t0 = st.start ?? (Wd('D09', 'sisifos') - .15), drag = ramp(t, t0, tg - .5, E.io2), shove = ramp(t, tg - .5, tg + .1, E.in2), pull = ramp(t, tg + .3, tg + 1.3, E.io2);
+  const xs = lerp(760, 900, drag) + shove * 110 + pull * 110;
+  const strug = (1 - shove) * Math.sin(t * 9) * .05;
+  let wrS = null, shS = null;
+  figure(ctx, { x: xs, y: gy - 45 * 5.6 + shove * 14, s: 5.6, lk: LK.sisKing,
+    p: { torso: lerp(-.22, .2, shove) + strug, neck: -.1, head: lerp(-.25, .15, shove), shN: 2.25, elN: 1.45, handN: 'open', shF: lerp(-.9, -1.2, shove), elF: .4, handF: 'open',
+      hipN: lerp(.55, .5, shove), knN: lerp(.15, .5, shove), hipF: lerp(.2, -.5, shove), knF: lerp(.1, .7, shove), ankN: -.3 * (1 - shove), ankF: -.3 * (1 - shove), brow: 1.6, mouthOpen: .5 + Math.max(0, Math.sin(t * 7)) * .3 },
+    onJoints: (J, M) => { wrS = wrW(ctx, M, J, 'N'); const tr = ctx.getTransform().inverse(); const q = tr.transformPoint(M.transformPoint(new DOMPoint(J.shoulder[0], J.shoulder[1]))); shS = [q.x, q.y]; } });
+  // Ares: arkasında; eli ilk kareden Sisifos'un omzunda, adım adım sürükler
+  const ax = xs - 300 - pull * 110, st1 = ramp(t, t0 + .2, tg - .2), st2 = ramp(t, t0 + .6, tg + .1);
   const fy = gy - 3 * 6.4;
-  figure(ctx, { x: ax, y: gy - 44 * 6.4 + Math.sin(st1 * PI) * 6, s: 6.4, lk: LK.ares,
-    p: { torso: .3 + shove * .1, neck: -.1, head: -.1, handN: 'open', shF: .3, elF: 1.4, brow: -1.2, mouthOpen: shove * (1 - pull) * .4 },
-    ik: { hN: [lerp(820, 1010, shove) - 70, gy - 46 * 5.6 - 120 + shove * 10], fN: [lerp(560, 740, st1), fy - Math.sin(st1 * PI) * 40, 0], fF: [lerp(430, 590, st2), fy - Math.sin(st2 * PI) * 34, 0] } });
+  figure(ctx, { x: ax, y: gy - 44 * 6.4, s: 6.4, lk: LK.ares,
+    p: { torso: .3 + shove * .15, neck: -.1, head: -.1, handN: 'open', shF: .3, elF: 1.4, brow: -1.2, mouthOpen: shove * (1 - pull) * .4 },
+    ik: { hN: shS ? [shS[0] - 10, shS[1] + 6] : [xs - 60, gy - 380], fN: [lerp(520, 790, st1), fy - Math.sin(st1 * PI) * 36, 0], fF: [lerp(400, 690, st2), fy - Math.sin(st2 * PI) * 30, 0] } }); // ayaklar zemine kilitli: iki adım
   // Thanatos: kanatlar açık, Sisifos'un bileğini yakalar
   const grab = ramp(t, tg - .2, tg + .3, E.out3);
   figure(ctx, { x: 1420 - pull * 40, y: gy - 47 * 6.6, s: 6.6, dir: -1, lk: LK.thanatos, ...THS, cutCol: '#140A07',
     p: { torso: .1 - pull * .1, head: .05, wingSpread: 1.0 - grab * .2 - pull * .55, wingF: t * .5, handN: 'open', handF: 'fist', shF: .3, elF: .5, brow: -1 },
-    ik: wrS ? { hN: [lerp(1260, wrS[0] + 10, grab), lerp(560, wrS[1], grab)] } : {} });
+    ik: wrS ? { hN: [lerp(1372, wrS[0] + 10, grab), lerp(650, wrS[1], grab)] } : {},
+    onJoints: (J, M) => { // kırık kelepçeler ve sarkan halkalar bileklerinde kalır (D9 sürekliliği)
+      for (const sd of ['N', 'F']) { const q = wrW(ctx, M, J, sd); shackle(ctx, q[0], q[1], 16, .2, '#E1B07A'); chain(ctx, [q, [q[0] - 6, q[1] + 60], [q[0] - 2, q[1] + 110]], 18, '#E1B07A', '#5A2A16', 5); } } }); // el ancak "teslim"de uzanır
   // kanatlar ekranı kaplar
   // temiz iris kapanışı: Ölüm ve kurbanı üzerinde daralan daire
   const env = ramp(t, tg + 1.0, st.end, E.in2);

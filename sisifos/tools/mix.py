@@ -382,7 +382,7 @@ def main():
         mu *= db(-21 - meter.integrated_loudness(mu.T))
         cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
         extra = np.ones(N)
-        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.95, 271.7, -3)]:
+        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 271.8, -6)]:
             extra[int(a_ * SR):int(b_ * SR)] = db(d_)
         extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra
@@ -414,7 +414,7 @@ def main():
     # gerçek tepe tavanı (--tp): İngilizce sibilantlar AAC kodlamada taşmasın diye EN için -2.0 kullanılır
     tpT = float(arg('--tp', '-1.0'))
     mix = limiter(mix, db(tpT - .6))
-    for _ in range(4):
+    for _ in range(8):
         tp = true_peak(mix)
         if tp <= tpT: break
         mix = limiter(mix, db(tpT - .6 - (tp - tpT) - .1))

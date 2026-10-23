@@ -150,7 +150,7 @@ function txtReveal(ctx, s, x, y, p, o = {}) {
   }
 }
 // Bölüm kartı
-function chapterCard(ctx, num, title, lt, d = 3.6) {
+function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   if (NOTEXT) return;
   // vazo etiketi gibi kil levha: her zeminde okunur
   const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
@@ -158,9 +158,9 @@ function chapterCard(ctx, num, title, lt, d = 3.6) {
   ctx.save(); baseT(ctx);
   ctx.font = '700 50px Cinzel'; ctx.letterSpacing = '4px';
   const tw = ctx.measureText(title).width;
-  const pw = Math.max(520, tw + 150), ph = 136, y = 150;
+  const pw = Math.max(520, tw + 150), ph = 136, y = o.y ?? 150;
   const sc = lerp(.92, 1, E.out3(ramp(lt, 0, .6)));
-  ctx.translate(W / 2, y); ctx.scale(sc, sc);
+  ctx.translate(o.x ?? W / 2, y); ctx.scale(sc, sc);
   ctx.globalAlpha = a;
   ctx.fillStyle = 'rgba(10,5,3,.35)'; ctx.fillRect(-pw / 2 + 8, -ph / 2 + 10, pw, ph);
   ctx.fillStyle = '#E3B98C'; ctx.fillRect(-pw / 2, -ph / 2, pw, ph);

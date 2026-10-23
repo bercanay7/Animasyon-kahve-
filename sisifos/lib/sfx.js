@@ -12,7 +12,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const tz = Wd('A01', 'zincire'), snap = tz + .32;
   amb(0, S('A02') - .12, 'wind', -26, .4, .4);
   sfx(tz - .3, 'whoosh', { g: -12, len: .6 });
-  sfx(snap, 'chains', { at: 'peak', g: -2 });
+  sfx(snap, 'chains', { at: 'peak', g: -5 });
   sfx(Wd('A02', 'bir') - .15, 'knock', { g: -12 });
   sfx(Wd('A02', 'iki') - .15, 'knock', { g: -12, rate: 1.12 });
   const tA3 = S('A03') - .35, tg = Wd('A04', 'geri') - .05, tw = Wd('A04', 'aşağı') - .1, ty = Wd('A04', 'yeniden') - .15;
@@ -20,10 +20,10 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   amb(tA3, tg + .1, 'stone_scrape', -16, .6, .15);
   sfx(tg - .45, 'scrape', { g: -9 });
   const RA = (window.ROCK_OVER || {}).A4;
-  sfx(RA.tg + .04, 'thud', { g: -14, rate: 1.3 });                   // yere kapanış (gövdenin yere değdiği an)
+  sfx(RA.tg + .04, 'thud', { g: -14, rate: 1.3 }); sfx(RA.tg + .04, 'thud', { g: -9, rate: .55 }); // yere kapanış + alt katman
   sfx(RA.tl - .25, 'whoosh', { g: -21, len: .6 });                   // kaya üstünden aşar ("yuvarlanır" altında kısık)
-  sfx(RA.td, 'thud', { g: -16 });                                    // iniş
-  RA.bounces.slice(1).forEach((b, k) => { sfx(b, 'thud', { g: -19 - k * 3 }); sfx(b, 'scrape', { g: -14 - k * 3, len: .25, fo: .15 }); });
+  sfx(RA.td, 'thud', { g: -12 });                                    // iniş
+  RA.bounces.slice(1).forEach((b, k) => { sfx(b, 'thud', { g: -15 - k * 3 }); sfx(b, 'scrape', { g: -14 - k * 3, len: .25, fo: .15 }); });
   sfx(RA.td, 'scrape', { g: -12, len: .3, fo: .2 });                   // iniş: orta frekans çakıl katmanı (küçük hoparlörde duyulsun)
   sfx(RA.td, 'rock_roll', { g: -12, len: tw - RA.td + .4, fi: .5, fo: .5 });
   amb(tw, ty, 'footsteps', -12, .2, .3);
@@ -45,7 +45,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const tB4 = S('B04') - .3, tr = Wd('B04', 'rengini');
   amb(tB4, S('B05') - .3, 'wind', -28, .8, .6);
   amb(tB4, tB4 + 3.4, 'footsteps', -22, .5, .5, { rate: .85 });
-  sfx(tr, 'shimmer', { g: -16 });
+  sfx(Wd('B04', 'bile', 0, true) + .3, 'shimmer', { g: -16 });
   const tB5 = S('B05') - .3, tw5 = Wd('B05', 'sığırlar', 1) - .1;
   // keski vuruşları: |sin(5·lt)|³ tepe noktaları
   for (let k = 0; ; k++) { const lt = (Math.PI / 2 + k * Math.PI) / 5; if (lt < 1.0) continue; if (tB5 + lt > tw5 - .1) break; sfx(tB5 + lt, 'tick', { g: -14 + (k % 2) * 2, rate: 1 + (k % 3) * .06 }); }
@@ -102,7 +102,8 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   amb(tD7, ts7 - .3, 'battle', -14, .4, .8);
   sfx(S('D07') + 1.3, 'thud', { g: -8 });
   sfx(Wd('D07', 'kalkıyor') - .2, 'sting', { g: -16, rate: 1.2 });
-  sfx(Wd('D07', 'kesilemiyordu'), 'knock', { g: -15, rate: 1.7 });   // bıçak boğanın boynundan seker
+  sfx(Wd('D07', 'kesilemiyordu'), 'knock', { g: -19, rate: 2.0 });   // bıçak boğanın boynundan seker
+  sfx(Wd('D07', 'kesilemiyordu') + .01, 'clink', { g: -7 });             // metalik çınlama
   const tD8 = S('D08') - .2;
   for (let k = 1; tD8 + k * Math.PI / 4.5 < Wd('D08', 'kimsenin') - .2; k++) sfx(tD8 + k * Math.PI / 4.5, 'thud', { g: -11 });
   amb(tD8, S('D09') - .2, 'battle', -22, .4, .4, { off: 1.5 });
@@ -131,7 +132,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   amb(S('E07') - .2, th + 1.6, 'sea', -24, .3, 1.2);
   sfx(th - .2, 'wings', { g: -6 });
   sfx(th + .6, 'thud', { g: -12 });
-  sfx(th + 1.6, 'whoosh', { g: -12, len: 1.4, down: true });
+  sfx(th + 2.7, 'whoosh', { g: -14, len: .8, down: true }); // "kadar"dan sonra
   sfx(th + 3.0, 'boom', { g: -10 });
 
   // — V. CEZA —
@@ -149,11 +150,11 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const t0 = S('F05') + .05, tend = Se('F05') + .3;
   const RF = (window.ROCK_OVER || {}).F5;
   sfx(t0 - .05, 'scrape', { g: -8 });
-  sfx(RF.tg + .09, 'thud', { g: -14, rate: 1.3 });
+  sfx(RF.tg + .09, 'thud', { g: -14, rate: 1.3 }); sfx(RF.tg + .09, 'thud', { g: -9, rate: .55 });
   sfx(RF.tl - .3, 'whoosh', { g: -14, len: .7 });
   sfx(RF.td, 'rock_roll', { g: -8, len: tend - RF.td + .2, fi: 1.2, fo: .3 });
   (window.F5_BOUNCES || []).forEach((tb, k, arr) => { sfx(tb, 'thud', { g: -15 + 6 * k / arr.length }); sfx(tb, 'scrape', { g: -13 + 4 * k / arr.length, len: .25, fo: .15 }); });
-  sfx(tend, 'rock_crash', { at: 'peak', g: 0 });
+  sfx(tend, 'rock_crash', { at: 'peak', g: 0 }); sfx(tend, 'boom', { g: -10 }); // dipte büyük çarpma
   const ty6 = Wd('F06', 'yeniden');
   amb(S('F06') - .2, ty6 - .2, 'footsteps', -12, .3, .3);
   amb(ty6, S('F07') - .2, 'stone_scrape', -18, .4, .2);
@@ -181,12 +182,14 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   const tG4 = S('G04') - .2, tc4 = Wd('G04', 'çatlağa') - .2;
   amb(tG4, S('G05') - .3, 'wind', -32, 1.2, .6, { rate: .7 });
   sfx(tc4, 'crack', { g: -14 });
-  sfx(Wd('G04', 'der', 0, true) + .05, 'shimmer', { g: -16, len: 2.2 });
+  sfx(Wd('G04', 'der', 0, true) + .05, 'shimmer', { g: -16, len: 1.0, fo: .5 }); // kuyruğu G05'in ilk sözcüklerini örtmesin
   const tG5 = S('G05') - .3, tk5 = Wd('G05', 'kaya') - .2, ta5 = Wd('G05', 'ağır');
   amb(tG5, S('G08') - .2, 'wind', -22, 1, .4);
   amb(tG5, tk5, 'stone_scrape', -20, .5, .1);
+  sfx(Wd('G07', 'ama') - .12, 'scrape', { g: -12, len: .5, fo: .3 });   // G7b: omzunu kayaya verir
+  sfx(Wd('G07', 'ezemediler') - .2, 'stone_scrape', { g: -14, len: 1.2, fi: .2, fo: .5 }); // kaya yerinden oynar
   const RG = (window.ROCK_OVER || {}).G5;
-  sfx(RG.tg + .05, 'thud', { g: -16, rate: 1.3 });
+  sfx(RG.tg + .05, 'thud', { g: -16, rate: 1.3 }); sfx(RG.tg + .05, 'thud', { g: -11, rate: .55 });
   sfx(RG.tl - .25, 'whoosh', { g: -17, len: .6 });
   sfx(RG.td, 'thud', { g: -10 }); sfx(RG.td, 'scrape', { g: -13, len: .3, fo: .2 });
   RG.bounces.slice(1).forEach((b, k) => sfx(b, 'thud', { g: -21 - k * 3 }));

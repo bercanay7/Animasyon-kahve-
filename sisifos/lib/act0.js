@@ -152,7 +152,7 @@ shot(S('A05') - .6, (ctx, st) => {
   const vg = groundOf(vf);
   ctx.save();
   const rev = ramp(lt, .1, 1.1, E.io3);
-  ctx.beginPath(); ctx.rect(W / 2 - 640 * rev, 120, 1280 * rev, 470); ctx.clip();
+  ctx.globalAlpha = rev; // dikdörtgen perde yerine yumuşak beliriş
   ctx.fillStyle = C.ink;
   ctx.beginPath(); ctx.moveTo(x0 - 40, vy + 6); for (let x = x0 - 40; x <= x1 + 40; x += 6) ctx.lineTo(x, vf(x)); ctx.lineTo(x1 + 40, vy + 6); ctx.closePath(); ctx.fill();
   ctx.fillRect(x0 - 40, vy, x1 - x0 + 80, 6);
@@ -165,7 +165,7 @@ shot(S('A05') - .6, (ctx, st) => {
   const sq = ramp(lt, 1.6, 2.6);
   txt(ctx, 'Tanrıları kandıran adam', W / 2, 860, { font: 'italic 500 52px "Cormorant Garamond"', col: C.ink, a: sq });
   ctx.fillStyle = C.ink; const lw = 300 * E.out3(sq); ctx.fillRect(W / 2 - lw, 812, lw * 2, 3);
-}, { tr: { type: 'black', dur: .7 }, post: { tex: .95, vig: .7 } });
+}, { tr: { type: 'black', dur: .7 }, post: { tex: .95, vig: .7 }, mb: 12 });
 
 // A6 — Olimpos: neden bu ceza? / binlerce yıl sonra bir düşünür
 shot(S('A06') - .25, (ctx, st) => {

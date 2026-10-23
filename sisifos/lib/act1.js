@@ -104,14 +104,14 @@ shot(S('B02') - .3, (ctx, st) => {
   figure(ctx, { x: 345, y: gy - 27 * 5.2, s: 5.2, lk: LK.sisKing, hold: { F: HOLD.scepter(85) },
     p: { ...oturan(), torso: .02, head: .05, shN: .9 + Math.sin(lt * 1.3) * .08, elN: .55, shF: .55, elF: 1.1, handN: 'open', handF: 'fist', smile: .4, blink: (Math.sin(t * 1.7) > .97) ? 1 : 0 } });
   // amfora taşıyan tüccarlar (krala doğru yürür), amfora omuzda (figürün arkasında, kil kenar çizgisiyle ayrılır)
-  for (const [x0, ph] of [[1180, 0], [1470, 17]]) {
-    const x = x0 - lt * 70;
-    if (x < 560) continue;
+  for (const [x0, ph, stopX] of [[1180, 0, 990], [1470, 66, 1180]]) {
+    // yarım adım faz farkı (klon değil); amfora yığınının önünde dururlar
+    const x = Math.max(x0 - lt * 70, stopX);
     const ax = x + 9 * 4.4, ay = gy - 83 * 4.4;
     ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
     ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
     amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
-    walkScene(ctx, null, x, 4.4, t, -1, { noCam: true, ground: FLAT(gy), lk: LK.citizen, dist: lt * 70 + ph, stride: 30, lean: .14,
+    walkScene(ctx, null, x, 4.4, t, -1, { noCam: true, ground: FLAT(gy), lk: LK.citizen, dist: (x0 - x) + ph, stride: 30, lean: .14,
       p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
       ik: { hN: [ax - 4, ay + 10] } });
   }
@@ -178,7 +178,7 @@ shot(S('B04') - .85, (ctx, st) => {
   if (t > tr && t < tr + 1.2) for (let i = 0; i < 10; i++) sparkle(ctx, ccx - 120 + hash(i) * 240, gy - 160 + hash(i + 9) * 120, 14, clamp(1 - Math.abs(t - tr - .4 - hash(i) * .5) * 3));
   flatWalk(ctx, ax + gone * 520, gy, 4.2, t, gone > 0 ? 1 : -1, { lk: LK.autolykos, dist: lt * 50, ...sneak });
   nameTag(ctx, 'AUTOLYKOS', 'Ünlü hırsız', 120, 140, t - Wd('B04', 'otolikos') + .1, 3.0, { col: C.white });
-}, { tr: { type: 'black', dur: .7 }, post: { tex: .6, vig: 1, grain: .07 } });
+}, { tr: { type: 'black', dur: .7 }, post: { tex: .6, vig: 1, grain: .07 }, mb: 12 });
 function drawB4b(ctx, st, ts) {
   const t = st.t, lt2 = t - ts;
   // gün-gece döngüsü ve azalan sürü
@@ -269,7 +269,7 @@ shot(S('B05') - .3, (ctx, st) => {
     cow(ctx, cx, gy, 2.6, 1, u * .9, { walk: 1, col: C.white, inc: C.ink, farCol: '#CDBFA4' });
     ctx.restore();
     const qv = ramp(t, Wd('B05', 'beni') - .1, Wd('B05', 'beni') + .6);
-    txt(ctx, '“Beni Autolykos çaldı.”', W / 2, 200, { font: 'italic 600 64px "Cormorant Garamond"', col: C.ink, a: qv });
+    // cümle toynak izlerinde okunur; ayrıca üstte tekrar yazılmaz
   }
 }, { tr: { type: 'clay', dur: .8 }, post: { tex: .9, vig: .8 } });
 

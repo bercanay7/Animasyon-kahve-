@@ -17,6 +17,7 @@ shot(S('G01') - .35, (ctx, st) => {
     ctx.restore();
     // akan küçük siluetler
     for (let i = 0; i < 9; i++) { const x = ((i * 260 - lt * 900) % 2340 + 2340) % 2340 - 200; figure(ctx, { x, y: 700 - 46 * 3.4, s: 3.4, sty: p < .6 ? STY.black : WG, lk: i % 3 === 0 ? LK.sis : i % 3 === 1 ? LK.hoplite : LK.woman, alpha: .55, p: { hipN: .3, hipF: -.3, knF: .2, shN: .3, shF: -.3 } }); }
+    ctx.fillStyle = mixCol('rgba(227,185,140,.92)', 'rgba(244,236,220,.92)', p); ctx.fillRect(W / 2 - 330, 450, 660, 150); ctx.strokeStyle = mixCol(C.ink, C.inkSoft, p); ctx.lineWidth = 4; ctx.strokeRect(W / 2 - 320, 460, 640, 130);
     txt(ctx, lab, W / 2, 540, { font: '700 120px Cinzel', col: mixCol(C.ink, C.inkSoft, p), ls: 10, force: true });
   } else {
     paperBG(ctx);
@@ -109,7 +110,7 @@ shot(S('G03') - .3, (ctx, st) => {
   walkScene(ctx, null, 960, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: scroll, sty: WG, lk: LK.modern, hold: { N: HOLD.bag() }, neck: -.3 * look, head: -.45 * look,
     p: { brow: look * .8, shN: Math.sin(scroll / 52) * .3 * (1 - look), shF: -Math.sin(scroll / 52) * .3 * (1 - look) } });
   quote(ctx, '“Bütün bunlar ne için?”', W / 2, 250, 1200, t - tb + .1, { font: 'italic 600 84px "Cormorant Garamond"', col: C.inkSoft });
-}, { tr: { type: 'fade', dur: .6 }, post: { tex: .3, vig: .5, grain: .045 } });
+}, { tr: { type: 'fade', dur: .6 }, post: { tex: .3, vig: .5, grain: .045 }, mb: 12 });
 
 // G4 — sessiz evren, çatlak: ABSÜRT
 shot(S('G04') - .2, (ctx, st) => {
@@ -220,7 +221,7 @@ shot(Wd('G07', 'ama') - .12, (ctx, st) => {
   c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
   ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te - .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 9); ctx.restore();
-  const set = ramp(lt, 0, .45, E.out3);
+  const set = lerp(.94, 1, ramp(lt, 0, .3, E.out3)); // plan, eller zaten kayadayken açılır (eylem üstünde kesme)
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, te + .5, te + 1.2) * .4), T: lerp(.95, 1.12, set), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
     rockAng: -3.1 + mv * 46 / 150, jitter: ramp(t, te - .3, te + .2) * (1 - ramp(t, te + .4, te + .9)) * .8, light: -1.2 });
 }, { tr: { type: 'cut' }, post: TP });
@@ -258,11 +259,12 @@ shot(S('G10') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt, tm = Wd('G10', 'mutlu');
   const xr = 260 + lt * 12;
   const sm = ramp(t, tm - .3, tm + 1.6, E.io2);
-  const po = { dist: xr, smile: sm * 1.8, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12 };
+  const po = { dist: xr, smile: sm * 2.2, blink: sm * .4, strain: .3 * (1 - sm), look: -.15 - .2 * sm, reach: 19, T: 1.12 };
   const P = pushScene(ctx, null, xr, 150, 4.0, t, { ...po, dry: true });
-  const push = ramp(t, tm - .5, tm + 1.4, E.io3);
-  const z = lerp(2.5, 2.7, E.sine(clamp(lt / st.d))) + push * .9;
-  const c = { x: P.head[0] + lerp(70, 60, push), y: P.head[1] + lerp(70, 35, push), z };
+  // "mutlu"da yüze kadar itiş: gülümseme telefonda da okunur
+  const push = ramp(t, tm - .4, tm + 2.3, E.io3);
+  const z = lerp(2.5, 2.7, E.sine(clamp(lt / st.d))) + push * 2.5;
+  const c = { x: P.head[0] + lerp(70, 26, push), y: P.head[1] + lerp(70, -6, push), z };
   // güneş G9'daki gibi ekranın sağında kalır (paralaks .15 katmanında ekran konumundan geri hesaplanır)
   const zk = 1 + (c.z - 1) * .15, cxk = W / 2 + (c.x - W / 2) * .15, cyk = H / 2 + (c.y - H / 2) * .15;
   tartarosBG(ctx, t, c, { warm: 1, diskX: cxk + (1560 - W / 2) / zk, diskY: cyk + (330 - H / 2) / zk, diskR: 300 });
