@@ -60,7 +60,8 @@ SCENES.kapak_b = ctx => {
   // kaya + arkadan vuran güneşle parlayan kenar (omzun değdiği yerde kaya açıkça okunur); figür önde çizilir
   ctx.save(); cam(ctx, c, 1); boulder(ctx, P.cx, P.cy, 150, xr / 150, { shadow: false, light: -1.2 });
   ctx.translate(P.cx, P.cy); ctx.rotate(xr / 150); ctx.beginPath(); spline(ctx, BOULDER.map(q => [q[0] * 150, q[1] * 150]));
-  ctx.shadowColor = 'rgba(255,190,100,1)'; ctx.shadowBlur = 40; ctx.strokeStyle = 'rgba(255,226,160,1)'; ctx.lineWidth = 2.4; ctx.stroke(); ctx.stroke(); ctx.restore();
+  ctx.shadowColor = 'rgba(255,190,100,1)'; ctx.shadowBlur = 40; ctx.strokeStyle = 'rgba(255,226,160,1)'; ctx.lineWidth = 2.4; ctx.stroke(); ctx.stroke();
+  ctx.shadowBlur = 0; ctx.strokeStyle = 'rgba(28,14,8,.95)'; ctx.lineWidth = .75; ctx.stroke(); ctx.restore(); // koyu kenar: küçük boyutta kaya diski çizgili leke gibi okunmaz
   pushScene(ctx, c, xr, 150, 4.0, 5, { ...po, noRock: true });
   motes(ctx, 5, 40, 33, 'rgba(255,225,160,.8)', [0, 0, W, H], 12, 2.2, .7);
   const g = ctx.createLinearGradient(0, 0, W * .62, 0);
