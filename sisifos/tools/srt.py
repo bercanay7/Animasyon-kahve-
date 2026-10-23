@@ -1,7 +1,7 @@
 """Altyazı: senaryo 'alt' metni + kelime zamanları → sisifos.tr.srt (python3 tools/srt.py)"""
 import json, re, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MAXL, MAXC = 42, 84  # satır / altyazı başına karakter
+MAXL, MAXC = 42, 80  # satır / altyazı başına karakter (iki satır 42'yi aşmadan sığsın)
 
 segs = json.load(open(os.path.join(ROOT, 'senaryo.json')))['segments']
 tl = open(os.path.join(ROOT, 'timeline.js')).read()
@@ -62,9 +62,23 @@ for sg in segs:
             cues.append([ws[pp[0]]['s'], ws[pp[-1]]['e'], wrap([toks[j] for j in pp])])
 
 # süreleri düzenle: en az 1.0 sn, bir sonrakine 80 ms boşluk, okunabilirlik için en fazla +0.6 sn uzat
-for i, c in enumerate(cues):
-    nxt = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 3
-    c[1] = min(max(c[1] + .35, c[0] + 1.0), nxt - .08)
+def settle_times():
+    for i, c in enumerate(cues):
+        nxt = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 3
+        c[1] = min(max(c[1] + .35, c[0] + 1.0), nxt - .08)
+raw = [c[:] for c in cues]
+settle_times()
+# okuma hızı 18 karakter/sn'yi aşan kısa altyazı, sonraki kısa altyazıyla birleşir (sığıyorsa)
+i = 0
+while i < len(cues) - 1:
+    a_, b_ = cues[i], cues[i + 1]
+    ta, tb = a_[2].replace('\n', ' '), b_[2].replace('\n', ' ')
+    if len(ta) / (a_[1] - a_[0]) > 18 and len(ta) + 1 + len(tb) <= MAXC and raw[i + 1][0] - raw[i][1] < 1.0:
+        cues[i] = [raw[i][0], raw[i + 1][1], wrap((ta + ' ' + tb).split())]; raw[i] = [raw[i][0], raw[i + 1][1], '']
+        del cues[i + 1]; del raw[i + 1]
+        for k, c in enumerate(cues): c[1] = raw[k][1]
+        settle_times()
+    else: i += 1
 
 out = os.path.join(ROOT, 'sisifos.tr.srt')
 with open(out, 'w', encoding='utf-8') as f:

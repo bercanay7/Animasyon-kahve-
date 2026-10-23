@@ -222,9 +222,10 @@ shot(S('G07') - .2, (ctx, st) => {
   const rc = [xr + n[0] * 150, hillY(xr) + n[1] * 150];
   ctx.save(); cam(ctx, c, 1); boulder(ctx, rc[0], rc[1], 150, -3.1, { shadow: false, light: -1.2 }); ctx.restore();
   // "Tanrılar ona bir anlam vermedi": eli kayaya oturduktan sonra ağırlığını verip kayaya yaslanır (G7b'deki itişe hazırlık)
-  const lean = ramp(t, Wd('G07', 'tanrılar') - .2, Wd('G07', 'ama') - .1, E.io2);
-  const xs = rc[0] - 215 + lean * 18, contact = [rc[0] + Math.cos(PI + .55) * 156, rc[1] + Math.sin(PI + .55) * 156];
-  walkScene(ctx, c, xs, 4.0, t, 1, { dist: 0, lean: .04 + lean * .3 - tall * .06, neck: -.1 + lean * .12 - tall * .15, head: -.15 + lean * .1 - tall * .25,
+  const lean = ramp(t, Wd('G07', 'tanrılar') - .2, Wd('G07', 'ama') - .4, E.io2);
+  const xs = rc[0] - 215 - lean * 34, contact = [rc[0] + Math.cos(PI + .55) * 156, rc[1] + Math.sin(PI + .55) * 156];
+  // G7b'deki itiş pozuyla eşleşsin: gövde ~28° öne, kalça geride, arka bacak uzun (adım ortası duruşu)
+  walkScene(ctx, c, xs, 4.0, t, 1, { dist: lean * 55, lean: .04 + lean * .72 - tall * .06, neck: -.1 + lean * .18 - tall * .15, head: -.15 + lean * .16 - tall * .25,
     p: { shF: .1, elF: .3, handN: 'flat', brow: .2 - tall * .3, smile: tall * .3, breath: Math.sin(t * 1.4) * 1.0 },
     ik: { hN: [lerp(xs + 60, contact[0], hand), lerp(hillY(xs) - 100, contact[1], hand)] } });
 }, { tr: { type: 'cut' }, post: TP });
@@ -233,16 +234,16 @@ shot(Wd('G07', 'ama') - .12, (ctx, st) => {
   const t = st.t, lt = st.lt, te = Wd('G07', 'ezemediler');
   const w = .6 + warmAt(t) * .35;
   // "ezeMEdiler"de: küçük geri çekiliş (hazırlık), sonra omuz darbesiyle kaya ~60 px kayar ve yerine oturur
-  // 0.3 sn hazırlık (omuzlar çöker, kaya hafif geri), sonra 0.6 sn yumuşak bitişli ilerleme; ani sıçrama yok
-  const tE2 = te + .18, mv = keyed(t, [[te - .3, { d: 0 }], [tE2 - .3, { d: 0 }], [tE2, { d: -8 }, E.io2], [tE2 + .6, { d: 60 }, E.out2], [tE2 + 1.4, { d: 66 }]]).d, xr = -470 + mv;
+  // "ezemediler"de zorlanır; cümle bitince 0.3 sn hazırlık (omuzlar çöker), sonra 0.6 sn yumuşak bitişli ilerleme
+  const tE2 = Wd('G07', 'de', 1, true) + .12, mv = keyed(t, [[te - .3, { d: 0 }], [tE2 - .3, { d: 0 }], [tE2, { d: -8 }, E.io2], [tE2 + .6, { d: 60 }, E.out2], [tE2 + 1.4, { d: 66 }]]).d, xr = -470 + mv;
   // farklı açı (daha yakın, alçak) ve sabit kamera: kayanın yerinden oynaması kadrajda görünür
   const c = { x: -470 + 20, y: hillY(-470) - 150, z: lerp(1.85, 1.95, E.sine(clamp(lt / st.d))) };
   c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-  ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, te + .2, xr - 60, hillY(xr - 60), 14, 'rgba(110,60,35,.4)', 110, 9); dustBurst(ctx, t, te + .2, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 19); ctx.restore();
+  ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, tE2 + .05, xr - 60, hillY(xr - 60), 14, 'rgba(110,60,35,.4)', 110, 9); dustBurst(ctx, t, tE2 + .05, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 19); ctx.restore();
   const set = lerp(.94, 1, ramp(lt, 0, .3, E.out3)); // plan, eller zaten kayadayken açılır (eylem üstünde kesme)
-  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, te + .5, te + 1.2) * .4), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
-    rockAng: -3.1 + mv / 150, jitter: ramp(t, te - .3, te + .15) * (1 - ramp(t, te + .5, te + 1.0)) * .8, T: 1.12 + ramp(t, tE2 - .3, tE2, E.io2) * .05 * (1 - ramp(t, tE2, tE2 + .3)) + ramp(t, tE2, tE2 + .35, E.out2) * .1 * (1 - ramp(t, te + .8, te + 1.6)), light: -1.2 });
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, tE2 + .4, tE2 + 1.0) * .4), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
+    rockAng: -3.1 + mv / 150, jitter: ramp(t, te - .3, te + .15) * (1 - ramp(t, te + .5, te + 1.0)) * .8, T: 1.12 + ramp(t, tE2 - .3, tE2, E.io2) * .05 * (1 - ramp(t, tE2, tE2 + .3)) + ramp(t, tE2, tE2 + .35, E.out2) * .1 * (1 - ramp(t, tE2 + .6, tE2 + 1.2)), light: -1.2 });
 }, { tr: { type: 'cut' }, post: TP });
 
 // G8 — kitabın son sayfası

@@ -12,7 +12,8 @@ const FPS = 30;
 const SHORTS = !!process.env.SHORTS;
 const PAGE = process.env.PAGE || (SHORTS ? 'shorts.html' : 'film.html');
 const EXTRA = process.env.Q || (SHORTS ? 'rs=2&notext=1' : '');
-const X264 = ['-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', process.env.CRF || '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
+// renk: JPEG kareler (tam aralık, BT.601) → BT.709 sınırlı aralık, akışta BT.709 etiketleri (HD standardı)
+const X264 = ['-vf', 'scale=in_range=full:out_range=tv:in_color_matrix=bt601:out_color_matrix=bt709', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', process.env.CRF || '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
   '-g', '60', '-bf', '3', '-x264-params', 'aq-mode=3:aq-strength=0.9:psy-rd=1.0,0.15'];
 const ffwait = p => new Promise((res, rej) => p.on('close', c => c === 0 ? res() : rej(new Error('ffmpeg ' + c))));
 

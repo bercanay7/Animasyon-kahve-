@@ -11,3 +11,4 @@ en/words/
 **/__pycache__/
 .parts_shorts/
 shorts/*.wav
+audio/stems_en/

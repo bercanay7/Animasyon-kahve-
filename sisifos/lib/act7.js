@@ -5,7 +5,7 @@ const STRIP_N = 7, SEG = 600, SW = SEG * STRIP_N, SH = 520;
 const STRIP_SCENES = [
   { lk: LK.sis },
   { lk: LK.modern, label: 'iş' },
-  { lk: LK.woman, label: 'sorumluluk' },
+  { lk: LK.woman, label: 'görev' }, // "sorumluluk" kayada okunamayacak kadar küçülüyordu
   { lk: LK.modern, label: 'hayal' },
   { lk: LK.citizen, label: 'her sabah' },
   { lk: { ...LK.sis, old: true, beard: 'long' } },

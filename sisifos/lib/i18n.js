@@ -24,7 +24,7 @@ const I18N_EN = {
   'ABSÜRT': 'ABSURD', 'bilincin saati': 'the hour of consciousness', '— son satırlar —': '— the closing lines —',
   '“Zirvelere doğru verilen mücadelenin kendisi,\nbir insan yüreğini doldurmaya yeter.”': '“The struggle itself toward the heights\nis enough to fill a man’s heart.”',
   '“Sisifos’u mutlu hayal etmek gerekir.”': '“One must imagine Sisyphus happy.”', '“Sisifos’u mutlu\nhayal etmek gerekir.”': '“One must imagine\nSisyphus happy.”',
-  'iş': 'job', 'sorumluluk': 'duty', 'hayal': 'dream', 'her sabah': 'every morning',
+  'iş': 'job', 'görev': 'duty', 'hayal': 'dream', 'her sabah': 'every morning',
   'Senin kayan ne?': 'What is your rock?', 'sen?': 'you?', 'Senin kayan neyse, yorumlarda anlat.': 'Whatever your rock is, tell us in the comments.',
 };
 function L(s) {
