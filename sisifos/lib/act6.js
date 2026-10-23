@@ -37,7 +37,7 @@ shot(S('G01') - .35, (ctx, st) => {
     // Camus yürür
     const walkIn = ramp(t, ta - 1.2, ta + .4, E.out2);
     if (t < ts + .2) {
-      const x = lerp(-100, 820, walkIn);
+      const x = lerp(-340, 820, walkIn);
       walkScene(ctx, null, x, 5.4, t, 1, { noCam: true, ground: FLAT(gy), dist: x, sty: WG, lk: LK.camus, stride: 32, hold: { F: HOLD.cig() }, p: { shN: Math.sin(x / 50) * .3, shF: 1.2, elF: 1.9, handF: 'fist', head: .02 } });
       ctx.save(); ctx.strokeStyle = 'rgba(40,30,25,.3)'; ctx.lineWidth = 2; ctx.beginPath(); for (let k = 0; k < 30; k++) { const u = k / 29; const px = x + 40 + Math.sin(u * 6 + t * 1.5) * 10 * u, py = gy - 300 - u * 160; k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke(); ctx.restore();
     }
@@ -66,7 +66,7 @@ shot(S('G01') - .35, (ctx, st) => {
         txt(ctx, 'Le Mythe', 250, -120, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F' });
         txt(ctx, 'de Sisyphe', 250, -50, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F' });
         txt(ctx, 'Sisifos Söyleni', 250, 60, { font: '600 36px Cinzel', col: C.inkSoft, ls: 2 });
-        txt(ctx, '1942', 250, 250, { font: '400 30px "Courier Prime"', col: C.inkSoft });
+        txt(ctx, '1942', 250, 250, { font: '400 40px "Courier Prime"', col: C.inkSoft });
       }
       ctx.restore();
       ctx.restore();
@@ -131,28 +131,38 @@ shot(S('G04') - .2, (ctx, st) => {
     ctx.beginPath(); poly(ctx, pts.slice(0, n), false); ctx.stroke(); ctx.restore();
     txtReveal(ctx, 'ABSÜRT', 1570, 440, ramp(t, tc + .5, tc + 2.0, E.lin), { font: '700 110px Cinzel', col: '#F3E6C8', ls: 30, rise: 0 });
   }
-  quote(ctx, 'anlam arayan insan  ·  sessiz kalan dünya', W / 2, 160, 1600, t - Wd('G04', 'anlam') + .1, { font: 'italic 500 44px "Cormorant Garamond"', col: '#CFC2A8' });
+  quote(ctx, 'anlam arayan insan  ·  sessiz kalan dünya', W / 2, 160, 1600, t - Wd('G04', 'anlam') + .1, { font: 'italic 600 56px "Cormorant Garamond"', col: '#E2D6BC', shadow: 'rgba(0,0,0,.5)', blur: 10 });
 }, { tr: { type: 'black', dur: .8 }, post: { tex: .2, vig: .9, grain: .06 } });
 
 // G5 — Tartaros'a dönüş: kaya yuvarlanır, ağır ama kararlı iniş
 const warmAt = t => ramp(t, S('G05'), S('G10'), E.io2);
+const G5 = (() => { const t0 = S('G05') - .3, tk = Wd('G05', 'kaya') - .2, xAt = t => 1100 + (Math.min(t, tk) - t0) * 25;
+  return { t0, tk, xAt, ro: rockOver(xAt(tk), 150, 4.0, tk, { pre: .36, fly: .46, hop: 88 }) }; })();
+window.ROCK_OVER = Object.assign(window.ROCK_OVER || {}, { G5: G5.ro });
 shot(S('G05') - .3, (ctx, st) => {
-  const t = st.t, lt = st.lt, tk = Wd('G05', 'kaya') - .2, ta = Wd('G05', 'ağır');
+  const t = st.t, { tk, ro } = G5, ta = Wd('G05', 'ağır');
   const w = warmAt(t) * .45;
-  if (t < tk) {
-    const xr = 1100 + lt * 25, c = { x: 900, y: 380, z: .55 };
+  if (t < ta - .2) {
+    // tek plan: kaya kaçar, Sisifos yere kapanır, kaya sırtından aşar; doğrulur, ayağa kalkıp aşağı döner
+    const xr = G5.xAt(t), rx = ro.xAt(t), fol = ramp(t, ro.td - .2, ro.td + 1.2, E.io2);
+    const c = { x: lerp(900, 760, fol), y: lerp(380, 430, fol), z: lerp(.55, .6, fol) };
+    for (const tb of ro.bounces) { const [bx, by] = shake(t, tb, tb === ro.td ? 9 : 4, 5); c.sx = (c.sx || 0) + bx; c.sy = (c.sy || 0) + by; }
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-    pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, dive: ramp(t, tk - .28, tk, E.in2), handsOff: ramp(t, tk - .28, tk, E.in2) });
-  } else if (t < ta - .2) {
-    // eylem üstünde kesme: kaya çoktan aşağıda, Sisifos kenarda durmuş bakıyor
-    const u = t - tk, xr = 880 - 220 * u - 330 * u * u;
-    const c = { x: lerp(1020, 900, ramp(u, 0, 1.5, E.io2)), y: hillY(1020) - 190, z: .85 };
-    tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
-    const up = ramp(u, .05, .9, E.io2);
-    walkScene(ctx, c, 1140, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: lerp(.55, .05, up), p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2, hipN: lerp(.9, .05, up), knN: lerp(1.3, .05, up), hipF: lerp(.5, -.05, up), knF: lerp(1.1, .05, up) } });
-    ctx.save(); cam(ctx, c, 1); const n = hillN(xr); boulder(ctx, xr + n[0] * 150, hillY(xr) + n[1] * 150 - Math.abs(Math.sin(u * 6)) * 10, 150, xr / 150, { shadow: false }); ctx.restore();
+    ctx.save(); cam(ctx, c, 1);
+    dustBurst(ctx, t, ro.tl, ro.xl, hillY(ro.xl), 12, 'rgba(110,60,35,.4)', 110, 6);
+    for (const tb of ro.bounces) { const bx = ro.xAt(tb); dustBurst(ctx, t, tb, bx, hillY(bx), tb === ro.td ? 18 : 8, 'rgba(110,60,35,.36)', tb === ro.td ? 150 : 80, Math.floor(tb * 10)); }
+    ctx.restore();
+    const tStand = ta - 1.0, rk = t < tk ? null : ro.rockAt(t);
+    if (t < tStand) {
+      const pr = ro.prone(t);
+      pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk });
+    } else {
+      if (rk) { ctx.save(); cam(ctx, c, 1); boulder(ctx, rk[0], rk[1], 150, rk[2], { shadow: false }); ctx.restore(); }
+      const up = ramp(t, tStand, ta - .25, E.io2);
+      walkScene(ctx, c, ro.X + 30, 4.0, t, -1, { dist: 0, neck: .3, head: .45, lean: lerp(.6, .05, up), p: { shN: .5, elN: .4, shF: .3, elF: .5, brow: .2, hipN: lerp(1.0, .05, up), knN: lerp(1.6, .05, up), hipF: lerp(.6, -.05, up), knF: lerp(1.4, .05, up) } });
+    }
   } else {
-    const x = lerp(1000, 640, ramp(t, ta - .2, st.end, E.lin));
+    const x = lerp(G5.ro.X + 30, 640, ramp(t, ta - .2, st.end, E.lin));
     const c = { x: x - 40, y: hillY(x) - 230, z: .95 };
     tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
     walkScene(ctx, c, x, 4.0, t, -1, { lean: -.04, neck: .05, head: .05, stride: 26, p: { brow: 0 } });
@@ -171,7 +181,7 @@ function drawG6(ctx, t, cf) {
   walkScene(ctx, c, x, 4.0, t, -1, { lean: -.02, neck: .02, head: -.05, stride: 24, p: { breath: Math.sin(t * 1.6) * 1.4, blink: (lt % 3.4 > 3.25) ? 1 : 0, brow: 0 } });
   return x;
 }
-shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 330, z: 2.3 })), { tr: { type: 'fade', dur: .6 }, post: TP });
+shot(S('G06') - .2, (ctx, st) => drawG6(ctx, st.t, x => ({ x: x - 30, y: hillY(x) - 330, z: 2.3 })), { tr: { type: 'cut' }, post: TP });
 shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
   drawG6(ctx, st.t, x => ({ x: x - 20, y: hillY(x) - 40, z: 3.4 }));
   quote(ctx, 'bilincin saati', 1380, 330, 900, st.t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14 });
@@ -223,7 +233,8 @@ shot(S('G09') - .25, (ctx, st) => {
   const t = st.t, lt = st.lt;
   const w = .85 + warmAt(t) * .15;
   const xr = -200 + lt * 26, c = { x: 600, y: 300, z: .55 };
-  tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
+  // ışık diski sağ altta: alıntı koyu gökyüzünde okunur
+  tartarosBG(ctx, t, c, { warm: w, diskX: 1480, diskY: 560, diskR: 230 }); tartarosHill(ctx, c, { groove: .9, warm: w });
   pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: .6 });
   motes(ctx, t, 60, 12, 'rgba(255,220,150,.8)', [0, 0, W, H], 16, 2, .6);
   quote(ctx, '“Zirvelere doğru verilen mücadelenin kendisi, bir insan yüreğini doldurmaya yeter.”', W / 2, 190, 1500, lt - .3, { font: 'italic 600 64px "Cormorant Garamond"', col: '#FFF0D0', lh: 80, shadow: 'rgba(40,15,5,.7)', blur: 16, stagger: .9 });
@@ -244,5 +255,5 @@ shot(S('G10') - .3, (ctx, st) => {
   pushScene(ctx, c, xr, 150, 4.0, t, po);
   motes(ctx, t, 50, 33, 'rgba(255,225,160,.85)', [0, 0, W, H], 12, 2.2, .7);
   quote(ctx, '“Sisifos’u mutlu hayal etmek gerekir.”', W / 2, 930, 1600, t - S('G10') + .1, { font: 'italic 600 78px "Cormorant Garamond"', col: '#FFF3D8', shadow: 'rgba(40,15,5,.75)', blur: 18, band: true });
-  txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 1010, { font: 'italic 500 34px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
-}, { tr: { type: 'fade', dur: .8 }, post: { tex: .5, vig: .9, grain: .05 } });
+  txt(ctx, 'Il faut imaginer Sisyphe heureux.  — Albert Camus', W / 2, 1000, { font: 'italic 600 46px "Cormorant Garamond"', col: '#F6E0B8', a: ramp(t, Se('G10') + .3, Se('G10') + 1.3), shadow: 'rgba(0,0,0,.6)', blur: 10 });
+}, { tr: { type: 'cut' }, post: { tex: .5, vig: .9, grain: .05 } });

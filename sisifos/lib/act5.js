@@ -71,69 +71,54 @@ shot(S('F04') - .2, (ctx, st) => {
     rockAng: xr / 150 + tr * Math.sin(t * 30) * .015 });
 }, { tr: { type: 'cut' }, post: TP });
 
-// F5 — kaya elinden kurtulur: kısa an (eller kayar) → eylem üstünde kesme → geniş: kaya kendi başına sekerek iner
+// F5 — kaya elinden kurtulur: eller kayar, Sisifos yere kapanır, kaya sırtından sekip aşar, yamaçtan gürleyerek dibe iner.
+// Tek kesintisiz plan: yakın plandan kayayı izleyen kamerayla tüm yamacı gösteren geniş plana açılır.
 const F5 = (() => {
-  const t0 = S('F05') + .05, tc = t0 + .42, tend = Se('F05') + .3;
-  const xs = 1330 - 330, x1 = -480;
-  // sekmeler: ivmelenen iniş boyunca ayrık temaslar
-  const B = [];
-  let tb = tc + .18, h = 26;
-  while (tb < tend - .15) { B.push({ t: tb, h }); const gap = lerp(.5, .28, clamp((tb - tc) / (tend - tc))); tb += gap; h = Math.min(60, h * 1.12); }
-  const xAt = t => lerp(xs, x1, E.in2(clamp((t - tc) / (tend - tc))) * .88 + clamp((t - tc) / (tend - tc)) * .12);
-  const hopAt = t => { for (let i = 0; i < B.length; i++) { const a = i ? B[i - 1].t : tc, b = B[i].t; if (t >= a && t < b) { const v = (t - a) / (b - a); return 4 * v * (1 - v) * B[i].h; } } return 0; };
-  return { t0, tc, tend, xs, x1, B, xAt, hopAt };
+  const t0 = S('F05') + .05, tc = t0 + .42, tend = Se('F05') + .3, x1 = -980;
+  const ro = rockOver(1290, 150, 4.0, tc, { dist: 1330, T: 1.48, pre: .5, fly: .55, hop: 90, nb: 1 });
+  const xs = ro.xd, td = ro.td, U = tend - td, v0 = 320, acc = 2 * (xs - x1 - v0 * U) / (U * U);
+  // inişte ilk sekme, ardından hızlanan iniş boyunca ayrık temaslar
+  const B = [{ t: td + .42, h: 34 }];
+  let tb = td + .42 + .5, h = 18;
+  while (tb < tend - .15) { B.push({ t: tb, h }); const gap = lerp(.48, .28, clamp((tb - td) / U)); tb += gap; h = Math.min(56, h * 1.16); }
+  const xAt = t => t < td ? ro.xAt(t) : xs - v0 * (t - td) - .5 * acc * (t - td) * (t - td);
+  const hopAt = t => { if (t < td) return ro.hopAt(t); for (let i = 0; i < B.length; i++) { const a = i ? B[i - 1].t : td, b = B[i].t; if (t >= a && t < b) { const v = (t - a) / (b - a); return 4 * B[i].h * v * (1 - v); } } return 0; };
+  return { t0, tc, tend, xs, x1, B, xAt, hopAt, ro, td };
 })();
-window.F5_BOUNCES = F5.B.map(b => b.t);
+window.F5_BOUNCES = [F5.td, ...F5.B.map(b => b.t)];
+window.ROCK_OVER = Object.assign(window.ROCK_OVER || {}, { F5: F5.ro });
 shot(S('F05') - .1, (ctx, st) => {
-  const t = st.t, R = 150;
-  if (t < F5.tc) {
-    // eller kayadan kayar, kaya geri devrilmeye başlar
-    const u = ramp(t, F5.t0 - .05, F5.tc, E.in2), xr = 1330 + 0 - u * 40;
-    const c = { x: xr + 120, y: hillY(xr) - 260, z: .78 };
-    c.sx = noise1(t * 40, 1) * 6; c.sy = noise1(t * 40, 2) * 5;
-    tartarosBG(ctx, t, c, {}); tartarosHill(ctx, c, { groove: .4 });
-    pushScene(ctx, c, xr, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.0, handsOff: u, dive: ramp(t, F5.tc - .25, F5.tc, E.in2), mouthOpen: .8, T: 1.48, rockAng: xr / R - u * .4 });
-    return;
-  }
-  const xr = F5.xAt(t), crash = t > F5.tend;
-  // kamera kayaya kilitli (biraz gecikmeli), başta tepede Sisifos da kadrajda
-  const lock = ramp(t, F5.tc, F5.tc + 1.0, E.io2);
-  const cx = lerp(F5.xs + 60, xr + 240, lock), c = { x: Math.max(cx, F5.x1 + 260), y: hillY(Math.max(cx, F5.x1 + 260)) - 230, z: lerp(.66, .74, lock) };
-  const [sx, sy] = shake(t, F5.tend, 30, 4); c.sx = sx; c.sy = sy;
-  for (const b of F5.B) { const [bx, by] = shake(t, b.t, 4 + b.h * .08, 7); c.sx += bx; c.sy += by; }
-  tartarosBG(ctx, t, c, {});
-  tartarosHill(ctx, c, { groove: .4 });
-  // Sisifos tepede: kenara düşmüş, doğrulur ve aşağı bakar
-  const up = ramp(t, F5.tc + .2, F5.tc + 1.3, E.io2);
-  walkScene(ctx, c, F5.xs + 330 + 30, 4.0, t, -1, { dist: 0, lean: lerp(.5, .15, up), neck: .3, head: .45, p: { shN: lerp(.4, 1.2, up), elN: .6, shF: lerp(.2, 2.1, up), elF: 1.0, handN: 'open', handF: 'open', brow: 1.2, mouthOpen: .55, hipN: lerp(.8, .1, up), knN: lerp(1.2, .1, up), hipF: lerp(.4, -.1, up), knF: lerp(1.0, .1, up) } });
+  const t = st.t, R = 150, { ro } = F5;
+  const u = ramp(t, F5.t0 - .05, F5.tc, E.in2), xr = F5.xAt(t), crash = t > F5.tend;
+  // kamera: yakın (kayma) → kayayı izler → sabit geniş plan ("gürleyerek")
+  const fol = ramp(t, ro.tl, ro.td + .5, E.io2), wide = ramp(t, Wd('F05', 've') - .35, Wd('F05', 'gürleyerek') + .3, E.io2);
+  const fx = Math.max(xr + 260, F5.x1 + 260);
+  let c = { x: lerp(1290 + 120, fx, fol), y: lerp(hillY(1290) - 260, hillY(fx) - 220, fol), z: lerp(.78, .68, fol) };
+  c = { x: lerp(c.x, 330, wide), y: lerp(c.y, 520, wide), z: lerp(c.z, .47, wide) };
+  const pre = t < F5.tc ? 1 - ramp(t, F5.tc - .1, F5.tc) : 0;
+  c.sx = pre * noise1(t * 40, 1) * 6; c.sy = pre * noise1(t * 40, 2) * 5;
+  { const [sx, sy] = shake(t, F5.tend, 26, 4); c.sx += sx; c.sy += sy; }
+  { const [sx, sy] = shake(t, F5.td, 12, 5); c.sx += sx; c.sy += sy; }
+  for (const b of F5.B) { const [bx, by] = shake(t, b.t, 2 + b.h * .06, 7); c.sx += bx; c.sy += by; }
+  tartarosBG(ctx, t, c, {}); tartarosHill(ctx, c, { groove: .4 });
   ctx.save(); cam(ctx, c, 1);
-  const n = hillN(xr);
-  // hareket izi (soluk kopyalar)
-  if (!crash) for (let k = 1; k < 4; k++) { const tt = t - k * .035, xx = F5.xAt(tt), nn = hillN(xx); ctx.globalAlpha = .12 / k; boulder(ctx, xx + nn[0] * R, hillY(xx) + nn[1] * R - F5.hopAt(tt), R, xx / R, { shadow: false, light: -1.2 }); }
-  ctx.globalAlpha = 1;
-  boulder(ctx, xr + n[0] * R, hillY(xr) + n[1] * R - F5.hopAt(t), R, xr / R, { shadow: false, light: -1.2 });
-  for (const b of F5.B) { const bx = F5.xAt(b.t); dustBurst(ctx, t, b.t, bx, hillY(bx), 8, 'rgba(110,60,35,.32)', 90, Math.floor(b.t * 10)); }
-  dustBurst(ctx, t, F5.tend, F5.x1, hillY(F5.x1), 50, 'rgba(120,64,36,.5)', 420, 41);
-  ctx.restore();
-}, { tr: { type: 'cut' }, post: TP });
-
-// F5c — "gürleyerek": sabit geniş plan, kaya tüm yamacı katederek dibe iner
-shot(Wd('F05', 'gürleyerek') - .05, (ctx, st) => {
-  const t = st.t, R = 150, xr = F5.xAt(t), crash = t > F5.tend;
-  const c = { x: 330, y: 520, z: .47 };
-  const [sx, sy] = shake(t, F5.tend, 26, 4); c.sx = sx; c.sy = sy;
-  for (const b of F5.B) { const [bx, by] = shake(t, b.t, 2 + b.h * .05, 7); c.sx += bx; c.sy += by; }
-  tartarosBG(ctx, t, c, {});
-  tartarosHill(ctx, c, { groove: .4 });
-  walkScene(ctx, c, F5.xs + 360, 4.0, t, -1, { dist: 0, lean: .15, neck: .3, head: .45, p: { shN: 1.2, elN: .6, shF: 2.1, elF: 1.0, handN: 'open', handF: 'open', brow: 1.2, mouthOpen: .55 } });
-  ctx.save(); cam(ctx, c, 1);
-  const n = hillN(xr);
-  if (!crash) for (let k = 1; k < 4; k++) { const tt = t - k * .04, xx = F5.xAt(tt), nn = hillN(xx); ctx.globalAlpha = .14 / k; boulder(ctx, xx + nn[0] * R, hillY(xx) + nn[1] * R - F5.hopAt(tt), R, xx / R, { shadow: false, light: -1.2 }); }
-  ctx.globalAlpha = 1;
-  boulder(ctx, xr + n[0] * R, hillY(xr) + n[1] * R - F5.hopAt(t), R, xr / R, { shadow: false, light: -1.2 });
-  for (const b of F5.B) { const bx = F5.xAt(b.t); dustBurst(ctx, t, b.t, bx, hillY(bx), 10, 'rgba(110,60,35,.35)', 120, Math.floor(b.t * 10)); }
+  dustBurst(ctx, t, ro.tl, ro.xl, hillY(ro.xl), 12, 'rgba(110,60,35,.4)', 110, 6);
+  dustBurst(ctx, t, F5.td, F5.xs, hillY(F5.xs), 20, 'rgba(120,64,36,.45)', 170, 7);
+  for (const b of F5.B) { const bx = F5.xAt(b.t); dustBurst(ctx, t, b.t, bx, hillY(bx), 9, 'rgba(110,60,35,.34)', 100, Math.floor(b.t * 10)); }
   dustBurst(ctx, t, F5.tend, F5.x1, hillY(F5.x1), 60, 'rgba(120,64,36,.55)', 520, 41);
   ctx.restore();
+  const n = hillN(xr), rk = t < F5.tc ? null : [xr + n[0] * R, hillY(xr) + n[1] * R - F5.hopAt(t), xr / R - .4];
+  // Sisifos: yere kapanır, dört ayak üstünde doğrulur; geniş planda ayağa kalkıp aşağı, kayaya döner
+  const tStand = Wd('F05', 'en') - .1;
+  if (t < tStand) {
+    const pr = ro.prone(t);
+    pushScene(ctx, c, 1330 - u * 40, R, 4.0, t, { dist: 1330, strain: 2, slip: 1.0, handsOff: Math.max(u, pr), mouthOpen: .8, T: 1.48,
+      rockAng: (1330 - u * 40) / R - u * .4, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk });
+  } else {
+    if (rk) { ctx.save(); cam(ctx, c, 1); boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: -1.2 }); ctx.restore(); }
+    const up = ramp(t, tStand, tStand + .9, E.io2);
+    walkScene(ctx, c, ro.X + 30, 4.0, t, -1, { dist: 0, lean: lerp(.6, .15, up), neck: .3, head: .45, p: { shN: lerp(.4, 1.2, up), elN: .6, shF: lerp(.2, 2.1, up), elF: 1.0, handN: 'open', handF: 'open', brow: 1.2, mouthOpen: .55, hipN: lerp(1.0, .1, up), knN: lerp(1.6, .1, up), hipF: lerp(.6, -.1, up), knF: lerp(1.4, .1, up) } });
+  }
 }, { tr: { type: 'cut' }, post: TP });
 
 shot(S('F06') - .2, (ctx, st) => {
@@ -163,7 +148,7 @@ shot(S('F07') - .2, (ctx, st) => {
     const c = stage === 0 ? { x: xr + 80, y: hillY(xr) - 220, z: .95 } : { x: xr - 300, y: hillY(xr) - 140, z: 1.1 };
     tartarosBG(ctx, t, c, {}); tartarosHill(ctx, c, { groove });
     pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr });
-    txt(ctx, ['2. GÜN', '3. GÜN'][stage], 160, 120, { font: '600 34px Cinzel', col: '#E9C29A', ls: 8, align: 'left', a: .9 });
+    txt(ctx, ['2. GÜN', '3. GÜN'][stage], 160, 120, { font: '700 48px Cinzel', col: '#F0D2A8', ls: 10, align: 'left', a: .95, shadow: 'rgba(0,0,0,.6)', blur: 10 });
   } else if (stage === 2) {
     // yıldızlar döner; döngü hızlı
     const c = { x: 700, y: 380, z: .5 };
@@ -172,7 +157,7 @@ shot(S('F07') - .2, (ctx, st) => {
     tartarosHill(ctx, c, { groove });
     const cyc = (sTime * .9) % 1, xr = lerp(-300, 1300, cyc);
     pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 2 });
-    txt(ctx, '100. YIL', 160, 120, { font: '600 34px Cinzel', col: '#E9C29A', ls: 8, align: 'left', a: .9 });
+    txt(ctx, '100. YIL', 160, 120, { font: '700 48px Cinzel', col: '#F0D2A8', ls: 10, align: 'left', a: .95, shadow: 'rgba(0,0,0,.6)', blur: 10 });
   } else {
     // kozmik geri çekilme
     const z = lerp(.5, .12, ramp(sTime, 0, 3.2, E.io3));
@@ -183,15 +168,20 @@ shot(S('F07') - .2, (ctx, st) => {
     const vg = ctx.createRadialGradient(W / 2, H / 2, H * .3, W / 2, H / 2, H * .95); vg.addColorStop(0, 'rgba(7,4,3,0)'); vg.addColorStop(1, 'rgba(7,4,3,1)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
     const cyc = (sTime * 1.8) % 1, xr = lerp(-300, 1300, cyc);
     pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr * 2 });
-    txt(ctx, '1000. YIL', 160, 120, { font: '600 34px Cinzel', col: '#E9C29A', ls: 8, align: 'left', a: .9 });
+    txt(ctx, '1000. YIL', 160, 120, { font: '700 48px Cinzel', col: '#F0D2A8', ls: 10, align: 'left', a: .95, shadow: 'rgba(0,0,0,.6)', blur: 10 });
   }
 }, { tr: { type: 'fade', dur: .35 }, post: TP });
 
 // F8 — yakın plan ve alıntı
 shot(S('F08') - .2, (ctx, st) => {
   const t = st.t, lt = st.lt;
-  ctx.fillStyle = '#0B0605'; ctx.fillRect(0, 0, W, H);
-  glow(ctx, 640, 420, 700, 'rgba(170,80,40,.35)');
-  figure(ctx, { x: 560, y: 1160, s: 15, lk: LK.sis, sty: STY.red, cutCol: '#0B0605', p: { torso: .35, neck: .2, head: .25, blink: .8, brow: -.8, shN: .3, shF: .1, breath: Math.sin(t * 1.5) * 1.2 }, margin: 40 });
-  quote(ctx, '“Hiçbir işe yaramayan, umutsuz bir emekten daha korkunç bir ceza yoktur.”', 1340, 520, 860, t - Wd('F08', 'hiçbir') + .2, { font: 'italic 500 66px "Cormorant Garamond"', col: '#F0DEC0', lh: 84, stagger: .6 });
+  // Tartaros'un kızıl göğü önünde siyah figür yakın plan (tepedeki Sisifos'la aynı çizim kuralı); yavaş içeri itiş
+  clayBG(ctx, '#7E3A22', '#2A120B', { x: 600, y: 380, r: 820, c: 'rgba(214,120,70,.45)' });
+  const bow = ramp(t, Wd('F08', 'umutsuz') - .2, Wd('F08', 'emekten'), E.io2), shut = ramp(t, Wd('F08', 'ceza') - .1, Wd('F08', 'yoktur') + .3, E.io2);
+  const blink = (lt % 2.9 > 2.78 && shut < .5) ? 1 : 0;
+  ctx.save(); const z = lerp(1, 1.07, E.sine(clamp(lt / st.d))); ctx.translate(480, 760); ctx.scale(z, z); ctx.translate(-480, -760);
+  figure(ctx, { x: 480, y: 1080 + bow * 10, s: 15, lk: LK.sis, p: { torso: .3 + bow * .04, neck: .15 + bow * .05, head: .12 + bow * .12, blink: Math.max(blink, .25 + shut * .75), brow: -.8 - bow * .4,
+    shN: .3, shF: .1, breath: Math.sin(t * 1.5) * 1.2 }, margin: 40 });
+  ctx.restore();
+  quote(ctx, '“Hiçbir işe yaramayan, umutsuz bir emekten daha korkunç bir ceza yoktur.”', 1430, 500, 780, t - Wd('F08', 'hiçbir') + .2, { font: 'italic 500 66px "Cormorant Garamond"', col: '#F0DEC0', lh: 84, stagger: .6 });
 }, { tr: { type: 'black', dur: .8 }, post: { tex: .4, vig: 1, grain: .07 } });

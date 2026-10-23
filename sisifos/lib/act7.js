@@ -37,7 +37,7 @@ function buildStrip(t = 0, reveal = 1) {
       }
     } else {
       const P = pushScene(tx, null, xr, R, 3.3, t + i * 1.3, { noCam: true, ground: g, dist: xr + i * 13 + t * 12, lk: sc.lk, light: -2.3, cutCol: '#C8693D', T: 1.1, hA: .85, hB: .85 });
-      if (sc.label) txt(tx, sc.label, P.cx, P.cy + 6, { font: `italic 700 ${sc.label.length > 6 ? 62 : 84}px "Cormorant Garamond"`, col: C.ink, force: true });
+      if (sc.label) { tx.font = 'italic 700 84px "Cormorant Garamond"'; const fs = Math.floor(Math.min(84, 84 * 1.62 * R / tx.measureText(sc.label).width)); txt(tx, sc.label, P.cx, P.cy + 6, { font: `italic 700 ${fs}px "Cormorant Garamond"`, col: C.ink, force: true }); }
     }
     x.drawImage(STRIP.tmp, SEG * i, 0);
   });
@@ -45,7 +45,15 @@ function buildStrip(t = 0, reveal = 1) {
 }
 // Amfora profili: [y, yarıçap] (birim yükseklik 1000)
 const VASE = [[0, 175], [26, 168], [40, 132], [170, 118], [240, 210], [300, 318], [380, 372], [470, 385], [560, 370], [650, 320], [760, 230], [850, 160], [890, 150], [910, 190], [950, 196], [985, 180], [1000, 175]];
-function vaseR(y) { for (let i = 1; i < VASE.length; i++) if (y <= VASE[i][0]) { const [y0, r0] = VASE[i - 1], [y1, r1] = VASE[i]; const u = (y - y0) / (y1 - y0); return lerp(r0, r1, smooth(u)); } return 175; }
+// pürüzsüz profil: düğümlerde eğimi sürekli kübik Hermite (düğümlerde düzlük/çıkıntı olmaz)
+const VASE_M = VASE.map((q, i) => { const a = VASE[Math.max(0, i - 1)], b = VASE[Math.min(VASE.length - 1, i + 1)]; return (b[1] - a[1]) / Math.max(1, b[0] - a[0]); });
+function vaseR(y) {
+  for (let i = 1; i < VASE.length; i++) if (y <= VASE[i][0]) {
+    const [y0, r0] = VASE[i - 1], [y1, r1] = VASE[i], h = y1 - y0, u = (y - y0) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * r0 + (u3 - 2 * u2 + u) * h * VASE_M[i - 1] + (-2 * u3 + 3 * u2) * r1 + (u3 - u2) * h * VASE_M[i];
+  }
+  return 175;
+}
 function drawVase(ctx, x, y, s, rot, o = {}) {
   const S = buildStrip(o.t || 0, o.reveal ?? 1);
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.translate(0, -500);
@@ -116,7 +124,7 @@ shot(Wd('H02', 'ona') - .15, (ctx, st) => {
   tartarosHill(ctx, c, { groove: .9, warm: 1 });
   pushScene(ctx, c, xr, 150, 4.0, t, po);
   motes(ctx, t, 50, 71, 'rgba(255,225,160,.8)', [0, 0, W, H], 12, 2.2, .7);
-}, { tr: { type: 'fade', dur: .5 }, post: { tex: .5, vig: .9, grain: .05 } });
+}, { tr: { type: 'cut' }, post: { tex: .5, vig: .9, grain: .05 } });
 
 // H3 — boş yer: "Peki ya sen? Senin kayan ne?" — bir sahne geri döner, siluet belirir
 shot(S('H03') - .4, (ctx, st) => {
@@ -126,18 +134,18 @@ shot(S('H03') - .4, (ctx, st) => {
   const z = lerp(.92, 1.9, ramp(lt, .2, 2.0, E.io3));
   const rv = ramp(t, Wd('H03', 'sen') - .1, Wd('H03', 'sen') + .6, E.io2);
   ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2 - lerp(0, -40, ramp(lt, .2, 2))); drawVase(ctx, W / 2, 600, .9, rot, { t, reveal: rv }); ctx.restore();
-  quote(ctx, 'Senin kayan ne?', W / 2, 980, 1400, t - Wd('H03', 'senin') + .1, { font: 'italic 600 84px "Cormorant Garamond"', col: '#FFF0D0', shadow: 'rgba(0,0,0,.7)', blur: 16 });
-}, { tr: { type: 'fade', dur: .6 }, post: { tex: .35, vig: 1, grain: .05 } });
+  quote(ctx, 'Senin kayan ne?', W / 2, 120, 1400, t - Wd('H03', 'senin') + .1, { font: 'italic 600 88px "Cormorant Garamond"', col: '#FFF0D0', shadow: 'rgba(0,0,0,.8)', blur: 18 });
+}, { tr: { type: 'cut' }, post: { tex: .35, vig: 1, grain: .05 } });
 
 // H4 — bitiş kartı (sağ taraf YouTube bitiş ekranı öğeleri için boş)
 shot(S('H04') - .3, (ctx, st) => {
   const t = st.t, lt = st.lt;
   museum(ctx, t, .7);
   const a = ramp(lt, 0, 1.2, E.io2);
-  drawVase(ctx, lerp(W / 2, 470, a), lerp(600, 560, a), lerp(1.0, .78, a), segRot(STRIP_N - 1) + Math.sin(lt * .5) * .005, { t });
+  drawVase(ctx, lerp(W / 2, 470, a), lerp(600, 520, a), lerp(1.0, .7, a), segRot(STRIP_N - 1) + Math.sin(lt * .5) * .005, { t });
   ctx.save(); ctx.globalAlpha = ramp(lt, .6, 1.6);
-  txt(ctx, 'SİSİFOS', 470, 975, { font: '900 64px Cinzel', col: '#F3E2BC', ls: 16 });
+  txt(ctx, 'SİSİFOS', 470, 935, { font: '900 68px Cinzel', col: '#F3E2BC', ls: 16 });
   ctx.restore();
-  quote(ctx, 'Senin kayan neyse, yorumlarda anlat.', 470, 1040, 900, lt - .6, { font: 'italic 500 38px "Cormorant Garamond"', col: '#E9D3AE' });
+  quote(ctx, 'Senin kayan neyse, yorumlarda anlat.', 470, 1005, 900, lt - .6, { font: 'italic 600 46px "Cormorant Garamond"', col: '#E9D3AE' });
   // sağ taraf YouTube bitiş ekranı öğeleri için boş bırakılır
-}, { tr: { type: 'fade', dur: .8 }, post: { tex: .35, vig: 1, grain: .05 } });
+}, { tr: { type: 'cut' }, post: { tex: .35, vig: 1, grain: .05 } });

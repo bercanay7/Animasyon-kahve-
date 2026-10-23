@@ -87,7 +87,7 @@ function cloud(ctx, x, y, s, col, inc = null, seed = 1) {
   ctx.fillStyle = col; ctx.beginPath();
   const bumps = [[-80, 8, 34], [-40, -12, 44], [8, -24, 52], [58, -8, 42], [96, 10, 30], [20, 14, 40], [-30, 16, 34]];
   for (const [bx, by, br] of bumps) { ctx.moveTo(bx + br, by); ctx.arc(bx, by, br, 0, TAU); }
-  ctx.rect(-110, 10, 230, 30);
+  ctx.moveTo(117, 22); ctx.ellipse(4, 22, 113, 19, 0, 0, TAU); // yuvarlak taban: düz kesik kenar yok
   ctx.fill('nonzero');
   // tek bulut dili: her zaman sarmal kazıma (açık bulutta koyu, koyu bulutta açık)
   if (!inc) inc = 'rgba(150,78,46,.42)';
@@ -387,14 +387,21 @@ function underworld(ctx, t, o = {}) {
   ctx.fillStyle = '#0B0605'; ctx.fillRect(0, 0, W, H);
   glow(ctx, W / 2, 420, 900, 'rgba(120,50,25,.28)');
   const gy = o.gy ?? 880;
-  ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, gy, W, H - gy);
-  ctx.fillStyle = '#C7683C'; ctx.fillRect(0, gy, W, 3);
-  meander(ctx, 0, W, 60, 40, '#C7683C');
-  tongues(ctx, 0, W, H - 50, 46, '#C7683C');
+  // zemin, meşaleler ve asfodeller dünya koordinatında (kamera ile ölçeklenir); friz çerçevesi ekranda, en üstte
+  ctx.save(); if (o.c) cam(ctx, o.c, 1);
+  ctx.fillStyle = '#1A0D09'; ctx.fillRect(-W, gy, 3 * W, 2 * H);
+  ctx.fillStyle = '#C7683C'; ctx.fillRect(-W, gy, 3 * W, 3);
   for (const x of (o.torches || [180, 1740])) { ctx.fillStyle = '#C7683C'; ctx.fillRect(x - 5, 330, 10, 120); ctx.save(); ctx.translate(x, 330); ctx.fillStyle = C.gold; const fh = 30 + Math.sin(t * 11 + x) * 6; ctx.beginPath(); ctx.moveTo(-12, 0); ctx.quadraticCurveTo(0, -fh * 1.4, 12, 0); ctx.fill(); glow(ctx, 0, -14, 160, 'rgba(255,180,90,.3)'); ctx.restore(); }
-  // asfodeller
   ctx.strokeStyle = '#C7683C'; ctx.lineWidth = 2;
   for (let i = 0; i < 14; i++) { const x = 60 + i * 140 + hash(i) * 40; ctx.beginPath(); ctx.moveTo(x, gy); ctx.quadraticCurveTo(x + 6, gy - 40, x + Math.sin(t + i) * 4, gy - 70); ctx.stroke(); ctx.fillStyle = '#C7683C'; ctx.beginPath(); ctx.arc(x + Math.sin(t + i) * 4, gy - 74, 5, 0, TAU); ctx.fill(); }
+  ctx.restore();
+  if (!o.noFrame) underworldFrame(ctx);
+}
+function underworldFrame(ctx) {
+  ctx.fillStyle = '#0B0605'; ctx.fillRect(0, 0, W, 104);
+  meander(ctx, 0, W, 60, 40, '#C7683C');
+  ctx.fillStyle = '#1A0D09'; ctx.fillRect(0, H - 56, W, 56);
+  tongues(ctx, 0, W, H - 50, 46, '#C7683C');
 }
 // Modern şehir silueti (beyaz zemin üslubu)
 function skyline(ctx, x0, x1, y, col, seed = 3, hmax = 260, win = null) {

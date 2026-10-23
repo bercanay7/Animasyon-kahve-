@@ -68,7 +68,7 @@ shot(S('C03') - .2, (ctx, st) => {
     const run = Math.sin(t * 5);
     figure(ctx, { x: 1180, y: 570, s: 5.0, dir: 1, lk: LK.aegina,
       p: { torso: .32, neck: -.1, head: -.15, shN: 2.5 + run * .1, elN: .5, handN: 'open', shF: -1.15, elF: -.05, handF: 'open',
-        hipN: .7, knN: .55, hipF: -.55, knF: 1.0, ankF: -.3, mouthOpen: .5 },
+        hipN: .55, knN: .4, hipF: -.32, knF: .55, ankF: -.2, mouthOpen: .5 }, // adım elbisenin içinde kalır
       onJoints: (J, M) => { const q = M.transformPoint(new DOMPoint(...J.AF.wr)); const r = ctx.getTransform().inverse().transformPoint(q); wr = [r.x, r.y]; } });
     figure(ctx, { x: 820, y: 530, s: 6.0, lk: LK.zeus, hold: { F: HOLD.bolt() },
       p: { torso: .18, neck: .05, head: .05, hipN: .75, knN: .85, hipF: -.5, knF: .35, ankF: -.4, shF: 2.05, elF: 1.25, handN: 'open', handF: 'fist', brow: -.4 },
@@ -147,13 +147,13 @@ shot(S('C06') - .2, (ctx, st) => {
     ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(top[0], top[1], 15, 0, TAU); ctx.fill(); ctx.fillStyle = C.red; ctx.beginPath(); ctx.arc(top[0], top[1], 7, 0, TAU); ctx.fill(); ctx.restore(); }
   const fl = clamp(1 - Math.abs(t - tf - .04) * 7) * (t > tf - .02 ? 1 : 0);
   if (fl > 0) { sparkle(ctx, 932, gy - 146, 70 * fl, fl); ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = `rgba(255,240,210,${fl * .3})`; ctx.fillRect(0, 0, W, H); ctx.restore(); }
-  spring(ctx, 930, gy - 140, t, tf, '#F4EEDD', 1);
+  spring(ctx, 930, gy - 140, t, tf, '#F4EEDD', .7);
   dustBurst(ctx, t, tf, 930, gy - 120, 14, 'rgba(70,40,25,.4)', 120, 4);
   // Sisifos yaklaşır, fısıldar ve yukarıyı gösterir
   const lean = ramp(t, ts - .2, ts + .5, E.io2);
-  const sx = lerp(420, 960, ramp(t, tf + .6, ts, E.io2));
+  const sx = lerp(220, 470, ramp(t, tf + .6, ts, E.io2)); // pınarın solunda durur (fıskiyelerin içine girmez)
   if (t < ts - .1) walkScene(ctx, null, sx, 5.0, t, 1, { noCam: true, ground: FLAT(gy), dist: sx, lk: LK.sisKing, p: { smile: .6 } });
-  else figure(ctx, { x: 960, y: gy - 47 * 5.0, s: 5.0, lk: LK.sisKing, p: { torso: .25 * lean, neck: .1, head: -.1, shN: lerp(.2, 2.9, lean), elN: .2, handN: 'point', shF: .4, elF: 1.6, smile: 1, hipN: .1, hipF: -.1 } });
+  else figure(ctx, { x: 470, y: gy - 47 * 5.0, s: 5.0, lk: LK.sisKing, p: { torso: .25 * lean, neck: .1, head: -.1, shN: lerp(.2, 2.9, lean), elN: .2, handN: 'point', shF: .4, elF: 1.6, smile: 1, hipN: .1, hipF: -.1 } });
 }, { tr: { type: 'fade', dur: .4 }, post: { tex: .9, vig: .8 } });
 
 // C7 — çeşme evi, mutlu şehir; sonra gök kararır

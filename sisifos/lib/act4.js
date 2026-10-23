@@ -53,7 +53,7 @@ shot(S('E02') - .2, (ctx, st) => {
 // E3–E5 — Persefoni'nin huzurunda (kırmızı figür): geniş → Sisifos yakın → Persefoni & Hades → Persefoni'nin baş sallaması → ışık kapısı
 function drawE3(ctx, t, c) {
   const lt = t - (S('E03') - .3), t4 = S('E04'), t5 = S('E05');
-  underworld(ctx, t);
+  underworld(ctx, t, { c, noFrame: true });
   const gy = 880, R = STY.red;
   ctx.save(); cam(ctx, c, 1);
   // ışık kapısı: zemine oturan kemerli açıklık, Sisifos'un arkasında açılır
@@ -76,11 +76,13 @@ function drawE3(ctx, t, c) {
       shN: rant ? 2.2 + Math.sin(w) * .7 : .3, elN: rant ? .5 + Math.sin(w * 1.3) * .4 : .4, shF: rant ? 1.6 + Math.cos(w * .9) * .8 : .2, elF: .6, handN: 'open', handF: 'open',
       brow: rant ? 1.4 : 0, mouthOpen: rant ? Math.max(0, Math.sin(w * 1.7)) * .8 : 0, smile: t > t5 + .4 ? 1 : 0 } });
   ctx.restore();
+  underworldFrame(ctx);
 }
 shot(S('E03') - .3, (ctx, st) => {
   drawE3(ctx, st.t, { x: 960, y: 540, z: 1 });
-  nameTag(ctx, 'PERSEFONİ', 'Ölülerin kraliçesi', 140, 170, st.t - Wd('E03', 'persefoni'), 3.4, { col: '#E9C29A' });
-  nameTag(ctx, 'HADES', 'Yeraltının kralı', 140, 290, st.t - S('E03') - 1.0, 3.2, { col: '#E9C29A' });
+  // isimler figürlerin üstünde, anlatımdaki sırayla: önce Persefoni, sonra yanındaki Hades
+  nameTag(ctx, 'PERSEFONİ', 'Ölülerin kraliçesi', 1150, 190, st.t - Wd('E03', 'ölülerin'), 3.6, { col: '#E9C29A', align: 'center' });
+  nameTag(ctx, 'HADES', 'Yeraltının kralı', 1580, 190, st.t - Wd('E03', 'persefoninin') - .3, 2.4, { col: '#E9C29A', align: 'center' });
 }, { tr: { type: 'clay', dur: .9 }, post: { tex: .45, vig: 1, grain: .07 } });
 shot(S('E04') - .1, (ctx, st) => drawE3(ctx, st.t, { x: 700, y: 520, z: lerp(1.55, 1.65, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
 shot(Wd('E04', 'izin') - .15, (ctx, st) => drawE3(ctx, st.t, { x: 1480, y: 600, z: lerp(1.45, 1.55, st.p) }), { tr: { type: 'cut' }, post: { tex: .45, vig: 1, grain: .07 } });
@@ -118,7 +120,7 @@ shot(S('E06') - .2, (ctx, st) => {
     figure(ctx, { x: 600, y: gy - 22 * 5.4, s: 5.4, lk: LK.sis, hold: { N: HOLD.kylix() },
       p: { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.15, neck: -.1, head: -.25, shN: 1.5 + Math.sin(lt * 2) * .05, elN: 1.4, handN: 'fist', shF: lerp(.3, -1.2, ramp(t, tw, tw + .4, E.outBack)), elF: .6, handF: 'open', smile: 1.3 } });
   }
-}, { tr: { type: 'iris', dur: 1.1, x: 372, y: 670 }, post: { tex: .9, vig: .7 } });
+}, { tr: { type: 'white', dur: 1.0 }, post: { tex: .9, vig: .7 } });
 
 // E7 — yıllar geçer; Hermes gelir
 shot(S('E07') - .2, (ctx, st) => {
@@ -130,21 +132,37 @@ shot(S('E07') - .2, (ctx, st) => {
   if (dk < .6) { ctx.save(); ctx.globalAlpha = 1 - dk / .6; disk(ctx, W / 2 + Math.cos(ang) * 820, 860 + Math.sin(ang) * 640, 80, '#FFF0C8'); ctx.restore(); }
   const gy = 860;
   ctx.fillStyle = C.ink; ctx.fillRect(0, gy, W, H - gy);
-  const grab = ramp(t, th + .6, th + 1.4, E.io2);
-  const down = ramp(t, th + 1.6, th + 3.2, E.in2);
-  // yaşlanan Sisifos (kaya üstünde oturur)
+  const grab = ramp(t, th + .55, th + 1.2, E.io2);
+  const down = ramp(t, th + 1.5, th + 2.7, E.in2);
+  // yerde açılan yarık: yeraltının kızıl ışığı; ikisi içine çekilir, yarık kapanır
+  const gap = ramp(t, th + 1.15, th + 1.6, E.out3) * (1 - ramp(t, th + 2.6, th + 3.1, E.io2));
+  if (gap > 0) {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    glow(ctx, 900, gy + 4, 420 * gap, `rgba(255,110,40,${.55 * gap})`);
+    ctx.restore();
+    ctx.fillStyle = mixCol('#5A1A0C', '#FF8A3A', gap); ctx.beginPath(); ctx.ellipse(900, gy + 6, 260 * gap, 18 * gap, 0, 0, TAU); ctx.fill();
+  }
+  // kaya hep yerinde kalır
+  ctx.fillStyle = C.ink; ctx.beginPath(); spline(ctx, [[720, gy + 2], [730, gy - 96], [830, gy - 116], [900, gy - 80], [910, gy + 2]]); ctx.fill();
   const old = yrs > .5;
-  if (down < .05) { ctx.fillStyle = C.ink; ctx.beginPath(); spline(ctx, [[720, gy + 2], [730, gy - 96], [830, gy - 116], [900, gy - 80], [910, gy + 2]]); ctx.fill(); }
+  // tutma noktası: Hermes Sisifos'un bileğini yakalar ve onu zorla yukarı/öne çeker
+  const gP = [lerp(935, 905, grab), gy - 445 + grab * 25 + down * 980];
   ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, gy + 2); ctx.clip();
-  figure(ctx, { x: 820, y: gy - 116 - lerp(14, 32, grab) * 5.4 + down * 620, s: 5.4, lk: old ? { ...LK.sis, beard: 'long', old: true } : LK.sis,
-    p: grab > 0 ? { torso: -.2, neck: -.2, head: -.3, shN: 3.0, elN: .1, handN: 'open', shF: .5, elF: .4, hipN: .2, hipF: -.3, knF: .2, brow: 1.4, mouthOpen: .7 } : { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.1, head: -.1, shN: 1.4, elN: 1.4, handN: 'fist', blink: .3 },
+  figure(ctx, { x: 820 + grab * 40, y: gy - 116 - lerp(14, 34, grab) * 5.4 + down * 900, s: 5.4, lk: old ? { ...LK.sis, beard: 'long', old: true } : LK.sis,
+    p: grab > 0 ? { torso: lerp(-.1, -.38, grab), neck: -.1, head: -.25, shF: -.9, elF: .7, handN: 'fist', handF: 'open', hipN: .4, knN: .6, hipF: -.5, knF: .35, brow: 1.4, mouthOpen: .7 }
+      : { ...oturan({ hipN: 1.5, knN: 1.2, hipF: 1.3, knF: 1.5 }), torso: -.1, head: -.1, shN: 1.4, elN: 1.4, handN: 'fist', blink: .3 },
+    ik: grab > 0 ? { hN: gP } : {},
     hold: grab > 0 ? null : { N: HOLD.kylix() } });
-  // Hermes uçarak iner
-  const hx = lerp(2100, 980, ramp(t, th - .2, th + .7, E.out3)), hy = lerp(-200, 240, ramp(t, th - .2, th + .7, E.out3)) + down * 640;
+  // Hermes uçarak iner, bileği yakalar
+  const arr = ramp(t, th - .2, th + .7, E.out3);
+  const hx = lerp(2100, 1060, arr) + grab * 30, hy = lerp(-200, 470, arr) + grab * 20 + down * 1000;
   if (t > th - .3) figure(ctx, { x: hx, y: hy, s: 5.2, dir: -1, lk: LK.hermes, hold: { F: HOLD.caduceus() },
-    p: { torso: lerp(1.2, .3, grab), neck: -.4, head: -.2, hipN: -.9, knN: .9, hipF: -.6, knF: 1.3, shN: 1.9, elN: .2, handN: 'fist', shF: .7, elF: .8, brow: -.4, smile: .3 },
-    ik: grab > 0 ? { hN: [820 + 10, gy - 46 * 5.4 - 46 * 5.4 * .1 - 60 + down * 520] } : {} });
+    p: { torso: lerp(1.2, .45, arr), neck: -.4, head: -.2, hipN: -.9, knN: .9, hipF: -.6, knF: 1.3, shN: 1.9, elN: .2, handN: 'fist', shF: .7, elF: .8, brow: -.4, smile: .1 },
+    ik: arr > .5 ? { hN: grab > 0 ? gP : [lerp(1060, 960, arr), gy - 420] } : {} });
   ctx.restore();
-  if (yrs < 1 && t < th - .5) txt(ctx, 'yıllar…', W / 2, 160, { font: 'italic 500 56px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .3, .9) * (1 - ramp(t, th - 1.2, th - .5)) });
-  nameTag(ctx, 'HERMES', 'Tanrıların habercisi', 140, 160, t - th - .2, 3, { col: C.white });
+  // yarık kapanınca karanlık
+  const blk = ramp(t, th + 2.9, th + 3.5, E.io2);
+  if (blk > 0) { ctx.fillStyle = `rgba(0,0,0,${blk})`; ctx.fillRect(0, 0, W, H); }
+  if (yrs < 1 && t < th - .5) txt(ctx, 'yıllar…', W / 2, 160, { font: 'italic 600 72px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .3, .9) * (1 - ramp(t, th - 1.2, th - .5)) });
+  nameTag(ctx, 'HERMES', 'Tanrıların habercisi', 140, 160, t - th - .2, 2.5, { col: C.white });
 }, { tr: { type: 'fade', dur: .5 }, post: { tex: .8, vig: .9 }, mb: 10 });

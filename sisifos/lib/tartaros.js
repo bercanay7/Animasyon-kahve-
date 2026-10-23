@@ -119,25 +119,74 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   const bob = Math.sin((d / S2) * TAU * 2) * 1.0 * s;
   const jit = (o.jitter || 0) * s; // kas titremesi
   const pel = [px + noise1(t * 38, 7) * jit, py0 + bob + noise1(t * 38, 8) * jit];
-  const hN = add(onR(hA), [-off * 30 * s, 0]), hF = add(onR(hB), [-off * 30 * s, 0]);
-  const head = add(pel, scl(rot([.4, -36], T), s));
+  let hN = add(onR(hA), [-off * 30 * s, 0]), hF = add(onR(hB), [-off * 30 * s, 0]);
+  let head = add(pel, scl(rot([.4, -36], T), s));
   if (o.dry) return { cx, cy, pel, head };
+  // yere kapanma (prone) ve dört ayak üstünde doğrulma (rise): itme pozundan yamaç üstündeki pozlara karışım
+  let P = pel, TT = T, nk = -.25, hd = -.55 + (o.look || 0), fNp = footPos(fN), fFp = footPos(fF);
+  const pr = o.prone || 0;
+  if (pr > 0) {
+    const X = o.proneX ?? pel[0] - 8 * s, a2 = hillAng(X), n2 = hillN(X), ca = Math.cos(a2), r = o.rise || 0;
+    const gp = (x, h) => { const nn = hillN(x); return [x + nn[0] * h, hillY(x) + nn[1] * h]; };
+    const pelP = add([X, hillY(X)], scl(n2, 7.5 * s)), TP = PI / 2 + a2 - .05;
+    const kx = X + ca * 5 * s, pelK = add([kx, hillY(kx)], scl(hillN(kx), 22 * s)), TK = 1.12 + a2 * .5;
+    const pP = lerp2(pelP, pelK, r), Tq = lerp(TP, TK, r);
+    const shq = add(pP, scl(rot([.6, -26.6], Tq), s));
+    const hx = shq[0] + ca * lerp(5, 1, r) * s;
+    const hNq = gp(hx + 2 * s, 1.2 * s), hFq = gp(hx - 2 * s, 1.2 * s);
+    const fxP = X - ca * 40 * s, fxK = kx - ca * 20 * s, fx = lerp(fxP, fxK, r);
+    const toe = -lerp(1.35, .95, r) - a2;
+    const fNq = [...gp(fx + 2 * s, 2 * s), toe], fFq = [...gp(fx - 3 * s, 2 * s), toe];
+    const e = pr;
+    P = lerp2(pel, pP, e); TT = lerp(T, Tq, e);
+    hN = lerp2(hN, hNq, e); hF = lerp2(hF, hFq, e);
+    fNp = [...lerp2(fNp, fNq, e), lerp(fNp[2], fNq[2], e)]; fFp = [...lerp2(fFp, fFq, e), lerp(fFp[2], fFq[2], e)];
+    // baş: yere kapanınca içe çekili, doğrulurken aşağı (kayanın gittiği yöne değil, yorgun) bakar
+    nk = lerp(nk, lerp(.15, .25, r), e); hd = lerp(hd, lerp(.9 - TP - .15, .55 - TK - .25, r) + (o.look || 0), e);
+    head = add(P, scl(rot([.4, -36], TT), s));
+  }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);
-  const shadeRock = () => boulder(ctx, cx, cy, R, rockAng, { shadow: false, light: o.light ?? -1.2 });
+  const rk = o.rock;
+  const shadeRock = () => { if (o.noRock) return; if (rk) boulder(ctx, rk[0], rk[1], R, rk[2], { shadow: false, light: o.light ?? -1.2 }); else boulder(ctx, cx, cy, R, rockAng, { shadow: false, light: o.light ?? -1.2 }); };
   if (!o.rockFront) shadeRock();
-  const dv = o.dive || 0;
-  if (dv > 0) { ctx.save(); ctx.translate(pel[0], pel[1]); ctx.rotate(-dv * .7); ctx.scale(1 + dv * .1, 1 + dv * .1); ctx.translate(-pel[0] - dv * 34 * s, -pel[1] + dv * 52 * s); }
   figure(ctx, {
-    x: pel[0], y: pel[1], s, sty: o.sty || STY.black, cutCol: o.cutCol,
+    x: P[0], y: P[1], s, sty: o.sty || STY.black, cutCol: o.cutCol,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, alpha: o.alpha,
-    p: { torso: T, neck: -.25, head: -.55 + (o.look || 0), handN: 'flat', handF: 'flat',
+    p: { torso: TT, neck: nk, head: hd, handN: 'flat', handF: 'flat',
       brow: -strain, smile: o.smile || 0, breath: Math.sin(t * 2.4) * .5, blink: o.blink || 0, mouthOpen: o.mouthOpen || 0 },
-    ik: { hN, hF, fN: footPos(fN), fF: footPos(fF) },
+    ik: { hN, hF, fN: fNp, fF: fFp },
   });
-  if (dv > 0) ctx.restore();
   if (o.rockFront) shadeRock();
   ctx.restore();
-  return { cx, cy, pel, head };
+  return { cx, cy, pel: P, head };
+}
+// Kaya elden kaçar: Sisifos yamaca yüzüstü kapanır, kaya sırtının üstünden sekerek aşar ve aşağı yuvarlanmayı sürdürür.
+// xr0 = bırakma anındaki temas noktası, tg = kayanın geri kaçmaya başladığı an. Dönen nesne zamanla kaya/poz değerlerini verir.
+function rockOver(xr0, R, s, tg, o = {}) {
+  const st = pushScene(null, null, xr0, R, s, tg, { dist: o.dist ?? xr0, dry: true, T: o.T });
+  const X = st.pel[0] - 8 * s, ca = Math.cos(hillAng(X));
+  const headX = X + ca * 36 * s, feetX = X - ca * 44 * s;
+  const xl = headX + R * .72, xd = feetX - R * .55;          // sıçrama ve iniş temas noktaları
+  const tl = tg + (o.pre ?? .35), td = tl + (o.fly ?? .42);  // sıçrama ve iniş anları
+  const Hm = o.hop ?? 85;
+  const v1 = (xl - xd) / (td - tl), acc = o.acc ?? 900;
+  // inişten sonra: küçülen sekmeler
+  const B = []; { let tb = td, h = 26; for (let k = 0; k < (o.nb ?? 4); k++) { const gap = .34 - k * .04; B.push({ a: tb, b: tb + gap, h }); tb += gap; h *= .62; } }
+  const xAt = t => {
+    if (t < tg) return xr0;
+    if (t < tl) { const q = (t - tg) / (tl - tg); return xr0 - (xr0 - xl) * q * q; }
+    if (t < td) return xl - (t - tl) * v1;
+    const u = t - td; return xd - v1 * u - .5 * acc * u * u;
+  };
+  const hopAt = t => {
+    if (t >= tl && t < td) { const v = (t - tl) / (td - tl); return 4 * Hm * v * (1 - v); }
+    for (const b of B) if (t >= b.a && t < b.b) { const v = (t - b.a) / (b.b - b.a); return 4 * b.h * v * (1 - v); }
+    return 0;
+  };
+  const rockAt = t => { const x = xAt(t), n = hillN(x); return [x + n[0] * R, hillY(x) + n[1] * R - hopAt(t), x / R]; };
+  const prone = t => ramp(t, tg - .3, tg + .08, E.in2);
+  const rise = t => ramp(t, td + (o.riseAt ?? .35), td + (o.riseAt ?? .35) + (o.riseDur ?? .7), E.io2);
+  return { X, headX, feetX, xl, xd, tg, tl, td, B, xAt, hopAt, rockAt, prone, rise, bounces: [td, ...B.slice(1).map(b => b.a)] };
 }
 // Tepe boyunca yürüyen Sisifos (aşağı ya da yukarı), x konumu, yön dir
 function walkScene(ctx, c, x, s, t, dir, o = {}) {
@@ -147,7 +196,7 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
   const fN = gait(d, S2, 6 * s, 0), fF = gait(d, S2, 6 * s, .5);
   const footPos = f => { const fx = x + (f.x - d) * dir; return [fx, hillY(fx) - 3 * s - f.lift, -(hillAng(fx) * dir + f.heel)]; };
   // kalça yüksekliği: duruş bacağı neredeyse düz kalacak kadar yüksek (çömelmiş yürüyüşü önler)
-  const L = (o.legL || 43.4) * s, PF = [footPos(fN), footPos(fF)];
+  const L = (o.legL || 43.4) * s * .955, PF = [footPos(fN), footPos(fF)]; // hafif dizle: ne çömelme ne parmak ucu
   let py = -1e9;
   for (const [fx, fy] of PF) { const dx = Math.min(Math.abs(fx - x), L * .97); py = Math.max(py, fy - Math.sqrt(L * L - dx * dx)); }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);

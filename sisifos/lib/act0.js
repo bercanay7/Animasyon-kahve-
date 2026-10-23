@@ -99,38 +99,28 @@ shot(S('A03') - .35, (ctx, st) => {
   motes(ctx, t, 40, 8, 'rgba(240,170,110,.6)', [0, 0, W, H], 14, 1.6, .5);
 }, { tr: { type: 'fade', dur: .6 }, post: { tex: .55, vig: 1, grain: .06 } });
 
-// A4 — zirveye yakın: kaya sallanır, ayaklar kayar; eylem üstünde kesme → geniş plan: kaya aşağıda, Sisifos kenarda
+// A4 — zirveye yakın: kaya sallanır, ayaklar kayar; kaya geri kaçar, Sisifos yere kapanır, kaya sırtından sekerek aşar
+const A4 = (() => { const t0 = S('A04') - .2, tg = Wd('A04', 'geri') - .05; const pushAt = t => 1180 + (Math.min(t, tg) - t0) * 26;
+  return { t0, tg, pushAt, ro: rockOver(pushAt(tg) - 16, 150, 4.0, tg, { pre: .34, fly: .44, hop: 88 }) }; })();
+window.ROCK_OVER = { A4: A4.ro };
 shot(S('A04') - .2, (ctx, st) => {
-  const t = st.t, t0 = S('A04') - .2, tg = Wd('A04', 'geri') - .05;
-  const R = 150, pushX = 1180 + (Math.min(t, tg) - t0) * 26;
-  if (t < tg) {
-    const ant = ramp(t, tg - .6, tg, E.in2);
-    const c = { x: 1080, y: hillY(1080) - 120, z: .9 };
-    c.sx = ant * noise1(t * 40, 1) * 7; c.sy = ant * noise1(t * 40, 2) * 4;
-    tartarosBG(ctx, t, c, {});
-    tartarosHill(ctx, c, { groove: .4 });
-    ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, tg - .35, pushX - 230, hillY(pushX - 230), 10, 'rgba(110,60,35,.4)', 90, 5); ctx.restore();
-    const dv = ramp(t, tg - .28, tg, E.in2);
-    pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: ant * .6, dive: dv, handsOff: dv,
-      rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
-    return;
-  }
-  const u = t - tg, sx0 = pushX - 110;
-  const xr = pushX - 300 - (0.5 * 760 * u * u + 300 * u);
-  const fx = clamp(xr + 260, -500, sx0 - 380);
-  const c = { x: lerp(sx0 - 380, fx, ramp(u, .25, 1.6, E.io2)), y: lerp(hillY(sx0 - 380) - 150, hillY(fx) - 170, ramp(u, .25, 1.6, E.io2)), z: .62 };
-  const [sx, sy] = shake(t, tg + .05, 9, 3); c.sx = sx; c.sy = sy;
+  const t = st.t, { tg, ro } = A4, R = 150, pushX = A4.pushAt(t);
+  const ant = ramp(t, tg - .6, tg, E.in2) * (1 - ramp(t, tg, tg + .2));
+  const rx = ro.xAt(t), fol = ramp(t, ro.tl, ro.td + .9, E.io2);
+  const c = { x: lerp(1080, Math.max(rx + 380, -200), fol), y: lerp(hillY(1080) - 120, hillY(Math.max(rx + 380, -200)) - 170, fol), z: lerp(.9, .66, ramp(t, tg, ro.td + .6, E.io2)) };
+  c.sx = ant * noise1(t * 40, 1) * 7; c.sy = ant * noise1(t * 40, 2) * 4;
+  for (const tb of ro.bounces) { const [bx, by] = shake(t, tb, tb === ro.td ? 12 : 5, 5); c.sx += bx; c.sy += by; }
   tartarosBG(ctx, t, c, {});
   tartarosHill(ctx, c, { groove: .4 });
-  const look = ramp(u, 0, .5, E.out3), up = ramp(u, .05, .9, E.io2);
-  walkScene(ctx, c, sx0, 4.0, t, -1, { dist: 0, lean: lerp(.55, -.12, up), neck: .25 + look * .1, head: .35 + look * .1,
-    p: { shN: lerp(.5, .9, up), elN: .7, shF: lerp(.3, 1.8, up), elF: 1.0, handN: 'open', handF: 'open', brow: .9, mouthOpen: .45, hipN: lerp(.9, .05, up), knN: lerp(1.3, .05, up), hipF: lerp(.5, -.05, up), knF: lerp(1.1, .05, up) } });
   ctx.save(); cam(ctx, c, 1);
-  const hop = Math.abs(Math.sin(u * 7)) * 14 * clamp(1 - u * .3);
-  const n = hillN(xr);
-  boulder(ctx, xr + n[0] * R, hillY(xr) + n[1] * R - hop, R, xr / R, { shadow: false, light: -1.2 });
-  dustBurst(ctx, t, tg + .1, xr + 140, hillY(xr + 140), 14, 'rgba(110,60,35,.35)', 140, 3);
+  dustBurst(ctx, t, tg - .35, pushX - 230, hillY(pushX - 230), 10, 'rgba(110,60,35,.4)', 90, 5);
+  dustBurst(ctx, t, ro.tl, ro.xl, hillY(ro.xl), 12, 'rgba(110,60,35,.4)', 110, 6);
+  for (const tb of ro.bounces) { const bx = ro.xAt(tb); dustBurst(ctx, t, tb, bx, hillY(bx), tb === ro.td ? 18 : 8, 'rgba(110,60,35,.38)', tb === ro.td ? 150 : 80, Math.floor(tb * 10)); }
   ctx.restore();
+  const pr = ro.prone(t), rk = t < tg ? null : ro.rockAt(t);
+  pushScene(ctx, c, pushX - ant * 16, R, 4.0, t, { dist: pushX, strain: 1 + ant * .9, slip: ant, mouthOpen: Math.max(ant * .6, pr * .5 * (1 - ro.rise(t))),
+    handsOff: pr, prone: pr, rise: ro.rise(t), proneX: ro.X, rock: rk,
+    rockAng: pushX / R - ant * .1 + Math.sin(t * 34) * .025 * ant, T: 1.3 + Math.sin(t * 40) * .02 * ant });
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 
 shot(Wd('A04', 'aşağı') - .1, (ctx, st) => {
@@ -140,7 +130,7 @@ shot(Wd('A04', 'aşağı') - .1, (ctx, st) => {
   tartarosBG(ctx, t, c, {});
   tartarosHill(ctx, c, { groove: .4 });
   walkScene(ctx, c, x, 4.0, t, -1, { lean: -.05, neck: .1, head: .2, p: { brow: 0 }, stride: 30 });
-}, { tr: { type: 'fade', dur: .3 }, post: { tex: .55, vig: 1, grain: .06 } });
+}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 
 shot(Wd('A04', 'yeniden') - .15, (ctx, st) => {
   const t = st.t;
@@ -220,18 +210,20 @@ shot(Wd('A06', 'binlerce') - .2, (ctx, st) => {
   for (let k = 0; k < 3; k++) { ctx.fillStyle = k % 2 ? '#8E2F1F' : C.inkSoft; ctx.fillRect(1120 - k * 6, gy - 214 - k * 22, 120 + k * 10, 20); }
   ctx.fillStyle = C.inkSoft; ctx.fillRect(1220, gy - 340, 8, 140); ctx.beginPath(); ctx.moveTo(1180, gy - 330); ctx.lineTo(1270, gy - 330); ctx.lineTo(1250, gy - 380); ctx.lineTo(1200, gy - 380); ctx.closePath(); ctx.fill();
   glow(ctx, 1225, gy - 300, 260, 'rgba(255,235,190,.35)');
-  throne(ctx, 590, gy, 5, 1, C.inkSoft, C.paper, { stool: false });
+  throne(ctx, 650, gy, 5, 1, C.inkSoft, C.paper, { stool: false });
   // yazan el kâğıt üzerinde satır satır ilerler
-  const wx = 815 + ((lt * 40) % 110), wy = gy - 214 - Math.abs(Math.sin(t * 17)) * 4;
+  const wx = 830 + ((lt * 40) % 100), wy = gy - 214 - Math.abs(Math.sin(t * 17)) * 4;
   let cigP = null;
-  figure(ctx, { x: 670, y: gy - 27 * 5, s: 5, sty: STY.white, lk: LK.camus, hold: { N: HOLD.pen(), F: HOLD.cig() },
-    p: { ...oturan({ hipN: 1.45, knN: 1.4 }), torso: .42, neck: .15, head: .32, shN: 1.2, elN: .95, shF: .9, elF: 1.2, handN: 'fist', handF: 'fist', blink: (Math.sin(t * 2.1) > .96) ? 1 : 0 },
-    ik: { hN: [wx, wy], hF: [785, gy - 212] },
-    onJoints: (J, M) => { const q = M.transformPoint(new DOMPoint(...J.AF.wr)); const r = ctx.getTransform().inverse().transformPoint(q); cigP = [r.x + 30, r.y + 20]; } });
+  // masaya yakın oturur: yazan el kâğıtta (dirsek bükük), sigaralı el çenesinde; duman sigaranın ucundan yükselir
+  const puff = ramp(lt % 4.2, 3.2, 3.6, E.io2) * (1 - ramp(lt % 4.2, 3.7, 4.1, E.io2));
+  figure(ctx, { x: 728, y: gy - 27 * 5, s: 5, sty: STY.white, lk: LK.camus, hold: { N: HOLD.pen(), F: HOLD.cig() },
+    p: { ...oturan({ hipN: 1.45, knN: 1.4 }), torso: .4, neck: .12, head: .22 - puff * .12, handN: 'fist', handF: 'fist', blink: (Math.sin(t * 2.1) > .96) ? 1 : 0 },
+    ik: { hN: [wx, wy], hF: [lerp(892, 870, puff), lerp(gy - 300, gy - 322, puff)] },
+    onJoints: (J, M) => { const tp = add(J.AF.wr, rot([6.6, 4.05], -J.AF.haA)), q = M.transformPoint(new DOMPoint(tp[0], tp[1])); const r = ctx.getTransform().inverse().transformPoint(q); cigP = [r.x, r.y]; } });
   // sigara dumanı: sigaranın ucundan
   if (cigP) { ctx.save(); ctx.strokeStyle = 'rgba(40,30,25,.32)'; ctx.lineWidth = 2;
     ctx.beginPath(); for (let k = 0; k < 40; k++) { const u = k / 39, x = cigP[0] + Math.sin(u * 7 + t * 1.4) * 16 * u, y = cigP[1] - u * 240; k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); ctx.restore(); }
   // havada beliren el yazısı
-  txtReveal(ctx, 'mutlu?', 1250, 360, ramp(lt, .6, 2.4, E.lin), { font: 'italic 600 150px "Cormorant Garamond"', col: C.inkSoft, rise: 10 });
+  txtReveal(ctx, 'mutlu?', 1250, 360, ramp(st.t, Wd('A06', 'neden', 1) - .45, Wd('A06', 'mutlu') + .3, E.lin), { font: 'italic 600 150px "Cormorant Garamond"', col: C.inkSoft, rise: 10 });
   txt(ctx, '1942', 1600, 560, { font: '600 40px "Courier Prime"', col: C.inkSoft, a: ramp(lt, 1.2, 2) });
 }, { tr: { type: 'white', dur: .5 }, post: { tex: .35, vig: .55, grain: .05 } });

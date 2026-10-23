@@ -320,7 +320,7 @@ def compress(x, thr_db, ratio=3.0, att=.008, rel=.1):
 
 def voice_chain(vo, sentence_gains=True):
     cues = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
-    gains = {'F05': -5, 'E04': -3.5, 'F04': -3, 'H04': -3, 'C08': 2, 'E02': 2.5} if sentence_gains else {}
+    gains = {'F05': -5, 'E04': -3.5, 'F04': -3, 'H04': -3, 'C08': 2, 'E02': 2.5, 'A04': 1.5} if sentence_gains else {}
     g = np.ones(len(vo))
     for k, d in gains.items():
         if k in cues:
@@ -382,9 +382,9 @@ def main():
         mu *= db(-21 - meter.integrated_loudness(mu.T))
         cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
         extra = np.ones(N)
-        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (270.95, 271.5, -2)]:
+        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.0, -5), (141.0, 141.7, -3), (150.6, 151.7, -4), (267.3, 268.1, -6)]:
             extra[int(a_ * SR):int(b_ * SR)] = db(d_)
-        extra = np.convolve(extra, np.ones(int(.08 * SR)) / int(.08 * SR), 'same')
+        extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra
         # konuşma altında kısma (-7 dB), ön-bakışlı
         ve = envelope(vo); thr = db(-42)

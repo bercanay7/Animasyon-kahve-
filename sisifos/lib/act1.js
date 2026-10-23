@@ -72,12 +72,12 @@ function isthmusMap(ctx, t, lt) {
   const pul = (lt * 1.1) % 1;
   ctx.strokeStyle = `rgba(231,184,94,${1 - pul})`; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(955, 590, 14 + pul * 46, 0, TAU); ctx.stroke();
   ctx.fillStyle = C.gold; ctx.beginPath(); ctx.arc(955, 590, 13, 0, TAU); ctx.fill();
-  txt(ctx, 'KORİNT', 955, 640, { font: '700 30px Cinzel', col: C.gold, ls: 6, a: ramp(lt, .6, 1.2) });
+  txt(ctx, 'KORİNT', 955, 640, { font: '700 40px Cinzel', col: C.gold, ls: 6, a: ramp(lt, .6, 1.2) });
   txt(ctx, 'Korint Körfezi', 430, 490, { font: 'italic 600 34px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .3, .9) });
   txt(ctx, 'Saron Körfezi', 1560, 700, { font: 'italic 600 34px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .5, 1.1) });
-  txt(ctx, 'Egina', 1360, 668, { font: 'italic 500 26px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .9, 1.5) * .8 });
-  txt(ctx, 'PELOPONNESOS', 620, 800, { font: '600 26px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
-  txt(ctx, 'ATTİKA', 1500, 200, { font: '600 26px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
+  txt(ctx, 'Egina', 1360, 668, { font: 'italic 600 36px "Cormorant Garamond"', col: C.ink, a: ramp(lt, .9, 1.5) * .8 });
+  txt(ctx, 'PELOPONNESOS', 620, 800, { font: '600 34px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
+  txt(ctx, 'ATTİKA', 1500, 200, { font: '600 34px Cinzel', col: C.clay, ls: 10, a: ramp(lt, .7, 1.3) * .8 });
   ctx.restore();
   friezeFrame(ctx, { h: 40 });
 }
@@ -116,7 +116,7 @@ shot(S('B02') - .3, (ctx, st) => {
       ik: { hN: [ax - 4, ay + 10] } });
   }
   ctx.restore();
-}, { tr: { type: 'fade', dur: .5 }, post: { tex: .9, vig: .75 } });
+}, { tr: { type: 'cut' }, post: { tex: .9, vig: .75 } });
 
 // B3 — büst yakın plan: "insanların en kurnazı"
 shot(S('B03') - .3, (ctx, st) => {
@@ -151,7 +151,7 @@ shot(Wd('B03', 'homeros') - .2, (ctx, st) => {
   nameTag(ctx, 'HOMEROS', 'Kör ozan, İlyada ve Odysseia', 140, 170, t - Wd('B03', 'homeros') + .2, 3.0, { col: C.ink, line: C.ink });
   txt(ctx, 'κέρδιστος ἀνδρῶν', 620, 330, { font: 'italic 500 44px "Cormorant Garamond"', col: C.ink, a: .65 * ramp(lt, .1, .7) });
   quote(ctx, '“insanların en kurnazı”', 620, 460, 900, t - Wd('B03', 'insanların') + .15, { font: 'italic 600 88px "Cormorant Garamond"', col: C.ink, lh: 96 });
-  txt(ctx, '— HOMEROS, İLYADA VI.153', 620, 580, { font: '600 28px Cinzel', col: C.ink, ls: 6, a: ramp(t, Wd('B03', 'der') - .3, Wd('B03', 'der') + .5) });
+  txt(ctx, '— HOMEROS, İLYADA VI.153', 620, 580, { font: '600 36px Cinzel', col: C.ink, ls: 6, a: ramp(t, Wd('B03', 'der') - .3, Wd('B03', 'der') + .5) });
 }, { tr: { type: 'fade', dur: .35 }, post: { tex: .9, vig: .8 } });
 
 // B4 — gece: Autolykos ve renk değiştiren inek
@@ -282,11 +282,14 @@ shot(S('B06') - .3, (ctx, st) => {
   const c = { x: 960, y: lerp(560, 300, tilt), z: lerp(1, .9, tilt) };
   ctx.save(); cam(ctx, c, .3);
   const dark = ramp(t, tn + .4, tn + 3.2);
-  // üç sıra fırtına bulutu: kamera yukarı döndükçe kadrajı doldurur
-  for (let row = 0; row < 4; row++) for (let i = 0; i < 7; i++) {
-    const cx = -60 + i * 330 + (row % 2) * 165 + Math.sin(t * .3 + i + row) * 40 + (row - 1) * t * 6;
+  // üç sıra fırtına bulutu: kamera yukarı döndükçe kadrajı doldurur; en üst sıranın üstü kesintisiz bulut örtüsü (çentik/boşluk yok)
+  for (let row = 0; row < 4; row++) {
+    // her sıranın üstü bir önceki sıraya kadar kesintisiz örtü: sıralar arasında gök görünmez, yalnız en alt sıranın kıvrımlı kenarı kalır
+    ctx.fillStyle = mixCol('#C98A5E', '#1E0E0A', dark); ctx.fillRect(-1200, row ? -200 + (row - 1) * 170 : -2400, 4400, row ? 170 : 2200);
+    for (let i = 0; i < 7; i++) {
+    const cx = -60 + i * 330 + (row % 2) * 165 + Math.sin(t * .3 + i + row) * 40 + (row - 1) * lt * 6;
     cloud(ctx, cx, -200 + row * 170, 1.4 + row * .2, mixCol('#C98A5E', '#1E0E0A', dark), mixCol('rgba(150,78,46,.45)', 'rgba(200,120,70,.55)', dark), i + 3 + row * 7);
-  }
+  } }
   // şimşek: gök gürültüsü sesiyle aynı anda (tn + 2.0)
   const tl = tn + 2.0;
   if (t > tl - .02 && t < tl + .22) lightning(ctx, 820, -60, 1120, 860, 13, 7);
