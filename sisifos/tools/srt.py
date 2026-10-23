@@ -22,10 +22,15 @@ def wrap(words):
         if cost < best: best, bi = cost, i
     return ' '.join(words[:bi]) + '\n' + ' '.join(words[bi:])
 
+MERGE = {('C03', 'Kızsa,'): 2}
 cues = []
 for sg in segs:
     toks = sg['alt'].split()
     ws = [w for w in WORDS if w['id'] == sg['id'] and w['d']]
+    # altyazıda tek sözcük, anlatım zamanlamasında iki sözcük olan kısaltmalar ("Kız ise" → duyulan "Kızsa,")
+    for (sid, tok), k in MERGE.items():
+        if sid == sg['id'] and tok in toks:
+            i = toks.index(tok); ws = ws[:i] + [{**ws[i], 'e': ws[i + k - 1]['e']}] + ws[i + k:]
     if len(ws) != len(toks):
         print('UYARI: kelime sayısı uyuşmuyor', sg['id'], len(ws), len(toks))
     n = min(len(ws), len(toks))
