@@ -31,7 +31,7 @@ shot(S('G01') - .35, (ctx, st) => {
     ctx.restore();
     skyline(ctx, -20, W + 20, gy, '#CFC3AA', 11, 280);
     skyline(ctx, -40, W + 20, gy, '#B3A68D', 7, 190, 'rgba(236,227,208,.55)');
-    for (let i = 0; i < 5; i++) plane(ctx, ((i * 430 + t * 160) % 2400) - 240, 268 + (i % 3) * 30, .8, '#6B5E4E'); // isim etiketinin altından, başın üstünden geçer
+    for (let i = 0; i < 5; i++) plane(ctx, ((i * 430 + t * 160) % 2400) - 240, 330 + (i % 3) * 22, .8, '#6B5E4E'); // isim etiketinin altından (alt yazı + 40 px), başın üstünden geçer
     ctx.restore();
     ctx.fillStyle = C.inkSoft; ctx.fillRect(0, gy, W, 4);
     txt(ctx, '1942', W / 2, 150, { font: '700 72px "Courier Prime"', col: C.inkSoft, a: ramp(t, td - .2, td + .5) * war });

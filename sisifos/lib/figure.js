@@ -338,7 +338,8 @@ function drawGarment(G, f, J, tP, det) {
     G.paint(c => { c.moveTo(...tP([7.4, -15])); c.lineTo(...tP([-7, -15.2])); }, sty.red, 1.2, false);
     if (lk.robeDots) for (let i = 0; i < 14; i++) {
       const u = hash(i * 3.1), v = hash(i * 7.7);
-      const q = [lerp(hB + 2.6, hF - 2.6, u), lerp(kneeFr[1] - 2, hem - 6.5, v)];
+      const qy = lerp(kneeFr[1] - 2, hem - 6.5, v), w_ = clamp((qy - (kneeFr[1] - 2)) / Math.max(1, hem - kneeFr[1])); // etek konturu içinde (dizden etek ucuna genişler)
+      const q = [lerp(lerp(kB[0], hB, w_) + 2.8, lerp(kF[0], hF, w_) - 2.8, u), qy];
       G.paint(c => c.arc(q[0], q[1], .55, 0, TAU), sty.red);
     }
     if (lk.himation) { // omuz şalı (çapraz)

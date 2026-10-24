@@ -123,7 +123,8 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   const S2 = (o.stride ?? 50) * s;
   const fN = gait(d, S2, 7 * s, 0), fF = gait(d, S2, 7 * s, .5);
   const slip = o.slip || 0;
-  const footPos = (f) => { const fx = px + (f.x - d) - (o.footBack ?? 11) * s - slip * 20 * s; return [fx, hillY(fx) - 3 * s - f.lift, -(hillAng(fx) + f.heel)]; };
+  // topuk kalkınca ayak burnu üstünde döner: bilek, burun yamaçta kalacak kadar yükselir (burun zemine gömülmez)
+  const footPos = (f) => { const fx = px + (f.x - d) - (o.footBack ?? 11) * s - slip * 20 * s; return [fx, hillY(fx) - 3 * s - f.lift - Math.max(0, Math.sin(f.heel)) * 9 * s, -(hillAng(fx) + f.heel)]; };
   const bob = Math.sin((d / S2) * TAU * 2) * 1.0 * s;
   const jit = (o.jitter || 0) * s; // kas titremesi
   const pel = [px + noise1(t * 38, 7) * jit, py0 + bob + noise1(t * 38, 8) * jit];
@@ -139,7 +140,8 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
     if (Math.hypot(fp[0] - hx, fp[1] - hy) <= Lm) return fp;
     let a = hx, b = fp[0];
     for (let k = 0; k < 24; k++) { const m = (a + b) / 2; if (Math.hypot(m - hx, hillY(m) - 3 * s - hy) > Lm) b = m; else a = m; }
-    return [a, hillY(a) - 3 * s - Math.max(0, fp[1] - (hillY(fp[0]) - 3 * s)) * 0, -hillAng(a) + (fp[2] + hillAng(fp[0]))];
+    const hl = -(fp[2] + hillAng(fp[0])); // topuk kalkışı korunur, ayak burnu yamaçta kalır
+    return [a, hillY(a) - 3 * s - Math.max(0, Math.sin(hl)) * 9 * s, -hillAng(a) - hl];
   };
   let P = pel, TT = T, nk = -.25, hd = -.55 + (o.look || 0), fNp = reach2(footPos(fN)), fFp = reach2(footPos(fF));
   const pr = o.prone || 0;
@@ -223,7 +225,7 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
   const S2 = (o.stride || 34) * s;
   const d = o.dist ?? x * dir;
   const fN = gait(d, S2, 6 * s, 0), fF = gait(d, S2, 6 * s, .5);
-  const footPos = f => { const fx = x + (f.x - d) * dir; return [fx, hillY(fx) - 3 * s - f.lift, -(hillAng(fx) * dir + f.heel)]; };
+  const footPos = f => { const fx = x + (f.x - d) * dir; return [fx, hillY(fx) - 3 * s - f.lift - Math.max(0, Math.sin(f.heel)) * 9 * s, -(hillAng(fx) * dir + f.heel)]; };
   // kalça yüksekliği: duruş bacağı neredeyse düz kalacak kadar yüksek (çömelmiş yürüyüşü önler)
   let PF = [footPos(fN), footPos(fF)];
   // durma: ayaklar yan yana yere basar, bacaklar düzleşir (adım ortasında donmaz)

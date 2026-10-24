@@ -106,8 +106,8 @@ function drawE3(ctx, t, c) {
   const gk = keyed(t, [[wK - .35, { sN: .3, eN: .4, rN: 0, sF: .2, eF: .6, to: 0, hd: 0 }],
     [wK + .1, { sN: 2.35, eN: .15, rN: 0, sF: .1, eF: .5, to: -.05, hd: -.18 }, E.out3],
     [wB - .05, { sN: 2.3, eN: .2 }], [wB + .25, { sN: -.15, eN: 2.35, rN: .8, sF: .15, eF: .6, to: .06, hd: .08 }, E.io2],
-    [wT - .45, { sN: -.12, eN: 2.3, rN: .8, to: .06, hd: .08 }], [wT + .05, { sN: 1.0, eN: .95, rN: -.8, sF: .7, eF: 1.15, to: .1, hd: -.04 }, E.out3],
-    [wA - .1, { sN: .95, eN: 1.0, sF: .65, eF: 1.2 }], [wA + .15, { sN: 1.15, eN: .8, rN: -.85, sF: .85, eF: 1.05, to: .12 }, E.out2],
+    [wT - .45, { sN: -.12, eN: 2.3, rN: .8, to: .06, hd: .08 }], [wT + .05, { sN: 1.0, eN: .95, rN: -.8, sF: .7, eF: 1.15, to: .24, hd: .12 }, E.out3],
+    [wA - .1, { sN: .95, eN: 1.08, sF: .65, eF: 1.28 }], [wA + .15, { sN: 1.15, eN: .8, rN: -.85, sF: .85, eF: 1.05, to: .27, hd: .14 }, E.out2],
     [wI + .4, { sN: 1.1, eN: .85, sF: .8, eF: 1.1 }]]);
   const hN = t < wB + .05 && t > wK - .2 ? 'point' : 'open';
   if (enter < 1) walkScene(ctx, null, x, 5.6, t, 1, { noCam: true, ground: FLAT(gy), dist: x, sty: R, cutCol: '#0B0605', lk: LK.sis });

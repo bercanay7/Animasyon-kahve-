@@ -29,10 +29,11 @@ function renderShortFrame(ts, mb = 1) {
 function shortOverlay(g, ts) {
   const S_ = window.SHORT, clip = S_.EDL.find(c => ts >= c.s && ts < c.e) || {};
   // capAt: kesit içinde altyazının yer değiştirdiği an (ör. kitap belirince boş kapak alanına iner)
-  // altyazı yeri, grubun başladığı kesitten alınır: kesmede eski cümle yer değiştirip zıplamaz
+  // altyazı yeri kesitin kendi yeridir; kesmeden geçen grup kesmede kısa bir solmayla yeni yerine geçer (kayarak zıplamaz, yeni kadrajda yüze binmez)
   const grNow = S_.GROUPS.find(gr => ts >= gr.s - .05 && ts < gr.e + .15);
-  const pc = (grNow && S_.EDL.find(c => grNow.s >= c.s && grNow.s < c.e)) || clip;
-  const capY = pc.capAt != null ? lerp(pc.capY ?? 1235, pc.capY2, E.io2(clamp(((grNow ? grNow.s : ts) - pc.capAt) / .25))) : (pc.capY ?? 1235), ctaY = clip.ctaY ?? 1330;
+  // capAt: altyazı kesit içinde yer değiştirir; yazıların üstünden kayarak geçmez, söner ve yeni yerinde belirir
+  const capY = clip.capAt != null && ts >= clip.capAt ? clip.capY2 : (clip.capY ?? 1235), ctaY = clip.ctaY ?? 1330;
+  const reIn = (grNow && grNow.s < clip.s ? clamp((ts - clip.s) / .16) : 1) * (clip.capAt != null ? clamp(Math.abs(ts - clip.capAt) / .1) : 1);
   // üst şerit + başlık
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,6,4,.75)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);
@@ -47,9 +48,10 @@ function shortOverlay(g, ts) {
     g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
   }
   // altyazı: kelime grupları, etkin kelime altın
-  const groups = S_.GROUPS, gi = groups.findIndex(gr => ts >= gr.s - .05 && ts < gr.e + .15);
+  const groups = S_.GROUPS, gi0 = groups.findIndex(gr => ts >= gr.s - .05 && ts < gr.e + .15), gi = gi0 < 0 && ts < groups[0].s ? 0 : gi0;
   if (gi >= 0) {
-    const gr = groups[gi], a = clamp((ts - gr.s + .05) / .12);
+    // ilk grup ilk karede tam görünür (Shorts önizleme karesi); kanal çağrısı levhası gelince aynı metinli altyazı söner (çift yazı olmaz)
+    const gr = groups[gi], a = (gi === 0 ? 1 : clamp((ts - gr.s + .05) / .12)) * reIn * (gr.e <= (S_.CTA ?? 1e9) + .05 ? 1 - clamp((ts - (S_.CTA ?? 1e9) + .2) / .15) : 1);
     g.save(); g.font = '800 84px Cinzel'; g.letterSpacing = '2px'; g.textAlign = 'left'; g.textBaseline = 'middle';
     // tek satıra az farkla sığmayan kısa grup ("SENİN KAYAN NE?") bölünmesin: yazı biraz küçülür
     { const tot = g.measureText(gr.words.map(w => w.w.toLocaleUpperCase('tr')).join(' ')).width; if (tot > 830 && tot < 830 / .86) g.font = `800 ${Math.floor(84 * 830 / tot)}px Cinzel`; }
