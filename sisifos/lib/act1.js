@@ -110,31 +110,41 @@ shot(S('B02') - .3, (ctx, st) => {
   for (const [x0, ph, stopX, lkP, sc, sp, sack, dl] of [[1170, 0, 985, LK.citizen, 4.4, 170, false, 0], [1310, 41, 1215, { ...LK.citizen, beard: 'pointed', hair: 'long' }, 4.7, 130, true, 1.6]]) {
     const lw = Math.max(0, lt - dl), x = Math.max(x0 - lw * sp, stopX), tStop = dl + (x0 - stopX) / sp;
     const sd = Math.max(clamp((lt - tStop + .1) / .5), 1 - clamp((lt - dl + .35) / .35));
+    // yükünü indirme: durduktan sonra öne eğilip yükü yığının yanına koyar, sonra doğrulur (donuk bekleyiş yok)
+    const tPut = tStop + (sack ? .9 : .5), put = ramp(lt, tPut, tPut + 1.0, E.io2), rel = ramp(lt, tPut + 1.15, tPut + 1.9, E.io2);
+    const bend = put * (1 - rel);
     if (!sack) {
-      const ax = x + 12.5 * sc, ay = gy - 80 * sc + sd * Math.sin(t * 1.7) * .4 * sc; // amfora omzun üstünde (kol boyundan çıkmaz)
-      ctx.save(); ctx.translate(ax, ay); ctx.rotate(1.05);
+      // amfora omzun üstüne oturur (gövdesi omza değer), el tabanının altında; inerken dik durur ve yere konur
+      const sh0 = [x + 9.5 * sc, gy - 75 * sc + sd * (1 - put) * Math.sin(t * 1.7) * .4 * sc], gnd = [x - 13 * sc, gy - 20];
+      const ap = [lerp(sh0[0], gnd[0], put), lerp(sh0[1], gnd[1], put) - Math.sin(put * PI) * 10 * sc], ar = lerp(1.05, 0, E.io2(put));
+      ctx.save(); ctx.translate(ap[0], ap[1]); ctx.rotate(ar);
       ctx.lineWidth = 7; ctx.strokeStyle = C.clayL; ctx.save(); ctx.scale(1.25, 1.25); ctx.beginPath(); ctx.ellipse(0, -20, 26, 34, 0, 0, TAU); ctx.stroke(); ctx.restore();
       amphora(ctx, 0, 0, 1.25, C.ink, C.red); ctx.restore();
-      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14, stand: sd,
-        p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 },
-        ik: { hN: [ax - 7 * sc, ay + 4 * sc] } });
+      const hold = add(ap, rot([-6 * 1.25, -4 * 1.25], ar));
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 30, lean: .14 + bend * .62, stand: sd,
+        p: { shF: .3, elF: .4, handN: 'fist', handF: 'open', head: .08 + bend * .2 },
+        ik: rel < 1 ? { hN: lerp2(hold, [x - 3 * sc, gy - 46 * sc], rel) } : {} });
     } else {
-      const bob = Math.abs(Math.sin(((x0 - x) + ph) / 26 * PI)) * 1.2 * sc * (1 - sd) + sd * Math.sin(t * 1.5) * .4 * sc;
-      const sx = x + 10 * sc, sy = gy - 76 * sc + bob;
-      ctx.save(); ctx.translate(sx, sy); ctx.rotate(.35);
-      // çuval: ağzı büzülüp bağlanmış, dibi sarkık, düzensiz torba (kalkan ya da kap gibi okunmasın)
-      const sackP = c => { c.beginPath(); c.moveTo(-2.5 * sc, -15 * sc); c.bezierCurveTo(-9 * sc, -11 * sc, -15 * sc, -2 * sc, -13 * sc, 9 * sc);
-        c.bezierCurveTo(-11 * sc, 17 * sc, 7 * sc, 18 * sc, 12 * sc, 9 * sc); c.bezierCurveTo(15 * sc, 1 * sc, 9 * sc, -10 * sc, 2.5 * sc, -15 * sc); c.closePath(); };
+      const bob = Math.abs(Math.sin(((x0 - x) + ph) / 26 * PI)) * 1.2 * sc * (1 - sd) + sd * (1 - put) * Math.sin(t * 1.5) * .4 * sc;
+      const s0 = [x + 10 * sc, gy - 76 * sc + bob], gnd = [x - 16 * sc, gy - 14 * sc];
+      const sx = lerp(s0[0], gnd[0], put), sy = lerp(s0[1], gnd[1], put) - Math.sin(put * PI) * 8 * sc, srot = lerp(.35, 0, put);
+      ctx.save(); ctx.translate(sx, sy); ctx.rotate(srot);
+      // çuval: mat kil kahvesi, topaklı düzensiz kontur, ağzı büzülüp bağlanmış (kalkan gibi okunmaz)
+      const sackP = c => { c.beginPath(); c.moveTo(-2.5 * sc, -15 * sc); c.bezierCurveTo(-8 * sc, -12 * sc, -12 * sc, -9 * sc, -11.5 * sc, -5 * sc);
+        c.bezierCurveTo(-15 * sc, -2 * sc, -14 * sc, 4 * sc, -12.5 * sc, 7 * sc); c.bezierCurveTo(-12 * sc, 15 * sc, -3 * sc, 17.5 * sc, 2 * sc, 15.5 * sc);
+        c.bezierCurveTo(8 * sc, 18 * sc, 13.5 * sc, 12 * sc, 12 * sc, 6 * sc); c.bezierCurveTo(15 * sc, 1 * sc, 11 * sc, -6 * sc, 8.5 * sc, -7.5 * sc);
+        c.bezierCurveTo(8 * sc, -11 * sc, 5 * sc, -13 * sc, 2.5 * sc, -15 * sc); c.closePath(); };
       ctx.fillStyle = C.ink; sackP(ctx); ctx.fill(); ctx.lineWidth = 2.4 * sc; ctx.strokeStyle = C.ink; ctx.stroke();
-      ctx.fillStyle = C.red; ctx.save(); ctx.scale(.9, .9); ctx.translate(0, .8 * sc); sackP(ctx); ctx.fill(); ctx.restore();
-      ctx.strokeStyle = C.ink; ctx.lineWidth = .9 * sc; ctx.lineCap = 'round';
-      for (const [a0, a1] of [[-6, 7], [-1, 13], [5, 9]]) { ctx.beginPath(); ctx.moveTo(a0 * sc, -9 * sc); ctx.quadraticCurveTo((a0 + a1) * .5 * sc - 2 * sc, 3 * sc, a1 * sc - 4 * sc, 13 * sc); ctx.stroke(); } // büzgü kırışıkları
+      ctx.fillStyle = '#8C5A36'; ctx.save(); ctx.scale(.9, .9); ctx.translate(0, .8 * sc); sackP(ctx); ctx.fill(); ctx.restore();
+      ctx.strokeStyle = 'rgba(28,14,8,.8)'; ctx.lineWidth = .8 * sc; ctx.lineCap = 'round';
+      for (const [a0, a1, b0] of [[-5, 6, -1], [0, 11, 2], [5, 8, -2]]) { ctx.beginPath(); ctx.moveTo(a0 * sc, -10 * sc); ctx.bezierCurveTo((a0 - 3) * sc, -2 * sc, (a1 + b0) * sc - 4 * sc, 4 * sc, a1 * sc - 5 * sc, 12 * sc); ctx.stroke(); } // büzgü kırışıkları (kavisli, düz şerit yok)
       ctx.fillStyle = C.ink; ctx.fillRect(-3.4 * sc, -16.6 * sc, 6.8 * sc, 2.2 * sc); // bağ
       ctx.beginPath(); ctx.moveTo(-2.4 * sc, -16 * sc); ctx.lineTo(-4.2 * sc, -21 * sc); ctx.lineTo(4.2 * sc, -21 * sc); ctx.lineTo(2.4 * sc, -16 * sc); ctx.closePath(); ctx.fill(); // büzülmüş ağız
       ctx.restore();
-      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 24, lean: .26, stand: sd,
-        p: { handN: 'fist', handF: 'fist', head: -.05, brow: .8 },
-        ik: { hN: [sx - 9 * sc, sy - 12 * sc], hF: [sx - 5 * sc, sy - 15 * sc] } });
+      const hA_ = [sx - 9 * sc, sy - 12 * sc], hB_ = [sx - 5 * sc, sy - 15 * sc];
+      walkScene(ctx, null, x, sc, t, -1, { noCam: true, ground: FLAT(gy), lk: lkP, dist: (x0 - x) + ph, stride: 24, lean: .26 + bend * .5, stand: sd,
+        p: { handN: 'fist', handF: 'fist', head: -.05 + bend * .2, brow: .8 * (1 - rel) },
+        ik: rel < 1 ? { hN: lerp2(hA_, [x - 3 * sc, gy - 46 * sc], rel), hF: lerp2(hB_, [x + 2 * sc, gy - 46 * sc], rel) } : {} });
     }
   }
   ctx.restore();

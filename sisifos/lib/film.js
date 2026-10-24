@@ -129,6 +129,8 @@ function txt(ctx, s, x, y, o = {}) {
   ctx.font = o.font || '600 48px Cinzel';
   ctx.textAlign = o.align || 'center'; ctx.textBaseline = o.base || 'middle';
   if (o.ls) ctx.letterSpacing = o.ls + 'px';
+  // o.maxW: yazı bu genişliğe sığmazsa punto küçülür (çeviride uzayan etiketler)
+  if (o.maxW) { const w = ctx.measureText(s).width; if (w > o.maxW) ctx.font = ctx.font.replace(/([\d.]+)px/, (m, n) => (n * o.maxW / w).toFixed(1) + 'px'); }
   ctx.globalAlpha *= o.a ?? 1;
   if (o.shadow) { ctx.shadowColor = o.shadow; ctx.shadowBlur = o.blur || 18; }
   if (o.stroke) { ctx.lineWidth = o.sw || 6; ctx.strokeStyle = o.stroke; ctx.lineJoin = 'round'; ctx.strokeText(s, x, y); }
@@ -170,7 +172,7 @@ function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   ctx.lineWidth = 5; ctx.strokeStyle = C.ink; ctx.strokeRect(-pw / 2 + 8, -ph / 2 + 8, pw - 16, ph - 16);
   ctx.lineWidth = 1.6; ctx.strokeRect(-pw / 2 + 16, -ph / 2 + 16, pw - 32, ph - 32);
   for (const sg of [-1, 1]) { ctx.fillStyle = C.ink; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc(sg * (pw / 2 - 42), -18 + k * 18, 4, 0, TAU); ctx.fill(); } }
-  txt(ctx, num, 0, -30, { font: '600 24px Cinzel', col: C.red, ls: 10 });
+  txt(ctx, num, 0, -32, { font: '700 30px Cinzel', col: C.red, ls: 9 });
   const q = ramp(lt, .15, .9);
   txt(ctx, title, 0, 16, { font: '700 50px Cinzel', col: C.ink, ls: 4, a: q });
   ctx.restore();
@@ -183,7 +185,7 @@ function nameTag(ctx, name, sub, x, y, lt, d = 3.2, o = {}) {
   ctx.save(); baseT(ctx); ctx.globalAlpha = a;
   const col = o.col || C.white, al = o.align || 'left';
   txt(ctx, name, x, y, { font: '700 40px Cinzel', col, align: al, ls: 6, shadow: 'rgba(0,0,0,.6)', blur: 12 });
-  if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 42, { font: 'italic 600 36px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.8)', blur: 12 });
+  if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 44, { font: 'italic 600 40px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.85)', blur: 10 });
   const lw = lerp(0, 120, E.out3(ramp(lt, .2, .9)));
   ctx.fillStyle = o.line || C.gold; ctx.fillRect(al === 'left' ? x : x - lw / 2, y + 22 + (sub ? 46 : 0) + 4, lw, 2);
   ctx.restore();

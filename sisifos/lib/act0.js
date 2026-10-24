@@ -18,7 +18,7 @@ shot(0, (ctx, st) => {
   let wr = null;
   const pull = ramp(t, snap, snap + .7, E.out3);
   const jerk = Math.sin(clamp((t - snap) / .6) * PI * 3) * Math.exp(-(t - snap) * 4) * (t > snap ? 1 : 0);
-  const S7 = 6.2, gx = 900, gy = 905;
+  const S7 = 6.2, gx = 900, gy = 905, fly0 = ramp(t, tz - .7, tz - .2, E.io2); // zincirler gelmeden kollar kalkar
   const stand = { torso: .12, neck: 0, head: .1, hipN: .25, knN: .15, hipF: -.25, knF: .1, ankN: 0, ankF: 0 };
   const kneel = { torso: .22, neck: .2, head: .35, hipN: 1.35, knN: 1.45, hipF: -.05, knF: 1.62, ankN: 0, ankF: -1.4 };
   const P = mix(stand, kneel, pull);
@@ -26,7 +26,8 @@ shot(0, (ctx, st) => {
   figure(ctx, {
     x: gx + pull * 30, y: pelY, s: S7, sty: STY.red, cutCol: '#0B0605', lk: LK.thanatos,
     p: { ...P, wingF: t * .5, wingSpread: .8 + jerk * .2 - pull * .25, handN: 'fist', handF: 'fist', brow: -1, mouthOpen: jerk > .2 ? .8 : 0 },
-    ik: { hN: [gx + lerp(330, 190, pull) + jerk * 14, lerp(430, 650, pull)], hF: [gx + lerp(300, 175, pull) + jerk * 14, lerp(470, 665, pull)] },
+    // zincirlenmeden önce kollar dirsekte bükük, eller bel hizasında zinciri tutar; hafif salınım
+    ik: { hN: [gx + lerp(lerp(255, 330, fly0), 190, pull) + jerk * 14 + Math.sin(t * 1.4) * 6 * (1 - fly0), lerp(lerp(560, 430, fly0), 650, pull)], hF: [gx + lerp(lerp(230, 300, fly0), 175, pull) + jerk * 14 + Math.sin(t * 1.4 + .6) * 6 * (1 - fly0), lerp(lerp(585, 470, fly0), 665, pull)] },
     onJoints: (J, M) => { const a = M.transformPoint(new DOMPoint(...J.AN.wr)), b = M.transformPoint(new DOMPoint(...J.AF.wr)); const inv = ctx.getTransform().inverse(); const pa = inv.transformPoint(a), pb = inv.transformPoint(b); wr = [[pa.x, pa.y], [pb.x, pb.y]]; },
     margin: 110,
   });

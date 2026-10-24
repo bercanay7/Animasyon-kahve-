@@ -1,6 +1,8 @@
 // Ekrandaki yazıların İngilizce sürümü (?lang=en). Anahtar: Türkçe metin; zamanlama ve yerleşim değişmez.
 'use strict';
 const LANG = (typeof location !== 'undefined' && new URLSearchParams(location.search).get('lang')) || 'tr';
+// tuval yazıları belgenin dilini kullanır: Türkçe yerelde Cinzel 'i' harfini noktalı 'İ' çizer; İngilizce sürümde dil 'en'
+if (typeof document !== 'undefined') document.documentElement.lang = LANG;
 const I18N_EN = {
   'SİSİFOS': 'SISYPHUS', 'Tanrıları kandıran adam': 'The man who fooled the gods', 'NEDEN?': 'WHY?', 'mutlu?': 'happy?',
   'EFİRA': 'EPHYRA', 'KORİNT': 'CORINTH', 'iki deniz arasında': 'between two seas',
@@ -24,7 +26,7 @@ const I18N_EN = {
   'ABSÜRT': 'ABSURD', 'bilincin saati': 'the hour of consciousness', '— son satırlar —': '— the closing lines —',
   '“Zirvelere doğru verilen mücadelenin kendisi,\nbir insan yüreğini doldurmaya yeter.”': '“The struggle itself toward the heights\nis enough to fill a man’s heart.”',
   '“Sisifos’u mutlu hayal etmek gerekir.”': '“One must imagine Sisyphus happy.”', '“Sisifos’u mutlu\nhayal etmek gerekir.”': '“One must imagine\nSisyphus happy.”',
-  'iş': 'job', 'görev': 'duty', 'hayal': 'dream', 'her sabah': 'every morning',
+  'iş': 'job', 'sorum- luluk': 'respon- sibility', 'hayal': 'dream', 'her sabah': 'every morning',
   'Senin kayan ne?': 'What is your rock?', 'sen?': 'you?', 'Senin kayan neyse, yorumlarda anlat.': 'Whatever your rock is, tell us in the comments.',
 };
 function L(s) {

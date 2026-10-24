@@ -257,9 +257,10 @@ def place(bus, x, t0, pan=0.0):
 EN_SFX = [(1.70, 'chains', -12), (1.08, 'whoosh', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -6),
           (192.3, 'whoosh', -6), (192.75, 'chains', -11), (192.75, 'boom', -4), (102.43, 'eagle', -8), (99.53, 'eagle', -4),
           (225.94, 'shimmer', -5), (282.04, 'whoosh', -5), (207.81, 'scratch', -5), (337.33, 'thump', -6), (338.05, 'thump', -5),
-          (17.70, 'thump', -4), (16.96, 'knock', -4), (16.96, 'thump', -4), (199.18, 'chime', -4), (170.79, 'lock', -4), (107.78, 'thunder', -5)]
+          (17.70, 'thump', -4), (16.96, 'knock', -4), (16.96, 'thump', -4), (199.18, 'chime', -4), (170.79, 'lock', -4), (107.78, 'thunder', -5),
+          (365.67, 'thump', -6), (365.69, 'stone_scrape', -6)]
 # dile özel müzik kısmaları (s, e, dB)
-EN_DIPS = [(1.4, 1.9, -3)]
+EN_DIPS = [(1.4, 1.9, -3), (399.3, 399.8, -4), (290.5, 290.85, -4), (341.8, 342.1, -4), (289.5, 289.85, -3), (140.8, 141.35, -4), (284.3, 284.8, -3)]
 def build_sfx(lang='tr'):
     global rng
     ev = json.load(open(A('audio/sfx_events.json')))
@@ -279,7 +280,15 @@ def build_sfx(lang='tr'):
             else:
                 y = resample_rate(clip(name), rate); off = int(e.get('off', 0) * SR)
                 y = np.roll(y, -off)
-                L = loop_to(y, n); R = loop_to(np.roll(y, len(y) // 2), n)
+                # tek seferlik kayıtların sönen kuyruğu kesilir (en yüksek bölümün 20 dB altı): döngüde sessiz delik kalmaz
+                ev_ = np.convolve(y ** 2, np.ones(2400) / 2400, 'same'); thr_ = np.percentile(ev_, 90) * db(-20) ** 2
+                last_ = np.nonzero(ev_ > thr_)[0]
+                if len(last_) and last_[-1] + int(.05 * SR) < len(y) and last_[-1] > SR: y = fade(y[:last_[-1] + int(.05 * SR)], 0, .05)
+                if name == 'footsteps':
+                    L = loop_to(y, n); R = L.copy()  # ayak sesi tek kaynak: iki kanalda ayrı adım dizisi (flam) olmaz
+                else:
+                    # sağ kanal, sol döngünün gecikmeli kopyası: np.roll'un sert ek yeri (tık) ve tek kanal boşlukları olmaz
+                    sh_ = min(len(y) // 2, int(1.7 * SR)); Lf = loop_to(y, n + sh_); L = Lf[:n]; R = Lf[sh_:sh_ + n]
             L = fade(L, e.get('fi', 1), e.get('fo', 1)); R = fade(R, e.get('fi', 1), e.get('fo', 1))
             x = np.stack([L, R]) * g * .7071
             place(dry, x, e['t'])
@@ -422,14 +431,15 @@ def main():
         extra = np.ones(N)
         for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 142.1, -9), (266.0, 267.3, -9), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6), (272.4, 272.9, -3),
                            (278.4, 279.1, -7), (343.4, 344.3, -5), (275.6, 276.4, -3), (46.6, 47.3, -3), (283.3, 283.7, -3), (196.8, 197.2, -3)] + (EN_DIPS if 'vo_en' in vo_path else []):
-            extra[int(a_ * SR):int(b_ * SR)] = db(d_)
+            extra[int(a_ * SR):int(b_ * SR)] = np.minimum(extra[int(a_ * SR):int(b_ * SR)], db(d_))  # üst üste binen kısmalarda derin olan geçerli
         extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
         mu *= extra
         # bas kabarmasının sözcüğü örttüğü yerlerde 200 Hz altı -4 dB (geniş bant kısma yerine alçak raf)
         shelf = np.zeros(N)
         for a_, b_, d_ in [(278.4, 279.1, -8), (343.4, 344.3, -6)]: shelf[int(a_ * SR):int(b_ * SR)] = 1 - db(d_)
         shelf = np.convolve(shelf, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
-        mu = mu - np.stack([lp(ch, 200, 4) for ch in mu]) * shelf
+        lowz = np.stack([signal.sosfiltfilt(signal.butter(4, 200, 'low', fs=SR, output='sos'), ch) for ch in mu])  # sıfır fazlı: gerçek alçak raf
+        mu = mu - lowz * shelf
         # konuşma altında kısma (-7 dB), ön-bakışlı
         ve = envelope(vo); thr = db(-42)
         act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)

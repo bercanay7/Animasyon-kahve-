@@ -75,7 +75,8 @@ async function master() {
   const list = path.join(dir, 'list.txt');
   fs.writeFileSync(list, chunks.map(c => `file '${c.out}'`).join('\n'));
   const mix = path.join(__dirname, process.env.AUDIO || (SHORTS ? 'shorts/mix_shorts.wav' : 'audio/mix.wav'));
-  const audio = !process.env.NOAUDIO && fs.existsSync(mix) ? ['-i', mix, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '256k', '-ar', '48000'] : [];
+  const lang = process.env.LANG3 || (/lang=en/.test(EXTRA) ? 'eng' : 'tur'); // ses kanalının dil etiketi (YouTube ve oynatıcılar için)
+  const audio = !process.env.NOAUDIO && fs.existsSync(mix) ? ['-i', mix, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '256k', '-ar', '48000', '-metadata:s:a:0', `language=${lang}`] : [];
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, ...audio, '-c:v', 'copy', '-movflags', '+faststart', '-shortest', out],
     { stdio: ['ignore', 'ignore', 'inherit'] });
   await ffwait(ff);

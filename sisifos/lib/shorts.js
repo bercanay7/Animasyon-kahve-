@@ -28,7 +28,11 @@ function renderShortFrame(ts, mb = 1) {
 // üst/alt vazo şeritleri, başlık ve altyazı
 function shortOverlay(g, ts) {
   const S_ = window.SHORT, clip = S_.EDL.find(c => ts >= c.s && ts < c.e) || {};
-  const capY = clip.capY ?? 1235, ctaY = clip.ctaY ?? 1330;
+  // capAt: kesit içinde altyazının yer değiştirdiği an (ör. kitap belirince boş kapak alanına iner)
+  // altyazı yeri, grubun başladığı kesitten alınır: kesmede eski cümle yer değiştirip zıplamaz
+  const grNow = S_.GROUPS.find(gr => ts >= gr.s - .05 && ts < gr.e + .15);
+  const pc = (grNow && S_.EDL.find(c => grNow.s >= c.s && grNow.s < c.e)) || clip;
+  const capY = pc.capAt != null ? lerp(pc.capY ?? 1235, pc.capY2, E.io2(clamp(((grNow ? grNow.s : ts) - pc.capAt) / .25))) : (pc.capY ?? 1235), ctaY = clip.ctaY ?? 1330;
   // üst şerit + başlık
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,6,4,.75)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);
@@ -36,8 +40,12 @@ function shortOverlay(g, ts) {
   txt(g, 'SİSİFOS', SHW / 2, 140, { font: '900 64px Cinzel', col: '#F6E3BE', ls: 14, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
   // altyazı bandı (parlak karelerde okunurluk)
   // YouTube Shorts arayüzü (başlık, kanal, düğmeler) alt ~%25'i ve sağ kenarı kapatır: altyazı 1080–1400 aralığında
-  const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, 'rgba(12,6,4,0)'); cb.addColorStop(.3, 'rgba(12,6,4,.55)'); cb.addColorStop(.75, 'rgba(12,6,4,.55)'); cb.addColorStop(1, 'rgba(12,6,4,0)');
-  g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
+  // açık zeminli (beyaz zemin, Camus) kesitlerde koyu bant yerine mürekkep renkli yazı + krem kontur (gri leke kalmaz)
+  const light = !!clip.light;
+  if (!light) {
+    const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, 'rgba(12,6,4,0)'); cb.addColorStop(.3, 'rgba(12,6,4,.55)'); cb.addColorStop(.75, 'rgba(12,6,4,.55)'); cb.addColorStop(1, 'rgba(12,6,4,0)');
+    g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
+  }
   // altyazı: kelime grupları, etkin kelime altın
   const groups = S_.GROUPS, gi = groups.findIndex(gr => ts >= gr.s - .05 && ts < gr.e + .15);
   if (gi >= 0) {
@@ -58,9 +66,10 @@ function shortOverlay(g, ts) {
         const on = ts >= w.s - .03, cur2 = on && ts < w.e + .05;
         const pop = cur2 ? 1 + .06 * clamp(1 - (ts - w.s) / .15) : 1;
         g.save(); g.translate(x + w.ww / 2, y0 + li * 108); g.scale(pop, pop); g.globalAlpha = a;
-        g.lineWidth = 12; g.strokeStyle = 'rgba(15,7,4,.9)'; g.lineJoin = 'round'; g.textAlign = 'center';
+        g.lineWidth = light ? 10 : 12; g.strokeStyle = light ? 'rgba(246,236,214,.95)' : 'rgba(15,7,4,.9)'; g.lineJoin = 'round'; g.textAlign = 'center';
         const T = w.w.toLocaleUpperCase('tr');
-        g.strokeText(T, 0, 0); g.fillStyle = cur2 ? '#F2C25A' : (on ? '#FFF4DE' : 'rgba(255,244,222,.78)'); g.fillText(T, 0, 0);
+        g.strokeText(T, 0, 0);
+        g.fillStyle = light ? (cur2 ? '#A2381F' : (on ? '#1E1611' : 'rgba(30,22,17,.62)')) : (cur2 ? '#F2C25A' : (on ? '#FFF4DE' : 'rgba(255,244,222,.78)')); g.fillText(T, 0, 0);
         g.restore();
         x += w.ww + sp;
       }

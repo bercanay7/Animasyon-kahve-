@@ -133,7 +133,15 @@ function pushScene(ctx, c, xr, R, s, t, o = {}) {
   let head = add(pel, scl(rot([.4, -36], T), s));
   if (o.dry) return { cx, cy, pel, head };
   // yere kapanma (prone) ve dört ayak üstünde doğrulma (rise): itme pozundan yamaç üstündeki pozlara karışım
-  let P = pel, TT = T, nk = -.25, hd = -.55 + (o.look || 0), fNp = footPos(fN), fFp = footPos(fF);
+  // bacak boyunu aşan ayak hedefi (yokuş aşağıdaki arka ayak) havada kalmasın: yamaç üstünde kalçaya doğru ulaşılabilir noktaya kaydır
+  const reach2 = fp => {
+    const hx = pel[0] + .3 * s, hy = pel[1] - .6 * s, Lm = 44.4 * s;
+    if (Math.hypot(fp[0] - hx, fp[1] - hy) <= Lm) return fp;
+    let a = hx, b = fp[0];
+    for (let k = 0; k < 24; k++) { const m = (a + b) / 2; if (Math.hypot(m - hx, hillY(m) - 3 * s - hy) > Lm) b = m; else a = m; }
+    return [a, hillY(a) - 3 * s - Math.max(0, fp[1] - (hillY(fp[0]) - 3 * s)) * 0, -hillAng(a) + (fp[2] + hillAng(fp[0]))];
+  };
+  let P = pel, TT = T, nk = -.25, hd = -.55 + (o.look || 0), fNp = reach2(footPos(fN)), fFp = reach2(footPos(fF));
   const pr = o.prone || 0;
   if (pr > 0) {
     const X = o.proneX ?? pel[0] - 8 * s, a2 = hillAng(X), n2 = hillN(X), ca = Math.cos(a2), r = o.rise || 0;

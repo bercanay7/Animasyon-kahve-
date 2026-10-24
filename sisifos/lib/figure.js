@@ -322,20 +322,23 @@ function drawGarment(G, f, J, tP, det) {
     const fr = aN[0] > aF[0] ? aN : aF, bk = aN[0] > aF[0] ? aF : aN;
     const kneeFr = kneeN[0] > kneeF[0] ? kneeN : kneeF, kneeBk = kneeN[0] > kneeF[0] ? kneeF : kneeN;
     const hem = Math.max(fr[1], bk[1]) - (lk.fem ? -0.6 : 1.2);
-    const pts = [tP([3.6, -31.2]), tP([lk.fem ? 9.4 : 10.2, -24]), tP([7.4, -15]), tP([7.4, -6]), add(kneeFr, [5.2, 0]), [fr[0] + 6.6, hem], [lerp(fr[0], bk[0], .5), hem + .8], [bk[0] - 5.2, hem], add(kneeBk, [-6.2, 0]), tP([-9.0, -4]), tP([-7.2, -15]), tP([-8.2, -24]), tP([-3.0, -31.2])];
+    // adım açılınca etek yelken gibi şişmesin: etek ucu ve diz hizası kalçadan belli bir genişliği aşmaz (bacak eteğin altından çıkar)
+    const hF = Math.min(fr[0] + 6.6, 12.5), hB = Math.max(bk[0] - 5.2, -11.5);
+    const kF = [Math.min(kneeFr[0] + 5.2, 12.8), kneeFr[1]], kB = [Math.max(kneeBk[0] - 6.2, -12), kneeBk[1]];
+    const pts = [tP([3.6, -31.2]), tP([lk.fem ? 9.4 : 10.2, -24]), tP([7.4, -15]), tP([7.4, -6]), kF, [hF, hem], [lerp(hF, hB, .5), hem + .8], [hB, hem], kB, tP([-9.0, -4]), tP([-7.2, -15]), tP([-8.2, -24]), tP([-3.0, -31.2])];
     G.part(c => spline(c, pts, true, .85), lk.robeCol ? { fill: lk.robeCol } : {});
-    // etek bordürü: kırmızı bant + meander noktaları
-    const hb = c => { c.moveTo(bk[0] - 5.2, hem - 1.6); c.lineTo(fr[0] + 6.4, hem - 1.6); };
+    // etek bordürü: kırmızı bant (etek poligonunun alt kenarından) + meander noktaları
+    const hb = c => { c.moveTo(hB + 1.2, hem - 1.6); c.lineTo(hF - 1.2, hem - 1.6); };
     G.paint(hb, sty.red, 1.6, false);
     for (let i = 0; i < 7; i++) {
       const u = (i + .5) / 7, st = tP([lerp(-6.6, 7, u), -14]);
-      const en = [lerp(bk[0] - 4, fr[0] + 5.5, u), hem - 2.8];
+      const en = [lerp(hB + 1.2, hF - 1.1, u), hem - 2.8];
       det(c => { c.moveTo(st[0], st[1]); c.bezierCurveTo(st[0] + 1, lerp(st[1], en[1], .4), en[0] - 1, lerp(st[1], en[1], .7), en[0], en[1]); }, .3);
     }
     G.paint(c => { c.moveTo(...tP([7.4, -15])); c.lineTo(...tP([-7, -15.2])); }, sty.red, 1.2, false);
     if (lk.robeDots) for (let i = 0; i < 14; i++) {
       const u = hash(i * 3.1), v = hash(i * 7.7);
-      const q = [lerp(bk[0] + 1.6, fr[0] - 1.6, u), lerp(kneeFr[1] - 2, hem - 6.5, v)];
+      const q = [lerp(hB + 2.6, hF - 2.6, u), lerp(kneeFr[1] - 2, hem - 6.5, v)];
       G.paint(c => c.arc(q[0], q[1], .55, 0, TAU), sty.red);
     }
     if (lk.himation) { // omuz şalı (çapraz)

@@ -31,7 +31,7 @@ shot(S('G01') - .35, (ctx, st) => {
     ctx.restore();
     skyline(ctx, -20, W + 20, gy, '#CFC3AA', 11, 280);
     skyline(ctx, -40, W + 20, gy, '#B3A68D', 7, 190, 'rgba(236,227,208,.55)');
-    for (let i = 0; i < 5; i++) plane(ctx, ((i * 430 + t * 160) % 2400) - 240, 330 + (i % 3) * 60, .8, '#6B5E4E');
+    for (let i = 0; i < 5; i++) plane(ctx, ((i * 430 + t * 160) % 2400) - 240, 268 + (i % 3) * 30, .8, '#6B5E4E'); // isim etiketinin altından, başın üstünden geçer
     ctx.restore();
     ctx.fillStyle = C.inkSoft; ctx.fillRect(0, gy, W, 4);
     txt(ctx, '1942', W / 2, 150, { font: '700 72px "Courier Prime"', col: C.inkSoft, a: ramp(t, td - .2, td + .5) * war });
@@ -40,8 +40,9 @@ shot(S('G01') - .35, (ctx, st) => {
     const tw0 = ta - 2.6, tw1 = ta + .9, dd = .6 / (tw1 - tw0), uw = clamp((t - tw0) / (tw1 - tw0));
     const pw = (uw < 1 - dd ? uw : (1 - dd) + (uw - 1 + dd) - (uw - 1 + dd) ** 2 / (2 * dd)) / (1 - dd / 2);
     if (t < ts + .2) {
-      const x = lerp(-220, 820, pw), sd = ramp(t, tw1 - .15, tw1 + .45, E.io2);
-      walkScene(ctx, null, x, 5.4, t, 1, { noCam: true, ground: FLAT(gy), dist: x, sty: WG, lk: LK.camus, stride: 32, stand: sd, lean: sd * Math.sin(t * 1.3) * .012, hold: { F: HOLD.cig() }, p: { shN: Math.sin(x / 50) * .3 * (1 - sd), shF: 1.2, elF: 1.9, handF: 'fist', head: .02, breath: Math.sin(t * 1.6) * .8 } });
+      // uzun ve sakin adım (~0.5 sn/adım, dizler az bükük); sigara yürürken göğüs hizasında, durunca ağza gider
+      const x = lerp(-80, 820, pw), sd = ramp(t, tw1 - .15, tw1 + .45, E.io2), cg = ramp(t, tw1 + .3, tw1 + .9, E.io2);
+      walkScene(ctx, null, x, 5.4, t, 1, { noCam: true, ground: FLAT(gy), dist: x, sty: WG, lk: LK.camus, stride: 46, legL: 44.6, stand: sd, lean: .03 + sd * Math.sin(t * 1.3) * .012, hold: { F: HOLD.cig() }, p: { shN: Math.sin(x / 70) * .3 * (1 - sd), shF: lerp(.35, 1.2, cg), elF: lerp(1.5, 1.9, cg), handF: 'fist', head: .02, breath: Math.sin(t * 1.6) * .8 } });
       ctx.save(); ctx.strokeStyle = 'rgba(40,30,25,.3)'; ctx.lineWidth = 2; ctx.beginPath(); for (let k = 0; k < 30; k++) { const u = k / 29; const px = x + 40 + Math.sin(u * 6 + t * 1.5) * 10 * u, py = gy - 300 - u * 160; k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke(); ctx.restore();
     }
     nameTag(ctx, 'ALBERT CAMUS', '1913 – 1960 · yazar, düşünür', 140, 200, t - ta, 4.2, { col: C.inkSoft, line: C.inkSoft });
@@ -68,7 +69,7 @@ shot(S('G01') - .35, (ctx, st) => {
         txt(ctx, 'ALBERT CAMUS', 250, -230, { font: '600 34px Cinzel', col: C.inkSoft, ls: 6, force: true });
         txt(ctx, 'Le Mythe', 250, -120, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F', force: true });
         txt(ctx, 'de Sisyphe', 250, -50, { font: 'italic 600 70px "Cormorant Garamond"', col: '#8E2F1F', force: true });
-        txt(ctx, 'Sisifos Söyleni', 250, 60, { font: '600 36px Cinzel', col: C.inkSoft, ls: 2, force: true });
+        txt(ctx, 'Sisifos Söyleni', 250, 60, { font: '600 36px Cinzel', col: C.inkSoft, ls: 2, force: true, maxW: 400 });
         txt(ctx, '1942', 250, 250, { font: '400 40px "Courier Prime"', col: C.inkSoft, force: true });
       }
       ctx.restore();
@@ -200,10 +201,10 @@ shot(Wd('G06', 'kamü') - .15, (ctx, st) => {
   const t = st.t, t0 = t - st.lt, t1 = Wd('G06', 'tam', 1) - .1, tf = Wd('G06', 'farkındadır'), ts = Wd('G06', 'sisifos');
   const u = E.io2(clamp((t - t0) / (t1 - t0)));
   const kf = keyed(t, [[t0, { head: -.05, neck: .02, blink: 0 }], [ts - .2, { blink: 0 }], [ts + .3, { blink: .35 }], [tf - .3, { head: .02, neck: .04, blink: .45 }], [tf + .4, { head: -.18, neck: -.06, blink: 0 }, E.outBack]]);
-  // alıntı söndükten sonra kadraj sağa kayar: sola bakan yüzün önünde boşluk kalır (baş ≈ x 1200'de biter)
-  const pan = E.io2(ramp(t, ts - .3, t1));
-  drawG6(ctx, t, x => ({ x: lerp(x + 60, x - 40, pan), y: hillY(x) - lerp(300, 322, u), z: lerp(3.2, 5.2, u) }), kf);
-  quote(ctx, 'bilincin saati', 1400, 330, 820, t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14, a: 1 - ramp(t, ts - .5, ts) });
+  // baş ilk kareden ekranın ~%64'ünde: sola bakan yüzün önünde boşluk; alıntı yüzün önünde (solda)
+  const zz = lerp(3.2, 5.2, u);
+  drawG6(ctx, t, x => ({ x: x - 270 / zz, y: hillY(x) - lerp(300, 322, u), z: zz }), kf);
+  quote(ctx, 'bilincin saati', 560, 330, 820, t - Wd('G06', 'bilincin'), { font: 'italic 600 76px "Cormorant Garamond"', col: '#F7E2B8', shadow: 'rgba(0,0,0,.6)', blur: 14, a: 1 - ramp(t, ts - .5, ts) });
 }, { tr: { type: 'cut' }, post: TP });
 shot(Wd('G06', 'tam', 1) - .1, (ctx, st) => {
   const pull = E.io3(clamp(st.lt / 2.4));
@@ -234,15 +235,16 @@ shot(Wd('G07', 'ama') - .12, (ctx, st) => {
   const t = st.t, lt = st.lt, te = Wd('G07', 'ezemediler');
   const w = .6 + warmAt(t) * .35;
   // "ezeMEdiler"de: küçük geri çekiliş (hazırlık), sonra omuz darbesiyle kaya ~60 px kayar ve yerine oturur
-  // "ezemediler"de zorlanır; cümle bitince 0.3 sn hazırlık (omuzlar çöker), sonra 0.6 sn yumuşak bitişli ilerleme
-  const tE2 = Wd('G07', 'de', 1, true) + .12, mv = keyed(t, [[te - .3, { d: 0 }], [tE2 - .3, { d: 0 }], [tE2, { d: -8 }, E.io2], [tE2 + .6, { d: 60 }, E.out2], [tE2 + 1.4, { d: 66 }]]).d, xr = -470 + mv;
+  // "ezemediler"de zorlanır; cümle bitince 0.3 sn hazırlık (omuzlar çöker), sonra 0.6 sn yumuşak bitişli ilerleme;
+  // adım evresi: duruşta iki ayak yerde, itişte arka ayak çeyrek adım öne basar (bacaklar kalçanın altına toplanmaz)
+  const tE2 = Wd('G07', 'de', 1, true) + .22, mv = keyed(t, [[te - .3, { d: 0 }], [tE2 - .3, { d: 0 }], [tE2, { d: -8 }, E.io2], [tE2 + .6, { d: 26 }, E.out2], [tE2 + 1.4, { d: 28 }]]).d, xr = -470 + mv;
   // farklı açı (daha yakın, alçak) ve sabit kamera: kayanın yerinden oynaması kadrajda görünür
   const c = { x: -470 + 20, y: hillY(-470) - 150, z: lerp(1.85, 1.95, E.sine(clamp(lt / st.d))) };
   c.sx = noise1(t * 30, 1) * 2 * ramp(t, te - .3, te); c.sy = 0;
   tartarosBG(ctx, t, c, { warm: w }); tartarosHill(ctx, c, { groove: .9, warm: w });
   ctx.save(); cam(ctx, c, 1); dustBurst(ctx, t, tE2 + .05, xr - 60, hillY(xr - 60), 14, 'rgba(110,60,35,.4)', 110, 9); dustBurst(ctx, t, tE2 + .05, xr - 230, hillY(xr - 230), 10, 'rgba(110,60,35,.35)', 90, 19); ctx.restore();
   const set = lerp(.94, 1, ramp(lt, 0, .3, E.out3)); // plan, eller zaten kayadayken açılır (eylem üstünde kesme)
-  pushScene(ctx, c, xr, 150, 4.0, t, { dist: xr, strain: lerp(.4, 1.2, set) * (1 - ramp(t, tE2 + .4, tE2 + 1.0) * .4), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
+  pushScene(ctx, c, xr, 150, 4.0, t, { dist: -1062 + mv, stride: 90, footBack: 9, strain: lerp(.4, 1.2, set) * (1 - ramp(t, tE2 + .4, tE2 + 1.0) * .4), hA: .62, hB: .68, reach: 15, handsOff: 1 - set,
     rockAng: -3.1 + mv / 150, jitter: ramp(t, te - .3, te + .15) * (1 - ramp(t, te + .5, te + 1.0)) * .8, T: 1.12 + ramp(t, tE2 - .3, tE2, E.io2) * .05 * (1 - ramp(t, tE2, tE2 + .3)) + ramp(t, tE2, tE2 + .35, E.out2) * .1 * (1 - ramp(t, tE2 + .6, tE2 + 1.2)), light: -1.2 });
 }, { tr: { type: 'cut' }, post: TP });
 

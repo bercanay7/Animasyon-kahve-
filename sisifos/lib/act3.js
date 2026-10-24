@@ -22,7 +22,7 @@ shot(S('D01') - .25, (ctx, st) => {
   figure(ctx, { x: 400, y: gy - 27 * 6, s: 6, lk: LK.zeus, hold: { F: HOLD.scepter(80), N: HOLD.bolt() },
     p: { ...oturan(), torso: .05, head: .05, shN: lerp(.4, 1.75, ramp(lt, .3, 1.1, E.outBack)), elN: .15, handN: 'fist', shF: .3, elF: 1.2, brow: -1 } });
   { const bl = ramp(lt, .9, 1.3) * (1 - ramp(lt, 1.3, 2.2)); if (bl > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 520, gy - 520, 240, `rgba(255,220,140,${.5 * bl})`); ctx.restore(); } }
-  nameTag(ctx, 'ZEUS', 'Tanrıların kralı', 140, 250, lt - 3.3, 2.4, { col: C.white }); // bölüm kartından sonra
+  nameTag(ctx, 'ZEUS', 'Tanrıların kralı', 140, 250, lt - 3.3, 3.0, { col: C.white }); // bölüm kartından sonra (yeterince uzun kalır)
   // duman sütunu ve Thanatos'un yükselişi
   const rise = ramp(t, tt - 2.4, tt + .2, E.io3);
   ctx.save(); ctx.fillStyle = `rgba(6,2,1,${.7 * ramp(lt, 0, 1.5)})`; ctx.beginPath(); ctx.ellipse(1300, gy + 4, 260, 22, 0, 0, TAU); ctx.fill(); ctx.restore();

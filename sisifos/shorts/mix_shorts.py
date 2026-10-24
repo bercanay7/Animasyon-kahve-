@@ -38,8 +38,7 @@ fx = np.zeros((2, N)); xf = int(.06 * SR)
 for c in ed['EDL']:
     a, b = int(c['s'] * SR), min(N, int(c['e'] * SR)); n = b - a
     sp = c.get('speed', 1); f0 = int(c['f'] * SR)
-    if sp == 1: x = fx_st[:, f0:f0 + n]
-    else: x = fx_st[:, f0:f0 + int(n * sp)][:, ::1]; x = np.stack([np.interp(np.linspace(0, x.shape[1] - 1, n), np.arange(x.shape[1]), x[k]) for k in range(2)])
+    x = fx_st[:, f0:f0 + n]  # hızlandırılmış kesitte de efektler normal hızda (ses perdesi kaymaz)
     x = np.pad(x, ((0, 0), (0, n - x.shape[1]))).copy()
     r = np.linspace(0, 1, min(xf, n)); x[:, :len(r)] *= r; x[:, n - len(r):] *= r[::-1]
     fx[:, a:b] += x

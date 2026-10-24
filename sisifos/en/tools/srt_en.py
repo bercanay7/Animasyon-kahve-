@@ -67,7 +67,9 @@ for sg in load_script():
 
 for i, c in enumerate(cues):
     nxt = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 3
-    c[1] = min(max(c[1] + TAIL, c[0] + MIN_DUR), nxt - GAP)
+    n_ = len(c[2].replace('\n', ' '))
+    want = max(c[1] + TAIL, c[0] + MIN_DUR, c[0] + n_ / 17.0)   # reading speed: hold fast cues longer (up to the next cue)
+    c[1] = min(want, nxt - GAP)
     assert c[1] > c[0]
     for line in c[2].split('\n'): assert len(line) <= MAXL, line
     assert c[2].count('\n') <= 1

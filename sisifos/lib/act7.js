@@ -5,7 +5,7 @@ const STRIP_N = 7, SEG = 600, SW = SEG * STRIP_N, SH = 520;
 const STRIP_SCENES = [
   { lk: LK.sis },
   { lk: LK.modern, label: 'iş' },
-  { lk: LK.woman, label: 'görev' }, // "sorumluluk" kayada okunamayacak kadar küçülüyordu
+  { lk: LK.woman, label: 'sorum- luluk' }, // anlatımdaki sözcük; kayaya sığsın diye heceyle iki satır
   { lk: LK.modern, label: 'hayal' },
   { lk: LK.citizen, label: 'her sabah' },
   { lk: { ...LK.sis, old: true, beard: 'long' } },
@@ -40,7 +40,7 @@ function buildStrip(t = 0, reveal = 1) {
       if (sc.label) { // büyük etiket; iki kelimeli etiket iki satıra
         const ls = L(sc.label).split(' '), big = 120;
         tx.font = `italic 700 ${big}px "Cormorant Garamond"`; const wmax = Math.max(...ls.map(l => tx.measureText(l).width));
-        const fs = Math.floor(Math.min(big, big * 1.75 * R / wmax)), lh = fs * .92;
+        const fs = Math.floor(Math.min(big, big * (ls.length > 1 ? 1.45 : 1.75) * R / wmax)), lh = fs * .92; // iki satır: kayanın yuvarlak kenarından taşmasın
         ls.forEach((l, i) => txt(tx, l, P.cx, P.cy + 10 + (i - (ls.length - 1) / 2) * lh, { font: `italic 700 ${fs}px "Cormorant Garamond"`, col: C.ink, force: true })); }
     }
     x.drawImage(STRIP.tmp, SEG * i, 0);

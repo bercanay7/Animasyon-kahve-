@@ -187,7 +187,7 @@ const chapter = (shotAt, lt0) => sfx(shotAt + lt0 + .1, 'chime', { g: -14, note:
   amb(tG5, S('G08') - .2, 'wind', -22, 1, .4);
   amb(tG5, tk5, 'stone_scrape', -20, .5, .1);
   // G7b: cümle bitince ("…ezemediler de.") omuz darbesi ve kaya yerinden oynar (act6 tE2 ile aynı an); sözcüklerin üstüne düşmez
-  const tE2 = Wd('G07', 'de', 1, true) + .12;
+  const tE2 = Wd('G07', 'de', 1, true) + .22;
   sfx(tE2 - .02, 'thump', { g: -4, rate: .8 });
   sfx(tE2, 'stone_scrape', { g: 1, len: .4, fi: .03, fo: .15 });
   const RG = (window.ROCK_OVER || {}).G5;

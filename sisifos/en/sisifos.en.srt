@@ -87,7 +87,7 @@ they wrote a sentence in the earth:
 "Autolycus stole me."
 
 20
-00:01:24,290 --> 00:01:26,870
+00:01:24,290 --> 00:01:26,878
 The tracks led straight
 to the thief's barn.
 
@@ -116,7 +116,7 @@ And the girl was Aegina,
 daughter of the river god Asopus.
 
 26
-00:01:52,559 --> 00:01:55,569
+00:01:52,559 --> 00:01:55,677
 The next day,
 Asopus went searching for his daughter.
 
@@ -374,7 +374,7 @@ he is stronger than his rock.
 The rock is his. His fate belongs to him.
 
 81
-00:06:02,500 --> 00:06:06,120
+00:06:02,500 --> 00:06:06,382
 The gods gave him no meaning…
 but they could not crush him either.
 
@@ -383,7 +383,7 @@ but they could not crush him either.
 Camus ends his essay with these words:
 
 83
-00:06:10,650 --> 00:06:14,940
+00:06:10,650 --> 00:06:14,944
 "The struggle itself toward the heights
 is enough to fill a man's heart."
 
@@ -401,12 +401,12 @@ A job, a responsibility, a dream…
 or simply, starting over every morning.
 
 87
-00:06:33,870 --> 00:06:36,470
+00:06:33,870 --> 00:06:36,680
 Maybe the point isn't
 getting the rock to the top.
 
 88
-00:06:36,760 --> 00:06:39,990
+00:06:36,760 --> 00:06:40,289
 It's choosing who we become
 while we put our shoulder to it.
 
@@ -419,7 +419,7 @@ And you? What is your rock?
 Whatever your rock is,
 
 91
-00:06:47,610 --> 00:06:50,330
+00:06:47,610 --> 00:06:50,610
 tell us in the comments.
 See you in the next story.
 
