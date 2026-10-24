@@ -3,6 +3,22 @@
 Bu dosya, yüklemeyi yapacak kişi ya da bilgisayarda Chrome eklentisiyle çalışan Claude oturumu içindir. Adımlar sırayla uygulanır. Bütün işlemler YouTube Studio'da (studio.youtube.com) yapılır.
 YouTube'un kendi zamanlaması kullanıldığı için yükleme bittikten sonra bilgisayarın açık kalması gerekmez.
 
+## 0. Hazırlık: dosyaları bilgisayara al
+Depo: `https://github.com/bercanay7/Animasyon-kahve-`, dal: `claude/sisifos-story-video-p8hvls` (main değil).
+
+- Depo bilgisayarda yoksa:
+  ```bash
+  git clone -b claude/sisifos-story-video-p8hvls https://github.com/bercanay7/Animasyon-kahve-.git
+  ```
+- Depo zaten varsa (bu dalın geçmişi yeniden yazıldığı için düz `git pull` hata verebilir):
+  ```bash
+  git fetch origin claude/sisifos-story-video-p8hvls
+  git checkout claude/sisifos-story-video-p8hvls
+  git reset --hard origin/claude/sisifos-story-video-p8hvls
+  ```
+- Bu, aşağıdaki dosyaların hepsini getirir; yalnızca iki uzun film depoda yoktur: `sisifos_master.mp4` ve `sisifos_en_master.mp4` (her biri ~344 MB). Bu ikisi ayrıca indirilir ve `Animasyon-kahve-/sisifos/` klasörüne konur.
+- Kontrol: `sisifos/` klasöründe `sisifos_master.mp4`, `sisifos_en_master.mp4`, `sisifos_shorts.mp4`, `sisifos_en.m4a`, `kapak.png`, `kapak_b.png`, `sisifos.tr.srt`, `en/kapak_en.png`, `en/sisifos.en.srt`, `youtube.md`, `en/youtube_en.md` bulunmalı.
+
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
@@ -44,7 +60,7 @@ Yükleme işlendikten sonra videonun sayfasında: **Altyazılar** (Languages) �
 - **Ses** sütunu → Ekle → `sisifos_en.m4a` (ya da `audio/mix_en.wav`) → Yayınla.
   - Ses kanalının süresi videoyla aynıdır (424,9 sn); kaydırma gerekmez.
   - Bu yolda görüntüdeki yazılar Türkçe kalır; İngilizce altyazı kanalı (`en/sisifos.en.srt`) bunu karşılar.
-  - Çoklu ses kanalı özelliği kanalda açık değilse bu satır görünmez. Bu durumda `sisifos_en_master.mp4` ayrı bir İngilizce video olarak yüklenir (aynı adımlar, `en/youtube_en.md` metinleri ve `en/kapak_en.png` kapağıyla). Bu dosyada ekran yazıları da İngilizcedir.
+  - Çoklu ses kanalı (multi-language audio) için kanalda elle açılan bir düğme yok: YouTube özelliği Eylül 2025'ten itibaren kanallara kademeli olarak açıyor. Ses sütunu görünmüyorsa özellik bu kanala henüz açılmamıştır. Bu durumda `sisifos_en_master.mp4` ayrı bir İngilizce video olarak yüklenir (aynı adımlar, `en/youtube_en.md` metinleri ve `en/kapak_en.png` kapağıyla). Bu dosyada ekran yazıları da İngilizcedir. İngilizce videoyu ayrı yüklemek için kanal bir gün sonra, 25 Ekim 20:00'ye planlanabilir.
 - **Başlık ve açıklama** sütunu → Ekle → `en/youtube_en.md` içindeki başlık ve açıklama.
 - **Altyazılar** sütunu → Ekle → `en/sisifos.en.srt`.
 
