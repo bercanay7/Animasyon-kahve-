@@ -29,6 +29,9 @@ const I18N_EN = {
   'iş': 'job', 'sorum- luluk': 'respon- sibility', 'hayal': 'dream', 'her sabah': 'every morning',
   'Senin kayan ne?': 'What is your rock?', 'sen?': 'you?', 'Senin kayan neyse, yorumlarda anlat.': 'Whatever your rock is, tell us in the comments.',
 };
+// İngilizce anlatımda sözcük zamanları farklı olan görsel vurgular (en/timeline_en.json): Türkçe sözcük → İngilizce sözcüğün başlangıcı
+const WD_EN = { 'H01:iş': 386.16, 'H01:sorumluluk': 387.02, 'H01:hayal': 388.38, 'H01:her': 390.92 };
+const WdL = (id, w) => LANG === 'en' && WD_EN[id + ':' + w] != null ? WD_EN[id + ':' + w] : Wd(id, w);
 function L(s) {
   if (LANG !== 'en' || typeof s !== 'string') return s;
   if (s in I18N_EN) return I18N_EN[s];

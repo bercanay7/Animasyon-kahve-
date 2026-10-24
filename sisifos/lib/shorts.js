@@ -33,7 +33,7 @@ function shortOverlay(g, ts) {
   const grNow = S_.GROUPS.find(gr => ts >= gr.s - .05 && ts < gr.e + .15);
   // capAt: altyazı kesit içinde yer değiştirir; yazıların üstünden kayarak geçmez, söner ve yeni yerinde belirir
   const capY = clip.capAt != null && ts >= clip.capAt ? clip.capY2 : (clip.capY ?? 1235), ctaY = clip.ctaY ?? 1330;
-  const reIn = (grNow && grNow.s < clip.s ? clamp((ts - clip.s) / .16) : 1) * (clip.capAt != null ? clamp(Math.abs(ts - clip.capAt) / .1) : 1);
+  const reIn = (grNow && grNow.s < clip.s ? (grNow.e <= clip.s + .03 ? 0 : clamp((ts - clip.s) / .16)) : 1) * (clip.capAt != null ? clamp(Math.abs(ts - clip.capAt) / .1) : 1);
   // üst şerit + başlık
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,6,4,.75)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);

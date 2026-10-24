@@ -100,7 +100,7 @@ function museum(ctx, t, warm = 1) {
 // H1–H2 — Tartaros'tan amforaya geri çekiliş; friz anlatılan kelimelerle adım adım döner
 function closingRot(t) {
   // her etiketli kaya, adı söylenirken öne gelir; H02 boyunca tam tur tamamlanır
-  const steps = [[Wd('H01', 'iş') - .45, 1], [Wd('H01', 'sorumluluk') - .45, 2], [Wd('H01', 'hayal') - .45, 3], [Wd('H01', 'her') - .1, 4]];
+  const steps = [[WdL('H01', 'iş') - .45, 1], [WdL('H01', 'sorumluluk') - .45, 2], [WdL('H01', 'hayal') - .45, 3], [WdL('H01', 'her') - .1, 4]]; // İngilizce sürümde İngilizce sözcüklere
   let k = 0;
   for (const [ts, kk] of steps) k = lerp(k, kk, ramp(t, ts, ts + .5, E.io3));
   k = lerp(k, STRIP_N, ramp(t, S('H02') - .3, Se('H02') + .2, E.io2));

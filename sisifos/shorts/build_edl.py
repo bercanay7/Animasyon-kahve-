@@ -62,7 +62,7 @@ EDL = [
     dict(s=28.15, f=296.0, cx0=960),                                 # iki bin yıl
     dict(s=29.9, f=302.6, cx0=700, cx1=1100, light=True, capY=395, capY2=1300, capAt=32.72), # Camus ve kitap (beyaz zemin: koyu yazı; önce gökte, kitap belirince kapağın boş alt kısmında)
     dict(s=33.3, f=377.9, cx0=860, cx1=900, capY=1450),              # mutlu (altyazı yüzün altında)
-    dict(s=36.63, f=384.85, cx0=960, capY=470),                        # vazo (altyazı koyu vazo omzunda, figürlerin üstünde)
+    dict(s=36.63, f=384.85, cx0=960, capY=330),                        # vazo (altyazı koyu vazo omzunda, figürlerin üstünde)
     dict(s=38.9, f=402.3, cx0=960, capY=760, ctaY=470),              # senin kayan ne? (çağrı kutusu üstte, kayayı kesmez)
 ]
 DUR = round(words[-1]['e'] + 1.6, 2)

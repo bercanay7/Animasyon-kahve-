@@ -38,7 +38,19 @@ fx = np.zeros((2, N)); xf = int(.06 * SR)
 for c in ed['EDL']:
     a, b = int(c['s'] * SR), min(N, int(c['e'] * SR)); n = b - a
     sp = c.get('speed', 1); f0 = int(c['f'] * SR)
-    x = fx_st[:, f0:f0 + n]  # hızlandırılmış kesitte de efektler normal hızda (ses perdesi kaymaz)
+    if sp == 1: x = fx_st[:, f0:f0 + n]
+    else:
+        # hızlandırılmış kesit: ortam döngüleri normal hızda; tek seferlik efektler görüntüdeki yerlerine (f + (t - f) / hız) taşınır, perdeleri kaymaz
+        ev = json.load(open(os.path.join(R, 'audio', 'sfx_events.json'))); evc = []
+        for e in ev:
+            if e.get('loop'):
+                if e['t'] < c['f'] + n / SR and e['t'] + e['len'] > c['f']: evc.append(dict(e))
+            elif c['f'] <= e['t'] < c['f'] + n * sp / SR: evc.append({**e, 't': c['f'] + (e['t'] - c['f']) / sp})
+        dry, send = M.build_sfx('tr', events=evc)
+        seg = lambda b_: b_[:, f0:f0 + n + int(2.5 * SR)]
+        hp30 = M.signal.butter(4, 30, 'highpass', fs=SR, output='sos')
+        wet = M.apply_reverb(np.stack([M.signal.sosfilt(hp30, ch) for ch in seg(send)]), M.reverb_ir())
+        x = np.stack([M.signal.sosfilt(hp30, ch) for ch in seg(dry)])[:, :n] + wet[:, :n]
     x = np.pad(x, ((0, 0), (0, n - x.shape[1]))).copy()
     r = np.linspace(0, 1, min(xf, n)); x[:, :len(r)] *= r; x[:, n - len(r):] *= r[::-1]
     fx[:, a:b] += x
