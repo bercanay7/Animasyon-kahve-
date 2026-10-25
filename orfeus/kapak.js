@@ -363,8 +363,10 @@ function eurydice() {
   const holes = [], r = rng(44), flake = (x, y, s_, a) => { const p = []; for (let k = 0; k < 4; k++) { const t = a + k * TAU / 4 + (r() - .5) * .9, rr = s_ * (.6 + r() * .6); p.push([x + Math.cos(t) * rr, y + Math.sin(t) * rr]); } return poly(p); };
   for (let i = 0; i < 260; i++) {
     const x = 1520 + r() * 190, y = 780 + r() * 360, k = clamp((x - 1545) / 130) * clamp((y - 800) / 240 + .4);
+    if (x > 1600 && y > 930) continue;   // süre rozetinin altı temiz kalsın
     if (r() < k) { const s_ = 10 + r() * 16, a = r() * TAU, f = flake(x, y, s_, a); g.fill(f); holes.push(f); if (r() < .7) EV.flakes.push([x, y, s_, a]); }
   }
+  { const cr = g.createRadialGradient(1720, 1090, 40, 1720, 1090, 190); cr.addColorStop(0, 'rgba(0,0,0,1)'); cr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = cr; g.fillRect(1500, 880, 420, 200); }   // sağ alt köşe yumuşakça erir
   g.globalCompositeOperation = 'destination-over'; g.globalAlpha = .85; g.fillStyle = '#cfe3f5'; for (const f of holes) g.fill(f); g.globalAlpha = 1;
   g.globalCompositeOperation = 'source-over';
   return c;
