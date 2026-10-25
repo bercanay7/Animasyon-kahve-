@@ -132,7 +132,7 @@ function head3q(g, cx, cy, s, dir, o) {
   // ten: yüz ovali (çene sağda, ¾ açı)
   const face = path(fem
     ? [[-80, -36], [-66, -84], [-18, -106], [34, -100], [68, -72], [82, -30], [84, 8], [78, 42], [62, 72], [36, 94], [8, 100], [-22, 92], [-50, 72], [-70, 40], [-82, 2]]
-    : [[-82, -40], [-68, -88], [-20, -110], [36, -104], [72, -76], [88, -32], [92, 6], [88, 44], [74, 76], [48, 100], [16, 110], [-16, 102], [-46, 80], [-68, 46], [-82, 4]]);
+    : [[-82, -40], [-68, -88], [-20, -110], [36, -104], [72, -76], [88, -32], [94, 4], [95, 36], [78, 72], [48, 100], [16, 110], [-16, 102], [-46, 80], [-68, 46], [-82, 4]]);
   g.fillStyle = o.skin; g.fill(face);
   g.save(); g.clip(face);
   const sh = g.createLinearGradient(-90, 0, 40, 0); sh.addColorStop(0, rgba(o.skinDark, .75)); sh.addColorStop(1, rgba(o.skinDark, 0)); g.fillStyle = sh; g.fillRect(-120, -140, 240, 280); // uzak yanak gölgesi
@@ -145,7 +145,7 @@ function head3q(g, cx, cy, s, dir, o) {
   if (fem) { g.fillStyle = o.accent; g.beginPath(); g.arc(-80, 36, 7, 0, TAU); g.fill(); }
   // gözler: yakın (büyük) ve uzak (kısalmış); dehşette üst kapak yüksek, irisin üstünde beyaz görünür; bakış +x yönüne
   const tn = o.turn ?? 0; g.save(); g.translate(tn, 0);
-  const eyes = [[-12, -16, 26, 18], [54, -16, 19 * (1 - tn * .008), 15]];
+  const eyes = [[-12, -16, 26, 18], [54 - tn * .33, -16, 19 * (1 - tn * .008), 15]];
   for (const [ex, ey, rx, ry] of eyes) {
     const open = o.eyeOpen ?? 1;
     // göz akı: kavisli üst kapak (ortası yüksek), yuvarlak alt kapak
@@ -177,7 +177,7 @@ function head3q(g, cx, cy, s, dir, o) {
   if (!fem && mo > .4) { g.fillStyle = '#efe6d6'; g.beginPath(); g.moveTo(mx - mw * .7, my - mh * .55); g.quadraticCurveTo(mx, my - mh * .95, mx + mw * .7, my - mh * .6); g.lineTo(mx + mw * .6, my - mh * .35); g.quadraticCurveTo(mx, my - mh * .6, mx - mw * .6, my - mh * .3); g.fill(); }
   g.strokeStyle = o.lip; g.lineWidth = fem ? 6 : 6; g.beginPath(); g.moveTo(mx - mw * .8, my + mh * .5); g.quadraticCurveTo(mx, my + mh * 1.5, mx + mw * .8, my + mh * .4); g.stroke();
   // gözyaşları: iri, parlak
-  if (o.tear) for (const [tx, ty, tl] of [[-2, 2, 44], [62, 2, 30]]) {
+  if (o.tear) for (const [tx, ty, tl] of [[-2, 2, 44], [62 - tn * .85, 2, 30]]) {
     g.strokeStyle = 'rgba(200,238,255,.9)'; g.lineWidth = 5; g.beginPath(); g.moveTo(tx, ty); g.quadraticCurveTo(tx + 4, ty + tl * .5, tx + 2, ty + tl); g.stroke();
     g.fillStyle = '#d9f4ff'; g.beginPath(); g.moveTo(tx + 2, ty + tl - 6); g.quadraticCurveTo(tx + 12, ty + tl + 10, tx + 2, ty + tl + 14); g.quadraticCurveTo(tx - 8, ty + tl + 10, tx + 2, ty + tl - 6); g.fill();
     g.fillStyle = '#ffffff'; g.beginPath(); g.arc(tx, ty + tl + 6, 2.6, 0, TAU); g.fill();
@@ -194,11 +194,11 @@ function head3q(g, cx, cy, s, dir, o) {
     g.strokeStyle = o.hairLight; g.lineWidth = 3.4; const r2 = rng(19);
     for (const [x, y, rr] of [[-100, -20, 12], [-96, -60, 13], [-76, -98, 13], [-40, -122, 12], [0, -130, 12], [40, -122, 11], [74, -100, 10], [-60, -70, 10], [-20, -86, 10], [20, -88, 10], [56, -80, 9]]) { g.beginPath(); g.arc(x, y, rr, PI * (1.05 + r2() * .3), PI * (1.7 + r2() * .3)); g.stroke(); }
     // altın defne tacı: alnın üstünden şakaklara
-    const band = [[96, -64], [64, -92], [20, -108], [-24, -106], [-66, -90], [-98, -58]];
+    const band = [[86, -74], [60, -96], [20, -110], [-24, -106], [-66, -90], [-98, -58]];
     g.strokeStyle = '#a8761c'; g.lineWidth = 6; g.beginPath(); sp(g, band, false); g.stroke();
     for (let i = 0; i < band.length - 1; i++) for (let k = 0; k < 3; k++) {
       const u = k / 3, x = lerp(band[i][0], band[i + 1][0], u), y = lerp(band[i][1], band[i + 1][1], u), a = Math.atan2(band[i + 1][1] - band[i][1], band[i + 1][0] - band[i][0]);
-      for (const sd of [-1, 1]) { g.save(); g.translate(x, y); g.rotate(a + sd * .75 + PI); g.fillStyle = sd > 0 ? '#f6cf5a' : '#d9a12c'; g.beginPath(); g.ellipse(11, 0, 13, 5.4, 0, 0, TAU); g.fill(); g.restore(); }
+      for (const sd of [-1, 1]) { g.save(); g.translate(x, y); g.rotate(a + sd * .75 + PI); g.fillStyle = sd > 0 ? (i === 0 ? '#e2b443' : '#f6cf5a') : '#d9a12c'; g.beginPath(); g.ellipse(11, 0, 13, 5.4, 0, 0, TAU); g.fill(); g.restore(); }
     }
   }
   g.restore();
@@ -353,18 +353,19 @@ function eurydice() {
   g.restore();
   // ona uzanan kol: omuz aşağıda, el yerinde (parmak uçları arası boşluk sabit)
   limb(g, [[1400, 900], [1326, 826], [1284, 716]], [54, 44], SK);
-  g.fillStyle = DR; g.fill(path([[1430, 870], [1380, 860], [1326, 826], [1308, 866], [1360, 916], [1420, 934]]));
+  g.fillStyle = DR; g.fill(path([[1440, 868], [1380, 850], [1334, 816], [1304, 826], [1300, 868], [1338, 912], [1400, 940]]));
   hand(g, 1286, 712, PI + .45, 1.3, SK, SKD, { spread: .3, flip: true });
   head3q(g, 1470, 618 + dy, 1.32, -1, { fem: true, skin: SK, skinDark: SKD, hair: '#4f7fb8', hairLight: '#bfe0ff', iris: '#163f74', line: '#0f2a5a', brow: '#102c5e', lip: '#2c5594', mouthDark: '#14336a', accent: '#ffd36a', mouthOpen: .55, browIn: 1.1, lookX: 0, lookY: 1 });
   // dağılma: etek ve sağ kenar keskin kenarlı kâğıt pullarına ayrılır (sağa-yukarı, karanlığa doğru savrulur)
   g.globalCompositeOperation = 'destination-in';
   const m = g.createLinearGradient(0, 900, 0, 1100); m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,.08)'); g.fillStyle = m; g.fillRect(0, 0, W, H);
   g.globalCompositeOperation = 'destination-out';
-  const r = rng(44), flake = (x, y, s_, a) => { const p = []; for (let k = 0; k < 4; k++) { const t = a + k * TAU / 4 + (r() - .5) * .9, rr = s_ * (.6 + r() * .6); p.push([x + Math.cos(t) * rr, y + Math.sin(t) * rr]); } return poly(p); };
+  const holes = [], r = rng(44), flake = (x, y, s_, a) => { const p = []; for (let k = 0; k < 4; k++) { const t = a + k * TAU / 4 + (r() - .5) * .9, rr = s_ * (.6 + r() * .6); p.push([x + Math.cos(t) * rr, y + Math.sin(t) * rr]); } return poly(p); };
   for (let i = 0; i < 260; i++) {
     const x = 1520 + r() * 190, y = 780 + r() * 360, k = clamp((x - 1545) / 130) * clamp((y - 800) / 240 + .4);
-    if (r() < k) { const s_ = 10 + r() * 16, a = r() * TAU; g.fill(flake(x, y, s_, a)); if (r() < .7) EV.flakes.push([x, y, s_, a]); }
+    if (r() < k) { const s_ = 10 + r() * 16, a = r() * TAU, f = flake(x, y, s_, a); g.fill(f); holes.push(f); if (r() < .7) EV.flakes.push([x, y, s_, a]); }
   }
+  g.globalCompositeOperation = 'destination-over'; g.globalAlpha = .85; g.fillStyle = '#cfe3f5'; for (const f of holes) g.fill(f); g.globalAlpha = 1;
   g.globalCompositeOperation = 'source-over';
   return c;
 }
@@ -375,7 +376,7 @@ function draw(v) {
   glow(ctx, 1470, 760, 540, '#62c8ff', .3); glow(ctx, 1600, 1000, 300, '#9fdcff', .4);
   const ev = eurydice();
   paperShadow(ctx, ev, 12, 16, .35);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(20px)'; ctx.globalAlpha = .45; ctx.drawImage(ev, 0, 0); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(26px)'; ctx.globalAlpha = .34; ctx.drawImage(ev, 0, 0); ctx.restore();
   ctx.drawImage(ev, 0, 0);
   { const r = rng(71), pal = ['#ffffff', '#e2f6ff', '#bde6ff'];
     // kopan pullar: kesildikleri yerden sağa-yukarı savrulur, uzaklaştıkça küçülür ve seyrelir
@@ -392,7 +393,7 @@ function draw(v) {
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     for (let i = 0; i < 46; i++) { const t = r(), x = 1580 + t * 300 + (r() - .5) * 80, y = 880 + r() * 200 - t * 300, rr = 2 + (1 - t) * 4;
       glow(ctx, x, y, rr * 4, '#c8f0ff', .35 * (1 - t * .6)); ctx.fillStyle = `rgba(225,248,255,${.8 - t * .5})`; ctx.beginPath(); ctx.arc(x, y, rr, 0, TAU); ctx.fill(); }
-    for (let i = 0; i < 26; i++) { const x = 1240 + r() * 660, y = 480 + r() * 560; if (x > 1330 && x < 1560 && y < 760) continue; const rr = 2.5 + r() * 3;
+    for (let i = 0; i < 26; i++) { const x = 1240 + r() * 660, y = 480 + r() * 560; if (x > 1290 && x < 1640) continue; /* Evridiki'nin üstüne düşmesin */ const rr = 2.5 + r() * 3;
       glow(ctx, x, y, rr * 6, '#ffcf6a', .45); ctx.fillStyle = '#fff1bf'; ctx.beginPath(); ctx.arc(x, y, rr, 0, TAU); ctx.fill(); }
     ctx.restore(); }
   { const r = rng(12); for (let i = 0; i < 8; i++) sparkle(ctx, 960 + r() * 260, 520 + r() * 420, 4 + r() * 5, '#ffd36a', .45 + r() * .4); }
