@@ -49,6 +49,19 @@ function puffs(g, x0, x1, y, r0, r1, tones, rim, seed, o = {}) {
       { depth: o.depth ?? 34, shadow: k === 0 ? o.shadow : null, sh: o.sh ?? 12, rw: o.rw ?? 5, rin: o.rin ?? 7 });
   }
 }
+// opak kâğıt bulut: daire kümesi (alt yuvarlak), üstte açık tümsekler; ışık yalnız üst kenarda (yukarı kaydırılmış siluetten kalan şerit)
+function paperCloud(g, x0, x1, y, r0, r1, pal, seed, o = {}) {
+  const r = rng(seed), all = new Path2D(), top = new Path2D(); let x = x0;
+  while (x < x1) { const rr = lerp(r0, r1, r()); all.moveTo(x + rr, y); all.arc(x, y, rr, 0, TAU);
+    if (r() < .8) { const tr = rr * (.55 + r() * .3), tx = x + (r() - .3) * rr * .8, ty = y - rr * (.45 + r() * .3); all.moveTo(tx + tr, ty); all.arc(tx, ty, tr, 0, TAU); top.moveTo(tx + tr, ty); top.arc(tx, ty, tr * .92, 0, TAU); }
+    x += rr * (.85 + r() * .35); }
+  if (o.depth) all.rect(x0 - r1, y, x1 - x0 + 2 * r1, o.depth);
+  g.save(); g.translate(o.sx ?? 5, o.sy ?? 12); g.fillStyle = pal.shadow; g.fill(all); g.restore();
+  g.save(); g.translate(0, -(o.rw ?? 5)); g.fillStyle = pal.rim; g.fill(all); g.restore();
+  // üst kısım açık; alt kısım aynı siluetin aşağı kaydırılmış kopyasıyla koyulaşır (sınır dalgalı kalır)
+  g.fillStyle = pal.light; g.fill(all);
+  g.save(); g.clip(all); g.translate(o.bx ?? -10, o.by ?? r0 * .75); g.fillStyle = pal.body; g.fill(all); g.restore();
+}
 // köşeli kaya yüzeyi: titrek ızgaradan üçgenler, her yüzün tonu ayrı
 function lowPoly(g, clip, bx0, by0, bx1, by1, cell, seed, shade) {
   const r = rng(seed), nx = Math.ceil((bx1 - bx0) / cell), ny = Math.ceil((by1 - by0) / cell), P = [];
@@ -131,7 +144,8 @@ function head3q(g, cx, cy, s, dir, o) {
   g.strokeStyle = o.skinDark; g.lineWidth = 3; g.beginPath(); g.arc(-80, 6, 9, -1.4, 1.4); g.stroke();
   if (fem) { g.fillStyle = o.accent; g.beginPath(); g.arc(-80, 36, 7, 0, TAU); g.fill(); }
   // gözler: yakın (büyük) ve uzak (kısalmış); dehşette üst kapak yüksek, irisin üstünde beyaz görünür; bakış +x yönüne
-  const eyes = [[-12, -16, 26, 18], [54, -16, 19, 15]];
+  const tn = o.turn ?? 0; g.save(); g.translate(tn, 0);
+  const eyes = [[-12, -16, 26, 18], [54, -16, 19 * (1 - tn * .008), 15]];
   for (const [ex, ey, rx, ry] of eyes) {
     const open = o.eyeOpen ?? 1;
     // göz akı: kavisli üst kapak (ortası yüksek), yuvarlak alt kapak
@@ -150,7 +164,7 @@ function head3q(g, cx, cy, s, dir, o) {
   g.strokeStyle = o.brow; g.lineWidth = fem ? 6 : 9;
   const bi = o.browIn ?? 1;
   g.beginPath(); g.moveTo(-42, -36); g.quadraticCurveTo(-18, -44 - 6 * bi, 10, -48 - 12 * bi); g.stroke();
-  g.beginPath(); g.moveTo(36, -50 - 10 * bi); g.quadraticCurveTo(56, -46 - 4 * bi, 74, -36); g.stroke();
+  g.beginPath(); g.moveTo(36, -50 - 10 * bi); g.quadraticCurveTo(54, -46 - 4 * bi, 74 - tn * .5, -36); g.stroke();
   if (!fem) { g.strokeStyle = rgba(o.skinDark, .7); g.lineWidth = 3; g.beginPath(); g.moveTo(20, -58); g.lineTo(18, -46); g.moveTo(28, -58); g.lineTo(28, -48); g.stroke(); }
   // burun: köprü gölgesi, uç ve kanat
   // burun: kısa kama gölgesi + burun deliği (uzun çizgi yara gibi okunuyordu)
@@ -168,6 +182,7 @@ function head3q(g, cx, cy, s, dir, o) {
     g.fillStyle = '#d9f4ff'; g.beginPath(); g.moveTo(tx + 2, ty + tl - 6); g.quadraticCurveTo(tx + 12, ty + tl + 10, tx + 2, ty + tl + 14); g.quadraticCurveTo(tx - 8, ty + tl + 10, tx + 2, ty + tl - 6); g.fill();
     g.fillStyle = '#ffffff'; g.beginPath(); g.arc(tx, ty + tl + 6, 2.6, 0, TAU); g.fill();
   }
+  g.restore();
   // ön saç ve taç
   g.fillStyle = o.hair;
   if (fem) {
@@ -175,7 +190,7 @@ function head3q(g, cx, cy, s, dir, o) {
     g.strokeStyle = o.accent; g.lineWidth = 8; g.beginPath(); g.moveTo(80, -84); g.quadraticCurveTo(0, -122, -88, -64); g.stroke();
     g.strokeStyle = o.hairLight; g.lineWidth = 3; for (const k of [0, 1, 2]) { g.beginPath(); g.moveTo(60 - k * 34, -92 + k * 4); g.quadraticCurveTo(30 - k * 34, -104, -10 - k * 30, -96 + k * 8); g.stroke(); }
   } else {
-    for (const [x, y, rr] of [[-70, -64, 18], [-44, -76, 18], [-16, -82, 17], [14, -84, 17], [42, -80, 16], [66, -72, 15], [86, -60, 13], [-84, -36, 15]]) { g.beginPath(); g.arc(x, y, rr, 0, TAU); g.fill(); }
+    for (const [x, y, rr] of [[-70, -64, 18], [-44, -78, 18], [-16, -86, 17], [14, -90, 17], [42, -90, 16], [66, -86, 15], [88, -76, 13], [-84, -36, 15]]) { g.beginPath(); g.arc(x, y, rr, 0, TAU); g.fill(); }
     g.strokeStyle = o.hairLight; g.lineWidth = 3.4; const r2 = rng(19);
     for (const [x, y, rr] of [[-100, -20, 12], [-96, -60, 13], [-76, -98, 13], [-40, -122, 12], [0, -130, 12], [40, -122, 11], [74, -100, 10], [-60, -70, 10], [-20, -86, 10], [20, -88, 10], [56, -80, 9]]) { g.beginPath(); g.arc(x, y, rr, PI * (1.05 + r2() * .3), PI * (1.7 + r2() * .3)); g.stroke(); }
     // altın defne tacı: alnın üstünden şakaklara
@@ -210,11 +225,9 @@ function underworld(g) {
   g.fillStyle = bg; g.fillRect(0, 0, W, H);
   glow(g, 1720, 140, 640, '#4a2f86', .45);
   // videodaki gece bulutları: üst üste kâğıt katmanları; her alt kat bir öncekini örter (arada çıplak gök kalmaz), öne geldikçe koyulaşır
-  puffs(g, 1000, 2000, 500, 44, 82, ['#1a2254', '#26306c', '#34428a'], '#8fa3ea', 3, { shadow: '#10153a', depth: 700, step: 18 });
-  puffs(g, 1120, 2000, 650, 40, 74, ['#141a44', '#1d2659', '#283573'], '#6f86d6', 4, { shadow: '#0c1030', depth: 700, step: 16 });
-  puffs(g, 1240, 2000, 800, 36, 66, ['#0f1436', '#161d48', '#1f2960'], '#5a6fc0', 5, { shadow: '#090c26', depth: 700, step: 14 });
-  lowPoly(g, poly([[880, 960], [1200, 920], [1560, 950], [2000, 920], [2000, 1100], [880, 1100]]), 840, 880, 2000, 1100, 96, 21,
-    (x, y, r) => mix('#0e1334', '#1f2860', r * .8 + (y < 970 ? .2 : 0)));
+  paperCloud(g, 1000, 1990, 520, 40, 70, { shadow: '#0d1236', rim: '#93a8ee', body: '#27326f', light: '#34428b' }, 3, { depth: 700, hl: 8 });
+  paperCloud(g, 1110, 1990, 680, 36, 62, { shadow: '#0b0f2e', rim: '#7489d6', body: '#1d265c', light: '#283472' }, 4, { depth: 700, hl: 7 });
+  paperCloud(g, 1230, 1990, 840, 32, 56, { shadow: '#080b24', rim: '#5d72c2', body: '#151c48', light: '#1e285e' }, 5, { depth: 700, hl: 6 });
 }
 function dawnWorld(g) {
   g.save(); g.clip(OPEN_P);
@@ -228,11 +241,11 @@ function dawnWorld(g) {
   g.restore();
   g.fillStyle = '#ffe9a6'; g.beginPath(); g.arc(sx, sy, 92, 0, TAU); g.fill(); g.strokeStyle = '#fff8e0'; g.lineWidth = 6; g.beginPath(); g.arc(sx, sy, 84, PI * 1.05, PI * 1.6); g.stroke();
   // videodaki gibi çok tonlu bulutlar: mavi-gri gölge, şeftali, açık şeftali, krem üst, beyaz kenar
-  const T = ['#a88a9c', '#e3a079', '#f6cfa2', '#fff0d8'];
-  puffs(g, -80, 330, 150, 36, 62, T, '#ffffff', 7, { depth: 30, step: 14 });
-  puffs(g, 460, 900, 104, 40, 70, T, '#ffffff', 9, { depth: 30, step: 15 });
-  puffs(g, -80, 170, 318, 30, 50, T, '#ffffff', 11, { depth: 26, step: 12, inset: 18 });
-  { const tg = g.createLinearGradient(0, 0, 0, 260); tg.addColorStop(0, 'rgba(120,40,40,.2)'); tg.addColorStop(1, 'rgba(120,40,40,0)'); g.fillStyle = tg; g.fillRect(-80, -80, 1100, 340); }
+  const DC = { shadow: '#c9775c', rim: '#fff9ee', body: '#f4c897', light: '#ffeccf' };
+  paperCloud(g, -50, 300, 150, 30, 50, DC, 7);
+  paperCloud(g, 480, 880, 100, 32, 54, DC, 9);
+  paperCloud(g, -50, 120, 300, 24, 38, DC, 11);
+  { const tg = g.createLinearGradient(0, 0, 0, 260); tg.addColorStop(0, 'rgba(110,36,40,.26)'); tg.addColorStop(1, 'rgba(120,40,40,0)'); g.fillStyle = tg; g.fillRect(-80, -80, 1100, 340); }
   glow(g, 690, 430, 330, '#ffdca0', .3);   // başın arkasında yumuşak ışık (disk değil)
   // tepe ve kasaba (videodaki yeryüzü), yanında çamlar
   g.fillStyle = '#5f9a8c'; g.fill(path([[-80, 760], [120, 700], [360, 740], [640, 700], [900, 760], [900, 1200], [-80, 1200]]));
@@ -253,7 +266,7 @@ function dawnWorld(g) {
       g.fillStyle = '#6f7d86'; g.fillRect(x + w * .25, y + h * .4, 7, 9); }
     g.fillStyle = '#f3ead8'; g.fillRect(96, 444, 90, 34); for (let k = 0; k < 6; k++) { g.fillStyle = '#dfd3bb'; g.fillRect(100 + k * 15, 452, 7, 26); } g.fillStyle = '#f3ead8'; g.beginPath(); g.moveTo(88, 446); g.lineTo(141, 420); g.lineTo(194, 446); g.fill(); }
   const pine = (x, y, h) => { for (let k = 0; k < 4; k++) { const w = h * (.34 - k * .06), yy = y - k * h * .22; g.fillStyle = k % 2 ? '#2f7f78' : '#3a8f86'; g.beginPath(); g.moveTo(x - w, yy); g.lineTo(x, yy - h * .42); g.lineTo(x + w, yy); g.fill(); } g.fillStyle = '#5b3a2a'; g.fillRect(x - 5, y, 10, h * .12); };
-  pine(-10, 800, 220); pine(88, 830, 170);
+  pine(-70, 800, 220); pine(28, 830, 170);
   g.restore();
 }
 function caveRock(g) {
@@ -277,17 +290,17 @@ function orpheus() {
   const SK = '#a8653f', SKD = '#6e3923', CH = '#e3d3b4', CA = '#5e1c22', CA2 = '#7c2a2d';
   // gövde çıkışa (sola) dönük, sırtı bize yarım dönük; baş omzunun üstünden geriye, Evridiki'ye bakar
   // uzak kol: öne (sola) uzanır, lir elinde — gövdenin arkasında kalır
-  limb(g, [[480, 800], [392, 846], [306, 852]], [58, 48], SK);
-  lyre(g, 236, 868, 2.6, -.5);
-  grip(g, 280, 846, PI + .1, 1.5, SK, SKD);
+  limb(g, [[474, 852], [444, 930], [356, 964]], [56, 46], SK);
+  lyre(g, 319, 1041, 2.4, -.35);
+  grip(g, 330, 960, PI - .35, 1.45, SK, SKD);
   // kiton: yalnız göğüs önü (ışık tarafı) görünür; gövde çıkışa doğru eğik
-  const torso = path([[436, 776], [520, 738], [650, 714], [790, 716], [850, 760], [872, 860], [862, 980], [880, 1100], [418, 1100], [398, 980], [406, 860]]);
+  const torso = path([[420, 842], [520, 788], [650, 738], [790, 716], [850, 760], [872, 860], [862, 980], [880, 1100], [408, 1100], [392, 990], [400, 900]]);
   g.fillStyle = CH; g.fill(torso);
   g.save(); g.clip(torso); g.strokeStyle = '#c9b48e'; g.lineWidth = 7; g.lineCap = 'round';
-  for (const x0 of [414, 442]) { g.beginPath(); g.moveTo(x0, 800); g.quadraticCurveTo(x0 - 18, 950, x0 - 6, 1100); g.stroke(); }
+  for (const x0 of [414, 442]) { g.beginPath(); g.moveTo(x0, 860); g.quadraticCurveTo(x0 - 18, 950, x0 - 6, 1100); g.stroke(); }
   g.restore();
   // pelerin: sırtı örter; yürüyüşün gerisinde sağa savrulur, ucunda açık astar görünür
-  const cape = path([[466, 766], [560, 730], [668, 714], [790, 716], [846, 750], [882, 830], [904, 920], [960, 994], [1056, 1052], [1120, 1100], [478, 1100], [466, 1000], [476, 880]]);
+  const cape = path([[448, 836], [560, 782], [680, 738], [790, 716], [846, 750], [882, 830], [904, 920], [960, 994], [1056, 1052], [1120, 1100], [470, 1100], [458, 1000], [462, 900]]);
   g.fillStyle = CA; g.fill(cape);
   g.save(); g.clip(cape);
   const cl = g.createLinearGradient(466, 0, 740, 0); cl.addColorStop(0, rgba(CA2, 1)); cl.addColorStop(1, rgba(CA2, 0)); g.fillStyle = cl; g.fillRect(0, 0, W, H);
@@ -295,26 +308,24 @@ function orpheus() {
   g.lineCap = 'round';
   g.strokeStyle = '#3a0f14'; g.lineWidth = 10; g.beginPath(); g.moveTo(700, 730); g.bezierCurveTo(740, 820, 736, 960, 716, 1100); g.stroke();   // sırt çizgisi
   for (const [x0, x1, c_] of [[560, 520, '#3f1116'], [620, 610, '#8d3434'], [790, 880, '#8d3434'], [826, 990, '#3f1116']]) {
-    g.strokeStyle = c_; g.lineWidth = 8; g.beginPath(); g.moveTo(x0, 770); g.quadraticCurveTo((x0 + x1) / 2 + 24, 930, x1, 1100); g.stroke(); }
-  g.strokeStyle = '#a24a3e'; g.lineWidth = 6; g.beginPath(); g.moveTo(472, 774); g.quadraticCurveTo(620, 724, 790, 720); g.stroke();   // omuz kıvrımında ışık
+    g.strokeStyle = c_; g.lineWidth = 8; g.beginPath(); g.moveTo(x0, 800 - (x0 - 560) * .3); g.quadraticCurveTo((x0 + x1) / 2 + 24, 930, x1, 1100); g.stroke(); }
+  g.strokeStyle = '#a24a3e'; g.lineWidth = 6; g.beginPath(); g.moveTo(456, 840); g.quadraticCurveTo(620, 760, 790, 722); g.stroke();   // omuz kıvrımında ışık
   g.strokeStyle = 'rgba(255,190,150,.35)'; g.lineWidth = 14; g.beginPath(); g.moveTo(770, 760); g.quadraticCurveTo(840, 790, 860, 880); g.stroke();   // kürek kemiği çıkıntısı
   g.restore();
-  // omuz tokası
-  g.fillStyle = '#d9a43a'; g.beginPath(); g.arc(782, 726, 17, 0, TAU); g.fill(); g.fillStyle = '#f6d77a'; g.beginPath(); g.arc(777, 721, 7, 0, TAU); g.fill();
   // geriye, ona uzanan kol: pelerinin altından çıkar; açık avuç, yayılmış parmaklar
-  g.fillStyle = CH; g.beginPath(); g.ellipse(822, 732, 46, 38, .2, 0, TAU); g.fill();
   limb(g, [[818, 734], [910, 716], [1004, 690]], [66, 56], SK);
-  g.fillStyle = CH; g.beginPath(); g.ellipse(818, 730, 44, 36, .2, -.9, 2.2); g.fill();
-  g.strokeStyle = '#d9a43a'; g.lineWidth = 6; g.beginPath(); g.ellipse(818, 730, 44, 36, .2, -.6, 1.4); g.stroke();
+  g.fillStyle = CA; g.fill(path([[730, 712], [800, 704], [852, 722], [874, 758], [860, 792], [828, 772], [784, 752], [740, 740]]));   // omzu örten pelerin
+  g.strokeStyle = '#a24a3e'; g.lineWidth = 5; g.beginPath(); g.moveTo(744, 712); g.quadraticCurveTo(820, 700, 862, 736); g.stroke();
   hand(g, 1000, 690, -.08, 1.42, SK, SKD, { spread: .36 });
+  g.fillStyle = '#d9a43a'; g.beginPath(); g.arc(800, 728, 15, 0, TAU); g.fill(); g.fillStyle = '#f6d77a'; g.beginPath(); g.arc(796, 724, 6, 0, TAU); g.fill();   // omuz tokası
+  g.fillStyle = CA; g.fill(path([[590, 752], [600, 704], [640, 680], [700, 674], [752, 684], [792, 718], [760, 744], [680, 740]]));   // ensede yaka (boynun arkasından dolanır)
+  g.strokeStyle = '#a24a3e'; g.lineWidth = 5; g.beginPath(); g.moveTo(598, 712); g.quadraticCurveTo(650, 676, 750, 686); g.stroke();
   // boyun: ince, dönmüş (göğüs-kulak kası çizgisi); çenenin gölgesi boyna düşer
   const neck = path([[640, 596], [732, 594], [746, 650], [758, 714], [630, 720], [634, 660]]);
   g.fillStyle = SK; g.fill(neck);
   g.save(); g.clip(neck); const ns = g.createLinearGradient(0, 596, 0, 668); ns.addColorStop(0, rgba(SKD, .85)); ns.addColorStop(1, rgba(SKD, 0)); g.fillStyle = ns; g.fillRect(0, 0, W, H);
-  g.strokeStyle = rgba(SKD, .7); g.lineWidth = 4; g.beginPath(); g.moveTo(660, 620); g.quadraticCurveTo(694, 670, 734, 712); g.stroke(); g.restore();
-  g.fillStyle = CA; g.fill(path([[596, 730], [612, 676], [646, 650], [672, 676], [690, 724]]));
-  g.strokeStyle = '#a24a3e'; g.lineWidth = 5; g.beginPath(); g.moveTo(604, 704); g.quadraticCurveTo(618, 668, 648, 654); g.stroke();
-  head3q(g, 684, 440, 1.78, 1, { narrow: .91, skin: SK, skinDark: SKD, cool: '#7fd0ff', hair: '#1e130d', hairLight: '#6b4532', iris: '#3a2416', line: '#1a0f09', brow: '#150c07', lip: '#6e2a1f', mouthDark: '#2a0d08', tear: true, mouthOpen: .8, browIn: 1.25, lookX: 6, lookY: 1, tilt: .07 });
+  g.fillStyle = rgba(SKD, .35); g.fill(path([[640, 640], [672, 660], [700, 712], [640, 716]])); g.restore();
+  head3q(g, 684, 440, 1.78, 1, { narrow: .91, skin: SK, skinDark: SKD, cool: '#7fd0ff', hair: '#1e130d', hairLight: '#6b4532', iris: '#3a2416', line: '#1a0f09', brow: '#150c07', lip: '#6e2a1f', mouthDark: '#2a0d08', tear: true, mouthOpen: .8, browIn: 1.25, lookX: 3, lookY: 1, tilt: .13, turn: 18 });
   // ışık: soldan şafak (sıcak kenar), sağdan hayaletin soğuk mavisi; alt kısım koyulaşır (odak yüz ve eller)
   const [o, og] = layer(); paperShadow(og, c, 14, 18, .45); og.drawImage(c, 0, 0);
   og.globalCompositeOperation = 'source-atop';
@@ -323,6 +334,8 @@ function orpheus() {
   og.globalCompositeOperation = 'source-over';
   rim(og, c, 10, 0, '#ffd28a', .7, 2.5);
   rim(og, c, -7, 2, '#8fe3ff', .55, 3);
+  { const lo = og.createLinearGradient(0, 760, 0, 1080); lo.addColorStop(0, 'rgba(0,0,0,0)'); lo.addColorStop(1, 'rgba(0,0,0,1)'); const [m, mg] = layer(); mg.fillStyle = lo; mg.fillRect(0, 0, W, H);
+    og.save(); og.globalCompositeOperation = 'source-atop'; og.globalAlpha = .3; og.drawImage(m, 0, 0); og.restore(); }
   return o;
 }
 const EV = { dy: 40, flakes: [] };
@@ -330,7 +343,7 @@ function eurydice() {
   const [c, g] = layer();
   const SK = '#dff4ff', SKD = '#7fb0d8', DR = '#bfe6fb', dy = EV.dy;
   g.save(); g.translate(0, dy);
-  g.fillStyle = SK; g.fill(path([[1410, 740], [1500, 744], [1516, 830], [1400, 834]])); // boyun
+  g.fillStyle = SK; g.fill(path([[1420, 740], [1492, 744], [1504, 830], [1412, 834]])); // boyun
   const body = path([[1360, 830], [1460, 812], [1560, 830], [1620, 920], [1650, 1040], [1670, 1140], [1330, 1140], [1340, 1010], [1338, 900]]);
   g.fillStyle = DR; g.fill(body);
   g.save(); g.clip(body); g.strokeStyle = '#8fc6ea'; g.lineWidth = 7; g.lineCap = 'round';
@@ -358,7 +371,7 @@ function eurydice() {
 function draw(v) {
   underworld(ctx); dawnWorld(ctx); caveRock(ctx);
   // Evridiki: hayalet ışıması, zerre akışı (sağa ve geriye, karanlığa doğru uzayan çizgiler)
-  glow(ctx, 1470, 760, 540, '#62c8ff', .3);
+  glow(ctx, 1470, 760, 540, '#62c8ff', .3); glow(ctx, 1600, 1000, 300, '#9fdcff', .4);
   const ev = eurydice();
   paperShadow(ctx, ev, 12, 16, .35);
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(20px)'; ctx.globalAlpha = .45; ctx.drawImage(ev, 0, 0); ctx.restore();
@@ -367,8 +380,8 @@ function draw(v) {
     // kopan pullar: kesildikleri yerden sağa-yukarı savrulur, uzaklaştıkça küçülür ve seyrelir
     const [fc, fg] = layer();
     for (const [x0, y0, s0, a0] of EV.flakes) {
-      const t = Math.pow(r(), .8), dx = 60 + t * 330, x = x0 + dx, y = y0 - dx * (.42 + r() * .3) + (r() - .5) * 40, s_ = s0 * (1 - t * .7);
-      if (x > 1900 || r() < t * .55) continue;
+      const t = Math.pow(r(), .8), dx = 40 + t * 260, x = x0 + dx, y = y0 - 60 - dx * (.7 + r() * .4) + (r() - .5) * 40, s_ = s0 * (1 - t * .7);
+      if (x > 1880 || (x > 1640 && y > 940) || r() < t * .55) continue;
       const p = []; for (let k = 0; k < 4; k++) { const ang = a0 + t * 3 + k * TAU / 4 + (r() - .5) * .9, rr = s_ * (.6 + r() * .6); p.push([x + Math.cos(ang) * rr, y + Math.sin(ang) * rr]); }
       fg.globalAlpha = 1 - t * .5; fg.fillStyle = pal[(r() * 3) | 0]; fg.fill(poly(p)); fg.globalAlpha = .6 - t * .3; fg.strokeStyle = '#ffffff'; fg.lineWidth = 2; fg.stroke(poly(p));
     }
