@@ -290,9 +290,9 @@ function orpheus() {
   const SK = '#a8653f', SKD = '#6e3923', CH = '#e3d3b4', CA = '#5e1c22', CA2 = '#7c2a2d';
   // gövde çıkışa (sola) dönük, sırtı bize yarım dönük; baş omzunun üstünden geriye, Evridiki'ye bakar
   // uzak kol: öne (sola) uzanır, lir elinde — gövdenin arkasında kalır
-  limb(g, [[474, 852], [444, 930], [356, 964]], [56, 46], SK);
-  lyre(g, 319, 1041, 2.4, -.35);
-  grip(g, 330, 960, PI - .35, 1.45, SK, SKD);
+  limb(g, [[474, 852], [436, 922], [356, 908]], [56, 46], SK);
+  const lyreHand = q => { lyre(q, 319, 981, 2.4, -.35); grip(q, 330, 900, PI - .35, 1.45, SK, SKD); };
+  lyreHand(g);
   // kiton: yalnız göğüs önü (ışık tarafı) görünür; gövde çıkışa doğru eğik
   const torso = path([[420, 842], [520, 788], [650, 738], [790, 716], [850, 760], [872, 860], [862, 980], [880, 1100], [408, 1100], [392, 990], [400, 900]]);
   g.fillStyle = CH; g.fill(torso);
@@ -336,6 +336,7 @@ function orpheus() {
   rim(og, c, -7, 2, '#8fe3ff', .55, 3);
   { const lo = og.createLinearGradient(0, 760, 0, 1080); lo.addColorStop(0, 'rgba(0,0,0,0)'); lo.addColorStop(1, 'rgba(0,0,0,1)'); const [m, mg] = layer(); mg.fillStyle = lo; mg.fillRect(0, 0, W, H);
     og.save(); og.globalCompositeOperation = 'source-atop'; og.globalAlpha = .3; og.drawImage(m, 0, 0); og.restore(); }
+  lyreHand(og);   // lir kimlik işareti: alt kararmanın dışında, tam parlak
   return o;
 }
 const EV = { dy: 40, flakes: [] };
@@ -381,7 +382,7 @@ function draw(v) {
     const [fc, fg] = layer();
     for (const [x0, y0, s0, a0] of EV.flakes) {
       const t = Math.pow(r(), .8), dx = 40 + t * 260, x = x0 + dx, y = y0 - 60 - dx * (.7 + r() * .4) + (r() - .5) * 40, s_ = s0 * (1 - t * .7);
-      if (x > 1880 || (x > 1640 && y > 940) || r() < t * .55) continue;
+      if (x > 1880 || (x > 1640 && y > 940) || r() < .33 || r() < t * .55) continue;
       const p = []; for (let k = 0; k < 4; k++) { const ang = a0 + t * 3 + k * TAU / 4 + (r() - .5) * .9, rr = s_ * (.6 + r() * .6); p.push([x + Math.cos(ang) * rr, y + Math.sin(ang) * rr]); }
       fg.globalAlpha = 1 - t * .5; fg.fillStyle = pal[(r() * 3) | 0]; fg.fill(poly(p)); fg.globalAlpha = .6 - t * .3; fg.strokeStyle = '#ffffff'; fg.lineWidth = 2; fg.stroke(poly(p));
     }
