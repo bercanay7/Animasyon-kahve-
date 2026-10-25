@@ -82,3 +82,94 @@ function orfeDraw(ctx, o) {
 }
 SCENES.orfe_a = ctx => orfeDraw(ctx, { L1: 'ARKANA', L2: 'BAKMA!' });
 SCENES.orfe_b = ctx => orfeDraw(ctx, { L1: 'NEDEN', L2: 'BAKTI?', f1: 150, f2: 170 });
+
+// ——— Sulu boya sürümü (Orpheus videosunun üslubu: sulu boya, canlı renkler) ———
+// organik kenarlı leke: kenarlar gürültüyle bozulur, birkaç yarı saydam katman üst üste (ıslak kenar koyulaşması dahil)
+function wcBlob(ctx, x, y, rx, ry, col, o = {}) {
+  const r = rng(o.seed ?? 1), n = 48, layers = o.layers ?? 6, a = o.a ?? .14;
+  for (let L = 0; L < layers; L++) {
+    const pts = [];
+    for (let i = 0; i < n; i++) { const t = i / n * TAU, k = 1 + (noise1(i * .35 + L * 3.1, (o.seed ?? 1) + L) * .22) + (r() - .5) * .05;
+      pts.push([x + Math.cos(t) * rx * k * (1 - L * .04), y + Math.sin(t) * ry * k * (1 - L * .04)]); }
+    ctx.save(); ctx.filter = `blur(${o.blur ?? 6}px)`; ctx.globalAlpha = a; ctx.fillStyle = col;
+    ctx.beginPath(); spline(ctx, pts); ctx.fill();
+    if (L === 0) { ctx.filter = 'blur(4px)'; ctx.globalAlpha = a * .9; ctx.strokeStyle = col; ctx.lineWidth = 10; ctx.stroke(); } // ıslak kenar (yumuşak, tek kat: çizgi gibi okunmaz)
+    ctx.restore();
+  }
+}
+// kâğıt dokusu: ince benek + lif, çarpma ile
+let WC_PAPER = null;
+function wcPaper() {
+  if (WC_PAPER) return WC_PAPER;
+  const c = makeCanvas(960, 540), x = c.getContext('2d'), r = rng(77);
+  x.fillStyle = '#fff'; x.fillRect(0, 0, 960, 540);
+  const id = x.getImageData(0, 0, 960, 540), d = id.data;
+  for (let i = 0; i < d.length; i += 4) { const v = 236 + (r() * 19) | 0; d[i] = v; d[i + 1] = v - 2; d[i + 2] = v - 8; }
+  x.putImageData(id, 0, 0);
+  x.globalAlpha = .07; x.strokeStyle = '#6a5a4a';
+  for (let i = 0; i < 900; i++) { const px = r() * 960, py = r() * 540, l = 3 + r() * 9, a = r() * PI; x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(a) * l, py + Math.sin(a) * l); x.stroke(); }
+  WC_PAPER = c; return c;
+}
+// figürü sulu boyaya çevir: düz renkle ayrı tuvale çizer, içte açık–koyu dalga (ıslak üstüne ıslak), dışa sızma ve koyu ıslak kenar
+function wcFigure(ctx, f, cols, o = {}) {
+  const T = ctx.getTransform();
+  const oc = makeCanvas(DW, DH), ox = oc.getContext('2d'); ox.setTransform(T); figure(ox, f);
+  ox.setTransform(1, 0, 0, 1, 0, 0); ox.globalCompositeOperation = 'source-atop';
+  const b = o.box || [0, 0, W, H];
+  const g = ox.createLinearGradient(b[0] * RS, b[1] * RS, b[2] * RS, b[3] * RS);
+  cols.forEach((c, i) => g.addColorStop(i / (cols.length - 1), c));
+  ox.globalAlpha = .55; ox.fillStyle = g; ox.fillRect(0, 0, DW, DH); ox.globalAlpha = 1;
+  { const r = rng(o.seed ?? 3); for (let i = 0; i < 40; i++) { ox.save(); ox.filter = 'blur(18px)'; ox.globalAlpha = .18; ox.fillStyle = r() < .5 ? 'rgba(255,255,255,1)' : cols[(r() * cols.length) | 0];
+    ox.beginPath(); ox.arc(r() * DW, r() * DH, (20 + r() * 70) * RS, 0, TAU); ox.fill(); ox.restore(); } }
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (o.alphaMask) { const m = makeCanvas(DW, DH), mx = m.getContext('2d'); mx.drawImage(oc, 0, 0); mx.globalCompositeOperation = 'destination-in'; mx.fillStyle = o.alphaMask(mx); mx.fillRect(0, 0, DW, DH); ox.globalCompositeOperation = 'copy'; ox.drawImage(m, 0, 0); }
+  ctx.filter = `blur(${7 * RS}px)`; ctx.globalAlpha = .45; ctx.drawImage(oc, 0, 0);            // pigment sızması
+  ctx.filter = 'none'; ctx.globalAlpha = o.a ?? .92; ctx.drawImage(oc, 0, 0);
+  ctx.filter = `blur(${1.2 * RS}px) brightness(.55)`; ctx.globalAlpha = .35; ctx.globalCompositeOperation = 'multiply';
+  ctx.drawImage(oc, 0, 0);                                                                       // koyu ıslak kenar
+  ctx.restore();
+}
+function orfeWater(ctx, o) {
+  ctx.drawImage(wcPaper(), 0, 0, W, H);
+  // gökyüzü ve ışık: solda altın–turuncu çıkış ışığı, sağda mor–çivit yeraltı; aralarda turkuaz sis
+  ctx.save(); ctx.globalCompositeOperation = 'multiply';
+  wcBlob(ctx, 330, 420, 720, 640, '#FFC44D', { seed: 2, a: .2, blur: 14 });
+  wcBlob(ctx, 250, 380, 420, 380, '#FF8A3D', { seed: 3, a: .16, blur: 10 });
+  wcBlob(ctx, 1500, 420, 760, 700, '#3B2A8C', { seed: 4, a: .2, blur: 14, layers: 8 });
+  wcBlob(ctx, 1650, 820, 560, 380, '#1B1650', { seed: 5, a: .22, blur: 12 });
+  wcBlob(ctx, 1240, 300, 420, 300, '#8A3FA8', { seed: 6, a: .14, blur: 12 });
+  wcBlob(ctx, 960, 700, 520, 260, '#2AA5A0', { seed: 7, a: .12, blur: 16 });
+  wcBlob(ctx, 980, 1040, 1300, 200, '#2B1B3A', { seed: 8, a: .2, blur: 10 });
+  ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 230, 420, 520, 'rgba(255,214,140,.55)'); ctx.restore();
+  // kâğıt üstünde serpilmiş boya damlaları
+  { const r = rng(31); ctx.save(); ctx.globalCompositeOperation = 'multiply'; for (let i = 0; i < 60; i++) { ctx.globalAlpha = .25 + r() * .3; ctx.fillStyle = r() < .5 ? '#3B2A8C' : '#8A3FA8'; ctx.beginPath(); ctx.arc(1150 + r() * 760, 60 + r() * 980, 1.5 + r() * 5, 0, TAU); ctx.fill(); } ctx.restore(); }
+  ctx.save(); cam(ctx, { x: 980, y: 600, z: 1.38 }, 1);
+  const ex = 1430, es = 10.5, ey = 1010;
+  // Eurydike: ışıyan hayalet, alt yarısı mor sise karışır
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, ex - 40, ey - 360, 360, 'rgba(160,220,255,.35)'); ctx.restore();
+  wcFigure(ctx, { x: ex, y: ey, s: es, dir: -1, lk: LK_EUR, sty: { fill: '#BFE6F5', cut: '#25407A', red: '#7A5FD0', white: '#FFFFFF', line: '#25407A' }, cutCol: '#25407A', margin: 160, faceW: 1.5,
+    p: { torso: .16, neck: .12, head: .06, shN: 1.8, elN: .5, shF: 1.3, elF: .8, handN: 'open', handF: 'open', brow: 1.8, smile: -.7, mouthOpen: .3, hipN: .1, hipF: -.1 } },
+    ['#E8F7FF', '#9FD6F0', '#B8A2F0'], { seed: 9, box: [ex - 300, ey - 520, ex + 200, ey + 50], a: .9,
+      alphaMask: c => { const g = c.createLinearGradient(0, ((ey - 470 - 600) * 1.38 + 600) * RS, 0, ((ey - 110 - 600) * 1.38 + 600) * RS); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.45, 'rgba(0,0,0,.8)'); g.addColorStop(1, 'rgba(0,0,0,0)'); return g; } });
+  // eteği mor sise karışır: altta sis lekeleri
+  ctx.save(); ctx.globalCompositeOperation = 'screen'; wcBlob(ctx, ex + 20, ey - 90, 260, 120, '#7C6BD6', { seed: 15, a: .16, blur: 18 }); wcBlob(ctx, ex + 120, ey - 20, 300, 110, '#5AC8D8', { seed: 16, a: .1, blur: 20 }); ctx.restore();
+  // Orpheus: canlı kırmızı–turuncu pelerin, altın lir
+  let wF = null;
+  wcFigure(ctx, { x: 560, y: 960, s: 12.5, lk: LK_ORF, sty: { fill: '#D9452B', cut: '#5A1408', red: '#FFC44D', white: '#FFF4E0', line: '#5A1408' }, cutCol: '#5A1408', margin: 160, faceW: 1.5,
+    p: { torso: -.08, neck: .05, head: -.08, shN: 1.35, elN: .35, handN: 'open', shF: .55, elF: 1.6, handF: 'fist', brow: 2.4, smile: -.9, mouthOpen: 1.0, hipN: .3, knN: .15, hipF: -.35, knF: .2 },
+    onJoints: (J, M) => { const rr = ctx.getTransform().inverse().transformPoint(M.transformPoint(new DOMPoint(J.AF.wr[0], J.AF.wr[1]))); wF = [rr.x, rr.y]; } },
+    ['#FFB347', '#E8452C', '#B0203A', '#6B1D4A'], { seed: 12, box: [300, 300, 800, 1000] });
+  if (!wF) figure(ctx, { x: 560, y: 960, s: 12.5, lk: LK_ORF, alpha: 0, p: { shF: .55, elF: 1.6 }, onJoints: (J, M) => { const rr = ctx.getTransform().inverse().transformPoint(M.transformPoint(new DOMPoint(J.AF.wr[0], J.AF.wr[1]))); wF = [rr.x, rr.y]; } });
+  if (wF) lyre(ctx, wF[0] + 10, wF[1] - 10, 2.3, -.25);
+  // Eurydike'den kopan ışık zerreleri
+  { const r = rng(5); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < 46; i++) { const px = ex + 40 + r() * 330, py = ey - 470 + r() * 520, rr = 2 + r() * 5;
+    ctx.fillStyle = `rgba(190,235,255,${.25 + r() * .55})`; ctx.beginPath(); ctx.arc(px, py, rr, 0, TAU); ctx.fill(); } ctx.restore(); }
+  ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = .55; ctx.drawImage(wcPaper(), 0, 0, W, H); ctx.restore(); // kâğıt dokusu her şeyin üstünde
+  const sh = { shadow: 'rgba(20,10,40,.85)', blur: 22 };
+  txt(ctx, o.L1, 1880, 140, { font: `900 ${o.f1 ?? 138}px Cinzel`, col: '#FFFFFF', align: 'right', ls: 4, stroke: '#1B1650', sw: 16, ...sh });
+  txt(ctx, o.L2, 1880, 290, { font: `900 ${o.f2 ?? 162}px Cinzel`, col: '#FFD23F', align: 'right', ls: 4, stroke: '#1B1650', sw: 18, ...sh });
+}
+SCENES.orfe_wa = ctx => orfeWater(ctx, { L1: 'ARKANA', L2: 'BAKMA!' });
+SCENES.orfe_wb = ctx => orfeWater(ctx, { L1: 'NEDEN', L2: 'BAKTI?', f1: 150, f2: 170 });
