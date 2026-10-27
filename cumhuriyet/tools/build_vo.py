@@ -1,7 +1,9 @@
 """Seçilen seslendirme take'lerini senaryo cümlelerine böler, aralarına kurgu boşlukları koyarak
 tek anlatım izi (vo.wav) ve zaman çizelgesi (timeline.js) üretir.
 Kullanım: python3 tools/build_vo.py   (vo/secim.json: {bölüm: dosya})"""
-import json, re, difflib, subprocess, numpy as np, sys
+import json, re, difflib, subprocess, numpy as np, sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from dispmap import disp_map
 SR = 48000
 d = json.load(open('senaryo.json'))
 sel = json.load(open('vo/secim.json'))
@@ -30,7 +32,7 @@ for si, (bolum, segs) in enumerate(secs):
     ref, owner, disp = [], [], []
     for k, s in enumerate(segs):
         ws = words_of(s['tts']); ref += ws; owner += [k] * len(ws)
-        disp += [x for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split() if norm1(x)][:len(ws)] + [''] * max(0, len(ws) - len([x for x in s['alt'].split() if norm1(x)]))
+        disp += disp_map(s['alt'], ws)  # rakamla yazılan sayı grubun ilk sözcüğüne (tools/dispmap.py)
     sm = difflib.SequenceMatcher(None, ref, hyp, autojunk=False)
     m = [None] * len(ref)
     for blk in sm.get_matching_blocks():
@@ -92,3 +94,4 @@ with wave.open('vo/vo.wav', 'wb') as w:
     w.writeframes((np.clip(vo, -1, 1) * 32767).astype(np.int16).tobytes())
 open('timeline.js', 'w').write('// tools/build_vo.py tarafından üretildi\nwindow.CUES = ' + json.dumps(cues) + ';\nwindow.WORDS = ' + json.dumps(allwords, ensure_ascii=False) + ';\nwindow.DUR = ' + str(round(t, 3)) + ';\n')
 print('süre', round(t, 2), 'sn =', f'{int(t // 60)}:{t % 60:04.1f}')
+import fix_disp  # noqa: E402  görünen sözcük bitişleri (de) timeline.js'e yazılır

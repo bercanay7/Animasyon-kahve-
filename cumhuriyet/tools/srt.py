@@ -25,8 +25,10 @@ def wrap(words):
 MERGE = {('C03', 'Kızsa,'): 2}
 cues = []
 for sg in segs:
-    toks = sg['alt'].split()
-    ws = [w for w in WORDS if w['id'] == sg['id'] and w['d']]
+    toks = sg['alt'].replace('…', '… ').split()
+    toks = [x for x in toks if re.sub(r"[^\wçğıöşüâîÇĞİÖŞÜ]+", '', x)]
+    # görünen sözcük, seslendirmede birden çok sözcükse ("1923") bitişi grubun son sözcüğüdür ('de', tools/fix_disp.py)
+    ws = [{**w, 'e': w.get('de', w['e'])} for w in WORDS if w['id'] == sg['id'] and w['d']]
     # altyazıda tek sözcük, anlatım zamanlamasında iki sözcük olan kısaltmalar ("Kız ise" → duyulan "Kızsa,")
     for (sid, tok), k in MERGE.items():
         if sid == sg['id'] and tok in toks:

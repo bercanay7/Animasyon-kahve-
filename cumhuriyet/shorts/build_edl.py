@@ -23,15 +23,12 @@ for p in PLAN:
     clip = {**p, 'f': round(f0, 3), 's': round(s, 3), 'e': round(s + f1 - f0, 3)}
     EDL.append(clip)
     # altyazı: alt metnindeki görünen kelimeler, filmdeki kelime zamanlarına (tts) sırayla eşlenir
-    ws = [w for w in WORDS if w['id'] == p['id']]
-    disp = re.sub(r'\s+', ' ', ALT[p['id']]).replace('…', '… ').split()
-    disp = [d for d in disp if re.sub(r'[^\wçğıöşüÇĞİÖŞÜâÂ]', '', d)]
-    # tts'te yıllar yazıyla: kelime sayısı farklıysa zamanlar orantılı dağıtılır
-    n, m = len(disp), len(ws)
+    # görünen sözcükler (d) ve bitişleri (de: tools/fix_disp.py)
+    ws = [w for w in WORDS if w['id'] == p['id'] and w['d']]
+    disp = [w['d'] for w in ws]
     cur = []
     for k, d in enumerate(disp):
-        j0 = int(k * m / n); j1 = max(j0, int((k + 1) * m / n) - 1)
-        w = {'w': d, 's': round(ws[j0]['s'] - f0 + s, 3), 'e': round(ws[min(j1, m - 1)]['e'] - f0 + s, 3)}
+        w = {'w': d, 's': round(ws[k]['s'] - f0 + s, 3), 'e': round(ws[k].get('de', ws[k]['e']) - f0 + s, 3)}
         cur.append(w)
         if d[-1] in '.,:?!…”' or len(cur) == 3:
             groups.append({'s': cur[0]['s'], 'e': cur[-1]['e'], 'words': cur}); cur = []
