@@ -45,7 +45,7 @@ function nameTag(ctx, x, y, name, sub, lt, d = 3.4, o = {}) {
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sl);
   plate(ctx, 'ink', PL([[x0 + 7, y + 9], [x0 + w + 7, y + 9], [x0 + w + 7, y + h + 9], [x0 + 7, y + h + 9]]), { a: .35 });
   const box = PL(rough([[x0, y], [x0 + w, y], [x0 + w, y + h], [x0, y + h]], .8, name.length + 3));
-  knock(ctx, box); inkStroke(ctx, box, 3.2);
+  knock(ctx, box, o.bg || P.paper); inkStroke(ctx, box, 3.2);
   plate(ctx, o.accent || 'red', PL([[x0, y + h - 7], [x0 + w, y + h - 7], [x0 + w, y + h], [x0, y + h]]));
   txt(ctx, name, x0 + 24, y + 14 + fs * .8, FONT.title(fs), { ls: 1 });
   if (sub) txt(ctx, sub, x0 + 24, y + 22 + fs + ss * .72, FONT.mono(ss));

@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (voice_id DpEiQMnL9WxMsymCsjPY, creative_list_voices ile doğrulandı)",
- "revizyon": 3,
+ "revizyon": 4,
  "segments": [
   {
    "id": "A01",
@@ -29,8 +29,8 @@
   {
    "id": "B01",
    "bolum": "Sultanın okulları",
-   "tts": "Abdülhamid bin sekiz yüz yetmiş altıda, borç batağında ve toprak kaybeden bir imparatorluk devraldı. [darkly] Kısa süre sonra Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti.",
-   "alt": "Abdülhamid 1876'da, borç batağında ve toprak kaybeden bir imparatorluk devraldı. Kısa süre sonra Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti."
+   "tts": "Abdülhamid bin sekiz yüz yetmiş altıda, borç batağında, toprak kaybeden bir imparatorluk devraldı. [darkly] Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti.",
+   "alt": "Abdülhamid 1876'da, borç batağında, toprak kaybeden bir imparatorluk devraldı. Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti."
   },
   {
    "id": "B02",
@@ -66,21 +66,21 @@
   {
    "id": "C01",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "O yıllarda Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu.",
-   "alt": "O yıllarda Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu."
+   "tts": "Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu.",
+   "alt": "Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu."
   },
   {
    "id": "C02",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "[earnestly] Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
-   "alt": "Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
+   "tts": "[earnestly] Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Burada büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
+   "alt": "Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Burada büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
    "yorum": "selanik (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "C03",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. [whispers] Manastır'da, sonra Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: Namık Kemal… vatan… hürriyet…",
-   "alt": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. Manastır'da, sonra Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: Namık Kemal… vatan… hürriyet…"
+   "tts": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. [softly] Manastır'da, Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: [whispers] Namık Kemal… vatan… hürriyet…",
+   "alt": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. Manastır'da, Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: Namık Kemal… vatan… hürriyet…"
   },
   {
    "id": "C04",
@@ -97,8 +97,8 @@
   {
    "id": "C06",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "Bin dokuz yüz beşte kurmay yüzbaşı çıkan Mustafa Kemal, sınıf arkadaşı Ali Fuat'la birlikte bir ihbarla tutuklandı, sonra Şam'a gönderildi. Orada da gizli bir cemiyet kurdu: Vatan ve Hürriyet.",
-   "alt": "1905'te kurmay yüzbaşı çıkan Mustafa Kemal, sınıf arkadaşı Ali Fuat'la birlikte bir ihbarla tutuklandı, sonra Şam'a gönderildi. Orada da gizli bir cemiyet kurdu: Vatan ve Hürriyet."
+   "tts": "Bin dokuz yüz beşte kurmay yüzbaşı çıkan Mustafa Kemal ve sınıf arkadaşı Ali Fuat, bir ihbarla tutuklanıp Suriye'ye gönderildi. Mustafa Kemal Şam'da arkadaşlarıyla yeni bir cemiyet kurdu: Vatan ve Hürriyet.",
+   "alt": "1905'te kurmay yüzbaşı çıkan Mustafa Kemal ve sınıf arkadaşı Ali Fuat, bir ihbarla tutuklanıp Suriye'ye gönderildi. Mustafa Kemal Şam'da arkadaşlarıyla yeni bir cemiyet kurdu: Vatan ve Hürriyet."
   },
   {
    "id": "D01",
@@ -133,33 +133,33 @@
   {
    "id": "E02",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "Bin dokuz yüz on birde İtalya Trablusgarp'a çıktı. Genç subaylar, kimi sahte kimlikle, gönüllü olarak Libya'ya geçti ve halkla birlikte direniş örgütledi.",
-   "alt": "1911'de İtalya Trablusgarp'a çıktı. Genç subaylar, kimi sahte kimlikle, gönüllü olarak Libya'ya geçti ve halkla birlikte direniş örgütledi."
+   "tts": "Bin dokuz yüz on birde İtalya Trablusgarp'a çıktı. Genç subaylar gönüllü olarak, kimi sahte kimlikle, çöle geçip halkla direniş örgütledi.",
+   "alt": "1911'de İtalya Trablusgarp'a çıktı. Genç subaylar gönüllü olarak, kimi sahte kimlikle, çöle geçip halkla direniş örgütledi."
   },
   {
    "id": "E03",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[sadly] Bin dokuz yüz on ikide Balkan Savaşı geldi. Selanik, şehir için çarpışılmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi.",
-   "alt": "1912'de Balkan Savaşı geldi. Selanik, şehir için çarpışılmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi."
+   "tts": "[sadly] Bin dokuz yüz on iki: Balkan Savaşı. Selanik, şehirde çarpışma olmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi.",
+   "alt": "1912: Balkan Savaşı. Selanik, şehirde çarpışma olmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi."
   },
   {
    "id": "E04",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[softly] Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'deki şehirlerini kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
-   "alt": "Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'deki şehirlerini kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
+   "tts": "[softly] Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'yi kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
+   "alt": "Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'yi kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
    "yorum": "savaş (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "E05",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[intensely] Bin dokuz yüz on beş: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü.",
-   "alt": "1915: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü."
+   "tts": "[intensely] Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü.",
+   "alt": "Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü."
   },
   {
    "id": "E06",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. [thoughtfully] Bin dokuz yüz on sekizde imparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri.",
-   "alt": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. 1918'de imparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri."
+   "tts": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. [thoughtfully] İmparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri.",
+   "alt": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. İmparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri."
   },
   {
    "id": "F01",
@@ -170,20 +170,20 @@
   {
    "id": "F02",
    "bolum": "Anadolu",
-   "tts": "Amasya'da yanındakilerden biri, sınıf arkadaşı Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı.",
-   "alt": "Amasya'da yanındakilerden biri, sınıf arkadaşı Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı."
+   "tts": "Amasya'da yanındakilerden biri, yine Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı.",
+   "alt": "Amasya'da yanındakilerden biri, yine Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı."
   },
   {
    "id": "F03",
    "bolum": "Anadolu",
-   "tts": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice İstanbul'dan Ankara'ya geçti.",
-   "alt": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice İstanbul'dan Ankara'ya geçti."
+   "tts": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice Ankara'ya geçti.",
+   "alt": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice Ankara'ya geçti."
   },
   {
    "id": "F04",
    "bolum": "Anadolu",
-   "tts": "Sadece subaylar da değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi.",
-   "alt": "Sadece subaylar da değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi."
+   "tts": "Sadece subaylar değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi.",
+   "alt": "Sadece subaylar değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi."
   },
   {
    "id": "F05",
@@ -200,8 +200,8 @@
   {
    "id": "G01",
    "bolum": "Kapanış",
-   "tts": "[slowly] Yirmi dokuz Ekim bin dokuz yüz yirmi üç akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: [proudly] \"Yaşasın Cumhuriyet!\"",
-   "alt": "29 Ekim 1923 akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: “Yaşasın Cumhuriyet!”"
+   "tts": "[slowly] Yirmi dokuz Ekim akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: [proudly] \"Yaşasın Cumhuriyet!\"",
+   "alt": "Yirmi dokuz Ekim akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: “Yaşasın Cumhuriyet!”"
   },
   {
    "id": "G02",
@@ -212,8 +212,8 @@
   {
    "id": "G03",
    "bolum": "Kapanış",
-   "tts": "[thoughtfully] Yolları sonra ayrılacaktı; bin dokuz yüz yirmi dörtte Karabekir, Ali Fuat ve Rauf muhalefete geçti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden.",
-   "alt": "Yolları sonra ayrılacaktı; 1924'te Karabekir, Ali Fuat ve Rauf muhalefete geçti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden."
+   "tts": "[thoughtfully] Bin dokuz yüz yirmi dörtte Karabekir, Ali Fuat ve Rauf muhalefete geçecekti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden.",
+   "alt": "1924'te Karabekir, Ali Fuat ve Rauf muhalefete geçecekti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden."
   },
   {
    "id": "G04",
@@ -225,8 +225,8 @@
   {
    "id": "G05",
    "bolum": "Kapanış",
-   "tts": "[curious] Bu kuşağı sıralarda yetiştirenler öğretmenlerdi. Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın.",
-   "alt": "Bu kuşağı sıralarda yetiştirenler öğretmenlerdi. Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın."
+   "tts": "[curious] Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın.",
+   "alt": "Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın."
   },
   {
    "id": "G06",
@@ -234,5 +234,6 @@
    "tts": "[warmly] Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun.",
    "alt": "Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun."
   }
- ]
+ ],
+ "kurul": "Tarihçi rev3 ONAY 9,5; yönetmenlik rev3 8,5 koşullu → rev4'te koşullar uygulandı"
 }

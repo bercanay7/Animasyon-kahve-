@@ -125,3 +125,13 @@ Hale, alttan açı, gökte dev baş, kırmızı-siyah çapraz kama, sepya filtre
 - Ön masada dürbün ve pusula.
 - Yazılar: "V · ANADOLU" başlığı, "Alagöz · Eylül 1921" damgası, yaşlı isim levhaları.
 - Ek levha: Mustafa Kemal'in yaş şeridi (18 → 42).
+
+## Kurul onayından sonra eklenen kurallar
+- **Kol pozları:**
+  - `arkada`: kol çizilmez, omuz hafif geride.
+  - `tutma`: ön kollar kaputun önünden çıkar.
+  - `işaret`: kol omuz ekleminden, siluetin içinden çıkar; dirsek en az 15° bükülür.
+- **Ayırma konturu:** öndeki figürün arkadakini örttüğü yerde 8 px kâğıt boşluğu bırakılır (`bust({sep:true})`). Arkadaki figürün kaputu ikinci baskıyla koyulaşır (`back:true`).
+- **Hale yok:** baş merkezinden 1,5 baş yarıçapı içinde yarım ton kullanılmaz; ışık yalnız lambanın kendi çevresindedir.
+- **Burun:** sırt çizgisi çizilmez. Burnu uzak yanak konturunu kesen siluet, burun deliği kıvrımı ve çizgisiz yakın yan gölgesi tanımlar.
+- **Bıyık:** Mustafa Kemal 1919 sonrası bıyıksızdır (`PEOPLE.mk.mus` yaşa bağlı).

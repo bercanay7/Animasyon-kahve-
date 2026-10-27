@@ -44,6 +44,7 @@ function drawFilm(ctx, t) {
   const sc = new URLSearchParams(location.search).get('scene');
   if (sc && typeof SCENES !== 'undefined' && SCENES[sc]) return SCENES[sc](ctx, t);
   const i = shotAt(t), sh = SHOTS[i];
+  if (!sh) { paperBG(ctx); return; }
   const tr = sh.tr;
   if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
     const p = clamp((t - sh.at) / tr.dur);

@@ -8,7 +8,7 @@ function ridge(ctx, spine, Lmax, lwf, seed) {
   const r = rng(seed), n = spine.length;
   let tot = 0; const seg = []; for (let i = 0; i < n - 1; i++) { const l = Math.hypot(spine[i + 1][0] - spine[i][0], spine[i + 1][1] - spine[i][1]); seg.push(l); tot += l; }
   plate(ctx, 'khaki', (() => { const p = new Path2D(); for (let side of [1, -1]) { } spl(p, spine.map(([x, y]) => [x, y]), false); return p; })(), { a: 0 });
-  for (let d = 0; d <= tot; d += 7) {
+  for (let d = 0; d <= tot; d += 6) {
     let k = 0, acc = 0; while (k < seg.length - 1 && acc + seg[k] < d) { acc += seg[k]; k++; }
     const f = (d - acc) / seg[k], p0 = spine[k], p1 = spine[k + 1];
     const x = lerp(p0[0], p1[0], f), y = lerp(p0[1], p1[1], f), an = Math.atan2(p1[1] - p0[1], p1[0] - p0[0]);
@@ -32,8 +32,7 @@ function staffMap(ctx, o) {
   // odak çevresinde açık havuz
   const F = o.focus || [640, 330];
   ctx.save(); ctx.clip(sheet);
-  const pool = new Path2D(); pool.ellipse(F[0], F[1], 250, 210, 0, 0, TAU); knock(ctx, pool, P.paper);
-  radialHT(ctx, 'sepia', F[0], F[1], 170, 330, 0, .2, { cell: 10, box: [F[0] - 340, F[1] - 300, F[0] + 340, F[1] + 300], sy: .85 });
+  for (const [rx, ry, c] of [[260, 215, '#E3D8BC'], [190, 160, '#E9DFC6']]) { const pool = new Path2D(); pool.ellipse(F[0], F[1], rx, ry, 0, 0, TAU); knock(ctx, pool, c); }
   ctx.restore();
   inkStroke(ctx, PL([[24, 24], [976, 24], [976, hh - 24], [24, hh - 24]]), lw(2.6));
   inkStroke(ctx, PL([[34, 34], [966, 34], [966, hh - 34], [34, hh - 34]]), lw(1.2), { a: .8 });
@@ -48,18 +47,22 @@ function staffMap(ctx, o) {
   inkStroke(ctx, rp, lw(1.2), { col: P.paper, a: .9 });
   const trib = SP([[290, 330], [210, 360], [130, 350], [60, 380]], false); inkStroke(ctx, trib, lw(2.6));
   // sırtlar (Duatepe, Çal, Mangal, Karadağ …): uzun, gürültülü omurgalar
-  const R = [[[640, 300], [690, 288], [740, 300]], [[720, 470], [780, 455], [840, 470], [880, 462]], [[600, 150], [650, 140], [700, 152]], [[790, 210], [840, 200], [880, 214]], [[140, 470], [200, 458], [260, 472], [300, 466]], [[110, 190], [160, 180], [210, 192]]];
-  R.forEach((sp, i) => ridge(ctx, sp, 26, lw, 30 + i));
+  const R = [[[[560, 352], [610, 334], [660, 318], [720, 296]], 30], [[[700, 480], [760, 462], [830, 470], [890, 456]], 22], [[[650, 160], [700, 146], [760, 152], [820, 140]], 20], [[[120, 470], [190, 456], [260, 468], [320, 458]], 20], [[[90, 190], [150, 178], [220, 188]], 16]];
+  R.forEach(([sp, L], i) => ridge(ctx, sp, L, lw, 30 + i));
   // demiryolu: kesik çift çizgi
   const rail = SP([[980, 90], [860, 120], [740, 100], [600, 70], [420, 60], [200, 90], [30, 110]], false);
   inkStroke(ctx, rail, lw(6)); inkStroke(ctx, rail, lw(3), { col: P.paperD });
   ctx.save(); ctx.setLineDash([lw(14), lw(14)]); inkStroke(ctx, rail, lw(3)); ctx.restore();
   for (const [x, y] of [[860, 120], [600, 70], [420, 60], [240, 560]]) inkFill(ctx, PL([[x - 9, y - 9], [x + 9, y - 9], [x + 9, y + 9], [x - 9, y + 9]]));
   // açıklayıcı Latin etiketler (izleyici katmanı) + altında küçük Osmanlıca iz
-  txt(ctx, 'Sakarya', 228, 262, `italic 600 ${34}px "Cormorant Garamond"`, { col: P.ink });
-  txt(ctx, 'DUATEPE', 640, 340, FONT.mono(22), { col: P.ink, ls: 3 });
-  txt(ctx, 'POLATLI', 812, 160, FONT.mono(22), { col: P.ink, ls: 3 });
-  for (const [x, y, L, sd] of [[880, 186, 70, 1], [700, 366, 70, 2], [330, 296, 80, 3], [860, 520, 100, 5], [330, 560, 110, 6]]) scriptLine(ctx, x, y, L, 10, sd + 50, { w: lw(1.8), a: .8 });
+  const tag = (s, x, y, ax, ay) => {
+    ctx.save(); ctx.font = FONT.mono(24); ctx.letterSpacing = '3px'; const w = ctx.measureText(s).width; ctx.restore();
+    inkStroke(ctx, PL([[ax, ay], [x + w / 2 + 14, y + 6]], false), lw(1.4));
+    const b = PL([[x, y - 22], [x + w + 28, y - 22], [x + w + 28, y + 12], [x, y + 12]]); knock(ctx, b, P.paperD); inkStroke(ctx, b, lw(1.8));
+    txt(ctx, s, x + 14, y + 4, FONT.mono(24), { ls: 3 });
+  };
+  tag('SAKARYA', 90, 420, 300, 372); tag('DUATEPE', 720, 228, 660, 316); tag('POLATLI', 790, 74, 860, 116);
+  for (const [x, y, L, sd] of [[920, 196, 70, 1], [760, 430, 70, 2], [270, 300, 80, 3], [860, 520, 100, 5], [330, 560, 110, 6]]) scriptLine(ctx, x, y, L, 10, sd + 50, { w: lw(1.8), a: .8 });
   // başlık kartuşu
   const cart = PL([[52, hh - 130], [300, hh - 130], [300, hh - 52], [52, hh - 52]]); knock(ctx, cart, P.paper); inkStroke(ctx, cart, lw(2.2)); inkStroke(ctx, PL([[58, hh - 124], [294, hh - 124], [294, hh - 58], [58, hh - 58]]), lw(1));
   scriptLine(ctx, 284, hh - 98, 210, 12, 77, { w: lw(2) }); scriptLine(ctx, 250, hh - 70, 150, 9, 78, { w: lw(1.6) });
@@ -79,15 +82,21 @@ function staffMap(ctx, o) {
       plate(ctx, 'red', PL([[x - tx * 6, y - ty * 6], [x + nx * 16, y + ny * 16], [x + tx * 6, y + ty * 6]]), { flat: true });
     }
   }
-  // karşı taraf taarruz okları: dolu is gövde, içinde çapraz kazıma
+  // karşı taraf taarruz okları: lacivert dolu gövde, 45° kazıma
   const ar = clamp(o.arrows ?? 1);
   for (const pts of [[[150, 300], [300, 280], [450, 330], [560, 330]], [[210, 520], [380, 470], [520, 450], [610, 440]]]) {
     if (ar <= 0) break;
     const p = new Path2D(); spl(p, pts, false);
-    ctx.save(); ctx.setLineDash([480 * ar, 9999]); inkStroke(ctx, p, lw(20), { cap: 'butt' });
-    ctx.setLineDash([lw(3), lw(9)]); inkStroke(ctx, p, lw(14), { col: P.paperD, cap: 'butt', a: .5 }); ctx.restore();
+    ctx.save(); ctx.setLineDash([480 * ar, 9999]);
+    const [dx, dy] = regOf('navy'); ctx.translate(dx, dy);
+    inkStroke(ctx, p, lw(13), { col: P.navy, cap: 'butt', mode: 'multiply' });
+    ctx.restore();
+    // kazıma: ok boyunca 14 px aralıklı 45° çizgiler
+    let acc = 0; for (let i = 0; i < pts.length - 1; i++) { const A = pts[i], B = pts[i + 1], L = Math.hypot(B[0] - A[0], B[1] - A[1]), an = Math.atan2(B[1] - A[1], B[0] - A[0]);
+      for (let d = (14 - acc % 14) % 14; d < L; d += 14) { if (acc + d > 480 * ar) break; const x = A[0] + Math.cos(an) * d, y = A[1] + Math.sin(an) * d, k = an + PI / 4;
+        cut(ctx, PL([[x - Math.cos(k) * 7, y - Math.sin(k) * 7], [x + Math.cos(k) * 7, y + Math.sin(k) * 7]], false), lw(1.4), { a: .7 }); } acc += L; }
     if (ar > .96) { const a = pts[pts.length - 2], b = pts[pts.length - 1], an = Math.atan2(b[1] - a[1], b[0] - a[0]);
-      inkFill(ctx, PL([[b[0] + Math.cos(an) * 30, b[1] + Math.sin(an) * 30], [b[0] + Math.cos(an + 2.4) * 28, b[1] + Math.sin(an + 2.4) * 28], [b[0] + Math.cos(an - 2.4) * 28, b[1] + Math.sin(an - 2.4) * 28]])); }
+      plate(ctx, 'navy', PL([[b[0] + Math.cos(an) * 26, b[1] + Math.sin(an) * 26], [b[0] + Math.cos(an + 2.4) * 22, b[1] + Math.sin(an + 2.4) * 22], [b[0] + Math.cos(an - 2.4) * 22, b[1] + Math.sin(an - 2.4) * 22]]), { flat: true }); }
   }
   for (const [x, y] of [[40, 40], [960, 40], [40, hh - 40], [960, hh - 40]]) { const p = new Path2D(); p.arc(x, y, 9, 0, TAU); knock(ctx, p); plate(ctx, 'red', p); inkStroke(ctx, p, lw(2.4)); }
   inkStroke(ctx, sheet, lw(3));
@@ -119,14 +128,18 @@ function gasLamp(ctx, x, y, s, t = 0) {
 function stampOxcart(ctx, x, y, s, ph = 0) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
   const p = new Path2D();
-  p.ellipse(-36, -20, 17, 9, 0, 0, TAU); p.ellipse(-55, -24, 6.5, 4.5, -.35, 0, TAU);
-  for (const lx of [-46, -40, -30, -24]) p.rect(lx + (ph ? 1.2 : 0), -13, 2.6, 13);
-  p.moveTo(-58, -28); p.quadraticCurveTo(-62, -36, -56, -38); p.lineTo(-55, -35); p.quadraticCurveTo(-58, -33, -55, -28); // boynuz
-  p.rect(-4, -30, 46, 12); p.rect(2, -42, 32, 12); // kasa ve yük (cephane sandığı)
+  // öküz: uzun gövde (boy ≈ 2,2 × yükseklik), omuz hörgücü, eğik baş, lir boynuz, püsküllü kuyruk
+  p.moveTo(-82, -24); p.quadraticCurveTo(-76, -36, -64, -36); p.quadraticCurveTo(-58, -42, -52, -37); p.lineTo(-40, -35); p.quadraticCurveTo(-36, -24, -40, -16); p.lineTo(-80, -15); p.closePath();
+  p.moveTo(-82, -30); p.quadraticCurveTo(-92, -30, -96, -22); p.lineTo(-92, -18); p.quadraticCurveTo(-88, -24, -82, -22); p.closePath(); // baş, öne eğik
+  for (const lx of [-78, -72, -48, -42]) p.rect(lx + (ph && (lx === -72 || lx === -42) ? 2 : 0), -16, 3, 16);
   inkFill(ctx, p);
-  inkStroke(ctx, PL([[-4, -22], [-44, -24]], false), 2.6 / s);
-  const wh = new Path2D(); wh.arc(24, -10, 12, 0, TAU); inkFill(ctx, wh); // dolu tahta teker
-  cut(ctx, PL([[16, -10], [32, -10]], false), 1.6 / s, { a: .8 }); cut(ctx, PL([[24, -18], [24, -2]], false), 1.6 / s, { a: .8 });
+  inkStroke(ctx, SP([[-90, -27], [-94, -36], [-88, -40]], false), 2.2 / s); inkStroke(ctx, SP([[-87, -28], [-86, -38], [-80, -40]], false), 2.2 / s); // lir boynuz
+  inkStroke(ctx, SP([[-38, -32], [-33, -24], [-34, -14]], false), 1.6 / s); inkFill(ctx, (() => { const q = new Path2D(); q.ellipse(-34, -12, 2.2, 3.4, 0, 0, TAU); return q; })()); // kuyruk
+  inkStroke(ctx, PL([[-86, -38], [-74, -40]], false), 3 / s); // boyunduruk
+  inkStroke(ctx, PL([[-74, -38], [-20, -28]], false), 2.4 / s);  // ok (oklava)
+  // kağnı: V yan çıtalar, cephane sandığı, iki dolu tahta teker
+  const c = new Path2D(); c.moveTo(-26, -30); c.lineTo(30, -30); c.lineTo(22, -18); c.lineTo(-18, -18); c.closePath(); c.rect(-12, -44, 34, 13); inkFill(ctx, c);
+  for (const [wx, wr] of [[-8, 13], [18, 13]]) { const w = new Path2D(); w.arc(wx, -13, wr, 0, TAU); knock(ctx, w, P.ink); cut(ctx, PL([[wx - wr + 3, -13], [wx + wr - 3, -13]], false), 1.6 / s, { a: .7 }); cut(ctx, (() => { const q = new Path2D(); q.arc(wx, -13, wr - 3.5, 0, TAU); return q; })(), 1.2 / s, { a: .5 }); }
   ctx.restore();
 }
 function stampWoman(ctx, x, y, s, ph = 0) {
@@ -135,7 +148,8 @@ function stampWoman(ctx, x, y, s, ph = 0) {
   p.moveTo(0, -46); p.quadraticCurveTo(8, -46, 8, -38); p.quadraticCurveTo(11, -30, 9, -22); p.lineTo(12 + (ph ? 1 : 0), 0); p.lineTo(-9, 0); p.lineTo(-6, -24); p.quadraticCurveTo(-9, -34, -6, -40); p.quadraticCurveTo(-4, -46, 0, -46);
   inkFill(ctx, p);
   // sırtında eğik mermi
-  ctx.save(); ctx.translate(-8, -30); ctx.rotate(-.5); const m = new Path2D(); m.rect(-3.5, -16, 7, 26); m.moveTo(-3.5, -16); m.quadraticCurveTo(0, -24, 3.5, -16); inkFill(ctx, m); ctx.restore();
+  ctx.save(); ctx.translate(-9, -30); ctx.rotate(-1.35); const m = new Path2D(); m.rect(-2.4, -8, 4.8, 15); m.moveTo(-2.4, -8); m.quadraticCurveTo(0, -12.5, 2.4, -8); inkFill(ctx, m); ctx.restore();
+  inkStroke(ctx, PL([[-6, -38], [-12, -22]], false), 1.2 / s); // bez askı
   ctx.restore();
 }
 
