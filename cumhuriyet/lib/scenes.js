@@ -16,8 +16,9 @@ function nameplate(ctx, x, y, name, sub, o = {}) {
   txt(ctx, sub, x0 + 22, y + 22 + (o.size || 44) + (o.sub || 30) * .7, `700 ${o.sub || 30}px "Courier Prime"`);
 }
 
-// Üslup karesi: Alagöz karargâhı, Sakarya, Eylül 1921 akşamı
-SCENES.alagoz = (ctx, t) => {
+// Üslup karesi: Alagöz karargâhı, Sakarya, Eylül 1921 akşamı (filmde de kullanılır: o.captions=false)
+SCENES.alagoz = (ctx, t) => { alagozScene(ctx, t, { captions: true }); pressFinish(ctx, t, {}); };
+function alagozScene(ctx, t, o = {}) {
   setReg(21);
   paperBG(ctx);
   const wx0 = 1610, wx1 = 1870, wy0 = 150, wy1 = 560;
@@ -84,6 +85,7 @@ SCENES.alagoz = (ctx, t) => {
   paperSheet(ctx, 760, 924, 200, 130, -.06, 21, { rows: 5 });
   compass(ctx, 930, 958, 48);
   binoculars(ctx, 1150, 940, 1.15, .08);
+  if (!o.captions) return;
   // —— yazılar: bölüm künyesi (sol alt) ve tek isim levhası (sağ alt)
   const cap = PL(rough([[76, 868], [640, 868], [640, 1040], [76, 1040]], 1, 9));
   plate(ctx, 'ink', PL([[86, 880], [650, 880], [650, 1052], [86, 1052]]), { a: .4 });
@@ -92,8 +94,7 @@ SCENES.alagoz = (ctx, t) => {
   plate(ctx, 'red', PL([[112, 976], [604, 976], [604, 983], [112, 983]]));
   txt(ctx, 'ALAGÖZ · EYLÜL 1921', 112, 1016, FONT.mono(30), { ls: 3 });
   nameTag(ctx, 1860, 880, 'MUSTAFA KEMAL', '40 yaşında', 1, 99, { align: 'right', size: 56, sub: 38, bg: P.paperD });
-  pressFinish(ctx, t, {});
-};
+}
 
 // Yaş şeridi: aynı baş modülüyle Mustafa Kemal'in beş dönemi
 SCENES.yas = (ctx, t) => {
@@ -132,6 +133,21 @@ SCENES.heads = (ctx, t) => {
     const o = { x: 330 + i * 630, y: 470, s: 3.2, dir: -1 }; ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
     bust(ctx, { ...o, coat: 'kaput', col: 'khaki', w: 1, seed: 3, len: 200 });
     head3q(ctx, { ...o, who, gear, gearCol: gc, light: 'front', look: [1, .3], age }); ctx.restore();
+  });
+  pressFinish(ctx, t, {});
+};
+
+// Ortak kimlikler (yakın plan)
+SCENES.kadro = (ctx, t) => {
+  setReg(9); paperBG(ctx); plate(ctx, 'ochre', PL([[0, 0], [W, 0], [W, H], [0, H]]), { a: .4 });
+  const L = [['karabekir', 'kalpak', 'kaput', 'khaki', 39], ['alifuat', 'kalpak', 'kaput', 'khaki', 39], ['rauf', 'kalpak', 'civil', 'navy', 39], ['refet', 'kalpak', 'kaput', 'khaki', 39], ['halide', 'carsaf', 'civil', 'ink', 35], ['abdulhamid', 'fes', 'setre', 'ink', 60]];
+  L.forEach(([who, gear, coat, col, age], i) => {
+    const o = { x: 170 + i * 316, y: 500, s: 1.9, dir: -1 };
+    ctx.save(); ctx.beginPath(); ctx.rect(i * 316 + 12, 0, 304, H); ctx.clip();
+    bust(ctx, { ...o, coat, col, w: .95, seed: i, len: 260 });
+    head3q(ctx, { ...o, who, gear, gearCol: 'ink', light: 'front', look: [1, .3], age });
+    ctx.restore();
+    txt(ctx, PEOPLE[who].name, o.x, 1000, FONT.mono(28), { align: 'center' });
   });
   pressFinish(ctx, t, {});
 };

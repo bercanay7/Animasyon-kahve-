@@ -7,6 +7,18 @@ const PEOPLE = {
   mk: { name: 'MUSTAFA KEMAL', born: 1881, WD: 1.02, HY: 1.03, jaw: .98, cheek: 1.0, brow: .55, browW: 1.2, browY: 1.5, cheekWedge: 1, mus: a => a < 20 ? 'faint' : a < 38 ? 'mk' : null, iris: P.eye, hair: 'sepia', eyeOpen: .72, forehead: 3, seed: 3 },
   ismet: { name: 'İSMET', born: 1884, WD: 1.18, HY: .95, jaw: 1.04, cheek: 1.04, brow: .06, browW: .95, mus: 'thin', iris: P.sepia, hair: 'ink', ear: 1.15, eyeOpen: .8, seed: 5 },
   fevzi: { name: 'FEVZİ', born: 1876, WD: 1.08, HY: 1.0, jaw: 1.12, cheek: 1.02, brow: -.12, browW: 1.15, browY: -.6, mus: 'pala', musCol: 'grey', iris: P.sepia, hair: 'grey', eyeOpen: .76, bags: 1, seed: 7 },
+  // Kâzım Karabekir: geniş omuz, gür yatay bıyık, dolgun yüz
+  karabekir: { name: 'KÂZIM KARABEKİR', born: 1882, WD: 1.14, HY: 1.0, jaw: 1.1, cheek: 1.04, brow: .02, browW: 1.25, mus: 'gur', iris: P.sepia, hair: 'ink', eyeOpen: .78, seed: 11 },
+  // Ali Fuat (Cebesoy): uzun yüz, bıyık; MK'nin Harbiye sınıf arkadaşı
+  alifuat: { name: 'ALİ FUAT', born: 1882, WD: 1.0, HY: 1.06, jaw: .96, cheek: .98, brow: .12, browW: 1.0, mus: 'mk', iris: P.sepia, hair: 'ink', eyeOpen: .8, seed: 13 },
+  // Rauf (Orbay): Bahriyeli, kısa düzgün bıyık, ince yüz
+  rauf: { name: 'RAUF', born: 1881, WD: 1.04, HY: 1.02, jaw: 1.0, cheek: 1.0, brow: .08, browW: .95, mus: 'thin', iris: P.sepia, hair: 'ink', eyeOpen: .8, seed: 15 },
+  // Refet (Bele): dolgun yüz, belirgin bıyık
+  refet: { name: 'REFET', born: 1881, WD: 1.12, HY: .98, jaw: 1.08, cheek: 1.04, brow: 0, browW: 1.1, mus: 'mk', iris: P.sepia, hair: 'ink', eyeOpen: .8, seed: 17 },
+  // Halide Edib: kadın yüzü; bıyık yok, ince kaş, yumuşak çene; başörtüsü/çarşaf ayrı çizilir (gear:'basortu'|'carsaf')
+  halide: { name: 'HALİDE EDİB', born: 1884, WD: 1.04, HY: .96, jaw: .9, cheek: 1.02, brow: .12, browW: .7, mus: null, iris: P.sepia, hair: 'ink', eyeOpen: .82, seed: 19, fem: 1 },
+  // II. Abdülhamid: fes, kısa kırçıl sakal (beard), koyu setre; ışık nötr, karikatür yok
+  abdulhamid: { name: 'II. ABDÜLHAMİD', born: 1842, WD: 1.06, HY: 1.0, jaw: 1.0, cheek: 1.0, brow: .0, browW: 1.05, mus: 'thin', beard: 'short', iris: P.sepia, hair: 'grey', eyeOpen: .74, bags: 1, seed: 21 },
   anon: { WD: 1.08, jaw: 1.02, cheek: 1, brow: .05, browW: 1, mus: 'mk', iris: P.sepia, hair: 'ink', seed: 9 },
 };
 
@@ -59,7 +71,7 @@ function head3q(ctx, o) {
   inkStroke(ctx, SP([[22, 17], [23.2, 20.4], [27, 21.6]], false), lw(2));                        // burun deliği kıvrımı
   // gözler: ağır üst kapak
   const target = o.lookAt ? (() => { const ex = o.x + 6 * s * dir * WD, ey = o.y; const dx = (o.lookAt[0] - ex) * dir, dy = o.lookAt[1] - ey, n = Math.hypot(dx, dy) || 1; return [dx / n * 1.5, dy / n * 1.1]; })() : (o.look || [1, .3]);
-  const eo = o.eyeOpen ?? pp.eyeOpen ?? .8;
+  const eo = (o.eyeOpen ?? pp.eyeOpen ?? .8) * (1 - (o.blink || 0) * .92); // o.blink: blinkAt(t, tohum)
   for (const [k, e] of [[0, { c: [5.5, -1], w: 9 }], [1, { c: [27, -1], w: 3.8 }]]) {
     const [ex, ey] = e.c, w = e.w, h = (k ? 3.6 : 4.2) * eo * (1 + yg * .12);
     const eyeP = new Path2D(); eyeP.moveTo(ex - w, ey + .8); eyeP.bezierCurveTo(ex - w * .5, ey - h * 1.25, ex + w * .4, ey - h * 1.3, ex + w, ey - .1);
@@ -103,6 +115,7 @@ function head3q(ctx, o) {
   if (mus) {
     let m;
     if (mus === 'pala') m = [[14, 28.6], [18, 25.6], [26, 24], [31, 25], [34, 28.4], [36, 33], [34.4, 33.2], [31, 30.4], [26, 30.8], [20, 30.8], [15.6, 33.4], [14, 34]];
+    else if (mus === 'gur') m = [[11, 29.6], [16, 25.2], [25, 23.4], [31, 24.2], [36, 27], [38.4, 30.4], [34, 30.6], [28, 29.4], [22, 30], [16, 31.6], [11.4, 31.8]];
     else if (mus === 'thin') m = [[17, 28.4], [24, 25.8], [31, 25.9], [34.5, 27.8], [31, 28.8], [24, 28], [18, 29.4]];
     else if (mus === 'faint') m = [[17, 28.6], [24, 26.6], [31, 26.6], [33.4, 28], [30, 28.4], [24, 27.8], [18, 29.2]];
     else m = [[14, 29], [18.5, 26.4], [26, 24.6], [31, 25.6], [33.5, 27.6], [30, 28.6], [26, 27.8], [20, 29.2], [15, 30.2]];
@@ -113,6 +126,11 @@ function head3q(ctx, o) {
       for (const q of [[[17, 27], [22, 27.6], [25, 30]], [[23, 25.8], [28.5, 26.8], [32, 30.6]], [[27, 25.4], [31.6, 26.6], [34.2, 31.8]]]) inkStroke(ctx, SP(q, false), lw(1.1), { a: .55 });
     } else if (hairPl !== 'ink') { plate(ctx, 'sepia', mP, { a: mus === 'faint' ? .45 : .9 }); inkStroke(ctx, mP, lw(mus === 'faint' ? 1 : 1.6), { a: mus === 'faint' ? .5 : 1 }); }
     else { inkFill(ctx, mP); for (let i = 0; i < 3; i++) { const x = 20 + i * 4.5; cut(ctx, SP([[x, 26.4], [x + 1.4, 28.6]], false), lw(.9), { a: .35 }); } }
+  }
+  if (pp.beard) {
+    const bd = SP(rough([[-20, 30], [-12, 44], [2, 55], [14, 59], [24, 56], [30, 44], [31, 34], [26, 36.5], [20, 40.5], [12, 41.5], [4, 38], [-4, 33], [-12, 28]], .4, sd + 9), true, .8);
+    knock(ctx, bd); plate(ctx, pp.musCol || 'grey', bd, { a: .65 }); inkStroke(ctx, bd, lw(1.8));
+    const r = rng(sd + 40); for (let i = 0; i < 22; i++) { const x = lerp(-16, 28, r()), y = lerp(38, 55, r()); inkStroke(ctx, PL([[x, y], [x + .6, y + 3]], false), lw(1), { a: .5 }); }
   }
   ctx.restore();
   if (o.gear) headgear(ctx, { ...o, sd, WD, HY, lift: pp.forehead || 0 });
@@ -157,6 +175,14 @@ function headgear(ctx, o) {
     plate(ctx, 'ochre', SP([[-78, 120], [-80, 40], [-70, -10], [-60, -40], [-54, 20], [-50, 116]], true), { a: .4 });
     for (const q of [[[-66, -30], [-70, 60], [-66, 116]], [[-52, -50], [-56, 30], [-50, 110]], [[-40, 0], [-42, 60], [-34, 108]]]) inkStroke(ctx, SP(q, false), lw(1.5), { a: .6 });
     for (const dy of [0, 7]) { const agal = SP([[-62, -44 + dy], [-30, -60 + dy], [8, -64 + dy], [37, -50 + dy]], false, .7); inkStroke(ctx, agal, lw(4.6)); cut(ctx, agal, lw(1), { a: .35 }); }
+  } else if (o.gear === 'basortu' || o.gear === 'carsaf') {
+    // yüzü çevreleyen örtü: alın üstünden şakaklara, çene altından omuza; çarşafta is, başörtüsünde okra
+    const dark = o.gear === 'carsaf';
+    const veil = new Path2D();
+    spl(veil, rough([[30, -30], [22, -52], [0, -70], [-30, -70], [-56, -52], [-66, -20], [-70, 30], [-74, 120], [-30, 128], [10, 122], [30, 110], [34, 80], [30, 64], [20, 62], [4, 60], [-10, 56], [-18, 46], [-24, 30], [-27, 6], [-24, -16], [-12, -32], [4, -38], [20, -36]], .5, sd + 15), true, .8);
+    knock(ctx, veil);
+    if (dark) { inkFill(ctx, veil); for (const q of [[[-40, -50], [-60, 0], [-62, 100]], [[-20, -60], [-46, 10], [-44, 110]], [[10, 70], [0, 118]]]) cut(ctx, SP(q, false), lw(1.6), { a: .45 }); }
+    else { plate(ctx, 'ochre', veil, { a: .55 }); plate(ctx, 'sepia', SP([[-56, -52], [-66, -20], [-70, 30], [-74, 120], [-40, 124], [-44, 20], [-40, -40]], true), { a: .4 }); inkStroke(ctx, veil, lw(3)); for (const q of [[[-40, -50], [-60, 0], [-62, 100]], [[10, 70], [0, 118]]]) inkStroke(ctx, SP(q, false), lw(1.5), { a: .5 }); }
   } else if (o.gear === 'kabalak') {
     const body = SP(rough([[-62, -12], [-64, -40], [-50, -66], [-16, -78], [18, -74], [38, -52], [40, -24], [22, -28], [-6, -26], [-36, -16]], .6, sd + 13), true, .8);
     knock(ctx, body); plate(ctx, 'khaki', body);

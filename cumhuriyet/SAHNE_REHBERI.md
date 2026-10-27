@@ -42,7 +42,9 @@ Bu dosya, sahne yazacak herkes içindir (alt ajanlar dahil). Önce `USLUP.md` (�
 - `head3q(ctx, {x, y, s, dir, who, gear, gearCol, light, look, age, skin, tilt})`:
   - ¾ baş. `s` ölçektir: baş boyu ≈ 120·s px.
   - `dir:-1` sola bakar.
-  - `who`: `'mk' | 'ismet' | 'fevzi' | 'anon'`; başka biri için `id: {mus, hair, jaw, brow, ...}` verilir.
+  - `who`: `'mk' | 'ismet' | 'fevzi' | 'karabekir' | 'alifuat' | 'rauf' | 'refet' | 'halide' | 'abdulhamid' | 'anon'`. Bu ortak kimlikler bütün bölümlerde aynı kalır; adı geçen kişiler için kendi kimliğini tanımlama. Anonim figür için `who:'anon'` ve gerekirse `id: {mus, hair, jaw, brow, ...}`.
+  - Halide Edib: `who:'halide', gear:'carsaf'` (1919 mitingi) ya da `'basortu'` (Anadolu, haki ceketle).
+  - Abdülhamid: `who:'abdulhamid', gear:'fes'`; kısa kırçıl sakal kimlikte tanımlı.
   - `gear`: `'kalpak' | 'fes' | 'kabalak' | null`.
   - `light`: `'front' | 'back' | 'top'`.
   - `skin: true` yalnız yakın planda kullanılır.
