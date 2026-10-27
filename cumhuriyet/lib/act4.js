@@ -557,6 +557,116 @@ function a4_officer(ctx, o) {
   }, { tr: { type: 'press', dur: .5 }, post: { stone: .24 } });
 }
 
+// —— Balkan kurmay haritası (E03a ve E04 ortak): boylam 17.8–31.1, enlem 38.9–44.5 ——
+const a4_BK = (() => {
+  const X0 = 110, X1 = 1810, Y0 = 70, Y1 = 1010;
+  const gx = lon => X0 + (lon - 17.8) / 13.3 * (X1 - X0), gy = lat => Y0 + (44.5 - lat) / 5.6 * (Y1 - Y0), G = ([lo, la]) => [gx(lo), gy(la)];
+  const main = [[16.5, 46], [17.4, 43.4], [18.1, 42.65], [18.55, 42.4], [19.0, 42.1], [19.35, 41.88], [19.45, 41.6], [19.45, 41.0], [19.4, 40.6], [19.3, 40.4], [19.6, 40.2], [20.0, 39.7], [20.2, 39.4], [20.7, 39.05], [21.0, 38.3], [21.2, 37.6], [23.2, 37.6], [23.2, 38.4], [22.95, 39.35], [23.3, 39.15], [22.9, 39.6], [22.6, 40.0], [22.65, 40.5], [22.95, 40.63], [23.2, 40.35], [23.0, 40.0], [23.35, 39.95], [23.6, 40.2], [23.75, 39.95], [23.95, 40.15], [24.4, 40.15], [24.0, 40.45], [23.9, 40.7], [24.4, 40.9], [25.2, 40.95], [25.9, 40.85], [26.05, 40.75], [26.3, 40.6], [26.2, 40.05], [26.6, 40.35], [26.9, 40.6], [27.5, 40.98], [28.0, 41.0], [28.6, 41.03], [29.0, 41.08], [29.1, 41.25], [28.6, 41.5], [28.0, 41.75], [27.9, 42.1], [27.6, 42.5], [27.9, 42.9], [27.7, 43.2], [28.6, 43.4], [28.6, 44.0], [28.8, 44.5], [29.6, 45.2], [30.2, 46]];
+  const asia = [[25.6, 37.6], [26.3, 38.3], [26.6, 38.6], [26.8, 39.0], [26.7, 39.4], [26.1, 39.5], [26.2, 40.0], [26.45, 40.2], [26.7, 40.4], [27.3, 40.4], [28.0, 40.4], [29.0, 40.4], [29.9, 40.75], [29.3, 40.85], [29.05, 41.05], [29.15, 41.25], [30.0, 41.15], [31.4, 41.3], [32, 41.4], [32, 37.6]];
+  const isl = [[[25.05, 39.95], [25.4, 39.98], [25.35, 39.8], [25.1, 39.8]], [[24.55, 40.8], [24.8, 40.72], [24.65, 40.55], [24.5, 40.65]], [[25.7, 40.22], [26.0, 40.2], [25.95, 40.1], [25.7, 40.12]], [[23.1, 39.0], [23.6, 38.75], [23.3, 38.6]]];
+  const rum = [[19.35, 41.88], [19.45, 41.6], [19.45, 41.0], [19.4, 40.6], [19.3, 40.4], [19.6, 40.2], [20.0, 39.7], [20.2, 39.4], [20.7, 39.1], [21.2, 39.15], [21.7, 39.35], [22.1, 39.65], [22.6, 39.95], [22.65, 40.5], [22.95, 40.63], [23.2, 40.35], [23.0, 40.0], [23.35, 39.95], [23.6, 40.2], [23.75, 39.95], [23.95, 40.15], [24.4, 40.15], [24.0, 40.45], [23.9, 40.7], [24.4, 40.9], [25.2, 40.95], [25.9, 40.85], [26.05, 40.75], [26.3, 40.6], [26.2, 40.05], [26.6, 40.35], [26.9, 40.6], [27.5, 40.98], [28.0, 41.0], [28.6, 41.03], [29.0, 41.08], [29.1, 41.25], [28.6, 41.5], [28.0, 41.75], [27.95, 41.98], [27.4, 42.05], [26.8, 42.0], [26.3, 41.8], [25.6, 41.62], [24.6, 41.55], [23.9, 41.6], [23.3, 41.85], [22.9, 42.15], [22.4, 42.35], [21.9, 42.4], [21.5, 42.65], [21.2, 43.0], [20.8, 43.25], [20.35, 43.2], [20.0, 42.85], [19.75, 42.6], [19.6, 42.35]];
+  const em = [[26.08, 40.74], [26.4, 41.0], [26.9, 41.22], [27.4, 41.4], [27.8, 41.55], [28.12, 41.62]].map(G);
+  const lands = [a4_coast(main.map(G), 21, 2.2), a4_coast(asia.map(G), 22, 2.2), ...isl.map((q, i) => a4_coast(q.map(G), 23 + i, 1.4))];
+  const rumP = SP(rough(rum.map(G), 1.6, 31), true, .4);
+  const city = { SEL: G([22.95, 40.64]), IST: G([29.0, 41.03]), EDI: G([26.55, 41.67]), USK: G([21.43, 42.0]), MAN: G([21.33, 41.03]), ISK: G([19.5, 42.07]), YAN: G([20.85, 39.67]), SOF: G([23.32, 42.7]) };
+  return { X0, X1, Y0, Y1, gx, gy, G, lands, rumP, em, city };
+})();
+// harita zemini (durağan): masa, kâğıt, deniz taraması, karalar (açık), dağlar, demiryolu, sınırlar, şehirler, kartuş
+function a4_balkanBase(g) {
+  const { G, lands, city } = a4_BK, CX = 960, CY = 540;
+  paperBG(g); plate(g, 'khaki', a4_full(), { n: 2 }); plate(g, 'ink', a4_full(), { a: .22 });
+  radialHT(g, 'ink', CX, CY, 720, 1300, 0, .3, { cell: 12, ang: 45, box: [-150, -150, W + 150, H + 150] });
+  g.translate(CX, CY); g.rotate(.01); g.translate(-CX, -CY);
+  const sx = 56, sy = 34, sw = W - 112, sh_ = H - 68, sh = a4_sheet(g, sx, sy, sw, sh_, 62);
+  g.save(); g.clip(sh);
+  a4_seaHatch(g, sx, sy, sx + sw, sy + sh_, { a: .16 });
+  a4_ripples(g, lands, 1, { sea: '#D3C6A8' });
+  for (const Lp of lands) { knock(g, Lp, P.paper); plate(g, 'ochre', Lp, { a: .2 }); }
+  // Anadolu: Osmanlı toprağı (haki + okra, Rumeli'yle aynı baskı)
+  plate(g, 'khaki', lands[1], { a: .5 }); plate(g, 'ochre', lands[1], { a: .25 });
+  // dağ taraması
+  [[[G([19.9, 42.4]), G([20.4, 41.9]), G([20.6, 41.3])], 16], [[G([21.6, 41.6]), G([22.2, 41.4]), G([22.6, 41.1])], 14], [[G([23.9, 41.75]), G([24.8, 41.62]), G([25.7, 41.66])], 18], [[G([22.6, 42.9]), G([23.6, 42.6]), G([24.6, 42.65]), G([25.6, 42.75])], 18], [[G([21.3, 39.9]), G([21.6, 39.5]), G([21.9, 39.2])], 14], [[G([27.2, 42.0]), G([27.8, 41.9])], 12], [[G([29.6, 40.2]), G([30.6, 40.1])], 12]].forEach(([sp, L], i) => ridge(g, sp, L, px => px, 90 + i));
+  // nehirler: Vardar, Meriç, Tuna
+  inkStroke(g, SP([G([21.4, 42.2]), G([21.8, 41.7]), G([22.3, 41.3]), G([22.6, 40.8]), G([22.75, 40.6])], false), 3);
+  inkStroke(g, SP([G([24.8, 42.15]), G([25.6, 42.05]), G([26.4, 41.75]), G([26.6, 41.3]), G([26.1, 40.75])], false), 3);
+  inkStroke(g, SP([G([17.8, 44.6]), G([20.5, 44.6]), G([22.6, 44.1]), G([24.5, 43.7]), G([26.0, 43.9]), G([27.6, 44.1]), G([28.2, 44.6])], false), 4);
+  // demiryolu: Selanik–Üsküp, Selanik–Dedeağaç–İstanbul (Şark Demiryolu)
+  for (const pts of [[city.SEL, G([22.3, 41.3]), G([21.8, 41.7]), city.USK], [city.SEL, G([23.6, 41.1]), G([24.5, 41.15]), G([25.6, 40.9]), G([26.2, 41.2]), G([26.55, 41.6]), G([27.2, 41.4]), G([28.0, 41.15]), city.IST]]) {
+    const rl = SP(pts, false); inkStroke(g, rl, 6); inkStroke(g, rl, 3, { col: P.paper }); g.save(); g.setLineDash([12, 12]); inkStroke(g, rl, 3); g.restore();
+  }
+  for (const Lp of lands) inkStroke(g, Lp, 2.6);
+  // komşu devlet sınırları (kesik) ve Osmanlıca adları
+  g.save(); g.setLineDash([14, 9]);
+  inkStroke(g, SP([G([22.6, 39.95]), G([22.1, 39.65]), G([21.2, 39.15]), G([20.7, 39.1])], false), 2.2, { a: .8 });
+  inkStroke(g, SP([G([27.95, 41.98]), G([26.8, 42.0]), G([25.6, 41.62]), G([23.9, 41.6]), G([22.9, 42.15]), G([21.9, 42.4]), G([21.2, 43.0]), G([20.35, 43.2]), G([19.75, 42.6]), G([19.35, 41.88])], false), 2.2, { a: .8 });
+  inkStroke(g, SP([G([22.5, 44.3]), G([22.6, 43.4]), G([22.4, 42.35])], false), 2, { a: .6 });
+  g.restore();
+  for (const [lo, la, len_, sd] of [[25.6, 43.0, 160, 1], [21.9, 43.5, 140, 2], [19.7, 43.0, 90, 3], [22.4, 39.25, 120, 4], [25.2, 39.5, 150, 5], [29.6, 42.6, 170, 6], [30.4, 39.4, 130, 7]]) scriptLine(g, a4_BK.gx(lo), a4_BK.gy(la), len_, 10, 400 + sd, { a: .75 });
+  for (const k of ['IST', 'EDI', 'USK', 'MAN', 'ISK', 'YAN', 'SOF']) a4_city(g, city[k][0], city[k][1], 1, { r: 9 });
+  a4_cartouche(g, a4_BK.gx(29.2), a4_BK.gy(39.65) - 30, 240, 82, 93);
+  for (let i = 0; i < 6; i++) { const q = a4_rect(a4_BK.gx(27.8) + i * 36, a4_BK.gy(39.05), a4_BK.gx(27.8) + i * 36 + 36, a4_BK.gy(39.05) + 12); i % 2 ? inkStroke(g, q, 1.6) : inkFill(g, q); }
+  g.restore();
+  a4_sheetFrame(g, sx, sy, sw, sh_, sh);
+}
+// Rumeli dolgusu (canlı): front = süpürme cephesinin ekran x'i (−∞: dolu, +∞: yalnız Enez–Midye doğusu kalır)
+function a4_rumeliFill(ctx, front, seed = 5) {
+  const { rumP, em, gx, gy } = a4_BK;
+  const keep = new Path2D();
+  if (front < W + 400) {
+    // süpürme: cephenin doğusu (saat yönünde), kenarı silgi gibi kırık
+    const r = rng(seed), pts = [];
+    for (let y = -100; y <= H + 100; y += 40) pts.push([front + (r() - .5) * 26 + Math.sin(y * .011) * 30, y]);
+    keep.moveTo(pts[0][0], pts[0][1]); keep.lineTo(W + 600, -100); keep.lineTo(W + 600, H + 100);
+    for (let i = pts.length - 1; i >= 0; i--) keep.lineTo(pts[i][0], pts[i][1]);
+    keep.closePath();
+  }
+  // Enez–Midye doğusu (saat yönünde)
+  keep.moveTo(em[0][0], em[0][1]); for (const q of em) keep.lineTo(q[0], q[1]);
+  keep.lineTo(em[em.length - 1][0], -400); keep.lineTo(W + 600, -400); keep.lineTo(W + 600, H + 400); keep.lineTo(em[0][0], H + 400); keep.closePath();
+  ctx.save(); ctx.clip(keep);
+  plate(ctx, 'khaki', rumP, { a: .5 }); plate(ctx, 'ochre', rumP, { a: .25 });
+  ctx.save(); ctx.clip(rumP); txt(ctx, 'R U M E L İ', gx(22.9), gy(41.35), FONT.mono(46), { ls: 10, align: 'center', col: P.ink, a: .78 }); ctx.restore();
+  ctx.restore();
+  // eski sınır: kesik is (silinince hayalet olarak kalır)
+  ctx.save(); ctx.setLineDash([10, 8]); inkStroke(ctx, rumP, 2.2, { a: .55 }); ctx.restore();
+}
+
+// E03a · Balkan Savaşı 1912: dört ok (Karadağ, Sırbistan, Bulgaristan, Yunanistan); Rumeli dolgusu batıdan doğuya silinir;
+// Selanik "teslim edildi"de söner; sonunda Enez–Midye hattı (kırmızı tarak).
+{
+  const T0 = S('E03');
+  const { G, city, em } = a4_BK;
+  shot(T0, (ctx, st) => {
+    setReg(404);
+    paperBG(ctx);
+    const lt = st.lt, t = st.t;
+    const cm = { x: kf(t, [[T0, 930], [Wd('E03', 'selanik'), 900], [Wd('E03', 'teslim'), 960], [T0 + st.d, 1010]]), y: lerp(560, 600, E.sine(st.p)), z: lerp(1.0, 1.07, E.sine(st.p)) };
+    a4_put(ctx, a4_L('BK-base', a4_balkanBase, 60), cm, 1);
+    ctx.save(); cam(ctx, cm, 1); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540);
+    const tB = Wd('E03', 'balkan'), tS = Wd('E03', 'selanik'), tT = Wd('E03', 'teslim'), tE = Wd('E03', 'edildi');
+    // süpürme cephesi: Selanik'e "teslim"de varır, sonra Enez'i geçer
+    const fx = kf(t, [[tS - .2, -200], [tT, city.SEL[0] + 40, E.io2], [T0 + st.d - .2, W + 500, E.in2]]);
+    a4_rumeliFill(ctx, fx);
+    // oklar (is): Karadağ, Sırbistan, Bulgaristan (iki kol), Yunanistan
+    a4_arrow(ctx, [G([19.25, 42.85]), G([19.45, 42.45]), G([19.5, 42.18])], ramp(t, tB, tB + .7, E.io2), { w: 13 });
+    a4_arrow(ctx, [G([21.7, 43.55]), G([21.6, 42.9]), G([21.45, 42.15])], ramp(t, tB + .15, tB + .85, E.io2), { w: 15 });
+    a4_arrow(ctx, [G([26.0, 42.85]), G([26.4, 42.3]), G([26.55, 41.82])], ramp(t, tB + .3, tB + 1.0, E.io2), { w: 15 });
+    a4_arrow(ctx, [G([27.0, 42.85]), G([27.6, 42.2]), G([27.9, 41.5]), G([28.3, 41.2])], ramp(t, tB + .45, tB + 1.2, E.io2), { w: 13 });
+    a4_arrow(ctx, [G([22.1, 39.2]), G([22.45, 39.85]), G([22.8, 40.45])], ramp(t, tB + .3, tB + 1.1, E.io2), { w: 15 });
+    // Selanik: vurgulanır, "teslim edildi"de söner
+    const on = 1 - ramp(t, tT, tE + .2, E.in2), pulse = ramp(t, tS, tS + .5, E.out3) * (1 - ramp(t, tT, tE, E.io2));
+    if (pulse > 0) { const rg = new Path2D(); rg.arc(city.SEL[0], city.SEL[1], 16 + 30 * pulse, 0, TAU); inkStroke(ctx, rg, 3, { a: (1 - pulse * .6) }); }
+    a4_city(ctx, city.SEL[0], city.SEL[1], on, { r: 13 });
+    // Enez–Midye hattı (kırmızı tarak, Türk tarafı doğu)
+    a4_front(ctx, em, ramp(t, T0 + st.d - 1.0, T0 + st.d - .15, E.io2), { w: 7, tooth: 12, step: 17, side: -1 });
+    // etiketler
+    a4_tag(ctx, 'İSTANBUL', city.IST[0] - 70, city.IST[1] + 70, city.IST[0], city.IST[1] + 10, E.out2(ramp(lt, .3, .6)));
+    a4_tag(ctx, 'SELANİK', city.SEL[0] - 250, city.SEL[1] + 86, city.SEL[0] - 8, city.SEL[1] + 12, E.out2(ramp(t, tS, tS + .3)));
+    ctx.restore();
+    stamp(ctx, 'BALKAN SAVAŞI · 1912', 120, 1004, lt - .2, st.d, { size: 34 });
+  }, { tr: { type: 'press', dur: .6 }, post: { stone: .24 } });
+}
+
 // —— geçici yer tutucular (çekimler yazıldıkça kalkar) ——
 // E02b · Derne, 1911: çöl dioraması. Kefiyeli genç kolağası Mustafa Kemal (30), arkada yerel gönüllüler, çadır, hurmalar, ak kasaba.
 {
@@ -612,7 +722,7 @@ function a4_officer(ctx, o) {
     ctx.save(); cam(ctx, cm, 1);
     const io = idleOffsets(tf, 3, .8), bl = blinkAt(t, 3);
     const o = { x: MK.x, y: MK.y + io.breath, s: MK.s, dir: -1 };
-    bust(ctx, { ...o, coat: 'setre', col: 'khaki', w: .98, seed: 3, len: (H + 40 - MK.y) / MK.s, turn: .25 });
+    bust(ctx, { ...o, coat: 'setre', col: 'khaki', w: 1.06, seed: 3, len: (H + 40 - MK.y) / MK.s, turn: .35 });
     head3q(ctx, { ...o, who: 'mk', gear: 'kefiye', light: 'front', lookAt: [470, 600], age: 30, tilt: io.head * .6, eyeOpen: .72 * (1 - bl) });
     ctx.restore();
     // en ön kum sırtı: büstü bel hizasında keser (Alagöz'deki masa gibi)
@@ -628,6 +738,7 @@ function a4_officer(ctx, o) {
     nameTag(ctx, 1860, 860, 'MUSTAFA KEMAL', '30 yaşında', lt - .45, st.d - .2, { align: 'right', size: 56, sub: 38, bg: P.paperD });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
-for (const [id, w] of [['E03', null], ['E04', null], ['E05', null], ['E06', null]]) {
+shot(Wd('E03','mustafa'), (ctx, st) => { setReg(9); paperBG(ctx); txt(ctx, 'E03b', W / 2, H / 2, FONT.title(120), { align: 'center' }); });
+for (const [id, w] of [['E04', null], ['E05', null], ['E06', null]]) {
   shot(S(id), (ctx, st) => { setReg(9); paperBG(ctx); txt(ctx, id, W / 2, H / 2, FONT.title(120), { align: 'center' }); }, { tr: { type: 'cut', dur: 0 } });
 }

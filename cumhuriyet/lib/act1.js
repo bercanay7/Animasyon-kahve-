@@ -296,3 +296,266 @@ shot(S('B01'), (ctx, st) => {
   ctx.restore();
   chapterCard(ctx, 'I', 'SULTANIN OKULLARI', '1876–1900', lt - .25, 4.6);
 }, { tr: { type: 'press', dur: .8 } });
+
+// ═══════════ B01b · Meclis kapısı mühürlenir; gece Yıldız, tek pencere ═══════════
+// Yıldız silueti (gece): tepe, köşkler, saat kulesi, servi; win: yanan pencere (0..1)
+function a1_yildiz(ctx, o = {}) {
+  const hill = SP([[880, 640], [1000, 590], [1180, 548], [1380, 500], [1560, 470], [1760, 488], [1960, 530], [2140, 560], [2140, 700], [880, 700]], true, .8);
+  knock(ctx, hill); plate(ctx, 'sepia', hill, { n: 2 }); plate(ctx, 'ink', hill, { a: .62 });
+  const blk = new Path2D();
+  for (const [x, y, w, h, rf] of [[1400, 470, 210, 58, 16], [1615, 462, 120, 52, 14], [1290, 494, 96, 40, 12], [1745, 476, 150, 46, 12], [1180, 520, 80, 30, 10]]) {
+    blk.moveTo(x, y); blk.lineTo(x + w, y); blk.lineTo(x + w, y - h); blk.lineTo(x + w - 8, y - h - rf); blk.lineTo(x + 8, y - h - rf); blk.lineTo(x, y - h); blk.closePath();
+  }
+  // saat kulesi ve kubbe
+  blk.moveTo(1572, 470); blk.lineTo(1572, 352); blk.lineTo(1584, 330); blk.lineTo(1596, 352); blk.lineTo(1596, 470); blk.closePath();
+  blk.moveTo(1500, 412); blk.quadraticCurveTo(1530, 372, 1560, 412); blk.closePath();
+  inkFill(ctx, blk);
+  // pencere sıraları (sönük, kazıma)
+  for (const [x, y, n, gap] of [[1414, 440, 9, 22], [1628, 434, 5, 21], [1756, 452, 6, 22], [1300, 474, 4, 20]]) for (let i = 0; i < n; i++) cut(ctx, PL([[x + i * gap, y], [x + i * gap, y + 9]], false), 2.2, { a: .22 });
+  // saat kadranı
+  cut(ctx, a1_ell(1584, 372, 6, 6), 1.6, { a: .45 });
+  // serviler
+  const cy = new Path2D(); for (const [x, y, h] of [[1360, 500, 70], [1380, 498, 58], [1880, 488, 76], [1905, 492, 60], [1120, 548, 54], [1700, 470, 44]]) { cy.moveTo(x, y); cy.quadraticCurveTo(x - 9, y - h * .5, x, y - h); cy.quadraticCurveTo(x + 9, y - h * .5, x, y); }
+  inkFill(ctx, cy);
+}
+function a1_door(ctx, o = {}) {
+  // taş cephe (ay ışığı: kâğıt + sepya), kemerli kapı, kitabe, basamaklar
+  const fac = PL([[-120, -20], [900, -20], [900, 1100], [-120, 1100]]);
+  knock(ctx, fac); plate(ctx, 'sepia', fac, { a: .5 });
+  halftone(ctx, 'ink', PL([[620, -20], [900, -20], [900, 1100], [700, 1100]]), .2, { cell: 11, ang: 45 });
+  // taş sıraları
+  const r = rng(77);
+  for (let y = 40; y < 1000; y += 56) { inkStroke(ctx, PL([[-120, y], [900, y]], false), 1.3, { a: .45 }); for (let x = -120 + ((y / 56) % 2) * 60; x < 900; x += 120) inkStroke(ctx, PL([[x + r() * 6, y], [x + r() * 6, y + 56]], false), 1.2, { a: .35 }); }
+  // sütunlar
+  for (const x of [70, 790]) { const col = a1_rect(x - 46, 120, x + 46, 1000); knock(ctx, col); plate(ctx, 'sepia', col, { a: .32 }); plate(ctx, 'sepia', a1_rect(x + 10, 120, x + 46, 1000), { a: .5 }); inkStroke(ctx, col, 3); for (const yy of [140, 980]) { const cap = a1_rect(x - 60, yy - 18, x + 60, yy + 18); knock(ctx, cap); plate(ctx, 'sepia', cap, { a: .4 }); inkStroke(ctx, cap, 2.6); } }
+  // kemer ve kitabe
+  const archO = new Path2D(); archO.moveTo(140, 1000); archO.lineTo(140, 470); archO.arc(430, 470, 290, PI, 0); archO.lineTo(720, 1000); archO.closePath();
+  knock(ctx, archO); plate(ctx, 'sepia', archO, { a: .55 }); inkStroke(ctx, archO, 3.4);
+  for (let k = 0; k < 13; k++) { const a = PI + k / 12 * PI; inkStroke(ctx, PL([[430 + Math.cos(a) * 254, 470 + Math.sin(a) * 254], [430 + Math.cos(a) * 290, 470 + Math.sin(a) * 290]], false), 2, { a: .7 }); }
+  const kit = a1_rect(250, 92, 610, 160); knock(ctx, kit); plate(ctx, 'sepia', kit, { a: .25 }); inkStroke(ctx, kit, 2.4); inkStroke(ctx, a1_rect(258, 100, 602, 152), 1); scriptLine(ctx, 590, 136, 320, 15, 88, { w: 2.6 });
+  // kapı kanatları
+  const leaf = new Path2D(); leaf.moveTo(176, 1000); leaf.lineTo(176, 470); leaf.arc(430, 470, 254, PI, 0); leaf.lineTo(684, 1000); leaf.closePath();
+  knock(ctx, leaf); plate(ctx, 'sepia', leaf, { n: 2 }); plate(ctx, 'ink', leaf, { a: .3 });
+  ctx.save(); ctx.clip(leaf);
+  for (const [x0, x1] of [[200, 410], [450, 660]]) for (const [y0, y1] of [[330, 600], [640, 960]]) { const pnl = a1_rect(x0, y0, x1, y1); cut(ctx, pnl, 2.2, { a: .38 }); inkStroke(ctx, a1_rect(x0 + 8, y0 + 8, x1 - 8, y1 - 8), 2, { a: .8 }); }
+  for (let y = 250; y < 1000; y += 46) for (const x of [196, 404, 456, 664]) { const s = a1_ell(x, y, 4.5, 4.5); inkFill(ctx, s); cut(ctx, a1_ell(x - 1.2, y - 1.4, 1.6, 1.6), 1.2, { a: .5 }); }
+  ctx.restore();
+  inkStroke(ctx, leaf, 3); inkStroke(ctx, PL([[430, 216], [430, 1000]], false), 3.4);
+  // tokmak halkaları
+  for (const x of [400, 460]) { inkStroke(ctx, a1_ell(x, 650, 16, 18), 5); cut(ctx, a1_ell(x, 650, 16, 18), 1.4, { a: .45 }); inkFill(ctx, a1_ell(x, 628, 7, 7)); }
+  // basamaklar
+  for (let i = 0; i < 3; i++) { const st = a1_rect(-120 - i * 10, 1000 + i * 26, 900 + i * 10, 1026 + i * 26); knock(ctx, st); plate(ctx, 'sepia', st, { a: .38 + i * .12 }); inkStroke(ctx, PL([[-130, 1000 + i * 26], [910, 1000 + i * 26]], false), 2.6); }
+}
+// zincir + asma kilit (pc: 0..1 iniş; sw: kilit salınımı)
+function a1_chainLock(ctx, pc, sw) {
+  if (pc <= 0) return;
+  const dy = (1 - E.out3(pc)) * -160;
+  ctx.save(); ctx.translate(0, dy);
+  // zincir halkaları: iki halkadan sarkan katener
+  const pts = []; for (let i = 0; i <= 18; i++) { const u = i / 18, x = lerp(400, 460, u), y = 666 + Math.sin(u * PI) * 46; pts.push([x - 34 * Math.sin(u * PI) * (u < .5 ? 1 : -1) * 0, y]); }
+  const lx = 430, ly = 712;
+  for (let i = 0; i < 9; i++) {
+    for (const side of [-1, 1]) { const u = i / 9, x = lx + side * (1 - u) * 30, y = ly - (1 - u) * 44 * (1 - u * .3) - 6 * Math.sin(u * PI); const lk = a1_ell(x, y, 7, 4.5, side * .9 + (i % 2) * 1.2); inkStroke(ctx, lk, 3.4); cut(ctx, lk, 1, { a: .5 }); }
+  }
+  // kilit
+  ctx.save(); ctx.translate(lx, ly); ctx.rotate(sw);
+  const shk = new Path2D(); shk.moveTo(-14, 26); shk.lineTo(-14, 10); shk.arc(0, 10, 14, PI, 0); shk.lineTo(14, 26);
+  inkStroke(ctx, shk, 6); cut(ctx, shk, 1.4, { a: .5 });
+  const body = PL(rough([[-26, 24], [26, 24], [28, 78], [-28, 78]], .8, 5)); knock(ctx, body); inkFill(ctx, body);
+  cut(ctx, PL([[-20, 34], [-20, 70]], false), 2, { a: .55 }); inkStroke(ctx, a1_ell(0, 50, 4, 4), 2, { col: P.paper, a: .7 }); cut(ctx, PL([[0, 52], [0, 62]], false), 2.2, { a: .7 });
+  ctx.restore(); ctx.restore();
+}
+// kâğıt şerit + kırmızı mühür (sp: basılma ölçeği)
+function a1_seal(ctx, x, y, sp) {
+  if (sp <= 0) return;
+  ctx.save(); ctx.translate(x, y);
+  const strip = PL(rough([[-150, -30], [150, 10], [146, 46], [-154, 6]], 1.2, 12));
+  plate(ctx, 'ink', PL([[-144, -22], [156, 18], [152, 54], [-148, 14]]), { a: .35 });
+  knock(ctx, strip); scriptLine(ctx, 130, 22, 90, 7, 41, { w: 1.4 }); scriptLine(ctx, -50, 8, 90, 7, 42, { w: 1.4 }); inkStroke(ctx, strip, 2.2);
+  ctx.scale(sp, sp);
+  const wax = SP(rough([[-44, -6], [-30, -38], [4, -46], [36, -30], [46, 4], [32, 38], [-2, 46], [-36, 32]], 3, 7), true, .9);
+  knock(ctx, wax); plate(ctx, 'red', wax); plate(ctx, 'red', a1_ell(8, 8, 30, 30), { a: .5 });
+  inkStroke(ctx, a1_ell(4, 2, 28, 28), 2.2, { a: .8 }); inkStroke(ctx, a1_ell(4, 2, 21, 21), 1.2, { a: .7 });
+  scriptLine(ctx, 20, 6, 32, 7, 43, { w: 2 });
+  cut(ctx, SP([[-30, -20], [-14, -32], [6, -36]], false), 2.4, { a: .55 });
+  inkStroke(ctx, wax, 2.4);
+  ctx.restore();
+}
+shot(a1_W('B01', 'meclisi') - .45, (ctx, st) => {
+  setReg(102);
+  paperBG(ctx);
+  const t = st.t, tf = Math.floor(t * 15) / 15;
+  const Tm = a1_W('B01', 'meclisi'), Tta = a1_W('B01', 'tatil'), Tet = a1_W('B01', 'etti'), Tu = a1_W('B01', 'ülkeyi'), Ty = a1_W('B01', 'yıldızdan'), Tk = a1_W('B01', 'tek');
+  const pan = E.io2(clamp((t - Tu + .3) / 1.5));
+  const [sx, sy] = shake(t, Tet, 7, 9);
+  const c = { x: lerp(905, 1045, pan), y: 540, z: lerp(1.0 + .03 * ramp(t, Tm - .4, Tet, E.io2), 1.0, pan), sx, sy };
+  // gök (durağan): koyu sepya + is, yarım ton, yıldızlar, hilal
+  const sky = a1_cache('a1-b01b-sky', g => {
+    const R = a1_rect(-200, -60, W + 260, H + 60);
+    knock(g, R); plate(g, 'sepia', R, { n: 2 }); plate(g, 'ink', R, { a: .38 });
+    halftone(g, 'ink', a1_rect(-200, -60, W + 260, 300), .26, { cell: 12, ang: 45 });
+    const r = rng(9); for (let i = 0; i < 70; i++) { const x = -150 + r() * (W + 380), y = 10 + r() * 420, rr = .9 + r() * 1.8; knock(g, a1_ell(x, y, rr, rr), '#E9DEC4'); }
+    const moon = new Path2D(); moon.arc(1480, 150, 38, 0, TAU); moon.arc(1497, 140, 33, 0, TAU, true);
+    g.save(); g.fillStyle = '#EDE3CB'; g.fill(moon, 'evenodd'); g.restore();
+  });
+  ctx.save(); cam(ctx, c, .3); a1_img(ctx, sky); ctx.restore();
+  // uzak tepe: Yıldız ve kent ışıkları
+  ctx.save(); cam(ctx, c, .65);
+  a1_img(ctx, a1_cache('a1-b01b-hill', g => a1_yildiz(g)));
+  // kent pencereleri: "tek başına" sözünde birer birer söner
+  const lights = [[1010, 600], [1072, 588], [1140, 574], [1215, 562], [1262, 548], [1688, 456], [1830, 470], [1938, 520]];
+  lights.forEach(([x, y], i) => { const off = t > Tk + i * .09; if (!off) knock(ctx, a1_rect(x - 3, y - 4, x + 3, y + 4), '#E6D9BC'); });
+  // Yıldız'da tek pencere: "Yıldız'dan" sözünde yanar
+  const wl = ramp(t, Ty, Ty + .25, E.out2);
+  if (wl > 0) {
+    ctx.save(); ctx.globalAlpha = wl;
+    for (const [rx, a] of [[64, .1], [40, .16], [22, .26]]) { ctx.save(); ctx.globalAlpha = wl * a; knock(ctx, a1_ell(1510, 444, rx, rx * .8), P.paper); ctx.restore(); }
+    knock(ctx, a1_rect(1504, 436, 1517, 452), '#FFF6E2'); plate(ctx, 'sepia', a1_rect(1504, 445, 1517, 452), { a: .25 });
+    ctx.restore();
+  }
+  // Boğaz: koyu su, dalga kazımaları, pencere yansıması
+  const sea = a1_rect(-200, 640, W + 260, 760);
+  knock(ctx, sea); plate(ctx, 'sepia', sea, { n: 2 }); plate(ctx, 'ink', sea, { a: .5 });
+  const rr = rng(21); for (let i = 0; i < 46; i++) { const x = -150 + rr() * (W + 380), y = 652 + rr() * 100, L = 14 + rr() * 40; cut(ctx, PL([[x, y], [x + L, y]], false), 1.6, { a: .22 }); }
+  if (wl > 0) for (let i = 0; i < 6; i++) { const y = 656 + i * 16, w = 16 - i * 1.6 + Math.sin(tf * 5 + i) * 3; cut(ctx, PL([[1510 - w, y], [1510 + w, y]], false), 2.6, { a: .75 * wl }); }
+  ctx.restore();
+  // ön plan: rıhtım ve Meclis kapısı
+  ctx.save(); cam(ctx, c, 1);
+  const quay = a1_rect(700, 740, W + 300, H + 80); knock(ctx, quay); plate(ctx, 'sepia', quay, { n: 2 }); plate(ctx, 'ink', quay, { a: .55 });
+  for (let i = 0; i < 9; i++) cut(ctx, PL([[700, 760 + i * 36], [W + 300, 758 + i * 36]], false), 1.4, { a: .16 });
+  a1_img(ctx, a1_cache('a1-b01b-door', g => a1_door(g)));
+  const pc = clamp((t - Tta + .18) / .3), sw = settle(t, Tta + .12, .22, 1.6, 3.2);
+  a1_chainLock(ctx, pc, sw);
+  a1_seal(ctx, 430, 520, a1_pop(t, Tet, .14));
+  ctx.restore();
+}, { tr: { type: 'cut' }, post: { vig: 1.1 } });
+
+// ═══════════ B02 · Abdülhamid masada: okul planı ve jurnaller ═══════════
+// okul planı (düz): cephe görünüşü + kat planı; p: çizim ilerlemesi 0..1
+function a1_planDraw(g, p, o = {}) {
+  const w = 600, h = 420;
+  knock(g, PL(rough([[0, 0], [w, 0], [w, h], [0, h]], 1, 3)));
+  inkStroke(g, a1_rect(10, 10, w - 10, h - 10), 1.4, { a: .8 });
+  const seg = (a, b) => clamp((p - a) / (b - a));
+  // cephe: zemin çizgisi, gövde, orta çıkıntı + alınlık, pencereler
+  const draw = (path, len, a, b, wd = 2) => { const q = seg(a, b); if (q <= 0) return; g.save(); g.setLineDash([len * q, 1e5]); inkStroke(g, path, wd); g.restore(); };
+  draw(PL([[40, 236], [560, 236]], false), 520, 0, .12, 2.4);
+  draw(a1_rect(70, 110, 530, 236), 1180, .08, .3, 2.2);
+  draw(PL([[240, 236], [240, 92], [300, 58], [360, 92], [360, 236]], false), 420, .2, .38, 2.2);
+  draw(PL([[60, 110], [540, 110]], false), 480, .28, .36, 1.6);
+  for (let f = 0; f < 2; f++) for (let i = 0; i < 9; i++) {
+    const x = 92 + i * 50 + (i >= 3 ? 8 : 0) + (i >= 6 ? 8 : 0); if (i === 4) continue;
+    const y = 132 + f * 54, wp = new Path2D(); wp.moveTo(x, y + 36); wp.lineTo(x, y + 10); wp.arc(x + 11, y + 10, 11, PI, 0); wp.lineTo(x + 22, y + 36); wp.closePath();
+    const a = .34 + (f * 9 + i) / 18 * .3; draw(wp, 110, a, a + .05, 1.5);
+  }
+  { const dp = new Path2D(); dp.moveTo(282, 236); dp.lineTo(282, 186); dp.arc(300, 186, 18, PI, 0); dp.lineTo(318, 236); draw(dp, 160, .62, .68, 1.8); }
+  // kat planı
+  draw(a1_rect(70, 268, 530, 390), 1160, .66, .8, 2);
+  for (const x of [130, 190, 240, 360, 410, 470]) draw(PL([[x, 268], [x, 390]], false), 122, .78, .86, 1.3);
+  draw(PL([[240, 330], [360, 330]], false), 120, .84, .9, 1.3);
+  // ölçü çizgileri ve Osmanlıca not
+  if (p > .88) { g.save(); g.globalAlpha = seg(.88, .96); g.setLineDash([3, 4]); inkStroke(g, PL([[70, 252], [530, 252]], false), 1); g.restore(); scriptLine(g, 520, 412, 180, 6, 61, { w: 1.2, a: seg(.9, 1) }); scriptLine(g, 300, 36, 150, 8, 62, { w: 1.6, a: seg(.0, .1) }); }
+  // memur ve subay damgaları
+  for (const [cx, k, ic] of [[120, 'm', o.m || 0], [480, 's', o.s || 0]]) {
+    if (ic <= 0) continue;
+    g.save(); g.translate(cx, 330); g.scale(ic, ic); g.globalAlpha = .92;
+    const ring = a1_ell(0, 0, 34, 34); knock(g, ring); inkStroke(g, ring, 3, { col: P.red, mode: 'multiply' }); inkStroke(g, a1_ell(0, 0, 27, 27), 1.3, { col: P.red, mode: 'multiply' });
+    if (k === 'm') { inkStroke(g, PL([[-12, 14], [14, -16]], false), 3, { col: P.red, mode: 'multiply' }); inkFill(g, PL([[-14, 16], [-10, 10], [-8, 14]]), { col: P.red }); g.globalCompositeOperation = 'multiply'; plate(g, 'red', a1_rect(-16, 8, -2, 18), { flat: true }); }
+    else { for (const sgn of [-1, 1]) inkStroke(g, PL([[-16 * sgn, 16], [16 * sgn, -16]], false), 3, { col: P.red, mode: 'multiply' }); inkStroke(g, PL([[-8, 4], [-2, 10]], false), 2, { col: P.red, mode: 'multiply' }); inkStroke(g, PL([[8, 4], [2, 10]], false), 2, { col: P.red, mode: 'multiply' }); }
+    g.restore();
+  }
+}
+let A1_PLAN = null;
+function a1_planOn(ctx, x, y, sc, skew, p, o) {
+  if (!A1_PLAN) A1_PLAN = makeCanvas(Math.ceil(620 * RS), Math.ceil(440 * RS));
+  const g = A1_PLAN.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, A1_PLAN.width, A1_PLAN.height);
+  g.setTransform(RS, 0, 0, RS, 10 * RS, 10 * RS); g.globalCompositeOperation = 'source-over';
+  a1_planDraw(g, p, o);
+  ctx.save(); ctx.translate(x, y); ctx.transform(sc, 0, skew, sc * .46, 0, 0);
+  plate(ctx, 'ink', a1_rect(6, 14, 616, 446), { a: .32 });
+  ctx.drawImage(A1_PLAN, -10, -10, 620, 440);
+  ctx.restore();
+}
+// jurnal yığını: üst üste kâğıtlar, ip, gölgede; extra: yığına düşen yeni kâğıt (0..1)
+function a1_jurnals(ctx, x, y, n, sc, extra = 0, seed = 5) {
+  const r = rng(seed);
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc);
+  plate(ctx, 'ink', SP([[-200, 30], [200, 26], [220, 60], [-190, 64]], true), { a: .35 });
+  for (let i = 0; i < n; i++) {
+    const yy = -i * 7, dx = (r() - .5) * 26, rt = (r() - .5) * .05;
+    const pg = PL(rough([[-180 + dx, yy - 40], [180 + dx, yy - 44], [190 + dx, yy + 26], [-186 + dx, yy + 30]].map(([a, b]) => [a * Math.cos(rt) - b * Math.sin(rt), a * Math.sin(rt) + b * Math.cos(rt)]), 1.4, seed + i));
+    knock(ctx, pg); plate(ctx, 'sepia', pg, { a: .18 + (i % 3) * .06 }); inkStroke(ctx, pg, 2);
+    inkStroke(ctx, PL([[-186 + dx, yy + 24], [190 + dx, yy + 20]], false), 1.2, { a: .5 });
+  }
+  const top = -(n - 1) * 7;
+  for (let k = 0; k < 4; k++) scriptLine(ctx, 150, top - 24 + k * 12, 290 * (k === 3 ? .5 : .95), 4.5, seed * 9 + k, { w: 1.4, a: .85 });
+  // ip
+  inkStroke(ctx, PL([[-30, top - 46], [-24, 30]], false), 3); inkStroke(ctx, PL([[-196, top - 6], [196, top - 12]], false), 3);
+  inkStroke(ctx, SP([[-26, top - 10], [-46, top - 26], [-60, top - 12]], false), 2.4); inkStroke(ctx, SP([[-26, top - 10], [-4, top - 30], [10, top - 16]], false), 2.4);
+  if (extra > 0) {
+    const e = E.out3(extra), yy = top - 10 - (1 - e) * 90, xx = 40 + (1 - e) * 160, rt = -.08 + (1 - e) * .3;
+    ctx.save(); ctx.translate(xx, yy); ctx.rotate(rt); ctx.globalAlpha = clamp(extra * 4);
+    const pg = PL(rough([[-170, -40], [170, -44], [176, 24], [-172, 28]], 1.4, 99)); plate(ctx, 'ink', PL([[-164, -32], [178, -36], [184, 34], [-166, 38]]), { a: .25 }); knock(ctx, pg); plate(ctx, 'sepia', pg, { a: .12 }); inkStroke(ctx, pg, 2);
+    for (let k = 0; k < 4; k++) scriptLine(ctx, 150, -24 + k * 12, 290 * (k === 3 ? .5 : .95), 4.5, 700 + k, { w: 1.4 });
+    ctx.restore();
+  }
+  ctx.restore();
+}
+// masa (sepya): üst yüzey + oymalı ön yüz
+function a1_desk(g, y0, y1) {
+  const top = PL([[-40, y0], [W + 40, y0], [W + 40, y1], [-40, y1]]);
+  knock(g, top); plate(g, 'sepia', top, { a: .62 });
+  const r = rng(17); for (let i = 0; i < 14; i++) { const yy = y0 + 8 + i * (y1 - y0 - 10) / 14 + r() * 2, p = new Path2D(); let x = -40; p.moveTo(x, yy); while (x < W + 40) { const nx = x + 90 + r() * 160; p.quadraticCurveTo((x + nx) / 2, yy + (r() - .5) * 5, nx, yy + (r() - .5) * 2); x = nx; } inkStroke(g, p, 1.4, { a: .35 + r() * .25 }); }
+  const front = a1_rect(-40, y1, W + 40, H + 40); knock(g, front); plate(g, 'sepia', front, { n: 2 }); plate(g, 'ink', front, { a: .35 });
+  inkStroke(g, PL([[-40, y0], [W + 40, y0]], false), 3.6); inkStroke(g, PL([[-40, y1], [W + 40, y1]], false), 4);
+  cut(g, PL([[-40, y1 + 6], [W + 40, y1 + 6]], false), 1.6, { a: .45 });
+  for (let i = 0; i < 4; i++) { const x0 = 40 + i * 480; inkStroke(g, a1_rect(x0, y1 + 36, x0 + 400, H + 60), 2.4, { a: .8 }); cut(g, a1_rect(x0 + 10, y1 + 46, x0 + 390, H + 60), 1.4, { a: .35 }); }
+}
+shot(S('B02'), (ctx, st) => {
+  setReg(103);
+  paperBG(ctx);
+  const t = st.t;
+  const To = a1_W('B02', 'okuldu'), Ts = a1_W('B02', 'sadık'), Tme = a1_W('B02', 'memurlar'), Tsu = a1_W('B02', 'subaylar');
+  const c = { x: kf(t, [[S('B02'), 960], [Se('B02'), 930]]), y: kf(t, [[S('B02'), 540], [Se('B02'), 556]]), z: kf(t, [[S('B02'), 1.0], [Se('B02') + .8, 1.06]], ) };
+  const HX = 960, HY = 318, HS = 1.36;
+  // oda (durağan): duvar, pencere, dolap
+  const room = a1_cache('a1-b02-room', g => {
+    paperBG(g);
+    const wall = a1_rect(-60, -60, W + 60, 760); plate(g, 'sepia', wall, { a: .44 });
+    // duvar yarım tonu: başın çevresi (1,5 baş yarıçapı) hariç
+    const hc = new Path2D(); hc.rect(-60, -60, W + 120, 820); hc.ellipse(HX - 20, HY - 20, 300, 300, 0, 0, TAU);
+    g.save(); g.clip(hc, 'evenodd'); halftone(g, 'sepia', a1_rect(-60, -60, W + 60, 560), .14, { cell: 12, ang: 15 }); g.restore();
+    // lambri
+    inkStroke(g, PL([[-60, 520], [W + 60, 520]], false), 3); for (let i = 0; i < 9; i++) { const x0 = -20 + i * 230; inkStroke(g, a1_rect(x0, 548, x0 + 196, 730), 1.8, { a: .7 }); cut(g, a1_rect(x0 + 8, 556, x0 + 188, 722), 1.2, { a: .3 }); }
+    // pencere (soldan nötr gün ışığı)
+    const wx0 = 70, wx1 = 360, wy0 = 70, wy1 = 560, win = a1_rect(wx0, wy0, wx1, wy1);
+    knock(g, win); plate(g, 'sepia', a1_rect(wx0, 380, wx1, wy1), { a: .22 });
+    const cyp = new Path2D(); for (const [x, h] of [[120, 160], [150, 120], [300, 180]]) { cyp.moveTo(x, 470); cyp.quadraticCurveTo(x - 16, 470 - h * .5, x, 470 - h); cyp.quadraticCurveTo(x + 16, 470 - h * .5, x, 470); }
+    plate(g, 'sepia', cyp, { a: .55 }); plate(g, 'sepia', a1_rect(wx0, 466, wx1, wy1), { a: .4 });
+    const fr = new Path2D(); fr.rect(wx0 - 16, wy0 - 16, wx1 - wx0 + 32, 16); fr.rect(wx0 - 16, wy1, wx1 - wx0 + 32, 20); fr.rect(wx0 - 16, wy0, 16, wy1 - wy0); fr.rect(wx1, wy0, 16, wy1 - wy0); fr.rect((wx0 + wx1) / 2 - 6, wy0, 12, wy1 - wy0); fr.rect(wx0, 300, wx1 - wx0, 10);
+    knock(g, fr); plate(g, 'sepia', fr, { n: 2 }); inkStroke(g, fr, 2.4);
+    for (const [x0, x1, s] of [[20, 120, 1], [320, 420, -1]]) { const cur = SP([[x0, 40], [x1, 40], [x1 - s * 10, 300], [x1 + s * 6, 600], [x0 - s * 4, 610], [x0 + s * 8, 300]], true, .7); knock(g, cur); plate(g, 'sepia', cur, { a: .75 }); inkStroke(g, cur, 2.6); for (let k = 1; k < 4; k++) { const xx = lerp(x0, x1, k / 4); inkStroke(g, SP([[xx, 50], [xx + s * 6, 300], [xx - s * 4, 600]], false), 1.6, { a: .6 }); } }
+    inkStroke(g, PL([[0, 36], [440, 36]], false), 5);
+    // dolap ve kitaplar (sağ)
+    const cab = a1_rect(1500, 90, 1900, 760); knock(g, cab); plate(g, 'sepia', cab, { n: 2 }); plate(g, 'ink', cab, { a: .25 }); inkStroke(g, cab, 3);
+    const rr = rng(4);
+    for (let sh = 0; sh < 4; sh++) { const y1 = 250 + sh * 150; cut(g, PL([[1512, y1], [1888, y1]], false), 2, { a: .4 }); let x = 1520; while (x < 1870) { const bw = 16 + rr() * 22, bh = 90 + rr() * 40, bk = a1_rect(x, y1 - bh, x + bw, y1 - 2); knock(g, bk); plate(g, 'sepia', bk, { a: .5 + rr() * .5 }); inkStroke(g, bk, 1.6); cut(g, PL([[x + 4, y1 - bh + 14], [x + bw - 4, y1 - bh + 14]], false), 1.2, { a: .5 }); x += bw + 2; } }
+  });
+  ctx.save(); cam(ctx, c, .6); a1_img(ctx, room); ctx.restore();
+  ctx.save(); cam(ctx, c, 1);
+  // Abdülhamid: planına dönük, ışık nötr
+  const look = [560, 760];
+  a1_fig(ctx, t, { x: HX, y: HY, s: HS, dir: -1, who: 'abdulhamid', gear: 'fes', coat: 'setre', col: 'ink', age: 48, lookAt: look, len: 330, w: .92, turn: .35, seed: 21, tilt: .06 });
+  a1_img(ctx, a1_cache('a1-b02-desk', g => a1_desk(g, 700, 850)));
+  // plan çizilir; memur ve subay damgaları
+  a1_planOn(ctx, 220, 690, 1.0, -.32, ramp(t, To, To + 2.4, E.io2), { m: a1_pop(t, Tme, .14), s: a1_pop(t, Tsu, .14) });
+  // jurnaller: gölgede, "sadık" sözünde yığına bir kâğıt daha
+  a1_jurnals(ctx, 1330, 760, 11, .78, clamp((t - Ts) / .35));
+  // el planın üstünde
+  const tf = Math.floor(t * 15) / 15;
+  const sh = [HX - 64 * HS, HY + 112 * HS], hand = [700 + noise1(tf * .4, 3) * 4, 742];
+  const A = arm(ctx, sh, hand, { upper: 176, fore: 168, w: 54, col: 'ink', bend: -1 });
+  handDraw(ctx, A.wr[0], A.wr[1], A.ang, A.w2 / 20, 'rest', { side: -1 });
+  ctx.restore();
+  nameTag(ctx, 1860, 880, 'II. ABDÜLHAMİD', '48 yaşında · 1890', st.lt - .7, 4.4, { align: 'right' });
+}, { tr: { type: 'press', dur: .6 } });
