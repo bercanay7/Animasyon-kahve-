@@ -71,6 +71,12 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Geniş kitleye açılırken TO'nun düşmesi normaldir.
 - **İzleme süresi:** 5–10 dakikalık videoda ortalama izlenme %40 iyi, %50+ çok iyi. 0:30'da kalan izleyici %65–70 iyi.
 - **Sisifos, ilk 18 saat:** 4,7 B gösterim, TO %1,6, izlenmelerin %84,5'i Göz at trafiğinden. Ortalama izleme 2:55 (%41) olduğu için YouTube gösterimi hızla artırdı.
+- **Sisifos, 3. gün:**
+  - Erişim: 22,2 B gösterim, 1.554 görüntüleme, 27,7 saat izlenme.
+  - İzleme: ortalama 3:07, izleyici tutma %44,3.
+  - Trafik: Göz at %75, Önerilen %20,6.
+  - Gösterim basamak basamak arttı (ikinci dalga); Orfeus'un ~92 görüntülemesine göre yaklaşık 17 kat.
+  - Zayıf halka TO (%1 küsur). Güçlü yanı tutma: kanca, 7 dakikalık süre ve bölüm yapısı korunmalı.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Teknik notlar ve tuzaklar
