@@ -32,12 +32,11 @@ function renderFrameMB(t, n) {
 }
 window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
 window.ready = (async () => {
-  // unicode-range ile bölünmüş yüzler (latin + latin-ext) Türkçe harflerle birlikte önceden yüklenir
+  // unicode-range ile bölünmüş yüzler Türkçe harflerle birlikte önceden yüklenir
   const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
-  for (const f of ['400 40px Cinzel', '600 40px Cinzel', '700 40px Cinzel', '900 40px Cinzel',
-    'italic 500 40px "Cormorant Garamond"', 'italic 600 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"',
-    '400 40px "Courier Prime"', '700 40px "Courier Prime"']) await document.fonts.load(f, TR);
-  buildTextures();
+  for (const f of ['400 40px "Abril Fatface"', '400 40px "Alfa Slab One"', '400 40px "Courier Prime"', '700 40px "Courier Prime"',
+    'italic 600 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"', '400 40px Amiri', '700 40px Amiri']) await document.fonts.load(f, TR);
+  buildPaper();
   if (window.initScenes) initScenes();
   return true;
 })();

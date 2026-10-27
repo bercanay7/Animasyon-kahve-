@@ -47,13 +47,16 @@ function drawFilm(ctx, t) {
   const tr = sh.tr;
   if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
     const p = clamp((t - sh.at) / tr.dur);
+    // baskı geçişi: yeni sahnenin kalıpları kayık basılır, sonra yerine oturur
+    if (tr.type === 'press') REG.boost = 1 + 5 * (1 - E.out3(p));
     drawShot(ctx, i, t);
+    REG.boost = 1;
     baseT(bufAx); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'source-over';
     bufAx.clearRect(0, 0, W, H);
     drawShot(bufAx, i - 1, t);
     composite(ctx, bufA, tr, p);
   } else drawShot(ctx, i, t);
-  POST = { tex: .85, vig: .85, grain: .055, ...(sh.post || {}) };
+  POST = { ...(sh.post || {}) };
   post(ctx, t);
 }
 // önceki çekimi (buf) mevcut kareye geçiş maskesiyle bindir
@@ -79,6 +82,16 @@ function composite(ctx, buf, tr, p) {
     bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in';
     bufAx.imageSmoothingQuality = 'high'; bufAx.drawImage(maskC, 0, 0, W, H); bufAx.restore();
     ctx.drawImage(buf, 0, 0);
+  } else if (tr.type === 'press') {
+    // baskı merdanesi: soldan sağa yumuşak kenarlı silme; kenarda is izi
+    const x = lerp(-160, W + 160, E.io2(p));
+    const g = bufAx.createLinearGradient(x - 60, 0, x + 60, 0);
+    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, '#000');
+    bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.fillStyle = g; bufAx.fillRect(0, 0, W, H); bufAx.restore();
+    ctx.drawImage(buf, 0, 0);
+    ctx.save(); baseT(ctx); ctx.globalAlpha = .55 * Math.sin(PI * p); ctx.fillStyle = P.ink;
+    for (let k = 0; k < 3; k++) ctx.fillRect(x - 64 + k * 9 + noise1(p * 40, k) * 3, 0, 3.2, H);
+    ctx.restore();
   } else if (tr.type === 'wipe') {
     const x = lerp(-200, W + 200, E.io3(p)), dir = tr.dir || 1;
     const g = bufAx.createLinearGradient(x - 120, 0, x + 120, 0);
@@ -95,15 +108,9 @@ function composite(ctx, buf, tr, p) {
   }
   ctx.restore();
 }
-// Son işlem: doku + vinyet + gren. Çekimler kendi stilini window.POST ile ayarlar.
-let POST = { tex: .85, vig: .85, grain: .055 };
-function setPost(o) { POST = { tex: .85, vig: .85, grain: .055, ...o }; }
-function post(ctx, t) {
-  if (POST.tex > 0) applyTexture(ctx, POST.tex);
-  if (POST.vig > 0) applyVignette(ctx, POST.vig);
-  if (POST.grain > 0) applyGrain(ctx, t, POST.grain);
-  if (POST.flicker) { ctx.save(); baseT(ctx); ctx.fillStyle = '#000'; ctx.globalAlpha = (noise1(t * 9, 3) * .5 + .5) * POST.flicker; ctx.fillRect(0, 0, W, H); ctx.restore(); }
-}
+// Son işlem: taş greni + kâğıt + vinyet + gren. Çekimler kendi ayarını sh.post ile verir.
+let POST = {};
+function post(ctx, t) { pressFinish(ctx, t, POST); }
 // Kamera: dünya koordinatından ekrana (merkez cx,cy, yakınlık z, dönüş r); katman derinliği k ile paralaks
 function cam(ctx, c, k = 1) {
   // c.x, c.y: ekran merkezine gelen dünya noktası; k: paralaks derinliği (0 sabit, 1 tam)
@@ -119,116 +126,5 @@ function shake(t, t0, amp, dec = 6, f = 23) {
   const e = Math.exp(-(t - t0) * dec) * amp;
   return [noise1(t * f, 1) * e, noise1(t * f, 2) * e];
 }
-// Metin yardımcıları
 // Shorts gibi kurgularda film içi yazılar kapatılabilir (?notext=1)
 const NOTEXT = typeof location !== 'undefined' && new URLSearchParams(location.search).has('notext');
-function txt(ctx, s, x, y, o = {}) {
-  if (NOTEXT && !o.force) return;
-  s = L(s);
-  ctx.save();
-  ctx.font = o.font || '600 48px Cinzel';
-  ctx.textAlign = o.align || 'center'; ctx.textBaseline = o.base || 'middle';
-  if (o.ls) ctx.letterSpacing = o.ls + 'px';
-  // o.maxW: yazı bu genişliğe sığmazsa punto küçülür (çeviride uzayan etiketler)
-  if (o.maxW) { const w = ctx.measureText(s).width; if (w > o.maxW) ctx.font = ctx.font.replace(/([\d.]+)px/, (m, n) => (n * o.maxW / w).toFixed(1) + 'px'); }
-  ctx.globalAlpha *= o.a ?? 1;
-  if (o.shadow) { ctx.shadowColor = o.shadow; ctx.shadowBlur = o.blur || 18; }
-  if (o.stroke) { ctx.lineWidth = o.sw || 6; ctx.strokeStyle = o.stroke; ctx.lineJoin = 'round'; ctx.strokeText(s, x, y); }
-  ctx.fillStyle = o.col || C.ink; ctx.fillText(s, x, y);
-  ctx.restore();
-}
-// Harf harf beliren metin (p: 0..1)
-function txtReveal(ctx, s, x, y, p, o = {}) {
-  s = L(s);
-  ctx.save(); ctx.font = o.font || '600 48px Cinzel'; if (o.ls) ctx.letterSpacing = o.ls + 'px';
-  const wTot = ctx.measureText(s).width; ctx.restore();
-  let cx = x - (o.align === 'left' ? 0 : wTot / 2);
-  const n = s.length;
-  for (let i = 0; i < n; i++) {
-    const ch = s[i];
-    ctx.save(); ctx.font = o.font || '600 48px Cinzel'; if (o.ls) ctx.letterSpacing = o.ls + 'px';
-    const cw = ctx.measureText(ch).width; ctx.restore();
-    const q = clamp(p * (n + 6) / 6 - i / 6);
-    if (q > 0) txt(ctx, ch, cx + cw / 2, y + (1 - E.out3(q)) * (o.rise ?? 14), { ...o, align: 'center', a: (o.a ?? 1) * q });
-    cx += cw;
-  }
-}
-// Bölüm kartı
-function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
-  if (NOTEXT) return;
-  num = L(num); title = L(title);
-  // vazo etiketi gibi kil levha: her zeminde okunur
-  const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
-  if (a <= 0) return;
-  ctx.save(); baseT(ctx);
-  ctx.font = '700 50px Cinzel'; ctx.letterSpacing = '4px';
-  const tw = ctx.measureText(title).width;
-  const pw = Math.max(520, tw + 150), ph = 136, y = o.y ?? 150;
-  const sc = lerp(.92, 1, E.out3(ramp(lt, 0, .6)));
-  ctx.translate(o.x ?? W / 2, y); ctx.scale(sc, sc);
-  ctx.globalAlpha = a;
-  ctx.fillStyle = 'rgba(10,5,3,.35)'; ctx.fillRect(-pw / 2 + 8, -ph / 2 + 10, pw, ph);
-  ctx.fillStyle = '#E3B98C'; ctx.fillRect(-pw / 2, -ph / 2, pw, ph);
-  ctx.lineWidth = 5; ctx.strokeStyle = C.ink; ctx.strokeRect(-pw / 2 + 8, -ph / 2 + 8, pw - 16, ph - 16);
-  ctx.lineWidth = 1.6; ctx.strokeRect(-pw / 2 + 16, -ph / 2 + 16, pw - 32, ph - 32);
-  for (const sg of [-1, 1]) { ctx.fillStyle = C.ink; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc(sg * (pw / 2 - 42), -18 + k * 18, 4, 0, TAU); ctx.fill(); } }
-  txt(ctx, num, 0, -32, { font: '700 30px Cinzel', col: C.red, ls: 9 });
-  const q = ramp(lt, .15, .9);
-  txt(ctx, title, 0, 16, { font: '700 50px Cinzel', col: C.ink, ls: 4, a: q });
-  ctx.restore();
-}
-// Karakter adı etiketi
-function nameTag(ctx, name, sub, x, y, lt, d = 3.2, o = {}) {
-  if (NOTEXT) return;
-  const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
-  if (a <= 0) return;
-  ctx.save(); baseT(ctx); ctx.globalAlpha = a;
-  const col = o.col || C.white, al = o.align || 'left';
-  txt(ctx, name, x, y, { font: '700 40px Cinzel', col, align: al, ls: 6, shadow: 'rgba(0,0,0,.6)', blur: 12 });
-  if (sub) txt(ctx, sub, x + (al === 'left' ? 2 : 0), y + 44, { font: 'italic 600 40px "Cormorant Garamond"', col, align: al, shadow: 'rgba(0,0,0,.85)', blur: 10 });
-  const lw = lerp(0, 120, E.out3(ramp(lt, .2, .9)));
-  ctx.fillStyle = o.line || C.gold; ctx.fillRect(al === 'left' ? x : x - lw / 2, y + 22 + (sub ? 46 : 0) + 4, lw, 2);
-  ctx.restore();
-}
-// Yazının arkasına yumuşak, metin genişliğinde eliptik koyu zemin (tam genişlik şerit yerine)
-function softPanel(ctx, x, y, rx, ry, a = .7, col = '20,8,4') {
-  ctx.save(); ctx.translate(x, y); ctx.scale(1, ry / rx);
-  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
-  g.addColorStop(0, `rgba(${col},${a})`); g.addColorStop(.55, `rgba(${col},${a * .75})`); g.addColorStop(1, `rgba(${col},0)`);
-  ctx.fillStyle = g; ctx.fillRect(-rx, -rx, 2 * rx, 2 * rx); ctx.restore();
-}
-// Alıntı tipografisi (satır kırma ile)
-function quote(ctx, s, x, y, maxW, lt, o = {}) {
-  s = L(s);
-  const font = o.font || 'italic 500 56px "Cormorant Garamond"', lh = o.lh || 70;
-  ctx.save(); ctx.font = font;
-  // \n ile verilen satır kırma (çeviride dengeli satırlar) yoksa genişliğe göre kır
-  const words = s.includes('\n') ? [] : s.split(' '), lines = s.includes('\n') ? s.split('\n') : []; let cur = '';
-  for (const w of words) { const tt = cur ? cur + ' ' + w : w; if (ctx.measureText(tt).width > maxW && cur) { lines.push(cur); cur = w; } else cur = tt; }
-  if (cur) lines.push(cur);
-  ctx.restore();
-  const y0 = y - (lines.length - 1) * lh / 2;
-  if (o.band) { ctx.save(); ctx.font = font; const ww = Math.max(...lines.map(l => ctx.measureText(l).width)); ctx.restore(); softPanel(ctx, x, y, ww / 2 + 200, lines.length * lh / 2 + 70, .6 * ramp(lt, o.delay || 0, (o.delay || 0) + .8)); }
-  lines.forEach((ln, i) => {
-    const q = ramp(lt, (o.delay || 0) + i * (o.stagger ?? .35), (o.delay || 0) + i * (o.stagger ?? .35) + .9);
-    txt(ctx, ln, x, y0 + i * lh + (1 - q) * 12, { font, col: o.col || C.white, a: q * (o.a ?? 1), shadow: o.shadow, blur: o.blur, align: o.align });
-  });
-}
-
-// Figür yerel noktasını (kafa yerel koordinatı) ctx koordinatına çevir
-function headPt(ctx, J, M, q) {
-  const hp = add(J.neckT, rot(q, J.headA));
-  const sp = M.transformPoint(new DOMPoint(hp[0], hp[1]));
-  const r = ctx.getTransform().inverse().transformPoint(sp);
-  return [r.x, r.y];
-}
-function jointPt(ctx, M, q) { const sp = M.transformPoint(new DOMPoint(q[0], q[1])); const r = ctx.getTransform().inverse().transformPoint(sp); return [r.x, r.y]; }
-// Parıltı yıldızı
-function sparkle(ctx, x, y, r, a = 1, col = '#FFF4D8') {
-  if (a <= 0) return;
-  ctx.save(); ctx.translate(x, y); ctx.globalAlpha *= a; ctx.fillStyle = col;
-  ctx.beginPath(); ctx.moveTo(0, -r); ctx.quadraticCurveTo(r * .12, -r * .12, r, 0); ctx.quadraticCurveTo(r * .12, r * .12, 0, r); ctx.quadraticCurveTo(-r * .12, r * .12, -r, 0); ctx.quadraticCurveTo(-r * .12, -r * .12, 0, -r); ctx.fill();
-  glow(ctx, 0, 0, r * 1.6, 'rgba(255,240,200,.5)');
-  ctx.restore();
-}
-const FLAT = y => groundOf(() => y);

@@ -1,125 +1,192 @@
-// Baskı üslubu ilkelleri: kâğıt, renk plakaları (multiply + kayık baskı), yarım ton (raster) karoları, kırık mürekkep kenarı
+// Taş baskı üslubu: kâğıt, renk kalıpları (multiply + sabit kayık baskı), yarım ton, kırık mürekkep, taş greni
+// Çizim modeli: her nesne önce kâğıt rengiyle "boşaltılır" (knock), sonra kalıpları çarpma ile basılır, en son is (mürekkep) çizgisi gelir.
 'use strict';
 const P = {
-  paper: '#EEE4CC', paperD: '#D8C9A8', paperDirty: '#E2D5B8',
-  ink: '#1E1B18', fes: '#8C2A2A', mustard: '#D49A2A', khaki: '#7A7448',
-  sea: '#3F6670', night: '#22283A', flag: '#E30A17',
+  paper: '#EEE4CD', paperD: '#DCCFB2', ink: '#211D1B', red: '#B3332B', navy: '#273650', khaki: '#867A50',
+  ochre: '#C4903F', gold: '#E2B04A', teal: '#3E7774', skin: '#E7BC96', grey: '#5E5A55', sepia: '#6E4C33',
+  eye: '#8FB3CF',
 };
 function makeCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 function hexRGB(c) { const n = parseInt(c.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
 function rgba(c, a) { const [r, g, b] = hexRGB(c); return `rgba(${r},${g},${b},${a})`; }
-function mixHex(a, b, t) { const A = hexRGB(a), B = hexRGB(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); }
 
+// ——— kayık baskı: her kalıbın çekim boyunca sabit küçük kayması ———
+const REG = { seed: 1, amt: 1, boost: 1 };
+function setReg(seed, amt = 1) { REG.seed = seed; REG.amt = amt; }
+function regOf(plate) {
+  if (plate === 'ink' || plate === 'paper') return [0, 0];
+  const r = rng(REG.seed * 131 + plate.length * 17 + plate.charCodeAt(0) * 7);
+  const k = 3.6 * REG.amt * REG.boost; return [(r() - .5) * k, (r() - .5) * k];
+}
+// yol: Path2D ya da (ctx)=>{...} çizim fonksiyonu
+function _path(ctx, p) { if (p instanceof Path2D) return p; const q = new Path2D(); p(q); return q; }
+// kâğıt rengiyle boşalt (arkadakini örter)
+function knock(ctx, p, col = P.paper) { ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = col; ctx.fill(_path(ctx, p)); ctx.restore(); }
+// kalıp bas: çarpma, kayık; n=2 ikinci baskı (koyu ton)
+function plate(ctx, name, p, o = {}) {
+  const q = _path(ctx, p), [dx, dy] = regOf(name);
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.a ?? 1; ctx.translate(dx, dy);
+  ctx.fillStyle = P[name] || name;
+  for (let i = 0; i < (o.n || 1); i++) ctx.fill(q);
+  ctx.restore();
+}
+// yarım ton kalıbı: yol içinde sabit yoğunluklu nokta deseni
+const HT = {};
+function htPattern(ctx, col, dens, cell, ang) {
+  const key = [col, dens.toFixed(2), cell, ang, RS].join('|');
+  if (!HT[key]) {
+    const c = makeCanvas(Math.ceil(cell * RS), Math.ceil(cell * RS)), x = c.getContext('2d');
+    x.scale(RS, RS); x.fillStyle = col;
+    const rr = cell * Math.sqrt(clamp(dens, 0, .78) / PI);
+    x.beginPath(); x.arc(cell / 2, cell / 2, rr, 0, TAU); x.fill();
+    if (dens > .78) { x.fillRect(0, 0, cell, cell); }
+    const pat = x.createPattern(c, 'repeat');
+    HT[key] = { c };
+  }
+  const pat = ctx.createPattern(HT[key].c, 'repeat');
+  const m = new DOMMatrix(); m.rotateSelf(ang); m.scaleSelf(1 / RS, 1 / RS); pat.setTransform(m);
+  return pat;
+}
+function halftone(ctx, name, p, dens, o = {}) {
+  const q = _path(ctx, p), [dx, dy] = regOf(name);
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.a ?? 1; ctx.translate(dx, dy);
+  ctx.fillStyle = htPattern(ctx, P[name] || name, dens, o.cell || 12, o.ang ?? (name === 'ink' ? 45 : 15));
+  ctx.fill(q); ctx.restore();
+}
+// ışığa göre değişen raster (hale): merkezde d0, dışta d1 yoğunluk; sonuç önbelleğe alınabilir
+function radialHT(ctx, name, cx, cy, r0, r1, d0, d1, o = {}) {
+  const [dx, dy] = regOf(name), cell = o.cell || 13, ang = (o.ang ?? 15) * PI / 180, ca = Math.cos(ang), sa = Math.sin(ang);
+  const R = Math.max(o.extent || r1, 10);
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P[name] || name; ctx.translate(dx, dy);
+  if (o.clip) ctx.clip(_path(ctx, o.clip));
+  ctx.beginPath();
+  const x0 = o.box ? o.box[0] : cx - R, y0 = o.box ? o.box[1] : cy - R, x1 = o.box ? o.box[2] : cx + R, y1 = o.box ? o.box[3] : cy + R;
+  const span = Math.hypot(x1 - x0, y1 - y0);
+  for (let v = -span; v <= span; v += cell) for (let u = -span; u <= span; u += cell) {
+    const x = (x0 + x1) / 2 + u * ca - v * sa, y = (y0 + y1) / 2 + u * sa + v * ca;
+    if (x < x0 - cell || x > x1 + cell || y < y0 - cell || y > y1 + cell) continue;
+    const d = Math.hypot((x - cx) / (o.sx || 1), (y - cy) / (o.sy || 1));
+    const dens = lerp(d0, d1, smooth(inv(r0, r1, d)));
+    if (dens <= .015) continue;
+    const rr = cell * Math.sqrt(Math.min(dens, .9) / PI);
+    ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, TAU);
+  }
+  ctx.fill(); ctx.restore();
+}
+// mürekkep çizgisi (is) ve kazıma (kâğıt rengi çizgi, koyu kütle içinde)
+function inkStroke(ctx, p, w, o = {}) {
+  ctx.save(); ctx.globalCompositeOperation = o.mode || 'source-over'; ctx.strokeStyle = o.col || P.ink; ctx.lineWidth = w;
+  ctx.lineCap = o.cap || 'round'; ctx.lineJoin = 'round'; ctx.globalAlpha = o.a ?? 1;
+  ctx.stroke(_path(ctx, p)); ctx.restore();
+}
+function inkFill(ctx, p, o = {}) { ctx.save(); ctx.globalAlpha = o.a ?? 1; ctx.fillStyle = o.col || P.ink; ctx.fill(_path(ctx, p)); ctx.restore(); }
+function cut(ctx, p, w, o = {}) { inkStroke(ctx, p, w, { col: o.col || P.paper, ...o }); }
+
+// ——— kırık kenar: nokta listesine sabit tohumlu gürültü ———
+function rough(pts, amp = 1.2, seed = 1) {
+  const r = rng(seed);
+  return pts.map(([x, y]) => [x + (r() - .5) * 2 * amp, y + (r() - .5) * 2 * amp]);
+}
+// Catmull-Rom → bezier
+function spl(p, pts, closed = true, k = 1) {
+  const n = pts.length; if (n < 2) return p;
+  const P_ = i => pts[closed ? (i + n) % n : clamp(i, 0, n - 1)];
+  p.moveTo(pts[0][0], pts[0][1]);
+  const m = closed ? n : n - 1;
+  for (let i = 0; i < m; i++) {
+    const p0 = P_(i - 1), p1 = P_(i), p2 = P_(i + 1), p3 = P_(i + 2);
+    p.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6 * k, p1[1] + (p2[1] - p0[1]) / 6 * k, p2[0] - (p3[0] - p1[0]) / 6 * k, p2[1] - (p3[1] - p1[1]) / 6 * k, p2[0], p2[1]);
+  }
+  if (closed) p.closePath();
+  return p;
+}
+const SP = (pts, closed = true, k = 1) => spl(new Path2D(), pts, closed, k);
+const PL = (pts, closed = true) => { const p = new Path2D(); pts.forEach((q, i) => i ? p.lineTo(q[0], q[1]) : p.moveTo(q[0], q[1])); if (closed) p.closePath(); return p; };
+// yerel dönüşümlü nokta listesi
+function tf(pts, x, y, s, dir = 1, rot = 0) { const c = Math.cos(rot), sn = Math.sin(rot); return pts.map(([a, b]) => { const u = a * dir * s, v = b * s; return [x + u * c - v * sn, y + u * sn + v * c]; }); }
+
+// ——— dokular ———
 const TEX = {};
-// Kâğıt: lif, diş ve hafif lekeler; çarpma ile basılır (beyaz = etkisiz)
 function buildPaper() {
-  const r = rng(11), c = makeCanvas(W, H), x = c.getContext('2d');
+  const r = rng(11);
+  const c = makeCanvas(W, H), x = c.getContext('2d');
   const big = makeCanvas(W / 4, H / 4), bx = big.getContext('2d'), id = bx.createImageData(big.width, big.height);
   for (let y = 0; y < big.height; y++) for (let X = 0; X < big.width; X++) {
-    let v = 0, a = .55, f = 1 / 70;
+    let v = 0, a = .55, f = 1 / 60;
     for (let o = 0; o < 4; o++) { v += a * noise2(X * f, y * f, o + 21); a *= .5; f *= 2.1; }
-    const k = (y * big.width + X) * 4, g = 246 + (v - .5) * 22;
-    id.data[k] = g; id.data[k + 1] = g * .99; id.data[k + 2] = g * .975; id.data[k + 3] = 255;
+    const k = (y * big.width + X) * 4, g = 247 + (v - .5) * 26;
+    id.data[k] = g; id.data[k + 1] = g * .992; id.data[k + 2] = g * .978; id.data[k + 3] = 255;
   }
-  bx.putImageData(id, 0, 0);
-  x.imageSmoothingQuality = 'high'; x.drawImage(big, 0, 0, W, H);
-  // lifler
-  for (let i = 0; i < 1400; i++) {
-    const px = r() * W, py = r() * H, L = 6 + r() * 26, a = r() * TAU;
-    x.strokeStyle = `rgba(${r() < .5 ? '120,100,80' : '255,252,245'},${.05 + r() * .08})`; x.lineWidth = .6 + r() * .8;
-    x.beginPath(); x.moveTo(px, py); x.quadraticCurveTo(px + Math.cos(a) * L * .5 + (r() - .5) * 6, py + Math.sin(a) * L * .5 + (r() - .5) * 6, px + Math.cos(a) * L, py + Math.sin(a) * L); x.stroke();
+  bx.putImageData(id, 0, 0); x.imageSmoothingQuality = 'high'; x.drawImage(big, 0, 0, W, H);
+  for (let i = 0; i < 1600; i++) { // lifler
+    const px = r() * W, py = r() * H, L = 5 + r() * 24, a = r() * TAU;
+    x.strokeStyle = `rgba(${r() < .5 ? '140,118,92' : '255,253,248'},${.05 + r() * .09})`; x.lineWidth = .5 + r() * .8;
+    x.beginPath(); x.moveTo(px, py); x.quadraticCurveTo(px + Math.cos(a) * L * .5 + (r() - .5) * 5, py + Math.sin(a) * L * .5 + (r() - .5) * 5, px + Math.cos(a) * L, py + Math.sin(a) * L); x.stroke();
   }
-  // diş (ince benek)
   const sp = x.getImageData(0, 0, W, H), d = sp.data;
-  for (let i = 0; i < d.length; i += 4) { const n = (r() - .5) * 10; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
+  for (let i = 0; i < d.length; i += 4) { const n = (r() - .5) * 9; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
   x.putImageData(sp, 0, 0);
   TEX.paper = c;
-  // mürekkep diş maskesi: kâğıt dişinin mürekkebi tutmadığı küçük boşluklar (destination-out)
-  const m = makeCanvas(W, H), mx = m.getContext('2d'), mid = mx.createImageData(W, H);
+  // taş greni: mürekkebin tutmadığı benekler (lighten ile kâğıt rengi; kâğıtta etkisiz, boyalı yerde açık benek)
+  const g = makeCanvas(W, H), gx = g.getContext('2d'), gd = gx.createImageData(W, H);
+  const [pr, pg, pb] = hexRGB(P.paper);
   for (let y = 0; y < H; y++) for (let X = 0; X < W; X++) {
-    const v = noise2(X / 3.1, y / 3.1, 77) * .6 + noise2(X / 11, y / 11, 78) * .4;
-    mid.data[(y * W + X) * 4 + 3] = v > .74 ? 255 * clamp((v - .74) / .08) : 0;
+    const v = noise2(X / 2.3, y / 2.3, 51) * .55 + noise2(X / 9, y / 9, 52) * .45;
+    const a = clamp((v - .765) / .05);
+    if (a > 0) { const k = (y * W + X) * 4; gd.data[k] = pr; gd.data[k + 1] = pg; gd.data[k + 2] = pb; gd.data[k + 3] = a * 235; }
   }
-  mx.putImageData(mid, 0, 0);
-  TEX.tooth = m;
-  // gren
+  gx.putImageData(gd, 0, 0); TEX.stone = g;
   TEX.grain = [];
-  for (let g = 0; g < 6; g++) {
-    const gc = makeCanvas(512, 512), gx = gc.getContext('2d'), im = gx.createImageData(512, 512);
-    for (let i = 0; i < im.data.length; i += 4) { const v = 128 + (r() + r() + r() - 1.5) * 70; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
-    gx.putImageData(im, 0, 0); TEX.grain.push(gc);
+  for (let k = 0; k < 6; k++) {
+    const gc = makeCanvas(512, 512), q = gc.getContext('2d'), im = q.createImageData(512, 512);
+    for (let i = 0; i < im.data.length; i += 4) { const v = 128 + (r() + r() + r() - 1.5) * 60; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+    q.putImageData(im, 0, 0); TEX.grain.push(gc);
   }
   const vg = makeCanvas(W, H), vx = vg.getContext('2d');
-  const gr = vx.createRadialGradient(W / 2, H * .48, H * .3, W / 2, H * .5, H * 1.05);
-  gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(.65, 'rgba(30,20,10,.12)'); gr.addColorStop(1, 'rgba(20,12,6,.5)');
+  const gr = vx.createRadialGradient(W / 2, H * .5, H * .38, W / 2, H * .5, H * 1.08);
+  gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(.7, 'rgba(40,26,12,.08)'); gr.addColorStop(1, 'rgba(30,18,8,.32)');
   vx.fillStyle = gr; vx.fillRect(0, 0, W, H); TEX.vig = vg;
 }
-
-// Yarım ton karosu: hücre boyu cell (≥10 px), yoğunluk dens (0..1 → nokta alanı), açı ang (derece). Önbellekli desen.
-const HT = {};
-function halftone(ctx, col, dens, cell = 12, ang = 45) {
-  const key = col + '|' + dens.toFixed(2) + '|' + cell + '|' + ang;
-  if (!HT[key]) {
-    const c = makeCanvas(cell * RS, cell * RS), x = c.getContext('2d');
-    x.scale(RS, RS);
-    const rr = cell * Math.sqrt(clamp(dens) / PI);
-    x.fillStyle = col;
-    // kare ızgara: hücre merkezinde ve köşelerde (dama) nokta → kesintisiz karo
-    for (const [px, py] of [[cell / 2, cell / 2], [0, 0], [cell, 0], [0, cell], [cell, cell]]) {
-      const rad = (px === cell / 2) ? rr : rr * .0;
-      if (rad > 0) { x.beginPath(); x.arc(px, py, rad, 0, TAU); x.fill(); }
-    }
-    const pat = ctx.createPattern(c, 'repeat');
-    const m = new DOMMatrix(); m.rotateSelf(ang); m.scaleSelf(1 / RS, 1 / RS);
-    pat.setTransform(m);
-    HT[key] = pat;
+function paperBG(ctx, col = P.paper) { ctx.fillStyle = col; ctx.fillRect(-20, -20, W + 40, H + 40); }
+// son işlem: taş greni (mürekkepte açık benek), kâğıt lifi, gren, vinyet. ox,oy: doku kayması (katmana bağlı doku için)
+function pressFinish(ctx, t, o = {}) {
+  ctx.save(); baseT(ctx);
+  const ox = o.ox || 0, oy = o.oy || 0;
+  if (o.stone !== 0) { ctx.globalCompositeOperation = 'lighten'; ctx.globalAlpha = o.stone ?? .55; ctx.drawImage(TEX.stone, ox % W, oy % H); if (ox) ctx.drawImage(TEX.stone, ox % W + (ox > 0 ? -W : W), oy % H); }
+  ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.paper ?? 1; ctx.drawImage(TEX.paper, 0, 0);
+  ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = o.vig ?? .9; ctx.drawImage(TEX.vig, 0, 0);
+  ctx.restore();
+  const amt = o.grain ?? .045;
+  if (amt > 0) {
+    const L = TEX.grain.length, i = ((Math.floor(t * 24) % L) + L) % L, r = rng(Math.floor(t * 24) + 1);
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = amt;
+    const gx = -r() * 512, gy = -r() * 512;
+    for (let y = gy; y < DH; y += 512) for (let x = gx; x < DW; x += 512) ctx.drawImage(TEX.grain[i], x, y);
+    ctx.restore();
   }
-  return HT[key];
-}
-// Işıkla değişen raster: merkezden dışa nokta yarıçapı azalır (ör. lamba halesi). Çekim başına önbelleğe alınabilir.
-function radialHalftone(g, cx, cy, r0, r1, col, d0, d1, cell = 14, ang = 15, clip = null) {
-  g.save(); if (clip) g.clip(clip);
-  g.fillStyle = col;
-  const ca = Math.cos(ang * PI / 180), sa = Math.sin(ang * PI / 180), R = r1 + cell;
-  for (let v = -R; v <= R; v += cell) for (let u = -R; u <= R; u += cell) {
-    const x = cx + u * ca - v * sa, y = cy + u * sa + v * ca, d = Math.hypot(x - cx, y - cy);
-    if (d > r1) continue;
-    const dens = lerp(d0, d1, smooth(inv(r0, r1, d)));
-    if (dens <= .01) continue;
-    g.beginPath(); g.arc(x, y, cell * Math.sqrt(dens / PI), 0, TAU); g.fill();
-  }
-  g.restore();
 }
 
-// Plakalar: her renk ayrı katmana çizilir, sonra kâğıda multiply ile basılır; her plaka çekim boyunca sabit küçük kayma alır.
-const PLATES = {};
-function plateCtx(name) {
-  if (!PLATES[name]) { const c = makeCanvas(DW, DH); PLATES[name] = { c, x: c.getContext('2d') }; }
-  const p = PLATES[name]; p.x.setTransform(1, 0, 0, 1, 0, 0); p.x.clearRect(0, 0, DW, DH); baseT(p.x);
-  p.x.globalAlpha = 1; p.x.globalCompositeOperation = 'source-over';
-  return p.x;
+// ——— yazı ———
+function txt(ctx, s, x, y, font, o = {}) {
+  ctx.save(); ctx.font = font; ctx.textAlign = o.align || 'left'; ctx.textBaseline = o.base || 'alphabetic';
+  if (o.ls) ctx.letterSpacing = o.ls + 'px';
+  if (o.plate) { const [dx, dy] = regOf(o.plate); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P[o.plate]; ctx.fillText(s, x + dx, y + dy); }
+  else { ctx.fillStyle = o.col || P.ink; ctx.globalAlpha = o.a ?? 1; ctx.fillText(s, x, y); }
+  ctx.restore();
 }
-// seed'li kayma (px); amt 0 → kayma yok (baskı geçişinin sonunda sıfıra oturur)
-function regOffset(seed, amt = 1) { const r = rng(seed * 97 + 13); return [(r() - .5) * 5 * amt, (r() - .5) * 5 * amt]; }
-function pressPlate(ctx, name, o = {}) {
-  const p = PLATES[name]; if (!p) return;
-  const [dx, dy] = o.off || [0, 0];
-  if (o.tooth !== false) { // kırık baskı kenarı
-    p.x.save(); p.x.setTransform(1, 0, 0, 1, 0, 0); p.x.globalCompositeOperation = 'destination-out';
-    p.x.globalAlpha = o.tooth ?? .9; p.x.drawImage(TEX.tooth, (dx * 7) % 40 - 20, (dy * 7) % 40 - 20, DW, DH); p.x.restore();
+// soyut Osmanlıca yazı izi: sağdan sola kısa kıvrımlar ve noktalar (okunur bir metin değildir)
+function scriptLine(ctx, x1, y, len, h, seed, o = {}) {
+  const r = rng(seed), p = new Path2D(); let x = x1;
+  while (x > x1 - len) {
+    const w = h * (.6 + r() * 1.6), k = r();
+    p.moveTo(x, y);
+    if (k < .35) { p.quadraticCurveTo(x - w * .5, y + h * .25, x - w, y); }
+    else if (k < .6) { p.lineTo(x - w * .3, y); p.lineTo(x - w * .3, y - h * (.8 + r() * .6)); p.moveTo(x - w * .3, y); p.quadraticCurveTo(x - w * .7, y + h * .45, x - w, y); }
+    else if (k < .8) { p.bezierCurveTo(x - w * .2, y - h * .5, x - w * .6, y - h * .5, x - w * .5, y); p.lineTo(x - w, y); }
+    else { p.quadraticCurveTo(x - w * .4, y + h * .7, x - w * .8, y + h * .2); }
+    if (r() < .35) p.moveTo(x - w * .5 + h * .15, y - h * .55), p.arc(x - w * .5, y - h * .55, h * .12, 0, TAU);
+    if (r() < .25) p.moveTo(x - w * .4 + h * .15, y + h * .55), p.arc(x - w * .4, y + h * .55, h * .12, 0, TAU);
+    x -= w + (r() < .3 ? h * .8 : h * .12);
   }
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalCompositeOperation = o.mode || 'multiply'; ctx.globalAlpha = o.alpha ?? 1;
-  ctx.drawImage(p.c, dx * RS, dy * RS);
-  ctx.restore();
+  inkStroke(ctx, p, o.w || Math.max(1.6, h * .16), { col: o.col, a: o.a });
 }
-function paperBG(ctx, col = P.paper) { ctx.fillStyle = col; ctx.fillRect(0, 0, W, H); }
-function applyPaper(ctx, amt = 1) { ctx.save(); baseT(ctx); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = amt; ctx.drawImage(TEX.paper, 0, 0); ctx.restore(); }
-function applyGrain(ctx, t, amt = .05) {
-  const L = TEX.grain.length, i = ((Math.floor(t * 24) % L) + L) % L, r = rng(Math.floor(t * 24) + 1);
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = amt;
-  const ox = -r() * 512, oy = -r() * 512;
-  for (let y = oy; y < DH; y += 512) for (let x = ox; x < DW; x += 512) ctx.drawImage(TEX.grain[i], x, y);
-  ctx.restore();
-}
-function applyVignette(ctx, amt = 1) { ctx.save(); baseT(ctx); ctx.globalAlpha = amt; ctx.drawImage(TEX.vig, 0, 0); ctx.restore(); }
