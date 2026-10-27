@@ -1,98 +1,86 @@
 {
- "voice": "Emrullah (voice_id creative_list_voices ile bulunur)",
- "revizyon": 2,
+ "voice": "Emrullah (voice_id DpEiQMnL9WxMsymCsjPY, creative_list_voices ile doğrulandı)",
+ "revizyon": 3,
  "segments": [
   {
    "id": "A01",
    "bolum": "Açılış",
-   "tts": "[slowly] Ankara, 28 Ekim 1923. Gece. Çankaya'daki köşkte küçük bir akşam yemeği.",
-   "alt": "Ankara, 28 Ekim 1923. Gece. Çankaya'daki köşkte küçük bir akşam yemeği."
+   "tts": "[slowly] Ankara, yirmi sekiz Ekim bin dokuz yüz yirmi üç gecesi. Çankaya'da küçük bir akşam yemeği.",
+   "alt": "Ankara, 28 Ekim 1923 gecesi. Çankaya'da küçük bir akşam yemeği."
   },
   {
    "id": "A02",
    "bolum": "Açılış",
-   "tts": "Ev sahibi, kendi anlatımına göre, yemek sırasında şöyle der: [firmly] \"Yarın Cumhuriyet ilan edeceğiz!\"",
-   "alt": "Ev sahibi, kendi anlatımına göre, yemek sırasında şöyle der: “Yarın Cumhuriyet ilan edeceğiz!”"
-  },
-  {
-   "id": "A03",
-   "bolum": "Açılış",
-   "tts": "[curious] O sofradakiler kimdi? Bu noktaya nasıl gelmişlerdi?",
-   "alt": "O sofradakiler kimdi? Bu noktaya nasıl gelmişlerdi?"
+   "tts": "Mustafa Kemal, Nutuk'ta anlattığına göre, sofradakilere şöyle der: [firmly] \"Yarın Cumhuriyet ilan edeceğiz!\"",
+   "alt": "Mustafa Kemal, Nutuk'ta anlattığına göre, sofradakilere şöyle der: “Yarın Cumhuriyet ilan edeceğiz!”"
   },
   {
    "id": "A04",
    "bolum": "Açılış",
-   "tts": "Çoğu kırk yaşlarındaydı. [knowingly] Otuz yıl önce ise çoğu, bir gün karşısına dikilecekleri bir sultanın açtığı okullarda okuyordu: İkinci Abdülhamid'in.",
-   "alt": "Çoğu kırk yaşlarındaydı. Otuz yıl önce ise çoğu, bir gün karşısına dikilecekleri bir sultanın açtığı okullarda okuyordu: İkinci Abdülhamid'in."
+   "tts": "Cumhuriyet'i kuran kadronun çoğu kırk yaşlarındaydı. [knowingly] Otuz yıl önce ise öğrenciydiler… bir gün karşısına dikilecekleri bir sultanın okullarında: [slowly] İkinci Abdülhamid'in.",
+   "alt": "Cumhuriyet'i kuran kadronun çoğu kırk yaşlarındaydı. Otuz yıl önce ise öğrenciydiler… bir gün karşısına dikilecekleri bir sultanın okullarında: İkinci Abdülhamid'in."
   },
   {
    "id": "A05",
    "bolum": "Açılış",
-   "tts": "[warmly] Bu, tek bir dâhinin değil… bir kuşağın hikâyesi.",
-   "alt": "Bu, tek bir dâhinin değil… bir kuşağın hikâyesi."
+   "tts": "[warmly] Bu, yalnızca bir dâhinin değil… bir kuşağın hikâyesi.",
+   "alt": "Bu, yalnızca bir dâhinin değil… bir kuşağın hikâyesi."
   },
   {
    "id": "B01",
    "bolum": "Sultanın okulları",
-   "tts": "Abdülhamid 1876'da tahta çıktığında, borç batağında ve toprak kaybeden bir imparatorluk devraldı.",
-   "alt": "Abdülhamid 1876'da tahta çıktığında, borç batağında ve toprak kaybeden bir imparatorluk devraldı."
+   "tts": "Abdülhamid bin sekiz yüz yetmiş altıda, borç batağında ve toprak kaybeden bir imparatorluk devraldı. [darkly] Kısa süre sonra Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti.",
+   "alt": "Abdülhamid 1876'da, borç batağında ve toprak kaybeden bir imparatorluk devraldı. Kısa süre sonra Meclis'i süresiz tatil etti; ülkeyi Yıldız'dan tek başına yönetti."
   },
   {
    "id": "B02",
    "bolum": "Sultanın okulları",
-   "tts": "[thoughtfully] Çaresi belliydi: devlete sadık, ama modern bilgiyle donanmış memurlar ve subaylar yetiştirmek.",
-   "alt": "Çaresi belliydi: devlete sadık, ama modern bilgiyle donanmış memurlar ve subaylar yetiştirmek."
+   "tts": "[thoughtfully] Çaresi ise okuldu: devlete sadık, ama modern bilgiyle donanmış memurlar ve subaylar yetiştirmek.",
+   "alt": "Çaresi ise okuldu: devlete sadık, ama modern bilgiyle donanmış memurlar ve subaylar yetiştirmek."
   },
   {
    "id": "B03",
    "bolum": "Sultanın okulları",
-   "tts": "[with energy] Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı. Askerî okullar, Mülkiye, Tıbbiye… ve sonunda Darülfünun.",
-   "alt": "Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı. Askerî okullar, Mülkiye, Tıbbiye… ve sonunda Darülfünun."
+   "tts": "[with energy] Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı.",
+   "alt": "Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı."
   },
   {
    "id": "B04",
    "bolum": "Sultanın okulları",
-   "tts": "Askerî idadiler yatılıydı: Devlet yediriyor, giydiriyor, okutuyordu.",
-   "alt": "Askerî idadiler yatılıydı: Devlet yediriyor, giydiriyor, okutuyordu."
+   "tts": "Askerî idadilerde taşradan gelen öğrenciler yatılıydı: Devlet yediriyor, giydiriyor, burs veriyordu.",
+   "alt": "Askerî idadilerde taşradan gelen öğrenciler yatılıydı: Devlet yediriyor, giydiriyor, burs veriyordu."
   },
   {
    "id": "B05",
    "bolum": "Sultanın okulları",
-   "tts": "[earnestly] Bana kalırsa sultan, farkında olmadan büyük bir kapı açmıştı: Taşralı bir memurun, bir esnafın çocuğu için yükselmenin yolu artık kimin adamı olduğundan değil, karnesinden geçiyordu.",
-   "alt": "Bana kalırsa sultan, farkında olmadan büyük bir kapı açmıştı: Taşralı bir memurun, bir esnafın çocuğu için yükselmenin yolu artık kimin adamı olduğundan değil, karnesinden geçiyordu.",
+   "tts": "[earnestly] Bana kalırsa sultan, farkında olmadan büyük bir kapı açtı. [warmly] Taşralı bir memurun, bir esnafın çocuğu artık yalnızca kimin adamı olduğuyla değil… karnesiyle de yükselebiliyordu.",
+   "alt": "Bana kalırsa sultan, farkında olmadan büyük bir kapı açtı. Taşralı bir memurun, bir esnafın çocuğu artık yalnızca kimin adamı olduğuyla değil… karnesiyle de yükselebiliyordu.",
    "yorum": "taşra (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "B06",
    "bolum": "Sultanın okulları",
-   "tts": "Selanik'te, babasını küçük yaşta kaybetmiş bir çocuk da askerî rüşdiyeye yazılır. Adı Mustafa'dır. [warmly] Kendi anlatımına göre, matematik öğretmeni ona ikinci bir ad verir: Kemal.",
-   "alt": "Selanik'te, babasını küçük yaşta kaybetmiş bir çocuk da askerî rüşdiyeye yazılır. Adı Mustafa'dır. Kendi anlatımına göre, matematik öğretmeni ona ikinci bir ad verir: Kemal."
-  },
-  {
-   "id": "B07",
-   "bolum": "Sultanın okulları",
-   "tts": "[knowingly] Sultan bu okulların sadık subaylar yetiştireceğini umuyordu. Ama mektep, ders programında yazmayan bir şey de öğretti: sorgulamayı.",
-   "alt": "Sultan bu okulların sadık subaylar yetiştireceğini umuyordu. Ama mektep, ders programında yazmayan bir şey de öğretti: sorgulamayı."
+   "tts": "Selanik'te, babasını erken kaybetmiş bir çocuk da askerî rüşdiyeye yazılır: Mustafa. [warmly] Kendi anlatımına göre, matematik öğretmeni ona ikinci bir ad verir: Kemal.",
+   "alt": "Selanik'te, babasını erken kaybetmiş bir çocuk da askerî rüşdiyeye yazılır: Mustafa. Kendi anlatımına göre, matematik öğretmeni ona ikinci bir ad verir: Kemal."
   },
   {
    "id": "C01",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "[warmly] O yıllarda Selanik, imparatorluğun en kozmopolit limanıydı. Rıhtımda Ladino, Rumca, Bulgarca ve Türkçe bir arada konuşulurdu.",
-   "alt": "O yıllarda Selanik, imparatorluğun en kozmopolit limanıydı. Rıhtımda Ladino, Rumca, Bulgarca ve Türkçe bir arada konuşulurdu."
+   "tts": "O yıllarda Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu.",
+   "alt": "O yıllarda Selanik, imparatorluğun en kozmopolit limanlarından biriydi. Rıhtımda Ladino, Rumca, Bulgarca, Türkçe bir arada konuşulurdu."
   },
   {
    "id": "C02",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "[earnestly] Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek bir kalıba sığmadığını erken öğrenir.",
-   "alt": "Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek bir kalıba sığmadığını erken öğrenir.",
+   "tts": "[earnestly] Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
+   "alt": "Bence Cumhuriyet'in fikirleri, Ankara'dan çok önce bu rıhtımda filizlendi. Böyle bir şehirde büyüyen çocuk, dünyanın tek kalıba sığmadığını erken öğrenir.",
    "yorum": "selanik (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "C03",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "[whispers] Yat borusundan sonra yatakhanelerde yasak kitaplar elden ele dolaşırdı. En çok okunanı Namık Kemal'di: vatan… hürriyet…",
-   "alt": "Yat borusundan sonra yatakhanelerde yasak kitaplar elden ele dolaşırdı. En çok okunanı Namık Kemal'di: vatan… hürriyet…"
+   "tts": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. [whispers] Manastır'da, sonra Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: Namık Kemal… vatan… hürriyet…",
+   "alt": "Mektep, programda olmayan bir şey de öğretti: sorgulamayı. Manastır'da, sonra Harbiye'de, yat borusundan sonra yasak kitaplar elden ele dolaşırdı: Namık Kemal… vatan… hürriyet…"
   },
   {
    "id": "C04",
@@ -103,14 +91,14 @@
   {
    "id": "C05",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "[knowingly] 1889'da sultanın kendi okulunda, Askerî Tıbbiye'de, dört öğrenci gizli bir cemiyet kurdu. O cemiyet bir gün İttihat ve Terakki adıyla imparatorluğu yönetecekti.",
-   "alt": "1889'da sultanın kendi okulunda, Askerî Tıbbiye'de, dört öğrenci gizli bir cemiyet kurdu. O cemiyet bir gün İttihat ve Terakki adıyla imparatorluğu yönetecekti."
+   "tts": "Bin sekiz yüz seksen dokuzda, sultanın kendi okulunda, Askerî Tıbbiye'de, dört öğrenci gizli bir cemiyet kurdu: [knowingly] İttihat ve Terakki'nin çekirdeği.",
+   "alt": "1889'da, sultanın kendi okulunda, Askerî Tıbbiye'de, dört öğrenci gizli bir cemiyet kurdu: İttihat ve Terakki'nin çekirdeği."
   },
   {
    "id": "C06",
    "bolum": "Selanik ve yasak kitaplar",
-   "tts": "1905'te kurmay yüzbaşı olarak mezun olan Mustafa Kemal, bir ihbarla tutuklandı ve Şam'a gönderildi. Orada da boş durmadı: Vatan ve Hürriyet adında gizli bir cemiyet kurdu.",
-   "alt": "1905'te kurmay yüzbaşı olarak mezun olan Mustafa Kemal, bir ihbarla tutuklandı ve Şam'a gönderildi. Orada da boş durmadı: Vatan ve Hürriyet adında gizli bir cemiyet kurdu."
+   "tts": "Bin dokuz yüz beşte kurmay yüzbaşı çıkan Mustafa Kemal, sınıf arkadaşı Ali Fuat'la birlikte bir ihbarla tutuklandı, sonra Şam'a gönderildi. Orada da gizli bir cemiyet kurdu: Vatan ve Hürriyet.",
+   "alt": "1905'te kurmay yüzbaşı çıkan Mustafa Kemal, sınıf arkadaşı Ali Fuat'la birlikte bir ihbarla tutuklandı, sonra Şam'a gönderildi. Orada da gizli bir cemiyet kurdu: Vatan ve Hürriyet."
   },
   {
    "id": "D01",
@@ -121,20 +109,20 @@
   {
    "id": "D02",
    "bolum": "1908",
-   "tts": "[with energy] Temmuz 1908'de Makedonya'daki subaylar dağa çıktı. Sultan geri adım attı, Meşrutiyet yeniden ilan edildi.",
+   "tts": "[with energy] Temmuz bin dokuz yüz sekizde Makedonya'daki subaylar dağa çıktı. Sultan geri adım attı, Meşrutiyet yeniden ilan edildi.",
    "alt": "Temmuz 1908'de Makedonya'daki subaylar dağa çıktı. Sultan geri adım attı, Meşrutiyet yeniden ilan edildi."
   },
   {
    "id": "D03",
    "bolum": "1908",
-   "tts": "[wryly] Bir yıl sonra Abdülhamid tahttan indirildi. Onu indiren Hareket Ordusu'nun kurmayları arasında, kendi okullarında yetişmiş iki genç subay vardı: Mustafa Kemal ve Kâzım Karabekir.",
-   "alt": "Bir yıl sonra Abdülhamid tahttan indirildi. Onu indiren Hareket Ordusu'nun kurmayları arasında, kendi okullarında yetişmiş iki genç subay vardı: Mustafa Kemal ve Kâzım Karabekir."
+   "tts": "Bir yıl sonra Hareket Ordusu İstanbul'a girdi, Meclis Abdülhamid'i tahttan indirdi. Ordunun kurmayları arasında Mustafa Kemal ve Kâzım Karabekir de vardı.",
+   "alt": "Bir yıl sonra Hareket Ordusu İstanbul'a girdi, Meclis Abdülhamid'i tahttan indirdi. Ordunun kurmayları arasında Mustafa Kemal ve Kâzım Karabekir de vardı."
   },
   {
    "id": "D04",
    "bolum": "1908",
-   "tts": "[thoughtfully] Yine de hakkını verelim: O okullar olmasaydı, bu kuşak da olmayacaktı.",
-   "alt": "Yine de hakkını verelim: O okullar olmasaydı, bu kuşak da olmayacaktı."
+   "tts": "[thoughtfully] Okulları açan da, jurnalleri okuyan da aynı sultandı. Bu kuşak, ikisinin arasında yetişti.",
+   "alt": "Okulları açan da, jurnalleri okuyan da aynı sultandı. Bu kuşak, ikisinin arasında yetişti."
   },
   {
    "id": "E01",
@@ -145,74 +133,74 @@
   {
    "id": "E02",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "1911'de İtalya Trablusgarp'a çıktı. Genç subaylar kılık değiştirip Mısır üzerinden çöle geçti, yerel halkla birlikte direniş örgütledi.",
-   "alt": "1911'de İtalya Trablusgarp'a çıktı. Genç subaylar kılık değiştirip Mısır üzerinden çöle geçti, yerel halkla birlikte direniş örgütledi."
+   "tts": "Bin dokuz yüz on birde İtalya Trablusgarp'a çıktı. Genç subaylar, kimi sahte kimlikle, gönüllü olarak Libya'ya geçti ve halkla birlikte direniş örgütledi.",
+   "alt": "1911'de İtalya Trablusgarp'a çıktı. Genç subaylar, kimi sahte kimlikle, gönüllü olarak Libya'ya geçti ve halkla birlikte direniş örgütledi."
   },
   {
    "id": "E03",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[sadly] 1912'de Balkan Savaşı geldi. Selanik savaşmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi.",
-   "alt": "1912'de Balkan Savaşı geldi. Selanik savaşmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi."
+   "tts": "[sadly] Bin dokuz yüz on ikide Balkan Savaşı geldi. Selanik, şehir için çarpışılmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi.",
+   "alt": "1912'de Balkan Savaşı geldi. Selanik, şehir için çarpışılmadan teslim edildi. Mustafa Kemal'in annesi ve kız kardeşi İstanbul'a muhacir olarak geldi."
   },
   {
    "id": "E04",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[earnestly] Bana kalırsa bu kuşağı birbirine bağlayan şey bir ideolojiden çok, ortak bir yaraydı: Doğdukları şehirleri kaybeden insanlar, yeni bir memleket kurmaya karar vermişti.",
-   "alt": "Bana kalırsa bu kuşağı birbirine bağlayan şey bir ideolojiden çok, ortak bir yaraydı: Doğdukları şehirleri kaybeden insanlar, yeni bir memleket kurmaya karar vermişti.",
+   "tts": "[softly] Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'deki şehirlerini kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
+   "alt": "Şuna inanıyorum: Bu kuşağı bir ideolojiden çok, ortak bir yara birleştirdi. Rumeli'deki şehirlerini kaybeden bu insanlar, bir gün yeni bir memleket kuracaktı.",
    "yorum": "savaş (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "E05",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "[intensely] 1915: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay bütün imparatorluğun tanıdığı bir isme dönüştü.",
-   "alt": "1915: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay bütün imparatorluğun tanıdığı bir isme dönüştü."
+   "tts": "[intensely] Bin dokuz yüz on beş: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü.",
+   "alt": "1915: Çanakkale. Arıburnu'nda, Anafartalar'da, adı pek bilinmeyen bir yarbay, ordunun tanıdığı bir komutana dönüştü."
   },
   {
    "id": "E06",
    "bolum": "Ateşte dövülen kuşak",
-   "tts": "Kafkasya'da, Filistin'de, Yemen'de… aynı sıralardan çıkmış subaylar birbirini cephede tanıdı. [thoughtfully] 1918'de imparatorluk yenildiğinde ellerinde iki şey kalmıştı: tecrübe… ve birbirleri.",
-   "alt": "Kafkasya'da, Filistin'de, Yemen'de… aynı sıralardan çıkmış subaylar birbirini cephede tanıdı. 1918'de imparatorluk yenildiğinde ellerinde iki şey kalmıştı: tecrübe… ve birbirleri."
+   "tts": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. [thoughtfully] Bin dokuz yüz on sekizde imparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri.",
+   "alt": "Kafkasya'da, Irak'ta, Filistin'de… aynı sıralardan çıkanlar birbirini cephede tanıdı. 1918'de imparatorluk yenildiğinde, ellerinde iki şey kalmıştı: tecrübe… ve birbirleri."
   },
   {
    "id": "F01",
    "bolum": "Anadolu",
-   "tts": "[determined] 19 Mayıs 1919'da Samsun'a çıkan Mustafa Kemal yalnız değildi.",
+   "tts": "[determined] On dokuz Mayıs bin dokuz yüz on dokuzda Samsun'a çıkan Mustafa Kemal yalnız değildi.",
    "alt": "19 Mayıs 1919'da Samsun'a çıkan Mustafa Kemal yalnız değildi."
   },
   {
    "id": "F02",
    "bolum": "Anadolu",
-   "tts": "Amasya'da yanında Rauf, Ali Fuat ve Refet vardı. Doğudan Kâzım Karabekir telgrafla katıldı.",
-   "alt": "Amasya'da yanında Rauf, Ali Fuat ve Refet vardı. Doğudan Kâzım Karabekir telgrafla katıldı."
+   "tts": "Amasya'da yanındakilerden biri, sınıf arkadaşı Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı.",
+   "alt": "Amasya'da yanındakilerden biri, sınıf arkadaşı Ali Fuat'tı. Doğudan Kâzım Karabekir telgrafla katıldı."
   },
   {
    "id": "F03",
    "bolum": "Anadolu",
-   "tts": "Ali Fuat, Harbiye'den sınıf arkadaşıydı. İsmet, cepheden silah arkadaşı. Kadronun ağabeyi Fevzi Paşa da İstanbul'dan Ankara'ya geçti.",
-   "alt": "Ali Fuat, Harbiye'den sınıf arkadaşıydı. İsmet, cepheden silah arkadaşı. Kadronun ağabeyi Fevzi Paşa da İstanbul'dan Ankara'ya geçti."
+   "tts": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice İstanbul'dan Ankara'ya geçti.",
+   "alt": "Cepheden silah arkadaşı İsmet ve eski Harbiye Nazırı Fevzi Paşa da gizlice İstanbul'dan Ankara'ya geçti."
   },
   {
    "id": "F04",
    "bolum": "Anadolu",
-   "tts": "Sadece subaylar da değil: Amerikan Kız Koleji mezunu Halide Edib, Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'ya geçip üniforma giydi.",
-   "alt": "Sadece subaylar da değil: Amerikan Kız Koleji mezunu Halide Edib, Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'ya geçip üniforma giydi."
+   "tts": "Sadece subaylar da değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi.",
+   "alt": "Sadece subaylar da değil: Halide Edib Sultanahmet'te binlerce kişiye seslendi, sonra Anadolu'da orduya katılıp çavuşluğa yükseldi."
   },
   {
    "id": "F05",
    "bolum": "Anadolu",
-   "tts": "[proudly] Kongreler, Meclis, Sakarya, Büyük Taarruz… Bu kadro, otuz yıl önce sıralarda öğrendiğini kullandı: harita okumayı, örgütlenmeyi, birbirine güvenmeyi.",
-   "alt": "Kongreler, Meclis, Sakarya, Büyük Taarruz… Bu kadro, otuz yıl önce sıralarda öğrendiğini kullandı: harita okumayı, örgütlenmeyi, birbirine güvenmeyi."
+   "tts": "[proudly] Kongreler, Meclis, Sakarya, Büyük Taarruz… Bu kadro, sıralarda ve siperlerde öğrendiğini kullandı: harita okumayı, örgütlenmeyi, birbirine güvenmeyi.",
+   "alt": "Kongreler, Meclis, Sakarya, Büyük Taarruz… Bu kadro, sıralarda ve siperlerde öğrendiğini kullandı: harita okumayı, örgütlenmeyi, birbirine güvenmeyi."
   },
   {
    "id": "F06",
    "bolum": "Anadolu",
-   "tts": "[thoughtfully] Ve içlerinden çıkan lideri izlemeyi. Mustafa Kemal'in dehası, bu kuşağı tek bir hedefte birleştirebilmesiydi.",
-   "alt": "Ve içlerinden çıkan lideri izlemeyi. Mustafa Kemal'in dehası, bu kuşağı tek bir hedefte birleştirebilmesiydi."
+   "tts": "[thoughtfully] Kuşak hazırdı. [proudly] Onu tek bir hedefte birleştiren ise Mustafa Kemal'in dehası oldu.",
+   "alt": "Kuşak hazırdı. Onu tek bir hedefte birleştiren ise Mustafa Kemal'in dehası oldu."
   },
   {
    "id": "G01",
    "bolum": "Kapanış",
-   "tts": "[slowly] 29 Ekim 1923 akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: [proudly] \"Yaşasın Cumhuriyet!\"",
+   "tts": "[slowly] Yirmi dokuz Ekim bin dokuz yüz yirmi üç akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: [proudly] \"Yaşasın Cumhuriyet!\"",
    "alt": "29 Ekim 1923 akşamı, saat sekiz buçukta, Meclis'te sesler yükseldi: “Yaşasın Cumhuriyet!”"
   },
   {
@@ -224,27 +212,27 @@
   {
    "id": "G03",
    "bolum": "Kapanış",
-   "tts": "[thoughtfully] Bu kadronun yolları sonra ayrılacak, aralarında sert kavgalar da yaşanacaktı. Ama hepsi aynı yerden geliyordu: bir okul sırasından ve bir siperden.",
-   "alt": "Bu kadronun yolları sonra ayrılacak, aralarında sert kavgalar da yaşanacaktı. Ama hepsi aynı yerden geliyordu: bir okul sırasından ve bir siperden."
+   "tts": "[thoughtfully] Yolları sonra ayrılacaktı; bin dokuz yüz yirmi dörtte Karabekir, Ali Fuat ve Rauf muhalefete geçti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden.",
+   "alt": "Yolları sonra ayrılacaktı; 1924'te Karabekir, Ali Fuat ve Rauf muhalefete geçti. Ama hepsi aynı yerden geliyordu: bir okul sırasından… ve bir siperden."
   },
   {
    "id": "G04",
    "bolum": "Kapanış",
-   "tts": "[earnestly] Bana kalırsa bu hikâyenin asıl dersi şu: Bir ülkenin otuz yıl sonra ne olacağını, bugün sınıflarında olup bitenler belirler.",
-   "alt": "Bana kalırsa bu hikâyenin asıl dersi şu: Bir ülkenin otuz yıl sonra ne olacağını, bugün sınıflarında olup bitenler belirler.",
+   "tts": "[warmly] Bu hikâyeden benim çıkardığım ders şu: Bir ülkenin otuz yıl sonrası, bugünkü sınıflarında yazılır.",
+   "alt": "Bu hikâyeden benim çıkardığım ders şu: Bir ülkenin otuz yıl sonrası, bugünkü sınıflarında yazılır.",
    "yorum": "eğitim (kanal sahibinin görüşü; onaylandı)"
   },
   {
    "id": "G05",
    "bolum": "Kapanış",
-   "tts": "[curious] Sizce bu kuşağı asıl ne yarattı: okul sırası mı, siper mi? Yorumlarda konuşalım.",
-   "alt": "Sizce bu kuşağı asıl ne yarattı: okul sırası mı, siper mi? Yorumlarda konuşalım."
+   "tts": "[curious] Bu kuşağı sıralarda yetiştirenler öğretmenlerdi. Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın.",
+   "alt": "Bu kuşağı sıralarda yetiştirenler öğretmenlerdi. Sizin hayatınızda iz bırakan öğretmen kimdi? Yorumlara yazın."
   },
   {
    "id": "G06",
    "bolum": "Kapanış",
-   "tts": "[warmly] Cumhuriyetimizin yüz üçüncü yılı kutlu olsun.",
-   "alt": "Cumhuriyetimizin yüz üçüncü yılı kutlu olsun."
+   "tts": "[warmly] Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun.",
+   "alt": "Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun."
   }
  ]
 }

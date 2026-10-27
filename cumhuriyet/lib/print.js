@@ -11,8 +11,8 @@ function hexRGB(c) { const n = parseInt(c.slice(1), 16); return [n >> 16 & 255, 
 function rgba(c, a) { const [r, g, b] = hexRGB(c); return `rgba(${r},${g},${b},${a})`; }
 
 // ——— kayık baskı: her kalıbın çekim boyunca sabit küçük kayması ———
-const REG = { seed: 1, amt: 1, boost: 1 };
-function setReg(seed, amt = 1) { REG.seed = seed; REG.amt = amt; }
+const REG = { seed: 1, amt: 2, boost: 1 };
+function setReg(seed, amt = 2) { REG.seed = seed; REG.amt = amt; }
 function regOf(plate) {
   if (plate === 'ink' || plate === 'paper') return [0, 0];
   const r = rng(REG.seed * 131 + plate.length * 17 + plate.charCodeAt(0) * 7);
@@ -23,10 +23,28 @@ function _path(ctx, p) { if (p instanceof Path2D) return p; const q = new Path2D
 // kâğıt rengiyle boşalt (arkadakini örter)
 function knock(ctx, p, col = P.paper) { ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = col; ctx.fill(_path(ctx, p)); ctx.restore(); }
 // kalıp bas: çarpma, kayık; n=2 ikinci baskı (koyu ton)
+// taş baskı mürekkebi: düz renk yerine hafif benekli (alfa .78–1) karo; kalıp başına ayrı ofset
+const MOT = {};
+function mottle(ctx, name) {
+  const col = P[name] || name;
+  if (!MOT[col]) {
+    const n = 384, c = makeCanvas(n, n), x = c.getContext('2d'), id = x.createImageData(n, n), [r, g, b] = hexRGB(col);
+    for (let y = 0; y < n; y++) for (let X = 0; X < n; X++) {
+      // döşemede dikiş olmasın diye periyodik gürültü (karo kenarları sarılır)
+      const u = X / n * TAU, v = y / n * TAU;
+      const f = .5 + .25 * Math.sin(u * 3 + Math.sin(v * 2) * 1.3) * Math.cos(v * 4 + Math.cos(u * 3)) + .25 * (hash2(X % n, y % n, 7) - .5);
+      const k = (y * n + X) * 4; id.data[k] = r; id.data[k + 1] = g; id.data[k + 2] = b; id.data[k + 3] = 255 * (.8 + .2 * clamp(f));
+    }
+    x.putImageData(id, 0, 0); MOT[col] = c;
+  }
+  const pat = ctx.createPattern(MOT[col], 'repeat');
+  const sd = name.charCodeAt(0) * 37 + name.length * 91; pat.setTransform(new DOMMatrix().translateSelf(sd % 384, (sd * 7) % 384));
+  return pat;
+}
 function plate(ctx, name, p, o = {}) {
   const q = _path(ctx, p), [dx, dy] = regOf(name);
   ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.a ?? 1; ctx.translate(dx, dy);
-  ctx.fillStyle = P[name] || name;
+  ctx.fillStyle = (name === 'ink' || o.flat) ? (P[name] || name) : mottle(ctx, name);
   for (let i = 0; i < (o.n || 1); i++) ctx.fill(q);
   ctx.restore();
 }
@@ -152,7 +170,7 @@ function paperBG(ctx, col = P.paper) { ctx.fillStyle = col; ctx.fillRect(-20, -2
 function pressFinish(ctx, t, o = {}) {
   ctx.save(); baseT(ctx);
   const ox = o.ox || 0, oy = o.oy || 0;
-  if (o.stone !== 0) { ctx.globalCompositeOperation = 'lighten'; ctx.globalAlpha = o.stone ?? .55; ctx.drawImage(TEX.stone, ox % W, oy % H); if (ox) ctx.drawImage(TEX.stone, ox % W + (ox > 0 ? -W : W), oy % H); }
+  if (o.stone !== 0) { ctx.globalCompositeOperation = 'lighten'; ctx.globalAlpha = o.stone ?? .25; ctx.drawImage(TEX.stone, ox % W, oy % H); if (ox) ctx.drawImage(TEX.stone, ox % W + (ox > 0 ? -W : W), oy % H); }
   ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.paper ?? 1; ctx.drawImage(TEX.paper, 0, 0);
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = o.vig ?? .9; ctx.drawImage(TEX.vig, 0, 0);
   ctx.restore();
