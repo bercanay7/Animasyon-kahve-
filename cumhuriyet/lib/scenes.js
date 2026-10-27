@@ -71,7 +71,7 @@ SCENES.alagoz = (ctx, t) => {
   handDraw(ctx, fA2.wr[0], fA2.wr[1], fA2.ang, fA2.w2 / 20, 'hold', { side: -1 });
   // Mustafa Kemal: "arkada" pozu (kollar arkada, kol çizilmez), haritaya dönük
   const mk = { x: 1160, y: 306, s: S_, dir: -1 };
-  bust(ctx, { ...mk, coat: 'kaput', col: 'khaki', w: .96, seed: 3, len: (900 - mk.y) / S_, tilt: .07, turn: .3, sep: true });
+  bust(ctx, { ...mk, coat: 'kaput', col: 'khaki', w: .96, seed: 3, len: (900 - mk.y) / S_, tilt: .07, turn: .3, sep: true, arms: 'back' });
   head3q(ctx, { ...mk, who: 'mk', gear: 'kalpak', gearCol: 'ink', light: 'front', lookAt: look, age: 40, tilt: -.05 });
   // İsmet: önde; işaret eden kol omuz ekleminden (siluetin içinden)
   const is = { x: 978, y: 340, s: S_, dir: -1 };

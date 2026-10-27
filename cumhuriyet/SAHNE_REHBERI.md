@@ -48,6 +48,17 @@ Bu dosya, sahne yazacak herkes içindir (alt ajanlar dahil). Önce `USLUP.md` (�
   - `skin: true` yalnız yakın planda kullanılır.
 - `bust(ctx, {x, y, s, dir, coat:'kaput'|'setre'|'civil', col, w, len, seed})`: aynı x, y, s ile başın altına gövdeyi çizer. Önce bust, sonra head3q.
 - `arm(ctx, omuz, el, {upper, fore, w, col, bend})` ve `handDraw(ctx, x, y, açı, s, 'point'|'rest'|'hold', {side})`.
+  - El boyu kol ağzına göre: `handDraw(..., armSonucu.w2 / 20, ...)`.
+  - Omuz ile hedef arası en çok `(upper+fore)·.85` olsun; dirsek 10–20° bükülsün, kol tam gerilmesin.
+- **Kol pozları:**
+  - `arkada`: `bust({arms:'back'})` ile kol çizilmez, kaput kolları yanlarda görünür.
+  - `tutma`: ön kollar kaputun önünden çıkar; kök siluetin içindedir.
+  - `işaret`: kol omuz ekleminden çıkar; işaret eden figürde `bust({w:.86})`.
+- `bust` diğer seçenekleri:
+  - `turn` 0..1: gövde bakış yönüne döner.
+  - `sep:true`: öndeki figüre 8 px kâğıt ayırma konturu.
+  - `back:true`: arkadaki figür koyu basılır.
+- Onaylı şablon: `SCENES.alagoz` (lib/scenes.js) ve `board/tur4/kare_v4.jpg`. Yakın plan başlar: `board/tur4/baslar_v4.jpg`.
 - **Dönem başlıkları:**
   - fes: 1880–1908 okul ve Selanik;
   - kabalak: 1911–18 cepheleri;

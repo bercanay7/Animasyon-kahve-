@@ -109,3 +109,15 @@ function tickerTape(ctx, s, y, lt, d = 3.5, o = {}) {
   txt(ctx, s.slice(0, n) + (n < s.length && Math.floor(lt * 8) % 2 ? '▌' : ''), o.x ?? 60, y + 4, FONT.mono(o.size || 30), { ls: 6 });
   ctx.restore();
 }
+
+// Durağan katman önbelleği: çekim boyunca değişmeyen zemin (harita, oda, yarım ton) bir kez çizilir.
+// Kullanım: const bg = layerCache('B03-zemin', g => { paperBG(g); ... }); ctx.drawImage(bg, 0, 0, W, H);
+// (çizim fonksiyonuna verilen g, baseT uygulanmış W×H mantıksal koordinatlı bir bağlamdır; kayık baskı o anki setReg'e göre sabitlenir)
+const LCACHE = {};
+function layerCache(key, draw, w = W, h = H) {
+  if (!LCACHE[key]) {
+    const c = makeCanvas(Math.ceil(w * RS), Math.ceil(h * RS)), g = c.getContext('2d');
+    g.setTransform(RS, 0, 0, RS, 0, 0); draw(g); LCACHE[key] = c;
+  }
+  return LCACHE[key];
+}

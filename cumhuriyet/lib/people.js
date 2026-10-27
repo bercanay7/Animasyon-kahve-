@@ -109,7 +109,7 @@ function head3q(ctx, o) {
     const mP = SP(rough(m, .12, sd + 6), true, .9);
     knock(ctx, mP);
     if (pp.musCol === 'grey') {
-      plate(ctx, 'grey', mP, { n: 2 }); inkStroke(ctx, mP, lw(1.8));
+      plate(ctx, 'grey', mP, { a: .7 }); inkStroke(ctx, mP, lw(1.6));
       for (const q of [[[17, 27], [22, 27.6], [25, 30]], [[23, 25.8], [28.5, 26.8], [32, 30.6]], [[27, 25.4], [31.6, 26.6], [34.2, 31.8]]]) inkStroke(ctx, SP(q, false), lw(1.1), { a: .55 });
     } else if (hairPl !== 'ink') { plate(ctx, 'sepia', mP, { a: mus === 'faint' ? .45 : .9 }); inkStroke(ctx, mP, lw(mus === 'faint' ? 1 : 1.6), { a: mus === 'faint' ? .5 : 1 }); }
     else { inkFill(ctx, mP); for (let i = 0; i < 3; i++) { const x = 20 + i * 4.5; cut(ctx, SP([[x, 26.4], [x + 1.4, 28.6]], false), lw(.9), { a: .35 }); } }
@@ -213,6 +213,10 @@ function bust(ctx, o) {
     for (const l of [lapN, lapF]) { knock(ctx, l); fillC(l, 2); inkStroke(ctx, l, lw(2.4)); }
     if (dark) { cut(ctx, SP([[-42, 150], [-6, 214]], false), lw(1.7), { a: .55 }); cut(ctx, SP([[36, 150], [4, 216]], false), lw(1.7), { a: .55 }); }
   }
+  if (o.arms === 'back') for (const [x0, x1, sg] of [[-86 * W_, -80 * W_, -1], [60 * W_ * FS, 56 * W_ * FS, 1]]) {
+    inkStroke(ctx, SP([[x0, 118], [x0 + sg * 4, 200], [x1, 300]], false), lw(2.6));
+    for (const yy of [212, 228]) inkStroke(ctx, SP([[x0 + sg * 2, yy], [x0 - sg * 10, yy + 6]], false), lw(1.8), { a: .6 });
+  }
   const folds = [[[-82, 190], [-70, 250], [-74, 320]], [[58, 200], [52, 280]], [[-88, 132], [-70, 150]]];
   for (const q of folds) dark ? cut(ctx, SP(q, false), lw(1.7), { a: .4 }) : inkStroke(ctx, SP(q, false), lw(1.7), { a: .5 });
   ctx.restore();
@@ -269,7 +273,7 @@ function handDraw(ctx, x, y, ang, s, kind = 'rest', o = {}) {
   }
   for (const q of parts) knock(ctx, q);
   if (o.skin) for (const q of parts) plate(ctx, 'skin', q);
-  plate(ctx, o.skin ? 'skin' : 'ochre', SP([[0, 3], [16, 4], [26, 6], [16, 10], [2, 9]], true), { a: o.skin ? .8 : .4 });
+  { const U = new Path2D(); for (const q of parts) U.addPath(q); ctx.save(); ctx.clip(U); plate(ctx, o.skin ? 'skin' : 'ochre', PL([[-10, 1.5], [60, 1.5], [60, 20], [-10, 20]]), { a: o.skin ? .8 : .38 }); ctx.restore(); }
   for (const q of parts) inkStroke(ctx, q, lw(2.6));
   ctx.restore();
 }
