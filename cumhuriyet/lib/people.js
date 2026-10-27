@@ -213,8 +213,6 @@ function bust(ctx, o) {
   ctx.save(); ctx.clip(body);
   if (o.coat === 'kaput') {
     // dik iç yaka (haki) + omuza uzanan geniş devrik kaput yakası; küçük apoletler
-    const band = SP([[-30, 62], [-32, 78], [16, 82], [18, 66]], true, .6);
-    knock(ctx, band); fillC(band); inkStroke(ctx, band, lw(2.2));
     const lapN = PL(rough([[-28, 76], [-88 * W_, 100], [-80 * W_, 124], [-36 + TX, 160], [-8 + TX, 190], [-10 + TX * .6, 112]], .5, sd + 1));
     const lapF = PL(rough([[16, 80], [64 * W_ * FS, 98], [58 * W_ * FS, 120], [26 + TX, 156], [4 + TX, 192], [4 + TX * .6, 114]], .5, sd + 2));
     for (const l of [lapN, lapF]) { knock(ctx, l); fillC(l); if (!dark) plate(ctx, col, l, { a: .3 }); inkStroke(ctx, l, lw(2.6)); }
@@ -225,9 +223,6 @@ function bust(ctx, o) {
     for (const [x0, x1, y0] of [[-96 * W_, -66 * W_, 100], [46 * W_ * FS, 66 * W_ * FS, 94]]) { const ap = PL([[x0, y0 + 2], [x1, y0 - 4], [x1, y0 + 4], [x0, y0 + 10]]); knock(ctx, ap); fillC(ap, 1); plate(ctx, 'gold', ap, { a: .6 }); inkStroke(ctx, ap, lw(1.6)); }
     if (dark) { cut(ctx, SP([[-80, 124], [-8, 190]], false), lw(1.8), { a: .6 }); cut(ctx, SP([[58, 120], [4, 192]], false), lw(1.8), { a: .6 }); }
   } else if (o.coat === 'setre') {
-    const coll = SP([[-30, 64], [-32, 78], [-10, 82], [16, 80], [18, 66]], true, .6);
-    knock(ctx, coll); plate(ctx, o.collarCol || col, coll, { n: o.collarCol ? 1 : 1 }); inkStroke(ctx, coll, lw(2.4));
-    inkStroke(ctx, SP([[-12, 80], [-6, 86], [0, 80]], false), lw(1.6));
     for (let i = 0; i < 5; i++) { const b = new Path2D(); b.arc(-6, 112 + i * 38, 3.8, 0, TAU); knock(ctx, b); plate(ctx, 'ochre', b, { n: 2 }); inkStroke(ctx, b, lw(1.4)); }
     inkStroke(ctx, SP([[-4, 84], [-2, len]], false), lw(2.2));
     for (const q of [[[-60, 150], [-20, 154]], [[30, 150], [60, 146]]]) inkStroke(ctx, SP(q, false), lw(1.8), { a: .6 }); // cep kapakları
@@ -247,6 +242,9 @@ function bust(ctx, o) {
   for (const q of folds) dark ? cut(ctx, SP(q, false), lw(1.7), { a: .4 }) : inkStroke(ctx, SP(q, false), lw(1.7), { a: .5 });
   ctx.restore();
   inkStroke(ctx, body, lw(3.6));
+  // yakalar gövde kırpmasının dışında: boynun dibini sarar
+  if (o.coat === 'kaput') { const band = SP([[-31, 60], [-33, 80], [17, 84], [19, 64]], true, .6); knock(ctx, band); fillC(band); if (!dark) plate(ctx, col, band, { a: .3 }); inkStroke(ctx, band, lw(2.4)); }
+  else if (o.coat === 'setre') { const coll = SP([[-31, 60], [-33, 80], [-10, 84], [17, 82], [19, 63]], true, .6); knock(ctx, coll); plate(ctx, o.collarCol || col, coll); inkStroke(ctx, coll, lw(2.4)); inkStroke(ctx, SP([[-12, 82], [-6, 88], [0, 82]], false), lw(1.6)); }
   ctx.restore();
 }
 
