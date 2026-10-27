@@ -1,11 +1,19 @@
-import zlib
-"""Son miks: anlatım + müzik (konuşma altında kısılır) + ses efektleri → audio/mix.wav (-14 LUFS, ≤ -1 dBTP)
+"""Son miks: anlatım + müzik (konuşma altında kısılır) + isteğe bağlı ses efektleri → audio/mix.wav
+48 kHz stereo, -14 LUFS (entegre), gerçek tepe ≤ -1 dBTP, uzunluk tam olarak window.DUR.
 
 python3 tools/mix.py            # tam miks
-python3 tools/mix.py --stems    # ayrıca audio/stems/*.wav
-python3 tools/mix.py --vo en/vo_en.wav --out audio/mix_en.wav   # İngilizce dublajlı miks
+python3 tools/mix.py --stems    # ayrıca audio/stems/{vo,music,sfx}.wav
+python3 tools/mix.py --vo en/vo_en.wav --out audio/mix_en.wav --tp -2 --deess   # başka dilde anlatım
+
+Girdiler (film klasörüne göre):
+    timeline.js            window.CUES / window.DUR (uzunluk ve cümleye bağlı ayarlar)
+    vo/vo.wav              anlatım (48 kHz mono)
+    audio/music.wav        audio/score.py çıktısı (yoksa müziksiz miks, uyarıyla)
+    audio/sfx_events.json  İSTEĞE BAĞLI efekt listesi; yoksa efektsiz miks. Biçim:
+                           [{"t": sn, "name": ad, "g": dB, "pan": -1..1, "len": sn, "loop": bool, "at": "peak", ...}]
+                           ad SYNTH içindeyse burada sentezlenir, değilse audio/sfx/<ad>.(wav|mp3|flac|ogg) okunur.
 """
-import json, sys, os, re
+import json, sys, os, re, zlib
 import numpy as np, soundfile as sf, librosa, pyloudnorm as pyln
 from scipy import signal
 from scipy.ndimage import maximum_filter1d
@@ -15,17 +23,30 @@ SR = 48000
 rng = np.random.default_rng(7)
 A = lambda p: os.path.join(ROOT, p)
 
-DUR = float(re.search(r'window\.DUR\s*=\s*([\d.]+)', open(A('timeline.js')).read()).group(1))
-N = int(np.ceil(DUR * SR))
+
+def _timeline():
+    txt = open(A('timeline.js'), encoding='utf-8').read()
+    dec = json.JSONDecoder()
+    grab = lambda name: dec.raw_decode(txt, re.search(r'window\.' + name + r'\s*=\s*', txt).end())[0]
+    return float(grab('DUR')), grab('CUES')
+
+
+DUR, CUES = _timeline()
+N = int(round(DUR * SR))          # audio/score.py ile aynı uzunluk
 db = lambda g: 10 ** (g / 20)
+
+# Dinledikten sonra doldurulacak, cümleye bağlı ayarlar (gerçek seslendirme yeniden üretilince de yerinde kalır):
+VO_GAINS = {}          # {cümle: dB}  ör. {'C03': 2.0}: fısıltıyı biraz öne al
+MUSIC_DIPS = []        # [(cümle, 's'|'e', ofset0, ofset1, dB)]  ör. ('G01', 'e', -0.3, 0.2, -3): o pencerede müziği kıs
+MUSIC_LOW_DIPS = []    # aynı biçim; yalnız 200 Hz altını kısar (bas kabarması sözcüğü örttüğünde)
+
+
+def cue_window(c, edge, o0, o1):
+    t = CUES[c][edge]
+    return t + o0, t + o1
 
 
 # ——— yardımcılar ———
-def env_ad(n, a, d, shape=4.0):
-    t = np.arange(n) / SR
-    e = np.minimum(1, t / max(a, 1e-4)) * np.exp(-np.maximum(0, t - a) * shape / max(d, 1e-4))
-    return e
-
 def bp(x, lo, hi, order=2):
     sos = signal.butter(order, [lo, hi], 'bandpass', fs=SR, output='sos')
     return signal.sosfilt(sos, x)
@@ -126,7 +147,7 @@ def s_thud(**_):
     return norm(np.tanh(1.5 * y))
 
 def s_thump(rate=1, **_):
-    """küçük hoparlörde duyulan çarpma: 160 Hz-1 kHz gövde + 300 Hz-2 kHz toz/çakıl taneleri (telefonda kaya/beden darbesi kaybolmasın)"""
+    """küçük hoparlörde de duyulan çarpma: 160 Hz-1 kHz gövde + 300 Hz-2 kHz toz/çakıl taneleri"""
     n = int(.45 * SR); t = np.arange(n) / SR
     y = sum(a * np.sin(2 * np.pi * f * rate * t + ph) * np.exp(-t * d) for f, a, d, ph in [(165, .8, 20, 0), (290, 1, 25, .5), (520, .6, 33, 1.1), (910, .28, 46, .3)])
     y += bp(rng.standard_normal(n), 300, 2000) * np.exp(-t * 42) * .9
@@ -203,24 +224,24 @@ SYNTH = dict(whoosh=s_whoosh, boom=s_boom, knock=s_knock, thump=s_thump, chime=s
              thud=s_thud, sting=s_sting, riser=s_riser, scratch=s_scratch, pen=s_pen, page=s_page, crack=s_crack, stop=s_stop, ticks=s_ticks, room=s_room)
 # döngü sentezleri tam uzunlukta üretilir
 LOOP_SYNTH = {'ticks', 'room'}
-# yankı gönderimi (dB), ad başına
-SEND = dict(chime=-6, shimmer=-6, boom=-10, thunder=-12, eagle=-9, wings=-14, sting=-8, clink=-8, lock=-12, chains=-12, crack=-6,
-            rock_crash=-12, knock=-12, thump=-16, door=-12, riser=-10, whoosh=-14, thud=-14, alarm=-14, page=-18)
+# yankı gönderimi (dB), ad başına; listede olmayan ad kuru kalır
+SEND = dict(chime=-6, shimmer=-6, boom=-10, thunder=-12, sting=-8, clink=-8, crack=-6, knock=-12, thump=-16, door=-12, riser=-10,
+            whoosh=-14, thud=-14, page=-18, bell=-8, gunfire=-12, cannon=-10, crowd=-14, cheer=-12)
 
 CLIPS = {}
 def clip(name):
+    """audio/sfx/<ad>.(wav|mp3|flac|ogg), başındaki sessizlik kırpılmış ve normalize edilmiş"""
     if name not in CLIPS:
-        alias = {'scrape': ('stone_scrape', .55, .9)}
-        if name in alias:
-            src, off, ln = alias[name]; y = clip(src)
-            seg = y[int(off * SR):int((off + ln) * SR)]
-            CLIPS[name] = norm(fade(seg, .02, .4))
+        for ext in ('wav', 'mp3', 'flac', 'ogg'):
+            p = A(f'audio/sfx/{name}.{ext}')
+            if os.path.exists(p): break
         else:
-            y, _ = librosa.load(A(f'audio/sfx/{name}.mp3'), sr=SR, mono=True)
-            y = y - np.mean(y)
-            e = np.abs(y); on = np.argmax(e > e.max() * .03)
-            y = y[max(0, on - int(.008 * SR)):]
-            CLIPS[name] = norm(y)
+            raise FileNotFoundError(f'audio/sfx/{name}.(wav|mp3|flac|ogg) yok ve "{name}" bir sentez ses değil')
+        y, _ = librosa.load(p, sr=SR, mono=True)
+        y = y - np.mean(y)
+        e = np.abs(y); on = np.argmax(e > e.max() * .03)
+        y = y[max(0, on - int(.008 * SR)):]
+        CLIPS[name] = norm(y)
     return CLIPS[name]
 
 def peak_pos(y):
@@ -243,7 +264,7 @@ def place(bus, x, t0, pan=0.0):
     if a < 0:
         x = x[..., -a:].copy(); a = 0
         k = min(int(.08 * SR), x.shape[-1]); x[..., :k] *= np.linspace(0, 1, k)  # ilk karede ani başlangıç olmasın
-    m = min(x.shape[-1], N - a)  # stereo döngüler (2, n) biçiminde: len(x) 2 verirdi, ortam yatakları miksin dışında kalıyordu
+    m = min(x.shape[-1], N - a)  # stereo döngüler (2, n) biçiminde
     if m <= 0: return
     if x.ndim == 1:
         th = (pan + 1) * np.pi / 4
@@ -253,40 +274,28 @@ def place(bus, x, t0, pan=0.0):
         bus[:, a:a + m] += x[:, :m]
 
 
-# dile özel efekt düzeltmeleri (İngilizce anlatımın sözcük yerleri farklı): (yaklaşık zaman, ad, ek dB)
-EN_SFX = [(1.70, 'chains', -12), (1.08, 'whoosh', -6), (402.05, 'whoosh', -6), (183.16, 'clink', -4), (89.45, 'thunder', -6),
-          (192.3, 'whoosh', -6), (192.75, 'chains', -11), (192.75, 'boom', -4), (102.43, 'eagle', -8), (99.53, 'eagle', -4),
-          (225.94, 'shimmer', -5), (282.04, 'whoosh', -5), (207.81, 'scratch', -5), (337.33, 'thump', -6), (338.05, 'thump', -5),
-          (17.70, 'thump', -4), (16.96, 'knock', -4), (16.96, 'thump', -4), (199.18, 'chime', -4), (170.79, 'lock', -4), (107.78, 'thunder', -5),
-          (365.67, 'thump', -6), (365.69, 'stone_scrape', -6), (337.33, 'knock', -9), (337.33, 'thud', -5), (207.81, 'scratch', -4)]
-# dile özel müzik kısmaları (s, e, dB)
-EN_DIPS = [(1.4, 1.9, -3), (399.3, 399.8, -4), (290.5, 290.85, -4), (341.8, 342.1, -4), (289.5, 289.85, -3), (140.8, 141.35, -4), (284.3, 284.8, -3)]
-def build_sfx(lang='tr', events=None):
+def build_sfx(events):
     global rng
-    ev = events if events is not None else json.load(open(A('audio/sfx_events.json')))
-    if lang == 'en':
-        for e in ev:
-            for t_, n_, d_ in EN_SFX:
-                if e['name'] == n_ and abs(e['t'] - t_) < .1: e['g'] = e.get('g', 0) + d_
     dry = np.zeros((2, N)); send = np.zeros((2, N))
-    for e in ev:
+    for e in events:
         name = e['name']; g = db(e.get('g', 0)); rate = e.get('rate', 1)
+        # her olayın kendi rastgele tohumu: bir işaret değişince diğer sentez sesleri değişmez
+        rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
         if e.get('loop'):
             n = int(e['len'] * SR)
             if name in LOOP_SYNTH:
-                global rng; rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))  # döngü sentezi de kendi tohumuyla
                 L = SYNTH[name](len=e['len'] + .1); R = SYNTH[name](len=e['len'] + .1) if name == 'room' else L
                 L, R = L[:n], R[:n]
             else:
-                y = resample_rate(clip(name), rate); off = int(e.get('off', 0) * SR)  # başlangıç kayması döngünün çıktısına uygulanır (kuyruk kesiminden sonra)
+                y = resample_rate(clip(name), rate); off = int(e.get('off', 0) * SR)
                 # tek seferlik kayıtların sönen kuyruğu kesilir (en yüksek bölümün 20 dB altı): döngüde sessiz delik kalmaz
                 ev_ = np.convolve(y ** 2, np.ones(2400) / 2400, 'same'); thr_ = np.percentile(ev_, 90) * db(-20) ** 2
                 last_ = np.nonzero(ev_ > thr_)[0]
                 if len(last_) and last_[-1] + int(.05 * SR) < len(y) and last_[-1] > SR: y = fade(y[:last_[-1] + int(.05 * SR)], 0, .05)
                 if name == 'footsteps':
-                    Lf = loop_to(y, n + off); L = Lf[off:off + n]; R = L.copy()  # ayak sesi tek kaynak: iki kanalda ayrı adım dizisi (flam) olmaz
+                    Lf = loop_to(y, n + off); L = Lf[off:off + n]; R = L.copy()  # ayak sesi tek kaynak: iki kanalda ayrı adım dizisi olmaz
                 else:
-                    # sağ kanal, sol döngünün gecikmeli kopyası: sert ek yeri (tık) ve tek kanal boşlukları olmaz; deniz dalgası aynı evrede kalsın diye 3.9 sn
+                    # sağ kanal, sol döngünün gecikmeli kopyası: sert ek yeri ve tek kanal boşlukları olmaz; deniz dalgası aynı evrede kalsın diye 3.9 sn
                     sh_ = min(len(y) // 2, int((3.9 if name == 'sea' else 1.7) * SR)); Lf = loop_to(y, n + sh_ + off); L = Lf[off:off + n]; R = Lf[off + sh_:off + sh_ + n]
             L = fade(L, e.get('fi', 1), e.get('fo', 1)); R = fade(R, e.get('fi', 1), e.get('fo', 1))
             x = np.stack([L, R]) * g * .7071
@@ -294,8 +303,6 @@ def build_sfx(lang='tr', events=None):
             if name in SEND: place(send, x * db(SEND[name]), e['t'])
             continue
         if name in SYNTH:
-            # her olayın kendi rastgele tohumu: bir işaret değişince diğer sentez sesleri değişmez
-            rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
             kw = {k: e[k] for k in ('len', 'rev', 'down', 'big', 'rate') if k in e}
             y = SYNTH[name](**kw)
             if 'len' in e and name not in ('whoosh', 'riser', 'shimmer', 'pen'):
@@ -357,19 +364,17 @@ def compress(x, thr_db, ratio=3.0, att=.008, rel=.1):
     gg = np.interp(np.arange(len(x)), np.arange(len(out)) * hop, out)
     return x * 10 ** (gg / 20), gg
 
-def voice_chain(vo, sentence_gains=True):
-    cues = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
-    gains = {'F05': -5, 'E04': -3.5, 'F04': -3, 'H04': -3, 'C08': 2, 'E02': 2.5, 'A04': 1.5} if sentence_gains else {}
+def voice_chain(vo, gains=None, deess=False):
     g = np.ones(len(vo))
-    for k, d in gains.items():
-        if k in cues:
-            a, b = int(cues[k]['s'] * SR) - int(.05 * SR), int(cues[k]['e'] * SR) + int(.1 * SR)
-            g[a:b] = db(d)
+    for k, d in (gains or {}).items():
+        if k in CUES:
+            a, b = int(CUES[k]['s'] * SR) - int(.05 * SR), int(CUES[k]['e'] * SR) + int(.1 * SR)
+            g[max(a, 0):b] = db(d)
     g = np.convolve(g, np.ones(int(.04 * SR)) / int(.04 * SR), 'same')
     vo = vo * g
     vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
-    if not sentence_gains:
-        # İngilizce sesin sibilantları AAC kodlamada tepe aşımı yapıyor: 5.5 kHz üstüne dinamik de-esser
+    if deess:
+        # sibilantlar AAC kodlamada tepe aşımı yapmasın: 5.5 kHz üstüne dinamik de-esser
         hi = signal.sosfiltfilt(signal.butter(4, 5500, 'highpass', fs=SR, output='sos'), vo)
         w = int(.004 * SR); env = np.sqrt(np.convolve(hi ** 2, np.ones(w) / w, 'same')) + 1e-9
         thr = np.percentile(env[env > 1e-5], 92)
@@ -398,19 +403,33 @@ def true_peak(x):
     return 20 * np.log10(np.max(np.abs(up)) + 1e-12)
 
 
+def window_curve(dips):
+    """[(cümle, kenar, o0, o1, dB)] → örnek başına kazanç (çakışan pencerelerde derin olan geçerli), 150 ms yumuşak"""
+    g = np.ones(N)
+    for c, edge, o0, o1, d in dips:
+        if c not in CUES: continue
+        a, b = cue_window(c, edge, o0, o1)
+        a, b = max(int(a * SR), 0), min(int(b * SR), N)
+        g[a:b] = np.minimum(g[a:b], db(d))
+    return np.convolve(g, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
+
+
 def main():
     stems = '--stems' in sys.argv
     arg = lambda k, d: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
     vo_path, out_path = A(arg('--vo', 'vo/vo.wav')), A(arg('--out', 'audio/mix.wav'))
+    default_vo = os.path.abspath(vo_path) == os.path.abspath(A('vo/vo.wav'))
     meter = pyln.Meter(SR)
-    vo, sr = sf.read(vo_path, always_2d=False)
-    assert sr == SR
+    vo, sr = sf.read(vo_path, always_2d=True)
+    vo = vo.mean(1)
+    if sr != SR: vo = librosa.resample(vo, orig_sr=sr, target_sr=SR)
+    if abs(len(vo) - N) > SR // 10:
+        print(f'UYARI: anlatım {len(vo) / SR:.2f} sn, timeline.js DUR {DUR:.2f} sn; DUR uzunluğa kesilir/uzatılır')
     vo = np.pad(vo, (0, max(0, N - len(vo))))[:N].astype(np.float64)
     vo = hp(vo, 70)
     vo *= db(-16 - meter.integrated_loudness(vo))
-    vo = voice_chain(vo, sentence_gains=vo_path.endswith('vo/vo.wav'))
+    vo = voice_chain(vo, VO_GAINS if default_vo else {}, deess='--deess' in sys.argv)
     vo *= db(-16 - meter.integrated_loudness(vo))   # anlatım -16 LUFS
-    ir = reverb_ir()
     # anlatım: hafif oda sıcaklığı
     vo2 = np.stack([vo, vo])
     vo_send = apply_reverb(vo2 * db(-26), reverb_ir(1.2))
@@ -426,45 +445,44 @@ def main():
         mu = np.stack([signal.sosfilt(signal.butter(4, 35, 'highpass', fs=SR, output='sos'), ch) for ch in mu])
         mu = np.stack([peq(ch, 60, -2.5, .7) for ch in mu])
         mu *= db(-21 - meter.integrated_loudness(mu.T))
-        cues_ = json.loads(re.search(r'window\.CUES = (\{.*?\});', open(A('timeline.js')).read()).group(1))
-        extra = np.ones(N)
-        for a_, b_, d_ in [(cues_['G10']['s'] - .15, cues_['G10']['e'] + .1, -4.5), (22.7, 23.15, -2), (16.9, 18.8, -5), (141.0, 142.1, -9), (266.0, 267.3, -9), (150.6, 151.7, -4), (267.3, 268.1, -6), (268.1, 270.9, -4), (270.9, 272.4, -6), (272.4, 272.9, -3),
-                           (278.4, 279.1, -7), (343.4, 344.3, -5), (275.6, 276.4, -3), (46.6, 47.3, -3), (283.3, 283.7, -5), (196.8, 197.2, -3), (280.2, 280.7, -4), (13.2, 13.7, -3)] + (EN_DIPS if 'vo_en' in vo_path else []):
-            extra[int(a_ * SR):int(b_ * SR)] = np.minimum(extra[int(a_ * SR):int(b_ * SR)], db(d_))  # üst üste binen kısmalarda derin olan geçerli
-        extra = np.convolve(extra, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
-        mu *= extra
-        # bas kabarmasının sözcüğü örttüğü yerlerde 200 Hz altı -4 dB (geniş bant kısma yerine alçak raf)
-        shelf = np.zeros(N)
-        for a_, b_, d_ in [(278.4, 279.1, -8), (343.4, 344.3, -6)]: shelf[int(a_ * SR):int(b_ * SR)] = 1 - db(d_)
-        shelf = np.convolve(shelf, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
-        lowz = np.stack([signal.sosfiltfilt(signal.butter(4, 200, 'low', fs=SR, output='sos'), ch) for ch in mu])  # sıfır fazlı: gerçek alçak raf
-        mu = mu - lowz * shelf
-        # konuşma altında kısma (-7 dB), ön-bakışlı
-        ve = envelope(vo); thr = db(-42)
+        if MUSIC_DIPS: mu *= window_curve(MUSIC_DIPS)
+        if MUSIC_LOW_DIPS:
+            shelf = 1 - window_curve(MUSIC_LOW_DIPS)  # 0 = dokunma, 1 - db(d) = 200 Hz altını o kadar kıs
+            lowz = np.stack([signal.sosfiltfilt(signal.butter(4, 200, 'low', fs=SR, output='sos'), ch) for ch in mu])  # sıfır fazlı
+            mu = mu - lowz * shelf
+        # konuşma altında hafif ek kısma (-3 dB), ön-bakışlı; müzik zaten konuşma altına göre bestelendi
+        ve = envelope(vo)
         act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
-        target = db(-3 * act)  # müzik zaten konuşma altına göre bestelendi; hafif ek kısma
+        target = db(-3 * act)
         look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look)])
-        duck = smooth_gain(target, .1, .7)
-        mu *= duck
+        mu *= smooth_gain(target, .1, .7)
     else:
         print('UYARI: audio/music.wav yok, müziksiz miks')
         mu = np.zeros((2, N))
 
-    fx, fx_send = build_sfx('en' if 'vo_en' in vo_path else 'tr')
-    hp30 = signal.butter(4, 30, 'highpass', fs=SR, output='sos')
-    fx = np.stack([signal.sosfilt(hp30, ch) for ch in fx]); fx_send = np.stack([signal.sosfilt(hp30, ch) for ch in fx_send])
-    # efektleri konuşma altında hafifçe kıs (-3 dB), anlamı örtmesin
-    ve = envelope(vo); act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
-    fduck = smooth_gain(db(-3 * act), .05, .5)
-    fx *= fduck; fx_send *= fduck
-    wet = apply_reverb(fx_send, ir)
+    # efektler (isteğe bağlı)
+    epath = A('audio/sfx_events.json')
+    if os.path.exists(epath):
+        events = json.load(open(epath, encoding='utf-8'))
+        fx, fx_send = build_sfx(events)
+        hp30 = signal.butter(4, 30, 'highpass', fs=SR, output='sos')
+        fx = np.stack([signal.sosfilt(hp30, ch) for ch in fx]); fx_send = np.stack([signal.sosfilt(hp30, ch) for ch in fx_send])
+        # efektleri konuşma altında hafifçe kıs (-3 dB), anlamı örtmesin
+        ve = envelope(vo); act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
+        fduck = smooth_gain(db(-3 * act), .05, .5)
+        fx *= fduck; fx_send *= fduck
+        wet = apply_reverb(fx_send, reverb_ir())
+        print(f'efekt: {len(events)} olay')
+    else:
+        fx = wet = np.zeros((2, N))
+        print('efekt yok (audio/sfx_events.json bulunamadı)')
 
     mix = vo2 + vo_send + mu + fx + wet
     # ana: hafif glue, sınırlayıcı, yüksek ses
     mix = limiter(mix, .7)
     L = meter.integrated_loudness(mix.T)
     mix *= db(-14 - L)
-    # gerçek tepe tavanı (--tp): İngilizce sibilantlar AAC kodlamada taşmasın diye EN için -2.0 kullanılır
+    # gerçek tepe tavanı (--tp, varsayılan -1.0 dBTP)
     tpT = float(arg('--tp', '-1.0'))
     mix = limiter(mix, db(tpT - .6))
     for _ in range(8):
@@ -472,13 +490,13 @@ def main():
         if tp <= tpT: break
         mix = limiter(mix, db(tpT - .6 - (tp - tpT) - .1))
     L2 = meter.integrated_loudness(mix.T)
-    print(f'LUFS {L2:.2f}  TP {true_peak(mix):.2f} dBTP  süre {N / SR:.2f}s')
+    print(f'LUFS {L2:.2f}  TP {true_peak(mix):.2f} dBTP  süre {mix.shape[1] / SR:.3f}s ({mix.shape[1]} örnek)')
     sf.write(out_path, mix.T.astype(np.float32), SR, subtype='PCM_24')
     if stems:
-        sd_ = 'audio/stems_en' if 'vo_en' in vo_path else 'audio/stems'  # İngilizce stemler Türkçe stemlerin (Shorts kaynağı) üstüne yazılmaz
-        os.makedirs(A(sd_), exist_ok=True)
+        sd_ = os.path.join(os.path.dirname(out_path), 'stems')
+        os.makedirs(sd_, exist_ok=True)
         for nm, x in [('vo', vo2 + vo_send), ('music', mu), ('sfx', fx + wet)]:
-            sf.write(A(f'{sd_}/{nm}.wav'), x.T.astype(np.float32), SR, subtype='FLOAT')
+            sf.write(os.path.join(sd_, f'{nm}.wav'), x.T.astype(np.float32), SR, subtype='FLOAT')
 
 
 if __name__ == '__main__':

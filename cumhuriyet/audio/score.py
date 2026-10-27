@@ -303,7 +303,7 @@ PERC = Bus('perc', SR, gain=0.52, send=0.22)
 HITS = Bus('hits', SR, gain=0.62, send=0.18, duck='hits')
 FX = Bus('fx', SR, gain=0.34, send=0.40)
 STR = Bus('strings', SRL, gain=0.62, send=0.28)
-DRONE = Bus('drone', SRL, gain=0.55, send=0.12)
+DRONE = Bus('drone', SRL, gain=0.42, send=0.12)
 CHOIR = Bus('choir', SRL, gain=0.40, send=0.55)
 PIANO = Bus('piano', SRL, gain=0.62, send=0.34)
 RUMB = Bus('rumble', SRL, gain=0.60, send=0.10, duck='hits')
@@ -564,7 +564,7 @@ def reed(f, a, fs, hmax=9000.0, tilt=0.8, bright=0.12):
 
 
 def aulos(t0, phrase, gain=0.3, vib=16.0, glide=0.03, breath=0.05, pan=0.0, drone=None, att=0.04, rel=0.3,
-          tilt=0.8, bright=0.12, hmax=9000.0):
+          tilt=0.8, bright=0.12, hmax=9000.0, top=9500.0):
     """Reed: additive double-reed melody pipe (+ optional drone pipe), vibrato, breath, tonguing.
     A higher tilt / lower bright / more breath turns it into a ney (see ney())."""
     fs = AULOS.fs
@@ -617,7 +617,7 @@ def aulos(t0, phrase, gain=0.3, vib=16.0, glide=0.03, breath=0.05, pan=0.0, dron
         da = smooth(np.where(a > 0.05 * a.max(), 1.0, 0.0), 0.15, fs) * env_ar(n, fs, 0.05, rel)
         d = reed(fd, da, fs, tilt=0.95, bright=0.0)
         y += 0.32 * d / (np.abs(d).max() + 1e-9)
-    y = lp(y, 9500, fs, 2)
+    y = lp(y, top, fs, 4)
     place(AULOS, y, t0, gain=gain, pan=pan)
 
 
@@ -862,10 +862,10 @@ def kanun(t, m, vel=0.4, pan=-0.25):
          detune=3.0)
 
 
-def ney(t0, phrase, gain=0.45, pan=0.2, vib=9.0, breath=0.24):
-    """Ney: the reed engine as an end-blown flute: few harmonics, lots of breath, slow vibrato."""
+def ney(t0, phrase, gain=0.45, pan=0.2, vib=9.0, breath=0.13):
+    """Ney: the reed engine as an end-blown flute: few harmonics, breath, slow vibrato, a soft top."""
     aulos(t0, phrase, gain=gain, vib=vib, glide=0.05, breath=breath, pan=pan, att=0.09, rel=0.45,
-          tilt=1.7, bright=0.03, hmax=5000.0)
+          tilt=1.7, bright=0.03, hmax=5000.0, top=5200.0)
 
 
 def hz(s):
@@ -1217,7 +1217,7 @@ def sec_selanik():
     # C03 "Mektep ... öğretti: sorgulamayı." - the school's ney asks, in Uşşak
     ney(q - 0.3, kusak('D5', 0.45, 'ussak', n=5, vel=0.95, hold=2.8), gain=0.5)
     # --- secrets
-    drone('D1 D2', S('C03') - 0.3, c1 + 0.8, gain=0.24, att=2.5, rel=1.2, cutoff=260)
+    drone('D1 D2', S('C03') - 0.3, c1 + 0.8, gain=0.19, att=2.5, rel=1.2, cutoff=260)
     seq = [(S('C03'), 'G2 D3 Bb3'), (wh, 'D2 A2 F3'), (S('C04'), 'D2 Eb3 A3'), (S('C05'), 'D2 A2 F3'),
            (W('C05', 'ittihat'), 'Bb1 F2 D3'), (S('C06'), 'D2 A2 F3'), (W('C06', 'tutuklanıp'), 'G1 D2 Bb2 Eb3'),
            (W('C06', 'suriyeye'), 'D2 A2 C3 F#3'), (W('C06', 'şamda'), 'D2 A2 F3'), (W('C06', 'vatan'), 'F2 C3 A3')]
@@ -1255,43 +1255,48 @@ def sec_selanik():
 
 
 def sec_1908():
-    """1908 (D01-D04): rising energy - string ostinato and frame drum climbing D-F-G-A; the Constitution
-    restored is a bright Bb-major hit on 'Meşrutiyet' with the motif's first major glimpse; a wry pizzicato as
-    the Meclis deposes the sultan (D03); D04 reflective: the ney remembers the schools, the informers darken."""
+    """1908 (D01-D04): rising energy - string ostinato and frame drum climbing D-F-G-A to 'Meşrutiyet'; the
+    dominant holds under '...yeniden ilan edildi' and a bright Bb-major hit answers it, with the motif's first
+    major glimpse; a wry pizzicato as the Meclis deposes the sultan (D03); D04 reflective: the ney remembers
+    the schools, the informers darken."""
     d0, d1 = sec_span('D')
-    hit = W('D02', 'meşrutiyet')
+    peak = W('D02', 'meşrutiyet')                    # the build stops; the dominant holds under the words
+    hit = E('D02') + 0.03                            # ...and the Bb-major hit answers "ilan edildi"
     e = 0.25
     t0 = d0 - 0.25
     roots = sorted([(t0, 'D2'), (W('D01', 'ya'), 'Bb1'), (W('D01', 'ya', 1), 'A1'), (S('D02'), 'D2'),
                     (W('D02', 'dağa'), 'F2'), (W('D02', 'sultan'), 'G1'), (W('D02', 'geri'), 'A1')])
     OFF = [12, 12, 0, 12, 12, 0, 12, 7]
     items = []
-    for k in range(max(int((hit - 0.12 - t0) / e), 0)):
+    for k in range(max(int((peak - 0.08 - t0) / e), 0)):
         tt = t0 + k * e
         r = [note(m) for a, m in roots if a <= tt + 0.05][-1]
-        x = (tt - t0) / max(hit - t0, 1.0)
+        x = (tt - t0) / max(peak - t0, 1.0)
         items.append((r + OFF[k % 8], e, 0.45 + 0.55 * x ** 1.3))
     bowed(t0, items, gain=0.3, stack=(0, 12), cutoff=950, vib=0, att=0.015, accent=0.7, rel=0.15, legato=False)
     mid = t0 + round((S('D02') - t0) / (8 * e)) * 8 * e
     drum_bars(t0, mid, e, ['D . . . D . t .'], vel=0.24, grow=0.4)
-    drum_bars(mid, hit - 0.1, e, ['D . . T D . T T'], vel=0.36, grow=0.6)
-    timp_roll(hit - 1.6, hit - 0.03, 'A2', 0.08, 0.5)
-    riser(hit, 2.2, vel=0.3, kind='cym')
+    drum_bars(mid, peak - 0.1, e, ['D . . T D . T T'], vel=0.36, grow=0.6)
+    timp_roll(peak - 1.6, peak - 0.03, 'A2', 0.08, 0.5)
+    timp(peak, 'A2', vel=0.45)
+    riser(hit, max(hit - peak, 1.0) + 0.4, vel=0.24, kind='cym')
+    bowed(peak - 0.05, [('A3', hit - peak + 0.05, 0.6)], gain=0.16, stack=(0, 4, 7, 12), trem=0.5, att=0.15,
+          rel=0.05, cutoff=1800, vib=0)
     seq = [(t0 + 0.3, 'D2 A2 F3 A3'), (W('D01', 'ya'), 'Bb1 F2 D3 F3'), (W('D01', 'ya', 1), 'A1 E2 C#3 E3'),
            (S('D02'), 'D2 A2 F3 A3', dict(cutoff=850)), (W('D02', 'dağa'), 'F2 C3 A3 C4', dict(cutoff=1000)),
            (W('D02', 'sultan'), 'G1 D2 Bb2 D3 G3', dict(cutoff=1150)),
            (W('D02', 'geri'), 'A1 E2 C#3 E3 A3', dict(cutoff=1300))]
     chords(seq, hit + 0.05, gain=0.13, cutoff=700, att=1.0, rel=0.3, sine=0.2)
     # "Meşrutiyet yeniden ilan edildi."
-    boom(hit, vel=0.8, f0=72, f1=58.27, decay=1.3)
-    timp(hit, 'Bb1', vel=0.9)
-    timp(hit + 0.01, 'F2', vel=0.45)
-    fdrum(hit, 'dum', vel=0.7, f0=70)
-    cymbal(hit, vel=0.3, decay=2.2)
-    strum(hit, M('Bb2 F3 Bb3 D4 F4 Bb4'), vel=0.5, spread=0.018, bright=0.6)
-    pad(M('Bb1 F2 Bb2 D3 F3 Bb3 D4'), hit - 0.02, hit + 4.6, gain=0.26, att=0.04, rel=3.0, cutoff=1900, vib=4)
-    brass(M('Bb2 F3 Bb3 D4'), hit, hit + 3.8, gain=0.28, att=0.05, rel=2.4, bright=0.9)
-    bowed(hit + 0.12, kusak('Bb4', 0.36, 'major', n=4, hold=3), gain=0.34, stack=(0, -12), cutoff=2300, vib=9,
+    boom(hit, vel=0.65, f0=72, f1=58.27, decay=1.2)
+    timp(hit, 'Bb1', vel=0.8)
+    timp(hit + 0.01, 'F2', vel=0.4)
+    fdrum(hit, 'dum', vel=0.6, f0=70)
+    cymbal(hit, vel=0.22, decay=2.2)
+    strum(hit, M('Bb2 F3 Bb3 D4 F4 Bb4'), vel=0.42, spread=0.018, bright=0.6)
+    pad(M('Bb1 F2 Bb2 D3 F3 Bb3 D4'), hit - 0.02, hit + 4.6, gain=0.19, att=0.04, rel=3.0, cutoff=1900, vib=4)
+    brass(M('Bb2 F3 Bb3 D4'), hit, hit + 3.8, gain=0.19, att=0.05, rel=2.4, bright=0.8)
+    bowed(hit + 0.12, kusak('Bb4', 0.36, 'major', n=4, hold=3), gain=0.28, stack=(0, -12), cutoff=2300, vib=9,
           accent=0.35, rel=1.3)
     fdrum(E('D02') + 0.03, 'dum', vel=0.4, f0=72)
     timp(E('D02') + 0.03, 'F2', vel=0.45)
@@ -1333,9 +1338,9 @@ def sec_savas():
     as the narrator speaks of Rumeli lost and a homeland to come (E04); Gallipoli heavy - timpani, low choir,
     artillery, rising strings (E05); E06 empties out and ends on one soft major third: 've birbirleri'."""
     e0, e1 = sec_span('E')
-    hit = W('E01', 'savaş')
+    hit = WE('E01', 'savaş') + 0.02                  # the word is said, then the blow
     sel = W('E03', 'selanik')
-    tc = W('E05', 'çanakkale')
+    tc = WE('E05', 'çanakkale') + 0.02
     tb = W('E06', 'birbirleri')
     drone('D1 D2', e0 - 0.8, hit + 0.2, gain=0.2, att=2.5, rel=0.15)
     bowed(e0 - 0.5, [('D2', hit - e0 + 0.5, 0.9)], gain=0.28, stack=(0, 1), trem=0.75, att=max(hit - e0, 0.5) * 0.8,
@@ -1364,7 +1369,8 @@ def sec_savas():
               ('F#4', 0.3), ('Eb4', 0.45), ('D4', 2.2)]
     sc = float(np.clip((S('E04') + 0.8 - sel) / sum(d for _, d in LAMENT), 0.8, 1.3))
     ph = [((hz(m[0]), hz(m[1])) if isinstance(m, tuple) else hz(m), d * sc) for m, d in LAMENT]
-    aulos(sel + 0.1, ph, gain=0.52, vib=14, breath=0.07, pan=0.1, tilt=1.0, bright=0.09, att=0.07, rel=0.6)
+    aulos(sel + 0.1, ph, gain=0.52, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
+          hmax=6000.0, top=6500.0)
     pad(M('D3 A3'), sel - 0.3, S('E04') + 1.0, gain=0.07, att=1.5, rel=1.2, cutoff=500, sine=0.5)
     # E04 the narrator's belief: a shared wound -> a homeland to come
     tr = W('E04', 'rumeliyi')
@@ -1373,15 +1379,15 @@ def sec_savas():
     by = fit(tr, E('E04'), kbeats(5, 2.5), 0.4, 0.62)
     bowed(tr, kusak('D3', by, 'minor', n=5, vel=0.85, hold=2.5), gain=0.28, cutoff=900, vib=6, rel=0.7, accent=0.3)
     # E05 Gallipoli
-    riser(tc, min(1.4, max(tc - E('E04'), 0.6)), vel=0.24)
+    riser(tc, min(1.6, max(tc - E('E04'), 0.6)), vel=0.24, kind='cym')
     boom(tc, vel=1.1, f0=60, f1=36.7, decay=2.2, knock=0.8)
     timp(tc, 'D2', vel=1.0)
     fdrum(tc, 'dum', vel=1.0, f0=60)
-    choir(M('D2 A2 D3 Eb3'), tc, E('E05') + 1.4, gain=0.3, att=0.08, rel=1.6, vowel='o')
+    choir(M('D2 A2 D3 Eb3'), tc, E('E05') + 1.4, gain=0.25, att=0.08, rel=1.6, vowel='o')
     bowed(tc, [('D2', 2.0, 0.5)], gain=0.48, stack=(0, -12, 7), accent=2.0, att=0.01, rel=1.2, cutoff=900, vib=0)
     e5 = 0.3
     g0, g1 = tc + 4 * e5, E('E05') + 0.3
-    drum_bars(g0, g1, e5, ['D . t D D . t .', 'D . t D D t D T'], vel=0.55, grow=0.4)
+    drum_bars(g0, g1, e5, ['D . t D D . t .', 'D . t D D t D T'], vel=0.47, grow=0.4)
     HV = ['D2', 'D2', None, 'D2', 'Eb2', None, 'D2', 'C2']
     nb = max(int((g1 - g0) / e5), 0)
     bowed(g0, [(HV[k % 8], e5, 0.65 + 0.3 * k / max(nb, 1)) for k in range(nb)], gain=0.3, stack=(0, 12, -12),
@@ -1523,7 +1529,7 @@ def sec_kapanis():
     riser(ya, min(2.0, build + 0.3), vel=0.3, kind='cym')
     # the climax (master_gain() holds the breath before it)
     T = top + 0.03
-    B = 0.56
+    B = fit(T, S('G02') - 0.25, 5.0, 0.45, 0.6)     # the summit (D') lands before G02 when the gap allows
     mel = kusak('D4', B, 'major', n=6, vel=1.0, hold=4)
     on = onsets(T, mel)
     L = kbeats(6, 4) * B
@@ -1550,10 +1556,10 @@ def sec_kapanis():
         arp(t0, seq[i + 1][0], M(c)[1:], [0, 1, 2, 3, 2, 1], B / 2, vel=0.22, thin=False, bright=0.5)
     timp(on[2], 'A2', vel=0.65)
     timp(on[4], 'G2', vel=0.65)
-    timp(on[5], 'D2', vel=0.9)
-    boom(on[5], vel=0.55, f0=70, f1=36.7, decay=1.6, knock=0.3)
-    cymbal(on[5], vel=0.28, decay=3.0)
-    for dt, m, v in [(0.0, 'D5', 0.2), (0.03, 'A5', 0.14), (0.06, 'D6', 0.12), (0.7, 'F#5', 0.08), (1.4, 'A5', 0.07)]:
+    timp(on[5], 'D2', vel=0.75)
+    boom(on[5], vel=0.4, f0=70, f1=36.7, decay=1.4, knock=0.25)
+    cymbal(on[5], vel=0.18, decay=3.0)
+    for dt, m, v in [(0.0, 'D5', 0.18), (0.03, 'A5', 0.13), (0.06, 'D6', 0.11), (0.7, 'F#5', 0.07), (1.4, 'A5', 0.06)]:
         bell(on[5] + dt, m, vel=v, decay=4.0, pan=rng.uniform(-0.4, 0.4))
     # G02 a festive bed under the facts
     after = T + L
@@ -1604,33 +1610,33 @@ def sec_kapanis():
     choir(M('A3 C#4 E4 G4'), ty - 0.1, E('G06') + 0.25, gain=0.14, att=0.4, rel=0.35, vowel='a')
     # end screen: the motif once more, then home
     T2 = E('G06') + 0.05
-    timp(T2, 'D2', vel=0.45)
-    strum(T2, M('D2 A2 D3 F#3 A3 D4'), vel=0.42, spread=0.035, bright=0.45)
+    timp(T2, 'D2', vel=0.35)
+    strum(T2, M('D2 A2 D3 F#3 A3 D4'), vel=0.32, spread=0.035, bright=0.45)
     tail = DUR - T2
     if tail > 7.0:
         Bc = float(np.clip((tail - 4.8) / 8, 0.48, 0.8))
         tc = T2 + 0.6
         mel = kusak('D5', Bc, 'major', n=6, hold=3)
         on = onsets(tc, mel)
-        play(tc, mel, lyre, vel=0.55, bright=0.55)
-        play(tc, mel, piano, vel=0.26, oct=-12)
-        bowed(tc, mel, gain=0.28, stack=(-12,), cutoff=2000, vib=9, accent=0.2, rel=1.2)
+        play(tc, mel, lyre, vel=0.4, bright=0.55)
+        play(tc, mel, piano, vel=0.2, oct=-12)
+        bowed(tc, mel, gain=0.2, stack=(-12,), cutoff=2000, vib=9, accent=0.2, rel=1.2)
         seq = [(T2, 'D2 A2 D3 F#3 A3'), (on[2], 'A1 E2 A2 C#3 E3'), (on[4], 'G1 D2 G2 B2 D3')]
-        chords(seq, on[5] + 0.3, gain=0.17, cutoff=1300, sine=0.35, lead=0.1, att=0.8, rel=0.6)
+        chords(seq, on[5] + 0.3, gain=0.12, cutoff=1300, sine=0.35, lead=0.1, att=0.8, rel=0.6)
         for i, (t0, c) in enumerate(seq):
             arp(t0 + (0.6 if i == 0 else 0), seq[i + 1][0] if i + 1 < len(seq) else on[5], M(c)[1:],
-                [0, 1, 2, 3, 2, 1], Bc / 2, vel=0.24, thin=False, bright=0.45)
+                [0, 1, 2, 3, 2, 1], Bc / 2, vel=0.17, thin=False, bright=0.45)
         F = on[5]
     else:
         F = T2 + 0.3
-    strum(F, M('D2 A2 D3 F#3 A3 D4 F#4'), vel=0.55, spread=0.04, bright=0.45)
-    timp(F, 'D2', vel=0.4)
-    lyre(F + 0.3, 'D5', vel=0.3, bright=0.5)
-    pad(M('D2 A2 D3 F#3 A3 E4'), F - 0.2, DUR + 0.3, gain=0.22, att=0.6, rel=max(DUR - F, 1.0) * 0.6, cutoff=1300,
+    strum(F, M('D2 A2 D3 F#3 A3 D4 F#4'), vel=0.4, spread=0.04, bright=0.45)
+    timp(F, 'D2', vel=0.3)
+    lyre(F + 0.3, 'D5', vel=0.22, bright=0.5)
+    pad(M('D2 A2 D3 F#3 A3 E4'), F - 0.2, DUR + 0.3, gain=0.15, att=0.6, rel=max(DUR - F, 1.0) * 0.6, cutoff=1300,
         sine=0.4)
-    choir(M('D3 A3 F#4'), F, DUR + 0.3, gain=0.2, att=1.0, rel=max(DUR - F, 1.0) * 0.6, vowel='a')
-    drone('D1 D2', F - 0.2, DUR + 0.3, gain=0.14, att=0.6, rel=max(DUR - F, 1.0) * 0.6, cutoff=240)
-    bell(F + 0.05, 'D6', vel=0.12, decay=3.5)
+    choir(M('D3 A3 F#4'), F, DUR + 0.3, gain=0.15, att=1.0, rel=max(DUR - F, 1.0) * 0.6, vowel='a')
+    drone('D1 D2', F - 0.2, DUR + 0.3, gain=0.11, att=0.6, rel=max(DUR - F, 1.0) * 0.6, cutoff=240)
+    bell(F + 0.05, 'D6', vel=0.1, decay=3.5)
     bell(F + 0.6, 'A5', vel=0.09, decay=3.5, pan=0.3)
     bell(F + 1.2, 'F#5', vel=0.07, decay=3.5, pan=-0.3)
 
@@ -1659,7 +1665,8 @@ def reverb_ir(fs=SR, length=4.0, pre=0.02, seed=7):
 
 
 # lines that must cut through: the thesis, the narrator's own comments ("Bana kalırsa", "Bence"), the whisper
-PRIORITY = {'A05': 1.3, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.15, 'G06': 1.15}
+PRIORITY = {'A05': 1.3, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.15, 'G06': 1.15,
+            'D02': 1.2, 'E05': 1.2, 'G02': 1.5}       # + the three hottest musical moments that run under words
 HUSH = 0.16                     # music level while "Yaşasın Cumhuriyet!" is spoken (the climax answers it)
 
 
@@ -1731,9 +1738,11 @@ def duck_depth(freqs, scale=1.0):
 
 
 def master_eq(freqs):
-    """Static master EQ applied inside the STFT: 35 Hz high-pass (removes DC) and 13.5 kHz low-pass."""
+    """Static master EQ applied inside the STFT: 35 Hz high-pass (removes DC), a gentle low shelf (-5 dB at
+    40 Hz, -1.5 dB at 150 Hz: the drones stay felt but leave room under the voice) and a 13.5 kHz low-pass."""
     f = np.maximum(freqs, 1e-3)
-    return 1 / np.sqrt(1 + (35 / f) ** 8) / np.sqrt(1 + (f / 13500) ** 8)
+    shelf = 0.5 + 0.5 * f ** 2 / (f ** 2 + 110.0 ** 2)
+    return shelf / np.sqrt(1 + (35 / f) ** 8) / np.sqrt(1 + (f / 13500) ** 8)
 
 
 def fftconv(x, h):
@@ -1882,12 +1891,13 @@ INTENT = {
          'bemol, tremolo, daha hızlı nabız. C05 dört öğrenciye dört nota. C06 tutuklanma (boğuk vuruş), sürgün '
          '(Hicaz ney), "arkadaşlarıyla"da motif viyolonsellerde (minör).',
     'D': 'Yükselen enerji: yaylı ostinato + def, bas Re-Fa-Sol-La tırmanır, timpani tremolosu ve ters zil. '
-         '"Meşrutiyet" kelimesinde parlak Si bemol majör vuruş (henüz "ev" değil) ve motifin ilk majör görünüşü. '
+         '"Meşrutiyet"te yükseliş durur, La asılı kalır; "ilan edildi"nin ardından parlak Si bemol majör vuruş (henüz '
+         '"ev" değil) ve motifin ilk majör görünüşü. '
          'D03 alaycı pizzicato: "Meclis" göz kırpar, "tahttan indirdi"de basamak basamak iniş, iki subaya iki nota. '
          'D04 düşünceli: "Okulları" ney motifi hatırlar, "jurnalleri" kararır.',
-    'E': '"savaş": karanlık vuruş (boom, timpani, Frigyen yaylılar, alçak koro). E02 savaş davulları + Hicaz '
+    'E': '"savaş" söylenir, ardından karanlık vuruş (boom, timpani, Frigyen yaylılar, alçak koro). E02 savaş davulları + Hicaz '
          'ostinatosu. E03 "Selanik": davullar susar; drone üstünde kamış ağıt (Hicaz). E04 anlatıcının inancı, '
-         'ince; "Rumeli\'yi kaybeden"de motif minörde viyolonsellerde. E05 Çanakkale: ağır ve yoğun (timpani, '
+         'ince; "Rumeli\'yi kaybeden"de motif minörde viyolonsellerde. E05 "Çanakkale." sözünün ardından ağır ve yoğun (timpani, '
          'alçak koro "o", top sesleri, yükselen yaylılar). E06 cepheler uzak gümbürtüler; yenilgi; "tecrübe…" tek '
          'piyano notası; "ve birbirleri" tek, yumuşak bir majör üçlü ile sessizce biter.',
     'F': 'Kararlılık: Re dorian sabit nabız (alçak yaylılar, timpani, F03\'ten itibaren def). "yalnız değildi" ilk '
@@ -1937,10 +1947,11 @@ def write_cues_md(path):
             (WE('C02', 'filizlendi'), 'C02 "filizlendi": motif filizlenir'),
             (W('C03', 'sorgulamayı'), 'C03 "sorgulamayı": ney motifle sorar (Uşşak)'),
             (W('C03', 'manastırda'), 'C03 "Manastır\'da": sırlar başlar'),
-            (W('D02', 'meşrutiyet'), 'D02 "Meşrutiyet": Si♭ majör vuruş'),
-            (W('E01', 'savaş'), 'E01 "savaş": karanlık vuruş'),
+            (W('D02', 'meşrutiyet'), 'D02 "Meşrutiyet": yükseliş durur, La (dominant) asılı kalır'),
+            (E('D02'), 'D02 "ilan edildi" biter: Si♭ majör vuruş'),
+            (WE('E01', 'savaş'), 'E01 "savaş" biter: karanlık vuruş'),
             (W('E03', 'selanik'), 'E03 "Selanik": davullar susar, ağıt'),
-            (W('E05', 'çanakkale'), 'E05 "Çanakkale": ağır vuruş'),
+            (WE('E05', 'çanakkale'), 'E05 "Çanakkale." biter: ağır vuruş'),
             (W('E06', 'birbirleri'), 'E06 "birbirleri": tek majör üçlü, sessizlik'),
             (W('F05', 'kongreler'), 'F05 vuruşlar: Kongreler / Meclis / Sakarya / Büyük Taarruz'),
             (W('F05', 'birbirine'), 'F05 "birbirine güvenmeyi": motifin Si natürel notası'),
