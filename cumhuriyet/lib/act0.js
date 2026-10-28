@@ -26,7 +26,7 @@ function a0_fig(ctx, f, t) {
   const pp = { ...PEOPLE.anon, ...(PEOPLE[f.who] || {}), ...(f.id || {}) };
   const s = f.s, dir = f.dir || -1, x = f.x, y = f.y + io.breath * s * .45;
   bust(ctx, { x, y, s, dir, coat: f.coat, col: f.col, w: f.w ?? .96, seed: sd, len: f.len, tilt: (f.btilt || 0) + io.torso * .5, turn: f.turn, sep: f.sep, back: f.back, arms: f.arms, skin: f.skin, collarCol: f.collarCol });
-  if (f.under) f.under(ctx);
+  if (f.under) f.under(ctx, x, y, s, dir, (f.btilt || 0) + io.torso * .5);
   head3q(ctx, { x: x + io.neck * s * 5 * dir, y, s, dir, who: f.who, id: f.id, gear: f.gear, gearCol: f.gearCol || 'ink', light: f.light || 'front', lookAt: f.lookAt, look: f.look, age: f.age, tilt: (f.tilt || 0) + io.head, skin: f.skin, eyeOpen: (f.eyeOpen ?? pp.eyeOpen ?? .8) * (1 - .9 * bl) });
 }
 // damga gibi beliren öğe: darbe ölçeği + saydamlık (kalıcı)
@@ -74,6 +74,7 @@ function a0_prof(ctx, x, y, s, dir, kind, o = {}) {
   const p = a0_profPath(o), parts = [p];
   if (kind === 'kalpak') parts.push(SP(rough(A0_KALPAK, .8, sd + 1), true, .25));
   if (kind === 'fes') parts.push(SP(rough(A0_FES, .6, sd + 2), true, .2));
+  if (kind === 'sarik') parts.push(SP(rough([[26, -40], [32, -62], [16, -86], [-14, -96], [-44, -88], [-62, -62], [-60, -30], [-20, -40]], .8, sd + 3), true, .8));
   if (kind === 'bare') parts.push(SP([[22, -54], [10, -66], [-20, -72], [-50, -56], [-60, -20], [-50, -10], [-30, -40], [0, -56]], true, .7));
   for (const q of parts) { inkFill(ctx, q); if (o.col) plate(ctx, o.col, q, { a: o.colA ?? .5 }); }
   // ışık tarafında kontur üzerinde kâğıt çizgi (ışık kenarı), kulak, beyaz yaka, yaka kıvrımı
@@ -87,6 +88,7 @@ function a0_prof(ctx, x, y, s, dir, kind, o = {}) {
     const r = rng(sd * 7);
     for (let i = 0; i < 16; i++) { const q = new Path2D(), xx = lerp(-48, 24, r()), yy = lerp(-84, -50, r()), a0 = r() * TAU; q.arc(xx, yy, 2.2, a0, a0 + 2.4); cut(ctx, q, lw(1.3), { a: .3 }); }
   }
+  if (kind === 'sarik') { knock(ctx, SP(rough([[26, -40], [32, -62], [16, -86], [-14, -96], [-44, -88], [-62, -62], [-60, -30], [-20, -40]], .8, sd + 3), true, .8), P.paperD); plate(ctx, 'ochre', SP([[26, -40], [32, -62], [16, -86], [-14, -96], [-44, -88], [-62, -62], [-60, -30], [-20, -40]], true, .8), { a: .3 }); for (let k = 0; k < 4; k++) inkStroke(ctx, SP([[28 - k * 3, -46 - k * 11], [-10, -52 - k * 12], [-56, -40 - k * 12]], false), lw(2), { a: .7 }); inkStroke(ctx, SP([[26, -40], [32, -62], [16, -86], [-14, -96], [-44, -88], [-62, -62], [-60, -30], [-20, -40]], true, .8), lw(2.6)); }
   if (kind === 'fes') { cut(ctx, SP([[24, -46], [-14, -42], [-50, -36]], false, .6), lw(2), { a: .5 }); plate(ctx, 'red', SP(A0_FES, true, .2), { a: .5 }); inkStroke(ctx, SP([[-8, -99], [-30, -86], [-44, -60]], false), lw(5)); }
   ctx.restore();
 }

@@ -57,12 +57,17 @@ SCENES.kapakB = (ctx, t) => {
 
 // ---- 2. tur (kapak kurulu): A′ "AYNI SIRADA", B′ "SULTANIN OKULU", C "AYNI OKULDAN" ----
 // Mustafa Kemal'in yüzü karenin en parlak görüntü öğesi (L≥200): yalnız onun için açık kâğıt + açık ten; arkasına ışık yok
-function kp_bright(fn) { const ps = P.paper, sk = P.skin; P.paper = '#FBF4E4'; P.skin = '#F6D8BA'; try { fn(); } finally { P.paper = ps; P.skin = sk; } }
+function kp_bright(fn, pap = '#FBF4E4', skn = '#F6D8BA') { const ps = P.paper, sk = P.skin; P.paper = pap; P.skin = skn; try { fn(); } finally { P.paper = ps; P.skin = sk; } }
 // ikinci plan figürleri ayrı katmanda çizilip koyulaştırılır (yüzler L≈140)
 const kpLayer = makeCanvas(DW, DH), kpLx = kpLayer.getContext('2d');
 function kp_dim(ctx, k, fn, sat = 1) {
   kpLx.setTransform(1, 0, 0, 1, 0, 0); kpLx.clearRect(0, 0, DW, DH); baseT(kpLx); fn(kpLx);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.filter = `brightness(${k}) saturate(${sat})`; ctx.drawImage(kpLayer, 0, 0); ctx.restore();
+}
+function kp_haze(ctx, col, a, fn) {
+  kpLx.setTransform(1, 0, 0, 1, 0, 0); kpLx.clearRect(0, 0, DW, DH); baseT(kpLx); fn(kpLx);
+  kpLx.save(); kpLx.setTransform(1, 0, 0, 1, 0, 0); kpLx.globalCompositeOperation = 'source-atop'; kpLx.globalAlpha = a; kpLx.fillStyle = col; kpLx.fillRect(0, 0, DW, DH); kpLx.restore();
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(kpLayer, 0, 0); ctx.restore();
 }
 // yazıyı kutuya sığdır: en büyük boy ≤ size, genişlik ≤ maxW
 function kp_fit(ctx, s, size, maxW) { ctx.save(); ctx.font = FONT.slab(size); const w = ctx.measureText(s).width; ctx.restore(); return w > maxW ? Math.floor(size * maxW / w) : size; }
@@ -79,19 +84,19 @@ SCENES.kapakA2 = (ctx, t) => {
   ctx.save(); ctx.globalAlpha = .03; ctx.strokeStyle = P.paper; ctx.lineCap = 'round';
   for (let i = 0; i < 7; i++) { ctx.lineWidth = 70 + 30 * hash(i, 3); ctx.beginPath(); const y = 120 + i * 130 + 40 * hash(i, 5); ctx.moveTo(900 + 200 * hash(i, 7), y); ctx.bezierCurveTo(1200, y - 30, 1500, y + 40, 1880, y - 10); ctx.stroke(); }
   ctx.restore();
-  // sağda Harbiye sırası, 1902: Ali Fuat (20), Mustafa Kemal (21, ortada), Kâzım Karabekir (20); fes, lacivert setre
-  kp_dim(ctx, .74, g => {
-    const cad = [{ who: 'alifuat', x: 1040, age: 20 }, { who: 'karabekir', x: 1540, age: 20 }, { who: 'mk', x: 1290, age: 21 }];
+  // sağda mektep sırası, 1893 (filmde 0:19'daki sınıf, act0 A0_K93): İsmet (11), Mustafa Kemal (12, ortada), sınıf arkadaşı (13); bıyıksız, fes, lacivert setre
+  kp_haze(ctx, '#3A3633', .16, g => kp_bright(() => {
+    const cad = [{ who: 'ismet', id: { mus: null }, x: 1030, age: 11, look: [-1, .2] }, { who: 'anon', id: { mus: null, jaw: 1.0, WD: 1.08, seed: 31 }, x: 1550, age: 13, look: [-.9, .35] }, { who: 'mk', id: { mus: null }, x: 1295, age: 12, look: [-1.1, .1] }];
     for (const c of cad) {
       const o = { x: c.x, y: 740, s: 1.6, dir: -1 };
       bust(g, { ...o, coat: 'setre', col: 'navy', w: .9, seed: c.age + c.x, len: 300, sep: true });
-      head3q(g, { ...o, who: c.who, gear: 'fes', light: 'front', look: [-1, .15], age: c.age });
+      head3q(g, { ...o, who: c.who, id: c.id, gear: 'fes', light: 'front', look: c.look, age: c.age, skin: true });
     }
     // ortak sıra (ön tahtası), x ≤ 1700: süre rozeti boş kalır
     const desk = PL(rough([[880, 1004], [1700, 996], [1700, 1100], [880, 1100]], 1.2, 4)); knock(g, desk); plate(g, 'ochre', desk); plate(g, 'sepia', desk, { a: .55 });
     inkStroke(g, PL([[880, 1004], [1700, 996]], false), 6); inkStroke(g, desk, 4);
     for (const x of [1000, 1290, 1580]) cut(g, PL([[x - 60, 1046], [x + 60, 1044]], false), 2.4);
-  });
+  }, '#F8F2E3', '#EFD8C2'));
   // solda büyük ¾ Mustafa Kemal (1923): kalpak, kaput; genç hâline (sıraya) bakar
   kp_bright(() => {
     const mk = { x: 470, y: 500, s: 3.0, dir: 1 };
@@ -105,16 +110,16 @@ SCENES.kapakA2 = (ctx, t) => {
   pressFinish(ctx, t, { grain: 0, vig: .5, stone: .12 });
 };
 function kp_cadre(ctx, o = {}) {
-  // arkada İsmet (36) ve Fevzi (45): aynı ten, koyu (L≤140), ölçek 2.0, omuzları Mustafa Kemal'le örtüşür
-  kp_dim(ctx, .74, g => {
+  // arkada İsmet (36) ve Fevzi (45): aynı ten ailesi (L* ≈67), derinlik %12 lacivert pusla; ölçek 2.0, omuzları Mustafa Kemal'le örtüşür
+  kp_haze(ctx, '#2E3D58', o.haze ?? .12, g => kp_bright(() => {
     for (const p of [{ who: 'fevzi', x: 800, y: 560, age: 45, gc: 'grey' }, { who: 'ismet', x: 290, y: 600, age: 36, gc: 'ink' }]) {
       bust(g, { x: p.x, y: p.y, s: 2.0, dir: 1, coat: 'kaput', col: 'khaki', w: .95, seed: p.age, len: 420, back: true, arms: 'back', skin: true });
       head3q(g, { x: p.x, y: p.y, s: 2.0, dir: 1, who: p.who, gear: 'kalpak', gearCol: p.gc, light: 'front', look: [1, .1], age: p.age, skin: true });
     }
-  }, .4);
+  }, o.pap ?? '#F7F0DF', o.skn ?? '#F2D2B1'));
   kp_bright(() => {
     const mk = { x: 560, y: 540, s: 2.5, dir: 1 };
-    bust(ctx, { ...mk, y: mk.y - 8 * mk.s, coat: 'kaput', col: 'khaki', w: .95, seed: 3, len: 360, sep: true, arms: 'back', skin: true });
+    bust(ctx, { ...mk, y: mk.y - 8 * mk.s, coat: 'kaput', col: 'khaki', w: .95, seed: 3, len: 360, sep: false, arms: 'back', skin: true });
     head3q(ctx, { ...mk, who: 'mk', gear: 'kalpak', gearCol: 'ink', light: 'front', look: [1.2, .1], age: 42, skin: true });
   });
 }
@@ -122,7 +127,7 @@ SCENES.kapakB2 = (ctx, t) => {
   setReg(93, 1.2); paperBG(ctx);
   kp_board(ctx, '#2E3D58');
   // Abdülhamid: küçük, nötr ışık, sağ altta; başı Mustafa Kemal'inkinin ≈ %76'sı
-  kp_dim(ctx, .82, g => {
+  kp_dim(ctx, .76, g => {
     const ah = { x: 1420, y: 700, s: 1.9, dir: -1 };
     bust(g, { ...ah, coat: 'setre', col: 'ink', w: 1.0, seed: 21, len: 380 });
     head3q(g, { ...ah, who: 'abdulhamid', gear: 'fes', light: 'front', look: [-1, .2], age: 60 });

@@ -1136,7 +1136,7 @@ def sec_okullar():
                s3='D3 . . A2 . . . .')
     PLAN = dict(B01=['s1', 's1', 'D1', 'D2'], B02=['D1', 'D2', 'C', 'Bb'], B03=['D1', 'D2', 'C', 'Bb'],
                 B04=['D1', 'D2', 'D1', 'Bb'], B05=['s1', 's2'], B06=['D1', 'D2', 'C', 'Bb'])
-    VEL = dict(B01=0.34, B02=0.38, B03=0.44, B04=0.4, B05=0.3, B06=0.4)
+    VEL = dict(B01=0.34, B02=0.38, B03=0.44, B04=0.36, B05=0.3, B06=0.4)
     used = {}
     t = t0
     while t < tstop - 0.2:
@@ -1215,7 +1215,7 @@ def sec_selanik():
     play(ts, kusak('G5', 0.3, 'major', n=4, hold=3), lyre, vel=0.3, bright=0.55, pan=0.2)
     bell(ts + 0.75, 'D6', vel=0.05)
     # C03 "Mektep ... öğretti: sorgulamayı." - the school's ney asks, in Uşşak
-    ney(q - 0.3, kusak('D5', 0.45, 'ussak', n=5, vel=0.95, hold=2.8), gain=0.5)
+    ney(q - 0.3, kusak('D5', 0.45, 'ussak', n=5, vel=0.95, hold=2.8), gain=0.4)
     # --- secrets
     drone('D1 D2', S('C03') - 0.3, c1 + 0.8, gain=0.19, att=2.5, rel=1.2, cutoff=260)
     seq = [(S('C03'), 'G2 D3 Bb3'), (wh, 'D2 A2 F3'), (S('C04'), 'D2 Eb3 A3'), (S('C05'), 'D2 A2 F3'),
@@ -1329,7 +1329,7 @@ def sec_1908():
     chords([(S('D04'), 'F2 C3 A3 C4'), (W('D04', 'jurnalleri'), 'Eb2 Bb2 G3'), (W('D04', 'aynı'), 'D2 A2 F3'),
             (W('D04', 'bu'), 'Bb1 F2 D3 F3'), (W('D04', 'yetişti'), 'A1 E2 D3 E3')], d1 + 0.4, gain=0.13, cutoff=750,
            att=1.2, rel=1.0, sine=0.4, bass=dict(gain=0.18, stack=(0, 12), cutoff=520, vib=4, att=0.5, rel=0.8))
-    ney(W('D04', 'okulları') - 0.05, kusak('D5', 0.42, 'ussak', n=4, vel=0.9, hold=2.6), gain=0.38)
+    ney(W('D04', 'okulları') - 0.05, kusak('D5', 0.42, 'ussak', n=4, vel=0.9, hold=2.6), gain=0.3)
 
 
 def sec_savas():
@@ -1369,7 +1369,7 @@ def sec_savas():
               ('F#4', 0.3), ('Eb4', 0.45), ('D4', 2.2)]
     sc = float(np.clip((S('E04') + 0.8 - sel) / sum(d for _, d in LAMENT), 0.8, 1.3))
     ph = [((hz(m[0]), hz(m[1])) if isinstance(m, tuple) else hz(m), d * sc) for m, d in LAMENT]
-    aulos(sel + 0.1, ph, gain=0.52, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
+    aulos(sel + 0.1, ph, gain=0.45, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
           hmax=6000.0, top=6500.0)
     pad(M('D3 A3'), sel - 0.3, S('E04') + 1.0, gain=0.07, att=1.5, rel=1.2, cutoff=500, sine=0.5)
     # E04 the narrator's belief: a shared wound -> a homeland to come
@@ -1668,6 +1668,7 @@ def reverb_ir(fs=SR, length=4.0, pre=0.02, seed=7):
 PRIORITY = {'A05': 1.3, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.15, 'G06': 1.15,
             'D02': 1.2, 'E05': 1.2, 'G02': 1.5}       # + the three hottest musical moments that run under words
 HUSH = 0.16                     # music level while "Yaşasın Cumhuriyet!" is spoken (the climax answers it)
+TAIL_DB = -2.5                  # the end screen sits below the climax (it has no narration to duck it)
 
 
 def speech_mask():
@@ -1794,12 +1795,13 @@ def upsample(x, k):
 
 
 def master_gain(n):
-    """The held breath under "Yaşasın Cumhuriyet!" and the final fade; computed on a 5 ms grid."""
+    """The held breath under "Yaşasın Cumhuriyet!", the end-screen trim and the final fade (5 ms grid)."""
     tg = np.arange(0, n / SR + 0.01, 0.005)
     g = np.ones(len(tg))
     a, b = W('G01', 'yaşasın') - 0.06, WE('G01', 'cumhuriyet') + 0.01
     if b - a > 0.3:
         g = np.minimum(g, np.interp(tg, [a, a + 0.09, b - 0.04, b], [1.0, HUSH, HUSH, 1.0], left=1.0, right=1.0))
+    g *= np.interp(tg, [E(ORDER[-1]) - 0.6, E(ORDER[-1]) + 0.6], [1.0, 10 ** (TAIL_DB / 20)])
     g *= np.interp(tg, [DUR - 2.6, DUR], [1.0, 0.0], left=1.0, right=0.0) ** 1.5
     return tg, g
 
