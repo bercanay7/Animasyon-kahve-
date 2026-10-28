@@ -17,7 +17,8 @@ function a2_blit(ctx, L, cm, k = 1) {
 const a2_camAt = (lt, d, a, b, e = E.sine) => mix(a, b, e(clamp(lt / d)));
 function a2_ell(cx, cy, rx, ry, rot = 0) { const p = new Path2D(); p.ellipse(cx, cy, rx, ry, rot, 0, TAU); return p; }
 // çekim: açık bitişle (süre komşu bölümün yazılıp yazılmadığına bağlı kalmasın; kamera ve zarflar bu süreye göre)
-function a2_shot(at, end, draw, o) { shot(at, (ctx, st) => draw(ctx, { ...st, d: end - at, p: clamp((st.t - at) / (end - at)) }), o); }
+// (main.js cutRules başlangıcı cümle başından öne alabilir; süre gerçek başlangıçtan hesaplanır)
+function a2_shot(at, end, draw, o) { shot(at, (ctx, st) => { const d = end - (st.t - st.lt); draw(ctx, { ...st, d, p: clamp(st.lt / d) }); }, o); }
 // kelimeye bağlı belirme: [a, a+dur] arasında 0→1
 const a2_in = (t, at, dur = .35) => E.out3(clamp((t - at) / dur));
 
@@ -374,7 +375,7 @@ a2_shot(S('C01'), Wd('C01', 'rıhtımda'), (ctx, st) => {
   ctx.save(); cam(ctx, cm, .9);
   for (let i = 0; i < 5; i++) { const gx = 420 + i * 120 + lt * (24 + i * 5) + Math.sin(t * .7 + i) * 20, gy = 260 + Math.sin(i * 2.3) * 60 + Math.sin(t * 1.1 + i) * 8; a2_gull(ctx, gx, gy, .9 + (i % 3) * .2, Math.floor(t * 5 + i) % 2); }
   ctx.restore();
-  chapterCard(ctx, 'II', 'SELANİK', 'YASAK KİTAPLAR · 1889–1906', lt, d, { size: 92 }); // alt satır başlıktan uzun: kutu başlığa göre ölçüldüğünden başlık büyütüldü
+  chapterCard(ctx, 'II', 'SELANİK', 'YASAK KİTAPLAR · 1889–1906', lt, d);
 }, { tr: { type: 'press', dur: .8 } });
 
 // C01b: rıhtım caddesi — Fransızca/Rumca tabelalar, Ladino ve Osmanlıca soyut iz; üç derinlikte damga kalabalık; ön sırada yüzü seçilen dört kişi
@@ -556,14 +557,24 @@ function a2_childBack(ctx, x, y, s, o = {}) {
   const col = SP([[-30, 34], [30, 34], [34, 56], [-34, 56]], true, .6); knock(ctx, col); plate(ctx, 'navy', col, { n: 2 }); inkStroke(ctx, col, lw(2.6));
   // boyun (kâğıt) + ense gölgesi
   const neck = SP([[-22, 16], [22, 16], [24, 38], [-24, 38]], true, .6); knock(ctx, neck); plate(ctx, 'ochre', a2_R(-24, 16, 24, 26), { a: .4 }); inkStroke(ctx, neck, lw(2.4));
-  ctx.save(); ctx.translate(0, -up * 6); ctx.rotate(turn * .08 - up * .04);
+  ctx.save(); ctx.translate(-Math.max(0, turn) * 5, -up * 6); ctx.rotate(turn * .08 - up * .04);
   // kulaklar (dönüşe göre)
   for (const sd of [-1, 1]) {
     const ex = sd * (44 - sd * turn * 6), ear = SP([[ex, -8], [ex + sd * 10, -12], [ex + sd * 13, 4], [ex + sd * 8, 20], [ex, 18]], true, .8);
     knock(ctx, ear); plate(ctx, 'ochre', ear, { a: .3 }); inkStroke(ctx, ear, lw(2.2)); inkStroke(ctx, SP([[ex + sd * 4, -4], [ex + sd * 8, 6], [ex + sd * 4, 14]], false), lw(1.2));
   }
   // yanak (sağa dönünce sağda belirir)
-  if (turn > .1) { const ch = SP([[30, 0], [48 + turn * 6, 6], [46 + turn * 6, 30], [30, 34]], true, .8); knock(ctx, ch); plate(ctx, 'ochre', ch, { a: .25 }); inkStroke(ctx, SP([[46 + turn * 6, 4], [48 + turn * 6, 18], [42, 32]], false), lw(2.2)); }
+  if (turn > .1) {
+    const ch = SP([[30, -6], [48 + turn * 10, 0], [50 + turn * 10, 14], [46 + turn * 10, 30], [30, 34]], true, .8); knock(ctx, ch); plate(ctx, 'ochre', ch, { a: .25 });
+    if (turn > .6) { // kayıp profil: burun ucu yanak çizgisinin ötesine taşar, kirpik ve kaş ucu görünür
+      const k = clamp((turn - .6) / .4), bx = 49 + turn * 10;
+      const nose = SP([[bx - 2, 4], [bx + 9 * k, 12], [bx + 7 * k, 17], [bx - 2, 19]], true, .7); knock(ctx, nose); plate(ctx, 'ochre', nose, { a: .25 }); inkStroke(ctx, SP([[bx - 1, 4], [bx + 9 * k, 12], [bx + 7 * k, 17], [bx - 1, 19]], false, .7), lw(2.2));
+      inkStroke(ctx, SP([[bx - 8, -4], [bx - 2 + 3 * k, -6], [bx + 1 + 4 * k, -3]], false), lw(2.2));          // kirpik
+      inkFill(ctx, SP([[bx - 12, -16], [bx + 2 * k, -18], [bx + 2 * k, -15], [bx - 12, -13]], true), { a: k }); // kaş ucu
+      inkStroke(ctx, SP([[bx - 2, 19], [bx - 4, 26], [bx - 6, 32]], false), lw(1.8));
+    }
+    inkStroke(ctx, SP([[30, -6], [48 + turn * 10, 0], [50 + turn * 10, 14]], false), lw(2.2)); inkStroke(ctx, SP([[46 + turn * 10, 22], [44 + turn * 10, 30], [36, 34]], false), lw(2.2));
+  }
   // kısa kesilmiş saç (ense)
   const skull = SP([[-44, -30], [-46, 0], [-36, 22], [-20, 30], [0, 32], [20, 30], [36, 22], [46, 0], [44, -30]], true, .8);
   knock(ctx, skull); plate(ctx, 'ochre', skull, { a: .3 }); inkStroke(ctx, skull, lw(2.6));
@@ -607,8 +618,8 @@ a2_shot(S('C02'), Wd('C02', 'burada'), (ctx, st) => {
   // rüzgâr desteden bir gazeteyi kaldırır ("filizlendi"den sonra), sağ üste uçar — C02b'nin uçuşan gazetelerine bağlanır
   const tW = Wd('C02', 'filizlendi'), fw = clamp((tq - tW) / 1.4);
   if (fw > 0) { const fx = lerp(470, 1500, E.in2(fw)), fy = lerp(860, 180, E.out2(fw)) + Math.sin(fw * 9) * 30; a2_newspaper(ctx, fx, fy, 200, 260, -.2 + fw * 1.1, 'fr', Math.sin(tq * 7), { age: .1 }); }
-  const turn = kf(tq - S('C02'), [[0, -.2], [1.6, .5], [3.4, .5], [3.9, .2], [4.6, .7]]);
-  a2_childBack(ctx, 800, hy + 4 + Math.sin(tq * 1.5) * 1.5, 1.39, { turn, ph: Math.floor(t * 4) % 2 });
+  const turn = kf(tq - tW, [[-3.7, -.15], [-2.3, .45], [-.1, .45], [.35, .95], [.9, 1.0]]);
+  a2_childBack(ctx, 800, hy + 4 + Math.sin(tq * 1.5) * 1.5, 1.39, { turn, up: kf(tq - tW, [[0, 0], [.6, .6]]), ph: Math.floor(t * 4) % 2 });
   ctx.restore();
 }, { tr: { type: 'press', dur: .6 } });
 
@@ -679,7 +690,9 @@ a2_shot(Wd('C02', 'burada'), S('C03'), (ctx, st) => {
   ctx.restore();
   ctx.save(); cam(ctx, cm, 1);
   a2_newspaper(ctx, 1260 - 92 * lq, 420 + Math.sin(lq * .9) * 34, 420, 540, -.12 + Math.sin(lq * 1.1) * .14, 'fr', Math.sin(lq * 2.6 + .6) * .9, { bg: '#F7F1E2' });
-  a2_childBack(ctx, 300, hy + 4, .92, { turn: .8, up: 1, ph: Math.floor(t * 4) % 2 });
+  const tO = Wd('C02', 'öğrenir'), tq2 = a2_q(t);
+  const cTurn = kf(tq2 - tO, [[-3.4, .35], [-2.2, .55], [-1.2, .3], [-.25, .3], [.3, 1.0]]), cUp = kf(tq2 - tO, [[-3.4, .9], [-2.2, .6], [-1.2, 1], [-.25, 1], [.3, .25]]);
+  a2_childBack(ctx, 300, hy + 4, .92, { turn: cTurn, up: cUp, ph: Math.floor(t * 4) % 2 });
   ctx.restore();
 }, { tr: { type: 'cut' } });
 
@@ -1099,7 +1112,7 @@ a2_shot(S('C04'), S('C05'), (ctx, st) => {
   ctx.restore();
   ctx.restore();
   // Yıldız paneli: "jurnaller"de sağdan basılır (merdane gibi), masaya jurnaller yığılır; sonunda lamba söner
-  const rv = E.out3(clamp((t - tJ + .12) / .4));
+  const rv = E.out3(clamp((t - tJ + .32) / .3));
   if (rv > 0) {
     const x0 = lerp(W + 30, 1010, rv);
     ctx.save(); ctx.beginPath(); ctx.rect(x0, -10, W - x0 + 20, H + 20); ctx.clip();
@@ -1108,13 +1121,13 @@ a2_shot(S('C04'), S('C05'), (ctx, st) => {
     const L = [1330, 520];
     if (dim > 0) for (const [r, col] of [[150, '#3E3B3C'], [92, '#6A5B45']]) knock(ctx, a2_ell(L[0], L[1] + 40, r * 1.3 * (.5 + .5 * dim), r * (.5 + .5 * dim)), col);
     gasLamp(ctx, L[0], L[1], .8, t);
-    const n = Math.min(11, Math.floor((tq - tJ) / .17) + 1), r = rng(431);
-    for (let i = 0; i < n; i++) { const fall = i === n - 1 ? 1 - E.out3(clamp(((tq - tJ) - i * .17) / .12)) : 0; a2_jurnal(ctx, 1450 + (r() - .5) * 60, 760 - i * 9 - fall * 120, (r() - .5) * .3, 440 + i); }
+    const n = Math.min(11, Math.max(1, Math.floor((tq - tJ + .2) / .17) + 1)), r = rng(431);
+    for (let i = 0; i < n; i++) { const fall = i === n - 1 ? 1 - E.out3(clamp(((tq - tJ + .2) - i * .17) / .12)) : 0; a2_jurnal(ctx, 1450 + (r() - .5) * 60, 760 - i * 9 - fall * 120, (r() - .5) * .3, 440 + i); }
     if (dim < 1) plate(ctx, 'ink', a2_R(x0, -10, W + 10, H + 10), { a: .55 * (1 - dim) });
     ctx.restore();
     // panel ayırıcı (kalın is + kâğıt kenar)
     knock(ctx, a2_R(x0 - 14, -10, x0, H + 10)); inkFill(ctx, a2_R(x0 - 8, -10, x0 + 4, H + 10));
-    stamp(ctx, 'YILDIZ', x0 + 70, 128, t - tJ - .2, d, { size: 46 });
+    stamp(ctx, 'YILDIZ', x0 + 70, 128, t - tJ + .2, d, { size: 46 });
   }
 }, { tr: { type: 'cut' } });
 
@@ -1168,7 +1181,8 @@ a2_shot(S('C05'), Wd('C05', 'dört'), (ctx, st) => {
   a2_figure(ctx, sx, 900, 250, 'fes', Math.floor(t * 5) % 2, dirS, { red: true });
   inkStroke(ctx, PL([[sx - 10 * dirS, 680], [sx - 4 * dirS, 840]], false), 4);  // tüfek
   ctx.restore();
-  stamp(ctx, 'İSTANBUL · 1889', 80, 128, t - S('C05'), d, { size: 46 });
+  const yr = 1899 - Math.min(10, Math.floor(clamp((lt - .25) / 1.1) * 11));
+  stamp(ctx, 'İSTANBUL · ' + yr, 80, 128, lt + .06, d + .06, { size: 46, typing: .001 });
   stamp(ctx, 'ASKERÎ TIBBİYE', 80, 210, t - Wd('C05', 'askeri'), d, { size: 46 });
 }, { tr: { type: 'press', dur: .6 } });
 
@@ -1230,7 +1244,7 @@ a2_shot(Wd('C05', 'dört'), S('C06'), (ctx, st) => {
 }, { tr: { type: 'cut' } });
 
 // ——————————————————————————————————————— C06 · Kurmay yüzbaşılar, ihbar, Şam ———
-// C06a: Erkân-ı Harbiye dershanesi; duvarda Rumeli haritası; Ali Fuat (23) arkada, Mustafa Kemal (24) önde; lacivert setre, fes.
+// C06a: Erkân-ı Harbiye dershanesi; duvarda Rumeli haritası; Ali Fuat (22) arkada, Mustafa Kemal (23) önde (Ocak 1905); lacivert setre, fes.
 // "ihbarla": sağdan bir el MK'nin omzuna konur, oda kararır, ikisi de dönüp bakar.
 function a2_C06a_bg(g) {
   g.fillStyle = P.paper; g.fillRect(-140, -140, W + 280, H + 280);
@@ -1278,10 +1292,10 @@ a2_shot(S('C06'), Wd('C06', 'tutuklanıp'), (ctx, st) => {
   const S_ = 1.32;
   const af = { x: 830, y: 330, s: S_, dir: -1 };
   bust(ctx, { ...af, coat: 'setre', col: 'navy', w: .96, seed: 13, len: (860 - af.y) / S_, tilt: .03, turn: .3, back: true });
-  head3q(ctx, { ...af, who: 'alifuat', gear: 'fes', light: 'front', lookAt: look, age: 23, tilt: -.03 + turn * .04 });
+  head3q(ctx, { ...af, who: 'alifuat', gear: 'fes', light: 'front', lookAt: look, age: 22, tilt: -.03 + turn * .04 });
   const mk = { x: 1220, y: 344, s: S_, dir: -1 };
   bust(ctx, { ...mk, coat: 'setre', col: 'navy', w: .98, seed: 3, len: (860 - mk.y) / S_, tilt: .05, turn: .3, sep: true, arms: 'back' });
-  head3q(ctx, { ...mk, who: 'mk', gear: 'fes', light: 'front', lookAt: look, age: 24, tilt: -.04 + turn * .05 });
+  head3q(ctx, { ...mk, who: 'mk', gear: 'fes', light: 'front', lookAt: look, age: 23, tilt: -.04 + turn * .05 });
   // omza konan el: sağ üstten inen koyu kol (ihbarcı/zaptiye kareye girmez), "ihbarla"da omza oturur
   const hk = E.out3(clamp((tq - tA + .45) / .45));
   if (hk > 0) {
@@ -1298,8 +1312,8 @@ a2_shot(S('C06'), Wd('C06', 'tutuklanıp'), (ctx, st) => {
   if (dk > 0) plate(ctx, 'navy', a2_R(-160, -160, W + 160, H + 160), { a: .32 * dk });
   ctx.restore();
   stamp(ctx, 'ERKÂN-I HARBİYE · 1905', 80, 128, t - Wd('C06', 'beşte'), d, { size: 44 });
-  nameTag(ctx, 1860, 900, 'MUSTAFA KEMAL', '24 yaşında · kurmay yüzbaşı', t - tM, 99, { align: 'right', size: 56, sub: 32, bg: P.paperD });
-  nameTag(ctx, 640, 900, 'ALİ FUAT', '23 yaşında · kurmay yüzbaşı', t - tF, 99, { align: 'right', size: 56, sub: 32, bg: P.paperD });
+  nameTag(ctx, 1860, 150, 'MUSTAFA KEMAL', '23 yaşında · kurmay yüzbaşı', t - tM, 99, { align: 'right', size: 56, sub: 32, bg: P.paperD });
+  nameTag(ctx, 640, 900, 'ALİ FUAT', '22 yaşında · kurmay yüzbaşı', t - tF, 99, { align: 'right', size: 56, sub: 32, bg: P.paperD });
 }, { tr: { type: 'press', dur: .6 } });
 
 // C06b: harita — İstanbul'dan deniz yoluyla Beyrut'a, oradan Şam'a sürgün yolu (kelimeye bağlı çizilir)
@@ -1368,7 +1382,7 @@ a2_shot(Wd('C06', 'tutuklanıp'), Wd('C06', 'yeni'), (ctx, st) => {
   city(1470 + o[0], 790 + o[1], -1, 'BEYRUT', tR + 1.6, false);
   city(1610 + o[0], 790 + o[1], 1, 'ŞAM', tS, true);
   ctx.restore();
-  stamp(ctx, 'SÜRGÜN · 1905', 80, 128, t - tR, d, { size: 44 });
+  stamp(ctx, 'ŞAM\'A TAYİN · 1905', 80, 128, t - tR, d, { size: 44 });
 }, { tr: { type: 'cut' } });
 
 // C06c: Şam, gizli toplantı — çizgili (ablak) sivri kemerler, asma lamba, masa başında beş subay silueti; "VATAN VE HÜRRİYET" damgası
@@ -1415,7 +1429,7 @@ a2_shot(Wd('C06', 'yeni'), S('D01'), (ctx, st) => {
   ];
   for (const f of G) { ctx.save(); ctx.translate(f.x, f.y + 320); ctx.rotate(lean * f.dir); ctx.translate(-f.x, -(f.y + 320)); a2_profile(ctx, f.x, f.y, f.s, f.dir, { len: (H + 60 - f.y) / f.s, col: f.col, mus: f.mus, seed: f.seed, reach: f.col === 'ink' ? [f.x + f.dir * 150 * f.s, 812] : null }); ctx.restore(); }
   ctx.restore();
-  stamp(ctx, 'ŞAM · 1906', 80, 128, lt, d, { size: 44 });
+  stamp(ctx, 'ŞAM · 1905–06', 80, 128, lt, d, { size: 44 });
   // VATAN VE HÜRRİYET damgası
   if (!NOTEXT && t >= tV) {
     const k = 1 + (1 - E.out3(clamp((t - tV) / .18))) * .22, a = clamp((t - tV) / .06);

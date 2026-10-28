@@ -134,4 +134,4 @@ Hale, alttan açı, gökte dev baş, kırmızı-siyah çapraz kama, sepya filtre
 - **Ayırma konturu:** öndeki figürün arkadakini örttüğü yerde 8 px kâğıt boşluğu bırakılır (`bust({sep:true})`). Arkadaki figürün kaputu ikinci baskıyla koyulaşır (`back:true`).
 - **Hale yok:** baş merkezinden 1,5 baş yarıçapı içinde yarım ton kullanılmaz; ışık yalnız lambanın kendi çevresindedir.
 - **Burun:** sırt çizgisi çizilmez. Burnu uzak yanak konturunu kesen siluet, burun deliği kıvrımı ve çizgisiz yakın yan gölgesi tanımlar.
-- **Bıyık:** Mustafa Kemal 1919 sonrası bıyıksızdır (`PEOPLE.mk.mus` yaşa bağlı).
+- **Bıyık:** Mustafa Kemal 16 yaşından 1923'e (42 yaş) kadar bıyıklıdır; Cumhuriyet'in ilanından sonra kesti (tarih danışmanı: Sivas 1919 ve 1921 fotoğrafları). `PEOPLE.mk.mus` yaşa bağlı.

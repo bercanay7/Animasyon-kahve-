@@ -41,14 +41,16 @@ const a1_pop = (t, t0, d = .16) => t < t0 ? 0 : 1 + (1 - E.out3(clamp((t - t0) /
 // Figür: bust + head3q. Boşta salınım, nefes, göz kırpma; pozlar ikişer karede (15 fps)
 function a1_fig(ctx, t, o) {
   const tf = Math.floor(t * 15) / 15, sd = o.seed || 1;
-  const io = idleOffsets(tf, sd, o.idle ?? 1), bl = o.blink === false ? 0 : blinkAt(tf, sd);
+  const io = idleOffsets(tf, sd, o.idle ?? 1), bl = o.blink === false || (window.noBlink && window.noBlink(t)) ? 0 : blinkAt(tf, sd);
   const pp = { ...PEOPLE.anon, ...(PEOPLE[o.who] || {}), ...(o.id || {}) };
   const eo = (o.eyeOpen ?? pp.eyeOpen ?? .8) * (1 - .9 * bl);
   const by = o.y + io.breath * .6 * (o.s / 1.2);
   const bs = o.bs ?? o.s;
   if (o.body !== false) bust(ctx, { x: o.x + (o.bdx || 0), y: by + (o.bdy || 0), s: bs, dir: o.dir, coat: o.coat || 'setre', col: o.col || 'ink', w: o.w || 1, len: o.len, seed: sd, tilt: (o.btilt || 0) + io.torso, turn: o.turn, sep: o.sep, back: o.back, arms: o.arms, collarCol: o.collarCol, skin: o.skin });
-  if (o.under) o.under(by);
-  head3q(ctx, { x: o.x, y: by, s: o.s, dir: o.dir, who: o.who || 'anon', id: o.id, gear: o.gear, gearCol: o.gearCol, light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: (o.tilt || 0) + io.head + io.neck * .5, eyeOpen: eo, skin: o.skin, wide: o.wide });
+  if (o.under) o.under(by, io);
+  const ht = (o.tilt || 0) + io.head + io.neck * .5, hd = o.hdir ?? o.dir;
+  head3q(ctx, { x: o.x, y: by, s: o.s, dir: hd, who: o.who || 'anon', id: o.id, gear: o.gear, gearCol: o.gearCol, light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: ht, eyeOpen: eo, skin: o.skin, wide: o.wide });
+  if (o.over) o.over({ x: o.x, y: by, s: o.s, dir: hd, tilt: ht, WD: o.wide ?? pp.WD ?? 1.08, HY: pp.HY ?? 1 });
   return by;
 }
 // Çocuk: baş büyük, gövde dar ve kısa omuzlu
@@ -582,27 +584,30 @@ shot(S('B02'), (ctx, st) => {
 
 // ═══════════ B03 · Okullar çoğalır: rüşdiye noktaları (600+), idadi kareleri (100+) ═══════════
 let A1_SCH = null;
+// bölge: Rumeli/Anadolu/Suriye yoğun; Irak orta; Hicaz kıyısı 6; Trablusgarp kıyısı 4; Necd, Ahsa ve Girit (1898 sonrası özerk) yok
+function a1_region(lon, lat) {
+  if (lon > 23.3 && lon < 26.5 && lat > 34.7 && lat < 35.8) return null;           // Girit
+  if (lon < 25.2) return lat > 31.9 ? 'libya' : (lat > 38 ? 'core' : null);           // Trablusgarp yalnız kıyı
+  if (lat < 30.2) return (lon > 35.6 && lon < 40.3 && lat < 29.5 && lat > 21) ? 'hicaz' : null;
+  if (lon > 40 && lat < 37.2) return 'irak';
+  return 'core';
+}
 function a1_schools() {
   if (A1_SCH) return A1_SCH;
   const G = a1_geo(), r = rng(1900), ist = a1_p(28.97, 41.01);
-  const rus = [], ida = [];
-  let k = 0;
-  while (rus.length < 300 && k++ < 40000) {
-    const lon = 12 + r() * 37, lat = 23.5 + r() * 21.5, [x, y] = a1_p(lon, lat);
-    const w = (lat > 36.2 && lon < 45) ? 1 : lat > 30.5 ? (lon < 25 && lat < 31.6 ? 0 : .42) : (lon > 34 ? .14 : 0);
-    if (r() > w || !G.inEmpire1900(x, y)) continue;
-    if (rus.some(q => Math.hypot(q[0] - x, q[1] - y) < 12.5)) continue;
-    rus.push([x, y, Math.hypot(x - ist[0], y - ist[1]) + r() * 220]);
-  }
-  k = 0;
-  while (ida.length < 80 && k++ < 40000) {
-    const lon = 12 + r() * 37, lat = 23.5 + r() * 21.5, [x, y] = a1_p(lon, lat);
-    const w = (lat > 36.2 && lon < 45) ? 1 : lat > 30.5 ? (lon < 25 && lat < 31.6 ? 0 : .5) : (lon > 34 ? .2 : 0);
-    if (r() > w || !G.inEmpire1900(x, y)) continue;
-    if (ida.some(q => Math.hypot(q[0] - x, q[1] - y) < 30)) continue;
-    ida.push([x, y, Math.hypot(x - ist[0], y - ist[1]) + r() * 260]);
-  }
-  rus.sort((a, b) => a[2] - b[2]); ida.sort((a, b) => a[2] - b[2]);
+  const mk = (N, minD, quota, W) => {
+    const out = [], cnt = {}; let k = 0;
+    while (out.length < N && k++ < 60000) {
+      const lon = 12 + r() * 37, lat = 21 + r() * 24, rg = a1_region(lon, lat); if (!rg) continue;
+      if ((cnt[rg] || 0) >= (quota[rg] ?? 1e9) || r() > W[rg]) continue;
+      const [x, y] = a1_p(lon, lat); if (!G.inEmpire1900(x, y)) continue;
+      if (out.some(q => Math.hypot(q[0] - x, q[1] - y) < minD)) continue;
+      cnt[rg] = (cnt[rg] || 0) + 1; out.push([x, y, Math.hypot(x - ist[0], y - ist[1]) + r() * 220]);
+    }
+    return out.sort((a, b) => a[2] - b[2]);
+  };
+  const rus = mk(300, 12.5, { libya: 4, hicaz: 6, irak: 26 }, { core: 1, irak: .5, hicaz: 1, libya: 1 });
+  const ida = mk(78, 30, { libya: 1, hicaz: 1, irak: 6 }, { core: 1, irak: .5, hicaz: 1, libya: 1 });
   return (A1_SCH = { rus, ida });
 }
 function a1_schoolMarks(ctx, t, T0, T1, U0, U1, o = {}) {
@@ -688,16 +693,21 @@ function a1_icon(ctx, kind, x, y, r, k) {
     knock(ctx, loaf); plate(ctx, 'sepia', loaf, { a: .7 }); plate(ctx, 'sepia', SP([[-40, 14], [40, 14], [36, 4], [-36, 4]], true), { a: .5 }); inkStroke(ctx, loaf, 3);
     for (const dx of [-18, 0, 18]) cut(ctx, SP([[dx - 6, -2], [dx + 2, -12], [dx + 8, -18]], false), 3.4, { a: .9 });
   } else if (kind === 'setre') {
-    const co = PL([[-14, -30], [14, -30], [26, -24], [40, -6], [32, 2], [24, -8], [24, 34], [-24, 34], [-24, -8], [-32, 2], [-40, -6], [-26, -24]]);
+    // uzun setre: dik yaka, tek sıra düğme, yanlara inen kollar, diz boyu etek
+    const co = PL([[-12, -50], [12, -50], [22, -44], [30, -38], [34, 8], [36, 50], [-36, 50], [-34, 8], [-30, -38], [-22, -44]]);
     knock(ctx, co); plate(ctx, 'navy', co); inkStroke(ctx, co, 3);
-    inkStroke(ctx, PL([[0, -28], [0, 34]], false), 2); for (let i = 0; i < 4; i++) { const b = a1_ell(0, -16 + i * 13, 2.6, 2.6); knock(ctx, b); plate(ctx, 'sepia', b, { n: 2 }); }
-    const col = PL([[-14, -30], [14, -30], [8, -22], [-8, -22]]); knock(ctx, col); plate(ctx, 'red', col); inkStroke(ctx, col, 2);
+    for (const sd of [-1, 1]) { const sl = PL([[sd * 26, -40], [sd * 40, -30], [sd * 44, 20], [sd * 34, 22], [sd * 30, -20]]); knock(ctx, sl); plate(ctx, 'navy', sl); plate(ctx, 'navy', sl, { a: .5 }); inkStroke(ctx, sl, 2.6); const cf = PL([[sd * 34, 14], [sd * 44, 12], [sd * 45, 22], [sd * 34, 24]]); knock(ctx, cf); plate(ctx, 'red', cf); inkStroke(ctx, cf, 1.6); }
+    inkStroke(ctx, PL([[0, -44], [0, 50]], false), 2); for (let i = 0; i < 6; i++) { const b = a1_ell(-4, -36 + i * 13, 2.6, 2.6); knock(ctx, b); plate(ctx, 'sepia', b, { n: 2 }); inkStroke(ctx, b, .8); }
+    const col = PL([[-12, -50], [12, -50], [12, -40], [-12, -40]]); knock(ctx, col); plate(ctx, 'red', col); inkStroke(ctx, col, 2);
   } else {
-    const L = PL([[-42, -18], [-4, -24], [0, 20], [-40, 24]]), R = PL([[42, -18], [4, -24], [0, 20], [40, 24]]);
-    for (const q of [L, R]) { knock(ctx, q); inkStroke(ctx, q, 3); }
-    plate(ctx, 'sepia', PL([[-46, -14], [0, -20], [46, -14], [44, 30], [0, 26], [-44, 30]]), { a: .5 });
-    for (const q of [L, R]) knock(ctx, q); for (const q of [L, R]) inkStroke(ctx, q, 3);
-    for (let i = 0; i < 4; i++) { scriptLine(ctx, -8, -12 + i * 9, 28, 3, 50 + i, { w: 1.4 }); scriptLine(ctx, 36, -12 + i * 9, 28, 3, 60 + i, { w: 1.4 }); }
+    // burs: büzgülü para kesesi ve önünde mecidiye
+    const bag = SP([[-12, -30], [12, -30], [8, -20], [30, -4], [36, 22], [20, 40], [-20, 40], [-36, 22], [-30, -4], [-8, -20]], true, .8);
+    knock(ctx, bag); plate(ctx, 'sepia', bag, { a: .8 }); plate(ctx, 'sepia', SP([[-36, 22], [-20, 40], [0, 40], [-10, 10], [-30, -4]], true), { a: .5 }); inkStroke(ctx, bag, 3);
+    inkStroke(ctx, SP([[-14, -22], [0, -18], [14, -22]], false), 2.6); inkStroke(ctx, SP([[0, -19], [-14, -40], [-24, -30]], false), 2); inkStroke(ctx, SP([[0, -19], [10, -40], [22, -34]], false), 2);
+    for (const [x, y] of [[-14, -8], [8, 6], [-4, 24]]) inkStroke(ctx, SP([[x, y], [x + 6, y + 4]], false), 1.6, { a: .6 });
+    const coin = a1_ell(22, 26, 22, 22); knock(ctx, coin); plate(ctx, 'sepia', a1_ell(22, 26, 22, 22), { a: .18 }); inkStroke(ctx, coin, 2.6); inkStroke(ctx, a1_ell(22, 26, 16, 16), 1.2);
+    for (let k = 0; k < 24; k++) { const a = k / 24 * TAU; inkStroke(ctx, PL([[22 + Math.cos(a) * 19, 26 + Math.sin(a) * 19], [22 + Math.cos(a) * 21.5, 26 + Math.sin(a) * 21.5]], false), 1, { a: .7 }); }
+    scriptLine(ctx, 32, 28, 20, 4, 77, { w: 1.4 });
   }
   ctx.restore();
 }
@@ -734,19 +744,31 @@ shot(S('B04'), (ctx, st) => {
     for (let i = 5; i >= 0; i--) { const Z = 2.6 + i * 1.85; a1_bed(g, -1, Z, 10 + i); a1_bed(g, 1, Z, 20 + i); }
   });
   ctx.save(); cam(ctx, c, .85); a1_imgM(ctx, room);
+  // yatakhane lambaları: "yatılıydı" sözünde yanar
+  const Ty2 = a1_W('B04', 'yatılıydı');
+  for (const [Z, k] of [[3.4, 0], [7.2, 1], [11, 2]]) {
+    const on = ramp(t, Ty2 + k * .12, Ty2 + k * .12 + .15, E.out2), [lx, ly] = a1_v(0, 3.25, Z), sc = A1_V.f / Z / 120, [cx, cy] = a1_v(0, 4.3, Z);
+    inkStroke(ctx, PL([[cx, cy], [lx, ly - 24 * sc]], false), Math.max(1.2, 3 * sc));
+    if (on > 0) for (const [r, a] of [[150, .1], [95, .16], [55, .26]]) { ctx.save(); ctx.globalAlpha = on * a; knock(ctx, a1_ell(lx, ly + 14 * sc, r * sc, r * sc * .75)); ctx.restore(); }
+    const gl = SP([[lx - 10 * sc, ly], [lx - 14 * sc, ly + 22 * sc], [lx, ly + 30 * sc], [lx + 14 * sc, ly + 22 * sc], [lx + 10 * sc, ly]], true, .8);
+    knock(ctx, gl, on > .5 ? '#FFF7E4' : P.paper); if (on < .5) plate(ctx, 'sepia', gl, { a: .55 }); inkStroke(ctx, gl, Math.max(1.2, 2.6 * sc));
+    const sh = PL([[lx - 40 * sc, ly + 2 * sc], [lx - 14 * sc, ly - 22 * sc], [lx + 14 * sc, ly - 22 * sc], [lx + 40 * sc, ly + 2 * sc]]); knock(ctx, sh); plate(ctx, 'sepia', sh, { n: 2 }); inkStroke(ctx, sh, Math.max(1.2, 2.8 * sc));
+  }
   // uzaktaki çocuklar (damga siluet): karyola kenarında
   const ph = Math.floor(t * 6) % 2;
   for (const [X, Z, k] of [[-2.0, 11.9, 0], [2.0, 10.05, 1], [-2.0, 8.2, 1], [2.0, 6.35, 0], [-2.05, 4.5, 0], [2.05, 4.5, 1], [-2.0, 6.35, 1]]) { const [x, y] = a1_v(X, .56, Z + .45); a1_stampKid(ctx, x, y, 1.15 * A1_V.f / Z / 52, (ph + k) % 2); }
   ctx.restore();
   // ön plan çocuklar (yüzleri seçilir; yarım ton yok)
   ctx.save(); cam(ctx, c, 1);
-  a1_kid(ctx, t, { x: 500, y: 520, s: 1.5, dir: 1, seed: 31, id: { mus: null, jaw: 1.0, hair: 'ink' }, age: 13, lookAt: [1300, 470], len: 520, tilt: -.03 });
-  a1_kid(ctx, t, { x: 1430, y: 505, s: 1.6, dir: -1, seed: 32, id: { mus: null, jaw: .96, brow: .2, hair: 'sepia' }, age: 14, lookAt: [600, 470], len: 520 });
+  // "taşradan": iki çocuk başını çevirir (ara poz iki kare)
+  const Tt = a1_W('B04', 'taşradan'), tq = Math.floor(t * 15) / 15, ph1 = tq < Tt ? 0 : tq < Tt + 2 / 15 ? 1 : 2;
+  a1_kid(ctx, t, { x: 500, y: 520, s: 1.5, dir: 1, hdir: ph1 ? 1 : -1, wide: ph1 === 1 ? .78 : undefined, seed: 31, id: { mus: null, jaw: 1.0, hair: 'ink' }, age: 13, lookAt: ph1 ? [1300, 470] : [80, 380], look: ph1 === 1 ? [0, .2] : undefined, len: 520, tilt: ph1 ? -.03 : .04 });
+  a1_kid(ctx, t, { x: 1430, y: 505, s: 1.6, dir: -1, hdir: ph1 ? -1 : 1, wide: ph1 === 1 ? .78 : undefined, seed: 32, id: { mus: null, jaw: .96, brow: .2, hair: 'sepia' }, age: 14, lookAt: ph1 ? [600, 470] : [1900, 400], look: ph1 === 1 ? [0, .2] : undefined, len: 520 });
   ctx.restore();
   // devletin verdikleri: ekmek, setre, kitap
   a1_icon(ctx, 'ekmek', 640, 170, 82, a1_pop(t, Ty, .18));
   a1_icon(ctx, 'setre', 960, 170, 82, a1_pop(t, Tg, .18));
-  a1_icon(ctx, 'kitap', 1280, 170, 82, a1_pop(t, Tb, .18));
+  a1_icon(ctx, 'kese', 1280, 170, 82, a1_pop(t, Tb, .18));
 }, { tr: { type: 'cut' } });
 
 // ═══════════ B05a · Okul kapısı açılır; taşralı baba ve oğul (yorum cümlesi, 7,7 sn) ═══════════

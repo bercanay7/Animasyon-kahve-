@@ -2065,7 +2065,7 @@ INTENT = {
          '(Hicaz ney), "arkadaşlarıyla"da motif viyolonsellerde (minör).',
     'D': 'Yükselen enerji: yaylı ostinato + def, bas Re-Fa-Sol-La tırmanır, timpani tremolosu ve ters zil. '
          '"Meşrutiyet"te yükseliş durur, La asılı kalır; "ilan edildi"nin ardından parlak Si bemol majör vuruş (henüz '
-         '"ev" değil) ve motifin ilk majör görünüşü. '
+         '"ev" değil): '
          '"Hürriyet" kartpostalından çıkmış bir sokak bandosu (hafif akortsuz kornet, klarnet, tuba, trampet) '
          'motifin ilk majör görünüşünü çalar. D03 alaycı pizzicato: "Meclis" göz kırpar, "tahttan indirdi"de basamak basamak iniş, iki subaya iki nota. '
          'D04 düşünceli: "Okulları" ney motifi hatırlar, "jurnalleri" kararır.',
@@ -2082,7 +2082,7 @@ INTENT = {
          '(dominant) üstünde biter.',
     'G': 'G01: La pedalında sessizlik, ilk sahnenin saati; "buçukta" tek saat çanı; "Meclis\'te sesler yükseldi" '
          'koro, tremolo ve timpani ile yükselir; "Yaşasın Cumhuriyet!" nefes tutulmuş bir sessizlikte duyulur; doruk '
-         'ona cevap verir: motif ilk kez TAM, Re majör (yaylılar, kornolar, koro, çanlar; Re-La-Sol-Re). G02 bayram '
+         'ona cevap verir: motif ilk kez TAM, Re majör (yaylılar, kornolar, trompet, koro, çanlar; Re-La-Sol-Re). G02 bayram '
          'yatağı: bando geçip gider (yumuşak tuba ve trombon "um-pa"; "Üçü de" üç küçük çan). G03-G04 düşünceli piyano ("muhalefete" kararır; okul sırası için bir '
          'tıkırtı, siper için uzak bir davul). G05 soru: motif La7 üstünde Sol\'de asılı kalır. G06 önce saygı '
          '(Si minör, koro "u"), sonra "Cumhuriyetimizin…" sıcak IV-V-I; sözün altında bando uzaktan yaklaşır '
@@ -2143,7 +2143,8 @@ def write_cues_md(path):
           f'- Doruk "Yaşasın Cumhuriyet!" biter bitmez başlar ve ~5 sn sürer; şu an G01 ile G02 arası '
           f'{S("G02") - E("G01"):.1f} sn. `vo/plan.json` içinde `gap.G01` 2.5-3 sn olursa doruğun çoğu boşlukta duyulur.',
           '- Bölüm araları (`secGap`) ve cümle araları müziğin yükseldiği yerlerdir; ne kadar uzunsa müzik o kadar nefes alır.',
-          '- Gerçek seslendirme gelince: `python3 tools/build_vo.py` → `python3 audio/score.py` → `python3 tools/mix.py`.', '']
+          '- Seslendirme ya da senaryo değişirse: `python3 tools/build_vo.py` → `python3 audio/score.py` → '
+          '`python3 tools/mix.py --stems` → `python3 audio/ses_rapor.py` (board/ses/ kanıtları).', '']
     path.write_text('\n'.join(L), encoding='utf-8')
 
 

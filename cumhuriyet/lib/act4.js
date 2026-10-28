@@ -510,66 +510,67 @@ function a4_officer(ctx, o) {
 
 // ———————————————————————————————— çekimler ————————————————————————————————
 
-// E01 · Renk çöker: 1908'in kartpostal kalıpları (kırmızı güneş, turkuaz tepeler, altın ışınlar) birer birer kalkar;
-// geriye haki, okra ve is kalır. "savaş": güneşin yerinde is patlama yıldızı + yarım ton duman, büyük SAVAŞ damgası.
+// E01 · Renk çöker: 1908 kartpostalının son kalıpları (altın şafak bandı "kuşağın"da, turkuaz tepeler "asıl"da) kalkar;
+// geriye haki, okra ve is kalır. Güneş yarım ton dumanın ardında okra bir disktir (ışın yok, kırmızı yok).
+// "savaş": tepelerde is patlama yıldızı + yarım ton duman, büyük SAVAŞ damgası; ufukta ince kırmızı cephe hattı çizilir.
+// (Kelime anları mutlak zamanla: cutRules çekim başını kaydırabilir.)
 {
   const T0 = S('E01'), tSav = Wd('E01', 'savaş'), tKus = Wd('E01', 'kuşağın'), tAsil = Wd('E01', 'asıl'), tOkul = Wd('E01', 'okulu');
-  const SUN = [1250, 650], HOR = 668;
+  const SUN = [1290, 600], HOR = 668, BOOM = [760, 618];
   const hills = a4_ridgePts(-160, W + 160, 632, 24, 3, 16, 1.4);
   const ridge = a4_ridgePts(-200, W + 200, 826, 14, 8, 18, .9);
   const front = a4_ridgePts(-200, W + 200, 1004, 14, 41, 12);
-  const rays = (() => { const out = []; const n = 30; for (let i = 0; i < n; i += 2) { const a0 = PI + i / n * PI - .02, a1 = PI + (i + 1) / n * PI + .02, R = 2400; out.push(PL([SUN, [SUN[0] + Math.cos(a0) * R, SUN[1] + Math.sin(a0) * R], [SUN[0] + Math.cos(a1) * R, SUN[1] + Math.sin(a1) * R]])); } return out; })();
-  const raysP = new Path2D(); rays.forEach(r => raysP.addPath(r));
+  const frontLine = hills.map(([x, y]) => [x, y - 4]);
   const skyClip = a4_rect(-200, -200, W + 200, HOR + 4);
   shot(T0, (ctx, st) => {
     setReg(401);
     paperBG(ctx);
-    const lt = st.lt, t = st.t, tf = a4_tf(lt), ls = tSav - T0;
+    const lt = st.lt, t = st.t, tf = a4_tf(lt), t0 = t - lt;
     const sk = shake(t, tSav, 9, 5);
     const cm = { x: lerp(960, 1012, E.sine(st.p)), y: lerp(540, 566, E.sine(st.p)), z: lerp(1, 1.05, E.sine(st.p)), sx: sk[0], sy: sk[1] };
-    // —— gök (durağan): kâğıt, ufka doğru okra bantlar, tepede is yarım ton; ışınların sönük izi
-    const sky = a4_L('E01-sky', g => {
+    // —— gök (durağan): kâğıt, ufka doğru okra bantlar, tepede is yarım ton
+    const sky = a4_L('E01-sky2', g => {
       paperBG(g);
       g.save(); g.clip(skyClip);
       plate(g, 'ochre', a4_rect(-200, 352, W + 200, HOR + 4), { a: .16 });
       plate(g, 'ochre', a4_rect(-200, 512, W + 200, HOR + 4), { a: .22 });
-      plate(g, 'ochre', raysP, { a: .1 });
-      for (const r of rays) inkStroke(g, r, 1, { a: .16 });
       radialHT(g, 'ink', SUN[0], 1500, 1200, 1640, 0, .13, { cell: 12, ang: 45, box: [-160, -140, W + 160, 280] });
       g.restore();
     }, 90);
     a4_put(ctx, sky, cm, .25);
-    // kartpostal kalıpları (canlı çizilir ki kalkabilsin)
-    const lfR = a4_lift(lt, tKus - T0), lfT = a4_lift(lt, tAsil - T0), lfG = a4_lift(lt, tOkul - T0);
-    ctx.save(); cam(ctx, cm, .25); ctx.save(); ctx.clip(skyClip);
-    a4_plateOff(ctx, 'gold', raysP, lfG, { a: .62 });
-    a4_plateOff(ctx, 'gold', a4_rect(-200, 440, W + 200, HOR + 4), lfG, { a: .5 });
+    ctx.save(); cam(ctx, cm, .25);
+    // kartpostal kalıbı: altın şafak bandı "kuşağın"da kalkar
+    ctx.save(); ctx.clip(skyClip); a4_plateOff(ctx, 'gold', a4_rect(-200, 440, W + 200, HOR + 4), a4_lift(t, tKus), { a: .55 }); ctx.restore();
+    // güneş: okra disk (ufkun ardında)
+    const sun = new Path2D(); sun.arc(SUN[0], SUN[1], 92, 0, TAU);
+    ctx.save(); ctx.clip(skyClip); knock(ctx, sun, '#EADCBC'); plate(ctx, 'ochre', sun, { a: .75 }); inkStroke(ctx, sun, 2.6, { a: .8 }); ctx.restore();
     ctx.restore();
-    // güneş: kırmızı kalıp kalkınca kâğıt disk kalır (odak); "savaş"ta yerini patlama alır
-    if (lt < ls + .05) {
-      const sun = new Path2D(); sun.arc(SUN[0], SUN[1], 80, PI, TAU); sun.closePath();
-      knock(ctx, sun, '#F7F0DE'); a4_plateOff(ctx, 'red', sun, lfR); inkStroke(ctx, sun, 3.2);
-    }
-    ctx.restore();
-    // —— patlama (güneşin yerinde, ufkun ardında): is yıldızı + durağan yarım ton duman
-    if (lt >= ls) {
-      const u = lt - ls, smk = a4_L('E01-smoke', g => { a4_smokeCloud(g, SUN[0], SUN[1] - 170, 240, 7, 'ink', .55); a4_smokeCloud(g, SUN[0] - 360, SUN[1] - 70, 130, 9, 'ink', .42); a4_smokeCloud(g, SUN[0] + 270, SUN[1] - 100, 160, 12, 'ink', .42); }, 60);
+    // güneşin önünden sürüklenen yarım ton duman (durağan katman, yalnız kayar)
+    const smk0 = a4_L('E01-smk0', g => { a4_smokeCloud(g, SUN[0] - 40, SUN[1] - 30, 200, 3, 'ink', .42); a4_smokeCloud(g, SUN[0] + 220, SUN[1] - 120, 150, 5, 'ink', .34); a4_smokeCloud(g, SUN[0] - 300, SUN[1] - 150, 120, 6, 'ink', .3); }, 120);
+    ctx.save(); cam(ctx, cm, .3); ctx.translate(lt * 16 - 30, -lt * 4); a4_put(ctx, smk0, null, 1, { mode: 'multiply' }); ctx.restore();
+    // —— "savaş": tepelerde patlama (is yıldızı + yarım ton duman)
+    if (t >= tSav) {
+      const u = t - tSav, smk = a4_L('E01-smoke2', g => { a4_smokeCloud(g, BOOM[0], BOOM[1] - 170, 240, 7, 'ink', .55); a4_smokeCloud(g, BOOM[0] - 330, BOOM[1] - 70, 130, 9, 'ink', .42); }, 60);
       ctx.save(); cam(ctx, cm, .3); const k = .7 + .3 * E.out3(clamp(u / 1.2));
-      ctx.translate(SUN[0], SUN[1]); ctx.scale(k, k); ctx.translate(-SUN[0], -SUN[1] - u * 14);
+      ctx.translate(BOOM[0], BOOM[1]); ctx.scale(k, k); ctx.translate(-BOOM[0], -BOOM[1] - u * 14);
       ctx.globalAlpha = clamp(u / .25); a4_put(ctx, smk, null, 1, { mode: 'multiply' }); ctx.restore();
       ctx.save(); cam(ctx, cm, .3);
-      a4_burst(ctx, SUN[0], SUN[1] - 34, 220, 31, E.outBack(clamp(a4_tf(u) / .2)));
-      if (u > .3) a4_burst(ctx, SUN[0] - 560, SUN[1] - 6, 84, 37, E.outBack(clamp((a4_tf(u) - .3) / .16)), { ring: false });
+      a4_burst(ctx, BOOM[0], BOOM[1] - 30, 220, 31, E.outBack(clamp(a4_tf(u) / .2)));
+      if (u > .3) a4_burst(ctx, BOOM[0] - 470, BOOM[1] + 4, 84, 37, E.outBack(clamp((a4_tf(u) - .3) / .16)), { ring: false });
       ctx.restore();
     }
-    // —— uzak tepeler: haki taban; turkuaz kartpostal kalıbı kalkar
+    // —— uzak tepeler: haki taban; turkuaz kartpostal kalıbı "asıl"da kalkar
     const far = a4_L('E01-far', g => {
       const p = a4_groundPath(hills, HOR + 60);
       knock(g, p); plate(g, 'khaki', p, { a: .42 }); inkStroke(g, SP(hills, false, .6), 2.4);
       for (let i = 0; i < 26; i++) { const x = -100 + i * 80, y = a4_yAt(hills, x); inkStroke(g, PL([[x, y + 10], [x + 26, y + 6]], false), 1.4, { a: .35 }); }
     }, 90);
     a4_put(ctx, far, cm, .45);
-    ctx.save(); cam(ctx, cm, .45); a4_plateOff(ctx, 'teal', a4_groundPath(hills, HOR + 60), lfT, { a: .75 }); ctx.restore();
+    ctx.save(); cam(ctx, cm, .45);
+    a4_plateOff(ctx, 'teal', a4_groundPath(hills, HOR + 60), a4_lift(t, tAsil), { a: .75 });
+    // ince kırmızı cephe hattı: "okulu"ndan "savaş"a soldan sağa çizilir (tek kırmızı)
+    a4_front(ctx, frontLine, ramp(t, tOkul, tSav + .3, E.io2), { w: 3.2, tooth: 7, step: 14, side: -1 });
+    ctx.restore();
     // —— açık ova (ufuktan sırta)
     const plain = a4_L('E01-plain', g => {
       const pp = a4_groundPath(a4_ridgePts(-200, W + 200, HOR + 2, 4, 21, 10), H + 100);
@@ -577,17 +578,17 @@ function a4_officer(ctx, o) {
       for (let i = 0; i < 8; i++) { const y = HOR + 14 + i * i * 2.6; inkStroke(g, SP(a4_ridgePts(-200, W + 200, y, 2.5, 30 + i, 8), false), 1.2, { a: .2 + i * .03 }); }
     }, 90);
     a4_put(ctx, plain, cm, .6);
-    // —— yürüyüş sırtı: koyu haki toprak, güneşe yakınsayan tarla izleri (kâğıt kazıma)
-    const mid = a4_L('E01-mid', g => {
+    // —— yürüyüş sırtı: koyu haki toprak, ufka yakınsayan tarla izleri (kâğıt kazıma)
+    const mid = a4_L('E01-mid2', g => {
       const rp = a4_groundPath(ridge, H + 100);
       knock(g, rp); plate(g, 'khaki', rp); plate(g, 'ochre', rp, { a: .3 });
       g.save(); g.clip(rp);
-      for (let i = -14; i <= 14; i++) { const xb = SUN[0] + i * 150, q = PL([[SUN[0] + i * 9, 826], [xb, 1180]], false); cut(g, q, 2.2, { a: .22 + .12 * (i % 2 === 0) }); }
+      for (let i = -14; i <= 14; i++) { const xb = 960 + i * 150, q = PL([[960 + i * 9, 826], [xb, 1180]], false); cut(g, q, 2.2, { a: .22 + .12 * (i % 2 === 0) }); }
       g.restore();
       inkStroke(g, SP(ridge, false, .6), 3.6);
     }, 90);
     a4_put(ctx, mid, cm, .8);
-    // yürüyen kol (sağa, güneşe doğru); tozu ayaklarında; pozlar ikişer karede
+    // yürüyen kol (sağa); tozu ayaklarında; pozlar ikişer karede
     ctx.save(); cam(ctx, cm, .8);
     a4_dust(ctx, lt, { box: [-60, 790, W + 60, 836], n: 70, seed: 4, wind: 38, rise: -3, col: 'ochre', a: .6, size: 3.4 });
     for (let i = 0; i < 14; i++) {
@@ -605,8 +606,8 @@ function a4_officer(ctx, o) {
     }, 90);
     a4_put(ctx, fg, cm, 1);
     // —— izleyici katmanı
-    chapterCard(ctx, 'IV', 'ATEŞTE DÖVÜLEN KUŞAK', '1911–1918', lt - .15, ls - .2);
-    bigStamp(ctx, 'SAVAŞ', 600, 318, lt - ls - .06, st.d - ls + .6, { size: 240, rot: -.035, ls: 10 });
+    chapterCard(ctx, 'IV', 'ATEŞTE DÖVÜLEN KUŞAK', '1911–1918', lt - .15, tSav - t0 - .35);
+    bigStamp(ctx, 'SAVAŞ', 560, 318, t - tSav - .06, st.end - tSav + .6, { size: 240, rot: -.035, ls: 10 });
   }, { tr: { type: 'press', dur: .8 }, post: { stone: .28, vig: 1 } });
 }
 

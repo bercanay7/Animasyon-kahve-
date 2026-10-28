@@ -3,12 +3,12 @@
 'use strict';
 const KUSAK = [ // A05 dizilişi (act0 A0_SEVEN) sırasıyla
   { who: 'halide', gear: 'basortu', age: 35, at: () => Wd('F04', 'halide') },
-  { who: 'karabekir', gear: 'kalpak', age: 37, at: () => Wd('D03', 'karabekir') },
-  { who: 'alifuat', gear: 'kalpak', age: 37, at: () => Wd('C06', 'ali') },
+  { who: 'karabekir', gear: 'kalpak', age: 36, at: () => Wd('D03', 'karabekir') },
+  { who: 'alifuat', gear: 'kalpak', age: 36, at: () => Wd('C06', 'ali') },
   { who: 'mk', gear: 'kalpak', age: 38, at: () => Wd('B06', 'kemal') },
-  { who: 'ismet', gear: 'kalpak', age: 35, at: () => Wd('F03', 'ismet') },
+  { who: 'ismet', gear: 'kalpak', age: 34, at: () => Wd('F03', 'ismet') },
   { who: 'fevzi', gear: 'kalpak', gearCol: 'grey', age: 43, at: () => Wd('F03', 'fevzi') },
-  { who: 'rauf', gear: 'kalpak', age: 38, at: () => Wd('F02', 'ali') + .8 }, // Amasya'da isim levhasıyla (anlatıda adı G03'te)
+  { who: 'rauf', gear: 'fes', age: 37, at: () => Wd('F02', 'ali') + .8 }, // Amasya'da isim levhasıyla (anlatıda adı G03'te)
 ];
 // görünme pencereleri: bölüm kartları, dolma anları, "Kuşak hazırdı"
 function kusakWins() {
