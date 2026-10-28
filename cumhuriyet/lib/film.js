@@ -8,7 +8,7 @@ function Wd(id, w, n = 0, end = false) {
   let k = 0;
   for (const x of (window.WORDS || [])) if (x.id === id && x.w.startsWith(nw)) { if (k++ === n) return end ? x.e : x.s; }
   // bulunamayan kelime sessizce cümle başına düşmesin: konsolda uyarı (ç, ş, ğ, ı, ö, ü korunur; yalnız â î û sadeleşir)
-  console.warn(`Wd: "${w}" (${n}) ${id} cümlesinde yok, cümle başı kullanıldı`);
+  const wk = id + '/' + w + '/' + n; if (!(Wd.warned ||= {})[wk]) { Wd.warned[wk] = 1; console.warn(`Wd: "${w}" (${n}) ${id} cümlesinde yok, cümle başı kullanıldı`); }
   return S(id);
 }
 const SHOTS = [];
@@ -59,6 +59,8 @@ function drawFilm(ctx, t) {
     drawShot(bufAx, i - 1, t);
     composite(ctx, bufA, tr, p);
   } else drawShot(ctx, i, t);
+  // film boyu izleyici katmanı (kuşak şeridi vb.): çekimlerden bağımsız, baskı bitişinden önce
+  if (typeof kusakBar === 'function') { ctx.save(); baseT(ctx); kusakBar(ctx, t); ctx.restore(); }
   POST = { ...(sh.post || {}) };
   post(ctx, t);
 }

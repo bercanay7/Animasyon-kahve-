@@ -42,7 +42,11 @@ function nameTag(ctx, x, y, name, sub, lt, d = 3.4, o = {}) {
   const fs = o.size || 46, ss = o.sub || 30;
   ctx.save(); ctx.font = FONT.title(fs); const w1 = ctx.measureText(name).width; ctx.font = FONT.mono(ss); const w2 = ctx.measureText(sub || '').width; ctx.restore();
   const w = Math.max(w1, w2) + 48, h = fs + ss + 38;
-  const x0 = o.align === 'center' ? x - w / 2 : o.align === 'right' ? x - w : x;
+  // güvenli alan (x 96–1824, y 54–1026): levha kenarda kesilmez
+  const x0 = clamp(o.align === 'center' ? x - w / 2 : o.align === 'right' ? x - w : x, 96, 1824 - w);
+  y = clamp(y, 54, 1026 - h);
+  // kuşak şeridi görünürken sağ alt köşeye düşen levha şeridin üstüne çıkar
+  if (typeof kusakVisible === 'function' && kusakVisible(window.FIG_T) && x0 + w > 1020 && y + h > 935) y = 935 - h - 14;
   const sl = (1 - E.out3(ramp(lt, 0, .3))) * 18;
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sl);
   plate(ctx, 'ink', PL([[x0 + 7, y + 9], [x0 + w + 7, y + 9], [x0 + w + 7, y + h + 9], [x0 + 7, y + h + 9]]), { a: .35 });
@@ -57,7 +61,8 @@ function nameTag(ctx, x, y, name, sub, lt, d = 3.4, o = {}) {
 function stamp(ctx, s, x, y, lt, d = 4, o = {}) {
   if (NOTEXT) return;
   const a = env(lt, 0, .05, d - .4, d); if (a <= 0) return;
-  const n = Math.floor(clamp(lt / (o.typing ?? .9)) * s.length);
+  // daktilo en çok 0,4 sn sürer; 2 sn'den kısa görünen damga yazılmadan, bütün olarak basılır
+  const ty = Math.min(o.typing ?? .4, .4), n = d < 2 ? s.length : Math.floor(clamp(lt / ty) * s.length);
   const fs = o.size || 34;
   ctx.save(); ctx.font = FONT.mono(fs); ctx.letterSpacing = '4px'; const w = ctx.measureText(s).width; ctx.restore();
   ctx.save(); ctx.globalAlpha = a;
