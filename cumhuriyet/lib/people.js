@@ -27,6 +27,8 @@ const PEOPLE = {
 // Birimler: göz hizası 0, tepe -64, çene ucu +57; yüz +x'e bakar. Burun kökü iki gözün arasında (19,-7); uzak göz burun sırtının ötesinde.
 function head3q(ctx, o) {
   const pp = { ...PEOPLE.anon, ...(PEOPLE[o.who] || {}), ...(o.id || {}) };
+  // çocuk yüzü (sanat kurulu): 16 yaş altında çene dar, yanak dolgun, göz açık, kaş yumuşak, baş gövdeye göre biraz büyük
+  if ((o.age ?? 30) < 16) { Object.assign(pp, { jaw: (pp.jaw || 1) * .92, cheek: (pp.cheek || 1) * 1.08, eyeOpen: .92, brow: 0, bags: 0, lines: 0, cheekWedge: 0 }); o = { ...o, s: o.s * 1.06 }; }
   const s = o.s, dir = o.dir || 1, lw = px => Math.max(1.7 / s, px * Math.pow(s / 1.3, .75) / s);
   const age = o.age ?? 38, sd = pp.seed;
   const yg = clamp(inv(28, 18, age)), old = clamp(inv(36, 44, age));
@@ -51,10 +53,10 @@ function head3q(ctx, o) {
   // saç
   const hairPl = pp.hair;
   let hp;
-  if (o.gear) hp = SP(rough([[-14, -36], [-30, -32], [-40, -18], [-44, 2], [-38, 14], [-30, 4], [-26, -12], [-20, -24]], .3, sd + 2), true, .9);
+  if (o.gear) hp = SP(rough([[-22, -40], [-46, -44], [-57, -26], [-55, -2], [-46, 14], [-36, 20], [-30, 6], [-27, -12]], .3, sd + 2), true, .9); // başlık altında ense saçı (sanat kurulu: baş arkası kel görünmesin)
   else hp = SP(rough([[24, -44], [16, -52], [10, -60], [-6, -67], [-30, -66], [-52, -52], [-61, -26], [-56, 4], [-42, 18], [-32, 8], [-28, -10], [-18, -34], [-4, -47], [6, -53], [14, -48]], .35, sd + 3), true, .85);
-  if (hairPl === 'ink') inkFill(ctx, hp);
-  else { plate(ctx, hairPl, hp, { a: hairPl === 'sepia' ? .55 : 1 }); if (hairPl === 'sepia') plate(ctx, 'gold', hp, { a: .3 }); inkStroke(ctx, hp, lw(1.8)); }
+  if (hairPl === 'ink') { inkFill(ctx, hp); if (o.gear) for (const q of [[[-30, -36], [-46, -20], [-48, 6]], [[-38, -38], [-52, -18], [-50, 4]], [[-26, -30], [-38, -6], [-38, 12]]]) cut(ctx, SP(q, false), lw(1.2), { a: .45 }); }
+  else { plate(ctx, hairPl, hp, { a: hairPl === 'sepia' ? (o.gear ? .7 : .55) : 1 }); if (hairPl === 'sepia') plate(ctx, 'gold', hp, { a: .3 }); inkStroke(ctx, hp, lw(1.8)); }
   if (!o.gear) for (let i = 0; i < 7; i++) { const u = i / 6, q = new Path2D(); q.moveTo(lerp(16, -20, u), lerp(-50, -40, u)); q.quadraticCurveTo(lerp(-10, -36, u), lerp(-66, -54, u), lerp(-44, -56, u), lerp(-46, -14, u)); hairPl === 'ink' ? cut(ctx, q, lw(1.2), { a: .5 }) : inkStroke(ctx, q, lw(1.2), { a: .6 }); }
   // kulak
   const E_ = pp.ear || 1, ear = SP(rough([[-24, -6], [-30, -9], [-35, -4], [-36, 6], [-33, 16], [-27, 21], [-23, 16], [-23, 4]].map(([x, y]) => [-24 + (x + 24) * E_, y]), .2, sd + 4), true, .9);
@@ -122,14 +124,16 @@ function head3q(ctx, o) {
     else if (mus === 'faint') m = [[17, 28.6], [24, 26.6], [31, 26.6], [33.4, 28], [30, 28.4], [24, 27.8], [18, 29.2]];
     else m = [[14, 29], [18.5, 26.4], [26, 24.6], [31, 25.6], [33.5, 27.6], [30, 28.6], [26, 27.8], [20, 29.2], [15, 30.2]];
     if (mus === 'mk') {
-      // Mustafa Kemal 1919–23: koyu, dolgun fırça bıyık; üst kenar burun dibini izler, alt kenar ağız çizgisine paralel ve düz,
-      // uçlar küt ve hafifçe düşük (kapak kurulu, Sivas 1919 / 1921 fotoğrafları)
-      const mk = PL(rough([[15.2, 26.3], [17.5, 25.2], [21, 24.4], [26, 23.9], [29.4, 24.2], [30.9, 25.1], [31.1, 28.2], [30.8, 30.4], [27, 29.9], [22, 29.7], [17.6, 29.9], [15.4, 30.5]], .08, sd + 6));
+      // Mustafa Kemal 1919–23 (Sivas 1919, 1921 fotoğrafları): ağız genişliğini aşan, dolgun ortadan uçlara incelen ve
+      // uçları hafifçe aşağı inen bıyık. Kısa dikdörtgen "fırça" biçiminden kaçınılır (kapak kurulu, 7. tur).
+      const top = [[13.6, 30.0], [15.6, 28.1], [18.6, 25.9], [22, 24.6], [25.2, 24.2], [28.5, 24.4], [31.1, 25.4]];
+      const bot = [[31.0, 30.0], [28.5, 29.7], [25.2, 29.6], [22, 29.8], [19, 30.4], [16.5, 31.2], [14.4, 32.0]];
+      const mk = SP(rough([...top, [31.4, 27.6], ...bot], .06, sd + 6), true, .7);
       // kâğıt örtüsü yok: kalıp tenin üstüne çarpılır, kayık baskı küçük bıyıkta beyaz boşluk açmaz
       { const r = REG.amt; REG.amt = Math.min(r, .6); plate(ctx, 'sepia', mk, { a: 1 }); plate(ctx, 'ink', mk, { a: .17 }); REG.amt = r; }
-      inkStroke(ctx, PL([[15.4, 30.5], [17.6, 29.9], [22, 29.7], [27, 29.9], [30.8, 30.4]], false), lw(2.2));
-      inkStroke(ctx, PL([[17.5, 25.2], [21, 24.4], [26, 23.9], [29.4, 24.2]], false), lw(1.1), { a: .6 });
-      for (const q of [[[20, 25.4], [21.2, 28.6]], [[25.4, 25], [26.4, 28.4]]]) cut(ctx, SP(q, false), lw(1.4), { a: .5 });
+      inkStroke(ctx, SP(bot, false, .7), lw(2.2));
+      inkStroke(ctx, SP(top.slice(1), false, .7), lw(1.1), { a: .55 });
+      for (const q of [[[21.4, 25.6], [19.2, 28.6]], [[24.4, 25.1], [23, 28.8]], [[27.6, 25.1], [28.8, 28.6]]]) cut(ctx, SP(q, false), lw(1.1), { a: .4 }); // kıllar ortadan dışa ve aşağı
     } else {
     const mP = SP(rough(m, .12, sd + 6), true, .9);
     knock(ctx, mP);
@@ -141,8 +145,9 @@ function head3q(ctx, o) {
     }
   }
   if (pp.beard) {
-    const bd = SP(rough([[-20, 30], [-12, 44], [2, 55], [14, 59], [24, 56], [30, 44], [31, 34], [26, 36.5], [20, 40.5], [12, 41.5], [4, 38], [-4, 33], [-12, 28]], .4, sd + 9), true, .8);
-    knock(ctx, bd); plate(ctx, pp.musCol || 'grey', bd, { a: .65 }); inkStroke(ctx, bd, lw(1.8));
+    // favoriden çeneye opak kırçıl sakal (saydam maske gibi durmasın); ağız çizgisi sakalın üstünde kalır
+    const bd = SP(rough([[-24, -4], [-27, 12], [-22, 30], [-10, 46], [2, 57], [14, 63], [24, 58], [31, 46], [31, 36], [26, 38], [20, 41.5], [12, 42.5], [4, 39], [-6, 31], [-13, 17], [-17, 3], [-19, -5]], .4, sd + 9), true, .8);
+    knock(ctx, bd); plate(ctx, pp.musCol || 'grey', bd, { a: 1 }); plate(ctx, 'sepia', bd, { a: .3 }); inkStroke(ctx, bd, lw(1.8));
     const r = rng(sd + 40); for (let i = 0; i < 22; i++) { const x = lerp(-16, 28, r()), y = lerp(38, 55, r()); inkStroke(ctx, PL([[x, y], [x + .6, y + 3]], false), lw(1), { a: .5 }); }
   }
   ctx.restore();
@@ -176,7 +181,7 @@ function headgear(ctx, o) {
     // alt kenar gölgesi alında
     inkStroke(ctx, SP([[-48, -18], [-26, -26], [2, -34], [24, -33], [37, -28]], false), lw(3.2));
   } else if (o.gear === 'fes') {
-    const body = SP(rough([[-50, -18], [-46, -52], [-42, -86], [-12, -90], [14, -88], [24, -58], [32, -28], [10, -32], [-22, -24]], .4, sd + 12), true, .5);
+    const body = SP(rough([[-57, -16], [-50, -52], [-42, -86], [-12, -90], [14, -88], [24, -58], [32, -28], [10, -32], [-22, -24]], .4, sd + 12), true, .5);
     knock(ctx, body); plate(ctx, 'red', body); plate(ctx, 'red', SP([[-46, -22], [-40, -56], [-34, -84], [-20, -88], [-24, -50], [-28, -26]], true), { a: .6 });
     inkStroke(ctx, body, lw(3.6));
     const top = new Path2D(); top.ellipse(-12, -84, 27, 4, -.06, PI, TAU); inkStroke(ctx, top, lw(2));
@@ -218,8 +223,15 @@ function bust(ctx, o) {
   knock(ctx, neck); if (o.skin) plate(ctx, 'skin', neck);
   plate(ctx, o.skin ? 'skin' : 'ochre', SP([[-28, 30], [-29.6, 66], [17, 66], [16, 60], [6, 56]], true), { a: o.skin ? .8 : .42 });
   inkStroke(ctx, SP([[-28, 34], [-29.6, 62]], false), lw(3.2)); inkStroke(ctx, SP([[15, 52], [16, 62]], false), lw(3));
-  const body = SP(rough([[-26, 74], [-64 * W_, 88], [-92 * W_, 112], [-100 * W_, 170], [-102 * W_, len], [74 * W_ * FS, len], [72 * W_ * FS, 168], [66 * W_ * FS, 110], [46 * W_ * FS, 86], [16, 78]], .7, sd), true, .75);
-  if (o.sep) inkStroke(ctx, body, 8 / s, { col: P.paper });
+  // gövde: yanlar ve omuzlar eğri, alt kenar düz (kapsül gibi yuvarlanmaz)
+  const bp = rough([[74 * W_ * FS, len], [72 * W_ * FS, 168], [66 * W_ * FS, 110], [46 * W_ * FS, 86], [16, 78], [-26, 74], [-64 * W_, 88], [-92 * W_, 112], [-100 * W_, 170], [-102 * W_, len]], .7, sd);
+  const body = new Path2D(); spl(body, bp, false, .75); body.closePath();
+  // ayırma konturu yalnız yan(lar)da: 'L' | 'R' ekran yanı, true iki yan; alt kenar ve boyun yok
+  if (o.sep) {
+    const near = bp.slice(0, 5), far = bp.slice(5);
+    const wantL = o.sep === true || o.sep === 'L', wantR = o.sep === true || o.sep === 'R';
+    for (const [side, pts] of [[dir > 0 ? 'R' : 'L', near], [dir > 0 ? 'L' : 'R', far]]) if ((side === 'L' && wantL) || (side === 'R' && wantR)) inkStroke(ctx, SP(pts, false, .75), 8 / s, { col: P.paper });
+  }
   knock(ctx, body); fillC(body);
   if (o.back) plate(ctx, col, body, { a: .35 });
   if (!dark) plate(ctx, col, SP([[-26, 74], [-64 * W_, 88], [-92 * W_, 112], [-100 * W_, 170], [-102 * W_, len], [-58, len], [-60, 170], [-52, 110]], true, .8), { a: .6 });
@@ -308,9 +320,13 @@ function handDraw(ctx, x, y, ang, s, kind = 'rest', o = {}) {
     for (const [yy, L, a] of [[-7, 40, -.06], [-2, 43, -.01], [3, 41, .04], [8, 36, .1]]) parts.push(SP([[22, yy - 2.7], [L, yy - 2.6 + a * 20], [L + 2.7, yy + a * 20], [L, yy + 2.6 + a * 20], [22, yy + 2.7]], true, .9));
     parts.push(SP([[8, -10], [20, -17], [32, -19], [30, -14], [16, -6]], true, .8));
   }
+  // tek siluet (sanat kurulu: iskelet gibi durmasın): önce birleşik yolun kalın dış hattı, üstüne kâğıt ve kalıp; içte en çok 3 ince parmak arası
+  const U = new Path2D(); for (const q of parts) U.addPath(q);
+  inkStroke(ctx, U, lw(5.2));
   for (const q of parts) knock(ctx, q);
   if (o.skin) for (const q of parts) plate(ctx, 'skin', q);
-  { const U = new Path2D(); for (const q of parts) U.addPath(q); ctx.save(); ctx.clip(U); plate(ctx, o.skin ? 'skin' : 'ochre', PL([[-10, 1.5], [60, 1.5], [60, 20], [-10, 20]]), { a: o.skin ? .8 : .38 }); ctx.restore(); }
-  for (const q of parts) inkStroke(ctx, q, lw(2.6));
+  ctx.save(); ctx.clip(U); plate(ctx, o.skin ? 'skin' : 'ochre', PL([[-10, 1.5], [60, 1.5], [60, 20], [-10, 20]]), { a: o.skin ? .8 : .38 }); ctx.restore();
+  const seps = kind === 'point' ? [[[22, 0.5], [29, 0.5]], [[22, 6], [27, 6]]] : [[[24, -4.5], [33, -4.6]], [[24, .5], [34, .6]], [[24, 5.5], [31, 6]]];
+  for (const q of seps) inkStroke(ctx, PL(q, false), lw(1.3), { a: .6 });
   ctx.restore();
 }

@@ -35,11 +35,15 @@ window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
 // K1 baskı geçişi (press) yalnız bölüm imzası ve dört özel anda kalır, öbürleri düz kesme olur;
 // K2 cümle başına bağlı geçiş cümlenin ilk kelimesinden önce biter (kesme 0,1 sn önce; baskı süresi + 0,1 sn önce).
 function cutRules() {
-  const ok = ['B01', 'C01', 'D01', 'E01', 'F01', 'G01', 'C05'].map(S).concat([Wd('A01', 'küçük') - .3, S('A05') - .45, S('G06') - .3]);
+  // sanat kurulu A9: merdane (press) yalnız bölüm başlarında; imza geçiş "reg" (kayık baskı oturması) özel anlarda
+  const chap = ['B01', 'C01', 'D01', 'E01', 'F01', 'G01'].map(S);
+  const regAt = [Wd('A01', 'küçük') - .3, S('A05') - .45, S('C05'), S('G06') - .3];
   const starts = Object.values(CUES).map(c => c.s);
   for (const sh of SHOTS) {
     if (sh.at <= 0) continue;
-    if (sh.tr && sh.tr.type === 'press' && !ok.some(x => Math.abs(sh.at - x) < 1.2)) sh.tr = { ...sh.tr, type: 'cut' };
+    const near = xs => xs.some(x => Math.abs(sh.at - x) < 1.2);
+    if (sh.tr && sh.tr.type === 'press' && !near(chap)) sh.tr = near(regAt) ? { type: 'reg', dur: .5 } : { ...sh.tr, type: 'cut' };
+    else if (sh.tr && ['fade', 'clay', 'ink', 'wipe', 'iris', 'black', 'white'].includes(sh.tr.type)) sh.tr = { type: 'reg', dur: .5 };
     const s0 = starts.find(x => sh.at > x - .2 && sh.at < x + .35);
     if (s0 == null) continue;
     sh.at = !sh.tr || sh.tr.type === 'cut' ? s0 - .1 : s0 - (sh.tr.dur || .7) - .1;

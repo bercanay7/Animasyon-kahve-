@@ -166,6 +166,8 @@ function a0_kosk(g, hx, hy, hs) {
   plate(g, 'navy', PL([[-300, -280], [300, -280], [300, -258], [-300, -258]]), { a: .7 });
   for (let i = 1; i < 14; i++) inkStroke(g, PL([[-300, -i * 20], [300, -i * 20]], false), 1, { a: .12 });
   for (const sx of [-1, 1]) plate(g, 'navy', PL([[sx * 300, 0], [sx * 268, 0], [sx * 268, -280], [sx * 300, -280]]), { a: .35 }); // köşe taşları
+  // sofra pencerelerinin cepheye vuran ışığı (düz, açık ton; yalnız pencerelerin çevresi)
+  g.save(); g.globalAlpha = .85; knock(g, PL([[96, -6], [264, -6], [264, -128], [96, -128]]), '#F7EDD6'); g.restore();
   inkStroke(g, PL([[-306, -140], [306, -140]], false), 5);
   inkStroke(g, wall, 3.6);
   // pencereler: [x, yAlt, w, h, ışık 0 karanlık / 1 loş / 2 odak]
@@ -175,17 +177,16 @@ function a0_kosk(g, hx, hy, hs) {
   for (const [x, yb, w, h, L] of wins) {
     const pane = PL([[x - w / 2, yb], [x + w / 2, yb], [x + w / 2, yb - h], [x - w / 2, yb - h]]);
     knock(g, pane);
-    if (L === 2) { knock(g, pane, '#FFF7E4'); plate(g, 'gold', pane, { a: .18 }); }
+    if (L === 2) { knock(g, pane, '#FFFCF2'); plate(g, 'gold', pane, { a: .08 }); }
     else if (L === 1) { plate(g, 'gold', pane, { a: .75 }); plate(g, 'ochre', pane, { a: .55 }); }
     else { plate(g, 'navy', pane, { n: 2 }); plate(g, 'ink', pane, { a: .25 }); }
     if (L === 2) {
       g.save(); g.clip(pane);
-      if (x < 200) { a0_prof(g, x - 16, yb - 34, .2, 1, 'kalpak', { seed: 3 }); a0_prof(g, x + 14, yb - 30, .19, 1, 'bare', { seed: 4 }); }
-      else a0_fig(g, { x: x + 6, y: yb - 62, s: .2, dir: -1, who: 'mk', age: 42, gear: null, coat: 'civil', col: 'ink', len: 300, look: [1, .3], blink: false, idle: 0 }, 0);
+      if (x < 200) { a0_prof(g, x - 14, yb - 12, .16, 1, 'kalpak', { seed: 3 }); a0_prof(g, x + 14, yb - 10, .15, 1, 'bare', { seed: 4 }); }
+      else a0_fig(g, { x: x + 8, y: yb - 34, s: .13, dir: -1, who: 'mk', age: 42, gear: null, coat: 'civil', col: 'ink', len: 300, look: [1, .3], blink: false, idle: 0 }, 0);
       g.restore();
-      plate(g, 'ochre', PL([[x - w / 2, yb - h], [x + w / 2, yb - h], [x + w / 2, yb - h + 14], [x - w / 2, yb - h + 14]]), { a: .5 }); // perde saçağı
     }
-    inkStroke(g, pane, 3); inkStroke(g, PL([[x, yb], [x, yb - h]], false), 2.4); inkStroke(g, PL([[x - w / 2, yb - h * .62], [x + w / 2, yb - h * .62]], false), 2.4);
+    const mw = L === 2 ? 1.6 : 2.4; inkStroke(g, pane, L === 2 ? 2.4 : 3); inkStroke(g, PL([[x, yb], [x, yb - h]], false), mw); inkStroke(g, PL([[x - w / 2, yb - h * .62], [x + w / 2, yb - h * .62]], false), mw);
     if (L === 0) for (const sx of [-1, 1]) { const sh = PL([[x + sx * w / 2, yb], [x + sx * (w / 2 + 16), yb], [x + sx * (w / 2 + 16), yb - h], [x + sx * w / 2, yb - h]]); plate(g, 'navy', sh, { n: 2 }); inkStroke(g, sh, 2); }
     inkFill(g, PL([[x - w / 2 - 8, yb], [x + w / 2 + 8, yb], [x + w / 2 + 8, yb + 6], [x - w / 2 - 8, yb + 6]]));
   }
@@ -242,7 +243,7 @@ function a0_shotKoskDis() {
     // köşk + kavaklar + tepe (paralaks 1)
     const house = a0_cache('a0-kosk-house', g => {
       const ground = SP([[-40, 1120], [-40, 800], [300, 780], [600, 772], [1200, 772], [1500, 784], [1960, 800], [1960, 1120]], true, .5);
-      plate(g, 'navy', ground, { a: .92 }); plate(g, 'ink', ground, { a: .22 });
+      plate(g, 'navy', ground, { a: .92 }); plate(g, 'ink', ground, { a: .32 });
       inkStroke(g, SP([[-40, 800], [300, 780], [600, 772], [1200, 772], [1500, 784], [1960, 800]], false, .5), 3);
       for (const [x, h, w, sd] of [[372, 470, 78, 3], [456, 390, 62, 4], [1280, 500, 84, 5], [1376, 420, 68, 6], [1466, 350, 58, 7], [1800, 300, 54, 8]]) a0_poplar(g, x, 782, h, w, sd);
       a0_kosk(g, HX, HY, HS);
@@ -250,7 +251,7 @@ function a0_shotKoskDis() {
       const rb = rng(23);
       for (const [x0, x1] of [[HX - 330 * HS, HX - 90 * HS], [HX + 90 * HS, HX + 330 * HS]]) {
         const pts = [[x0, HY + 14]];
-        for (let x = x0; x <= x1; x += 26) pts.push([x, HY - 18 - rb() * 26]);
+        for (let x = x0; x <= x1; x += 26) pts.push([x, HY - 4 - rb() * 14]);
         pts.push([x1, HY + 14]);
         const bush = SP(pts, true, .9); inkFill(g, bush); plate(g, 'navy', bush, { a: .4 });
         for (let x = x0 + 14; x < x1; x += 30) { const q = new Path2D(); q.arc(x, HY - 6 - rb() * 10, 6, PI * 1.1, PI * 1.9); cut(g, q, 1.6, { a: .3 }); }
@@ -528,7 +529,7 @@ function a0_shotStrips() {
     setReg(137);
     paperBG(ctx);
     a0_class93(ctx, st.t, ramp(st.t, A0_CAM0, A0_CAM1, E.lin));
-  }, { tr: { type: 'fade', dur: .1 }, post: { vig: .9 } });
+  }, { tr: { type: 'cut' }, post: { vig: .9 } }); // eşleşme kesmesi (doğrudan)
 }
 // "bir gün karşısına dikilecekleri…": AYNI SIRA (kapağın vaadi) — beş çocuk aynı sırada; sınıfın sağ duvarında
 // Abdülhamid portresi. "sultanın" kelimesinde kamera duvardaki portreye kayar ve portre çekimine bağlanır.

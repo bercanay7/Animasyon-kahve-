@@ -147,14 +147,21 @@ function a6_tbmm(ctx, t) {
   });
   ctx.restore();
   chapterCard(ctx, 'VI', 'CUMHURİYET', 'TBMM · 29 EKİM 1923 · 20.30', lt - .5, 2.75);
-  // bayrağın solunda ve üstünde: bayrak açıkta kalır
-  bigStamp(ctx, 'YAŞASIN CUMHURİYET!', 590, 242, lt - tY, 99, { size: 90 });
+  // bayrağın solunda ve üstünde: bayrak açıkta kalır (ölçek çapası metnin ortası; sol ≥96, gönderle arası ≥30)
+  if (!NOTEXT && lt >= tY) {
+    const poleX = 960 + (FL.x - (960 + 45 * p)) * (1 + .063 * p) + c.sx, xr = Math.min(1190, poleX - 30), xl = 96;
+    const u = clamp((lt - tY) / .18), k = 1 + (1 - E.out3(u)) * .08;
+    ctx.save(); ctx.font = FONT.title(90); ctx.letterSpacing = '2px'; const tw = ctx.measureText('YAŞASIN CUMHURİYET!').width; ctx.restore();
+    const fs = Math.min(90, 90 * (xr - xl) / (tw * 1.08)), cx = (xl + xr) / 2;
+    ctx.save(); ctx.globalAlpha = Math.min(1, u * 3); ctx.translate(cx, 242); ctx.scale(k, k);
+    txt(ctx, 'YAŞASIN CUMHURİYET!', 0, 0, FONT.title(fs), { align: 'center', base: 'middle', ls: 2 });
+    ctx.restore();
+  }
 }
 // duvar saati (sakaklı, rakamsız kadran): "saat sekiz buçukta" — yelkovan "buçukta" 29'dan 30'a atlar
 function a6_saatBG(g) {
   paperBG(g);
   plate(g, 'ochre', PL([[-20, -20], [W + 20, -20], [W + 20, H + 20], [-20, H + 20]]), { a: .3 });
-  for (const [rr, a] of [[230, .14], [150, .24]]) { const q = new Path2D(); q.ellipse(1520, 70, rr * 1.2, rr * .8, 0, 0, TAU); plate(g, 'gold', q, { a }); }
   const pan = PL([[-20, 900], [W + 20, 900], [W + 20, H + 20], [-20, H + 20]]); plate(g, 'ochre', pan, { n: 2 }); plate(g, 'sepia', pan, { a: .35 }); inkStroke(g, PL([[-20, 900], [W + 20, 900]], false), 3.4);
   // kasa
   plate(g, 'ink', PL([[716, 136], [1236, 136], [1236, 1010], [716, 1010]]), { a: .3 });
@@ -230,6 +237,11 @@ function a6_shotUcBust() {
     ctx.restore();
     ctx.restore();
     for (const f of L) nameTag(ctx, f.x, 640, f.name, f.sub, st.lt - f.tn, 3.4, { align: 'center', size: 44, sub: 28 });
+    stamp(ctx, '30 EKİM 1923', 100, 92, st.lt - (a0_W('G02', 'ertesi') - T0), 99, { size: 34 });
+    // "aynı": üç diplomayı bağlayan kırmızı çizgi (aynı okul)
+    { const ta = a0_W('G02', 'aynı') - T0, u = E.out3(ramp(st.lt, ta, ta + .6));
+      if (u > 0) { const x0 = XS[0] - 230, x1 = lerp(x0, XS[2] + 230, u); plate(ctx, 'red', PL([[x0, 1022], [x1, 1022], [x1, 1030], [x0, 1030]]));
+        for (const x of XS) if (x1 >= x) { const d = new Path2D(); d.arc(x, 1026, 9, 0, TAU); knock(ctx, d); plate(ctx, 'red', d); inkStroke(ctx, d, 2); } } }
     // "Üçü de aynı kurmay okulunun mezunuydu": diplomalar sırayla damgalanır
     const tD = a0_W('G02', 'üçü') - T0;
     [1, 0, 2].forEach((k, j) => a6_diploma(ctx, L[k].x, 852, [-.03, .02, -.015][k], 640 + k, st.lt - tD - j * .28, L[k].dip));
@@ -238,8 +250,8 @@ function a6_shotUcBust() {
 
 // ——— G03 · 1924: şerit çatlar; ama hepsi aynı yerden: okul sırası ve siper ———
 const A6_SIX = [
-  { who: 'karabekir', gear: 'kalpak', coat: 'kaput', col: 'khaki', age: 42, seed: 11, lab: 'KARABEKİR', w: 'karabekir' },
-  { who: 'alifuat', gear: 'kalpak', coat: 'kaput', col: 'khaki', age: 42, seed: 13, lab: 'ALİ FUAT', w: 'ali' },
+  { who: 'karabekir', gear: 'kalpak', coat: 'civil', col: 'ink', age: 42, seed: 11, lab: 'KARABEKİR', w: 'karabekir' },
+  { who: 'alifuat', gear: 'kalpak', coat: 'civil', col: 'sepia', age: 42, seed: 13, lab: 'ALİ FUAT', w: 'ali' },
   { who: 'rauf', gear: null, coat: 'civil', col: 'navy', age: 43, seed: 15, lab: 'RAUF', w: 'rauf' },
   { who: 'mk', gear: null, coat: 'civil', col: 'ink', age: 43, seed: 3 },
   { who: 'ismet', gear: 'kalpak', coat: 'kaput', col: 'khaki', age: 40, seed: 5 },
@@ -279,21 +291,17 @@ function a6_shotCatlak() {
       ctx.restore();
     });
     ctx.restore();
-    stamp(ctx, 'TERAKKİPERVER FIRKA · 1924', 70, 930, st.lt - tM - .2, tA - tM + .7, { size: 32 });
+    stamp(ctx, 'TERAKKİPERVER CUMHURİYET FIRKASI · 1924', 100, 934, st.lt - tM - .2, tA - tM + .7, { size: 26 });
     // 1924 damgası (çatlakla birlikte)
     label(ctx, '1924', W / 2, 108, FONT.title(78), { align: 'center', ls: 4, a: ramp(st.lt, tC - .3, tC) });
     if (!NOTEXT) { const ty = ramp(st.lt, tA + .4, tA + .9); label(ctx, 'AYNI YERDEN', W / 2, 960, FONT.title(64), { align: 'center', ls: 4, a: ty }); }
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
-  // "bir okul sırasından…": 1893 mektep sırası (A04 ile aynı kare; geri dönüş)
+  // "bir okul sırasından…": A04'teki 1893 karesinin aynısı (aynı kadraj, aynı yaş satırı)
   shot(a0_W('G03', 'okul') - .15, (ctx, st) => {
     setReg(137);
     paperBG(ctx);
-    const p = ramp(st.lt, 0, st.d, E.io2), c = { x: 960 + 26 * p, y: 540, z: 1.04 + .03 * p };
-    const bg = a0_cache('a0-k93-bg', g => a0_classBG(g, 150, 740));
-    a0_layer(ctx, bg, c, .8);
-    ctx.save(); cam(ctx, c, 1); a0_classKids(ctx, st.t, 150, 740); ctx.restore();
-    A0_ORD.forEach((i, k) => a0_age(ctx, A0_XS[i], 862, A0_AGE93[i], 'yaşında', st.lt + .3 - k * .06));
-    label(ctx, '1893', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
+    const p0 = ramp(a0_W('A04', 'otuz'), A0_CAM0, A0_CAM1, E.lin);
+    a0_class93(ctx, st.t, p0 + .18 * ramp(st.lt, 0, st.d, E.lin));
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
   // "…ve bir siperden": aynı sıra, kabalaklı, siperde omuz omuza (1915)
   shot(a0_W('G03', 'siperden') - .2, (ctx, st) => {
@@ -332,7 +340,7 @@ function a6_shotCatlak() {
     }
     ctx.restore();
     ctx.restore();
-    [31, 31, 34, 33, 33].forEach((a, i) => a0_age(ctx, A0_XS[i], 862, a, 'yaşında', st.lt + .3 - Math.abs(i - 2) * .06));
+    [31, 30, 34, 33, 32].forEach((a, i) => a0_age(ctx, A0_XS[i], 862, a, 'yaşında', st.lt + .3 - Math.abs(i - 2) * .06));
     label(ctx, '1915', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
 }
@@ -383,10 +391,12 @@ function a6_shotBugun() {
     });
     a0_layer(ctx, bg, c, .8);
     ctx.save(); cam(ctx, c, 1);
-    // tebeşir: "yazılır"da yazı harf harf belirir
-    const tw = a0_W('G04', 'bugünkü') - T0, s1 = 'Cumhuriyet 103 yaşında';
-    const n = Math.floor(clamp((st.lt - tw) / 1.5) * s1.length);
+    // tebeşir: "ders"te dersin cümlesi harf harf yazılır; "yazılır"da altı çizilir
+    const tw = a0_W('G04', 'ders') - T0, s1 = 'Cumhuriyet 103 yaşında';
+    const n = Math.floor(clamp((st.lt - tw) / 1.2) * s1.length);
     if (n > 0) txt(ctx, s1.slice(0, n), 960, 312, FONT.quote(76), { align: 'center', col: '#EDE6D2' });
+    const tz = a0_W('G04', 'yazılır') - T0, uz = E.out2(ramp(st.lt, tz, tz + .45));
+    if (uz > 0) cut(ctx, SP([[660, 336], [lerp(660, 1262, uz * .5), 340], [lerp(660, 1262, uz), 334]], false), 4.5, { col: '#EDE6D2', a: .9 });
     ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, W + 80, B1 - B0 - 4); ctx.clip();
     A6_KIDS.forEach((f, i) => a0_fig(ctx, { who: 'anon', id: f.id, x: A0_XS[i], y: 452, s: 1.2, dir: -1, w: .84, len: (B1 - 452) / 1.2 + 10, age: 12, gear: null, coat: 'plain', col: f.col, look: [.2, .25], sep: true, seed: 60 + i,
       under: (cx, x, y, s, dir, tl) => { a6_collar(cx, x, y, s, dir, tl); if (f.style) a6_hair(cx, x, y, s, dir, tl, f); } }, st.t));
@@ -517,12 +527,19 @@ function a6_shotBitis() {
     a6_flag(ctx, 303, 132, 200, st.t, { amp: 14, speed: 2.2 });
     // alt şerit: yedi baş küçük ölçekte
     ctx.save(); ctx.beginPath(); ctx.rect(X0 + 18, 814, X1 - X0 - 36, 178); ctx.clip();
-    a0_seven(ctx, st.t, 9, [-9, -9, -9, -9, -9, -9, -9], { y: 900, s: .66, yb: 994, xs: [160, 266, 372, 480, 588, 694, 800], look: [.3, .25] });
+    a0_seven(ctx, st.t, st.lt, [4.4, 4.2, 4.0, 3.8, 4.0, 4.2, 4.4].map(x => x + .9), { y: 900, s: .66, yb: 994, xs: [160, 266, 372, 480, 588, 694, 800], look: [.3, .25] });
     ctx.restore();
     ctx.restore();
-    label(ctx, '29 EKİM 1923', 480, 470, FONT.mono(36), { align: 'center', ls: 6, force: true });
-    label(ctx, '103. YIL', 480, 640, FONT.title(150), { align: 'center', ls: 4, force: true });
-    label(ctx, 'KUTLU OLSUN', 480, 740, FONT.title(64), { align: 'center', ls: 6, force: true, plate: 'red' });
+    const L = st.lt, f = (t0) => ramp(L, t0, t0 + .35);
+    label(ctx, '29 EKİM 1923', 480, 470, FONT.mono(36), { align: 'center', ls: 6, force: true, a: f(.6) });
+    { const h = a0_hit(L, 1.2, .16); if (h.a > 0) { ctx.save(); ctx.globalAlpha = h.a; ctx.translate(480, 590); ctx.scale(h.k, h.k); txt(ctx, '103. YIL', 0, 50, FONT.title(150), { align: 'center', ls: 4 }); ctx.restore(); } }
+    label(ctx, 'KUTLU OLSUN', 480, 740, FONT.title(64), { align: 'center', ls: 6, force: true, plate: 'red', a: f(2.0) });
+    // sağ yarı: yalnız yönlendirme yazıları; video öğesi (y ≈ 260–) ve abone öğesi (≈ 1420, 870) için alan boş
+    label(ctx, 'SIRADAKİ HİKÂYE', 1420, 175 + 20, FONT.title(56), { align: 'center', ls: 3, a: f(2.8) });
+    { const u = E.out2(ramp(L, 3.1, 3.6)); if (u > 0) { const y1 = lerp(200, 245, u);
+      inkStroke(ctx, SP([[1420, 200], [1422, (200 + y1) / 2], [1420, y1]], false), 4);
+      if (u > .95) inkStroke(ctx, PL([[1406, 230], [1420, 247], [1435, 229]], false), 4); } }
+    label(ctx, 'ZAMAN KURYESİ’NE ABONE OL', 1420, 1010 + 11, FONT.mono(32), { align: 'center', ls: 3, a: f(3.4) });
   }, { tr: { type: 'press', dur: .8 }, post: { vig: .7 } });
 }
 

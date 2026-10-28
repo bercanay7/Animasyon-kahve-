@@ -48,7 +48,14 @@ function drawFilm(ctx, t) {
   const i = shotAt(t), sh = SHOTS[i];
   if (!sh) { paperBG(ctx); return; }
   const tr = sh.tr;
-  if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
+  if (tr && i > 0 && t < sh.at + tr.dur && tr.type === 'reg') {
+    // kayık baskı oturması (imza geçiş): yeni kare doğrudan gelir; kalıplar kayık basılıp yerine oturur, üstünde kayan bir çarpma gölgesi söner
+    const p = clamp((t - sh.at) / tr.dur);
+    REG.boost = 1 + 3 * (1 - E.out3(p)); drawShot(ctx, i, t); REG.boost = 1;
+    bufAx.setTransform(1, 0, 0, 1, 0, 0); bufAx.globalAlpha = 1; bufAx.globalCompositeOperation = 'copy'; bufAx.drawImage(ctx.canvas, 0, 0); bufAx.globalCompositeOperation = 'source-over';
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = .45 * (1 - E.out3(p));
+    ctx.drawImage(bufA, 12 * RS * (1 - p), 7 * RS * (1 - p)); ctx.restore();
+  } else if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
     const p = clamp((t - sh.at) / tr.dur);
     // baskı geçişi: yeni sahnenin kalıpları kayık basılır, sonra yerine oturur
     if (tr.type === 'press') REG.boost = 1 + 5 * (1 - E.out3(p));

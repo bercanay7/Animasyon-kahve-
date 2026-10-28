@@ -40,7 +40,7 @@ function nameTag(ctx, x, y, name, sub, lt, d = 3.4, o = {}) {
   if (NOTEXT) return;
   const a = env(lt, 0, .2, d - .4, d); if (a <= 0) return;
   const fs = o.size || 46, ss = o.sub || 30;
-  ctx.save(); ctx.font = FONT.title(fs); const w1 = ctx.measureText(name).width; ctx.font = FONT.mono(ss); const w2 = ctx.measureText(sub || '').width; ctx.restore();
+  ctx.save(); ctx.font = FONT.title(fs); ctx.letterSpacing = '1px'; const w1 = ctx.measureText(name).width; ctx.font = FONT.mono(ss); ctx.letterSpacing = '0px'; const w2 = ctx.measureText(sub || '').width; ctx.restore();
   const w = Math.max(w1, w2) + 48, h = fs + ss + 38;
   // güvenli alan (x 96–1824, y 54–1026): levha kenarda kesilmez
   const x0 = clamp(o.align === 'center' ? x - w / 2 : o.align === 'right' ? x - w : x, 96, 1824 - w);

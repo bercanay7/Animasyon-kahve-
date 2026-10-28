@@ -1046,7 +1046,7 @@ const a4_KUSAK = {
         a4_officer(ctx, { x, y: y + io.breath, s: 1.02, dir: -1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / 1.02, lookAt: look, tilt: io.head * .5, turn: .25, w: 1.02 }));
     });
     ctx.restore();
-    order.forEach((who, i) => a4_tag(ctx, a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), 330 + i * 318 - 112, 1040, null, null, E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1)), { size: 22 }));
+    order.forEach((who, i) => { const lb = (who === 'mk' ? 'M. KEMAL' : a4_KUSAK.short[who]) + ' · ' + (Y - a4_KUSAK.born[who]); a4_tag(ctx, lb, 330 + i * 318 - (lb.length * 15.4 + 28) / 2, 1040, null, null, E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1)), { size: 22 }); });
   }, { tr: { type: 'clay', dur: .8 }, post: { stone: .26 } });
 }
 

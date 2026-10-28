@@ -14,7 +14,7 @@
 | 8 | Dönem görsel doğruluğu (üniforma, başlık, mekân, harita, yazı) | Tarih danışmanı; dönem uzmanı | – | Film birleşince |
 | 9 | Müzik | Ses kurulu: müzik direktörü | – | Besteci bitirince |
 | 10 | Ses tasarımı (efektler) ve miks | Ses kurulu: ses tasarımcısı, miks mühendisi | – | Miksten sonra |
-| 11 | Kapak (A/B) | Kapak (TO/paketleme) kurulu | **10** (A′ ve B′, 5. tur) | ONAY: kapak.jpg (varsayılan), kapak_b.jpg |
+| 11 | Kapak (A/B) | Kapak (TO/paketleme) kurulu | **10** (A′ ve B′, 8. tur: bıyık ve ortak ilkeller sonrası) | ONAY: kapak.jpg (varsayılan), kapak_b.jpg |
 | 12 | Başlık, açıklama, etiketler, bölümler | Kapak (TO/paketleme) kurulu | – | Kapaktan sonra |
 | 13 | Shorts | Kanca kurulu; tipografi tasarımcısı | – | Render sonrası |
 | 14 | Altyazı (SRT: doğruluk, okuma hızı, satır bölme) | Teknik ve erişilebilirlik kurulu | – | Sonda |
