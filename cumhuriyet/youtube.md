@@ -19,10 +19,10 @@ Bölümler
 0:00 Açılış: Çankaya, 28 Ekim 1923
 0:33 I. Sultanın okulları
 1:34 II. Selanik ve yasak kitaplar
-2:43 III. Meşrutiyet: 1908
+2:42 III. Meşrutiyet: 1908
 3:19 IV. Ateşte dövülen kuşak
 4:22 V. Anadolu
-5:11 VI. Cumhuriyet: 29 Ekim 1923
+5:10 VI. Cumhuriyet: 29 Ekim 1923
 
 Sizin hayatınızda iz bırakan öğretmen kimdi? Adını yorumlara yazın.
 
