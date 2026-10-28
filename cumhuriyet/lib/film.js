@@ -58,19 +58,21 @@ function drawShot(ctx, i, t) {
   window.DRIFT = null;
   ctx.restore();
 }
-// çekimin kendi kamera yakınlaşması var mı: üç anda küçük bir tuvale çizilip cam() çağrıları ölçülür (belirlenimci;
-// her render işçisinde aynı sonuç). Çizimin yan etkileri (REG, alt bant, yüz saati) geri alınır.
+// çekimin kendi kamera hareketi var mı: üç anda küçük bir tuvale çizilip ilk cam() çağrısı kaydedilir; yakınlaşma ya da
+// konum zamanla değişiyorsa çekim kendi kamerasıyla hareket ediyordur (belirlenimci; her render işçisinde aynı sonuç).
+// Çizimin yan etkileri (REG, alt bant, yüz saati) geri alınır.
 const PROBE = makeCanvas(8, 8).getContext('2d');
 function probeOwnCam(sh, i) {
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR), d = end - sh.at, keep = [REG.boost, window.LOWBAND_AT, window.FIG_T, window.DRIFT];
-  let mx = 0;
-  for (const u of [.15, .5, .85]) {
-    const t = sh.at + d * u; window.__camz = 1; window.DRIFT = null;
+  const rec = [];
+  for (const u of [.1, .5, .9]) {
+    const t = sh.at + d * u; window.__camrec = []; window.DRIFT = null;
     try { PROBE.save(); sh.draw(PROBE, { t, lt: t - sh.at, d, p: u, end }); } catch (e) { /* ölçüm çizimi */ } finally { PROBE.restore(); }
-    mx = Math.max(mx, Math.abs(window.__camz - 1));
+    rec.push(window.__camrec.length ? window.__camrec : [1, W / 2, H / 2]);
   }
-  [REG.boost, window.LOWBAND_AT, window.FIG_T, window.DRIFT] = keep; window.__camz = 1;
-  return mx > .012;
+  [REG.boost, window.LOWBAND_AT, window.FIG_T, window.DRIFT] = keep; window.__camrec = null;
+  const span = k => Math.max(...rec.map(r => r[k])) - Math.min(...rec.map(r => r[k]));
+  return span(0) > .008 || span(1) > 6 || span(2) > 6;
 }
 function drawFilm(ctx, t) {
   const sc = new URLSearchParams(location.search).get('scene');
@@ -158,7 +160,7 @@ function cam(ctx, c, k = 1) {
   // c.x, c.y: ekran merkezine gelen dünya noktası; k: paralaks derinliği (0 sabit, 1 tam)
   const z = 1 + ((c.z ?? 1) - 1) * k;
   const cx = W / 2 + ((c.x ?? W / 2) - W / 2) * k, cy = H / 2 + ((c.y ?? H / 2) - H / 2) * k;
-  if (Math.abs(z - 1) > Math.abs((window.__camz ?? 1) - 1)) window.__camz = z; // probeOwnCam ölçümü
+  if (window.__camrec && !window.__camrec.length) window.__camrec.push(z, cx, cy); // probeOwnCam: çizimdeki ilk kamera
   ctx.translate(W / 2 + (c.sx || 0), H / 2 + (c.sy || 0));
   ctx.rotate((c.r || 0) * k);
   ctx.scale(z, z);

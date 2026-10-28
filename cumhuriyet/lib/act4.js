@@ -494,7 +494,7 @@ function a4_watchInset(ctx, cx, cy, r, u, o = {}) {
 }
 // ekrana sabit çizim (film.js kamera kaymasından bağımsız): ui.js onScreen varsa onu, yoksa undrift'i kullanır
 function a4_on(ctx, fn) {
-  if (typeof onScreen === 'function') return onScreen(ctx, fn);
+  if (typeof onScreen === 'function') return onScreen(ctx, () => fn());
   if (window.DRIFT && !window.__undrift && typeof undrift === 'function') { ctx.save(); undrift(ctx); try { return fn(); } finally { ctx.restore(); } }
   return fn();
 }
@@ -1341,8 +1341,8 @@ const a4_KUSAK = {
     ctx.restore();
     a4_put(ctx, a4_L('E05a-fg', g => a4_sandbags(g, 880, W + 80, 992, 3, 41, { bw: 110, bh: 42 }), 90), cm, 1.06);
     // damga: "çanakkale/arıburnunda" Arıburnu; "anafartalarda" eskisi kalkar, yenisi basılır (bir anda tek yeni yazı)
-    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, lt - .1, tN + .02 - (t - lt) - .1, { size: 48 });
-    stamp(ctx, 'ANAFARTALAR · AĞUSTOS 1915', 114, 112, t - tN - .08, st.end - tN + 1, { size: 48 });
+    // damga E05 boyunca tek kez değişir: "komutana"ya dek Arıburnu (E05b'de aynı saatle sürer, yeniden yazılmaz)
+    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, t - S('E05'), Wd('E05', 'komutana') - S('E05'), { size: 48 });
   }, { tr: { type: 'press', dur: .6 }, post: { stone: .26 } });
 }
 
@@ -1421,8 +1421,8 @@ const a4_KUSAK = {
     const fg = a4_L('E05b-fg', g => { a4_sandbags(g, -40, W + 60, 880, 3, 14, { bw: 96, bh: 40 }); }, 90);
     a4_put(ctx, fg, cm, 1.08);
     // "adı pek bilinmeyen bir yarbay" Arıburnu'dur (25 Nisan, dürbün); "komutana" Anafartalar'dır (Ağustos, saat).
-    // Yazı sırası (bir anda tek yeni yazı): Arıburnu damgası → yarbay künyesi (+0,4) → Anafartalar damgası ("komutana") → albay künyesi (+0,54)
-    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, lt - .02, tKo - .02 - (t - lt) + .02, { size: 48 });
+    // Yazı sırası (bir anda tek yeni yazı): yarbay künyesi ("yarbay") → Anafartalar damgası ("komutana") → albay künyesi (saat anı + 0,4)
+    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, t - S('E05'), tKo - S('E05'), { size: 48 });
     stamp(ctx, 'ANAFARTALAR · AĞUSTOS 1915', 114, 112, t - tKo - .02, st.end - tKo + 1, { size: 48 });
     a4_kunye(ctx, 1824, 1008, 'MUSTAFA KEMAL', ['33 yaşında · yarbay'], t - tYb, tKo + .32 - tYb);
     const tAl = hit + .4; // saat anından 0,4 sn sonra
@@ -1514,8 +1514,14 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
       const dk = ramp(t, tY + i * .12, tY + .5 + i * .12, E.io2); if (dk > 0) { plate(ctx, 'ink', a4_rect(x0, PY, x0 + PW, PY + PH), { a: .62 * dk }); }
       inkStroke(ctx, a4_rect(x0, PY, x0 + PW, PY + PH), 4);
       ctx.restore();
-      a4_tag(ctx, labs[i], x0 + 8, PY - 28, null, null, E.out2(ramp(t, a4_E06_lab(i), a4_E06_lab(i) + .2)) * (1 - .5 * ramp(t, tY, tY + .5)), { size: 38 });
     }
+    ctx.restore();
+    // pano başlıkları: sahnenin kamerasıyla aynı yerde, ama güvenli alanda (x ≥ 96) ekrana sabit çizilir
+    for (let i = 0; i < 3; i++) {
+      const sx = 960 + (PX[i] + 8 - cm.x) * cm.z, sy = 540 + (PY - 28 - cm.y) * cm.z;
+      a4_on(ctx, () => a4_tag(ctx, labs[i], Math.max(96, sx), sy, null, null, E.out2(ramp(t, a4_E06_lab(i), a4_E06_lab(i) + .2)) * (1 - .5 * ramp(t, tY, tY + .5)), { size: 38 }));
+    }
+    ctx.save(); cam(ctx, cm, 1);
     // küçük levhalar (isim büyük, alt satır Courier); kişi kendi kelimesinde, "imparatorluk"ta kalkar
     ctx.restore();
     // pano levhası: kendi kelimesinde (pano başlığından 0,3 sn sonra); kamera dışında, ekrana sabit
