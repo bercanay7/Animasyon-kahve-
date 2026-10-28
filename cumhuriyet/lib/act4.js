@@ -1153,7 +1153,7 @@ const a4_KUSAK = {
     a4_put(ctx, bg, cm, .7);
     // gökte sürüklenen düz duman (sağa)
     ctx.save(); cam(ctx, cm, .7); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P.khaki;
-    for (let j = 0; j < 12; j++) { const u = (lt * .07 + j / 12) % 1, x = -300 + u * (W + 600), y = 250 + Math.sin(j * 1.7) * 90 + j % 3 * 40; ctx.globalAlpha = .4 * Math.sin(u * PI); ctx.beginPath(); ctx.ellipse(x, y, 120 + j % 4 * 30, 34 + j % 3 * 10, 0, 0, TAU); ctx.fill(); }
+    for (let j = 0; j < 9; j++) { const u = (lt * .07 + j / 9) % 1, x = -300 + u * (W + 600), y = 150 + Math.sin(j * 1.7) * 60 + j % 3 * 30; ctx.globalAlpha = .2 * Math.sin(u * PI); ctx.beginPath(); ctx.ellipse(x, y, 90 + j % 4 * 24, 22 + j % 3 * 6, 0, 0, TAU); ctx.ellipse(x + 70, y - 12, 60, 18, 0, 0, TAU); ctx.ellipse(x - 60, y + 6, 50, 14, 0, 0, TAU); ctx.fill(); }
     ctx.restore();
     // kuşak şeridi: "ve birbirleri"de soldan sağa merdane ile basılır; sağdan sola çizilir (soldaki önde)
     const rx = kf(t, [[tBr - .1, 200], [tBr + 1.1, 1800, E.io2]]);
@@ -1175,8 +1175,8 @@ const a4_KUSAK = {
       for (let i = 0; i < 7; i++) inkStroke(g, SP([[-60, 916 + i * 24], [700, 918 + i * 24 + (i % 2) * 4], [W + 60, 912 + i * 24]], false), 1.4, { a: .4 });
       paperSheet(g, 760, 965, 230, 120, -.05, 31, { rows: 4 }); compass(g, 1000, 975, 44); binoculars(g, 1250, 960, 1.05, .06);
       // basamakta düşmüş bir kabalak (kayıp; kansız)
-      plate(g, 'ink', SP([[420, 1012], [560, 1004], [570, 1022], [430, 1030]], true, .7), { a: .35 });
-      headgear(g, { x: 470, y: 1072, s: .95, dir: 1, gear: 'kabalak', tilt: .22, sd: 5, WD: 1, HY: 1 });
+      plate(g, 'ink', SP([[440, 1000], [590, 992], [600, 1010], [450, 1018]], true, .7), { a: .35 });
+      headgear(g, { x: 500, y: 1058, s: .95, dir: 1, gear: 'kabalak', tilt: .22, sd: 5, WD: 1, HY: 1 });
     }, 90);
     a4_put(ctx, ledge, cm, 1.06);
     // karanlık: başta siper koyu; "tecrübe"de basamak, "birbirleri"nde siper aydınlanır

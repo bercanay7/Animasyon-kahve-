@@ -1489,7 +1489,7 @@ def sec_savas():
               ('F#4', 0.3), ('Eb4', 0.45), ('D4', 2.2)]
     sc = float(np.clip((S('E04') + 0.8 - sel) / sum(d for _, d in LAMENT), 0.8, 1.3))
     ph = [((hz(m[0]), hz(m[1])) if isinstance(m, tuple) else hz(m), d * sc) for m, d in LAMENT]
-    aulos(sel + 0.1, ph, gain=0.45, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
+    aulos(sel + 0.1, ph, gain=0.38, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
           hmax=6000.0, top=6500.0)
     pad(M('D3 A3'), sel - 0.3, S('E04') + 1.0, gain=0.07, att=1.5, rel=1.2, cutoff=500, sine=0.5)
     # E04 the narrator's belief: a shared wound -> a homeland to come
@@ -1768,32 +1768,32 @@ def sec_kapanis():
             snare_roll(T2 - 2 * q, T2 - 0.02, 0.04, 0.2)
         mel = kusak('D4', q, 'major', n=6, hold=3) + [(None if m is None else note(m), d * q, 1.0) for m, d in
                [('D5', 1), ('B4', 1), ('C#5', 0.5), ('A4', 1.5), ('G4', 1), ('E4', 1), ('D4', 1), (None, 1)]]
-        band_line(T2, mel, 'cornet', gain=0.3, voices=3, detune=5.0, pan=-0.12)
-        band_line(T2, mel, 'trumpet', gain=0.14, voices=2, pan=0.12, gap=0.04)
-        aulos(T2, [(None if m is None else m + 12, d, v) for m, d, v in mel], gain=0.09, vib=3, breath=0.03,
+        band_line(T2, mel, 'cornet', gain=0.38, voices=3, detune=5.0, pan=-0.12)
+        band_line(T2, mel, 'trumpet', gain=0.18, voices=2, pan=0.12, gap=0.04)
+        aulos(T2, [(None if m is None else m + 12, d, v) for m, d, v in mel], gain=0.11, vib=3, breath=0.03,
               tilt=0.9, bright=0.1, pan=0.3)                                    # clarinets, an octave up
         play(T2, mel, bell, vel=0.05, oct=24, decay=1.2)                     # glockenspiel
         oompah(T2, q, [(2, 'D'), (2, 'A'), (1, 'G'), (3, 'D'), (2, 'G'), (2, 'A'), (2, 'A7'), (2, 'D')],
-               vel=1.0, tuba=0.3, stabs=0.15)
+               vel=1.0, tuba=0.38, stabs=0.19)
         for k in range(8):
             tb_ = T2 + 2 * k * q
             if k in (3, 7):
-                snare_bar(tb_, q, vel=0.16, pat='A . t t . . . .')
+                snare_bar(tb_, q, vel=0.19, pat='A . t t . . . .')
                 snare_roll(tb_ + q, tb_ + 2 * q - 0.02, 0.06, 0.24 if k == 7 else 0.15)
             else:
-                snare_bar(tb_, q, vel=0.16)
-            bassdrum(tb_, vel=0.3)
-            bassdrum(tb_ + q, vel=0.2)
-        cymbal(T2, vel=0.24, decay=1.4)
-        cymbal(T2 + 8 * q, vel=0.2, decay=1.4)
+                snare_bar(tb_, q, vel=0.19)
+            bassdrum(tb_, vel=0.36)
+            bassdrum(tb_ + q, vel=0.24)
+        cymbal(T2, vel=0.28, decay=1.4)
+        cymbal(T2 + 8 * q, vel=0.24, decay=1.4)
         pad(M('D3 A3 D4 F#4'), T2 - 0.1, T2 + 16 * q, gain=0.07, att=0.6, rel=1.0, cutoff=1200, sine=0.4)
         F = T2 + 16 * q
-        for kind, ns, gn in [('trumpet', 'D5 F#5', 0.1), ('cornet', 'A4 D5', 0.14), ('trombone', 'D3 A3 F#4', 0.12),
-                             ('tuba', 'D2', 0.26)]:
+        for kind, ns, gn in [('trumpet', 'D5 F#5', 0.12), ('cornet', 'A4 D5', 0.17), ('trombone', 'D3 A3 F#4', 0.15),
+                             ('tuba', 'D2', 0.32)]:
             for m in ns.split():
                 band_line(F, [(m, 2.8, 1.0)], kind, gain=gn, gap=1.1, voices=2)
-        bassdrum(F, vel=0.4)
-        cymbal(F, vel=0.3, decay=2.5)
+        bassdrum(F, vel=0.46)
+        cymbal(F, vel=0.34, decay=2.5)
         timp(F, 'D2', vel=0.45)
     else:                                            # too short a tail for the march: a plain cadence
         timp(T2, 'D2', vel=0.35)
@@ -1835,7 +1835,7 @@ def reverb_ir(fs=SR, length=4.0, pre=0.02, seed=7):
 PRIORITY = {'A05': 1.3, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.15, 'G06': 1.15,
             'D02': 1.2, 'E05': 1.2, 'G02': 1.5}       # + the three hottest musical moments that run under words
 HUSH = 0.16                     # music level while "Yaşasın Cumhuriyet!" is spoken (the climax answers it)
-TAIL_DB = -2.5                  # the end screen sits below the climax (it has no narration to duck it)
+TAIL_DB = 0.0                   # end-screen trim (dB); the march is composed to sit below the climax
 
 
 def speech_mask():

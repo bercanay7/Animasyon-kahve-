@@ -20,8 +20,10 @@ function chapterCard(ctx, num, title, sub, lt, d = 3.6, o = {}) {
   if (NOTEXT) return;
   const a = env(lt, 0, .25, d - .5, d); if (a <= 0) return;
   ctx.save(); ctx.font = FONT.title(o.size || 80); ctx.letterSpacing = '2px';
-  const tw = ctx.measureText(num + ' · ' + title).width; ctx.restore();
-  const w = Math.max(tw + 70, 420), h = 176, x0 = o.x ?? 76, y0 = o.y ?? (H - h - 40);
+  const tw = ctx.measureText(num + ' · ' + title).width;
+  // alt satır da ölçülür: uzun alt satır kutudan taşmasın
+  ctx.font = FONT.mono(30); ctx.letterSpacing = '3px'; const sw = sub ? ctx.measureText(sub).width : 0; ctx.restore();
+  const w = Math.max(tw + 70, sw + 76, 420), h = 176, x0 = o.x ?? 76, y0 = o.y ?? (H - h - 40);
   const drop = (1 - E.out3(ramp(lt, 0, .35))) * -26;
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, drop);
   plate(ctx, 'ink', PL([[x0 + 10, y0 + 12], [x0 + w + 10, y0 + 12], [x0 + w + 10, y0 + h + 12], [x0 + 10, y0 + h + 12]]), { a: .4 });
@@ -117,7 +119,9 @@ const LCACHE = {};
 function layerCache(key, draw, w = W, h = H) {
   if (!LCACHE[key]) {
     const c = makeCanvas(Math.ceil(w * RS), Math.ceil(h * RS)), g = c.getContext('2d');
-    g.setTransform(RS, 0, 0, RS, 0, 0); draw(g); LCACHE[key] = c;
+    // geçişin kayık baskısı (REG.boost) önbelleğe donmasın: katman her zaman yerine oturmuş hâliyle çizilir
+    const b = REG.boost; REG.boost = 1;
+    g.setTransform(RS, 0, 0, RS, 0, 0); try { draw(g); } finally { REG.boost = b; } LCACHE[key] = c;
   }
   return LCACHE[key];
 }

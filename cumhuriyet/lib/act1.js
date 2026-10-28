@@ -668,10 +668,10 @@ function a1_bed(g, side, Z, seed) {
 }
 // uzak çocuk: damga siluet (is) + kırmızı fes; oturur
 function a1_stampKid(g, x, y, s, ph = 0) {
-  g.save(); g.translate(x, y); g.scale(s, s);
-  const b = new Path2D(); b.ellipse(0, -30 - ph * .4, 5.2, 6, 0, 0, TAU); b.moveTo(-9, -22); b.quadraticCurveTo(0, -25, 9, -22); b.lineTo(11, 0); b.lineTo(-11, 0); b.closePath();
-  inkFill(g, b); const f = PL([[-4.6, -34.5 - ph * .4], [4.6, -34.5 - ph * .4], [3.8, -42 - ph * .4], [-3.8, -42 - ph * .4]]); knock(g, f); plate(g, 'red', f); inkStroke(g, f, .8);
-  g.restore();
+  const m = (px, py) => [x + px * s, y + py * s];
+  const b = new Path2D(); b.ellipse(x, y + (-30 - ph * .4) * s, 5.2 * s, 6 * s, 0, 0, TAU);
+  b.moveTo(...m(-9, -22)); b.quadraticCurveTo(...m(0, -25), ...m(9, -22)); b.lineTo(...m(11, 0)); b.lineTo(...m(-11, 0)); b.closePath();
+  inkFill(g, b); const f = PL([m(-4.6, -34.5 - ph * .4), m(4.6, -34.5 - ph * .4), m(3.8, -42 - ph * .4), m(-3.8, -42 - ph * .4)]); knock(g, f); plate(g, 'red', f); inkStroke(g, f, Math.max(.8, .8 * s * .4));
 }
 // simge madalyonu: ekmek / setre / kitap
 function a1_icon(ctx, kind, x, y, r, k) {

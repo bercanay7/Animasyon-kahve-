@@ -153,10 +153,10 @@ function a6_diploma(ctx, x, y, rot, sd, lt, lab) {
   const inner = new Path2D(); inner.arc(sx, sy, 26, 0, TAU); cut(ctx, inner, 2.2, { a: .8 }); cut(ctx, ring, 1.6, { a: .5 });
   scriptLine(ctx, sx + 16, sy + 4, 32, 7, sd + 9, { col: P.paper, w: 1.8 });
   ctx.restore();
-  if (lab && !NOTEXT) { ctx.save(); ctx.globalAlpha = h.a; txt(ctx, lab, x, y + 132, FONT.mono(30), { align: 'center', ls: 3 }); ctx.restore(); }
+  if (lab && !NOTEXT) { ctx.save(); ctx.globalAlpha = h.a; txt(ctx, lab, x, y + 128, FONT.mono(30), { align: 'center', ls: 3 }); ctx.restore(); }
 }
 function a6_shotUcBust() {
-  const B0 = 120, B1 = 700, XS = [420, 960, 1500];
+  const B0 = 130, B1 = 760, XS = [420, 960, 1500];
   shot(S('G02') - .35, (ctx, st) => {
     setReg(613);
     paperBG(ctx);
@@ -175,15 +175,15 @@ function a6_shotUcBust() {
       const h = a0_hit(st.lt, f.app, .14); if (h.a <= 0) continue;
       ctx.save(); ctx.globalAlpha = h.a; ctx.translate(f.x, B1); ctx.scale(h.k, h.k); ctx.translate(-f.x, -B1);
       const rb = REG.boost; REG.boost = rb * (1 + 5 * (1 - E.out3(clamp((st.lt - f.app) / .35))));
-      a0_fig(ctx, { ...f, y: 404, s: 1.86, dir: -1, w: .98, len: (B1 - 404) / 1.86 + 10, look: [.3, .25], sep: true, idle: .8 }, st.t);
+      a0_fig(ctx, { ...f, y: 438, s: 2.12, dir: -1, w: .98, len: (B1 - 438) / 2.12 + 10, look: [.3, .25], sep: true, idle: .8 }, st.t);
       REG.boost = rb; ctx.restore();
     }
     ctx.restore();
     ctx.restore();
-    for (const f of L) nameTag(ctx, f.x, 584, f.name, f.sub, st.lt - f.tn, 3.4, { align: 'center', size: 44, sub: 28 });
+    for (const f of L) nameTag(ctx, f.x, 640, f.name, f.sub, st.lt - f.tn, 3.4, { align: 'center', size: 44, sub: 28 });
     // "Üçü de aynı kurmay okulunun mezunuydu": diplomalar sırayla damgalanır
     const tD = a0_W('G02', 'üçü') - T0;
-    [1, 0, 2].forEach((k, j) => a6_diploma(ctx, L[k].x, 820, [-.03, .02, -.015][k], 640 + k, st.lt - tD - j * .28, L[k].dip));
+    [1, 0, 2].forEach((k, j) => a6_diploma(ctx, L[k].x, 852, [-.03, .02, -.015][k], 640 + k, st.lt - tD - j * .28, L[k].dip));
   }, { tr: { type: 'press', dur: .5 }, post: { vig: .9 } });
 }
 

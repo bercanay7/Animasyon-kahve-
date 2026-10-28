@@ -296,7 +296,7 @@ shot(a1_W('D03', 'meclis') + .45, (ctx, st) => {
     plate(g, 'gold', a1_rect(-220, -220, W + 220, 30), { n: 2 }); inkStroke(g, PL([[-220, 30], [W + 220, 30]], false), 3);
     // pencere ve perde (solda), zemine düşen ışık
     const win = a1_rect(-100, 80, 160, 640); knock(g, win); plate(g, 'gold', win, { a: .18 }); inkStroke(g, win, 3); inkStroke(g, PL([[30, 80], [30, 640]], false), 4); inkStroke(g, PL([[-100, 360], [160, 360]], false), 4);
-    const cur = SP([[150, 40], [330, 40], [300, 300], [350, 700], [170, 712], [176, 300]], true, .6); knock(g, cur); plate(g, 'red', cur, { a: .7 }); inkStroke(g, cur, 2.6); for (let k = 1; k < 4; k++) inkStroke(g, SP([[150 + k * 44, 50], [168 + k * 36, 300], [180 + k * 42, 700]], false), 1.6, { a: .6 });
+    const cur = PL([[150, 40], [340, 40], [328, 330], [292, 420], [352, 712], [168, 712], [196, 420], [168, 330]]); knock(g, cur); plate(g, 'gold', cur, { n: 2 }); plate(g, 'khaki', cur, { a: .4 }); inkStroke(g, PL([[178, 418], [300, 418]], false), 6); inkStroke(g, cur, 2.6); for (let k = 1; k < 4; k++) inkStroke(g, SP([[150 + k * 44, 50], [168 + k * 36, 300], [180 + k * 42, 700]], false), 1.6, { a: .6 });
     const floor = a1_rect(-220, 780, W + 220, H + 220); knock(g, floor); plate(g, 'gold', floor, { a: .55 }); plate(g, 'khaki', floor, { a: .35 }); inkStroke(g, PL([[-220, 780], [W + 220, 780]], false), 3);
     for (let i = 0; i < 12; i++) inkStroke(g, PL([[-220, 800 + i * 26], [W + 220, 800 + i * 26]], false), 1.2, { a: .3 });
     g.save(); g.globalAlpha = .45; knock(g, PL([[0, 780], [260, 780], [760, H + 80], [200, H + 80]])); g.restore();
