@@ -52,7 +52,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
      - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize, taş baskı üslubunda bir animasyondur. Anlatımın yapay zekâ sesi olduğu açıklamada zaten yazıyor.
 3. **Video öğeleri:**
    - **Altyazı:** Altyazı ekle → Dosya yükle → "Zamanlamalı" → `cumhuriyet.tr.srt`.
-   - **Bitiş ekranı:** son 13 saniye (6:05–6:18). Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara göre yerleştirilir:
+   - **Bitiş ekranı:** son 12 saniye (6:06–6:18). Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara göre yerleştirilir:
      - **Video öğesi** ("İzleyiciye en uygun video"; kanaldaki iki video konu olarak uzak olduğu için bu seçenek daha iyi): okun hemen altına, ekranın sağ yarısının ortasına (üst kenarı ekran yüksekliğinin yaklaşık %24'ü, yatayda sağ yarının ortası).
      - **Abone ol öğesi:** video öğesinin altına, "ABONE OL" yazısının hemen üstüne (yatayda aynı hizada, dikeyde ekranın yaklaşık %80'i).
      - Önizlemede öğeler sol yarıdaki afişin ve bayrağın üstüne binmemeli.

@@ -135,7 +135,7 @@ function shortOverlay(g, ts, clip) {
         let x = SH_CX - tw / 2; const y = top + 17 + lh / 2 + li * lh;
         for (const w of ln) {
           const nx = ln[ln.indexOf(w) + 1] || (lines[li + 1] || [])[0], on = ts >= w.s - .03, cur2 = on && ts < Math.min(w.e + .05, nx ? nx.s - .04 : 1e9);
-          const pop = cur2 ? 1 + .05 * clamp(1 - (ts - w.s) / .15) : 1;
+          const pop = cur2 ? 1 + .03 * clamp(1 - (ts - w.s) / .15) : 1; // küçük vurgu: komşu sözcükle aralık daralmaz
           g.save(); g.translate(x + w.ww / 2, y); g.scale(pop, pop); g.globalAlpha = a; g.textAlign = 'center';
           g.fillStyle = cur2 ? P.red : (on ? P.ink : rgba(P.ink, .66)); g.fillText(shUp(w.w), 0, 0);
           g.restore();
