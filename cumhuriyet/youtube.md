@@ -28,6 +28,7 @@ Sizin hayatınızda iz bırakan öğretmen kimdi? Adını yorumlara yazın.
 
 Kaynaklar
 - Mustafa Kemal Atatürk, Nutuk (1927)
+- TBMM Zabıt Ceridesi, Devre II, 29 Ekim 1923 oturumu (Cumhuriyet'in ilanı ve Reisicumhur seçimi)
 - M. Şükrü Hanioğlu, Atatürk: An Intellectual Biography (Princeton UP, 2011)
 - M. Şükrü Hanioğlu, Preparation for a Revolution: The Young Turks, 1902–1908 (Oxford UP, 2001)
 - Benjamin C. Fortna, Imperial Classroom / Mekteb-i Hümayun (Oxford UP, 2002)

@@ -19,7 +19,7 @@
 | 13 | Shorts | Kanca kurulu; tipografi tasarımcısı | kurgu ve ses **10** (kanca), yazı **10** (tipografi) | ONAY |
 | 14 | Altyazı (SRT: doğruluk, okuma hızı, satır bölme) | Tipografi kurulu; tarih danışmanı | **10** (3. tur) | ONAY |
 | 15 | Teknik kalite (render, renk, kodlama, ses ölçümleri, kare kusurları) | Teknik ve erişilebilirlik kurulu | – | Render sonrası |
-| 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | – | Sonda |
+| 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | tarih danışmanı **10**; hukuk kurulu bekleniyor | Tarih danışmanı ONAY (Nutuk alıntısı birebir, iç ses yok, muhalifler adil, güncel siyaset yok) |
 | 17 | Yayın paketi (yayin.md, bitiş ekranı, sabit yorum, zamanlama) | Kapak (TO/paketleme) kurulu | **10** (son tur) | ONAY |
 
 ## Notlar
