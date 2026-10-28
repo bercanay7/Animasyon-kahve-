@@ -55,7 +55,9 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
    - **Daha fazla göster:**
      - Etiketler: `youtube.md` → Etiketler.
      - Video dili: Türkçe. Kategori: Eğitim.
-     - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize, taş baskı üslubunda bir animasyondur. Anlatımın yapay zekâ sesi olduğu açıklamada zaten yazıyor.
+     - "Değiştirilmiş veya yapay içerik" sorusu, formdaki soruya göre cevaplanır:
+       - Soru gerçekçilik ölçütlerini soruyorsa (gerçek bir kişiyi söyletmek, gerçek bir olayı değiştirmek, gerçekçi bir sahne üretmek): **Hayır**. Video stilize, taş baskı üslubunda bir animasyondur; gerçek kişi gerçekçi biçimde konuşturulmaz.
+       - Form yapay zekâ sesini ya da müziğini ayrıca soruyorsa: **Evet**. Anlatım yapay zekâ sesidir (açıklamada yazıyor). Animasyonda etiket yalnız genişletilmiş açıklamada görünür; YouTube'a göre erişimi ve para kazanmayı etkilemez.
 3. **Video öğeleri:**
    - **Altyazı:** Altyazı ekle → Dosya yükle → "Zamanlamalı" → `cumhuriyet.tr.srt`.
    - **Bitiş ekranı:** başlangıç **6:07**, bitiş 6:19 (12 saniye). Daha erken başlarsa öğeler son kartın ("103. YIL KUTLU OLSUN") üstüne biner. Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara değmeyecek biçimde yerleştirilir:
@@ -73,6 +75,8 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
    - **Açıklama:**
      ```
      Cumhuriyet'i kuran kadro, bir gün karşısına dikilecekleri sultanın okullarında yetişti. Tam hikâye: 6 dakikalık video.
+
+     Söz: Mustafa Kemal Atatürk, Nutuk (1927). Anlatım yapay zekâ sesiyle (ElevenLabs) yapılmıştır.
 
      #29Ekim #CumhuriyetBayramı #Atatürk #tarih #shorts
      ```
@@ -105,6 +109,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 
 **Yorum denetimi (ilk 72 saat)**
 - YouTube Studio → Ayarlar → Topluluk → Varsayılanlar → Kanalınızdaki yorumlar: uygunsuz olabilecek yorumları incelemeye alma seçeneği açılır ve **daha katı** ayar seçilir. İngilizce arayüzde: "Hold potentially inappropriate comments for review" → "Increase strictness".
+- YouTube Studio → Ayarlar → Topluluk → **Engellenen kelimeler**: Atatürk'e ve tarihî kişilere yönelik bilinen hakaret ve küfür kelimeleri eklenir. Bu kelimeleri içeren yorumlar yayımlanmadan incelemeye düşer.
 - Bekleyen yorumlar günde birkaç kez gözden geçirilir. Bayram günü ve B kapağındaki "Sultan" vurgusu tartışma çekebilir.
 - Atatürk'e hakaret içeren yorumlar (5816 sayılı Kanun) yayımlanmaz, kanalda bırakılmaz.
 - İlk 24 saatte yorumlara yanıt vermek videonun önerilere girmesine yardım eder. Öğretmen hikâyelerine kısa bir teşekkür yeterli.

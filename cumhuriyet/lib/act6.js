@@ -5,28 +5,28 @@
 
 // ——— bayrak ———
 // düz bayrak (Türk Bayrağı Kanunu oranları: G yükseklik, L = 1,5G; ay dış çemberi G/2 çap, iç çember 2/5G, aralık G/16;
-// yıldız çemberi G/4 çap, iç çemberden G/3 uzakta; bir ucu aya bakar)
+// yıldız çemberi G/4 çap; iç çemberin eksenini uçkurluk yönünde kestiği noktadan G/3 uzakta; bir ucu aya bakar; uçkurluk beyaz)
 function a6_flagImg(G) {
   const L = G * 1.5;
   return a0_cache('a6-flag-' + G, g => {
     const M = G / 30, field = PL([[0, 0], [L, 0], [L, G], [0, G]]);
-    knock(g, field); plate(g, 'red', field); plate(g, 'red', PL([[0, 0], [M * 1.4, 0], [M * 1.4, G], [0, G]]), { a: .4 });
+    knock(g, field); plate(g, 'red', field); knock(g, PL([[0, 0], [M, 0], [M, G], [0, G]]), '#F4EEDF'); inkStroke(g, PL([[M, 0], [M, G]], false), 1.2, { a: .35 });
     const cx = M + G / 2, cy = G / 2, r1 = G / 4, cx2 = cx + G / 16, r2 = G / 5;
     const outer = new Path2D(); outer.arc(cx, cy, r1, 0, TAU);
     const inner = new Path2D(); inner.arc(cx2, cy, r2, 0, TAU);
     const notInner = new Path2D(); notInner.rect(-10, -10, L + 20, G + 20); notInner.arc(cx2, cy, r2, 0, TAU, true);
     g.save(); g.clip(outer); g.clip(notInner, 'evenodd'); g.fillStyle = '#F4EEDF'; g.fillRect(-10, -10, L + 20, G + 20); g.restore();
-    const sx = cx2 + r2 + G / 3 + G / 8, star = a0_starPath(new Path2D(), sx, cy, G / 8, PI, .382);
+    const sx = cx2 - r2 + G / 3 + G / 8, star = a0_starPath(new Path2D(), sx, cy, G / 8, PI, .382);
     knock(g, star, '#F4EEDF');
     // ince is kontur (taş baskı): ay ve yıldız
-    const cres = new Path2D(); cres.arc(cx, cy, r1, 0, TAU); inkStroke(g, cres, 1.4, { a: .45 });
+    const cres = new Path2D(); cres.arc(cx, cy, r1, 0, TAU); g.save(); g.clip(notInner, 'evenodd'); inkStroke(g, cres, 1.4, { a: .45 }); g.restore(); // dış kontur yalnız hilalde: uçlar arası açık
     g.save(); g.clip(outer); inkStroke(g, inner, 1.4, { a: .45 }); g.restore();
     inkStroke(g, star, 1.3, { a: .45 });
   }, G * 1.5 + 2, G + 2);
 }
 // dalgalanan bayrak: x,y gönder ucundaki üst köşe; unfurl 0..1 (açılma), amp dalga genliği; poz 15 fps
 function a6_flag(ctx, x, y, G, t, o = {}) {
-  const img = a6_flagImg(G), L = G * 1.5, n = 54, sw = L / n, tf = Math.floor(t * 15) / 15;
+  const img = a6_flagImg(G), L = G * 1.5, n = Math.ceil(L / 4), sw = L / n, tf = Math.floor(t * 15) / 15;
   const vis = L * clamp(o.unfurl ?? 1), amp = o.amp ?? G * .09, sp = o.speed ?? 3.2;
   if (vis < 2) return;
   const dyAt = u => amp * Math.pow(u, .9) * Math.sin(u * TAU * 1.25 - tf * sp) + (o.droop ?? 0) * u * u * G;
@@ -42,7 +42,7 @@ function a6_flag(ctx, x, y, G, t, o = {}) {
     if (x0 + sw >= vis) { const de = dyAt(vis / L); top.push([x + vis, y + de]); bot.push([x + vis, y + de + G]); }
   }
   // kıvrım gölgesi: aynı kalıbın ikinci baskısı (gradyan yok)
-  plate(ctx, 'red', shade, { a: .35 }); plate(ctx, 'ink', shade2, { a: .14 });
+  plate(ctx, 'ink', shade, { a: .1 }); plate(ctx, 'ink', shade2, { a: .14 }); // is: ay-yıldız kıvrımda griye döner, pembeleşmez (2893 m.7)
   const out = PL([...top, ...bot.slice().reverse()]);
   inkStroke(ctx, out, o.lw ?? 3.2);
 }

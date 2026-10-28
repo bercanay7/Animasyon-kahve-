@@ -1325,7 +1325,7 @@ const a4_KUSAK = {
     // sancak (küçük, kırmızı)
     { const fx = 1270, fy = a4_yAt(crest, fx) - 6, wv = Math.sin(tf * 6) * 3; inkStroke(ctx, PL([[fx, fy], [fx, fy - 96]], false), 3);
       const fl = SP([[fx, fy - 94], [fx + 26, fy - 96 + wv], [fx + 54, fy - 92 - wv], [fx + 54, fy - 62 - wv], [fx + 26, fy - 66 + wv], [fx, fy - 62]], true, .5); knock(ctx, fl); plate(ctx, 'red', fl); inkStroke(ctx, fl, 2);
-      const cr = new Path2D(); cr.arc(fx + 21, fy - 78, 7.4, 0, TAU); cr.arc(fx + 23.8, fy - 78, 6, 0, TAU, true); ctx.save(); ctx.fillStyle = P.paper; ctx.fill(cr, 'evenodd'); ctx.restore(); }
+      const cr = new Path2D(); cr.arc(fx + 21, fy - 78, 7.4, 0, TAU); cr.arc(fx + 23.8, fy - 78, 6, 0, TAU, true); ctx.save(); ctx.fillStyle = P.paper; ctx.fill(cr, 'evenodd'); ctx.restore(); knock(ctx, a0_starPath(new Path2D(), fx + 32, fy - 78, 4, PI)); }
     // patlamalar: Arıburnu (yamaç) ve Anafartalar (sağ)
     for (const [x, y, t0, R, sd] of [[860, 620, tA, 120, 61], [1700, 470, tN, 110, 62]]) {
       if (t < t0) continue; const u = t - t0;

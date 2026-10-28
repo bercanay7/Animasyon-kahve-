@@ -913,7 +913,7 @@ function a1_flagWave(ctx, x, y, w, h, t) {
   const top = [], bot = []; for (let k = 0; k <= 6; k++) { const u = k / 6; top.push([x + u * w, y + wv(u) + u * 4]); bot.push([x + u * w, y + h + wv(u) + u * 2]); }
   const fl = SP([...top, ...bot.reverse()], true, .5); knock(ctx, fl); plate(ctx, 'red', fl); inkStroke(ctx, fl, 2);
   const cx = x + w * .44, cy = y + h * .5 + wv(.44), cr = new Path2D(); cr.arc(cx, cy, h * .25, 0, TAU); cr.arc(cx + h * .07, cy - h * .03, h * .21, 0, TAU, true);
-  ctx.save(); ctx.fillStyle = P.paper; ctx.fill(cr, 'evenodd'); ctx.restore(); knock(ctx, a1_ell(cx + h * .38, cy - h * .03, h * .07, h * .07));
+  ctx.save(); ctx.fillStyle = P.paper; ctx.fill(cr, 'evenodd'); ctx.restore(); knock(ctx, a0_starPath(new Path2D(), cx + h * .32, cy - h * .03, h * .12, PI)); // 1844 sonrası: beş köşeli yıldız, bir ucu aya
 }
 function a1_gateScene(g) {
   const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R);
@@ -1120,7 +1120,7 @@ function a1_selanik(g) {
   const gate = new Path2D(); gate.moveTo(sx0 + 300, 840); gate.lineTo(sx0 + 300, 640); gate.arc(sx0 + 370, 640, 70, PI, 0); gate.lineTo(sx0 + 440, 840); gate.closePath(); knock(g, gate); plate(g, 'sepia', gate, { n: 2 }); plate(g, 'ink', gate, { a: .3 }); inkStroke(g, gate, 3);
   const kit = a1_rect(sx0 + 270, 486, sx0 + 470, 530); knock(g, kit); inkStroke(g, kit, 2); scriptLine(g, sx0 + 456, 516, 170, 11, 905, { w: 2.2 });
   inkStroke(g, PL([[sx0 + 370, 236], [sx0 + 370, 90]], false), 4); const fl = SP([[sx0 + 372, 94], [sx0 + 430, 102], [sx0 + 470, 96], [sx0 + 466, 140], [sx0 + 426, 146], [sx0 + 372, 138]], true, .6); knock(g, fl); plate(g, 'red', fl); inkStroke(g, fl, 2);
-  { const cr = new Path2D(); cr.arc(sx0 + 412, 120, 11, 0, TAU); cr.arc(sx0 + 416, 118, 9.5, 0, TAU, true); g.save(); g.fillStyle = P.paper; g.fill(cr, 'evenodd'); g.restore(); }
+  { const cr = new Path2D(); cr.arc(sx0 + 412, 120, 11, 0, TAU); cr.arc(sx0 + 416, 118, 9.5, 0, TAU, true); g.save(); g.fillStyle = P.paper; g.fill(cr, 'evenodd'); g.restore(); knock(g, a0_starPath(new Path2D(), sx0 + 427, 119, 5.5, PI)); }
   // kaldırım ve kaldırım taşı
   const st = a1_rect(-220, 840, W + 220, H + 220); knock(g, st); plate(g, 'sepia', st, { a: .48 }); inkStroke(g, PL([[-220, 840], [W + 220, 840]], false), 3);
   const rr = rng(12); for (let y = 860; y < H + 40; y += 24 + (y - 840) * .1) for (let x = -200 + rr() * 30; x < W + 200; x += 38 + (y - 840) * .14) inkStroke(g, SP([[x, y], [x + 13 + (y - 840) * .05, y - 6], [x + 26 + (y - 840) * .1, y]], false), 1.3, { a: .45 });
