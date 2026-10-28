@@ -1,14 +1,14 @@
 # YouTube yükleme bilgileri
 
 ## Başlık (öneriler)
-1. **Cumhuriyet'i Kuran Kuşak Nasıl Yetişti? | 29 Ekim** (önerilen). Kapak kancayı ("AYNI SIRADAN ÇIKTILAR"), başlık soruyu taşır; birbirini tekrar etmezler.
+1. **Cumhuriyet'i Kuran Kuşak Nasıl Yetişti? | 29 Ekim** (önerilen). Kapak kancayı ("KURUCU KADRO · AYNI SIRADA"), başlık soruyu taşır; birbirini tekrar etmezler.
 2. Sultanın Okullarından Cumhuriyet'e: Kurucu Kadro Nasıl Oluştu?
 3. 29 Ekim 1923'e Giden Yol: Bir Kuşağın Hikâyesi
 
 ## Açıklama
 
-28 Ekim 1923 gecesi Çankaya'da bir sofra… ve ertesi gün ilan edilen Cumhuriyet.
-O sofradakiler kimdi, nereden gelmişlerdi? Bu videoda Cumhuriyet'i kuran kuşağın nasıl yetiştiğini anlatıyoruz:
+Otuz yıl önce aynı sıralarda, bir sultanın okullarındaydılar.
+28 Ekim 1923 gecesi Çankaya'da bir sofra… ve ertesi gün ilan edilen Cumhuriyet. O sofradakiler kimdi, nereden gelmişlerdi? Bu videoda Cumhuriyet'i kuran kuşağın nasıl yetiştiğini anlatıyoruz:
 - Abdülhamid döneminde imparatorluğa yayılan okullar,
 - Selanik'in kozmopolit limanı ve yasak kitaplar,
 - 1908,
@@ -18,11 +18,11 @@ O sofradakiler kimdi, nereden gelmişlerdi? Bu videoda Cumhuriyet'i kuran kuşa�
 Bölümler
 0:00 Açılış: Çankaya, 28 Ekim 1923
 0:33 I. Sultanın okulları
-1:33 II. Selanik ve yasak kitaplar
-2:40 III. 1908
-3:16 IV. Ateşte dövülen kuşak
-4:19 V. Anadolu
-5:07 29 Ekim 1923
+1:34 II. Selanik ve yasak kitaplar
+2:43 III. Meşrutiyet: 1908
+3:19 IV. Ateşte dövülen kuşak
+4:22 V. Anadolu
+5:11 VI. Cumhuriyet: 29 Ekim 1923
 
 Sizin hayatınızda iz bırakan öğretmen kimdi? Adını yorumlara yazın.
 
@@ -52,4 +52,4 @@ Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin 103. yıl
 ## Diğer
 - Kategori: Eğitim.
 - Dil: Türkçe; altyazı dosyası `cumhuriyet.tr.srt`.
-- Bitiş ekranı: son ~13 saniyede (5:58–6:11) sağ yarı boş bırakıldı; abone ol ve video öğeleri oraya yerleştirilebilir.
+- Süre: 6:18. Bitiş ekranı son 13 saniyede (6:05–6:18): sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve ok var; video öğesi etiketin altına (üst kenar ≈ y 260, ortası x 1420), "Abone ol" öğesi ortası ≈ (1420, 870). Yerleşim `yayin.md`'de.

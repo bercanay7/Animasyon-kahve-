@@ -28,11 +28,11 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `cumhuriyet_master.mp4` | Uzun video: 1920×1080, 6:11, Türkçe ses |
+| `cumhuriyet_master.mp4` | Uzun video: 1920×1080, 6:18, Türkçe ses |
 | `kapak.jpg` | Uzun videonun kapağı (1280×720) |
 | `kapak_b.jpg` | İkinci kapak; YouTube'un "Test ve Karşılaştır" özelliği için |
 | `cumhuriyet.tr.srt` | Türkçe altyazı |
-| `cumhuriyet_shorts.mp4` | Shorts: 1080×1920, 51 sn |
+| `cumhuriyet_shorts.mp4` | Shorts: 1080×1920, 43 sn; sonu başına dikişsiz bağlanır (döngü) |
 | `youtube.md` | Başlık, açıklama (bölümler ve kaynaklar), etiketler |
 
 ## Zamanlama (Europe/Istanbul)
@@ -52,17 +52,19 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
      - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize, taş baskı üslubunda bir animasyondur. Anlatımın yapay zekâ sesi olduğu açıklamada zaten yazıyor.
 3. **Video öğeleri:**
    - **Altyazı:** Altyazı ekle → Dosya yükle → "Zamanlamalı" → `cumhuriyet.tr.srt`.
-   - **Bitiş ekranı:** son 13 saniye (5:58–6:11). Sağ yarı boş bırakıldı; "Abone ol" ve "En yeni video" (ya da Sisifos/Orfeus videosu) öğeleri oraya konur.
+   - **Bitiş ekranı:** son 13 saniye (6:05–6:18). Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara göre yerleştirilir:
+     - **Video öğesi** ("İzleyiciye en uygun video"; kanaldaki iki video konu olarak uzak olduğu için bu seçenek daha iyi): okun hemen altına, ekranın sağ yarısının ortasına (üst kenarı ekran yüksekliğinin yaklaşık %24'ü, yatayda sağ yarının ortası).
+     - **Abone ol öğesi:** video öğesinin altına, "ABONE OL" yazısının hemen üstüne (yatayda aynı hizada, dikeyde ekranın yaklaşık %80'i).
+     - Önizlemede öğeler sol yarıdaki afişin ve bayrağın üstüne binmemeli.
 4. **Görünürlük:** Planla → 29.10.2026, 10:00 (GMT+3) → **Planla**.
 
 ## 2. Shorts
 1. **Oluştur → Video yükle** deyin ve `cumhuriyet_shorts.mp4` dosyasını seçin. Dikey ve 60 saniyeden kısa olduğu için YouTube bunu otomatik olarak Shorts sayar.
 2. **Ayrıntılar:**
-   - **Başlık:** `28 Ekim 1923 gecesi Çankaya'da bir sofra… #shorts`
+   - **Başlık:** `“Yarın Cumhuriyet ilan edeceğiz!” O sofradakiler nerede yetişti? #shorts`
    - **Açıklama:**
      ```
-     "Yarın Cumhuriyet ilan edeceğiz!" O sofradakiler kimdi, nereden gelmişlerdi?
-     Cumhuriyet'i kuran kuşağın hikâyesi: tam video kanalda.
+     Cumhuriyet'i kuran kadro, bir gün karşısına dikilecekleri sultanın okullarında yetişti. Tam hikâye: 6 dakikalık video.
 
      #29Ekim #CumhuriyetBayramı #Atatürk #tarih #shorts
      ```
@@ -73,5 +75,5 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 
 ## 3. Yayından sonra
 - **Uzun videonun altına sabit yorum:** `Sizin hayatınızda iz bırakan öğretmen kimdi? Adını ve size ne kattığını yazın 👇 Cumhuriyetimizin 103. yılı kutlu olsun.`
-- **Shorts'un altına sabit yorum:** `Tam hikâye (6 dk): <uzun videonun bağlantısı>`
+- **Shorts'un altına sabit yorum:** `Tam hikâye (6 dk): <uzun videonun bağlantısı>`. Bağlantı, uzun video 10:00'da yayına girince kopyalanır.
 - İlk 24 saatte yorumlara yanıt vermek, videonun önerilere girmesine yardım eder. Öğretmen hikâyelerine kısa bir teşekkür yeterli.
