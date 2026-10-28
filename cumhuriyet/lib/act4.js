@@ -324,6 +324,23 @@ function a4_ship(ctx, x, y, s, o = {}) {
   inkStroke(ctx, PL([[-74, -20], [-96, -24]], false), 3, { col: o.col }); inkStroke(ctx, PL([[76, -20], [98, -24]], false), 3, { col: o.col });
   ctx.restore();
 }
+// buharlı tren silueti (is): lokomotif + kömürlük + 3 vagon; +x'e gider; duman düz yuvarlaklar
+function a4_train(ctx, x, y, s, t) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  const p = new Path2D();
+  p.rect(150, -46, 70, 34); p.rect(206, -64, 34, 52); p.moveTo(150, -46); p.lineTo(150, -50); p.lineTo(160, -50); p.lineTo(160, -46);
+  p.rect(170, -70, 14, 26); p.moveTo(166, -70); p.lineTo(188, -70); p.lineTo(186, -76); p.lineTo(168, -76); p.closePath();
+  p.moveTo(220, -14); p.lineTo(236, -2); p.lineTo(150, -2); p.lineTo(150, -14); p.closePath();
+  p.rect(108, -40, 40, 30);
+  for (const cx of [0, -96, -192]) { p.rect(cx - 2, -50, 92, 40); p.moveTo(cx - 6, -50); p.lineTo(cx + 94, -50); p.lineTo(cx + 88, -56); p.lineTo(cx, -56); p.closePath(); }
+  inkFill(ctx, p);
+  for (const cx of [-180, -120, -84, -24, 12, 72, 118, 140, 170, 196, 222]) { const w = new Path2D(); w.arc(cx, -6, cx > 160 ? 11 : 9, 0, TAU); knock(ctx, w, P.ink); cut(ctx, (() => { const q = new Path2D(); q.arc(cx, -6, cx > 160 ? 6 : 5, 0, TAU); return q; })(), 1.4, { a: .6 }); }
+  for (const cx of [0, -96, -192]) for (let k = 0; k < 3; k++) cut(ctx, a4_rect(cx + 10 + k * 26, -42, cx + 26 + k * 26, -30), 1.6, { a: .55 });
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = rgba(P.khaki, .55);
+  for (let j = 0; j < 6; j++) { ctx.beginPath(); ctx.ellipse(170 - j * 34 - (t * 30 % 34), -86 - j * 10, 16 + j * 5, 10 + j * 3, 0, 0, TAU); ctx.fill(); }
+  ctx.restore();
+  ctx.restore();
+}
 // cep saati: pirinç (okra) kasa, kâğıt kadran, akrep/yelkovan; saniye ibresi saniyede bir atar
 function a4_watch(ctx, x, y, r, t, o = {}) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot || 0);
@@ -886,19 +903,20 @@ const a4_KUSAK = {
     // Anadolu yeniden basılır: merdane soldan sağa
     const rx = kf(t, [[tY, gx(25.6)], [tK + .2, gx(32), E.io2]]);
     ctx.save(); cam(ctx, cm, .75);
-    a4_wallMap(ctx, 1.16, 740, 70, { after: c => {
+    a4_wallMap(ctx, 1.3, 640, 250, { after: c => {
       if (t < tY) return;
       c.save(); c.clip(lands[1]); c.save(); c.clip(a4_rect(-500, -500, rx, H + 500));
       const [dx, dy] = [(1 - ramp(t, tY, tK + .4)) * 10, 0];
-      c.translate(dx, dy); plate(c, 'khaki', lands[1], { a: .45 }); plate(c, 'ochre', lands[1], { a: .32 }); c.restore();
+      c.translate(dx, dy); plate(c, 'khaki', lands[1], { a: .6 }); plate(c, 'ochre', lands[1], { a: .45 }); c.restore();
       inkStroke(c, PL([[rx, -200], [rx, H + 200]], false), 3.6, { a: .7 * (1 - ramp(t, tK, tK + .3)) });
       c.restore();
       inkStroke(c, lands[1], 2.6);
+      a4_tag(c, 'ANADOLU', gx(28.6), a4_BK.gy(39.6), null, null, E.out2(ramp(t, Wd('E04', 'memleket'), Wd('E04', 'memleket') + .3)), { size: 30, bg: P.paper });
     } });
     ctx.restore();
     ctx.save(); cam(ctx, cm, 1);
     order.forEach(([who, x], i) => {
-      const y = 700 + (i % 2) * 8, io = idleOffsets(tf, i * 5 + 2, .6), s = 1.22;
+      const y = 720 + (i % 2) * 8, io = idleOffsets(tf, i * 5 + 2, .6), s = 1.2;
       a4_officer(ctx, { x, y: y + io.breath, s, dir: 1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / s, lookAt: [1500, 380], tilt: io.head * .5, turn: .25, w: 1.02 });
     });
     ctx.restore();
@@ -933,7 +951,9 @@ const a4_KUSAK = {
       knock(g, rp); plate(g, 'khaki', rp); plate(g, 'ochre', rp, { a: .35 });
       g.save(); g.clip(rp);
       for (let i = 0; i < 70; i++) { const x = 620 + i * 22, y = a4_yAt(crest, x); inkStroke(g, PL([[x, y + 30], [x - 18, y + 120 + (i % 5) * 30]], false), 1.4, { a: .45 }); }
-      plate(g, 'khaki', SP([[600, H + 100], [700, 760], [800, 700], [900, 660], [1000, 700], [1100, 800], [1100, H + 100]], true, .6), { a: .6 });
+      // eş yükselti çizgileri ve çalılar
+      for (let k = 1; k < 6; k++) inkStroke(g, SP(crest.map(([x, y]) => [x + k * 14, y + k * 70]), false, .6), 1.5, { a: .35 });
+      const rr = rng(77); for (let i = 0; i < 46; i++) { const x = 700 + rr() * 1300, y = a4_yAt(crest, x) + 60 + rr() * 380; const b = SP(rough([[x - 14, y], [x - 8, y - 12], [x + 4, y - 15], [x + 14, y - 6], [x + 12, y + 2]], 2, i), true, .8); knock(g, b); plate(g, 'khaki', b, { n: 2 }); inkStroke(g, b, 1.8); }
       g.restore();
       inkStroke(g, SP(crest, false, .6), 3.2);
       // siper: kırık hendek + kum torbası üstü
@@ -941,8 +961,8 @@ const a4_KUSAK = {
       // tel örgü (sırtın önünde)
       g.save(); g.translate(0, 0); a4_wire(g, 900, 1500, 560, 5, { h: 26, step: 90 }); g.restore();
       // sahil: kum şeridi
-      const beach = SP([[-300, 820], [300, 800], [600, 780], [700, 800], [700, H + 300], [-300, H + 300]], true, .6);
-      knock(g, beach); plate(g, 'ochre', beach, { a: .55 }); inkStroke(g, SP([[-300, 820], [300, 800], [600, 780], [700, 800]], false), 2.6);
+      const beach = SP([[-300, 900], [300, 884], [600, 868], [760, 900], [760, H + 300], [-300, H + 300]], true, .6);
+      knock(g, beach); plate(g, 'ochre', beach, { a: .55 }); inkStroke(g, SP([[-300, 900], [300, 884], [600, 868], [760, 900]], false), 2.6);
     }, 90);
     a4_put(ctx, bg, cm, .8);
     ctx.save(); cam(ctx, cm, .8);
@@ -971,9 +991,15 @@ const a4_KUSAK = {
       ctx.save(); ctx.translate(x, y); const k = .75 + .3 * E.out3(clamp(u / 1.4)); ctx.scale(k, k); ctx.translate(-x, -y - u * 10); a4_put(ctx, sm, null, 1, { mode: 'multiply', a: clamp(u / .25) }); ctx.restore();
       a4_burst(ctx, x, y - 30, R, sd, E.outBack(clamp(a4_tf(u) / .18)) * (1 - ramp(u, .9, 1.3)));
     }
-    a4_tag(ctx, 'ARIBURNU', 520, 940, 820, 790, E.out2(ramp(t, tA, tA + .3)));
+    a4_tag(ctx, 'ARIBURNU', 430, 1000, 760, 860, E.out2(ramp(t, tA, tA + .3)));
     a4_tag(ctx, 'ANAFARTALAR', 1500, 330, 1700, 430, E.out2(ramp(t, tN, tN + .3)));
     ctx.restore();
+    // yakın siper (en önde): kum torbası ve süngü sırası; "yarbay"a doğru iki asker eksilir (kayıp, kansız)
+    ctx.save(); cam(ctx, cm, 1.06);
+    const vac = [[2, tN + .7], [4, tN + 1.3]];
+    for (let i = 0; i < 7; i++) { const v = vac.find(q => q[0] === i); if (v && t > v[1]) continue; a4_bayonetHead(ctx, 1010 + i * 128, 1000 + (i % 2) * 6, 2.05); }
+    ctx.restore();
+    a4_put(ctx, a4_L('E05a-fg', g => a4_sandbags(g, 880, W + 80, 992, 3, 41, { bw: 110, bh: 42 }), 90), cm, 1.06);
     stamp(ctx, 'ÇANAKKALE · 1915', 110, 116, lt - .1, st.d, { size: 34 });
   }, { tr: { type: 'press', dur: .6 }, post: { stone: .26 } });
 }
@@ -997,9 +1023,9 @@ const a4_KUSAK = {
       for (const [x, s] of [[180, .55], [420, .7], [640, .5]]) a4_ship(g, x, 604, s, { dir: 1 });
       // karşı sırtlar (uzak)
       const far = SP([[-300, 640], [-100, 560], [200, 520], [520, 560], [760, 620], [900, 700], [900, H + 300], [-300, H + 300]], true, .6);
-      knock(g, far); plate(g, 'khaki', far, { a: .5 }); inkStroke(g, far, 2);
+      knock(g, far); plate(g, 'ochre', far, { a: .5 }); plate(g, 'khaki', far, { a: .35 }); inkStroke(g, far, 2);
       for (let i = 0; i < 30; i++) { const x = -100 + i * 32, y = 560 + Math.abs(x - 300) * .12; inkStroke(g, PL([[x, y + 20], [x - 10, y + 80]], false), 1.2, { a: .4 }); }
-      a4_smokeCloud(g, 260, 430, 150, 21, 'ink', .4); a4_smokeCloud(g, 620, 470, 110, 22, 'ink', .35);
+      for (const [x, y, R, sd] of [[250, 500, 120, 21], [290, 380, 150, 23], [620, 540, 90, 22], [650, 450, 110, 24]]) a4_smokeCloud(g, x, y, R, sd, 'ink', .38);
       // bulunduğu sırt (yakın, MK'nin ayağı altında)
       const near = SP([[700, H + 300], [820, 800], [1000, 740], [1300, 720], [1600, 740], [2100, 780], [2100, H + 300]], true, .6);
       knock(g, near); plate(g, 'khaki', near); plate(g, 'ochre', near, { a: .3 }); inkStroke(g, SP([[820, 800], [1000, 740], [1300, 720], [1600, 740], [2100, 780]], false, .6), 3);
@@ -1015,12 +1041,13 @@ const a4_KUSAK = {
     const io = idleOffsets(tf, 4, .7), bl = blinkAt(t, 4), o = { x: MK.x, y: MK.y + io.breath, s: MK.s, dir: -1 };
     bust(ctx, { ...o, coat: 'setre', col: 'khaki', w: 1.04, seed: 3, len: (H + 40 - MK.y) / MK.s, turn: .3 });
     head3q(ctx, { ...o, who: 'mk', gear: 'kabalak', light: 'front', lookAt: [300, 520], age: 34, tilt: io.head * .6, eyeOpen: .72 * (1 - bl) });
-    const sh = [MK.x - 30 * MK.s, MK.y + 132 * MK.s], hand = [MK.x - 128, MK.y + 300 + io.breath];
-    const A = arm(ctx, sh, hand, { upper: 92, fore: 86, w: 50, col: 'khaki', bend: -1 });
-    // köstek: saatten düğmeye
-    inkStroke(ctx, SP([[A.wr[0] - 30, A.wr[1] - 10], [A.wr[0] + 20, A.wr[1] + 40], [MK.x + 6 * MK.s, MK.y + 180 * MK.s]], false), 2.2, { a: .9 });
-    a4_watch(ctx, A.wr[0] - 34, A.wr[1] - 12, 30, t, { rot: -.2 });
-    handDraw(ctx, A.wr[0], A.wr[1], A.ang, A.w2 / 20, 'hold', { side: 1 });
+    const sh = [MK.x - 36, MK.y + 190], hand = [MK.x - 150, MK.y + 318 + io.breath];
+    const A = arm(ctx, sh, hand, { upper: 96, fore: 90, w: 52, col: 'khaki', bend: 1 });
+    handDraw(ctx, A.wr[0], A.wr[1], A.ang, A.w2 / 20, 'hold', { side: -1 });
+    const wx_ = A.wr[0] + Math.cos(A.ang) * 22, wy_ = A.wr[1] + Math.sin(A.ang) * 22 - 18;
+    // köstek: saatten setre düğmesine
+    inkStroke(ctx, SP([[wx_ + 8, wy_ + 20], [wx_ + 40, wy_ + 70], [MK.x - 8, MK.y + 250]], false), 2.2, { a: .9 });
+    a4_watch(ctx, wx_, wy_, 28, t, { rot: -.15 });
     ctx.restore();
     // ön siper: kum torbaları (büstü keser)
     const fg = a4_L('E05b-fg', g => { a4_sandbags(g, -40, W + 60, 880, 3, 14, { bw: 96, bh: 40 }); }, 90);
@@ -1034,6 +1061,7 @@ const a4_KUSAK = {
 {
   const T0 = S('E06'), tK = Wd('E06', 'kafkasyada'), tI = Wd('E06', 'irakta'), tF = Wd('E06', 'filistinde'), tB = Wd('E06', 'birbirini'), tT = Wd('E06', 'tanıdı'), tY = Wd('E06', 'yenildiğinde');
   const PW = 560, PH = 700, PY = 250, PX = [80, 680, 1280];
+  const SNOW = [[PX[0] - 20, PY + 690], [PX[0] + 180, PY + 660], [PX[0] + 380, PY + 612], [PX[0] + PW + 20, PY + 572]];
   const panel = (i, g) => {
     const x0 = PX[i], y0 = PY, x1 = x0 + PW, y1 = y0 + PH, R = a4_rect(x0, y0, x1, y1);
     g.save(); g.clip(R); paperBG(g);
@@ -1041,7 +1069,8 @@ const a4_KUSAK = {
       plate(g, 'khaki', R, { a: .6 }); plate(g, 'ink', a4_rect(x0, y0, x1, y0 + 360), { a: .35 });
       radialHT(g, 'ink', x0 + 280, y0 - 500, 500, 860, .4, 0, { cell: 11, ang: 45, box: [x0, y0, x1, y0 + 300] });
       for (const [px, py, w, sd] of [[x0 + 60, y0 + 520, 300, 1], [x0 + 300, y0 + 500, 340, 2], [x0 + 140, y0 + 600, 420, 3]]) { const m = PL([[px - w / 2, y1], [px - w * .1, py - w * .7], [px, py - w * .78], [px + w * .14, py - w * .64], [px + w / 2, y1]]); knock(g, m); inkStroke(g, m, 2.6); g.save(); g.clip(m); for (let k = 0; k < 14; k++) inkStroke(g, PL([[px + k * 12, py - w * .7 + k * 22], [px + k * 12 + 60, y1]], false), 1.6, { a: .5 }); plate(g, 'khaki', PL([[px, py - w * .78], [px + w * .14, py - w * .64], [px + w / 2, y1], [px + 20, y1]]), { a: .35 }); g.restore(); }
-      const sn = a4_groundPath(a4_ridgePts(x0 - 20, x1 + 20, y0 + 620, 10, 5, 6), y1 + 20); knock(g, sn); inkStroke(g, SP(a4_ridgePts(x0 - 20, x1 + 20, y0 + 620, 10, 5, 6), false), 2.4);
+      const sn = SP([...SNOW, [x1 + 20, y1 + 20], [x0 - 20, y1 + 20]], true, .6); knock(g, sn); inkStroke(g, SP(SNOW, false, .6), 2.4);
+      for (let k = 0; k < 6; k++) inkStroke(g, SP(SNOW.map(([x, y]) => [x, y + 24 + k * 18]), false, .6), 1.2, { a: .3 });
     } else if (i === 1) { // Irak: okra ova, kıvrılan nehir, hurmalar
       plate(g, 'ochre', R, { a: .35 }); plate(g, 'ochre', a4_rect(x0, y0 + 300, x1, y1), { a: .35 });
       radialHT(g, 'sepia', x0 + 280, y0 - 400, 400, 760, .3, 0, { cell: 11, box: [x0, y0, x1, y0 + 260] });
@@ -1075,10 +1104,10 @@ const a4_KUSAK = {
       ctx.save(); ctx.beginPath(); ctx.rect(x0, PY, PW * clamp(u * 1.3), PH); ctx.clip(); a4_put(ctx, L, null, 1); 
       // canlı öğeler
       ctx.beginPath(); ctx.rect(x0, PY, PW, PH); ctx.clip();
-      if (i === 0) { for (let k = 0; k < 6; k++) { const x = x0 + 40 + ((tf * 22 + k * 80) % (PW - 40)), y = PY + 640 - (x - x0) * .18; a4_soldier(ctx, x, y, .85, tf * 1.1 + k * .4, { lean: .12 }); }
+      if (i === 0) { for (let k = 0; k < 6; k++) { const x = x0 + 30 + ((tf * 22 + k * 86) % (PW - 30)), y = a4_yAt(SNOW, x) + 4; a4_soldier(ctx, x, y, .85, tf * 1.1 + k * .4, { lean: .12 }); }
         ctx.save(); ctx.fillStyle = '#F4EDDC'; const r = rng(4); for (let k = 0; k < 70; k++) { const sx = x0 + ((r() * PW + lt * 30 * (.5 + r())) % PW), sy = PY + ((r() * PH + lt * 90 * (.6 + r())) % PH); ctx.beginPath(); ctx.arc(sx, sy, 1.6 + r() * 2.2, 0, TAU); ctx.fill(); } ctx.restore(); }
       if (i === 1) { const bx = PX[1] + 150 + tf * 12; a4_ship(ctx, bx, PY + 452, .55, { dir: 1 }); }
-      if (i === 2) { const tx = PX[2] + PW - ((tf * 60) % (PW + 400)) + 200; ctx.save(); ctx.translate(tx, PY + 404); ctx.scale(-1, 1); a4_ship(ctx, 0, 0, .7, { dir: 1 }); ctx.restore();
+      if (i === 2) { const tx = PX[2] - 330 + ((tf * 70) % (PW + 700)); a4_train(ctx, tx, PY + 412, .62, lt);
         for (let k = 0; k < 3; k++) { const x = PX[2] + 120 + k * 150 + tf * 10, y = PY + 560 + k * 30; a4_camel(ctx, x, y, .62, Math.floor(tf * 4 + k) % 2); } }
       ctx.restore();
       // kararma ("yenildiğinde")
@@ -1101,7 +1130,7 @@ const a4_KUSAK = {
 // omuz omuza siperde basılarak belirir (soldan sağa merdane). İsim + yaş (1918).
 {
   const T0 = Wd('E06', 'ellerinde'), tTc = Wd('E06', 'tecrübe'), tBr = Wd('E06', 've');
-  const order = ['alifuat', 'karabekir', 'mk', 'ismet', 'fevzi'], Y = 1918, XS = [420, 690, 960, 1230, 1500];
+  const order = ['alifuat', 'karabekir', 'mk', 'ismet', 'fevzi'], Y = 1918, XS = [470, 715, 960, 1205, 1450];
   shot(T0, (ctx, st) => {
     setReg(411);
     paperBG(ctx);
@@ -1145,6 +1174,6 @@ const a4_KUSAK = {
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
     // isim + yaş (1918)
-    order.forEach((who, i) => a4_tag(ctx, a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), XS[i] - 110, 860, null, null, E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12)), { size: 22 }));
+    order.forEach((who, i) => { const lb = (who === 'mk' ? 'M. KEMAL' : a4_KUSAK.short[who]) + ' · ' + (Y - a4_KUSAK.born[who]); a4_tag(ctx, lb, XS[i] - (lb.length * 15.4 + 28) / 2, 862 + (i % 2) * 34, null, null, E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12)), { size: 22 }); });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
