@@ -425,7 +425,9 @@ shot(a1_W('B01', 'meclisi') - .45, (ctx, st) => {
   const Tm = a1_W('B01', 'meclisi'), Tta = a1_W('B01', 'tatil'), Tet = a1_W('B01', 'etti'), Tu = a1_W('B01', 'ülkeyi'), Ty = a1_W('B01', 'yıldızdan'), Tk = a1_W('B01', 'tek');
   const pan = E.io2(clamp((t - Tu + .3) / 1.5));
   const [sx, sy] = shake(t, Tet, 7, 9);
-  const c = { x: lerp(905, 1045, pan), y: 540, z: lerp(1.0 + .03 * ramp(t, Tm - .4, Tet, E.io2), 1.0, pan), sx, sy };
+  // kaydırma bitince kamera çekim sonuna dek yavaşça itmeye devam eder (çekimin son saniyeleri durmaz)
+  const tail = clamp((t - (Tu + 1.2)) / Math.max(.5, st.end - (Tu + 1.2)));
+  const c = { x: lerp(905, 1045, pan) + 30 * tail, y: 540, z: lerp(1.0 + .03 * ramp(t, Tm - .4, Tet, E.io2), 1.0, pan) + .03 * tail, sx, sy };
   // gök (durağan): koyu sepya + is, yarım ton, yıldızlar, hilal
   const sky = a1_cacheM('a1-b01b-sky', g => {
     const R = a1_rect(-220, -220, W + 220, H + 220);

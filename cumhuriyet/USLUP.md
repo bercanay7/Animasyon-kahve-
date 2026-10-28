@@ -110,6 +110,7 @@ Kâğıt, is ve en çok 3 renk kalıbı. Yalnız 0. ve VI. bölümde bütün kal
 
 ## Asla
 Hale, alttan açı, gökte dev baş, kırmızı-siyah çapraz kama, sepya filtresi, tuğra süsü, kanca burun, mizahi ifade, duvar kâğıdı gibi kullanılan bayrak, ağlayan kalabalık klişesi.
+("Tuğra süsü": tuğranın başlık, çerçeve ya da kenar süsü olarak kullanılması. İstisna: sahnenin içinde dönemine uygun nesne olarak duran tuğra serbesttir. Örnek: 1893 sınıfının duvarında çerçeveli II. Abdülhamid tuğrası; portrenin yerine konması tarih danışmanının önerisidir.)
 
 ## Uygulama ilkelleri (en çok 6 yeni ilkel)
 `print.js` (kalıplar, yarım ton, kâğıt) · `bust3q` · `uniformKit` · `stampCrowd` · `staffMap` · diorama.
