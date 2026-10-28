@@ -12,14 +12,14 @@
 | 6 | Animasyon (hareket, zamanlama, poz, sahneleme) | 2D animasyon yönetmeni ve dönem görsel kültürü uzmanı | **10** (3. tur) | ONAY |
 | 7 | Ekran yazıları ve tipografi | Grafik ve hareketli tipografi tasarımcısı | **10** film, **10** Shorts (3. tur, son oy) | ONAY |
 | 8 | Dönem görsel doğruluğu (üniforma, başlık, mekân, harita, yazı) | Tarih danışmanı; dönem uzmanı | **10** (3. tur, ikisi de) | ONAY |
-| 9 | Müzik | Ses kurulu: müzik direktörü | – | Besteci bitirince |
-| 10 | Ses tasarımı (efektler) ve miks | Ses kurulu: ses tasarımcısı, miks mühendisi | – | Miksten sonra |
+| 9 | Müzik | Ses kurulu: müzik direktörü | **10** (son tur, G01 boşluğu 2,8 sonrası) | ONAY (tepe notası G02'den 0,87 sn önce boşta) |
+| 10 | Ses tasarımı (efektler) ve miks | Ses kurulu: ses tasarımcısı, miks mühendisi | ses tasarımı **10**, miks **10** (son tur) | ONAY: −14,00 LUFS, −2,1 dBTP, LRA 3,4; G01 tezahüratı ElevenLabs doğal kaydı (kullanıcı onayıyla); kulakla son onay kullanıcıda |
 | 11 | Kapak (A/B) | Kapak (TO/paketleme) kurulu | **10** (A′ ve B′; son turda yeniden onaylandı, "AYNI SIRADA" kalır) | ONAY: kapak.jpg (varsayılan), kapak_b.jpg |
 | 12 | Başlık, açıklama, etiketler, bölümler | Kapak (TO/paketleme) kurulu; tarih danışmanı | **10** (son tur, ikisi de) | ONAY |
 | 13 | Shorts | Kanca kurulu; tipografi tasarımcısı | kurgu ve ses **10** (kanca), yazı **10** (tipografi) | ONAY |
 | 14 | Altyazı (SRT: doğruluk, okuma hızı, satır bölme) | Tipografi kurulu; tarih danışmanı | **10** (3. tur) | ONAY |
 | 15 | Teknik kalite (render, renk, kodlama, ses ölçümleri, kare kusurları) | Teknik ve erişilebilirlik kurulu | – | Render sonrası |
-| 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | tarih danışmanı **10**; hukuk kurulu bekleniyor | Tarih danışmanı ONAY (Nutuk alıntısı birebir, iç ses yok, muhalifler adil, güncel siyaset yok) |
+| 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | tarih danışmanı **10**; hukuk kurulu 7 → düzeltmeler uygulandı, doğrulama bekleniyor | Tarih danışmanı ONAY (Nutuk alıntısı birebir, iç ses yok, muhalifler adil, güncel siyaset yok) |
 | 17 | Yayın paketi (yayin.md, bitiş ekranı, sabit yorum, zamanlama) | Kapak (TO/paketleme) kurulu | **10** (son tur) | ONAY |
 
 ## Notlar
@@ -27,3 +27,5 @@
 - **Kullanıcının Zweig/Dostoyevski önerisi:** üslup değişmedi (yeniden kayıt, 5816 ve doğruluk). Metne dokunmadan üç "içeriden" an eklendi: E03 annesinin muhacir gelişi, B06 yetim çocuğun adı, E06 "ve birbirleri" (durak + müzik geri çekilir).
 - **Telif:** 10. Yıl Marşı (Cemal Reşit Rey, ö. 1985) 2055'e kadar korumada; alıntılanmaz. Finalde özgün bir bando teması kullanılır.
 - **Anlatım:** kurullar sesi dinleyemez. Whisper sözcük güveni, konuşma hızı, duraklar, perde ve enerji eğrileriyle ölçerler; kulakla son onay kullanıcınındır.
+- **Bayrak (teknik ve hukuk kurulu, 28 Ekim akşamı):** Türk bayrağında yıldız 2893 cetvelinden 0,4G sağa kaymıştı (ölçü iç çemberin yanlış kesişiminden alınmıştı), hilal konturu kapalıydı, kıvrım gölgesi ay-yıldızı pembeleştiriyordu; üç Osmanlı bayrağında yıldız yoktu. Hepsi düzeltildi (c4442b2); önceki kurulların gözünden kaçmıştı.
+- **G01 doruğu (ses kurulu):** "Yaşasın Cumhuriyet!"ten sonra 0,8 sn nefes; G01'den sonrası kayar, bitiş ekranı 6:07–6:19, Shorts 45 sn.
