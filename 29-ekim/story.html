@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>29 Ekim Story</title>
+<link rel="stylesheet" href="fonts.css">
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script src="../logo.js"></script>
+<script src="common.js"></script>
+<script>
+/*
+ * 29 Ekim Cumhuriyet Bayramı · tek görsel Story, 1080x1920.
+ * Krem zemin, dalgalanan bayrak (yazısız, kanuni ölçülerde), kırmızı "29 EKİM",
+ * Navitas'ın üç alanı kemer pencerelerde: fitness · spa ve havuz · yüzme.
+ * Instagram'ın üst (profil) ve alt (yanıt) bantlarında önemli bir şey yok.
+ */
+const PHOTOS = {};
+
+function background() {
+  ctx.fillStyle = C.cream; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createRadialGradient(540, 520, 60, 540, 620, 1100);
+  g.addColorStop(0, 'rgba(255,255,255,0.75)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // ince kırmızı çerçeve
+  ctx.strokeStyle = C.red; ctx.lineWidth = 4; ctx.globalAlpha = 0.85;
+  ctx.beginPath(); ctx.roundRect(36, 36, W - 72, H - 72, 30); ctx.stroke(); ctx.globalAlpha = 1;
+}
+
+function renderPoster() {
+  background();
+  logo(540, 238, 300);
+
+  wavingFlag(540, 482, 420, 0.2, { amp: 0.07, waves: 1.3 });
+
+  // "29 EKİM"
+  text('29 EKİM', 540, 902, { size: 250, color: C.red, weight: 900, ls: -8, maxW: 900 });
+  text('Cumhuriyet Bayramımız', 540, 1010, { size: 92, color: C.navy, weight: 400, family: SERIF, style: 'italic', ls: -1 });
+  text('kutlu olsun!', 540, 1093, { size: 92, color: C.navy, weight: 400, family: SERIF, style: 'italic', ls: -1 });
+
+  // Üç kemer: fitness · spa & havuz · yüzme
+  const top = 1192, sideH = 440, midH = 500, sideW = 272, midW = 312, gap = 30;
+  const x0 = 540 - midW / 2 - gap - sideW;
+  archPhoto(PHOTOS.fitness, x0, top + (midH - sideH) - 10, sideW, sideH, { fx: 0.5, fy: 0.62 });
+  archPhoto(PHOTOS.yuzucu, 540 + midW / 2 + gap, top + (midH - sideH) - 10, sideW, sideH, { fx: 0.42, fy: 0.62 });
+  archPhoto(PHOTOS.spa, 540 - midW / 2, top - 10, midW, midH, { fx: 0.5, fy: 0.42 });
+
+  text('CUMHURİYETİMİZİN 103. YILI', 540, 1772, { size: 34, color: C.red, weight: 800, ls: 6 });
+}
+
+window.ready = (async () => {
+  await loadFonts(); await loadLogos();
+  [PHOTOS.spa, PHOTOS.yuzucu, PHOTOS.fitness] = await Promise.all(
+    ['kaynak/spa-havuz.jpg', 'kaynak/havuz-yuzucu.jpg', 'kaynak/fitness.jpg'].map(loadImage));
+  renderPoster();
+})();
+window.renderPoster = renderPoster;
+</script>
+</body>
+</html>
