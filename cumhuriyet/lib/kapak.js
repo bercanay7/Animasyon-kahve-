@@ -74,6 +74,37 @@ function kp_fit(ctx, s, size, maxW) { ctx.save(); ctx.font = FONT.slab(size); co
 function kp_text(ctx, s, x, y, size, col, align = 'left') {
   ctx.save(); ctx.font = FONT.slab(size); ctx.textAlign = align; ctx.fillStyle = col; ctx.letterSpacing = '0px'; ctx.fillText(s, x, y); ctx.restore();
 }
+// üst satır (konu künyesi): kırmızı şerit + ay yıldız + "CUMHURİYET'İ KURANLAR"; sağ kenar maxR'yi geçmez
+function kp_crescent(ctx, cx, cy, G, col) {
+  // Türk bayrağı oranlarına yakın: dış daire 0.5G, iç daire 0.4G (0.0625G sağda), yıldız 0.25G çaplı dairede
+  ctx.save(); ctx.fillStyle = col;
+  const m = new Path2D(); m.arc(cx, cy, .25 * G, 0, TAU); m.arc(cx + .0625 * G, cy, .2 * G, 0, TAU, true); ctx.fill(m, 'evenodd');
+  const sx = cx + .5 * G - .0625 * G, R = .125 * G, r = R * .382, st = new Path2D();
+  for (let i = 0; i < 10; i++) { const a = Math.PI + i * Math.PI / 5, q = i % 2 ? r : R; i ? st.lineTo(sx + q * Math.cos(a), cy + q * Math.sin(a)) : st.moveTo(sx + q * Math.cos(a), cy + q * Math.sin(a)); }
+  st.closePath(); ctx.fill(st); ctx.restore();
+}
+function kp_kicker(ctx, x0, y0, maxR, s = "CUMHURİYET'İ KURANLAR") {
+  const h = 116, G = h * .9;
+  let size = 70; ctx.save(); ctx.font = FONT.slab(size); let tw = ctx.measureText(s).width; ctx.restore();
+  const room = maxR - x0 - G * .95 - 56; if (tw > room) { size = Math.floor(size * room / tw); tw = room; }
+  const w = G * .95 + tw + 56;
+  const band = PL(rough([[x0, y0], [x0 + w, y0], [x0 + w, y0 + h], [x0, y0 + h]], 1, 9));
+  knock(ctx, band, P.red);
+  kp_crescent(ctx, x0 + 24 + .3 * G, y0 + h / 2, G, P.paper);
+  kp_text(ctx, s, x0 + G * .95 + 28, y0 + h / 2 + size * .36, size, P.paper);
+  return { w, h, size };
+}
+// iki satırlık künye: "CUMHURİYET'İ / KURANLAR", solda ay yıldız
+function kp_kicker2(ctx, x0, y0, size = 92) {
+  ctx.save(); ctx.font = FONT.slab(size); const tw = Math.max(ctx.measureText("CUMHURİYET'İ").width, ctx.measureText('KURANLAR').width); ctx.restore();
+  const G = size * 1.5, pad = 30, h = size * 2.2 + pad, w = G * .9 + tw + pad * 2;
+  const band = PL(rough([[x0, y0], [x0 + w, y0], [x0 + w, y0 + h], [x0, y0 + h]], 1, 9));
+  knock(ctx, band, P.red);
+  kp_crescent(ctx, x0 + pad + .28 * G, y0 + h / 2, G, P.paper);
+  kp_text(ctx, "CUMHURİYET'İ", x0 + G * .9 + pad, y0 + pad / 2 + size * .98, size, P.paper);
+  kp_text(ctx, 'KURANLAR', x0 + G * .9 + pad, y0 + pad / 2 + size * 2.05, size, P.paper);
+  return { w, h };
+}
 function kp_board(ctx, col) {
   knock(ctx, PL([[-20, -20], [W + 20, -20], [W + 20, H + 20], [-20, H + 20]]), col);
 }
@@ -99,11 +130,12 @@ SCENES.kapakA2 = (ctx, t) => {
   }, '#F8F2E3', '#EFD8C2'));
   // solda büyük ¾ Mustafa Kemal (1923): kalpak, kaput; genç hâline (sıraya) bakar
   kp_bright(() => {
-    const mk = { x: 470, y: 500, s: 3.0, dir: 1 };
+    const mk = { x: 470, y: 590, s: 3.0, dir: 1 };
     bust(ctx, { ...mk, y: mk.y - 8 * mk.s, coat: 'kaput', col: 'khaki', w: .95, seed: 3, len: 300, sep: true, arms: 'back', skin: true });
     head3q(ctx, { ...mk, who: 'mk', gear: 'kalpak', gearCol: 'ink', light: 'front', look: [1.3, .35], age: 42, skin: true });
   });
   // yazı: AYNI / SIRADA (Alfa Slab, büyük harf ≈ %18), kâğıt rengi, x 830–1880
+  kp_kicker2(ctx, 56, 44, 86);
   const s1 = kp_fit(ctx, 'SIRADA', 264, 1110);
   kp_text(ctx, 'AYNI', 1880, 250, s1, P.paper, 'right');
   kp_text(ctx, 'SIRADA', 1880, 490, s1, P.paper, 'right');
@@ -133,6 +165,7 @@ SCENES.kapakB2 = (ctx, t) => {
     head3q(g, { ...ah, who: 'abdulhamid', gear: 'fes', light: 'front', look: [-1, .2], age: 60 });
   });
   kp_cadre(ctx);
+  kp_kicker2(ctx, 56, 44, 86);
   kp_text(ctx, 'SULTANIN', 1880, 190, kp_fit(ctx, 'SULTANIN', 150, 900), P.paper, 'right');
   kp_text(ctx, 'OKULU', 1880, 450, kp_fit(ctx, 'OKULU', 264, 940), P.paper, 'right');
   pressFinish(ctx, t, { grain: 0, vig: .5, stone: .12 });
