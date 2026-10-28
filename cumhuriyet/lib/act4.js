@@ -704,6 +704,139 @@ function a4_officer(ctx, o) {
   }, { tr: { type: 'press', dur: .5 }, post: { stone: .24 } });
 }
 
+// E02b · Derne, 1911: çöl dioraması. Kefiyeli genç kolağası Mustafa Kemal (30), arkada yerel gönüllüler, çadır, hurmalar, ak kasaba.
+{
+  const T0 = Wd('E02', 'sahte');
+  const HOR = 640, dune1 = a4_ridgePts(-200, W + 200, 700, 22, 15, 14, 1.2), dune2 = a4_ridgePts(-200, W + 200, 846, 26, 19, 12, .9);
+  const MK = { x: 1236, y: 420, s: 1.36 };
+  shot(T0, (ctx, st) => {
+    setReg(403);
+    paperBG(ctx);
+    const lt = st.lt, t = st.t, tf = a4_tf(lt);
+    const cm = { x: lerp(990, 950, E.sine(st.p)), y: 540, z: lerp(1.0, 1.04, E.sine(st.p)) };
+    // gök + uzak tepe + kasaba (durağan)
+    const sky = a4_L('E02b-sky', g => {
+      paperBG(g);
+      plate(g, 'ochre', a4_rect(-200, -200, W + 200, HOR + 10), { a: .3 });
+      plate(g, 'ochre', a4_rect(-200, 300, W + 200, HOR + 10), { a: .18 });
+      plate(g, 'ochre', a4_rect(-200, 470, W + 200, HOR + 10), { a: .14 });
+      // gökte sepya yarım ton yalnız solda ve tepede (başın çevresi temiz)
+      const clip = new Path2D(); clip.rect(-200, -200, W + 400, 520); clip.ellipse(MK.x, MK.y - 40, 330, 330, 0, 0, TAU);
+      g.save(); g.clip(clip, 'evenodd'); radialHT(g, 'sepia', 200, -420, 380, 980, .17, 0, { cell: 12, box: [-160, -160, W + 160, 300] }); g.restore();
+      const hills = a4_ridgePts(-200, W + 200, 610, 34, 11, 10, 1.1), hp = a4_groundPath(hills, HOR + 40);
+      knock(g, hp); plate(g, 'khaki', hp, { a: .45 }); inkStroke(g, SP(hills, false, .6), 2.2);
+      ridge(g, [[150, 600], [260, 584], [380, 592]], 14, px => px, 81); ridge(g, [[1500, 610], [1640, 596], [1760, 604]], 12, px => px, 82);
+      a4_town(g, 80, 652, 1.0, 7);
+      const flat = a4_groundPath(a4_ridgePts(-200, W + 200, HOR + 4, 3, 13, 8), H + 100); knock(g, flat); plate(g, 'ochre', flat, { a: .4 });
+    }, 90);
+    a4_put(ctx, sky, cm, .3);
+    // uzak hurmalık
+    const palmsFar = a4_L('E02b-palms', g => { for (const [x, sd, sc] of [[620, 1, .62], [700, 2, .7], [770, 3, .58], [1510, 4, .6], [1590, 5, .66]]) a4_palm(g, x, 668, sc, sd); }, 90);
+    a4_put(ctx, palmsFar, cm, .45);
+    // kumullar ve çadır
+    const dunes = a4_L('E02b-dunes', g => {
+      const d1 = a4_groundPath(dune1, H + 100); knock(g, d1); plate(g, 'ochre', d1, { a: .62 }); inkStroke(g, SP(dune1, false, .6), 3);
+      g.save(); g.clip(d1); for (let i = 0; i < 26; i++) { const x = -100 + i * 84, y = a4_yAt(dune1, x); inkStroke(g, SP([[x, y + 14], [x + 40, y + 24], [x + 90, y + 20]], false), 1.4, { a: .4 }); } g.restore();
+    }, 90);
+    a4_put(ctx, dunes, cm, .6);
+    ctx.save(); cam(ctx, cm, .6);
+    a4_tent(ctx, 905, a4_yAt(dune1, 905) + 6, .92, { wave: Math.sin(tf * 7) * 3 });
+    ctx.restore();
+    // gönüllüler: kum üstünde; pozlar ikişer karede (deve adımlar, biri yürür)
+    ctx.save(); cam(ctx, cm, .72);
+    const yd = x => a4_yAt(dune1, x) + 34;
+    a4_camel(ctx, 170, yd(170) - 4, 1.32, Math.floor(tf * 4) % 2);
+    for (const [x, k, sc, sd, dr] of [[318, 1, 1.62, 1, 1], [420, 0, 1.72, 2, 1], [520, 2, 1.66, 3, 1], [640, 0, 1.76, 4, -1], [1010, 1, 1.6, 5, -1]]) a4_local(ctx, x, yd(x), sc, k, { seed: sd, dir: dr });
+    const wx = 720 + tf * 26; a4_soldier(ctx, wx, yd(wx), 1.62, tf * 1.4, { rifle: true });
+    ctx.restore();
+    const fg = a4_L('E02b-fg', g => { const d2 = a4_groundPath(dune2, H + 100); knock(g, d2); plate(g, 'ochre', d2, { a: .9 }); plate(g, 'khaki', d2, { a: .18 }); inkStroke(g, SP(dune2, false, .6), 3.4); const r = rng(9); for (let i = 0; i < 50; i++) { const x = r() * W, y = 870 + r() * 200; inkStroke(g, PL([[x, y], [x + 16 + r() * 26, y - 3]], false), 1.6, { a: .35 }); } }, 90);
+    a4_put(ctx, fg, cm, .9);
+    a4_dust(ctx, lt, { box: [-60, 560, W + 60, 980], n: 90, seed: 8, wind: 120, rise: -4, col: 'ochre', a: .5, size: 2.6 });
+    // Mustafa Kemal: kefiye, haki setre; gönüllülere dönük (sola); göz kırpar
+    ctx.save(); cam(ctx, cm, 1);
+    const io = idleOffsets(tf, 3, .8), bl = blinkAt(t, 3);
+    const o = { x: MK.x, y: MK.y + io.breath, s: MK.s, dir: -1 };
+    bust(ctx, { ...o, coat: 'setre', col: 'khaki', w: 1.06, seed: 3, len: (H + 40 - MK.y) / MK.s, turn: .35 });
+    head3q(ctx, { ...o, who: 'mk', gear: 'kefiye', light: 'front', lookAt: [470, 600], age: 30, tilt: io.head * .6, eyeOpen: .72 * (1 - bl) });
+    ctx.restore();
+    // en ön kum sırtı: büstü bel hizasında keser (Alagöz'deki masa gibi)
+    const crest = a4_L('E02b-crest', g => {
+      const pts = [[-200, 960], [300, 944], [760, 920], [1010, 872], [1180, 836], [1420, 826], [1700, 842], [2100, 866]];
+      const cp = SP([...pts, [2100, H + 120], [-200, H + 120]], true, .7);
+      knock(g, cp); plate(g, 'ochre', cp, { n: 2 }); plate(g, 'khaki', cp, { a: .25 }); inkStroke(g, SP(pts, false, .7), 4);
+      g.save(); g.clip(cp); for (let i = 0; i < 9; i++) { const y = 860 + i * 26; inkStroke(g, SP([[-200, y + 70], [700, y + 40], [1300, y - 6], [2100, y + 10]], false), 1.6, { a: .3 }); }
+      const r = rng(17); for (let i = 0; i < 70; i++) { const x = r() * W, y = 880 + r() * 200; cut(g, PL([[x, y], [x + 14 + r() * 20, y - 2]], false), 1.8, { a: .35 }); } g.restore();
+    }, 90);
+    a4_put(ctx, crest, cm, 1.08);
+    stamp(ctx, 'DERNE · 1911', 120, 120, lt - .2, st.d, { size: 34 });
+    nameTag(ctx, 1860, 860, 'MUSTAFA KEMAL', '30 yaşında', lt - .45, st.d - .2, { align: 'right', size: 56, sub: 38, bg: P.paperD });
+  }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
+}
+
+// E03b · Muhacir kafilesi: kağnılar ve kadınlar yolda; önde arkadan Zübeyde Hanım ve Makbule (çarşaflı, bohçalı); ufukta İstanbul.
+{
+  const T0 = Wd('E03', 'mustafa'), tAn = Wd('E03', 'annesi');
+  const HOR = 612, road = a4_ridgePts(-200, W + 200, 742, 10, 51, 12, .8);
+  shot(T0, (ctx, st) => {
+    setReg(405);
+    paperBG(ctx);
+    const lt = st.lt, t = st.t, tf = a4_tf(lt);
+    const cm = { x: lerp(930, 1050, E.sine(st.p)), y: 540, z: lerp(1.0, 1.035, E.sine(st.p)) };
+    // gök: tepede haki + is yarım ton (aşağı doğru söner), ufka doğru açılan okra bantlar; sağ ufuk en açık (İstanbul)
+    const sky = a4_L('E03b-sky', g => {
+      paperBG(g);
+      for (const [y0, a] of [[-200, .2], [-200, .16], [180, .1], [330, .08]]) plate(g, 'ochre', a4_rect(-300, y0, W + 300, HOR + 6), { a });
+      plate(g, 'khaki', a4_rect(-300, -200, W + 300, 180), { a: .3 });
+      radialHT(g, 'ink', 960, -1300, 1300, 1560, .22, 0, { cell: 12, ang: 45, box: [-200, -200, W + 200, 300] });
+      // ufuk ışığı: İstanbul üstünde kademeli açılan kâğıt (düz kademeler, yarım ton yok)
+      for (const [rx, ry, c] of [[620, 120, '#E4D8BC'], [430, 76, '#EADFC6'], [250, 40, '#F0E7D3']]) { const e = new Path2D(); e.ellipse(1640, HOR, rx, ry, 0, PI, TAU); e.closePath(); g.save(); g.fillStyle = c; g.globalAlpha = .7; g.fill(e); g.restore(); }
+      for (const [x0, y0, w_, sd] of [[-120, 300, 980, 1], [560, 236, 760, 2], [1180, 382, 900, 3]]) { const cl = SP(rough([[x0, y0], [x0 + w_ * .3, y0 - 16], [x0 + w_ * .7, y0 - 12], [x0 + w_, y0 + 2], [x0 + w_ * .6, y0 + 12], [x0 + w_ * .2, y0 + 10]], 3, sd), true, .8); knock(g, cl, '#E8DDC4'); inkStroke(g, SP([[x0 + w_ * .08, y0 + 10], [x0 + w_ * .6, y0 + 13], [x0 + w_ * .95, y0 + 4]], false), 1.6, { a: .45 }); }
+      a4_skyline(g, 1380, HOR + 4, .82, 6);
+      const hills = a4_ridgePts(-200, 1360, 590, 18, 23, 9, 1), hp = SP([...hills, [1360, HOR + 4], [-200, HOR + 4]], true, .6);
+      knock(g, hp); plate(g, 'khaki', hp, { a: .42 }); inkStroke(g, SP(hills, false), 2);
+      const fl = a4_groundPath(a4_ridgePts(-200, W + 200, HOR + 2, 2, 52, 8), H + 100); knock(g, fl); plate(g, 'ochre', fl, { a: .42 });
+      for (let i = 0; i < 6; i++) inkStroke(g, SP(a4_ridgePts(-200, W + 200, HOR + 16 + i * i * 4, 2, 60 + i, 8), false), 1.2, { a: .22 + i * .03 });
+    }, 140);
+    a4_put(ctx, sky, cm, .3);
+    // yol (kağnı izleri) ve kafile
+    const rd = a4_L('E03b-road', g => {
+      const top = road.map(([x, y]) => [x, y - 20]), bot = road.map(([x, y]) => [x, y + 24]), rp = SP([...top, ...bot.slice().reverse()], true, .6);
+      knock(g, rp); plate(g, 'ochre', rp, { a: .6 }); plate(g, 'khaki', rp, { a: .22 }); inkStroke(g, SP(top, false), 1.8, { a: .6 }); inkStroke(g, SP(bot, false), 1.8, { a: .7 });
+      for (const dy of [-6, 10]) { g.save(); g.setLineDash([30, 14]); inkStroke(g, SP(road.map(([x, y]) => [x, y + dy]), false), 1.6, { a: .5 }); g.restore(); }
+    }, 140);
+    a4_put(ctx, rd, cm, .55);
+    ctx.save(); cam(ctx, cm, .55);
+    const ph = Math.floor(lt * 6) % 2;
+    const troupe = [[0, 0], [1, 34], [2, 64], [-1, 0], [0, 40], [1, 70], [-1, 0], [2, 26], [0, 50]];
+    for (let i = 0; i < troupe.length; i++) {
+      const x = -260 + i * 236 + tf * 20, yy = a4_yAt(road, x) + 8;
+      if (x < -260 || x > W + 300) continue;
+      const [k, dx] = troupe[i];
+      if (k < 0) { stampOxcart(ctx, x, yy, 1.5, ph); a4_dust(ctx, lt + i, { box: [x - 170, yy - 34, x + 20, yy + 4], n: 8, seed: 30 + i, wind: -30, rise: -6, col: 'ochre', a: .55, size: 4 }); }
+      else { a4_migrant(ctx, x, yy, 2.1, k, (ph + i) % 2); a4_migrant(ctx, x + dx + 30, yy + 1, 2.0, (k + 1) % 3, (ph + i + 1) % 2); }
+    }
+    ctx.restore();
+    // ön toprak
+    const fg = a4_L('E03b-fg', g => {
+      const ln = a4_ridgePts(-200, W + 200, 800, 8, 61, 10), gp = a4_groundPath(ln, H + 100); knock(g, gp); plate(g, 'ochre', gp, { a: .62 }); plate(g, 'khaki', gp, { a: .42 });
+      inkStroke(g, SP(ln, false), 3);
+      const r = rng(13); for (let i = 0; i < 80; i++) { const x = r() * (W + 200) - 100, y = 820 + r() * 260; inkStroke(g, PL([[x, y], [x + 14 + r() * 30, y - 2]], false), 1.6, { a: .35 }); }
+      for (let i = 0; i < 16; i++) { const x = r() * (W + 200) - 100, y = 850 + r() * 220, q = SP(rough([[x - 8, y], [x - 2, y - 6], [x + 8, y - 4], [x + 9, y + 3], [x - 5, y + 4]], 1.4, i), true, .7); knock(g, q); plate(g, 'ochre', q, { a: .5 }); inkStroke(g, q, 2); }
+    }, 140);
+    a4_put(ctx, fg, cm, .9);
+    // Zübeyde Hanım (önde, hafif eğik, ötede bohça) ve Makbule (arkasında, beride bohça); ikisi omuz omuza
+    ctx.save(); cam(ctx, cm, 1);
+    const wx = tf * 22, ph2 = Math.floor(lt * 5) % 2;
+    for (const [x, y, w_] of [[986 + wx, 968, 220], [800 + wx, 992, 240]]) plate(ctx, 'khaki', SP([[x - 60, y + 2], [x + 64, y], [x - w_, y + 34], [x - w_ - 90, y + 30]], true, .6), { n: 2, a: .8 });
+    a4_carsaf(ctx, 986 + wx, 968, 4.0, ph2, { stoop: .06, bundle: 'far', seed: 5 });
+    a4_carsaf(ctx, 800 + wx, 992, 4.3, 1 - ph2, { bundle: 'near', seed: 8 });
+    a4_dust(ctx, lt, { box: [600 + wx, 950, 1140 + wx, 1004], n: 22, seed: 71, wind: -40, rise: -8, col: 'ochre', a: .5, size: 3.4 });
+    ctx.restore();
+    stamp(ctx, 'SELANİK → İSTANBUL · 1912', 110, 116, lt - .15, st.d, { size: 32 });
+    nameTag(ctx, 80, 872, 'ZÜBEYDE HANIM VE MAKBULE', 'annesi ve kız kardeşi', t - tAn, st.end - tAn, { size: 48, sub: 32, bg: P.paperD });
+  }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
+}
+
 // —— Balkan kurmay haritası (E03a ve E04 ortak): boylam 17.8–31.1, enlem 38.9–44.5 ——
 const a4_BK = (() => {
   const X0 = 110, X1 = 1810, Y0 = 70, Y1 = 1010;

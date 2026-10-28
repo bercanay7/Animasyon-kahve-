@@ -11,7 +11,8 @@ Girdiler (film klasörüne göre):
     audio/music.wav        audio/score.py çıktısı (yoksa müziksiz miks, uyarıyla)
     audio/sfx_events.json  İSTEĞE BAĞLI efekt listesi; yoksa efektsiz miks. Biçim:
                            [{"t": sn, "name": ad, "g": dB, "pan": -1..1, "len": sn, "loop": bool, "at": "peak", ...}]
-                           ad SYNTH içindeyse burada sentezlenir, değilse audio/sfx/<ad>.(wav|mp3|flac|ogg) okunur.
+                           ad SYNTH içindeyse (tools/sfx_lib.py'deki EXTRA dahil) burada sentezlenir,
+                           değilse audio/sfx/<ad>.(wav|mp3|flac|ogg) okunur. Döngü: "loop": true + "len".
 """
 import json, sys, os, re, zlib
 import numpy as np, soundfile as sf, librosa, pyloudnorm as pyln
@@ -226,7 +227,17 @@ SYNTH = dict(whoosh=s_whoosh, boom=s_boom, knock=s_knock, thump=s_thump, chime=s
 LOOP_SYNTH = {'ticks', 'room'}
 # yankı gönderimi (dB), ad başına; listede olmayan ad kuru kalır
 SEND = dict(chime=-6, shimmer=-6, boom=-10, thunder=-12, sting=-8, clink=-8, crack=-6, knock=-12, thump=-16, door=-12, riser=-10,
-            whoosh=-14, thud=-14, page=-18, bell=-8, gunfire=-12, cannon=-10, crowd=-14, cheer=-12)
+            whoosh=-14, thud=-14, page=-18, bell=-8, gunfire=-12, cannon=-10, crowd=-14, cheer=-12, whistle=-12)
+
+# Filmin ek sentez efektleri (tools/sfx_lib.py: sea, wind, crowd, cheer, typewriter, carriage, telegraph, whistle, cannon,
+# bell, press, chalk, steps). Varsa SYNTH'e eklenir; olay başına tohum sfx_lib.set_rng() ile ona da geçer.
+try:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import sfx_lib
+    SYNTH.update(sfx_lib.EXTRA)
+    LOOP_SYNTH |= set(sfx_lib.EXTRA_LOOP)
+except ImportError:
+    sfx_lib = None
 
 CLIPS = {}
 def clip(name):
@@ -281,10 +292,12 @@ def build_sfx(events):
         name = e['name']; g = db(e.get('g', 0)); rate = e.get('rate', 1)
         # her olayın kendi rastgele tohumu: bir işaret değişince diğer sentez sesleri değişmez
         rng = np.random.default_rng(zlib.crc32(f"{name}@{round(e['t'] * 1000)}".encode()))
+        if sfx_lib is not None:
+            sfx_lib.set_rng(rng)
         if e.get('loop'):
             n = int(e['len'] * SR)
             if name in LOOP_SYNTH:
-                L = SYNTH[name](len=e['len'] + .1); R = SYNTH[name](len=e['len'] + .1) if name == 'room' else L
+                L = SYNTH[name](len=e['len'] + .1); R = SYNTH[name](len=e['len'] + .1) if name != 'ticks' else L  # ikinci çağrı: ayrışık sağ kanal
                 L, R = L[:n], R[:n]
             else:
                 y = resample_rate(clip(name), rate); off = int(e.get('off', 0) * SR)
