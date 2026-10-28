@@ -7,7 +7,7 @@
 
 ## Açıklama
 
-Otuz yıl önce hepsi öğrenciydi: bir sultanın okullarında.
+Otuz yıl önce çoğu öğrenciydi: bir gün karşısına dikilecekleri bir sultanın okullarında.
 28 Ekim 1923 gecesi Çankaya'da bir sofra… ve ertesi gün ilan edilen Cumhuriyet. O sofradakiler kimdi, nereden gelmişlerdi? Bu videoda Cumhuriyet'i kuran kuşağın nasıl yetiştiğini anlatıyoruz:
 - Abdülhamid döneminde imparatorluğa yayılan okullar,
 - Selanik'in kozmopolit limanı ve yasak kitaplar,
@@ -19,10 +19,10 @@ Bölümler
 0:00 Açılış: Çankaya, 28 Ekim 1923
 0:33 I. Sultanın okulları
 1:34 II. Selanik ve yasak kitaplar
-2:42 III. Meşrutiyet: 1908
+2:43 III. Meşrutiyet: 1908
 3:19 IV. Ateşte dövülen kuşak
 4:22 V. Anadolu
-5:10 VI. Cumhuriyet: 29 Ekim 1923
+5:11 VI. Cumhuriyet: 29 Ekim 1923
 
 Sizin hayatınızda iz bırakan öğretmen kimdi? Adını yorumlara yazın.
 
@@ -47,9 +47,9 @@ Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin 103. yıl
 #29Ekim #CumhuriyetBayramı #Atatürk
 
 ## Etiketler
-29 Ekim, Cumhuriyet Bayramı, Cumhuriyet'in ilanı, 29 Ekim 1923, Atatürk, Mustafa Kemal, İsmet İnönü, Fevzi Çakmak, Kâzım Karabekir, Ali Fuat Cebesoy, Rauf Orbay, Halide Edib, Abdülhamid, Abdülhamid eğitim, Harbiye, Selanik, Meşrutiyet, 1908, Kurtuluş Savaşı, Sakarya, Çanakkale, Osmanlı tarihi, Türk tarihi, tarih belgeseli, animasyon, Zaman Kuryesi
+29 Ekim, Cumhuriyet Bayramı, Cumhuriyet'in ilanı, 29 Ekim 1923, Atatürk, Mustafa Kemal, İsmet İnönü, Fevzi Çakmak, Kâzım Karabekir, Ali Fuat Cebesoy, Rauf Orbay, Halide Edib, Abdülhamid, Abdülhamid eğitim, Harbiye, Selanik, Meşrutiyet, 1908, Kurtuluş Savaşı, Sakarya, Çanakkale, Osmanlı tarihi, Türk tarihi, tarih belgeseli, animasyon, kurucu kadro, Cumhuriyet'i kuranlar, Zaman Kuryesi
 
 ## Diğer
 - Kategori: Eğitim.
 - Dil: Türkçe; altyazı dosyası `cumhuriyet.tr.srt`.
-- Süre: 6:18. Bitiş ekranı son 12 saniyede (6:06–6:18): sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve ok var; video öğesi etiketin altına (üst kenar ≈ y 260, ortası x 1420), "Abone ol" öğesi ortası ≈ (1420, 870). Yerleşim `yayin.md`'de.
+- Süre: 6:18. Bitiş ekranı 6:06–6:18: sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve ok var. Video öğesinin üst kenarı ≥ %28 (1920×1080'de y 300), ortası x %74 (1420); "Abone ol" öğesinin ortası ≈ (%74, %77) (1420, 830), alt kenarı ≤ %87. Yerleşim `yayin.md`'de.

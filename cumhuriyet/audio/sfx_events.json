@@ -15,41 +15,41 @@
   "t": 5.94,
   "anchor": "Wd('A01', 'akşam') +0.00",
   "name": "tick",
-  "g": -20,
+  "g": -13,
   "pan": -0.4,
-  "note": "\"?\" künyeleri (kanca A2)"
+  "note": "\"?\" künyeleri (kanca A2; duyulabilirlik için +7)"
  },
  {
   "t": 6.06,
   "anchor": "Wd('A01', 'akşam') +0.12",
   "name": "tick",
-  "g": -20,
+  "g": -13,
   "pan": -0.2,
-  "note": "\"?\" künyeleri (kanca A2)"
+  "note": "\"?\" künyeleri (kanca A2; duyulabilirlik için +7)"
  },
  {
   "t": 6.18,
   "anchor": "Wd('A01', 'akşam') +0.24",
   "name": "tick",
-  "g": -20,
+  "g": -13,
   "pan": 0.0,
-  "note": "\"?\" künyeleri (kanca A2)"
+  "note": "\"?\" künyeleri (kanca A2; duyulabilirlik için +7)"
  },
  {
   "t": 6.3,
   "anchor": "Wd('A01', 'akşam') +0.36",
   "name": "tick",
-  "g": -20,
+  "g": -13,
   "pan": 0.20000000000000007,
-  "note": "\"?\" künyeleri (kanca A2)"
+  "note": "\"?\" künyeleri (kanca A2; duyulabilirlik için +7)"
  },
  {
   "t": 6.42,
   "anchor": "Wd('A01', 'akşam') +0.48",
   "name": "tick",
-  "g": -20,
+  "g": -13,
   "pan": 0.4,
-  "note": "\"?\" künyeleri (kanca A2)"
+  "note": "\"?\" künyeleri (kanca A2; duyulabilirlik için +7)"
  },
  {
   "t": 6.99,
@@ -71,7 +71,7 @@
   "t": 17.29,
   "anchor": "Wd('A04', 'kırk') +0.00",
   "name": "thump",
-  "g": -16,
+  "g": -13,
   "rate": 1.4,
   "len": 0.3,
   "pan": -0.4,
@@ -81,7 +81,7 @@
   "t": 17.46,
   "anchor": "Wd('A04', 'kırk') +0.17",
   "name": "thump",
-  "g": -16,
+  "g": -13,
   "rate": 1.4,
   "len": 0.3,
   "pan": -0.2,
@@ -91,7 +91,7 @@
   "t": 17.63,
   "anchor": "Wd('A04', 'kırk') +0.34",
   "name": "thump",
-  "g": -16,
+  "g": -13,
   "rate": 1.4,
   "len": 0.3,
   "pan": 0.0,
@@ -101,7 +101,7 @@
   "t": 17.8,
   "anchor": "Wd('A04', 'kırk') +0.51",
   "name": "thump",
-  "g": -16,
+  "g": -13,
   "rate": 1.4,
   "len": 0.3,
   "pan": 0.20000000000000007,
@@ -111,11 +111,56 @@
   "t": 17.97,
   "anchor": "Wd('A04', 'kırk') +0.68",
   "name": "thump",
-  "g": -16,
+  "g": -13,
   "rate": 1.4,
   "len": 0.3,
   "pan": 0.4,
   "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 17.29,
+  "anchor": "Wd('A04', 'kırk') +0.00",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "pan": -0.4,
+  "note": "levhanın tak kenarı (4 kHz bölgesi: konuşmayı örtmeden duyulur)"
+ },
+ {
+  "t": 17.46,
+  "anchor": "Wd('A04', 'kırk') +0.17",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "pan": -0.2,
+  "note": "levhanın tak kenarı (4 kHz bölgesi: konuşmayı örtmeden duyulur)"
+ },
+ {
+  "t": 17.63,
+  "anchor": "Wd('A04', 'kırk') +0.34",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "pan": 0.0,
+  "note": "levhanın tak kenarı (4 kHz bölgesi: konuşmayı örtmeden duyulur)"
+ },
+ {
+  "t": 17.8,
+  "anchor": "Wd('A04', 'kırk') +0.51",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "pan": 0.20000000000000007,
+  "note": "levhanın tak kenarı (4 kHz bölgesi: konuşmayı örtmeden duyulur)"
+ },
+ {
+  "t": 17.97,
+  "anchor": "Wd('A04', 'kırk') +0.68",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "pan": 0.4,
+  "note": "levhanın tak kenarı (4 kHz bölgesi: konuşmayı örtmeden duyulur)"
  },
  {
   "t": 18.3,
@@ -202,41 +247,41 @@
   "t": 19.31,
   "anchor": "Wd('A04', 'önce') +0.05",
   "name": "tick",
-  "g": -18,
+  "g": -10,
   "pan": -0.4,
-  "note": "1893 yaşları (kanca A2)"
+  "note": "1893 yaşları (kanca A2; +8)"
  },
  {
   "t": 19.46,
   "anchor": "Wd('A04', 'önce') +0.20",
   "name": "tick",
-  "g": -18,
+  "g": -10,
   "pan": -0.2,
-  "note": "1893 yaşları (kanca A2)"
+  "note": "1893 yaşları (kanca A2; +8)"
  },
  {
   "t": 19.61,
   "anchor": "Wd('A04', 'önce') +0.35",
   "name": "tick",
-  "g": -18,
+  "g": -10,
   "pan": 0.0,
-  "note": "1893 yaşları (kanca A2)"
+  "note": "1893 yaşları (kanca A2; +8)"
  },
  {
   "t": 19.76,
   "anchor": "Wd('A04', 'önce') +0.50",
   "name": "tick",
-  "g": -18,
+  "g": -10,
   "pan": 0.20000000000000007,
-  "note": "1893 yaşları (kanca A2)"
+  "note": "1893 yaşları (kanca A2; +8)"
  },
  {
   "t": 19.91,
   "anchor": "Wd('A04', 'önce') +0.65",
   "name": "tick",
-  "g": -18,
+  "g": -10,
   "pan": 0.4,
-  "note": "1893 yaşları (kanca A2)"
+  "note": "1893 yaşları (kanca A2; +8)"
  },
  {
   "t": 23.24,
@@ -258,7 +303,7 @@
   "t": 30.24,
   "anchor": "Wd('A05', 'bir', 1) +0.00",
   "name": "thump",
-  "g": -29,
+  "g": -21,
   "rate": 1.2,
   "len": 0.3,
   "pan": -0.3,
@@ -268,7 +313,7 @@
   "t": 30.41,
   "anchor": "Wd('A05', 'bir', 1) +0.17",
   "name": "thump",
-  "g": -29,
+  "g": -21,
   "rate": 1.2,
   "len": 0.3,
   "pan": 0.0,
@@ -278,7 +323,7 @@
   "t": 30.58,
   "anchor": "Wd('A05', 'bir', 1) +0.34",
   "name": "thump",
-  "g": -29,
+  "g": -21,
   "rate": 1.2,
   "len": 0.3,
   "pan": 0.3,
@@ -297,26 +342,35 @@
   "t": 30.52,
   "anchor": "Wd('A05', 'kuşağın') +0.16",
   "name": "pen",
-  "g": -24,
+  "g": -16,
   "len": 0.5,
   "pan": 0.2,
-  "note": "başlık altı kırmızı çizgi"
+  "note": "başlık altı kırmızı çizgi (+8)"
  },
  {
   "t": 33.92,
   "anchor": "S('B01') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -12,
+  "g": -7,
   "note": "bölüm kartı I: merdane boşlukta, tak görüntüdeki baskıyla"
+ },
+ {
+  "t": 33.92,
+  "anchor": "S('B01') +0.00",
+  "name": "tick",
+  "g": -16,
+  "rate": 0.8,
+  "note": "baskının tak kenarı"
  },
  {
   "t": 42.38,
   "anchor": "Wd('B01', 'etti') +0.02",
-  "name": "thud",
-  "g": -22,
+  "name": "thump",
+  "g": -20,
+  "len": 0.35,
   "pan": -0.2,
-  "note": "\"tatil etti\": Meclis kapısı zincir/mühür"
+  "note": "\"tatil etti\": Meclis kapısına mühür basılır"
  },
  {
   "t": 56.637,
@@ -324,17 +378,33 @@
   "name": "press",
   "at": "peak",
   "fi": 0.45,
-  "g": -9,
+  "g": -6,
   "note": "\"600+\" damgası (kanca B4)"
+ },
+ {
+  "t": 56.637,
+  "anchor": "Wd('B03', 'altı') +0.00",
+  "name": "tick",
+  "g": -14,
+  "rate": 0.8,
+  "note": "damganın tak kenarı"
  },
  {
   "t": 58.377,
   "anchor": "Wd('B03', 'yüzü', 1) +0.00",
   "name": "press",
   "at": "peak",
-  "fi": 0.45,
-  "g": -9,
-  "note": "\"100+\" damgası (kanca B4)"
+  "fi": 0.6,
+  "g": -13,
+  "note": "\"100+\" damgası (kanca B4); \"yüzü\" sözcüğü örtülmesin diye alçak gövde"
+ },
+ {
+  "t": 58.377,
+  "anchor": "Wd('B03', 'yüzü', 1) +0.00",
+  "name": "tick",
+  "g": -14,
+  "rate": 0.8,
+  "note": "damganın tak kenarı"
  },
  {
   "t": 79.845,
@@ -417,30 +487,58 @@
   "anchor": "S('D01') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -12,
+  "g": -9,
   "note": "bölüm kartı III"
+ },
+ {
+  "t": 163.62,
+  "anchor": "S('D01') +0.00",
+  "name": "tick",
+  "g": -12,
+  "rate": 0.8,
+  "note": "baskının tak kenarı"
  },
  {
   "t": 168.51,
   "anchor": "Wd('D01', 'değişim') +0.03",
-  "name": "thud",
+  "name": "thump",
   "g": -19,
+  "len": 0.35,
   "pan": -0.3,
   "note": "\"DEĞİŞİM\" damgası"
  },
  {
+  "t": 168.51,
+  "anchor": "Wd('D01', 'değişim') +0.03",
+  "name": "tick",
+  "g": -17,
+  "rate": 0.8,
+  "pan": -0.3,
+  "note": "damganın tak kenarı"
+ },
+ {
   "t": 169.59,
   "anchor": "Wd('D01', 'çöküş') +0.03",
-  "name": "thud",
+  "name": "thump",
   "g": -17,
+  "len": 0.35,
   "pan": 0.3,
   "note": "\"ÇÖKÜŞ\" damgası"
+ },
+ {
+  "t": 169.59,
+  "anchor": "Wd('D01', 'çöküş') +0.03",
+  "name": "tick",
+  "g": -15,
+  "rate": 0.8,
+  "pan": 0.3,
+  "note": "damganın tak kenarı"
  },
  {
   "t": 179.505,
   "anchor": "Se('D02') +0.60",
   "name": "train",
-  "g": -13,
+  "g": -15,
   "len": 4.8,
   "fi": 0.9,
   "fo": 1.2,
@@ -478,18 +576,10 @@
   "t": 246.365,
   "anchor": "Wd('E05', 'komutana') +0.00",
   "name": "clink",
-  "g": -27,
+  "g": -24,
   "rate": 0.8,
   "pan": 0.15,
   "note": "şarapnel cep saatine çarpar (yönetmenlik)"
- },
- {
-  "t": 246.365,
-  "anchor": "Wd('E05', 'komutana') +0.00",
-  "name": "thud",
-  "g": -27,
-  "pan": 0.15,
-  "note": "şarapnel darbesinin gövdesi"
  },
  {
   "t": 254.585,
@@ -507,7 +597,7 @@
   "t": 261.745,
   "anchor": "S('F01') -1.05",
   "name": "whistle",
-  "g": -17,
+  "g": -13,
   "pan": 0.3,
   "len": 1.5,
   "rate": 1.1225,
@@ -560,18 +650,38 @@
  {
   "t": 288.975,
   "anchor": "Wd('F04', 'orduya') +0.03",
-  "name": "thud",
+  "name": "thump",
   "g": -21,
+  "len": 0.35,
   "pan": 0.3,
   "note": "\"ONBAŞI\" damgası"
  },
  {
+  "t": 288.975,
+  "anchor": "Wd('F04', 'orduya') +0.03",
+  "name": "tick",
+  "g": -17,
+  "rate": 0.8,
+  "pan": 0.3,
+  "note": "damganın tak kenarı"
+ },
+ {
   "t": 289.775,
   "anchor": "Wd('F04', 'çavuşluğa') +0.03",
-  "name": "thud",
+  "name": "thump",
   "g": -19,
+  "len": 0.35,
   "pan": 0.3,
   "note": "\"ÇAVUŞ\" damgası"
+ },
+ {
+  "t": 289.775,
+  "anchor": "Wd('F04', 'çavuşluğa') +0.03",
+  "name": "tick",
+  "g": -15,
+  "rate": 0.8,
+  "pan": 0.3,
+  "note": "damganın tak kenarı"
  },
  {
   "t": 304.25,
@@ -624,9 +734,17 @@
   "anchor": "Wd('G03', 'aynı') +0.00",
   "name": "press",
   "at": "peak",
-  "fi": 0.45,
-  "g": -11,
+  "fi": 0.6,
+  "g": -10,
   "note": "\"AYNI YERDEN\" (kanca B4)"
+ },
+ {
+  "t": 338.415,
+  "anchor": "Wd('G03', 'aynı') +0.00",
+  "name": "tick",
+  "g": -14,
+  "rate": 0.8,
+  "note": "damganın tak kenarı"
  },
  {
   "t": 350.485,
