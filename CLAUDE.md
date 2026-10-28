@@ -76,6 +76,7 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
 - **Süreçler:** `pkill -f` kullanma; işlemleri PID ile durdur. Uzun render ve miks işlerini arka planda uzun `timeout` ile çalıştır.
+- **Render önbelleği:** `render.js` parçaları `.parts*/` içinde tutar. Artık kod, zaman çizelgesi ve ayarların özetini (`KEY`) saklıyor ve değişince eski parçaları siliyor. Öncesinde kod değişse bile eski kareleri sessizce yeniden kullanıyordu (29 Ekim önizleme v2'de yaşandı). Şüphede klasörü elle sil.
 - **Disk:** disk payı sınırlı. Ara parçaları (`.parts*/`) iş bitince sil. Büyük mp4'ler depoya girmez (`.gitignore`); kullanıcıya `SendUserFile` ile gönderilir.
 - **Fontlar:** `sisifos/fonts.css` ve `orfeus/fonts.css` (Anton, Alfa Slab One, Lilita One, Bebas Neue, Cinzel …). Türkçe karakterli (latin-ext) woff2 dosyaları depoda.
 - **Git:**

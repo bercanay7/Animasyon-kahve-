@@ -53,6 +53,19 @@ async function master() {
   const total = Math.round(DUR * FPS), CH = Math.round((+process.env.CHUNK || 24) * FPS);
   const dir = path.join(__dirname, process.env.PARTS || (SHORTS ? '.parts_shorts' : '.parts'));
   fs.mkdirSync(dir, { recursive: true });
+  // parça önbelleği yalnız aynı kod, zaman çizelgesi ve ayarlarla geçerli: anahtar değişince eski parçalar silinir
+  // (yoksa kod değiştikten sonra eski kareler sessizce yeniden kullanılır)
+  {
+    const h = require('crypto').createHash('sha1');
+    const files = [PAGE, 'timeline.js', 'fonts.css', ...fs.readdirSync(path.join(__dirname, 'lib')).filter(f => f.endsWith('.js')).sort().map(f => 'lib/' + f), ...(SHORTS ? ['shorts/edl.js'] : [])];
+    for (const f of files) if (fs.existsSync(path.join(__dirname, f))) h.update(f).update(fs.readFileSync(path.join(__dirname, f)));
+    h.update(JSON.stringify([EXTRA, process.env.MB || 4, process.env.CRF || '18', process.env.PRESET || 'slow', process.env.CHUNK || 24]));
+    const key = h.digest('hex'), kf = path.join(dir, 'KEY');
+    if (!fs.existsSync(kf) || fs.readFileSync(kf, 'utf8') !== key) {
+      for (const f of fs.readdirSync(dir)) if (/^c\d+\.mp4$/.test(f)) fs.unlinkSync(path.join(dir, f));
+      fs.writeFileSync(kf, key);
+    }
+  }
   const chunks = [];
   for (let a = 0, k = 0; a < total; a += CH, k++) chunks.push({ k, a, b: Math.min(total, a + CH), out: path.join(dir, `c${String(k).padStart(3, '0')}.mp4`) });
   const only = process.env.ONLY ? process.env.ONLY.split(',').map(Number) : null;
