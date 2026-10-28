@@ -88,6 +88,25 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Her iş parçasından sonra commit + push yap (durdurma kancası commit edilmemiş değişikliğe izin vermiyor).
 - **`navitas-topkapi` deposu:** bu işle ilgisizdir, dokunma.
 
+## 29 Ekim dersleri
+- **Türk bayrağı (2893 sayılı Kanun ve cetveli):** Doğru çizim `cumhuriyet/lib/act6.js` içindeki `a6_flagImg`.
+  - Yıldız merkezi = iç çemberin uçkurluk yanındaki kesişimi + G/3 + G/8. G = 60000'de 49250 olur.
+  - Uçkurluk beyazdır. Hilalin dış konturu uçların arasında kapanmaz.
+  - Kıvrım gölgesi is ile basılır, kırmızıyla değil; yoksa ay ve yıldız pembeleşir.
+  - Dalgalı bayrak 1 px'lik şeritlerle çizilir; daha geniş şerit kenarda basamak bırakır.
+  - Osmanlı bayrağında 1844'ten sonra beş köşeli yıldız vardır.
+  - Bu hata üç kurul turunda gözden kaçtı. **Hassasiyet ve hukuk kurulunu sona bırakma, üslup karesi aşamasında çalıştır.**
+- **Zaman çizelgesini kaydıran ses kararları** (cümle arası boşluk gibi):
+  - Etkiledikleri yerler: tam render, bitiş ekranı saati (`yayin.md`, `youtube.md`), SRT ve Shorts EDL.
+  - Bu yüzden ses kurulunu son render'dan önce bitir.
+  - Yalnız miks değişirse render gerekmez; sesi yeniden bağlamak yeter.
+- **ElevenLabs ses efekti:** `creative_generate_in_flow` süre parametresi almıyor. Kalabalık sesi 1 sn'lik dört çekim olarak geldi.
+  - Belli bir süre gerekiyorsa node'u ekle, `duration_seconds` ver, sonra çalıştır.
+  - Kısa çekimler 0,25–0,4 sn geçişle birleştirilebilir.
+  - Sol ve sağ için iki ayrı sıra kullanılırsa stereo genişlik doğar.
+- **Shorts kırpması:** Üst künye kutusu ile bayrak ya da yüz arasında ≥ 30 px boşluk bırak.
+  - Bunun için klipte `z0` ve `cy0` kullan; kırpmayı üste hizala (y0 = 0).
+
 ## Sonraki videolar için kullanıcının önerileri
 - **Psikolojik anlatım:** Stefan Zweig (*Yıldızın Parladığı Anlar*) ve Dostoyevski gibi karakterin iç dünyasına inen bir anlatım.
   - 29 Ekim videosunda kayıt ve kurgu bittikten sonra önerildiği için uygulanmadı.
