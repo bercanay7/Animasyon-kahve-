@@ -16,9 +16,11 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
   git checkout claude/29-ekim-animation-video-hzh7dw
   git reset --hard origin/claude/29-ekim-animation-video-hzh7dw
   ```
-- **Büyük dosyalar:** iki video depoda yoktur, sohbette dosya olarak gönderildi: `cumhuriyet_master.mp4` ve `cumhuriyet_shorts.mp4`. İkisini de `Animasyon-kahve-/cumhuriyet/` klasörüne koyun.
+- **Büyük dosyalar:** videolar depoda yoktur, sohbette dosya olarak gönderildi: `cumhuriyet_youtube.mp4` (uzun video, 153 MB) ve `cumhuriyet_shorts.mp4`. İkisini de `Animasyon-kahve-/cumhuriyet/` klasörüne koyun.
+  - Ana kopya `cumhuriyet_master.mp4` (413 MB, H.264) uygulamada indirilemeyecek kadar büyük. `cumhuriyet_youtube.mp4` aynı videonun H.265 kopyasıdır: ses birebir aynı, görüntü farkı gözle seçilmez (SSIM 0,985). YouTube'a bu yüklenir.
+  - O da inmezse yedek: `cumhuriyet_youtube_kucuk.mp4` (83 MB; kâğıt dokusu biraz yumuşar).
 - **Kontrol:** `cumhuriyet/` klasöründe şunlar bulunmalı:
-  - `cumhuriyet_master.mp4`
+  - `cumhuriyet_youtube.mp4`
   - `cumhuriyet_shorts.mp4`
   - `kapak.jpg`
   - `kapak_b.jpg`
@@ -28,7 +30,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `cumhuriyet_master.mp4` | Uzun video: 1920×1080, 6:19, Türkçe ses |
+| `cumhuriyet_youtube.mp4` | Uzun video: 1920×1080, 6:19, Türkçe ses (H.265, 153 MB; ana kopya `cumhuriyet_master.mp4` 413 MB) |
 | `kapak.jpg` | Uzun videonun kapağı (1280×720) |
 | `kapak_b.jpg` | İkinci kapak; YouTube'un "Test ve Karşılaştır" özelliği için |
 | `cumhuriyet.tr.srt` | Türkçe altyazı |
@@ -40,7 +42,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 - **Shorts:** 29 Ekim 2026 Perşembe, 19:23. Saat "1923"e göz kırpar. Uzun video o saatte yayında olacağı için Shorts ona bağlanabilir.
 
 ## 1. Uzun video
-1. YouTube Studio'da **Oluştur → Video yükle** deyin ve `cumhuriyet_master.mp4` dosyasını seçin.
+1. YouTube Studio'da **Oluştur → Video yükle** deyin ve `cumhuriyet_youtube.mp4` dosyasını seçin.
 2. **Ayrıntılar** sekmesi:
    - **Başlık:** `Cumhuriyet'i Kuran Kuşak Nasıl Yetişti? | 29 Ekim`
    - **Açıklama:** `youtube.md` içindeki "Açıklama" bölümünün tamamı, bölüm zaman damgalarıyla birlikte. Damgalar YouTube'da bölüm çizgisi olarak görünür; ilk damganın 0:00 olması gerekir, öyle.
