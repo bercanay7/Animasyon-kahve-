@@ -32,7 +32,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 | `kapak.jpg` | Uzun videonun kapağı (1280×720) |
 | `kapak_b.jpg` | İkinci kapak; YouTube'un "Test ve Karşılaştır" özelliği için |
 | `cumhuriyet.tr.srt` | Türkçe altyazı |
-| `cumhuriyet_shorts.mp4` | Shorts: 1080×1920, 43 sn; sonu başına dikişsiz bağlanır (döngü). Mobil uygulamada Shorts kapağı olarak 0:00 karesi seçilebilir (Mustafa Kemal ve "YARIN CUMHURİYET İLAN EDECEĞİZ!") |
+| `cumhuriyet_shorts.mp4` | Shorts: 1080×1920, 45 sn; sonu başına dikişsiz bağlanır (döngü). Mobil uygulamada Shorts kapağı olarak 0:00 karesi seçilebilir (Mustafa Kemal ve "YARIN CUMHURİYET İLAN EDECEĞİZ!") |
 | `youtube.md` | Başlık, açıklama (bölümler ve kaynaklar), etiketler |
 
 ## Zamanlama (Europe/Istanbul)

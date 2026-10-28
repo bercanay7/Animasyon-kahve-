@@ -52,6 +52,7 @@ MUSIC_DIPS = [
     ('F05', 's', -0.1, 'e', 0.0, -2),          # montaj cümlesi boyunca; sondaki umutlu Si natürel kısılmaz
     ('A05', 'w:kuşağın', -0.1, 'e', 0.1, -3),  # tez: "…bir kuşağın hikâyesi" (Fa majör yükselişi sözün altında geri çekilir)
     ('G02', 's', -0.1, 'w:ertesi', 0.3, -3),   # doruğun tutulan tepesi "Cumhurbaşkanı Mustafa Kemal oldu" altında
+    ('G03', 'w:ama', -0.1, 'we:geliyordu', 0.15, -4),  # "Ama hepsi aynı yerden geliyordu" yumuşak söylenir; Re akoru arpejleri altına düşmesin (ses kurulu son tur)
 ]
 MUSIC_LOW_DIPS = [('E05', 'we:çanakkale', 0.6, 'e', 0.0, -4),   # Çanakkale altındaki alçak gürleme sözcükleri bulandırmasın
                   ('G01', 'e', 0.0, 'e', 4.5, -6)]               # doruk: 200 Hz altı -6 dB (sınırlayıcı yükü düşer, telefonda doruk öne çıkar)

@@ -32,7 +32,7 @@ PLAN = [
     dict(id='G01a', f0=c('G01', 's', -.36), f1=w('G01', 'saat', off=-.11), cx0=560, cx1=700),
     dict(id='G01s', f0=w('G01', 'saat', off=-.11), f1=w('G01', 'mecliste', off=-.1), cx0=950, z0=1.0, z1=1.06),
     dict(id='G01m', f0=w('G01', 'mecliste', off=-.1), f1=w('G01', 'yaşasın', off=-.01), cx0=640, cx1=820),
-    dict(id='G01b', f0=w('G01', 'yaşasın', off=-.01), f1=c('G01', 'e', .6), cx0=1380),
+    dict(id='G01b', f0=w('G01', 'yaşasın', off=-.01), f1=c('G02', 's', -.31), cx0=1380),  # doruk boşluğu kesilmez: müzik yatağı filmle aynı akar (ses kurulu son tur)
     dict(id='G02a', f0=c('G02', 's', -.31), f1=w('G02', 'ismet'), cx0=965, z0=1.0, z1=1.05),
     dict(id='G02b', f0=w('G02', 'ismet'), f1=w('G02', 'genelkurmay', off=-.06), cx0=420),
     dict(id='G02c', f0=w('G02', 'genelkurmay', off=-.06), f1=w('G02', 'üçü', off=-.24), cx0=1550),  # "Genelkurmay'da" tek kalmasın (tipografi)

@@ -711,23 +711,34 @@
  {
   "t": 317.585,
   "anchor": "Wd('G01', 'yaşasın') -0.05",
-  "name": "crowd",
-  "g": -27,
-  "loop": true,
+  "name": "cheer_el_b",
+  "g": -30,
+  "off": 0.9,
   "fi": 0.5,
   "fo": 0.4,
-  "note": "galeri coşkusu (yönetmenlik): \"Yaşasın Cumhuriyet!\" altında alçak",
+  "note": "galeri coşkusu (yönetmenlik): \"Yaşasın Cumhuriyet!\" altında alçak; doğal kayıt (sentez uğultu nefes tutma anında açıkta kalıyordu)",
   "len": 1.79,
   "len_anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.40"
  },
  {
   "t": 319.025,
   "anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.05",
-  "name": "cheer",
-  "g": -16,
+  "name": "cheer_el_a",
+  "g": -19.5,
+  "pan": -0.45,
   "len": 2.8,
   "fo": 1.2,
-  "note": "\"Cumhuriyet!\" biter bitmez tezahürat, doruğun altında"
+  "note": "\"Cumhuriyet!\" biter bitmez tezahürat, doruğun altında: ElevenLabs doğal kayıt (4 kısa çekim, 0,25 sn geçişle), sol"
+ },
+ {
+  "t": 319.025,
+  "anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.05",
+  "name": "cheer_el_b",
+  "g": -19.5,
+  "pan": 0.45,
+  "len": 2.8,
+  "fo": 1.2,
+  "note": "aynı dört çekim başka sırayla, sağ (iki ayrışık kaynak: +3 dB, sentezle eş yükseklik)"
  },
  {
   "t": 339.215,
