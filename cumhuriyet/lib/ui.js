@@ -160,3 +160,14 @@ function layerCache(key, draw, w = W, h = H) {
   }
   return LCACHE[key];
 }
+
+// ekran yazıları sahnenin kamera hareketine (film.js drawShot, window.DRIFT) katılmaz: güvenli alanda, ekrana sabit kalır
+function undrift(ctx) { const d = window.DRIFT; ctx.translate(W / 2 + d.px, H / 2 + d.py); ctx.scale(1 / d.z, 1 / d.z); ctx.translate(-W / 2, -H / 2); }
+for (const fn of ['label', 'chapterCard', 'nameTag', 'stamp', 'quote', 'bigStamp', 'tickerTape']) {
+  const f = window[fn];
+  window[fn] = function (ctx, ...a) {
+    if (!window.DRIFT || window.__undrift) return f(ctx, ...a);
+    window.__undrift = true; ctx.save(); undrift(ctx);
+    try { return f(ctx, ...a); } finally { ctx.restore(); window.__undrift = false; }
+  };
+}

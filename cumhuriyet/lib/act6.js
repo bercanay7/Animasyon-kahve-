@@ -546,7 +546,7 @@ function a6_shotBitis() {
   shot(Se('G06') + .5, (ctx, st) => {
     setReg(661);
     paperBG(ctx);
-    const p = ramp(st.lt, 0, st.d, E.sine), c = { x: 960, y: 540 - 8 * p, z: 1.0 + .015 * p };
+    const p = ramp(st.lt, 0, st.d, E.sine), c = { x: 960, y: 540 - 12 * p, z: 1.0 + .025 * p }; // afiş yavaşça yaklaşır; sağ yarı (YouTube öğeleri) yazıları sabit
     const X0 = 70, Y0 = 70, X1 = 890, Y1 = 1010;
     const bg = a0_cache('a6-bitis-bg', g => {
       paperBG(g);
@@ -563,11 +563,14 @@ function a6_shotBitis() {
     ctx.save(); ctx.beginPath(); ctx.rect(X0 + 18, 814, X1 - X0 - 36, 178); ctx.clip();
     a0_seven(ctx, st.t, st.lt, [4.4, 4.2, 4.0, 3.8, 4.0, 4.2, 4.4].map(x => x + .9), { y: 900, s: .66, yb: 994, xs: [160, 266, 372, 480, 588, 694, 800], look: [.3, .25] });
     ctx.restore();
+    a0_dust(ctx, st.t, [X0 + 24, Y0 + 24, X1 - 24, 800], 24, 661); // afişin önünde süzülen toz: bitiş ekranı da hiç durmaz
     ctx.restore();
     const L = st.lt, f = (t0) => ramp(L, t0, t0 + .35);
+    ctx.save(); cam(ctx, c, 1); // afiş yazıları afişle birlikte
     label(ctx, '29 EKİM 1923', 480, 470, FONT.mono(36), { align: 'center', ls: 6, force: true, a: f(.6) });
     { const h = a0_hit(L, 1.2, .16); if (h.a > 0) { ctx.save(); ctx.globalAlpha = h.a; ctx.translate(480, 590); ctx.scale(h.k, h.k); txt(ctx, '103. YIL', 0, 50, FONT.title(150), { align: 'center', ls: 4 }); ctx.restore(); } }
     label(ctx, 'KUTLU OLSUN', 480, 740, FONT.title(64), { align: 'center', ls: 6, force: true, plate: 'red', a: f(2.0) });
+    ctx.restore();
     // sağ yarı: yalnız yönlendirme yazıları; video öğesi (y ≈ 260–) ve abone öğesi (≈ 1420, 870) için alan boş
     label(ctx, 'SIRADAKİ HİKÂYE', 1420, 175 + 20, FONT.title(56), { align: 'center', ls: 3, a: f(2.8) });
     { const u = E.out2(ramp(L, 3.1, 3.6)); if (u > 0) { const y1 = lerp(200, 245, u);

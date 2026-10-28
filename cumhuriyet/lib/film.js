@@ -39,14 +39,19 @@ function drawShot(ctx, i, t) {
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR);
   const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save();
-  // kullanıcı isteği "görüntü hiç durmasın": her çekime çok hafif, sürekli kamera kayması (en çok %3 yakınlaşma,
-  // yön çekime göre değişir, kenar açılmaz). Bitiş ekranı ve sh.still çekimleri sabit kalır.
+  // kullanıcı isteği "görüntü hiç durmasın": her çekimde sürekli, gözle seçilir kamera hareketi. Yakınlaşma ilk saniyelerde
+  // ~%0,8/sn hızla başlar, %5,5'e doğru yavaşlar; kenar payı içinde çekime özgü yönde kayma ve uzun çekimde süren yavaş salınım.
+  // Ekran yazıları (ui.js) bu hareketi geri alır, ekrana sabit kalır. Bitiş ekranı (YouTube öğeleri) ve sh.still sabit.
+  window.DRIFT = null;
   if (!sh.still && !(window.CUES && CUES.G06 && sh.at >= Se('G06') - .5)) {
-    const a = .03 * (1 - Math.exp(-st.lt / 10)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU;
-    const px = Math.cos(ang) * a * W * .4, py = Math.sin(ang) * a * H * .4;
+    const a = .055 * (1 - Math.exp(-st.lt / 7)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU, m = a * .5;
+    const sw = Math.sin(st.lt * .45 + hash(i * 3.3) * TAU) * Math.min(1, st.lt / 3);
+    const px = (Math.cos(ang) * .55 + sw * .3 * -Math.sin(ang)) * m * W, py = (Math.sin(ang) * .55 + sw * .3 * Math.cos(ang)) * m * H;
     ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2 - px, -H / 2 - py);
+    window.DRIFT = { z, px, py };
   }
   sh.draw(ctx, st);
+  window.DRIFT = null;
   ctx.restore();
 }
 function drawFilm(ctx, t) {
