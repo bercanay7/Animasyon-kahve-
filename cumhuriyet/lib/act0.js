@@ -167,7 +167,7 @@ function a0_kosk(g, hx, hy, hs) {
   for (let i = 1; i < 14; i++) inkStroke(g, PL([[-300, -i * 20], [300, -i * 20]], false), 1, { a: .12 });
   for (const sx of [-1, 1]) plate(g, 'navy', PL([[sx * 300, 0], [sx * 268, 0], [sx * 268, -280], [sx * 300, -280]]), { a: .35 }); // köşe taşları
   // sofra pencerelerinin cepheye vuran ışığı (düz, açık ton; yalnız pencerelerin çevresi)
-  g.save(); g.globalAlpha = .85; knock(g, PL([[96, -6], [264, -6], [264, -128], [96, -128]]), '#F7EDD6'); g.restore();
+  knock(g, PL([[90, -4], [270, -4], [270, -132], [90, -132]]), '#FBF2DC');
   inkStroke(g, PL([[-306, -140], [306, -140]], false), 5);
   inkStroke(g, wall, 3.6);
   // pencereler: [x, yAlt, w, h, ışık 0 karanlık / 1 loş / 2 odak]
@@ -177,16 +177,16 @@ function a0_kosk(g, hx, hy, hs) {
   for (const [x, yb, w, h, L] of wins) {
     const pane = PL([[x - w / 2, yb], [x + w / 2, yb], [x + w / 2, yb - h], [x - w / 2, yb - h]]);
     knock(g, pane);
-    if (L === 2) { knock(g, pane, '#FFFCF2'); plate(g, 'gold', pane, { a: .08 }); }
+    if (L === 2) { knock(g, pane, '#FDF6E6'); plate(g, 'gold', pane, { a: .17 }); }
     else if (L === 1) { plate(g, 'gold', pane, { a: .75 }); plate(g, 'ochre', pane, { a: .55 }); }
     else { plate(g, 'navy', pane, { n: 2 }); plate(g, 'ink', pane, { a: .25 }); }
     if (L === 2) {
       g.save(); g.clip(pane);
-      if (x < 200) { a0_prof(g, x - 14, yb - 12, .16, 1, 'kalpak', { seed: 3 }); a0_prof(g, x + 14, yb - 10, .15, 1, 'bare', { seed: 4 }); }
-      else a0_fig(g, { x: x + 8, y: yb - 34, s: .13, dir: -1, who: 'mk', age: 42, gear: null, coat: 'civil', col: 'ink', len: 300, look: [1, .3], blink: false, idle: 0 }, 0);
+      if (x < 200) { a0_prof(g, x - 14, yb - 10, .145, 1, 'kalpak', { seed: 3 }); a0_prof(g, x + 14, yb - 8, .135, 1, 'bare', { seed: 4 }); }
+      else a0_fig(g, { x: x + 8, y: yb - 27, s: .125, dir: -1, who: 'mk', age: 42, gear: null, coat: 'civil', col: 'ink', len: 300, look: [1, .3], blink: false, idle: 0 }, 0);
       g.restore();
     }
-    const mw = L === 2 ? 1.6 : 2.4; inkStroke(g, pane, L === 2 ? 2.4 : 3); inkStroke(g, PL([[x, yb], [x, yb - h]], false), mw); inkStroke(g, PL([[x - w / 2, yb - h * .62], [x + w / 2, yb - h * .62]], false), mw);
+    const mw = L === 2 ? 1.2 : 2.4; inkStroke(g, pane, L === 2 ? 2 : 3); inkStroke(g, PL([[x, yb], [x, yb - h]], false), mw); inkStroke(g, PL([[x - w / 2, yb - h * .62], [x + w / 2, yb - h * .62]], false), mw);
     if (L === 0) for (const sx of [-1, 1]) { const sh = PL([[x + sx * w / 2, yb], [x + sx * (w / 2 + 16), yb], [x + sx * (w / 2 + 16), yb - h], [x + sx * w / 2, yb - h]]); plate(g, 'navy', sh, { n: 2 }); inkStroke(g, sh, 2); }
     inkFill(g, PL([[x - w / 2 - 8, yb], [x + w / 2 + 8, yb], [x + w / 2 + 8, yb + 6], [x - w / 2 - 8, yb + 6]]));
   }

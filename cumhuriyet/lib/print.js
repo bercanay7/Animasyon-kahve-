@@ -43,7 +43,7 @@ function mottle(ctx, name) {
 }
 function plate(ctx, name, p, o = {}) {
   const q = _path(ctx, p), [dx, dy] = regOf(name);
-  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.a ?? 1; ctx.translate(dx, dy);
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha *= (o.a ?? 1); /* kapsayıcının saydamlığı korunur */ ctx.translate(dx, dy);
   ctx.fillStyle = (name === 'ink' || o.flat) ? (P[name] || name) : mottle(ctx, name);
   for (let i = 0; i < (o.n || 1); i++) ctx.fill(q);
   ctx.restore();
@@ -67,7 +67,7 @@ function htPattern(ctx, col, dens, cell, ang) {
 }
 function halftone(ctx, name, p, dens, o = {}) {
   const q = _path(ctx, p), [dx, dy] = regOf(name);
-  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.a ?? 1; ctx.translate(dx, dy);
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha *= (o.a ?? 1); /* kapsayıcının saydamlığı korunur */ ctx.translate(dx, dy);
   ctx.fillStyle = htPattern(ctx, P[name] || name, dens, o.cell || 12, o.ang ?? (name === 'ink' ? 45 : 15));
   ctx.fill(q); ctx.restore();
 }
@@ -94,10 +94,10 @@ function radialHT(ctx, name, cx, cy, r0, r1, d0, d1, o = {}) {
 // mürekkep çizgisi (is) ve kazıma (kâğıt rengi çizgi, koyu kütle içinde)
 function inkStroke(ctx, p, w, o = {}) {
   ctx.save(); ctx.globalCompositeOperation = o.mode || 'source-over'; ctx.strokeStyle = o.col || P.ink; ctx.lineWidth = w;
-  ctx.lineCap = o.cap || 'round'; ctx.lineJoin = 'round'; ctx.globalAlpha = o.a ?? 1;
+  ctx.lineCap = o.cap || 'round'; ctx.lineJoin = 'round'; ctx.globalAlpha *= (o.a ?? 1); /* kapsayıcının saydamlığı korunur */
   ctx.stroke(_path(ctx, p)); ctx.restore();
 }
-function inkFill(ctx, p, o = {}) { ctx.save(); ctx.globalAlpha = o.a ?? 1; ctx.fillStyle = o.col || P.ink; ctx.fill(_path(ctx, p)); ctx.restore(); }
+function inkFill(ctx, p, o = {}) { ctx.save(); ctx.globalAlpha *= (o.a ?? 1); /* kapsayıcının saydamlığı korunur */ ctx.fillStyle = o.col || P.ink; ctx.fill(_path(ctx, p)); ctx.restore(); }
 function cut(ctx, p, w, o = {}) { inkStroke(ctx, p, w, { col: o.col || P.paper, ...o }); }
 
 // ——— kırık kenar: nokta listesine sabit tohumlu gürültü ———
@@ -193,7 +193,7 @@ function txt(ctx, s, x, y, font, o = {}) {
   if (o.ws) ctx.wordSpacing = o.ws;
   let dx = 0, dy = 0;
   if (o.plate) { [dx, dy] = regOf(o.plate); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P[o.plate]; }
-  else { ctx.fillStyle = o.col || P.ink; ctx.globalAlpha = o.a ?? 1; }
+  else { ctx.fillStyle = o.col || P.ink; ctx.globalAlpha *= (o.a ?? 1); /* kapsayıcının saydamlığı korunur */ }
   if (!TXT_GLYPH.test(s)) { ctx.fillText(s, x + dx, y + dy); ctx.restore(); return; }
   // parçala: düz metin + çizilen işaretler; hizalama toplam genişliğe göre
   const em = parseFloat((/(\d+(?:\.\d+)?)px/.exec(font) || [0, 40])[1]);

@@ -304,7 +304,7 @@ function a6_shotCatlak() {
       if (crack <= 0) { ctx.beginPath(); ctx.rect(-60, -60, W + 120, H + 120); ctx.clip(); }
       paperBG(ctx); a0_band(ctx, B0, B1, 'ochre', .5);
       ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, W + 80, B1 - B0 - 4); ctx.clip();
-      for (const i of (crack > 0 ? hv.idx : [0, 1, 2, 3, 4, 5])) a0_fig(ctx, { ...A6_SIX[i], x: A6_X6[i], y: 412, s: 1.26, dir: -1, w: .96, len: (B1 - 412) / 1.26 + 10, look: [.3, .25] }, st.t);
+      for (const i of [0, 1, 2, 3, 4, 5]) a0_fig(ctx, { ...A6_SIX[i], x: A6_X6[i], y: 412, s: 1.26, dir: -1, w: .96, len: (B1 - 412) / 1.26 + 10, look: [.3, .25] }, st.t);
       ctx.restore();
       // adlar: ayrılan üçü, söylendikleri anda
       for (const i of (crack > 0 ? hv.idx : [0, 1, 2])) if (A6_SIX[i].lab) { const tl = a0_W('G03', A6_SIX[i].w) - T0; label(ctx, A6_SIX[i].lab, A6_X6[i], 812, FONT.mono(34), { align: 'center', ls: 4, a: ramp(st.lt, tl, tl + .3) }); }
@@ -351,10 +351,11 @@ function a6_shotCatlak() {
     a0_layer(ctx, bg, c, .8);
     ctx.save(); cam(ctx, c, 1);
     ctx.save(); ctx.beginPath(); ctx.rect(-40, 152, W + 80, 586); ctx.clip();
-    const kab = [{ who: 'anon', id: { mus: 'mk', seed: 31 } }, { who: 'ismet' }, { who: 'mk' }, { who: 'karabekir' }, { who: 'alifuat' }];
+    // Arıburnu, 25 Nisan 1915: Fevzi 39, İsmet 30, Mustafa Kemal 33, Karabekir 32, Ali Fuat 32
+    const kab = [{ who: 'fevzi', age: 39 }, { who: 'ismet', age: 30 }, { who: 'mk', age: 33 }, { who: 'karabekir', age: 32 }, { who: 'alifuat', age: 32 }];
     // süngü uçları (başların arkasında)
     for (let i = 0; i < 5; i++) { const x = A0_XS[i] + 90; inkStroke(ctx, PL([[x, 640], [x + 30, 240]], false), 6); inkFill(ctx, PL([[x + 27, 250], [x + 33, 250], [x + 34, 190]])); }
-    kab.forEach((f, i) => a0_fig(ctx, { ...f, x: A0_XS[i], y: 430, s: 1.26, dir: -1, w: .96, len: 260, age: 34, gear: 'kabalak', coat: 'setre', col: 'khaki', look: [.3, .25], seed: 90 + i }, st.t));
+    kab.forEach((f, i) => a0_fig(ctx, { x: A0_XS[i], y: 430, s: 1.26, dir: -1, w: .96, len: 260, ...f, gear: 'kabalak', coat: 'setre', col: 'khaki', look: [.3, .25], seed: 90 + i }, st.t));
     // ön siper: kum torbaları
     const r = rng(5);
     for (let row = 0; row < 3; row++) for (let i = -1; i < 14; i++) {
@@ -364,7 +365,7 @@ function a6_shotCatlak() {
     }
     ctx.restore();
     ctx.restore();
-    [31, 30, 34, 33, 32].forEach((a, i) => a0_age(ctx, A0_XS[i], 862, a, 'yaşında', st.lt + .3 - Math.abs(i - 2) * .06));
+    [39, 30, 33, 32, 32].forEach((a, i) => a0_age(ctx, A0_XS[i], 862, a, 'yaşında', st.lt + .3 - Math.abs(i - 2) * .06));
     label(ctx, '1915', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
 }

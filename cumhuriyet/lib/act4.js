@@ -143,29 +143,46 @@ function a4_palm(ctx, x, y, s, seed, sw = 0, o = {}) {
 // —— yerel gönüllü: açık yün cübbe (barakan, kâğıt + okra gölge, is kontur), sarık, tüfek. Birim: boy ≈ 100
 //    k: 0 tüfek yanda, 1 omuzda, 2 fişeklik çapraz. Yüz özelliksiz (anonim, geniş plan)
 function a4_local(ctx, x, y, s, k = 0, o = {}) {
-  const dir = o.dir || 1, lw = px => px / s;
-  ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s);
-  // tüfek (yanda ise gövdenin arkasında başlar)
+  // o: {dir, tone (barakan rengi), agal (siyah ağal + başörtüsü yerine kefiye), beard, h (boy çarpanı), sit (bağdaş kurmuş)}
+  const dir = o.dir || 1, hk = o.h || 1, lw = px => px / s, tone = o.tone || '#E9DFC8';
+  ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s * hk);
+  const sit = !!o.sit, dy = sit ? 38 : 0; // oturan figürde gövde aşağı iner
+  ctx.translate(0, dy);
   const rifle = () => {
+    if (sit) { inkStroke(ctx, PL([[-30, -40], [34, -50]], false), 3.2, { cap: 'butt' }); inkStroke(ctx, PL([[-30, -40], [-20, -42]], false), 5.4, { cap: 'butt' }); return; } // kucakta
     if (k === 1) { inkStroke(ctx, PL([[10, -48], [-10, -118]], false), 3.4, { cap: 'butt' }); inkStroke(ctx, PL([[10.6, -48], [7, -40]], false), 5, { cap: 'butt' }); }
-    else { inkStroke(ctx, PL([[16, -2], [18, -112]], false), 3.2, { cap: 'butt' }); inkStroke(ctx, PL([[16.4, -2], [16, -18]], false), 5.4, { cap: 'butt' }); }
+    else { inkStroke(ctx, PL([[16, -2 - dy], [18, -112]], false), 3.2, { cap: 'butt' }); inkStroke(ctx, PL([[16.4, -2 - dy], [16, -18 - dy]], false), 5.4, { cap: 'butt' }); }
   };
-  if (k !== 1) rifle();
-  // ayaklar
-  inkFill(ctx, PL([[-8, -4], [-2, -4], [-1, 0], [-11, 0]])); inkFill(ctx, PL([[4, -4], [10, -4], [13, 0], [4, 0]]));
-  const robe = SP([[-9, -80], [-2, -83], [8, -80], [12, -60], [15, -30], [17, -4], [6, -2], [-6, -2], [-17, -4], [-15, -36], [-12, -62]], true, .7);
-  knock(ctx, robe); plate(ctx, 'ochre', robe, { a: .28 });
-  plate(ctx, 'khaki', SP([[-9, -80], [-12, -62], [-15, -36], [-17, -4], [-6, -2], [-4, -40], [-3, -78]], true, .7), { a: .55 }); // gölge yanı
+  if (k !== 1 && !sit) rifle();
+  let robe;
+  if (sit) {
+    // bağdaş: geniş, alçak etek; dizler iki yana
+    robe = SP([[-9, -80], [-2, -83], [8, -80], [12, -62], [14, -46], [30, -44], [38, -38], [30, -34], [0, -36], [-30, -34], [-38, -38], [-30, -44], [-14, -46], [-12, -62]], true, .7);
+  } else {
+    inkFill(ctx, PL([[-8, -4], [-2, -4], [-1, 0], [-11, 0]])); inkFill(ctx, PL([[4, -4], [10, -4], [13, 0], [4, 0]]));
+    robe = SP([[-9, -80], [-2, -83], [8, -80], [12, -60], [15, -30], [17, -4], [6, -2], [-6, -2], [-17, -4], [-15, -36], [-12, -62]], true, .7);
+  }
+  knock(ctx, robe, tone);
+  plate(ctx, 'khaki', sit ? SP([[-9, -80], [-12, -62], [-14, -46], [-30, -44], [-38, -38], [-30, -34], [-4, -36], [-3, -78]], true, .7) : SP([[-9, -80], [-12, -62], [-15, -36], [-17, -4], [-6, -2], [-4, -40], [-3, -78]], true, .7), { a: .5 }); // gölge yanı
   inkStroke(ctx, robe, lw(2.4));
-  for (const q of [[[-2, -76], [-4, -44], [-6, -8]], [[6, -74], [9, -40], [10, -8]]]) inkStroke(ctx, SP(q, false), lw(1.3), { a: .55 });
+  for (const q of sit ? [[[-2, -76], [-4, -50]], [[6, -74], [8, -50]], [[-26, -40], [0, -38], [26, -40]]] : [[[-2, -76], [-4, -44], [-6, -8]], [[6, -74], [9, -40], [10, -8]]]) inkStroke(ctx, SP(q, false), lw(1.3), { a: .55 });
   if (k === 2) { inkStroke(ctx, PL([[-8, -78], [10, -50]], false), lw(5)); for (let i = 0; i < 6; i++) cut(ctx, PL([[-6 + i * 3, -74 + i * 4.6], [-4 + i * 3, -76 + i * 4.6]], false), lw(1.2), { a: .8 }); }
-  // yüz (özelliksiz, gölgede) + sarık + arkaya sarkan uç
+  // yüz (özelliksiz, gölgede)
   const face = SP([[-4, -84], [-5, -90], [1, -93], [6.4, -91], [8.2, -88.4], [9.8, -87], [8.4, -85.4], [7.6, -83.4], [2, -82]], true, .8);
   knock(ctx, face); plate(ctx, 'ochre', face, { n: 2 }); inkStroke(ctx, face, lw(1.8));
-  const tail = SP([[-8, -92], [-13, -84], [-15, -70], [-11, -70], [-9, -84]], true, .8), tur = SP([[-8.6, -90], [-7, -98], [1, -101], [9, -97.6], [9.6, -92], [1, -93.6]], true, .8);
-  for (const q of [tail, tur]) { knock(ctx, q); plate(ctx, 'ochre', q, { a: .14 }); inkStroke(ctx, q, lw(1.8)); }
-  inkStroke(ctx, SP([[-7.6, -94.6], [1, -97.4], [9.2, -94.4]], false), lw(1.1), { a: .6 });
-  if (k === 1) rifle();
+  if (o.beard) { const bd = SP([[-3, -86], [2, -83.6], [8.4, -85.2], [8, -81], [4, -77.6], [-1, -78.4], [-3.6, -81]], true, .8); inkFill(ctx, bd); cut(ctx, PL([[2, -82], [3, -79]], false), lw(.9), { a: .4 }); }
+  if (o.agal) {
+    // kefiye (barakan tonunda) + iki sıra siyah ağal
+    const kef = SP([[-9, -88], [-8, -98], [1, -101.4], [9.4, -97.6], [9.8, -92], [6, -93.6], [-2, -93], [-6, -88], [-11, -76], [-15, -70], [-12, -84]], true, .8);
+    knock(ctx, kef, tone); plate(ctx, 'khaki', kef, { a: .3 }); inkStroke(ctx, kef, lw(1.8));
+    for (const yy of [-96.4, -94.2]) inkStroke(ctx, SP([[-8.6, yy + 1], [0, yy - 1.4], [9.6, yy + .6]], false), lw(1.7));
+  } else {
+    const tail = SP([[-8, -92], [-13, -84], [-15, -70], [-11, -70], [-9, -84]], true, .8), tur = SP([[-8.6, -90], [-7, -98], [1, -101], [9, -97.6], [9.6, -92], [1, -93.6]], true, .8);
+    for (const q of [tail, tur]) { knock(ctx, q, tone); plate(ctx, 'ochre', q, { a: .12 }); inkStroke(ctx, q, lw(1.8)); }
+    inkStroke(ctx, SP([[-7.6, -94.6], [1, -97.4], [9.2, -94.4]], false), lw(1.1), { a: .6 });
+  }
+  if (sit) rifle();
+  else if (k === 1) rifle();
   else inkFill(ctx, SP([[10, -62], [17.4, -61], [17.6, -56], [10.4, -56.6]], true)); // tüfeği tutan el (gölgede)
   ctx.restore();
 }
@@ -416,6 +433,18 @@ function a4_plaque(ctx, x, y, name, sub, lt, d, o = {}) {
 }
 // etiket kutusunun genişliği (a4_tag ile aynı ölçü)
 function a4_tagW(s, fs = 36) { const c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d'); c.font = FONT.mono(fs); c.letterSpacing = '3px'; return c.measureText(s).width + 28; }
+// iki satırlı küçük etiket: ad üstte, yaş altta (Courier 32, harf aralığı 1); cx merkez, y üst kenar
+function a4_stackTag(ctx, name, sub, cx, y, a = 1, o = {}) {
+  if (NOTEXT || a <= 0) return;
+  const fs = o.size || 32, c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d');
+  c.font = FONT.mono(fs); c.letterSpacing = '1px'; const w = Math.max(c.measureText(name).width, c.measureText(sub).width) + 28, h = fs * 2 + 34, x = cx - w / 2;
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(0, (1 - a) * 8);
+  plate(ctx, 'ink', a4_rect(x + 5, y + 6, x + w + 5, y + h + 6), { a: .3 });
+  const b = PL(rough([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], .7, name.length)); knock(ctx, b, o.bg || P.paperD); inkStroke(ctx, b, 2);
+  txt(ctx, name, cx, y + 12 + fs * .82, FONT.mono(fs), { ls: 1, align: 'center' });
+  txt(ctx, sub, cx, y + 20 + fs * 1.82, FONT.mono(fs), { ls: 1, align: 'center', a: .85 });
+  ctx.restore();
+}
 // kuşak sırası etiketleri: Courier 36, iki sıra (aynı sıradaki komşu kutular arası ≥24 px, sıralar arası 24 px)
 function a4_rowTags(ctx, items, yTop, a) {
   // items: [{s, x (merkez), a}]; sıra 0: yTop, sıra 1: yTop + 74
@@ -549,11 +578,16 @@ function a4_cartouche(g, x, y, w, h, seed) {
 function a4_officer(ctx, o) {
   const b = { x: o.x, y: o.y, s: o.s, dir: o.dir || -1 };
   bust(ctx, { ...b, coat: o.coat || 'setre', col: o.col || 'khaki', w: o.w || .98, seed: o.seed || 3, len: o.len || 300, tilt: o.btilt || 0, turn: o.turn ?? .2, sep: o.sep, back: o.back, arms: o.arms });
-  head3q(ctx, { ...b, who: o.who, gear: o.gear === undefined ? 'kabalak' : o.gear, gearCol: 'ink', light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: o.tilt || 0 });
+  head3q(ctx, { ...b, who: o.who, gear: o.gear === undefined ? 'kabalak' : o.gear, gearCol: o.gearCol || 'ink', light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: o.tilt || 0 });
 }
 
 // ———————————————————————————————— çekimler ————————————————————————————————
 
+const a4_E01_SOL = (() => {
+  const r = rng(1911), out = []; let x = -280;
+  for (let i = 0; i < 15; i++) { const k = [.82, 1.0, 1.16][Math.floor(r() * 3)]; out.push({ x, k, ph: r() }); x += 150 * (.85 + r() * .3); }
+  return out.sort((a, b) => a.k - b.k);
+})();
 // E01 · Renk çöker: 1908 kartpostalının son kalıpları (altın şafak bandı "kuşağın"da, turkuaz tepeler "asıl"da) kalkar;
 // geriye haki, okra ve is kalır. Güneş yarım ton dumanın ardında okra bir disktir (ışın yok, kırmızı yok).
 // "savaş": tepelerde is patlama yıldızı + yarım ton duman, büyük SAVAŞ damgası; ufukta ince kırmızı cephe hattı çizilir.
@@ -637,10 +671,12 @@ function a4_officer(ctx, o) {
     // yürüyen kol (sağa); tozu ayaklarında; pozlar ikişer karede
     ctx.save(); cam(ctx, cm, .8);
     a4_dust(ctx, lt, { box: [-60, 790, W + 60, 836], n: 70, seed: 4, wind: 38, rise: -3, col: 'ochre', a: .6, size: 3.4 });
-    for (let i = 0; i < 14; i++) {
-      const x = -260 + i * 150 + tf * 30 + (i % 3) * 11;
+    // adım fazı rastgele (0–1), aralık ±%15, üç derinlik ölçeği (küçükler biraz geride ve önce çizilir)
+    const SOL = a4_E01_SOL;
+    for (const q of SOL) {
+      const x = q.x + tf * 30 * q.k;
       if (x < -100 || x > W + 100) continue;
-      a4_soldier(ctx, x, a4_yAt(ridge, x) + 4, 1.48, tf * 1.5 + i * .37);
+      a4_soldier(ctx, x, a4_yAt(ridge, x) + 4 - (1.6 - q.k) * 26, 1.48 * q.k, tf * 1.5 * (1 / q.k) + q.ph);
     }
     ctx.restore();
     // —— ön toprak şeridi (en yakın katman)
@@ -798,10 +834,19 @@ function a4_officer(ctx, o) {
     a4_camel(ctx, 170, yd(170) - 4, 1.32, Math.floor(tf * 4) % 2);
     // "halkla": yerel gönüllüler birer birer basılır; "örgütledi": tüfekler omza (poz değişimi)
     const shoul = t > tOr + .1;
-    [[318, 1, 1.62, 1, 1], [420, 0, 1.72, 2, 1], [520, 2, 1.66, 3, 1], [640, 0, 1.76, 4, -1], [1010, 1, 1.6, 5, -1]].forEach(([x, k, sc, sd, dr], i) =>
-      a4_pressIn(ctx, ramp(t, tHa + i * .12, tHa + i * .12 + .35, E.lin), yd(x) - 190, yd(x) + 10, () => a4_local(ctx, x, yd(x), sc, shoul && k !== 2 ? 1 : k, { seed: sd, dir: dr })));
+    // altı gönüllü: üç barakan tonu, ağal/sarık, sakal, boy ±%8, biri bağdaş kurmuş (çadırın önünde)
+    const LOC = [
+      { x: 318, k: 1, h: 1.04, tone: '#D7C3A0', agal: 1, beard: 1, dir: 1 },
+      { x: 420, k: 0, h: .94, tone: '#E9DFC8', agal: 0, beard: 0, dir: 1 },
+      { x: 505, k: 2, h: 1.08, tone: '#B89A74', agal: 1, beard: 1, dir: 1 },
+      { x: 600, k: 0, h: .97, tone: '#D7C3A0', agal: 0, beard: 1, dir: -1 },
+      { x: 1012, k: 1, h: 1.0, tone: '#B89A74', agal: 0, beard: 0, dir: -1 },
+      { x: 700, k: 0, h: .96, tone: '#E9DFC8', agal: 1, beard: 1, dir: 1, sit: 1 },
+    ];
+    LOC.forEach((q, i) =>
+      a4_pressIn(ctx, ramp(t, tHa + i * .1, tHa + i * .1 + .35, E.lin), yd(q.x) - 200, yd(q.x) + 10, () => a4_local(ctx, q.x, yd(q.x), 1.68, shoul && q.k !== 2 && !q.sit ? 1 : q.k, q)));
     // "çöle geçip": subay çöle girer (soldan)
-    const wx = lerp(-80, 760, E.out2(ramp(t, tCo - .6, tHa + .8))) + tf * 8; a4_soldier(ctx, wx, yd(wx), 1.62, tf * 1.4, { rifle: true });
+    const wx = lerp(-80, 800, E.out2(ramp(t, tCo - .6, tHa + .8))) + tf * 8; a4_soldier(ctx, wx, yd(wx), 1.62, tf * 1.4, { rifle: true });
     ctx.restore();
     const fg = a4_L('E02b-fg', g => { const d2 = a4_groundPath(dune2, H + 100); knock(g, d2); plate(g, 'ochre', d2, { a: .9 }); plate(g, 'khaki', d2, { a: .18 }); inkStroke(g, SP(dune2, false, .6), 3.4); const r = rng(9); for (let i = 0; i < 50; i++) { const x = r() * W, y = 870 + r() * 200; inkStroke(g, PL([[x, y], [x + 16 + r() * 26, y - 3]], false), 1.6, { a: .35 }); } }, 90);
     a4_put(ctx, fg, cm, .9);
@@ -889,7 +934,8 @@ function a4_officer(ctx, o) {
     a4_dust(ctx, lt, { box: [600 + wx, 950, 1140 + wx, 1004], n: 22, seed: 71, wind: -40, rise: -8, col: 'ochre', a: .5, size: 3.4 });
     ctx.restore();
     stamp(ctx, 'SELANİK → İSTANBUL · 1912', 114, 112, lt - .15, st.d, { size: 48 });
-    nameTag(ctx, 1860, 884, 'ZÜBEYDE HANIM VE MAKBULE', 'annesi ve kız kardeşi', t - tAn, st.end - tAn, { align: 'right', size: 48, sub: 32, bg: P.paperD });
+    // levha gökteki boş alanda (figürlerin üstüne binmez)
+    nameTag(ctx, 1824, 196, 'ZÜBEYDE HANIM VE MAKBULE', 'annesi ve kız kardeşi', t - tAn, st.end - tAn, { align: 'right', size: 64, sub: 40, bg: P.paperD });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
 
@@ -1074,11 +1120,11 @@ const a4_KUSAK = {
     order.forEach((who, i) => {
       const x = 330 + i * 318, y = 690 + (i % 2) * 6, io = idleOffsets(tf, i * 3 + 1, .6);
       a4_pressIn(ctx, ramp(t, tBu + i * .22, tBu + i * .22 + .45, E.lin), y - 130, H, () =>
-        a4_officer(ctx, { x, y: y + io.breath, s: 1.02, dir: -1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / 1.02, lookAt: look, tilt: io.head * .5, turn: .25, w: 1.02 }));
+        a4_officer(ctx, { x, y: y + io.breath, s: 1.02, dir: -1, who, gear: 'kalpak', gearCol: who === 'fevzi' ? 'grey' : 'ink', age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / 1.02, lookAt: look, tilt: io.head * .5, turn: .25, w: 1.02 }));
     });
     ctx.restore();
-    // ad · yaş etiketleri: Courier 36, iki sıra (y 868–992)
-    a4_rowTags(ctx, order.map((who, i) => ({ s: a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), x: 330 + i * 318, a: E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1)) })), 868);
+    // ad · yaş etiketleri: tek sıra, ad üstte (Courier 32), yaş altta (Courier 32), figürün x'ine ortalı (y 892–992)
+    order.forEach((who, i) => a4_stackTag(ctx, a4_KUSAK.short[who], (Y - a4_KUSAK.born[who]) + ' yaşında', 330 + i * 318, 892, E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1))));
   }, { tr: { type: 'clay', dur: .8 }, post: { stone: .26 } });
 }
 
@@ -1116,7 +1162,7 @@ const a4_KUSAK = {
     ctx.save(); cam(ctx, cm, 1);
     order.forEach(([who, x], i) => {
       const y = 720 + (i % 2) * 8, io = idleOffsets(tf, i * 5 + 2, .6), s = 1.2;
-      a4_officer(ctx, { x, y: y + io.breath, s, dir: 1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / s, lookAt: [1500, 380], tilt: io.head * .5, turn: .25, w: 1.02 });
+      a4_officer(ctx, { x, y: y + io.breath, s, dir: 1, who, gear: 'kalpak', gearCol: 'ink', age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / s, lookAt: [1500, 380], tilt: io.head * .5, turn: .25, w: 1.02 });
     });
     ctx.restore();
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
