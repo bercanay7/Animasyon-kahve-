@@ -68,6 +68,7 @@ window.ready = (async () => {
   const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
   for (const f of ['400 40px "Abril Fatface"', '400 40px "Alfa Slab One"', '400 40px "Courier Prime"', '700 40px "Courier Prime"',
     'italic 600 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"', '400 40px Amiri', '700 40px Amiri']) await document.fonts.load(f, TR);
+  await document.fonts.load('400 40px "GFS Didot"', 'ΚΑΦΕΝΕΙΟΝ ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'); // Selanik'in Rumca tabelaları
   buildPaper();
   if (typeof SHOTS !== 'undefined') SHOTS.sort((a, b) => a.at - b.at); // act dosyaları paralel yazıldı; çekimler zamana göre sıralanır
   if (typeof SHOTS !== 'undefined' && window.CUES) cutRules();

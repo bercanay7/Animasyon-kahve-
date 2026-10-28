@@ -379,26 +379,52 @@ function a4_dust(ctx, t, o) {
   ctx.restore();
 }
 
-// —— küçük kişi levhası: nameTag ile aynı görünüm; genişlik harf aralığını (ls 1) da ölçer, uzun adlar kenara taşmaz ——
+// —— kişi levhası: nameTag görünümü; ad Abril ≥44, alt satır Courier ≥36. Genişlik maxW'yi aşarsa ad son boşluktan,
+//    alt satır " · " ayracından satıra bölünür (metin aynen kalır, yalnız satır kırılır). Döndürür: {w, h}
+function a4_plaqueLayout(name, sub, o = {}) {
+  const fs = Math.max(o.size || 44, 44), ss = Math.max(o.sub || 36, 36), maxW = (o.maxW || 1e9) - 48;
+  const c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d');
+  const mw = (str, font, ls) => { c.font = font; c.letterSpacing = ls + 'px'; return c.measureText(str).width; };
+  const wrap = (str, font, ls, sep) => {
+    if (mw(str, font, ls) <= maxW) return [str];
+    const parts = str.split(sep); if (parts.length < 2) return [str];
+    const out = []; let cur = '';
+    for (const pt of parts) { const tt = cur ? cur + sep + pt : pt; if (cur && mw(tt, font, ls) > maxW) { out.push(sep === ' · ' ? cur : cur); cur = pt; } else cur = tt; }
+    if (cur) out.push(cur); return out;
+  };
+  const nl = wrap(name, FONT.title(fs), 1, ' '), sl = sub ? wrap(sub, FONT.mono(ss), 0, ' · ') : [];
+  const w = Math.max(...nl.map(q => mw(q, FONT.title(fs), 1)), ...sl.map(q => mw(q, FONT.mono(ss), 0))) + 48;
+  const h = 16 + nl.length * fs * 1.04 + sl.length * ss * 1.12 + 22;
+  return { fs, ss, nl, sl, w, h };
+}
 function a4_plaque(ctx, x, y, name, sub, lt, d, o = {}) {
-  if (NOTEXT) return;
-  const a = env(lt, 0, .2, d - .4, d); if (a <= 0) return;
-  const fs = o.size || 28, ss = o.sub || 19;
-  ctx.save(); ctx.font = FONT.title(fs); ctx.letterSpacing = '1px'; const w1 = ctx.measureText(name).width; ctx.font = FONT.mono(ss); ctx.letterSpacing = '0px'; const w2 = ctx.measureText(sub || '').width; ctx.restore();
-  const w = Math.max(w1, w2) + 48, h = fs + ss + 38, sl = (1 - E.out3(ramp(lt, 0, .3))) * 14;
-  ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sl);
+  const L = a4_plaqueLayout(name, sub, o);
+  if (NOTEXT) return L;
+  const a = env(lt, 0, .2, d - .4, d); if (a <= 0) return L;
+  const { fs, ss, nl, sl, w, h } = L, sld = (1 - E.out3(ramp(lt, 0, .3))) * 14;
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sld);
   plate(ctx, 'ink', a4_rect(x + 7, y + 9, x + w + 7, y + h + 9), { a: .35 });
   const box = PL(rough([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], .8, name.length + 3));
   knock(ctx, box, o.bg || P.paperD); inkStroke(ctx, box, 3);
   plate(ctx, 'red', a4_rect(x, y + h - 6, x + w, y + h));
-  txt(ctx, name, x + 24, y + 14 + fs * .8, FONT.title(fs), { ls: 1 });
-  if (sub) txt(ctx, sub, x + 24, y + 22 + fs + ss * .72, FONT.mono(ss));
+  let yy = y + 12;
+  for (const q of nl) { yy += fs * 1.04; txt(ctx, q, x + 24, yy - fs * .2, FONT.title(fs), { ls: 1 }); }
+  yy += 4;
+  for (const q of sl) { yy += ss * 1.12; txt(ctx, q, x + 24, yy - ss * .3, FONT.mono(ss)); }
   ctx.restore();
+  return L;
+}
+// etiket kutusunun genişliği (a4_tag ile aynı ölçü)
+function a4_tagW(s, fs = 36) { const c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d'); c.font = FONT.mono(fs); c.letterSpacing = '3px'; return c.measureText(s).width + 28; }
+// kuşak sırası etiketleri: Courier 36, iki sıra (aynı sıradaki komşu kutular arası ≥24 px, sıralar arası 24 px)
+function a4_rowTags(ctx, items, yTop, a) {
+  // items: [{s, x (merkez), a}]; sıra 0: yTop, sıra 1: yTop + 74
+  items.forEach((it, i) => { const w = a4_tagW(it.s, 36); a4_tag(ctx, it.s, it.x - w / 2, yTop + 38 + (i % 2) * 74, null, null, it.a ?? a, { size: 36 }); });
 }
 // —— izleyici katmanı harita etiketi (Courier, paperD kutu, çizgi) ——
 function a4_tag(ctx, s, x, y, ax, ay, a = 1, o = {}) {
   if (NOTEXT || a <= 0) return;
-  const fs = o.size || 26;
+  const fs = o.size || 36;
   ctx.save(); ctx.font = FONT.mono(fs); ctx.letterSpacing = '3px'; const w = ctx.measureText(s).width; ctx.restore();
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, (1 - a) * 8);
   if (ax != null) { const inX = ax >= x && ax <= x + w + 28, ex = inX ? clamp(ax, x + 12, x + w + 16) : (ax < x ? x : x + w + 28), ey = inX ? (ay < y ? y - fs - 2 : y + 12) : y - fs * .3; inkStroke(ctx, PL([[ax, ay], [ex, ey]], false), 1.8); }
@@ -534,7 +560,7 @@ function a4_officer(ctx, o) {
 // (Kelime anları mutlak zamanla: cutRules çekim başını kaydırabilir.)
 {
   const T0 = S('E01'), tSav = Wd('E01', 'savaş'), tKus = Wd('E01', 'kuşağın'), tAsil = Wd('E01', 'asıl'), tOkul = Wd('E01', 'okulu');
-  const SUN = [1290, 600], HOR = 668, BOOM = [820, 640];
+  const SUN = [1250, 610], HOR = 668, BOOM = [760, 640];
   const hills = a4_ridgePts(-160, W + 160, 632, 24, 3, 16, 1.4);
   const ridge = a4_ridgePts(-200, W + 200, 826, 14, 8, 18, .9);
   const front = a4_ridgePts(-200, W + 200, 1004, 14, 41, 12);
@@ -553,6 +579,8 @@ function a4_officer(ctx, o) {
       plate(g, 'ochre', a4_rect(-200, 352, W + 200, HOR + 4), { a: .16 });
       plate(g, 'ochre', a4_rect(-200, 512, W + 200, HOR + 4), { a: .22 });
       radialHT(g, 'ink', SUN[0], 1500, 1200, 1640, 0, .13, { cell: 12, ang: 45, box: [-160, -140, W + 160, 280] });
+      // güneşin altın yarım ton halesi (gök; r 600)
+      radialHT(g, 'gold', SUN[0], SUN[1], 90, 600, .3, 0, { cell: 12, box: [SUN[0] - 640, SUN[1] - 620, SUN[0] + 640, HOR + 4] });
       g.restore();
     }, 90);
     a4_put(ctx, sky, cm, .25);
@@ -560,11 +588,11 @@ function a4_officer(ctx, o) {
     // kartpostal kalıbı: altın şafak bandı "kuşağın"da kalkar
     ctx.save(); ctx.clip(skyClip); a4_plateOff(ctx, 'gold', a4_rect(-200, 440, W + 200, HOR + 4), a4_lift(t, tKus), { a: .55 }); ctx.restore();
     // güneş: okra disk (ufkun ardında)
-    const sun = new Path2D(); sun.arc(SUN[0], SUN[1], 92, 0, TAU);
-    ctx.save(); ctx.clip(skyClip); knock(ctx, sun, '#EADCBC'); plate(ctx, 'ochre', sun, { a: .95 }); inkStroke(ctx, sun, 2.6, { a: .8 }); ctx.restore();
+    const sun = new Path2D(); sun.arc(SUN[0], SUN[1], 80, 0, TAU);
+    ctx.save(); ctx.clip(skyClip); knock(ctx, sun); plate(ctx, 'gold', sun, { flat: true }); inkStroke(ctx, sun, 2.6, { a: .8 }); ctx.restore();
     ctx.restore();
     // güneşin önünden sürüklenen yarım ton duman (durağan katman, yalnız kayar)
-    const smk0 = a4_L('E01-smk0', g => { a4_smokeCloud(g, SUN[0] - 40, SUN[1] - 30, 200, 3, 'ink', .42); a4_smokeCloud(g, SUN[0] + 220, SUN[1] - 120, 150, 5, 'ink', .34); a4_smokeCloud(g, SUN[0] - 300, SUN[1] - 150, 120, 6, 'ink', .3); }, 120);
+    const smk0 = a4_L('E01-smk1', g => { a4_smokeCloud(g, SUN[0] - 60, SUN[1] - 150, 190, 3, 'ink', .4); a4_smokeCloud(g, SUN[0] + 260, SUN[1] - 110, 140, 5, 'ink', .32); a4_smokeCloud(g, SUN[0] - 330, SUN[1] - 120, 120, 6, 'ink', .3); }, 120);
     ctx.save(); cam(ctx, cm, .3); ctx.translate(lt * 16 - 30, -lt * 4); a4_put(ctx, smk0, null, 1, { mode: 'multiply' }); ctx.restore();
     // —— "savaş": tepelerde patlama (is yıldızı + yarım ton duman)
     if (t >= tSav) {
@@ -574,7 +602,7 @@ function a4_officer(ctx, o) {
       ctx.globalAlpha = clamp(u / .25); a4_put(ctx, smk, null, 1, { mode: 'multiply' }); ctx.restore();
       ctx.save(); cam(ctx, cm, .3);
       a4_burst(ctx, BOOM[0], BOOM[1] - 30, 200, 31, E.outBack(clamp(a4_tf(u) / .2)));
-      if (u > .3) a4_burst(ctx, BOOM[0] - 470, BOOM[1] + 4, 84, 37, E.outBack(clamp((a4_tf(u) - .3) / .16)), { ring: false });
+      if (u > .3) a4_burst(ctx, BOOM[0] - 440, BOOM[1] + 4, 84, 37, E.outBack(clamp((a4_tf(u) - .3) / .16)), { ring: false });
       ctx.restore();
     }
     // —— uzak tepeler: haki taban; turkuaz kartpostal kalıbı "asıl"da kalkar
@@ -624,7 +652,7 @@ function a4_officer(ctx, o) {
     }, 90);
     a4_put(ctx, fg, cm, 1);
     // —— izleyici katmanı: uzun başlıklı künye sol üstte (sağ alttaki kuşak şeridiyle çakışmasın); SAVAŞ künye kalkınca basılır
-    chapterCard(ctx, 'IV', 'ATEŞTE DÖVÜLEN KUŞAK', '1911 · CUMHURİYET’E 12 YIL', lt - .15, tSav - t0 - .35, { y: 64 });
+    chapterCard(ctx, 'IV', 'ATEŞTE DÖVÜLEN KUŞAK', '1911 · CUMHURİYET’E 12 YIL', lt - .15, tSav - t0 - .35);
     bigStamp(ctx, 'SAVAŞ', 600, 250, t - tSav - .06, st.end - tSav + .6, { size: 240, rot: -.035, ls: 10 });
   }, { tr: { type: 'press', dur: .8 }, post: { stone: .28, vig: 1 } });
 }
@@ -695,7 +723,9 @@ function a4_officer(ctx, o) {
     setReg(402);
     paperBG(ctx);
     const lt = st.lt, t = st.t;
-    const cm = { x: lerp(940, 1010, E.sine(st.p)), y: lerp(560, 600, E.sine(st.p)), z: lerp(1.0, 1.065, E.sine(st.p)) };
+    // kamera: Libya kıyısına (Bingazi–Derne) %8 yakınlaşma; nokta ekranda sabit kalır
+    const zf = 1 + .08 * E.io2(st.p), FX = gx(21.2), FY = gy(31.9);
+    const cm = { x: W / 2 + (FX - W / 2) * (1 - 1 / zf), y: H / 2 + (FY - H / 2) * (1 - 1 / zf), z: zf };
     a4_put(ctx, base(), cm, 1);
     ctx.save(); cam(ctx, cm, 1); ctx.translate(CX, CY); ctx.rotate(ROT); ctx.translate(-CX, -CY);
     const tI = Wd('E02', 'italya'), tC = Wd('E02', 'çıktı'), tG = Wd('E02', 'genç'), tGo = Wd('E02', 'gönüllü'), tK = Wd('E02', 'kimi');
@@ -713,13 +743,13 @@ function a4_officer(ctx, o) {
     if (head && rp < 1) { const ring = new Path2D(); ring.arc(head.x, head.y, 13, 0, TAU); knock(ctx, ring, '#F7F0DE'); inkStroke(ctx, ring, 3); const dot = new Path2D(); dot.arc(head.x, head.y, 5, 0, TAU); inkFill(ctx, dot); }
     // etiketler: kelimeyle
     const la = (t0) => E.out2(ramp(t, t0, t0 + .3));
-    a4_tag(ctx, 'İTALYA', gx(15.9), gy(41.3), gx(15.6), gy(40.6), la(tI));
-    a4_tag(ctx, 'TRABLUSGARP', gx(13.0) - 40, gy(31.2), TRA[0], TRA[1] + 10, la(Wd('E02', 'trablusgarpa')));
+    a4_tag(ctx, 'İTALYA', gx(10.4), gy(39.4), gx(14.2), gy(40.9), la(tI));
+    a4_tag(ctx, 'TRABLUSGARP', gx(11.0), gy(30.9), TRA[0], TRA[1] + 10, la(Wd('E02', 'trablusgarpa')));
     a4_tag(ctx, 'İSTANBUL', IST[0] + 30, IST[1] - 34, IST[0] + 10, IST[1] - 8, la(tG));
     a4_tag(ctx, 'MISIR', ALX[0] + 40, ALX[1] + 74, ALX[0] + 6, ALX[1] + 12, la(tGo + .2));
-    a4_tag(ctx, 'DERNE', DER[0] - 190, DER[1] - 60, DER[0] - 10, DER[1] - 8, la(tK - .2));
+    a4_tag(ctx, 'DERNE', DER[0] - 230, DER[1] - 70, DER[0] - 10, DER[1] - 8, la(tK - .2));
     ctx.restore();
-    stamp(ctx, 'TRABLUSGARP · 1911', 132, 1000, lt - .2, st.d, { size: 34 });
+    stamp(ctx, 'TRABLUSGARP · 1911', 114, 112, lt - .2, st.d, { size: 48 });
   }, { tr: { type: 'press', dur: .5 }, post: { stone: .24 } });
 }
 
@@ -792,7 +822,7 @@ function a4_officer(ctx, o) {
       const r = rng(17); for (let i = 0; i < 70; i++) { const x = r() * W, y = 880 + r() * 200; cut(g, PL([[x, y], [x + 14 + r() * 20, y - 2]], false), 1.8, { a: .35 }); } g.restore();
     }, 90);
     a4_put(ctx, crest, cm, 1.08);
-    stamp(ctx, 'DERNE · 1911', 120, 120, lt - .2, st.d, { size: 34 });
+    stamp(ctx, 'DERNE · 1911', 114, 112, lt - .2, st.d, { size: 48 });
     nameTag(ctx, 1860, 860, 'MUSTAFA KEMAL', '30 yaşında', lt - .45, st.d - .2, { align: 'right', size: 56, sub: 38, bg: P.paperD });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
@@ -823,7 +853,7 @@ function a4_officer(ctx, o) {
       for (let i = 0; i < 6; i++) inkStroke(g, SP(a4_ridgePts(-200, W + 200, HOR + 16 + i * i * 4, 2, 60 + i, 8), false), 1.2, { a: .22 + i * .03 });
     }, 140);
     a4_put(ctx, sky, cm, .3);
-    ctx.save(); cam(ctx, cm, .3); a4_tag(ctx, 'İSTANBUL', 1500, 520, 1600, 590, E.out2(ramp(t, tIs, tIs + .3)) * (1 - ramp(t, tMu + 1.3, tMu + 1.6)), { size: 24 }); ctx.restore();
+    ctx.save(); cam(ctx, cm, .3); a4_tag(ctx, 'İSTANBUL', 1440, 500, 1600, 590, E.out2(ramp(t, tIs, tIs + .3)) * (1 - ramp(t, tMu + 1.3, tMu + 1.6)), { size: 36 }); ctx.restore();
     // yol (kağnı izleri) ve kafile
     const rd = a4_L('E03b-road', g => {
       const top = road.map(([x, y]) => [x, y - 20]), bot = road.map(([x, y]) => [x, y + 24]), rp = SP([...top, ...bot.slice().reverse()], true, .6);
@@ -858,7 +888,7 @@ function a4_officer(ctx, o) {
     a4_carsaf(ctx, 800 + wx, 992, 4.3, 1 - ph2, { bundle: 'near', seed: 8 });
     a4_dust(ctx, lt, { box: [600 + wx, 950, 1140 + wx, 1004], n: 22, seed: 71, wind: -40, rise: -8, col: 'ochre', a: .5, size: 3.4 });
     ctx.restore();
-    stamp(ctx, 'SELANİK → İSTANBUL · 1912', 110, 116, lt - .15, st.d, { size: 32 });
+    stamp(ctx, 'SELANİK → İSTANBUL · 1912', 114, 112, lt - .15, st.d, { size: 48 });
     nameTag(ctx, 1860, 884, 'ZÜBEYDE HANIM VE MAKBULE', 'annesi ve kız kardeşi', t - tAn, st.end - tAn, { align: 'right', size: 48, sub: 32, bg: P.paperD });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
@@ -889,7 +919,7 @@ function a4_balkanBase(g) {
   a4_ripples(g, lands, 1, { sea: '#D3C6A8' });
   for (const Lp of lands) { knock(g, Lp, P.paper); plate(g, 'ochre', Lp, { a: .2 }); }
   // Anadolu: Osmanlı toprağı (haki + okra, Rumeli'yle aynı baskı)
-  plate(g, 'khaki', lands[1], { a: .5 }); plate(g, 'ochre', lands[1], { a: .25 });
+  plate(g, 'ochre', lands[1], { a: .72 }); plate(g, 'khaki', lands[1], { a: .12 });
   // dağ taraması
   [[[G([19.9, 42.4]), G([20.4, 41.9]), G([20.6, 41.3])], 16], [[G([21.6, 41.6]), G([22.2, 41.4]), G([22.6, 41.1])], 14], [[G([23.9, 41.75]), G([24.8, 41.62]), G([25.7, 41.66])], 18], [[G([22.6, 42.9]), G([23.6, 42.6]), G([24.6, 42.65]), G([25.6, 42.75])], 18], [[G([21.3, 39.9]), G([21.6, 39.5]), G([21.9, 39.2])], 14], [[G([27.2, 42.0]), G([27.8, 41.9])], 12], [[G([29.6, 40.2]), G([30.6, 40.1])], 12]].forEach(([sp, L], i) => ridge(g, sp, L, px => px, 90 + i));
   // nehirler: Vardar, Meriç, Tuna
@@ -930,7 +960,7 @@ function a4_rumeliFill(ctx, front, seed = 5) {
   keep.moveTo(em[0][0], em[0][1]); for (const q of em) keep.lineTo(q[0], q[1]);
   keep.lineTo(em[em.length - 1][0], -400); keep.lineTo(W + 600, -400); keep.lineTo(W + 600, H + 400); keep.lineTo(em[0][0], H + 400); keep.closePath();
   ctx.save(); ctx.clip(keep);
-  plate(ctx, 'khaki', rumP, { a: .5 }); plate(ctx, 'ochre', rumP, { a: .25 });
+  plate(ctx, 'ochre', rumP, { a: .72 }); plate(ctx, 'khaki', rumP, { a: .12 });
   ctx.save(); ctx.clip(rumP); txt(ctx, 'RUMELİ', gx(22.9), gy(41.35), FONT.mono(50), { ls: 22, align: 'center', col: P.ink, a: .8 }); ctx.restore();
   ctx.restore();
   // eski sınır: kesik is (silinince hayalet olarak kalır)
@@ -946,7 +976,8 @@ function a4_rumeliFill(ctx, front, seed = 5) {
     setReg(404);
     paperBG(ctx);
     const lt = st.lt, t = st.t;
-    const cm = { x: kf(t, [[T0, 930], [Wd('E03', 'selanik'), 900], [Wd('E03', 'teslim'), 960], [T0 + st.d, 1010]]), y: lerp(560, 600, E.sine(st.p)), z: lerp(1.0, 1.07, E.sine(st.p)) };
+    // kamera sabit: bu haritanın hareketi dolgunun silinmesidir (Trablus'ta yakınlaşma, E04'te yatay kaydırma)
+    const cm = { x: 960, y: 560, z: 1.02 };
     a4_put(ctx, a4_L('BK-base', a4_balkanBase, 60), cm, 1);
     ctx.save(); cam(ctx, cm, 1); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540);
     const tB = Wd('E03', 'balkan'), tS = Wd('E03', 'selanik'), tT = Wd('E03', 'teslim'), tE = Wd('E03', 'edildi');
@@ -967,13 +998,13 @@ function a4_rumeliFill(ctx, front, seed = 5) {
     a4_front(ctx, em, ramp(t, T0 + st.d - 1.0, T0 + st.d - .15, E.io2), { w: 7, tooth: 12, step: 17, side: -1 });
     // etiketler
     a4_tag(ctx, 'İSTANBUL', city.IST[0] - 70, city.IST[1] + 70, city.IST[0], city.IST[1] + 10, E.out2(ramp(lt, .3, .6)));
-    a4_tag(ctx, 'SELANİK', city.SEL[0] - 250, city.SEL[1] + 86, city.SEL[0] - 8, city.SEL[1] + 12, E.out2(ramp(t, tS, tS + .3)));
+    a4_tag(ctx, 'SELANİK', city.SEL[0] - 300, city.SEL[1] + 96, city.SEL[0] - 8, city.SEL[1] + 12, E.out2(ramp(t, tS, tS + .3)));
     // "şehirde çarpışma olmadan": Selanik'in çevresinde kırık savunma halkası (silah sesi yok); "teslim": tarih etiketi
     const tCa = Wd('E03', 'çarpışma');
     if (t > tCa) { ctx.save(); ctx.setLineDash([6, 9]); const rg = new Path2D(); rg.arc(city.SEL[0], city.SEL[1], 46, 0, TAU * E.out2(ramp(t, tCa, tCa + .5))); inkStroke(ctx, rg, 2.6, { a: on }); ctx.restore(); }
-    a4_tag(ctx, '8 KASIM 1912 · TESLİM', city.SEL[0] + 40, city.SEL[1] - 70, city.SEL[0] + 10, city.SEL[1] - 14, E.out2(ramp(t, tT, tT + .3)), { size: 22 });
+    a4_tag(ctx, '8 KASIM 1912 · TESLİM', city.SEL[0] + 40, city.SEL[1] - 70, city.SEL[0] + 10, city.SEL[1] - 14, E.out2(ramp(t, tT, tT + .3)), { size: 36 });
     ctx.restore();
-    stamp(ctx, 'BALKAN SAVAŞI · 1912', 120, 1004, lt - .2, st.d, { size: 34 });
+    stamp(ctx, 'BALKAN SAVAŞI · 1912', 114, 112, lt - .2, st.d, { size: 48 });
   }, { tr: { type: 'press', dur: .6 }, post: { stone: .24 } });
 }
 
@@ -1029,7 +1060,7 @@ const a4_KUSAK = {
     paperBG(ctx);
     const lt = st.lt, t = st.t, tf = a4_tf(lt);
     const cm = { x: lerp(960, 930, E.sine(st.p)), y: lerp(540, 520, E.sine(st.p)), z: lerp(1.0, 1.05, E.sine(st.p)) };
-    const wall = a4_L('E04-wall', g => { paperBG(g); plate(g, 'khaki', a4_full(), { n: 2 }); plate(g, 'ochre', a4_full(), { a: .3 }); plate(g, 'ink', a4_full(), { a: .18 }); radialHT(g, 'ink', 900, 380, 640, 1300, 0, .3, { cell: 12, ang: 45, box: [-150, -150, W + 150, H + 150] }); }, 90);
+    const wall = a4_L('E04-wall2', g => { paperBG(g); plate(g, 'khaki', a4_full(), { a: .55 }); }, 90);
     a4_put(ctx, wall, cm, .5);
     // yırtık: üst kenardan Selanik'e, oradan Ege'ye
     const { G } = a4_BK, tearPts = [G([21.9, 44.6]), G([22.2, 43.6]), G([21.8, 42.8]), G([22.4, 41.9]), G([22.7, 41.2]), G([22.95, 40.64]), G([23.3, 40.0]), G([23.6, 39.3])];
@@ -1046,7 +1077,8 @@ const a4_KUSAK = {
         a4_officer(ctx, { x, y: y + io.breath, s: 1.02, dir: -1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / 1.02, lookAt: look, tilt: io.head * .5, turn: .25, w: 1.02 }));
     });
     ctx.restore();
-    order.forEach((who, i) => { const lb = (who === 'mk' ? 'M. KEMAL' : a4_KUSAK.short[who]) + ' · ' + (Y - a4_KUSAK.born[who]); a4_tag(ctx, lb, 330 + i * 318 - (lb.length * 15.4 + 28) / 2, 1040, null, null, E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1)), { size: 22 }); });
+    // ad · yaş etiketleri: Courier 36, iki sıra (y 868–992)
+    a4_rowTags(ctx, order.map((who, i) => ({ s: a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), x: 330 + i * 318, a: E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1)) })), 868);
   }, { tr: { type: 'clay', dur: .8 }, post: { stone: .26 } });
 }
 
@@ -1054,19 +1086,23 @@ const a4_KUSAK = {
 // "yeni bir memleket"te Anadolu dolgusu baskı merdanesiyle yeniden basılır.
 {
   const T0 = Wd('E04', 'rumeliyi'), tY = Wd('E04', 'yeni'), tK = Wd('E04', 'kuracaktı');
-  const order = [['karabekir', 250], ['mk', 590], ['ismet', 930]], Y = 1912;
+  const order = [['karabekir', 270], ['mk', 610], ['ismet', 950]], Y = 1912;
   shot(T0, (ctx, st) => {
     setReg(407);
     paperBG(ctx);
     const lt = st.lt, t = st.t, tf = a4_tf(lt);
-    const cm = { x: lerp(960, 1000, E.sine(st.p)), y: 540, z: lerp(1.02, 1.07, E.sine(st.p)) };
-    const wall = a4_L('E04-wall', g => { paperBG(g); plate(g, 'khaki', a4_full(), { n: 2 }); plate(g, 'ochre', a4_full(), { a: .3 }); plate(g, 'ink', a4_full(), { a: .18 }); radialHT(g, 'ink', 900, 380, 640, 1300, 0, .3, { cell: 12, ang: 45, box: [-150, -150, W + 150, H + 150] }); }, 90);
+    // ok (Selanik → Trakya → Anadolu) "rumeliyi"den "yeni"ye çizilir; kamera okun ucunu yatay izler
+    const ap = ramp(t, T0 + .15, tY + .1, E.io2);
+    const cm = { x: lerp(860, 1060, ap), y: 540, z: 1.04 };
+    const wall = a4_L('E04-wall2', g => { paperBG(g); plate(g, 'khaki', a4_full(), { a: .55 }); }, 90);
     a4_put(ctx, wall, cm, .5);
     const { lands, gx } = a4_BK;
     // Anadolu yeniden basılır: merdane soldan sağa
     const rx = kf(t, [[tY, gx(25.6)], [tK + .2, gx(32), E.io2]]);
     ctx.save(); cam(ctx, cm, .75);
     a4_wallMap(ctx, 1.3, 640, 250, { after: c => {
+      const G = a4_BK.G;
+      a4_arrow(c, [G([22.95, 40.64]), G([23.9, 40.95]), G([25.2, 41.15]), G([26.6, 41.3]), G([27.9, 41.2]), G([28.9, 40.85]), G([29.9, 40.45]), G([31.0, 39.95])], ap, { w: 15 });
       if (t < tY) return;
       c.save(); c.clip(lands[1]); c.save(); c.clip(a4_rect(-500, -500, rx, H + 500));
       const [dx, dy] = [(1 - ramp(t, tY, tK + .4)) * 10, 0];
@@ -1154,8 +1190,8 @@ const a4_KUSAK = {
       ctx.save(); ctx.translate(x, y); const k = .75 + .3 * E.out3(clamp(u / 1.4)); ctx.scale(k, k); ctx.translate(-x, -y - u * 10); a4_put(ctx, sm, null, 1, { mode: 'multiply', a: clamp(u / .25) }); ctx.restore();
       a4_burst(ctx, x, y - 30, R, sd, E.outBack(clamp(a4_tf(u) / .18)) * (1 - ramp(u, .9, 1.3)));
     }
-    a4_tag(ctx, 'ARIBURNU', 430, 1000, 760, 860, E.out2(ramp(t, tA, tA + .3)));
-    a4_tag(ctx, 'ANAFARTALAR', 1500, 330, 1700, 430, E.out2(ramp(t, tN, tN + .3)));
+    a4_tag(ctx, 'ARIBURNU', 420, 990, 760, 860, E.out2(ramp(t, tA, tA + .3)));
+    a4_tag(ctx, 'ANAFARTALAR', 1460, 320, 1700, 430, E.out2(ramp(t, tN, tN + .3)));
     ctx.restore();
     // yakın siper (en önde): kum torbası ve süngü sırası; "yarbay"a doğru iki asker eksilir (kayıp, kansız)
     ctx.save(); cam(ctx, cm, 1.06);
@@ -1163,7 +1199,7 @@ const a4_KUSAK = {
     for (let i = 0; i < 7; i++) { const v = vac.find(q => q[0] === i); if (v && t > v[1]) continue; a4_bayonetHead(ctx, 1010 + i * 128, 1000 + (i % 2) * 6, 2.05); }
     ctx.restore();
     a4_put(ctx, a4_L('E05a-fg', g => a4_sandbags(g, 880, W + 80, 992, 3, 41, { bw: 110, bh: 42 }), 90), cm, 1.06);
-    stamp(ctx, 'ÇANAKKALE · 1915', 110, 116, lt - .1, st.d, { size: 34 });
+    stamp(ctx, 'ÇANAKKALE · 1915', 114, 112, lt - .1, st.d, { size: 48 });
   }, { tr: { type: 'press', dur: .6 }, post: { stone: .26 } });
 }
 
@@ -1219,7 +1255,7 @@ const a4_KUSAK = {
     const fg = a4_L('E05b-fg', g => { a4_sandbags(g, -40, W + 60, 880, 3, 14, { bw: 96, bh: 40 }); }, 90);
     a4_put(ctx, fg, cm, 1.08);
     // "adı pek bilinmeyen bir yarbay": 25 Nisan 1915 Arıburnu (yarbay rütbesi Haziran'a kadar) → 33 yaşında
-    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 110, 116, lt - .1, st.d, { size: 32 });
+    stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, lt - .1, st.d, { size: 48 });
     nameTag(ctx, 1860, 868, 'MUSTAFA KEMAL', 'yarbay · 33 yaşında', t - tYb, st.end - tYb, { align: 'right', size: 56, sub: 38, bg: P.paperD });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
@@ -1270,7 +1306,7 @@ const A4_E06_KISI = [
     paperBG(ctx);
     const lt = st.lt, t = st.t, tf = a4_tf(lt);
     const cm = { x: 960, y: lerp(560, 540, E.sine(st.p)), z: lerp(1.0, 1.04, E.sine(st.p)) };
-    const wall = a4_L('E06a-wall', g => { paperBG(g); plate(g, 'khaki', a4_full(), { n: 2 }); plate(g, 'ink', a4_full(), { a: .3 }); radialHT(g, 'ink', 960, 560, 700, 1300, 0, .3, { cell: 12, ang: 45, box: [-150, -150, W + 150, H + 150] }); }, 90);
+    const wall = a4_L('E06a-wall2', g => { paperBG(g); plate(g, 'khaki', a4_full(), { a: .55 }); }, 90);
     a4_put(ctx, wall, cm, .5);
     const labs = ['KAFKASYA', 'IRAK', 'FİLİSTİN'], t0s = [tK, tI, tF];
     ctx.save(); cam(ctx, cm, 1);
@@ -1303,15 +1339,16 @@ const A4_E06_KISI = [
       const dk = ramp(t, tY + i * .12, tY + .5 + i * .12, E.io2); if (dk > 0) { plate(ctx, 'ink', a4_rect(x0, PY, x0 + PW, PY + PH), { a: .62 * dk }); }
       inkStroke(ctx, a4_rect(x0, PY, x0 + PW, PY + PH), 4);
       ctx.restore();
-      a4_tag(ctx, labs[i], x0 + 24, PY - 34, null, null, u * (1 - .5 * ramp(t, tY, tY + .5)), { size: 30 });
+      a4_tag(ctx, labs[i], x0 + 8, PY - 28, null, null, u * (1 - .5 * ramp(t, tY, tY + .5)), { size: 38 });
     }
     // küçük levhalar (isim büyük, alt satır Courier); kişi kendi kelimesinde, "imparatorluk"ta kalkar
-    for (let i = 0; i < 3; i++) A4_E06_KISI.filter(q => q.panel === i).forEach((q, k) => {
+    for (let i = 0; i < 3; i++) { let yy = PY + 14; A4_E06_KISI.filter(q => q.panel === i).forEach((q, k) => {
       const tw = Wd('E06', words[i]) + .35 + k * .2, tOut = Wd('E06', 'imparatorluk') + .2;
-      a4_plaque(ctx, PX[i] + 16, PY + 16 + k * 96, q.name, q.sub, t - tw, tOut - tw, { size: 28, sub: 19 });
-    });
+      const L = a4_plaque(ctx, PX[i] + 12, yy, q.name, q.sub, t - tw, tOut - tw, { size: 44, sub: 36, maxW: PW - 24 });
+      yy += L.h + 24;
+    }); }
     ctx.restore();
-    stamp(ctx, '1914–1918', 80, 140, lt - .1, st.d, { size: 34 });
+    stamp(ctx, '1914–1918', 114, 112, lt - .1, st.d, { size: 48 });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
 
@@ -1369,6 +1406,6 @@ const A4_E06_KISI = [
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
     // isim + yaş (1918)
-    order.forEach((who, i) => { const lb = (who === 'mk' ? 'M. KEMAL' : a4_KUSAK.short[who]) + ' · ' + (Y - a4_KUSAK.born[who]); a4_tag(ctx, lb, XS[i] - (lb.length * 15.4 + 28) / 2, 862 + (i % 2) * 34, null, null, E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12)), { size: 22 }); });
+    a4_rowTags(ctx, order.map((who, i) => ({ s: a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), x: XS[i], a: E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12)) })), 774);
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }

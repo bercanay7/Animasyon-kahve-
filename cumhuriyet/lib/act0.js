@@ -39,7 +39,7 @@ function a0_age(ctx, x, y, num, sub, lt, o = {}) {
   const h = a0_hit(lt, 0, .15); if (h.a <= 0) return;
   ctx.save(); ctx.globalAlpha = h.a * (o.a ?? 1); ctx.translate(x, y); ctx.scale(h.k, h.k);
   txt(ctx, String(num), 0, 0, FONT.title(o.size || 96), { align: 'center', ls: 1 });
-  if (sub) txt(ctx, sub, 0, 54, FONT.mono(30), { align: 'center', ls: 3 });
+  if (sub) txt(ctx, sub, 0, 60, FONT.mono(40), { align: 'center', ls: 2 });
   ctx.restore();
 }
 // kuşak şeridi bandı: düz kalıp + üst/alt is çizgisi
@@ -438,7 +438,7 @@ function a0_shotMK() {
     a0_cloth(ctx, -40, 1060, 934, 968, 1180, 7);
     a0_tea(ctx, 520, 962, 2.6); a0_tea(ctx, 840, 960, 2.6, { empty: true });
     ctx.restore();
-    nameTag(ctx, 1860, 850, 'MUSTAFA KEMAL', '42 yaşında', st.t - a0_W('A02', 'mustafa'), 3.4, { align: 'right', size: 56, sub: 36 });
+    nameTag(ctx, 1824, 840, 'MUSTAFA KEMAL', '42 yaşında', st.t - a0_W('A02', 'mustafa'), 3.4, { align: 'right', size: 64, sub: 40 });
   }, { tr: { type: 'cut' }, post: { vig: 1 } });
 }
 
@@ -492,7 +492,7 @@ function a0_classBG_(g, B0, B1) {
 }
 function a0_classKids(ctx, t, B0, B1, o = {}) {
   ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, W + 80, B1 - B0 - 4); ctx.clip();
-  A0_K93.forEach((f, i) => a0_fig(ctx, { ...f, x: A0_XS[i], y: o.y ?? 420, s: 1.26, dir: -1, w: .86, len: (B1 - 420) / 1.26 + 10, age: 12, gear: 'fes', coat: 'setre', col: 'navy', look: [.2, .25], sep: true, seed: (A0_K23[i].seed || 1) + 50 }, t));
+  A0_K93.forEach((f, i) => a0_fig(ctx, { ...f, x: A0_XS[i], y: o.y ?? 420, s: 1.26, dir: -1, w: .86, len: (B1 - 420) / 1.26 + 10, age: 12, gear: 'fes', coat: 'setre', col: 'navy', look: [.2, .25], seed: (A0_K23[i].seed || 1) + 50 }, t));
   a0_desk(ctx, -30, W + 30, 652, B1, 77, { books: [[372, 70, 14, 'sepia'], [1102, 60, 12, 'navy'], [1452, 76, 16, 'khaki']], ink: [470, 820, 1170, 1520] });
   ctx.restore();
 }
@@ -517,7 +517,7 @@ function a0_shotStrips() {
     a0_layer(ctx, bg, c, .8);
     ctx.save(); cam(ctx, c, 1);
     ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, W + 80, B1 - B0 - 4); ctx.clip();
-    A0_K23.forEach((f, i) => a0_fig(ctx, { ...f, x: A0_XS[i], y: 412, s: 1.32, dir: -1, w: .98, len: (B1 - 412) / 1.32 + 10, look: [.2, .25], sep: true }, st.t));
+    A0_K23.forEach((f, i) => a0_fig(ctx, { ...f, x: A0_XS[i], y: 412, s: 1.32, dir: -1, w: .98, len: (B1 - 412) / 1.32 + 10, look: [.2, .25] }, st.t));
     ctx.restore();
     ctx.restore();
     const tk = a0_W('A04', 'kırk');
@@ -560,11 +560,11 @@ function a0_shotAyniSira() {
     const bg = a0_cache('a0-ayni-bg', a0_ayniBG, A0_WW, H);
     ctx.save(); cam(ctx, c, 1); ctx.drawImage(bg, 0, 0, A0_WW, H);
     ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, 1640, B1 - B0 - 4); ctx.clip();
-    A0_K93.forEach((f, k) => a0_fig(ctx, { ...f, x: XS[k], y: KY, s: KS, dir: -1, w: .86, len: (B1 - KY) / KS + 10, age: 12, gear: 'fes', coat: 'setre', col: 'navy', look: [.2, .25], sep: true, seed: 60 + k }, st.t));
+    A0_K93.forEach((f, k) => a0_fig(ctx, { ...f, x: XS[k], y: KY, s: KS, dir: -1, w: .86, len: (B1 - KY) / KS + 10, age: 12, gear: 'fes', coat: 'setre', col: 'navy', look: [.2, .25], seed: 60 + k }, st.t));
     a0_desk(ctx, -30, 1600, 776, B1, 81, { books: [[350, 86, 16, 'sepia'], [950, 76, 14, 'navy'], [1250, 70, 12, 'khaki']], ink: [650, 1550] });
     ctx.restore();
     ctx.restore();
-    label(ctx, '1893', 70, 78, FONT.title(64), { ls: 4, a: 1 - pan });
+    label(ctx, '1893', 96, 84, FONT.title(80), { ls: 4, a: 1 - pan });
     // "AYNI SIRADA" lastik damgası (kapağın vaadi): Alfa Slab One, is, −3°, kırık kenarlı
     if (!NOTEXT) { const h = a0_hit(st.lt, a0_W('A04', 'bir') + .15 - T0, .16); if (h.a > 0) {
       ctx.save(); ctx.globalAlpha = h.a * (1 - ramp(pan, .4, .8)); ctx.translate(670, 900); ctx.rotate(-3 * PI / 180); ctx.scale(h.k, h.k);
@@ -615,7 +615,7 @@ function a0_shotPortrait() {
       a0_portrait(g, FX, FY, 1);
     });
     a0_layer(ctx, bg, c, 1);
-    nameTag(ctx, FX + 330, FY + 120, 'II. ABDÜLHAMİD', '1876–1909', st.t - a0_W('A04', 'ikinci') - .25, 9, { size: 54, sub: 34 });
+    nameTag(ctx, FX, FY + 402, 'II. ABDÜLHAMİD', '1876–1909', st.t - a0_W('A04', 'ikinci') - .25, 9, { size: 64, sub: 40, align: 'center' });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
 }
 
@@ -639,7 +639,7 @@ function a0_seven(ctx, t, lt, app, o = {}) {
     const x = (o.xs || A0_X7)[i];
     ctx.save(); ctx.globalAlpha = h.a; ctx.translate(x, yb); ctx.scale(h.k, h.k); ctx.translate(-x, -yb);
     const rb = REG.boost; REG.boost = rb * (1 + 5 * (1 - E.out3(clamp((lt - app[i]) / .35))));
-    a0_fig(ctx, { ...f, x, y, s, dir: o.dir || -1, w: .96, len: (yb - y) / s + 10, look: o.look || [.3, .25], sep: true, idle: .8, ...(o.over ? o.over(i) : {}) }, t);
+    a0_fig(ctx, { ...f, x, y, s, dir: o.dir || -1, w: .96, len: (yb - y) / s + 10, look: o.look || [.3, .25], idle: .8, ...(o.over ? o.over(i) : {}) }, t);
     REG.boost = rb;
     ctx.restore();
   });
@@ -668,8 +668,8 @@ function a0_shotTitle() {
         const rl = 640 * E.out3(ramp(st.lt, tk + .15, tk + .7));
         plate(ctx, 'red', PL([[960 - rl, 882], [960 + rl, 882], [960 + rl, 891], [960 - rl, 891]]));
       }
-      const ts = a0_W('A05', 'hikayesi', 0, true) - (st.t - st.lt) + .1;
-      label(ctx, 'Cumhuriyet’i kuran kuşak nasıl yetişti?', 960, 970, FONT.quote(58), { align: 'center', a: ramp(st.lt, ts, ts + .5) });
+      const ts = tk + .4;
+      label(ctx, 'Cumhuriyet’i kuran kuşak nasıl yetişti?', 960, 976, FONT.quote(64), { align: 'center', a: ramp(st.lt, ts, ts + .5) });
     }
   }, { tr: { type: 'press', dur: .7 }, post: { vig: .9 } });
 }

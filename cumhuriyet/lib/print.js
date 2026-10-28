@@ -185,11 +185,36 @@ function pressFinish(ctx, t, o = {}) {
 }
 
 // ——— yazı ———
+// yazı tiplerinde olmayan işaretler (→ ● ■ ▌) vektörle çizilir (tipografi kurulu: yedek yazı tipine düşmesin)
+const TXT_GLYPH = /[→●■▌]/;
 function txt(ctx, s, x, y, font, o = {}) {
   ctx.save(); ctx.font = font; ctx.textAlign = o.align || 'left'; ctx.textBaseline = o.base || 'alphabetic';
   if (o.ls) ctx.letterSpacing = o.ls + 'px';
-  if (o.plate) { const [dx, dy] = regOf(o.plate); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P[o.plate]; ctx.fillText(s, x + dx, y + dy); }
-  else { ctx.fillStyle = o.col || P.ink; ctx.globalAlpha = o.a ?? 1; ctx.fillText(s, x, y); }
+  if (o.ws) ctx.wordSpacing = o.ws;
+  let dx = 0, dy = 0;
+  if (o.plate) { [dx, dy] = regOf(o.plate); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P[o.plate]; }
+  else { ctx.fillStyle = o.col || P.ink; ctx.globalAlpha = o.a ?? 1; }
+  if (!TXT_GLYPH.test(s)) { ctx.fillText(s, x + dx, y + dy); ctx.restore(); return; }
+  // parçala: düz metin + çizilen işaretler; hizalama toplam genişliğe göre
+  const em = parseFloat((/(\d+(?:\.\d+)?)px/.exec(font) || [0, 40])[1]);
+  const gw = { '→': .95 * em, '●': .62 * em, '■': .62 * em, '▌': .6 * em };
+  const segs = s.split(/([→●■▌])/).filter(q => q !== '');
+  const wOf = q => gw[q] ?? ctx.measureText(q).width;
+  const tot = segs.reduce((a, q) => a + wOf(q), 0);
+  let cx = (o.align === 'center' ? x - tot / 2 : o.align === 'right' ? x - tot : x) + dx;
+  const by = y + dy, mid = o.base === 'middle' ? by : by - .34 * em;
+  ctx.textAlign = 'left';
+  for (const q of segs) {
+    const w = wOf(q);
+    if (q === '→') {
+      ctx.save(); ctx.strokeStyle = ctx.fillStyle; ctx.lineWidth = Math.max(2.6, em * .075); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const x0 = cx + .1 * em, x1 = cx + w - .12 * em; ctx.beginPath(); ctx.moveTo(x0, mid); ctx.lineTo(x1, mid); ctx.moveTo(x1 - .26 * em, mid - .2 * em); ctx.lineTo(x1, mid); ctx.lineTo(x1 - .26 * em, mid + .2 * em); ctx.stroke(); ctx.restore();
+    } else if (q === '●') { ctx.beginPath(); ctx.arc(cx + w / 2, mid, .22 * em, 0, TAU); ctx.fill(); }
+    else if (q === '■') ctx.fillRect(cx + w / 2 - .21 * em, mid - .21 * em, .42 * em, .42 * em);
+    else if (q === '▌') ctx.fillRect(cx + .05 * em, (o.base === 'middle' ? by + .36 * em : by) - .75 * em, .55 * em, .75 * em);
+    else ctx.fillText(q, cx, by);
+    cx += w;
+  }
   ctx.restore();
 }
 // soyut Osmanlıca yazı izi: sağdan sola kısa kıvrımlar ve noktalar (okunur bir metin değildir)

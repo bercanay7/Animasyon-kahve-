@@ -14,7 +14,8 @@ const KUSAK = [ // A05 dizilişi (act0 A0_SEVEN) sırasıyla
 function kusakWins() {
   if (kusakWins.c) return kusakWins.c;
   const w = [];
-  for (const id of ['B01', 'C01', 'D01', 'E01', 'F01']) w.push([S(id) + .5, S(id) + 3.8]);
+  // bölüm kartı bittikten sonra (kart ≈ S+3,6'ya dek): kart + 0,3 → + 3,3 sn (tipografi kurulu)
+  for (const [id, off] of [['B01', 5.1], ['C01', 4.6], ['D01', 4.4], ['E01', 3.9], ['F01', 3.3]]) w.push([S(id) + off, S(id) + off + 3]);
   for (const k of KUSAK) { const t = k.at(); w.push([t - .5, t + 2.8]); }
   const hz = Wd('F06', 'hazır'); w.push([hz - .4, Se('F06') + .3]);
   w.sort((a, b) => a[0] - b[0]);
@@ -25,18 +26,19 @@ function kusakWins() {
 function kusakVisible(t) { return !NOTEXT && typeof Wd === 'function' && t != null && kusakWins().some(([a, b]) => t >= a - .3 && t <= b + .3); }
 function kusakBar(ctx, t) {
   if (NOTEXT || typeof Wd !== 'function') return;
+  if (window.LOWBAND_AT === t) return; // telgraf şeridi ya da alt banttaki bir yazı görünürken çizilmez
   const win = kusakWins().find(([a, b]) => t >= a - .3 && t <= b + .3); if (!win) return;
   const a = clamp((t - win[0] + .3) / .3) * clamp((win[1] + .3 - t) / .3); if (a <= 0) return;
   const hz = Wd('F06', 'hazır'), full = t >= hz;
   const n = KUSAK.filter(k => t >= k.at()).length;
-  const sw = 74, x1 = 1830, x0 = x1 - KUSAK.length * sw, y0 = 952, h = 80;
+  const sw = 74, x1 = 1812, x0 = x1 - KUSAK.length * sw, y0 = 930, h = 80;
   ctx.save(); ctx.globalAlpha = a;
   // zemin şerit
-  const bx0 = x0 - 150, box = PL(rough([[bx0, y0 - 8], [x1 + 12, y0 - 8], [x1 + 12, y0 + h + 8], [bx0, y0 + h + 8]], .8, 17));
+  const bx0 = x0 - 170, box = PL(rough([[bx0, y0 - 8], [x1 + 12, y0 - 8], [x1 + 12, y0 + h + 8], [bx0, y0 + h + 8]], .8, 17));
   plate(ctx, 'ink', PL([[bx0 + 6, y0], [x1 + 18, y0], [x1 + 18, y0 + h + 16], [bx0 + 6, y0 + h + 16]]), { a: .3 });
   knock(ctx, box); inkStroke(ctx, box, 2.6);
-  txt(ctx, 'KUŞAK', bx0 + 16, y0 + 30, FONT.mono(24), { ls: 3 });
-  txt(ctx, `${full ? 7 : n}/7`, bx0 + 16, y0 + 74, FONT.title(42), { col: full ? P.red : P.ink });
+  txt(ctx, 'KUŞAK', bx0 + 16, y0 + 30, FONT.mono(32), { ls: 3 });
+  txt(ctx, `${full ? 7 : n}/7`, bx0 + 16, y0 + 80, FONT.title(52), { col: full ? P.red : P.ink });
   KUSAK.forEach((k, i) => {
     const cx = x0 + sw * (i + .5), cy = y0 + h / 2, tf = k.at(), on = t >= tf || full;
     const pop = on ? 1 + .22 * (1 - E.out3(clamp((t - Math.max(tf, full ? hz : tf)) / .35))) : 1;
@@ -52,7 +54,6 @@ function kusakBar(ctx, t) {
       // boş yuva: baş ve omuz silueti
       const sil = new Path2D(); sil.ellipse(0, -6, 12, 15, 0, 0, TAU); sil.moveTo(-26, 40); sil.quadraticCurveTo(-24, 12, 0, 10); sil.quadraticCurveTo(24, 12, 26, 40); sil.closePath();
       plate(ctx, 'ink', sil, { a: .28 });
-      txt(ctx, '?', 0, 4, FONT.title(26), { align: 'center', col: P.paper });
     }
     ctx.restore();
     inkStroke(ctx, ov, on ? 2.6 : 1.8);
