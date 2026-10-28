@@ -15,7 +15,8 @@ Bu dosya, sahne yazacak herkes içindir (alt ajanlar dahil). Önce `USLUP.md` (�
 ## Zamanlama
 - `S('B03')`: cümlenin başladığı an; `Se('B03')`: bittiği an.
 - `Wd('B03', 'idadi')`: o cümlede kelimenin başladığı an.
-  - Kelime küçük harfle, şapkasız yazılır: `â→a`, `î→i`.
+  - Kelime küçük harfle yazılır; yalnız şapkalı harfler sadeleşir (`â→a`, `î→i`, `û→u`). ç, ş, ğ, ı, ö, ü olduğu gibi kalır.
+  - Bulunamayan kelime cümle başına düşer ve konsolda `Wd:` uyarısı verir; `node tools/serit.js` uyarıları listeler.
   - Kelimenin başı yeter; ör. `'darul'` Darülfünun'u yakalar.
   - `n` parametresi: n'inci geçiş. `end=true` verilirse kelimenin bitişi döner.
 - `shot(at, (ctx, st) => {...}, { tr: { type, dur }, post: {...} })`: `at` anında başlayan çekim.

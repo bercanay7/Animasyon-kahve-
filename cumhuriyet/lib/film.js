@@ -7,6 +7,8 @@ function Wd(id, w, n = 0, end = false) {
   const nw = w.toLocaleLowerCase('tr').replace(/â/g, 'a').replace(/î/g, 'i').replace(/û/g, 'u').replace(/[^\wçğıöşü]/g, '');
   let k = 0;
   for (const x of (window.WORDS || [])) if (x.id === id && x.w.startsWith(nw)) { if (k++ === n) return end ? x.e : x.s; }
+  // bulunamayan kelime sessizce cümle başına düşmesin: konsolda uyarı (ç, ş, ğ, ı, ö, ü korunur; yalnız â î û sadeleşir)
+  console.warn(`Wd: "${w}" (${n}) ${id} cümlesinde yok, cümle başı kullanıldı`);
   return S(id);
 }
 const SHOTS = [];

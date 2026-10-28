@@ -117,6 +117,9 @@ function tickerTape(ctx, s, y, lt, d = 3.5, o = {}) {
 // (çizim fonksiyonuna verilen g, baseT uygulanmış W×H mantıksal koordinatlı bir bağlamdır; kayık baskı o anki setReg'e göre sabitlenir)
 const LCACHE = {};
 function layerCache(key, draw, w = W, h = H) {
+  // anahtara kayık baskı tohumu da girer: aynı anahtarı kullanan iki çekim birbirinin önbelleğini almaz,
+  // görüntü hangi render işçisinin önce kurduğuna bağlı kalmaz
+  key = key + '@' + REG.seed + ':' + REG.amt;
   if (!LCACHE[key]) {
     const c = makeCanvas(Math.ceil(w * RS), Math.ceil(h * RS)), g = c.getContext('2d');
     // geçişin kayık baskısı (REG.boost) önbelleğe donmasın: katman her zaman yerine oturmuş hâliyle çizilir

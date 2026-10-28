@@ -4,7 +4,7 @@
 // Kişi kimlikleri (USLUP.md): yüz biçimi, kaş, bıyık, göz rengi. WD: ¾ yüz genişliği, HY: yüz boyu
 const PEOPLE = {
   // Mustafa Kemal: uzun ince yüz, yüksek alın, ağır göz kapağı, keskin kaş; bıyık yaşa bağlı (1919 sonrası fotoğraflarda bıyıksız)
-  mk: { name: 'MUSTAFA KEMAL', born: 1881, WD: 1.02, HY: 1.03, jaw: .98, cheek: 1.0, brow: .55, browW: 1.2, browY: 1.5, cheekWedge: 1, mus: a => a < 20 ? 'faint' : a < 38 ? 'mk' : null, iris: P.eye, hair: 'sepia', eyeOpen: .72, forehead: 3, seed: 3 },
+  mk: { name: 'MUSTAFA KEMAL', born: 1881, WD: 1.02, HY: 1.03, jaw: .98, cheek: 1.0, brow: .55, browW: 1.2, browY: 1.5, cheekWedge: 1, mus: a => a < 16 ? null : a < 20 ? 'faint' : a < 38 ? 'mk' : null, iris: P.eye, hair: 'sepia', eyeOpen: .72, forehead: 3, seed: 3 },
   ismet: { name: 'İSMET', born: 1884, WD: 1.18, HY: .95, jaw: 1.04, cheek: 1.04, brow: .06, browW: .95, mus: 'thin', iris: P.sepia, hair: 'ink', ear: 1.15, eyeOpen: .8, seed: 5 },
   fevzi: { name: 'FEVZİ', born: 1876, WD: 1.08, HY: 1.0, jaw: 1.12, cheek: 1.02, brow: -.12, browW: 1.15, browY: -.6, mus: 'pala', musCol: 'grey', iris: P.sepia, hair: 'grey', eyeOpen: .76, bags: 1, seed: 7 },
   // Kâzım Karabekir: geniş omuz, gür yatay bıyık, dolgun yüz

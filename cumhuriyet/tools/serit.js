@@ -9,7 +9,7 @@ const path = require('path'); const fs = require('fs');
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   const errs = [];
   page.on('pageerror', e => errs.push(e.message));
-  page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+  page.on('console', m => { if (m.type() === 'error' || m.text().startsWith('Wd:')) errs.push(m.text()); });
   await page.goto('file://' + path.resolve(__dirname, '..', 'film.html') + '?render=1');
   await page.evaluate(() => window.ready);
   const info = await page.evaluate(() => ({ dur: window.DUR, shots: SHOTS.map(s => ({ at: +s.at.toFixed(2), tr: s.tr ? s.tr.type : null })) }));
