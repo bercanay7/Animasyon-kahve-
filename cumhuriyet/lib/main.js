@@ -31,6 +31,32 @@ function renderFrameMB(t, n) {
   ctx.drawImage(acc, 0, 0);
 }
 window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
+// Yönetmenlik kurulu kuralları (tek yerden):
+// K1 baskı geçişi (press) yalnız bölüm imzası ve dört özel anda kalır, öbürleri düz kesme olur;
+// K2 cümle başına bağlı geçiş cümlenin ilk kelimesinden önce biter (kesme 0,1 sn önce; baskı süresi + 0,1 sn önce).
+function cutRules() {
+  const ok = ['B01', 'C01', 'D01', 'E01', 'F01', 'G01', 'C05'].map(S).concat([Wd('A01', 'küçük') - .3, S('A05') - .45, S('G06') - .3]);
+  const starts = Object.values(CUES).map(c => c.s);
+  for (const sh of SHOTS) {
+    if (sh.at <= 0) continue;
+    if (sh.tr && sh.tr.type === 'press' && !ok.some(x => Math.abs(sh.at - x) < 1.2)) sh.tr = { ...sh.tr, type: 'cut' };
+    const s0 = starts.find(x => sh.at > x - .2 && sh.at < x + .35);
+    if (s0 == null) continue;
+    sh.at = !sh.tr || sh.tr.type === 'cut' ? s0 - .1 : s0 - (sh.tr.dur || .7) - .1;
+  }
+}
+// K6 kilit anlarda göz kırpma yok: alıntı cümlesi (A02) ve isim açıklama anları (±0,6 sn)
+window.noBlink = t => {
+  if (t == null || !window.CUES) return false;
+  if (!noBlink.w) {
+    noBlink.w = [[S('A02') - .3, Se('A02') + .3], [S('G06') - .3, Se('G06') + .3]];
+    for (const [id, w] of [['B06', 'mustafa'], ['B06', 'kemal'], ['C06', 'mustafa'], ['C06', 'ali'], ['D03', 'mustafa'], ['D03', 'kazım'],
+      ['F02', 'ali'], ['F02', 'kazım'], ['F03', 'ismet'], ['F03', 'fevzi'], ['F04', 'halide'], ['F06', 'mustafa'], ['G02', 'mustafa'], ['G02', 'ismet'], ['G02', 'fevzi']]) {
+      const x = Wd(id, w); noBlink.w.push([x - .6, x + 1.2]);
+    }
+  }
+  return noBlink.w.some(([a, b]) => t >= a && t <= b);
+};
 window.ready = (async () => {
   // unicode-range ile bölünmüş yüzler Türkçe harflerle birlikte önceden yüklenir
   const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
@@ -38,6 +64,8 @@ window.ready = (async () => {
     'italic 600 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"', '400 40px Amiri', '700 40px Amiri']) await document.fonts.load(f, TR);
   buildPaper();
   if (typeof SHOTS !== 'undefined') SHOTS.sort((a, b) => a.at - b.at); // act dosyaları paralel yazıldı; çekimler zamana göre sıralanır
+  if (typeof SHOTS !== 'undefined' && window.CUES) cutRules();
+  if (typeof SHOTS !== 'undefined') SHOTS.sort((a, b) => a.at - b.at);
   if (window.initScenes) initScenes();
   return true;
 })();

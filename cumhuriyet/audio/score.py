@@ -23,6 +23,8 @@ Palette
     choir "aah/ooh"  saw glottal source + vibrato + formant banks
     felt piano       slightly inharmonic partials as recursive resonators, two strings per note
     percussion       frame drum (modal membrane), timpani, booms, cymbal, wall-clock tick, hand bell, bells
+    brass band       cornet / trumpet / trombone / tuba lines (tongued, brightness follows each note's envelope,
+                     mouthpiece formant), snare drum, marching bass drum, clarinet (reed engine), glockenspiel
     one shared stereo convolution hall (one FFT per channel; 16 kHz twin for the low-rate buses)
 
 Harmony   home D. Night D minor -> D Uşşak (segâh ~160 cents) for the Hamidian schools -> G Mixolydian
@@ -33,7 +35,9 @@ Motif     "kuşak" (the generation), scale steps 1 3 2 5 4 8, rhythm 1 1 ½ 1½ 
           fragile   1 3 2 5        minor piano (A02 -> A04), F major lift (A05), lyre (C02), Bb major (D02)
           growing   1 3 2 5 4      Uşşak ney on 'sorgulamayı' (C03) and D04, minor cello (C06, E04)
           stronger  1 3 2 5 4 6    D Dorian strings + horns, ends on the hopeful B natural (F05)
-          complete  1 3 2 5 4 8    D major: strings, horns, choir, bells (G01); once more at the end screen
+          complete  1 3 2 5 4 8    D major: strings, horns, trumpets, choir, bells (G01)
+          band      1 3 2 5 4 8 + its mirror 8 6 7 5 4 2 1: an original 2/4 brass-band march for the end screen
+                    (soft under G06, open after it); a 1908 street band plays the first major glimpse (D02)
           It quotes no anthem or march (İstiklal, İzmir, Onuncu Yıl, Ceddin Deden, Harbiye, mehter).
 
 Mix       Everything is ducked spectrally under the narration (STFT dynamic EQ: lows -3 dB,
@@ -1784,8 +1788,8 @@ def sec_kapanis():
                 snare_bar(tb_, q, vel=0.19)
             bassdrum(tb_, vel=0.36)
             bassdrum(tb_ + q, vel=0.24)
-        cymbal(T2, vel=0.28, decay=1.4)
-        cymbal(T2 + 8 * q, vel=0.24, decay=1.4)
+        cymbal(T2, vel=0.22, decay=0.9)
+        cymbal(T2 + 8 * q, vel=0.17, decay=0.9)
         pad(M('D3 A3 D4 F#4'), T2 - 0.1, T2 + 16 * q, gain=0.07, att=0.6, rel=1.0, cutoff=1200, sine=0.4)
         F = T2 + 16 * q
         for kind, ns, gn in [('trumpet', 'D5 F#5', 0.12), ('cornet', 'A4 D5', 0.17), ('trombone', 'D3 A3 F#4', 0.15),
@@ -1793,7 +1797,7 @@ def sec_kapanis():
             for m in ns.split():
                 band_line(F, [(m, 2.8, 1.0)], kind, gain=gn, gap=1.1, voices=2)
         bassdrum(F, vel=0.46)
-        cymbal(F, vel=0.34, decay=2.5)
+        cymbal(F, vel=0.28, decay=1.8)
         timp(F, 'D2', vel=0.45)
     else:                                            # too short a tail for the march: a plain cadence
         timp(T2, 'D2', vel=0.35)

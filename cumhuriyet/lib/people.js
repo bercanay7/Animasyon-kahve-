@@ -71,7 +71,9 @@ function head3q(ctx, o) {
   inkStroke(ctx, SP([[22, 17], [23.2, 20.4], [27, 21.6]], false), lw(2));                        // burun deliği kıvrımı
   // gözler: ağır üst kapak
   const target = o.lookAt ? (() => { const ex = o.x + 6 * s * dir * WD, ey = o.y; const dx = (o.lookAt[0] - ex) * dir, dy = o.lookAt[1] - ey, n = Math.hypot(dx, dy) || 1; return [dx / n * 1.5, dy / n * 1.1]; })() : (o.look || [1, .3]);
-  const eo = (o.eyeOpen ?? pp.eyeOpen ?? .8) * (1 - (o.blink || 0) * .92); // o.blink: blinkAt(t, tohum)
+  // kilit anlarda (alıntı, isim açıklama) göz kırpılmaz: window.noBlink(t) (main.js); kırpma ya da eyeOpen<.35 bastırılır
+  const noBl = typeof window !== 'undefined' && window.noBlink && window.noBlink(window.FIG_T);
+  const eo = (noBl && o.eyeOpen != null && o.eyeOpen < .35 ? (pp.eyeOpen ?? .8) : (o.eyeOpen ?? pp.eyeOpen ?? .8)) * (1 - (noBl ? 0 : o.blink || 0) * .92); // o.blink: blinkAt(t, tohum)
   for (const [k, e] of [[0, { c: [5.5, -1], w: 9 }], [1, { c: [27, -1], w: 3.8 }]]) {
     const [ex, ey] = e.c, w = e.w, h = (k ? 3.6 : 4.2) * eo * (1 + yg * .12);
     const eyeP = new Path2D(); eyeP.moveTo(ex - w, ey + .8); eyeP.bezierCurveTo(ex - w * .5, ey - h * 1.25, ex + w * .4, ey - h * 1.3, ex + w, ey - .1);

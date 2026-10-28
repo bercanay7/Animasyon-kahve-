@@ -136,7 +136,7 @@ def spectrogram_png(x, sr, t0, t1, path, title, marks=(), width=2400, height=520
     rgb = cmap((img - (top - 90)) / 90)
     im = Image.fromarray(rgb).resize((width, height), Image.BILINEAR)
     L, T, B = 70, 50, 70
-    can = Image.new('RGB', (width + L + 20, height + T + B), (250, 247, 240))
+    can = Image.new('RGB', (width + L + 20, height + T + B + 30), (250, 247, 240))
     can.paste(im, (L, T))
     d = ImageDraw.Draw(can)
     d.text((L, 12), title, fill=(30, 25, 20), font=font(20))
@@ -151,10 +151,13 @@ def spectrogram_png(x, sr, t0, t1, path, title, marks=(), width=2400, height=520
         a, b = max(s[2], t0), min(s[3], t1)
         d.line([(X(a), T), (X(a), T + height)], fill=(255, 255, 255), width=1)
         d.text((X(a) + 4, T + height + 6), s[1], fill=(30, 25, 20), font=font(14))
+    k = 0
     for t, lab in marks:
         if t0 <= t <= t1:
-            d.line([(X(t), T + height), (X(t), T + height + 28)], fill=(179, 51, 43), width=2)
-            d.text((X(t) + 3, T + height + 26), lab, fill=(179, 51, 43), font=font(12))
+            dy = 14 * (k % 3)
+            d.line([(X(t), T + height), (X(t), T + height + 26 + dy)], fill=(179, 51, 43), width=2)
+            d.text((X(t) + 3, T + height + 24 + dy), lab, fill=(179, 51, 43), font=font(12))
+            k += 1
     step = 30 if t1 - t0 > 120 else 5
     for t in np.arange(np.ceil(t0 / step) * step, t1, step):
         d.text((X(t) - 12, T - 18), f'{int(t // 60)}:{int(t % 60):02d}', fill=(90, 80, 70), font=font(12))
