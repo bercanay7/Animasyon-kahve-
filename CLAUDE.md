@@ -12,6 +12,9 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Türkçe yazar, kararlarını kısa verir ("Üret", "Devam edelim").
   - İşin baştan sona yapılmasını ister.
   - Her aşamayı bağımsız bir kurula onaylatır ve 10/10'a doğru tekrar tekrar iyileştirir.
+  - Önerilerini öneri olarak verir. Onaylanmayı değil, uzman gözüyle tartılmayı bekler: "Karar tamamen sana ait", "sen patronsun".
+    - Uymayan öneri gerekçesiyle geri çevrilir ve uygunsa sonraki işe not edilir.
+    - Onu memnun etmek için öneriyi kabul etme.
 - **Yayın:** kullanıcı YouTube Studio'da elle yapar. Bu oturumda tarayıcı eklentisi yok, Metricool'da YouTube yok. Dosyalar `SendUserFile` ile gönderilir. Adım adım bir `yayin.md` yazılır.
 - **Anlatıcı:** ElevenLabs'te **"Emrullah"** sesi. Kanalın sesidir, değiştirilmez. `voice_id` her seferinde `creative_list_voices` ile bulunur, ezberden yazılmaz.
 - **Kredi harcayan üretim** (ElevenLabs, Abracadabrax görsel/video): yalnız kullanıcı açıkça istediğinde yapılır. Aynı çağrıyı "yeniden dene" diye tekrarlama; her tekrar yeniden ücretlendirilir.
