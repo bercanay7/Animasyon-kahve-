@@ -839,12 +839,12 @@ shot(S('B05'), (ctx, st) => {
 function a1_rubber(ctx, s, x, y, lt, rot = 0, size = 90, o = {}) {
   if (NOTEXT || lt < 0) return;
   const k = 1 + (1 - E.out3(clamp(lt / .18))) * .3, a = clamp(lt / .06);
-  ctx.save(); ctx.font = FONT.slab(size); ctx.letterSpacing = '6px'; const w = ctx.measureText(s).width; ctx.restore();
+  ctx.save(); ctx.font = FONT.title(size); ctx.letterSpacing = '6px'; const w = ctx.measureText(s).width; ctx.restore();
   ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.rotate(rot); ctx.scale(k, k);
   const pl = o.plate || 'red', col = P[pl];
   const b = PL(rough([[-w / 2 - 34, -size * .72], [w / 2 + 34, -size * .72], [w / 2 + 34, size * .5], [-w / 2 - 34, size * .5]], 2, s.length));
   inkStroke(ctx, b, 7, { col, mode: 'multiply', a: .92 }); inkStroke(ctx, a1_rect(-w / 2 - 22, -size * .6, w / 2 + 22, size * .38), 2.2, { col, mode: 'multiply', a: .85 });
-  txt(ctx, s, 0, size * .2, FONT.slab(size), { align: 'center', plate: pl, ls: 6 });
+  txt(ctx, s, 0, size * .26, FONT.title(size), { align: 'center', plate: pl, ls: 6 });
   ctx.restore();
 }
 function a1_letter(ctx, x, y, rot) {

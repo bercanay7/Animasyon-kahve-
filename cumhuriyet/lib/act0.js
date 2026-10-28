@@ -398,7 +398,7 @@ function a0_shotMK() {
 
 // "Yarın Cumhuriyet ilan edeceğiz!": daha yakın plan + söz (görüntü 4–5 sn'de bir değişsin)
 function a0_shotYarin() {
-  const MK = { x: 1400, y: 500, s: 3.6 };
+  const MK = { x: 1420, y: 500, s: 4.6 };
   shot(a0_W('A02', 'yarın') - .25, (ctx, st) => {
     setReg(129);
     paperBG(ctx);

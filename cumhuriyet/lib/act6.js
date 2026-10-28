@@ -359,19 +359,26 @@ function a6_shotBugun() {
 function a6_teacher(ctx, x, y, s, t) {
   const tf = Math.floor(t * 15) / 15, io = idleOffsets(tf, 91, 1.4);
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(io.torso * .5);
-  const body = SP([[6, -300], [24, -292], [30, -270], [34, -256], [30, -248], [32, -236], [26, -224], [12, -222], [10, -204], [40, -186], [52, -130], [48, -60], [56, 10], [64, 120], [40, 124], [34, 210], [44, 228], [10, 228], [12, 130], [-14, 130], [-12, 220], [2, 228], [-34, 228], [-34, 130], [-58, 124], [-42, 10], [-40, -80], [-44, -150], [-34, -190], [-12, -206], [-12, -222], [-30, -232], [-36, -262], [-26, -292]], true, .5);
+  const lw = px => px / s;
+  // gövde profili (sağa dönük): küt saç, ceket, diz altı etek
+  const body = SP([[-6, -306], [18, -298], [24, -282], [23, -273], [31, -262], [25, -257], [27, -251], [23, -247], [25, -239], [12, -233], [10, -222], [16, -210], [36, -200], [46, -172], [46, -148], [36, -92], [44, -40], [58, 40], [-56, 40], [-40, -40], [-30, -92], [-38, -160], [-36, -196], [-14, -222], [-24, -232], [-36, -250], [-38, -276], [-28, -296]], true, .55);
   inkFill(ctx, body);
-  // kısa saç (kazıma ayrımı), yaka, kemer
-  cut(ctx, SP([[24, -292], [8, -300], [-20, -294], [-34, -270], [-34, -240]], false), 2 / s, { a: .4 });
-  cut(ctx, SP([[10, -204], [22, -184], [10, -160]], false), 2 / s, { a: .45 });
-  cut(ctx, PL([[-42, -40], [50, -40]], false), 2 / s, { a: .35 });
-  // kitap göğüste (kâğıt sayfa kenarı)
-  const bk = PL([[16, -150], [62, -146], [58, -86], [12, -90]]); inkFill(ctx, bk); cut(ctx, PL([[58, -146], [56, -88]], false), 3 / s, { a: .7 });
-  // tebeşir tutan kol (tahtaya doğru, geriye)
-  const u = .5 + .5 * Math.sin(tf * 1.3);
-  const arm = SP([[-30, -186], [-70 - 6 * u, -150], [-108 - 8 * u, -176 + 6 * u], [-104 - 8 * u, -190 + 6 * u], [-66 - 6 * u, -170], [-34, -200]], true, .6);
-  inkFill(ctx, arm);
-  const ch = PL([[-112 - 8 * u, -186 + 6 * u], [-124 - 8 * u, -190 + 6 * u], [-122 - 8 * u, -184 + 6 * u], [-110 - 8 * u, -180 + 6 * u]]); knock(ctx, ch);
+  for (const [x0, x1] of [[12, 28], [-20, -5]]) { const leg = PL([[x0, 38], [x1, 38], [x1 - 1, 214], [x0 + 1, 214]]); inkFill(ctx, leg); }
+  inkFill(ctx, SP([[12, 212], [30, 212], [44, 222], [42, 229], [10, 229]], true, .5)); inkFill(ctx, SP([[-20, 212], [-4, 212], [8, 222], [6, 229], [-22, 229]], true, .5));
+  // kazımalar: saç çizgisi, yaka, kemer, etek kıvrımı, ışık kenarı
+  cut(ctx, SP([[18, -298], [2, -290], [-14, -276], [-24, -250]], false), lw(2), { a: .4 });
+  cut(ctx, SP([[12, -216], [24, -196], [14, -172]], false), lw(2), { a: .45 });
+  cut(ctx, PL([[-34, -92], [38, -92]], false), lw(2), { a: .35 });
+  cut(ctx, SP([[4, -40], [8, 0], [6, 36]], false), lw(1.6), { a: .3 });
+  cut(ctx, SP([[18, -298], [24, -282], [23, -273], [31, -262]], false, .5), lw(2.2), { a: .55 });
+  // önde sarkan kolun tuttuğu kitap
+  const bk = PL([[24, -130], [64, -126], [60, -62], [20, -66]]); inkFill(ctx, bk); cut(ctx, PL([[60, -124], [57, -64]], false), lw(3), { a: .7 });
+  // tebeşir tutan kol: tahtaya doğru (geriye) kalkar, dirsek bükük; poz 15 fps
+  const u = .5 + .5 * Math.sin(tf * 1.3), sh = [-22, -194], el = [-66, -156 + 4 * u], hd = [-104 - 6 * u, -206 + 6 * u];
+  const arm = new Path2D(); arm.moveTo(sh[0], sh[1]); arm.lineTo(el[0], el[1]); arm.lineTo(hd[0], hd[1]);
+  inkStroke(ctx, arm, 22, { cap: "round" });
+  const hand = new Path2D(); hand.ellipse(hd[0] - 4, hd[1] - 6, 9, 11, -.6, 0, TAU); inkFill(ctx, hand);
+  const ch = PL([[hd[0] - 10, hd[1] - 16], [hd[0] - 22, hd[1] - 24], [hd[0] - 19, hd[1] - 29], [hd[0] - 7, hd[1] - 21]]); knock(ctx, ch);
   ctx.restore();
 }
 function a6_shotSoru() {

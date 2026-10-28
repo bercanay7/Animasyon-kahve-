@@ -907,11 +907,11 @@ const a4_KUSAK = {
       if (t < tY) return;
       c.save(); c.clip(lands[1]); c.save(); c.clip(a4_rect(-500, -500, rx, H + 500));
       const [dx, dy] = [(1 - ramp(t, tY, tK + .4)) * 10, 0];
-      c.translate(dx, dy); plate(c, 'khaki', lands[1], { a: .6 }); plate(c, 'ochre', lands[1], { a: .45 }); c.restore();
+      c.translate(dx, dy); plate(c, 'khaki', lands[1], { a: .32 }); plate(c, 'ochre', lands[1], { a: .3 }); c.restore();
       inkStroke(c, PL([[rx, -200], [rx, H + 200]], false), 3.6, { a: .7 * (1 - ramp(t, tK, tK + .3)) });
       c.restore();
       inkStroke(c, lands[1], 2.6);
-      a4_tag(c, 'ANADOLU', gx(28.6), a4_BK.gy(39.6), null, null, E.out2(ramp(t, Wd('E04', 'memleket'), Wd('E04', 'memleket') + .3)), { size: 30, bg: P.paper });
+      a4_tag(c, 'ANADOLU', gx(26.9), a4_BK.gy(39.55), null, null, E.out2(ramp(t, Wd('E04', 'memleket'), Wd('E04', 'memleket') + .3)), { size: 30, bg: P.paper });
     } });
     ctx.restore();
     ctx.save(); cam(ctx, cm, 1);
@@ -1025,13 +1025,16 @@ const a4_KUSAK = {
       const far = SP([[-300, 640], [-100, 560], [200, 520], [520, 560], [760, 620], [900, 700], [900, H + 300], [-300, H + 300]], true, .6);
       knock(g, far); plate(g, 'ochre', far, { a: .5 }); plate(g, 'khaki', far, { a: .35 }); inkStroke(g, far, 2);
       for (let i = 0; i < 30; i++) { const x = -100 + i * 32, y = 560 + Math.abs(x - 300) * .12; inkStroke(g, PL([[x, y + 20], [x - 10, y + 80]], false), 1.2, { a: .4 }); }
-      for (const [x, y, R, sd] of [[250, 500, 120, 21], [290, 380, 150, 23], [620, 540, 90, 22], [650, 450, 110, 24]]) a4_smokeCloud(g, x, y, R, sd, 'ink', .38);
       // bulunduğu sırt (yakın, MK'nin ayağı altında)
       const near = SP([[700, H + 300], [820, 800], [1000, 740], [1300, 720], [1600, 740], [2100, 780], [2100, H + 300]], true, .6);
       knock(g, near); plate(g, 'khaki', near); plate(g, 'ochre', near, { a: .3 }); inkStroke(g, SP([[820, 800], [1000, 740], [1300, 720], [1600, 740], [2100, 780]], false, .6), 3);
     }, 90);
     a4_put(ctx, bg, cm, .6);
     ctx.save(); cam(ctx, cm, .6);
+    // sırtlardan yükselen düz duman (rüzgârla sağa sürüklenir)
+    ctx.save(); ctx.globalCompositeOperation = 'multiply';
+    for (const [x0, y0, k0] of [[260, 560, 0], [640, 610, 1]]) for (let j = 0; j < 9; j++) { const u = ((lt * .22 + j / 9 + k0 * .37) % 1), r = 18 + u * 70; ctx.globalAlpha = .5 * (1 - u); ctx.fillStyle = P.khaki; ctx.beginPath(); ctx.ellipse(x0 + u * 180 + Math.sin(j * 2.1) * 14, y0 - u * 330, r, r * .7, 0, 0, TAU); ctx.fill(); }
+    ctx.restore();
     // uzak patlama ("komutana")
     if (t > tKo) { const u = t - tKo; a4_burst(ctx, 330, 560, 60, 81, E.outBack(clamp(a4_tf(u) / .16)) * (1 - ramp(u, .8, 1.1)), { ring: false }); }
     ctx.restore();
@@ -1148,6 +1151,10 @@ const a4_KUSAK = {
       for (let x = -40; x < W + 60; x += 110) inkStroke(g, PL([[x, 760], [x, H + 100]], false), 3, { a: .6 });
     }, 90);
     a4_put(ctx, bg, cm, .7);
+    // gökte sürüklenen düz duman (sağa)
+    ctx.save(); cam(ctx, cm, .7); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = P.khaki;
+    for (let j = 0; j < 12; j++) { const u = (lt * .07 + j / 12) % 1, x = -300 + u * (W + 600), y = 250 + Math.sin(j * 1.7) * 90 + j % 3 * 40; ctx.globalAlpha = .4 * Math.sin(u * PI); ctx.beginPath(); ctx.ellipse(x, y, 120 + j % 4 * 30, 34 + j % 3 * 10, 0, 0, TAU); ctx.fill(); }
+    ctx.restore();
     // kuşak şeridi: "ve birbirleri"de soldan sağa merdane ile basılır; sağdan sola çizilir (soldaki önde)
     const rx = kf(t, [[tBr - .1, 200], [tBr + 1.1, 1800, E.io2]]);
     ctx.save(); cam(ctx, cm, 1);
@@ -1167,10 +1174,13 @@ const a4_KUSAK = {
       const top = PL([[-60, 900], [W + 60, 892], [W + 60, H + 100], [-60, H + 100]]); knock(g, top); plate(g, 'ochre', top); plate(g, 'khaki', top, { a: .45 }); inkStroke(g, PL([[-60, 900], [W + 60, 892]], false), 4);
       for (let i = 0; i < 7; i++) inkStroke(g, SP([[-60, 916 + i * 24], [700, 918 + i * 24 + (i % 2) * 4], [W + 60, 912 + i * 24]], false), 1.4, { a: .4 });
       paperSheet(g, 760, 965, 230, 120, -.05, 31, { rows: 4 }); compass(g, 1000, 975, 44); binoculars(g, 1250, 960, 1.05, .06);
+      // basamakta düşmüş bir kabalak (kayıp; kansız)
+      plate(g, 'ink', SP([[420, 1012], [560, 1004], [570, 1022], [430, 1030]], true, .7), { a: .35 });
+      headgear(g, { x: 470, y: 1072, s: .95, dir: 1, gear: 'kabalak', tilt: .22, sd: 5, WD: 1, HY: 1 });
     }, 90);
     a4_put(ctx, ledge, cm, 1.06);
     // karanlık: başta siper koyu; "tecrübe"de basamak, "birbirleri"nde siper aydınlanır
-    const d1 = .5 * (1 - ramp(t, tTc - .1, tTc + .5)), d2 = .5 * (1 - ramp(t, tBr, tBr + 1.2));
+    const d1 = .5 * (1 - ramp(t, tTc - .1, tTc + .5)) + .2 * ramp(t, tBr + .8, tBr + 1.6), d2 = .5 * (1 - ramp(t, tBr, tBr + 1.2));
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
     // isim + yaş (1918)

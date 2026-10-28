@@ -59,7 +59,11 @@ function a2_seaBase(g, y0, y1, o = {}) {
   knock(g, sea); plate(g, 'teal', sea, { a: o.a ?? .78 });
   plate(g, 'teal', a2_R(x0, y0, x1, y0 + (y1 - y0) * .1), { a: .5 });
   plate(g, 'teal', a2_R(x0, y1 - (y1 - y0) * .32, x1, y1), { a: .4 });
-  if (o.ht !== false) halftone(g, 'teal', a2_R(x0, y0 + (y1 - y0) * .1, x1, y0 + (y1 - y0) * .45), .2, { cell: 11, ang: 15 });
+  if (o.ht !== false) {
+    // başların çevresinde (1,5 baş yarıçapı) yarım ton yok: o.holes = [[x, y, r], ...]
+    g.save(); if (o.holes) { const c = new Path2D(); c.rect(x0, y0, x1 - x0, y1 - y0); for (const [hx, hy_, hr] of o.holes) c.ellipse(hx, hy_, hr, hr, 0, 0, TAU); g.clip(c, 'evenodd'); }
+    halftone(g, 'teal', a2_R(x0, y0 + (y1 - y0) * .1, x1, y0 + (y1 - y0) * .45), .2, { cell: 11, ang: 15 }); g.restore();
+  }
   inkStroke(g, PL([[x0, y0], [x1, y0]], false), 2.6);
 }
 // hareketli dalga: yavaş kayan düz şeritler (açık: kâğıt, koyu: turkuazın ikinci baskısı). Yarım ton değil.
@@ -512,7 +516,7 @@ function a2_gulfBG(g, hy, o = {}) {
   knock(g, ol); plate(g, 'sepia', ol, { a: .3 }); plate(g, 'teal', ol, { a: .18 });
   const snow = SP(rough([[210, hy - 168], [260, hy - 194], [330, hy - 204], [390, hy - 190], [450, hy - 208], [520, hy - 196], [566, hy - 172], [510, hy - 180], [450, hy - 186], [390, hy - 174], [330, hy - 188], [270, hy - 172]], 1, 96), true, .7);
   knock(g, snow); inkStroke(g, ol, 1.8);
-  a2_seaBase(g, hy, H + 160, { a: .74 });
+  a2_seaBase(g, hy, H + 160, { a: .74, holes: o.holes });
   // rıhtım taşı (ön), y: o.qy
   if (o.qy) {
     const qy = o.qy, top = a2_R(-160, qy, W + 160, qy + 40), face = a2_R(-160, qy + 40, W + 160, H + 160);
@@ -588,7 +592,7 @@ a2_shot(S('C02'), Wd('C02', 'burada'), (ctx, st) => {
   paperBG(ctx);
   const { t, lt, d } = st, tq = a2_q(t), hy = 560;
   const cm = a2_camAt(lt, d, { x: W / 2, y: H / 2, z: 1.0 }, { x: W / 2 + 20, y: H / 2 - 8, z: 1.05 });
-  ctx.save(); cam(ctx, cm, .5); ctx.drawImage(a2_cache('c02a-bg', 160, g => a2_gulfBG(g, hy, { qy: 905, sunX: 1060 })).c, -160, -160, W + 320, H + 320);
+  ctx.save(); cam(ctx, cm, .5); ctx.drawImage(a2_cache('c02a-bg', 160, g => a2_gulfBG(g, hy, { qy: 905, sunX: 1060, holes: [[800, 564, 130], [800, 700, 110]] })).c, -160, -160, W + 320, H + 320);
   a2_sunPath(ctx, 1060, hy, 900, t);
   a2_waves(ctx, hy, 905, t, { seed: 21, rows: 14, speed: .7 });
   a2_steamer(ctx, 1640 - lt * 7, hy + 6, .3, -1, t, { seed: 5 });
@@ -600,7 +604,10 @@ a2_shot(S('C02'), Wd('C02', 'burada'), (ctx, st) => {
   a2_bundle(ctx, 470, 902, 1.1);
   const bol = SP([[1438, 906], [1446, 860], [1440, 842], [1420, 834], [1424, 818], [1470, 812], [1516, 818], [1520, 834], [1500, 842], [1494, 860], [1502, 906]], true, .5); knock(ctx, bol); inkFill(ctx, bol); cut(ctx, SP([[1428, 824], [1470, 820], [1512, 824]], false), 2, { a: .6 }); cut(ctx, PL([[1452, 856], [1450, 900]], false), 2, { a: .4 });
   const rope = new Path2D(); for (let k = 0; k < 4; k++) rope.ellipse(1600, 896 - k * 10, 90 - k * 8, 16, 0, 0, TAU); knock(ctx, a2_ell(1600, 880, 92, 34)); inkStroke(ctx, rope, 3); plate(ctx, 'ochre', a2_ell(1600, 880, 92, 34), { a: .35 });
-  const turn = kf(tq - S('C02'), [[0, -.2], [1.6, .5], [3.4, .5], [4.6, .1]]);
+  // rüzgâr desteden bir gazeteyi kaldırır ("filizlendi"den sonra), sağ üste uçar — C02b'nin uçuşan gazetelerine bağlanır
+  const tW = Wd('C02', 'filizlendi'), fw = clamp((tq - tW) / 1.4);
+  if (fw > 0) { const fx = lerp(470, 1500, E.in2(fw)), fy = lerp(860, 180, E.out2(fw)) + Math.sin(fw * 9) * 30; a2_newspaper(ctx, fx, fy, 200, 260, -.2 + fw * 1.1, 'fr', Math.sin(tq * 7), { age: .1 }); }
+  const turn = kf(tq - S('C02'), [[0, -.2], [1.6, .5], [3.4, .5], [3.9, .2], [4.6, .7]]);
   a2_childBack(ctx, 800, hy + 4 + Math.sin(tq * 1.5) * 1.5, 1.39, { turn, ph: Math.floor(t * 4) % 2 });
   ctx.restore();
 }, { tr: { type: 'press', dur: .6 } });
@@ -657,7 +664,7 @@ a2_shot(Wd('C02', 'burada'), S('C03'), (ctx, st) => {
   paperBG(ctx);
   const { t, lt, d } = st, lq = a2_q(lt), hy = 690;
   const cm = a2_camAt(lt, d, { x: W / 2 + 10, y: H / 2, z: 1.02 }, { x: W / 2 - 24, y: H / 2 - 10, z: 1.06 });
-  ctx.save(); cam(ctx, cm, .4); ctx.drawImage(a2_cache('c02b-bg', 160, g => a2_gulfBG(g, hy, { qy: 916, sunX: 1540, sunH: 130 })).c, -160, -160, W + 320, H + 320);
+  ctx.save(); cam(ctx, cm, .4); ctx.drawImage(a2_cache('c02b-bg', 160, g => a2_gulfBG(g, hy, { qy: 916, sunX: 1540, sunH: 130, holes: [[300, 694, 92], [300, 790, 90]] })).c, -160, -160, W + 320, H + 320);
   a2_sunPath(ctx, 1540, hy, 912, t);
   a2_waves(ctx, hy, 916, t, { seed: 23, rows: 10, speed: .7 });
   ctx.restore();
@@ -1237,8 +1244,10 @@ function a2_C06a_bg(g) {
   plate(g, 'ink', a2_R(14, 16, 600, 490), { a: .3 });
   const sh = a2_R(0, 0, 586, 474); knock(g, sh, P.paperD); inkStroke(g, sh, 3); inkStroke(g, a2_R(12, 12, 574, 462), 1.2);
   const sea = a2_R(12, 12, 574, 462); plate(g, 'teal', sea, { a: .45 });
-  const land = SP(rough([[12, 12], [574, 12], [574, 120], [520, 160], [470, 150], [430, 200], [440, 260], [380, 300], [330, 280], [300, 340], [250, 330], [230, 400], [180, 380], [150, 462], [12, 462]], 2, 601), true, .6);
+  g.save(); g.clip(sea);
+  const land = SP(rough([[-40, -40], [640, -40], [640, 130], [560, 150], [500, 200], [470, 240], [430, 250], [400, 300], [340, 290], [300, 330], [270, 370], [220, 380], [180, 430], [150, 520], [-40, 520]], 1.5, 601), true, .9);
   knock(g, land, '#E3D6B8'); plate(g, 'ochre', land, { a: .3 }); inkStroke(g, land, 2.2);
+  g.restore();
   ridge(g, [[60, 140], [130, 120], [210, 140], [270, 120]], 16, px => px, 611); ridge(g, [[90, 300], [150, 290], [200, 310]], 12, px => px, 612);
   for (const [x, y] of [[370, 230], [160, 250], [470, 90]]) { inkFill(g, a2_ell(x, y, 7, 7)); }
   const cart = a2_R(380, 380, 556, 444); knock(g, cart); inkStroke(g, cart, 1.8); scriptLine(g, 544, 410, 150, 10, 621, { w: 1.8 }); scriptLine(g, 520, 432, 100, 7, 622, { w: 1.4 });
@@ -1248,8 +1257,12 @@ function a2_C06a_bg(g) {
   const bb = a2_R(1560, 150, W + 140, 640); knock(g, bb); inkFill(g, bb); plate(g, 'navy', bb, { a: .5 });
   const ci = new Path2D(); ci.arc(1760, 380, 110, 0, TAU); cut(g, ci, 2.2, { a: .6 }); cut(g, PL([[1650, 470], [1880, 290], [1700, 290]]), 2, { a: .5 });
   inkStroke(g, bb, 6, { col: P.sepia });
-  // önde masa kenarı
-  const tb = PL([[-140, 900], [W + 140, 896], [W + 140, H + 140], [-140, H + 140]]); knock(g, tb); plate(g, 'sepia', tb, { n: 2 }); plate(g, 'ochre', tb, { a: .3 }); inkStroke(g, PL([[-140, 900], [W + 140, 896]], false), 4);
+}
+function a2_C06a_table(g) {
+  const tb = PL([[-140, 836], [W + 140, 830], [W + 140, H + 140], [-140, H + 140]]); knock(g, tb); plate(g, 'sepia', tb, { n: 2 }); plate(g, 'ochre', tb, { a: .3 });
+  inkStroke(g, PL([[-140, 836], [W + 140, 830]], false), 4.4);
+  const r = rng(605); for (let i = 0; i < 12; i++) { const yy = 850 + i * 18 + r() * 4, q = new Path2D(); let x = -140; q.moveTo(x, yy); while (x < W + 140) { const nx = x + 100 + r() * 160; q.quadraticCurveTo((x + nx) / 2, yy + (r() - .5) * 6, nx, yy + (r() - .5) * 3); x = nx; } inkStroke(g, q, 1.5, { a: .35 }); }
+  paperSheet(g, 1500, 900, 230, 120, .05, 607, { header: true }); paperSheet(g, 420, 920, 200, 110, -.07, 608, { rows: 4 });
 }
 a2_shot(S('C06'), Wd('C06', 'tutuklanıp'), (ctx, st) => {
   setReg(601);
@@ -1264,20 +1277,22 @@ a2_shot(S('C06'), Wd('C06', 'tutuklanıp'), (ctx, st) => {
   const look = [lerp(330, 1900, turn), lerp(360, 420, turn)];
   const S_ = 1.32;
   const af = { x: 830, y: 330, s: S_, dir: -1 };
-  bust(ctx, { ...af, coat: 'setre', col: 'navy', w: .96, seed: 13, len: (920 - af.y) / S_, tilt: .03, turn: .3, back: true });
+  bust(ctx, { ...af, coat: 'setre', col: 'navy', w: .96, seed: 13, len: (860 - af.y) / S_, tilt: .03, turn: .3, back: true });
   head3q(ctx, { ...af, who: 'alifuat', gear: 'fes', light: 'front', lookAt: look, age: 23, tilt: -.03 + turn * .04 });
   const mk = { x: 1220, y: 344, s: S_, dir: -1 };
-  bust(ctx, { ...mk, coat: 'setre', col: 'navy', w: .98, seed: 3, len: (920 - mk.y) / S_, tilt: .05, turn: .3, sep: true, arms: 'back' });
+  bust(ctx, { ...mk, coat: 'setre', col: 'navy', w: .98, seed: 3, len: (860 - mk.y) / S_, tilt: .05, turn: .3, sep: true, arms: 'back' });
   head3q(ctx, { ...mk, who: 'mk', gear: 'fes', light: 'front', lookAt: look, age: 24, tilt: -.04 + turn * .05 });
-  // omza konan el (sağdan, koyu kol): "ihbarla"da iner, oturur
+  // omza konan el: sağ üstten inen koyu kol (ihbarcı/zaptiye kareye girmez), "ihbarla"da omza oturur
   const hk = E.out3(clamp((tq - tA + .45) / .45));
   if (hk > 0) {
-    const sh = [W + 140, 470], hand = [lerp(W + 120, 1338, hk), lerp(430, 478, hk)];
-    const ap = new Path2D(); ap.moveTo(sh[0], sh[1]); ap.quadraticCurveTo((sh[0] + hand[0]) / 2, 430, hand[0] + 30, hand[1]);
-    inkStroke(ctx, ap, 70, { cap: 'butt' }); cut(ctx, (() => { const q = new Path2D(); q.moveTo(sh[0], sh[1] - 26); q.quadraticCurveTo((sh[0] + hand[0]) / 2, 404, hand[0] + 40, hand[1] - 28); return q; })(), 2.4, { a: .45 });
-    const cf = a2_R(hand[0] + 24, hand[1] - 38, hand[0] + 44, hand[1] + 38); inkFill(ctx, cf);
-    handDraw(ctx, hand[0] + 28, hand[1] + 4, PI * .82, 1.7, 'rest', { side: 1 });
+    const hand = [lerp(1720, 1352, hk), lerp(150, 470, hk)], sh = [hand[0] + 640, hand[1] - 560];
+    const dx = hand[0] - sh[0], dy = hand[1] - sh[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L, w = 40;
+    const sl = PL([[sh[0] + nx * w, sh[1] + ny * w], [hand[0] + 20 + nx * w * .8, hand[1] - 34 + ny * w * .8], [hand[0] + 20 - nx * w * .8, hand[1] - 34 - ny * w * .8], [sh[0] - nx * w, sh[1] - ny * w]]);
+    knock(ctx, sl); inkFill(ctx, sl); cut(ctx, PL([[sh[0] + nx * w * .6, sh[1] + ny * w * .6], [hand[0] + 20 + nx * w * .5, hand[1] - 34 + ny * w * .5]], false), 2.4, { a: .45 });
+    const cf = PL([[hand[0] + 20 + nx * 36, hand[1] - 34 + ny * 36], [hand[0] + 36 + nx * 36, hand[1] - 52 + ny * 36], [hand[0] + 36 - nx * 36, hand[1] - 52 - ny * 36], [hand[0] + 20 - nx * 36, hand[1] - 34 - ny * 36]]); knock(ctx, cf); inkFill(ctx, cf); cut(ctx, cf, 1.6, { a: .4 });
+    handDraw(ctx, hand[0] + 22, hand[1] - 30, Math.atan2(dy, dx) + .25, 1.8, 'rest', { side: -1 });
   }
+  ctx.drawImage(a2_cache('c06a-table', 140, a2_C06a_table).c, -140, -140, W + 280, H + 280);
   // ortam kararır (lacivert basılır)
   const dk = ramp(t, tA, tA + .5);
   if (dk > 0) plate(ctx, 'navy', a2_R(-160, -160, W + 160, H + 160), { a: .32 * dk });
@@ -1346,11 +1361,11 @@ a2_shot(Wd('C06', 'tutuklanıp'), Wd('C06', 'yeni'), (ctx, st) => {
     const k = a2_in(t, at, .2); if (k <= 0) return;
     const r0 = (big ? 22 : 15) * (1 + (1 - k) * .6); const c = a2_ell(x, y, r0, r0); knock(ctx, c); inkStroke(ctx, c, 4); inkFill(ctx, a2_ell(x, y, r0 * .45, r0 * .45));
     if (!NOTEXT) { ctx.save(); ctx.globalAlpha = k; ctx.font = FONT.mono(big ? 44 : 34); ctx.letterSpacing = '4px'; const w = ctx.measureText(lab).width; ctx.restore();
-      const bx = x + (big ? 36 : 28), by = y - (big ? 70 : 54), bh = big ? 62 : 50; ctx.save(); ctx.globalAlpha = k; const b = a2_R(bx, by, bx + w + 36, by + bh); plate(ctx, 'ink', a2_R(bx + 6, by + 7, bx + w + 42, by + bh + 7), { a: .35 }); knock(ctx, b); inkStroke(ctx, b, 2.6); ctx.restore();
+      const left = s < 0, bh = big ? 62 : 50, bx = left ? x - 28 - w - 36 : x + (big ? 36 : 28), by = left ? y + 24 : y - (big ? 70 : 54); ctx.save(); ctx.globalAlpha = k; const b = a2_R(bx, by, bx + w + 36, by + bh); plate(ctx, 'ink', a2_R(bx + 6, by + 7, bx + w + 42, by + bh + 7), { a: .35 }); knock(ctx, b); inkStroke(ctx, b, 2.6); ctx.restore();
       label(ctx, lab, bx + 18, by + bh * .72, FONT.mono(big ? 44 : 34), { ls: 4, a: k }); }
   };
   city(700 + o[0], 210 + o[1], 1, 'İSTANBUL', S('C06') - 10, false);
-  city(1470 + o[0], 790 + o[1], 1, 'BEYRUT', tR + 1.6, false);
+  city(1470 + o[0], 790 + o[1], -1, 'BEYRUT', tR + 1.6, false);
   city(1610 + o[0], 790 + o[1], 1, 'ŞAM', tS, true);
   ctx.restore();
   stamp(ctx, 'SÜRGÜN · 1905', 80, 128, t - tR, d, { size: 44 });
@@ -1365,7 +1380,7 @@ function a2_C06c_bg(g) {
     const w = 440, y0 = 160, y1 = 760, arch = SP([[cx - w / 2, y1], [cx - w / 2, y0 + 200], [cx - w * .3, y0 + 40], [cx, y0 - 20], [cx + w * .3, y0 + 40], [cx + w / 2, y0 + 200], [cx + w / 2, y1]], true, .5);
     const outer = SP([[cx - w / 2 - 60, y1], [cx - w / 2 - 60, y0 + 190], [cx - w * .32 - 40, y0 - 10], [cx, y0 - 90], [cx + w * .32 + 40, y0 - 10], [cx + w / 2 + 60, y0 + 190], [cx + w / 2 + 60, y1]], true, .5);
     knock(g, outer); plate(g, 'sepia', outer, { a: .5 }); plate(g, 'navy', outer, { a: .45 });
-    g.save(); g.clip(outer); for (let k = 0; k < 12; k++) if (k % 2) plate(g, 'sepia', a2_R(cx - 400, y0 - 100 + k * 42, cx + 400, y0 - 58 + k * 42), { n: 2 }); g.restore();
+    g.save(); g.clip(outer); for (let k = 0; k < 12; k++) if (k % 2) plate(g, 'sepia', a2_R(cx - 400, y0 - 100 + k * 42, cx + 400, y0 - 58 + k * 42), { a: .55 }); g.restore();
     knock(g, arch); plate(g, 'navy', arch, { n: 2 }); plate(g, 'ink', arch, { a: .35 });
     inkStroke(g, arch, 3); inkStroke(g, outer, 2.4);
   }
