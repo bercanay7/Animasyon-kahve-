@@ -5,7 +5,7 @@
 | # | Alan | Kurul (üyeler) | Son puan | Durum |
 |---|---|---|---|---|
 | 1 | Senaryo ve tarihsel doğruluk | Tarih danışmanı; senaryo/yönetmenlik kurulu | **10** (2. tur, ikisi de) | ONAY |
-| 2 | Anlatım (seslendirme performansı, diksiyon, vurgu, tempo, ton) | Anlatım kurulu: seslendirme yönetmeni, Türkçe diksiyon uzmanı | 7 (2. tur: iç duraklar sözcük içine düşmüştü) | Düzeltildi (iç duraklar gerçek sessizlikte, F01 a çekimi, enerji tabanlı CUES); 3. turda yeniden oylanacak |
+| 2 | Anlatım (seslendirme performansı, diksiyon, vurgu, tempo, ton) | Anlatım kurulu: seslendirme yönetmeni, Türkçe diksiyon uzmanı | **10** (3. tur, vo.wav) | ONAY; kulakla son onay kullanıcıda (G05 "Sizin", G01 "Yaşasın", "Kâzım", "hikâye", "beşte") |
 | 3 | Yönetmenlik ve kurgu (çekim seçimi, ritim, geçişler) | Senaryo/yönetmenlik kurulu | 9 (2. tur) | Düzeltmeler: G01 doruğunda tepki, G02 geri çekilme, F05 montaj, E06 okuma yükü, damga |
 | 4 | Kanca ve izleyici tutma | Kanca kurulu: YouTube tutma stratejisti, belgesel kurgu yönetmeni | açılış 9, film 9 (2. tur) | Düzeltmeler: A05/G02 durgunluğu, bitiş ekranı, açılış efektleri (ses kurulunda) |
 | 5 | Sanat ve üslup (renk, kompozisyon, doku) | Sanat yönetmeni | 8,5 (2. tur) | Düzeltmeler: B06b karakter hatası, doku kameraya bağlandı, değer kuralı, çocuk yüzleri, Halide/Rauf tutarlılığı |
