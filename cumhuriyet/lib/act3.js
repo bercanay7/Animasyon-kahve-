@@ -33,7 +33,7 @@ shot(S('D01'), (ctx, st) => {
   A3_GARRISON.forEach(([lo, la], i) => {
     const ti = Ty - .3 + i * .09, k = a1_pop(t, ti, .16); if (k <= 0) return;
     const [x, y] = a1_p(lo, la);
-    for (const [r, a] of [[30, .35], [19, .6]]) plate(ctx, 'gold', a1_ell(x, y, r * k, r * k), { a });
+    for (const [r, a] of [[30, .35], [19, .6]]) { plate(ctx, 'gold', a1_ell(x, y, r * k, r * k), { a, flat: true }); inkStroke(ctx, a1_ell(x, y, r * k, r * k), 1.4, { a: .8 }); }
     const d = a1_ell(x, y, 7.5 * k, 7.5 * k); knock(ctx, d); plate(ctx, 'red', d); inkStroke(ctx, d, 2.2);
   });
   ctx.restore();
@@ -56,7 +56,6 @@ shot(S('D01'), (ctx, st) => {
     }
     if (t > Td - .15) { const d = a1_ell(sx, sy, 7, 7); knock(ctx, d); inkFill(ctx, a1_ell(sx, sy, 4.5, 4.5)); }
   }
-  a1_dust(ctx, t, 31);
   chapterCard(ctx, 'III', 'MEŞRUTİYET', '1908 · CUMHURİYET\u2019E 15 YIL', lt - .25, Tst - S('D01') + .3);
 }, { tr: { type: 'press', dur: .8 } });
 
@@ -69,7 +68,7 @@ function a3_soldier(g, x, y, s, ph = 0, dir = 1) {
   b.moveTo(-9, -82); b.lineTo(10, -82); b.lineTo(13, -46); b.lineTo(10, -40); b.lineTo(7 + st, 0); b.lineTo(2 + st, 0); b.lineTo(1, -36); b.lineTo(-1, -36); b.lineTo(-3 - st, 0); b.lineTo(-8 - st, 0); b.lineTo(-9, -40); b.lineTo(-11, -46); b.closePath();
   inkFill(g, b);
   inkStroke(g, PL([[-12, -40], [10, -112]], false), 2.6); inkStroke(g, PL([[10, -112], [12, -122]], false), 1);
-  const f = PL([[-4, -95], [6, -95], [5.2, -104], [-3.2, -104]]); knock(g, f); plate(g, 'red', f); inkStroke(g, f, .8);
+  inkFill(g, PL([[-5.5, -93], [7.5, -93], [8.5, -107], [-6.5, -107]])); cut(g, PL([[-4.5, -105], [7, -105]], false), .9, { a: .55 }); // kalpak (kesik koni)
   cut(g, PL([[-6, -74], [8, -60]], false), .8, { a: .4 });
   g.restore();
 }
@@ -109,11 +108,13 @@ shot(S('D02'), (ctx, st) => {
   // subay kolu: patika boyunca tırmanır (pozlar 6 fps)
   const ph = Math.floor(t * 6) % 2, dt = t - S('D02');
   // kol boyunca aralık: yol üstünde geriye doğru, ekranda öndekilerden en az 90 px uzak konum
-  const placed = []; let u = .2 + dt * .085;
+  const placed = []; let u = Math.min(.2 + dt * .085, 1);
+  const gap = (a, b) => { const sa = lerp(2.5, 1.05, a[3]), sb = lerp(2.5, 1.05, b[3]); return Math.max(70, 26 * (sa + sb)); };
   for (let i = 0; i < 7 && u > 0; i++) {
-    if (i) { u -= .06; while (u > 0 && placed.some(([px, py]) => Math.hypot(a3_pathAt(u)[0] - px, a3_pathAt(u)[1] - py) < 90)) u -= .01; }
+    let p = [...a3_pathAt(u), u];
+    if (i) { u -= .05; p = [...a3_pathAt(u), u]; while (u > 0 && placed.some(q => Math.hypot(p[0] - q[0], p[1] - q[1]) < gap(p, q))) { u -= .006; p = [...a3_pathAt(u), u]; } }
     if (u <= 0) break;
-    const [x, y, d] = a3_pathAt(Math.min(u, 1)); placed.push([x, y, d, u]);
+    placed.push(p);
   }
   for (const [x, y, d, uu] of [...placed].reverse()) a3_soldier(ctx, x, y + 4, lerp(2.5, 1.05, uu), (ph + Math.round(uu * 40)) % 2, d);
   // tepeye dikilen sancak ("dağa çıktı")
@@ -178,11 +179,12 @@ function a3_flag(ctx, x, y, w, wv = 0) {
   const sp = []; for (let k = 0; k < 10; k++) { const a = -PI / 2 + k * TAU / 10, rr = k % 2 ? r * .2 : r * .45; sp.push([cx + r * 1.15 + Math.cos(a) * rr, cy + Math.sin(a) * rr]); } knock(ctx, PL(sp));
 }
 // sevinen kalabalık: başına oturmuş fes, omuzlar; elde bayrak, mendil ya da fes; kollar iki pozlu, 6 fps, kişi başına rastgele faz
-function a3_crowd(ctx, t, y0, n = 18, seed = 7, flags = true) {
+function a3_crowd(ctx, t, y0, n = 18, seed = 7, Ti = -1e9) {
   const r = rng(seed), q6 = t * 6;
   for (let row = 0; row < 2; row++) for (let i = 0; i < n; i++) {
     const x = -40 + i * (W + 80) / (n - 1) + (row ? 50 : 0) + (r() - .5) * 30, s = row ? 1.25 : 1.0, y = y0 + (row ? 120 : 0) + (r() - .5) * 10;
-    const kind = r(), phs = r(), up = Math.floor(q6 + phs * 7) % 2, sway = Math.sin(t * 2 + phs * 6) * 2;
+    const kind = r(), phs = r(), sway = Math.sin(t * 2 + phs * 6) * 2, tr = Ti + phs * .3, fr = Math.floor((t - tr) * 15);
+    const raised = t >= tr && fr >= 2, up = Math.floor(q6 + phs * 7) % 2;
     ctx.save(); ctx.translate(x + sway, y); ctx.scale(s, s);
     // gövde: boyun, omuzlar
     const b = new Path2D(); b.ellipse(0, -62, 16, 19, 0, 0, TAU);
@@ -192,10 +194,11 @@ function a3_crowd(ctx, t, y0, n = 18, seed = 7, flags = true) {
     if (!bare) { const f = PL([[-15, -74], [15, -74], [12, -98], [-12, -98]]); knock(ctx, f); plate(ctx, 'red', f); inkStroke(ctx, f, 1.8); inkStroke(ctx, SP([[0, -98], [-10, -92], [-16, -80]], false), 2.2); }
     else cut(ctx, SP([[-12, -74], [0, -80], [12, -74]], false), 1.6, { a: .5 });
     // kol: omuzdan yukarı; iki poz
-    const hand = up ? [30, -132] : [42, -112];
-    inkStroke(ctx, SP([[30, -30], [40, -70], hand], false), 13); inkFill(ctx, a1_ell(hand[0], hand[1], 8, 9));
+    // kol: sözden önce inik; hazırlık (iki poz: hafif geri, yarıya kalkış), sonra iki pozlu sallama
+    const hand = t < tr ? [34, -20] : fr === 0 ? [42, -8] : fr === 1 ? [44, -72] : up ? [30, -132] : [42, -112];
+    inkStroke(ctx, SP([[30, -30], [hand[0] > 40 && hand[1] > -30 ? 44 : 40, hand[1] > -30 ? -6 : -70], hand], false), 13); inkFill(ctx, a1_ell(hand[0], hand[1], 8, 9));
     const wv = (up ? 1 : -1) * 6;
-    if (!flags) { ctx.restore(); continue; }
+    if (!raised) { ctx.restore(); continue; }
     if (kind < .42) { // mendil
       const m = SP([[hand[0] - 2, hand[1] - 6], [hand[0] + 22, hand[1] - 18 + wv], [hand[0] + 38, hand[1] - 6 + wv], [hand[0] + 20, hand[1] + 8 + wv * .5]], true, .6); knock(ctx, m); inkStroke(ctx, m, 1.6);
     } else if (waveFes) { // elde fes
@@ -237,7 +240,7 @@ shot(a1_W('D02', 'sultan'), (ctx, st) => {
   }
   // kalabalık sevinir (ön planda): "yeniden" sözünde yükselir, "ilan" sözünde flamalar açılır
   const cu = E.out3(clamp((t - Ty + .1) / .45));
-  if (cu > 0) { ctx.save(); ctx.translate(0, (1 - cu) * 320); a3_crowd(ctx, t, 960, 18, 7, t > Ti); ctx.restore(); }
+  if (cu > 0) { ctx.save(); ctx.translate(0, (1 - cu) * 320); a3_crowd(ctx, t, 960, 18, 7, Ti); ctx.restore(); }
   stamp(ctx, 'MEŞRUTİYET · 23 TEMMUZ 1908', 114, 112, t - Tm, 9, { size: 48 });
 }, { tr: { type: 'cut' } });
 
@@ -363,7 +366,7 @@ shot(a1_W('D03', 'meclis') + .45, (ctx, st) => {
   ctx.restore();
 }, { tr: { type: 'cut' } });
 
-// ═══════════ D03c · Ordunun kurmayları: Mustafa Kemal (27) ve Kâzım Karabekir (26); lacivert setre, kırmızı fes (Nisan 1909) ═══════════
+// ═══════════ D03c · Ordunun kurmayları: Mustafa Kemal (27) ve Kâzım Karabekir (27); lacivert setre, kalpak (Nisan 1909) ═══════════
 shot(a1_W('D03', 'ordunun'), (ctx, st) => {
   setReg(308);
   paperBG(ctx);
@@ -377,11 +380,11 @@ shot(a1_W('D03', 'ordunun'), (ctx, st) => {
   // başlar kelimeye bağlı olarak koltuğa (kadraj solu) döner: Mustafa Kemal "arasında", Karabekir "Karabekir" sözünde
   const Tar = a1_W('D03', 'arasında'), Tkb = a1_W('D03', 'karabekir'), tq = Math.floor(t * 15) / 15, chair = [-260, 600];
   const mT = tq >= Tar, kT = tq >= Tkb, mE = ramp(t, Tar, Tar + .35, E.out2), kE = ramp(t, Tkb, Tkb + .35, E.out2);
-  a1_fig(ctx, t, { x: 1310, y: 330, s: 2.05, dir: -1, who: 'karabekir', gear: 'fes', coat: 'setre', col: 'navy', collarCol: 'red', age: 26, lookAt: kT ? chair : undefined, look: kT ? undefined : [-.45, .1], tilt: -.05 * kE, len: 520, seed: 11, back: true, w: 1.02 });
-  a1_fig(ctx, t, { x: 700, y: 360, s: 2.05, dir: -1, who: 'mk', gear: 'fes', coat: 'setre', col: 'navy', collarCol: 'red', age: 27, lookAt: mT ? chair : undefined, look: mT ? undefined : [-.5, .12], tilt: -.05 * mE, len: 520, seed: 3, sep: true, w: .96, turn: .2 });
+  a1_fig(ctx, t, { x: 1310, y: 330, s: 2.05, dir: -1, who: 'karabekir', gear: 'kalpak', gearCol: 'ink', coat: 'setre', col: 'navy', collarCol: 'red', age: 27, lookAt: kT ? chair : undefined, look: kT ? undefined : [-.45, .1], tilt: -.05 * kE, len: 520, seed: 11, back: true, w: 1.02 });
+  a1_fig(ctx, t, { x: 700, y: 360, s: 2.05, dir: -1, who: 'mk', gear: 'kalpak', gearCol: 'ink', coat: 'setre', col: 'navy', collarCol: 'red', age: 27, lookAt: mT ? chair : undefined, look: mT ? undefined : [-.5, .12], tilt: -.05 * mE, len: 520, seed: 3, sep: true, w: .96, turn: .2 });
   ctx.restore();
-  nameTag(ctx, 110, 850, 'MUSTAFA KEMAL', '27 yaşında · kurmay', t - Tm, 9);
-  nameTag(ctx, 1810, 64, 'KÂZIM KARABEKİR', '26 yaşında · kurmay', t - Tk, 9, { align: 'right' });
+  nameTag(ctx, 110, 850, 'MUSTAFA KEMAL', '27 yaşında · Hareket Ordusu kurmayı', t - Tm, 9);
+  nameTag(ctx, 1824, 720, 'KÂZIM KARABEKİR', '27 yaşında · Hareket Ordusu kurmayı', t - Tk, 9, { align: 'right' });
 }, { tr: { type: 'cut' } });
 
 // ═══════════ D04a · Bölünmüş kare: okullar | Abdülhamid (nötr) | jurnaller ═══════════

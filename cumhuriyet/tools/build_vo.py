@@ -4,7 +4,8 @@ Kullanım: python3 tools/build_vo.py
   vo/secim.json        {bölüm: dosya}  bölümün varsayılan çekimi
   vo/secim_cumle.json  {cümle_id: dosya} (isteğe bağlı) cümle başına çekim (anlatım kurulu); bölüm dışı dosyalar da olabilir
   vo/takes.json        {dosya: [cümle_id...]} (isteğe bağlı) bölüm çekimi olmayan dosyaların içerdiği cümleler (ör. yeniden okumalar)
-  vo/plan.json         once, secGap, sonra, gap{id: sn}, ic{id: [[sözcük, sn], ...]} (cümle içi durak)
+  vo/plan.json         once, secGap, sonra, gap{id: sn}, ic{id: [[sözcük, sn], ...]} (cümle içi durak),
+                       kazanc{id: [[sözcük, dB], ...]} (sözcükten cümle sonuna klip kazancı)
 Kesim: iki cümle arası en uzun sessizliğin ortası; kesim noktası sessiz değilse arama penceresi genişler (kopuk hece kalmaz).
 CUES başlangıç/bitişi enerjiden alınır; cümleler arası ses seviyesi eşitlenir."""
 import json, re, difflib, subprocess, numpy as np, sys, os
@@ -107,23 +108,49 @@ for bolum, segs in secs:
         ws = [dict(w=A['ref'][i], s=A['st'][i] - c0, e=A['en'][i] - c0) for i in idx]
         disp = disp_map(s['alt'], [w['w'] for w in ws])
         for w, dd in zip(ws, disp): w['d'] = dd
-        # cümle içi durak (plan.ic): sözcükten sonraki sessizliğin ortasına
+        # cümle içi durak (plan.ic), anlatım kurulu 2. tur: yalnız gerçek sessizliğe eklenir. Whisper bitişik sözcük
+        # verebildiği için arama penceresi [e0-.15, s1+.8]; sessizlik = klibin tepe değerinin 50 dB altı; en uzun ≥100 ms
+        # sessiz koşunun ortası; yoksa eklenmez (uyarı). Ekleme noktası ±5 ms geçişle (tık olmaz).
+        pk = float(np.abs(clip).max()) + 1e-9
         for word, dur in plan.get('ic', {}).get(sid, []):
             nw = norm1(word); hit = [i for i, w in enumerate(ws) if w['w'].startswith(nw)]
             if not hit or hit[0] + 1 >= len(ws): print('UYARI ic bulunamadı', sid, word); continue
             i = hit[0]; e0, s1 = ws[i]['e'], ws[i + 1]['s']
-            r = A['rms'][int((c0 + e0) / .01):int((c0 + s1) / .01) + 1]
-            q = [n for n, v in enumerate(r) if v < A['thr']]
-            at = (e0 + (q[len(q) // 2] if q else (s1 - e0) / 2 / .01) * .01) if q else (e0 + s1) / 2
-            p = int(at * SR); clip = np.concatenate([clip[:p], np.zeros(int(dur * SR), np.float32), clip[p:]])
+            hop = int(.005 * SR); env = np.sqrt(np.convolve(clip ** 2, np.ones(hop * 2) / (hop * 2), 'same'))[::hop]
+            lo, hi = max(0, int((e0 - .15) / .005)), min(len(env), int((s1 + .8) / .005))
+            for qdb in (50, 44):
+                q = env[lo:hi] < pk * 10 ** (-qdb / 20)
+                best, bi, cur = 0, None, 0
+                for n, v in enumerate(q):
+                    cur = cur + 1 if v else 0
+                    if cur > best: best, bi = cur, n - cur + 1
+                if best * .005 >= .1: break
+            if best * .005 < .1: print(f'UYARI ic eklenmedi (sessizlik yok): {sid} {word}'); continue
+            p = int((lo + bi + best / 2) * .005 * SR)
+            fd = int(.005 * SR); a_, b_ = clip[:p].copy(), clip[p:].copy()
+            a_[-fd:] *= np.linspace(1, 0, fd); b_[:fd] *= np.linspace(0, 1, fd)
+            clip = np.concatenate([a_, np.zeros(int(dur * SR), np.float32), b_])
+            at = p / SR
             for w in ws[i + 1:]: w['s'] += dur; w['e'] += dur
+            if ws[i]['e'] > at: ws[i]['e'] = at
+            print(f'  ic {sid} "{word}" +{dur} sn @ {at:.2f} (sessizlik {best * 5} ms)')
+        # sözcükten cümle sonuna klip kazancı (plan.kazanc), ör. C03'teki fısıltılı kuyruk
+        for word, gdb in plan.get('kazanc', {}).get(sid, []):
+            nw = norm1(word); hit = [i for i, w in enumerate(ws) if w['w'].startswith(nw)]
+            if not hit: print('UYARI kazanc bulunamadı', sid, word); continue
+            p = max(0, int((ws[hit[0]]['s'] - .06) * SR)); g = np.ones(len(clip), np.float32); r = int(.02 * SR)
+            g[p:] = 10 ** (gdb / 20); g[p:p + r] = np.linspace(1, 10 ** (gdb / 20), len(g[p:p + r]))
+            clip = clip * g
         fl = int(.012 * SR); clip[:fl] *= np.linspace(0, 1, fl); clip[-fl:] *= np.linspace(1, 0, fl)
         # enerji sınırları (CUES): ilk ve son eşik üstü kare
         hop = int(.01 * SR); rr = np.sqrt(np.convolve(clip ** 2, np.ones(hop * 3) / (hop * 3), 'same'))[::hop]
         on = np.nonzero(rr > A['thr'])[0]
-        es, ee = (on[0] * .01, (on[-1] + 1) * .01) if len(on) else (ws[0]['s'], ws[-1]['e'])
         act = clip[np.repeat(rr > A['thr'], hop)[:len(clip)]] if len(on) else clip
-        clips[sid] = dict(clip=clip, ws=ws, s=min(es, ws[0]['s']), e=max(ee, ws[-1]['e'] - .05) if ee < ws[-1]['e'] - .3 else ee, f=f, rms=float(np.sqrt(np.mean(act ** 2)) + 1e-9))
+        # CUES (anlatım kurulu 2. tur): başlangıç ve bitiş yalnız enerjiden, eşik klibin tepe değerinin 45 dB altı
+        # (Whisper'ın erken başlangıcı seçilmez; sahne kesmeleri sesin gerçekten başladığı ana göre yerleşir)
+        on2 = np.nonzero(rr > (float(np.abs(clip).max()) + 1e-9) * 10 ** (-45 / 20))[0]
+        es, ee = (on2[0] * .01, (on2[-1] + 1) * .01) if len(on2) else (ws[0]['s'], ws[-1]['e'])
+        clips[sid] = dict(clip=clip, ws=ws, s=es, e=ee, f=f, rms=float(np.sqrt(np.mean(act ** 2)) + 1e-9))
 # 2) ses seviyesi eşitleme: etkin RMS medyana (±%40 sınırlı); yalnız seçimi bölüm çekimi olmayan ya da farklı çekim olan cümlelerde belirgin fark olur
 med = float(np.median([c['rms'] for c in clips.values()]))
 for sid, c in clips.items():

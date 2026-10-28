@@ -40,13 +40,13 @@ function drawShot(ctx, i, t) {
   const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save();
   // kullanıcı isteği "görüntü hiç durmasın": her çekimde sürekli, gözle seçilir kamera hareketi. Yakınlaşma ilk saniyelerde
-  // ~%0,8/sn hızla başlar, %5,5'e doğru yavaşlar; kenar payı içinde çekime özgü yönde kayma ve uzun çekimde süren yavaş salınım.
+  // ~%0,7/sn hızla başlar, %6'ya doğru yavaşlar; kenar payı içinde çekime özgü, tek yönlü kayma.
   // Ekran yazıları (ui.js) bu hareketi geri alır, ekrana sabit kalır. Bitiş ekranı (YouTube öğeleri) ve sh.still sabit.
   window.DRIFT = null;
   if (!sh.still && !(window.CUES && CUES.G06 && sh.at >= Se('G06') - .5)) {
-    const a = .055 * (1 - Math.exp(-st.lt / 7)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU, m = a * .5;
-    const sw = Math.sin(st.lt * .45 + hash(i * 3.3) * TAU) * Math.min(1, st.lt / 3);
-    const px = (Math.cos(ang) * .55 + sw * .3 * -Math.sin(ang)) * m * W, py = (Math.sin(ang) * .55 + sw * .3 * Math.cos(ang)) * m * H;
+    // yön hiç değişmez (salınım yok: yazılı haritada ileri-geri yüzme hissi verir); uzun çekimde de yavaşlayarak sürer
+    const a = .06 * (1 - Math.exp(-st.lt / 9)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU, m = a * .5;
+    const px = Math.cos(ang) * .6 * m * W, py = Math.sin(ang) * .6 * m * H;
     ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2 - px, -H / 2 - py);
     window.DRIFT = { z, px, py };
   }

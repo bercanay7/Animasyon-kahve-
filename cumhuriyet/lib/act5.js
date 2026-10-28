@@ -196,7 +196,7 @@ shot(S('F02') - .15, (ctx, st) => {
   const ta = Wd('F02', 'ali');
   nameTag(ctx, 640, 520, 'REFET', '1881 doğumlu', t - (S('F02') + .3), ta - .15 - (S('F02') + .3), { align: 'center' });
   nameTag(ctx, 1370, 520, 'RAUF', '37 yaşında', t - (S('F02') + .45), ta - .15 - (S('F02') + .45), { align: 'center' });
-  nameTag(ctx, 560, 700, 'ALİ FUAT', '36 yaşında · sınıf arkadaşı', t - ta, 3.2);
+  nameTag(ctx, 830, 520, 'ALİ FUAT', '36 yaşında · sınıf arkadaşı', t - ta, 3.2, { align: 'center' }); // kendi başının altında (Refet ve Rauf gibi)
   stamp(ctx, 'AMASYA · 22 HAZİRAN 1919', 114, 112, lt - .2, 2.0);
   tickerTape(ctx, 'ERZURUM → AMASYA · TELGRAF', 1010, t - Wd('F02', 'doğudan'), 3.2);
   nameTag(ctx, 1800, 640, 'KÂZIM KARABEKİR', '36 yaşında', t - Wd('F02', 'karabekir') + .2, 2.8, { align: 'right' });
@@ -279,7 +279,8 @@ shot(Wd('F04', 'sonra') - .1, (ctx, st) => {
 
 // F05 · montaj: kongreler, Meclis, Sakarya, Büyük Taarruz; sıra ve siper; harita, örgütlenme, güven
 // onaylı Alagöz karesi ≥1,6 sn kalır: Meclis'ten 0,3 sn alır, Büyük Taarruz 'büyük' kelimesinden 0,3 sn sonra başlar
-const A5_M = () => [Wd('F05', 'kongreler') - .1, Wd('F05', 'meclis') - .05, Wd('F05', 'sakarya') - .35, Wd('F05', 'büyük') + .3, Wd('F05', 'bu') - .05, Wd('F05', 'harita') - .1, Wd('F05', 'örgütlenmeyi') - .1, Wd('F05', 'birbirine') - .1];
+// montaj kesmeleri kelimeden 0,1 sn önce (yönetmenlik kurulu, 2. tur): Meclis 0,8 / Sakarya 1,0 / Kocatepe 1,3 sn
+const A5_M = () => [Wd('F05', 'kongreler') - .1, Wd('F05', 'meclis') - .1, Wd('F05', 'sakarya') - .1, Wd('F05', 'büyük') - .1, Wd('F05', 'bu') - .05, Wd('F05', 'harita') - .1, Wd('F05', 'örgütlenmeyi') - .1, Wd('F05', 'birbirine') - .1];
 function a5_year(ctx, s) {
   if (NOTEXT) return;
   // standart sol üst yuva (damga yuvası): Alagöz karesinde lambayla çakışmaz
@@ -438,7 +439,7 @@ shot(A5_M()[7], (ctx, st) => { // birbirine güvenmeyi: siperde omuz omuza, bir 
 // F06 · "Kuşak hazırdı": A05 dizilişindeki yedi kişi eşit aralıkta, Mustafa Kemal ortada ve aynı ölçekte; önde uzun okul sırası
 // (1893 sınıfı ve "AYNI SIRADA" kapağıyla kafiye). "onu"da Mustafa Kemal ortadaki boşluğa basılır, "birleştiren"de başlar şafağa döner,
 // "mustafa"da kamera merkeze ≤%7 yaklaşır. Hale yok: şafak ışığı karenin sağ kenarında, başlardan uzak.
-const A5_SEVEN = [['halide', 'basortu', 'setre', 'khaki', 38], ['karabekir', 'kalpak', 'kaput', 'khaki', 40], ['alifuat', 'kalpak', 'kaput', 'khaki', 40], ['mk', 'kalpak', 'kaput', 'khaki', 41], ['ismet', 'kalpak', 'kaput', 'khaki', 38], ['fevzi', 'kalpak', 'kaput', 'khaki', 46], ['rauf', 'kalpak', 'civil', 'navy', 41]];
+const A5_SEVEN = [['halide', 'basortu', 'setre', 'khaki', 38], ['karabekir', 'kalpak', 'kaput', 'khaki', 40], ['alifuat', 'kalpak', 'kaput', 'khaki', 40], ['mk', 'kalpak', 'kaput', 'khaki', 41], ['ismet', 'kalpak', 'kaput', 'khaki', 38], ['fevzi', 'kalpak', 'kaput', 'khaki', 46], ['rauf', 'fes', 'civil', 'navy', 41]] // Rauf fesli: Sivas, Eylül 1919 fotoğrafı (tarih danışmanı; madalyon ve öteki dizilerle tutarlı);
 shot(S('F06') - .25, (ctx, st) => {
   setReg(75); const t = st.t, lt = st.lt;
   paperBG(ctx);
@@ -459,7 +460,7 @@ shot(S('F06') - .25, (ctx, st) => {
     bust(ctx, { x, y, s, dir: 1, coat, col, w: .92, seed: i + 7, len: 420, turn: .2, sep: i > 0 ? 'L' : false, arms: 'back' });
     // "dehası"nda sağdakiler başlarını Mustafa Kemal'e çevirir, soldakiler hafifçe ona eğilir
     const hd = atMK && i > 3 ? -1 : 1, lean = atMK ? (i < 3 ? .05 : -.05) : 0;
-    head3q(ctx, { x: x - (hd < 0 ? 12 * s : 0), y, s, dir: hd, who, gear, gearCol: who === 'fevzi' || who === 'rauf' ? 'grey' : 'ink', light: 'front', lookAt: look, age, tilt: (id.head || 0) * .5 + lean, blink: blinkAt(t, i * 3 + 1) });
+    head3q(ctx, { x: x - (hd < 0 ? 12 * s : 0), y, s, dir: hd, who, gear, gearCol: who === 'fevzi' ? 'grey' : undefined, light: 'front', lookAt: look, age, tilt: (id.head || 0) * .5 + lean, blink: blinkAt(t, i * 3 + 1) });
     REG.boost = 1; ctx.restore();
   });
   // uzun okul sırası (figürlerin önünde)

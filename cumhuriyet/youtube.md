@@ -7,12 +7,12 @@
 
 ## Açıklama
 
-Otuz yıl önce aynı sıralarda, bir sultanın okullarındaydılar.
+Otuz yıl önce hepsi öğrenciydi: bir sultanın okullarında.
 28 Ekim 1923 gecesi Çankaya'da bir sofra… ve ertesi gün ilan edilen Cumhuriyet. O sofradakiler kimdi, nereden gelmişlerdi? Bu videoda Cumhuriyet'i kuran kuşağın nasıl yetiştiğini anlatıyoruz:
 - Abdülhamid döneminde imparatorluğa yayılan okullar,
 - Selanik'in kozmopolit limanı ve yasak kitaplar,
 - 1908,
-- on yıl süren savaşlar,
+- on yılı aşkın savaşlar,
 - Anadolu'da birleşen bir kadro.
 
 Bölümler
