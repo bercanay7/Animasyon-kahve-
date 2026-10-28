@@ -336,7 +336,9 @@ shot(A5_M()[3], (ctx, st) => { // Büyük Taarruz: Kocatepe şafağı
   for (const [x, ph] of [[1300, .1], [1500, .55], [1700, .9]]) {
     const u = (lt + ph) % 1.1, fl = u < .07;
     if (fl) { const st_ = new Path2D(); for (let k = 0; k < 10; k++) { const a = k * PI / 5, r = k % 2 ? 9 : 26; k ? st_.lineTo(x + r * Math.cos(a), 700 + r * Math.sin(a)) : st_.moveTo(x + r, 700); } st_.closePath(); knock(ctx, st_, '#FBF0D4'); plate(ctx, 'gold', st_, { a: .6 }); }
-    radialHT(ctx, 'ink', x - u * 30, 690 - u * 60, 0, 40 + u * 40, .35 * (1 - u / 1.1), 0, { cell: 10 });
+    const pf = new Path2D(), r0 = 18 + u * 34, cx_ = x - u * 26, cy_ = 704 - u * 70; // düz baskı duman bulutu (hareketli alanda yarım ton yok)
+    for (const [ox, oy, k] of [[0, 0, 1], [-.8, .35, .7], [.85, .3, .75], [.2, -.6, .6]]) pf.ellipse(cx_ + ox * r0, cy_ + oy * r0, r0 * k, r0 * k * .8, 0, 0, TAU);
+    plate(ctx, 'grey', pf, { a: .42 * (1 - u / 1.1) });
   }
   a5_hills(ctx, 690, 60, 5.3, .55);
   const ridge = SP([[-40, H], [-40, 820], [400, 760], [800, 790], [1200, 740], [1600, 800], [W + 40, 770], [W + 40, H]], true, .7); inkFill(ctx, ridge);
@@ -441,7 +443,7 @@ shot(S('F06') - .25, (ctx, st) => {
   setReg(75); const t = st.t, lt = st.lt;
   paperBG(ctx);
   a5_sky(ctx, [['ochre', .45, 300], ['ochre', .25, 560]]);
-  plate(ctx, 'gold', PL([[1790, -20], [W + 20, -20], [W + 20, 760], [1790, 760]]), { a: .35 }); // şafak sağ kenardan
+  for (const [x0, a] of [[1460, .1], [1640, .12], [1800, .14]]) plate(ctx, 'gold', PL(rough([[x0, -20], [W + 20, -20], [W + 20, 840], [x0 - 300, 840]], 1.2, x0)), { a }); // şafak sağ üstten, eğik basamaklı ışık
   const join = ramp(t, Wd('F06', 'onu') - .1, Wd('F06', 'onu') + .5, E.io3);
   const turn = ramp(t, Wd('F06', 'birleştiren') - .1, Wd('F06', 'birleştiren') + .3);
   const zz = 1 + .07 * E.io2(ramp(t, Wd('F06', 'mustafa') - .1, Se('F06') + .2));
@@ -452,10 +454,12 @@ shot(S('F06') - .25, (ctx, st) => {
     const x = 960 + (i - 3) * 226, id = idleOffsets(tf, i + 3, .6);
     // önce ortadaki boşluğa (sonra Mustafa Kemal'e), "birleştiren"de şafağa bakarlar
     const tdh = Wd('F06', 'deha'), rank = Math.abs(i - 3);
-    const look = !isMK && tf > tdh + rank * .08 ? [960, 430] : turn >= 1 ? [2200, 380] : [960, 420];
+    const atMK = !isMK && tf > tdh + rank * .08, look = atMK ? [960, 430] : turn >= 1 ? [2200, 380] : [960, 420];
     ctx.save(); if (isMK) { ctx.globalAlpha = join; REG.boost = 1 + 4 * (1 - join); }
     bust(ctx, { x, y, s, dir: 1, coat, col, w: .92, seed: i + 7, len: 420, turn: .2, sep: i > 0 ? 'L' : false, arms: 'back' });
-    head3q(ctx, { x, y, s, dir: 1, who, gear, gearCol: who === 'fevzi' || who === 'rauf' ? 'grey' : 'ink', light: 'front', lookAt: look, age, tilt: (id.head || 0) * .5, blink: blinkAt(t, i * 3 + 1) });
+    // "dehası"nda sağdakiler başlarını Mustafa Kemal'e çevirir, soldakiler hafifçe ona eğilir
+    const hd = atMK && i > 3 ? -1 : 1, lean = atMK ? (i < 3 ? .05 : -.05) : 0;
+    head3q(ctx, { x: x - (hd < 0 ? 12 * s : 0), y, s, dir: hd, who, gear, gearCol: who === 'fevzi' || who === 'rauf' ? 'grey' : 'ink', light: 'front', lookAt: look, age, tilt: (id.head || 0) * .5 + lean, blink: blinkAt(t, i * 3 + 1) });
     REG.boost = 1; ctx.restore();
   });
   // uzun okul sırası (figürlerin önünde)

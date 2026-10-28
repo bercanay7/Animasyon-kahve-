@@ -1267,10 +1267,10 @@ a2_shot(Wd('C05', 'dört'), S('C06'), (ctx, st) => {
     { x: 1232, y: 586, s: 1.0, dir: -1, col: 'ink', seed: 67, mus: true, tgt: [C[0] + 18, C[1] - 2] },
   ];
   // yemin kitabı: masanın ortasında yatık, kapalı (sepya cilt, kâğıt sayfa kenarı)
-  { const bx = 960, by = 768, top = PL([[bx - 118, by - 10], [bx + 92, by - 18], [bx + 128, by + 4], [bx - 84, by + 14]]), side = PL([[bx - 84, by + 14], [bx + 128, by + 4], [bx + 128, by + 20], [bx - 84, by + 30]]);
-    plate(ctx, 'ink', PL([[bx - 80, by + 30], [bx + 136, by + 20], [bx + 150, by + 30], [bx - 70, by + 40]]), { a: .3, flat: true });
-    knock(ctx, side, '#F3EBD6'); for (let k = 1; k < 4; k++) inkStroke(ctx, PL([[bx - 84, by + 14 + k * 4], [bx + 128, by + 4 + k * 4]], false), 1, { a: .5 }); inkStroke(ctx, side, 2.2);
-    knock(ctx, top); plate(ctx, 'sepia', top, { a: .9, flat: true }); inkStroke(ctx, top, 2.6); inkStroke(ctx, PL([[bx - 96, by - 4], [bx + 84, by - 11], [bx + 104, by + 2], [bx - 72, by + 9]]), 1.4, { col: P.ochre, a: .9 }); }
+  { const bx = 960, by = 768, K = ([u, v]) => [bx + u * 1.35, by + v * 1.35], top = PL([[-118, -10], [92, -18], [128, 4], [-84, 14]].map(K)), side = PL([[-84, 14], [128, 4], [128, 20], [-84, 30]].map(K));
+    plate(ctx, 'ink', PL([[-80, 30], [136, 20], [150, 30], [-70, 40]].map(K)), { a: .3, flat: true });
+    knock(ctx, side, '#F3EBD6'); for (let k = 1; k < 4; k++) inkStroke(ctx, PL([[-84, 14 + k * 4], [128, 4 + k * 4]].map(K), false), 1, { a: .5 }); inkStroke(ctx, side, 2.2);
+    knock(ctx, top); plate(ctx, 'sepia', top, { a: .9, flat: true }); inkStroke(ctx, top, 2.6); inkStroke(ctx, PL([[-96, -4], [84, -11], [104, 2], [-72, 9]].map(K)), 1.4, { col: P.ochre, a: .9 }); }
   const bowK = E.io2(clamp((tq - tC + .1) / .5));
   for (const f of F4) {
     const rest = [f.x + f.dir * 130 * f.s, 790 + (f.col === 'navy' ? -40 : 0)], tg = [lerp(rest[0], f.tgt[0], join), lerp(rest[1], f.tgt[1], join)];
@@ -1369,9 +1369,10 @@ a2_shot(S('C06'), Wd('C06', 'tutuklanıp'), (ctx, st) => {
   const hT = tq - (tA - .15);
   if (hT >= 0) {
     const hk = E.out3(clamp(hT / .2)), dip = hT >= .2 && hT < .2667 ? 6 : 0;   // oturma: bir poz (2 kare) aşağı, sonra yerine
-    const sh = [lerp(2380, 2010, hk), 600], hand = [lerp(2240, 1392, hk), lerp(520, 486, hk) + dip];
-    const aR = arm(ctx, sh, hand, { upper: 360, fore: 330, w: 66, col: 'navy', bend: 1 });
-    handDraw(ctx, aR.wr[0], aR.wr[1], aR.ang + .18, aR.w2 / 20, 'rest', { side: -1 });
+    // omuz kareye girmez; bilek MK'nin sağ omzunun hemen ardında, avuç aşağı, parmaklar omzun üstünden sola-aşağı yatar
+    const sh = [lerp(2380, 2030, hk), 520], hand = [lerp(2200, 1408, hk), lerp(470, 476, hk) + dip];
+    const aR = arm(ctx, sh, hand, { upper: 340, fore: 320, w: 64, col: 'navy', bend: 1 });
+    handDraw(ctx, aR.wr[0], aR.wr[1], PI - .42, aR.w2 / 20, 'rest', { side: 1 });
   }
   ctx.drawImage(a2_cache('c06a-table', 140, a2_C06a_table).c, -140, -140, W + 280, H + 280);
   // ortam kararır (lacivert basılır)
