@@ -1,0 +1,633 @@
+[
+ {
+  "t": -0.07,
+  "anchor": "S('A01') -0.70",
+  "name": "wind",
+  "g": -24,
+  "loop": true,
+  "fi": 0.3,
+  "fo": 0.9,
+  "note": "Çankaya, gece dış çekim; iç mekâna kesmede söner",
+  "len": 5.21,
+  "len_anchor": "Wd('A01', 'küçük') -0.30"
+ },
+ {
+  "t": 5.94,
+  "anchor": "Wd('A01', 'akşam') +0.00",
+  "name": "tick",
+  "g": -20,
+  "pan": -0.4,
+  "note": "\"?\" künyeleri (kanca A2)"
+ },
+ {
+  "t": 6.06,
+  "anchor": "Wd('A01', 'akşam') +0.12",
+  "name": "tick",
+  "g": -20,
+  "pan": -0.2,
+  "note": "\"?\" künyeleri (kanca A2)"
+ },
+ {
+  "t": 6.18,
+  "anchor": "Wd('A01', 'akşam') +0.24",
+  "name": "tick",
+  "g": -20,
+  "pan": 0.0,
+  "note": "\"?\" künyeleri (kanca A2)"
+ },
+ {
+  "t": 6.3,
+  "anchor": "Wd('A01', 'akşam') +0.36",
+  "name": "tick",
+  "g": -20,
+  "pan": 0.20000000000000007,
+  "note": "\"?\" künyeleri (kanca A2)"
+ },
+ {
+  "t": 6.42,
+  "anchor": "Wd('A01', 'akşam') +0.48",
+  "name": "tick",
+  "g": -20,
+  "pan": 0.4,
+  "note": "\"?\" künyeleri (kanca A2)"
+ },
+ {
+  "t": 6.99,
+  "anchor": "Se('A01') +0.25",
+  "name": "clink",
+  "g": -19,
+  "pan": 0.35,
+  "note": "\"küçük bir akşam yemeği\": kadeh, sözden sonra"
+ },
+ {
+  "t": 7.36,
+  "anchor": "Se('A01') +0.62",
+  "name": "clink",
+  "g": -24,
+  "pan": -0.25,
+  "note": "ikinci, daha uzak çınlama"
+ },
+ {
+  "t": 17.29,
+  "anchor": "Wd('A04', 'kırk') +0.00",
+  "name": "thump",
+  "g": -16,
+  "rate": 1.4,
+  "len": 0.3,
+  "pan": -0.4,
+  "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 17.46,
+  "anchor": "Wd('A04', 'kırk') +0.17",
+  "name": "thump",
+  "g": -16,
+  "rate": 1.4,
+  "len": 0.3,
+  "pan": -0.2,
+  "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 17.63,
+  "anchor": "Wd('A04', 'kırk') +0.34",
+  "name": "thump",
+  "g": -16,
+  "rate": 1.4,
+  "len": 0.3,
+  "pan": 0.0,
+  "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 17.8,
+  "anchor": "Wd('A04', 'kırk') +0.51",
+  "name": "thump",
+  "g": -16,
+  "rate": 1.4,
+  "len": 0.3,
+  "pan": 0.20000000000000007,
+  "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 17.97,
+  "anchor": "Wd('A04', 'kırk') +0.68",
+  "name": "thump",
+  "g": -16,
+  "rate": 1.4,
+  "len": 0.3,
+  "pan": 0.4,
+  "note": "1923 yaş levhaları (kanca A2)"
+ },
+ {
+  "t": 18.3,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.00",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.55,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.46,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.16",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.58,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.6,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.30",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.61,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.72,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.42",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.64,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.82,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.52",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.67,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.91,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.61",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.7,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 18.99,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.69",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.74,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 19.06,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.76",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.78,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 19.12,
+  "anchor": "Wd('A04', 'yaşlarındaydı', 0, true) +0.82",
+  "name": "tick",
+  "g": -18,
+  "rate": 0.82,
+  "pan": 0.1,
+  "note": "1923→1893: saat geri sarılır (ticks döngüsünde rate çalışmıyor; tek tek tick)"
+ },
+ {
+  "t": 19.31,
+  "anchor": "Wd('A04', 'önce') +0.05",
+  "name": "tick",
+  "g": -18,
+  "pan": -0.4,
+  "note": "1893 yaşları (kanca A2)"
+ },
+ {
+  "t": 19.46,
+  "anchor": "Wd('A04', 'önce') +0.20",
+  "name": "tick",
+  "g": -18,
+  "pan": -0.2,
+  "note": "1893 yaşları (kanca A2)"
+ },
+ {
+  "t": 19.61,
+  "anchor": "Wd('A04', 'önce') +0.35",
+  "name": "tick",
+  "g": -18,
+  "pan": 0.0,
+  "note": "1893 yaşları (kanca A2)"
+ },
+ {
+  "t": 19.76,
+  "anchor": "Wd('A04', 'önce') +0.50",
+  "name": "tick",
+  "g": -18,
+  "pan": 0.20000000000000007,
+  "note": "1893 yaşları (kanca A2)"
+ },
+ {
+  "t": 19.91,
+  "anchor": "Wd('A04', 'önce') +0.65",
+  "name": "tick",
+  "g": -18,
+  "pan": 0.4,
+  "note": "1893 yaşları (kanca A2)"
+ },
+ {
+  "t": 23.24,
+  "anchor": "Wd('A04', 'sultanın') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -14,
+  "note": "\"SULTANIN SIRALARINDA\" damgası; tak sesi damgayla aynı anda (at: peak)"
+ },
+ {
+  "t": 24.88,
+  "anchor": "Wd('A04', 'ikinci') -0.12",
+  "name": "thud",
+  "g": -16,
+  "note": "Abdülhamid portresine kesme (kanca A2)"
+ },
+ {
+  "t": 30.24,
+  "anchor": "Wd('A05', 'bir', 1) +0.00",
+  "name": "thump",
+  "g": -22,
+  "rate": 1.2,
+  "len": 0.3,
+  "pan": -0.3,
+  "note": "büstler (kanca A2); tez cümlesinin altında: hafif"
+ },
+ {
+  "t": 30.41,
+  "anchor": "Wd('A05', 'bir', 1) +0.17",
+  "name": "thump",
+  "g": -22,
+  "rate": 1.2,
+  "len": 0.3,
+  "pan": 0.0,
+  "note": "büstler (kanca A2); tez cümlesinin altında: hafif"
+ },
+ {
+  "t": 30.58,
+  "anchor": "Wd('A05', 'bir', 1) +0.34",
+  "name": "thump",
+  "g": -22,
+  "rate": 1.2,
+  "len": 0.3,
+  "pan": 0.3,
+  "note": "büstler (kanca A2); tez cümlesinin altında: hafif"
+ },
+ {
+  "t": 30.36,
+  "anchor": "Wd('A05', 'kuşağın') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -16,
+  "note": "\"BİR KUŞAĞIN HİKÂYESİ\" başlık baskısı (kanca A2: -6 istendi; tez sözü örtülmesin diye -16)"
+ },
+ {
+  "t": 30.52,
+  "anchor": "Wd('A05', 'kuşağın') +0.16",
+  "name": "pen",
+  "g": -24,
+  "len": 0.5,
+  "pan": 0.2,
+  "note": "başlık altı kırmızı çizgi"
+ },
+ {
+  "t": 33.92,
+  "anchor": "S('B01') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı I: merdane boşlukta, tak görüntüdeki baskıyla"
+ },
+ {
+  "t": 42.38,
+  "anchor": "Wd('B01', 'etti') +0.02",
+  "name": "thud",
+  "g": -22,
+  "pan": -0.2,
+  "note": "\"tatil etti\": Meclis kapısı zincir/mühür"
+ },
+ {
+  "t": 56.637,
+  "anchor": "Wd('B03', 'altı') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -14,
+  "note": "\"600+\" damgası (kanca B4)"
+ },
+ {
+  "t": 58.377,
+  "anchor": "Wd('B03', 'yüzü', 1) +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -14,
+  "note": "\"100+\" damgası (kanca B4)"
+ },
+ {
+  "t": 79.845,
+  "anchor": "Wd('B05', 'karnesiyle') +0.03",
+  "name": "thump",
+  "g": -25,
+  "pan": 0.25,
+  "len": 0.3,
+  "note": "kırmızı \"âlâ\" mührü (act1 çapası karnesiyle'ye düzeltiliyor)"
+ },
+ {
+  "t": 93.58,
+  "anchor": "Se('B06') +0.10",
+  "name": "chalk",
+  "g": -19,
+  "pan": -0.3,
+  "len": 0.7,
+  "note": "\"…Kemal.\" sonrası tebeşir"
+ },
+ {
+  "t": 93.91,
+  "anchor": "S('C01') -1.45",
+  "name": "whistle",
+  "g": -16,
+  "pan": -0.35,
+  "len": 1.7,
+  "rate": 1.0,
+  "fi": 0.25,
+  "fo": 0.6,
+  "note": "vapur düdüğü Sol3 = limanın tonu; kesmeden önce (J-cut)"
+ },
+ {
+  "t": 95.36,
+  "anchor": "S('C01') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı II"
+ },
+ {
+  "t": 95.06,
+  "anchor": "S('C01') -0.30",
+  "name": "sea",
+  "g": -27,
+  "loop": true,
+  "fi": 1.5,
+  "fo": 1.5,
+  "note": "liman/deniz",
+  "len": 20.8,
+  "len_anchor": "S('C03') -0.20"
+ },
+ {
+  "t": 126.545,
+  "anchor": "Wd('C03', 'dolaşırdı', 0, true) +0.12",
+  "name": "page",
+  "g": -26,
+  "pan": 0.2,
+  "note": "yasak kitap açılır; fısıltıdan önceki boşlukta"
+ },
+ {
+  "t": 135.72,
+  "anchor": "Wd('C04', 'yazılırdı', 0, true) -0.25",
+  "name": "pen",
+  "g": -21,
+  "pan": 0.25,
+  "len": 0.9,
+  "note": "jurnal yazılır"
+ },
+ {
+  "t": 160.32,
+  "anchor": "Wd('C06', 'vatan') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -16,
+  "note": "\"VATAN VE HÜRRİYET\" damgası (kanca B4)"
+ },
+ {
+  "t": 163.62,
+  "anchor": "S('D01') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı III"
+ },
+ {
+  "t": 168.51,
+  "anchor": "Wd('D01', 'değişim') +0.03",
+  "name": "thud",
+  "g": -19,
+  "pan": -0.3,
+  "note": "\"DEĞİŞİM\" damgası"
+ },
+ {
+  "t": 169.59,
+  "anchor": "Wd('D01', 'çöküş') +0.03",
+  "name": "thud",
+  "g": -17,
+  "pan": 0.3,
+  "note": "\"ÇÖKÜŞ\" damgası"
+ },
+ {
+  "t": 179.505,
+  "anchor": "Se('D02') +0.60",
+  "name": "train",
+  "g": -13,
+  "len": 4.8,
+  "fi": 0.9,
+  "fo": 1.2,
+  "note": "Hareket Ordusu treni"
+ },
+ {
+  "t": 195.25,
+  "anchor": "Wd('D04', 'bu') +0.00",
+  "name": "page",
+  "g": -20,
+  "pan": -0.2,
+  "note": "D04 geri dönüş, 1893 sınıfı (kanca B4)"
+ },
+ {
+  "t": 199.95,
+  "anchor": "S('E01') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı IV"
+ },
+ {
+  "t": 200.25,
+  "anchor": "S('E01') +0.30",
+  "name": "steps",
+  "g": -17,
+  "rate": 2.0,
+  "fi": 0.6,
+  "fo": 0.03,
+  "note": "yürüyen asker kolu; \"savaş\" darbesinde kesilir",
+  "len": 3.87,
+  "len_anchor": "Wd('E01', 'savaş', 0, true) -0.08"
+ },
+ {
+  "t": 246.365,
+  "anchor": "Wd('E05', 'komutana') +0.00",
+  "name": "clink",
+  "g": -24,
+  "rate": 0.8,
+  "pan": 0.15,
+  "note": "şarapnel cep saatine çarpar (yönetmenlik)"
+ },
+ {
+  "t": 246.365,
+  "anchor": "Wd('E05', 'komutana') +0.00",
+  "name": "thud",
+  "g": -24,
+  "pan": 0.15,
+  "note": "şarapnel darbesinin gövdesi"
+ },
+ {
+  "t": 254.585,
+  "anchor": "Wd('E06', 'imparatorluk') -0.20",
+  "name": "wind",
+  "g": -23,
+  "loop": true,
+  "fi": 1.5,
+  "fo": 1.4,
+  "note": "yenilgi: boş siper, rüzgâr",
+  "len": 7.81,
+  "len_anchor": "Se('E06') +1.60"
+ },
+ {
+  "t": 261.745,
+  "anchor": "S('F01') -1.05",
+  "name": "whistle",
+  "g": -17,
+  "pan": 0.3,
+  "len": 1.5,
+  "rate": 1.1225,
+  "fi": 0.3,
+  "fo": 0.5,
+  "note": "Bandırma düdüğü La3 (220 Hz)"
+ },
+ {
+  "t": 262.095,
+  "anchor": "S('F01') -0.70",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı V (geçiş S(F01)-0.7)"
+ },
+ {
+  "t": 262.095,
+  "anchor": "S('F01') -0.70",
+  "name": "sea",
+  "g": -28,
+  "loop": true,
+  "fi": 1.0,
+  "fo": 0.5,
+  "note": "Samsun iskelesi",
+  "len": 6.94,
+  "len_anchor": "S('F02') -0.10"
+ },
+ {
+  "t": 275.065,
+  "anchor": "Wd('F02', 'katıldı', 0, true) +0.06",
+  "name": "telegraph",
+  "g": -7,
+  "pan": 0.45,
+  "len": 0.8,
+  "note": "\"telgrafla katıldı\" SONRASI telgraf (partideki telegraph() kaldırıldı)"
+ },
+ {
+  "t": 279.025,
+  "anchor": "Wd('F03', 'gizlice') -1.20",
+  "name": "steps",
+  "g": -8,
+  "rate": 1.6,
+  "fi": 0.4,
+  "fo": 0.6,
+  "pan": -0.15,
+  "note": "gece, gizlice Ankara'ya",
+  "len": 3.19,
+  "len_anchor": "Se('F03') +0.40"
+ },
+ {
+  "t": 288.975,
+  "anchor": "Wd('F04', 'orduya') +0.03",
+  "name": "thud",
+  "g": -21,
+  "pan": 0.3,
+  "note": "\"ONBAŞI\" damgası"
+ },
+ {
+  "t": 289.775,
+  "anchor": "Wd('F04', 'çavuşluğa') +0.03",
+  "name": "thud",
+  "g": -19,
+  "pan": 0.3,
+  "note": "\"ÇAVUŞ\" damgası"
+ },
+ {
+  "t": 304.25,
+  "anchor": "S('F06') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -16,
+  "note": "\"KUŞAK HAZIRDI\" (kanca B4)"
+ },
+ {
+  "t": 310.615,
+  "anchor": "S('G01') -1.00",
+  "name": "press",
+  "at": "peak",
+  "g": -12,
+  "note": "bölüm kartı VI (geçiş S(G01)-1.0)"
+ },
+ {
+  "t": 317.635,
+  "anchor": "Wd('G01', 'yaşasın') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -20,
+  "note": "galeri coşkusu: 0.3 sn kayık baskı vurgusu (yönetmenlik); merdane önceki boşlukta"
+ },
+ {
+  "t": 317.585,
+  "anchor": "Wd('G01', 'yaşasın') -0.05",
+  "name": "crowd",
+  "g": -30,
+  "loop": true,
+  "fi": 0.5,
+  "fo": 0.4,
+  "note": "galeri coşkusu (yönetmenlik): \"Yaşasın Cumhuriyet!\" altında alçak",
+  "len": 1.79,
+  "len_anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.40"
+ },
+ {
+  "t": 319.025,
+  "anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.05",
+  "name": "cheer",
+  "g": -20,
+  "len": 2.8,
+  "fo": 1.2,
+  "note": "\"Cumhuriyet!\" biter bitmez tezahürat, doruğun altında"
+ },
+ {
+  "t": 338.415,
+  "anchor": "Wd('G03', 'aynı') +0.00",
+  "name": "press",
+  "at": "peak",
+  "g": -16,
+  "note": "\"AYNI YERDEN\" (kanca B4)"
+ },
+ {
+  "t": 350.485,
+  "anchor": "Wd('G04', 'yazılır', 0, true) +0.05",
+  "name": "chalk",
+  "g": -19,
+  "pan": -0.2,
+  "len": 0.8,
+  "note": "tahtaya \"Cumhuriyet 103 yaşında\""
+ }
+]

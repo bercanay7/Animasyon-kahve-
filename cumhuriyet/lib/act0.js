@@ -260,7 +260,7 @@ function a0_shotKoskDis() {
   shot(t0, (ctx, st) => {
     setReg(101);
     paperBG(ctx);
-    const p = ramp(st.lt, 0, st.d + .6, E.io2), z = 1 + .07 * p;
+    const p = ramp(st.lt, 0, st.d + .6, E.out2), z = 1 + .07 * p; // ilk kareden itibaren hareket
     const c = { x: 960 + 54 * p, y: 540 + 30 * p, z };
     // gök (paralaks .35): lacivert raster yukarıda yoğun, ufka doğru seyrek; uzak tepeler, Ankara kalesi ve şehir ışıkları
     const sky = a0_cache('a0-kosk-sky', g => {
@@ -553,7 +553,7 @@ function a0_classKids(ctx, t, B0, B1, o = {}) {
 // kuşak şeridi kamerası 1923 → 1893 boyunca tek eğri: eşleşme kesmesinde kadraj sıçramaz
 const A0_CAM0 = S('A04') - .5, A0_CAM1 = a0_W('A04', 'bir');
 function a0_class93(ctx, t, p) {
-  const c = { x: 944 + 32 * p, y: 540, z: 1.02 + .02 * p };
+  const c = { x: 920 + 90 * p, y: 548 - 16 * p, z: 1.02 + .05 * p };
   const bg = a0_cache('a0-k93-bg', g => a0_classBG(g, 150, 740));
   a0_layer(ctx, bg, c, .8);
   ctx.save(); cam(ctx, c, 1); a0_classKids(ctx, t, 150, 740); ctx.restore();
@@ -566,7 +566,7 @@ function a0_shotStrips() {
   shot(S('A04') - .4, (ctx, st) => {
     setReg(131);
     paperBG(ctx);
-    const p = ramp(st.t, A0_CAM0, A0_CAM1, E.lin), c = { x: 944 + 32 * p, y: 540, z: 1.02 + .02 * p };
+    const p = ramp(st.t, A0_CAM0, A0_CAM1, E.lin), c = { x: 920 + 90 * p, y: 548 - 16 * p, z: 1.02 + .05 * p };
     const bg = a0_cache('a0-k23-bg', g => { paperBG(g); a0_band(g, B0, B1, 'ochre', .55); });
     a0_layer(ctx, bg, c, .8);
     ctx.save(); cam(ctx, c, 1);

@@ -66,10 +66,10 @@ def s_telegraph(len=2.0, **_):
         click(int(tt * SR), 900, 1.0); click(int((tt + d) * SR), 650, .55)
         tt += d + .07 + (.2 if _R['rng'].random() < .2 else 0)
     return _norm(x, .75)
-def s_whistle(len=2.4, **_):
-    """vapur düdüğü: alçak, iki harmonikli, nefesli"""
+def s_whistle(len=2.4, rate=1.0, **_):
+    """vapur düdüğü: alçak, iki harmonikli, nefesli (rate: perde çarpanı; 1 = Sol3 196 Hz, 1.1225 = La3 220 Hz)"""
     n = int(len * SR); t = np.arange(n) / SR
-    f = 196 * (1 + .004 * np.sin(2 * np.pi * 5 * t))
+    f = 196 * rate * (1 + .004 * np.sin(2 * np.pi * 5 * t))
     ph = 2 * np.pi * np.cumsum(f) / SR
     x = np.sin(ph) + .6 * np.sin(2 * ph) + .35 * np.sin(3 * ph) + .2 * np.sin(5 * ph)
     x += _bp(_n(n), 300, 1400) * .25
@@ -108,6 +108,25 @@ def s_steps(len=3, rate=1.7, **_):
         x[i:i + m] += k[:max(0, min(m, n - i))]; tt += 1 / rate * (.92 + .16 * _R['rng'].random())
     return _norm(x, .7)
 
-EXTRA = dict(sea=s_sea, wind=s_wind, crowd=s_crowd, cheer=s_cheer, typewriter=s_typewriter, carriage=s_carriage, telegraph=s_telegraph,
+def s_train(len=5, rate=1.0, **_):
+    """uzak buharlı tren: tekerlek turu başına 4 püf (vurgulu), ray ek yeri tık-tıkı, alçak gürültü; uzaklık için 3 kHz alçak geçiren"""
+    n = int(len * SR); x = np.zeros(n); r = _R['rng']
+    per = 1 / (3.2 * rate); tt = .03; k = 0
+    while tt < len - .05:
+        i = int(tt * SR); m = min(int(.25 * SR), n - i)
+        if m > 0:
+            ch = _bp(_n(m), 250, 2400) * _env(m, .006, .085) * (1.0, .6, .8, .55)[k % 4] * (.85 + .3 * r.random())
+            x[i:i + m] += ch
+        tt += per * (.97 + .06 * r.random()); k += 1
+    tt = .4
+    while tt < len - .2:
+        for d in (0, .13):
+            i = int((tt + d) * SR); m = min(int(.05 * SR), n - i)
+            if m > 0: x[i:i + m] += _bp(_n(m), 300, 1500) * _env(m, .0005, .012) * .5
+        tt += 1.1 * (.95 + .1 * r.random())
+    x += _lp(_n(n), 150, 4) * .35
+    return _norm(_lp(x, 3000), .7)
+
+EXTRA = dict(train=s_train, sea=s_sea, wind=s_wind, crowd=s_crowd, cheer=s_cheer, typewriter=s_typewriter, carriage=s_carriage, telegraph=s_telegraph,
              whistle=s_whistle, cannon=s_cannon, bell=s_bell, press=s_press, chalk=s_chalk, steps=s_steps)
 EXTRA_LOOP = {'sea', 'wind', 'crowd'}

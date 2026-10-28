@@ -1002,7 +1002,7 @@ const a4_E01_SOL = (() => {
     const ph = Math.floor(lt * 6) % 2;
     const troupe = [[0, 0], [1, 34], [2, 64], [-1, 0], [0, 40], [1, 70], [-1, 0], [2, 26], [0, 50]];
     for (let i = 0; i < troupe.length; i++) {
-      const x = -260 + i * 236 + tf * 20, yy = a4_yAt(road, x) + 8;
+      const x = -260 + i * 236 + tf * 32, yy = a4_yAt(road, x) + 8;
       if (x < -260 || x > W + 300) continue;
       const [k, dx] = troupe[i];
       if (k < 0) { stampOxcart(ctx, x, yy, 1.5, ph); a4_dust(ctx, lt + i, { box: [x - 170, yy - 34, x + 20, yy + 4], n: 8, seed: 30 + i, wind: -30, rise: -6, col: 'ochre', a: .55, size: 4 }); }
@@ -1019,7 +1019,7 @@ const a4_E01_SOL = (() => {
     a4_put(ctx, fg, cm, .9);
     // Zübeyde Hanım (önde, hafif eğik, ötede bohça) ve Makbule (arkasında, beride bohça); ikisi omuz omuza
     ctx.save(); cam(ctx, cm, 1);
-    const wx = tf * 22, ph2 = Math.floor(lt * 5) % 2;
+    const wx = tf * 34, ph2 = Math.floor(lt * 5) % 2;
     for (const [x, y, w_] of [[986 + wx, 968, 220], [800 + wx, 992, 240]]) plate(ctx, 'khaki', SP([[x - 60, y + 2], [x + 64, y], [x - w_, y + 34], [x - w_ - 90, y + 30]], true, .6), { n: 2, a: .8 });
     a4_carsaf(ctx, 986 + wx, 968, 4.0, ph2, { stoop: .06, bundle: 'far', seed: 5 });
     a4_carsaf(ctx, 800 + wx, 992, 4.3, 1 - ph2, { bundle: 'near', seed: 8 });
@@ -1115,7 +1115,7 @@ function a4_rumeliFill(ctx, front, seed = 5) {
     paperBG(ctx);
     const lt = st.lt, t = st.t;
     // kamera sabit: bu haritanın hareketi dolgunun silinmesidir (Trablus'ta yakınlaşma, E04'te yatay kaydırma)
-    const cm = { x: 960, y: 560, z: 1.02 };
+    const cm = { x: 960, y: 560, z: 1 }; // kendi yakınlaşması yok: film.js'in sürekli kayması uygulanır
     a4_put(ctx, a4_L('BK-base', a4_balkanBase, 60), cm, 1);
     { ctx.save(); cam(ctx, cm, 1); a4_looseSheet(ctx, 1640, 250, 200, 140, -.08, 53, lt); ctx.restore(); }
     ctx.save(); cam(ctx, cm, 1); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540);
@@ -1236,7 +1236,7 @@ const a4_KUSAK = {
     const lt = st.lt, t = st.t, tf = a4_tf(lt);
     // ok (Selanik → Trakya → Anadolu) "rumeliyi"den "yeni"ye çizilir; kamera okun ucunu yatay izler
     const ap = ramp(t, T0 + .15, tY + .1, E.io2);
-    const cm = { x: lerp(860, 1060, ap), y: 540, z: 1.04 };
+    const cm = { x: lerp(860, 1040, ap), y: 540, z: 1.04 + .025 * st.p };
     const wall = a4_L('E04-wall2', g => { paperBG(g); plate(g, 'khaki', a4_full(), { a: .55 }); }, 90);
     a4_put(ctx, wall, cm, .5);
     const { lands, gx } = a4_BK;
