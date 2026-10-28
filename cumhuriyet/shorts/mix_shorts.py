@@ -1,4 +1,4 @@
-"""Shorts sesi: filmin anlatım kesitleri + sürekli müzik yatağı (açılış → kapanış) + kesitlere ait efektler → shorts/mix_shorts.wav
+"""Shorts sesi: filmin anlatım kesitleri + müzik yatağı (ilk kesit → final → kapanış kesiti, döngüye dikişsiz) + kesitlere ait efektler → shorts/mix_shorts.wav
 Önce tools/mix.py --stems çalışmış olmalı (audio/stems/{vo,music,sfx}.wav). python3 shorts/mix_shorts.py"""
 import os, sys, json
 import numpy as np, soundfile as sf, pyloudnorm as pyln
@@ -30,20 +30,23 @@ if vo is None:  # stem yoksa ham anlatım
     vo = librosa.load(os.path.join(R, 'vo', 'vo.wav'), sr=SR, mono=True)[0]; vo = np.stack([vo, vo])
 v = cut_clips(vo)
 v *= db(-16 - meter.integrated_loudness(v.T))
-# müzik yatağı: açılış kesitleri boyunca filmin açılış müziği kesintisiz; kapanışta finalin müziği (G02 ile hizalı); arada 1,2 sn çapraz geçiş
+# müzik yatağı (kanca kurulu H4): ilk kesitten başlayan filmin kendi müziği kesintisiz; G01'den önce finalin müziğine
+# (G02 ile hizalı) 1,2 sn çapraz geçiş; kapanış kesitinde yine filmin o anki müziği (0,6 sn geçiş) → döngü dikişi sessiz ve kesintisiz
 mu, msr = sf.read(os.path.join(R, 'audio', 'music.wav'), always_2d=True); mu = mu.T
 assert msr == SR
 def seg(f0, n):
     a = max(0, int(f0 * SR)); x = mu[:, a:a + n]
     return np.pad(x, ((0, 0), (0, n - x.shape[1])))
 E_ = {c['id']: c for c in ed['EDL']}
-bedA = seg(E_['A01']['f'], N)
-off = E_['G02']['f'] - E_['G02']['s']  # film zamanı = shorts zamanı + off
-bedB = seg(off, N)
-xc = E_['G01']['s']
 t = np.arange(N) / SR
-w = np.clip((t - (xc - .6)) / 1.2, 0, 1); w = np.sin(w * np.pi / 2) ** 2
-bed = bedA * np.cos(w * np.pi / 2) + bedB * np.sin(w * np.pi / 2)
+def xf(a, b, at, d):
+    w = np.clip((t - (at - d / 2)) / d, 0, 1); w = np.sin(w * np.pi / 2) ** 2
+    return a * np.cos(w * np.pi / 2) + b * np.sin(w * np.pi / 2)
+first, last = ed['EDL'][0], ed['EDL'][-1]
+bedA = seg(first['f'] - first['s'], N)
+bedB = seg(E_['G02a']['f'] - E_['G02a']['s'], N)
+bedC = seg(last['f'] - last['s'], N)
+bed = xf(xf(bedA, bedB, E_['G01a']['s'], 1.2), bedC, last['s'], .6)
 bed *= db(-21 - meter.integrated_loudness(bed.T))
 # konuşma altında kısma
 ve = M.envelope(v.mean(0)) if hasattr(M, 'envelope') else np.abs(v.mean(0))
@@ -52,8 +55,6 @@ look = int(.12 * SR); tg = np.concatenate([db(-8 * act)[look:], np.ones(look)])
 if hasattr(M, 'smooth_gain'): tg = M.smooth_gain(tg, .1, .6)
 else: tg = np.convolve(tg, np.ones(int(.2 * SR)) / int(.2 * SR), 'same')
 bed *= tg
-# son 2,4 sn (kanal çağrısı) müzik kapanır
-tail = np.clip((ed['DUR'] - t) / 1.6, 0, 1); bed *= np.sin(tail * np.pi / 2)
 fx = stem('sfx')
 fx = cut_clips(fx, .06) * db(-1) if fx is not None else np.zeros((2, N))
 mixd = v + bed + fx
