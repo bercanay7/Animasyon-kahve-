@@ -236,7 +236,7 @@ Ve sonra, bu kuşağın
 asıl okulu başladı: savaş.
 
 52
-00:03:25,032 --> 00:03:28,925
+00:03:25,720 --> 00:03:28,925
 1911'de İtalya Trablusgarp'a çıktı.
 
 53
@@ -337,7 +337,7 @@ sonra Anadolu'da orduya katılıp
 çavuşluğa yükseldi.
 
 74
-00:04:51,385 --> 00:04:55,765
+00:04:51,760 --> 00:04:55,765
 Kongreler, Meclis, Sakarya, Büyük Taarruz…
 
 75
@@ -400,7 +400,7 @@ bir okul sırasından…
 ve bir siperden.
 
 88
-00:05:44,255 --> 00:05:47,325
+00:05:44,730 --> 00:05:47,325
 Bu hikâyeden benim çıkardığım ders şu:
 
 89

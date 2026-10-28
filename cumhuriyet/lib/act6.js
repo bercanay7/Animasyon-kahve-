@@ -24,9 +24,9 @@ function a6_flagImg(G) {
     inkStroke(g, star, 1.3, { a: .45 });
   }, G * 1.5 + 2, G + 2);
 }
-// dalgalanan bayrak: x,y gönder ucundaki üst köşe; unfurl 0..1 (açılma), amp dalga genliği; poz 15 fps
+// dalgalanan bayrak: x,y gönder ucundaki üst köşe; unfurl 0..1 (açılma), amp dalga genliği; poz 15 fps; 1 px şeritler (daha geniş şerit eğimde basamak bırakır)
 function a6_flag(ctx, x, y, G, t, o = {}) {
-  const img = a6_flagImg(G), L = G * 1.5, n = Math.ceil(L / 4), sw = L / n, tf = Math.floor(t * 15) / 15;
+  const img = a6_flagImg(G), L = G * 1.5, n = Math.ceil(L), sw = L / n, tf = Math.floor(t * 15) / 15;
   const vis = L * clamp(o.unfurl ?? 1), amp = o.amp ?? G * .09, sp = o.speed ?? 3.2;
   if (vis < 2) return;
   const dyAt = u => amp * Math.pow(u, .9) * Math.sin(u * TAU * 1.25 - tf * sp) + (o.droop ?? 0) * u * u * G;

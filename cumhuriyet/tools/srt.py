@@ -110,6 +110,23 @@ while i < len(cues) - 1:
         settle_times()
     else: i += 1
 
+# duraktan sonra açılan altyazı sesin gerçek başlangıcına oturur: Whisper ilk sözcüğü (sayılar, cümle başı) erken
+# işaretleyebiliyor (teknik kurulu: 3:25, 4:51, 5:44). Başlangıç, anlatımın enerjisi (tepeye göre -45 dB) aşıldığı andan
+# 0,1 sn önceye çekilir; yalnız 0,33 sn'den çok erkense ve okuma hızı 16,5 kr/sn'yi aşmıyorsa
+import numpy as np, soundfile as sf
+vo, sr = sf.read(os.path.join(ROOT, 'vo', 'vo.wav'), always_2d=True); vo = vo.mean(1)
+hop = int(sr * .01); env = np.sqrt(np.convolve(vo ** 2, np.ones(hop) / hop, 'same')[::hop]) + 1e-9
+env_db = 20 * np.log10(env / env.max())
+for i, c in enumerate(cues):
+    prev = cues[i - 1][1] if i else 0
+    k0, k1 = int(c[0] / .01), int(min(c[0] + 1.2, c[1]) / .01)
+    on = np.nonzero(env_db[k0:k1] > -45)[0]
+    if not len(on): continue
+    t_on = (k0 + on[0]) * .01
+    L = len(c[2].replace('\n', ' '))
+    if t_on - c[0] > .33 and c[0] >= prev + .15 and L / (c[1] - (t_on - .1)) <= 16.5:
+        c[0] = t_on - .1
+
 out = os.path.join(ROOT, 'cumhuriyet.tr.srt')
 with open(out, 'w', encoding='utf-8') as f:
     for i, (a, b, t, _) in enumerate(cues, 1):
