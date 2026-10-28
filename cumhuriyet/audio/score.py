@@ -308,6 +308,7 @@ CHOIR = Bus('choir', SRL, gain=0.40, send=0.55)
 PIANO = Bus('piano', SRL, gain=0.62, send=0.34)
 RUMB = Bus('rumble', SRL, gain=0.60, send=0.10, duck='hits')
 BRASS = Bus('horns', SRL, gain=0.55, send=0.32)
+BANDB = Bus('band', SR, gain=0.5, send=0.3)         # brass band at full rate: cornets and trumpets need the top
 
 
 # =============================================================================== instruments
@@ -942,6 +943,121 @@ def brass(notes, t0, t1, gain=0.2, att=0.3, rel=0.8, bright=0.6, voices=2, detun
     place(BRASS, hp(y, 55, fs, 2) * e[:, None], t0, gain=gain, pan=pan)
 
 
+# ------------------------------------------------------------------------------- brass band
+BAND = dict(    # mouthpiece formants (Hz, gain), dark / bright low-pass corners, vibrato and attack-scoop cents
+    trumpet=dict(form=((1250, 1.1), (2600, 0.5)), dark=900, bright=6500, vib=8.0, scoop=-30.0, hp=120),
+    cornet=dict(form=((1050, 0.9),), dark=700, bright=4200, vib=7.0, scoop=-22.0, hp=110),
+    trombone=dict(form=((520, 0.9), (1150, 0.45)), dark=380, bright=3000, vib=5.0, scoop=-28.0, hp=50),
+    tuba=dict(form=((240, 0.7),), dark=200, bright=1100, vib=2.0, scoop=-15.0, hp=28),
+)
+BANDCH = dict(D=('D2', 'A1', 'F#3 A3 D4'), A=('A1', 'E2', 'E3 A3 C#4'), G=('G1', 'D2', 'G3 B3 D4'),
+              A7=('A1', 'E2', 'E3 G3 C#4'), Bb=('Bb1', 'F2', 'F3 Bb3 D4'), F=('F1', 'C2', 'F3 A3 C4'),
+              Bm=('B1', 'F#2', 'F#3 B3 D4'))     # (tuba root, tuba fifth, off-beat voicing)
+
+
+def band_line(t0, phrase, kind='cornet', gain=0.3, pan=0.0, voices=2, detune=6.0, gap=0.05, bright=0.85):
+    """A brass-band line: tongued notes (fast attack, a small scoop up into the pitch, a brief brassy edge),
+    brightness that follows each note's envelope (dark / mid / bright low-passes cross-faded), a mouthpiece
+    formant, late vibrato, and a short release before the next note (march articulation; `gap` seconds).
+    phrase items: (note | None, seconds[, vel]). Peak-normalised, so `gain` is the level."""
+    P = BAND[kind]
+    fs = SR
+    items = [(nn(it[0]), max(it[1], 0.0), it[2] if len(it) > 2 else 1.0) for it in phrase]
+    total = sum(d for _, d, _ in items)
+    if total < 0.05 or all(m is None for m, _, _ in items):
+        return
+    n = int((total + 0.3) * fs)
+    pitch = np.full(n, np.nan)
+    amp = np.zeros(n)
+    edge = np.zeros(n)
+    cents = np.zeros(n)
+    t = 0.0
+    for m, d, v in items:
+        i0, i1 = int(t * fs), int((t + d) * fs)
+        if m is not None and i1 > i0:
+            x = np.arange(i1 - i0) / fs
+            g = float(np.clip(gap, 0.015, 0.45 * d))
+            e = np.minimum(1, x / 0.016) * (0.82 + 0.18 * np.exp(-x / 0.07))
+            amp[i0:i1] = v * e * np.clip((d - x) / g, 0, 1) ** 0.7
+            pitch[i0:i1] = m
+            edge[i0:i1] = np.exp(-x / 0.06)
+            vz = np.clip((x - 0.28) / 0.3, 0, 1) * (d > 0.45)
+            cents[i0:i1] = P['scoop'] * np.exp(-x / 0.035) + P['vib'] * vz * np.sin(2 * np.pi * 5.4 * x)
+        t += d
+    valid = ~np.isnan(pitch)
+    idx = np.where(valid, np.arange(n), 0)
+    np.maximum.accumulate(idx, out=idx)
+    pitch = pitch[idx]
+    pitch[np.isnan(pitch)] = pitch[valid][0]
+    p = smooth(pitch, 0.008, fs)
+    x = sum(blep_saw(mtof(p) * 2 ** ((cents + rng.uniform(-detune, detune) + wobble(n, fs, 2.0)) / 1200), fs)
+            for _ in range(voices)) / np.sqrt(voices)
+    a = amp / (amp.max() + 1e-9)
+    b = np.clip(bright * a ** 1.2 + 0.35 * edge * a, 0, 1)
+    mid = np.sqrt(P['dark'] * P['bright'])
+    y = lp(x, P['dark'], fs, 2) * (1 - b) ** 2 + 2 * lp(x, mid, fs, 2) * b * (1 - b) + lp(x, P['bright'], fs, 2) * b ** 2
+    for f, gf in P['form']:
+        y = y + gf * bp(y, f / 1.3, min(f * 1.3, fs * 0.45), fs, 1)
+    y = hp(y, P['hp'], fs, 2) * amp
+    place(BANDB, y / (np.abs(y).max() + 1e-9), t0, gain=gain, pan=pan)
+
+
+def oompah(t0, q, plan, vel=1.0, tuba=0.3, stabs=0.16):
+    """March accompaniment: tuba on the beats (root, fifth), trombones on the off-beats.
+    plan: [(beats, BANDCH key)]."""
+    tb, st = [], [[], [], []]
+    k = 0
+    for nb, key in plan:
+        root, fifth, upper = BANDCH[key]
+        ups = upper.split()
+        for _ in range(nb):
+            tb.append((root if k % 2 == 0 else fifth, q, vel * (1.0 if k % 2 == 0 else 0.85)))
+            for j in range(3):
+                st[j] += [(None, q / 2), (ups[j], q / 2, vel)]
+            k += 1
+    band_line(t0, tb, 'tuba', gain=tuba, gap=0.16)
+    for j in range(3):
+        band_line(t0, st[j], 'trombone', gain=stabs, pan=(-0.35, 0.05, 0.35)[j], gap=0.09, bright=0.7)
+
+
+def snare(t, vel=0.3, pan=0.12):
+    """Snare drum (trampet): two shell modes + the snare wires' rattle."""
+    n = int(0.3 * SR)
+    tt = np.arange(n) / SR
+    y = 0.55 * np.sin(2 * np.pi * 190 * tt + rng.uniform(0, 6.3)) * np.exp(-tt / 0.045)
+    y += 0.3 * np.sin(2 * np.pi * 335 * tt + rng.uniform(0, 6.3)) * np.exp(-tt / 0.03)
+    y += 0.8 * noise(n, 1800, 9500, SR, 2) * np.exp(-tt / 0.085)
+    y += 0.4 * noise(n, 4000, 11000) * np.exp(-tt / 0.01)
+    y *= np.minimum(1, tt / 0.0006)
+    place(PERC, y / (np.abs(y).max() + 1e-9), t + rng.normal(0, 0.002), gain=vel, pan=pan)
+
+
+def snare_roll(t0, t1, v0=0.05, v1=0.3, rate=0.042):
+    t, k = t0, 0
+    while t < t1:
+        x = (t - t0) / max(t1 - t0, 1e-3)
+        snare(t, vel=(v0 + (v1 - v0) * x ** 1.4) * (1.0 if k % 2 else 0.85))
+        t += rate * rng.uniform(0.93, 1.07)
+        k += 1
+
+
+def snare_bar(t, q, vel=0.2, pat='A . t t a . t .'):
+    """One 2/4 bar in sixteenths: A accent, a tap, t ghost, '.' rest."""
+    for i, tok in enumerate(pat.split()):
+        if tok != '.':
+            snare(t + i * q / 4, vel=vel * {'A': 1.0, 'a': 0.7, 't': 0.4}[tok])
+
+
+def bassdrum(t, vel=0.4, pan=0.0):
+    """Marching bass drum: a felt beater on a big, loose head."""
+    n = int(0.7 * SR)
+    tt = np.arange(n) / SR
+    y = np.sin(2 * np.pi * np.cumsum(50 + 45 * np.exp(-tt / 0.02)) / SR) * np.exp(-tt / 0.25)
+    y += 0.35 * noise(n, None, 350) * np.exp(-tt / 0.012)
+    y *= np.minimum(1, tt / 0.001)
+    place(PERC, y / (np.abs(y).max() + 1e-9), t, gain=vel, pan=pan)
+
+
 def woodtick(t, vel=0.1, pitch=1.0, pan=0.3):
     """A wooden tick (wall clock, school clock, telegraph sounder): a click with two small body resonances."""
     n = int(0.06 * SR)
@@ -1256,9 +1372,9 @@ def sec_selanik():
 
 def sec_1908():
     """1908 (D01-D04): rising energy - string ostinato and frame drum climbing D-F-G-A to 'Meşrutiyet'; the
-    dominant holds under '...yeniden ilan edildi' and a bright Bb-major hit answers it, with the motif's first
-    major glimpse; a wry pizzicato as the Meclis deposes the sultan (D03); D04 reflective: the ney remembers
-    the schools, the informers darken."""
+    dominant holds under '...yeniden ilan edildi' and a bright Bb-major hit answers it: a street band out of a
+    'Hürriyet' postcard plays the motif's first major glimpse; a wry pizzicato as the Meclis deposes the sultan
+    (D03); D04 reflective: the ney remembers the schools, the informers darken."""
     d0, d1 = sec_span('D')
     peak = W('D02', 'meşrutiyet')                    # the build stops; the dominant holds under the words
     hit = E('D02') + 0.03                            # ...and the Bb-major hit answers "ilan edildi"
@@ -1287,21 +1403,25 @@ def sec_1908():
            (W('D02', 'sultan'), 'G1 D2 Bb2 D3 G3', dict(cutoff=1150)),
            (W('D02', 'geri'), 'A1 E2 C#3 E3 A3', dict(cutoff=1300))]
     chords(seq, hit + 0.05, gain=0.13, cutoff=700, att=1.0, rel=0.3, sine=0.2)
-    # "Meşrutiyet yeniden ilan edildi."
-    boom(hit, vel=0.65, f0=72, f1=58.27, decay=1.2)
-    timp(hit, 'Bb1', vel=0.8)
-    timp(hit + 0.01, 'F2', vel=0.4)
-    fdrum(hit, 'dum', vel=0.6, f0=70)
-    cymbal(hit, vel=0.22, decay=2.2)
-    strum(hit, M('Bb2 F3 Bb3 D4 F4 Bb4'), vel=0.42, spread=0.018, bright=0.6)
-    pad(M('Bb1 F2 Bb2 D3 F3 Bb3 D4'), hit - 0.02, hit + 4.6, gain=0.19, att=0.04, rel=3.0, cutoff=1900, vib=4)
-    brass(M('Bb2 F3 Bb3 D4'), hit, hit + 3.8, gain=0.19, att=0.05, rel=2.4, bright=0.8)
-    bowed(hit + 0.12, kusak('Bb4', 0.36, 'major', n=4, hold=3), gain=0.28, stack=(0, -12), cutoff=2300, vib=9,
-          accent=0.35, rel=1.3)
-    fdrum(E('D02') + 0.03, 'dum', vel=0.4, f0=72)
-    timp(E('D02') + 0.03, 'F2', vel=0.45)
+    # "...ilan edildi." answered by a street band out of a 1908 "Hürriyet" postcard: the motif's first major
+    # glimpse (Bb D C F) on a slightly out-of-tune cornet, clarinet, oom-pah, snare and bass drum
+    boom(hit, vel=0.55, f0=72, f1=58.27, decay=1.1)
+    timp(hit, 'Bb1', vel=0.65)
+    bassdrum(hit, vel=0.42)
+    cymbal(hit, vel=0.24, decay=1.6)
+    strum(hit, M('Bb2 F3 Bb3 D4 F4 Bb4'), vel=0.34, spread=0.018, bright=0.6)
+    pad(M('Bb1 F2 Bb2 D3 F3 Bb3 D4'), hit - 0.02, hit + 4.0, gain=0.13, att=0.04, rel=2.6, cutoff=1900, vib=4)
+    qb = 0.4
+    tune = kusak('Bb4', qb, 'major', n=4, hold=2.5) + [(None, qb, 1.0)]
+    band_line(hit, tune, 'cornet', gain=0.3, voices=3, detune=11.0, pan=-0.1)
+    aulos(hit, [(None if m is None else m + 12, d, v) for m, d, v in tune], gain=0.1, vib=4, breath=0.03, tilt=0.9,
+          bright=0.1, pan=0.3)
+    oompah(hit, qb, [(2, 'Bb'), (2, 'F'), (2, 'Bb')], vel=0.9, tuba=0.24, stabs=0.12)
+    for k in range(3):
+        snare_bar(hit + 2 * k * qb, qb, vel=0.12)
+        bassdrum(hit + (2 * k + 1) * qb, vel=0.16)
     # D03 wry pizzicato
-    t3 = max(E('D02') + 0.12, hit + 2.0)
+    t3 = hit + 6 * qb + 0.1
     e3 = 0.22
     WRY = ['D3 . A2 . D3 C#3 D3 .', 'F3 . C3 . F3 E3 F3 .', 'G3 . D3 . Bb3 A3 G3 .', 'A3 . E3 . A2 . C#3 .']
     run, wink = W('D03', 'tahttan'), W('D03', 'meclis')
@@ -1508,9 +1628,10 @@ def sec_kapanis():
     """Kapanış (G01-G06) + end screen. 29 October, evening: a hush on an A pedal and the clock of the first
     scene; one chime for half past eight; the hall rises (choir, tremolo strings, timpani roll); a breath
     holds 'Yaşasın Cumhuriyet!'; the climax answers it: the motif complete in D major (strings, horns, choir,
-    bells; D-A-G-D). G02 a festive bed, G03-G04 reflective piano (a tick for the school desk, a far drum for
-    the trench), G05 the motif asks again and hangs on the dominant seventh, G06 solemn then a warm IV-V-I;
-    the end screen states the motif once more and closes on D major."""
+    bells, trumpets; D-A-G-D). G02 the parade passes (soft oom-pah), G03-G04 reflective piano (a tick for the
+    school desk, a far drum for the trench), G05 the motif asks again and hangs on the dominant seventh, G06
+    solemn, then a warm IV-V-I with a brass band approaching under the words; the end screen is an original
+    brass-band march made of the motif and closes on D major."""
     g0, _ = sec_span('G')
     ya = W('G01', 'yaşasın')
     top = WE('G01', 'cumhuriyet')
@@ -1525,7 +1646,8 @@ def sec_kapanis():
     choir(M('A2 E3 A3 C#4 E4'), ya - build, ya + 0.05, gain=0.44, att=build * 0.9, rel=0.07, vowel='a')
     bowed(ya - build, [('A2', build, 1.0)], gain=0.34, stack=(0, 7, 12, 16), trem=0.6, att=build * 0.85, rel=0.05,
           cutoff=1500, vib=0)
-    timp_roll(ya - min(1.8, build), ya - 0.03, 'A2', 0.08, 0.55)
+    timp_roll(ya - min(1.8, build), ya - 0.03, 'A2', 0.08, 0.5)
+    snare_roll(ya - min(1.6, build), ya - 0.03, 0.03, 0.2)
     riser(ya, min(2.0, build + 0.3), vel=0.3, kind='cym')
     # the climax (master_gain() holds the breath before it)
     T = top + 0.03
@@ -1550,6 +1672,8 @@ def sec_kapanis():
         brass(M(CH[i])[:3], t0 - 0.02, t1, gain=0.12, att=0.08, rel=2.0 if last else 0.4, bright=0.7)
     bowed(T, mel, gain=0.5, stack=(0, 12), cutoff=2600, vib=10, accent=0.35, rel=1.6)
     bowed(T, mel, gain=0.34, stack=(-12,), cutoff=1500, vib=4, accent=0.5, rel=1.3, bus=BRASS)
+    band_line(T, mel, 'trumpet', gain=0.2, voices=2, pan=0.15, gap=0.04)
+    bassdrum(T, vel=0.4)
     play(T, mel, bell, vel=0.15, oct=12)
     play(T, mel, lyre, vel=0.42, bright=0.6)
     for i, (t0, c) in enumerate(seq[:3]):
@@ -1561,17 +1685,32 @@ def sec_kapanis():
     cymbal(on[5], vel=0.18, decay=3.0)
     for dt, m, v in [(0.0, 'D5', 0.18), (0.03, 'A5', 0.13), (0.06, 'D6', 0.11), (0.7, 'F#5', 0.07), (1.4, 'A5', 0.06)]:
         bell(on[5] + dt, m, vel=v, decay=4.0, pan=rng.uniform(-0.4, 0.4))
-    # G02 a festive bed under the facts
+    # G02 the parade passes under the facts: a soft oom-pah on the climax's beat, receding before G03
     after = T + L
     CHD = dict(D='D2 A2 D3 F#3 A3', G='G1 D2 B2 D3 G3', Bm='B1 F#2 B2 D3 F#3', A='A1 E2 A2 C#3 E3')
     bed = [(after, 'D')] + [(t, c) for t, c in [(W('G02', 'ertesi'), 'G'), (W('G02', 'genelkurmayda'), 'Bm'),
                                                 (W('G02', 'üçü'), 'A')] if t > after + 0.8]
+    end_bed = S('G03') - 0.3
+    beats = []                                       # chord per beat on the climax's grid
+    t = after
+    while t < end_bed - B:
+        beats.append([c for t0, c in bed if t0 <= t + 0.1][-1])
+        t += B
+    if beats:
+        plan = []
+        for c in beats:
+            if plan and plan[-1][1] == c:
+                plan[-1][0] += 1
+            else:
+                plan.append([1, c])
+        nb = len(beats)
+        oompah(after, B, plan, vel=0.8, tuba=0.15, stabs=0.07)
+        for k in range(0, nb, 2):
+            bassdrum(after + k * B, vel=0.12 * (1 - 0.6 * k / nb))
     for i, (t0, c) in enumerate(bed):
         t1 = bed[i + 1][0] if i + 1 < len(bed) else S('G03')
-        if t1 - t0 < 0.4:
-            continue
-        pad(M(CHD[c])[1:], t0 - 0.2, t1 + 0.7, gain=0.12, att=0.8, rel=0.9, cutoff=1100, sine=0.3)
-        arp(t0, t1, M(CHD[c])[1:], [0, 1, 2, 3, 2, 1], 0.28, vel=0.25, bright=0.5, thin=True)
+        if t1 - t0 >= 0.4:
+            pad(M(CHD[c])[1:], t0 - 0.2, t1 + 0.7, gain=0.11, att=0.8, rel=0.9, cutoff=1100, sine=0.3)
     tu = W('G02', 'üçü')                                            # "Üçü de...": three small bells
     for i, m in enumerate(['D6', 'F#6', 'A6']):
         bell(tu + 0.18 * i, m, vel=0.07, decay=2.2, pan=-0.3 + 0.3 * i)
@@ -1608,30 +1747,58 @@ def sec_kapanis():
     choir(M('B2 D3 F#3'), S('G06') - 0.2, tcm + 0.2, gain=0.1, att=1.2, rel=0.5, vowel='u')
     choir(M('G3 B3 D4'), tcm - 0.3, ty + 0.2, gain=0.13, att=0.8, rel=0.4, vowel='a')
     choir(M('A3 C#4 E4 G4'), ty - 0.1, E('G06') + 0.25, gain=0.14, att=0.4, rel=0.35, vowel='a')
-    # end screen: the motif once more, then home
+    # end screen: the kuşak motif becomes an original brass-band march (2/4, D major): soft under
+    # "Cumhuriyetimizin yüz üçüncü yılı kutlu olsun", open after it. Strain = the complete motif (4 bars) and
+    # its mirror falling home (4 bars: 8 6 7 5 | 4 2 1); then the whole band holds D major.
     T2 = E('G06') + 0.05
-    timp(T2, 'D2', vel=0.35)
-    strum(T2, M('D2 A2 D3 F#3 A3 D4'), vel=0.32, spread=0.035, bright=0.45)
     tail = DUR - T2
-    if tail > 7.0:
-        Bc = float(np.clip((tail - 4.8) / 8, 0.48, 0.8))
-        tc = T2 + 0.6
-        mel = kusak('D5', Bc, 'major', n=6, hold=3)
-        on = onsets(tc, mel)
-        play(tc, mel, lyre, vel=0.4, bright=0.55)
-        play(tc, mel, piano, vel=0.2, oct=-12)
-        bowed(tc, mel, gain=0.2, stack=(-12,), cutoff=2000, vib=9, accent=0.2, rel=1.2)
-        seq = [(T2, 'D2 A2 D3 F#3 A3'), (on[2], 'A1 E2 A2 C#3 E3'), (on[4], 'G1 D2 G2 B2 D3')]
-        chords(seq, on[5] + 0.3, gain=0.12, cutoff=1300, sine=0.35, lead=0.1, att=0.8, rel=0.6)
-        for i, (t0, c) in enumerate(seq):
-            arp(t0 + (0.6 if i == 0 else 0), seq[i + 1][0] if i + 1 < len(seq) else on[5], M(c)[1:],
-                [0, 1, 2, 3, 2, 1], Bc / 2, vel=0.17, thin=False, bright=0.45)
-        F = on[5]
-    else:
+    if tail > 8.0:
+        q = float(np.clip((DUR - 4.8 - T2) / 16, 0.46, 0.58))
+        nb = 2 * int((T2 - tcm) / (2 * q))           # whole bars of lead-in under the words
+        if nb >= 2:
+            t0 = T2 - nb * q
+            tub = []
+            for k in range(nb):
+                key = 'G' if t0 + k * q < ty else 'A7'
+                tub.append((BANDCH[key][k % 2], q, 0.7 + 0.3 * k / nb))
+            band_line(t0, tub, 'tuba', gain=0.16, gap=0.16)
+            for k in range(0, nb - 2, 2):
+                snare_bar(t0 + k * q, q, vel=0.05 + 0.08 * k / nb, pat='a . t . a . t t')
+                bassdrum(t0 + k * q, vel=0.1)
+            snare_roll(T2 - 2 * q, T2 - 0.02, 0.04, 0.2)
+        mel = kusak('D4', q, 'major', n=6, hold=3) + [(None if m is None else note(m), d * q, 1.0) for m, d in
+               [('D5', 1), ('B4', 1), ('C#5', 0.5), ('A4', 1.5), ('G4', 1), ('E4', 1), ('D4', 1), (None, 1)]]
+        band_line(T2, mel, 'cornet', gain=0.3, voices=3, detune=5.0, pan=-0.12)
+        band_line(T2, mel, 'trumpet', gain=0.14, voices=2, pan=0.12, gap=0.04)
+        aulos(T2, [(None if m is None else m + 12, d, v) for m, d, v in mel], gain=0.09, vib=3, breath=0.03,
+              tilt=0.9, bright=0.1, pan=0.3)                                    # clarinets, an octave up
+        play(T2, mel, bell, vel=0.05, oct=24, decay=1.2)                     # glockenspiel
+        oompah(T2, q, [(2, 'D'), (2, 'A'), (1, 'G'), (3, 'D'), (2, 'G'), (2, 'A'), (2, 'A7'), (2, 'D')],
+               vel=1.0, tuba=0.3, stabs=0.15)
+        for k in range(8):
+            tb_ = T2 + 2 * k * q
+            if k in (3, 7):
+                snare_bar(tb_, q, vel=0.16, pat='A . t t . . . .')
+                snare_roll(tb_ + q, tb_ + 2 * q - 0.02, 0.06, 0.24 if k == 7 else 0.15)
+            else:
+                snare_bar(tb_, q, vel=0.16)
+            bassdrum(tb_, vel=0.3)
+            bassdrum(tb_ + q, vel=0.2)
+        cymbal(T2, vel=0.24, decay=1.4)
+        cymbal(T2 + 8 * q, vel=0.2, decay=1.4)
+        pad(M('D3 A3 D4 F#4'), T2 - 0.1, T2 + 16 * q, gain=0.07, att=0.6, rel=1.0, cutoff=1200, sine=0.4)
+        F = T2 + 16 * q
+        for kind, ns, gn in [('trumpet', 'D5 F#5', 0.1), ('cornet', 'A4 D5', 0.14), ('trombone', 'D3 A3 F#4', 0.12),
+                             ('tuba', 'D2', 0.26)]:
+            for m in ns.split():
+                band_line(F, [(m, 2.8, 1.0)], kind, gain=gn, gap=1.1, voices=2)
+        bassdrum(F, vel=0.4)
+        cymbal(F, vel=0.3, decay=2.5)
+        timp(F, 'D2', vel=0.45)
+    else:                                            # too short a tail for the march: a plain cadence
+        timp(T2, 'D2', vel=0.35)
         F = T2 + 0.3
-    strum(F, M('D2 A2 D3 F#3 A3 D4 F#4'), vel=0.4, spread=0.04, bright=0.45)
-    timp(F, 'D2', vel=0.3)
-    lyre(F + 0.3, 'D5', vel=0.22, bright=0.5)
+        strum(F, M('D2 A2 D3 F#3 A3 D4 F#4'), vel=0.4, spread=0.04, bright=0.45)
     pad(M('D2 A2 D3 F#3 A3 E4'), F - 0.2, DUR + 0.3, gain=0.15, att=0.6, rel=max(DUR - F, 1.0) * 0.6, cutoff=1300,
         sine=0.4)
     choir(M('D3 A3 F#4'), F, DUR + 0.3, gain=0.15, att=1.0, rel=max(DUR - F, 1.0) * 0.6, vowel='a')
@@ -1895,7 +2062,8 @@ INTENT = {
     'D': 'Yükselen enerji: yaylı ostinato + def, bas Re-Fa-Sol-La tırmanır, timpani tremolosu ve ters zil. '
          '"Meşrutiyet"te yükseliş durur, La asılı kalır; "ilan edildi"nin ardından parlak Si bemol majör vuruş (henüz '
          '"ev" değil) ve motifin ilk majör görünüşü. '
-         'D03 alaycı pizzicato: "Meclis" göz kırpar, "tahttan indirdi"de basamak basamak iniş, iki subaya iki nota. '
+         '"Hürriyet" kartpostalından çıkmış bir sokak bandosu (hafif akortsuz kornet, klarnet, tuba, trampet) '
+         'motifin ilk majör görünüşünü çalar. D03 alaycı pizzicato: "Meclis" göz kırpar, "tahttan indirdi"de basamak basamak iniş, iki subaya iki nota. '
          'D04 düşünceli: "Okulları" ney motifi hatırlar, "jurnalleri" kararır.',
     'E': '"savaş" söylenir, ardından karanlık vuruş (boom, timpani, Frigyen yaylılar, alçak koro). E02 savaş davulları + Hicaz '
          'ostinatosu. E03 "Selanik": davullar susar; drone üstünde kamış ağıt (Hicaz). E04 anlatıcının inancı, '
@@ -1911,10 +2079,13 @@ INTENT = {
     'G': 'G01: La pedalında sessizlik, ilk sahnenin saati; "buçukta" tek saat çanı; "Meclis\'te sesler yükseldi" '
          'koro, tremolo ve timpani ile yükselir; "Yaşasın Cumhuriyet!" nefes tutulmuş bir sessizlikte duyulur; doruk '
          'ona cevap verir: motif ilk kez TAM, Re majör (yaylılar, kornolar, koro, çanlar; Re-La-Sol-Re). G02 bayram '
-         'yatağı ("Üçü de" üç küçük çan). G03-G04 düşünceli piyano ("muhalefete" kararır; okul sırası için bir '
+         'yatağı: bando geçip gider (yumuşak tuba ve trombon "um-pa"; "Üçü de" üç küçük çan). G03-G04 düşünceli piyano ("muhalefete" kararır; okul sırası için bir '
          'tıkırtı, siper için uzak bir davul). G05 soru: motif La7 üstünde Sol\'de asılı kalır. G06 önce saygı '
-         '(Si minör, koro "u"), sonra "Cumhuriyetimizin…" sıcak IV-V-I. Bitiş ekranı: motif son kez, Re majörde '
-         'kapanış ve sönüş.',
+         '(Si minör, koro "u"), sonra "Cumhuriyetimizin…" sıcak IV-V-I; sözün altında bando uzaktan yaklaşır '
+         '(kısık trampet ve tuba). Bitiş ekranı: motiften türeyen ÖZGÜN bando marşı (2/4, Re majör; kornet, '
+         'trompet, klarnet, trombon, tuba, trampet, büyük davul, zil, glokenşpil): motif tam (4 ölçü) + aynası '
+         '(8-6-7-5 | 4-2-1, 4 ölçü), sonra bütün bando Re majörde tutar ve söner. Hiçbir marştan alıntı ya da '
+         'benzetme yoktur.',
 }
 
 
@@ -1933,7 +2104,8 @@ def write_cues_md(path):
          '| kırılgan | 1-3-2-5 | A02 sonu (Re minör, piyano), A05 (Fa majör, piyano), C02 (Sol majör, lir), D02 (Si♭ majör), C06 (minör, viyolonsel), D04 (Uşşak, ney) |',
          '| büyüyen | 1-3-2-5-4 | C03 "sorgulamayı" (Re Uşşak, ney), E04 (minör, viyolonsel), G05 (majör, piyano; soru) |',
          '| güçlü | 1-3-2-5-4-6 | F05 (Re dorian, yaylılar + kornolar; Si natürel) |',
-         '| tam | 1-3-2-5-4-8 | G01 doruk (Re majör), bitiş ekranı |', '',
+         '| tam | 1-3-2-5-4-8 | G01 doruk (Re majör; yaylılar, kornolar, trompet, koro, çanlar) |',
+         '| bando | 1-3-2-5-4-8 + 8-6-7-5-4-2-1 | bitiş ekranı marşı (2/4, Re majör); D02 sonrası 1908 sokak bandosu (Si♭, 4 nota) |', '',
          '## Bölümler', '', '| Bölüm | Cümleler | Başlangıç - bitiş | Müzik |', '|---|---|---|---|']
     for letter, name, ids in SECTIONS:
         a, b = sec_span(letter)
@@ -1950,7 +2122,7 @@ def write_cues_md(path):
             (W('C03', 'sorgulamayı'), 'C03 "sorgulamayı": ney motifle sorar (Uşşak)'),
             (W('C03', 'manastırda'), 'C03 "Manastır\'da": sırlar başlar'),
             (W('D02', 'meşrutiyet'), 'D02 "Meşrutiyet": yükseliş durur, La (dominant) asılı kalır'),
-            (E('D02'), 'D02 "ilan edildi" biter: Si♭ majör vuruş'),
+            (E('D02'), 'D02 "ilan edildi" biter: Si♭ majör vuruş + 1908 sokak bandosu'),
             (WE('E01', 'savaş'), 'E01 "savaş" biter: karanlık vuruş'),
             (W('E03', 'selanik'), 'E03 "Selanik": davullar susar, ağıt'),
             (WE('E05', 'çanakkale'), 'E05 "Çanakkale." biter: ağır vuruş'),
@@ -1960,7 +2132,8 @@ def write_cues_md(path):
             (WE('G01', 'buçukta'), 'G01 "buçukta": saat çanı'),
             (W('G01', 'yaşasın'), 'G01 "Yaşasın": müzik nefesini tutar'),
             (WE('G01', 'cumhuriyet'), 'G01 "Cumhuriyet!" biter: DORUK, motif tam (Re majör)'),
-            (E('G06'), 'G06 biter: bitiş ekranı, motif son kez')]):
+            (W('G06', 'cumhuriyetimizin'), 'G06 "Cumhuriyetimizin": bando uzaktan yaklaşır (kısık)'),
+            (E('G06'), 'G06 biter: bitiş ekranı bando marşı (motif + aynası), Re majör final')]):
         L.append(f'- {ts(t)}: {what}')
     L += ['', '## Seslendirme planı için not', '',
           f'- Doruk "Yaşasın Cumhuriyet!" biter bitmez başlar ve ~5 sn sürer; şu an G01 ile G02 arası '

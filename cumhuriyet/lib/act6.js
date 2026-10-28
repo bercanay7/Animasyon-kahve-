@@ -210,7 +210,6 @@ function a6_shotCatlak() {
     const sep = ramp(st.lt, tM - .2, tM + .7, E.io3) * (1 - ramp(st.lt, tA, tA + .9, E.io3)); // ayrılır, sonra yine yan yana
     const tear = a6_tearPts(TX, -40, H + 40, 77);
     const yC = lerp(-40, H + 40, crack);
-    const edge = tear.map(([x, y]) => [y <= yC ? x : TX + 9999, y]);
     const halves = [
       { clip: PL([[-60, -60], ...tear.map(([x, y]) => [y <= yC ? x : W + 60, y]), [-60, H + 60]]), dx: -46 * sep, rot: -.012 * sep, idx: [0, 1, 2] },
       { clip: PL([[W + 60, -60], ...tear.map(([x, y]) => [y <= yC ? x : W + 60, y]), [W + 60, H + 60]]), dx: 0, rot: 0, idx: [3, 4, 5] },
@@ -231,6 +230,7 @@ function a6_shotCatlak() {
       ctx.restore();
     });
     ctx.restore();
+    stamp(ctx, 'TERAKKİPERVER FIRKA · 1924', 70, 930, st.lt - tM - .2, tA - tM + .7, { size: 32 });
     // 1924 damgası (çatlakla birlikte)
     label(ctx, '1924', W / 2, 108, FONT.title(78), { align: 'center', ls: 4, a: ramp(st.lt, tC - .3, tC) });
     if (!NOTEXT) { const ty = ramp(st.lt, tA + .4, tA + .9); label(ctx, 'AYNI YERDEN', W / 2, 960, FONT.title(64), { align: 'center', ls: 4, a: ty }); }
@@ -243,6 +243,7 @@ function a6_shotCatlak() {
     const bg = a0_cache('a0-k93-bg', g => a0_classBG(g, 150, 740));
     a0_layer(ctx, bg, c, .8);
     ctx.save(); cam(ctx, c, 1); a0_classKids(ctx, st.t, 150, 740); ctx.restore();
+    A0_ORD.forEach((i, k) => a0_age(ctx, A0_XS[i], 862, A0_AGE93[i], 'yaşında', st.lt + .3 - k * .06));
     label(ctx, '1893', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
   // "…ve bir siperden": aynı sıra, kabalaklı, siperde omuz omuza (1915)
@@ -256,7 +257,8 @@ function a6_shotCatlak() {
       plate(g, 'khaki', band, { a: .3 });
       // gök: duman (raster) — başların uzağında, üst şeritte
       g.save(); g.beginPath(); g.rect(-20, 150, W + 40, 120); g.clip();
-      for (const [x, y, r] of [[300, 190, 120], [1100, 180, 150], [1700, 200, 110]]) { const q = new Path2D(); q.ellipse(x, y, r * 1.6, r * .5, 0, 0, TAU); halftone(g, 'ink', q, .14, { cell: 12 }); }
+      const rs = rng(9);
+      for (const [x, y, r] of [[300, 196, 70], [1100, 186, 90], [1700, 204, 60]]) { const q = new Path2D(); for (let k = 0; k < 7; k++) { const a = k / 7 * PI, rr = r * (.55 + rs() * .5); q.moveTo(x + Math.cos(a) * r * 1.4 + rr, y - Math.sin(a) * r * .4); q.arc(x + Math.cos(a) * r * 1.4, y - Math.sin(a) * r * .4, rr, 0, TAU); } halftone(g, 'ink', q, .12, { cell: 12 }); }
       g.restore();
       // arka siper duvarı + tel örgü kazıkları
       const back = SP([[-20, 330], [300, 318], [700, 334], [1100, 320], [1500, 336], [W + 20, 324], [W + 20, 740], [-20, 740]], true, .5);
@@ -281,6 +283,7 @@ function a6_shotCatlak() {
     }
     ctx.restore();
     ctx.restore();
+    [31, 31, 34, 33, 33].forEach((a, i) => a0_age(ctx, A0_XS[i], 862, a, 'yaşında', st.lt + .3 - Math.abs(i - 2) * .06));
     label(ctx, '1915', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
 }
@@ -291,11 +294,12 @@ function a6_hair(ctx, x, y, s, dir, tilt, f) {
   const pp = { ...PEOPLE.anon, ...(f.id || {}) }, WD = pp.WD ?? 1.08, HY = pp.HY ?? 1;
   ctx.save(); ctx.translate(x, y); ctx.rotate(tilt || 0); ctx.scale(s * dir * WD, s * HY);
   let p;
-  if (f.style === 'pony') p = SP([[-8, -68], [-40, -64], [-60, -44], [-66, -14], [-80, 20], [-92, 70], [-82, 96], [-66, 60], [-56, 20], [-40, 0], [-26, -10]], true, .8);
-  else p = SP([[-6, -68], [-38, -64], [-62, -44], [-70, -10], [-68, 30], [-60, 56], [-38, 62], [-26, 44], [-22, 10]], true, .8);
+  if (f.style === 'pony') p = SP([[-48, -40], [-62, -36], [-70, -14], [-74, 20], [-70, 52], [-62, 58], [-60, 26], [-56, -4], [-46, -24]], true, .8);
+  else p = SP([[-4, -68], [-34, -66], [-58, -50], [-66, -20], [-66, 14], [-60, 34], [-46, 38], [-34, 32], [-28, 12], [-26, -8]], true, .8);
   knock(ctx, p);
   if (pp.hair === 'ink') { inkFill(ctx, p); cut(ctx, SP([[-40, -50], [-60, -10], [-62, 40]], false), 1.8 / s, { a: .35 }); }
-  else { plate(ctx, pp.hair, p, { a: .6 }); plate(ctx, 'gold', p, { a: .3 }); inkStroke(ctx, p, 2.4 / s); inkStroke(ctx, SP([[-40, -50], [-60, -10], [-62, 40]], false), 1.4 / s, { a: .5 }); }
+  else { plate(ctx, pp.hair, p, { a: .6 }); plate(ctx, 'gold', p, { a: .3 }); inkStroke(ctx, p, 2.4 / s); inkStroke(ctx, SP([[-40, -50], [-60, -10], [-62, 30]], false), 1.4 / s, { a: .5 }); }
+  if (f.style === 'pony') { const tie = PL([[-50, -42], [-62, -40], [-60, -30], [-48, -32]]); knock(ctx, tie); plate(ctx, 'red', tie, { a: .9 }); inkStroke(ctx, tie, 1.6 / s); }
   ctx.restore();
 }
 // beyaz gömlek yakası (büst koordinatı)
@@ -340,6 +344,12 @@ function a6_shotBugun() {
     a0_desk(ctx, -30, W + 30, 660, B1, 79, { pl: 'ochre', books: [[380, 90, 10, 'teal'], [1090, 80, 12, 'ochre'], [1460, 86, 10, 'navy']] });
     ctx.restore();
     ctx.restore();
+    const tO = a0_W('G04', 'otuz') - T0, now = [12, 11, 12, 13, 12];
+    A0_ORD.forEach((i, k) => {
+      const tk = tO + k * .12, out = 1 - ramp(st.lt, tk - .12, tk);
+      if (out > 0) a0_age(ctx, A0_XS[i], 862, now[i], 'yaşında', st.lt - .2 - k * .1, { a: out });
+      if (st.lt >= tk) a0_age(ctx, A0_XS[i], 862, now[i] + 30, '2056’da', st.lt - tk);
+    });
     label(ctx, '2026', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 });
   }, { tr: { type: 'press', dur: .6 }, post: { vig: .9 } });
 }
