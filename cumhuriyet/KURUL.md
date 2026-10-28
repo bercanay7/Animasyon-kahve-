@@ -14,13 +14,13 @@
 | 8 | Dönem görsel doğruluğu (üniforma, başlık, mekân, harita, yazı) | Tarih danışmanı; dönem uzmanı | **10** (3. tur, ikisi de) | ONAY |
 | 9 | Müzik | Ses kurulu: müzik direktörü | – | Besteci bitirince |
 | 10 | Ses tasarımı (efektler) ve miks | Ses kurulu: ses tasarımcısı, miks mühendisi | – | Miksten sonra |
-| 11 | Kapak (A/B) | Kapak (TO/paketleme) kurulu | **10** (A′ ve B′, 8. tur: bıyık ve ortak ilkeller sonrası) | ONAY: kapak.jpg (varsayılan), kapak_b.jpg |
-| 12 | Başlık, açıklama, etiketler, bölümler | Tarih danışmanı (doğruluk); kapak kurulu | youtube.md **10** (tarih, 3. tur) | ONAY (doğruluk); paketleme kapak kuruluyla sonda |
+| 11 | Kapak (A/B) | Kapak (TO/paketleme) kurulu | **10** (A′ ve B′; son turda yeniden onaylandı, "AYNI SIRADA" kalır) | ONAY: kapak.jpg (varsayılan), kapak_b.jpg |
+| 12 | Başlık, açıklama, etiketler, bölümler | Kapak (TO/paketleme) kurulu; tarih danışmanı | **10** (son tur, ikisi de) | ONAY |
 | 13 | Shorts | Kanca kurulu; tipografi tasarımcısı | kurgu ve ses **10** (kanca), yazı **10** (tipografi) | ONAY |
 | 14 | Altyazı (SRT: doğruluk, okuma hızı, satır bölme) | Tipografi kurulu; tarih danışmanı | **10** (3. tur) | ONAY |
 | 15 | Teknik kalite (render, renk, kodlama, ses ölçümleri, kare kusurları) | Teknik ve erişilebilirlik kurulu | – | Render sonrası |
 | 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | – | Sonda |
-| 17 | Yayın paketi (yayin.md, bitiş ekranı, sabit yorum, zamanlama) | Kapak (TO/paketleme) kurulu | – | Sonda |
+| 17 | Yayın paketi (yayin.md, bitiş ekranı, sabit yorum, zamanlama) | Kapak (TO/paketleme) kurulu | **10** (son tur) | ONAY |
 
 ## Notlar
 - **2. tur (28 Ekim, öğleden önce):** yedi kurul tam film üzerinden oyladı; bütün bulgular yapımcı tarafından doğrulanıp ajanlara dağıtıldı. Reddedilenler gerekçeli: F02 levha sırası ("yanındakilerden biri" anlatısına uygun), Karabekir yaş değişikliği (doğumu 23 Temmuz 1882, mevcut yaşlar doğru), Refet ve Halide'ye yaş (doğum tarihleri belirsiz).
