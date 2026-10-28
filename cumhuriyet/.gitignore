@@ -12,5 +12,5 @@ en/words/
 **/__pycache__/
 shorts/*.wav
 audio/stems_en/
-*_youtube.mp4
+*_youtube*.mp4
 board/
