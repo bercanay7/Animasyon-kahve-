@@ -3,7 +3,7 @@
   "t": -0.07,
   "anchor": "S('A01') -0.70",
   "name": "wind",
-  "g": -24,
+  "g": -27,
   "loop": true,
   "fi": 0.3,
   "fo": 0.9,
@@ -243,7 +243,7 @@
   "anchor": "Wd('A04', 'sultanın') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -14,
+  "g": -9,
   "note": "\"SULTANIN SIRALARINDA\" damgası; tak sesi damgayla aynı anda (at: peak)"
  },
  {
@@ -288,8 +288,8 @@
   "anchor": "Wd('A05', 'kuşağın') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -16,
-  "note": "\"BİR KUŞAĞIN HİKÂYESİ\" başlık baskısı (kanca A2: -6 istendi; tez sözü örtülmesin diye -16)"
+  "g": -10,
+  "note": "\"BİR KUŞAĞIN HİKÂYESİ\" başlık baskısı (kanca A2: -6 istendi; tez sözü örtülmesin diye -10)"
  },
  {
   "t": 30.52,
@@ -321,7 +321,7 @@
   "anchor": "Wd('B03', 'altı') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -14,
+  "g": -9,
   "note": "\"600+\" damgası (kanca B4)"
  },
  {
@@ -329,7 +329,7 @@
   "anchor": "Wd('B03', 'yüzü', 1) +0.00",
   "name": "press",
   "at": "peak",
-  "g": -14,
+  "g": -9,
   "note": "\"100+\" damgası (kanca B4)"
  },
  {
@@ -404,7 +404,7 @@
   "anchor": "Wd('C06', 'vatan') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -16,
+  "g": -11,
   "note": "\"VATAN VE HÜRRİYET\" damgası (kanca B4)"
  },
  {
@@ -573,7 +573,7 @@
   "anchor": "S('F06') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -16,
+  "g": -11,
   "note": "\"KUŞAK HAZIRDI\" (kanca B4)"
  },
  {
@@ -589,14 +589,14 @@
   "anchor": "Wd('G01', 'yaşasın') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -20,
+  "g": -15,
   "note": "galeri coşkusu: 0.3 sn kayık baskı vurgusu (yönetmenlik); merdane önceki boşlukta"
  },
  {
   "t": 317.585,
   "anchor": "Wd('G01', 'yaşasın') -0.05",
   "name": "crowd",
-  "g": -30,
+  "g": -27,
   "loop": true,
   "fi": 0.5,
   "fo": 0.4,
@@ -608,7 +608,7 @@
   "t": 319.025,
   "anchor": "Wd('G01', 'cumhuriyet', 0, true) +0.05",
   "name": "cheer",
-  "g": -20,
+  "g": -16,
   "len": 2.8,
   "fo": 1.2,
   "note": "\"Cumhuriyet!\" biter bitmez tezahürat, doruğun altında"
@@ -618,7 +618,7 @@
   "anchor": "Wd('G03', 'aynı') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -16,
+  "g": -11,
   "note": "\"AYNI YERDEN\" (kanca B4)"
  },
  {

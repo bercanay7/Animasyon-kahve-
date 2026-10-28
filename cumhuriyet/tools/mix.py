@@ -40,7 +40,7 @@ db = lambda g: 10 ** (g / 20)
 VO_GAINS = {}          # {cümle: dB}  ör. {'C03': 2.0}: fısıltıyı biraz öne al
 # Pencere biçimi: (cümle, kenar, ofset0, ofset1, dB) ya da (cümle, kenar0, ofset0, kenar1, ofset1, dB).
 # kenar: 's' cümle başı, 'e' cümle sonu, 'w:kelime' kelime başı, 'we:kelime' kelime sonu (film.js Wd gibi: ilk 'startsWith').
-VO_GAIN_WIN = []       # anlatıma pencere kazancı
+VO_GAIN_WIN = [('C03', 'w:namık', -0.3, 'e', 0.2, -2.0)]   # fısıltı: anlatımdaki +4 dB klip kazancının üstüne kompresör ~+2 dB daha ekliyor; net ≈ -4 LU kalsın
 MUSIC_DIPS = [
     ('G01', 'e', 0.0, 'e', 4.5, -3),           # doruk: sınırlayıcı en çok ~4 dB çalışsın (ses kurulu)
     ('B06', 's', -0.1, 'e', 0.1, -3),          # içeriden an (anlatım kurulu 2. tur)

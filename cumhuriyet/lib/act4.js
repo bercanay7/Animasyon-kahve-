@@ -420,7 +420,7 @@ function a4_dust(ctx, t, o) {
 // —— kişi levhası: nameTag görünümü; ad Abril ≥44, alt satır Courier ≥36. Genişlik maxW'yi aşarsa ad son boşluktan,
 //    alt satır " · " ayracından satıra bölünür (metin aynen kalır, yalnız satır kırılır). Döndürür: {w, h}
 function a4_plaqueLayout(name, sub, o = {}) {
-  const fs = Math.max(o.size || 44, 44), ss = Math.max(o.sub || 36, 36), maxW = (o.maxW || 1e9) - 48;
+  const pad = o.pad ?? 24, fs = Math.max(o.size || 44, 44), ss = Math.max(o.sub || 36, 36), maxW = (o.maxW || 1e9) - 2 * pad;
   const c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d');
   const mw = (str, font, ls) => { c.font = font; c.letterSpacing = ls + 'px'; return c.measureText(str).width; };
   const wrap = (str, font, ls, sep) => {
@@ -431,24 +431,24 @@ function a4_plaqueLayout(name, sub, o = {}) {
     if (cur) out.push(cur); return out;
   };
   const nl = wrap(name, FONT.title(fs), 1, ' '), sl = sub ? wrap(sub, FONT.mono(ss), 0, ' · ') : [];
-  const w = Math.max(...nl.map(q => mw(q, FONT.title(fs), 1)), ...sl.map(q => mw(q, FONT.mono(ss), 0))) + 48;
+  const w = Math.max(...nl.map(q => mw(q, FONT.title(fs), 1)), ...sl.map(q => mw(q, FONT.mono(ss), 0))) + 2 * pad;
   const h = 16 + nl.length * fs * 1.04 + sl.length * ss * 1.12 + 22;
-  return { fs, ss, nl, sl, w, h };
+  return { fs, ss, nl, sl, w, h, pad };
 }
 function a4_plaque(ctx, x, y, name, sub, lt, d, o = {}) {
   const L = a4_plaqueLayout(name, sub, o);
   if (NOTEXT) return L;
   const a = env(lt, 0, .2, d - .4, d); if (a <= 0) return L;
-  const { fs, ss, nl, sl, w, h } = L, sld = (1 - E.out3(ramp(lt, 0, .3))) * 14;
+  const { fs, ss, nl, sl, w, h, pad } = L, sld = (1 - E.out3(ramp(lt, 0, .3))) * 14;
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sld);
   plate(ctx, 'ink', a4_rect(x + 7, y + 9, x + w + 7, y + h + 9), { a: .35 });
   const box = PL(rough([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], .8, name.length + 3));
   knock(ctx, box, o.bg || P.paperD); inkStroke(ctx, box, 3);
   plate(ctx, 'red', a4_rect(x, y + h - 6, x + w, y + h));
   let yy = y + 12;
-  for (const q of nl) { yy += fs * 1.04; txt(ctx, q, x + 24, yy - fs * .2, FONT.title(fs), { ls: 1 }); }
+  for (const q of nl) { yy += fs * 1.04; txt(ctx, q, x + pad, yy - fs * .2, FONT.title(fs), { ls: 1 }); }
   yy += 4;
-  for (const q of sl) { yy += ss * 1.12; txt(ctx, q, x + 24, yy - ss * .3, FONT.mono(ss)); }
+  for (const q of sl) { yy += ss * 1.12; txt(ctx, q, x + pad, yy - ss * .3, FONT.mono(ss)); }
   ctx.restore();
   return L;
 }
@@ -1446,7 +1446,8 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
 {
   const T0 = S('E06'), tK = Wd('E06', 'kafkasyada'), tI = Wd('E06', 'irakta'), tF = Wd('E06', 'filistinde'), tB = Wd('E06', 'birbirini'), tT = Wd('E06', 'tanıdı'), tY = Wd('E06', 'yenildiğinde');
   // pano genişlikleri levhalara göre: en uzun ad 64 px'te panoya sığar (Kafkasya 604, Irak 680, Filistin 436; aralar 18)
-  const PWS = [692, 566, 500], PH = 700, PY = 250, PX = [70, 776, 1356];
+  // panolar güvenli alanda (x 97–1822): genişlik = Abril 52 levha (iç boşluk 16) + 2×6; aralar 16. Yakınlaşma yok (still), yalnız dikey kayma
+  const PWS = [671, 544, 478], PH = 700, PY = 250, PX = [97, 784, 1344];
   const SNOW = [[PX[0] - 20, PY + 610], [PX[0] + 180, PY + 584], [PX[0] + 380, PY + 546], [PX[0] + PWS[0] + 20, PY + 508]];
   const HEADY = PY + 520, FS = .74, words = ['kafkasyada', 'irakta', 'filistinde'];
   // pano etiketlerinin anı: Kafkasya damgadan 0,3 sn sonra, öbürleri kendi kelimesinde
@@ -1466,7 +1467,7 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
       const rv = SP([[x0 - 20, y0 + 330], [x0 + 200, y0 + 350], [x0 + 330, y0 + 400], [x0 + 200, y0 + 480], [x0 + 60, y0 + 560], [x0 + 260, y0 + 650], [x1 + 20, y1 + 10], [x1 + 20, y1 + 60], [x0 + 200, y0 + 700], [x0 - 10, y0 + 580], [x0 + 150, y0 + 470], [x0 + 230, y0 + 410], [x0 + 120, y0 + 380], [x0 - 20, y0 + 370]], true, .7);
       knock(g, rv); plate(g, 'khaki', rv, { a: .75 }); inkStroke(g, rv, 2.4);
       g.save(); g.clip(rv); for (let k = 0; k < 20; k++) cut(g, PL([[x0 + (k * 53) % PW, y0 + 340 + k * 18], [x0 + (k * 53) % PW + 30, y0 + 340 + k * 18]], false), 2, { a: .6 }); g.restore();
-      for (const [px, sd, sc] of [[x0 + 440, 1, .9], [x0 + 515, 2, .75], [x0 + 70, 3, .8]]) a4_palm(g, px, y0 + 330, sc, sd + 20);
+      for (const [px, sd, sc] of [[x0 + 420, 1, .9], [x0 + 495, 2, .75], [x0 + 70, 3, .8]]) a4_palm(g, px, y0 + 330, sc, sd + 20);
     } else { // Filistin: kumullar, demiryolu
       plate(g, 'ochre', R, { a: .28 });
       radialHT(g, 'sepia', x0 + 280, y0 - 400, 400, 760, .3, 0, { cell: 11, box: [x0, y0, x1, y0 + 260] });
@@ -1480,14 +1481,14 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
     setReg(410);
     paperBG(ctx);
     const lt = st.lt, t = st.t, tf = a4_tf(lt);
-    const cm = { x: 960, y: lerp(560, 540, E.sine(st.p)), z: lerp(1.0, 1.04, E.sine(st.p)) };
+    const cm = { x: 960, y: lerp(566, 530, E.sine(st.p)), z: 1 };
     const wall = a4_L('E06a-wall2', g => { paperBG(g); plate(g, 'khaki', a4_full(), { a: .55 }); }, 90);
     a4_put(ctx, wall, cm, .5);
     const labs = ['KAFKASYA', 'IRAK', 'FİLİSTİN'], t0s = [tK, tI, tF];
     ctx.save(); cam(ctx, cm, 1);
     for (let i = 0; i < 3; i++) {
       const u = ramp(t, t0s[i] - .1, t0s[i] + .25, E.out3); if (u <= 0) continue;
-      const L = a4_L('E06a-p3' + i, g => panel(i, g), 0), x0 = PX[i], PW = PWS[i];
+      const L = a4_L('E06a-p4' + i, g => panel(i, g), 0), x0 = PX[i], PW = PWS[i];
       ctx.save(); ctx.translate(0, (1 - u) * -40);
       plate(ctx, 'ink', a4_rect(x0 + 14, PY + 18, x0 + PW + 14, PY + PH + 18), { a: .4 * u });
       ctx.save(); ctx.beginPath(); ctx.rect(x0, PY, PW * clamp(u * 1.3), PH); ctx.clip(); a4_put(ctx, L, null, 1); 
@@ -1526,9 +1527,9 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
     ctx.restore();
     // pano levhası: kendi kelimesinde (pano başlığından 0,3 sn sonra); kamera dışında, ekrana sabit
     for (let i = 0; i < 3; i++) { const tw = a4_E06_lab(i) + .3, tOut = Wd('E06', 'imparatorluk') + .2;
-      a4_on(ctx, () => a4_plaque(ctx, PX[i] + 8, PY + 14, A4_E06_LEVHA[i], null, t - tw, tOut - tw, { size: 52, maxW: PWS[i] - 12 })); }
+      a4_on(ctx, () => a4_plaque(ctx, PX[i] + 6, PY + 14 + 540 - cm.y, A4_E06_LEVHA[i], null, t - tw, tOut - tw, { size: 52, pad: 14, maxW: PWS[i] - 12 })); }
     stamp(ctx, '1914–1918', 114, 112, lt - .1, st.d, { size: 48 });
-  }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
+  }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 }, still: true }); // levhalar güvenli alanda kalsın: genel yakınlaşma yok
 }
 
 // E06b · Siper, akşam: "tecrübe" (parapetteki harita, pusula, dürbün ışığa çıkar), "ve birbirleri": kuşak şeridi

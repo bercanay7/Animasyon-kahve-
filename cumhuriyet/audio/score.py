@@ -1231,7 +1231,7 @@ def sec_acilis():
     piano(lift + 0.02, 'F3', vel=0.24)
     piano(lift + 0.04, 'C4', vel=0.2)
     t = lift + 0.14
-    bl = fit(t, E('A05') - 0.05, 2.5, 0.36, 0.6)
+    bl = fit(t, E('A05') + 0.1, 2.5, 0.36, 0.6)     # the held 4th note answers after "hikâyesi"
     play(t, kusak('F4', bl, 'major', n=4, hold=4), piano, vel=0.26)
     piano(t + 2.5 * bl, 'C6', vel=0.09)
 
@@ -1335,7 +1335,7 @@ def sec_selanik():
     play(ts, kusak('G5', 0.3, 'major', n=4, hold=3), lyre, vel=0.3, bright=0.55, pan=0.2)
     bell(ts + 0.75, 'D6', vel=0.05)
     # C03 "Mektep ... öğretti: sorgulamayı." - the school's ney asks, in Uşşak
-    ney(WE('C03', 'sorgulamayı') + 0.05, kusak('D5', 0.4, 'ussak', n=5, vel=0.95, hold=2.2), gain=0.3)
+    ney(WE('C03', 'sorgulamayı') + 0.05, kusak('D5', 0.4, 'ussak', n=5, vel=0.95, hold=2.2), gain=0.25)
     # --- secrets
     drone('D1 D2', S('C03') - 0.3, c1 + 0.8, gain=0.19, att=2.5, rel=1.2, cutoff=260)
     seq = [(S('C03'), 'G2 D3 Bb3'), (wh, 'D2 A2 F3'), (S('C04'), 'D2 Eb3 A3'), (S('C05'), 'D2 A2 F3'),
@@ -1453,7 +1453,7 @@ def sec_1908():
     chords([(S('D04'), 'F2 C3 A3 C4'), (W('D04', 'jurnalleri'), 'Eb2 Bb2 G3'), (W('D04', 'aynı'), 'D2 A2 F3'),
             (W('D04', 'bu'), 'Bb1 F2 D3 F3'), (W('D04', 'yetişti'), 'A1 E2 D3 E3')], d1 + 0.4, gain=0.13, cutoff=750,
            att=1.2, rel=1.0, sine=0.4, bass=dict(gain=0.18, stack=(0, 12), cutoff=520, vib=4, att=0.5, rel=0.8))
-    ney(WE('D04', 'okulları') + 0.05, kusak('D5', 0.42, 'ussak', n=4, vel=0.9, hold=2.6), gain=0.24)
+    ney(WE('D04', 'okulları') + 0.05, kusak('D5', 0.42, 'ussak', n=4, vel=0.9, hold=2.6), gain=0.2)
 
 
 def sec_savas():
@@ -1577,7 +1577,7 @@ def sec_anadolu():
             aulos(t, [(m, end - t, 0.7)], gain=0.16, vib=7, breath=0.06, pan=0.4, att=0.25, rel=0.5)
     # telegraph: ses efektinde, "katıldı"dan sonra (audio/sfx_events.json)
     th = W('F04', 'halide')
-    bowed(th, [('E5', 1.0), ('F5', 0.5), ('G5', 0.5), ('A5', 2.0), ('G5', 0.6), ('E5', 1.6)], gain=0.18, voices=1,
+    bowed(th, [('E5', 1.0), ('F5', 0.5), ('G5', 0.5), ('A5', 2.0), ('G5', 0.6), ('E5', 1.6)], gain=0.13, voices=1,
           detune=3, cutoff=3400, vib=13, pan=0.3, rel=0.8)
     chords([(W('F04', 'binlerce'), 'Bb2 F3 D4 F4'), (W('F04', 'sonra'), 'C3 G3 E4 G4')], tk + 0.05, gain=0.12,
            cutoff=1300, att=1.0, rel=0.4)
@@ -1837,8 +1837,9 @@ def reverb_ir(fs=SR, length=4.0, pre=0.02, seed=7):
 
 
 # lines that must cut through: the thesis, the narrator's own comments ("Bana kalırsa", "Bence"), the whisper
-PRIORITY = {'A05': 1.3, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.35, 'G06': 1.15,
-            'D02': 1.2, 'E05': 1.2, 'G02': 1.5, 'F05': 1.3, 'E03': 1.3, 'G01': 1.25, 'E01': 1.3, 'C06': 1.2, 'D03': 1.25}       # + the three hottest musical moments that run under words
+PRIORITY = {'A05': 1.5, 'B05': 1.25, 'C02': 1.2, 'C03': 1.4, 'E04': 1.25, 'G04': 1.3, 'G05': 1.35, 'G06': 1.15,
+            'D02': 1.2, 'E05': 1.4, 'G02': 1.7, 'F05': 1.3, 'E03': 1.3, 'G01': 1.25, 'E01': 1.3, 'C06': 1.2, 'D03': 1.25,
+            'F04': 1.2, 'D04': 1.2}       # + the hottest musical moments that run under words (ses kurulu: kelime başına ölçüm)
 HUSH = 0.16                     # music level while "Yaşasın Cumhuriyet!" is spoken (the climax answers it)
 TAIL_DB = 0.0                   # end-screen trim (dB); the march is composed to sit below the climax
 
