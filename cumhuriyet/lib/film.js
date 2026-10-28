@@ -54,7 +54,9 @@ function drawShot(ctx, i, t) {
     window.DRIFT = { z, px, py };
   }
   sh._drift = window.DRIFT;
+  window.CAM1 = null; // çekimin ilk tam derinlikli cam() dönüşümü kaydedilir: doku da ona bağlanır
   sh.draw(ctx, st);
+  sh._cam1 = window.CAM1; window.CAM1 = undefined;
   window.DRIFT = null;
   ctx.restore();
 }
@@ -100,7 +102,7 @@ function drawFilm(ctx, t) {
   } else drawShot(ctx, i, t);
   // film boyu izleyici katmanı (kuşak şeridi vb.): çekimlerden bağımsız, baskı bitişinden önce
   if (typeof kusakBar === 'function') { ctx.save(); baseT(ctx); kusakBar(ctx, t); ctx.restore(); }
-  POST = { ...(sh.post || {}), drift: sh._drift }; // doku, gelen çekimin kamera hareketiyle kâğıda bağlı
+  POST = { ...(sh.post || {}), drift: sh._drift, cam: sh._cam1 }; // doku, gelen çekimin kamera hareketiyle kâğıda bağlı
   post(ctx, t);
 }
 // önceki çekimi (buf) mevcut kareye geçiş maskesiyle bindir
@@ -161,6 +163,7 @@ function cam(ctx, c, k = 1) {
   const z = 1 + ((c.z ?? 1) - 1) * k;
   const cx = W / 2 + ((c.x ?? W / 2) - W / 2) * k, cy = H / 2 + ((c.y ?? H / 2) - H / 2) * k;
   if (window.__camrec && !window.__camrec.length) window.__camrec.push(z, cx, cy); // probeOwnCam: çizimdeki ilk kamera
+  if (k === 1 && window.CAM1 === null) window.CAM1 = { z, cx, cy, r: c.r || 0, sx: c.sx || 0, sy: c.sy || 0 }; // doku için (pressFinish)
   ctx.translate(W / 2 + (c.sx || 0), H / 2 + (c.sy || 0));
   ctx.rotate((c.r || 0) * k);
   ctx.scale(z, z);

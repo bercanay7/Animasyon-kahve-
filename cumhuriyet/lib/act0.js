@@ -311,9 +311,10 @@ function a0_shotKoskDis() {
       for (let i = 0; i < 60; i++) { const x = rb() * W, y = 800 + rb() * 180; if (Math.abs(x - HX) < 140) continue; inkStroke(g, PL([[x, y], [x + 3, y - 9]], false), 1.4, { a: .3 }); }
       // yol: kapıdan aşağı, loş
       // kapıdan aşağı ışık alan yol (kâğıt + altın .25 + lacivert .35): gece kâğıt değeri ≥ %15 (sanat kurulu)
-      const path = SP([[HX - 34, HY + 34], [HX + 34, HY + 34], [1160, H + 30], [760, H + 30]], true, .3);
-      knock(g, path); plate(g, 'gold', path, { a: .25 }); plate(g, 'navy', path, { a: .35 });
-      inkStroke(g, SP([[HX - 34, HY + 34], [760, H + 30]], false), 2.4); inkStroke(g, SP([[HX + 34, HY + 34], [1160, H + 30]], false), 2.4);
+      // sanat 3. tur (gece açık alan ≥ %15): yol aşağıda geniş açılır, ışık alan yol L ≥175; pencere yine en parlak öğe
+      const path = SP([[HX - 34, HY + 34], [HX + 34, HY + 34], [1600, H + 30], [320, H + 30]], true, .3);
+      knock(g, path); plate(g, 'gold', path, { a: .2 }); plate(g, 'navy', path, { a: .1 });
+      inkStroke(g, SP([[HX - 34, HY + 34], [320, H + 30]], false), 2.4); inkStroke(g, SP([[HX + 34, HY + 34], [1600, H + 30]], false), 2.4);
     });
     a0_layer(ctx, house, c, 1);
     ctx.save(); cam(ctx, c, 1);

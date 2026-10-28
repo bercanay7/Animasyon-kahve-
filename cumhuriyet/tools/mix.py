@@ -42,12 +42,19 @@ VO_GAINS = {}          # {cümle: dB}  ör. {'C03': 2.0}: fısıltıyı biraz ö
 # kenar: 's' cümle başı, 'e' cümle sonu, 'w:kelime' kelime başı, 'we:kelime' kelime sonu (film.js Wd gibi: ilk 'startsWith').
 VO_GAIN_WIN = [('C03', 'w:namık', -0.3, 'e', 0.2, -2.0)]   # fısıltı: anlatımdaki +4 dB klip kazancının üstüne kompresör ~+2 dB daha ekliyor; net ≈ -4 LU kalsın
 MUSIC_DIPS = [
-    ('G01', 'e', 0.0, 'e', 4.5, -3),           # doruk: sınırlayıcı en çok ~4 dB çalışsın (ses kurulu)
+    ('G01', 'e', 0.0, 'e', 4.5, -1.5),         # doruk: sınırlayıcıyı rahatlat (200 Hz altı ayrıca -6, aşağıda)
     ('B06', 's', -0.1, 'e', 0.1, -3),          # içeriden an (anlatım kurulu 2. tur)
     ('E03', 'w:mustafa', -0.1, 'e', 0.1, -3),  # içeriden an: annesi ve kız kardeşi muhacir
     ('E06', 'w:ve', -0.1, 'e', 0.05, -6),      # "ve birbirleri": ses yalnız; ardından gelen majör üçlü kısılmaz
+    ('E02', 'e', -0.6, 'e', 0.2, -3),          # "…direniş örgütledi." sonu (anlatım kurulu 3. tur)
+    ('E05', 's', -0.1, 'e', 0.1, -2),          # Çanakkale cümlesi boyunca (hedef ≥ 10 dB)
+    ('E05', 'w:komutana', -0.2, 'e', 0.35, -6),  # "…bir komutana dönüştü." sözcük bitene dek müzik geri çekilir
+    ('F05', 's', -0.1, 'e', 0.0, -2),          # montaj cümlesi boyunca; sondaki umutlu Si natürel kısılmaz
+    ('A05', 'w:kuşağın', -0.1, 'e', 0.1, -3),  # tez: "…bir kuşağın hikâyesi" (Fa majör yükselişi sözün altında geri çekilir)
+    ('G02', 's', -0.1, 'w:ertesi', 0.3, -3),   # doruğun tutulan tepesi "Cumhurbaşkanı Mustafa Kemal oldu" altında
 ]
-MUSIC_LOW_DIPS = [('E05', 'we:çanakkale', 0.6, 'e', 0.0, -4)]   # Çanakkale altındaki alçak gürleme sözcükleri bulandırmasın
+MUSIC_LOW_DIPS = [('E05', 'we:çanakkale', 0.6, 'e', 0.0, -4),   # Çanakkale altındaki alçak gürleme sözcükleri bulandırmasın
+                  ('G01', 'e', 0.0, 'e', 4.5, -6)]               # doruk: 200 Hz altı -6 dB (sınırlayıcı yükü düşer, telefonda doruk öne çıkar)
 VO_COMP = (-9, 2.0, .012, .135)   # anlatım kompresörü: eşik = entegre + (-9) dB (-16 LUFS'ta ≈ -25 dBFS), 2:1, atak 12 ms, bırakma 135 ms
 DUCK_HOLD, DUCK_REL = 0.4, 0.6    # müziğin ek -3 dB kısması cümle sonundan 0.4 sn sonra 0.6 sn'de bırakır
 MUSIC_HP = 45                     # müzik yüksek geçireni (Hz): 45 Hz altı yalnız sınırlayıcıyı çalıştırıyordu

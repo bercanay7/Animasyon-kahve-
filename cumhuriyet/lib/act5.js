@@ -140,9 +140,8 @@ shot(S('F01') - .7, (ctx, st) => {
 function a5_amasya(ctx, t, lt, camx) {
   ctx.fillStyle = P.paper; ctx.fillRect(-20, -20, W + 700, H + 40);
   // sanat yönetmeni (değer kuralı, gece ≥ %15): okra + gri, gece hissi için az lacivert
-  plate(ctx, 'ochre', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .35 });
-  plate(ctx, 'grey', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .15 });
-  plate(ctx, 'navy', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .14 });
+  plate(ctx, 'ochre', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .3 }); // sanat 3. tur: duvar L ≥170
+  plate(ctx, 'navy', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .06 });
   // duvarda pencere: gece ve Amasya kayalıkları silueti
   const win = PL([[150, 150], [470, 150], [470, 520], [150, 520]]); knock(ctx, win); plate(ctx, 'navy', win, { a: .85 });
   ctx.save(); ctx.clip(win); plate(ctx, 'ink', PL([[140, 520], [140, 360], [220, 300], [300, 340], [380, 260], [480, 330], [480, 520]]), { a: .8 });
@@ -210,7 +209,8 @@ shot(S('F02') - .15, (ctx, st) => {
 shot(S('F03') - .25, (ctx, st) => {
   setReg(55); const t = st.t, lt = st.lt;
   paperBG(ctx);
-  a5_sky(ctx, [['navy', .62, 700]]); // tek lacivert gök (sanat yönetmeni)
+  a5_sky(ctx, [['navy', .5, 700]]); // tek lacivert gök (sanat yönetmeni; 3. tur: L ≈150)
+  for (const [r, a] of [[140, .2], [90, .35]]) { const h = new Path2D(); h.arc(300, 190, r, 0, TAU); ctx.save(); ctx.globalAlpha = a; knock(ctx, h, '#F3E9D2'); ctx.restore(); } // ay ışığı düz kâğıt halkalar
   const moon = new Path2D(); moon.arc(300, 190, 70, 0, TAU); knock(ctx, moon, '#F3E9D2'); plate(ctx, 'gold', moon, { a: .25 });
   const cx = lt * 46; // kamera yürüyenlerle birlikte kayar
   ctx.save(); ctx.translate(-cx * .3, 0); a5_hills(ctx, 690, 70, 4.1, 1); plate(ctx, 'navy', PL([[-40, 700], [W + 40, 700], [W + 40, H], [-40, H]]), { a: .5 }); ctx.restore();
@@ -225,7 +225,7 @@ shot(S('F03') - .25, (ctx, st) => {
     const id = idleOffsets(Math.floor(t * 15) / 15, p.who.length, .5);
     // yürüyüş: adım başına inip kalkma, 15 fps poz (Fevzi yarım adım geriden)
     // yerinde yürüyüş (2 Hz): her adımda iniş-kalkış, omuzlar karşı fazda sallanır; gövde kadrajın altından taşar
-    const ph = (Math.floor(t * 15) / 15) * 2 * TAU + (p.who === 'fevzi' ? PI : 0), bob = -Math.abs(Math.sin(ph)) * 9, sway = Math.sin(ph) * .02;
+    const ph = (Math.floor(t * 15) / 15) * 2 * TAU + (p.who === 'fevzi' ? PI / 2 : 0), bob = -Math.abs(Math.sin(ph)) * 9, sway = Math.sin(ph) * .02;
     const y = (p.y0 ??= p.y) + bob;
     ctx.save(); ctx.translate(p.x, y + 300); ctx.rotate(sway); ctx.translate(-p.x, -(y + 300));
     bust(ctx, { x: p.x, y, s: S_, dir: 1, coat: 'kaput', col: 'grey', w: .95, seed: p.who.length, len: (H + 40 - y) / S_, turn: .2, sep: false, arms: 'back' });
@@ -235,9 +235,9 @@ shot(S('F03') - .25, (ctx, st) => {
   // ön planda yol şevi: figürler havada durmaz
   // ön plan şevi yakın katman olarak yürüyüşle akar (35 px/sn); sanat yönetmeni: kâğıt renginde yol bandı (gece ≥ %15)
   { ctx.save(); ctx.translate(-((lt * 35) % 600), 0);
-    const xs = [], ys = [944, 956, 940, 952, 946]; for (let k = 0; k < 9; k++) xs.push([-40 + k * 300, ys[k % 5]]);
-    const bank = SP([[-40, H + 20], ...xs, [2460, H + 20]], true, .7); knock(ctx, bank, '#E9DDBF'); plate(ctx, 'navy', bank, { a: .35 }); plate(ctx, 'ochre', bank, { a: .15 });
-    inkStroke(ctx, SP(xs, false), 4); for (let k = 0; k < 12; k++) cut(ctx, PL([[k * 210 + 40, 990], [k * 210 + 120, 988]], false), 2, { a: .3 });
+    const xs = [], ys = [904, 916, 900, 912, 906]; for (let k = 0; k < 9; k++) xs.push([-40 + k * 300, ys[k % 5]]);
+    const bank = SP([[-40, H + 20], ...xs, [2460, H + 20]], true, .7); knock(ctx, bank, '#ECE1C4'); plate(ctx, 'navy', bank, { a: .16 }); plate(ctx, 'ochre', bank, { a: .1 }); // ay ışığında kâğıt renkli şev (gece açık alan ≥ %15)
+    inkStroke(ctx, SP(xs, false), 4); for (let k = 0; k < 12; k++) cut(ctx, PL([[k * 210 + 40, 970], [k * 210 + 120, 968]], false), 2, { a: .3 });
     ctx.restore(); }
   plate(ctx, 'navy', PL([[-20, -20], [W + 20, -20], [W + 20, H + 20], [-20, H + 20]]), { a: .06 });
   // rota: İstanbul → Ankara, şevin üstünde kâğıt renginde 40 px yol bandı (gece istisnasının açık değeri)

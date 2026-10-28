@@ -1587,7 +1587,7 @@ const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT
     const d1 = 0, d2 = 0;
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
-    stamp(ctx, '1918', 114, 112, lt - .05, st.d + 1, { size: 48 });
+    if (typeof a5_year === 'function') { const q = clamp((lt + .05) / .25); if (q > 0) onScreen(ctx, g => { g.save(); g.globalAlpha = q; a5_year(g, '1918'); g.restore(); }); } // öteki yıl damgalarıyla aynı biçim
     // isim + yaş (1918)
     // ad üstte, yaş altta; tek sıra, figürün x'ine ortalı (E04a ile aynı dil)
     a4_ageRow(ctx, order.map((who, i) => ({ x: XS[i], name: a4_KUSAK.short[who], age: Y - a4_KUSAK.born[who], t0: tBr + .9 + i * .17 })), t);

@@ -342,11 +342,13 @@ function a6_shotCatlak() {
     if (!NOTEXT) a0_onScreen(ctx, g => {
       const a1 = ramp(st.lt, tC - .3, tC); band(g, 810, 30, 1110, 132, a1, 5); if (a1 > 0) { g.save(); g.globalAlpha = a1; txt(g, '1924', W / 2, 108, FONT.title(78), { align: 'center', ls: 4 }); g.restore(); }
       const ty = ramp(st.lt, tA + .4, tA + .9); band(g, 700, 864, 1220, 962, ty, 6); if (ty > 0) { g.save(); g.globalAlpha = ty; txt(g, 'AYNI YERDEN', W / 2, 936, FONT.title(64), { align: 'center', ls: 4 }); g.restore(); }
-      // ayrılan üçünün adları (Courier 40; sol kenar ≥96)
-      g.font = FONT.mono(40);
-      for (const i of [0, 1, 2]) { const tl = a0_W('G03', A6_SIX[i].w) - T0, al = ramp(st.lt, tl, tl + .3); if (al <= 0) continue;
-        g.letterSpacing = '4px'; const w = g.measureText(A6_SIX[i].lab).width, x = clamp(A6_SIX[i].x0 ?? A6_X6[i] - 23 * sepNow, 96 + w / 2, 1824 - w / 2);
-        g.save(); g.globalAlpha = al; txt(g, A6_SIX[i].lab, x, 812, FONT.mono(40), { align: 'center', ls: 4 }); g.restore(); }
+      // ayrılan üçünün adları (tipografi 3. tur: Courier 36, harf aralığı 1; aralar ≈70 px). Çatlak kayması grup
+      // hâlinde kısılır: en soldaki adın sol kenarı ≥96, adlar birbirine yaklaşmaz
+      g.font = FONT.mono(36); g.letterSpacing = '1px';
+      const L3 = [0, 1, 2].map(i => ({ i, w: g.measureText(A6_SIX[i].lab).width, x: A6_SIX[i].x0 ?? A6_X6[i] - 23 * sepNow }));
+      const sh3 = Math.max(0, 96 - (L3[0].x - L3[0].w / 2));
+      for (const { i, w, x } of L3) { const tl = a0_W('G03', A6_SIX[i].w) - T0, al = ramp(st.lt, tl, tl + .3); if (al <= 0) continue;
+        g.save(); g.globalAlpha = al; txt(g, A6_SIX[i].lab, Math.min(x + sh3, 1824 - w / 2), 812, FONT.mono(36), { align: 'center', ls: 1 }); g.restore(); }
     });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
   // "bir okul sırasından…": A04'teki 1893 karesinin aynısı (aynı kadraj, aynı yaş satırı)
@@ -569,8 +571,8 @@ function a6_shotAfis() {
       if (h1.a > 0) a0_onScreen(ctx, g => { g.globalAlpha = h1.a; g.translate(960, 876); g.scale(h1.k, h1.k); txt(g, 'CUMHURİYETİMİZİN 103. YILI', 0, 0, FONT.title(88), { align: 'center', ls: 2 }); });
       if (h2.a > 0) a0_onScreen(ctx, g => { g.globalAlpha = h2.a; g.translate(960, 990); g.scale(h2.k, h2.k); txt(g, 'KUTLU OLSUN', 0, 0, FONT.title(88), { align: 'center', ls: 6, plate: 'red' }); });
       const ta = a0_W('G06', 'anıyoruz') - T0;
-      label(ctx, '29 EKİM 1923 —', 1824, 170, FONT.mono(40), { align: 'right', ls: 4, a: ramp(st.lt, ta, ta + .5) });
-      label(ctx, '29 EKİM 2026', 1824, 220, FONT.mono(40), { align: 'right', ls: 4, a: ramp(st.lt, ta + .2, ta + .7) });
+      label(ctx, '29 EKİM 1923', 1824, 170, FONT.mono(40), { align: 'right', ls: 4, a: ramp(st.lt, ta, ta + .5) });
+      label(ctx, '— 29 EKİM 2026', 1824, 220, FONT.mono(40), { align: 'right', ls: 4, a: ramp(st.lt, ta + .2, ta + .7) }); // çizgi satır başında (tipografi)
     }
   }, { tr: { type: 'press', dur: .6 }, post: { vig: .9 } });
 }

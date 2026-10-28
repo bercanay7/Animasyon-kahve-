@@ -1040,7 +1040,7 @@ shot(a1_W('B05', 'kimin'), (ctx, st) => {
   const c = { x: kf(t, [[st.t - st.lt, 950], [st.t - st.lt + st.d, 975, E.lin]]), y: 540, z: kf(t, [[st.t - st.lt, 1.0], [Tk + 1.6, 1.06, E.out2]]) };
   ctx.save(); cam(ctx, c, 1);
   a1_imgM(ctx, a1_cacheM('a1-b05b-table', g => {
-    const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R); plate(g, 'sepia', R, { a: .45 });
+    const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R); plate(g, 'sepia', R, { a: .25 }); // sanat 3. tur: masa L ≥170
     const r = rng(23); for (let i = 0; i < 40; i++) { const y = -200 + i * 36 + r() * 8, p = new Path2D(); let x = -220; p.moveTo(x, y); while (x < W + 220) { const nx = x + 120 + r() * 200; p.quadraticCurveTo((x + nx) / 2, y + (r() - .5) * 10, nx, y + (r() - .5) * 4); x = nx; } inkStroke(g, p, 1.5, { a: .3 + r() * .3 }); }
     for (const y of [180, 620]) { inkStroke(g, PL([[-220, y], [W + 220, y]], false), 2.4, { a: .6 }); cut(g, PL([[-220, y + 4], [W + 220, y + 4]], false), 1.2, { a: .25 }); }
     for (const [rx, a] of [[760, .1], [560, .12], [400, .14]]) { g.save(); g.globalAlpha = a; knock(g, a1_ell(980, 540, rx, rx * .62)); g.restore(); }
@@ -1187,7 +1187,7 @@ shot(a1_W('B06', 'kendi') - .1, (ctx, st) => {
   a1_imgM(ctx, a1_cacheM('a1-b06b-room', g => {
     const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R); plate(g, 'sepia', R, { a: .2 });
     for (let x = -200; x < W + 220; x += 120) inkStroke(g, PL([[x, -220], [x, 700]], false), 1, { a: .14 });
-    inkStroke(g, PL([[-220, 700], [W + 220, 700]], false), 3); plate(g, 'sepia', a1_rect(-220, 700, W + 220, H + 220), { a: .4 });
+    inkStroke(g, PL([[-220, 700], [W + 220, 700]], false), 3); plate(g, 'sepia', a1_rect(-220, 700, W + 220, H + 220), { a: .2 }); // sanat 3. tur: lambri L ≥175
     // kara tahta: ahşap çerçeve, is yüzey
     const fr = a1_rect(500, 90, 1460, 600); knock(g, fr); plate(g, 'sepia', fr, { n: 2 }); inkStroke(g, fr, 3);
     const bd = a1_rect(522, 112, 1438, 578); inkFill(g, bd); plate(g, 'sepia', bd, { a: .25 });

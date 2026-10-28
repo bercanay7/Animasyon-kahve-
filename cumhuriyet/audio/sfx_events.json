@@ -243,7 +243,8 @@
   "anchor": "Wd('A04', 'sultanın') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -9,
+  "fi": 0.6,
+  "g": -12,
   "note": "\"SULTANIN SIRALARINDA\" damgası; tak sesi damgayla aynı anda (at: peak)"
  },
  {
@@ -257,7 +258,7 @@
   "t": 30.24,
   "anchor": "Wd('A05', 'bir', 1) +0.00",
   "name": "thump",
-  "g": -22,
+  "g": -29,
   "rate": 1.2,
   "len": 0.3,
   "pan": -0.3,
@@ -267,7 +268,7 @@
   "t": 30.41,
   "anchor": "Wd('A05', 'bir', 1) +0.17",
   "name": "thump",
-  "g": -22,
+  "g": -29,
   "rate": 1.2,
   "len": 0.3,
   "pan": 0.0,
@@ -277,7 +278,7 @@
   "t": 30.58,
   "anchor": "Wd('A05', 'bir', 1) +0.34",
   "name": "thump",
-  "g": -22,
+  "g": -29,
   "rate": 1.2,
   "len": 0.3,
   "pan": 0.3,
@@ -288,8 +289,9 @@
   "anchor": "Wd('A05', 'kuşağın') +0.00",
   "name": "press",
   "at": "peak",
-  "g": -10,
-  "note": "\"BİR KUŞAĞIN HİKÂYESİ\" başlık baskısı (kanca A2: -6 istendi; tez sözü örtülmesin diye -10)"
+  "fi": 0.6,
+  "g": -12,
+  "note": "\"BİR KUŞAĞIN HİKÂYESİ\" başlık baskısı (kanca A2: -6 istendi; tez sözü örtülmesin diye -12)"
  },
  {
   "t": 30.52,
@@ -321,6 +323,7 @@
   "anchor": "Wd('B03', 'altı') +0.00",
   "name": "press",
   "at": "peak",
+  "fi": 0.45,
   "g": -9,
   "note": "\"600+\" damgası (kanca B4)"
  },
@@ -329,6 +332,7 @@
   "anchor": "Wd('B03', 'yüzü', 1) +0.00",
   "name": "press",
   "at": "peak",
+  "fi": 0.45,
   "g": -9,
   "note": "\"100+\" damgası (kanca B4)"
  },
@@ -404,6 +408,7 @@
   "anchor": "Wd('C06', 'vatan') +0.00",
   "name": "press",
   "at": "peak",
+  "fi": 0.45,
   "g": -11,
   "note": "\"VATAN VE HÜRRİYET\" damgası (kanca B4)"
  },
@@ -473,7 +478,7 @@
   "t": 246.365,
   "anchor": "Wd('E05', 'komutana') +0.00",
   "name": "clink",
-  "g": -24,
+  "g": -27,
   "rate": 0.8,
   "pan": 0.15,
   "note": "şarapnel cep saatine çarpar (yönetmenlik)"
@@ -482,7 +487,7 @@
   "t": 246.365,
   "anchor": "Wd('E05', 'komutana') +0.00",
   "name": "thud",
-  "g": -24,
+  "g": -27,
   "pan": 0.15,
   "note": "şarapnel darbesinin gövdesi"
  },
@@ -589,6 +594,7 @@
   "anchor": "Wd('G01', 'yaşasın') +0.00",
   "name": "press",
   "at": "peak",
+  "fi": 0.45,
   "g": -15,
   "note": "galeri coşkusu: 0.3 sn kayık baskı vurgusu (yönetmenlik); merdane önceki boşlukta"
  },
@@ -618,6 +624,7 @@
   "anchor": "Wd('G03', 'aynı') +0.00",
   "name": "press",
   "at": "peak",
+  "fi": 0.45,
   "g": -11,
   "note": "\"AYNI YERDEN\" (kanca B4)"
  },

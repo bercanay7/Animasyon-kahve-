@@ -167,14 +167,28 @@ function buildPaper() {
 }
 function paperBG(ctx, col = P.paper) { ctx.fillStyle = col; ctx.fillRect(-20, -20, W + 40, H + 40); }
 // son işlem: taş greni (mürekkepte açık benek), kâğıt lifi, gren, vinyet. ox,oy: doku kayması (katmana bağlı doku için)
+// kamera dönüşümünde ekranın dört köşesi dokunun pay bırakılmış alanında mı (değilse doku ekrana sabit çizilir)
+function texCamOk(c) {
+  const co = Math.cos(-c.r), si = Math.sin(-c.r);
+  return [[0, 0], [W, 0], [0, H], [W, H]].every(([x, y]) => {
+    const dx = x - W / 2 - c.sx, dy = y - H / 2 - c.sy, wx = (dx * co - dy * si) / c.z + c.cx, wy = (dx * si + dy * co) / c.z + c.cy;
+    return wx > -155 && wx < W + 155 && wy > -155 && wy < H + 155;
+  });
+}
 function pressFinish(ctx, t, o = {}) {
   ctx.save(); baseT(ctx);
   const ox = o.ox || 0, oy = o.oy || 0;
   // taş greni ve kâğıt lifi sahneyle aynı kamera hareketini izler (sanat yönetmeni: "doku kâğıda bağlı"); vinyet ekrana sabit
-  ctx.save(); const dr = o.drift;
+  ctx.save(); const dr = o.drift, cm = o.cam && texCamOk(o.cam) ? o.cam : null;
   if (dr) { ctx.translate(W / 2, H / 2); ctx.scale(dr.z, dr.z); ctx.translate(-W / 2 - dr.px, -H / 2 - dr.py); }
-  if (o.stone !== 0) { ctx.globalCompositeOperation = 'lighten'; ctx.globalAlpha = o.stone ?? .25; ctx.drawImage(TEX.stone, ox % W, oy % H); if (ox) ctx.drawImage(TEX.stone, ox % W + (ox > 0 ? -W : W), oy % H); }
-  ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.paper ?? 1; ctx.drawImage(TEX.paper, 0, 0);
+  else if (cm) { ctx.translate(W / 2 + cm.sx, H / 2 + cm.sy); ctx.rotate(cm.r); ctx.scale(cm.z, cm.z); ctx.translate(-cm.cx, -cm.cy); }
+  // çekimin kendi kamerası varsa doku pay bırakılarak (±TM) çizilir ki kayan kamerada kenar açılmasın
+  const TM = cm ? 160 : 0;
+  if (o.stone !== 0) { ctx.globalCompositeOperation = 'lighten'; ctx.globalAlpha = o.stone ?? .25;
+    if (TM) ctx.drawImage(TEX.stone, -TM, -TM, W + 2 * TM, H + 2 * TM);
+    else { ctx.drawImage(TEX.stone, ox % W, oy % H); if (ox) ctx.drawImage(TEX.stone, ox % W + (ox > 0 ? -W : W), oy % H); } }
+  ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = o.paper ?? 1;
+  if (TM) ctx.drawImage(TEX.paper, -TM, -TM, W + 2 * TM, H + 2 * TM); else ctx.drawImage(TEX.paper, 0, 0);
   ctx.restore();
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = o.vig ?? .9; ctx.drawImage(TEX.vig, 0, 0);
   ctx.restore();

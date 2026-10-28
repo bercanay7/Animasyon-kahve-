@@ -1493,7 +1493,7 @@ def sec_savas():
               ('F#4', 0.3), ('Eb4', 0.45), ('D4', 2.2)]
     sc = float(np.clip((S('E04') - 0.15 - sel) / sum(d for _, d in LAMENT), 0.8, 1.3))
     ph = [((hz(m[0]), hz(m[1])) if isinstance(m, tuple) else hz(m), d * sc) for m, d in LAMENT]
-    aulos(sel + 0.1, ph, gain=0.26, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
+    aulos(sel + 0.1, ph, gain=0.22, vib=14, breath=0.05, pan=0.1, tilt=1.05, bright=0.08, att=0.07, rel=0.6,
           hmax=6000.0, top=4500.0)
     pad(M('D3 A3'), sel - 0.3, S('E04') + 1.0, gain=0.07, att=1.5, rel=1.2, cutoff=500, sine=0.5)
     # E04 the narrator's belief: a shared wound -> a homeland to come
@@ -1524,9 +1524,9 @@ def sec_savas():
           cutoff=1300, vib=6, att=0.2, rel=0.8)
     chords([(tc, 'D2 A2 Eb3'), (ta, 'Bb1 F2 D3'), (W('E05', 'ordunun'), 'C2 G2 Eb3'),
             (W('E05', 'komutana'), 'D2 A2 D3 F3')], E('E05') + 1.2, gain=0.13, cutoff=900, att=0.8, rel=1.0)
-    boom(E('E05') + 0.1, vel=0.7, f0=60, f1=36.7, decay=1.8)
-    timp(E('E05') + 0.1, 'D2', vel=0.8)
-    fdrum(E('E05') + 0.1, 'dum', vel=0.7, f0=60)
+    boom(E('E05') + 0.45, vel=0.7, f0=60, f1=36.7, decay=1.8)     # "…komutana dönüştü." tamamen bittikten sonra
+    timp(E('E05') + 0.45, 'D2', vel=0.8)
+    fdrum(E('E05') + 0.45, 'dum', vel=0.7, f0=60)
     # E06 the fronts, the defeat, and what was left
     for i, wd in enumerate(['kafkasyada', 'irakta', 'filistinde']):
         t = W('E06', wd)
