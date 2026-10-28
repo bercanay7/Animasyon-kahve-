@@ -104,6 +104,10 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Belli bir süre gerekiyorsa node'u ekle, `duration_seconds` ver, sonra çalıştır.
   - Kısa çekimler 0,25–0,4 sn geçişle birleştirilebilir.
   - Sol ve sağ için iki ayrı sıra kullanılırsa stereo genişlik doğar.
+- **Teslim boyutu:** Uygulamada 100 MB'ı aşan dosyada indirme düğmesi çıkmıyor (413 ve 153 MB'lık dosyalar inmedi, 83 MB'lık indi).
+  - Uzun videonun ana kopyasından ayrıca 100 MB'ın altında bir yükleme kopyası üret.
+  - Kullanılan ayar: `libx265 -preset medium -crf 26 -tag:v hvc1`, BT.709 etiketleri ve ses `-c:a copy`. Sonuç 83 MB, SSIM 0,980; YouTube kabul etti.
+  - Yedek olarak H.264 iki geçiş, 1750k (~96 MB).
 - **Shorts kırpması:** Üst künye kutusu ile bayrak ya da yüz arasında ≥ 30 px boşluk bırak.
   - Bunun için klipte `z0` ve `cy0` kullan; kırpmayı üste hizala (y0 = 0).
 
