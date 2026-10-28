@@ -6,6 +6,7 @@ audio/__pycache__/
 tools/__pycache__/
 .parts*/
 *_master.mp4
+*_shorts.mp4
 en/*.wav
 en/words/
 **/__pycache__/
