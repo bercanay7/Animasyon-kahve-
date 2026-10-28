@@ -121,6 +121,16 @@ function head3q(ctx, o) {
     else if (mus === 'thin') m = [[17, 28.4], [24, 25.8], [31, 25.9], [34.5, 27.8], [31, 28.8], [24, 28], [18, 29.4]];
     else if (mus === 'faint') m = [[17, 28.6], [24, 26.6], [31, 26.6], [33.4, 28], [30, 28.4], [24, 27.8], [18, 29.2]];
     else m = [[14, 29], [18.5, 26.4], [26, 24.6], [31, 25.6], [33.5, 27.6], [30, 28.6], [26, 27.8], [20, 29.2], [15, 30.2]];
+    if (mus === 'mk') {
+      // Mustafa Kemal 1919–23: koyu, dolgun fırça bıyık; üst kenar burun dibini izler, alt kenar ağız çizgisine paralel ve düz,
+      // uçlar küt ve hafifçe düşük (kapak kurulu, Sivas 1919 / 1921 fotoğrafları)
+      const mk = PL(rough([[15.2, 26.3], [17.5, 25.2], [21, 24.4], [26, 23.9], [29.4, 24.2], [30.9, 25.1], [31.1, 28.2], [30.8, 30.4], [27, 29.9], [22, 29.7], [17.6, 29.9], [15.4, 30.5]], .08, sd + 6));
+      // kâğıt örtüsü yok: kalıp tenin üstüne çarpılır, kayık baskı küçük bıyıkta beyaz boşluk açmaz
+      { const r = REG.amt; REG.amt = Math.min(r, .6); plate(ctx, 'sepia', mk, { a: 1 }); plate(ctx, 'ink', mk, { a: .17 }); REG.amt = r; }
+      inkStroke(ctx, PL([[15.4, 30.5], [17.6, 29.9], [22, 29.7], [27, 29.9], [30.8, 30.4]], false), lw(2.2));
+      inkStroke(ctx, PL([[17.5, 25.2], [21, 24.4], [26, 23.9], [29.4, 24.2]], false), lw(1.1), { a: .6 });
+      for (const q of [[[20, 25.4], [21.2, 28.6]], [[25.4, 25], [26.4, 28.4]]]) cut(ctx, SP(q, false), lw(1.4), { a: .5 });
+    } else {
     const mP = SP(rough(m, .12, sd + 6), true, .9);
     knock(ctx, mP);
     if (pp.musCol === 'grey') {
@@ -128,6 +138,7 @@ function head3q(ctx, o) {
       for (const q of [[[17, 27], [22, 27.6], [25, 30]], [[23, 25.8], [28.5, 26.8], [32, 30.6]], [[27, 25.4], [31.6, 26.6], [34.2, 31.8]]]) inkStroke(ctx, SP(q, false), lw(1.1), { a: .55 });
     } else if (hairPl !== 'ink') { plate(ctx, 'sepia', mP, { a: mus === 'faint' ? .45 : .9 }); inkStroke(ctx, mP, lw(mus === 'faint' ? 1 : 1.6), { a: mus === 'faint' ? .5 : 1 }); }
     else { inkFill(ctx, mP); for (let i = 0; i < 3; i++) { const x = 20 + i * 4.5; cut(ctx, SP([[x, 26.4], [x + 1.4, 28.6]], false), lw(.9), { a: .35 }); } }
+    }
   }
   if (pp.beard) {
     const bd = SP(rough([[-20, 30], [-12, 44], [2, 55], [14, 59], [24, 56], [30, 44], [31, 34], [26, 36.5], [20, 40.5], [12, 41.5], [4, 38], [-4, 33], [-12, 28]], .4, sd + 9), true, .8);

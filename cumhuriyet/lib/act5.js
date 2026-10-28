@@ -128,7 +128,7 @@ shot(S('F01') - .7, (ctx, st) => {
   head3q(ctx, { ...mk, who: 'mk', gear: 'kalpak', gearCol: 'ink', light: 'front', look: [1.2, .2], age: 38, tilt: -.03 + (id.head || 0) * .2 });
   ctx.restore();
   stamp(ctx, 'SAMSUN · 19 MAYIS 1919', 1180, 120, lt - .5, 4.6);
-  chapterCard(ctx, 'V', 'ANADOLU', '1919–1922', lt - .3, 3.4, { x: 1180, y: 840, size: 72 });
+  chapterCard(ctx, 'V', 'ANADOLU', '1919 · CUMHURİYET’E 4 YIL', lt - .3, 3.4, { x: 1150, y: 700, size: 72 }); // sağ alt kuşak şeridine yer
 }, { tr: { type: 'press', dur: .7 } });
 
 // F02 · Amasya: masa başında dört arkadaş; Karabekir telgrafla doğudan
@@ -147,15 +147,18 @@ function a5_amasya(ctx, t, lt, camx) {
   // Refet ve Rauf arkada, Ali Fuat ile MK önde
   const P4 = [
     { who: 'refet', x: 640, y: 360, dir: 1, coat: 'kaput', col: 'khaki', back: true },
-    { who: 'rauf', x: 1370, y: 352, dir: -1, coat: 'civil', col: 'navy', back: true },
+    { who: 'rauf', x: 1370, y: 352, dir: -1, coat: 'civil', col: 'navy', back: true, gear: 'fes' },
     { who: 'alifuat', x: 830, y: 392, dir: 1, coat: 'kaput', col: 'khaki', sep: true },
     { who: 'mk', x: 1150, y: 386, dir: -1, coat: 'kaput', col: 'khaki', sep: true, arms: 'back' },
   ];
   const focus = [1000, 760];
   for (const p of P4) {
     const id = idleOffsets(Math.floor(t * 15) / 15, p.who.length, .5);
+    // yürüyüş: adım başına inip kalkma, 15 fps poz (Fevzi yarım adım geriden)
+    const ph = (Math.floor(t * 15) / 15) * 1.7 * TAU + (p.who === 'fevzi' ? PI : 0), bob = -Math.abs(Math.sin(ph)) * 7;
+    p.y = (p.y0 ??= p.y) + bob;
     bust(ctx, { x: p.x, y: p.y, s: S_, dir: p.dir, coat: p.coat, col: p.col, w: .96, seed: p.who.length, len: (900 - p.y) / S_, turn: .3, sep: p.sep, back: p.back, arms: p.arms });
-    head3q(ctx, { x: p.x, y: p.y, s: S_, dir: p.dir, who: p.who, gear: 'kalpak', gearCol: p.who === 'rauf' ? 'grey' : 'ink', light: 'front', lookAt: focus, age: p.who === 'alifuat' ? 37 : 38, tilt: (id.head || 0) * .2 });
+    head3q(ctx, { x: p.x, y: p.y, s: S_, dir: p.dir, who: p.who, gear: p.gear || 'kalpak', gearCol: 'ink', light: 'front', lookAt: focus, age: { alifuat: 36, rauf: 37, refet: 38, mk: 38 }[p.who], tilt: (id.head || 0) * .2 });
   }
   // masa ve genelge
   ctx.save(); ctx.translate(0, 0); woodTable(ctx, 760, { seed: 7 }); ctx.restore();
@@ -179,17 +182,19 @@ shot(S('F02') - .15, (ctx, st) => {
       plate(g, 'grey', PL([[0, 0], [w, 0], [w, h], [0, h]]), { a: .35 });
       plate(g, 'ink', PL([[0, 300], [80, 250], [160, 280], [260, 220], [w, 270], [w, h], [0, h]]), { a: .3 });
       bust(g, { x: 210, y: 210, s: 1.05, dir: -1, coat: 'kaput', col: 'khaki', w: .95, seed: 11, len: 300, sep: true, arms: 'back' });
-      head3q(g, { x: 210, y: 210, s: 1.05, dir: -1, who: 'karabekir', gear: 'kalpak', gearCol: 'ink', light: 'front', look: [1, .2], age: 37 });
+      head3q(g, { x: 210, y: 210, s: 1.05, dir: -1, who: 'karabekir', gear: 'kalpak', gearCol: 'ink', light: 'front', look: [1, .2], age: 36 });
     });
     ctx.restore();
   }
   ctx.restore();
-  nameTag(ctx, 380, 600, 'REFET', '38 yaşında', t - (S('F02') + .3), 3.0, { size: 40, sub: 28 });
-  nameTag(ctx, 1560, 600, 'RAUF', '38 yaşında', t - (S('F02') + .5), 2.8, { size: 40, sub: 28, align: 'right' });
-  nameTag(ctx, 560, 700, 'ALİ FUAT', '37 · sınıf arkadaşı', t - Wd('F02', 'ali'), 1.6, { size: 46, sub: 30 });
+  // adı anlatıda geçen önce (Ali Fuat), masadaki öbür ikisi 0,8 sn sonra
+  const ta = Wd('F02', 'ali');
+  nameTag(ctx, 560, 700, 'ALİ FUAT', '36 yaşında · sınıf arkadaşı', t - ta, 2.6, { size: 46, sub: 30 });
+  nameTag(ctx, 170, 560, 'REFET', '1881 doğumlu', t - (ta + .8), 2.2, { size: 40, sub: 28 });
+  nameTag(ctx, 1760, 560, 'RAUF', '37 yaşında', t - (ta + 1.0), 2.0, { size: 40, sub: 28, align: 'right' });
   stamp(ctx, 'AMASYA · 22 HAZİRAN 1919', 80, 110, lt - .2, 3.2);
-  tickerTape(ctx, 'ERZURUM → AMASYA · 15. KOLORDU KUMANDANI KÂZIM KARABEKİR', 1010, t - Wd('F02', 'doğudan'), 3.2);
-  nameTag(ctx, 1860, 820, 'KÂZIM KARABEKİR', '37 yaşında', t - Wd('F02', 'karabekir') + .2, 2.6, { size: 44, sub: 30, align: 'right' });
+  tickerTape(ctx, 'ERZURUM → AMASYA · TELGRAF', 1010, t - Wd('F02', 'doğudan'), 3.2);
+  nameTag(ctx, 1820, 780, 'KÂZIM KARABEKİR', '36 yaşında', t - Wd('F02', 'karabekir') + .2, 2.6, { size: 44, sub: 30, align: 'right' });
 }, { tr: { type: 'cut', dur: .01 } });
 
 // F03 · Gece, İstanbul'dan Ankara'ya gizli geçiş: İsmet (35) ve Fevzi (44)
@@ -198,7 +203,7 @@ shot(S('F03') - .25, (ctx, st) => {
   paperBG(ctx);
   a5_sky(ctx, [['navy', .95, 520], ['navy', .75, 700]]);
   const moon = new Path2D(); moon.arc(1500, 200, 70, 0, TAU); knock(ctx, moon, '#F3E9D2'); plate(ctx, 'gold', moon, { a: .25 });
-  const cx = lt * 10;
+  const cx = lt * 46; // kamera yürüyenlerle birlikte kayar
   ctx.save(); ctx.translate(-cx * .3, 0); a5_hills(ctx, 690, 70, 4.1, 1); plate(ctx, 'navy', PL([[-40, 700], [W + 40, 700], [W + 40, H], [-40, H]]), { a: .5 }); ctx.restore();
   // yol ve kağnı
   ctx.save(); ctx.translate(-cx, 0);
@@ -209,6 +214,9 @@ shot(S('F03') - .25, (ctx, st) => {
   const S_ = 1.35;
   for (const p of [{ who: 'ismet', x: 720, y: 430, age: 35, gc: 'ink' }, { who: 'fevzi', x: 1080, y: 410, age: 44, gc: 'grey' }]) {
     const id = idleOffsets(Math.floor(t * 15) / 15, p.who.length, .5);
+    // yürüyüş: adım başına inip kalkma, 15 fps poz (Fevzi yarım adım geriden)
+    const ph = (Math.floor(t * 15) / 15) * 1.7 * TAU + (p.who === 'fevzi' ? PI : 0), bob = -Math.abs(Math.sin(ph)) * 7;
+    p.y = (p.y0 ??= p.y) + bob;
     bust(ctx, { x: p.x, y: p.y, s: S_, dir: 1, coat: 'kaput', col: 'grey', w: .95, seed: p.who.length, len: 420, turn: .2, sep: true, arms: 'back' });
     head3q(ctx, { x: p.x, y: p.y, s: S_, dir: 1, who: p.who, gear: 'kalpak', gearCol: p.gc, light: 'back', lookAt: [1900, 380], age: p.age, tilt: (id.head || 0) * .2 });
   }
@@ -223,7 +231,7 @@ shot(S('F03') - .25, (ctx, st) => {
     label(ctx, 'ANKARA', 1700, 1050, FONT.mono(30), { col: P.paper, a: ramp(rp, .85, 1) });
   }
   nameTag(ctx, 470, 120, 'İSMET', '35 yaşında', t - Wd('F03', 'ismet') + .2, 3.6, { size: 46, sub: 30 });
-  nameTag(ctx, 1480, 420, 'FEVZİ PAŞA', '44 · eski Harbiye Nazırı', t - Wd('F03', 'fevzi') + .2, 2.8, { size: 46, sub: 30 });
+  nameTag(ctx, 1180, 120, 'FEVZİ PAŞA', '44 yaşında · eski Harbiye Nazırı', t - Wd('F03', 'fevzi') + .2, 2.8, { size: 46, sub: 30 });
 }, { tr: { type: 'fade', dur: .5 } });
 
 // F04a · Sultanahmet mitingi, 23 Mayıs 1919: Halide Edib çarşafla kürsüde
@@ -258,8 +266,8 @@ shot(Wd('F04', 'sonra') - .1, (ctx, st) => {
   bust(ctx, { ...h, coat: 'setre', col: 'khaki', w: .88, seed: 19, len: 420, sep: true });
   head3q(ctx, { ...h, who: 'halide', gear: 'basortu', light: 'front', look: [1, .1], age: 37, tilt: -.03 });
   // rütbe: kol üstünde şeritler (onbaşı iki, çavuş üç)
+  // rütbe yalnız damgayla (kol şeritleri dönem belgesiyle doğrulanamadı: tarih danışmanı)
   const n = t > Wd('F04', 'çavuşluğa') ? 3 : 2;
-  for (let k = 0; k < n; k++) { const y = 770 + k * 22; const ch = PL([[1090, y], [1126, y - 22], [1162, y], [1162, y + 9], [1126, y - 13], [1090, y + 9]]); knock(ctx, ch); plate(ctx, 'gold', ch); inkStroke(ctx, ch, 2); }
   bigStamp(ctx, n === 3 ? 'ÇAVUŞ' : 'ONBAŞI', 1500, 300, t - (n === 3 ? Wd('F04', 'çavuşluğa') : Wd('F04', 'orduya')), 2.4, { size: 110, font: FONT.title });
 }, { tr: { type: 'cut', dur: .01 } });
 

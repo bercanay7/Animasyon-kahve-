@@ -375,7 +375,7 @@ a2_shot(S('C01'), Wd('C01', 'rıhtımda'), (ctx, st) => {
   ctx.save(); cam(ctx, cm, .9);
   for (let i = 0; i < 5; i++) { const gx = 420 + i * 120 + lt * (24 + i * 5) + Math.sin(t * .7 + i) * 20, gy = 260 + Math.sin(i * 2.3) * 60 + Math.sin(t * 1.1 + i) * 8; a2_gull(ctx, gx, gy, .9 + (i % 3) * .2, Math.floor(t * 5 + i) % 2); }
   ctx.restore();
-  chapterCard(ctx, 'II', 'SELANİK', 'YASAK KİTAPLAR · 1889–1906', lt, d);
+  chapterCard(ctx, 'II', 'SELANİK', '1889 · CUMHURİYET’E 34 YIL', lt, d);
 }, { tr: { type: 'press', dur: .8 } });
 
 // C01b: rıhtım caddesi — Fransızca/Rumca tabelalar, Ladino ve Osmanlıca soyut iz; üç derinlikte damga kalabalık; ön sırada yüzü seçilen dört kişi
@@ -1433,7 +1433,7 @@ a2_shot(Wd('C06', 'yeni'), S('D01'), (ctx, st) => {
   // VATAN VE HÜRRİYET damgası
   if (!NOTEXT && t >= tV) {
     const k = 1 + (1 - E.out3(clamp((t - tV) / .18))) * .22, a = clamp((t - tV) / .06);
-    ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 170); ctx.scale(k, k); ctx.rotate(.02);
+    ctx.save(); ctx.globalAlpha = a; ctx.translate(1110, 176); ctx.scale(k, k); ctx.rotate(.02);
     const bw = 1080, bh = 150, box = PL(rough([[-bw / 2, -bh / 2], [bw / 2, -bh / 2], [bw / 2, bh / 2], [-bw / 2, bh / 2]], 1.2, 79));
     plate(ctx, 'ink', PL([[-bw / 2 + 10, -bh / 2 + 12], [bw / 2 + 10, -bh / 2 + 12], [bw / 2 + 10, bh / 2 + 12], [-bw / 2 + 10, bh / 2 + 12]]), { a: .4 });
     knock(ctx, box); inkStroke(ctx, box, 4); inkStroke(ctx, a2_R(-bw / 2 + 12, -bh / 2 + 12, bw / 2 - 12, bh / 2 - 12), 1.6);
