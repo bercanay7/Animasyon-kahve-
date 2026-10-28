@@ -4,14 +4,12 @@ audio/*.wav
 audio/stems/
 audio/__pycache__/
 tools/__pycache__/
-.parts/
+.parts*/
 *_master.mp4
 en/*.wav
 en/words/
 **/__pycache__/
-.parts_shorts/
 shorts/*.wav
 audio/stems_en/
-.parts_en/
 *_youtube.mp4
 board/
