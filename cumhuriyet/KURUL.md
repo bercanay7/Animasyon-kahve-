@@ -18,7 +18,7 @@
 | 12 | Başlık, açıklama, etiketler, bölümler | Kapak (TO/paketleme) kurulu; tarih danışmanı | **10** (son tur, ikisi de) | ONAY |
 | 13 | Shorts | Kanca kurulu; tipografi tasarımcısı | kurgu ve ses **10** (kanca), yazı **10** (tipografi) | ONAY |
 | 14 | Altyazı (SRT: doğruluk, okuma hızı, satır bölme) | Tipografi kurulu; tarih danışmanı | **10** (3. tur) | ONAY |
-| 15 | Teknik kalite (render, renk, kodlama, ses ölçümleri, kare kusurları) | Teknik ve erişilebilirlik kurulu | – | Render sonrası |
+| 15 | Teknik kalite (render, renk, kodlama, ses ölçümleri, kare kusurları) | Teknik ve erişilebilirlik kurulu | **10** (son tur; önceki render'da 9: bayrak tırtığı, 3 altyazı başlangıcı) | ONAY: H.264 High 1080p30 BT.709, −14,0 LUFS / −2,1 dBTP; Shorts 45 sn −14,0 / −1,3; siyah ya da donmuş kare yok |
 | 16 | Hassasiyet ve hukuk (5816, telif, siyasi denge, saygı kuralları) | Tarih danışmanı; teknik ve hukuk kurulu | tarih danışmanı **10**; teknik ve hukuk kurulu **10** (2. tur; 1. turda 7) | ONAY: 5816, 2893 (bayrak cetveli düzeltildi), telif, siyasi denge, YouTube politikaları |
 | 17 | Yayın paketi (yayin.md, bitiş ekranı, sabit yorum, zamanlama) | Kapak (TO/paketleme) kurulu | **10** (son tur) | ONAY |
 
