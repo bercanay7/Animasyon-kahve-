@@ -765,7 +765,7 @@ function a1_walker(g, x, y, s, kind, ph = 0) {
 function a1_gateScene(g) {
   const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R);
   // gök: kâğıt, üstte seyrek sepya yarım ton (durağan)
-  radialHT(g, 'sepia', 960, -900, 950, 1500, .3, 0, { cell: 12, ang: 15, box: [-220, -220, W + 220, 400] });
+  radialHT(g, 'sepia', 960, -1000, 1000, 1160, .3, 0, { cell: 12, ang: 15, box: [-220, -220, W + 220, 200] });
   // avlu (kapının ardı): aydınlık kâğıt, uzak bina
   const fac = a1_rect(900, 380, 1460, 700); plate(g, 'sepia', fac, { a: .22 });
   for (let i = 0; i < 6; i++) { const x = 940 + i * 86; for (const y of [430, 540]) { const w = a1_rect(x, y, x + 34, y + 62); plate(g, 'sepia', w, { a: .5 }); inkStroke(g, w, 1.4, { a: .7 }); } }
@@ -835,6 +835,18 @@ shot(S('B05'), (ctx, st) => {
 }, { tr: { type: 'press', dur: .6 } });
 
 // ═══════════ B05b · Tavsiye mektubu çekilir, karne gelir (yakın plan) ═══════════
+// lastik damga (izleyici katmanı): kırmızı çerçeveli slab yazı, basılma darbesiyle
+function a1_rubber(ctx, s, x, y, lt, rot = 0, size = 90, o = {}) {
+  if (NOTEXT || lt < 0) return;
+  const k = 1 + (1 - E.out3(clamp(lt / .18))) * .3, a = clamp(lt / .06);
+  ctx.save(); ctx.font = FONT.slab(size); ctx.letterSpacing = '6px'; const w = ctx.measureText(s).width; ctx.restore();
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(x, y); ctx.rotate(rot); ctx.scale(k, k);
+  const pl = o.plate || 'red', col = P[pl];
+  const b = PL(rough([[-w / 2 - 34, -size * .72], [w / 2 + 34, -size * .72], [w / 2 + 34, size * .5], [-w / 2 - 34, size * .5]], 2, s.length));
+  inkStroke(ctx, b, 7, { col, mode: 'multiply', a: .92 }); inkStroke(ctx, a1_rect(-w / 2 - 22, -size * .6, w / 2 + 22, size * .38), 2.2, { col, mode: 'multiply', a: .85 });
+  txt(ctx, s, 0, size * .2, FONT.slab(size), { align: 'center', plate: pl, ls: 6 });
+  ctx.restore();
+}
 function a1_letter(ctx, x, y, rot) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
   plate(ctx, 'ink', a1_rect(-262, -172, 290, 200), { a: .32 });
@@ -877,6 +889,7 @@ shot(a1_W('B05', 'kimin'), (ctx, st) => {
     const R = a1_rect(-220, -220, W + 220, H + 220); knock(g, R); plate(g, 'sepia', R, { a: .7 });
     const r = rng(23); for (let i = 0; i < 40; i++) { const y = -200 + i * 36 + r() * 8, p = new Path2D(); let x = -220; p.moveTo(x, y); while (x < W + 220) { const nx = x + 120 + r() * 200; p.quadraticCurveTo((x + nx) / 2, y + (r() - .5) * 10, nx, y + (r() - .5) * 4); x = nx; } inkStroke(g, p, 1.5, { a: .3 + r() * .3 }); }
     for (const y of [180, 620]) { inkStroke(g, PL([[-220, y], [W + 220, y]], false), 2.4, { a: .6 }); cut(g, PL([[-220, y + 4], [W + 220, y + 4]], false), 1.2, { a: .25 }); }
+    for (const [rx, a] of [[760, .1], [560, .12], [400, .14]]) { g.save(); g.globalAlpha = a; knock(g, a1_ell(980, 540, rx, rx * .62)); g.restore(); }
   }));
   // "kimin adamı": mühürlü tavsiye mektubu; "değil" sözünde kenara itilir
   const lo = E.in3(clamp((t - Td) / .5));
@@ -884,14 +897,14 @@ shot(a1_W('B05', 'kimin'), (ctx, st) => {
   // "karnesiyle": karne iki elde, aşağıdan gelir
   const ki = E.out3(clamp((t - Tk + .1) / .45)), sway = noise1(tf * .6, 5) * 4;
   if (ki > 0) {
-    const kx = 980 + sway, ky = 530 + (1 - ki) * 700, kr = .03 + (1 - ki) * .1;
+    const kx = 980 + sway, ky = 520 + (1 - ki) * 720, kr = .03 + (1 - ki) * .1;
     a1_karne(ctx, kx, ky, kr);
     for (const sd of [-1, 1]) {
-      const hx = kx + sd * 300, hy = ky + 210 + sd * 8;
-      const A = arm(ctx, [kx + sd * 420, H + 200], [hx + sd * 10, hy + 70], { upper: 150, fore: 140, w: 84, col: 'sepia', bend: sd });
-      handDraw(ctx, hx + sd * 10, hy + 70, -PI / 2 - sd * .25, 2.6, 'hold', { side: sd, skin: true });
+      const hx = kx + sd * 318, hy = ky + 150 + sd * 10;
+      const A = arm(ctx, [kx + sd * 520, ky + 760], [hx, hy + 60], { upper: 330, fore: 300, w: 92, col: 'sepia', bend: -sd, lw: 4.4 });
+      handDraw(ctx, A.wr[0], A.wr[1], A.ang, A.w2 / 20, 'rest', { side: -sd, skin: true });
     }
   }
   ctx.restore();
-  bigStamp(ctx, 'PEK İYİ', 1310, 690, t - Tdd, 9, { size: 112, plate: 'red', rot: -.14 });
+  a1_rubber(ctx, 'PEK İYİ', 1330, 700, t - Tdd, -.13, 92);
 }, { tr: { type: 'cut' } });

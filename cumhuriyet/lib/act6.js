@@ -14,9 +14,8 @@ function a6_flagImg(G) {
     const cx = M + G / 2, cy = G / 2, r1 = G / 4, cx2 = cx + G / 16, r2 = G / 5;
     const outer = new Path2D(); outer.arc(cx, cy, r1, 0, TAU);
     const inner = new Path2D(); inner.arc(cx2, cy, r2, 0, TAU);
-    g.save(); g.clip(inner, 'nonzero'); g.restore();
-    knock(g, outer, '#F4EEDF');
-    knock(g, inner, P.paper); plate(g, 'red', inner);
+    const notInner = new Path2D(); notInner.rect(-10, -10, L + 20, G + 20); notInner.arc(cx2, cy, r2, 0, TAU, true);
+    g.save(); g.clip(outer); g.clip(notInner, 'evenodd'); g.fillStyle = '#F4EEDF'; g.fillRect(-10, -10, L + 20, G + 20); g.restore();
     const sx = cx2 + r2 + G / 3 + G / 8, star = a0_starPath(new Path2D(), sx, cy, G / 8, PI, .382);
     knock(g, star, '#F4EEDF');
     // ince is kontur (taş baskı): ay ve yıldız
@@ -97,9 +96,9 @@ function a6_shotTBMM() {
       for (const lx of [330, 900]) { for (const [rr, a] of [[120, .16], [74, .3]]) { const q = new Path2D(); q.ellipse(lx, 196, rr * 1.2, rr * .8, 0, 0, TAU); plate(g, 'gold', q, { a }); } }
       for (const lx of [330, 900]) gasLamp(g, lx, 186, .8, 0);
       // ahşap lambri
-      const pan = PL([[-20, 430], [W + 20, 430], [W + 20, H + 20], [-20, H + 20]]); plate(g, 'ochre', pan, { n: 2 }); plate(g, 'sepia', pan, { a: .35 });
-      inkStroke(g, PL([[-20, 430], [W + 20, 430]], false), 3.4);
-      for (let x = 40; x < W; x += 150) inkStroke(g, PL([[x, 440], [x, H]], false), 1.6, { a: .45 });
+      const pan = PL([[-20, 610], [W + 20, 610], [W + 20, H + 20], [-20, H + 20]]); plate(g, 'ochre', pan, { n: 2 }); plate(g, 'sepia', pan, { a: .35 });
+      inkStroke(g, PL([[-20, 610], [W + 20, 610]], false), 3.4);
+      for (let x = 40; x < W; x += 150) inkStroke(g, PL([[x, 620], [x, H]], false), 1.6, { a: .45 });
       // kürsü arkasında "Hâkimiyet Milletindir" levhası (Osmanlıca soyut iz) ve başkanlık kürsüsü
       const lv = PL([[1430, 150], [1850, 150], [1850, 250], [1430, 250]]); plate(g, 'ink', PL([[1440, 160], [1860, 160], [1860, 260], [1440, 260]]), { a: .3 });
       knock(g, lv, P.paperD); inkStroke(g, lv, 3.6); inkStroke(g, PL([[1440, 160], [1840, 160], [1840, 240], [1440, 240]]), 1.2);
@@ -176,12 +175,12 @@ function a6_shotUcBust() {
       const h = a0_hit(st.lt, f.app, .14); if (h.a <= 0) continue;
       ctx.save(); ctx.globalAlpha = h.a; ctx.translate(f.x, B1); ctx.scale(h.k, h.k); ctx.translate(-f.x, -B1);
       const rb = REG.boost; REG.boost = rb * (1 + 5 * (1 - E.out3(clamp((st.lt - f.app) / .35))));
-      a0_fig(ctx, { ...f, y: 380, s: 1.62, dir: -1, w: .98, len: (B1 - 380) / 1.62 + 10, look: [.3, .25], sep: true, idle: .8 }, st.t);
+      a0_fig(ctx, { ...f, y: 404, s: 1.86, dir: -1, w: .98, len: (B1 - 404) / 1.86 + 10, look: [.3, .25], sep: true, idle: .8 }, st.t);
       REG.boost = rb; ctx.restore();
     }
     ctx.restore();
     ctx.restore();
-    for (const f of L) nameTag(ctx, f.x, 600, f.name, f.sub, st.lt - f.tn, 3.4, { align: 'center', size: 44, sub: 28 });
+    for (const f of L) nameTag(ctx, f.x, 584, f.name, f.sub, st.lt - f.tn, 3.4, { align: 'center', size: 44, sub: 28 });
     // "Üçü de aynı kurmay okulunun mezunuydu": diplomalar sırayla damgalanır
     const tD = a0_W('G02', 'üçü') - T0;
     [1, 0, 2].forEach((k, j) => a6_diploma(ctx, L[k].x, 820, [-.03, .02, -.015][k], 640 + k, st.lt - tD - j * .28, L[k].dip));
@@ -209,27 +208,28 @@ function a6_shotCatlak() {
     const tC = a0_W('G03', 'dörtte') - T0, tM = a0_W('G03', 'muhalefete') - T0, tA = a0_W('G03', 'ama') - T0;
     const crack = ramp(st.lt, tC - .1, tC + .35, E.out2);              // çatlak yukarıdan aşağı ilerler
     const sep = ramp(st.lt, tM - .2, tM + .7, E.io3) * (1 - ramp(st.lt, tA, tA + .9, E.io3)); // ayrılır, sonra yine yan yana
-    const tear = a6_tearPts(TX, B0 - 30, B1 + 30, 77);
-    const yC = lerp(B0 - 30, B1 + 30, crack);
+    const tear = a6_tearPts(TX, -40, H + 40, 77);
+    const yC = lerp(-40, H + 40, crack);
+    const edge = tear.map(([x, y]) => [y <= yC ? x : TX + 9999, y]);
     const halves = [
-      { clip: PL([[-60, B0 - 40], ...tear.map(([x, y]) => [y <= yC ? x : TX, y]), [-60, B1 + 40]]), dx: -46 * sep, rot: -.012 * sep, idx: [0, 1, 2] },
-      { clip: PL([[W + 60, B0 - 40], ...tear.map(([x, y]) => [y <= yC ? x : TX, y]), [W + 60, B1 + 40]]), dx: 0, rot: 0, idx: [3, 4, 5] },
+      { clip: PL([[-60, -60], ...tear.map(([x, y]) => [y <= yC ? x : W + 60, y]), [-60, H + 60]]), dx: -46 * sep, rot: -.012 * sep, idx: [0, 1, 2] },
+      { clip: PL([[W + 60, -60], ...tear.map(([x, y]) => [y <= yC ? x : W + 60, y]), [W + 60, H + 60]]), dx: 0, rot: 0, idx: [3, 4, 5] },
     ];
-    // zemin kâğıdı (yırtığın ardında görünen alt kâğıt) + yıl damgası
     ctx.save(); cam(ctx, c, 1);
-    for (const hv of halves) {
+    halves.forEach((hv, k) => {
       ctx.save(); ctx.translate(hv.dx, 0); ctx.translate(TX, (B0 + B1) / 2); ctx.rotate(hv.rot); ctx.translate(-TX, -(B0 + B1) / 2);
-      ctx.save(); ctx.clip(hv.clip);
+      ctx.save(); if (crack > 0) ctx.clip(hv.clip); else if (k === 1) { ctx.restore(); ctx.restore(); return; }
+      if (crack <= 0) { ctx.beginPath(); ctx.rect(-60, -60, W + 120, H + 120); ctx.clip(); }
       paperBG(ctx); a0_band(ctx, B0, B1, 'ochre', .5);
       ctx.save(); ctx.beginPath(); ctx.rect(-40, B0 + 2, W + 80, B1 - B0 - 4); ctx.clip();
-      for (const i of hv.idx) a0_fig(ctx, { ...A6_SIX[i], x: A6_X6[i], y: 412, s: 1.26, dir: -1, w: .96, len: (B1 - 412) / 1.26 + 10, look: [.3, .25], sep: true }, st.t);
+      for (const i of (crack > 0 ? hv.idx : [0, 1, 2, 3, 4, 5])) a0_fig(ctx, { ...A6_SIX[i], x: A6_X6[i], y: 412, s: 1.26, dir: -1, w: .96, len: (B1 - 412) / 1.26 + 10, look: [.3, .25], sep: true }, st.t);
       ctx.restore();
-      // alt kâğıttaki adlar (yalnız ayrılan üçü, söylendikleri anda)
-      for (const i of hv.idx) if (A6_SIX[i].lab) { const tl = a0_W('G03', A6_SIX[i].w) - T0; label(ctx, A6_SIX[i].lab, A6_X6[i], 800, FONT.mono(32), { align: 'center', ls: 4, a: ramp(st.lt, tl, tl + .3) }); }
+      // adlar: ayrılan üçü, söylendikleri anda
+      for (const i of (crack > 0 ? hv.idx : [0, 1, 2])) if (A6_SIX[i].lab) { const tl = a0_W('G03', A6_SIX[i].w) - T0; label(ctx, A6_SIX[i].lab, A6_X6[i], 812, FONT.mono(34), { align: 'center', ls: 4, a: ramp(st.lt, tl, tl + .3) }); }
       ctx.restore();
       if (crack > 0) inkStroke(ctx, PL(tear.filter(([, y]) => y <= yC + 26).map(([x, y]) => [x, Math.min(y, yC)]), false), 3.4);
       ctx.restore();
-    }
+    });
     ctx.restore();
     // 1924 damgası (çatlakla birlikte)
     label(ctx, '1924', W / 2, 108, FONT.title(78), { align: 'center', ls: 4, a: ramp(st.lt, tC - .3, tC) });
@@ -443,7 +443,6 @@ function a6_shotBitis() {
       const sh = PL([[X0 + 14, Y0 + 16], [X1 + 14, Y0 + 16], [X1 + 14, Y1 + 16], [X0 + 14, Y1 + 16]]); plate(g, 'ink', sh, { a: .3 });
       const pan = PL(rough([[X0, Y0], [X1, Y0], [X1, Y1], [X0, Y1]], 1, 3)); knock(g, pan); plate(g, 'ochre', pan, { a: .3 });
       inkStroke(g, pan, 4); inkStroke(g, PL([[X0 + 16, Y0 + 16], [X1 - 16, Y0 + 16], [X1 - 16, Y1 - 16], [X0 + 16, Y1 - 16]]), 1.6);
-      a0_band(g, 0, 0, 'ochre', 0);
       const st_ = PL([[X0 + 16, 812], [X1 - 16, 812], [X1 - 16, 994], [X0 + 16, 994]]); plate(g, 'ochre', st_, { a: .45 }); inkStroke(g, PL([[X0 + 16, 812], [X1 - 16, 812]], false), 3);
     });
     a0_layer(ctx, bg, c, 1);
