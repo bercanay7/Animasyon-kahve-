@@ -53,4 +53,4 @@ Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin 103. yıl
 ## Diğer
 - Kategori: Eğitim.
 - Dil: Türkçe; altyazı dosyası `cumhuriyet.tr.srt`.
-- Süre: 6:18. Bitiş ekranı 6:06–6:18: sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve ok var. Video öğesinin üst kenarı ≥ %28 (1920×1080'de y 300), ortası x %74 (1420); "Abone ol" öğesinin ortası ≈ (%74, %77) (1420, 830), alt kenarı ≤ %87. Yerleşim `yayin.md`'de.
+- Süre: 6:19. Bitiş ekranı 6:07–6:19: sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve ok var. Video öğesinin üst kenarı ≥ %28 (1920×1080'de y 300), ortası x %74 (1420); "Abone ol" öğesinin ortası ≈ (%74, %77) (1420, 830), alt kenarı ≤ %87. Yerleşim `yayin.md`'de.

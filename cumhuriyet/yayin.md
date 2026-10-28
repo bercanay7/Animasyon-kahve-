@@ -28,7 +28,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `cumhuriyet_master.mp4` | Uzun video: 1920×1080, 6:18, Türkçe ses |
+| `cumhuriyet_master.mp4` | Uzun video: 1920×1080, 6:19, Türkçe ses |
 | `kapak.jpg` | Uzun videonun kapağı (1280×720) |
 | `kapak_b.jpg` | İkinci kapak; YouTube'un "Test ve Karşılaştır" özelliği için |
 | `cumhuriyet.tr.srt` | Türkçe altyazı |
@@ -58,7 +58,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
      - "Değiştirilmiş veya yapay içerik" sorusu: **Hayır**. Video gerçekçi görüntü içermez; stilize, taş baskı üslubunda bir animasyondur. Anlatımın yapay zekâ sesi olduğu açıklamada zaten yazıyor.
 3. **Video öğeleri:**
    - **Altyazı:** Altyazı ekle → Dosya yükle → "Zamanlamalı" → `cumhuriyet.tr.srt`.
-   - **Bitiş ekranı:** başlangıç **6:06**, bitiş 6:18 (12 saniye). Daha erken başlarsa öğeler son kartın ("103. YIL KUTLU OLSUN") üstüne biner. Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara değmeyecek biçimde yerleştirilir:
+   - **Bitiş ekranı:** başlangıç **6:07**, bitiş 6:19 (12 saniye). Daha erken başlarsa öğeler son kartın ("103. YIL KUTLU OLSUN") üstüne biner. Videoda sağ yarıda "SIRADAKİ HİKÂYE" etiketi ve aşağı ok, en altta "ZAMAN KURYESİ'NE ABONE OL" yazısı var. Öğeler bunlara değmeyecek biçimde yerleştirilir:
      - **Video öğesi:** "İzleyiciye en uygun video" seçilir; kanaldaki iki video konu olarak uzak olduğu için bu seçenek daha iyidir. Okun altına konur:
        - üst kenarı ekran yüksekliğinin en az **%28**'i (ok %20–26 arasında);
        - yatay ortası ekran genişliğinin **%74**'ü.
@@ -89,7 +89,7 @@ Depo: `https://github.com/bercanay7/Animasyon-kahve-`. Dal: `claude/29-ekim-anim
 **29 Ekim, 10:00'dan sonra**
 - [ ] Video herkese açık.
 - [ ] Oynatıcıda bölüm çizgileri görünüyor (0:33, 1:34, 2:43, 3:19, 4:22, 5:11).
-- [ ] Bitiş ekranı 6:06'da açılıyor; öğeler oka, "ABONE OL" yazısına ve afişe binmiyor.
+- [ ] Bitiş ekranı 6:07'de açılıyor; öğeler oka, "ABONE OL" yazısına ve afişe binmiyor.
 - [ ] Altyazı (Türkçe) seçilebiliyor.
 - [ ] "Test ve karşılaştır" başlamış görünüyor (Analytics → küçük resim testi).
 - [ ] Uzun videonun altına sabit yorum yazıldı ve sabitlendi:

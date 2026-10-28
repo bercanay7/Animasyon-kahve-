@@ -730,7 +730,7 @@
   "note": "\"Cumhuriyet!\" biter bitmez tezahürat, doruğun altında"
  },
  {
-  "t": 338.415,
+  "t": 339.215,
   "anchor": "Wd('G03', 'aynı') +0.00",
   "name": "press",
   "at": "peak",
@@ -739,7 +739,7 @@
   "note": "\"AYNI YERDEN\" (kanca B4)"
  },
  {
-  "t": 338.415,
+  "t": 339.215,
   "anchor": "Wd('G03', 'aynı') +0.00",
   "name": "tick",
   "g": -14,
@@ -747,7 +747,7 @@
   "note": "damganın tak kenarı"
  },
  {
-  "t": 350.485,
+  "t": 351.285,
   "anchor": "Wd('G04', 'yazılır', 0, true) +0.05",
   "name": "chalk",
   "g": -19,

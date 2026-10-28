@@ -138,8 +138,8 @@ function a6_tbmmRail(g) {
 function a6_tbmm(ctx, t) {
   const FL = { x: 1250, y: 210, G: 300 }, T0 = S('G01') - 1.0, lt = t - T0, tf = Math.floor(t * 15) / 15;
   const tY = a0_W('G01', 'yaşasın') - T0, tS = a0_W('G01', 'sesler') - T0;
-  // doruk: "yaşasın"dan 3,6 sn boyunca kesintisiz 1,00 → 1,05 ek yaklaşma (yalnız sahne katmanı)
-  const p = ramp(lt, 0, 10.4, E.lin), pk = ramp(lt, tY - .03, tY + 3.6, E.lin), c = { x: 960 + 50 * p, y: 540 - 20 * p - 18 * pk, z: (1 + .07 * p) * (1 + .05 * pk) };
+  // doruk: "yaşasın"dan G02 kesmesine kadar (en az 3,6 sn) kesintisiz 1,00 → 1,05 ek yaklaşma (yalnız sahne katmanı)
+  const tX = S('G02') - .35 - T0, p = ramp(lt, 0, Math.max(10.4, tX), E.lin), pk = ramp(lt, tY - .03, Math.max(tY + 3.6, tX), E.lin), c ={ x: 960 + 50 * p, y: 540 - 20 * p - 18 * pk, z: (1 + .07 * p) * (1 + .05 * pk) };
   const [sx, sy] = shake(lt, tY, 5, 5, 18); c.sx = sx; c.sy = sy;
   a0_layer(ctx, a0_cache('a6-tbmm-bg', a6_tbmmBG), c, .75);
   // dinleyici locası: "yaşasın"da kalpaklar ve eller kalkar (2 pozlu, 15 fps, kişi başına 0–0,15 sn gecikme)
@@ -610,7 +610,7 @@ function a6_shotBitis() {
     label(ctx, 'KUTLU OLSUN', 480, 740, FONT.title(64), { align: 'center', ls: 6, force: true, plate: 'red', a: f(1.4) });
     ctx.restore();
     // sağ yarı: yalnız yönlendirme yazıları; video öğesi (y ≈ 260–) ve abone öğesi (≈ 1420, 870) için alan boş
-    // YouTube öğeleri 6:05'te açılır: yönlendirme yazıları hemen (365,3'te tam) görünür
+    // YouTube öğeleri 6:07'de açılır (çekim 366,5'te başlar): yönlendirme yazıları hemen görünür
     label(ctx, 'SIRADAKİ HİKÂYE', 1420, 175 + 22, FONT.title(64), { align: 'center', ls: 3, a: ramp(L, 0, .2) });
     { const u = E.out2(ramp(L, .05, .35)); if (u > 0) { const y1 = lerp(222, 275, u);
       a0_onScreen(ctx, g => { inkStroke(g, SP([[1420, 222], [1423, (222 + y1) / 2], [1420, y1]], false), 4);
