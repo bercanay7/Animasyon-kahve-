@@ -22,3 +22,9 @@ Müzik yaklaşık 113 BPM'dir (bir vuruş 0.53 sn). Yazı değişimleri ve zoom 
 | 4.2–13.7 sn | Dans görüntüsü, güçlü vuruşlarda hafif zoom. Etiketler: "Cumhuriyet coşkusu / Zumba enerjisi!", ardından "Sen de / aramıza katıl!" |
 | 13.7–14.3 sn | Kırmızı perde geçişi. Kaynaktaki hazır geçiş efekti ve siyah bantlı yatay kadraj çıkarıldı. |
 | 14.0–18.8 sn | Kapanış: bayrak, "29 EKİM", "Cumhuriyet Bayramımız kutlu olsun!", grubun yatay çekimi kart içinde, "DETAYLAR İÇİN WHATSAPP · 0533 071 33 73", Navitas logosu |
+
+## Atatürk Story'leri (28 ve 29 Ekim)
+- `28-ekim-ataturk-story.png`: bugün (28 Ekim) için. "Efendiler, yarın Cumhuriyeti ilan edeceğiz." alıntısı ve imza olduğu gibi duruyor, altta yalnızca Navitas logosu var.
+- `29-ekim-ataturk-story.png`: 29 Ekim için. Eski alıntı silindi, imza korundu. Üstte "29 EKİM CUMHURİYET BAYRAMIMIZ KUTLU OLSUN", altında "Ne mutlu Türküm diyene!" (10. Yıl Nutku, 29 Ekim 1933) ve Navitas logosu var.
+- Zemin `kaynak/ataturk-referans.jpg` (paylaşılan ekran görüntüsü). `ataturk.py` görseli kırpar ve büyütür, 29 Ekim için alıntı yazısını OpenCV ile siler. `ataturk.html` yazıyı ve logoyu ekler.
+- `node render.js ataturk` iki PNG'yi üretir; gerekirse önce `ataturk.py`'yi çalıştırır.

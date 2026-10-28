@@ -1,6 +1,7 @@
 // 29 Ekim çıktıları (Playwright + ffmpeg gerekir):
 //   node render.js story            → 29-ekim-story.png
 //   node render.js video            → 29-ekim-zumba.mp4
+//   node render.js ataturk          → 28-ekim-ataturk-story.png, 29-ekim-ataturk-story.png (zemin: ataturk.py)
 //   FRAMES=0,45,300 node render.js video  → sadece frames/ altına PNG kareler (önizleme)
 // Sayfalar sahte bir http kökünden servis edilir; böylece fotoğraflar tuvali "kirletmez" ve toDataURL çalışır.
 const { chromium } = require('playwright');
@@ -42,6 +43,17 @@ function extractFrames() {
     const out = path.join(HERE, '29-ekim-story.png');
     fs.writeFileSync(out, await grabPNG());
     console.log('Hazır: ' + out);
+  } else if (what === 'ataturk') {
+    if (!fs.existsSync(path.join(HERE, 'build', 'ataturk-29.png'))) {
+      const r = spawnSync('python3', [path.join(HERE, 'ataturk.py')], { stdio: 'inherit' }); if (r.status) process.exit(1);
+    }
+    for (const gun of ['28', '29']) {
+      await page.goto(ORIGIN + `29-ekim/ataturk.html?gun=${gun}`);
+      await page.evaluate(() => window.ready);
+      const out = path.join(HERE, `${gun}-ekim-ataturk-story.png`);
+      fs.writeFileSync(out, await grabPNG());
+      console.log('Hazır: ' + out);
+    }
   } else {
     await page.goto(ORIGIN + '29-ekim/zumba.html?render=1');
     await page.evaluate(() => window.ready);

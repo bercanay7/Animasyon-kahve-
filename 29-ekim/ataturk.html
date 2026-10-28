@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atatürk Story</title>
+<link rel="stylesheet" href="fonts.css">
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script src="../logo.js"></script>
+<script src="common.js"></script>
+<script>
+/*
+ * 28 ve 29 Ekim Atatürk Story'leri, 1080x1920. Zemini ataturk.py hazırlar (build/ataturk-28.png, build/ataturk-29.png).
+ *   ?gun=28  "Efendiler, yarın Cumhuriyeti ilan edeceğiz." olduğu gibi + Navitas logosu
+ *   ?gun=29  "29 Ekim Cumhuriyet Bayramımız kutlu olsun" + "Ne mutlu Türküm diyene!" (10. Yıl Nutku, 29 Ekim 1933)
+ *            + imza + Navitas logosu
+ * Logo yalnızca alttaki siyah alanda; bayrağın üzerine hiçbir şey konmaz.
+ */
+const GOLD = '#D8B878';
+const gun = new URLSearchParams(location.search).get('gun') || '28';
+
+function renderStory(base) {
+  ctx.drawImage(base, 0, 0, W, H);
+  if (gun === '29') {
+    text('29 EKİM CUMHURİYET BAYRAMIMIZ KUTLU OLSUN', 540, 1226, { size: 28, color: GOLD, weight: 700, ls: 5, maxW: 900 });
+    const q = { size: 86, color: '#F3EFE8', weight: 400, family: SERIF, style: 'italic', ls: 0, maxW: 940 };
+    text('“ Ne mutlu', 518, 1334, q);
+    text('Türküm diyene! ”', 548, 1420, q);
+  }
+  logo(540, 1690, 300, true, 0.95);
+}
+
+window.ready = (async () => {
+  await loadFonts(); await loadLogos();
+  renderStory(await loadImage(`build/ataturk-${gun}.png`));
+})();
+</script>
+</body>
+</html>
