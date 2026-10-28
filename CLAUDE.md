@@ -84,6 +84,14 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Her iş parçasından sonra commit + push yap (durdurma kancası commit edilmemiş değişikliğe izin vermiyor).
 - **`navitas-topkapi` deposu:** bu işle ilgisizdir, dokunma.
 
+## Sonraki videolar için kullanıcının önerileri
+- **Psikolojik anlatım:** Stefan Zweig (*Yıldızın Parladığı Anlar*) ve Dostoyevski gibi karakterin iç dünyasına inen bir anlatım.
+  - 29 Ekim videosunda kayıt ve kurgu bittikten sonra önerildiği için uygulanmadı.
+  - Senaryo en baştan bu üslupla kurulmalı: tek bir "karar anı" ve onu yaşayan kişinin iç dünyası.
+  - İç dünya uydurulmaz. Kişinin kendi hatırat, mektup ve sözlerine dayanır; kaynak açıklamada verilir.
+  - Atatürk için 5816 sayılı Kanun ve saygı kuralları gereği ona söz ya da düşünce uydurulmaz.
+- **Hareket:** Animasyon hiç durmasın, sürekli aksın. Durağan kare kalmaz. Kontrol aracı `cumhuriyet/tools/donma.py`.
+
 ## Sıkışık takvimde öncelik (ör. 2 günlük teslim)
 1. Senaryo (4–6 dk, 35–50 cümle) → kurul tek tur.
 2. Seslendirme + zaman çizelgesi.
