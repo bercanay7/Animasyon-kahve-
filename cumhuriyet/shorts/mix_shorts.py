@@ -11,7 +11,7 @@ N = int(np.ceil(ed['DUR'] * SR))
 meter = pyln.Meter(SR)
 db = lambda g: 10 ** (g / 20)
 def stem(name):
-    p = os.path.join(R, 'audio', 'stems', name + '.wav')
+    p = os.path.join(os.environ.get('STEMS') or os.path.join(R, 'audio', 'stems'), name + '.wav')  # STEMS=… ile başka stem klasörü
     if not os.path.exists(p): return None
     x, sr = sf.read(p, always_2d=True); assert sr == SR, p
     return x.T
@@ -49,12 +49,14 @@ bedC = seg(last['f'] - last['s'], N)
 bed = xf(xf(bedA, bedB, E_['G01a']['s'], 1.2), bedC, last['s'], .6)
 bed *= db(-21 - meter.integrated_loudness(bed.T))
 # konuşma altında kısma
-ve = M.envelope(v.mean(0)) if hasattr(M, 'envelope') else np.abs(v.mean(0))
+# döngüsel hesap: Shorts sonu başına bağlandığı için kısma kazancı da sarılır (dikişte seviye sıçraması olmaz)
+P = 2 * SR; vm = v.mean(0); vw = np.concatenate([vm[-P:], vm, vm[:P]])
+ve = M.envelope(vw) if hasattr(M, 'envelope') else np.abs(vw)
 act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
 look = int(.12 * SR); tg = np.concatenate([db(-8 * act)[look:], np.ones(look)])
 if hasattr(M, 'smooth_gain'): tg = M.smooth_gain(tg, .1, .6)
 else: tg = np.convolve(tg, np.ones(int(.2 * SR)) / int(.2 * SR), 'same')
-bed *= tg
+bed *= tg[P:P + N]
 fx = stem('sfx')
 fx = cut_clips(fx, .06) * db(-1) if fx is not None else np.zeros((2, N))
 mixd = v + bed + fx
