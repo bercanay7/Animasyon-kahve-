@@ -42,7 +42,7 @@
    "id": "B03",
    "bolum": "Sultanın okulları",
    "tts": "[with energy] Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı.",
-   "alt": "Saltanatının sonunda imparatorlukta altı yüzü aşkın rüşdiye, yüzü aşkın idadi vardı."
+   "alt": "Saltanatının sonunda imparatorlukta 600'ü aşkın rüşdiye, 100'ü aşkın idadi vardı."
   },
   {
    "id": "B04",
@@ -232,7 +232,7 @@
    "id": "G06",
    "bolum": "Kapanış",
    "tts": "[warmly] Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun.",
-   "alt": "Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin yüz üçüncü yılı kutlu olsun."
+   "alt": "Atatürk'ü ve onun kuşağını saygıyla anıyoruz. Cumhuriyetimizin 103. yılı kutlu olsun."
   }
  ],
  "kurul": "Tarihçi rev3 ONAY 9,5; yönetmenlik rev3 8,5 koşullu → rev4'te koşullar uygulandı"
