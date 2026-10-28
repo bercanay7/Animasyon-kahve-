@@ -40,19 +40,37 @@ function drawShot(ctx, i, t) {
   const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save();
   // kullanıcı isteği "görüntü hiç durmasın": her çekimde sürekli, gözle seçilir kamera hareketi. Yakınlaşma ilk saniyelerde
-  // ~%0,7/sn hızla başlar, %6'ya doğru yavaşlar; kenar payı içinde çekime özgü, tek yönlü kayma.
-  // Ekran yazıları (ui.js) bu hareketi geri alır, ekrana sabit kalır. Bitiş ekranı (YouTube öğeleri) ve sh.still sabit.
+  // ~%0,7/sn hızla başlar, %6'ya doğru yavaşlar; kenar payı içinde tek yönlü kayma (sh.focus varsa ona doğru).
+  // Kendi cam() yakınlaşması olan çekimlerde (sh._own, bir kez ölçülür) genel hareket hiç uygulanmaz: üst üste binmez.
+  // Ekran yazıları (ui.js) bu hareketi geri alır; doku (taş, kâğıt) aynı dönüşümle kâğıda bağlı kalır (pressFinish).
+  // Bitiş ekranı (YouTube öğeleri) ve sh.still sabit.
   window.DRIFT = null;
-  if (!sh.still && !(window.CUES && CUES.G06 && sh.at >= Se('G06') - .5)) {
-    // yön hiç değişmez (salınım yok: yazılı haritada ileri-geri yüzme hissi verir); uzun çekimde de yavaşlayarak sürer
-    const a = .06 * (1 - Math.exp(-st.lt / 9)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU, m = a * .5;
+  if (sh._own === undefined) sh._own = probeOwnCam(sh, i);
+  if (!sh.still && !sh._own && !(window.CUES && CUES.G06 && sh.at >= Se('G06') - .5)) {
+    const a = .06 * (1 - Math.exp(-st.lt / 9)), z = 1 + a, m = a * .5;
+    const ang = sh.focus ? Math.atan2(sh.focus[1] - H / 2, sh.focus[0] - W / 2) : hash(i * 7.31 + 3.7) * TAU;
     const px = Math.cos(ang) * .6 * m * W, py = Math.sin(ang) * .6 * m * H;
     ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2 - px, -H / 2 - py);
     window.DRIFT = { z, px, py };
   }
+  sh._drift = window.DRIFT;
   sh.draw(ctx, st);
   window.DRIFT = null;
   ctx.restore();
+}
+// çekimin kendi kamera yakınlaşması var mı: üç anda küçük bir tuvale çizilip cam() çağrıları ölçülür (belirlenimci;
+// her render işçisinde aynı sonuç). Çizimin yan etkileri (REG, alt bant, yüz saati) geri alınır.
+const PROBE = makeCanvas(8, 8).getContext('2d');
+function probeOwnCam(sh, i) {
+  const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR), d = end - sh.at, keep = [REG.boost, window.LOWBAND_AT, window.FIG_T, window.DRIFT];
+  let mx = 0;
+  for (const u of [.15, .5, .85]) {
+    const t = sh.at + d * u; window.__camz = 1; window.DRIFT = null;
+    try { PROBE.save(); sh.draw(PROBE, { t, lt: t - sh.at, d, p: u, end }); } catch (e) { /* ölçüm çizimi */ } finally { PROBE.restore(); }
+    mx = Math.max(mx, Math.abs(window.__camz - 1));
+  }
+  [REG.boost, window.LOWBAND_AT, window.FIG_T, window.DRIFT] = keep; window.__camz = 1;
+  return mx > .012;
 }
 function drawFilm(ctx, t) {
   const sc = new URLSearchParams(location.search).get('scene');
@@ -80,7 +98,7 @@ function drawFilm(ctx, t) {
   } else drawShot(ctx, i, t);
   // film boyu izleyici katmanı (kuşak şeridi vb.): çekimlerden bağımsız, baskı bitişinden önce
   if (typeof kusakBar === 'function') { ctx.save(); baseT(ctx); kusakBar(ctx, t); ctx.restore(); }
-  POST = { ...(sh.post || {}) };
+  POST = { ...(sh.post || {}), drift: sh._drift }; // doku, gelen çekimin kamera hareketiyle kâğıda bağlı
   post(ctx, t);
 }
 // önceki çekimi (buf) mevcut kareye geçiş maskesiyle bindir
@@ -140,6 +158,7 @@ function cam(ctx, c, k = 1) {
   // c.x, c.y: ekran merkezine gelen dünya noktası; k: paralaks derinliği (0 sabit, 1 tam)
   const z = 1 + ((c.z ?? 1) - 1) * k;
   const cx = W / 2 + ((c.x ?? W / 2) - W / 2) * k, cy = H / 2 + ((c.y ?? H / 2) - H / 2) * k;
+  if (Math.abs(z - 1) > Math.abs((window.__camz ?? 1) - 1)) window.__camz = z; // probeOwnCam ölçümü
   ctx.translate(W / 2 + (c.sx || 0), H / 2 + (c.sy || 0));
   ctx.rotate((c.r || 0) * k);
   ctx.scale(z, z);

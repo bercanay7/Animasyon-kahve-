@@ -9,12 +9,20 @@ const FONT = {
 // görünürlük zarfı: a giriş, b çıkış (saniye, yerel zaman)
 const env = (lt, a0, a1, b0 = 1e9, b1 = 1e9) => ramp(lt, a0, a1) * (1 - ramp(lt, b0, b1));
 
+// alt bant doluluğu: kuşak şeridi (x ≥ ~1120) yalnız yazının sağ ucu 1100'ü geçerse gizlenir
+function lowband(x1) {
+  if (window.LOWBAND_AT !== window.FIG_T) { window.LOWBAND_AT = window.FIG_T; window.LOWBAND_X1 = x1; }
+  else window.LOWBAND_X1 = Math.max(window.LOWBAND_X1 ?? 0, x1);
+}
 // Yazı (NOTEXT ile Shorts'ta kapatılabilir); print.js'teki txt'nin görünürlüklü sürümü
 function label(ctx, s, x, y, font, o = {}) {
   if (NOTEXT && !o.force) return;
   const a = o.a ?? 1; if (a <= 0) return;
   if (y > 1000 && (o.base || 'alphabetic') === 'alphabetic') y = 1000; // güvenli alan
-  if (y > 900) window.LOWBAND_AT = window.FIG_T;
+  if (y > 900) {
+    ctx.save(); ctx.font = font; if (o.ls) ctx.letterSpacing = o.ls + 'px'; const w = ctx.measureText(s).width; ctx.restore();
+    lowband(o.align === 'center' ? x + w / 2 : o.align === 'right' ? x : x + w);
+  }
   ctx.save(); ctx.globalAlpha = a; txt(ctx, s, x, y, font, o); ctx.restore();
 }
 // çıkış: 0,25 sn'de söner ve 8 px yukarı kalkar (koyu zeminde yarı saydam hayalet kalmaz)
@@ -72,7 +80,7 @@ function stamp(ctx, s, x, y, lt, d = 4, o = {}) {
   const fs = Math.max(o.size || 48, 48);
   ctx.save(); ctx.font = FONT.mono(fs); ctx.letterSpacing = '3px'; const w = ctx.measureText(s).width; ctx.restore();
   x = clamp(x, 114, 1806 - w); y = clamp(y, 54 + fs + 10, 1008);
-  if (y > 900) window.LOWBAND_AT = window.FIG_T;
+  if (y > 900) lowband(x + w + 18);
   ctx.save(); ctx.globalAlpha = a; ctx.translate(0, -8 * outK(lt, d));
   if (o.box !== false) {
     const box = PL(rough([[x - 18, y - fs - 10], [x + w + 18, y - fs - 10], [x + w + 18, y + 18], [x - 18, y + 18]], .9, 7));
@@ -135,7 +143,7 @@ function tickerTape(ctx, s, y, lt, d = 3.5, o = {}) {
   if (NOTEXT) return;
   const a = env(lt, 0, .2, d - .25, d); if (a <= 0) return;
   // tipografi kurulu: bant güvenli alanda (934–1010), taban 980, Courier 40; alt bant dolu iken kuşak şeridi gizlenir
-  y = 976; window.LOWBAND_AT = window.FIG_T;
+  y = 976; lowband(W);
   ctx.save(); ctx.globalAlpha = a;
   const band = PL([[-20, y - 42], [W + 20, y - 40], [W + 20, y + 34], [-20, y + 32]]);
   knock(ctx, band, '#F4ECD8'); inkStroke(ctx, band, 2.4);
@@ -170,4 +178,10 @@ for (const fn of ['label', 'chapterCard', 'nameTag', 'stamp', 'quote', 'bigStamp
     window.__undrift = true; ctx.save(); undrift(ctx);
     try { return f(ctx, ...a); } finally { ctx.restore(); window.__undrift = false; }
   };
+}
+// txt() ile doğrudan çizilen izleyici yazıları (başlık, künye, sayı) için: kamera hareketini geri alıp ekrana sabit çizer
+function onScreen(ctx, fn) {
+  if (!window.DRIFT || window.__undrift) return fn(ctx);
+  window.__undrift = true; ctx.save(); undrift(ctx);
+  try { return fn(ctx); } finally { ctx.restore(); window.__undrift = false; }
 }

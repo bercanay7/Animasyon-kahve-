@@ -593,7 +593,7 @@ shot(S('B02'), (ctx, st) => {
   const A = arm(ctx, sh, hand, { upper: 190, fore: 176, w: 74, col: 'ink', bend: 1, lw: 4.4 });
   handDraw(ctx, A.wr[0], A.wr[1], A.ang, A.w2 / 20, 'rest', { side: 1 });
   ctx.restore();
-  stamp(ctx, 'II. ABDÜLHAMİD', 114, 112, st.lt - .7, 4.4, { size: 48 });
+  stamp(ctx, 'YILDIZ SARAYI · 1890', 114, 112, st.lt - .7, 4.4, { size: 48 });
 }, { tr: { type: 'press', dur: .6 } });
 
 // memur (kalem) / subay (çapraz kılıç) lastik damgası
@@ -1068,7 +1068,7 @@ shot(a1_W('B05', 'kimin'), (ctx, st) => {
       const a = clamp((t - Tst - .3) / .2); ctx.save(); ctx.globalAlpha = a;
       inkStroke(ctx, PL([[1420, 330], [1330, 400]], false), 2); 
       ctx.restore();
-      stamp(ctx, 'âlâ · PEK İYİ', 1430, 318, t - Tst - .3, 9, { size: 34, typing: .01 });
+      stamp(ctx, 'ÂLÂ · PEK İYİ', 1430, 318, t - Tst - .3, 9, { size: 34, typing: .01 });
     }
   }
 }, { tr: { type: 'cut' } });
@@ -1225,5 +1225,7 @@ shot(a1_W('B06', 'kendi') - .1, (ctx, st) => {
   const top = PL([[1080, 860], [1990, 852], [2000, 892], [1060, 902]]); knock(ctx, top); plate(ctx, 'sepia', top, { a: .7 }); inkStroke(ctx, top, 3);
   const slate = PL([[1250, 872], [1420, 868], [1424, 892], [1246, 896]]); inkFill(ctx, slate); cut(ctx, PL([[1270, 882], [1400, 880]], false), 1.6, { a: .6 });
   ctx.restore();
-  a1_tagMorph(ctx, 1824, 196, 'MUSTAFA', 'MUSTAFA KEMAL', '12 yaşında', st.lt - .5, Tk - (st.t - st.lt) - .5);
+  // levha ekrana sabit, çocuk Mustafa'nın başının üstünde (sağ kenar 1824)
+  const tm = () => a1_tagMorph(ctx, 1824, 190, 'MUSTAFA', 'MUSTAFA KEMAL', '12 yaşında', st.lt - .5, Tk - (st.t - st.lt) - .5);
+  if (typeof onScreen === 'function') onScreen(ctx, tm); else tm();
 }, { tr: { type: 'cut' } });

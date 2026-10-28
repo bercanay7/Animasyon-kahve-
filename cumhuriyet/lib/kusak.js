@@ -15,7 +15,8 @@ function kusakWins() {
   if (kusakWins.c) return kusakWins.c;
   const w = [];
   // bölüm kartı bittikten sonra (kart ≈ S+3,6'ya dek): kart + 0,3 → + 3,3 sn (tipografi kurulu)
-  for (const [id, off] of [['B01', 5.1], ['C01', 4.6], ['D01', 4.4], ['E01', 3.9], ['F01', 3.3]]) w.push([S(id) + off, S(id) + off + 3]);
+  // D01 yok: öğrencilerin gövdesi alt bantta (animasyon uzmanı)
+  for (const [id, off] of [['B01', 5.1], ['C01', 4.6], ['E01', 3.9], ['F01', 3.3]]) w.push([S(id) + off, S(id) + off + 3]);
   for (const k of KUSAK) { const t = k.at(); w.push([t - .5, t + 2.8]); }
   const hz = Wd('F06', 'hazır'); w.push([hz - .4, Se('F06') + .3]);
   w.sort((a, b) => a[0] - b[0]);
@@ -26,7 +27,7 @@ function kusakWins() {
 function kusakVisible(t) { return !NOTEXT && typeof Wd === 'function' && t != null && kusakWins().some(([a, b]) => t >= a - .3 && t <= b + .3); }
 function kusakBar(ctx, t) {
   if (NOTEXT || typeof Wd !== 'function') return;
-  if (window.LOWBAND_AT === t) return; // telgraf şeridi ya da alt banttaki bir yazı görünürken çizilmez
+  if (window.LOWBAND_AT === t && (window.LOWBAND_X1 ?? W) > 1100) return; // alt bantta şeride uzanan bir yazı (telgraf şeridi vb.) varken çizilmez
   const win = kusakWins().find(([a, b]) => t >= a - .3 && t <= b + .3); if (!win) return;
   const a = clamp((t - win[0] + .3) / .3) * clamp((win[1] + .3 - t) / .3); if (a <= 0) return;
   const hz = Wd('F06', 'hazır'), full = t >= hz;

@@ -47,8 +47,8 @@ function cutRules() {
     const s0 = starts.find(x => sh.at > x - .2 && sh.at < x + .35);
     if (s0 == null) continue;
     sh.at = !sh.tr || sh.tr.type === 'cut' ? s0 - .1 : s0 - (sh.tr.dur || .7) - .1;
-    // kanca kurulu G6: başlık kartından I. bölüme konuşmasız bekleme ~1,2 sn
-    if (Math.abs(s0 - S('B01')) < .01) { sh.at = Se('A05') + 1.2; sh.tr = { ...(sh.tr || {}), type: 'press', dur: .8 }; }
+    // I. bölüm baskısı ilk sözcükten hemen önce biter: A05 başlığı en az 2,6 sn tam okunur (tipografi kurulu, 2. tur)
+    if (Math.abs(s0 - S('B01')) < .01) { sh.at = S('B01') - .85; sh.tr = { ...(sh.tr || {}), type: 'press', dur: .8 }; }
   }
 }
 // K6 kilit anlarda göz kırpma yok: alıntı cümlesi (A02) ve isim açıklama anları (±0,6 sn)

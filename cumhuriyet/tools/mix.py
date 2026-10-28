@@ -29,22 +29,61 @@ def _timeline():
     txt = open(A('timeline.js'), encoding='utf-8').read()
     dec = json.JSONDecoder()
     grab = lambda name: dec.raw_decode(txt, re.search(r'window\.' + name + r'\s*=\s*', txt).end())[0]
-    return float(grab('DUR')), grab('CUES')
+    return float(grab('DUR')), grab('CUES'), grab('WORDS')
 
 
-DUR, CUES = _timeline()
+DUR, CUES, WORDS = _timeline()
 N = int(round(DUR * SR))          # audio/score.py ile aynı uzunluk
 db = lambda g: 10 ** (g / 20)
 
 # Dinledikten sonra doldurulacak, cümleye bağlı ayarlar (gerçek seslendirme yeniden üretilince de yerinde kalır):
 VO_GAINS = {}          # {cümle: dB}  ör. {'C03': 2.0}: fısıltıyı biraz öne al
-MUSIC_DIPS = []        # [(cümle, 's'|'e', ofset0, ofset1, dB)]  ör. ('G01', 'e', -0.3, 0.2, -3): o pencerede müziği kıs
-MUSIC_LOW_DIPS = []    # aynı biçim; yalnız 200 Hz altını kısar (bas kabarması sözcüğü örttüğünde)
+# Pencere biçimi: (cümle, kenar, ofset0, ofset1, dB) ya da (cümle, kenar0, ofset0, kenar1, ofset1, dB).
+# kenar: 's' cümle başı, 'e' cümle sonu, 'w:kelime' kelime başı, 'we:kelime' kelime sonu (film.js Wd gibi: ilk 'startsWith').
+VO_GAIN_WIN = []       # anlatıma pencere kazancı
+MUSIC_DIPS = [
+    ('G01', 'e', 0.0, 'e', 4.5, -3),           # doruk: sınırlayıcı en çok ~4 dB çalışsın (ses kurulu)
+    ('B06', 's', -0.1, 'e', 0.1, -3),          # içeriden an (anlatım kurulu 2. tur)
+    ('E03', 'w:mustafa', -0.1, 'e', 0.1, -3),  # içeriden an: annesi ve kız kardeşi muhacir
+    ('E06', 'w:ve', -0.1, 'e', 0.05, -6),      # "ve birbirleri": ses yalnız; ardından gelen majör üçlü kısılmaz
+]
+MUSIC_LOW_DIPS = [('E05', 'we:çanakkale', 0.6, 'e', 0.0, -4)]   # Çanakkale altındaki alçak gürleme sözcükleri bulandırmasın
+VO_COMP = (-9, 2.0, .012, .135)   # anlatım kompresörü: eşik = entegre + (-9) dB (-16 LUFS'ta ≈ -25 dBFS), 2:1, atak 12 ms, bırakma 135 ms
+DUCK_HOLD, DUCK_REL = 0.4, 0.6    # müziğin ek -3 dB kısması cümle sonundan 0.4 sn sonra 0.6 sn'de bırakır
+MUSIC_HP = 45                     # müzik yüksek geçireni (Hz): 45 Hz altı yalnız sınırlayıcıyı çalıştırıyordu
 
 
-def cue_window(c, edge, o0, o1):
-    t = CUES[c][edge]
-    return t + o0, t + o1
+def _norm_word(w):
+    w = w.lower().replace('İ', 'i').replace('I', 'ı').replace('â', 'a').replace('î', 'i').replace('û', 'u')
+    return re.sub(r"[^\wçğıöşü]", '', w)
+
+
+def anchor(c, edge):
+    if edge in ('s', 'e'):
+        return CUES[c][edge]
+    kind, w = edge.split(':', 1)
+    q = _norm_word(w)
+    for x in WORDS:
+        if x['id'] == c and x['w'].startswith(q):
+            return x['e'] if kind == 'we' else x['s']
+    print(f'UYARI: {c} içinde "{w}" yok; cümle başı kullanıldı')
+    return CUES[c]['s']
+
+
+def cue_window(c, edge, o0, o1, edge1=None):
+    return anchor(c, edge) + o0, anchor(c, edge1 or edge) + o1
+
+
+def _win(w):
+    """(c, kenar, o0, o1, dB) ya da (c, kenar0, o0, kenar1, o1, dB) -> (c, a, b, dB)"""
+    if len(w) == 6:
+        c, e0, o0, e1, o1, d = w
+    else:
+        (c, e0, o0, o1, d), e1 = w, None
+    if c not in CUES:
+        return None
+    a, b = cue_window(c, e0, o0, o1, e1)
+    return c, a, b, d
 
 
 # ——— yardımcılar ———
@@ -386,6 +425,9 @@ def voice_chain(vo, gains=None, deess=False):
     g = np.convolve(g, np.ones(int(.04 * SR)) / int(.04 * SR), 'same')
     vo = vo * g
     vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
+    if VO_COMP:
+        thr, ratio, at_, rl_ = VO_COMP
+        vo, _ = compress(vo, pyln.Meter(SR).integrated_loudness(vo) + thr, ratio, at_, rl_)
     if deess:
         # sibilantlar AAC kodlamada tepe aşımı yapmasın: 5.5 kHz üstüne dinamik de-esser
         hi = signal.sosfiltfilt(signal.butter(4, 5500, 'highpass', fs=SR, output='sos'), vo)
@@ -419,9 +461,10 @@ def true_peak(x):
 def window_curve(dips):
     """[(cümle, kenar, o0, o1, dB)] → örnek başına kazanç (çakışan pencerelerde derin olan geçerli), 150 ms yumuşak"""
     g = np.ones(N)
-    for c, edge, o0, o1, d in dips:
-        if c not in CUES: continue
-        a, b = cue_window(c, edge, o0, o1)
+    for w in dips:
+        w = _win(w)
+        if w is None: continue
+        c, a, b, d = w
         a, b = max(int(a * SR), 0), min(int(b * SR), N)
         g[a:b] = np.minimum(g[a:b], db(d))
     return np.convolve(g, np.ones(int(.15 * SR)) / int(.15 * SR), 'same')
@@ -441,6 +484,13 @@ def main():
     vo = np.pad(vo, (0, max(0, N - len(vo))))[:N].astype(np.float64)
     vo = hp(vo, 70)
     vo *= db(-16 - meter.integrated_loudness(vo))
+    if default_vo and VO_GAIN_WIN:
+        gw = np.zeros(N)
+        for w in VO_GAIN_WIN:
+            w = _win(w)
+            if w: gw[max(int(w[1] * SR), 0):min(int(w[2] * SR), N)] += w[3]
+        gw = np.convolve(gw, np.ones(int(.2 * SR)) / int(.2 * SR), 'same')
+        vo = vo * db(gw)
     vo = voice_chain(vo, VO_GAINS if default_vo else {}, deess='--deess' in sys.argv)
     vo *= db(-16 - meter.integrated_loudness(vo))   # anlatım -16 LUFS
     # anlatım: hafif oda sıcaklığı
@@ -455,7 +505,7 @@ def main():
         if msr != SR: mu = librosa.resample(mu, orig_sr=msr, target_sr=SR)
         if mu.shape[0] == 1: mu = np.vstack([mu, mu])
         mu = np.pad(mu, ((0, 0), (0, max(0, N - mu.shape[1]))))[:, :N]
-        mu = np.stack([signal.sosfilt(signal.butter(4, 35, 'highpass', fs=SR, output='sos'), ch) for ch in mu])
+        mu = np.stack([signal.sosfilt(signal.butter(4, MUSIC_HP, 'highpass', fs=SR, output='sos'), ch) for ch in mu])
         mu = np.stack([peq(ch, 60, -2.5, .7) for ch in mu])
         mu *= db(-21 - meter.integrated_loudness(mu.T))
         if MUSIC_DIPS: mu *= window_curve(MUSIC_DIPS)
@@ -466,9 +516,10 @@ def main():
         # konuşma altında hafif ek kısma (-3 dB), ön-bakışlı; müzik zaten konuşma altına göre bestelendi
         ve = envelope(vo)
         act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
+        act = maximum_filter1d(act, int(DUCK_HOLD * SR) + 1, origin=int(DUCK_HOLD * SR) // 2)   # cümle sonundan sonra tut
         target = db(-3 * act)
         look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look)])
-        mu *= smooth_gain(target, .1, .7)
+        mu *= smooth_gain(target, .1, DUCK_REL)
     else:
         print('UYARI: audio/music.wav yok, müziksiz miks')
         mu = np.zeros((2, N))

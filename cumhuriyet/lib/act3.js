@@ -61,14 +61,15 @@ shot(S('D01'), (ctx, st) => {
 
 // ═══════════ D02a · Makedonya dağları: subaylar dağa çıkar ═══════════
 // asker silueti (damga): fes, sırtta tüfek; ph adım evresi
-function a3_soldier(g, x, y, s, ph = 0, dir = 1) {
+function a3_soldier(g, x, y, s, ph = 0, dir = 1, cap = 'fes') {
   g.save(); g.translate(x, y); g.scale(s * dir, s);
   const b = new Path2D(), st = ph ? 4 : -4;
   b.ellipse(1, -90, 5.4, 6.4, 0, 0, TAU);
   b.moveTo(-9, -82); b.lineTo(10, -82); b.lineTo(13, -46); b.lineTo(10, -40); b.lineTo(7 + st, 0); b.lineTo(2 + st, 0); b.lineTo(1, -36); b.lineTo(-1, -36); b.lineTo(-3 - st, 0); b.lineTo(-8 - st, 0); b.lineTo(-9, -40); b.lineTo(-11, -46); b.closePath();
   inkFill(g, b);
   inkStroke(g, PL([[-12, -40], [10, -112]], false), 2.6); inkStroke(g, PL([[10, -112], [12, -122]], false), 1);
-  inkFill(g, PL([[-5.5, -93], [7.5, -93], [8.5, -107], [-6.5, -107]])); cut(g, PL([[-4.5, -105], [7, -105]], false), .9, { a: .55 }); // kalpak (kesik koni)
+  if (cap === 'kalpak') { inkFill(g, PL([[-5.5, -93], [7.5, -93], [8.5, -107], [-6.5, -107]])); cut(g, PL([[-4.5, -105], [7, -105]], false), .9, { a: .55 }); } // subay: kalpak (kesik koni)
+  else { const m = (px, py) => [x + px * s * dir, y + py * s]; g.restore(); const f = PL([m(-4, -95), m(6, -95), m(5.2, -104), m(-3.2, -104)]); knock(g, f); plate(g, 'red', f); inkStroke(g, f, .8); g.save(); g.translate(x, y); g.scale(s * dir, s); } // er: fes
   cut(g, PL([[-6, -74], [8, -60]], false), .8, { a: .4 });
   g.restore();
 }
@@ -116,7 +117,8 @@ shot(S('D02'), (ctx, st) => {
     if (u <= 0) break;
     placed.push(p);
   }
-  for (const [x, y, d, uu] of [...placed].reverse()) a3_soldier(ctx, x, y + 4, lerp(2.5, 1.05, uu), (ph + Math.round(uu * 40)) % 2, d);
+  placed.forEach((p, i) => p.push(i < 2 ? 'kalpak' : 'fes'));
+  for (const [x, y, d, uu, cap] of [...placed].reverse()) a3_soldier(ctx, x, y + 4, lerp(2.5, 1.05, uu), (ph + Math.round(uu * 40)) % 2, d, cap);
   // tepeye dikilen sancak ("dağa çıktı")
   const fk = a1_pop(t, Tdg, .2);
   if (fk > 0) {
@@ -366,7 +368,7 @@ shot(a1_W('D03', 'meclis') + .45, (ctx, st) => {
   ctx.restore();
 }, { tr: { type: 'cut' } });
 
-// ═══════════ D03c · Ordunun kurmayları: Mustafa Kemal (27) ve Kâzım Karabekir (27); lacivert setre, kalpak (Nisan 1909) ═══════════
+// ═══════════ D03c · Ordunun kurmayları: Mustafa Kemal (27) ve Kâzım Karabekir (26); lacivert setre, kalpak (Nisan 1909) ═══════════
 shot(a1_W('D03', 'ordunun'), (ctx, st) => {
   setReg(308);
   paperBG(ctx);
@@ -380,11 +382,11 @@ shot(a1_W('D03', 'ordunun'), (ctx, st) => {
   // başlar kelimeye bağlı olarak koltuğa (kadraj solu) döner: Mustafa Kemal "arasında", Karabekir "Karabekir" sözünde
   const Tar = a1_W('D03', 'arasında'), Tkb = a1_W('D03', 'karabekir'), tq = Math.floor(t * 15) / 15, chair = [-260, 600];
   const mT = tq >= Tar, kT = tq >= Tkb, mE = ramp(t, Tar, Tar + .35, E.out2), kE = ramp(t, Tkb, Tkb + .35, E.out2);
-  a1_fig(ctx, t, { x: 1310, y: 330, s: 2.05, dir: -1, who: 'karabekir', gear: 'kalpak', gearCol: 'ink', coat: 'setre', col: 'navy', collarCol: 'red', age: 27, lookAt: kT ? chair : undefined, look: kT ? undefined : [-.45, .1], tilt: -.05 * kE, len: 520, seed: 11, back: true, w: 1.02 });
+  a1_fig(ctx, t, { x: 1310, y: 330, s: 2.05, dir: -1, who: 'karabekir', gear: 'kalpak', gearCol: 'ink', coat: 'setre', col: 'navy', collarCol: 'red', age: 26, lookAt: kT ? chair : undefined, look: kT ? undefined : [-.45, .1], tilt: -.05 * kE, len: 520, seed: 11, back: true, w: 1.02 });
   a1_fig(ctx, t, { x: 700, y: 360, s: 2.05, dir: -1, who: 'mk', gear: 'kalpak', gearCol: 'ink', coat: 'setre', col: 'navy', collarCol: 'red', age: 27, lookAt: mT ? chair : undefined, look: mT ? undefined : [-.5, .12], tilt: -.05 * mE, len: 520, seed: 3, sep: true, w: .96, turn: .2 });
   ctx.restore();
   nameTag(ctx, 110, 850, 'MUSTAFA KEMAL', '27 yaşında · Hareket Ordusu kurmayı', t - Tm, 9);
-  nameTag(ctx, 1824, 720, 'KÂZIM KARABEKİR', '27 yaşında · Hareket Ordusu kurmayı', t - Tk, 9, { align: 'right' });
+  nameTag(ctx, 1824, 590, 'KÂZIM KARABEKİR', '26 yaşında · Hareket Ordusu kurmayı', t - Tk, 9, { align: 'right' });
 }, { tr: { type: 'cut' } });
 
 // ═══════════ D04a · Bölünmüş kare: okullar | Abdülhamid (nötr) | jurnaller ═══════════

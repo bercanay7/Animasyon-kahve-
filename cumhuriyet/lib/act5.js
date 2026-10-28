@@ -139,15 +139,17 @@ shot(S('F01') - .7, (ctx, st) => {
 // F02 · Amasya: masa başında dört arkadaş; Karabekir telgrafla doğudan
 function a5_amasya(ctx, t, lt, camx) {
   ctx.fillStyle = P.paper; ctx.fillRect(-20, -20, W + 700, H + 40);
-  plate(ctx, 'navy', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .5 });
-  plate(ctx, 'ochre', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .3 });
+  // sanat yönetmeni (değer kuralı, gece ≥ %15): okra + gri, gece hissi için az lacivert
+  plate(ctx, 'ochre', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .35 });
+  plate(ctx, 'grey', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .15 });
+  plate(ctx, 'navy', PL([[-20, -20], [W + 700, -20], [W + 700, H + 20], [-20, H + 20]]), { a: .14 });
   // duvarda pencere: gece ve Amasya kayalıkları silueti
   const win = PL([[150, 150], [470, 150], [470, 520], [150, 520]]); knock(ctx, win); plate(ctx, 'navy', win, { a: .85 });
   ctx.save(); ctx.clip(win); plate(ctx, 'ink', PL([[140, 520], [140, 360], [220, 300], [300, 340], [380, 260], [480, 330], [480, 520]]), { a: .8 });
   const moon = new Path2D(); moon.arc(400, 220, 30, 0, TAU); knock(ctx, moon, '#F3E9D2'); ctx.restore();
   inkStroke(ctx, win, 6); inkStroke(ctx, PL([[310, 150], [310, 520]], false), 5);
   gasLamp(ctx, 1000, 130, 1.0, t);
-  for (const [r, a] of [[170, .18], [110, .3]]) { const g = new Path2D(); g.ellipse(1000, 140, r * 1.2, r * .8, 0, 0, TAU); plate(ctx, 'gold', g, { a }); }
+  for (const [r, a] of [[200, .14], [120, .22]]) { const g = new Path2D(); g.arc(1000, 140, r, 0, TAU); plate(ctx, 'gold', g, { a }); } // düz altın ışık halkaları (kâğıt delmez)
   const S_ = 1.2;
   // Refet ve Rauf arkada, Ali Fuat ile MK önde
   const P4 = [
@@ -194,19 +196,21 @@ shot(S('F02') - .15, (ctx, st) => {
   ctx.restore();
   // masadaki iki kişi önce (kendi başlarının altında); anlatıcı "Ali Fuat" dediğinde ekranda yalnız onun levhası
   const ta = Wd('F02', 'ali');
-  nameTag(ctx, 640, 520, 'REFET', '1881 doğumlu', t - (S('F02') + .3), ta - .15 - (S('F02') + .3), { align: 'center' });
-  nameTag(ctx, 1370, 520, 'RAUF', '37 yaşında', t - (S('F02') + .45), ta - .15 - (S('F02') + .45), { align: 'center' });
-  nameTag(ctx, 830, 520, 'ALİ FUAT', '36 yaşında · sınıf arkadaşı', t - ta, 3.2, { align: 'center' }); // kendi başının altında (Refet ve Rauf gibi)
+  // levhalar en az 2,4 sn okunur (tipografi kurulu); Ali Fuat'ınki onlarla çakışmasın diye altta, yine kendi hizasında
+  const tR = S('F02') + .3;
+  nameTag(ctx, 640, 520, 'REFET', '1881 doğumlu', t - tR, Math.max(2.45, ta + .55 - tR), { align: 'center' });
+  nameTag(ctx, 1370, 520, 'RAUF', '37 yaşında', t - (tR + .15), Math.max(2.45, ta + .55 - tR - .15), { align: 'center' });
+  nameTag(ctx, 830, 700, 'ALİ FUAT', '36 yaşında · sınıf arkadaşı', t - ta, 3.2, { align: 'center' });
   stamp(ctx, 'AMASYA · 22 HAZİRAN 1919', 114, 112, lt - .2, 2.0);
   tickerTape(ctx, 'ERZURUM → AMASYA · TELGRAF', 1010, t - Wd('F02', 'doğudan'), 3.2);
-  nameTag(ctx, 1800, 640, 'KÂZIM KARABEKİR', '36 yaşında', t - Wd('F02', 'karabekir') + .2, 2.8, { align: 'right' });
+  nameTag(ctx, 1824, 120, 'KÂZIM KARABEKİR', '36 yaşında', t - Wd('F02', 'karabekir') + .2, 2.8, { align: 'right' }); // telgraf kartının üstünde (Ali Fuat levhasıyla çakışmaz)
 }, { tr: { type: 'cut', dur: .01 } });
 
 // F03 · Gece, İstanbul'dan Ankara'ya gizli geçiş: İsmet (35) ve Fevzi (44)
 shot(S('F03') - .25, (ctx, st) => {
   setReg(55); const t = st.t, lt = st.lt;
   paperBG(ctx);
-  a5_sky(ctx, [['navy', .7, 520], ['navy', .55, 700]]);
+  a5_sky(ctx, [['navy', .62, 700]]); // tek lacivert gök (sanat yönetmeni)
   const moon = new Path2D(); moon.arc(300, 190, 70, 0, TAU); knock(ctx, moon, '#F3E9D2'); plate(ctx, 'gold', moon, { a: .25 });
   const cx = lt * 46; // kamera yürüyenlerle birlikte kayar
   ctx.save(); ctx.translate(-cx * .3, 0); a5_hills(ctx, 690, 70, 4.1, 1); plate(ctx, 'navy', PL([[-40, 700], [W + 40, 700], [W + 40, H], [-40, H]]), { a: .5 }); ctx.restore();
@@ -220,14 +224,22 @@ shot(S('F03') - .25, (ctx, st) => {
   for (const p of [{ who: 'ismet', x: 720, y: 430, age: 35, gc: 'ink' }, { who: 'fevzi', x: 1080, y: 410, age: 44, gc: 'grey' }]) {
     const id = idleOffsets(Math.floor(t * 15) / 15, p.who.length, .5);
     // yürüyüş: adım başına inip kalkma, 15 fps poz (Fevzi yarım adım geriden)
-    const ph = (Math.floor(t * 15) / 15) * 1.7 * TAU + (p.who === 'fevzi' ? PI : 0), bob = -Math.abs(Math.sin(ph)) * 7;
-    p.y = (p.y0 ??= p.y) + bob;
-    bust(ctx, { x: p.x, y: p.y, s: S_, dir: 1, coat: 'kaput', col: 'grey', w: .95, seed: p.who.length, len: 420, turn: .2, sep: true, arms: 'back' });
-    head3q(ctx, { x: p.x, y: p.y, s: S_, dir: 1, who: p.who, gear: 'kalpak', gearCol: p.gc, light: 'back', lookAt: [1900, 380], age: p.age, tilt: (id.head || 0) * .2 });
+    // yerinde yürüyüş (2 Hz): her adımda iniş-kalkış, omuzlar karşı fazda sallanır; gövde kadrajın altından taşar
+    const ph = (Math.floor(t * 15) / 15) * 2 * TAU + (p.who === 'fevzi' ? PI : 0), bob = -Math.abs(Math.sin(ph)) * 9, sway = Math.sin(ph) * .02;
+    const y = (p.y0 ??= p.y) + bob;
+    ctx.save(); ctx.translate(p.x, y + 300); ctx.rotate(sway); ctx.translate(-p.x, -(y + 300));
+    bust(ctx, { x: p.x, y, s: S_, dir: 1, coat: 'kaput', col: 'grey', w: .95, seed: p.who.length, len: (H + 40 - y) / S_, turn: .2, sep: false, arms: 'back' });
+    head3q(ctx, { x: p.x, y, s: S_, dir: 1, who: p.who, gear: 'kalpak', gearCol: p.gc, light: 'back', lookAt: [1900, 380], age: p.age, tilt: (id.head || 0) * .2 - sway * .6 });
+    ctx.restore();
   }
   // ön planda yol şevi: figürler havada durmaz
-  { const bank = SP([[-40, H + 20], [-40, 950], [500, 940], [1100, 958], [1600, 944], [W + 40, 952], [W + 40, H + 20]], true, .7); knock(ctx, bank); plate(ctx, 'navy', bank, { a: .62 }); plate(ctx, 'ochre', bank, { a: .25 }); inkStroke(ctx, PL([[-40, 950], [500, 940], [1100, 958], [1600, 944], [W + 40, 952]], false), 4); }
-  plate(ctx, 'navy', PL([[-20, -20], [W + 20, -20], [W + 20, H + 20], [-20, H + 20]]), { a: .12 });
+  // ön plan şevi yakın katman olarak yürüyüşle akar (35 px/sn); sanat yönetmeni: kâğıt renginde yol bandı (gece ≥ %15)
+  { ctx.save(); ctx.translate(-((lt * 35) % 600), 0);
+    const xs = [], ys = [944, 956, 940, 952, 946]; for (let k = 0; k < 9; k++) xs.push([-40 + k * 300, ys[k % 5]]);
+    const bank = SP([[-40, H + 20], ...xs, [2460, H + 20]], true, .7); knock(ctx, bank, '#E9DDBF'); plate(ctx, 'navy', bank, { a: .35 }); plate(ctx, 'ochre', bank, { a: .15 });
+    inkStroke(ctx, SP(xs, false), 4); for (let k = 0; k < 12; k++) cut(ctx, PL([[k * 210 + 40, 990], [k * 210 + 120, 988]], false), 2, { a: .3 });
+    ctx.restore(); }
+  plate(ctx, 'navy', PL([[-20, -20], [W + 20, -20], [W + 20, H + 20], [-20, H + 20]]), { a: .06 });
   // rota: İstanbul → Ankara, şevin üstünde kâğıt renginde 40 px yol bandı (gece istisnasının açık değeri)
   const rp = ramp(t, Wd('F03', 'gizlice') - .1, Wd('F03', 'ankaraya') + .5, E.io2);
   if (rp > 0) {
@@ -236,7 +248,7 @@ shot(S('F03') - .25, (ctx, st) => {
     label(ctx, 'İSTANBUL', 140, 990, FONT.mono(40), { col: P.paper, a: 1 });
     label(ctx, 'ANKARA', 1660, 990, FONT.mono(40), { col: P.paper, a: ramp(rp, .85, 1) });
   }
-  nameTag(ctx, 640, 300, 'İSMET', '35 yaşında', t - Wd('F03', 'ismet') + .2, 3.2, { align: 'right' });
+  nameTag(ctx, 570, 300, 'İSMET', '35 yaşında', t - Wd('F03', 'ismet') + .2, 3.2, { align: 'right' }); // kalpağa değmez
   nameTag(ctx, 1824, 60, 'FEVZİ PAŞA', '44 yaşında · eski Harbiye Nazırı', t - Wd('F03', 'fevzi') + .2, 2.8, { align: 'right' });
 }, { tr: { type: 'fade', dur: .5 } });
 
@@ -279,8 +291,8 @@ shot(Wd('F04', 'sonra') - .1, (ctx, st) => {
 
 // F05 · montaj: kongreler, Meclis, Sakarya, Büyük Taarruz; sıra ve siper; harita, örgütlenme, güven
 // onaylı Alagöz karesi ≥1,6 sn kalır: Meclis'ten 0,3 sn alır, Büyük Taarruz 'büyük' kelimesinden 0,3 sn sonra başlar
-// montaj kesmeleri kelimeden 0,1 sn önce (yönetmenlik kurulu, 2. tur): Meclis 0,8 / Sakarya 1,0 / Kocatepe 1,3 sn
-const A5_M = () => [Wd('F05', 'kongreler') - .1, Wd('F05', 'meclis') - .1, Wd('F05', 'sakarya') - .1, Wd('F05', 'büyük') - .1, Wd('F05', 'bu') - .05, Wd('F05', 'harita') - .1, Wd('F05', 'örgütlenmeyi') - .1, Wd('F05', 'birbirine') - .1];
+// montaj kesmeleri kelimeden önce (yönetmenlik ve animasyon kurulları, 2. tur): Meclis ≈0,95 / Sakarya 1,0 / Kocatepe 1,3 sn
+const A5_M = () => [Wd('F05', 'kongreler') - .1, Wd('F05', 'meclis') - .25, Wd('F05', 'sakarya') - .1, Wd('F05', 'büyük') - .1, Wd('F05', 'bu') - .05, Wd('F05', 'harita') - .1, Wd('F05', 'örgütlenmeyi') - .1, Wd('F05', 'birbirine') - .1];
 function a5_year(ctx, s) {
   if (NOTEXT) return;
   // standart sol üst yuva (damga yuvası): Alagöz karesinde lambayla çakışmaz
@@ -343,11 +355,24 @@ shot(A5_M()[3], (ctx, st) => { // Büyük Taarruz: Kocatepe şafağı
   }
   a5_hills(ctx, 690, 60, 5.3, .55);
   const ridge = SP([[-40, H], [-40, 820], [400, 760], [800, 790], [1200, 740], [1600, 800], [W + 40, 770], [W + 40, H]], true, .7); inkFill(ctx, ridge);
-  // tepede siluetler (dürbünlü subaylar)
-  for (const [x, y, s] of [[640, 760, 2.2], [760, 768, 2.0], [880, 774, 2.1]]) {
+  // tepede siluetler: kaputlu, kalpaklı subaylar; ortadaki (Mustafa Kemal) dürbünü iki dirsek dışa açık gözüne kaldırmış
+  // (Kocatepe'nin ikonik duruşu), sağdaki ufku gösterir; kaput etekleri rüzgârda 6 fps iki pozla dalgalanır
+  const fl = Math.floor(t * 6) % 2;
+  for (const [x, y, s, pose] of [[650, 776, .98, 'stand'], [770, 790, 1.04, 'binoc'], [890, 784, .96, 'point']]) {
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-    const p = new Path2D(); p.ellipse(0, -60, 9, 11, 0, 0, TAU); p.rect(-10, -84, 20, 14); p.moveTo(-20, 0); p.quadraticCurveTo(-22, -40, 0, -46); p.quadraticCurveTo(22, -40, 20, 0); p.closePath();
-    if (x === 640) p.rect(4, -66, 20, 7);
+    const w = fl ? 5 : 0, p = new Path2D();
+    // kaput: omuzdan eteğe açılır, etek rüzgârla sola savrulur
+    p.moveTo(-31, -188); p.lineTo(31, -188); p.lineTo(40, -120); p.lineTo(50 - w, -24); p.lineTo(18, -30 - w * .4); p.lineTo(-4, -22); p.lineTo(-26, -30); p.lineTo(-52 - w, -20); p.lineTo(-40, -120); p.closePath();
+    p.rect(-24, -30, 15, 30); p.rect(8, -30, 15, 30); // çizmeler
+    p.rect(-9, -204, 18, 20); p.ellipse(0, -214, 15, 17, 0, 0, TAU); // boyun, baş
+    p.moveTo(-17, -224); p.lineTo(17, -224); p.lineTo(20, -250); p.lineTo(-20, -250); p.closePath(); // kalpak (üste doğru genişleyen yamuk)
+    if (pose === 'binoc') { // dirsekler dışa, eller yüzde, dürbün
+      p.moveTo(-28, -184); p.lineTo(-54, -196); p.lineTo(-16, -214); p.lineTo(-12, -204); p.lineTo(-44, -188); p.closePath();
+      p.moveTo(28, -184); p.lineTo(54, -196); p.lineTo(16, -214); p.lineTo(12, -204); p.lineTo(44, -188); p.closePath();
+      p.rect(-15, -222, 30, 13);
+    } else if (pose === 'point') { // sağ kol ufka uzanır
+      p.moveTo(26, -184); p.lineTo(96, -206); p.lineTo(98, -198); p.lineTo(30, -172); p.closePath();
+    }
     inkFill(ctx, p); ctx.restore();
   }
   // sis bandı (yarım ton yok, düz)
@@ -455,11 +480,13 @@ shot(S('F06') - .25, (ctx, st) => {
     const x = 960 + (i - 3) * 226, id = idleOffsets(tf, i + 3, .6);
     // önce ortadaki boşluğa (sonra Mustafa Kemal'e), "birleştiren"de şafağa bakarlar
     const tdh = Wd('F06', 'deha'), rank = Math.abs(i - 3);
-    const atMK = !isMK && tf > tdh + rank * .08, look = atMK ? [960, 430] : turn >= 1 ? [2200, 380] : [960, 420];
+    // baş çevirme: bir kare hazırlık eğimi, bir kare ¾ önden ara poz, sonra çevrilmiş poz (animasyon uzmanı)
+    const tt = tdh + rank * .08, atMK = !isMK && tf > tt, look = atMK ? [960, 430] : turn >= 1 ? [2200, 380] : [960, 420];
+    const midPose = atMK && tf <= tt + 1 / 15 + 1e-6, antic = !isMK && !atMK && tf > tt - 1 / 15 - 1e-6;
     ctx.save(); if (isMK) { ctx.globalAlpha = join; REG.boost = 1 + 4 * (1 - join); }
     bust(ctx, { x, y, s, dir: 1, coat, col, w: .92, seed: i + 7, len: 420, turn: .2, sep: i > 0 ? 'L' : false, arms: 'back' });
     // "dehası"nda sağdakiler başlarını Mustafa Kemal'e çevirir, soldakiler hafifçe ona eğilir
-    const hd = atMK && i > 3 ? -1 : 1, lean = atMK ? (i < 3 ? .05 : -.05) : 0;
+    const hd = atMK && i > 3 && !midPose ? -1 : 1, lean = atMK ? (i < 3 ? .05 : -.05) * (midPose ? .5 : 1) : antic ? (i < 3 ? -.03 : .03) : 0;
     head3q(ctx, { x: x - (hd < 0 ? 12 * s : 0), y, s, dir: hd, who, gear, gearCol: who === 'fevzi' ? 'grey' : undefined, light: 'front', lookAt: look, age, tilt: (id.head || 0) * .5 + lean, blink: blinkAt(t, i * 3 + 1) });
     REG.boost = 1; ctx.restore();
   });
@@ -468,7 +495,9 @@ shot(S('F06') - .25, (ctx, st) => {
   inkStroke(ctx, PL([[-40, 822], [W + 40, 812]], false), 6); inkStroke(ctx, PL([[-40, 858], [W + 40, 848]], false), 2.4, { a: .6 });
   for (let i = 0; i < 9; i++) cut(ctx, PL([[60 + i * 220, 900], [190 + i * 220, 898]], false), 2.2, { a: .35 });
   ctx.restore();
-  const ka = env(lt, .2, .6) * (1 - join);
-  if (ka > 0 && !NOTEXT) { ctx.save(); ctx.globalAlpha = ka; ctx.font = FONT.title(80); const tw = ctx.measureText('KUŞAK HAZIRDI').width; const bd = PL(rough([[96, 922], [156 + tw, 922], [156 + tw, 1020], [96, 1020]], .8, 9)); knock(ctx, bd); inkStroke(ctx, bd, 2.6); ctx.restore(); }
-  label(ctx, 'KUŞAK HAZIRDI', 126, 1000, FONT.title(80), { a: ka });
+  // çıkış ortak kural: 0,25 sn'de söner ve 8 px yukarı kalkar (tipografi kurulu); ekrana sabit
+  const kout = ramp(t, Wd('F06', 'onu') - .1, Wd('F06', 'onu') + .15), ka = env(lt, .2, .6) * (1 - kout);
+  onScreen(ctx, g => { g.save(); g.translate(0, -8 * kout);
+    if (ka > 0 && !NOTEXT) { g.save(); g.globalAlpha = ka; g.font = FONT.title(80); const tw = g.measureText('KUŞAK HAZIRDI').width; const bd = PL(rough([[96, 922], [156 + tw, 922], [156 + tw, 1020], [96, 1020]], .8, 9)); knock(g, bd); inkStroke(g, bd, 2.6); g.restore(); }
+    label(g, 'KUŞAK HAZIRDI', 126, 1000, FONT.title(80), { a: ka }); g.restore(); });
 }, { tr: { type: 'press', dur: .6 } });

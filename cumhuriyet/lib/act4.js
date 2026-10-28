@@ -462,8 +462,8 @@ function a4_kunye(ctx, xr, yb, name, subs, lt, d) {
   w += 48; const h = 14 + fs + subs.length * ss * 1.15 + 26, x = xr - w;
   if (typeof kusakVisible === 'function' && kusakVisible(window.FIG_T) && yb > 935) yb = 921;
   const y = yb - h, sl = (1 - E.out3(ramp(lt, 0, .3))) * 18;
-  ctx.save(); if (window.DRIFT && !window.__undrift) undrift(ctx);
-  ctx.globalAlpha = a; ctx.translate(0, sl);
+  a4_on(ctx, () => {
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(0, sl);
   plate(ctx, 'ink', a4_rect(x + 7, y + 9, x + w + 7, y + h + 9), { a: .35 });
   const box = PL(rough([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], .8, name.length + 3));
   knock(ctx, box, P.paperD); inkStroke(ctx, box, 3.2);
@@ -471,6 +471,7 @@ function a4_kunye(ctx, xr, yb, name, subs, lt, d) {
   txt(ctx, name, x + 24, y + 14 + fs * .8, FONT.title(fs), { ls: 1 });
   subs.forEach((q, i) => txt(ctx, q, x + 24, y + 18 + fs + ss * .82 + i * ss * 1.15, FONT.mono(ss)));
   ctx.restore();
+  });
 }
 // saat madalyonu: yuvarlak baskı çerçevesi içinde cep saati; şarapnel parçası camda, çatlaklar, ibreler durmuş. u: 0..1 beliriş
 function a4_watchInset(ctx, cx, cy, r, u, o = {}) {
@@ -490,6 +491,33 @@ function a4_watchInset(ctx, cx, cy, r, u, o = {}) {
   // kasada ezik: kenarda kâğıt rengi çentik
   const dent = new Path2D(); dent.arc(cx + wr * .72, wy - wr * .62, wr * .14, 0, TAU); knock(ctx, dent, P.paperD); inkStroke(ctx, dent, 2);
   ctx.restore();
+}
+// ekrana sabit çizim (film.js kamera kaymasından bağımsız): ui.js onScreen varsa onu, yoksa undrift'i kullanır
+function a4_on(ctx, fn) {
+  if (typeof onScreen === 'function') return onScreen(ctx, fn);
+  if (window.DRIFT && !window.__undrift && typeof undrift === 'function') { ctx.save(); undrift(ctx); try { return fn(); } finally { ctx.restore(); } }
+  return fn();
+}
+// yaş sırası (act0/act6 ile aynı motif): alt kâğıt bandı; her kişide ad (Courier 36) + a0_age (Abril 96 sayı + Courier 40 "yaşında")
+// items: [{x, name, age, t0}], t: mutlak zaman; o.a: genel saydamlık (kalkış), o.y0/y1: bant sınırları
+function a4_ageRow(ctx, items, t, o = {}) {
+  if (NOTEXT) return;
+  const tb = Math.min(...items.map(q => q.t0)) - .2, ab = clamp((t - tb) / .25) * (o.a ?? 1); if (ab <= 0) return;
+  const y0 = o.y0 ?? 818, y1 = o.y1 ?? 1042;
+  a4_on(ctx, () => {
+    ctx.save(); ctx.globalAlpha *= ab;
+    const band = a4_rect(-20, y0, W + 20, y1); knock(ctx, band, P.paperD); plate(ctx, 'ochre', band, { a: .12 });
+    inkStroke(ctx, PL([[-20, y0], [W + 20, y0]], false), 4); inkStroke(ctx, PL([[-20, y1], [W + 20, y1]], false), 4);
+    ctx.restore();
+    for (const q of items) {
+      const lt = t - q.t0, h = clamp(lt / .15); if (h <= 0) continue;
+      ctx.save(); ctx.globalAlpha *= Math.min(1, h * 3) * (o.a ?? 1);
+      txt(ctx, q.name, q.x, y0 + 50, FONT.mono(36), { align: 'center', ls: 2 });
+      ctx.restore();
+      if (typeof a0_age === 'function') a0_age(ctx, q.x, y0 + 142, q.age, 'yaşında', lt, { a: o.a ?? 1 });
+      else { ctx.save(); ctx.globalAlpha *= Math.min(1, h * 3) * (o.a ?? 1); txt(ctx, String(q.age), q.x, y0 + 142, FONT.title(96), { align: 'center', ls: 1 }); txt(ctx, 'yaşında', q.x, y0 + 202, FONT.mono(40), { align: 'center', ls: 2 }); ctx.restore(); }
+    }
+  });
 }
 // etiket kutusunun genişliği (a4_tag ile aynı ölçü)
 function a4_tagW(s, fs = 36) { const c = a4_plaqueLayout.c ||= makeCanvas(8, 8).getContext('2d'); c.font = FONT.mono(fs); c.letterSpacing = '3px'; return c.measureText(s).width + 28; }
@@ -1192,8 +1220,8 @@ const a4_KUSAK = {
       a4_officer(ctx, { x, y: yy + io.breath, s: 1.02, dir: -1, who, gear: 'kalpak', gearCol: who === 'fevzi' ? 'grey' : 'ink', age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 360 - y) / 1.02, lookAt: look, tilt: io.head * .5, turn: .25, w: 1.02 });
     });
     ctx.restore();
-    // ad · yaş etiketleri: tek sıra, ad üstte (Courier 32), yaş altta (Courier 32), figürün x'ine ortalı (y 892–992)
-    order.forEach((who, i) => a4_stackTag(ctx, a4_KUSAK.short[who], (Y - a4_KUSAK.born[who]) + ' yaşında', 330 + i * 318, 892, E.out2(ramp(t, tBu + .5 + i * .22, tBu + .8 + i * .22)) * (1 - ramp(t, tO + .6, tO + 1))));
+    // ad · yaş: act0/act6'daki yaş sırası dili (bant + ad Courier 36 + a0_age), figürün x'ine ortalı
+    a4_ageRow(ctx, order.map((who, i) => ({ x: 330 + i * 318, name: a4_KUSAK.short[who], age: Y - a4_KUSAK.born[who], t0: tBu + .5 + i * .2 })), t, { a: 1 - ramp(t, tO + .6, tO + 1) });
   }, { tr: { type: 'clay', dur: .8 }, post: { stone: .26 } });
 }
 
@@ -1396,9 +1424,9 @@ const a4_KUSAK = {
     // Yazı sırası (bir anda tek yeni yazı): Arıburnu damgası → yarbay künyesi (+0,4) → Anafartalar damgası ("komutana") → albay künyesi (+0,54)
     stamp(ctx, 'ARIBURNU · 25 NİSAN 1915', 114, 112, lt - .02, tKo - .02 - (t - lt) + .02, { size: 48 });
     stamp(ctx, 'ANAFARTALAR · AĞUSTOS 1915', 114, 112, t - tKo - .02, st.end - tKo + 1, { size: 48 });
-    a4_kunye(ctx, 1824, 1008, 'MUSTAFA KEMAL', ['yarbay · 33 yaşında'], t - tYb, tKo + .32 - tYb);
+    a4_kunye(ctx, 1824, 1008, 'MUSTAFA KEMAL', ['33 yaşında · yarbay'], t - tYb, tKo + .32 - tYb);
     const tAl = hit + .4; // saat anından 0,4 sn sonra
-    a4_kunye(ctx, 1824, 1008, 'MUSTAFA KEMAL', ['albay · 34 yaşında', 'Anafartalar Grubu Komutanı'], t - tAl, tE6 - .08 - tAl);
+    a4_kunye(ctx, 1824, 1008, 'MUSTAFA KEMAL', ['34 yaşında · albay', 'Anafartalar Grubu Komutanı'], t - tAl, tE6 - .08 - tAl);
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
 
@@ -1406,18 +1434,19 @@ const a4_KUSAK = {
 // küçük levhalarıyla gelir (tarih danışmanı onaylı metinler, A4_E06_KISI). "birbirini": figürler panoların arasından birbirine döner
 // (Kafkasya'da MK ile Fevzi yüz yüze; Karabekir önce Kafkasya'ya, "tanıdı"da Filistin'e). "yenildiğinde": panolar kararır.
 // Kişi eşleşmesi tek dizidedir; değişiklik gelirse yalnız burası düzenlenir.
-// levha: üst satır yalnız ad (Abril 64), alt satır yer · yıl (Courier 40); rütbe ve kolordu yazılmaz (yönetmenlik kurulu, okuma yükü)
+// levhalar: pano başına tek satır, yalnız adlar (Abril 52); yer ve yıl pano başlığı ve 1914–1918 damgasında (iki kurulun kararı)
 const A4_E06_KISI = [
-  { panel: 0, who: 'mk', age: 35, x: 160, name: 'MUSTAFA KEMAL', sub: 'Muş · 1916', dirs: [-1, 1] },
-  { panel: 0, who: 'fevzi', age: 40, x: 430, name: 'FEVZİ PAŞA', sub: 'Kafkas · 1916', dirs: [1, -1] },
-  { panel: 1, who: 'karabekir', age: 34, x: 340, name: 'KÂZIM KARABEKİR', sub: 'Kut · 1916', dirs: [1, -1, 1] },
-  { panel: 2, who: 'alifuat', age: 35, x: 118, name: 'ALİ FUAT', sub: 'Kudüs · 1917', dirs: [1, -1] },
-  { panel: 2, who: 'ismet', age: 34, x: 318, name: 'İSMET', sub: 'Filistin · 1918', dirs: [1, -1], dy: 14 },
+  { panel: 0, who: 'mk', age: 35, x: 190, dirs: [-1, 1] },
+  { panel: 0, who: 'fevzi', age: 40, x: 500, dirs: [1, -1] },
+  { panel: 1, who: 'karabekir', age: 34, x: 283, dirs: [1, -1, 1] },
+  { panel: 2, who: 'alifuat', age: 35, x: 140, dirs: [1, -1] },
+  { panel: 2, who: 'ismet', age: 34, x: 362, dirs: [1, -1], dy: 14 },
 ];
+const A4_E06_LEVHA = ['MUSTAFA KEMAL · FEVZİ', 'KÂZIM KARABEKİR', 'ALİ FUAT · İSMET'];
 {
   const T0 = S('E06'), tK = Wd('E06', 'kafkasyada'), tI = Wd('E06', 'irakta'), tF = Wd('E06', 'filistinde'), tB = Wd('E06', 'birbirini'), tT = Wd('E06', 'tanıdı'), tY = Wd('E06', 'yenildiğinde');
   // pano genişlikleri levhalara göre: en uzun ad 64 px'te panoya sığar (Kafkasya 604, Irak 680, Filistin 436; aralar 18)
-  const PWS = [604, 680, 436], PH = 700, PY = 250, PX = [80, 702, 1400];
+  const PWS = [692, 566, 500], PH = 700, PY = 250, PX = [70, 776, 1356];
   const SNOW = [[PX[0] - 20, PY + 610], [PX[0] + 180, PY + 584], [PX[0] + 380, PY + 546], [PX[0] + PWS[0] + 20, PY + 508]];
   const HEADY = PY + 520, FS = .74, words = ['kafkasyada', 'irakta', 'filistinde'];
   // pano etiketlerinin anı: Kafkasya damgadan 0,3 sn sonra, öbürleri kendi kelimesinde
@@ -1437,7 +1466,7 @@ const A4_E06_KISI = [
       const rv = SP([[x0 - 20, y0 + 330], [x0 + 200, y0 + 350], [x0 + 330, y0 + 400], [x0 + 200, y0 + 480], [x0 + 60, y0 + 560], [x0 + 260, y0 + 650], [x1 + 20, y1 + 10], [x1 + 20, y1 + 60], [x0 + 200, y0 + 700], [x0 - 10, y0 + 580], [x0 + 150, y0 + 470], [x0 + 230, y0 + 410], [x0 + 120, y0 + 380], [x0 - 20, y0 + 370]], true, .7);
       knock(g, rv); plate(g, 'khaki', rv, { a: .75 }); inkStroke(g, rv, 2.4);
       g.save(); g.clip(rv); for (let k = 0; k < 20; k++) cut(g, PL([[x0 + (k * 53) % PW, y0 + 340 + k * 18], [x0 + (k * 53) % PW + 30, y0 + 340 + k * 18]], false), 2, { a: .6 }); g.restore();
-      for (const [px, sd, sc] of [[x0 + 520, 1, .9], [x0 + 610, 2, .75], [x0 + 70, 3, .8]]) a4_palm(g, px, y0 + 330, sc, sd + 20);
+      for (const [px, sd, sc] of [[x0 + 440, 1, .9], [x0 + 515, 2, .75], [x0 + 70, 3, .8]]) a4_palm(g, px, y0 + 330, sc, sd + 20);
     } else { // Filistin: kumullar, demiryolu
       plate(g, 'ochre', R, { a: .28 });
       radialHT(g, 'sepia', x0 + 280, y0 - 400, 400, 760, .3, 0, { cell: 11, box: [x0, y0, x1, y0 + 260] });
@@ -1458,7 +1487,7 @@ const A4_E06_KISI = [
     ctx.save(); cam(ctx, cm, 1);
     for (let i = 0; i < 3; i++) {
       const u = ramp(t, t0s[i] - .1, t0s[i] + .25, E.out3); if (u <= 0) continue;
-      const L = a4_L('E06a-p2' + i, g => panel(i, g), 0), x0 = PX[i], PW = PWS[i];
+      const L = a4_L('E06a-p3' + i, g => panel(i, g), 0), x0 = PX[i], PW = PWS[i];
       ctx.save(); ctx.translate(0, (1 - u) * -40);
       plate(ctx, 'ink', a4_rect(x0 + 14, PY + 18, x0 + PW + 14, PY + PH + 18), { a: .4 * u });
       ctx.save(); ctx.beginPath(); ctx.rect(x0, PY, PW * clamp(u * 1.3), PH); ctx.clip(); a4_put(ctx, L, null, 1); 
@@ -1488,12 +1517,10 @@ const A4_E06_KISI = [
       a4_tag(ctx, labs[i], x0 + 8, PY - 28, null, null, E.out2(ramp(t, a4_E06_lab(i), a4_E06_lab(i) + .2)) * (1 - .5 * ramp(t, tY, tY + .5)), { size: 38 });
     }
     // küçük levhalar (isim büyük, alt satır Courier); kişi kendi kelimesinde, "imparatorluk"ta kalkar
-    for (let i = 0; i < 3; i++) { let yy = PY + 14; A4_E06_KISI.filter(q => q.panel === i).forEach((q, k) => {
-      const tw = a4_E06_lab(i) + .3 + k * .3, tOut = Wd('E06', 'imparatorluk') + .2;
-      const L = a4_plaque(ctx, PX[i] + 8, yy, q.name, q.sub, t - tw, tOut - tw, { size: 64, sub: 40, maxW: PWS[i] - 16 });
-      yy += L.h + 24;
-    }); }
     ctx.restore();
+    // pano levhası: kendi kelimesinde (pano başlığından 0,3 sn sonra); kamera dışında, ekrana sabit
+    for (let i = 0; i < 3; i++) { const tw = a4_E06_lab(i) + .3, tOut = Wd('E06', 'imparatorluk') + .2;
+      a4_on(ctx, () => a4_plaque(ctx, PX[i] + 8, PY + 14, A4_E06_LEVHA[i], null, t - tw, tOut - tw, { size: 52, maxW: PWS[i] - 12 })); }
     stamp(ctx, '1914–1918', 114, 112, lt - .1, st.d, { size: 48 });
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }
@@ -1522,8 +1549,8 @@ const A4_E06_KISI = [
     }, 90);
     a4_put(ctx, bg, cm, .7);
     // gökte sağa sürüklenen yarım ton duman: durağan katman yalnız kayar; başların 1,5 baş çevresinin dışında (y < 260)
-    const drift = a4_L('E06b-drift2', g => { a4_smokeCloud(g, 420, 150, 150, 41, 'ink', .24); a4_smokeCloud(g, 1180, 120, 170, 42, 'ink', .2); a4_smokeCloud(g, 1760, 170, 130, 43, 'ink', .2); }, 200);
-    ctx.save(); cam(ctx, cm, .7); ctx.beginPath(); ctx.rect(-200, -200, W + 400, 470); ctx.clip(); ctx.translate(-120 + lt * 22, 0); a4_put(ctx, drift, null, 1, { mode: 'multiply' }); ctx.restore();
+    const drift = a4_L('E06b-drift3', g => { a4_smokeCloud(g, 520, 110, 130, 41, 'ink', .22); a4_smokeCloud(g, 1180, 90, 150, 42, 'ink', .2); a4_smokeCloud(g, 1760, 120, 120, 43, 'ink', .2); }, 200);
+    ctx.save(); cam(ctx, cm, .7); ctx.beginPath(); ctx.rect(-200, -200, W + 400, 450); ctx.clip(); ctx.translate(-120 + lt * 22, 0); a4_put(ctx, drift, null, 1, { mode: 'multiply' }); ctx.restore();
     // kuşak şeridi: "ve birbirleri"de soldan sağa merdane ile basılır; sağdan sola çizilir (soldaki önde)
     const rx = kf(t, [[tBr - .1, 200], [tBr + 1.1, 1900, E.io2]]);
     ctx.save(); cam(ctx, cm, 1);
@@ -1549,13 +1576,13 @@ const A4_E06_KISI = [
     }, 90);
     a4_put(ctx, ledge, cm, 1.06);
     // karanlık: başta siper koyu; "tecrübe"de basamak, "birbirleri"nde siper aydınlanır
-    // gündüz: başta hafif gölge, "tecrübe"de basamak, "ve birbirleri"nde siper aydınlanır (en çok .2)
-    const d1 = .2 * (1 - ramp(t, tTc - .1, tTc + .5)), d2 = .2 * (1 - ramp(t, tBr, tBr + 1.2));
+    // gündüz değer kuralı: karartma yok (açık alan ≥ %35)
+    const d1 = 0, d2 = 0;
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
     stamp(ctx, '1918', 114, 112, lt - .05, st.d + 1, { size: 48 });
     // isim + yaş (1918)
     // ad üstte, yaş altta; tek sıra, figürün x'ine ortalı (E04a ile aynı dil)
-    order.forEach((who, i) => a4_stackTag(ctx, a4_KUSAK.short[who], (Y - a4_KUSAK.born[who]) + ' yaşında', XS[i], 790, E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12))));
+    a4_ageRow(ctx, order.map((who, i) => ({ x: XS[i], name: a4_KUSAK.short[who], age: Y - a4_KUSAK.born[who], t0: tBr + .9 + i * .17 })), t);
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }

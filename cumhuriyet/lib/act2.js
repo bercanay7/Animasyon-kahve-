@@ -373,11 +373,11 @@ a2_shot(S('C01'), Wd('C01', 'rıhtımda'), (ctx, st) => {
   ctx.save(); cam(ctx, cm, 1);
   ctx.drawImage(a2_cache('c01-sea', 140, g => a2_seaBase(g, 652, H + 140)).c, -140, -140, W + 280, H + 280);
   a2_reflect(ctx, 1340, 664, 200, 120, t, 'paper');
-  a2_waves(ctx, 652, H + 60, t, { seed: 11, rows: 16 });
-  a2_steamer(ctx, 1760 - lt * 6, 712, .42, -1, t, { seed: 2 });
-  a2_sailboat(ctx, 1090 + lt * 4, 790, .62, t);
-  a2_steamer(ctx, 470 + lt * 11, 840, 1.0, 1, t, { funnels: 2, seed: 1 });
-  a2_reflect(ctx, 470 + lt * 11, 846, 420, 90, t, 'ink', { a: .45 });
+  a2_waves(ctx, 652, H + 60, t, { seed: 11, rows: 16, speed: 1.6 });
+  a2_steamer(ctx, 1760 - lt * 12, 712, .42, -1, t, { seed: 2 });
+  a2_sailboat(ctx, 1090 + lt * 9, 790, .62, t);
+  a2_steamer(ctx, 470 + lt * 22, 840, 1.0, 1, t, { funnels: 2, seed: 1 });
+  a2_reflect(ctx, 470 + lt * 22, 846, 420, 90, t, 'ink', { a: .45 });
   ctx.restore();
   // martılar
   ctx.save(); cam(ctx, cm, .9);
@@ -790,7 +790,7 @@ a2_shot(S('C03'), Wd('C03', 'manastırda'), (ctx, st) => {
   // yay: soldan başlar, tepeden saat yönünde döner (soru işaretinin başı); gövde teğetle devam eder
   const a0 = PI * .98, a1 = PI * 2.22;
   const pd = clamp((tq - (t - lt)) / (tS - (t - lt) - .1));   // çekimin ilk karesinden "sorgulamayı"ya dek yay çizilir
-  const aNow = lerp(a0, a1, E.io2(pd));
+  const aNow = lerp(a0, a1, pd * (1.15 - .15 * pd));   // ilk kareden akan, sona doğru hafif yavaşlayan çizim
   const arcP = new Path2D(); arcP.arc(C[0], C[1], R, a0, aNow); inkStroke(ctx, arcP, 8);
   const ps = clamp((tq - tS) / .45), E0 = [C[0] + Math.cos(a1) * R, C[1] + Math.sin(a1) * R], tg = [-Math.sin(a1), Math.cos(a1)];
   if (ps > 0) {
@@ -799,11 +799,19 @@ a2_shot(S('C03'), Wd('C03', 'manastırda'), (ctx, st) => {
   }
   const pdot = clamp((tq - tS - .55) / .12);
   if (pdot > 0) { const k = 1 + (1 - pdot) * .6; inkFill(ctx, a2_ell(C[0], C[1] + R * 1.8, 14 * k, 14 * k)); }
+  // sol sayfanın üst köşesi (esinti) kalkıp iner — çekim boyunca sürekli hareket
+  { const k = .5 + .5 * Math.sin(tq * 2.3), cs = 70 + 50 * k;
+    ctx.save(); ctx.translate(1010, 560); ctx.rotate(-.035);
+    const cx = -650, cy = -400, fold = PL([[cx + cs, cy], [cx, cy + cs * .9], [cx + cs * .62, cy + cs * .55]]);   // sol sayfanın üst köşesi
+    knock(ctx, PL([[cx + cs, cy], [cx, cy + cs * .9], [cx - 2, cy - 2]]), '#B99A6C');   // köşenin altından görünen masa
+    plate(ctx, 'ink', PL([[cx + cs + 4, cy + 6], [cx + cs * .62 + 8, cy + cs * .55 + 8], [cx + 6, cy + cs * .9 + 6]]), { a: .25, flat: true });
+    knock(ctx, fold, '#EDE3CC'); plate(ctx, 'ochre', fold, { a: .12, flat: true }); inkStroke(ctx, fold, 2.2);
+    ctx.restore(); }
   // pergel: çizerken iğne merkezde, kalem yayın ucunda; "sorgulamayı"da kalkar ve noktayı vurup çekilir
   const lift = clamp((tq - tS + .1) / .5);
-  if (tq < tS + 1.2) {
+  if (tq < tS + 1.5) {
     let Nn = C, Tt = [C[0] + Math.cos(aNow) * R, C[1] + Math.sin(aNow) * R];
-    if (lift > 0) { const dotP = [C[0], C[1] + R * 1.8], k = E.io2(lift), up = Math.sin(clamp((tq - tS - .3) / .9) * PI) ; Nn = [lerp(C[0], dotP[0], k), lerp(C[1], dotP[1], k) - up * 30]; Tt = [Nn[0] + 120 + k * 60, Nn[1] - 40 - k * 40]; const away = clamp((tq - tS - .75) / .45); Nn = [Nn[0] + away * 900, Nn[1] - away * 500]; Tt = [Tt[0] + away * 900, Tt[1] - away * 500]; }
+    if (lift > 0) { const dotP = [C[0], C[1] + R * 1.8], k = E.io2(lift), up = Math.sin(clamp((tq - tS - .3) / .9) * PI) ; Nn = [lerp(C[0], dotP[0], k), lerp(C[1], dotP[1], k) - up * 30]; Tt = [Nn[0] + 120 + k * 60, Nn[1] - 40 - k * 40]; const away = clamp((tq - tS - .75) / .7); Nn = [Nn[0] + away * 900, Nn[1] - away * 500]; Tt = [Tt[0] + away * 900, Tt[1] - away * 500]; }
     a2_dividers(ctx, Nn, Tt, lift);
   }
   ctx.restore();

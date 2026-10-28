@@ -28,13 +28,15 @@ const PEOPLE = {
 function head3q(ctx, o) {
   const pp = { ...PEOPLE.anon, ...(PEOPLE[o.who] || {}), ...(o.id || {}) };
   // çocuk yüzü (sanat kurulu): 16 yaş altında çene dar, yanak dolgun, göz açık, kaş yumuşak, baş gövdeye göre biraz büyük
-  if ((o.age ?? 30) < 16) { Object.assign(pp, { jaw: (pp.jaw || 1) * .92, cheek: (pp.cheek || 1) * 1.08, eyeOpen: .92, brow: 0, bags: 0, lines: 0, cheekWedge: 0 }); o = { ...o, s: o.s * 1.06 }; }
+  // 2. tur (sanat yönetmeni: "çocuklar hâlâ yetişkin yüzlü"): yüz dikeyde kısa ve yuvarlak, burun küçük, gözler büyük
+  const kid = (o.age ?? 30) < 16;
+  if (kid) { Object.assign(pp, { jaw: (pp.jaw || 1) * .9, cheek: (pp.cheek || 1) * 1.1, eyeOpen: .94, brow: 0, bags: 0, lines: 0, cheekWedge: 0, HY: (pp.HY || 1) * .91 }); o = { ...o, s: o.s * 1.06 }; }
   const s = o.s, dir = o.dir || 1, lw = px => Math.max(1.7 / s, px * Math.pow(s / 1.3, .75) / s);
   const age = o.age ?? 38, sd = pp.seed;
   const yg = clamp(inv(28, 18, age)), old = clamp(inv(36, 44, age));
   const jw = pp.jaw * (1 - yg * .03), ck = (pp.cheek || 1) + yg * .05;
   const WD = o.wide ?? pp.WD ?? 1.08, HY = pp.HY ?? 1;
-  ctx.save(); ctx.translate(o.x, o.y); ctx.rotate(o.tilt || 0); ctx.scale(s * dir * WD, s * HY);
+  ctx.save(); ctx.translate(o.x, o.y + (kid ? 9 * s : 0)); ctx.rotate(o.tilt || 0); ctx.scale(s * dir * WD, s * HY); // çocukta baş gövdeye yakın (kısa boyun)
   const face = [[26, -44], [30, -28], [32, -12], [33 * ck, 0], [34 * ck, 8], [32.5 * jw, 26], [29.5 * jw, 43], [22 * jw, 57 - yg * 1.5], [10, 58.5], [-14 * jw, 47], [-22 * jw, 36], [-25, 26], [-40, 22], [-54, 2], [-58, -24], [-50, -48], [-30, -62], [-4, -66], [16, -60]];
   const faceP = SP(rough(face, .25, sd), true, .9);
   knock(ctx, faceP);
@@ -65,24 +67,26 @@ function head3q(ctx, o) {
   inkStroke(ctx, ear, lw(2.3)); inkStroke(ctx, SP([[-27, -3], [-31, 2], [-31, 10], [-28, 14]], false), lw(1.5));
   inkStroke(ctx, faceP, lw(3.4));
   // burun: sırt çizgisi yok; burun silueti uzak yanak konturunun önüne geçer (kontur burnun arkasında kalır)
+  ctx.save(); if (kid) { ctx.translate(28, 9); ctx.scale(.8, .78); ctx.translate(-28, -9); } // çocuk burnu küçük
   const noseSil = SP([[28.6, 1], [32.4, 7.6], [35.6, 15.4], [35.8, 19.2], [33.6, 21.4], [30.6, 21.6], [28.4, 18]], true, .8);
   knock(ctx, noseSil); if (o.skin) plate(ctx, 'skin', noseSil);
   plate(ctx, shPl, PL([[27, 6], [31, 8], [32, 18], [28, 20]]), { a: shA * 1.1 });               // yakın yandaki burun gölgesi (çizgisiz)
   plate(ctx, shPl, SP([[24, 20], [30, 21.6], [35, 20.6], [32, 24.5], [26, 24]], true), { a: shA }); // burun altı
   inkStroke(ctx, SP([[32.6, 7.8], [35.6, 15.4], [35.8, 19.2], [33.6, 21.4], [30.4, 21.7]], false, .8), lw(2.6)); // dış hat: sırtın ucu, uç, alt
   inkStroke(ctx, SP([[22, 17], [23.2, 20.4], [27, 21.6]], false), lw(2));                        // burun deliği kıvrımı
+  ctx.restore();
   // gözler: ağır üst kapak
   const target = o.lookAt ? (() => { const ex = o.x + 6 * s * dir * WD, ey = o.y; const dx = (o.lookAt[0] - ex) * dir, dy = o.lookAt[1] - ey, n = Math.hypot(dx, dy) || 1; return [dx / n * 1.5, dy / n * 1.1]; })() : (o.look || [1, .3]);
   // kilit anlarda (alıntı, isim açıklama) göz kırpılmaz: window.noBlink(t) (main.js); kırpma ya da eyeOpen<.35 bastırılır
   const noBl = typeof window !== 'undefined' && window.noBlink && window.noBlink(window.FIG_T);
   const eo = (noBl && o.eyeOpen != null && o.eyeOpen < .35 ? (pp.eyeOpen ?? .8) : (o.eyeOpen ?? pp.eyeOpen ?? .8)) * (1 - (noBl ? 0 : o.blink || 0) * .92); // o.blink: blinkAt(t, tohum)
   for (const [k, e] of [[0, { c: [5.5, -1], w: 9 }], [1, { c: [27, -1], w: 3.8 }]]) {
-    const [ex, ey] = e.c, w = e.w, h = (k ? 3.6 : 4.2) * eo * (1 + yg * .12);
+    const [ex, ey] = e.c, w = e.w * (kid ? 1.12 : 1), h = (k ? 3.6 : 4.2) * eo * (1 + yg * .12) * (kid ? 1.14 : 1);
     const eyeP = new Path2D(); eyeP.moveTo(ex - w, ey + .8); eyeP.bezierCurveTo(ex - w * .5, ey - h * 1.25, ex + w * .4, ey - h * 1.3, ex + w, ey - .1);
     eyeP.bezierCurveTo(ex + w * .45, ey + h * .85, ex - w * .55, ey + h * .85, ex - w, ey + .8);
     knock(ctx, eyeP, '#F6F0E2');
     ctx.save(); ctx.clip(eyeP);
-    const ix = ex + target[0] * (k ? .55 : 1) + (k ? .4 : .3), iy = ey + target[1] + .9, ir = k ? 2.6 : 3.4;
+    const ix = ex + target[0] * (k ? .55 : 1) + (k ? .4 : .3), iy = ey + target[1] + .9, ir = (k ? 2.6 : 3.4) * (kid ? 1.1 : 1);
     ctx.fillStyle = pp.iris; ctx.beginPath(); ctx.arc(ix, iy, ir, 0, TAU); ctx.fill();
     ctx.fillStyle = P.ink; ctx.beginPath(); ctx.arc(ix, iy, ir * .45, 0, TAU); ctx.fill();
     ctx.fillStyle = '#FCF9F1'; ctx.beginPath(); ctx.arc(ix + ir * .3, iy - ir * .4, ir * .24, 0, TAU); ctx.fill();

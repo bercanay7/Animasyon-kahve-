@@ -66,10 +66,9 @@ function a0_hit(lt, a = 0, dur = .16) { const u = clamp((lt - a) / dur); return 
 function a0_age(ctx, x, y, num, sub, lt, o = {}) {
   if (NOTEXT) return;
   const h = a0_hit(lt, 0, .15); if (h.a <= 0) return;
-  ctx.save(); ctx.globalAlpha = h.a * (o.a ?? 1); ctx.translate(x, y); ctx.scale(h.k, h.k);
-  txt(ctx, String(num), 0, 0, FONT.title(o.size || 96), { align: 'center', ls: 1 });
-  if (sub) txt(ctx, sub, 0, 60, FONT.mono(40), { align: 'center', ls: 2 });
-  ctx.restore();
+  a0_onScreen(ctx, g => { g.globalAlpha *= h.a * (o.a ?? 1); g.translate(x, y); g.scale(h.k, h.k);
+    txt(g, String(num), 0, 0, FONT.title(o.size || 96), { align: 'center', ls: 1 });
+    if (sub) txt(g, sub, 0, 60, FONT.mono(40), { align: 'center', ls: 2 }); });
 }
 // toz zerreleri: ışıkta yavaş süzülen küçük kâğıt benekleri (durağan karelerde sürekli hareket; poz 15 fps)
 function a0_dust(ctx, t, box, n = 26, seed = 1, col = '#F6EEDA') {
@@ -81,6 +80,14 @@ function a0_dust(ctx, t, box, n = 26, seed = 1, col = '#F6EEDA') {
     if (a <= .05) continue;
     const q = new Path2D(); q.arc(x, y, sz, 0, TAU); ctx.save(); ctx.globalAlpha = a * .85; knock(ctx, q, col); ctx.restore();
   }
+}
+// izleyici yazısını ekrana sabit çiz (genel kamera kayması geri alınır; ui.js onScreen varsa onu kullanır)
+function a0_onScreen(ctx, fn) {
+  ctx.save(); // fn bağlamı değiştirebilir: her durumda geri alınır
+  try {
+    if (typeof onScreen === 'function') onScreen(ctx, fn);
+    else { if (window.DRIFT && typeof undrift === 'function') undrift(ctx); fn(ctx); }
+  } finally { ctx.restore(); }
 }
 // kuşak şeridi bandı: düz kalıp + üst/alt is çizgisi
 function a0_band(ctx, y0, y1, pl = 'ochre', a = .55) {
@@ -207,7 +214,7 @@ function a0_kosk(g, hx, hy, hs) {
   for (let i = 1; i < 14; i++) inkStroke(g, PL([[-300, -i * 20], [300, -i * 20]], false), 1, { a: .12 });
   for (const sx of [-1, 1]) plate(g, 'navy', PL([[sx * 300, 0], [sx * 268, 0], [sx * 268, -280], [sx * 300, -280]]), { a: .35 }); // köşe taşları
   // sofra pencerelerinin cepheye vuran ışığı (düz, açık ton; yalnız pencerelerin çevresi)
-  knock(g, PL([[90, -4], [270, -4], [270, -132], [90, -132]]), '#FBF2DC');
+  knock(g, PL([[86, -4], [296, -4], [296, -132], [86, -132]]), '#FBF2DC');
   inkStroke(g, PL([[-306, -140], [306, -140]], false), 5);
   inkStroke(g, wall, 3.6);
   // pencereler: [x, yAlt, w, h, ışık 0 karanlık / 1 loş / 2 odak]
@@ -249,7 +256,7 @@ function a0_poplar(g, x, yb, h, w, sd) {
 }
 function a0_shotKoskDis() {
   const t0 = 0; // film başı: A01 burada açılır
-  const HX = 820, HY = 770, HS = 1.08, FOC = [HX + 180 * HS, HY - 66 * HS];
+  const HX = 820, HY = 770, HS = .98, FOC = [HX + 180 * HS, HY - 66 * HS];
   shot(t0, (ctx, st) => {
     setReg(101);
     paperBG(ctx);
@@ -341,18 +348,18 @@ function a0_shotKoskDis() {
       for (const px of [HX - 146, HX + 130]) { const pl = PL([[px, 960], [px + 16, 960], [px + 16, 1120], [px, 1120]]); knock(g, pl); plate(g, 'navy', pl, { n: 2 }); inkStroke(g, pl, 2.8); inkFill(g, PL([[px - 6, 950], [px + 22, 950], [px + 22, 962], [px - 6, 962]])); }
     });
     a0_layer(ctx, fg, c, 1.15);
-    // ilk karede tam görünür yazı katmanı: damga + kanca satırı (sofraya baskı geçişiyle gider)
-    if (!NOTEXT) {
-      ctx.save(); ctx.font = FONT.mono(40); ctx.letterSpacing = '4px'; const sw = ctx.measureText('ANKARA · 28 EKİM 1923 · GECE').width; ctx.restore();
-      const sb = PL(rough([[960 - sw / 2 - 20, 26], [960 + sw / 2 + 20, 26], [960 + sw / 2 + 20, 98], [960 - sw / 2 - 20, 98]], .9, 7));
-      knock(ctx, sb); inkStroke(ctx, sb, 2.8);
-      txt(ctx, 'ANKARA · 28 EKİM 1923 · GECE', 960, 78, FONT.mono(40), { align: 'center', ls: 4 });
-      ctx.save(); ctx.font = FONT.title(78); ctx.letterSpacing = '2px'; const hw = ctx.measureText('CUMHURİYET’TEN BİR GECE ÖNCE').width; ctx.restore();
+    // ilk karede tam görünür yazı katmanı: damga + kanca satırı, ekrana sabit (sofraya geçişle gider)
+    if (!NOTEXT) a0_onScreen(ctx, g => {
+      g.save(); g.font = FONT.mono(40); g.letterSpacing = '4px'; const sw = g.measureText('ANKARA · 28 EKİM 1923 · GECE').width; g.restore();
+      const sb = PL(rough([[960 - sw / 2 - 20, 66], [960 + sw / 2 + 20, 66], [960 + sw / 2 + 20, 138], [960 - sw / 2 - 20, 138]], .9, 7));
+      knock(g, sb); inkStroke(g, sb, 2.8);
+      txt(g, 'ANKARA · 28 EKİM 1923 · GECE', 960, 118, FONT.mono(40), { align: 'center', ls: 4 });
+      g.save(); g.font = FONT.title(78); g.letterSpacing = '2px'; const hw = g.measureText('CUMHURİYET’TEN BİR GECE ÖNCE').width; g.restore();
       const fs = Math.min(78, 78 * 1300 / hw);
-      plate(ctx, 'ink', PL([[282, 120], [1662, 120], [1662, 212], [282, 212]]), { a: .35 });
-      const band = PL(rough([[270, 108], [1650, 108], [1650, 200], [270, 200]], 1.4, 11)); knock(ctx, band); inkStroke(ctx, band, 3.2);
-      txt(ctx, 'CUMHURİYET’TEN BİR GECE ÖNCE', 960, 180, FONT.title(fs), { align: 'center', ls: 2 });
-    }
+      plate(g, 'ink', PL([[282, 160], [1662, 160], [1662, 252], [282, 252]]), { a: .35 });
+      const band = PL(rough([[270, 148], [1650, 148], [1650, 240], [270, 240]], 1.4, 11)); knock(g, band); inkStroke(g, band, 3.2);
+      txt(g, 'CUMHURİYET’TEN BİR GECE ÖNCE', 960, 220, FONT.title(fs), { align: 'center', ls: 2 });
+    });
   }, { post: { vig: 1 } });
 }
 
@@ -502,7 +509,7 @@ function a0_shotYarin() {
     const tilt = -.01 + settle(st.lt, .3, .01, 2, 4);
     a0_fig(ctx, { ...MK, dir: -1, who: 'mk', age: 42, gear: null, coat: 'civil', col: 'ink', w: .98, len: (1100 - MK.y) / MK.s, lookAt: [100, 470], tilt, seed: 3, turn: .25, idle: .7 }, st.t);
     ctx.restore();
-    quote(ctx, 'Yarın Cumhuriyet ilan edeceğiz!', 600, 500, st.lt - .15, st.d + 1, { cite: '— Nutuk, 1927', maxW: 760, size: 76 });
+    quote(ctx, '“Yarın Cumhuriyet ilan edeceğiz!”', 600, 500, st.lt - .15, st.d + 1, { cite: '— Nutuk, 1927', maxW: 760, size: 76 });
   }, { tr: { type: 'cut' }, post: { vig: 1 } });
 }
 
@@ -611,12 +618,12 @@ function a0_shotAyniSira() {
     a0_desk(ctx, -30, 1600, 776, B1, 81, { books: [[350, 86, 16, 'sepia'], [950, 76, 14, 'navy'], [1250, 70, 12, 'khaki']], ink: [650, 1550] });
     ctx.restore();
     ctx.restore();
-    label(ctx, '1893', 96, 84, FONT.title(80), { ls: 4, a: 1 - pan });
+    label(ctx, '1893', 96, 112, FONT.title(80), { ls: 4, a: 1 - pan });
     // "SULTANIN SIRALARINDA" lastik damgası: Alfa Slab One, is, −3°, kırık kenarlı. Beş kişi aynı sınıfta okumadı;
     // damga ortak olguyu söyler (hepsi sultanın mekteplerinde). Kenarlara ≥96 px, yüzlerin altında (masa üstünde).
     if (!NOTEXT) { const h = a0_hit(st.lt, tS, .16); if (h.a > 0) {
       const S_ = 'SULTANIN SIRALARINDA';
-      ctx.save(); if (window.DRIFT && typeof undrift === 'function') undrift(ctx);
+      ctx.save(); if (window.DRIFT && typeof undrift === 'function') undrift(ctx); // ekrana sabit
       ctx.font = FONT.slab(110); const tw0 = ctx.measureText(S_).width, fs = Math.min(110, 110 * 1500 / tw0), tw = tw0 * fs / 110, hk = Math.min(h.k, 1680 / (tw + 80));
       ctx.globalAlpha = h.a; ctx.translate(960, 906); ctx.rotate(-3 * PI / 180); ctx.scale(hk, hk);
       const top = -fs * .78, bot = fs * .36;
@@ -755,13 +762,12 @@ function a0_shotTitle() {
     if (!NOTEXT) {
       const tk = a0_W('A05', 'kuşağın') - (st.t - st.lt), h = a0_hit(st.lt, tk, .2);
       if (h.a > 0) {
-        ctx.save(); ctx.globalAlpha = h.a; ctx.translate(960, 850); ctx.scale(h.k, h.k);
-        txt(ctx, 'BİR KUŞAĞIN HİKÂYESİ', 0, 0, FONT.title(118), { align: 'center', ls: 3 });
-        ctx.restore();
         const rl = 640 * E.out3(ramp(st.lt, tk + .15, tk + .7));
-        plate(ctx, 'red', PL([[960 - rl, 882], [960 + rl, 882], [960 + rl, 891], [960 - rl, 891]]));
+        a0_onScreen(ctx, g => { g.save(); g.globalAlpha = h.a; g.translate(960, 850); g.scale(h.k, h.k);
+          txt(g, 'BİR KUŞAĞIN HİKÂYESİ', 0, 0, FONT.title(118), { align: 'center', ls: 3 }); g.restore();
+          plate(g, 'red', PL([[960 - rl, 882], [960 + rl, 882], [960 + rl, 891], [960 - rl, 891]])); });
       }
-      const ts = tk + .4;
+      const ts = tk + .1;
       label(ctx, 'Cumhuriyet’i kuran kuşak nasıl yetişti?', 960, 976, FONT.quote(64), { align: 'center', a: ramp(st.lt, ts, ts + .5) });
     }
   }, { tr: { type: 'press', dur: .7 }, post: { vig: .9 } });
