@@ -42,6 +42,17 @@ function a0_age(ctx, x, y, num, sub, lt, o = {}) {
   if (sub) txt(ctx, sub, 0, 60, FONT.mono(40), { align: 'center', ls: 2 });
   ctx.restore();
 }
+// toz zerreleri: ışıkta yavaş süzülen küçük kâğıt benekleri (durağan karelerde sürekli hareket; poz 15 fps)
+function a0_dust(ctx, t, box, n = 26, seed = 1, col = '#F6EEDA') {
+  const tf = Math.floor(t * 15) / 15, r = rng(seed), [x0, y0, x1, y1] = box;
+  for (let i = 0; i < n; i++) {
+    const bx = r(), by = r(), sp = .012 + r() * .02, ph = r() * TAU, sz = 1.2 + r() * 2.2;
+    const u = (by - tf * sp + 10) % 1, x = x0 + (bx + .03 * Math.sin(tf * .7 + ph)) * (x1 - x0), y = y0 + u * (y1 - y0);
+    const a = Math.sin(PI * u) * (.5 + .5 * Math.sin(tf * 1.3 + ph));
+    if (a <= .05) continue;
+    const q = new Path2D(); q.arc(x, y, sz, 0, TAU); ctx.save(); ctx.globalAlpha = a * .85; knock(ctx, q, col); ctx.restore();
+  }
+}
 // kuşak şeridi bandı: düz kalıp + üst/alt is çizgisi
 function a0_band(ctx, y0, y1, pl = 'ochre', a = .55) {
   plate(ctx, pl, PL([[-20, y0], [W + 20, y0], [W + 20, y1], [-20, y1]]), { a });
@@ -615,6 +626,8 @@ function a0_shotPortrait() {
       a0_portrait(g, FX, FY, 1);
     });
     a0_layer(ctx, bg, c, 1);
+    // pencereden vuran ışıkta toz zerreleri (portrenin dışında, sol ve sağ boşlukta)
+    ctx.save(); cam(ctx, c, 1.1); a0_dust(ctx, st.t, [120, 120, 620, 900], 22, 7); a0_dust(ctx, st.t, [1300, 120, 1800, 900], 22, 8); ctx.restore();
     nameTag(ctx, FX, FY + 402, 'II. ABDÜLHAMİD', '1876–1909', st.t - a0_W('A04', 'ikinci') - .25, 9, { size: 64, sub: 40, align: 'center' });
   }, { tr: { type: 'cut' }, post: { vig: .9 } });
 }
@@ -650,7 +663,8 @@ function a0_shotTitle() {
     setReg(149);
     paperBG(ctx);
     const tb = a0_W('A05', 'bir', 1) - (st.t - st.lt); // "bir kuşağın" (yerel)
-    const p = ramp(st.lt, tb - .3, tb + 1.6, E.io2), c = { x: 960, y: 520 + 20 * p, z: 1.06 - .06 * p };
+    // önce Mustafa Kemal'e yavaş yaklaşma (tek başına), "bir kuşağın"da geri çekilip yedi büst
+    const q = ramp(st.lt, 0, tb - .3, E.sine), p = ramp(st.lt, tb - .3, tb + 1.6, E.io2), z0 = 1.04 + .05 * q, c = { x: 960, y: 520 - 14 * q * (1 - p) + 20 * p, z: lerp(z0, 1.0, p) };
     const bg = a0_cache('a0-title-bg', g => { paperBG(g); a0_band(g, B0, B1, 'ochre', .5); });
     a0_layer(ctx, bg, c, .85);
     ctx.save(); cam(ctx, c, 1);

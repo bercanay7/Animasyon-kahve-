@@ -57,7 +57,8 @@ function kusakBar(ctx, t) {
     }
     ctx.restore();
     inkStroke(ctx, ov, on ? 2.6 : 1.8);
-    if (on) plate(ctx, 'red', PL([[-22, 42], [22, 42], [22, 47], [-22, 47]]), { a: clamp((t - tf) / .3) });
+    const pulse = k.who === 'mk' ? Math.max(0, Math.sin(clamp((t - Wd('F06', 'deha')) / 1.5) * PI * 3)) * (t > Wd('F06', 'deha') && t < Wd('F06', 'deha') + 1.5) : 0;
+    if (on) plate(ctx, 'red', PL([[-22, 42], [22, 42], [22, 47 + 3 * pulse], [-22, 47 + 3 * pulse]]), { a: clamp((t - tf) / .3) });
     ctx.restore();
   });
   ctx.restore();

@@ -39,6 +39,13 @@ function drawShot(ctx, i, t) {
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR);
   const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save();
+  // kullanıcı isteği "görüntü hiç durmasın": her çekime çok hafif, sürekli kamera kayması (en çok %3 yakınlaşma,
+  // yön çekime göre değişir, kenar açılmaz). Bitiş ekranı ve sh.still çekimleri sabit kalır.
+  if (!sh.still && !(window.CUES && CUES.G06 && sh.at >= Se('G06') - .5)) {
+    const a = .03 * (1 - Math.exp(-st.lt / 10)), z = 1 + a, ang = hash(i * 7.31 + 3.7) * TAU;
+    const px = Math.cos(ang) * a * W * .4, py = Math.sin(ang) * a * H * .4;
+    ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2 - px, -H / 2 - py);
+  }
   sh.draw(ctx, st);
   ctx.restore();
 }

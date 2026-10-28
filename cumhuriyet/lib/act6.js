@@ -558,7 +558,7 @@ function a6_shotBitis() {
     a0_layer(ctx, bg, c, 1);
     ctx.save(); cam(ctx, c, 1);
     a6_pole(ctx, 300, 120, 400, { w: 6, r: 9 });
-    a6_flag(ctx, 303, 132, 200, st.t, { amp: 14, speed: 2.2 });
+    a6_flag(ctx, 303, 132, 200, st.t, { amp: 17, speed: 2.4 });
     // alt şerit: yedi baş küçük ölçekte
     ctx.save(); ctx.beginPath(); ctx.rect(X0 + 18, 814, X1 - X0 - 36, 178); ctx.clip();
     a0_seven(ctx, st.t, st.lt, [4.4, 4.2, 4.0, 3.8, 4.0, 4.2, 4.4].map(x => x + .9), { y: 900, s: .66, yb: 994, xs: [160, 266, 372, 480, 588, 694, 800], look: [.3, .25] });

@@ -382,6 +382,27 @@ function a4_pressIn(ctx, u, y0, y1, draw) {
   draw(); ctx.restore(); REG.boost = b;
 }
 
+// —— sürekli hareket (her çekimde her an bir öğe kıpırdar) ——
+// nabız: noktadan genişleyip sönen is halka (per sn'de bir); harita noktaları "yanıp söner"
+function a4_pulse(ctx, x, y, t, o = {}) {
+  const per = o.per || 1.3, u = ((t + (o.ph || 0)) % per) / per, r0 = o.r0 || 12, r1 = o.r1 || 44;
+  const rg = new Path2D(); rg.arc(x, y, lerp(r0, r1, E.out2(u)), 0, TAU);
+  inkStroke(ctx, rg, o.w || 3, { a: (o.a ?? .8) * (1 - u) });
+}
+// gevşek telgraf kâğıdı: haritanın köşesinde, esintiyle hafifçe kalkar; gölgesi kayar
+function a4_looseSheet(ctx, x, y, w, h, rot, seed, t) {
+  const lift = .5 + .5 * Math.sin(t * 1.7 + seed), r = rot + Math.sin(t * 1.1 + seed) * .025;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(r);
+  plate(ctx, 'ink', a4_rect(-w / 2 + 6 + lift * 10, -h / 2 + 8 + lift * 12, w / 2 + 6 + lift * 10, h / 2 + 8 + lift * 12), { a: .26 + lift * .08 });
+  ctx.restore();
+  paperSheet(ctx, x, y - lift * 3, w, h, r, seed, { header: true, shadow: false, rows: 4 });
+}
+// göz kırpma (kişi başına tohum); main.js'teki noBlink anlarına uyar
+function a4_eye(who, t, sd) {
+  const base = (PEOPLE[who] && PEOPLE[who].eyeOpen) || .8;
+  if (window.noBlink && window.noBlink(t)) return base;
+  return base * (1 - blinkAt(t, sd));
+}
 // —— toz: rüzgârla sürüklenen benekler (hareketli, düz) ——
 function a4_dust(ctx, t, o) {
   const r = rng(o.seed || 5), n = o.n || 60, [x0, y0, x1, y1] = o.box, wx = o.wind ?? 60, wy = o.rise ?? -6;
@@ -578,7 +599,7 @@ function a4_cartouche(g, x, y, w, h, seed) {
 function a4_officer(ctx, o) {
   const b = { x: o.x, y: o.y, s: o.s, dir: o.dir || -1 };
   bust(ctx, { ...b, coat: o.coat || 'setre', col: o.col || 'khaki', w: o.w || .98, seed: o.seed || 3, len: o.len || 300, tilt: o.btilt || 0, turn: o.turn ?? .2, sep: o.sep, back: o.back, arms: o.arms });
-  head3q(ctx, { ...b, who: o.who, gear: o.gear === undefined ? 'kabalak' : o.gear, gearCol: o.gearCol || 'ink', light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: o.tilt || 0 });
+  head3q(ctx, { ...b, who: o.who, gear: o.gear === undefined ? 'kabalak' : o.gear, gearCol: o.gearCol || 'ink', light: o.light || 'front', lookAt: o.lookAt, look: o.look, age: o.age, tilt: o.tilt || 0, eyeOpen: a4_eye(o.who, window.FIG_T || 0, (o.seed || 3) * 7 + o.x * .01) });
 }
 
 // ———————————————————————————————— çekimler ————————————————————————————————
@@ -764,6 +785,10 @@ const a4_E01_SOL = (() => {
     const cm = { x: W / 2 + (FX - W / 2) * (1 - 1 / zf), y: H / 2 + (FY - H / 2) * (1 - 1 / zf), z: zf };
     a4_put(ctx, base(), cm, 1);
     ctx.save(); cam(ctx, cm, 1); ctx.translate(CX, CY); ctx.rotate(ROT); ctx.translate(-CX, -CY);
+    // sürekli: İstanbul ve Derne noktaları yanıp söner, köşedeki telgraf kâğıdı esintiyle kalkar
+    a4_pulse(ctx, IST[0], IST[1], lt, { r0: 10, r1: 40 });
+    a4_pulse(ctx, DER[0], DER[1], lt, { r0: 10, r1: 40, ph: .6 });
+    a4_looseSheet(ctx, 1730, 196, 210, 150, .1, 52, lt);
     const tI = Wd('E02', 'italya'), tC = Wd('E02', 'çıktı'), tG = Wd('E02', 'genç'), tGo = Wd('E02', 'gönüllü'), tK = Wd('E02', 'kimi');
     // İtalyan çıkarması: is oklar
     a4_arrow(ctx, [G([13.9, 37.0]), G([14.4, 35.6]), G([13.8, 34.3]), G([13.3, 33.25])], ramp(t, tI, tI + .9, E.io2), { w: 15 });
@@ -1025,6 +1050,7 @@ function a4_rumeliFill(ctx, front, seed = 5) {
     // kamera sabit: bu haritanın hareketi dolgunun silinmesidir (Trablus'ta yakınlaşma, E04'te yatay kaydırma)
     const cm = { x: 960, y: 560, z: 1.02 };
     a4_put(ctx, a4_L('BK-base', a4_balkanBase, 60), cm, 1);
+    { ctx.save(); cam(ctx, cm, 1); a4_looseSheet(ctx, 1640, 250, 200, 140, -.08, 53, lt); ctx.restore(); }
     ctx.save(); cam(ctx, cm, 1); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540);
     const tB = Wd('E03', 'balkan'), tS = Wd('E03', 'selanik'), tT = Wd('E03', 'teslim'), tE = Wd('E03', 'edildi');
     // süpürme cephesi: Selanik'e "teslim"de varır, sonra Enez'i geçer
@@ -1040,6 +1066,8 @@ function a4_rumeliFill(ctx, front, seed = 5) {
     const on = 1 - ramp(t, tT, tE + .2, E.in2), pulse = ramp(t, tS, tS + .5, E.out3) * (1 - ramp(t, tT, tE, E.io2));
     if (pulse > 0) { const rg = new Path2D(); rg.arc(city.SEL[0], city.SEL[1], 16 + 30 * pulse, 0, TAU); inkStroke(ctx, rg, 3, { a: (1 - pulse * .6) }); }
     a4_city(ctx, city.SEL[0], city.SEL[1], on, { r: 13 });
+    if (on > .05) a4_pulse(ctx, city.SEL[0], city.SEL[1], lt, { r0: 14, r1: 54, a: .85 * on });
+    a4_pulse(ctx, city.IST[0], city.IST[1], lt, { r0: 10, r1: 40, ph: .5 });
     // Enez–Midye hattı (kırmızı tarak, Türk tarafı doğu)
     a4_front(ctx, em, ramp(t, T0 + st.d - 1.0, T0 + st.d - .15, E.io2), { w: 7, tooth: 12, step: 17, side: -1 });
     // etiketler
@@ -1060,7 +1088,8 @@ function a4_wallMap(ctx, sc, cx, cy, o = {}) {
   ctx.save(); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540);
   const sheet = a4_rect(46, 26, W - 46, H - 26);
   // kâğıdın duvara gölgesi
-  plate(ctx, 'ink', a4_rect(46 + 18, 26 + 22, W - 46 + 18, H - 26 + 22), { a: .35 });
+  const sh = o.t != null ? Math.sin(o.t * .9) : 0; // duvara iğnelenmiş kâğıt hafifçe kalkıp iner: gölge kayar
+  plate(ctx, 'ink', a4_rect(46 + 18 + sh * 8, 26 + 22 + sh * 6, W - 46 + 18 + sh * 8, H - 26 + 22 + sh * 6), { a: .35 });
   ctx.save(); ctx.clip(sheet); ctx.restore();
   ctx.restore();
   ctx.save(); ctx.translate(960, 540); ctx.rotate(.01); ctx.translate(-960, -540); ctx.clip(a4_rect(50, 30, W - 50, H - 30)); ctx.translate(960, 540); ctx.rotate(-.01); ctx.translate(-960, -540);
@@ -1112,7 +1141,7 @@ const a4_KUSAK = {
     const { G } = a4_BK, tearPts = [G([21.9, 44.6]), G([22.2, 43.6]), G([21.8, 42.8]), G([22.4, 41.9]), G([22.7, 41.2]), G([22.95, 40.64]), G([23.3, 40.0]), G([23.6, 39.3])];
     const tp = ramp(t, tO, tY + .5, E.io2);
     ctx.save(); cam(ctx, cm, .75);
-    a4_wallMap(ctx, .66, 960, 360, { after: c => a4_tear(c, tearPts, tp, 77, 34) });
+    a4_wallMap(ctx, .66, 960, 360, { t: lt, after: c => a4_tear(c, tearPts, tp, 77, 34) });
     ctx.restore();
     // kuşak şeridi: beş büst, aynı ölçek, Rumeli'ye bakar; "bu kuşağı"nda soldan sağa basılarak gelir
     ctx.save(); cam(ctx, cm, 1);
@@ -1146,7 +1175,7 @@ const a4_KUSAK = {
     // Anadolu yeniden basılır: merdane soldan sağa
     const rx = kf(t, [[tY, gx(25.6)], [tK + .2, gx(32), E.io2]]);
     ctx.save(); cam(ctx, cm, .75);
-    a4_wallMap(ctx, 1.3, 640, 250, { after: c => {
+    a4_wallMap(ctx, 1.3, 640, 250, { t: lt, after: c => {
       const G = a4_BK.G;
       a4_arrow(c, [G([22.95, 40.64]), G([23.9, 40.95]), G([25.2, 41.15]), G([26.6, 41.3]), G([27.9, 41.2]), G([28.9, 40.85]), G([29.9, 40.45]), G([31.0, 39.95])], ap, { w: 15 });
       if (t < tY) return;
@@ -1402,7 +1431,7 @@ const A4_E06_KISI = [
 // omuz omuza siperde basılarak belirir (soldan sağa merdane). İsim + yaş (1918).
 {
   const T0 = Wd('E06', 'ellerinde'), tTc = Wd('E06', 'tecrübe'), tBr = Wd('E06', 've');
-  const order = ['alifuat', 'karabekir', 'mk', 'ismet', 'fevzi'], Y = 1918, XS = [470, 715, 960, 1205, 1450];
+  const order = ['alifuat', 'karabekir', 'mk', 'ismet', 'fevzi'], Y = 1918, XS = [380, 670, 960, 1250, 1540];
   shot(T0, (ctx, st) => {
     setReg(411);
     paperBG(ctx);
@@ -1424,17 +1453,17 @@ const A4_E06_KISI = [
     const drift = a4_L('E06b-drift', g => { a4_smokeCloud(g, 420, 150, 170, 41, 'ink', .36); a4_smokeCloud(g, 1180, 120, 200, 42, 'ink', .32); a4_smokeCloud(g, 1760, 170, 150, 43, 'ink', .3); }, 200);
     ctx.save(); cam(ctx, cm, .7); ctx.beginPath(); ctx.rect(-200, -200, W + 400, 470); ctx.clip(); ctx.translate(-120 + lt * 22, 0); a4_put(ctx, drift, null, 1, { mode: 'multiply' }); ctx.restore();
     // kuşak şeridi: "ve birbirleri"de soldan sağa merdane ile basılır; sağdan sola çizilir (soldaki önde)
-    const rx = kf(t, [[tBr - .1, 200], [tBr + 1.1, 1800, E.io2]]);
+    const rx = kf(t, [[tBr - .1, 200], [tBr + 1.1, 1900, E.io2]]);
     ctx.save(); cam(ctx, cm, 1);
     if (t > tBr - .1) {
       const b = REG.boost; REG.boost = 1 + 4 * (1 - ramp(t, tBr, tBr + 1.4, E.out3));
-      ctx.save(); ctx.beginPath(); ctx.rect(-200, -200, rx, H + 400); ctx.clip();
+      ctx.save(); ctx.beginPath(); ctx.rect(-200, -200, rx + 200, H + 400); ctx.clip();
       for (let i = order.length - 1; i >= 0; i--) {
         const who = order[i], x = XS[i], y = 470 + (i % 2) * 8, io = idleOffsets(tf, i * 4 + 3, .5);
         a4_officer(ctx, { x, y: y + io.breath, s: 1.1, dir: -1, who, age: Y - a4_KUSAK.born[who], seed: a4_KUSAK.seed[who], len: (H + 40 - y) / 1.1, lookAt: [100, 360], tilt: io.head * .5, turn: .3, w: 1.04, sep: true });
       }
       ctx.restore(); REG.boost = b;
-      if (rx < 1800) inkStroke(ctx, PL([[rx, -100], [rx, H + 100]], false), 3, { a: .6 });
+      if (rx < 1900) inkStroke(ctx, PL([[rx, -100], [rx, H + 100]], false), 3, { a: .6 });
     }
     ctx.restore();
     // ön basamak ve "tecrübe": harita, pusula, dürbün
@@ -1452,6 +1481,7 @@ const A4_E06_KISI = [
     if (d2 > 0) plate(ctx, 'ink', a4_rect(-50, -50, W + 50, 890), { a: d2 });
     if (d1 > 0) plate(ctx, 'ink', a4_rect(-50, 890, W + 50, H + 50), { a: d1 });
     // isim + yaş (1918)
-    a4_rowTags(ctx, order.map((who, i) => ({ s: a4_KUSAK.short[who] + ' · ' + (Y - a4_KUSAK.born[who]), x: XS[i], a: E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12)) })), 774);
+    // ad üstte, yaş altta; tek sıra, figürün x'ine ortalı (E04a ile aynı dil)
+    order.forEach((who, i) => a4_stackTag(ctx, a4_KUSAK.short[who], (Y - a4_KUSAK.born[who]) + ' yaşında', XS[i], 790, E.out2(ramp(t, tBr + .9 + i * .12, tBr + 1.2 + i * .12))));
   }, { tr: { type: 'cut', dur: 0 }, post: { stone: .26 } });
 }

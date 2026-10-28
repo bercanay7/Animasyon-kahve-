@@ -18,7 +18,7 @@ const PEOPLE = {
   // Halide Edib: kadın yüzü; bıyık yok, ince kaş, yumuşak çene; başörtüsü/çarşaf ayrı çizilir (gear:'basortu'|'carsaf')
   halide: { name: 'HALİDE EDİB', born: 1884, WD: 1.04, HY: .96, jaw: .9, cheek: 1.02, brow: .12, browW: .7, mus: null, iris: P.sepia, hair: 'ink', eyeOpen: .82, seed: 19, fem: 1 },
   // II. Abdülhamid: fes, kısa kırçıl sakal (beard), koyu setre; ışık nötr, karikatür yok
-  abdulhamid: { name: 'II. ABDÜLHAMİD', born: 1842, WD: 1.06, HY: 1.0, jaw: 1.0, cheek: 1.0, brow: .0, browW: 1.05, mus: 'thin', beard: 'short', iris: P.sepia, hair: 'grey', eyeOpen: .74, bags: 1, seed: 21 },
+  abdulhamid: { name: 'II. ABDÜLHAMİD', born: 1842, WD: 1.06, HY: 1.0, jaw: 1.0, cheek: 1.0, brow: .0, browW: 1.05, mus: 'thin', beard: 'short', beardCol: 'dark', iris: P.sepia, hair: 'grey', eyeOpen: .74, bags: 1, seed: 21 },
   anon: { WD: 1.08, jaw: 1.02, cheek: 1, brow: .05, browW: 1, mus: 'mk', iris: P.sepia, hair: 'ink', seed: 9 },
 };
 
@@ -147,7 +147,11 @@ function head3q(ctx, o) {
   if (pp.beard) {
     // favoriden çeneye opak kırçıl sakal (saydam maske gibi durmasın); ağız çizgisi sakalın üstünde kalır
     const bd = SP(rough([[-24, -4], [-27, 12], [-22, 30], [-10, 46], [2, 57], [14, 63], [24, 58], [31, 46], [31, 36], [26, 38], [20, 41.5], [12, 42.5], [4, 39], [-6, 31], [-13, 17], [-17, 3], [-19, -5]], .4, sd + 9), true, .8);
-    knock(ctx, bd); plate(ctx, pp.musCol || 'grey', bd, { a: 1 }); plate(ctx, 'sepia', bd, { a: .3 }); inkStroke(ctx, bd, lw(1.8));
+    knock(ctx, bd);
+    if (pp.beardCol === 'dark') { // Abdülhamid sakalını boyatırdı (portreler): koyu, birkaç ak kıl
+      plate(ctx, 'ink', bd, { a: .72 }); plate(ctx, 'sepia', bd, { a: .4 }); inkStroke(ctx, bd, lw(1.8));
+      const rw = rng(sd + 41); for (let i = 0; i < 9; i++) { const x = lerp(-18, 26, rw()), y = lerp(36, 56, rw()); cut(ctx, PL([[x, y], [x + .8, y + 3.4]], false), lw(.9), { a: .45 }); }
+    } else { plate(ctx, pp.musCol || 'grey', bd, { a: 1 }); plate(ctx, 'sepia', bd, { a: .3 }); inkStroke(ctx, bd, lw(1.8)); }
     const r = rng(sd + 40); for (let i = 0; i < 22; i++) { const x = lerp(-16, 28, r()), y = lerp(38, 55, r()); inkStroke(ctx, PL([[x, y], [x + .6, y + 3]], false), lw(1), { a: .5 }); }
   }
   ctx.restore();

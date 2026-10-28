@@ -14,8 +14,8 @@ function a3_strip(ctx, t, y0, look, o = {}) {
   knock(ctx, band); plate(ctx, 'gold', band, { a: .5 });
   ctx.save(); ctx.clip(band);
   A3_OFF.forEach((id, i) => {
-    const x = 190 + i * 308, lk = look(i);
-    a1_fig(ctx, t + i * .37, { x, y: y0 + 190, s: 1.16, dir: -1, who: 'anon', id, gear: 'fes', coat: 'setre', col: 'ink', age: 24 + (i * 3) % 5, lookAt: lk, len: 420, seed: id.seed, w: .92 + (i % 3) * .05, tilt: id.tilt });
+    const x = 190 + i * 308, lv = look(i), lk = Array.isArray(lv[0]) ? lv[0] : lv, tl = Array.isArray(lv[0]) ? lv[1] : 0;
+    a1_fig(ctx, t + i * .37, { x, y: y0 + 190, s: 1.16, dir: -1, who: 'anon', id, gear: 'fes', coat: 'setre', col: 'ink', age: 24 + (i * 3) % 5, lookAt: lk, len: 420, seed: id.seed, w: .92 + (i % 3) * .05, tilt: (id.tilt || 0) + tl });
   });
   ctx.restore();
   inkStroke(ctx, PL([[-60, y0], [W + 60, y0]], false), 4);
@@ -39,11 +39,24 @@ shot(S('D01'), (ctx, st) => {
   ctx.restore();
   // kuşak şeridi: "subay" sözünde alttan yükselir; "aynı sonuca" sözünde bakışlar aynı noktada buluşur
   if (up > 0) {
-    const y0 = lerp(H + 20, 600, up), c0 = Math.max(Ta - .3, Tst + .8), conv = ramp(t, c0, c0 + .7, E.io2);
-    a3_strip(ctx, t, y0, i => { const x = 190 + i * 308; return [lerp(x + (i % 2 ? 380 : -380), -300, conv), lerp(y0 + 120, y0 + 60, conv)]; });
+    const y0 = lerp(H + 20, 600, up), c0 = Math.max(Ta - .1, Tst + .8), tq = Math.floor(t * 15) / 15;
+    a3_strip(ctx, t, y0, i => {
+      const x = 190 + i * 308, ti = c0 + i * .14, on = tq >= ti, e = ramp(t, ti, ti + .3, E.out2);
+      return [on ? [lerp(x, 860, .35), y0 - 420] : [x + (i % 2 ? 380 : -380), y0 + 120], -.06 * e];
+    });
   }
-  a1_rubber(ctx, 'DEĞİŞİM', 640, 300, t - Td, -.08, 74, { plate: 'teal', bg: true });
-  a1_rubber(ctx, 'ÇÖKÜŞ', 1280, 330, t - Tc, .07, 74, { plate: 'ink', bg: true });
+  // "ya değişim, ya çöküş": Selanik'ten çatallanan çizgiler, şerit kenarında iki izleyici kutusu
+  if (!NOTEXT) {
+    const [px, py] = a1_p(22.94, 40.64), sx = W / 2 + (px - c.x) * c.z, sy = H / 2 + (py - c.y) * c.z;
+    for (const [s_, bx, T] of [['DEĞİŞİM', 470, Td], ['ÇÖKÜŞ', 1450, Tc]]) {
+      const q = clamp((t - T + .15) / .3); if (q <= 0) continue;
+      const fx = sx, fy = sy + 60, ex = lerp(fx, bx, E.out2(q)), ey = lerp(fy, 556, E.out2(q));
+      inkStroke(ctx, PL([[sx, sy], [fx, fy], [ex, ey]], false), 2.6);
+      if (q >= 1) { ctx.save(); ctx.font = FONT.mono(48); ctx.letterSpacing = '4px'; const w = ctx.measureText(s_).width; ctx.restore(); stamp(ctx, s_, bx - w / 2, 616, t - T - .15, 9, { size: 48 }); }
+    }
+    if (t > Td - .15) { const d = a1_ell(sx, sy, 7, 7); knock(ctx, d); inkFill(ctx, a1_ell(sx, sy, 4.5, 4.5)); }
+  }
+  a1_dust(ctx, t, 31);
   chapterCard(ctx, 'III', 'MEŞRUTİYET', '1908 · CUMHURİYET\u2019E 15 YIL', lt - .25, Tst - S('D01') + .3);
 }, { tr: { type: 'press', dur: .8 } });
 
@@ -95,11 +108,14 @@ shot(S('D02'), (ctx, st) => {
   ctx.save(); cam(ctx, c, 1); a1_imgM(ctx, near);
   // subay kolu: patika boyunca tırmanır (pozlar 6 fps)
   const ph = Math.floor(t * 6) % 2, dt = t - S('D02');
-  for (let i = 0; i < 9; i++) {
-    const u = .2 + dt * .085 - i * .068; if (u < 0 || u > 1) continue;
-    const [x, y, d] = a3_pathAt(u), s = lerp(2.5, 1.05, u);
-    a3_soldier(ctx, x, y + 4, s, (ph + i) % 2, d);
+  // kol boyunca aralık: yol üstünde geriye doğru, ekranda öndekilerden en az 90 px uzak konum
+  const placed = []; let u = .2 + dt * .085;
+  for (let i = 0; i < 7 && u > 0; i++) {
+    if (i) { u -= .06; while (u > 0 && placed.some(([px, py]) => Math.hypot(a3_pathAt(u)[0] - px, a3_pathAt(u)[1] - py) < 90)) u -= .01; }
+    if (u <= 0) break;
+    const [x, y, d] = a3_pathAt(Math.min(u, 1)); placed.push([x, y, d, u]);
   }
+  for (const [x, y, d, uu] of [...placed].reverse()) a3_soldier(ctx, x, y + 4, lerp(2.5, 1.05, uu), (ph + Math.round(uu * 40)) % 2, d);
   // tepeye dikilen sancak ("dağa çıktı")
   const fk = a1_pop(t, Tdg, .2);
   if (fk > 0) {
@@ -114,7 +130,7 @@ shot(S('D02'), (ctx, st) => {
   stamp(ctx, 'MAKEDONYA · TEMMUZ 1908', 114, 112, t - S('D02') - .1, 4.2, { size: 48 });
 }, { tr: { type: 'press', dur: .6 } });
 
-// ═══════════ D02b · 1908 "Hürriyet" kartpostalı (belge) ve sevinen kalabalık ═══════════
+// ═══════════ D02b · 1908 "Hürriyet" kartpostalı (belge) ve sevinen kalabalık (23 Temmuz 1908) ═══════════
 // kartpostal üç katman: 'back' (gölge + kart), ışınlar (her karede döner), 'front' (güneş, bayraklar, çerçeve, kurdele)
 function a3_rays(g, ang) {
   const w = 1000, h = 640, x0 = -w / 2, y0 = -h / 2, cx = 0, cy = 170;
@@ -153,20 +169,41 @@ function a3_postcard(g, part = 'front') {
   inkStroke(g, card, 3);
 }
 // sevinen kalabalık: damga siluetler, fesler ve kalkan kollar (2 poz), küçük flamalar
+// Osmanlı bayrağı (dikdörtgen, kırmızı, beyaz ay-yıldız); w: bayrak eni, wv: dalga
+function a3_flag(ctx, x, y, w, wv = 0) {
+  const h = w * .66, f = SP([[x, y], [x + w * .5, y - 2 + wv * .5], [x + w, y + wv], [x + w, y + h + wv], [x + w * .5, y + h - 2 + wv * .5], [x, y + h]], true, .5);
+  knock(ctx, f); plate(ctx, 'red', f); inkStroke(ctx, f, 1.8);
+  const cx = x + w * .44, cy = y + h * .5 + wv * .3, r = h * .28, cr = new Path2D(); cr.arc(cx, cy, r, 0, TAU); cr.arc(cx + r * .3, cy - r * .08, r * .82, 0, TAU, true);
+  ctx.save(); ctx.fillStyle = P.paper; ctx.fill(cr, 'evenodd'); ctx.restore();
+  const sp = []; for (let k = 0; k < 10; k++) { const a = -PI / 2 + k * TAU / 10, rr = k % 2 ? r * .2 : r * .45; sp.push([cx + r * 1.15 + Math.cos(a) * rr, cy + Math.sin(a) * rr]); } knock(ctx, PL(sp));
+}
+// sevinen kalabalık: başına oturmuş fes, omuzlar; elde bayrak, mendil ya da fes; kollar iki pozlu, 6 fps, kişi başına rastgele faz
 function a3_crowd(ctx, t, y0, n = 18, seed = 7, flags = true) {
-  const r = rng(seed), q = Math.floor(t * 15);
+  const r = rng(seed), q6 = t * 6;
   for (let row = 0; row < 2; row++) for (let i = 0; i < n; i++) {
     const x = -40 + i * (W + 80) / (n - 1) + (row ? 50 : 0) + (r() - .5) * 30, s = row ? 1.25 : 1.0, y = y0 + (row ? 120 : 0) + (r() - .5) * 10;
-    const per = 3 + ((i * 7 + row * 3) % 3), up = Math.floor((q + i * 2 + row) / per) % 2, kind = r(), wv = Math.sin(q * .9 + i * 1.7 + row) * 7;
-    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-    const b = new Path2D(); b.ellipse(0, -60, 18, 21, 0, 0, TAU); b.moveTo(-42, 40); b.quadraticCurveTo(-40, -30, 0, -34); b.quadraticCurveTo(40, -30, 42, 40); b.closePath();
+    const kind = r(), phs = r(), up = Math.floor(q6 + phs * 7) % 2, sway = Math.sin(t * 2 + phs * 6) * 2;
+    ctx.save(); ctx.translate(x + sway, y); ctx.scale(s, s);
+    // gövde: boyun, omuzlar
+    const b = new Path2D(); b.ellipse(0, -62, 16, 19, 0, 0, TAU);
+    b.moveTo(-8, -46); b.lineTo(8, -46); b.lineTo(10, -38); b.quadraticCurveTo(38, -36, 46, -18); b.lineTo(52, 60); b.lineTo(-52, 60); b.lineTo(-46, -18); b.quadraticCurveTo(-38, -36, -10, -38); b.closePath();
     inkFill(ctx, b);
-    // kol
-    const hand = up ? [26 + kind * 10, -128] : [34, -96];
-    inkStroke(ctx, SP([[24, -22], [34, -60], hand], false), 13); inkFill(ctx, a1_ell(hand[0], hand[1], 8, 9));
-    if (kind < .55) { const f = PL([[-15, -76], [15, -76], [12, -104], [-12, -104]]); knock(ctx, f); plate(ctx, 'red', f); inkStroke(ctx, f, 2); }
-    else if (kind < .75) { inkFill(ctx, PL([[-24, -74], [24, -74], [24, -78], [14, -78], [14, -104], [-14, -104], [-14, -78], [-24, -78]])); }
-    if (flags && kind > .72) { inkStroke(ctx, PL([[hand[0], hand[1]], [hand[0], hand[1] - 70]], false), 3); const pn = SP([[hand[0], hand[1] - 70], [hand[0] + 26, hand[1] - 66 + wv * .5], [hand[0] + 54, hand[1] - 58 + wv], [hand[0] + 26, hand[1] - 52 + wv * .5], [hand[0], hand[1] - 46]], true, .5); knock(ctx, pn); plate(ctx, 'red', pn); inkStroke(ctx, pn, 1.8); }
+    const waveFes = kind > .42 && kind < .62, bare = waveFes;
+    if (!bare) { const f = PL([[-15, -74], [15, -74], [12, -98], [-12, -98]]); knock(ctx, f); plate(ctx, 'red', f); inkStroke(ctx, f, 1.8); inkStroke(ctx, SP([[0, -98], [-10, -92], [-16, -80]], false), 2.2); }
+    else cut(ctx, SP([[-12, -74], [0, -80], [12, -74]], false), 1.6, { a: .5 });
+    // kol: omuzdan yukarı; iki poz
+    const hand = up ? [30, -132] : [42, -112];
+    inkStroke(ctx, SP([[30, -30], [40, -70], hand], false), 13); inkFill(ctx, a1_ell(hand[0], hand[1], 8, 9));
+    const wv = (up ? 1 : -1) * 6;
+    if (!flags) { ctx.restore(); continue; }
+    if (kind < .42) { // mendil
+      const m = SP([[hand[0] - 2, hand[1] - 6], [hand[0] + 22, hand[1] - 18 + wv], [hand[0] + 38, hand[1] - 6 + wv], [hand[0] + 20, hand[1] + 8 + wv * .5]], true, .6); knock(ctx, m); inkStroke(ctx, m, 1.6);
+    } else if (waveFes) { // elde fes
+      const f = PL([[hand[0] - 13, hand[1] - 8], [hand[0] + 13, hand[1] - 8], [hand[0] + 10, hand[1] - 30], [hand[0] - 10, hand[1] - 30]]); knock(ctx, f); plate(ctx, 'red', f); inkStroke(ctx, f, 1.8);
+    } else if (kind > .74) { // sopalı bayrak
+      inkStroke(ctx, PL([[hand[0], hand[1] + 6], [hand[0], hand[1] - 76]], false), 3);
+      a3_flag(ctx, hand[0], hand[1] - 74, 52, wv * .7);
+    }
     ctx.restore();
   }
 }
@@ -201,7 +238,7 @@ shot(a1_W('D02', 'sultan'), (ctx, st) => {
   // kalabalık sevinir (ön planda): "yeniden" sözünde yükselir, "ilan" sözünde flamalar açılır
   const cu = E.out3(clamp((t - Ty + .1) / .45));
   if (cu > 0) { ctx.save(); ctx.translate(0, (1 - cu) * 320); a3_crowd(ctx, t, 960, 18, 7, t > Ti); ctx.restore(); }
-  stamp(ctx, 'MEŞRUTİYET · 24 TEMMUZ 1908', 114, 112, t - Tm, 9, { size: 48 });
+  stamp(ctx, 'MEŞRUTİYET · 23 TEMMUZ 1908', 114, 112, t - Tm, 9, { size: 48 });
 }, { tr: { type: 'cut' } });
 
 // ═══════════ D03a · Hareket Ordusu treni İstanbul'a girer; Yıldız'da ışık söner ═══════════
