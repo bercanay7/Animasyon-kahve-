@@ -76,7 +76,7 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - İzleme: ortalama 3:07, izleyici tutma %44,3.
   - Trafik: Göz at %75, Önerilen %20,6.
   - Gösterim basamak basamak arttı (ikinci dalga); Orfeus'un ~92 görüntülemesine göre yaklaşık 17 kat.
-  - Zayıf halka TO (%1 küsur). Güçlü yanı tutma: kanca, 7 dakikalık süre ve bölüm yapısı korunmalı.
+  - Zayıf halka TO (%1 küsur). Güçlü yanı tutma: açılış kancası ve bölüm yapısı korunmalı.
 - **Sisifos, 5. gün:** kanalın en çok izlenen ve en çok etkileşim alan videosu oldu.
   - Erişim: 43,7 B gösterim, TO %2,2 (yükseliyor), 3.452 görüntüleme, 75,7 saat izlenme.
   - İzleme: tutma %44,8 (3:10).
@@ -89,7 +89,7 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - **Kanala etkisi:** Orfeus, "ARKANA BAKMA!" kapağıyla ve Sisifos'tan gelen önerilerle 7. günde ~92'den 244 görüntülemeye çıktı.
 - **Kanaldaki diğer videolar:**
   - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
-  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Bu kanalda en iyi sonucu 5–7 dakikalık mit ve felsefe videoları veriyor.
+  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Kitle (Sisifos, 5. gün) ve kanal yönü
@@ -100,7 +100,7 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Cihaz: telefon %48, bilgisayar %23, TV %22, tablet %6.
   - Cinsiyet: kadın %22,5.
 - **Kanal yönü (kullanıcının kararı):** yalnız mitoloji değil, geniş bir alan: tarih, felsefe ve kitap, film ve dizi. Kanalı bir arada tutan konu değil biçim olacak:
-  - 6–7 dakikalık animasyonlu anlatım;
+  - animasyonlu anlatım;
   - tek bir büyük soru;
   - Emrullah sesi;
   - "geçmişten bugüne soru taşıyan kurye" fikri.
@@ -109,9 +109,20 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Tarihin Dönüm Noktaları;
   - Kitapların Sorduğu Sorular;
   - Ekrandaki Felsefe.
-- **Sıradaki video:** Prometheus (kullanıcının kararı). Yeni alanlara köprü olarak kullanılabilir:
-  - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
-  - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
+- **Süre (kullanıcının kararı):** sabit bir süre sınırı yok. Hikâye ne kadar gerektiriyorsa o kadar anlatılır; izlenme için içerik kırpılmaz. Kanal kullanıcının hobi alanıdır. Uzun videoda tutmayı sağlayan süre değil temposudur:
+  - her bölüm kendi küçük merak sorusuyla açılır;
+  - YouTube bölüm zaman damgaları konur;
+  - açılış kuralı (ilk 5 saniyede kapağın vaadi) değişmez;
+  - kurul "bu sahne hikâyeye bir şey katıyor mu?" diye sorar, "kısa mı?" diye değil.
+- **Sıradaki video:** Prometheus (kullanıcının kararı).
+  - **Çıkış noktası:** Aiskhylos'un *Zincire Vurulmuş Prometheus*'u (İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler). Kullanıcıyı asıl etkileyen, kitabın kendisinden çok Azra Erhat'ın önsözü; onun Prometheus'a bakışı videonun omurgası olacak.
+  - **Önsözden yorum uydurma:** Erhat'a ait her görüş ve alıntı yalnız kullanıcının verdiği önsöz sayfalarından (fotoğraf ya da metin) alınır. Kaynak yoksa sorulur.
+  - **Telif:** önsöz ve çeviri telif kapsamında (Erhat 1982'de öldü). Fikirler kendi cümlelerimizle anlatılır; kısa alıntılar kaynak gösterilerek yapılır. Açıklamaya künye yazılır.
+  - **Konu yapısı:** Hesiodos'taki düzenbaz Prometheus, Aiskhylos'taki insanlığın velinimeti ve Zeus'un zorbalığına direnen Prometheus, ve Erhat'ın okuması.
+  - **Üslup önerisi:** Sisifos'un vazo resmi motoru (`sisifos/lib`) yeniden kullanılabilir. Bu "Mitler ve Felsefe" bölümüne görsel bir kimlik verir ve zaman kazandırır. Prometheus ve kartal antik vazolarda gerçekten tasvir edilmiştir. Son karar kullanıcının.
+  - **Köprü:** Prometheus yeni alanlara köprü olarak kullanılabilir:
+    - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
+    - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
 - **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.
 
 ## Teknik notlar ve tuzaklar
