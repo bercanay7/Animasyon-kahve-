@@ -119,7 +119,8 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - **Önsözden yorum uydurma:** Erhat'a ait her görüş ve alıntı yalnız kullanıcının verdiği önsöz sayfalarından (fotoğraf ya da metin) alınır. Kaynak yoksa sorulur.
   - **Telif:** önsöz ve çeviri telif kapsamında (Erhat 1982'de öldü). Fikirler kendi cümlelerimizle anlatılır; kısa alıntılar kaynak gösterilerek yapılır. Açıklamaya künye yazılır.
   - **Konu yapısı:** Hesiodos'taki düzenbaz Prometheus, Aiskhylos'taki insanlığın velinimeti ve Zeus'un zorbalığına direnen Prometheus, ve Erhat'ın okuması.
-  - **Üslup önerisi:** Sisifos'un vazo resmi motoru (`sisifos/lib`) yeniden kullanılabilir. Bu "Mitler ve Felsefe" bölümüne görsel bir kimlik verir ve zaman kazandırır. Prometheus ve kartal antik vazolarda gerçekten tasvir edilmiştir. Son karar kullanıcının.
+  - **Üslup (kullanıcının kararı):** Sisifos'taki Yunan vazo resmi üslubu. Motor `sisifos/lib` yeniden kullanılır: `figure.js`, `style.js`, `core.js`, `anim.js`, `render.js` ve ses hattı. Proje `prometheus/` klasöründe kurulur, Sisifos dosyalarına dokunulmaz. Bu üslup "Mitler ve Felsefe" serisinin görsel kimliğidir. Prometheus ve kartal antik vazolarda gerçekten tasvir edilmiştir.
+  - **Üslubun sınırı:** kodla çizimin güçlü olduğu alan siluet, profil figür, sahne kurgusu, ışık ve dönüşüm efektleridir; yüz, el ve karmaşık beden hareketleri zayıf yandır. Sahneleri buna göre kur: güçlü kompozisyon, az ama anlamlı hareket.
   - **Köprü:** Prometheus yeni alanlara köprü olarak kullanılabilir:
     - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
     - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
