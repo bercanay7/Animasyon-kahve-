@@ -85,6 +85,11 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
     - Yeni videolarda ilk 5 saniye kapağın vaadini hemen karşılamalı. Kapak "NEDEN GÜLÜYOR?" diye sorarken açılış başka bir sahneyle başlıyordu.
     - Merak sorusunu ilk cümlede sor, cevabı sona sakla.
   - **Son:** sondaki düşüş bitiş ekranından (6:51), normal. Sona doğru (~6:10) küçük bir artış var: doruk anı. Shorts için en iyi aday bu an.
+  - **Gövde:** YouTube'un "Önemli an" işareti yaklaşık 1:00–6:15 aralığını kapsıyor: izleyiciyi normalden uzun tutuyor. Bölümlü hikâye yapısı çalışıyor, korunmalı.
+  - **Kanala etkisi:** Orfeus, "ARKANA BAKMA!" kapağıyla ve Sisifos'tan gelen önerilerle 7. günde ~92'den 244 görüntülemeye çıktı.
+- **Kanaldaki diğer videolar:**
+  - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
+  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Bu kanalda en iyi sonucu 5–7 dakikalık mit ve felsefe videoları veriyor.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Teknik notlar ve tuzaklar
