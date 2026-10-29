@@ -1,24 +1,26 @@
 """
-29 Ekim · Cumhuriyet 103 yaşında — ses tasarımı, 28 sn, 48 kHz stereo → audio.wav
+29 Ekim · Cumhuriyet 103 yaşında — ses tasarımı, 35.2 sn, 48 kHz stereo → audio.wav
 
-Tamamen sentezlenir, telif sorunu yoktur (marş ya da hazır müzik kullanılmaz). Zamanlamalar animation.html ile senkrondur.
-75 BPM, vuruş = 0.8 sn.
-  0.0  Re minör: yaylı halı, saat tıkırtısı, sözün her kelimesinde bir piyano notası
-  4.8  Top atışı (4.8 / 5.6 / 6.4), Si♭ → Fa → Sol minör → La; alçak yaylılarda ostinato
-  9.6  Işık sızıntısı parıltısı; Gençliğe Hitabe: her parçanın başında ve vurgulu kelimelerde piyano notası
- 16.8  Kalp atışı gibi timpani, 17.6'dan timpani tremolosu ve ters zil ile yükseliş; imza sırasında kalem hışırtısı
- 19.2  Doruk: Re majör, bakır + yaylı + timpani + zil; bayrak dalgalanma sesi
- 22.4  Geri çekiliş; havai fişek ıslıkları, patlamalar, çıtırtılar; çan; 25.6'da son Re majör akoru
+Müzik ve efektler tamamen sentezlenir (marş ya da hazır müzik yok). Seslendirme ses/seslendirme.mp3'ten gelir
+(ElevenLabs, eleven_v4, "Hebun Tuna" sesi); VO listesi kaydın parçalarını videodaki yerlerine koyar, müzik konuşma
+sırasında kısılır. Zamanlamalar animation.html ile senkrondur.
+  0.0  Re minör: yaylı halı, saat tıkırtısı. "Efendiler… yarın Cumhuriyet'i ilan edeceğiz."
+  4.8  Flaşla kesme, timpani. "29 Ekim 1923. Saat 20.30… Cumhuriyet ilan edildi."; 10.6'dan top atışları, Re majör
+ 12.0  Işık sızıntısı parıltısı; Gençliğe Hitabe seslendirmesi, altında yaylılar ve seyrek piyano
+ 22.8  Kalp atışı gibi timpani, 24.8'den timpani tremolosu ve ters zil ile yükseliş; imza sırasında kalem hışırtısı
+ 26.4  Doruk: Re majör, bakır + yaylı + timpani + zil; bayrak dalgalanma sesi
+ 29.6  Geri çekiliş; havai fişekler; "Cumhuriyetimizin yüz üçüncü yılı kutlu olsun!"; son Re majör akoru
 Bayraktan sonraki olaylar ilk sürümün saatleriyle yazılıdır (doruk 13.6) ve SH kadar kaydırılır (animation.html ile aynı).
-Çalıştırma: python3 audio.py   (numpy + scipy gerekir)
+Çalıştırma: python3 audio.py   (numpy + scipy + ffmpeg gerekir)
 """
+import subprocess
 import wave
 import numpy as np
 from scipy.signal import fftconvolve, butter, sosfilt
 
 SR = 48000
-DUR = 28.0
-SH = 19.2 - 13.6  # bayrak doruğunun kayması
+DUR = 35.2
+SH = 26.4 - 13.6  # bayrak doruğunun kayması
 N = int(SR * DUR)
 BEAT = 0.8
 rng = np.random.default_rng(1923)
@@ -212,22 +214,53 @@ def crackle(d=1.4, density=90):
     return out * np.linspace(1, 0.3, len(out))
 
 
+# ---------------- seslendirme ----------------
+# (kayıttaki başlangıç, bitiş, videodaki başlangıç) — kelime zamanları animation.html'deki yazılarla aynı
+VO = [(0.0, 3.6, 0.5),       # Efendiler… yarın Cumhuriyet'i ilan edeceğiz.
+      (4.4, 10.3, 4.8),      # 29 Ekim 1923. Saat 20.30… Cumhuriyet ilan edildi.
+      (11.0, 24.1, 12.21),   # Gençliğe Hitabe
+      (24.4, None, 31.05)]   # Cumhuriyetimizin yüz üçüncü yılı kutlu olsun!
+raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', 'ses/seslendirme.mp3', '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'],
+                     capture_output=True, check=True).stdout
+rec = np.frombuffer(raw, dtype=np.float32).astype(np.float64)
+rec = highpass(rec, 70)
+vo = np.zeros((N, 2))
+for i, (a, b, at) in enumerate(VO):
+    seg = rec[int(a * SR): int(b * SR) if b else len(rec)].copy()
+    f = int(0.03 * SR); seg[:f] *= np.linspace(0, 1, f); seg[-f:] *= np.linspace(1, 0, f)
+    act = np.abs(seg) > np.abs(seg).max() * 0.05                     # parçaları eşit yüksekliğe getir
+    rms = np.sqrt((seg[act] ** 2).mean())
+    place(vo, seg / rms * (0.71 if i == 0 else 1.0), at, gain=0.1)  # ilk cümle fısıltıya yakın: 3 dB alçak
+vo_mono = vo[:, 0] / 1.414
+# hafif sıkıştırma: yavaş RMS izleyici, -6 dB üstünde 2:1
+env = np.sqrt(np.maximum(lowpass(vo_mono ** 2, 8), 1e-10))
+thr = np.abs(vo_mono).max() * 0.25
+comp = np.where(env > thr, (thr + (env - thr) / 2) / env, 1.0)
+vo *= comp[:, None]
+vo = vo / np.abs(vo).max() * 0.8
+# konuşma zarfı: müziği kısmak için (hızlı atak, yavaş bırakma)
+speech = (np.convolve(np.abs(vo_mono) > np.abs(vo_mono).max() * 0.04, np.ones(int(0.35 * SR)), 'same') > 0).astype(float)
+duck_env = lowpass(speech, 3, 1)
+duck_env = np.clip(duck_env / max(duck_env.max(), 1e-6), 0, 1)
+
+
 # ---------------- müzik ----------------
 music = np.zeros((N, 2))
 CHORDS = [  # başlangıç, bitiş, akor, bas
     (0.0, 4.8, [50, 53, 57, 62], 38),          # Re minör
     (4.8, 6.4, [53, 58, 62, 65], 34),          # Si♭
     (6.4, 8.0, [53, 57, 60, 65], 45),          # Fa / La
-    (8.0, 8.8, [55, 58, 62, 67], 43),          # Sol minör
-    (8.8, 9.6, [57, 61, 64, 69], 45),          # La
-    (9.6, 11.2, [53, 57, 62, 64], 38),         # Re minör 9 — Gençliğe Hitabe
-    (11.2, 12.8, [53, 58, 62, 65], 46),        # Si♭
-    (12.8, 13.6, [55, 60, 64, 67], 48),        # Do
-    (13.6, 15.2, [53, 57, 60, 65], 41),        # Fa
-    (15.2, 16.0, [55, 58, 62, 67], 43),        # Sol minör
-    (16.0, 16.8, [53, 58, 62, 65], 46),        # Si♭
-    (16.8, 18.4, [57, 62, 64, 69], 45),        # La sus4
-    (18.4, 19.2, [57, 61, 64, 67], 45),        # La 7
+    (8.0, 9.0, [55, 58, 62, 67], 43),          # Sol minör
+    (9.0, 10.6, [57, 61, 64, 69], 45),         # La — "Cumhuriyet ilan edildi."
+    (10.6, 12.0, [50, 54, 57, 62, 66], 38),    # Re majör — top atışları
+    (12.0, 14.8, [53, 57, 62, 64], 38),        # Re minör 9 — Gençliğe Hitabe
+    (14.8, 16.4, [53, 58, 62, 65], 46),        # Si♭
+    (16.4, 18.0, [55, 60, 64, 67], 48),        # Do
+    (18.0, 19.6, [53, 57, 60, 65], 41),        # Fa
+    (19.6, 21.1, [55, 58, 62, 67], 43),        # Sol minör
+    (21.1, 22.8, [53, 58, 62, 65], 46),        # Si♭
+    (22.8, 24.8, [57, 62, 64, 69], 45),        # La sus4
+    (24.8, 26.4, [57, 61, 64, 67], 45),        # La 7
 ] + [(a + SH, b + SH, c, d) for a, b, c, d in [
     (13.6, 15.2, [50, 54, 57, 62, 66], 38),    # Re majör (doruk)
     (15.2, 16.0, [55, 59, 62, 67], 43),        # Sol
@@ -242,45 +275,46 @@ for s, e, ch, bass in CHORDS:
     soft = s < 4.8
     place(music, strings(ch, d, att=0.9 if soft else 0.35, rel=0.6, bright=1800 if soft else 2800), s, gain=0.22 if soft else 0.26)
     place(music, highpass(strings([bass, bass + 12], d, att=0.5, rel=0.6, bright=900), 45), s, gain=0.09)
-    if s >= 13.6 + SH - 1e-6:
+    if s >= 13.6 + SH - 1e-6 or s == 10.6:
         o = s - SH
-        place(music, brass([n + 12 for n in ch[-3:]] if o < 16.8 else ch[-3:], d, att=0.12 if round(o, 1) in (13.6, 16.8, 20.0) else 0.3), s, gain=0.26)
+        place(music, brass([n + 12 for n in ch[-3:]] if (o < 16.8 and s != 10.6) else ch[-3:], d,
+                           att=0.12 if (round(o, 1) in (13.6, 16.8, 20.0) or s == 10.6) else 0.3), s, gain=0.26 if s != 10.6 else 0.18)
 
-# alçak yaylı ostinato (sekizlikler) 4.8 – 19.2
+# alçak yaylı ostinato (sekizlikler) 4.8 – 26.4
 k = 4.8
-while k < 19.2 - 1e-6:
+while k < 26.4 - 1e-6:
     bass = [c for c in CHORDS if c[0] <= k + 1e-6][-1][3]
     nt = tt(0.36)
     o = saw(note(bass + 12), nt, 3, 0.08, seed=int(k * 10))
     o = lowpass(o, 1100) * np.exp(-nt * 5) * np.minimum(1, nt / 0.015)
-    place(music, o, k, gain=0.12 if k < 9.6 or k >= 16.8 else 0.07, pan=-0.2)
+    place(music, o, k, gain=0.1 if 10.6 <= k < 12.0 or k >= 22.8 else 0.07, pan=-0.2)
     k = round(k + BEAT / 2, 3)
 
-# piyano teması: sözlerin kelimeleriyle aynı anda
-MEL = [(0.0, 62, 0.5), (0.55, 69, 0.8), (1.2, 74, 0.75), (1.6, 72, 0.7), (2.4, 69, 0.7), (2.8, 70, 0.75), (3.3, 69, 0.6), (4.0, 64, 0.5),
-       (6.4, 74, 0.8), (6.9, 72, 0.7), (7.3, 69, 0.75), (8.0, 70, 0.7), (8.8, 73, 0.75),
-       # Gençliğe Hitabe: parça başları ve vurgular (animation.html HITABE)
-       (9.75, 74, 0.8), (10.5, 77, 0.85), (11.35, 74, 0.75), (12.05, 72, 0.6), (12.75, 70, 0.7),
-       (13.6, 72, 0.8), (14.2, 76, 0.85), (14.5, 77, 0.7), (15.45, 74, 0.8), (16.15, 70, 0.65),
-       (16.5, 74, 0.85), (16.95, 76, 0.8), (17.4, 73, 0.7)] + [(a + SH, n, v) for a, n, v in [
+# piyano: cümle başlarında ve vurgulu kelimelerde, seslendirmenin altında yumuşak
+MEL = [(0.0, 62, 0.5), (0.5, 69, 0.6), (1.9, 74, 0.55), (3.2, 69, 0.5),
+       (5.0, 70, 0.55), (7.3, 72, 0.5), (9.05, 73, 0.6), (10.6, 74, 0.8), (11.15, 78, 0.6), (11.7, 81, 0.6),
+       (12.29, 74, 0.6), (13.7, 77, 0.65), (14.88, 74, 0.55), (16.33, 72, 0.45), (17.35, 70, 0.5),
+       (18.2, 72, 0.55), (19.16, 76, 0.65), (19.84, 77, 0.55), (21.15, 74, 0.6), (22.76, 70, 0.5),
+       (23.52, 74, 0.65), (24.34, 76, 0.6), (24.85, 73, 0.6)] + [(a + SH, n, v) for a, n, v in [
        (13.6, 74, 1.0), (14.4, 76, 0.8), (15.2, 74, 0.85), (16.0, 73, 0.8), (16.8, 74, 0.9), (18.4, 79, 0.6), (19.2, 76, 0.6), (20.0, 74, 0.8)]]
 for at, n, v in MEL:
-    place(music, piano(note(n), 3.2, v) + 0.3 * piano(note(n - 12), 3.2, v), at, gain=0.32, pan=0.15)
+    place(music, piano(note(n), 3.2, v) + 0.3 * piano(note(n - 12), 3.2, v), at, gain=0.28, pan=0.15)
 
 # ---------------- vurmalılar ----------------
 perc = np.zeros((N, 2))
 for i, at in enumerate(np.arange(0, 4.8, BEAT)):                                 # saat
-    place(perc, tick(3300 if i % 2 == 0 else 2500), at, gain=0.09, pan=0.25)
-for at in (16.8, 17.6, 18.4):                                                      # kalp atışı
-    place(perc, timpani(note(38), 1.6, 0.8), at, gain=0.26)
-    place(perc, timpani(note(38), 1.2, 0.5), at + 0.22, gain=0.22)
-roll = np.arange(17.6, 19.15, 0.055)                                              # timpani tremolosu
+    place(perc, tick(3300 if i % 2 == 0 else 2500), at, gain=0.08, pan=0.25)
+place(perc, timpani(note(34), 2.2, 0.9), 4.8, gain=0.42)                          # kesme
+for at in (22.8, 23.6, 24.4):                                                      # kalp atışı
+    place(perc, timpani(note(38), 1.6, 0.8), at, gain=0.24)
+    place(perc, timpani(note(38), 1.2, 0.5), at + 0.22, gain=0.2)
+roll = np.arange(24.8, 26.35, 0.055)                                              # timpani tremolosu
 for j, at in enumerate(roll):
     place(perc, timpani(note(45), 0.5, 0.25 + 0.75 * (j / len(roll)) ** 2), at, gain=0.22)
-place(perc, reverse_swell(1.4), 19.2 - 1.4, gain=0.35)
-place(perc, timpani(note(38), 2.6, 1.0), 19.2, gain=0.48)                         # doruk
-place(perc, timpani(note(38), 2.0, 0.9), 19.2 + 0.4, gain=0.4)
-place(perc, crash(4.0), 19.2, gain=0.24, pan=0.2)
+place(perc, reverse_swell(1.4), 26.4 - 1.4, gain=0.35)
+place(perc, timpani(note(38), 2.6, 1.0), 26.4, gain=0.48)                         # doruk
+place(perc, timpani(note(38), 2.0, 0.9), 26.4 + 0.4, gain=0.4)
+place(perc, crash(4.0), 26.4, gain=0.24, pan=0.2)
 place(perc, timpani(note(45), 1.8, 0.7), 16.0 + SH, gain=0.35)
 place(perc, timpani(note(38), 2.6, 0.9), 16.8 + SH, gain=0.5)
 place(perc, crash(3.0), 16.8 + SH, gain=0.18, pan=-0.2)
@@ -289,20 +323,20 @@ place(perc, crash(3.5), 20.0 + SH, gain=0.2)
 
 # ---------------- efektler ----------------
 sfx = np.zeros((N, 2))
-place(sfx, reverse_swell(0.9), 4.8 - 0.9, gain=0.3)
-place(sfx, cannon(3.2), 4.8, gain=0.95)                                            # top atışları
-place(sfx, cannon(3.0, far=0.4), 5.6, gain=0.6, pan=-0.35)
-place(sfx, cannon(3.0, far=0.8), 6.4, gain=0.42, pan=0.35)
+place(sfx, reverse_swell(0.9), 4.8 - 0.9, gain=0.25)
+place(sfx, cannon(3.2), 10.6, gain=0.85)                                           # top atışları
+place(sfx, cannon(3.0, far=0.4), 11.15, gain=0.55, pan=-0.35)
+place(sfx, cannon(3.0, far=0.8), 11.7, gain=0.4, pan=0.35)
 for i, n in enumerate([86, 93, 98, 102]):                                         # ışık sızıntısı parıltısı
-    place(sfx, bell(note(n), 2.0), 9.3 + i * 0.07, gain=0.035, pan=-0.4 + i * 0.27)
-place(sfx, pen(1.1), 17.4, gain=0.05, pan=0.1)                                    # imza
+    place(sfx, bell(note(n), 2.0), 11.7 + i * 0.07, gain=0.03, pan=-0.4 + i * 0.27)
+place(sfx, pen(1.1), 24.85, gain=0.05, pan=0.1)                                   # imza
 place(sfx, whoosh(0.5, 120, 3000, 0.9), 13.1 + SH, gain=0.5)                       # bayrak inişi
 place(sfx, flutter(4.0, 6.5), 13.4 + SH, gain=0.07)                                # dalgalanma
 place(sfx, whoosh(1.4, 200, 2500, 0.5), 16.8 + SH, gain=0.18)                      # geri çekiliş
 for i, n in enumerate([93, 98, 100, 105]):                                        # "29 EKİM" harfleri
     place(sfx, bell(note(n), 1.6), 17.75 + SH + i * 0.12, gain=0.03, pan=-0.3 + i * 0.2)
-place(sfx, bell(note(86), 3.5), 19.75 + SH, gain=0.09, pan=-0.1)                  # logo çanı
-place(sfx, bell(note(93), 3.2), 19.95 + SH, gain=0.06, pan=0.15)
+place(sfx, bell(note(86), 3.5), 20.6 + SH, gain=0.09, pan=-0.1)                   # logo çanı
+place(sfx, bell(note(93), 3.2), 20.8 + SH, gain=0.06, pan=0.15)
 for tb, x, kind, size in BURSTS:                                                  # havai fişekler
     pan = (x - 540) / 540 * 0.75
     place(sfx, whistle(0.45), tb - 0.45, gain=0.035 * size, pan=pan)
@@ -311,8 +345,17 @@ for tb, x, kind, size in BURSTS:                                                
         place(sfx, crackle(1.5 if kind == 'gold' else 1.1, 120 if kind == 'white' else 70), tb + 0.25, gain=0.07 * size, pan=pan)
 
 # ---------------- miks ----------------
-dry = music + perc + sfx
-mix = dry * 0.82 + reverb(music + perc * 0.6, 3.0, 2.0) * 0.38 + reverb(sfx, 2.2, 2.6, seed=9) * 0.25
+bed = music + perc
+bed = bed * 0.82 + reverb(music + perc * 0.6, 3.0, 2.0) * 0.38
+fx = sfx * 0.82 + reverb(sfx, 2.2, 2.6, seed=9) * 0.25
+bed *= (1 - 0.6 * duck_env)[:, None]                 # konuşurken müzik ~ -8 dB
+fx *= (1 - 0.45 * duck_env)[:, None]
+# seslendirme seviyesi: konuşulan yerlerde yatağın RMS'inin ~9 dB üstü
+on = duck_env > 0.5
+bed_rms = np.sqrt(((bed + fx)[on] ** 2).mean())
+vo_rms = np.sqrt((vo[on] ** 2).mean())
+vo *= bed_rms * 10 ** (9 / 20) / vo_rms
+mix = bed + fx + vo + reverb(vo, 1.2, 4.0, seed=3, lp=4000) * 0.12
 mt = np.arange(N) / SR
 mix *= (np.minimum(1, mt / 0.02) * np.clip((DUR - mt) / 0.8, 0, 1))[:, None]
 mix = highpass(mix.T, 35).T

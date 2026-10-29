@@ -32,4 +32,4 @@ Kalın, düz, geometrik çizimler (kuşbakışı Türk kahvesi fincanı, kahve �
 
 # 29 Ekim · Cumhuriyet 103 yaşında
 
-`29-ekim/` klasöründe: 28 saniyelik Reels/Story videosu (`cumhuriyet-103.mp4`) ve kapak görseli (`kapak.png`). Renklendirilmiş gerçek arşiv fotoğrafları, kelime kelime Gençliğe Hitabe, Atatürk'ün imzası, Bayrak Kanunu oranlarıyla dalgalanan bayrak, havai fişekler ve sentezlenmiş müzik. Ayrıntılar: [`29-ekim/README.md`](29-ekim/README.md).
+`29-ekim/` klasöründe: 35 saniyelik, seslendirmeli Reels/Story videosu (`cumhuriyet-103.mp4`) ve kapak görseli (`kapak.png`). Renklendirilmiş gerçek arşiv fotoğrafları, kelime kelime Gençliğe Hitabe, Atatürk'ün imzası, Bayrak Kanunu oranlarıyla dalgalanan bayrak, havai fişekler ve sentezlenmiş müzik. Ayrıntılar: [`29-ekim/README.md`](29-ekim/README.md).
