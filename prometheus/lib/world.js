@@ -181,9 +181,10 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   ctx.beginPath(); ctx.moveTo(18, -7); ctx.quadraticCurveTo(30, -8, 31, 2); ctx.quadraticCurveTo(27, -2, 20, -.5); ctx.closePath(); ctx.fill(); ctx.stroke();
   ctx.save(); ctx.translate(19, 0); ctx.rotate(bk * .45); ctx.beginPath(); ctx.moveTo(0, -.5); ctx.quadraticCurveTo(7, 0, 9, 2.4); ctx.quadraticCurveTo(4, 3, 0, 2.4); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
   // göz (beyaz ayrılmış halka + siyah bebek), kaş çıkıntısı
-  ctx.fillStyle = o.eye || '#F3E3C0'; ctx.beginPath(); ctx.arc(12, -4.5, 2.6, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
-  ctx.fillStyle = line; ctx.beginPath(); ctx.arc(12.6, -4.5, 1.25, 0, TAU); ctx.fill();
-  ctx.lineWidth = 1.8; ctx.beginPath(); ctx.moveTo(8, -8.2); ctx.quadraticCurveTo(13, -9.6, 17.5, -6.4); ctx.stroke();
+  ctx.fillStyle = o.eye || '#F3E3C0'; ctx.beginPath(); ctx.ellipse(12.4, -4.2, 2.3, 1.7, -.15, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = line; ctx.beginPath(); ctx.arc(13.1, -4.1, 1.15, 0, TAU); ctx.fill();
+  // sert kaş çıkıntısı: gözün üstüne inen kalın çizgi (öfkeli bakış)
+  ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(8.2, -7.4); ctx.quadraticCurveTo(12.6, -7.8, 17.2, -5.2); ctx.stroke();
   ctx.lineWidth = 1.1; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-2 + i * 3, 6); ctx.lineTo(1 + i * 3, -2); ctx.stroke(); }
   ctx.restore();
   leg([2, 8], false);

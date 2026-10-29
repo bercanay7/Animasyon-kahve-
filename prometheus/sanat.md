@@ -27,6 +27,19 @@ Kırmızı figür tekniği İÖ ~530'da icat edildi ve Aiskhylos'un yüzyılınd
 - **Uranos/Gaia/Kronos/Rheia:** siyah figür; Uranos yıldızlı bir kubbe-figür, Gaia yatan toprak figürü.
 
 ## Kamera ve hareket
-- Üslubun güçlü yanı: siluet, profil, sahne kurgusu, ışık ve dönüşüm. Az ama anlamlı hareket; yüz ve el yakın planlarından kaçın.
+- Üslubun güçlü yanı: siluet, profil, sahne kurgusu, ışık ve dönüşüm. Hareket hiç durmaz (aşağıdaki ilke), ama yükü kamera, ışık, parçacık ve dönüşümler taşır; karmaşık beden hareketinden, yüz ve el yakın planlarından kaçın.
 - Geçişler: katman değişirken (Hesiodos → Aiskhylos → Erhat) "ink"/"clay" çözülme; bölüm içinde kesme ve yavaş kamera.
 - Bölüm kartı: vazo etiketi (kil levha) her bölümün merak sorusuyla birlikte.
+
+## Yönetmenlik ilkesi (kullanıcının kararı): animasyon hiç durmasın
+- **Durağan plan yok.** Her planda en az iki hareket katmanı olur:
+  - kamera: yavaş kayma, yaklaşma ya da derinlik (paralaks);
+  - canlı ayrıntı: ateş titremesi, toz ve kıvılcım, yıldız parıltısı, figürde nefes, göz kırpma, kanat ya da zincir sallanması.
+- **Plan süresi kısa:** ortalama 3–6 sn. 8 sn'yi geçen planda planın içinde bir olay ya da kamera değişimi olur. Kesmeler ve vurgular anlatımdaki kelimelere bağlanır (`Wd()`).
+- **Soyut cümlede bile görüntü iş yapar:**
+  - Erhat'ın fikirleri beyaz zeminde yaşayan bir sayfa olarak verilir: satırlar yazılır, alıntı belirir, simge dönüşür (zincir → kırılan halka, ateş → harfler, taht → devrilen sandalye).
+  - Konuşan kafa ya da duran yazı kartı kullanılmaz.
+- **Geçişler anlam taşır:**
+  - katman değişimi (Hesiodos → Aiskhylos → Erhat) vazo tekniğinin değişmesiyle gösterilir;
+  - bölüm içinde kesme ve eşleşen biçimler kullanılır (ateş → yıldız, zincir → meander).
+- **Kurul ölçütü:** her plan için "bu karede ne hareket ediyor ve neden?" sorusuna cevap verilebilmeli.
