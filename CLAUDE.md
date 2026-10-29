@@ -92,6 +92,28 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Bu kanalda en iyi sonucu 5–7 dakikalık mit ve felsefe videoları veriyor.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
+## Kitle (Sisifos, 5. gün) ve kanal yönü
+- **Kitle verileri:**
+  - Ülke: Türkiye %73,6.
+  - Altyazı: izleyicilerin %38,4'ü Türkçe altyazıyla izliyor. Her videoya doğru SRT şart. İngilizce altyazı %1,2, bu yüzden İngilizce dublaj düşük öncelikli.
+  - Bağlılık: izlenme süresinin %98,8'i abone olmayanlardan, izleyicilerin %95,5'i yeni. Abone çağrısı doruk anına (~son dakika) ve bitiş ekranına konmalı.
+  - Cihaz: telefon %48, bilgisayar %23, TV %22, tablet %6.
+  - Cinsiyet: kadın %22,5.
+- **Kanal yönü (kullanıcının kararı):** yalnız mitoloji değil, geniş bir alan: tarih, felsefe ve kitap, film ve dizi. Kanalı bir arada tutan konu değil biçim olacak:
+  - 6–7 dakikalık animasyonlu anlatım;
+  - tek bir büyük soru;
+  - Emrullah sesi;
+  - "geçmişten bugüne soru taşıyan kurye" fikri.
+- **Bölümler** (her biri ayrı oynatma listesi):
+  - Mitler ve Felsefe;
+  - Tarihin Dönüm Noktaları;
+  - Kitapların Sorduğu Sorular;
+  - Ekrandaki Felsefe.
+- **Sıradaki video:** Prometheus (kullanıcının kararı). Yeni alanlara köprü olarak kullanılabilir:
+  - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
+  - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
+- **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.
+
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
 - **Süreçler:** `pkill -f` kullanma; işlemleri PID ile durdur. Uzun render ve miks işlerini arka planda uzun `timeout` ile çalıştır.
