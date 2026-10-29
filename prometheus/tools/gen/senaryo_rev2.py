@@ -23,12 +23,13 @@ seg('B01', B, "[curious] Sahnede yalnızca tanrıların konuştuğu bir oyun, in
 seg('B02', B, "Atinalı tragedya yazarı Ayshilos, Prometeus'u üç oyunda anlattı. Bize yalnızca biri ulaştı: Zincire Vurulmuş Prometeus.", "Erhat v2")
 seg('B03', B, "Öbür ikisi kayıp; adları eski bir oyun listesinde duruyor. Kurtulmuş Prometeus… ve Ateş Taşıyan Prometeus.", "Erhat v2",
     "Öbür ikisi kayıp; adları eski bir oyun listesinde duruyor: Kurtulmuş Prometheus… ve Ateş Taşıyan Prometheus.")
-seg('B04', B, "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. [warmly] Ama oyunun Türkçe çevirisine önsöz yazan klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.", "Erhat v4, xi2")
+seg('B04', B, "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. [warmly] Ama oyunu Sabahattin Eyüboğlu'yla birlikte Türkçeye çeviren klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.", "Erhat v4, xi2, xv4")
 seg('B05', B, "Ona göre oynanan dram, insanlığın dramıdır. Prometeus da, Ayshilos'tan bu yana, insanı en iyi temsil eden kahramandır. Onun deyişiyle: insan dostu, tanrı düşmanı.", "Erhat v4, v5, xi2",
     "Ona göre oynanan dram, insanlığın dramıdır. Prometheus da, Aiskhylos'tan bu yana insanı en iyi temsil eden kahramandır. Onun deyişiyle: “insan dostu, tanrı düşmanı.”")
 seg('B06', B, "[intrigued] Ve Erhat iki soru sorar. Prometeus, ne bakımdan insandır? Ve nasıl oldu da, İsa'dan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi?", "Erhat xi2, vi7",
     "Ve Erhat iki soru sorar: Prometheus ne bakımdan insandır? Ve nasıl oldu da İsa'dan önce V. yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi?")
-seg('B07', B, "Cevabı ararken Erhat, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.", "Erhat vi6, vi9")
+seg('B07', B, "Erhat bu soruları, bin dokuz yüz altmış yedide yazdığı önsözde sorar. Ve cevabı ararken, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.", "Erhat vi6, vi9, xvi2",
+    "Erhat bu soruları 1967'de yazdığı önsözde sorar. Ve cevabı ararken önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.")
 
 B = 'Gökteki darbeler'
 seg('C01', B, "[curious] Tanrıların kralı Zeus, o tahta nasıl oturmuştu?", "")
@@ -90,13 +91,15 @@ seg('F02', B, "Erhat'a göre Hesiodos ile Ayshilos, buraya kadar aşağı yukar�
 seg('F03', B, "Ve Erhat, oyunu okumak için ilginç bir yol önerir. Bugün bir yazar bu olayı sahneye koysa, bir duruşma kurardı: sanığı, tanıkları ve yargıçlarıyla. Ona göre bu oyunu, Kafka'nın Dava romanını okur gibi okumalıyız.", "Erhat xi4 (Erhat'ın andığı ad: Duruşma)")
 seg('F05', B, "[slowly] Öyleyse duruşma başlasın. Sanık: Prometeus. Suçu: ateşi çalıp insanlara vermek, ve tanrıların kurduğu düzene karşı gelmek.", "Erhat xi3",
     "Öyleyse duruşma başlasın. Sanık: Prometheus. Suçu: ateşi çalıp insanlara vermek ve tanrıların kurduğu düzene karşı gelmek.")
-seg('F06', B, "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. [wryly] Zor, oyun boyunca tek kelime etmez.", "ZVP 1–87 (Bia konuşmayan rol)")
+seg('F06', B, "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. Erhat onlara, günümüzün diliyle, polis der.", "ZVP 1–87; Erhat xv3 (kısa alıntı)",
+    "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. Erhat onlara “günümüzün diliyle” polis der.")
 seg('F07', B, "Zincirleri vurmak, demirci tanrı Hefaistos'a düşer. Bu işi istemeyerek yapar; zincirlediği kendi akrabasıdır. Ama yine de vurur. [thoughtfully] Çünkü, onun deyişiyle: Yeni iktidara gelen her hükümdar serttir.", "ZVP 14–19, 35, 39 (kendi çevirimiz)",
     "Zincirleri vurmak, demirci tanrı Hephaistos'a düşer. Bu işi istemeyerek yapar; zincirlediği kendi akrabasıdır. Ama yine de vurur. Çünkü, onun deyişiyle: “Yeni iktidara gelen her hükümdar serttir.”")
 seg('F08', B, "Güç ise, suçun adını koyar: insanseverlik. Bugünkü “filantropi” kelimesinin bilinen en eski kullanımlarından biri, bu oyundadır.", "ZVP 11, 28 (philanthrōpos tropos)")
 seg('F09', B, "[coldly] Ve ekler: Tanrılar arasında, Zeus'tan başka hiç kimse özgür değildir.", "ZVP 49–50 (kendi çevirimiz); Erhat xiii5",
     "Ve ekler: “Tanrılar arasında Zeus'tan başka hiç kimse özgür değildir.”")
 seg('F10', B, "[knowingly] Bu cümleyi aklında tut. Erhat'a göre dramın özü tam da budur: özgürlük ve kölelik.", "Erhat xiii1")
+seg('F10b', B, "[slowly] Ve Erhat'ın dikkat çektiği bir ayrıntı: Bütün bu sahne boyunca Prometeus tek söz etmez. Kayaya çakılmaya, zincire, hakaretlere, sessizce katlanır.", "Erhat xv3; ZVP 1–87")
 seg('F11', B, "[mocking] Giderken Güç alay eder: Sana boşuna “önceden gören” demişler. Asıl şimdi, bu zincirden kurtulmanın yolunu önceden görecek birine ihtiyacın var.", "ZVP 85–87 (kendi çevirimiz)",
     "Giderken Güç alay eder: “Sana boşuna ‘önceden gören’ demişler. Asıl şimdi, bu zincirden kurtulmanın yolunu önceden görecek birine ihtiyacın var.”")
 seg('F13', B, "[softly] Sonra hepsi gider. Yapayalnız kalan Prometeus göğe seslenir: [reverently] Ey kutsal gök, ey hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak. [pained] Bakın, bir tanrı, tanrılardan neler çekiyor.", "ZVP 88–92 (kendi çevirimiz)",
@@ -111,6 +114,8 @@ seg('G06', B, "[bitterly] Şimdi ise tahta çıkardığı tanrının zincirindey
     "Şimdi ise tahta çıkardığı tanrının zincirindeydi. Prometheus bunu tek cümleyle açıklar: “Tiranlığın bir hastalığı vardır: dostlarına güvenmez.”")
 seg('G07', B, "Zeus tahta oturur oturmaz tanrılara görevlerini dağıttı. Ama zavallı insanları hiç hesaba katmadı; onları yok edip yerine yeni bir soy yaratmak istiyordu. Buna karşı çıkan tek kişi, Prometeus oldu.", "ZVP 228–236")
 seg('G08', B, "İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. [warmly] Sonra da ateşi verdi.", "ZVP 248–254")
+seg('G09', B, "[intrigued] Erhat burada sorar: Ateşi tanrılardan çalıp insanlara vermek, ne demektir? Ona göre başkaları bunu bir efsane olarak bırakmıştı. Ayshilos ise ondan, uygarlığın tarihini çıkarır.", "Erhat xv2 (kısa alıntı)",
+    "Erhat burada sorar: “Ateşi tanrılardan çalıp insanlara vermek ne demektir?” Ona göre başkaları bunu bir efsane olarak bırakmıştı. Aiskhylos ise ondan uygarlığın tarihini çıkarır.")
 seg('G10', B, "Ateşten önce insanlar, gözleri olup görmeyen, kulakları olup duymayan varlıklardı; mağaralarda karıncalar gibi yaşıyorlardı. Prometeus onlara yıldızları, sayıları, harfleri öğretti. Hayvanları evcilleştirmeyi, gemiyi, ilacı, madenleri… [proudly] Tek sözle: İnsanlardaki bütün sanatlar, Prometeus'tan gelir.", "ZVP 447–506 (kendi çevirimiz)",
     "Ateşten önce insanlar, gözleri olup görmeyen, kulakları olup duymayan varlıklardı; mağaralarda karıncalar gibi yaşıyorlardı. Prometheus onlara yıldızları, sayıları, harfleri öğretti. Hayvanları evcilleştirmeyi, gemiyi, ilacı, madenleri… “Tek sözle: İnsanlardaki bütün sanatlar Prometheus'tan gelir.”")
 seg('G11', B, "[firmly] Ve sanık suçunu inkâr etmez. Erhat'ın dediği gibi, bugünkü bir sanığın söyleyeceğini söyler: Ne yaptımsa, bile bile yaptım.", "Erhat xi5 (kısa alıntı)",
@@ -138,7 +143,7 @@ seg('I01', B, "[curious] Zincirdeki bir sanık, yargıcını nasıl korkutabilir
 seg('I02', B, "Prometeus bir sır biliyordu. Zeus bir gün bir evlilik yapacaktı. Ve o evlilikten, babasından daha güçlü bir oğul doğacaktı.", "ZVP 764–768, 907–912")
 seg('I03', B, "[slowly] Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Erhat'ın sözünü ettiği üçüncü devrim, işte buydu: Zeus'u sürekli kuşku içinde tutan bir bilgi.", "Erhat x3, x4; ZVP 910–914")
 seg('I04', B, "Kiminle evlenmemesi gerektiğini, yalnızca Prometeus biliyordu. Ayshilos o adı vermez; başka anlatılar, onun deniz perisi Tetis olduğunu söyler.", "ZVP 913–925; Pindaros, İsthmia 8.26–47")
-seg('I05', B, "Sonunda Zeus, habercisi Hermes'i sorguya gönderir. Emir kısadır: Sırrı söyle.", "ZVP 944–952")
+seg('I05', B, "Sonunda Zeus, habercisi Hermes'i gönderir. Erhat ona, sanığı gözdağıyla sorguya çeken bir polis müdürü der. Emir kısadır: Sırrı söyle.", "ZVP 944–952; Erhat xv3")
 seg('I06', B, "[defiantly] Prometeus güler: Siz yeni tanrılar, kulelerinizde acı görmeyeceğinizi sanıyorsunuz. Ben oradan iki hükümdarın atıldığını gördüm. Üçüncüsünün düşüşünü de göreceğim.", "ZVP 953–959 (kendi çevirimiz)",
     "Prometheus güler: “Siz yeni tanrılar, kulelerinizde acı görmeyeceğinizi sanıyorsunuz. Ben oradan iki hükümdarın atıldığını gördüm. Üçüncüsünün düşüşünü de göreceğim.”")
 seg('I07', B, "Hermes'in tehditlerine cevabı tek cümledir: Senin uşaklığınla, benim felaketimi değişmem.", "ZVP 966–967 (kendi çevirimiz)",
@@ -150,6 +155,8 @@ seg('I09', B, "Hermes, perilere oradan gitmelerini söyler. Ama periler kalır. 
 seg('I10', B, "[intense] Ve Zeus'un öfkesi iner. Yer sarsılır, gök gürler, şimşekler çakar. Rüzgârlar birbirine girer; gök, denize karışır.", "ZVP 1080–1090")
 seg('I11', B, "[pained] [slowly] Prometeus'un son sözleri, göğe ve anasınadır: Görüyor musun, ne haksızlıklara uğruyorum.", "ZVP 1091–1093 (kendi çevirimiz)",
     "Prometheus'un son sözleri göğe ve anasınadır: “Görüyor musun, ne haksızlıklara uğruyorum.”")
+seg('I12', B, "[firmly] Başta tek söz etmeyen Prometeus, dünya başına yıkılana dek konuşmayı sürdürmüştür. Son söz onundur. [slowly] Erhat'a göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.", "Erhat xv3 (kısa alıntı)",
+    "Başta tek söz etmeyen Prometheus, dünya başına yıkılana dek konuşmayı sürdürmüştür. Son söz onundur. Erhat'a göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”")
 
 B = 'Asıl tutsak'
 seg('J01', B, "[curious] Peki bu duruşmada, gerçekten tutsak olan kimdi?", "Erhat xiii4")
@@ -161,8 +168,10 @@ seg('J04', B, "[slowly] [reverently] Ve cevap verir: Gerçekte Zeus köle, Prome
 seg('J05', B, "Çünkü Zeus'u yıkımdan kurtarabilecek tek kişi, aklın taşıyıcısı Prometeus'tur. Bütün uşaklarına, dalkavuklarına rağmen Zeus, bir çocuk gibi zayıf ve çaresizdir.", "Erhat xiv5")
 seg('J06', B, "[knowingly] Erhat'ın deyişiyle: Zeus, tutukladığı düşmanının elinde tutukludur aslında.", "Erhat xiv5 (kısa alıntı)",
     "Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.”")
-seg('J07', B, "Erhat'a göre Ayshilos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz. Gelecek, kaba kuvvetin değil, özgür düşüncenindir.", "Erhat xiv3")
+seg('J07', B, "Erhat'a göre Ayshilos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz.", "Erhat xiv3")
 seg('J08', B, "Ve akılla kurulan bir yönetim, akla ve özgür düşünceye sırt çevirdiğinde, zayıflar ve devrilme tehlikesiyle yüz yüze gelir.", "Erhat xiv4")
+seg('J08b', B, "Efsane Prometeus'a kâhin der. Erhat'a göre bizim çağımız kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Ve bu hizmetinin karşılığında, kör iktidarların baskısına uğradığını da bilir.", "Erhat xiv6, xv1 (kısa alıntı)",
+    "Efsane Prometheus'a kâhin der. Erhat'a göre bizim çağımız kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Ve bu hizmetinin karşılığında “kör iktidarların baskısına” uğradığını da bilir.")
 seg('J09', B, "[thoughtfully] Erhat'a göre bunu söylemek, beşinci yüzyıl Atinası'nda kolay değildi. Kölelik de zorbalık da yasalara uygun kurumlardı. Prometeus da, herhangi bir köle gibi zincire vurulmuştu.", "Erhat xiii2",
     "Erhat'a göre bunu söylemek V. yüzyıl Atinası'nda kolay değildi. Kölelik de zorbalık da yasalara uygun kurumlardı. Prometheus da herhangi bir köle gibi zincire vurulmuştu.")
 seg('J10', B, "Köleliği doğal sayan bir dünyada, hakkın köleden yana olduğunu söylemek… Erhat'a göre bu, Ayshilos'un tek başına başardığı koca bir işti.", "Erhat xiii2")
@@ -183,19 +192,20 @@ seg('K08', B, "[firmly] Ve Erhat'ın sorusunun cevabı da buradadır. Ayshilos t
 B = 'Ateşin yolculuğu'
 seg('L01', B, "[curious] Peki Prometeus, sonunda kurtuldu mu?", "")
 seg('L02', B, "Ayshilos'un cevabını bilmiyoruz; Kurtulmuş Prometeus kayıp. Hesiodos'a göreyse bir gün Herakles gelir, kartalı okuyla vurur ve Prometeus'u acısından kurtarır. [wryly] Tabii, Zeus'un izniyle.", "Erhat v2; Th. 526–534")
-seg('L03', B, "Ama insanlık Prometeus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.", "anlatıcının yorumu")
 seg('L04', B, "Erhat onun izini Hesiodos'tan Göte'ye kadar sürer. Göte'nin şiirinde Prometeus, Zeus'a meydan okur ve insanları kendi suretinde yoğurur. Erhat'a göre bu şiirin anlamı açıktır: Asıl yaratıcı, insanın kendisidir.", "Erhat vi6, xi1; Goethe, 'Prometheus' (1774)")
 seg('L05', B, "Meri Şeli, Frankenştayn romanına, “Modern Prometeus” alt başlığını koydu. Atom bombasının mimarı Openhaymır'ın biyografisinin adı ise, “Amerikan Prometeus”tur.", "Shelley 1818; Bird & Sherwin 2005",
     "Mary Shelley, Frankenstein romanına “Modern Prometheus” alt başlığını koydu. Atom bombasının mimarı Oppenheimer'ın biyografisinin adı ise “American Prometheus”tur.")
 seg('L06', B, "[softly] İnsan ne zaman kendisine yasaklanmış bir ateşe el uzatsa, o eski Titan'ın adı yeniden anılır.", "anlatıcının yorumu")
 
 B = 'Kapanış'
-seg('M01', B, "[warmly] Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor.", "Erhat v5, vi4")
+seg('M00', B, "[warmly] Erhat ile Eyüboğlu, çeviriye başlamadan önce bu oyunun çevrilemeyeceğini, hatta sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar. Dilekleri, Prometeus'u bir gün bir Türk tiyatrosunda oynanırken görmekti.", "Erhat xv4, xvi1")
+seg('M01', B, "[warmly] Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. Ve onun dileğiyle: Bu bildiri, bugün de kulaklarımızda çınlasın.", "Erhat v5, vi4, xv3 (kısa alıntı)",
+    "Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. Ve onun dileğiyle: “Bildirisi bugün de kulaklarımızda çınlasın!”")
 seg('M02', B, "[curious] Peki sen ne düşünüyorsun? O kayada asıl tutsak kimdi: Prometeus mu, Zeus mu? Yorumlarda yaz.", "")
 seg('M03', B, "[warmly] Geçmişten bugüne soru taşıyan bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma. Bir sonraki hikâyede görüşmek üzere.", "",
     "Geçmişten bugüne soru taşıyan bu hikâyeler hoşuna gidiyorsa kanala abone olmayı unutma. Bir sonraki hikâyede görüşmek üzere.")
 out = {'voice': 'Emrullah (DpEiQMnL9WxMsymCsjPY), eleven_v4', 'revizyon': 2,
-       'not': "tts: seslendirme metni (ses etiketleri, Yunanca adlar okunuşa göre). alt: altyazı ve ekran metni (Erhat'ın yazımı). kaynak: iddianın dayanağı. Erhat = kaynak/onsoz_notlar.md maddeleri (s. v–xiv); Th. = Hesiodos, Theogonia; İG = Hesiodos, İşler ve Günler; ZVP = Aiskhylos, Zincire Vurulmuş Prometheus (dize numaraları Yunanca metne göre).",
+       'not': "tts: seslendirme metni (ses etiketleri, Yunanca adlar okunuşa göre). alt: altyazı ve ekran metni (Erhat'ın yazımı). kaynak: iddianın dayanağı. Erhat = kaynak/onsoz_notlar.md maddeleri (s. v–xvi); Th. = Hesiodos, Theogonia; İG = Hesiodos, İşler ve Günler; ZVP = Aiskhylos, Zincire Vurulmuş Prometheus (dize numaraları Yunanca metne göre).",
        'segments': S}
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 import collections

@@ -1,7 +1,7 @@
 # Azra Erhat'ın önsözü: sayfa sayfa notlar (yalnız kullanıcının verdiği sayfalar)
 
-Kaynak: Aiskhylos, *Zincire Vurulmuş Prometheus*, Türkiye İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler Dizisi. Önsöz: Azra Erhat.
-Kullanıcının fotoğrafladığı sayfalar: **v–xiv** (iki parti hâlinde). Önsöz xiv. sayfanın sonunda ("çağımızsa biliciye inanmaz, ama") yarım kalıyor. xv. sayfanın yalnız sol yarısı bir fotoğrafın kenarında kısmen görünüyor; bu parçalar kullanılmaz (bkz. en alt).
+Kaynak: Aiskhylos, *Zincire Vurulmuş Prometheus*, çev. Sabahattin Eyüboğlu ve Azra Erhat, Türkiye İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler Dizisi. Önsöz: Azra Erhat, Ağustos 1967 (s. xvi).
+Kullanıcının fotoğrafladığı sayfalar: **v–xvi**, yani önsözün tamamı (üç parti hâlinde).
 
 **Kural:** Videoda Erhat'a mal edilen her görüş aşağıdaki maddelerden birine dayanmalı. Buradaki metin özettir (kendi cümlelerimiz); tırnak içindekiler kısa alıntılardır ve ekranda sayfa numarasıyla verilir. Önsözün tam metni telif kapsamındadır, depoya konmaz.
 Bu sayfalarda olmayan bir Erhat görüşü gerekirse kullanıcıdan sayfası istenir.
@@ -152,10 +152,21 @@ Bu sayfalarda olmayan bir Erhat görüşü gerekirse kullanıcıdan sayfası ist
 - xiv5. Zeus bütün kurbanlarına, uşaklarına, dalkavuklarına karşın **bir çocuk gibi zayıf ve çaresizdir**. Onu yıkımdan kurtarabilecek tek kişi akıl gücünün taşıyıcısı Prometheus'tur. **"Zeus tutukladığı düşmanının elinde tutukludur aslında."**
 - xiv6. Efsane Prometheus'a geleceği öngören bilici der; çağımızsa biliciye inanmaz, ama… (sayfa burada bitiyor).
 
-## s. xv (yalnız kenarda kısmen görünen parçalar: KULLANILMAZ)
-Görünen parçalar şunları düşündürüyor; ama tam metin olmadan Erhat'a mal edilmez, gerekirse kullanıcıdan sayfa istenir:
-- düşünürün akıl gücüyle geleceği gördüğü;
-- uşakların "günümüzün diliyle p[olis]" gibi gösterildiği ve birinin hiç söz söylemediği;
-- Hermes'in sorguya çeken bir "polis müdürü" gibi okunduğu;
-- oyunun "özgür düşüncenindir" diye bittiği;
-- çevirmenlerin bu tragedyanın çevrilmesi üzerine bir notu.
+## s. xv
+- xv1. (xiv'ten devam) Çağımız biliciye inanmaz. Ama düşünürün akıl gücüyle geleceği öngördüğünü bilir; insanlığa yaptığı bu hizmete karşılık **"kör iktidarların baskısına"** uğrayıp olmadık cezalara çarptırıldığını da bilir.
+  - Erhat: oyunu bu açıdan okuyunca, onun çağımızın "ve özellikle yurdumuzun dramını" yansıttığı görülür.
+  - **Hassas:** 1967'de yazılmış bir değerlendirme olarak tarihlenerek aktarılır; bugünün siyasetine bağlanmaz.
+- xv2. Bu kadarıyla *Prometheus* "politik piyesin ta kendisidir". Ama Aiskhylos uygarlık değerlerini kavrayıp dile getirerek insancı eserin en özlüsünü de vermiştir.
+  - **Erhat'ın sorusu:** "Ateşi tanrılardan çalıp insanlara vermek ne demektir?"
+  - Başkalarının bir efsane olarak bıraktığı bu simgeyi Aiskhylos insanlık açısından ele alır ve **uygarlığın tarihçesini** çizer. Tiyatroda eşi olmayan bir iştir bu.
+- xv3. Sanat ustalığı: başta ve sonda iki ayrı tavır.
+  - **Başta:** Zeus'un uşakları, "günümüzün diliyle polisler", Prometheus'u kaba güçle tutuklar. Prometheus o sahnede **tek söz söylemez**: kayaya kakılmaya, zincire vurulmaya, Kratos'un sövüp saymasına sessizce katlanır.
+  - **Sonda:** Zeus'un casusu Hermes'le kölelik-özgürlük tartışmasına girer. Erhat Hermes'i "sanığı gözdağıyla sorguya çeken polis müdürü" diye niteler. Prometheus bu tartışmada tanrıları "beş paralık" eder, başına salınan doğal belaları birer birer diliyle canlandırır.
+  - Dünya başına yıkılıp koroyla birlikte gömülene dek konuşmayı sürdürür. **"Son sözünü söyler ve sonra ölür."** (Prometheus ölümsüzdür; Erhat'ın ifadesi mecazdır. Videoda "son söz onundur" diye aktarılır.)
+  - **"Kıyamet de kopsa son söz özgür düşüncenindir"** demek istiyor Aiskhylos. "Bildirisi bugün de kulaklarımızda çınlasın!"
+- xv4. Çeviriden önce Eyüboğlu da Erhat da bu tragedyanın çevrilmeye, hatta oynanmaya elverişli olmadığını düşünüyordu. Çevirdikçe yanıldıklarını anladılar ve coştular; piyesi her sözüyle sahnede canlanır gördüler…
+
+## s. xvi
+- xvi1. …Kişiler sahnede kımıldamadıkları hâlde, olayların anlatımındaki canlılık ve duygulardaki coşkunluk, oyunun başarıyla oynanıp merakla seyredilebileceğine inandırdı onları.
+  - Dilekleri: **Prometheus'u Türk tiyatrolarının birinde oynanır görmek.**
+- xvi2. İmza: Azra Erhat, Ağustos 1967.

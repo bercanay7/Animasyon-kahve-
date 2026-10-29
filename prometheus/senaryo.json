@@ -1,7 +1,7 @@
 {
  "voice": "Emrullah (DpEiQMnL9WxMsymCsjPY), eleven_v4",
  "revizyon": 2,
- "not": "tts: seslendirme metni (ses etiketleri, Yunanca adlar okunuşa göre). alt: altyazı ve ekran metni (Erhat'ın yazımı). kaynak: iddianın dayanağı. Erhat = kaynak/onsoz_notlar.md maddeleri (s. v–xiv); Th. = Hesiodos, Theogonia; İG = Hesiodos, İşler ve Günler; ZVP = Aiskhylos, Zincire Vurulmuş Prometheus (dize numaraları Yunanca metne göre).",
+ "not": "tts: seslendirme metni (ses etiketleri, Yunanca adlar okunuşa göre). alt: altyazı ve ekran metni (Erhat'ın yazımı). kaynak: iddianın dayanağı. Erhat = kaynak/onsoz_notlar.md maddeleri (s. v–xvi); Th. = Hesiodos, Theogonia; İG = Hesiodos, İşler ve Günler; ZVP = Aiskhylos, Zincire Vurulmuş Prometheus (dize numaraları Yunanca metne göre).",
  "segments": [
   {
    "id": "A01",
@@ -69,9 +69,9 @@
   {
    "id": "B04",
    "bolum": "Bir önsözün sorusu",
-   "tts": "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. [warmly] Ama oyunun Türkçe çevirisine önsöz yazan klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.",
-   "alt": "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. Ama oyunun Türkçe çevirisine önsöz yazan klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.",
-   "kaynak": "Erhat v4, xi2"
+   "tts": "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. [warmly] Ama oyunu Sabahattin Eyüboğlu'yla birlikte Türkçeye çeviren klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.",
+   "alt": "Kimi okurlar, bu oyunda yalnızca tanrıların rol aldığına dikkat çeker. Ama oyunu Sabahattin Eyüboğlu'yla birlikte Türkçeye çeviren klasik filolog Azra Erhat'a göre, oyunun asıl konusu insandır.",
+   "kaynak": "Erhat v4, xi2, xv4"
   },
   {
    "id": "B05",
@@ -90,9 +90,9 @@
   {
    "id": "B07",
    "bolum": "Bir önsözün sorusu",
-   "tts": "Cevabı ararken Erhat, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.",
-   "alt": "Cevabı ararken Erhat, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.",
-   "kaynak": "Erhat vi6, vi9"
+   "tts": "Erhat bu soruları, bin dokuz yüz altmış yedide yazdığı önsözde sorar. Ve cevabı ararken, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.",
+   "alt": "Erhat bu soruları 1967'de yazdığı önsözde sorar. Ve cevabı ararken önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.",
+   "kaynak": "Erhat vi6, vi9, xvi2"
   },
   {
    "id": "C01",
@@ -398,9 +398,9 @@
   {
    "id": "F06",
    "bolum": "Duruşma",
-   "tts": "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. [wryly] Zor, oyun boyunca tek kelime etmez.",
-   "alt": "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. Zor, oyun boyunca tek kelime etmez.",
-   "kaynak": "ZVP 1–87 (Bia konuşmayan rol)"
+   "tts": "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. Erhat onlara, günümüzün diliyle, polis der.",
+   "alt": "Sahne: dünyanın ucunda, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı sanığı sürükleyerek getirir: Kratos ve Bia, yani Güç ve Zor. Erhat onlara “günümüzün diliyle” polis der.",
+   "kaynak": "ZVP 1–87; Erhat xv3 (kısa alıntı)"
   },
   {
    "id": "F07",
@@ -429,6 +429,13 @@
    "tts": "[knowingly] Bu cümleyi aklında tut. Erhat'a göre dramın özü tam da budur: özgürlük ve kölelik.",
    "alt": "Bu cümleyi aklında tut. Erhat'a göre dramın özü tam da budur: özgürlük ve kölelik.",
    "kaynak": "Erhat xiii1"
+  },
+  {
+   "id": "F10b",
+   "bolum": "Duruşma",
+   "tts": "[slowly] Ve Erhat'ın dikkat çektiği bir ayrıntı: Bütün bu sahne boyunca Prometeus tek söz etmez. Kayaya çakılmaya, zincire, hakaretlere, sessizce katlanır.",
+   "alt": "Ve Erhat'ın dikkat çektiği bir ayrıntı: Bütün bu sahne boyunca Prometheus tek söz etmez. Kayaya çakılmaya, zincire, hakaretlere, sessizce katlanır.",
+   "kaynak": "Erhat xv3; ZVP 1–87"
   },
   {
    "id": "F11",
@@ -492,6 +499,13 @@
    "tts": "İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. [warmly] Sonra da ateşi verdi.",
    "alt": "İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. Sonra da ateşi verdi.",
    "kaynak": "ZVP 248–254"
+  },
+  {
+   "id": "G09",
+   "bolum": "Savunma",
+   "tts": "[intrigued] Erhat burada sorar: Ateşi tanrılardan çalıp insanlara vermek, ne demektir? Ona göre başkaları bunu bir efsane olarak bırakmıştı. Ayshilos ise ondan, uygarlığın tarihini çıkarır.",
+   "alt": "Erhat burada sorar: “Ateşi tanrılardan çalıp insanlara vermek ne demektir?” Ona göre başkaları bunu bir efsane olarak bırakmıştı. Aiskhylos ise ondan uygarlığın tarihini çıkarır.",
+   "kaynak": "Erhat xv2 (kısa alıntı)"
   },
   {
    "id": "G10",
@@ -622,9 +636,9 @@
   {
    "id": "I05",
    "bolum": "Sır",
-   "tts": "Sonunda Zeus, habercisi Hermes'i sorguya gönderir. Emir kısadır: Sırrı söyle.",
-   "alt": "Sonunda Zeus, habercisi Hermes'i sorguya gönderir. Emir kısadır: Sırrı söyle.",
-   "kaynak": "ZVP 944–952"
+   "tts": "Sonunda Zeus, habercisi Hermes'i gönderir. Erhat ona, sanığı gözdağıyla sorguya çeken bir polis müdürü der. Emir kısadır: Sırrı söyle.",
+   "alt": "Sonunda Zeus, habercisi Hermes'i gönderir. Erhat ona, sanığı gözdağıyla sorguya çeken bir polis müdürü der. Emir kısadır: Sırrı söyle.",
+   "kaynak": "ZVP 944–952; Erhat xv3"
   },
   {
    "id": "I06",
@@ -667,6 +681,13 @@
    "tts": "[pained] [slowly] Prometeus'un son sözleri, göğe ve anasınadır: Görüyor musun, ne haksızlıklara uğruyorum.",
    "alt": "Prometheus'un son sözleri göğe ve anasınadır: “Görüyor musun, ne haksızlıklara uğruyorum.”",
    "kaynak": "ZVP 1091–1093 (kendi çevirimiz)"
+  },
+  {
+   "id": "I12",
+   "bolum": "Sır",
+   "tts": "[firmly] Başta tek söz etmeyen Prometeus, dünya başına yıkılana dek konuşmayı sürdürmüştür. Son söz onundur. [slowly] Erhat'a göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
+   "alt": "Başta tek söz etmeyen Prometheus, dünya başına yıkılana dek konuşmayı sürdürmüştür. Son söz onundur. Erhat'a göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”",
+   "kaynak": "Erhat xv3 (kısa alıntı)"
   },
   {
    "id": "J01",
@@ -713,8 +734,8 @@
   {
    "id": "J07",
    "bolum": "Asıl tutsak",
-   "tts": "Erhat'a göre Ayshilos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz. Gelecek, kaba kuvvetin değil, özgür düşüncenindir.",
-   "alt": "Erhat'a göre Aiskhylos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz. Gelecek, kaba kuvvetin değil, özgür düşüncenindir.",
+   "tts": "Erhat'a göre Ayshilos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz.",
+   "alt": "Erhat'a göre Aiskhylos'un asıl dersi şudur: Akıl gücü, kaba güçten üstündür. Özgür düşünce tutuklanamaz, susturulamaz.",
    "kaynak": "Erhat xiv3"
   },
   {
@@ -723,6 +744,13 @@
    "tts": "Ve akılla kurulan bir yönetim, akla ve özgür düşünceye sırt çevirdiğinde, zayıflar ve devrilme tehlikesiyle yüz yüze gelir.",
    "alt": "Ve akılla kurulan bir yönetim, akla ve özgür düşünceye sırt çevirdiğinde, zayıflar ve devrilme tehlikesiyle yüz yüze gelir.",
    "kaynak": "Erhat xiv4"
+  },
+  {
+   "id": "J08b",
+   "bolum": "Asıl tutsak",
+   "tts": "Efsane Prometeus'a kâhin der. Erhat'a göre bizim çağımız kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Ve bu hizmetinin karşılığında, kör iktidarların baskısına uğradığını da bilir.",
+   "alt": "Efsane Prometheus'a kâhin der. Erhat'a göre bizim çağımız kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Ve bu hizmetinin karşılığında “kör iktidarların baskısına” uğradığını da bilir.",
+   "kaynak": "Erhat xiv6, xv1 (kısa alıntı)"
   },
   {
    "id": "J09",
@@ -809,13 +837,6 @@
    "kaynak": "Erhat v2; Th. 526–534"
   },
   {
-   "id": "L03",
-   "bolum": "Ateşin yolculuğu",
-   "tts": "Ama insanlık Prometeus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.",
-   "alt": "Ama insanlık Prometheus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.",
-   "kaynak": "anlatıcının yorumu"
-  },
-  {
    "id": "L04",
    "bolum": "Ateşin yolculuğu",
    "tts": "Erhat onun izini Hesiodos'tan Göte'ye kadar sürer. Göte'nin şiirinde Prometeus, Zeus'a meydan okur ve insanları kendi suretinde yoğurur. Erhat'a göre bu şiirin anlamı açıktır: Asıl yaratıcı, insanın kendisidir.",
@@ -837,11 +858,18 @@
    "kaynak": "anlatıcının yorumu"
   },
   {
+   "id": "M00",
+   "bolum": "Kapanış",
+   "tts": "[warmly] Erhat ile Eyüboğlu, çeviriye başlamadan önce bu oyunun çevrilemeyeceğini, hatta sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar. Dilekleri, Prometeus'u bir gün bir Türk tiyatrosunda oynanırken görmekti.",
+   "alt": "Erhat ile Eyüboğlu, çeviriye başlamadan önce bu oyunun çevrilemeyeceğini, hatta sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar. Dilekleri, Prometheus'u bir gün bir Türk tiyatrosunda oynanırken görmekti.",
+   "kaynak": "Erhat xv4, xvi1"
+  },
+  {
    "id": "M01",
    "bolum": "Kapanış",
-   "tts": "[warmly] Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor.",
-   "alt": "Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor.",
-   "kaynak": "Erhat v5, vi4"
+   "tts": "[warmly] Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. Ve onun dileğiyle: Bu bildiri, bugün de kulaklarımızda çınlasın.",
+   "alt": "Bir önsöz, bir efsaneyi bambaşka bir gözle okumayı öğretebilir. Azra Erhat'ınki, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. Ve onun dileğiyle: “Bildirisi bugün de kulaklarımızda çınlasın!”",
+   "kaynak": "Erhat v5, vi4, xv3 (kısa alıntı)"
   },
   {
    "id": "M02",
