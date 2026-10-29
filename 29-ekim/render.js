@@ -37,7 +37,7 @@ const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
       ? ['-i', path.join(__dirname, 'audio.wav'), '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', '48000']
       : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000']),
     '-map', '0:v', '-map', '1:a', '-shortest',
-    '-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', '16', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
+    '-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', process.env.CRF || '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
     '-r', String(FPS), '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', out],
     { stdio: ['pipe', 'ignore', 'inherit'] });
   for (let i = 0; i < total; i++) {

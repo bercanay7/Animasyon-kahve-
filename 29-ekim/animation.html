@@ -37,21 +37,25 @@
 <script src="assets.js"></script>
 <script>
 /*
- * 29 Ekim · Cumhuriyet 103 yaşında — Instagram Reels/Story, 22.4 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
+ * 29 Ekim · Cumhuriyet 103 yaşında — Instagram Reels/Story, 28 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
  * 75 BPM ızgara (vuruş = 0.8 sn); sahne geçişleri ve ses vuruşları aynı ızgarada.
  * Metinler Reels/Story arayüzünün kapatmadığı alanda (y ≈ 260–1480) durur. Bayrağın üzerine yazı konmaz.
  *
+ * Fotoğraflar gerçek arşiv fotoğraflarıdır. Portreler DDColor ile renklendirildi (img/*-renk.jpg); Meclis fotoğrafı sepya kalır.
+ *
  *   S1  0.0 – 4.8   28 Ekim 1923 gecesi, Çankaya: portre karanlıktan çıkar, "Efendiler, yarın Cumhuriyet'i ilan edeceğiz."
  *   S2  4.8 – 9.6   Top atışı flaşıyla kesme → TBMM önü: "29 EKİM 1923", "Cumhuriyet ilan edildi."
- *   S3  9.6 – 13.6  Işık sızıntısıyla geçiş → Ankara, 29 Ekim 1925: "Türkiye Cumhuriyeti ilelebet payidar kalacaktır." + imza
- *   ~  13.2 – 13.6  Bayrak yukarıdan iner, ekranı kaplar
- *   S4 13.6 – 16.8  Dalgalanan bayrak (WebGL kumaş), ışık süpürmesi
- *   S5 16.8 – 22.4  Kamera geri çekilir: altın askıda bayrak, gece göğü, havai fişekler; "29 EKİM", kutlama, logo
+ *   S3  9.6 – 19.2  Işık sızıntısıyla geçiş → Gençliğe Hitabe'nin son cümleleri kelime kelime, dört parça hâlinde; imza
+ *   ~  18.8 – 19.2  Bayrak yukarıdan iner, ekranı kaplar
+ *   S4 19.2 – 22.4  Dalgalanan bayrak (WebGL kumaş), ışık süpürmesi
+ *   S5 22.4 – 28.0  Kamera geri çekilir: altın askıda bayrak, gece göğü, havai fişekler; "29 EKİM", kutlama, logo
+ * scene45 ve havai fişek listesi kendi saatleriyle yazılıdır (bayrak 13.6'da); render() onları SH kadar kaydırır.
  */
 const cv = document.getElementById('c');
 const CPU = { willReadFrequently: true }; // yazılım raster: başsız Chromium'da GPU öykünmesinden hızlı
 const ctx = cv.getContext('2d', CPU);
-const W = 1080, H = 1920, DUR = 22.4, FPS = 30, BEAT = 0.8;
+const W = 1080, H = 1920, DUR = 28.0, FPS = 30, BEAT = 0.8;
+const T4 = 19.2, SH = T4 - 13.6; // bayrağın ekranı kapladığı an; S4–S5 bu kadar kaydırılır
 
 const C = {
   red: '#E30A17', night: '#03060F', navy: '#0A1328', gold: '#E9C47E', goldL: '#F7E2B4', goldD: '#A9792F',
@@ -92,6 +96,27 @@ function grade(img, sh, hi, contrast = 1, gamma = 1, mid = null) {
     }
   }
   for (let i = 0; i < p.length; i += 4) { const v = p[i]; p[i] = lut[v * 3]; p[i + 1] = lut[v * 3 + 1]; p[i + 2] = lut[v * 3 + 2]; }
+  g.putImageData(d, 0, 0);
+  return c;
+}
+
+// Renkli foto: doygunluk, kontrast, gölgeye/ışığa renk (split-tone), siyahları hafif kaldırma
+function gradeColor(img, { sat = 1, contrast = 1, lift = 0, sh = [0, 0, 0], hi = [0, 0, 0], gamma = 1 }) {
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const g = c.getContext('2d', CPU); g.drawImage(img, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height), p = d.data;
+  for (let i = 0; i < p.length; i += 4) {
+    const r = p[i] / 255, gg = p[i + 1] / 255, b = p[i + 2] / 255;
+    const v = 0.299 * r + 0.587 * gg + 0.114 * b;
+    const w0 = (1 - v) * (1 - v), w1 = v * v;
+    [r, gg, b].forEach((x, k) => {
+      let y = v + (x - v) * sat;
+      y = (y - 0.5) * contrast + 0.5;
+      y = lift + (1 - lift) * clamp(y);
+      y = Math.pow(clamp(y), gamma) + sh[k] * w0 + hi[k] * w1;
+      p[i + k] = clamp(y) * 255;
+    });
+  }
   g.putImageData(d, 0, 0);
   return c;
 }
@@ -317,38 +342,65 @@ function scene2(t) {
   wordsLine('Cumhuriyet ilan edildi.', 540, 770, `italic 400 92px ${SERIF}`, C.cream, 0, i => { const r = reveal(t, wt[i], 0.9); return [r[0] * out, r[1], r[2]]; }, 20);
 }
 
-// ---------- S3: Ankara, 29 Ekim 1925 · "ilelebet payidar" + imza ----------
+// ---------- S3: Gençliğe Hitabe (son cümleler) + imza · Ankara, 29 Ekim 1925 fotoğrafı ----------
+// Her parça kelime kelime gelir; parça bitince bir sonrakine yer açar. *: altın italik vurgu. Saatler ses ile aynı.
+const HITABE = [
+  { t: [9.75, 9.95, 10.2, 10.5], out: 11.05, lines: [['Ey', 'Türk', 'istikbalinin'], ['*evlâdı!']] },
+  { t: [11.35, 11.55, 11.72, 11.88, 12.05, 12.35, 12.55, 12.75], out: 13.3,
+    lines: [['İşte,', 'bu', 'ahval', 've', 'şerait'], ['içinde', 'dahi', 'vazifen;']] },
+  { t: [13.6, 13.82, 14.0, 14.2, 14.5], out: 15.15, lines: [['Türk', 'İstiklâl', 've'], ['*Cumhuriyetini'], ['kurtarmaktır!']] },
+  { t: [15.45, 15.65, 15.85, 16.15, 16.5, 16.7, 16.95], out: 99,
+    lines: [['Muhtaç', 'olduğun', 'kudret,'], ['damarlarındaki'], ['*asil', '*kanda', 'mevcuttur!']] },
+];
+const HSIZE = 84, HLEAD = 98;
+function hitabeChunk(ch, t) {
+  const fade = 1 - easeInCubic(prog(t, ch.out, ch.out + 0.28));
+  if (fade <= 0 || t < ch.t[0] - 0.05) return;
+  const n = ch.lines.length, y0 = 1196 - (n - 1) * HLEAD / 2;
+  let wi = 0;
+  ch.lines.forEach((line, li) => {
+    const words = line.map(w => ({ w: w.replace(/^\*/, ''), gold: w.startsWith('*') }));
+    const fonts = words.map(o => o.gold ? `italic 400 ${HSIZE + 6}px ${SERIF}` : `400 ${HSIZE}px ${SERIF}`);
+    ctx.letterSpacing = '0px';
+    ctx.font = `400 ${HSIZE}px ${SERIF}`; const space = ctx.measureText(' ').width;
+    const ws = words.map((o, i) => { ctx.font = fonts[i]; return ctx.measureText(o.w).width; });
+    let x = 540 - (ws.reduce((p, q) => p + q, 0) + space * (words.length - 1)) / 2;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    words.forEach((o, i) => {
+      const t0 = ch.t[wi++], [al, dy, bl] = reveal(t, t0, 0.7, 22, 10);
+      if (al > 0.002) {
+        ctx.font = fonts[i];
+        softText(o.w, x, y0 + li * HLEAD + dy - (1 - fade) * 14, o.gold ? C.gold : C.cream, al * fade, bl + (1 - fade) * 8, 18);
+        const glow = 1 - prog(t, t0 + 0.15, t0 + 0.9); // söylenen kelime: kısa altın parıltı
+        if (glow > 0 && !o.gold) softText(o.w, x, y0 + li * HLEAD + dy, C.goldL, al * glow * 0.85 * fade, 0);
+      }
+      x += ws[i] + space;
+    });
+  });
+}
 let imza;
 function scene3(t) {
-  ctx.fillStyle = '#060607'; ctx.fillRect(0, 0, W, H);
-  const k = easeInOutSine(prog(t, 9.2, 13.8));
-  const img = photo.p1925, s = lerp(1.12, 1.24, k);
+  ctx.fillStyle = '#070606'; ctx.fillRect(0, 0, W, H);
+  const k = easeInOutSine(prog(t, 9.2, 19.4));
+  const img = photo.p1925, s = lerp(1.1, 1.34, k);
   // yüz (x≈545, y≈330) üst arayüzün altında kalsın diye foto aşağı kaydırılır
-  drawPhoto(img, 545, 330, s, 540 + Math.sin(t * 11.3) * 0.8, 540 + Math.cos(t * 7.7) * 1.1, false);
-  const top = 540 - 330 * s;
+  drawPhoto(img, lerp(545, 560, k), 330, s, 540 + Math.sin(t * 11.3) * 0.8, lerp(540, 590, k) + Math.cos(t * 7.7) * 1.1, false);
+  const top = lerp(540, 590, k) - 330 * s;
   let g = ctx.createLinearGradient(0, top, 0, top + 260);
-  g.addColorStop(0, '#060607'); g.addColorStop(1, 'rgba(6,6,7,0)');
+  g.addColorStop(0, '#070606'); g.addColorStop(1, 'rgba(7,6,6,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, top + 260);
-  g = ctx.createLinearGradient(0, 820, 0, 1500);
-  g.addColorStop(0, 'rgba(6,6,7,0)'); g.addColorStop(0.5, 'rgba(6,6,7,0.8)'); g.addColorStop(1, 'rgba(6,6,7,0.92)');
-  ctx.fillStyle = g; ctx.fillRect(0, 820, W, H);
+  g = ctx.createLinearGradient(0, 780, 0, 1420);
+  g.addColorStop(0, 'rgba(7,6,6,0)'); g.addColorStop(0.55, 'rgba(7,6,6,0.82)'); g.addColorStop(1, 'rgba(7,6,6,0.94)');
+  ctx.fillStyle = g; ctx.fillRect(0, 780, W, 640); ctx.fillStyle = 'rgba(7,6,6,0.94)'; ctx.fillRect(0, 1419, W, H);
   vignette(0.6, 800, 380, 1200);
 
-  // arşiv notu
-  const ca = prog(t, 9.7, 10.3) * 0.75;
-  ctx.save(); ctx.globalAlpha = ca; setFont(`500 24px ${HANK}`, 4); ctx.fillStyle = C.cream; ctx.textAlign = 'left';
-  ctx.fillText('ANKARA, 29 EKİM 1925', 90, 1086); ctx.fillRect(90, 1060 - 34, 40 * easeOutCubic(prog(t, 9.7, 10.4)), 2);
-  ctx.restore();
-
-  // söz
-  wordsLine('Türkiye Cumhuriyeti', 540, 1180, `400 96px ${SERIF}`, C.cream, 0, i => reveal(t, 9.85 + i * 0.3, 0.9), 16);
-  wordsLine('ilelebet payidar', 540, 1280, `italic 400 104px ${SERIF}`, C.gold, 0, i => reveal(t, 10.6 + i * 0.4, 1.0), 16);
-  wordsLine('kalacaktır.', 540, 1376, `400 96px ${SERIF}`, C.cream, 0, () => reveal(t, 11.2, 0.9), 16);
+  label('GENÇLİĞE HİTABE · 1927', 540, 1030, C.gold, prog(t, 9.6, 10.2), easeOutCubic(prog(t, 9.6, 10.5)), 26, 8);
+  for (const ch of HITABE) hitabeChunk(ch, t);
 
   // imza: soldan sağa mürekkep gibi akar
-  const p = prog(t, 11.75, 13.1);
+  const p = prog(t, 17.4, 18.5);
   if (p > 0) {
-    const sw = 400, sh = sw * IMZA.h / IMZA.w, x0 = 540 - sw / 2 + 20, y0 = 1388;
+    const sw = 340, sh = sw * IMZA.h / IMZA.w, x0 = 540 - sw / 2 + 20, y0 = 1372;
     const e = easeInOutSine(p), edge = x0 + sw * e;
     ctx.save();
     const m = ctx.createLinearGradient(edge - 40, 0, edge + 6, 0);
@@ -699,17 +751,17 @@ function render(t, frame) {
   } else if (t < 9.6) {
     scene2(t);
     if (t > 9.25) { ctx.save(); ctx.globalAlpha = easeInOutSine(prog(t, 9.25, 9.75)); scene3(t); ctx.restore(); }
-  } else if (t < 13.6) {
+  } else if (t < T4) {
     scene3(t);
   }
-  if (t < 13.6) {
+  if (t < T4) {
     const pk = Math.max(0, 1 - Math.abs(t - 9.5) / 0.4);
     lightLeak(easeInOutSine(pk), t);
     archive(f, 1);
     filmGrain(f, 0.16);
   }
-  if (t >= 13.2) scene45(t);
-  if (t >= 13.6) filmGrain(f, 0.06);
+  if (t >= T4 - 0.4) scene45(t - SH);
+  if (t >= T4) filmGrain(f, 0.06);
 }
 
 // Hareket bulanıklığı: 180° obtüratör, alt karelerin yürüyen ortalaması
@@ -724,10 +776,10 @@ function renderMB(t, n = 8, shutter = 0.5) {
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
   ctx.drawImage(acc, 0, 0);
 }
-function renderPoster() { render(21.4); }
+function renderPoster() { render(21.4 + SH); }
 // Alt kare sayısı: hızlı anlarda (kesmeler, bayrak inişi, geri çekiliş, yazı girişleri) yüksek, yavaş Ken Burns'te düşük
 function mbSamples(t, max) {
-  const fast = [[4.7, 5.3], [9.2, 9.8], [13.1, 14.0], [16.8, 18.6]];
+  const fast = [[4.7, 5.3], [9.2, 9.8], [13.1 + SH, 14.0 + SH], [16.8 + SH, 18.6 + SH]];
   return fast.some(([a, b]) => t >= a && t <= b) ? max : Math.min(max, 3);
 }
 
@@ -742,9 +794,9 @@ const loadImg = src => { const im = new Image(); im.src = src; return im.decode(
 window.ready = (async () => {
   makeGrain();
   const [a, b, c] = await Promise.all([PHOTOS.cankaya, PHOTOS.meclis, PHOTOS['1925']].map(loadImg));
-  photo.cankaya = grade(a, [4, 8, 20], [255, 232, 196], 1.12, 1.05, [92, 88, 92]);
-  photo.meclis = grade(b, [14, 11, 9], [252, 240, 218], 1.12, 1.0, [128, 116, 100]);
-  photo.p1925 = grade(c, [4, 5, 8], [250, 246, 238], 1.2, 1.05);
+  photo.cankaya = gradeColor(a, { sat: 0.9, contrast: 1.1, lift: 0.02, gamma: 1.08, sh: [-0.02, 0.0, 0.05], hi: [0.04, 0.02, -0.02] });
+  photo.meclis = grade(b, [16, 12, 9], [252, 238, 212], 1.12, 1.0, [134, 118, 98]);
+  photo.p1925 = gradeColor(c, { sat: 0.72, contrast: 1.12, gamma: 1.05, sh: [0.0, 0.0, 0.02], hi: [0.0, 0.0, -0.01] });
   IMZA.path = new Path2D(IMZA.d);
   imza = document.createElement('canvas'); imza.width = 520; imza.height = 230;
   fw = document.createElement('canvas'); fw.width = W; fw.height = H;
