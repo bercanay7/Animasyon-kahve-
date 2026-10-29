@@ -1,7 +1,7 @@
 # Azra Erhat'ın önsözü: sayfa sayfa notlar (yalnız kullanıcının verdiği sayfalar)
 
 Kaynak: Aiskhylos, *Zincire Vurulmuş Prometheus*, Türkiye İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler Dizisi. Önsöz: Azra Erhat.
-Kullanıcının fotoğrafladığı sayfalar: **v, vi, vii, viii, ix**. Önsöz ix. sayfanın sonunda ("o bu güçle ele geçirmiş-") yarım kalıyor; sonrası elimizde yok.
+Kullanıcının fotoğrafladığı sayfalar: **v–xiv** (iki parti hâlinde). Önsöz xiv. sayfanın sonunda ("çağımızsa biliciye inanmaz, ama") yarım kalıyor. xv. sayfanın yalnız sol yarısı bir fotoğrafın kenarında kısmen görünüyor; bu parçalar kullanılmaz (bkz. en alt).
 
 **Kural:** Videoda Erhat'a mal edilen her görüş aşağıdaki maddelerden birine dayanmalı. Buradaki metin özettir (kendi cümlelerimiz); tırnak içindekiler kısa alıntılardır ve ekranda sayfa numarasıyla verilir. Önsözün tam metni telif kapsamındadır, depoya konmaz.
 Bu sayfalarda olmayan bir Erhat görüşü gerekirse kullanıcıdan sayfası istenir.
@@ -77,3 +77,85 @@ Bu sayfalarda olmayan bir Erhat görüşü gerekirse kullanıcıdan sayfası ist
   - Zeus'un İapetosoğullarına özel bir hıncı vardır. Bu hıncın asıl nedeni onlara verilen sıfatlardan anlaşılır.
   - Dördü de kafa gücünden pay almıştır, akıldan yana üstündür. Bu üstünlükle övünür, Zeus'a karşı gelmeye yeltenirler.
   - Kısa alıntı: **"Akıl gücüyse Zeus'un tekelindedir"**. Cümle sayfanın sonunda yarım kalıyor: "o bu güçle ele geçirmiş-".
+
+## s. x
+- x1. (ix'tan devam) Zeus dünya egemenliğini akıl gücüyle ele geçirmiştir. **Bu gücü başkasında görmek, içinde dinmez bir öfke doğurur.**
+- x2. Prometheus bu öfkeyi körükler durur. Sivri aklını ve geleceği önceden görme gücünü Zeus'u aldatmak, kuşkulandırmak, küçük düşürmek için kullanır.
+- x3. Hesiodos'un pek üstünde durmadığı, Aiskhylos'un alabildiğine işlediği tema: **"Üçüncü devrimin hazırlanması."**
+- x4. Prometheus'un adı "önceden gören" demektir; o bir kâhindir.
+  - Gaia Kronos'a devrileceğini nasıl haber verdiyse, Prometheus da Zeus'un bir gün tahtından düşeceğini bilir.
+  - Aiskhylos'a göre Prometheus Klymene'nin değil, Gaia'nın oğludur (Gaia'nın başka bir adı: Themis, Adalet).
+  - Bu bilgiden gelen üstünlükle Zeus'u sürekli bir kuşkunun baskısı altında tutar.
+  - Tragedyanın ekseni olan bu tema Hesiodos'ta da sezilir.
+- x5. Mekone (Th. 535–560) etiyolojik, yani açıklayıcı bir efsanedir: kurban törenlerindeki bazı geleneklerin kökenini anlatır. Erhat'a göre asıl önemi ise Zeus-Prometheus kavgasını başka bir motife dayandırmasıdır:
+  - Prometheus baştan beri insanlardan yanadır. Onlara dayanarak Titanların öcünü almak, Olymposluların egemenliği yerine insanların egemenliğini getirmek ister. **"Yeni bir devrimin hazırlayıcısıdır."**
+  - Kurduğu düzen tanrılar için küçük düşürücüdür.
+  - Zeus "bile bile aldanır", ama oldubittiyi önleyemez. Bu onur yarasının öcünü almak için insanlara ateşi vermez olur.
+  - Prometheus tanrıyı bir daha aldatır, ateşi çalıp insanlara götürür.
+  - İki kez küçük düşürülen tanrılar tanrısı artık kaba kuvvete başvurmak zorundadır: eşi görülmedik, korkunç cezalar.
+- x6. Hesiodos'un öyküsünde Aiskhylos'un Prometheus'unun, hatta Goethe'nin yorumunun tohumları bulunabilir. Zeus aldatılmış, insanların gözünde…
+
+## s. xi
+- xi1. …küçük düşürülmüş, gülünç olmuş bir tanrıdır.
+  - Egemenliği gerçek bir güce dayanmaz, çünkü **akıl gücü tanrılardan insanlara geçmiştir**.
+  - Devrim, "üçüncü ve son devrim", olup bitmiştir: insan kendi gücünün bilincine varmış, tanrıya karşı ayaklanmıştır.
+  - (Erhat'ın Goethe okuması) İnsan güçsüz ya da güçlü olduğu oranda tanrıya tapar ya da onu hiçe sayar. Asıl yaratıcı insanın kendisidir. "Goethe'nin şiirinden çıkan anlam da budur."
+  - **Hassas:** "tanrı insanın elinde bir oyuncaktır" cümlesi videoda kullanılmaz; yalnız "asıl yaratıcı insandır" (Goethe'nin şiirinin anlamı) aktarılır.
+- xi2. Yalnız tanrıların rol aldığı söylenir, ama tragedya insanlık dramını yansıtır.
+  - Prometheus insanın temsilcisidir. İçinde çırpındığı olaylar, günümüzün deyimiyle politik olaylardır.
+  - **Erhat'ın sorusu:** "Prometheus ne bakımdan insandır ve dramı niçin insanlığın dramı oluyor?"
+- xi3. Prometheus ateşi çalıp insanlara verdiği ve tanrıların kurduğu düzene karşı geldiği için zincire vurulmuştur. Mıhlandığı kayadan bize seslenir: eylemini, uyandırdığı tepkiyi, kendini ve karşısındakileri eleştirip değerlendirir.
+- xi4. **Duruşma okuması:**
+  - Bugün bir tiyatro yazarı bu olayı ele alsa bir yargılama sahnesi kurar: tutuklu, tanıklar, yargıçlar.
+  - Erhat: oyunu Kafka'nın *Duruşma*'sını (*Der Prozess*; bugün çoğunlukla *Dava* adıyla bilinir) inceler gibi inceleyelim. Anlayışına günümüzün gözüyle ancak bu yoldan varabiliriz.
+- xi5. Prometheus'un savunması iki kavrama dayanır: **bilinç ve özgürlük**. Bunlar insana özgü değişmez değerlerdir.
+  - Bugünkü bir sanık gibi kanıtlar: **"Ne yaptımsa bile bile yaptım."** Eylemi uzun bir düşünme ve tartışmanın sonucudur; bilinçli ve istemlidir…
+
+## s. xii
+- xii1. …Eylemin suç sayılmasından doğacak bütün tepkilere sonuna kadar katlanmaya hazırdır. Bu bilinç onda hem gurur hem katlanma duygusu doğurur.
+- xii2. Erhat burada çeviriden dizeler aktarır (ZVP 101–105 ve 265–270 civarı: önceden biliyordum, bile bile isteye isteye suç işledim, payıma düşene katlanacağım). **Telif:** çeviri dizeleri videoda kullanılmaz; aynı dizeleri Yunancadan kendi çevirimizle veririz (ZVP 266: "İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim").
+- xii3. Ölmeyi özleyen Io'ya: Prometheus ölemez; işkencesinin sonu yok, Zeus tahtından düşmedikçe (ZVP 752–756).
+- xii4. Prometheus düşüncesinde ve davranışında **"hiçbir umuda yer vermeden"** direnir. Başkaları bu bilinçli tutumu anlamaz, gurur ya da kibir sayar:
+  - Koro: sözünü sakınmıyorsun, başına gelenler sana boyun eğdirmiyor (ZVP 178–180);
+  - Okeanos: aşırı dilin yüzünden geldi başına bunlar, hâlâ uslanmadın; benden öğüt dinlersen dikine gitme (ZVP 318–323).
+
+## s. xiii
+- xiii1. "Sözünü sakınmıyorsun" diye çevrilen Yunanca **agan eleutherostomeis**, "dilin fazla özgür" demektir.
+  - Prometheus'a bilinci özgürlük sağlar.
+  - **Dramın özü özgürlük-kölelik sorunudur.**
+- xiii2. Bunu anlamak için çağı düşünmek gerekir.
+  - V. yüzyıl Atina'sında kölelik de zorbalık da yasalara uygun, canlı kurumlardı.
+  - Prometheus herhangi bir köle gibi **"desmotes"**, yani zincire vurulmuştur.
+  - İşkencenin büyüklüğü zincirde değil, bir tanrının köle durumuna düşürülmesindedir.
+  - Köleliği doğal sayan bir ortamda Zeus-Prometheus ilişkisini bir sorun olarak ortaya atmak, yargılarcasına tartışmak, **hakkın köleden yana olduğunu** söyleyip zorbalığı ayrıntısıyla yermek: Aiskhylos'un tek başına giriştiği ve başardığı "koca bir iş".
+- xiii3. Zeus'un düzeni:
+  - Titanları yendikten sonra kendine krallık tahtını ayırır, öbür tanrılara şeref payları ve egemenlik alanları dağıtır; ama hepsi onun buyruğuna uymak zorundadır.
+  - Oyundaki tanrıların hepsi bu düzeni benimsemiştir, buyrukları ister istemez yerine getirir. **Tek başkaldıran Prometheus'tur.**
+- xiii4. Kavga bir **özgürlük-kölelik kavgasıdır**.
+  - Görünüşte Zeus özgürdür. Prometheus ise köledir: prangalı, ıssız kayada sonsuz işkenceye mahkûm, ölümsüz olduğu için canına kıyma özgürlüğünden bile yoksun.
+  - **"Ama bakalım gerçekten de öyle mi?"**
+- xiii5. Erhat Kratos'un sözünü çeviriden aktarır: "Zeus'tan başkası özgür değildir" (ZVP 49–50). Videoda kendi çevirimiz kullanılır.
+
+## s. xiv
+- xiv1. Olaylar Kratos'u doğrular: Zeus sert, amansız, insafsız bir zorba gibi dünyayı keyfine göre yönetir. Oyunun evreninde Zeus'un çevresi üç kümedir:
+  - **kurbanları:** Prometheus ve Io;
+  - **uşakları:** Kratos, Bia, Hephaistos, Hermes;
+  - **dalkavuğu:** Okeanos.
+  - Geçmişi yendikten sonra bugünü ve yarını da yasalarının tekeline geçirmiş gibidir.
+- xiv2. **"Oysa gerçek tam tersinedir: Gerçekte Zeus köle, Prometheus özgürdür."**
+- xiv3. Bu özgürlüğün nasıl kazanıldığını anlamak için Erhat kendi çağının egemenlik kavgalarına bakar:
+  - Nice iktidar sahibi kişi ya da parti, karşısına dikilen tek tük düşünce sahibini susturabileceğini sanır.
+  - Sonuç tersine çıkar: iktidar sahipleri devrilir gider, düşünce sahipleri yener ve kalır.
+  - Aiskhylos bu "değişmez yasa"nın bilincine varmış ve onu Prometheus'un ağzından bildirmiştir: akıl gücü kaba güçten üstündür; özgür düşünce tutuklanamaz, susturulamaz; gelecekte egemenlik kaba kuvvetin değil **özgür düşüncenindir**.
+  - **Hassas:** güncel siyasete gönderme gibi okunmaması için videoda genel ve tarihsel tutulur; ad ya da ülke anılmaz.
+- xiv4. Aiskhylos'un politika dersi: akıl gücünün kaba kuvveti nasıl yendiğini gösterdikten sonra, akıl üstüne kurulan yönetimin akla ve özgür düşünceye saygıyı bırakınca nasıl zayıfladığını ve devrilme tehlikesine düştüğünü gösterir.
+- xiv5. Zeus bütün kurbanlarına, uşaklarına, dalkavuklarına karşın **bir çocuk gibi zayıf ve çaresizdir**. Onu yıkımdan kurtarabilecek tek kişi akıl gücünün taşıyıcısı Prometheus'tur. **"Zeus tutukladığı düşmanının elinde tutukludur aslında."**
+- xiv6. Efsane Prometheus'a geleceği öngören bilici der; çağımızsa biliciye inanmaz, ama… (sayfa burada bitiyor).
+
+## s. xv (yalnız kenarda kısmen görünen parçalar: KULLANILMAZ)
+Görünen parçalar şunları düşündürüyor; ama tam metin olmadan Erhat'a mal edilmez, gerekirse kullanıcıdan sayfa istenir:
+- düşünürün akıl gücüyle geleceği gördüğü;
+- uşakların "günümüzün diliyle p[olis]" gibi gösterildiği ve birinin hiç söz söylemediği;
+- Hermes'in sorguya çeken bir "polis müdürü" gibi okunduğu;
+- oyunun "özgür düşüncenindir" diye bittiği;
+- çevirmenlerin bu tragedyanın çevrilmesi üzerine bir notu.
