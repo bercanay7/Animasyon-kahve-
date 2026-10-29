@@ -27,3 +27,9 @@ Kalın, düz, geometrik çizimler (kuşbakışı Türk kahvesi fincanı, kahve �
 | 2.5–4 sn | Kamera köpüğe dalar: "KAHVELER *bizden!*" |
 | 4–6 sn | Eğik kayan şeritler: "BÜTÜN GÜN", fincanlar, "SABAHTAN AKŞAMA" |
 | 6–9 sn | Krem kapanış: Navitas logosu, "Bütün gün kahveler *bizden.*", "Tüm misafirlerimize ikramımızdır.", "1 EKİM · DÜNYA KAHVE GÜNÜ" |
+
+---
+
+# 29 Ekim · Cumhuriyet 103 yaşında
+
+`29-ekim/` klasöründe: 22 saniyelik Reels/Story videosu (`cumhuriyet-103.mp4`) ve kapak görseli (`kapak.png`). Gerçek arşiv fotoğrafları, Atatürk'ün imzası, Bayrak Kanunu oranlarıyla dalgalanan bayrak, havai fişekler ve sentezlenmiş müzik. Ayrıntılar: [`29-ekim/README.md`](29-ekim/README.md).

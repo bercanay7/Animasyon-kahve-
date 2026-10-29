@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>29 Ekim · Cumhuriyet 103 yaşında</title>
+<style>
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; src: url(../fonts/serif-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; src: url(../fonts/serif-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; src: url(../fonts/serif-italic-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; src: url(../fonts/serif-italic-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Marcellus'; font-weight: 400; src: url(../fonts/marcellus-latin-400-normal.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Marcellus'; font-weight: 400; src: url(../fonts/marcellus-latin-ext-400-normal.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Hanken Grotesk'; font-weight: 500; src: url(../fonts/hanken-grotesk-latin-500-normal.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Hanken Grotesk'; font-weight: 500; src: url(../fonts/hanken-grotesk-latin-ext-500-normal.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Hanken Grotesk'; font-weight: 600; src: url(../fonts/hanken-grotesk-latin-600-normal.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Hanken Grotesk'; font-weight: 600; src: url(../fonts/hanken-grotesk-latin-ext-600-normal.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  html, body { margin: 0; height: 100%; background: #000; }
+  body { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  canvas { height: 100vh; width: auto; max-width: 100vw; aspect-ratio: 9 / 16; }
+  body.render canvas { width: 1080px; height: 1920px; max-width: none; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script src="../logo.js"></script>
+<script src="assets.js"></script>
+<script>
+/*
+ * 29 Ekim · Cumhuriyet 103 yaşında — Instagram Reels/Story, 22.4 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
+ * 75 BPM ızgara (vuruş = 0.8 sn); sahne geçişleri ve ses vuruşları aynı ızgarada.
+ * Metinler Reels/Story arayüzünün kapatmadığı alanda (y ≈ 260–1480) durur. Bayrağın üzerine yazı konmaz.
+ *
+ *   S1  0.0 – 4.8   28 Ekim 1923 gecesi, Çankaya: portre karanlıktan çıkar, "Efendiler, yarın Cumhuriyet'i ilan edeceğiz."
+ *   S2  4.8 – 9.6   Top atışı flaşıyla kesme → TBMM önü: "29 EKİM 1923", "Cumhuriyet ilan edildi."
+ *   S3  9.6 – 13.6  Işık sızıntısıyla geçiş → Ankara, 29 Ekim 1925: "Türkiye Cumhuriyeti ilelebet payidar kalacaktır." + imza
+ *   ~  13.2 – 13.6  Bayrak yukarıdan iner, ekranı kaplar
+ *   S4 13.6 – 16.8  Dalgalanan bayrak (WebGL kumaş), ışık süpürmesi
+ *   S5 16.8 – 22.4  Kamera geri çekilir: altın askıda bayrak, gece göğü, havai fişekler; "29 EKİM", kutlama, logo
+ */
+const cv = document.getElementById('c');
+const CPU = { willReadFrequently: true }; // yazılım raster: başsız Chromium'da GPU öykünmesinden hızlı
+const ctx = cv.getContext('2d', CPU);
+const W = 1080, H = 1920, DUR = 22.4, FPS = 30, BEAT = 0.8;
+
+const C = {
+  red: '#E30A17', night: '#03060F', navy: '#0A1328', gold: '#E9C47E', goldL: '#F7E2B4', goldD: '#A9792F',
+  cream: '#F5EDE0', white: '#FFFFFF',
+};
+const MARC = 'Marcellus', HANK = "'Hanken Grotesk'", SERIF = "'Instrument Serif'";
+
+// ---------- yardımcılar ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const easeOutExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const easeInExpo = x => x <= 0 ? 0 : Math.pow(2, 10 * x - 10);
+const easeOutCubic = x => 1 - Math.pow(1 - x, 3);
+const easeInCubic = x => x * x * x;
+const easeInOutCubic = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeInOutSine = x => -(Math.cos(Math.PI * x) - 1) / 2;
+const easeOutQuint = x => 1 - Math.pow(1 - x, 5);
+function rng(seed) { // mulberry32
+  let a = seed >>> 0;
+  return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+
+// ---------- fotoğraflar: tonlama (gölge → ışık iki renk) ----------
+const photo = {};
+function grade(img, sh, hi, contrast = 1, gamma = 1, mid = null) {
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const g = c.getContext('2d', CPU); g.drawImage(img, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height), p = d.data;
+  const lut = new Uint8ClampedArray(256 * 3);
+  for (let i = 0; i < 256; i++) {
+    let v = clamp((i / 255 - 0.5) * contrast + 0.5); v = Math.pow(v, gamma);
+    for (let k = 0; k < 3; k++) {
+      let x = mid ? (v < 0.5 ? lerp(sh[k], mid[k], v * 2) : lerp(mid[k], hi[k], v * 2 - 1)) : lerp(sh[k], hi[k], v);
+      lut[i * 3 + k] = x;
+    }
+  }
+  for (let i = 0; i < p.length; i += 4) { const v = p[i]; p[i] = lut[v * 3]; p[i + 1] = lut[v * 3 + 1]; p[i + 2] = lut[v * 3 + 2]; }
+  g.putImageData(d, 0, 0);
+  return c;
+}
+
+// (fx, fy) foto noktası ekranda (sx, sy)'ye; s = foto pikseli başına ekran pikseli
+function drawPhoto(img, fx, fy, s, sx = 540, sy = 960, cover = true) {
+  let ox = sx - fx * s, oy = sy - fy * s;
+  if (cover) { ox = Math.min(0, Math.max(W - img.width * s, ox)); oy = Math.min(0, Math.max(H - img.height * s, oy)); }
+  ctx.drawImage(img, ox, oy, img.width * s, img.height * s);
+}
+
+// ---------- film dokusu ----------
+let grain;
+function makeGrain() {
+  grain = document.createElement('canvas'); grain.width = grain.height = 512;
+  const g = grain.getContext('2d', CPU), d = g.createImageData(512, 512), r = rng(7);
+  for (let i = 0; i < d.data.length; i += 4) {
+    const v = 128 + (r() + r() + r() - 1.5) * 110;
+    d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255;
+  }
+  g.putImageData(d, 0, 0);
+}
+function filmGrain(f, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.globalCompositeOperation = 'overlay';
+  const r = rng(f * 7 + 3);
+  ctx.translate(-r() * 512, -r() * 512);
+  ctx.fillStyle = ctx.createPattern(grain, 'repeat'); ctx.fillRect(0, 0, W + 512, H + 512);
+  ctx.restore();
+}
+function vignette(strength, cy = 900, inner = 380, outer = 1250) {
+  const g = ctx.createRadialGradient(540, cy, inner, 540, cy, outer);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${strength})`);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+// arşiv filmi: toz, kıl, çizik, titreme
+function archive(f, k = 1) {
+  const r = rng(f * 131 + 17);
+  ctx.save();
+  ctx.globalAlpha = (0.03 + r() * 0.035) * k; ctx.fillStyle = r() < 0.5 ? '#000' : '#fff8e8'; ctx.fillRect(0, 0, W, H); // titreme
+  const n = Math.floor(r() * 5);
+  for (let i = 0; i < n; i++) {
+    const x = r() * W, y = r() * H, s = 1.5 + r() * 4.5, dark = r() < 0.7;
+    ctx.globalAlpha = (0.25 + r() * 0.4) * k; ctx.fillStyle = dark ? '#000' : '#fff';
+    ctx.beginPath(); ctx.ellipse(x, y, s, s * (0.4 + r() * 0.8), r() * 3, 0, Math.PI * 2); ctx.fill();
+  }
+  if (r() < 0.22) { // kıl
+    const x = r() * W, y = r() * H, len = 30 + r() * 70;
+    ctx.globalAlpha = 0.35 * k; ctx.strokeStyle = '#000'; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.bezierCurveTo(x + len * 0.4, y - 20, x + len * 0.6, y + 25, x + len, y + r() * 30 - 15); ctx.stroke();
+  }
+  if (r() < 0.3) { // dikey çizik
+    const x = r() * W;
+    ctx.globalAlpha = (0.08 + r() * 0.1) * k; ctx.fillStyle = r() < 0.5 ? '#fff' : '#000'; ctx.fillRect(x, 0, 1.5, H);
+  }
+  ctx.restore();
+}
+
+// ---------- tipografi ----------
+function setFont(font, spacing = 0) { ctx.font = font; ctx.letterSpacing = spacing + 'px'; }
+// Bulanık metin: ctx.filter yazılım raster'da tüm tuvali bulanıklaştırır; gölge hilesi yalnızca harf sınırında çalışır
+function softText(str, x, y, color, alpha, blur, shadow = 0) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+  if (blur > 0.3) {
+    ctx.shadowColor = color; ctx.shadowBlur = blur * 2; ctx.shadowOffsetX = 20000;
+    ctx.fillText(str, x - 20000, y);
+  } else {
+    if (shadow) { ctx.shadowColor = 'rgba(0,0,0,0.55)'; ctx.shadowBlur = shadow; }
+    ctx.fillText(str, x, y);
+  }
+  ctx.restore();
+}
+// Ortalanmış satırı kelime kelime çizer. at(i) → [alpha, dy, blur]
+function wordsLine(str, cx, y, font, color, spacing, at, shadow = 0) {
+  setFont(font, spacing);
+  const words = str.split(' ');
+  const space = ctx.measureText(' ').width;
+  const widths = words.map(w => ctx.measureText(w).width);
+  const total = widths.reduce((a, b) => a + b, 0) + space * (words.length - 1) - spacing;
+  let x = cx - total / 2;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  words.forEach((w, i) => {
+    const [a, dy, blur] = at(i);
+    if (a > 0.002) softText(w, x, y + dy, color, a, blur, shadow);
+    x += widths[i] + space;
+  });
+}
+// Harf harf yukarı kalkarak gelen başlık
+function lettersLine(str, cx, y, font, color, spacing, t, t0, stagger, dur = 0.7, rise = 50, shadow = 0) {
+  setFont(font, spacing);
+  const chars = [...str];
+  const ws = chars.map(c => ctx.measureText(c).width);
+  const total = ws.reduce((a, b) => a + b, 0) - spacing;
+  let x = cx - total / 2;
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  chars.forEach((ch, i) => {
+    const k = prog(t, t0 + i * stagger, t0 + i * stagger + dur);
+    if (k > 0) {
+      const e = easeOutCubic(k);
+      softText(ch, x, y + (1 - e) * rise, color, clamp(k * 1.6), k < 0.6 ? (1 - k / 0.6) * 10 : 0, shadow);
+    }
+    x += ws[i];
+  });
+}
+const reveal = (t, t0, dur = 0.8, rise = 26, blur = 12) => {
+  const k = prog(t, t0, t0 + dur), e = easeOutCubic(k);
+  return [clamp(k * 1.4), (1 - e) * rise, (1 - e) * blur];
+};
+function label(str, cx, y, color, alpha, ruleK = 0, size = 30, spacing = 9) {
+  setFont(`600 ${size}px ${HANK}`, spacing);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+  ctx.fillText(str, cx + spacing / 2, y);
+  if (ruleK > 0) {
+    const w = ctx.measureText(str).width / 2 + 28, len = 90 * ruleK;
+    ctx.fillRect(cx - w - len, y - size * 0.36, len, 2); ctx.fillRect(cx + w, y - size * 0.36, len, 2);
+  }
+  ctx.restore();
+}
+
+// ---------- S1: 28 Ekim gecesi, Çankaya ----------
+const motes = (() => { const r = rng(21); return Array.from({ length: 46 }, () => ({
+  x: r() * 1080, y: 200 + r() * 1300, z: 0.4 + r() * 0.6, ph: r() * 6.28, sp: 6 + r() * 14 })); })();
+function scene1(t) {
+  ctx.fillStyle = '#050913'; ctx.fillRect(0, 0, W, H);
+  const k = easeInOutSine(prog(t, 0, 4.8));
+  const img = photo.cankaya, s = lerp(1.03, 1.14, k) * W / 1300;
+  const wx = Math.sin(t * 11.3) * 0.8, wy = Math.cos(t * 7.7) * 1.1; // film titremesi
+  ctx.save();
+  ctx.globalAlpha = lerp(0.55, 1, easeOutCubic(prog(t, 0, 1.4)));
+  drawPhoto(img, 757, 700, s, 590 + wx, 690 + wy, false);
+  ctx.restore();
+  const right = 590 + (img.width - 757) * s; // sağ kenar kadraja girerse yumuşat
+  if (right < W + 60) {
+    const gr = ctx.createLinearGradient(right - 160, 0, right, 0);
+    gr.addColorStop(0, 'rgba(5,9,19,0)'); gr.addColorStop(1, '#050913');
+    ctx.fillStyle = gr; ctx.fillRect(right - 160, 0, W - right + 160, H);
+  }
+  // fotoğrafın altı karanlığa erir, üst kenarı yumuşak
+  const top = 690 - 700 * s, bot = top + img.height * s;
+  let g = ctx.createLinearGradient(0, bot - 760, 0, bot - 40);
+  g.addColorStop(0, 'rgba(5,9,19,0)'); g.addColorStop(0.55, 'rgba(5,9,19,0.82)'); g.addColorStop(1, '#050913');
+  ctx.fillStyle = g; ctx.fillRect(0, bot - 760, W, 760); ctx.fillStyle = '#050913'; ctx.fillRect(0, bot - 41, W, H);
+  if (top > -200) {
+    g = ctx.createLinearGradient(0, Math.max(0, top), 0, top + 220);
+    g.addColorStop(0, '#050913'); g.addColorStop(1, 'rgba(5,9,19,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, top + 220);
+  }
+  // lamba ışığı: sol üstten sıcak, hafif titreyen
+  const fl = 0.92 + 0.05 * Math.sin(t * 9.1) + 0.03 * Math.sin(t * 23.7);
+  ctx.save(); ctx.globalCompositeOperation = 'soft-light';
+  g = ctx.createRadialGradient(170, 420, 40, 170, 420, 1100);
+  g.addColorStop(0, `rgba(255,190,110,${0.85 * fl})`); g.addColorStop(0.5, 'rgba(255,170,90,0.25)'); g.addColorStop(1, 'rgba(20,40,90,0.6)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = 'multiply';
+  g = ctx.createLinearGradient(0, 0, W, 0);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(70,90,140,1)');
+  ctx.globalAlpha = 0.55; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.restore();
+  // toz zerreleri ışık huzmesinde
+  ctx.save(); ctx.globalCompositeOperation = 'screen';
+  for (const m of motes) {
+    const y = (m.y - t * m.sp + 1500) % 1500 + 150, x = m.x + Math.sin(t * 0.7 + m.ph) * 18;
+    const beam = clamp(1 - Math.hypot(x - 170, (y - 420) * 0.7) / 900);
+    const a = beam * (0.35 + 0.35 * Math.sin(t * 2 + m.ph)) * m.z;
+    if (a <= 0.01) continue;
+    const r = 2 + m.z * 3.5;
+    const gg = ctx.createRadialGradient(x, y, 0, x, y, r * 2.4);
+    gg.addColorStop(0, `rgba(255,214,160,${a})`); gg.addColorStop(1, 'rgba(255,214,160,0)');
+    ctx.fillStyle = gg; ctx.fillRect(x - r * 2.4, y - r * 2.4, r * 4.8, r * 4.8);
+  }
+  ctx.restore();
+  vignette(0.7, 760, 300, 1150);
+
+  // metin
+  const la = prog(t, -0.2, 0.5);
+  label('28 EKİM 1923 · ÇANKAYA', 540, 1062, C.gold, la * (1 - easeInCubic(prog(t, 4.45, 4.8))), easeOutCubic(prog(t, 0, 0.9)));
+  const words = [0.55, 1.2, 1.6, 2.4, 2.8]; // “Efendiler, | yarın Cumhuriyet’i | ilan edeceğiz.”
+  const out = 1 - easeInCubic(prog(t, 4.45, 4.8));
+  const q = (i0) => i => { const r = reveal(t, words[i0 + i], 0.9); return [r[0] * out, r[1], r[2]]; };
+  const F = `italic 400 98px ${SERIF}`;
+  wordsLine('“Efendiler,', 540, 1170, F, C.cream, 0, q(0), 18);
+  wordsLine('yarın Cumhuriyet’i', 540, 1272, F, C.cream, 0, q(1), 18);
+  wordsLine('ilan edeceğiz.”', 540, 1374, F, C.cream, 0, q(3), 18);
+  const at = reveal(t, 3.3, 0.8, 10, 6);
+  wordsLine('— Mustafa Kemal', 540, 1452, `500 30px ${HANK}`, C.gold, 5, () => [at[0] * 0.95 * out, at[1], at[2]]);
+}
+
+// ---------- S2: 29 Ekim 1923, Meclis ----------
+const SHOTS = [4.8, 5.6, 6.4]; // top atışları (ses ile aynı)
+function scene2(t) {
+  ctx.fillStyle = '#0d0b09'; ctx.fillRect(0, 0, W, H);
+  const k = easeInOutSine(prog(t, 4.8, 9.9));
+  const img = photo.meclis, base = H / img.height;
+  let shake = 0;
+  for (const s of SHOTS) { const a = t - s; if (a >= 0 && a < 0.5) shake += (s === 4.8 ? 14 : 7) * Math.exp(-a * 9); }
+  const sx = Math.sin(t * 93) * shake, sy = Math.cos(t * 71) * shake;
+  const fx = lerp(560, 860, k), fy = lerp(960, 1080, k);
+  ctx.save();
+  drawPhoto(img, fx, fy, base * lerp(1.0, 1.24, k), 540 + sx + Math.sin(t * 11.3) * 0.8, 960 + sy + Math.cos(t * 7.7) * 1.1);
+  ctx.restore();
+  // üst: metin için koyu yumuşak alan, alt: kenar kararması
+  let g = ctx.createLinearGradient(0, 180, 0, 1000);
+  g.addColorStop(0, 'rgba(8,6,4,0)'); g.addColorStop(0.35, 'rgba(8,6,4,0.55)'); g.addColorStop(0.62, 'rgba(8,6,4,0.55)'); g.addColorStop(1, 'rgba(8,6,4,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 180, W, 820);
+  vignette(0.75, 960, 420, 1300);
+  // top atışı flaşları
+  for (const s of SHOTS) {
+    const a = t - s;
+    if (a >= 0 && a < 0.6) {
+      ctx.save(); ctx.globalCompositeOperation = 'screen';
+      ctx.globalAlpha = (s === 4.8 ? 0.95 : 0.4) * Math.exp(-a * (s === 4.8 ? 7 : 10));
+      ctx.fillStyle = '#fff3dc'; ctx.fillRect(0, 0, W, H); ctx.restore();
+    }
+  }
+  // metin
+  const out = 1 - easeInCubic(prog(t, 9.25, 9.6));
+  ctx.save(); ctx.globalAlpha = out;
+  lettersLine('29 EKİM 1923', 540, 560, `400 128px ${MARC}`, C.white, 6, t, 4.86, 0.045, 0.7, 40, 30);
+  const la = prog(t, 5.6, 6.1);
+  label('ANKARA · SAAT 20.30', 540, 640, C.gold, la, easeOutCubic(prog(t, 5.6, 6.3)));
+  ctx.restore();
+  const wt = [6.4, 6.9, 7.3];
+  wordsLine('Cumhuriyet ilan edildi.', 540, 770, `italic 400 92px ${SERIF}`, C.cream, 0, i => { const r = reveal(t, wt[i], 0.9); return [r[0] * out, r[1], r[2]]; }, 20);
+}
+
+// ---------- S3: Ankara, 29 Ekim 1925 · "ilelebet payidar" + imza ----------
+let imza;
+function scene3(t) {
+  ctx.fillStyle = '#060607'; ctx.fillRect(0, 0, W, H);
+  const k = easeInOutSine(prog(t, 9.2, 13.8));
+  const img = photo.p1925, s = lerp(1.12, 1.24, k);
+  // yüz (x≈545, y≈330) üst arayüzün altında kalsın diye foto aşağı kaydırılır
+  drawPhoto(img, 545, 330, s, 540 + Math.sin(t * 11.3) * 0.8, 540 + Math.cos(t * 7.7) * 1.1, false);
+  const top = 540 - 330 * s;
+  let g = ctx.createLinearGradient(0, top, 0, top + 260);
+  g.addColorStop(0, '#060607'); g.addColorStop(1, 'rgba(6,6,7,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, top + 260);
+  g = ctx.createLinearGradient(0, 820, 0, 1500);
+  g.addColorStop(0, 'rgba(6,6,7,0)'); g.addColorStop(0.5, 'rgba(6,6,7,0.8)'); g.addColorStop(1, 'rgba(6,6,7,0.92)');
+  ctx.fillStyle = g; ctx.fillRect(0, 820, W, H);
+  vignette(0.6, 800, 380, 1200);
+
+  // arşiv notu
+  const ca = prog(t, 9.7, 10.3) * 0.75;
+  ctx.save(); ctx.globalAlpha = ca; setFont(`500 24px ${HANK}`, 4); ctx.fillStyle = C.cream; ctx.textAlign = 'left';
+  ctx.fillText('ANKARA, 29 EKİM 1925', 90, 1086); ctx.fillRect(90, 1060 - 34, 40 * easeOutCubic(prog(t, 9.7, 10.4)), 2);
+  ctx.restore();
+
+  // söz
+  wordsLine('Türkiye Cumhuriyeti', 540, 1180, `400 96px ${SERIF}`, C.cream, 0, i => reveal(t, 9.85 + i * 0.3, 0.9), 16);
+  wordsLine('ilelebet payidar', 540, 1280, `italic 400 104px ${SERIF}`, C.gold, 0, i => reveal(t, 10.6 + i * 0.4, 1.0), 16);
+  wordsLine('kalacaktır.', 540, 1376, `400 96px ${SERIF}`, C.cream, 0, () => reveal(t, 11.2, 0.9), 16);
+
+  // imza: soldan sağa mürekkep gibi akar
+  const p = prog(t, 11.75, 13.1);
+  if (p > 0) {
+    const sw = 400, sh = sw * IMZA.h / IMZA.w, x0 = 540 - sw / 2 + 20, y0 = 1388;
+    const e = easeInOutSine(p), edge = x0 + sw * e;
+    ctx.save();
+    const m = ctx.createLinearGradient(edge - 40, 0, edge + 6, 0);
+    m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)');
+    // imzayı ayrı bir katmana çiz, maskele
+    const L = imza.getContext('2d', CPU);
+    L.setTransform(1, 0, 0, 1, 0, 0); L.clearRect(0, 0, imza.width, imza.height);
+    L.globalCompositeOperation = 'source-over';
+    L.save(); L.translate(20, 20); L.scale(sw / IMZA.w, sw / IMZA.w);
+    L.fillStyle = C.goldL; L.fill(IMZA.path); L.restore();
+    L.globalCompositeOperation = 'destination-in';
+    L.translate(-(x0 - 20), 0); L.fillStyle = m; L.fillRect(x0 - 20, 0, sw + 80, imza.height);
+    ctx.shadowColor = 'rgba(233,196,126,0.55)'; ctx.shadowBlur = 18;
+    ctx.drawImage(imza, x0 - 20, y0 - 20);
+    ctx.restore();
+    // kalem ucu parıltısı
+    if (p < 1) {
+      ctx.save(); ctx.globalCompositeOperation = 'screen';
+      const gx = edge, gy = y0 + sh * (0.55 - 0.25 * Math.sin(e * 9.5));
+      const gg = ctx.createRadialGradient(gx, gy, 0, gx, gy, 60);
+      gg.addColorStop(0, 'rgba(255,236,190,0.7)'); gg.addColorStop(1, 'rgba(255,236,190,0)');
+      ctx.fillStyle = gg; ctx.fillRect(gx - 60, gy - 60, 120, 120); ctx.restore();
+    }
+  }
+}
+
+// ---------- ışık sızıntısı geçişi ----------
+function lightLeak(k, t) {
+  if (k <= 0) return;
+  ctx.save(); ctx.globalCompositeOperation = 'screen';
+  const blobs = [[200 + t * 260, 500, 900, '255,120,40'], [900 - t * 180, 1300, 1000, '230,40,30'], [600, 900 + t * 120, 700, '255,200,120']];
+  for (const [x, y, r, c] of blobs) {
+    const g = ctx.createRadialGradient(x % 1400 - 160, y, 0, x % 1400 - 160, y, r);
+    g.addColorStop(0, `rgba(${c},${0.9 * k})`); g.addColorStop(1, `rgba(${c},0)`);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  }
+  ctx.restore();
+}
+
+// ---------- bayrak: WebGL kumaş ----------
+// Bayrak Kanunu oranları (G = en): ay dış çember merkezi 0.5G, çap 0.5G; iç çember 0.0625G kaydırılmış, çap 0.4G;
+// yıldız çevrel çemberi çapı 0.25G, merkezi 0.8208G. Dikey asılışta gönder tarafı üstte.
+let gl, glProg, glU = {}, flagTex;
+function makeFlagTexture() {
+  const G = 1024, c = document.createElement('canvas'); c.width = G; c.height = G * 1.5;
+  const g = c.getContext('2d', CPU);
+  g.fillStyle = C.red; g.fillRect(0, 0, G, G * 1.5);
+  // dokuma: ince yatay/dikey iplik izleri
+  const r = rng(5);
+  for (let y = 0; y < G * 1.5; y += 3) { g.fillStyle = `rgba(0,0,0,${0.035 + r() * 0.03})`; g.fillRect(0, y, G, 1); }
+  for (let x = 0; x < G; x += 3) { g.fillStyle = `rgba(255,255,255,${0.02 + r() * 0.02})`; g.fillRect(x, 0, 1, G * 1.5); }
+  // resmî SVG yolu (yatay, 90000x60000) → 90° saat yönünde
+  g.save(); g.scale(G / 60000, G / 60000); g.transform(0, 1, -1, 0, 30000, 0);
+  g.fillStyle = '#fff';
+  g.fill(new Path2D('M41750 0l13568-4408-8386 11541V-7133l8386 11541z'));
+  g.fill(new Path2D('M42675 8021a15000 15000 0 1 1 0-16042 12000 12000 0 1 0 0 16042z'));
+  g.restore();
+  // beyaz alanlara da hafif doku
+  g.globalCompositeOperation = 'multiply';
+  for (let y = 0; y < G * 1.5; y += 3) { g.fillStyle = `rgba(200,200,205,${0.12 + r() * 0.06})`; g.fillRect(0, y, G, 1); }
+  return c;
+}
+const VS = `#version 300 es
+in vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }`;
+const FS = `#version 300 es
+precision highp float;
+uniform sampler2D uTex; uniform vec2 uRes; uniform vec4 uRect; uniform float uTime, uAmp, uSweep, uExpo, uFlash, uNight;
+out vec4 o;
+float wave(vec2 q, float t){
+  float u = q.x, v = q.y;
+  float h = sin(v*8.5 - t*3.3 + u*1.7)*0.55 + sin(v*16.0 - t*5.1 + u*3.3 + 1.3)*0.2
+          + sin(v*4.6 - t*2.0 - u*2.6 + 0.7)*0.38 + sin(u*6.5 + v*3.5 - t*1.6)*0.12;
+  return h * (0.012 + 0.05*v) * uAmp * smoothstep(0.0, 0.06, v);
+}
+float sway(float v, float t){ return (sin(v*3.8 - t*2.1)*0.022 + sin(v*8.0 - t*3.4)*0.007) * uAmp * smoothstep(0.0, 0.5, v); }
+void main(){
+  vec2 frag = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y);
+  vec2 p = (frag - uRect.xy) / uRect.zw;
+  float t = uTime;
+  vec2 q = p;
+  for (int i = 0; i < 3; i++) { float h = wave(q, t); q = vec2(p.x - sway(q.y, t) - h*0.5, p.y + abs(h)*0.15); }
+  float e = 0.0025, h = wave(q, t);
+  float du = (wave(q + vec2(e,0.0), t) - h)/e, dv = (wave(q + vec2(0.0,e), t) - h)/e;
+  float asp = uRect.z / uRect.w;
+  vec3 n = normalize(vec3(-du*7.0, -dv*asp*7.0, 1.0));
+  vec3 L = normalize(vec3(-0.45, -0.6, 0.66));
+  float dif = clamp(dot(n, L), 0.0, 1.0);
+  float shade = 0.42 + 0.9*dif;
+  float amp = (0.012 + 0.05*q.y) * max(uAmp, 0.001);
+  shade *= 0.95 + 0.08 * clamp(h/amp, -1.2, 1.2);
+  float spec = pow(clamp(dot(reflect(-L, n), vec3(0.0,0.0,1.0)), 0.0, 1.0), 22.0) * 0.32;
+  float sweep = exp(-pow((q.x*0.8 + q.y*0.55 - uSweep)/0.13, 2.0)) * 0.22 * (0.4 + dif);
+  vec3 tex = texture(uTex, clamp(q, 0.0, 1.0)).rgb;
+  vec3 col = tex * shade * uExpo + vec3(1.0, 0.92, 0.85) * (spec + sweep) * uExpo;
+  col += tex * uFlash;
+  // gece: kenarlarda daha karanlık, alttan sıcak projektör
+  col *= mix(1.0, 0.55 + 0.6*smoothstep(1.1, 0.2, q.y), uNight);
+  vec2 px = 1.0 / uRect.zw;
+  float a = clamp(min(q.x, 1.0-q.x)/px.x + 0.5, 0.0, 1.0) * clamp(min(q.y, 1.0-q.y)/px.y + 0.5, 0.0, 1.0);
+  col *= 0.86 + 0.14*smoothstep(0.0, 0.012, min(q.x, 1.0-q.x)); // kenar dikişi
+  o = vec4(clamp(col, 0.0, 1.0) * a, a);
+}`;
+function initGL() {
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  gl = c.getContext('webgl2', { premultipliedAlpha: true, preserveDrawingBuffer: true, antialias: false });
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+  glProg = gl.createProgram();
+  gl.attachShader(glProg, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(glProg, sh(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(glProg); gl.useProgram(glProg);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(glProg, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  for (const u of ['uTex', 'uRes', 'uRect', 'uTime', 'uAmp', 'uSweep', 'uExpo', 'uFlash', 'uNight']) glU[u] = gl.getUniformLocation(glProg, u);
+  flagTex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, flagTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, makeFlagTexture());
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.uniform1i(glU.uTex, 0); gl.uniform2f(glU.uRes, W, H);
+}
+// Bayrağı (x, y, G genişliğinde, 1.5G boyunda) ana tuvale çizer
+function drawFlag(x, y, G, t, o = {}) {
+  const Hh = G * 1.5;
+  const bx = Math.max(0, Math.floor(x - G * 0.12)), by = Math.max(0, Math.floor(y - 4));
+  const bw = Math.min(W, Math.ceil(x + G * 1.12)) - bx, bh = Math.min(H, Math.ceil(y + Hh * 1.08)) - by;
+  if (bw <= 0 || bh <= 0) return;
+  gl.viewport(0, 0, W, H);
+  gl.enable(gl.SCISSOR_TEST); gl.scissor(bx, H - by - bh, bw, bh);
+  gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.uniform4f(glU.uRect, x, y, G, Hh); gl.uniform1f(glU.uTime, t);
+  gl.uniform1f(glU.uAmp, o.amp ?? 1); gl.uniform1f(glU.uSweep, o.sweep ?? -2); gl.uniform1f(glU.uExpo, o.expo ?? 1);
+  gl.uniform1f(glU.uFlash, o.flash ?? 0); gl.uniform1f(glU.uNight, o.night ?? 0);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  gl.disable(gl.SCISSOR_TEST);
+  ctx.drawImage(gl.canvas, bx, by, bw, bh, bx, by, bw, bh);
+}
+
+// ---------- havai fişekler (ses ile aynı liste: audio.py BURSTS) ----------
+const BURSTS = [
+  [18.0, 175, 520, 'red', 1.0], [18.4, 900, 380, 'white', 0.95], [18.8, 890, 700, 'gold', 0.7],
+  [19.2, 165, 250, 'gold', 0.9], [19.6, 200, 690, 'white', 0.7], [20.0, 880, 560, 'red', 1.05],
+  [20.4, 540, 110, 'gold', 1.2], [20.8, 180, 470, 'red', 0.9], [21.2, 910, 240, 'white', 0.9],
+  [21.6, 250, 330, 'gold', 0.85], [22.0, 860, 640, 'red', 0.8],
+];
+const FWCOL = { red: [255, 52, 64], white: [255, 246, 232], gold: [255, 200, 110] };
+// Tipler: kırmızı şakayık (renk değiştiren uçlar), beyaz şakayık (sonunda çakan), altın söğüt (sarkan uzun kuyruklar)
+const bursts = BURSTS.map(([tb, x, y, col, size], bi) => {
+  const r = rng(100 + bi), n = Math.round((col === 'gold' ? 110 : 150) * size), parts = [];
+  for (let i = 0; i < n; i++) {
+    const z = r() * 2 - 1, phi = r() * Math.PI * 2, rr = Math.sqrt(1 - z * z);
+    parts.push({ dx: rr * Math.cos(phi), dy: rr * Math.sin(phi), v: (col === 'gold' ? 430 : 540) * size * (0.88 + r() * 0.24),
+      life: (col === 'gold' ? 2.3 : 1.55) + r() * 0.45, ph: r() * 50, alt: r() < 0.35 });
+  }
+  return { tb, x, y, type: col, col: FWCOL[col], size, parts };
+});
+let fw, fwG, fwG2;
+function fwPos(b, p, a) {
+  const willow = b.type === 'gold', k = willow ? 2.0 : 2.6, d = p.v * (1 - Math.exp(-k * a)) / k;
+  return [b.x + p.dx * d, b.y + p.dy * d + (willow ? 70 : 38) * a * a];
+}
+function fireworks(t) {
+  const F = fw.getContext('2d', CPU);
+  F.setTransform(1, 0, 0, 1, 0, 0); F.clearRect(0, 0, W, H);
+  F.globalCompositeOperation = 'lighter'; F.lineCap = 'round';
+  let flash = 0;
+  for (const b of bursts) {
+    // roket izi (yalnızca son kısmı, yazının üstüne inmez)
+    const la = t - (b.tb - 0.45);
+    if (la > 0 && la < 0.45) {
+      const e = easeOutCubic(la / 0.45), y = b.y + 240 * (1 - e);
+      const gr = F.createLinearGradient(0, y, 0, y + 110);
+      gr.addColorStop(0, 'rgba(255,225,180,0.95)'); gr.addColorStop(1, 'rgba(255,225,180,0)');
+      F.strokeStyle = gr; F.lineWidth = 3.2; F.beginPath(); F.moveTo(b.x, y); F.lineTo(b.x + Math.sin(la * 30) * 2, y + 110); F.stroke();
+    }
+    const a = t - b.tb;
+    if (a < 0 || a > 2.8) continue;
+    flash = Math.max(flash, Math.exp(-a * 5) * b.size);
+    const [cr, cg, cb] = b.col;
+    if (a < 0.12) { // patlama anı: küçük, kısa ömürlü sıcak çekirdek
+      const g = F.createRadialGradient(b.x, b.y, 0, b.x, b.y, 70 * b.size);
+      g.addColorStop(0, `rgba(255,250,240,${1 - a / 0.12})`); g.addColorStop(1, 'rgba(255,250,240,0)');
+      F.fillStyle = g; F.fillRect(b.x - 80, b.y - 80, 160, 160);
+    }
+    for (const p of b.parts) {
+      if (a > p.life) continue;
+      const lf = a / p.life;
+      let al = Math.pow(1 - lf, b.type === 'gold' ? 1.1 : 1.5);
+      let R = cr, Gc = cg, B = cb;
+      const hot = clamp(1 - a / 0.3);
+      R = lerp(R, 255, hot * 0.75); Gc = lerp(Gc, 248, hot * 0.75); B = lerp(B, 235, hot * 0.75);
+      if (b.type === 'red' && p.alt && lf > 0.5) { R = 255; Gc = 240; B = 225; } // beyaza dönen uçlar
+      if (b.type === 'white' && lf > 0.55) al *= p.alt ? (Math.sin(a * 55 + p.ph) > 0.2 ? 1.6 : 0.1) : 0.6; // çakma
+      if (b.type === 'gold' && p.alt) al *= 0.65 + 0.35 * Math.sin(a * 30 + p.ph);
+      const [x1, y1] = fwPos(b, p, a);
+      const tail = b.type === 'gold' ? 0.42 : 0.2;
+      const [xm, ym] = fwPos(b, p, Math.max(0, a - tail * 0.35)), [x0, y0] = fwPos(b, p, Math.max(0, a - tail));
+      const c = `${R | 0},${Gc | 0},${B | 0}`;
+      F.strokeStyle = `rgba(${c},${al * 0.35})`; F.lineWidth = 1.6 * b.size;
+      F.beginPath(); F.moveTo(x0, y0); F.lineTo(xm, ym); F.stroke();
+      F.strokeStyle = `rgba(${c},${al})`; F.lineWidth = 2.8 * b.size;
+      F.beginPath(); F.moveTo(xm, ym); F.lineTo(x1, y1); F.stroke();
+    }
+  }
+  // parıltı: 1/4 çözünürlüğe iki adımda küçült (ucuz bulanıklık)
+  const G1 = fwG.getContext('2d', CPU), G2 = fwG2.getContext('2d', CPU);
+  G1.clearRect(0, 0, 540, 960); G1.drawImage(fw, 0, 0, 540, 960);
+  G2.clearRect(0, 0, 270, 480); G2.drawImage(fwG, 0, 0, 270, 480);
+  return flash;
+}
+
+// ---------- S4–S5: bayrak, gece, kapanış ----------
+const stars = (() => { const r = rng(77); return Array.from({ length: 140 }, () => ({ x: r() * W, y: r() * 1100, s: 0.6 + r() * 1.6, ph: r() * 6.28 })); })();
+function nightSky(t, flash) {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#02040b'); g.addColorStop(0.55, '#0a1430'); g.addColorStop(1, '#151129');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.save();
+  for (const s of stars) {
+    ctx.globalAlpha = 0.35 + 0.35 * Math.sin(t * 2.3 + s.ph);
+    ctx.fillStyle = '#dfe6ff'; ctx.fillRect(s.x, s.y, s.s, s.s);
+  }
+  ctx.restore();
+  // havai fişeklerin göğü aydınlatması
+  ctx.save(); ctx.globalCompositeOperation = 'screen';
+  for (const b of bursts) {
+    const a = t - b.tb; if (a < 0 || a > 2) continue;
+    const k = Math.exp(-a * 2.6) * 0.32 * b.size;
+    const gg = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, 700 * b.size);
+    gg.addColorStop(0, `rgba(${b.col.join(',')},${k})`); gg.addColorStop(1, `rgba(${b.col.join(',')},0)`);
+    ctx.fillStyle = gg; ctx.fillRect(0, 0, W, H);
+  }
+  ctx.restore();
+}
+// İstanbul silueti: kubbeler, minareler, pencerelerde sıcak ışıklar
+let skyline;
+function makeSkyline() {
+  skyline = document.createElement('canvas'); skyline.width = W; skyline.height = 420;
+  const g = skyline.getContext('2d', CPU), r = rng(303), base = 420;
+  const sil = '#04060f';
+  g.fillStyle = sil;
+  // arka sıra binalar
+  for (let x = -20; x < W + 20;) {
+    const w = 40 + r() * 70, h = 70 + r() * 90;
+    g.fillStyle = '#070b1a'; g.fillRect(x, base - h - 60, w, h + 60); x += w - 4;
+  }
+  const mosque = (cx, s) => {
+    g.fillStyle = sil;
+    const d = 120 * s, by = base - 150 * s;
+    g.fillRect(cx - d * 1.6, by, d * 3.2, 150 * s + 2);                                    // gövde
+    g.beginPath(); g.ellipse(cx, by, d * 0.75, d * 0.68, 0, Math.PI, 0); g.fill();          // ana kubbe
+    g.fillRect(cx - d * 0.78, by - 14 * s, d * 1.56, 16 * s);                                 // kasnak
+    g.fillRect(cx - 2 * s, by - d * 0.68 - 26 * s, 4 * s, 28 * s);                            // alem
+    for (const sx of [-1, 1]) {
+      g.beginPath(); g.ellipse(cx + sx * d * 1.05, by + 6 * s, d * 0.42, d * 0.38, 0, Math.PI, 0); g.fill(); // yarım kubbeler
+      for (const m of [1.75, 2.15]) {                                                         // minareler
+        const mx = cx + sx * d * m, mw = 9 * s, mh = (m > 2 ? 330 : 280) * s;
+        g.fillRect(mx - mw / 2, base - mh, mw, mh);
+        g.fillRect(mx - mw * 0.9, base - mh * 0.62, mw * 1.8, 5 * s);                         // şerefe
+        g.fillRect(mx - mw * 0.9, base - mh * 0.82, mw * 1.8, 5 * s);
+        g.beginPath(); g.moveTo(mx - mw / 2, base - mh); g.lineTo(mx, base - mh - 46 * s); g.lineTo(mx + mw / 2, base - mh); g.fill();
+      }
+    }
+  };
+  mosque(250, 0.78); mosque(830, 0.62);
+  // ön sıra
+  g.fillStyle = sil;
+  for (let x = -20; x < W + 20;) { const w = 30 + r() * 60, h = 30 + r() * 55; g.fillRect(x, base - h, w, h); x += w - 2; }
+  // pencereler
+  for (let i = 0; i < 70; i++) {
+    const x = r() * W, y = base - 20 - r() * 110;
+    g.fillStyle = `rgba(255,${180 + r() * 50 | 0},110,${0.25 + r() * 0.5})`; g.fillRect(x, y, 3, 4);
+  }
+}
+function rod(x, y, G, alpha) {
+  if (alpha <= 0) return;
+  const s = G / 440, x0 = x - 34 * s, x1 = x + G + 34 * s, ry = y - 7 * s;
+  ctx.save(); ctx.globalAlpha = alpha;
+  // askı ipleri
+  ctx.strokeStyle = 'rgba(233,196,126,0.7)'; ctx.lineWidth = 2 * s;
+  ctx.beginPath(); ctx.moveTo(x0 + 22 * s, ry); ctx.lineTo(x + G / 2, ry - 150 * s); ctx.lineTo(x1 - 22 * s, ry); ctx.stroke();
+  const g = ctx.createLinearGradient(0, ry - 8 * s, 0, ry + 8 * s);
+  g.addColorStop(0, '#fff1c8'); g.addColorStop(0.45, C.gold); g.addColorStop(1, C.goldD);
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.roundRect(x0, ry - 7 * s, x1 - x0, 14 * s, 7 * s); ctx.fill();
+  for (const ex of [x0, x1]) {
+    const gg = ctx.createRadialGradient(ex - 4 * s, ry - 5 * s, 1, ex, ry, 15 * s);
+    gg.addColorStop(0, '#fff6dc'); gg.addColorStop(0.5, C.gold); gg.addColorStop(1, C.goldD);
+    ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(ex, ry, 14 * s, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+}
+let logoWhite;
+function scene45(t) {
+  // bayrak geometrisi: tam ekran (G=1280) → askıda (G=440)
+  const pb = easeInOutCubic(prog(t, 16.8, 18.4));
+  const G = lerp(1280, 440, pb);
+  const zoom = t < 16.8 ? lerp(1.2, 1.0, easeOutCubic(prog(t, 13.6, 16.8))) : 1; // S4: ay-yıldıza yakından başlar
+  const Gz = G * zoom;
+  const fy0 = lerp(0, 190, pb);
+  let x = 540 - Gz / 2, y = fy0 - (zoom - 1) * 640 * zoom;
+  // iniş: 13.2–13.6 yukarıdan düşer, 13.6'da hafifçe sekip oturur
+  if (t < 13.6) y -= H * 1.05 * (1 - easeInCubic(prog(t, 13.2, 13.6)));
+  else if (t < 14.2) y += Math.sin(prog(t, 13.6, 14.2) * Math.PI) * 26 * (1 - prog(t, 13.6, 14.2));
+  let flash = 0;
+  if (t >= 16.8) {
+    flash = fireworks(t);
+    nightSky(t, flash);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.imageSmoothingQuality = 'high';
+    ctx.globalAlpha = 1; ctx.drawImage(fwG2, 0, 0, W, H); ctx.drawImage(fwG2, 0, 0, W, H); ctx.drawImage(fw, 0, 0); ctx.restore();
+    // ufuk pusu ve silüet
+    const hz = ctx.createLinearGradient(0, 1380, 0, 1760);
+    hz.addColorStop(0, 'rgba(120,40,60,0)'); hz.addColorStop(1, `rgba(130,50,70,${0.42 + flash * 0.2})`);
+    ctx.fillStyle = hz; ctx.fillRect(0, 1380, W, 380);
+    ctx.drawImage(skyline, 0, H - 420 + 40);
+  }
+  rod(x, y, Gz, prog(t, 16.9, 17.6));
+  drawFlag(x, y, Gz, t, {
+    amp: t < 13.6 ? 1.6 : 1.0,
+    sweep: lerp(-0.6, 2.2, prog(t, 13.7, 16.4)),
+    expo: lerp(1.0, 0.92, pb), night: pb, flash: flash * 0.25 * pb,
+  });
+  if (t < 16.8) { ctx.save(); vignette(0.45, 960, 520, 1300); ctx.restore(); }
+
+  if (t >= 17.6) endCard(t);
+}
+function endCard(t) {
+  lettersLine('29 EKİM', 540, 1050, `400 172px ${MARC}`, C.white, 10, t, 17.75, 0.06, 0.8, 50, 40);
+  wordsLine('Cumhuriyet Bayramımız', 540, 1152, `italic 400 76px ${SERIF}`, C.cream, 0, i => reveal(t, 18.35 + i * 0.25, 0.9), 20);
+  wordsLine('kutlu olsun.', 540, 1232, `italic 400 76px ${SERIF}`, C.cream, 0, i => reveal(t, 18.85 + i * 0.25, 0.9), 20);
+  const la = prog(t, 19.35, 19.9);
+  label('1923 — 2026 · 103. YIL', 540, 1310, C.gold, la, easeOutCubic(prog(t, 19.35, 20.1)), 26, 7);
+  const lk = prog(t, 19.75, 20.5);
+  if (lk > 0 && logoWhite) {
+    const lw = 270, lh = lw * LOGO_WHITE.h / LOGO_WHITE.w, e = easeOutCubic(lk);
+    ctx.save(); ctx.globalAlpha = clamp(lk * 1.5) * 0.96;
+    ctx.drawImage(logoWhite, 540 - lw / 2, 1352 + (1 - e) * 20, lw, lh); ctx.restore();
+  }
+}
+
+// ---------- ana çizim ----------
+function render(t, frame) {
+  const f = frame ?? Math.round(t * FPS);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
+  if (t < 4.8) {
+    scene1(t);
+  } else if (t < 9.6) {
+    scene2(t);
+    if (t > 9.25) { ctx.save(); ctx.globalAlpha = easeInOutSine(prog(t, 9.25, 9.75)); scene3(t); ctx.restore(); }
+  } else if (t < 13.6) {
+    scene3(t);
+  }
+  if (t < 13.6) {
+    const pk = Math.max(0, 1 - Math.abs(t - 9.5) / 0.4);
+    lightLeak(easeInOutSine(pk), t);
+    archive(f, 1);
+    filmGrain(f, 0.16);
+  }
+  if (t >= 13.2) scene45(t);
+  if (t >= 13.6) filmGrain(f, 0.06);
+}
+
+// Hareket bulanıklığı: 180° obtüratör, alt karelerin yürüyen ortalaması
+let acc = null;
+function renderMB(t, n = 8, shutter = 0.5) {
+  if (!acc) { acc = document.createElement('canvas'); acc.width = W; acc.height = H; }
+  const a = acc.getContext('2d', CPU), f = Math.round(t * FPS);
+  for (let k = 0; k < n; k++) {
+    render(t + ((k + 0.5) / n - 0.5) * shutter / FPS, f);
+    a.globalAlpha = 1 / (k + 1); a.drawImage(cv, 0, 0);
+  }
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
+  ctx.drawImage(acc, 0, 0);
+}
+function renderPoster() { render(21.4); }
+// Alt kare sayısı: hızlı anlarda (kesmeler, bayrak inişi, geri çekiliş, yazı girişleri) yüksek, yavaş Ken Burns'te düşük
+function mbSamples(t, max) {
+  const fast = [[4.7, 5.3], [9.2, 9.8], [13.1, 14.0], [16.8, 18.6]];
+  return fast.some(([a, b]) => t >= a && t <= b) ? max : Math.min(max, 3);
+}
+
+// ---------- başlat ----------
+const params = new URLSearchParams(location.search);
+window.renderFrame = render;
+window.renderFrameMB = renderMB;
+window.renderPoster = renderPoster;
+window.mbSamples = mbSamples;
+window.DUR = DUR; window.FPS = FPS;
+const loadImg = src => { const im = new Image(); im.src = src; return im.decode().then(() => im); };
+window.ready = (async () => {
+  makeGrain();
+  const [a, b, c] = await Promise.all([PHOTOS.cankaya, PHOTOS.meclis, PHOTOS['1925']].map(loadImg));
+  photo.cankaya = grade(a, [4, 8, 20], [255, 232, 196], 1.12, 1.05, [92, 88, 92]);
+  photo.meclis = grade(b, [14, 11, 9], [252, 240, 218], 1.12, 1.0, [128, 116, 100]);
+  photo.p1925 = grade(c, [4, 5, 8], [250, 246, 238], 1.2, 1.05);
+  IMZA.path = new Path2D(IMZA.d);
+  imza = document.createElement('canvas'); imza.width = 520; imza.height = 230;
+  fw = document.createElement('canvas'); fw.width = W; fw.height = H;
+  fwG = document.createElement('canvas'); fwG.width = 540; fwG.height = 960;
+  fwG2 = document.createElement('canvas'); fwG2.width = 270; fwG2.height = 480;
+  if (window.LOGO_WHITE) logoWhite = await loadImg(LOGO_WHITE.src);
+  initGL();
+  makeSkyline();
+  const sample = 'AaÜüİıŞşĞğÇçÖö0123456789·—“”’';
+  await Promise.all([
+    document.fonts.load(`italic 400 80px ${SERIF}`, sample),
+    document.fonts.load(`400 80px ${SERIF}`, sample),
+    document.fonts.load(`400 80px ${MARC}`, sample),
+    document.fonts.load(`600 40px ${HANK}`, sample),
+    document.fonts.load(`500 40px ${HANK}`, sample),
+  ]);
+  await document.fonts.ready;
+})();
+
+window.ready.then(() => {
+  if (params.has('render')) { document.body.classList.add('render'); return; }
+  if (params.has('t')) { render(parseFloat(params.get('t'))); return; }
+  if (params.has('poster')) { renderPoster(); return; }
+  let start = performance.now();
+  cv.addEventListener('click', () => { start = performance.now(); });
+  const loop = now => { render(((now - start) / 1000) % DUR); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+});
+</script>
+</body>
+</html>
