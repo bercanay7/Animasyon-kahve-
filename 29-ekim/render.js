@@ -32,11 +32,21 @@ const only = process.env.FRAMES; // örn. FRAMES=0,90,200 → sadece PNG kareler
   }
 
   const total = Math.round(DUR * FPS);
+  // Tuvalin saydam olduğu yerlerde altına konacak film (window.UNDERLAY = { src, at })
+  const under = await page.evaluate(() => window.UNDERLAY || null);
+  const underPath = under && path.join(__dirname, under.src);
+  const useUnder = underPath && fs.existsSync(underPath);
+  if (under && !useUnder) console.error(`Uyarı: ${under.src} yok, önce ./kaynaklar.sh çalıştırın`);
+  const hasAudio = fs.existsSync(path.join(__dirname, 'audio.wav'));
+  const vgraph = useUnder
+    ? `color=c=black:s=1080x1920:r=${FPS}:d=${DUR}[base];[2:v]setpts=PTS-STARTPTS+${under.at}/TB[u];` +
+      `[base][u]overlay=eof_action=pass[bu];[bu][0:v]overlay=format=auto,format=yuv420p[v]`
+    : `[0:v]format=yuv420p[v]`;
+  const agraph = hasAudio ? `;[1:a]loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]` : `;[1:a]anull[a]`;
   const ff = spawn('ffmpeg', ['-y', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
-    ...(fs.existsSync(path.join(__dirname, 'audio.wav'))
-      ? ['-i', path.join(__dirname, 'audio.wav'), '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11', '-ar', '48000']
-      : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000']),
-    '-map', '0:v', '-map', '1:a', '-shortest',
+    ...(hasAudio ? ['-i', path.join(__dirname, 'audio.wav')] : ['-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000']),
+    ...(useUnder ? ['-i', underPath] : []),
+    '-filter_complex', vgraph + agraph, '-map', '[v]', '-map', '[a]', '-t', String(DUR),
     '-c:v', 'libx264', '-preset', process.env.PRESET || 'slow', '-crf', process.env.CRF || '18', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
     '-r', String(FPS), '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', out],
     { stdio: ['pipe', 'ignore', 'inherit'] });

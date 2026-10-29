@@ -37,26 +37,30 @@
 <script src="assets.js"></script>
 <script>
 /*
- * 29 Ekim · Cumhuriyet 103 yaşında — Instagram Reels/Story, 35 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
- * Seslendirmeli: her kelime anlatıcının söylediği anda belirir (kelime zamanları ses kaydından çıkarıldı).
+ * 29 Ekim · Cumhuriyet 103 yaşında — Instagram Reels/Story, 48 sn, 1080x1920. render(t) yalnızca zamana bağlıdır.
+ * Seslendirmeli: her kelime anlatıcının ya da Atatürk'ün söylediği anda belirir (kelime zamanları ses kayıtlarından).
+ * S3b'de tuval saydamdır: altındaki Onuncu Yıl Nutku filmini render.js ffmpeg ile ekler (kaynak/film.mp4, FILM0'dan itibaren).
  * Metinler Reels/Story arayüzünün kapatmadığı alanda (y ≈ 260–1480) durur. Bayrağın üzerine yazı konmaz.
  *
  * Fotoğraflar gerçek arşiv fotoğraflarıdır. Portreler DDColor ile renklendirildi (img/*-renk.jpg); Meclis fotoğrafı sepya kalır.
  *
  *   S1  0.0 – 4.8   28 Ekim 1923 gecesi, Çankaya: portre karanlıktan çıkar, "Efendiler, yarın Cumhuriyet'i ilan edeceğiz."
  *   S2  4.8 – 12.0  Flaşla kesme → TBMM önü: "29 EKİM 1923", "Saat 20.30", "Cumhuriyet ilan edildi."; ardından top atışları
- *   S3 12.0 – 26.4  Işık sızıntısıyla geçiş → Gençliğe Hitabe'nin son cümleleri kelime kelime, dört parça hâlinde; imza
- *   ~  26.0 – 26.4  Bayrak yukarıdan iner, ekranı kaplar
- *   S4 26.4 – 29.6  Dalgalanan bayrak (WebGL kumaş), ışık süpürmesi
- *   S5 29.6 – 35.2  Kamera geri çekilir: altın askıda bayrak, gece göğü, havai fişekler; "29 EKİM", kutlama, logo
+ *   S3 12.0 – 26.1  Işık sızıntısıyla geçiş → Gençliğe Hitabe'nin son cümleleri kelime kelime, dört parça hâlinde; imza
+ *   S3b 26.1 – 37.7 Onuncu Yıl Nutku filmi, Atatürk'ün kendi sesi: "Bugün, Cumhuriyetimizin onuncu yılını doldurduğu
+ *                   en büyük bayramdır. Kutlu olsun!" (yakın plan dikey, genel plan pencere içinde); altyazı
+ *   ~  37.3 – 37.7  "Kutlu olsun!"un ardından bayrak yukarıdan iner, ekranı kaplar; Onuncu Yıl Marşı başlar
+ *   S4 37.7 – 40.9  Dalgalanan bayrak (WebGL kumaş), ışık süpürmesi
+ *   S5 40.9 – 48.1  Kamera geri çekilir: altın askıda bayrak, gece göğü, havai fişekler; "29 EKİM", kutlama, logo
  */
 const cv = document.getElementById('c');
 const CPU = { willReadFrequently: true }; // yazılım raster: başsız Chromium'da GPU öykünmesinden hızlı
 const ctx = cv.getContext('2d', CPU);
-const W = 1080, H = 1920, DUR = 35.2, FPS = 30, BEAT = 0.8;
-// Zamanlar seslendirmeye göre (ses/seslendirme.mp3, audio.py VO): T3 Hitabe sahnesi, T4 bayrağın ekranı kapladığı an.
+const W = 1080, H = 1920, DUR = 48.1, FPS = 30, BEAT = 0.8;
+// Zamanlar seslendirmeye göre (ses/seslendirme.mp3, audio.py VO): T3 Hitabe sahnesi, FILM0 nutuk filminin başı,
+// T4 bayrağın ekranı kapladığı an.
 // S4–S5 kendi saatleriyle yazılıdır (bayrak 13.6'da) ve SH kadar kaydırılır.
-const T3 = 12.0, T4 = 26.4, SH = T4 - 13.6;
+const T3 = 12.0, FILM0 = 26.1, T4 = 37.7, SH = T4 - 13.6;
 
 const C = {
   red: '#E30A17', night: '#03060F', navy: '#0A1328', gold: '#E9C47E', goldL: '#F7E2B4', goldD: '#A9792F',
@@ -354,10 +358,11 @@ const HITABE = [
     lines: [['Muhtaç', 'olduğun', 'kudret,'], ['damarlarındaki'], ['*asil', '*kanda', 'mevcuttur!']] },
 ];
 const HSIZE = 84, HLEAD = 98;
-function hitabeChunk(ch, t) {
+function hitabeChunk(ch, t, yc = 1216) {
+  const HSIZE = ch.size ?? 84, HLEAD = HSIZE * 1.17;
   const fade = 1 - easeInCubic(prog(t, ch.out, ch.out + 0.28));
   if (fade <= 0 || t < ch.t[0] - 0.05) return;
-  const n = ch.lines.length, y0 = 1216 - (n - 1) * HLEAD / 2;
+  const n = ch.lines.length, y0 = yc - (n - 1) * HLEAD / 2;
   let wi = 0;
   ch.lines.forEach((line, li) => {
     const words = line.map(w => ({ w: w.replace(/^\*/, ''), gold: w.startsWith('*') }));
@@ -426,6 +431,28 @@ function scene3(t) {
       ctx.fillStyle = gg; ctx.fillRect(gx - 60, gy - 60, 120, 120); ctx.restore();
     }
   }
+}
+
+// ---------- S3b: Onuncu Yıl Nutku, Atatürk'ün kendi sesi (film altta, tuval saydam) ----------
+// Kelime zamanları filmin sesinden (kaynak/nutuk.wav), filmin kendi saatiyle
+const NUTUK = [
+  { t: [0.2, 2.25], out: 4.45, size: 92, lines: [['Bugün,'], ['Cumhuriyetimizin']] },
+  { t: [4.8, 5.3, 5.9], out: 7.3, size: 92, lines: [['onuncu', 'yılını'], ['doldurduğu']] },
+  { t: [7.6, 7.95, 8.8], out: 10.05, size: 92, lines: [['en', 'büyük'], ['bayramdır.']] },
+  { t: [10.3, 10.7], out: 99, size: 124, lines: [['*Kutlu', '*olsun!']] },
+];
+function scene3b(t) {
+  ctx.clearRect(0, 0, W, H);
+  const c = t - FILM0;
+  let g = ctx.createLinearGradient(0, 0, 0, 560);
+  g.addColorStop(0, 'rgba(4,3,3,0.85)'); g.addColorStop(1, 'rgba(4,3,3,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, 560);
+  g = ctx.createLinearGradient(0, 1060, 0, 1700);
+  g.addColorStop(0, 'rgba(4,3,3,0)'); g.addColorStop(0.5, 'rgba(4,3,3,0.7)'); g.addColorStop(1, 'rgba(4,3,3,0.85)');
+  ctx.fillStyle = g; ctx.fillRect(0, 1060, W, H - 1060);
+  label("ATATÜRK'ÜN KENDİ SESİYLE", 540, 300, C.gold, prog(c, 0.0, 0.6), easeOutCubic(prog(c, 0.0, 0.9)), 28, 8);
+  label('ONUNCU YIL NUTKU · ANKARA, 29 EKİM 1933', 540, 352, C.cream, prog(c, 0.3, 0.9) * 0.8, 0, 22, 5);
+  for (const ch of NUTUK) hitabeChunk(ch, c, 1440);
 }
 
 // ---------- ışık sızıntısı geçişi ----------
@@ -545,7 +572,8 @@ const BURSTS = [
   [18.0, 175, 520, 'red', 1.0], [18.4, 900, 380, 'white', 0.95], [18.8, 890, 700, 'gold', 0.7],
   [19.2, 165, 250, 'gold', 0.9], [19.6, 200, 690, 'white', 0.7], [20.0, 880, 560, 'red', 1.05],
   [20.4, 540, 110, 'gold', 1.2], [20.8, 180, 470, 'red', 0.9], [21.2, 910, 240, 'white', 0.9],
-  [21.6, 250, 330, 'gold', 0.85], [22.0, 860, 640, 'red', 0.8],
+  [21.6, 250, 330, 'gold', 0.85], [22.0, 860, 640, 'red', 0.8], [22.5, 200, 600, 'white', 0.8],
+  [22.9, 900, 300, 'gold', 0.95], [23.3, 170, 280, 'red', 0.85], [23.7, 880, 620, 'white', 0.75],
 ];
 const FWCOL = { red: [255, 52, 64], white: [255, 246, 232], gold: [255, 200, 110] };
 // Tipler: kırmızı şakayık (renk değiştiren uçlar), beyaz şakayık (sonunda çakan), altın söğüt (sarkan uzun kuyruklar)
@@ -752,10 +780,13 @@ function render(t, frame) {
   } else if (t < T3) {
     scene2(t);
     if (t > T3 - 0.35) { ctx.save(); ctx.globalAlpha = easeInOutSine(prog(t, T3 - 0.35, T3 + 0.15)); scene3(t); ctx.restore(); }
-  } else if (t < T4) {
+  } else if (t < FILM0) {
     scene3(t);
+  } else if (t < T4) {
+    scene3b(t);
+    if (t < FILM0 + 0.4) { ctx.save(); ctx.globalAlpha = 1 - easeInOutSine(prog(t, FILM0, FILM0 + 0.4)); scene3(t); ctx.restore(); }
   }
-  if (t < T4) {
+  if (t < FILM0) {
     const pk = Math.max(0, 1 - Math.abs(t - (T3 - 0.1)) / 0.4);
     lightLeak(easeInOutSine(pk), t);
     archive(f, 1);
@@ -770,17 +801,18 @@ let acc = null;
 function renderMB(t, n = 8, shutter = 0.5) {
   if (!acc) { acc = document.createElement('canvas'); acc.width = W; acc.height = H; }
   const a = acc.getContext('2d', CPU), f = Math.round(t * FPS);
+  a.clearRect(0, 0, W, H); // saydam karelerde önceki kare sızmasın
   for (let k = 0; k < n; k++) {
     render(t + ((k + 0.5) / n - 0.5) * shutter / FPS, f);
     a.globalAlpha = 1 / (k + 1); a.drawImage(cv, 0, 0);
   }
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.filter = 'none';
-  ctx.drawImage(acc, 0, 0);
+  ctx.clearRect(0, 0, W, H); ctx.drawImage(acc, 0, 0);
 }
 function renderPoster() { render(21.4 + SH); }
 // Alt kare sayısı: hızlı anlarda (kesmeler, bayrak inişi, geri çekiliş, yazı girişleri) yüksek, yavaş Ken Burns'te düşük
 function mbSamples(t, max) {
-  const fast = [[4.7, 5.3], [10.55, 12.3], [13.1 + SH, 14.0 + SH], [16.8 + SH, 18.6 + SH]];
+  const fast = [[4.7, 5.3], [10.55, 12.3], [FILM0 - 0.1, FILM0 + 0.5], [13.1 + SH, 14.0 + SH], [16.8 + SH, 18.6 + SH]];
   return fast.some(([a, b]) => t >= a && t <= b) ? max : Math.min(max, 3);
 }
 
@@ -791,6 +823,7 @@ window.renderFrameMB = renderMB;
 window.renderPoster = renderPoster;
 window.mbSamples = mbSamples;
 window.DUR = DUR; window.FPS = FPS;
+window.UNDERLAY = { src: 'kaynak/film.mp4', at: FILM0 }; // render.js: tuvalin altına bu film FILM0'dan itibaren konur
 const loadImg = src => { const im = new Image(); im.src = src; return im.decode().then(() => im); };
 window.ready = (async () => {
   makeGrain();
