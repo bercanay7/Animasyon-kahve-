@@ -66,7 +66,7 @@ function promChained(ctx, t, o = {}) {
   const ph = (t % 4.2) / 4.2, pull = (ph < .35 ? E.io2(ph / .35) : 1 - E.io2((ph - .35) / .65)) * (o.pullK ?? 1);
   let J = null, M = null;
   figure(ctx, {
-    x: px, y: gy - 42.5 * s, s, dir: -1, sty: STY.red, lk: LK.prom, seed: 17,
+    x: px, y: gy - 42.5 * s, s, dir: -1, sty: STY.red, lk: LK.prom, seed: 17, stripe: .55,
     p: { torso: .1 + .07 * pull, neck: -.04, head: -.1 + (o.look || 0), handN: 'fist', handF: 'fist', mouthOpen: 0, smile: -1, breath: 1.3 * Math.sin(t * 1.65), wind: o.wind ?? 0, ...(o.p || {}) },
     ik: { hF: [px + 200, gy - 625], hN: [px + 185, gy - 300], fN: [px - 70, gy - 3 * s, 0], fF: [px + 90, gy - 3 * s, .25] },
     hold: { N: CUFF, F: CUFF },
@@ -115,8 +115,8 @@ function kayaWorld(ctx, t, c, o = {}) {
   // kaya: kadrajın dışına (yukarı ve sağa) uzanır, yukarı çevrinme ve kaydırmalarda kenarı görünmez
   ctx.save(); cam(ctx, c, 1);
   const lw = 3.5 / Math.max(1, (c.z || 1) * .8);
-  const R = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 210], [1380, 170], [1520, 200], [1720, 260], [1990, 300], [2600, 240], [2600, 1500]];
-  crag(ctx, R, { seed: 7, grad: [1050, '#5A311D', 1900, '#341C12'], line: C.ink, lw, hole: [1265, 560, 250, 390], strata: 7, lobes: 8, flat: [11, 12], bounce: [960, 860, 460, `rgba(255,150,70,${.22 * fl * (o.fireA ?? 1)})`] });
+  const R = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 190], [1350, 120], [1420, 150], [1500, 95], [1580, 175], [1720, 240], [1990, 290], [2600, 230], [2600, 1500]];
+  crag(ctx, R, { seed: 7, grad: [1050, '#5A311D', 1900, '#341C12'], line: C.ink, lw, hole: [1265, 560, 250, 390], strata: 7, lobes: 8, flat: [13, 14], bounce: [960, 860, 460, `rgba(255,150,70,${.22 * fl * (o.fireA ?? 1)})`] });
   // zemin çizgisi (vazo uylaşımı): figür kayanın üstündeki dalgalı bir çizgiye basar; altı hafif gölgeli
   const gl = x => 870 + fbm1(x * .02, 4) * 6 + Math.max(0, (x - 1400) * .12);
   ctx.beginPath(); ctx.moveTo(1035, gl(1035)); for (let x = 1035; x <= 2600; x += 12) ctx.lineTo(x, gl(x)); ctx.lineTo(2600, 1500); ctx.lineTo(1015, 1500); ctx.closePath();

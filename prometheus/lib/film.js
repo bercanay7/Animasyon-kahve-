@@ -9,7 +9,14 @@ function Wd(id, w, n = 0, end = false) {
   for (const x of (window.WORDS || [])) if (x.id === id && x.w.startsWith(nw)) { if (k++ === n) return end ? x.e : x.s; }
   return S(id);
 }
+// plan çapası: 'A01' cümle başı, 'A01@kelime' kelime, 'A01@kelime#1' ikinci geçiş, '+0.3' kaydırma (animatik/planlar.json ile aynı yazım)
+function A(at) {
+  const m = at.match(/^([A-Z]\d+[a-z]?)(?:@([^#+-]+)(?:#(\d+))?)?([+-][\d.]+)?$/);
+  if (!m) return 0;
+  return (m[2] ? Wd(m[1], m[2], +(m[3] || 0)) : S(m[1])) + (m[4] ? +m[4] : 0);
+}
 const SHOTS = [];
+let SHOTS_SORTED = false;
 // shot(başlangıç, çizim, {tr:{type,dur}, post:{...}})
 function shot(at, draw, o = {}) { SHOTS.push({ at, draw, ...o }); }
 const bufA = makeCanvas(DW, DH), bufAx = bufA.getContext('2d');
@@ -28,6 +35,7 @@ function noiseMask() {
   NOISE_MASK = a; return a;
 }
 function shotAt(t) {
+  if (!SHOTS_SORTED) { SHOTS.sort((a, b) => a.at - b.at); SHOTS_SORTED = true; }
   let i = 0;
   for (let k = 0; k < SHOTS.length; k++) if (SHOTS[k].at <= t) i = k;
   return i;
@@ -85,6 +93,25 @@ function composite(ctx, buf, tr, p) {
     const g = bufAx.createLinearGradient(x - 120, 0, x + 120, 0);
     g.addColorStop(0, dir > 0 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(1, dir > 0 ? '#000' : 'rgba(0,0,0,0)');
     bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.fillStyle = g; bufAx.fillRect(0, 0, W, H); bufAx.restore();
+    ctx.drawImage(buf, 0, 0);
+  } else if (tr.type === 'negatif') {
+    // katman değişimi (kırmızı figür ↔ siyah figür): eski kare önce negatifine döner (sır kile, kil sıra), sonra çözülür.
+    // Değer haritası: koyu → kil, açık → siyah sır; ateş gibi çok açık noktalar korunur
+    const q = clamp(p * 2), g = bufAx.getImageData(0, 0, DW, DH), d = g.data, k = E.io2(q);
+    const cl = [201, 112, 63], ik = [23, 16, 12];
+    for (let i = 0; i < d.length; i += 4) {
+      const L = (d[i] * .2126 + d[i + 1] * .7152 + d[i + 2] * .0722) / 255;
+      if (L > .86) continue;
+      const u = clamp(L * 1.8);
+      for (let c = 0; c < 3; c++) d[i + c] = lerp(d[i + c], lerp(cl[c], ik[c], u), k);
+    }
+    bufAx.putImageData(g, 0, 0);
+    if (p >= .5) {
+      const nm = noiseMask(), id = maskX.createImageData(480, 270), dd = id.data, soft = .08, th = lerp(-soft, 1 + soft, E.io2((p - .5) * 2));
+      for (let j = 0; j < nm.length; j++) dd[j * 4 + 3] = clamp((nm[j] - th) / soft + .5) * 255;
+      maskX.putImageData(id, 0, 0);
+      bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.drawImage(maskC, 0, 0, W, H); bufAx.restore();
+    }
     ctx.drawImage(buf, 0, 0);
   } else if (tr.type === 'iris') {
     const cx = tr.x ?? W / 2, cy = tr.y ?? H / 2, r = lerp(0, 1300, E.io3(p));

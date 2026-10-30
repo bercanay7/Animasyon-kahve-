@@ -118,12 +118,12 @@ SCENES.style2 = (ctx, t) => {
   const c = { x: lerp(1000, 1060, u), y: lerp(540, 520, u), z: lerp(1.0, 1.06, u), sx: noise1(t * .3, 1) * 3, sy: noise1(t * .3, 2) * 2 };
   // kartal: sol üst köşeden göğse doğru köşegen dalış (Zeus'un soğuk çakmasının içinden çıkar)
   const k = E.io2(clamp(t / 5.5));
-  const ex = lerp(180, 720, k), ey = lerp(210, 410, k), es = lerp(2.2, 2.9, k);
+  const ex = lerp(-160, 720, k), ey = lerp(160, 410, k), es = lerp(2.2, 2.9, k);
   const { wind } = kayaWorld(ctx, t, c, { eagleX: ex, eagleY: ey });
   ctx.save(); cam(ctx, c, 1);
-  if (t < .6) { const fa = Math.sin(clamp(t / .6) * PI); glow(ctx, 160, 120, 380, `rgba(225,232,255,${.35 * fa})`); }
+  if (t < .6) { const fa = Math.sin(clamp(t / .6) * PI); glow(ctx, 160, 120, 380, `rgba(225,232,255,${.35 * fa})`); ctx.save(); ctx.globalAlpha = .75 * fa; bolt(ctx, 170, 140, 1.3, .55, '#DDE3F2', 'rgba(210,220,255,.25)'); ctx.restore(); }
   // dipinto ad yazısı (eklenmiş kırmızı), figür boyunca dikey
-  ctx.save(); ctx.translate(1000, 300); ctx.rotate(PI / 2); txt(ctx, 'ΠΡΟΜΗΘΕΥΣ', 0, 0, { font: '600 26px Cinzel', col: '#9C3A24', ls: 10, align: 'left', force: true }); ctx.restore();
+  dipinto(ctx, 'ΠΡΟΜΗΘΕΥΣ', 1000, 300, 28, { col: '#9C3A24', vertical: true, align: 'left', w: .1 });
   promChained(ctx, t, { look: lerp(-.12, -.02, k), wind });
   const fl = (t * .55) % 1, glide = .5 + .5 * Math.cos(fl * TAU);
   const cry = Math.exp(-Math.pow((t - 3.2) / .25, 2));

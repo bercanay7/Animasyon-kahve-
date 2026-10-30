@@ -126,15 +126,12 @@ function humanFires(ctx, t, pts, a = 1, o = {}) {
   if (o.people) for (const [x, y, s, dir] of o.people) seatedHuman(ctx, x, y, s, dir, t);
   ctx.restore();
 }
-// Ateş başında oturan küçük insan silueti (kil, ateşe uzanan eller)
+// Ateş başında çömelmiş küçük insan: vazo figürü (profil baş, siyah saç, kısa giysi), elleri ateşe uzanır
 function seatedHuman(ctx, x, y, s, dir, t) {
-  ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s);
-  ctx.fillStyle = PC.clayR; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2 / s;
-  ctx.beginPath(); ctx.arc(2, -34, 5, 0, TAU); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(0, -28); ctx.quadraticCurveTo(-6, -16, -4, -4); ctx.lineTo(14, -3); ctx.lineTo(18, 0); ctx.lineTo(-8, 0); ctx.quadraticCurveTo(-12, -14, -3, -29); ctx.closePath(); ctx.fill(); ctx.stroke();
-  const rch = Math.sin(t * 1.3 + x) * 1.5;
-  ctx.lineWidth = 3.2; ctx.strokeStyle = PC.clayR; ctx.beginPath(); ctx.moveTo(1, -24); ctx.lineTo(13 + rch, -19); ctx.stroke();
-  ctx.restore();
+  const S = s * 1.05, rch = Math.sin(t * 1.3 + x) * .08;
+  figure(ctx, { x: x - 2 * S * dir, y: y - 25 * S, s: S, dir, sty: STY.red, lk: { hair: 'nape', rf: true, earHidden: true, garment: 'short' }, seed: (x | 0) % 50, idle: .6,
+    p: { torso: .35, neck: .15, head: .1, shN: 1.3 + rch, elN: .5, shF: 1.2 + rch, elF: .6, handN: 'open', handF: 'open' },
+    ik: { fN: [x + 9 * S * dir, y - 3 * S, 0], fF: [x + 4 * S * dir, y - 3 * S, 0] }, stripe: .5 });
 }
 // Vazo üslubu yıldızlar: seyrek, sönük, küçük dört kollu yıldız ve nokta; ex: [[x,y,r],...] yıldız çizilmeyen alanlar
 function vaseStars(ctx, t, n, seed, area, ex = [], a = .45) {
@@ -199,11 +196,17 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
     ctx.restore();
   };
   wing([2, -12], true);
-  // kuyruk: kapalı kama (o.tailOpen ile açılır)
-  ctx.fillStyle = col; ctx.strokeStyle = line;
-  const tO = o.tailOpen ?? 0, tLen = lerp(32, 40, tO);
-  for (let i = 0; i < 5; i++) { const a = PI + lerp(lerp(-.15, -.32, tO), lerp(.12, .28, tO), i / 4) + (o.tailA || 0); const tip = add([-40, 2], rot([tLen, 0], a)); const nrm = rot([0, 5], a);
-    ctx.beginPath(); ctx.moveTo(-38 - nrm[0], 2 - nrm[1]); ctx.lineTo(tip[0] - nrm[0], tip[1] - nrm[1]); ctx.quadraticCurveTo(tip[0] + rot([5, 0], a)[0], tip[1] + rot([5, 0], a)[1], tip[0] + nrm[0], tip[1] + nrm[1]); ctx.lineTo(-38 + nrm[0], 2 + nrm[1]); ctx.closePath(); ctx.fill(); ctx.lineWidth = LW; ctx.stroke(); }
+  // kuyruk: tek kama (kökte dar, uçta geniş), uç kenarı dilimli, tüy ayırma çizgileri ve uçta koyu bant
+  {
+    const tO = o.tailOpen ?? 0, a0 = PI + (o.tailA || 0), L = lerp(34, 40, tO), w0 = 5.5, w1 = lerp(12, 17, tO);
+    const P = (u, v) => add([-38, 2], rot([u * L, v * lerp(w0, w1, u)], a0));
+    ctx.fillStyle = col; ctx.strokeStyle = line;
+    ctx.beginPath(); ctx.moveTo(...P(0, -1)); ctx.lineTo(...P(1, -1));
+    for (let k = 0; k < 4; k++) { const v0 = -1 + k * .5, v1 = v0 + .5; ctx.quadraticCurveTo(...P(1.07, (v0 + v1) / 2), ...P(1, v1)); }
+    ctx.lineTo(...P(0, 1)); ctx.closePath(); ctx.fill(); ctx.lineWidth = LW * 1.2; ctx.stroke();
+    ctx.lineWidth = LW * .9; for (const v of [-.5, 0, .5]) { ctx.beginPath(); ctx.moveTo(...P(.18, v * .3)); ctx.lineTo(...P(.98, v)); ctx.stroke(); }
+    ctx.fillStyle = line; ctx.globalAlpha *= .85; ctx.beginPath(); ctx.moveTo(...P(.72, -1)); ctx.lineTo(...P(.8, -1)); ctx.lineTo(...P(.8, 1)); ctx.lineTo(...P(.72, 1)); ctx.closePath(); ctx.fill(); ctx.globalAlpha /= .85;
+  }
   // bacaklar ve pençeler (talon: 0 gövde altında kapalı, 1 öne uzanmış açık)
   const tk = o.talon ?? 0;
   const leg = (hip, far) => {
@@ -231,6 +234,7 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   wing([6, -14], false);
   // baş ve gaga
   const bk = o.beak ?? 0;
+  ctx.fillStyle = col; ctx.strokeStyle = line; // bacak ve pençe çizimi renkleri değiştirdi: baş konturu çizgi renginde olsun
   const hS = o.headS ?? 1.5;
   ctx.save(); ctx.translate(36 + (hS - 1.22) * 18, -14 - (hS - 1.22) * 4); ctx.rotate(o.headA || 0); ctx.scale(hS, hS);
   ctx.beginPath(); spline(ctx, [[-6, 6], [-2, -6], [8, -11], [17, -9], [21, -3], [18, 4], [8, 8]]); ctx.fill(); ctx.lineWidth = LW * 1.2; ctx.stroke();
@@ -242,10 +246,11 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   ctx.fillStyle = o.eye || col; ctx.beginPath(); ctx.ellipse(12.4, -4.2, 2.3, 1.7, -.15, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
   ctx.fillStyle = line; ctx.beginPath(); ctx.arc(13.1, -4.1, 1.45, 0, TAU); ctx.fill();
   // sert kaş çıkıntısı: gözün üstüne inen kalın çizgi (öfkeli bakış)
-  ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(8.0, -6.2); ctx.quadraticCurveTo(12.6, -6.6, 18.0, -4.6); ctx.stroke();
+  ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(8.0, -6.2); ctx.quadraticCurveTo(12.6, -6.6, 18.0, -4.6); ctx.stroke();
   // ense tüyleri: başın arkasında kısa pul kavisleri (solungaç gibi okunan düz çizgiler yerine)
   // ense: üst-arka konturda sivri tüyler (yanakta gülümseme gibi okunan yaylar yerine)
-  ctx.lineWidth = 1.1; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-2 + i * 2.8, -8 + i * .5); ctx.lineTo(-6 + i * 2.8, -5.5 + i * .5); ctx.stroke(); }
+  // ense: baş konturunun arka-üst kenarında sivri tüyler (dolgu + kontur)
+  for (let i = 0; i < 4; i++) { const bx = -1 + i * 2.4, by = -7.6 - i * .9; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx - 4.2, by + 1.6); ctx.lineTo(bx + 1.6, by + 2.4); ctx.closePath(); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); }
   ctx.restore();
   ctx.restore();
 }
