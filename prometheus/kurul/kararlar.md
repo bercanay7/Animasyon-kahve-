@@ -508,3 +508,17 @@ Kurulun bulduğu iki yanlış iddia (dürüstlük notu): "kartal gölgesi keskin
 
 ### Değiştirilerek alınan
 - P126 için "kamera y+300": z 1,8 ve baş y≈420 ile Kratos profili büyütüldü; taş levha sola ve %70'e alındı. Yoksa levha yüzün üstüne biniyordu.
+
+## Tur 3 (doğrulama): ONAY
+| Üye | Tur 1 | Tur 2 | Tur 3 | Karar |
+|---|---|---|---|---|
+| yönetmen-Dram | 8,1 | 8,87 | **9,09** | ONAY |
+| sanat-Üslup | 7,8 | 8,78 | **9,03** | ONAY |
+
+Engelleyen madde kalmadı. İki üyenin render öncesi isteğe bağlı cilaları da uygulandı:
+- P064'te adlar pan bitince belirir (ΟΥΡΑΝΟΣ yakın kadrajda kenarda kırpılmıyor).
+- P117'de Kratos'un tuttuğu zincir sarkık, Hephaistos'un sakalından değil omzunun altından geçer.
+- P246 ve P070'te kamera 20 px aşağı (baş ile mühür ve ad arasında pay).
+- P126 yakın, eğik kadraj (z 2,4): Kratos'un soğuk profili; P250'de kartal gölgesi "bedeli" anında göğüste.
+
+Kalan bilinen zayıflık: P170'te yüz yapısı (düz büst) basit kaldı; 7,7 sn'lik tek plan, iki üye de engel saymadı.

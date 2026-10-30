@@ -65,7 +65,7 @@ shot(PA('P246'), (ctx, st) => {
   const t = st.t, lt = st.lt, tF = X_TF(), tS = A('I08b@sorguya'), tV = A('I08b@savurur'), tK = A('I08b@kaya');
   const fz = 1 - ramp(t, tS, tS + .8), tw = tF + Math.max(0, t - tS);
   // tehdit planı: Prometheus'un başının tepesi y ≥ 200 (mühür üstte, başa değmez)
-  const c = F_cam(t, [[PA('P246'), { ...CAMS.genis, x: 880, y: 540 }], [tV, { ...I_IKI, x: 920, y: I_IKI.y - 32 }]], 1.0, 3);
+  const c = F_cam(t, [[PA('P246'), { ...CAMS.genis, x: 880, y: 540 }], [tV, { ...I_IKI, x: 920, y: I_IKI.y - 47 }]], 1.0, 3);
   const { wind } = kayaWorld(ctx, tw, c, { sky: J_SKY, clouds: 3, wind: lerp(windAt(tw), 0, fz) });
   ctx.save(); cam(ctx, c, 1);
   J_skyChain(ctx, tw, 0);
@@ -146,7 +146,7 @@ shot(A('I08c@ayshilosta') - .3, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   promChained(ctx, t, { wind, look: -.05, pose: 'direnis' });
   const g = E.out3(ramp(t, A('I08c@işte') - .4, tB, E.lin));
-  eagleShadow(ctx, lerp(400, 1040, g), lerp(120, 380, g), lerp(2.4, 3.6, g), { a: .6, rot: lerp(-.5, -.15, g), flap: .08 * Math.sin(t * 3) * (1 - g), blur: 3 });
+  eagleShadow(ctx, lerp(400, 1296, g), lerp(120, 535, g), lerp(2.4, 3.6, g), { a: .6, rot: lerp(-.5, -.15, g), flap: .08 * Math.sin(t * 3) * (1 - g), blur: 3 });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);

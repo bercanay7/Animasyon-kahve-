@@ -193,7 +193,7 @@ shot(PA('P064'), (ctx, st) => {
   const pan = E.io2(ramp(t, tV - .3, tV + 1.4));
   const c = { x: lerp(1330, 980, pan), y: lerp(400, 540, pan), z: lerp(1.35, 1.0, pan) };
   ctx.save(); cam(ctx, c, 1);
-  D_thrones(ctx, t, { tip: [1.2, 1.2], na: .6, ny: 440, zeusAt: [1650, 330] });
+  D_thrones(ctx, t, { tip: [1.2, 1.2], na: .6 * ramp(pan, .55, 1), ny: 440, zeusAt: [1650, 330] }); // adlar pan bitince: yakın kadrajda kenarda kırpılmasın
   // tahtta Zeus (siyah figür), kapalı yumruk öne uzanır; parmak arasından ışık sızar
   let J = null, M = null;
   figure(ctx, { x: 1360 + 2.5 * 6.2, y: 760 - 25 * 6.2 - 3.2 * 6.2, s: 6.2, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { F: HOLD.scepter(80) }, onJoints: (j, m) => { J = j; M = m; },
@@ -290,7 +290,7 @@ shot(PA('P069'), (ctx, st) => {
 shot(PA('P070'), (ctx, st) => {
   const t = st.t, lt = st.lt, tB = A('D09@bilir'), tD = A('D10');
   clayBG(ctx, C.clayL, C.clayD);
-  const c = { x: 960 + lt * 5, y: 520, z: 1.06 + lt * .004 };
+  const c = { x: 960 + lt * 5, y: 501, z: 1.06 + lt * .004 };
   ctx.save(); cam(ctx, c, 1);
   D_thrones(ctx, t, { tip: [1.2, 1.2], crack: .2 + .5 * ramp(t, tB - .2, tB + .6) + .3 * ramp(t, tD + 1, tD + 3), na: .7, ny: 280 });
   // anı: Gaia Kronos'a fısıldar (soluk, sol üstte)

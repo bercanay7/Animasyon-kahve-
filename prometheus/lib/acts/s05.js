@@ -190,7 +190,7 @@ shot(PA('P117'), (ctx, st) => {
   const freeF = t < hit - .04;
   const R = promChained(ctx, t, { wind, look: -.05, freeF, pullAdd: Math.exp(-Math.pow((t - hit) / .2, 2)) * .3 });
   // çekiç inene kadar zincirin ucu Kratos'un elinde (alaydan süreklilik: henüz kayaya çakılmadı)
-  if (freeF && R && F_HEADS.kratosHand) { const kh = jointPt(ctx, F_HEADS.kratosHand[0], F_HEADS.kratosHand[1]); ironChain(ctx, [R.wF[0] + 6, R.wF[1] - 4], kh, { L0: len(sub(kh, R.wF)) * 1.08, sag: 20 }); }
+  if (freeF && R && F_HEADS.kratosHand) { const kh = jointPt(ctx, F_HEADS.kratosHand[0], F_HEADS.kratosHand[1]); ironChain(ctx, [R.wF[0] + 6, R.wF[1] - 4], kh, { L0: len(sub(kh, R.wF)) * 1.24, sag: 20 }); } // sarkık: Hephaistos'un omzunun altından geçer
   if (t > hit - .2) { hammerHit(ctx, PROM_KAYA.sF[0] - 22, PROM_KAYA.sF[1], hit, t, 1.0); if (t > hit && t - hit < .5) { dustBurst(ctx, t, hit, PROM_KAYA.sF[0], PROM_KAYA.sF[1], 24, 'rgba(201,112,63,.6)', 110, 6); sparkle(ctx, PROM_KAYA.sF[0] - 6, PROM_KAYA.sF[1], 24 * (1 - (t - hit) / .5), 1); } }
   ctx.restore();
   if (t > hit && t < hit + .15) { ctx.save(); baseT(ctx); ctx.fillStyle = '#FFF4DE'; ctx.globalAlpha = .5 * (1 - (t - hit) / .15); ctx.fillRect(0, 0, W, H); ctx.restore(); }
@@ -219,7 +219,7 @@ shot(PA('P117'), (ctx, st) => {
 shot(PA('P126'), (ctx, st) => {
   const t = st.t, lt = st.lt, tE = A('F10@erhatın');
   // P126 alttan: Kratos'un soğuk profili sağda (baş y≈420), üstte taş levha; kamera hafif eğik
-  const c = F_cam(t, [[PA('P126'), { x: 1460, y: 450, z: 1.8, r: -.05 }], [A('F10'), { x: 1500, y: 620, z: 1.4, r: -.03 }], [tE, { ...CAMS.genis, x: 1000 }]], .9);
+  const c = F_cam(t, [[PA('P126'), { x: 1537, y: 450, z: 2.4, r: -.08 }], [A('F10'), { x: 1500, y: 620, z: 1.4, r: -.03 }], [tE, { ...CAMS.genis, x: 1000 }]], .9);
   const { wind } = kayaWorld(ctx, t, c, { sky: F_SKY });
   ctx.save(); cam(ctx, c, 1);
   F_guests(ctx, t, { kratosP: { head: -.12, neck: -.05 } });
