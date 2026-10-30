@@ -203,7 +203,10 @@ shot(PA('P219'), (ctx, st) => {
   const { wind } = kayaWorld(ctx, t, c, { sky: I_SKY });
   ctx.save(); cam(ctx, c, 1);
   const land = E.out3(ramp(t, PA('P219'), tH + .9, E.lin)), fly = 1 - ramp(t, tH + .5, tH + 1.1);
-  const hx = lerp(-150, I_HX, land), hgy = lerp(-120, 868, E.io2(land));
+  // iniş teması: ayak yere değince gövde kısa bir an çöker (yerleşme), ayağın dibinde hafif toz
+  const tL = tH + .85, dip = Math.sin(clamp((t - tL) / .35) * PI) * (t > tL ? 1 : 0);
+  const hx = lerp(-150, I_HX, land), hgy = lerp(-120, 868, E.io2(land)) + 12 * dip;
+  if (dip > 0) glow(ctx, I_HX + 10, 872, 90, `rgba(201,112,63,${.28 * dip})`);
   const pt = ramp(t, A('I05@sırrı') - .3, A('I05@sırrı') + .2);
   const R = I_hermes(ctx, hx, hgy, 5.6, t, { fly, flap: Math.max(fly, .3), point: pt, lean: .05 * pt });
   promChained(ctx, t, { wind, look: .1 });

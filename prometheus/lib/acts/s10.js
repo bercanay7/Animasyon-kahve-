@@ -129,7 +129,9 @@ shot(PA('P249'), (ctx, st) => {
   // pençe silueti: kameranın önünden hızla geçer
   const pk = ramp(t, tC - .1, tC + .5, E.lin);
   if (pk > 0 && pk < 1) { ctx.save(); baseT(ctx); ctx.translate(lerp(-300, 2200, pk), lerp(780, 300, pk)); ctx.rotate(-.4); ctx.fillStyle = '#050201';
-    for (let k = 0; k < 4; k++) { ctx.save(); ctx.rotate((k - 1.5) * .35); ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(90, 30, 170, 150); ctx.quadraticCurveTo(110, 70, 0, 26); ctx.closePath(); ctx.fill(); ctx.restore(); }
+    // kil kenar: karanlık gökte de pençe silueti okunsun
+    ctx.strokeStyle = 'rgba(201,112,63,.6)'; ctx.lineWidth = 4; ctx.lineJoin = 'round';
+    for (let k = 0; k < 4; k++) { ctx.save(); ctx.rotate((k - 1.5) * .35); ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(90, 30, 170, 150); ctx.quadraticCurveTo(110, 70, 0, 26); ctx.closePath(); ctx.stroke(); ctx.fill(); ctx.restore(); }
     ctx.beginPath(); ctx.ellipse(-60, 0, 120, 60, 0, 0, TAU); ctx.fill(); ctx.restore(); }
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
