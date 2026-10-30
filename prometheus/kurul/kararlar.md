@@ -190,3 +190,65 @@ Bütün ölçütler 8'in üstünde. Rev 2'nin 7,76'sından +0,9.
 - **J10'u çıkarmak** (Dostoyevski): reddedildi. "Eyvah" artık hükümden önce geldiği için karşıtlığı yumuşatmıyor. Erhat'ın "koca bir iş" tespiti hükmün kapanışı olarak kalıyor.
 - **J04b** (xiv2 sorusu, filolog-Erhat, küçük): reddedildi. Cevabı K08c taşıyor; süre.
 - **Rev 4 süresi:** tahmini ~23 dk (temkinli model). Boşluk planı sıkılaşınca ~22,5 dk. Kurulun 21–22 dk bandının biraz üstünde. Eklenenlerin hepsi kaynak düzeltmesi ve ödemeler; yeni dolgu yok.
+
+## Senaryo: tur 4 (son kontrol, 6 üye, rev 4) → rev 5
+
+| Üye | Rev 4 puanı | Karar |
+|---|---|---|
+| filolog-Erhat | 9,02 | ONAY |
+| filolog-Klasik | 9,06 | ONAY |
+| dramaturg-A | 8,96 | RED |
+| üslup-Dostoyevski | 9,02 | ONAY |
+| dil-Ses | 8,81 | RED |
+| kitle-Tutma | 9,04 | ONAY |
+| **Ortalama** | **8,98** | eşiğin 0,02 altında |
+
+En düşük ölçüt K4 (tempo): 8,4–8,8. Kalan bulguların hepsi küçük düzeyde; filolog-Erhat "yeni bir kurul turu gerektirmez" dedi.
+
+### Kabul edilenler (rev 5)
+- **I08:** [mocking] etiketi anlatıcının cümlesinden kalktı. Alay yalnız Hermes'te, inilti [pained] ile.
+- **I07:** "ilk cevabı keskindir". "Hermes'in tehditleri" sözü art arda iki kez geçmiyor.
+- **G12b:** özne netleşti ("Ama oyunda Prometheus, aynı konuşmada…"); etiketler yalnız alıntıda.
+- **G13:** "Ve bu bilinç…" (atıf G11'den sürer, "katlanma duygusu" tırnakta).
+- **K04:** anlatım bozukluğu giderildi ("Erhat'ın kuşağı bu görüşü öylesine benimsemiştir ki… Erhat bunu kuşağı adına şöyle yazar:").
+- **K06:** vi3 kendi cümlemizle yazıldı ("hiçbir çabadan, hiçbir cefadan kaçmıyorlardı").
+- **K bölümü sırası:** K08a → K08c → K01 → K02 → K04 → K06. Kuşak ipliği kopmuyor; video "ilk temsilcisi Prometheus'tur" ile bitiyor.
+- **K08a:**
+  - Soru B06'nın kelimeleriyle geri çağrılıyor ("hatırla").
+  - Cevapta "politik" kelimesinin tekrarı azaltıldı; Erhat'ın iki ifadesi tırnakta.
+- **J05:** Erhat'ın "akıl gücünün taşıyıcısı" ifadesi geri geldi (tırnakta).
+- **J02:** Güç'ün sözü F09'dakiyle kelimesi kelimesine aynı.
+- **E11 / I10:** "iki kez aldatılan Zeus'a artık tek bir yol kalır: kaba kuvvet" → I10: "Zeus'a yine o tek yol kalır: kaba kuvvet". Kurulum ve ödeme aynı sözle.
+- **E15:** "Çünkü" doğru önermeye bağlandı ("egemenliği artık gerçek bir güce dayanmayan bir tanrı. Çünkü…").
+- **F14:**
+  - Fısıltı yalnız "Ama ne diyorum?".
+  - 103–105: "Bana biçilen yazgıya olabildiğince kolay katlanmalıyım" ("Payıma düşeni" yankısı kalktı; zincir: sessizce katlandı → katlanmalıyım → katlanma duygusu).
+- **H04:** ZVP 330–331'in anlamı düzeltildi ("Her şeyi benimle göze aldın, ama suçun dışında kaldın; seni kıskanıyorum"). Ton [wryly]; "buz gibi" yalnız Güç'e ait.
+- **H05:** çevirinin sahibi seste söyleniyor ("Eyüboğlu ile Erhat'ın çevirisinde…").
+- **H05b:** umut paradoksunun çekirdeği eklendi ("Kendisi ise her şeyi önceden görüyordu… ve kendine hiçbir umut tanımadı").
+- **I03:** "Aiskhylos'un sahnesinde" ifadesiyle E16'daki "olup bitmiş devrim"den ayrıldı.
+- **I08c:** "Açılıştaki kartal, Aiskhylos'ta işte budur: hayır demenin bedeli."
+- **I12:** zamir çakışması giderildi ("Erhat'ın okumasında…").
+- **C02:** tarihlendi ("kendi çağının deyişiyle").
+- **A06:**
+  - "Bu tuhaf fikri, Azra Erhat ileri sürer" (fikir Platon'da da var; sahiplik iddia edilmiyor).
+  - Kısaldı; Eyüboğlu M00'da "çeviri arkadaşı" olarak anılıyor.
+- **E16b / F01:** "Atina" tekrarı kalktı ("…başka bir şair gösterecekti").
+- **Küçük düzeltmeler:**
+  - D08 kendi cümlemizle.
+  - F09 "Daha işe başlamadan" (dize sırası).
+  - F10b "okuruna sorar".
+  - K01 "şu soruya yer verir".
+  - K02 "her seferinde yeniden başkaldırmasına".
+  - C04 başlangıcı.
+  - Künyeler (G10b, I04, I06, B06).
+- **Bölüm adları:** "Zincirdeki Titan" ("bile bile" yalnız Savunma'da), "Duruşma: Kafka'nın gözüyle".
+- **Araç:** tools/merge.json (A06: "1967'de" = beş kelime) build_vo ve srt'de ortak.
+
+### Reddedilen
+- **E16'da "tanrıya karşı ayaklanmıştır"ı geri almak** (filolog-Klasik seçenek A): reddedildi. Kesik alıntı birebir ve dürüst (seçenek B); "tanrıya" sözcüğünün Türk izleyicide tek tanrı diye okunma riski kesilerek önleniyor. D11'in "sıra kime" bağı I06'daki "üçüncüsü" ile kuruluyor.
+
+### Süre
+- Rev 5: 122 cümle, temkinli modelle ~23:40; sıkı boşluk planıyla ~23 dk.
+- Kurulun 21–22 dk bandının ~1 dk üstünde.
+- Eklenenler kaynak düzeltmesi ve kurulum-ödeme cümleleri.

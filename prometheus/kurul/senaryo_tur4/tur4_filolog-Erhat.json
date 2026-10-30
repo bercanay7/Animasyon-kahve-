@@ -1,0 +1,94 @@
+{
+ "scores": {
+  "K1": 9.2,
+  "K2": 9,
+  "K3": 9.1,
+  "K4": 8.8,
+  "K5": 9.1,
+  "K6": 8.8,
+  "K7": 9
+ },
+ "verdict": "ONAY",
+ "summary": "Rev 4'ü önsöz fotoğraflarıyla (s. v–xvi) cümle cümle karşılaştırdım; rev 3 ile de segment segment fark aldım. Ağırlıklı ortalama 9,02, hiçbir ölçüt 8,8'in altında değil, karar ONAY. Rev 3 raporumda \"dört önemli düzeltme yapılırsa ONAY\" demiştim. Dördü de doğru yapılmış ve yeniden yazım önemli düzeyde yeni bir hata getirmemiş.\n\n**Tırnaklı Erhat alıntıları.** 27 alıntının hepsi fotoğraflarla kelimesi kelimesine uyuşuyor. Yeni gelenleri ayrıca denetledim:\n- K04, s. vi: \"Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz\".\n- K08c, s. xiv: \"Akıl gücü kaba güçten üstündür, düşünceye gem vurulamaz\". Bu ifade xiv3'te \"bildiriyor bize dek\"in hemen ardından geliyor.\n- E16, s. xi: \"İnsan kendi gücünün bilincine varmış\".\n- I05, s. xv: \"sanığı gözdağıyla sorguya çeken\".\n- J05, s. xiv: \"bir çocuk gibi zayıf ve çaresizdir\".\n- E15, s. xi: \"akıl gücü tanrılardan insanlara geçmiştir\".\n- H05, s. xii: \"gurur ya da kibir\".\n- G11, s. xi: \"Ne yaptımsa bile bile yaptım\". Yalnız \"diyor\" kelimesi düşmüş; bu normal bir kısaltma.\n\n**Sözle aktarımlar.** Şunları fotoğraflarla birebir karşılaştırdım; hepsi sadık:\n- C17: \"Gaia'nın öğüdüyle… kardeşleriyle çocukları arasında paylaştırmaya\", ix.\n- K08a: vi8 (\"Hemen söyleyelim ki…\").\n- K01: \"ilk sayfasında… anar\", v.\n- C12: \"ders almışa benzeyen\", viii.\n- F10a: xiii.\n\n**Telif.** Önsözde aktarılan Eyüboğlu-Erhat dizelerinden (s. xii–xiii) kopya yok. H09, F09, G11 ve I07b kendi çevirimiz. H05'teki iki kelime kaynağıyla birlikte veriliyor. Tek yankı F14'te: \"Payıma düşeni … taşımalıyım\" (aşağıda küçük öneri olarak yazdım).\n\n**Kalan sorunlar.** Hepsi küçük. İkisi yeniden yazımın yan etkisi:\n- G12b: yeni sırada \"hemen ardından\" ifadesi askıda kalıyor.\n- I08: anlatıcının cümlesine [mocking] etiketi konmuş.\n\nKurallara aykırı kalan birkaç nokta:\n- K06: altyazıda tırnaksız, neredeyse birebir yeni bir Erhat dizisi var.\n- E11: kararlar \"kendi cümlelerimizle yeniden yazıldı\" diyor ama yazılmamış.\n- J05: Erhat'ın \"akıl gücünün taşıyıcısı\" ifadesi yerine \"zincire vurduğu\" konmuş. Bu, J06'nın vurgusunu da önceden harcıyor.\n- E15: \"Çünkü\" yanlış cümleye bağlanıyor.\n- C02: tarihlenmemiş \"bugün\" duruyor.\n\nErhat dışında üç not:\n- H04 (ZVP 330–331): Yunancadaki \"her şeye ortak oldun\" anlamı ters çevrilmiş. Bunu filolog-Klasik doğrulasın.\n- J02: Güç'ün sözü F09'dakiyle aynı kelimelerle geri çağrılmıyor.\n- K04: dilbilgisi aksıyor.\n\nAyrıntı düzeyinde iki not: B06'nın kaynak alanında eskimiş \"K08a–K08b\" duruyor (doğrusu K08a, K08c). \"Peki\" de karar 9'daki üç yerine dört kez geçiyor (K08a).\n\n**Süre.** 13,91 karakter/sn ve cümle başına 1 sn ile tahminim 23:01. Bu, kararlar dosyasındaki temkinli ~23 dk tahminiyle aynı ve 21–22 dk bandının biraz üstünde. Eklenenlerin hepsi kaynak düzeltmesi ya da ödeme. Önerilerimin net etkisi yaklaşık +3 sn (E15).\n\nBu küçük düzeltmeler yeni bir kurul turu gerektirmez; son temizlikte yapılabilir.",
+ "resolved": "Rev 3'teki dört önemli sorunun dördü de giderildi:\n- **K08a:** Erhat'ın kendi cevabı (vi8, \"Hemen söyleyelim ki…\") B06'daki soruya bağlandı. xv1'i \"cevap\" diye sunan segment çıktı; \"kör iktidarlar\" hassasiyeti de onunla gitti. Fotoğrafla uyuşuyor.\n- **G13:** Erhat'ın \"katlanma duygusu\" okuması (xii1) önce geliyor, oyundaki çatlak (ZVP 268–270) sonra. Anlatıcının yorumu G13b'de \"Yani\" ile işaretli. Erhat'a artık kendi okumasının tersi söyletilmiyor.\n- **K01/K02:** \"Önsöz bu soruyla açılır\" yanlışı ve \"her gün\" eklemesi kalktı. \"İlk sayfasında… anar\" ve koşul cümlesi s. v ile uyuşuyor.\n- **C17/C18:** \"Gaia'nın öğüdüyle… kardeşleriyle çocukları arasında paylaştırmaya girişti\" geri geldi (ix2). C18'deki \"bu paylaşmada\" artık bir şeye bağlanıyor.\n\nKüçük önerilerimden giderilenler:\n- **K04:** Erhat'ın cümlesi bütünüyle ve birebir tırnakta (vi).\n- **H05:** Uydurma \"hiç\" kalktı. Eyüboğlu-Erhat ifadesi \"bu çevirinin\" diye anılıyor. \"Gurur ya da kibir\" Erhat'ın kendi kelimeleri.\n- **I12:** Atıf ilk cümlede.\n- **J06:** \"Yani\" işareti eklendi.\n- **I05, J05, E15:** Erhat dizileri tırnağa alındı.\n- **F10a:** \"işkencesini asıl büyüten\" deniyor.\n- **C12:** \"ders almışa benzeyen\" çekincesi geri geldi.\n- **E16:** \"Olympos'un tanrılarına\" daraltması kalktı; alıntı birebir kesildi.\n- **K08b:** Eskimiş kaynak sorunu segmentle birlikte ortadan kalktı.\n\nJ04b önerimin reddine artık katılıyorum. K08c'deki \"düşünceye gem vurulamaz\" alıntısı xiv3 ile birebir uyuşuyor ve hükmün Prometheus yarısını taşıyor.\n\nGiderilmeyenler:\n- **C02:** Tarihlenmemiş \"bugün\" duruyor.\n- **E11:** Yeniden yazılmamış; yalnız özne ve zaman değişmiş.\n- **E15:** \"Çünkü\"nün yanlış cümleye bağlanması duruyor.",
+ "remaining": [
+  {
+   "ids": "J05",
+   "severity": "küçük",
+   "problem": "Erhat'a mal edilen (\"Ona göre\") cümlenin ikinci yarısı xiv5'in neredeyse birebir aktarımı. Ama Erhat'ın kendi niteleyicisi \"akıl gücünün taşıyıcısı\" yerine anlatıcının \"zincire vurduğu\" ifadesi konmuş. Erhat'ın vurgusu akıl ile kaba güç karşıtlığında; K08c'deki \"Akıl gücü kaba güçten üstündür\" de buna dayanıyor. Ayrıca \"zincire vurduğu\", hemen ardından gelen J06'daki \"tutukladığı düşmanının elinde tutukludur\" alıntısının etkisini önceden harcıyor.",
+   "tts": "Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, bir çocuk gibi zayıf ve çaresizdir: Onu yıkımdan kurtarabilecek tek kişi, akıl gücünün taşıyıcısı Prometeus'tur.",
+   "alt": "Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, “bir çocuk gibi zayıf ve çaresizdir”: Onu yıkımdan kurtarabilecek tek kişi, “akıl gücünün taşıyıcısı” Prometheus'tur."
+  },
+  {
+   "ids": "K06",
+   "severity": "küçük",
+   "problem": "Bu turda yeni eklenen \"bu uğurda göze alamayacakları çaba, katlanamayacakları cefa yoktu\", vi3'teki \"Bu ülkü uğruna göze almayacağımız çaba, katlanamayacağımız cefa yoktur\" cümlesinin yaklaşık 8 kelimelik, neredeyse birebir aktarımı. Altyazıda tırnaksız. Notlar dosyası bu cümleyi alıntı olarak işaretliyor. \"Almayacağımız\" da \"alamayacakları\"na dönmüş. Kurulun \"kendi cümlelerimiz, yalnız kısa alıntı\" kuralı gereği yeniden yazılmalı.",
+   "tts": "Erhat'ın kuşağının tek ülküsü, insan olmaktı; bu uğurda hiçbir çabadan, hiçbir acıdan geri durmazlardı. [slowly] [reverently] Ve önsöz, bu ülküyü tek bir ada bağlar: Bu ülkünün ilk temsilcisi… Prometeus'tur.",
+   "alt": "Erhat'ın kuşağının tek ülküsü insan olmaktı; bu uğurda hiçbir çabadan, hiçbir acıdan geri durmazlardı. Ve önsöz bu ülküyü tek bir ada bağlar: “Bu ülkünün ilk temsilcisi Prometheus'tur.”"
+  },
+  {
+   "ids": "G12b",
+   "severity": "küçük",
+   "problem": "Yeni sıranın yan etkisi. G11 ile G12b arasına Erhat'ın G13 cümlesi girdiği için \"Ama hemen ardından şunu da itiraf eder\" artık Erhat'ın cümlesinin ardına düşüyor. Öznesi yazılmadığından seste \"Erhat itiraf eder\" gibi duyulabiliyor. \"Hemen ardından\" ifadesinin oyundaki dize sırasına (265–266'dan 268–270'e) bağlandığı açıkça söylenmeli.",
+   "tts": "[pained] [slowly] Ama oyunda, o itirafın hemen ardından, Prometeus şunu da söyler: Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.",
+   "alt": "Ama oyunda, o itirafın hemen ardından, Prometheus şunu da söyler: “Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.”"
+  },
+  {
+   "ids": "I08",
+   "severity": "küçük",
+   "problem": "Yeniden yazımla gelen bir etiket hatası. Segment [mocking] etiketiyle açılıyor; bu yüzden anlatıcı, Prometheus'un ağzından kaçan inlemeyi alaycı bir tonla anlatacak. Alay yalnız Hermes'in repliğinde olmalı. Altyazı değişmez.",
+   "tts": "[tense] Hermes'in tehditleri sürerken, Prometeus'un ağzından bir an tek bir inilti kaçar: [pained] “Eyvah!” [mocking] Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” [calmly] Prometeus'un cevabı: “Yaşlanan zaman, her şeyi öğretir.”",
+   "alt": "(değişmez)"
+  },
+  {
+   "ids": "K04",
+   "severity": "küçük",
+   "problem": "Alıntı s. vi ile birebir uyuşuyor, ama çerçeve cümlesinin dilbilgisi aksıyor. \"…benimsediğini yazar ki, … atmıştır\" kuruluşunda \"öylesine … ki\" yapısı bir ad cümleciğinin içine sıkışıyor. Ayrıca \"onun adına\" belirsiz: kuşağın adına mı, Erhat'ın adına mı? Sadakati değiştirmeden düzeltilebilir. (Erhat'ın \"biz\"i kuşak diye okunmuş; kabul.)",
+   "tts": "Erhat'a göre kuşağı bu görüşü öylesine benimsemiştir ki, gelenek süslerini üstünden atmıştır. Ve kuşağı adına ekler: Umuda karşı da ayaklandık; bugün ve bu dünyada yaşamak istiyoruz.",
+   "alt": "Erhat'a göre kuşağı bu görüşü öylesine benimsemiştir ki gelenek süslerini üstünden atmıştır. Ve kuşağı adına ekler: “Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz.”"
+  },
+  {
+   "ids": "E11",
+   "severity": "küçük",
+   "problem": "Kararlar \"E11 kendi cümlelerimizle yeniden yazıldı\" diyor, ama rev 4'te yalnız özne (\"tanrıların kralı\" yerine \"Zeus\") ve zaman değişmiş. \"iki kez küçük düşen … artık kaba kuvvete başvurmak zorunda kalır\", x5'teki \"İki kez küçük düşürülen tanrılar tanrısı artık kaba kuvvete başvurmak zorundadır\" cümlesiyle 9 kelimenin 7'sinde örtüşüyor ve altyazıda tırnaksız. Ayrıca \"küçük düşen\" ile Erhat'ın edilgen \"küçük düşürülen\" ifadesi aynı şey değil.",
+   "tts": "[ominous] Erhat'ın okumasında, iki kez küçük düşürülen Zeus'a artık tek yol kalmıştı: kaba kuvvet.",
+   "alt": "Erhat'ın okumasında, iki kez küçük düşürülen Zeus'a artık tek yol kalmıştı: kaba kuvvet."
+  },
+  {
+   "ids": "E15",
+   "severity": "küçük",
+   "problem": "Tırnak eklendi, ama rev 3'te belirttiğim bağlantı sorunu duruyor. xi1'de Erhat'ın \"çünkü\"sü \"Egemenliği gerçek bir güce dayanmaz\" cümlesini gerekçelendiriyor; Zeus'un gülünç olmasını değil. Senaryo tırnaklı Erhat alıntısını farklı bir önermeye bağlıyor. Beş kelime eklemek yeter (+~3 sn).",
+   "tts": "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. [knowingly] Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Egemenliği artık gerçek bir güce dayanmaz; çünkü akıl gücü, tanrılardan insanlara geçmiştir.",
+   "alt": "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Egemenliği artık gerçek bir güce dayanmaz; çünkü “akıl gücü tanrılardan insanlara geçmiştir.”"
+  },
+  {
+   "ids": "F14",
+   "severity": "küçük",
+   "problem": "Telif açısından bir yankı. Yeni eklenen \"Payıma düşeni olabildiğince kolay taşımalıyım\" ile Erhat'ın s. xii'de aktardığı Eyüboğlu-Erhat dizesi \"Payıma düşeni gönül ferahlığıyla taşımalıyım\" aynı nesne-fiil çerçevesini ve üç kelimeyi paylaşıyor. Yunancadaki αἶσαν φέρειν bunu zorunlu kılmıyor; H09'daki \"düşmedikçe\"den farklı olarak başka karşılıklar var. Kaynak alanı \"s. xii'deki çeviri dizelerinden farklı\" dediğine göre bu üç kelime de değişsin. Risk düşük.",
+   "tts": "[softly] Sonra birden kendi sözünü keser: [whispers] “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Bana biçilen yazgıyı, olabildiğince kolay taşımalıyım; zorunluluğun gücüne karşı konmaz. [pained] [slowly] Yine de başıma gelenler üstüne… ne susabiliyorum, ne de konuşabiliyorum.”",
+   "alt": "Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Bana biçilen yazgıyı olabildiğince kolay taşımalıyım; zorunluluğun gücüne karşı konmaz. Yine de başıma gelenler üstüne… ne susabiliyorum ne de konuşabiliyorum.”"
+  },
+  {
+   "ids": "H04",
+   "severity": "küçük",
+   "problem": "Rev 4'te yeni eklenen ZVP 330–331 çevirisi anlamı ters çeviriyor. Yunancası şöyle: ζηλῶ σ᾽ ὁθούνεκ᾽ ἐκτὸς αἰτίας κυρεῖς, πάντων μετασχὼν καὶ τετολμηκὼς ἐμοί (\"her şeye ortak olup benimle göze aldığın hâlde suçun dışında kaldığın için seni kıskanıyorum\"). Senaryodaki \"Suçumdan pay almadığın için\" ise μετασχών'un tersini söylüyor; kararlarda sözü edilen ironi de bu çelişkide. Kendi alanım dışında; filolog-Klasik doğrulasın.",
+   "tts": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: [softly] “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” [coldly] Prometeus'un cevabı buz gibidir: “Seni kıskanıyorum: Her şeyi benimle göze aldın, ama suçun dışında kaldın. Kendi başını derde sokma.”",
+   "alt": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” Prometheus'un cevabı buz gibidir: “Seni kıskanıyorum: Her şeyi benimle göze aldın, ama suçun dışında kaldın. Kendi başını derde sokma.”"
+  },
+  {
+   "ids": "J02",
+   "severity": "küçük",
+   "problem": "\"Güç'ün sözünü hatırla\" diye bir geri çağırma yapılıyor ve altyazıda tırnak var, ama söz F09'dakiyle aynı değil. F09: \"Zeus'tan başka hiç kimse özgür değildir\". J02: \"Zeus'tan başka kimse özgür değildir\". Bu bir kurulum ve ödeme halkası olduğu için kelimesi kelimesine aynı olmalı.",
+   "tts": "Görünüşe bakılırsa cevap açık. Güç'ün sözünü hatırla: Zeus'tan başka hiç kimse özgür değildir. Prometeus ise zincirde; ölümsüz olduğu için, canına kıyma özgürlüğü bile yok. [intrigued] Erhat sorar: Ama bakalım, gerçekten de öyle mi?",
+   "alt": "Görünüşe bakılırsa cevap açık. Güç'ün sözünü hatırla: “Zeus'tan başka hiç kimse özgür değildir.” Prometheus ise zincirde; ölümsüz olduğu için canına kıyma özgürlüğü bile yok. Erhat sorar: “Ama bakalım gerçekten de öyle mi?”"
+  },
+  {
+   "ids": "C02",
+   "severity": "küçük",
+   "problem": "Rev 3'teki önerim kararlarda ne kabul ne ret görmüş, ama metin değişmemiş. \"bugün 'hükümet darbesi' diyebileceğimiz\" ifadesindeki \"bugün\" ve \"-imiz\" Erhat'ın 1967'si; Emrullah'ın sesinde 2026 diye duyuluyor. \"Darbe\" Türkiye'de yüklü bir kelime. Karar 10'daki tarihleme kuralı F06 ve K02'de uygulanmış, burada uygulanmamış. Alıntı korunuyor, yalnız tarihleniyor.",
+   "tts": "Erhat'a göre efsanenin de, oyunun da merkezinde, kendi çağının diliyle hükümet darbesi diyebileceği bir olay var: Bir kuşak, öncekini devirip yönetimi ele geçirir.",
+   "alt": "Erhat'a göre efsanenin de oyunun da merkezinde, kendi çağının diliyle “hükümet darbesi” diyebileceği bir olay var: Bir kuşak, öncekini devirip yönetimi ele geçirir."
+  }
+ ],
+ "disagree_with_decisions": "**Kararların uygulanmasıyla ilgili itirazlarım:**\n\n1) **Tur 3, yakın aktarımlar (E11).** Karar, D08 ve E11'in kendi cümlelerimizle yeniden yazıldığını söylüyor. D08 için doğru, E11 için değil: Erhat'ın x5 cümlesinin 9 kelimesinden 7'si aynen duruyor ve altyazıda tırnaksız. Kurulun CLAUDE.md'deki kuralına uyulsun (\"yaptığım değişiklikler\" iddia olarak verilir, kurul kendisi doğrular). Kararlar dosyasındaki bu iddia düzeltilsin ya da E11 gerçekten yeniden yazılsın.\n\n2) **Karar 10, tarihleme (C02).** Rev 3'teki C02 önerim tur 3 kararlarında ne kabul ne ret edilmiş; sessizce düşmüş. Aynı kural F06 ve K02'de uygulanırken burada uygulanmaması tutarsız.\n\n3) **E15.** Tırnak eklenmesi kabul edilmiş, ama aynı önerinin asıl kısmı uygulanmamış: Erhat'ın \"çünkü\"sünün bağlandığı \"Egemenliği gerçek bir güce dayanmaz\" cümlesi eklenmemiş. Gerekçe de verilmemiş.\n\n4) **Karar 9 (\"Peki\" üç kez).** K08a'daki yeni soru \"Peki\"yi dördüncü kez getiriyor. Önemsiz, ama karar metniyle çelişiyor.\n\n**Katıldığım kararlar:**\n- **J04b'nin reddi:** Rev 3'te itiraz etmiştim. Ama K08c'deki \"Akıl gücü kaba güçten üstündür, düşünceye gem vurulamaz\" s. xiv ile birebir uyuşuyor ve hükmün Prometheus yarısını gerekçelendiriyor. \"İktidar sahipleri\" cümlesinin dışarıda bırakılması da doğru. İtirazımı geri çekiyorum.\n- **J10'un kalması:** xiii2 ile sadık; \"koca bir iş\" Erhat'ın ifadesi.\n- **xv1'in (kâhin ve düşünür) tümüyle çıkarılması:** Doğru karar; hem sadakat hem hassasiyet açısından.\n- **Hermes sahnesinin dize sırasına döndürülmesi:** Doğru karar (979'dan önce 989–991 gelmiyordu).\n- **Süre (~23 dk):** Bandın biraz üstünde ama eklenenler kaynak düzeltmesi ve ödeme. Kendi tahminim de 23:01. Kaynak açısından kabul ediyorum."
+}
