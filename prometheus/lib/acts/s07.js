@@ -233,7 +233,7 @@ shot(PA('P187'), (ctx, st) => {
   // Prometheus: ayrı, sağda; eğilmez; H02@tek'te kırmızı vurgu
   const pr = ramp(t, A('H02@hepsi') - .4, A('H02@hepsi') + .2), red = ramp(t, tT, tT + .4);
   if (pr > 0) { ctx.save(); ctx.globalAlpha = pr; H_lek(ctx, 1430, gy, 3.4, -1, LK.promFree, { torso: -.05, neck: -.1, head: -.12 }, { sty: red > .5 ? { ...STY.lek, line: PW.red, cut: PW.red } : STY.lek }); ctx.restore();
-    if (red > 0) circleMark(ctx, 1430, gy - 150, 110, 200, ramp(t, tT + .1, tT + .9)); }
+    if (red > 0) circleMark(ctx, 1430, gy - 140, 110, 170, ramp(t, tT + .1, tT + .9)); } // elips kaynak satırının altında kalır
   // küme adları
   [['kurbanlar', 330, 0], ['uşaklar', 700, 1], ['dalkavuk', 1130, 2]].forEach(([s, x, k]) => txt(ctx, s, x, 345, { font: 'italic 600 54px "Cormorant Garamond"', col: PW.line, a: ramp(t, draw[k], draw[k] + .5) * (1 - ramp(t, tT - .4, tT + .1)) }));
   // tanık listesi: sayfanın sağ kenarında

@@ -488,3 +488,23 @@ Sekiz üyenin hepsini yeniden çağırmak yerine her uzmanlık çiftinin tur 2'd
 
 ## Tur 2
 Aynı iki üyeye `SendMessage` ile devam edilir; "yaptığım değişiklikler" listesi iddia olarak verilir, kurul kareden doğrular.
+
+## Tur 2 (aynı iki üye, doğrulama)
+| Üye | Tur 1 | Tur 2 | Karar |
+|---|---|---|---|
+| yönetmen-Dram | 8,1 | 8,87 | RED |
+| sanat-Üslup | 7,8 | 8,78 | RED |
+
+Kurulun bulduğu iki yanlış iddia (dürüstlük notu): "kartal gölgesi keskin siluet" (dram) ve "P246 mührü kerykeion'u kesmez", "P130 ΔΕΣΜΩΤΗΣ kelepçede" (üslup). Üçü de karede düzelmemişti. Bu turda karelerle doğrulanarak düzeltildi.
+
+### Kabul edilenler (uygulandı)
+- Kartal gölgesi: `eagle2` büyük ölçekte gölge olarak parçalanıyordu. Yerine tek parça, kanatları açık siluet (`eagleShadow`, bulanıklık 3 px). P248'de güneşin önünden geçer, P249'da gövdeyi örter, P250'de göğse iner.
+- V (P117–P126) kadraj çeşitliliği: P119 Kratos'un omzunun üstünden, P121 Hephaistos orta plan, P125 eğik baş yakın, P126 alttan Kratos profili.
+- Kratos alayı sürekliliği (dramın itirazı, uzlaşmayla): çekiç inene kadar uzak bileğin zinciri kazıkta değil, ucu Kratos'un elinde; kazık çekiçle belirir. Üç işaretin üçü de kaldırılmadı, çünkü yakın bilek ve ayaklar önceden bağlı: Aiskhylos'ta da çakma kollardan başlar.
+- P246 mührü küçüldü ve yukarı alındı; mühür süresince Hermes'in kolu bükük. Erhat kenar şeridinin alt kenarı tüm filmde y 190 (P128, P132, P149, P236, P243).
+- P130 ΔΕΣΜΩΤΗΣ kelepçe bandına kazılı. P064–P065 ΖΕΥΣ yüzün önünde, P070 adları başın üstünde.
+- Harita: kısa kavisli İstanbul Boğazı, ΚΑΥΚΑΣΟΣ güvenli alanda, İo madalyonu Kerç'i örtmez. ΚΡΑΤΟΣ etiketleri sağa hizalı. P288a taşan figürler söner.
+- P025 taht levhanın altında; P012 damga ada binmez; aspis kesintisiz kenar; P170 baş 520 px; Okeanos himation ve balık; P079 çuval ağzı; P237 zincir halkadan; P239 etiketler kesmede söner; P262→P263 krem 'bloom' geçişi; P189 elipsi kaynak satırının altında.
+
+### Değiştirilerek alınan
+- P126 için "kamera y+300": z 1,8 ve baş y≈420 ile Kratos profili büyütüldü; taş levha sola ve %70'e alındı. Yoksa levha yüzün üstüne biniyordu.
