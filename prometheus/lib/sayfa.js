@@ -212,3 +212,22 @@ function carvedTablet(ctx, lines, x, y, w, lt, o = {}) {
   });
   ctx.restore();
 }
+
+// Yaşayan sayfa yolculuğu: Erhat bloğu tek ve uzun bir sayfadır (açık kitap). Plan sınırları kameranın duraklarıdır;
+// kesme yoktur. stations: [{at, x, y?, z?, draw(ctx, lt, t)}], her durağın içeriği sayfa koordinatında x çevresine çizilir.
+// Kamera bir durağa, o durağın 'at' anından .9 sn önce kaymaya başlar. o: {num: sayfa no, w: sayfa genişliği}
+function pageJourney(ctx, t, stations, o = {}) {
+  let i = 0; for (let k = 0; k < stations.length; k++) if (t >= stations[k].at - .9) i = k;
+  const a = stations[Math.max(0, i - 1)], b = stations[i];
+  const u = i === 0 ? 1 : E.io3(ramp(t, b.at - .9, b.at + .1, E.lin));
+  const sx = s => s.x, sy = s => s.y ?? H / 2, sz = s => s.z ?? 1;
+  const drift = (t - b.at) * 4;
+  const c = { x: lerp(sx(a), sx(b), u) + drift, y: lerp(sy(a), sy(b), u), z: lerp(sz(a), sz(b), u) * (1 + .004 * Math.sin(t * .7)) };
+  ctx.save(); cam(ctx, c, 1);
+  // sayfa zemini: bütün durakların altında süren tek kâğıt; kâğıt hafifçe nefes alır
+  ctx.save(); ctx.translate(c.x - W / 2, 0); paperBG(ctx, t, { book: false, seed: 21 }); ctx.restore();
+  for (const s of stations) if (Math.abs(s.x - c.x) < W * 1.4) { ctx.save(); s.draw(ctx, t - s.at, t); ctx.restore(); }
+  ctx.restore();
+  if (o.num) txt(ctx, '— ' + o.num + ' —', W / 2, H - 46, { font: 'italic 500 30px "Cormorant Garamond"', col: PW.lineL, force: true });
+  return c;
+}
