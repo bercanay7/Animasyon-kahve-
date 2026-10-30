@@ -26,6 +26,7 @@ Organizatör ve son karar: ana oturum (Claude). Kurullar öneri verir; öneriler
 | 8 | **Kapak A/B** | Büyük kurul: TO/paketleme × 2, illüstrasyon × 2. Test seti: tam boy; 246×138 ve 168×94 küçültmeler; gri değer; mobil akış taklidi; süre rozeti bölgesi. | ilk bakışta okunma · tek odak · merak · videoya sadakat |
 | 9 | **Shorts** | 40–55 sn'lik aday bölümler, ikili inceleme | kanca · bağımsız anlaşılırlık · uzun videoya köprü |
 | 10 | **Teslim** | `youtube.md` (başlık, bölüm zaman damgaları, künye), `prometheus.tr.srt`, `yayin.md` | — |
+| 11 | **Geriye dönüp bakış** (kullanıcının isteği) | Teslimden sonra bütün iş baştan sona yeniden gözden geçirilir ve tek soru sorulur: **"Yapabileceğim en iyi işi mi yaptım?"** Cevap dürüst verilir: ilk istekten neyin tam karşılandığı, nerede ödün verildiği ve nedeni (bütçe, süre, aracın sınırı), hâlâ düzeltilebilecek olanlar. Düzeltilebilecek olan düzeltilir, kalanlar kullanıcıya açıkça söylenir. | ilk isteğe sadakat · ödünlerin dürüstçe sayılması · düzeltilebilenin yapılması |
 
 ## Sabit kurallar
 - Erhat'a mal edilen her görüş yalnız önsöz sayfalarından gelir (`kaynak/onsoz_notlar.md`). Fikirler kendi cümlelerimizle anlatılır; yalnız kısa alıntılar sayfa numarasıyla verilir. Aiskhylos ve Hesiodos alıntıları kendi çevirimizdir.
