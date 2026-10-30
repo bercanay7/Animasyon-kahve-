@@ -224,6 +224,12 @@ function amphora(ctx, x, y, s, col = C.ink, band = C.red) {
   ctx.restore();
 }
 // Taht (klismos): x arka ayak hizası, y zemin, s ölçek, dir yön
+// karanlıkta boş taht: koyu sır gövde, sol üstten soğuk beyaz kenar ışığı (Zeus'un rengi); zeminden ayrılır
+function throneRim(ctx, x, y, s, dir = 1, o = {}) {
+  ctx.save(); glow(ctx, x - 20 * s * dir, y - 40 * s, 46 * s, 'rgba(150,168,215,.13)');
+  throne(ctx, x - 5, y - 5, s, dir, 'rgba(214,224,250,.55)', 'rgba(214,224,250,.55)', o);
+  throne(ctx, x, y, s, dir, '#2C1D16', 'rgba(190,200,235,.42)', o); ctx.restore();
+}
 function throne(ctx, x, y, s, dir = 1, col = C.ink, inc = C.clay, o = {}) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s);
   ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineJoin = 'round';

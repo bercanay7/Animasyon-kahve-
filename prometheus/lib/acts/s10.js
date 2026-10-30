@@ -184,8 +184,8 @@ shot(PA('P252'), (ctx, st) => {
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
     const t = st.t, tH = A('I09@hainlerden'), a = 1 - ramp(t, A('I09@dururlar'), A('I09@dururlar') + .6), sea = 'rgba(196,222,210,1)';
-    if (t > tH && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'HAİNLERDEN NEFRET', u => [lerp(1100, 470, u), 190], ramp(t, tH, A('I09@nefret') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' });
-      speechFlow(ctx, 'ETMEYİ ÖĞRENDİK.', u => [lerp(1100, 490, u), 265], ramp(t, A('I09@etmeyi'), A('I09@öğrendik') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
+    if (t > tH && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'HAİNLERDEN NEFRET', u => [lerp(800, 170, u), 128], ramp(t, tH, A('I09@nefret') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' });
+      speechFlow(ctx, 'ETMEYİ ÖĞRENDİK.', u => [lerp(800, 190, u), 200], ramp(t, A('I09@etmeyi'), A('I09@öğrendik') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
   } });
 
 // --- P254: gök: bulutlarda dev bir yıldırım kalkar (Zeus görünmez); fırtına başlar ---

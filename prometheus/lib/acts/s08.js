@@ -228,7 +228,7 @@ shot(PA('P223'), (ctx, st) => {
 // --- P225–P227: sert kesme: Hermes suçlar, elini kaldırır; bileğinden tahta giden soğuk tasma ipi gerilir (söz); Hermes çevresinde döner ---
 shot(PA('P225'), (ctx, st) => {
   const t = st.t, lt = st.lt, tB = A('I07@bu'), tO = A('I08');
-  const c = F_cam(t, [[PA('P225'), { ...I_IKI, x: 980 }], [tO, { ...I_IKI, x: 1120, z: 1.15 }]], 1.0, 3);
+  const c = F_cam(t, [[PA('P225'), { ...I_IKI, x: 1040 }], [tO, { ...I_IKI, x: 1180, z: 1.15 }]], 1.0, 3);
   const { wind } = kayaWorld(ctx, t, c, { sky: I_SKY });
   ctx.save(); cam(ctx, c, 1);
   // yörünge: I08'den sonra Hermes figürün çevresinde döner (arkadayken önce çizilir)
@@ -249,9 +249,10 @@ shot(PA('P225'), (ctx, st) => {
   over: (ctx, st) => {
     const t = st.t, tB = A('I07@bu'), a = 1 - ramp(t, A('I08') - .3, A('I08') + .2);
     if (t > tB && a > 0) { ctx.save(); ctx.globalAlpha = a; const f = { font: '700 46px Cinzel' };
-      speechFlow(ctx, 'BU FELAKETİMİ', u => [lerp(1150, 680, u), 260], ramp(t, tB, A('I07@felaketimi') + .5, E.lin), f);
-      speechFlow(ctx, 'SENİN UŞAKLIĞINA', u => [lerp(1150, 630, u), 330], ramp(t, A('I07@senin'), A('I07@uşaklığına') + .5, E.lin), f);
-      speechFlow(ctx, 'DEĞİŞMEM.', u => [lerp(1150, 830, u), 400], ramp(t, A('I07@değişmem'), A('I07@değişmem') + .5, E.lin), { ...f, col: '#FFC867' }); ctx.restore(); }
+      // söz iki başın arasındaki boşlukta, petasosun ve kerykeion'un üstünde; sağ uç sakaldan ≥ 30 px uzak
+      speechFlow(ctx, 'BU FELAKETİMİ', u => [lerp(1030, 560, u), 150], ramp(t, tB, A('I07@felaketimi') + .5, E.lin), f);
+      speechFlow(ctx, 'SENİN UŞAKLIĞINA', u => [lerp(1030, 510, u), 215], ramp(t, A('I07@senin'), A('I07@uşaklığına') + .5, E.lin), f);
+      speechFlow(ctx, 'DEĞİŞMEM.', u => [lerp(1030, 710, u), 280], ramp(t, A('I07@değişmem'), A('I07@değişmem') + .5, E.lin), { ...f, col: '#FFC867' }); ctx.restore(); }
   } });
 
 // --- P228: yakın: EYVAH: rüzgâr 0,7 sn kesilir, figürün kenarından toz kopar, tek zincir halkası sarsılır, 0,1 sn beyaz çakma (kartal gölgesi yok) ---
@@ -320,8 +321,8 @@ shot(PA('P231'), (ctx, st) => {
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
     const t = st.t, tB = A('I07b@bu'), a = 1 - ramp(t, A('I07b@zeus') + .2, A('I07b@zeus') + .8);
-    if (t > tB && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'BU AŞAĞILAYICI ZİNCİRLER', u => [lerp(980, 70, u), 250], ramp(t, tB, A('I07b@zincirler') + .5, E.lin), { font: '700 54px Cinzel', follow: 0 });
-      speechFlow(ctx, 'ÇÖZÜLMEDEN…', u => [lerp(980, 560, u), 330], ramp(t, A('I07b@çözülmeden'), A('I07b@çözülmeden') + .6, E.lin), { font: '700 54px Cinzel', follow: 0, col: '#FFC867' }); ctx.restore(); }
+    if (t > tB && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'BU AŞAĞILAYICI ZİNCİRLER', u => [lerp(900, 120, u), 250], ramp(t, tB, A('I07b@zincirler') + .5, E.lin), { font: '700 46px Cinzel', follow: 0 });
+      speechFlow(ctx, 'ÇÖZÜLMEDEN…', u => [lerp(900, 540, u), 322], ramp(t, A('I07b@çözülmeden'), A('I07b@çözülmeden') + .6, E.lin), { font: '700 50px Cinzel', follow: 0, col: '#FFC867' }); ctx.restore(); }
   } });
 
 // --- P232: Hermes geri çekilir, kerykeion'unu yeniden kaldırmaya başlar, çizme kanatları çırpar; yukarıda boş tahtın gözleri kısılır (J01@durduralım'da yarıda kalır) ---

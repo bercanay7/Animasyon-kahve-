@@ -59,7 +59,9 @@ function kylix(ctx, t, x, y, r, rot, draw, o = {}) {
   glow(ctx, 0, r * .1, r * 1.9, 'rgba(0,0,0,.55)');
   ctx.fillStyle = o.glaze || C.ink; ctx.beginPath(); ctx.arc(0, 0, r * 1.42, 0, TAU); ctx.fill();
   ctx.strokeStyle = C.clayD; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(0, 0, r * 1.4, 0, TAU); ctx.stroke();
-  ctx.strokeStyle = 'rgba(255,230,200,.10)'; ctx.lineWidth = 26; ctx.beginPath(); ctx.arc(0, 0, r * 1.25, PI * 1.05, PI * 1.6); ctx.stroke();
+  // sır parıltısı: ince düzgün yay değil, kenarda geniş ve düşük kontrastlı bir hilal (uçlara doğru incelip söner)
+  { const g = ctx.createRadialGradient(-r * .75, -r * .85, 0, -r * .75, -r * .85, r * 1.1); g.addColorStop(0, 'rgba(255,232,205,.12)'); g.addColorStop(1, 'rgba(255,232,205,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r * 1.39, PI * .95, PI * 1.72); ctx.arc(r * .09, r * .1, r * 1.32, PI * 1.72, PI * .95, true); ctx.closePath(); ctx.fill(); }
   ctx.save(); ctx.rotate(rot);
   // tondo bordürü: nar (Lakonya) yerine dil frizi halkası
   ctx.fillStyle = C.clay; ctx.beginPath(); ctx.arc(0, 0, r * 1.08, 0, TAU); ctx.fill();

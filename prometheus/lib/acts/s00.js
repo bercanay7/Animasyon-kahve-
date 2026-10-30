@@ -295,8 +295,8 @@ shot(A('A05@ve'), (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   // dev taht: siyah sır kütle, kil kontur; yavaşça görünür
   ctx.save(); ctx.globalAlpha = .4 + .5 * u;
-  throne(ctx, 960 - 60, 820, 14, 1, '#1E120C', 'rgba(201,112,63,.55)', { high: true, stool: false });
-  ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 3; ctx.restore();
+  throneRim(ctx, 960 - 60, 820, 14, 1, { high: true, stool: false });
+  ctx.restore();
   // iki uzak şimşek titremesi (Zeus görünmez)
   for (const [tt, x] of [[.9, 620], [2.0, 1320]]) { const f = Math.exp(-Math.pow((lt - tt) / .07, 2)); if (f > .02) { ctx.save(); ctx.globalAlpha = .5 * f; lightning(ctx, x, 80, x + 60, 420, 7 + tt * 10, 4, '#E8ECFF'); ctx.restore(); } }
   // küçücük alev: karenin tek parlak noktası

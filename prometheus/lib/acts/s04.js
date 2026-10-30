@@ -334,7 +334,7 @@ shot(PA('P105'), (ctx, st) => {
     const u = E.io2(clamp(lt / (tZ - st.at)));
     const c = { x: 960, y: lerp(470, 560, u), z: lerp(1.0, 1.25, u) };
     ctx.save(); cam(ctx, c, 1);
-    ctx.save(); ctx.globalAlpha = .9 - .55 * u; throne(ctx, 960 - 60, 820, 14, 1, '#1E120C', 'rgba(201,112,63,.55)', { high: true, stool: false }); ctx.restore();
+    ctx.save(); ctx.globalAlpha = .9 - .4 * u; throneRim(ctx, 960 - 60, 820, 14, 1, { high: true, stool: false }); ctx.restore();
     const fs = lerp(1.15, 3.4, u);
     humanFires(ctx, t, [[960, 900, fs]], 1);
     // alevin içinde uygarlık frizinin önizlemesi (maskeli, döner)
