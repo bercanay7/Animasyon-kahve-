@@ -25,7 +25,7 @@ function F_guests(ctx, t, o = {}) {
   ctx.save(); ctx.globalAlpha *= a;
   const ex = o.exit || 0; // kadrajdan çıkış: sağa yürürler
   if (o.bia !== false) { const x = F_POS.bia + ex * 700; walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: { ...LK.bia, rf: false }, hold: { N: HOLD.spear(90) }, p: { torso: .02, ...(o.biaP || {}) }, onJoints: (j, m) => { F_HEADS.bia = [m, j.neckT]; } }); }
-  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) }, onJoints: (j, m) => { F_HEADS.kratos = [m, j.neckT]; } }); }
+  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) }, onJoints: (j, m) => { F_HEADS.kratos = [m, j.neckT]; F_HEADS.kratosHand = [m, j.AN.wr]; } }); }
   if (o.heph !== false) { const x = F_POS.heph + ex * 700; let J = null, M = null;
     walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.hephaistos, hold: { N: HOLD.hammer() }, p: { torso: .05, ...(o.hephP || {}) }, onJoints: (j, m) => { J = j; M = m; } });
     out.hephJ = J; out.hephM = M; }
@@ -177,15 +177,20 @@ shot(PA('P116'), (ctx, st) => {
 shot(PA('P117'), (ctx, st) => {
   const t = st.t, lt = st.lt, tP = A('F08'), tIn = A('F08@insanseverlikten'), tH = A('F07'), tIs = A('F07@istemeyerek'), tA = A('F07@ama'), tK = A('F07@kendi#1'), tF9 = A('F09');
   const hit = A('F07@kendi#1') + 1.1;
-  const c = F_cam(t, [[PA('P117'), { x: 1640, y: 600, z: 1.5 }], [tP, { x: 1580, y: 560, z: 1.4 }], [tIn, { ...CAMS.yakin, x: 1290 }], [tH, { x: 1500, y: 600, z: 1.55 }], [tIs, { x: 1600, y: 560, z: 2.3 }],
-    [tA, { x: 1420, y: 420, z: 1.3 }], [tK, { ...CAMS.zincir, x: 1430, y: 330, z: 2.4 }], [tF9, { x: 1560, y: 600, z: 1.6 }]], .8);
+  // kadrajlar: P117–P118 geniş; P119 Kratos'un omzunun üstünden (Kratos sağda ön planda, Prometheus x≈600); P120 yakın; P121 Hephaistos orta plan;
+  // P122 titreyen el; P123 boş taht; P124 zincir yakın; P125 Hephaistos'un eğik başı yakın
+  const c = F_cam(t, [[PA('P117'), { x: 1640, y: 600, z: 1.5 }], [tP, { x: 1384, y: 520, z: 1.96 }], [tIn, { ...CAMS.yakin, x: 1290 }], [tH, { x: 1480, y: 560, z: 2.0 }], [tIs, { x: 1600, y: 560, z: 2.3 }],
+    [tA, { x: 1420, y: 420, z: 1.3 }], [tK, { ...CAMS.zincir, x: 1430, y: 330, z: 2.4 }], [tF9, { x: 1470, y: 470, z: 3.0 }]], .8);
   const { wind } = kayaWorld(ctx, t, c, { sky: F_SKY });
   { const ta = ramp(t, tA - .2, tA + .5) * (1 - ramp(t, tK + .3, tK + .9)); if (ta > 0) { ctx.save(); baseT(ctx); glow(ctx, 1330, 300, 230, `rgba(160,175,220,${.16 * ta})`); F_throne(ctx, 1300, 480, 3.6, ta, t, { bolt: Math.exp(-Math.pow((t - tA - .5) / .08, 2)) }); ctx.restore(); } }
   ctx.save(); cam(ctx, c, 1);
   const raise = ramp(t, tA, tA + .7) * (1 - ramp(t, hit - .1, hit + .05)), tremble = ramp(t, tIs, tIs + .3) * (1 - ramp(t, tA, tA + .3));
   const G = F_guests(ctx, t, { kratosP: { shF: t > tP && t < tIn ? -1.5 : .1, elF: .1, handF: 'open' },
     hephP: { shN: lerp(.4, 2.9, raise) + .05 * Math.sin(t * 30) * tremble, elN: lerp(.6, .3, raise), head: t > tIs && t < tA ? -.35 : 0, neck: t > tF9 ? .35 : 0, torso: t > tF9 ? .3 : .05 } });
-  promChained(ctx, t, { wind, look: -.05, pullAdd: Math.exp(-Math.pow((t - hit) / .2, 2)) * .3 });
+  const freeF = t < hit - .04;
+  const R = promChained(ctx, t, { wind, look: -.05, freeF, pullAdd: Math.exp(-Math.pow((t - hit) / .2, 2)) * .3 });
+  // çekiç inene kadar zincirin ucu Kratos'un elinde (alaydan süreklilik: henüz kayaya çakılmadı)
+  if (freeF && R && F_HEADS.kratosHand) { const kh = jointPt(ctx, F_HEADS.kratosHand[0], F_HEADS.kratosHand[1]); ironChain(ctx, [R.wF[0] + 6, R.wF[1] - 4], kh, { L0: len(sub(kh, R.wF)) * 1.08, sag: 20 }); }
   if (t > hit - .2) { hammerHit(ctx, PROM_KAYA.sF[0] - 22, PROM_KAYA.sF[1], hit, t, 1.0); if (t > hit && t - hit < .5) { dustBurst(ctx, t, hit, PROM_KAYA.sF[0], PROM_KAYA.sF[1], 24, 'rgba(201,112,63,.6)', 110, 6); sparkle(ctx, PROM_KAYA.sF[0] - 6, PROM_KAYA.sF[1], 24 * (1 - (t - hit) / .5), 1); } }
   ctx.restore();
   if (t > hit && t < hit + .15) { ctx.save(); baseT(ctx); ctx.fillStyle = '#FFF4DE'; ctx.globalAlpha = .5 * (1 - (t - hit) / .15); ctx.fillRect(0, 0, W, H); ctx.restore(); }
@@ -211,7 +216,8 @@ shot(PA('P117'), (ctx, st) => {
 // --- P126–P128: Kratos'un soğuk profili alttan; sözü kil levhaya kazınır; levha kenara konur; kenar şeridi: özgürlük · kölelik ---
 shot(PA('P126'), (ctx, st) => {
   const t = st.t, lt = st.lt, tE = A('F10@erhatın');
-  const c = F_cam(t, [[PA('P126'), { x: 1640, y: 640, z: 1.65, r: -.06 }], [A('F10'), { x: 1500, y: 620, z: 1.4, r: -.03 }], [tE, { ...CAMS.genis, x: 1000 }]], .9);
+  // P126 alttan: Kratos'un soğuk profili sağda (baş y≈420), üstte taş levha; kamera hafif eğik
+  const c = F_cam(t, [[PA('P126'), { x: 1460, y: 450, z: 1.8, r: -.05 }], [A('F10'), { x: 1500, y: 620, z: 1.4, r: -.03 }], [tE, { ...CAMS.genis, x: 1000 }]], .9);
   const { wind } = kayaWorld(ctx, t, c, { sky: F_SKY });
   ctx.save(); cam(ctx, c, 1);
   F_guests(ctx, t, { kratosP: { head: -.12, neck: -.05 } });
@@ -223,8 +229,8 @@ shot(PA('P126'), (ctx, st) => {
   over: (ctx, st) => {
     const t = st.t, tZ = A('F09@zeustan'), tF10 = A('F10'), tE = A('F10@erhatın');
     // Güç'ün sözü taş: kil levhaya kazınır; F10'da donar ve kenara (sol üst köşeye) konur
-    if (t > tZ - .2) { const off = E.io2(ramp(t, tF10 + .6, tE + .2)); ctx.save(); ctx.translate(lerp(0, -330, off), lerp(0, -140, off)); ctx.globalAlpha = 1 - ramp(t, tE + 1.4, tE + 2.0);
-      const s = lerp(1, .5, off); ctx.translate(960, 330); ctx.scale(s, s); ctx.translate(-960, -330);
+    if (t > tZ - .2) { const off = E.io2(ramp(t, tF10 + .6, tE + .2)); ctx.save(); ctx.translate(lerp(-100, -330, off), lerp(-30, -60, off)); ctx.globalAlpha = 1 - ramp(t, tE + 1.4, tE + 2.0);
+      const s = lerp(.7, .5, off); ctx.translate(960, 330); ctx.scale(s, s); ctx.translate(-960, -330);
       carvedTablet(ctx, ['ZEUS’TAN BAŞKA HİÇ KİMSE', 'ÖZGÜR DEĞİLDİR.'], 960, 330, 1240, t - tZ, { font: '700 62px Cinzel', lh: 78 }); ctx.restore(); }
     erhatStrip(ctx, t - tE + .2, Se('F10') - tE + .6, 'özgürlük · kölelik', 'xiii', { icon: (c, p, lt) => { const a = .25 * Math.sin(lt * 1.6); c.save(); c.globalAlpha = p; c.strokeStyle = PW.line; c.lineWidth = 3; c.beginPath(); c.moveTo(0, 50); c.lineTo(0, -40); c.moveTo(-60 * Math.cos(a), -40 - 60 * Math.sin(a)); c.lineTo(60 * Math.cos(a), -40 + 60 * Math.sin(a)); c.stroke(); for (const sg of [-1, 1]) { c.beginPath(); c.arc(sg * 60 * Math.cos(a), -40 + sg * 60 * Math.sin(a) + 20, 18, 0, PI); c.stroke(); } c.restore(); } });
   } });

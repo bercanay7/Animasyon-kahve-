@@ -162,7 +162,7 @@ function marginBand(ctx, x0, x1, y0, y1, p = 1, o = {}) {
 // Üst 2/3'te kalır (altyazı bandına inmez). lt: şeridin başından beri geçen süre, d: kalış süresi.
 function erhatStrip(ctx, lt, d, words, page, o = {}) {
   if (lt < 0 || lt > d + .6) return;
-  const k = E.out3(ramp(lt, 0, .55)) * (1 - E.in2(ramp(lt, d, d + .6))), y0 = 40, h = o.h || 210;
+  const k = E.out3(ramp(lt, 0, .55)) * (1 - E.in2(ramp(lt, d, d + .6))), y0 = 40, h = o.h || 150; // alt kenar y 190: KAYA'da kaldırılan el ve baş tepesi şeridin altında kalır
   ctx.save(); baseT(ctx);
   ctx.translate(0, -h * (1 - k));
   ctx.fillStyle = 'rgba(20,10,5,.35)'; ctx.fillRect(0, y0 + 6, W, h);

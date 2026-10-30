@@ -64,13 +64,16 @@ shot(PA('P245'), (ctx, st) => {
 shot(PA('P246'), (ctx, st) => {
   const t = st.t, lt = st.lt, tF = X_TF(), tS = A('I08b@sorguya'), tV = A('I08b@savurur'), tK = A('I08b@kaya');
   const fz = 1 - ramp(t, tS, tS + .8), tw = tF + Math.max(0, t - tS);
-  const c = F_cam(t, [[PA('P246'), { ...CAMS.genis, x: 880, y: 540 }], [tV, { ...I_IKI, x: 920 }]], 1.0, 3);
+  // tehdit planı: Prometheus'un başının tepesi y ≥ 200 (mühür üstte, başa değmez)
+  const c = F_cam(t, [[PA('P246'), { ...CAMS.genis, x: 880, y: 540 }], [tV, { ...I_IKI, x: 920, y: I_IKI.y - 32 }]], 1.0, 3);
   const { wind } = kayaWorld(ctx, tw, c, { sky: J_SKY, clouds: 3, wind: lerp(windAt(tw), 0, fz) });
   ctx.save(); cam(ctx, c, 1);
   J_skyChain(ctx, tw, 0);
   // Hermes: kerykeion'u tümüyle kaldırır, yere iner; I08b@savurur'da tehdit
   const go = E.io2(ramp(t, tS + .2, tS + 1.6)), th = ramp(t, tV - .3, tV + .3);
-  I_hermes(ctx, lerp(X_HF.x, I_HX, go), lerp(X_HF.gy, 868, go), 5.6, tw, { fly: 1 - go, raise: lerp(.45, 1, ramp(t, tS, tS + 1.2)), point: th, lean: .1 * th, flap: lerp(.5, .2, go) });
+  // mühür süresince (kaya → gömüleceksin) kol bükülür: kerykeion'un tepesi mührün altında kalır
+  const bend = ramp(t, tK - .4, tK) * (1 - ramp(t, A('I08b@gömüleceksin') + .3, A('I08b@gömüleceksin') + .9));
+  I_hermes(ctx, lerp(X_HF.x, I_HX, go), lerp(X_HF.gy, 868, go), 5.6, tw, { fly: 1 - go, raise: lerp(.45, 1, ramp(t, tS, tS + 1.2)) * (1 - .72 * bend), point: th, lean: .1 * th, flap: lerp(.5, .2, go) });
   // tehdidin görüntüsü (kurulum): soğuk bir yıldırım kayaya iner, kaya yarılır gibi olur; yalnız soluk bir hayal, söner
   const gi = ramp(t, tK - .1, A('I08b@parçalanacak')) * (1 - ramp(t, A('I08b@sen') + .2, A('I08b@gömüleceksin') + .4));
   if (gi > 0) { ctx.save(); ctx.globalAlpha = .45 * gi; lightning(ctx, 1500, -200, 1320, 300, 41, 6, '#E6ECFF'); X_crack(ctx, t, 26 * gi, 1, { col: 'rgba(230,236,255,.8)', lw: 4 }); ctx.restore(); }
@@ -81,7 +84,7 @@ shot(PA('P246'), (ctx, st) => {
   J_freezeLook(ctx, t, c, fz);
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
-  over: (ctx, st) => { const t = st.t, tV = A('I08b@savurur'); if (t > A('I08b@kaya') - .3) stamp(ctx, 'KAYA PARÇALANACAK', 1150, 140, t - A('I08b@kaya'), { col: '#E6ECFF', font: '700 72px Cinzel', h: 118, rot: .04, a: .9 * (1 - ramp(t, A('I08b@gömüleceksin') + .4, A('I08b@uzun'))) }); } });
+  over: (ctx, st) => { const t = st.t, tV = A('I08b@savurur'); if (t > A('I08b@kaya') - .3) stamp(ctx, 'KAYA PARÇALANACAK', 1000, 110, t - A('I08b@kaya'), { col: '#E6ECFF', font: '700 60px Cinzel', h: 96, rot: .03, a: .9 * (1 - ramp(t, A('I08b@gömüleceksin') + .4, A('I08b@uzun'))) }); } });
 
 // --- P247: yeraltında uzun zaman: karanlık, dönen yıldızlar; sonra ışığa dönüş ---
 shot(PA('P247'), (ctx, st) => {
@@ -106,7 +109,7 @@ shot(PA('P248'), (ctx, st) => {
   ctx.save(); cam(ctx, c, .3);
   const g = E.out2(ramp(t, A('I08b@kanatlı') - .3, A('I08b@gelecek') + .4));
   // keskin kenarlı, kanatları açık kartal silueti (kylix kartalıyla aynı biçim), göğe yayılır
-  eagleShadow(ctx, lerp(1000, 760, g), lerp(240, 330, g), lerp(1.6, 7.6, g), { a: .62 * g, ang: .92 + .06 * Math.sin(t * 2.2), blur: 3 });
+  eagleShadow(ctx, lerp(1250, 900, g), lerp(220, 320, g), lerp(2.4, 7.3, g), { a: .62 * g, rot: -.2, blur: 3 });
   ctx.restore();
   ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(8,4,3,${.35 * g})`; ctx.fillRect(0, 0, W, H); ctx.restore();
   kayaFrame(ctx, t);
@@ -121,7 +124,7 @@ shot(PA('P249'), (ctx, st) => {
   promChained(ctx, t, { wind, look: -.3, pose: 'gok', pull: .3 + .3 * ramp(t, tZ, tZ + .6) });
   // gölge: ziyafet'te gövdeyi tümüyle örter
   const sh = ramp(t, tZ - 1.2, tZ + .2);
-  if (sh > 0) eagleShadow(ctx, lerp(900, 1120, sh), lerp(200, 430, sh), lerp(3, 6.4, sh), { a: .66 * sh, ang: .92, blur: 3 });
+  if (sh > 0) eagleShadow(ctx, lerp(900, 1150, sh), lerp(200, 600, sh), lerp(3, 6.4, sh), { a: .66 * sh, rot: -.35, blur: 3 });
   ctx.restore();
   // pençe silueti: kameranın önünden hızla geçer
   const pk = ramp(t, tC - .1, tC + .5, E.lin);
@@ -143,7 +146,7 @@ shot(A('I08c@ayshilosta') - .3, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   promChained(ctx, t, { wind, look: -.05, pose: 'direnis' });
   const g = E.out3(ramp(t, A('I08c@işte') - .4, tB, E.lin));
-  eagleShadow(ctx, lerp(400, 1040, g), lerp(120, 380, g), lerp(2.4, 3.6, g), { a: .6, ang: lerp(.75, .95, g) + .04 * Math.sin(t * 3) * (1 - g), blur: 3 });
+  eagleShadow(ctx, lerp(400, 1040, g), lerp(120, 380, g), lerp(2.4, 3.6, g), { a: .6, rot: lerp(-.5, -.15, g), flap: .08 * Math.sin(t * 3) * (1 - g), blur: 3 });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);

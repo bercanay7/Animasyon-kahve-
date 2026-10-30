@@ -93,18 +93,35 @@ function promChained(ctx, t, o = {}) {
   });
   const wN = jointPt(ctx, M, J.AN.wr), wF = jointPt(ctx, M, J.AF.wr);
   const slack = 1.03 - .03 * pull, sw = (o.wind ?? 0) * 6 * Math.sin(t * 1.3);
-  ironChain(ctx, [wF[0] + 6, wF[1] - 4], [sF[0] - 18, sF[1]], { L0: len(sub(sF, wF)) * slack, sag: sw * .3 });
+  // o.freeF: uzak bileğin zinciri henüz kayaya çakılmadı (V: zincirin ucu Kratos'un elinde, çekiç inince kazık belirir)
+  if (!o.freeF) ironChain(ctx, [wF[0] + 6, wF[1] - 4], [sF[0] - 18, sF[1]], { L0: len(sub(sF, wF)) * slack, sag: sw * .3 });
   ironChain(ctx, [wN[0] + 6, wN[1] - 4], [sN[0] - 18, sN[1]], { L0: len(sub(sN, wN)) * slack, sag: sw * .5 });
-  stake(ctx, sF[0], sF[1], 2.3, Math.atan2(wF[1] - sF[1], wF[0] - sF[0]) + PI);
+  if (!o.freeF) stake(ctx, sF[0], sF[1], 2.3, Math.atan2(wF[1] - sF[1], wF[0] - sF[0]) + PI);
   stake(ctx, sN[0], sN[1], 2.3, Math.atan2(wN[1] - sN[1], wN[0] - sN[0]) + PI);
   // kazık tozu yalnız vuruşta (o.dust)
-  if ((o.dust || 0) > .1) for (const q of [sF, sN]) motes(ctx, t, 6, 5 + q[1], 'rgba(201,112,63,.8)', [q[0] - 20, q[1], 40, 70], 30, 1.6, .6 * o.dust);
+  if ((o.dust || 0) > .1) for (const q of (o.freeF ? [sN] : [sF, sN])) motes(ctx, t, 6, 5 + q[1], 'rgba(201,112,63,.8)', [q[0] - 20, q[1], 40, 70], 30, 1.6, .6 * o.dust);
   return { J, M, pull, wN, wF, neck: jointPt(ctx, M, J.neckT) };
 }
 // Kartal gölgesi: kayanın ve bedenin üstünden geçen bulanık siluet (kaya poligonuna kırpılır)
+// Kartal gölgesi: tek parça, kanatları açık kartal silueti (kylix kartalının biçimi; baş öne, parmaklı birincil tüyler, yelpaze kuyruk).
+// s: ölçek (s 1 ≈ 150 px kanat açıklığı); o.rot: dönüş; o.flap: kanat çırpışı; kenar bulanıklığı ≤ 4 px
 function eagleShadow(ctx, x, y, s, o = {}) {
-  ctx.save(); ctx.filter = `blur(${o.blur ?? 8}px)`; ctx.globalAlpha *= o.a ?? .5;
-  eagle2(ctx, x, y, s, 1, { ang: o.ang ?? .9, angFar: .2, farOff: -.55, col: '#050201', wingCol: '#050201', farCol: '#050201', line: 'rgba(0,0,0,0)', eye: '#050201' });
+  const span = 150 * s / 2, fl = o.flap ?? Math.sin((window.FIG_T || 0) * 3) * .06;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? -.18); ctx.scale(span, span);
+  ctx.filter = `blur(${Math.min(4, o.blur ?? 3)}px)`; ctx.globalAlpha *= o.a ?? .6; ctx.fillStyle = '#050201';
+  ctx.beginPath();
+  for (const e of [1, -1]) {
+    const F = (px, py) => [e * px, py - fl * px * px];
+    const P = [[.08, -.08], [.3, -.2], [.58, -.24], [.86, -.2], [1.0, -.12], [.93, -.07], [1.02, -.02], [.9, .01], [.97, .07], [.83, .07], [.88, .14], [.72, .13], [.62, .2], [.4, .2], [.16, .16]];
+    const Q = P.map(([a, b]) => F(a, b));
+    ctx.moveTo(...Q[0]); for (let k = 1; k < Q.length; k++) ctx.lineTo(...Q[k]); ctx.lineTo(0, .12); ctx.closePath();
+  }
+  // gövde, baş ve gaga (öne), yelpaze kuyruk (geriye)
+  ctx.moveTo(.11, 0); ctx.ellipse(0, 0, .11, .3, 0, 0, TAU);
+  ctx.moveTo(.08, -.34); ctx.arc(0, -.34, .08, 0, TAU);
+  ctx.moveTo(-.03, -.42); ctx.quadraticCurveTo(.06, -.5, .02, -.55); ctx.lineTo(.05, -.42); ctx.closePath();
+  ctx.moveTo(-.08, .22); ctx.lineTo(-.2, .52); ctx.lineTo(-.07, .48); ctx.lineTo(0, .55); ctx.lineTo(.07, .48); ctx.lineTo(.2, .52); ctx.lineTo(.08, .22); ctx.closePath();
+  ctx.fill('nonzero');
   ctx.restore();
 }
 // Dünya: gök, ova ve ateşler, kaya, zemin çizgisi, hâle. c: kamera. o: {sky, eagleX, eagleY, wind, fires}
