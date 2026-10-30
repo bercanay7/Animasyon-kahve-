@@ -15,10 +15,13 @@ function A(at) {
   if (!m) return 0;
   return (m[2] ? Wd(m[1], m[2], +(m[3] || 0)) : S(m[1])) + (m[4] ? +m[4] : 0);
 }
+// plan çapası kimlikle: PA('P016') = planlar.json'daki 'at' (animatik/planlar.js); off saniye kaydırma
+function PA(id, off = 0) { const p = (window.PLAN || {})[id]; if (!p) { console.log('plan yok: ' + id); return 0; } return A(p.at) + off; }
 const SHOTS = [];
 let SHOTS_SORTED = false;
-// shot(başlangıç, çizim, {tr:{type,dur}, post:{...}})
-function shot(at, draw, o = {}) { SHOTS.push({ at, draw, ...o }); }
+// shot(başlangıç, çizim, {tr:{type,dur,end}, post:{...}, over, mb})
+// tr.end: yumuşak geçiş çapada BİTER (önceki sessizlikte oynar; plan v2 kuralı): çekim dur kadar önce başlar
+function shot(at, draw, o = {}) { if (o.tr && o.tr.end && o.tr.type !== 'cut') at -= o.tr.dur; SHOTS.push({ at, draw, ...o }); }
 const bufA = makeCanvas(DW, DH), bufAx = bufA.getContext('2d');
 const maskC = makeCanvas(480, 270), maskX = maskC.getContext('2d');
 let NOISE_MASK = null;

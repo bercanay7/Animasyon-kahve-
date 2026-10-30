@@ -57,6 +57,8 @@ for r in rows:
     out.append(f"| {r['id']} | {r.get('cekim', '')} | {fmt(r['t'])} | {r['sure']:.1f}{flag} | {r['k']} | {r.get('kit', '')} / {r['set']} | {kare} | {r['hareket']} | {r['soz'][:140]} |")
 open(os.path.join(ROOT, 'animatik', 'plan_tablosu.md'), 'w').write('\n'.join(out) + '\n')
 json.dump([{k: r[k] for k in ('id', 'at', 't', 'sure', 'k', 'set') + (('kit', 'cekim') if 'kit' in r else ())} for r in rows], open(os.path.join(ROOT, 'animatik', 'zamanli.json'), 'w'), ensure_ascii=False, indent=0)
+# filmin çekim kodu plan çapalarını buradan okur (PA('P016')); ses değişince timeline.js ile birlikte kayar
+open(os.path.join(ROOT, 'animatik', 'planlar.js'), 'w').write('// tools/animatik.py üretir: plan kimliği → çapa (animatik/planlar.json)\nwindow.PLAN = ' + json.dumps({r['id']: {'at': r['at'], 'k': r['k'], 'kit': r.get('kit', ''), 'cekim': r.get('cekim', '')} for r in rows}, ensure_ascii=False) + ';\n')
 print(out[1].strip())
 for e in errs: print('  HATA', e)
 for r in uzun: print(f"  uzun {r['id']} {r['sure']:.1f} sn  {r['soz'][:90]}")
