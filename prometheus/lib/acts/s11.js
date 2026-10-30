@@ -108,8 +108,8 @@ shot(PA('P266'), (ctx, st) => {
     for (let i = 0; i < 5; i++) cloud(c, 420 + i * 140, 700 + (i % 2) * 30, 1.6, C.ink, C.clay, i + 61);
     const nod = Math.exp(-Math.pow((t - n1 - .2) / .25, 2)) + Math.exp(-Math.pow((t - n2 - .2) / .25, 2));
     throne(c, 640, 690, 5.4, 1, C.ink, C.clay, { high: true });
-    figure(c, { x: 660, y: 690 - 44.5 * 5.6 + 70, s: 5.6, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { N: HOLD.scepter(80), F: HOLD.bolt() },
-      p: { torso: -.05, neck: .05 + .25 * nod, head: .05 + .2 * nod, shN: .5, elN: .9, shF: -.2, elF: .6, kneeN: 1.4, kneeF: 1.4, hipN: -1.4, hipF: -1.4 } });
+    figure(c, { x: 660, y: 690 - 28 - 44.5 * 5.6, s: 5.6, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { N: HOLD.scepter(80), F: HOLD.bolt() },
+      p: { torso: -.05, neck: .05 + .25 * nod, head: .05 + .2 * nod, shN: .5, elN: .9, shF: -.2, elF: .6 }, ik: { fN: [660 + 160, 690 - 17, 0], fF: [660 + 128, 690 - 17, 0] } });
     bf(c, 1080, 820, 3.4, -1, { ...LK.herakles, cape: true }, { torso: .05, head: -.15, shN: -2.4, elN: .3, handN: 'open' });
     const w = ramp(t, n2, n2 + .9);
     if (w > 0) { c.save(); c.globalAlpha = w; c.strokeStyle = C.clay; c.lineWidth = 4; c.beginPath(); c.ellipse(1062, 655, 30, 9, 0, 0, TAU); c.stroke(); c.restore(); }
