@@ -57,8 +57,20 @@ function H_okeanos(ctx, x, y, s, t, o = {}) {
   // Sophilos'taki Okeanos: düz göğüs, sol omuzda himation, elinde balık, alnının üstünde küçük boğa boynuzları
   figure(ctx, { x, y, s, dir, sty: STY.red, lk: { beard: 'full', hair: 'long', anat: true, flatChest: true, himation: true, rf: true, earHidden: true }, seed: 71, stripe: .4,
     p: { torso: o.torso ?? .05, neck: .05, head: .05, shN: o.shN ?? .3, elN: o.elN ?? .8, shF: -.1, elF: .7, handN: o.handN || 'open', breath: Math.sin(t * 1.3) * .6 },
-    hold: { F: H_FISH }, onJoints: (j, m) => { J = j; M = m; } });
+    onJoints: (j, m) => { J = j; M = m; } });
   ctx.restore();
+  // himation: sol (yakın) omuzdan karşı kalçaya çapraz şal, siyah bordürlü; balık uzak elde (bel kırpmasının dışında çizilir)
+  if (J) { const sh = jointPt(ctx, M, J.shoulder), hp = jointPt(ctx, M, J.hip), d = sub(hp, sh), nn = scl([-d[1], d[0]], 1 / (len(d) || 1)), w = 4.2 * s;
+    ctx.save(); ctx.fillStyle = '#B55E33'; ctx.strokeStyle = C.ink; ctx.lineWidth = .7 * s; ctx.beginPath();
+    ctx.moveTo(sh[0] + nn[0] * w - d[0] * .08, sh[1] + nn[1] * w - d[1] * .08); ctx.lineTo(hp[0] + nn[0] * w * .6 + dir * 3 * s, hp[1] + nn[1] * w * .6); ctx.lineTo(hp[0] - nn[0] * w * .6 + dir * 3 * s, hp[1] - nn[1] * w * .6); ctx.lineTo(sh[0] - nn[0] * w - d[0] * .08, sh[1] - nn[1] * w - d[1] * .08); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = C.red; ctx.lineWidth = .9 * s; ctx.beginPath(); ctx.moveTo(sh[0] + nn[0] * w * .55, sh[1] + nn[1] * w * .55); ctx.lineTo(hp[0] + nn[0] * w * .3 + dir * 3 * s, hp[1] + nn[1] * w * .3); ctx.stroke();
+    ctx.strokeStyle = C.ink; ctx.lineWidth = .35 * s; for (let k = 1; k < 4; k++) { const q = lerp2(sh, hp, k / 4); ctx.beginPath(); ctx.moveTo(q[0] - nn[0] * w * .7, q[1] - nn[1] * w * .7); ctx.quadraticCurveTo(q[0] + d[0] * .05, q[1] + d[1] * .05, q[0] + nn[0] * w * .7, q[1] + nn[1] * w * .7); ctx.stroke(); }
+    ctx.restore();
+    const [fx, fy] = jointPt(ctx, M, J.AF.wr), L = 13 * s;
+    ctx.save(); ctx.translate(fx + dir * L * .35, fy + 1.5 * s); ctx.scale(dir, 1); ctx.rotate(.35); ctx.fillStyle = STY.red.fill; ctx.strokeStyle = C.ink; ctx.lineWidth = .6 * s; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(-L * .6, 0); ctx.quadraticCurveTo(0, -L * .32, L * .45, -L * .06); ctx.lineTo(L * .75, -L * .3); ctx.lineTo(L * .66, 0); ctx.lineTo(L * .75, L * .3); ctx.lineTo(L * .45, L * .06); ctx.quadraticCurveTo(0, L * .32, -L * .6, 0); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.lineWidth = .35 * s; ctx.beginPath(); ctx.moveTo(-L * .3, -L * .14); ctx.quadraticCurveTo(-L * .24, 0, -L * .3, L * .14); for (let k = 0; k < 3; k++) { ctx.moveTo(-L * .1 + k * L * .15, -L * .1); ctx.lineTo(k * L * .15, 0); ctx.lineTo(-L * .1 + k * L * .15, L * .1); } ctx.stroke();
+    ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(-L * .45, -L * .04, .5 * s, 0, TAU); ctx.fill(); ctx.restore(); }
   if (J) { const hornB = (dx) => jointPt(ctx, M, add(J.neckT, rot([dx, -12.6], J.headA)));
     ctx.save(); ctx.fillStyle = '#EBD9B4'; ctx.strokeStyle = C.ink; ctx.lineWidth = .5 * s; ctx.lineJoin = 'round';
     for (const [dx, k] of [[1.8, 1], [-1.2, .8]]) { const [bx, by] = hornB(dx), L = 5.2 * s * k;

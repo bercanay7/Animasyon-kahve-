@@ -336,7 +336,7 @@ shot(PA('P263'), (ctx, st) => {
   ctx.save(); cam(ctx, { x: 960 + lt * 2, y: 540, z: 1.02 + lt * .003 }, 1);
   paperBG(ctx, t, { seed: 91 });
   ctx.restore();
-}, { tr: { type: 'ink', dur: .8, end: true }, post: { tex: .35, vig: .55, grain: .045 },
+}, { tr: { type: 'bloom', dur: .9, end: true, cx: 960, cy: 450 }, post: { tex: .35, vig: .55, grain: .045 },
   over: (ctx, st) => {
     const t = st.t, lt = st.lt, tO = A('I12@özgür'), tE = Se('I12'), end = st.end;
     const back = E.io2(ramp(t, tE + .4, tE + 1.6)), fly = ramp(t, end - .8, end, E.lin), mv = E.io3(ramp(t, tE + 1.0, end - 1.0));

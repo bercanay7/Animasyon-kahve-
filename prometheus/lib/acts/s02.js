@@ -268,7 +268,7 @@ function worldFork(c, x, y, r, rot, n, col) {
 // paylaştırmada (split) bölgeler birbirinden ayrılır
 function worldDisk(c, x, y, r, split, t) {
   c.save(); c.translate(x, y);
-  const off = split * 54, b1 = -r / 3, b2 = r / 3;
+  const off = split * 16, b1 = -r / 3, b2 = r / 3; // paylaştırmada bölgeler kenar halkasının içinde aralanır (kalkan bütün kalır)
   const zone = (y0, y1, dy, fill, draw) => { c.save(); c.translate(0, dy); c.beginPath(); c.arc(0, 0, r, 0, TAU); c.clip(); c.beginPath(); c.rect(-r, y0, 2 * r, y1 - y0); c.clip();
     c.fillStyle = fill; c.fillRect(-r, -r, 2 * r, 2 * r); draw(); c.restore();
     c.save(); c.translate(0, dy); c.strokeStyle = C.clay; c.lineWidth = 3; c.beginPath(); const h0 = Math.max(-r, y0), h1 = Math.min(r, y1);
@@ -277,14 +277,13 @@ function worldDisk(c, x, y, r, split, t) {
   zone(-r, b1, -off, C.ink, () => { c.fillStyle = C.white; for (let i = 0; i < 14; i++) { const rr = rng(i + 7), sx = (rr() * 2 - 1) * r * .8, sy = -r + rr() * (r * .62); c.beginPath(); c.arc(sx, sy, 2.2 + rr() * 1.6, 0, TAU); c.fill(); }
     bolt(c, 0, -r * .62, r / 300, .35, C.white, 'rgba(0,0,0,0)'); });
   // deniz: kil, siyah dalgalı çizgiler, siyah üç dişli
-  zone(b1, b2, 0, C.clay, () => { c.strokeStyle = C.ink; c.lineWidth = 3; for (let k = 0; k < 3; k++) { const yy = b1 + (k + .5) * (b2 - b1) / 3; c.beginPath(); for (let q = 0; q <= 40; q++) { const xx = -r + q / 40 * 2 * r; c.lineTo(xx, yy + Math.sin(q * .9 + t * 1.2 + k) * 6); } c.stroke(); }
+  zone(b1, b2, 0, '#8E4A2A', () => { c.strokeStyle = C.ink; c.lineWidth = 3; for (let k = 0; k < 3; k++) { const yy = b1 + (k + .5) * (b2 - b1) / 3; c.beginPath(); for (let q = 0; q <= 40; q++) { const xx = -r + q / 40 * 2 * r; c.lineTo(xx, yy + Math.sin(q * .9 + t * 1.2 + k) * 6); } c.stroke(); }
     worldFork(c, 0, 0, r, -.08, 3, C.ink); });
   // yeraltı: koyu toprak, kil iki dişli
   zone(b2, r, off, '#2A160E', () => worldFork(c, 0, r * .6, r * .8, .06, 2, C.clay));
-  // kalkan kenarı: kalın siyah çember, üstünde kil nokta dizisi (yalnız bütünken)
-  c.globalAlpha = 1 - clamp(split * 1.5);
-  c.strokeStyle = C.ink; c.lineWidth = 22; c.beginPath(); c.arc(0, 0, r + 10, 0, TAU); c.stroke();
-  c.fillStyle = C.clay; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU; c.beginPath(); c.arc(Math.cos(a) * (r + 10), Math.sin(a) * (r + 10), 3, 0, TAU); c.fill(); }
+  // kalkan kenarı: kesintisiz kalın siyah halka (her zaman); üstünde kil nokta dizisi
+  c.strokeStyle = C.ink; c.lineWidth = 26; c.beginPath(); c.arc(0, 0, r + 12, 0, TAU); c.stroke();
+  c.fillStyle = C.clay; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU; c.beginPath(); c.arc(Math.cos(a) * (r + 12), Math.sin(a) * (r + 12), 3.4, 0, TAU); c.fill(); }
   c.restore();
 }
 function amforaIIc(c, x0, x1, t) {

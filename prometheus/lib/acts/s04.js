@@ -39,15 +39,17 @@ function E_portions(c, x, y, o = {}) {
   c.lineTo(bx + 78, T - 150);
   c.bezierCurveTo(bx + 80, T - 120, bx + 150, T - 95, bx + 160, T - 50);
   c.quadraticCurveTo(bx + 168, T - 12, bx + 150, T); c.closePath(); c.fill();
-  // bağ: yatık boğumun üstünde düğüm ve iki sarkan ip ucu
-  c.save(); c.translate(bx + 66, T - 166); c.rotate(.6);
-  c.beginPath(); c.ellipse(-12, -10, 16, 10, -.4, 0, TAU); c.ellipse(12, -10, 16, 10, .4, 0, TAU); c.fill(); c.restore();
-  c.strokeStyle = C.ink; c.lineWidth = 4; c.beginPath(); c.moveTo(bx + 70, T - 168); c.quadraticCurveTo(bx + 104, T - 160, bx + 112, T - 128); c.moveTo(bx + 72, T - 164); c.quadraticCurveTo(bx + 96, T - 140, bx + 92, T - 116); c.stroke();
+  // ağız: büzgülü boğaz (dalgalı fırfır), boğazı saran ip ve aşağı sarkan iki kısa bağ ucu (yuvarlak düğüm yok)
+  c.save(); c.translate(bx + 66, T - 160); c.rotate(.55);
+  c.fillStyle = C.ink; c.beginPath(); c.moveTo(-13, 6); c.lineTo(-18, -12); for (let k = 1; k <= 6; k++) c.quadraticCurveTo(-18 + k * 6 - 3, -17, -18 + k * 6, -12); c.lineTo(13, 6); c.closePath(); c.fill();
+  c.strokeStyle = C.clay; c.lineWidth = 1.6; c.beginPath(); c.moveTo(-15, -8); c.quadraticCurveTo(0, -11, 15, -8); c.stroke();
+  c.strokeStyle = C.red; c.lineWidth = 4; c.beginPath(); c.moveTo(-16, -1); c.lineTo(16, -1); c.stroke();
+  c.strokeStyle = C.ink; c.lineWidth = 3.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(15, -1); c.quadraticCurveTo(22, 12, 18, 30); c.moveTo(15, 0); c.quadraticCurveTo(28, 8, 30, 24); c.stroke();
+  c.restore();
   c.strokeStyle = C.red; c.lineWidth = 8;
   for (const [x0, y0, x1, y1, cy] of [[-150, -42, 150, -36, -66], [-120, -88, 110, -82, -112]]) { c.beginPath(); c.moveTo(bx + x0, T + y0); c.quadraticCurveTo(bx + (x0 + x1) / 2, T + cy, bx + x1, T + y1); c.stroke(); }
   c.strokeStyle = C.clay; c.lineWidth = 2;
   for (const [x0, y0, x1, y1] of [[-110, -16, -76, -24], [60, -18, 100, -26], [-40, -128, -4, -140], [30, -110, 60, -128], [-150, -70, -130, -96]]) { c.beginPath(); c.moveTo(bx + x0, T + y0); c.quadraticCurveTo(bx + (x0 + x1) / 2, T + y0 - 10, bx + x1, T + y1); c.stroke(); }
-  c.beginPath(); c.moveTo(bx + 50, T - 162); c.lineTo(bx + 76, T - 146); c.stroke();
   // yağ payı: önce altındaki kemikler, sonra yağ (kazıma ve kaldırma yağı inceltir)
   const fx = x + 200, fat = o.fat ?? 1, sc = o.scratch || 0;
   E_bone(c, fx - 58, T - 23, 220, 0); E_bone(c, fx + 58, T - 23, 220, 0); E_bone(c, fx, T - 69, 300, 0); E_bone(c, fx + 4, T - 112, 280, .03);

@@ -273,7 +273,7 @@ shot(PA('P170'), (ctx, st) => {
   const light = ramp(t, tP - .2, tP + .8);
   if (t > tG && t < tM) {
     // tek bir baş: profil, açık ama boş göz (göz bebeği yok); baş yüksekliği ~ 13 birim × 38 ≈ 500 px
-    G_bigHead(ctx, 960, 480, 38, 1, { hair: 'nape', blind: true, beadHair: true }, { sty: { ...STY.red, fill: '#8A4724', white: '#8A4724' }, seed: 3, ear: true, stripe: .3 }, lt);
+    G_bigHead(ctx, 960, 450, 27, 1, { hair: 'nape', blind: true, beadHair: true }, { sty: { ...STY.red, fill: '#8A4724', white: '#8A4724' }, seed: 3, ear: true, stripe: .42 }, lt);
   } else {
     const c = { x: 960 + lt * 5, y: 560, z: 1.0 };
     ctx.save(); cam(ctx, c, 1);

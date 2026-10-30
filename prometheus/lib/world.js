@@ -115,7 +115,7 @@ function ironChain(ctx, a, b, o = {}) {
   const pts = Array.from({ length: 13 }, (_, i) => { const u = i / 12; return [lerp(a[0], b[0], u), lerp(a[1], b[1], u) + 4 * sagAmt * u * (1 - u)]; });
   const w = o.w || 7, lk = o.link || 26;
   // ayrılmış kil kontur (saçtaki uylaşım): koyu zincir kayadan ayrılsın
-  chain(ctx, pts, lk, mixCol(PC.clayR, PC.glaze, .35), null, w + 10, 0, lk * .78);
+  chain(ctx, pts, lk, o.bandCol || mixCol(PC.clayR, PC.glaze, .35), null, w + 10, 0, lk * .78);
   chain(ctx, pts, lk, C.ink, null, w + 6, 0, lk * .78);
   chain(ctx, pts, lk, o.col || '#3A2418', o.hi || PC.clayRL, w, 0, lk * .78);
   return pts;

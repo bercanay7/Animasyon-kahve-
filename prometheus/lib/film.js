@@ -90,12 +90,13 @@ function composite(ctx, buf, tr, p) {
   } else if (tr.type === 'white') {
     if (p < .5) { ctx.drawImage(buf, 0, 0); ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = E.sine(p * 2); ctx.fillRect(0, 0, DW, DH); }
     else { ctx.fillStyle = '#F4E9D2'; ctx.globalAlpha = 1 - E.sine((p - .5) * 2); ctx.fillRect(0, 0, DW, DH); }
-  } else if (tr.type === 'clay' || tr.type === 'ink') {
-    // organik çözülme: gürültü eşiği ile yumuşak kenarlı maske
-    const nm = noiseMask(), id = maskX.createImageData(480, 270), d = id.data;
-    const soft = .08, th = lerp(-soft, 1 + soft, E.io2(p));
+  } else if (tr.type === 'clay' || tr.type === 'ink' || tr.type === 'bloom') {
+    // organik çözülme: gürültü eşiği ile yumuşak kenarlı maske; 'bloom': yeni kare (cx, cy) merkezinden dışa yayılır (dağınık leke yok)
+    const nm = noiseMask(), id = maskX.createImageData(480, 270), d = id.data, bl = tr.type === 'bloom';
+    const soft = .08, th = lerp(-soft, 1 + soft, E.io2(p)), bx = (tr.cx ?? 960) / 4, by = (tr.cy ?? 540) / 4, R = Math.hypot(480, 270) * .8;
     for (let k = 0; k < nm.length; k++) {
-      const v = clamp((nm[k] - th) / soft + .5);
+      const val = bl ? Math.min(1, Math.hypot(k % 480 - bx, Math.floor(k / 480) - by) / R) * .85 + nm[k] * .15 : nm[k];
+      const v = clamp((val - th) / soft + .5);
       d[k * 4 + 3] = v * 255;
     }
     maskX.putImageData(id, 0, 0);

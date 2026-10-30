@@ -50,6 +50,8 @@ function J_zeusWrist(ctx, t, a, glint = 0) {
   ctx.fillStyle = '#2A2C33'; ctx.strokeStyle = cold; ctx.lineWidth = 5; ctx.beginPath(); ctx.rect(-26, -46, 52, 92); ctx.fill(); ctx.stroke();
   ctx.lineWidth = 2.5; for (const yy of [-26, 0, 26]) { ctx.beginPath(); ctx.moveTo(-26, yy); ctx.lineTo(26, yy); ctx.stroke(); }
   ctx.restore();
+  // zincirin üst parçası önde: halkadan çıkar, tahtın kolunun önünden aşağı iner (yumruğun altından sarkıyor gibi okunmaz)
+  { const aP = J_A(), d = sub(aP, J_TOP), L = len(d), u = Math.min(1, 260 / L); ironChain(ctx, [x, y + 14], [x + d[0] * u, y + d[1] * u], { L0: L * u * 1.003, w: 6, link: 24, col: '#2E2E33', hi: '#9A9CA6', bandCol: '#55565C' }); }
   ctx.strokeStyle = cold; ctx.lineWidth = 6; ctx.beginPath(); ctx.ellipse(x, y, 13, 18, 0, 0, TAU); ctx.stroke();
   if (glint > 0) sparkle(ctx, x + 30, y - 50, 50 * glint, glint, cold);
   ctx.restore();
@@ -76,7 +78,7 @@ function J_freezeLook(ctx, t, c, fz, o = {}) {
 }
 // tepe etiketleri: ZEUS · KÖLE (J04@köle) ve PROMETHEUS · ÖZGÜR (J04@özgürdür); J05@uşaklarına'da birlikte söner
 function J_labels(ctx, t) {
-  const tK = A('J04@köle'), tO = A('J04@özgürdür'), off = 1 - ramp(t, A('J05@uşaklarına') - .1, A('J05@uşaklarına') + .5);
+  const tK = A('J04@köle'), tO = A('J04@özgürdür'), off = 1 - ramp(t, PA('P239') - .05, PA('P239') + .25); // P239 kesmesinde 0,3 sn içinde söner (eğilen uşaklara değmez)
   if (t > tK - .3 && off > 0) { const dn = E.io2(ramp(t, A('J04@prometeus'), tO)); ctx.save(); ctx.translate(lerp(560, 560, dn), lerp(230, 262, dn)); ctx.scale(lerp(1, .72, dn), lerp(1, .72, dn));
     stamp(ctx, 'ZEUS · KÖLE', 0, 0, t - tK, { col: '#E6ECFF', font: '700 84px Cinzel', h: 132, rot: -.04, a: .92 * lerp(1, .5, dn) * off }); ctx.restore(); }
   if (t > tO - .1 && off > 0) txt(ctx, 'PROMETHEUS · ÖZGÜR', 100, 420, { font: '700 52px Cinzel', col: '#FFC867', ls: 5, align: 'left', a: ramp(t, tO - .1, tO + .4) * off, shadow: 'rgba(255,170,80,.7)', blur: 22 });
