@@ -35,7 +35,7 @@ function kapakText2(ctx, l1, l2, c1, c2, o = {}) {
 // A: "BİLE BİLE ÇALDI": ateşi kaldırmış büyük Prometheus, bakışı aleve; ateş karenin en parlak noktası (çekirdek beyaz)
 SCENES.kapakA = (ctx, t) => {
   const fire = [1050, 265];
-  kapakBG2(ctx, t, fire);
+  kapakBG2(ctx, t, fire, { base: '#3E251A' });
   const s = 21, px = 1545, py = 1080 + 14 * s;
   const pose = { torso: -.03, neck: -.12, head: -.3, shF: 2.7, elF: .28, shN: -.15, elN: .2, handN: 'fist', handF: 'fist', mouthOpen: 0, smile: -.4, scowl: .45, wind: .6 };
   const lk = { ...LK.promFree, eyeS: 1.3 };
@@ -56,7 +56,7 @@ SCENES.kapakA = (ctx, t) => {
 // B: "ZEUS DA TUTSAK": zincirli Prometheus sağ üste bakar; zincir, kadrajın içinde, kelepçeli bir yumruğa (Zeus) gider;
 // yumruk soğuk beyaz yıldırımı tutar: yıldırım ve kelepçe karenin en parlak noktası
 SCENES.kapakB = (ctx, t) => {
-  const F = [1665, 172];
+  const F = [1650, 230], ZS = 1.15;
   kapakBG2(ctx, t, [1480, 650], { r: 900, c0: 'rgba(201,112,63,.5)', c1: 'rgba(120,52,24,.3)', bc: 'rgba(150,66,30,.38)' });
   // soğuk hâle kelepçenin arkasında, dar: yıldırımın hemen arkası koyu kalsın (beyaz şekli yutmasın)
   glow(ctx, F[0] + 84, F[1] - 6, 380, 'rgba(150,170,225,.22)');
@@ -64,14 +64,16 @@ SCENES.kapakB = (ctx, t) => {
   // tek düz bulut silueti sağ kenarda: Zeus'un önkolu buradan yatay çıkar
   ctx.fillStyle = '#2A1A12'; ctx.strokeStyle = 'rgba(201,112,63,.55)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(1990, -20); ctx.lineTo(1990, 270);
   ctx.quadraticCurveTo(1900, 290, 1870, 230); ctx.quadraticCurveTo(1820, 200, 1850, 140); ctx.quadraticCurveTo(1815, 80, 1870, 40); ctx.quadraticCurveTo(1860, 0, 1900, -20); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // Zeus kümesi (önkol, yıldırım, yumruk, kelepçe, halka) F çevresinde ZS kat: odak kütlesi yazıyla yarışsın
+  ctx.save(); ctx.translate(F[0], F[1]); ctx.scale(ZS, ZS); ctx.translate(-F[0], -F[1]);
   // önkol (kil, siyah kontur) buluttan yumruğa
   ctx.save(); ctx.lineCap = 'round';
   ctx.strokeStyle = C.ink; ctx.lineWidth = 84; ctx.beginPath(); ctx.moveTo(1900, F[1] - 40); ctx.lineTo(F[0] + 40, F[1] - 4); ctx.stroke();
   ctx.strokeStyle = STY.red.fill; ctx.lineWidth = 72; ctx.stroke(); ctx.restore();
   // yıldırım (keraunos) ortasından kavranır: kalın gövde (≥ 70 px), beyaz çekirdek; önce yıldırım, üstüne yumruk
-  ctx.save(); ctx.translate(F[0], F[1]); ctx.rotate(.2); ctx.scale(1.45, 1);
-  bolt(ctx, 0, 0, 2.3, 0, '#FFFFFF', 'rgba(235,240,255,.55)'); ctx.restore();
-  glow(ctx, F[0], F[1], 90, 'rgba(255,255,255,.9)');
+  ctx.save(); ctx.translate(F[0], F[1]); ctx.rotate(.2); ctx.scale(1.67, 1);
+  bolt(ctx, 0, 0, 2.0, 0, '#FFFFFF', 'rgba(235,240,255,.55)'); ctx.restore();
+  glow(ctx, F[0], F[1], 120, 'rgba(255,255,255,.95)');
   ctx.save(); ctx.translate(F[0], F[1]);
   // yumruk: parmaklar önde (solda) kıvrık, başparmak yıldırımın üstüne kapanır
   ctx.fillStyle = STY.red.fill; ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.lineJoin = 'round';
@@ -89,14 +91,16 @@ SCENES.kapakB = (ctx, t) => {
   const ring = [F[0] + 88, F[1] + 74];
   ctx.strokeStyle = C.ink; ctx.lineWidth = 15; ctx.beginPath(); ctx.ellipse(ring[0], ring[1], 19, 25, .2, 0, TAU); ctx.stroke();
   ctx.strokeStyle = '#F2F5FF'; ctx.lineWidth = 9; ctx.stroke();
+  ctx.restore();
+  const ringW = [F[0] + 88 * ZS, F[1] + 74 * ZS];
   const s = 17, px = 1580, py = 1080 + 13.5 * s;
   let J = null, M = null;
   figure(ctx, { x: px, y: py, s, dir: 1, sty: STY.red, lk: { ...LK.prom, eyeS: 1.3 }, still: true, stripe: .5, faceW: 1.5,
-    p: { torso: -.06, neck: -.14, head: -.24, shN: 1.95, elN: 1.2, shF: -.25, elF: .5, handN: 'fist', handF: 'fist', mouthOpen: .15, scowl: .75 },
+    p: { torso: -.06, neck: -.14, head: -.24, shN: 1.8, elN: 1.45, shF: -.25, elF: .5, handN: 'fist', handF: 'fist', mouthOpen: .15, scowl: .75 },
     hold: { N: CUFF, F: CUFF }, onJoints: (j, m) => { J = j; M = m; } });
   const wN = jointPt(ctx, M, J.AN.wr);
-  ironChain(ctx, [wN[0], wN[1] - 30], [ring[0], ring[1] + 20], { L0: len(sub(ring, wN)) * 1.07, w: 20, link: 64, col: '#4A3426', hi: '#C9A888', bandCol: '#9C7B62' });
-  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#B9C3DD', '#D6C29C', { y1: 300, y2: 560, s1: 168, s2: 266, ls2: 0, sw2: 16, glow: 'rgba(170,190,240,.3)', blur: 24 });
+  ironChain(ctx, [wN[0], wN[1] - 30], [ringW[0], ringW[1] + 23], { L0: len(sub(ringW, wN)) * 1.07, w: 20, link: 64, col: '#4A3426', hi: '#C9A888', bandCol: '#9C7B62' });
+  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#B9C3DD', '#CDB78F', { y1: 300, y2: 560, s1: 168, s2: 272, ls2: 0, sw2: 16, glow: 'rgba(0,0,0,.7)', blur: 24 });
 };
 // akışta kapağın kenarı koyu temaya karışmasın (köşeler ≥ 30): kapaklarda vinyet hafif
 SCENES.kapakA.post = { vig: .45 };
