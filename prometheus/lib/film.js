@@ -46,7 +46,7 @@ function shotAt(t) {
 function drawShot(ctx, i, t) {
   const sh = SHOTS[i]; if (!sh) return;
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR);
-  const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
+  const st = { t, at: sh.at, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save();
   sh.draw(ctx, st);
   ctx.restore();
@@ -73,7 +73,7 @@ function drawFilm(ctx, t) {
 function drawOver(ctx, t) {
   const i = shotAt(t), sh = SHOTS[i]; if (!sh || !sh.over) return;
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR);
-  const st = { t, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
+  const st = { t, at: sh.at, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save(); baseT(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   if (sh.tr && sh.tr.type !== 'cut' && st.lt < sh.tr.dur) ctx.globalAlpha = clamp(st.lt / sh.tr.dur);
   sh.over(ctx, st);

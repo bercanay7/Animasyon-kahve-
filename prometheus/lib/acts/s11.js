@@ -24,14 +24,15 @@ function L_archer(ctx, x, gy, s, t, draw, rel, o = {}) {
   const pull = draw * (1 - E.out3(clamp(rel * 3)));
   figure(ctx, { x, y: gy - 44.5 * s, s, dir: 1, sty, lk: { ...LK.herakles, rf: sty === STY.red, earHidden: true, sevEye: true, cape: true }, seed: 41, stripe: sty === STY.red ? .55 : 0,
     p: { torso: .08, neck: -.02, head: -.04, handN: 'fist', handF: 'fist', breath: .6 * Math.sin(t * 1.6), scowl: .4 },
-    ik: { hN: [x + 30 * s, gy - 33 * s], hF: [x + lerp(16, 2, pull) * s, gy - 32.6 * s], fN: [x + 12 * s, gy - 3 * s, 0], fF: [x - 10 * s, gy - 3 * s, .2] },
+    ik: { hN: [x + 40 * s, gy - 70 * s], hF: [x + lerp(22, 4, pull) * s, gy - 69.4 * s], fN: [x + 14 * s, gy - 3 * s, 0], fF: [x - 12 * s, gy - 3 * s, .2] },
     onJoints: (j, m) => { J = j; M = m; } });
   const wN = jointPt(ctx, M, J.AN.wr), wF = jointPt(ctx, M, J.AF.wr);
   // yay: tutan elin önünde dik kavis; kiriş çeken ele gider; bırakınca kiriş titrer
-  const bh = 26 * s, bow = [wN[0] + 2 * s, wN[1]], bend = lerp(5, 9, pull) * s;
+  const bh = 24 * s, bow = [wN[0] + 2 * s, wN[1]], bend = lerp(5, 9, pull) * s;
   const top = [bow[0] - bend * .6, bow[1] - bh], bot = [bow[0] - bend * .6, bow[1] + bh];
   ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5 * s; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(top[0], top[1]); ctx.quadraticCurveTo(bow[0] + bend, bow[1], bot[0], bot[1]); ctx.stroke();
+  if (sty === STY.red) { ctx.strokeStyle = PC.clayR; ctx.lineWidth = .4 * s; ctx.beginPath(); ctx.moveTo(top[0] - .6 * s, top[1]); ctx.quadraticCurveTo(bow[0] + bend - .9 * s, bow[1], bot[0] - .6 * s, bot[1]); ctx.stroke(); }
   const vib = rel > 0 ? Math.exp(-rel * 9) * Math.sin(rel * 90) * 2.5 * s : 0;
   const nock = pull > .02 ? [wF[0], wF[1]] : [top[0] + vib, (top[1] + bot[1]) / 2];
   ctx.strokeStyle = sty === STY.red ? PC.clayRL : C.clay; ctx.lineWidth = .45 * s;
@@ -274,8 +275,15 @@ shot(PA('P273'), (ctx, st) => {
     flame(ctx, 960, 610, 1.6, t, { haloR: 120 });
     txt(ctx, 'KAI BIRD · MARTIN J. SHERWIN', 960, 790, { font: '600 26px Cinzel', col: '#CDB896', ls: 3 });
     ctx.restore();
-    // önce: atom çağı imgesi yerine soyut, uzak ve küçük bir ışık noktası (gerçekçi patlama yok)
-    const pre = 1 - op; if (pre > 0) { glow(ctx, 960, 470, 120, `rgba(255,240,215,${.5 * pre})`); txt(ctx, '1945', 960, 640, { font: '600 52px Cinzel', col: PW.line, ls: 12, a: pre * ramp(lt, .3, .9) }); }
+    // önce: atom çağı gerçekçi bir patlama olmadan: kalemle çizilmiş çöl ufku, sırtı dönük küçük bir figür, ufukta büyüyen soluk bir ışık noktası
+    const pre = 1 - op;
+    if (pre > 0) { ctx.save(); ctx.globalAlpha = pre;
+      inkPoly(ctx, [[300, 640], [1620, 640]], ramp(lt, 0, .8), { col: PW.line, w: 3 });
+      const gl = ramp(t, A('L05@babası'), A('L05@babası') + 1.6);
+      glow(ctx, 1240, 630, 60 + 140 * gl, `rgba(255,246,228,${.35 + .4 * gl})`);
+      figure(ctx, { x: 820, y: 640 - 44.5 * 3.2 + 2, s: 3.2, dir: 1, sty: STY.lek, lk: { hair: 'nape', garment: 'coat', modern: true }, seed: 8, p: { torso: 0, head: .05 + .04 * gl, breath: .5 * Math.sin(t * 1.4) } });
+      txt(ctx, '1945', 960, 760, { font: '600 52px Cinzel', col: PW.line, ls: 12, a: ramp(lt, .3, .9) });
+      ctx.restore(); }
     ctx.restore();
   } else {
     // meşale (kırmızı figür şerit): beyaz parlama L05@kitaba'da alevin içinden yayılır ve söner
