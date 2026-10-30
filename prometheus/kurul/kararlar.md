@@ -522,3 +522,28 @@ Engelleyen madde kalmadı. İki üyenin render öncesi isteğe bağlı cilaları
 - P126 yakın, eğik kadraj (z 2,4): Kratos'un soğuk profili; P250'de kartal gölgesi "bedeli" anında göğüste.
 
 Kalan bilinen zayıflık: P170'te yüz yapısı (düz büst) basit kaldı; 7,7 sn'lik tek plan, iki üye de engel saymadı.
+
+# Kapak A/B: CTR/paketleme kurulu ve başkan kararları
+Ortak başlık: "Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat". A "BİLE BİLE ÇALDI", B "ZEUS DA TUTSAK". Test seti `tools/kapak_seti.py` (tam boy, 246, 168, bulanık, gri, rozet, mobil akış).
+
+| Kapak | Tur 1 | Tur 2 | Karar (tur 2) |
+|---|---|---|---|
+| A "BİLE BİLE ÇALDI" | RED | **9,0** | ONAY |
+| B "ZEUS DA TUTSAK" | RED | 7,8 | RED |
+
+## Tur 1 → tur 2 (uygulandı, `kurul/kapak_tur2/`)
+- A: ateş büyük ve beyaz çekirdekli, karenin en parlak noktası; yazı ateşten sönük; figür büyük, bakışı aleve; sırtta kil kenar ışığı; zemin aydınlatıldı.
+- B: gri dikdörtgen ("çekiç" okuması) kaldırıldı. Sağ kenardaki tek bulutla yatay uzanan kol yıldırımı ortasından tutuyor. Zeus'un bileğinde kelepçe var ve zincir kadrajın içinde onun halkasına bağlanıyor. TUTSAK yazısı başla çakışmıyor.
+- Değiştirilerek alınan: kurul yıldırımı altın istedi, soğuk beyaz kaldı. Gerekçe renk kuralı: soğuk beyaz Zeus ve buyruğu, altın ateş ve akıl. Kurul tur 2'de kabul etti; okunurluğu bozan şeyin renk değil incelik ve arkadaki sis olduğunu ölçtü.
+
+## Tur 2 → tur 3 (uygulandı, `kurul/kapak_tur3/`)
+- B, kritik maddeler:
+  - Tek odak: yıldırım kalın ve beyaz çekirdekli, ZEUS DA söndürüldü.
+  - Zeus'un tutsaklığı 168 px'te okunuyor: kelepçe önkolu saran perçinli geniş bir bant; Prometheus'un yumruğu aşağı indi; zincir uzun ve kalın.
+  - Cila: sis daraltıldı, yumruğa başparmak eklendi, TUTSAK'ın harf aralığı ve konturu daraltıldı.
+- Değiştirilerek alınan:
+  - "shN 2.2" kolu sağa açıp yumruğu kadrajdan taşırdı. Eklem ölçümüyle yerine shN 1,95 ve elN 1,2 seçildi (dirsek bükük, zinciri çekiyor).
+  - Zincir 260 değil yaklaşık 200 px.
+- A, cila: alevin ucu kenardan içeride; ÇALDI büyük harfi %18; yazı bloğu 40 px aşağı.
+- İkisi: taban rengi açıldı, kapaklarda vinyet .45 (köşeler ≈ 30).
+- Reddedilen: A-5, "P001 ilk karesi kapak geometrisiyle eşleşsin". Filmin ilk cümlesi kapağın vaadini kelimesi kelimesine karşılıyor ("Tanrılardan ateşi, bile bile çalıp…", 0:00,7). Kurul da vaadin anlam olarak karşılandığını yazdı. Render sürerken P001'i değiştirmek, kazancına göre pahalı bir yeniden render demekti.
