@@ -47,9 +47,11 @@ function theatre(ctx, t, c, o = {}) {
   for (const [x, y] of [[560, 690], [1360, 690]]) { ctx.fillStyle = C.ink; ctx.fillRect(x - 5, y, 10, 90); flame(ctx, x, y, .7, t + x, { haloR: 120 }); }
   ctx.restore();
 }
-shot(A('B01') - .6, (ctx, st) => {
+shot(PA('P016'), (ctx, st) => {
   const u = E.io2(clamp(st.lt / (st.d + .5)));
   theatre(ctx, st.t, { x: 960, y: lerp(380, 600, u), z: lerp(.82, 1.45, u) });
+  // eşleşen kesme: P015'in yükselen kıvılcımı akşam yıldızı olur (gökte kalır, kamera inerken yavaşça yukarı kayar)
+  { const sy = 140 - 200 * u, a = 1 - ramp(st.lt, 4, 6); if (a > 0) { glow(ctx, 1350, sy, 46, `rgba(255,214,150,${.5 * a})`); sparkle(ctx, 1350, sy, 22, a, '#FFE9C4'); } }
   kayaFrame(ctx, st.t);
   chapterCard(ctx, 'BÖLÜM I', "ERHAT'IN SORUSU", st.lt - .3, 3.4, { y: 170 });
 }, { tr: { type: 'clay', dur: .8 }, post: { tex: .55, vig: 1, grain: .06 } });

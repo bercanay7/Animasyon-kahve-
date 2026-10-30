@@ -80,19 +80,19 @@ function hammerHit(ctx, tx, ty, tHit, t, s = 1) {
   ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(L - 24 * s, -36 * s); ctx.lineTo(L - 24 * s, 36 * s); ctx.stroke();
   ctx.restore();
 }
-shot(Se('A01') + .25, (ctx, st) => {
-  const t = st.t, lt = st.lt, tH = st.at + .35;
-  const sk = shake(t, tH, 14, 7);
-  const c = { x: lerp(1430, 1330, E.io2(clamp(lt / st.d))), y: lerp(300, 380, E.io2(clamp(lt / st.d))), z: lerp(2.1, 1.7, E.io2(clamp(lt / st.d))), sx: sk[0], sy: sk[1] };
+shot(PA('P004'), (ctx, st) => {
+  const t = st.t, lt = st.lt, tH = st.at + .12, tH2 = A('A02@mıhlatan'), hit = t < (tH + tH2) / 2 ? tH : tH2;
+  const sk = shake(t, tH, 14, 7), sk2 = shake(t, tH2, 10, 7), back = E.out3(ramp(t, tH2, tH2 + .5));
+  const c = { x: lerp(1430, 1330, E.io2(clamp(lt / st.d))), y: lerp(300, 380, E.io2(clamp(lt / st.d))), z: lerp(2.1, 1.7, E.io2(clamp(lt / st.d))) * lerp(1, .88, back), sx: sk[0] + sk2[0], sy: sk[1] + sk2[1] };
   const { wind } = kayaWorld(ctx, t, c, { skyChain: true });
   ctx.save(); cam(ctx, c, 1);
   promChained(ctx, t, { wind, look: -.05, pullK: .4 });
   const sF = PROM_KAYA.sF;
-  hammerHit(ctx, sF[0] - 22, sF[1], tH, t, 1.1);
-  if (t > tH) { dustBurst(ctx, t, tH, sF[0], sF[1], 26, 'rgba(201,112,63,.6)', 120, 4); if (t - tH < .5) sparkle(ctx, sF[0] - 6, sF[1], 26 * (1 - (t - tH) / .5), 1); }
+  hammerHit(ctx, sF[0] - 22, sF[1], hit, t, 1.1);
+  for (const h of [tH, tH2]) if (t > h && t < h + 4) { dustBurst(ctx, t, h, sF[0], sF[1], 26, 'rgba(201,112,63,.6)', 120, 4); if (t - h < .5) sparkle(ctx, sF[0] - 6, sF[1], 26 * (1 - (t - h) / .5), 1); }
   ctx.restore();
   // çakma: kısa beyaz parlama
-  if (t > tH && t < tH + .18) { ctx.save(); baseT(ctx); ctx.fillStyle = '#FFF4DE'; ctx.globalAlpha = .55 * (1 - (t - tH) / .18); ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  for (const [h, d] of [[tH, .15], [tH2, .1]]) if (t > h && t < h + d) { ctx.save(); baseT(ctx); ctx.fillStyle = '#FFF4DE'; ctx.globalAlpha = .55 * (1 - (t - h) / d); ctx.fillRect(0, 0, W, H); ctx.restore(); }
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 shot(A('A02@zeusun'), (ctx, st) => {
@@ -245,6 +245,13 @@ shot(A('A06'), (ctx, st) => {
     promVignette(ctx, t, 780, 310, 360, 300);
     const k = ramp(t, tB - .15, tB + .05, E.in2);
     if (k > 0) stamp(ctx, '1967', 1180, 560, t - tB, { col: PW.red, font: '700 110px Cinzel', h: 150, rot: -.12, a: .92 });
+    const tT = A('A06@tuhaf'), tAz = A('A06@azra'), wf = 'italic 600 54px "Cormorant Garamond"';
+    ctx.save(); ctx.font = wf; const ww = ctx.measureText(L('Azra Erhat')).width; ctx.restore();
+    const wp = ramp(t, tAz, A('A06@erhat') + .5, E.lin), wx0 = 960 - ww / 2, fall = ramp(t, tT - .4, tT + .4, E.in2);
+    penLine(ctx, 'Azra Erhat', 960, 648, wp, { font: wf, col: PW.ink });
+    if (fall > 0) { const nx = fall < 1 ? lerp(1150, wx0, fall) : wx0 + ww * wp, ny = fall < 1 ? lerp(-60, 658, fall) : 658 + Math.sin(wp * 40) * 5;
+      if (fall >= 1) M_pen(ctx, nx, ny, -.55, 1.1);
+      glow(ctx, nx, ny, 40, 'rgba(255,190,100,.6)'); sparkle(ctx, nx, ny, fall < 1 ? 22 : 12, 1, '#FFE2A8'); }
     ctx.restore();
   }
   if (open > 0) {
@@ -295,5 +302,7 @@ shot(A('A05@ve'), (ctx, st) => {
   humanFires(ctx, t, [[960, 900, 1.15]], 1);
   motes(ctx, t, 16, 29, 'rgba(255,200,120,.9)', [900, 700, 120, 200], 30, 1.3, .7);
   ctx.restore();
+  const sr = ramp(t, Se('A05') - .9, PA('P016') + .05, E.io2);
+  if (sr > 0) { const x = lerp(960, 1350, sr) + Math.sin(sr * 9) * 18 * (1 - sr), y = lerp(760, 140, sr); glow(ctx, x, y, 50, 'rgba(255,200,120,.55)'); sparkle(ctx, x, y, 16 + 8 * sr, 1, '#FFE9C4'); }
   kayaFrame(ctx, t);
 }, { tr: { type: 'ink', dur: .7 }, post: { tex: .55, vig: 1, grain: .06 } });

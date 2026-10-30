@@ -190,7 +190,7 @@ shot(A('C02'), (ctx, st) => {
   } });
 shot(A('C07'), (ctx, st) => {
   const t = st.t;
-  const r = stationRot(t, [[A('C07'), AMX.pusu], [A('C09'), AMX.yutma], [A('C10'), AMX.rheia], [A('C10@kundağa'), AMX.tas], [A('C10@o'), AMX.girit], [A('C10@büyüyünce'), AMX.kusma]], .9);
+  const r = stationRot(t, [[A('C07'), AMX.pusu], [A('C09'), AMX.yutma], [A('C10'), AMX.rheia], [A('C10@kundağa'), AMX.tas], [A('C10@o#1'), AMX.girit], [A('C10@büyüyünce'), AMX.kusma]], .9);
   const night = 1 - ramp(t, A('C07@erhat'), A('C07@erhat') + .8);
   amphoraFrieze(ctx, t, r, (c, x0, x1, t) => amforaIIb(c, x0, x1, t), night > 0 ? { clayTop: mixCol(C.clayL, '#5A2C18', .55 * night), clayBot: mixCol(C.clay, '#3A1C0F', .55 * night) } : {});
 }, { tr: { type: 'cut' }, post: { tex: .85, vig: .85, grain: .055 },
