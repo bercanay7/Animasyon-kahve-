@@ -63,7 +63,8 @@ function F_greek(ctx, s, x, y, p, a = 1, o = {}) { if (a <= 0) return; ctx.save(
 // --- P107: P106'daki maskeden geri çekilerek gündüz Atina tiyatrosu açılır; bölüm levhası sessizlikte ---
 shot(PA('P107'), (ctx, st) => {
   const t = st.t, lt = st.lt, u = E.io3(ramp(lt, 0, 3.6, E.lin));
-  theatre(ctx, t, { x: 960, y: lerp(455, 560, u), z: lerp(3.4, .95, u) }, { day: 1 });
+  const dr = Math.max(0, lt - 3.6);   // geri çekilme bitince yavaş itiş (plan durmasın)
+  theatre(ctx, t, { x: 960 + dr * 5, y: lerp(455, 560, u), z: lerp(3.4, .95, u) + dr * .012 }, { day: 1 });
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => chapterCard(ctx, 'BÖLÜM V', "DURUŞMA: KAFKA'NIN GÖZÜYLE", st.lt - .15, 3.4, { y: 170 }) });

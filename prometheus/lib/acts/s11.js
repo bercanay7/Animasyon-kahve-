@@ -136,7 +136,7 @@ shot(PA('P266'), (ctx, st) => {
 shot(PA('P267'), (ctx, st) => {
   const t = st.t, lt = st.lt, tK = A('L02@kayıp');
   const c = { x: 960 + lt * 6, y: 520, z: 1.04 + lt * .006 };
-  theatre(ctx, t, { x: 960, y: 520, z: .95 }, { crowd: false });
+  theatre(ctx, t, { x: 960 + lt * 6, y: 520, z: .95 + lt * .01 }, { crowd: false });   // yavaş itiş
   ctx.save(); baseT(ctx); ctx.fillStyle = 'rgba(14,9,7,.55)'; ctx.fillRect(0, 0, W, H); ctx.restore();
   ctx.save(); cam(ctx, c, 1);
   const shelf = [960, 560];

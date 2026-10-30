@@ -12,7 +12,7 @@ function K_nasil(ctx, x, y, s, rot, a = 1) {
 }
 shot(PA('P275'), (ctx, st) => {
   const t = st.t, lt = st.lt, tS = A('K08a@sorusu'), tN = A('K08a@nasıl');
-  const c = { x: W / 2 + lt * 3, y: H / 2, z: 1 + lt * .006 };
+  const c = { x: W / 2 + lt * 6, y: H / 2, z: 1 + lt * .012 };   // yavaş itiş
   ctx.save(); cam(ctx, c, 1);
   paperBG(ctx, t, { seed: 52 });
   for (let i = 0; i < 6; i++) scribble(ctx, 360, 380 + i * 60, 1200, 1, 70 + i, { col: 'rgba(74,52,35,.28)' });

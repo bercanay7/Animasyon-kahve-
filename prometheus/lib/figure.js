@@ -266,7 +266,8 @@ function drawBody(G, f, J, tor, tP) {
         det(c => { c.moveTo(-3.6, 3.2); c.quadraticCurveTo(-1.6, 7.5, -2.6, 12.0); });
       });
       // ayak bileği
-      G.at(L.ank, -L.footA, () => { det(c => c.arc(0, -.2, .7, PI * .15, PI * 1.05), .26); det(c => { c.moveTo(8.2, 1.2); c.lineTo(10.2, 1.9); }, .22); });
+      // ayak bileği ve parmaklar (vazo resminde ayak ucunda kısa parmak çizgileri; terlik gibi okunmasın)
+      G.at(L.ank, -L.footA, () => { det(c => c.arc(0, -.2, .7, PI * .15, PI * 1.05), .26); det(c => { c.moveTo(8.2, 1.2); c.lineTo(10.2, 1.9); }, .22); det(c => { c.moveTo(9.0, 3.0); c.lineTo(9.4, 2.1); c.moveTo(7.7, 3.0); c.lineTo(8.1, 2.2); c.moveTo(6.4, 3.0); c.lineTo(6.8, 2.3); }, .2); });
       // ayak prangası: bileğin üstünde siyah demir bant (Aiskhylos: bacaklar da bağlanır)
       if (lk.legIrons) G.at(L.ank, -L.shA, () => { G.part(c => c.rect(-3.1, -3.4, 6.2, 2.8), { fill: C.ink, cutW: .3 }); G.paint(c => { c.moveTo(-2.9, -2.0); c.lineTo(2.9, -2.0); }, PC.clayR, .3, false); });
       if (lk.greaves) G.at(L.knee, -L.shA, () => { G.part(c => spline(c, [[3.7, .5], [3.6, 6], [3.2, 14], [2.4, 19.5], [-2.4, 19.5], [-4.6, 9], [-4.4, 1.5]]), { fill: sty.fill, cutW: .45 }); det(c => { c.moveTo(-1.6, 4); c.quadraticCurveTo(.4, 9, -.6, 16); }, .3); });
