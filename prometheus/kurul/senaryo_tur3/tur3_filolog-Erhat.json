@@ -1,0 +1,101 @@
+{
+ "scores": {
+  "K1": 8.5,
+  "K2": 8.7,
+  "K3": 8.6,
+  "K4": 8.5,
+  "K5": 8.7,
+  "K6": 8.5,
+  "K7": 8.7
+ },
+ "verdict": "RED",
+ "summary": "Rev 3'ü s. v–xvi fotoğraflarıyla cümle cümle karşılaştırdım. Kaynak açısından rev 2'ye göre büyük bir sıçrama var.\n\nErhat'a mal edilen 21 tırnaklı kısa alıntının hepsi fotoğraflarla kelimesi kelimesine uyuşuyor. Örnekler: \"insan dostu, tanrı düşmanı\", \"İnsan başkaldıran yaratıktır\", \"Umuda karşı da ayaklandık\", \"Akıl gücüyse Zeus'un tekelindedir\", \"Üçüncü devrimin hazırlanması\", \"Ama bakalım gerçekten de öyle mi?\", \"Gerçekte Zeus köle, Prometheus özgürdür\", \"Zeus tutukladığı düşmanının elinde tutukludur aslında\", \"Kıyamet de kopsa son söz özgür düşüncenindir\". \"Asıl yaratıcı, insanın kendisidir\" da xi1'de bitişik bir dizi olarak geçiyor.\n\nTelif: Eyüboğlu-Erhat çevirisinin önsözde aktarılan dizelerinden (s. xii–xiii) kopya yok. F09, G11, I06–I11 ve F14 Yunancaya göre bizim çevirimiz. Tek istisna H05'teki \"sözünü sakınmıyorsun\"; iki kelimelik bir çeviri ifadesi, kaynak gösterilmeli. J02'deki \"Zeus'tan başka kimse özgür değildir\" ile H09'daki \"düşmedikçe\" Yunancanın kaçınılmaz birebir karşılıkları, sorun değil.\n\nTarihleme iyi işliyor: \"kendi çağının diliyle polis\", \"Erhat'ın XX. yüzyılı\", 1967.\n\nKalan sadakat sorunları:\n- **K08a (önemli):** Erhat'ın vi7 sorusuna kendi verdiği cevap (vi8, \"Hemen söyleyelim ki…\") yerine xv1'i \"cevabı da önsözde\" diye sunuyor.\n- **G13 (önemli):** Oyundaki \"bu kadarını beklemiyordu\" çatlağı, Erhat cümlesinin hemen ardından işaretsiz geliyor. Erhat'ın \"sonuna kadar katlanmaya hazır\" okumasının tersini ona söyletmiş oluyor.\n- **K01 (önemli):** \"Önsözü tam bu soruyla açılır\" yanlış. Önsöz Yunanca adla açılıyor; soru ilk sayfada geçiyor ve Erhat'ın değil, \"günümüzün düşünürleri\"ne soruluyor.\n- **C17/C18 (önemli):** C15 ile C17 birleşince \"dünyayı paylaştırmaya girişti\" düştü. C18'deki \"bu paylaşmada\" artık hiçbir şeye bağlanmıyor. Erhat'ın ix2'deki asıl tespiti de bu cümleye dayanıyor.\n\nAyrıca birkaç küçük sorun var: atıf kuralının pratikte delindiği yerler (I12, J06), alt metinde tırnaksız kalan altı kelimeden uzun Erhat dizileri (J05, I05, E15, E11), K04'te altyazının birinci çoğul şahısta kalması, C02'de tarihlenmemiş \"bugün\".\n\nKaydedilmeye değer üç not daha:\n- E16'da \"tanrıya\" ifadesinin \"Olympos'un tanrılarına\" diye daraltılması kaynak alanında açıkça not edildiği için kabul edilebilir.\n- K08b'nin kaynak alanı eskimiş: metinde artık xiv3 yok.\n- C12'deki \"ders almış\" ifadesi Erhat'ın \"ders almışa benzeyen\" çekincesini düşürüyor; küçük bir ayrıntı.\n\nSüre: kurulun hızıyla tahminim ~22:14. Önerilerimle +15–20 sn eklenir. K08a'yı yalnız vi8'le kurmak süreyi değiştirmez.\n\nBu dört önemli düzeltme yapılırsa K1 9,3'e çıkar ve benim açımdan ONAY olur. Ağırlıklı ortalama şu an 8,6.",
+ "resolved": "- **I03 / E16 / K07:** I03 artık \"hazırlanması\" diyor (x3–x4). Devrimin kendisi (xi1) E15'in hemen ardında, Erhat'ın kendi sırasında (E16) veriliyor. D11 ödeniyor, K07 silindi.\n- **B05:** \"En iyi temsil eden\" kalktı. \"Özüyle temsil eden… benimsenmiştir\" ve \"en çok da XX. yüzyılda\" geri geldi; s. v ile uyuşuyor.\n- **A02 / A06 / M02:** \"O kayada\" kalktı. A06'da Erhat'a 1967 tarihiyle atıf yapılıyor.\n- **D08 / D09 / E09:** Yeniden yazıldı. D09'da \"önceden düşünen\" anlatıcının etimolojisi, \"kâhin\" Erhat'ın sözü olarak ayrıştı.\n- **Tarihleme:** F06, K02 ve K08a'da \"günümüz/çağımız\" tarihlendi; J07, J08 ve J08b'deki siyasi risk ortadan kalktı.\n- **F02 / F03 / G02:** F02 taht kavgasına daraltıldı (ix3 ile çelişki bitti). xi2 sorusu F03'te soruluyor, G02'de \"Yani…\" diye cevaplanıyor.\n- **F10a:** \"Zorbalık\" ve \"kolay değildi\" çıktı.\n- **J dizisi:** J02 görünüşü Kratos ve xiii4 ile kuruyor. J04 hükmü veriyor. J05 xiv5'in iç sırasına uyuyor, \"Çünkü\" kalktı.\n- **H05 / H05b:** xii4 ile xiii1 eklendi.\n- **G13:** \"Katlanma duygusu\" diyor.\n- **K06 / L04:** K06'da \"ilk temsilcisi\" denildi. L04'te \"sürmeyi önerir\" deniyor ve Goethe okuması xi1'den tırnakla veriliyor.\n- **Final:** I06'da \"alay eder\" deniyor. I10 Prometheus'un ağzından anlatılıyor (xv3). I12'de \"konuşmakta direnir\" ve perilerle birlikte gömülme var. M00'a \"coşmuşlar\" eklendi, kesinlik bildiren \"seyrettirecekti\" kalktı. M01'deki \"bildiri\" belirsizliği silindi.\n- **Kısmen giderilenler:**\n  - K04: üçüncü kişiye çevrildi ama altyazının ikinci yarısı hâlâ birinci çoğul şahısta.\n  - J06: anlatıcı cümlesi ayrıldı ama \"Yani\" işareti yok.\n  - K01: düzeltilmedi; yeni bir yanlış eklendi.\n  - K08: vi8 önerim uygulanmadı.",
+ "remaining": [
+  {
+   "ids": "K08a",
+   "severity": "önemli",
+   "problem": "\"Erhat'ın en baştaki sorusunun cevabı da önsözde\" diyerek xv1'i (kâhin ve düşünür) Erhat'ın vi7 sorusuna verdiği cevap gibi sunuyor. s. vi fotoğrafına göre Erhat cevabı sorunun hemen ardından kendisi veriyor (vi8): kişilik efsanede de politiktir, dramını modern anlamda politik bir dram olarak canlandırmak ise politik görüşü en köklü yazar olan Aiskhylos'un başarısıdır. xv1'i Erhat vi7'ye bağlamıyor; bu bağ anlatıcının sentezi. Öneri: vi8 Erhat'ın cevabı olarak, xv1 'bir ipucu daha' olarak verilsin (+~12 sn). Süre önemliyse yalnız vi8 kalsın; bu hem süreyi değiştirmez hem de 'kör iktidarlar' hassasiyetini kaldırır.",
+   "tts": "[firmly] Erhat, en baştaki sorusunu hemen kendisi cevaplar: Prometeus efsanede de politik bir kişiydi; ama onun dramını modern anlamda politik bir dram olarak canlandırmak, Atina'nın politik görüşü en köklü tragedya yazarı Ayshilos'un başarısıydı. [thoughtfully] Önsözün sonuna doğru bir ipucu daha verir: Efsane Prometeus'a kâhin der. Erhat'ın yirminci yüzyılı kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır, onun kör iktidarların baskısına uğradığını da bilir.",
+   "alt": "Erhat, en baştaki sorusunu hemen kendisi cevaplar: Prometheus efsanede de politik bir kişiydi; ama onun dramını modern anlamda politik bir dram olarak canlandırmak, Atina'nın politik görüşü en köklü tragedya yazarı Aiskhylos'un başarısıydı. Önsözün sonuna doğru bir ipucu daha verir: Efsane Prometheus'a kâhin der. Erhat'ın XX. yüzyılı kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır, onun “kör iktidarların baskısına” uğradığını da bilir."
+  },
+  {
+   "ids": "G13",
+   "severity": "önemli",
+   "problem": "\"Erhat'ın deyişiyle…\" cümlesinden hemen sonra işaretsiz gelen \"Biliyordu; ama bu kadarını beklemiyordu\" Erhat'ın sözü gibi duyuluyor. Oysa Erhat (xi5–xii1) Prometheus'un her şeyi bildiğini ve 'bütün tepkilere sonuna kadar katlanmaya hazır' olduğunu söylüyor; ZVP 268–270'teki çatlağı hiç anmıyor. Böylece Erhat'a kendi okumasının tersi söyletilmiş oluyor. Bu, kararlar.md'nin 8. maddesindeki (b) koşulunun da ihlali. Çözüm: anlatıcının cümlesi G12b'ye bitişik gelsin, Erhat cümlesi ondan sonra 'Yine de' ile gelsin.",
+   "tts": "[softly] Biliyordu; ama bu kadarını beklemiyordu. [thoughtfully] Yine de, Erhat'ın deyişiyle bu bilinç, onda hem gurur, hem de bir katlanma duygusu doğurur. [slowly] Geri adım atmaz.",
+   "alt": "Biliyordu; ama bu kadarını beklemiyordu. Yine de, Erhat'ın deyişiyle bu bilinç onda hem gurur hem de bir “katlanma duygusu” doğurur. Geri adım atmaz."
+  },
+  {
+   "ids": "K01, K02",
+   "severity": "önemli",
+   "problem": "K01'deki \"Erhat'ın önsözü de, tam bu soruyla açılır\" yanlış: s. v'ye göre önsöz Yunanca adla ve üçleme bilgisiyle açılıyor. Soru sayfanın sonuna doğru geliyor ve Erhat'ın kendi sorusu değil ('…diye soruldu mu, günümüzün düşünürleri… derler'). Bu, 2. turda düzeltilmesini istediğim cümleydi. K02'deki \"her gün yeniden başlatmalıdır\" ise Erhat'ın 'hep yeni baştan başkaldırdıkça sürdürebilir' koşul cümlesini 'her gün' ekleyerek bir buyruğa çeviriyor.",
+   "tts": "K01: [thoughtfully] Erhat'ın önsözü, daha ilk sayfasında şu soruyu anar: İnsan nedir? Ne zaman insan olmaya başladı? || K02: Ve kendi çağının düşünürlerinin, sanki sözleşmiş gibi verdiği cevabı aktarır: İnsan, başkaldıran yaratıktır. Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, bu başkaldırıyı her seferinde yeniden göze almasına bağlıdır.",
+   "alt": "K01: Erhat'ın önsözü, daha ilk sayfasında şu soruyu anar: İnsan nedir? Ne zaman insan olmaya başladı? || K02: Ve kendi çağının düşünürlerinin sanki sözleşmiş gibi verdiği cevabı aktarır: “İnsan başkaldıran yaratıktır.” Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da bu başkaldırıyı her seferinde yeniden göze almasına bağlıdır."
+  },
+  {
+   "ids": "C17 (C18 olduğu gibi kalır)",
+   "severity": "önemli",
+   "problem": "Rev 2'deki C15 ile C17 birleşirken \"dünyayı paylaştırmaya girişti\" cümlesi düştü. C18'deki \"Ve bu paylaşmada önüne tek bir engel çıktı\" artık hiçbir şeye bağlanmıyor. Erhat'ın ix2'deki asıl tespiti de tam bu paylaşmaya dayanıyor: 'dünya egemenliğini kardeşleri ve çocukları arasında paylaşmaya girişir. Bu paylaşmada karşısına dikilen tek engel Prometheus'tur'. Bu bir gerileme. C17'nin son cümlesine tek bir yan cümle eklemek yeter.",
+   "tts": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. [thoughtfully] Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve dünyayı kardeşleri ve çocukları arasında paylaştırmaya girişti.",
+   "alt": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve dünyayı kardeşleri ve çocukları arasında paylaştırmaya girişti."
+  },
+  {
+   "ids": "K04",
+   "severity": "küçük",
+   "problem": "Kararlar 11. maddede 'üçüncü kişiye çevrildi' diyor, ama altyazıda tırnak \"ayaklandık\"tan sonra kapanıyor. Bu yüzden \"bugün, bu dünyada yaşamak istiyoruz\" tırnak dışında, birinci çoğul şahısla kalıyor ve kanalın kendi sözü gibi okunuyor; izleyicilerin %38'i altyazıyla izliyor. Bu kısım vi2'de Erhat'ta neredeyse birebir geçiyor (7 kelime).",
+   "tts": "Erhat'ın kuşağı bu görüşü öylesine benimser ki, gelenek süslerini üstünden atar. Ve ekler: Umuda karşı da ayaklandık. [slowly] Bu kuşak, ötelerde ve yarınlarda değil; bugün, bu dünyada yaşamak ister.",
+   "alt": "Erhat'ın kuşağı bu görüşü öylesine benimser ki gelenek süslerini üstünden atar. Ve ekler: “Umuda karşı da ayaklandık.” Bu kuşak ötelerde ve yarınlarda değil; bugün, bu dünyada yaşamak ister."
+  },
+  {
+   "ids": "H05",
+   "severity": "küçük",
+   "problem": "Altyazıda tırnağa alınan \"sözünü hiç sakınmıyorsun\" hiçbir metinde bu hâliyle geçmiyor. \"Sözünü sakınmıyorsun\" Eyüboğlu-Erhat çevirisinin ifadesi (s. xii); \"hiç\" senaryonun eki ve Yunancadaki agan'ı karşılamıyor. Erhat'ın xiii1'deki açıklaması ('Sözünü sakınmıyorsun diye çevirdiğimiz… deyimi') ancak çeviri anılırsa anlam kazanır. Ayrıca iki küçük kayma var: \"gurur, hatta kibir\" Erhat'ın 'gurur ya da kibir' ifadesini tırmandırıyor; 'bilinçli' ve 'anlamaz' kelimeleri de düşmüş.",
+   "tts": "Periler bile ona, Türkçe çevirideki sözle, sözünü sakınmıyorsun, der. [knowingly] Erhat'ın açıklamasıyla, Yunancadaki ifade, tam olarak dilin fazla özgür demektir. Başkaları, hiçbir umuda yer vermeden direnen bu bilinçli tutumu anlamaz; gurur ya da kibir sanır. [slowly] Oysa ona özgürlüğü sağlayan, bilincidir.",
+   "alt": "Periler bile ona, Türkçe çevirideki sözle, “sözünü sakınmıyorsun” der. Erhat'ın açıklamasıyla Yunancadaki ifade tam olarak “dilin fazla özgür” demektir. Başkaları, “hiçbir umuda yer vermeden” direnen bu bilinçli tutumu anlamaz; gurur ya da kibir sanır. Oysa ona özgürlüğü sağlayan bilincidir."
+  },
+  {
+   "ids": "I12",
+   "severity": "küçük",
+   "problem": "I08–I11 Aiskhylos anlatısı öbeği bölüyor. I12'nin ilk cümlesi xv3'ün neredeyse birebir aktarımı ('dünya başına yıkılıp koroyla birlikte gömülüp yok olana dek konuşmakta direnir'), ama atıf ancak üçüncü cümlede geliyor. Kararlar.md 8. maddenin 'öbek bölünürse atıf ilk cümlede yenilenir' kuralı ihlal ediliyor. 2. turda bu karşıtlığın açıkça Erhat'a verilmesini istemiştim.",
+   "tts": "[firmly] Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometeus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek, konuşmakta direnir. Son söz onundur. [slowly] Ona göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
+   "alt": "Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometheus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. Ona göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”"
+  },
+  {
+   "ids": "J06",
+   "severity": "küçük",
+   "problem": "\"Roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak\" anlatıcının cümlesi: Erhat Zeus'a hiçbir yerde 'yargıç' demiyor, yargıç kurgusu F05b'den geliyor. Cümle Erhat alıntısının hemen ardından işaretsiz geldiği için seste Erhat'ınmış gibi duyuluyor. 2. turda kurulun önerdiği 'Yani' işareti uygulanmamış.",
+   "tts": "[knowingly] Erhat'ın deyişiyle: Zeus, tutukladığı düşmanının elinde tutukludur aslında. [slowly] Yani roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.",
+   "alt": "Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Yani roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak."
+  },
+  {
+   "ids": "J04b (yeni, J04 ile J05 arası)",
+   "severity": "küçük",
+   "problem": "J07 tümüyle çıkınca hükmün yalnız Zeus yarısı gerekçeleniyor (J05–J06). Erhat'ın xiv2'de kendi sorduğu 'Bu özgürlüğü Prometheus nasıl ele geçirmiştir?' sorusu ve cevabı ('değişmez yasa', xiv3) düştü. xiv3'teki asıl hassas cümleyi ('iktidar sahipleri devrilir gider') geri getirmeden, yalnız dört kelimelik çekirdek alıntı yeter. Bu alıntı, I12'de korunan 'son söz özgür düşüncenindir'den daha siyasi değil (+~7 sn).",
+   "tts": "[intrigued] Zincirdeki nasıl özgür olabilir? Erhat'a göre Ayshilos, değişmez bir yasanın bilincine varmıştı: Özgür düşünce tutuklanamaz, susturulamaz.",
+   "alt": "Zincirdeki nasıl özgür olabilir? Erhat'a göre Aiskhylos, “değişmez” bir yasanın bilincine varmıştı: “Özgür düşünce tutuklanamaz, susturulamaz.”"
+  },
+  {
+   "ids": "J05, I05, E15, E11",
+   "severity": "küçük",
+   "problem": "Bu dört cümlede Erhat'tan 6 kelimeyi aşan, neredeyse birebir diziler altyazıda tırnaksız kalıyor:\n- J05, xiv5'in ~20 kelimesi.\n- I05: 'sanığı gözdağıyla sorguya çeken polis müdürü'.\n- E15: 'akıl gücü tanrılardan insanlara geçmiştir'. Ayrıca Erhat'taki 'Çünkü', 'Egemenliği gerçek bir güce dayanmaz' cümlesine bağlı; senaryo onu 'gülünç'e bağlıyor.\n- E11, x5'in 9 kelimesi.\nTelif riski önemsiz, ama kurulun alıntı kuralıyla tutarlılık için ya tırnak gerekiyor ya yeniden yazım. J05, I05 ve E15'te ses değişmiyor, yalnız altyazı değişiyor.",
+   "tts": "E15: Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. [knowingly] Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Egemenliği artık gerçek bir güce dayanmaz; çünkü akıl gücü, tanrılardan insanlara geçmiştir. || E11: [ominous] Erhat'ın okumasında, iki kez küçük düşürülen Zeus'a artık tek yol kalmıştı: kaba kuvvet. || J05 ve I05: tts değişmez.",
+   "alt": "J05: Bütün uşaklarına, dalkavuklarına rağmen Zeus “bir çocuk gibi zayıf ve çaresizdir.” Onu yıkımdan kurtarabilecek tek kişi, aklın taşıyıcısı Prometheus'tur. || I05: Sonunda Zeus, habercisi Hermes'i gönderir; Erhat'ın deyişiyle “sanığı gözdağıyla sorguya çeken” bir polis müdürü. Emir kısadır: Sırrı söyle. || E15: Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Egemenliği artık gerçek bir güce dayanmaz; çünkü “akıl gücü tanrılardan insanlara geçmiştir.” || E11: Erhat'ın okumasında, iki kez küçük düşürülen Zeus'a artık tek yol kalmıştı: kaba kuvvet."
+  },
+  {
+   "ids": "C02",
+   "severity": "küçük",
+   "problem": "\"bugün 'hükümet darbesi' diyebileceğimiz\" ifadesindeki 'bugün' Erhat'ın 1967'si. Emrullah'ın sesinde 2026 diye duyuluyor ve 'darbe' Türkiye'de yüklü bir kelime. Kararlar 10. maddedeki tarihleme kuralı F06'da uygulanmış ('kendi çağının diliyle polis'), burada uygulanmamış. Alıntı korunuyor, yalnız tarihleniyor.",
+   "tts": "Erhat'a göre efsanenin de, oyunun da merkezinde, kendi çağının diliyle hükümet darbesi diyebileceği bir olay var: Bir kuşak, öncekini devirip yönetimi ele geçirir.",
+   "alt": "Erhat'a göre efsanenin de oyunun da merkezinde, kendi çağının diliyle “hükümet darbesi” diyebileceği bir olay var: Bir kuşak, öncekini devirip yönetimi ele geçirir."
+  },
+  {
+   "ids": "F10a",
+   "severity": "küçük",
+   "problem": "\"Asıl işkence zincir değil\" Erhat'ın cümlesini kaydırıyor: zinciri işkence olmaktan çıkarıyor. s. xiii'teki cümle şöyle: 'işkencesinin büyüklüğü zincire vurulmuş olmasında değil, bir tanrı iken köle durumuna düşürülüp…' Yani söz konusu olan işkencenin büyüklüğü. 'İşkencesini asıl büyüten' daha sadık (Dostoyevski de 2. turda önermişti).",
+   "tts": "[thoughtfully] Ona göre çağı düşünmek gerekir: Beşinci yüzyıl Atinası'nda kölelik, yasal bir kurumdu. Prometeus da bir köle gibi zincire vurulmuştu. [slowly] Ama işkencesini asıl büyüten zincir değil, bir tanrıyken köle durumuna düşürülmesiydi.",
+   "alt": "Ona göre çağı düşünmek gerekir: V. yüzyıl Atinası'nda kölelik yasal bir kurumdu. Prometheus da bir köle gibi zincire vurulmuştu. Ama işkencesini asıl büyüten zincir değil, bir tanrıyken köle durumuna düşürülmesiydi."
+  }
+ ],
+ "disagree_with_decisions": "1) **Karar 7 (vi7'nin K08a'da cevaplanması).** 2. turda dramaturg-B ile birlikte K08'in vi8'e dayanmasını önermiştim. Kararlar bunu ne kabul ediyor ne de gerekçeyle reddediyor; yalnız \"K08a'da cevaplanır\" diyor. s. vi fotoğrafına göre Erhat'ın cevabı vi7'nin hemen ardından \"Hemen söyleyelim ki…\" diye geliyor. xv1'i \"cevap\" diye sunmak, anlatıcının sentezini Erhat'ın yapısı gibi gösteriyor. Ya vi8 eklenmeli ya da xv1 \"ipucu\" olarak çerçevelenmeli.\n\n2) **Karar 10 (J07, J08 ve J08b'nin tümüyle çıkarılması).** xiv3'teki \"iktidar sahipleri devrilir gider\" cümlesi ile xiv4'teki politika dersinin hassasiyet gerekçesiyle çıkarılmasına katılıyorum. Ama xiv3'ün çekirdeği \"özgür düşünce tutuklanamaz, susturulamaz\", I12'de korunan \"son söz özgür düşüncenindir\"den daha siyasi değil. Tamamen düşünce hükmün Prometheus yarısı gerekçesiz kalıyor. Dört kelimelik bir alıntı (J04b) yeter.\n\n3) **Karar 8 (atıf kuralı).** Kural doğru ama uygulamada iki yerde delinmiş:\n- I12'de mit anlatısı araya girdiği halde atıf ilk cümlede yenilenmemiş.\n- G13'te Erhat cümlesinin ardından işaretsiz bir anlatıcı yorumu geliyor ve Erhat'ın okumasının tersini söylüyor.\n- J06'da da \"Yani\" işareti yok.\n\n4) **Karar 11 (K04 üçüncü kişiye çevrildi).** Yalnız ilk yarısı çevrilmiş. Altyazıda \"bugün, bu dünyada yaşamak istiyoruz\" tırnak dışında ve birinci çoğul şahısta kalıyor.\n\n5) **Karar 10 (tarihleme).** C02'deki \"bugün 'hükümet darbesi'\" tarihlenmemiş; F06'yla tutarsız.\n\nKatıldığım kararlar:\n- \"Başkaldıran yaratık\"ın B'ye alınmaması (reddedildi): katılıyorum. Ama K'deki halkayı K01'deki yanlış \"önsöz bu soruyla açılır\" cümlesiyle sıkılaştırmak sadakati bozuyor.\n- \"Desmotes\"in görsele bırakılması, M01'in silinmesi ve E16'daki \"Olympos'un tanrılarına\" daraltması (kaynak alanında not edildiği için): üçüne de katılıyorum."
+}

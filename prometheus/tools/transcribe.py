@@ -4,7 +4,7 @@ import sys, json, re, difflib, whisper
 path = sys.argv[1]
 sec = sys.argv[2] if len(sys.argv) > 2 else None
 m = whisper.load_model('small')
-r = m.transcribe(path, language='tr', word_timestamps=True, condition_on_previous_text=False, initial_prompt='Sisifos, Korint, Efira, Zeus, Tanatos, Asopos, Egina, Persefoni, Merope, Hermes, Ares, Tartaros, Kamü.')
+r = m.transcribe(path, language='tr', word_timestamps=True, condition_on_previous_text=False, initial_prompt='Prometeus, Ayshilos, Hesiodos, Teogonia, Zeus, Gaya, Uranos, Kronos, Rea, Titan, Tartaros, İapetos, Atlas, Menoitios, Epimeteus, Mekone, Pandora, Hefaistos, Hermes, Kratos, Bia, Okeanos, Temis, İyo, Bosporos, Kerç, Herakles, Göte, Meri Şeli, Frankenştayn, Openhaymır, Azra Erhat, Eyüboğlu, Kafka.')
 words = [{'w': w['word'].strip(), 's': round(w['start'], 3), 'e': round(w['end'], 3)} for sg in r['segments'] for w in sg['words']]
 json.dump(words, open(path.rsplit('.', 1)[0] + '.words.json', 'w'), ensure_ascii=False)
 norm = lambda s: re.sub(r"[^\wçğıöşüâî]+", ' ', s.lower().replace('İ', 'i').replace('I', 'ı').replace("'", '').replace('’', '').replace('â', 'a').replace('î', 'i').replace('û', 'u')).split()

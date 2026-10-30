@@ -47,7 +47,7 @@ set_('D08', "Prometeus ise bu öfkeyi körüklemekten çekinmez. Kehanet gücüy
 # — Mekone —
 set_('E03', S[idx('E03')]['tts'].replace('Mekoni', 'Mekone'))
 set_('E11', "[ominous] Erhat'ın okumasında, iki kez küçük düşen Zeus, artık kaba kuvvete başvurmak zorunda kalır.", kaynak="Erhat x5 (kendi cümlelerimiz)")
-set_('E15', S[idx('E15')]['tts'], alt="Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Çünkü “akıl gücü tanrılardan insanlara geçmiştir.”")
+set_('E15', S[idx('E15')]['tts'].replace('Çünkü akıl gücü, artık tanrılardan', 'Çünkü akıl gücü, tanrılardan'), alt="Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Çünkü “akıl gücü tanrılardan insanlara geçmiştir.”")
 set_('E16', "[slowly] Ve Erhat, sıranın kime geldiğini söyler: Üçüncü ve son devrim olup bitmiştir. İnsan, kendi gücünün bilincine varmıştır.",
      alt="Ve Erhat, sıranın kime geldiğini söyler: “Üçüncü ve son devrim” olup bitmiştir. “İnsan kendi gücünün bilincine varmış”tır.", kaynak="Erhat xi1 (kısa alıntı; cümlenin devamı alınmadı) — D11'in cevabı")
 set_('E16b', "[knowingly] Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. [slowly] Zincirin öbür ucunda kimin durduğunu ise, iki yüzyıl sonra bir Atina sahnesi gösterecekti.", kaynak="anlatıcının sonucu ve köprüsü (A05'in ara cevabı; A02'nin hatırlatılması)")

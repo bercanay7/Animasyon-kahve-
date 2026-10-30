@@ -185,7 +185,8 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   ctx.fillStyle = line; ctx.beginPath(); ctx.arc(13.1, -4.1, 1.15, 0, TAU); ctx.fill();
   // sert kaş çıkıntısı: gözün üstüne inen kalın çizgi (öfkeli bakış)
   ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(8.2, -7.4); ctx.quadraticCurveTo(12.6, -7.8, 17.2, -5.2); ctx.stroke();
-  ctx.lineWidth = 1.1; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-2 + i * 3, 6); ctx.lineTo(1 + i * 3, -2); ctx.stroke(); }
+  // ense tüyleri: başın arkasında kısa pul kavisleri (solungaç gibi okunan düz çizgiler yerine)
+  ctx.lineWidth = 1.1; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(-1 + i * 3.2, 3.5 - i * .6, 2.4, -.2, PI - .6); ctx.stroke(); }
   ctx.restore();
   leg([2, 8], false);
   wing([6, -14], false);
