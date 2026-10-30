@@ -318,7 +318,7 @@ function amforaIIc(c, x0, x1, t) {
   if (vis(AMY.zeus)) {
     throne(c, AMY.zeus - 60, by, 5.6, 1, C.ink, C.clay, { high: true });
     bfSeat(c, AMY.zeus - 60, by, 5.6, s * 1.08, 1, { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true }, { torso: -.05, shN: 1.9, elN: .8 });
-    bolt(c, AMY.zeus + 210, by - 330, 1.8, -.4, C.ink, 'rgba(0,0,0,0)');
+    bolt(c, AMY.zeus + 210, by - 330, 1.8, -.4, C.white, 'rgba(0,0,0,0)');
     dipinto(c, 'ΖΕΥΣ', AMY.zeus, 120, 34, { col: C.ink, a: ramp(T('C17@yıldırım'), .3, .9) });
   }
   if (vis(AMY.pay)) worldDisk(c, AMY.pay, 330, 220, ramp(T('C17@paylaştırmaya'), 0, 1.2), t);

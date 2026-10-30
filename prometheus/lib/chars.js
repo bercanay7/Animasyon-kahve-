@@ -43,7 +43,7 @@ const HOLD = {
       G.cut(c => { for (let a = 0; a < TAU * 1.5; a += .2) { const rr = r * .3 * (1 - a / (TAU * 1.6)); const x = Math.cos(a) * rr, y = Math.sin(a) * rr; a ? c.lineTo(x, y) : c.moveTo(x, y); } }, .4);
     });
   },
-  bolt: () => G => { G.at([0, 4], .2, () => { G.paint(c => { c.moveTo(0, -18); c.lineTo(2.4, -8); c.lineTo(.8, -7); c.lineTo(3, 0); c.lineTo(.8, 1); c.lineTo(2.2, 9); c.lineTo(0, 18); c.lineTo(-2.2, 9); c.lineTo(-.8, 1); c.lineTo(-3, 0); c.lineTo(-.8, -7); c.lineTo(-2.4, -8); c.closePath(); }, C.gold); }); },
+  bolt: () => G => { G.at([0, 4], .2, () => { G.paint(c => { c.moveTo(0, -18); c.lineTo(2.4, -8); c.lineTo(.8, -7); c.lineTo(3, 0); c.lineTo(.8, 1); c.lineTo(2.2, 9); c.lineTo(0, 18); c.lineTo(-2.2, 9); c.lineTo(-.8, 1); c.lineTo(-3, 0); c.lineTo(-.8, -7); c.lineTo(-2.4, -8); c.closePath(); }, G.sty.fill === C.ink ? C.white : '#E6ECFF'); }); },
   // kerykeion: sap ucunda tepesi açık bir "8": alt halka tam, üst halka açık; iki yılan başı birbirine bakar
   caduceus: () => G => up(G, () => {
     G.part(c => c.rect(-.7, -30, 1.4, 52), { cutW: .3 });

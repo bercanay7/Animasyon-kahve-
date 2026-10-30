@@ -439,3 +439,52 @@ Hiçbir ölçüt 7'nin altında değil; her üye ortalamasını 0,7–1,8 puan y
 
 ## Tur 3 kurulu (başkan kararı)
 Sekiz üyenin hepsini yeniden çağırmak yerine her uzmanlık çiftinin tur 2'de en düşük puan veren üyesi doğrular: vazo-Teknik, karakter-İfade, kompozisyon-Renk, animasyon-Hareket. En sert dört üye ONAY verirse öbür dört üyenin (8,28–8,50) eşiği geçmesi beklenir; vermezse eksikler kapatılıp çift tamamlanır.
+
+# Sahneler: kurul tur 1 (yönetmen-Dram, sanat-Üslup) ve başkan kararları
+
+## Puanlar (tur 1, temas sayfaları `kurul/sahne_tur1/`, 284 plan karesi)
+| Üye | Puan | Karar |
+|---|---|---|
+| yönetmen-Dram | 8,1 | RED |
+| sanat-Üslup | 7,8 | RED |
+
+İki üyenin ortak teşhisi: dramaturji ve üç katmanın dili yerinde. Puanı düşürenler siyah figür donanımı (oturuş), sonradan çizilen nesnelerde "aynı el" eksikliği, telefonda okunmayan küçük yazı ve figürler, birkaç çapa hatası ve yazı–yüz çakışmaları.
+
+## Kabul edilenler (uygulandı)
+**Genel kurallar**
+- Çapa hataları: C17@titanlar#1 (Titanomakhia görünür), K01@ne#1, J01@bu#1.
+- Telefon tipografisi: alıntı 76 px, kaynak 40 px, bölüm levhası 64/40 px; ad taşıyan dipintolar 54–64 px.
+- Figür çizgisi ekran ölçeğiyle karekök oranında kalınlaşır (yakın planlar çizgi filme dönmez).
+- Beyaz zemin figürleri: ekranda sabit 2,6 px sepya dış kontur; jest taşıyan anlarda ≥ 480 px (P020 büyüdü, P188–P189'da kamera iter).
+- Renk kuralları `sanat.md`'ye yazıldı: soğuk beyaz yalnız Zeus ve buyruğu, altın yalnız ateş ve akıl, deniz sesleri sıcak krem; siyah figürde yıldırım eklenmiş beyaz.
+- Duman: saydam daireler yerine üç ince dalgalı çizgi (`smokeWisps`).
+- Kylix sır parıltısı: ince yay yerine geniş, düşük kontrastlı hilal.
+- Karanlıktaki boş taht soğuk beyaz kenar ışığıyla zeminden ayrılır (`throneRim`, P015, P105).
+
+**Doruk ve son (IX–X)**
+- P237–P243: tahtın kolu buluttan inen önkol ve kelepçe; P238'de Hermes söner, mühür PROMETHEUS · ÖZGÜR'ün üstüne iner; P239 Zeus yüzsüz gölge; donma IX boyunca sürer; P243 köle frizi Prometheus'a değmez.
+- X: kartal gölgesi keskin siluet; P259 yüz okunur; P261 kaya tek düzensiz yarıkla yarılır; P246 mührü kerykeion'u kesmez.
+
+**Eski bölümler**
+- Siyah figür oturuşu (`bfSeat`): Kronos ve Zeus artık oturuyor. Herakles'e aslan postu.
+- Açılış: P014 zincir temiz bir "?" çizer; P012 1967 damgası el yazısına binmez; P019 trajedi maskesi gülen yüz gibi okunmaz.
+- I: P024 "çok daha geriye"de geri sarma; B07 taht adları tahtların tepesinde.
+- II: Uranos istasyonu Gaia'nın üstünde, ekranda uzun kalır; Girit'te kundak parlar, ΖΕΥΣ 60 px; Tartaros tunç kapı; dünya diski kalkan (aspis); P066 Zeus bordürün altına sığar, kıvılcım gözde.
+- IV: Mekone payları sofrada (yağ kütlesi, kemik topuzları, işkembe çuvalı); Pandora'ya hilal stephane, gerdanlık boyun hizasında.
+- V: Bia kapalı Korinth miğferi, Kratos açık yüzlü Attika miğferi, tepelik başın üstünde; Hephaistos pilos; konuklar 210 px aralıkla, bir ton koyu; etiketler sağ şeritte.
+- VI: P168 ΜΥΘΟΣ tomarı rafa kalkar; P170 boncuklu ense saçı; Ker'ler kanatlı eidolon.
+- VII: harita yeniden (Kırım, Azak, kısa boğazlar, toynak izleri, İo madalyonu, antik adlar); Okeanos düz göğüslü, boynuzlu, balıklı; P202 İo büyüdü.
+- VIII: kerykeion tepesi açık "8", çizme kanatları üç tüy; P212 mührü mühür topağı; P226, P231, P253 sözleri yüzlerden ve asadan uzak; karanlıktaki gözler badem.
+- XI: 1945 kitap kapağına binmez; XIII: PEKİ / SEN / OLSAN? soldaki üç satır.
+
+## Reddedilen ya da değiştirilerek alınanlar
+- **P071 "şerit ~2,7 sn boş" (Dram):** ölçüldü; şerit alıntıdan 0,35 sn önce iniyor. Değişiklik gerekmedi.
+- **P181 "satır kadraj kenarından taşıyor" (Dram):** güncel kodda satır x 288–1632 arasında; değişiklik gerekmedi.
+- **Kratos grubunda süreklilik, "çekiçten önce zincirli" (Dram):** alınmadı. Alayda bileklerden zincirle götürülmek, kayaya çakılmadan önceki hâldir; çekiç zinciri kayaya çakar.
+- **Beyaz zemin tahtı sepya kontur (Üslup, P101–P104, P187, P216):** alınmadı. Dolu sepya siluet telefonda okunuyor; konturlu taht kâğıtta kayboluyordu (P015/P105'teki karanlık taht sorunu tersinden).
+- **P020'de Prometheus s 11 (Dram):** değiştirilerek alındı. s 5,6 (≈ 530 px); s 11 şeridi ve alıntıyı kadrajdan çıkarıyordu.
+- **P188–P189 z 2,2 (Dram):** z 1,8; 2,2'de baş ve daire alıntıya biniyordu.
+- **Kylix tondosundaki ΠΡΟΜΗΘΕΥΣ dipintosu ≥ 60 px (Üslup):** alınmadı. Kupanın tondosunda yazıt kupa ölçeğindedir; ad aynı planda büyük başlık kartıyla da verilir.
+
+## Tur 2
+Aynı iki üyeye `SendMessage` ile devam edilir; "yaptığım değişiklikler" listesi iddia olarak verilir, kurul kareden doğrular.

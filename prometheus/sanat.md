@@ -16,7 +16,12 @@ Kırmızı figür tekniği İÖ ~530'da icat edildi ve Aiskhylos'un yüzyılınd
 - Rüzgâr soldan eser: gök çizgileri, dalga kuşağı, saç, sakal, etek ucu, alev ve duman aynı yöne gider.
 - Siyah figür sahnelerinde ateş: çekirdek #FFF6D6, 3 px C.ink halka ve koyu çevre (rgba(20,8,4,.35)). Beyaz zeminde ateş karedeki tek doygun renktir (#E8762B); parlaklık şartı yoktur.
 - Siyah figür sahneleri: Sisifos kil paleti (C.clay, C.ink, C.red, C.white).
-- Beyaz zemin: C.paper, C.sepia çizgi, tek vurgu rengi kırmızı (#9A3B25).
+- Beyaz zemin: C.paper, C.sepia çizgi, tek vurgu rengi kırmızı (#9A3B25). Beyaz zemin figürlerinin ekranda sabit 2,6 px sepya dış konturu vardır (`STY.lek.contourPx`); odak olduklarında boyları ≥ 480 px.
+- **Anlam renkleri (sahne kurulu tur 1'de kural oldu):**
+  - Soğuk beyaz #E6ECFF yalnız Zeus ve onun buyruğudur: yıldırım, boş tahtın kenar ışığı, karanlıktaki gözler, uşaklarının mühürleri (POLİS, POLİS MÜDÜRÜ, SIRRI SÖYLE, KAYA PARÇALANACAK, ΔΙΟΣ mührü).
+  - Altın yalnız ateştir ve ateşin metaforu olan akıldır: PROMETHEUS · ÖZGÜR, KURNAZLIK, 13 sayacı, ok parıltısı, P150 sütunu.
+  - Deniz sesleri (Okeanos, periler) sıcak krem #EBD9B4; Prometheus'un sözü kil, Kratos taş levha, Hermes mühür.
+  - Siyah figürde yıldırım eklenmiş beyazdır (C.white); kırmızı figür ve KAYA'da soğuk beyaz.
 
 ## Karakterler
 - **Prometheus:** sakallı (sivri), uzun saç, peştamal, kırmızı figürde anatomi çizgileri (`LK.prom`). Siyah figürde aynı siluet.

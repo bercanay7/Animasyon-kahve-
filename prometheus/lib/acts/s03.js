@@ -217,10 +217,11 @@ shot(PA('P066'), (ctx, st) => {
   const t = st.t, lt = st.lt, tG = A('D08@geleceği');
   amphoraFrieze(ctx, t, 2400 + lt * 14, (c, x0, x1, t) => {
     const by = 640; c.fillStyle = C.ink; c.fillRect(x0, by, x1 - x0, 6);
-    bf(c, 2150, by, 8.2, 1, LK.zeus, { torso: .04, neck: .1, head: .15, shN: .3, elN: .4, shF: -.4, elF: .3, breath: Math.sin(t * 1.2) * .6 }, { hold: { F: HOLD.bolt() } });
-    bf(c, 2700, by, 4.4, -1, LK.promFree, { torso: -.05, neck: -.18, head: -.3, shN: .1, elN: .2, breath: Math.sin(t * 1.6) * .5 });
+    bf(c, 2150, by, 6.6, 1, LK.zeus, { torso: .04, neck: .1, head: .15, shN: .3, elN: .4, shF: -.4, elF: .3, breath: Math.sin(t * 1.2) * .6 }, { hold: { F: HOLD.bolt() } });
+    let PJ = null, PM = null;
+    bf(c, 2700, by, 3.6, -1, LK.promFree, { torso: -.05, neck: -.18, head: -.3, shN: .1, elN: .2, breath: Math.sin(t * 1.6) * .5 }, { onJoints: (j, m) => { PJ = j; PM = m; } });
     const e = ramp(t, tG - .1, tG + .4);
-    if (e > 0) { glow(c, 2668, 382, 26 * e, `rgba(255,230,170,${.8 * e})`); c.fillStyle = C.white; c.beginPath(); c.arc(2668, 382, 3.5 * e, 0, TAU); c.fill(); }
+    if (e > 0 && PJ) { const [ex, ey] = jointPt(c, PM, add(PJ.neckT, rot([3.75, -7.1], PJ.headA))); glow(c, ex, ey, 24 * e, `rgba(255,230,170,${.8 * e})`); c.fillStyle = C.white; c.beginPath(); c.arc(ex, ey, 3.2 * e, 0, TAU); c.fill(); }
   }, { light: .3 });
 }, { tr: { type: 'clay', dur: .5, end: true }, post: { tex: .85, vig: .85, grain: .055 } });
 
