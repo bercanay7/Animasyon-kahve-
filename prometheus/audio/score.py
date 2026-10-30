@@ -921,9 +921,9 @@ def quake(t, vel=0.8, dur=3.0):
     debris(t + 0.1, vel=0.35 * vel, dur=dur * 0.6)
 
 
-def throne_hit(t, vel=1.0, pan=0.0):
+def throne_hit(t, vel=1.0, pan=0.0, decay=1.6):
     """A throne falls: the revolution hit (wood crash + deep boom)."""
-    boom(t, vel=0.95 * vel, f0=72, f1=55, decay=1.6, knock=0.7, pan=pan)
+    boom(t, vel=0.95 * vel, f0=72, f1=55, decay=decay, knock=0.7, pan=pan)
     fdrum(t, 'dum', vel=0.75 * vel, f0=64, pan=pan)
     debris(t + 0.03, vel=0.3 * vel, dur=0.7)
 
@@ -1107,7 +1107,7 @@ def s02_thrones():
     choir(M('F3 A3 D4'), W('C10', 'çocuk') - 0.2, W('C10', 'büyüyünce'), gain=0.26, att=0.6, rel=0.8, vowel='o')
     for i, m in enumerate(M('A3 G3 F3 E3 D3 C3')):
         pizz(W('C10', 'kusturdu') + 0.14 * i, m, vel=0.32)
-    throne_hit(W('C10', 'indirdi') + 0.88, vel=0.8)   # taht inişte yere çarpar (görüntü: düşüş 0,9 sn); kelimeyi örtmez
+    throne_hit(W('C10', 'indirdi') + 0.88, vel=0.7, decay=0.8)   # taht inişte yere çarpar (görüntü: düşüş 0,9 sn); kısa gümleme C12'nin ilk kelimelerine taşmaz
     # C12 Erhat distinguishes the two revolutions (piano)
     piano_arp(S('C12'), Se('C12') + 0.6, ERHAT, step=0.4, vel=0.18)
     bed(S('C12'), Se('C12') + 0.6, ['D3 F3 A3', 'Bb2 D3 F3', 'F2 A2 C3', 'C3 E3 G3'], gain=0.1, cutoff=600)
