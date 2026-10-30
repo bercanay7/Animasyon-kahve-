@@ -315,6 +315,7 @@ def pad(notes, t0, t1, gain=0.2, att=1.5, rel=2.0, cutoff=900, voices=2, detune=
     nv = 0
     for m in notes:
         f = float(mtof(note(m)))
+        wd = 0.0 if note(m) < 50 else width      # D3 altı mono (ses kurulu tur 2)
         for v in range(voices * 2):
             c = rng.uniform(-detune, detune) + wobble(n, fs, 4.0)
             if vib:
@@ -324,11 +325,11 @@ def pad(notes, t0, t1, gain=0.2, att=1.5, rel=2.0, cutoff=900, voices=2, detune=
             if sine:
                 y = (1 - sine) * y + sine * 1.4 * np.sin(2 * np.pi * np.cumsum(fr) / fs + rng.uniform(0, 6.3))
             if v % 2 == 0:
-                L += y * (1 + width) / 2
-                R += y * (1 - width) / 2
+                L += y * (1 + wd) / 2
+                R += y * (1 - wd) / 2
             else:
-                L += y * (1 - width) / 2
-                R += y * (1 + width) / 2
+                L += y * (1 - wd) / 2
+                R += y * (1 + wd) / 2
             nv += 1
     x = np.stack([L, R], 1) / np.sqrt(nv)
     x = hp(lp(x, cutoff, fs, 4), 38, fs, 2)
@@ -1106,7 +1107,7 @@ def s02_thrones():
     choir(M('F3 A3 D4'), W('C10', 'çocuk') - 0.2, W('C10', 'büyüyünce'), gain=0.26, att=0.6, rel=0.8, vowel='o')
     for i, m in enumerate(M('A3 G3 F3 E3 D3 C3')):
         pizz(W('C10', 'kusturdu') + 0.14 * i, m, vel=0.32)
-    throne_hit(W('C10', 'indirdi'), vel=0.6)
+    throne_hit(W('C10', 'indirdi'), vel=0.4)
     # C12 Erhat distinguishes the two revolutions (piano)
     piano_arp(S('C12'), Se('C12') + 0.6, ERHAT, step=0.4, vel=0.18)
     bed(S('C12'), Se('C12') + 0.6, ['D3 F3 A3', 'Bb2 D3 F3', 'F2 A2 C3', 'C3 E3 G3'], gain=0.1, cutoff=600)
@@ -1128,7 +1129,7 @@ def s02_thrones():
     # C18 the one obstacle: silence, then the fire motif on "Prometheus"
     pad(M('D3 Eb3 A3'), S('C18'), W('C18', 'prometeus'), gain=0.14, cutoff=500)
     fire_motif(Se('C18') + 0.05, 'D5', beat=0.46, gain=0.7, drone='D4', vib=14)   # adın arkasından (önünde 2 sn boşluk)
-    boom(W('C18', 'prometeus'), vel=0.3, f0=62, decay=1.3)
+    boom(W('C18', 'prometeus'), vel=0.2, f0=62, decay=1.3)
 
 
 def s03_rage():
@@ -1188,7 +1189,7 @@ def s04_mekone():
         thud(W('E09', 'esirger') + k * 0.4, vel=0.12, f0=90)
     # E10 the fennel stalk: the fire motif whole (aulos + lyre), then Zeus bitten to the heart
     crackle(W('E10', 'rezene'), W('E10', 'hesiodosun'), vel=0.11)
-    fire_motif(W('E10', 'götürür', end=True) + 0.05, 'D5', beat=0.42, gain=0.6, drone='D4', vib=16)
+    fire_motif(W('E10', 'götürür', end=True) + 0.05, 'D5', beat=0.42, gain=0.4, drone='D4', vib=16)
     strum(W('E10', 'götürür', end=True) + 0.05, M('D3 A3 D4 F4 A4'), vel=0.45, spread=0.03)
     bed(W('E10', 'rezene'), W('E10', 'hesiodosun'), ['D3 F3 A3 C4', 'G2 B2 D3 F3'], gain=0.15, cutoff=900)
     pad(M('D2 Eb3 A3'), W('E10', 'hesiodosun'), Se('E10') + 1.0, gain=0.17, cutoff=450)
@@ -1223,7 +1224,7 @@ def s04_mekone():
 def s05_trial():
     """494 - 676: the trial (Aiskhylos: aulos, drone, chain metal)."""
     drone('D1 D2 A2', S('F01') - 0.4, S('F03'), gain=0.24, att=1.2, rel=1.2)
-    aulos(Se('F01') + 0.05, [('D5', 0.6), ('Eb5', 0.4), ('F5', 0.8), ('Eb5', 0.4), ('D5', 1.2)], gain=0.45, vib=10, drone='D4')
+    aulos(Se('F01') + 0.05, [('D5', 0.3), ('Eb5', 0.2), ('F5', 0.4), ('D5', 0.3)], gain=0.45, vib=10, drone='D4')
     bed(S('F02'), Se('F02') + 0.4, PHRY, gain=0.12, cutoff=650)
     # F03 Kafka: a single low piano note like a ticking clock, an eerie cluster
     for k in range(int((Se('F03') - W('F03', 'oyunu')) / 0.9) + 1):
@@ -1291,7 +1292,7 @@ def s06_defence():
     # G08 blind hopes (pale bells), then the fire (warm)
     for k in range(5):
         bell(W('G08', 'kör') + k * 0.4, ['D6', 'F6', 'A6', 'E6', 'C6'][k], vel=0.04)
-    fire_motif(Se('G08') + 0.05, 'D5', beat=0.34, gain=0.55, vib=12, drone='D4')
+    fire_motif(Se('G08') + 0.05, 'D5', beat=0.24, gain=0.55, vib=12, drone='D4')
     crackle(W('G08', 'ateşi'), Se('G08') + 1.2, vel=0.08)
     # G09 what does giving fire mean? (piano)
     piano_arp(S('G09'), Se('G09') + 0.4, ERHAT, step=0.4, vel=0.17)
@@ -1400,9 +1401,10 @@ def s09_other_end():
     boom(T, vel=0.6, f0=64, decay=2.0)
     fdrum(T, 'dum', vel=0.8, f0=70)
     strum(T + 0.01, M('D2 A2 D3 F#3 A3 D4'), vel=0.6, spread=0.016)
-    choir(M('D3 A3 D4 F#4 A4'), T, Se('J05') + 0.5, gain=0.3, att=0.5, rel=1.8)
+    choir(M('D3 A3 D4 F#4 A4'), W('J04', 'özgürdür', end=True), Se('J05') + 0.5, gain=0.4, att=0.3, rel=1.8)
     pad(M('D3 F#3 A3 E4'), T, Se('J05') + 0.5, gain=0.16, cutoff=1300)
-    fire_motif(W('J04', 'özgürdür', end=True) + 0.05, 'D5', beat=0.5, gain=0.9, kind=FIRE_DONE, vib=16, drone='D4')
+    fire_motif(W('J04', 'özgürdür', end=True) + 0.05, 'D5', beat=0.27, gain=0.9, kind=FIRE_DONE, vib=16, drone='D4')
+    boom(W('J04', 'özgürdür', end=True) + 0.05, vel=0.8, f0=64, decay=2.0)
     # J06 roles reversed: an inverted arpeggio; J10 one man's great work
     piano_arp(S('J06'), Se('J06') + 0.5, ['D3 F#3 A3 E4', 'B2 D3 F#3 A3'], step=0.4, vel=0.18, pattern=(3, 2, 1, 0, 1, 2))
     piano_arp(S('J10'), Se('J10') + 1.2, ['G2 B2 D3 F#3', 'D3 F#3 A3 E4'], step=0.44, vel=0.16)
@@ -1439,7 +1441,7 @@ def s10_storm():
     aulos(W('I11', 'görüyor') - 0.2, [('A4', 0.6), ('Bb4', 0.8), ('A4', 0.6), ('G4', 0.6), ('A4', 1.4)], gain=0.4, vib=12, drone='D4')
     pad(M('D2 A2'), S('I11'), Se('I11') + 0.6, gain=0.12, cutoff=300)
     # I12 the last word is his: silence, the fire motif alone, then the strings in D major
-    fire_motif(W('I12', 'onundur', end=True) + 0.05, 'D5', beat=0.44, gain=0.5, vib=14)
+    fire_motif(W('I12', 'onundur', end=True) + 0.05, 'D5', beat=0.44, gain=0.35, vib=14)
     choir(M('D3 A3 D4 F#4'), W('I12', 'kıyamet'), Se('I12') + 2.4, gain=0.34, att=1.2, rel=1.8)
     bowed(W('I12', 'kıyamet'), [('A3', 1.6, 0.7), ('B3', 1.0, 0.8), ('C#4', 1.0, 0.9), ('D4', 3.4, 1.0)], gain=0.32, stack=(0, -12), cutoff=1300)
     boom(W('I12', 'özgür'), vel=0.6, f0=62, decay=1.8)

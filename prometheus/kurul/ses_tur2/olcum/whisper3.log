@@ -1,0 +1,3 @@
+E10 telefon_miks 0.185 [('replace', 'rezene sapına', 'rezen hesapına'), ('replace', 'deyişiyle', 'değişiyle'), ('replace', 'ta dibinden', 'tadibinden')]
+F01-F02 telefon_miks 0.148 [('replace', 'şair de', 'şairde'), ('replace', 'büsbütün', 'büs bütün')]
+J04-J05 telefon_miks 0.062 [('replace', 'dalkavuklarına', 'dalkalıklarına')]

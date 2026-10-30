@@ -557,3 +557,28 @@ Ortak başlık: "Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat". A "
   - Sonuç: bulanıklık testinde tepe her yarıçapta Zeus'ta. r=12'de fark 18, koşul ≥ 10'du.
 - A: taban rengi çok az açıldı (köşeler ≥ 30).
 - Onaydan sonra: kurulun isteğe bağlı son maddesi uygulandı. TUTSAK'ta harf aralığı −1 oldu, K ile saç arası ≈ 38 px. `kapak_tur4` test seti bu son hâlle yeniden üretildi.
+
+# Ses/miks kurulu ve başkan kararları
+Bu kurul sonradan açıldı: CLAUDE.md'deki yöntem "ses/miks" kurulunu da istiyordu ve render sürerken eksik fark edildi. Görüntü sesle aynı zaman çizelgesine bağlı olduğu için ses düzeltmeleri yeniden render istemez; ses mp4'e yeniden bağlanır.
+
+| Tur | Puan | Karar | Not |
+|---|---|---|---|
+| 1 | 8,05 | RED | Motifler ve vuruşlar anahtar kelimelerin üstünde, son sınırlayıcı anlatımı 4–6 dB bastırıyor, 6 kesik kelime, pompalama |
+| 2 | 8,4 | RED | Tur 1 kritikleri doğrulandı; yan etki: sabit müzik sınırlayıcısı dorukları 5–7 dB söndürdü, J05 ve G09 başına motif biniyor |
+
+## Tur 1 → tur 2 (uygulandı)
+- Solo aulos ayrı bir kısma katmanında (konuşmada ×1,5 derin). Ateş motifi ve aulos cümlelerinin arkasına alındı: A04, C18, E10, F01, G08, J04, I12, L06, M02. A01'de yerinde ama kısık.
+- Vuruşlar hafifledi: J04, D11, I10, K06, C10, C17, A02, F07, F10b. Müziğe sınırlayıcı eklendi, anlatım sınırlayıcısı +11.
+- Kesik kelimeler:
+  - Whisper'ın iki kelime zamanı üst üste binince kesim bir sesin içine düşüyordu. En ağırı "güvenmez" kelimesinin "güvenme" diye bitmesiydi, bu anlamı değiştiriyordu.
+  - `build_vo.py` artık bu durumda ilk ≥ 120 ms'lik duraklamaya kesiyor.
+  - `timeline.js` bayt bayt aynı kaldı (kesimden sonraki her örnek aynı mutlak zamanda).
+- Pompalama, dip dönüşleri, bordonun mono uyumu, D11 sessizliği, Shorts solması ve cümle kazançları da düzeltildi.
+- Değiştirilerek alınan: efektleri kelime sonuna kaydırma önerisi. Görüntüdeki vuruşlar (çekiç, taht) aynı kelime çapasına bağlı; yalnız efekti kaydırmak sesi görüntüden ayırırdı. Kaydırmak yerine seviyeleri düşürüldü.
+
+## Tur 2 → tur 3 (uygulandı)
+- Müzik sınırlayıcısı konuşmaya bağlandı: konuşma sırasında -8 dBFS, boşlukta -1 dBFS. Anlatım üzerindeki kazanım korunuyor, doruklar geri geliyor. Kurulun gerçek stem'lerle benzetimine göre öyle; tur 3'te doğrulanacak.
+- J04 doruğu: motif (beş vuruş, 1,35 sn) "özgürdür" ile J05 arasındaki boşluğa sığdırıldı. Doruğun ağırlığı (boom ve koro) da boşluğa alındı.
+- G08 motifi 1,04 sn'lik boşluğa sığdı. E10 ve I12 motifleri biraz kısıldı, F01 aulos cümlesi kısaldı.
+- C10 ve C18 vuruşları: seviyeleri düşürüldü, zamanları kaydırılmadı (görüntü çapası).
+- D3 altındaki pad notaları mono.

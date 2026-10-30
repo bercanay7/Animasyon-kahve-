@@ -156,7 +156,10 @@ def main():
     mu *= np.float32(db(-21 - meter.integrated_loudness(mu.T)))
     mu *= duck; del duck
     # vuruşların tepeleri son sınırlayıcıyı çalıştırıp anlatımı bastırmasın: müzik kendi sınırlayıcısından geçer (ses kurulu tur 1)
-    mu = limiter(mu, db(-8), look=.005, rel=.15).astype(np.float32)
+    # sınırlayıcı yalnız konuşma sırasında sıkı (-8 dBFS); konuşmasız boşlukta doruklar serbest (-1 dBFS) (ses kurulu tur 2)
+    va = (np.clip((20 * np.log10(envelope(vo) + 1e-9) + 42) / 10, 0, 1) > .3).astype(np.float32)
+    va = uniform_filter1d(maximum_filter1d(va, int(.5 * SR)), int(.03 * SR))
+    mu = limiter(mu, (db(-8) * va + db(-1) * (1 - va)).astype(np.float32), look=.005, rel=.15).astype(np.float32); del va
     mix = np.empty((2, N), np.float32)
     for c in range(2): mix[c] = vo + vo_send[c] + mu[c]
     if stems:
