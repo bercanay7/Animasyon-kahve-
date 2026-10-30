@@ -274,6 +274,8 @@ shot(PA('P170'), (ctx, st) => {
   if (t > tG && t < tM) {
     // tek bir baş: profil, açık ama boş göz (göz bebeği yok); baş yüksekliği ~ 13 birim × 38 ≈ 500 px
     G_bigHead(ctx, 960, 450, 27, 1, { hair: 'nape', blind: true, beadHair: true }, { sty: { ...STY.red, fill: '#8A4724', white: '#8A4724' }, seed: 3, ear: true, stripe: .42 }, lt);
+    // gövde karanlığa gömülür: baş ve boyun karanlıktan belirir (büstün düz kütlesi ve boyun dikişi görünmez)
+    { const gg = ctx.createLinearGradient(0, 540, 0, 800); gg.addColorStop(0, 'rgba(10,6,5,0)'); gg.addColorStop(.4, 'rgba(10,6,5,.7)'); gg.addColorStop(1, 'rgba(10,6,5,1)'); ctx.fillStyle = gg; ctx.fillRect(0, 540, W, 540); }
   } else {
     const c = { x: 960 + lt * 5, y: 560, z: 1.0 };
     ctx.save(); cam(ctx, c, 1);
