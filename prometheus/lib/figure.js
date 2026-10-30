@@ -359,7 +359,10 @@ function drawGarment(G, f, J, tP, det) {
     const frHi = a[0] > b[0] ? a : b, bkLo = a[0] > b[0] ? d2 : c2;
     const wF = tP([7.6, -8.2]), wB = tP([-7.4, -9.4]), wM = tP([-.4, -9.9]);
     const LB = a[0] > b[0] ? J.LF : J.LN, pr = [-Math.cos(LB.thA), Math.sin(LB.thA)], bt = u => add(hipPt(LB, u), scl(pr, 6.3 - u * 1.6));
-    const hemA = add(frHi, [6.0, .8]), hemB = add(bkLo, [-6.2, .6]), hemM = lerp2(hemA, hemB, .5).map((v, i) => v + (i ? 1.4 : .6));
+    // rüzgâr arka etek ucunu dalgalandırır (orta nokta yarı genlikle, faz farkıyla)
+    const wdG = p.wind || 0, ftG = window.FIG_T || 0;
+    const hemA = add(frHi, [6.0, .8]), hemB = add(add(bkLo, [-6.2, .6]), [-wdG * (1 + .5 * Math.sin(ftG * 3.4)), .4 * wdG * Math.sin(ftG * 2.7 + 1)]);
+    const hemM = add(lerp2(hemA, hemB, .5).map((v, i) => v + (i ? 1.4 : .6)), [-.5 * wdG * (1 + .5 * Math.sin(ftG * 3.4 - .6)), .2 * wdG * Math.sin(ftG * 2.7 + .4)]);
     const pts = [wF, tP([7.9, -6.4]), hemA, hemM, hemB, bt(.5), bt(.22), tP([-8.9, -2.6]), wB, wM];
     G.part(c => spline(c, pts, true, .75), {});
     // bel rulosu: iki paralel çizgi ve kısa çapraz bükülmeler
@@ -459,7 +462,7 @@ function drawHead(G, f, J, det) {
       // saç ve sakal siyah sır; çevresinde ince ayrılmış kil şerit (zeminden ayrılsın)
       // rüzgâr: ensedeki bukleler ve sakal ucu geriye savrulur, uca doğru gecikmeyle dalgalanır
       const wd = p.wind || 0, ft = window.FIG_T || 0;
-      const blow = (P, y0, k) => wd ? P.map(([x, y], i) => { const u = clamp((y - y0) / 8); return [x - wd * k * u + .3 * wd * u * Math.sin(ft * 3.1 + i * .7), y - wd * .2 * u]; }) : P;
+      const blow = (P, y0, k) => wd ? P.map(([x, y], i) => { const u = clamp((y - y0) / 8); return [x - wd * k * u + .9 * wd * u * Math.sin(ft * 3.1 + i * .7) + .35 * wd * u * Math.sin(ft * 5.3 + i * 1.3), y - wd * .2 * u + .25 * wd * u * Math.sin(ft * 2.2 + i)]; }) : P;
       const jut = p.beardJut ?? lk.beardJut ?? 0, BRD = jut ? BEARD_RF.map(([x, y]) => [x + jut * clamp((y + 1) / 6.9), y]) : BEARD_RF;
       for (const P of [blow(lk.hair === 'nape' ? HAIR_RF_N : HAIR_RF, -4, 1.1), lk.beard ? blow(BRD, 0, .7) : null]) if (P) {
         G.paint(c => spline(c, P, true, .9), sty.fill, .55, false);

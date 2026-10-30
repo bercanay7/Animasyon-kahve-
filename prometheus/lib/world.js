@@ -33,6 +33,8 @@ function crag(ctx, pts, o = {}) {
   ctx.fill();
   ctx.clip();
   if (o.bounce) glow(ctx, o.bounce[0], o.bounce[1], o.bounce[2], o.bounce[3]);
+  // figürün arkasında koyu sır gölgesi (vazo ressamının figür çevresine çektiği saf sır bandı; kaya kırpmasının içinde kalır)
+  if (o.shade) glow(ctx, o.shade[0], o.shade[1], o.shade[2], o.shade[3]);
   // figür çevresi temiz alan (vazo ressamı figürün çevresine düz sır çeker)
   if (o.hole) { ctx.beginPath(); ctx.rect(-4000, -4000, 9000, 9000); ctx.ellipse(o.hole[0], o.hole[1], o.hole[2], o.hole[3], 0, 0, TAU); ctx.clip('evenodd'); }
   const [bx0, by0, bx1, by1] = bbox(pts);
@@ -51,8 +53,9 @@ function crag(ctx, pts, o = {}) {
   // kabarık lob yayları (vazodaki yumru kayalar)
   ctx.lineWidth = 2.6;
   for (let i = 0; i < (o.lobes ?? 7); i++) {
-    const q = out[Math.floor(r() * out.length)], c = [lerp(q[0], (bx0 + bx1) / 2, .12 + r() * .1), lerp(q[1], (by0 + by1) / 2, .12 + r() * .1)], R = 40 + r() * 50, a0 = r() * TAU;
-    ctx.beginPath(); ctx.arc(c[0], c[1], R, a0, a0 + 1.3 + r() * .8); ctx.stroke();
+    const q = out[Math.floor(r() * out.length)], c = [lerp(q[0], (bx0 + bx1) / 2, .12 + r() * .1), lerp(q[1], (by0 + by1) / 2, .12 + r() * .1)], R = 40 + r() * 50, a0 = r() * TAU, sp = 1.3 + r() * .8;
+    if (o.avoid && o.avoid.some(([ax, ay, ar]) => Math.hypot(c[0] - ax, c[1] - ay) < ar + R)) continue;
+    ctx.beginPath(); ctx.arc(c[0], c[1], R, a0, a0 + sp); ctx.stroke();
   }
   ctx.restore();
   ctx.beginPath(); path(ctx); ctx.lineWidth = o.lw || 3.5; ctx.strokeStyle = line; ctx.lineJoin = 'round'; ctx.stroke();
@@ -64,7 +67,7 @@ function flame(ctx, x, y, s, t, o = {}) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s * k, s * k);
   if (o.halo !== false) { glow(ctx, 0, -18, o.haloR || 120, o.haloCol || 'rgba(255,190,90,.55)'); glow(ctx, 0, -14, 34, 'rgba(255,240,200,.65)'); }
   const tongue = (dx, h, w, ph, col) => {
-    const sw = Math.sin(t * 7.3 + ph) * 3 + Math.sin(t * 13.1 + ph * 2) * 1.6;
+    const sw = Math.sin(t * 7.3 + ph) * 3 + Math.sin(t * 13.1 + ph * 2) * 1.6 + (o.wind || 0) * 4;
     ctx.fillStyle = col; ctx.beginPath();
     ctx.moveTo(dx - w, 0);
     ctx.bezierCurveTo(dx - w * 1.1, -h * .45, dx - w * .2 + sw * .4, -h * .62, dx + sw, -h);
@@ -72,7 +75,7 @@ function flame(ctx, x, y, s, t, o = {}) {
     ctx.quadraticCurveTo(dx, w * .5, dx - w, 0); ctx.fill();
   };
   tongue(-6, 34, 7, 1.3, PC.fireDeep); tongue(7, 30, 7, 2.1, PC.fireDeep); tongue(0, 50, 11, 0, PC.fire);
-  tongue(0, 30, 6, .6, PC.fireCore);
+  if (o.core !== false) tongue(0, 30, 6, .6, PC.fireCore);
   ctx.restore();
 }
 // Rezene sapı (narthex): içi boş sap, boğumlar; ucunda için için yanan ateş
@@ -97,7 +100,7 @@ function stake(ctx, x, y, s, a = 0, col = '#2B1A12', line = null, bury = true) {
   // kayaya gömülü kama: yalnız başı görünür, giriş noktasında kısa çatlaklar (kol ve zincirle tek çizgi olmasın)
   if (bury) {
     ctx.beginPath(); ctx.moveTo(-14, -5); ctx.lineTo(-3, -3.4); ctx.lineTo(-3, 3.4); ctx.lineTo(-14, 5); ctx.closePath(); ctx.fill(); ctx.stroke();
-    ctx.strokeStyle = C.ink; ctx.lineWidth = .9; for (const [dx, dy] of [[3.5, -3], [4.5, .6], [3, 3.4], [1.2, -4.6], [.6, 4.6]]) { ctx.beginPath(); ctx.moveTo(-2.5, dy * .3); ctx.lineTo(-2.5 + dx, dy); ctx.stroke(); }
+    ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.3; for (const [dx, dy] of [[7, -6], [9, 1.2], [6, 6.8], [2.4, -9], [1.2, 9]]) { ctx.beginPath(); ctx.moveTo(-2.5, dy * .3); ctx.lineTo(-2.5 + dx, dy); ctx.stroke(); }
     ctx.strokeStyle = line || C.ink; ctx.lineWidth = 1.1;
   } else { ctx.beginPath(); ctx.moveTo(-14, -5); ctx.lineTo(9, -1.6); ctx.lineTo(10, 1.6); ctx.lineTo(-14, 5); ctx.closePath(); ctx.fill(); ctx.stroke(); }
   ctx.beginPath(); ctx.ellipse(-14, 0, 2.6, 6.5, 0, 0, TAU); ctx.fill(); ctx.stroke();
@@ -111,8 +114,10 @@ function ironChain(ctx, a, b, o = {}) {
   const d = len(sub(b, a)), L0 = Math.max(o.L0 || d, d), sagAmt = .5 * Math.sqrt(Math.max(0, L0 * L0 - d * d)) * (o.sagK ?? .7) + (o.sag || 0);
   const pts = Array.from({ length: 13 }, (_, i) => { const u = i / 12; return [lerp(a[0], b[0], u), lerp(a[1], b[1], u) + 4 * sagAmt * u * (1 - u)]; });
   const w = o.w || 7, lk = o.link || 26;
-  chain(ctx, pts, lk, C.ink, null, w + 6);
-  chain(ctx, pts, lk, o.col || '#3A2418', o.hi || PC.clayRL, w);
+  // ayrılmış kil kontur (saçtaki uylaşım): koyu zincir kayadan ayrılsın
+  chain(ctx, pts, lk, mixCol(PC.clayR, PC.glaze, .35), null, w + 10, 0, lk * .78);
+  chain(ctx, pts, lk, C.ink, null, w + 6, 0, lk * .78);
+  chain(ctx, pts, lk, o.col || '#3A2418', o.hi || PC.clayRL, w, 0, lk * .78);
   return pts;
 }
 // Uzakta, karanlık ovada insanların ateşleri (Prometheus'un armağanı). pts: [x, y, s]; büyük ateş tek odak olur,
@@ -121,12 +126,22 @@ function humanFires(ctx, t, pts, a = 1, o = {}) {
   if (a <= 0) return;
   ctx.save(); ctx.globalAlpha *= a;
   pts.forEach(([x, y, s], i) => {
-    const fl = .85 + .15 * Math.sin(t * (5 + i) + i * 2.3) + .05 * noise1(t * 7 + i, 3);
+    const fl = .88 + .12 * noise1(t * 6 + i * 3, i) + .05 * noise1(t * 15, i + 9);
     const far = s < .8;
     glow(ctx, x, y - 8 * s, (far ? 40 : 34) * s * fl, far ? 'rgba(230,120,50,.30)' : 'rgba(255,170,80,.42)');
+    // yakın ateşin yerde ışık havuzu (armağanın bir alanı olsun)
+    if (!far) { ctx.save(); ctx.translate(x, y + 2); ctx.scale(1, .3); glow(ctx, 0, 0, 150 * s, `rgba(255,150,70,${.30 * fl})`); ctx.restore(); }
     ctx.fillStyle = PC.clayR; ctx.fillRect(x - 9 * s, y - 1, 18 * s, 4 * s);
     ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2; ctx.strokeRect(x - 9 * s, y - 1, 18 * s, 4 * s);
-    flame(ctx, x, y, .5 * s, t + i * .7, { halo: !far, haloR: 26 * s / Math.max(.5 * s, .01), haloCol: 'rgba(255,190,90,.35)' });
+    // uzak ateşler çekirdeksiz ve sönük: ikinci bir beyaz leke odağı bölmesin
+    ctx.save(); if (far) ctx.globalAlpha *= .55 * (.7 + .3 * noise1(t * 1.5 + i * 7, i));
+    flame(ctx, x, y, .5 * s, t + i * .7, { halo: !far, core: !far, wind: o.wind, haloR: 26 * s / Math.max(.5 * s, .01), haloCol: 'rgba(255,190,90,.35)' });
+    ctx.restore();
+    if (!far) { ctx.save(); ctx.strokeStyle = PC.clayR; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      for (let k = 0; k < 3; k++) { const ph = ((t * .35 + k / 3) % 1), sx = u => (o.wind || 0) * 40 * u + 6 * Math.sin(t * 1.3 + k * 2);
+        ctx.globalAlpha = .12 * Math.sin(PI * ph); const y0 = y - 30 * s - ph * 30, x0 = x + (k - 1) * 4;
+        ctx.beginPath(); ctx.moveTo(x0 + sx(0), y0); ctx.bezierCurveTo(x0 + sx(.3) - 8, y0 - 50, x0 + sx(.6) + 8, y0 - 100, x0 + sx(1), y0 - 160); ctx.stroke(); }
+      ctx.restore(); }
   });
   if (o.people) for (const [x, y, s, dir] of o.people) seatedHuman(ctx, x, y, s, dir, t);
   ctx.restore();
@@ -135,15 +150,16 @@ function humanFires(ctx, t, pts, a = 1, o = {}) {
 function seatedHuman(ctx, x, y, s, dir, t) {
   const S = s * 1.05, rch = Math.sin(t * 1.3 + x) * .08;
   figure(ctx, { x: x - 2 * S * dir, y: y - 25 * S, s: S, dir, sty: STY.red, lk: { hair: 'nape', rf: true, earHidden: true, garment: 'short' }, seed: (x | 0) % 50, idle: .6,
-    p: { torso: .35, neck: .15, head: .1, shN: 1.3 + rch, elN: .5, shF: 1.2 + rch, elF: .6, handN: 'open', handF: 'open' },
+    p: { torso: .35, neck: .15, head: .1, shN: 1.15 + rch, elN: .5, shF: 1.2 + rch, elF: .6, handN: 'open', handF: 'open' },
     ik: { fN: [x + 9 * S * dir, y - 3 * S, 0], fF: [x + 4 * S * dir, y - 3 * S, 0] }, stripe: .5 });
 }
 // Vazo üslubu yıldızlar: seyrek, sönük, küçük dört kollu yıldız ve nokta; ex: [[x,y,r],...] yıldız çizilmeyen alanlar
-function vaseStars(ctx, t, n, seed, area, ex = [], a = .45) {
+function vaseStars(ctx, t, n, seed, area, ex = [], a = .45, rot = 0, rc = [1250, 1500]) {
   const r = rng(seed);
   ctx.save(); ctx.fillStyle = 'rgba(225,170,110,1)'; ctx.strokeStyle = 'rgba(225,170,110,1)';
   for (let i = 0; i < n; i++) {
-    const x = area[0] + r() * area[2], y = area[1] + r() * area[3], sz = 1.2 + r() * 1.6, ph = r() * TAU, big = r() < .22;
+    let x = area[0] + r() * area[2], y = area[1] + r() * area[3]; const sz = 1.2 + r() * 1.6, ph = r() * TAU, big = r() < .22;
+    if (rot) { const dx = x - rc[0], dy = y - rc[1], cs = Math.cos(rot), sn = Math.sin(rot); x = rc[0] + dx * cs - dy * sn; y = rc[1] + dx * sn + dy * cs; }
     if (ex.some(([ex_, ey, er]) => Math.hypot(x - ex_, y - ey) < er)) continue;
     ctx.globalAlpha = a * (.55 + .45 * Math.sin(t * (.8 + r()) + ph));
     if (big) { ctx.lineWidth = 1.4; ctx.beginPath(); for (let k = 0; k < 4; k++) { const an = k * PI / 4; ctx.moveTo(x - Math.cos(an) * sz * 3, y - Math.sin(an) * sz * 3); ctx.lineTo(x + Math.cos(an) * sz * 3, y + Math.sin(an) * sz * 3); } ctx.stroke(); }
@@ -167,10 +183,11 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
     const uu = far ? (o.angFar ?? up) : up, e = E.io2(1 - uu), q = Math.abs(uu * 2 - 1);
     const a1 = lerp(-1.95, -4.53, e) + (far ? (o.farOff ?? -.16) : 0) + (o.wingA || 0);
     const flp = lerp(-1, 1, E.io2(clamp((.5 - uu) / .2 + .5)));
-    const fs = lerp(o.fsMin ?? .34, 1, q ** .8), fy = Math.sign(flp || 1) * Math.max(.15, Math.abs(flp));
-    const a2 = lerp(.1, .35, Math.abs(flp)) * Math.sign(flp || 1) * (o.fold ?? 1);
+    const fs = lerp(o.fsMin ?? .34, 1, q ** .8), fy = flp;
+    const a2 = (.1 + .25 * Math.abs(flp)) * flp * (o.fold ?? 1);
     const fc = far ? farCol : wcol, ln = far ? mixCol(line, col, .25) : line;
     ctx.save(); ctx.translate(root[0], root[1]); ctx.rotate(a1);
+    if (Math.abs(flp) < .2) { const th = 2.2 * (1 - Math.abs(flp) / .2); ctx.lineCap = 'round'; ctx.strokeStyle = ln; ctx.lineWidth = th + 2 * LW; ctx.beginPath(); ctx.moveTo(-2, 0); ctx.lineTo(fs * 112, 0); ctx.stroke(); ctx.strokeStyle = fc; ctx.lineWidth = th; ctx.stroke(); }
     ctx.scale(fs, fy * (far ? .82 : 1));
     ctx.fillStyle = fc; ctx.strokeStyle = ln;
     // kol: ön kenar hafif dışbükey, arka kenarda ikincil tüy uçları
@@ -183,6 +200,10 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
       for (let r = 0; r < 2; r++) for (let k = 0; k < 6; k++) { const qx = 6 + k * 8 + r * 4, qy = -4 + r * 7; ctx.beginPath(); ctx.arc(qx, qy, 3.6, .15, PI - .15); ctx.stroke(); }
       ctx.beginPath(); ctx.moveTo(-2, 10); ctx.quadraticCurveTo(26, 6, 53, 10); ctx.stroke();
       for (let k = 0; k < 5; k++) { const x0 = 49 - k * 11.5; ctx.beginPath(); ctx.moveTo(x0, 12); ctx.lineTo(x0 - 3, 30 - k * .7); ctx.stroke(); }
+    } else {
+      ctx.lineWidth = 1; ctx.globalAlpha *= .7;
+      for (let k = 0; k < 5; k++) { const x0 = 49 - k * 11.5; ctx.beginPath(); ctx.moveTo(x0, 12); ctx.lineTo(x0 - 3, 30 - k * .7); ctx.stroke(); }
+      ctx.globalAlpha /= .7;
     }
     // el: bilekte bükülür, birincil tüyler parmak gibi ayrık
     ctx.translate(52, 0); ctx.rotate(a2);

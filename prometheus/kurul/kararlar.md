@@ -392,3 +392,50 @@ Raporların tamamı: `kurul/animatik_tur1_raporlar.json`. Altı rapor ana bulgul
 - **Kartal gölgesinin her bölümde tekrar etmesi:** alınmadı; gölge I08b–c'ye saklandı ki tehdit orada ağırlık taşısın.
 - **P103'te üçüncü tahtın devrilmesi:** alınmadı; Erhat'ın okuması devrimi gelecekte bırakıyor. Yerine tahtın önünde doğrulan insan.
 - **Altıncı tam sayfa alıntı:** alınmadı. P241 tartışıldı; tezin cümlesi olduğu için tam sayfa kaldı, sayı 5'te tutuldu.
+
+---
+
+# Üslup karesi: kurul tur 2 (aynı 8 üye, doğrulama) ve başkan kararları
+
+## Puanlar (tur 2, kare: `kurul/uslup_tur2/uslup_karesi.png`)
+Ağırlıklar: S1 %20, S2 %15, S3 %15, S4 %15, S5 %10, S6 %15, S7 %10. ONAY: ≥ 9,0 ve hiçbir ölçüt < 7.
+
+| Üye | S1 | S2 | S3 | S4 | S5 | S6 | S7 | Ort. (tur 1) | Karar |
+|---|---|---|---|---|---|---|---|---|---|
+| vazo-Teknik | 7,5 | 7,5 | 7,5 | 7 | 8 | 8 | 8 | 7,60 (6,65) | RED |
+| vazo-İkonografi | 8,5 | 8,5 | 8,5 | 8 | 8,5 | 9 | 8,5 | 8,50 (6,67) | RED |
+| karakter-Anatomi | 8,5 | 8,5 | 8,5 | 7,5 | 8,5 | 8,5 | 8,5 | 8,35 (6,97) | RED |
+| karakter-İfade | 8 | 7,5 | 7,5 | 7 | 7,5 | 7,5 | 7,5 | 7,53 (6,45) | RED |
+| kompozisyon-Odak | 8,5 | 8 | 8,5 | 8 | 8,5 | 8,5 | 8 | 8,30 (6,90) | RED |
+| kompozisyon-Renk | 8,5 | 8 | 8 | 7,5 | 7,5 | 8 | 8 | 7,97 (7,20) | RED |
+| animasyon-Hareket | 8 | 8 | 7,5 | 7,5 | 8 | 7 | 8 | 7,70 (7,05) | RED |
+| animasyon-Kurgu | 8,5 | 8,5 | 8 | 8 | 8,5 | 8 | 8,5 | 8,28 (7,00) | RED |
+
+Hiçbir ölçüt 7'nin altında değil; her üye ortalamasını 0,7–1,8 puan yükseltti. Raporların tamamı: `kurul/uslup_tur2/tur2_raporlar.json`. Üyelerin bir kısmı, kare üretildikten sonra koddaki ara düzeltmeleri (kartal başı konturu, kama kuyruk, figür kontur bandı) de fark etti; tur 3 karesi güncel koddan üretildi.
+
+## Kabul edilenler (uygulandı; tur 3 karesi `kurul/uslup_tur3/`)
+- **Kartal başı (4 üye):** baş çizgileri artık siyah (pençelerden kalan kil rengi sıfırlandı); kaş çıkıntısı, ense tüyleri başın üstünde.
+- **Figür ve kaya (Renk, Teknik):** sıcak hâle kalktı; yerine kaya içinde koyu sır gölgesi (`shade`) ve figürün çevresinde siyah kontur bandı (`stripe`). Kaya yansıması (`bounce`) daraltılıp ateşe bakan dibe alındı.
+- **Zincir (Odak, İfade):** kazıklar yeni yerde (üst [1435,165], alt [1450,690]); kol ile zincir arasında açı oluştu, zincir 200 px'i geçti. Kazık küçüldü (3,6 → 2,3), girişte kil çatlak yıldızı. Zincirde ayrılmış kil kontur.
+- **Zincir halkaları (Hareket):** sabit adım; sarkma değişince halkalar sıçramıyor, fazlası kazık halkasına giriyor.
+- **Ateşler (Odak, Renk, Hareket):** uzak ateşler çekirdeksiz, sönük, düzensiz aralıklı ve nefes alıyor; büyük ateşte yerde ışık havuzu ve üç ince vazo dumanı; titreme gürültüyle. Ateş grubunun çevresi zemin çizgilerinden temiz, grup kendi kısa zemin çizgisine basıyor; iki insanın elleri ayrıldı.
+- **Kartal uçuşu (Hareket, Odak, Kurgu, Anatomi):**
+  - Zeus'un soğuk mavi çakmasının içinden doğuyor (ilk 0,35 sn beyazdan kile, ölçek ×0,8→1); çakma artık soğuk mavi okunuyor ('lighter' karışım), yıldırım kartalın önünde.
+  - Kübik eğriyle göğse dalış, uzaktan küçük gelip yaklaştıkça büyüyor (1,7→2,55).
+  - Süzülüş ve üç anahtarlı tam vuruş (aşağı vuruş %58); sonda fren ve tutulan V duruşu (bir kanat yukarı, bir kanat aşağı), açık kuyruk, öne uzanan pençe.
+  - Kanat ucu frizin altında (ölçülen en üst nokta y ≈ 83–120).
+  - Baş karaciğere kilitli; kanat kenardan göründüğü anda sıçramıyor; uzak kanatta seyrek tüy çizgileri; kanat rengi baştan koyu.
+- **Gerilme ve göz (Hareket, İfade):** taban gerilme düzensiz ve ağır bir ağırlık değişimi (ortalama 5,6 sn, gürültüyle esneyen, yerleşme salınımlı, düşük genlik); çığlığa tek bir tepki (çene kalkar, göz kısılır, gövde bir kez gerilir). Rastgele göz kırpma geri geldi. Ayak zincirleri gerilmede kalkıyor.
+- **Rüzgâr (Hareket, Teknik):** her şey soldan esen rüzgârla aynı yöne: gök çizgileri, dalga kuşağı, saç, sakal, etek ucu, alev, duman. Saç dalgalanması büyüdü (≈ ±5 px). Rüzgâr çizgilerindeki uç kıvrımı (çizgi film dili) kalktı.
+- **Kamera ve kompozisyon (Odak, Kurgu):** GENİŞ x 1000 → 900 (kaya kenarı orta dikeyden çıktı). KAYA ön ayarları düzeltildi ve yenileri eklendi: ORTA (boy plan), YAKIN (göz ≈330, sakal ucu ≈640; telefon kuralı), ALT (ova aşağı iner, ışık alttan), ZİNCİR, ÜST (sarmal iniş). Fırtına göğü ve gece bulutları eklendi. Ön katman (k 1,5): kameranın önünden geçen sönük közler. Kazıkların çevresinde lob yayı yok (darbe çizgisi okuması).
+- **Renk birliği (Renk):** C.ink = GLAZE (#0E0907), C.clay = CLAY (#C9703F); `sanat.md` renk ve ışık bölümü kareyle uyumlu yazıldı.
+- **Yazıt (Teknik):** kırmızı figür katmanındaki vazo yazıtları Attika yazımıyla ΠΡΟΜΕΘΕΥΣ. Başlık kartı (P011) tanınırlık için ΠΡΟΜΗΘΕΥΣ kalır.
+
+## Reddedilen ya da değiştirilerek alınanlar
+- **4,2 sn'lik düzenli gerilme döngüsünün aynen geri gelmesi (Hareket):** değiştirilerek alındı. İfade üyesi aynı döngüyü "çırpınma" diye okudu. Uzlaşma: döngü düzensiz ve düşük genlikli (ağırlık değişimi), güçlü gerilme yalnız plan vuruşlarında (`pullAdd`).
+- **Kartalın frizin arkasından girmesi (Kurgu, ey −130):** alınmadı; vazo resminde figür bordürün arkasına girmez (Anatomi'nin çarpışma uyarısı). Kurgu'nun asıl isteği olan "çakmanın içinden çıkış" başka yoldan karşılandı.
+- **Ana kare zamanı:** t = 4,2 yerine 5,5 sn (fren duruşu, en okunur kartal pozu). 5,72'de rastgele göz kırpma olduğu için 5,8 kullanılmadı.
+- **Sahne üretimine bırakılanlar:** negatif ve sır geçişlerinin eşleşen öğeyle şeridi (P006, P250; Kurgu), kartal vuruşlu planlarda `mb: 8`, kartala `perch` ve `spread` (Hareket), `SCENES.fireTest` (Renk).
+
+## Tur 3 kurulu (başkan kararı)
+Sekiz üyenin hepsini yeniden çağırmak yerine her uzmanlık çiftinin tur 2'de en düşük puan veren üyesi doğrular: vazo-Teknik, karakter-İfade, kompozisyon-Renk, animasyon-Hareket. En sert dört üye ONAY verirse öbür dört üyenin (8,28–8,50) eşiği geçmesi beklenir; vermezse eksikler kapatılıp çift tamamlanır.

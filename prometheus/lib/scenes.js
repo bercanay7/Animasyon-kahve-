@@ -115,31 +115,60 @@ SCENES.kylix = (ctx, t) => {
 };
 SCENES.style2 = (ctx, t) => {
   const u = E.io2(clamp(t / 6));
-  const c = { x: lerp(1000, 1060, u), y: lerp(540, 520, u), z: lerp(1.0, 1.06, u), sx: noise1(t * .3, 1) * 3, sy: noise1(t * .3, 2) * 2 };
-  // kartal: sol üst köşeden göğse doğru köşegen dalış (Zeus'un soğuk çakmasının içinden çıkar)
-  const k = E.io2(clamp(t / 5.5));
-  const ex = lerp(-160, 720, k), ey = lerp(300, 425, k), es = lerp(2.2, 2.9, k);
+  const c = { x: lerp(900, 960, u), y: lerp(540, 520, u), z: lerp(1.0, 1.06, u), sx: noise1(t * .3, 1) * 3, sy: noise1(t * .3, 2) * 2 };
+  // kartal: Zeus'un soğuk çakmasının içinden doğar (ilk 0,35 sn beyazdan kile, ölçek ×0,8→1), kübik eğriyle göğse dalar
+  const k = E.io2(clamp(t / 5.2)), B = (a, b, c2, d, q) => { const m = 1 - q; return m * m * m * a + 3 * m * m * q * b + 3 * m * q * q * c2 + q * q * q * d; };
+  const P0 = [210, 250], P1 = [400, 250], P2 = [540, 450], P3 = [690, 395];
+  const es = lerp(1.7, 2.55, k) * lerp(.8, 1, ramp(t, 0, .35));
+  let ex = B(P0[0], P1[0], P2[0], P3[0], k) + 10 * Math.sin(.9 * t), ey = B(P0[1], P1[1], P2[1], P3[1], k) + 6 * Math.sin(1.8 * t);
+  const k2 = Math.min(1, k + .01), dx = B(P0[0], P1[0], P2[0], P3[0], k2) - B(P0[0], P1[0], P2[0], P3[0], k), dy = B(P0[1], P1[1], P2[1], P3[1], k2) - B(P0[1], P1[1], P2[1], P3[1], k);
+  // anahtarlı tam vuruşlar (filmde Wd()'ye bağlanır): aşağı vuruş %58, toparlanma %42; aradaki süzülüşte kanatlar yukarıda
+  const BEATS = [.9, 2.4, 3.9];
+  const wU = tt => { for (const b of BEATS) { const v = (tt - b) / .9; if (v >= 0 && v < 1) return v < .58 ? .5 * v / .58 : .5 + .5 * (v - .58) / .42; } return -1; };
+  const wA = tt => { const g = .88 + .04 * noise1(tt * .7, 5), v = wU(tt); return v < 0 ? g : lerp(g, 0, Math.sin(PI * v)); };
+  const u0 = wU(t), lift = u0 >= 0 && u0 < .5 ? Math.sin(TAU * u0) : 0;
+  const br = E.io2(ramp(t, 4.9, 5.6)); // fren: tutulan anahtar poz, vazodaki 'bir kanat yukarı, bir kanat aşağı'
+  const ang = lerp(wA(t), .97, br), angFar = lerp(.05 + .9 * wA(t - .06), .15, br);
+  ey -= 10 * lift;
+  ey = Math.max(ey, 60 + 130 * es); // kalkık kanat ≈125·s yükselir: uç frizin altında kalsın
+  const tilt = .18 + .5 * Math.atan2(dy, dx) - .5 * br + Math.sin(t * .7) * .02;
   const { wind } = kayaWorld(ctx, t, c, { eagleX: ex, eagleY: ey });
   ctx.save(); cam(ctx, c, 1);
-  if (t < .6) { const fa = Math.sin(clamp(t / .6) * PI); glow(ctx, 160, 120, 380, `rgba(225,232,255,${.35 * fa})`); ctx.save(); ctx.globalAlpha = .75 * fa; bolt(ctx, 170, 140, 1.3, .55, '#DDE3F2', 'rgba(210,220,255,.25)'); ctx.restore(); }
-  // dipinto ad yazısı (eklenmiş kırmızı), figür boyunca dikey
-  dipinto(ctx, 'ΠΡΟΜΗΘΕΥΣ', 985, 62, 28, { col: '#9C3A24', vertical: true, align: 'left', w: .1 });
+  // dipinto ad yazısı (eklenmiş kırmızı), bakış hattının üstünde, meanderden iner; Attika vazo yazımı (403 öncesi eta yerine E)
+  dipinto(ctx, 'ΠΡΟΜΕΘΕΥΣ', 985, 62, 28, { col: '#9C3A24', vertical: true, align: 'left', w: .1 });
   // çığlıkta tepki: irkilmez; çenesini kaldırır, gözünü kısar, gövdesi tek bir kez gerilir
   const br3 = Math.exp(-Math.pow((t - 3.45) / .45, 2)), lid = .28 + .12 * E.io2(clamp((t - 3.3) / .5));
-  promChained(ctx, t, { look: lerp(-.12, -.04, k) - .07 * br3, wind, pull: .25 + .15 * br3, dust: br3, p: { blink: lid, scowl: .6 + .25 * br3 } });
-  const fl = (t * .55) % 1, glide = .5 + .5 * Math.cos(fl * TAU);
+  promChained(ctx, t, { look: lerp(-.12, -.04, k) - .07 * br3, wind, pullAdd: .15 * br3, dust: br3, p: { blink: Math.max(lid, blinkAt(t, 17)), scowl: .6 + .25 * br3 } });
   const cry = Math.exp(-Math.pow((t - 3.2) / .25, 2));
-  eagle2(ctx, ex + Math.sin(t * .7) * 8, ey + Math.sin(t * 1.1) * 6 - 4 * es * Math.sin(TAU * (fl - .08)) * .4, es, 1, {
-    ang: lerp(.62, lerp(.74, .97, k), Math.pow(glide, .5)), angFar: .2, farOff: -.5, fsMin: .62,
-    talon: lerp(.4, 1, k), beak: .08 + .8 * cry, tilt: lerp(.32, .46, k) + Math.sin(t * .7) * .02, headA: -Math.sin(t * .7) * .03 - .06,
-    col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .22), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E', headS: 1.4,
+  // baş hedefe kilitli: gaga karaciğere (göğsün sağ altı) döner
+  const hx = ex + Math.cos(tilt) * 42 * es, hy = ey + Math.sin(tilt) * 42 * es;
+  const headA = clamp(Math.atan2(560 - hy, 1235 - hx) - tilt, -.35, .35) - .08 * cry;
+  const w0 = ramp(t, 0, .35), tint = col => mixCol('#DDE3F2', col, w0);
+  eagle2(ctx, ex, ey, es, 1, {
+    ang, angFar, farOff: -.5, fsMin: .62, tailOpen: br,
+    talon: Math.max(lerp(.4, 1, k), br), beak: .08 + .8 * cry, tilt, headA,
+    col: tint('#A85A32'), wingCol: tint(mixCol(PC.clayR, PC.glaze, .32)), farCol: tint(mixCol(PC.clayR, PC.glaze, .5)), eye: '#E39A4E', headS: 1.4,
   });
+  // Zeus'un soğuk çakması: kartal bunun içinden çıkar (soğuk mavi, ateşle yarışmaz); yıldırım kartalın önünde
+  if (t < .6) { const fa = Math.sin(clamp(t / .6) * PI); ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 220, 230, 360, `rgba(90,120,220,${.42 * fa})`); glow(ctx, 220, 230, 120, `rgba(170,190,255,${.35 * fa})`); ctx.restore(); ctx.save(); ctx.globalAlpha = .75 * fa; bolt(ctx, 230, 200, 1.3, .55, '#E6ECFF', 'rgba(210,220,255,.25)'); ctx.restore(); }
   ctx.restore();
+  kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);
 };
 SCENES.style2.post = { tex: .55, vig: 1, grain: .06 };
 // Kartal çırpma döngüsü denemesi: 16 faz
 SCENES.flap = (ctx, t) => {
   ctx.fillStyle = PC.glaze; ctx.fillRect(0, 0, W, H);
-  for (let i = 0; i < 16; i++) eagle2(ctx, 160 + (i % 8) * 230, 260 + Math.floor(i / 8) * 480, 1.25, 1, { ang: .5 + .5 * Math.cos(i / 16 * TAU), angFar: .5 + .5 * Math.cos(i / 16 * TAU + .3), farOff: -.3, fsMin: .5, col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .22), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E' });
+  for (let i = 0; i < 16; i++) eagle2(ctx, 160 + (i % 8) * 230, 260 + Math.floor(i / 8) * 480, 1.25, 1, { ang: .5 + .5 * Math.cos(i / 16 * TAU), angFar: .5 + .5 * Math.cos(i / 16 * TAU + .3), farOff: -.3, fsMin: .5, col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .32), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E' });
 };
+// KAYA kamera ön ayarları denemesi: her saniye bir ayar (0 GENİŞ, 1 ORTA, 2 YAKIN, 3 ALT, 4 ZİNCİR, 5 ÜST, 6 FIRTINA/GENİŞ)
+SCENES.kayaCams = (ctx, t) => {
+  const i = Math.min(6, Math.floor(t)), f = t - i;
+  const c = i === 5 ? CAMS.ust(.5) : { ...[CAMS.genis, CAMS.orta, CAMS.yakin, CAMS.alt, CAMS.zincir, null, CAMS.genis][i] };
+  const { wind } = kayaWorld(ctx, t, c, { sky: i === 6 ? 'firtina' : 'gece', clouds: i === 0 ? 4 : 0 });
+  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, pose: i === 6 ? 'gok' : 'direnis', expr: i === 6 ? 'goge' : 'direnc' }); ctx.restore();
+  kayaFront(ctx, t, c, wind);
+  kayaFrame(ctx, t);
+  ctx.save(); baseT(ctx); ctx.font = '600 30px Cinzel'; ctx.fillStyle = 'rgba(230,200,160,.8)'; ctx.fillText(['GENİŞ', 'ORTA', 'YAKIN', 'ALT', 'ZİNCİR', 'ÜST', 'FIRTINA'][i], 70, 100); ctx.restore();
+};
+SCENES.kayaCams.post = { tex: .55, vig: 1, grain: .06 };

@@ -1,8 +1,8 @@
 // Renk paleti, kil/kağıt dokusu, gren, vinyet ve vazo süsleri (meander, ışın, dil frizleri)
 'use strict';
 const C = {
-  clay: '#C8693D', clayL: '#DB8655', clayD: '#A24E2B', clayDD: '#7E3920',
-  ink: '#17100C', inkSoft: '#241812',
+  clay: '#C9703F', clayL: '#DB8655', clayD: '#A24E2B', clayDD: '#7E3920',
+  ink: '#0E0907', inkSoft: '#241812',
   red: '#8E2F1F', white: '#EFE4CC', bone: '#E2D3B5',
   gold: '#E7B85E', night: '#120C10', umber: '#2A1912',
   paper: '#ECE3D0', paperD: '#D9CCB1', sepia: '#3B2A1E',

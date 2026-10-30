@@ -10,8 +10,11 @@
 Kırmızı figür tekniği İÖ ~530'da icat edildi ve Aiskhylos'un yüzyılında baskındı; siyah figür Hesiodos'un çağının tekniğidir. Böylece görüntü, anlatının hangi kaynaktan konuştuğunu kendiliğinden söyler: izleyici her geçişte "şimdi Hesiodos'tayız / Aiskhylos'tayız / Erhat konuşuyor" diye okur.
 
 ## Renk ve ışık
-- Tek parlak odak: **ateş** (altın #FFD27A, çekirdek #FFF6D6). Ateş her sahnede karenin en parlak noktasıdır. Yıldırım soğuk beyaz-altın; ateşle yarışmaz, kısa çakar.
-- Kırmızı figür sahneleri: siyah sır (#0E0907), kil figür (#C9703F), koyu kaya kütlesi (#2A170F) kil kontur ile.
+- Tek parlak odak: **ateş** (altın #FFD27A, çekirdek #FFF6D6). Ateş her sahnede karenin en parlak noktasıdır; uzak ateşler çekirdeksiz ve sönüktür (ikinci beyaz leke olmaz), yakın ateşin yerde bir ışık havuzu vardır. Yıldırım ve Zeus soğuk beyaz-mavi (#E6ECFF, 'lighter' karışımla); ateşle yarışmaz, kısa çakar, saniyede en çok 3 flaş.
+- Değer sırası (kırmızı figür): ateş > Prometheus > kartal başı > kartal kanadı > friz > kaya > gök (ölçülen L: 221 / 122 / ≈104 / ≈90 / ≤80 / 28–65 / ≈10).
+- Kırmızı figür sahneleri: zemin siyah sır GLAZE #0E0907 (çizgi rengi C.ink ile aynı değer), figür kil CLAY #C9703F, kaya #5A311D'den #341C12'ye degrade; figürün arkasında kaya içinde koyu sır gölgesi (shade) ve figürün çevresinde siyah kontur bandı (stripe). Zincir koyu demir, siyah alt bant ve ayrılmış kil kontur.
+- Rüzgâr soldan eser: gök çizgileri, dalga kuşağı, saç, sakal, etek ucu, alev ve duman aynı yöne gider.
+- Siyah figür sahnelerinde ateş: çekirdek #FFF6D6, 3 px C.ink halka ve koyu çevre (rgba(20,8,4,.35)). Beyaz zeminde ateş karedeki tek doygun renktir (#E8762B); parlaklık şartı yoktur.
 - Siyah figür sahneleri: Sisifos kil paleti (C.clay, C.ink, C.red, C.white).
 - Beyaz zemin: C.paper, C.sepia çizgi, tek vurgu rengi kırmızı (#9A3B25).
 

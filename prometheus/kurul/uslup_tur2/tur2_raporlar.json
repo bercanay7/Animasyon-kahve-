@@ -1,0 +1,1021 @@
+[
+ {
+  "uye": "vazo-Teknik",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1) post() çalışsın: kil dokusu, vinyet, gren; test seti post'lu çekimden üretilsin",
+     "durum": "uygulandı",
+     "not": "SCENES.style2.post = {tex .55, vig 1, grain .06}. Benim t=4,2 sn MB=4 çekimim teslim edilen kareyle piksel piksel aynı çıktı (fark 0,0). Seramik yüzey artık var. Tex için .85 yerine .55 seçilmiş; kırmızı figürde bu yeterli."
+    },
+    {
+     "oneri": "2) Kaya sulandırılmış sır olsun: dalgalı spline dış hat, kısa eğimli katman çizgileri, lob yayları, C.ink 3,5 px kontur, kaide kalksın",
+     "durum": "uygulandı",
+     "not": "Kodda hepsi var (crag: grad, strata 7, lobes 8, wob 9, lw 3,5), kaide kalkmış, figür zemin çizgisine basıyor. Ton olarak başkanın orta yolu (#5A311D→#341C12) seçilmiş; gerekçesi yerinde, ölçülen değer sırası doğru: gök 12, kaya 28–63, kartal 95–100, Prometheus 124, ateş 221. Görünür sonuç zayıf: koyu tonun üstünde katman ve lob çizgileri neredeyse kayboluyor (sağ yarıda L std 5,8). Tepe de kum tepesi gibi düz bir kubbe (kalan düzeltme 8)."
+    },
+    {
+     "oneri": "3) Saç ve sakal siyah sır kütle olsun; ayrılmış kil şerit, kabartma nokta bukleler, eklenmiş kırmızı saç bandı; alındaki halkalar kalksın",
+     "durum": "uygulandı",
+     "not": "Siyah kütle, ince ayrılmış kil şerit, burgulu kırmızı bant ve ense hizasında bukleler var. Halkalar kalkmış. Alın bukleleri ise sty.line ile siyah saçın içine çiziliyor, siyah üstüne siyah; 8× büyütmede ancak saç çizgisinde küçük tırtıklar olarak görünüyor (düzeltme 7)."
+    },
+    {
+     "oneri": "4) Kırmızı figürün kontur bandı: siluet 12 yönde 7 px genişletilip altına siyah basılsın; zincirde siyah alt bant",
+     "durum": "uygulanmadı",
+     "not": "Zincirin siyah alt bandı yapılmış. Figürün kontur bandı ise yok; kararlar.md'de ne kabul ne ret var. Yerine konan 'temiz alan + hâle' kontur üretmiyor. Ölçüm: y=470'te göğüs önünde kil (L 122) hiç siyah çizgi olmadan doğrudan kayaya (L 58) geçiyor, bacaklarda da aynı. Figür bu yüzden kesilip yapıştırılmış kâğıt gibi duruyor. Scratchpad'de 3,5 px ile denedim; kabartma çizgi görünümü geldi (düzeltme 2)."
+    },
+    {
+     "oneri": "5) Yüz: sırıtma kalksın, bıyık aşağı-geri sarksın, Sert üslup profil göz, düz ve ağır kaş",
+     "durum": "kısmen",
+     "not": "Profil göz doğru: buruna açılan V, bebek önde. Kaş ağır, scowl çalışıyor, sırıtma okuması kalkmış. Ama ayrı bir bıyık lülesi ve dudak yok; sakal doğrudan burnun altından başlıyor. CAMS.yakin (z 3,4) planında bu eksik görünür olacak."
+    },
+    {
+     "oneri": "6) Anatomide iki kademe (dilute), ayak bileği açık yay, başparmak ve parmak çizgileri",
+     "durum": "kısmen",
+     "not": "STY.red.dilute '#8A4724' tanımlı; karın ve serratus çizgileri sulandırılmış, göğüs ve linea alba siyah. Ayak bileği açık yay oldu. Ayak parmakları yok: tek bir kısa çizgi var, ayaklar hâlâ uzun ve düz terlik gibi (1000–1090 × 878–902)."
+    },
+    {
+     "oneri": "7) Kartal: LW 1.0, kehribar göz, gövde #A85A30, uzak kanada kontur ve tüy çizgisi, fsMin .62, kapalı yelpaze kuyruk",
+     "durum": "kısmen",
+     "not": "LW 1.0, kehribar göz, #A85A32 gövde ve fsMin .62 uygulanmış. Uzak kanat hâlâ tüy çizgisiz, sönük bir kopya (if (!far) koşulu çizgileri atlıyor). Kuyruk paralel tüylerden oluşuyor: düz bir sopa ve ucunda süpürge gibi açılan çizgiler. Yeni gerileme: baş konturu, kaş ve gaga kökü çizgisi kayboldu. leg() strokeStyle'ı col bırakıyor (düzeltme 1)."
+    },
+    {
+     "oneri": "8) Zincir 30 px halka + siyah bant, bilek kelepçesi, dövme kama kazık, ayak prangası ve kısa zincir",
+     "durum": "uygulandı",
+     "not": "Siyah alt bant, kil ışık kavsi, sarkma, bilekte kelepçe, ayakta pranga, üçüncü kazık var; gerilmede toz dökülüyor. 168 px'te kelepçeler koyu işaret olarak okunuyor. Küçük bir kusur: üst kazığın ucu (1440,195) kaya konturunun üstüne taşıyor."
+    },
+    {
+     "oneri": "9) Bordürler opak olsun (dil frizindeki ek yeri)",
+     "durum": "uygulandı",
+     "not": "meanderSaltire ve runningWave PC.glaze zeminle opak çiziliyor; ek yeri yok. Üstte çapraz kareli kesik meander var, katman değişimi bordürden okunuyor."
+    },
+    {
+     "oneri": "10) Peştamal yerine kalçaya sarılı himation: çapraz etek ucu, düğümden yelpaze kıvrımlar, siyah bordür, kırmızı kemer kalksın",
+     "durum": "kısmen",
+     "not": "Mısır eteği okuması ve kırmızı kemer kalkmış. Ama giysi düz üst kenarlı, dik sağ kenarlı düz bir pano gibi (1087–1200 × 552–740). Beş düz kıvrım çizgisi yalnız ön üçgende kırmızı noktada birleşiyor; arp teli ya da yelken halatı gibi okunuyor. Siyah bordür eteğin gerçek alt kenarında değil, içinden geçen düz bir kiriş olarak çiziliyor (1085,635)→(1182,732)."
+    },
+    {
+     "oneri": "11) Ova: 3 ayrılmış zemin çizgisi, ocak, küçük alevler, tek büyük ateş ve başında iki oturan kil insan",
+     "durum": "kısmen",
+     "not": "Zemin çizgileri, ocak, sönük uzak ateşler ve tek büyük ateş var; ateş karenin en parlak noktası. Oturan insanlar ise yuvarlak başlı, çubuk gövdeli modern piktogram (tuvalet işareti dili; 765–890 × 806–856). Vazo figürü olarak okunmuyor."
+    },
+    {
+     "oneri": "12) Vazo tipi seyrek yıldızlar, çapraz kareli kesik meander, ad yazıtı",
+     "durum": "uygulandı",
+     "not": "Yıldızlar seyrek ve sönük, meander kesik ve çapraz kareli. Yazıt eklenmiş kırmızı ve dikey; harfler satır yönünde döndürülmüş, bu doğru. Önerimdeki Attika yazımı ΠΡΟΜΕΘΕΥΣ yerine İyon yazımı ΠΡΟΜΗΘΕΥΣ kullanılmış (küçük; düzeltme 8)."
+    }
+   ],
+   "scores": {
+    "S1": 7.5,
+    "S2": 7.5,
+    "S3": 7.5,
+    "S4": 7,
+    "S5": 8,
+    "S6": 8,
+    "S7": 8
+   },
+   "verdict": "RED",
+   "summary": "vazo-Teknik, tur 2: ağırlıklı ortalama 7,60, karar RED. Tur 1'de 6,65 idi. Hiçbir ölçüt 7'nin altında değil.\n\nTeslim edilen kare benim t=4,2 sn MB=4 çekimimle piksel piksel aynı, yani kod ile kare tutarlı.\n\nKırmızı figürün dilbilgisi büyük ölçüde yerine oturdu:\n- Seramik yüzey var.\n- Saç ve sakal siyah sır kütle, çevresinde ayrılmış kil şerit.\n- Göz Sert üslupta profilden.\n- Anatomide sulandırılmış sır ile iki kademe var.\n- Bordürler opak: çapraz kareli kesik meander ve akan dalga.\n- Ovada ayrılmış zemin çizgileri, tek odak ateş, okunan zincir ve kelepçeler.\n- Değer sırası doğru: gök 12, kaya 28–63, kartal 95–100, Prometheus 124, ateş 221.\n\nKareyi hâlâ \"vazo\"dan çok \"vazo esinli çizim\" yapan dört sorun kalıyor:\n\n1) Kartal başında kontur yok (gerileme). eagle2'de leg(…, false) strokeStyle'ı gövde rengi (col) bırakıyor. Başın konturu, kaşı ve gaga kökü gövde rengiyle çiziliyor. Sonuç: baş, akbabaya ya da ördek yavrusuna benzeyen özelliksiz bir kil lekesi; ense tüyleri de başın dışında havada bir çubuk olarak kalıyor. 16 fazın hepsinde aynı. Tek satırla düzeliyor; scratchpad'de denendi (eh_fix.png).\n\n2) Figürün kabartma konturu ya da kontur bandı yok. Kil doğrudan kayaya geçiyor (L 122→58) ve Prometheus kesilip yapıştırılmış kâğıt gibi duruyor. 3,5 px'lik siyah siluet genişletmesiyle düzeliyor; scratchpad'de denendi (fig_fix2.png).\n\n3) Himation düz bir pano gibi; kıvrımlar arp teli gibi okunuyor, bordür eteğin kenarında değil.\n\n4) Ateş başındaki insanlar modern piktogram.\n\nİkincil sorunlar:\n- Omuzda kapalı bir \"omuzluk\" konturu.\n- Süpürge gibi kuyruk ve tüy çizgisiz uzak kanat.\n- Parmaksız, terlik gibi ayaklar.\n- Kaya içinde neredeyse görünmeyen gösterim ve kum tepesi gibi bir siluet.\n- Modern rüzgâr çizgileri.\n\nHareket (sürekli çırpış, köşegen dalış, gerilme döngüsü, rüzgâr, akan dalga) ve seri kimliği güçlü. Bu yüzden S6 ve S7 8'e çıktı.\n\nBeklenen etki: 1 ve 2 tek başına S1'i ≈8,3'e, S4'ü ≈7,8'e taşır. 3–6 ile birlikte ONAY eşiği gerçekçi hale gelir.\n\nDeneme çıktıları: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/vt2/eh_fix.png ve /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/vt2/fig_fix2.png. Proje dosyalarına dokunulmadı.",
+   "fixes": [
+    {
+     "where": "lib/world.js eagle2 · '// baş ve gaga' satırından hemen önce · kartal başı 648–805 × 360–468; havadaki çubuk 660–683 × 360–365",
+     "problem": "leg(..., false) son pençe çiziminde ctx.strokeStyle'ı col bırakıyor; wing() bunu save/restore ile koruyor. Başın konturu, kaşı (2,2), gaga kökü ve göz halkası gövde renginde çiziliyor. Sonuç: kırmızı figürde olmaması gereken kontursuz bir kil lekesi (akbaba/ördek); ense tüyleri başın dışında havada bir çubuk. Çığlık anında (t 3,2) açık gaga da kontursuz. Tur 1'e göre gerileme.",
+     "fix": "`ctx.strokeStyle = line; ctx.fillStyle = col;` eklenmeli (scratchpad'de denendi; kontur ve kaş geri geliyor). Ardından:\n- Kaş lineWidth 2.2 → 1.3; görünür olunca çizgi film kızgınlığı yapıyor.\n- Ense çubuğu kaldırılmalı. Yerine baş konturunun arka-üst kenarına 4 sivri tüy: `for(i<4){moveTo(-1+i*2.4,-9+i*.9); lineTo(-4.6+i*2.4,-6.6+i*.9)}`, lineWidth 1.0, line rengi.\n- Boyuna 2 sıra pul kavsi: `arc(x,y,3,.3,PI-.3)`, x −2…8, y −2 ve 3, lineWidth 1.0. Böylece gövdeyle baş arasındaki 'bel' boğumu da kapanır.",
+     "priority": "kritik"
+    },
+    {
+     "where": "lib/figure.js figure() birleştirme adımı (ctx.drawImage(cv.sil…) satırından sonra) ve lib/kaya.js promChained figure çağrısı · Prometheus silueti 1000–1300 × 285–905",
+     "problem": "Figürün kabartma konturu ya da kontur bandı yok. Ölçüm: y=470, x=1064→1067'de kil (L 122) doğrudan kayaya (L 58) geçiyor; bacak ve ayaklarda da aynı. Figür kayaya yapıştırılmış kâğıt gibi duruyor. Kırmızı figürün en temel işareti olan ressamın figür çevresine çektiği siyah şerit eksik. Başkan kararlarında bu önerinin ne kabulü ne reddi var.",
+     "fix": "`if (f.stripe) { const r = f.stripe * sc; for (let k = 0; k < 12; k++) { const a = k * TAU / 12; ctx.drawImage(cv.sil, x0, y0, bw, bh, x0 + Math.cos(a) * r, y0 + Math.sin(a) * r, bw, bh); } }` eklenmeli.\n- cv.sil zaten C.ink'e boyalı; figür birimiyle `stripe: .55` verilirse 6,3 ölçekte ≈3,5 px olur, yakın planda (z 3,4) kendiliğinden kalınlaşır.\n- promChained çağrısına `stripe: .55` eklenmeli.\n- Scratchpad'de 3,5 px ile denendi: kabartma çizgi görünümü geliyor ve 168 px okunurluğu bozulmuyor.\n- Bütün kırmızı figür karakterlerinde varsayılan açık olmalı (STY.red için `stripe ?? .55`).",
+     "priority": "kritik"
+    },
+    {
+     "where": "lib/figure.js drawGarment 'hipwrap' (348–362. satırlar) · himation 1087–1200 × 552–740; kırmızı düğüm (1095,582); bordür kirişi (1085,635)→(1182,732)",
+     "problem": "Giysi okunmuyor:\n- Üst kenarı düz, sağ kenarı dik; kalçaya sarılı kumaş değil, düz bir pano gibi.\n- Beş düz kıvrım yalnız ön üçgende kırmızı noktada birleşiyor; arp teli ya da yelken halatı gibi okunuyor.\n- Siyah bordür eteğin gerçek alt kenarını izlemiyor, içinden düz bir kiriş geçiyor.\n- Panonun geri kalanı boş.",
+     "fix": "Değişiklikler:\n- Yelpaze döngüsü kaldırılmalı.\n- Kıvrımlar: bel çizgisinin tamamından (tP([7.4,-8.6])…tP([-8.0,-9.2]) arasında 7 eşit nokta) etek ucuna 7 hafif S kavisli kıvrım inmeli. Kontrol noktası uyluk yönünde ±1,2 birim kaysın. Çift sıradakiler det(.3), tek sıradakiler dil(.22).\n- Üst kenar: belin 1,4 birim altında, gövdeyi izleyen ikinci bir siyah çizgi (apoptygma kıvrımı) çekilmeli; pano görüntüsü kalkar.\n- Bordür: kiriş yerine dış hat spline'ının hemA→orta→hemB parçası, 0,9 birim içeri kaydırılarak `G.paint(…, sty.line, 1.0, false)` ile çizilmeli. Nokta motifler bordürün 1,6 birim içinde olmalı.\n- Arka kenar: tP([-8.9,-5.4]) yerine tP([-9.6,-3.8]) verilerek kalça kavsi izlenmeli.\n- Düğüm: kırmızı nokta yerine kil zemin üstünde siyah konturlu küçük bir şişkinlik, r .9.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/world.js eagle2 · kuyruk 355–445 × 275–350; uzak kanat 410–550 × 385–560",
+     "problem": "Kuyruk: beş tüy neredeyse paralel (tO=0, ±.15 rad), dış konturlar siyah zeminde görünmüyor. Sonuç düz bir kil sopa ve ucunda süpürge gibi açılan çizgiler. Uzak kanat: farCol ve mixCol(line, col, .25) ile sönük kontur, `if (!far)` koşulu yüzünden tek bir tüy çizgisi yok; durağan karede bulanık bir hayalet gibi.",
+     "fix": "Kuyruk:\n- Tek kama path'i: kök genişliği 10, uç genişliği 22, boy 36 birim; uç kenarı 5 hafif yayla dişli.\n- Kökten uca 4 iç kabartma çizgi, lineWidth 1.0.\n- Uçta 5 birimlik siyah bant: `G` değil `ctx.fill` ile, line rengi.\n\nUzak kanat:\n- Kontur `line` olmalı (C.ink, lineWidth LW*1.2).\n- 4 birincil tüy çizgisi `mixCol(line, farCol, .35)`, lineWidth 1.0; mevcut `if (!far)` bloğu far için de çalışsın, örtü pulları (arc) yalnız yakın kanatta kalsın.\n- farCol karışımı .5 → .42; değer kartal gövdesinin altında kalır ama şekil okunur.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/world.js seatedHuman · ateş başındaki iki insan 765–800 × 806–856 ve 857–890 × 806–856",
+     "problem": "Yuvarlak baş, çubuk gövde, L duruş: modern piktogram dili (tuvalet ya da trafik işareti). Vazo resminde en küçük figürün bile profil başı, burnu, siyah saçı ve kumaş kütlesi vardır. Ova yakın planlarında (ateş armağanı sahneleri) kesin üslup kırılması olur.",
+     "fix": "seatedHuman yerine figure() kullanılmalı: `figure(ctx,{x, y: y-30*s, s: 1.1, dir, sty: STY.red, lk: {hair: 'nape', garment: 'robe'}, p: {torso: .25, shN: -1.1, elN: .4, handN: 'open'}, ik: {fN: [x+9*dir, y, 0], fF: [x+6*dir, y, 0]}})`. Diz kalkık, çömelmiş, eller ateşe uzanmış olur.\n\nAlternatif (hafif): mevcut fonksiyonda arc başın yerine burunlu profil baş path'i çizilmeli: `moveTo(-3,-38); quadraticCurveTo(5,-42,6,-34); lineTo(8,-33); lineTo(6,-31); quadraticCurveTo(2,-28,-2,-30); closePath`. Üstüne siyah saç kütlesi `arc(0,-36,4.6,PI*.9,PI*1.9)` fill C.ink, gövdeye çapraz bir himation çizgisi.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/figure.js drawArm (262–283. satırlar), yakın kol · omuz 1108–1165 × 420–520",
+     "problem": "limb() üst kolun bütün dış hattını kesiyor; omuz ucu (PROF.up [0,3.6,3.7]) göğsün üstünde köşeli, kapalı, yuvarlatılmış bir kutu olarak görünüyor. Bu bir omuzluk ya da zırh levhası gibi okunuyor. Vazo ressamı göğsü örten kolu deltoid kavsiyle bağlar, omuzda kapalı dikiş olmaz.",
+     "fix": "Yakın kolun üst kol parçası `nc` (kesiksiz) işaretlenmeli: shapes'te 4. öğe true olmalı. Yerine açık bir kesik path çizilmeli: yalnız u=.35'ten dirseğe kadar iki kenar (limbPts'in ilgili noktaları), det(.4).\n\nDeltoid: `G.at(J.shoulder,-A.upA,()=>det(c=>{c.moveTo(-3.4,-.5); c.quadraticCurveTo(1.5,-1.2,4.2,5.8);},.36))`.\n\nMevcut omuz kavsi (−3.2,1.5→3.8,2.2) dil() ile ikinci kademeye alınmalı.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/figure.js baş rf dalı (alın bukleleri, ağız) ve drawLeg ayak (FOOT) · yüz 1070–1110 × 320–360; ayaklar 1000–1090 × 878–902 ve 1165–1255 × 868–902",
+     "problem": "Yüz ve ayakta üç eksik var. Yakın planlarda (CAMS.yakin z 3,4) bunlar görünür olacak.\n- Alın bukleleri sty.line ile siyah saçın içine çiziliyor ve görünmüyor.\n- Bıyık lülesi ve dudak yok; sakal doğrudan burnun altından başlıyor, ağız okunmuyor.\n- Ayaklar uzun ve düz terlik gibi; tek bir kısa parmak çizgisi var.",
+     "fix": "Alın bukleleri: kil halka ile siyah nokta, saçın önünde alın kenarına konmalı. `for(i<5){const x=lerp(5.0,2.4,i/4), y=-9.75; G.paint(c=>c.arc(x,y,.62,0,TAU),sty.fill); G.paint(c=>c.arc(x,y,.42,0,TAU),sty.line);}`\n\nBıyık: sakaldan sonra `const MU=c=>{c.moveTo(5.9,-4.35); c.quadraticCurveTo(4.4,-4.0,3.1,-2.3); c.quadraticCurveTo(4.5,-3.1,5.7,-3.55); c.closePath();}`, sonra `G.paint(MU,sty.fill,.3,false); G.paint(MU,sty.line)`.\n\nDudak: `G.paint(c=>{c.moveTo(6.15,-3.6); c.lineTo(5.2,-3.35);}, sty.fill, .5, false)`.\n\nAyak:\n- Başparmak ayrımı: `det(c=>{c.moveTo(8.9,.9); c.quadraticCurveTo(9.5,2.0,9.1,3.0);},.24)`.\n- `dil(c=>{c.moveTo(9.9,1.3); c.lineTo(10.1,2.6); c.moveTo(10.5,1.6); c.lineTo(10.6,2.5);},.2)`.\n- FOOT'ta [6.0,.5] → [6.0,.9] (taban kemeri).",
+     "priority": "küçük"
+    },
+    {
+     "where": "lib/kaya.js kayaWorld (crag çağrısı, windLines) ve lib/scenes.js style2 dipinto · kaya sağ yarısı 1450–1900 × 300–860; rüzgâr kıvrımları ör. 560–850 × 575–590; yazıt x≈910, 300–570",
+     "problem": "Kaya:\n- Katman ve lob çizgileri (rgba(23,16,12,.55), 1,6–2,6 px) koyu sır üstünde kayboluyor; sağ yarı neredeyse düz bir alan (L std 5,8).\n- Tepe siluetine bakınca uçurum değil kum tepesi.\n\nRüzgâr: ucunda kıvrım olan modern çizgi film rüzgâr çizgileri vazo dağarcığında yok, örümcek ağı ya da kıl gibi okunuyor.\n\nYazıt: İyon yazımı ΠΡΟΜΗΘΕΥΣ, İÖ 480–450 Attika vazosu için tutarsız.",
+     "fix": "Kaya:\n- strataCol 'rgba(8,5,3,.8)', lobes lineWidth 3.\n- crag'a `inner` seçeneği eklenmeli: dış hat noktaları (out) 30 ve 60 px içeri, normal yönünde kaydırılıp yalnız x>1450 için iki kez çizilsin; lineWidth 2.4, C.ink, alpha .6. Bu vazo kayasının eşmerkezli yumru gösterimidir.\n- R tepe noktaları [1380,170],[1520,200] arasına [1440,148] ve [1600,222] eklenmeli; wob 9 → 16. Bu, yumrulu tepe verir.\n\nRüzgâr: kayaWorld'deki `windLines(ctx, t, wind)` kırmızı figür katmanında kapatılmalı. Rüzgâr zaten saç, sakal ve zincirden okunuyor.\n\nYazıt: 'ΠΡΟΜΕΘΕΥΣ' (Attika yazımı) olmalı, ls 10 kalabilir.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "vazo-İkonografi",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "Baş: saç ve sakal siyah sır kütle, çevresinde ayrılmış kil kontur; kulak saçın altında; iç bukleler kil renkli S eğrileri; alın bukleleri kil renginde",
+     "durum": "kısmen",
+     "not": "Sırıtma ve nemes okuması kalktı: siyah sır saç ve sakal, yaklaşık 3 px kil kontur, kulak gizli, eklenmiş kırmızı saç bandı var. Eksikler: sakal iç çizgileri hâlâ neredeyse düz ve dikey. Sakal ucu sivri değil, geniş, zikzak uçlu bir blok (sanat.md 'sivri' diyor). Alın bukleleri sty.line ile, yani siyah saçın üstüne siyah çiziliyor; (1085–1130, 318–330) bölgesinde hiç görünmüyor."
+    },
+    {
+     "oneri": "mouthOpen 0,7'den 1,1'e (siyah sakal içinde çığlık)",
+     "durum": "başkan reddetti (gerekçesi yerinde)",
+     "not": "Sıkılı ağız ve scowl metne daha sadık: Aiskhylos'ta Prometheus bağlanma sahnesi boyunca (ZVP 1–87) tek söz etmez. Önerimi geri çekiyorum."
+    },
+    {
+     "oneri": "Kapak ve yakın plan için kırmızı figür ¾ baş (head3q)",
+     "durum": "başkan reddetti (gerekçesi yerinde)",
+     "not": "Kapak aşamasına bırakıldı. Üslup karesinde profil doğru uylaşım; ¾ yüz Klasik kırmızı figürde meşru, kapakta kullanılacak."
+    },
+    {
+     "oneri": "Mısır şendit'i gibi okunan peştamal yerine perizoma ya da kısa himation: kırmızı kemer kalksın, düğümde kırmızı nokta, çapraz kıvrımlar",
+     "durum": "uygulandı",
+     "not": "Benim alternatifim olan kalça himationu seçildi. Kararlar.md bu öneriyi 'çıplak Prometheus' diye özetlemiş; çıplaklık yalnız Lakonya kylixi için yaptığım bir gözlemdi, önerim perizoma ya da himationdu. Sonuç yine de doğru yönde: kırmızı kemer yok, etek ucu çapraz, düğümde kırmızı nokta, Thanatos'un pliseli eteğiyle karışmıyor. Uygulama zayıf: (1085–1205, 552–742) bölgesinde düz bir önlük ya da panel gibi duruyor. Arka kenar x≈1200'de dimdik, üst kenar düz; yüzeyin üçte ikisi boş. Kıvrımlar düğümden dar bir yelpazeyle iniyor ve arp teli gibi okunuyor."
+    },
+    {
+     "oneri": "Zincir siyah demir ve kil ışık kavsi; bilekte demir kelepçe; kare kazık yerine büyütülmüş kama; ayakta pranga ve üçüncü kama; isteğe bağlı göğüs kuşağı; ayak parmakları",
+     "durum": "uygulandı",
+     "not": "Siyah alt bantlı demir zincir sarkıyor ve geriliyor, kelepçeler ve kamalar (ölçek 3,6) var. Ayak bilekleri kısa zincirle (1195,900–970)'deki kamaya bağlı. Artık 'mıhlanmış' okunuyor. Göğüs kuşağı yok, ama isteğe bağlıydı. Yeni sorun: üst kamanın ucu (1440,193) kaya konturunun dışına taşıyor, kama gökyüzüne çakılmış gibi duruyor (düzeltme 5)."
+    },
+    {
+     "oneri": "Kartal: uzak kanat ayrı (angFar, V silueti), baş 1,5×, ağır çengel gaga, kısa kama kuyruk, beyazsız göz, düz kaş çıkıntısı",
+     "durum": "kısmen",
+     "not": "Uygulananlar: angFar ile V silueti; baş 1,4×; gaga eğrisi birebir (34,-9,33,5); kehribar göz. AMA eagle2'de bir kod hatası var: baş bloğundan önce strokeStyle yeniden ayarlanmıyor. Bacak ve pençe döngüsünden kalan dolgu rengiyle (col) çiziliyor. Bu yüzden baş ve gaga konturu, kaş çıkıntısı ve ense çizgileri görünmüyor. Ense çizgileri baş konturunun dışında, yüzen kil renkli bir çubuk olarak çıkıyor (655–690, 358–368). Sonuç: kel ve pürüzsüz baş akbaba gibi okunuyor. Scratchpad'deki kopyada doğruladım. Kuyruk da kama değil: üst üste binmiş şeritler ucunda fırça olan bir sap gibi duruyor (345–450, 275–355)."
+    },
+    {
+     "oneri": "Ufuk 890'dan 700'e; ateşler perspektifle; kayanın sol yüzü sarp düşüş; yamuk kaide kalksın; kaya dudağı",
+     "durum": "uygulandı",
+     "not": "Ufuk 760'a kalktı. Başkanın gerekçesi yerinde: büyük ateş altyazı bandının üstünde kalıyor. Kaide kalktı, figür vazo uylaşımındaki zemin çizgisine basıyor, sol yüz sarp. Kalan sorun: üçüncü ova çizgisi (y≈888) uçurum kenarında basamak çizgisine (y≈900) teğet. (937–982, 890) bölgesinde kayanın içinde süreklilik gibi devam ediyor ve yükseklik hissini kısmen geri alıyor."
+    },
+    {
+     "oneri": "Odak hiyerarşisi: tek büyük ateş, diğerleri sönük; figür arkasında hâle; kartal koyu; yıldızlar sönük; friz sakin",
+     "durum": "uygulandı",
+     "not": "Ölçtüğüm parlaklıklar (L): ateş tepe 221 > Prometheus 116–118 > kartal 75–91 > kaya 51 > gök 13. Alt friz 102'den 32'ye indi. Kartalın gözü (163) yalnızca küçük bir nokta, ateşle yarışmıyor."
+    },
+    {
+     "oneri": "Yukarı kalkan kol baştan ayrılsın (ik.hF ve sF kaydırılsın, baş -0,25)",
+     "durum": "uygulandı",
+     "not": "Köşegen, zincire karşı asılan poz. Kol saçın arkasından çıkıyor; 246 px'te baş, kol ve zincir ayrı okunuyor. Boynuz ya da şapka okuması yok."
+    },
+    {
+     "oneri": "Hareket: kartal kf yoluyla köşegen iniş ve büyüme; kamera 1,00'dan 1,06'ya; paralaks; zincir sarkması; Prometheus kartala dönsün",
+     "durum": "uygulandı",
+     "not": "Kartal (180,210)'dan (720,410)'a iniyor, ölçek 2,2'den 2,9'a büyüyor, kanat döngüsü sürekli. Kamera 1,00'dan 1,06'ya, paralaks katsayıları 0,1/0,35/0,4/1. 4,2 sn'lik gerilme döngüsünde zincir geriliyor, kazıktan toz dökülüyor; rüzgâr ve kıvılcım da var. Başın 'look' değeri kartala doğru değişiyor. Saldırı pozu yerine yaklaşan tehdit seçilmiş; benim katman düzeltmemle tutarlı."
+    },
+    {
+     "oneri": "Kartalın Zeus'a bağlanması: (a) soğuk çakma; (b) Zeus'un asasında kartal başlığı; (c) gözde küçük renk noktası",
+     "durum": "kısmen",
+     "not": "(a) Var ama yalnız (160,120) merkezli, r 380'lik yaygın gri-mavi bir hâle. Yıldırım değil, ay ışığı ya da sis gibi okunuyor. env.js'deki bolt() (vazo keraunosu) kullanılmamış. (b) Siyah figür sahnelerine bırakıldı; gerekçesi yerinde. (c) Kehribar göz var."
+    },
+    {
+     "oneri": "Kaya: daha az ve daha sönük katman çizgisi, kontura paralel yumrular, figür çevresi temiz, dalgalı spline dış hat",
+     "durum": "uygulandı",
+     "not": "7 kısa eğimli katman, 8 lob yayı, figür çevresinde temiz elips, fbm ile oynatılmış spline dış hat. Tahta kaplama okuması kalktı. Yan etki: tepe artık yumuşak bir kubbe ya da höyük gibi; 'sarp İskit kayası' hissi azaldı (düzeltme 5)."
+    },
+    {
+     "oneri": "Kırmızı figürün çift çizgi sistemi: kontur siyah, ikincil kaslar sulandırılmış sır",
+     "durum": "uygulandı",
+     "not": "STY.red.dilute var; karın ve kaburga çizgileri sulandırılmış sırla, ana hatlar siyah. Göğüs düz."
+    },
+    {
+     "oneri": "Çerçeve hataları: sağ kenardaki kaya konturu; friz boşluklarından görünen kaya",
+     "durum": "uygulandı",
+     "not": "Kaya 1990/2600'e kadar kadraj dışına uzanıyor, sağ kenar çizgisi yok. Üstte kesik meander ve çapraz kare, altta akan dalga kuşağı; ikisi de opak."
+    },
+    {
+     "oneri": "Katman: her gün karaciğeri yiyen kartal Hesiodos'tur; A03/D04 siyah figür Lakonya kylixine, kırmızı figür kayada kartal yalnız tehdit",
+     "durum": "uygulandı",
+     "not": "planlar.json'da P006–P010, P058 ve P061 KYLIX setinde; P250 negatif geçişle kırmızı figür tehdide bağlanıyor. Üslup karesi de tehdit anını gösteriyor."
+    }
+   ],
+   "scores": {
+    "S1": 8.5,
+    "S2": 8.5,
+    "S3": 8.5,
+    "S4": 8,
+    "S5": 8.5,
+    "S6": 9,
+    "S7": 8.5
+   },
+   "verdict": "RED",
+   "summary": "Karar RED: ağırlıklı ortalama 8,50 (1. turda 6,68). Eşik 9,0; hiçbir ölçüt 7'nin altında değil. Puanlar 1. turla aynı ölçekte verildi.\n\nİlerleme büyük. Kare artık okunuyor:\n- Aiskhylos'un kırmızı figür sahnesi;\n- siyah sır saçlı ve sakallı, kaşları çatık, ağzı sıkılı bir Titan (bağlanırken susan Prometheus);\n- demir kelepçe, pranga ve dövme kamalar;\n- tek ateş odağı;\n- köşegen boyunca inen bir tehdit.\nSisifos'taki Thanatos ile karışma riski kalktı. Seri kimliği korunuyor: meander, vazo üslubu, dipinto. 1. turdaki 14 önerimden 10'u uygulandı, 2'si kısmen; başkanın reddettiği 2 öneride gerekçeler yerinde.\n\nPuanı 9'un altında tutan dört şey (aşağıdaki düzeltmelerin ilk dördü):\n\n1. Kartal Zeus'un kartalı gibi değil, akbaba gibi okunuyor. Sebep bir kod hatası. world.js'deki eagle2 baş bloğunda strokeStyle sıfırlanmıyor; baş, gaga, kaş ve ense çizgileri pençelerden kalan kil rengiyle çiziliyor. Sonuç: baş konturu, kaş çıkıntısı ve gaga kökü görünmüyor; ense çizgileri başın üstünde yüzen bir çubuk oluyor (655–690, 358–368). Çözüm tek satır. Scratchpad'deki kopyada denedim, ense tüyleri eklenince sikke kartalı gibi okunuyor. Karşılaştırma: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/cmp2.png ve /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/out_eg4/t0000.00.png.\n2. Kuyruk kama değil, ucunda fırça olan bir sap gibi.\n3. Zeus bağı zayıf. Soğuk çakma yaygın bir sis; keraunos biçimi yok, oysa bolt() fonksiyonu hazır.\n4. Himation düz bir önlük gibi; kıvrımları arp teli gibi.\n\nMekânda iki küçük sorun var:\n- Üst kamanın ucu kaya konturunun dışına, gökyüzüne taşıyor. Kaya tepesi sarp bir kaya değil, yumuşak bir höyük gibi.\n- Ova çizgisi uçurum basamağına teğet.\n\nDipinto için not: fonts.css'teki Cinzel Yunan harflerini içermiyor. Harfler sistemin yedek fontundan geliyor (burada DejaVu Serif); tırnaklı ve makineye göre değişiyor.\n\nİlk üç düzeltme S1, S4 ve S7'yi yaklaşık 9'a çıkarır. 4. ve 5. düzeltmelerle S3 ve S4 de 9'a gelir; ortalama 9,0'ın üstüne çıkar.",
+   "fixes": [
+    {
+     "where": "lib/world.js eagle2, '// baş ve gaga' bloğu. Karede baş (690–810, 355–470), yüzen çubuk (655–690, 358–368). SCENES.flap ve tüm eagle2 çağrılarını etkiler.",
+     "problem": "Baş bloğu öncesinde strokeStyle bacak ve pençe döngüsünden kalan col değerinde. Baş ve gaga konturu, kaş çıkıntısı (8,-6.2 → 18,-4.6) ve 3 ense çizgisi dolgu rengiyle çiziliyor, yani görünmüyor. Ense çizgileri baş konturunun dışında kaldığı için başın üstünde yüzen kil renkli bir çubuk oluşturuyor. Kel ve pürüzsüz baş 1920'de ve kanat döngüsünde akbaba gibi okunuyor; kırmızı figürün kabartma kontur kuralı da bozuluyor.",
+     "fix": "1. `const bk = o.beak ?? 0;` satırının hemen arkasına `ctx.fillStyle = col; ctx.strokeStyle = line;` ekle.\n2. Baş spline'ını yalnız doldur (fill). Konturu boyun dikişi olmadan açık yol olarak çiz: moveTo(-2,-6); bezierCurveTo(1,-10, 5,-11.2, 8,-11); bezierCurveTo(13,-10.8, 17,-10, 21,-3); bezierCurveTo(20.5,1, 18,4, 8,8); stroke (LW·1,2).\n3. Eski 3 ense çizgisini sil. Yerine başın arkasına sivri ense tüyü poligonu koy: J = [[1,-9.5],[-6.5,-6.2],[-1.6,-5.6],[-8.4,-2],[-3.2,-1.6],[-8.6,2.4],[-3.6,2.4],[-7.4,6.4],[-1,6.6],[4,0]]. Dolgu col; kontur son kenar hariç, LW·1,0.\nScratchpad'de denendi: kaş, gaga kökü ve ense tüyleri çıkıyor, Yunan sikke ve vazo kartalı gibi okunuyor. Değer sırası değişmiyor.",
+     "priority": "kritik"
+    },
+    {
+     "where": "SCENES.style2: `if (t < .6) {... glow(ctx,160,120,380,...)}` satırı ve kartal yolu `ex = lerp(180,720,k)`. Karede sol üst (0–420, 40–390), t 0–0,6.",
+     "problem": "Kartalı Zeus'a bağlayan çakma yalnız yaygın gri-mavi bir hâle; ay ışığı ya da sis gibi okunuyor. Zeus filmde hiç görünmüyor (F05b), kartal onun tek bedeni. Filmin TAHT ve Zeus planlarında (P053, P254) kullanılan keraunos biçimi burada yok, bu yüzden izleyici iki simgeyi birbirine bağlayamıyor.",
+     "fix": "1. Kartal başlangıcını `ex = lerp(-160, 720, k)` yap. t=4,2'de ex 660 yerine 622 olur; kompozisyon korunur.\n2. Glow satırının içinde ve kartaldan önce şunu çiz: `ctx.save(); ctx.globalAlpha = .75*fa; bolt(ctx, 170, 140, 1.3, .55, '#DDE3F2', 'rgba(210,220,255,.25)'); ctx.restore();`.\n3. fa'yı t 0–0,45 aralığına daralt. Kartal çakmanın içinden kadraja girer.\nDenememde keraunosun tepe parlaklığı L 143, ateşinki 221. sanat.md'deki 'yıldırım ateşle yarışmaz, kısa çakar' kuralı korunuyor.",
+     "priority": "önemli"
+    },
+    {
+     "where": "eagle2 kuyruk döngüsü (5 şerit). Karede (345–450, 275–355).",
+     "problem": "Aynı kökten çıkan neredeyse paralel 5 şerit üst üste biniyor. En üstteki şerit yuvarlak uçlu düz bir çubuk; kuyruk, ucunda fırça olan bir sap ya da tüy süpürgesi gibi okunuyor. Vazo kartalının kuyruğu uca doğru genişleyen, ucu düz ya da dilimli bir kamadır.",
+     "fix": "Döngünün yerine tek bir kama çiz:\n- a0 = PI + (o.tailA||0), base [-38,2], L = tLen;\n- yarım genişlik kökte 5,5, uçta lerp(12,16,tO);\n- uç kenarında 4 dilim: quadraticCurveTo(P(1.07, orta), P(1, v1));\n- kökten uca 3 tüy ayırma çizgisi: P(.18, v·.3)'ten P(.98, v)'ye, LW·0,9;\n- u 0,72–0,80 arasında siyah kuyruk bandı.\nScratchpad'de denendi; 168 px'te de kuyruk olarak okunuyor.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/figure.js drawGarment 'hipwrap'. Karede (1085–1205, 552–742), düğüm (1095,580).",
+     "problem": "Mısır eteği okuması kalktı ama giysi düz bir panel ya da önlük gibi:\n- arka kenar x≈1200'de dimdik, üst kenar y≈555'te düz;\n- sağdaki üçte ikilik yüzey boş;\n- kıvrımlar tek noktadan dar bir yelpazeyle iniyor, arp teli gibi;\n- kalın siyah bordür etek ucunun üstünde ayrı bir çubuk gibi duruyor.\nVazodaki kalça himationunda belde bir rulo, yüzey boyunca sarkık kıvrımlar ve sarkan uçta zikzak kenar bulunur.",
+     "fix": "(a) Bel rulosu: tP([7.4,-8.6])'dan tP([-8.0,-9.2])'ye 1,1 birim aralıklı iki paralel det çizgisi (0,28) ve 4 kısa çapraz bükülme çizgisi.\n(b) Kıvrımlar: 7 kıvrım. Başlangıçlar lerp2(knot, tP([-8,-8]), i/6), bitişler lerp2(hemA, hemB, (i+.5)/7). Kontrol noktası orta noktadan 1,5 birim öne ve aşağı sarkık (quadraticCurveTo), det 0,28. Düğümden çıkan 2 kısa kıvrım kalsın.\n(c) Arka sarkan uç: tP([-8.9,-5.4])–hemB kenarı düz değil, ±1 birimlik 3 dişli zikzak.\n(d) Bordür: siyah şerit hem çizgisinin 1,2 birim içine alınsın, kalınlığı 1,0'dan 0,7'ye insin; altına ince bir sty.dilute çizgi eklensin. Nokta motifi kalsın.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/kaya.js kayaWorld: R dizisi ve PROM_KAYA.sF. Karede üst kama (1395–1445, 193–240), kaya tepesi (1130–1720, 170–300).",
+     "problem": "Üst kamanın ucu (1440,193) kaya konturunun (o noktada y≈200) dışına, gökyüzüne taşıyor; kama havaya çakılmış görünüyor. Kayanın tepesi yumuşak bir kubbe ya da höyük. Aiskhylos'un sarp İskit kayası okunmuyor; Prometheus'u gösteren Apulya kraterlerindeki gibi figürü çerçeveleyen kaya saçağı da yok.",
+     "fix": "1. R'de [1290,210], [1380,170], [1520,200] yerine [1290,190], [1350,120], [1420,150], [1500,95], [1580,175], [1720,240] kullan.\n2. crag'ın flat indekslerini yeni nokta sayısına göre kaydır: [11,12] → [14,15].\n3. Böylece kama en az 60 px kayanın içinde kalır ve figürün üstünde dişli bir saçak oluşur.\nEn küçük alternatif: sF [1480,215] → [1470,255].",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/kaya.js ova çizgileri `[[0,1],[52,.8],[118,.6]]`; crag strata. Karede (880–985, 880–900).",
+     "problem": "Üçüncü ova çizgisi (y≈888) uçurum kenarında figürün bastığı basamak çizgisine (y≈900) teğet. Hemen sağında kaya içindeki bir katman çizgisi (937–982, 890) bu çizgiyi sürdürüyormuş gibi görünüyor. Ova basamakla aynı seviyede okunuyor ve yükseklik hissi zayıflıyor.",
+     "fix": "1. 118'i 175 yap.\n2. Ova çizgilerinde x>780 için alfa kademeli düşsün: ctx.globalAlpha = a·clamp((920-x)/140). Bunun için çizgiyi parça parça çiz.\n3. crag strata başlangıcını sol kenardan uzaklaştır: `x = bx0 + r()*120` yerine `x = bx0 + 80 + r()*120`.",
+     "priority": "küçük"
+    },
+    {
+     "where": "SCENES.style2: dipinto `txt(ctx,'ΠΡΟΜΗΘΕΥΣ',…'600 26px Cinzel')`, translate(1000,300). Karede (895–920, 300–575).",
+     "problem": "fonts.css'teki Cinzel'in unicode-range'i Yunan bloğunu (U+0370–03FF) içermiyor. Harfler sistemin yedek fontundan geliyor (bu makinede DejaVu Serif). Sonuç tırnaklı modern bir serif; render makinesine göre de değişir. Vazo dipintosu tırnaksız ve tek kalınlıkta fırça yazısıdır. Ayrıca t=5,9'da kartal gagası (850,490) yazıya yalnız 35 px uzakta.",
+     "fix": "1. lib/kaya.js'e yeniden kullanılabilir `dipinto(ctx, s, x, y, h, a)` fonksiyonu ekle. Glifler tek kalınlıkta çizgi olsun (lineWidth h·0,09, lineCap round), noise1 ile ±0,03h düzensizlik. Gereken glifler: Π Ρ Ο Μ Η Θ Ε Υ Σ Ζ Α Τ Λ Κ Ι Ν. Film boyunca ΖΕΥΣ, ΗΡΑΚΛΗΣ ve ΑΤΛΑΣ yazıları için de kullanılır; seri kimliğine katkı sağlar.\n2. Konumu (1015,315)'e kaydır.\n3. İsteğe bağlı, ama yalnız bütün filmde tutarlı uygulanırsa: Aiskhylos dönemi Attika yazımı ΠΡΟΜΕΘΕΥΣ (403 öncesi Η yerine Ε).",
+     "priority": "küçük"
+    },
+    {
+     "where": "lib/figure.js kırmızı figür başı: alın bukleleri döngüsü ve BEARD_RF. Karede alın (1085–1130, 318–330), sakal ucu (1075–1130, 400–425).",
+     "problem": "Alın bukleleri sty.line ile, yani siyah saçın üstüne siyah çiziliyor; hiç görünmüyor. Sakal altta geniş, zikzak uçlu dikdörtgen bir blok; ön kenarı dik. Asur sakalı gibi okunuyor; sanat.md'deki ve Lakonya kylixindeki sivri sakal değil.",
+     "fix": "1. Alın bukleleri: noktaları sty.fill rengiyle (kil, r 0,36) çiz. Ya da saç çizgisi boyunca 0,5 birimlik ayrılmış bir kil şerit bırak, siyah kabartma noktaları onun üstüne koy.\n2. Sakal: BEARD_RF'nin alt kenarındaki [2.5,2.9], [3.4,2.7], [4.0,4.5], [4.7,3.9], [5.6,5.4] noktalarını [2.0,2.6], [3.6,4.2], [5.2,6.4], [6.0,4.0] ile değiştir; ucu öne ve aşağı sivrilsin.\n3. Sakal iç çizgileri hafif S eğrisi olsun: quadraticCurveTo yerine bezierCurveTo, kontrol noktaları ±0,5.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "karakter-İfade",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1. Baş açısı ~-.22 rad olsun, kartal bakış hattına çıksın, iki bakış karşılaşsın",
+     "durum": "uygulandı",
+     "not": "Değerler torso .1+.07·pull, neck -.04, head -.1+look; yüz düz, çene hafif yukarıda. Prometheus'un gözü (1095,340), kartalın gözü (735,400): bakışlar karşılaşıyor. Geriye atılmış baş ayrı bir seçenek oldu (headBack). Kalan bir yan etki var: look lerp(-.12,-.02,k) kartal alçaldıkça çeneyi indiriyor (düzeltme 2)."
+    },
+    {
+     "oneri": "2. Çatık kaş için scowl parametresi ekle, kaşı burun sırtına bağla",
+     "durum": "uygulandı",
+     "not": "Önerdiğim formül birebir uygulanmış: LK.prom.scowl .6 ve burun sırtı devamı var. İç uç (1083,336)'da iniyor, hüzünlü kaş okuması kalktı. Kalan: formüldeki kontrol noktası (-9.3 - sc·.05) yüzünden kaş hâlâ kemerli; orta nokta kirişin ~.4 birim üstünde, bu da 'dikkatli' bir kaş veriyor, 'ağır' değil. Bu benim formülümün eksiği; düzeltmesi 1. maddede."
+    },
+    {
+     "oneri": "3. Ağız kapalı ve sıkılı olsun; EXPR hazırları (direnç / göğe hitap / acı) eklensin",
+     "durum": "kısmen",
+     "not": "mouthOpen 0, smile -1. Ağız bıyıkla sakal arasında görünmüyor, yani sessizlik sağlanmış. EXPR hazırları ise yok. Çatık kaş görünüm katmanına (LK.prom.scowl) kalıcı olarak konduğu için göğe hitap ve acı anlarında da çatık gelecek (düzeltme 4)."
+    },
+    {
+     "oneri": "4. Kazıklar geri alınsın, zincir uzun ve kalın olsun, kol baştan ayrılsın",
+     "durum": "uygulandı",
+     "not": "sF [1480,215], sN [1495,600]; ironChain w 7 artı siyah bant, kazık 3.6. Kol baştan ayrıldı, 246 px'te halkalar seçiliyor. Kalan: kama 86 px'lik tam koyu bir kütle olarak kayanın üstünde duruyor; 168 ve 246 px'te elde tutulan bir meşale ya da silah gibi okunuyor (düzeltme 5)."
+    },
+    {
+     "oneri": "5. Bacaklar dik bir A duruşuna geçsin, iki diz birden öne kırılmasın",
+     "durum": "kısmen",
+     "not": "Başkan başka bir kavram seçti: 'zincire karşı asılan köşegen poz'. Pranga ve üçüncü kama ayakları zemine bağlıyor, kökleşme sağlanmış. Ama adım duruşu kaldı: ön diz (1035,740) öne kırık, ayaklar (1000-1060,890) ve (1165-1255,885). Köşegen poz meydan okumayı taşıyor, bu yüzden kabul edilebilir. Asıl sorun 4,2 sn'lik periyodik gerilme döngüsü: art arda kurtulma denemesi gibi, yani çırpınma gibi okunuyor (düzeltme 2)."
+    },
+    {
+     "oneri": "6. Kartal gözü kehribar olsun, bebek 1.45, kaş çıkıntısı göz kapağına insin",
+     "durum": "kısmen",
+     "not": "Kodda üçü de var ve beyaz göz lekesi gitti. Ama teslim edilen karede kartal başında ne kontur ne kaş çıkıntısı görünüyor (690-810, 360-470): düz bir kil kütle ve nokta bir göz; bakış boş ve uykulu, akbabaya benziyor. Kare a24cfab'den (04:49) önce çizilmiş. Güncel kodda kontur ve kaş geri gelmiş, ama eğik kaş ile tepedeki siyah ibik bu kez 'kızgın çizgi film kuşu' okumasına dönüyor (düzeltme 3)."
+    },
+    {
+     "oneri": "7. Yanaktaki üç 'gülümseme' yayı kaldırılsın ya da enseye taşınsın",
+     "durum": "kısmen",
+     "not": "Yaylar kalktı. Teslim edilen karede başın üstünde, başa değmeyen bir kil çubuk havada duruyor (660-684, 360-366). Güncel kodda ise ense tüyleri siyah doluyor, çünkü fillStyle bebek için verilen 'line' değerinde kalmış; tepede ibik ya da mohikan gibi okunuyor."
+    },
+    {
+     "oneri": "8. Gaga sabit kalsın, yalnız çığlıkta açılsın; baş hedefe kilitlensin",
+     "durum": "uygulandı",
+     "not": "Gaga beak .08 + .8·cry ile t=3,2'de açılıyor; headA eğimi ve salınımı telafi ediyor. Gaga ve göz hattı karaciğer bölgesine (≈1130,560) dönük."
+    },
+    {
+     "oneri": "9. Karın inceltilsin, baş 1,4× olsun, çengel gaga, kapalı kuyruk, pençe öne",
+     "durum": "uygulandı",
+     "not": "bodyS .84, headS 1.4, gaga (33,5), talon .4→1. Teslim edilen karede kuyruk ince bir sap ve uçta yelpaze, süpürge gibi okunuyor; güncel koddaki kama kuyruk bunu çözüyor."
+    },
+    {
+     "oneri": "10. Plan hareketi: kartal yaklaşsın, ateşler sönükleşsin, çene yavaşça kalksın, en yakın anda yavaş göz kapanışı, kamera itişi",
+     "durum": "kısmen",
+     "not": "Yapılanlar: kartal köşegen boyunca yaklaşıyor (x 180→720, s 2.2→2.9), kamera 1.00→1.06, nefes 1.3, rüzgâr. Yapılmayanlar: Prometheus'un 'irkilmeme' vuruşu yok; önerdiğim çene kalkışının tersine çene iniyor. Göz kırpma rastgele kaldı (blinkAt, seed 17: t=0,13 ve 5,72); yavaş, anlamlı bir kapanış yok. Zincir titreşimi yerine periyodik gerilme döngüsü konmuş."
+    },
+    {
+     "oneri": "11. Alın bukleleri dolu nokta olsun; kapakta faceW kullanılsın",
+     "durum": "uygulandı",
+     "not": "Kırmızı figürde beş kabartma nokta (.36) var. Başkan ¾ yüzü kapağa bıraktı; bu, kapak dersleriyle tutarlı ve gerekçesi yerinde."
+    },
+    {
+     "oneri": "12. Deneme sahnelerine de son işlem (doku, vinyet, gren) uygulansın",
+     "durum": "uygulandı",
+     "not": "film.js sahne yolu artık post() çağırıyor; style2.post değerleri tex .55, vig 1, grain .06."
+    }
+   ],
+   "scores": {
+    "S1": 8,
+    "S2": 7.5,
+    "S3": 7.5,
+    "S4": 7,
+    "S5": 7.5,
+    "S6": 7.5,
+    "S7": 7.5
+   },
+   "verdict": "RED",
+   "summary": "Karakter-İfade, 2. tur: RED. Ağırlıklı ortalama 7,53 (1. turda 6,45). S4 5'ten 7'ye çıktı.\n\nKapsam: puanı teslim edilen kareye (uslup_tur2/uslup_karesi.png) verdim. Kare a24cfab (04:49) commit'inden önce çizilmiş; güncel kodla çizilen kare farklı (kartal başı konturu, kama kuyruk, figür konturu, sivri kaya, çömelmiş insanlar). Bu farkı doğrulamada ayrıca belirttim. Düzeltmeleri güncel koda göre yazdım.\n\nDüzelenler:\n- Vecd ve sırıtış okuması tamamen gitti. Yüz kapalı ağızlı, sakin, sert bir bakış.\n- Kulak saçın altında. İki bakış karşılaşıyor; kartal karaciğere, Prometheus kartalın yüzüne bakıyor. Bu asimetri doğru: yırtıcı avına, kurban yırtıcının yüzüne bakıyor.\n\nEksik kalan, senaryonun psikolojisi (\"meydan okuma, katlanma, bile bile\"):\n1. Yüz: meydan okumanın işaretleri yok.\n   - Göz tam açık.\n   - Kaş hâlâ kemerli; bu benim scowl formülümün eksiği.\n   - Sakal dikey sarkıyor, çene öne çıkmıyor.\n   - Boşta salınım başı ±4° oynatıyor ve göz rastgele kırpıyor (t=0,13 ve 5,72). Kartalın başı kilitli, Prometheus'unki değil.\n2. Oyunculuk (vuruşlar):\n   - Kartal t=3,2'de çığlık atıyor, Prometheus hiç tepki vermiyor.\n   - 4,2 sn'lik periyodik gerilme döngüsü onu art arda kurtulmaya çalışan biri gibi gösteriyor (çırpınma).\n   - Kartal alçaldıkça çene iniyor; tehdit yaklaşırken baş eğmek boyun eğme işaretidir.\n3. Kartal:\n   - Teslim edilen karede başında ne kontur ne kaş var; boş bakışlı bir akbaba gibi. Tehdidi yalnız siluet taşıyor.\n   - Güncel kodda eğik kaş ile siyah ibik \"kızgın çizgi film kuşu\" okumasına geri dönüyor. İbiğin sebebi bir kod hatası: fillStyle 'line' değerinde kalmış.\n   - Bebek gözü neredeyse tamamen kaplıyor; arkada kalan kehribar hilal ışık parıltısı gibi duruyor ve sevimli bir göz veriyor.\n4. Küçük boy: 168 ve 246 px'te kol, zincir ve kama tek çizgiye dönüyor; kaldırılmış kol elinde meşale tutuyor gibi okunuyor. Bağlanmışlık, yani katlanmanın kendisi, küçük ekranda zayıflıyor.\n\nDenemeler (proje dosyalarına dokunmadan, scratchpad'deki SCENES.style3 ile):\n- Prometheus'ta kısık göz, düz ve ağır kaş, öne çıkan sakal ucu, düşük boşta salınım. Çığlıkta irkilmiyor, çenesini kaldırıp gözünü kısıyor.\n- Kartalda örtülü (D biçimli) göz, gözün altına uzanan gaga yarığı, kil renkli kabarık ense tüyleri.\n- Gömülü kazık.\n- Sonuç: 1× ve yakın planda direnç ve tehdit belirgin biçimde okunuyor. 246 px'te yüz değişikliği görünmüyor, orada iş siluete ve kazığa kalıyor.\n\nDosyalar:\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/karakterIfade_tur2/ifade_karsilastirma_tur2.png (teslim edilen / güncel kod / deneme / çığlık vuruşu)\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/karakterIfade_tur2/beat35.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/karakterIfade_tur2/kazik_test.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/karakterIfade_tur2/kucuk168_karsi.png\n- Kod farkı: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/karakterIfade_tur2/denemeler.diff",
+   "fixes": [
+    {
+     "where": "Prometheus yüzü: göz (1090-1110, 334-343), kaş (1083-1111, 328-336), sakal (1075-1135, 352-425). Kod: figure.js drawHead kaş satırı ve BEARD_RF blow çağrısı; kaya.js promChained figure() çağrısı; chars.js LK.prom",
+     "problem": "Yüz 'sakin bakış' okunuyor ama meydan okuma işaretleri yok. (a) Göz tam açık bir V (bl=1). (b) Kontrol noktası (-9.3 - sc·.05) yüzünden kaş kemerli. (c) Sakalın ön kenarı dikey (x 5.9-6.45), ucu (5.5, 5.9) geriye kaçık; çene öne çıkmıyor. (d) idleOffsets başı ±.045+.03 rad sallıyor, blinkAt rastgele kırpıyor. Kartalın başı kilitliyken Prometheus'un bakışı titriyor.",
+     "fix": "1) Kaş: const y0 = -8.45 - br*.3 - sc*.45, y1 = -8.6 + br*.45 + sc*.75, bf = p.browFlat ?? lk.browFlat ?? 0; det(c => { c.moveTo(2.0, y0); c.quadraticCurveTo(3.8, lerp(-9.3 - br*.6 - sc*.05, (y0 + y1)/2 - .05, bf), 5.6, y1); }, (.34 + sc*.08) * FW * (1 + bf*.25)).\n2) Sakal: const jut = p.beardJut ?? lk.beardJut ?? 0; blow(jut ? BEARD_RF.map(([x, y]) => [x + jut*clamp((y + 1)/6.9), y]) : BEARD_RF, 0, .7).\n3) LK.prom'a browFlat: .85, beardJut: 1.3 ekle. Sakal ucu yaklaşık 8 px öne çıkar.\n4) promChained figure() çağrısında idle: o.idle ?? .35 ve p.blink: o.blink ?? .28 (kısık göz, rastgele kırpma yok).\nDenendi: ifade_karsilastirma_tur2.png, üst sıra 3. kare.",
+     "priority": "kritik"
+    },
+    {
+     "where": "SCENES.style2 (scenes.js, promChained çağrısı) ve kaya.js promChained gerilme döngüsü; çığlık t≈3,2 sn",
+     "problem": "Çığlıkta Prometheus'un yüzü de bedeni de hiç tepki vermiyor; 'bile bile katlanma'nın zamandaki karşılığı yok. 4,2 sn'lik periyodik gerilme (gövde öne asılır, zincir gerilir, kazıktan toz dökülür) art arda kurtulma denemesi gibi, yani çırpınma gibi okunuyor. look lerp(-.12, -.02, k) kartal alçaldıkça çeneyi indiriyor: tehdit yaklaşırken baş eğmek boyun eğme işaretidir.",
+     "fix": "Önce kaya.js'te pull = o.pull ?? (mevcut döngü) yap; kazık tozu (motes) yalnız o.dust > .5 iken dökülsün. Sonra style2'de:\nconst br3 = Math.exp(-Math.pow((t - 3.45)/.45, 2)), lid = .28 + .12*E.io2(clamp((t - 3.3)/.5));\npromChained(ctx, t, { look: lerp(-.12, -.04, k) - .07*br3, wind, pull: .25 + .15*br3, dust: br3, blink: lid, p: { scowl: .25*br3 } });\nOkunuş: irkilmez; çenesini kaldırır, gözünü kısar, gövdesini tek bir kez kartala verir ('gel'). Dünya (kartal, rüzgâr, ateş, kamera) hareket ederken o durur; S6'nın 'hiç durmayan plan' ilkesi korunur. Denendi: beat35.png.",
+     "priority": "kritik"
+    },
+    {
+     "where": "Kartal başı (teslim edilen karede 690-810, 360-470; göz 735,400; havada duran çubuk 660-684, 360-366); world.js eagle2 baş bloğu",
+     "problem": "Teslim edilen karede kontur ve kaş yok; baş boş bakışlı bir akbaba gibi. Güncel kodda kaş eğik bir çizgi, tepede de siyah dolu dişler var. Bu dişlerin sebebi ense döngüsünde fillStyle'ın bebek için verilen 'line' değerinde kalması: yorumdaki 'dolgu + kontur' gerçekleşmiyor ve ibik ya da mohikan okuması doğuyor. Bebek (r 1.45) gözü neredeyse tamamen kaplıyor; arkada kalan kehribar hilal ışık parıltısı gibi duruyor, sevimli bir göz veriyor.",
+     "fix": "1) Bebek: ctx.arc(12.7, -4.05, 1.0, 0, TAU). Böylece kehribar bir halka görünür.\n2) Ayrı kaş çizgisini kaldır; yerine kil bir göz rafı çiz: ctx.fillStyle = col; moveTo(8.2, -7.2); lineTo(18.4, -5.6); lineTo(17.6, -4.3); quadraticCurveTo(12.6, -5.6, 9.6, -4.9); closePath; fill. Sonra alt kenarı: moveTo(9.4, -4.85); quadraticCurveTo(12.6, -5.6, 17.8, -4.3); lineWidth 1.5. Gözün üstü düz bir 'D' olur: soğuk, yırtıcı bakış.\n3) Gaga yarığını gözün altına uzat: moveTo(20, -1.2); quadraticCurveTo(15.5, -.6, 12.5, -1.6); lineWidth 1.1.\n4) Ense tüylerini enseye taşı ve baş spline'ından ÖNCE çiz: for (i < 4) { u = i/3; bx = lerp(-5.2, -1.2, u); by = lerp(3.5, -6.5, u); üçgen (bx+1.6, by-1.6), (bx-4.6, by+.6+.8u), (bx+1.4, by+1.8); ctx.fillStyle = col; fill; stroke lw 1.1 }. Kabarmış ense tüyü kuşta saldırı işaretidir.\nDenendi: ifade_karsilastirma_tur2.png, alt sıra 3. kare.",
+     "priority": "kritik"
+    },
+    {
+     "where": "chars.js LK.prom (scowl .6 kalıcı); KAYA setinin öbür planları (F10b, F13, G12b, I08, I10, I11); animatik/planlar.json",
+     "problem": "Çatık kaş görünüm katmanına konmuş. sc = p.scowl + lk.scowl olduğu için göğe hitap (F13, I11) ve acı (G12b, I08) anlarında da kaş çatık ve burun sırtına bağlı gelecek. brow -1.2 ile birleşince karışık bir kaş çıkar: hem çatık hem hüzünlü. KAYA seti filmin %38'ini taşıyor; tek bir ifadeyle yaklaşık 9 dakika taşınmaz.",
+     "fix": "LK.prom.scowl'u 0 yap, ifadeyi poz (p) katmanına taşı:\nconst EXPR = {\n  direnc: { scowl: .6, browFlat: .85, beardJut: 1.3, blink: .28, mouthOpen: 0, smile: -1 },\n  goge: { scowl: 0, browFlat: 0, head: -.45, mouthOpen: .6, beardJut: .4 },\n  aci: { scowl: 0, brow: -1.2, blink: .6, head: .15, smile: -1.5, beardJut: 0 }\n};\npromChained varsayılan olarak EXPR.direnc kullansın. İfadeler arası geçiş mixP(EXPR.a, EXPR.b, E.io2(u)) ile 0,4–0,6 sn sürsün. planlar.json'da her KAYA planına 'ifade' alanı ekle.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Kazıklar: üst (1360-1445, 195-260), alt (1360-1465, 590-640); world.js stake(), kaya.js PROM_KAYA.sF/sN",
+     "problem": "86 px'lik tam koyu kama kayanın üstünde, bileğe ~120 px uzakta ve kolun doğrultusunda duruyor. 246 ve 168 px'te kol, zincir ve kama tek çizgiye dönüyor; kaldırılmış kol elinde meşale ya da silah tutuyor gibi okunuyor. Prometheus'ta meşale okuması ayrıca yanıltıcı: bu, ateşi getirdiği an değil ceza anı. Bağlanmışlık küçük ekranda zayıflıyor.",
+     "fix": "stake()'e bury seçeneği ekle:\n- Kamanın yalnız başını çiz: moveTo(-14, -5); lineTo(-3, -3.4); lineTo(-3, 3.4); lineTo(-14, 5); closePath.\n- Giriş noktasına beş kısa, koyu çatlak çiz (C.ink, lw .9): [dx, dy] ∈ {[7,-5], [9,1], [6,6], [2,-8], [1,8]} için (-2.5, dy*.25) → (-2.5+dx, dy). Çatlakları kısa tut, yoksa kıvılcım gibi okunur.\n- Kil ışık çizgisi x=-4'te bitsin.\n- İsteğe bağlı: sF [1530,190], sN [1545,615] ile zinciri ~%30 uzat.\nDenendi: kazik_test.png ve kucuk168_karsi.png (3. kare); koyu 'nesne' kısalıyor, kol kayaya çakılı bitiyor.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Dipinto ΠΡΟΜΗΘΕΥΣ (≈900-925, 300-570); scenes.js style2 ctx.translate(1000, 300)",
+     "problem": "Dikey yazı iki bakışın hattını tam ortadan kesiyor: Prometheus'un gözü (1095,340) → kartalın gözü (745,400), x=910'da y≈380. Yüzleşmenin arasına bir duvar giriyor, bakış gerilimi bölünüyor.",
+     "fix": "Yazıyı bakış hattının üstüne al, meanderden aşağı inen bir vazo yazıtı gibi: ctx.translate(985, 62). Yazı ~62–330 arasında kalır. Ya da Prometheus'un başının arkasına, kayaya koy: ctx.translate(1215, 170). Adın figüre ait olduğu okunur, göz hattı boş kalır.",
+     "priority": "küçük"
+    },
+    {
+     "where": "Sakal (1075-1135, 352-425) ve saç (1120-1180, 300-420); figure.js rf iç bukleler (saç tellerinde hl döngüsü, sakal tellerinde quadratic döngü)",
+     "problem": "Saç ve sakal içindeki kil teller düz ve paralel. Dikdörtgen sakal bloğu, düz dökülen saç ve saç bandı birlikte Asur kabartması ya da Mısır başlığı gibi okunuyor, Sert üslup Yunan başı gibi değil. Rüzgâr yalnız dış hatta görünüyor, iç teller kıpırdamıyor; Titan cansız bir maske gibi duruyor.",
+     "fix": "Sakal tellerinde quadraticCurveTo yerine S eğrisi kullan: c.bezierCurveTo(x0 + .9*sg, y0 + 1.6, x1 - .9*sg, y1 - 1.8, x1, y1); sg = (i % 2 ? 1 : -1). Saç tellerinde bezier genliğini ±.8'den ±1.4'e çıkar. Tel uçlarına dış hattaki blow ile aynı biçimde geri savrulma ekle: x -= wd*1.2*u + .3*wd*u*Math.sin(ft*3.1 + i).",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "karakter-Anatomi",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1. Pozu 'zincire karşı asılma' köşegenine çevir (px 1225, IK hF/hN/fN/fF, kazıklar sF [1480,215], sN [1495,600]); yukarı kol baştan ayrılsın, bakış kartala gitsin.",
+     "durum": "kısmen",
+     "not": "IK değerleri kaya.js promChained'de birebir benim değerlerim. Yukarı kol artık baştan ayrı, baş kartala dönük. Burun yatay; kartal gözüne çizgi yaklaşık 9° aşağıda, yeterli. Ancak benim önerdiğim fF [px+90, açı .25] arka dizi öne büküyor ve iki topuğu da yere basıyor. Bacaklar makas açıyor ve figür 'kartala doğru yürüyen adam' gibi okunuyor; 'arka bacak düz iter, topuk kalkık' hedefi gerçekleşmedi. Bu benim değerimin hatası. Düzeltmesi fixes 2'de."
+    },
+    {
+     "oneri": "2. Baş: headA kartala dönsün; kulak koşullu çizilsin; çatık kaş (brow +0.8); mouthOpen .35.",
+     "durum": "uygulandı",
+     "not": "Kulak saçın altına alınmış (earHidden); benim koşullu çözümümden daha temiz, sırıtma okuması yok. scowl .6 ile kaş iç ucu inik ve sert. Başkan yarı açık ağız yerine kapalı, sıkılı ağzı seçti ('sessiz direnç'); gerekçe yerinde. Ancak ağız çizgisi (y −3,6) sakalın üst kenarıyla çakıştığı için görünmüyor. Sakal burnun hemen altında başlayan bir peçe ya da maske gibi duruyor. Düzeltmesi fixes 5'te."
+    },
+    {
+     "oneri": "3. Zincir kalın olsun, kazık 3,6, siyah kelepçe (CUFF), sabit boydan sarkma.",
+     "durum": "uygulandı",
+     "not": "ironChain L0/slack ile sarkıyor. Kelepçeler siyah bant; yumruğun yarısı altında kalıyor, el zayıflığı saklanıyor. Kazık 3,6 ve dövme kama biçiminde. 168 px'te kelepçe ve zincir koyu çizgi olarak okunuyor; 'zincirli' fikri küçük boyda da taşınıyor."
+    },
+    {
+     "oneri": "4. Düz göğüs, pektoral çizgi, ense hizasında dalgalı saç, tutam sakal, alın buklelerini kaldır.",
+     "durum": "kısmen",
+     "not": "TORSO_M ve yeni göğüs altı çizgisi uygulanmış; kadın okuması kalktı. Saç ense hizasında, uçları sivri bukleli; nemes okuması kalktı. Sakal (BEARD_RF) ise hâlâ dikdörtgen bir blok. İçindeki çizgiler düz ve dikey, alt kenarı küt ve dişli; yakın planda 'Asur kralı' sakalı gibi okunuyor. Önerdiğim öne sivrilen tutam uygulanmadı (fixes 6)."
+    },
+    {
+     "oneri": "5. Kartal: baş 1,6×, uzak kanat V (farOff −,55), gövde ×0,82, pençe çizgisi ×1,5.",
+     "durum": "kısmen",
+     "not": "headS 1,4, farOff −,5, bodyS ,84 uygulanmış; 168 px'te iki kanatlı V okunuyor. Pençe kalınlıkları 4,2/2,2'de kalmış. Daha önemlisi, tur 2 karesinde baş konturu, kaş çıkıntısı ve ense çizgileri kil rengiyle çiziliyor. Pençeler strokeStyle'ı kil rengine bırakıyor ve başta sıfırlanmıyor. Sonuçta kaşsız, konturuz, 'dodo/akbaba' gibi bir baş çıkıyor; başın üstünde (662–684, 360–366) havada duran bir çizgi var. fixes 4'te."
+    },
+    {
+     "oneri": "6. Kartal gözü beyaz olmasın (L≈160 kil); gaga figüre baksın (tilt ≈ ,36).",
+     "durum": "uygulandı",
+     "not": "Göz kehribar #E39A4E, beyaz yok; ölçtüğüm L 161–167, önerdiğim değerle aynı. Figürün en yüksek değeri 145, ateşin 221; göz 6 px'lik bir leke olduğundan odağı bölmüyor. tilt ,32→,46 ile gaga figürün gövdesine yöneliyor."
+    },
+    {
+     "oneri": "7. 4,2 sn'lik gerilme döngüsü: gövde öne asılır, zincir gerilir/sarkar, kazıktan toz; baş kartalı izler.",
+     "durum": "uygulandı",
+     "not": "Sabit kamerayla ölçtüm: burun ucu döngü boyunca 1065→1046→1060 px, yani yaklaşık 19 px gidip geliyor. slack 1,03−,03·pull, ph ,3–,5'te kazık tozu, look k ile kartalı izliyor, nefes ve rüzgâr da var. Figür artık durağan değil."
+    },
+    {
+     "oneri": "8. PROM_POSE poz tablosu (direnis/gok/sessiz/cokus/alay); karaciğer sahnesi kanat örtüsüyle; Hephaistos sahnesi siluetle.",
+     "durum": "kısmen",
+     "not": "promChained o.p ve o.look alıyor (altyapı var), ama adlandırılmış poz tablosu yok. KAYA setinde 29 plan var ve bunların bir kısmı yakın plan. Karaciğer sahnesi başkan kararıyla siyah figür kylixe taşındı (ikonografi gerekçesi doğru); kanat örtüsü önerim oraya aktarılmalı. Hephaistos sahnesi henüz sınanmadı."
+    },
+    {
+     "oneri": "9. Diz diski elips olsun (basamaklı kontur kalksın).",
+     "durum": "uygulandı",
+     "not": "drawLeg'deki diz eklemi önerdiğim ellipse(.35,.5,3.6,3.35) çağrısının birebir aynısı. Diz önü düzgün, kırık kontur yok."
+    },
+    {
+     "oneri": "10. Ayak bileğinde yarım kavis, başparmak çentiği.",
+     "durum": "uygulandı",
+     "not": "Perçin gibi duran tam daire kalktı. Çentik yakında görünüyor, terlik okuması azaldı."
+    },
+    {
+     "oneri": "11. Peştamalın V uçlu eteği, kemerin konturdan taşmaması.",
+     "durum": "kısmen",
+     "not": "Başkan peştamal yerine kalçaya sarılı himation koydu; Mısır eteği okuması kalktı, gerekçe yerinde. Ama kutu silueti duruyor. Üst-arka köşe gövdenin sırt hattından yaklaşık 25 px taşıyor; arka kenar (1200,555)→(1200,700) dimdik iniyor. Nedeni: tP([−8.0,−9.2]) ve tP([−8.9,−5.4])'ten hemB'ye düz kenar çiziliyor; kalça ve uyluk kontur izlenmiyor (fixes 3)."
+    },
+    {
+     "oneri": "12. Kanat ucu frize değmesin (y≥90).",
+     "durum": "uygulanmadı",
+     "not": "Önizleme mp4'ünü 10 fps'te ölçtüm. Kanat ucu t≈1,5–2,6 ve 3,1–4,0 sn arasında y=38'e, yani frizin alt kenarına kadar çıkıyor ve frizin altına giriyor. Toplam yaklaşık 2 sn sürüyor."
+    }
+   ],
+   "scores": {
+    "S1": 8.5,
+    "S2": 8.5,
+    "S3": 8.5,
+    "S4": 7.5,
+    "S5": 8.5,
+    "S6": 8.5,
+    "S7": 8.5
+   },
+   "verdict": "RED",
+   "summary": "Karar: RED. Ağırlıklı ortalama 8,35 (1. turda 6,97). Hiçbir ölçüt 7'nin altında değil; RED'in tek nedeni ortalamanın 9'un altında kalması.\n\nNe değerlendirildi: tur 2 karesi (t=4,2) ve onun kazı alanındaki birebir kopyası (piksel farkı 0,07).\n- Not: lib/world.js, kaya.js, figure.js ve scenes.js render saatinden (04:31) sonra, 04:48–04:52 arasında değişmiş.\n- Canlı world.js'de kartal başının çizgi rengi zaten sıfırlanıyor gibi görünüyor. Bu yeniden render ile doğrulanmalı.\n\nBüyük sorunlar çözülmüş:\n- Kol baştan çıkmıyor; kulak sırıtması, kadın göğsü ve nemes okuması kalktı.\n- Kelepçe ve zincir 168 px'te 'zincirli adam' fikrini taşıyor.\n- Gerilme döngüsü başı yaklaşık 19 px oynatıyor. Değer sırası doğru: ateş 221 > figür 132 > kartal 108 > kaya 44.\n\nKalan sorunlar anatomide ve kodun zayıf alanında:\n1. **Yakın kolun omuz ucu kapsül gibi.** Göğsün üstünde konturlu, yuvarlak bir uç bırakıyor: zırh plakası ya da protez gibi duruyor (tam karede 1105–1175, 420–500). Asıl sorun yakın planda: CAMS.yakin (z 3,4) ile çektiğimde göğüste ayrı bir levha gibi görünüyor. Senaryoda bu kamerayı kullanacak çok sayıda plan var.\n2. **Bacaklar yürüyor, zorlanmıyor.** Arka diz öne bükük ve iki topuk yerde; figür 'kartala doğru yürüyen adam' gibi okunuyor. Bu benim 1. turdaki IK değerlerimin hatası.\n3. **Himation kutu gibi.** Arka kenar dimdik iniyor, üst köşe sırttan taşıyor.\n4. **Kartal başının çizgileri görünmüyor.** Baş konturu, kaş çıkıntısı ve ense çizgileri kil rengiyle çiziliyor. Sonuç: kaşsız, 'dodo/akbaba' gibi bir baş ve başın üstünde havada duran bir çizgi.\n5. **Ağız çizgisi görünmüyor.** Sakalın üst kenarıyla çakışıyor; sakal maske ya da peçe gibi duruyor. Etkilenen planlar: P120, P144, P259.\n6. **Sakal Asur kralı gibi.** Dikdörtgen blok, düz dikey çizgiler.\n\nHepsini kazı alanında denedim (window.ANAT bayraklarıyla, proje dosyalarına dokunmadan):\n- **Omuz:** kök örtüsü kapsül ucunu kaldırıyor. Deltoid U çizgisi eklenince bu kez göğüs gibi okunuyor; çizgisiz hâli en temizi.\n- **Bacak:** fF [px+124, gy−3s−20, −,5] ile arka bacak düzleşiyor, topuk kalkıyor; arka ayak ucundan başa kesintisiz bir köşegen çıkıyor. dir −1'de topuğu negatif ayak açısı kaldırıyor (−,6…+,6 deneme sayfası).\n- **Kartal:** strokeStyle sıfırlanınca kaş ve kontur geri geliyor; 168 px'te yırtıcı baş okunuyor.\n- **Kanat:** eagle yolu ve kanat açısı sınırlanınca kanat ucu frizin en az 66 px altında kalıyor.\n\nZayıf alanı saklama ilkem değişmedi: el kelepçe altında, yüz profilde, ifadeyi poz, zincir gerginliği ve bakış taşısın. Göz yakın planları (P026, P145, P199, P218) için rigi büyütmek yerine ayrı bir göz ilkeli gerekir.\n\n1–5. düzeltmeler uygulanırsa benim ölçeğimde S4 8,5–9'a, S1 ve S2 9'a çıkar.\n\nKanıt dosyaları (proje dosyalarına dokunulmadı):\n- Tam kare, önce/sonra: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/kanit_tam.png\n- Figür: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/kanit_figur.png\n- Yakın plan (CAMS.yakin), omuz: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/kanit_yakin.png\n- 168 px: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/kanit_168.png\n- Sakal: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/kanit_sakal.png\n- Kartal başı: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/ehead_cmp.png\n- Deltoid çizgisi seçenekleri: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/delt_cmp.png\n- Ayak açısı deneme sayfası: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/out/feet_sheet.png\n- Denenen kod: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/anat2/p/lib/ klasöründeki figure.js, kaya.js, scenes.js, world.js ve zz_anat.js (SCENES.a_all = bütün düzeltmeler).",
+   "fixes": [
+    {
+     "where": "Yakın kolun omuz kökü. Tam karede (1105–1175, 420–500); CAMS.yakin (z 3,4) ile ekranda (620–800, 820–1000). Kod: lib/figure.js drawArm.",
+     "problem": "Üst kol spline'ı omuzda yuvarlak uçla kapanıyor. limb() kesiği bu ucu göğsün üstünde konturlu bir kapsül olarak bırakıyor; ayrı bir omuz plakası ya da protez gibi okunuyor. Yakın planlarda (P003, P120, P144, P183b, P259) en göze batan anatomi hatası bu.",
+     "fix": "drawArm içinde, limb(shapes, …) satırının hemen ardına şunu ekleyin: `if (near && !lk.fem && lk.rf) G.at(J.shoulder, -A.upA, () => G.part(c => c.ellipse(0, .2, 4.2, 4.0, 0, 0, TAU), { cut: false }));`. Böylece kesik halka örtülür ve kol göğüsle kaynaşır. Aynı koşulda omuzdaki U kazımasını, yani det(moveTo(-3.2,1.5) quad(.4,4.6,3.8,2.2)) çağrısını çizmeyin. Daha aşağıya taşınmış U çizgisini de denedim; göğüs gibi okunuyor. Çizgisiz hâl en temizi (delt_cmp.png, 1. sütun).",
+     "priority": "kritik"
+    },
+    {
+     "where": "Bacaklar ve ayaklar: arka diz (1140,770), ayaklar (1000–1255, 870–900). lib/kaya.js promChained.",
+     "problem": "fF [px+90, gy−3s, .25] benim 1. tur değerimdi. Arka diz öne bükülüyor ve iki topuk da yere basıyor. Bacaklar makas açıyor ve figür 'kartala doğru yürüyen adam' gibi okunuyor. Zincire karşı asılma gerginliği bacaklara inmiyor.",
+     "fix": "IK hedefleri:\n- fN: [px − 95, gy − 3*s, .05]\n- fF: [px + 124, gy − 3*s − 20, −.5] (dir −1'de negatif ayak açısı topuğu kaldırır; −,6…+,6 deneme sayfasında doğruladım).\n\nPoz:\n- torso: .2 + .06*pull\n- neck: −.1\n- head: −.12 + look\n\nAyak zincirlerini figure()'den önce çizin, figürün arkasında kalsınlar; yoksa kalkık ayağın parmaklarını örterler. Çağrı her ayak için: ironChain(ctx, [q[0], q[1] − 12], sL, { L0: len(sub(sL, a))*1.15, w: 5, link: 20 }); q = fN ve fF.\n\nSonuç: arka ayak ucundan (1290,900) başa (1090,345) kesintisiz bir köşegen. Kol IK'sı etkilenmiyor. Bu değerler PROM_POSE.direnis olsun.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Himation (1085–1200, 555–735): üst-arka köşe (1200,555), arka kenar (1200,555)→(1200,700). lib/figure.js drawGarment, 'hipwrap' dalı.",
+     "problem": "Giysinin üst köşesi sırt hattından yaklaşık 25 px taşıyor. Arka kenar kalçayı ve uyluğu izlemeden dimdik iniyor. Kumaş kalçaya sarılmış gibi değil, belden asılmış bir kutu ya da önlük gibi duruyor.",
+     "fix": "pts dizisini şöyle kurun.\n\nYardımcılar:\n- `const LB = a[0] > b[0] ? J.LF : J.LN` (arka bacak)\n- `const pr = [-Math.cos(LB.thA), Math.sin(LB.thA)]`\n- `const bt = u => add(hipPt(LB, u), scl(pr, 6.3 - u*1.6))`\n\nYeni dizi: `pts = [tP([7.4,-8.6]), knot, hemA, mid, hemB, bt(.5), bt(.22), tP([-8.9,-2.6]), tP([-7.0,-9.4])]`.\n\nArka kenar kalça kavsini ve arka uyluğu izler; üst köşe gövdenin içine çekilir. Denedim; düzeltme 2 ile birlikte uyluğu çapraz izliyor (kanit_figur.png).",
+     "priority": "önemli"
+    },
+    {
+     "where": "Kartal başı (640–810, 360–470); başın üstündeki boşta çizgi (662–684, 360–366). lib/world.js eagle2, 'baş ve gaga' bloğu.",
+     "problem": "Tur 2 karesinde pençeler strokeStyle'ı kil rengine bırakıyor ve baş bloğunda sıfırlanmıyor. Bu yüzden baş konturu, kaş çıkıntısı (2,2 kalınlık) ve ense çizgileri kil rengiyle çiziliyor. Kaş görünmüyor, göz üstü düz 'uykulu yarım göz' kalıyor. Baş konturuz bir dodo ya da akbaba gibi; başın dışına taşan ense çizgisi havada bir çizgi gibi duruyor. Aynı hata kanat_dongusu.png'deki 16 karede de var.",
+     "fix": "`const hS = …` satırından önce `ctx.fillStyle = col; ctx.strokeStyle = line;` olmalı. Canlı world.js'de bu satır (237) render saatinden sonra eklenmiş görünüyor; yeniden render alıp doğrulayın. Ense tüyleri baş dolgusundan önce çizilsin ya da tamamen kontur içinde kalsın. Kazı alanında yalnız renk sıfırlamasıyla denedim: kaş ve gaga konturu geri geliyor, 168 px'te yırtıcı baş okunuyor (ehead_cmp.png, kanit_168.png). Pençe çizgilerini 4,2/2,2'den 6,3/3,3'e çıkarma önerim hâlâ geçerli.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Ağız ve bıyık (1080–1100, 365–372); CAMS.yakin'de (530–620, 600–640). lib/figure.js drawHead, rf dalı, 'ağız' çizgisi.",
+     "problem": "Kil ağız çizgisi y −3,6'da ve sakalın (BEARD_RF) üst kenarıyla (−3,55) çakışıyor, bu yüzden hiç görünmüyor. Sakal burnun hemen altından başlayan düz kenarlı bir peçe ya da maske gibi duruyor. Profil yakın planlarda (P120, P144, P259) 'sıkılı ağız' ifadesi okunmuyor.",
+     "fix": "Ağız çizgisini sakalın içine indirin: `G.paint(c => { c.moveTo(6.2, -2.75); c.quadraticCurveTo(5.3, -2.5 - mo*.35, 4.1, -2.95); }, sty.fill, .34 + mo*.25, false);`. Üstte 0,8 birimlik bir bıyık şeridi ayrılır ve ağız kapalı, sıkılı okunur. Denedim (kanit_yakin.png sağ).",
+     "priority": "önemli"
+    },
+    {
+     "where": "Sakal (1055–1105, 360–425). lib/figure.js BEARD_RF ve sakal içi kil çizgileri.",
+     "problem": "Sakal dikdörtgen bir blok: içindeki çizgiler düz ve dikey, alt kenarı küt ve dişli. Düz kesilmiş saç ve bantla birlikte yakın planda Yunan Sert üslubu değil, Asur kralı sakalı gibi okunuyor.",
+     "fix": "BEARD_RF'nin alt kısmını öne sivrilen tutama çevirin: `[[5.95,-3.55],[4.6,-3.75],[2.4,-4.15],[.1,-4.7],[-.6,-2.2],[.2,.2],[1.4,1.2],[2.4,2.6],[3.5,3.6],[4.7,4.9],[6.1,6.3],[6.9,3.4],[6.6,.2],[6.15,-2.6]]`. İç çizgiler S eğrisi olsun: `for i<3: u=i/2, x0=lerp(1.0,4.6,u), y0=-2.2, x1=lerp(2.6,6.0,u), y1=lerp(1.6,5.0,u); bezierCurveTo(x0+1.2, lerp(y0,y1,.33), x1-1.0, lerp(y0,y1,.66), x1, y1)`, kalınlık .2. Denedim (kanit_sakal.png sağ).",
+     "priority": "küçük"
+    },
+    {
+     "where": "Kartalın yakın kanat ucu, t≈1,5–2,6 ve 3,1–4,0 sn: y=38'e (frizin alt kenarı) kadar çıkıyor. lib/scenes.js SCENES.style2.",
+     "problem": "Kanat ucu yaklaşık 2 sn boyunca meander frizinin altına giriyor. Vazo bordürüyle figür çarpışıyor (1. tur madde 12 uygulanmamış).",
+     "fix": "Kartal yolunu ve kanat açısını değiştirin:\n- `ey = lerp(300, 425, k)` (şu an lerp(210, 410, k))\n- `ang: lerp(.62, lerp(.74, .97, k), Math.pow(glide, .5))`\n\nDenedim: 10 zaman noktasında kanat ucu en az y=66'da, frizin en az 28 px altında. Köşegen dalış korunuyor.",
+     "priority": "küçük"
+    },
+    {
+     "where": "KAYA seti geneli: lib/kaya.js. Göz yakın planları: P026, P145, P199, P218.",
+     "problem": "Adlandırılmış poz tablosu yok; 29 KAYA planı aynı pozu taşıma riskinde. Göz yakın planlarında rigi büyütmek yetmiyor. Bebek yarıçapı ,46 birim (s 6,3'te 2,9 px); z 6'da bile yaklaşık 17 px ve ,36'lık kesik çizgiler kalın levhalara dönüşüyor. 'Gözbebeğinde yansıma' gibi planlar bu çizimle kurulamaz.",
+     "fix": "kaya.js'ye `PROM_POSE` tablosu ekleyin, promChained'e o.pose adıyla verilsin:\n- direnis: fixes 2'deki değerler.\n- gok (F13, I11): torso −.1, neck −.3, head −.38.\n- sessiz (F10b): torso .05, neck .35, head .25.\n- cokus (G12b): py +36, dizler bükük.\n- alay (I06): head −.15, mouthOpen .5.\n\nGeçişler 0,6–0,9 sn sürsün. Ayrıca bir `promEye(ctx, x, y, R, o)` ilkeli yazın: kil zemin, siyah V kapak, R*.35 bebek, bebek içinde kırpılmış yansıma katmanı (o.inner). Göz planları bu ilkelle kurulsun, rig yakınlaştırılmasın.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "kompozisyon-Odak",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1. Prometheus dolgusu ve eagle2 rengi: değer basamakları (ateş > Prometheus > kartal > kaya > gök)",
+     "durum": "uygulandı",
+     "not": "Figür dolgusu L 123'te kaldı; önerdiğim 146 alınmadı ama gerek de kalmadı. Kartal gövdesi L 96–100'e, yakın kanat 87'ye, uzak kanat 60'a indi. σ20, σ40 ve σ80'in üçünde tepe Prometheus: σ40'ta (1142,506) değeri 108, kartalınki 72. 6 sn'lik mp4'ün 30 karesinin hepsinde aynı. Gri sıra tutuyor: ateş 221 > Prometheus 123 > kartal 96–100 > friz ≤79 > kaya 28–65 > gök 11."
+    },
+    {
+     "oneri": "2. humanFires hiyerarşisi (tek büyük ocak) ve ateşten figüre ışık bağı",
+     "durum": "uygulandı",
+     "not": "Kayanın dibinde tek büyük ateş var (826,847). L>170 olan alanı 461 px; birinci turda altı alevin toplamı 480 px'ti. Ova ışığı, kaya yüzüne yansıma ve figürün arkasında titreyen hâle eklenmiş: kaya sol yüzü L 65, sağ yüzü 32. Ateş σ40'ta 4. tepe. Kalan sorun uzak üç ateş: 183 px eşit aralıkla dizili, 439'dakinin çekirdeği L>200 (düzeltme 4)."
+    },
+    {
+     "oneri": "3. Kartal gözünü kil/kehribar yap, yıldızları seyrelt, başların çevresinde yıldız çizme",
+     "durum": "uygulandı",
+     "not": "Göz kehribar, L≈150. Karede L>200 olan yalnız ateşler. vaseStars 60 adet, alfa .45; kartalın ve Prometheus başının çevresi dışlanmış."
+    },
+    {
+     "oneri": "4. Frizi koyulaştır, alt bandı opak yap",
+     "durum": "uygulandı",
+     "not": "Üst meander p90 L 79. Alt dalga kuşağı opak, dikiş yok. σ80'de friz tepesi kalmadı; birinci turda 3. sıradaydı. Önerinin kapakla ilgili kısmı kapak aşamasına kaldı."
+    },
+    {
+     "oneri": "5. Üst kolu baştan ayır, zinciri iki geçişte kalın çiz, kazığı büyüt (zincir 168 px'te okunsun)",
+     "durum": "kısmen",
+     "not": "Siyah saç kütlesi sayesinde baş ile kol 168 px'te ayrı okunuyor, kelepçeler de görünüyor. Ama bilek ve dirsek koordinatlarını ölçtüm: zincir ön kolun neredeyse düz uzantısı, açı farkı üstte 2°, altta 8°. Zincir L 16–44, arkasındaki kaya L 48, yani zincir zeminden ayrılmıyor. 246 ve 168 px'te iki kolun ucunda koyu topuz ya da meşale duruyor; 'zincirli' yerine 'silahlı' okunuyor (düzeltme 1)."
+    },
+    {
+     "oneri": "6. Kartal sol üstten göğse köşegen dalsın, bakış gagayla buluşsun, sol alt temiz kalsın",
+     "durum": "kısmen",
+     "not": "Bakışlar karşılaşıyor ve gaga göğse dönük. İniş ise sığ: 880 px'lik yolda 125 px, yaklaşık 8°. Sol alttaki temiz alan 0–900×620–760'a daraldı. Teslim edilen karede dipinto (895–925×300–570) gaga ile göz arasındaki bakış çizgisinin tam üstünde; güncel kodda yukarı (≈880–910×50–290) taşınmış."
+    },
+    {
+     "oneri": "7. crag dış hattı: zirve figürün üstünde, kontur sağa insin; katman çizgileri sönük; figür çevresi temiz",
+     "durum": "uygulandı",
+     "not": "Zirve (1300,170) figürün üstünde, kontur (1920,290)'a iniyor. Katman çizgileri kısa ve sönük, figürün çevresi temiz elips. Sağdaki 1500–1920 boşluğu, değerin 48'den 28'e düşmesiyle sakinleşmiş; çevrinme için kabul ediyorum."
+    },
+    {
+     "oneri": "8. ?scene= dalında post() çağrılsın (doku, vinyet, gren)",
+     "durum": "uygulandı",
+     "not": "style2.post = tex .55 / vig 1 / gren .06. Kare de mp4 de son işlemli."
+    },
+    {
+     "oneri": "9. Sakal üst yayı gülümseme gibi okunuyor",
+     "durum": "uygulandı",
+     "not": "Saç ve sakal siyah kütle oldu, ağız kapalı. kirp_bas.png'de gülümseme okuması yok."
+    },
+    {
+     "oneri": "10. Ufku yükselt; ateş ile friz arasında ≥110 px boşluk",
+     "durum": "uygulandı",
+     "not": "Ufuk 760, ateş 847, friz 1040: arada yaklaşık 190 px var. Güncel kodda ufuk 610'a, ateş y 690'a çekiliyor (telefon kuralı); bu da kuralı karşılıyor."
+    },
+    {
+     "oneri": "11. Kamera itişi, kartal yolu, nefes ve zincir salınımı ('hiç durmayan plan')",
+     "durum": "uygulandı",
+     "not": "Kamera 1,0'dan 1,06'ya itiliyor ve 1000'den 1060'a kayıyor. Kartal giriyor; çığlık 3,2 sn'de, tepki 3,45 sn'de; zincir geriliyor, toz ve rüzgâr var. Mp4 ölçümü: her karede en parlak nokta ateş, σ40 tepesi Prometheus. Açılıştaki soğuk çakma (t<0,6) L 190'ı geçmiyor."
+    },
+    {
+     "oneri": "12. Kapak ayrı kurgulansın: figür %80, ateş figüre bitişik ve L>200 olan tek öğe",
+     "durum": "kısmen",
+     "not": "Başkan bunu kabul etmiş: ¾ yüz kapakta kullanılacak, kapak karesi P001. Ama bu turda kapak testi yok, taşınabilirlik doğrulanamıyor (düzeltme 3)."
+    }
+   ],
+   "scores": {
+    "S1": 8.5,
+    "S2": 8,
+    "S3": 8.5,
+    "S4": 8,
+    "S5": 8.5,
+    "S6": 8.5,
+    "S7": 8
+   },
+   "verdict": "RED",
+   "summary": "Ağırlıklı ortalama 8,30 (birinci turda 6,90). Hiçbir ölçüt 7'nin altında değil, ama 9,0 eşiğine ulaşmadığı için karar RED. Puanlar teslim edilen PNG'ye ve MP4'e (04:31) göre. lib/*.js bundan sonra değişti (05:03–05:05) ve ben incelerken de değişiyordu. Proje dosyalarına dokunmadım; denemeleri scratchpad'deki kopyada yaptım.\n\nOdak sorunu çözüldü:\n- Σ20, σ40 ve σ80 bulanıklık testlerinin üçünde de tepe Prometheus. Kartal ikinci, ateş dördüncü sırada; frizler yarışmıyor.\n- Karenin en parlak pikseli ateş (L 221). L>200 olan alan neredeyse yalnız ana ocak.\n- Işık bağı kurulmuş: ova ışığı, kaya yüzüne yansıma ve figür arkası hâle var.\n- Gri değerde hiyerarşi temiz: ateş 221, Prometheus 123, kartal 96–100, friz ≤79, kaya 28–65, gök 11.\n- MP4'ün 30 karesinin hepsinde en parlak nokta ateş, σ40 tepesi Prometheus. Açılıştaki soğuk çakma L 190'ı geçmiyor.\n\nPuanı 9'un altında tutanlar:\n- **(a) Zincir okunmuyor (en önemlisi).** Ölçtüm: zincir ön kolun düz uzantısı (açı farkı üstte 2°, altta 8°) ve kayayla aynı değerde (16–44'e karşı 48). 246 ve 168 px'te kolların ucunda koyu topuz ya da meşale duruyor; 'zincirli' fikri hâlâ küçük boyda kayboluyor. İki deneme yaptım:\n  - Dikey zincir daha kötü oldu: meşale okuması güçlendi.\n  - Açılı ve uzun zincir, küçük kazık başı, kil çatlak ve ayrılmış kil kontur, 246 px'te zinciri 'kayaya bağlı' diye okuttu.\n- **(b) Ateş grubu ile zemin çizgileri teğet.**\n  - Teslim edilen karede orta çizgi insanların kol hizasından geçiyor; grup iki çizgi arasında havada.\n  - Güncel kodda ufuk çizgisi başların içinden geçiyor, eller de alevin üstünde birleşip el ele tutuşma gibi okunuyor.\n- **(c) Uzak üç ateş** 183 px eşit aralıkla dizili; biri L>200 ve ikinci bir beyaz leke yapıyor.\n- **(d) Karenin orta dikeyi.** Kaya kenarı ve dipinto bu çizginin üstünde, kare iki eşit yarıya bölünüyor; baş x≈1130'da kalıyor, üçte bir çizgisi 1280'de.\n- **(e) Kapak testi yok.** S7 bu yüzden doğrulanamıyor.\n\nTeslim edilen karede S1 ve S4'ü düşüren üç hata güncel kodda giderilmiş görünüyor. Güncel kodla t=4,2'yi kopyada çizip doğruladım:\n- kartal başında kontur yoktu, papağan ya da akbaba gibi okunuyordu;\n- ateş başındaki insanlar piktogramdı;\n- dipinto bakış çizgisinin üstündeydi.\n\nÜçüncü turda bunları yeni karede yeniden kontrol edeceğim.\n\nDeneme kareleri (/tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/odak2/ altında):\n- zincir: zincir2_246_karsilastir.png, zincir2_168_karsilastir.png ve kopya/out_dene2/t0004.20.png;\n- ateş grubu ve uzak ateşler: ates_dene3.png ve kopya/out_dene3/t0004.20.png;\n- kamera ve kartal dalışı: kamera_dene4.png ve kopya/out_dene4/.",
+   "fixes": [
+    {
+     "where": "promChained (kaya.js) zincirleri ve kazıkları; teslim edilen karede üst zincir ve kazık 1265–1445×190–320, alt zincir ve kazık 1275–1465×535–640. world.js: ironChain, stake",
+     "problem": "Zincir ve kazık ön kolun düz uzantısı: açı farkı üstte 2°, altta 8°. Ölçtüğüm noktalar: dirsek F (1261,373), bilek F (1331,320), dirsek N (1274,486), bilek N (1348,533). Zincir L 16–44, arkasındaki kaya L 48, zemin ile ayrım yok. 246 ve 168 px'te iki kolun ucunda koyu topuz ya da meşale duruyor; 'zincirli' yerine 'silahlı' okunuyor. Denemede dikey zincir daha kötü oldu: meşale okuması güçlendi.",
+     "fix": "1) Kazık konumları: PROM_KAYA.sF [1480,215] → [1435,165], sN [1495,600] → [1450,690]. Kol ile zincir arasındaki açı farkı üstte yaklaşık 19°, altta yaklaşık 25° olur; zincir boyu 200 px'i geçer. skyChain de sF'yi kullandığı için kontrol et.\n2) promChained'deki iki stake çağrısında ölçek 3.6 → 2.3.\n3) stake() bury dalında çatlak çizgileri: C.ink → PC.clayR, lineWidth .9 → 1.3, uzunluklar iki katı ([[7,-6],[9,1.2],[6,6.8],[2.4,-9],[1.2,9]]).\n4) ironChain'de C.ink geçişinden önce ayrılmış kil kontur: chain(ctx, pts, lk, mixCol(PC.clayR, PC.glaze, .35), null, w + 10). Bu, saçtaki ayrılmış kontur uylaşımıdır.\nKopyada 246 px'te iki zincir kayaya bağlanan çizgi olarak okundu, kolların ucundaki koyu kütle kalktı. Kabul testi: 246 ve 168 px'te kolun ucunda koyu kütle yok, zincirin ucu kayada küçük bir kil çatlak yıldızıyla bitiyor.",
+     "priority": "kritik"
+    },
+    {
+     "where": "kayaWorld (kaya.js) ova çizgileri döngüsü ve büyük ateş grubu. Teslim edilen karede 740–910×790–860; güncel kodda grup y≈610–690",
+     "problem": "Teslim edilen karede orta zemin çizgisi (y≈822) oturan insanların kol hizasından geçiyor; grubun tabanı (847) iki çizgi arasında, havada duruyor. Güncel kodda (ufuk 610, ateş 690) ufuk çizgisi başların içinden geçiyor. Ayrıca iki insanın elleri alevin tam üstünde birleşiyor (≈826,800); el ele tutuşma gibi okunuyor. Odağın en parlak noktasının çevresinde teğetler oluşuyor.",
+     "fix": "FX, FY büyük ateşin dünya koordinatıdır: teslim edilen karede 860,846; güncel kodda 860,690.\n1) Ova çizgileri döngüsünü şu çerçeveye al: ctx.save(); ctx.beginPath(); ctx.rect(-4000,-4000,9000,9000); ctx.ellipse(FX, FY-46, 150, 66, 0, 0, TAU); ctx.clip('evenodd'); … ctx.restore().\n2) Ardından grubun altına kısa bir zemin çizgisi çiz: ctx.globalAlpha = .8; moveTo(FX-125, FY+5); bezierCurveTo(FX-60, FY+1, FX+60, FY+7, FX+125, FY+3); stroke.\n3) seatedHuman'da eller arasında en az 24 px açıklık bırak (shN 1.3 → 1.15 dene).\nKopyada başlar ve eller temiz sır alanında kaldı, grup kendi zemin çizgisine bastı.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Kapak ön testi (S7): 1280×720 (1920×1080 eşdeğeri ×1,5), KAYA ya da P001 setinden",
+     "problem": "Bu turda kapak testi yok. Karenin kendisi kapak değil: ateş 168 px'te 2–3 px, yüz yaklaşık 5 px. Başkanın '¾ yüz kapakta' kararı doğrulanamadığı için S7 8 üstüne çıkamıyor.",
+     "fix": "Tek bir kapak karesi çek ve kanalın test setinden geçir: tam boy, 246, 168, bulanıklık, gri değer, mobil akış taklidi. Ölçütler:\n- Figür en az 576 px yükseklikte (karenin %80'i).\n- ¾ yüz en az 120 px (168 px'te en az 16 px).\n- Ateş en az 90 px (168 px'te en az 12 px), el ya da göğse en fazla 120 px uzakta; L>235 olan tek öğe o olsun.\n- Kapakta friz yok; değer sırası bu karedeki gibi.\n- Yazı sol altta 40–560×420–680, büyük harf yüksekliği en az 130 px.\n- Sağ alt rozet bölgesi (1100–1280×640–720) boş.\nKabul: σ40 tepesi yüz ya da ateş; 168 px'te zincir bileklerde okunuyor (bkz. düzeltme 1).",
+     "priority": "önemli"
+    },
+    {
+     "where": "humanFires uzak ateşler (world.js) ve flame(); teslim edilen karede (73,793), (256,805), (439,820)",
+     "problem": "Üç uzak ateş tam 183 px eşit aralıkla dizili. 439'dakinin çekirdeğinde 26 px L>200, 256'dakinde 35 px L>170 var. 168 px'te ufukta eşit noktalar dizisi ('sokak lambası') oluşuyor; ikinci beyaz leke ana ateşle yarışıyor.",
+     "fix": "1) flame()'e core seçeneği ekle: if (o.core !== false) tongue(0, 30, 6, .6, PC.fireCore).\n2) humanFires'ta flame çağrısına { core: !far } ver.\n3) Uzak ateşleri düzensiz aralıkla ve küçülen ölçekle yerleştir: [[95,786,.38],[215,800,.46],[505,822,.62]]. Güncel ufukta (610) y değerlerinden 156 çıkar.\nKopyada L>200 olan yalnız ana ateş kaldı (165 px); uzak ateşlerin en parlağı L<200.",
+     "priority": "küçük"
+    },
+    {
+     "where": "SCENES.style2 kamerası (scenes.js), c.x; eşleşen planlar için CAMS.genis.x (kaya.js)",
+     "problem": "Kaya kenarı (x 925–1005, y 450–1040) ve dipinto (x≈910) karenin orta dikeyinde duruyor; kare sol (gök, kartal) ve sağ (kaya, figür) diye iki eşit yarıya bölünüyor. Prometheus'un başı x≈1130'da; üçte bir çizgisi 1280'de.",
+     "fix": "c.x = lerp(1000, 1060, u) → lerp(900, 960, u). CAMS.genis.x 1000 → 900 (eşleşen planlar da aynı yerleşimi alsın).\nKopyada sonuçlar:\n- σ40 tepesi (1226,494), üçte bir kesişimine yaklaştı.\n- Kaya kenarı yaklaşık 1030–1110'a kaydı, orta dikeyden çıktı.\n- L>200 olan yalnız ateş (862,846).\n- Sol alttaki temiz alan yaklaşık 100 px genişledi.\nKartal ile figür aynı kamera katmanında olduğu için aralarındaki mesafe değişmiyor.",
+     "priority": "küçük"
+    },
+    {
+     "where": "SCENES.style2 kartal yolu (scenes.js): ey ve tilt; t = 0–5,5 sn",
+     "problem": "İniş sığ: 880 px'lik yolda 125 px, yaklaşık 8°. 'İner' fiili kompozisyonda zayıf kalıyor. Soğuk çakma (160,120) ile kartalın giriş yüksekliği (y 300) arasında 180 px fark var; kartal çakmanın içinden çıkmıyor.",
+     "fix": "ey = lerp(300, 425, k) → lerp(140, 425, k); tilt: lerp(.32, .46, k) → lerp(.52, .46, k). Dalışta baş aşağı eğik, sonda yatay olur.\nKopyada kartal t≈2'de sol üst köşeden, frizin altından giriyor; iniş yaklaşık 18°. Odak ölçümleri değişmedi: σ40 tepesi Prometheus, en parlak nokta ateş.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "kompozisyon-Renk",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1 (kritik): Sahne modunda son işlem (doku, vinyet, gren); bantlanma testi.",
+     "durum": "uygulandı",
+     "not": "film.js:54'te sahne modu artık post() çağırıyor; style2.post = {tex .55, vig 1, grain .06}. Önizlemeyi 2,5 Mb/sn x264 ile yeniden kodladım. Gök degradesi (100–900, 560–760) 6 kat gerilmiş kırpıntıda bile bantlanmıyor; gren işini görüyor."
+    },
+    {
+     "oneri": "2 (kritik): Kahraman kildeki en koyu öğeydi. (a) Kil tek değere insin, (b) figürün arkasına ateşle titreyen hâle, (c) isteğe bağlı figür üstü ışık.",
+     "durum": "uygulandı",
+     "not": "(a) STY.red.fill artık '#C9703F'; Prometheus L 122 ile kildeki en açık öğe. (b) Hâle eklenmiş: kaya.js:138, glow(1270,540,560). (c) uygulanmamış. Uyarı: (b) koyu kaya (L 26) için tasarlanmıştı. Kaya #5A311D'ye açılınca hâle ters çalışıyor: hem figürün arkasındaki kayayı hem gökyüzünü açıyor. Figür çevresindeki 8–30 px halkada L 57, WCAG oranı 2,86:1; tur 1'de yaklaşık 4:1 idi. Düzeltmesi fixes[0]'da."
+    },
+    {
+     "oneri": "3 (önemli): Kartal kanatları sulandırılmış sırla boyansın; baş ve gövde kil kalsın ki tehdit okunsun.",
+     "durum": "uygulandı",
+     "not": "Başkan değiştirerek uyguladı. Kanatlar mixCol .22 / .5, ama gövde ve baş da #A85A32. Ölçüm: baş 100, yakın kanat 87, uzak kanat 60. Kartal artık Prometheus'un (122) altında, yani asıl amaç sağlandı. Benim önerdiğim baş 127 kahramanla yarışırdı; başkanın seçimi daha doğru. Kalan sorun: baş kanattan ayrışmıyor (fixes[4])."
+    },
+    {
+     "oneri": "4 (önemli): Frizler figürlerin değerinin altına insin.",
+     "durum": "uygulandı",
+     "not": "kayaFrame rengi mixCol(clayR, glaze, .3), yükseklik 38. Üst meander ve alt dalga kuşağı en parlak yerinde (p95) L ≈ 80. Kenara kaçan göz sorunu çözüldü."
+    },
+    {
+     "oneri": "5 (önemli): Alt dil frizinde x 880'den sağa doğru renk dikişi.",
+     "durum": "uygulandı",
+     "not": "runningWave artık opak sır zeminle çiziliyor (bg = PC.glaze). 0–1920 boyunca dikiş görünmüyor."
+    },
+    {
+     "oneri": "6 (önemli): Ufuk 800, derinlikli ateş kümesi, alev .5·s, ovada sis ışığı, uzak ateşlerde çekirdeksiz alev.",
+     "durum": "kısmen",
+     "not": "Ufuk 760'a çekilmiş; başkanın gerekçesi (yükseklik hissi, ateş altyazının üstünde) yerinde, 800 ısrarım yok. Tek büyük ateş, .5·s ölçek ve plain glow(640,820,600) var. Uzak ateşler hâlâ çekirdekli: (440,820)'deki ateş L>200 ile ikinci parlak nokta. Zeminde ışık havuzu yok: ateş çevresindeki ova L 24, uzak ova 19. Ana alev 18×40 px; L>180 alanı 445 px, karenin %0,021'i, tur 1 ile aynı. Ölçeği ben önermiştim, az kalmış. Düzeltmesi fixes[1]'de."
+    },
+    {
+     "oneri": "7 (önemli): Kayanın sol yüzüne ateşten yansıyan ışık; ateşten kayaya, oradan figüre bir ışık yolu.",
+     "durum": "uygulandı",
+     "not": "bounce [960,860,460] var; kayanın ateşe bakan kenarı L 65, sağ yanı 21. Yan etki: 460 px yarıçap figürün alt-sol konturunun arkasına taşıyor ve kontrast kaybına katkı veriyor. Yarıçap 300'e inip kaya dibine alınmalı (fixes[0])."
+    },
+    {
+     "oneri": "8 (önemli): Katman çizgileri figürün arkasından çekilsin, figürün çevresinde temiz sır alanı kalsın (o.hole).",
+     "durum": "uygulandı",
+     "not": "hole [1265,560,250,390] var; katman çizgileri koyu sır rengine (rgba(23,16,12,.55)) çevrilmiş ve figürün arkasında gürültü kalmamış. Temiz alan yalnız çizgileri kaldırıyor, değeri değiştirmiyor."
+    },
+    {
+     "oneri": "9 (küçük): Zincir koyu demir olsun ama okunsun; kazık kil halkalı koyu kama; altın ya da krem kullanılmasın.",
+     "durum": "uygulandı",
+     "not": "ironChain: siyah alt bant, #3A2418 halka, clayRL ışık kavsi, w 7, halka 26. Kazık #2B1A12 dövme kama, kil kıl çizgisiyle. Krem zincirin reddi (Kurgu önerisi) gerekçesi yerinde, aynı uyarıyı ben de yapmıştım."
+    },
+    {
+     "oneri": "10 (küçük): Kaide koyulsun; kartal gözü ikinci parlak nokta olmasın.",
+     "durum": "uygulandı",
+     "not": "Kaide tamamen kalktı, figür zemin çizgisine basıyor (vazoya daha sadık). Göz kehribar #E39A4E, ak yok. İkinci beyaz leke yok; L>220 olan pikseller yalnız ana ateşte."
+    },
+    {
+     "oneri": "11 (küçük): Gökte çok hafif soğuk sır parıltısı; yıldızlar ≥2 px.",
+     "durum": "kısmen",
+     "not": "glow(300,140,900,'rgba(36,48,70,.10)') var, ama ölçülemiyor: sol üst gök (16,11,10). Beklediğim gibi zararsız, ama işe de yaramıyor. vaseStars yarıçapı 1,2–2,8 px, seyrek ve sönük; uygun. Sıcak-soğuk karşıtlığı için eklenen açılıştaki Zeus çakması gri sis gibi okunuyor: t = 0,3'te bölge ortalaması B−R −20, yani hâlâ sıcak (fixes[3])."
+    },
+    {
+     "oneri": "12 (küçük): Üç katmana tek CLAY ve tek GLAZE; sanat.md'ye katman başına ateş kuralı; SCENES.fireTest.",
+     "durum": "kısmen",
+     "not": "Yalnız STY.red.fill = PC.clayR yapılmış. C.ink #17100C ile PC.glaze #0E0907 ikiliği sürüyor (L 17'ye 9); ink/clay çözülmesinde basamak riski var. C.clay #C8693D ile PC.clayR #C9703F de ayrı. sanat.md hâlâ 'koyu kaya kütlesi (#2A170F)' ve 'Ateş her sahnede karenin en parlak noktasıdır' diyor: kare artık bu belgeyle çelişiyor. fireTest kurulmamış."
+    }
+   ],
+   "scores": {
+    "S1": 8.5,
+    "S2": 8,
+    "S3": 8,
+    "S4": 7.5,
+    "S5": 7.5,
+    "S6": 8,
+    "S7": 8
+   },
+   "verdict": "RED",
+   "summary": "Kararım RED. Ağırlıklı ortalama 7,98 (tur 1'de 7,20). Hiçbir ölçüt 7'nin altında değil, ama 9 eşiği uzak.\n\nDoğrulama: kareyi 5c59d7b commit'iyle t = 4,2'de piksel piksel aynı (fark 0,0) yeniden ürettim. Ölçümler Rec.709 parlaklığı L (0–255).\n\nDüzelenler:\n- Değer sırası artık doğru: ateş çekirdeği 221 > Prometheus 122 > kartal başı/gövde 100, kanat 87, uzak kanat 60 > friz ≤80 > kaya 21–65 > gök 9–16. Tur 1'deki ters sıra (kahramanın en koyu kil öğe olması) giderildi.\n- Kartal gözündeki beyaz leke kalktı.\n- Frizler figürlerin altına indi; alt frizdeki dikiş kapandı.\n- Son işlem var. 2,5 Mb/sn kodlamada gök bantlanmıyor.\n\nYeni ana sorun: figür ile zemin arasındaki kontrast düştü.\n- Figür çevresindeki 8–30 px halkada kaya L 57; WCAG oranı 2,86:1 (tur 1'de yaklaşık 4:1). Telefon parlaması benzetiminde figür kayaya karışıyor.\n- Nedeni üç katmanın üst üste binmesi: açılan kaya degradesi (#5A311D); benim tur 1'de koyu kaya için önerdiğim sıcak hâle (kaya.js:138; açık kayada ters çalışıyor, gökyüzünü de açıyor); figürün alt-sol konturunun arkasına taşan 460 px'lik bounce.\n- Başkanın \"figür temiz alan ve hâleyle ayrılıyor\" iddiası ölçümle tutmuyor. Temiz alan yalnız katman çizgilerini kaldırıyor; hâle ayrımı azaltıyor.\n- Bunu scratchpad'de denedim: hâleyi kaya kırpmasının içinde koyu gölgeye çevirip bounce'u kaya dibine daraltınca oran 4,12:1'e çıkıyor. Kaya ile gök ayrımı korunuyor (kaya üst kenarı 39, gök 9); ateşin tepe değeri 231'e çıkıyor.\n\nAteş:\n- Tek büyük ateş kararı uygulanmış, ama alev 18×40 px; L>180 alanı karenin %0,021'i, tur 1 ile aynı. Bu ölçeği ben önermiştim; az kalmış.\n- Zeminde ışık havuzu yok: ateşin çevresi L 24, uzak ova 19.\n- Uzak ateşlerin çekirdeği duruyor: (440,820)'deki L>200 ile ikinci parlak nokta.\n\nIşıkta hareket algı eşiğinin altında: figürün arkasındaki hâle 6 sn boyunca 48,8–53,5 arasında, kaya kenarı ±1 L oynuyor. YouTube kodlamasında kaybolur.\n\nSıcak-soğuk karşıtlığı yine kurulmamış:\n- Gökteki soğuk parıltı ölçülemiyor.\n- Açılıştaki Zeus çakması gri sis gibi okunuyor (B−R −20, hâlâ sıcak), şimşek de kartalın arkasında kalıyor.\n\nBelge ve palet: sanat.md hâlâ kaya #2A170F ve \"ateş her sahnede en parlak\" diyor. C.ink / PC.glaze ikiliği sürüyor.\n\nÖbür ölçütler:\n- S1: belirgin sıçrama. Saç siyah sır kütlesi, eklenmiş kırmızı saç bandı, dipinto, kesik meander ve çapraz kare, akan dalga kuşağı, kil dokusu.\n- S4 (7,5): himation köşeli bir blok gibi duruyor. Kartal başı yuvarlak ve kel, tehdidi zayıf; bunu karakter üyeleri değerlendirsin.\n- S6: kanat döngüsü sürekli ve temiz, kamera itişi, çığlık ve tepki var; zayıf halka ışık katmanı.\n\nNot: çalışma ağacı ben incelerken değişti; ateş y 690'a, bounce (960,720)'ye taşınmış. Koordinatlar tur 2 karesine göredir.\n\nDeneme çıktıları /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/renk2/ altında:\n- var/F/out/t0004.20.png: kontrast düzeltmesi.\n- var/G/out/t0004.20.png: kontrast düzeltmesi + ateş havuzu.\n- cmp168_base_G.png: 168 px'te önce ve sonra.\n- flash_cmp.png: Zeus çakması, önce ve sonra.\n- sim_tv_phone.png: TV ve telefon benzetimi.\n- Betikler tools/variant.py ve tools/metrics.py; yama dosyaları p/*.json.",
+   "fixes": [
+    {
+     "where": "Prometheus çevresi (1000–1500, 270–930): kaya.js:138 (hâle), kaya.js:130 (crag çağrısındaki bounce), world.js:35 (crag içindeki bounce satırı)",
+     "problem": "Figür (L 122) çevresindeki kaya halkası L 57, WCAG oranı 2,86:1; sol kontur boyunca 2,74:1. Sıcak hâle kırpılmadan çizildiği için hem kayayı hem gökyüzünü açıyor. 460 px'lik bounce bacak ve kalçanın arkasına taşıyor. Telefon parlaması benzetiminde figür kayaya karışıyor.",
+     "fix": "(1) world.js crag(): `if (o.bounce) …` satırının hemen altına `if (o.shade) glow(ctx, o.shade[0], o.shade[1], o.shade[2], o.shade[3]);` ekle (kaya kırpmasının içinde kalır). (2) kaya.js:138'deki glow(ctx, 1270, 540, 560, rgba(150,60,25,.38*fl)) satırını sil. (3) crag çağrısında: bounce: [930, 900, 300, `rgba(255,150,70,${.30 * fl * (o.fireA ?? 1)})`], shade: [1290, 540, 430, 'rgba(14,9,7,.55)']. Çalışma ağacında ateş y 690'a çekildiği için bounce merkezini [935, 740, 300] al. Scratchpad'de ölçtüm: halka 57'den 32'ye iniyor; oran 2,86'dan 4,12:1'e (solda 3,88:1) çıkıyor; kaya üst kenarı 39, gök 9, ayrım korunuyor; ateşin tepe değeri 231. Bu, vazo ressamının figür çevresine çektiği saf sır bandının karşılığı. Drop-shadow ile kontur bandını da denedim: çıkartma gibi duruyor, önermiyorum.",
+     "priority": "kritik"
+    },
+    {
+     "where": "Ova ateşleri. Tur 2 karesinde ana ateş (827,838), uzak ateşler (440,820), (257,806), (73,793). world.js humanFires (satır 120–131) ve flame (satır 75).",
+     "problem": "Ana alev 18×40 px, L>180 alanı 445 px (karenin %0,021'i). Zeminde ışık havuzu yok: ateş çevresi L 24, uzak ova 19. Ateşin 'armağan' olarak bir alanı yok. Uzak ateşlerin çekirdeği duruyor; (440,820) L>200 ile ikinci parlak nokta ve 168 px'te ana ateşle aynı türden noktalar oluşturuyor.",
+     "fix": "(1) flame(): `tongue(0, 30, 6, .6, PC.fireCore)` satırını `if (o.core !== false) tongue(…)` yap. (2) humanFires döngüsünde, uzak olmayan ateş için flame'den önce yerde bir ışık havuzu çiz: `if (!far) { ctx.save(); ctx.translate(x, y + 2); ctx.scale(1, .3); glow(ctx, 0, 0, 150 * s, `rgba(255,150,70,${.30 * fl})`); ctx.restore(); }`. Bu yaklaşık 480×144 px'lik bir elips verir. (3) Uzak ateşlerde flame(…, { core: !far, … }) kullan ve çağrıyı ctx.globalAlpha *= .55 ile sar. Ölçüm: havuzla ateş çevresi L 24'ten 40'a çıkıyor ve 168 px'te ateş bir nokta değil bir ışık alanı olarak okunuyor (cmp168_base_G.png). Yalnız core:false uzak ateşi 180'in altına indirmiyor (66 px kalıyor); .55 alfayla tepesinin yaklaşık 120'ye ineceğini hesaplıyorum, ölçmedim.",
+     "priority": "önemli"
+    },
+    {
+     "where": "kaya.js:106, kayaWorld içindeki fl (bounce, ova glow'u ve havuz bunu kullanıyor)",
+     "problem": "Ateşe bağlı ışık titremesi algı eşiğinin altında. Önizlemede figürün arkasındaki hâle 6 sn boyunca 48,8–53,5, kaya kenarı ±1 L oynuyor. YouTube kodlamasında tamamen kaybolur. 'Hiç durmayan plan' ilkesinde ışık katmanı fiilen yok.",
+     "fix": "fl = .82 + .2 * noise1(t * 6, 7) + .1 * noise1(t * 13, 9) yap ve bounce alfasını .30'dan .36'ya çıkar. Ben ikinci terimi t*19 ile denedim: kaya kenarındaki aralık 2,2'den 4,2 L'ye, havuzdaki aralık 5,2'den 7,9 L'ye çıktı. 30 fps'te 19 Hz'lik gürültü titrek görünebileceği için 13 öneriyorum. Hedef: kaya kenarında ve havuzda ±4 L ve üstü. Koyu gölge (shade) titremesin; titreyen yalnız ışık olsun.",
+     "priority": "önemli"
+    },
+    {
+     "where": "scenes.js:124, style2'deki t < .6 dalı; sol üst gök (40–460, 40–360)",
+     "problem": "Zeus çakması, KAYA setinin tek soğuk notası ve ateş/Zeus zıtlığının tek ışık ifadesi, gri sis gibi okunuyor. t = 0,3'te bölge ortalaması B−R −19,8 (hâlâ sıcak), çünkü normal karışım ve sonraki kil dokusu çarpımı maviyi yutuyor. Ayrıca bolt (170,140) kartalın arkasında kalıyor.",
+     "fix": "glow satırını şöyle değiştir: `ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 200, 140, 360, `rgba(90,120,220,${.42 * fa})`); glow(ctx, 200, 140, 120, `rgba(170,190,255,${.35 * fa})`); ctx.restore();`. Bolt'u kartalın önüne almak için kartalın çiziminden sonra çiz ya da (330, 90)'a kaydır. Ölçüm: B−R −19,8'den −10,4'e çıkıyor ve çakma açıkça soğuk mavi okunuyor; bölgedeki tepe L 132'de kalıyor (ateşin 221'inin altında; sanat.md'deki 'yıldırım ateşle yarışmaz' kuralı korunuyor). Karşılaştırma: flash_cmp.png.",
+     "priority": "önemli"
+    },
+    {
+     "where": "Kartal (360–810, 60–610). scenes.js:135 ve flap sahnesinde satır 144.",
+     "problem": "Baş ve gövde #A85A32 (L ≈100), yakın kanat mixCol .22 (L ≈100): baş kanattan ayrışmıyor. 168 px'te tehdidi taşıyan gaga ve baş, kanat kütlesinin içinde kayboluyor; Prometheus'a dönük bakış çizgisi zayıflıyor.",
+     "fix": "wingCol: mixCol(PC.clayR, PC.glaze, .32) kullan (L ≈90); farCol .5'te kalsın (≈69). Baş ve gövde #A85A32'de kalsın (≈104). Sıralama: Prometheus 122 > kartal başı 104 > yakın kanat 90 > uzak kanat 69 > friz 80. Böylece kartalın en açık yeri baş olur, kahramanı geçmez. Değerler hesaptır, render edip ölçmedim.",
+     "priority": "küçük"
+    },
+    {
+     "where": "sanat.md 'Renk ve ışık' bölümü; style.js C.ink / C.clay; world.js PC.glaze / PC.clayR",
+     "problem": "Belge kareyle çelişiyor: kaya hâlâ #2A170F yazıyor, katman başına ateş kuralı yok. #17100C ve #0E0907 (L 17'ye 9) birlikte kullanılıyor; siyah figürden kırmızı figüre ink/clay çözülme geçişlerinde görünür bir basamak riski var. Bu, S7'deki seri tutarlılığını etkiliyor.",
+     "fix": "sanat.md'ye şunları yaz. Kırmızı figür: zemin GLAZE #0E0907, figür CLAY #C9703F, kaya #5A311D'den #341C12'ye degrade ve figürün arkasında shade, değer sırası ateş > figür > kartal > friz > kaya > gök. Siyah figür: ateş çekirdeği #FFF6D6, 3 px C.ink halka ve rgba(20,8,4,.35) koyu çevre. Beyaz zemin: ateş karedeki tek doygun renk (#E8762B), parlaklık şartı yok. Kodda C.ink = PC.glaze ve C.clay = PC.clayR yap ya da geçiş fonksiyonunda tek değer kullan. Doğrulama için SCENES.fireTest kur: aynı flame() üç zeminde yan yana, 168 px küçültmesiyle.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "animasyon-Hareket",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1 (kritik) Kanat çırpışını süreklileştirmek: eagle2 wing() içinde tek sürekli a1 eşlemesi, kanat yüzeyini çevirmek, başı kanattan sonra çizmek.",
+     "durum": "uygulandı",
+     "not": "Kod önerimin birebir aynısı (world.js 167–171): a1 = lerp(-1.95, -4.53, E.io2(1-up)), yüzey flp ile çevriliyor, a2'nin işareti flp'ye bağlı, baş wing([6,-14]) çağrısından sonra çiziliyor. 16 fazlık şerit kesintisiz; 63°'lik sıçrama yok. İki eksik kaldı. (a) Kanadın kenardan göründüğü anda (ang = .5) fy ±.15, a2 ±.1 rad atlıyor; Δang = .001'de 3.108 piksel değişiyor (8. düzeltme). (b) Plan bu fonksiyonun yalnız üst çeyreğini kullanıyor (6. madde)."
+    },
+    {
+     "oneri": "2 (kritik) Kamera ve post(): itiş, paralaks katmanları, ekranda sabit friz, gren.",
+     "durum": "uygulandı",
+     "not": "Kamera x 1000→1060, y 540→520, z 1→1,06 gidiyor; noise1 titreşimi ±3/±2 px. Paralaks k değerleri: yıldız .1, rüzgâr çizgileri .4, ova .35, kaya ve figür 1. Frizler ekranda sabit. drawFilm deneme sahnelerinde post() çağırıyor (tex .55, vig 1, gren .06); gren 24 fps'te değişiyor. Yalnız kartal için önerdiğim k = 1,12 alınmamış (küçük bir eksik)."
+    },
+    {
+     "oneri": "3 (kritik) Zincir: kazıkları uzaklaştırıp gerçek boy vermek, sarkma, gerilmede 0'a inen sag, bırakınca settle, gerilmede toz ve pırıltı.",
+     "durum": "kısmen",
+     "not": "Kazıklar uzaklaştı (sF [1480,215], sN [1495,600]). ironChain L0·slack ile sarkıyor. 4,2 sn'lik döngüde yay boyu 152→162 px değişiyor; gerilmede kazıktan toz dökülüyor. Eksikler: bırakılınca settle salınımı yok; rüzgâr salınımı ±1–2 px, yani görünmüyor; ayak zincirleri 6 sn boyunca hiç oynamıyor (%0). Yeni bir kusur da çıktı: halka sayısı sıçrıyor (2. düzeltme)."
+    },
+    {
+     "oneri": "4 (önemli) Figür canlılığı: ağır nefes, ağırlık aktarımı, anticip/settle'li çekiş vuruşu, ağzın temelde kapalı olması.",
+     "durum": "kısmen",
+     "not": "Nefes 1,3·sin(1,65t). Kamera dondurulmuş ölçümde gerilme döngüsü başı 14 px'e kadar oynatıyor (1. turda ±4 px). Ağız kapalı ve sıkılı; 'donmuş çığlık' okuması kalktı. Ağırlık aktarımı (leğende x gürültüsü) yok. Çekişte anticip ve settle yok: döngü düz bir io2 eğrisi, metronom gibi 4,2 sn. Güncel kodda bu döngü de kaldırılmış (3. düzeltme)."
+    },
+    {
+     "oneri": "5 (önemli) Rüzgâr: saç ve sakal, kemer ucu, gökte vazo tarzı rüzgâr çizgileri.",
+     "durum": "kısmen",
+     "not": "p.wind saç ve sakala uygulanıyor; windLines gökte akıyor. Ama saçtaki dalgalanma ±0,23 birim (s = 6,3'te ≈ ±1,5 px), görünmüyor. Himation ve kemer ucu tamamen sabit. Yön de çelişiyor: gök çizgileri sola akıyor (x − t·sp), dalga kuşağı sağa akıyor, saç ve sakal ekranda sağa savruluyor (4. düzeltme)."
+    },
+    {
+     "oneri": "6 (önemli) Kartal yolu ve kanat zamanlaması: Bezier iniş, derinlikle büyüme, süzülme ve keyed iki güçlü vuruş, eğimin yolun türevinden gelmesi, gövdenin kanat fazıyla kalkması, başın hedefe kilitlenmesi, kanat ucunun frize girmemesi.",
+     "durum": "kısmen",
+     "not": "Uygulananlar: ölçek 2,2→2,9, eğim .32→.46, gövdenin kanat fazına bağlanması (−4·es·sin(TAU(fl−.08))·.4). Uygulanmayanlar:\n- Yol düz bir çizgi ((180,211)→(713,407)); kartal t = 5,5'te durup yerinde sallanıyor.\n- Keyed vuruş yok: ang .62–.97 arasında 1,82 sn'lik bir sinüs, angFar 6 sn boyunca sabit .2.\n- headA hedeften hesaplanmıyor (sabit −.06 ve küçük bir salınım).\n- Yakın kanadın ucu t = 0–2,5 sn'de ve 3,5 sn'de üst frizin altına giriyor (kesik görünüyor); 'yol y ≥ 160'tan başlasın' önerim alınmamış."
+    },
+    {
+     "oneri": "7 (önemli) Gaga ve bakış: gaganın temeli .12, çığlık Wd() olayı, çığlıkta başın öne vurması, Prometheus'un başının kartalı gecikmeyle izlemesi.",
+     "durum": "kısmen",
+     "not": "Gaga .08 + .8·çığlık (t = 3,2 sn, σ = .25); sürekli çiğneme kalktı. Çığlıkta baş öne vurmuyor. Prometheus'un başı kartal yaklaştıkça dönüyor (look −.12→−.02), ama tur2 kodunda çığlığa hiç tepki vermiyor. Güncel kodda tepki eklenmiş (br3)."
+    },
+    {
+     "oneri": "8 (önemli) Ateşler: gürültüyle titreme, kıvılcım, nefes alan ova ışığı, ocaktan ocağa yanma, yıldızların dönmesi (rotA).",
+     "durum": "kısmen",
+     "not": "kayaWorld içindeki fl gürültüyle hesaplanıyor (hâle, kaya yansıması, ova ışığı); büyük ateşten kıvılcım yükseliyor. humanFires içindeki titreme ise hâlâ .85 + .15·sin(t(5+i)). Uzak ateşlerde kare-kare değişen piksel yalnız %0,16; fiilen durgunlar. Ocaktan ocağa yanma bu karede yok, doğrulanamadı. vaseStars'a dönme parametresi eklenmemiş; P247 (KAYA) 'dönen yıldızlar' istiyor."
+    },
+    {
+     "oneri": "9 (önemli) Kartal vuruşu olan planlarda mb: 8.",
+     "durum": "başkan reddetti (gerekçesi yerinde)",
+     "not": "Başkan bunu sahne üretimine bıraktı. Bu planda kanat ucu kare başına ≈7 px ilerliyor; bulanıklık gerekmiyor, yani erteleme yerinde. Ama 1. düzeltmedeki tam vuruş gelince aşağı vuruşta uç hızı ≈50 px/kare olur; o planlarda mb: 8 zorunlu. renderFrameMB sh.mb'yi zaten okuyor."
+    },
+    {
+     "oneri": "10 (önemli) eagle2'ye o.farA, o.spread ve o.perch eklemek.",
+     "durum": "kısmen",
+     "not": "angFar ve farOff var (farA'nın karşılığı). spread yalnız yorum satırında geçiyor, kodda yok. perch hiç yok. P008'deki konma ve kanat germe (KYLIX) hâlâ yapılamıyor."
+    },
+    {
+     "oneri": "11 (küçük) Yeniden kullanılabilir, durumsuz kayaLife canlılık katmanı.",
+     "durum": "uygulandı",
+     "not": "lib/kaya.js'te kayaWorld, windAt, CAMS, promChained ve eagleShadow var. Hepsi t'nin kapalı fonksiyonu; 4 işçili render için güvenli. Eksik kalanlar: gece göğünde bulut katmanı yok, plan başına aç/kapa seçenekleri de yok (7. düzeltme)."
+    },
+    {
+     "oneri": "12 (küçük) Test seti: 1/30 sn aralıklı tam kanat döngüsü, 6 sn'lik mp4, 168 px GIF, fark haritası.",
+     "durum": "kısmen",
+     "not": "16 fazlık döngü ve 6 sn'lik mp4 verilmiş; GIF ve fark haritası yok. Döngü şeridi tam aralığı (ang 0–1) gösteriyor, oysa plan yalnız .62–.97'yi ve sabit bir uzak kanadı kullanıyor. Yani kurula planda olmayan bir hareket onaylatılıyor. Fark haritasını kendim çıkardım (özet bölümünde)."
+    }
+   ],
+   "scores": {
+    "S1": 8,
+    "S2": 8,
+    "S3": 7.5,
+    "S4": 7.5,
+    "S5": 8,
+    "S6": 7,
+    "S7": 8
+   },
+   "verdict": "RED",
+   "summary": "Animasyon yönetmeni (hareket) olarak oyum RED. Ağırlıklı ortalama 7,70 (1. turda 7,05). S6 5,5'ten 7,0'a çıktı. Artık hiçbir ölçüt 7'nin altında değil, ama ortalama 9,0 eşiğinin altında kalıyor.\n\n**Nasıl ölçtüm**\n- tur2 dosyaları 04:31'de üretilmiş; lib/ ise sonradan değişmiş (e7286ae, 05:03 ve sonrası). Bu yüzden önizlemeyi üreten kodu git'ten (5761547) scratchpad'e çıkarıp çizdirdim. mp4 ile ortalama farkı 1,2/255; güncel kodla 10,9/255.\n- 181 kareyi kamera dondurulmuş ve post() kapalıyken çizdim. Böylece kameradan bağımsız gerçek hareketi bölge bölge ölçtüm; chain() ve eagle2 parametrelerini de kaydettim.\n\n**Doğrulanan ilerleme**\n- Kamera itişi, kayma ve yavaş titreşim var; 5 paralaks katmanı var; 24 fps gren var.\n- Kanat fonksiyonu sürekli.\n- Gövde kanat fazıyla kalkıp iniyor; gaga yalnız çığlıkta açılıyor.\n- 4,2 sn'lik gerilme döngüsü başı 14 px'e kadar oynatıyor (önce ±4 px). Zincir sarkıyor, gerilmede toz dökülüyor.\n- Gökte rüzgâr çizgileri, kıvılcımlar ve akan dalga kuşağı var.\n- Sonuç: \"en az iki hareket katmanı\" ilkesi artık her bölgede karşılanıyor.\n\n**Puanı tutan sorunlar**\n1. Planın ana hareketi zayıf. style2'de ang yalnız .62–.97 arasında, angFar 6 sn boyunca sabit .2.\n   - Yakın kanat üst çeyrekte 43° sallanıyor, hiç aşağı vurmuyor. Uzak kanat donuk.\n   - Kartal itiş olmadan 530 px kayıyor; kâğıt bir kukla gibi, kanadı kırık gibi okunuyor.\n   - Kurula gösterilen 16 fazlık döngü planda kullanılmıyor.\n2. Zincir halkaları sıçrıyor. chain() halka sayısını anlık yay boyundan hesaplıyor (n = floor(tot / (L·.78))).\n   - Sarkma değişince n bir artıp azalıyor ve bütün halkalar tek karede yer değiştiriyor.\n   - 6 sn'de 4 kez oluyor: t = 0,80, 3,00 ve 4,80'de alt zincirde, 5,07'de üst zincirde.\n   - O karelerde zincir bölgesindeki fark 0,2'den 2,2–2,5'e çıkıyor (10–12 kat).\n3. Kartalın yolu düz bir çizgi; t = 5,5'te durup yerinde sallanıyor. Kanat ucu t = 0–2,5 sn'de üst frizin altına giriyor. Kartal soğuk çakmanın içinden çıkmıyor; ilk karede tam haliyle orada duruyor.\n4. Rüzgâr yönleri çelişiyor: gök çizgileri sola, dalga kuşağı sağa akıyor, saç sağa savruluyor. Saçtaki dalgalanma ≈ ±1,5 px; himation tamamen sabit.\n5. Uzak ateşler fiilen durgun (kare-kare değişen piksel %0,16); ateşlerde duman yok. Gece göğünde bulut katmanı yok, yıldızlar dönemiyor (P247).\n6. Güncel kodda gerileme var. promChained'in 4,2 sn'lik döngüsü kaldırılmış; varsayılan pull = .12 + .06·sin(.9t).\n   - Güncel kodla yaptığım aynı ölçümde baş 6 sn'de en çok 4 px kıpırdıyor.\n   - acts/s00.js (89, 105) `pullK` geçiyor, ama bu parametre artık okunmuyor. acts/s02.js (54, 242) hiç parametre geçmiyor. Bu KAYA planları neredeyse durgun kalacak.\n   - style2'deki `blink: lid` göz kırpmayı iptal ediyor.\n\nBunların hepsi kodla, birkaç saatte düzeltilebilir. Hepsi t'nin kapalı fonksiyonu olarak kalabilir; 4 işçili render için ek bir risk yok.\n\n**Diğer ölçütler (hareket gözüyle, kısaca)**\n- S1: Siyah sır saç ve sakal, ayrılmış kontur, meander ve çapraz kare, dalga kuşağı ve dipinto doğru. Kartal başı 1,4 katla büyük, kel kubbeli ve ağır gagalı; akbaba gibi okunuyor.\n- S2: 168 px'te köşegen figür ve ateş noktası okunuyor.\n- S3: En parlak nokta ateş (221, x = 827, y = 842), ama 40 px'lik bir nokta. Alt üçte bir boş.\n- S4: Himation düz bir kutu gibi duruyor.\n\n**Kanıt dosyaları** (scratchpad; proje dosyalarına dokunulmadı)\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/t2/kartal_plan_ici_tur2.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/t2/chain_pop.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/t2/hareket_haritasi_v2.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/t2/flip_bc.png\n- /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/t2/v2fz/ (kamera dondurulmuş kareler ve log.json)",
+   "fixes": [
+    {
+     "where": "SCENES.style2, scenes.js 131–135, eagle2 çağrısı; kartal bölgesi (380–960, 40–620)",
+     "problem": "Plan kanat döngüsünün yalnız üst çeyreğini kullanıyor: ang .62–.97 arasında sinüs, angFar 6 sn boyunca sabit .2. Aşağı vuruş hiç yok, uzak kanat donuk. Kartal itiş olmadan kayıyor ve 'kırık kanat' gibi okunuyor. Kurula gösterilen 16 fazlık döngü planda yok.",
+     "fix": "Süzülüş ve anahtarlı tam vuruşlar kullan (filmde vuruş anları Wd()'ye bağlanır):\n```js\nconst BEATS = [.9, 2.4, 3.9];\nconst wU = tt => { for (const b of BEATS) { const u = (tt - b) / .9; if (u >= 0 && u < 1) return u < .58 ? .5 * u / .58 : .5 + .5 * (u - .58) / .42; } return -1; };\nconst wA = tt => { const g = .88 + .04 * noise1(tt * .7, 5), u = wU(tt); return u < 0 ? g : lerp(g, 0, Math.sin(PI * u)); };\nconst u0 = wU(t), lift = u0 >= 0 && u0 < .5 ? Math.sin(TAU * u0) : 0;\n```\nÇağrıda: `ang: wA(t), angFar: .05 + .9 * wA(t - .06)`, y'den `10 * lift` çıkar (gövde aşağı vuruşta kalkar).\nSondaki fren: `const br = E.io2(ramp(t, 4.9, 5.6)); ang = lerp(ang, .97, br); angFar = lerp(angFar, .15, br); tilt -= .5 * br; tailOpen: br; talon: 1`. Vazodaki 'bir kanat yukarı, bir kanat aşağı' duruşu böylece bütün uçuş değil, tutulan bir anahtar poz olur.\nAşağı vuruşta kanat ucu ≈50 px/kare gider; bu planların SHOTS kaydına `mb: 8` yaz. Kurul şeridini plandaki gerçek ang ve angFar değerleriyle üret.",
+     "priority": "kritik"
+    },
+    {
+     "where": "chain() env.js 136–152 ve ironChain world.js 114–115; alt bilek zinciri (1340–1500, 540–650), üst bilek zinciri (1300–1480, 190–320)",
+     "problem": "Halka sayısı anlık yay boyundan hesaplanıyor: n = floor(tot / (L·.78)). Sarkma değişince n 6↔7 ve 7↔8 atlıyor, bütün halkalar tek karede yer değiştiriyor. 6 sn'de 4 kez oluyor (t = 0,80 / 3,00 / 4,80 / 5,07); zincir bölgesindeki kare farkı 0,2'den 2,2–2,5'e çıkıyor. TV'de (%22) titreme gibi görünür.",
+     "fix": "Bilekten başlayan sabit adım kullan:\n- chain() imzasına `pitch = 0` ekle.\n- `const sp = pitch || tot / Math.max(1, Math.floor(tot / (L * .78))); const n = Math.ceil(tot / sp - .5);`\n- Döngüde `at(Math.min(tot, (i + .5) * sp))` kullan. Son halkanın alpha'sı `clamp((tot - (n - .5) * sp) / sp * 2)` olsun.\n- ironChain'deki iki çağrıya (siyah alt bant ve halkalar) aynı `lk * .78` adımını ver.\nBöylece fazla boy kazık halkasının içine kayar; kazık zincirden sonra çizildiği için ucu örter. Fiziksel olarak da doğru: zincir halkadan geçer.",
+     "priority": "kritik"
+    },
+    {
+     "where": "promChained, kaya.js 72 (güncel kod); acts/s00.js 89 ve 105, acts/s02.js 54 ve 242; scenes.js 129",
+     "problem": "tur2'den sonra 4,2 sn'lik gerilme döngüsü kaldırılmış. Varsayılan pull = .12 + .06·sin(.9t) gövdeyi yalnız ±0,004 rad oynatıyor; aynı ölçümde baş 6 sn'de en çok 4 px kıpırdıyor (tur2'de 14 px). s00.js'in geçtiği `pullK` artık okunmuyor. Bu planlar ve 108 KAYA planının varsayılanı neredeyse durgun kalıyor. style2'deki `blink: lid` blinkAt'i ezdiği için göz hiç kırpılmıyor. Ayak zincirleri de hiç oynamıyor.",
+     "fix": "Varsayılan döngüyü geri getir, metronom gibi olmasın:\n```js\nconst tw = t + 1.2 * noise1(t * .12, 8), ph = (tw % 4.6) / 4.6;\nconst cyc = (ph < .35 ? E.io2(ph / .35) : 1 - E.io2((ph - .35) / .65)) + settle(ph * 4.6, 1.61, .06, 1.7, 4);\nconst pull = o.pull ?? cyc * (o.pullK ?? .8);\n```\n- style2'de `blink: Math.max(lid, blinkAt(t, 17))` kullan.\n- Ayak zincirlerinde `L0: len(sub(sL, aN)) * (1.15 - .05 * pull)` olsun; gerilmede onlar da kalksın.",
+     "priority": "kritik"
+    },
+    {
+     "where": "windLines kaya.js 44; figure.js blow() 462; hipwrap 355–364, himation eteği (1085–1210, 580–750)",
+     "problem": "Rüzgârın yönü çelişiyor: gök çizgileri sola akıyor (x − t·sp), dalga kuşağı sağa akıyor (phase t·18), saç ve sakal ekranda sağa savruluyor (dir −1). Saçtaki dalgalanma ±0,23 birim (≈ ±1,5 px), görünmüyor. Himation sabit. 12 KAYA planı rüzgâr istiyor.",
+     "fix": "Çizgileri sağa akıt; böylece üç öğe de soldan, açık denizden esen rüzgârda birleşir:\n```js\nx = area[0] + ((r() * area[2] + t * sp) % (area[2] + 300) + area[2] + 300) % (area[2] + 300) - 150\n```\nblow() içinde dalgalanmayı büyüt (uçlarda ≈ ±7 px): `.9 * wd * u * Math.sin(ft * 3.1 + i * .7) + .35 * wd * u * Math.sin(ft * 5.3 + i * 1.3)`; y'ye `.25 * wd * u * Math.sin(ft * 2.2 + i)` ekle.\nhipwrap'ta hem noktalarını oynat:\n```js\nconst wd = p.wind || 0, ft = window.FIG_T || 0;\nhemB = add(hemB, [-wd * (1 + .5 * Math.sin(ft * 3.4)), .4 * wd * Math.sin(ft * 2.7 + 1)]);\n```\nhemM'ye aynısını .5 katsayı ve −.6 faz farkıyla uygula.\nAlevler de rüzgâra yatsın: flame()'de `sw += wind * 4`; kıvılcımlarda vx'e `+ wind * 12` ekle.",
+     "priority": "önemli"
+    },
+    {
+     "where": "SCENES.style2 kartal yolu (tur2: (180,211)→(713,407) düz çizgi); üst friz (0–1920, 0–38)",
+     "problem": "Yol düz çizgi; kartal t = 5,5'te durup yerinde sallanıyor. Kanat ucu t = 0–2,5 sn'de ve 3,5 sn'de frizin altına giriyor, kesik görünüyor. Kartal soğuk çakmanın içinden çıkmıyor; ilk karede tam haliyle orada. headA hedefe göre hesaplanmıyor.",
+     "fix": "Yolu kübik Bezier yap: P0 (170, 300), P1 (380, 300), P2 (560, 470), P3 (720, 420), k = E.io2(clamp(t / 5.2)).\n- Eğim: `tilt = .18 + .5 * Math.atan2(dy, dx)`; dx, dy yolun türevi.\n- Friz koruması: `ey = Math.max(ey, 60 + 95 * es)`; kalkık kanat ≈95·s px yükseliyor.\n- Çakmadan çıkış: ilk .35 sn'de rengi `mixCol('#DDE3F2', '#A85A32', ramp(t, 0, .35))` ile kil rengine geçir, ölçeği ×(.8→1) büyüt.\n- Varıştan sonra asılı kalmasın: `x += 10 * Math.sin(.9 * t), y += 6 * Math.sin(1.8 * t)` ile sekiz çizsin.\n- Baş kilidi: `headA = clamp(Math.atan2(470 - hy, 1270 - hx) - tilt, -.35, .35)`; hx, hy baş noktası, (1270, 470) göğüs.",
+     "priority": "önemli"
+    },
+    {
+     "where": "humanFires world.js 124; uzak ateşler (60–520, 740–840; güncel kodda 100–500, 600–680); büyük ateş (860, 846; güncel kodda 860, 690); motes env.js 39–42",
+     "problem": "Titreme hâlâ .85 + .15·sin(t(5+i)), düzenli yanıp sönen fener gibi. Uzak ateşlerde kare-kare değişen piksel %0,16; fiilen durgunlar. Duman yok. Kıvılcım kutusu sarmalanırken parçacıklar üstte kayboluyor, altta birden beliriyor.",
+     "fix": "- Titreme: `fl = .88 + .12 * noise1(t * 6 + i * 3, i) + .05 * noise1(t * 15, i + 9)`.\n- Uzak ateşler: alpha `.7 + .3 * noise1(t * 1.5 + i * 7, i)`.\n- Büyük ateşin üstüne 3 ince vazo dumanı: kil rengi, alpha .12, kalınlık 2. Her biri (860, 800)'den 160 px yükselen bir bezier; x kayması `wind * 40 * u + 6 * Math.sin(t * 1.3 + k)`.\n- motes: `globalAlpha *= Math.sin(PI * ((y - area[1]) / area[3]))` ile parçacıklar kutunun kenarında sönsün.",
+     "priority": "önemli"
+    },
+    {
+     "where": "kayaWorld kaya.js 105 (gök katmanı, y 60–620); vaseStars world.js 142",
+     "problem": "Gece göğünde bulut katmanı yok; cloud() yalnız skyChain'de kullanılıyor. 7 KAYA planı 'bulut akar' istiyor. vaseStars'ta dönme yok; P247 (KAYA) 'dönen yıldızlar' istiyor.",
+     "fix": "- kayaWorld'e `o.clouds` seçeneği ekle: 3–5 vazo bulutu (dolgu #1C120D, kil kontur alpha .35), y 140–320, paralaks k .2, 8 px/sn sağa kayma (rüzgârla aynı yön): `x = x0 + ((t * 8 * (.5 + wind)) % 2400) - 300`.\n- vaseStars'a `rot = 0, rc = [1250, 1500]` parametreleri ekle; noktayı çizmeden önce `[x, y] = add(rc, rot2(sub([x, y], rc), rot))` ile döndür. P247'de `rot: t * .006`.",
+     "priority": "önemli"
+    },
+    {
+     "where": "eagle2 wing() world.js 169–171",
+     "problem": "Kanat kenardan göründüğü anda (ang = .5) fy, sign·max(.15, |flp|) yüzünden −.15'ten +.15'e atlıyor; a2 de ±.1 rad atlıyor. Δang = .001'de 3.108 piksel değişiyor; Δang = .0195'te 4.980. 1. düzeltmeyle tam vuruş gelince her aşağı ve yukarı vuruşta tek karelik bir sıçrama olur.",
+     "fix": "- Sürekli yap: `fy = flp`, `a2 = (.1 + .25 * Math.abs(flp)) * flp * (o.fold ?? 1)`.\n- Kanat |flp| < .2 iken kaybolmasın diye kanat ekseni boyunca bir kenar şeridi çiz: kalınlık `2.2 * (1 - Math.abs(flp) / .2)` birim, renk wcol, siyah kontur.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "animasyon-Kurgu",
+  "rapor": {
+   "dogrulama": [
+    {
+     "oneri": "1. Sahne yolunda post() çağrılsın (doku, vinyet, gren); style.post tanımlansın",
+     "durum": "uygulandı",
+     "not": "film.js:46 önerdiğim kodun aynısı; SCENES.style2.post = {tex .55, vig 1, grain .06}. Gök yamasında std 0,48'den 1,1–1,6'ya çıktı. Kurul artık son yüzeyi görüyor."
+    },
+    {
+     "oneri": "2a. İkinci crag (kaide) kalksın; çıkıntı ana kayanın parçası olsun, uçurum yüzü kadrajın altından düşsün",
+     "durum": "uygulandı",
+     "not": "Figür kayadaki dalgalı zemin çizgisine basıyor (gl≈870). Uçurumun sol yüzü x≈930'da kadrajın altından çıkıyor. Heykel kaidesi okuması kalktı."
+    },
+    {
+     "oneri": "2b. Ufuk y≈610 olsun, ateşler perspektifle dizilsin",
+     "durum": "başkan reddetti (gerekçe zayıf)",
+     "not": "Perspektif boyları uygulandı (.45/.55/.7/1.6). Ufuk ise 760'a kondu, gerekçe 'ateş altyazı bandının üstünde kalır'. Tur 2 karesinde büyük ateş (828,840)'ta, yani planlar.json'un altyazıya ayırdığı alt üçte birde; gerekçe tutmuyor. Güncel kod (23da9a2) sonradan ufku 610'a, ateşi y=690'a çekti, ama bu kurula gösterilmedi."
+    },
+    {
+     "oneri": "3a. Krem (C.bone) zincir, siyah dış hatla",
+     "durum": "başkan reddetti (gerekçesi yerinde)",
+     "not": "Tek odak ateş olmalı; krem zincir ikinci bir açık leke olurdu. Ancak tur 2 karesinde 168 px'te zincir 31–35, arkasındaki kaya 45–49 (ΔL≈14): zincir zayıf okunuyor, okunurluğu kelepçeler taşıyor. Güncel ironChain'e eklenen kil dış kontur (w+10) bu açığı kapatmaya yönelik; bir sonraki turda ölçülmeli."
+    },
+    {
+     "oneri": "3b. Zincir sarkması ve rüzgârla salınım, bilek kelepçesi, kama kazık, alt kol gergin (asimetrik Y)",
+     "durum": "uygulandı",
+     "not": "ironChain sag = wind·6·sin(1,3t); CUFF kelepçeleri, ayakta pranga ve üçüncü kama var; kazıklar 3,6 ölçekte, zincir yönünde sivriliyor. Alt kazık (1495,600). Poz zincire karşı asılan bir köşegen; T pozu değil."
+    },
+    {
+     "oneri": "4. Kamera ve paralaks: kayaSet katmanları (k .05/.2/.35/1/1,1/1,5), kaya x 2600 ve y −900'e uzasın, CAMS, sabit kontur kalınlığı, friz kaydırma",
+     "durum": "kısmen",
+     "not": "Yapılanlar:\n- kayaWorld ve cam() katmanları (k .1/.35/.4/1);\n- 5 ön ayar (CAMS);\n- lw = 3.5/max(1, z·.8);\n- kaya x=2600'e uzanıyor;\n- yukarı çevrinme skyChain bulutlarıyla çözülmüş, bu kabul edilebilir.\n\nEksikler:\n- ön katman (k>1) yok;\n- kayaFrame'deki o.off kullanılmıyor;\n- ÜST, ZİNCİR ve GÖZ ön ayarları yok.\n\nÖlçüm: paralaks 6 sn'de ova −31 px, kaya −64 px; hafif ama var. Yeni bulgu (düzeltmelerde): ORTA ve YAKIN ön ayarları bozuk kadraj veriyor."
+    },
+    {
+     "oneri": "5. Odak: kartal gözü beyaz olmasın; tek baskın ocak; kartal ölçeği plan içinde büyüsün; figür arkasına hâle",
+     "durum": "uygulandı",
+     "not": "Ölçüm: parlaklığı 200'ü aşan 187 pikselin hepsi ateşte (438–831 × 817–856). Gövde L 116 > kartal 92 > kaya 45 > gök 12. Göz kehribar, ölçek 2,2→2,9 büyüyor, hâle var: glow(1270,540,560)."
+    },
+    {
+     "oneri": "6. Baş: kulak, sıkılı ağız, kaş gerilimi, 2 bukle, baş eğimi −.15, baş ile kol arasında boşluk",
+     "durum": "uygulandı",
+     "not": "Kulak saçın altında, sırıtma okuması kalktı. Ağız kapalı, scowl var, saç ve sakal siyah sır kütle. Baş −.1'de; yukarı kol baştan ayrılıyor ve 168 px'te baş koyu bir leke olarak koldan ayrı okunuyor."
+    },
+    {
+     "oneri": "7. Kartal yolu ve ölçeği, tilt, 1,8 sn'lik çırpma (%70 süzülme), kamera 1→1,06, eagleShadow ilkeli",
+     "durum": "kısmen",
+     "not": "Uygulananlar:\n- yol (180,210)→(720,410), E.io2;\n- ölçek 2,2→2,9, tilt .32→.46;\n- çırpma 1/.55 = 1,82 sn, süzülmeli;\n- kamera itişi;\n- eagleShadow ilkeli kaya.js'te (önizlemede gösterilmedi).\nKanat döngüsü sürekli: sol bölgede kareler arası fark en çok 2,32, ortalama 1,45.\n\nSorun: kartal t=0'da kadrajın içinde ve kanadı meander'ın altında kesik; çakma ondan sonra geliyor. 'Çakmanın içinden çıkar' okunmuyor."
+    },
+    {
+     "oneri": "8. Gök durumları gece/şafak/fırtına; güneş diski; yuvarlak göz",
+     "durum": "kısmen",
+     "not": "Gece ve şafak ile sunDisk var, göz yuvarlak. A03'ün kylixe taşınmasıyla gece/gündüz çelişkisi ikonografi yoluyla çözüldü (gerekçe yerinde). 'firtina' yalnız kaya.js'in başlık yorumunda geçiyor, kodu yok; oysa 5 FIRTINA planı onu bekliyor."
+    },
+    {
+     "oneri": "9. Alt kuşakta akan runningWave, opak zemin; üst meander korunsun",
+     "durum": "uygulandı",
+     "not": "Dalga 18 px/sn akıyor (bantta kareler arası fark 1,8–2,35, kesintisiz). Üstte meander ve çapraz kare var. x=880'deki ek yeri kalktı."
+    },
+    {
+     "oneri": "10. Katman geçişleri: figürden yayılan 'negatif', KAYA→SAYFA çerçeve içinde çerçeve, J01 donması",
+     "durum": "uygulanmadı",
+     "not": "Sahne üretimine ertelendi; üslup karesi için bu kabul edilebilir. Güncel film.js'te 'negatif' ve 'sir' var. Ancak negatif tam kareye uygulanan bir değer haritası; eşleşen bir öğeye bağlı değil. Kurula hiçbir geçiş şeridi gösterilmedi."
+    },
+    {
+     "oneri": "11. Kaya dokusu: seyrek, eğimli kırık çatlaklar; iç tarama korunsun",
+     "durum": "uygulandı",
+     "not": "strata 7, kısa ve eğimli; lob yayları 8. Tahta kaplama okuması kalktı. Yeni küçük bulgu: üst kazığın çevresindeki yaylar darbe çizgisi gibi okunuyor (düzeltme 8)."
+    },
+    {
+     "oneri": "12. Saç ve sakala p.wind; zincir ve tozla aynı fazda",
+     "durum": "uygulandı",
+     "not": "figure.js'te p.wind var. windAt(t) saç, sakal, zincir sarkması (sw) ve windLines tarafından ortak kullanılıyor."
+    }
+   ],
+   "scores": {
+    "S1": 8.5,
+    "S2": 8.5,
+    "S3": 8,
+    "S4": 8,
+    "S5": 8.5,
+    "S6": 8,
+    "S7": 8.5
+   },
+   "verdict": "RED",
+   "summary": "Ağırlıklı ortalama 8,28 (tur 1'de 7,00). Hiçbir ölçüt 7'nin altında değil, ama eşik 9,0 olduğu için karar RED.\n\n**Neyi değerlendirdim.** Puanlar kurul/uslup_tur2 dosyalarına ve 6 sn'lik önizlemeye göre (commit 5c59d7b, 04:32). Kod o kareden sonra değişti: e7286ae, 23da9a2 ve kaydedilmemiş değişiklikler. Yani bu kareyi artık mevcut kod üretmiyor. Değişenler:\n- ufuk 610, büyük ateş y=690;\n- dipinto (985,62);\n- kartal x=−160'tan giriyor;\n- ironChain'de kil dış kontur;\n- CAMS.genis.x = 900.\n\nDüzeltmelerdeki koordinatlar güncel koda göre. Sonraki tur güncel koddan üretilmeli. Denemeleri yalnız karalama alanında yaptım; depoda dosya değiştirmedim.\n\n**Set kapsamı.** planlar.json'un son sürümünde (05:24) 283 planın 109'u (%38,5) KAYA setinde:\n- KAYA 33, ORTA 20, YAKIN 17;\n- GÖK 7, GENİŞ 5, ALT 5, FIRTINA 5, ZİNCİR 4;\n- ÜST, DENİZ, OLYMPOS ve KAYA→OLYMPOS 2'şer; geri kalanlar 1'er.\n\nCAMS yalnız genis, orta, yakin, alt ve gok ayarlarını içeriyor. Güncel kodla karalama alanında çektiğim denemelerde:\n- ORTA'da saç tepesi y≈68'de (meander bandı 38'de bitiyor), ayaklar dalga bandında kesik;\n- YAKIN'da ağız ≈650, sakal ucu ≈860, yani altyazı bandında;\n- ALT alttan bakış değil, yatırılmış bir ORTA gibi.\n\n37 ORTA ve YAKIN planı bu ayarlarla bozuk kadraj verir. ÜST, ZİNCİR, GÖZ ve fırtına gök durumu hiç yok. S6'yı bu yüzden 8 verdim.\n\n**Ölçümle doğrulanan iyileşmeler:**\n- Son işlem geliyor: gök yamasında std 0,48'den 1,1–1,6'ya çıktı.\n- Değer sırası doğru: parlaklığı 200'ü aşan pikselin hepsi ateşte; gövde 116, kartal 92, kaya 45, gök 12.\n- Kanat döngüsünde sıçrama yok.\n- Dalga kuşağı kesintisiz akıyor.\n- Paralaks var ama hafif: 6 sn'de ova −31 px, kaya −64 px kayıyor.\n\n**Tur 2 karesinde kalan kompozisyon sorunları:**\n- Tek odak olan ateş (828,840) alt üçte birde, yani altyazı bandında.\n- Dipinto (x 897–922, y 300–570) kartal ile Prometheus arasındaki bakış hattını kesiyor.\n- Kartal t=0'da zaten kadrajda; çakmanın içinden çıkmıyor.\n\nİlk ikisi güncel kodda giderilmiş görünüyor, ama kurul bunları görmedi.\n\n**Seri kimliği ve üç katman.** Kırmızı figür, sır siyahı zemin, meander ile çapraz kare, akan dalga ve ΠΡΟΜΗΘΕΥΣ dipintosu Sisifos'taki Thanatos kareleriyle aynı ailede. Krem zincirin reddedilmesi, tek odak kuralı açısından doğru. LK.prom üç teknikte de ortak (kylix siyah figür, KAYA kırmızı figür, sayfa beyaz zemin); üç katmanı birbirine bağlayan öğe bu. Ancak negatif ve sır geçişleri iki uçta eşleşen bir öğeye bağlanmamış ve kurula gösterilmedi. ONAY için öncelik: 1–2 numaralı ön ayar düzeltmeleri, kartal girişi ve bir geçiş şeridi.",
+   "fixes": [
+    {
+     "where": "lib/kaya.js CAMS.yakin {x:1290, y:330, z:3.4} (17 YAKIN planı)",
+     "problem": "Güncel kodla çekilen YAKIN karesinde baş y≈400–860 arasında: göz ≈560, ağız ≈650, sakal ucu ≈860. Ağız ve sakal alt üçte birde, yani altyazı ve oynatıcı bandında (telefon kuralı y≤700). Üst yarıyı kol, kelepçe ve kazık dolduruyor. İzleyicilerin %38,4'ü altyazıyla izliyor ve yakın planların taşıdığı 'sessiz direnç' ağızda.",
+     "fix": "`yakin: { x: 1290, y: 395, z: 3.4 }`. Denemede baş 180–640 arasına çıkıyor: göz ≈330, sakal ucu ≈640. Yüzün önünde ≈480 px bakış boşluğu kalıyor; üst zincir sağ üstten kadrajdan çıkıyor (Zeus yönü). Plan içi yaklaşmalarda yalnız z değişsin (3,2→3,6), y=395 sabit kalsın. Böylece eşleşen yakın planlarda göz yüksekliği aynı kalır.",
+     "priority": "kritik"
+    },
+    {
+     "where": "lib/kaya.js CAMS.orta {x:1250, y:560, z:1.75} (20 ORTA planı)",
+     "problem": "Saç tepesi y≈68'de. Meander bandı 38'de bittiği için baş boşluğu 30 px. Ayak bilekleri ve ayaklar dalga bandının arkasında, eklem hizasından kesiliyor. Diyalog planlarının (Kratos, Hephaistos, Hermes, Okeanos) ana kadrajı bu.",
+     "fix": "`orta: { x: 1260, y: 585, z: 1.55 }` (boy plan). Denemede saç tepesi ≈85, ayaklar ≈975, figürün merkezi x≈870. Sol 0–600 bandı konuk için boş kalıyor.\n\nx=1260'ta büyük ocak ve iki insan kaya kenarının (ekranda x≈619) arkasında tamamen kalıyor. x=1215 denendi: soldaki insan kenardan yarım görünüyor, o yüzden kullanılmamalı. Uzak küçük ateşler (y≈665) görünür kalıyor.\n\nGENİŞ→ORTA kesmesinde ölçek 1,55 kat büyüyor ve figür ekranda ≈1185'ten ≈870'e kayıyor. Bu ikisi birlikte sıçrama kesmesi hissini önler.",
+     "priority": "kritik"
+    },
+    {
+     "where": "SCENES.style2: kartal yolu ve Zeus çakması (160,120), t<0,6. KAYA planlarında kartal girişinin şablonu.",
+     "problem": "Tur 2 önizlemesinde kartal t=0'da kadrajın içinde: gövde ≈(200,200), kanat meander'ın altında kesik. Çakma t≈0,3'te zaten orada olan kartalın arkasında gri bir leke olarak kalıyor.\n\nGüncel kodda kartal (−160,300)'den yatay giriyor ve kadraja t≈1,1 sn'de, çakmadan ≈200 px uzakta giriyor. 125 px'lik alçalma 'uçarak geliyor' gibi okunuyor.\n\nİki durumda da 'çakmanın içinden çıkar' ve 'iner' okunmuyor.",
+     "fix": "Şu üç değişiklik:\n- `const k = 1 - Math.pow(1 - clamp(t / 5.5), 2.2);`\n- `const ex = lerp(150, 720, k), ey = lerp(-130, 425, k);`\n- `tilt: lerp(.75, .46, k) + Math.sin(t*.7)*.02`\n\nDeneme şeridinde:\n- 0,3 sn'de çakma;\n- 0,7 sn'de kartal çakmanın altından, meander bandının arkasından çıkıyor (x≈200–450);\n- ≈43°'lik bir dalış;\n- 5,4 sn'de (720,425)'te duruyor.\n\nKylix'te de güneş ve kartal sol üstte; ekran coğrafyası iki katmanda aynı kalıyor.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/kaya.js CAMS.alt {x:1240, y:640, z:1.35, r:−.04} ve kayaWorld'ün ova bloğu (5 ALT planı)",
+     "problem": "Ayar yalnız 1,35 kat yakınlaştırıp −0,04 yatırıyor. Ufuk 610'da, ova figürün kalça hizasında kalıyor. 'Alttan kahraman karesi' ve 'ışık aşağıdan' okunmuyor; kare yatırılmış bir ORTA gibi duruyor.",
+     "fix": "kayaWorld'de `ctx.save(); cam(ctx, c, .35);` satırından hemen sonra `ctx.translate(0, 300 * (c.low || 0));` ekle. Ön ayar: `alt: { x: 1100, y: 560, z: 1.45, r: -.05, low: 1 }`.\n\nDenemede ova y≈990'a, yani çıkıntının altına iniyor. Figür 150–1000 arasında kalıyor ve önü gök boşluğuna bakıyor.\n\nBu ayarda ocak ve insanlar dalga bandına yarım giriyor. Bu yüzden low>0 iken `fires: false` kullan ve ışığı kadrajın altından ver: `glow(ctx, 1150, 1120, 700, 'rgba(255,140,60,.22)')`.",
+     "priority": "önemli"
+    },
+    {
+     "where": "lib/kaya.js CAMS ve kayaWorld o.sky: ZİNCİR (4 plan), FIRTINA (5), ÜST (2), GÖZ→TONDO",
+     "problem": "planlar.json'daki set tanımı ÜST, ZİNCİR ve GÖZ→TONDO kameralarını ve FIRTINA gök durumunu sayıyor; CAMS'te bunların hiçbiri yok. kaya.js'in başlığı 'fırtına' diyor ama kayaWorld yalnız 'gece' ve 'safak' tanıyor. Üst bilek yakın çekimi (1420,250, z 3,2) her seferinde başın ve sakalın yarısını sol alta sokuyor (denendi).",
+     "fix": "Ön ayarlar:\n- `zincir: { x: 1430, y: 600, z: 3.2 }`: alt bilek. Kelepçe ≈(650,400), kazık ≈(1150,540), baş kadraj dışında; çekiç sağdan, kayadaki boş alandan girer.\n- `goz`: promChained `eye: jointPt(ctx, M, J.head)` döndürsün; `goz = { x: eye[0]-4, y: eye[1]-2, z: 9 }` buradan hesaplansın.\n- `ust: { x: 1225, y: 500, z: lerp(.55, 1.3, p), r: lerp(.9, 0, p) }`: gökten figüre sarmal iniş.\n\n`sky === 'firtina'` durumu:\n- vaseStars alfası .05;\n- `wind = windAt(t, .9)`, windLines n=18;\n- y 40–260 arasında 6 `cloud()`, `x += t*40*wind`;\n- `noise1(t*.7, 13) > .55` olduğunda 0,15 sn'lik `bolt()`, renk '#DDE3F2'.",
+     "priority": "önemli"
+    },
+    {
+     "where": "film.js tr.type 'negatif' ve 'sir'; P006 (KAYA→KYLIX) ve P250 (kylix kartalı → KAYA)",
+     "problem": "Geçişler kodda var ama kurul hiçbirini görmedi. Negatif tam kareye uygulanan bir değer haritası ve gürültü çözülmesi; iki ucunda eşleşen bir öğe yok. Kylix kartalı dönen bir tondo içinde (R=430, merkez (960,550)), KAYA kartalı ise (720,425)'te ve s=2,9.\n\nNegatif ancak aynı biçim aynı yerde ve aynı boyda tersine dönerse 'aynı imge, öbür teknik' diye okunur. Üç katmanın tek bir dünya olduğunu söyleyecek an bu.",
+     "fix": "Geçişin 0,8 sn'si boyunca eski karede tondoyu kartal noktası çevresinde büyüt:\n`ctx.translate(720,425); ctx.scale(lerp(1, 2.9/eS, E.io2(p))); ctx.translate(-ekX, -ekY)`\n- eS: kylix kartalının ekrandaki ölçeği;\n- (ekX, ekY): kylix kartalının ekrandaki noktası;\n- dönüşü `lerp(rot0, 0, E.io2(p))` ile 0'a getir.\n\nKesme anında iki kartal üst üste biner. P005→P006'da aynı ilkeyi zincire uygula: bulutlara giden zincirin ekran x'i, sütun bağının ekran x'ine kaysın.\n\nKurula iki geçiş için t=0/.2/.4/.6/.8/1,0 karelerinden oluşan bir şerit göster.",
+     "priority": "önemli"
+    },
+    {
+     "where": "kayaWorld / plan çizimi: ön katman (k>1) yok",
+     "problem": "Bütün katmanların derinliği k≤1. GENİŞ'teki 1,00→1,06 itişte ve YAKIN'daki 'çok yavaş yaklaşma'larda derinliği yalnız arka planın daha az kayması veriyor: 6 sn'de ova ile kaya arasındaki fark ≈33 px. Kameranın önünden geçen hiçbir şey yok; hareket düz bir levhanın büyümesi gibi okunuyor.",
+     "fix": "Figürden sonra, kayaFrame'den önce çiz:\n`ctx.save(); cam(ctx, c, 1.5); motes(ctx, t, 16, 41, 'rgba(255,180,110,.28)', [-300, 80, 2600, 900], -18, 2.4, .5 + .4*wind); ctx.restore();`\n\nBunlar ateşten yükselip önden geçen sönük közler. Az sayıda, iri ve yavaş olsunlar; 168 px'te görünmesinler, yalnız harekette okunsunlar.",
+     "priority": "küçük"
+    },
+    {
+     "where": "world.js crag() lob yayları. Tur 2 karesinde üst kazığın çevresi (1390–1470, 240–330) ve (1500–1570, 290–400).",
+     "problem": "Kazığın çevresine düşen 3–4 eşmerkezli yay, kazıkla birlikte çizgi filmdeki darbe ya da titreşim çizgisi gibi okunuyor. ZİNCİR ve YAKIN planlarında 3,2–3,4 kat büyüyor ve sürekli bir vuruş izlenimi veriyor; oysa vuruş yalnız çekiç planlarında var.",
+     "fix": "crag'a `avoid: [[1480,215,170],[1495,600,170]]` seçeneği ekle. Lob döngüsünde c, R ve a0'dan sonra önce `const sp = 1.3 + r() * .8;` hesapla; rastgele sayı sırası böylece değişmez. Sonra:\n`if (o.avoid && o.avoid.some(([ax, ay, ar]) => Math.hypot(c[0]-ax, c[1]-ay) < ar + R)) continue;`\nve `ctx.arc(c[0], c[1], R, a0, a0 + sp)`.\n\nDarbe izi yalnız vuruş anında, o.dust ile çizilsin.",
+     "priority": "küçük"
+    }
+   ]
+  }
+ }
+]

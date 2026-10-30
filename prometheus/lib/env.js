@@ -39,7 +39,7 @@ function motes(ctx, t, n, seed, col, area = [0, 0, W, H], sp = 20, sz = 2.2, a =
     const x0 = r() * area[2], y0 = r() * area[3], vy = -(r() * .7 + .3) * sp, vx = (r() - .5) * sp * .6, ph = r() * 100;
     const x = area[0] + ((x0 + vx * t + Math.sin(t * .7 + ph) * 18) % area[2] + area[2]) % area[2];
     const y = area[1] + ((y0 + vy * t) % area[3] + area[3]) % area[3];
-    ctx.globalAlpha = a * (.4 + .6 * Math.sin(t * 1.3 + ph) ** 2);
+    ctx.globalAlpha = a * (.4 + .6 * Math.sin(t * 1.3 + ph) ** 2) * Math.sin(PI * clamp((y - area[1]) / area[3]));
     ctx.beginPath(); ctx.arc(x, y, sz * (.5 + r()), 0, TAU); ctx.fill();
   }
   ctx.restore();
@@ -133,16 +133,17 @@ function column(ctx, x, y0, y1, w, col = C.ink, inc = C.clay) {
   for (let k = -2; k <= 2; k++) { ctx.beginPath(); ctx.moveTo(x + k * w * .16, y1 - w * .16); ctx.lineTo(x + k * w * .135, y0 + w * .45); ctx.stroke(); }
 }
 // Zincir: noktalar boyunca halkalar
-function chain(ctx, pts, L = 22, col = C.ink, inc = null, wid = 6, sag = 0) {
-  // toplam yol boyunca eşit aralıkla
+function chain(ctx, pts, L = 22, col = C.ink, inc = null, wid = 6, sag = 0, pitch = 0) {
+  // toplam yol boyunca eşit aralıkla; pitch verilirse ilk noktadan sabit adımla (boy değişince halkalar yerinde kalır, fazlası kazık halkasına girer)
   const seg = []; let tot = 0;
   for (let i = 1; i < pts.length; i++) { const l = len(sub(pts[i], pts[i - 1])); seg.push(l); tot += l; }
-  const n = Math.max(1, Math.floor(tot / (L * .78)));
+  const sp = pitch || tot / Math.max(1, Math.floor(tot / (L * .78))), n = Math.max(1, Math.ceil(tot / sp - .5));
   const at = d => { let k = 0; while (k < seg.length - 1 && d > seg[k]) { d -= seg[k]; k++; } const u = clamp(d / seg[k]); return [lerp(pts[k][0], pts[k + 1][0], u), lerp(pts[k][1], pts[k + 1][1], u), Math.atan2(pts[k + 1][1] - pts[k][1], pts[k + 1][0] - pts[k][0])]; };
   ctx.save(); ctx.lineWidth = wid; ctx.strokeStyle = col; ctx.fillStyle = col;
   for (let i = 0; i < n; i++) {
-    const [x, y, a] = at((i + .5) * tot / n);
+    const [x, y, a] = at(Math.min(tot, (i + .5) * sp));
     ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+    if (pitch && i === n - 1) ctx.globalAlpha *= clamp((tot - (n - .5) * sp) / sp * 2);
     if (i % 2 === 0) { ctx.beginPath(); ctx.ellipse(0, 0, L * .5, L * .3, 0, 0, TAU); ctx.stroke(); }
     else { ctx.fillRect(-L * .5, -wid * .6, L, wid * 1.2); }
     if (inc && i % 2 === 0) { ctx.strokeStyle = inc; ctx.lineWidth = wid * .25; ctx.beginPath(); ctx.ellipse(0, -wid * .1, L * .5, L * .3, 0, PI * 1.1, PI * 1.6); ctx.stroke(); ctx.strokeStyle = col; ctx.lineWidth = wid; }
