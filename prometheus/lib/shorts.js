@@ -43,10 +43,10 @@ function shortOverlay(g, ts) {
   // YouTube Shorts arayüzü (başlık, kanal, düğmeler) alt ~%25'i ve sağ kenarı kapatır: altyazı 1080–1400 aralığında
   // açık zeminli (beyaz zemin, Camus) kesitlerde koyu bant yerine mürekkep renkli yazı + krem kontur (gri leke kalmaz)
   const light = !!clip.light;
-  if (!light) {
-    const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, 'rgba(12,6,4,0)'); cb.addColorStop(.3, 'rgba(12,6,4,.55)'); cb.addColorStop(.75, 'rgba(12,6,4,.55)'); cb.addColorStop(1, 'rgba(12,6,4,0)');
-    g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
-  }
+  // açık zeminde de yazının arkasından geçen çizgiler (zincir, ip) yazıyı bölmesin: zemin renginde yumuşak bant
+  const bc = light ? '246,236,214' : '12,6,4', ba = light ? .72 : .55;
+  const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, `rgba(${bc},0)`); cb.addColorStop(.3, `rgba(${bc},${ba})`); cb.addColorStop(.75, `rgba(${bc},${ba})`); cb.addColorStop(1, `rgba(${bc},0)`);
+  g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
   // altyazı: kelime grupları, etkin kelime altın
   const groups = S_.GROUPS, gi0 = groups.findIndex(gr => ts >= gr.s - .05 && ts < gr.e + .15), gi = gi0 < 0 && ts < groups[0].s ? 0 : gi0;
   if (gi >= 0) {
@@ -54,8 +54,10 @@ function shortOverlay(g, ts) {
     const gr = groups[gi], a = (gi === 0 ? 1 : clamp((ts - gr.s + .05) / .12)) * reIn * (gr.e <= (S_.CTA ?? 1e9) + .05 ? 1 - clamp((ts - (S_.CTA ?? 1e9) + .2) / .15) : 1);
     g.save(); g.font = '800 84px Cinzel'; g.letterSpacing = '2px'; g.textAlign = 'left'; g.textBaseline = 'middle';
     // tek satıra az farkla sığmayan kısa grup ("SENİN KAYAN NE?") bölünmesin: yazı biraz küçülür
-    { const tot = g.measureText(gr.words.map(w => w.w.toLocaleUpperCase('tr')).join(' ')).width; if (tot > 830 && tot < 830 / .86) g.font = `800 ${Math.floor(84 * 830 / tot)}px Cinzel`; }
-    const words = gr.words, sp = g.measureText(' ').width;
+    // kelime arası boşluk + 16 px: etkin kelime büyüyüp kontur kalınlaşınca komşusuna yapışmasın
+    const GAP = 16;
+    { const tot = g.measureText(gr.words.map(w => w.w.toLocaleUpperCase('tr')).join(' ')).width + GAP * (gr.words.length - 1); if (tot > 830 && tot < 830 / .86) g.font = `800 ${Math.floor(84 * 830 / tot)}px Cinzel`; }
+    const words = gr.words, sp = g.measureText(' ').width + GAP;
     // satırlara böl (en fazla 830 px; merkez 510: sağdaki Shorts düğme sütununa değmez)
     const lines = []; let cur = [], wsum = 0;
     for (const w of words) { const ww = g.measureText(w.w.toLocaleUpperCase('tr')).width; if (cur.length && wsum + sp + ww > 830) { lines.push(cur); cur = []; wsum = 0; } cur.push({ ...w, ww }); wsum += (cur.length > 1 ? sp : 0) + ww; }
