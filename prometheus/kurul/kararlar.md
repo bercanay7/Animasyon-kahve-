@@ -252,3 +252,31 @@ En düşük ölçüt K4 (tempo): 8,4–8,8. Kalan bulguların hepsi küçük dü
 - Rev 5: 122 cümle, temkinli modelle ~23:40; sıkı boşluk planıyla ~23 dk.
 - Kurulun 21–22 dk bandının ~1 dk üstünde.
 - Eklenenler kaynak düzeltmesi ve kurulum-ödeme cümleleri.
+
+## Senaryo: tur 5 (onay kontrolü: dramaturg-A, dil-Ses, kitle-Tutma) → **ONAY**
+
+| Üye | Rev 5 puanı | Karar |
+|---|---|---|
+| dramaturg-A | 9,11 | ONAY |
+| dil-Ses | 9,02 | ONAY |
+| kitle-Tutma | 9,15 | ONAY |
+
+Tur 4'te ONAY veren üç üyeyle (filolog-Erhat 9,02, filolog-Klasik 9,06, üslup-Dostoyevski 9,02) birlikte altı üyenin hepsi ≥ 9,0. **Senaryo onaylandı.**
+
+### Son cila (yeni tur gerektirmeyen küçük düzeltmeler)
+- **Araç hatası (dil-Ses, önemli):** A06'daki altyazı sözcüğü "1967'de," virgüllü olduğu için birleştirme tablosu uygulanmıyordu. build_vo.py ve srt.py artık noktalamadan bağımsız eşleştiriyor.
+- **Etiket sızması önlendi:** G08 [calmly], H05 [thoughtfully], I09 [calmly].
+- **I07:** "Hermes onu kibirle suçlar; cevabı keskindir" ("ilk cevap" çelişkisi giderildi).
+- **K08a:**
+  - "Ama bir soru hâlâ cevapsız" ile açık döngü işareti verildi (L06'nın kapanış etkisine karşı).
+  - "Politik" tekrarı azaltıldı; ilk yan cümle kendi sözümüzle ve "taht kavgası" kurulumuna bağlı.
+- **K01:** "İnsana benzemek mi?" köprüsü; K bölümü tek akıl yürütme.
+- **K08c:** "önsöze göre" (zamir belirsizliği giderildi). J10: "Erhat'a göre".
+- **Diğerleri:**
+  - E11, Pandora'dan sonraya taşındı (kaba kuvvet Prometheus'a salınan cezalara bağlanır, x5).
+  - E15'te yakın aktarım kendi cümlemizle yazıldı.
+  - H05 kısaldı (çift çeviri anlatımı kalktı).
+  - I03 ikiye bölündü; I12'de -ıp özne uyumu giderildi.
+  - K06'da "ülkü" tekrarı azaltıldı; C02'de özne Erhat oldu.
+  - B02'deki kayıp oyunlar cümlesi kaldırıldı (L02 taşıyor); F10a'da "Atina'sında" yazımı.
+- **Üretim notu:** denenmemiş adlar (Temis, Kerç, Göte, Meri Şeli, Frankenştayn, Openhaymır, Menoitios, İapetos, Bosporos, Mekone) ve etiketler bölüm çekiminden önce kısa bir denemeden geçecek.

@@ -29,8 +29,9 @@ for sg in segs:
     ws = [w for w in WORDS if w['id'] == sg['id']]
     # altyazıda tek sözcük, anlatım zamanlamasında iki sözcük olan kısaltmalar ("Kız ise" → duyulan "Kızsa,")
     for (sid, tok), k in MERGE.items():
-        if sid == sg['id'] and tok in toks:
-            i = toks.index(tok); ws = ws[:i] + [{**ws[i], 'e': ws[i + k - 1]['e']}] + ws[i + k:]
+        nt = [re.sub(r'[^\w]', '', t_) for t_ in toks]
+        if sid == sg['id'] and re.sub(r'[^\w]', '', tok) in nt:
+            i = nt.index(re.sub(r'[^\w]', '', tok)); ws = ws[:i] + [{**ws[i], 'e': ws[i + k - 1]['e']}] + ws[i + k:]
     if len(ws) != len(toks):
         print('UYARI: kelime sayısı uyuşmuyor', sg['id'], len(ws), len(toks))
     n = min(len(ws), len(toks))

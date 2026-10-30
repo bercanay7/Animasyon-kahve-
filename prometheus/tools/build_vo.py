@@ -35,7 +35,7 @@ for si, (bolum, segs) in enumerate(secs):
         at = []
         for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split():
             if not norm1(x): continue
-            n = MERGE.get(s['id'], {}).get(x, 1); at += [x] + [''] * (n - 1)
+            n = next((v for k_, v in MERGE.get(s['id'], {}).items() if norm1(k_) == norm1(x)), 1); at += [x] + [''] * (n - 1)
         disp += at[:len(ws)] + [''] * max(0, len(ws) - len(at))
     sm = difflib.SequenceMatcher(None, ref, hyp, autojunk=False)
     m = [None] * len(ref)
