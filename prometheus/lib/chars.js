@@ -44,7 +44,14 @@ const HOLD = {
     });
   },
   bolt: () => G => { G.at([0, 4], .2, () => { G.paint(c => { c.moveTo(0, -18); c.lineTo(2.4, -8); c.lineTo(.8, -7); c.lineTo(3, 0); c.lineTo(.8, 1); c.lineTo(2.2, 9); c.lineTo(0, 18); c.lineTo(-2.2, 9); c.lineTo(-.8, 1); c.lineTo(-3, 0); c.lineTo(-.8, -7); c.lineTo(-2.4, -8); c.closePath(); }, C.gold); }); },
-  caduceus: () => G => up(G, () => { G.part(c => c.rect(-.7, -30, 1.4, 52), { cutW: .3 }); G.part(c => { c.arc(-2.2, -32, 2.2, 0, TAU); c.moveTo(4.4, -32); c.arc(2.2, -32, 2.2, 0, TAU); }, { cutW: .3 }); }),
+  // kerykeion: sap ucunda tepesi açık bir "8": alt halka tam, üst halka açık; iki yılan başı birbirine bakar
+  caduceus: () => G => up(G, () => {
+    G.part(c => c.rect(-.7, -30, 1.4, 52), { cutW: .3 });
+    G.part(c => { c.arc(0, -33.4, 3.2, 0, TAU); c.moveTo(2.0, -33.4); c.arc(0, -33.4, 2.0, 0, TAU, true); }, { cutW: .25 });
+    const cy = -39.6, a0 = -PI / 2 + 1.05, a1 = PI * 1.5 - 1.05;
+    G.part(c => { c.arc(0, cy, 3.0, a0, a1); c.arc(0, cy, 1.9, a1, a0, true); c.closePath(); }, { cutW: .25 });
+    for (const [a, sg] of [[a0, 1], [a1, -1]]) { const hx = Math.cos(a) * 2.45, hy = cy + Math.sin(a) * 2.45; G.part(c => c.ellipse(hx - sg * .55, hy - .75, 1.35, .85, sg * .7, 0, TAU), { cutW: .2 }); }
+  }),
   key: () => G => { G.part(c => { c.rect(-.6, -2, 1.2, 12); c.moveTo(2.6, -3); c.arc(0, -3, 2.6, 0, TAU); c.rect(0, 7, 3.4, 1.4); c.rect(0, 9.5, 2.6, 1.2); }, { cutW: .3 }); },
   kylix: () => G => up(G, () => { G.at([0, -6], 0, () => { G.part(c => { c.moveTo(-9, -2); c.quadraticCurveTo(0, 6, 9, -2); c.closePath(); c.rect(-.8, 1, 1.6, 4); c.rect(-3.5, 4.5, 7, 1.2); }, { cutW: .3 }); }); }),
   torch: () => G => up(G, () => { G.part(c => c.rect(-.9, -18, 1.8, 26), { cutW: .3 }); G.paint(c => { c.moveTo(0, -30 + Math.sin(performance.now()) * 0); c.quadraticCurveTo(4.5, -22, 2, -17); c.lineTo(-2, -17); c.quadraticCurveTo(-4.5, -22, 0, -30); }, C.gold); }),

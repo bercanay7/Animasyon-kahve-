@@ -268,7 +268,7 @@ function drawBody(G, f, J, tor, tP) {
       // ayak prangası: bileğin üstünde siyah demir bant (Aiskhylos: bacaklar da bağlanır)
       if (lk.legIrons) G.at(L.ank, -L.shA, () => { G.part(c => c.rect(-3.1, -3.4, 6.2, 2.8), { fill: C.ink, cutW: .3 }); G.paint(c => { c.moveTo(-2.9, -2.0); c.lineTo(2.9, -2.0); }, PC.clayR, .3, false); });
       if (lk.greaves) G.at(L.knee, -L.shA, () => { G.part(c => spline(c, [[3.7, .5], [3.6, 6], [3.2, 14], [2.4, 19.5], [-2.4, 19.5], [-4.6, 9], [-4.4, 1.5]]), { fill: sty.fill, cutW: .45 }); det(c => { c.moveTo(-1.6, 4); c.quadraticCurveTo(.4, 9, -.6, 16); }, .3); });
-      if (lk.wingedFeet) G.at(L.ank, -L.footA, () => wingShape(G, [-1.5, -.8], -2.4, 5.5));
+      if (lk.wingedFeet) G.at(L.ank, -L.footA, () => bootWing(G, f.p && f.p.flap));
     }
   };
   const drawArm = (A, near) => {
@@ -591,6 +591,18 @@ function drawHead(G, f, J, det) {
 }
 
 // Küçük kanat (Hermes)
+// çizme kanadı: bileğe takılı, geriye ve ~30° yukarı açılan üç tüy (siyah, kil kazıma eksen); flap: hafif çırpma
+function bootWing(G, flap = 0) {
+  const fl = flap ? .12 * Math.sin((window.FIG_T || 0) * 14) * flap : 0;
+  G.at([-1.2, -2.2], 0, () => {
+    [[PI + .62, 4.8], [PI + .42, 4.1], [PI + .2, 3.3]].forEach(([a, L], i) => {
+      const aa = a + fl * (1 + i * .3), dx = Math.cos(aa), dy = Math.sin(aa), nx = -dy, ny = dx, w = .62 - i * .08;
+      G.paint(c => { c.moveTo(nx * w * .5, ny * w * .5); c.quadraticCurveTo(dx * L * .55 + nx * w, dy * L * .55 + ny * w, dx * L, dy * L); c.quadraticCurveTo(dx * L * .55 - nx * w, dy * L * .55 - ny * w, -nx * w * .5, -ny * w * .5); c.closePath(); }, C.ink);
+      G.paint(c => { c.moveTo(dx * .4, dy * .4); c.lineTo(dx * L * .8, dy * L * .8); }, C.clay, .16, false);
+    });
+    G.paint(c => c.ellipse(0, 0, 1.1, .7, 0, 0, TAU), C.ink);
+  });
+}
 function wingShape(G, at, a, L) {
   G.at(at, a, () => {
     G.part(c => spline(c, [[0, 0], [-L * .5, -L * .35], [-L, -L * .3], [-L * .75, -L * .05], [-L * 1.05, .1], [-L * .7, .35], [-L * .9, .7], [-L * .3, .5]]), {});

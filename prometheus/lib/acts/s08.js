@@ -13,12 +13,11 @@ function I_hermes(ctx, x, gy, s, t, o = {}) {
   let J = null, M = null;
   const lk = { ...LK.hermes, rf: true, earHidden: true };
   const p = { torso: lerp(.05, .35, fly) + (o.lean || 0), neck: -.05, head: -.08 - .1 * pt, shN: lerp(.3, 2.3, rz), elN: lerp(.9, .2, rz), handN: 'fist', shF: lerp(-.1, 1.45, pt) + (o.shF || 0), elF: lerp(.6, .08, pt), handF: pt > .5 ? 'point' : (o.handF || 'open'), breath: Math.sin(t * 1.7) * .5, wind: .4 + .4 * fly };
+  p.flap = o.flap ?? fly;
   const hy = gy - 44.5 * s - fly * 30 * s;
   const ik = fly > 0 ? { fN: [x - dir * lerp(8, 20, fly) * s, hy + lerp(41, 38, fly) * s, .4 * fly], fF: [x - dir * lerp(-6, 28, fly) * s, hy + lerp(41, 32, fly) * s, .7 * fly] } : { fN: [x + dir * 8 * s, gy - 3 * s, 0], fF: [x - dir * 7 * s, gy - 3 * s, 0] };
   figure(ctx, { x, y: hy, s, dir, sty: { ...STY.red, white: STY.red.fill }, lk, seed: 33, stripe: .4, hold: { N: HOLD.caduceus() }, p, ik, onJoints: (j, m) => { J = j; M = m; } });
-  // çizmelerdeki kanatlar çırpar
-  const fl = (o.flap ?? fly) > 0 ? Math.sin(t * 22) * (o.flap ?? fly) : 0;
-  if (J) for (const L of [J.LN, J.LF]) { const a = jointPt(ctx, M, L.ank); ctx.save(); ctx.strokeStyle = PC.clayRL; ctx.lineWidth = .7 * s; ctx.lineCap = 'round'; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(a[0], a[1] - 2 * s); ctx.lineTo(a[0] - dir * (5 + k * 2.5) * s, a[1] - (6 + k * 2 + fl * 3) * s); ctx.stroke(); } ctx.restore(); }
+  // çizme kanatları figürün içinde (bootWing): bileğe takılı üç tüy; p.flap ile çırpar
   return J ? { J, M, hand: jointPt(ctx, M, J.AF.wr), head: jointPt(ctx, M, add(J.neckT, rot([2, -6], J.headA))), wN: jointPt(ctx, M, J.AN.wr) } : null;
 }
 // karanlıkta kısılan soğuk gözler (taht kuşkusu); n: çift sayısı, nar: 0 açık → 1 kısık
@@ -250,9 +249,9 @@ shot(PA('P225'), (ctx, st) => {
     const t = st.t, tB = A('I07@bu'), a = 1 - ramp(t, A('I08') - .3, A('I08') + .2);
     if (t > tB && a > 0) { ctx.save(); ctx.globalAlpha = a; const f = { font: '700 46px Cinzel' };
       // söz iki başın arasındaki boşlukta, petasosun ve kerykeion'un üstünde; sağ uç sakaldan ≥ 30 px uzak
-      speechFlow(ctx, 'BU FELAKETİMİ', u => [lerp(1030, 560, u), 150], ramp(t, tB, A('I07@felaketimi') + .5, E.lin), f);
-      speechFlow(ctx, 'SENİN UŞAKLIĞINA', u => [lerp(1030, 510, u), 215], ramp(t, A('I07@senin'), A('I07@uşaklığına') + .5, E.lin), f);
-      speechFlow(ctx, 'DEĞİŞMEM.', u => [lerp(1030, 710, u), 280], ramp(t, A('I07@değişmem'), A('I07@değişmem') + .5, E.lin), { ...f, col: '#FFC867' }); ctx.restore(); }
+      speechFlow(ctx, 'BU FELAKETİMİ', u => [lerp(1030, 560, u), 138], ramp(t, tB, A('I07@felaketimi') + .5, E.lin), f);
+      speechFlow(ctx, 'SENİN UŞAKLIĞINA', u => [lerp(1030, 510, u), 198], ramp(t, A('I07@senin'), A('I07@uşaklığına') + .5, E.lin), f);
+      speechFlow(ctx, 'DEĞİŞMEM.', u => [lerp(1030, 710, u), 262], ramp(t, A('I07@değişmem'), A('I07@değişmem') + .5, E.lin), { ...f, col: '#FFC867' }); ctx.restore(); }
   } });
 
 // --- P228: yakın: EYVAH: rüzgâr 0,7 sn kesilir, figürün kenarından toz kopar, tek zincir halkası sarsılır, 0,1 sn beyaz çakma (kartal gölgesi yok) ---
