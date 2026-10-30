@@ -14,3 +14,6 @@ shorts/*.wav
 audio/stems_en/
 .parts_en/
 *_youtube.mp4
+shorts/*.wav
+.parts_shorts/
+*.mp4
