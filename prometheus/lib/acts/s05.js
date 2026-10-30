@@ -308,7 +308,7 @@ shot(PA('P135'), (ctx, st) => {
 // --- P138–P143: tek sürekli panorama: göğe sesleniş (EY KUTSAL GÖK), rüzgârlar, ırmaklar, denizin gülüşü, toprak; "bakın bana": yüze hızlı yaklaşma ---
 shot(PA('P138'), (ctx, st) => {
   const t = st.t, lt = st.lt, tH = A('F13@hızlı'), tR = A('F13@ırmakların'), tD = A('F13@deniz'), tS = A('F13@sen'), tB = A('F13@bakın');
-  const c = F_cam(t, [[PA('P138'), { x: 1100, y: 160, z: 1.0 }], [tH, { x: 700, y: 260, z: .9 }], [tR, { x: 1400, y: 560, z: 1.0 }], [tD, { x: 900, y: 760, z: 1.0 }], [tS, { x: 1300, y: 860, z: 1.25 }], [tB + .3, { ...CAMS.yakin, z: 3.0 }]], .9, 0);
+  const c = F_cam(t, [[PA('P138'), { x: 1100, y: 160, z: 1.0 }], [tH, { x: 700, y: 260, z: .9 }], [tR, { x: 1400, y: 560, z: 1.0 }], [tD, { x: 900, y: 760, z: 1.0 }], [tS, { x: 1300, y: 860, z: 1.25 }], [tB + .3, { ...CAMS.yakin, x: 1170, z: 3.0 }]], .9, 0);
   const wind = .5 + .45 * ramp(t, tH, tH + .8) * (1 - ramp(t, tR, tR + 1));
   kayaWorld(ctx, t, c, { sky: F_SKY, wind, clouds: 5 });
   ctx.save(); cam(ctx, c, .4);
@@ -336,7 +336,7 @@ shot(PA('P138'), (ctx, st) => {
     const p = ramp(t, tE, A('F13@gök') + .4, E.lin), a = 1 - ramp(t, A('F13@hızlı') + .8, A('F13@hızlı') + 1.6);
     if (p > 0 && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'EY KUTSAL GÖK', u => [lerp(820, 1040, u), lerp(560, 150, u)], p, { font: '700 76px Cinzel', follow: .2 }); ctx.restore(); }
     const p2 = ramp(t, tB, A('F13@çekiyorum') + .3, E.lin);
-    if (p2 > 0) speechFlow(ctx, 'BAKIN BANA', u => [lerp(780, 380, u), 300 - Math.sin(u * PI) * 50], p2, { font: '700 72px Cinzel' });
+    if (p2 > 0) speechFlow(ctx, 'BAKIN BANA', u => [lerp(800, 260, u), 380 - Math.sin(u * PI) * 40], p2, { font: '700 72px Cinzel' });
   } });
 
 // --- P144–P147: iç ses: F14@ama'da rüzgâr durur, en yakın büst, arka plan koyulaşır; gökte üç soluk siluet; geri çekilme, baş eğilir; söz yarım kalır ve rüzgârsız havada asılı kalır ---
@@ -368,5 +368,7 @@ shot(PA('P144'), (ctx, st) => {
     // söz yarım kalır (susabiliyorum), rüzgârsız havada asılı kalır (konuşabiliyorum) ve uzayan sessizlikte dağılır
     const p = Math.min(ramp(t, tS - .1, tS + .6, E.lin) * .55, .55) + .1 * ramp(t, tK, tK + .5);
     const fade = ramp(t, tE + .9, tE + 2.0);
-    if (p > 0) speechFlow(ctx, 'NE SUSABİLİYORUM NE DE KONUŞABİLİYORUM', u => [lerp(760, 200, u), 340 - Math.sin(u * PI) * 40], p, { font: '600 48px Cinzel', fade });
+    // iki satır, ağızdan sola akar (soldan sağa okunur)
+    if (p > 0) { speechFlow(ctx, 'NE SUSABİLİYORUM', u => [lerp(760, 140, u), 250 - Math.sin(u * PI) * 30], clamp(p / .55 * 1.0), { font: '600 50px Cinzel', fade });
+      if (p > .3) speechFlow(ctx, 'NE DE KONUŞABİLİYORUM', u => [lerp(780, 60, u), 330 - Math.sin(u * PI) * 30], clamp((p - .3) / .35), { font: '600 50px Cinzel', fade }); }
   } });

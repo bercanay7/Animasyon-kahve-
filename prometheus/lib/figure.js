@@ -501,7 +501,7 @@ function drawHead(G, f, J, det) {
       } else {
         const es = lk.eyeS || 1, ex = x => 3.55 + (x - 3.55) * es, eY = y => ey + (y - ey) * es; // lk.eyeS: daha iri göz (karakter ayrımı)
         det(c => { c.moveTo(ex(2.2), eY(ey)); c.quadraticCurveTo(ex(3.5), eY(ey - .9 * bl), ex(4.9), eY(ey - .2)); c.quadraticCurveTo(ex(3.5), eY(ey + .6 * bl), ex(2.2), eY(ey)); }, .36 * Math.sqrt(es));
-        if (bl > .3) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true);
+        if (bl > .3 && !lk.blind) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true); // lk.blind: açık ama boş göz (bebeksiz)
       }
     }
     // kaş

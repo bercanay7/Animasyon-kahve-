@@ -145,7 +145,7 @@ function typed(ctx, s, x, y, p, o = {}) {
   const w = ctx.measureText(s).width, x0 = o.align === 'left' ? x : x - w / 2;
   ctx.fillText(s.slice(0, n), x0, y);
   const cw = ctx.measureText(s.slice(0, n)).width;
-  if (p < 1 || Math.floor((window.FIG_T || 0) * 2) % 2 === 0) ctx.fillRect(x0 + cw + 3, y - 22, 3, 44);
+  if (o.cursor !== false && (p < 1 || Math.floor((window.FIG_T || 0) * 2) % 2 === 0)) ctx.fillRect(x0 + cw + 3, y - 22, 3, 44);
   ctx.restore();
 }
 // Sayfa kenar şeridi: figürlerin üstünde ve altında ince çift çizgi (lekythos omzundaki gibi)
@@ -184,13 +184,16 @@ function speechFlow(ctx, s, f, p, o = {}) {
   s = L(s); const n = s.length, font = o.font || '600 46px Cinzel';
   ctx.save(); ctx.font = font; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   const ws = [...s].map(ch => ctx.measureText(ch).width), tot = ws.reduce((a, b) => a + b, 0);
+  // sola akan yol (ağız sağda): harfler yine soldan sağa okunur; her harf ağızdan çıkıp yerine uçar
+  const [mx, my] = f(0), left = f(1)[0] < mx, g = left ? u => f(1 - u) : f;
   let acc = 0;
   for (let i = 0; i < n; i++) {
     const u = (acc + ws[i] / 2) / tot; acc += ws[i];
     const q = clamp(p * (n + 4) / 4 - i / 4); if (q <= 0) continue;
     const a = q * (1 - (o.fade ? clamp(o.fade * (n + 4) / 4 - (n - i) / 4) : 0)); if (a <= 0) continue;
-    const [x, y] = f(u), [x2, y2] = f(Math.min(1, u + .01)), ang = Math.atan2(y2 - y, x2 - x);
-    ctx.save(); ctx.translate(x, y - (1 - E.out3(q)) * 18); ctx.rotate(ang * (o.follow ?? .6)); ctx.globalAlpha *= a;
+    let [x, y] = g(u); const [x2, y2] = g(Math.min(1, u + .01)), ang = Math.atan2(y2 - y, x2 - x);
+    if (left) { const k = E.out3(q); x = lerp(mx, x, k); y = lerp(my, y, k); } else y -= (1 - E.out3(q)) * 18;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(ang * (o.follow ?? .6)); ctx.globalAlpha *= a;
     ctx.shadowColor = o.glow || 'rgba(255,170,80,.55)'; ctx.shadowBlur = 14;
     ctx.fillStyle = o.col || PC.clayRL; ctx.fillText(s[i], 0, 0);
     ctx.restore();
