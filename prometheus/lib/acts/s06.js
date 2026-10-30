@@ -273,7 +273,7 @@ shot(PA('P170'), (ctx, st) => {
   const light = ramp(t, tP - .2, tP + .8);
   if (t > tG && t < tM) {
     // tek bir baş: profil, açık ama boş göz (göz bebeği yok); baş yüksekliği ~ 13 birim × 38 ≈ 500 px
-    G_bigHead(ctx, 960, 480, 38, 1, { hair: 'nape', blind: true }, { sty: { ...STY.red, fill: '#8A4724', white: '#8A4724' }, seed: 3 }, lt);
+    G_bigHead(ctx, 960, 480, 38, 1, { hair: 'nape', blind: true, beadHair: true }, { sty: { ...STY.red, fill: '#8A4724', white: '#8A4724' }, seed: 3, ear: true, stripe: .3 }, lt);
   } else {
     const c = { x: 960 + lt * 5, y: 560, z: 1.0 };
     ctx.save(); cam(ctx, c, 1);
@@ -291,7 +291,7 @@ shot(PA('P170'), (ctx, st) => {
 // büyük baş: figürü boyun ucu ölçülerek çizer, başın ortası (cx, cy)'ye gelir
 let G_NECK = null;
 function G_bigHead(ctx, cx, cy, s, dir, lk, o = {}, lt = 0) {
-  const f = (c, x, y, ss, cb) => figure(c, { x, y, s: ss, dir, sty: o.sty || { ...STY.red, white: STY.red.fill }, lk: { ...lk, rf: true, earHidden: true }, seed: o.seed || 3, still: true, p: { blink: 0, head: 0, breath: 0 }, onJoints: cb });
+  const f = (c, x, y, ss, cb) => figure(c, { x, y, s: ss, dir, sty: o.sty || { ...STY.red, white: STY.red.fill }, lk: { ...lk, rf: true, earHidden: !o.ear }, seed: o.seed || 3, still: true, stripe: cb ? 0 : o.stripe, p: { blink: 0, head: 0, breath: 0 }, onJoints: cb });
   if (!G_NECK) { const cv = makeCanvas(64, 64), c = cv.getContext('2d'); f(c, 0, 0, 1, (J, M) => { G_NECK = jointPt(c, M, J.neckT); }); }
   const hx = G_NECK[0] + 1.5 * dir, hy = G_NECK[1] - 5.5;
   ctx.save(); ctx.translate(cx, cy + Math.sin(lt * .9) * 4); ctx.scale(s, s); f(ctx, -hx, -hy, 1); ctx.restore();

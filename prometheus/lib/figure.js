@@ -477,6 +477,10 @@ function drawHead(G, f, J, det) {
         G.paint(c => spline(c, P, true, .9), sty.fill, .55, false);
         G.paint(c => spline(c, P, true, .9), sty.line);
       }
+      // boncuklu ense saçı (arkaik): siyah saçın üstünde kil noktalar sıra sıra
+      if (lk.beadHair) for (let i = 0; i < 3; i++) { const x = -6.8 + i * 1.3, P0 = [x + .5, -6.4], P1 = [x - 1.4, -3.4], P2 = [x + 1.4, -.8], P3 = [x - .2, 1.2];
+        for (let k = 0; k < 7; k++) { const u = (k + .5) / 7, v = 1 - u, bx = v * v * v * P0[0] + 3 * v * v * u * P1[0] + 3 * v * u * u * P2[0] + u * u * u * P3[0], by = v * v * v * P0[1] + 3 * v * v * u * P1[1] + 3 * v * u * u * P2[1] + u * u * u * P3[1];
+          G.paint(c => c.arc(bx, by, .3, 0, TAU), sty.fill); } }
       // iç bukleler: kil rengi ince S eğrileri
       const hl = lk.hair === 'nape' ? 1.2 : 2.6;
       for (let i = 0; i < 3; i++) G.paint(c => { const x = -6.8 + i * 1.3, sw = wd * 1.2 + .3 * wd * Math.sin(ft * 3.1 + i); c.moveTo(x + .5, -6.4); c.bezierCurveTo(x - 1.4, -3.4, x + 1.4, -.8, x - .2 - sw, hl); }, sty.fill, .2, false);
