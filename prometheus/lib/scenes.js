@@ -28,8 +28,9 @@ SCENES.style = (ctx, t) => {
   chain(ctx, [wN, sN], 20, PC.clayR, null, 4.5);
   stake(ctx, sN[0], sN[1], 2.4, 0, PC.clayR); stake(ctx, sF[0], sF[1], 2.4, 0, PC.clayR);
   // kartal
-  const fl = (t * .9) % 1;
-  eagle2(ctx, 700, 420, 3.1, 1, { ang: .9, talon: .95, beak: .7, tilt: .3 });
+  const fl = (t * .55) % 1, glide = .5 + .5 * Math.cos(fl * TAU);
+  // süzülüp dalış: kanat yukarıda uzun süre kalır, kısa bir vuruşla iner (yavaş, tehditkâr ritim)
+  eagle2(ctx, 700 + Math.sin(t * .7) * 14, 420 + Math.sin(t * 1.1) * 10, 3.1, 1, { ang: lerp(.35, 1, Math.pow(glide, .5)), talon: .95, beak: .5 + .3 * Math.sin(t * 2.3), tilt: .3 + Math.sin(t * .7) * .03 });
   friezeFrame(ctx, { col: PC.clayR, h: 46 });
 };
 // Poz ızgarası: zincirli Prometheus duruş denemeleri
