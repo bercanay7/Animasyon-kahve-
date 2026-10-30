@@ -44,13 +44,26 @@ function H_io(ctx, x, gy, s, t, o = {}) {
   if (J) { H_horns(ctx, J, M, s); const h = jointPt(ctx, M, add(J.neckT, rot([1, -6], J.headA))); if (o.fly !== false) H_fly(ctx, h[0] - (o.dir || 1) * 30 * s, h[1] - 8 * s, t, s / 4.5); return h; }
 }
 // Okeanos: balık kuyruklu yaşlı deniz tanrısı (Sophilos deinosundaki gibi); y: bel hizası
+// Okeanos'un elindeki balık (kırmızı figür, kazıma pullar)
+const H_FISH = G => G.at([0, 1.5], .25, () => {
+  G.part(c => { c.moveTo(-6.5, 0); c.quadraticCurveTo(-1, -3.4, 5.5, -.6); c.lineTo(9.2, -3.2); c.lineTo(8.4, 0); c.lineTo(9.2, 3.2); c.lineTo(5.5, .6); c.quadraticCurveTo(-1, 3.4, -6.5, 0); c.closePath(); }, { cutW: .28 });
+  G.cut(c => { c.moveTo(-3.2, -1.4); c.quadraticCurveTo(-2.6, 0, -3.2, 1.4); for (let i = 0; i < 3; i++) { c.moveTo(-1 + i * 1.8, -1.2); c.lineTo(-.2 + i * 1.8, 0); c.lineTo(-1 + i * 1.8, 1.2); } }, .2);
+  G.paint(c => c.arc(-4.8, -.5, .45, 0, TAU), C.ink);
+});
 function H_okeanos(ctx, x, y, s, t, o = {}) {
   const dir = o.dir || 1;
   ctx.save(); ctx.beginPath(); ctx.rect(x - 60 * s, y - 80 * s, 120 * s, 82 * s); ctx.clip();
   let J = null, M = null;
-  figure(ctx, { x, y, s, dir, sty: STY.red, lk: { beard: 'full', hair: 'long', anat: true, rf: true, earHidden: true, headgear: 'wreath' }, seed: 71, stripe: .4,
-    p: { torso: o.torso ?? .05, neck: .05, head: .05, shN: o.shN ?? .3, elN: o.elN ?? .8, shF: -.1, elF: .7, handN: o.handN || 'open', breath: Math.sin(t * 1.3) * .6 }, onJoints: (j, m) => { J = j; M = m; } });
+  // Sophilos'taki Okeanos: düz göğüs, sol omuzda himation, elinde balık, alnının üstünde küçük boğa boynuzları
+  figure(ctx, { x, y, s, dir, sty: STY.red, lk: { beard: 'full', hair: 'long', anat: true, flatChest: true, himation: true, rf: true, earHidden: true }, seed: 71, stripe: .4,
+    p: { torso: o.torso ?? .05, neck: .05, head: .05, shN: o.shN ?? .3, elN: o.elN ?? .8, shF: -.1, elF: .7, handN: o.handN || 'open', breath: Math.sin(t * 1.3) * .6 },
+    hold: { F: H_FISH }, onJoints: (j, m) => { J = j; M = m; } });
   ctx.restore();
+  if (J) { const hornB = (dx) => jointPt(ctx, M, add(J.neckT, rot([dx, -12.6], J.headA)));
+    ctx.save(); ctx.fillStyle = '#EBD9B4'; ctx.strokeStyle = C.ink; ctx.lineWidth = .5 * s; ctx.lineJoin = 'round';
+    for (const [dx, k] of [[1.8, 1], [-1.2, .8]]) { const [bx, by] = hornB(dx), L = 5.2 * s * k;
+      ctx.beginPath(); ctx.moveTo(bx - 1.1 * s, by); ctx.quadraticCurveTo(bx - dir * 2.4 * s * k, by - L * .7, bx + dir * 1.4 * s * k, by - L); ctx.quadraticCurveTo(bx - dir * .6 * s * k, by - L * .55, bx + 1.1 * s, by); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+    ctx.restore(); }
   // kuyruk: belden aşağı inip arkaya kıvrılır; pullar ve iki loblu yüzgeç
   const sw = Math.sin(t * 1.6) * 2.2, P = [[0, -2], [-1 * dir, 12], [-7 * dir, 24 + sw * .3], [-19 * dir, 28 + sw * .6], [-31 * dir, 22 + sw], [-38 * dir, 12 + sw]].map(q => [x + q[0] * s, y + q[1] * s]);
   const Wd = [8.6, 8.2, 7, 5.2, 3.4, 1.8].map(v => v * s);
@@ -224,10 +237,10 @@ shot(PA('P191'), (ctx, st) => {
     H_tanik(ctx, t, 'OKEANOS', tO);
     const n = ramp(t, tO + .4, tO + 1.0) * (1 - ramp(t, A('H04@kendini') - .4, A('H04@kendini')));
     if (n > 0) dipinto(ctx, 'ΩΚΕΑΝΟΣ', 520, 560, 54, { col: PC.clayRL, a: n });
-    const m = window.H_OKM || [700, 380], sea = 'rgba(196,222,210,1)';
+    const m = window.H_OKM || [700, 380], sea = '#EBD9B4'; // deniz sesleri: sıcak krem (Zeus'un soğuk beyazından ayrı)
     const k1 = A('H04@kendini'), k2 = A('H04@diline'), fa = 1 - ramp(t, A('H04@prometeus') - .3, A('H04@prometeus'));
-    if (t > k1 && fa > 0) { ctx.save(); ctx.globalAlpha = fa; speechFlow(ctx, 'KENDİNİ BİL', u => [lerp(m[0] + 30, m[0] + 520, u), m[1] - 40 - Math.sin(u * PI) * 40], ramp(t, k1, A('H04@bil') + .4, E.lin), { font: '700 60px Cinzel', col: sea, glow: 'rgba(40,80,70,.6)' });
-      if (t > k2) speechFlow(ctx, 'DİLİNE SAHİP OL', u => [lerp(m[0] + 30, m[0] + 640, u), m[1] + 50 - Math.sin(u * PI) * 30], ramp(t, k2, A('H04@ol') + .4, E.lin), { font: '700 56px Cinzel', col: sea, glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
+    if (t > k1 && fa > 0) { ctx.save(); ctx.globalAlpha = fa; speechFlow(ctx, 'KENDİNİ BİL', u => [lerp(m[0] + 30, m[0] + 520, u), m[1] - 40 - Math.sin(u * PI) * 40], ramp(t, k1, A('H04@bil') + .4, E.lin), { font: '700 60px Cinzel', col: sea, glow: 'rgba(110,52,22,.65)' });
+      if (t > k2) speechFlow(ctx, 'DİLİNE SAHİP OL', u => [lerp(m[0] + 30, m[0] + 640, u), m[1] + 50 - Math.sin(u * PI) * 30], ramp(t, k2, A('H04@ol') + .4, E.lin), { font: '700 56px Cinzel', col: sea, glow: 'rgba(110,52,22,.65)' }); ctx.restore(); }
     const s1 = A('H04@seni'), fb = 1 - ramp(t, A('H04@kendi#1') - .1, A('H04@kendi#1') + .3);
     if (t > s1 && fb > 0) { ctx.save(); ctx.globalAlpha = fb; speechFlow(ctx, 'SENİ KISKANIYORUM', u => [lerp(800, 60, u), 380 - Math.sin(u * PI) * 40], ramp(t, s1, A('H04@kıskanıyorum') + .5, E.lin), { font: '700 60px Cinzel' }); ctx.restore(); }
   } });
@@ -249,7 +262,7 @@ shot(PA('P195'), (ctx, st) => {
     H_tanik(ctx, t, 'PERİLER', tP, 2.6);
     // perilerin sözü: Yunanca, denizden kayaya doğru akar
     const g = ramp(t, A('H05@ona'), A('H05@der') + .3, E.lin);
-    if (g > 0) { ctx.save(); ctx.globalAlpha = 1 - ramp(t, tB - .4, tB); speechFlow(ctx, 'ΑΓΑΝ ΕΛΕΥΘΕΡΟΣΤΟΜΕΙΣ', u => [lerp(560, 1500, u), 470 - Math.sin(u * PI) * 110], g, { font: '600 54px Cinzel', col: 'rgba(196,222,210,1)', glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
+    if (g > 0) { ctx.save(); ctx.globalAlpha = 1 - ramp(t, tB - .4, tB); speechFlow(ctx, 'ΑΓΑΝ ΕΛΕΥΘΕΡΟΣΤΟΜΕΙΣ', u => [lerp(560, 1500, u), 470 - Math.sin(u * PI) * 110], g, { font: '600 54px Cinzel', col: '#EBD9B4', glow: 'rgba(110,52,22,.65)' }); ctx.restore(); }
     erhatStrip(ctx, t - tE, tB - tE - .3, '“dilin fazla özgür”', 'xiii');
     erhatStrip(ctx, t - tB, tO - tB - .2, '“hiçbir umuda yer vermeden”', 'xii');
     erhatStrip(ctx, t - tO, st.end - tO - .4, 'bilinç = özgürlük', 'xiii', { icon: (c, p) => { const k = ramp(t, A('H05@bilincidir'), A('H05@bilincidir') + .6); c.save(); c.globalAlpha = p; glow(c, 0, 20, 70, `rgba(255,200,120,${.6 * k})`); c.strokeStyle = mixCol(PW.line, '#E8A04C', k); c.lineWidth = 8; const o = 22 * k; c.beginPath(); c.ellipse(-30 - o, 20, 28, 40, 0, PI * .55, PI * 2.45); c.stroke(); c.beginPath(); c.ellipse(30 + o, 20, 28, 40, 0, -PI * .45, PI * 1.45); c.stroke(); c.restore(); } });
