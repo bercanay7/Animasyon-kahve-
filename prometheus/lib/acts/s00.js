@@ -137,7 +137,7 @@ function kylixScene(ctx, t, lt, o) {
       const e = o.eagle;
       c.save(); c.globalAlpha *= e.alpha ?? 1;
       eagle2(c, e.x, e.y, e.s, e.dir || 1, { ang: e.ang ?? .9, angFar: e.angFar ?? .2, farOff: -.5, fsMin: .55, talon: e.talon ?? .6, beak: e.beak ?? .1, tilt: e.tilt ?? .3, headA: e.headA || 0,
-        col: C.ink, line: C.clay, wingCol: C.ink, farCol: C.ink, eye: C.clay, headS: 1.35, lw: 1.2 });
+        col: C.ink, line: C.clay, wingCol: C.ink, farCol: C.ink, eye: C.clay, pupil: C.ink, headS: 1.35, lw: 1.2 });
       c.restore();
     }
     // yazıt: ΠΡΟΜΗΘΕΥΣ (eklenmiş kırmızı, Lakonya kylixlerinde ad yazıtı)
@@ -178,7 +178,8 @@ shot(A('A03'), (ctx, st) => {
   ctx.save();
   if (dz > 0 && eagle) {
     const R = 430, cx = W / 2, cy = H / 2 + 10, rot = -.18 + lt * .035;
-    const hS = 1.35, ex = eagle.x + (36 + (hS - 1.22) * 18 + 12.4 * hS) * eagle.s, ey = eagle.y + (-14 - (hS - 1.22) * 4 - 4.2 * hS) * eagle.s;
+    // göz uzaklığı kartalın eğimiyle döner (dalış gözün kendisine gider; eşleşen kesme 'göz → Θ')
+    const hS = 1.35, lo = rot2([36 + (hS - 1.22) * 18 + 12.7 * hS, -14 - (hS - 1.22) * 4 - 4.05 * hS], eagle.tilt || 0), ex = eagle.x + lo[0] * eagle.s, ey = eagle.y + lo[1] * eagle.s;
     const q = rot2([ex, ey * .97], rot), zx = cx + q[0], zy = cy + q[1];
     const z = lerp(1, 60, dz);
     ctx.translate(zx, zy); ctx.scale(z, z); ctx.translate(-zx, -zy);

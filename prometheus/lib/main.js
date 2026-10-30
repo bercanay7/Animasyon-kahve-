@@ -13,11 +13,21 @@ function renderFrame(t) {
   drawFilm(ctx, t);
   if (!window.IN_MB && typeof drawOver === 'function' && !Q.get('scene')) drawOver(ctx, t);
 }
+// hızlı kamera hareketleri: fazla alt kare ve 360° obtüratör (dört alt karede hareket dört ayrı kopya görünmesin)
+// [başlangıç, bitiş, alt kare]; zamanlar kilitli zaman çizelgesine göre (üslup kurulu tur 3)
+let _mbWin = null;
+function mbWindows() {
+  if (_mbWin) return _mbWin;
+  const J4 = typeof A === 'function' ? A('J04@prometeus') : 1081.45;
+  return (_mbWin = [[4.75, 5.05, 12], [23.0, 23.55, 12], [87.85, 88.65, 12], [J4 - .02, J4 + .6, 16]]);
+}
 // 180° obtüratör: kare süresinin yarısı içinde n alt kare ortalaması
 function renderFrameMB(t, n) {
   const si = typeof SHOTS !== 'undefined' ? shotAt(t) : -1, sh = si >= 0 ? SHOTS[si] : null;
   if (sh && sh.mb) n = Math.max(n, sh.mb);
-  const dt = 1 / FPS * .5;
+  let wide = false;
+  for (const [a, b, m] of mbWindows()) if (t >= a && t <= b) { n = Math.max(n, m); wide = true; }
+  const dt = 1 / FPS * (wide ? 1 : .5);
   // alt kareler kesmenin öbür yanına taşmaz: her örnek o anki planın [başlangıç, sonraki plan) aralığına kısılır (kesmede tek karelik bindirme olmaz)
   const lo = sh ? sh.at : 0, hi = si >= 0 && si + 1 < SHOTS.length ? SHOTS[si + 1].at - 1e-4 : Infinity;
   accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';

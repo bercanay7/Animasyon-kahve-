@@ -359,8 +359,9 @@ shot(PA('P182'), (ctx, st) => {
   // bakış yönünde, yüzün önündeki boşlukta (ekran uzayı): fırtına bulutları, şimşek, kartal; tam renk ve ağır
   if (full > 0) { ctx.save(); baseT(ctx); ctx.globalAlpha = .85 * full; const dr = (t - tYa) * 14;
     for (let i = 0; i < 4; i++) cloud(ctx, 170 + i * 170 + dr, 230 + (i % 2) * 36, 1.5, '#2A170F', 'rgba(201,112,63,.75)', i + 31);
-    if (Math.sin(t * 9) > .6) lightning(ctx, 520 + dr, 260, 460 + dr, 560, ((t * 4) | 0) + 7, 5, '#F2D6AA');
-    eagle2(ctx, 430 - dr, 470, 2.3, 1, { ang: .5 + .5 * Math.cos(t * 2.2), angFar: .3, col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .32), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E' }); ctx.restore(); }
+    if (Math.sin(t * 9) > .6) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; lightning(ctx, 520 + dr, 260, 460 + dr, 560, ((t * 4) | 0) + 7, 5, '#E6ECFF'); ctx.restore(); }   // Zeus'un şimşeği soğuk beyaz
+    // kartal tek parça saydam (kanadın içinden gövde görünmez), kanat yarı açık
+    solidAlpha(ctx, 1, o => eagle2(o, 430 - dr, 470, 2.3, 1, { ang: .25 + .35 * Math.cos(t * 2.2), angFar: .3, col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .32), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E' })); ctx.restore(); }
   ctx.save(); cam(ctx, c, 1);
   G_nymphs(ctx, t, ramp(t, t12 - .5, t12 + .5), { wind, bow: ramp(t, A('G12b@itiraf'), A('G12b@itiraf') + .8) });
   const tN = ramp(t, A('G12b@prometeus'), A('G12b@prometeus') + .6), push = ramp(t, tYi, tYi + .5) * (1 - ramp(t, tYi + 1.2, tYi + 2.2));

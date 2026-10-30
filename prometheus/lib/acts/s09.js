@@ -133,7 +133,9 @@ shot(PA('P233'), (ctx, st) => {
   const lk = PROM_KAYA.sF, lg = ramp(t, A('J02@özgürlüğü') - .1, A('J02@özgürlüğü') + .5) * (1 - ramp(t, tAm, tAm + 1));
   if (lg > 0) { glow(ctx, lk[0] - 14, lk[1] + 22, 46, `rgba(255,200,120,${.55 * lg})`); ctx.fillStyle = `rgba(255,226,168,${lg})`; ctx.fillRect(lk[0] - 22, lk[1] + 14, 16, 18); }
   const tY = A('J02@yok'); if (t > tY - 1.2 && t < tY + .6) { const u = ramp(t, tY - 1.2, tY, E.in2), x = lk[0] - 14 + Math.sin(u * 6) * 6, y = lerp(lk[1] - 120, lk[1] + 22, u), s = t < tY ? 1 : Math.exp(-(t - tY) * 6); sparkle(ctx, x, y, 14 * s, s, '#FFE2A8'); }
-  if (pc > 0) { ctx.save(); ctx.globalAlpha = pc; promChained(ctx, tFz + Math.max(0, t - tO), { wind: .15, look: lerp(.05, -.3, ramp(t, tO - .2, tO + .5)), pose: 'direnis', pullAdd: .25 * ramp(t, tO - .1, tO + .4) * (1 - ramp(t, tO + .8, tO + 1.8)) }); ctx.restore(); }
+  // renge dönüş: renkli figür tek parça (ayrı tamponda opak) belirir, ilk anda gri figürle aynı pozda; sonra direnişe geçer
+  // (parça parça saydam çizim siyah alt katmanı öne çıkarıp figürü 3–4 kare çamur rengi yapıyordu)
+  if (pc > 0) solidAlpha(ctx, pc, o => promChained(o, tFz + Math.max(0, t - tO), { wind: .15, look: lerp(.05, -.3, ramp(t, tO - .2, tO + .5)), poseMix: ['sessiz', 'direnis', ramp(t, tO + .1, tO + .7)], pullAdd: .25 * ramp(t, tO - .1, tO + .4) * (1 - ramp(t, tO + .8, tO + 1.8)) }));
   ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'clay', dur: .8, end: true }, post: { tex: .55, vig: 1, grain: .06 },

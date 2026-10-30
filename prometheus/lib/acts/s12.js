@@ -206,7 +206,7 @@ const K_ST = () => {
       marginBand(ctx, 2300, 3500, 520, gy + 8, ramp(lt, 0, 1));
       const s = 4.4, x = 2880;
       figure(ctx, { x, y: gy - 30 * s, s, dir: 1, sty: K_STY, lk: K_LK, seed: 5, p: { torso: 1.25, neck: -.9, head: -.35 + .05 * Math.sin(t * 1.3), shN: 1.4, elN: .1, shF: 1.5, elF: .1, handN: 'open', handF: 'open', breath: .8 * Math.sin(t * 1.8) },
-        ik: { hN: [x + 30 * s, gy - 2], hF: [x + 26 * s, gy - 2], fN: [x - 18 * s, gy - 3 * s, -1.2], fF: [x - 22 * s, gy - 3 * s, -1.2] } });
+        ik: { hN: [x + 30 * s, gy - 2], hF: [x + 26 * s, gy - 2], fN: [x - 18 * s, gy - 2.2 * s, -.5], fF: [x - 22 * s, gy - 2.2 * s, -.5] } });   // ayak ucu zemin çizgisinde
     } },
     // cevap: figür ayağa kalkar (K02); tam sayfa alıntı (üst katmanda)
     { at: PA('P282'), x: 4800, draw: (ctx, lt, t) => {

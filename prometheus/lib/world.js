@@ -270,7 +270,7 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   // göz (beyaz ayrılmış halka + siyah bebek), kaş çıkıntısı
   // göz: kırmızı figürde göz akı boyanmaz (ayrılmış kil halka), kehribar ya da kil; ikinci bir parlak leke olmasın
   ctx.fillStyle = o.eye || col; ctx.beginPath(); ctx.ellipse(12.4, -4.2, 2.3, 1.7, -.15, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
-  ctx.fillStyle = line; ctx.beginPath(); ctx.arc(12.7, -4.05, 1.0, 0, TAU); ctx.fill();
+  ctx.fillStyle = o.pupil || line; ctx.beginPath(); ctx.arc(12.7, -4.05, 1.0, 0, TAU); ctx.fill();   // göz bebeği (siyah figürde sır siyahı)
   // sert kaş çıkıntısı: gözün üstüne inen kalın çizgi (öfkeli bakış)
   // göz rafı: gözün üstü düz bir D (soğuk, yırtıcı bakış; çizgi film kaşı değil)
   ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(8.2, -7.2); ctx.lineTo(18.4, -5.6); ctx.lineTo(17.6, -4.3); ctx.quadraticCurveTo(12.6, -5.6, 9.6, -4.9); ctx.closePath(); ctx.fill();
