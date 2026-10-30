@@ -157,14 +157,14 @@ shot(PA('P162'), (ctx, st) => {
   over: (ctx, st) => { const t0 = A('G07b@ölümlülere'); const p = ramp(st.t, t0, A('G07b@acıdım') + .5, E.lin); if (p > 0) { ctx.save(); ctx.globalAlpha = 1 - ramp(st.t, A('G07b@ama') + .6, A('G07b@ama') + 1.4); speechFlow(ctx, 'ÖLÜMLÜLERE ACIDIM', u => [lerp(780, 40, u), 380 - Math.sin(u * PI) * 40], p, { font: '700 60px Cinzel' }); ctx.restore(); } } });
 
 // küçük kanatlı Ker (ölüm ruhu): koyu gövde, kil kontür, iki kanat; a: görünürlük
+// Ker (ölüm eidolonu): insanın omzunun arkasında süzülen küçük kanatlı siluet (≈ 120 px); siyah, kil kazıma, iki açık kanat
 function G_ker(ctx, x, y, dir, t, a = 1) {
   if (a <= 0) return;
-  ctx.save(); ctx.translate(x, y + Math.sin(t * 2.2) * 6); ctx.scale(dir, 1); ctx.globalAlpha *= a;
-  ctx.fillStyle = '#0A0605'; ctx.strokeStyle = 'rgba(201,112,63,.85)'; ctx.lineWidth = 2.5;
-  const fl = Math.sin(t * 5) * .25;
-  for (const k of [1, .7]) { ctx.beginPath(); ctx.moveTo(-6, -18); ctx.quadraticCurveTo(-60 * k, -70 - 30 * fl, -78 * k, -30 + 20 * fl); ctx.quadraticCurveTo(-40 * k, -24, -6, 4); ctx.closePath(); ctx.fill(); ctx.stroke(); }
-  ctx.beginPath(); ctx.ellipse(0, 0, 16, 40, .15, 0, TAU); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.arc(6, -48, 13, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.save(); ctx.globalAlpha *= a;
+  const s = 1.3, bob = Math.sin(t * 2.2) * 6, hy = y + bob;
+  figure(ctx, { x, y: hy, s, dir, sty: { ...STY.black, cut: '#B85E37' }, lk: { hair: 'long', wings: 'ker' }, seed: 91, still: true, stripe: .9,
+    p: { torso: .3, neck: .15, head: .1, shN: 1.1, elN: .9, shF: .7, elF: 1.0, handN: 'open', handF: 'open', wingF: (t * .7) % 1, wingSpread: .9 },
+    ik: { fN: [x - dir * 10 * s, hy + 40 * s, .9], fF: [x - dir * 18 * s, hy + 36 * s, 1.1] } });
   ctx.restore();
 }
 // --- P164–P166: ova: her insanın arkasında küçük bir ölüm gölgesi; ışık süpürmesi gölgeleri siler; göğüslerinde soluk umut ışıkları; rezene ocağı tutuşturur ---
