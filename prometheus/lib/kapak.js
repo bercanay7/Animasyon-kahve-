@@ -19,7 +19,7 @@ function kapakText(ctx, l1, l2, col2, o = {}) {
 // Kapak kurulu tur 1 sonrası: akışta karanlık kalmasın (ortalama parlaklık ≈ 70, köşeler ≥ 30), tek odak karenin en parlak noktası,
 // büyük harf ≥ %18 (≥ 195 px, 1920'de), figür büyük (baş ≥ 435 px). Film P292 eski kapakBG/kapakText'i kullanır; onlara dokunulmaz.
 function kapakBG2(ctx, t, glowAt, o = {}) {
-  ctx.fillStyle = o.base || '#2A1912'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = o.base || '#3A2218'; ctx.fillRect(0, 0, W, H);
   const g = ctx.createRadialGradient(glowAt[0], glowAt[1], 0, glowAt[0], glowAt[1], o.r || 1125);
   g.addColorStop(0, o.c0 || 'rgba(201,112,63,.62)'); g.addColorStop(.5, o.c1 || 'rgba(140,62,30,.32)'); g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -29,12 +29,12 @@ function kapakBG2(ctx, t, glowAt, o = {}) {
 function kapakText2(ctx, l1, l2, c1, c2, o = {}) {
   ctx.save(); const x = o.x ?? 90;
   txt(ctx, l1, x, o.y1 ?? 300, { font: `900 ${o.s1 || 150}px Cinzel`, col: c1, align: 'left', ls: 2, stroke: 'rgba(14,9,7,.92)', sw: 16, shadow: 'rgba(0,0,0,.7)', blur: 20, force: true });
-  txt(ctx, l2, x, o.y2 ?? 560, { font: `900 ${o.s2 || 280}px Cinzel`, col: c2, align: 'left', ls: 3, stroke: 'rgba(14,9,7,.92)', sw: 20, shadow: o.glow || 'rgba(0,0,0,.7)', blur: o.blur || 22, force: true });
+  txt(ctx, l2, x, o.y2 ?? 560, { font: `900 ${o.s2 || 280}px Cinzel`, col: c2, align: 'left', ls: o.ls2 ?? 3, stroke: 'rgba(14,9,7,.92)', sw: o.sw2 ?? 20, shadow: o.glow || 'rgba(0,0,0,.7)', blur: o.blur || 22, force: true });
   ctx.restore();
 }
 // A: "BİLE BİLE ÇALDI": ateşi kaldırmış büyük Prometheus, bakışı aleve; ateş karenin en parlak noktası (çekirdek beyaz)
 SCENES.kapakA = (ctx, t) => {
-  const fire = [1050, 215];
+  const fire = [1050, 265];
   kapakBG2(ctx, t, fire);
   const s = 21, px = 1545, py = 1080 + 14 * s;
   const pose = { torso: -.03, neck: -.12, head: -.3, shF: 2.7, elF: .28, shN: -.15, elN: .2, handN: 'fist', handF: 'fist', mouthOpen: 0, smile: -.4, scowl: .45, wind: .6 };
@@ -51,14 +51,15 @@ SCENES.kapakA = (ctx, t) => {
   flame(ctx, fire[0], fire[1] + 40, 5.1, t, { haloR: 60 });
   glow(ctx, fire[0], fire[1] - 20, 70, 'rgba(255,255,255,.95)');
   motes(ctx, t, 40, 9, 'rgba(255,200,120,.9)', [980, 40, 420, 300], 40, 2.4, .8);
-  kapakText2(ctx, 'BİLE BİLE', 'ÇALDI', '#D6C29C', '#F2B453', { y1: 300, y2: 560, s1: 148, s2: 276, glow: 'rgba(255,150,60,.3)', blur: 26 });
+  kapakText2(ctx, 'BİLE BİLE', 'ÇALDI', '#D6C29C', '#F2B453', { y1: 340, y2: 600, s1: 148, s2: 284, glow: 'rgba(255,150,60,.3)', blur: 26 });
 };
 // B: "ZEUS DA TUTSAK": zincirli Prometheus sağ üste bakar; zincir, kadrajın içinde, kelepçeli bir yumruğa (Zeus) gider;
 // yumruk soğuk beyaz yıldırımı tutar: yıldırım ve kelepçe karenin en parlak noktası
 SCENES.kapakB = (ctx, t) => {
   const F = [1665, 172];
   kapakBG2(ctx, t, [1480, 650], { r: 900, c0: 'rgba(201,112,63,.5)', c1: 'rgba(120,52,24,.3)', bc: 'rgba(150,66,30,.38)' });
-  glow(ctx, F[0] + 40, F[1] + 40, 520, 'rgba(150,170,225,.30)');
+  // soğuk hâle kelepçenin arkasında, dar: yıldırımın hemen arkası koyu kalsın (beyaz şekli yutmasın)
+  glow(ctx, F[0] + 84, F[1] - 6, 380, 'rgba(150,170,225,.22)');
   glow(ctx, 1640, 320, 375, 'rgba(201,112,63,.22)');
   // tek düz bulut silueti sağ kenarda: Zeus'un önkolu buradan yatay çıkar
   ctx.fillStyle = '#2A1A12'; ctx.strokeStyle = 'rgba(201,112,63,.55)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(1990, -20); ctx.lineTo(1990, 270);
@@ -67,23 +68,36 @@ SCENES.kapakB = (ctx, t) => {
   ctx.save(); ctx.lineCap = 'round';
   ctx.strokeStyle = C.ink; ctx.lineWidth = 84; ctx.beginPath(); ctx.moveTo(1900, F[1] - 40); ctx.lineTo(F[0] + 40, F[1] - 4); ctx.stroke();
   ctx.strokeStyle = STY.red.fill; ctx.lineWidth = 72; ctx.stroke(); ctx.restore();
-  // yıldırım (keraunos) ortasından kavranır: önce yıldırım, üstüne yumruk
-  bolt(ctx, F[0], F[1], 2.1, .2, '#FFFFFF', 'rgba(225,232,255,.75)');
+  // yıldırım (keraunos) ortasından kavranır: kalın gövde (≥ 70 px), beyaz çekirdek; önce yıldırım, üstüne yumruk
+  ctx.save(); ctx.translate(F[0], F[1]); ctx.rotate(.2); ctx.scale(1.45, 1);
+  bolt(ctx, 0, 0, 2.3, 0, '#FFFFFF', 'rgba(235,240,255,.55)'); ctx.restore();
+  glow(ctx, F[0], F[1], 90, 'rgba(255,255,255,.9)');
   ctx.save(); ctx.translate(F[0], F[1]);
-  ctx.fillStyle = STY.red.fill; ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.beginPath(); ctx.ellipse(0, 4, 58, 52, 0, 0, TAU); ctx.fill(); ctx.stroke();
-  ctx.lineWidth = 4; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(-44, -22 + k * 22); ctx.quadraticCurveTo(-24, -18 + k * 22, -8, -20 + k * 22); ctx.stroke(); }
-  // bilekte soğuk beyaz kelepçe (önkola dik bant) ve altından sarkan halka
-  ctx.translate(84, -6); glow(ctx, 0, 0, 120, 'rgba(225,232,255,.6)');
-  ctx.fillStyle = '#E6ECFF'; ctx.lineWidth = 5; ctx.beginPath(); ctx.rect(-17, -50, 34, 100); ctx.fill(); ctx.stroke();
+  // yumruk: parmaklar önde (solda) kıvrık, başparmak yıldırımın üstüne kapanır
+  ctx.fillStyle = STY.red.fill; ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(40, -44); ctx.quadraticCurveTo(-10, -58, -46, -34); ctx.quadraticCurveTo(-66, -4, -52, 34); ctx.quadraticCurveTo(-30, 60, 10, 54);
+  ctx.quadraticCurveTo(48, 48, 56, 14); ctx.quadraticCurveTo(62, -22, 40, -44); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.lineWidth = 4; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(-58 + k * 4, -14 + k * 22); ctx.quadraticCurveTo(-34, -10 + k * 22, -14, -14 + k * 22); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(-14, -36); ctx.quadraticCurveTo(-18, 6, -14, 46); ctx.stroke();
+  ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(34, -40); ctx.quadraticCurveTo(-4, -50, -34, -26); ctx.quadraticCurveTo(-40, -12, -26, -8); ctx.quadraticCurveTo(6, -24, 36, -18); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // bilekte soğuk beyaz kelepçe: önkolu saran geniş bant (kolun iki yanından taşar), iki perçin; altından halka sarkar
+  ctx.translate(84, -6); glow(ctx, 0, 0, 130, 'rgba(225,232,255,.55)');
+  ctx.fillStyle = '#E6ECFF'; ctx.lineWidth = 6; ctx.beginPath(); ctx.roundRect(-32, -60, 64, 120, 10); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = 'rgba(14,9,7,.45)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-32, -42); ctx.lineTo(32, -42); ctx.moveTo(-32, 42); ctx.lineTo(32, 42); ctx.stroke();
+  ctx.fillStyle = C.ink; for (const yy of [-22, 22]) { ctx.beginPath(); ctx.arc(0, yy, 7, 0, TAU); ctx.fill(); }
   ctx.restore();
-  const ring = [F[0] + 88, F[1] + 66];
-  ctx.strokeStyle = '#F2F5FF'; ctx.lineWidth = 9; ctx.beginPath(); ctx.ellipse(ring[0], ring[1], 17, 23, .2, 0, TAU); ctx.stroke();
+  const ring = [F[0] + 88, F[1] + 74];
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 15; ctx.beginPath(); ctx.ellipse(ring[0], ring[1], 19, 25, .2, 0, TAU); ctx.stroke();
+  ctx.strokeStyle = '#F2F5FF'; ctx.lineWidth = 9; ctx.stroke();
   const s = 17, px = 1580, py = 1080 + 13.5 * s;
   let J = null, M = null;
   figure(ctx, { x: px, y: py, s, dir: 1, sty: STY.red, lk: { ...LK.prom, eyeS: 1.3 }, still: true, stripe: .5, faceW: 1.5,
-    p: { torso: -.06, neck: -.14, head: -.24, shN: 2.5, elN: .2, shF: -.25, elF: .5, handN: 'fist', handF: 'fist', mouthOpen: .15, scowl: .75 },
+    p: { torso: -.06, neck: -.14, head: -.24, shN: 1.95, elN: 1.2, shF: -.25, elF: .5, handN: 'fist', handF: 'fist', mouthOpen: .15, scowl: .75 },
     hold: { N: CUFF, F: CUFF }, onJoints: (j, m) => { J = j; M = m; } });
   const wN = jointPt(ctx, M, J.AN.wr);
-  ironChain(ctx, [wN[0], wN[1] - 30], [ring[0], ring[1] + 18], { L0: len(sub(ring, wN)) * 1.02, w: 16, link: 56, col: '#4A3426', hi: '#C9A888', bandCol: '#9C7B62' });
-  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#DCE3F6', '#D6C29C', { y1: 300, y2: 560, s1: 168, s2: 266, glow: 'rgba(170,190,240,.3)', blur: 24 });
+  ironChain(ctx, [wN[0], wN[1] - 30], [ring[0], ring[1] + 20], { L0: len(sub(ring, wN)) * 1.07, w: 20, link: 64, col: '#4A3426', hi: '#C9A888', bandCol: '#9C7B62' });
+  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#B9C3DD', '#D6C29C', { y1: 300, y2: 560, s1: 168, s2: 266, ls2: 0, sw2: 16, glow: 'rgba(170,190,240,.3)', blur: 24 });
 };
+// akışta kapağın kenarı koyu temaya karışmasın (köşeler ≥ 30): kapaklarda vinyet hafif
+SCENES.kapakA.post = { vig: .45 };
+SCENES.kapakB.post = { vig: .45 };
