@@ -86,7 +86,7 @@ for si, (bolum, segs) in enumerate(secs):
         for i, o in enumerate(owner):
             if o == k: allwords.append({'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': round(t + st[i] - c0, 3), 'e': round(t + en[i] - c0, 3)})
         out.append(clip); t += len(clip) / SR
-        g = plan['gap'].get(s['id'], 0)
+        g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
         if k == len(segs) - 1: g += plan.get('secGap', 1.5)
         out.append(np.zeros(int(g * SR), np.float32)); t += g
 t += plan.get('sonra', 0)
