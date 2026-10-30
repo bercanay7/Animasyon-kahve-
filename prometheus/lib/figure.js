@@ -61,6 +61,8 @@ const HAND = {
   press: [[-1.3, 0], [1.3, 0], [1.7, 2.4], [2.0, 5.2], [1.4, 7.4], [.7, 6.0], [.3, 7.7], [-.5, 7.3], [-1.3, 4.2]],
 };
 const CUFF = G => { G.part(c => c.rect(-3.0, -3.2, 6.0, 3.4), { fill: C.ink, cutW: .3 }); G.paint(c => { c.moveTo(-2.8, -1.5); c.lineTo(2.8, -1.5); }, typeof PC !== 'undefined' ? PC.clayR : C.clay, .35, false); };
+// yazılı kelepçe: yazı bandın içine, bilek ekseninde kazınır (P130 ΔΕΣΜΩΤΗΣ); harf ≈ 1 birim, 1,5 px kil çizgi
+const CUFF_TXT = str => G => { CUFF(G); if (G.pass === 'fig') dipinto(G.g, str, 0, -1.45, 1.0, { col: typeof PC !== 'undefined' ? PC.clayRL : C.clay, w: .09 }); };
 const THUMB = [[1.5, .8], [3.6, 2.6], [3.4, 3.8], [1.4, 3.0]];
 
 // --- Kafa şekilleri ---

@@ -15,7 +15,8 @@ function D_thrones(ctx, t, o = {}) {
   if (o.crack && o.crackCol !== C.ink) glow(ctx, 1360 + 18 * s, by - 8 * s * o.crack, 50 * o.crack, `rgba(255,190,90,${.35 * Math.min(1, o.crack) * (.8 + .2 * Math.sin(t * 5))})`);
   ctx.restore();
   // adlar devrik tahtların üstündeki boşlukta, Zeus'unki arkalığın sağında (y ≤ 700: altyazı bandına düşmez)
-  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 54, { col: C.ink, a: o.na ?? 1 }));
+  // o.ny: ad yüksekliği (yakın kamerada altyazı bandına inmesin); o.zeusAt: tahtta Zeus oturuyorsa ΖΕΥΣ başının üstünde, iki topuzun arasında
+  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => { const zA = i === 2 && o.zeusAt; dipinto(ctx, n, zA ? zA[0] : [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), zA ? zA[1] : (o.ny ?? by - 230), 54, { col: C.ink, a: o.na ?? 1 }); });
 }
 // METOP (siyah figür): tek uzun friz, panolar arasında triglif bantları (dikey çift çizgili koyu dikdörtgenler)
 function D_metope(ctx, x0, x1, y0, y1, panels) {
@@ -192,7 +193,7 @@ shot(PA('P064'), (ctx, st) => {
   const pan = E.io2(ramp(t, tV - .3, tV + 1.4));
   const c = { x: lerp(1330, 980, pan), y: lerp(400, 540, pan), z: lerp(1.35, 1.0, pan) };
   ctx.save(); cam(ctx, c, 1);
-  D_thrones(ctx, t, { tip: [1.2, 1.2], na: .6 });
+  D_thrones(ctx, t, { tip: [1.2, 1.2], na: .6, ny: 440, zeusAt: [1650, 330] });
   // tahtta Zeus (siyah figür), kapalı yumruk öne uzanır; parmak arasından ışık sızar
   let J = null, M = null;
   figure(ctx, { x: 1360 + 2.5 * 6.2, y: 760 - 25 * 6.2 - 3.2 * 6.2, s: 6.2, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { F: HOLD.scepter(80) }, onJoints: (j, m) => { J = j; M = m; },
@@ -291,7 +292,7 @@ shot(PA('P070'), (ctx, st) => {
   clayBG(ctx, C.clayL, C.clayD);
   const c = { x: 960 + lt * 5, y: 520, z: 1.06 + lt * .004 };
   ctx.save(); cam(ctx, c, 1);
-  D_thrones(ctx, t, { tip: [1.2, 1.2], crack: .2 + .5 * ramp(t, tB - .2, tB + .6) + .3 * ramp(t, tD + 1, tD + 3), na: .7 });
+  D_thrones(ctx, t, { tip: [1.2, 1.2], crack: .2 + .5 * ramp(t, tB - .2, tB + .6) + .3 * ramp(t, tD + 1, tD + 3), na: .7, ny: 280 });
   // anı: Gaia Kronos'a fısıldar (soluk, sol üstte)
   const m = ramp(lt, .1, .8) * (1 - ramp(t, A('D09@prometeus#1') + .2, A('D09@prometeus#1') + 1.0));
   if (m > 0) { ctx.save(); ctx.globalAlpha = .55 * m; bf(ctx, 380, 520, 3.0, 1, LK_GAIA, { torso: .2, head: .3, shN: .8, elN: 1.4 }); bf(ctx, 560, 520, 3.0, -1, LK_KRONOS, { torso: -.05, head: .1 }); ctx.fillStyle = C.ink; ctx.fillRect(260, 520, 420, 4); ctx.restore(); }

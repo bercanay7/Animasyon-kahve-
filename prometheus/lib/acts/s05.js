@@ -266,8 +266,8 @@ shot(PA('P130'), (ctx, st) => {
   // tanrısal kenar ışığı: figürün arkasında altın çizgi, F10a@köle#1'de söner
   const gl = 1 - ramp(t, tD - .3, tD + 1.0);
   if (gl > 0) { ctx.save(); ctx.globalAlpha = gl * .8; glow(ctx, 1240, 520, 420, 'rgba(255,200,110,.35)'); ctx.restore(); }
-  promChained(ctx, t, { wind, look: .05 * (1 - gl) });
-  if (lt < 3) { ctx.save(); ctx.globalAlpha = 1 - ramp(lt, 2, 3); dipinto(ctx, 'ΔΕΣΜΩΤΗΣ', 1356, 526, 8, { col: PC.clayRL, w: .14 }); ctx.restore(); }
+  // ΔΕΣΜΩΤΗΣ (tutsak) yakın bilekteki kelepçe bandına kazılı; yüzen yazı değil
+  promChained(ctx, t, { wind, look: .05 * (1 - gl), cuffText: lt < 3 ? 'ΔΕΣΜΩΤΗΣ' : null });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);

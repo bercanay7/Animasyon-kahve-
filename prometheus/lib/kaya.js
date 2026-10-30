@@ -88,7 +88,7 @@ function promChained(ctx, t, o = {}) {
   figure(ctx, {
     x: px, y: gy - 42.5 * s, s, dir: -1, sty: STY.red, lk: LK.prom, seed: 17, stripe: .55,
     p: { handN: 'fist', handF: 'fist', breath: 1.3 * Math.sin(t * 1.65), wind: o.wind ?? 0, ...base, torso: base.torso + .06 * pull, head: (base.head || 0) + (o.look || 0), ...(o.p || {}) },
-    ik, hold: { N: CUFF, F: CUFF },
+    ik, hold: { N: o.cuffText ? CUFF_TXT(o.cuffText) : CUFF, F: CUFF },
     onJoints: (j, m) => { J = j; M = m; },
   });
   const wN = jointPt(ctx, M, J.AN.wr), wF = jointPt(ctx, M, J.AF.wr);
