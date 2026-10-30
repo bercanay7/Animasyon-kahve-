@@ -192,3 +192,18 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   wing([6, -14], false);
   ctx.restore();
 }
+// Devrilen taht: arka ayağın ucu çevresinde arkaya devrilir, arkalığı yere vurunca seker (devrik taht arkalığının üstünde yatar).
+// p: 0 dik → 1 yerde. Üç taht motifi (Uranos, Kronos, Zeus).
+function throneTip(ctx, x, y, s, p, o = {}) {
+  const dir = o.dir || 1, q = E.in2(clamp(p)), bounce = p > 1 ? Math.exp(-(p - 1) * 9) * Math.sin((p - 1) * 30) * .05 : 0;
+  const ang = (q * 1.43 - bounce) * dir;
+  ctx.save(); ctx.translate(x - 10 * s * dir, y); ctx.rotate(-ang); ctx.translate(10 * s * dir, 0);
+  if (o.shake) ctx.translate(Math.sin((window.FIG_T || 0) * 41) * o.shake, 0);
+  throne(ctx, 0, 0, s, dir, o.col || C.ink, o.inc || C.clay, { high: true, stool: false });
+  ctx.restore();
+}
+// Ayaktaki çatlak: taht ayağında yukarı doğru ilerleyen zikzak (p: 0..1)
+function crackLine(ctx, x, y, h, p, o = {}) {
+  const pts = sampleF(u => [x + (Math.floor(u * 7) % 2 ? 5 : -5) * (o.s || 1), y - u * h], 14);
+  inkPoly(ctx, pts, p, { col: o.col || PW.red, w: o.w || 3, jit: .4 });
+}

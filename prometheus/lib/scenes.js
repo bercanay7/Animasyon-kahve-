@@ -95,3 +95,21 @@ SCENES.amfora = (ctx, t) => {
     c.fillText('ΓΑΙΑ', 300, 120); c.fillText('ΟΥΡΑΝΟΣ', 900, 90); c.fillText('ΚΡΟΝΟΣ', 1500, 130);
   });
 };
+// Üç taht ve kylix denemesi
+SCENES.taht = (ctx, t) => {
+  paperBG(ctx, t, {});
+  // her taht sola devrilir (ön ayak sağda, dir -1): komşusunun üstüne düşmez
+  const X = [520, 960, 1400], s = 6;
+  X.forEach((x, i) => throneTip(ctx, x, 640, s, i === 0 ? ramp(t, .5, 1.3) * 1.15 : i === 1 ? ramp(t, 1.5, 2.3) * 1.15 : 0, { dir: 1, col: PW.line, inc: PW.paperL, shake: i === 2 ? 2 * ramp(t, 2.6, 3) : 0 }));
+  crackLine(ctx, 1400 + 18 * s + 2, 640, 140, ramp(t, 3, 4));
+  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => txt(ctx, n, X[i], 720, { font: '600 34px Cinzel', col: PW.line, ls: 4 }));
+};
+SCENES.kylix = (ctx, t) => {
+  ctx.fillStyle = '#120B08'; ctx.fillRect(0, 0, W, H);
+  kylix(ctx, t, W / 2, H / 2 + 20, 400, t * .12, (c, t, r) => {
+    c.fillStyle = C.ink; c.fillRect(-r, r * .55, 2 * r, 8);
+    figure(c, { x: -170, y: r * .55 - 44.5 * 3.6, s: 3.6, dir: 1, sty: STY.black, lk: { beard: 'short', hair: 'long' }, p: { shN: -2.6, shF: -2.5, elN: -.5, elF: -.6, torso: .1 } });
+    figure(c, { x: 170, y: r * .55 - 44.5 * 3.6, s: 3.6, dir: -1, sty: STY.black, lk: LK.prom, p: { torso: -.1 } });
+    eagle2(c, 120, -150, 1.6, 1, { flap: (t * .6) % 1, col: C.ink, line: C.clay });
+  }, { tilt: .96 });
+};

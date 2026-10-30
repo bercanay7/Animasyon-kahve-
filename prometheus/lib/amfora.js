@@ -50,3 +50,31 @@ function amphoraFrieze(ctx, t, rotX, draw, o = {}) {
 }
 // Şeritte yinelenen sahne: x konumu şerit çevresine göre sarılır (sahneler çember üstünde sabit yerlerde)
 function amfWrap(x, ref) { const c = AMF.circ; return x + Math.round((ref - x) / c) * c; }
+// Kylix tondosu (Lakonya kupası, yukarıdan): daire içinde siyah figür sahne, çevresinde kupa ağzı.
+// rot: tondo dönüşü (rad), tilt: 1 = tam yukarıdan, <1 eğik bakış. draw(c, t): tondo yerel koordinatı (merkez 0,0, yarıçap r)
+function kylix(ctx, t, x, y, r, rot, draw, o = {}) {
+  const tilt = o.tilt ?? 1;
+  ctx.save(); ctx.translate(x, y); ctx.scale(1, tilt);
+  // kupa gövdesi ve ağız halkaları
+  glow(ctx, 0, r * .1, r * 1.9, 'rgba(0,0,0,.55)');
+  ctx.fillStyle = o.glaze || C.ink; ctx.beginPath(); ctx.arc(0, 0, r * 1.42, 0, TAU); ctx.fill();
+  ctx.strokeStyle = C.clayD; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(0, 0, r * 1.4, 0, TAU); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,230,200,.10)'; ctx.lineWidth = 26; ctx.beginPath(); ctx.arc(0, 0, r * 1.25, PI * 1.05, PI * 1.6); ctx.stroke();
+  ctx.save(); ctx.rotate(rot);
+  // tondo bordürü: nar (Lakonya) yerine dil frizi halkası
+  ctx.fillStyle = C.clay; ctx.beginPath(); ctx.arc(0, 0, r * 1.08, 0, TAU); ctx.fill();
+  ctx.fillStyle = C.ink;
+  for (let i = 0; i < 48; i++) { ctx.save(); ctx.rotate(i / 48 * TAU); ctx.beginPath(); ctx.ellipse(0, -r * 1.04, r * .035, r * .045, 0, 0, TAU); ctx.fill(); ctx.restore(); }
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, r * 1.0, 0, TAU); ctx.stroke();
+  // sahne
+  ctx.save(); ctx.beginPath(); ctx.arc(0, 0, r * .985, 0, TAU); ctx.clip();
+  const g = ctx.createRadialGradient(-r * .3, -r * .3, r * .1, 0, 0, r);
+  g.addColorStop(0, C.clayL); g.addColorStop(1, C.clay);
+  ctx.fillStyle = g; ctx.fillRect(-r, -r, 2 * r, 2 * r);
+  draw(ctx, t, r);
+  ctx.restore();
+  ctx.restore();
+  // sır parlaması (dönmez)
+  ctx.fillStyle = 'rgba(255,240,220,.06)'; ctx.beginPath(); ctx.ellipse(-r * .45, -r * .55, r * .5, r * .2, -.6, 0, TAU); ctx.fill();
+  ctx.restore();
+}
