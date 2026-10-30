@@ -23,7 +23,7 @@ function X_nymph(ctx, x, gy, s, t, i, o = {}) {
 // kayayı yaran çatlak: üstten aşağı zikzak yarık; w açıklık (px), glow ateş rengi kenar
 function X_crack(ctx, t, w, a, o = {}) {
   if (a <= 0) return;
-  const pts = []; for (let k = 0; k <= 16; k++) { const u = k / 16; pts.push([1300 + (k % 2 ? 26 : -26) + noise1(u * 4, 7) * 30 - u * 120, lerp(60, 1100, u)]); }
+  const pts = []; for (let k = 0; k <= 40; k++) { const u = k / 40; pts.push([1300 + noise1(u * 3, 7) * 70 + noise1(u * 17, 3) * 14 - u * 120, lerp(60, 1100, u)]); }
   ctx.save(); ctx.globalAlpha *= a;
   if (w > 1) { ctx.fillStyle = PC.glaze; ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x - w / 2, y) : ctx.moveTo(x - w / 2, y)); for (let i = pts.length - 1; i >= 0; i--) ctx.lineTo(pts[i][0] + w / 2, pts[i][1]); ctx.closePath(); ctx.fill(); }
   ctx.strokeStyle = o.col || 'rgba(255,170,80,.9)'; ctx.lineWidth = o.lw || 5; ctx.shadowColor = o.col || 'rgba(255,170,80,.9)'; ctx.shadowBlur = 18;
@@ -81,7 +81,7 @@ shot(PA('P246'), (ctx, st) => {
   J_freezeLook(ctx, t, c, fz);
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
-  over: (ctx, st) => { const t = st.t, tV = A('I08b@savurur'); if (t > A('I08b@kaya') - .3) stamp(ctx, 'KAYA PARÇALANACAK', 1000, 140, t - A('I08b@kaya'), { col: '#E6ECFF', font: '700 72px Cinzel', h: 118, rot: .04, a: .9 * (1 - ramp(t, A('I08b@gömüleceksin') + .4, A('I08b@uzun'))) }); } });
+  over: (ctx, st) => { const t = st.t, tV = A('I08b@savurur'); if (t > A('I08b@kaya') - .3) stamp(ctx, 'KAYA PARÇALANACAK', 1150, 140, t - A('I08b@kaya'), { col: '#E6ECFF', font: '700 72px Cinzel', h: 118, rot: .04, a: .9 * (1 - ramp(t, A('I08b@gömüleceksin') + .4, A('I08b@uzun'))) }); } });
 
 // --- P247: yeraltında uzun zaman: karanlık, dönen yıldızlar; sonra ışığa dönüş ---
 shot(PA('P247'), (ctx, st) => {
@@ -105,7 +105,8 @@ shot(PA('P248'), (ctx, st) => {
   const { wind } = kayaWorld(ctx, t, c, { sky: 'safak', clouds: 4 });
   ctx.save(); cam(ctx, c, .3);
   const g = E.out2(ramp(t, A('I08b@kanatlı') - .3, A('I08b@gelecek') + .4));
-  eagleShadow(ctx, lerp(900, 640, g), lerp(260, 340, g), lerp(1.2, 4.2, g), { a: .75 * g, ang: .5 + .45 * Math.sin(t * 2.2) });
+  // keskin kenarlı, kanatları açık kartal silueti (kylix kartalıyla aynı biçim), göğe yayılır
+  eagleShadow(ctx, lerp(1000, 760, g), lerp(240, 330, g), lerp(1.6, 7.6, g), { a: .62 * g, ang: .92 + .06 * Math.sin(t * 2.2), blur: 3 });
   ctx.restore();
   ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(8,4,3,${.35 * g})`; ctx.fillRect(0, 0, W, H); ctx.restore();
   kayaFrame(ctx, t);
@@ -120,7 +121,7 @@ shot(PA('P249'), (ctx, st) => {
   promChained(ctx, t, { wind, look: -.3, pose: 'gok', pull: .3 + .3 * ramp(t, tZ, tZ + .6) });
   // gölge: ziyafet'te gövdeyi tümüyle örter
   const sh = ramp(t, tZ - 1.2, tZ + .2);
-  if (sh > 0) eagleShadow(ctx, lerp(900, 1120, sh), lerp(200, 430, sh), lerp(3, 6.4, sh), { a: .7 * sh, ang: .9 });
+  if (sh > 0) eagleShadow(ctx, lerp(900, 1120, sh), lerp(200, 430, sh), lerp(3, 6.4, sh), { a: .66 * sh, ang: .92, blur: 3 });
   ctx.restore();
   // pençe silueti: kameranın önünden hızla geçer
   const pk = ramp(t, tC - .1, tC + .5, E.lin);
@@ -142,7 +143,7 @@ shot(A('I08c@ayshilosta') - .3, (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   promChained(ctx, t, { wind, look: -.05, pose: 'direnis' });
   const g = E.out3(ramp(t, A('I08c@işte') - .4, tB, E.lin));
-  eagleShadow(ctx, lerp(400, 1040, g), lerp(120, 380, g), lerp(2.4, 3.4, g), { a: .62, ang: lerp(.6, .95, g) + .04 * Math.sin(t * 3) * (1 - g) });
+  eagleShadow(ctx, lerp(400, 1040, g), lerp(120, 380, g), lerp(2.4, 3.6, g), { a: .6, ang: lerp(.75, .95, g) + .04 * Math.sin(t * 3) * (1 - g), blur: 3 });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);
@@ -273,7 +274,7 @@ shot(PA('P259'), (ctx, st) => {
     e.forEach(([x, y]) => { c2.lineWidth = 2; c2.beginPath(); c2.moveTo(x, y); c2.lineTo(x - 18, y + 34); c2.moveTo(x, y); c2.lineTo(x + 18, y + 34); c2.stroke(); c2.beginPath(); c2.arc(x, y + 34, 22, 0, PI); c2.stroke(); });
     dipinto(c2, 'ΘΕΜΙΣ', 0, -96, 22, { col: PC.clayRL });
   }, ma);
-  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: -.42, pose: 'gok', expr: 'goge' }); ctx.restore();
+  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: -.24, pose: 'direnis', expr: 'goge', p: { torso: .04 } }); ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
@@ -295,13 +296,15 @@ shot(PA('P261'), (ctx, st) => {
   const c = X_shake({ x: 1180, y: 560, z: 1.25 }, t, shk);
   const { wind } = kayaWorld(ctx, t, c, { sky: 'firtina' });
   ctx.save(); cam(ctx, c, 1);
-  [[1060, 1], [1125, 1], [1440, -1]].forEach(([x, dir], i) => X_nymph(ctx, x, 870, 3.9, t, i, { dir, wind, head: -.1, neck: -.05 }));
+  [[960, 1], [1040, 1], [1540, -1]].forEach(([x, dir], i) => X_nymph(ctx, x, 870, 3.9, t, i, { dir, wind, head: -.1, neck: -.05 }));
   promChained(ctx, t, { wind, look: -.25, pose: 'direnis' });
   ctx.restore();
   // yarık: ekran uzayında kayanın üstünden aşağı; açılır, sonra kapanır; kapandıktan sonra çatlaktan yazı ışığı
-  ctx.save(); baseT(ctx); X_crack(ctx, t, 220 * op, ramp(t, tY - .1, tY + .1)); ctx.restore();
-  const cl = ramp(t, tG - .2, tG + .6);
-  if (cl > 0) { ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(14,9,7,${.9 * cl})`; ctx.fillRect(0, 0, W, H); X_crack(ctx, t, 0, cl * (.6 + .4 * ramp(t, tK, tK + .5)), { lw: 4 + 6 * ramp(t, tK, tK + .5) }); ctx.restore(); }
+  // yarılma: soğuk beyaz kenar ve 0,12 sn çakma (Zeus'un yıldırımı); kapanınca çatlak sönük kalır, altın ışık yalnız I12@konuşmakta'da yazıyla gelir
+  ctx.save(); baseT(ctx); X_crack(ctx, t, 220 * op, ramp(t, tY - .1, tY + .1), { col: 'rgba(230,236,255,.9)' }); ctx.restore();
+  if (t > tY && t < tY + .12) { ctx.save(); baseT(ctx); ctx.fillStyle = 'rgba(240,244,255,.55)'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  const cl = ramp(t, tG - .2, tG + .6), kk = ramp(t, tK, tK + .5);
+  if (cl > 0) { ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(14,9,7,${.9 * cl})`; ctx.fillRect(0, 0, W, H); X_crack(ctx, t, 0, cl * (.35 + .65 * kk), { lw: 3 + 6 * kk, col: kk > 0 ? 'rgba(255,170,80,.95)' : 'rgba(120,90,70,.6)' }); ctx.restore(); }
   const bl = ramp(t, tS - .1, tS + .5);
   if (bl > 0) { ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(23,16,12,${bl})`; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   kayaFrame(ctx, t);
@@ -310,12 +313,12 @@ shot(PA('P261'), (ctx, st) => {
     const t = st.t, tE = A('I12'), tK = A('I12@konuşmakta'), tS = A('I12@son');
     // kenar şeridi (x 1500–1880, y 60–300): SUSAN → KONUŞAN
     const pa = ramp(t, A('I12@başta') - .2, A('I12@başta') + .3) * (1 - ramp(t, tS - .3, tS + .2));
-    if (pa > 0) { ctx.save(); ctx.globalAlpha = pa; ctx.fillStyle = PW.paper; ctx.fillRect(1500, 60, 380, 240); ctx.strokeStyle = PW.line; ctx.lineWidth = 3; ctx.strokeRect(1500, 60, 380, 240);
-      [[1595, 'SUSAN', A('I12@başta')], [1785, 'KONUŞAN', tK]].forEach(([x, s, t0], i) => { const a = ramp(t, t0 - .1, t0 + .4); if (a <= 0) return; ctx.save(); ctx.globalAlpha *= a;
-        ctx.strokeStyle = PW.line; ctx.lineWidth = 2; ctx.strokeRect(x - 80, 76, 160, 170);
-        figure(ctx, { x, y: 236 - 44.5 * 1.6, s: 1.6, dir: -1, sty: STY.lek, lk: LK.promFree, seed: 17 + i, still: true, p: { torso: .05, shN: i ? 1.9 : .2, elN: .2, mouthOpen: i ? .5 : 0 } });
-        if (i) for (let k = 0; k < 3; k++) { ctx.strokeStyle = PW.red; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x - 34, 120, 10 + k * 9, PI * .8, PI * 1.2); ctx.stroke(); }
-        txt(ctx, s, x, 276, { font: '700 26px Cinzel', col: i ? PW.red : PW.line, ls: 3 }); ctx.restore(); });
+    if (pa > 0) { ctx.save(); ctx.globalAlpha = pa; ctx.fillStyle = PW.paper; ctx.fillRect(1440, 56, 450, 300); ctx.strokeStyle = PW.line; ctx.lineWidth = 3; ctx.strokeRect(1440, 56, 450, 300);
+      [[1553, 'SUSAN', A('I12@başta')], [1777, 'KONUŞAN', tK]].forEach(([x, s, t0], i) => { const a = ramp(t, t0 - .1, t0 + .4); if (a <= 0) return; ctx.save(); ctx.globalAlpha *= a;
+        ctx.strokeStyle = PW.line; ctx.lineWidth = 2; ctx.strokeRect(x - 100, 72, 200, 220);
+        figure(ctx, { x, y: 282 - 44.5 * 2.15, s: 2.15, dir: -1, sty: STY.lek, lk: LK.promFree, seed: 17 + i, still: true, p: { torso: .05, shN: i ? 1.9 : .2, elN: .2, mouthOpen: i ? .5 : 0 } });
+        if (i) for (let k = 0; k < 3; k++) { ctx.strokeStyle = PW.red; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x - 44, 130, 12 + k * 11, PI * .8, PI * 1.2); ctx.stroke(); }
+        txt(ctx, s, x, 328, { font: '700 36px Cinzel', col: i ? PW.red : PW.line, ls: 3 }); ctx.restore(); });
       erhatTag(ctx, t - tE, 'ERHAT · ÖNSÖZ · S. XV', { d: tS - tE }); ctx.restore(); }
     // I12@konuşmakta: yazı çatlaktan parlar; I12@son: havada yalnız son sözün ateş renkli harfleri
     const sp = ramp(t, tK, tK + .8, E.lin);

@@ -103,7 +103,7 @@ function promChained(ctx, t, o = {}) {
 }
 // Kartal gölgesi: kayanın ve bedenin üstünden geçen bulanık siluet (kaya poligonuna kırpılır)
 function eagleShadow(ctx, x, y, s, o = {}) {
-  ctx.save(); ctx.filter = 'blur(8px)'; ctx.globalAlpha *= o.a ?? .5;
+  ctx.save(); ctx.filter = `blur(${o.blur ?? 8}px)`; ctx.globalAlpha *= o.a ?? .5;
   eagle2(ctx, x, y, s, 1, { ang: o.ang ?? .9, angFar: .2, farOff: -.55, col: '#050201', wingCol: '#050201', farCol: '#050201', line: 'rgba(0,0,0,0)', eye: '#050201' });
   ctx.restore();
 }
