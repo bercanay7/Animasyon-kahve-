@@ -11,7 +11,7 @@ Teslim edilen her parça bağımsız bir kuruldan geçti ve kurulların ölçtü
 | Sahneler | yönetmen-Dram, sanat-Üslup | 3 | 8,1 / 7,8 → **9,09 / 9,03** ONAY |
 | Kapaklar (A/B) | CTR/paketleme | 4 | **A 9,1 / B 9,1** ONAY |
 | Ses ve miks | ses/miks | 3 | 8,05 → 8,4 → **9,1** ONAY |
-| Shorts | Shorts kurgu ve paketleme | 2 | 6,3 → tur 2 sürüyor |
+| Shorts | Shorts kurgu ve paketleme | 4 | 6,3 → 8,3 → 8,8 → **9,2** ONAY |
 
 - **Kaynak sadakati:**
   - Erhat'ın geçtiği 76 cümlenin 75'inde önsözden sayfa ve paragraf künyesi var (`senaryo.json` → `kaynak`). Kalan bir cümle (F14) oyunun dizesi: kaynağı oyun ve kendi çevirimiz olarak yazılı.
@@ -37,15 +37,20 @@ Teslim edilen her parça bağımsız bir kuruldan geçti ve kurulların ölçtü
    - doruk planında Prometheus kadrajın dışındaydı;
    - filmin ekran yazıları silinmiş, yerine bir şey konmamıştı ("Erhat" ve "Güç" açıklanmıyordu).
 
-   Kendi kare kontrolüm bunların çoğunu görmemişti.
+   Kendi kare kontrolüm bunların çoğunu görmemişti. Dört turda 9,2'ye çıktı. Tur 3'teki tek gerilemeyi de ben yaptım: bir kadraj anahtarı yorum satırına kaymıştı.
 3. **Kurula yanlış iddia verdim (sahne turu 2).** Üç düzeltmeyi yapılmış diye bildirdim: kartal gölgesi, P246 mührü, P130 kelepçe yazısı. Yapılmamışlardı; kurul yakaladı. O turdan sonra her iddiayı kareyle doğrulayıp verdim.
 4. **Üslup karesi ve animatik ayrı bir ONAY almadı.**
    - Üslup karesi tur 2'de 7,5–8,5'te kaldı. Tur 3 planlandı ama yapılmadı.
    - Animatik tur 1'de RED aldı, düzeltildi; ikinci tur yapılmadı.
    - İkisinin yerini sahne kurulunun son kareler üzerinden verdiği ONAY tuttu (iki üye, üç tur). Bu, sekiz üyeli bir üslup kurulunun onayıyla aynı şey değil. Kayıtta da "tamamlandı" diye işaretlenmişti; bu yanlıştı.
 5. **Bir kurul önerisini yan etkisini ölçmeden uyguladım.** Ses tur 2'deki sabit müzik sınırlayıcısı iki doruğu (J04, K06) 5–7 dB söndürdü. Kurul bir sonraki turda yakaladı. Ders: kurul önerisi de bir iddiadır, uygulamadan önce ölçülür.
-6. **Teslim biçimini önceden düşünmedim.** 1,03 GB'lık ana kayıt sohbetin 500 MB sınırını aştı. Yükleme için H.265 kopya (392 MiB, SSIM ≈ 0,99) 1,5 saat ek iş tuttu.
-7. **Küçük bir iz.** Bir yazım hatası dosya sisteminin köküne boş bir `/render.pid` bıraktı. Güvenlik kontrolü silmeye izin vermedi; zararsız.
+6. **Teslim biçimini önceden düşünmedim.**
+   - 1,03 GB'lık ana kayıt sohbetin 500 MB sınırını aştı.
+   - İlk H.265 kopya 392 MiB çıktı; bu 411 MB eder ve senin 400 MB yükleme sınırının üstünde. Senin söylemenle fark ettim.
+   - Kopya, 400 MB'ın altında CRF 21 ile yeniden kodlandı (SSIM ≈ 0,99). Toplam ≈ 2,5 saat ek iş tuttu.
+   - MB ile MiB farkını hesaba katmam gerekirdi.
+7. **Yanlış klasörde render.** Bir Shorts render'ı depo kökündeki ilgisiz, eski `render.js`'i çalıştırdı. Fark edip PID ile durdurdum ve oluşan dosyayı sildim; zarar yok. O andan beri render'lar mutlak yolla başlatılıyor.
+8. **Küçük bir iz.** Bir yazım hatası dosya sisteminin köküne boş bir `/render.pid` bıraktı. Güvenlik kontrolü silmeye izin vermedi; zararsız.
 
 ## 3. Bilerek verdiğim ödünler (ve neden)
 - **Kodla çizimin sınırı:** yüz, el ve karmaşık beden hareketi zayıf. Sahneler siluet, kompozisyon ve ışığa dayandı. P170'teki yüz yapısı basit kaldı (7,7 sn'lik tek plan; iki üye engel saymadı).
@@ -63,7 +68,6 @@ Teslim edilen her parça bağımsız bir kuruldan geçti ve kurulların ölçtü
 ## 4. Hâlâ yapılabilecekler
 | Ne | Maliyet | Önerim |
 |---|---|---|
-| Shorts kurulu tur 2 (sürüyor) ve gerekirse düzeltme | ~30 dk + render | Yapılıyor |
 | Üslup kuruluyla son kareler üzerinde doğrulama turu (atlanan ONAY) | 1 ajan; düzeltme çıkarsa kısmi render + HEVC kodlama | İstersen yap; ilk geri bildirim yayından sonra da gelebilir |
 | Sesin isteğe bağlı üç küçük maddesi | ~10 dk sentez + kurul doğrulaması + mux + HEVC (~1,5 sa) | Değmez: fark ≤ 1 dB, risk yeni yan etki |
 | CLAUDE.md'ye Prometheus dersleri | birkaç dakika | Yapılmalı (aşağıdaki liste) |
@@ -76,7 +80,9 @@ Teslim edilen her parça bağımsız bir kuruldan geçti ve kurulların ölçtü
 2. **Kurula verilen her "yaptım" iddiası** bir kare, bir ölçüm ya da bir diff ile verilsin.
 3. **Kurul önerisi de bir iddiadır:** uygulamadan önce yan etkisi ölçülsün (ör. doruk seviyeleri).
 4. **Whisper kelime zamanları cümle sınırında üst üste binebiliyor.** `build_vo.py` artık kesimdeki RMS'i denetleyip ilk gerçek duraklamaya kesiyor; zaman çizelgesi değişmiyor.
-5. **Teslim:** 500 MB sınırı yüzünden uzun videolarda H.265 yükleme kopyası render planına baştan konsun.
+5. **Teslim:** sohbetin dosya sınırı 500 MB, senin YouTube yükleme sınırın 400 MB (MB, MiB değil).
+   - Uzun videolarda ≤ 400 MB H.265 yükleme kopyası (CRF ≈ 21) render planına baştan konsun.
+   - Dosyalar iş bitince tek seferde, ayrı ayrı gönderilsin.
 6. **Shorts'ta `notext` filmin ekran yazılarını siler.** Shorts'a özel damga, künye ve kanca katmanı baştan planlansın. Kesme ve zemin geçişleri filmin kendi kesmelerine kare kare eşlensin.
 7. **Ölçüm:** yayından sonraki 48 saatte bakılacaklar:
    - TO (Sisifos'un zayıf halkası, %1,6–2,2);

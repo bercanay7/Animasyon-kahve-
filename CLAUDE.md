@@ -65,6 +65,20 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
 - Art arda iki videoda aynı kalıbı ("NEDEN …?") kullanma.
 - Duruşta T pozundan kaçın. "Geri dönme" gibi bir anı gövde ile başın yön zıtlığıyla göster.
 
+## Süreç dersleri (Prometheus'tan)
+- **Kurul kapıları:** senaryo → seslendirme → üslup karesi → animatik → sahneler → ses/miks → kapak → Shorts.
+  - Render ancak ses/miks ONAY'ından sonra başlar. Prometheus'ta ses kurulu geç açıldı; kesik kelimeler ("güvenmez" → "güvenme") ve kelimenin üstündeki motifler neredeyse yayına gidiyordu.
+  - Shorts render'dan önce kurula gider. Prometheus'ta Shorts ilk turda 6,3 aldı.
+  - ONAY'sız geçilen kapı kayda açıkça yazılır.
+- **Kurula verilen "yaptım" iddiası** kare, ölçüm ya da diff ile verilir. Kurulun kendi önerisi de iddiadır: yan etkisi ölçülmeden uygulanmaz. Örnek: sabit müzik sınırlayıcısı dorukları 5–7 dB söndürdü.
+- **Seslendirme kesimi:** Whisper kelime zamanları cümle sınırında üst üste binebilir. `build_vo.py` kesimdeki RMS'i denetleyip ilk gerçek duraklamaya keser; zaman çizelgesi değişmez.
+- **Shorts'ta `notext`** filmin ekran yazılarını siler. Damga, künye ve kanca katmanı Shorts için ayrıca kurulur. Kadraj ve zemin geçişleri filmin kesmelerine kare kare eşlenir.
+- **Teslim:**
+  - Sohbetin dosya sınırı 500 MB; kullanıcının YouTube yükleme sınırı 400 MB (MB, MiB değil).
+  - Uzun video için ≤ 400 MB H.265 yükleme kopyası hazırlanır (CRF ≈ 21, ses kopyalanır).
+  - Dosyalar iş bitince tek seferde, ayrı ayrı gönderilir.
+- **Render'ı mutlak yolla başlat:** depo kökünde ilgisiz, eski bir `render.js` var.
+
 ## Ölçütler (YouTube Analytics)
 - **Gösterim tıklama oranı (TO):** kanalların yarısı %2–10 arasında.
   - Göz at trafiğinde %3–5 iyi, Önerilen'de %4–8 normal.
@@ -114,7 +128,7 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - YouTube bölüm zaman damgaları konur;
   - açılış kuralı (ilk 5 saniyede kapağın vaadi) değişmez;
   - kurul "bu sahne hikâyeye bir şey katıyor mu?" diye sorar, "kısa mı?" diye değil.
-- **Sıradaki video:** Prometheus (kullanıcının kararı).
+- **Sıradaki video:** Prometheus (kullanıcının kararı). Durum: üretildi, yayına hazır (`prometheus/yayin.md`, karar kaydı `prometheus/kurul/kararlar.md`, geriye bakış `prometheus/geriye_bakis.md`).
   - **Çıkış noktası:** Aiskhylos'un *Zincire Vurulmuş Prometheus*'u (İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler). Kullanıcıyı asıl etkileyen, kitabın kendisinden çok Azra Erhat'ın önsözü; onun Prometheus'a bakışı videonun omurgası olacak.
   - **Önsözden yorum uydurma:** Erhat'a ait her görüş ve alıntı yalnız kullanıcının verdiği önsöz sayfalarından (fotoğraf ya da metin) alınır. Kaynak yoksa sorulur.
   - **Telif:** önsöz ve çeviri telif kapsamında (Erhat 1982'de öldü). Fikirler kendi cümlelerimizle anlatılır; kısa alıntılar kaynak gösterilerek yapılır. Açıklamaya künye yazılır.
