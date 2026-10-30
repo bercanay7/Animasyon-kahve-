@@ -17,9 +17,11 @@ function olymposRun(ctx, t, c, o = {}) {
   ctx.restore();
   // yamaç
   ctx.save(); cam(ctx, c, 1);
-  ctx.beginPath(); ctx.moveTo(-600, runGround(-600)); for (let x = -600; x <= 4200; x += 16) ctx.lineTo(x, runGround(x)); ctx.lineTo(4200, 2200); ctx.lineTo(-600, 2200); ctx.closePath();
+  ctx.beginPath(); ctx.moveTo(-600, runGround(-600)); for (let x = -600; x <= 4200; x += 16) ctx.lineTo(x, runGround(x));
+  for (let x = 4200; x >= -600; x -= 24) ctx.lineTo(x, runGround(x) + 230 + fbm1(x * .01, 3) * 60); ctx.closePath();
   ctx.fillStyle = '#2A170F'; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 3.5; ctx.stroke();
   ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 2; ctx.beginPath(); for (let x = -600; x <= 4200; x += 16) { const y = runGround(x) + 14; x > -600 ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+  if (o.terrace !== undefined) caveTerrace(ctx, t, o.terrace);
   // koşan Titan
   const x = RUN.x0 + RUN.sp * t;
   let wr = null, M = null, Jn = null;
@@ -41,45 +43,31 @@ function olymposRun(ctx, t, c, o = {}) {
   ctx.restore();
   return { x, tip };
 }
-// P001: kapak karesi (koşu, ateş en parlak nokta), P003: yakın plan, baş geriye (Olympos'a) döner
-shot(0, (ctx, st) => {
-  const x = RUN.x0 + RUN.sp * st.t;
-  // kapak kompozisyonu: figür sol-orta, kaldırılmış ateş sağ üstte (karenin en parlak noktası)
-  olymposRun(ctx, st.t, { x: x + 200, y: 610 + x * .2 - 360, z: .98 + st.t * .012 });
-  kayaFrame(ctx, st.t);
-}, { tr: { type: 'black', dur: .6 }, post: { tex: .55, vig: 1, grain: .06 } });
-// P002: aşağıda karanlık ova; ateş ocaktan ocağa geçer, mağara ağızlarında insanların yüzleri aydınlanır
-shot(A('A01@insanlara'), (ctx, st) => {
-  const lt = st.lt;
-  glazeBG(ctx, st.t, { gx: 960, gy: 900, gr: 1100, stars: false });
-  const c = { x: 960, y: lerp(470, 560, E.io2(clamp(lt / 1.6))), z: 1.05 };
-  ctx.save(); cam(ctx, c, .1); vaseStars(ctx, st.t, 40, 7, [0, 40, W, 420], [], .35); ctx.restore();
-  ctx.save(); cam(ctx, c, 1);
-  // mağaralı yamaç bandı
-  const hy = x => 640 + fbm1(x * .004, 6) * 40;
-  ctx.beginPath(); ctx.moveTo(-200, hy(-200)); for (let x = -200; x <= 2200; x += 16) ctx.lineTo(x, hy(x)); ctx.lineTo(2200, 1400); ctx.lineTo(-200, 1400); ctx.closePath();
+// P001–P003: tek sürekli plan. Kapak karesiyle açılır (kararma yok); "bile bile"de baş omzun üstünden Olympos'a döner;
+// "insanlara"da kamera aşağıdaki ovaya iner, ocaklar sırayla yanar; "Titan düşün"de yakın plana, kaldırılmış ateşe döner.
+const TERRACE = 1450;
+function caveTerrace(ctx, t, ignite) {
+  const hy = x => TERRACE + fbm1(x * .004, 6) * 40;
+  ctx.beginPath(); ctx.moveTo(-600, hy(-600)); for (let x = -600; x <= 4200; x += 16) ctx.lineTo(x, hy(x)); ctx.lineTo(4200, 2600); ctx.lineTo(-600, 2600); ctx.closePath();
   ctx.fillStyle = '#2A170F'; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 3.5; ctx.stroke();
-  const caves = [[260, 760], [620, 800], [980, 770], [1340, 810], [1700, 780]];
+  const caves = [[1120, 1560], [1480, 1600], [1840, 1570], [2200, 1610], [2560, 1580]];
   caves.forEach(([cx, cy], i) => {
-    const ti = .15 + i * .2, k = E.outBack(ramp(lt, ti, ti + .35, E.lin));
+    const k = E.outBack(clamp(ignite - i * .18) / 1, E.lin), kk = clamp(k * 1.6);
     ctx.fillStyle = '#0E0907'; ctx.beginPath(); ctx.ellipse(cx, cy, 120, 86, 0, PI, TAU); ctx.lineTo(cx + 120, cy + 40); ctx.lineTo(cx - 120, cy + 40); ctx.fill();
     ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.ellipse(cx, cy, 120, 86, 0, PI, TAU); ctx.stroke();
-    if (k > 0) {
-      glow(ctx, cx, cy, 170 * k, `rgba(255,160,70,${.35 * k})`);
-      humanFires(ctx, st.t, [[cx, cy + 34, 1.1 * k]], 1);
-      seatedHuman(ctx, cx - 52, cy + 36, 1.3, 1, st.t); seatedHuman(ctx, cx + 52, cy + 36, 1.3, -1, st.t);
-    }
+    seatedHuman(ctx, cx - 50, cy + 36, 1.25, 1, t); seatedHuman(ctx, cx + 50, cy + 36, 1.25, -1, t);
+    if (kk > 0) { glow(ctx, cx, cy, 170 * kk, `rgba(255,160,70,${.35 * kk})`); humanFires(ctx, t, [[cx, cy + 34, 1.1 * clamp(kk)]], 1); }
   });
-  ctx.restore();
-  kayaFrame(ctx, st.t);
-}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
-shot(A('A01@titan'), (ctx, st) => {
-  const t = st.t, x = RUN.x0 + RUN.sp * t, lt = st.lt;
-  // yakın plan: baş ve rezene; baş geriye döner (bile bile)
-  olymposRun(ctx, t, { x: x + 110, y: 610 + x * .2 - 560 + lt * 6, z: lerp(1.75, 1.9, E.io2(clamp(lt / 1.8))) }, { back: lt > .25 });
+}
+shot(0, (ctx, st) => {
+  const t = st.t, x = RUN.x0 + RUN.sp * t, gy = runGround(x);
+  const tB = A('A01@bile'), tI = A('A01@insanlara'), tT = A('A01@titan');
+  const c1 = { x: x + 200, y: gy - 360, z: .98 + t * .012 }, c2 = { x: x + 560, y: TERRACE - 90, z: .95 }, c3 = { x: x + 110, y: gy - 560, z: 1.8 };
+  const tE = Se('A01'), d = E.io3(ramp(t, tI - .35, tI + .5, E.lin)), u = E.io3(ramp(t, tE - .1, A('A02') - .15, E.lin));
+  const c = mix(mix(c1, c2, d), c3, u);
+  olymposRun(ctx, t, c, { back: t > tB + .1 && t < tI - .1 || t > tE, terrace: ramp(t, tI + .05, tI + .95, E.lin) * 1.8 });
   kayaFrame(ctx, t);
-}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
-
+}, { post: { tex: .55, vig: 1, grain: .06 } });
 // --- P004: zincir kayaya çakılır (çekiç ve kazık yakın), P005: kamera zinciri buluta kadar izler ---
 function hammerHit(ctx, tx, ty, tHit, t, s = 1) {
   // çekiç: sap sağ üstteki pivot (görünmeyen el) çevresinde döner; vuruş anında baş kazığın başına oturur, sonra geri sıçrar

@@ -130,7 +130,7 @@ function kayaWorld(ctx, t, c, o = {}) {
     const sF = PROM_KAYA.sF, top = [sF[0] + 70, -1150], tug = o.chainTug || 0;
     ironChain(ctx, [sF[0] - 30, sF[1] - 4], top, { L0: len(sub(top, sF)) * (1.01 - .01 * Math.abs(tug)), sag: -tug * 12, w: 6, link: 24 });
     for (let i = 0; i < 6; i++) cloud(ctx, sF[0] - 260 + i * 120 + Math.sin(t * .2 + i) * 20, -560 + (i % 2) * 70, 1.5, '#1A100B', 'rgba(201,112,63,.4)', i + 3);
-    if (o.glint) sparkle(ctx, top[0] - 30, -470, 30 * o.glint, o.glint, '#FFE2A0');
+    if (o.glint) sparkle(ctx, top[0] - 30, -470, 30 * o.glint, o.glint, '#E6ECFF'); // Zeus'un rengi soğuk beyaz (altın ateşe ayrılmıştır)
   }
   ctx.restore();
   return { wind, fl };
