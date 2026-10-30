@@ -159,8 +159,8 @@ shot(PA('P251'), (ctx, st) => {
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
     const t = st.t, tN = A('I08c@ne'), a = 1 - ramp(t, st.end - .6, st.end);
-    if (t > tN && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'NE YAPARSA YAPSIN…', u => [lerp(980, 300, u), 250], ramp(t, tN, A('I08c@yapsın') + .4, E.lin), { font: '700 58px Cinzel', follow: 0 });
-      speechFlow(ctx, 'BENİ ÖLDÜREMEZ.', u => [lerp(980, 380, u), 340], ramp(t, A('I08c@beni'), A('I08c@öldüremez') + .5, E.lin), { font: '700 64px Cinzel', follow: 0, col: '#FFC867' }); ctx.restore(); }
+    if (t > tN && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'NE YAPARSA YAPSIN…', u => [lerp(920, 240, u), 250], ramp(t, tN, A('I08c@yapsın') + .4, E.lin), { font: '700 58px Cinzel', follow: 0 });
+      speechFlow(ctx, 'BENİ ÖLDÜREMEZ.', u => [lerp(920, 320, u), 340], ramp(t, A('I08c@beni'), A('I08c@öldüremez') + .5, E.lin), { font: '700 64px Cinzel', follow: 0, col: '#FFC867' }); ctx.restore(); }
   } });
 
 // --- P252–P253: Hermes perileri kovar; periler kalır, kayada Prometheus'un çevresinde sıkı sıra olur; söz: HAİNLERDEN NEFRET ETMEYİ ÖĞRENDİK. ---
@@ -183,8 +183,8 @@ shot(PA('P252'), (ctx, st) => {
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
     const t = st.t, tH = A('I09@hainlerden'), a = 1 - ramp(t, A('I09@dururlar'), A('I09@dururlar') + .6), sea = 'rgba(196,222,210,1)';
-    if (t > tH && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'HAİNLERDEN NEFRET', u => [lerp(780, 150, u), 300], ramp(t, tH, A('I09@nefret') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' });
-      speechFlow(ctx, 'ETMEYİ ÖĞRENDİK.', u => [lerp(780, 170, u), 380], ramp(t, A('I09@etmeyi'), A('I09@öğrendik') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
+    if (t > tH && a > 0) { ctx.save(); ctx.globalAlpha = a; speechFlow(ctx, 'HAİNLERDEN NEFRET', u => [lerp(1100, 470, u), 190], ramp(t, tH, A('I09@nefret') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' });
+      speechFlow(ctx, 'ETMEYİ ÖĞRENDİK.', u => [lerp(1100, 490, u), 265], ramp(t, A('I09@etmeyi'), A('I09@öğrendik') + .4, E.lin), { font: '700 54px Cinzel', follow: 0, col: sea, glow: 'rgba(40,80,70,.6)' }); ctx.restore(); }
   } });
 
 // --- P254: gök: bulutlarda dev bir yıldırım kalkar (Zeus görünmez); fırtına başlar ---
