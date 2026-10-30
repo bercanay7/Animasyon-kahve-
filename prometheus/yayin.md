@@ -41,7 +41,7 @@ git pull
 ## 1. Uzun video
 1. **Oluştur → Video yükle** → `prometheus_master.mp4`.
 2. **Ayrıntılar:**
-   - **Başlık:** `youtube.md` → Başlık. Önerilen başlık kapak A ile eşleşir. "Test ve karşılaştır" sürerken başlık değiştirilmez.
+   - **Başlık:** `Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat` (iki kapak için ortak). "Test ve karşılaştır" sürerken başlık değiştirilmez.
    - **Açıklama:** `youtube.md` → "Açıklama" bölümünün tamamı. Bölüm zaman damgaları ve kaynak künyesi dahil.
    - **Küçük resim:** `kapak.jpg`. "Test ve karşılaştır" açıksa `kapak_b.jpg` ikinci seçenek olarak eklenir. YouTube kazananı izlenme süresi payına göre seçer.
    - **Kitle:** "Hayır, çocuklara özel değil".

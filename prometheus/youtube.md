@@ -1,9 +1,9 @@
 # YouTube: Prometheus (Türkçe)
 
 ## Başlık
-Öneri (kapak A ile): `Prometheus: Ateşi Bile Bile Çalan Titan | Azra Erhat'ın Okuması`
-Kapak B ile: `Prometheus: Asıl Tutsak Zeus muydu? | Aiskhylos ve Azra Erhat`
-Not: "Test ve karşılaştır" sürerken başlık değiştirilmez.
+`Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat`
+
+Tek başlık iki kapakla da çalışır: A ("BİLE BİLE ÇALDI") başlığın sorusunu açar, B ("ZEUS DA TUTSAK") soruya şaşırtıcı bir ipucu verir. Kapak A birinci, B "Test ve karşılaştır"da ikinci seçenektir. Test sürerken başlık değiştirilmez.
 
 ## Açıklama
 ```
