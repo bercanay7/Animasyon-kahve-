@@ -565,6 +565,7 @@ Bu kurul sonradan açıldı: CLAUDE.md'deki yöntem "ses/miks" kurulunu da istiy
 |---|---|---|---|
 | 1 | 8,05 | RED | Motifler ve vuruşlar anahtar kelimelerin üstünde, son sınırlayıcı anlatımı 4–6 dB bastırıyor, 6 kesik kelime, pompalama |
 | 2 | 8,4 | RED | Tur 1 kritikleri doğrulandı; yan etki: sabit müzik sınırlayıcısı dorukları 5–7 dB söndürdü, J05 ve G09 başına motif biniyor |
+| 3 | **9,1** | ONAY | Doruklar geri geldi (K06 yine en yüksek an), J05 başı açık, yan etki yok |
 
 ## Tur 1 → tur 2 (uygulandı)
 - Solo aulos ayrı bir kısma katmanında (konuşmada ×1,5 derin). Ateş motifi ve aulos cümlelerinin arkasına alındı: A04, C18, E10, F01, G08, J04, I12, L06, M02. A01'de yerinde ama kısık.
@@ -582,3 +583,17 @@ Bu kurul sonradan açıldı: CLAUDE.md'deki yöntem "ses/miks" kurulunu da istiy
 - G08 motifi 1,04 sn'lik boşluğa sığdı. E10 ve I12 motifleri biraz kısıldı, F01 aulos cümlesi kısaldı.
 - C10 ve C18 vuruşları: seviyeleri düşürüldü, zamanları kaydırılmadı (görüntü çapası).
 - D3 altındaki pad notaları mono.
+
+## Tur 3: ONAY (9,1)
+- Ölçümler (tur 1 → tur 3):
+  - en kötü cümle (1–4 kHz) 4,6 → 9,7 dB;
+  - 0 dB altı kelimeler %0,7 → %0,2;
+  - sınırlayıcının anlatımı > 1 dB bastırdığı süre 128 → 24 sn;
+  - pompalama +6,3 → +2,5 dB.
+- Onaydan sonra uygulanmayanlar (isteğe bağlı iyileştirmeler):
+  - G08 motifi 0,4;
+  - J04 boom 1,0 (boşluk −12,9 LUFS, hedefe 0,9 dB);
+  - C10 vuruşunun kaydırılması;
+  - Shorts döngü dikişi.
+
+  Gerekçe: tur 2, doğrulanmamış tek bir değişikliğin (sabit müzik sınırlayıcısı) iki doruğu söndürebildiğini gösterdi. Onaylı miksi doğrulanmamış küçük kazançlar için açmamak daha güvenli. Film onaylı miksle birleştirildi.
