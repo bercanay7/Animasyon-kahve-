@@ -90,13 +90,18 @@ function fennel(ctx, x0, y0, x1, y1, t, o = {}) {
   }
 }
 // Zincir kazığı: kayaya çakılmış, zincir yönünde sivrilen dövme demir kama; başı mantar, halkası zincire bakar
-function stake(ctx, x, y, s, a = 0, col = '#2B1A12', line = null) {
+function stake(ctx, x, y, s, a = 0, col = '#2B1A12', line = null, bury = true) {
   ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.scale(s, s);
   ctx.lineJoin = 'round';
   ctx.fillStyle = col; ctx.strokeStyle = line || C.ink; ctx.lineWidth = 1.1;
-  ctx.beginPath(); ctx.moveTo(-14, -5); ctx.lineTo(9, -1.6); ctx.lineTo(10, 1.6); ctx.lineTo(-14, 5); ctx.closePath(); ctx.fill(); ctx.stroke();
+  // kayaya gömülü kama: yalnız başı görünür, giriş noktasında kısa çatlaklar (kol ve zincirle tek çizgi olmasın)
+  if (bury) {
+    ctx.beginPath(); ctx.moveTo(-14, -5); ctx.lineTo(-3, -3.4); ctx.lineTo(-3, 3.4); ctx.lineTo(-14, 5); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle = C.ink; ctx.lineWidth = .9; for (const [dx, dy] of [[3.5, -3], [4.5, .6], [3, 3.4], [1.2, -4.6], [.6, 4.6]]) { ctx.beginPath(); ctx.moveTo(-2.5, dy * .3); ctx.lineTo(-2.5 + dx, dy); ctx.stroke(); }
+    ctx.strokeStyle = line || C.ink; ctx.lineWidth = 1.1;
+  } else { ctx.beginPath(); ctx.moveTo(-14, -5); ctx.lineTo(9, -1.6); ctx.lineTo(10, 1.6); ctx.lineTo(-14, 5); ctx.closePath(); ctx.fill(); ctx.stroke(); }
   ctx.beginPath(); ctx.ellipse(-14, 0, 2.6, 6.5, 0, 0, TAU); ctx.fill(); ctx.stroke();
-  ctx.strokeStyle = PC.clayR; ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(-10, -3.2); ctx.lineTo(6, -1.4); ctx.stroke();
+  ctx.strokeStyle = PC.clayR; ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(-10, -3.2); ctx.lineTo(-4, -2.6); ctx.stroke();
   ctx.strokeStyle = col; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(-19, 0, 4.4, 0, TAU); ctx.stroke();
   ctx.strokeStyle = PC.clayR; ctx.lineWidth = .6; ctx.beginPath(); ctx.arc(-19, 0, 4.4, PI * 1.1, PI * 1.6); ctx.stroke();
   ctx.restore();
@@ -244,12 +249,15 @@ function eagle2(ctx, x, y, s, dir, o = {}) {
   // göz (beyaz ayrılmış halka + siyah bebek), kaş çıkıntısı
   // göz: kırmızı figürde göz akı boyanmaz (ayrılmış kil halka), kehribar ya da kil; ikinci bir parlak leke olmasın
   ctx.fillStyle = o.eye || col; ctx.beginPath(); ctx.ellipse(12.4, -4.2, 2.3, 1.7, -.15, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
-  ctx.fillStyle = line; ctx.beginPath(); ctx.arc(13.1, -4.1, 1.45, 0, TAU); ctx.fill();
+  ctx.fillStyle = line; ctx.beginPath(); ctx.arc(12.7, -4.05, 1.0, 0, TAU); ctx.fill();
   // sert kaş çıkıntısı: gözün üstüne inen kalın çizgi (öfkeli bakış)
-  ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(8.0, -6.2); ctx.quadraticCurveTo(12.6, -6.6, 18.0, -4.6); ctx.stroke();
+  // göz rafı: gözün üstü düz bir D (soğuk, yırtıcı bakış; çizgi film kaşı değil)
+  ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(8.2, -7.2); ctx.lineTo(18.4, -5.6); ctx.lineTo(17.6, -4.3); ctx.quadraticCurveTo(12.6, -5.6, 9.6, -4.9); ctx.closePath(); ctx.fill();
+  ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(9.4, -4.85); ctx.quadraticCurveTo(12.6, -5.6, 17.8, -4.3); ctx.stroke();
   // ense tüyleri: başın arkasında kısa pul kavisleri (solungaç gibi okunan düz çizgiler yerine)
   // ense: üst-arka konturda sivri tüyler (yanakta gülümseme gibi okunan yaylar yerine)
   // ense: baş konturunun arka-üst kenarında sivri tüyler (dolgu + kontur)
+  ctx.fillStyle = col;
   for (let i = 0; i < 4; i++) { const bx = -1 + i * 2.4, by = -7.6 - i * .9; ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx - 4.2, by + 1.6); ctx.lineTo(bx + 1.6, by + 2.4); ctx.closePath(); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); }
   ctx.restore();
   ctx.restore();

@@ -1,11 +1,17 @@
 // Karakter görünümleri ve elde taşınan nesneler
 'use strict';
 const LK = {
-  prom: { beard: 'pointed', hair: 'nape', garment: 'hipwrap', anat: true, rf: true, earHidden: true, sevEye: true, flatChest: true, legIrons: true, scowl: .6 },
+  prom: { beard: 'pointed', hair: 'nape', garment: 'hipwrap', anat: true, rf: true, earHidden: true, sevEye: true, flatChest: true, legIrons: true },
   zeus: { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true, eyeS: 1.3, brow: -.6 },
   hermes: { beard: 'pointed', hair: 'long', headgear: 'petasos', garment: 'short', cape: true, wingedFeet: true },
 };
 LK.promFree = { ...LK.prom, legIrons: false }; // zincirlenmeden önce (ateşin çalınışı)
+// Prometheus'un ifadeleri (poz katmanında; görünümde kalıcı kaş yok): direnç, göğe hitap, acı
+const EXPR = {
+  direnc: { scowl: .6, browFlat: .85, beardJut: 1.3, blink: .28, mouthOpen: 0, smile: -1 },
+  goge: { scowl: 0, browFlat: 0, head: -.45, mouthOpen: .6, beardJut: .4 },
+  aci: { scowl: 0, brow: -1.2, blink: .6, head: .15, smile: -1.5, beardJut: 0 },
+};
 // --- elde taşınanlar (G: figür çizim bağlamı, el yerel koordinatı: bilek orijin, +y parmak yönü) ---
 // dik tutulan nesneler el açısını geri alır (asa her zaman dik)
 const up = (G, f) => { G.g.save(); G.g.rotate(G.handA || 0); f(); G.g.restore(); };

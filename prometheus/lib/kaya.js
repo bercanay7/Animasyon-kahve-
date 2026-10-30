@@ -59,30 +59,40 @@ function sunDisk(ctx, x, y, r, a = 1) {
   ctx.strokeStyle = C.ink; ctx.lineWidth = 5; ctx.stroke();
   ctx.restore();
 }
-// Zincirli Prometheus. o: {look (baş), p (poz ekleri), wind, pullK}
+// Prometheus'un KAYA pozları (geçişler plan kodunda mix ile 0,6–0,9 sn)
+const PROM_POSE = {
+  direnis: { torso: .2, neck: -.1, head: -.12 },
+  gok: { torso: -.1, neck: -.3, head: -.38 },
+  sessiz: { torso: .05, neck: .35, head: .25 },
+  alay: { torso: .1, neck: -.1, head: -.15, mouthOpen: .5 },
+};
+// Zincirli Prometheus. o: {look, p (poz ekleri), expr (EXPR adı), pose (PROM_POSE adı), wind, pull (0..1 gerilme; verilmezse çok hafif nefes), dust}
 function promChained(ctx, t, o = {}) {
   const { px, gy, s, sF, sN, sL } = PROM_KAYA;
-  // ~4,2 sn'lik gerilme döngüsü: gövde öne asılır, zincir gerilir; geri gelince sarkar
-  const ph = (t % 4.2) / 4.2, pull = (ph < .35 ? E.io2(ph / .35) : 1 - E.io2((ph - .35) / .65)) * (o.pullK ?? 1);
+  const pull = o.pull ?? (.12 + .06 * Math.sin(t * .9));
+  const base = { ...(PROM_POSE[o.pose || 'direnis']), ...(EXPR[o.expr || 'direnc']) };
   let J = null, M = null;
+  const ik = { hF: [px + 200, gy - 625], hN: [px + 185, gy - 300], fN: [px - 95, gy - 3 * s, .05], fF: [px + 124, gy - 3 * s - 20, -.5] };
+  // ayak zincirleri figürün arkasında (kalkık topuğun parmaklarını örtmesin): eklemleri önce görünmez bir çizimle al
+  figure(ctx, { x: px, y: gy - 42.5 * s, s, dir: -1, sty: STY.red, lk: LK.prom, seed: 17, alpha: 0, ik, p: { ...base, torso: base.torso + .06 * pull }, onJoints: (j, m) => { J = j; M = m; } });
+  const aN = jointPt(ctx, M, J.LN.ank), aF = jointPt(ctx, M, J.LF.ank);
+  ironChain(ctx, [aN[0], aN[1] - 12], sL, { L0: len(sub(sL, aN)) * 1.15, w: 5, link: 20 });
+  ironChain(ctx, [aF[0], aF[1] - 12], sL, { L0: len(sub(sL, aF)) * 1.15, w: 5, link: 20 });
+  stake(ctx, sL[0], sL[1] + 4, 2.4, -PI / 2);
   figure(ctx, {
     x: px, y: gy - 42.5 * s, s, dir: -1, sty: STY.red, lk: LK.prom, seed: 17, stripe: .55,
-    p: { torso: .1 + .07 * pull, neck: -.04, head: -.1 + (o.look || 0), handN: 'fist', handF: 'fist', mouthOpen: 0, smile: -1, breath: 1.3 * Math.sin(t * 1.65), wind: o.wind ?? 0, ...(o.p || {}) },
-    ik: { hF: [px + 200, gy - 625], hN: [px + 185, gy - 300], fN: [px - 70, gy - 3 * s, 0], fF: [px + 90, gy - 3 * s, .25] },
-    hold: { N: CUFF, F: CUFF },
+    p: { handN: 'fist', handF: 'fist', breath: 1.3 * Math.sin(t * 1.65), wind: o.wind ?? 0, ...base, torso: base.torso + .06 * pull, head: (base.head || 0) + (o.look || 0), ...(o.p || {}) },
+    ik, hold: { N: CUFF, F: CUFF },
     onJoints: (j, m) => { J = j; M = m; },
   });
-  const wN = jointPt(ctx, M, J.AN.wr), wF = jointPt(ctx, M, J.AF.wr), aN = jointPt(ctx, M, J.LN.ank), aF = jointPt(ctx, M, J.LF.ank);
+  const wN = jointPt(ctx, M, J.AN.wr), wF = jointPt(ctx, M, J.AF.wr);
   const slack = 1.03 - .03 * pull, sw = (o.wind ?? 0) * 6 * Math.sin(t * 1.3);
   ironChain(ctx, [wF[0] + 6, wF[1] - 4], [sF[0] - 18, sF[1]], { L0: len(sub(sF, wF)) * slack, sag: sw * .3 });
   ironChain(ctx, [wN[0] + 6, wN[1] - 4], [sN[0] - 18, sN[1]], { L0: len(sub(sN, wN)) * slack, sag: sw * .5 });
-  ironChain(ctx, [aN[0], aN[1] - 12], sL, { L0: len(sub(sL, aN)) * 1.15, w: 5, link: 20 });
-  ironChain(ctx, [aF[0], aF[1] - 12], sL, { L0: len(sub(sL, aF)) * 1.15, w: 5, link: 20 });
   stake(ctx, sF[0], sF[1], 3.6, Math.atan2(wF[1] - sF[1], wF[0] - sF[0]) + PI);
   stake(ctx, sN[0], sN[1], 3.6, Math.atan2(wN[1] - sN[1], wN[0] - sN[0]) + PI);
-  stake(ctx, sL[0], sL[1] + 4, 2.4, -PI / 2);
-  // gerilme anında kazıklardan toz dökülür
-  if (ph > .3 && ph < .5) for (const q of [sF, sN]) motes(ctx, t, 6, 5 + q[1], 'rgba(201,112,63,.8)', [q[0] - 20, q[1], 40, 70], 30, 1.6, .6 * Math.sin((ph - .3) / .2 * PI));
+  // kazık tozu yalnız vuruşta (o.dust)
+  if ((o.dust || 0) > .1) for (const q of [sF, sN]) motes(ctx, t, 6, 5 + q[1], 'rgba(201,112,63,.8)', [q[0] - 20, q[1], 40, 70], 30, 1.6, .6 * o.dust);
   return { J, M, pull, wN, wF };
 }
 // Kartal gölgesi: kayanın ve bedenin üstünden geçen bulanık siluet (kaya poligonuna kırpılır)
