@@ -58,3 +58,40 @@ SCENES.eagles = (ctx, t) => {
   [0, .25, .5, .75].forEach((f, i) => eagle2(ctx, 260 + i * 460, 380, 2.0, 1, { flap: f, talon: i / 3, beak: i % 2 }));
   [0, .5].forEach((f, i) => eagle2(ctx, 500 + i * 900, 860, 2.4, 1, { ang: f, talon: 1, beak: .7, tilt: .3, col: C.ink, line: PC.clayR }));
 };
+// Beyaz zemin denemesi: yaşayan sayfa (alıntı kartı, kenar şeridinde figürler, daire, üstü çizme, mühür)
+SCENES.sayfa = (ctx, t) => {
+  const c = { x: W / 2 + t * 6, y: H / 2, z: 1.02 + t * .004 };
+  ctx.save(); cam(ctx, c, 1);
+  paperBG(ctx, t, { book: true, num: 'v' });
+  quoteCard(ctx, 'İnsan dostu, tanrı düşmanı', 'A. ERHAT · ÖNSÖZ · S. V', W / 2, 250, 1300, t - .3);
+  // kenar şeridi: solda insan, ortada Prometheus, sağda tanrı
+  const y0 = 470, y1 = 760;
+  marginBand(ctx, 260, 1660, y0, y1, ramp(t, .2, 1.6));
+  const a = ramp(t, 1.0, 1.8);
+  ctx.save(); ctx.globalAlpha = a;
+  const turn = ramp(t, 3.2, 4.0);
+  figure(ctx, { x: 560, y: y1 - 14 - 44.5 * 3.4, s: 3.4, dir: 1, sty: STY.lek, lk: {}, p: { torso: .05, neck: .1, head: .1 } });
+  figure(ctx, { x: 960, y: y1 - 14 - 44.5 * 4, s: 4, dir: turn > .5 ? -1 : 1, sty: STY.lek, lk: LK.prom, p: { torso: -.05, shN: -.4 - turn * .3, elN: .6 } });
+  figure(ctx, { x: 1380, y: y1 - 14 - 44.5 * 4.2, s: 4.2, dir: -1, sty: STY.lek, lk: LK.zeus, p: { torso: .05 } });
+  ctx.restore();
+  circleMark(ctx, 960, y1 - 100 - 40, 110, 140, ramp(t, 4.2, 5.0));
+  penLine(ctx, 'insan', 560, 820, ramp(t, 1.8, 2.3), { font: 'italic 600 40px "Cormorant Garamond"', col: PW.line });
+  penLine(ctx, 'tanrı', 1380, 820, ramp(t, 2.0, 2.5), { font: 'italic 600 40px "Cormorant Garamond"', col: PW.line });
+  strike(ctx, 1320, 822, 1440, 816, ramp(t, 5.0, 5.4));
+  stamp(ctx, 'POLİS', 1600, 300, t - 5.6);
+  ctx.restore();
+};
+// Siyah figür denemesi: dönen amfora frizi (Gaia, Uranos, Kronos ve tırpan)
+SCENES.amfora = (ctx, t) => {
+  const rot = 400 + t * 120;
+  amphoraFrieze(ctx, t, rot, (c, x0, x1, t) => {
+    const by = 600;  // bant içi zemin çizgisi
+    c.fillStyle = C.ink; c.fillRect(x0, by, x1 - x0, 6);
+    // Gaia (yatan), Uranos (kemer), Kronos (tırpanla)
+    figure(c, { x: 300, y: by - 44.5 * 5, s: 5, dir: 1, sty: STY.black, lk: { fem: true, hair: 'long', robe: true }, p: { torso: .1 } });
+    figure(c, { x: 900, y: by - 44.5 * 5.4, s: 5.4, dir: -1, sty: STY.black, lk: LK.zeus, p: { shN: -1.2, elN: .4 } });
+    figure(c, { x: 1500, y: by - 44.5 * 4.6, s: 4.6, dir: 1, sty: STY.black, lk: { beard: 'short' }, p: { shN: -2.2, elN: .5, torso: .15 } });
+    c.font = '600 34px Cinzel'; c.fillStyle = C.ink; c.textAlign = 'center';
+    c.fillText('ΓΑΙΑ', 300, 120); c.fillText('ΟΥΡΑΝΟΣ', 900, 90); c.fillText('ΚΡΟΝΟΣ', 1500, 130);
+  });
+};

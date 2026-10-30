@@ -3,8 +3,12 @@
 'use strict';
 const BL = { torso: 30, neck: 5, up: 16, fo: 14, th: 23, sh: 22, ank: 3 };
 const FIG_CV = { sil: null, fig: null };
-function figCanvases() {
-  if (!FIG_CV.sil) { FIG_CV.sil = makeCanvas(DW, DH); FIG_CV.fig = makeCanvas(DW, DH); }
+// ara tuvaller hedef tuval kadar büyür (amfora şeridi ekran genişliğinden geniştir)
+function figCanvases(w = DW, h = DH) {
+  if (!FIG_CV.sil || FIG_CV.sil.width < w || FIG_CV.sil.height < h) {
+    const cw = Math.max(w, FIG_CV.sil ? FIG_CV.sil.width : DW), ch = Math.max(h, FIG_CV.sil ? FIG_CV.sil.height : DH);
+    FIG_CV.sil = makeCanvas(cw, ch); FIG_CV.fig = makeCanvas(cw, ch);
+  }
   return FIG_CV;
 }
 
@@ -147,10 +151,11 @@ function figure(ctx, f) {
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
   for (const q of pts) { const r = M.transformPoint(new DOMPoint(q[0], q[1])); x0 = Math.min(x0, r.x); x1 = Math.max(x1, r.x); y0 = Math.min(y0, r.y); y1 = Math.max(y1, r.y); }
   const sc = Math.hypot(M.a, M.b), mg = (f.margin || 34) * sc;
-  x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(DW, Math.ceil(x1 + mg)); y1 = Math.min(DH, Math.ceil(y1 + mg));
+  const TW = ctx.canvas.width, TH = ctx.canvas.height;
+  x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(TW, Math.ceil(x1 + mg)); y1 = Math.min(TH, Math.ceil(y1 + mg));
   if (x1 <= x0 || y1 <= y0) return J;
   const bw = x1 - x0, bh = y1 - y0;
-  const cv = figCanvases();
+  const cv = figCanvases(TW, TH);
   const cutW = (f.cutW || .55);
   for (const pass of ['sil', 'fig']) {
     const g = cv[pass].getContext('2d');
