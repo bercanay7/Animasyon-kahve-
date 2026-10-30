@@ -124,6 +124,19 @@ function composite(ctx, buf, tr, p) {
       bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.drawImage(maskC, 0, 0, W, H); bufAx.restore();
     }
     ctx.drawImage(buf, 0, 0);
+  } else if (tr.type === 'sir') {
+    // kırmızı figüre giriş: siyah sır kenarlardan içeri akar (ressam zemini boyar, figür kilde kalır).
+    // Eski kare, kenardan merkeze ilerleyen gürültülü bir sır cephesinin arkasında kalır; cephe çizgisi koyu bant olarak görünür
+    const nm = noiseMask(), id = maskX.createImageData(480, 270), d = id.data, soft = .06, th = lerp(-.1, 1.15, E.io2(p));
+    for (let y = 0; y < 270; y++) for (let x = 0; x < 480; x++) {
+      const k = y * 480 + x, dx = (x - 240) / 240, dy = (y - 135) / 135, edge = 1 - Math.max(Math.abs(dx), Math.abs(dy)) * .7 - Math.hypot(dx, dy) * .3;
+      const v = edge * .75 + nm[k] * .25;
+      d[k * 4 + 3] = clamp((v - th) / soft + .5) * 255;
+    }
+    maskX.putImageData(id, 0, 0);
+    bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-in'; bufAx.drawImage(maskC, 0, 0, W, H); bufAx.restore();
+    ctx.save(); ctx.globalAlpha = Math.sin(clamp(p) * PI) * .35; ctx.fillStyle = '#0E0907'; ctx.fillRect(0, 0, DW, DH); ctx.restore();
+    ctx.drawImage(buf, 0, 0);
   } else if (tr.type === 'iris') {
     const cx = tr.x ?? W / 2, cy = tr.y ?? H / 2, r = lerp(0, 1300, E.io3(p));
     bufAx.save(); baseT(bufAx); bufAx.globalCompositeOperation = 'destination-out';
@@ -204,7 +217,9 @@ function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   const tw = ctx.measureText(title).width;
   const pw = Math.max(520, tw + 150), ph = 136, y = o.y ?? 150;
   const sc = lerp(.92, 1, E.out3(ramp(lt, 0, .6)));
-  ctx.translate(o.x ?? W / 2, y); ctx.scale(sc, sc);
+  ctx.translate(o.x ?? W / 2, y);
+  if (o.swing !== false) { const drop = 1 - E.out3(ramp(lt, 0, .55)); ctx.translate(0, -260 * drop); ctx.rotate(Math.exp(-lt * 3.2) * Math.sin(lt * 9) * .12); }
+  ctx.scale(sc, sc);
   ctx.globalAlpha = a;
   ctx.fillStyle = 'rgba(10,5,3,.35)'; ctx.fillRect(-pw / 2 + 8, -ph / 2 + 10, pw, ph);
   ctx.fillStyle = '#E3B98C'; ctx.fillRect(-pw / 2, -ph / 2, pw, ph);

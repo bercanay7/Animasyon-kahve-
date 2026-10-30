@@ -57,7 +57,7 @@ def apply_reverb(x, ir):
 
 def envelope(x, win=.03):
     w = int(win * SR)
-    e = np.sqrt(uniform_filter1d(x ** 2, max(1, w), mode='nearest'))
+    e = np.sqrt(np.maximum(0, uniform_filter1d(x ** 2, max(1, w), mode='nearest')))
     return e
 
 def smooth_gain(target, att=.08, rel=.6):
@@ -74,7 +74,7 @@ def peq(x, f0, gdb, q=1.0):
     return signal.lfilter(np.array(b) / a[0], np.array(a) / a[0], x)
 
 def compress(x, thr_db, ratio=3.0, att=.008, rel=.1):
-    w = int(.005 * SR); p = np.sqrt(uniform_filter1d(x ** 2, max(1, w), mode='nearest')) + 1e-9
+    w = int(.005 * SR); p = np.sqrt(np.maximum(0, uniform_filter1d(x ** 2, max(1, w), mode='nearest'))) + 1e-9
     lvl = 20 * np.log10(p); over = np.maximum(0, lvl - thr_db); gr = -over * (1 - 1 / ratio)
     hop = SR // 1000; g = gr[::hop]; out = np.empty_like(g); cur = 0.0
     aa, ar = np.exp(-1 / (att * 1000)), np.exp(-1 / (rel * 1000))
