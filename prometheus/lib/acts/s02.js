@@ -130,7 +130,7 @@ function amforaII(c, x0, x1, t) {
     if (hit > .9) sparkle(c, AMX.tirpan + 70, by - 150, 18, .9, C.white);
   }
   if (vis(AMX.titan)) {
-    for (let i = 0; i < 5; i++) { const turn = ramp(T('C06@hiçbiri') - i * .3, 0, .4); bf(c, AMX.titan - 480 + i * 200, by, 4.2, turn > .5 ? -1 : 1, LK_TITAN, { torso: .05, head: turn * .2 }); }
+    for (let i = 0; i < 5; i++) { const turn = ramp(T('C06@hiçbiri') - i * .3, 0, .4); bf(c, AMX.titan - 480 + i * 200, by, 4.2, turnDir(ramp(turn, .35, .65)), LK_TITAN, { torso: .05, head: turn * .2 }); }
     const k = ramp(T('C06@en'), 0, .8);
     bf(c, AMX.titan + 560 - 120 * k, by, 3.9, 1, { beard: 'short', hair: 'nape', garment: 'short' }, { shN: 2.2 * k, elN: .4 }, { hold: k > .6 ? { N: G => G.at([0, 3], 0, () => { G.part(cc => { cc.rect(-1.2, -2, 2.4, 14); }, { cutW: .3 }); G.part(cc => { cc.moveTo(0, -2); cc.quadraticCurveTo(-9, -4, -10, 4); cc.quadraticCurveTo(-6, -1, 1, 0); cc.closePath(); }, { cutW: .3 }); }) } : null });
     dipinto(c, 'ΚΡΟΝΟΣ', AMX.titan + 440, 140, 30, { col: C.ink, a: k });

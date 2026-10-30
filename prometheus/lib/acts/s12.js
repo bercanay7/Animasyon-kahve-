@@ -41,7 +41,7 @@ shot(PA('P276'), (ctx, st) => {
   ctx.restore(); ctx.restore();
   txt(ctx, 'MÖ V. yy', 520, 860, { font: '600 40px Cinzel', col: PW.line, ls: 4 });
   // sağ: ayakta XX. yüzyıl insanı; döner ve Aiskhylos'a bakar
-  figure(ctx, { x: 1480, y: 800 - 44.5 * 6.2 + 30, s: 6.2, dir: turn > .5 ? -1 : 1, sty: STY.lek, lk: { hair: 'nape', garment: 'coat', modern: true }, seed: 12,
+  figure(ctx, { x: 1480, y: 800 - 44.5 * 6.2 + 30, s: 6.2, dir: turnDir(ramp(turn, .42, .58)), sty: STY.lek, lk: { hair: 'nape', garment: 'coat', modern: true }, seed: 12,
     p: { torso: -.02, head: turn > .5 ? lerp(.2, -.05, (turn - .5) * 2) : lerp(0, .2, turn * 2), breath: .6 * Math.sin(t * 1.6) }, ik: { fN: [1500, 797, 0], fF: [1450, 797, 0] } });
   txt(ctx, 'XX. yy', 1480, 870, { font: '600 40px Cinzel', col: PW.red, ls: 4 });
   // çizgi bu kez sağdan sola akar: XX. yüzyıldan Aiskhylos'a
@@ -250,7 +250,7 @@ const K_ST = () => {
       K_pithos(ctx, lerp(9700, 10050, jar), 560, 1.15, t, jar);
       sunDisk(ctx, 11300, 360, 120, ramp(t, tB - .3, tB + .6));
       const walk = ramp(t, tB, tB + 6, E.lin), fx = x0 + walk * 520;
-      K_walker(ctx, fx, gy, 4.2, t, { dir: t > tB - .1 ? 1 : -1, dist: walk > 0 ? fx : x0, stand: walk > 0 ? 0 : 1, hold: { N: HOLD.torch() } });
+      K_walker(ctx, fx, gy, 4.2, t, { dir: turnDir(ramp(t, tB - .17, tB - .03), -1, 1), dist: walk > 0 ? fx : x0, stand: walk > 0 ? 0 : 1, hold: { N: HOLD.torch() } });
       marginBand(ctx, 9500, 11600, 300, gy + 8, 1);
     } },
     // çaba ve cefa: taşıyan ve kuran figürlerden bir friz; küçük figür ateşi taşımayı sürdürür

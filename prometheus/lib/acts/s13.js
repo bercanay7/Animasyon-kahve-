@@ -119,10 +119,12 @@ shot(PA('P293'), (ctx, st) => {
   const slope = x => lerp(560, 300, (x - x0) / (x1 - x0));
   ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x0, slope(x0)); ctx.lineTo(x1, slope(x1)); ctx.stroke();
   const cyc = (lt % 7) / 7, up = cyc < .8 ? cyc / .8 : 1, roll = cyc < .8 ? 0 : (cyc - .8) / .2;
-  const sx = lerp(260, 700, up), br = 46, bx = sx + 70 + (roll > 0 ? -roll * 520 : 0), by = slope(bx) - br;
+  const sx = lerp(260, 700, up), br = 46, bx = sx + 70 + (roll > 0 ? -E.out2(roll) * 440 : 0), by = slope(bx) - br;
   boulder(ctx, bx, by, br, -bx / br, { light: -2.3 });
-  if (roll === 0) walkScene(ctx, null, sx, 2.4, t, 1, { noCam: true, ground: groundOf(slope), stride: 22, lean: .45, dist: sx * 1.4, sty: STY.black, lk: { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, p: { shN: -1.4, elN: .5, shF: -1.2, elF: .6, handN: 'open', handF: 'open' } });
-  else walkScene(ctx, null, 700, 2.4, t, -1, { noCam: true, ground: groundOf(slope), stand: 1, sty: STY.black, lk: { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, p: { head: .25 } });
+  if (roll === 0) walkScene(ctx, null, sx, 2.4, t, turnDir(clamp(up / .03), -1, 1), { noCam: true, ground: groundOf(slope), stride: 22, lean: .45, dist: sx * 1.4, sty: STY.black, lk: { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, p: { shN: -1.4, elN: .5, shF: -1.2, elF: .6, handN: 'open', handF: 'open' } });
+  // kaya yuvarlanınca Sisifos döner (birkaç karede) ve ardından yokuş aşağı yürür; döngü başında dipte olur (ışınlanma yok)
+  else { const w = E.io2(clamp((roll - .15) / .85)), wx = lerp(700, 260, w);
+    walkScene(ctx, null, wx, 2.4, t, turnDir(clamp(roll / .12)), { noCam: true, ground: groundOf(slope), stand: w > 0 ? 0 : 1, stride: 22, lean: .1, dist: (700 - wx) * 1.4, sty: STY.black, lk: { beard: 'pointed', hair: 'long', garment: 'short', torn: true }, p: { head: .25 } }); }
   ctx.restore();
   meander(ctx, x0, x1, y0 - 26, 26, C.ink); meander(ctx, x0, x1, y1, 26, C.ink);
   ctx.strokeStyle = C.ink; ctx.lineWidth = 5; ctx.strokeRect(x0, y0, x1 - x0, y1 - y0);

@@ -87,6 +87,13 @@ function drawOver(ctx, t) {
   sh.over(ctx, st);
   ctx.restore();
 }
+// figür dönüşü: yön tek karede değil, 3–4 karede incelip öbür yana açılarak değişir (kâğıt figür çevrilir gibi)
+// u: 0 → from, 1 → to (yalnız ±1 yönler); sıfır kalınlıktan kaçınmak için en az ±0,08
+function turnDir(u, from = 1, to = -1) {
+  if (from === to) return from;
+  const c = Math.cos(PI * E.io2(clamp(u))) * from;
+  return Math.sign(c || to) * Math.max(.08, Math.abs(c));
+}
 // yarı saydam ama içi opak çizim: önce ayrı bir tampona opak çizilir, sonra tek parça olarak saydamlıkla basılır
 // (figür parçaları üst üste binince koyulaşmaz; gölge, hayal ve renge dönüş katmanları için)
 let _solidCv = null;

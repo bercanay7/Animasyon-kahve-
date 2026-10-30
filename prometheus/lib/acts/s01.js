@@ -112,7 +112,7 @@ const B_ST = () => [
     const y1 = 920, turn = ramp(lt, 2.0, 2.8);
     marginBand(ctx, 2080, 3720, 320, y1, ramp(lt, 0, 1.2));
     figure(ctx, { x: 2330, y: y1 - 14 - 44.5 * 4.8, s: 4.8, dir: 1, sty: STY.lek, lk: { hair: 'nape' }, p: { torso: .05 } });
-    figure(ctx, { x: 2900, y: y1 - 14 - 44.5 * 5.6, s: 5.6, dir: turn > .5 ? -1 : 1, sty: STY.lek, lk: LK.promFree, p: { torso: -.05, shN: -.3 - turn * .4, elN: .6 } });
+    figure(ctx, { x: 2900, y: y1 - 14 - 44.5 * 5.6, s: 5.6, dir: turnDir(ramp(lt, 2.34, 2.47)), sty: STY.lek, lk: LK.promFree, p: { torso: -.05, shN: -.3 - turn * .4, elN: .6 } });
     figure(ctx, { x: 3470, y: y1 - 14 - 44.5 * 5.3, s: 5.3, dir: -1, sty: STY.lek, lk: LK.zeus, p: { torso: .05 } });
   } },
   // XX. yüzyıl: meander zaman şeridi boyunca yürüyen figür
