@@ -1,5 +1,5 @@
 {
- "_not": "Plan listesi 2. sürüm (animatik kurulu 1. tur sonrası). at: 'ID' cümle başı, 'ID@kelime' kelime, '#n' n. geçiş, 'ID-1.8' kaydırma. k: S siyah figür (Hesiodos), K kırmızı figür (Aiskhylos), B beyaz zemin (Erhat). kit: üretim kiti. Kurallar: (1) Tek cümlelik Erhat yorumu = kenar şeridi (o anki katman yerinde kalır); tam sayfa beyaz zemin yalnız çok cümlelik öbeklerde. (2) Tam sayfa alıntı en çok 5: P181, P241, P263, P282, P288; öbür Erhat sözleri 2–4 kelimelik anahtar söz + 'ERHAT · s. x' köşe etiketi. (3) Telefon kuralı: yüz, ateş, gaga ve yazı y ≤ 700, x 96–1824; alt bant altyazıya ve oynatıcıya ayrılır. Alıntı ≥ 76 px, kaynak ≥ 40 px, okunacak dipinto cap ≥ 90 px. (4) Yazılar üst katmanda (over) çizilir: hareket bulanıklığı, sarsıntı ve dönüşe girmez. (5) Söz görünür: Prometheus'un sözü ağzından akan harfler (yalnız 8 anahtar dize Türkçe; öbürleri süs Yunan harf akışı), Güç'ün sözü kil levhaya kazınır, Hermes'in sözü mühür, sessizlikte harf yok. (6) Zeus kırmızı figür katmanında hiç görünmez: yalnız boş taht, gölge, buluttan uzanan soğuk beyaz kelepçeli bilek. Siyah figür (Hesiodos) katmanında ikonografik Zeus görünür. (7) Renk: altın = ateş ve akıl; soğuk beyaz (#E6ECFF) = Zeus ve yıldırım; karaciğer = kırmızı; umut = soluk, soğuk, küçük ışık. (8) Geçiş dilbilgisi: S'ye giriş kil, K'ye giriş sır akışı, B'ye giriş mürekkep; B'den hikâyeye dönüş sert ya da eşleşen kesme; bölüm kartı kil levha (sallanarak iner) ve sorudan 1,8 sn önce, sessizlikte; negatif geçiş yalnız kartal bağında (P006, P250). Yumuşak geçiş çapada BİTER (önceki sessizlikte oynar). (9) Her kitin taban hareketi otomatik eklenir (taban alanı); 'hareket' alanı olay katmanını yazar. Hiçbir kare donmaz. (10) Jest bilgi taşıyorsa figür kadraj boyunun ≥ %45'i; geniş planlarda bir katman büyük ölçekli olur (kamera ya da ışık). Flaşlar saniyede ≤ 3.",
+ "_not": "Plan listesi 3. sürüm (animatik kurulu tur 2 sonrası). at: 'ID' cümle başı, 'ID@kelime' kelime, '#n' n. geçiş, 'ID-1.8' kaydırma. k: S siyah figür (Hesiodos), K kırmızı figür (Aiskhylos), B beyaz zemin (Erhat). kit: üretim kiti. Kurallar: (1) Tek cümlelik Erhat yorumu = kenar şeridi (o anki katman yerinde kalır); tam sayfa beyaz zemin yalnız çok cümlelik öbeklerde. (2) Tam sayfa alıntı en çok 5: P181, P241, P263, P282, P288; öbür Erhat sözleri 2–4 kelimelik anahtar söz + 'ERHAT · s. x' köşe etiketi. (3) Telefon kuralı: yüz, ateş, gaga ve yazı y ≤ 700, x 96–1824; alt bant altyazıya ve oynatıcıya ayrılır. Alıntı ≥ 76 px, kaynak ≥ 40 px, okunacak dipinto cap ≥ 90 px. (4) Yazılar üst katmanda (over) çizilir: hareket bulanıklığı, sarsıntı ve dönüşe girmez. (5) Söz görünür: Prometheus'un sözü ağzından akan harfler (yalnız 8 anahtar dize Türkçe; öbürleri süs Yunan harf akışı), Güç'ün sözü kil levhaya kazınır, Hermes'in sözü mühür, sessizlikte harf yok. (6) Zeus kırmızı figür katmanında hiç görünmez: yalnız boş taht, gölge, buluttan uzanan soğuk beyaz kelepçeli bilek. Siyah figür (Hesiodos) katmanında ikonografik Zeus görünür. (7) Renk: altın = ateş ve akıl; soğuk beyaz (#E6ECFF) = Zeus ve yıldırım; karaciğer = kırmızı; umut = soluk, soğuk, küçük ışık. (8) Geçiş dilbilgisi: S'ye giriş kil, K'ye giriş sır akışı, B'ye giriş mürekkep; B'den hikâyeye dönüş sert ya da eşleşen kesme; bölüm kartı kil levha (sallanarak iner) ve sorudan 1,8 sn önce, sessizlikte; negatif geçiş yalnız kartal bağında (P006, P250). Yumuşak geçiş çapada BİTER (önceki sessizlikte oynar). (9) Her kitin taban hareketi otomatik eklenir (taban alanı); 'hareket' alanı olay katmanını yazar. Hiçbir kare donmaz. (10) Jest bilgi taşıyorsa figür kadraj boyunun ≥ %45'i; geniş planlarda bir katman büyük ölçekli olur (kamera ya da ışık). Flaşlar saniyede ≤ 3. (11) Taban türevleri: KAYA/İÇSES (rüzgâr yok, büst ≥ 2 px/sn itilir, nefes, arka plan koyulaşır, kenardan tek tük kil tozu) iç ses planlarında; KAYA/DONMA (asılı toz ve kıvılcımda üç katman paralaks, kamera ≥ 3 px/sn, ateş titrer, nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil paleti, ateş renkli) IX donmasında. (12) Ödemeler saklanır: üçüncü taht yalnız çatlar (P069–P070 çatlak, tek soluk düşüş P224); kaya yalnız I12@yıkılana'da yarılır.",
  "setler": {
   "KAYA": "Kırmızı figür dikey dünya: Olympos tahtı (y≈−2200), bulut kuşağı (−1400…−700), İskit kayası ve zincirli Prometheus (0…1080), altında ova ve insanların ateşleri. Kameralar: GENİŞ, ORTA, YAKIN, ALT, ÜST, ZİNCİR, GÖZ→TONDO; alt kameralar OVA, MAĞARA, DENİZ, FIRTINA, OLYMPOS. Zincir P005, P158, P237, P240, P242'de aynı dünyada yalnız kamera konumudur. Kartal bu sette yaklaşan tehdittir (Hermes'in tehdidi). Bölüm saati: güneş V'te sabah, VII ikindi, VIII gün batımı, IX donma, X fırtına gecesi.",
   "TONDO": "kylix() tondosu S ya da K paletiyle: Lakonya kylixi (A03), madalyonlar (hatıra; Aiskhylos'un anlatısıysa K), iki tabak (F02), dünya diski, gözden dalılan görüntüler (GÖZ→TONDO: siyah göz bebeği tondonun siyah zeminine açılır).",
@@ -25,10 +25,10 @@
   },
   {
    "id": "P004",
-   "at": "A01+5.8",
+   "at": "A01+4.8",
    "k": "K",
    "set": "KAYA",
-   "kare": "ZİNCİR: çekiç kazığa iner, bilekteki halka kapanır (ilk vuruş A01 ile A02 arasındaki sessizlikte); kamera geri çekilir: kayaya mıhlı Prometheus. İkinci vuruş A02@mıhlatan'da.",
+   "kare": "ZİNCİR: A01 bittikten sonra sessizlikte (≈5,6 sn) çekiç kazığa iner, bilekteki halka kapanır, 0,15 sn beyaz çakma; kamera geri çekilir: kayaya mıhlı Prometheus. İkinci vuruş A02@mıhlatan'da.",
    "hareket": "çekiç, kıvılcım, toz, 0,15 sn beyaz çakma; ikinci vuruşta kamera bir kademe geri",
    "gecis": "kesme",
    "kit": "KAYA",
@@ -77,7 +77,7 @@
    "k": "B",
    "set": "SAYFA",
    "kare": "Beyaz zemin: kitap kapağı (Aiskhylos · Zincire Vurulmuş Prometheus), ortasında zincirli Prometheus'un küçük kırmızı figür levhası (vinyet; zincire asılmayı sürdürür).",
-   "hareket": "A06@bin: kapağa 1967 damgası vurur; A06@oyunun: kapak açılır, ÖNSÖZ sayfası; vinyet sayfanın sol kenarında sürer",
+   "hareket": "A06@tuhaf: P011'in ateşli harflerinden kopan kıvılcım sayfaya düşüp kalem ucu olur (sayfanın tek parlak noktası); A06@azra: kalem AZRA ERHAT'ı el yazısıyla yazar (≥ 76 px, y ≤ 700); A06@bin: kapağa 1967 damgası; A06@oyunun: kapak açılır, ÖNSÖZ sayfası; vinyet sayfanın sol kenarında sürer",
    "gecis": "mürekkep 0,5 sn (çapada biter)",
    "yazi": "AZRA ERHAT · 1967",
    "kit": "SAYFA",
@@ -101,7 +101,7 @@
    "k": "K",
    "set": "KAYA/OVA",
    "kare": "Karanlıkta küçük bir alev; başında oturan bir ölümlü (siluet ölçeğinde, el yakın planı yok). Kamera yukarı kalkınca karanlıktan dev, boş bir taht belirir: öfkenin ölçüsüzlüğü.",
-   "hareket": "A05@öfkelendiren: gökte soğuk şimşek titrer; A05@avuç: kamera aleve iner, alev nabız gibi atar; konuşma bitince kıvılcım yükselip bölüm levhasına dönüşür",
+   "hareket": "A05@öfkelendiren: gökte soğuk şimşek titrer; A05@avuç: kamera aleve iner, alev nabız gibi atar; A05 bitince (sessizlikte) tek bir kıvılcım yükselir ve P016'da akşam yıldızı olur (eşleşen kesme)",
    "kit": "KAYA",
    "gecis": "mürekkepten dönüş: sert kesme",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
@@ -113,7 +113,7 @@
    "k": "K",
    "set": "TİYATRO",
    "kare": "Akşamüstü Dionysos tiyatrosu; skene dekoru KAYA'nın kayası ve zincirli figür, üstünde tanrı maskeleri. Bölüm levhası sessizlikte sallanarak iner.",
-   "hareket": "eşleşen kesme: P015'in yükselen kıvılcımı tiyatronun üstündeki akşam yıldızı olur; vinç hareketi; B01@insanı: tanrı maskeleri arasında tek insan maskesi meşale ışığıyla yanar",
+   "hareket": "eşleşen kesme: P015'in yükselen kıvılcımı tiyatronun üstündeki akşam yıldızı olur; bölüm levhası sallanarak iner; vinç hareketi; B01@insanı: tanrı maskeleri arasında tek insan maskesi meşale ışığıyla yanar",
    "gecis": "kil levha",
    "yazi": "I · ERHAT'IN SORUSU",
    "kit": "TİYATRO",
@@ -742,8 +742,8 @@
    "at": "D09@kâhin",
    "k": "S",
    "set": "GÖZ→TONDO",
-   "kare": "Prometheus'un gözüne dalılır; göz bebeğinin siyahı bir tondoya açılır: düşen bir taht.",
-   "hareket": "göze dalma; görüntü belirir",
+   "kare": "Prometheus'un gözüne dalılır; göz bebeğinin siyahı bir tondoya açılır: tondoda Zeus'un tahtı yerinde durur; D09@kahin'de tahtın sağ ayağında ince bir altın çatlak yanar (≈1130,700).",
+   "hareket": "göze dalış; tondo döner; D09@kahin'de çatlak yanar",
    "kit": "TONDO",
    "taban": "kupa dönüşü",
    "cekim": "Ç028"
@@ -754,7 +754,7 @@
    "k": "S",
    "set": "TAHT",
    "kare": "Geri çağrı: Gaia Kronos'a fısıldar ↔ Prometheus bilir. Üçüncü tahtın ayağı çatlar.",
-   "hareket": "çatlak ilerler",
+   "hareket": "D09@bilir'de aynı çatlak büyür (düşüş yok; düşüşün kendisi P224'e kalır)",
    "kit": "TAHT",
    "taban": "toz zerreleri, mürekkep sızması",
    "cekim": "Ç029"
@@ -1123,7 +1123,7 @@
    "k": "B",
    "set": "TAHT",
    "kare": "TAHT nesnesi (B): taht devrilmez; E16@üçüncü'de tahtın önünde bir insan figürü doğrulur, E16@insan'da figürün gölgesi büyüyüp tahtı örter; taht yerinde ama içi boş.",
-   "hareket": "devrilme; insan doğrulur",
+   "hareket": "E16@üçüncü'de insan figürü doğrulur; E16@insan'da gölgesi büyüyüp tahtı örter; taht yerinde, içi boş",
    "yazi": "“üçüncü ve son devrim” · s. xi",
    "kit": "TAHT",
    "taban": "toz zerreleri, mürekkep sızması",
@@ -1546,7 +1546,7 @@
    "kare": "İç ses kuralı başlar: F14@ama'da rüzgâr birden durur (filmin tek rüzgârsız ~19 sn'si); en yakın büst; arka plan sır siyahına koyulaşır; yalnız nefes.",
    "hareket": "durgunluk içinde nefes; gözler kırpılır",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
    "cekim": "Ç048"
   },
   {
@@ -1555,9 +1555,9 @@
    "k": "K",
    "set": "KAYA/YAKIN",
    "kare": "Profilin arkasında, bakış çizgisi yönünde gökte soluk kırmızı figür siluetler geçer: kartal, fırtına, okçu (gözbebeği yok).",
-   "hareket": "görüntüler gözbebeğinde geçer",
+   "hareket": "üç soluk siluet bakış çizgisi boyunca gökte soldan sağa süzülür (x 200–900, y 150–450): F14@önceden'de kartal, F14@apaçık'ta fırtına, F14@habersiz'de okçu",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
    "cekim": "Ç048"
   },
   {
@@ -1569,7 +1569,7 @@
    "hareket": "F14@zorunluluğun: zincirler gevşer",
    "olay": "'zorunluluğun'da zincirler gevşer, baş iner",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
    "cekim": "Ç048"
   },
   {
@@ -1577,11 +1577,11 @@
    "at": "F14@yine",
    "k": "K",
    "set": "KAYA/ORTA",
-   "kare": "Ağız animasyonu yok: F14@susabiliyorum'da ağızdan çıkan yazı yarım kalır, F14@konuşabiliyorum'da rüzgârsız havada dağılır; F14 bittikten ~1 sn sonra rüzgâr geri gelir.",
+   "kare": "Ağız animasyonu yok: F14@susabiliyorum'da ağızdan çıkan yazı yarım kalır, F14@konuşabiliyorum'da rüzgârsız havada asılı kalır (~1,4 sn, uzayan sessizlikte) ve dağılır; rüzgâr VI levhasıyla birlikte geri gelir.",
    "hareket": "yazı yazılıp silinir; nefes",
    "olay": "'susabiliyorum'da yazı yarım kalıp silinir",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
    "cekim": "Ç048"
   },
   {
@@ -1672,7 +1672,7 @@
    "at": "G05",
    "k": "K",
    "set": "MADALYON (K)",
-   "kare": "Kırmızı figür hatıra tondosu: Titanlar sırtlarını döner; Prometheus Zeus'un yanına yürür (Zeus yüzsüz, sırtı dönük siluet).",
+   "kare": "Kırmızı figür hatıra tondosu: Titanlar sırtlarını döner; Prometheus sağda boş bir tahtın uzun gölgesine doğru yürür ve gölgenin içine girer (x 1100–1500, y 300–700); Zeus yalnız gölge.",
    "hareket": "yürüyüş; dönüşler",
    "kit": "TONDO",
    "taban": "kupa dönüşü",
@@ -2011,7 +2011,7 @@
    "k": "K",
    "set": "KAYA/YAKIN",
    "kare": "'Eriyip gitmek': yakın plan; figürün kil kenarları rüzgârda toz olup kopar.",
-   "hareket": "figürün kil kenarları rüzgârda toz olup kopar (siluetten kil tozu parçacıkları); nefes",
+   "hareket": "figürün kil kenarları rüzgârda toz olup kopar ('eriyip gitmek' rüzgârla verilir); nefes",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
    "cekim": "Ç062"
@@ -2022,9 +2022,9 @@
    "k": "K",
    "set": "KAYA/YAKIN",
    "kare": "Bölünmüş kare yerine P145'in soluk görüntüleri bu kez dolu ve ağır geri gelir: bilmek soluk, yaşamak dolu.",
-   "hareket": "bölüm çizgisi kayar",
+   "hareket": "G13b@yani'de rüzgâr kesilir; G13b@yaşamak'ta soluk görüntüler dolar; büst itmesi",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
    "cekim": "Ç062"
   },
   {
@@ -2033,7 +2033,7 @@
    "k": "K",
    "set": "KAYA/ORTA",
    "kare": "Sessizlikte üslup karesinin gerilme döngüsü: ayak ileri basar, zincir gerilir, kazıktan toz dökülür ('geri adım atmaz').",
-   "hareket": "doğrulma; toz durulur",
+   "hareket": "G13b@yine'de rüzgâr geri gelir; ayak rüzgâra karşı ileri basar, zincir gerilir, kazıktan toz dökülür; gerilme döngüsü uzayan sessizlikte tamamlanır",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
    "cekim": "Ç062"
@@ -2301,7 +2301,7 @@
    "k": "K",
    "set": "KAYA/YAKIN",
    "kare": "Söz: 'Ben ölemem bile.' H09@işkencem'de kartal gölgesi yok: yukarıda boş tahtın ilk çatlağı (H09@yıkılmadıkça).",
-   "hareket": "gölge; çatlak",
+   "hareket": "H09@yıkılmadıkça boş tahtın çatlağı ilerler",
    "yazi": "“Ben ölemem bile.”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
@@ -2474,23 +2474,24 @@
    "id": "P223",
    "at": "I06@ben",
    "k": "K",
-   "set": "KAYA/GÖK",
-   "kare": "Gökte Uranos'un ve Kronos'un tahtlarının hayaletleri düşer.",
-   "hareket": "düşüş",
-   "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "set": "TAHT (K)",
+   "kare": "TAHT nesnesinin kırmızı figür türevi (çatlak, titrek; üç sabit taht x 560/960/1360): Prometheus'un alayının görüntüsü.",
+   "hareket": "I06@iki'de Uranos ve Kronos tahtları soluk bir görüntü olarak devrilir; I06@üçüncüsünün'de Zeus'un tahtı titrer",
+   "kit": "TAHT",
+   "taban": "toz zerreleri, mürekkep sızması",
+   "cekim": "Ç076",
+   "gecis": "sır 0,6 sn (çapada biter)"
   },
   {
    "id": "P224",
    "at": "I06@üçüncüsünün",
    "k": "K",
-   "set": "KAYA/GÖK",
-   "kare": "Üçüncü tahtın düşüşü yalnız bir görüntü olarak, soluk (filmde üçüncü tahtın tek düşüşü).",
-   "hareket": "soluk düşüş",
-   "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "set": "TAHT (K)",
+   "kare": "Aynı kompozisyon: üçüncü tahtın düşüşü yalnız bir görüntü olarak, soluk (filmde üçüncü tahtın tek düşüşü); I06@çabuk'ta görüntü söner, taht yerinde kalır.",
+   "hareket": "I06@düşüşünü'de soluk düşüş görüntüsü; I06@çabuk'ta söner",
+   "kit": "TAHT",
+   "taban": "toz zerreleri, mürekkep sızması",
+   "cekim": "Ç076"
   },
   {
    "id": "P225",
@@ -2501,7 +2502,8 @@
    "hareket": "el; kanat",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077",
+   "gecis": "sert kesme"
   },
   {
    "id": "P226",
@@ -2513,7 +2515,7 @@
    "yazi": "“Bu felaketimi senin uşaklığına değişmem.”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P227",
@@ -2524,7 +2526,7 @@
    "hareket": "yörünge",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P228",
@@ -2532,11 +2534,11 @@
    "k": "K",
    "set": "KAYA/YAKIN",
    "kare": "EYVAH: 0,7 sn rüzgâr kesilir, figürün kenarından toz kopar, tek bir zincir halkası sarsılır, 0,1 sn beyaz çakma (kartal gölgesi yok).",
-   "hareket": "sarsıntı; gölge",
+   "hareket": "0,7 sn rüzgâr kesilir; figürün kenarından toz kopar; tek bir zincir halkası sarsılır; 0,1 sn beyaz çakma",
    "yazi": "“Eyvah!”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P229",
@@ -2547,7 +2549,7 @@
    "hareket": "eğilme; kanatlı çizmeler",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P230",
@@ -2558,7 +2560,7 @@
    "hareket": "gün döngüsü",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P231",
@@ -2570,31 +2572,31 @@
    "yazi": "şart: “Bu aşağılayıcı zincirler çözülmeden…”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P232",
    "at": "I07b@ne",
    "k": "K",
    "set": "KAYA/ORTA",
-   "kare": "Hermes geri çekilir, çizmelerindeki kanatlar durur; yukarıda boş tahtın gözleri kısılır (simge yok).",
-   "hareket": "üstü çizilir",
+   "kare": "Hermes geri çekilir, kerykeion'unu yeniden kaldırmaya başlar, çizmelerindeki kanatlar çırpar; yukarıda boş tahtın gözleri kısılır. Bu hareket J01@durduralım'da yarıda kalacak.",
+   "hareket": "kanatlar çırpar; kerykeion kalkar; taht gözleri kısılır",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç075"
+   "cekim": "Ç077"
   },
   {
    "id": "P233",
    "at": "J01-1.8",
    "k": "K",
    "set": "KAYA",
-   "kare": "Bölüm levhası; J01@durduralım'da sahne DONAR: solgun kil renkleri, toz ve kıvılcımlar havada asılı, kamera asılı parçacıkların arasında paralaksla ilerler; yalnız ateş renkli kalır. J01@asıl'da kamera bilekteki zincire itmeye başlar.",
+   "kare": "Sorgu sürerken bölüm levhası iner; J01@durduralım'da her şey hareketin ortasında DONAR: Hermes havada (x 1250–1550, y 200–620), kerykeion yarı kalkık, çizme kanatları yarım açık, toz ve kıvılcımlar asılı; solgun kil, yalnız ateş renkli; müzik ve rüzgâr kesilir, yalnız ateş çıtırtısı. Kamera paralaksla Hermes ile Prometheus'un arasından geçer; J01@asıl'da bileğe itmeye başlar.",
    "hareket": "kamera kayar; alev",
    "gecis": "kil levha (donmuş karede)",
    "yazi": "IX · ZİNCİRİN ÖBÜR UCU",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P234",
@@ -2605,8 +2607,8 @@
    "hareket": "levha döner; altı çizilir",
    "yazi": "kil levha (P127)",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P235",
@@ -2614,10 +2616,10 @@
    "k": "K",
    "set": "KAYA/ZİNCİR",
    "kare": "Zincirdeki Prometheus.",
-   "hareket": "zincir; donmuş karede yalnız nefes",
+   "hareket": "J02@zincirde: J01@asıl'dan beri süren itiş kelepçeye varır; J02@özgürlüğü: kelepçenin kilidi Prometheus tarafında parlar; J02@yok: asılı bir kıvılcım kilide düşüp söner (P241'in kurulumu)",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P236",
@@ -2628,33 +2630,32 @@
    "hareket": "yazı",
    "yazi": "kenar şeridi",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P237",
    "at": "J04",
    "k": "K",
    "set": "KAYA→OLYMPOS",
-   "kare": "AÇILIM (≈ 6 sn, tek kesintisiz plan, çözülme yok): kamera dikey dünyada zinciri bulutlardan yukarı izler; J04@gerçekte'de bulutlar açılır; J04@zeus'ta tahtın kolu görünür; J04@köle'de zincir buluttan uzanan tek bir bilekte, soğuk beyaz kelepçede biter, kelepçe parlar (P005'in pırıltısı): yüz ve gövde yok. Etiket: ZEUS · KÖLE (y≈220).",
+   "kare": "AÇILIM (tek kesintisiz plan, çözülme yok): kamera dikey dünyada zinciri bulutlardan yukarı izler; J04@verir'de bulutlar aralanmaya başlar, J04@gerçekte'de açılır; J04@zeus'ta tahtın kolu ve buluttan uzanan tek bilek kadraja girer (bilek ≈ 960,400): zincir soğuk beyaz kelepçede biter, yüz ve gövde yok; J04@köle'de ZEUS · KÖLE etiketi (y≈220) mühür gibi basılır, kelepçe parlar (P005'in pırıltısı); 'köle'den sonraki 1,2 sn'lik duraklamada kare durur, nefes alır. J04@prometeus'ta kesme yok: kamera altın ışıkla birlikte zincir boyunca hızla aşağı iner (~0,6 sn).",
    "hareket": "uzun yukarı kayma; zincir gerilir",
-   "yazi": "ZEUS · KÖLE",
+   "yazi": "ZEUS · KÖLE (J04@köle; üst bantta J05@uşaklarına'ya kadar kalır)",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P238",
-   "at": "J04@prometeus",
+   "at": "J04@özgürdür",
    "k": "K",
    "set": "KAYA",
-   "kare": "Aşağı kesme: Prometheus; zincir boyunca altın ışık akar, duruşu özgür. İki etiket P239'a taşar, J05@uşaklarına'da söner.",
+   "kare": "Kamera Prometheus'a varır; zincir boyunca altın ışık akar, duruşu özgür. PROMETHEUS · ÖZGÜR (y≈420); ZEUS · KÖLE üst kenarda soluk kalır (y 160–220); iki etiket J05@uşaklarına'da birlikte söner.",
    "hareket": "ışık akışı; doğrulma",
    "yazi": "PROMETHEUS · ÖZGÜR (y≈420); köşede ERHAT · s. xiv",
-   "gecis": "sert kesme (J04@prometeus)",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P239",
@@ -2664,8 +2665,8 @@
    "kare": "Tahtın içinde yüzsüz bir gölge; J05@çocuk'ta çocuk boyuna küçülür; koltuğun koluna yapışmış küçük bir el; eğilen uşaklar P188'deki domino sırasının kırmızı figür kopyası (boş tahta eğilirler).",
    "hareket": "ölçek değişimi; eğilen figürler",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P240",
@@ -2675,8 +2676,8 @@
    "kare": "Dikey dünyada zincir: altın ışık Prometheus'un ucundan Zeus'un soğuk beyaz ucuna akar (Zeus'un Prometheus'a bağımlılığı renkle okunur).",
    "hareket": "ışık zincir boyunca",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç076"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç078"
   },
   {
    "id": "P241",
@@ -2689,7 +2690,7 @@
    "yazi": "“Zeus tutukladığı düşmanının elinde tutukludur aslında.” · s. xiv",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç077"
+   "cekim": "Ç079"
   },
   {
    "id": "P242",
@@ -2701,8 +2702,8 @@
    "yazi": "SANIK: özgür · YARGIÇ: tutsak",
    "gecis": "mürekkepten dönüş: sert kesme",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç078"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç080"
   },
   {
    "id": "P243",
@@ -2713,8 +2714,8 @@
    "hareket": "baş kalkar; terazi",
    "yazi": "“hakkın köleden yana olduğu” · s. xiii",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç078"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç080"
   },
   {
    "id": "P244",
@@ -2726,8 +2727,8 @@
    "gecis": "sert kesme",
    "olay": "kamera kandile yaklaşır; alevin titremesi duvarda gölge oynatır",
    "kit": "TİYATRO",
-   "taban": "meşale titremesi, kalabalıkta kıpırtı",
-   "cekim": "Ç079"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç081"
   },
   {
    "id": "P245",
@@ -2739,19 +2740,19 @@
    "gecis": "kil levha (donmuş plakada)",
    "yazi": "X · KARTAL, FIRTINA VE SON SÖZ",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "taban": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli",
+   "cekim": "Ç082"
   },
   {
    "id": "P246",
    "at": "I08b",
    "k": "K",
    "set": "KAYA",
-   "kare": "I08b@sorguya'da parçacıklar düşmeye devam eder, renk tümüyle geri gelir; Hermes'in tehdidi: yıldırımın kayayı yarması bir görüntü olarak.",
+   "kare": "I08b@sorguya'da donmuş kare çözülür: renk tümüyle geri gelir, parçacıklar düşer, Hermes yarım kalan hareketini tamamlar; I08b@savurur'da tehdidini savurur; yıldırımın kayayı yarması yalnız bir görüntü olarak (kurulum).",
    "hareket": "renk dönüşü; çatlak görüntüsü",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P247",
@@ -2762,7 +2763,7 @@
    "hareket": "yıldız dönmesi; aydınlanma",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P248",
@@ -2773,7 +2774,7 @@
    "hareket": "gölge büyür",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P249",
@@ -2781,10 +2782,10 @@
    "k": "K",
    "set": "KAYA/ÜST",
    "kare": "KAYA'nın ÜST kamerası (kartal bakışı): kamera gökten küçük zincirli figüre doğru sarmal çizerek iner; I08b@çağrılmamış'ta kısa bir pençe silueti; I08b@ziyafet'te kartalın gölgesi gövdeyi tümüyle örter (yeni set yok).",
-   "hareket": "kartal başını çevirir; kandil",
+   "hareket": "sarmal iniş (KAYA ÜST kamerası); I08b@çağrılmamış'ta pençe silueti; I08b@ziyafet'te kartal gölgesi gövdeyi örter",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P250",
@@ -2796,7 +2797,7 @@
    "gecis": "negatif 0,8 sn",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P251",
@@ -2808,7 +2809,7 @@
    "yazi": "“Ne yaparsa yapsın… beni öldüremez.”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P252",
@@ -2819,7 +2820,7 @@
    "hareket": "el sallar; dalga",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P253",
@@ -2831,7 +2832,7 @@
    "yazi": "“Hainlerden nefret etmeyi öğrendik.”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P254",
@@ -2843,18 +2844,18 @@
    "olay": "'prometeus'ta kamera kayaya iner, ilk sarsıntı",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P255",
    "at": "I10@artık",
    "k": "K",
    "set": "KAYA/FIRTINA",
-   "kare": "P142'nin (F13'ün toprak kadrajı) yıkılmış hâli: I10@gerçekte'de ilk şimşek (2 kare), I10@yer'de sarsıntı, toprak yarılır.",
+   "kare": "P142'nin (F13'ün toprak kadrajı) sarsılmış hâli: I10@gerçekte'de ilk şimşek (2 kare), I10@yer'de toprak kabarır, taşlar düşer (yarılma yok: ödeme I12@yıkılana'ya saklı).",
    "hareket": "sarsıntı; taş düşer",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P256",
@@ -2865,7 +2866,7 @@
    "hareket": "çakmalar",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P257",
@@ -2876,7 +2877,7 @@
    "hareket": "girdap",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P258",
@@ -2887,7 +2888,7 @@
    "hareket": "kuşaklar çöker",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P259",
@@ -2897,32 +2898,32 @@
    "kare": "Kaosun ortasında durgun yakın plan: yüzü göğe dönük (F13 kompozisyonunun eşi).",
    "hareket": "fırtınanın gözünde iç ses kuralı: rüzgâr sesi düşer, yalnız nefes; I11@adalet'te fırtına bulutlarında P153'teki ΘΕΜΙΣ madalyonu soluk belirir, terazisi bir an dengelenir",
    "kit": "KAYA",
-   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "taban": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
+   "cekim": "Ç082"
   },
   {
    "id": "P260",
    "at": "I11@görüyor",
    "k": "K",
    "set": "KAYA",
-   "kare": "Son söz yazısı; kaya ayağının altında yarılır.",
+   "kare": "Kaya yalnız titrer; son söz harfleri ağızdan göğe yükselir, I11@adalet'te beliren ΘΕΜΙΣ madalyonuna doğru (x 900–1400, y 120–420): 'anasına' sözü görüntüde de karşılanır.",
    "hareket": "yarılma; yazı",
    "yazi": "“Görüyor musun, haksız yere neler çekiyorum.”",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P261",
    "at": "I12",
    "k": "K",
    "set": "KAYA/FIRTINA",
-   "kare": "Kayada: I12@yıkılana'da kaya yarılır, I12@gömülene'de Prometheus ve perilerle birlikte kapanır, I12@konuşmakta'da yazı çatlaktan parlar; susan → konuşan panoları yalnız kenar şeridinde (x 1500–1880, y 60–300).",
+   "kare": "Kayada: I12@yıkılana'da kaya ilk ve tek kez yarılır, I12@gömülene'de Prometheus ve perilerle birlikte kapanır, I12@konuşmakta'da yazı çatlaktan parlar; susan → konuşan panoları yalnız kenar şeridinde (x 1500–1880, y 60–300).",
    "hareket": "panolar",
    "olay": "'konuşmakta'da ikinci pano canlanır",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P262",
@@ -2933,21 +2934,21 @@
    "hareket": "kapanma; yazı parlar",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç080"
+   "cekim": "Ç082"
   },
   {
    "id": "P263",
    "at": "I12@erhatın#1",
    "k": "B",
    "set": "SAYFA",
-   "kare": "Havadaki harfler sayfadaki alıntıya dönüşür (tam sayfa alıntı); I12@özgür'de 'özgür' kelimesi ateş rengiyle parlar; konuşma bitince harfler kıvılcım olup sayfadan fırlar.",
+   "kare": "Havadaki harfler sayfadaki alıntıya dönüşür (tam sayfa alıntı); I12@özgür'de 'özgür' kelimesi ateş rengiyle parlar. I12 bittikten sonra en az 2,8 sn: mürekkep sayfadan geri çekilir, yalnız 'özgür' yanar (x 700–1220, y 380–520); son 0,8 sn'de harfler kıvılcım olup fırlar ve P264'teki ok ucuna bağlanır.",
    "hareket": "yazı dönüşür; alev",
    "gecis": "mürekkep 0,8 sn (I12@erhatın#1'de biter)",
    "yazi": "“Kıyamet de kopsa son söz özgür düşüncenindir.” · s. xv",
    "olay": "'kıyamet'te alıntı belirir; 'özgür' kelimesinde harfler ateş rengiyle parlar",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç081"
+   "cekim": "Ç083"
   },
   {
    "id": "P264",
@@ -2960,7 +2961,7 @@
    "yazi": "XI · HERAKLES'TEN OPPENHEIMER'A",
    "kit": "ŞERİT",
    "taban": "kaydırma",
-   "cekim": "Ç082"
+   "cekim": "Ç084"
   },
   {
    "id": "P265",
@@ -2973,7 +2974,7 @@
    "yazi": "ΗΡΑΚΛΗΣ",
    "kit": "TONDO",
    "taban": "kupa dönüşü",
-   "cekim": "Ç083"
+   "cekim": "Ç085"
   },
   {
    "id": "P266",
@@ -2984,7 +2985,7 @@
    "hareket": "baş sallama",
    "kit": "AMFORA",
    "taban": "silindir dönüşü ve gövdede kayan parlama, toz zerreleri",
-   "cekim": "Ç084"
+   "cekim": "Ç086"
   },
   {
    "id": "P267",
@@ -2995,7 +2996,7 @@
    "hareket": "toz",
    "kit": "TİYATRO",
    "taban": "meşale titremesi, kalabalıkta kıpırtı",
-   "cekim": "Ç085"
+   "cekim": "Ç087"
   },
   {
    "id": "P268",
@@ -3007,7 +3008,7 @@
    "gecis": "ink 0,6 sn",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç086"
+   "cekim": "Ç088"
   },
   {
    "id": "P269",
@@ -3019,7 +3020,7 @@
    "yazi": "Goethe · Prometheus (1774)",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç086"
+   "cekim": "Ç088"
   },
   {
    "id": "P270",
@@ -3030,7 +3031,7 @@
    "hareket": "yoğurma",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç086"
+   "cekim": "Ç088"
   },
   {
    "id": "P271",
@@ -3043,7 +3044,7 @@
    "yazi": "“Asıl yaratıcı insanın kendisidir.” · s. xi",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç086"
+   "cekim": "Ç088"
   },
   {
    "id": "P272",
@@ -3055,7 +3056,7 @@
    "yazi": "FRANKENSTEIN / THE MODERN PROMETHEUS / 1818 (L05@modern)",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç086"
+   "cekim": "Ç088"
   },
   {
    "id": "P273",
@@ -3068,7 +3069,7 @@
    "olay": "'nolanın'da meşale ufukta beyaz parlamaya dönüşür",
    "kit": "ŞERİT",
    "taban": "kaydırma",
-   "cekim": "Ç087"
+   "cekim": "Ç089"
   },
   {
    "id": "P274",
@@ -3080,7 +3081,7 @@
    "olay": "'el'de el alevin önünde durur; 'titanın'da alev büyür",
    "kit": "ŞERİT",
    "taban": "kaydırma",
-   "cekim": "Ç088"
+   "cekim": "Ç090"
   },
   {
    "id": "P275",
@@ -3088,12 +3089,12 @@
    "k": "B",
    "set": "SAYFA",
    "kare": "Bölüm levhası; NASIL? kartı karttan ayrı, P276'da K08a@nasıl'da yazılır.",
-   "hareket": "harfler",
+   "hareket": "K08a@sorusu'nda önceki planlardaki (P109, P157, P216) iğneli küçük NASIL? kartı iğnesinden kopar ve kadrajı doldurur; K08a@nasıl'da eşleşen kesmeyle P276'nın NASIL? yazısına dönüşür (yeniden yazılmaz)",
    "gecis": "kil levha",
    "yazi": "XII · BAŞKALDIRAN YARATIK",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç091"
   },
   {
    "id": "P276",
@@ -3102,47 +3103,48 @@
    "set": "BÖLÜNMÜŞ",
    "kare": "B06'nın bölünmüş karesi değiştirilerek: sağdaki XX. yüzyıl figürü baştan ayakta; K08a@yaratabildi'de dönüp Aiskhylos'a bakar; çizgi bu kez sağdan sola akar.",
    "hareket": "çizgi akar",
-   "yazi": "NASIL? (K08a@nasıl)",
+   "yazi": "NASIL? (P275'ten eşleşen kesme; yeniden yazılmaz)",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç091"
   },
   {
    "id": "P277",
    "at": "K08a@erhatın#1",
-   "k": "B",
-   "set": "BÖLÜNMÜŞ",
-   "kare": "Bölünmüş karenin sol yarısında kanıt panosu: taht kavgası frizinin ortasında duran Prometheus (siyasi bir kişi).",
-   "hareket": "friz döner",
-   "kit": "SAYFA",
-   "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Tek kesintisiz kırmızı figür tiyatro planı (P277–P278, P016/P107 seti): K08a@taht'ta skene frizinde taht kavgası, ortada Prometheus; K08a@siyasi'de Erhat'ın kalemi figürü daire içine alır (P048'in eşi).",
+   "hareket": "vinç; friz figürleri; daire çizilir",
+   "kit": "TİYATRO",
+   "taban": "meşale titremesi, kalabalıkta kıpırtı",
+   "cekim": "Ç092",
+   "gecis": "sert kesme"
   },
   {
    "id": "P278",
    "at": "K08a@ama#1",
-   "k": "B",
-   "set": "BÖLÜNMÜŞ",
-   "kare": "Kanıt panosu: Aiskhylos yazar, tiyatroda Atinalı yurttaşlar.",
-   "hareket": "kalabalık; kandil",
-   "yazi": "“politik görüşü en köklü” · s. vi",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Aynı plan sürer: K08a@politik'te kamera skeneden Atinalı kalabalığa döner; K08a@ayshilostu'da kandil ışığında ΑΙΣΧΥΛΟΣ yazısı yanar.",
+   "hareket": "kamera kalabalığa döner; kandil; yazı yanar",
+   "yazi": "kenar şeridi: “politik görüşü en köklü” · s. vi",
    "olay": "'politik' kelimesinde tiyatro kalabalığına geçilir",
-   "kit": "SAYFA",
-   "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "kit": "TİYATRO",
+   "taban": "meşale titremesi, kalabalıkta kıpırtı",
+   "cekim": "Ç092"
   },
   {
    "id": "P279",
    "at": "K08c",
    "k": "B",
    "set": "SAYFA",
-   "kare": "Alıntı kartı sayfada yazılır; kenarda kaba güç (çomak) ile akıl (kıvılcım) terazide, akıl ağır basar.",
+   "kare": "Sayfada terazi: kaba güç (çomak) ile akıl (kıvılcım); akıl ağır basar. Sayfada kısa etiket: AKIL GÜCÜ · KABA GÜÇ (tırnaklı alıntı kartı yok: notlarda bu cümle Erhat'ın tırnaklı sözü olarak geçmiyor).",
    "hareket": "yazı; terazi",
-   "gecis": "ink 0,5 sn",
-   "yazi": "“Akıl gücü kaba güçten üstündür; düşünceye gem vurulamaz.”",
+   "gecis": "mürekkep 0,5 sn (çapada biter)",
+   "yazi": "AKIL GÜCÜ · KABA GÜÇ",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç093"
   },
   {
    "id": "P279b",
@@ -3153,18 +3155,19 @@
    "hareket": "kırılma; kanat",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç093"
   },
   {
    "id": "P280",
    "at": "K08c@belki",
-   "k": "B",
-   "set": "SAYFA",
-   "kare": "Sanık sırasındaki zincirli figürün silueti aynı duruşta modern bir insan siluetine dönüşür (kâğıtta).",
-   "hareket": "siluet dönüşümü",
-   "kit": "SAYFA",
-   "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "KAYA ORTA: üslup karesindeki zincirli figür; K08c@sanık'ta siluet bir an aynı duruşta modern bir insan siluetine döner ve geri gelir (yirmi beş yüzyıl önceki sanık hâlâ insana benziyor).",
+   "hareket": "siluet dönüşümü; rüzgâr",
+   "kit": "KAYA",
+   "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
+   "cekim": "Ç094",
+   "gecis": "sert kesme"
   },
   {
    "id": "P281",
@@ -3173,10 +3176,10 @@
    "set": "SAYFA",
    "kare": "Önsözün ilk sayfası (v) açılır; sayfa numarası ve ilk satırlar.",
    "hareket": "K01@ilk'te sayfa çevrilir; tek uzun sayfa yolculuğu başlar (P281–P287): aynı küçük figür bütün durakları geçer",
-   "gecis": "ink 0,6 sn",
+   "gecis": "mürekkep 0,6 sn (çapada biter)",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P281b",
@@ -3188,7 +3191,7 @@
    "yazi": "İnsan nedir? / Ne zaman insan olmaya başladı?",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P282",
@@ -3200,7 +3203,7 @@
    "yazi": "“İnsan başkaldıran yaratıktır.” · s. v",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P283",
@@ -3211,7 +3214,7 @@
    "hareket": "çerçeveden çıkış",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P285",
@@ -3222,7 +3225,7 @@
    "hareket": "süsler düşer",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P286",
@@ -3235,7 +3238,7 @@
    "olay": "'bugün'de figür küpten döner, güneşe yürür",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
    "id": "P287",
@@ -3247,21 +3250,31 @@
    "yazi": "İNSAN OLMAK · s. vi",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç089"
+   "cekim": "Ç095"
   },
   {
-   "id": "P288",
+   "id": "P288a",
    "at": "K06@ve",
-   "k": "K",
-   "set": "BAŞLIK",
-   "kare": "Küçük figürün ateşi kapanan kitabın kapağına değer; ateşli PROMETHEUS harfleri onun ateşiyle tutuşur; K06@prometeustur'da P011'in kompozisyonuna kesme (harfler + zincirli siluet): açılış başlığının halkası. Kapak karesine kesilmez; sessizlikte harflerden tek kıvılcım süzülür.",
-   "hareket": "harfler; alev",
-   "gecis": "ink 1,0 sn",
+   "k": "B",
+   "kit": "SAYFA",
+   "set": "SAYFA",
+   "kare": "Sayfa yolculuğu sürer (geçiş yok): tam sayfa alıntı; küçük figürün ateşi kapanan kitabın kapağındaki PROMETHEUS harflerini tutuşturur.",
+   "hareket": "kitap kapanır; harfler tutuşur",
    "yazi": "“Bu ülkünün ilk temsilcisi Prometheus'tur.” · s. vi",
-   "olay": "'prometeus'ta ateşli harfler tamamlanır, kayadaki kapak karesine kesme",
+   "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
+   "cekim": "Ç095"
+  },
+  {
+   "id": "P288b",
+   "at": "K06@prometeustur",
+   "k": "K",
    "kit": "KAYA",
+   "set": "BAŞLIK",
+   "kare": "Eşleşen kesme: kapaktaki ateşli harfler P011'in harflerine geçer; kamera geri çekilince zincirli siluet görünür; sessizlikte tek bir kıvılcım P289'un lambasına iner.",
+   "hareket": "geri çekilme; kıvılcım",
+   "gecis": "eşleşen kesme",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç090"
+   "cekim": "Ç096"
   },
   {
    "id": "P289",
@@ -3270,10 +3283,10 @@
    "set": "MASA",
    "kare": "Çevirmenlerin masası (portre yok): iki fincan, iki kalem, müsvedde, lamba. XIII bölüm levhası ekrandan kalkar (açıklamada bölüm damgası olarak kalır).",
    "hareket": "M00@çevrilemeyeceğini: müsveddedeki satırların üstü çizilir; M00@sahnelenemeyeceğini: kenardaki küçük sahne çizimi silinir; iki kalem sırayla kendiliğinden yazar; lamba titrer, buhar yükselir",
-   "gecis": "eşleşen kesme: P288'in alevi → lambanın alevi",
+   "gecis": "eşleşen kesme: P288b'nin kıvılcımı → lambanın alevi",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç091"
+   "cekim": "Ç097"
   },
   {
    "id": "P290",
@@ -3284,7 +3297,7 @@
    "hareket": "uçuşan sayfalar",
    "kit": "SAYFA",
    "taban": "kâğıt nefesi (±%0,4), 4 px/sn kayma, lamba ışığı titremesi, kalem ucu",
-   "cekim": "Ç091"
+   "cekim": "Ç097"
   },
   {
    "id": "P291",
@@ -3293,23 +3306,23 @@
    "set": "TİYATRO",
    "kare": "P016'nın tiyatrosu modern sahne olarak: perde yerine bir ışık dairesi açılır; ışıkta kırmızı figür Prometheus; seyirci tek sıra siluet.",
    "hareket": "perde; ışık",
-   "gecis": "ink 0,6 sn",
+   "gecis": "sır 0,6 sn (çapada biter)",
    "kit": "TİYATRO",
    "taban": "meşale titremesi, kalabalıkta kıpırtı",
-   "cekim": "Ç092"
+   "cekim": "Ç098"
   },
   {
    "id": "P292",
    "at": "M02",
    "k": "K",
    "set": "KAYA/OLYMPOS",
-   "kare": "KAPAK KARESİNİN SON KULLANIMI: rezene sapındaki alev izleyiciye uzatılır; M02@ateşi'de alev kadrajın altından giren izleyicinin avucuna konur (öznel plan).",
-   "hareket": "alev yaklaşır",
+   "kare": "KAPAK KARESİNİN SON KULLANIMI (el yok): M02@olsan'da Prometheus alevi kameraya uzatır; M02@ateşi'de alev objektife yaklaşır ve kareyi altınla doldurur (merkez 960,420): izleyici ateşi alan kişi olur; M02@yorumlarda'da alev küçülüp bitiş ekranının alevine bağlanır.",
+   "hareket": "alev yaklaşır; altın; küçülür",
    "yazi": "Peki sen olsan?",
    "gecis": "eşleşen kesme: sahnedeki Prometheus'un ateşi → izleyiciye uzanan alev",
    "kit": "KAYA",
    "taban": "rüzgâr (saç, sakal, zincir), akan dalga kuşağı, ateş titremesi, ≥ 2–3 px/sn itme",
-   "cekim": "Ç093"
+   "cekim": "Ç099"
   },
   {
    "id": "P293",
@@ -3322,7 +3335,7 @@
    "olay": "bitiş ekranı: Sisifos döngüsü ve alev sürekli; 'abone'de abone alanı belirir",
    "kit": "BİTİŞ",
    "taban": "Sisifos döngüsü, alev",
-   "cekim": "Ç094"
+   "cekim": "Ç100"
   }
  ],
  "taban": {
@@ -3334,6 +3347,8 @@
   "TONDO": "kupa dönüşü",
   "ŞERİT": "kaydırma",
   "TİYATRO": "meşale titremesi, kalabalıkta kıpırtı",
-  "BİTİŞ": "Sisifos döngüsü, alev"
+  "BİTİŞ": "Sisifos döngüsü, alev",
+  "KAYA/İÇSES": "rüzgâr yok; büst ≥ 2 px/sn itilir; nefes; arka plan sır siyahına koyulaşır; kenardan tek tük kil tozu kopar",
+  "KAYA/DONMA": "asılı toz ve kıvılcımda üç katman paralaks; kamera ≥ 3 px/sn; ateş titrer; nefes; rüzgâr, dalga ve müzik yok, yalnız ateş çıtırtısı; solgun kil, ateş renkli"
  }
 }

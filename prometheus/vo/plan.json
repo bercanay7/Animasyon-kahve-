@@ -1,5 +1,5 @@
 {
- "_not": "Boşluklar (sn): once = ilk cümleden önce; varsayilan = cümle sonrası; secGap = bölüm sonuna eklenen; gap = cümleye özel; sonra = bitiş ekranı. Bölüm arası sessizlik (son cümle boşluğu + secGap) ≈2 sn: bölüm kartı soru başlamadan bu sessizlikte okunur (animatik kurulu).",
+ "_not": "Boşluklar (sn): once = ilk cümleden önce; varsayilan = cümle sonrası; secGap = bölüm sonuna eklenen; gap = cümleye özel; sonra = bitiş ekranı. Bölüm arası sessizlik (son cümle boşluğu + secGap) ≈2 sn: bölüm kartı soru başlamadan bu sessizlikte okunur (animatik kurulu). Doruk ve psikolojik bölüm sonlarında uzun nefes (I12, F14, G13b, K06; animatik kurulu tur 2). ara = cümle içi duraklama: J04'te 'köle'den sonra 0,8 sn (ödeme karesi ekranda kalsın).",
  "once": 0.7,
  "varsayilan": 0.4,
  "secGap": 0.8,
@@ -44,7 +44,7 @@
   "F10a": 0.8,
   "F10b": 1.2,
   "F13": 0.9,
-  "F14": 1.2,
+  "F14": 2.2,
   "G01": 0.6,
   "G02": 0.6,
   "G06": 0.5,
@@ -53,7 +53,7 @@
   "G10b": 0.7,
   "G11": 0.6,
   "G12b": 0.8,
-  "G13b": 1.2,
+  "G13b": 2.2,
   "H01": 0.6,
   "H02": 0.5,
   "H04": 0.6,
@@ -81,7 +81,7 @@
   "I09": 0.5,
   "I10": 0.9,
   "I11": 1.0,
-  "I12": 1.2,
+  "I12": 3.2,
   "L01": 0.5,
   "L02": 0.6,
   "L03": 0.5,
@@ -93,10 +93,13 @@
   "K01": 0.5,
   "K02": 0.5,
   "K04": 0.6,
-  "K06": 1.0,
+  "K06": 2.0,
   "M00": 0.8,
   "M02": 0.8,
   "M03": 0.0,
   "B07": 1.2
+ },
+ "ara": {
+  "J04@köle": 0.8
  }
 }

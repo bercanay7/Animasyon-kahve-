@@ -86,9 +86,28 @@ for si, (bolum, segs) in enumerate(secs):
         c0, c1 = cuts[k], cuts[k + 1]
         clip = a[int(c0 * SR):int(c1 * SR)].copy()
         fl = int(.012 * SR); clip[:fl] *= np.linspace(0, 1, fl); clip[-fl:] *= np.linspace(1, 0, fl)
-        cues[s['id']] = {'s': round(t + (bounds[k][0] - c0), 3), 'e': round(t + (bounds[k][1] - c0), 3), 'sec': si}
+        # cümle içi duraklama (plan 'ara': {"J04@köle": 0.8}): kelimeden sonraki sessizlikte bölüp araya sessizlik koyar; sonraki kelimeler kayar
+        idx = [i for i, o in enumerate(owner) if o == k]
+        shift = {i: 0.0 for i in idx}; pieces = []; last = 0
+        for key, dur in plan.get('ara', {}).items():
+            sid, w = key.split('@'); w, n = (w.split('#') + ['0'])[:2]
+            if sid != s['id']: continue
+            hits = [i for i in idx if ref[i].startswith(norm1(w))]
+            if len(hits) <= int(n) or hits[int(n)] == idx[-1]: print('ara bulunamadı', key); continue
+            i0 = hits[int(n)]; cp = int((cut_between(en[i0], st[i0 + 1]) - c0) * SR)
+            pieces.append((cp, dur))
+            for i in idx:
+                if i > i0: shift[i] += dur
+        if pieces:
+            parts = []
+            for cp, dur in sorted(pieces):
+                seg_ = clip[last:cp].copy(); f2 = int(.01 * SR); seg_[-f2:] *= np.linspace(1, 0, f2)
+                parts += [seg_, np.zeros(int(dur * SR), np.float32)]; last = cp
+            tail = clip[last:].copy(); f2 = int(.01 * SR); tail[:f2] *= np.linspace(0, 1, f2); parts.append(tail)
+            clip = np.concatenate(parts)
+        cues[s['id']] = {'s': round(t + (bounds[k][0] - c0), 3), 'e': round(t + (bounds[k][1] - c0) + shift[idx[-1]], 3), 'sec': si}
         for i, o in enumerate(owner):
-            if o == k: allwords.append({'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': round(t + st[i] - c0, 3), 'e': round(t + en[i] - c0, 3)})
+            if o == k: allwords.append({'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': round(t + st[i] - c0 + shift[i], 3), 'e': round(t + en[i] - c0 + shift[i], 3)})
         out.append(clip); t += len(clip) / SR
         g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
         if k == len(segs) - 1: g += plan.get('secGap', 1.5)
