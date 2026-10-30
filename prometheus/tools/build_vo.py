@@ -70,8 +70,17 @@ for si, (bolum, segs) in enumerate(secs):
             if q: cur += 1; ci = i if cur == 1 else ci
             else: cur = 0
             if cur > best: best, bi = cur, ci
-        if bi is None: return (e0 + s1) / 2
-        return (lo + bi + best / 2) * .01
+        c = (e0 + s1) / 2 if bi is None else (lo + bi + best / 2) * .01
+        # Whisper'ın iki kelime zamanı üst üste binince (e0 ≈ s1) pencerede sessizlik yoktur ve kesim bir sesin
+        # ortasına düşer ("güvenmez" → "güvenme"). Bu durumda ileriye, ilk gerçek duraklamaya (≥ 120 ms) kes.
+        # Zaman çizelgesi değişmez: kesimden sonraki her örnek aynı mutlak zamanda kalır (ses kurulu tur 1).
+        if rms[min(len(rms) - 1, int(c / .01))] > thr * .5:
+            lo2, hi2 = int(max(0, e0 - .05) / .01), int(min(len(a) / SR, e0 + 1.2) / .01)
+            run = 0
+            for i in range(lo2, hi2):
+                run = run + 1 if rms[i] < thr else 0
+                if run >= 12: return (i - run / 2) * .01
+        return c
     bounds = []
     for k in range(len(segs)):
         idx = [i for i, o in enumerate(owner) if o == k]

@@ -25,6 +25,13 @@ def W(i, w, n=0):
             if k == n: return x['s']
             k += 1
     return CUES[i]['s']
+def We(i, w, n=0):
+    k = 0
+    for x in WORDS:
+        if x['id'] == i and x['w'].startswith(w):
+            if k == n: return x['e']
+            k += 1
+    return CUES[i]['e']
 
 
 def env_ad(n, a, d, shape=4.0):
@@ -107,7 +114,9 @@ def true_peak(x):
 
 def voice_chain(vo):
     # cümle kazançları: fısıltı etiketli "Ama ne diyorum?" (F14) yaklaşık 12 dB sessiz geliyor (okunuş denemesi): +6 dB
-    gains = [(W('F14', 'ama') - .1, W('F14', 'olacak') - .05, 6.0)]
+    # ses kurulu tur 1: "diyorum" fısıltının içinde ayrıca +3 dB; en sessiz iki cümle (C18, L01) +2 / +1,5 dB
+    gains = [(W('F14', 'ama') - .1, W('F14', 'olacak') - .05, 6.0), (W('F14', 'diyorum') - .03, We('F14', 'diyorum') + .05, 9.0),
+             (CUES['C18']['s'] - .05, CUES['C18']['e'] + .05, 2.0), (CUES['L01']['s'] - .05, CUES['L01']['e'] + .05, 1.5)]
     g = np.ones(len(vo))
     for a, b, d in gains:
         g[int(a * SR):int(b * SR)] = db(d)
@@ -116,7 +125,7 @@ def voice_chain(vo):
     vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
     L = pyln.Meter(SR).integrated_loudness(vo)
     vo, gr = compress(vo, L + 6, 3.0)
-    vo = limiter(vo[None, :], db(pyln.Meter(SR).integrated_loudness(vo) + 13))[0]
+    vo = limiter(vo[None, :], db(pyln.Meter(SR).integrated_loudness(vo) + 11))[0]
     return vo
 
 
@@ -135,7 +144,7 @@ def main():
     act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1); del ve
     target = db(-3 * act).astype(np.float32); del act
     look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look, np.float32)])
-    duck = smooth_gain(target, .1, .7).astype(np.float32); del target
+    duck = smooth_gain(target, .1, 1.5).astype(np.float32); del target   # yavaş bırakma: cümle aralarında pompalama yok
     ir = reverb_ir(1.2)
     vo_send = np.stack([signal.oaconvolve(vo * np.float32(db(-26)), ir[c].astype(np.float32))[:N].astype(np.float32) for c in range(2)])
     mu, msr = sf.read(A('audio/music.wav'), always_2d=True, dtype='float32')
@@ -146,6 +155,8 @@ def main():
     for c in range(2): mu[c] = peq(signal.sosfilt(hp35, mu[c]), 60, -2.5, .7).astype(np.float32)
     mu *= np.float32(db(-21 - meter.integrated_loudness(mu.T)))
     mu *= duck; del duck
+    # vuruşların tepeleri son sınırlayıcıyı çalıştırıp anlatımı bastırmasın: müzik kendi sınırlayıcısından geçer (ses kurulu tur 1)
+    mu = limiter(mu, db(-8), look=.005, rel=.15).astype(np.float32)
     mix = np.empty((2, N), np.float32)
     for c in range(2): mix[c] = vo + vo_send[c] + mu[c]
     if stems:

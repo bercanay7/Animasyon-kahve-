@@ -174,7 +174,7 @@ _ARR = {}
 
 
 def arr(fs, key):
-    """Shared mix arrays: (rate, 'full' | 'hits' | 'send')."""
+    """Shared mix arrays: (rate, 'full' | 'hits' | 'lead' | 'send')."""
     if (fs, key) not in _ARR:
         _ARR[(fs, key)] = np.zeros((N * fs // SR + fs, 2), np.float32)
     return _ARR[(fs, key)]
@@ -211,7 +211,7 @@ def place(bus, sig, t, gain=1.0, pan=0.0):
 
 
 LYRE = Bus('lyre', SR, gain=0.62, send=0.30, own=True)
-AULOS = Bus('aulos', SR, gain=0.34, send=0.36)
+AULOS = Bus('aulos', SR, gain=0.34, send=0.36, duck='lead')   # solo çalgı: konuşmada daha derin kısma (ses kurulu tur 1)
 PERC = Bus('perc', SR, gain=0.52, send=0.22)
 HITS = Bus('hits', SR, gain=0.62, send=0.18, duck='hits')
 FX = Bus('fx', SR, gain=0.34, send=0.40)
@@ -342,7 +342,7 @@ def drone(notes, t0, t1, gain=0.3, att=2.0, rel=1.5, cutoff=280):
     """Low drone, one pad per note; the sub octave (below A1) is kept as a quiet shadow."""
     for m in M(notes):
         w = 0.3 if m < 33 else (0.75 if m > 40 else 1.0)
-        pad([m], t0, t1, gain=gain * w, att=att, rel=rel, cutoff=cutoff, sine=0.5, voices=1, bus=DRONE)
+        pad([m], t0, t1, gain=gain * w, att=att, rel=rel, cutoff=cutoff, sine=0.5, voices=1, bus=DRONE, width=0.0, detune=2.0)
 
 
 def bowed(t0, phrase, gain=0.3, stack=(0,), voices=2, detune=6.0, cutoff=900, vib=8.0, glide=0.045,
@@ -1011,14 +1011,14 @@ def s00_opening():
     chain_rattle(0.05, vel=0.22, dur=0.55)    # the very first sound, before the voice: a chain
     drone('D1 D2 A2', 0.2, S('A03'), gain=0.30, att=1.2, rel=1.0, cutoff=300)
     # A01: the fire motif on the aulos, answering "bile bile"
-    fire_motif(W('A01', 'bile') - 0.1, 'D5', beat=0.36, gain=0.55, vib=14, drone='D4')
+    fire_motif(W('A01', 'bile') - 0.1, 'D5', beat=0.36, gain=0.32, vib=14, drone='D4')
     fire_motif(Se('A01') + 0.05, 'A4', beat=0.24, gain=0.45, kind=FIRE_Q, vib=10)
     # A02 the hammer locks the chain; the lament bass climbs down under "asıl tutsak"
     TH = Se('A01') + 0.24                    # the hammer falls in the silence before A02 (picture: P004 at + .12)
     hammer(TH, vel=1.0)
     boom(TH, vel=0.6, f0=60, decay=1.2)
     chain_rattle(TH + 0.15, vel=0.3, dur=0.9)
-    hammer(W('A02', 'mıhlatan'), vel=0.85)     # second blow on "mıhlatan" (picture: P004)
+    hammer(W('A02', 'mıhlatan'), vel=0.55)     # second blow on "mıhlatan" (picture: P004)
     chain_rattle(W('A02', 'mıhlatan') + 0.15, vel=0.25, dur=0.7)
     chain_motif(W('A02', 'zeusun') - 0.3, 'D3', beat=0.42, gain=0.38)
     pad(M('Eb3 G3 Bb3'), W('A02', 'asıl') - 0.4, Se('A02') + 1.2, gain=0.14, cutoff=600)
@@ -1038,9 +1038,9 @@ def s00_opening():
     boom(T, vel=1.0, f0=62, decay=1.8)
     fdrum(T, 'dum', vel=0.85, f0=72)
     strum(T + 0.01, M('D2 A2 D3 F3 A3 D4'), vel=0.6, spread=0.016, bright=0.5)
-    choir(M('D3 A3 D4 F4'), T, T + 4.2, gain=0.46, att=0.7, rel=1.4)
+    choir(M('D3 A3 D4 F4'), T, T + 4.2, gain=0.32, att=0.7, rel=1.4)
     drone('D1 D2', T, S('A05') + 2, gain=0.26, att=0.3, rel=2.0)
-    fire_motif(T + 0.9, 'D5', beat=0.45, gain=0.85, drone='D4', vib=16)
+    fire_motif(Se('A04') + 0.05, 'D5', beat=0.45, gain=0.85, drone='D4', vib=16)
     # A06 Erhat: the felt piano enters, 1967 rings once
     piano_arp(S('A06'), Se('A06') + 1.0, ['D3 F3 A3 E4', 'Bb2 F3 A3 D4'], step=0.4, vel=0.2)
     bell(W('A06', 'bin'), 'A5', vel=0.08)
@@ -1106,7 +1106,7 @@ def s02_thrones():
     choir(M('F3 A3 D4'), W('C10', 'çocuk') - 0.2, W('C10', 'büyüyünce'), gain=0.26, att=0.6, rel=0.8, vowel='o')
     for i, m in enumerate(M('A3 G3 F3 E3 D3 C3')):
         pizz(W('C10', 'kusturdu') + 0.14 * i, m, vel=0.32)
-    throne_hit(W('C10', 'indirdi'), vel=1.0)
+    throne_hit(W('C10', 'indirdi'), vel=0.6)
     # C12 Erhat distinguishes the two revolutions (piano)
     piano_arp(S('C12'), Se('C12') + 0.6, ERHAT, step=0.4, vel=0.18)
     bed(S('C12'), Se('C12') + 0.6, ['D3 F3 A3', 'Bb2 D3 F3', 'F2 A2 C3', 'C3 E3 G3'], gain=0.1, cutoff=600)
@@ -1118,8 +1118,8 @@ def s02_thrones():
     war_drums(S('C17'), W('C17', 'tartarosa') + 0.2, beat=0.48, vel=0.6)
     bed(S('C17'), W('C17', 'tartarosa'), ['D2 A2 D3', 'C2 G2 C3', 'Bb1 F2 Bb2', 'A1 E2 A2'], gain=0.2, cutoff=600)
     boom(W('C17', 'yüz'), vel=0.6, f0=60, decay=1.0)
-    boom(W('C17', 'kapatıldı'), vel=0.9, f0=58, decay=1.6)    # the bronze gate shuts (P051)
-    metal(W('C17', 'kapatıldı') + 0.05, f0=150, vel=0.45, decay=1.3, pan=0.1)
+    boom(W('C17', 'kapatıldı'), vel=0.6, f0=58, decay=1.6)    # the bronze gate shuts (P051)
+    metal(W('C17', 'kapatıldı') + 0.05, f0=150, vel=0.3, decay=1.3, pan=0.1)
     piano(W('C17', 'akıldan'), 'D4', vel=0.3)
     piano(W('C17', 'akıldan') + 0.5, 'A4', vel=0.25)
     thunder(W('C17', 'yıldırım'), vel=0.55)
@@ -1127,8 +1127,8 @@ def s02_thrones():
     lyre_ost(W('C17', 'paylaştırmaya') - 0.2, S('C18'), OST_H[:2], eighth=0.28, vel=0.26, drum=False)
     # C18 the one obstacle: silence, then the fire motif on "Prometheus"
     pad(M('D3 Eb3 A3'), S('C18'), W('C18', 'prometeus'), gain=0.14, cutoff=500)
-    fire_motif(W('C18', 'prometeus') + 0.05, 'D5', beat=0.46, gain=0.7, drone='D4', vib=14)
-    boom(W('C18', 'prometeus'), vel=0.5, f0=62, decay=1.3)
+    fire_motif(Se('C18') + 0.05, 'D5', beat=0.46, gain=0.7, drone='D4', vib=14)   # adın arkasından (önünde 2 sn boşluk)
+    boom(W('C18', 'prometeus'), vel=0.3, f0=62, decay=1.3)
 
 
 def s03_rage():
@@ -1164,9 +1164,9 @@ def s03_rage():
     # D10 "üçüncü devrimin hazırlanması": low choir
     choir(M('D2 A2 D3 F3'), S('D10'), Se('D10') + 1.5, gain=0.3, att=0.8, rel=1.2, vowel='o')
     # D11 two thrones fall; the third hit is withheld (master gain dips into silence)
-    throne_hit(W('D11', 'uranos'), vel=0.9, pan=-0.3)
-    throne_hit(W('D11', 'kronos'), vel=0.9, pan=0.3)
-    bowed(W('D11', 'sıra'), [('A5', 3.2, 0.5)], gain=0.12, cutoff=3000, vib=0)
+    throne_hit(W('D11', 'uranos'), vel=0.6, pan=-0.3)
+    throne_hit(W('D11', 'kronos'), vel=0.6, pan=0.3)
+    bowed(W('D11', 'sıra'), [('A5', Se('D11') + 0.3 - W('D11', 'sıra'), 0.5)], gain=0.12, cutoff=3000, vib=0)
 
 
 def s04_mekone():
@@ -1188,8 +1188,8 @@ def s04_mekone():
         thud(W('E09', 'esirger') + k * 0.4, vel=0.12, f0=90)
     # E10 the fennel stalk: the fire motif whole (aulos + lyre), then Zeus bitten to the heart
     crackle(W('E10', 'rezene'), W('E10', 'hesiodosun'), vel=0.11)
-    fire_motif(W('E10', 'insanlara') - 0.1, 'D5', beat=0.42, gain=0.85, drone='D4', vib=16)
-    strum(W('E10', 'insanlara') - 0.1, M('D3 A3 D4 F4 A4'), vel=0.45, spread=0.03)
+    fire_motif(W('E10', 'götürür', end=True) + 0.05, 'D5', beat=0.42, gain=0.6, drone='D4', vib=16)
+    strum(W('E10', 'götürür', end=True) + 0.05, M('D3 A3 D4 F4 A4'), vel=0.45, spread=0.03)
     bed(W('E10', 'rezene'), W('E10', 'hesiodosun'), ['D3 F3 A3 C4', 'G2 B2 D3 F3'], gain=0.15, cutoff=900)
     pad(M('D2 Eb3 A3'), W('E10', 'hesiodosun'), Se('E10') + 1.0, gain=0.17, cutoff=450)
     boom(W('E10', 'ısırır'), vel=0.55, f0=58, decay=1.2)
@@ -1223,7 +1223,7 @@ def s04_mekone():
 def s05_trial():
     """494 - 676: the trial (Aiskhylos: aulos, drone, chain metal)."""
     drone('D1 D2 A2', S('F01') - 0.4, S('F03'), gain=0.24, att=1.2, rel=1.2)
-    aulos(S('F01'), [('D5', 0.6), ('Eb5', 0.4), ('F5', 0.8), ('Eb5', 0.4), ('D5', 1.2)], gain=0.45, vib=10, drone='D4')
+    aulos(Se('F01') + 0.05, [('D5', 0.6), ('Eb5', 0.4), ('F5', 0.8), ('Eb5', 0.4), ('D5', 1.2)], gain=0.45, vib=10, drone='D4')
     bed(S('F02'), Se('F02') + 0.4, PHRY, gain=0.12, cutoff=650)
     # F03 Kafka: a single low piano note like a ticking clock, an eerie cluster
     for k in range(int((Se('F03') - W('F03', 'oyunu')) / 0.9) + 1):
@@ -1243,7 +1243,7 @@ def s05_trial():
     # F08 the purpose of the punishment; F07 Hephaistos unwilling, then the hammer
     pad(M('D3 Eb3 G3'), S('F08'), Se('F08') + 0.5, gain=0.13, cutoff=550)
     bowed(S('F07'), [('A3', 2.0, 0.6), ('Bb3', 1.4, 0.7), ('A3', 2.4, 0.6)], gain=0.24, stack=(0, -12), cutoff=800)
-    hammer(W('F07', 'kendi', 1) + 1.1, vel=1.0)   # picture: P117 hit = F07@kendi#1 + 1.1
+    hammer(W('F07', 'kendi', 1) + 1.1, vel=0.6)   # picture: P117 hit = F07@kendi#1 + 1.1
     # F09 "Ah, nefret ettiğim zanaatım!" lament; Kratos' icy line over the chain motif
     aulos(W('F09', 'ah'), [('F5', 0.5), ('E5', 0.5), ('Eb5', 0.6), ('D5', 1.2)], gain=0.45, vib=14)
     chain_motif(W('F09', 'güçün'), 'D3', beat=0.55, gain=0.34)
@@ -1251,8 +1251,8 @@ def s05_trial():
     piano_arp(S('F10'), Se('F10a') + 0.5, ['D3 F3 A3 E4', 'Bb2 D3 F3 A3', 'G2 Bb2 D3 F3', 'A2 C#3 E3 G3'], step=0.42, vel=0.17)
     bed(S('F10'), Se('F10a') + 0.5, ['D3 F3 A3', 'Bb2 D3 F3', 'G2 Bb2 D3', 'A2 C#3 E3'], gain=0.1, cutoff=600)
     # F10b he said not a word: the hammer twice, then silence
-    hammer(W('F10b', 'indi'), vel=0.9)        # picture: P132–P133 hits on both "indi"
-    hammer(W('F10b', 'indi', 1), vel=0.85)
+    hammer(W('F10b', 'indi'), vel=0.6)        # picture: P132–P133 hits on both "indi"
+    hammer(W('F10b', 'indi', 1), vel=0.6)
     pad(M('D2 A2'), W('F10b', 'zincire'), Se('F10b') + 1.0, gain=0.15, cutoff=300)
     # F13 alone, he speaks to the sky: choir, the "countless laughter" of the waves, Earth
     choir(M('D3 A3 D4 F4'), W('F13', 'ey'), W('F13', 'bakın'), gain=0.26, att=1.6, rel=1.0, vowel='a')
@@ -1287,11 +1287,11 @@ def s06_defence():
     pad(M('D3 F3 Ab3'), S('G07'), W('G07', 'buna'), gain=0.14, cutoff=500)
     fire_motif(W('G07', 'buna'), 'D4', beat=0.34, inst='lyre', lvel=0.34)
     # G07b "Ölümlülere acıdım": the solo aulos lament
-    aulos(W('G07b', 'ölümlülere'), [('A4', 0.6), ('Bb4', 0.6), ('A4', 0.8), ('G4', 0.6), ('F4', 0.6), ('E4', 0.8), ('D4', 1.4)], gain=0.42, vib=12, drone='D4')
+    aulos(W('G07b', 'ölümlülere'), [('A4', 0.6), ('Bb4', 0.6), ('A4', 0.8), ('G4', 0.6), ('F4', 0.6), ('E4', 0.8), ('D4', 1.4)], gain=0.25, vib=12, drone='D4')
     # G08 blind hopes (pale bells), then the fire (warm)
     for k in range(5):
         bell(W('G08', 'kör') + k * 0.4, ['D6', 'F6', 'A6', 'E6', 'C6'][k], vel=0.04)
-    fire_motif(W('G08', 'sonra'), 'D5', beat=0.34, gain=0.55, vib=12, drone='D4')
+    fire_motif(Se('G08') + 0.05, 'D5', beat=0.34, gain=0.55, vib=12, drone='D4')
     crackle(W('G08', 'ateşi'), Se('G08') + 1.2, vel=0.08)
     # G09 what does giving fire mean? (piano)
     piano_arp(S('G09'), Se('G09') + 0.4, ERHAT, step=0.4, vel=0.17)
@@ -1397,12 +1397,12 @@ def s09_other_end():
     boom(W('J04', 'köle'), vel=0.7, f0=60, decay=1.5)
     chain_motif(W('J04', 'köle'), 'D3', beat=0.22, gain=0.3, legato=False)
     T = W('J04', 'prometeus')
-    boom(T, vel=1.0, f0=64, decay=2.0)
+    boom(T, vel=0.6, f0=64, decay=2.0)
     fdrum(T, 'dum', vel=0.8, f0=70)
     strum(T + 0.01, M('D2 A2 D3 F#3 A3 D4'), vel=0.6, spread=0.016)
-    choir(M('D3 A3 D4 F#4 A4'), T, Se('J05') + 0.5, gain=0.4, att=0.5, rel=1.8)
+    choir(M('D3 A3 D4 F#4 A4'), T, Se('J05') + 0.5, gain=0.3, att=0.5, rel=1.8)
     pad(M('D3 F#3 A3 E4'), T, Se('J05') + 0.5, gain=0.16, cutoff=1300)
-    fire_motif(T + 0.3, 'D5', beat=0.5, gain=0.9, kind=FIRE_DONE, vib=16, drone='D4')
+    fire_motif(W('J04', 'özgürdür', end=True) + 0.05, 'D5', beat=0.5, gain=0.9, kind=FIRE_DONE, vib=16, drone='D4')
     # J06 roles reversed: an inverted arpeggio; J10 one man's great work
     piano_arp(S('J06'), Se('J06') + 0.5, ['D3 F#3 A3 E4', 'B2 D3 F#3 A3'], step=0.4, vel=0.18, pattern=(3, 2, 1, 0, 1, 2))
     piano_arp(S('J10'), Se('J10') + 1.2, ['G2 B2 D3 F#3', 'D3 F#3 A3 E4'], step=0.44, vel=0.16)
@@ -1430,16 +1430,16 @@ def s10_storm():
     war_drums(t0, Se('I10') + 0.3, beat=0.42, vel=0.55)
     bed(t0, Se('I10') + 0.5, ['D2 A2 D3', 'Eb2 Bb2 Eb3', 'C2 G2 C3', 'D2 A2 D3'], gain=0.22, cutoff=700)
     quake(W('I10', 'yer'), vel=0.7, dur=3.0)
-    thunder(W('I10', 'gök'), vel=0.9)
+    thunder(W('I10', 'gök'), vel=0.6)
     thunder(W('I10', 'şimşekler'), vel=0.8)
     wind(W('I10', 'rüzgârlar'), Se('I10') + 1.0, vel=0.22, lo=200, hi=2400, gust=0.9)
-    boom(W('I10', 'gök', 1), vel=1.0, f0=55, decay=2.0)
+    boom(W('I10', 'gök', 1), vel=0.6, f0=55, decay=2.0)
     riser(W('I10', 'gök', 1), 1.8, vel=0.35)
     # I11 in the chaos a stillness: the solo aulos to his mother
     aulos(W('I11', 'görüyor') - 0.2, [('A4', 0.6), ('Bb4', 0.8), ('A4', 0.6), ('G4', 0.6), ('A4', 1.4)], gain=0.4, vib=12, drone='D4')
     pad(M('D2 A2'), S('I11'), Se('I11') + 0.6, gain=0.12, cutoff=300)
     # I12 the last word is his: silence, the fire motif alone, then the strings in D major
-    fire_motif(W('I12', 'son') - 0.1, 'D5', beat=0.44, gain=0.7, vib=14)
+    fire_motif(W('I12', 'onundur', end=True) + 0.05, 'D5', beat=0.44, gain=0.5, vib=14)
     choir(M('D3 A3 D4 F#4'), W('I12', 'kıyamet'), Se('I12') + 2.4, gain=0.34, att=1.2, rel=1.8)
     bowed(W('I12', 'kıyamet'), [('A3', 1.6, 0.7), ('B3', 1.0, 0.8), ('C#4', 1.0, 0.9), ('D4', 3.4, 1.0)], gain=0.32, stack=(0, -12), cutoff=1300)
     boom(W('I12', 'özgür'), vel=0.6, f0=62, decay=1.8)
@@ -1468,9 +1468,9 @@ def s11_legacy():
     # L06 the torch relay: running drums, the fire motif passed hand to hand
     t0, t1 = S('L06'), Se('L06') + 1.0
     for k in range(int((t1 - t0) / 0.3)):
-        fdrum(t0 + k * 0.3, 'dum' if k % 2 == 0 else 'tek', vel=0.24 if k % 2 == 0 else 0.12, f0=80)
+        fdrum(t0 + k * 0.3, 'dum' if k % 2 == 0 else 'tek', vel=(0.24 if k % 2 == 0 else 0.12) * (0.5 if t0 + k * 0.3 < Se('L06') else 1.0), f0=80)
     fire_motif(t0, 'D4', beat=0.26, inst='lyre', lvel=0.3)
-    fire_motif(t0 + 1.6, 'D5', beat=0.26, gain=0.45, vib=10)
+    fire_motif(Se('L06') + 0.05, 'D5', beat=0.26, gain=0.45, vib=10)
     fire_motif(t0 + 3.2, 'D4', beat=0.26, inst='piano')
     pad(M('D3 A3 D4 F4'), t0, t1, gain=0.12, cutoff=1000)
 
@@ -1497,7 +1497,7 @@ def s12_rebel():
     arp(S('K06'), W('K06', 'prometeus'), M('D4 F4 A4 D5'), [0, 1, 2, 3, 2, 1], 0.24, vel=0.18)
     riser(W('K06', 'prometeus'), 2.4, vel=0.35, kind='cym')
     T = W('K06', 'prometeus')
-    boom(T, vel=1.0, f0=62, decay=2.0)
+    boom(T, vel=0.7, f0=62, decay=2.0)
     fdrum(T, 'dum', vel=0.9, f0=70)
     strum(T + 0.01, M('D2 A2 D3 F#3 A3 D4 F#4'), vel=0.62, spread=0.016, bright=0.55)
     choir(M('D3 A3 D4 F#4 A4'), T, T + 6.0, gain=0.46, att=0.4, rel=2.2)
@@ -1512,7 +1512,7 @@ def s13_coda():
     lyre_line(W('M00', 'coşmuşlar'), [('D5', 0.18), ('E5', 0.18), ('F#5', 0.18), ('A5', 0.6)], vel=0.32)
     pad(M('D3 F#3 A3 E4'), W('M00', 'dilekleri'), Se('M00') + 1.0, gain=0.13, cutoff=1100)
     # M02 the question to the viewer: the fire motif as a question (unresolved)
-    fire_motif(S('M02') + 0.2, 'D5', beat=0.4, gain=0.55, kind=FIRE_Q, vib=12)
+    fire_motif(Se('M02') + 0.05, 'D5', beat=0.4, gain=0.55, kind=FIRE_Q, vib=12)
     crackle(S('M02'), DUR - 0.5, vel=0.08, density=6)
     # M03 + end screen: lyre; Sisifos' boulder motif quoted once (the series), then a soft close
     t0 = S('M03')
@@ -1542,7 +1542,7 @@ def reverb_ir(fs=SR, length=4.0, pre=0.02, seed=7):
     return out
 
 
-PRIORITY = {'A01': 1.3, 'A02': 1.2, 'A04': 1.3, 'F14': 1.7, 'G07b': 1.3, 'H05b': 1.3, 'J04': 1.4, 'I12': 1.3, 'K06': 1.3, 'M02': 1.2}   # lines that must cut through
+PRIORITY = {'A01': 1.3, 'A02': 1.2, 'A04': 1.3, 'F14': 1.7, 'G07b': 1.7, 'H05b': 1.3, 'J04': 1.7, 'I12': 1.3, 'K06': 1.3, 'L06': 1.5, 'M02': 1.2}   # lines that must cut through
 
 
 def speech_mask():
@@ -1569,9 +1569,9 @@ def speech_mask():
         on = binary_dilation(db > -48.0, np.ones(13, bool))
         act[:min(k, len(act))] |= on[:len(act)]
         used_vo = True
-    act = binary_closing(act, np.ones(int(0.35 / hop), bool))
+    act = binary_closing(act, np.ones(int(1.0 / hop), bool))   # ≤ 1 sn'lik aralarda müzik kabarmaz
     x = act * weight
-    ra, rr = np.exp(-hop / 0.10), np.exp(-hop / 0.38)
+    ra, rr = np.exp(-hop / 0.10), np.exp(-hop / 0.9)
     fwd = np.empty_like(x)
     bwd = np.empty_like(x)
     y = 0.0
@@ -1651,10 +1651,10 @@ def master_gain(n):
     tg = np.arange(0, n / SR + 0.01, 0.005)
     g = np.ones(len(tg))
     # breaths of near-silence: the withheld third throne (D11), the whisper (F14), the freeze (J01), "Son söz onundur" (I12)
-    dips = [(Se('D11') + 0.3, nxt('D11') - 0.4, 0.35), (W('F14', 'ama') - 0.2, W('F14', 'olacak') - 0.1, 0.18),
-            (S('J01') - 0.3, W('J02', 'zeustan') - 0.2, 0.55), (W('I12', 'son') - 0.7, W('I12', 'son') - 0.08, 0.12)]
+    dips = [(Se('D11') + 0.1, nxt('D11') - 0.4, 0.35), (W('F14', 'ama') - 0.2, W('F14', 'olacak') - 0.1, 0.18),
+            (S('J01') - 0.3, W('J02', 'zeustan') - 0.2, 0.55)]
     for a, b, lvl in dips:
-        g = np.minimum(g, np.interp(tg, [a, a + 0.07, b - 0.02, b], [1.0, lvl, lvl, 1.0], left=1.0, right=1.0))
+        g = np.minimum(g, np.interp(tg, [a, a + 0.07, b - 0.35, b], [1.0, lvl, lvl, 1.0], left=1.0, right=1.0))
     g *= np.interp(tg, [DUR - 2.6, DUR], [1.0, 0.0], left=1.0, right=0.0) ** 1.5
     return tg, g
 
@@ -1701,12 +1701,13 @@ def mixdown():
     mark('reverb')
     full = arr(SR, 'full')[:N]
     hits = arr(SR, 'hits')[:N]
+    lead = arr(SR, 'lead')[:N]
     full += upsample(arr(SRL, 'full'), SR // SRL)[:N]
     hits += upsample(arr(SRL, 'hits'), SR // SRL)[:N]
     del _ARR[(SRL, 'full')], _ARR[(SRL, 'hits')]
     mark('upsample')
     mt, mv, used_vo = speech_mask()
-    mix = np.stack([spectral_duck([(full[:, c], 1.0), (hits[:, c], 0.55)], mt, mv) for c in range(2)], 1)
+    mix = np.stack([spectral_duck([(full[:, c], 1.0), (hits[:, c], 0.55), (lead[:, c], 1.5)], mt, mv) for c in range(2)], 1)
     _ARR.clear()
     mark('duck+eq')
     tg, gg = master_gain(N)
