@@ -125,3 +125,68 @@ Tek üyeli ilk kurul (rev 1): 7,5 → RED.
   - iki ya da daha çok cümlelik öbekte beyaz zemin geçişi;
   - tek cümlede kenar şeridi;
   - yaklaşık 5 doruk alıntıda tam sayfa sepya yazı.
+
+
+## Senaryo: tur 3 (doğrulama, 6 üye, rev 3) → rev 4
+
+| Üye | Rev 3 puanı | Karar |
+|---|---|---|
+| filolog-Erhat | 8.60 | RED |
+| filolog-Klasik | 8.74 | RED |
+| dramaturg-A | 8.68 | RED |
+| uslup-Dostoyevski | 8.79 | RED |
+| dil-Ses | 8.60 | RED |
+| kitle-Tutma | 8.73 | RED |
+| **Ortalama** | **8.69** | RED (eşik 9,0) |
+
+Bütün ölçütler 8'in üstünde. Rev 2'nin 7,76'sından +0,9.
+
+### Kabul edilenler (rev 4)
+- **C17:** birleştirmede düşen "dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti" geri geldi (Erhat ix2). C18'deki "bu paylaşmada" artık bağlanıyor.
+- **K01, K02:**
+  - "Önsöz bu soruyla açılır" yanlıştı; "ilk sayfasında şu soruyu anar" oldu.
+  - "Her gün" eklemesi kalktı; Erhat'ın koşul cümlesi geri geldi.
+- **K04:** Erhat'ın cümlesi bütünüyle tırnağa alındı ("Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz"). Birinci çoğul şahıs yalnız alıntıda.
+- **K08a:**
+  - B06'daki soru yeniden soruluyor; Erhat'ın kendi cevabı vi8'den veriliyor.
+  - xv1 (kâhin ve düşünür) "cevap" diye sunulmuyordu; segment çıkarıldı.
+  - K08c'de Erhat'ın xiv3'teki "bize dek" ulaşan bildirisi kısa alıntıyla geliyor ("Akıl gücü kaba güçten üstündür, düşünceye gem vurulamaz"); "iktidar sahipleri" cümlesi alınmadı.
+- **G11 → G13 → G12b → G13b sırası:**
+  - Erhat'ın "katlanma duygusu" okuması önce, oyundaki çatlak sonra geliyor.
+  - Anlatıcının yorumu "Yani biliyordu; ama bilmek, yaşamak değildi" diye işaretlendi.
+  - Erhat'a kendi okumasının tersi söyletilmiyor.
+- **Hermes sahnesi oyunun dize sırasına döndü:** I07 → I08 "Eyvah" (979) → I07b şart (989–991) → hüküm → "Sorguya dönelim", kartal tehdidi. Hüküm yine şart anında veriliyor.
+- **I06:** "üçüncüsünün" (958) geri geldi; D11'in "Sıra kime?" sorusuna oyunun içinden bağ kuruluyor.
+- **E16:** Erhat'ın cümlesi değiştirilmeden, kısa alıntıyla kesildi ("İnsan kendi gücünün bilincine varmış"). "Olympos'un tanrılarına" daraltması kalktı.
+- **Yakın aktarımlar:** D08 ve E11 kendi cümlelerimizle yeniden yazıldı. J05, I05 ve E15'te Erhat dizileri tırnağa alındı.
+- **C04:** Hesiodos'un şair olduğu ve Aiskhylos'tan önce yaşadığı söyleniyor; F02'deki "iki şair"e zemin oldu.
+- **I10:** "Sözle yenemediği sanığa, Zeus sonunda kaba kuvvetle cevap verir" cümlesi eklendi (E11'in ödemesi ve doruk sırasının gerekçesi).
+- **A02, A05, A06, B04:**
+  - A02'de Zeus adıyla anılıyor ("onu bir kayaya mıhlatan Zeus'un"); kapak B'nin vaadi ilk saniyelerde karşılanıyor.
+  - A05: "Peki zincirleyen nasıl tutsak olabilir?"
+  - Erhat'ın çevirmenliği yalnız A06'da söyleniyor.
+- **E16b:** ana soru hatırlatılıyor ("zincirin öbür ucunda kimin durduğunu…").
+- **"Kartal, fırtına ve son söz" bölümü** kendi sorusuyla açılıyor (I08a).
+- **Psikolojik ve dil düzeltmeleri:**
+  - F10b'de Erhat'ın kendi kuruluşu kullanıldı ("Dikkat ettin mi?").
+  - F14'teki fısıltı yalnız Prometheus'un sözünde; 103–105. dizeler (payına düşene katlanmak) eklendi.
+  - G07b edilgen yapıya döndü.
+  - I08c'deki açıklayıcı çerçeve yerine 1040–1041 geldi ("Bu haberleri zaten biliyordum").
+  - F13 ve I11 "çekiyorum" fiiliyle halkalanıyor (ZVP 92 ve 1093).
+  - "Zorba/zorbalık" her yerde aynı kullanılıyor (Erhat'ın terimi).
+  - F08: στέργειν "razı olmak" diye çevrildi.
+  - H04: "Diline sahip ol"; Prometheus'un ironik cevabı ZVP 330–331'den.
+  - H05: "sözünü sakınmıyorsun" Eyüboğlu-Erhat çevirisinin ifadesi olarak anılıyor; "gurur ya da kibir" Erhat'ın sözcükleriyle.
+  - G03 iki cümleye bölündü.
+  - L02: "okuyla" Hesiodos'ta yok, çıkarıldı.
+  - L05: "atom bombasının babası diye anılan".
+  - Mekone: ses ve altyazıda aynı yazım.
+  - C12'deki totoloji giderildi; "ders almışa benzeyen" çekincesi geri geldi.
+  - F10a: "işkencesini asıl büyüten".
+  - J06 ve I12'de anlatıcı ile Erhat ayrıştı ("Yani", atıf ilk cümlede).
+- **Bölüm adları YouTube bölümü olarak yeniden adlandırıldı:** "Ateşi bile bile çalan Titan", "Savunma: “Bile bile yaptım”", "Tanıklar ve “inek geçidi”", "Herakles'ten Oppenheimer'a", "Çevirmenlerin dileği".
+
+### Reddedilen ya da ertelenen
+- **J10'u çıkarmak** (Dostoyevski): reddedildi. "Eyvah" artık hükümden önce geldiği için karşıtlığı yumuşatmıyor. Erhat'ın "koca bir iş" tespiti hükmün kapanışı olarak kalıyor.
+- **J04b** (xiv2 sorusu, filolog-Erhat, küçük): reddedildi. Cevabı K08c taşıyor; süre.
+- **Rev 4 süresi:** tahmini ~23 dk (temkinli model). Boşluk planı sıkılaşınca ~22,5 dk. Kurulun 21–22 dk bandının biraz üstünde. Eklenenlerin hepsi kaynak düzeltmesi ve ödemeler; yeni dolgu yok.

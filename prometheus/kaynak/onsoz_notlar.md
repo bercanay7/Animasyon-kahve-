@@ -19,7 +19,7 @@ Bu sayfalarda olmayan bir Erhat görüşü gerekirse kullanıcıdan sayfası ist
   - bin yılların sırta giydirdiği gelenek ve görenek süslerini atar;
   - dinlerin, inançların, ister tanrıdan ister insandan gelme "avutucu ninnilerine" kulak vermez.
 - vi2. Kısa alıntı: **"Umuda karşı da ayaklandık"**. Bugün ve bu dünyada yaşamak istenir; ötelerin ve yarınların aldatıcı çekiciliğinin insanı nereye sürükleyebileceği denenmiş ve görülmüştür.
-- vi3. Ne pahasına olursa olsun insanlığı gerçekleştirmek istenir. Kısa alıntı: **"Tek ülkümüz insan olmak."** Bu ülkü uğruna göze alınmayacak çaba, katlanılmayacak cefa yoktur.
+- vi3. Ne pahasına olursa olsun insanlığı gerçekleştirmek istenir. Kısa alıntı: **"Tek ülkümüz insan olmak."** Bu ülkü uğruna "göze almayacağımız çaba, katlanamayacağımız cefa" yoktur.
 - vi4. Kısa alıntı: **"Bu ülkünün ilk temsilcisi Prometheus'tur."**
 - vi5. Prometheus'un adı Homeros destanlarında geçmez. Hesiodos'un iki büyük şiirinde, *Theogonia* ile *İşler ve Günler*'de çok sözü edilir.
 - vi6. "Bizim aldığımız anlamdaki insanı" yansıtan Prometheus ilk kez Aiskhylos'un tragedyasında çıkar karşımıza. Bu yüzden Aiskhylos'tan önceki ve sonraki Prometheus tiplerine bakmak gerekir. Erhat'ın yöntemi: Hesiodos'tan Goethe'ye kadar metinleri incelemek.

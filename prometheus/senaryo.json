@@ -1,48 +1,48 @@
 {
  "voice": "Emrullah (DpEiQMnL9WxMsymCsjPY), eleven_v4",
- "revizyon": 3,
+ "revizyon": 4,
  "not": "tts: seslendirme metni (ses etiketleri, Yunanca adlar okunuşa göre). alt: altyazı ve ekran metni (Erhat'ın yazımı). kaynak: iddianın dayanağı. Erhat = kaynak/onsoz_notlar.md maddeleri (s. v–xvi); Th. = Hesiodos, Theogonia; İG = Hesiodos, İşler ve Günler; ZVP = Aiskhylos, Zincire Vurulmuş Prometheus (dize numaraları Yunanca metne göre). Ekranda her Erhat iddiasında 'ERHAT · s. …' etiketi görünür (animatikte işlenir).",
  "segments": [
   {
    "id": "A01",
-   "bolum": "Açılış",
+   "bolum": "Ateşi bile bile çalan Titan",
    "tts": "[slowly] [deep voice] Tanrılardan ateşi, bile bile çalıp insanlara veren bir Titan düşün.",
    "alt": "Tanrılardan ateşi, bile bile çalıp insanlara veren bir Titan düşün.",
    "kaynak": "Th. 565–569; ZVP 266 (bile bile); Erhat xi5"
   },
   {
    "id": "A02",
-   "bolum": "Açılış",
-   "tts": "[mysterious] Şimdi de, onu dünyanın ucundaki bir kayaya zincirleyen tanrının… asıl tutsak olduğunu.",
-   "alt": "Şimdi de, onu dünyanın ucundaki bir kayaya zincirleyen tanrının… asıl tutsak olduğunu.",
+   "bolum": "Ateşi bile bile çalan Titan",
+   "tts": "[mysterious] Şimdi de, onu bir kayaya mıhlatan Zeus'un… asıl tutsak olduğunu.",
+   "alt": "Şimdi de, onu bir kayaya mıhlatan Zeus'un… asıl tutsak olduğunu.",
    "kaynak": "Erhat xiv2, xiv5 (cevabı J04–J06)"
   },
   {
    "id": "A03",
-   "bolum": "Açılış",
-   "tts": "[darkly] Her gün bir kartal iner, karaciğerini parçalar. Gece karaciğer yeniden büyür… [slowly] ve sabah, kartal yine gelir.",
-   "alt": "Her gün bir kartal iner, karaciğerini parçalar. Gece karaciğer yeniden büyür… ve sabah, kartal yine gelir.",
+   "bolum": "Ateşi bile bile çalan Titan",
+   "tts": "[darkly] Dünyanın ucunda, her gün bir kartal iner, karaciğerini parçalar. Gece karaciğer yeniden büyür… [slowly] ve sabah, kartal yine gelir.",
+   "alt": "Dünyanın ucunda, her gün bir kartal iner, karaciğerini parçalar. Gece karaciğer yeniden büyür… ve sabah, kartal yine gelir.",
    "kaynak": "Th. 523–525 (ödemesi I08b, L02)"
   },
   {
    "id": "A04",
-   "bolum": "Açılış",
+   "bolum": "Ateşi bile bile çalan Titan",
    "tts": "[mysterious] Adı… Prometeus.",
    "alt": "Adı… Prometheus.",
    "kaynak": ""
   },
   {
    "id": "A06",
-   "bolum": "Açılış",
-   "tts": "[thoughtfully] Bu tuhaf fikri, Azra Erhat yazar: efsaneyi anlatan antik bir oyunu Türkçeye çevirenlerden biri. Bin dokuz yüz altmış yedide yazdığı önsözde, bu eski hikâyeyi bambaşka bir gözle okur.",
-   "alt": "Bu tuhaf fikri, Azra Erhat yazar: efsaneyi anlatan antik bir oyunu Türkçeye çevirenlerden biri. Bin dokuz yüz altmış yedide yazdığı önsözde, bu eski hikâyeyi bambaşka bir gözle okur.",
+   "bolum": "Ateşi bile bile çalan Titan",
+   "tts": "[thoughtfully] Bu tuhaf fikir, Azra Erhat'ın. Bin dokuz yüz altmış yedide, Sabahattin Eyüboğlu'yla birlikte çevirdikleri antik bir oyuna yazdığı önsözde, bu eski hikâyeyi bambaşka bir gözle okur.",
+   "alt": "Bu tuhaf fikir, Azra Erhat'ın. Bin dokuz yüz altmış yedide, Sabahattin Eyüboğlu'yla birlikte çevirdikleri antik bir oyuna yazdığı önsözde, bu eski hikâyeyi bambaşka bir gözle okur.",
    "kaynak": "Erhat xvi2, xv4"
   },
   {
    "id": "A05",
-   "bolum": "Açılış",
-   "tts": "[curious] Peki bu nasıl olabilir? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?",
-   "alt": "Peki bu nasıl olabilir? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?",
+   "bolum": "Ateşi bile bile çalan Titan",
+   "tts": "[curious] Peki zincirleyen, nasıl tutsak olabilir? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?",
+   "alt": "Peki zincirleyen, nasıl tutsak olabilir? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?",
    "kaynak": "sorular; cevapları E15–E16b ve J04–J06"
   },
   {
@@ -62,9 +62,9 @@
   {
    "id": "B04",
    "bolum": "Erhat'ın sorusu",
-   "tts": "[warmly] Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır.",
-   "alt": "Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır.",
-   "kaynak": "Erhat v4, xv4"
+   "tts": "[warmly] Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır.",
+   "alt": "Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır.",
+   "kaynak": "Erhat v4"
   },
   {
    "id": "B05",
@@ -77,7 +77,7 @@
    "id": "B06",
    "bolum": "Erhat'ın sorusu",
    "tts": "[intrigued] Ve Erhat can alıcı bir soru sorar: Nasıl oldu da, milattan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi?",
-   "alt": "Ve Erhat can alıcı bir soru sorar: Nasıl oldu da, MÖ V. yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi?",
+   "alt": "Ve Erhat can alıcı bir soru sorar: Nasıl oldu da milattan önce beşinci yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi?",
    "kaynak": "Erhat vi7 (cevabı K08a–K08b)"
   },
   {
@@ -104,9 +104,9 @@
   {
    "id": "C04",
    "bolum": "Tanrıların taht kavgası",
-   "tts": "Hesiodos'un Teogonia'sına göre önce Kaos vardı, sonra Toprak Ana, Gaya. Gaya kendine eş olarak Gök'ü, Uranos'u doğurdu. [darkly] Ama Uranos, Gaya'dan doğan devlerden tiksindi; her birini doğar doğmaz, annelerinin karnına geri tıktı.",
-   "alt": "Hesiodos'un Theogonia'sına göre önce Khaos vardı, sonra Toprak Ana, Gaia. Gaia kendine eş olarak Gök'ü, Uranos'u doğurdu. Ama Uranos, Gaia'dan doğan devlerden tiksindi; her birini doğar doğmaz, annelerinin karnına geri tıktı.",
-   "kaynak": "Erhat vii1, vii3; Th. 116–160 (Gaia Khaos'tan 'sonra' gelir)"
+   "tts": "Ayshilos'tan iki yüzyıl kadar önce yaşamış şair Hesiodos'un Teogonia'sına göre, önce Kaos vardı, sonra Toprak Ana, Gaya. Gaya kendine eş olarak Gök'ü, Uranos'u doğurdu. [darkly] Ama Uranos, Gaya'dan doğan devlerden tiksindi; her birini doğar doğmaz, annelerinin karnına geri tıktı.",
+   "alt": "Aiskhylos'tan iki yüzyıl kadar önce yaşamış şair Hesiodos'un Theogonia'sına göre, önce Khaos vardı, sonra Toprak Ana, Gaia. Gaia kendine eş olarak Gök'ü, Uranos'u doğurdu. Ama Uranos, Gaia'dan doğan devlerden tiksindi; her birini doğar doğmaz, annelerinin karnına geri tıktı.",
+   "kaynak": "Erhat vii1, vii3; Th. 116–160"
   },
   {
    "id": "C06",
@@ -139,8 +139,8 @@
   {
    "id": "C12",
    "bolum": "Tanrıların taht kavgası",
-   "tts": "[thoughtfully] Erhat bu iki devrimi ayırır: Bu iki devrim aynı değildir. Birincisi kaba kuvvetin kendi kendini yenmesiydi; ikincisi, kaba kuvvetin akılla yenilmesi. Bu kez Zeus'a, ders almış Uranos ile Gaya yol göstermişti.",
-   "alt": "Erhat bu iki devrimi ayırır: Bu iki devrim aynı değildir. Birincisi kaba kuvvetin kendi kendini yenmesiydi; ikincisi, “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, ders almış Uranos ile Gaia yol göstermişti.",
+   "tts": "[thoughtfully] Erhat bu iki devrimi birbirinden ayırır. Birincisi, kaba kuvvetin kendi kendini yenmesiydi; ikincisi, kaba kuvvetin akılla yenilmesi. Bu kez Zeus'a, ders almışa benzeyen Uranos ile Gaya yol göstermişti.",
+   "alt": "Erhat bu iki devrimi birbirinden ayırır. Birincisi, kaba kuvvetin kendi kendini yenmesiydi; ikincisi, “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, ders almışa benzeyen Uranos ile Gaia yol göstermişti.",
    "kaynak": "Erhat viii2–viii4 (kısa alıntı)"
   },
   {
@@ -153,9 +153,9 @@
   {
    "id": "C17",
    "bolum": "Tanrıların taht kavgası",
-   "tts": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. [thoughtfully] Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu.",
-   "alt": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu.",
-   "kaynak": "Erhat viii5, ix2; Th. 504–506, 881–885"
+   "tts": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. [thoughtfully] Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve Gaya'nın öğüdüyle, dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti.",
+   "alt": "Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve Gaia'nın öğüdüyle, dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti.",
+   "kaynak": "Erhat viii5, viii6, ix1, ix2; Th. 504–506, 617–735, 881–885"
   },
   {
    "id": "C18",
@@ -209,9 +209,9 @@
   {
    "id": "D08",
    "bolum": "Zeus'un dinmez öfkesi",
-   "tts": "Prometeus da bu öfkeyi kışkırtmaktan geri durmaz. Keskin zekâsını ve geleceği görme gücünü, Zeus'u kandırmak, kuşkuya düşürmek, gülünç etmek için kullanır.",
-   "alt": "Prometheus da bu öfkeyi kışkırtmaktan geri durmaz. Keskin zekâsını ve geleceği görme gücünü, Zeus'u kandırmak, kuşkuya düşürmek, gülünç etmek için kullanır.",
-   "kaynak": "Erhat x2"
+   "tts": "Prometeus ise bu öfkeyi körüklemekten çekinmez. Kehanet gücüyle Zeus'u hem aldatır, hem tedirgin eder, hem de gülünç düşürür.",
+   "alt": "Prometheus ise bu öfkeyi körüklemekten çekinmez. Kehanet gücüyle Zeus'u hem aldatır, hem tedirgin eder, hem de gülünç düşürür.",
+   "kaynak": "Erhat x2 (kendi cümlelerimiz)"
   },
   {
    "id": "D09",
@@ -244,7 +244,7 @@
   {
    "id": "E03",
    "bolum": "Mekone'deki hile",
-   "tts": "Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekoni'de paylarını belirlemek için toplanır. Prometeus büyük bir öküz keser ve ikiye ayırır.",
+   "tts": "Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekone'de paylarını belirlemek için toplanır. Prometeus büyük bir öküz keser ve ikiye ayırır.",
    "alt": "Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekone'de paylarını belirlemek için toplanır. Prometheus büyük bir öküz keser ve ikiye ayırır.",
    "kaynak": "Erhat vi5; Th. 535–538"
   },
@@ -293,9 +293,9 @@
   {
    "id": "E11",
    "bolum": "Mekone'deki hile",
-   "tts": "[ominous] Erhat'ın okumasında, iki kez küçük düşen tanrıların kralı, artık kaba kuvvete başvurmak zorundaydı.",
-   "alt": "Erhat'ın okumasında, iki kez küçük düşen tanrıların kralı, artık kaba kuvvete başvurmak zorundaydı.",
-   "kaynak": "Erhat x5"
+   "tts": "[ominous] Erhat'ın okumasında, iki kez küçük düşen Zeus, artık kaba kuvvete başvurmak zorunda kalır.",
+   "alt": "Erhat'ın okumasında, iki kez küçük düşen Zeus, artık kaba kuvvete başvurmak zorunda kalır.",
+   "kaynak": "Erhat x5 (kendi cümlelerimiz)"
   },
   {
    "id": "E12",
@@ -315,22 +315,22 @@
    "id": "E15",
    "bolum": "Mekone'deki hile",
    "tts": "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. [knowingly] Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Çünkü akıl gücü, artık tanrılardan insanlara geçmiştir.",
-   "alt": "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Çünkü akıl gücü, artık tanrılardan insanlara geçmiştir.",
+   "alt": "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı. Çünkü “akıl gücü tanrılardan insanlara geçmiştir.”",
    "kaynak": "Th. 613–616; İG 105; Erhat x6, xi1"
   },
   {
    "id": "E16",
    "bolum": "Mekone'deki hile",
-   "tts": "[slowly] Ve Erhat, sıranın kime geldiğini söyler: Üçüncü ve son devrim olup bitmiştir. İnsan, kendi gücünün bilincine varmış… Olimpos'un tanrılarına karşı ayaklanmıştır.",
-   "alt": "Ve Erhat, sıranın kime geldiğini söyler: “Üçüncü ve son devrim” olup bitmiştir. İnsan, kendi gücünün bilincine varmış… Olympos'un tanrılarına karşı ayaklanmıştır.",
-   "kaynak": "Erhat xi1 (Erhat'ta 'tanrıya karşı'; bağlam gereği Olympos tanrıları) — D11'in cevabı"
+   "tts": "[slowly] Ve Erhat, sıranın kime geldiğini söyler: Üçüncü ve son devrim olup bitmiştir. İnsan, kendi gücünün bilincine varmıştır.",
+   "alt": "Ve Erhat, sıranın kime geldiğini söyler: “Üçüncü ve son devrim” olup bitmiştir. “İnsan kendi gücünün bilincine varmış”tır.",
+   "kaynak": "Erhat xi1 (kısa alıntı; cümlenin devamı alınmadı) — D11'in cevabı"
   },
   {
    "id": "E16b",
    "bolum": "Mekone'deki hile",
-   "tts": "[knowingly] Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. [slowly] Ve Prometeus bunun bedelini, dünyanın ucunda ödeyecekti.",
-   "alt": "Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. Ve Prometheus bunun bedelini, dünyanın ucunda ödeyecekti.",
-   "kaynak": "anlatıcının sonucu (A05'in ara cevabı; Erhat x1, x5)"
+   "tts": "[knowingly] Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. [slowly] Zincirin öbür ucunda kimin durduğunu ise, iki yüzyıl sonra bir Atina sahnesi gösterecekti.",
+   "alt": "Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. Zincirin öbür ucunda kimin durduğunu ise, iki yüzyıl sonra bir Atina sahnesi gösterecekti.",
+   "kaynak": "anlatıcının sonucu ve köprüsü (A05'in ara cevabı; A02'nin hatırlatılması)"
   },
   {
    "id": "F01",
@@ -342,9 +342,9 @@
   {
    "id": "F02",
    "bolum": "Duruşma",
-   "tts": "Erhat'a göre taht kavgasını iki şair de aşağı yukarı aynı anlatır. Ama iş Prometeus'a gelince, yorum büsbütün değişir; bu da politika bilincinin nasıl geliştiğini gösterir.",
-   "alt": "Erhat'a göre taht kavgasını iki şair de aşağı yukarı aynı anlatır. Ama iş Prometheus'a gelince, yorum büsbütün değişir; bu da politika bilincinin nasıl geliştiğini gösterir.",
-   "kaynak": "Erhat ix3, vii1"
+   "tts": "Erhat'a göre taht kavgasını iki şair de aşağı yukarı aynı anlatır; ama iş Prometeus'a gelince, yorumları büsbütün değişir.",
+   "alt": "Erhat'a göre taht kavgasını iki şair de aşağı yukarı aynı anlatır; ama iş Prometheus'a gelince, yorumları büsbütün değişir.",
+   "kaynak": "Erhat ix3"
   },
   {
    "id": "F03",
@@ -377,9 +377,9 @@
   {
    "id": "F08",
    "bolum": "Duruşma",
-   "tts": "Güç, cezanın amacını söyler: Prometeus, Zeus'un tiranlığına boyun eğmeyi öğrenecek… insanseverlikten vazgeçecek.",
-   "alt": "Güç, cezanın amacını söyler: Prometheus, Zeus'un tiranlığına boyun eğmeyi öğrenecek… insanseverlikten vazgeçecek.",
-   "kaynak": "ZVP 7–11, 28 (philanthrōpos)"
+   "tts": "Güç, cezanın amacını söyler: Prometeus, Zeus'un zorbalığına razı olmayı öğrenecek… insanseverlikten vazgeçecek.",
+   "alt": "Güç, cezanın amacını söyler: Prometheus, Zeus'un zorbalığına razı olmayı öğrenecek… insanseverlikten vazgeçecek.",
+   "kaynak": "ZVP 10–11 (στέργειν: razı olmak; kendi çevirimiz)"
   },
   {
    "id": "F07",
@@ -405,183 +405,197 @@
   {
    "id": "F10a",
    "bolum": "Duruşma",
-   "tts": "[thoughtfully] Ona göre çağı düşünmek gerekir: Beşinci yüzyıl Atinası'nda kölelik, yasal bir kurumdu. Prometeus da bir köle gibi zincire vurulmuştu. [slowly] Ama asıl işkence zincir değil, bir tanrının köle durumuna düşürülmesidir.",
-   "alt": "Ona göre çağı düşünmek gerekir: V. yüzyıl Atinası'nda kölelik yasal bir kurumdu. Prometheus da bir köle gibi zincire vurulmuştu. Ama asıl işkence zincir değil, bir tanrının köle durumuna düşürülmesidir.",
+   "tts": "[thoughtfully] Ona göre çağı düşünmek gerekir: Beşinci yüzyıl Atinası'nda kölelik, yasal bir kurumdu. Prometeus da bir köle gibi zincire vurulmuştu. [slowly] Ama işkencesini asıl büyüten, zincir değil; bir tanrının köle durumuna düşürülmesidir.",
+   "alt": "Ona göre çağı düşünmek gerekir: V. yüzyıl Atinası'nda kölelik yasal bir kurumdu. Prometheus da bir köle gibi zincire vurulmuştu. Ama işkencesini asıl büyüten zincir değil, bir tanrının köle durumuna düşürülmesidir.",
    "kaynak": "Erhat xiii2, v1"
   },
   {
    "id": "F10b",
    "bolum": "Duruşma",
-   "tts": "[slowly] Ve Erhat'ın dikkat çektiği bir ayrıntı: Bütün bu sahne boyunca Prometeus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.",
-   "alt": "Ve Erhat'ın dikkat çektiği bir ayrıntı: Bütün bu sahne boyunca Prometheus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.",
-   "kaynak": "Erhat xv3; ZVP 1–87"
+   "tts": "[slowly] Erhat burada bir soru sorar: Dikkat ettin mi? Bütün bu sahne boyunca Prometeus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.",
+   "alt": "Erhat burada bir soru sorar: Dikkat ettin mi? Bütün bu sahne boyunca Prometheus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.",
+   "kaynak": "Erhat xv3 ('Okuyucu dikkat etti mi ki…')"
   },
   {
    "id": "F13",
    "bolum": "Duruşma",
-   "tts": "[softly] Ancak yapayalnız kalınca konuşur. İlk sözleri göğedir: [reverently] Ey kutsal gök, hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak. [pained] Bakın bana: Bir tanrı, tanrılardan neler çekiyor.",
-   "alt": "Ancak yapayalnız kalınca konuşur. İlk sözleri göğedir: “Ey kutsal gök, hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak: Bakın bana, bir tanrı tanrılardan neler çekiyor.”",
-   "kaynak": "ZVP 88–92 (kendi çevirimiz)"
+   "tts": "[softly] Ancak yapayalnız kalınca konuşur. İlk sözleri göğedir: [reverently] “Ey kutsal gök, hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak. [pained] Bakın bana: Bir tanrıyım, ve tanrılardan neler çekiyorum.”",
+   "alt": "Ancak yapayalnız kalınca konuşur. İlk sözleri göğedir: “Ey kutsal gök, hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak: Bakın bana, bir tanrıyım ve tanrılardan neler çekiyorum.”",
+   "kaynak": "ZVP 88–92 (birinci tekil; kendi çevirimiz) — I11 ile halka"
   },
   {
    "id": "F14",
    "bolum": "Duruşma",
-   "tts": "[whispers] Sonra birden kendi sözünü keser: Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. [pained] [slowly] Yine de başıma gelenler üstüne… ne susabiliyorum, ne de konuşabiliyorum.",
-   "alt": "Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Yine de başıma gelenler üstüne… ne susabiliyorum ne de konuşabiliyorum.”",
-   "kaynak": "ZVP 101–107 (kendi çevirimiz; Erhat s. xii'deki çeviri dizelerinden farklı)"
+   "tts": "[softly] Sonra birden kendi sözünü keser: [whispers] “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Payıma düşeni olabildiğince kolay taşımalıyım; zorunluluğun gücüne karşı konmaz. [pained] [slowly] Yine de başıma gelenler üstüne… ne susabiliyorum, ne de konuşabiliyorum.”",
+   "alt": "Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Payıma düşeni olabildiğince kolay taşımalıyım; zorunluluğun gücüne karşı konmaz. Yine de başıma gelenler üstüne… ne susabiliyorum ne de konuşabiliyorum.”",
+   "kaynak": "ZVP 101–107 (kendi çevirimiz; Erhat'ın s. xii'deki çeviri dizelerinden farklı)"
   },
   {
    "id": "G01",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "[intrigued] Zincirdeki sanık, kendini nasıl savunur?",
    "alt": "Zincirdeki sanık, kendini nasıl savunur?",
    "kaynak": "Erhat xi5"
   },
   {
    "id": "G02",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "Erhat'a göre savunması iki kavrama dayanır: bilinç ve özgürlük. İnsana özgü, değişmez iki değer. [knowingly] Yani Prometeus'u insan yapan, bu ikisidir.",
    "alt": "Erhat'a göre savunması iki kavrama dayanır: bilinç ve özgürlük. İnsana özgü, değişmez iki değer. Yani Prometheus'u insan yapan, bu ikisidir.",
    "kaynak": "Erhat xi5 (son cümle F03'ün cevabı: anlatıcı)"
   },
   {
    "id": "G03",
-   "bolum": "Savunma",
-   "tts": "Çekiç seslerini duyan Okeanos'un kızları gelir. Prometeus onlara anlatır: Titanların savaşında annesi, Ayshilos'ta Toprak, öbür adıyla Temis, yani Adalet, ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.",
-   "alt": "Çekiç seslerini duyan Okeanos'un kızları gelir. Prometheus onlara anlatır: Titanların savaşında annesi, Aiskhylos'ta Toprak, öbür adıyla Themis, yani Adalet, ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.",
-   "kaynak": "ZVP 128–135, 199–211; Erhat x4"
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "Çekiç seslerini duyan deniz perileri, Okeanos'un kızları, derinliklerden gelir. Prometeus onlara geçmişi anlatır.",
+   "alt": "Çekiç seslerini duyan deniz perileri, Okeanos'un kızları, derinliklerden gelir. Prometheus onlara geçmişi anlatır.",
+   "kaynak": "ZVP 128–135, 197–198"
+  },
+  {
+   "id": "G03b",
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "Ayshilos'ta annesi Toprak'tır; öbür adı Temis, yani Adalet. Titanlarla savaş sürerken, bu anne ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.",
+   "alt": "Aiskhylos'ta annesi Toprak'tır; öbür adı Themis, yani Adalet. Titanlarla savaş sürerken, bu anne ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.",
+   "kaynak": "ZVP 209–213; Erhat x4"
   },
   {
    "id": "G05",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "Titanlar bu öğüdü küçümsedi; Prometeus Zeus'un yanına geçti. Kronos'u Tartaros'a gömen, onun öğütleri oldu. [knowingly] Erhat'ın andığı o rol, işte buydu.",
    "alt": "Titanlar bu öğüdü küçümsedi; Prometheus Zeus'un yanına geçti. Kronos'u Tartaros'a gömen, onun öğütleri oldu. Erhat'ın andığı o rol, işte buydu.",
    "kaynak": "ZVP 214–221; Erhat viii1"
   },
   {
    "id": "G06",
-   "bolum": "Savunma",
-   "tts": "[bitterly] Şimdi ise tahta çıkardığı tanrının zincirindeydi. Prometeus bunu tek cümleyle açıklar: Zorbalığın bir hastalığı vardır; dostlarına güvenmez.",
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "[bitterly] Şimdi ise tahta çıkardığı tanrının zincirindeydi. Prometeus bunu tek cümleyle açıklar: “Zorbalığın bir hastalığı vardır: dostlarına güvenmez.”",
    "alt": "Şimdi ise tahta çıkardığı tanrının zincirindeydi. Prometheus bunu tek cümleyle açıklar: “Zorbalığın bir hastalığı vardır: dostlarına güvenmez.”",
    "kaynak": "ZVP 221–225 (kendi çevirimiz)"
   },
   {
    "id": "G07",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "Zeus tahta oturunca insanları hiç hesaba katmadı; onları yok edip yerine yeni bir soy yaratmak istiyordu. Buna karşı çıkan tek kişi, Prometeus oldu.",
    "alt": "Zeus tahta oturunca insanları hiç hesaba katmadı; onları yok edip yerine yeni bir soy yaratmak istiyordu. Buna karşı çıkan tek kişi, Prometheus oldu.",
    "kaynak": "ZVP 228–236"
   },
   {
    "id": "G07b",
-   "bolum": "Savunma",
-   "tts": "[softly] Kendi sözleriyle: Ölümlülere acıdım. [pained] Ama bana acımayı… kimse layık görmedi.",
-   "alt": "Kendi sözleriyle: “Ölümlülere acıdım. Ama bana acımayı… kimse layık görmedi.”",
-   "kaynak": "ZVP 239–241 (kendi çevirimiz)"
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "[softly] Kendi sözleriyle: [pained] “Ölümlülere acıdım. Ama kendim… acınmaya layık görülmedim.”",
+   "alt": "Kendi sözleriyle: “Ölümlülere acıdım. Ama kendim… acınmaya layık görülmedim.”",
+   "kaynak": "ZVP 239–241 (edilgen yapı korunarak; kendi çevirimiz)"
   },
   {
    "id": "G08",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. [warmly] Sonra da ateşi verdi.",
    "alt": "İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. Sonra da ateşi verdi.",
    "kaynak": "ZVP 248–254"
   },
   {
    "id": "G09",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "[intrigued] Erhat burada sorar: Ateşi tanrılardan çalıp insanlara vermek, ne demektir? Ona göre başkaları bunu bir efsane olarak bırakmıştı. Ayshilos ise ondan, uygarlığın tarihini çıkarır.",
    "alt": "Erhat burada sorar: “Ateşi tanrılardan çalıp insanlara vermek ne demektir?” Ona göre başkaları bunu bir efsane olarak bırakmıştı. Aiskhylos ise ondan uygarlığın tarihini çıkarır.",
    "kaynak": "Erhat xv2 (kısa alıntı)"
   },
   {
    "id": "G10b",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "Ateşten önce insanlar, gözleri olup görmeyen varlıklardı; mağaralarda karıncalar gibi yaşıyorlardı. Prometeus onlara yıldızları, sayıları, harfleri öğretti; hayvanları, gemiyi, ilacı, madenleri… [proudly] Tek sözle: İnsanlardaki bütün zanaatlar, Prometeus'tan gelir.",
    "alt": "Ateşten önce insanlar, gözleri olup görmeyen varlıklardı; mağaralarda karıncalar gibi yaşıyorlardı. Prometheus onlara yıldızları, sayıları, harfleri öğretti; hayvanları, gemiyi, ilacı, madenleri… “Tek sözle: İnsanlardaki bütün zanaatlar Prometheus'tan gelir.”",
    "kaynak": "ZVP 454–506 (kendi çevirimiz)"
   },
   {
    "id": "G11",
-   "bolum": "Savunma",
-   "tts": "[firmly] Ve sanık suçunu inkâr etmez. Oyundaki sözleriyle: Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim. [thoughtfully] Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: Ne yaptımsa, bile bile yaptım.",
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "[firmly] Ve sanık suçunu inkâr etmez. Oyundaki sözleriyle: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim.” [thoughtfully] Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: Ne yaptımsa, bile bile yaptım.",
    "alt": "Ve sanık suçunu inkâr etmez. Oyundaki sözleriyle: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim.” Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: “Ne yaptımsa bile bile yaptım.”",
    "kaynak": "ZVP 265–266 (kendi çevirimiz); Erhat xi5 (kısa alıntı)"
   },
   {
+   "id": "G13",
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "[thoughtfully] Erhat'ın deyişiyle bu bilinç, onda hem gurur, hem de bir katlanma duygusu doğurur.",
+   "alt": "Erhat'ın deyişiyle bu bilinç, onda hem gurur hem de bir “katlanma duygusu” doğurur.",
+   "kaynak": "Erhat xii1 (kısa alıntı)"
+  },
+  {
    "id": "G12b",
-   "bolum": "Savunma",
+   "bolum": "Savunma: “Bile bile yaptım”",
    "tts": "[pained] [slowly] Ama hemen ardından şunu da itiraf eder: Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.",
    "alt": "Ama hemen ardından şunu da itiraf eder: “Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.”",
    "kaynak": "ZVP 268–270 (kendi çevirimiz)"
   },
   {
-   "id": "G13",
-   "bolum": "Savunma",
-   "tts": "[thoughtfully] Erhat'ın deyişiyle bu bilinç, onda hem gurur, hem de bir katlanma duygusu doğurur. Biliyordu; ama bu kadarını beklemiyordu. [slowly] Yine de geri adım atmaz.",
-   "alt": "Erhat'ın deyişiyle bu bilinç, onda hem gurur, hem de bir katlanma duygusu doğurur. Biliyordu; ama bu kadarını beklemiyordu. Yine de geri adım atmaz.",
-   "kaynak": "Erhat xii1 (ikinci ve üçüncü cümle anlatıcının; ZVP 268–270)"
+   "id": "G13b",
+   "bolum": "Savunma: “Bile bile yaptım”",
+   "tts": "[softly] Yani biliyordu; ama bilmek, yaşamak değildi. [slowly] Yine de geri adım atmaz.",
+   "alt": "Yani biliyordu; ama bilmek, yaşamak değildi. Yine de geri adım atmaz.",
+   "kaynak": "anlatıcının yorumu (ZVP 268–270'e dayanır)"
   },
   {
    "id": "H01",
-   "bolum": "Tanıklar",
+   "bolum": "Tanıklar ve “inek geçidi”",
    "tts": "[curious] Bu duruşmada kimler tanıklık eder? Ve içlerinden birinin hikâyesi, nasıl oldu da İstanbul Boğazı'nın adına karıştı?",
    "alt": "Bu duruşmada kimler tanıklık eder? Ve içlerinden birinin hikâyesi, nasıl oldu da İstanbul Boğazı'nın adına karıştı?",
    "kaynak": "Erhat xiv1; Apollodoros II.1.3"
   },
   {
    "id": "H02",
-   "bolum": "Tanıklar",
+   "bolum": "Tanıklar ve “inek geçidi”",
    "tts": "Erhat'a göre oyunun evreni, Zeus'un kurbanları, uşakları ve dalkavuklarıyla doludur. Hepsi buyruğunu yerine getirir; kimi isteyerek, kimi istemeyerek. [firmly] Tek başkaldıran, Prometeus'tur. Uşakları gördük; sırada bir dalkavuk var.",
    "alt": "Erhat'a göre oyunun evreni, Zeus'un kurbanları, uşakları ve dalkavuklarıyla doludur. Hepsi buyruğunu yerine getirir; kimi isteyerek, kimi istemeyerek. Tek başkaldıran, Prometheus'tur. Uşakları gördük; sırada bir dalkavuk var.",
    "kaynak": "Erhat xiv1, xiii3"
   },
   {
    "id": "H04",
-   "bolum": "Tanıklar",
-   "tts": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: [softly] Kendini bil, der; tanrıların başında yeni bir tiran var. Dilini bu kadar azdırma. [coldly] Prometeus geri çevirir: Kendi başını derde sokma.",
-   "alt": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: Kendini bil, der; tanrıların başında yeni bir tiran var. Dilini bu kadar azdırma. Prometheus geri çevirir: Kendi başını derde sokma.",
-   "kaynak": "ZVP 307–331, 385 (kendi çevirimiz)"
+   "bolum": "Tanıklar ve “inek geçidi”",
+   "tts": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: [softly] “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” [coldly] Prometeus'un cevabı buz gibidir: “Suçumdan pay almadığın için seni kıskanıyorum. Kendi başını derde sokma.”",
+   "alt": "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” Prometheus'un cevabı buz gibidir: “Suçumdan pay almadığın için seni kıskanıyorum. Kendi başını derde sokma.”",
+   "kaynak": "ZVP 307–334 (kendi çevirimiz)"
   },
   {
    "id": "H05",
-   "bolum": "Tanıklar",
-   "tts": "Periler bile ona, sözünü hiç sakınmıyorsun, der. [knowingly] Erhat'ın açıklamasıyla, Yunancadaki ifade, tam olarak dilin fazla özgür demektir. Başkaları, hiçbir umuda yer vermeden direnen bu tutumu gurur, hatta kibir sanır. [slowly] Oysa ona özgürlüğü sağlayan, bilincidir.",
-   "alt": "Periler bile ona “sözünü hiç sakınmıyorsun” der. Erhat'ın açıklamasıyla, Yunancadaki ifade tam olarak “dilin fazla özgür” demektir. Başkaları, “hiçbir umuda yer vermeden” direnen bu tutumu gurur, hatta kibir sanır. Oysa ona özgürlüğü sağlayan bilincidir.",
-   "kaynak": "ZVP 178–180; Erhat xii4, xiii1 (kısa alıntılar)"
+   "bolum": "Tanıklar ve “inek geçidi”",
+   "tts": "Periler ona, sözünü sakınmıyorsun, der. [knowingly] Erhat, bu çevirinin ardındaki Yunanca ifadenin tam anlamını verir: Dilin fazla özgür. Başkaları, hiçbir umuda yer vermeden direnen bu tutumu gurur ya da kibir sanır. [slowly] Oysa ona özgürlüğü sağlayan, bilincidir.",
+   "alt": "Periler ona “sözünü sakınmıyorsun” der. Erhat, bu çevirinin ardındaki Yunanca ifadenin tam anlamını verir: “dilin fazla özgür.” Başkaları, “hiçbir umuda yer vermeden” direnen bu tutumu “gurur ya da kibir” sanır. Oysa ona özgürlüğü sağlayan bilincidir.",
+   "kaynak": "ZVP 178–180; Erhat xii4, xiii1 (Eyüboğlu-Erhat çevirisinden iki kelime, kaynak gösterilerek)"
   },
   {
    "id": "H05b",
-   "bolum": "Tanıklar",
+   "bolum": "Tanıklar ve “inek geçidi”",
    "tts": "[thoughtfully] Tuhaf olan şu: İnsanlara kör umutları veren de oydu. Kendine ise, hiçbir umut tanımadı.",
    "alt": "Tuhaf olan şu: İnsanlara kör umutları veren de oydu. Kendine ise, hiçbir umut tanımadı.",
    "kaynak": "anlatıcının yan yana koyması (ZVP 250; Erhat xii4)"
   },
   {
    "id": "H06",
-   "bolum": "Tanıklar",
+   "bolum": "Tanıklar ve “inek geçidi”",
    "tts": "Sonra bir kurban gelir: boynuzlu, genç bir kız. Adı İyo. Zeus'un gönlü ona düşmüş, Hera'nın öfkesi peşine takılmıştı: Bir atsineği onu dünyanın dört bir yanına kovalıyordu.",
    "alt": "Sonra bir kurban gelir: boynuzlu, genç bir kız. Adı İo. Zeus'un gönlü ona düşmüş, Hera'nın öfkesi peşine takılmıştı: Bir atsineği onu dünyanın dört bir yanına kovalıyordu.",
    "kaynak": "ZVP 561–686; Erhat xiv1 (Io: Zeus'un kurbanı)"
   },
   {
    "id": "H07",
-   "bolum": "Tanıklar",
+   "bolum": "Tanıklar ve “inek geçidi”",
    "tts": "[intrigued] Prometeus ona yolculuğunu anlatır: Bir boğazdan geçecek ve boğaz, bu geçişten adını alacak: Bosporos, yani inek geçidi. [knowingly] Ayshilos'un kastettiği Kırım'daki Kerç Boğazı'dır; ama başka anlatılar, aynı adı İstanbul Boğazı'na verir.",
    "alt": "Prometheus ona yolculuğunu anlatır: Bir boğazdan geçecek ve boğaz bu geçişten adını alacak: Bosporos, yani “inek geçidi.” Aiskhylos'un kastettiği Kırım'daki Kerç Boğazı'dır; ama başka anlatılar aynı adı İstanbul Boğazı'na verir.",
    "kaynak": "ZVP 729–735 (Kimmer Bosporosu); Apollodoros II.1.3"
   },
   {
    "id": "H09",
-   "bolum": "Tanıklar",
-   "tts": "[softly] İyo, acısına dayanamayıp ölmeyi diler. Prometeus'un cevabı ağırdır: Ben ölemem bile. İşkencem, Zeus tiranlığından düşmedikçe bitmeyecek.",
-   "alt": "İo, acısına dayanamayıp ölmeyi diler. Prometheus'un cevabı ağırdır: Ben ölemem bile. İşkencem, Zeus tiranlığından düşmedikçe bitmeyecek.",
-   "kaynak": "ZVP 747–756 (kendi çevirimiz); Erhat xii3"
+   "bolum": "Tanıklar ve “inek geçidi”",
+   "tts": "[softly] İyo, acısına dayanamayıp ölmeyi diler. Prometeus'un cevabı ağırdır: “Ben ölemem bile. İşkencem, Zeus'un zorbalığı yıkılmadıkça bitmeyecek.”",
+   "alt": "İo, acısına dayanamayıp ölmeyi diler. Prometheus'un cevabı ağırdır: “Ben ölemem bile. İşkencem, Zeus'un zorbalığı yıkılmadıkça bitmeyecek.”",
+   "kaynak": "ZVP 747–756 (kendi çevirimiz)"
   },
   {
    "id": "H10",
-   "bolum": "Tanıklar",
-   "tts": "Ve ekler: İyo'nun soyundan, on üç kuşak sonra, onu bu zincirden kurtaracak bir okçu doğacak.",
-   "alt": "Ve ekler: İo'nun soyundan, on üç kuşak sonra, onu bu zincirden kurtaracak bir okçu doğacak.",
+   "bolum": "Tanıklar ve “inek geçidi”",
+   "tts": "Ve bir şey daha söyler: İyo'nun soyundan, on üç kuşak sonra, onu bu zincirden kurtaracak bir okçu doğacak.",
+   "alt": "Ve bir şey daha söyler: İo'nun soyundan, on üç kuşak sonra, onu bu zincirden kurtaracak bir okçu doğacak.",
    "kaynak": "ZVP 771–774, 871–873 (ödemesi L01–L02)"
   },
   {
@@ -616,15 +630,15 @@
    "id": "I05",
    "bolum": "Tahtı sallayan sır",
    "tts": "Sonunda Zeus, habercisi Hermes'i gönderir; Erhat'ın deyişiyle, sanığı gözdağıyla sorguya çeken bir polis müdürü. Emir kısadır: Sırrı söyle.",
-   "alt": "Sonunda Zeus, habercisi Hermes'i gönderir; Erhat'ın deyişiyle, sanığı gözdağıyla sorguya çeken bir polis müdürü. Emir kısadır: Sırrı söyle.",
+   "alt": "Sonunda Zeus, habercisi Hermes'i gönderir; Erhat'ın deyişiyle “sanığı gözdağıyla sorguya çeken” bir polis müdürü. Emir kısadır: Sırrı söyle.",
    "kaynak": "ZVP 944–952; Erhat xv3"
   },
   {
    "id": "I06",
    "bolum": "Tahtı sallayan sır",
-   "tts": "[defiantly] Prometeus alay eder: Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü görmedim mi? Şimdi hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.",
-   "alt": "Prometheus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü görmedim mi? Şimdi hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.”",
-   "kaynak": "ZVP 953–959 (kendi çevirimiz)"
+   "tts": "[defiantly] Prometeus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki zorbanın düştüğünü görmedim mi? Üçüncüsünün, şimdi hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.”",
+   "alt": "Prometheus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki zorbanın düştüğünü görmedim mi? Üçüncüsünün, şimdi hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.”",
+   "kaynak": "ZVP 953–959 (κοιρανοῦντα: üçüncüsü; kendi çevirimiz) — D11 ile bağ"
   },
   {
    "id": "I07",
@@ -634,10 +648,17 @@
    "kaynak": "ZVP 966–967 (kendi çevirimiz)"
   },
   {
+   "id": "I08",
+   "bolum": "Tahtı sallayan sır",
+   "tts": "[mocking] Hermes'in tehditleri sürerken, Prometeus'un ağzından bir an tek bir inilti kaçar: [pained] “Eyvah!” [mocking] Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” [calmly] Prometeus'un cevabı: “Yaşlanan zaman, her şeyi öğretir.”",
+   "alt": "Hermes'in tehditleri sürerken, Prometheus'un ağzından bir an tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.”",
+   "kaynak": "ZVP 979–981 (kendi çevirimiz)"
+  },
+  {
    "id": "I07b",
    "bolum": "Tahtı sallayan sır",
-   "tts": "[defiantly] Ve zincirdeki adam, evrenin efendisine şart koşar: Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir, ne de hileyle.",
-   "alt": "Ve zincirdeki adam, evrenin efendisine şart koşar: “Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir ne de hileyle.”",
+   "tts": "[defiantly] Ve zincirdeki adam, evrenin efendisine şart koşar: “Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir, ne de hileyle.”",
+   "alt": "Ve zincirdeki adam, evrenin efendisine şart koşar: “Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir, ne de hileyle.”",
    "kaynak": "ZVP 989–991 (kendi çevirimiz)"
   },
   {
@@ -664,15 +685,15 @@
   {
    "id": "J05",
    "bolum": "Zincirin öbür ucu",
-   "tts": "Bütün uşaklarına, dalkavuklarına rağmen Zeus, bir çocuk gibi zayıf ve çaresizdir. Onu yıkımdan kurtarabilecek tek kişi, aklın taşıyıcısı Prometeus'tur.",
-   "alt": "Bütün uşaklarına, dalkavuklarına rağmen Zeus, bir çocuk gibi zayıf ve çaresizdir. Onu yıkımdan kurtarabilecek tek kişi, aklın taşıyıcısı Prometheus'tur.",
-   "kaynak": "Erhat xiv5"
+   "tts": "Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, bir çocuk gibi zayıf ve çaresizdir: Onu yıkımdan kurtarabilecek tek kişi, zincire vurduğu Prometeus'tur.",
+   "alt": "Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, “bir çocuk gibi zayıf ve çaresizdir”: Onu yıkımdan kurtarabilecek tek kişi, zincire vurduğu Prometheus'tur.",
+   "kaynak": "Erhat xiv5 (kısa alıntı + kendi cümlemiz)"
   },
   {
    "id": "J06",
    "bolum": "Zincirin öbür ucu",
-   "tts": "[knowingly] Erhat'ın deyişiyle: Zeus, tutukladığı düşmanının elinde tutukludur aslında. [slowly] Roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.",
-   "alt": "Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.",
+   "tts": "[knowingly] Erhat'ın deyişiyle: Zeus, tutukladığı düşmanının elinde tutukludur aslında. [slowly] Yani roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.",
+   "alt": "Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Yani roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.",
    "kaynak": "Erhat xiv5 (kısa alıntı); son cümle anlatıcının (F05b'nin ödemesi)"
   },
   {
@@ -683,92 +704,92 @@
    "kaynak": "Erhat xiii2"
   },
   {
-   "id": "I08",
+   "id": "I08a",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[pained] Sorgu sürer. Bir an, Prometeus'un ağzından tek bir inilti kaçar: Eyvah! [mocking] Hermes hemen yakalar: Zeus bu kelimeyi bilmez. [calmly] Prometeus'un cevabı: Yaşlanan zaman, her şeyi öğretir.",
-   "alt": "Sorgu sürer. Bir an, Prometheus'un ağzından tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.”",
-   "kaynak": "ZVP 979–981 (kendi çevirimiz)"
+   "tts": "[darkly] Zorba, susturamadığı birine ne yapar?",
+   "alt": "Zorba, susturamadığı birine ne yapar?",
+   "kaynak": "bölüm sorusu"
   },
   {
    "id": "I08b",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[ominous] Hermes son tehdidini savurur: Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek.",
-   "alt": "Hermes son tehdidini savurur: Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek.",
+   "tts": "[ominous] Sorguya dönelim. Hermes son tehdidini savurur: “Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek.”",
+   "alt": "Sorguya dönelim. Hermes son tehdidini savurur: “Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.”",
    "kaynak": "ZVP 1016–1025 (kendi çevirimiz)"
   },
   {
    "id": "I08c",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[slowly] Açılıştaki kartal, Ayshilos'ta henüz gelmemiştir; o, hayır demenin bedelidir. [defiantly] Ama Prometeus, İyo'ya yakınarak söylediğini şimdi bir meydan okuma gibi söyler: Ne yaparsa yapsın… beni öldüremez.",
-   "alt": "Açılıştaki kartal, Aiskhylos'ta henüz gelmemiştir; o, hayır demenin bedelidir. Ama Prometheus, İo'ya yakınarak söylediğini şimdi bir meydan okuma gibi söyler: Ne yaparsa yapsın… beni öldüremez.",
-   "kaynak": "ZVP 1053 (kendi çevirimiz); ilk cümle anlatıcının"
+   "tts": "[slowly] Açılıştaki kartal, Ayshilos'ta bir tehdittir: hayır demenin bedeli. [defiantly] Prometeus'un cevabı: “Bu haberleri zaten biliyordum. Ne yaparsa yapsın… beni öldüremez.”",
+   "alt": "Açılıştaki kartal, Aiskhylos'ta bir tehdittir: hayır demenin bedeli. Prometheus'un cevabı: “Bu haberleri zaten biliyordum. Ne yaparsa yapsın… beni öldüremez.”",
+   "kaynak": "ZVP 1040–1041, 1053 (kendi çevirimiz); ilk cümle anlatıcının"
   },
   {
    "id": "I09",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "Hermes, perilere oradan gitmelerini söyler. Ama periler kalır: Hainlerden nefret etmeyi öğrendik, deyip Prometeus'un yanında dururlar.",
+   "tts": "Hermes perilere oradan gitmelerini söyler. Ama periler kalır: “Hainlerden nefret etmeyi öğrendik,” deyip Prometeus'un yanında dururlar.",
    "alt": "Hermes perilere oradan gitmelerini söyler. Ama periler kalır: “Hainlerden nefret etmeyi öğrendik” deyip Prometheus'un yanında dururlar.",
    "kaynak": "ZVP 1058–1070 (kendi çevirimiz)"
   },
   {
    "id": "I10",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[intense] Ve gök boşanır. Prometeus olanları kendi ağzıyla anlatır: Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök, denize karıştı.",
-   "alt": "Ve gök boşanır. Prometheus olanları kendi ağzıyla anlatır: Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök, denize karıştı.",
-   "kaynak": "ZVP 1080–1090 (kendi çevirimiz); Erhat xv3 (diliyle canlandırır)"
+   "tts": "[intense] Sözle yenemediği sanığa, Zeus sonunda kaba kuvvetle cevap verir. Prometeus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök, denize karıştı.”",
+   "alt": "Sözle yenemediği sanığa, Zeus sonunda kaba kuvvetle cevap verir. Prometheus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök denize karıştı.”",
+   "kaynak": "ZVP 1080–1090 (kendi çevirimiz); Erhat xv3; E11'in ödemesi"
   },
   {
    "id": "I11",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[pained] [slowly] İlk sözleri gibi, son sözleri de göğe ve anasınadır; adlarından biri Adalet olan anasına: Görüyor musun, ne haksızlıklara uğruyorum.",
-   "alt": "İlk sözleri gibi son sözleri de göğe ve anasınadır, adlarından biri Adalet olan anasına: “Görüyor musun, ne haksızlıklara uğruyorum.”",
-   "kaynak": "ZVP 1091–1093 (kendi çevirimiz); F13 ve G03 ile halka"
+   "tts": "[slowly] İlk sözleri gibi, son sözleri de göğe ve anasınadır; adlarından biri Adalet olan anasına: [pained] “Görüyor musun, haksız yere neler çekiyorum.”",
+   "alt": "İlk sözleri gibi son sözleri de göğe ve anasınadır, adlarından biri Adalet olan anasına: “Görüyor musun, haksız yere neler çekiyorum.”",
+   "kaynak": "ZVP 1091–1093 (ἔκδικα πάσχω; kendi çevirimiz) — F13 ve G03b ile halka"
   },
   {
    "id": "I12",
    "bolum": "Kartal, fırtına ve son söz",
-   "tts": "[firmly] Başta tek söz etmeyen Prometeus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek, konuşmakta direnir. Son söz onundur. [slowly] Erhat'a göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
-   "alt": "Başta tek söz etmeyen Prometheus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. Erhat'a göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”",
+   "tts": "[firmly] Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometeus, dünya başına yıkılıp perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. [slowly] Ona göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
+   "alt": "Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometheus, dünya başına yıkılıp perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. Ona göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”",
    "kaynak": "Erhat xv3 (kısa alıntı)"
   },
   {
    "id": "L01",
-   "bolum": "Ateşin yolculuğu",
+   "bolum": "Herakles'ten Oppenheimer'a",
    "tts": "[softly] Peki Prometeus'un haber verdiği o okçu, gerçekten geldi mi?",
    "alt": "Peki Prometheus'un haber verdiği o okçu, gerçekten geldi mi?",
    "kaynak": "H10'un ödemesi"
   },
   {
    "id": "L02",
-   "bolum": "Ateşin yolculuğu",
-   "tts": "Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı okuyla vurdu ve Prometeus'u acısından kurtardı. [wryly] Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Ayshilos'un Kurtulmuş Prometeus'u ise kayıp.",
-   "alt": "Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı okuyla vurdu ve Prometheus'u acısından kurtardı. Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Aiskhylos'un Kurtulmuş Prometheus'u ise kayıp.",
-   "kaynak": "Th. 526–534; Erhat v2"
+   "bolum": "Herakles'ten Oppenheimer'a",
+   "tts": "Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı öldürdü ve Prometeus'u acısından kurtardı. [wryly] Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Ayshilos'un Kurtulmuş Prometeus'u ise kayıp.",
+   "alt": "Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı öldürdü ve Prometheus'u acısından kurtardı. Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Aiskhylos'un Kurtulmuş Prometheus'u ise kayıp.",
+   "kaynak": "Th. 526–534; Erhat v2 ('okçu' ZVP 871–873'ten)"
   },
   {
    "id": "L03",
-   "bolum": "Ateşin yolculuğu",
+   "bolum": "Herakles'ten Oppenheimer'a",
    "tts": "[softly] Ama insanlık Prometeus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.",
    "alt": "Ama insanlık Prometheus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.",
    "kaynak": "anlatıcının yorumu"
   },
   {
    "id": "L04",
-   "bolum": "Ateşin yolculuğu",
+   "bolum": "Herakles'ten Oppenheimer'a",
    "tts": "Erhat, onun izini Alman şair Göte'ye kadar sürmeyi önerir. Göte'nin şiirinde Titan, Zeus'a meydan okur ve insanları kendi suretinde yoğurur. Erhat'a göre bu şiirin anlamı şudur: Asıl yaratıcı, insanın kendisidir.",
    "alt": "Erhat, onun izini Alman şair Goethe'ye kadar sürmeyi önerir. Goethe'nin şiirinde Titan, Zeus'a meydan okur ve insanları kendi suretinde yoğurur. Erhat'a göre bu şiirin anlamı şudur: “Asıl yaratıcı, insanın kendisidir.”",
    "kaynak": "Erhat vi6, xi1 (kısa alıntı); Goethe, 'Prometheus' (1774)"
   },
   {
    "id": "L05",
-   "bolum": "Ateşin yolculuğu",
-   "tts": "Meri Şeli, Frankenştayn romanına Modern Prometeus alt başlığını koydu. Atom bombasının mimarı Openhaymır'ın biyografisinin adı da Amerikan Prometeus: Nolan'ın filmi bu kitaba dayanır.",
-   "alt": "Mary Shelley, Frankenstein romanına “Modern Prometheus” alt başlığını koydu. Atom bombasının mimarı Oppenheimer'ın biyografisinin adı da “American Prometheus”: Nolan'ın filmi bu kitaba dayanır.",
+   "bolum": "Herakles'ten Oppenheimer'a",
+   "tts": "Meri Şeli, Frankenştayn romanına Modern Prometeus alt başlığını koydu. Atom bombasının babası diye anılan Openhaymır'ın biyografisinin adı da Amerikan Prometeus: Nolan'ın filmi bu kitaba dayanır.",
+   "alt": "Mary Shelley, Frankenstein romanına “Modern Prometheus” alt başlığını koydu. Atom bombasının babası diye anılan Oppenheimer'ın biyografisinin adı da “American Prometheus”: Nolan'ın filmi bu kitaba dayanır.",
    "kaynak": "Shelley 1818; Bird & Sherwin 2005; Nolan 2023"
   },
   {
    "id": "L06",
-   "bolum": "Ateşin yolculuğu",
+   "bolum": "Herakles'ten Oppenheimer'a",
    "tts": "[softly] İnsan ne zaman kendisine yasaklanmış bir ateşe el uzatsa, o eski Titan'ın adı yeniden anılır.",
    "alt": "İnsan ne zaman kendisine yasaklanmış bir ateşe el uzatsa, o eski Titan'ın adı yeniden anılır.",
    "kaynak": "anlatıcının yorumu"
@@ -776,62 +797,62 @@
   {
    "id": "K01",
    "bolum": "Başkaldıran yaratık",
-   "tts": "[thoughtfully] Erhat'ın önsözü de, tam bu soruyla açılır: İnsan nedir? Ne zaman insan olmaya başladı?",
-   "alt": "Erhat'ın önsözü de, tam bu soruyla açılır: İnsan nedir? Ne zaman insan olmaya başladı?",
+   "tts": "[thoughtfully] Erhat'ın önsözü, daha ilk sayfasında şu soruyu anar: İnsan nedir? Ne zaman insan olmaya başladı?",
+   "alt": "Erhat'ın önsözü, daha ilk sayfasında şu soruyu anar: İnsan nedir? Ne zaman insan olmaya başladı?",
    "kaynak": "Erhat v6"
   },
   {
    "id": "K02",
    "bolum": "Başkaldıran yaratık",
-   "tts": "Ve kendi çağının düşünürlerinin, sanki sözleşmiş gibi verdiği cevabı aktarır: İnsan, başkaldıran yaratıktır. Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalmak için de bu isyanı her gün yeniden başlatmalıdır.",
-   "alt": "Ve kendi çağının düşünürlerinin sanki sözleşmiş gibi verdiği cevabı aktarır: “İnsan başkaldıran yaratıktır.” Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalmak için de bu isyanı her gün yeniden başlatmalıdır.",
+   "tts": "Ve kendi çağının düşünürlerinin, sanki sözleşmiş gibi verdiği cevabı aktarır: İnsan, başkaldıran yaratıktır. Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, bu başkaldırıyı yeniden ve yeniden sürdürmesine bağlıdır.",
+   "alt": "Ve kendi çağının düşünürlerinin sanki sözleşmiş gibi verdiği cevabı aktarır: “İnsan başkaldıran yaratıktır.” Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, bu başkaldırıyı yeniden ve yeniden sürdürmesine bağlıdır.",
    "kaynak": "Erhat v6 (kısa alıntı + kendi cümlelerimiz)"
   },
   {
    "id": "K04",
    "bolum": "Başkaldıran yaratık",
-   "tts": "Erhat'ın kuşağı bu görüşü öylesine benimser ki, gelenek süslerini üstünden atar. Ve ekler: Umuda karşı da ayaklandık; bugün, bu dünyada yaşamak istiyoruz.",
-   "alt": "Erhat'ın kuşağı bu görüşü öylesine benimser ki, gelenek süslerini üstünden atar. Ve ekler: “Umuda karşı da ayaklandık”; bugün, bu dünyada yaşamak istiyoruz.",
-   "kaynak": "Erhat vi1, vi2 (kısa alıntı)"
+   "tts": "Erhat, kendi kuşağının bu görüşü öylesine benimsediğini yazar ki, gelenek süslerini üstünden atmıştır. Ve onun adına ekler: Umuda karşı da ayaklandık; bugün ve bu dünyada yaşamak istiyoruz.",
+   "alt": "Erhat, kendi kuşağının bu görüşü öylesine benimsediğini yazar ki, gelenek süslerini üstünden atmıştır. Ve onun adına ekler: “Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz.”",
+   "kaynak": "Erhat vi1, vi2 (kısa alıntı, tırnakta)"
   },
   {
    "id": "K08a",
    "bolum": "Başkaldıran yaratık",
-   "tts": "[firmly] Erhat'ın en baştaki sorusunun cevabı da önsözde. Efsane Prometeus'a kâhin der. Erhat'ın yirminci yüzyılı kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır, onun kör iktidarların baskısına uğradığını da bilir.",
-   "alt": "Erhat'ın en baştaki sorusunun cevabı da önsözde. Efsane Prometheus'a kâhin der. Erhat'ın XX. yüzyılı kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır, onun “kör iktidarların baskısına” uğradığını da bilir.",
-   "kaynak": "Erhat xiv6, xv1 (kısa alıntı); B06'nın cevabı"
+   "tts": "[firmly] Peki ya Erhat'ın en baştaki sorusu? İki bin beş yüz yıl önceki bir yazar, yirminci yüzyılın başkaldıran insanını nasıl yaratabildi? Erhat'ın cevabı: Prometeus efsanede de politikti; ama onu modern anlamda politik bir drama dönüştüren, Atina'nın politik görüşü en köklü tragedya yazarı Ayshilos'tu.",
+   "alt": "Peki ya Erhat'ın en baştaki sorusu? İki bin beş yüz yıl önceki bir yazar, XX. yüzyılın başkaldıran insanını nasıl yaratabildi? Erhat'ın cevabı: Prometheus efsanede de politikti; ama onu modern anlamda politik bir drama dönüştüren, Atina'nın politik görüşü en köklü tragedya yazarı Aiskhylos'tu.",
+   "kaynak": "Erhat vi7–vi8 (B06'nın sorusu yeniden soruluyor; Erhat'ın cevabı)"
   },
   {
-   "id": "K08b",
+   "id": "K08c",
    "bolum": "Başkaldıran yaratık",
-   "tts": "[slowly] Belki de bu yüzden, yirmi beş yüzyıl önceki bu sanık, hâlâ insana benziyor.",
-   "alt": "Belki de bu yüzden, yirmi beş yüzyıl önceki bu sanık, hâlâ insana benziyor.",
-   "kaynak": "Erhat xiv3 (ilk cümle Erhat'ın özeti; ikinci cümle anlatıcının)"
+   "tts": "Ve ona göre Ayshilos'un bize dek ulaşan bildirisi şudur: Akıl gücü, kaba güçten üstündür; düşünceye gem vurulamaz. [slowly] Belki de bu yüzden, yirmi beş yüzyıl önceki bu sanık, hâlâ insana benziyor.",
+   "alt": "Ve ona göre Aiskhylos'un bize dek ulaşan bildirisi şudur: “Akıl gücü kaba güçten üstündür, düşünceye gem vurulamaz.” Belki de bu yüzden, yirmi beş yüzyıl önceki bu sanık hâlâ insana benziyor.",
+   "kaynak": "Erhat xiv3 (kısa alıntı; 'iktidar sahipleri' cümlesi alınmadı); son cümle anlatıcının"
   },
   {
    "id": "K06",
    "bolum": "Başkaldıran yaratık",
-   "tts": "Önsöze göre bu kuşağın tek ülküsü, insan olmaktı. [slowly] [reverently] Ve önsöz, bu ülkünün ilk temsilcisini tek cümleyle adlandırır: Bu ülkünün ilk temsilcisi… Prometeus'tur.",
-   "alt": "Önsöze göre bu kuşağın tek ülküsü insan olmaktı. Ve önsöz, bu ülkünün ilk temsilcisini tek cümleyle adlandırır: “Bu ülkünün ilk temsilcisi Prometheus'tur.”",
+   "tts": "Erhat'ın kuşağının tek ülküsü, insan olmaktı; bu uğurda göze alamayacakları çaba, katlanamayacakları cefa yoktu. [slowly] [reverently] Ve önsöz, bu ülküyü tek bir ada bağlar: Bu ülkünün ilk temsilcisi… Prometeus'tur.",
+   "alt": "Erhat'ın kuşağının tek ülküsü insan olmaktı; bu uğurda göze alamayacakları çaba, katlanamayacakları cefa yoktu. Ve önsöz bu ülküyü tek bir ada bağlar: “Bu ülkünün ilk temsilcisi Prometheus'tur.”",
    "kaynak": "Erhat vi3, vi4 (kısa alıntı)"
   },
   {
    "id": "M00",
-   "bolum": "Kapanış",
+   "bolum": "Çevirmenlerin dileği",
    "tts": "[warmly] Erhat ile Eyüboğlu, başta bu oyunun çevrilemeyeceğini, sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar… ve coşmuşlar. Dilekleri, Prometeus'u bir Türk tiyatrosunda görmekti.",
    "alt": "Erhat ile Eyüboğlu, başta bu oyunun çevrilemeyeceğini, sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar… ve coşmuşlar. Dilekleri, Prometheus'u bir Türk tiyatrosunda görmekti.",
    "kaynak": "Erhat xv4, xvi1"
   },
   {
    "id": "M02",
-   "bolum": "Kapanış",
+   "bolum": "Çevirmenlerin dileği",
    "tts": "[curious] Peki sen olsan? Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz.",
    "alt": "Peki sen olsan? Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz.",
    "kaynak": ""
   },
   {
    "id": "M03",
-   "bolum": "Kapanış",
+   "bolum": "Çevirmenlerin dileği",
    "tts": "[warmly] Tanrılara kafa tutan bir başka isyankârın, Sisifos'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.",
    "alt": "Tanrılara kafa tutan bir başka isyankârın, Sisifos'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.",
    "kaynak": "bitiş ekranı: Sisifos videosu + abone"
