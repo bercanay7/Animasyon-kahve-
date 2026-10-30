@@ -1008,14 +1008,16 @@ ERHAT = ['D3 F3 A3 E4', 'Bb2 D3 F3 A3', 'F2 A2 C3 E3', 'C3 E3 G3 D4']
 def s00_opening():
     """0 - 46: the theft (cover image), the chaining, the eagle (kylix), the title, Erhat's claim."""
     crackle(0.0, S('A02') - 0.3, vel=0.12)
+    chain_rattle(0.05, vel=0.22, dur=0.55)    # the very first sound, before the voice: a chain
     drone('D1 D2 A2', 0.2, S('A03'), gain=0.30, att=1.2, rel=1.0, cutoff=300)
     # A01: the fire motif on the aulos, answering "bile bile"
     fire_motif(W('A01', 'bile') - 0.1, 'D5', beat=0.36, gain=0.55, vib=14, drone='D4')
     fire_motif(Se('A01') + 0.05, 'A4', beat=0.24, gain=0.45, kind=FIRE_Q, vib=10)
     # A02 the hammer locks the chain; the lament bass climbs down under "asıl tutsak"
-    hammer(W('A02', 'mıhlatan'), vel=1.0)
-    boom(W('A02', 'mıhlatan'), vel=0.6, f0=60, decay=1.2)
-    chain_rattle(W('A02', 'mıhlatan') + 0.15, vel=0.3, dur=0.9)
+    TH = Se('A01') + 0.6                     # the hammer falls in the silence before A02 (picture: P004)
+    hammer(TH, vel=1.0)
+    boom(TH, vel=0.6, f0=60, decay=1.2)
+    chain_rattle(TH + 0.15, vel=0.3, dur=0.9)
     chain_motif(W('A02', 'zeusun') - 0.3, 'D3', beat=0.42, gain=0.38)
     pad(M('Eb3 G3 Bb3'), W('A02', 'asıl') - 0.4, Se('A02') + 1.2, gain=0.14, cutoff=600)
     # A03 the kylix eagle: tremolo strings, wing beats, the cry, night, and the dawn returning

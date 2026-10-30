@@ -231,3 +231,16 @@ function pageJourney(ctx, t, stations, o = {}) {
   if (o.num) txt(ctx, '— ' + o.num + ' —', W / 2, H - 46, { font: 'italic 500 30px "Cormorant Garamond"', col: PW.lineL, force: true });
   return c;
 }
+
+// Tutarlı Erhat köşe etiketi (sol üst, YouTube üst katmanının altında): "ERHAT · s. x" ya da kısa bir künye
+function erhatTag(ctx, lt, s, o = {}) {
+  if (NOTEXT && !o.force) return;
+  const a = ramp(lt, o.delay || .2, (o.delay || .2) + .5) * (o.d ? 1 - ramp(lt, o.d - .5, o.d) : 1);
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha *= a;
+  ctx.font = '700 40px Cinzel'; ctx.letterSpacing = '4px'; const w = ctx.measureText(L(s)).width;
+  ctx.fillStyle = o.bg || 'rgba(238,229,209,.92)'; ctx.fillRect(80, 66, w + 44, 64);
+  ctx.strokeStyle = PW.red; ctx.lineWidth = 3; ctx.strokeRect(80, 66, w + 44, 64);
+  txt(ctx, s, 102, 99, { font: '700 40px Cinzel', col: o.col || PW.ink, align: 'left', ls: 4, force: o.force });
+  ctx.restore();
+}

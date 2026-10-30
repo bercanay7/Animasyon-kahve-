@@ -63,9 +63,9 @@ shot(0, (ctx, st) => {
   const t = st.t, x = RUN.x0 + RUN.sp * t, gy = runGround(x);
   const tB = A('A01@bile'), tI = A('A01@insanlara'), tT = A('A01@titan');
   const c1 = { x: x + 200, y: gy - 360, z: .98 + t * .012 }, c2 = { x: x + 560, y: TERRACE - 90, z: .95 }, c3 = { x: x + 110, y: gy - 560, z: 1.8 };
-  const tE = Se('A01'), d = E.io3(ramp(t, tI - .35, tI + .5, E.lin)), u = E.io3(ramp(t, tE - .1, A('A02') - .15, E.lin));
+  const tE = Se('A01'), d = E.io3(ramp(t, tI - .35, tI + .45, E.lin)), u = E.io3(ramp(t, tT - .1, tT + .55, E.lin));
   const c = mix(mix(c1, c2, d), c3, u);
-  olymposRun(ctx, t, c, { back: t > tB + .1 && t < tI - .1 || t > tE, terrace: ramp(t, tI + .05, tI + .95, E.lin) * 1.8 });
+  olymposRun(ctx, t, c, { back: t > tB + .1 && t < tI - .1 || t > tT + .2, terrace: ramp(t, tI + .05, tI + .95, E.lin) * 1.8 });
   kayaFrame(ctx, t);
 }, { post: { tex: .55, vig: 1, grain: .06 } });
 // --- P004: zincir kayaya çakılır (çekiç ve kazık yakın), P005: kamera zinciri buluta kadar izler ---
@@ -80,8 +80,8 @@ function hammerHit(ctx, tx, ty, tHit, t, s = 1) {
   ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(L - 24 * s, -36 * s); ctx.lineTo(L - 24 * s, 36 * s); ctx.stroke();
   ctx.restore();
 }
-shot(A('A02'), (ctx, st) => {
-  const t = st.t, lt = st.lt, tH = A('A02@mıhlatan');
+shot(Se('A01') + .25, (ctx, st) => {
+  const t = st.t, lt = st.lt, tH = st.at + .35;
   const sk = shake(t, tH, 14, 7);
   const c = { x: lerp(1430, 1330, E.io2(clamp(lt / st.d))), y: lerp(300, 380, E.io2(clamp(lt / st.d))), z: lerp(2.1, 1.7, E.io2(clamp(lt / st.d))), sx: sk[0], sy: sk[1] };
   const { wind } = kayaWorld(ctx, t, c, { skyChain: true });
@@ -94,7 +94,7 @@ shot(A('A02'), (ctx, st) => {
   // çakma: kısa beyaz parlama
   if (t > tH && t < tH + .18) { ctx.save(); baseT(ctx); ctx.fillStyle = '#FFF4DE'; ctx.globalAlpha = .55 * (1 - (t - tH) / .18); ctx.fillRect(0, 0, W, H); ctx.restore(); }
   kayaFrame(ctx, t);
-}, { tr: { type: 'white', dur: .3 }, post: { tex: .55, vig: 1, grain: .06 } });
+}, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 shot(A('A02@zeusun'), (ctx, st) => {
   const t = st.t, lt = st.lt, tT = A('A02@asıl');
   // kamera kazıktan yukarı, bulutlara doğru çevrinir; "asıl tutsak"ta zincir yukarıdan bir kez gerilir
@@ -219,39 +219,63 @@ function scribble(ctx, x, y, w, p, seed, o = {}) {
   for (let i = 0; i < n; i++) { const q = pts[i]; if (!q) { pen = false; continue; } pen ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); pen = true; }
   ctx.stroke(); ctx.restore();
 }
+// kırmızı figür vinyet: sayfaya yapıştırılmış küçük levha; zincirli Prometheus zincire asılmayı sürdürür
+function promVignette(ctx, t, x, y, w, h, o = {}) {
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = PC.glaze; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = PW.line; ctx.lineWidth = 5; ctx.strokeRect(0, 0, w, h);
+  ctx.beginPath(); ctx.rect(0, 0, w, h); ctx.clip();
+  const k = Math.min(w / 1100, h / 980);
+  ctx.translate(w / 2, h / 2); ctx.scale(k, k); ctx.translate(-1290, -560);
+  promChained(ctx, t, { wind: .4, pull: .2 + .15 * Math.max(0, Math.sin(t * 1.4)) });
+  ctx.restore();
+}
+// P012–P013: kitap kapağı (zincirli Prometheus vinyetiyle), 1967 damgası, kapak açılır: ÖNSÖZ sayfası
 shot(A('A06'), (ctx, st) => {
-  const t = st.t, lt = st.lt, tB = A('A06@bin');
-  const c = { x: W / 2 + lt * 4, y: H / 2, z: 1.02 + lt * .003 };
-  ctx.save(); cam(ctx, c, 1);
-  paperBG(ctx, t, { book: true, num: 'v' });
-  penLine(ctx, 'ÖNSÖZ', W / 2, 190, ramp(lt, .2, .9), { font: '600 64px Cinzel', ls: 14, col: PW.line });
-  for (let i = 0; i < 5; i++) scribble(ctx, 420, 290 + i * 56, 1080, ramp(lt, .7 + i * .35, 1.6 + i * .35), 40 + i);
-  // 1967 ve künye
-  const k = ramp(t, tB - .2, tB + .5);
-  if (k > 0) {
-    penLine(ctx, '1967', W / 2, 640, ramp(t, tB - .1, tB + .8), { font: 'italic 600 120px "Cormorant Garamond"', col: PW.red, nib: true });
-    txt(ctx, 'Aiskhylos · Zincire Vurulmuş Prometheus', W / 2, 740, { font: 'italic 500 38px "Cormorant Garamond"', col: PW.ink, a: ramp(t, tB + .5, tB + 1.1) });
-    txt(ctx, 'çeviren Sabahattin Eyüboğlu · Azra Erhat', W / 2, 790, { font: 'italic 500 34px "Cormorant Garamond"', col: PW.line, a: ramp(t, tB + .9, tB + 1.5) });
+  const t = st.t, lt = st.lt, tB = A('A06@bin'), tO = A('A06@oyunun');
+  ctx.save(); cam(ctx, { x: W / 2 + lt * 4, y: H / 2, z: 1.02 + lt * .003 }, 1);
+  paperBG(ctx, t, { book: true });
+  const open = ramp(t, tO - .2, tO + .7);
+  if (open < 1) {
+    // kapak: kil renkli cilt, başlık, ortada küçük kırmızı figür levha; açılırken sola katlanır
+    ctx.save(); ctx.translate(560, 0); ctx.scale(1 - open, 1); ctx.translate(-560, 0);
+    ctx.fillStyle = '#B8693F'; ctx.fillRect(560, 120, 800, 560); ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.strokeRect(560, 120, 800, 560);
+    meanderSaltire(ctx, 580, 1340, 140, 26, C.ink, '#B8693F');
+    txt(ctx, 'AISKHYLOS', 960, 214, { font: '700 40px Cinzel', col: C.ink, ls: 10 });
+    txt(ctx, 'ZİNCİRE VURULMUŞ PROMETHEUS', 960, 268, { font: '700 36px Cinzel', col: C.ink, ls: 2, maxW: 740 });
+    promVignette(ctx, t, 780, 310, 360, 300);
+    const k = ramp(t, tB - .15, tB + .05, E.in2);
+    if (k > 0) stamp(ctx, '1967', 1180, 560, t - tB, { col: PW.red, font: '700 110px Cinzel', h: 150, rot: -.12, a: .92 });
+    ctx.restore();
+  }
+  if (open > 0) {
+    ctx.save(); ctx.globalAlpha = open;
+    penLine(ctx, 'ÖNSÖZ', W / 2, 190, ramp(t, tO + .3, tO + .9), { font: '600 64px Cinzel', ls: 14, col: PW.line });
+    for (let i = 0; i < 5; i++) scribble(ctx, 600, 290 + i * 56, 900, ramp(t, tO + .6 + i * .3, tO + 1.4 + i * .3), 40 + i);
+    promVignette(ctx, t, 90, 300, 300, 250);
+    ctx.restore();
   }
   ctx.restore();
-  nameTag(ctx, 'AZRA ERHAT', '1915–1982 · çevirmen, yazar', 120, 150, lt - .4, Math.max(3.2, tB - st.at), { col: PW.ink, line: PW.red });
-}, { tr: { type: 'ink', dur: 1.0 }, post: { tex: .35, vig: .55, grain: .045 } });
-
-// --- P014: sayfada iki uçlu zincir: bir ucu küçük zincirli figürde, öbürü bir tahtın içine; zincir soru işaretine kıvrılır ---
+}, { tr: { type: 'ink', dur: .5 }, post: { tex: .35, vig: .55, grain: .045 },
+  over: (ctx, st) => erhatTag(ctx, st.lt, 'AZRA ERHAT · 1967') });
+// P014: kenardaki vinyetin zinciri sayfaya taşar, soru işaretine kıvrılır ve sayfanın üst kenarından çıkar (öbür ucu görünmez)
 shot(A('A05'), (ctx, st) => {
   const t = st.t, lt = st.lt;
-  ctx.save(); cam(ctx, { x: W / 2, y: H / 2 - 20, z: 1 + lt * .01 }, 1);
-  paperBG(ctx, t, { book: true, num: 'xiv' });
-  marginBand(ctx, 260, 1660, 300, 760, ramp(lt, 0, .8));
-  figure(ctx, { x: 520, y: 740 - 44.5 * 3.2, s: 3.2, dir: 1, sty: STY.lek, lk: LK.prom, p: { torso: .1, head: .05 }, ik: { hF: [600, 520], hN: [610, 640] } });
-  throne(ctx, 1380, 740, 7, -1, PW.line, PW.paperL, { high: true });
-  // zincir: figürden yukarı kavis çizip soru işareti gibi kıvrılır, tahta girer
-  const pts = sampleF(u => { const a = lerp(PI * 1.05, -PI * .45, u); return u < .55 ? [lerp(610, 1000, u / .55), 600 - Math.sin(u / .55 * PI) * 210] : [1000 + Math.cos(a) * 140 * (1 - (u - .55)) + 160 * (u - .55) / .45 * 1.6, 470 + Math.sin(a) * 150]; }, 90);
-  inkPoly(ctx, pts, ramp(lt, .3, 2.0), { col: PW.line, w: 5, jit: .6 });
-  // halkalar çizgi boyunca
-  const n = Math.floor(28 * ramp(lt, .3, 2.0));
-  for (let i = 0; i < n; i++) { const q = pts[Math.floor(i / 28 * 89)]; ctx.strokeStyle = PW.line; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.ellipse(q[0], q[1], 9, 5, i % 2 ? .8 : -.8, 0, TAU); ctx.stroke(); }
-  if (lt > 2.0) circleMark(ctx, 1385, 560, 120, 150, ramp(lt, 2.0, 2.8));
+  ctx.save(); cam(ctx, { x: W / 2 + lt * 3, y: H / 2 - 10, z: 1 + lt * .008 }, 1);
+  paperBG(ctx, t, { book: true });
+  for (let i = 0; i < 5; i++) scribble(ctx, 600, 290 + i * 56, 900, 1, 40 + i, { col: 'rgba(74,52,35,.35)' });
+  promVignette(ctx, t, 90, 300, 300, 250);
+  // zincir: vinyetin üst kazığından çıkıp sayfada soru işareti çizer, sonra yukarıdan kadrajı terk eder
+  const pts = sampleF(u => {
+    if (u < .45) { const v = u / .45; return [lerp(380, 1000, v), lerp(330, 420, v) - Math.sin(v * PI) * 150]; }
+    if (u < .8) { const v = (u - .45) / .35, a = lerp(PI * .5, -PI * .95, v); return [1000 + Math.cos(a) * 150, 300 + Math.sin(a) * 120 + 120 * (1 - v) * 0]; }
+    const v = (u - .8) / .2; return [lerp(1000 + Math.cos(-PI * .95) * 150, 860, v), lerp(300 + Math.sin(-PI * .95) * 120, -120, v)];
+  }, 120);
+  const k = ramp(lt, .2, 2.4, E.lin);
+  inkPoly(ctx, pts, k, { col: PW.line, w: 5, jit: .6 });
+  const n = Math.floor(40 * k);
+  for (let i = 0; i < n; i++) { const q = pts[Math.floor(i / 40 * 119)]; ctx.strokeStyle = PW.line; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.ellipse(q[0], q[1], 9, 5, i % 2 ? .8 : -.8, 0, TAU); ctx.stroke(); }
+  // soru işaretinin noktası
+  if (k > .55) { ctx.fillStyle = PW.red; ctx.beginPath(); ctx.arc(1000, 520, 14 * ramp(lt, 1.3, 1.6), 0, TAU); ctx.fill(); }
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .35, vig: .55, grain: .045 } });
 
