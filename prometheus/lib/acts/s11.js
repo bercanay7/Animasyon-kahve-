@@ -298,7 +298,8 @@ shot(PA('P273'), (ctx, st) => {
       const gl = ramp(t, A('L05@babası'), A('L05@babası') + 1.6);
       glow(ctx, 1240, 630, 60 + 140 * gl, `rgba(255,246,228,${.35 + .4 * gl})`);
       figure(ctx, { x: 820, y: 640 - 44.5 * 3.2 + 2, s: 3.2, dir: 1, sty: STY.lek, lk: { hair: 'nape', garment: 'coat', modern: true }, seed: 8, p: { torso: 0, head: .05 + .04 * gl, breath: .5 * Math.sin(t * 1.4) } });
-      txt(ctx, '1945', 960, 760, { font: '600 52px Cinzel', col: PW.line, ls: 12, a: ramp(lt, .3, .9) });
+      // 1945 çöl sahnesinin tarihi; kapak belirmeden söner (kapağın üstüne binip kitabın tarihi gibi okunmasın)
+      txt(ctx, '1945', 960, 696, { font: '600 52px Cinzel', col: PW.line, ls: 12, a: ramp(lt, .3, .9) * (1 - ramp(t, tA - .95, tA - .5)) });
       ctx.restore(); }
     ctx.restore();
   } else {

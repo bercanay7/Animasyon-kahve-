@@ -271,18 +271,19 @@ shot(A('A05'), (ctx, st) => {
   paperBG(ctx, t, { book: true });
   for (let i = 0; i < 5; i++) scribble(ctx, 600, 290 + i * 56, 900, 1, 40 + i, { col: 'rgba(74,52,35,.35)' });
   promVignette(ctx, t, 90, 300, 300, 250);
-  // zincir: vinyetin üst kazığından çıkıp sayfada soru işareti çizer, sonra yukarıdan kadrajı terk eder
+  // zincir: vinyetin üst kazığından sarkarak çıkar, sayfanın ortasında temiz bir soru işareti çizer (kanca + sap); kırmızı nokta altına düşer
   const pts = sampleF(u => {
-    if (u < .45) { const v = u / .45; return [lerp(380, 1000, v), lerp(330, 420, v) - Math.sin(v * PI) * 150]; }
-    if (u < .8) { const v = (u - .45) / .35, a = lerp(PI * .5, -PI * .95, v); return [1000 + Math.cos(a) * 150, 300 + Math.sin(a) * 120 + 120 * (1 - v) * 0]; }
-    const v = (u - .8) / .2; return [lerp(1000 + Math.cos(-PI * .95) * 150, 860, v), lerp(300 + Math.sin(-PI * .95) * 120, -120, v)];
-  }, 120);
-  const k = ramp(lt, .2, 2.4, E.lin);
+    if (u < .4) { const v = u / .4; return [lerp(380, 850, v), lerp(330, 290, v) + Math.sin(v * PI) * 70]; }
+    if (u < .86) { const v = (u - .4) / .46, a = lerp(PI, PI * 2.25, v); return [1000 + Math.cos(a) * 150, 290 + Math.sin(a) * 125]; }
+    const v = (u - .86) / .14, x0 = 1000 + Math.cos(PI * 2.25) * 150, y0 = 290 + Math.sin(PI * 2.25) * 125;
+    return [(1 - v) * (1 - v) * x0 + 2 * v * (1 - v) * 1000 + v * v * 1000, (1 - v) * (1 - v) * y0 + 2 * v * (1 - v) * 410 + v * v * 480];
+  }, 140);
+  const k = ramp(lt, .15, 1.9, E.lin);
   inkPoly(ctx, pts, k, { col: PW.line, w: 5, jit: .6 });
-  const n = Math.floor(40 * k);
-  for (let i = 0; i < n; i++) { const q = pts[Math.floor(i / 40 * 119)]; ctx.strokeStyle = PW.line; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.ellipse(q[0], q[1], 9, 5, i % 2 ? .8 : -.8, 0, TAU); ctx.stroke(); }
+  const n = Math.floor(48 * k);
+  for (let i = 0; i < n; i++) { const q = pts[Math.floor(i / 48 * 139)]; ctx.strokeStyle = PW.line; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.ellipse(q[0], q[1], 9, 5, i % 2 ? .8 : -.8, 0, TAU); ctx.stroke(); }
   // soru işaretinin noktası
-  if (k > .55) { ctx.fillStyle = PW.red; ctx.beginPath(); ctx.arc(1000, 520, 14 * ramp(lt, 1.3, 1.6), 0, TAU); ctx.fill(); }
+  if (k > .97) { ctx.fillStyle = PW.red; ctx.beginPath(); ctx.arc(1000, 560, 17 * ramp(lt, 1.85, 2.1, E.outBack), 0, TAU); ctx.fill(); }
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .35, vig: .55, grain: .045 } });
 

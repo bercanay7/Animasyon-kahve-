@@ -139,6 +139,8 @@ const B_ST = () => [
     txt(ctx, 'NASIL?', 8600, 470, { font: '900 220px Cinzel', col: mixCol(PW.paperD, PW.red, k), ls: 10, a: k, force: true });
     circleMark(ctx, 8600, 470, 480, 170, ramp(lt, .6, 1.6));
   } },
+  // P024 geri sarma: "önce çok daha geriye gider": kamera bütün sayfayı hızla ilk durağa geri sarar, sonra kil levhaya geçilir
+  { at: A('B07@geriye') + .5, x: 960, draw: () => {} },
 ];
 let B_STATIONS = null;
 shot(A('B04') - .1, (ctx, st) => {

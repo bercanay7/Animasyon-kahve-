@@ -172,8 +172,11 @@ function amforaIIb(c, x0, x1, t) {
     c.fillStyle = C.ink; c.beginPath(); c.ellipse(AMX.girit, by, 420, 300, 0, PI, TAU); c.fill();
     c.fillStyle = C.clay; c.beginPath(); c.ellipse(AMX.girit, by, 300, 200, 0, PI, TAU); c.fill();
     ram(c, AMX.girit + 90, by - 4, 1.5, -1, {});
-    bundle(c, AMX.girit - 90, by - 30, 1.2, C.white);
-    dipinto(c, 'ΖΕΥΣ', AMX.girit - 90, 340, 28, { col: C.ink, a: ramp(T('C10@zeustu'), 0, .6) });
+    // mağaranın içinde kundaktaki bebek tek parlak nokta; adı mağaranın üstünde, küçük boyda da okunur
+    const zg = ramp(T('C10@çocuk'), 0, .5);
+    glow(c, AMX.girit - 90, by - 50, 90 + 40 * zg, `rgba(255,232,180,${.25 + .35 * zg})`);
+    bundle(c, AMX.girit - 90, by - 42, 2.0, C.white);
+    dipinto(c, 'ΖΕΥΣ', AMX.girit - 90, by - 360, 60, { col: C.ink, a: zg });
   }
   if (vis(AMX.kusma)) {
     const k = ramp(T('C10@kusturdu'), 0, 1.6), fall = ramp(T('C10@indirdi'), 0, .9);
@@ -195,7 +198,7 @@ shot(A('C02'), (ctx, st) => {
   } });
 shot(A('C07'), (ctx, st) => {
   const t = st.t;
-  const r = stationRot(t, [[A('C07'), AMX.pusu], [A('C09'), AMX.yutma], [A('C10'), AMX.rheia], [A('C10@kundağa'), AMX.tas], [A('C10@o#1'), AMX.girit], [A('C10@büyüyünce'), AMX.kusma]], .9);
+  const r = stationRot(t, [[A('C07'), AMX.pusu], [A('C09'), AMX.yutma], [A('C10'), AMX.rheia], [A('C10@kundağa'), AMX.tas], [A('C10@o#1'), AMX.girit], [A('C10@babasına'), AMX.kusma]], .9);
   const night = 1 - ramp(t, A('C07@erhat'), A('C07@erhat') + .8);
   amphoraFrieze(ctx, t, r, (c, x0, x1, t) => amforaIIb(c, x0, x1, t), night > 0 ? { clayTop: mixCol(C.clayL, '#5A2C18', .55 * night), clayBot: mixCol(C.clay, '#3A1C0F', .55 * night) } : {});
 }, { tr: { type: 'cut' }, post: { tex: .85, vig: .85, grain: .055 },
