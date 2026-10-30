@@ -280,6 +280,19 @@ function headPt(ctx, J, M, q) {
   return [r.x, r.y];
 }
 function jointPt(ctx, M, q) { const sp = M.transformPoint(new DOMPoint(q[0], q[1])); const r = ctx.getTransform().inverse().transformPoint(sp); return [r.x, r.y]; }
+// Duman: vazo resmindeki gibi üç ince dalgalı çizgi; yukarı doğru salınımı büyür, uçta incelip söner (saydam daireler yerine)
+function smokeWisps(ctx, x, y, h, t, o = {}) {
+  const n = o.n ?? 3, a = o.a ?? 1, w = o.w ?? 3, sp = o.spread ?? 26, sway = o.sway ?? 22;
+  if (a <= 0) return;
+  ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = o.col || C.ink;
+  for (let i = 0; i < n; i++) {
+    const off = (i - (n - 1) / 2) * sp, ph = i * 1.7 + (o.seed || 0);
+    const P = []; for (let k = 0; k <= 24; k++) { const u = k / 24, yy = y - u * h; P.push([x + off * (1 - .4 * u) + Math.sin(u * 5.5 - t * 1.6 + ph) * sway * u, yy]); }
+    // uca doğru incelen çizgi: parça parça, kalınlık ve saydamlık azalır
+    for (let k = 0; k < 24; k++) { const u = k / 24; ctx.globalAlpha = a * (1 - u) * .9; ctx.lineWidth = w * (1 - .6 * u); ctx.beginPath(); ctx.moveTo(P[k][0], P[k][1]); ctx.lineTo(P[k + 1][0], P[k + 1][1]); ctx.stroke(); }
+  }
+  ctx.restore();
+}
 // Parıltı yıldızı
 function sparkle(ctx, x, y, r, a = 1, col = '#FFF4D8') {
   if (a <= 0) return;

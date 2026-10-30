@@ -253,16 +253,35 @@ shot(A('C14@onu'), (ctx, st) => {
 
 // --- C17–C18: Titanomakhia, Tartaros, Zeus tahtta, dünya paylaşılır; önüne tek engel çıkar: Prometheus ---
 const AMY = { savas: 0, devler: 1400, tartaros: 2800, akil: 4200, zeus: 5600, pay: 7000, engel: 8400 };
+// çatallı asa (üç dişli / iki dişli): yatık sap, uçta dik çapraz kol ve ileri bakan dişler
+function worldFork(c, x, y, r, rot, n, col) {
+  c.save(); c.translate(x, y); c.rotate(rot); c.strokeStyle = col; c.lineCap = 'round'; c.lineJoin = 'round'; c.lineWidth = Math.max(4, r * .03);
+  const hx = r * .36, sp = r * (n === 3 ? .11 : .08);
+  c.beginPath(); c.moveTo(-r * .58, 0); c.lineTo(hx, 0); c.moveTo(hx, -sp); c.lineTo(hx, sp);
+  for (let i = 0; i < n; i++) { const yy = n === 3 ? (i - 1) * sp : (i ? sp : -sp); c.moveTo(hx, yy); c.lineTo(hx + r * .2, yy); c.moveTo(hx + r * .2, yy); c.lineTo(hx + r * .15, yy + (yy <= 0 ? -r * .035 : r * .035)); }
+  c.stroke(); c.restore();
+}
+// dünya kalkanı (aspis): üç bölge (yıldızlı gök, dalgalı deniz, karanlık yeraltı), her birinde arması (yıldırım, üç dişli, iki dişli);
+// paylaştırmada (split) bölgeler birbirinden ayrılır
 function worldDisk(c, x, y, r, split, t) {
   c.save(); c.translate(x, y);
-  const parts = [[C.ink, 'ΠΟΣΕΙΔΩΝ'], ['#3A2116', 'ΑΙΔΗΣ'], [C.ink, 'ΗΡΑ'], ['#3A2116', 'ΑΘΗΝΑ'], [C.ink, 'ΑΠΟΛΛΩΝ']];
-  parts.forEach(([col, n], i) => {
-    const a0 = i / 5 * TAU - PI / 2, a1 = (i + 1) / 5 * TAU - PI / 2, am = (a0 + a1) / 2, off = split * 60;
-    c.save(); c.translate(Math.cos(am) * off, Math.sin(am) * off);
-    c.fillStyle = col; c.beginPath(); c.moveTo(0, 0); c.arc(0, 0, r, a0, a1); c.closePath(); c.fill(); c.strokeStyle = C.clay; c.lineWidth = 3; c.stroke();
-    c.restore();
-  });
-  c.strokeStyle = C.clay; c.lineWidth = 2; for (let k = 1; k < 3; k++) { c.beginPath(); c.arc(0, 0, r * k / 3, 0, TAU); c.stroke(); }
+  const off = split * 54, b1 = -r / 3, b2 = r / 3;
+  const zone = (y0, y1, dy, fill, draw) => { c.save(); c.translate(0, dy); c.beginPath(); c.arc(0, 0, r, 0, TAU); c.clip(); c.beginPath(); c.rect(-r, y0, 2 * r, y1 - y0); c.clip();
+    c.fillStyle = fill; c.fillRect(-r, -r, 2 * r, 2 * r); draw(); c.restore();
+    c.save(); c.translate(0, dy); c.strokeStyle = C.clay; c.lineWidth = 3; c.beginPath(); const h0 = Math.max(-r, y0), h1 = Math.min(r, y1);
+    for (const yy of [h0, h1]) if (Math.abs(yy) < r - 1) { const hw = Math.sqrt(r * r - yy * yy); c.moveTo(-hw, yy); c.lineTo(hw, yy); } c.stroke(); c.restore(); };
+  // gök: siyah, eklenmiş beyaz yıldızlar, ortada eklenmiş beyaz yıldırım
+  zone(-r, b1, -off, C.ink, () => { c.fillStyle = C.white; for (let i = 0; i < 14; i++) { const rr = rng(i + 7), sx = (rr() * 2 - 1) * r * .8, sy = -r + rr() * (r * .62); c.beginPath(); c.arc(sx, sy, 2.2 + rr() * 1.6, 0, TAU); c.fill(); }
+    bolt(c, 0, -r * .62, r / 300, .35, C.white, 'rgba(0,0,0,0)'); });
+  // deniz: kil, siyah dalgalı çizgiler, siyah üç dişli
+  zone(b1, b2, 0, C.clay, () => { c.strokeStyle = C.ink; c.lineWidth = 3; for (let k = 0; k < 3; k++) { const yy = b1 + (k + .5) * (b2 - b1) / 3; c.beginPath(); for (let q = 0; q <= 40; q++) { const xx = -r + q / 40 * 2 * r; c.lineTo(xx, yy + Math.sin(q * .9 + t * 1.2 + k) * 6); } c.stroke(); }
+    worldFork(c, 0, 0, r, -.08, 3, C.ink); });
+  // yeraltı: koyu toprak, kil iki dişli
+  zone(b2, r, off, '#2A160E', () => worldFork(c, 0, r * .6, r * .8, .06, 2, C.clay));
+  // kalkan kenarı: kalın siyah çember, üstünde kil nokta dizisi (yalnız bütünken)
+  c.globalAlpha = 1 - clamp(split * 1.5);
+  c.strokeStyle = C.ink; c.lineWidth = 22; c.beginPath(); c.arc(0, 0, r + 10, 0, TAU); c.stroke();
+  c.fillStyle = C.clay; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU; c.beginPath(); c.arc(Math.cos(a) * (r + 10), Math.sin(a) * (r + 10), 3, 0, TAU); c.fill(); }
   c.restore();
 }
 function amforaIIc(c, x0, x1, t) {
@@ -278,11 +297,20 @@ function amforaIIc(c, x0, x1, t) {
     for (let j = 0; j < 5; j++) { const q = ((t * .6 + j * .2) % 1); c.fillStyle = C.ink; c.beginPath(); c.arc(AMY.devler - 400 + q * 900, 200 + Math.sin(q * PI) * -120 + 120, 22, 0, TAU); c.fill(); }
   }
   if (vis(AMY.tartaros)) {
-    const k = ramp(T('C17@tartarosa'), 0, .6, E.in2);
-    c.fillStyle = C.ink; c.fillRect(AMY.tartaros - 320, by - 260, 640, 260);
-    c.fillStyle = C.clayD; c.fillRect(AMY.tartaros - 280 + 280 * (1 - k), by - 230, 560 - 560 * (1 - k), 230);
-    c.strokeStyle = C.ink; c.lineWidth = 4; for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(AMY.tartaros - 280 + i * 93, by - 230); c.lineTo(AMY.tartaros - 280 + i * 93, by); c.stroke(); }
-    dipinto(c, 'ΤΑΡΤΑΡΟΣ', AMY.tartaros, 260, 34, { col: C.ink });
+    // Tartaros: çukurun ağzında çift kanatlı tunç kapı (kazıma panolar, eklenmiş beyaz çiviler); içeride Titanlar düşer; "kapatıldı"da kanatlar kapanır
+    const gx = AMY.tartaros, k = ramp(T('C17@tartarosa'), -.1, .6, E.in2), fl = T('C17@titanlar#1');
+    c.fillStyle = C.ink; c.beginPath(); c.ellipse(gx, by + 3, 400, 46, 0, 0, PI); c.fill();
+    c.fillStyle = '#3A2116'; c.fillRect(gx - 290, by - 300, 580, 300);
+    c.save(); c.beginPath(); c.rect(gx - 290, by - 300, 580, 300); c.clip();
+    for (let i = 0; i < 3; i++) { const q = fl * .55 - i * .28; if (q > 0 && q < 1.2) bf(c, gx - 150 + i * 150, by - 260 + q * 420, 1.9, i % 2 ? -1 : 1, LK_TITAN, { torso: .5, shN: 2.6, shF: 2.4, elN: .2, elF: .3, kn: .6 }); }
+    c.restore();
+    for (const e of [-1, 1]) { const w = 290 * lerp(.22, 1, k), x0 = e < 0 ? gx - 290 : gx + 290 - w;
+      c.fillStyle = C.ink; c.fillRect(x0, by - 300, w, 300);
+      c.strokeStyle = C.clay; c.lineWidth = 2.4; for (let r = 0; r < 3; r++) for (let q = 0; q < 2; q++) { const px = x0 + w * (.1 + q * .44), py = by - 284 + r * 96; c.strokeRect(px, py, w * .36, 80); }
+      c.fillStyle = C.white; for (let r = 0; r < 4; r++) for (let q = 0; q < 3; q++) { c.beginPath(); c.arc(x0 + w * (.05 + q * .45), by - 290 + r * 96, 3.6, 0, TAU); c.fill(); } }
+    c.fillStyle = C.ink; c.fillRect(gx - 330, by - 300, 40, 300); c.fillRect(gx + 290, by - 300, 40, 300); c.fillRect(gx - 352, by - 336, 704, 38);
+    c.strokeStyle = C.clay; c.lineWidth = 2.4; c.beginPath(); c.moveTo(gx - 340, by - 317); c.lineTo(gx + 340, by - 317); c.stroke();
+    dipinto(c, 'ΤΑΡΤΑΡΟΣ', gx, by - 390, 60, { col: C.ink });
   }
   if (vis(AMY.akil)) { c.fillStyle = 'rgba(23,16,12,.2)'; for (let i = 0; i < 12; i++) { c.beginPath(); c.arc(AMY.akil - 500 + i * 90, by - 10 - (i % 3) * 8, 30, PI, TAU); c.fill(); } }
   if (vis(AMY.zeus)) {

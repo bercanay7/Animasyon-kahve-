@@ -78,7 +78,7 @@ shot(PA('P075'), (ctx, st) => {
   { const x = .5 * E_PW, k = ramp(t, A('E01@kemikleri') - .3, A('E01@kemikleri') + 1.2);
     altar(ctx, x, E_GY, 3.2, C.ink, C.clay, 1, t);
     for (const [dx, dir] of [[-460, 1], [-300, 1], [320, -1], [480, -1]]) E_fig(ctx, x + dx, 3.6, dir, LK.human, { torso: .25, shN: 1.6 + .2 * Math.sin(t * 3 + dx), elN: 1.4, handN: 'fist' });
-    for (let i = 0; i < 6; i++) { const ph = (t * .35 + i / 6) % 1; ctx.fillStyle = `rgba(23,16,12,${(.25 + .2 * k) * Math.sin(PI * ph)})`; ctx.beginPath(); ctx.arc(x + Math.sin(i * 2 + t) * 30, E_GY - 160 - ph * (300 + 260 * k), 30 + ph * 50, 0, TAU); ctx.fill(); }
+    smokeWisps(ctx, x, E_GY - 150, 260 + 220 * k, t, { a: .6 + .3 * k, w: 4, spread: 24, sway: 26 });
     if (k > 0) for (let i = 0; i < 3; i++) { ctx.save(); ctx.globalAlpha = k; E_fig(ctx, x - 160 + i * 160, 1.6, i < 1 ? 1 : -1, { beard: 'full', hair: 'long', garment: 'robe' }, { torso: -.05, head: -.25 }, { }); ctx.restore(); }
   }
   // 1: Hesiodos (rapsod, asa): ad etiketi üst katmanda
@@ -92,7 +92,7 @@ shot(PA('P075'), (ctx, st) => {
   { const x = 3.5 * E_PW, sp = E.io2(ramp(t, A('E03@ikiye') - .1, A('E03@ayırır') + .4));
     for (const [sg, side] of [[-1, 0], [1, 1]]) { ctx.save(); ctx.beginPath(); side ? ctx.rect(x + 40, 0, 2000, 2000) : ctx.rect(x - 2000, 0, 2040, 2000); ctx.clip(); ctx.translate(sg * 70 * sp, 0); cow(ctx, x + 40, E_GY, 3.4, -1, 0, { col: C.ink, inc: C.clay }); ctx.restore(); }
     E_fig(ctx, x - 420, 4.6, 1, LK.promFree, { torso: .25, shN: lerp(2.6, .6, ramp(t, A('E03@keser') - .2, A('E03@keser') + .3)), elN: .2, handN: 'fist' }, { hold: { N: HOLD.chisel() } });
-    if (sp > 0 && sp < 1) for (let i = 0; i < 5; i++) { const ph = (t * .8 + i / 5) % 1; ctx.fillStyle = `rgba(23,16,12,${.25 * Math.sin(PI * ph)})`; ctx.beginPath(); ctx.arc(x + 40 + Math.sin(i * 3) * 20, E_GY - 220 - ph * 160, 16 + ph * 20, 0, TAU); ctx.fill(); } }
+    if (sp > 0 && sp < 1) smokeWisps(ctx, x + 40, E_GY - 200, 180, t, { n: 2, a: .5 * Math.sin(PI * sp), w: 3, spread: 18, sway: 16, seed: 2 }); }
   // 4: iki pay yan yana; kazıma yağın altındaki kemiği ele verir (E04@çıplak)
   { const x = 4.5 * E_PW; E_portions(ctx, x, E_GY, { scratch: ramp(t, A('E04@çıplak') - .2, A('E04@kemikler') + .6) }); }
   // 5: Prometheus sunar ("Hangisini istersen seç"); Zeus parlak paya uzanır; E05@altından'da yağ kalkar, beyaz kemikler; Zeus'un profili donar
@@ -103,7 +103,7 @@ shot(PA('P075'), (ctx, st) => {
     E_fig(ctx, x + 620, 5.0, -1, LK.zeus, { torso: .1 * rch, shN: lerp(.2, 1.35, rch), elN: lerp(.4, .1, rch), handN: 'open', head: lift > .5 ? .02 : 0 }, { hold: { F: HOLD.scepter(80) }, still: lift > .5 }); }
   // 6: zaman atlaması: yüzyıllar boyunca sunaklar; kemik dumanı tanrılara, et insanlara (friz akar)
   { const x = 6.5 * E_PW;
-    for (let i = 0; i < 4; i++) { const ax = x - 540 + i * 360 + ((t * 40) % 360); altar(ctx, ax, E_GY, 2.0, C.ink, C.clay, 1, t + i); for (let k = 0; k < 3; k++) { const ph = (t * .4 + k / 3 + i * .2) % 1; ctx.fillStyle = `rgba(23,16,12,${.25 * Math.sin(PI * ph)})`; ctx.beginPath(); ctx.arc(ax, E_GY - 110 - ph * 360, 18 + ph * 30, 0, TAU); ctx.fill(); } E_fig(ctx, ax + 110, 2.6, -1, LK.human, { torso: .3, shN: 1.5, elN: 1.4 }); } }
+    for (let i = 0; i < 4; i++) { const ax = x - 540 + i * 360 + ((t * 40) % 360); altar(ctx, ax, E_GY, 2.0, C.ink, C.clay, 1, t + i); smokeWisps(ctx, ax, E_GY - 100, 300, t, { a: .7, w: 3, spread: 16, sway: 20, seed: i }); E_fig(ctx, ax + 110, 2.6, -1, LK.human, { torso: .3, shN: 1.5, elN: 1.4 }); } }
   ctx.restore();
   friezeFrame(ctx, { col: C.ink, h: 44, bandBg: C.clay });
 }, { tr: { type: 'clay', dur: .8, end: true }, post: { tex: .85, vig: .85, grain: .055 },

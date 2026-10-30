@@ -202,7 +202,7 @@ shot(PA('P064'), (ctx, st) => {
   for (let k = 0; k < 4; k++) { const a = -.6 + k * .4 + Math.sin(t * 3 + k) * .1; ctx.strokeStyle = `rgba(255,236,190,${.7 * lk})`; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(fs[0] + 10 + Math.cos(a) * 20, fs[1] + Math.sin(a) * 20); ctx.lineTo(fs[0] + 10 + Math.cos(a) * (40 + 20 * lk), fs[1] + Math.sin(a) * (40 + 20 * lk)); ctx.stroke(); }
   // dinmez öfke: tahttaki siluetten koyu duman kaynar
   const sm = ramp(t, tD - .4, tD + .8);
-  if (sm > 0) for (let k = 0; k < 7; k++) { const ph = (t * .5 + k / 7) % 1; ctx.fillStyle = `rgba(23,16,12,${.35 * sm * Math.sin(PI * ph)})`; ctx.beginPath(); ctx.arc(1380 + Math.sin(k * 2.3 + t) * 60, 320 - ph * 360, 40 + ph * 90, 0, TAU); ctx.fill(); }
+  if (sm > 0) smokeWisps(ctx, 1385, 236, 260 * sm, t, { n: 5, a: .85 * sm, w: 6, spread: 30, sway: 44 });
   // başka yerde: Prometheus'un başında ikinci kıvılcım
   const pa = ramp(t, tV, tV + .8);
   if (pa > 0) { ctx.save(); ctx.globalAlpha = pa; bf(ctx, 300, 760, 5.0, 1, LK.promFree, { torso: -.03, head: -.15, breath: Math.sin(t * 1.5) * .5 }); ctx.restore();
