@@ -6,7 +6,7 @@ python3 tools/mix.py --stems    # ayrıca audio/stems/vo.wav ve music.wav (Short
 import json, sys, os, re
 import numpy as np, soundfile as sf, pyloudnorm as pyln
 from scipy import signal
-from scipy.ndimage import maximum_filter1d
+from scipy.ndimage import maximum_filter1d, uniform_filter1d
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SR = 48000
@@ -53,11 +53,11 @@ def reverb_ir(dur=2.4, pre=.02):
     return ir
 
 def apply_reverb(x, ir):
-    return np.stack([signal.fftconvolve(x[c], ir[c])[:N] for c in range(2)])
+    return np.stack([signal.oaconvolve(x[c], ir[c])[:N] for c in range(2)])
 
 def envelope(x, win=.03):
     w = int(win * SR)
-    e = np.sqrt(np.convolve(x ** 2, np.ones(w) / w, 'same'))
+    e = np.sqrt(uniform_filter1d(x ** 2, max(1, w), mode='nearest'))
     return e
 
 def smooth_gain(target, att=.08, rel=.6):
@@ -74,7 +74,7 @@ def peq(x, f0, gdb, q=1.0):
     return signal.lfilter(np.array(b) / a[0], np.array(a) / a[0], x)
 
 def compress(x, thr_db, ratio=3.0, att=.008, rel=.1):
-    w = int(.005 * SR); p = np.sqrt(np.convolve(x ** 2, np.ones(w) / w, 'same')) + 1e-9
+    w = int(.005 * SR); p = np.sqrt(uniform_filter1d(x ** 2, max(1, w), mode='nearest')) + 1e-9
     lvl = 20 * np.log10(p); over = np.maximum(0, lvl - thr_db); gr = -over * (1 - 1 / ratio)
     hop = SR // 1000; g = gr[::hop]; out = np.empty_like(g); cur = 0.0
     aa, ar = np.exp(-1 / (att * 1000)), np.exp(-1 / (rel * 1000))
@@ -106,7 +106,7 @@ def voice_chain(vo):
     g = np.ones(len(vo))
     for a, b, d in gains:
         g[int(a * SR):int(b * SR)] = db(d)
-    g = np.convolve(g, np.ones(int(.04 * SR)) / int(.04 * SR), 'same')
+    g = uniform_filter1d(g, int(.04 * SR), mode='nearest')
     vo = vo * g
     vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
     L = pyln.Meter(SR).integrated_loudness(vo)

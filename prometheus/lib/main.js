@@ -11,6 +11,7 @@ function renderFrame(t) {
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
   drawFilm(ctx, t);
+  if (!window.IN_MB && typeof drawOver === 'function' && !Q.get('scene')) drawOver(ctx, t);
 }
 // 180° obtüratör: kare süresinin yarısı içinde n alt kare ortalaması
 function renderFrameMB(t, n) {
@@ -21,14 +22,16 @@ function renderFrameMB(t, n) {
   const lo = sh ? sh.at : 0, hi = si >= 0 && si + 1 < SHOTS.length ? SHOTS[si + 1].at - 1e-4 : Infinity;
   accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';
   window.FRAME_T = t; // ayrık değişen öğeler (sayaçlar) alt karelerde değil karenin kendisinde değişsin
+  window.IN_MB = true;
   for (let i = 0; i < n; i++) {
     renderFrame(Math.max(0, Math.min(hi, Math.max(lo, t + dt * (i / n - .5)))));
     accx.globalAlpha = 1 / (i + 1);
     accx.drawImage(cv, 0, 0);
   }
-  window.FRAME_T = null;
+  window.FRAME_T = null; window.IN_MB = false;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
   ctx.drawImage(acc, 0, 0);
+  if (typeof drawOver === 'function' && !new URLSearchParams(location.search).get('scene')) { window.FIG_T = t; drawOver(ctx, t); }
 }
 window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
 window.ready = (async () => {
