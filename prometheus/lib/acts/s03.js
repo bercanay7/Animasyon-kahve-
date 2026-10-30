@@ -295,7 +295,7 @@ shot(PA('P070'), (ctx, st) => {
   D_thrones(ctx, t, { tip: [1.2, 1.2], crack: .2 + .5 * ramp(t, tB - .2, tB + .6) + .3 * ramp(t, tD + 1, tD + 3), na: .7, ny: 280 });
   // anı: Gaia Kronos'a fısıldar (soluk, sağ üstte: ΟΥΡΑΝΟΣ yazısıyla çakışmaz)
   const m = ramp(lt, .1, .8) * (1 - ramp(t, A('D09@prometeus#1') + .2, A('D09@prometeus#1') + 1.0));
-  if (m > 0) { ctx.save(); ctx.globalAlpha = .55 * m; bf(ctx, 1560, 520, 3.0, 1, LK_GAIA, { torso: .2, head: .3, shN: .8, elN: 1.4 }); bf(ctx, 1740, 520, 3.0, -1, LK_KRONOS, { torso: -.05, head: .1 }); ctx.fillStyle = C.ink; ctx.fillRect(1440, 520, 420, 4); ctx.restore(); }
+  if (m > 0) { ctx.save(); ctx.globalAlpha = .55 * m; bf(ctx, 1640, 610, 3.0, 1, LK_GAIA, { torso: .2, head: .3, shN: .8, elN: 1.4 }); bf(ctx, 1810, 610, 3.0, -1, LK_KRONOS, { torso: -.05, head: .1 }); ctx.fillStyle = C.ink; ctx.fillRect(1540, 610, 380, 4); ctx.restore(); }
   // Prometheus bilir: tahtın çatlağına bakar
   const pa = ramp(t, A('D09@prometeus#1') - .2, A('D09@prometeus#1') + .6);
   if (pa > 0) { ctx.save(); ctx.globalAlpha = pa; bf(ctx, 1000, 760, 4.6, 1, LK.promFree, { torso: -.02, head: .12 }); ctx.restore(); }

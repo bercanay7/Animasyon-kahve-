@@ -634,3 +634,55 @@ Bu kurul da sonradan açıldı: Shorts ilk render edildiğinde hiç kurula gitme
 - **Atlama kesmesi (2,5–3,9 sn) yapılmadı.** Ses kesitini bölmek müziği keser. Kanca başlığı bu boşluğu okuma süresine çeviriyor; kurul da kabul etti.
 - **Terazinin ilk saniyesinde altyazı Prometheus'un bacaklarına biniyor, kabul edildi.** Figür y 930'dan 160'a yükselirken her sabit altyazı yeri bir an kesişiyor.
 - **Parlaklık artışı yapılmadı:** üslup kararı.
+
+# Üslup kurulu tur 3: render edilmiş son film (atlanan ONAY), başkan kararları
+Üslup karesi tur 2'de RED (7,53–8,50) kalmıştı ve planlanan tur 3 yapılmamıştı. Bu tur, kayda "tamamlandı" diye geçen bu eksiği kapatmak için açıldı. Tur 2'nin en sert dört üyesi son filmin kareleri üzerinde değerlendirdi (`kurul/uslup_tur3_son/`).
+
+| Üye | Tur 2 | Tur 3 (film) | Karar |
+|---|---|---|---|
+| vazo-Teknik | 7,60 | 8,30 | RED (kritik: kırmızı figürde kadın saçı kil) |
+| karakter-İfade | 7,53 | 8,90 | RED (kritik: P150 başı şerit altında; poz sıçramaları) |
+| kompozisyon-Renk | 7,97 | 8,83 | RED (kritik yok) |
+| animasyon-Hareket | 7,70 | 8,33 | RED (S6 6,5: kamera sıçramaları, amfora bandı, geçişte yazı, açılış kartalı) |
+
+## Uygulananlar (render öncesi)
+- **Kritikler:**
+  - Kırmızı figürde kadın saçı siyah sır.
+  - P150 kamerası.
+  - poseMix/exprMix ile poz ve ifade geçişleri.
+  - Dört kamera yardımcısında sürekli kayma: ölçülen 88 ve 72 px'lik sıçramalar 0 px'e indi.
+  - Amfora dil bandı konumdan sayılıyor.
+  - Geçişte çıkan planın yazısı söner.
+  - Açılışta kartal söner, baş yumuşak döner.
+- **Hareket:**
+  - Hızlı pencerelerde 12–16 alt kare ve 360° obtüratör.
+  - Kylix kartalının göz bebeği siyah, dalış hedefi göz bebeği.
+  - J04'te renge dönüş tek parça ve aynı pozdan.
+  - turnDir ile figür dönüşleri 3–4 karede.
+  - Kronos'un kolu yumuşak.
+  - Bitiş ekranında Sisifos yürüyerek iner.
+  - Hermes'in inişinde yerleşme.
+  - Durağan planlarda yavaş itiş.
+  - P249 pençesine kil kenar.
+- **Sahne ve renk:**
+  - Mekone'de oturan tanrılar.
+  - Pandora'nın armağanları süreklilik kazandı.
+  - Kratos, Bia ve Hephaistos kontur bandıyla.
+  - Kratos'un kolu ve zinciri kesen süs yazısı kaldırıldı; Hephaistos'un sözleri soluk akış.
+  - ΩΚΕΑΝΟΣ yazısı, P070 anısı ve P207'deki İo yeniden yerleştirildi.
+  - Herakles kartalı göğse iniyor; siyah figür kartalların uzak kanadı siyah.
+  - P060 yıldırımı eklenmiş beyaz; P184'te şimşek soğuk beyaz, kartal tek parça.
+  - P089'da Zeus'un arkasına hâle; P104 gölgesi tek parça.
+  - Babanın gölgesine soğuk kenar.
+  - Sunak ateşi film diliyle; boş tahtın kenarı soğuk beyaz.
+  - IX tülü hafifledi.
+  - Emekleyen figürün ayakları zemin çizgisinde.
+  - P170'te gövde karanlığa gömüldü.
+  - Ayak parmakları eklendi.
+  - sanat.md güncellendi.
+
+## Değiştirilerek alınan ya da ertelenen (gerekçesiyle)
+- Kratos'un sözü taş levha olarak verilmedi, kaldırıldı. Kalabalık yakın planda levhaya yer yok; anlatım ve altyazı sözü taşıyor.
+- P263 "SON SÖZ" harflerinin alıntıya uçması: yerine genel çözüm (geçişte çıkan planın yazısı söner) uygulandı; harf uçuşu yapılmadı.
+- Motor düzeyindeki işler sonraki videoya bırakıldı (vazo-Teknik'in de önerisi). Bunlar: dirsek ve omuz dikişleri, beyaz zemin giysi dili, kaya içi, himation kıvrımları, kartal kuyruğu, İyon/Attika yazımı. Hepsi filmin her karesini etkiler ve geniş bir yeniden doğrulama ister; yakın plan kontrolünde kol ve omuz kusur düzeyinde değil.
+- P102 ve P285'teki durağan anlar: plan kodunda ayrı bir kamera bulunamadı, dokunulmadı. Yazının harf harf kayması: yazı işlevleri son genişlikten hesaplıyor; görülen kayma sayfa yolculuğu kamerasının sıçramasıydı ve o düzeltildi.
