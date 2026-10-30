@@ -5,6 +5,7 @@ const LK = {
   zeus: { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true, eyeS: 1.3, brow: -.6 },
   hermes: { beard: 'pointed', hair: 'long', headgear: 'petasos', garment: 'short', cape: true, wingedFeet: true },
 };
+LK.promFree = { ...LK.prom, legIrons: false }; // zincirlenmeden önce (ateşin çalınışı)
 // --- elde taşınanlar (G: figür çizim bağlamı, el yerel koordinatı: bilek orijin, +y parmak yönü) ---
 // dik tutulan nesneler el açısını geri alır (asa her zaman dik)
 const up = (G, f) => { G.g.save(); G.g.rotate(G.handA || 0); f(); G.g.restore(); };

@@ -2,7 +2,7 @@
 'use strict';
 
 // --- Olympos'tan inen koşu: kırmızı figür Prometheus, havaya kaldırılmış rezene sapı; ateş karenin en parlak noktası ---
-const RUN = { sp: 270, s: 5.2, x0: 600 };
+const RUN = { sp: 250, s: 6.4, x0: 600 };
 const runGround = x => 610 + x * .2 + fbm1(x * .004, 2) * 22;
 function olymposRun(ctx, t, c, o = {}) {
   glazeBG(ctx, t, { gx: c.x + 300, gy: 300, gr: 1000, stars: false, warm: 'rgba(110,44,20,.35)' });
@@ -24,13 +24,13 @@ function olymposRun(ctx, t, c, o = {}) {
   const x = RUN.x0 + RUN.sp * t;
   let wr = null, M = null, Jn = null;
   walkScene(ctx, c, x, RUN.s, t, 1, {
-    noCam: true, ground: groundOf(runGround), stride: 52, lean: .26, sty: STY.red, lk: LK.prom, seed: 17,
-    p: { shN: 2.45 + Math.sin(t * 9.6) * .05, elN: .25, handN: 'fist', mouthOpen: 0, smile: -1, headBack: o.back, wind: .9, scowl: .5 },
+    noCam: true, ground: groundOf(runGround), stride: 52, lean: .26, sty: STY.red, lk: LK.promFree, seed: 17, stripe: .55,
+    p: { shN: 2.2 + Math.sin(t * 9.6) * .05, elN: .2, handN: 'fist', mouthOpen: 0, smile: -1, headBack: o.back, wind: .9, scowl: .5 },
     onJoints: (J, m) => { Jn = J; M = m; },
   });
   wr = jointPt(ctx, M, Jn.AN.wr);
   // rezene sapı yumruktan yukarı-ileri; ucunda ateş (karenin tek parlak noktası)
-  const a = -1.15 + Math.sin(t * 9.6) * .04, L = 190, tip = [wr[0] + Math.cos(a) * L, wr[1] + Math.sin(a) * L];
+  const a = -.72 + Math.sin(t * 9.6) * .04, L = 175, tip = [wr[0] + Math.cos(a) * L, wr[1] + Math.sin(a) * L];
   // kıvılcım izi: önceki uç konumları geride kalır
   for (let i = 0; i < 26; i++) {
     const age = ((t * 1.7 + i / 26) % 1), bx = tip[0] - RUN.sp * age * .9 + noise1(i * 3.1 + t, 4) * 14, by = tip[1] - age * 70 + noise1(i * 1.7 + t, 8) * 10;
@@ -44,7 +44,9 @@ function olymposRun(ctx, t, c, o = {}) {
 // P001: kapak karesi (koşu, ateş en parlak nokta), P003: yakın plan, baş geriye (Olympos'a) döner
 shot(0, (ctx, st) => {
   const x = RUN.x0 + RUN.sp * st.t;
-  olymposRun(ctx, st.t, { x: x + 120, y: 470 + x * .2 - 140, z: 1.0 + st.t * .01 });
+  // kapak kompozisyonu: figür sol-orta, kaldırılmış ateş sağ üstte (karenin en parlak noktası)
+  olymposRun(ctx, st.t, { x: x + 200, y: 610 + x * .2 - 360, z: .98 + st.t * .012 });
+  kayaFrame(ctx, st.t);
 }, { tr: { type: 'black', dur: .6 }, post: { tex: .55, vig: 1, grain: .06 } });
 // P002: aşağıda karanlık ova; ateş ocaktan ocağa geçer, mağara ağızlarında insanların yüzleri aydınlanır
 shot(A('A01@insanlara'), (ctx, st) => {
@@ -69,22 +71,25 @@ shot(A('A01@insanlara'), (ctx, st) => {
     }
   });
   ctx.restore();
+  kayaFrame(ctx, st.t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 shot(A('A01@titan'), (ctx, st) => {
   const t = st.t, x = RUN.x0 + RUN.sp * t, lt = st.lt;
   // yakın plan: baş ve rezene; baş geriye döner (bile bile)
-  olymposRun(ctx, t, { x: x + 40, y: 470 + x * .2 - 330 + lt * 6, z: lerp(2.15, 2.3, E.io2(clamp(lt / 1.8))) }, { back: lt > .25 });
+  olymposRun(ctx, t, { x: x + 110, y: 610 + x * .2 - 560 + lt * 6, z: lerp(1.75, 1.9, E.io2(clamp(lt / 1.8))) }, { back: lt > .25 });
+  kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
 
 // --- P004: zincir kayaya çakılır (çekiç ve kazık yakın), P005: kamera zinciri buluta kadar izler ---
-function hammerHit(ctx, x, y, tHit, t, s = 1) {
-  // çekiç: siyah sır başlık, kil sap; vuruşta durur, sonra geri sıçrar
-  const u = t - tHit, a = u < 0 ? lerp(-.2, -1.5, clamp(-u / .45)) : -.2 - settle(t, tHit, .5, 3.5, 7);
-  ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.scale(s, s);
+function hammerHit(ctx, tx, ty, tHit, t, s = 1) {
+  // çekiç: sap sağ üstteki pivot (görünmeyen el) çevresinde döner; vuruş anında baş kazığın başına oturur, sonra geri sıçrar
+  const P = [tx + 200 * s, ty - 210 * s], L = Math.hypot(200, 210) * s, ah = Math.atan2(ty - P[1], tx - P[0]);
+  const u = t - tHit, a = u < 0 ? ah - 1.25 * E.io2(clamp(-u / .5)) : ah - .35 * Math.abs(settle(t, tHit, 1, 3.2, 6));
+  ctx.save(); ctx.translate(P[0], P[1]); ctx.rotate(a);
   ctx.fillStyle = PC.clayR; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.rect(6, -10, 230, 20); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#2B1A12'; ctx.beginPath(); ctx.rect(-40, -46, 64, 92); ctx.fill(); ctx.stroke();
-  ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(-34, -38); ctx.lineTo(-34, 38); ctx.stroke();
+  ctx.beginPath(); ctx.rect(-30 * s, -9 * s, L, 18 * s); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#2B1A12'; ctx.beginPath(); ctx.rect(L - 30 * s, -44 * s, 60 * s, 88 * s); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = PC.clayR; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(L - 24 * s, -36 * s); ctx.lineTo(L - 24 * s, 36 * s); ctx.stroke();
   ctx.restore();
 }
 shot(A('A02'), (ctx, st) => {
@@ -95,7 +100,7 @@ shot(A('A02'), (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   promChained(ctx, t, { wind, look: -.05, pullK: .4 });
   const sF = PROM_KAYA.sF;
-  hammerHit(ctx, sF[0] + 70, sF[1] - 150, tH, t, 1.2);
+  hammerHit(ctx, sF[0] - 22, sF[1], tH, t, 1.1);
   if (t > tH) { dustBurst(ctx, t, tH, sF[0], sF[1], 26, 'rgba(201,112,63,.6)', 120, 4); if (t - tH < .5) sparkle(ctx, sF[0] - 6, sF[1], 26 * (1 - (t - tH) / .5), 1); }
   ctx.restore();
   // çakma: kısa beyaz parlama
@@ -262,27 +267,21 @@ shot(A('A05'), (ctx, st) => {
   ctx.restore();
 }, { tr: { type: 'cut' }, post: { tex: .35, vig: .55, grain: .045 } });
 
-// --- P015: avuçtaki alev (bir avuç ateş): profilden kavuşturulmuş eller, kıvılcım yükselir ---
-function cuppedHands(ctx, x, y, s, t) {
-  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-  ctx.fillStyle = PC.clayR; ctx.strokeStyle = C.ink; ctx.lineWidth = 3 / s; ctx.lineJoin = 'round';
-  // iki avuç: alttaki çanak ve öndeki başparmaklar
-  ctx.beginPath(); ctx.moveTo(-120, -10); ctx.quadraticCurveTo(-110, 60, -20, 70); ctx.quadraticCurveTo(70, 72, 118, 6); ctx.lineTo(104, -6); ctx.quadraticCurveTo(60, 40, -4, 42); ctx.quadraticCurveTo(-80, 40, -98, -16); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(-98, -16); ctx.quadraticCurveTo(-84, -40, -60, -30); ctx.quadraticCurveTo(-70, -10, -74, 6); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(104, -6); ctx.quadraticCurveTo(96, -34, 72, -28); ctx.quadraticCurveTo(80, -8, 82, 8); ctx.stroke();
-  // bilekler
-  ctx.beginPath(); ctx.moveTo(-120, -10); ctx.lineTo(-260, 60); ctx.lineTo(-250, 120); ctx.lineTo(-110, 60); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(118, 6); ctx.lineTo(260, 70); ctx.lineTo(250, 128); ctx.lineTo(96, 62); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.restore();
-}
+// --- P015: "bir avuç ateş mi?": karanlıkta küçücük bir alev; kamera yukarı kalkınca karanlıktan dev, boş bir taht belirir ---
 shot(A('A05@ve'), (ctx, st) => {
-  const t = st.t, lt = st.lt;
-  glazeBG(ctx, t, { gx: 960, gy: 560, gr: 700, stars: false, warm: 'rgba(150,62,28,.5)' });
-  const z = 1 + lt * .03;
-  ctx.save(); ctx.translate(960, 600); ctx.scale(z, z); ctx.translate(-960, -600);
-  glow(ctx, 960, 540, 520, 'rgba(255,150,70,.18)');
-  cuppedHands(ctx, 960, 640, 1.5, t);
-  flame(ctx, 960, 650, 1.6, t, { haloR: 160 });
-  motes(ctx, t, 30, 29, 'rgba(255,200,120,.9)', [860, 300, 200, 300], 50, 1.6, .7);
+  const t = st.t, lt = st.lt, u = E.io2(clamp(lt / st.d));
+  glazeBG(ctx, t, { gx: 960, gy: 900, gr: 600, stars: false, warm: 'rgba(150,62,28,.45)' });
+  const c = { x: 960, y: lerp(760, 470, u), z: lerp(1.35, 1.0, u) };
+  ctx.save(); cam(ctx, c, 1);
+  // dev taht: siyah sır kütle, kil kontur; yavaşça görünür
+  ctx.save(); ctx.globalAlpha = .4 + .5 * u;
+  throne(ctx, 960 - 60, 820, 14, 1, '#1E120C', 'rgba(201,112,63,.55)', { high: true, stool: false });
+  ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 3; ctx.restore();
+  // iki uzak şimşek titremesi (Zeus görünmez)
+  for (const [tt, x] of [[.9, 620], [2.0, 1320]]) { const f = Math.exp(-Math.pow((lt - tt) / .07, 2)); if (f > .02) { ctx.save(); ctx.globalAlpha = .5 * f; lightning(ctx, x, 80, x + 60, 420, 7 + tt * 10, 4, '#E8ECFF'); ctx.restore(); } }
+  // küçücük alev: karenin tek parlak noktası
+  humanFires(ctx, t, [[960, 900, 1.15]], 1);
+  motes(ctx, t, 16, 29, 'rgba(255,200,120,.9)', [900, 700, 120, 200], 30, 1.3, .7);
   ctx.restore();
+  kayaFrame(ctx, t);
 }, { tr: { type: 'ink', dur: .7 }, post: { tex: .55, vig: 1, grain: .06 } });

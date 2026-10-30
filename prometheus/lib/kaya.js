@@ -125,6 +125,13 @@ function kayaWorld(ctx, t, c, o = {}) {
   ctx.strokeStyle = C.ink; ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.beginPath(); for (let x = 1035; x <= 2600; x += 12) x > 1035 ? ctx.lineTo(x, gl(x)) : ctx.moveTo(x, gl(x)); ctx.stroke();
   // figürün arkasında sıcak hâle (ateşle titrer)
   glow(ctx, 1270, 540, 560, `rgba(150,60,25,${.38 * fl})`);
+  // zincirin öbür ucu: üst kazığın halkasından göğe, bulutların içine (A02, J04)
+  if (o.skyChain) {
+    const sF = PROM_KAYA.sF, top = [sF[0] + 70, -1150], tug = o.chainTug || 0;
+    ironChain(ctx, [sF[0] - 30, sF[1] - 4], top, { L0: len(sub(top, sF)) * (1.01 - .01 * Math.abs(tug)), sag: -tug * 12, w: 6, link: 24 });
+    for (let i = 0; i < 6; i++) cloud(ctx, sF[0] - 260 + i * 120 + Math.sin(t * .2 + i) * 20, -560 + (i % 2) * 70, 1.5, '#1A100B', 'rgba(201,112,63,.4)', i + 3);
+    if (o.glint) sparkle(ctx, top[0] - 30, -470, 30 * o.glint, o.glint, '#FFE2A0');
+  }
   ctx.restore();
   return { wind, fl };
 }
