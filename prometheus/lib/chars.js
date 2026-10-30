@@ -8,9 +8,9 @@ const LK = {
 LK.promFree = { ...LK.prom, legIrons: false }; // zincirlenmeden önce (ateşin çalınışı)
 // Oyuncular (bütün perdeler ortak kullanır; yüz yakın planı yok, siluet ve giysiyle tanınırlar)
 Object.assign(LK, {
-  kratos: { beard: 'short', hair: 'nape', headgear: 'helmet', garment: 'short', greaves: true, cape: true, brow: -.8, rf: true, earHidden: true, sevEye: true },
+  kratos: { beard: 'short', hair: 'nape', headgear: 'attic', garment: 'short', greaves: true, cape: true, brow: -.8, rf: true, earHidden: true, sevEye: true },
   bia: { fem: true, hair: 'long', headgear: 'helmet', garment: 'robe' },
-  hephaistos: { beard: 'full', hair: 'nape', garment: 'short', rf: true, earHidden: true, sevEye: true },
+  hephaistos: { beard: 'full', hair: 'nape', headgear: 'pilos', garment: 'short', rf: true, earHidden: true, sevEye: true },
   epimetheus: { beard: 'short', hair: 'nape', garment: 'short' },
   pandora: { fem: true, hair: 'long', headgear: 'diadem', garment: 'robe', earring: true },
   kronos: { beard: 'long', hair: 'long', garment: 'robe', himation: true, old: true },

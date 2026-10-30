@@ -92,6 +92,13 @@ const BEARD_RF = [[5.95, -3.55], [4.6, -3.75], [2.4, -4.15], [.1, -4.7], [-.6, -
   [6.1, 6.3], [6.9, 3.4], [6.6, .2], [6.15, -2.6]];
 const HAIR_F = [[5.3, -10.3], [4.6, -12.1], [2.8, -13.7], [0, -14.5], [-3.3, -14.1], [-5.8, -12.4], [-8.3, -12.9], [-10.3, -10.7],
   [-9.9, -7.6], [-7.7, -6.5], [-6.6, -5.0], [-5.4, -2.4], [-3.9, -1.0], [-3.0, -3.4], [-2.2, -6.6], [.2, -9.7], [2.6, -10.6], [4.4, -10.4]];
+// miğfer tepeliği: başın tepesindeki ayak üstünde, alından enseye uzanan at kılı yay (eklenmiş kırmızı), kuyruğu enseye sarkar
+function helmetCrest(G, det, sty) {
+  G.part(c => { c.rect(-2.6, -16.6, 2.2, 2.6); }, {});
+  G.part(c => spline(c, [[4.6, -16.6], [2.0, -19.4], [-2.4, -20.6], [-7.0, -19.4], [-10.4, -16.0], [-11.8, -11.4], [-12.2, -7.4], [-10.6, -7.8], [-9.9, -11.4],
+    [-8.2, -14.8], [-5.0, -16.8], [-1.4, -17.2], [2.0, -16.6]]), { fill: sty.red });
+  for (let i = 0; i < 7; i++) det(c => { const a = -.25 - i * .32, r0 = 3.2, r1 = 5.6; c.moveTo(-2.2 + Math.cos(a + PI / 2 + 1.1) * r0, -14.6 - Math.sin(a + PI / 2 + 1.1) * r0); c.lineTo(-2.2 + Math.cos(a + PI / 2 + 1.1) * r1, -14.6 - Math.sin(a + PI / 2 + 1.1) * r1); }, .22);
+}
 const HELMET = [[6.4, -4.6], [6.9, -7.0], [6.0, -9.8], [4.4, -12.6], [1.0, -14.6], [-3.2, -14.3], [-6.2, -12.0], [-7.2, -8.2],
   [-7.0, -3.4], [-5.8, .6], [-3.4, 1.8], [-2.6, -1.6], [-.4, -2.0], [1.2, -.6], [2.6, 1.6], [4.6, 1.2], [3.8, -2.4], [2.6, -5.0], [5.2, -5.6]];
 
@@ -429,7 +436,7 @@ function drawHead(G, f, J, det) {
     const g = G.g;
     // geriye bakış: gövde bir yöne giderken baş ters yöne döner (vazo uylaşımı; "bile bile" geriye bakan Titan)
     if (p.headBack) { g.scale(-1, 1); g.rotate(p.headBackA ?? .15); }
-    if (lk.fem) {
+    if (lk.fem && lk.headgear !== 'helmet') {
       G.part(c => spline(c, headOutline(lk)), { fill: sty.white, outline: sty.line, olW: .3, cut: false });
       G.part(c => spline(c, HAIR_F), { cut: false });
       G.paint(c => { c.moveTo(4.8, -11.2); c.quadraticCurveTo(0, -13.6, -6.4, -11.4); }, sty.red, 1.0, false);
@@ -446,12 +453,10 @@ function drawHead(G, f, J, det) {
     }
     const hb = lk.headgear;
     if (hb === 'helmet') {
-      G.part(c => spline(c, headOutline({ ...lk, hair: 'short' })), {});
+      if (lk.fem) G.part(c => spline(c, [[-5.6, -4], [-7.6, -1.2], [-8.6, 3.6], [-8.0, 8.2], [-6.2, 9.0], [-5.4, 5.0], [-5.0, .6]]), {});
+      G.part(c => spline(c, headOutline({ ...lk, fem: false, hair: 'short' })), {});
       G.part(c => spline(c, HELMET), {});
-      // tepelik (kırmızı)
-      G.part(c => spline(c, [[2.2, -12.6], [4.2, -16.8], [1.2, -21.0], [-5, -22.0], [-10.6, -20.4], [-13.8, -15.6], [-12.4, -11.2], [-9.2, -12.2], [-6.2, -11.8], [-3.0, -13.2], [0, -13.6]]), { fill: sty.red });
-      det(c => { c.moveTo(-10.5, -17); c.lineTo(1.5, -18.5); }, .3);
-      for (let i = 0; i < 6; i++) det(c => { const x = -11 + i * 2.2; c.moveTo(x, -21.6 + Math.abs(i - 2.5) * .2); c.lineTo(x + .6, -17.2); }, .25);
+      helmetCrest(G, det, sty);
       // göz deliği
       G.cut(c => { c.moveTo(2.0, -6.4); c.quadraticCurveTo(4.6, -8.4, 6.2, -6.6); c.quadraticCurveTo(4.0, -6.0, 2.0, -6.4); }, .5, true);
       G.part(c => { c.moveTo(3.3, -6.95); c.arc(3.7, -6.95, .5, 0, TAU); }, { cut: false });
@@ -564,6 +569,20 @@ function drawHead(G, f, J, det) {
       G.part(c => { c.ellipse(-.6, -12.3, 10.4, 1.7, -.08, 0, TAU); }, {});
       G.part(c => spline(c, [[5, -12.6], [3.6, -16.4], [-1, -17.6], [-5.6, -16], [-6.4, -12.2]]), {});
       wingShape(G, [-4.2, -15.2], -2.6, 6.2);
+    }
+    if (hb === 'attic') {
+      // açık yüzlü Attika miğferi: kafatası başlığı, kısa siper, ense kanadı, kulağı örten yanak siperi; tepelik ayak üstünde
+      G.part(c => spline(c, [[6.5, -9.1], [5.7, -10.8], [4.4, -12.7], [1.0, -14.5], [-3.2, -14.3], [-6.4, -12.0], [-7.5, -8.2], [-7.7, -4.6], [-9.2, -2.6], [-6.6, -2.4],
+        [-5.0, -4.8], [-2.8, -6.2], [-1.2, -6.0], [-.8, -3.4], [.8, -1.9], [1.7, -3.2], [1.5, -6.6], [2.4, -8.6], [4.6, -9.1]]), {});
+      det(c => { c.moveTo(6.0, -9.6); c.quadraticCurveTo(3.4, -9.9, 1.6, -9.2); }, .36);
+      det(c => { c.moveTo(-.6, -7.0); c.quadraticCurveTo(.6, -5.0, .6, -3.0); }, .26);
+      helmetCrest(G, det, sty);
+    }
+    if (hb === 'pilos') {
+      // pilos: sivri keçe külah (zanaatkâr başlığı); kenarında ince kırmızı bant
+      G.part(c => spline(c, [[5.8, -10.2], [3.6, -14.0], [.6, -17.6], [-2.8, -20.2], [-4.4, -17.4], [-6.4, -12.6], [-7.2, -9.6], [-1, -11.0]]), {});
+      G.paint(c => { c.moveTo(5.6, -10.4); c.quadraticCurveTo(-1, -12.2, -7.0, -9.8); }, sty.red, .9, false);
+      det(c => { c.moveTo(3.0, -13.0); c.quadraticCurveTo(-1, -14.6, -5.4, -12.2); }, .24);
     }
     if (hb === 'hood') G.part(c => spline(c, [[5.8, -10.6], [4.6, -14.2], [.4, -15.6], [-5, -14.6], [-8.4, -10], [-8.8, -3], [-7.6, 3], [-4.2, 4.2], [-3.4, -2], [-1.6, -7], [2.6, -10.4]]), {});
   });

@@ -13,16 +13,21 @@ function F_cam(t, keys, lead = .9, drift = 4) {
 }
 // kayadaki konuklar (Prometheus'un arkasında, sağdaki çıkıntıda): Hephaistos, Kratos, Bia
 const F_GL = x => 870 + Math.max(0, (x - 1400) * .12);
-const F_POS = { heph: 1560, kratos: 1700, bia: 1840 };
+// konuklar arası ≥ 30 px boşluk (kil figürler kil zeminde birbirine karışmasın)
+const F_POS = { heph: 1500, kratos: 1710, bia: 1920 };
+// ikincil kırmızı figürler Prometheus'tan bir ton koyu (değer sırası: Prometheus öne çıkar)
+const F_STY2 = { ...STY.red, fill: '#B4643A', white: '#B4643A' };
+// son çizilen başlar (etiketlerin yardımcı çizgileri için): { kratos: [M, q], bia: [M, q] }
+let F_HEADS = {};
 function F_guests(ctx, t, o = {}) {
   const a = o.a ?? 1; if (a <= 0) return {};
   const out = {};
   ctx.save(); ctx.globalAlpha *= a;
   const ex = o.exit || 0; // kadrajdan çıkış: sağa yürürler
-  if (o.bia !== false) { const x = F_POS.bia + ex * 700; walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: { ...STY.red, white: STY.red.fill }, lk: { ...LK.bia, rf: false }, hold: { N: HOLD.spear(90) }, p: { torso: .02, ...(o.biaP || {}) } }); }
-  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: STY.red, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) } }); }
+  if (o.bia !== false) { const x = F_POS.bia + ex * 700; walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: { ...LK.bia, rf: false }, hold: { N: HOLD.spear(90) }, p: { torso: .02, ...(o.biaP || {}) }, onJoints: (j, m) => { F_HEADS.bia = [m, j.neckT]; } }); }
+  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) }, onJoints: (j, m) => { F_HEADS.kratos = [m, j.neckT]; } }); }
   if (o.heph !== false) { const x = F_POS.heph + ex * 700; let J = null, M = null;
-    walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: STY.red, lk: LK.hephaistos, hold: { N: HOLD.hammer() }, p: { torso: .05, ...(o.hephP || {}) }, onJoints: (j, m) => { J = j; M = m; } });
+    walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.hephaistos, hold: { N: HOLD.hammer() }, p: { torso: .05, ...(o.hephP || {}) }, onJoints: (j, m) => { J = j; M = m; } });
     out.hephJ = J; out.hephM = M; }
   ctx.restore();
   return out;
@@ -156,10 +161,10 @@ shot(PA('P116'), (ctx, st) => {
   const { wind } = kayaWorld(ctx, t, c, { sky: F_SKY });
   ctx.save(); cam(ctx, c, 1);
   const g = x => F_GL(x) - 2, x0 = 1180 + lt * 70;
-  const K = walkScene(ctx, null, x0 + 420, 5.2, t, 1, { noCam: true, ground: groundOf(g), stride: 36, dist: x0 + 420, sty: STY.red, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { shN: -.9, elN: .4, handN: 'fist' } });
+  const K = walkScene(ctx, null, x0 + 420, 5.2, t, 1, { noCam: true, ground: groundOf(g), stride: 36, dist: x0 + 420, sty: F_STY2, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { shN: -.9, elN: .4, handN: 'fist' } });
   let Jp = null, Mp = null;
   walkScene(ctx, null, x0 + 140, 5.6, t, 1, { noCam: true, ground: groundOf(g), stride: 30, dist: x0 + 140, sty: STY.red, lk: { ...LK.promFree, rf: true }, p: { shN: .9, elN: .9, shF: .9, elF: 1.0, handN: 'fist', handF: 'fist', head: -.05 }, onJoints: (j, m) => { Jp = j; Mp = m; } });
-  walkScene(ctx, null, x0 - 140, 5.2, t, 1, { noCam: true, ground: groundOf(g), stride: 36, dist: x0 - 140, sty: { ...STY.red, white: STY.red.fill }, lk: LK.bia, hold: { N: HOLD.spear(90) }, p: { shF: .9, elF: .4 } });
+  walkScene(ctx, null, x0 - 140, 5.2, t, 1, { noCam: true, ground: groundOf(g), stride: 36, dist: x0 - 140, sty: F_STY2, lk: LK.bia, hold: { N: HOLD.spear(90) }, p: { shF: .9, elF: .4 } });
   const w = jointPt(ctx, Mp, Jp.AN.wr);
   ironChain(ctx, [w[0], w[1]], [x0 + 330, F_GL(x0 + 330) - 300], { L0: 240, w: 5, link: 20 });
   ironChain(ctx, [w[0] - 10, w[1] + 6], [x0 - 70, F_GL(x0 - 70) - 290], { L0: 240, w: 5, link: 20 });
@@ -190,8 +195,13 @@ shot(PA('P117'), (ctx, st) => {
   over: (ctx, st) => {
     const t = st.t, tE = A('F06@erhat'), tP = A('F06@polis'), tF8 = A('F08');
     const na = ramp(st.lt, .2, .7) * (1 - ramp(t, tF8 - .3, tF8 + .2));
-    if (na > 0) { ctx.save(); ctx.globalAlpha = na; txt(ctx, 'ΚΡΑΤΟΣ · Güç', 1240, 230, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, shadow: 'rgba(0,0,0,.7)', blur: 12 }); txt(ctx, 'ΒΙΑ · Zor', 1640, 300, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, shadow: 'rgba(0,0,0,.7)', blur: 12 }); ctx.restore();
-      if (t > tP - .3) stamp(ctx, 'POLİS', 1440, 270, t - tP, { col: '#E6ECFF', font: '700 92px Cinzel', h: 130, a: .9 * (1 - ramp(t, tF8 - .3, tF8 + .2)) }); }
+    if (na > 0) { ctx.save(); ctx.globalAlpha = na;
+      // etiketler sağdaki boş şeritte; her biri kendi başına ince kil çizgiyle bağlanır (yüzleri kesmez)
+      for (const [k, s, y] of [['kratos', 'ΚΡΑΤΟΣ · Güç', 210], ['bia', 'ΒΙΑ · Zor', 300]]) {
+        const h = F_HEADS[k]; if (h) { const [hx, hy] = jointPt(ctx, h[0], h[1]); ctx.strokeStyle = 'rgba(219,134,85,.85)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(1470, y - 8); ctx.lineTo(hx + 34, hy - 60); ctx.stroke(); }
+        txt(ctx, s, 1490, y, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, align: 'left', shadow: 'rgba(0,0,0,.7)', blur: 12 }); }
+      ctx.restore();
+      if (t > tP - .3) stamp(ctx, 'POLİS', 1690, 500, t - tP, { col: '#E6ECFF', font: '700 92px Cinzel', h: 130, a: .9 * (1 - ramp(t, tF8 - .3, tF8 + .2)) }); }
     // Kratos'un buyruğu: süs Yunan harf akışı; Hephaistos'un sözü kil levhada belirip söner; inleyişi soluk harfler
     F_greek(ctx, 'ΤΗΝ ΔΙΟΣ ΤΥΡΑΝΝΙΔΑ ΣΤΕΡΓΕΙΝ', 1180, 300, ramp(t, tF8 + .2, A('F08@insanseverlikten')), 1 - ramp(t, A('F08@insanseverlikten'), A('F08@insanseverlikten') + .5));
     const kt = A('F07@kendi#1'); if (t > kt && t < kt + 2.6) { ctx.save(); ctx.globalAlpha = .55 * (1 - ramp(t, kt + 1.8, kt + 2.6)); carvedTablet(ctx, ['ΑΠΑΣ ΔΕ ΤΡΑΧΥΣ', 'ΟΣΤΙΣ ΑΝ ΝΕΟΝ ΚΡΑΤΗι'], 560, 330, 700, t - kt, { font: '700 46px Cinzel' }); ctx.restore(); }
