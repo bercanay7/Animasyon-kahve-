@@ -80,8 +80,8 @@ function H_okeanos(ctx, x, y, s, t, o = {}) {
 }
 // vazo haritası: kara kil, denizler sır siyahı, boğazlar dar sır yarıkları (dünya birimi; kamera dışarıdan)
 // Karadeniz yatay (kuzeyinde Kırım yarımadası), kuzeydoğuda Azak, güneybatıda Marmara; boğazlar kısa ve kavisli çoklu çizgi
-const H_SEAS = [[1486, 802, 903, 264, 3], [2010, 365, 240, 100, 7], [480, 1225, 146, 76, 11]];
-const H_STR = { kerc: [[1815, 405], [1765, 476], [1727, 552]], ist: [[612, 1172], [688, 1072], [742, 980]] };
+const H_SEAS = [[1486, 802, 903, 264, 3], [2010, 365, 240, 100, 7], [604, 1080, 118, 70, 11]];
+const H_STR = { kerc: [[1815, 405], [1765, 476], [1727, 552]], ist: [[676, 1046], [708, 992], [762, 960]] };
 const H_CRIMEA = [[1475, 470], [1530, 470], [1548, 560], [1606, 596], [1706, 572], [1690, 612], [1630, 628], [1606, 690], [1524, 744], [1432, 712], [1366, 676], [1330, 628], [1392, 618], [1452, 590]];
 // İo'nun yolu: kayadan (İskit) doğuya, Kırım'ın kuzeyinden Kerç'i batıdan doğuya geçer, Kafkasya'ya
 const H_ROUTE = [[1360, 330], [1470, 400], [1560, 452], [1660, 500], [1752, 500], [1860, 520], [2060, 560], [2280, 580], [2470, 560]];
@@ -108,7 +108,7 @@ function H_map(ctx, t, o = {}) {
   ctx.fillStyle = '#B9663A'; ctx.beginPath(); spline(ctx, H_CRIMEA, true, .45); ctx.fill();
   ctx.save(); H_seaPath(ctx, H_SEAS[0]); ctx.clip(); ctx.strokeStyle = C.ink; ctx.lineWidth = 8; ctx.lineJoin = 'round'; ctx.beginPath(); spline(ctx, H_CRIMEA, true, .45); ctx.stroke(); ctx.restore();
   // antik adlar (dipinto): ülke adı yok
-  if ((o.z || 1) < 1.5) for (const [n, x, y] of [['ΣΚΥΘΙΑ', 980, 300], ['ΚΑΥΚΑΣΟΣ', 2630, 845], ['ΕΥΡΩΠΗ', 420, 930], ['ΑΣΙΑ', 1340, 1230]]) dipinto(ctx, n, x, y, 64, { col: C.ink });
+  if ((o.z || 1) < 1.5) for (const [n, x, y] of [['ΣΚΥΘΙΑ', 980, 300], ['ΚΑΥΚΑΣΟΣ', 2530, 1000], ['ΕΥΡΩΠΗ', 420, 930], ['ΑΣΙΑ', 1340, 1230]]) dipinto(ctx, n, x, y, 64, { col: C.ink });
   // İo'nun yolu: eklenmiş beyaz toynak izleri (çift nokta, eşit aralık); ucunda madalyon içinde boynuzlu kız profili
   const rp = o.route || 0;
   if (rp > 0) { const seg = H_ROUTE.slice(1).map((q, i) => len(sub(q, H_ROUTE[i]))), tot = seg.reduce((a, b) => a + b, 0), at = d => { let k = 0; while (k < seg.length - 1 && d > seg[k]) { d -= seg[k]; k++; } return [lerp2(H_ROUTE[k], H_ROUTE[k + 1], clamp(d / seg[k])), sub(H_ROUTE[k + 1], H_ROUTE[k])]; };
@@ -116,7 +116,8 @@ function H_map(ctx, t, o = {}) {
     ctx.fillStyle = C.white; ctx.strokeStyle = 'rgba(14,9,7,.6)'; ctx.lineWidth = 1.5;
     for (let k = 0; k <= n; k++) { const [q, d] = at(k * step), nn = scl([-d[1], d[0]], 1 / (len(d) || 1)), sg = k % 2 ? 1 : -1; ctx.beginPath(); ctx.arc(q[0] + nn[0] * 7 * sg, q[1] + nn[1] * 7 * sg, 6.5, 0, TAU); ctx.fill(); ctx.stroke(); }
     const [tip] = at(tot * rp);
-    if (o.head !== false) H_ioMapHead(ctx, tip[0], tip[1] - 120, 8.4, t); }
+    // madalyon yolun ucunun üstünde (Kerç'in kanalını örtmez); kadrajın tepesine yaklaşınca yana kayar
+    if (o.head !== false) { const hy = tip[1] - 238, top = hy < 210; H_ioMapHead(ctx, tip[0] + (top ? 170 : 0), top ? 230 : hy, 8.4, t); } }
 }
 // haritada İo: madalyon içinde P200'deki boynuzlu kız profili (kırmızı figür, sır zemin)
 function H_ioMapHead(ctx, x, y, s, t) {
@@ -403,7 +404,7 @@ shot(PA('P205'), (ctx, st) => {
 }, { tr: { type: 'cut' }, post: { tex: .6, vig: 1, grain: .06 },
   over: (ctx, st) => txt(ctx, 'Kerç Boğazı', 960, 170, { font: '700 76px Cinzel', col: '#F1E4C8', ls: 4, a: ramp(st.t, A('H07@kerç') - .2, A('H07@kerç') + .3), shadow: 'rgba(0,0,0,.85)', blur: 14 }) });
 shot(PA('P206'), (ctx, st) => {
-  const t = st.t, lt = st.lt, m = H_STR.ist[1], n = [.83, .55];
+  const t = st.t, lt = st.lt, m = H_STR.ist[1], n = [.7, .72];
   const c = { x: m[0] + lt * 3, y: m[1], z: 2.7 };
   ctx.save(); cam(ctx, c, 1); H_map(ctx, t, { z: c.z });
   const u = E.io2(clamp(lt / (st.d + .5)));

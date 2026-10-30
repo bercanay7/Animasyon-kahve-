@@ -244,7 +244,7 @@ shot(A('A06'), (ctx, st) => {
     txt(ctx, 'ZİNCİRE VURULMUŞ PROMETHEUS', 960, 268, { font: '700 36px Cinzel', col: C.ink, ls: 2, maxW: 740 });
     promVignette(ctx, t, 780, 310, 360, 300);
     const k = ramp(t, tB - .15, tB + .05, E.in2);
-    if (k > 0) stamp(ctx, '1967', 1180, 560, t - tB, { col: PW.red, font: '700 110px Cinzel', h: 150, rot: -.12, a: .92 });
+    if (k > 0) stamp(ctx, '1967', 1240, 590, t - tB, { col: PW.red, font: '700 84px Cinzel', h: 112, rot: -.12, a: .92 }); // 'Azra Erhat'ın sağında, ada binmez
     const tT = A('A06@tuhaf'), tAz = A('A06@azra'), wf = 'italic 600 54px "Cormorant Garamond"';
     ctx.save(); ctx.font = wf; const ww = ctx.measureText(L('Azra Erhat')).width; ctx.restore();
     const wp = ramp(t, tAz, A('A06@erhat') + .5, E.lin), wx0 = 960 - ww / 2, fall = ramp(t, tT - .4, tT + .4, E.in2);

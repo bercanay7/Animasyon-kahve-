@@ -257,8 +257,11 @@ const K_ST = () => {
     { at: PA('P287'), x: 12400, draw: (ctx, lt, t) => {
       marginBand(ctx, 11600, 13200, 360, gy + 8, 1);
       const sp = 60;
-      [[11800, HOLD.bag()], [12050, HOLD.hydria()], [12550, HOLD.bag()], [12800, HOLD.hammer()]].forEach(([x, h], i) => K_walker(ctx, x + lt * sp, gy, 3.6, t + i * .4, { hold: { N: h }, p: { torso: .18 } }));
-      K_walker(ctx, 12300 + lt * sp, gy, 3.9, t, { hold: { N: HOLD.torch() } });
+      // friz figürleri sonraki durağa (P288a) taşmasın: kapağa geçilirken söner
+      const fo = 1 - ramp(t, PA('P288a') - .7, PA('P288a') + .2); ctx.save(); ctx.globalAlpha *= fo;
+      if (fo > 0) { [[11800, HOLD.bag()], [12050, HOLD.hydria()], [12550, HOLD.bag()], [12800, HOLD.hammer()]].forEach(([x, h], i) => K_walker(ctx, x + lt * sp, gy, 3.6, t + i * .4, { hold: { N: h }, p: { torso: .18 } }));
+        K_walker(ctx, 12300 + lt * sp, gy, 3.9, t, { hold: { N: HOLD.torch() } }); }
+      ctx.restore();
       // kurulan duvar: taşlar sırayla yerine oturur
       for (let k = 0; k < 6; k++) { const a = ramp(lt, k * .6, k * .6 + .5); if (a > 0) { ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = PW.line; ctx.lineWidth = 3; ctx.strokeRect(13020 + (k % 3) * 60, gy - 50 - Math.floor(k / 3) * 46 - (1 - a) * 40, 58, 44); ctx.restore(); } }
     } },

@@ -40,7 +40,8 @@ shot(A('C01') - 1.8, (ctx, st) => {
   const t = st.t, lt = st.lt;
   clayBG(ctx, C.clayL, C.clayD);
   const z = 1 + lt * .02;
-  ctx.save(); ctx.translate(960, 640); ctx.scale(z, z); ctx.translate(-960, -640);
+  // sahne aşağıda ve %90: bölüm levhası (y 85–255) tahtın tepesini örtmez, bölümün sorusu tahtla görünür
+  ctx.save(); ctx.translate(0, 270); ctx.translate(960, 640); ctx.scale(z * .9, z * .9); ctx.translate(-960, -640);
   // Olympos: üç tepeli siyah kütle, kazıma katmanlar
   ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(-100, 1100); ctx.lineTo(300, 760); ctx.lineTo(620, 820); ctx.lineTo(960, 640); ctx.lineTo(1300, 820); ctx.lineTo(1620, 760); ctx.lineTo(2100, 1100); ctx.fill();
   ctx.strokeStyle = C.clay; ctx.lineWidth = 2; for (let k = 1; k < 5; k++) { ctx.beginPath(); ctx.moveTo(960 - k * 130, 640 + k * 70); ctx.lineTo(960, 640 + k * 40); ctx.lineTo(960 + k * 130, 640 + k * 70); ctx.stroke(); }

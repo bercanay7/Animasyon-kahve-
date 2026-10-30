@@ -203,8 +203,10 @@ shot(PA('P117'), (ctx, st) => {
     if (na > 0) { ctx.save(); ctx.globalAlpha = na;
       // etiketler sağdaki boş şeritte; her biri kendi başına ince kil çizgiyle bağlanır (yüzleri kesmez)
       for (const [k, s, y] of [['kratos', 'ΚΡΑΤΟΣ · Güç', 210], ['bia', 'ΒΙΑ · Zor', 300]]) {
-        const h = F_HEADS[k]; if (h) { const [hx, hy] = jointPt(ctx, h[0], h[1]); ctx.strokeStyle = 'rgba(219,134,85,.85)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(1470, y - 8); ctx.lineTo(hx + 34, hy - 60); ctx.stroke(); }
-        txt(ctx, s, 1490, y, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, align: 'left', shadow: 'rgba(0,0,0,.7)', blur: 12 }); }
+        // sağa hizalı (sağ uç x 1820, güvenli alan); çizgi tepeliklerin üstünden geçip kendi başında biter
+        ctx.save(); ctx.font = '700 54px Cinzel'; ctx.letterSpacing = '4px'; const tw = ctx.measureText(L(s)).width; ctx.restore();
+        const h = F_HEADS[k]; if (h) { const [hx, hy] = jointPt(ctx, h[0], h[1]); ctx.strokeStyle = 'rgba(219,134,85,.85)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(1800 - tw, y - 8); ctx.quadraticCurveTo(hx + 80, Math.min(hy - 140, 160), hx + 20, hy - 86); ctx.stroke(); }
+        txt(ctx, s, 1820 - tw, y, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, align: 'left', shadow: 'rgba(0,0,0,.7)', blur: 12 }); }
       ctx.restore();
       if (t > tP - .3) stamp(ctx, 'POLİS', 1690, 500, t - tP, { col: '#E6ECFF', font: '700 92px Cinzel', h: 130, a: .9 * (1 - ramp(t, tF8 - .3, tF8 + .2)) }); }
     // Kratos'un buyruğu: süs Yunan harf akışı; Hephaistos'un sözü kil levhada belirip söner; inleyişi soluk harfler
