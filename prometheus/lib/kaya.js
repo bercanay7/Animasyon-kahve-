@@ -54,11 +54,12 @@ function windLines(ctx, t, wind, area = [0, 120, W, 560], n = 9, seed = 31) {
 function sunDisk(ctx, x, y, r, a = 1) {
   if (a <= 0) return;
   ctx.save(); ctx.globalAlpha *= a;
-  glow(ctx, x, y, r * 2.2, 'rgba(200,110,55,.22)');
+  // değer sırası: ateş > Prometheus > gök; disk figürden koyu kalır (başın arkasında ayla etkisi yapmaz)
+  glow(ctx, x, y, r * 2.2, 'rgba(200,110,55,.10)');
   const g = ctx.createRadialGradient(x - r * .2, y - r * .2, r * .1, x, y, r);
-  g.addColorStop(0, '#D9A066'); g.addColorStop(1, '#B9653A');
+  g.addColorStop(0, '#8E4826'); g.addColorStop(1, '#6A3420');
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
-  ctx.strokeStyle = C.ink; ctx.lineWidth = 5; ctx.stroke();
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.stroke();
   ctx.restore();
 }
 // Prometheus'un KAYA pozları (geçişler plan kodunda mix ile 0,6–0,9 sn)

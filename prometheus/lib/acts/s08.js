@@ -40,7 +40,7 @@ function I_thrones(ctx, t, o = {}) {
   crackLine(ctx, 1360 + 18 * s, by, 22 * s * .35, 1, { col: '#E6ECFF', w: 3, s: 1.2 });
   ctx.restore();
   if (o.ghost > 0) { ctx.save(); ctx.globalAlpha *= .32 * o.ghost; throneTip(ctx, 1360, by, s, o.ghostTip || 0, { col: '#E6ECFF', inc: PC.glaze }); ctx.restore(); }
-  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20, 830, 30, { col: PC.clayRL, a: o.na ?? .8 }));
+  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 46, { col: PC.clayRL, a: o.na ?? .9 }));
 }
 // gökteki boş taht: koyu siluet, soğuk beyaz kenar ışığı (karanlıkta okunsun)
 function I_skyThrone(ctx, x, y, s, t, o = {}) {
@@ -298,9 +298,9 @@ shot(PA('P230'), (ctx, st) => {
   const sp = ramp(t, tZ - .3, tZ + .6) * (1 - ramp(t, st.end - .8, st.end)), ph = (t - tZ) * 1.6;
   // güneş: göğü yay çizerek hızla geçer; gündüz/gece kaplaması onunla nefes alır
   if (sp > 0) { const a = PI + (ph % 1) * PI, x = 960 + Math.cos(a) * 820, y = 760 + Math.sin(a) * 600, day = Math.max(0, -Math.sin(a));
-    ctx.save(); baseT(ctx); ctx.globalAlpha = sp; ctx.fillStyle = `rgba(150,66,30,${.35 * day})`; ctx.fillRect(0, 0, W, H);
+    ctx.save(); baseT(ctx); ctx.globalAlpha = sp; ctx.fillStyle = `rgba(150,66,30,${.35 * day})`; ctx.fillRect(0, 0, W, H); J_notRock(ctx, c);
     for (let k = 1; k < 8; k++) { const aa = a - k * .05; ctx.fillStyle = `rgba(201,112,63,${.25 * (1 - k / 8)})`; ctx.beginPath(); ctx.arc(960 + Math.cos(aa) * 820, 760 + Math.sin(aa) * 600, 70, 0, TAU); ctx.fill(); }
-    glow(ctx, x, y, 200, 'rgba(255,190,110,.35)'); ctx.fillStyle = PC.clayR; ctx.beginPath(); ctx.arc(x, y, 70, 0, TAU); ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.stroke(); ctx.restore(); }
+    glow(ctx, x, y, 200, 'rgba(255,190,110,.18)'); sunDisk(ctx, x, y, 70); ctx.restore(); }
   ctx.save(); cam(ctx, c, 1);
   I_hermes(ctx, I_HX, 868, 5.6, t, { flap: .2, lean: -.05 });
   promChained(ctx, t, { wind, look: .04, pose: 'sessiz' });

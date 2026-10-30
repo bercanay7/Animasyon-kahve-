@@ -52,13 +52,15 @@ function J_goldFlow(ctx, t, a, dir = 1, n = 3, sp = .55) {
     glow(ctx, p[0], p[1], 80, 'rgba(255,200,110,.55)'); ctx.fillStyle = '#FFE2A8'; ctx.beginPath(); ctx.arc(p[0], p[1], 7, 0, TAU); ctx.fill(); }
   ctx.restore();
 }
+// kaya poligonunun dışına kırpar (gökte ve ovada çizilenler kayanın ve üstündeki figürün arkasında kalır); ctx.save() içinde çağrılır
+const J_ROCK = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 190], [1350, 120], [1420, 150], [1500, 95], [1580, 175], [1720, 240], [1990, 290], [2600, 230], [2600, 1500]];
+function J_notRock(ctx, c) { cam(ctx, c, 1); ctx.beginPath(); ctx.rect(-6000, -6000, 14000, 14000); ctx.moveTo(J_ROCK[0][0] - 30, J_ROCK[0][1]); J_ROCK.forEach(([x, y]) => ctx.lineTo(x - 30, y)); ctx.closePath(); ctx.clip('evenodd'); baseT(ctx); }
 // donma: renk solar, kil solgunlaşır; ateş canlı kalır (kare yeniden renkli çizilir)
 function J_freezeLook(ctx, t, c, fz) {
   if (fz <= 0) return;
   ctx.save(); baseT(ctx); ctx.globalCompositeOperation = 'saturation'; ctx.globalAlpha = .88 * fz; ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = .1 * fz; ctx.fillStyle = '#D8C8B0'; ctx.fillRect(0, 0, W, H); ctx.restore();
-  const R = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 190], [1350, 120], [1420, 150], [1500, 95], [1580, 175], [1720, 240], [1990, 290], [2600, 230], [2600, 1500]];
-  ctx.save(); cam(ctx, c, 1); ctx.beginPath(); ctx.rect(-6000, -6000, 14000, 14000); ctx.moveTo(R[0][0] - 30, R[0][1]); R.forEach(([x, y]) => ctx.lineTo(x - 30, y)); ctx.closePath(); ctx.clip('evenodd');
+  ctx.save(); J_notRock(ctx, c);
   baseT(ctx); cam(ctx, c, .35); humanFires(ctx, t, [[95, 630, .38], [215, 644, .46], [505, 666, .62], [860, 690, 1.6]], fz, { wind: 0, people: [] }); ctx.restore();
 }
 // tepe etiketleri: ZEUS · KÖLE (J04@köle) ve PROMETHEUS · ÖZGÜR (J04@özgürdür); J05@uşaklarına'da birlikte söner

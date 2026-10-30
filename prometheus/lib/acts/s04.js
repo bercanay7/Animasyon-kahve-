@@ -261,12 +261,15 @@ shot(PA('P099'), (ctx, st) => {
   const th = ramp(t, tT - .2, tT + .5);
   if (th > 0) { ctx.save(); ctx.globalAlpha = th;
     const legs = 1 - ramp(t, tT + .3, tT + 1.6), sway = Math.sin(t * 1.3) * 6 * (1 - legs);
-    ctx.save(); ctx.translate(sway, 0); ctx.beginPath(); ctx.rect(0, 0, W, 760 - 160 * (1 - legs)); ctx.clip(); throne(ctx, 1000, 760, 6.2, 1, PW.line, PW.paperL, { high: true }); ctx.restore();
+    // taht künyenin altında kalır (tepesi y≈300); silinen bacaklar %25 soluk iz olarak kalır (taht "L" gibi okunmaz)
+    ctx.save(); ctx.translate(sway, 0); ctx.save(); ctx.globalAlpha *= .25 * (1 - legs * 0); ctx.beginPath(); ctx.rect(0, 860 - 160 * (1 - legs), W, 400); ctx.clip(); throne(ctx, 1000, 860, 6.2, 1, PW.line, PW.paperL, { high: true }); ctx.restore();
+    ctx.beginPath(); ctx.rect(0, 0, W, 860 - 160 * (1 - legs)); ctx.clip(); throne(ctx, 1000, 860, 6.2, 1, PW.line, PW.paperL, { high: true }); ctx.restore();
     // kıvılcım tanrıların katından insanların başlarına iner
     const sp = ramp(t, tC, tC + 1.6);
     if (sp > 0 && sp < 1) { const x = lerp(1000, 640, sp), y = lerp(200, 640, sp); glow(ctx, x, y, 40, 'rgba(255,190,90,.7)'); ctx.fillStyle = PC.fireCore; ctx.beginPath(); ctx.arc(x, y, 6, 0, TAU); ctx.fill(); }
     const up = ramp(t, tU - .2, tU + 1.2), sh = ramp(t, tI - .2, tI + 1.2);
-    if (up > 0) { if (sh > 0) { ctx.fillStyle = `rgba(74,52,35,${.28 * sh})`; ctx.beginPath(); ctx.ellipse(1000, 560, 120 + 260 * sh, 60 + 240 * sh, 0, 0, TAU); ctx.fill(); }
+    // doğrulan insanın gölgesi tahta düşer ve onu örter (insan biçimli gölge, kaba elips değil)
+    if (up > 0) { if (sh > 0) { const sc2 = 'rgba(74,52,35,.3)'; figure(ctx, { x: lerp(700, 980, sh), y: 860 - 44.5 * lerp(4.4, 8.6, sh), s: lerp(4.4, 8.6, sh), dir: 1, still: true, alpha: sh, sty: { fill: sc2, cut: 'rgba(0,0,0,0)', red: sc2, white: sc2, line: 'rgba(0,0,0,0)' }, lk: LK.human, seed: 61, p: { torso: -.05, head: -.1 } }); }
       figure(ctx, { x: 640, y: 760 - 44.5 * 4.4 * lerp(.7, 1, up), s: 4.4, dir: 1, sty: STY.lek, lk: LK.human, seed: 61, p: { torso: lerp(.6, 0, up), neck: lerp(.4, -.1, up), head: lerp(.3, -.1, up), shN: lerp(.8, .4, cl), elN: lerp(.4, 1.6, cl), shF: lerp(.8, .5, cl), elF: lerp(.4, 1.5, cl), handN: 'open', handF: 'open' }, ik: { fN: [660, 757, 0], fF: [610, 757, 0] } });
       if (cl > 0) { glow(ctx, 760, 520, 120 * cl, `rgba(255,190,90,${.45 * cl})`); flame(ctx, 760, 560, .8 * cl, t, { haloR: 60 }); } }
     ctx.restore(); }

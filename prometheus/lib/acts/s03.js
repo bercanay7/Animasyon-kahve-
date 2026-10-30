@@ -14,7 +14,8 @@ function D_thrones(ctx, t, o = {}) {
   if (o.crack) crackLine(ctx, 1360 + 18 * s, by, 22 * s * Math.min(1, o.crack), Math.min(1, o.crack), { col: o.crackCol || PC.fire, w: 3, s: 1.2 });
   if (o.crack && o.crackCol !== C.ink) glow(ctx, 1360 + 18 * s, by - 8 * s * o.crack, 50 * o.crack, `rgba(255,190,90,${.35 * Math.min(1, o.crack) * (.8 + .2 * Math.sin(t * 5))})`);
   ctx.restore();
-  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20, 830, 30, { col: C.ink, a: o.na ?? 1 }));
+  // adlar devrik tahtların üstündeki boşlukta, Zeus'unki arkalığın sağında (y ≤ 700: altyazı bandına düşmez)
+  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 46, { col: C.ink, a: o.na ?? 1 }));
 }
 // METOP (siyah figür): tek uzun friz, panolar arasında triglif bantları (dikey çift çizgili koyu dikdörtgenler)
 function D_metope(ctx, x0, x1, y0, y1, panels) {
@@ -149,7 +150,7 @@ shot(PA('P062'), (ctx, st) => {
   const rb = ramp(t, tA - .1, tA + .4);
   if (rb > 0) { ctx.strokeStyle = C.red; ctx.lineWidth = 5; ctx.globalAlpha = rb; ctx.beginPath(); ctx.moveTo(jx - 34, jy - 10); ctx.lineTo(jx + 34, jy - 10); ctx.moveTo(jx, jy - 10); ctx.quadraticCurveTo(jx + 20, jy - 40, jx + 32, jy - 22); ctx.quadraticCurveTo(jx + 14, jy - 20, jx, jy - 10); ctx.stroke(); ctx.globalAlpha = 1; }
   bf(ctx, 1380, by, 5.4, -1, LK.epimetheus, { torso: -.05, head: .1, shN: -.6 * k, elN: .6, breath: Math.sin(t * 1.6) * .5 });
-  dipinto(ctx, 'ΕΠΙΜΗΘΕΥΣ', 1560, 230, 44, { col: C.ink, vertical: true });
+  dipinto(ctx, 'ΕΠΙΜΗΘΕΥΣ', 1560, 480, 44, { col: C.ink, vertical: true });
   ctx.restore();
   friezeFrame(ctx, { col: C.ink, h: 44, bandBg: C.clay });
 }, { tr: { type: 'cut' }, post: { tex: .85, vig: .85, grain: .055 } });

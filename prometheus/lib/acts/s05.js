@@ -251,7 +251,7 @@ shot(PA('P130'), (ctx, st) => {
   const gl = 1 - ramp(t, tD - .3, tD + 1.0);
   if (gl > 0) { ctx.save(); ctx.globalAlpha = gl * .8; glow(ctx, 1240, 520, 420, 'rgba(255,200,110,.35)'); ctx.restore(); }
   promChained(ctx, t, { wind, look: .05 * (1 - gl) });
-  if (lt < 3) { ctx.save(); ctx.globalAlpha = 1 - ramp(lt, 2, 3); dipinto(ctx, 'ΔΕΣΜΩΤΗΣ', 1388, 528, 12, { col: PC.clayRL, w: .12 }); ctx.restore(); }
+  if (lt < 3) { ctx.save(); ctx.globalAlpha = 1 - ramp(lt, 2, 3); dipinto(ctx, 'ΔΕΣΜΩΤΗΣ', 1356, 526, 8, { col: PC.clayRL, w: .14 }); ctx.restore(); }
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);

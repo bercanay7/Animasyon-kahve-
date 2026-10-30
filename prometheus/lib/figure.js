@@ -166,12 +166,14 @@ function figure(ctx, f) {
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
   for (const q of pts) { const r = M.transformPoint(new DOMPoint(q[0], q[1])); x0 = Math.min(x0, r.x); x1 = Math.max(x1, r.x); y0 = Math.min(y0, r.y); y1 = Math.max(y1, r.y); }
   const sc = Math.hypot(M.a, M.b), mg = (f.margin || 34) * sc;
+  // çizgi kalınlığı: figürün ekrandaki ölçeği (birim başına piksel) 8,2'yi aşınca çizgi ölçeğin karekökü kadar büyür (yakın plan çizgi filme dönmesin)
+  const LWK = f.lineK ?? (() => { const q = sc / RS; return q > 8.2 ? Math.sqrt(8.2 / q) : 1; })();
   const TW = ctx.canvas.width, TH = ctx.canvas.height;
   x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(TW, Math.ceil(x1 + mg)); y1 = Math.min(TH, Math.ceil(y1 + mg));
   if (x1 <= x0 || y1 <= y0) return J;
   const bw = x1 - x0, bh = y1 - y0;
   const cv = figCanvases(TW, TH);
-  const cutW = (f.cutW || .55);
+  const cutW = (f.cutW || .55) * LWK;
   for (const pass of ['sil', 'fig']) {
     const g = cv[pass].getContext('2d');
     g.setTransform(1, 0, 0, 1, 0, 0);
@@ -179,25 +181,25 @@ function figure(ctx, f) {
     g.setTransform(M);
     g.lineJoin = 'round'; g.lineCap = 'round';
     const G = {
-      g, pass, sty, s,
+      g, pass, sty, s, LWK,
       // dolu parça: önce çevresine kesik (arka parçalardan ayırmak için), sonra dolgu
       part(path, o = {}) {
-        if (pass === 'fig' && o.cut !== false) { g.save(); g.globalCompositeOperation = 'destination-out'; g.lineWidth = o.cutW || cutW; g.beginPath(); path(g); g.stroke(); g.restore(); }
+        if (pass === 'fig' && o.cut !== false) { g.save(); g.globalCompositeOperation = 'destination-out'; g.lineWidth = o.cutW ? o.cutW * LWK : cutW; g.beginPath(); path(g); g.stroke(); g.restore(); }
         g.fillStyle = pass === 'sil' ? '#000' : (o.fill || sty.fill);
         g.beginPath(); path(g); g.fill();
-        if (pass === 'fig' && o.outline) { g.strokeStyle = o.outline; g.lineWidth = o.olW || .35; g.beginPath(); path(g); g.stroke(); }
+        if (pass === 'fig' && o.outline) { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * LWK; g.beginPath(); path(g); g.stroke(); }
       },
       // kazıma çizgisi (alttaki kil rengini açığa çıkarır)
       cut(path, w = .42, fillToo = false) {
         if (pass !== 'fig') return;
-        g.save(); g.globalCompositeOperation = 'destination-out'; g.lineWidth = w;
+        g.save(); g.globalCompositeOperation = 'destination-out'; g.lineWidth = w * LWK;
         g.beginPath(); path(g); fillToo ? g.fill() : g.stroke(); g.restore();
       },
       // boyalı çizgi / dolgu (beyaz ten üstüne çizgi, kırmızı süs vb.)
       paint(path, col, w = 0, fill = true) {
         if (pass !== 'fig') { if (fill && w === 0) { g.fillStyle = '#000'; g.beginPath(); path(g); g.fill(); } return; }
         g.beginPath(); path(g);
-        if (fill) { g.fillStyle = col; g.fill(); } else { g.strokeStyle = col; g.lineWidth = w; g.stroke(); }
+        if (fill) { g.fillStyle = col; g.fill(); } else { g.strokeStyle = col; g.lineWidth = w * LWK; g.stroke(); }
       },
       at(pos, ang, fn) { g.save(); g.translate(pos[0], pos[1]); g.rotate(ang); fn(); g.restore(); },
     };
@@ -211,7 +213,7 @@ function figure(ctx, f) {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalAlpha = (f.alpha ?? 1) * ctx.globalAlpha;
   if (f.shadowBlur) { ctx.shadowColor = f.shadowCol || 'rgba(0,0,0,.5)'; ctx.shadowBlur = f.shadowBlur; }
-  if (f.stripe) { const r = f.stripe * sc; for (let k = 0; k < 12; k++) { const a = k * TAU / 12; ctx.drawImage(cv.sil, x0, y0, bw, bh, x0 + Math.cos(a) * r, y0 + Math.sin(a) * r, bw, bh); } }
+  if (f.stripe) { const r = f.stripe * sc * LWK; for (let k = 0; k < 12; k++) { const a = k * TAU / 12; ctx.drawImage(cv.sil, x0, y0, bw, bh, x0 + Math.cos(a) * r, y0 + Math.sin(a) * r, bw, bh); } }
   ctx.drawImage(cv.sil, x0, y0, bw, bh, x0, y0, bw, bh);
   ctx.shadowBlur = 0;
   ctx.drawImage(cv.fig, x0, y0, bw, bh, x0, y0, bw, bh);
@@ -234,7 +236,7 @@ function drawBody(G, f, J, tor, tP) {
     if (G.pass === 'fig' && o.cut !== false) for (const [pos, ang, path, nc] of shapes) if (!nc) G.at(pos, ang, () => G.cut(path, o.cutW || .55));
     if (o.outline) {
       // dış hat önce, dolgular sonra: parçaların birleştiği yerde iç çizgi (dikiş) görünmez
-      if (G.pass === 'fig') for (const [pos, ang, path, nc] of shapes) if (!nc) G.at(pos, ang, () => { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * 2; g.beginPath(); path(g); g.stroke(); });
+      if (G.pass === 'fig') for (const [pos, ang, path, nc] of shapes) if (!nc) G.at(pos, ang, () => { g.strokeStyle = o.outline; g.lineWidth = (o.olW || .35) * 2 * (G.LWK || 1); g.beginPath(); path(g); g.stroke(); });
       for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false, outline: null }));
     } else for (const [pos, ang, path] of shapes) G.at(pos, ang, () => G.part(path, { ...o, cut: false }));
   };

@@ -202,7 +202,7 @@ const K_ST = () => {
     { at: PA('P281b'), x: 2900, draw: (ctx, lt, t) => {
       const t0 = PA('P281b');
       txt(ctx, 'İnsan nedir?', 2900, 300, { font: 'italic 600 92px "Cormorant Garamond"', col: PW.ink, a: ramp(lt, 0, .25) });
-      txt(ctx, 'Ne zaman insan olmaya başladı?', 2900, 410, { font: 'italic 500 70px "Cormorant Garamond"', col: PW.ink, a: ramp(t, A('K01@ne') - .05, A('K01@ne') + .3) });
+      txt(ctx, 'Ne zaman insan olmaya başladı?', 2900, 410, { font: 'italic 500 70px "Cormorant Garamond"', col: PW.ink, a: ramp(t, A('K01@ne#1') - .05, A('K01@ne#1') + .3) });
       marginBand(ctx, 2300, 3500, 520, gy + 8, ramp(lt, 0, 1));
       const s = 4.4, x = 2880;
       figure(ctx, { x, y: gy - 30 * s, s, dir: 1, sty: K_STY, lk: K_LK, seed: 5, p: { torso: 1.25, neck: -.9, head: -.35 + .05 * Math.sin(t * 1.3), shN: 1.4, elN: .1, shF: 1.5, elF: .1, handN: 'open', handF: 'open', breath: .8 * Math.sin(t * 1.8) },
@@ -268,7 +268,7 @@ const K_ST = () => {
       ctx.fillStyle = 'rgba(40,25,15,.25)'; ctx.fillRect(13930, 220, 760, 560); ctx.fillStyle = '#B8693F'; ctx.fillRect(13920, 205, 760, 560); ctx.strokeStyle = C.ink; ctx.lineWidth = 6; ctx.strokeRect(13920, 205, 760, 560);
       meanderSaltire(ctx, 13940, 14660, 225, 26, C.ink, '#B8693F');
       const ig = ramp(t, tP, tP + .8);
-      txt(ctx, 'PROMETHEUS', 14300, 470, { font: '700 96px Cinzel', col: mixCol(C.ink, PC.fire, ig), ls: 10, shadow: ig > 0 ? 'rgba(255,170,80,.8)' : undefined, blur: 26 * ig, force: true });
+      txt(ctx, 'PROMETHEUS', 14300, 470, { font: '700 78px Cinzel', col: mixCol(C.ink, PC.fire, ig), ls: 6, shadow: ig > 0 ? 'rgba(255,170,80,.8)' : undefined, blur: 26 * ig, force: true });
       if (ig > 0) motes(ctx, t, 26, 61, 'rgba(255,200,120,.9)', [13980, 360, 640, 160], 40, 1.6, .7 * ig);
       const fx = lerp(13700, 13990, ramp(t, PA('P288a'), tP, E.io2));
       K_walker(ctx, fx, gy + 40, 3.6, t, { dist: fx, stand: ramp(t, tP - .4, tP), hold: { N: HOLD.torch() }, p: t > tP - .4 ? { shN: -1.3, elN: .2 } : {} });
@@ -284,7 +284,7 @@ shot(PA('P281'), (ctx, st) => {
     const t = st.t;
     // tam sayfa alıntılar (üst katman, telefon kuralı: y ≤ 700)
     const q1 = A('K02@insan'), q1e = A('K02@doğaya') - .1;
-    if (t > q1 - .2 && t < q1e + .6) { ctx.save(); ctx.globalAlpha = 1 - ramp(t, q1e, q1e + .6); quoteCard(ctx, 'İnsan başkaldıran yaratıktır.', 'A. ERHAT · ÖNSÖZ · S. V', 960, 300, 1500, t - q1, { font: 'italic 500 92px "Cormorant Garamond"', lh: 100 }); ctx.restore(); }
+    if (t > q1 - .2 && t < q1e + .6) { ctx.save(); ctx.globalAlpha = 1 - ramp(t, q1e, q1e + .6); quoteCard(ctx, 'İnsan başkaldıran yaratıktır.', 'A. ERHAT · ÖNSÖZ · S. V', 960, 220, 1500, t - q1, { font: 'italic 500 92px "Cormorant Garamond"', lh: 100 }); ctx.restore(); }
     const q2 = A('K04@umuda'), q2e = A('K06');
     if (t > q2 - .2 && t < q2e + .6) { ctx.save(); ctx.globalAlpha = 1 - ramp(t, q2e, q2e + .6); quoteCard(ctx, 'Umuda karşı da ayaklandık.', 'A. ERHAT · ÖNSÖZ · S. VI', 960, 200, 1500, t - q2, { font: 'italic 500 80px "Cormorant Garamond"', lh: 90 }); ctx.restore(); }
     const q3 = A('K06'), q3e = A('K06@ve');

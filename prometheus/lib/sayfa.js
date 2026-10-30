@@ -67,7 +67,7 @@ function wrapLines(ctx, s, font, maxW) {
 // src: 'A. Erhat, önsöz, s. xiv'. Üst 2/3'e yerleştir (alt üçte bir altyazının).
 function quoteCard(ctx, q, src, x, y, maxW, lt, o = {}) {
   if (NOTEXT && !o.force) return;
-  const font = o.font || 'italic 500 62px "Cormorant Garamond"', lh = o.lh || 78;
+  const font = o.font || 'italic 500 76px "Cormorant Garamond"', lh = o.lh || 90;
   const lines = wrapLines(ctx, L(q), font, maxW), n = lines.length, y0 = y - (n - 1) * lh / 2, d = o.delay || 0;
   const a0 = ramp(lt, d, d + .5) * (o.a ?? 1);
   if (a0 <= 0) return;
@@ -91,7 +91,7 @@ function quoteCard(ctx, q, src, x, y, maxW, lt, o = {}) {
     const ys = y0 + (n - 1) * lh + lh * .95;
     ctx.save(); ctx.globalAlpha *= (o.a ?? 1) * k;
     ctx.fillStyle = PW.red; ctx.fillRect(x - 60 * E.out3(k), ys - 30, 120 * E.out3(k), 2.4);
-    txt(ctx, src, x, ys + 8, { font: '600 30px Cinzel', col: PW.line, ls: 3, force: o.force });
+    txt(ctx, src, x, ys + 10, { font: '600 40px Cinzel', col: PW.line, ls: 3, force: o.force });
     ctx.restore();
   }
 }
@@ -162,7 +162,7 @@ function marginBand(ctx, x0, x1, y0, y1, p = 1, o = {}) {
 // Üst 2/3'te kalır (altyazı bandına inmez). lt: şeridin başından beri geçen süre, d: kalış süresi.
 function erhatStrip(ctx, lt, d, words, page, o = {}) {
   if (lt < 0 || lt > d + .6) return;
-  const k = E.out3(ramp(lt, 0, .55)) * (1 - E.in2(ramp(lt, d, d + .6))), y0 = 40, h = o.h || 190;
+  const k = E.out3(ramp(lt, 0, .55)) * (1 - E.in2(ramp(lt, d, d + .6))), y0 = 40, h = o.h || 210;
   ctx.save(); baseT(ctx);
   ctx.translate(0, -h * (1 - k));
   ctx.fillStyle = 'rgba(20,10,5,.35)'; ctx.fillRect(0, y0 + 6, W, h);
@@ -171,9 +171,10 @@ function erhatStrip(ctx, lt, d, words, page, o = {}) {
   ctx.fillStyle = g; ctx.fillRect(0, y0, W, h);
   ctx.strokeStyle = PW.line; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(0, y0 + h - 4); ctx.lineTo(W, y0 + h - 4); ctx.stroke();
   ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, y0 + h - 12); ctx.lineTo(W, y0 + h - 12); ctx.stroke();
-  txt(ctx, 'ERHAT', 80, y0 + h / 2 - 16, { font: '700 34px Cinzel', col: PW.red, align: 'left', ls: 6, force: o.force });
-  if (page) txt(ctx, 'önsöz · s. ' + page, 82, y0 + h / 2 + 26, { font: 'italic 600 30px "Cormorant Garamond"', col: PW.line, align: 'left', force: o.force });
-  if (words) penLine(ctx, words, o.wx ?? W / 2 + 40, y0 + h / 2, ramp(lt, .35, .35 + Math.min(1.6, words.length * .06)), { font: o.font || 'italic 600 62px "Cormorant Garamond"', col: PW.ink, force: o.force });
+  // telefon kuralı: alıntı ≥ 76 px, kaynak ≥ 40 px
+  txt(ctx, 'ERHAT', 80, y0 + h / 2 - 22, { font: '700 40px Cinzel', col: PW.red, align: 'left', ls: 6, force: o.force });
+  if (page) txt(ctx, 'önsöz · s. ' + page, 82, y0 + h / 2 + 28, { font: 'italic 600 40px "Cormorant Garamond"', col: PW.line, align: 'left', force: o.force });
+  if (words) penLine(ctx, words, o.wx ?? W / 2 + 40, y0 + h / 2, ramp(lt, .35, .35 + Math.min(1.6, words.length * .06)), { font: o.font || 'italic 600 76px "Cormorant Garamond"', col: PW.ink, force: o.force });
   if (o.icon) { ctx.save(); ctx.translate(W - 190, y0 + h / 2); o.icon(ctx, ramp(lt, .6, 1.6), lt); ctx.restore(); }
   ctx.restore();
 }

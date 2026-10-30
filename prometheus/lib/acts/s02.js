@@ -295,7 +295,7 @@ function amforaIIc(c, x0, x1, t) {
 }
 shot(A('C17'), (ctx, st) => {
   const t = st.t;
-  const r = stationRot(t, [[A('C17'), AMY.savas], [A('C17@yüz'), AMY.devler], [A('C17@titanlar'), AMY.tartaros], [A('C17@erhata'), AMY.akil], [A('C17@yıldırım'), AMY.zeus], [A('C17@paylaştırmaya'), AMY.pay], [A('C18@tek'), AMY.engel]], .9);
+  const r = stationRot(t, [[A('C17'), AMY.savas], [A('C17@yüz'), AMY.devler], [A('C17@titanlar#1'), AMY.tartaros], [A('C17@erhata'), AMY.akil], [A('C17@yıldırım'), AMY.zeus], [A('C17@paylaştırmaya'), AMY.pay], [A('C18@tek'), AMY.engel]], .9);
   const sk = shake(t, A('C17@yüz'), 10, 5);
   ctx.save(); ctx.translate(sk[0], sk[1]);
   amphoraFrieze(ctx, t, r, (c, x0, x1, t) => amforaIIc(c, x0, x1, t));

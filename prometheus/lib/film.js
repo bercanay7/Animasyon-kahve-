@@ -216,9 +216,9 @@ function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   const a = ramp(lt, 0, .5) * (1 - ramp(lt, d - .6, d));
   if (a <= 0) return;
   ctx.save(); baseT(ctx);
-  ctx.font = '700 50px Cinzel'; ctx.letterSpacing = '4px';
+  ctx.font = '700 64px Cinzel'; ctx.letterSpacing = '4px';
   const tw = ctx.measureText(title).width;
-  const pw = Math.max(520, tw + 150), ph = 136, y = o.y ?? 150;
+  const pw = Math.max(560, tw + 170), ph = 172, y = o.y ?? 150;
   const sc = lerp(.92, 1, E.out3(ramp(lt, 0, .6)));
   ctx.translate(o.x ?? W / 2, y);
   if (o.swing !== false) { const drop = 1 - E.out3(ramp(lt, 0, .55)); ctx.translate(0, -260 * drop); ctx.rotate(Math.exp(-lt * 3.2) * Math.sin(lt * 9) * .12); }
@@ -229,9 +229,9 @@ function chapterCard(ctx, num, title, lt, d = 3.6, o = {}) {
   ctx.lineWidth = 5; ctx.strokeStyle = C.ink; ctx.strokeRect(-pw / 2 + 8, -ph / 2 + 8, pw - 16, ph - 16);
   ctx.lineWidth = 1.6; ctx.strokeRect(-pw / 2 + 16, -ph / 2 + 16, pw - 32, ph - 32);
   for (const sg of [-1, 1]) { ctx.fillStyle = C.ink; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc(sg * (pw / 2 - 42), -18 + k * 18, 4, 0, TAU); ctx.fill(); } }
-  txt(ctx, num, 0, -32, { font: '700 30px Cinzel', col: C.red, ls: 9 });
+  txt(ctx, num, 0, -40, { font: '700 40px Cinzel', col: C.red, ls: 9 });
   const q = ramp(lt, .15, .9);
-  txt(ctx, title, 0, 16, { font: '700 50px Cinzel', col: C.ink, ls: 4, a: q });
+  txt(ctx, title, 0, 22, { font: '700 64px Cinzel', col: C.ink, ls: 4, a: q });
   ctx.restore();
 }
 // Karakter adı etiketi
