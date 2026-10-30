@@ -597,3 +597,40 @@ Bu kurul sonradan açıldı: CLAUDE.md'deki yöntem "ses/miks" kurulunu da istiy
   - Shorts döngü dikişi.
 
   Gerekçe: tur 2, doğrulanmamış tek bir değişikliğin (sabit müzik sınırlayıcısı) iki doruğu söndürebildiğini gösterdi. Onaylı miksi doğrulanmamış küçük kazançlar için açmamak daha güvenli. Film onaylı miksle birleştirildi.
+
+# Shorts kurulu ve başkan kararları
+Bu kurul da sonradan açıldı: Shorts ilk render edildiğinde hiç kurula gitmemişti.
+
+| Tur | Puan | Karar | Not |
+|---|---|---|---|
+| 1 | 6,3 | RED | İlk karede soru yok; altyazı kesmesiz yanıp sönüyor; doruk ve krem sayfa kadrajı boş; notext filmin yazılarını silmiş, yerine bir şey yok ("Erhat", "Güç" açıklanmıyor) |
+| 2 | 8,3 | RED | Turuncu çizgi havada; krem sayfada ve son planda altyazı figürün üstünde; bir karelik parlama; bir grup üç satır |
+| 3 | 8,8 | RED | Tek gerileme: bir kadraj anahtarı yorum satırına kaymış (benim hatam), çocuklaşan Zeus yakınlaşması uzaklaşmaya dönmüş |
+| 4 | **9,2** | ONAY | Kalan açık madde yok |
+
+## Uygulananlar (tur 1–3)
+- **Kanca ve metin katmanı:**
+  - İlk karede "ASIL TUTSAK / KİM?" kanca başlığı.
+  - Filmin notext ile silinen levhalarının Shorts karşılıkları: ZEUS · KÖLE / PROMETHEUS · ÖZGÜR damgası, GÜÇ (KRATOS) ve Azra Erhat önsöz künyeleri (sayfa numaralı).
+  - Yazısız kalan krem şerit ve levhanın altı çizgisi notext'te çizilmiyor.
+- **Kesme kareleri:**
+  - Kadraj ve zemin geçişleri filmin kendi kesmelerine kare kare eşlendi: 1084,20 / 1091,45 / 1097,10 / 1102,56 sn.
+  - Altyazı yalnız yeri ya da zemini değişince yeniden belirir.
+- **Kadraj:**
+  - doruk planında Prometheus ortada;
+  - krem sayfada tahttan Prometheus'a kaydırma;
+  - "Prometheus ise zincirde"de sert yakınlaşma;
+  - çocuklaşan Zeus ve son taht altyazının üstünde;
+  - "dalkavuklarına"da saray halkı görünüyor.
+- **Altyazı:**
+  - 34 anlam birimi grup; dengeli iki satır.
+  - Krem sayfada ve son planda altyazı boş alanda.
+  - Bant altyazıyla birlikte söner.
+- **Kanal çağrısı:** "PROMETHEUS'UN SIRRI NEYDİ? · TAM HİKÂYE · İLGİLİ VİDEODA ▼". yayin.md'de tıklanabilir tek yol olan "İlgili video".
+- **Döngü dikişi:** ≈ 0,5 sn.
+
+## Değiştirilerek alınan ya da reddedilen
+- **Kanal çağrısı yazısı:** 46/40 px değil 40/38 px. Kutu, sağdaki düğme sütununa (x ≈ 930) taşmamalı.
+- **Atlama kesmesi (2,5–3,9 sn) yapılmadı.** Ses kesitini bölmek müziği keser. Kanca başlığı bu boşluğu okuma süresine çeviriyor; kurul da kabul etti.
+- **Terazinin ilk saniyesinde altyazı Prometheus'un bacaklarına biniyor, kabul edildi.** Figür y 930'dan 160'a yükselirken her sabit altyazı yeri bir an kesişiyor.
+- **Parlaklık artışı yapılmadı:** üslup kararı.
