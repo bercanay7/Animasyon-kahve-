@@ -5,16 +5,32 @@
 // --- yardımcılar (L_ öneki: bütün perdeler aynı global kapsamı paylaşır) ---
 // aslan postu: başın üstünde başlık gibi duran profil aslan başı, sırttan sarkan post (siyah sır, kil kazıma)
 function L_lionHood(ctx, J, M, s, sty, t) {
-  const h = jointPt(ctx, M, J.neckT), d = J.headA || 0;
-  ctx.save(); ctx.translate(h[0], h[1]); ctx.scale(s, s);
-  ctx.fillStyle = sty === STY.red ? C.ink : C.ink; ctx.strokeStyle = sty === STY.red ? PC.clayR : C.clay; ctx.lineWidth = .45;
-  // başlık: alından enseye, üstte yele dişleri
-  ctx.beginPath(); ctx.moveTo(4.6, -9.2); ctx.quadraticCurveTo(2.4, -14.8, -3.2, -14.2); ctx.quadraticCurveTo(-7.4, -12.6, -7.6, -7.4);
-  ctx.quadraticCurveTo(-9.4, -2, -8.6, 4.5); ctx.lineTo(-6.2, 3.2); ctx.quadraticCurveTo(-5.4, -4.6, -2.4, -8.4); ctx.quadraticCurveTo(1.6, -10.4, 4.6, -9.2); ctx.fill();
-  for (let i = 0; i < 6; i++) { const a = -2.8 + i * .32; ctx.beginPath(); ctx.moveTo(-3 + Math.cos(a) * 9, -6 + Math.sin(a) * 8); ctx.lineTo(-3 + Math.cos(a) * 11.4, -6 + Math.sin(a) * 10.2 + Math.sin(t * 2 + i) * .2); ctx.stroke(); }
-  // aslanın gözü ve kulak
-  ctx.beginPath(); ctx.arc(1.2, -11.2, .55, 0, TAU); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(-2.4, -14.1); ctx.lineTo(-1.2, -16.2); ctx.lineTo(.2, -13.9); ctx.fill();
+  // aslan postu: başta aslan kafası (üst çene ve dişler alnın üstünde, göz, kulak püskülü), ensede yele lüleleri,
+  // göğüste düğümlü ön pençeler, sırtta uyluk ortasına inen post ve kuyruk (ışın yok: ayla okunmasın)
+  const h = jointPt(ctx, M, J.neckT), pv = jointPt(ctx, M, J.pelvis), d = J.headA || 0, inc = sty === STY.red ? PC.clayR : C.clay;
+  const bx = (pv[0] - h[0]) / s, by = (pv[1] - h[1]) / s;
+  ctx.save(); ctx.translate(h[0], h[1]); ctx.scale(s, s); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  // sırttaki post ve kuyruk
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(-6.2, -3); ctx.quadraticCurveTo(-10.5, by * .5, bx - 8.5, by + 10); ctx.lineTo(bx - 4.2, by + 11.5); ctx.quadraticCurveTo(-6.2, by * .5, -3, .5); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = inc; ctx.lineWidth = .3; for (let k = 1; k < 5; k++) { const u = k / 5; ctx.beginPath(); ctx.moveTo(lerp(-6.4, bx - 7.4, u), lerp(-1, by + 10, u)); ctx.lineTo(lerp(-4.6, bx - 5.4, u), lerp(0, by + 10.6, u)); ctx.stroke(); }
+  ctx.strokeStyle = C.ink; ctx.lineWidth = .9; ctx.beginPath(); ctx.moveTo(bx - 6.6, by + 10.6); ctx.quadraticCurveTo(bx - 11.5, by + 15, bx - 9.4, by + 20); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(bx - 9.2, by + 20.6, 1.1, 1.6, .3, 0, TAU); ctx.fill();
+  // göğüste düğümlü pençeler
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(-3.6, 1.4); ctx.quadraticCurveTo(-.4, 6.6, 3, 9.4); ctx.moveTo(4.4, 2.2); ctx.quadraticCurveTo(4.9, 6.2, 3, 9.4); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(3, 9.6, 1.2, 0, TAU); ctx.fill();
+  ctx.strokeStyle = inc; ctx.lineWidth = .28; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.moveTo(2.2 + k * .8, 10.5); ctx.lineTo(2 + k * .8, 11.6); ctx.stroke(); }
+  // baş: aslan kafası başlık, başla birlikte döner
+  ctx.rotate(d);
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(5.4, -9.6); ctx.quadraticCurveTo(3.6, -15.4, -1.4, -15.8); ctx.quadraticCurveTo(-6.8, -15.2, -7.8, -10.6); ctx.quadraticCurveTo(-8.8, -5.6, -7, -.6);
+  ctx.lineTo(-5.4, -1.4); ctx.quadraticCurveTo(-5.6, -6.6, -2.4, -10.2); ctx.quadraticCurveTo(1.6, -11.6, 5.4, -9.6); ctx.closePath(); ctx.fill();
+  // üst çene alnın üstünde öne uzanır; diş sırası
+  ctx.beginPath(); ctx.moveTo(4.2, -12.4); ctx.quadraticCurveTo(7.6, -13, 9.2, -11.4); ctx.lineTo(9, -9.8); ctx.lineTo(5, -9.4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = inc; for (let k = 0; k < 4; k++) { const x = 5.6 + k * .85; ctx.beginPath(); ctx.moveTo(x, -9.8); ctx.lineTo(x + .42, -8.9); ctx.lineTo(x + .84, -9.8); ctx.closePath(); ctx.fill(); }
+  ctx.strokeStyle = inc; ctx.lineWidth = .32; ctx.beginPath(); ctx.ellipse(3.4, -13.1, .9, .45, -.2, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.moveTo(8.4, -12.2); ctx.lineTo(8.9, -11.8); ctx.stroke();
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(-1.6, -15.4); ctx.quadraticCurveTo(-1.2, -17.8, .6, -16.6); ctx.quadraticCurveTo(.2, -15.6, -.2, -15.2); ctx.closePath(); ctx.fill();
+  // ensede yele lüleleri
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 1.0; for (let k = 0; k < 7; k++) { const y0 = -12 + k * 1.8; ctx.beginPath(); ctx.moveTo(-7.4, y0); ctx.quadraticCurveTo(-9.6, y0 + .4, -9.4, y0 + 1.6); ctx.quadraticCurveTo(-9, y0 + 2.4, -8.2, y0 + 1.8); ctx.stroke(); }
+  ctx.strokeStyle = inc; ctx.lineWidth = .26; for (let k = 0; k < 6; k++) { const y0 = -11.4 + k * 1.8; ctx.beginPath(); ctx.moveTo(-7.6, y0 + .6); ctx.quadraticCurveTo(-8.6, y0 + .8, -8.6, y0 + 1.5); ctx.stroke(); }
   ctx.restore();
 }
 // okçu Herakles: yayı geren kırmızı figür (dir 1, sağa bakar); draw: 0..1 gerginlik, rel: bırakış (0..1 sonrası)
@@ -108,9 +124,9 @@ shot(PA('P266'), (ctx, st) => {
     for (let i = 0; i < 5; i++) cloud(c, 420 + i * 140, 700 + (i % 2) * 30, 1.6, C.ink, C.clay, i + 61);
     const nod = Math.exp(-Math.pow((t - n1 - .2) / .25, 2)) + Math.exp(-Math.pow((t - n2 - .2) / .25, 2));
     throne(c, 640, 690, 5.4, 1, C.ink, C.clay, { high: true });
-    figure(c, { x: 660, y: 690 - 28 - 44.5 * 5.6, s: 5.6, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { N: HOLD.scepter(80), F: HOLD.bolt() },
-      p: { torso: -.05, neck: .05 + .25 * nod, head: .05 + .2 * nod, shN: .5, elN: .9, shF: -.2, elF: .6 }, ik: { fN: [660 + 160, 690 - 17, 0], fF: [660 + 128, 690 - 17, 0] } });
-    bf(c, 1080, 820, 3.4, -1, { ...LK.herakles, cape: true }, { torso: .05, head: -.15, shN: -2.4, elN: .3, handN: 'open' });
+    figure(c, { x: 640 + 2.5 * 5.4, y: 690 - 25 * 5.4 - 3.2 * 5.6, s: 5.6, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { N: HOLD.scepter(80), F: HOLD.bolt() },
+      p: { torso: -.05, neck: .05 + .25 * nod, head: .05 + .2 * nod, shN: .5, elN: .9, shF: -.2, elF: .6 }, ik: { fN: [640 + 25 * 5.4, 690 - 5 * 5.4 - 2.6 * 5.6, 0], fF: [640 + 21 * 5.4, 690 - 5 * 5.4 - 2.6 * 5.6, .05] } }); // oturuş: kalça oturakta
+    bf(c, 1080, 820, 3.4, -1, { ...LK.herakles, cape: true }, { torso: .05, head: -.15, shN: -1.6, elN: 1.4, handN: 'open' }); // dirsek bükük, avuç öne açık (dik selam gibi okunmasın)
     const w = ramp(t, n2, n2 + .9);
     if (w > 0) { c.save(); c.globalAlpha = w; c.strokeStyle = C.clay; c.lineWidth = 4; c.beginPath(); c.ellipse(1062, 655, 30, 9, 0, 0, TAU); c.stroke(); c.restore(); }
   });

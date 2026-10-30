@@ -227,7 +227,7 @@ shot(PA('P090'), (ctx, st) => {
     const el = ramp(t, A('E14@içeride') + .3, A('E14@umut'));
     if (el > 0) { glow(ctx, x, E_GY - 70, 60, `rgba(205,218,235,${(.3 + .1 * Math.sin(t * 2)) * el})`); ctx.fillStyle = `rgba(220,230,240,${.8 * el})`; ctx.beginPath(); ctx.arc(x, E_GY - 70, 7, 0, TAU); ctx.fill(); } }
   // 11: iki kez aldatılmış Zeus (çentikler: iki kazıma çizgisi tahtın kolunda)
-  { const x = 11.5 * E_PW; throne(ctx, x + 80, E_GY, 5.0, 1, C.ink, C.clay, { high: true }); bf(ctx, x + 100, E_GY - 28, 5.0, 1, LK.zeus, { torso: .06, head: .15, shN: .3, elN: 1.2, handN: 'fist' }, { ik: { fN: [x + 240, E_GY - 15, 0], fF: [x + 210, E_GY - 15, 0] } });
+  { const x = 11.5 * E_PW; throne(ctx, x + 80, E_GY, 5.0, 1, C.ink, C.clay, { high: true }); bfSeat(ctx, x + 80, E_GY, 5.0, 5.0, 1, LK.zeus, { torso: .06, head: .15, shN: .3, elN: 1.2, handN: 'fist' });
     const nk = ramp(t, A('E11@iki'), A('E11@kez') + .3); ctx.strokeStyle = C.clay; ctx.lineWidth = 5; for (let k = 0; k < 2; k++) if (nk > k * .5) { ctx.beginPath(); ctx.moveTo(x - 250 + k * 40, 360); ctx.lineTo(x - 230 + k * 40, 470); ctx.stroke(); } }
   ctx.restore();
   friezeFrame(ctx, { col: C.ink, h: 44, bandBg: C.clay });
@@ -251,7 +251,7 @@ shot(PA('P099'), (ctx, st) => {
   if (ia > 0) { ctx.save(); ctx.globalAlpha = ia; ctx.fillStyle = C.clay; ctx.fillRect(560, 160, 800, 420); ctx.strokeStyle = PW.line; ctx.lineWidth = 5; ctx.strokeRect(560, 160, 800, 420);
     ctx.save(); ctx.beginPath(); ctx.rect(560, 160, 800, 420); ctx.clip();
     bf(ctx, 760, 560, 3.6, 1, LK.hesiodos, { shN: .4 + .2 * Math.max(0, Math.sin(t * 3)), elN: .9 }, { hold: { F: HOLD.spear(90) } });
-    throne(ctx, 1160, 560, 3.6, -1, C.ink, C.clay, { high: true }); bf(ctx, 1145, 532, 3.6, -1, LK.zeus, { torso: -.05 }, { ik: { fN: [1045, 548, 0], fF: [1068, 548, 0] } });
+    throne(ctx, 1160, 560, 3.6, -1, C.ink, C.clay, { high: true }); bfSeat(ctx, 1160, 560, 3.6, 3.6, -1, LK.zeus, { torso: -.05 });
     ctx.restore(); ctx.restore(); }
   // satırlar aralanır: aralarında gizli görüntü: insanlar küçük bir Zeus'a güler
   const op = ramp(t, tA, tA + 1.0) * (1 - ramp(t, tT - .3, tT + .3));

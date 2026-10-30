@@ -26,6 +26,11 @@ function stationRot(t, st, lead = 1.0) {
 }
 const BLACK = STY.black;
 const bf = (c, x, gy, s, dir, lk, p = {}, o = {}) => figure(c, { x, y: gy - 44.5 * s, s, dir, sty: o.sty || BLACK, lk, p, ...o });
+// oturan figür: kalça oturakta (throne() oturağı 25·ts), uyluk yatay, baldır dik, ayaklar tabureye. tx, by: tahtın x'i ve tabanı, ts: tahtın ölçeği
+function bfSeat(c, tx, by, ts, s, dir, lk, p = {}, o = {}) {
+  const ik = { fN: [tx + dir * 25 * ts, by - 5 * ts - 2.6 * s, 0], fF: [tx + dir * 21 * ts, by - 5 * ts - 2.6 * s, .05], ...(o.ik || {}) };
+  return figure(c, { x: tx + dir * 2.5 * ts, y: by - 25 * ts - 3.2 * s, s, dir, sty: o.sty || BLACK, seed: o.seed ?? ((tx * 7) | 0), ...o, lk, p, ik });
+}
 const LK_GAIA = { fem: true, hair: 'long', garment: 'robe', robeDots: true }, LK_RHEA = { fem: true, hair: 'long', garment: 'robe' };
 const LK_KRONOS = { beard: 'full', hair: 'long', garment: 'robe', himation: true }, LK_URANOS = { beard: 'long', hair: 'long', garment: 'robe', old: true };
 const LK_TITAN = { beard: 'short', hair: 'nape', garment: 'short' };
@@ -145,7 +150,7 @@ function amforaIIb(c, x0, x1, t) {
   if (vis(AMX.yutma)) {
     throne(c, AMX.yutma - 140, by, 5.4, 1, C.ink, C.clay, { high: true });
     const n = Math.floor(ramp(T('C09@yuttu'), 0, 2.2, E.lin) * 5), lift = (T('C09@yuttu') * 2.2) % 1;
-    bf(c, AMX.yutma - 20, by - 26, s, 1, LK_KRONOS, { torso: -.1, kn: 1.4, hip: -1.2, shN: 2.0 - lift * .6, elN: 1.4, head: -.15 }, { ik: { fN: [AMX.yutma + 120, by - 3 * s, 0], fF: [AMX.yutma + 90, by - 3 * s, 0] } });
+    bfSeat(c, AMX.yutma - 140, by, 5.4, s, 1, LK_KRONOS, { torso: -.1, shN: 2.0 - lift * .6, elN: 1.4, head: -.15 });
     for (let i = n; i < 5; i++) bundle(c, AMX.yutma + 300 + i * 60, by - 20, 1.3);
     const g = ramp(T('C09@oğullarından'), 0, .5) * (1 - ramp(T('C09@kronos'), 0, .5));
     if (g > 0) { bf(c, AMX.yutma - 520, by, s, 1, LK_GAIA, { torso: .15, shN: 1.4, elN: .9 }); dipinto(c, 'ΓΑΙΑ', AMX.yutma - 520, 140, 30, { col: C.ink, a: g }); }
@@ -159,7 +164,7 @@ function amforaIIb(c, x0, x1, t) {
   if (vis(AMX.tas)) {
     const k = ramp(T('C10@kundağa'), 0, 1.2);
     throne(c, AMX.tas + 120, by, 5.4, -1, C.ink, C.clay, { high: true });
-    bf(c, AMX.tas + 10, by - 26, s, -1, LK_KRONOS, { torso: .1, shN: 1.6 + k * .4, elN: 1.2 }, { ik: { fN: [AMX.tas - 130, by - 3 * s, 0], fF: [AMX.tas - 100, by - 3 * s, 0] } });
+    bfSeat(c, AMX.tas + 120, by, 5.4, s, -1, LK_KRONOS, { torso: .1, shN: 1.6 + k * .4, elN: 1.2 });
     bf(c, AMX.tas - 330, by, s, 1, LK_RHEA, { shN: 1.5 - k * .2, elN: .3 });
     bundle(c, lerp(AMX.tas - 210, AMX.tas - 70, k), by - 250 - k * 30, 1.3, C.clayD);
   }
@@ -279,8 +284,7 @@ function amforaIIc(c, x0, x1, t) {
   if (vis(AMY.akil)) { c.fillStyle = 'rgba(23,16,12,.2)'; for (let i = 0; i < 12; i++) { c.beginPath(); c.arc(AMY.akil - 500 + i * 90, by - 10 - (i % 3) * 8, 30, PI, TAU); c.fill(); } }
   if (vis(AMY.zeus)) {
     throne(c, AMY.zeus - 60, by, 5.6, 1, C.ink, C.clay, { high: true });
-    bf(c, AMY.zeus + 50, by - 28, s * 1.08, 1, { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true }, { torso: -.05, shN: 1.9, elN: .8, kn: 1.4, hip: -1.2 },
-      { ik: { fN: [AMY.zeus + 190, by - 3 * s, 0], fF: [AMY.zeus + 160, by - 3 * s, 0] } });
+    bfSeat(c, AMY.zeus - 60, by, 5.6, s * 1.08, 1, { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true }, { torso: -.05, shN: 1.9, elN: .8 });
     bolt(c, AMY.zeus + 210, by - 330, 1.8, -.4, C.ink, 'rgba(0,0,0,0)');
     dipinto(c, 'ΖΕΥΣ', AMY.zeus, 120, 34, { col: C.ink, a: ramp(T('C17@yıldırım'), .3, .9) });
   }

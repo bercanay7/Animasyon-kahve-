@@ -83,7 +83,7 @@ shot(PA('P057'), (ctx, st) => {
     // İapetos tahtında (yaşlı, uzun sakal), asası
     const sa = ramp(t, A('D02@iapetosun') - .2, A('D02@iapetosun') + .5);
     c.save(); c.globalAlpha = .35 + .65 * sa; throne(c, 140, by, 5.2, 1, C.ink, C.clay, { high: true });
-    bf(c, 162, by - 36, 5.2, 1, { ...LK.kronos, old: true }, { torso: -.05, head: .05, shN: .7, elN: 1.1, shF: .2, elF: .9, breath: Math.sin(t * 1.6) * .6 }, { hold: { N: HOLD.scepter(80) }, ik: { fN: [162 + 150, by - 16, 0], fF: [162 + 118, by - 16, 0] } });
+    bfSeat(c, 140, by, 5.2, 5.2, 1, { ...LK.kronos, old: true }, { torso: -.05, head: .05, shN: .7, elN: 1.1, shF: .2, elF: .9, breath: Math.sin(t * 1.6) * .6 }, { hold: { N: HOLD.scepter(80) } });
     c.restore();
     dipinto(c, 'ΙΑΠΕΤΟΣ', 160, 30, 50, { col: C.ink, a: sa, vertical: false });
     sons.forEach(([n, w, lk], i) => {
@@ -195,8 +195,8 @@ shot(PA('P064'), (ctx, st) => {
   D_thrones(ctx, t, { tip: [1.2, 1.2], na: .6 });
   // tahtta Zeus (siyah figür), kapalı yumruk öne uzanır; parmak arasından ışık sızar
   let J = null, M = null;
-  figure(ctx, { x: 1385, y: 760 - 36 - 44.5 * 6.2, s: 6.2, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { F: HOLD.scepter(80) }, onJoints: (j, m) => { J = j; M = m; },
-    p: { torso: -.05, neck: .05 - .15 * ramp(t, tV, tV + .6), head: .05 - .25 * ramp(t, tV, tV + .6), shN: -1.35, elN: .25, handN: 'fist', shF: .4, elF: 1.0, breath: Math.sin(t * 1.3) * .5 }, ik: { fN: [1385 + 175, 742, 0], fF: [1385 + 140, 742, 0] } });
+  figure(ctx, { x: 1360 + 2.5 * 6.2, y: 760 - 25 * 6.2 - 3.2 * 6.2, s: 6.2, dir: 1, sty: STY.black, lk: LK.zeus, seed: 5, hold: { F: HOLD.scepter(80) }, onJoints: (j, m) => { J = j; M = m; },
+    p: { torso: -.05, neck: .05 - .15 * ramp(t, tV, tV + .6), head: .05 - .25 * ramp(t, tV, tV + .6), shN: -1.35, elN: .25, handN: 'fist', shF: .4, elF: 1.0, breath: Math.sin(t * 1.3) * .5 }, ik: { fN: [1360 + 25 * 6.2, 760 - 5 * 6.2 - 2.6 * 6.2, 0], fF: [1360 + 21 * 6.2, 760 - 5 * 6.2 - 2.6 * 6.2, .05] } }); // oturuş: kalça oturakta, ayaklar taburede
   const fs = jointPt(ctx, M, J.AN.wr), lk = .5 + .5 * ramp(t, tT - .3, tT + .4), fl = .85 + .15 * Math.sin(t * 9);
   glow(ctx, fs[0] + 10, fs[1], 80 * lk, `rgba(255,220,150,${.6 * lk * fl})`);
   for (let k = 0; k < 4; k++) { const a = -.6 + k * .4 + Math.sin(t * 3 + k) * .1; ctx.strokeStyle = `rgba(255,236,190,${.7 * lk})`; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(fs[0] + 10 + Math.cos(a) * 20, fs[1] + Math.sin(a) * 20); ctx.lineTo(fs[0] + 10 + Math.cos(a) * (40 + 20 * lk), fs[1] + Math.sin(a) * (40 + 20 * lk)); ctx.stroke(); }
