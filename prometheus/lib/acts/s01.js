@@ -156,7 +156,8 @@ shot(A('B07@taht') - .6, (ctx, st) => {
   ctx.save(); ctx.translate(960, 600); ctx.scale(z, z); ctx.translate(-960, -600);
   ctx.fillStyle = C.ink; ctx.fillRect(0, 760, W, 8);
   [[560, 0], [960, 1], [1360, 2]].forEach(([x, i]) => { const k = ramp(lt, .2 + i * .35, .8 + i * .35); ctx.save(); ctx.globalAlpha = k; throne(ctx, x, 760, 6.2, 1, C.ink, C.clay, { high: true }); ctx.restore(); });
-  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20, 830, 30, { col: C.ink, a: ramp(lt, .6 + i * .35, 1.2 + i * .35) }));
+  // adlar tahtların tepesinde (y ≤ 700, altyazı bandının dışında); dik arkalıklarla çakışmaz
+  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20, 150, 54, { col: C.ink, a: ramp(lt, .6 + i * .35, 1.2 + i * .35) }));
   ctx.restore();
   friezeFrame(ctx, { col: C.ink, h: 44, bandBg: C.clay });
 }, { tr: { type: 'clay', dur: 1.0 }, post: { tex: .85, vig: .85, grain: .055 } });

@@ -15,7 +15,7 @@ function D_thrones(ctx, t, o = {}) {
   if (o.crack && o.crackCol !== C.ink) glow(ctx, 1360 + 18 * s, by - 8 * s * o.crack, 50 * o.crack, `rgba(255,190,90,${.35 * Math.min(1, o.crack) * (.8 + .2 * Math.sin(t * 5))})`);
   ctx.restore();
   // adlar devrik tahtların üstündeki boşlukta, Zeus'unki arkalığın sağında (y ≤ 700: altyazı bandına düşmez)
-  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 46, { col: C.ink, a: o.na ?? 1 }));
+  if (o.names !== false) ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 54, { col: C.ink, a: o.na ?? 1 }));
 }
 // METOP (siyah figür): tek uzun friz, panolar arasında triglif bantları (dikey çift çizgili koyu dikdörtgenler)
 function D_metope(ctx, x0, x1, y0, y1, panels) {

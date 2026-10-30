@@ -17,18 +17,53 @@ function E_cam(t, st, z = 1.2, lead = .8) {
   return { x: lerp(px(a[1]), px(b[1]), u) + (t - b[0]) * 10, y: 500, z: (b[2] ?? z) * (1 + .006 * Math.sin(t * .7)) };
 }
 const E_fig = (c, x, s, dir, lk, p = {}, o = {}) => bf(c, x, E_GY, s, dir, lk, { breath: Math.sin((window.FIG_T || 0) * 1.5 + x * .01) * .5, ...p }, o);
-// iki pay: işkembe torbası (koyu, buruşuk) ve yağa sarılı parlak pay
+// uyluk kemiği: düz sap, iki ucunda çift topuz (eklenmiş beyaz, siyah kontur)
+function E_bone(c, x, y, len, rot, col = C.bone) {
+  c.save(); c.translate(x, y); c.rotate(rot); c.fillStyle = col; c.strokeStyle = C.ink; c.lineWidth = 2.4;
+  c.beginPath(); c.rect(-len / 2, -7, len, 14); for (const e of [-1, 1]) { c.moveTo(e * len / 2 + 14, -9); c.arc(e * len / 2, -9, 14, 0, TAU); c.moveTo(e * len / 2 + 14, 9); c.arc(e * len / 2, 9, 14, 0, TAU); }
+  c.fill(); c.stroke(); c.fillRect(-len / 2 + 2, -6, len - 4, 12); c.restore();
+}
+// iki pay bir sofranın (trapeza) üstünde: solda ağzı bağlı siyah işkembe torbası (iki eklenmiş kırmızı şerit),
+// sağda topaklı yağ kütlesi (mat eklenmiş beyaz, dalgalı yağ kıvrımları); iki ucundan uyluk kemiği topuzları çıkar
 function E_portions(c, x, y, o = {}) {
-  c.fillStyle = C.ink; c.beginPath(); c.moveTo(x - 260, y); c.quadraticCurveTo(x - 300, y - 110, x - 200, y - 130); c.quadraticCurveTo(x - 120, y - 150, x - 90, y - 60); c.quadraticCurveTo(x - 80, y, x - 260, y); c.fill();
-  c.strokeStyle = C.clay; c.lineWidth = 2.4; for (let k = 0; k < 4; k++) { c.beginPath(); c.moveTo(x - 250 + k * 30, y - 20); c.quadraticCurveTo(x - 230 + k * 30, y - 80, x - 210 + k * 32, y - 110); c.stroke(); }
-  const fat = o.fat ?? 1, glint = .6 + .4 * Math.sin((window.FIG_T || 0) * 3);
-  // kemikler (yağın altında): kazımayla görünür
-  c.fillStyle = C.white; c.strokeStyle = C.ink; c.lineWidth = 2;
-  for (let k = 0; k < 4; k++) { c.save(); c.translate(x + 120 + k * 40, y - 30 - k * 12); c.rotate(-.6 + k * .3); c.fillRect(-60, -6, 120, 12); c.beginPath(); c.arc(-62, 0, 10, 0, TAU); c.arc(62, 0, 10, 0, TAU); c.fill(); c.restore(); }
-  if (fat > 0) { c.save(); c.globalAlpha = fat; c.fillStyle = C.white; c.beginPath(); c.ellipse(x + 180, y - 70, 140, 80, 0, 0, TAU); c.fill(); c.strokeStyle = C.ink; c.lineWidth = 3; c.stroke();
-    c.fillStyle = `rgba(255,250,235,${.6 * glint})`; c.beginPath(); c.ellipse(x + 140, y - 110, 40, 14, -.3, 0, TAU); c.fill(); c.restore(); }
-  // kazıma: yağın üstünde tarama çizgileri, altındaki kemiği ele verir
-  if (o.scratch > 0) { c.save(); c.strokeStyle = C.ink; c.lineWidth = 1.6; c.globalAlpha = .7; const n = Math.floor(12 * o.scratch); for (let k = 0; k < n; k++) { c.beginPath(); c.moveTo(x + 70 + k * 18, y - 20); c.lineTo(x + 110 + k * 18, y - 130); c.stroke(); } c.restore(); }
+  const T = y - 120, ft = window.FIG_T || 0;
+  // sofra: kalın tabla, iki kıvrık bacak
+  c.fillStyle = C.ink; c.fillRect(x - 450, T, 900, 18);
+  c.strokeStyle = C.clay; c.lineWidth = 2; c.beginPath(); c.moveTo(x - 440, T + 9); c.lineTo(x + 440, T + 9); c.stroke();
+  for (const e of [-1, 1]) { c.fillStyle = C.ink; c.beginPath(); c.moveTo(x + e * 400, T + 16); c.quadraticCurveTo(x + e * 370, T + 70, x + e * 395, y - 8); c.lineTo(x + e * 420, y); c.lineTo(x + e * 380, y); c.quadraticCurveTo(x + e * 350, T + 70, x + e * 375, T + 16); c.closePath(); c.fill(); }
+  // işkembe torbası: sofraya çökmüş, yamuk bir çuval; ağzı sağa yatık, iple bağlı, ip uçları sarkar
+  const bx = x - 230;
+  c.fillStyle = C.ink; c.beginPath(); c.moveTo(bx - 165, T);
+  c.bezierCurveTo(bx - 190, T - 70, bx - 150, T - 120, bx - 80, T - 118);
+  c.bezierCurveTo(bx - 30, T - 116, bx + 10, T - 150, bx + 52, T - 168);
+  c.lineTo(bx + 78, T - 150);
+  c.bezierCurveTo(bx + 80, T - 120, bx + 150, T - 95, bx + 160, T - 50);
+  c.quadraticCurveTo(bx + 168, T - 12, bx + 150, T); c.closePath(); c.fill();
+  // bağ: yatık boğumun üstünde düğüm ve iki sarkan ip ucu
+  c.save(); c.translate(bx + 66, T - 166); c.rotate(.6);
+  c.beginPath(); c.ellipse(-12, -10, 16, 10, -.4, 0, TAU); c.ellipse(12, -10, 16, 10, .4, 0, TAU); c.fill(); c.restore();
+  c.strokeStyle = C.ink; c.lineWidth = 4; c.beginPath(); c.moveTo(bx + 70, T - 168); c.quadraticCurveTo(bx + 104, T - 160, bx + 112, T - 128); c.moveTo(bx + 72, T - 164); c.quadraticCurveTo(bx + 96, T - 140, bx + 92, T - 116); c.stroke();
+  c.strokeStyle = C.red; c.lineWidth = 8;
+  for (const [x0, y0, x1, y1, cy] of [[-150, -42, 150, -36, -66], [-120, -88, 110, -82, -112]]) { c.beginPath(); c.moveTo(bx + x0, T + y0); c.quadraticCurveTo(bx + (x0 + x1) / 2, T + cy, bx + x1, T + y1); c.stroke(); }
+  c.strokeStyle = C.clay; c.lineWidth = 2;
+  for (const [x0, y0, x1, y1] of [[-110, -16, -76, -24], [60, -18, 100, -26], [-40, -128, -4, -140], [30, -110, 60, -128], [-150, -70, -130, -96]]) { c.beginPath(); c.moveTo(bx + x0, T + y0); c.quadraticCurveTo(bx + (x0 + x1) / 2, T + y0 - 10, bx + x1, T + y1); c.stroke(); }
+  c.beginPath(); c.moveTo(bx + 50, T - 162); c.lineTo(bx + 76, T - 146); c.stroke();
+  // yağ payı: önce altındaki kemikler, sonra yağ (kazıma ve kaldırma yağı inceltir)
+  const fx = x + 200, fat = o.fat ?? 1, sc = o.scratch || 0;
+  E_bone(c, fx - 58, T - 23, 220, 0); E_bone(c, fx + 58, T - 23, 220, 0); E_bone(c, fx, T - 69, 300, 0); E_bone(c, fx + 4, T - 112, 280, .03);
+  const fa = fat * (1 - .5 * sc);
+  if (fa > 0) {
+    c.save(); c.globalAlpha *= fa; c.translate(0, -110 * (1 - fat));
+    c.fillStyle = '#E8DCC0'; c.strokeStyle = C.ink; c.lineWidth = 3;
+    c.beginPath();
+    for (let k = 0; k <= 40; k++) { const a = PI + k / 40 * PI, r = 1 + .08 * Math.sin(a * 5 + 1) + .05 * Math.sin(a * 9); c.lineTo(fx + Math.cos(a) * 172 * r, T - 6 + Math.sin(a) * 168 * r); }
+    c.closePath(); c.fill(); c.stroke();
+    c.lineWidth = 2.6;
+    for (let k = 0; k < 3; k++) { const yy = T - 40 - k * 40, hw = 140 - k * 30; c.beginPath(); for (let q = 0; q <= 20; q++) { const xx = fx - hw + q / 20 * 2 * hw; c.lineTo(xx, yy + Math.sin(q * 1.3 + k) * 6); } c.stroke(); }
+    c.restore();
+  }
+  // kazıma: yağın üstünde ince tarama çizgileri, altındaki kemik seçilir
+  if (sc > 0) { c.save(); c.strokeStyle = C.ink; c.lineWidth = 1.6; c.globalAlpha = .7 * fat; const n = Math.floor(12 * sc); for (let k = 0; k < n; k++) { c.beginPath(); c.moveTo(fx - 120 + k * 20, T - 20); c.lineTo(fx - 90 + k * 20, T - 140); c.stroke(); } c.restore(); }
 }
 
 // --- P075–P082: sunak, Hesiodos, Mekone, öküz, iki pay, seçim, kemikler, yüzyıllar ---
@@ -207,8 +242,18 @@ shot(PA('P090'), (ctx, st) => {
     const g = clamp(kn * 1.3);
     if (g < 1) { ctx.fillStyle = C.clayD; ctx.strokeStyle = C.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(x + 40, E_GY - 60, 70 * (1 - g * .5), 60 + 120 * g, 0, 0, TAU); ctx.fill(); ctx.stroke(); }
     if (g > .4) { ctx.save(); ctx.globalAlpha = ramp(g, .4, 1); E_fig(ctx, x + 40, 4.6, -1, { ...LK.pandora, robe: true }, { head: .05 }, { sty: { ...STY.black, fill: C.clayD, cut: C.ink, line: C.ink } }); ctx.restore(); }
-    // süzülen armağanlar: taç, gerdanlık
-    if (dec > 0) { ctx.strokeStyle = C.ink; ctx.lineWidth = 5; const ty = lerp(140, E_GY - 4.6 * 92, dec); ctx.beginPath(); ctx.ellipse(x + 40, ty, 34, 9, 0, 0, TAU); ctx.stroke(); for (let k = 0; k < 6; k++) { ctx.beginPath(); ctx.arc(x + 40 - 40 + k * 16, lerp(200, E_GY - 4.6 * 66, dec) + Math.sin(k) * 6, 5, 0, TAU); ctx.stroke(); } }
+    // armağanlar: stephane (yedi dik yapraklı taç, siyah figür + eklenmiş kırmızı) dikey iner, saç bandına oturur;
+    // gerdanlık sağdan boyun hizasında gelir (eklenmiş beyaz boncuklar, siyah kontur), yüzü hiç kesmez
+    if (dec > 0) { const hx = x + 40 + 2, hy = E_GY - 4.6 * 92.5, ty = lerp(140, hy, E.out3(clamp(dec * 1.25)));
+      ctx.save(); ctx.translate(hx, ty);
+      // hilal stephane: ortada yüksek, yanlara incelen siyah bant; üst kenarda yedi küçük diş, içinde kazıma ve kırmızı noktalar
+      ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(-38, 12); ctx.quadraticCurveTo(0, -26, 38, 12); ctx.quadraticCurveTo(0, 0, -38, 12); ctx.closePath(); ctx.fill();
+      for (let k = 0; k < 7; k++) { const u = k / 6, bx = lerp(-30, 30, u), by = 12 - 19 * Math.sin(u * PI) - 2; ctx.beginPath(); ctx.moveTo(bx - 4, by + 2); ctx.lineTo(bx, by - 6 - 3 * Math.sin(u * PI)); ctx.lineTo(bx + 4, by + 2); ctx.closePath(); ctx.fill(); }
+      ctx.strokeStyle = C.clay; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(-30, 9); ctx.quadraticCurveTo(0, -14, 30, 9); ctx.stroke();
+      ctx.fillStyle = C.red; for (const dx of [-16, 0, 16]) { ctx.beginPath(); ctx.arc(dx, 4 - (dx ? 4 : 8), 3, 0, TAU); ctx.fill(); }
+      ctx.restore();
+      const nk = E.io2(ramp(dec, .35, 1)), ny = E_GY - 4.6 * 74.5, nx = lerp(x + 360, x + 40, nk);
+      if (nk > 0) for (let k = 0; k < 7; k++) { const u = k / 6 - .5, px = nx + u * 36 * lerp(1.8, 1, nk), py = ny + (1 - 4 * u * u) * 8 * nk; ctx.fillStyle = C.white; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(px, py, 4.2, 0, TAU); ctx.fill(); ctx.stroke(); } }
     const na = ramp(t, A('E12@adı'), A('E12@pandoradır') + .5); if (na > 0) dipinto(ctx, 'ΠΑΝΔΩΡΑ', x + 300, 440, 64, { col: C.ink, vertical: true, p: na }); }
   // 8: geri dönüş: Prometheus kardeşini uyarır
   { const x = 8.5 * E_PW; E_fig(ctx, x - 200, 4.6, 1, LK.promFree, { torso: .05, shN: 1.5, elN: .3 + .3 * Math.sin(t * 6), handN: 'open' }); E_fig(ctx, x + 200, 4.6, -1, LK.epimetheus, { torso: -.05, head: .1 }); }

@@ -40,7 +40,7 @@ function I_thrones(ctx, t, o = {}) {
   crackLine(ctx, 1360 + 18 * s, by, 22 * s * .35, 1, { col: '#E6ECFF', w: 3, s: 1.2 });
   ctx.restore();
   if (o.ghost > 0) { ctx.save(); ctx.globalAlpha *= .32 * o.ghost; throneTip(ctx, 1360, by, s, o.ghostTip || 0, { col: '#E6ECFF', inc: PC.glaze }); ctx.restore(); }
-  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 46, { col: PC.clayRL, a: o.na ?? .9 }));
+  ['ΟΥΡΑΝΟΣ', 'ΚΡΟΝΟΣ', 'ΖΕΥΣ'].forEach((n, i) => dipinto(ctx, n, [560, 960, 1360][i] + 20 + (i === 2 ? 80 : 0), by - 230, 54, { col: PC.clayRL, a: o.na ?? .9 }));
 }
 // gökteki boş taht: koyu siluet, soğuk beyaz kenar ışığı (karanlıkta okunsun)
 function I_skyThrone(ctx, x, y, s, t, o = {}) {
