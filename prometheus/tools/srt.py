@@ -22,11 +22,11 @@ def wrap(words):
         if cost < best: best, bi = cost, i
     return ' '.join(words[:bi]) + '\n' + ' '.join(words[bi:])
 
-MERGE = {}
+MERGE = {(sid, tok): n for sid, m in json.load(open(os.path.join(ROOT, 'tools', 'merge.json'))).items() if not sid.startswith('_') for tok, n in m.items()}
 cues = []
 for sg in segs:
     toks = sg['alt'].split()
-    ws = [w for w in WORDS if w['id'] == sg['id'] and w['d']]
+    ws = [w for w in WORDS if w['id'] == sg['id']]
     # altyazıda tek sözcük, anlatım zamanlamasında iki sözcük olan kısaltmalar ("Kız ise" → duyulan "Kızsa,")
     for (sid, tok), k in MERGE.items():
         if sid == sg['id'] and tok in toks:

@@ -6,6 +6,7 @@ SR = 48000
 d = json.load(open('senaryo.json'))
 sel = json.load(open('vo/secim.json'))
 plan = json.load(open('vo/plan.json'))  # boşluklar: {"once": sn (ilk segmentten önce), "gap": {id: sn sonra}, "secGap": sn}
+MERGE = {k: v for k, v in json.load(open('tools/merge.json')).items() if not k.startswith('_')}
 
 def load(path):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout
@@ -30,7 +31,12 @@ for si, (bolum, segs) in enumerate(secs):
     ref, owner, disp = [], [], []
     for k, s in enumerate(segs):
         ws = words_of(s['tts']); ref += ws; owner += [k] * len(ws)
-        disp += [x for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split() if norm1(x)][:len(ws)] + [''] * max(0, len(ws) - len([x for x in s['alt'].split() if norm1(x)]))
+        # altyazı sözcükleri; tools/merge.json'daki çok kelimelik karşılıklar (ör. "1967'de" = beş kelime) açılır: ilk kelime sözcüğü taşır, kalanlar boş
+        at = []
+        for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split():
+            if not norm1(x): continue
+            n = MERGE.get(s['id'], {}).get(x, 1); at += [x] + [''] * (n - 1)
+        disp += at[:len(ws)] + [''] * max(0, len(ws) - len(at))
     sm = difflib.SequenceMatcher(None, ref, hyp, autojunk=False)
     m = [None] * len(ref)
     for blk in sm.get_matching_blocks():
