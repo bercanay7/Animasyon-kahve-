@@ -280,6 +280,13 @@ function headPt(ctx, J, M, q) {
   return [r.x, r.y];
 }
 function jointPt(ctx, M, q) { const sp = M.transformPoint(new DOMPoint(q[0], q[1])); const r = ctx.getTransform().inverse().transformPoint(sp); return [r.x, r.y]; }
+// Karanlıkta soğuk göz (Zeus'un kuşkusu): vazo gözü gibi badem, içinde koyu bebek; kısılınca incelir ama çizgiye inmez
+function coldEye(ctx, x, y, w, open, col = '#E6ECFF') {
+  const h = w * .42 * Math.max(.24, clamp(open)), r = Math.min(h * .78, w * .2);
+  ctx.save(); ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(x - w, y); ctx.quadraticCurveTo(x, y - h * 2, x + w, y); ctx.quadraticCurveTo(x, y + h * 1.4, x - w, y); ctx.closePath(); ctx.fill();
+  ctx.clip(); ctx.fillStyle = '#141A2A'; ctx.beginPath(); ctx.arc(x + w * .08, y - h * .15, r, 0, TAU); ctx.fill(); ctx.restore();
+  ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = Math.max(1.5, w * .1); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x - w * 1.05, y - h * .2); ctx.quadraticCurveTo(x, y - h * 2.4 - w * .1, x + w * 1.08, y - h * .3); ctx.stroke(); ctx.restore();
+}
 // Duman: vazo resmindeki gibi üç ince dalgalı çizgi; yukarı doğru salınımı büyür, uçta incelip söner (saydam daireler yerine)
 function smokeWisps(ctx, x, y, h, t, o = {}) {
   const n = o.n ?? 3, a = o.a ?? 1, w = o.w ?? 3, sp = o.spread ?? 26, sway = o.sway ?? 22;

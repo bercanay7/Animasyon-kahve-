@@ -113,7 +113,7 @@ shot(PA('P158'), (ctx, st) => {
   const ey = ramp(t, tS - .2, tS + .8);
   if (ey > 0) { ctx.save(); baseT(ctx); ctx.fillStyle = `rgba(14,9,7,${.55 * ey})`; ctx.fillRect(0, 0, W, 520);
     for (let i = 0; i < 5; i++) { const x = 380 + i * 300 + Math.sin(i * 4) * 60, y = 180 + (i % 2) * 120, bl = .3 + .7 * Math.abs(Math.sin(t * 1.2 + i * 1.7)); ctx.globalAlpha = ey * (.6 + .4 * bl); ctx.fillStyle = '#E6ECFF';
-      for (const dx of [-26, 26]) { ctx.beginPath(); ctx.ellipse(x + dx, y, 18, 5 * bl, 0, 0, TAU); ctx.fill(); } }
+      for (const dx of [-28, 28]) coldEye(ctx, x + dx, y, 20, bl); }
     ctx.restore(); }
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },

@@ -25,7 +25,7 @@ function I_eyes(ctx, t, x, y, R, a, nar = 0, n = 6) {
   if (a <= 0) return;
   ctx.save(); ctx.fillStyle = '#E6ECFF';
   for (let i = 0; i < n; i++) { const ang = -PI + (i + .5) / n * PI * 1.0 - .1, ex = x + Math.cos(ang) * R * (1 + .15 * (i % 2)), ey = y + Math.sin(ang) * R * .55, bl = (.35 + .65 * Math.abs(Math.sin(t * 1.1 + i * 1.9))) * (1 - .8 * nar);
-    ctx.globalAlpha = a * (.55 + .45 * bl); for (const dx of [-24, 24]) { ctx.beginPath(); ctx.ellipse(ex + dx, ey, 16, Math.max(1.2, 5.5 * bl), 0, 0, TAU); ctx.fill(); } }
+    ctx.globalAlpha = a * (.55 + .45 * bl); for (const dx of [-26, 26]) coldEye(ctx, ex + dx, ey, 19, bl); }
   ctx.restore();
 }
 // TAHT (kırmızı figür türevi): üç sabit taht x 560/960/1360, taban 760; ghost: devrilme görüntüleri (soluk)
@@ -48,12 +48,29 @@ function I_skyThrone(ctx, x, y, s, t, o = {}) {
   F_throne(ctx, x, y, s, 1, t, o);
 }
 // soğuk beyaz mühür (sır): yuvarlak balmumu, ortasında yıldırım
+// Zeus'un mührü: düzgün disk ('uygulama simgesi') değil, iplere basılmış düzensiz bir mühür topağı; kenarı taşkın,
+// içinde basılmış çift halka, nokta dizisi, kabartma yıldırım ve ΔΙΟΣ; soğuk beyaz
 function I_seal(ctx, x, y, r, a, t) {
   if (a <= 0) return;
-  ctx.save(); ctx.globalAlpha *= a; glow(ctx, x, y, r * 2.4, `rgba(230,236,255,${.28 + .08 * Math.sin(t * 3)})`);
-  ctx.fillStyle = '#DDE4F6'; ctx.beginPath(); for (let k = 0; k <= 24; k++) { const an = k / 24 * TAU, rr = r * (1 + .06 * Math.sin(an * 7)); k ? ctx.lineTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr) : ctx.moveTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr); } ctx.closePath(); ctx.fill();
-  ctx.strokeStyle = 'rgba(90,100,130,.8)'; ctx.lineWidth = r * .06; ctx.beginPath(); ctx.arc(x, y, r * .72, 0, TAU); ctx.stroke();
-  ctx.fillStyle = 'rgba(90,100,130,.85)'; ctx.beginPath(); ctx.moveTo(x + r * .08, y - r * .5); ctx.lineTo(x - r * .2, y + r * .05); ctx.lineTo(x + r * .02, y + r * .05); ctx.lineTo(x - r * .1, y + r * .52); ctx.lineTo(x + r * .24, y - r * .08); ctx.lineTo(x + r * .02, y - r * .08); ctx.closePath(); ctx.fill();
+  ctx.save(); ctx.globalAlpha *= a; glow(ctx, x, y, r * 2.2, `rgba(230,236,255,${.22 + .06 * Math.sin(t * 3)})`);
+  // mühür sicimi: topağın arkasından yatay geçer (mühür onu bağlar)
+  ctx.strokeStyle = 'rgba(200,208,230,.7)'; ctx.lineWidth = r * .06; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(x - r * 1.7, y - r * .05); ctx.quadraticCurveTo(x, y + r * .25, x + r * 1.7, y + r * .1); ctx.stroke();
+  // topak: gürültülü kenar, kabarık gölge
+  const blob = (k0) => { ctx.beginPath(); for (let k = 0; k <= 40; k++) { const an = k / 40 * TAU, rr = r * k0 * (1 + .09 * noise1(an * 2.3, 4) + .04 * Math.sin(an * 5 + 1)); k ? ctx.lineTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr * .94) : ctx.moveTo(x + Math.cos(an) * rr, y + Math.sin(an) * rr * .94); } ctx.closePath(); };
+  ctx.fillStyle = 'rgba(70,80,110,.55)'; ctx.save(); ctx.translate(r * .05, r * .08); blob(1.02); ctx.fill(); ctx.restore();
+  const g = ctx.createRadialGradient(x - r * .3, y - r * .35, r * .1, x, y, r * 1.1); g.addColorStop(0, '#F2F5FF'); g.addColorStop(1, '#B9C3DE');
+  ctx.fillStyle = g; blob(1); ctx.fill();
+  // basılmış iç yüz: çift halka ve nokta dizisi
+  const ink = 'rgba(80,92,125,.85)';
+  ctx.strokeStyle = ink; ctx.lineWidth = r * .045; ctx.beginPath(); ctx.arc(x, y, r * .74, 0, TAU); ctx.stroke(); ctx.lineWidth = r * .025; ctx.beginPath(); ctx.arc(x, y, r * .62, 0, TAU); ctx.stroke();
+  ctx.fillStyle = ink; for (let k = 0; k < 18; k++) { const an = k / 18 * TAU; ctx.beginPath(); ctx.arc(x + Math.cos(an) * r * .68, y + Math.sin(an) * r * .68, r * .025, 0, TAU); ctx.fill(); }
+  // kabartma yıldırım: koyu gölge kenar + açık yüz
+  const boltP = () => { ctx.beginPath(); ctx.moveTo(x + r * .08, y - r * .48); ctx.lineTo(x - r * .18, y + r * .04); ctx.lineTo(x + r * .02, y + r * .04); ctx.lineTo(x - r * .1, y + r * .5); ctx.lineTo(x + r * .22, y - r * .08); ctx.lineTo(x + r * .02, y - r * .08); ctx.closePath(); };
+  ctx.save(); ctx.translate(r * .03, r * .03); ctx.fillStyle = ink; boltP(); ctx.fill(); ctx.restore(); ctx.fillStyle = '#EEF2FF'; boltP(); ctx.fill();
+  // ΔΙΟΣ: halkanın üst yayında küçük harfler
+  ctx.fillStyle = ink; ctx.font = `700 ${Math.round(r * .2)}px Cinzel`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  [...'ΔΙΟΣ'].forEach((ch, k) => { const an = -PI / 2 + (k - 1.5) * .42; ctx.save(); ctx.translate(x + Math.cos(an) * r * .86, y + Math.sin(an) * r * .86); ctx.rotate(an + PI / 2); ctx.fillText(ch, 0, 0); ctx.restore(); });
   ctx.restore();
 }
 // Prometheus'un gözü (dünya koordinatı): ekran dışı küçük tuvalde kuru çizimle ölçülür
