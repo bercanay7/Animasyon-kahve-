@@ -22,14 +22,14 @@ git pull
 - Uzun film ve Shorts büyük olduğu için depoya girmez; ikisi sohbette dosya olarak gönderilir. İndirip `Animasyon-kahve-/prometheus/` klasörüne koy.
 - Uzun filmin yüklenecek dosyası `prometheus_youtube.mp4`.
   - Neden: ana kayıt (`prometheus_master.mp4`, H.264, 1,03 GB) sohbetin 500 MB dosya sınırını aşıyor.
-  - Yüklenecek dosya aynı filmin H.265 (HEVC) kodlaması, yaklaşık 400 MB.
+  - Yüklenecek dosya aynı filmin H.265 (HEVC) kodlaması: 344 MB, yani 400 MB yükleme sınırının altında.
   - Görüntü ana kayda neredeyse birebir eşit (SSIM 0,991); ses aynı, yeniden kodlanmadı.
   - YouTube HEVC kabul eder.
 
 ## Dosyalar
 | Dosya | Ne için |
 |---|---|
-| `prometheus_youtube.mp4` | Uzun video, 1920×1080, 30 fps, 23:55, Türkçe ses (HEVC, ≈ 400 MB) |
+| `prometheus_youtube.mp4` | Uzun video, 1920×1080, 30 fps, 23:55, Türkçe ses (HEVC, 344 MB) |
 | `kapak.jpg` | Kapak A (1280×720) |
 | `kapak_b.jpg` | Kapak B: "Test ve karşılaştır" için ikinci kapak |
 | `prometheus.tr.srt` | Türkçe altyazı (izleyicilerin %38'i Türkçe altyazıyla izliyor) |
