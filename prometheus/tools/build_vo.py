@@ -26,7 +26,11 @@ out.append(np.zeros(int(t * SR), np.float32))
 for si, (bolum, segs) in enumerate(secs):
     f = sel[bolum]
     a = load('vo/' + f)
-    hw = json.load(open('vo/' + f.rsplit('.', 1)[0] + '.words.json'))
+    hw = []
+    for w in json.load(open('vo/' + f.rsplit('.', 1)[0] + '.words.json')):
+        # Whisper "Zeus" + "'un" diye böler: kesmeyle başlayan parçayı önceki kelimeye ekle
+        if hw and w['w'][:1] in "'’": hw[-1] = {**hw[-1], 'w': hw[-1]['w'] + w['w'], 'e': w['e']}
+        else: hw.append(w)
     hyp = [norm1(w['w']) for w in hw]
     ref, owner, disp = [], [], []
     for k, s in enumerate(segs):
