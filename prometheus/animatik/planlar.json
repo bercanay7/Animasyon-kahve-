@@ -1,7 +1,7 @@
 {
  "_not": "Plan listesi (animatik). at: 'ID' = cümle başı, 'ID@kelime' = cümledeki kelime (tts yazımıyla, küçük harf, kesmesiz), 'ID@kelime#n' = n. geçiş (0'dan). k: S = siyah figür (Hesiodos), K = kırmızı figür (Aiskhylos), B = beyaz zemin (Erhat). Plan bir sonraki planın başına kadar sürer. yazi: ekranda yazı (üst 2/3'te; alt üçte bir altyazıya ayrılır). gecis yoksa kesme.",
  "setler": {
-  "KAYA": "Kırmızı figür. İskit uçurumu: sır siyahı gök, koyu kaya kütlesi (#2A170F) kil konturla, altta dalga kuşağı (meander). Prometheus zincirli. Kamera: GENİŞ, ORTA, YAKIN (profil büst), ALT (aşağıdan), ÜST (kartal bakışı), ZİNCİR (halka ve kazık yakın). Gök: gece, şafak diski, fırtına. Konuklar: Kratos, Bia, Hephaistos, Okeanos'un kızları, Okeanos, İo, Hermes, kartal.",
+  "KAYA": "Kırmızı figür. İskit uçurumu: sır siyahı gök, koyu kaya kütlesi (#2A170F) kil konturla, altta dalga kuşağı (meander). Prometheus zincirli. Kamera: GENİŞ, ORTA, YAKIN (profil büst), ALT (aşağıdan), ÜST (kartal bakışı), ZİNCİR (halka ve kazık yakın). Gök: gece, şafak diski, fırtına. Konuklar: Kratos, Bia, Hephaistos, Okeanos'un kızları, Okeanos, İo, Hermes, kartal. Kartal bu sette yaklaşan tehdittir (Hermes'in tehdidi, ZVP 1021–1025); her gün karaciğeri yiyen kartal Hesiodos'undur ve KYLIX setinde siyah figürle gösterilir.",
   "AMFORA": "Siyah figür. Dönen amfora frizi: kil zemin, siyah figür, kazıma çizgi. Silindir döndükçe sahne değişir (geçişin kendisi hareket). Soy ağacı, devrimler, Titanomakhia.",
   "KYLIX": "Siyah figür. Lakonya kylixi tondosu (İÖ ~550): Atlas göğü taşır, Prometheus sütuna bağlı, kartal. Kupa yavaşça döner.",
   "METOP": "Siyah figür. Dikdörtgen pano (metop/pinaks): Mekone kurbanı, rezene, Pandora, küp. Kamera pano içinde kayar.",
@@ -57,41 +57,42 @@
   {
    "id": "P006",
    "at": "A03",
-   "k": "K",
-   "set": "DÜNYA DİSKİ",
-   "kare": "Çok geniş: Okeanos ırmağıyla çevrili düz dünya diskinin kıyısında minicik kaya. Güneş diski doğar.",
-   "hareket": "güneş yükselir; bulutlar ve ırmak akar"
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Katman değişimi (negatif geçiş: kırmızı figür siyah figüre döner): Lakonya kylixi yukarıdan, ayağı üstünde döner. Tondoda dünyanın ucu: sütuna bağlı Prometheus (Hesiodos, Th. 521–525).",
+   "hareket": "kupa döner; tondoda güneş diski doğar",
+   "gecis": "negatif 0,8 sn"
   },
   {
    "id": "P007",
    "at": "A03@kartal",
-   "k": "K",
-   "set": "KAYA",
-   "kare": "Kartal güneş diskinin önünden süzülerek iner, gölgesi Prometheus'un üstünden geçer.",
-   "hareket": "eagle2 süzülme + kanat çırpma; gölge kayar"
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Tondo içinde kartal güneş diskinin önünden süzülerek sütuna iner.",
+   "hareket": "kartal süzülür (sürekli kanat döngüsü); kupa döner"
   },
   {
    "id": "P008",
    "at": "A03@karaciğerini",
-   "k": "K",
-   "set": "KAYA/ORTA",
-   "kare": "Kartal yanına konar, kanatlarıyla gövdesini örter (kan yok). Prometheus'un başı geriye, yumruk sıkılı.",
-   "hareket": "kanat vuruşları, sarsıntı; zincir gerilir"
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Kartal göğse konar, kanatlarını açıp gövdeyi örter (kan yok); Prometheus'un başı geriye.",
+   "hareket": "kanat vuruşları; kupa yavaşlar"
   },
   {
    "id": "P009",
    "at": "A03@gece",
-   "k": "K",
-   "set": "KAYA/GECE",
-   "kare": "Gece: yıldızlar döner, kartal yok. Böğründe altın bir ışık atar ve söner (karaciğer yeniden büyür).",
-   "hareket": "yıldız dönmesi; nabız ışığı; nefes"
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Gece: kupa döner, tondo kararır; yıldızlar; böğürde altın bir ışık atar ve söner.",
+   "hareket": "yıldız dönmesi; nabız ışığı"
   },
   {
    "id": "P010",
    "at": "A03@sabah",
-   "k": "K",
-   "set": "KAYA",
-   "kare": "Şafak hızla gelir; güneş diskinin üstünde yine kartal silueti belirir. Kesme: güneş diski → kartalın gözü.",
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Şafak hızla gelir; güneş diskinin üstünde yine kartal silueti. Eşleşen kesme: güneş diski → kartalın gözü.",
    "hareket": "hızlı şafak; kartal büyür"
   },
   {
@@ -2171,8 +2172,9 @@
    "at": "I08c",
    "k": "K",
    "set": "KAYA",
-   "kare": "Açılışın eşi (P007): kartal güneş diskinden iner; aynı kompozisyon.",
-   "hareket": "süzülme"
+   "kare": "Açılışın eşi: kylixteki siyah figür kartal (P007) kırmızı figüre döner ve kayaya yaklaşan bir tehdit olur: 'hayır demenin bedeli'.",
+   "hareket": "negatif geçiş; kartal yaklaşır",
+   "gecis": "negatif 0,8 sn"
   },
   {
    "id": "P251",

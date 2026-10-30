@@ -280,3 +280,71 @@ Tur 4'te ONAY veren üç üyeyle (filolog-Erhat 9,02, filolog-Klasik 9,06, üslu
   - K06'da "ülkü" tekrarı azaltıldı; C02'de özne Erhat oldu.
   - B02'deki kayıp oyunlar cümlesi kaldırıldı (L02 taşıyor); F10a'da "Atina'sında" yazımı.
 - **Üretim notu:** denenmemiş adlar (Temis, Kerç, Göte, Meri Şeli, Frankenştayn, Openhaymır, Menoitios, İapetos, Bosporos, Mekone) ve etiketler bölüm çekiminden önce kısa bir denemeden geçecek.
+
+---
+
+# Üslup karesi: kurul tur 1 (8 üye, 4 uzmanlık × 2) ve başkan kararları
+
+## Puanlar (tur 1, ilk kare: `kurul/uslup_tur1/uslup_karesi.png`)
+| Üye | S1 | S2 | S3 | S4 | S5 | S6 | S7 | Ort. | Karar |
+|---|---|---|---|---|---|---|---|---|---|
+| vazo-Teknik | 6,5 | 6,5 | 7 | 6 | 7 | 6,5 | 7,5 | 6,65 | RED |
+| vazo-İkonografi | 7 | 6,5 | 6,5 | 6 | 7,5 | 6,5 | 7 | 6,67 | RED |
+| karakter-Anatomi | 7,5 | 6,5 | 7 | 6 | 7,5 | 7 | 7,5 | 6,97 | RED |
+| karakter-İfade | 7,5 | 6 | 6,5 | 5 | 7 | 6,5 | 6,5 | 6,45 | RED |
+| kompozisyon-Odak | 7,5 | 6,5 | 6 | 7 | 7 | 7,5 | 6,5 | 6,90 | RED |
+| kompozisyon-Renk | 7,5 | 7,5 | 7 | 7 | 6,5 | 7,5 | 7 | 7,20 | RED |
+| animasyon-Hareket | 7,5 | 7,5 | 7 | 7 | 7,5 | 5,5 | 7,5 | 7,05 | RED |
+| animasyon-Kurgu | 7,5 | 7 | 6,5 | 6,5 | 7,5 | 7 | 7 | 7,00 | RED |
+
+Raporların tamamı: `kurul/uslup_tur1/tur1_raporlar.json`. İkinci tur (çapraz tartışma) başlamıştı; birinci tur raporları büyük ölçüde örtüştüğü ve kare zaten yeniden çizildiği için başkan tartışma turunu durdurdu. Eski kare üzerinde tartışmak yerine yeni kare aynı sekiz üyeye değerlendirtildi (tur 2).
+
+## Kabul edilenler (uygulandı)
+- **Son işlem:** deneme sahneleri de doku, vinyet ve gren alır (`film.js`). Kırmızı figür için tex .55, vig 1, gren .06. Bu bulguyu sekiz üyenin hepsi yaptı.
+- **Baş (kırmızı figür uylaşımı):**
+  - Saç ve sakal siyah sır kütle, çevresinde ayrılmış kil şerit. Alın bukleleri kabartma nokta, saç bandı eklenmiş kırmızı.
+  - Saç ense hizasında ve bukleli; Mısır başlığı okuması kalktı.
+  - Kulak saçın altında; sırıtma okuması kalktı.
+  - Sert üslup profil göz.
+  - Çatık kaş için yeni `scowl` parametresi. Ağız kapalı ve sıkılı (sessiz direnç).
+- **Gövde:** düz göğüs (kadın okuması riski kalktı). Anatomide iki kademe: ana hatlar siyah, ikincil kaslar sulandırılmış sır (`STY.red.dilute`).
+- **Giysi:** Mısır eteği gibi okunan peştamal yerine kalçaya sarılı himation. Etek ucu çapraz, kıvrımlar düğümden yelpaze gibi açılır, siyah bordürlü.
+- **Bağlanma:**
+  - Bilekte siyah demir kelepçe, ayakta pranga, üçüncü kama.
+  - Koyu demir zincir: siyah alt bant, kil ışık kavsi; gerçek boylu ve sarkar.
+  - Kazık, zincir yönünde sivrilen dövme kama.
+  - Gerilme döngüsünde zincir gerilir, kazıktan toz dökülür.
+- **Poz:** "zincire karşı asılan" köşegen poz; yukarı kol baştan ayrı. Baş kartala dönük; bakışlar karşılaşıyor.
+- **Kartal:**
+  - Baş 1,4×, ağır çengel gaga, kapalı kuyruk, ince gövde.
+  - Uzak kanat V çiziyor.
+  - Göz kehribar (beyaz yok), kaş göz kapağına inik, yanaktaki "gülümseme" yayları kalktı.
+  - Gaga yalnız çığlıkta açılıyor, baş hedefe kilitli.
+  - Değer olarak Prometheus'un altında kalıyor (gövde #A85A32, kanatlar sulandırılmış).
+  - Kanat çırpışı sürekli: kök sırtın üstünden döner, kanat yüzü çevrilir, baş kanattan sonra çizilir. Tek karelik 63°'lik sıçrama giderildi.
+  - Kartal soğuk bir çakmanın içinden çıkıyor (Zeus'a bağ) ve köşegen boyunca iniyor.
+- **Odak ve ışık:**
+  - Tek büyük ateş kayanın dibinde, başında iki oturan insan; uzak ateşler sönük.
+  - Işık kayadan figüre vuruyor (bounce), figürün arkasında ateşle titreyen hâle.
+  - Değer sırası: ateş > Prometheus > kartal > friz > kaya > gök.
+- **Mekân:**
+  - Ufuk 760'a kalktı (yükseklik hissi), ovada üç ayrılmış zemin çizgisi.
+  - Heykel kaidesi kalktı; figür vazo uylaşımındaki zemin çizgisine basıyor.
+  - Kaya sulandırılmış sır degradesi, dalgalı dış hat, kısa eğimli katman çizgileri ve lob yayları. Figürün çevresi temiz. Kaya kadraj dışına uzanıyor (çevrinme için).
+- **Bordür:** üstte kesik meander ve çapraz kare (kırmızı figür katmanının imzası), altta akan dalga kuşağı (Vitruvius sarmalı, hep akar). Bantlar opak.
+- **Gök:** seyrek, sönük vazo yıldızları; sönük rüzgâr çizgileri.
+- **Canlılık:**
+  - Kamera itişi ve hafif titreşim, paralaks katmanları.
+  - Rüzgâr saça, sakala ve zincire aynı değerle gidiyor.
+  - Ateş titremesi gürültüyle, kıvılcımlar uçuşuyor.
+  - Yeniden kullanılabilir `lib/kaya.js` (KAYA seti, kamera ön ayarları, gök durumları gece/şafak, `promChained`, `eagleShadow`).
+- **Dipinto:** ΠΡΟΜΗΘΕΥΣ, eklenmiş kırmızı, dikey.
+- **Katman düzeltmesi (ikonografi):** her gün karaciğeri yiyen kartal Hesiodos'undur. Açılıştaki A03 (P006–P010) siyah figür Lakonya kylixine taşındı. Kırmızı figür kayada kartal yalnız Hermes'in tehdidi (I08b–c); P250 kylix kartalından kırmızı figür tehdide negatif geçişle bağlanıyor.
+
+## Reddedilen ya da değiştirilerek alınanlar
+- **Krem (kemik rengi) zincir** (animasyon-Kurgu): alınmadı. Ateşle ve kemik beyazıyla yarışır (kompozisyon-Renk aynı uyarıyı yaptı). Okunurluğu siyah alt bant ve kil ışık kavsi sağlıyor.
+- **Çıplak Prometheus** (vazo-İkonografi; Lakonya kylixinde böyle): alınmadı. Kanal kitlesi ve seri tutarlılığı için kalça himationu. Önerinin "Mısır eteği" eleştirisi giysi yeniden çizilerek karşılandı.
+- **Ufuk yüksekliği:** üyeler 610, 700 ve 800 önerdi. 760 seçildi: hem yükseklik hissi veriyor hem de büyük ateş altyazı bandının üstünde kalıyor.
+- **Kaya değeri:** sulandırılmış sır (teknik) ile koyu kütle (renk) arasında orta yol: #5A311D → #341C12, figürün çevresi temiz alan ve hâle ile ayrılıyor.
+- **¾ yüz:** üslup karesinde değil kapakta kullanılacak (Klasik kırmızı figürde meşru; kapak dersleriyle uyumlu).
+- Sahne üretimine bırakılanlar: negatif katman geçişi, KAYA→SAYFA çerçeve içinde çerçeve, J01 donması (ateş renkli kalır), Zeus'un asasında kartal başlığı (siyah figür sahnelerinde), kartal vuruşlu planlarda `mb: 8`.

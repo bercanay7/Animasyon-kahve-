@@ -42,7 +42,8 @@ function drawShot(ctx, i, t) {
 }
 function drawFilm(ctx, t) {
   const sc = new URLSearchParams(location.search).get('scene');
-  if (sc && typeof SCENES !== 'undefined' && SCENES[sc]) return SCENES[sc](ctx, t);
+  // deneme sahneleri de filmdeki son işlemden geçer (doku, vinyet, gren): kurul son yüzeyi görür
+  if (sc && typeof SCENES !== 'undefined' && SCENES[sc]) { SCENES[sc](ctx, t); POST = { tex: .85, vig: .85, grain: .055, ...(SCENES[sc].post || {}) }; post(ctx, t); return; }
   const i = shotAt(t), sh = SHOTS[i];
   const tr = sh.tr;
   if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {

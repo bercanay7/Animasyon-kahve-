@@ -44,40 +44,40 @@
 "at": "A03",
 "t": 12.56,
 "sure": 2.18,
-"k": "K",
-"set": "DÜNYA DİSKİ"
+"k": "S",
+"set": "KYLIX"
 },
 {
 "id": "P007",
 "at": "A03@kartal",
 "t": 14.74,
 "sure": 1.2,
-"k": "K",
-"set": "KAYA"
+"k": "S",
+"set": "KYLIX"
 },
 {
 "id": "P008",
 "at": "A03@karaciğerini",
 "t": 15.94,
 "sure": 1.96,
-"k": "K",
-"set": "KAYA/ORTA"
+"k": "S",
+"set": "KYLIX"
 },
 {
 "id": "P009",
 "at": "A03@gece",
 "t": 17.9,
 "sure": 2.58,
-"k": "K",
-"set": "KAYA/GECE"
+"k": "S",
+"set": "KYLIX"
 },
 {
 "id": "P010",
 "at": "A03@sabah",
 "t": 20.48,
 "sure": 3.26,
-"k": "K",
-"set": "KAYA"
+"k": "S",
+"set": "KYLIX"
 },
 {
 "id": "P011",

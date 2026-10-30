@@ -113,3 +113,31 @@ SCENES.kylix = (ctx, t) => {
     eagle2(c, 120, -150, 1.6, 1, { flap: (t * .6) % 1, col: C.ink, line: C.clay });
   }, { tilt: .96 });
 };
+SCENES.style2 = (ctx, t) => {
+  const u = E.io2(clamp(t / 6));
+  const c = { x: lerp(1000, 1060, u), y: lerp(540, 520, u), z: lerp(1.0, 1.06, u), sx: noise1(t * .3, 1) * 3, sy: noise1(t * .3, 2) * 2 };
+  // kartal: sol üst köşeden göğse doğru köşegen dalış (Zeus'un soğuk çakmasının içinden çıkar)
+  const k = E.io2(clamp(t / 5.5));
+  const ex = lerp(180, 720, k), ey = lerp(210, 410, k), es = lerp(2.2, 2.9, k);
+  const { wind } = kayaWorld(ctx, t, c, { eagleX: ex, eagleY: ey });
+  ctx.save(); cam(ctx, c, 1);
+  if (t < .6) { const fa = Math.sin(clamp(t / .6) * PI); glow(ctx, 160, 120, 380, `rgba(225,232,255,${.35 * fa})`); }
+  // dipinto ad yazısı (eklenmiş kırmızı), figür boyunca dikey
+  ctx.save(); ctx.translate(1000, 300); ctx.rotate(PI / 2); txt(ctx, 'ΠΡΟΜΗΘΕΥΣ', 0, 0, { font: '600 26px Cinzel', col: '#9C3A24', ls: 10, align: 'left', force: true }); ctx.restore();
+  promChained(ctx, t, { look: lerp(-.12, -.02, k), wind });
+  const fl = (t * .55) % 1, glide = .5 + .5 * Math.cos(fl * TAU);
+  const cry = Math.exp(-Math.pow((t - 3.2) / .25, 2));
+  eagle2(ctx, ex + Math.sin(t * .7) * 8, ey + Math.sin(t * 1.1) * 6 - 4 * es * Math.sin(TAU * (fl - .08)) * .4, es, 1, {
+    ang: lerp(.62, .97, Math.pow(glide, .5)), angFar: .2, farOff: -.5, fsMin: .62,
+    talon: lerp(.4, 1, k), beak: .08 + .8 * cry, tilt: lerp(.32, .46, k) + Math.sin(t * .7) * .02, headA: -Math.sin(t * .7) * .03 - .06,
+    col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .22), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E', headS: 1.4,
+  });
+  ctx.restore();
+  kayaFrame(ctx, t);
+};
+SCENES.style2.post = { tex: .55, vig: 1, grain: .06 };
+// Kartal çırpma döngüsü denemesi: 16 faz
+SCENES.flap = (ctx, t) => {
+  ctx.fillStyle = PC.glaze; ctx.fillRect(0, 0, W, H);
+  for (let i = 0; i < 16; i++) eagle2(ctx, 160 + (i % 8) * 230, 260 + Math.floor(i / 8) * 480, 1.25, 1, { ang: .5 + .5 * Math.cos(i / 16 * TAU), angFar: .5 + .5 * Math.cos(i / 16 * TAU + .3), farOff: -.3, fsMin: .5, col: '#A85A32', wingCol: mixCol(PC.clayR, PC.glaze, .22), farCol: mixCol(PC.clayR, PC.glaze, .5), eye: '#E39A4E' });
+};

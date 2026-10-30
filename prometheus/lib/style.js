@@ -125,6 +125,28 @@ function meander(ctx, x0, x1, y, h, col, bg = null) {
   }
   ctx.restore();
 }
+// Kesik meander + çapraz (saltire) kare: erken klasik kırmızı figürün bordürü (katman bordürden de okunur)
+function meanderSaltire(ctx, x0, x1, y, h, col, bg) {
+  if (bg) { ctx.fillStyle = bg; ctx.fillRect(x0, y, x1 - x0, h); }
+  const u = h / 5, cell = h, grp = 3;
+  ctx.fillStyle = col; ctx.fillRect(x0, y, x1 - x0, u * .55); ctx.fillRect(x0, y + h - u * .55, x1 - x0, u * .55);
+  ctx.save(); ctx.beginPath(); ctx.rect(x0, y, x1 - x0, h); ctx.clip();
+  ctx.strokeStyle = col; ctx.lineWidth = u * .62; ctx.lineCap = 'butt'; ctx.lineJoin = 'miter';
+  const period = cell * (grp + 1.15), start = Math.floor(x0 / period) * period;
+  for (let X = start; X < x1 + period; X += period) {
+    for (let k = 0; k < grp; k++) {
+      const x = X + k * cell, a = y + u * 1.15, b = y + h - u * 1.15;
+      ctx.beginPath(); ctx.moveTo(x, b); ctx.lineTo(x, a); ctx.lineTo(x + cell * .82, a); ctx.lineTo(x + cell * .82, b);
+      ctx.lineTo(x + cell * .3, b); ctx.lineTo(x + cell * .3, a + u * 1.3); ctx.lineTo(x + cell * .55, a + u * 1.3); ctx.stroke();
+    }
+    // çapraz kare
+    const qx = X + grp * cell + cell * .05, qa = y + u * 1.1, qs = h - u * 2.2;
+    ctx.lineWidth = u * .45; ctx.strokeRect(qx, qa, qs, qs);
+    ctx.beginPath(); ctx.moveTo(qx, qa); ctx.lineTo(qx + qs, qa + qs); ctx.moveTo(qx + qs, qa); ctx.lineTo(qx, qa + qs); ctx.stroke();
+    ctx.lineWidth = u * .62;
+  }
+  ctx.restore();
+}
 // Dil (tongue) frizi
 function tongues(ctx, x0, x1, y, h, col, alt = null) {
   const w = h * .62;
@@ -187,9 +209,12 @@ function friezeFrame(ctx, opt = {}) {
   ctx.save(); baseT(ctx); ctx.globalAlpha = a;
   ctx.translate(0, 0);
   ctx.save(); ctx.translate(-off % (th * 2), 0);
-  meander(ctx, -th * 2, W + th * 2, -th * (opt.hideTop || 0), th, col, bg);
+  if (opt.saltire) meanderSaltire(ctx, -th * 2, W + th * 2, -th * (opt.hideTop || 0), th, col, opt.bandBg || '#0E0907');
+  else meander(ctx, -th * 2, W + th * 2, -th * (opt.hideTop || 0), th, col, bg || opt.bandBg);
   ctx.restore();
   ctx.save(); ctx.translate(off % (th * 2), 0);
+  // opak bant: dillerin arasından arkadaki sahne sızmasın
+  if (opt.bandBg !== null) { ctx.fillStyle = opt.bandBg || '#0E0907'; ctx.fillRect(-th * 2, H - th * .9 + th * (opt.hideBot || 0), W + th * 4, th * .9); }
   tongues(ctx, -th * 2, W + th * 2, H - th * .9 + th * (opt.hideBot || 0), th * .9, col);
   ctx.restore();
   ctx.restore();

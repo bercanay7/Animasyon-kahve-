@@ -77,6 +77,7 @@ function headOutline(lk) {
   else chin = lk.fem ? [[2.3, .6], [3.6, -.7], [4.9, -1.4], [5.4, -2.2], [5.5, -2.7]] : [[2.2, .8], [3.4, -.6], [5.0, -1.4], [5.6, -2.2], [5.55, -2.95]];
   let back;
   if (lk.hair === 'long') back = [[-7.0, -5.6], [-7.7, -1.5], [-7.6, 3.4], [-7.0, 6.4], [-4.6, 6.2], [-3.9, 2.6], [-2.8, .8]];
+  else if (lk.hair === 'nape') back = [[-7.0, -5.6], [-7.7, -2.4], [-7.4, .8], [-6.2, 2.4], [-4.2, 2.2], [-2.8, .8]]; // ense hizasında bukleli saç (Sert üslup)
   else back = [[-6.3, -5.8], [-5.1, -3.2], [-3.6, -1.0], [-2.8, .8]];
   return chin.concat(nose, top, back);
 }
@@ -84,6 +85,9 @@ function headOutline(lk) {
 const HAIR_RF = [[5.0, -10.1], [5.9, -11.0], [5.0, -12.1], [3.2, -13.7], [.6, -14.5], [-2.7, -14.1], [-5.6, -12.2], [-7.0, -9.1], [-7.5, -5.6],
   [-8.1, -1.8], [-8.0, 2.2], [-7.4, 5.2], [-6.5, 4.0], [-5.7, 5.6], [-4.6, 4.2], [-3.7, 4.7], [-3.3, 2.2], [-2.0, .2], [-.7, -2.6], [.1, -5.6], [.7, -8.1], [2.6, -9.7]];
 // sivri sakal (bıyıkla): kulak altından çene ucuna, ağız kil çizgisiyle ayrılır
+// ense hizasında, alt kenarı bukleli saç: Mısır başlığı (nemes) gibi okunan düz, uzun saç yerine
+const HAIR_RF_N = [[5.0, -10.1], [5.9, -11.0], [5.0, -12.1], [3.2, -13.7], [.6, -14.5], [-2.7, -14.1], [-5.6, -12.2], [-7.1, -9.1], [-7.7, -5.6],
+  [-8.3, -2.6], [-8.0, .6], [-7.3, 2.6], [-6.4, 1.7], [-5.6, 3.2], [-4.6, 2.0], [-3.7, 2.7], [-3.0, 1.1], [-1.9, .0], [-.7, -2.6], [.1, -5.6], [.7, -8.1], [2.6, -9.7]];
 const BEARD_RF = [[5.95, -3.55], [4.6, -3.75], [2.4, -4.15], [.1, -4.7], [-.6, -2.2], [.4, .2], [1.6, 1.4], [2.5, 2.9], [3.4, 2.7], [4.0, 4.5],
   [4.7, 3.9], [5.6, 5.4], [6.2, 2.2], [6.45, -.6], [6.15, -2.6]];
 const HAIR_F = [[5.3, -10.3], [4.6, -12.1], [2.8, -13.7], [0, -14.5], [-3.3, -14.1], [-5.8, -12.4], [-8.3, -12.9], [-10.3, -10.7],
@@ -437,12 +441,16 @@ function drawHead(G, f, J, det) {
     const rf = lk.rf && sty !== STY.black;
     if (rf) {
       // saç ve sakal siyah sır; çevresinde ince ayrılmış kil şerit (zeminden ayrılsın)
-      for (const P of [HAIR_RF, lk.beard ? BEARD_RF : null]) if (P) {
+      // rüzgâr: ensedeki bukleler ve sakal ucu geriye savrulur, uca doğru gecikmeyle dalgalanır
+      const wd = p.wind || 0, ft = window.FIG_T || 0;
+      const blow = (P, y0, k) => wd ? P.map(([x, y], i) => { const u = clamp((y - y0) / 8); return [x - wd * k * u + .3 * wd * u * Math.sin(ft * 3.1 + i * .7), y - wd * .2 * u]; }) : P;
+      for (const P of [blow(lk.hair === 'nape' ? HAIR_RF_N : HAIR_RF, -4, 1.1), lk.beard ? blow(BEARD_RF, 0, .7) : null]) if (P) {
         G.paint(c => spline(c, P, true, .9), sty.fill, .55, false);
         G.paint(c => spline(c, P, true, .9), sty.line);
       }
       // iç bukleler: kil rengi ince S eğrileri
-      for (let i = 0; i < 3; i++) G.paint(c => { const x = -6.8 + i * 1.3; c.moveTo(x + .5, -6.4); c.bezierCurveTo(x - .8, -3.4, x + .8, -.8, x - .2, 2.6); }, sty.fill, .2, false);
+      const hl = lk.hair === 'nape' ? 1.2 : 2.6;
+      for (let i = 0; i < 3; i++) G.paint(c => { const x = -6.8 + i * 1.3; c.moveTo(x + .5, -6.4); c.bezierCurveTo(x - .8, -3.4, x + .8, -.8, x - .2, hl); }, sty.fill, .2, false);
       if (lk.beard) for (let i = 0; i < 3; i++) G.paint(c => { const u = i / 2; c.moveTo(lerp(.8, 4.4, u), lerp(-3.0, -3.0, u)); c.quadraticCurveTo(lerp(1.4, 5.4, u), lerp(-.6, -.2, u), lerp(2.2, 5.0, u), lerp(1.6, 3.6, u)); }, sty.fill, .18, false);
       // ağız: bıyık ile sakal arasında kil çizgi
       const mo = p.mouthOpen || 0;
