@@ -110,7 +110,7 @@ function eagleShadow(ctx, x, y, s, o = {}) {
 function kayaWorld(ctx, t, c, o = {}) {
   const sky = o.sky || 'gece', storm = sky === 'firtina', fl = .82 + .2 * noise1(t * 6, 7) + .1 * noise1(t * 13, 9), wind = o.wind ?? windAt(t, storm ? .9 : .5);
   // bölüm saati (güneşin yolu): sabah (V), ikindi (VII), gün batımı (VIII), gece, şafak, fırtına (X). Zemin hep siyah sır; saat güneş diski ve ufuk ışığıyla okunur
-  const SUN = { safak: [560, 330, 230, 'rgba(150,62,28,.6)'], sabah: [430, 360, 200, 'rgba(150,66,30,.5)'], ikindi: [760, 170, 170, 'rgba(160,82,38,.42)'], gunbatimi: [360, 600, 250, 'rgba(176,60,24,.72)'] }[sky];
+  const SUN = { safak: [560, 330, 230, 'rgba(150,62,28,.6)'], sabah: [300, 330, 110, 'rgba(150,66,30,.45)'], ikindi: [760, 160, 100, 'rgba(160,82,38,.4)'], gunbatimi: [330, 610, 170, 'rgba(176,60,24,.7)'] }[sky];
   glazeBG(ctx, t, { gx: 760, gy: 860, gr: 900, stars: false, warm: SUN ? SUN[3] : undefined });
   glow(ctx, 300, 140, 900, 'rgba(36,48,70,.10)');
   ctx.save(); cam(ctx, c, .1);
