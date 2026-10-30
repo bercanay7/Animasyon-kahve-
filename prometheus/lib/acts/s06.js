@@ -199,22 +199,41 @@ shot(PA('P164'), (ctx, st) => {
 // --- P167–P168: sayfa: Erhat'ın sorusu; bir efsane rulosu sarılıp rafa kaldırılır; rezene alevi kâğıdı yakar, yanık delikten uygarlık frizi ---
 shot(PA('P167'), (ctx, st) => {
   const t = st.t, lt = st.lt, tO = A('G09@ona'), tA = A('G09@ayshilos');
-  ctx.save(); cam(ctx, { x: 960 + lt * 3, y: 540, z: 1.02 }, 1);
-  paperBG(ctx, t, { seed: 74 });
-  // efsane rulosu: G09@ona'da sarılır ve sağdaki rafa kalkar
-  const rl = E.io2(ramp(t, tO + .4, tO + 2.0)), sh = E.io2(ramp(t, tO + 2.0, tA - .3));
-  ctx.fillStyle = 'rgba(70,45,25,.18)'; ctx.fillRect(1340, 760, 420, 14); ctx.strokeStyle = PW.line; ctx.lineWidth = 3; ctx.strokeRect(1340, 760, 420, 14);
-  const w = lerp(520, 0, rl), rx = lerp(560, 1500, sh), ry = lerp(700, 720, sh);
-  if (w > 4) { ctx.fillStyle = PW.paperD; ctx.fillRect(rx, ry - 40, w, 80); ctx.strokeRect(rx, ry - 40, w, 80); for (let i = 0; i < 3; i++) scribble(ctx, rx + 14, ry - 20 + i * 18, Math.max(0, w - 28), 1, 150 + i, { w: 1.4 }); }
-  ctx.fillStyle = PW.paperL; ctx.beginPath(); ctx.ellipse(rx, ry, 16, 46, 0, 0, TAU); ctx.fill(); ctx.stroke();
-  if (rl < 1) { ctx.beginPath(); ctx.ellipse(rx + w, ry, 16, 46, 0, 0, TAU); ctx.fill(); ctx.stroke(); }
+  // efsane rulosu: büyük açık tomar (ΜΥΘΟΣ); G09@ona'da sarılır, rafa yatar; kamera rafa kayar ("efsane olarak bırakmıştı")
+  const tE = A('G09@efsane'), tB = A('G09@bırakmıştı'), op = E.out3(ramp(t, tO + .15, tO + .8)), rl = E.io2(ramp(t, tE - .1, tE + .6)), sh = E.io2(ramp(t, tE + .55, tB + .3));
+  const c = { x: lerp(960, 1380, sh) + lt * 3, y: lerp(540, 600, sh), z: lerp(1.02, 1.35, sh) };
+  ctx.save(); cam(ctx, c, 1);
+  ctx.save(); ctx.translate(c.x - W / 2, c.y - H / 2); paperBG(ctx, t, { seed: 74 }); ctx.restore();
+  // raf: üstünde yatık, sarılı eski tomarlar
+  const SY = 780; ctx.strokeStyle = PW.line; ctx.lineWidth = 3;
+  ctx.fillStyle = 'rgba(70,45,25,.18)'; ctx.fillRect(1160, SY, 760, 16); ctx.strokeRect(1160, SY, 760, 16);
+  for (const e of [1200, 1880]) { ctx.beginPath(); ctx.moveTo(e, SY + 16); ctx.lineTo(e - 20 * Math.sign(e - 1540), SY + 70); ctx.stroke(); }
+  const scrollH = (x, y, L, col = PW.paperD) => { ctx.fillStyle = col; ctx.fillRect(x - L / 2, y - 26, L, 52); ctx.strokeRect(x - L / 2, y - 26, L, 52); ctx.fillStyle = PW.paperL; for (const e of [-1, 1]) { ctx.beginPath(); ctx.ellipse(x + e * L / 2, y, 12, 26, 0, 0, TAU); ctx.fill(); ctx.stroke(); } inkPoly(ctx, [[x - 40, y - 26], [x - 40, y + 26]], 1, { col: PW.red, w: 3 }); };
+  scrollH(1360, SY - 26, 330); scrollH(1700, SY - 26, 290); scrollH(1520, SY - 78, 360);
+  // açık tomar → sarılır → rafa uçup yatar
+  const w = lerp(900, 0, rl) * op, rx = 510, ry = 520, H2 = 214;
+  if (op > 0 && sh <= 0) {
+    if (w > 4) { ctx.fillStyle = PW.paperL; ctx.fillRect(rx, ry - H2, w, 2 * H2); ctx.strokeRect(rx, ry - H2, w, 2 * H2);
+      ctx.save(); ctx.beginPath(); ctx.rect(rx, ry - H2, w, 2 * H2); ctx.clip();
+      dipinto(ctx, 'ΜΥΘΟΣ', rx + 450, ry - 130, 64, { col: PW.red });
+      for (let i = 0; i < 6; i++) scribble(ctx, rx + 60, ry - 50 + i * 40, 780, 1, 150 + i, { w: 1.8 });
+      ctx.restore(); }
+    ctx.fillStyle = PW.paperD; ctx.beginPath(); ctx.ellipse(rx, ry, 26, H2, 0, 0, TAU); ctx.fill(); ctx.stroke();
+    if (rl < 1) { ctx.beginPath(); ctx.ellipse(rx + w, ry, 26, H2, 0, 0, TAU); ctx.fill(); ctx.stroke(); }
+  } else if (sh > 0) {
+    // sarılı tomar: yaydan rafa iner, dikten yataya döner
+    const px = lerp(rx, 1560, sh), py = lerp(ry, SY - 130, sh) - Math.sin(sh * PI) * 120, rot = lerp(0, PI / 2, sh);
+    ctx.save(); ctx.translate(px, py); ctx.rotate(rot); ctx.fillStyle = PW.paperD; ctx.fillRect(-26, -H2, 52, 2 * H2); ctx.strokeRect(-26, -H2, 52, 2 * H2);
+    ctx.fillStyle = PW.paperL; for (const e of [-1, 1]) { ctx.beginPath(); ctx.ellipse(0, e * H2, 26, 12, 0, 0, TAU); ctx.fill(); ctx.stroke(); }
+    inkPoly(ctx, [[-26, -30], [26, -30]], 1, { col: PW.red, w: 3 }); ctx.restore();
+  }
   ctx.restore();
   // yanık delik: rezenenin alevi kâğıdı yakar, delikten sır siyahı ve frizin ilk karesi görünür (geçişin kendisi)
   const b = E.in2(ramp(t, tA - 1.1, tA + .05));
   if (b > 0) { ctx.save(); baseT(ctx); const R = 30 + 1300 * b; ctx.beginPath(); for (let k = 0; k <= 48; k++) { const a = k / 48 * TAU, rr = R * (1 + .12 * noise1(a * 3 + t, 5)); k ? ctx.lineTo(960 + Math.cos(a) * rr, 520 + Math.sin(a) * rr) : ctx.moveTo(960 + Math.cos(a) * rr, 520 + Math.sin(a) * rr); } ctx.closePath();
     ctx.fillStyle = PC.glaze; ctx.fill(); ctx.strokeStyle = 'rgba(255,170,80,.9)'; ctx.lineWidth = 8; ctx.stroke(); ctx.strokeStyle = 'rgba(70,30,10,.7)'; ctx.lineWidth = 20; ctx.stroke(); ctx.restore(); }
 }, { tr: { type: 'ink', dur: .6, end: true }, post: { tex: .35, vig: .55, grain: .045 },
-  over: (ctx, st) => { const q = A('G09@ateşi'); if (st.t > q - .2) { ctx.save(); ctx.globalAlpha = 1 - ramp(st.t, A('G09@ona') + .3, A('G09@ona') + .9); quoteCard(ctx, 'Ateşi tanrılardan çalıp insanlara vermek ne demektir?', 'A. ERHAT · ÖNSÖZ · S. XI', 960, 300, 1500, st.t - q, { font: 'italic 500 76px "Cormorant Garamond"', lh: 88 }); ctx.restore(); } } });
+  over: (ctx, st) => { const q = A('G09@ateşi'); if (st.t > q - .2) { ctx.save(); ctx.globalAlpha = 1 - ramp(st.t, A('G09@ona') - .15, A('G09@ona') + .3); quoteCard(ctx, 'Ateşi tanrılardan çalıp insanlara vermek ne demektir?', 'A. ERHAT · ÖNSÖZ · S. XI', 960, 300, 1500, st.t - q, { font: 'italic 500 76px "Cormorant Garamond"', lh: 88 }); ctx.restore(); } } });
 
 // --- P169: Aiskhylos aynı ruloyu uzun bir frize açar: uygarlığın tarihi (kırmızı figür şerit) ---
 const G_GIFTS = [

@@ -103,14 +103,16 @@ function amforaII(c, x0, x1, t) {
     c.save(); c.translate(AMX.gaia - 330, by - 70); c.rotate(-1.35);
     figure(c, { x: 0, y: -44.5 * 4, s: 4, dir: 1, sty: BLACK, lk: LK_GAIA, p: { torso: .1, head: .2, shN: .3, elN: 1.2 } });
     c.restore();
-    dipinto(c, 'ΓΑΙΑ', AMX.gaia - 330, 120, 32, { col: C.ink });
+    dipinto(c, 'ΓΑΙΑ', AMX.gaia - 330, 112, 56, { col: C.ink });
   }
   // Uranos: yıldızlı kemer Gaia'nın üstüne kapanır
   if (vis(AMX.uranos)) {
-    const k = ramp(T('C04@uranosu'), -.4, 1.0), cx = AMX.uranos;
-    c.fillStyle = C.ink; c.beginPath(); c.ellipse(cx, by, 560, lerp(120, 430, k), 0, PI, TAU); c.ellipse(cx, by, 470, lerp(80, 350, k), 0, TAU, PI, true); c.fill();
-    c.fillStyle = C.clay; for (let i = 0; i < 16; i++) { const a = PI + (i + .5) / 16 * PI, r = 515; sparkle(c, cx + Math.cos(a) * r, by + Math.sin(a) * lerp(100, 390, k), 9 + Math.sin(t * 3 + i) * 2, .9, C.clay); }
-    dipinto(c, 'ΟΥΡΑΝΟΣ', cx, 120, 32, { col: C.ink, a: k });
+    const k = ramp(T('C04@gökü'), -.5, 1.4), cx = AMX.uranos;
+    c.fillStyle = C.ink; c.beginPath(); c.ellipse(cx, by, 560, lerp(120, 470, k), 0, PI, TAU); c.ellipse(cx, by, 470, lerp(80, 395, k), 0, TAU, PI, true); c.fill();
+    c.fillStyle = C.clay; for (let i = 0; i < 16; i++) { const a = PI + (i + .5) / 16 * PI, r = 515; sparkle(c, cx + Math.cos(a) * r, by + Math.sin(a) * lerp(100, 432, k), 9 + Math.sin(t * 3 + i) * 2, .9, C.clay); }
+    // altında Gaia: kemer (Gök) onun üstüne kalkar (P032); ad kemerin omzunda
+    bf(c, cx - 40, by, 3.6, 1, LK_GAIA, { torso: .05, head: -.25, shN: .6, elN: .9 });
+    dipinto(c, 'ΟΥΡΑΝΟΣ', cx + 470, 140, 56, { col: C.ink, a: ramp(T('C04@uranosu'), -.3, .4) });
   }
   // devler doğar doğmaz toprağa geri tıkılır: küçük figürler zemin çizgisinin altına batar
   if (vis(AMX.devler)) {
@@ -188,7 +190,7 @@ function amforaIIb(c, x0, x1, t) {
 }
 shot(A('C02'), (ctx, st) => {
   const t = st.t;
-  const r = stationRot(t, [[A('C02'), AMX.darbe], [A('C02@bir#1'), AMX.kusak], [A('C04'), AMX.hes], [A('C04@kaos'), AMX.kaos], [A('C04@toprak'), AMX.gaia], [A('C04@uranosu'), AMX.uranos], [A('C04@ama'), AMX.devler],
+  const r = stationRot(t, [[A('C02'), AMX.darbe], [A('C02@bir#1'), AMX.kusak], [A('C04'), AMX.hes], [A('C04@kaos'), AMX.kaos], [A('C04@toprak'), AMX.gaia], [A('C04@gaya#1'), AMX.uranos], [A('C04@ama'), AMX.devler],
     [A('C06'), AMX.tirpan], [A('C06@hiçbiri'), AMX.titan]]);
   amphoraFrieze(ctx, t, r, (c, x0, x1, t) => amforaII(c, x0, x1, t));
 }, { tr: { type: 'clay', dur: .7 }, post: { tex: .85, vig: .85, grain: .055 },

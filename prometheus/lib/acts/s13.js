@@ -103,7 +103,9 @@ shot(PA('P292'), (ctx, st) => {
   flame(ctx, ex, ey + 30, lerp(fs, 1.6, back), t, { haloR: 200 });
   glow(ctx, ex, ey - 20, 260 + 400 * near * (1 - back), `rgba(255,210,140,${.5 + .3 * near})`);
 }, { tr: { type: 'cut' }, post: { tex: .4, vig: .8, grain: .05 },
-  over: (ctx, st) => { const a = ramp(st.lt, .1, .6) * (1 - ramp(st.t, A('M02@ateşi') - .1, A('M02@ateşi') + .4)); if (a > 0) kapakText(ctx, 'PEKİ', 'SEN OLSAN?', '#FFC867', { y1: 300, y2: 480, s1: 120, s2: 150, glow: 'rgba(255,150,60,.55)', blur: 30 }), ctx.globalAlpha = 1; } });
+  over: (ctx, st) => { const a = ramp(st.lt, .1, .6) * (1 - ramp(st.t, A('M02@ateşi') - .1, A('M02@ateşi') + .4)); // yazı solda üç satır: meşale sapının ve alevin solunda kalır (soru işareti sapa binmez), y ≤ 700
+    if (a > 0) { ctx.save(); ctx.globalAlpha = a; kapakText(ctx, 'PEKİ', 'SEN', '#FFC867', { x: 80, y1: 300, y2: 450, s1: 104, s2: 150, glow: 'rgba(255,150,60,.55)', blur: 30 });
+      txt(ctx, 'OLSAN?', 80, 610, { font: '900 150px Cinzel', col: '#FFC867', align: 'left', ls: 3, stroke: 'rgba(14,9,7,.9)', sw: 18, shadow: 'rgba(255,150,60,.55)', blur: 30, force: true }); ctx.restore(); } } });
 
 // --- P293: bitiş ekranı (son 20 sn): solda Sisifos çerçevesi (video öğesi x 150–870, y 180–585), sağda abone alanı (x 1250–1650, y 230–630); alev sürer ---
 shot(PA('P293'), (ctx, st) => {

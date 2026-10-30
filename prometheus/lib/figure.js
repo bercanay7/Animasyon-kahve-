@@ -220,7 +220,9 @@ function figure(ctx, f) {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.globalAlpha = (f.alpha ?? 1) * ctx.globalAlpha;
   if (f.shadowBlur) { ctx.shadowColor = f.shadowCol || 'rgba(0,0,0,.5)'; ctx.shadowBlur = f.shadowBlur; }
-  if (f.stripe) { const r = f.stripe * sc * LWK; for (let k = 0; k < 12; k++) { const a = k * TAU / 12; ctx.drawImage(cv.sil, x0, y0, bw, bh, x0 + Math.cos(a) * r, y0 + Math.sin(a) * r, bw, bh); } }
+  // beyaz zemin figürleri: ekranda sabit kalınlıkta sepya dış kontur (sty.contourPx); telefonda kâğıtta kaybolmasınlar
+  const stR = f.stripe ? f.stripe * sc * LWK : (sty.contourPx && f.contour !== false ? sty.contourPx * RS : 0);
+  if (stR) { const r = stR; for (let k = 0; k < 12; k++) { const a = k * TAU / 12; ctx.drawImage(cv.sil, x0, y0, bw, bh, x0 + Math.cos(a) * r, y0 + Math.sin(a) * r, bw, bh); } }
   ctx.drawImage(cv.sil, x0, y0, bw, bh, x0, y0, bw, bh);
   ctx.shadowBlur = 0;
   ctx.drawImage(cv.fig, x0, y0, bw, bh, x0, y0, bw, bh);

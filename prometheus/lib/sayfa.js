@@ -3,7 +3,7 @@
 'use strict';
 const PW = { paper: '#EEE5D1', paperL: '#F6EFE0', paperD: '#DCCFB4', line: '#4A3423', lineL: 'rgba(74,52,35,.55)', red: '#9A3B25', ink: '#2B1D14' };
 // beyaz zemin figür üslubu: dolgu kâğıt, kesik çizgiler sepya → çizgi resim
-STY.lek = { fill: PW.paperL, cut: PW.line, red: PW.red, white: '#FFFDF6', line: PW.line };
+STY.lek = { fill: PW.paperL, cut: PW.line, red: PW.red, white: '#FFFDF6', line: PW.line, contourPx: 2.6 };
 
 // Sayfa zemini. o: {book: kitap sayfası (cilt gölgesi, sayfa numarası), num: 'xiv', rule: çizgili, glow}
 function paperBG(ctx, t, o = {}) {

@@ -9,10 +9,14 @@ function tragicMask(ctx, x, y, s, o = {}) {
   // saç ve sakal (siyah sır), göz delikleri, açık ağız
   ctx.fillStyle = C.ink;
   ctx.beginPath(); ctx.ellipse(0, -40, 44, 20, 0, PI, TAU); ctx.fill();
-  if (o.beard) { ctx.beginPath(); ctx.moveTo(-30, 22); ctx.quadraticCurveTo(0, 80, 30, 22); ctx.quadraticCurveTo(0, 40, -30, 22); ctx.fill(); }
-  for (const sx of [-15, 15]) { ctx.beginPath(); ctx.ellipse(sx, -8, 8, 5, sx > 0 ? .25 : -.25, 0, TAU); ctx.fill(); }
-  ctx.beginPath(); ctx.ellipse(0, 22, 11, 8, 0, 0, TAU); ctx.fill();
-  ctx.strokeStyle = C.ink; ctx.lineWidth = 2.4 / s; ctx.beginPath(); ctx.moveTo(-26, -22); ctx.quadraticCurveTo(-14, -28, -4, -20); ctx.moveTo(26, -22); ctx.quadraticCurveTo(14, -28, 4, -20); ctx.stroke();
+  // trajedi maskesi: sakal çeneyi dıştan çevreler (ağzın altında gülümseme gibi okunmaz)
+  if (o.beard) { ctx.beginPath(); ctx.moveTo(-34, 14); ctx.quadraticCurveTo(-30, 70, 0, 84); ctx.quadraticCurveTo(30, 70, 34, 14); ctx.quadraticCurveTo(26, 52, 0, 58); ctx.quadraticCurveTo(-26, 52, -34, 14); ctx.fill(); }
+  // göz delikleri dış uçta aşağı düşer; kaşların iç uçları yukarı kalkar (acı)
+  for (const sx of [-15, 15]) { ctx.beginPath(); ctx.ellipse(sx, -7, 8.5, 5, sx > 0 ? .38 : -.38, 0, TAU); ctx.fill(); }
+  // ağız: açık, köşeleri aşağı kıvrık
+  ctx.beginPath(); ctx.moveTo(-17, 30); ctx.quadraticCurveTo(-8, 15, 0, 15); ctx.quadraticCurveTo(8, 15, 17, 30); ctx.quadraticCurveTo(8, 26, 0, 27); ctx.quadraticCurveTo(-8, 26, -17, 30); ctx.fill();
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 2.6 / s; ctx.beginPath(); ctx.moveTo(-28, -15); ctx.quadraticCurveTo(-16, -18, -5, -29); ctx.moveTo(28, -15); ctx.quadraticCurveTo(16, -18, 5, -29); ctx.stroke();
+  ctx.lineWidth = 1.6 / s; ctx.beginPath(); ctx.moveTo(-4, -30); ctx.lineTo(-2, -22); ctx.moveTo(4, -30); ctx.lineTo(2, -22); ctx.stroke();
   ctx.restore();
 }
 function theatre(ctx, t, c, o = {}) {
@@ -99,16 +103,17 @@ const B_ST = () => [
     ctx.save(); ctx.globalAlpha = m;
     figure(ctx, { x: 980, y: 760 - 44.5 * 7.5 + 120, s: 7.5, dir: 1, sty: STY.lek, lk: { hair: 'nape', beard: 'short' }, p: { torso: 0, head: .05 }, margin: 60 });
     ctx.restore();
-    penLine(ctx, 'insanlığın dramı', 960, 830, ramp(lt, 2.4, 3.6), { font: 'italic 600 54px "Cormorant Garamond"', col: PW.ink });
+    penLine(ctx, 'insanlığın dramı', 520, 600, ramp(lt, 2.4, 3.6), { font: 'italic 600 76px "Cormorant Garamond"', col: PW.ink });
   } },
   // "insan dostu, tanrı düşmanı": figür insanla tanrı arasında, insana döner
   { at: A('B05'), x: 2900, draw: (ctx, lt, t) => {
-    quoteCard(ctx, 'İnsan dostu, tanrı düşmanı', 'A. ERHAT · ÖNSÖZ · S. V', 2900, 230, 1300, lt - .2);
-    const y1 = 780, turn = ramp(lt, 2.0, 2.8);
-    marginBand(ctx, 2200, 3600, 360, y1, ramp(lt, 0, 1.2));
-    figure(ctx, { x: 2500, y: y1 - 14 - 44.5 * 3.4, s: 3.4, dir: 1, sty: STY.lek, lk: { hair: 'nape' }, p: { torso: .05 } });
-    figure(ctx, { x: 2900, y: y1 - 14 - 44.5 * 4, s: 4, dir: turn > .5 ? -1 : 1, sty: STY.lek, lk: LK.promFree, p: { torso: -.05, shN: -.3 - turn * .4, elN: .6 } });
-    figure(ctx, { x: 3300, y: y1 - 14 - 44.5 * 4.2, s: 4.2, dir: -1, sty: STY.lek, lk: LK.zeus, p: { torso: .05 } });
+    // jest taşıyan figürler büyük (Prometheus ≈ 530 px): insan solda, tanrı sağda kadraj kenarına yakın; Prometheus ortada insana döner
+    quoteCard(ctx, 'İnsan dostu, tanrı düşmanı', 'A. ERHAT · ÖNSÖZ · S. V', 2900, 190, 1300, lt - .2);
+    const y1 = 920, turn = ramp(lt, 2.0, 2.8);
+    marginBand(ctx, 2080, 3720, 320, y1, ramp(lt, 0, 1.2));
+    figure(ctx, { x: 2330, y: y1 - 14 - 44.5 * 4.8, s: 4.8, dir: 1, sty: STY.lek, lk: { hair: 'nape' }, p: { torso: .05 } });
+    figure(ctx, { x: 2900, y: y1 - 14 - 44.5 * 5.6, s: 5.6, dir: turn > .5 ? -1 : 1, sty: STY.lek, lk: LK.promFree, p: { torso: -.05, shN: -.3 - turn * .4, elN: .6 } });
+    figure(ctx, { x: 3470, y: y1 - 14 - 44.5 * 5.3, s: 5.3, dir: -1, sty: STY.lek, lk: LK.zeus, p: { torso: .05 } });
   } },
   // XX. yüzyıl: meander zaman şeridi boyunca yürüyen figür
   { at: A('B05@yirminci'), x: 4800, draw: (ctx, lt, t) => {
