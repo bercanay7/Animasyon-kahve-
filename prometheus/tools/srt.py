@@ -62,11 +62,19 @@ for sg in segs:
         for pp in parts:
             cues.append([ws[pp[0]]['s'], ws[pp[-1]]['e'], wrap([toks[j] for j in pp])])
 
-# süreleri düzenle: en az 1.0 sn, bir sonrakine 80 ms boşluk, okunabilirlik için en fazla +0.6 sn uzat
+# süreleri düzenle: en az 1.0 sn, bir sonrakine 80 ms boşluk (30 fps'te 2,4 kare), okuma hızı ≤ 17 karakter/sn için
+# sonundan en fazla +1,0 sn uzar; yetmezse başı en fazla 0,25 sn öne alınır (önceki altyazıyla boşluk korunur)
+CPS = 17
 def settle_times():
     for i, c in enumerate(cues):
         nxt = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 3
-        c[1] = min(max(c[1] + .35, c[0] + 1.0), nxt - .08)
+        need = len(c[2].replace('\n', ' ')) / CPS
+        c[1] = min(max(c[1] + .35, c[0] + 1.0, min(c[0] + need, c[1] + 1.0)), nxt - .08)
+    for i, c in enumerate(cues):
+        need = len(c[2].replace('\n', ' ')) / CPS
+        if c[1] - c[0] < need:
+            prv = cues[i - 1][1] if i else 0.0
+            c[0] = max(prv + .08, c[0] - .25, c[1] - need)
 raw = [c[:] for c in cues]
 settle_times()
 # okuma hızı 18 karakter/sn'yi aşan kısa altyazı, sonraki kısa altyazıyla birleşir (sığıyorsa)

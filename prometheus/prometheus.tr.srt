@@ -168,7 +168,7 @@ tanrıların tarihinde bir devrim görür.
 Ama bu devrim de, kendi çocuklarını yedi.
 
 37
-00:02:38,920 --> 00:02:42,200
+00:02:38,906 --> 00:02:42,200
 Hem de kelimenin tam anlamıyla:
 Oğullarından birinin onu
 
@@ -434,7 +434,7 @@ Prometheus, baştan beri
 insanlardan yanadır.
 
 94
-00:06:20,260 --> 00:06:22,840
+00:06:20,193 --> 00:06:22,840
 Onlara dayanarak,
 Olympos tanrılarının yerine
 
@@ -895,7 +895,7 @@ Ateşten önce insanlar,
 gözleri olup görmeyen varlıklardı;
 
 193
-00:12:56,430 --> 00:12:58,830
+00:12:56,430 --> 00:12:58,842
 mağaralarda karıncalar gibi yaşıyorlardı.
 
 194
@@ -1009,7 +1009,7 @@ başında yeni bir zorba var.
 Diline sahip ol.”
 
 218
-00:14:25,450 --> 00:14:28,600
+00:14:25,424 --> 00:14:28,600
 Prometheus geri çevirir:
 “Her şeyi benimle göze aldın,
 
@@ -1032,7 +1032,7 @@ Erhat'a göre Yunanca
 sözün tam anlamı budur.
 
 223
-00:14:40,680 --> 00:14:42,840
+00:14:40,605 --> 00:14:42,840
 Başkaları, “hiçbir umuda yer vermeden”
 
 224
@@ -1159,7 +1159,7 @@ Aiskhylos'un sahnesinde bu,
 Zeus'u sürekli bir
 
 250
-00:16:22,080 --> 00:16:24,610
+00:16:22,080 --> 00:16:24,668
 kuşkunun baskısı altında
 tutan bir bilgidir.
 
@@ -1174,7 +1174,7 @@ Sonunda Zeus, habercisi
 Hermes'i gönderir; Erhat'ın
 
 253
-00:16:35,040 --> 00:16:38,590
+00:16:35,040 --> 00:16:38,628
 deyişiyle “sanığı gözdağıyla
 sorguya çeken” bir polis müdürü.
 
@@ -1197,7 +1197,7 @@ Ben oradan iki zorbanın
 düştüğünü görmedim mi?
 
 258
-00:16:51,120 --> 00:16:53,700
+00:16:51,112 --> 00:16:53,700
 Üçüncüsünün, şimdi hüküm
 sürenin düşüşünü de
 
@@ -1472,7 +1472,7 @@ Mary Shelley, Frankenstein romanına
 “Modern Prometheus” alt başlığını koydu.
 
 316
-00:21:10,830 --> 00:21:14,290
+00:21:10,820 --> 00:21:14,290
 Atom bombasının babası diye anılan
 Oppenheimer'ın biyografisinin
 
@@ -1482,7 +1482,7 @@ adı da “American Prometheus”:
 Nolan'ın filmi bu kitaba dayanır.
 
 318
-00:21:19,830 --> 00:21:22,530
+00:21:19,824 --> 00:21:22,530
 İnsan ne zaman kendisine
 yasaklanmış bir ateşe
 
@@ -1555,7 +1555,7 @@ Erhat'ın önsözü, daha ilk sayfasında
 Ne zaman insan olmaya başladı?
 
 333
-00:22:22,890 --> 00:22:25,910
+00:22:22,851 --> 00:22:25,910
 Ve kendi çağının düşünürlerinin
 sanki sözleşmiş gibi
 
@@ -1619,7 +1619,7 @@ oyunun çevrilemeyeceğini,
 sahnelenemeyeceğini düşünüyormuş.
 
 346
-00:23:16,880 --> 00:23:18,820
+00:23:16,830 --> 00:23:18,820
 Çevirdikçe yanıldıklarını anlamışlar…
 
 347
