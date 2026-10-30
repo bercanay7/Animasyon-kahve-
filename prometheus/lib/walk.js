@@ -41,7 +41,7 @@ function walkScene(ctx, c, x, s, t, dir, o = {}) {
   for (const [fx, fy] of PF) { const dx = Math.min(Math.abs(fx - x), L * .97); py = Math.max(py, fy - Math.sqrt(L * L - dx * dx)); }
   ctx.save(); if (!o.noCam) cam(ctx, c, 1);
   const J = figure(ctx, {
-    x, y: py, s, dir, sty: o.sty || STY.black, cutCol: o.cutCol, alpha: o.alpha, onJoints: o.onJoints, hold: o.hold, extra: o.extra, margin: o.margin,
+    x, y: py, s, dir, sty: o.sty || STY.black, cutCol: o.cutCol, alpha: o.alpha, onJoints: o.onJoints, hold: o.hold, extra: o.extra, margin: o.margin, stripe: o.stripe,
     lk: o.lk || { beard: 'pointed', hair: 'long', garment: 'short', torn: true },
     p: {
       // ikincil hareket: kollar bacaklardan biraz geç sallanır (gecikme), dirsek ileri salınımda bükülür,

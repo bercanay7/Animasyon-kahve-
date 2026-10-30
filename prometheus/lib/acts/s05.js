@@ -9,7 +9,7 @@ function F_cam(t, keys, lead = .9, drift = 4) {
   let i = 0; for (let k = 0; k < keys.length; k++) if (t >= keys[k][0] - lead) i = k;
   const a = keys[Math.max(0, i - 1)][1], b = keys[i][1], u = i === 0 ? 1 : E.io3(ramp(t, keys[i][0] - lead, keys[i][0], E.lin));
   const m = (p, q, d = 0) => lerp(p ?? d, q ?? d, u);
-  return { x: m(a.x, b.x) - (t - keys[i][0]) * drift, y: m(a.y, b.y), z: m(a.z, b.z, 1) * (1 + .003 * Math.sin(t * .6)), r: m(a.r, b.r), low: m(a.low, b.low), sx: noise1(t * .3, 1) * 2, sy: noise1(t * .3, 2) * 1.5 };
+  return { x: m(a.x, b.x) - lerp(t - keys[Math.max(0, i - 1)][0], t - keys[i][0], u) * drift, y: m(a.y, b.y), z: m(a.z, b.z, 1) * (1 + .003 * Math.sin(t * .6)), r: m(a.r, b.r), low: m(a.low, b.low), sx: noise1(t * .3, 1) * 2, sy: noise1(t * .3, 2) * 1.5 };
 }
 // kayadaki konuklar (Prometheus'un arkasında, sağdaki çıkıntıda): Hephaistos, Kratos, Bia
 const F_GL = x => 870 + Math.max(0, (x - 1400) * .12);
@@ -24,10 +24,10 @@ function F_guests(ctx, t, o = {}) {
   const out = {};
   ctx.save(); ctx.globalAlpha *= a;
   const ex = o.exit || 0; // kadrajdan çıkış: sağa yürürler
-  if (o.bia !== false) { const x = F_POS.bia + ex * 700; walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: { ...LK.bia, rf: false }, hold: { N: HOLD.spear(90) }, p: { torso: .02, ...(o.biaP || {}) }, onJoints: (j, m) => { F_HEADS.bia = [m, j.neckT]; } }); }
-  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) }, onJoints: (j, m) => { F_HEADS.kratos = [m, j.neckT]; F_HEADS.kratosHand = [m, j.AN.wr]; } }); }
+  if (o.bia !== false) { const x = F_POS.bia + ex * 700; walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, stripe: .4, lk: { ...LK.bia, rf: false }, hold: { N: HOLD.spear(90) }, p: { torso: .02, ...(o.biaP || {}) }, onJoints: (j, m) => { F_HEADS.bia = [m, j.neckT]; } }); }
+  if (o.kratos !== false) { const x = F_POS.kratos + ex * 700; out.kratos = walkScene(ctx, null, x, 5.8, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, stripe: .4, lk: LK.kratos, hold: { F: HOLD.spear(96) }, p: { torso: -.03, ...(o.kratosP || {}) }, onJoints: (j, m) => { F_HEADS.kratos = [m, j.neckT]; F_HEADS.kratosHand = [m, j.AN.wr]; } }); }
   if (o.heph !== false) { const x = F_POS.heph + ex * 700; let J = null, M = null;
-    walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, lk: LK.hephaistos, hold: { N: HOLD.hammer() }, p: { torso: .05, ...(o.hephP || {}) }, onJoints: (j, m) => { J = j; M = m; } });
+    walkScene(ctx, null, x, 5.6, t, ex > 0 ? 1 : -1, { noCam: true, ground: groundOf(F_GL), stand: ex > 0 ? 0 : 1, dist: x, sty: F_STY2, stripe: .4, lk: LK.hephaistos, hold: { N: HOLD.hammer() }, p: { torso: .05, ...(o.hephP || {}) }, onJoints: (j, m) => { J = j; M = m; } });
     out.hephJ = J; out.hephM = M; }
   ctx.restore();
   return out;
@@ -209,10 +209,10 @@ shot(PA('P117'), (ctx, st) => {
         txt(ctx, s, 1820 - tw, y, { font: '700 54px Cinzel', col: '#F1E4C8', ls: 4, align: 'left', shadow: 'rgba(0,0,0,.7)', blur: 12 }); }
       ctx.restore();
       if (t > tP - .3) stamp(ctx, 'POLİS', 1690, 500, t - tP, { col: '#E6ECFF', font: '700 92px Cinzel', h: 130, a: .9 * (1 - ramp(t, tF8 - .3, tF8 + .2)) }); }
-    // Kratos'un buyruğu: süs Yunan harf akışı; Hephaistos'un sözü kil levhada belirip söner; inleyişi soluk harfler
-    F_greek(ctx, 'ΤΗΝ ΔΙΟΣ ΤΥΡΑΝΝΙΔΑ ΣΤΕΡΓΕΙΝ', 1180, 300, ramp(t, tF8 + .2, A('F08@insanseverlikten')), 1 - ramp(t, A('F08@insanseverlikten'), A('F08@insanseverlikten') + .5));
-    const kt = A('F07@kendi#1'); if (t > kt && t < kt + 2.6) { ctx.save(); ctx.globalAlpha = .55 * (1 - ramp(t, kt + 1.8, kt + 2.6)); carvedTablet(ctx, ['ΑΠΑΣ ΔΕ ΤΡΑΧΥΣ', 'ΟΣΤΙΣ ΑΝ ΝΕΟΝ ΚΡΑΤΗι'], 560, 330, 700, t - kt, { font: '700 46px Cinzel' }); ctx.restore(); }
-    F_greek(ctx, 'Ω ΠΟΛΛΑ ΜΙΣΗΘΕΙΣΑ ΧΕΙΡΩΝΑΞΙΑ', 1100, 320, ramp(t, A('F09@ah'), A('F09@zanaatım') + .3), .7 * (1 - ramp(t, A('F09@güçün') - .2, A('F09@güçün') + .3)));
+    // Kratos'un buyruğu yalnız anlatımda (kalabalık yakın planda süs yazısı kolu ve zinciri kesiyordu);
+    // Hephaistos'un sözleri soluk harf akışı (taş levha sanat.md'de Kratos'undur)
+    const kt = A('F07@kendi#1'); F_greek(ctx, 'ΑΠΑΣ ΔΕ ΤΡΑΧΥΣ ΟΣΤΙΣ ΑΝ ΝΕΟΝ ΚΡΑΤΗι', 820, 215, ramp(t, kt, kt + 1.6), .7 * (1 - ramp(t, kt + 1.8, kt + 2.6)));
+    F_greek(ctx, 'Ω ΠΟΛΛΑ ΜΙΣΗΘΕΙΣΑ ΧΕΙΡΩΝΑΞΙΑ', 1100, 215, ramp(t, A('F09@ah'), A('F09@zanaatım') + .3), .7 * (1 - ramp(t, A('F09@güçün') - .2, A('F09@güçün') + .3)));
   } });
 
 // --- P126–P128: Kratos'un soğuk profili alttan; sözü kil levhaya kazınır; levha kenara konur; kenar şeridi: özgürlük · kölelik ---

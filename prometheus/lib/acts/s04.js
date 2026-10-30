@@ -14,7 +14,8 @@ function E_cam(t, st, z = 1.2, lead = .8) {
   let i = 0; for (let k = 0; k < st.length; k++) if (t >= st[k][0] - lead) i = k;
   const a = st[Math.max(0, i - 1)], b = st[i], u = i === 0 ? 1 : E.io3(ramp(t, b[0] - lead, b[0], E.lin));
   const px = c => (c + .5) * E_PW;
-  return { x: lerp(px(a[1]), px(b[1]), u) + (t - b[0]) * 10, y: 500, z: (b[2] ?? z) * (1 + .006 * Math.sin(t * .7)) };
+  // kayma ve yakınlık anahtar değişiminde süreklidir (tek karede sıçrama yok)
+  return { x: lerp(px(a[1]), px(b[1]), u) + lerp(t - a[0], t - b[0], u) * 10, y: 500, z: lerp(a[2] ?? z, b[2] ?? z, u) * (1 + .006 * Math.sin(t * .7)) };
 }
 const E_fig = (c, x, s, dir, lk, p = {}, o = {}) => bf(c, x, E_GY, s, dir, lk, { breath: Math.sin((window.FIG_T || 0) * 1.5 + x * .01) * .5, ...p }, o);
 // uyluk kemiği: düz sap, iki ucunda çift topuz (eklenmiş beyaz, siyah kontur)
@@ -87,7 +88,7 @@ shot(PA('P075'), (ctx, st) => {
   { const x = 1.5 * E_PW; E_fig(ctx, x, 5.2, 1, LK.hesiodos, { torso: .02, head: .05, shN: .5 + .15 * Math.sin(t * 2.4), elN: .9, handN: 'open' }, { hold: { F: HOLD.spear(96) } }); dipinto(ctx, 'ΗΣΙΟΔΟΣ', x - 260, 420, 54, { col: C.ink, vertical: true }); }
   // 2: Mekone: solda oturan tanrılar, sağda ayakta insanlar
   { const x = 2.5 * E_PW;
-    for (let i = 0; i < 3; i++) { throne(ctx, x - 560 + i * 170, E_GY, 3.2, 1, C.ink, C.clay, { high: i === 1 }); bf(ctx, x - 545 + i * 170, E_GY - 18, 3.3, 1, i === 1 ? LK.zeus : { beard: 'full', hair: 'long', garment: 'robe' }, { torso: -.05, shN: .3, elN: .9 }, { ik: { fN: [x - 545 + i * 170 + 92, E_GY - 10, 0], fF: [x - 545 + i * 170 + 70, E_GY - 10, 0] } }); }
+    for (let i = 0; i < 3; i++) { throne(ctx, x - 560 + i * 170, E_GY, 3.2, 1, C.ink, C.clay, { high: i === 1 }); bfSeat(ctx, x - 560 + i * 170, E_GY, 3.2, 3.3, 1, i === 1 ? LK.zeus : { beard: 'full', hair: 'long', garment: 'robe' }, { torso: -.05, shN: .3, elN: .9 }); }   // tanrılar tahtlarına oturur
     for (let i = 0; i < 4; i++) E_fig(ctx, x + 200 + i * 130, 3.4, -1, i % 2 ? LK.humanF : LK.human, { head: .05 });
     dipinto(ctx, 'ΜΗΚΟΝΗ', x, 200, 60, { col: C.ink, a: ramp(t, A('E03@mekonede'), A('E03@mekonede') + .6) }); }
   // 3: Prometheus koca bir öküzü keser; E03@ikiye'de öküz silueti ikiye ayrılır
@@ -224,6 +225,7 @@ shot(PA('P089'), (ctx, st) => {
   glow(ctx, 1380, 800, 80, `rgba(255,200,110,${.35 + .35 * fl})`); ctx.fillStyle = C.white; ctx.beginPath(); ctx.arc(1380, 800, 5 + 2 * fl, 0, TAU); ctx.fill();
   // sırtı dönük Zeus (izleyiciye arkası, ışığa bakar): profil sağa, pelerin dalgası
   const fist = ramp(t, tI - .4, tI + .3);
+  glow(ctx, 520, 380, 420, 'rgba(150,70,35,.35)');   // gecede siyah figür zeminden ayrılsın
   bf(ctx, 520, 650, 6.0, 1, { ...LK.zeus, cape: true }, { torso: .06, neck: .12, head: .2, shN: .1, elN: lerp(.3, 1.3, fist), handN: fist > .5 ? 'fist' : 'open', breath: Math.sin(t * 1.3) * .5 });
   ctx.restore();
   friezeFrame(ctx, { col: C.ink, h: 44, bandBg: C.clay });
@@ -261,14 +263,14 @@ shot(PA('P090'), (ctx, st) => {
   { const x = 8.5 * E_PW; E_fig(ctx, x - 200, 4.6, 1, LK.promFree, { torso: .05, shN: 1.5, elN: .3 + .3 * Math.sin(t * 6), handN: 'open' }); E_fig(ctx, x + 200, 4.6, -1, LK.epimetheus, { torso: -.05, head: .1 }); }
   // 9: Epimetheus kollarını açar (temas yok); iş işten geçince başı geriye döner
   { const x = 9.5 * E_PW, op = ramp(t, A('E12@ama') + .4, A('E12@epimeteus') + .6), back = ramp(t, A('E12@geçince') - .2, A('E12@geçince') + .4);
-    E_fig(ctx, x + 260, 4.6, -1, LK.pandora, { torso: -.05 });
+    E_fig(ctx, x + 260, 4.6, -1, { ...LK.pandora, stephane: true, necklace: true }, { torso: -.05 });   // armağanlar sürer
     E_fig(ctx, x - 160, 4.6, 1, LK.epimetheus, { torso: .05, shN: lerp(.2, 1.7, op), elN: lerp(.3, .2, op), shF: lerp(-.1, 1.5, op), elF: .2, handN: 'open', handF: 'open', headBack: back > .5 }); }
   // 10: büyük küp; Pandora kapağı kaldırır; keresler fırlar; kapak kapanır, dipte ELPİS'in soluk ışığı
   { const x = 10.5 * E_PW, lid = ramp(t, A('E14@kapağını'), A('E14@kaldırır') + .3) * (1 - ramp(t, A('E14@içeride'), A('E14@içeride') + .4)), sw = ramp(t, A('E14@hastalıklar') - .2, A('E14@yayılır') + 1.0, E.lin);
     ctx.fillStyle = C.ink; ctx.beginPath(); ctx.moveTo(x - 90, E_GY - 420); ctx.quadraticCurveTo(x - 260, E_GY - 300, x - 180, E_GY - 60); ctx.quadraticCurveTo(x - 120, E_GY, x, E_GY); ctx.quadraticCurveTo(x + 120, E_GY, x + 180, E_GY - 60); ctx.quadraticCurveTo(x + 260, E_GY - 300, x + 90, E_GY - 420); ctx.closePath(); ctx.fill();
     ctx.strokeStyle = C.clay; ctx.lineWidth = 3; for (const yy of [E_GY - 330, E_GY - 160]) { ctx.beginPath(); ctx.moveTo(x - 200, yy); ctx.quadraticCurveTo(x, yy + 20, x + 200, yy); ctx.stroke(); }
     ctx.save(); ctx.translate(x - 110, E_GY - 430); ctx.rotate(-lid * .9); ctx.fillStyle = C.ink; ctx.fillRect(0, -16, 220, 20); ctx.restore();
-    E_fig(ctx, x - 400, 4.4, 1, LK.pandora, { torso: .1, shN: lerp(1.0, 2.2, lid), elN: .4, handN: 'open' });
+    E_fig(ctx, x - 400, 4.4, 1, { ...LK.pandora, stephane: true, necklace: true }, { torso: .1, shN: lerp(1.0, 2.2, lid), elN: .4, handN: 'open' });
     if (sw > 0 && sw < 1) for (let k = 0; k < 40; k++) { const r = rng(k + 3), d = clamp(sw * 1.3 - r() * .3), a = r() * TAU, bx = x + Math.cos(a) * 900 * d + Math.sin(t * 4 + k) * 20, by = E_GY - 440 - Math.abs(Math.sin(a)) * 380 * d + Math.cos(t * 5 + k) * 14;
       ctx.fillStyle = C.ink; ctx.beginPath(); ctx.ellipse(bx, by, 10, 6, 0, 0, TAU); ctx.fill(); const f = Math.sin(t * 22 + k); ctx.beginPath(); ctx.moveTo(bx - 4, by); ctx.lineTo(bx - 14, by - 12 * f); ctx.lineTo(bx + 2, by - 2); ctx.moveTo(bx + 4, by); ctx.lineTo(bx + 14, by - 12 * f); ctx.lineTo(bx - 2, by - 2); ctx.fill(); }
     const el = ramp(t, A('E14@içeride') + .3, A('E14@umut'));
@@ -316,7 +318,7 @@ shot(PA('P099'), (ctx, st) => {
     if (sp > 0 && sp < 1) { const x = lerp(1000, 640, sp), y = lerp(200, 640, sp); glow(ctx, x, y, 40, 'rgba(255,190,90,.7)'); ctx.fillStyle = PC.fireCore; ctx.beginPath(); ctx.arc(x, y, 6, 0, TAU); ctx.fill(); }
     const up = ramp(t, tU - .2, tU + 1.2), sh = ramp(t, tI - .2, tI + 1.2);
     // doğrulan insanın gölgesi tahta düşer ve onu örter (insan biçimli gölge, kaba elips değil)
-    if (up > 0) { if (sh > 0) { const sc2 = 'rgba(74,52,35,.3)'; figure(ctx, { x: lerp(700, 980, sh), y: 860 - 44.5 * lerp(4.4, 8.6, sh), s: lerp(4.4, 8.6, sh), dir: 1, still: true, alpha: sh, sty: { fill: sc2, cut: 'rgba(0,0,0,0)', red: sc2, white: sc2, line: 'rgba(0,0,0,0)' }, lk: LK.human, seed: 61, p: { torso: -.05, head: -.1 } }); }
+    if (up > 0) { if (sh > 0) { const sc2 = 'rgb(74,52,35)'; solidAlpha(ctx, .3 * sh, o => figure(o, { x: lerp(700, 980, sh), y: 860 - 44.5 * lerp(4.4, 8.6, sh), s: lerp(4.4, 8.6, sh), dir: 1, still: true, sty: { fill: sc2, cut: 'rgba(0,0,0,0)', red: sc2, white: sc2, line: 'rgba(0,0,0,0)' }, lk: LK.human, seed: 61, p: { torso: -.05, head: -.1 } })); }   // gölge tek parça (röntgen değil)
       figure(ctx, { x: 640, y: 760 - 44.5 * 4.4 * lerp(.7, 1, up), s: 4.4, dir: 1, sty: STY.lek, lk: LK.human, seed: 61, p: { torso: lerp(.6, 0, up), neck: lerp(.4, -.1, up), head: lerp(.3, -.1, up), shN: lerp(.8, .4, cl), elN: lerp(.4, 1.6, cl), shF: lerp(.8, .5, cl), elF: lerp(.4, 1.5, cl), handN: 'open', handF: 'open' }, ik: { fN: [660, 757, 0], fF: [610, 757, 0] } });
       if (cl > 0) { glow(ctx, 760, 520, 120 * cl, `rgba(255,190,90,${.45 * cl})`); flame(ctx, 760, 560, .8 * cl, t, { haloR: 60 }); } }
     ctx.restore(); }

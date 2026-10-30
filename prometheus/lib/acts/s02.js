@@ -22,7 +22,7 @@ function bundle(c, x, y, s, col = C.white, line = C.ink) {
 function stationRot(t, st, lead = 1.0) {
   let i = 0; for (let k = 0; k < st.length; k++) if (t >= st[k][0] - lead) i = k;
   const a = st[Math.max(0, i - 1)], b = st[i], u = i === 0 ? 1 : E.io3(ramp(t, b[0] - lead, b[0], E.lin));
-  return lerp(a[1], b[1], u) + (t - b[0]) * 12;
+  return lerp(a[1], b[1], u) + lerp(t - a[0], t - b[0], u) * 12;   // kayma anahtar değişiminde sürekli
 }
 const BLACK = STY.black;
 const bf = (c, x, gy, s, dir, lk, p = {}, o = {}) => figure(c, { x, y: gy - 44.5 * s, s, dir, sty: o.sty || BLACK, lk, p, ...o });
@@ -152,7 +152,7 @@ function amforaIIb(c, x0, x1, t) {
   }
   if (vis(AMX.yutma)) {
     throne(c, AMX.yutma - 140, by, 5.4, 1, C.ink, C.clay, { high: true });
-    const n = Math.floor(ramp(T('C09@yuttu'), 0, 2.2, E.lin) * 5), lift = (T('C09@yuttu') * 2.2) % 1;
+    const n = Math.floor(ramp(T('C09@yuttu'), 0, 2.2, E.lin) * 5), lift = .5 - .5 * Math.cos(TAU * T('C09@yuttu') * 1.1);   // yumuşak inip kalkma (geri sıçrama yok)
     bfSeat(c, AMX.yutma - 140, by, 5.4, s, 1, LK_KRONOS, { torso: -.1, shN: 2.0 - lift * .6, elN: 1.4, head: -.15 });
     for (let i = n; i < 5; i++) bundle(c, AMX.yutma + 300 + i * 60, by - 20, 1.3);
     const g = ramp(T('C09@oğullarından'), 0, .5) * (1 - ramp(T('C09@kronos'), 0, .5));

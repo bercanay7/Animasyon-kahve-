@@ -48,7 +48,7 @@ function D_kylixAP(ctx, t, lt, o = {}) {
     c.strokeStyle = C.clay; c.lineWidth = 3; for (const yy of [gy - 21 * s, gy - 9 * s]) { c.beginPath(); c.ellipse(230, yy, 20, 5, 0, 0, TAU); c.stroke(); }
     // kartal göğse iner, kanatlarıyla örter
     const k = o.eagle ?? 1, fl = .5 + .5 * Math.cos(t * 3.2);
-    eagle2(c, lerp(60, 120, k), lerp(-220, -70, k), 1.05, -1, { ang: lerp(fl, .2, k * .6), angFar: .2, col: C.ink, wingCol: C.ink, farCol: '#3A2116', line: C.clay, eye: C.clay, tilt: lerp(.2, .5, k), talon: k });
+    eagle2(c, lerp(60, 120, k), lerp(-220, -70, k), 1.05, -1, { ang: lerp(fl, .2, k * .6), angFar: .2, col: C.ink, wingCol: C.ink, farCol: C.ink, line: C.clay, eye: C.clay, tilt: lerp(.2, .5, k), talon: k });
   });
   ctx.restore();
 }
@@ -118,7 +118,7 @@ shot(PA('P060'), (ctx, st) => {
     bf(c, x, by + fall * 520, 5.0, -1, { beard: 'short', hair: 'nape', garment: 'short', headgear: 'helmet' }, { torso: -.2 - .6 * fall, head: -.3, shN: -1.2 - fall, elN: .3, shF: -2.2, elF: .3, handN: 'open', handF: 'open' });
     c.restore();
     const f = Math.exp(-Math.pow((t - tY) / .08, 2));
-    if (t > tY - .1 && t < tY + .5) lightning(c, x + 40, -20, x + 10, by - 20, 17, 7, C.clay);
+    if (t > tY - .1 && t < tY + .5) lightning(c, x + 40, -20, x + 10, by - 20, 17, 7, C.white);
     if (f > .02) { c.save(); c.globalAlpha = .4 * f; c.fillStyle = C.clayL; c.fillRect(x0, -50, x1 - x0, 900); c.restore(); }
     dipinto(c, 'ΜΕΝΟΙΤΙΟΣ', x - 260, 230, 50, { col: C.ink, vertical: true });
   });
@@ -293,9 +293,9 @@ shot(PA('P070'), (ctx, st) => {
   const c = { x: 960 + lt * 5, y: 501, z: 1.06 + lt * .004 };
   ctx.save(); cam(ctx, c, 1);
   D_thrones(ctx, t, { tip: [1.2, 1.2], crack: .2 + .5 * ramp(t, tB - .2, tB + .6) + .3 * ramp(t, tD + 1, tD + 3), na: .7, ny: 280 });
-  // anı: Gaia Kronos'a fısıldar (soluk, sol üstte)
+  // anı: Gaia Kronos'a fısıldar (soluk, sağ üstte: ΟΥΡΑΝΟΣ yazısıyla çakışmaz)
   const m = ramp(lt, .1, .8) * (1 - ramp(t, A('D09@prometeus#1') + .2, A('D09@prometeus#1') + 1.0));
-  if (m > 0) { ctx.save(); ctx.globalAlpha = .55 * m; bf(ctx, 380, 520, 3.0, 1, LK_GAIA, { torso: .2, head: .3, shN: .8, elN: 1.4 }); bf(ctx, 560, 520, 3.0, -1, LK_KRONOS, { torso: -.05, head: .1 }); ctx.fillStyle = C.ink; ctx.fillRect(260, 520, 420, 4); ctx.restore(); }
+  if (m > 0) { ctx.save(); ctx.globalAlpha = .55 * m; bf(ctx, 1560, 520, 3.0, 1, LK_GAIA, { torso: .2, head: .3, shN: .8, elN: 1.4 }); bf(ctx, 1740, 520, 3.0, -1, LK_KRONOS, { torso: -.05, head: .1 }); ctx.fillStyle = C.ink; ctx.fillRect(1440, 520, 420, 4); ctx.restore(); }
   // Prometheus bilir: tahtın çatlağına bakar
   const pa = ramp(t, A('D09@prometeus#1') - .2, A('D09@prometeus#1') + .6);
   if (pa > 0) { ctx.save(); ctx.globalAlpha = pa; bf(ctx, 1000, 760, 4.6, 1, LK.promFree, { torso: -.02, head: .12 }); ctx.restore(); }

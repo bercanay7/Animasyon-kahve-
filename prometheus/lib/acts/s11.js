@@ -106,8 +106,8 @@ shot(PA('P265'), (ctx, st) => {
     const A1 = L_archer(c, -300, gy, 3.6, t, ramp(lt, .3, Math.max(.8, tK - .45 - st.at)), rel, { sty: STY.black });
     // kartal (siyah figür): Prometheus'un göğsüne iner; vurulunca düşer
     const fall = ramp(t, tK, tK + 1.4, E.in2);
-    const ex = lerp(-60, 40, ramp(lt, 0, 2)) + fall * 40, ey = lerp(-250, -120, ramp(lt, 0, 2)) + fall * 380;
-    eagle2(c, ex, ey, 1.25, -1, { ang: hit > 0 ? lerp(.7, .1, fall) : .5 + .5 * Math.cos(t * 3.4), angFar: .2, col: C.ink, wingCol: C.ink, farCol: '#3A2116', line: C.clay, eye: C.clay, tilt: lerp(.1, 1.4, fall), beak: .1 + .5 * hit * (1 - fall) });
+    const ex = lerp(-60, 40, ramp(lt, 0, 2)) + fall * 40, ey = lerp(-250, -60, ramp(lt, 0, 2)) + fall * 380;   // kartal başa değil göğse (karaciğer) iner
+    eagle2(c, ex, ey, 1.25, -1, { ang: hit > 0 ? lerp(.7, .1, fall) : .5 + .5 * Math.cos(t * 3.4), angFar: .2, col: C.ink, wingCol: C.ink, farCol: C.ink, line: C.clay, eye: C.clay, tilt: lerp(.1, 1.4, fall), beak: .1 + .5 * hit * (1 - fall) });
     // ok: yaydan kartala
     if (rel > 0 && hit <= 0) { const k = clamp(rel / .45), fx = lerp(A1.bow[0] + 10, ex - 20, k), fy = lerp(A1.nock[1], ey + 8, k); L_arrow(c, fx, fy, Math.atan2(ey + 8 - A1.nock[1], ex - 20 - A1.bow[0]), 3.4); }
     if (hit > 0) { L_arrow(c, ex - 8, ey + 8 + 0, 1.1 + fall, 3.4); if (t - tK < .6) dustBurst(c, t, tK, ex, ey, 18, 'rgba(201,112,63,.7)', 70, 5); }

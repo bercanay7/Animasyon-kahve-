@@ -131,7 +131,9 @@ shot(PA('P214'), (ctx, st) => {
   G_medal(ctx, t, 960, 540, 440, 0, (c, t, r) => {
     const gy = r * .62; c.fillStyle = PC.clayR; c.fillRect(-r, gy, 2 * r, 5);
     // babanın gölgesi: soğuk kontürlü koyu siluet (Zeus kırmızı figürde görünmez; yalnız gölgesi)
-    glow(c, 110, gy - 250, 260, 'rgba(230,236,255,.1)');
+    glow(c, 110, gy - 250, 300, 'rgba(230,236,255,.25)');   // telefonda koyu siluet kaybolmasın
+    { const cold = 'rgba(230,236,255,.6)', fig = { x: 90, y: gy - 44.5 * 5.6, s: 5.6, dir: -1, sty: { fill: '#0A0605', cut: 'rgba(230,236,255,.0)', red: '#0A0605', white: '#0A0605', line: 'rgba(230,236,255,.85)' }, lk: { beard: 'full', hair: 'long', garment: 'robe' }, seed: 5, still: true, p: { torso: .02 } };
+      for (const [dx, dy] of [[-3, 0], [3, 0], [0, -3], [0, 3]]) figure(c, { ...fig, x: fig.x + dx, y: fig.y + dy, sty: { fill: cold, cut: 'rgba(0,0,0,0)', red: cold, white: cold, line: cold } }); }   // telefonda siluet okunsun
     c.save(); c.globalAlpha = .95; figure(c, { x: 90, y: gy - 44.5 * 5.6, s: 5.6, dir: -1, sty: { fill: '#0A0605', cut: 'rgba(230,236,255,.0)', red: '#0A0605', white: '#0A0605', line: 'rgba(230,236,255,.85)' }, lk: { beard: 'full', hair: 'long', garment: 'robe' }, seed: 5, still: true, p: { torso: .02 } }); c.restore();
     // oğul: küçükten büyür, sonunda gölgeden uzun
     const s = lerp(1.8, 6.4, g);

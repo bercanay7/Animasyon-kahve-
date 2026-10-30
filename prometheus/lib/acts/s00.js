@@ -135,8 +135,10 @@ function kylixScene(ctx, t, lt, o) {
     // kartal (siyah figür, kil kazıma)
     if (o.eagle) {
       const e = o.eagle;
+      c.save(); c.globalAlpha *= e.alpha ?? 1;
       eagle2(c, e.x, e.y, e.s, e.dir || 1, { ang: e.ang ?? .9, angFar: e.angFar ?? .2, farOff: -.5, fsMin: .55, talon: e.talon ?? .6, beak: e.beak ?? .1, tilt: e.tilt ?? .3, headA: e.headA || 0,
-        col: C.ink, line: C.clay, wingCol: C.ink, farCol: '#2A1C14', eye: C.clay, headS: 1.35, lw: 1.2 });
+        col: C.ink, line: C.clay, wingCol: C.ink, farCol: C.ink, eye: C.clay, headS: 1.35, lw: 1.2 });
+      c.restore();
     }
     // yazıt: ΠΡΟΜΗΘΕΥΣ (eklenmiş kırmızı, Lakonya kylixlerinde ad yazıtı)
     dipinto(c, 'ΠΡΟΜΗΘΕΥΣ', -30, -r * .62, 26, { col: C.red, w: .11 });
@@ -151,14 +153,17 @@ shot(A('A03'), (ctx, st) => {
   const t = st.t, lt = st.lt, tK = A('A03@kartal'), tL = A('A03@karaciğerini'), tN = A('A03@gece'), tS = A('A03@sabah');
   let eagle = null, o = {};
   const fl = (t * .9) % 1, gl = .5 + .5 * Math.cos(fl * TAU);
-  if (t < tN) {
+  // gece inerken kartal kalkar (0,5 sn'de söner), baş iniş pozundan gece pozuna yumuşakça geçer (tek karede kaybolmaz)
+  if (t < tN + .5) {
     if (t >= tK - .4) {
       const p = eagleAt(t, tK - .4, tL, [KY.sun[0], KY.sun[1]], KY.chest, .55, 1.25);
       const landed = t >= tL - .2;
       eagle = { x: p.x, y: p.y, s: p.s, ang: landed ? .95 - .05 * Math.sin(t * 6) : lerp(.65, .97, Math.pow(gl, .5)), angFar: landed ? .05 : .2, talon: landed ? 1 : .5, beak: landed ? .3 + .3 * Math.max(0, Math.sin(t * 7)) : .1, tilt: landed ? .55 : .25, headA: landed ? .25 + .1 * Math.sin(t * 7) : 0 };
       if (landed) o = { head: -.55, neck: -.25, mouth: .4 };
+      eagle.alpha = 1 - ramp(t, tN, tN + .5);
     }
     o.dawn = 1;
+    if (t >= tN) { const u = E.io2(ramp(t, tN, tN + .5)); o = { night: ramp(t, tN, tN + .6), dawn: 1 - ramp(t, tN, tN + .8), head: lerp(-.55, -.15, u), neck: lerp(-.25, -.1, u), mouth: lerp(.4, 0, u), blink: .8 * u }; }
   } else if (t < tS) {
     o = { night: ramp(t, tN, tN + .6), dawn: 1 - ramp(t, tN, tN + .8), head: -.15, blink: .8 };
   } else {

@@ -71,13 +71,32 @@ function drawFilm(ctx, t) {
 // Üst katman (yazılar, etiketler, kenar şeritleri): hareket bulanıklığı ortalamasından ve son işlemden sonra, kamera
 // dönüşümü olmadan kare başına bir kez çizilir; sarsıntı ve dönüş yalnız resme uygulanır (telefonda okunurluk).
 function drawOver(ctx, t) {
-  const i = shotAt(t), sh = SHOTS[i]; if (!sh || !sh.over) return;
+  const i = shotAt(t), sh = SHOTS[i]; if (!sh) return;
+  // yumuşak geçiş sürerken çıkan planın üst katmanı (yazı) söner; tek karede kaybolmaz (üslup kurulu tur 3)
+  const pv = i > 0 ? SHOTS[i - 1] : null;
+  if (pv && pv.over && sh.tr && sh.tr.type !== 'cut' && t - sh.at < sh.tr.dur) {
+    const stp = { t, at: pv.at, lt: t - pv.at, d: sh.at - pv.at, p: clamp((t - pv.at) / (sh.at - pv.at)), end: sh.at };
+    ctx.save(); baseT(ctx); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1 - E.sine(clamp((t - sh.at) / sh.tr.dur));
+    pv.over(ctx, stp); ctx.restore();
+  }
+  if (!sh.over) return;
   const end = (SHOTS[i + 1] ? SHOTS[i + 1].at : DUR);
   const st = { t, at: sh.at, lt: t - sh.at, d: end - sh.at, p: clamp((t - sh.at) / (end - sh.at)), end };
   ctx.save(); baseT(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   if (sh.tr && sh.tr.type !== 'cut' && st.lt < sh.tr.dur) ctx.globalAlpha = clamp(st.lt / sh.tr.dur);
   sh.over(ctx, st);
   ctx.restore();
+}
+// yarı saydam ama içi opak çizim: önce ayrı bir tampona opak çizilir, sonra tek parça olarak saydamlıkla basılır
+// (figür parçaları üst üste binince koyulaşmaz; gölge, hayal ve renge dönüş katmanları için)
+let _solidCv = null;
+function solidAlpha(ctx, a, draw) {
+  if (a <= 0) return;
+  const w = ctx.canvas.width, h = ctx.canvas.height;
+  if (!_solidCv || _solidCv.width !== w || _solidCv.height !== h) _solidCv = makeCanvas(w, h);
+  const o = _solidCv.getContext('2d'); o.setTransform(1, 0, 0, 1, 0, 0); o.globalAlpha = 1; o.globalCompositeOperation = 'source-over'; o.clearRect(0, 0, w, h);
+  o.setTransform(ctx.getTransform()); draw(o);
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha *= Math.min(1, a); ctx.drawImage(_solidCv, 0, 0); ctx.restore();
 }
 // önceki çekimi (buf) mevcut kareye geçiş maskesiyle bindir
 function composite(ctx, buf, tr, p) {

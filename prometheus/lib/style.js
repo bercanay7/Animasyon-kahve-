@@ -152,9 +152,10 @@ function tongues(ctx, x0, x1, y, h, col, alt = null) {
   const w = h * .62;
   ctx.save(); ctx.beginPath(); ctx.rect(x0, y, x1 - x0, h); ctx.clip();
   ctx.fillStyle = col; ctx.fillRect(x0, y, x1 - x0, h * .12);
-  let i = 0;
+  // renk sırası dilin dünya konumundan sayılır (friz dönerken dilimler yer değiştirip titremesin)
+  let i = Math.floor(x0 / w);
   for (let x = Math.floor(x0 / w) * w; x < x1 + w; x += w, i++) {
-    ctx.fillStyle = (alt && i % 2) ? alt : col;
+    ctx.fillStyle = (alt && ((i % 2) + 2) % 2) ? alt : col;
     ctx.beginPath();
     ctx.moveTo(x + w * .08, y + h * .1);
     ctx.lineTo(x + w * .92, y + h * .1);

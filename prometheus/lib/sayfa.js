@@ -225,7 +225,7 @@ function pageJourney(ctx, t, stations, o = {}) {
   const a = stations[Math.max(0, i - 1)], b = stations[i];
   const u = i === 0 ? 1 : E.io3(ramp(t, b.at - .9, b.at + .1, E.lin));
   const sx = s => s.x, sy = s => s.y ?? H / 2, sz = s => s.z ?? 1;
-  const drift = (t - b.at) * 4;
+  const drift = lerp(t - a.at, t - b.at, u) * 4;   // anahtar değişiminde sürekli (tek karede sıçrama yok)
   const c = { x: lerp(sx(a), sx(b), u) + drift, y: lerp(sy(a), sy(b), u), z: lerp(sz(a), sz(b), u) * (1 + .004 * Math.sin(t * .7)) };
   ctx.save(); cam(ctx, c, 1);
   // sayfa zemini: bütün durakların altında süren tek kâğıt; kâğıt hafifçe nefes alır

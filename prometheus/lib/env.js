@@ -226,8 +226,8 @@ function amphora(ctx, x, y, s, col = C.ink, band = C.red) {
 // Taht (klismos): x arka ayak hizası, y zemin, s ölçek, dir yön
 // karanlıkta boş taht: koyu sır gövde, sol üstten soğuk beyaz kenar ışığı (Zeus'un rengi); zeminden ayrılır
 function throneRim(ctx, x, y, s, dir = 1, o = {}) {
-  ctx.save(); glow(ctx, x - 20 * s * dir, y - 40 * s, 46 * s, 'rgba(150,168,215,.13)');
-  throne(ctx, x - 5, y - 5, s, dir, 'rgba(214,224,250,.55)', 'rgba(214,224,250,.55)', o);
+  ctx.save(); glow(ctx, x - 20 * s * dir, y - 40 * s, 46 * s, 'rgba(170,186,235,.25)');
+  throne(ctx, x - 5, y - 5, s, dir, 'rgba(230,236,255,.85)', 'rgba(230,236,255,.85)', o);
   throne(ctx, x, y, s, dir, '#2C1D16', 'rgba(190,200,235,.42)', o); ctx.restore();
 }
 function throne(ctx, x, y, s, dir = 1, col = C.ink, inc = C.clay, o = {}) {
@@ -368,7 +368,16 @@ function altar(ctx, x, y, s, col = C.ink, inc = C.clay, fire = 0, t = 0) {
   ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.fillStyle = col;
   ctx.fillRect(-40, -60, 80, 60); ctx.fillRect(-48, -70, 96, 12); ctx.fillRect(-48, -6, 96, 6);
   ctx.strokeStyle = inc; ctx.lineWidth = 1.5; ctx.strokeRect(-32, -50, 64, 38);
-  if (fire > 0) { ctx.fillStyle = C.gold; ctx.globalAlpha = fire; for (let i = 0; i < 4; i++) { const fx = -22 + i * 15, fh = 28 + Math.sin(t * 9 + i * 2) * 8; ctx.beginPath(); ctx.moveTo(fx - 7, -70); ctx.quadraticCurveTo(fx, -70 - fh * 1.3, fx + 7, -70); ctx.fill(); } }
+  // sunak ateşi (renk kuralı: altın alev, sivri dil biçimi, açık çekirdek, sır kontur; filmin öbür ateşleriyle aynı dil)
+  if (fire > 0) {
+    ctx.globalAlpha = fire; ctx.lineJoin = 'round';
+    for (let i = 0; i < 4; i++) {
+      const fx = -22 + i * 15, fh = 30 + Math.sin(t * 9 + i * 2) * 8 + (i === 1 || i === 2 ? 10 : 0), lean = Math.sin(t * 5 + i) * 3;
+      const tongue = (w, h) => { ctx.beginPath(); ctx.moveTo(fx - w, -70); ctx.bezierCurveTo(fx - w * 1.1, -70 - h * .45, fx + lean - w * .3, -70 - h * .7, fx + lean, -70 - h); ctx.bezierCurveTo(fx + lean + w * .4, -70 - h * .65, fx + w * 1.1, -70 - h * .4, fx + w, -70); ctx.closePath(); };
+      tongue(8, fh); ctx.fillStyle = C.gold; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.6; ctx.stroke();
+      tongue(3.5, fh * .5); ctx.fillStyle = '#FFF6D6'; ctx.fill();
+    }
+  }
   ctx.restore();
 }
 // Kline (sedir)

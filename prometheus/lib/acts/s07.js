@@ -277,7 +277,7 @@ shot(PA('P191'), (ctx, st) => {
     const t = st.t, tO = A('H04@okeanos');
     H_tanik(ctx, t, 'OKEANOS', tO);
     const n = ramp(t, tO + .4, tO + 1.0) * (1 - ramp(t, A('H04@kendini') - .4, A('H04@kendini')));
-    if (n > 0) dipinto(ctx, 'ΩΚΕΑΝΟΣ', 520, 560, 54, { col: PC.clayRL, a: n });
+    if (n > 0) dipinto(ctx, 'ΩΚΕΑΝΟΣ', 330, 560, 54, { col: PC.clayRL, a: n });
     const m = window.H_OKM || [700, 380], sea = '#EBD9B4'; // deniz sesleri: sıcak krem (Zeus'un soğuk beyazından ayrı)
     const k1 = A('H04@kendini'), k2 = A('H04@diline'), fa = 1 - ramp(t, A('H04@prometeus') - .3, A('H04@prometeus'));
     if (t > k1 && fa > 0) { ctx.save(); ctx.globalAlpha = fa; speechFlow(ctx, 'KENDİNİ BİL', u => [lerp(m[0] + 30, m[0] + 520, u), m[1] - 40 - Math.sin(u * PI) * 40], ramp(t, k1, A('H04@bil') + .4, E.lin), { font: '700 60px Cinzel', col: sea, glow: 'rgba(110,52,22,.65)' });
@@ -436,7 +436,7 @@ shot(PA('P207'), (ctx, st) => {
   // gökte boş taht: soğuk ışık; H09@yıkılmadıkça'da ayağında ilk çatlak ilerler
   const ta = ramp(t, tI - .2, tI + .8);
   if (ta > 0) { ctx.save(); ctx.globalAlpha = ta; glow(ctx, 1150, -330, 340, 'rgba(230,236,255,.16)'); F_throne(ctx, 1110, -300, 3.0, 1, t); crackLine(ctx, 1150, -302, 120, ramp(t, tY, tY + 1.6, E.lin), { col: '#E6ECFF', w: 4 }); ctx.restore(); }
-  H_io(ctx, 760, 868, 4.6, t, { sink: E.io2(ramp(t, PA('P207') + .2, A('H09@ölmeyi') + .3)), dir: 1 });
+  H_io(ctx, 700, 868, 4.6, t, { sink: E.io2(ramp(t, PA('P207') + .2, A('H09@ölmeyi') + .3)), dir: 1 });   // ateş başındaki insan sırtına binmesin
   promChained(ctx, t, { wind, look: t > tI ? lerp(.05, -.4, ramp(t, tI, tI + .8)) : .1, poseMix: ['sessiz', 'gok', ramp(t, tI - .1, tI + .7)] });
   ctx.restore();
   kayaFront(ctx, t, c, wind);

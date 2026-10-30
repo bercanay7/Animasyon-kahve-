@@ -71,7 +71,7 @@ function J_notRock(ctx, c) { cam(ctx, c, 1); ctx.beginPath(); ctx.rect(-6000, -6
 function J_freezeLook(ctx, t, c, fz, o = {}) {
   if (fz <= 0) return;
   ctx.save(); baseT(ctx); ctx.globalCompositeOperation = 'saturation'; ctx.globalAlpha = .88 * fz; ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, W, H);
-  ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = .1 * fz; ctx.fillStyle = '#D8C8B0'; ctx.fillRect(0, 0, W, H); ctx.restore();
+  ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = .05 * fz; ctx.fillStyle = '#D8C8B0'; ctx.fillRect(0, 0, W, H); ctx.restore();
   if (o.fires === false) return;
   ctx.save(); J_notRock(ctx, c);
   baseT(ctx); cam(ctx, c, .35); humanFires(ctx, t, [[95, 630, .38], [215, 644, .46], [505, 666, .62], [860, 690, 1.6]], fz, { wind: 0, people: [] }); ctx.restore();

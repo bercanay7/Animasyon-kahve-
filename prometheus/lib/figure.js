@@ -456,6 +456,14 @@ function drawHead(G, f, J, det) {
       const sm = p.smile || 0;
       G.paint(c => { c.moveTo(5.7, -3.95); c.quadraticCurveTo(5.1, -3.8 - sm * .2, 4.7, -3.9 - sm * .45); }, sty.line, .25, false);
       if (lk.earring) G.paint(c => c.arc(-1.2, -3.2, .6, 0, TAU), sty.red);
+      // Pandora'nın armağanları (sahneler arası süreklilik): hilal stephane saç bandının üstünde, gerdanlık boyun dibinde
+      if (lk.stephane) {
+        G.paint(c => { c.moveTo(-8.0, -11.4); c.quadraticCurveTo(-.5, -17.2, 7.0, -11.4); c.quadraticCurveTo(-.5, -14.0, -8.0, -11.4); c.closePath(); }, sty.line);
+        for (let k = 0; k < 7; k++) { const u = k / 6, bx = lerp(-6.4, 5.4, u), by = -11.6 - 4.1 * Math.sin(u * PI); G.paint(c => { c.moveTo(bx - .85, by + .4); c.lineTo(bx, by - 1.3 - .65 * Math.sin(u * PI)); c.lineTo(bx + .85, by + .4); c.closePath(); }, sty.line); }
+        G.paint(c => { c.moveTo(-6.4, -12.1); c.quadraticCurveTo(-.5, -15.2, 5.4, -12.1); }, sty === STY.black || sty.fill === C.ink ? C.clay : sty.fill, .3, false);
+        for (const dx of [-3.9, -.5, 2.9]) G.paint(c => c.arc(dx, dx === -.5 ? -14.6 : -13.4, .6, 0, TAU), sty.red);
+      }
+      if (lk.necklace) for (let k = 0; k < 7; k++) { const u = k / 6 - .5; G.paint(c => c.arc(1.2 + u * 7.8, 4.4 + (1 - 4 * u * u) * 1.7, .9, 0, TAU), C.white); G.paint(c => c.arc(1.2 + u * 7.8, 4.4 + (1 - 4 * u * u) * 1.7, .9, 0, TAU), sty.line, .3, false); }
       return;
     }
     const hb = lk.headgear;
