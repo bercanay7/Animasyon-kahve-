@@ -348,3 +348,47 @@ Raporların tamamı: `kurul/uslup_tur1/tur1_raporlar.json`. İkinci tur (çapraz
 - **Kaya değeri:** sulandırılmış sır (teknik) ile koyu kütle (renk) arasında orta yol: #5A311D → #341C12, figürün çevresi temiz alan ve hâle ile ayrılıyor.
 - **¾ yüz:** üslup karesinde değil kapakta kullanılacak (Klasik kırmızı figürde meşru; kapak dersleriyle uyumlu).
 - Sahne üretimine bırakılanlar: negatif katman geçişi, KAYA→SAYFA çerçeve içinde çerçeve, J01 donması (ateş renkli kalır), Zeus'un asasında kartal başlığı (siyah figür sahnelerinde), kartal vuruşlu planlarda `mb: 8`.
+
+---
+
+# Animatik: kurul tur 1 (6 üye, 3 uzmanlık × 2) ve plan listesinin 2. sürümü
+
+## Puanlar (tur 1, plan listesi 1. sürüm: `animatik/planlar_v1.json`, 294 plan)
+Ölçüt: A1 hikâye ve dram (%20), A2 görsel anlatım ve üslup (%20), A3 tempo ve tutma (%20), A4 kaynağa ve kurallara uygunluk (%15), A5 üretilebilirlik (%15), A6 telefon ve okunurluk (%10). ONAY: ağırlıklı ortalama ≥ 9, hiçbir ölçüt < 7.
+
+| Üye | A1 | A2 | A3 | A4 | A5 | A6 | Ort. | Karar |
+|---|---|---|---|---|---|---|---|---|
+| yönetmen-Dram | 7,5 | 7,5 | 7 | 8,5 | 7,5 | 7,5 | 7,55 | RED |
+| yönetmen-Görsel | 7,5 | 8 | 7,5 | 8,5 | 7,5 | 8 | 7,80 | RED |
+| izleyici-Tutma | 8 | 8,5 | 7,5 | 8 | 8 | 7,5 | 7,95 | RED |
+| izleyici-Mobil | 8 | 8 | 8,5 | 8,5 | 8 | 8,5 | 8,22 | RED |
+| kurgu-Uygulama | 8,3 | 8,3 | 7,6 | 8,6 | 8,5 | 7,2 | 8,12 | RED |
+| kurgu-Tempo | 8 | 7,9 | 7,8 | 8,3 | 8,2 | 8,6 | 8,07 | RED |
+
+Raporların tamamı: `kurul/animatik_tur1_raporlar.json`. Altı rapor ana bulgularda örtüştüğü için başkan çapraz tartışma turunu durdurdu; kararlar doğrudan 2. sürüme işlendi (`tools/gen/plan_v2.py`, `animatik/planlar.json`, 283 plan, 94 çekim). Çapa denetimi temiz: 8 sn'yi geçip iç olayı olmayan plan 0, 1,2 sn'den kısa plan 0 (montaj kareleri hariç), plan içi kelime olaylarının hepsi geçerli.
+
+## Kabul edilenler (2. sürümde)
+- **Katman disiplini:** tek cümlelik Erhat yorumları tam sayfa beyaz zemine kesmez; o anki katmanın üstünde kenar şeridi olur (P027, P039, P052, P063–P065, P071, P098, P128, P132, P149, P157, P196, P216, P236, P243). Tam sayfa alıntı en çok 5: P181, P241, P263, P282, P288.
+- **Geçiş dilbilgisi:** S'ye kil, K'ye sır akışı, B'ye mürekkep; B'den dönüş sert ya da eşleşen kesme. Yumuşak geçiş çapada biter. Bölüm levhası sorudan 1,8 sn önce, sessizlikte iner (`ID-1.8`; YouTube bölüm damgaları da buna göre). Negatif geçiş yalnız kartal bağında (P006, P250).
+- **Eşleşen kesmeler:** kartal gözü → Θ (P006→P011), kıvılcım → akşam yıldızı (P015→P016), kölenin prangası → kelepçe (P129→P130), zincir halkaları → meander (P208→P209), harf kıvılcımı → ok ucu (P263→P264), P288 alevi → lamba (P289), sahne ateşi → izleyiciye uzanan alev (P291→P292).
+- **Tek sürekli planlar (kesme azaltma):** açılış P001–P003, kylix P006–P010, F13 göğe sesleniş P138–P142, K01–K02 çerçevelerden çıkış P283–P284, D11 tahtları P072–P073, iki çekiç vuruşu P133–P134.
+- **Açılış:** çekiç iki vuruş (ilki A01–A02 sessizliğinde, ikincisi A02@mıhlatan); P005'te bulutta soğuk kelepçe pırıltısı (J04'ün kurulumu); künye kartı (P013) kalktı; P014 zinciri soru işaretine kıvrılır, taht görünmez.
+- **Doruk (IX):** J01@durduralım'da donma (ateş renkli kalır), P234 kil levha geri çağrısı, J02@ama'da soru işareti zincire dönüşüp kamerayı yukarı taşır; J04'te bulutlar açılır, yalnız soğuk beyaz kelepçeli bilek (ZEUS · KÖLE), J04@prometeus'ta sert kesme (PROMETHEUS · ÖZGÜR, zincirde altın ışık); J05 çocuk boyuna küçülen gölge; J06 çapraz tahterevalli (SANIK: özgür · YARGIÇ: tutsak), Themis terazisiyle aynı çizim.
+- **Zeus kuralı:** kırmızı figürde Zeus hiç görünmez (boş taht, gölge, bilek); ikonografik Zeus yalnız siyah figürde.
+- **İç ses kuralı** (F14, G13b, I11): rüzgâr durur, en yakın büst, arka plan koyulaşır; P145 vizyonları gökte soluk siluetler; P147 yazı yarım kalır ve dağılır.
+- **Söz görünür:** Prometheus'un sözü ağzından akan harfler (yalnız anahtar dizeler Türkçe), Güç'ün sözü kil levha, Hermes'in sözü mühür, sessizlikte harf yok. Gereksiz konuşma yazıları kaldırıldı (P119, P124, P192, P222, P229, P230).
+- **Taht nesnesi:** üç sabit taht, durumu anlatıcıyı söyler; üçüncü taht filmde devrilmez (P103'te önünde insan doğrulur, P224'te tek soluk görüntü).
+- **Kartal gölgesi** yalnız I08b–c'de; P208'de taht çatlağı, P228'de zincir sarsıntısı ve 0,1 sn çakma.
+- **G10b uygarlık armağanları:** tek şerit, yedi pano, her biri kendi kelimesinde (montaj), simge ≥ %50 boy; sonda geri çekilip tek friz.
+- **Harita:** sade vazo haritası, Kerç ile İstanbul arasında kesme (kaydırma değil), inek ≥ %25 boy.
+- **Sadeleştirmeler:** P067 üç pano; P086 bulut gölgesi ocakları söndürür; P087–P088 tırmanmasız rezene, siyah figür kapak eşi; P094 temas yok; P116 vazo alayı; P160 sünger silme; P164 ışık süpürmesi; Okeanos balık kuyruklu deniz tanrısı; tanıklar listesi (P190).
+- **Kitler:** dokuz üretim kiti (KAYA, TONDO, SAYFA, AMFORA, METOP, TAHT, ŞERİT, TİYATRO, BİTİŞ), her birinin otomatik taban hareketi; KAYA'da bölüm saati (güneşin yolu). Çekim sütunu render birimlerini gösterir.
+- **Telefon:** kritik içerik y ≤ 700; yazı boyları (alıntı ≥ 76, kaynak ≥ 40, kil levha ≥ 60, daktilo ≥ 64, dipinto ≥ 90 px); flaş ≤ 3/sn.
+- **Son:** P288 açılış başlığının halkası, küçük insanın ateşiyle tutuşur; kapak karesi yalnız P001, P088 ve P292'de; XIII bölüm levhası ekrandan kalktı (açıklamada damga kalır); bitiş ekranı yerleşimi sabit.
+
+## Reddedilen ya da değiştirilerek alınanlar
+- **P249 için yeni SOFRA seti:** alınmadı; KAYA'nın ÜST kamerasıyla sarmal iniş aynı etkiyi yeni set üretmeden veriyor.
+- **P210'da donmuş kare:** alınmadı (hiçbir kare donmaz kuralı); yay gerili kalır, kiriş titrer. Tek bilinçli donma J01'dir ve anlamı oradan gelir.
+- **Kartal gölgesinin her bölümde tekrar etmesi:** alınmadı; gölge I08b–c'ye saklandı ki tehdit orada ağırlık taşısın.
+- **P103'te üçüncü tahtın devrilmesi:** alınmadı; Erhat'ın okuması devrimi gelecekte bırakıyor. Yerine tahtın önünde doğrulan insan.
+- **Altıncı tam sayfa alıntı:** alınmadı. P241 tartışıldı; tezin cümlesi olduğu için tam sayfa kaldı, sayı 5'te tutuldu.

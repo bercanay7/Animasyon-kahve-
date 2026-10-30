@@ -96,8 +96,13 @@ def limiter(x, ceil=.89, look=.005, rel=.08):
     return x * gg
 
 def true_peak(x):
-    up = signal.resample_poly(x, 4, 1, axis=1)
-    return 20 * np.log10(np.max(np.abs(up)) + 1e-12)
+    # 4× aşırı örnekleme parça parça (tam uzunlukta 4× dizi ~4 GB bellek ister)
+    m, L, pad = 0.0, SR * 10, 256
+    for c in range(x.shape[0]):
+        for a in range(0, x.shape[1], L):
+            seg = x[c, max(0, a - pad):min(x.shape[1], a + L + pad)].astype(np.float64)
+            m = max(m, float(np.max(np.abs(signal.resample_poly(seg, 4, 1)))))
+    return 20 * np.log10(m + 1e-12)
 
 
 def voice_chain(vo):
@@ -116,45 +121,48 @@ def voice_chain(vo):
 
 
 def main():
+    # bellek: 24 dk × 48 kHz stereo ≈ 550 MB/kanal (float64); ara diziler silinir, büyük diziler float32 tutulur
     stems = '--stems' in sys.argv
     meter = pyln.Meter(SR)
-    vo, sr = sf.read(A('vo/vo.wav'), always_2d=False)
+    vo, sr = sf.read(A('vo/vo.wav'), always_2d=False, dtype='float32')
     assert sr == SR
-    vo = np.pad(vo, (0, max(0, N - len(vo))))[:N].astype(np.float64)
+    vo = np.pad(vo, (0, max(0, N - len(vo))))[:N]
     vo = hp(vo, 70)
     vo *= db(-16 - meter.integrated_loudness(vo))
     vo = voice_chain(vo)
-    vo *= db(-16 - meter.integrated_loudness(vo))   # anlatım -16 LUFS
-    vo2 = np.stack([vo, vo])
-    vo_send = apply_reverb(vo2 * db(-26), reverb_ir(1.2))
-    mu, msr = sf.read(A('audio/music.wav'), always_2d=True)
+    vo = (vo * db(-16 - meter.integrated_loudness(vo))).astype(np.float32)   # anlatım -16 LUFS
+    ve = envelope(vo).astype(np.float32)
+    act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1); del ve
+    target = db(-3 * act).astype(np.float32); del act
+    look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look, np.float32)])
+    duck = smooth_gain(target, .1, .7).astype(np.float32); del target
+    ir = reverb_ir(1.2)
+    vo_send = np.stack([signal.oaconvolve(vo * np.float32(db(-26)), ir[c].astype(np.float32))[:N].astype(np.float32) for c in range(2)])
+    mu, msr = sf.read(A('audio/music.wav'), always_2d=True, dtype='float32')
     assert msr == SR
-    mu = mu.T.astype(np.float64)
+    mu = np.ascontiguousarray(mu.T)
     mu = np.pad(mu, ((0, 0), (0, max(0, N - mu.shape[1]))))[:, :N]
-    mu = np.stack([signal.sosfilt(signal.butter(4, 35, 'highpass', fs=SR, output='sos'), ch) for ch in mu])
-    mu = np.stack([peq(ch, 60, -2.5, .7) for ch in mu])
-    mu *= db(-21 - meter.integrated_loudness(mu.T))
-    # müzik konuşma altına göre bestelendi (spektral kısma score.py'de); burada hafif ek kısma, ön-bakışlı
-    ve = envelope(vo)
-    act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1)
-    target = db(-3 * act)
-    look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look)])
-    mu *= smooth_gain(target, .1, .7)
-    mix = vo2 + vo_send + mu
-    mix = limiter(mix, .7)
-    mix *= db(-14 - meter.integrated_loudness(mix.T))
+    hp35 = signal.butter(4, 35, 'highpass', fs=SR, output='sos')
+    for c in range(2): mu[c] = peq(signal.sosfilt(hp35, mu[c]), 60, -2.5, .7).astype(np.float32)
+    mu *= np.float32(db(-21 - meter.integrated_loudness(mu.T)))
+    mu *= duck; del duck
+    mix = np.empty((2, N), np.float32)
+    for c in range(2): mix[c] = vo + vo_send[c] + mu[c]
+    if stems:
+        os.makedirs(A('audio/stems'), exist_ok=True)
+        sf.write(A('audio/stems/vo.wav'), (np.stack([vo, vo]) + vo_send).T, SR, subtype='FLOAT')
+        sf.write(A('audio/stems/music.wav'), mu.T, SR, subtype='FLOAT')
+    del vo, vo_send, mu
+    mix = limiter(mix, .7).astype(np.float32)
+    mix *= np.float32(db(-14 - meter.integrated_loudness(mix.T)))
     tpT = -1.0
-    mix = limiter(mix, db(tpT - .6))
+    mix = limiter(mix, db(tpT - .6)).astype(np.float32)
     for _ in range(8):
         tp = true_peak(mix)
         if tp <= tpT: break
-        mix = limiter(mix, db(tpT - .6 - (tp - tpT) - .1))
-    print(f'LUFS {meter.integrated_loudness(mix.T):.2f}  TP {true_peak(mix):.2f} dBTP  süre {N / SR:.2f}s')
-    sf.write(A('audio/mix.wav'), mix.T.astype(np.float32), SR, subtype='PCM_24')
-    if stems:
-        os.makedirs(A('audio/stems'), exist_ok=True)
-        for nm, x in [('vo', vo2 + vo_send), ('music', mu)]:
-            sf.write(A(f'audio/stems/{nm}.wav'), x.T.astype(np.float32), SR, subtype='FLOAT')
+        mix = limiter(mix, db(tpT - .6 - (tp - tpT) - .1)).astype(np.float32)
+    print(f'LUFS {meter.integrated_loudness(mix.T):.2f}  TP {true_peak(mix):.2f} dBTP  süre {N / SR:.2f}s', flush=True)
+    sf.write(A('audio/mix.wav'), mix.T, SR, subtype='PCM_24')
 
 
 if __name__ == '__main__':

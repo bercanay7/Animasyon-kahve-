@@ -13,14 +13,15 @@ segs = {s['id']: s for s in json.load(open(os.path.join(ROOT, 'senaryo.json')))[
 nw = lambda w: re.sub(r'[^\wçğıöşü]', '', w.replace('İ', 'i').replace('I', 'ı').lower().replace('â', 'a').replace('î', 'i').replace('û', 'u'))
 
 def anchor(at):
-    m = re.match(r'^([A-Z]\d+[a-z]?)(?:@([^#]+)(?:#(\d+))?)?$', at)
-    sid, w, n = m.group(1), m.group(2), int(m.group(3) or 0)
+    m = re.match(r'^([A-Z]\d+[a-z]?)(?:@([^#+-]+)(?:#(\d+))?)?([+-][\d.]+)?$', at)
+    if not m: return None, f'çapa biçimi bozuk: {at}'
+    sid, w, n, off = m.group(1), m.group(2), int(m.group(3) or 0), float(m.group(4) or 0)
     if sid not in CUES: return None, f'cümle yok: {sid}'
-    if not w: return CUES[sid]['s'], None
+    if not w: return round(CUES[sid]['s'] + off, 3), None
     k = 0
     for x in WORDS:
         if x['id'] == sid and x['w'].startswith(nw(w)):
-            if k == n: return x['s'], None
+            if k == n: return round(x['s'] + off, 3), None
             k += 1
     return CUES[sid]['s'], f'kelime yok: {at}'
 
@@ -38,8 +39,10 @@ for i, r in enumerate(rows):
     sid = re.match(r'^([A-Z]\d+[a-z]?)', r['at']).group(1)
     # planın üstüne düşen anlatım (altyazı kelimeleri)
     r['soz'] = ' '.join(x['d'] for x in WORDS if r['t'] - 1e-3 <= x['s'] < r['bitis'] - 1e-3 and x['d'])
+    if r.get('montaj') and r['sure'] < .25: errs.append(f"{r['id']}: montaj karesi çok kısa ({r['sure']:.2f} sn)")
 fmt = lambda s: f'{int(s // 60)}:{s % 60:04.1f}'
-uzun = [r for r in rows if r['sure'] > 8 and not r.get('olay')]; kisa = [r for r in rows if r['sure'] < 1.2]
+olayli = lambda r: r.get('olay') or '@' in (r.get('hareket') or '') + (r.get('kare') or '')
+uzun = [r for r in rows if r['sure'] > 8 and not olayli(r)]; kisa = [r for r in rows if r['sure'] < 1.2 and not r.get('montaj')]
 sures = sorted(r['sure'] for r in rows)
 out = [f"# Animatik: zamanlı plan tablosu\n",
        f"Film süresi {fmt(DUR)} · {len(rows)} plan · ortalama {DUR / len(rows):.1f} sn · ortanca {sures[len(sures) // 2]:.1f} sn · 8 sn'yi geçip iç olayı olmayan {len(uzun)} · 1,2 sn'den kısa {len(kisa)}\n"]
@@ -48,12 +51,12 @@ sec = None
 for r in rows:
     b = segs[re.match(r'^([A-Z]\d+[a-z]?)', r['at']).group(1)]['bolum']
     if b != sec:
-        sec = b; out += [f"\n## {b}\n", '| plan | başlangıç | süre | katman | set | kare | hareket | söz |', '|---|---|---|---|---|---|---|---|']
-    flag = ' ⚠' if (r['sure'] > 8 and not r.get('olay')) or r['sure'] < 1.2 else ''
+        sec = b; out += [f"\n## {b}\n", '| plan | çekim | başlangıç | süre | katman | kit / set | kare | hareket | söz |', '|---|---|---|---|---|---|---|---|---|']
+    flag = ' ⚠' if (r['sure'] > 8 and not olayli(r)) or (r['sure'] < 1.2 and not r.get('montaj')) else ''
     kare = r['kare'] + (f" **[yazı: {r['yazi']}]**" if r.get('yazi') else '') + (f" _(geçiş: {r['gecis']})_" if r.get('gecis') else '') + (f" — iç olay: {r['olay']}" if r.get('olay') else '')
-    out.append(f"| {r['id']} | {fmt(r['t'])} | {r['sure']:.1f}{flag} | {r['k']} | {r['set']} | {kare} | {r['hareket']} | {r['soz'][:140]} |")
+    out.append(f"| {r['id']} | {r.get('cekim', '')} | {fmt(r['t'])} | {r['sure']:.1f}{flag} | {r['k']} | {r.get('kit', '')} / {r['set']} | {kare} | {r['hareket']} | {r['soz'][:140]} |")
 open(os.path.join(ROOT, 'animatik', 'plan_tablosu.md'), 'w').write('\n'.join(out) + '\n')
-json.dump([{k: r[k] for k in ('id', 'at', 't', 'sure', 'k', 'set')} for r in rows], open(os.path.join(ROOT, 'animatik', 'zamanli.json'), 'w'), ensure_ascii=False, indent=0)
+json.dump([{k: r[k] for k in ('id', 'at', 't', 'sure', 'k', 'set') + (('kit', 'cekim') if 'kit' in r else ())} for r in rows], open(os.path.join(ROOT, 'animatik', 'zamanli.json'), 'w'), ensure_ascii=False, indent=0)
 print(out[1].strip())
 for e in errs: print('  HATA', e)
 for r in uzun: print(f"  uzun {r['id']} {r['sure']:.1f} sn  {r['soz'][:90]}")

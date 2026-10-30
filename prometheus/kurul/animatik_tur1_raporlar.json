@@ -1,0 +1,804 @@
+[
+ {
+  "uye": "yonetmen-Dram",
+  "rapor": {
+   "scores": {
+    "A1": 7.5,
+    "A2": 7.5,
+    "A3": 7,
+    "A4": 8.5,
+    "A5": 7.5,
+    "A6": 7.5
+   },
+   "verdict": "RED",
+   "summary": "Ağırlıklı ortalama 7,55 (A1 7,5·0,20 + A2 7,5·0,20 + A3 7,0·0,20 + A4 8,5·0,15 + A5 7,5·0,15 + A6 7,5·0,10). Karar RED.\n\nGüçlü yanlar:\n- Geri çağrı ağı iyi kurulmuş: P004↔P133, P005→J04, P007→P250 (negatif geçiş), P011→P288, P023→P275, P022→P276, P127→P234, P129→P243, P210→P264, P016→P291, P097→P286.\n- Üç taht motifi iyi işliyor.\n- 13 bölümün hepsi kendi sorusuyla açılıyor.\n- Fırtınada hızlı kesmelerin ardından P259'daki durgun yakın plan yerinde bir zıtlık.\n\nPuanı düşüren dört yapısal sorun var.\n\n1. Üç doruğun ikisi kurguda eziliyor.\n- **J04 açılımı (P237):** 3,5 sn'lik planın 0,5 sn'si ink geçişi. Kamera, bilekten Olympos'a kadar uzun bir yukarı kaymayı fiilen ~2 sn'de yapmak zorunda. Zeus \"köle\" kelimesinde (1085,93) ancak ~0,9 sn görünüyor.\n- Aynı ödeme daha önce iki kez harcanıyor: P014'te zincir tahtın içine giriyor, P158'de zincir boş tahta gidiyor.\n- **I12 (P261–P263):** oyunun son görüntüsü olan \"kaya onu ve perileri yutar\", iki sayfa arasında 2,3 sn'lik bir plana sıkışmış (P262). Bu sürenin 1,3 sn'si geçiş. \"Gömülene\" kelimesi (1210,94) ekranda sayfa varken söyleniyor.\n\n2. Katmanlar arasında sürekli gidip gelme var.\n- Filmde 79 katman değişimi ve 84 çözülme var; ortalama 18 sn'de bir.\n- Kurulun \"tek cümlede kenar şeridi\" kararı uygulanmamış. Tek cümlelik Erhat araları tam beyaz zemin geçişiyle veriliyor: P039, P052, P157 (3,2 sn), P216, P236, P243.\n- P088'in 1,5 sn'sinin 0,9 sn'si geçiş.\n\n3. Hareket ilkesi her planda yazılı değil.\n- 294 planın 79'unda hareket alanında tek katman var. Örnekler: P167, P236, P241, P269, P275'te yalnız \"yazı\".\n- P210'da \"kare donar\" yazıyor.\n- J01 donması 73 sn sürüyor ve bunun için tanımlı bir kural yok.\n\n4. Psikolojik anlar için ortak bir görüntü dili yok.\n- F14, G07b, G12b, H05b ve I08 tek tek iyi düşünülmüş. Ama \"şimdi onun içindeyiz\" dediğimizi izleyiciye tanıtacak tutarlı bir kod yok.\n- Gözbebeğinde yansıma (P026, P069, P145, P218) ve bölünmüş kare (P184) gibi seçimler üslubun zayıf alanında kalıyor ve şemaya kayıyor.\n\nSomut hatalar:\n- F14@bana çapası, \"hiçbir acı | bana habersiz gelmeyecek\" yan cümlesini ortadan bölüyor. Doğrusu F14@bana#1.\n- K01@nedir çapası \"İnsan | nedir?\" sorusunu iki plana bölüyor.\n- P103'te Zeus'un tahtı devriliyor. Mitte Zeus düşmez. Bu plan, VIII–IX. bölümleri taşıyan \"Sıra kime?\" gerilimini erken harcıyor.\n- Kartal gölgesi ödemesinden önce iki kez kullanılıyor (P208, P228).\n- P288 ve P292 aynı kapak karesini 25 sn arayla iki kez veriyor.\n- P001'de 0,3 sn kararma var; kurul \"kararma yok\" demişti.\n\nZweig/Dostoyevski tonu:\n- Malzeme var: P144 rüzgârın durması, P147 yarım kalıp silinen söz, P183b kenardan dökülen toz, P199 göğsünde ışık olmayan tek figür.\n- Bunlar bir sisteme bağlanırsa (aşağıdaki \"iç ses\" kuralı ve \"söz görünür\" kuralı), anlatımdaki iç çatışma görüntüde de taşınır.\n- Zweig'ın \"yıldız anı\"nı I07b şartı ve J04 açılımı taşımalı. Bu da ancak zaman genişletilirse olur: uzun kamera hareketi, sesin düşmesi, kelimeye bağlı iniş.\n\nDüzeltmelerin çoğu ucuz (çapa ve geçiş değişikliği) ve yeni ses gerektirmiyor. Uygulanırsa ikinci turda 9'un üstü mümkün.",
+   "fixes": [
+    {
+     "plan": "P235–P238 (J02–J04), ayrıca P014, P158, P005",
+     "problem": "Filmin ana açılımı sıkışık. P237 3,5 sn ve 0,5 sn ink geçişiyle açılıyor. Uzun yukarı kayma ~2 sn'ye iniyor. Zeus J04@köle'de (1085,93) ancak ~0,9 sn görünüyor. P236'nın beyaz zemin arası, açılımdan hemen önce iki çözülme yaratıyor. Ödeme önceden iki kez harcanıyor: P014'te zincir tahtın içine giriyor, P158'de boş tahta gidiyor.",
+     "fix": "Kayma J02@ama'da (1080,01) başlasın. Kamera P235'teki bilekten zincir boyunca yukarı çıksın.\n- P236 beyaz zemine geçmesin. 'Ama bakalım, gerçekten de öyle mi? · s. xiii' sorusu, kayan planın üstünde Erhat'ın kalem şeridi olarak görünsün (x 80–760, y 90–300).\n- J04@gerçekte'de (1084,87) bulutlar açılsın. J04@zeus'ta (1085,51) taht görünsün. J04@köle'de kamera Zeus'un kelepçeli bileğinde dursun (bilek ~960,420; taht üst yarıyı doldursun). P005'teki altın pırıltının bu kelepçe olduğu böylece anlaşılsın.\n- Tek plan ~6 sn sürsün, çözülme olmasın. J04@prometeus'ta (1086,85) sert kesmeyle P238'e geçilsin.\n- P014'te zincirin öbür ucu sayfanın üst kenarından çıksın, taht görünmesin.\n- P158'de zincir bulutlara girip kaybolsun, tahta ulaşmasın.\n- Boş taht her görünüşünde bir derece daha çatlasın: P114 sağlam → P208 ilk çatlak → P211 titrer → P224 soluk düşüş görüntüsü. Böylece J04'te 'boş taht'ın aslında hiç boş olmadığı ortaya çıkar.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P259–P263 (I11–I12)",
+     "problem": "Oyunun son görüntüsü (kaya onu ve perileri yutar) P262'de 2,3 sn'ye sıkışmış. Bu sürenin 1,3 sn'si geçiş (ink 0,5 + 0,8). 'Perilerle birlikte gömülene dek' (I12@gömülene, 1210,94) ekranda P261'in sayfa frizi varken söyleniyor; söz ile görüntü kayıyor. Akış K → B → K → B diye gidip geliyor.",
+     "fix": "P261 kırmızı figür KAYA'da kalsın. 'Erhat'ın dikkat çektiği gibi' yalnız kalem şeridi ve ERHAT etiketi olsun. Susan ve konuşan Prometheus panoları bu şeridin içinde küçük bir vinyet olarak verilsin.\n- I12@dünya'da (1208,23) kaya yarılsın. I12@gömülene'de (1210,94) kaya Prometheus'u ve perileri yutup kapansın.\n- I12@son'da (1212,65) kare tümüyle sır siyahına dönsün. Ekranda yalnız P260'taki son sözün ateş renkli harfleri havada kalsın (y 380–520).\n- Bu harfler tek bir ink geçişiyle (0,8 sn) P263'teki alıntıya dönüşsün. Bölümde yalnız bir çözülme kalsın.\n- I12 sonundaki 4,25 sn'lik sessizlikte yalnız 'özgür' kelimesi parlasın; mürekkep geri çekilsin.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P039, P052, P071, P088, P099, P157, P181, P216, P241, P243",
+     "problem": "Filmde 79 katman değişimi ve 84 çözülme var (56 ink, 23 clay); ortalama 18 sn'de bir. Kurulun 'tek cümlede kenar şeridi' kararı uygulanmamış.\n- Tek cümlelik ya da yarım cümlelik Erhat araları tam beyaz zemin geçişiyle veriliyor: P157 3,2 sn, P216 3,8 sn, P243 4,3 sn.\n- P088'in 1,5 sn'sinin 0,9 sn'si geçiş.\n- P088 kırmızı figürde, oysa E10 Hesiodos'un anlatısı; katman dilbilgisi bozuluyor.",
+     "fix": "Yeni bir kural: 'Erhat'ın kalemi'.\n- Tek cümlelik Erhat iddiası, o anki siyah ya da kırmızı figür karenin üstüne sepya bir kalem çizgisiyle eklensin: daire, alt çizgi ya da etiket, yanında ERHAT · s. … künyesi. Bu ek üst 2/3'te kalsın, altyazı bandına inmesin. Çözülme olmasın.\n- Uygulanacak planlar: P039 (DEVRİM yazısı amforanın üstüne), P052, P157 (madalyondaki figürün çevresine kalemle daire; P048'in geri çağrısı), P216 (çatlak, kalemle TAHT setinin üstüne), P241, P243.\n- Tam beyaz zemin geçişi yalnız iki ve daha çok cümlelik öbeklerde kalsın.\n- P088 siyah figürde aynı kompozisyonla çizilsin; kafiye kompozisyondan gelsin. P087 ile tek plan olsun, giriş ve çıkış sert kesme.\n- P099 (rapsod) beyaz zemin sayfasında çerçeve içinde siyah figür vinyet olsun.\n- Hedef: en çok ~45 çözülme. Bütün geçişler ≥0,5 sn olsun ve hiçbir geçiş planın süresinin %20'sini aşmasın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "79 tek katmanlı plan (ör. P030, P064, P145, P167, P236, P241, P269, P275), P210, P233–P246",
+     "problem": "Kullanıcının birinci isteği 'animasyon hiç durmasın'. Ama planların %27'sinde hareket alanında tek katman yazıyor; bazılarında yalnız 'yazı'. P210'da 'kare donar' yazıyor ve bu duruş 3,3 sn'lik sessizliğe uzanıyor. J01 donması 73 sn sürüyor (17:38–18:51); o süre boyunca neyin hareket ettiği tanımlı değil. P232'de ikonların üstü çiziliyor: sorgunun doruğunda bir şema, ve kırmızı figür sette beyaz zemin dilbilgisi.",
+     "fix": "Her setin varsayılan ikinci katmanı plan tablosuna yazılsın:\n- KAYA: rüzgâr (saç, sakal, zincir) ve kazık tozu.\n- SAYFA: kâğıt nefesi (%0,5 ölçek) ve ilerleyen kalem ucu.\n- AMFORA/KYLIX: dönüş ve gövdede kayan ışık.\n- METOP: pano içi kayma ve figürlerde nefes.\nTek katmanlı 79 planın her birine bir kamera hareketi eklensin.\n\nP210'da kare donmasın: yay tam gerili tutulsun, kiriş titresin, post dalgalansın. P264 aynı kareden devam edip oku bıraksın.\n\nDonma kuralı:\n- Donma J01'in başında değil, J01@durduralım'da (1060,45) başlasın. O anda müzik ve rüzgâr kesilsin, yalnız ateş çıtırtısı kalsın.\n- Donmuş sahne solgun kil renginde olsun. Toz ve kıvılcımlar havada asılı kalsın. Kamera bu asılı parçacıkların arasında paralaksla ilerlesin. Yalnız ateş, zincirdeki altın ışık ve J04'teki Zeus renkli olsun.\n- P245'te renk önce gökteki bulutlara gelsin. I08b@dönelim'de (1131,99) parçacıklar düşmeye devam etsin ve renk tümüyle geri gelsin.\n\nP232: ikonlar çıkarılsın. Yerine Hermes geri çekilsin, çizmelerindeki kanatlar dursun; yukarıda boş tahtın gözleri kısılsın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P101–P103 (E15–E16), P224",
+     "problem": "P103'te Zeus'un tahtı devriliyor ve kaidede insan duruyor. Mitte Zeus hiç devrilmez: Prometheus sırrı verir. Bu kare 7:52'de 'Sıra kime?' sorusunun cevabını görüntüyle harcıyor. Oysa VIII–IX. bölümler (P211 titreyen taht, P224 soluk düşüş görüntüsü, J04) bu gerilimle yürüyor. İzleyici 16:20'de çatlak tahtı yeniden gördüğünde 'zaten düşmemiş miydi?' diye sorar.",
+     "fix": "P103'te taht devrilmesin.\n- E16@üçüncü'de (476,06) tahtın önünde bir insan figürü doğrulsun. E16@insan'da (478,78) figürün gölgesi büyüyüp tahtı örtsün. Taht yerinde ama içi boşalmış kalsın (P101'deki silinmiş ayaklar sürsün).\n- Üçüncü tahtın düşüşü filmde yalnız P224'te, soluk bir görüntü olarak gösterilsin.\n- Bu, Erhat'ın 'devrim insanın bilincindedir' okumasına daha sadık; J04'teki 'taht hep doluydu' ödemesini de korur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P144–P147 (F14), P162–P163 (G07b), P183b–P184 (G12b–G13b), P198–P199 (H05b), P228 (I08), P259 (I11)",
+     "problem": "Psikolojik anlar tek tek iyi seçilmiş ama ortak bir görüntü dili yok. P145'teki gözbebeği yansıması ve P184'teki bölünmüş kare (göz ↔ beden) şemaya kayıyor ve üslubun zayıf alanında kalıyor.\n\nÇapa hatası: P146 F14@bana'ya bağlı, o da ilk 'bana' (660,38). Bu yüzden 'hiçbir acı | bana habersiz gelmeyecek' yan cümlesi kesmeyle ortadan bölünüyor.",
+     "fix": "'İç ses' kuralı:\n- Rüzgâr ve ortam sesi kesilir, yalnız nefes kalır.\n- Kamera en yakın büst planına geçer ve çok yavaş iter.\n- Arka plan sır siyahına koyulaşır.\n- Figürün kenarından tek tük toz kopar.\n\nUygulanacak yerler:\n- **F14:** rüzgâr F14@ama'da (655,16, fısıltı) dursun, F14 bittikten ~1 sn sonra (674,5) geri gelsin. Bu ~19 sn, filmin tek rüzgârsız bölümü olur.\n- **P145:** kartal, fırtına ve okçu, bakış çizgisi yönünde gök alanında soluk kırmızı figür siluetler olarak geçsin (x 200–900, y 150–450); gözbebeği kullanılmasın. Bu sahne sonraki üç motifi de önceden göstermiş olur.\n- **P146:** çapa F14@bana#1 olsun (662,34). P145 5,7 sn'ye uzar.\n- **G07b:** P163'te kamera geriye ve yukarıya, ÜST açıya (kartal bakışı) çekilsin. Periler kadrajdan çıksın. İzleyici, acımayı reddeden tanrının bakış yerine geçer.\n- **G12b–G13b:** P184'teki bölünmüş kare yerine P145'in soluk görüntüleri bu kez dolu ve ağır geri gelsin ('bilmek' soluk, 'yaşamak' dolu).\n- **H05b:** P198'deki ışıklar P097'deki ELPİS ışığının biçiminde olsun. P199'da Prometheus'un göğsü ışıksız kalsın; onu yalnız ovadaki ateşlerin yansıması aydınlatsın.\n- **I08@eyvah:** 0,7 sn rüzgâr kesilsin, kenardan toz kopsun, tek bir zincir halkası sarsılsın.\n- **P259:** fırtınanın gözünde aynı kural uygulansın; I11'de bu dilin karşılığı alınır.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P208, P228, P248–P250",
+     "problem": "Kartal gölgesi kurulumunun ödemesi I08b–I08c (kurul kararı: 'kartal gelmez, yalnız gölgesi geçer'). Ama gölge daha önce P208'de (İo) ve P228'de ('Eyvah') kullanılıyor; oysa kartal tehdidi oyunda 1021. dizede gelir. P249 'SOFRA' (symposion masasında davetsiz kartal) yeni ve tanımsız bir set; üstelik vazo üslubunda gülünç okunabilir.",
+     "fix": "Kartal gölgesi yalnız P248–P250'de kullanılsın. P208'de yukarıda boş tahtın ilk çatlağı kalsın, kartal olmasın. P228 için 6. maddedeki 'Eyvah' çözümü uygulansın.\n\nP249 kaldırılsın. Yerine:\n- KAYA setinin tanımlı ama hiç kullanılmamış ÜST kamerası (kartal bakışı) gelsin. Kamera gökten küçük zincirli figüre doğru sarmal çizerek insin.\n- I08b@ziyafet'te (1148,29) kartalın gölgesi gövdeyi tümüyle örtsün.\n- Gerekirse I08b@çağrılmamış'ta (1145,17) kısa bir pençe silueti görünsün.\n\nYeni set gerekmez, tehdit izleyicinin kendi bakışından verilir.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P137–P143 (F13), P255–P258 (I10)",
+     "problem": "F13'teki ilk sözler, [reverently] okunan yavaş bir yakarış. Görüntüde ise ~11 sn'de 6 kesme var (1,3 / 2,2 / 1,8 / 1,7 / 2,8 / 2,9 sn). I10'daki fırtına da aynı biçimde hızlı kesmelerle verilmiş. Aynı öğeler, aynı sırayla ve aynı ritimle geliyor; kurulum ve ödeme arasındaki zıtlık kayboluyor. Ayrıca fırtınada Prometheus'un 'konuşmakta direndiği' hiç görünmüyor.",
+     "fix": "P138–P142 tek bir sürekli panorama planı olsun (635,76–647,20).\n- F13@ey'de gök ve harflerin yükselişi.\n- F13@hızlı'da rüzgâr başları.\n- F13@ırmakların'da kayadan inen su çizgileri.\n- F13@deniz'de karenin kendi alt dalga bordürü (y 1040–1080) pırıl pırıl 'gülsün'.\n- F13@sen'de kayanın dibi.\n- F13@bakın'da (647,20) kayadan yüze çıkış.\n\nI10'da P255–P258 aynı öğe sırasıyla hızlı kesme olarak kalsın; böylece kafiye ritimle kurulur.\n\nP256 ile P257 arasına 1,2 sn'lik bir ara plan eklensin, çapası I10@rüzgarlar (1187,75): Prometheus'un ağzından akan yazı rüzgârda parçalanıyor ama akmaya devam ediyor. Bu, I12'deki 'konuşmakta direnir'in kurulumudur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P126–P127, P138, P147, P180, P220–P222, P234, P251, P260–P263, P279b",
+     "problem": "'Söz' filmin tezi: 'son söz özgür düşüncenindir', 'düşünceye gem vurulamaz'. Planlarda söz yazıları var ama tek bir sistemde birleşmiyor. Güç'ün sözü, Hermes'in emri ve Prometheus'un sözü aynı 'söz yazısı' kalıbıyla veriliyor.",
+     "fix": "'Söz görünür' kuralı:\n- **Prometheus'un sözleri:** ağzından akan dipinto harfler, kil rengi, ateşe dönük kenar ışığıyla; serbest akar ve havada kalır (P138, P180, P222, P251, P260).\n- **Güç'ün sözü:** taşa ve kil levhaya kazınır, katı ve donmuş durur (P126–P127, P234).\n- **Hermes'in sözleri:** mühür gibi basılır (P220–P221).\n- **Sessizlik:** harf yoktur (P132–P135).\n\nÖdemeler:\n- P147'de yazı yarım kalıp silinir: susamamak ile konuşamamak arası.\n- P262'de kaya kapandığında yalnız Prometheus'un harfleri kalır.\n- P279b'de bu harfler kanatlanıp sayfadan kaçar.\n\nBir kez kurulduğunda izleyici 'kim konuşuyor, nasıl konuşuyor' sorusunu anlatıcıdan önce görüntüden okur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P001–P003, P012–P014",
+     "problem": "P001'de 0,3 sn kararmayla açılış var; kurulun kararı 'ilk kare kapak karesi, kararma yok'.\n\nİlk 5 sn'de 3 kesme var. P002 1,2 sn ve [slowly][deep voice] okunan cümleyle çelişiyor.\n\n'Bile bile' kelimesi (A01@bile, 2,08) P001'in koşusuna düşüyor. Geri bakış (P003) ise ancak 'Titan düşün'de (4,66) geliyor.\n\n0:27–0:38 arası künye ve sayfa bölgesi; tutma açısından en riskli bölge ve hikâye görüntüsü burada kayboluyor.",
+     "fix": "P001, ilk kareden itibaren kapak karesi olsun, kararma olmasın. İlk ses zincir şıkırtısı olsun (kurul kararı). Kapak A kazanırsa, ateşi tutan bilekte prangayla kısa zincir ucu ilk karede görünsün.\n\nP001–P003 tek sürekli plan olsun (0–6,42):\n- A01@bile'de gövde ileri koşarken baş omuzun üstünden Olympos'a dönsün. Gövdeyle başın zıt yönü 'bile bile'yi taşır.\n- A01@insanlara'da (3,46) kamera ovaya eğilsin, ocaklar yansın.\n- P004'e beyaz çakmayla sert kesme.\n\nP012–P013 boyunca sayfanın sol kenarında küçük kırmızı figür bir Prometheus zincire asılmayı sürdürsün (x 80–360, y 300–700; gerilme döngüsü). Bu figürün zinciri P014'te soru işaretine dönüşsün.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P286–P288, P292",
+     "problem": "Kapak karesi 25 sn içinde iki kez kullanılıyor (P288 ve P292); P292'nin doğrudan hitabı zayıflıyor. P288'deki ateş kaynaksız. Oysa P286'da küçük insan figürü elinde ateşle yürüyor ve 'insan = Prometheus'un ülküsü' bağı görüntüde kurulabilir.",
+     "fix": "P286–P287'deki küçük insan figürü, elindeki ateşi P288'de kapanan kitabın kapağına taşısın. Ateşli PROMETHEUS harfleri onun ateşiyle tutuşsun.\n\nP288, K06@prometeustur'da (1392,72) P011'in kompozisyonuna kesme yapsın: harfler ve arkada zincirli siluet. Bu, açılış başlığının tam halkasıdır.\n\nK06 sonrasındaki 4 sn'lik sessizlikte bu harflerden tek bir kıvılcım süzülsün.\n\nKoşan kapak karesi (rezene alevi) yalnız P292'de, M02@olsan'da (1414,06) alev izleyiciye uzatılırken kullanılsın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P015, P105, P026, P069, P218; tanımsız 18 set",
+     "problem": "Sanat belgesi yüz ve el yakın planlarından kaçınmayı söylüyor. Buna karşın P015 ve P105'te kavuşturulmuş eller içinde avuç alev, P026/P069/P218'de göz makro ve gözbebeği yansıması var.\n\nAyrıca planlar.json'daki 'setler' alanı yalnız 8 seti tanımlıyor; plan listesi 18 tanımsız set daha kullanıyor: OVA, TİYATRO, MADALYON, FRİZ, MAĞARA, SOFRA, GALERİ, ATÖLYE, SAHNE, MASA, İKİ TABAK, DÜNYA DİSKİ ve diğerleri. Bu da kodla üretimin yükünü büyütüyor.",
+     "fix": "P015 ve P105'te 'bir avuç ateş', rezene sapının ağzındaki köz olsun: P087'deki nesne. Böylece filmin tek ateş nesnesi olur (P001, P015, P087, P105, P166, P292).\n\nP026, P069, P218'de göz makro yerine profil büst kullanılsın; görüntü bakış çizgisi yönünde, gök alanında belirsin.\n\nSetler birleştirilsin:\n- MADALYON, İKİ TABAK ve DÜNYA DİSKİ, KYLIX tondo kodunu kullansın.\n- OVA, MAĞARA ve ATÖLYE, KAYA setinin alt kameraları olsun.\n- TİYATRO ve SAHNE tek set olsun (akşam, gündüz, modern).\n- GALERİ ve MASA, SAYFA setinin türevleri olsun.\n- SOFRA kaldırılsın (7. madde).\n\nKalan setlerin tarifi planlar.json'a yazılsın.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P133–P134, P185, P016/P107, P148/P211/P245",
+     "problem": "P134 1,1 sn (⚠). P133 ile P134 arasındaki kesme, tekrarı görüntüye değil kesmeye yüklüyor.\n\nG13b'deki 'Yine de geri adım atmaz' cümlesinden sonraki 3,5 sn'lik sessizlik (831,98–835,52) için tanımlı bir olay yok.\n\nBölüm açılışları aynı kalıpta: I ve V aynı tiyatro setinde benzer vinç hareketiyle açılıyor; VI, VIII ve X aynı KAYA geniş planıyla.",
+     "fix": "P133 ile P134 tek plan olsun. F10b@çekiç ve F10b@daha'da iki vuruş olsun. Kompozisyon ve 0,15 sn'lik beyaz çakma P004'le birebir aynı olsun; izleyici açılıştaki anın bu an olduğunu anlar.\n\nP185, G13b@yine'den (830,50) başlayıp sessizlikte üslup karesinin gerilme döngüsünü oynatsın: ayak ileri basar, zincir gerilir, kazıktan toz dökülür. 'Geri adım atmaz' görüntüde de karşılanır.\n\nP107, P106'daki maskeden başlayıp geri çekilerek tiyatroyu açsın (P016'nın ters hareketi).\n\nAçılışlarda kamera yüksekliği değişsin: P148 ALT, P211 ÜST, P245 GENİŞ.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P281–P287 (K01–K06)",
+     "problem": "K bölümünün %69'u beyaz zemin; doruktan sonraki en soyut kısım.\n- P281b'nin çapası K01@nedir. 'İnsan | nedir?' sorusu iki plana bölünüyor.\n- P281b ve P282 art arda iki kez 'doğrulma' gösteriyor.\n- P284'ün 'yine çıkar' hareketi 'insan olmuştur'a (K02@insan#1) bağlı. Oysa anlam 'her seferinde yeniden'de.",
+     "fix": "P281b'nin çapası K01@insan olsun (1345,55). Figür dört ayak üstünde kalıp yukarı baksın: soru. Ancak P282'de, K02'nin cümle başında ayağa kalksın: cevap.\n\nP284'ün çapası K02@insan#2 olsun (1361,61).\n\nP283'te figür filmin kendi üst meander bordüründen dışarı adım atsın (y 0–36). Bu, vazonun çerçevesinden çıkmanın görüntüsüdür.\n\nP281–P287 tek ve uzun bir sayfa üstünde soldan sağa süren tek bir yan kayma olsun. Aynı küçük figür sırayla bütün durakları geçsin: doğrulma, çerçeveden çıkış, gelenek süslerini atma, küpten dönme, çalışan friz. Soyut kuyruk görüntüde ilerleyen bir yolculuğa döner.",
+     "priority": "küçük"
+    }
+   ],
+   "questions": [
+    {
+     "to": "yönetmen (meslektaş)",
+     "q": "J04 kayması J02@ama'da (1080,01) mı başlasın, J02@erhat'ta (1078,59) mı? İlki 'öyle mi?' sorusunu yukarı yolculuğa bağlıyor, ikincisi daha uzun bir yükseliş veriyor. Bir de P103: Erhat'ın 'üçüncü ve son devrim olup bitmiştir' sözü sence tahtın devrilmesini gösterecek kadar güçlü mü? Yoksa ben de 'taht kalır, insanın gölgesi onu örter' diyorum, sen de buna katılır mısın?"
+    },
+    {
+     "to": "izleyici/tutma",
+     "q": "Her bölüm öncesindeki ~3,3 sn'lik sessizlik 13 kez tekrarlanıyor (toplam ~43 sn). build_vo'daki bölüm boşluğu ~2,3 sn'ye indirilebilir mi, yoksa bu nefesler tutma için gerekli mi? K bölümünde beyaz zemin oranı %69. 14. maddedeki tek yan kayma ve 'yolculuk' çözümü düşüş riskini sence yeterince azaltır mı?"
+    },
+    {
+     "to": "görsel kurgu",
+     "q": "'Erhat'ın kalemi' kırmızı figür sır siyahının üstünde yeterince okunur mu? Sepya çizgi kontrast için açık kâğıt rengi bir alt şeritle mi verilmeli? Bir de: J01 donmasında havada asılı parçacıkların arasında paralaks kamera, mevcut kaya.js katmanlarıyla tek planda yapılabilir mi?"
+    },
+    {
+     "to": "görsel kurgu",
+     "q": "P242'deki 180° dönüşte SANIK ve YARGIÇ etiketleri altyazı bandına (y>720) düşmeden yer değiştirebiliyor mu? Dönüş, P237–P240'taki yukarı ve aşağı kamera eksenleriyle çakışıp izleyicinin yön duygusunu bozar mı?"
+    },
+    {
+     "to": "kapak/CTR",
+     "q": "P001'in ilk karesi hangi kapağa birebir eşlenecek? Kapak B (ASIL TUTSAK ZEUS) zincirli Zeus'u gösteriyorsa, J04'ün iniş karesi kapak B'nin kompozisyonuyla aynı mı kurulmalı ki vaat tam karşılansın? Kapak A seçilirse bilekteki pranga ilk karede görünmeli mi?"
+    },
+    {
+     "to": "izleyici/tutma",
+     "q": "0:27–0:38 arasındaki künye bölgesinde (P012–P013) sayfa kenarında süren küçük zincirli figür 0:30 denetim noktası için yeterli mi? Yoksa 1967 bilgisini kapak karesinin üstüne kalem şeridi olarak verip sayfaya ancak A05'te mi geçmeli?"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "yonetmen-Gorsel",
+  "rapor": {
+   "scores": {
+    "A1": 7.5,
+    "A2": 8,
+    "A3": 7.5,
+    "A4": 8.5,
+    "A5": 7.5,
+    "A6": 8
+   },
+   "verdict": "RED",
+   "summary": "yonetmen-Gorsel, ağırlıklı ortalama 7,80: RED (hiçbir ölçüt 7'nin altında değil, ama eşik 9,0). Sözcük çapaları sıkı, geri çağrıların çoğu kurulmuş: Güç'ün levhası P127→P234, F13→I11 göğe hitap, \"Dikkat ettin mi?\" P132→P261, okçu P210→P264, kylix negatif geçişi P006↔P250, ateşli PROMETHEUS harfleri P011→P288. Asıl sorun imge sisteminde. Dört sistem hatası var.\n\n(1) Katmanlar gidip geliyor. 294 planda 82 katman değişimi var; 26 katman bloğu 7 saniyeden kısa. Taht kavgası bölümünde 144 saniyede 12 değişim, J dorukunda 41 saniyede 6 değişim oluyor. Kurul \"tek cümlelik Erhat yorumu = kenar şeridi\" demişti; bu kural hiç uygulanmamış. Her tek cümlelik Erhat yorumu tam beyaz zemin geçişiyle veriliyor. Sonuçta \"şimdi kim konuşuyor?\" okuması gürültüye dönüşüyor.\n\n(2) Filmin ana kurulumu, \"zincirin öbür ucu\", baştan harcanıyor. P014'te zincir 0:36'da tahta giriyor, P158'de 12:05'te boş tahta uzanıyor. Açılım ise (P237) yalnızca 3,5 saniye. Üstelik P237 ve P239'da Zeus görünüyor. Bu üç şeyle çelişiyor: F05b (\"hiç görünmeyecek\"), J06 (\"görünmeyen yargıç\") ve kararlar.md (\"Zeus görünmez\").\n\n(3) P242'deki 180° dönüş Prometheus'u baş aşağı çeviriyor; ikonografide bu yenilgi diye okunur. Ayrıca \"tahterevalli\" fikriyle çelişiyor.\n\n(4) Erhat'ın beyaz zemin sayfaları çoğunlukla canlı ama sistem metne fazla yaslanıyor:\n- 124 planda (%42) ekranda yazı var, 43'ü tırnaklı alıntı. Kurul yaklaşık 5 tam sayfa alıntı öngörmüştü.\n- P109, P167, P236 ve P241 salt yazı kartı. P241, doruktaki alıntıyı (J06) taşıyor.\n- 79 plan tek hareket katmanı yazıyor.\n\nDiğer imgeler:\n- Üç taht tek bir sabit nesne değil. P072–P073 zaten devrik tahtları yeniden deviriyor. Son bölümde (K) taht motifi ödenmiyor.\n- Kartal gölgesi P208 ve P228'de harcanıyor. Oysa kurul kararına göre gölge yalnızca I08b'nin ödemesi.\n- I12'de kaya, metin \"gömülene dek\" dedikten sonra yutuyor; söz ile görüntü ters sırada.\n- Altın renk ateşe ayrılmışken Zeus'un bileziğinde, karaciğerde ve Hermes'in tasmasında da kullanılıyor.\n- ELPİS küpü P062'de \"armağan\" diye kuruluyor; oysa armağan Pandora.\n- Themis (Adalet) I11'de ödenmiyor.\n\nÖnerilerin hepsi yeni set gerektirmiyor. Kenar şeridi, sayfa üstünde plaka, terazi pivotu ve katman içi teknik değişimi kodla kolay yapılır. P249'daki yeni SOFRA seti bile kaldırılıyor.",
+   "fixes": [
+    {
+     "plan": "P028, P039, P047, P049, P052, P068, P071, P088, P099 (taht kavgası, Zeus'un dinmez öfkesi ve Mekone bölümleri)",
+     "problem": "82 katman değişimi var; taht kavgası bölümünde (1:26.9–3:58.8) 144 saniyede 12 değişim oluyor. Tek cümlelik Erhat yorumları tam beyaz zemin geçişiyle veriliyor ve her biri 0,5–0,6 sn mürekkep/kil çözülmesi demek. Kurulun 'tek cümlede kenar şeridi' kuralı uygulanmamış. P088 1,5 sn sürüyor; bunun 0,9 sn'si geçiş.",
+     "fix": "Tek cümlelik Erhat yorumları kenar şeridine çevrilsin, alttaki katman yerinde kalsın. Şerit: üst bordürün altından inen krem şerit, 1920×200, y=40–240. Solda 'ERHAT · s.' etiketi (x=80), ortada 2–4 kelime, sağda sepya simge; 3–5 sn sonra yukarı çekilir.\n\nŞeride çevrilecek planlar: P039 (C07@erhat, 2:31.72), P052 (C17@erhata, 3:36.98), P071 (D10, 5:22.4; TAHT dizisi siyah figürde kalır).\n\nKatmanı değişecek planlar:\n- P068 (D09, 5:09.1): siyah figür kalsın. Amfora üstündeki ΠΡΟΜΗΘΕΥΣ yazısı ΠΡΟ + ΜΗΘΕΥΣ diye ayrılır.\n- P088 (E10@insanlara): P001 kompozisyonunun siyah figür eşi olsun; düz kesme, çözülme yok.\n- P028 (C02@bir#1): beyaz zemin olsun (C02 tümüyle Erhat'ın cümlesi).\n- P047 ve P049: P046'dan P048'e uzanan beyaz zemin bloğunda kalsın. Sayfaya yapıştırılmış siyah figür ve kırmızı figür madalyonlar olarak verilir.\n- P099 (E15): P098'den P103'e uzanan beyaz zemin bloğuna girsin; Hesiodos, sayfadaki siyah figür bir iç kare olur.\n\nHedef: yaklaşık 20 değişim daha az. Aynı ilke Başkaldıran yaratık bölümündeki K08a planlarına da uygulanmalı (bkz. madde 14).",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P014, P158, P236, P237, P239",
+     "problem": "Ana kurulum, 'zincirin öbür ucu', önceden harcanıyor: P014'te (0:36.2) zincir tahta giriyor, P158'de (12:05.4) boş tahta uzanıyor. Açılım P237'de yalnızca 3,5 sn ve uç, başlangıçtan 2,5 sn sonra görünüyor. Zeus P237'de ilk kez görünüyor, P239'da tahtta küçülüyor. Bu, F05b ('Yargıç hiç görünmeyecek'), J06 ('görünmeyen yargıç tutsak') ve kararlar.md'deki 'Zeus görünmez' ile çelişiyor.",
+     "fix": "Dört adımlı bir merdiven kurulsun: P005 pırıltı → P106 kadraj dışı → P158 bulut kapanır → P237 açılım.\n- P014: zincirin öbür ucu sayfanın üst kenarından taşsın; taht yok, soru işareti kıvrımı kalsın.\n- P158: kamera zinciri yukarı izlesin. G06@zincirindeydi (12:07.70)'de bulutlar kapanır, P005'teki soğuk pırıltı görünür, uç görünmez.\n- P236 (J02@erhat, 17:58.59): kenar yazısına dönüşsün. P014'teki zincir soru işareti geri gelir ve J02@bakalım (18:00.17)'da düzleşerek tırmanan zincire dönüşür. Tırmanış burada başlar ve yaklaşık 6 sn sürer.\n- P237: uç J04@köle (18:05.93)'de görünsün. Tahtın kolunda karanlıktan uzanan bir bilek ve soğuk beyaz kelepçe (P005'teki pırıltının kendisi). Yüz ve gövde görünmez.\n- P239 (J05): Zeus'un yerine yalnız gölgesi. Taht büyür, oturanın gölgesi J05@çocuk (18:14.29)'da çocuk gölgesine küçülür; çevrede eğilen uşak siluetleri.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P233–P246 (J bölümü ve X bölüm kartı)",
+     "problem": "Doruk parçalı: 17:58.6–18:39.5 arasında 6 katman değişimi var, iki salt yazı kartı var (P236, P241). P235'te donmuş karede 'nefes' yazıyor, P246'da 'donma çözülür' yazıyor; ama aradaki planlarda donmuş kare görünmüyor, bu yüzden çözülmenin anlamı yok. Kararlar.md 'J01'de sahne donar ve krem kâğıda çözülür' diyordu.",
+     "fix": "Sayfa üstünde plaka kullanılsın. J01@durduralım (17:40.45)'da KAYA karesi donar, renkleri solar. Kare krem sayfa üstünde 1280×720'lik bir plakaya küçülür (sol üst köşe 320,70); yalnız alev renkli kalır.\n\nErhat'ın alıntıları sağ kenar sütununa el yazısıyla yazılır (x=1630–1880). Alt üçte bir altyazıya boş kalır.\n\nP234–P244 bu düzende kalsın:\n- levha (P234) sol kenara gelir;\n- tırmanış (P237) plakanın içinde olur;\n- P241, plakadaki zincirin gerilmesiyle P242'yi hazırlar.\n\nP245'teki bölüm kartı donuk plakada verilsin; yalnız bulutlar ve alev hareket eder. P246'da I08b@sorguya (18:51.43) anında plaka tam kareye açılır ve renkler geri gelir.\n\nKodla: KAYA sahnesi ekran dışı bir tuvale çizilir, ölçeklenip sayfaya basılır.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P242, ayrıca P114, P158, P211, P217",
+     "problem": "P242'deki 180° dönüş Prometheus'u baş aşağı çeviriyor; ikonografide bu düşüş ve yenilgi diye okunur, anlam ters çıkar. Ayrıca 'tahterevalli' tarifiyle çelişiyor. Dikey eksen (aşağıda sanık, yukarıda taht) planlar boyunca aynı yerde kurulmadığı için yer değiştirme bir bakışta okunmaz.",
+     "fix": "Dikey eksen sabit bir kamera ön ayarı olsun (KAYA/EKSEN): Prometheus (760,820), boş taht (1160,170), aralarında zincir. Bu ayar P114 (8:56.0), P158, P211 (15:58.7), P217 ve P237'de aynen kullanılsın.\n\nP242 (J06@yani, 18:27.97): eksen bir teraziye ya da tahterevalliye dönüşür, pivot (960,540).\n- J06@sanık (18:30.61): kaya ucu yükselir.\n- J06@yargıç (18:32.67): taht ucu iner.\n- Figürler dik kalır.\n\nTerazi, P046 ve P154'teki Themis (Adalet) terazisiyle aynı çizim olsun. Böylece I11'de ödenir.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "79 plan (ör. P046, P128, P149, P167, P236, P241, P251, P261, P269, P276, P282–P287, P292)",
+     "problem": "79 plan (%27) 'hareket' sütununda tek katman yazıyor. P046 10,9 sn boyunca yalnız 'terazi salınır'. Beyaz zemin planları arasında kesme var, bu yüzden 'yaşayan sayfa' sürekliliği kopuyor.",
+     "fix": "planlar.json'a her katman için bir 'taban hareketi' eklensin; bütün planlara otomatik uygulanır.\n- Siyah figür (S): amforanın dönüşü ya da pano kayması, toz zerreleri.\n- Kırmızı figür (K): saça, sakala ve zincire rüzgâr; ateş titremesi; dalga kuşağının akışı; 2–3 px/sn itme.\n- Beyaz zemin (B): sayfa kayması (5 px/sn) ve lamba ışığı titremesi.\n\nB blokları içinde kesme olmasın. Blok tek bir sayfa (açık kitap) olsun; plan sınırları kameranın durakları olsun. Örnekler: P063–P065 (4:34.9–4:57.0), P098–P103, P281–P287.\n\nLamba ışığı M00'daki masa lambası olsun. P289'da kamera sayfadan geri çekilip lambalı masayı gösterir; bütün Erhat sayfaları o masada açılmış olur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P208, P228, P249, P250, P265",
+     "problem": "Kurul kararına göre I08b'de kartal gelmez, yalnız gölgesi geçer. Ama gölge önceden iki kez harcanıyor: P208 (15:40.2) ve P228 (EYVAH, 17:15.5). P228 için bu ayrıca yanlış: inilti sorgudan, kartaldan değil. P250'de kartal 'yaklaşıyor'. P249 yeni bir SOFRA seti açıyor ve tehdit anında komik okunma riski taşıyor.",
+     "fix": "P208'deki gölge kaldırılsın; yalnız taht çatlasın. P228'de gölge yerine zincir sarsıntısı ve 0,1 sn beyaz çakma olsun.\n\nP249 (I08b@çağrılmamış, 19:05.17): yeni set açılmasın. Açılıştaki Lakonya kylixi bir sempozyum masasında durur; ziyafet kupası açılış kupasının kendisidir. Kamera tondoya dalar.\n\nP250: P007'nin kompozisyonu birebir gelsin (güneş diski, inen kartal). Negatif geçişle kırmızı figür göğüne döner; yalnız gölge kayar ve I08c@bedeli (19:14.65)'te Prometheus'un göğsünde durur.\n\nP265: AMFORA yerine aynı kylixin tondosu kullanılsın; Herakles, açılıştaki her gün gelen kartalı aynı kupada vurur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P260–P263",
+     "problem": "Söz ile görüntü ters sırada: 'dünya başına yıkılana, perilerle birlikte gömülene dek' (20:08.97–20:10.94) beyaz zemin sayfasında (P261) duyuluyor. Kayanın yutması (P262) ancak 20:12.7'de geliyor ve yalnız 2,3 sn sürüyor. Fırtınanın son imgesi iki sayfanın arasına sıkışıyor (B→K→B).",
+     "fix": "P261 kırmızı figür olsun. Kaya I12@yıkılana'da kapanmaya başlar, I12@gömülene'de Prometheus'u ve perileri yutar. F10b'deki 'susan→konuşan' iki pano kenar şeridi olur (x=1500–1880, y=60–300).\n\nI12@son (20:12.65)'te sözler kapanmış kayanın üstünde havada asılı kalır. P263'e mürekkep geçişiyle geçilir.\n\nSonuç: B→K→B yerine K→B, fırtınanın son imgesine yaklaşık 9 sn.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P024, P039, P045, P046, P070–P074, P101, P103, P215, P216, P277, P282",
+     "problem": "Üç taht tek bir sabit nesne değil; kompozisyon plandan plana değişiyor. P071 tahtları devrik gösteriyor, ardından P072–P073 aynı tahtları yeniden deviriyor ('devrilmişti' geçmiş zaman). P215 ile P216 iki ayrı kompozisyon. Son bölümde (K) taht motifinin ödemesi yok; kararlar 'K'de insan figürü doğrulur' demişti.",
+     "fix": "TAHT dizisi tek nesne olsun: x=560/960/1360, taban y=760, yükseklik yaklaşık 300; dipinto ΟΥΡΑΝΟΣ / ΚΡΟΝΟΣ / ΖΕΥΣ. Tahtın durumu anlatıcıyı söyler:\n- S (Hesiodos): Zeus'un tahtı sağlam.\n- B (Erhat): E16'dan sonra devrik, kaidede ayakta bir insan.\n- K (Aiskhylos): çatlak ve titrek.\n\nP072–P074 tek kamera hareketi olsun: devrik iki tahtın boyunca kayar (D11@uranos 5:27.82 ve D11@kronos 5:29.74'te toz savrulur), üçüncüde durur.\n\nP215→P216 (I03@erhat, 16:20.88): aynı kompozisyonda katman içi teknik değişimi (kil→kâğıt), sayfa s. x'e geri çevrilir.\n\nSon bölümde ödeme:\n- P277 (K08a@erhatın#1, 21:47.85): Prometheus üç tahtın ortasında durur.\n- P282 (K02@insan, 22:34.15): P188'in eğilen frizinden kalkan insan, P103'teki boş kaidenin önünde ayakta durur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P109, P167, P236, P241 ve tırnaklı alıntılı 43 plan",
+     "problem": "Erhat'ın yaşayan sayfası yer yer yazı kartına dönüşüyor. P109, P167, P236 ve P241 salt yazı; P241 doruktaki J06 alıntısı. 124 planda (%42) ekran yazısı var, 43'ü tırnaklı alıntı. Kurul yaklaşık 5 tam sayfa alıntı öngörmüştü. Ses, altyazı ve ekran yazısı aynı cümleyi üç kez veriyor.",
+     "fix": "Tam sayfa sepya alıntı 5'e insin: P181, P238 (J04), P263, P282, P288. Öbür alıntılar sabit 'ERHAT · s.' etiketi (sol üst, 80,80) ve 2–4 kelimelik anahtar söz olsun.\n\nSalt yazı planlarına imge:\n- P109 (F03, 8:29.8): P020'deki insanla tanrı arasında duran figür geri gelir. F03@insandır'da insan tarafına adım atar.\n- P167 (G09, 12:43.7): rezene alevi kâğıdı yakar. Yanık delikten P169'un uygarlık frizi görünür; bu aynı zamanda geçiş olur.\n- P236 ve P241: bkz. maddeler 2 ve 3.\n\nKırmızı figürdeki 'söz yazısı' yazıtları da azaltılsın, 8 anahtar dizede kalsın: EY KUTSAL GÖK, İSTEYEREK, Ben ölemem bile, EYVAH, şart (P231), Ne yaparsa yapsın, Hainlerden nefret…, Görüyor musun.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P015, P104, P105, P274, P288, P292",
+     "problem": "Avuç ve ateş motifi dağınık. P015 7,8 sn süren bir el yakın planı (üslubun zayıf alanı) ve iç olayı yok. P104–P105, P015'in eşi olarak kadrajla bağlanmıyor. Kapak karesi dört kez kullanılıyor (P001, P088, P288, P292). P288 tek planda iki imge taşıyor.",
+     "fix": "Tek bir 'avuç ve alev' varlığı tasarlansın: siluet eller, alev (960,600)'da.\n- P015 (A05@ve, 38.74): eller P002'deki ovadan bir ölümlünün avucu olsun, Prometheus'un değil. A05@öfkelendiren (40.36)'da gökte soğuk şimşek titrer; A05@avuç (42.44)'te alev 'bir avuç'a küçülür.\n- P104–P105: aynı kadraj, aynı eller.\n- P274 (L06@el): aynı el.\n- P292 (M02@ateşi, 23:36.50): alev, kadrajın altından giren izleyicinin avucuna konur (öznel plan).\n\nP288 yalnız kapanan kitap kapağında ateşli PROMETHEUS harfleriyle bitsin. P289'a eşleşen kesmeyle geçilsin: aynı kitap çevirmenlerin masasında, mürekkep geçişi yok. Kapak karesi üç kez kalır: P001, P088, P292.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P005, P009, P097, P165, P198, P226, P237, P240, P286",
+     "problem": "Sanat yönetiminde altın renk ateşe ayrılmış, ama Zeus'un bileziğinde (P005), karaciğer nabzında (P009) ve Hermes'in tasma ipinde (P226) de altın kullanılıyor. Umut ışıklarının rengi tanımlı değil; ateşle karışabilir.",
+     "fix": "Renk kodu:\n- altın = ateş ve akıl;\n- soğuk beyaz = Zeus ve yıldırım (P005, P226, P237'deki kelepçe);\n- karaciğer = C.red;\n- umut = soluk, soğuk ve küçük ışık. P097, P165, P198 ve P286'da aynı boyut ve aynı yavaş nabız.\n\nP240'ta (J05@onu, 18:16.85) altın ışık Prometheus'un ucundan Zeus'un soğuk beyaz ucuna akar: Zeus'un Prometheus'a bağımlılığı renkle okunur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "Bütün geçişler (ör. P049, P104, P106, P112, P237, P270, P288; bölüm kartları P016, P056, P075, P148, P186, P211, P245, P264)",
+     "problem": "Geçişlerin dilbilgisi karışık. 'ink' hem beyaz zemine girişte hem beyaz zeminden kırmızı figüre dönüşte kullanılıyor (21 kırmızı figür girişi ink). 'clay' hem siyah figür girişi hem bölüm kartı. İzleyici geçişten katmanı okuyamıyor.",
+     "fix": "Her katmanın kendi giriş geçişi olsun:\n- S = kil ve kazıma çizgisi;\n- K = sır akışı: zemin siyaha boyanır, figür kilde kalır; kırmızı figür tekniğinin kendisi, kodla büyüyen bir maske;\n- B = mürekkep.\n\nBölüm kartının geçişi ayrı olsun: kil levha sallanarak iner.\n\nNegatif geçiş yalnız kartal bağı için iki kez kullanılsın (P006, P250).",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P062, P094, P097, P286",
+     "problem": "P062'de (D04@epimeteusa, 4:29.33) 'armağan' küp olarak kuruluyor. E12'de ise armağan Pandora; izleyici armağanın küp olduğunu sanır. Umut ışığının P097'den P286'ya yolu tasarımda bağlanmamış.",
+     "fix": "P062'de peçeli bir kadın silueti kucağında küçük bir küple kaysın. D04@armağan (4:30.94)'da kurdele görünür, küpün kapağı titrer.\n\nP097'deki ışık P286'daki ışıkla aynı varlık olsun. P286'da (K04@umuda, 22:54.89) figür küpü kapalı bırakır ve elinde ateşle uzaklaşır: umut soluk, ateş altın.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P259, P267, P270, P274, P277–P280, P281b, P079, P044",
+     "problem": "Küçük kopukluklar:\n- Themis (Adalet) I11'de ödenmiyor.\n- P267 kayıp oyun papirüsü siyah figürde; P018 kırmızı figürdü.\n- P270 Goethe'yi kırmızı figüre koyuyor; katman yanlış atanmış.\n- P273→P274→P275 ve K08a bölgesi (21:35–22:19) yine katman değiştirip duruyor.\n- P281b'deki 'dört ayaktan doğrulma' (evrim) imgesi K02'nin cevabını yanlış veriyor.\n- P079'daki röntgen taraması vazo dünyasına yabancı.\n- P044 1,8 sn'ye üç öğe sığdırıyor.",
+     "fix": "- P259: I11@adalet (19:57.73)'te fırtına bulutlarında P153'teki ΘΕΜΙΣ madalyonu soluk belirsin; terazisi bir an dengelensin.\n- P267: kırmızı figür olsun; P018'in üç papirüsü aynı kompozisyonda.\n- P090→P270→P271: aynı yoğurma hareketi üç kez. P270 beyaz zemin olsun, krem sayfada tek kil renkli figür.\n- P274: siyah figürle başlayıp plan içinde beyaz zemine dönsün, P275 ile kesintisiz bağlansın.\n- P277, P278, P280: tam geçiş yerine P276'nın bölünmüş karesinin sol yarısında kanıt panoları olsun.\n- P281b: yalnız soru, ve P188'in eğilen frizi soluk belirsin. Doğrulma P282'ye kalsın.\n- P079: tarama yerine siyah figür kazıması; çizgi yağı kazır, kemik görünür.\n- P044: yalnız bebek ve keçi silueti; Kuretler yalnız seste duyulsun.",
+     "priority": "küçük"
+    }
+   ],
+   "questions": [
+    {
+     "to": "yonetmen (meslektaş)",
+     "q": "J bölümü için iki çözüm var: plakayı sayfa üstüne koymak (benim önerim) ya da kırmızı figürü tam karede tutup kenar şeritleri kullanmak. Hangisi doruğun sürekliliğini daha iyi korur? Açılımda yalnız bilek ve kelepçe (Zeus görünmez) yeterince güçlü bir ödeme mi?"
+    },
+    {
+     "to": "izleyici-tutma (her iki üye)",
+     "q": "Hangi kapak seçildi (A mı B mi)? P001 (ateşle koşan Titan) ilk 5 saniyede o kapağın vaadini karşılıyor mu? Kararlar 'ilk ses çekiç ya da zincir' diyor, çekiç ise 6,4. saniyede (P004). Açılış sırası değişmeli mi?"
+    },
+    {
+     "to": "izleyici-tutma (her iki üye)",
+     "q": "21:35–23:17 arasında yaklaşık %70 beyaz zemin var (P275–P287) ve bu, düşüş riski taşıyan kuyruğa denk geliyor. Bu bölgede kırmızı ve siyah figür kanıt panoları eklemek ya da ateş rengini kademeli olarak sokmak tutma açısından yeterli mi?"
+    },
+    {
+     "to": "görsel kurgu (her iki üye)",
+     "q": "Kenar şeridinin y=40–240 bandına konması, kırmızı figür setinde figürün başıyla (Prometheus'un başı yaklaşık y=300) çakışır mı? Sağ kenarda dikey bir şerit (x=1560–1880) daha mı güvenli? Kısa planlardaki 0,4–0,5 sn'lik çözülmeleri (P133, P262) kesmeye çevirmeyi destekliyor musunuz?"
+    },
+    {
+     "to": "görsel kurgu (her iki üye)",
+     "q": "B bloklarında 'tek sayfa, kesmesiz kamera' kuralı, sözcüğe bağlı kesme vurgularını (Wd) zayıflatır mı? Vurguları kamera duraklarıyla ve mürekkep vuruşlarıyla vermek yeterli olur mu?"
+    },
+    {
+     "to": "kaynak/filolog kurulu (bilgi için)",
+     "q": "P287'deki 'Tek ülkümüz insan olmak' · s. vi ekranda tırnakla veriliyor; önsözde birebir böyle mi geçiyor? Ses (K06) bunu kendi cümlemizle söylüyor. P241 (J06) ve P279 (K08c) alıntılarında sayfa numarası yok; hangi sayfalar?"
+    },
+    {
+     "to": "sanat/üslup kurulu",
+     "q": "Tek bir 'avuç ve alev' siluet varlığını (P015, P104, P274, P292) ve tahtın kolundaki bilek ile kelepçeyi (P237) yeterli okunurlukta çizebilir miyiz? Sınırımız el ve yüz yakın planı. Eller kadrajın yüzde kaçını kaplarsa güvenli olur?"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "izleyici-Tutma",
+  "rapor": {
+   "scores": {
+    "A1": 8,
+    "A2": 8.5,
+    "A3": 7.5,
+    "A4": 8,
+    "A5": 8,
+    "A6": 7.5
+   },
+   "verdict": "RED",
+   "summary": "Ağırlıklı ortalama 7,95 (A1 8 · A2 8,5 · A3 7,5 · A4 8 · A5 8 · A6 7,5). Karar RED: eşik 9,0'ın altında, ama hiçbir ölçüt 7'nin altında değil. Ölçümleri timeline.js (CUES/WORDS), vo/plan.json ve zamanli.json'dan aldım.\n\nKapak ve ilk 5 sn:\n- A kapağı (\"BİLE BİLE ÇALDI\") tam karşılanıyor. P001 kapak karesi; \"bile bile çalıp\" 2,1–3,5 sn'de duyuluyor.\n- B kapağı (\"ASIL TUTSAK ZEUS\") 5 sn'nin dışında kalıyor. Zincir ve kaya ilk kez 6,4 sn'de, Zeus'a bağ 9,3–11,4 sn'de geliyor.\n- P001'deki \"siyah→açılış 0,3 sn\", kararlar.md'deki \"kararma yok\" kuralına aykırı.\n- Çekiç vuruşu A02'nin ilk hecesiyle çakışıyor. Oysa A01–A02 arasında 1,04 sn'lik boş bir sessizlik var.\n\nRiskli aralıklar, öncelik sırasıyla:\n1. 0:27–0:46: 0:30 eşiği (Sisifos'ta %63). Krem sayfada ad, yıl ve künye var. Ardından P015 geliyor: 7,8 sn'lik el yakın planı, son 3,3 sn'si konuşmasız.\n2. 0:43–1:59: 76 sn boyunca mit aksiyonu yok, yalnız çerçeve anlatısı var. Görsel, soğuk açılışa bağlanmalı.\n3. Bölüm sınırları: 13 bölüm sonu sessizliği 2,1–4,25 sn (toplam 43 sn). Kart, soru cümlesinin ilk kelimeleriyle aynı anda açılıyor.\n4. 17:35–18:03, doruğun hemen öncesi: 28 sn düşük hareket (donma, levha, B sayfası). Ana döngünün cevabı yalnız 6,2 sn sürüyor. J bölümünde 50 sn içinde 6 katman değişimi var.\n5. 20:04–20:26: fırtınadan sonra K/B arasında gidip gelme. I12'nin en güçlü görüntüsü ekranda yok. 4,25 sn sessizlik ve yeni kart sahte son etkisi yaratıyor.\n6. 21:35–23:07: 21. dakikada ortalama plan 7,3 sn; 22. dakikanın 51 sn'si krem sayfa.\n7. 23:13–23:17: kapak karesi, 4 sn sessizlik ve XIII kartı. Yorum çağrısı bu sahte sondan sonra geliyor.\n\nAyrıca:\n- Bitiş ekranı zamanlaması uymuyor. M03'te \"ekranda\" sözü 23:43,8'de geçiyor; öğeler ancak 23:47,0'da açılabiliyor.\n- 79 planda (%27) hareket alanında tek katman yazılı.\n- Yüz ve ağız animasyonu planlanmış: P146 ve P147 (8+ sn), P132.\n\nSağlam olan yapı, ölçümle:\n- Üç açık döngü: \"asıl tutsak\" 0:09→18:03, \"avuç ateş\" 0:38→8:02, \"NASIL?\" 1:25→21:35.\n- 13 bölümden 12'si soruyla açılıyor (XIII hariç).\n- Ritmi kelimeye bağlı plan dizileri: P133–P134, P138–P142, P171–P176, P255–P258.\n\nEksik olan:\n- \"NASIL?\" döngüsü 20 dk boyunca hiç hatırlatılmıyor.\n- \"İnek geçidi\" kancası 70 sn bekliyor.\n\nÖnerdiğim düzeltmeler kredi harcamıyor. Sessizlik kısaltması vo/plan.json'da yapılıyor (secGap, sonra), build_vo yeniden çalışınca uygulanır.",
+   "fixes": [
+    {
+     "plan": "P001–P005",
+     "problem": "P001'de 'siyah→açılış 0,3 sn' var; kararlar.md 'kararma ve logo yok' diyor. Çekiç vuruşu P004'te (A02, 6,42) anlatıcının ilk hecesiyle çakışıyor. B kapağının görsel vaadi geç geliyor: kaya ve zincir 6,4 sn'de, Zeus'a bağ 9,3–11,4 sn'de; ikisi de 5 sn'nin dışında.",
+     "fix": "(a) P001 0,00'da tam kare açılsın, kararma olmasın. Ses başlamadan önceki 0,0–0,7 sn'ye zincir şakırtısı konsun.\n(b) P002 ile P003 tek kesintisiz kamera hareketine birleşsin. A01@insanlara (3,46) anında kamera ovaya iner. A01@titan (4,66) anında geri çıkar ve omzunun üstünden Olympos'a bakan Prometheus'u bulur.\n(c) P004, A01'in sonuna alınsın (≈5,40; yeni çapa 'A01>' ya da A01@düşün+0,25). Böylece çekiç ve beyaz çakma A01–A02 arasındaki 1,04 sn'lik sessizliğe düşer; kaya ve zincir 5,5 sn'de ekranda olur.\n(d) B kapağı kazanırsa: P005'te A02@tutsak (10,50) anında zincirin ucunda bulut aralansın. Yalnız altın kelepçeli bilek ve himation kenarı 0,8 sn görünsün (yüz yok), sonra bulut kapansın. P237 açılımı bu karenin birebir eşi olsun.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P015 (+ yeni P015b)",
+     "problem": "0:38,7–0:46,6 (7,8 sn), ilk dakikanın ilk durgun noktası:\n- Kavuşturulmuş elleri yakın plan gösteriyor; el yakın planı üslubun zayıf yanı.\n- Hareket yalnız yaklaşma ve alev.\n- Son 3,3 sn'de konuşma yok.",
+     "fix": "P015 OVA/ORTA kompozisyon olsun:\n- Altta oturan bir insan siluetinin avucunda küçük alev. El yakın plan değil, siluet ölçeğinde; alev karenin en parlak noktası.\n- Üst 2/3'te Olympos bulutları.\n- A05@öfkelendiren (40,36) anında bulutlarda şimşek titresin, uzaktan gök gürültüsü gelsin.\n\nYeni P015b, A05@avuç (42,44) anında başlasın: kamera aleve iner, alev nabız gibi atar.\n\nKonuşma bitince (43,3) kıvılcım yükselip bölüm kartının kil levhasına dönüşsün (bkz. bölüm geçişleri düzeltmesi). P105 (8:02,5) bu kompozisyonun eşi olarak kalsın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "Bölüm geçişleri: P016, P025, P056, P075, P107, P148, P186, P211, P233, P245, P264, P275, P289",
+     "problem": "13 bölüm sonu sessizliği 2,1–4,25 sn sürüyor, toplam 43 sn. En uzunları:\n- I12→L01: 4,25 sn (20:21,8)\n- K06→M00: 4,04 sn (23:13,0)\n- G13b→H01: 3,54 sn (13:52,0)\n\nSessizlik önceki planın hareketsiz kuyruğunda harcanıyor. Kartın 0,8 sn'lik clay/ink geçişi, soru cümlesinin ilk kelimeleriyle aynı anda başlıyor.",
+     "fix": "Sessizliği kısalt (vo/plan.json, kredi harcamaz, build_vo yeniden çalıştırılır):\n- secGap 1,4 → 0,8.\n- Bölüm sonu cümle boşluklarına 1,2 tavan: I12 2,2→1,2; K06 2,4→1,0; D11, E16b, F14, G13b 1,8→1,2; A05, C18, H10, J10 1,6→1,2.\n- Sonuç: bölüm sessizliği ≈2,0–2,6 sn, toplam ≈13–15 sn kazanç.\n\nKartı sessizliğe taşı:\n- Kart geçişi, önceki bölümün son cümlesinin bitişine + 0,6 sn'ye bağlansın. Bunun için yeni çapa biçimi 'ID>' = CUES[ID].e.\n- Kart sessizlikte ≈1,5 sn okunur; soru, oturmuş karenin üstünde başlar; kart soru boyunca kalır.\n- YouTube bölüm damgaları kartın ilk karesine konsun.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P233–P243 (17:38–18:47, doruk)",
+     "problem": "Ana döngünün cevabı (\"asıl tutsak\", 0:09'da açıldı) yalnız 6,2 sn sürüyor (P237 + P238).\n\nÖncesinde 28 sn'lik düşük hareketli bir blok var:\n- P233: 7 sn donma;\n- P234: 7,6 sn levha;\n- P235: zincir;\n- P236: B sayfası.\n\nJ bölümünde 50 sn içinde 6 katman değişimi var (K→B→K→B→K→B→K). P236 ve P243 tek cümlelik Erhat dizileri; kararlar.md'deki etiket kuralına göre kenar şeridi olmalılar.",
+     "fix": "P233: donma J01@asıl (17:42,5) anına kadar sürsün. Orada solgun karede kamera bilekteki zincire doğru itmeye başlasın.\n\nP236, KAYA→OLYMPOS planına dönüşsün. J02@erhat (17:58,6) anında kamera zinciri bilekten yukarı tırmanmaya başlar. Alıntı kenar şeridinde durur: \"Ama bakalım… · s. xiii\".\n\nP237 geçişsiz devam etsin:\n- J04@zeus (18:05,5) anında zincir Zeus'un bileğinde biter.\n- J04@köle (18:05,9) anında kelepçe parlar.\n- Sonuç: tek kesintisiz ≈8 sn'lik açılım; P236 ve P237'deki iki ink geçişi kalkar.\n\nP243 de kenar şeridine dönsün: KAYA'daki köle frizinde baş kalkar. Tam sayfa sepya yalnız P241'de (\"tutukludur aslında\") kalsın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P012–P016 (0:27–0:52)",
+     "problem": "0:30 eşiğinde (Sisifos'ta %63) krem sayfada ad, yıl ve künye var:\n- P013 5,4 sn sürüyor ve tek olayı var (yazı çizgisi).\n- 1,0 sn'lik ink geçişi uzun.\n- Künye telefonda okunmuyor (izleyicinin %48'i telefonda).\n\nP016'daki tiyatronun soğuk açılışla görsel bağı yok.",
+     "fix": "P012: ink geçişi 1,0 → 0,5 sn. P011'in ateşli harflerinden kopan alev kalem ucuna dönüşsün ve sayfadaki tek parlak nokta olarak kalsın.\n\nP013 ikiye bölünsün:\n- A06@bin (30,79): '1967' damga gibi basılır, vuruş efektiyle.\n- Yeni P013b, A06@türkçeye (32,22): kitap kapağı görünür, üstünde P004'teki zincirli Prometheus'un küçük kırmızı figür vinyeti var; ardından ÖNSÖZ sayfası çevrilir.\n\nKünye ekrandan açıklamaya taşınsın; ekranda yalnız 'AZRA ERHAT · 1967' kalsın.\n\nP016: skene dekoru P004'ün kayası ve zincirli figürü olsun. B01@insanı (50,48) anında tanrı maskeleri arasındaki tek insan maskesi meşale ışığıyla yansın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P260–P264 (20:00–20:31)",
+     "problem": "Fırtına doruğundan sonraki 26 sn'de üç katman geçişi var (K→B→K→B).\n\nI12'nin en güçlü görüntüsü ekranda yok: \"dünya başına yıkılana, perilerle birlikte gömülene dek konuşmakta direnir\" sözü B sayfasında pano olarak veriliyor.\n\nP263 11,2 sn'lik sayfa, ardından 4,25 sn sessizlik ve yeni bölüm kartı geliyor; bu üçlü sahte son etkisi yaratıyor.",
+     "fix": "P261, KAYA/FIRTINA planına dönüşsün:\n- Kaya yarılır; Prometheus ve periler aşağı çekilir; ağzından dipinto yazısı akmaya devam eder.\n- I12@gömülene (20:10,9) anında kaya kapanmaya başlar.\n- I12@konuşmakta (20:11,5) anında yazı en parlak hâlindedir.\n- Susan→konuşan pano karşılaştırması kenar şeridine taşınır.\n\nP262 olduğu gibi kalsın (I12@son).\n\nP263 tek ink geçişiyle gelsin. I12@özgür (20:20,9) anında ateş harfleri parlasın. Konuşma bitince harfler kıvılcım olup sayfadan fırlasın; P264'te okçunun ok ucundaki parıltıya eşleşen kesme yapılsın. Aradaki boşluk bölüm geçişleri düzeltmesindeki gibi ≈2 sn olsun.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P288–P293 (23:07–24:07)",
+     "problem": "Sahte son ve bitiş ekranı zamanlaması:\n- P288'de kapak karesi, ardından 4,04 sn sessizlik ve 'XIII · ÇEVİRMENLERİN DİLEĞİ' kartı geliyor; bu dizi videonun bittiğini söylüyor. Yorum çağrısı (M02, 23:33) bu sahte sondan sonra.\n- P289 7,6 sn'lik bir natürmort; tek hareketi var.\n- M03'te 'Sisifos'un hikâyesi ekranda' sözü 23:43,8'de geçiyor. Bitiş ekranı öğeleri ise ancak son 20 sn'de, yani 23:47,0'dan sonra açılabiliyor.",
+     "fix": "XIII kartı ekrandan kalksın; açıklamada bölüm damgası olarak kalabilir.\n\nP288'deki alev, P289'daki lambanın alevine eşleşen kesmeyle bağlansın; aradaki boşluk ≈1,5 sn olsun.\n\nP289'a iki olay eklensin:\n- M00@çevrilemeyeceğini (23:21,1): müsveddedeki satırların üstü çizilir.\n- M00@sahnelenemeyeceğini (23:22,7): kenardaki küçük sahne çizimi silinir.\n- Bu arada iki kalem sırayla kendiliğinden yazar (el yok); lamba titrer, buhar yükselir.\n\nvo/plan.json'da 'sonra' 16,0 → 12,5 olsun. Film ≈3,5 sn kısalır ve son 20 sn penceresi M03@sisifosun (23:43,8) anına denk gelir.\n\nP288'in son karesi kazanan kapağın kompozisyonunu taşısın. B kazanırsa zincir yukarıda altın kelepçede biter.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P109 (+ P157, P216, P275; KAYA genişleri)",
+     "problem": "Filmin büyük sorusu \"NASIL?\" 1:25'te açılıyor, 21:35'te dönüyor; arada 20 dk boyunca hiç görsel hatırlatma yok. F03'teki \"önsözün öbür sorusu\" ifadesi, birinci soru ekranda görünmediği için havada kalıyor.",
+     "fix": "P109: sayfanın sol üstünde P023'ün NASIL? kartı soluk ve iğneli dursun. F03@öbür anında kamera kısa bir süre bu karta kaysın, sonra sağda ikinci soru yazılsın.\n\nAynı iğneli kart P157 (12:02) ve P216 (16:20) sayfalarının köşesinde küçük kalsın; P275'te büyüsün.\n\n\"Asıl tutsak\" döngüsü için: KAYA genişlerinde zincir tepede kadrajdan çıkarken orada sönük bir altın pırıltı dursun. Pırıltı ateşten en az 2 değer koyu olsun ki tek odak bozulmasın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P132, P135, P143–P147",
+     "problem": "Üslubun zayıf yanı olan yüz animasyonu planlanmış:\n- P147: 'ağzı açılır, kapanır', 8,3 sn.\n- P146: 8,2 sn yakın plan.\n- P144–P145: yakın plan ve göz.\n\nP132'deki 'her panoda ağzı kapalı' frizi telefonda okunmaz.",
+     "fix": "Konuşmayı vazo uylaşımıyla göster: söz, ağızdan çıkan dipinto yazısıdır.\n\n- P132: panolarda öteki figürlerin ağzından yazı aksın, Prometheus'unkinden hiçbir şey çıkmasın; boşluk kırmızıyla işaretlensin.\n- P147: KAYA/ORTA çerçeve, ağız animasyonu yok. F14@susabiliyorum (11:11,1) anında ağızdan çıkan yazı yarım kalır; F14@konuşabiliyorum (11:12,7) anında rüzgârda dağılır.\n- P146: ORTA'dan GENİŞ'e geri çekilme; F14@zorunluluğun (11:05,8) anında zincir gevşer.\n- P143–P145: yalnız göz kırpma ve saç/sakal rüzgârı olsun, dudak hareketi olmasın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "planlar.json 'setler' + tek katmanlı 79 plan",
+     "problem": "79 planın (%27) hareket alanında tek katman yazılı. Örnekler:\n- SAYFA: P046, P128, P149, P167, P236, P241, P261, P282–P287;\n- KAYA: P224, P230, P251.\n\nA3 ilkesi kâğıt üzerinde sağlanmıyor.\n\nKAYA seti 476 sn tutuyor (filmin %33'ü) ve 8:44–20:12 arasında ağır basıyor; tekdüzelik riski var.",
+     "fix": "Her sete zorunlu bir 'taban canlılık' katmanı tanımla ve tabloya yaz:\n- SAYFA: %2–3 yavaş itiş, kâğıt greninin titremesi, mürekkep kılcallanması, kenardan geçen sönük ateş ışığı.\n- TAHT: gölge salınımı.\n- KAYA: dalga kuşağı ve rüzgâr. Bunlar zaten var; tabloya yazılsın.\n\nKAYA setine bir bölüm saati ekle: güneş diski üst bantta V'ten X'e her bölümde ≈1/6 ilerlesin.\n- V: sabah;\n- VII: ikindi;\n- VIII: gün batımı;\n- IX: donma;\n- X: fırtına gecesi.\n\nBöylece izleyici ilerlemeyi farkında olmadan okur.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P275–P287 (21:35–23:07)",
+     "problem": "Filmin en yavaş bölümü:\n- 21. dakikada ortalama plan 7,3 sn.\n- 22. dakikanın 51 sn'si krem sayfa.\n- P275 + P276, B06 karesinin 12,7 sn'lik birebir tekrarı.\n- P282–P284 art arda üç 'doğrulma / çerçeveden çıkma' planı.",
+     "fix": "P276: geri çağrı değiştirilerek kullanılsın. Bölünmüş kare aynı kalır, ama sağdaki XX. yüzyıl figürü baştan ayaktadır. K08a@yaratabildi (21:46,7) anında dönüp Aiskhylos'a bakar; çizgi bu kez sağdan sola akar.\n\nP283 + P284 tek kesintisiz plan olsun:\n- Kamera iç içe meander çerçevelerinden geri çekilir; figür her çerçeveden çıkar (K02@doğaya ve K02@insan#1 anlarında birer çıkış).\n- Çerçeveler kırmızı figür vazo bordürü, zemin krem. İki katman tek karede birleşir ve 48 sn'lik B koşusu kırılır.\n\nP281'de (6,3 sn) K01@ilk anında sayfa çevrilsin.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P186–P210 (13:55–15:58)",
+     "problem": "\"İstanbul Boğazı\" kancası 13:55'te atılıyor. İo 15:06'da geliyor, cevap 15:26'da. Aradaki 70 sn başka tanıklara ayrılmış ve kanca görsel olarak hiç hatırlatılmıyor. P210'daki 'kare donar' notu da \"animasyon hiç durmasın\" ilkesine aykırı.",
+     "fix": "P190 (H02@uşakları#1, 14:17,4): mahkeme şeridine bir 'TANIKLAR' listesi insin:\n- KRATOS ✓ · BİA ✓ · HEPHAİSTOS ✓ · OKEANOS · PERİLER · İO;\n- İO'nun yanında soru işaretli bir boynuz simgesi.\n\nTanıklar sırayla işaretlensin: P191'de Okeanos, P195'te periler, P200'de İo. P200'de İo'nun simgesi boğaz dalgasıyla titresin.\n\nP210'da kare donmasın: yay gerili kalsın, post ve atsineği hareket etsin.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P268, P116, P291",
+     "problem": "Uygulanabilirlik (A6):\n- P268: 5,7 sn içinde dört ayrı çizim üslubu (vazo, kabartma, gravür, modern çizgi). Hem pahalı hem üslubun dışında.\n- P116: 'sürükleyerek getirir' karmaşık bir beden etkileşimi gerektiriyor.\n- P291: perde, seyirci ve sahneyle tamamen yeni bir set.",
+     "fix": "- P268: zincirli siluet tek çizgi dilinde kalsın, yalnız çerçeve değişsin (vazo bordürü → kabartma taşı dokusu → kitap sayfası → afiş kenarı). Geçiş galeri kaymasıyla olsun.\n- P116: vazo alayı uylaşımı kullanılsın. Üç figür soldan sağa profilden yürüme döngüsünde ilerler; Prometheus ortadadır ve zinciri iki uşağa gergin bağlıdır; figürler birbirine değmez.\n- P291: P016'nın TİYATRO seti yeniden kullanılsın. Perde yerine bir ışık dairesi açılsın; seyirci tek sıra siluet olsun.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P029, P044, P066, P099",
+     "problem": "- P029: ikinci dakikada 6 sn'lik bir 'ad etiketi' kartı.\n- P044: kesme C10@çocuk anında; \"O\" kelimesi önceki planda kalıyor.\n- P066: 7,7 sn ve iç olayı yok.",
+     "fix": "- P029: Hesiodos amforada asalı bir rapsod figürü olarak görünsün. C04@kaos (1:59,1) anında ağzından çıkan dipinto girdaba dönüşüp P030'a bağlansın. P099 (7:34,7) bu figürün geri çağrısı olur.\n- P044: kesme C10@o (2:53,4) anına alınsın.\n- P066: D08@geleceği (5:02,1) anında Prometheus'un gözünde bir kıvılcım yansın. Bu, P069'daki kâhin motifini önceden kurar.",
+     "priority": "küçük"
+    }
+   ],
+   "questions": [
+    {
+     "to": "yönetmen-1 / yönetmen-2",
+     "q": "P233'teki 7 sn'lik donma bilinçli bir 'Brecht durağı' mı? J01@asıl (17:42,5) anından sonra solgun karede kameranın hareket etmesini ve açılımın P236'dan (17:58,6) başlayıp tek kesintisiz ≈8 sn sürmesini kabul eder misiniz?"
+    },
+    {
+     "to": "yönetmen-1 / yönetmen-2",
+     "q": "B kapağı kazanırsa, P005'te Zeus'un yalnız bileğinin ve altın kelepçenin 0,8 sn görünmesi P237'deki büyük açılımı zayıflatır mı? Yoksa söz 0:09'da zaten söylendiği için açılım bir sürpriz değil de açıklama mıdır?"
+    },
+    {
+     "to": "görsel-kurgu-1 / görsel-kurgu-2",
+     "q": "Plan listesinde 82 katman değişimi (ortalama 18 sn'de bir) ve toplam 50 sn süren 84 geçiş var. Sizce bu bir ritim mi, parçalanma mı? Doruk bölümünde (J) tek cümlelik Erhat dizilerini kenar şeridine taşımak kodla uygulanabilir mi?"
+    },
+    {
+     "to": "görsel-kurgu-1 / görsel-kurgu-2",
+     "q": "P155–P156 ve P160–P161 Aiskhylos'taki Prometheus'un anlatısı, ama siyah figür (S) planlanmış. Bu, 'S = Hesiodos' okumasını bozmuyor mu? Kırmızı figür madalyon (K) olarak mı kalmalı?"
+    },
+    {
+     "to": "görsel-kurgu-1 / görsel-kurgu-2",
+     "q": "KAYA setinde gök sır siyahı. Güneş diskinin bölümden bölüme ilerlemesi, yani bir bölüm saati, bu zeminde telefonda okunur mu? Okunmuyorsa ilerlemeyi hangi değişken taşısın?"
+    },
+    {
+     "to": "izleyici-Tutma (meslektaş)",
+     "q": "Bölüm geçişi için hangisini önerirsin? (a) Sessizlik 2,0–2,4 sn ve kart sessizlikte. (b) Sessizlik 1,5 sn ve kart soru cümlesinin üstünde. Sisifos'ta bölüm sınırlarında belirgin bir düşüş gördün mü?"
+    },
+    {
+     "to": "izleyici-Tutma (meslektaş)",
+     "q": "B kapağının vaadi sözlü olarak 9,3 sn'de geliyor. Test ve karşılaştır izlenme süresi payına baktığına göre, B'nin ilk 15 sn'de daha fazla izleyici kaybetmesini bekler misin? Görsel düzeltmeden sonra bile A'yı birincil mi tutarsın?"
+    },
+    {
+     "to": "organizatör / kitle-Paket",
+     "q": "B kapağının ('ASIL TUTSAK ZEUS') görüntüsü ne olacak: Zeus görünüyor mu, yoksa yalnız yukarı giden zincir mi? P005 ve P288'in son karesi buna göre kilitlenmeli."
+    }
+   ]
+  }
+ },
+ {
+  "uye": "izleyici-Mobil",
+  "rapor": {
+   "scores": {
+    "A1": 8,
+    "A2": 8,
+    "A3": 8.5,
+    "A4": 8.5,
+    "A5": 8,
+    "A6": 8.5
+   },
+   "verdict": "RED",
+   "summary": "Ağırlıklı ortalama 8,23; RED. Hiçbir ölçüt 7'nin altında değil. Plan omurgası telefona uygun: ortalama plan 4,9 sn, ilk 23 sn ekran yazısı olmadan yalnız görüntü ve altyazıyla akıyor. SRT temiz: 352 satır, hiçbir satır 42 karakteri geçmiyor, ortalama okuma hızı 13,8 karakter/sn, en yüksek 19,1. Sorun altyazıda değil, ekranın geri kalanında. Somut bulgular şunlar:\n\n(1) Kırmızı figür setinin odağı altyazı bandında. Üslup karesinin en parlak pikseli olan ateş (825, 847) noktasında, yani alt üçte birde. kararlar.md \"ufuk 760, ateş altyazı bandının üstünde kalır\" diyor, ölçüm bunu doğrulamıyor. 390 px genişliğinde dikey oynatıcıyı iki satır altyazıyla taklit ettim. Kontroller açıkken ateş tamamen kapanıyor: /tmp/claude-0/-home-user/c3662c9d-24be-574f-ac5d-de35ddf76b95/scratchpad/mobil_sim.png. OVA ve DENİZ planları da asıl olayı (ocaklar, periler, dalga pırıltısı) kadrajın altına koyuyor.\n\n(2) Ekran yazısı çok fazla. 109 planda yazı var: 9,8 dk, filmin %41'i. Buna ek olarak 12 planda metni tanımlanmamış \"söz yazısı\" bulunuyor. Altyazıyla izleyen %38 için bu sürenin çoğunda iki metin aynı anda okunuyor. Kararlarda \"yaklaşık 5 doruk alıntı\" bütçesi vardı; animatikte 25 sayfalı ve 19 sayfasız tırnaklı yazı var.\n\n(3) Filmin tezi en okunaksız kart. \"Gerçekte Zeus köle, Prometheus özgürdür\" kartı (P238) 2,7 sn ekranda kalıyor; okuma hızı yalnız kart için 18,6 karakter/sn. Kısa planda uzun yazı sorunu P189, P159, P281b, P102 ve P220'de de var.\n\n(4) Ekran yazısıyla altyazının kelimeleri farklı: P014, P048, P287. İzleyici iki ayrı cümle okuyor.\n\n(5) Yazı boyutları dikey telefonda okunmuyor. lib/sayfa.js'teki varsayılan 62 px italik Cormorant, 30 px kaynak satırı ve 44–46 px Cinzel, 390 px genişliğinde oynatıcıda yaklaşık 5–6 px'lik harf yüksekliğine iniyor. Sayfa numarası y=1034'te, altyazının tam altında çiziliyor. Yazılar hareket bulanıklığına, sarsıntıya ve dönüşe de giriyor.\n\n(6) Taşıdığı anlam bir jest olan minik figürler telefonda kayboluyor. Örnekler: kenar şeritleri, baş çevirmeler, gözbebeğindeki görüntüler, harita, P171–P176 uygarlık simgeleri. Dikey telefonda %28 boyundaki bir figür yaklaşık 1 cm'dir. GENİŞ planlarda nefes ya da göz kırpma gibi küçük hareketler görünmez; bu planlarda iki hareket katmanından biri büyük ölçekli olmalı (kamera ya da geniş bir ışık değişimi).\n\n(7) Bölüm kartları başlığı soruyla aynı anda okutuyor. Oysa her bölüm sorusundan önce 2–4 sn sessizlik var ve şimdi önceki planın durağan kuyruğu olarak boşa gidiyor.\n\n(8) Bitiş ekranı zamanlaması tutmuyor. Bitiş ekranı en erken 23:47,0'da açılabiliyor, oysa anlatıcı \"ekranda\" kelimesini 23:44,9'da söylüyor.\n\nHepsi sesi değiştirmeden plan tablosunda ve lib yardımcılarında düzeltilebilir.",
+   "fixes": [
+    {
+     "plan": "KAYA seti ön ayarı ve kapak karesi (P001, P004, P088, P288, P292); OVA (P002, P086, P104, P164–P166, P198); KAYA/DENİZ (P141, P151, P152, P163, P195)",
+     "problem": "Üslup karesinin en parlak noktası olan ateş (825, 847) alt üçte birde duruyor (y>720). Dikey telefonda iki satır altyazı ve kontroller açıkken tamamen kapanıyor. OVA ve DENİZ planlarındaki olaylar (ocakların yanması, perilerin yükselmesi, 'sayısız gülüş' pırıltısı, P163'te 'periler aşağıdan bakar') da altyazı bandına düşüyor.",
+     "fix": "Kritik bölge kuralı konsun: yüz, el, ateş, gaga ve yazı y ≤ 700, x 96–1824 aralığında kalsın. KAYA'da büyük ateşi ve iki insanı y≈660'a taşı: ova ufku ~640'a insin ya da ateş öne bir çıkıntıya konsun. OVA için kamera aşağı eğik bir ön ayar kullansın: ufuk y≈330, ocak ve figürler y 380–690. DENİZ için deniz kuşağı y 380–700 arasında olsun. Periler x 160–620, y 360–690'da dursun (P163'teki 'aşağıdan' yerine). P001'de gövde, kalkık kol ve alev y 120–700'de olsun; bacakların banda girmesine izin var.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P041, P080, P093, P099, P119, P124, P125, P147, P156, P193, P222, P231 (tanımsız söz yazısı); P159, P226, P229, P230, P251, P253 (sahneden alıntı)",
+     "problem": "109 planda yazı var (9,8 dk, %41). 12 planda 'söz yazısı'nın içeriği tanımsız; P124 'Gücü yeni ele geçiren…', P080 'Hangisini istersen seç' gibi Türkçe cümleler, altyazı ve sesle üçüncü kez tekrarlanıyor. Telefonda kare + iki satır altyazı görüntünün %60'ını kaplıyor.",
+     "fix": "planlar.json _not'una kural olarak eklensin: yazi alanı olmayan söz yazısı süs amaçlı Yunan harf akışıdır (speechFlow, Yunanca harfler, ≤40 px, alfa .6), asla Türkçe cümle değildir. Kırmızı figürde sahneden alıntı yalnız geri çağrılarda ekranda kalsın: P126, P127/P234 levhası, P180, P208, P221, P228, P260. Şu planlardan Türkçe metin kalksın: P159 (karanlıktaki gözler taşır), P226 (tasma ipi), P229, P230 (güneş diski), P251 (alttan çevrinme), P253 (perilerin sırası). Hedef: yazılı süre ≤ ~6 dk (%25).",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P237–P239 (J04–J05)",
+     "problem": "Tez cümlesi “Gerçekte Zeus köle, Prometheus özgürdür.” · s. xiv (51 karakter) yalnız P238'de, 2,7 sn ekranda (yalnız kart için 18,6 karakter/sn). Filmin doruk cümlesi en okunaksız kart. Kararlardaki 'ÖZGÜR / KÖLE etiketleri J04'te yer değiştirir' de uygulanmamış.",
+     "fix": "Cümle zincirin iki ucunda iki kelimelik iki dipinto etikete bölünsün. P237'de J04@köle (18:05,9) anında Zeus'un bileği yanında (y≈220) 'ZEUS · KÖLE' yazılsın. P238'de J04@prometeus (18:06,85) anında Prometheus'un yanında (y≈420) 'PROMETHEUS · ÖZGÜR' yazılsın. İkisi de aynı kırmızı figür katmanında P239'a taşsın, J05@uşaklarına (18:11,6) anında solsun; böylece okuma süresi 5,7 sn olur. Sayfa bilgisi köşe etiketinde dursun: 'ERHAT · s. xiv'. Etiket kil açık renkte (≥4,5:1 karşıtlık), cap yüksekliği ≥ 90 px.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "Bölüm kartları: P016, P025, P056, P075, P107, P148, P186, P211, P233, P245, P264, P275, P289",
+     "problem": "Her kart, bölüm sorusuyla aynı anda açılıyor; başlık ve soru altyazısı birlikte okunuyor (P025, P148 ve P245'te kart yalnız 3,9 sn ekranda). P275'te NASIL?, kart ve altyazı üçü bir arada. Oysa her sorudan önce 2,1–4,3 sn sessizlik var ve önceki planın (ör. P147'nin 3,4 sn'lik kuyruğu) durağan sonu olarak boşa gidiyor.",
+     "fix": "Kart planı sorudan 1,8 sn önce başlasın. Yeni çapa biçimi: S('G01')−1,8 (P148 11:15,1'de açılır); öbür kartlar için de aynısı (C01−1,8, D01−1,8 …). Başlık 1,8 sn sesin ve altyazının olmadığı anda tek başına okunur, ardından soru gelir. P275'te NASIL? karttan ayrılsın, P276'da K08a@nasıl (21:40,4) anında yazılsın. YouTube bölüm zaman damgaları kartın açıldığı ana göre verilsin.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P189, P281b, P102, P220, P014, P130",
+     "problem": "Kısa planda uzun yazı var. P189: 2,6 sn'de 43 karakter. P281b: 3,6 sn'de 43 karakter ve kart 'insan' kelimesinden sonra açılıyor. P102: 4,3 sn'de 51 karakter, satırlar sırayla yazılıyor. P220: 4,8 sn'de 50 karakterlik alıntı, üstüne mühür. P014: ekranda 'olur?', altyazıda 'olabilir?' yazıyor. P130: söylenmeyen 'desmotes · zincire vurulmuş' 3 sn'de okutuluyor.",
+     "fix": "P189: kart P190 boyunca sayfada kalsın, H02@sırada (14:18,9) anına kadar, yani ≥4 sn. P281b: çapa K01@insan (22:25,55) olsun; 'İnsan nedir?' bir anda yazılsın, ikinci satır K01@ne (22:27,0) anında gelsin. P102: bütün satırlar aynı anda (penPara'daki gecikme olmadan) yazılsın ve P103'ün ilk 1 sn'sine taşsın. P220: yalnız 'POLİS MÜDÜRÜ' mührü I05@polis (16:43,2) anında vursun, P118'deki POLİS mührüyle kafiye olur; uzun alıntı kalksın. P014: yazı kalksın, soru işaretine kıvrılan zincir anlamı taşır. P130: kararlar.md'ye uyulsun, halkaya kazınmış ΔΕΣΜΩΤΗΣ yalnız doku olsun, Türkçe açıklama yazılmasın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P048, P287 (P113 bilerek özet)",
+     "problem": "Kartla anlatım farklı kelimeler kullanıyor, izleyici iki ayrı cümle okuyor. P048'de kart “Prometheus işte bu devrimde rol oynamaktadır.” derken ses ve altyazı 'Prometheus da bu devrimde rol oynamıştı' diyor (6,2 sn, 57 karakter). P287'de kart “Tek ülkümüz insan olmak.” derken altyazı 'Bu kuşağın tek ülküsü insan olmaktı' diyor.",
+     "fix": "P048: alıntı kartı kalksın. circleMark ile yuvarlanan figüre kamera C14@prometeus (3:18,85) anında itsin (figür ≥%45 boy), köşede 'ERHAT · s. viii' etiketi dursun. P287: anahtar söz 'İNSAN OLMAK' ve sayfa etiketi yeterli; ya da kaynak kurulu tam alıntıda ısrar ederse ses metniyle aynı kelimeler kullanılsın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "Yazı yardımcıları (lib/sayfa.js): bütün alıntı kartları; P126, P127, P234 (levha); P181 (daktilo); P281 (sayfa no); dipintolar P057, P092, P097, P117",
+     "problem": "quoteCard'ın varsayılanı italik 500 ağırlıkta 62 px Cormorant; x-yüksekliği ~25 px, 390 px genişliğindeki oynatıcıda ~5 css px'e iniyor. Kaynak satırı 30 px Cinzel, carvedTablet 44 px, speechFlow 46 px, daktilo 46 px. Sayfa numarası y=H−46'da, altyazı bandında; P281'de 'ilk sayfa (v)' tam da bu numaraya dayanıyor. Üslup karesindeki kırmızı dipinto (#9A3B25) kaya üstünde ~2,5:1 karşıtlıkta, telefonda okunmuyor.",
+     "fix": "Alıntı ≥ 76 px, ağırlık 600, en çok 2 satır, satır başına ≤28 karakter. Kaynak satırı ≥ 40 px. carvedTablet ≥ 60 px. Daktilo (P181) ≥ 64 px ve yazım G11@ne (13:27,9) anına kadar bitsin, ardından ekranda kalsın. Okunması gereken dipintolarda cap yüksekliği ≥ 90 px, renk kil açık. Kırmızı dipinto yalnız süs olarak kalsın. Sayfa numarası sağ üstteki sayfa başlığına taşınsın (x 1700, y 110).",
+     "priority": "önemli"
+    },
+    {
+     "plan": "Bütün yazılı planlar; özellikle P050, P124, P133, P134, P255 (sarsıntı) ve P242 (180° dönüş)",
+     "problem": "renderFrameMB 4 alt örnekle yazıyı da bulanıklaştırıyor; kamera sarsılınca ya da dönünce yazı da sarsılıp dönüyor. P242'de kare ters çevrilince taht alta, altyazı bandına iniyor; etiketler dönüş sırasında okunmuyor.",
+     "fix": "Yazılar hareket bulanıklığı ortalamasından sonra, kamera dönüşümü uygulanmadan, kare başına bir kez üstte çizilsin. Sarsıntı ve dönüş yalnız resme uygulansın (dipinto ve levha bunun dışında, sahnenin parçası sayılır). P242: 180° ters çevirme yerine çapraz tahterevalli kullanılsın: pivot (960, 430), uçlar (420, 640) ve (1500, 220). Dönüş J06@roller (18:28,35) ile J06@sanık arasında bitsin. 'SANIK: özgür' J06@sanık (18:30,6), 'YARGIÇ: tutsak' J06@yargıç (18:32,7) anında dik konumda gelsin.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P020, P035, P067, P069, P108, P132, P145, P170, P201, P202; GENİŞ planlar P115, P136, P163, P211",
+     "problem": "Anlamı bir jest taşıyor ama figür telefonda 1 cm'nin altında kalıyor. P020'de kenar şeridinde başını çevirme. P035'te baş çevirme dalgası. P067'de ağzını kapatıp gülen tanrılar. P132'de 'ağzı kapalı' Prometheus (kalbin 'Dikkat ettin mi?' ödemesi). P069 (1,4 sn) ve P145'te gözbebeğindeki görüntüler. P170'te 'görmeyen gözler'. P201'de gözlü bulut. P202'de atsineği. GENİŞ planlarda nefes ve göz kırpma telefonda görünmüyor.",
+     "fix": "Kural: jest bilgiyse figür ≥%45 boy olsun; değilse hareket bütün bedenle ya da ışıkla yapılsın. P020: Prometheus insana doğru yürüsün (~400 px yer değiştirme). P035: 5 figür, her biri ≥330 px, bütün siluet dönsün. P067: üç pano yan yana değil art arda tam kare olsun, her birinde tek büyük eylem; gülen tanrılar çıkarılsın. P132: öbür figürlerden söz akışı çıksın, Prometheus'un söz bandı boş kalsın; F10b@tek (10:23,1) anında kırmızıyla yuvarlansın. P069: gözde yalnız kıvılcım. P145: görüntüler profilin arkasında, gökte büyük siluetler olsun. P170: G10b@gözleri (12:58,1) anında tek bir başa ≥450 px kesme, boş göz. P201: madalyon kadraj boyunun ≥%80'ini kaplasın. P202: atsineği parlak bir iz çizgisiyle gösterilsin. P108: F02@büsbütün anında tabaktaki Prometheus'a itme. GENİŞ planlarda bir katman büyük ölçekli olsun (kamera ya da geniş ışık değişimi).",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P186, P203–P206 (HARİTA)",
+     "problem": "Bölümün kancası bir harita: tam Akdeniz–Karadeniz haritası, noktalı yol çizgisi, Kerç ve İstanbul'a kaydırma. Telefonda kıyı çizgisi, noktalı yol ve küçük inek okunmuyor; kaydırma sırasındaki etiketler de okunmuyor.",
+     "fix": "Harita iki büyük deniz lekesi ve iki boğaz yarığından oluşan sade bir vazo haritası olsun. İnek ≥%25 boy. Yol ≥10 px kalınlıkta parlak bir çizgi, ucunda İo'nun başı ilerlesin. P205: Kerç'e sıkı kadraj, boğaz genişliğin ≥%30'u. P206: İstanbul'a ayrı sıkı kadraj ve kendi ineği. P205'ten P206'ya kaydırma değil kesme, H07@ama (15:32,3) anında. Etiketler y ≤ 300'de, ≥ 64 px.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P171–P176 (G10b)",
+     "problem": "Panolar 1,2–1,8 sn ve çoğunda iki motif var (P174: öküz ve gemi; P176: havan ve örs). P171'de 'sayıları' derken ekranda Α Β Γ Δ var; Türk izleyici bunları harf olarak okur ve hemen ardından gelen P173 'harfleri' ile karışır.",
+     "fix": "Her panoda tek simge olsun: ≥%50 boy, merkezi (960, 420). P171: takımyıldız çizgileri, G10b@sayıları (13:05,5) anında çakıl sayıları (•, ••, •••). Α Β Γ Δ, P173'teki balmumu tablete taşınsın. P174: tek bileşik siluet (öküz önde, yelken arkada büyük leke). P176: yalnız örs kıvılcımı, havan çıkarılsın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P293 (M03), video sonu",
+     "problem": "Video 24:07,0 sürüyor. Bitiş ekranı en çok son 20 sn olabildiği için en erken 23:47,0'da açılır. Anlatıcı 'Sisifos'un hikâyesi ekranda' cümlesini 23:44,9'da (M03@ekranda) söylüyor; o an ekranda öğe yok. M03 altyazısı (23:40,8–23:49,8) bitiş ekranının alt kısmıyla da çakışıyor.",
+     "fix": "Kuyruk kısaltılsın, video ≤ 24:04,3'te bitsin (P293 26,2 sn → ≤ 23,5 sn). Böylece bitiş ekranı 23:44,3'te 'ekranda' kelimesinden önce açılır. Çizilen Sisifos çerçevesi, YouTube'un video öğesinin geleceği yere konsun (x 150–870, y 180–585). Abone alanı x 1250–1650, y 230–630 olsun. İkisi de altyazı bandının üstünde kalır.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "Erhat etiket sistemi: P019, P039, P052, P083, P098, P149, P182 vb. (54 cümle)",
+     "problem": "kararlar.md 'her Erhat iddiasında ERHAT · s. … etiketi görünür' diyor, ama Erhat kaynaklı 76 cümlenin 54'ünde plan tablosunda etiket yok. Sayfa bilgisi alıntı kartlarının içine gömülü; biçim de tutarsız ('· A. Erhat, s. v' ile '· s. viii' karışık). Bu yüzden kartlar uzuyor.",
+     "fix": "Tek ve tutarlı bir köşe etiketi kullanılsın: 'ERHAT · s. x', 700 ağırlıkta Cinzel, ≥ 40 px, sol üst (x 96, y 90; YouTube üst katmanından kaçmak için y ≥ 70). Etiket her Erhat öbeğinde 'erhat' kelimesinin çapasından (ör. C07@erhat, E07, G02) bölüm sonuna kadar dursun. lib/sayfa.js'teki erhatStrip bunun için kullanılabilir. Alıntı kartlarından sayfa bilgisi çıkınca her kart 7–12 karakter kısalır.",
+     "priority": "küçük"
+    },
+    {
+     "plan": "P013, P012, P019, P269, P272, P273, P281; flaşlar P004, P255–P258, P273",
+     "problem": "Telefonda okunmayan sayfa metinleri var. P013'te ~70 karakterlik künye, 2 satır altyazıyla birlikte 5,4 sn'de. P272'de başlık sayfası ve etiket aynı bilgiyi iki kez veriyor. P273'te kitap sırtında dikey yazı var ve etiket, 'nolanın' anındaki beyaz parlamayla çakışıyor. Kendiliğinden yazılan satırlar gerçek metin olursa okutmaya çalışır. Fırtınada flaş sıklığı tanımsız.",
+     "fix": "P013: künye kalksın (açıklamaya ve P289'a), yalnız büyük '1967' ve 'ÖNSÖZ' kalsın. P272: yalnız başlık sayfası olsun ('FRANKENSTEIN' / 'THE MODERN PROMETHEUS' / 1818, L05@modern anında), yinelenen etiket kalksın. P273: kitap sırtı yerine ön kapak kullanılsın; 'AMERICAN PROMETHEUS' L05@amerikan (21:21,3), 'Nolan · Oppenheimer (2023)' L05@nolanın (21:22,3) anında gelsin; beyaz parlama L05@kitaba (21:24,1) anına kaysın. P012, P019, P269 ve P281'deki satırlar okunmayan sepya çizgiler olsun. Flaşlar saniyede ≤3 olsun (Harding/BT.1702).",
+     "priority": "küçük"
+    }
+   ],
+   "questions": [
+    {
+     "to": "görsel kurgu",
+     "q": "Ekran yazılarını hareket bulanıklığından (renderFrameMB) ve kamera sarsıntısıyla dönüşünden ayrı, kare başına bir kez en üste çizen bir katman, lib/main.js ve lib/sayfa.js'te ne kadar iş tutar? Dipinto ve levha bunun dışında kalıp sahnenin parçası olarak sarsılmaya devam edebilir mi?"
+    },
+    {
+     "to": "görsel kurgu",
+     "q": "P242'de 180° ters çevirme yerine çapraz tahterevalli kullanılırsa (taht alt üçte bire inmeden), 'roller yer değiştirdi' fikri sence aynı güçte okunur mu?"
+    },
+    {
+     "to": "yönetmen",
+     "q": "Yazı bütçesini kabul ediyor musun: yazılı süre ≤%25, tam alıntı kartı ≤12, kırmızı figürdeki sahne alıntıları yalnız geri çağrılarda? Benim çıkarmayı önerdiğim P159, P226, P229, P230, P251 ve P253 arasında dramatik olarak vazgeçilmez gördüğün bir söz var mı?"
+    },
+    {
+     "to": "yönetmen",
+     "q": "P238'deki tez kartını zincirin iki ucunda 'ZEUS · KÖLE' / 'PROMETHEUS · ÖZGÜR' etiketlerine bölmek doruğu güçlendirir mi, yoksa tam cümleyi sayfa numarasıyla görmek mi istersin? İkincisiyse cümleyi en az 5 sn tutacak beyaz zeminli bir ara plan ekleyebilir misin?"
+    },
+    {
+     "to": "izleyici-Tutma",
+     "q": "Bölüm kartlarını sorudan 1,8 sn önce sessizlikte açmak, bölüm başlarındaki düşüşü artırır mı, azaltır mı? Zaman damgalarının karta göre kaymasına itirazın var mı?"
+    },
+    {
+     "to": "izleyici-Mobil (meslektaş)",
+     "q": "Uzun videoyu telefonda izleyenlerin çoğunun yatay tam ekran izlediğini varsayarsak, en küçük yazı ölçüsünü dikey oynatıcıya göre mi (≥76 px alıntı) yoksa yatay tam ekrana göre mi (~60 px) koymalıyız? Kendi taklidinde YouTube altyazı kutusu için hangi yüksekliği kullandın?"
+    },
+    {
+     "to": "kaynak / senaryo kurulu",
+     "q": "'Her Erhat iddiasında ERHAT · s. … etiketi' kuralı 76 cümlenin hepsine mi uygulanacak, yoksa yalnız doğrudan alıntılara mı? Sol üstte süren tek bir köşe etiketi (sayfa bilgisi kartlardan çıkarak) kaynak sadakatini karşılar mı? P287'deki “Tek ülkümüz insan olmak.” kartı, ses metniyle aynı kelimeleri kullanacak biçimde değişebilir mi?"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "kurgu-Uygulama",
+  "rapor": {
+   "scores": {
+    "A1": 8.3,
+    "A2": 8.3,
+    "A3": 7.6,
+    "A4": 8.6,
+    "A5": 8.5,
+    "A6": 7.2
+   },
+   "verdict": "RED",
+   "summary": "Üye: kurgu-Uygulama (animasyon süpervizörü). Ağırlıklı ortalama 8,12; ONAY eşiğinin altında (A3 7,6, A6 7,2).\n\nSürüm notu: dosyalar 05:05'te yeniden üretildi. Tablonun başlığı artık 23:49.3 diyor, görevdeki 24:07 değil. Aşağıdaki bütün zamanlar güncel tablodan.\n\n**Set ekonomisi (ölçüm):**\n- Mevcut modüller sürenin %67'sini taşıyor: kaya.js, sayfa.js, amfora.js+kylix toplam 952/1429 sn. KAYA 108 plan / 487 sn, SAYFA 56 / 311 sn, AMFORA 28 / 125 sn.\n- Buna karşın 49 plan (262 sn, %18) \"setler\"de tanımı olmayan 18 sette duruyor: OVA, MADALYON, FRİZ, TİYATRO, MASA, SOFRA, GALERİ…\n- Ardışık ve geçişsiz aynı set+katman planlarını birleştirince 294 kurgu planı yaklaşık 122 render birimine iniyor (çekim). Kod da bu yolda: s00.js'te P001–P003 ve P006–P010 tek çekim, s01.js'te P019–P023 tek pageJourney.\n- Plan tablosu bu ayrımı göstermiyor. P015'te de kod (eller yok, alev + boş taht) tablodan sapmış durumda.\n\n**En büyük riskler (kodun zayıf yanları):**\n- Göz makroları: P026, P069, P145, P199, P218.\n- Dev el ve el teması: P086, P160, P164, P094, P067, P028, P116, P087.\n- Kalabalık savaş: P050.\n- Yeni yaratık ve yüzler: Okeanos'un kanatlı kuşu (P191), rüzgâr başları (P139, P257).\n- 1,8 sn için üç yeni çizim (P044), 6 sn için dört ayrı çizim (P171–P176).\n\n**Anlam hataları (ucuz düzeltilir):**\n- P237 ve P239 Zeus'u kırmızı figürde gösteriyor. Bu, P114 ve P242'nin kendi sözüyle (\"görünmeyen yargıç\"), kararlar.md ile ve kapak B ile çelişiyor.\n- P155–P161 ile P267'de Aiskhylos içeriği siyah figürde (Hesiodos katmanı).\n\n**Sahne üretimi öncelik sırası:**\n0. **Altyapı (bir kez):**\n   - a) Palet parametreli çizim (S/K/B tek fonksiyon). Negatif geçişler (P006, P250), P108, P268 ve katman düzeltmeleri bununla bedavaya gelir.\n   - b) İki geçişli render: dünya → post (doku, vinyet, gren, DONMA desatürasyonu) → ateş katmanı. Ateş hep en parlak kalır (P011, P131, P233, P246, P263).\n   - c) Set başına otomatik ortam katmanı (A3 güvencesi).\n   - d) Siluetten kil tozu parçacık sistemi (P018, P052, P183b, P267, P280).\n   - e) GÖZ→TONDO bileşeni.\n   - f) Yazı yerleşim şablonları. YAKIN+SÖZ: baş sağ üçte birde, yazı x 140–900 / y 140–620, y>720 altyazıya boş.\n1. **KAYA dikey dünyası (≈122 plan):**\n   - Önce zincir omurgası: P005, P158, P237–P242.\n   - Sonra eksik kameralar: ZİNCİR, GÖZ, DENİZ, FIRTINA.\n   - Sonra konuklar, plan sayısına göre: Hermes 9, periler 7, Kratos 6, Hephaistos 5, İo 5, Bia 4, Okeanos 4.\n   - Bölüm sırası: V–VI (P107–P185) → VIII–X (P211–P262) → VII (P186–P210).\n   - Katman kontrolü için K pilotu: P133–P147 (55 sn, bütün KAYA kameraları).\n2. **SAYFA** (+TAHT-B, MASA, GALERİ, BÖLÜNMÜŞ; ≈68 plan):\n   - Ortak terazi bileşeni: P046, P128, P154, P243, P279.\n   - Kenar şeridi figür kütüphanesi.\n   - Kitap levhası (çerçeve içinde çerçeve).\n3. **Siyah figür (≈62 plan):**\n   - İki amfora şeridi: Theogonia P028–P055; İapetos ve Herakles P057–P066, P265–P277.\n   - Tek metop frizi (P062–P099, kamera kayar) ve TAHT-S.\n   - S pilotu: P028–P038.\n4. **TONDO** (KYLIX genellemesi: MADALYON, İKİ TABAK, DÜNYA DİSKİ, SOFRA; ≈21 plan).\n5. **ŞERİT** (FRİZ, HARİTA, MEŞALE; ≈17 plan).\n6. **TİYATRO** (s01.js'teki theatre(); P107, P244, P267, P278, P291).\n7. **Açılış cilası ve P293:** P001 ile P006–P010 son cilayı 1–4 olgunlaşınca alır; P293'te Sisifos kodu taşınır.\n\nPuanlar: A1 8,3 · A2 8,3 · A3 7,6 · A4 8,6 · A5 8,5 · A6 7,2.",
+   "fixes": [
+    {
+     "plan": "P237, P239, P240, P242 (+P005, P158)",
+     "priority": "kritik",
+     "problem": "Doruktaki çelişki:\n- P237'de (17:55.2) \"Zeus kırmızı figürde ilk kez görünür\".\n- P239'da (18:01.4) tahttaki Zeus uşaklarıyla görünür ve küçülür.\n- Oysa P114'ün sözü \"Yargıç hiç görünmeyecek\", P242'nin sözü \"görünmeyen yargıç tutsak\". kararlar.md \"Zeus görünmez\" diyor, kapak B de yüzsüz bilek kullanıyor.\n- Ayrıca kırmızı figür Zeus, yalnız iki plan için yüz ve beden riski taşıyan yeni bir karakter demek.",
+     "fix": "Zincir tek bir dikey dünyada aksın: Olympos tahtı dünya y≈−2200, bulut kuşağı −1400…−700, kaya 0…1080, altında ova. P005, P158, P237, P240 ve P242 bu dünyada yalnız kamera konumu olur.\n- **P237:** zincir buluttan çıkan, soğuk beyaz (#E6ECFF) kelepçeli tek bir bileğe biter; kadrajda ≈(1700,160), kapak B'nin kompozisyonu. Kamera J04@zeus'a (1077.3) varır, kelepçe J04@köle'de parlar, J04@prometeus'ta P238'e kesilir.\n- **P239:** taht büyür; içindeki yüzsüz Zeus gölgesi J05@çocuk'ta çocuk boyuna küçülür. Eğilen uşaklar P188'deki domino sırasının kırmızı figür kopyası olur.\n- **P242:** kamera z≈0,4'te 180° döner. Siluetler kalınlaştırılır, zincir en az 6 px olur. SANIK/YARGIÇ etiketleri dönüşten sonra düz çizilir ve J06@sanık'ta yer değiştirir.\n- Kırmızı figür Zeus hiç kurulmaz."
+    },
+    {
+     "plan": "planlar.json setler; 49 plan (OVA, MAĞARA, OLYMPOS, YAKIN, LEVHA, BAŞLIK, MADALYON, İKİ TABAK, DÜNYA DİSKİ, SOFRA, MASA, GALERİ, BÖLÜNMÜŞ, FRİZ, HARİTA, MEŞALE, TİYATRO, SAHNE, ATÖLYE, BİTİŞ)",
+     "priority": "kritik",
+     "problem": "Sürenin %18'i (262 sn) tanımı olmayan 18 sette. Bu planlar bugünkü haliyle her biri yeni çizim gibi görünüyor. Üretim maliyeti ve üslup tutarlılığı ölçülemiyor.",
+     "fix": "\"setler\" alanını 9 kite indir ve her planı bir kite bağla:\n- **KAYA dünyası:** OVA (P002, P086, P104, P164–P166, P198), MAĞARA (P170), OLYMPOS (P089, P239), YAKIN (P015, P105), LEVHA (P127, P234), BAŞLIK (P011).\n- **TONDO** (kylix() S/K paletli): MADALYON (P153–P156, P160, P161, P201, P213, P214), İKİ TABAK (P108, iki kylix), DÜNYA DİSKİ (P202, İo kupanın kenarında kovalanır), SOFRA (P249: şarap çekildikçe kırmızı figür kupanın dibinde kartal belirir).\n- **SAYFA:** MASA (P289, P290), GALERİ (P268), BÖLÜNMÜŞ (P022, P276).\n- **ŞERİT** (yeni tek yatay friz, kamera kayar): FRİZ (P169–P178, P209, P210, P264), HARİTA (P186, P203–P206), MEŞALE (P273, P274).\n- **TİYATRO:** P016–P018, P107, P244, P267, P278, SAHNE (P291).\n- **METOP:** ATÖLYE (P270), P090 ile aynı kil yoğurma bileşeni.\n- **BİTİŞ (P293):** sisifos/lib'ten taşınır."
+    },
+    {
+     "plan": "77 plan; örnek P046, P167, P236, P241, P251, P261, P282, P210",
+     "priority": "kritik",
+     "problem": "77 planın hareket alanında tek katman var. Örnekler:\n- P046 (2:58.9, 10.9 sn) yalnız \"terazi salınır\";\n- P167, P236, P241 yalnız \"yazı\";\n- P251 (7.4 sn) yalnız \"alttan çevrinme\";\n- P261 (8.7 sn) yalnız \"panolar\".\nP210'da \"kare donar\" deniyor; bu, \"hiç durmasın\" ilkesiyle çelişiyor.",
+     "fix": "İkinci katman plan başına değil set başına zorunlu olsun: drawShot içinde otomatik bir ortam katmanı.\n- **KAYA:** dalga kuşağı akışı, rüzgâr çizgileri, figür nefesi, yıldız.\n- **SAYFA:** kâğıtta kayan lamba ışığı (0,05 Hz radyal gradyan), toz zerreleri, kenar figürlerinde nefes.\n- **AMFORA:** dönüş ve parlaklık bandının kayması.\n- **METOP:** 1–2 px/sn kamera sürünmesi ve duman.\n- **TAHT:** mürekkep sızması.\n- **TONDO:** kupa dönüşü.\n- **ŞERİT:** kaydırma.\n- Ayrıca her çekimde en az z+0,01/sn kamera kayması.\n\nTablo yalnız olay katmanını yazsın. Örnekler:\n- **P046:** C12@birincisi'nde sol kefeye tırpan iner (P038'in yayı), C12@ikincisi'nde sağ kefeye kundak taşı konur, C12@akılla'da terazi akla eğilir.\n- **P210:** kare donmaz, zaman yavaşlar. Post dalgalanmaya, kıvılcım akmaya %20 hızla devam eder."
+    },
+    {
+     "plan": "P133 + P134 (+P135)",
+     "priority": "önemli",
+     "problem": "P133 (10:20.4, 1.4 sn) ile P134 (1.1 sn, tablodaki tek ⚠) aynı kamerada iki çekiç vuruşu. İki ayrı kesme için iki çekim kuruluyor ve 1.1 sn'lik plan okunmuyor.",
+     "fix": "Tek çekim yap: vuruşlar F10b@indi#0 (620.8) ve F10b@indi#1 (622.0) anlarında.\n- Her vuruşta kamera bir kademe yaklaşır: z 1,75 → 2,2 → 2,7.\n- İkinci vuruşta kıvılcım ve toz daha büyük olur.\n- F10b@zincire'de (622.9) aynı dünyada yakın profile geçilir (P135).\n- Ritmi ses taşır; ⚠ kalkar."
+    },
+    {
+     "plan": "P026, P069, P145, P184, P199, P218",
+     "priority": "önemli",
+     "problem": "Göz makroları vazo profil gözüne (sevEye: V ve nokta) dayanıyor:\n- P026'da (1:37.1) gözbebeğinde tahtın yansıması;\n- P069'da (5:13.7, 1.4 sn) gözde gelecek;\n- P145'te (10:52.4) gözde kartal, fırtına, okçu;\n- P218'de (16:23.5) gözde mühür.\nBu göz yansıma ya da görüntü taşıyamaz. Her biri ayrı çizilirse beş kez yüz yakın planı riski alınır.",
+     "fix": "Tek bir GÖZ→TONDO bileşeni kur. s00.js'teki kartal gözüne dalma tekniği (z 1→60) zaten var.\n- Siyah gözbebeği bir tondonun siyah zeminine açılır.\n- İçeriği TONDO renderer'ıyla çizilir:\n  - P026: tahtlar;\n  - P069: devrilen taht;\n  - P145: F14@olacak'tan başlayarak art arda üç kısa görüntü;\n  - P218: mühürlü ad.\n- P184'teki bölünmüş göz ve beden de aynı maskeyi kullanır."
+    },
+    {
+     "plan": "P086, P160, P164, P094, P067, P028, P116, P087",
+     "priority": "önemli",
+     "problem": "Karmaşık beden hareketi ve el teması, kodun en zayıf alanı:\n- dev el: P086 (6:33.7), P160 (12:10.1), P164 (12:28.5);\n- kucaklama: P094 (7:08.1);\n- tanrılar elleriyle ağızlarını kapatıp gülüyor: P067'nin 3. panosu (5:02.9);\n- iterek devirme: P028 (1:47.9);\n- sürükleme: P116 (9:01.9);\n- tırmanma: P087 (6:39.7). Anlatımda tırmanma geçmiyor.",
+     "fix": "- **P086:** Zeus'un pelerin gölgesi (koyu bulut) köyün üstünden geçer; ocaklar gölgenin kenarı değdikçe söner, sonuncusu E09@ateşi'de.\n- **P160:** vazo ressamının ıslak süngeri gibi bir mürekkep silme maskesi G07@yok'ta geçer; G07@yeni'de yeni kil figürler belirir.\n- **P164:** el yerine ateşten bir ışık süpürmesi G08@ölümlerini'de gölgeleri siler.\n- **P094:** Epimetheus kollarını açar, temas olmaz; baş geriye döner.\n- **P067/3:** tanrı siluetlerinde omuz sarsıntısı.\n- **P028:** her kuşak bir basamak yukarıda belirir, önceki geriye devrilir (C02@devirip).\n- **P116:** üçlü alay yürüyüşü; zincir Kratos'un elinden bileğe uzanır, tutma yok.\n- **P087:** Olympos'taki tanrı ocağında rezene közün üstüne iner (E10@rezene); tırmanma çıkar."
+    },
+    {
+     "plan": "P050 (+P051)",
+     "priority": "önemli",
+     "problem": "P050 (3:25.4, 8.2 sn): Titanomakhia ve yüz kollu devler, yani kalabalık savaş ve çok kollu yaratık. Kodla en pahalı ve en riskli tek plan.",
+     "fix": "Kalabalığı tekrarla kur:\n- Karşılıklı iki kalkan sırası; aynı siluetin n kopyası, izosefali, faz kaydırmalı nefes.\n- C17@yüz'de (211.5) amforanın dibindeki ışın bandı (amfora.js rays()) kollara dönüşüp yükselir ve kaya fırlatır (parçacık).\n- Ardından C17@tartarosa'da P051'in tunç kapısı kapanır.\n- Süs bandı canavarın kendisi olur; yeni yaratık çizilmez."
+    },
+    {
+     "plan": "P151, P190, P191, P192, P194",
+     "priority": "önemli",
+     "problem": "Okeanos'un \"dört ayaklı kanatlı kuşu\" (P191 14:14.5, P194 14:30.2, P190'da sayfa simgesi):\n- yeni yaratık ve uçuş döngüsü gerektiriyor;\n- kanatlı ve gagalı bir binek, filmin cezası olan Zeus'un kartalıyla karışabilir.",
+     "fix": "Okeanos balık kuyruklu, yaşlı bir deniz tanrısı olsun. Sophilos deinosunda (İÖ ~580) Okeanos boğa boynuzlu ve balık kuyrukludur.\n- P151'deki periler gibi alttaki dalga kuşağından H04@okeanos'ta yükselir; aynı \"kuşaktan yükselme\" kodu kullanılır.\n- P194'te uçmaz, H04@kendi#1'de dalgaya geri batar.\n- P190'daki sayfa simgesi de buna uyar."
+    },
+    {
+     "plan": "P139, P257",
+     "priority": "önemli",
+     "problem": "P139 (10:33.8) ve P257'deki (19:38.5) şişkin yanaklı rüzgâr başları cepheden yüz demek. Üslubun en zayıf alanı, yalnız 1,8 ve 2,2 sn için.",
+     "fix": "- **P139:** kaya.js windLines çizgileri F13@hızlı'da kanat biçimli yaylara dönüşür ve bulutları sürer.\n- **P257:** aynı windLines'tan iki karşıt sarmal I10@rüzgarlar'da çarpışır ve girdaba döner.\n- Yeni çizim gerekmez; P258'deki kuşakların birbirine çökmesiyle de tutarlı."
+    },
+    {
+     "plan": "P155, P156, P160, P161, P267",
+     "priority": "önemli",
+     "problem": "Katman mantığı bozuk: sanat.md'ye göre teknik, kaynağı söyler. Ama siyah figürde (Hesiodos katmanı) duran planlar Aiskhylos'un içeriğini anlatıyor:\n- P155–P156 (11:48.7): Themis'in öğüdü, Prometheus'un Zeus'un yanına geçmesi;\n- P160–P161 (12:10.1): insanları yok etme planı (ZVP 199–236);\n- P267 (20:31.7): Aiskhylos'un kayıp oyunu.",
+     "fix": "- Madalyonları K paletiyle TONDO'da çiz; geri dönüşü teknik değil tondo çerçevesi işaretlesin.\n- P267'yi K TİYATRO'ya al; P018'in birebir eşi zaten K.\n- Palet parametreli çizimle maliyeti sıfır."
+    },
+    {
+     "plan": "P281–P287",
+     "priority": "önemli",
+     "problem": "Finalden önce 22:08.2–22:55.9 arasında 47,8 sn ve 8 plan kesintisiz krem sayfa var; filmin en uzun B dizisi. Sona yakın tekdüzelik riski taşıyor.",
+     "fix": "Kitap levhasıyla kır: çerçeve içinde çerçeve, kararlar.md'de sahne üretimine bırakılmıştı. Sayfada daha önceki bir S/K render'ı basılı bir levha olarak durur.\n- **P283:** K02@doğaya'da (1345.8) figür, KAYA setinin üst meander bordüründen dışarı adım atar; kaya render'ı küçük levha olarak kullanılır.\n- **P286:** K04@umuda'da P095–P097'deki pithos levhası gelir; figür K04@bugün'de küpten dönüp güneşe yürür.\n- Yeni çizim gerekmez; ELPİS geri çağrısı da görünür olur."
+    },
+    {
+     "plan": "P015, P105; tablo genelinde",
+     "priority": "önemli",
+     "problem": "Plan tablosu ile kod ayrıştı:\n- P015 (0:38.7) tabloda kavuşturulmuş ellerde bir alev; s00.js'te eller yok, karanlıkta alev ve dev boş taht var.\n- P001–P003 ve P006–P010 kodda tek çekim, P019–P023 tek pageJourney.\nKurul başka bir şeyi değerlendiriyor ve P105'in \"eşi\" belirsiz kalıyor.",
+     "fix": "- Tabloya bir \"çekim\" sütunu ekle (ör. Ç001 = P001–P003, Ç004 = P006–P010); tahminim ≈122 render birimi.\n- P015'in kare metnini koddaki sürüme göre güncelle.\n- **P105 (7:59.5):** aynı alev E16b@fazlasıydı'da büyür, boş taht geride kararır. Alevin içinde ŞERİT frizinin (P169–P178) maskeli önizlemesi döner; el yok."
+    },
+    {
+     "plan": "P209/P210, P264, P042, P044, P171–P178, P268, P274",
+     "priority": "önemli",
+     "problem": "Düşük getirili çizimler:\n- P044 (2:52.7, 1.8 sn): bebek Zeus, keçi ve Kuretler; üç yeni çizim.\n- P042: Rheia'nın koşusu.\n- P171–P176 (12:59.1–13:03.9): yaklaşık 6 sn için dört ayrı tablo ve P173'te tablete yazan el.\n- P274 (21:15.0): çağlar boyunca farklı kostümlü koşucular.\n- P268: dört ayrı üslupta galeri.",
+     "fix": "- **P044:** mağara ağzında parlayan kundak ve HOLD.shield'dan iki kalkan diskinin çarpışması; keçi ve Kuretler sese bırakılır.\n- **P042:** Rheia gemide; P174'teki gemi çizimi iki kez kullanılır.\n- **P171–P178:**\n  - Tek ŞERİT şeridinde beş istasyon; kamera G10b@yıldızları, @sayıları, @harfleri, @hayvanları, @ilacı kelimelerinde kayar.\n  - P173'te el yok, harfler tablete kendiliğinden kazınır.\n  - P171'deki sayılar Attika rakamlarıyla (Ι ΙΙ ΙΙΙ Π Δ) yazılır; ΑΒΓΔ harflerle karışıyor.\n- **P274:** tek koşucu silueti hep aynı; zemin bordürü çağ çağ değişir, son koşucu LK.modern olur; L06@el'de el alevin önünde durur.\n- **P268:** promChained aynı pozda, yalnız STY değişir: black, red, lek; gravür için fillStyle'a createPattern tarama deseni; modern için yalnız kontur.\n- **P209/P210, P264:** aynı ŞERİT; on üç figür tek silüetin kopyası."
+    },
+    {
+     "plan": "P005, P226 (+P237)",
+     "priority": "küçük",
+     "problem": "Zeus'a ait bağlar altın renkte: P005'te (0:09.3) \"altın bilezik pırıltısı\", P226'da (17:00.0) \"ince altın tasma ipi\". sanat.md'ye göre altın ateşin tekeli; kapak B'de Zeus'un kelepçesi soğuk beyaz (#E6ECFF).",
+     "fix": "Zeus'a ait her bağı soğuk beyaz yap: P005'teki bilezik (A02@asıl'da parlar), P226'daki tasma (I07@bu'da gerilir), P237'deki kelepçe. Altın yalnız ateşe ve P238'deki özgürlük ışığına kalsın. Böylece ilk 10 sn kapak B'nin görsel vaadini aynı renkle karşılar."
+    }
+   ],
+   "questions": [
+    {
+     "to": "yönetmen",
+     "q": "P237 ve P239'da Zeus'u göstermek yerine yalnız soğuk beyaz kelepçeli bileği ve tahttaki yüzsüz, küçülen gölgeyi öneriyorum. Bu, P114 ve P242'deki \"görünmeyen yargıç\" sözünü ve kapak B'yi tutarlı kılar. Doruğun duygusal vuruşu sizce bununla yeterli mi?"
+    },
+    {
+     "to": "yönetmen",
+     "q": "P242'de 180° dönüş mü, yoksa zincirin bir terazi kirişi gibi eğildiği bir tahterevalli mi? Terazi filmde beş kez kullanılıyor (P046, P128, P154, P243, P279); eğilme yönünün anlamı (ağır basan aşağı) bu sahnede ters okunabilir."
+    },
+    {
+     "to": "izleyici/tutma",
+     "q": "s00.js'te P001 walkScene ile gerçek koşu döngüsü (stride 52). Telefonda (%48) ilk 3,5 sn'de bacak döngüsündeki küçük kusurlar fark edilir mi? Yedek olarak arkaik knielauf pozu sabit kalır, hareketi kamera takibi, paralaks ve alev izi verir. Hangisini önerirsiniz?"
+    },
+    {
+     "to": "izleyici/tutma",
+     "q": "P281–P287 arası 47,8 sn kesintisiz krem sayfa var (22:08–22:56), hemen ardından final. Kitap levhası araya girişleri (P283, P286) yeterli mi, yoksa bir planı K katmanına mı çıkaralım?"
+    },
+    {
+     "to": "görsel kurgu (öbür kurgu-Uygulama üyesi)",
+     "q": "Kurgu planı (294) ile render çekimini (≈122) ayırma önerime katılıyor musunuz? Özellikle P006–P010'un tek kylix çekimi olması (kesmeler Wd'ye bağlı yakınlaşma sıçramaları) açılıştaki kesme ritmini zayıflatır mı?"
+    },
+    {
+     "to": "görsel kurgu (öbür kurgu-Uygulama üyesi)",
+     "q": "KAYA–Olympos'u tek dikey dünya yapmak İskit ile Olympos'u coğrafi olarak üst üste koyuyor. Vazo üslubunda bu bir kozmos sütunu olarak okunur mu, yoksa izleyiciyi yanıltır mı?"
+    },
+    {
+     "to": "üslup kurulu: vazo-İkonografi",
+     "q": "Okeanos'u Aiskhylos'taki dört ayaklı kuş yerine Sophilos deinosundaki gibi balık kuyruklu ve boğa boynuzlu, dalga kuşağından yükselen bir figür olarak göstermek ikonografik olarak savunulabilir mi?"
+    },
+    {
+     "to": "ses/miks",
+     "q": "P133 ile P134 tek çekim olursa iki çekiç efekti F10b@indi#0 ve #1'e bağlanır. P233'teki DONMA sırasında (renkler solar, alev sürer) ortam sesi de donmalı mı, yoksa yalnız ateşin çıtırtısı mı kalmalı?"
+    }
+   ]
+  }
+ },
+ {
+  "uye": "kurgu-Tempo",
+  "rapor": {
+   "scores": {
+    "A1": 8,
+    "A2": 7.9,
+    "A3": 7.8,
+    "A4": 8.3,
+    "A5": 8.2,
+    "A6": 8.6
+   },
+   "verdict": "RED",
+   "summary": "Kurgu-Tempo, birinci tur. Ağırlıklı ortalama 8,08: RED. Hiçbir ölçüt 7'nin altında değil.\n\nNot: İnceleme sırasında timeline.js, plan_tablosu.md ve zamanli.json saat 05:05'te yeniden üretildi. Süre 24:07'den 23:49,3'e indi, bölüm arası sessizlik yaklaşık 2,2 sn oldu. Puanlar bu son sürüme göredir.\n\nÖlçülenler:\n- Plan sayısı ve süreleri: 294 plan, ortalama 4,86 sn, ortanca 4,7 sn.\n- Kesme noktaları: 294 kesmenin 293'ü bir kelimenin başlangıcına tam oturuyor; ön kesme payı 0.\n- Geçişler: 84 yumuşak geçiş var (ink 56, clay 23, negatif 2, ayrıca birer beyaz, donma ve siyah açılış); toplam 50,2 sn. film.js geçişi çapada başlatıp yeni planın içine akıtıyor. Bu yüzden her çözülme yeni cümlenin ilk kelimesinin üstüne biniyor. Oysa 84 geçişin 67'si önceki sessizliğe sığıyor.\n- Katman sıçraması: 82 (dakikada 3,4). Beyaz zemin öbeklerinden yaklaşık 15'i tek cümlelik. kararlar.md'deki \"tek cümlede kenar şeridi\" kuralı uygulanmamış.\n- Bölüm kartları: Ses bölüm başına 2,0–2,65 sn sessizlik açtı, ama 13 kart planı hâlâ sorunun ilk kelimesine çapalı.\n- Doruk (J02–J06): Zeus kırmızı figürde gösteriliyor (P237, P239). Bu, kararlar.md'deki \"Zeus görünmez\" kararıyla ve anlatımdaki \"görünmeyen yargıç\" sözüyle (P242) çelişiyor. Ayrıca açılım iki ink geçişinin arasında 3,5 sn'ye sıkışmış.\n- Katman = kaynak kuralı: P155–P161 ve P267 Aiskhylos içeriğini siyah figürle veriyor.\n- Hareket: Yaklaşık 79 planın hareket sütununda tek katman yazılı. P167, P236 ve P241'de hareket yalnız \"yazı\"; bu, sanat.md'nin yasakladığı duran yazı kartıdır. P210'da \"kare donar\".\n- Montaj ve tempo:\n  - G10b uygarlık montajı yedi kelimeyi dört plana çiftliyor; sesin verdiği hızlanma kayboluyor.\n  - Son üçte birde tempo düşüyor: XI ve XII bölümlerinde plan ortalaması 6,2 sn. P281–P287 arası 47,8 sn kesintisiz beyaz zemin.\n- Uygulanabilirlik: A() işlevi kaydırma yazımını (ör. 'B01-1.8') zaten destekliyor ve wipe/iris geçişleri motorda var. Önerilerin çoğu planlar.json düzeyinde yapılabilir.\n\nİncelenen dosyalar:\n- /home/user/Animasyon-kahve-/prometheus/animatik/plan_tablosu.md\n- /home/user/Animasyon-kahve-/prometheus/animatik/planlar.json\n- /home/user/Animasyon-kahve-/prometheus/animatik/zamanli.json\n- /home/user/Animasyon-kahve-/prometheus/timeline.js\n- /home/user/Animasyon-kahve-/prometheus/lib/film.js\n- /home/user/Animasyon-kahve-/prometheus/vo/plan.json\n- /home/user/Animasyon-kahve-/prometheus/kurul/kararlar.md",
+   "fixes": [
+    {
+     "plan": "Bütün geçişler (84 adet; lib/film.js drawFilm)",
+     "problem": "Geçiş planın çapasında başlayıp yeni planın içine 0,4–1,0 sn akıyor (film.js'te t < sh.at + tr.dur). Çapalar kelime başlangıcında olduğu için her ink/clay çözülmesi ilk kelimenin üstünde oynuyor. Görüntü kelimeye 0,5–1 sn geç oturuyor; toplam 50,2 sn çözülme.",
+     "fix": "Geçiş kelimede BİTSİN. İki yol var:\n- planlar.json'da çapayı geçiş süresi kadar öne al (ör. P012 'A06-1.0', P019 'B04-0.8');\n- ya da film.js'e tr.align:'end' ekle (shot.at = çapa − dur).\n\n84 geçişin 67'si önceki sessizliğe sığıyor. Sığmayanlar sert kesmeye dönsün ya da sessizlik kadar kısalsın: P039, P046, P071, P088, P100, P106, P112, P130, P169, P181, P244, P262, P263, P271, P288, P291.\n\ntools/animatik.py 'geçiş süresi > önceki sessizlik' durumunda uyarsın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P016, P025, P056, P075, P107, P148, P186, P211, P233, P245, P264, P275, P289 (bölüm kartları)",
+     "problem": "vo/plan.json bölüm başına 2,0–2,65 sn sessizlik açtı ('kart bu sessizlikte okunur'). Ama 13 kart planı hâlâ sorunun ilk kelimesine çapalı (ör. P016 'B01'):\n- sessizlik önceki planın kuyruğunda boşa gidiyor;\n- kart, soru ve altyazı aynı anda okunuyor.\nKart noktalaması da tutarsız: 9 kart clay 0,8 (Erhat→Hesiodos geçişiyle aynı), P025 ve P107 kesme, P233 donma, P275 ve P289 ink.",
+     "fix": "Kart çapaları sorudan 1,8 sn önceye alınsın: P016 'B01-1.8', P025 'C01-1.8', P056 'D01-1.8', P075 'E01-1.8' … P289 'M00-1.6'.\n- Kart sessizlikte belirsin; soru başlarken kart kalksın ve sahne açılsın.\n- YouTube bölüm zaman damgası kartın başladığı an olsun.\n- Kartların kendine özgü tek geçişi olsun: kil levhanın kenarıyla yapılan 'wipe' (film.js'te var), 0,6 sn, tamamı sessizlikte.\n- 'clay' yalnız Erhat→Hesiodos dönüşünde kalsın.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P236–P242 (Zincirin öbür ucu, J02–J06)",
+     "problem": "Tez doruğu üç noktada zayıf:\n(a) P237 ve P239 Zeus'u kırmızı figürde gösteriyor. Oysa kararlar.md 'J06'da Zeus'un bileğinde biter (Zeus görünmez)' diyor, P114 'yargıç hiç görünmeyecek' diyor ve J06@görünmeyen'de anlatıcı 'görünmeyen yargıç' diyor. İzleyici Zeus'u 20 sn önce görmüş oluyor.\n(b) Tek cümlelik Erhat sorusu (P236) için tam sayfa ve iki ink (P236, P237) var; açılım 'Ve cevap verir'de yumuşak başlıyor.\n(c) P237'deki 'uzun yukarı kayma' 3,46 sn sürüyor, bunun 0,5 sn'si çözülme.",
+     "fix": "- P236 ayrı plan olmasın. Donmuş KAYA karesinin üstünde krem kenar şeridi olsun; şeritteki soru işareti P014'ün zincir-soru işareti.\n- J02@ama'da soru işareti düzelip zincire dönüşsün ve kamera yukarı kaymaya başlasın. Kayma J04@köle'de bitsin (yaklaşık 6 sn).\n- Zincir bulutlardan çıkan bir bilekte, P005'teki altın bilezikte bitsin; yüz görünmesin. P237'nin ink'i kalksın.\n- P238 J04@prometeus'ta sert kesme olsun.\n- P239: taht büyür; kişinin yerine küçülen bir gölge ve koltuğun koluna yapışmış küçük bir el görünür; dalkavuklar boş tahta eğilir.",
+     "priority": "kritik"
+    },
+    {
+     "plan": "P155, P156, P160, P161, P267, P106",
+     "problem": "Katman = kaynak kuralı bozuluyor:\n- P155–P156 (G05, ZVP 214–221) ve P160–P161 (G07, ZVP 228–236) Aiskhylos'taki Prometheus'un anlatısı. P153 'Aiskhylos'ta…' diye başlıyor ama P155'te geçişsiz kesmeyle siyah figüre (Hesiodos) geçiliyor. Sonuç: 28 sn'de 6 katman sıçraması.\n- P267 ('Aiskhylos'un … Kurtulmuş Prometheus') siyah figür TİYATRO; eşi olan P018 ise kırmızı figür.\n- P106'daki 'kil sır siyahına döner' anlamsız, çünkü P104–P105 zaten kırmızı figür.",
+     "fix": "- P155–P156 ve P160–P161 kırmızı figür MADALYON (hatıra tondosu) olsun; P153'teki yarım tur dönüş hatırayı taşısın.\n- P267 kırmızı figür olsun: P018'in kompozisyonu ve toz efekti birebir.\n- P106: kil→sır dönüşümü silinsin. Yerine E16b@zincirin'de, P105'teki alevden zincirin ilk halkasının parıltısına eşleşen sert kesme; ink 1,0 kalksın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P039, P052, P068, P071, P098, P157, P216",
+     "problem": "34 beyaz zemin öbeğinin yaklaşık 15'i tek cümlelik; filmde 82 katman sıçraması var. Yoğun gidip gelmeler (her biri iki çözülme):\n- 5:07–5:26: P068 → P069 → P070 → P071 → P072\n- 7:24–7:36: P098 → P099 → P100\n- 11:53–12:00: P156 → P157 → P158\n- 16:05–16:17: P215 → P216 → P217\nkararlar.md'deki 'tek cümlede kenar şeridi; çok cümlede beyaz zemin; yaklaşık 5 doruk alıntıda tam sayfa' kuralı uygulanmamış.",
+     "fix": "Bu yedi plan ayrı beyaz zemin planı olmaktan çıksın. Bir önceki hikâye planının içinde, çerçeve içinde krem kenar şeridi olarak versinler. Şerit şu kelimelerde açılır: C07@erhat, C17@erhata, D10@erhat, E11@erhatın, G05@erhatın, I03@erhat.\n\nP068'deki ad ayrımı amforada siyah figür dipinto olarak yapılsın (ΠΡΟ·ΜΗΘΕΥΣ); Erhat'ın 'kâhin' sözü şeritte görünsün.\n\nTam sayfa beyaz zemin yalnız çok cümlelik öbeklerde ve doruk alıntılarda kalsın: P046, P181, P241, P263, P282.\n\nKazanç: yaklaşık 14 çözülme ve 14 katman sıçraması daha az.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "Beyaz zeminden çıkışlar (29 ink/clay); P010→P011, P015→P016, P087→P088, P129→P130, P208→P209, P291→P292, P179",
+     "problem": "Beyaz zeminden hikâyeye dönüşlerin hepsi çözülme. sanat.md'deki eşleşen kesmeler ('zincir → meander', 'ateş → yıldız') planda hiç yok.\n- P088 (1,54 sn) iki çözülme arasında sıkışıyor: 0,9 sn'si çözülme.\n- P011'deki katman değişimi (siyah figürden kırmızı figüre) eşleşmesiz bir düz kesme.",
+     "fix": "Kural: Erhat'a giriş mürekkep çözülmesiyle, hikâyeye dönüş sert ya da eşleşen kesmeyle. Eşleşen kesmeler (aynı ekran noktasında):\n- P010→P011: kartal gözü → ΠΡΟΜΗΘΕΥΣ'taki Θ (960,430), ardından geri çekilme.\n- P015→P016: yükselen kıvılcım → tiyatronun üstündeki akşam yıldızı (ateş → yıldız).\n- P087→P088: siyah figür köz → kırmızı figür alev; P088'e giriş de çıkış da kesme.\n- P129→P130: kölenin prangası → Prometheus'un kelepçesi.\n- P208→P209: zincir halkaları → 13 kuşağın koştuğu meander şeridi (zincir → meander).\n- P291→P292: sahnedeki Prometheus'un ateşi → izleyiciye uzanan alev.\n\nP179'da (montajdan mahkemeye, ink) sert kesme kullanılsın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P170–P178 (G10b uygarlık montajı)",
+     "problem": "Yedi armağan dört plana çiftlenmiş:\n- P171 'yıldızları, sayıları' 1,76 sn\n- P173 1,3 sn\n- P174 1,68 sn\n- P176 1,24 sn\nP172, P175 ve P177 '1,2 sn kuralı' yüzünden düşmüş. Ses doğal bir hızlanma veriyor (kelime aralıkları 0,98 · 0,78 · 1,30 · 0,90 · 0,78 · 0,68 · 0,56 sn). Görüntü ise her planda iki nesne anlatmak zorunda; ritim sesle örtüşmüyor.",
+     "fix": "- Her isimde kesme olsun: G10b@yıldızları, @sayıları, @harfleri, @hayvanları, @gemiyi, @ilacı, @madenleri.\n- Yedi pano aynı friz bandında ve aynı ölçekte; simge ekran merkezinde (960,470). Göz yeniden aramadığı için 0,6 sn'de okunur.\n- P178 (G10b@tek) geri çekilsin; yedi panonun tek bir frizin yan yana kareleri olduğu görülsün.\n- P170'e iç olaylar: G10b@prometeus'ta mağaraya ışık girer ve görmeyen gözler parlar; @yıldızları'nda gözler takımyıldızın yıldızlarına eşleşir.\n- tools/animatik.py'ye bir 'montaj' bayrağı eklensin; bu dizide 1,2 sn'nin altı serbest olsun.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P067 (D08 üçlüsü), P071–P074 (D11 tahtlar)",
+     "problem": "D08: P067 tabloda tek plan ama içinde 'üç kesme' var. Alt kesmelerin çapası yok; araç onları saymıyor.\n\nD11:\n- P071 sayfası iki devrik ve bir çatlak tahtı zaten gösteriyor. 5 sn sonra P072–P073 aynı devrilmeyi yeniden yapıyor; bilgi tekrarlanıyor.\n- Devrilme planın başına, 'Uranos'a düşüyor; fiil olan 'devrilmişti'ye değil.\n- P072'deki 0,4 sn clay, 1,92 sn'lik planın %21'ini yiyor.",
+     "fix": "D08:\n- P067a D08@aldatır, P067b D08@tedirgin, P067c D08@gülünç.\n- Üç pano aynı METOP çerçevesinde; her kesmede kamera bir pano kayar. P067c'nin sonunda kamera geri çekilip üç panoyu yan yana gösterir.\n\nD11:\n- P071 yalnız üçüncü tahttaki çatlağı göstersin (ya da 5. maddeye göre P070'in içinde kenar şeridi olsun).\n- P072 ve P073 aynı kadrajda olsun (taht 960,560); devrilme D11@devrilmişti#0 ve D11@devrilmişti#1'de.\n- P074 aynı kadrajda kalsın: taht devrilmez, titrer.\n- P072'ye sert kesme yapılsın ya da clay sessizliğe alınsın.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P254–P263 (fırtına ve son söz)",
+     "problem": "- P255 ('yer sarsılır') I10@artık'ta başlıyor; 'yer sarsılıyor' sözü 2,56 sn sonra geliyor.\n- P261'de anlatıcı 'perilerle birlikte gömülene dek' derken görüntü beyaz sayfada iki pano. Gömülme ancak sonra P262'de geliyor (2,26 sn, iki ink arasında): söz önde, görüntü arkada.\n- Doruk 19:54–20:05 arasında kırmızı figür ile beyaz zemin arasında gidip geliyor (K→B→K→B).",
+     "fix": "Fırtına (P255–P258):\n- P255'te I10@gerçekte'de ilk şimşek çakar (2 kare beyaz), I10@yer'de sarsıntı başlar.\n- P256'da gök gürlemesi planın başında, şimşek I10@şimşekler'de.\n- P255–P258 F13 yakarışının (P138–P142) kadrajlarını tekrar etsin, bu kez yıkılmış hâlleriyle: P255 = P142 (toprak yarılır), P256 = P138 (gök), P257 = P139 (rüzgâr başları çarpışır), P258 = P141 (dalgalar gökle karışır).\n\nSon söz (P261–P263):\n- P261 kırmızı figürde kalsın: I12@yıkılana'da kaya yarılır, I12@gömülene'de perilerle birlikte kapanır, I12@konuşmakta'da yazı çatlaktan parlar. İki pano yalnız kenar şeridinde.\n- P262 P261'in devamı olsun, ink kalksın.\n- P263'e tek mürekkep geçişi: havadaki yazı sayfadaki alıntıya dönüşür; geçiş I12@erhatın#1'de bitsin.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P167, P236, P241, P210, P208 ve tek katmanlı yaklaşık 79 plan",
+     "problem": "'Her planda en az iki hareket katmanı' ilkesine karşın yaklaşık 79 planın hareket sütununda tek katman var; çoğu beyaz zemin ('terazi salınır', 'daire parlar', 'yazı').\n- P167, P236 ve P241'de hareket yalnız 'yazı'; bu, sanat.md'nin yasakladığı duran yazı kartı.\n- P210 'kare donar' ve ardından bölüm sessizliği geliyor: animasyon yaklaşık 4 sn duruyor.\n- P208 7,98 sn'de; 8 sn eşiğinin hemen altında ve iç olayı yok.",
+     "fix": "Taban hareket: planlar.json 'setler' alanına her set için bir taban katmanı yazılsın ve her plana otomatik eklensin:\n- SAYFA: kâğıt nefesi (±%0,4), yavaş kayma, mürekkep emilmesi.\n- AMFORA: silindir dönüşü.\n- KAYA: rüzgâr ve akan dalga kuşağı.\n- TAHT: toz zerreleri.\ntools/animatik.py, plan hareketi ile set tabanı toplamı 2 katmanın altındaysa uyarsın.\n\nPlan bazında:\n- P167: ateş harflere dönüşür.\n- P241: iki figür arasındaki zincirin kilidi Zeus tarafına geçer.\n- P210: donma yerine gerilmiş yay titrer, kamera ok ucuna yaklaşır. P264 aynı kareden açılır; ok P265'te L02@öldürdü'de saplanır.\n- P208: H09@işkencem'de kartal gölgesi geçer, H09@yıkılmadıkça'da taht çatlar.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P001–P010 (açılış)",
+     "problem": "- 'bile bile' sözüne (A01@bile, 2,08 sn) bağlı omuz üstünden bakış P003'e (4,66 sn) düşmüş: 2,6 sn geç.\n- P004'te beyaz çakma ve çekiç 'Şimdi' kelimesinde; 'mıhlatan' 1,9 sn sonra geliyor.\n- P002 1,2 sn içinde 'ocaktan ocağa' zincirini anlatamaz.\n- P001'deki 'siyah→açılış 0,3 sn', kararlar.md'deki 'kararma yok' kararıyla çelişiyor.\n- P007–P010 aynı tepeden kylix kadrajında dört kesme; sıçramalı kesme (jump cut) gibi okunur.",
+     "fix": "- P001'e iç olay: A01@bile'de koşarken omzunun üstünden Olympos'a bakar.\n- P003 (A01@titan): durur ve alevi kaldırır (kahraman pozu).\n- P002: tek ocak, P001'deki alevin ekran noktasında tutuşur (eşleşen kesme); iki ocak daha sola yayılır.\n- P004: sert kesme; çekiç ve beyaz çakma A02@mıhlatan'da.\n- P001 ilk karede doğrudan açılsın; ilk ses P004'teki çekiç vuruşunun önceden duyulması olsun.\n- P007–P010 için iki seçenek:\n  - Tercihim: tek sürekli tondo yakın planı; iç olaylar A03@kartal, @karaciğerini, @gece, @sabah. Kupanın dönüşü gece ile sabah arasında hızlanır; 'her gün' sözünün sonsuzluğu kesmesiz verilir.\n  - Ya da her kesmede ölçek değişir: tam kupa → tondo → göğüs yakın planı → tam kupa.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P281b, P146, P244",
+     "problem": "Bu kesmeler bir anlam öbeğini bölüyor:\n- P281b (K01@nedir) 'İnsan | nedir?' sorusunu ikiye ayırıyor.\n- P146 (F14@bana) 'hiçbir acı | bana habersiz gelmeyecek' cümlesini bölüyor.\n- P244 (J10@erhata) 'Erhat'a göre bu' sözünü Aiskhylos planına koyuyor; üstelik 0 sn boşlukta ink 0,5 var.",
+     "fix": "- P281b → K01@insan.\n- P146 → F14@bana#1. Böylece öngörü cümlesinin tamamı P145'te kalır (5,7 sn); P146 'Bana biçilen yazgıya'da kabullenmeyle başlar; F14@zorunluluğun iç olayı korunur.\n- P244 → J10@ayshilosun, sert kesme.",
+     "priority": "önemli"
+    },
+    {
+     "plan": "XI ve XII. bölümler (P268–P288)",
+     "problem": "Son üçte birde tempo düşüyor: XI'de plan ortalaması 6,21 sn, XII'de 6,24 sn (hedef 3–6). XII'de P281–P287 arası 47,8 sn kesintisiz beyaz zemin var. Bu, filmin en uzun tek katmanlı bölümü ve tam da tezin cevabına denk geliyor.",
+     "fix": "- P283–P284'teki 'çerçeveden çıkış'ı filmin üç katmanına bağla: K02@doğaya'da figür siyah figür meander çerçevesinden çıkar; K02@insan#1'de kırmızı figür çerçevesinden; K02@her'de sayfanın kendi kenarından çıkıp ateşin altın ışığına basar. 'Her seferinde yeniden' sözü üç katmanla verilir.\n- P286'yı K04@umuda'da böl (alıntı ve kapalı ELPİS küpü); K04@bugün'de figür güneşe döner.\n- P282'ye iç olay: K02@insan'da alıntı belirir.\n- P273'ü L05@nolanın'da gerçek bir kesmeye çevir (kitap sırtı → meşale).",
+     "priority": "önemli"
+    },
+    {
+     "plan": "P288–P293 (final)",
+     "problem": "Kapak karesi P288'de ve 24 sn sonra P292'de iki kez kullanılıyor; finalin tek 'izleyiciye uzanan ateş' anı zayıflıyor. P288'deki ink 1,0 önceki sessizliğe sığmıyor.",
+     "fix": "- P288: sayfa kapanır; kapakta ateşli PROMETHEUS harfleri, arkada zincirli siluet (P011'in birebir eşi). K06@prometeus'ta harfler tamamlanır; kapak karesine kesilmez.\n- Kapak karesi yalnız P292'de kullanılsın (P001, P088 ve P292 üçlüsü).\n- P291→P292 alev noktasında eşleşen kesmeyle bağlansın.\n- Denetim: P293'teki bitiş ekranı öğeleri, YouTube sınırı olan 23:29,3'ten (film sonu − 20 sn) önce başlamasın. M03@sisifosun (23:30,2) uygun.",
+     "priority": "küçük"
+    }
+   ],
+   "questions": [
+    {
+     "to": "yönetmen (iki üye)",
+     "q": "J04–J06'da Zeus görünecek mi? Üç kaynak birbirini tutmuyor: kararlar.md 'Zeus görünmez' diyor, P237 ve P239 Zeus'u gösteriyor, anlatım ise J06@görünmeyen'de 'görünmeyen yargıç' diyor. Hangisi bağlayıcı?"
+    },
+    {
+     "to": "yönetmen (iki üye)",
+     "q": "P007–P010 kylix dizisi için hangisini önerirsiniz: kesmesiz tek plan (cezanın sonsuzluğu) mı, ölçek değiştiren dört kesme mi?"
+    },
+    {
+     "to": "izleyici/tutma (iki üye)",
+     "q": "Bölüm kartını sorudan 1,8 sn önce, sessizlikte göstermek bölüm başında terk riskini artırır mı? Yoksa kartı soruyla birlikte vermek mi daha iyi tutar?"
+    },
+    {
+     "to": "izleyici/tutma (iki üye)",
+     "q": "G10b montajındaki 0,56–0,98 sn'lik planlar telefonda (izleyicilerin %48'i) okunur mu?"
+    },
+    {
+     "to": "görsel kurgu (meslektaşım)",
+     "q": "Önerdiğim kural şu: Erhat'a giriş çözülmeyle, hikâyeye dönüş sert ya da eşleşen kesmeyle. Bu asimetri katmanların tanınmasını zayıflatır mı? Toplam yumuşak geçiş sayısının 40 civarına inmesini doğru buluyor musun?"
+    },
+    {
+     "to": "sanat/üslup (vazo ikonografisi)",
+     "q": "Kenar şeridi (KAYA ya da AMFORA karesinin içinde krem çerçeve) 1920×1080'de, altyazıya ayrılan alt üçte birle çakışmadan hangi bölgeye oturur?"
+    },
+    {
+     "to": "sanat/üslup (vazo ikonografisi)",
+     "q": "Madalyon tondosunu kırmızı figürle göstermek (P155–P161) ikonografik olarak savunulabilir mi?"
+    },
+    {
+     "to": "kaynak/filolog",
+     "q": "P155–P161 (ZVP 214–236) ve P267 (Kurtulmuş Prometheus) için kırmızı figür, yani Aiskhylos katmanı doğru mu? Yoksa olayın kendisi Hesiodos'ta da geçtiği için siyah figür savunulabilir mi?"
+    },
+    {
+     "to": "ses/miks",
+     "q": "Bölüm kartı sessizliği (yaklaşık 2,2 sn) için kısa bir müzik vuruşu uygun mu?"
+    },
+    {
+     "to": "ses/miks",
+     "q": "P004'teki çekiç sesinin 0:00'da önceden duyulması ve P133/P134'teki darbelerin @indi#0/#1 kelimelerine oturtulması miks planıyla uyumlu mu?"
+    }
+   ]
+  }
+ }
+]
