@@ -254,7 +254,7 @@ shot(PA('P225'), (ctx, st) => {
   let R = null;
   const drawH = () => { R = I_hermes(ctx, hx, hy, 5.6 * (behind ? .9 : 1), t, { fly: orb, dir: orb > 0 ? hdir : 1, point: ramp(t, A('I07@suçlar') - .3, A('I07@suçlar') + .2) * (1 - orb), flap: Math.max(orb, .2) }); };
   if (behind) drawH();
-  promChained(ctx, t, { wind, look: t > tB ? -.05 : .08, pose: t > tB && t < tO ? 'direnis' : 'sessiz' });
+  promChained(ctx, t, { wind, look: lerp(.08, -.05, ramp(t, tB - .1, tB + .6)), poseMix: ['sessiz', 'direnis', ramp(t, tB - .1, tB + .6) * (1 - ramp(t, tO - .1, tO + .6))] });
   if (!behind) drawH();
   // uşaklık: Hermes'in bileğinden göğe (tahta) giden ince soğuk ip; I07@bu'da gerilir
   if (R && orb < 1) { const w = R.wN, sl = 1 - E.out3(ramp(t, tB - .1, tB + .4)); ctx.save(); ctx.globalAlpha = 1 - orb; ctx.strokeStyle = 'rgba(230,236,255,.85)'; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.moveTo(w[0], w[1]); ctx.quadraticCurveTo(w[0] - 60 + 120 * sl, w[1] - 300 + 160 * sl, w[0] - 260, -400); ctx.stroke(); glow(ctx, w[0], w[1], 30, 'rgba(230,236,255,.35)'); ctx.restore(); }

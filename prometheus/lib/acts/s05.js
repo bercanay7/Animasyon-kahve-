@@ -338,7 +338,7 @@ shot(PA('P138'), (ctx, st) => {
   // ırmakların kaynakları: kayadan inen su çizgileri
   const rv = ramp(t, tR, tR + .8);
   if (rv > 0) { ctx.strokeStyle = `rgba(150,180,200,${.6 * rv})`; ctx.lineWidth = 4; for (let k = 0; k < 4; k++) { ctx.beginPath(); for (let y = 300; y < 1000; y += 20) { const x = 1700 + k * 60 + Math.sin(y * .02 + t * 4 + k) * 10; y === 300 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.setLineDash([30, 24]); ctx.lineDashOffset = -t * 120; ctx.stroke(); ctx.setLineDash([]); } }
-  promChained(ctx, t, { wind, look: lerp(-.42, -.05, ramp(t, tS, tB + .4)), expr: t < tB ? 'goge' : 'direnc', pose: t < tB ? 'gok' : 'direnis' });
+  promChained(ctx, t, { wind, look: lerp(-.42, -.05, ramp(t, tS, tB + .4)), exprMix: ['goge', 'direnc', ramp(t, tB - .1, tB + .6)], poseMix: ['gok', 'direnis', ramp(t, tB - .1, tB + .6)] });
   // ve sen, herkesin anası toprak: kayanın dibinde kil ışığı
   const ea = Math.exp(-Math.pow((t - tS - .8) / 1.0, 2)); if (ea > .02) glow(ctx, 1300, 1000, 500, `rgba(201,112,63,${.3 * ea})`);
   ctx.restore();
@@ -377,7 +377,7 @@ shot(PA('P144'), (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   // kenardan tek tük kil tozu kopar (iç ses tabanı)
   if (still > .5) motes(ctx, t, 6, 77, 'rgba(201,112,63,.6)', [1000, 300, 500, 600], 14, 1.4, .5 * still);
-  promChained(ctx, t, { wind, look: lerp(-.05, .22, ramp(t, tB - .4, tB + 1.2)), pose: t > tB ? 'sessiz' : 'direnis', pullK: lerp(.45, .1, ramp(t, tZ, tZ + 1)), p: { blink: Math.max(.28, blinkAt(t, 17)) } });
+  promChained(ctx, t, { wind, look: lerp(-.05, .22, ramp(t, tB - .4, tB + 1.2)), poseMix: ['direnis', 'sessiz', ramp(t, tB - .1, tB + .8)], pullK: lerp(.45, .1, ramp(t, tZ, tZ + 1)), p: { blink: Math.max(.28, blinkAt(t, 17)) } });
   ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },

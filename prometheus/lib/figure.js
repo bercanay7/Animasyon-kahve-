@@ -442,7 +442,10 @@ function drawHead(G, f, J, det) {
     if (p.headBack) { g.scale(-1, 1); g.rotate(p.headBackA ?? .15); }
     if (lk.fem && lk.headgear !== 'helmet') {
       G.part(c => spline(c, headOutline(lk)), { fill: sty.white, outline: sty.line, olW: .3, cut: false });
-      G.part(c => spline(c, HAIR_F), { cut: false });
+      // saç her teknikte sırdır: siyah figürde gövdeyle aynı siyah, kırmızı figürde kil yüzün üstünde siyah sır
+      // (çevresinde ayrılmış kil çizgi), beyaz zeminde koyu sulandırılmış sır (üslup kurulu tur 3: kil saç kel okunuyordu)
+      const hairCol = sty.hair || (sty.dilute ? sty.line : STY.lek && sty.fill === STY.lek.fill ? '#4A3020' : null);
+      G.part(c => spline(c, HAIR_F), hairCol ? { fill: hairCol, outline: sty.dilute ? sty.fill : null, olW: .25, cut: false } : { cut: false });
       G.paint(c => { c.moveTo(4.8, -11.2); c.quadraticCurveTo(0, -13.6, -6.4, -11.4); }, sty.red, 1.0, false);
       if (lk.crown) { G.part(c => { c.moveTo(4.6, -11.8); c.lineTo(4.2, -15.6); c.lineTo(2.2, -13.4); c.lineTo(0, -16.6); c.lineTo(-2.2, -13.6); c.lineTo(-4.4, -16.0); c.lineTo(-5.6, -11.6); c.quadraticCurveTo(0, -14, 4.6, -11.8); }, { fill: C.gold, outline: sty.line, olW: .25, cut: false }); }
       // göz (siyah çizgi), kaş

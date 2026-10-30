@@ -76,7 +76,11 @@ function promChained(ctx, t, o = {}) {
   const tw = t + 1.2 * noise1(t * .12, 8), ph = (tw % 5.6) / 5.6;
   const cyc = (ph < .35 ? E.io2(ph / .35) : 1 - E.io2((ph - .35) / .65)) + settle(ph * 5.6, 1.96, .06, 1.7, 4);
   const pull = (o.pull ?? cyc * (o.pullK ?? .45)) + (o.pullAdd || 0);
-  const base = { ...(PROM_POSE[o.pose || 'direnis']), ...(EXPR[o.expr || 'direnc']) };
+  // poz ve ifade geçişleri tek karede sıçramasın: poseMix / exprMix = [a, b, u] iki hazırı u ile karıştırır (üslup kurulu tur 3)
+  const mixRec = (a, b, u, fb = {}) => { const r = {}; for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) r[k] = lerp(a[k] ?? fb[k] ?? 0, b[k] ?? fb[k] ?? 0, u); return r; };
+  const PP = o.poseMix ? mixRec(PROM_POSE[o.poseMix[0]], PROM_POSE[o.poseMix[1]], E.io2(clamp(o.poseMix[2]))) : PROM_POSE[o.pose || 'direnis'];
+  const EX = o.exprMix ? mixRec(EXPR[o.exprMix[0]], EXPR[o.exprMix[1]], E.io2(clamp(o.exprMix[2])), PP) : EXPR[o.expr || 'direnc'];
+  const base = { ...PP, ...EX };
   let J = null, M = null;
   const ik = { hF: [px + 200, gy - 625], hN: [px + 185, gy - 300], fN: [px - 95, gy - 3 * s, .05], fF: [px + 124, gy - 3 * s - 20, -.5] };
   // ayak zincirleri figürün arkasında (kalkık topuğun parmaklarını örtmesin): eklemleri önce görünmez bir çizimle al

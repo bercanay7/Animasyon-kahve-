@@ -265,7 +265,8 @@ shot(PA('P191'), (ctx, st) => {
   const wag = ramp(t, tK - .1, tK + .3) * (1 - ramp(t, tK + 1.6, tK + 2.0)) + ramp(t, A('H04@diline') - .1, A('H04@diline') + .3) * (1 - ramp(t, A('H04@ol') + .4, A('H04@ol') + .8));
   if (up > 0) { const m = H_okeanos(ctx, H_OKX, lerp(1180, 730, up), 5.0, t, { shN: lerp(.3, 2.2, wag) + Math.sin(t * 9) * .12 * wag, elN: lerp(.8, .5, wag), handN: wag > .3 ? 'point' : 'open', torso: lerp(.05, -.12, ramp(t, tB, tB + .6)) });
     window.H_OKM = H_scr(c, m); }
-  promChained(ctx, t, { wind, look: t > tP && t < tB ? .05 : -.08, pose: t > tP && t < tB ? 'alay' : 'direnis', p: t > tP && t < tB ? { head: -.15 + .1 * Math.sin(ramp(t, tP + .3, tP + 1.6) * PI) } : {} });
+  const uA = ramp(t, tP - .1, tP + .5) * (1 - ramp(t, tB - .1, tB + .5));
+  promChained(ctx, t, { wind, look: lerp(-.08, .05, uA), poseMix: ['direnis', 'alay', uA], p: uA > 0 ? { head: lerp(PROM_POSE.direnis.head, -.15 + .1 * Math.sin(ramp(t, tP + .3, tP + 1.6) * PI), E.io2(uA)) } : {} });
   ctx.restore();
   // dalga kuşağından yükseliş: köpük
   if (up > 0 && up < 1) { ctx.save(); cam(ctx, c, 1); ctx.strokeStyle = `rgba(242,214,170,${.6 * (1 - up)})`; ctx.lineWidth = 4; for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.ellipse(H_OKX, 900 - k * 10, 120 + k * 50 + up * 60, 14, 0, 0, TAU); ctx.stroke(); } ctx.restore(); }
@@ -292,7 +293,7 @@ shot(PA('P195'), (ctx, st) => {
   const { wind } = kayaWorld(ctx, t, c, { sky: H_SKY });
   ctx.save(); cam(ctx, c, 1);
   G_nymphs(ctx, t, 1, { wind });
-  promChained(ctx, t, { wind, look: t < tB ? .08 : -.05, pose: t > tO ? 'direnis' : 'sessiz', p: t > tO ? { blink: 0 } : {} });
+  promChained(ctx, t, { wind, look: lerp(.08, -.05, ramp(t, tB - .1, tB + .6)), poseMix: ['sessiz', 'direnis', ramp(t, tO - .1, tO + .6)], p: t > tO ? { blink: 0 } : {} });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);
@@ -436,7 +437,7 @@ shot(PA('P207'), (ctx, st) => {
   const ta = ramp(t, tI - .2, tI + .8);
   if (ta > 0) { ctx.save(); ctx.globalAlpha = ta; glow(ctx, 1150, -330, 340, 'rgba(230,236,255,.16)'); F_throne(ctx, 1110, -300, 3.0, 1, t); crackLine(ctx, 1150, -302, 120, ramp(t, tY, tY + 1.6, E.lin), { col: '#E6ECFF', w: 4 }); ctx.restore(); }
   H_io(ctx, 760, 868, 4.6, t, { sink: E.io2(ramp(t, PA('P207') + .2, A('H09@ölmeyi') + .3)), dir: 1 });
-  promChained(ctx, t, { wind, look: t > tI ? lerp(.05, -.4, ramp(t, tI, tI + .8)) : .1, pose: t > tI ? 'gok' : 'sessiz' });
+  promChained(ctx, t, { wind, look: t > tI ? lerp(.05, -.4, ramp(t, tI, tI + .8)) : .1, poseMix: ['sessiz', 'gok', ramp(t, tI - .1, tI + .7)] });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);

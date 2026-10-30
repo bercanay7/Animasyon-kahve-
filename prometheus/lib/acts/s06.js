@@ -36,9 +36,9 @@ const G_rf = (c, x, gy, s, dir, lk, p = {}, o = {}) => figure(c, { x, y: gy - 44
 // --- P148–P150: bölüm kartı; kayanın üstünde mahkeme şeridi: SAVUNMA; kenar şeridi: bilinç · özgürlük; sanık başını kaldırır ---
 shot(PA('P148'), (ctx, st) => {
   const t = st.t, lt = st.lt, tY = A('G02@yani');
-  const c = F_cam(t, [[PA('P148'), { ...CAMS.alt }], [A('G02'), { ...CAMS.genis, x: 980 }], [tY, { ...CAMS.orta, z: 1.7 }]], 1.0);
+  const c = F_cam(t, [[PA('P148'), { ...CAMS.alt }], [A('G02'), { ...CAMS.genis, x: 980 }], [tY, { ...CAMS.orta, x: 1060, y: 530, z: 1.35 }]], 1.0);   // baş Erhat şeridinin (y 190) altında kalmaz
   const { wind } = kayaWorld(ctx, t, c, { sky: G_SKY });
-  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: lerp(.1, -.18, ramp(t, tY - .2, tY + .8)), pose: t < tY ? 'sessiz' : 'direnis' }); ctx.restore();
+  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: lerp(.1, -.18, ramp(t, tY - .2, tY + .8)), poseMix: ['sessiz', 'direnis', ramp(t, tY - .1, tY + .7)] }); ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);
 }, { tr: { type: 'clay', dur: .8, end: true }, post: { tex: .55, vig: 1, grain: .06 },
@@ -56,7 +56,7 @@ shot(PA('P151'), (ctx, st) => {
   const { wind } = kayaWorld(ctx, t, c, { sky: G_SKY });
   ctx.save(); cam(ctx, c, 1);
   G_nymphs(ctx, t, ramp(t, A('G03@perileri') - .3, A('G03@gelir') + .4), { wind });
-  promChained(ctx, t, { wind, look: .08, pose: t > tP ? 'alay' : 'direnis', expr: 'direnc' });
+  promChained(ctx, t, { wind, look: .08, poseMix: ['direnis', 'alay', ramp(t, tP - .1, tP + .6)], expr: 'direnc' });
   ctx.restore();
   kayaFront(ctx, t, c, wind);
   kayaFrame(ctx, t);
@@ -364,7 +364,9 @@ shot(PA('P182'), (ctx, st) => {
   ctx.save(); cam(ctx, c, 1);
   G_nymphs(ctx, t, ramp(t, t12 - .5, t12 + .5), { wind, bow: ramp(t, A('G12b@itiraf'), A('G12b@itiraf') + .8) });
   const tN = ramp(t, A('G12b@prometeus'), A('G12b@prometeus') + .6), push = ramp(t, tYi, tYi + .5) * (1 - ramp(t, tYi + 1.2, tYi + 2.2));
-  promChained(ctx, t, { wind, look: lerp(-.05, .1, tN) - .15 * ramp(t, PA('P182'), PA('P182') + .6) * (1 - tN), pullAdd: .35 * push, dust: push });
+  // "eriyip gitmek": çatlakla birlikte baş eğilir, yüz acıya döner; "yine"de itişle direnç geri gelir
+  const uC = ramp(t, tB + .2, tB + 1.0) * (1 - ramp(t, tYi - .2, tYi + .5));
+  promChained(ctx, t, { wind, look: lerp(-.05, .1, tN) - .15 * ramp(t, PA('P182'), PA('P182') + .6) * (1 - tN), pullAdd: .35 * push, dust: push, poseMix: ['direnis', 'sessiz', uC], exprMix: ['direnc', 'aci', .8 * uC] });
   // kil kenarları rüzgârda toz olup kopar
   const ds = ramp(t, tB + .4, tB + 1.4) * (1 - ramp(t, tY - .3, tY + .2));
   if (ds > 0) motes(ctx, t, 30, 91, 'rgba(201,112,63,.85)', [1080, 260, 420, 640], -40, 2.2, .8 * ds);
