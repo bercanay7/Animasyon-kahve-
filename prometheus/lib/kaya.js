@@ -113,20 +113,21 @@ function kayaWorld(ctx, t, c, o = {}) {
   ctx.save(); cam(ctx, c, .4); windLines(ctx, t, wind); ctx.restore();
   // ova: yüksekte ufuk (uçurumun yüksekliği), üç dalgalı ayrılmış zemin çizgisi, derinlikli ateşler
   ctx.save(); cam(ctx, c, .35);
-  const hz = x => 760 + fbm1(x * .004, 3) * 18;
+  // telefon kuralı: ateş, yüz ve yazı y ≤ 700 (altyazı ve oynatıcı kontrolleri alt bandı kapatır)
+  const hz = x => 610 + fbm1(x * .004, 3) * 16;
   ctx.fillStyle = '#140B07'; ctx.beginPath(); ctx.moveTo(-600, hz(-600)); for (let x = -600; x <= 1300; x += 20) ctx.lineTo(x, hz(x)); ctx.lineTo(1300, 1500); ctx.lineTo(-600, 1500); ctx.fill();
   ctx.strokeStyle = 'rgba(201,112,63,.55)'; ctx.lineWidth = 2.4;
-  for (const [y0, a] of [[0, 1], [52, .8], [118, .6]]) { ctx.globalAlpha = a; ctx.beginPath(); for (let x = -600; x <= 1300; x += 20) { const y = hz(x) + y0 + fbm1(x * .006, 9 + y0) * 8; x > -600 ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+  for (const [y0, a] of [[0, 1], [48, .8], [175, .6]]) { ctx.globalAlpha = a; ctx.beginPath(); for (let x = -600; x <= 1300; x += 20) { const y = hz(x) + y0 + fbm1(x * .006, 9 + y0) * 8; x > -600 ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
   ctx.globalAlpha = 1;
-  glow(ctx, 640, 820, 600, `rgba(255,140,60,${.14 * fl})`);
-  if (o.fires !== false) humanFires(ctx, t, [[120, 790, .45], [300, 802, .55], [480, 818, .7], [860, 846, 1.6]], o.fireA ?? 1, { people: [[810, 846, 1.25, 1], [912, 846, 1.25, -1]] });
-  motes(ctx, t, 14, 21, 'rgba(255,190,110,.85)', [760, 640, 200, 200], 22, 1.3, .55 * (o.fireA ?? 1));
+  glow(ctx, 660, 680, 600, `rgba(255,140,60,${.14 * fl})`);
+  if (o.fires !== false) humanFires(ctx, t, [[120, 632, .45], [300, 644, .55], [480, 660, .7], [860, 690, 1.6]], o.fireA ?? 1, { people: [[810, 690, 1.25, 1], [912, 690, 1.25, -1]] });
+  motes(ctx, t, 14, 21, 'rgba(255,190,110,.85)', [760, 480, 200, 200], 22, 1.3, .55 * (o.fireA ?? 1));
   ctx.restore();
   // kaya: kadrajın dışına (yukarı ve sağa) uzanır, yukarı çevrinme ve kaydırmalarda kenarı görünmez
   ctx.save(); cam(ctx, c, 1);
   const lw = 3.5 / Math.max(1, (c.z || 1) * .8);
   const R = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 190], [1350, 120], [1420, 150], [1500, 95], [1580, 175], [1720, 240], [1990, 290], [2600, 230], [2600, 1500]];
-  crag(ctx, R, { seed: 7, grad: [1050, '#5A311D', 1900, '#341C12'], line: C.ink, lw, hole: [1265, 560, 250, 390], strata: 7, lobes: 8, flat: [13, 14], bounce: [960, 860, 460, `rgba(255,150,70,${.22 * fl * (o.fireA ?? 1)})`] });
+  crag(ctx, R, { seed: 7, grad: [1050, '#5A311D', 1900, '#341C12'], line: C.ink, lw, hole: [1265, 560, 250, 390], strata: 7, lobes: 8, flat: [13, 14], bounce: [960, 720, 460, `rgba(255,150,70,${.22 * fl * (o.fireA ?? 1)})`] });
   // zemin çizgisi (vazo uylaşımı): figür kayanın üstündeki dalgalı bir çizgiye basar; altı hafif gölgeli
   const gl = x => 870 + fbm1(x * .02, 4) * 6 + Math.max(0, (x - 1400) * .12);
   ctx.beginPath(); ctx.moveTo(1035, gl(1035)); for (let x = 1035; x <= 2600; x += 12) ctx.lineTo(x, gl(x)); ctx.lineTo(2600, 1500); ctx.lineTo(1015, 1500); ctx.closePath();
