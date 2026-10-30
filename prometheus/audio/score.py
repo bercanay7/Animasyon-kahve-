@@ -1107,7 +1107,7 @@ def s02_thrones():
     choir(M('F3 A3 D4'), W('C10', 'çocuk') - 0.2, W('C10', 'büyüyünce'), gain=0.26, att=0.6, rel=0.8, vowel='o')
     for i, m in enumerate(M('A3 G3 F3 E3 D3 C3')):
         pizz(W('C10', 'kusturdu') + 0.14 * i, m, vel=0.32)
-    throne_hit(W('C10', 'indirdi'), vel=0.4)
+    throne_hit(W('C10', 'indirdi') + 0.88, vel=0.8)   # taht inişte yere çarpar (görüntü: düşüş 0,9 sn); kelimeyi örtmez
     # C12 Erhat distinguishes the two revolutions (piano)
     piano_arp(S('C12'), Se('C12') + 0.6, ERHAT, step=0.4, vel=0.18)
     bed(S('C12'), Se('C12') + 0.6, ['D3 F3 A3', 'Bb2 D3 F3', 'F2 A2 C3', 'C3 E3 G3'], gain=0.1, cutoff=600)
@@ -1292,7 +1292,7 @@ def s06_defence():
     # G08 blind hopes (pale bells), then the fire (warm)
     for k in range(5):
         bell(W('G08', 'kör') + k * 0.4, ['D6', 'F6', 'A6', 'E6', 'C6'][k], vel=0.04)
-    fire_motif(Se('G08') + 0.05, 'D5', beat=0.24, gain=0.55, vib=12, drone='D4')
+    fire_motif(Se('G08') + 0.05, 'D5', beat=0.24, gain=0.4, vib=12, drone='D4')
     crackle(W('G08', 'ateşi'), Se('G08') + 1.2, vel=0.08)
     # G09 what does giving fire mean? (piano)
     piano_arp(S('G09'), Se('G09') + 0.4, ERHAT, step=0.4, vel=0.17)
@@ -1404,7 +1404,7 @@ def s09_other_end():
     choir(M('D3 A3 D4 F#4 A4'), W('J04', 'özgürdür', end=True), Se('J05') + 0.5, gain=0.4, att=0.3, rel=1.8)
     pad(M('D3 F#3 A3 E4'), T, Se('J05') + 0.5, gain=0.16, cutoff=1300)
     fire_motif(W('J04', 'özgürdür', end=True) + 0.05, 'D5', beat=0.27, gain=0.9, kind=FIRE_DONE, vib=16, drone='D4')
-    boom(W('J04', 'özgürdür', end=True) + 0.05, vel=0.8, f0=64, decay=2.0)
+    boom(W('J04', 'özgürdür', end=True) + 0.05, vel=1.0, f0=64, decay=2.0)
     # J06 roles reversed: an inverted arpeggio; J10 one man's great work
     piano_arp(S('J06'), Se('J06') + 0.5, ['D3 F#3 A3 E4', 'B2 D3 F#3 A3'], step=0.4, vel=0.18, pattern=(3, 2, 1, 0, 1, 2))
     piano_arp(S('J10'), Se('J10') + 1.2, ['G2 B2 D3 F#3', 'D3 F#3 A3 E4'], step=0.44, vel=0.16)
@@ -1709,7 +1709,7 @@ def mixdown():
     del _ARR[(SRL, 'full')], _ARR[(SRL, 'hits')]
     mark('upsample')
     mt, mv, used_vo = speech_mask()
-    mix = np.stack([spectral_duck([(full[:, c], 1.0), (hits[:, c], 0.55), (lead[:, c], 1.5)], mt, mv) for c in range(2)], 1)
+    mix = np.stack([spectral_duck([(full[:, c], 1.0), (hits[:, c], 0.8), (lead[:, c], 1.5)], mt, mv) for c in range(2)], 1)
     _ARR.clear()
     mark('duck+eq')
     tg, gg = master_gain(N)

@@ -22,7 +22,9 @@ SHORTS = {
     TITLE='PROMETHEUS',
     F0=wd('J01', 'bu', 1)['s'] - .15, F1=wd('J06', 'tutsak')['e'] + .35,
     # kırpma anahtarları: (film saniyesi, kırpma merkezi x, y, yakınlık); arada yumuşak geçiş, 0,02 sn'den kısa aralık = sert kesme
-    KEYS=[(1055.2, 1330, 540, 1.0), (1056.6, 1250, 540, 1.0), (1062.0, 1050, 520, 1.0), (1066.84, 980, 560, 1.0),
+    # atlama kesmesi: sorudan sonraki 1,37 sn'lik sessizlik 0,6 sn'ye iner (ilk saniyeler); kesmede hafif yakınlaşma, kurgu kesmesi gibi okunur
+    CUTS=[(wd('J01', 'kim')['e'] + .35, wd('J02', 'görünüşe')['s'] - .25)],
+    KEYS=[(1055.2, 1330, 540, 1.0), (1056.6, 1250, 540, 1.0), ('CUT_A', 1170, 535, 1.0), ('CUT_B', 1150, 535, 1.15), (1062.0, 1050, 520, 1.0), (1066.84, 980, 560, 1.0),
           (1066.85, 980, 560, 1.3), (1072.35, 980, 560, 1.3),            # "Prometheus ise zincirde": sert yakınlaşma, "Erhat sorar"da geri
           (1072.36, 960, 560, 1.0), (1073.8, 960, 540, 1.0), (1077.2, 960, 560, 1.0), (1079.3, 960, 540, 1.0), (1081.5, 960, 540, 1.05),
           (1082.0, 1545, 540, 1.0), (1084.19, 1545, 540, 1.0),           # doruk: kırmızı figürlü Prometheus kadrajın ortasında
@@ -54,9 +56,14 @@ SHORTS = {
 }
 K = sys.argv[1] if len(sys.argv) > 1 else 'a'
 cfg = SHORTS[K]
-F0, F1 = cfg['F0'], cfg['F1']; DUR = round(F1 - F0, 3)
+F0, F1 = cfg['F0'], cfg['F1']
+CUTS = cfg.get('CUTS', [])
+# film saniyesi → Shorts saati (atlama kesmeleriyle çıkarılan aralıklar düşülür)
+def sh(t): return round(t - F0 - sum(max(0, min(t, b) - a) for a, b in CUTS), 3)
+cfg['KEYS'] = [((CUTS[0][0] if k[0] == 'CUT_A' else CUTS[0][1]) if isinstance(k[0], str) else k[0], *k[1:]) for k in cfg['KEYS']]
+DUR = sh(F1)
 # altyazı sözcükleri: kesite düşen sözcükler, Shorts saatine kaydırılır
-words = [{'w': x['d'] or x['w'], 's': round(x['s'] - F0, 3), 'e': round(x['e'] - F0, 3)} for x in WORDS if x['s'] >= F0 - .05 and x['e'] <= F1 + .05 and (x['d'] or '').strip()]
+words = [{'w': x['d'] or x['w'], 's': sh(x['s']), 'e': sh(x['e'])} for x in WORDS if x['s'] >= F0 - .05 and x['e'] <= F1 + .05 and (x['d'] or '').strip()]
 # gruplar: yapılandırmada elle yazılmış anlam birimleri varsa sözcükler sırayla eşlenir; yoksa noktalama ya da en fazla 3 sözcük
 P = '.,:?!…”'
 groups, cur = [], []
@@ -81,17 +88,16 @@ if keys[0][0] > F0: keys.insert(0, (F0, *keys[0][1:]))
 if keys[-1][0] < F1: keys.append((F1, *keys[-1][1:]))
 EDL = []
 for a, b in zip(keys, keys[1:]):
-    s, e = round(a[0] - F0, 3), round(b[0] - F0, 3)
+    s, e = sh(a[0]), sh(b[0])
     if e - s < .02: continue
     light = any(l0 <= a[0] < l1 for l0, l1 in cfg.get('LIGHT', []))
     capY, ctaY = cfg['CAP'], 1330
     for f, cy_, ty_ in cfg.get('CAPS', []):
         if a[0] >= f: capY, ctaY = cy_, ty_
     EDL.append(dict(s=s, e=e, f=round(a[0], 3), cx0=a[1], cx1=b[1], cy0=a[2], cy1=b[2], z0=a[3], z1=b[3], capY=capY, ctaY=ctaY, light=light))
-sh = lambda t: round(t - F0, 3)   # film saniyesi → Shorts saati
 cta = cfg.get('CTA')
 CTA = sh(cta['s']) if cta else round(DUR - 2.4, 3)
-out = dict(TITLE=cfg['TITLE'], F0=round(F0, 3), F1=round(F1, 3), DUR=DUR, CTA=CTA, EDL=EDL, GROUPS=groups, WORDS=words,
+out = dict(TITLE=cfg['TITLE'], F0=round(F0, 3), F1=round(F1, 3), DUR=DUR, CUTS=[[round(a, 3), round(b, 3)] for a, b in CUTS], CTA=CTA, EDL=EDL, GROUPS=groups, WORDS=words,
            CTA_L=[cta['l1'], cta['l2']] if cta else None,
            HOOK=dict(l1=cfg['HOOK']['l1'], l2=cfg['HOOK']['l2'], e=sh(cfg['HOOK']['e'])) if cfg.get('HOOK') else None,
            TAGS=[dict(s=sh(a_), e=sh(b_), t=t_) for a_, b_, t_ in cfg.get('TAGS', [])],
