@@ -156,3 +156,59 @@ function marginBand(ctx, x0, x1, y0, y1, p = 1, o = {}) {
   inkPoly(ctx, [[x1, y1], [x0, y1]], p, { col, w: 2.4, jit: .5 });
   inkPoly(ctx, [[x1, y1 - 8], [x0, y1 - 8]], p, { col, w: 1.2, jit: .5 });
 }
+
+// Erhat'ın kenar şeridi: tek cümlelik Erhat yorumu, katman değiştirmeden o anki karenin üstüne inen krem şerit.
+// Solda "ERHAT · s. x" künyesi, ortada 2–5 kelimelik anahtar söz (el yazısı), sağda sepya simge çizimi (icon(ctx, p)).
+// Üst 2/3'te kalır (altyazı bandına inmez). lt: şeridin başından beri geçen süre, d: kalış süresi.
+function erhatStrip(ctx, lt, d, words, page, o = {}) {
+  if (lt < 0 || lt > d + .6) return;
+  const k = E.out3(ramp(lt, 0, .55)) * (1 - E.in2(ramp(lt, d, d + .6))), y0 = 40, h = o.h || 190;
+  ctx.save(); baseT(ctx);
+  ctx.translate(0, -h * (1 - k));
+  ctx.fillStyle = 'rgba(20,10,5,.35)'; ctx.fillRect(0, y0 + 6, W, h);
+  ctx.fillStyle = PW.paper; ctx.fillRect(0, y0, W, h);
+  const g = ctx.createLinearGradient(0, y0, 0, y0 + h); g.addColorStop(0, 'rgba(255,250,238,.5)'); g.addColorStop(1, 'rgba(150,120,85,.15)');
+  ctx.fillStyle = g; ctx.fillRect(0, y0, W, h);
+  ctx.strokeStyle = PW.line; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(0, y0 + h - 4); ctx.lineTo(W, y0 + h - 4); ctx.stroke();
+  ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, y0 + h - 12); ctx.lineTo(W, y0 + h - 12); ctx.stroke();
+  txt(ctx, 'ERHAT', 80, y0 + h / 2 - 16, { font: '700 34px Cinzel', col: PW.red, align: 'left', ls: 6, force: o.force });
+  if (page) txt(ctx, 'önsöz · s. ' + page, 82, y0 + h / 2 + 26, { font: 'italic 600 30px "Cormorant Garamond"', col: PW.line, align: 'left', force: o.force });
+  if (words) penLine(ctx, words, o.wx ?? W / 2 + 40, y0 + h / 2, ramp(lt, .35, .35 + Math.min(1.6, words.length * .06)), { font: o.font || 'italic 600 62px "Cormorant Garamond"', col: PW.ink, force: o.force });
+  if (o.icon) { ctx.save(); ctx.translate(W - 190, y0 + h / 2); o.icon(ctx, ramp(lt, .6, 1.6), lt); ctx.restore(); }
+  ctx.restore();
+}
+// Görünür söz: Prometheus'un sözleri ağzından akan kil renkli harfler (ateşe dönük kenar ışığı), havada kalır.
+// pts: harflerin dizileceği yol f(u)→[x,y]; p: akış oranı; o.fade: silinme (P147'de yarım kalıp silinir)
+function speechFlow(ctx, s, f, p, o = {}) {
+  if (NOTEXT && !o.force) return;
+  s = L(s); const n = s.length, font = o.font || '600 46px Cinzel';
+  ctx.save(); ctx.font = font; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const ws = [...s].map(ch => ctx.measureText(ch).width), tot = ws.reduce((a, b) => a + b, 0);
+  let acc = 0;
+  for (let i = 0; i < n; i++) {
+    const u = (acc + ws[i] / 2) / tot; acc += ws[i];
+    const q = clamp(p * (n + 4) / 4 - i / 4); if (q <= 0) continue;
+    const a = q * (1 - (o.fade ? clamp(o.fade * (n + 4) / 4 - (n - i) / 4) : 0)); if (a <= 0) continue;
+    const [x, y] = f(u), [x2, y2] = f(Math.min(1, u + .01)), ang = Math.atan2(y2 - y, x2 - x);
+    ctx.save(); ctx.translate(x, y - (1 - E.out3(q)) * 18); ctx.rotate(ang * (o.follow ?? .6)); ctx.globalAlpha *= a;
+    ctx.shadowColor = o.glow || 'rgba(255,170,80,.55)'; ctx.shadowBlur = 14;
+    ctx.fillStyle = o.col || PC.clayRL; ctx.fillText(s[i], 0, 0);
+    ctx.restore();
+  }
+  ctx.restore();
+}
+// Güç'ün (Kratos) sözü: kil levhaya kazınmış, katı ve donmuş harfler
+function carvedTablet(ctx, lines, x, y, w, lt, o = {}) {
+  if (NOTEXT && !o.force) return;
+  const k = E.outBack(ramp(lt, 0, .5, E.lin)), lh = o.lh || 64, h = lines.length * lh + 70;
+  ctx.save(); ctx.translate(x, y); ctx.scale(k, k); ctx.rotate(o.rot ?? -.02);
+  ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fillRect(-w / 2 + 10, -h / 2 + 12, w, h);
+  ctx.fillStyle = '#B8693F'; ctx.fillRect(-w / 2, -h / 2, w, h);
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 4; ctx.strokeRect(-w / 2, -h / 2, w, h);
+  lines.forEach((ln, i) => {
+    const q = ramp(lt, .3 + i * .5, .9 + i * .5);
+    txt(ctx, ln, 0, -h / 2 + 35 + lh * (i + .5), { font: o.font || '700 44px Cinzel', col: 'rgba(40,20,10,.92)', a: q, ls: 3, force: o.force });
+    txt(ctx, ln, 1.5, -h / 2 + 36.5 + lh * (i + .5), { font: o.font || '700 44px Cinzel', col: 'rgba(255,220,180,.25)', a: q, ls: 3, force: o.force });
+  });
+  ctx.restore();
+}
