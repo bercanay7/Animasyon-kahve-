@@ -22,26 +22,36 @@ function J_skyChain(ctx, t, part = 0, o = {}) {
   for (let i = 0; i < 7; i++) { const x = 1100 + i * 130 + Math.sin(t * .15 + i * 2) * 16, sg = x < 1500 ? -1 : 1; cloud(ctx, x + sg * part * 520, -880 + (i % 3) * 50, 1.9, '#160D09', 'rgba(201,112,63,.3)', i + 13); }
 }
 // zincirin öbür ucu: tahtın kolu, buluttan uzanan tek bilek, soğuk beyaz kelepçe (yüz ve gövde yok)
+// zincirin öbür ucu (R = zincirin halkası): tahtın sarmallı kolu, profilden yumruk, buluttan inen dolu önkol, demir kelepçe (yüz ve gövde yok)
+// açılım karesinde R ekranda ≈ (1150, 470): yumruk ≈ (1040, 480), kelepçe ≈ (1165, 428), taht kolu x 620–1500, y 580–630; ZEUS · KÖLE mührü solda boş gökte
 function J_zeusWrist(ctx, t, a, glint = 0) {
   if (a <= 0) return;
-  const [x, y] = J_TOP;
-  ctx.save(); ctx.globalAlpha *= a;
-  glow(ctx, x + 60, y - 40, 420, 'rgba(230,236,255,.14)');
-  // tahtın kolu: koyu, kenarı soğuk ışıklı, ucunda sarmal
-  ctx.save(); ctx.shadowColor = 'rgba(230,236,255,.8)'; ctx.shadowBlur = 18; ctx.fillStyle = '#120A07';
-  ctx.fillRect(x - 260, y + 34, 560, 30); ctx.beginPath(); ctx.arc(x - 260, y + 49, 28, 0, TAU); ctx.fill(); ctx.fillRect(x + 200, y + 60, 26, 300); ctx.restore();
-  ctx.strokeStyle = 'rgba(201,112,63,.55)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x - 260, y + 49, 14, 0, PI * 1.6); ctx.stroke();
-  // önkol: sağ üstteki buluttan iner, el kolun üstünde durur (soğuk kontürlü koyu siluet)
-  ctx.lineCap = 'round'; const arm = () => { ctx.beginPath(); ctx.moveTo(x + 470, y - 330); ctx.quadraticCurveTo(x + 230, y - 150, x + 20, y - 8); ctx.stroke(); };
-  ctx.strokeStyle = 'rgba(230,236,255,.75)'; ctx.lineWidth = 78; arm(); ctx.strokeStyle = '#3E2C24'; ctx.lineWidth = 70; arm();
-  // el: tahtın kolunu kavrar; parmaklar kolun üstünden aşağı iner
-  ctx.fillStyle = '#3E2C24'; ctx.strokeStyle = 'rgba(230,236,255,.75)'; ctx.lineWidth = 3;
-  ctx.beginPath(); ctx.moveTo(x + 40, y - 30); ctx.quadraticCurveTo(x - 40, y - 26, x - 96, y + 24); ctx.quadraticCurveTo(x - 104, y + 46, x - 80, y + 62); ctx.lineTo(x + 40, y + 60); ctx.quadraticCurveTo(x + 60, y + 20, x + 40, y - 30); ctx.closePath(); ctx.fill(); ctx.stroke();
-  for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(x - 78 + k * 26, y + 36); ctx.lineTo(x - 80 + k * 26, y + 62); ctx.stroke(); }
-  for (let k = 0; k < 3; k++) cloud(ctx, x + 300 + k * 120, y - 250 - k * 40, 2.0, '#1E120C', 'rgba(201,112,63,.45)', 77 + k);
-  // kelepçe: soğuk beyaz halka, zincir buradan aşağı iner
-  ctx.save(); ctx.translate(x + 10, y - 6); ctx.rotate(-.75); glow(ctx, 0, 0, 90, `rgba(230,236,255,${.3 + .4 * glint})`); ctx.fillStyle = '#E6ECFF'; ctx.fillRect(-14, -34, 28, 68); ctx.strokeStyle = 'rgba(90,100,130,.9)'; ctx.lineWidth = 3; ctx.strokeRect(-14, -34, 28, 68); ctx.restore();
-  if (glint > 0) sparkle(ctx, x + 22, y - 30, 46 * glint, glint, '#E6ECFF');
+  const [x, y] = J_TOP, cold = '#E6ECFF', dark = '#1A100B';
+  ctx.save(); ctx.globalAlpha *= a; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  glow(ctx, x + 80, y - 60, 460, 'rgba(230,236,255,.13)');
+  // bulut kümesi: önkol içinden çıkar
+  for (let k = 0; k < 4; k++) cloud(ctx, x + 260 + k * 110, y - 330 + k * 28 - (k % 2) * 40, 2.1, '#1E120C', 'rgba(201,112,63,.5)', 77 + k);
+  // tahtın kolu: kalın koyu kiriş, önde sarmal uç, arkada aslan pençeli ayak
+  const ed = (fn, w) => { ctx.strokeStyle = cold; ctx.lineWidth = w + 8; fn(); ctx.stroke(); ctx.strokeStyle = dark; ctx.lineWidth = w; fn(); ctx.stroke(); };
+  ed(() => { ctx.beginPath(); ctx.moveTo(x - 300, y + 86); ctx.lineTo(x + 210, y + 86); }, 30);
+  ed(() => { ctx.beginPath(); ctx.moveTo(x + 190, y + 90); ctx.lineTo(x + 196, y + 420); }, 26);
+  ctx.save(); ctx.translate(x - 318, y + 84); ctx.strokeStyle = cold; ctx.lineWidth = 6; ctx.beginPath(); for (let a2 = 0; a2 < TAU * 1.6; a2 += .1) { const r = 34 - a2 * 3; a2 ? ctx.lineTo(Math.cos(a2) * r, Math.sin(a2) * r) : ctx.moveTo(r, 0); } ctx.stroke(); ctx.restore();
+  // önkol: buluttan bileğe; dolu koyu, soğuk kenar
+  ed(() => { ctx.beginPath(); ctx.moveTo(x + 470, y - 360); ctx.quadraticCurveTo(x + 230, y - 170, x + 20, y - 30); }, 70);
+  // yumruk: profilden, tahtın kolunun üstünde; dört boğum çizgisi, başparmak
+  ctx.save(); ctx.translate(x - 70, y + 8);
+  ctx.beginPath(); ctx.moveTo(-82, -40); ctx.quadraticCurveTo(-90, 30, -60, 62); ctx.lineTo(60, 66); ctx.quadraticCurveTo(92, 30, 80, -30); ctx.quadraticCurveTo(40, -66, -30, -62); ctx.closePath();
+  ctx.fillStyle = dark; ctx.fill(); ctx.strokeStyle = cold; ctx.lineWidth = 5; ctx.stroke();
+  ctx.lineWidth = 3; for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(-62 + k * 30, 18); ctx.quadraticCurveTo(-50 + k * 30, 40, -46 + k * 30, 62); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(-74, -18); ctx.quadraticCurveTo(-20, -2, 14, -24); ctx.stroke();
+  ctx.restore();
+  // kelepçe: bilekte demir halka, soğuk beyaz parlar; zincir alttaki halkadan (R) aşağı iner
+  ctx.save(); ctx.translate(x + 10, y - 28); ctx.rotate(-.62); glow(ctx, 0, 0, 110, `rgba(230,236,255,${.32 + .45 * glint})`);
+  ctx.fillStyle = '#2A2C33'; ctx.strokeStyle = cold; ctx.lineWidth = 5; ctx.beginPath(); ctx.rect(-26, -46, 52, 92); ctx.fill(); ctx.stroke();
+  ctx.lineWidth = 2.5; for (const yy of [-26, 0, 26]) { ctx.beginPath(); ctx.moveTo(-26, yy); ctx.lineTo(26, yy); ctx.stroke(); }
+  ctx.restore();
+  ctx.strokeStyle = cold; ctx.lineWidth = 6; ctx.beginPath(); ctx.ellipse(x, y, 13, 18, 0, 0, TAU); ctx.stroke();
+  if (glint > 0) sparkle(ctx, x + 30, y - 50, 50 * glint, glint, cold);
   ctx.restore();
 }
 // zincir boyunca akan altın ışık: u0 başlangıç (0 Prometheus, 1 Zeus), yön; birkaç atım
@@ -56,18 +66,20 @@ function J_goldFlow(ctx, t, a, dir = 1, n = 3, sp = .55) {
 const J_ROCK = [[1000, 1500], [1020, 900], [1040, 700], [1080, 560], [1130, 430], [1200, 300], [1290, 190], [1350, 120], [1420, 150], [1500, 95], [1580, 175], [1720, 240], [1990, 290], [2600, 230], [2600, 1500]];
 function J_notRock(ctx, c) { cam(ctx, c, 1); ctx.beginPath(); ctx.rect(-6000, -6000, 14000, 14000); ctx.moveTo(J_ROCK[0][0] - 30, J_ROCK[0][1]); J_ROCK.forEach(([x, y]) => ctx.lineTo(x - 30, y)); ctx.closePath(); ctx.clip('evenodd'); baseT(ctx); }
 // donma: renk solar, kil solgunlaşır; ateş canlı kalır (kare yeniden renkli çizilir)
-function J_freezeLook(ctx, t, c, fz) {
+function J_freezeLook(ctx, t, c, fz, o = {}) {
   if (fz <= 0) return;
   ctx.save(); baseT(ctx); ctx.globalCompositeOperation = 'saturation'; ctx.globalAlpha = .88 * fz; ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, W, H);
   ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = .1 * fz; ctx.fillStyle = '#D8C8B0'; ctx.fillRect(0, 0, W, H); ctx.restore();
+  if (o.fires === false) return;
   ctx.save(); J_notRock(ctx, c);
   baseT(ctx); cam(ctx, c, .35); humanFires(ctx, t, [[95, 630, .38], [215, 644, .46], [505, 666, .62], [860, 690, 1.6]], fz, { wind: 0, people: [] }); ctx.restore();
 }
 // tepe etiketleri: ZEUS · KÖLE (J04@köle) ve PROMETHEUS · ÖZGÜR (J04@özgürdür); J05@uşaklarına'da birlikte söner
 function J_labels(ctx, t) {
   const tK = A('J04@köle'), tO = A('J04@özgürdür'), off = 1 - ramp(t, A('J05@uşaklarına') - .1, A('J05@uşaklarına') + .5);
-  if (t > tK - .3 && off > 0) { const dn = ramp(t, A('J04@prometeus'), tO), y = lerp(220, 190, dn); stamp(ctx, 'ZEUS · KÖLE', 960, y, t - tK, { col: '#E6ECFF', font: '700 84px Cinzel', h: 132, rot: -.04, a: .92 * lerp(1, .42, dn) * off }); }
-  if (t > tO - .1 && off > 0) txt(ctx, 'PROMETHEUS · ÖZGÜR', 410, 420, { font: '700 58px Cinzel', col: '#FFC867', ls: 5, a: ramp(t, tO - .1, tO + .4) * off, shadow: 'rgba(255,170,80,.7)', blur: 22 });
+  if (t > tK - .3 && off > 0) { const dn = E.io2(ramp(t, A('J04@prometeus'), tO)); ctx.save(); ctx.translate(lerp(560, 560, dn), lerp(230, 262, dn)); ctx.scale(lerp(1, .72, dn), lerp(1, .72, dn));
+    stamp(ctx, 'ZEUS · KÖLE', 0, 0, t - tK, { col: '#E6ECFF', font: '700 84px Cinzel', h: 132, rot: -.04, a: .92 * lerp(1, .5, dn) * off }); ctx.restore(); }
+  if (t > tO - .1 && off > 0) txt(ctx, 'PROMETHEUS · ÖZGÜR', 100, 420, { font: '700 52px Cinzel', col: '#FFC867', ls: 5, align: 'left', a: ramp(t, tO - .1, tO + .4) * off, shadow: 'rgba(255,170,80,.7)', blur: 22 });
 }
 // kölelik/özgürlük terazisi (P046 ve P154 ile aynı çizim): direk, kiriş, iplerle asılı iki kefe; tilt: kirişin açısı
 function J_scale(ctx, px, py, half, tilt, drawL, drawR, col = PC.clayR) {
@@ -91,26 +103,26 @@ shot(PA('P233'), (ctx, st) => {
   const tFz = A('J01@durduralım'), tAs = A('J01@asıl'), tZn = A('J02@zincirde'), tAm = A('J02@ama'), tJ4 = A('J04'), tG = A('J04@gerçekte'), tZ = A('J04@zeus'), tP = A('J04@prometeus'), tO = A('J04@özgürdür');
   // donma IX boyunca sürer (X'te I08b@sorguya'da çözülür); J04@özgürdür'den sonra yalnız Prometheus, altın ışık ve ateş renklidir
   const fz = ramp(t, tFz - .05, tFz + .3), tw = Math.min(t, tFz), pc = ramp(t, tO - .1, tO + .3);
-  const wrist = { x: J_TOP[0], y: J_TOP[1] + 140 / 1.6, z: 1.6 };
+  const wrist = { x: J_TOP[0] - 119, y: J_TOP[1] + 44, z: 1.6 };
   const c = J_path(t, [
     [PA('P233'), { x: 700, y: 560, z: 1.1 }], [tFz, { x: 760, y: 560, z: 1.1 }, E.lin], [tAs, { x: 1100, y: 520, z: 1.2 }],
     [tZn, { x: 1418, y: 190, z: 3.0 }], [tAm, { x: 1424, y: 184, z: 3.1 }, E.lin], [tJ4, { x: 1440, y: -120, z: 2.4 }, E.in2],
-    [tG, { x: 1480, y: -820, z: 1.75 }, E.lin], [tZ, wrist, E.out3], [tP, { ...wrist, z: 1.66 }, E.lin], [tO, { x: 1215, y: 560, z: 1.5 }, E.io2], [st.end, { x: 1211, y: 562, z: 1.52 }, E.lin]]);
+    [tG, { x: 1480, y: -820, z: 1.75 }, E.lin], [tZ, wrist, E.out3], [tP, { ...wrist, z: 1.66 }, E.lin], [tO, { x: 900, y: 470, z: 1.5 }, E.io2], [st.end, { x: 896, y: 472, z: 1.52 }, E.lin]]);
   const { wind } = kayaWorld(ctx, tw, c, { sky: J_SKY, wind: lerp(windAt(tw), 0, fz) });
   ctx.save(); cam(ctx, c, 1);
   const part = E.io2(ramp(t, A('J04@verir') - .2, tG + .2));
   J_skyChain(ctx, tw, part);
-  J_zeusWrist(ctx, t, ramp(t, tG - .2, tZ), Math.exp(-Math.max(0, t - A('J04@köle')) * 2.5) * (t > A('J04@köle') ? 1 : 0));
   if (pc < 1) promChained(ctx, tw, { wind: 0, look: .05, pose: 'sessiz', dust: fz > .5 ? .6 : 0 });
   ctx.restore();
   // Hermes: ön katmanda (paralaks 1,6) havada; kerykeion yarı kalkık; donunca asılı kalır
   ctx.save(); cam(ctx, c, 1.6);
-  const hu = E.io2(ramp(tw, PA('P233'), tFz + .3, E.lin));
-  { I_hermes(ctx, lerp(520, 716, hu), lerp(960, 840, hu), 5.6, tw, { fly: lerp(.4, 1, hu), raise: .45, flap: .5, dir: 1 }); }
+  const hu = E.io2(ramp(tw, PA('P233'), tFz + .3, E.lin)), ha = 1 - ramp(t, tP, tP + .4);
+  if (ha > 0) { ctx.globalAlpha = ha; I_hermes(ctx, lerp(520, 716, hu), lerp(960, 840, hu), 5.6, tw, { fly: lerp(.4, 1, hu), raise: .45, flap: .5, dir: 1 }); }
   ctx.restore();
   kayaFront(ctx, tw, c, wind);
   J_freezeLook(ctx, t, c, fz);
   ctx.save(); cam(ctx, c, 1);
+  J_zeusWrist(ctx, t, ramp(t, tG - .2, tZ) * (1 - ramp(t, tO + .3, tO + .7)), Math.exp(-Math.max(0, t - A('J04@köle')) * 2.5) * (t > A('J04@köle') ? 1 : 0));
   // altın ışık: J04@prometeus'ta kameranın önünde zincir boyunca aşağı iner; sonra zincirde aşağı doğru akar
   const dn = ramp(t, tP, tO, E.lin);
   if (t > tP && t < tO + .1) { const p = J_chainPt(1 - dn); glow(ctx, p[0], p[1], 160, 'rgba(255,200,110,.6)'); for (let k = 1; k < 10; k++) { const q = J_chainPt(Math.min(1, 1 - dn + k * .03)); glow(ctx, q[0], q[1], 70, `rgba(255,190,100,${.35 * (1 - k / 10)})`); } }
@@ -138,7 +150,7 @@ shot(PA('P233'), (ctx, st) => {
       c.save(); c.globalAlpha = p; c.strokeStyle = PW.line; c.lineWidth = 2.6; for (let i = 0; i < 12; i++) { const a = q(i / 12), b = q((i + 1) / 12), m = lerp2(a, b, .5), an = Math.atan2(b[1] - a[1], b[0] - a[0]); c.save(); c.translate(...m); c.rotate(an); c.beginPath(); c.ellipse(0, 0, 7.5, 4.2, 0, 0, TAU); c.stroke(); c.restore(); }
       if (s < .9) { c.fillStyle = PW.red; c.globalAlpha = p * (1 - s); c.beginPath(); c.arc(0, 68, 6, 0, TAU); c.fill(); } c.restore(); } });
     J_labels(ctx, t);
-    erhatTag(ctx, t - A('J04@özgürdür'), 'ERHAT · ÖNSÖZ · S. XIV', { d: A('J05@uşaklarına') - A('J04@özgürdür') + .3, delay: .4 });
+    erhatTag(ctx, t - A('J04@özgürdür'), 'ERHAT · ÖNSÖZ · S. XIV', { d: A('J05@uşaklarına') - A('J04@özgürdür') + .3, delay: .8 });
   } });
 
 // --- P239: tahtın içinde yüzsüz bir gölge; J05@çocuk'ta çocuk boyuna küçülür, koltuğun koluna yapışmış küçük el; boş tahta eğilen uşaklar (P188'in kırmızı figür kopyası) ---
@@ -152,7 +164,7 @@ shot(PA('P239'), (ctx, st) => {
   ctx.save(); ctx.shadowColor = 'rgba(230,236,255,.7)'; ctx.shadowBlur = 20; throne(ctx, 960, gy, 6.4, -1, '#120A07', 'rgba(201,112,63,.5)', { high: true }); ctx.restore();
   // yüzsüz gölge: oturur; J05@çocuk'ta küçülür, eli koltuğun koluna yapışır
   const sh = E.io2(ramp(t, tC - .2, tC + 1.0)), s = lerp(6.0, 2.7, sh), seatY = gy - 26 * 6.4, sx = 1000;
-  figure(ctx, { x: sx, y: seatY - 4 * s, s, dir: -1, still: true, sty: { fill: '#0A0605', cut: 'rgba(0,0,0,0)', red: '#0A0605', white: '#0A0605', line: 'rgba(230,236,255,.8)' }, lk: { hair: 'long', garment: 'robe', beard: sh > .5 ? null : 'full' }, seed: 5,
+  figure(ctx, { x: sx, y: seatY - 4 * s, s, dir: -1, still: true, shadowBlur: 22, shadowCol: 'rgba(230,236,255,.75)', sty: { fill: '#0A0605', cut: '#0A0605', red: '#0A0605', white: '#0A0605', line: '#0A0605' }, lk: { hair: 'nape', garment: 'robe', beard: null, faceless: true }, seed: 5,
     p: { torso: lerp(-.05, .15, sh), neck: lerp(0, .25, sh), head: lerp(0, .2, sh), handN: 'press' }, ik: { fN: [sx - 20 * s, seatY + lerp(24, 10, sh) * s, 0], fF: [sx - 16 * s, seatY + lerp(24, 10, sh) * s, .2], hN: [sx - lerp(18, 26, sh) * 6.4 * .3 - 40 * sh, seatY - 10 * s] } });
   // eğilen uşaklar: iki yanda, domino gibi tahta doğru
   const sty = { ...STY.red, white: STY.red.fill };
@@ -161,6 +173,7 @@ shot(PA('P239'), (ctx, st) => {
     H_rf(ctx, x, gy, 4.0, dir, lk, { torso: .55 * b, neck: .25 * b, head: .2 * b, shN: .2 + .3 * b, elN: .4 }, { sty, hold: lk === LK.hermes ? { N: HOLD.caduceus() } : undefined });
   });
   ctx.restore();
+  J_freezeLook(ctx, t, c, 1, { fires: false });
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 }, over: (ctx, st) => J_labels(ctx, st.t) });
 
@@ -169,9 +182,9 @@ shot(PA('P240'), (ctx, st) => {
   const t = st.t, lt = st.lt;
   const c = { x: 1470, y: -480 - lt * 8, z: .74 }, tF = A('J01@durduralım');
   kayaWorld(ctx, tF, c, { sky: J_SKY, wind: 0 });
-  ctx.save(); cam(ctx, c, 1); J_skyChain(ctx, tF, 1); J_zeusWrist(ctx, t, 1, .2 + .2 * Math.sin(t * 2)); ctx.restore();
+  ctx.save(); cam(ctx, c, 1); J_skyChain(ctx, tF, 1); ctx.restore();
   J_freezeLook(ctx, t, c, 1);
-  ctx.save(); cam(ctx, c, 1);
+  ctx.save(); cam(ctx, c, 1); J_zeusWrist(ctx, t, 1, .2 + .2 * Math.sin(t * 2));
   J_goldFlow(ctx, t, ramp(t, A('J05@onu'), A('J05@kurtarabilecek')), 1, 4, .32);
   promChained(ctx, t, { wind: .15, look: -.35, pose: 'gok' });
   ctx.restore();
@@ -205,9 +218,13 @@ shot(PA('P242'), (ctx, st) => {
   const a0 = Math.atan2(220 - 640, 1500 - 420), half = Math.hypot(1080, 420) / 2;
   const tilt = lerp(a0, -a0, E.io3(ramp(t, tR, tS + .2, E.lin))) + Math.sin(t * 1.4) * .01 * ramp(t, tS, tS + 1);
   const sty = { ...STY.red, white: STY.red.fill };
-  J_scale(ctx, 960, 430, half, tilt, c => { H_rf(c, 0, 20, 3.4, 1, LK.promFree, { torso: -.04, head: -.06 - .1 * ramp(t, tS, tS + .6) }, { sty }); c.strokeStyle = mixCol(PC.clayR, PC.glaze, .35); c.lineWidth = 5; c.beginPath(); c.moveTo(-30, -150); c.quadraticCurveTo(-60, -40, -90, 10); c.stroke(); },
+  const ends = J_scale(ctx, 960, 430, half, tilt, c => { c.strokeStyle = mixCol(PC.clayR, PC.glaze, .35); c.lineWidth = 5; c.beginPath(); c.moveTo(-30, -150); c.quadraticCurveTo(-60, -40, -90, 10); c.stroke(); },
     c => { c.save(); c.shadowColor = 'rgba(230,236,255,.7)'; c.shadowBlur = 14; throne(c, 0, 20, 3.0, -1, '#120A07', 'rgba(201,112,63,.5)', { high: true }); c.restore(); });
   ctx.restore();
+  // donma sürer (IX): terazi ve taht gri; özgür olan Prometheus renkli kalır (SANIK altın, YARGIÇ soğuk beyaz yazılarla)
+  const cc = { x: 960, y: 520, z: 1.0 + lt * .004 };
+  J_freezeLook(ctx, t, cc, 1, { fires: false });
+  ctx.save(); cam(ctx, cc, 1); H_rf(ctx, ends[0][0], ends[0][1] + 148, 3.4, 1, LK.promFree, { torso: -.04, head: -.06 - .1 * ramp(t, tS, tS + .6) }, { sty }); ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
@@ -225,11 +242,12 @@ shot(PA('P243'), (ctx, st) => {
   J_freezeLook(ctx, t, c, 1);
   ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind: .15, look: .04, pose: 'direnis' }); ctx.restore();
   // köle frizi: kırmızı figür şerit, başları eğik, bilekleri bağlı; biri başını kaldırır
-  ctx.save(); baseT(ctx); const fy = 560, fh = 230, a = ramp(lt, .2, .8);
-  ctx.globalAlpha = a; ctx.fillStyle = PC.glaze; ctx.fillRect(0, fy, 1060, fh); meanderSaltire(ctx, 0, 1060, fy, 22, PC.clayR, PC.glaze); meanderSaltire(ctx, 0, 1060, fy + fh - 22, 22, PC.clayR, PC.glaze);
-  ctx.beginPath(); ctx.rect(0, fy + 22, 1060, fh - 44); ctx.clip();
-  for (let i = 0; i < 6; i++) { const x = 90 + i * 170 + ((t * 26) % 170), up = i === 3 ? E.out3(ramp(t, tH - .1, tH + .7)) : 0;
-    H_rf(ctx, x, fy + fh - 26, 1.9, 1, i % 2 ? LK.humanF : LK.human, { torso: .35 - .4 * up, neck: .35 - .5 * up, head: .3 - .45 * up, shN: -.2, elN: .5, shF: -.3, elF: .6, handN: 'fist', handF: 'fist' }, { sty: { ...STY.red, white: STY.red.fill }, seed: 120 + i }); }
+  // köle frizi: Prometheus'a değmeyen sol pano (x 0–640, y 470–650)
+  ctx.save(); baseT(ctx); const fy = 470, fh = 180, FW2 = 640, a = ramp(lt, .2, .8);
+  ctx.globalAlpha = a; ctx.fillStyle = PC.glaze; ctx.fillRect(0, fy, FW2, fh); meanderSaltire(ctx, 0, FW2, fy, 18, PC.clayR, PC.glaze); meanderSaltire(ctx, 0, FW2, fy + fh - 18, 18, PC.clayR, PC.glaze);
+  ctx.beginPath(); ctx.rect(0, fy + 18, FW2, fh - 36); ctx.clip();
+  for (let i = 0; i < 6; i++) { const x = 50 + i * 110 + ((t * 20) % 110), up = i === 3 ? E.out3(ramp(t, tH - .1, tH + .7)) : 0;
+    H_rf(ctx, x, fy + fh - 20, 1.45, 1, i % 2 ? LK.humanF : LK.human, { torso: .35 - .4 * up, neck: .35 - .5 * up, head: .3 - .45 * up, shN: -.2, elN: .5, shF: -.3, elF: .6, handN: 'fist', handF: 'fist' }, { sty: { ...STY.red, white: STY.red.fill }, seed: 120 + i }); }
   ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 },
