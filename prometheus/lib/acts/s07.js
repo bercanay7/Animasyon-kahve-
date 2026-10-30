@@ -202,7 +202,8 @@ const H_UNI = [ // [x, yön, görünüş, küme, gönüllü mü]
 ];
 shot(PA('P187'), (ctx, st) => {
   const t = st.t, lt = st.lt, tH = A('H02@hepsi'), tT = A('H02@tek'), tU = A('H02@uşakları#1');
-  const c = F_cam(t, [[PA('P187'), { x: 900, y: 540, z: 1.0 }], [tH, { x: 900, y: 560, z: 1.04 }], [tT, { x: 1000, y: 540, z: 1.06 }], [tU + .2, { x: 2200, y: 520, z: 1.0 }]], 1.0, 3);
+  // itme: eğilişte kümelere (z 1,6), 'tek'te dik kalan Prometheus'a (z 1,8; alıntının altında): jest taşıyan figürler ≥ 480 px
+  const c = F_cam(t, [[PA('P187'), { x: 900, y: 540, z: 1.0 }], [tH, { x: 760, y: 560, z: 1.6 }], [tT, { x: 1400, y: 520, z: 1.8 }], [tU + .2, { x: 2200, y: 520, z: 1.0 }]], 1.0, 3);
   ctx.save(); cam(ctx, c, 1);
   ctx.save(); ctx.translate(c.x - W / 2, c.y - H / 2); paperBG(ctx, t, { book: false, seed: 77 }); ctx.restore();
   const gy = 700;
@@ -221,7 +222,7 @@ shot(PA('P187'), (ctx, st) => {
   if (pr > 0) { ctx.save(); ctx.globalAlpha = pr; H_lek(ctx, 1430, gy, 3.4, -1, LK.promFree, { torso: -.05, neck: -.1, head: -.12 }, { sty: red > .5 ? { ...STY.lek, line: PW.red, cut: PW.red } : STY.lek }); ctx.restore();
     if (red > 0) circleMark(ctx, 1430, gy - 150, 110, 200, ramp(t, tT + .1, tT + .9)); }
   // küme adları
-  [['kurbanlar', 330, 0], ['uşaklar', 700, 1], ['dalkavuk', 1130, 2]].forEach(([s, x, k]) => txt(ctx, s, x, 345, { font: 'italic 600 54px "Cormorant Garamond"', col: PW.line, a: ramp(t, draw[k], draw[k] + .5) }));
+  [['kurbanlar', 330, 0], ['uşaklar', 700, 1], ['dalkavuk', 1130, 2]].forEach(([s, x, k]) => txt(ctx, s, x, 345, { font: 'italic 600 54px "Cormorant Garamond"', col: PW.line, a: ramp(t, draw[k], draw[k] + .5) * (1 - ramp(t, tT - .4, tT + .1)) }));
   // tanık listesi: sayfanın sağ kenarında
   const lx = 1940, l0 = ramp(t, tU - .4, tU + .3);
   if (l0 > 0) { ctx.save(); ctx.globalAlpha = l0;
@@ -362,13 +363,14 @@ shot(PA('P202'), (ctx, st) => {
   kylix(ctx, t, 960, 540, 440, lt * .05, (c, t, r) => {
     c.fillStyle = PC.glaze; c.beginPath(); c.arc(0, 0, r, 0, TAU); c.fill();
     // dünya diski: kil kara, çevresinde Okeanos ırmağı
-    c.fillStyle = '#B9663A'; c.beginPath(); c.arc(0, 0, r * .62, 0, TAU); c.fill(); c.strokeStyle = C.ink; c.lineWidth = 5; c.stroke();
-    c.strokeStyle = 'rgba(201,112,63,.55)'; c.lineWidth = 3; for (let k = 0; k < 3; k++) { c.beginPath(); for (let a = 0; a <= TAU + .01; a += .05) { const rr = r * (.7 + k * .07) + Math.sin(a * 18 + t * 2 + k) * 4; a ? c.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : c.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); } c.stroke(); }
+    // kırmızı figür kuralı: kara diski koyu sır, kenarı kil çizgi; kil renkli İo üstünde seçilir
+    c.fillStyle = '#2A1610'; c.beginPath(); c.arc(0, 0, r * .67, 0, TAU); c.fill(); c.strokeStyle = PC.clayR; c.lineWidth = 5; c.stroke();
+    c.strokeStyle = 'rgba(201,112,63,.55)'; c.lineWidth = 3; for (let k = 0; k < 3; k++) { c.beginPath(); for (let a = 0; a <= TAU + .01; a += .05) { const rr = r * (.75 + k * .07) + Math.sin(a * 18 + t * 2 + k) * 4; a ? c.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : c.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); } c.stroke(); }
     // İo diskin iç kenarında koşar (ayakları kenarda, başı merkeze dönük; dönen kovalamaca); atsineği hemen arkasında, parlak iz
-    const ang = lt * .9, R = r * .64, pt = (a, rr) => [-rr * Math.sin(a), rr * Math.cos(a)];
-    c.save(); c.rotate(ang); c.translate(0, R); H_io(c, 0, 0, 2.5, t, { run: 1, dir: -1, fly: false }); c.restore();
-    c.save(); c.lineCap = 'round'; for (let k = 1; k < 34; k++) { const p0 = pt(ang - .34 - k * .02, R - 150 + Math.sin(t * 14 + k * .7) * 10), p1 = pt(ang - .34 - (k - 1) * .02, R - 150 + Math.sin(t * 14 + (k - 1) * .7) * 10); c.strokeStyle = `rgba(242,214,170,${.75 * (1 - k / 34)})`; c.lineWidth = 5 * (1 - k / 40); c.beginPath(); c.moveTo(...p0); c.lineTo(...p1); c.stroke(); }
-    const fp = pt(ang - .34, R - 150 + Math.sin(t * 14) * 10); H_fly(c, fp[0], fp[1], t, 1.3, { trail: false }); c.restore();
+    const ang = lt * .9, R = r * .69, pt = (a, rr) => [-rr * Math.sin(a), rr * Math.cos(a)];
+    c.save(); c.rotate(ang); c.translate(0, R); H_io(c, 0, 0, 3.1, t, { run: 1, dir: -1, fly: false }); c.restore();
+    c.save(); c.lineCap = 'round'; for (let k = 1; k < 34; k++) { const p0 = pt(ang - .34 - k * .02, R - 185 + Math.sin(t * 14 + k * .7) * 10), p1 = pt(ang - .34 - (k - 1) * .02, R - 185 + Math.sin(t * 14 + (k - 1) * .7) * 10); c.strokeStyle = `rgba(242,214,170,${.75 * (1 - k / 34)})`; c.lineWidth = 5 * (1 - k / 40); c.beginPath(); c.moveTo(...p0); c.lineTo(...p1); c.stroke(); }
+    const fp = pt(ang - .34, R - 185 + Math.sin(t * 14) * 10); H_fly(c, fp[0], fp[1], t, 1.5, { trail: false }); c.restore();
   });
 }, { tr: { type: 'cut' }, post: { tex: .7, vig: .9, grain: .055 } });
 
