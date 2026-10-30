@@ -60,13 +60,14 @@ function shortOverlay(g, ts) {
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,6,4,.75)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);
   meanderSaltire(g, -40, SHW + 40, 34, 40, PC.clayR, 'rgba(12,6,4,.0)');
-  txt(g, S_.TITLE || 'PROMETHEUS', CX, 140, { font: '900 64px Cinzel', col: '#F6E3BE', ls: 14, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
+  const tOff = (S_.TITLE_OFF || []).reduce((m, o) => Math.max(m, clamp((ts - o.s) / .25) * (1 - clamp((ts - o.e) / .25))), 0);
+  if (tOff < 1) txt(g, S_.TITLE || 'PROMETHEUS', 540, 140, { a: 1 - tOff, font: '900 64px Cinzel', col: '#F6E3BE', ls: 14, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
   // künye: başlığın altında; filmde silinen Erhat künyesi ve adların karşılığı (kim konuşuyor, kaynak sayfa)
-  for (const tg of S_.TAGS || []) {
-    const q = clamp((ts - tg.s) / .25) * (1 - clamp((ts - tg.e) / .25));
-    if (q <= 0) continue;
-    g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.62)'; g.fillRect(70, 188, 860, 56);
-    txt(g, tg.t, CX, 217, { font: '700 36px Cinzel', col: '#E7D3AE', ls: 3, force: true }); g.restore();
+  const tq = (S_.TAGS || []).map(tg => clamp((ts - tg.s) / .25) * (1 - clamp((ts - tg.e) / .25)));
+  const tqMax = Math.max(0, ...tq);
+  if (tqMax > 0) {
+    g.save(); g.globalAlpha = tqMax; g.fillStyle = 'rgba(12,6,4,.62)'; g.fillRect(90, 188, 900, 56); g.restore();
+    S_.TAGS.forEach((tg, i) => { if (tq[i] > 0) { g.save(); g.globalAlpha = tq[i]; txt(g, tg.t, 540, 217, { font: '700 36px Cinzel', col: '#E7D3AE', ls: 3, force: true }); g.restore(); } });
   }
   // kanca: ilk karede soru (ses kapalı izleyen için), anlatımda cevap başlayınca söner
   if (S_.HOOK && ts < S_.HOOK.e + .3) {
@@ -74,8 +75,8 @@ function shortOverlay(g, ts) {
     g.save(); g.globalAlpha = q;
     const hb = g.createLinearGradient(0, 170, 0, 560); hb.addColorStop(0, 'rgba(12,6,4,0)'); hb.addColorStop(.2, 'rgba(12,6,4,.55)'); hb.addColorStop(.85, 'rgba(12,6,4,.55)'); hb.addColorStop(1, 'rgba(12,6,4,0)');
     g.fillStyle = hb; g.fillRect(0, 170, SHW, 390);
-    txt(g, S_.HOOK.l1, CX, 300, { font: '900 112px Cinzel', col: '#F6E3BE', ls: 4, force: true, stroke: 'rgba(14,9,7,.92)', sw: 14, shadow: 'rgba(0,0,0,.7)', blur: 18 });
-    txt(g, S_.HOOK.l2, CX, 440, { font: '900 150px Cinzel', col: '#F2C25A', ls: 6, force: true, stroke: 'rgba(14,9,7,.92)', sw: 16, shadow: 'rgba(0,0,0,.7)', blur: 18 });
+    txt(g, S_.HOOK.l1, 540, 285, { font: '900 112px Cinzel', col: '#F6E3BE', ls: 4, force: true, stroke: 'rgba(14,9,7,.92)', sw: 14, shadow: 'rgba(0,0,0,.7)', blur: 18 });
+    txt(g, S_.HOOK.l2, 540, 425, { font: '900 150px Cinzel', col: '#F2C25A', ls: 6, force: true, stroke: 'rgba(14,9,7,.92)', sw: 16, shadow: 'rgba(0,0,0,.7)', blur: 18 });
     g.restore();
   }
   // damga: filmdeki ZEUS · KÖLE / PROMETHEUS · ÖZGÜR levhası (notext ile silinir); dikey kadrajın üstünde
@@ -84,13 +85,15 @@ function shortOverlay(g, ts) {
     const q = clamp((ts - st.s) / .2), q2 = clamp((ts - st.s2) / .3);
     // kutu ikinci satırla büyür; alt kenar y 440 (doruk planında Prometheus'un başı y ≈ 490)
     const bh = 110 + 72 * E.io2(q2);
-    g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.7)'; g.fillRect(70, 258, 800, bh); g.strokeStyle = PC.clayR; g.lineWidth = 4; g.strokeRect(70, 258, 800, bh);
-    txt(g, 'ZEUS · KÖLE', 470, 314, { font: '800 66px Cinzel', col: '#CFC6B8', ls: 6, force: true });
-    g.globalAlpha = q * q2; txt(g, 'PROMETHEUS · ÖZGÜR', 470, 396, { font: '800 48px Cinzel', col: '#F2C25A', ls: 4, force: true });
+    g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.7)'; g.fillRect(100, 258, 800, bh); g.strokeStyle = PC.clayR; g.lineWidth = 4; g.strokeRect(100, 258, 800, bh);
+    txt(g, 'ZEUS · KÖLE', 500, 314, { font: '800 66px Cinzel', col: '#CFC6B8', ls: 6, force: true });
+    g.globalAlpha = q * q2; txt(g, 'PROMETHEUS · ÖZGÜR', 500, 396, { font: '800 48px Cinzel', col: '#F2C25A', ls: 4, force: true });
     g.restore();
   }
   // altyazı bandı (parlak karelerde okunurluk); açık zeminde zemin renginde yumuşak bant (arkadan geçen zincir yazıyı bölmesin)
-  const bc = light ? '246,236,214' : '12,6,4', ba = light ? .72 : .55;
+  const gd = S_.GROUPS.reduce((m, gr) => Math.min(m, ts < gr.s ? gr.s - ts : ts > gr.e + .15 ? ts - gr.e - .15 : 0), 1e9);
+  const bandA = 1 - clamp((gd - .1) / .3);
+  const bc = light ? '246,236,214' : '12,6,4', ba = (light ? .72 : .55) * bandA;
   const cb = g.createLinearGradient(0, capY - 215, 0, capY + 205); cb.addColorStop(0, `rgba(${bc},0)`); cb.addColorStop(.3, `rgba(${bc},${ba})`); cb.addColorStop(.75, `rgba(${bc},${ba})`); cb.addColorStop(1, `rgba(${bc},0)`);
   g.fillStyle = cb; g.fillRect(0, capY - 215, SHW, 420);
   // altyazı: anlam birimi grupları, etkin kelime altın
@@ -108,7 +111,10 @@ function shortOverlay(g, ts) {
     if (ws.length > 1 && shortLines(ws, sp, MAXW).length > 2) {
       let bw = 1e9;
       for (let k = 1; k < ws.length; k++) { const w2 = [ws.slice(0, k), ws.slice(k)].map(l => l.reduce((q, w) => q + w.ww, 0) + sp * (l.length - 1)); bw = Math.min(bw, Math.max(...w2)); }
-      if (bw < MAXW / .86) { const f = MAXW / bw, px = Math.floor(parseFloat(g.font.match(/(\d+)px/)[1]) * f); g.font = `800 ${px}px Cinzel`; sp = g.measureText(' ').width + GAP; ws = ws.map(w => ({ ...w, ww: g.measureText(w.w.toLocaleUpperCase('tr')).width })); }
+      if (bw < MAXW / .86) {
+        let px = parseFloat(g.font.match(/(\d+)px/)[1]);
+        while (shortLines(ws, sp, MAXW).length > 2 && px > 60) { px -= 2; g.font = `800 ${px}px Cinzel`; sp = g.measureText(' ').width + GAP; ws = ws.map(w => ({ ...w, ww: g.measureText(w.w.toLocaleUpperCase('tr')).width })); }
+      }
     }
     const lines = shortLines(ws, sp, MAXW);
     const y0 = capY - (lines.length - 1) * 54;
@@ -136,7 +142,7 @@ function shortOverlay(g, ts) {
     g.save(); g.globalAlpha = q; g.fillStyle = 'rgba(12,6,4,.74)'; g.fillRect(100, ctaY, 800, h); g.strokeStyle = PC.clayR; g.lineWidth = 4; g.strokeRect(100, ctaY, 800, h);
     if (L.length > 1) {
       txt(g, L[0], CX, ctaY + 52, { font: '800 40px Cinzel', col: '#F2C25A', ls: 2, force: true });
-      txt(g, L[1], CX - 22, ctaY + 108, { font: '700 36px Cinzel', col: '#F6E3BE', ls: 3, force: true });
+      txt(g, L[1], CX - 22, ctaY + 108, { font: '700 38px Cinzel', col: '#F6E3BE', ls: 3, force: true });
       // aşağı ok: Shorts arayüzünde başlığın üstündeki "İlgili video" bağlantısı
       const ax = CX + 330, ay = ctaY + 96; g.fillStyle = '#F6E3BE'; g.beginPath(); g.moveTo(ax - 14, ay); g.lineTo(ax + 14, ay); g.lineTo(ax, ay + 22); g.closePath(); g.fill();
     } else txt(g, L[0], CX, ctaY + 56, { font: '700 46px Cinzel', col: '#F6E3BE', ls: 4, force: true });

@@ -26,19 +26,20 @@ SHORTS = {
           (1066.85, 980, 560, 1.3), (1072.35, 980, 560, 1.3),            # "Prometheus ise zincirde": sert yakınlaşma, "Erhat sorar"da geri
           (1072.36, 960, 560, 1.0), (1073.8, 960, 540, 1.0), (1077.2, 960, 560, 1.0), (1079.3, 960, 540, 1.0), (1081.5, 960, 540, 1.05),
           (1082.0, 1545, 540, 1.0), (1084.19, 1545, 540, 1.0),           # doruk: kırmızı figürlü Prometheus kadrajın ortasında
-          (1084.20, 960, 540, 1.0), (1087.6, 960, 540, 1.0), (1088.8, 960, 630, 1.2), (1091.44, 960, 630, 1.2),   # çocuklaşan Zeus altyazının üstünde
+          (1084.20, 960, 540, 1.0), (1085.4, 960, 540, 1.0), (1086.3, 380, 540, 1.0), (1087.6, 380, 540, 1.0), (1088.8, 960, 630, 1.2),   # saray halkı, sonra (1091.44, 960, 630, 1.2),   # çocuklaşan Zeus altyazının üstünde
           (1091.45, 960, 540, 1.0), (1097.09, 960, 540, 1.0),
-          (1097.10, 1480, 540, 1.0), (1099.3, 1480, 540, 1.0), (1100.6, 450, 540, 1.0), (1102.59, 450, 540, 1.0),   # krem sayfa: tahttan zinciri tutan Prometheus'a
-          (1102.60, 560, 520, 1.0), (1106.35, 560, 520, 1.0), (1106.7, 1500, 760, 1.35), (1109.0, 1500, 760, 1.35)],  # terazi: "sanık özgür"de Prometheus, "görünmeyen"de taht
-    LIGHT=[(1097.10, 1102.60)],  # açık (sayfa) zeminli aralıklar: altyazı mürekkep renginde
+          (1097.10, 1480, 540, 1.0), (1099.3, 1480, 540, 1.0), (1100.6, 450, 540, 1.0), (1102.55, 450, 540, 1.0),   # krem sayfa: tahttan zinciri tutan Prometheus'a
+          (1102.56, 560, 520, 1.0), (1106.35, 560, 520, 1.0), (1106.7, 1500, 760, 1.35), (1109.0, 1500, 760, 1.35)],  # terazi: "sanık özgür"de Prometheus, "görünmeyen"de taht
+    LIGHT=[(1097.10, 1102.56)],   # filmin kesmesi 1102,567–1102,573 arasında (Shorts kurulu tur 2)  # açık (sayfa) zeminli aralıklar: altyazı mürekkep renginde
     CAP=1235,
-    CAPS=[(1106.7, 1160, 1300)],  # (film saniyesinden itibaren) altyazı y, kanal çağrısı y: son plan yakın tahtın altında
+    CAPS=[(1097.10, 720, 1330), (1102.56, 1235, 1330), (1106.7, 470, 1330)],  # (film saniyesinden itibaren) altyazı y, kanal çağrısı y: krem sayfada ve son planda altyazı figürün üstündeki boş alanda
     # ilk karede kanca başlığı (ses kapalı izleyen için soru hemen okunur); "Görünüşe"de söner
     HOOK=dict(l1='ASIL TUTSAK', l2='KİM?', e=wd('J02', 'görünüşe')['s']),
     # künyeler: başlığın altında küçük satır (filmdeki Erhat künyesinin ve adların Shorts karşılığı)
     TAGS=[(wd('J02', 'güçün')['s'] - .1, wd('J02', 'değildir')['e'] + .3, 'GÜÇ (KRATOS) · ZEUS\'UN BUYRUKÇUSU'),
-          (wd('J02', 'erhat')['s'] - .1, wd('J04', 've')['s'] - .3, 'AZRA ERHAT · 1967 ÖNSÖZÜ · S. XIII'),
-          (wd('J04', 've')['s'] - .1, wd('J06', 'aslında')['e'] + .3, 'AZRA ERHAT · ÖNSÖZ · S. XIV')],
+          (wd('J02', 'erhat')['s'] - .1, wd('J04', 've')['s'] + .15, 'AZRA ERHAT · 1967 ÖNSÖZÜ · S. XIII'),
+          (wd('J04', 've')['s'] - .1, wd('J06', 'aslında')['e'] + .3, 'AZRA ERHAT · ÖNSÖZ · S. XIV')],   # künyeler üst üste biner: kutu kalır, yazı çapraz geçer
+    TITLE_OFF=[(1104.2, 1106.75)],   # "Sanık özgür": Prometheus'un başı başlığın altında, başlık söner
     # damga: filmin ZEUS · KÖLE / PROMETHEUS · ÖZGÜR levhası (notext ile silinir), dikey kadraja göre
     STAMP=dict(s=wd('J04', 'gerçekte')['s'], s2=wd('J04', 'prometeus')['s'], e=1084.20),
     # altyazı grupları: anlam birimleri (kelimeler sırayla eşlenir)
@@ -49,7 +50,7 @@ SHORTS = {
             '“akıl gücünün taşıyıcısı”', "Prometheus'tur.", "Erhat'ın deyişiyle:", '“Zeus tutukladığı', 'düşmanının elinde', 'tutukludur aslında.”',
             'Yani roller', 'yer değiştirmiştir:', 'Sanık özgür,', 'görünmeyen yargıç tutsak.'],
     # kanal çağrısı: Shorts'un açık bıraktığı merak (sır) + tek dokunuşluk yol (İlgili video)
-    CTA=dict(s=wd('J06', 'görünmeyen')['s'], l1="PROMETHEUS'UN SIRRI NEYDİ?", l2='TAM HİKÂYE · İLGİLİ VİDEODA')),
+    CTA=dict(s=wd('J06', 'sanık')['s'], l1="PROMETHEUS'UN SIRRI NEYDİ?", l2='TAM HİKÂYE · İLGİLİ VİDEODA')),
 }
 K = sys.argv[1] if len(sys.argv) > 1 else 'a'
 cfg = SHORTS[K]
@@ -94,6 +95,7 @@ out = dict(TITLE=cfg['TITLE'], F0=round(F0, 3), F1=round(F1, 3), DUR=DUR, CTA=CT
            CTA_L=[cta['l1'], cta['l2']] if cta else None,
            HOOK=dict(l1=cfg['HOOK']['l1'], l2=cfg['HOOK']['l2'], e=sh(cfg['HOOK']['e'])) if cfg.get('HOOK') else None,
            TAGS=[dict(s=sh(a_), e=sh(b_), t=t_) for a_, b_, t_ in cfg.get('TAGS', [])],
+           TITLE_OFF=[dict(s=sh(a_), e=sh(b_)) for a_, b_ in cfg.get('TITLE_OFF', [])],
            STAMP=dict(s=sh(cfg['STAMP']['s']), s2=sh(cfg['STAMP']['s2']), e=sh(cfg['STAMP']['e'])) if cfg.get('STAMP') else None)
 json.dump(out, open(os.path.join(D, 'edl.json'), 'w'), ensure_ascii=False, indent=1)
 open(os.path.join(D, 'edl.js'), 'w').write('// shorts/build_edl.py tarafından üretildi\nwindow.SHORT = ' + json.dumps(out, ensure_ascii=False) + ';\n')

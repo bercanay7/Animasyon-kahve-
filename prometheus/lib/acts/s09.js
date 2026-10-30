@@ -143,7 +143,7 @@ shot(PA('P233'), (ctx, st) => {
     // P234: donmuş karede Güç'ün kil levhası (P127): döner, altı çizilir
     const tG = A('J02@güçün'), ta = 1 - ramp(t, A('J02@prometeus') - .2, A('J02@prometeus') + .5);
     if (t > tG - .2 && ta > 0) { ctx.save(); ctx.globalAlpha = ta; carvedTablet(ctx, ['ZEUS’TAN BAŞKA HİÇ KİMSE', 'ÖZGÜR DEĞİLDİR.'], 960, 330, 1240, t - tG, { font: '700 62px Cinzel', lh: 78 });
-      inkPoly(ctx, [[700, 400], [1220, 396]], ramp(t, A('J02@özgür') - .1, A('J02@değildir') + .3, E.lin), { col: '#E8A04C', w: 6, jit: .6 }); ctx.restore(); }
+      if (!NOTEXT) inkPoly(ctx, [[700, 400], [1220, 396]], ramp(t, A('J02@özgür') - .1, A('J02@değildir') + .3, E.lin), { col: '#E8A04C', w: 6, jit: .6 }); ctx.restore(); }
     // P236: kenar şeridi: soru; şeritteki soru işareti P014'ün zincir-soru işaretidir, soru biterken düzelip zincire döner
     const tE = A('J02@erhat'), tAm = A('J02@ama');
     erhatStrip(ctx, t - tE, A('J04') - tE - .2, '“Ama bakalım, gerçekten de öyle mi?”', 'xiii', { icon: (c, p) => {
