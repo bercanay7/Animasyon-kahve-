@@ -33,7 +33,7 @@ git pull
 | `kapak.jpg` | Kapak A (1280×720) |
 | `kapak_b.jpg` | Kapak B: "Test ve karşılaştır" için ikinci kapak |
 | `prometheus.tr.srt` | Türkçe altyazı (izleyicilerin %38'i Türkçe altyazıyla izliyor) |
-| `prometheus_shorts.mp4` | Shorts, 1080×1920, 54 sn: "Asıl tutsak kim?" (doruk kesiti) |
+| `prometheus_shorts.mp4` | Shorts, 1080×1920, 53 sn: "Asıl tutsak kim?" (doruk kesiti) |
 | `youtube.md` | Başlık, açıklama (bölüm zaman damgaları ve kaynaklarla), etiketler |
 
 ## Zamanlama (Europe/Istanbul)
@@ -67,18 +67,20 @@ git pull
    - **Açıklama:**
      ```
      Zincirdeki Prometheus mu tutsak, yoksa onu zincire vuran Zeus mu?
-     Azra Erhat'ın 1967'de yazdığı önsözdeki şaşırtıcı cevap. Tam hikâye kanalda.
+     Azra Erhat'ın 1967'de yazdığı önsözdeki şaşırtıcı cevap. Tam hikâye (24 dk): videonun altındaki ▶ İlgili video bağlantısında.
 
      #Prometheus #AzraErhat #Aiskhylos #YunanMitolojisi #shorts
      ```
    - **Etiketler:** Prometheus, Zeus, Azra Erhat, Aiskhylos, Zincire Vurulmuş Prometheus, Yunan mitolojisi, mitoloji, felsefe, özgürlük, shorts
    - **Kitle:** çocuklara özel değil. **Kategori:** Eğitim.
-3. **İlgili video:** uzun video (Prometheus). Planlanmış videolar listede görünür; görünmüyorsa uzun video yayınlandıktan sonra eklenir.
+3. **İlgili video:** uzun video (Prometheus). Shorts'tan uzun videoya giden tek tıklanabilir yol budur. Shorts açıklamasındaki ve yorumlarındaki bağlantılar tıklanamaz.
+   - Planlanmış video listede görünmeyebilir. Görünmüyorsa uzun video cumartesi 20:00'de yayına girdikten sonra Shorts'u aç, İlgili video alanına uzun videoyu ekle.
+   - Pazar 18:00'den önce alanın dolu olduğunu kontrol et. Shorts'un sonundaki levha ("PROMETHEUS'UN SIRRI NEYDİ? · TAM HİKÂYE · İLGİLİ VİDEODA ▼") bu bağlantıya işaret ediyor.
 4. **Görünürlük:** Planla → pazar 18:00 (GMT+3).
 
 ## 3. Yayından sonra
 - **Uzun videonun altına sabit yorum:** `Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz 👇`
-- **Shorts'un altına sabit yorum:** `Tam hikâye (24 dk, 13 bölüm): <uzun videonun bağlantısı>`
+- **Shorts'un altına sabit yorum:** `Sence asıl tutsak kim: zincirdeki mi, zinciri vuran mı? 👇 Tam hikâye (24 dk): videonun altındaki ▶ İlgili video bağlantısında.`
 - **Oynatma listesi:** uzun video "Mitler ve Felsefe" listesine eklenir. Liste yoksa oluşturulur; Orfeus ve Sisifos da aynı listeye girer.
 - **İlk 48 saatte bakılacaklar:**
   - Gösterim tıklama oranı.
