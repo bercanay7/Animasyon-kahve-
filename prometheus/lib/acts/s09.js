@@ -65,7 +65,7 @@ function J_freezeLook(ctx, t, c, fz) {
 function J_labels(ctx, t) {
   const tK = A('J04@köle'), tO = A('J04@özgürdür'), off = 1 - ramp(t, A('J05@uşaklarına') - .1, A('J05@uşaklarına') + .5);
   if (t > tK - .3 && off > 0) { const dn = ramp(t, A('J04@prometeus'), tO), y = lerp(220, 190, dn); stamp(ctx, 'ZEUS · KÖLE', 960, y, t - tK, { col: '#E6ECFF', font: '700 84px Cinzel', h: 132, rot: -.04, a: .92 * lerp(1, .42, dn) * off }); }
-  if (t > tO - .1 && off > 0) txt(ctx, 'PROMETHEUS · ÖZGÜR', 560, 420, { font: '700 64px Cinzel', col: '#FFC867', ls: 5, a: ramp(t, tO - .1, tO + .4) * off, shadow: 'rgba(255,170,80,.7)', blur: 22 });
+  if (t > tO - .1 && off > 0) txt(ctx, 'PROMETHEUS · ÖZGÜR', 410, 420, { font: '700 58px Cinzel', col: '#FFC867', ls: 5, a: ramp(t, tO - .1, tO + .4) * off, shadow: 'rgba(255,170,80,.7)', blur: 22 });
 }
 // kölelik/özgürlük terazisi (P046 ve P154 ile aynı çizim): direk, kiriş, iplerle asılı iki kefe; tilt: kirişin açısı
 function J_scale(ctx, px, py, half, tilt, drawL, drawR, col = PC.clayR) {
@@ -87,18 +87,28 @@ function J_scale(ctx, px, py, half, tilt, drawL, drawR, col = PC.clayR) {
 shot(PA('P233'), (ctx, st) => {
   const t = st.t, lt = st.lt;
   const tFz = A('J01@durduralım'), tAs = A('J01@asıl'), tZn = A('J02@zincirde'), tAm = A('J02@ama'), tJ4 = A('J04'), tG = A('J04@gerçekte'), tZ = A('J04@zeus'), tP = A('J04@prometeus'), tO = A('J04@özgürdür');
-  const fz = ramp(t, tFz - .05, tFz + .3) * (1 - ramp(t, tP, tP + .6));
-  const tw = t < tFz ? t : (t < tP ? tFz : tFz + (t - tP)); // dünyanın saati: donmuşken durur
+  // donma IX boyunca sürer (X'te I08b@sorguya'da çözülür); J04@özgürdür'den sonra yalnız Prometheus, altın ışık ve ateş renklidir
+  const fz = ramp(t, tFz - .05, tFz + .3), tw = Math.min(t, tFz), pc = ramp(t, tO - .1, tO + .3);
   const wrist = { x: J_TOP[0], y: J_TOP[1] + 140 / 1.6, z: 1.6 };
   const c = J_path(t, [
     [PA('P233'), { x: 700, y: 560, z: 1.1 }], [tFz, { x: 760, y: 560, z: 1.1 }, E.lin], [tAs, { x: 1100, y: 520, z: 1.2 }],
     [tZn, { x: 1418, y: 190, z: 3.0 }], [tAm, { x: 1424, y: 184, z: 3.1 }, E.lin], [tJ4, { x: 1440, y: -120, z: 2.4 }, E.in2],
-    [tG, { x: 1480, y: -820, z: 1.75 }, E.lin], [tZ, wrist, E.out3], [tP, { ...wrist, z: 1.66 }, E.lin], [tO, { x: 1050, y: 560, z: 1.5 }, E.io2], [st.end, { x: 1046, y: 562, z: 1.52 }, E.lin]]);
+    [tG, { x: 1480, y: -820, z: 1.75 }, E.lin], [tZ, wrist, E.out3], [tP, { ...wrist, z: 1.66 }, E.lin], [tO, { x: 1215, y: 560, z: 1.5 }, E.io2], [st.end, { x: 1211, y: 562, z: 1.52 }, E.lin]]);
   const { wind } = kayaWorld(ctx, tw, c, { sky: J_SKY, wind: lerp(windAt(tw), 0, fz) });
   ctx.save(); cam(ctx, c, 1);
   const part = E.io2(ramp(t, A('J04@verir') - .2, tG + .2));
   J_skyChain(ctx, tw, part);
   J_zeusWrist(ctx, t, ramp(t, tG - .2, tZ), Math.exp(-Math.max(0, t - A('J04@köle')) * 2.5) * (t > A('J04@köle') ? 1 : 0));
+  if (pc < 1) promChained(ctx, tw, { wind: 0, look: .05, pose: 'sessiz', dust: fz > .5 ? .6 : 0 });
+  ctx.restore();
+  // Hermes: ön katmanda (paralaks 1,6) havada; kerykeion yarı kalkık; donunca asılı kalır
+  ctx.save(); cam(ctx, c, 1.6);
+  const hu = E.io2(ramp(tw, PA('P233'), tFz + .3, E.lin));
+  { I_hermes(ctx, lerp(520, 716, hu), lerp(960, 840, hu), 5.6, tw, { fly: lerp(.4, 1, hu), raise: .45, flap: .5, dir: 1 }); }
+  ctx.restore();
+  kayaFront(ctx, tw, c, wind);
+  J_freezeLook(ctx, t, c, fz);
+  ctx.save(); cam(ctx, c, 1);
   // altın ışık: J04@prometeus'ta kameranın önünde zincir boyunca aşağı iner; sonra zincirde aşağı doğru akar
   const dn = ramp(t, tP, tO, E.lin);
   if (t > tP && t < tO + .1) { const p = J_chainPt(1 - dn); glow(ctx, p[0], p[1], 160, 'rgba(255,200,110,.6)'); for (let k = 1; k < 10; k++) { const q = J_chainPt(Math.min(1, 1 - dn + k * .03)); glow(ctx, q[0], q[1], 70, `rgba(255,190,100,${.35 * (1 - k / 10)})`); } }
@@ -107,15 +117,8 @@ shot(PA('P233'), (ctx, st) => {
   const lk = PROM_KAYA.sF, lg = ramp(t, A('J02@özgürlüğü') - .1, A('J02@özgürlüğü') + .5) * (1 - ramp(t, tAm, tAm + 1));
   if (lg > 0) { glow(ctx, lk[0] - 14, lk[1] + 22, 46, `rgba(255,200,120,${.55 * lg})`); ctx.fillStyle = `rgba(255,226,168,${lg})`; ctx.fillRect(lk[0] - 22, lk[1] + 14, 16, 18); }
   const tY = A('J02@yok'); if (t > tY - 1.2 && t < tY + .6) { const u = ramp(t, tY - 1.2, tY, E.in2), x = lk[0] - 14 + Math.sin(u * 6) * 6, y = lerp(lk[1] - 120, lk[1] + 22, u), s = t < tY ? 1 : Math.exp(-(t - tY) * 6); sparkle(ctx, x, y, 14 * s, s, '#FFE2A8'); }
-  promChained(ctx, tw, { wind: lerp(wind, 0, fz), look: lerp(.05, -.3, ramp(t, tO - .2, tO + .5)), pose: t > tO ? 'direnis' : 'sessiz', pullAdd: .25 * ramp(t, tO - .1, tO + .4) * (1 - ramp(t, tO + .8, tO + 1.8)), dust: fz > .5 ? .6 : 0 });
+  if (pc > 0) { ctx.save(); ctx.globalAlpha = pc; promChained(ctx, tFz + Math.max(0, t - tO), { wind: .15, look: lerp(.05, -.3, ramp(t, tO - .2, tO + .5)), pose: 'direnis', pullAdd: .25 * ramp(t, tO - .1, tO + .4) * (1 - ramp(t, tO + .8, tO + 1.8)) }); ctx.restore(); }
   ctx.restore();
-  // Hermes: ön katmanda (paralaks 1,6) havada; kerykeion yarı kalkık; donunca asılı kalır
-  ctx.save(); cam(ctx, c, 1.6);
-  const hu = E.io2(ramp(tw, PA('P233'), tFz + .3, E.lin)), ha = 1 - ramp(t, tAs + 2, tAs + 3.5);
-  if (ha > 0) { ctx.globalAlpha = ha; I_hermes(ctx, lerp(520, 716, hu), lerp(960, 840, hu), 5.6, tw, { fly: lerp(.4, 1, hu), raise: .45, flap: .5, dir: 1 }); }
-  ctx.restore();
-  kayaFront(ctx, tw, c, wind);
-  J_freezeLook(ctx, t, c, fz);
   kayaFrame(ctx, t);
 }, { tr: { type: 'clay', dur: .8, end: true }, post: { tex: .55, vig: 1, grain: .06 },
   over: (ctx, st) => {
@@ -162,13 +165,13 @@ shot(PA('P239'), (ctx, st) => {
 // --- P240: dikey dünyada zincir: altın ışık Prometheus'un ucundan Zeus'un soğuk beyaz ucuna akar (bağımlılık) ---
 shot(PA('P240'), (ctx, st) => {
   const t = st.t, lt = st.lt;
-  const c = { x: 1470, y: -480 - lt * 8, z: .74 };
-  const { wind } = kayaWorld(ctx, t, c, { sky: J_SKY });
+  const c = { x: 1470, y: -480 - lt * 8, z: .74 }, tF = A('J01@durduralım');
+  kayaWorld(ctx, tF, c, { sky: J_SKY, wind: 0 });
+  ctx.save(); cam(ctx, c, 1); J_skyChain(ctx, tF, 1); J_zeusWrist(ctx, t, 1, .2 + .2 * Math.sin(t * 2)); ctx.restore();
+  J_freezeLook(ctx, t, c, 1);
   ctx.save(); cam(ctx, c, 1);
-  J_skyChain(ctx, t, 1);
-  J_zeusWrist(ctx, t, 1, .2 + .2 * Math.sin(t * 2));
   J_goldFlow(ctx, t, ramp(t, A('J05@onu'), A('J05@kurtarabilecek')), 1, 4, .32);
-  promChained(ctx, t, { wind, look: -.35, pose: 'gok' });
+  promChained(ctx, t, { wind: .15, look: -.35, pose: 'gok' });
   ctx.restore();
   kayaFrame(ctx, t);
 }, { tr: { type: 'cut' }, post: { tex: .55, vig: 1, grain: .06 } });
@@ -214,10 +217,11 @@ shot(PA('P242'), (ctx, st) => {
 // --- P243: KAYA; köle frizi: kölelerden biri başını kaldırır; şerit: “hakkın köleden yana olduğu” (s. xiii), terazi köleden yana eğilir ---
 shot(PA('P243'), (ctx, st) => {
   const t = st.t, lt = st.lt, tH = A('J10@hakkın');
-  const c = { ...CAMS.orta, x: 1250 - lt * 4, y: 520, z: 1.4 };
-  const { wind } = kayaWorld(ctx, t, c, { sky: J_SKY });
-  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: .04, pose: 'direnis' }); ctx.restore();
-  kayaFront(ctx, t, c, wind);
+  const c = { ...CAMS.orta, x: 1250 - lt * 4, y: 520, z: 1.4 }, tF = A('J01@durduralım');
+  kayaWorld(ctx, tF, c, { sky: J_SKY, wind: 0 });
+  kayaFront(ctx, tF, c, 0);
+  J_freezeLook(ctx, t, c, 1);
+  ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind: .15, look: .04, pose: 'direnis' }); ctx.restore();
   // köle frizi: kırmızı figür şerit, başları eğik, bilekleri bağlı; biri başını kaldırır
   ctx.save(); baseT(ctx); const fy = 560, fh = 230, a = ramp(lt, .2, .8);
   ctx.globalAlpha = a; ctx.fillStyle = PC.glaze; ctx.fillRect(0, fy, 1060, fh); meanderSaltire(ctx, 0, 1060, fy, 22, PC.clayR, PC.glaze); meanderSaltire(ctx, 0, 1060, fy + fh - 22, 22, PC.clayR, PC.glaze);
