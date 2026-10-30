@@ -1,0 +1,141 @@
+Toplam süre: 1447.02 sn (anlatım 1429.44 sn'de biter; sonrası ~18 sn bitiş ekranı/end screen müziği)
+
+## Bölümler (anlatım başlangıç/bitiş, sn)
+- Zincirdeki Titan: 0.70 – 43.28
+- Erhat'ın sorusu: 46.56 – 91.96
+- Tanrıların taht kavgası: 94.02 – 235.51
+- Zeus'un dinmez öfkesi: 238.76 – 332.76
+- Mekone'deki hile: 336.20 – 491.50
+- Duruşma: Kafka'nın gözüyle: 494.86 – 673.48
+- Savunma: “Bile bile yaptım”: 676.90 – 831.98
+- Tanıklar ve “inek geçidi”: 835.52 – 955.38
+- Tahtı sallayan sır: 958.68 – 1055.50
+- Zincirin öbür ucu: 1058.43 – 1124.27
+- Kartal, fırtına ve son söz: 1127.53 – 1221.82
+- Herakles'ten Oppenheimer'a: 1226.07 – 1292.13
+- Başkaldıran yaratık: 1295.17 – 1393.02
+- Çevirmenlerin dileği: 1397.06 – 1429.44
+
+## Tüm cümleler
+- A01 0.70–5.38: Tanrılardan ateşi, bile bile çalıp insanlara veren bir Titan düşün.
+- A02 6.42–11.36: Şimdi de, onu bir kayaya mıhlatan Zeus'un… asıl tutsak olduğunu.
+- A03 12.56–22.58: Dünyanın ucunda, her gün bir kartal iner, karaciğerini parçalar. Gece karaciğer yeniden büyür… ve sabah, kartal yine gelir.
+- A04 23.74–25.40: Adı… Prometheus.
+- A06 27.00–35.30: Bu tuhaf fikri, Azra Erhat ileri sürer: 1967'de, Türkçeye çevirdiği antik bir oyunun önsözünde.
+- A05 36.20–43.28: Peki zincirleyen, nasıl tutsak olabilir? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?
+- B01 46.56–51.64: Sahnede neredeyse yalnızca tanrıların konuştuğu bir oyun, insanı anlatabilir mi?
+- B02 52.74–60.10: Atinalı tragedya yazarı Aiskhylos'un adıyla, bize tek bir Prometheus oyunu ulaştı: Zincire Vurulmuş Prometheus.
+- B04 60.94–65.14: Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır.
+- B05 66.12–75.50: Onun deyişiyle “insan dostu, tanrı düşmanı” Prometheus, en çok da XX. yüzyılda, insanı özüyle temsil eden bir kahraman olarak benimsenmiştir.
+- B06 75.90–85.92: Ve Erhat can alıcı bir soru sorar: Nasıl oldu da milattan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi?
+- B07 86.94–91.96: Cevabı ararken, önce çok daha geriye gider: tanrıların taht kavgasına.
+- C01 94.02–100.24: Tanrıların kralı Zeus, o tahta nasıl oturmuştu? Kayadaki Titan, hepsini görmüştü.
+- C02 101.82–111.84: Erhat, efsanenin de oyunun da merkezinde, kendi çağının deyişiyle bir “hükümet darbesi” bulur: Bir kuşak, öncekini devirip yönetimi ele geçirir.
+- C04 113.12–133.14: Aiskhylos'tan iki yüzyıl kadar önce yaşamış şair Hesiodos'un Theogonia'sına göre, en başta Khaos vardı, sonra Toprak Ana, Gaia. Gaia kendine eş olarak Gök'ü, Uranos'u doğurdu. Ama Uranos, Gaia'dan doğan devlerden tiksindi; her birini doğar doğmaz, annelerinin karnına geri tıktı.
+- C06 134.20–143.48: Acılar içindeki Gaia, çelikten bir tırpan yapıp çocuklarına verdi. Hiçbiri babasına el kaldırmaya yanaşmadı… en küçükleri Kronos hariç.
+- C07 144.18–155.70: Kronos gece pusuya yattı. Uranos Gaia'nın üstüne eğildiği anda, oğlu tırpanı savurdu… ve babasını iğdiş etti. Erhat burada, tanrıların tarihinde bir devrim görür.
+- C09 156.82–166.50: Ama bu devrim de, kendi çocuklarını yedi. Hem de kelimenin tam anlamıyla: Oğullarından birinin onu devireceğini bilen Kronos, çocuklarını doğar doğmaz yuttu.
+- C10 167.32–179.18: Karısı Rheia, son oğlunu Girit'e kaçırdı ve Kronos'a kundağa sarılı bir taş yutturdu. O çocuk Zeus'tu. Büyüyünce babasına kardeşlerini kusturdu ve onu tahttan indirdi.
+- C12 179.68–195.18: Erhat bu iki devrimi birbirinden ayırır. Birincisi, kaba kuvvetin kendi kendini yenmesiydi; ikincisi, “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, ders almışa benzeyen Uranos ile Gaia yol göstermişti.
+- C14 196.38–205.38: Ve Erhat bir ayrıntıyı hatırlatır: Prometheus da bu devrimde rol oynamıştı. Hangi rolü mü? Onu, zincirdeyken kendi ağzından duyacağız.
+- C17 206.18–231.04: Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve Gaia'nın öğüdüyle, dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti.
+- C18 231.64–235.51: Ve bu paylaşmada önüne tek bir engel çıktı… Prometheus.
+- D01 238.76–242.56: Zeus, bir Titan ailesine neden özel bir kin besliyordu?
+- D02 243.86–252.18: Prometheus, Titan İapetos'un oğluydu. Dört kardeştiler: Atlas, Menoitios, Prometheus ve Epimetheus.
+- D03 253.26–263.54: Dördünün de sonu tüyler ürperticiydi. Atlas, dünyanın ucunda göğü omuzlarında taşımaya mahkûm edildi; Menoitios, yıldırımla yerin dibine gömüldü.
+- D04 264.46–273.68: Prometheus bir sütuna zincirlendi, karaciğeri kartala yem oldu. Epimetheus'a ise bir “armağan” gönderildi. Ona da geleceğiz.
+- D05 274.88–284.76: Erhat sorar: Neden bu eşi görülmemiş cezalar? Titan oldukları için mi? Hayır. Dördü de zekâlarıyla öne çıkıyor, Zeus'a kafa tutmaya kalkıyordu.
+- D07 285.86–295.68: Oysa, Erhat'ın deyişiyle: “Akıl gücüyse Zeus'un tekelindedir.” Ve bu gücü başkasında görmek, içinde “dinmez bir öfke” doğurur.
+- D08 297.02–308.08: Prometheus ise bu öfkeyi kışkırtmaktan geri durmaz. Keskin aklıyla da, geleceği görme gücüyle de, Zeus'u hem aldatır, hem tedirgin eder, hem de gülünç düşürür.
+- D09 309.12–322.02: Adı da bunu söyler: Prometheus, önceden düşünen demektir; Erhat'ın deyişiyle bir kâhin. Gaia nasıl Kronos'u uyarmışsa, Prometheus da Zeus'un bir gün düşeceğini bilir.
+- D10 322.42–326.62: Erhat buna bir ad verir: “üçüncü devrimin hazırlanması.”
+- D11 327.82–332.76: Uranos devrilmişti. Kronos devrilmişti. Sıra kime gelecekti?
+- E01 336.20–342.08: Eski Yunanlar kurban kestiğinde, neden eti kendileri yer, tanrılara yalnızca kemikleri yakardı?
+- E03 343.32–353.60: Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekone'de paylarını belirlemek için toplanır. Prometheus büyük bir öküz keser ve ikiye ayırır.
+- E04 354.64–362.02: Bir yanda, öküzün midesine gizlenmiş etler. Öbür yanda, parlak bir yağa sarılmış… çıplak kemikler.
+- E05 363.06–374.64: “Hangisini istersen seç,” der Zeus'a. Zeus yağlı payı alır; altından beyaz kemikler çıkar. O günden beri insanlar eti kendileri yer, tanrılara kemik yakar.
+- E07 375.82–382.26: Erhat'a göre bu efsanenin asıl önemi başkadır: Prometheus, baştan beri insanlardan yanadır.
+- E08 383.26–391.26: Onlara dayanarak, Olympos tanrılarının yerine insanların egemenliğini getirmek ister. Yani, “yeni bir devrimin hazırlayıcısıdır.”
+- E09 392.38–401.64: Zeus hileyi görür; bile bile aldanır, ama olan olmuştur. Gururu yaralanan tanrı, öcünü insanlardan alır: Ateşi esirger.
+- E10 402.68–416.22: Prometheus onu bir kez daha aldatır: Ateşi içi boş bir rezene sapına gizleyip insanlara götürür. Hesiodos'un deyişiyle, uzaktan parlayan o ışığı görmek, Zeus'u yüreğinin ta dibinden ısırır.
+- E12 417.48–436.20: İlk ceza insanlara gelir: Hephaistos topraktan bir kız yoğurur, tanrılar onu armağanlarla süsler. Adı, Pandora'dır. Prometheus kardeşini uyarmıştı: Zeus'tan armağan alma. Ama Epimetheus, yani “sonradan düşünen”, ancak iş işten geçince düşünür.
+- E14 437.02–446.48: Pandora büyük küpün kapağını kaldırır; hastalıklar, acılar, dertler dünyaya yayılır. İçeride yalnızca bir şey kalır: Umut.
+- E11 447.78–453.42: Erhat'ın okumasında, iki kez aldatılan Zeus'a artık tek bir yol kalır: kaba kuvvet.
+- E15 454.68–471.88: Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş bir tanrı; tahtının altında artık gerçek bir güç yoktur. Çünkü “akıl gücü tanrılardan insanlara geçmiştir.”
+- E16 472.76–481.26: Ve Erhat, sıranın kime geldiğini söyler: “Üçüncü ve son devrim” olup bitmiştir. “İnsan kendi gücünün bilincine varmış”tır.
+- E16b 482.54–491.50: Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. Zincirin öbür ucunda kimin durduğunu ise, başka bir şair gösterecekti.
+- F01 494.86–499.38: Aynı Titan, Atina sahnesine çıktığında neden bambaşka birine dönüştü?
+- F02 500.58–508.82: Erhat'a göre taht kavgasını iki şair de aşağı yukarı aynı anlatır; ama iş Prometheus'a gelince, yorumları büsbütün değişir.
+- F03 509.80–524.24: Ve önsözün öbür sorusu burada gelir: Prometheus, ne bakımdan insandır? Erhat bir yol önerir: Bugün bu olayı sahneye koyan bir yazar, bir duruşma kurardı. Oyunu, Kafka'nın Dava'sını okur gibi okumalıyız.
+- F05 524.64–534.96: Öyleyse duruşma başlasın. Sanık: Prometheus. Suçu: ateşi çalıp insanlara vermek ve tanrıların düzenine karşı gelmek.
+- F05b 535.96–541.28: Yargıç ise hiç görünmeyecek: Zeus, oyun boyunca sahneye bir kez bile çıkmaz.
+- F06 542.64–556.28: Sahne, İskit ülkesinin ıssız bir uçurumu. Zeus'un iki uşağı, sanığı önlerine katıp getirir: Kratos ve Bia, yani Güç ve Zor. Erhat onlara, kendi çağının diliyle, polis der.
+- F08 557.30–565.40: Güç, cezanın amacını söyler: Prometheus, Zeus'un zorbalığına razı olmayı öğrenecek… insanseverlikten vazgeçecek.
+- F07 566.38–578.84: Zincirleri, demirci tanrı Hephaistos vurur. İstemeyerek; zincirlediği kendi akrabasıdır. Ama Zeus'un buyruğunu çiğneyemez. Kendi deyişiyle: “Gücü yeni ele geçiren herkes serttir.”
+- F09 579.24–593.56: Daha işe başlamadan Hephaistos inler: “Ah, nefret ettiğim zanaatım!” Güç'ün cevabı buz gibidir: “Tanrılara hükmetmek dışında her iş bir yüktür. Zeus'tan başka hiç kimse özgür değildir.”
+- F10 594.74–600.92: Bu cümleyi aklında tut. Erhat'ın gözünde dramın özü, tam da budur: özgürlük ve kölelik.
+- F10a 601.88–616.32: Ona göre çağı düşünmek gerekir: V. yüzyıl Atina'sında kölelik yasal bir kurumdu. Prometheus da bir köle gibi zincire vurulmuştu. Ama işkencesini asıl büyüten zincir değil, bir tanrının köle durumuna düşürülmesidir.
+- F10b 617.78–630.18: Erhat burada okuruna sorar: Dikkat ettin mi? Bütün bu sahne boyunca Prometheus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.
+- F13 631.88–651.02: Ancak yapayalnız kalınca konuşur. İlk sözleri göğedir: “Ey kutsal gök, hızlı kanatlı rüzgârlar, ırmakların kaynakları, deniz dalgalarının sayısız gülüşü… ve sen, herkesin anası Toprak: Bakın bana, bir tanrıyım ve tanrılardan neler çekiyorum.”
+- F14 652.54–673.48: Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Bana biçilen yazgıya olabildiğince kolay katlanmalıyım; zorunluluğun gücüyle savaşılmaz. Yine de başıma gelenler üstüne… ne susabiliyorum ne de konuşabiliyorum.”
+- G01 676.90–679.60: Zincirdeki sanık, kendini nasıl savunur?
+- G02 680.78–691.44: Erhat'a göre savunması iki kavrama dayanır: bilinç ve özgürlük. İnsana özgü, değişmez iki değer. Yani Prometheus'u insan yapan, bu ikisidir.
+- G03 692.53–700.08: Çekiç seslerini duyan deniz perileri, Okeanos'un kızları, derinliklerden gelir. Prometheus onlara geçmişi anlatır.
+- G03b 701.13–713.28: Aiskhylos'ta annesi Toprak'tır; öbür adı Themis, yani Adalet. Titanlarla savaş sürerken, bu anne ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.
+- G05 714.08–724.52: Titanlar bu öğüdü küçümsedi; Prometheus Zeus'un yanına geçti. Kronos'u Tartaros'a gömen, onun öğütleri oldu. Erhat'ın andığı o rol, işte buydu.
+- G06 725.44–734.96: Şimdi ise tahta çıkardığı tanrının zincirindeydi. Prometheus bunu tek cümleyle açıklar: “Zorbalığın bir hastalığı vardır: dostlarına güvenmez.”
+- G07 735.46–746.12: Zeus tahta oturunca insanları hiç hesaba katmadı; onları yok edip yerine yeni bir soy yaratmak istiyordu. Buna karşı çıkan tek kişi, Prometheus oldu.
+- G07b 747.10–752.79: Kendi sözleriyle: “Ölümlülere acıdım. Ama kendim… acınmaya layık görülmedim.”
+- G08 753.86–762.70: İnsanları kurtarmakla da kalmadı. Ölümlerini önceden görmelerini engelledi; içlerine kör umutlar yerleştirdi. Sonra da ateşi verdi.
+- G09 763.74–775.98: Erhat burada sorar: “Ateşi tanrılardan çalıp insanlara vermek ne demektir?” Ona göre başkaları bunu bir efsane olarak bırakmıştı. Aiskhylos ise ondan uygarlığın tarihini çıkarır.
+- G10b 776.84–795.26: Ateşten önce insanlar, gözleri olup görmeyen varlıklardı; mağaralarda karıncalar gibi yaşıyorlardı. Prometheus onlara yıldızları, sayıları, harfleri öğretti; hayvanları, gemiyi, ilacı, madenleri… Tek sözle: İnsanlardaki bütün zanaatlar, Prometheus'tan gelir.
+- G11 796.36–809.78: Ve sanık suçunu inkâr etmez. Oyundaki sözleriyle: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim.” Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: “Ne yaptımsa bile bile yaptım.”
+- G13 810.80–814.86: Ve bu bilinç, onda hem gurur hem de bir “katlanma duygusu” doğurur.
+- G12b 815.52–825.14: Ama oyunda Prometheus, aynı konuşmada şunu da itiraf eder: “Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.”
+- G13b 826.34–831.98: Yani biliyordu; ama bilmek, yaşamak değildi. Yine de geri adım atmaz.
+- H01 835.52–842.68: Bu duruşmada kimler tanıklık eder? Ve içlerinden birinin hikâyesi, nasıl oldu da İstanbul Boğazı'nın adına karıştı?
+- H02 843.88–860.02: Erhat'a göre oyunun evreni, Zeus'un kurbanları, uşakları ve dalkavuklarıyla doludur. Hepsi buyruğunu yerine getirir; kimi isteyerek, kimi istemeyerek. Tek başkaldıran, Prometheus'tur. Uşakları gördük; sırada bir dalkavuk var.
+- H04 861.12–878.02: Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” Prometheus geri çevirir: “Her şeyi benimle göze aldın, ama suçun dışında kaldın; seni kıskanıyorum. Kendi başını derde sokma.”
+- H05 879.10–893.68: Periler ona “dilin fazla özgür” der; Erhat'a göre Yunanca sözün tam anlamı budur. Başkaları, “hiçbir umuda yer vermeden” direnen bu tutumu “gurur ya da kibir” sanır. Oysa ona özgürlüğü sağlayan bilincidir.
+- H05b 894.18–904.86: İnsanlara, ölümlerini önceden görmesinler diye kör umutlar veren oydu. Kendisi ise her şeyi önceden görüyordu… ve kendine hiçbir umut tanımadı.
+- H06 906.46–919.04: Sonra bir kurban gelir: boynuzlu, genç bir kız. Adı İo. Zeus'un gönlü ona düşmüş, Hera'nın öfkesi peşine takılmıştı: Bir atsineği onu dünyanın dört bir yanına kovalıyordu.
+- H07 919.92–935.82: Prometheus ona yolculuğunu anlatır: Bir boğazdan geçecek ve boğaz bu geçişten adını alacak: Bosporos, yani “inek geçidi.” Aiskhylos'un kastettiği Kırım'daki Kerç Boğazı'dır; ama başka anlatılar aynı adı İstanbul Boğazı'na verir.
+- H09 936.82–947.26: İo, acısına dayanamayıp ölmeyi diler. Prometheus'un cevabı ağırdır: “Ben ölemem bile. İşkencem, Zeus'un zorbalığı yıkılmadıkça bitmeyecek.”
+- H10 948.20–955.38: Ve bir şey daha söyler: İo'nun soyundan, on üç kuşak sonra, onu bu zincirden kurtaracak bir okçu doğacak.
+- I01 958.68–961.86: Zincirdeki bir sanık, yargıcını nasıl korkutabilir?
+- I02 963.16–972.20: Prometheus bir sır biliyordu. Zeus bir gün bir evlilik yapacaktı. Ve o evlilikten, babasından daha güçlü bir oğul doğacaktı.
+- I03 973.11–989.86: Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Babasını deviren oğul, şimdi oğlundan korkan babaydı. Erhat buna, üçüncü devrimin hazırlanması demişti. Aiskhylos'un sahnesinde bu, Zeus'u sürekli bir kuşkunun baskısı altında tutan bir bilgidir.
+- I04 991.14–995.28: Kiminle evlenmemesi gerektiğini ise, yalnızca Prometheus biliyordu.
+- I05 996.40–1006.38: Sonunda Zeus, habercisi Hermes'i gönderir; Erhat'ın deyişiyle “sanığı gözdağıyla sorguya çeken” bir polis müdürü. Emir kısadır: Sırrı söyle.
+- I06 1007.31–1022.82: Prometheus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki zorbanın düştüğünü görmedim mi? Üçüncüsünün, şimdi hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.”
+- I07 1024.02–1030.04: Hermes onu kibirle suçlar; cevabı keskindir: “Bu felaketimi senin uşaklığına değişmem.”
+- I08 1031.02–1044.50: Sorgu sürerken, Prometheus'un ağzından tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.”
+- I07b 1045.56–1055.50: Ve zincirdeki adam, evrenin efendisine şart koşar: “Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir, ne de hileyle.”
+- J01 1058.43–1063.83: Sorguyu burada bir an durduralım. Bu sahnede asıl tutsak olan kim?
+- J02 1065.45–1082.13: Görünüşe bakılırsa cevap açık. Güç'ün sözünü hatırla: “Zeus'tan başka hiç kimse özgür değildir.” Prometheus ise zincirde; ölümsüz olduğu için canına kıyma özgürlüğü bile yok. Erhat sorar: “Ama bakalım gerçekten de öyle mi?”
+- J04 1083.39–1088.19: Ve cevap verir: “Gerçekte Zeus köle, Prometheus özgürdür.”
+- J05 1089.59–1101.65: Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, “bir çocuk gibi zayıf ve çaresizdir”: Onu yıkımdan kurtarabilecek tek kişi, “akıl gücünün taşıyıcısı” Prometheus'tur.
+- J06 1102.69–1113.67: Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Yani roller yer değiştirmiştir: Sanık özgür, görünmeyen yargıç tutsak.
+- J10 1115.15–1124.27: Köleliği doğal sayan bir dünyada, hakkın köleden yana olduğunu söylemek… Erhat'a göre bu, Aiskhylos'un tek başına başardığı koca bir işti.
+- I08a 1127.53–1130.21: Zorba, susturamadığı birine ne yapar?
+- I08b 1131.43–1149.21: Sorguya dönelim. Hermes son tehdidini savurur: “Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.”
+- I08c 1150.37–1161.49: Açılıştaki kartal, Aiskhylos'ta işte budur: hayır demenin bedeli. Prometheus karşılık verir: “Bu haberleri zaten biliyordum. Ne yaparsa yapsın… beni öldüremez.”
+- I09 1163.05–1171.93: Hermes perilere oradan gitmelerini söyler. Ama periler kalır: “Hainlerden nefret etmeyi öğrendik” deyip Prometheus'un yanında dururlar.
+- I10 1172.91–1191.39: Sözle yenemediği sanığa karşı, Zeus'a yine o tek yol kalır: kaba kuvvet. Prometheus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök denize karıştı.”
+- I11 1192.77–1202.33: İlk sözleri gibi son sözleri de göğe ve anasınadır, adlarından biri Adalet olan anasına: “Görüyor musun, haksız yere neler çekiyorum.”
+- I12 1203.91–1221.82: Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometheus, dünya başına yıkılana, perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. Erhat'ın okumasında Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”
+- L01 1226.07–1230.37: Peki Prometheus'un haber verdiği o okçu, gerçekten geldi mi?
+- L02 1231.37–1247.27: Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı öldürdü ve Prometheus'u acısından kurtardı. Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Aiskhylos'un bu kurtuluşu anlattığı oyun, Kurtulmuş Prometheus ise kayıp.
+- L03 1248.27–1253.45: Ama insanlık Prometheus'u, kurtulduğu anla değil, zincirdeki hâliyle hatırladı.
+- L04 1253.95–1270.49: Erhat, onun izini Alman şair Goethe'ye kadar sürmeyi önerir. Goethe'nin şiirinde Titan, Zeus'a meydan okur ve insanları kendi suretinde yoğurur. Erhat'a göre bu şiirin anlamı şudur: “Asıl yaratıcı, insanın kendisidir.”
+- L05 1271.67–1284.91: Mary Shelley, Frankenstein romanına “Modern Prometheus” alt başlığını koydu. Atom bombasının babası diye anılan Oppenheimer'ın biyografisinin adı da “American Prometheus”: Nolan'ın filmi bu kitaba dayanır.
+- L06 1285.83–1292.13: İnsan ne zaman kendisine yasaklanmış bir ateşe el uzatsa, o eski Titan'ın adı yeniden anılır.
+- K08a 1295.17–1322.97: Ama bir soru hâlâ cevapsız: Erhat'ın o can alıcı sorusu. Nasıl oldu da milattan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi? Erhat'ın cevabı: Prometheus, efsanede de taht kavgasının ortasında duran siyasi bir kişiydi. Ama onu “modern anlamda politik bir dram”ın kahramanı yapan, Atinalı tragedya yazarları içinde “politik görüşü en köklü” olan Aiskhylos'tu.
+- K08c 1323.47–1338.39: Ve önsöze göre, Aiskhylos'un bize dek ulaşan bildirisi şudur: “Akıl gücü kaba güçten üstündür, düşünceye gem vurulamaz.” Belki de bu yüzden, yirmi beş yüzyıl önceki bu sanık hâlâ insana benziyor.
+- K01 1339.75–1348.53: İnsana benzemek mi? Erhat'ın önsözü, daha ilk sayfasında şu soruya yer verir: İnsan nedir? Ne zaman insan olmaya başladı?
+- K02 1349.69–1365.65: Ve kendi çağının düşünürlerinin sanki sözleşmiş gibi verdiği cevabı aktarır: “İnsan başkaldıran yaratıktır.” Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, her seferinde yeniden başkaldırmasına bağlıdır.
+- K04 1366.83–1379.13: Erhat'ın kuşağı bu görüşü öylesine benimsemiştir ki, gelenek süslerini üstünden atar. Erhat bunu kuşağı adına şöyle yazar: “Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz.”
+- K06 1380.51–1393.02: Bu kuşağın tek ülküsü insan olmaktı; bu uğurda hiçbir çabadan, hiçbir cefadan kaçmıyorlardı. Ve önsöz sözü tek bir ada bağlar: “Bu ülkünün ilk temsilcisi Prometheus'tur.”
+- M00 1397.06–1411.98: Erhat ile çeviri arkadaşı Sabahattin Eyüboğlu, başta bu oyunun çevrilemeyeceğini, sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar… ve coşmuşlar. Dilekleri, Prometheus'u bir Türk tiyatrosunda görmekti.
+- M02 1413.34–1419.44: Peki sen olsan? Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz.
+- M03 1420.78–1429.44: Tanrılara kafa tutan bir başka isyankârın, Sisifos'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.

@@ -1,0 +1,2354 @@
+[
+{
+"id": "P001",
+"at": "A01",
+"t": 0.0,
+"sure": 3.46,
+"k": "K",
+"set": "KAYA/OLYMPOS"
+},
+{
+"id": "P002",
+"at": "A01@insanlara",
+"t": 3.46,
+"sure": 1.2,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P003",
+"at": "A01@titan",
+"t": 4.66,
+"sure": 1.76,
+"k": "K",
+"set": "KAYA/OLYMPOS"
+},
+{
+"id": "P004",
+"at": "A02",
+"t": 6.42,
+"sure": 2.92,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P005",
+"at": "A02@zeusun",
+"t": 9.34,
+"sure": 3.22,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P006",
+"at": "A03",
+"t": 12.56,
+"sure": 2.18,
+"k": "K",
+"set": "DÜNYA DİSKİ"
+},
+{
+"id": "P007",
+"at": "A03@kartal",
+"t": 14.74,
+"sure": 1.2,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P008",
+"at": "A03@karaciğerini",
+"t": 15.94,
+"sure": 1.96,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P009",
+"at": "A03@gece",
+"t": 17.9,
+"sure": 2.58,
+"k": "K",
+"set": "KAYA/GECE"
+},
+{
+"id": "P010",
+"at": "A03@sabah",
+"t": 20.48,
+"sure": 3.26,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P011",
+"at": "A04",
+"t": 23.74,
+"sure": 3.26,
+"k": "K",
+"set": "BAŞLIK"
+},
+{
+"id": "P012",
+"at": "A06",
+"t": 27.0,
+"sure": 3.79,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P013",
+"at": "A06@bin",
+"t": 30.787,
+"sure": 5.41,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P014",
+"at": "A05",
+"t": 36.2,
+"sure": 2.54,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P015",
+"at": "A05@ve",
+"t": 38.74,
+"sure": 7.82,
+"k": "K",
+"set": "YAKIN"
+},
+{
+"id": "P016",
+"at": "B01",
+"t": 46.56,
+"sure": 6.18,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P017",
+"at": "B02",
+"t": 52.74,
+"sure": 3.08,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P018",
+"at": "B02@tek",
+"t": 55.82,
+"sure": 5.12,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P019",
+"at": "B04",
+"t": 60.94,
+"sure": 5.18,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P020",
+"at": "B05",
+"t": 66.12,
+"sure": 4.58,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P021",
+"at": "B05@yirminci",
+"t": 70.7,
+"sure": 5.2,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P022",
+"at": "B06",
+"t": 75.9,
+"sure": 9.32,
+"k": "B",
+"set": "BÖLÜNMÜŞ"
+},
+{
+"id": "P023",
+"at": "B06@yaratabildi",
+"t": 85.22,
+"sure": 1.72,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P024",
+"at": "B07",
+"t": 86.94,
+"sure": 7.08,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P025",
+"at": "C01",
+"t": 94.02,
+"sure": 3.92,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P026",
+"at": "C01@kayadaki",
+"t": 97.94,
+"sure": 3.88,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P027",
+"at": "C02",
+"t": 101.82,
+"sure": 6.84,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P028",
+"at": "C02@bir#1",
+"t": 108.66,
+"sure": 4.46,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P029",
+"at": "C04",
+"t": 113.12,
+"sure": 5.98,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P030",
+"at": "C04@kaos",
+"t": 119.1,
+"sure": 1.58,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P031",
+"at": "C04@toprak",
+"t": 120.68,
+"sure": 1.98,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P032",
+"at": "C04@gaya#1",
+"t": 122.66,
+"sure": 3.78,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P033",
+"at": "C04@ama",
+"t": 126.44,
+"sure": 7.76,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P034",
+"at": "C06",
+"t": 134.2,
+"sure": 4.34,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P035",
+"at": "C06@hiçbiri",
+"t": 138.54,
+"sure": 2.96,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P036",
+"at": "C06@en",
+"t": 141.5,
+"sure": 2.68,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P037",
+"at": "C07",
+"t": 144.18,
+"sure": 4.82,
+"k": "S",
+"set": "AMFORA/GECE"
+},
+{
+"id": "P038",
+"at": "C07@tırpanı",
+"t": 149.0,
+"sure": 2.72,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P039",
+"at": "C07@erhat",
+"t": 151.72,
+"sure": 5.1,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P040",
+"at": "C09",
+"t": 156.82,
+"sure": 4.98,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P041",
+"at": "C09@oğullarından",
+"t": 161.8,
+"sure": 5.52,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P042",
+"at": "C10",
+"t": 167.32,
+"sure": 3.48,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P043",
+"at": "C10@kundağa",
+"t": 170.8,
+"sure": 2.74,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P044",
+"at": "C10@çocuk",
+"t": 173.54,
+"sure": 1.84,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P045",
+"at": "C10@büyüyünce",
+"t": 175.38,
+"sure": 4.3,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P046",
+"at": "C12",
+"t": 179.68,
+"sure": 10.88,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P047",
+"at": "C12@bu#1",
+"t": 190.56,
+"sure": 5.82,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P048",
+"at": "C14",
+"t": 196.38,
+"sure": 6.24,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P049",
+"at": "C14@onu",
+"t": 202.62,
+"sure": 3.56,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P050",
+"at": "C17",
+"t": 206.18,
+"sure": 8.18,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P051",
+"at": "C17@titanlar#1",
+"t": 214.36,
+"sure": 2.62,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P052",
+"at": "C17@erhata",
+"t": 216.98,
+"sure": 6.34,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P053",
+"at": "C17@yıldırım",
+"t": 223.32,
+"sure": 8.32,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P054",
+"at": "C18",
+"t": 231.64,
+"sure": 3.57,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P055",
+"at": "C18@prometeus",
+"t": 235.21,
+"sure": 3.55,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P056",
+"at": "D01",
+"t": 238.76,
+"sure": 5.1,
+"k": "S",
+"set": "KYLIX"
+},
+{
+"id": "P057",
+"at": "D02",
+"t": 243.86,
+"sure": 9.4,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P058",
+"at": "D03",
+"t": 253.26,
+"sure": 2.88,
+"k": "S",
+"set": "KYLIX"
+},
+{
+"id": "P059",
+"at": "D03@atlas",
+"t": 256.14,
+"sure": 4.62,
+"k": "S",
+"set": "KYLIX"
+},
+{
+"id": "P060",
+"at": "D03@menoitios",
+"t": 260.76,
+"sure": 3.7,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P061",
+"at": "D04",
+"t": 264.46,
+"sure": 4.87,
+"k": "S",
+"set": "KYLIX"
+},
+{
+"id": "P062",
+"at": "D04@epimeteusa",
+"t": 269.33,
+"sure": 5.55,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P063",
+"at": "D05",
+"t": 274.88,
+"sure": 5.02,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P063b",
+"at": "D05@hayır",
+"t": 279.9,
+"sure": 5.96,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P064",
+"at": "D07",
+"t": 285.86,
+"sure": 5.8,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P065",
+"at": "D07@ve",
+"t": 291.66,
+"sure": 5.36,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P066",
+"at": "D08",
+"t": 297.02,
+"sure": 7.66,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P067",
+"at": "D08@aldatır",
+"t": 304.68,
+"sure": 4.44,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P068",
+"at": "D09",
+"t": 309.12,
+"sure": 6.36,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P069",
+"at": "D09@kâhin",
+"t": 315.48,
+"sure": 1.42,
+"k": "S",
+"set": "AMFORA/YAKIN"
+},
+{
+"id": "P070",
+"at": "D09@gaya",
+"t": 316.9,
+"sure": 5.52,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P071",
+"at": "D10",
+"t": 322.42,
+"sure": 5.4,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P072",
+"at": "D11",
+"t": 327.82,
+"sure": 1.92,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P073",
+"at": "D11@kronos",
+"t": 329.74,
+"sure": 1.84,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P074",
+"at": "D11@sıra",
+"t": 331.58,
+"sure": 4.62,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P075",
+"at": "E01",
+"t": 336.2,
+"sure": 7.12,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P076",
+"at": "E03",
+"t": 343.32,
+"sure": 4.26,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P077",
+"at": "E03@mekone",
+"t": 347.58,
+"sure": 2.8,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P078",
+"at": "E03@prometeus",
+"t": 350.38,
+"sure": 4.26,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P079",
+"at": "E04",
+"t": 354.64,
+"sure": 8.42,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P080",
+"at": "E05",
+"t": 363.06,
+"sure": 4.96,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P081",
+"at": "E05@altından",
+"t": 368.02,
+"sure": 2.4,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P082",
+"at": "E05@o",
+"t": 370.42,
+"sure": 5.4,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P083",
+"at": "E07",
+"t": 375.82,
+"sure": 7.44,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P084",
+"at": "E08",
+"t": 383.26,
+"sure": 9.12,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P085",
+"at": "E09",
+"t": 392.38,
+"sure": 4.34,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P086",
+"at": "E09@gururu",
+"t": 396.72,
+"sure": 5.96,
+"k": "S",
+"set": "OVA"
+},
+{
+"id": "P087",
+"at": "E10",
+"t": 402.68,
+"sure": 5.42,
+"k": "S",
+"set": "METOP/GECE"
+},
+{
+"id": "P088",
+"at": "E10@insanlara",
+"t": 408.1,
+"sure": 1.54,
+"k": "K",
+"set": "KAYA/OLYMPOS"
+},
+{
+"id": "P089",
+"at": "E10@hesiodosun",
+"t": 409.64,
+"sure": 7.84,
+"k": "S",
+"set": "OLYMPOS"
+},
+{
+"id": "P090",
+"at": "E12",
+"t": 417.48,
+"sure": 4.76,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P091",
+"at": "E12@tanrılar",
+"t": 422.24,
+"sure": 2.52,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P092",
+"at": "E12@adı",
+"t": 424.76,
+"sure": 1.81,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P093",
+"at": "E12@prometeus",
+"t": 426.57,
+"sure": 4.55,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P094",
+"at": "E12@ama",
+"t": 431.12,
+"sure": 5.9,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P095",
+"at": "E14",
+"t": 437.02,
+"sure": 2.74,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P096",
+"at": "E14@hastalıklar",
+"t": 439.76,
+"sure": 3.82,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P097",
+"at": "E14@içeride",
+"t": 443.58,
+"sure": 4.2,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P098",
+"at": "E11",
+"t": 447.78,
+"sure": 6.9,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P099",
+"at": "E15",
+"t": 454.68,
+"sure": 4.26,
+"k": "S",
+"set": "METOP"
+},
+{
+"id": "P100",
+"at": "E15@ama",
+"t": 458.94,
+"sure": 6.22,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P101",
+"at": "E15@tahtının",
+"t": 465.16,
+"sure": 3.32,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P102",
+"at": "E15@çünkü",
+"t": 468.48,
+"sure": 4.28,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P103",
+"at": "E16",
+"t": 472.76,
+"sure": 6.02,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P104",
+"at": "E16@insan",
+"t": 478.78,
+"sure": 3.76,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P105",
+"at": "E16b",
+"t": 482.54,
+"sure": 3.96,
+"k": "K",
+"set": "YAKIN"
+},
+{
+"id": "P106",
+"at": "E16b@zincirin",
+"t": 486.5,
+"sure": 8.36,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P107",
+"at": "F01",
+"t": 494.86,
+"sure": 5.72,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P108",
+"at": "F02",
+"t": 500.58,
+"sure": 9.22,
+"k": "S",
+"set": "İKİ TABAK"
+},
+{
+"id": "P109",
+"at": "F03",
+"t": 509.8,
+"sure": 5.68,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P110",
+"at": "F03@erhat",
+"t": 515.48,
+"sure": 5.64,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P111",
+"at": "F03@oyunu",
+"t": 521.12,
+"sure": 3.52,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P112",
+"at": "F05",
+"t": 524.64,
+"sure": 5.32,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P113",
+"at": "F05@suçu",
+"t": 529.96,
+"sure": 6.0,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P114",
+"at": "F05b",
+"t": 535.96,
+"sure": 6.68,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P115",
+"at": "F06",
+"t": 542.64,
+"sure": 3.48,
+"k": "K",
+"set": "KAYA/GENİŞ"
+},
+{
+"id": "P116",
+"at": "F06@zeusun",
+"t": 546.12,
+"sure": 3.64,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P117",
+"at": "F06@kratos",
+"t": 549.76,
+"sure": 2.98,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P118",
+"at": "F06@erhat",
+"t": 552.74,
+"sure": 4.56,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P119",
+"at": "F08",
+"t": 557.3,
+"sure": 6.63,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P120",
+"at": "F08@insanseverlikten",
+"t": 563.93,
+"sure": 2.45,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P121",
+"at": "F07",
+"t": 566.38,
+"sure": 3.04,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P122",
+"at": "F07@istemeyerek",
+"t": 569.42,
+"sure": 3.24,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P123",
+"at": "F07@ama",
+"t": 572.66,
+"sure": 2.52,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P124",
+"at": "F07@kendi#1",
+"t": 575.18,
+"sure": 4.06,
+"k": "K",
+"set": "KAYA/ZİNCİR"
+},
+{
+"id": "P125",
+"at": "F09",
+"t": 579.24,
+"sure": 6.08,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P126",
+"at": "F09@güçün",
+"t": 585.32,
+"sure": 9.42,
+"k": "K",
+"set": "KAYA/ALT"
+},
+{
+"id": "P127",
+"at": "F10",
+"t": 594.74,
+"sure": 1.72,
+"k": "K",
+"set": "LEVHA"
+},
+{
+"id": "P128",
+"at": "F10@erhatın",
+"t": 596.46,
+"sure": 5.42,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P129",
+"at": "F10a",
+"t": 601.88,
+"sure": 5.66,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P130",
+"at": "F10a@prometeus",
+"t": 607.54,
+"sure": 3.02,
+"k": "K",
+"set": "KAYA/ZİNCİR"
+},
+{
+"id": "P131",
+"at": "F10a@ama",
+"t": 610.56,
+"sure": 7.22,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P132",
+"at": "F10b",
+"t": 617.78,
+"sure": 6.77,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P133",
+"at": "F10b@çekiç",
+"t": 624.55,
+"sure": 1.45,
+"k": "K",
+"set": "KAYA/ZİNCİR"
+},
+{
+"id": "P134",
+"at": "F10b@daha",
+"t": 626.0,
+"sure": 1.12,
+"k": "K",
+"set": "KAYA/ZİNCİR"
+},
+{
+"id": "P135",
+"at": "F10b@zincire",
+"t": 627.12,
+"sure": 4.76,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P136",
+"at": "F13",
+"t": 631.88,
+"sure": 2.56,
+"k": "K",
+"set": "KAYA/GENİŞ"
+},
+{
+"id": "P137",
+"at": "F13@ilk",
+"t": 634.44,
+"sure": 1.32,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P138",
+"at": "F13@ey",
+"t": 635.76,
+"sure": 2.2,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P139",
+"at": "F13@hızlı",
+"t": 637.96,
+"sure": 1.84,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P140",
+"at": "F13@ırmakların",
+"t": 639.8,
+"sure": 1.7,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P141",
+"at": "F13@deniz",
+"t": 641.5,
+"sure": 2.8,
+"k": "K",
+"set": "KAYA/DENİZ"
+},
+{
+"id": "P142",
+"at": "F13@sen",
+"t": 644.3,
+"sure": 2.9,
+"k": "K",
+"set": "KAYA/GENİŞ"
+},
+{
+"id": "P143",
+"at": "F13@bakın",
+"t": 647.2,
+"sure": 5.34,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P144",
+"at": "F14",
+"t": 652.54,
+"sure": 4.1,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P145",
+"at": "F14@olacak",
+"t": 656.64,
+"sure": 3.74,
+"k": "K",
+"set": "KAYA/GÖZ"
+},
+{
+"id": "P146",
+"at": "F14@bana",
+"t": 660.38,
+"sure": 8.18,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P147",
+"at": "F14@yine",
+"t": 668.56,
+"sure": 8.34,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P148",
+"at": "G01",
+"t": 676.9,
+"sure": 3.88,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P149",
+"at": "G02",
+"t": 680.78,
+"sure": 7.7,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P150",
+"at": "G02@yani",
+"t": 688.48,
+"sure": 4.05,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P151",
+"at": "G03",
+"t": 692.53,
+"sure": 5.39,
+"k": "K",
+"set": "KAYA/DENİZ"
+},
+{
+"id": "P152",
+"at": "G03@prometeus",
+"t": 697.92,
+"sure": 3.21,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P153",
+"at": "G03b",
+"t": 701.13,
+"sure": 9.35,
+"k": "K",
+"set": "KAYA/MADALYON"
+},
+{
+"id": "P154",
+"at": "G03b@zafer",
+"t": 710.48,
+"sure": 3.6,
+"k": "K",
+"set": "KAYA/MADALYON"
+},
+{
+"id": "P155",
+"at": "G05",
+"t": 714.08,
+"sure": 4.82,
+"k": "S",
+"set": "MADALYON"
+},
+{
+"id": "P156",
+"at": "G05@kronosu",
+"t": 718.9,
+"sure": 3.36,
+"k": "S",
+"set": "MADALYON"
+},
+{
+"id": "P157",
+"at": "G05@erhatın",
+"t": 722.26,
+"sure": 3.18,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P158",
+"at": "G06",
+"t": 725.44,
+"sure": 6.28,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P159",
+"at": "G06@zorbalığın",
+"t": 731.72,
+"sure": 3.74,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P160",
+"at": "G07",
+"t": 735.46,
+"sure": 8.04,
+"k": "S",
+"set": "MADALYON"
+},
+{
+"id": "P161",
+"at": "G07@buna",
+"t": 743.5,
+"sure": 3.6,
+"k": "S",
+"set": "MADALYON"
+},
+{
+"id": "P162",
+"at": "G07b",
+"t": 747.1,
+"sure": 3.0,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P163",
+"at": "G07b@ama",
+"t": 750.1,
+"sure": 3.76,
+"k": "K",
+"set": "KAYA/GENİŞ"
+},
+{
+"id": "P164",
+"at": "G08",
+"t": 753.86,
+"sure": 4.86,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P165",
+"at": "G08@içlerine",
+"t": 758.72,
+"sure": 2.56,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P166",
+"at": "G08@sonra",
+"t": 761.28,
+"sure": 2.46,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P167",
+"at": "G09",
+"t": 763.74,
+"sure": 5.48,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P168",
+"at": "G09@ona",
+"t": 769.22,
+"sure": 3.54,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P169",
+"at": "G09@ayshilos",
+"t": 772.76,
+"sure": 4.08,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P170",
+"at": "G10b",
+"t": 776.84,
+"sure": 7.7,
+"k": "K",
+"set": "MAĞARA"
+},
+{
+"id": "P171",
+"at": "G10b@yıldızları",
+"t": 784.54,
+"sure": 1.76,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P173",
+"at": "G10b@harfleri",
+"t": 786.3,
+"sure": 1.3,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P174",
+"at": "G10b@hayvanları",
+"t": 787.6,
+"sure": 1.68,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P176",
+"at": "G10b@ilacı",
+"t": 789.28,
+"sure": 1.24,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P178",
+"at": "G10b@tek",
+"t": 790.52,
+"sure": 5.84,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P179",
+"at": "G11",
+"t": 796.36,
+"sure": 3.5,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P180",
+"at": "G11@bunların",
+"t": 799.86,
+"sure": 4.72,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P181",
+"at": "G11@erhata",
+"t": 804.58,
+"sure": 6.22,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P182",
+"at": "G13",
+"t": 810.8,
+"sure": 4.72,
+"k": "K",
+"set": "KAYA/ALT"
+},
+{
+"id": "P183",
+"at": "G12b",
+"t": 815.52,
+"sure": 3.58,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P183b",
+"at": "G12b@böyle",
+"t": 819.1,
+"sure": 7.24,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P184",
+"at": "G13b",
+"t": 826.34,
+"sure": 4.16,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P185",
+"at": "G13b@yine",
+"t": 830.5,
+"sure": 5.02,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P186",
+"at": "H01",
+"t": 835.52,
+"sure": 8.36,
+"k": "K",
+"set": "HARİTA"
+},
+{
+"id": "P187",
+"at": "H02",
+"t": 843.88,
+"sure": 6.32,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P188",
+"at": "H02@hepsi",
+"t": 850.2,
+"sure": 4.66,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P189",
+"at": "H02@tek",
+"t": 854.86,
+"sure": 2.58,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P190",
+"at": "H02@uşakları#1",
+"t": 857.44,
+"sure": 3.68,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P191",
+"at": "H04",
+"t": 861.12,
+"sure": 3.66,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P192",
+"at": "H04@kendini",
+"t": 864.78,
+"sure": 5.27,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P193",
+"at": "H04@prometeus",
+"t": 870.05,
+"sure": 6.75,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P194",
+"at": "H04@kendi#1",
+"t": 876.8,
+"sure": 2.3,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P195",
+"at": "H05",
+"t": 879.1,
+"sure": 6.18,
+"k": "K",
+"set": "KAYA/DENİZ"
+},
+{
+"id": "P196",
+"at": "H05@başkaları",
+"t": 885.28,
+"sure": 5.42,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P197",
+"at": "H05@oysa",
+"t": 890.7,
+"sure": 3.48,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P198",
+"at": "H05b",
+"t": 894.18,
+"sure": 5.46,
+"k": "K",
+"set": "OVA"
+},
+{
+"id": "P199",
+"at": "H05b@kendisi",
+"t": 899.64,
+"sure": 6.82,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P200",
+"at": "H06",
+"t": 906.46,
+"sure": 5.14,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P201",
+"at": "H06@zeusun",
+"t": 911.6,
+"sure": 4.69,
+"k": "K",
+"set": "MADALYON"
+},
+{
+"id": "P202",
+"at": "H06@atsineği",
+"t": 916.29,
+"sure": 3.63,
+"k": "K",
+"set": "DÜNYA DİSKİ"
+},
+{
+"id": "P203",
+"at": "H07",
+"t": 919.92,
+"sure": 6.61,
+"k": "K",
+"set": "HARİTA"
+},
+{
+"id": "P204",
+"at": "H07@bosporos",
+"t": 926.53,
+"sure": 2.52,
+"k": "K",
+"set": "HARİTA"
+},
+{
+"id": "P205",
+"at": "H07@ayshilosun",
+"t": 929.05,
+"sure": 3.25,
+"k": "K",
+"set": "HARİTA"
+},
+{
+"id": "P206",
+"at": "H07@ama",
+"t": 932.3,
+"sure": 4.52,
+"k": "K",
+"set": "HARİTA"
+},
+{
+"id": "P207",
+"at": "H09",
+"t": 936.82,
+"sure": 3.4,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P208",
+"at": "H09@prometeusun",
+"t": 940.217,
+"sure": 7.98,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P209",
+"at": "H10",
+"t": 948.2,
+"sure": 6.36,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P210",
+"at": "H10@okçu",
+"t": 954.56,
+"sure": 4.12,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P211",
+"at": "I01",
+"t": 958.68,
+"sure": 4.48,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P212",
+"at": "I02",
+"t": 963.16,
+"sure": 2.32,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P213",
+"at": "I02@zeus",
+"t": 965.48,
+"sure": 2.84,
+"k": "K",
+"set": "MADALYON"
+},
+{
+"id": "P214",
+"at": "I02@ve",
+"t": 968.32,
+"sure": 4.79,
+"k": "K",
+"set": "MADALYON"
+},
+{
+"id": "P215",
+"at": "I03",
+"t": 973.11,
+"sure": 7.77,
+"k": "S",
+"set": "TAHT"
+},
+{
+"id": "P216",
+"at": "I03@erhat",
+"t": 980.88,
+"sure": 3.78,
+"k": "B",
+"set": "TAHT"
+},
+{
+"id": "P217",
+"at": "I03@ayshilosun",
+"t": 984.66,
+"sure": 6.48,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P218",
+"at": "I04",
+"t": 991.14,
+"sure": 5.26,
+"k": "K",
+"set": "KAYA/GÖZ"
+},
+{
+"id": "P219",
+"at": "I05",
+"t": 996.4,
+"sure": 3.26,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P220",
+"at": "I05@erhatın",
+"t": 999.66,
+"sure": 4.82,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P221",
+"at": "I05@emir",
+"t": 1004.48,
+"sure": 2.83,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P222",
+"at": "I06",
+"t": 1007.31,
+"sure": 6.05,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P223",
+"at": "I06@ben",
+"t": 1013.36,
+"sure": 3.36,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P224",
+"at": "I06@üçüncüsünün",
+"t": 1016.72,
+"sure": 7.3,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P225",
+"at": "I07",
+"t": 1024.02,
+"sure": 3.58,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P226",
+"at": "I07@bu",
+"t": 1027.6,
+"sure": 3.42,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P227",
+"at": "I08",
+"t": 1031.02,
+"sure": 4.44,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P228",
+"at": "I08@eyvah",
+"t": 1035.46,
+"sure": 1.2,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P229",
+"at": "I08@hermes",
+"t": 1036.66,
+"sure": 3.95,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P230",
+"at": "I08@prometeusun#1",
+"t": 1040.61,
+"sure": 4.95,
+"k": "K",
+"set": "KAYA/GENİŞ"
+},
+{
+"id": "P231",
+"at": "I07b",
+"t": 1045.56,
+"sure": 7.48,
+"k": "K",
+"set": "KAYA/ALT"
+},
+{
+"id": "P232",
+"at": "I07b@ne",
+"t": 1053.04,
+"sure": 5.39,
+"k": "K",
+"set": "KAYA/ORTA"
+},
+{
+"id": "P233",
+"at": "J01",
+"t": 1058.43,
+"sure": 7.02,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P234",
+"at": "J02",
+"t": 1065.45,
+"sure": 7.6,
+"k": "K",
+"set": "LEVHA"
+},
+{
+"id": "P235",
+"at": "J02@prometeus",
+"t": 1073.05,
+"sure": 5.54,
+"k": "K",
+"set": "KAYA/ZİNCİR"
+},
+{
+"id": "P236",
+"at": "J02@erhat",
+"t": 1078.59,
+"sure": 4.8,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P237",
+"at": "J04",
+"t": 1083.39,
+"sure": 3.46,
+"k": "K",
+"set": "KAYA→OLYMPOS"
+},
+{
+"id": "P238",
+"at": "J04@prometeus",
+"t": 1086.85,
+"sure": 2.74,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P239",
+"at": "J05",
+"t": 1089.59,
+"sure": 7.26,
+"k": "K",
+"set": "OLYMPOS"
+},
+{
+"id": "P240",
+"at": "J05@onu",
+"t": 1096.85,
+"sure": 5.84,
+"k": "K",
+"set": "KAYA→OLYMPOS"
+},
+{
+"id": "P241",
+"at": "J06",
+"t": 1102.69,
+"sure": 5.28,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P242",
+"at": "J06@yani",
+"t": 1107.97,
+"sure": 7.18,
+"k": "K",
+"set": "KAYA↔OLYMPOS"
+},
+{
+"id": "P243",
+"at": "J10",
+"t": 1115.15,
+"sure": 4.34,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P244",
+"at": "J10@erhata",
+"t": 1119.49,
+"sure": 8.04,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P245",
+"at": "I08a",
+"t": 1127.53,
+"sure": 3.9,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P246",
+"at": "I08b",
+"t": 1131.43,
+"sure": 7.9,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P247",
+"at": "I08b@uzun",
+"t": 1139.33,
+"sure": 2.48,
+"k": "K",
+"set": "KAYA/GECE"
+},
+{
+"id": "P248",
+"at": "I08b@zeusun",
+"t": 1141.81,
+"sure": 3.36,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P249",
+"at": "I08b@çağrılmamış",
+"t": 1145.17,
+"sure": 5.2,
+"k": "K",
+"set": "SOFRA"
+},
+{
+"id": "P250",
+"at": "I08c",
+"t": 1150.37,
+"sure": 5.31,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P251",
+"at": "I08c@prometeus",
+"t": 1155.68,
+"sure": 7.37,
+"k": "K",
+"set": "KAYA/ALT"
+},
+{
+"id": "P252",
+"at": "I09",
+"t": 1163.05,
+"sure": 2.96,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P253",
+"at": "I09@ama",
+"t": 1166.01,
+"sure": 6.9,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P254",
+"at": "I10",
+"t": 1172.91,
+"sure": 8.56,
+"k": "K",
+"set": "KAYA/GÖK"
+},
+{
+"id": "P255",
+"at": "I10@artık",
+"t": 1181.47,
+"sure": 3.36,
+"k": "K",
+"set": "KAYA/FIRTINA"
+},
+{
+"id": "P256",
+"at": "I10@gök",
+"t": 1184.83,
+"sure": 2.92,
+"k": "K",
+"set": "KAYA/FIRTINA"
+},
+{
+"id": "P257",
+"at": "I10@rüzgârlar",
+"t": 1187.75,
+"sure": 2.22,
+"k": "K",
+"set": "KAYA/FIRTINA"
+},
+{
+"id": "P258",
+"at": "I10@gök#1",
+"t": 1189.97,
+"sure": 2.8,
+"k": "K",
+"set": "KAYA/FIRTINA"
+},
+{
+"id": "P259",
+"at": "I11",
+"t": 1192.77,
+"sure": 6.92,
+"k": "K",
+"set": "KAYA/YAKIN"
+},
+{
+"id": "P260",
+"at": "I11@görüyor",
+"t": 1199.69,
+"sure": 4.22,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P261",
+"at": "I12",
+"t": 1203.91,
+"sure": 8.74,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P262",
+"at": "I12@son",
+"t": 1212.65,
+"sure": 2.26,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P263",
+"at": "I12@erhatın#1",
+"t": 1214.91,
+"sure": 11.16,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P264",
+"at": "L01",
+"t": 1226.07,
+"sure": 5.3,
+"k": "K",
+"set": "FRİZ"
+},
+{
+"id": "P265",
+"at": "L02",
+"t": 1231.37,
+"sure": 7.28,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P266",
+"at": "L02@tabii",
+"t": 1238.65,
+"sure": 3.88,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P267",
+"at": "L02@ayshilosun",
+"t": 1242.53,
+"sure": 5.74,
+"k": "S",
+"set": "TİYATRO"
+},
+{
+"id": "P268",
+"at": "L03",
+"t": 1248.27,
+"sure": 5.68,
+"k": "B",
+"set": "GALERİ"
+},
+{
+"id": "P269",
+"at": "L04",
+"t": 1253.95,
+"sure": 5.06,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P270",
+"at": "L04@götenin",
+"t": 1259.01,
+"sure": 6.18,
+"k": "K",
+"set": "ATÖLYE"
+},
+{
+"id": "P271",
+"at": "L04@erhata",
+"t": 1265.19,
+"sure": 6.48,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P272",
+"at": "L05",
+"t": 1271.67,
+"sure": 5.16,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P273",
+"at": "L05@atom",
+"t": 1276.83,
+"sure": 9.0,
+"k": "B",
+"set": "MEŞALE"
+},
+{
+"id": "P274",
+"at": "L06",
+"t": 1285.83,
+"sure": 9.34,
+"k": "S",
+"set": "MEŞALE"
+},
+{
+"id": "P275",
+"at": "K08a",
+"t": 1295.17,
+"sure": 5.2,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P276",
+"at": "K08a@nasıl",
+"t": 1300.37,
+"sure": 7.48,
+"k": "B",
+"set": "BÖLÜNMÜŞ"
+},
+{
+"id": "P277",
+"at": "K08a@erhatın#1",
+"t": 1307.85,
+"sure": 6.56,
+"k": "S",
+"set": "AMFORA"
+},
+{
+"id": "P278",
+"at": "K08a@ama#1",
+"t": 1314.41,
+"sure": 9.06,
+"k": "K",
+"set": "TİYATRO"
+},
+{
+"id": "P279",
+"at": "K08c",
+"t": 1323.47,
+"sure": 7.72,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P279b",
+"at": "K08c@düşünceye",
+"t": 1331.19,
+"sure": 2.16,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P280",
+"at": "K08c@belki",
+"t": 1333.35,
+"sure": 6.4,
+"k": "K",
+"set": "KAYA"
+},
+{
+"id": "P281",
+"at": "K01",
+"t": 1339.75,
+"sure": 6.3,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P281b",
+"at": "K01@nedir",
+"t": 1346.05,
+"sure": 3.64,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P282",
+"at": "K02",
+"t": 1349.69,
+"sure": 7.68,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P283",
+"at": "K02@doğaya",
+"t": 1357.37,
+"sure": 2.78,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P284",
+"at": "K02@insan#1",
+"t": 1360.15,
+"sure": 6.68,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P285",
+"at": "K04",
+"t": 1366.83,
+"sure": 5.38,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P286",
+"at": "K04@erhat#1",
+"t": 1372.21,
+"sure": 8.3,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P287",
+"at": "K06",
+"t": 1380.51,
+"sure": 7.0,
+"k": "B",
+"set": "SAYFA"
+},
+{
+"id": "P288",
+"at": "K06@ve",
+"t": 1387.51,
+"sure": 9.55,
+"k": "K",
+"set": "KAYA/OLYMPOS"
+},
+{
+"id": "P289",
+"at": "M00",
+"t": 1397.06,
+"sure": 7.62,
+"k": "B",
+"set": "MASA"
+},
+{
+"id": "P290",
+"at": "M00@çevirdikçe",
+"t": 1404.68,
+"sure": 4.05,
+"k": "B",
+"set": "MASA"
+},
+{
+"id": "P291",
+"at": "M00@dilekleri",
+"t": 1408.73,
+"sure": 4.61,
+"k": "K",
+"set": "SAHNE"
+},
+{
+"id": "P292",
+"at": "M02",
+"t": 1413.34,
+"sure": 7.44,
+"k": "K",
+"set": "KAYA/OLYMPOS"
+},
+{
+"id": "P293",
+"at": "M03",
+"t": 1420.78,
+"sure": 26.24,
+"k": "S",
+"set": "BİTİŞ"
+}
+]

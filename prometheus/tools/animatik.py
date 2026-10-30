@@ -39,18 +39,18 @@ for i, r in enumerate(rows):
     # planın üstüne düşen anlatım (altyazı kelimeleri)
     r['soz'] = ' '.join(x['d'] for x in WORDS if r['t'] - 1e-3 <= x['s'] < r['bitis'] - 1e-3 and x['d'])
 fmt = lambda s: f'{int(s // 60)}:{s % 60:04.1f}'
-uzun = [r for r in rows if r['sure'] > 8]; kisa = [r for r in rows if r['sure'] < 1.2]
+uzun = [r for r in rows if r['sure'] > 8 and not r.get('olay')]; kisa = [r for r in rows if r['sure'] < 1.2]
 sures = sorted(r['sure'] for r in rows)
 out = [f"# Animatik: zamanlı plan tablosu\n",
-       f"Film süresi {fmt(DUR)} · {len(rows)} plan · ortalama {DUR / len(rows):.1f} sn · ortanca {sures[len(sures) // 2]:.1f} sn · 8 sn'yi geçen {len(uzun)} · 1,2 sn'den kısa {len(kisa)}\n"]
+       f"Film süresi {fmt(DUR)} · {len(rows)} plan · ortalama {DUR / len(rows):.1f} sn · ortanca {sures[len(sures) // 2]:.1f} sn · 8 sn'yi geçip iç olayı olmayan {len(uzun)} · 1,2 sn'den kısa {len(kisa)}\n"]
 if errs: out += ['**Çapa hataları:**\n'] + [f'- {e}' for e in errs] + ['']
 sec = None
 for r in rows:
     b = segs[re.match(r'^([A-Z]\d+[a-z]?)', r['at']).group(1)]['bolum']
     if b != sec:
         sec = b; out += [f"\n## {b}\n", '| plan | başlangıç | süre | katman | set | kare | hareket | söz |', '|---|---|---|---|---|---|---|---|']
-    flag = ' ⚠' if r['sure'] > 8 or r['sure'] < 1.2 else ''
-    kare = r['kare'] + (f" **[yazı: {r['yazi']}]**" if r.get('yazi') else '') + (f" _(geçiş: {r['gecis']})_" if r.get('gecis') else '')
+    flag = ' ⚠' if (r['sure'] > 8 and not r.get('olay')) or r['sure'] < 1.2 else ''
+    kare = r['kare'] + (f" **[yazı: {r['yazi']}]**" if r.get('yazi') else '') + (f" _(geçiş: {r['gecis']})_" if r.get('gecis') else '') + (f" — iç olay: {r['olay']}" if r.get('olay') else '')
     out.append(f"| {r['id']} | {fmt(r['t'])} | {r['sure']:.1f}{flag} | {r['k']} | {r['set']} | {kare} | {r['hareket']} | {r['soz'][:140]} |")
 open(os.path.join(ROOT, 'animatik', 'plan_tablosu.md'), 'w').write('\n'.join(out) + '\n')
 json.dump([{k: r[k] for k in ('id', 'at', 't', 'sure', 'k', 'set')} for r in rows], open(os.path.join(ROOT, 'animatik', 'zamanli.json'), 'w'), ensure_ascii=False, indent=0)

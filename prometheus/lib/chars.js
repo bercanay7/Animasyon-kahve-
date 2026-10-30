@@ -1,7 +1,7 @@
 // Karakter görünümleri ve elde taşınan nesneler
 'use strict';
 const LK = {
-  prom: { beard: 'pointed', hair: 'long', garment: 'loin', anat: true },
+  prom: { beard: 'pointed', hair: 'long', garment: 'hipwrap', anat: true, rf: true, earHidden: true, sevEye: true, flatChest: true, legIrons: true, scowl: .6 },
   zeus: { beard: 'full', hair: 'long', headgear: 'wreath', garment: 'robe', himation: true, robeDots: true, eyeS: 1.3, brow: -.6 },
   hermes: { beard: 'pointed', hair: 'long', headgear: 'petasos', garment: 'short', cape: true, wingedFeet: true },
 };

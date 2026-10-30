@@ -11,311 +11,2574 @@
   "MEŞALE": "Siyah figür → beyaz zemin. Lampadedromia: meşale elden ele geçer, çağlar boyunca koşan figürler."
  },
  "planlar": [
-  {"id":"P001","at":"A01","k":"K","set":"KAYA/OLYMPOS","kare":"KAPAK KARESİ. Gece; Prometheus profilden koşar, yukarı kaldırdığı rezene sapının ucunda alev; karenin en parlak noktası alev. Arkada Olympos'un sivri tepesi.","hareket":"koşu döngüsü + kamera takibi; alev titremesi, arkasında kıvılcım izi","gecis":"siyah→açılış 0,3 sn"},
-  {"id":"P002","at":"A01@insanlara","k":"K","set":"OVA","kare":"Aşağıda karanlık ova, mağara ağızlarında küçük insan figürleri; ateş ocaktan ocağa geçer, yüzler aydınlanır.","hareket":"kamera aşağı eğilir; ocaklar sırayla yanar (humanFires)"},
-  {"id":"P003","at":"A01@titan","k":"K","set":"KAYA/OLYMPOS","kare":"YAKIN: Prometheus omzunun üstünden Olympos'a geri bakar (bile bile). Alev yüzünü yandan aydınlatır.","hareket":"yavaş yaklaşma; saç ve sakal rüzgârda, alev"},
-  {"id":"P004","at":"A02","k":"K","set":"KAYA","kare":"GENİŞ: çekiç iner, bilekteki halka kapanır; Prometheus kayaya mıhlı.","hareket":"beyaz çakma + sarsıntı; toz, dalgalar","gecis":"beyaz 0,15 sn"},
-  {"id":"P005","at":"A02@zeusun","k":"K","set":"KAYA","kare":"Bilekten çıkan zincir yukarı, bulutların içine uzanır. Kamera zinciri izler; 'asıl tutsak'ta zincir yukarıdan bir kez gerilip çekilir, bulutların arasında altın bir bilezik pırıltısı (açılmaz).","hareket":"kamera yukarı kayar; zincir gerilir, bulut akar, uzak şimşek","yazi":""},
-  {"id":"P006","at":"A03","k":"K","set":"DÜNYA DİSKİ","kare":"Çok geniş: Okeanos ırmağıyla çevrili düz dünya diskinin kıyısında minicik kaya. Güneş diski doğar.","hareket":"güneş yükselir; bulutlar ve ırmak akar"},
-  {"id":"P007","at":"A03@kartal","k":"K","set":"KAYA","kare":"Kartal güneş diskinin önünden süzülerek iner, gölgesi Prometheus'un üstünden geçer.","hareket":"eagle2 süzülme + kanat çırpma; gölge kayar"},
-  {"id":"P008","at":"A03@karaciğerini","k":"K","set":"KAYA/ORTA","kare":"Kartal yanına konar, kanatlarıyla gövdesini örter (kan yok). Prometheus'un başı geriye, yumruk sıkılı.","hareket":"kanat vuruşları, sarsıntı; zincir gerilir"},
-  {"id":"P009","at":"A03@gece","k":"K","set":"KAYA/GECE","kare":"Gece: yıldızlar döner, kartal yok. Böğründe altın bir ışık atar ve söner (karaciğer yeniden büyür).","hareket":"yıldız dönmesi; nabız ışığı; nefes"},
-  {"id":"P010","at":"A03@sabah","k":"K","set":"KAYA","kare":"Şafak hızla gelir; güneş diskinin üstünde yine kartal silueti belirir. Kesme: güneş diski → kartalın gözü.","hareket":"hızlı şafak; kartal büyür"},
-  {"id":"P011","at":"A04","k":"K","set":"BAŞLIK","kare":"Sır siyahı üstünde vazo yazısı ΠΡΟΜΗΘΕΥΣ kil renginde yazılır, harfler ateş alıp PROMETHEUS'a dönüşür. Arkada zincirli siluet.","hareket":"ateşli harfler, kıvılcım; yavaş yaklaşma","yazi":"PROMETHEUS"},
-  {"id":"P012","at":"A06","k":"B","set":"SAYFA","kare":"Katman değişimi: alev mürekkebe döner, krem kâğıt. Bir kitap açılır, 'ÖNSÖZ' başlığı; satırlar kendiliğinden yazılır.","hareket":"sayfa çevrilir; kalem çizgisi ilerler","gecis":"ink 1,0 sn","yazi":"Azra Erhat"},
-  {"id":"P013","at":"A06@bin","k":"B","set":"SAYFA","kare":"Sepya rakamlarla 1967 yazılır; altında künye: Aiskhylos, Zincire Vurulmuş Prometheus, çev. S. Eyüboğlu ve A. Erhat.","hareket":"yazı çizgisi; yavaş kayma","yazi":"1967"},
-  {"id":"P014","at":"A05","k":"B","set":"SAYFA","kare":"Sayfada iki ucu olan bir zincir çizilir: bir ucu küçük zincirli figürde, öbür ucu bir tahtın içine girer. Zincir bir soru işaretine kıvrılır.","hareket":"çizgi çizilir; zincir halkaları sallanır","yazi":"Zincirleyen nasıl tutsak olur?"},
-  {"id":"P015","at":"A05@ve","k":"K","set":"YAKIN","kare":"Avuç içinde küçük bir alev (bir avuç ateş), profilden kavuşturulmuş eller. Kıvılcım yükselir, bölüm kartına geçer.","hareket":"yaklaşma; alev"},
-
-  {"id":"P016","at":"B01","k":"K","set":"TİYATRO","kare":"Akşamüstü Dionysos tiyatrosu: orkestra çemberi, skene, sahnede tanrı maskeleri. BÖLÜM KARTI.","hareket":"vinç hareketiyle tiyatronun üstünden süzülme; meşaleler","gecis":"clay 0,8 sn","yazi":"I · ERHAT'IN SORUSU"},
-  {"id":"P017","at":"B02","k":"K","set":"TİYATRO","kare":"Aiskhylos (stilize kırmızı figür profil, ΑΙΣΧΥΛΟΣ yazısı) bir papirüs açar.","hareket":"papirüs açılır; lamba titremesi"},
-  {"id":"P018","at":"B02@tek","k":"K","set":"TİYATRO","kare":"Üç papirüs yan yana; ikisi toza dönüşüp dağılır, biri kalır: Zincire Vurulmuş Prometheus.","hareket":"toz parçacıkları; kalan papirüse yaklaşma","yazi":"Zincire Vurulmuş Prometheus"},
-  {"id":"P019","at":"B04","k":"B","set":"SAYFA","kare":"Bir tiyatro maskesi sayfada insan yüzü profiline dönüşür.","hareket":"biçim dönüşümü; satırlar yazılır","gecis":"ink 0,8 sn"},
-  {"id":"P020","at":"B05","k":"B","set":"SAYFA","kare":"Alıntı kartı. Kenar şeridinde Prometheus solda küçük bir insanla sağda bir tanrının arasında; insana döner.","hareket":"alıntı belirir; figür döner","yazi":"“İnsan dostu, tanrı düşmanı” · A. Erhat, s. v"},
-  {"id":"P021","at":"B05@yirminci","k":"B","set":"SAYFA","kare":"Meander kuşağı zaman şeridine dönüşür; vazo figürü şerit boyunca antik çağdan XX. yüzyıla yürür.","hareket":"şerit kayar; yürüyüş döngüsü","yazi":"XX. yüzyıl"},
-  {"id":"P022","at":"B06","k":"B","set":"BÖLÜNMÜŞ","kare":"Bölünmüş kare: solda kırmızı figür Aiskhylos kalemle yazar; çizgisi yüzyılları geçip sağda beyaz zeminde ayağa kalkan bir figür çizer (yumruk yok, zincir kıran duruş).","hareket":"çizgi soldan sağa akar; yıl sayacı","yazi":"MÖ V. yy  →  XX. yy"},
-  {"id":"P023","at":"B06@yaratabildi","k":"B","set":"SAYFA","kare":"Büyük soru kartı: NASIL? (filmin tek büyük sorusu; K08a'da geri döner).","hareket":"harfler mürekkeple dolar; sayfa hafif nefes alır","yazi":"NASIL?"},
-  {"id":"P024","at":"B07","k":"S","set":"TAHT","kare":"Zaman şeridi geri sarılır; üç taht siluetine varılır. Kâğıt kile döner (siyah figür katmanı başlar).","hareket":"geri sarma; tahtlar belirir","gecis":"clay 1,0 sn"},
-
-  {"id":"P025","at":"C01","k":"S","set":"TAHT","kare":"Olympos'un tepesinde boş, görkemli bir taht. BÖLÜM KARTI.","hareket":"yavaş yaklaşma; bulut şeritleri","yazi":"II · TANRILARIN TAHT KAVGASI"},
-  {"id":"P026","at":"C01@kayadaki","k":"K","set":"KAYA/YAKIN","kare":"Kayadaki Prometheus'un açık gözü uzaklara bakar; gözbebeğinde tahtın yansıması.","hareket":"göze yaklaşma; rüzgâr"},
-  {"id":"P027","at":"C02","k":"B","set":"SAYFA","kare":"Alıntı: “hükümet darbesi”. Kenarda bir figür tahtı ötekinin altından çeker.","hareket":"taht devrilme döngüsü; satırlar","gecis":"ink 0,6 sn","yazi":"“hükümet darbesi” · A. Erhat, s. vi"},
-  {"id":"P028","at":"C02@bir#1","k":"S","set":"AMFORA","kare":"Üç kuşak basamakta: dede, baba, oğul; her biri öncekini basamaktan iter.","hareket":"itme ritmi; friz kayar","gecis":"clay 0,6 sn"},
-  {"id":"P029","at":"C04","k":"S","set":"AMFORA","kare":"Siyah figür amfora döner; ad etiketi: Hesiodos, Theogonia (İÖ ~700).","hareket":"amfora dönüşü; ışık parlaması gövdede kayar","yazi":"Hesiodos · Theogonia"},
-  {"id":"P030","at":"C04@kaos","k":"S","set":"AMFORA","kare":"Khaos: siyah bir boşlukta kıvrılan meander girdabı.","hareket":"girdap döner"},
-  {"id":"P031","at":"C04@toprak","k":"S","set":"AMFORA","kare":"Gaia: yatan toprak-kadın figürü, gövdesinden tepeler yükselir.","hareket":"tepeler büyür; amfora döner","yazi":"ΓΑΙΑ"},
-  {"id":"P032","at":"C04@gaya#1","k":"S","set":"AMFORA","kare":"Uranos: yıldızlı, kemer gibi bükülen gök figürü Gaia'nın üstüne kapanır.","hareket":"yıldızlar parlar; kemer iner","yazi":"ΟΥΡΑΝΟΣ"},
-  {"id":"P033","at":"C04@ama","k":"S","set":"AMFORA","kare":"Uranos yüzünü çevirir; küçük dev figürleri birer birer toprağa geri batar.","hareket":"batma ritmi; toprak dalgalanır"},
-  {"id":"P034","at":"C06","k":"S","set":"AMFORA","kare":"Gaia kıvrık bir tırpan döver; çelik soğuk parlar (ateşten sönük).","hareket":"çekiç vuruşu; kıvılcım"},
-  {"id":"P035","at":"C06@hiçbiri","k":"S","set":"AMFORA","kare":"Sıra hâlinde Titan çocuklar başlarını birer birer çevirir.","hareket":"baş çevirme dalgası"},
-  {"id":"P036","at":"C06@en","k":"S","set":"AMFORA","kare":"En küçükleri öne çıkar, tırpanı alır. ΚΡΟΝΟΣ.","hareket":"adım + tırpan kalkar","yazi":"ΚΡΟΝΟΣ"},
-  {"id":"P037","at":"C07","k":"S","set":"AMFORA/GECE","kare":"Gece; Kronos bir kayanın ardında pusuda, yıldızlar.","hareket":"yıldız parıltısı; nefes, gözler"},
-  {"id":"P038","at":"C07@tırpanı","k":"S","set":"AMFORA","kare":"Tırpan karede siyah bir yay çizer; kesme. Gök (Uranos) yerden kopup yukarı çekilir (kan yok).","hareket":"savurma yayı + sarsıntı; gök ayrılır"},
-  {"id":"P039","at":"C07@erhat","k":"B","set":"TAHT","kare":"Beyaz zemin: DEVRİM yazılır; birinci taht (Uranos) devrilir.","hareket":"taht devrilir; mürekkep yayılır","gecis":"ink 0,6 sn","yazi":"DEVRİM"},
-  {"id":"P040","at":"C09","k":"S","set":"AMFORA","kare":"Kronos tahtında; kundaklı bir bebeği ağzına kaldırır, kesme (gösterilmez).","hareket":"kaldırış; tahtın gölgesi","gecis":"clay 0,6 sn"},
-  {"id":"P041","at":"C09@oğullarından","k":"S","set":"AMFORA","kare":"Gaia Kronos'un kulağına fısıldar (söz yazısı). Kundak sırası: beş kundak birer birer kaybolur.","hareket":"yutma ritmi; kehanet yazısı dalgalanır"},
-  {"id":"P042","at":"C10","k":"S","set":"AMFORA","kare":"Rheia bebeği koynunda denizden Girit'e kaçar (gemi ya da koşu), Dikte mağarası.","hareket":"koşu; dalgalar"},
-  {"id":"P043","at":"C10@kundağa","k":"S","set":"AMFORA","kare":"Kundağa sarılı taş Kronos'a uzatılır; yutar.","hareket":"uzatma + yutma"},
-  {"id":"P044","at":"C10@çocuk","k":"S","set":"AMFORA","kare":"Mağarada bebek Zeus, keçi Amaltheia; Kuretler kalkan çarpar.","hareket":"kalkan vuruşları; keçinin başı"},
-  {"id":"P045","at":"C10@büyüyünce","k":"S","set":"AMFORA","kare":"Büyümüş Zeus Kronos'a kardeşlerini kusturur: figürler ve taş yuvarlanarak çıkar; Kronos tahttan çekilir. İkinci taht devrilir.","hareket":"yuvarlanma; taht devrilir"},
-  {"id":"P046","at":"C12","k":"B","set":"SAYFA","kare":"İki taht simgesi yan yana, 1 ve 2. Altlarında tırpan (kaba kuvvet) ve kundak taşı (akıl). Teraziye konur, akıl ağır basar.","hareket":"terazi salınır","gecis":"ink 0,6 sn","yazi":"“kaba kuvvetin akılla yenilmesi” · A. Erhat, s. viii"},
-  {"id":"P047","at":"C12@bu","k":"S","set":"AMFORA","kare":"Yaşlı Uranos ile Gaia genç Zeus'a öğüt verir; Uranos 'ders almış' gibi sakalını sıvazlar.","hareket":"el hareketleri; amfora döner","gecis":"clay 0,5 sn"},
-  {"id":"P048","at":"C14","k":"B","set":"SAYFA","kare":"Kenar frizinde Zeus'un arkasındaki kalabalıkta küçük bir figür; Erhat'ın kalemi onu daire içine alır: Prometheus.","hareket":"daire çizilir; figür başını kaldırır","gecis":"ink 0,5 sn","yazi":"“Prometheus işte bu devrimde rol oynamaktadır.” · s. viii"},
-  {"id":"P049","at":"C14@onu","k":"K","set":"KAYA/YAKIN","kare":"Kayadaki Prometheus'un kapalı dudakları; uzaklaşma.","hareket":"geri çekilme; rüzgâr","gecis":"ink 0,5 sn"},
-  {"id":"P050","at":"C17","k":"S","set":"AMFORA","kare":"Titanomakhia frizi döner: Titanlar Olymposlulara karşı; yerin altından yüz kollu devler kaya fırlatır.","hareket":"amfora dönüşü; kaya yağmuru, sarsıntı","gecis":"clay 0,6 sn"},
-  {"id":"P051","at":"C17@titanlar#1","k":"S","set":"AMFORA","kare":"Tunç kapı bir çukurun üstüne kapanır: Tartaros.","hareket":"kapı kapanır + toz","yazi":"ΤΑΡΤΑΡΟΣ"},
-  {"id":"P052","at":"C17@erhata","k":"B","set":"SAYFA","kare":"Boş savaş alanı çizgisi; ortada yalnız AKIL kelimesi ayakta kalır.","hareket":"toz dağılır; kelime belirir","gecis":"ink 0,5 sn","yazi":"AKIL"},
-  {"id":"P053","at":"C17@yıldırım","k":"S","set":"TAHT","kare":"Zeus elinde yıldırımla üçüncü tahta oturur (siyah figür); dünya diski dilimlere ayrılıp kardeşlere ve çocuklara uzatılır.","hareket":"yıldırım parlar; dilimler döner","gecis":"clay 0,5 sn","yazi":"ΖΕΥΣ"},
-  {"id":"P054","at":"C18","k":"S","set":"TAHT","kare":"Dilimler yayılırken haritanın üstüne bir gölge düşer.","hareket":"gölge uzar; dilimler durur"},
-  {"id":"P055","at":"C18@prometeus","k":"S","set":"AMFORA","kare":"Yolun ortasında dimdik tek figür: Prometheus. Bölüm sonu.","hareket":"yavaş yaklaşma; tek kıvılcım gözünde"},
-
-  {"id":"P056","at":"D01","k":"S","set":"KYLIX","kare":"Yukarıdan bakılan bir kylix ayağı üstünde döner; tondoda Zeus'un öfkeli gözü. BÖLÜM KARTI.","hareket":"kupa döner; göz kısılır","gecis":"clay 0,8 sn","yazi":"III · ZEUS'UN DİNMEZ ÖFKESİ"},
-  {"id":"P057","at":"D02","k":"S","set":"AMFORA","kare":"Yaşlı İapetos; yanında dört oğul sırayla belirir, her ad söylendiğinde dipinto adı yazılır.","hareket":"figürler sırayla çıkar (Wd: atlas, menoitios, prometeus, epimeteus)","yazi":"ΑΤΛΑΣ · ΜΕΝΟΙΤΙΟΣ · ΠΡΟΜΗΘΕΥΣ · ΕΠΙΜΗΘΕΥΣ"},
-  {"id":"P058","at":"D03","k":"S","set":"KYLIX","kare":"Lakonya kylixi tondosu: solda Atlas göğü taşır, sağda Prometheus sütuna bağlı, kartal.","hareket":"kupa yavaşça döner; kartal kanadı"},
-  {"id":"P059","at":"D03@atlas","k":"S","set":"KYLIX","kare":"Atlas'a yaklaşma: gök kubbesi omuzlarında, dizleri titrer.","hareket":"zorlanma titremesi; yıldızlar"},
-  {"id":"P060","at":"D03@menoitios","k":"S","set":"AMFORA","kare":"Yıldırım iner; Menoitios açılan yarıktan aşağı düşer.","hareket":"çakma + düşüş"},
-  {"id":"P061","at":"D04","k":"S","set":"KYLIX","kare":"Kupa döner, Prometheus tarafı: sütuna bağlı, kartal göğsünde.","hareket":"dönüş; kanat"},
-  {"id":"P062","at":"D04@epimeteusa","k":"S","set":"METOP","kare":"Kurdeleli bir küp Epimetheus'a doğru kayar; Epimetheus elini uzatır. Küpün kapağı titrer.","hareket":"kayma; kapak titremesi","yazi":"“armağan”"},
-  {"id":"P063","at":"D05","k":"B","set":"SAYFA","kare":"Dört kardeş silueti, her birinin başının üstünde bir kıvılcım. 'TİTAN' yazısının üstü çizilir, yerine 'AKIL' yazılır.","hareket":"üstü çizme; kıvılcımlar","gecis":"ink 0,6 sn"},
-  {"id":"P064","at":"D07","k":"B","set":"TAHT","kare":"Taht çizimi: Zeus'un kapalı yumruğunda tek bir kıvılcım (tekel).","hareket":"kıvılcım parmak arasından sızar","yazi":"“Akıl gücüyse Zeus'un tekelindedir” · s. ix"},
-  {"id":"P065","at":"D07@ve","k":"B","set":"TAHT","kare":"Başka bir yerde, Prometheus'un başında ikinci kıvılcım yanar; tahttaki siluetten sepya duman kaynar.","hareket":"duman kaynar; kıvılcım","yazi":"“dinmez bir öfke” · s. x"},
-  {"id":"P066","at":"D08","k":"S","set":"AMFORA","kare":"Dev Zeus'un karşısında küçük ama dik Prometheus, başını kaldırmış.","hareket":"yavaş alttan çevrinme; pelerin dalgası","gecis":"clay 0,5 sn"},
-  {"id":"P067","at":"D08@aldatır","k":"S","set":"METOP","kare":"Üç hızlı pano: (1) el çabukluğu, paylar yer değiştirir; (2) Zeus omzunun üstünden bakar; (3) Zeus'un çelengi yan yatar, arkada tanrılar elleriyle ağızlarını kapatıp güler.","hareket":"kelimelere bağlı üç kesme (aldatır / tedirgin / gülünç)"},
-  {"id":"P068","at":"D09","k":"B","set":"SAYFA","kare":"Ad ikiye ayrılır: PRO (önce) + METHEUS (düşünen).","hareket":"harfler ayrılır, alt yazı yazılır","gecis":"ink 0,5 sn","yazi":"PRO · METHEUS = önceden düşünen"},
-  {"id":"P069","at":"D09@kâhin","k":"S","set":"AMFORA/YAKIN","kare":"Prometheus'un gözü; gözbebeğinde gelecekten bir görüntü: düşen bir taht.","hareket":"göze dalma; görüntü belirir"},
-  {"id":"P070","at":"D09@gaya","k":"S","set":"TAHT","kare":"Geri çağrı: Gaia Kronos'a fısıldar ↔ Prometheus bilir. Üçüncü tahtın ayağı çatlar.","hareket":"çatlak ilerler"},
-  {"id":"P071","at":"D10","k":"B","set":"TAHT","kare":"Sayfada üç taht: ikisi devrik, üçüncüsü çatlak.","hareket":"çatlak ışıldar; mürekkep","gecis":"ink 0,5 sn","yazi":"“Üçüncü devrimin hazırlanması.” · s. x"},
-  {"id":"P072","at":"D11","k":"S","set":"TAHT","kare":"Yakın: Uranos'un tahtı devrilir.","hareket":"devrilme + toz","gecis":"clay 0,4 sn"},
-  {"id":"P073","at":"D11@kronos","k":"S","set":"TAHT","kare":"Kronos'un tahtı devrilir.","hareket":"devrilme + toz"},
-  {"id":"P074","at":"D11@sıra","k":"S","set":"TAHT","kare":"Üçüncü taht (Zeus) titrer; kamera çok yavaş yaklaşır; sessizlik.","hareket":"titreşim; yaklaşma"},
-
-  {"id":"P075","at":"E01","k":"S","set":"METOP","kare":"Sunak: etrafta et yiyen insanlar (ziyafet frizi), sunakta yanan kemiklerin dumanı yukarı, tanrılara yükselir. BÖLÜM KARTI.","hareket":"duman; alevler","gecis":"clay 0,8 sn","yazi":"IV · MEKONE'DEKİ HİLE"},
-  {"id":"P076","at":"E03","k":"S","set":"METOP","kare":"Hesiodos'un ad etiketi; pano açılır.","hareket":"pano kayar"},
-  {"id":"P077","at":"E03@mekone","k":"S","set":"METOP","kare":"Mekone'de toplantı: solda oturan tanrılar, sağda ayakta insanlar karşı karşıya.","hareket":"kamera ortadan geçer; figürlerde nefes","yazi":"MEKONE"},
-  {"id":"P078","at":"E03@prometeus#1","k":"S","set":"METOP","kare":"Ortada Prometheus koca bir öküzü keser; öküz silueti ikiye ayrılır.","hareket":"ayrılma; buhar"},
-  {"id":"P079","at":"E04","k":"S","set":"METOP","kare":"İki pay yan yana: biri çirkin işkembe torbası (içinde et, x-ışını taraması gösterir), öbürü parlak yağa sarılı (içinde kemik).","hareket":"tarama çizgisi; yağın parıltısı"},
-  {"id":"P080","at":"E05","k":"S","set":"METOP","kare":"Prometheus eliyle sunar (söz yazısı: Hangisini istersen seç); Zeus parlak paya uzanır.","hareket":"el uzanır; parıltı"},
-  {"id":"P081","at":"E05@altından","k":"S","set":"METOP","kare":"Yağ kalkar: beyaz kemikler. Zeus'un profili donar.","hareket":"kaldırış; donma"},
-  {"id":"P082","at":"E05@o","k":"S","set":"METOP","kare":"Zaman atlaması: yüzyıllar boyunca sunaklar; kemik dumanı tanrılara, et insanlara.","hareket":"friz akar; duman"},
-  {"id":"P083","at":"E07","k":"B","set":"SAYFA","kare":"Sayfada bir çizgi tanrıları insanlardan ayırır; küçük Prometheus çizgiyi aşıp insanların yanına geçer.","hareket":"adım; çizgi titrer","gecis":"ink 0,6 sn"},
-  {"id":"P084","at":"E08","k":"B","set":"SAYFA","kare":"Kenarda Olympos tepesi ve tanrılar; mürekkep onları siler, tepeye insan figürleri çıkar.","hareket":"silinme + yükselme","yazi":"“Yeni bir devrimin hazırlayıcısıdır.” · s. x"},
-  {"id":"P085","at":"E09","k":"S","set":"METOP","kare":"Zeus'un gözü kısılır: hileyi görür ve yine de parlak payı alır (bile bile aldanır).","hareket":"göz kısılır; el ağırca kapanır","gecis":"clay 0,5 sn"},
-  {"id":"P086","at":"E09@gururu","k":"S","set":"OVA","kare":"Zeus'un eli insan köyünün üstüne iner; ocaklar birer birer söner, karanlık çöker.","hareket":"sönme ritmi; duman"},
-  {"id":"P087","at":"E10","k":"S","set":"METOP/GECE","kare":"Gece; Prometheus göğe tırmanır, bir közü içi boş rezene sapına koyar.","hareket":"tırmanma; köz parlar"},
-  {"id":"P088","at":"E10@insanlara","k":"K","set":"KAYA/OLYMPOS","kare":"KAHRAMAN KARESİ (P001'in eşi): rezene sapıyla dağdan aşağı koşar.","hareket":"koşu + takip; alev izi","gecis":"ink 0,4 sn"},
-  {"id":"P089","at":"E10@hesiodosun","k":"S","set":"OLYMPOS","kare":"Olympos'ta sırtı dönük Zeus; aşağıdaki karanlık dünyada tek bir parlak nokta yanıp söner. Yumruk sıkılır.","hareket":"ışık titrer; pelerin dalgası, yumruk","gecis":"clay 0,5 sn"},
-  {"id":"P090","at":"E12","k":"S","set":"METOP","kare":"Hephaistos kilden bir kız yoğurur (kil vazonun kendi rengi).","hareket":"yoğurma; kil biçimlenir"},
-  {"id":"P091","at":"E12@tanrılar","k":"S","set":"METOP","kare":"Tanrılar onu süsler: taç, giysi, gerdanlık süzülüp üstüne oturur.","hareket":"süzülen armağanlar"},
-  {"id":"P092","at":"E12@adı","k":"S","set":"METOP","kare":"Dipinto adı yazılır: ΠΑΝΔΩΡΑ (bütün armağanlar).","hareket":"yazı yazılır; ışıltı","yazi":"ΠΑΝΔΩΡΑ"},
-  {"id":"P093","at":"E12@prometeus","k":"S","set":"METOP","kare":"Geri dönüş: Prometheus kardeşini uyarır (söz yazısı: Zeus'tan armağan alma!).","hareket":"parmak sallama; yazı dalgası"},
-  {"id":"P094","at":"E12@ama","k":"S","set":"METOP","kare":"Epimetheus kollarını açıp Pandora'yı karşılar; sonra başını arkaya çevirir: 'sonradan düşünen' arkasına bakar (Prometheus öne bakar).","hareket":"kucaklama; baş geriye döner"},
-  {"id":"P095","at":"E14","k":"S","set":"METOP","kare":"Büyük küp (pithos); Pandora kapağı kaldırır.","hareket":"kapak kalkar; içeriden karanlık"},
-  {"id":"P096","at":"E14@hastalıklar","k":"S","set":"METOP","kare":"Kanatlı küçük kara keres sürüsü küpten fırlar, dünya frizine yayılır.","hareket":"sürü parçacıkları; kamera geri çekilir"},
-  {"id":"P097","at":"E14@içeride","k":"S","set":"METOP","kare":"Kapak kapanır; küpün dibinde küçük, sönük bir ışık: ELPİS (Umut).","hareket":"ışık atar; kapak sarsılır","yazi":"ΕΛΠΙΣ · Umut"},
-  {"id":"P098","at":"E11","k":"B","set":"SAYFA","kare":"Sayfada iki çentik (1, 2); ardından ağır bir yumruk/çekiç simgesi; mürekkep lekesi yayılır.","hareket":"çentikler; leke yayılır","gecis":"ink 0,6 sn","yazi":"kaba kuvvet"},
-  {"id":"P099","at":"E15","k":"S","set":"METOP","kare":"Asasıyla bir rapsod (Hesiodos) Zeus'u över (söz yazısı).","hareket":"asa vuruşu; yazı dalgası","gecis":"clay 0,5 sn"},
-  {"id":"P100","at":"E15@ama","k":"B","set":"SAYFA","kare":"Sayfanın satırları aralanır; aralarında gizli bir görüntü: insanlar küçük bir Zeus'a güler.","hareket":"satırlar açılır; gülme","gecis":"ink 0,5 sn"},
-  {"id":"P101","at":"E15@tahtının","k":"B","set":"TAHT","kare":"Tahtın ayakları siliniyor; taht boşlukta asılı kalır.","hareket":"silinme; taht sallanır"},
-  {"id":"P102","at":"E15@çünkü","k":"B","set":"SAYFA","kare":"Bir kıvılcım tanrıların katından insanların başlarına iner.","hareket":"kıvılcım yolu","yazi":"“akıl gücü tanrılardan insanlara geçmiştir” · s. xi"},
-  {"id":"P103","at":"E16","k":"B","set":"TAHT","kare":"Üçüncü taht devrilir; boşalan kaidede bir insan ayakta durur (oturmaz).","hareket":"devrilme; insan doğrulur","yazi":"“üçüncü ve son devrim” · s. xi"},
-  {"id":"P104","at":"E16@insan","k":"K","set":"OVA","kare":"Bir insan silueti ateşin ışığında kendi ellerine bakar.","hareket":"alev; eller döner","gecis":"ink 0,5 sn"},
-  {"id":"P105","at":"E16b","k":"K","set":"YAKIN","kare":"Avuçtaki alev (P015'in eşi) büyür; içinde zanaat yapan insanların frizi belirir.","hareket":"alev büyür; friz döner"},
-  {"id":"P106","at":"E16b@zincirin","k":"K","set":"KAYA","kare":"Bir zincir çizilir, öbür ucu kadrajdan çıkar; kil sır siyahına döner. Bir tragedya maskesi belirir.","hareket":"zincir çizgisi; maske","gecis":"ink 1,0 sn"},
-
-  {"id":"P107","at":"F01","k":"K","set":"TİYATRO","kare":"Gündüz Atina tiyatrosu; skenede kaya dekoru ve Prometheus maskesi. BÖLÜM KARTI.","hareket":"süzülme; kalabalıkta kıpırtı","yazi":"V · DURUŞMA: KAFKA'NIN GÖZÜYLE"},
-  {"id":"P108","at":"F02","k":"S","set":"İKİ TABAK","kare":"İki tabak: solda siyah figür (Hesiodos), sağda kırmızı figür (Aiskhylos); taht kavgası frizleri aynı. 'Büsbütün değişir'de içlerindeki Prometheus figürleri değişir: hilekâr ↔ zincirli kahraman.","hareket":"tabaklar döner; figürler dönüşür"},
-  {"id":"P109","at":"F03","k":"B","set":"SAYFA","kare":"İkinci soru sayfada yazılır.","hareket":"yazı; sayfa çevrilir","gecis":"ink 0,6 sn","yazi":"“Prometheus ne bakımdan insandır?” · s. xi"},
-  {"id":"P110","at":"F03@erhat","k":"B","set":"SAYFA","kare":"Kenar şeridi bir mahkeme çizer: uzun sıra, yüksek ve boş yargıç kürsüsü.","hareket":"çizgiler çizilir; kürsüye yaklaşma"},
-  {"id":"P111","at":"F03@oyunu","k":"B","set":"SAYFA","kare":"Kafka: devasa bir kapının önünde minicik bir figür bekler; kapı aralığından ışık.","hareket":"ışık titrer; figür bekler","yazi":"Kafka · Dava (1925)"},
-  {"id":"P112","at":"F05","k":"K","set":"KAYA","kare":"Kaya sahnesi mahkeme yazılarıyla çerçevelenir: SANIK: PROMETHEUS.","hareket":"yazı şeridi iner; rüzgâr","gecis":"ink 0,8 sn","yazi":"SANIK: PROMETHEUS"},
-  {"id":"P113","at":"F05@suçu","k":"K","set":"KAYA","kare":"Taş bir yasa stelinin üstüne suç yazılır.","hareket":"kazıma yazı; toz","yazi":"SUÇ: ateşi çalmak · düzene karşı gelmek"},
-  {"id":"P114","at":"F05b","k":"K","set":"KAYA","kare":"Kadrajın tepesinde karanlıkta yüksek, boş bir taht; 'Zeus' denince arkasında şimşek titrer. YARGIÇ: —","hareket":"şimşek titremesi; duman","yazi":"YARGIÇ: —"},
-  {"id":"P115","at":"F06","k":"K","set":"KAYA/GENİŞ","kare":"İskit: ıssız uçurum, rüzgâr, kuşlar.","hareket":"yavaş kayma; kuşlar, dalgalar","yazi":"İSKİT · dünyanın ucu"},
-  {"id":"P116","at":"F06@zeusun","k":"K","set":"KAYA","kare":"Kratos ve Bia Prometheus'u sürükleyerek getirir.","hareket":"yürüyüş döngüleri; toz"},
-  {"id":"P117","at":"F06@kratos","k":"K","set":"KAYA/ORTA","kare":"Ad etiketleri: KRATOS = GÜÇ, BİA = ZOR (Bia hep sessiz, miğferi yüzünü kapatır).","hareket":"etiketler; mızrak salınımı","yazi":"ΚΡΑΤΟΣ Güç · ΒΙΑ Zor"},
-  {"id":"P118","at":"F06@erhat","k":"K","set":"KAYA/ORTA","kare":"Dipinto adlarının üstüne mühür gibi 'POLİS' basılır.","hareket":"mühür vuruşu","yazi":"POLİS"},
-  {"id":"P119","at":"F08","k":"K","set":"KAYA/ORTA","kare":"Kratos parmağıyla gösterir; söz yazısı.","hareket":"işaret; yazı akar"},
-  {"id":"P120","at":"F08@insanseverlikten","k":"K","set":"KAYA/YAKIN","kare":"Prometheus'un kıpırtısız profili, gözler ileride.","hareket":"çok yavaş yaklaşma; nefes, rüzgâr"},
-  {"id":"P121","at":"F07","k":"K","set":"KAYA/ORTA","kare":"Hephaistos çekici elinde duraksar; önünde zincir.","hareket":"çekiç salınır; ocak közü"},
-  {"id":"P122","at":"F07@istemeyerek","k":"K","set":"KAYA/YAKIN","kare":"Çekiç tutan kolu titrer; başını çevirir.","hareket":"titreme; baş döner"},
-  {"id":"P123","at":"F07@ama","k":"K","set":"KAYA","kare":"Yukarıdaki boş taht karanlıkta belirir; Hephaistos çekici kaldırır.","hareket":"çekiç kalkar; şimşek"},
-  {"id":"P124","at":"F07@kendi","k":"K","set":"KAYA/ZİNCİR","kare":"Söz yazısı: Gücü yeni ele geçiren herkes serttir. Çekiç iner (efekte bağlı).","hareket":"vuruş + kıvılcım + sarsıntı"},
-  {"id":"P125","at":"F09","k":"K","set":"KAYA/ORTA","kare":"Hephaistos başı eğik inler (söz yazısı).","hareket":"omuz düşer; köz"},
-  {"id":"P126","at":"F09@gücün","k":"K","set":"KAYA/ALT","kare":"Kratos'un soğuk profili alttan; söz yazısı çizilir: Zeus'tan başka hiç kimse özgür değildir (altı çizilir, J02'de geri gelir).","hareket":"alttan çevrinme; yazının altı çizilir","yazi":"“Zeus'tan başka hiç kimse özgür değildir.”"},
-  {"id":"P127","at":"F10","k":"K","set":"LEVHA","kare":"Yazı donar, kil bir levhaya kazınır; levha kenara konur.","hareket":"kazıma; levha döner"},
-  {"id":"P128","at":"F10@erhatın","k":"B","set":"SAYFA","kare":"Bir terazinin iki kefesi: ÖZGÜRLÜK / KÖLELİK.","hareket":"terazi salınır","gecis":"ink 0,6 sn","yazi":"özgürlük · kölelik"},
-  {"id":"P129","at":"F10a","k":"B","set":"SAYFA","kare":"Kenar şeridi: Atina'da bir çömlekçi atölyesinde çalışan köleler (saygılı, vazo atölye sahnelerinden).","hareket":"çark döner; figürler çalışır"},
-  {"id":"P130","at":"F10a@prometeus","k":"K","set":"KAYA/ZİNCİR","kare":"Prometheus'un zincirli bilekleri: bir kölenin prangası gibi.","hareket":"zincir sallanır; nefes","gecis":"ink 0,5 sn","yazi":"desmotes · zincire vurulmuş"},
-  {"id":"P131","at":"F10a@ama","k":"K","set":"KAYA/ORTA","kare":"Figürün tanrısal altın kenar ışığı söner, sade kile döner (bir tanrının köle durumuna düşürülmesi).","hareket":"ışık söner; çatlak"},
-  {"id":"P132","at":"F10b","k":"B","set":"SAYFA","kare":"Sayfa önceki sahneyi küçük frizlerle geri sarar: her panoda Prometheus'un ağzı kapalı.","hareket":"panolar kayar","gecis":"ink 0,5 sn","yazi":"Dikkat ettin mi?"},
-  {"id":"P133","at":"F10b@çekiç","k":"K","set":"KAYA/ZİNCİR","kare":"Çekiç iner (birinci vuruş).","hareket":"vuruş + sarsıntı","gecis":"ink 0,4 sn"},
-  {"id":"P134","at":"F10b@daha","k":"K","set":"KAYA/ZİNCİR","kare":"Çekiç bir daha iner.","hareket":"vuruş + sarsıntı"},
-  {"id":"P135","at":"F10b@zincire","k":"K","set":"KAYA/YAKIN","kare":"Profil: çene kilitli, sessiz. Kamera yavaşça yaklaşır.","hareket":"yaklaşma; toz"},
-  {"id":"P136","at":"F13","k":"K","set":"KAYA/GENİŞ","kare":"Kratos, Bia, Hephaistos kadrajdan çıkar; dev kayada yapayalnız minik figür.","hareket":"çıkış yürüyüşleri; geri çekilme, rüzgâr"},
-  {"id":"P137","at":"F13@ilk","k":"K","set":"KAYA/ORTA","kare":"Başını göğe kaldırır.","hareket":"baş kalkar; yıldızlar"},
-  {"id":"P138","at":"F13@ey","k":"K","set":"KAYA/GÖK","kare":"Ağzından göğe doğru vazo yazısı akar: EY KUTSAL GÖK.","hareket":"yazı akar; yıldız parıltısı","yazi":"EY KUTSAL GÖK"},
-  {"id":"P139","at":"F13@hızlı","k":"K","set":"KAYA/GÖK","kare":"Yanakları şişkin rüzgâr başları üfler; bulutlar koşar.","hareket":"bulut akışı"},
-  {"id":"P140","at":"F13@ırmakların","k":"K","set":"KAYA/GÖK","kare":"Kaynaklardan çizgi çizgi su akar.","hareket":"su çizgileri akar"},
-  {"id":"P141","at":"F13@deniz","k":"K","set":"KAYA/DENİZ","kare":"Dalgaların 'sayısız gülüşü': deniz kuşağında ışık pırıltıları koşar.","hareket":"pırıltılar; dalga"},
-  {"id":"P142","at":"F13@ve#1","k":"K","set":"KAYA/GENİŞ","kare":"Toprak: kayanın dibi, yeryüzü çizgisi.","hareket":"aşağı eğilme"},
-  {"id":"P143","at":"F13@bakın","k":"K","set":"KAYA/YAKIN","kare":"Bakın bana: profile hızlı yaklaşma.","hareket":"yaklaşma; alev ışığı titrer"},
-  {"id":"P144","at":"F14","k":"K","set":"KAYA/YAKIN","kare":"Kendi sözünü keser: rüzgâr birden durur, yakın plan.","hareket":"durgunluk içinde nefes; gözler kırpılır"},
-  {"id":"P145","at":"F14@olacak","k":"K","set":"KAYA/GÖZ","kare":"Gözünde gelecek titreşir: kartal, fırtına, okçu.","hareket":"görüntüler gözbebeğinde geçer"},
-  {"id":"P146","at":"F14@bana","k":"K","set":"KAYA/ORTA","kare":"Başını eğer, kabullenir; zincirler gevşer.","hareket":"baş iner; zincir sarkar"},
-  {"id":"P147","at":"F14@yine","k":"K","set":"KAYA/YAKIN","kare":"Ağzı açılır, kapanır; söz yazısı yarım yazılıp silinir.","hareket":"yazı yazılıp silinir; nefes"},
-
-  {"id":"P148","at":"G01","k":"K","set":"KAYA","kare":"Kayanın üstünde mahkeme şeridi: SAVUNMA. BÖLÜM KARTI.","hareket":"şerit iner; rüzgâr","gecis":"clay 0,8 sn","yazi":"VI · SAVUNMA: “BİLE BİLE YAPTIM”"},
-  {"id":"P149","at":"G02","k":"B","set":"SAYFA","kare":"İki sütun: BİLİNÇ ve ÖZGÜRLÜK; üstlerindeki lento bir insan figürünü taşır.","hareket":"sütunlar yükselir","gecis":"ink 0,6 sn","yazi":"bilinç · özgürlük"},
-  {"id":"P150","at":"G02@yani","k":"B","set":"SAYFA","kare":"Sütunların arasındaki figür canlanır, insan olur.","hareket":"figür doğrulur"},
-  {"id":"P151","at":"G03","k":"K","set":"KAYA/DENİZ","kare":"Okeanos'un kızları dalga kuşağının üstünde yükselir (beyaz tenli kadın figürleri).","hareket":"dalgalar; yükselme","gecis":"ink 0,6 sn"},
-  {"id":"P152","at":"G03@prometeus","k":"K","set":"KAYA","kare":"Prometheus onlara anlatır; periler dalgaların üstünde oturup dinler.","hareket":"kamera yay çizer; saçlar"},
-  {"id":"P153","at":"G03b","k":"K","set":"KAYA/MADALYON","kare":"Gökte bir tondo: Themis/Toprak genç Prometheus'a kehaneti fısıldar.","hareket":"madalyon döner; yazı","yazi":"ΘΕΜΙΣ · Adalet"},
-  {"id":"P154","at":"G03b@zafer","k":"K","set":"KAYA/MADALYON","kare":"Terazi: GÜÇ ↔ KURNAZLIK; kurnazlık ağır basar.","hareket":"terazi"},
-  {"id":"P155","at":"G05","k":"S","set":"MADALYON","kare":"Siyah figür geri dönüş: Titanlar sırtlarını döner; Prometheus Zeus'un yanına yürür.","hareket":"yürüyüş; dönüşler"},
-  {"id":"P156","at":"G05@kronosu","k":"S","set":"MADALYON","kare":"Prometheus Zeus'a fısıldar; Kronos Tartaros'a batar (C17'ye geri çağrı).","hareket":"batma; fısıltı yazısı"},
-  {"id":"P157","at":"G05@erhatın","k":"B","set":"SAYFA","kare":"C14'teki sayfa geri gelir: dairenin içindeki figür. ✓","hareket":"daire parlar","gecis":"ink 0,5 sn"},
-  {"id":"P158","at":"G06","k":"K","set":"KAYA","kare":"Bileğinden yükselen zincir yukarıdaki boş tahta doğru gider (geri çağrı).","hareket":"yukarı kayma; zincir","gecis":"ink 0,5 sn"},
-  {"id":"P159","at":"G06@zorbalığın","k":"K","set":"KAYA/GÖK","kare":"Boş tahtın çevresinde karanlıkta açılan gözler (kuşku). Söz yazısı.","hareket":"gözler kırpışır","yazi":"“Zorbalığın bir hastalığı vardır: dostlarına güvenmez.”"},
-  {"id":"P160","at":"G07","k":"S","set":"MADALYON","kare":"Küçük insanlar; Zeus'un eli onları bir vazoyu silercesine siler; yerine yeni kil figürler.","hareket":"silme hareketi"},
-  {"id":"P161","at":"G07@buna","k":"S","set":"MADALYON","kare":"Prometheus insanların önüne geçip kollarını açar: tek kişi.","hareket":"adım; kollar açılır"},
-  {"id":"P162","at":"G07b","k":"K","set":"KAYA/YAKIN","kare":"Profil; söz yazısı: Ölümlülere acıdım.","hareket":"yaklaşma; nefes","yazi":"“Ölümlülere acıdım.”"},
-  {"id":"P163","at":"G07b@ama","k":"K","set":"KAYA/GENİŞ","kare":"Geri çekilme: ıssız kaya; periler aşağıdan bakar.","hareket":"geri çekilme; dalga"},
-  {"id":"P164","at":"G08","k":"K","set":"OVA","kare":"Her insanın arkasında küçük bir ölüm gölgesi; Prometheus'un eli geçer, gölgeler kaybolur.","hareket":"gölgeler söner"},
-  {"id":"P165","at":"G08@içlerine","k":"K","set":"OVA","kare":"Göğüslerine küçük, solgun ışıklar yerleşir (kör umutlar; ateşten çok sönük).","hareket":"ışıklar yanar"},
-  {"id":"P166","at":"G08@sonra","k":"K","set":"OVA","kare":"Rezene sapı ocağı tutuşturur: parlak ateş.","hareket":"tutuşma; yüzler aydınlanır"},
-  {"id":"P167","at":"G09","k":"B","set":"SAYFA","kare":"Erhat'ın sorusu sayfada.","hareket":"yazı","gecis":"ink 0,6 sn","yazi":"“Ateşi tanrılardan çalıp insanlara vermek ne demektir?”"},
-  {"id":"P168","at":"G09@ona","k":"B","set":"SAYFA","kare":"Bir efsane rulosu sarılıp rafa kaldırılır.","hareket":"sarılma"},
-  {"id":"P169","at":"G09@ayshilos","k":"K","set":"FRİZ","kare":"Aiskhylos aynı ruloyu uzun bir frize açar: uygarlığın tarihi.","hareket":"rulo açılır; friz akar","gecis":"ink 0,5 sn"},
-  {"id":"P170","at":"G10b","k":"K","set":"MAĞARA","kare":"Karanlık mağara: karıncalar gibi minik insanlar, açık ama görmeyen gözler.","hareket":"kıpırtı; damla"},
-  {"id":"P171","at":"G10b@yıldızları","k":"K","set":"FRİZ","kare":"Yıldızlar: takımyıldız çizgileri.","hareket":"çizgiler bağlanır"},
-  {"id":"P172","at":"G10b@sayıları","k":"K","set":"FRİZ","kare":"Sayılar: Yunan rakamları çakıl taşlarıyla sayılır.","hareket":"çakıllar dizilir","yazi":"Α Β Γ Δ"},
-  {"id":"P173","at":"G10b@harfleri","k":"K","set":"FRİZ","kare":"Harfler: bir el balmumu tablete yazar.","hareket":"yazı"},
-  {"id":"P174","at":"G10b@hayvanları","k":"K","set":"FRİZ","kare":"Hayvanlar: boyunduruklu öküz saban çeker.","hareket":"yürüyüş"},
-  {"id":"P175","at":"G10b@gemiyi","k":"K","set":"FRİZ","kare":"Gemi: yelkenli dalgada.","hareket":"dalga, yelken"},
-  {"id":"P176","at":"G10b@ilacı","k":"K","set":"FRİZ","kare":"İlaç: havanda dövülen otlar.","hareket":"havan"},
-  {"id":"P177","at":"G10b@madenleri","k":"K","set":"FRİZ","kare":"Madenler: örsün üstünde kıvılcım.","hareket":"vuruş + kıvılcım"},
-  {"id":"P178","at":"G10b@tek","k":"K","set":"FRİZ","kare":"Geniş: bütün uygarlık frizi parlar, başında Prometheus'un ateşi.","hareket":"geri çekilme; friz akar"},
-  {"id":"P179","at":"G11","k":"K","set":"KAYA/ORTA","kare":"Mahkeme şeridi; sanık başını kaldırır.","hareket":"baş kalkar","gecis":"ink 0,5 sn"},
-  {"id":"P180","at":"G11@bunların","k":"K","set":"KAYA/YAKIN","kare":"Büyük söz yazısı: aynı kelime iki kez boyanır: İSTEYEREK, İSTEYEREK.","hareket":"yazı iki vuruşta","yazi":"“İsteyerek, isteyerek suç işledim.”"},
-  {"id":"P181","at":"G11@erhata","k":"B","set":"SAYFA","kare":"Daktilo tutanağı (Courier): bugünkü bir sanığın ifadesi yazılır.","hareket":"daktilo harfleri; satır","gecis":"ink 0,5 sn","yazi":"“Ne yaptımsa bile bile yaptım.” · s. xi"},
-  {"id":"P182","at":"G13","k":"K","set":"KAYA/ALT","kare":"Alttan: göğüs açık, gururlu duruş; kayanın ağırlığı üstüne çöker.","hareket":"alttan yaklaşma; ışık aşağıdan","gecis":"ink 0,5 sn","yazi":"gurur · katlanma"},
-  {"id":"P183","at":"G12b","k":"K","set":"KAYA/YAKIN","kare":"'Eriyip gitmek': figürün kil kenarları rüzgârda toz olup kopar.","hareket":"kenardan parçacık kopar; nefes"},
-  {"id":"P184","at":"G13b","k":"K","set":"KAYA/YAKIN","kare":"Bölünmüş: gözü (geleceği görüyor) ↔ bedeni (katlanıyor).","hareket":"bölüm çizgisi kayar"},
-  {"id":"P185","at":"G13b@yine","k":"K","set":"KAYA/ORTA","kare":"Doğrulur; dağılma durur; ileri bakar.","hareket":"doğrulma; toz durulur"},
-
-  {"id":"P186","at":"H01","k":"K","set":"HARİTA","kare":"Bir inek silueti bir boğazı yüzerek geçer (merak). BÖLÜM KARTI.","hareket":"yüzme; dalga","gecis":"clay 0,8 sn","yazi":"VII · TANIKLAR VE “İNEK GEÇİDİ”"},
-  {"id":"P187","at":"H02","k":"B","set":"SAYFA","kare":"Zeus'un evreni: boş tahtın çevresinde üç küme: kurbanlar, uşaklar, dalkavuk.","hareket":"kümeler çizilir","gecis":"ink 0,6 sn","yazi":"kurbanlar · uşaklar · dalkavuk"},
-  {"id":"P188","at":"H02@hepsi","k":"B","set":"SAYFA","kare":"Bütün figürler domino gibi tahta doğru eğilir.","hareket":"eğilme dalgası"},
-  {"id":"P189","at":"H02@tek","k":"B","set":"SAYFA","kare":"Tek dik kalan: Prometheus (kırmızı vurgu).","hareket":"vurgu yanar","yazi":"“Tek başkaldıran Prometheus'tur.” · s. xiii"},
-  {"id":"P190","at":"H02@uşakları","k":"B","set":"SAYFA","kare":"Kratos/Bia simgeleri işaretlenir; kanatlı bir yaratık üstünde yaşlı bir figür yaklaşır.","hareket":"işaret; yaklaşma"},
-  {"id":"P191","at":"H04","k":"K","set":"KAYA","kare":"Okeanos dört ayaklı kanatlı bir kuşa binmiş gelir.","hareket":"kanat çırpma; süzülme","gecis":"ink 0,6 sn","yazi":"ΩΚΕΑΝΟΣ"},
-  {"id":"P192","at":"H04@kendini","k":"K","set":"KAYA/ORTA","kare":"Okeanos parmak sallar; söz yazısı: Kendini bil.","hareket":"parmak; yazı","yazi":"“Kendini bil.”"},
-  {"id":"P193","at":"H04@prometeus","k":"K","set":"KAYA/ORTA","kare":"Karşı plan: Prometheus'un alaycı cevabı.","hareket":"baş eğilir; yazı"},
-  {"id":"P194","at":"H04@kendi","k":"K","set":"KAYA","kare":"Okeanos rahatlamış, uçup gider.","hareket":"uçuş"},
-  {"id":"P195","at":"H05","k":"K","set":"KAYA/DENİZ","kare":"Periler konuşur; Yunanca söz kenarda: agan eleutherostomeis.","hareket":"dalga; yazı","yazi":"ἄγαν ἐλευθεροστομεῖς · “dilin fazla özgür” · s. xiii"},
-  {"id":"P196","at":"H05@başkaları","k":"B","set":"SAYFA","kare":"Figürün çevresinde 'GURUR?' 'KİBİR?' etiketleri uçuşur, üstleri çizilir.","hareket":"etiketler; üstü çizme","gecis":"ink 0,5 sn","yazi":"“hiçbir umuda yer vermeden” · s. xii"},
-  {"id":"P197","at":"H05@oysa","k":"B","set":"SAYFA","kare":"Başında BİLİNÇ parlar; ağzından çıkan söz zinciri çözülür.","hareket":"parlama; halka açılır"},
-  {"id":"P198","at":"H05b","k":"K","set":"OVA","kare":"Geri çağrı (G08): göğüslerinde küçük solgun umut ışıklarıyla insanlar.","hareket":"ışıklar titrer","gecis":"ink 0,5 sn"},
-  {"id":"P199","at":"H05b@kendisi","k":"K","set":"KAYA/ORTA","kare":"Göğsünde ışık olmayan tek figür: Prometheus; gözleri açık, geleceği görüyor.","hareket":"yaklaşma; göz"},
-  {"id":"P200","at":"H06","k":"K","set":"KAYA","kare":"İo koşarak gelir: boynuzlu genç kız; atsineği vızıldar.","hareket":"koşu; atsineği yörüngesi","yazi":"ΙΩ"},
-  {"id":"P201","at":"H06@zeusun","k":"K","set":"MADALYON","kare":"Madalyon: gözlü bir bulut (Zeus'un arzusu) ve Hera'nın tavus gözleri.","hareket":"tavus gözleri açılır"},
-  {"id":"P202","at":"H06@bir#1","k":"K","set":"DÜNYA DİSKİ","kare":"Atsineği İo'yu dünya diskinin çevresinde kovalar.","hareket":"dönen kovalamaca"},
-  {"id":"P203","at":"H07","k":"K","set":"HARİTA","kare":"Vazo haritası: İo'nun yolu noktalarla çizilir.","hareket":"yol çizilir; kayma"},
-  {"id":"P204","at":"H07@bosporos","k":"K","set":"HARİTA","kare":"İnek boğazı yüzerek geçer; ad bölünür: BOUS (inek) + POROS (geçit).","hareket":"yüzme; harfler","yazi":"BOS · POROS = inek geçidi"},
-  {"id":"P205","at":"H07@ayshilosun","k":"K","set":"HARİTA","kare":"Kırım'a yaklaşma: Kerç Boğazı.","hareket":"harita kayar","yazi":"Kerç Boğazı"},
-  {"id":"P206","at":"H07@ama","k":"K","set":"HARİTA","kare":"Harita İstanbul'a kayar: İstanbul Boğazı; orada da küçük bir inek geçer.","hareket":"kayma; yüzme","yazi":"İstanbul Boğazı"},
-  {"id":"P207","at":"H09","k":"K","set":"KAYA","kare":"İo yere çöker, ölmeyi diler.","hareket":"çöküş; atsineği"},
-  {"id":"P208","at":"H09@prometeusun","k":"K","set":"KAYA/YAKIN","kare":"Söz yazısı: Ben ölemem bile. Kartalın gölgesi geçer; yukarıda boş taht çatlar.","hareket":"gölge; çatlak","yazi":"“Ben ölemem bile.”"},
-  {"id":"P209","at":"H10","k":"K","set":"FRİZ","kare":"İo'dan çıkan soy: meander şeridinde koşan 13 küçük figür (sayaç).","hareket":"koşu; sayaç 1→13"},
-  {"id":"P210","at":"H10@okçu","k":"K","set":"FRİZ","kare":"On üçüncü figür: aslan postlu okçu yayını gerer; kare donar.","hareket":"yay gerilir; post dalgalanır"},
-
-  {"id":"P211","at":"I01","k":"K","set":"KAYA","kare":"Yukarıda hafifçe titreyen boş taht; aşağıda küçük zincirli figür. BÖLÜM KARTI.","hareket":"titreşim; bulut","gecis":"clay 0,8 sn","yazi":"VIII · TAHTI SALLAYAN SIR"},
-  {"id":"P212","at":"I02","k":"K","set":"KAYA/YAKIN","kare":"Prometheus'un dudakları; önlerinde parlayan bir mühür.","hareket":"mühür parlar"},
-  {"id":"P213","at":"I02@zeus","k":"K","set":"MADALYON","kare":"Düğün: duvak kaldırma (anakalypsis) motifi, yüzler görünmez.","hareket":"duvak kalkar"},
-  {"id":"P214","at":"I02@ve","k":"K","set":"MADALYON","kare":"Bir çocuk silueti büyüyüp babasının gölgesini geçer.","hareket":"gölge büyür"},
-  {"id":"P215","at":"I03","k":"S","set":"TAHT","kare":"Üç taht: Uranos'un ve Kronos'unki devrik; Zeus'un gölgesi bir beşiğin üstüne düşer.","hareket":"gölge; beşik sallanır","gecis":"clay 0,6 sn"},
-  {"id":"P216","at":"I03@erhat","k":"B","set":"TAHT","kare":"D10 sayfası geri gelir: üçüncü tahtta çatlak.","hareket":"çatlak ilerler","gecis":"ink 0,5 sn","yazi":"“Üçüncü devrimin hazırlanması.”"},
-  {"id":"P217","at":"I03@ayshilosun","k":"K","set":"KAYA/GÖK","kare":"Karanlıkta boş taht, çevresinde gözler; uzun gölgeler, sinirli şimşek titremeleri.","hareket":"gözler; şimşek","gecis":"ink 0,5 sn"},
-  {"id":"P218","at":"I04","k":"K","set":"KAYA/GÖZ","kare":"Prometheus'un gözü: bilir. Bir ad bir mührün ardında gizli.","hareket":"göz; mühür"},
-  {"id":"P219","at":"I05","k":"K","set":"KAYA","kare":"Hermes uçarak iner: petasos, kanatlı çizmeler, kerykeion.","hareket":"iniş; kanatlı çizmeler","yazi":"ΕΡΜΗΣ"},
-  {"id":"P220","at":"I05@erhatın","k":"K","set":"KAYA/ORTA","kare":"Hermes'in yanına mühür gibi 'POLİS MÜDÜRÜ' basılır.","hareket":"mühür vuruşu","yazi":"“sanığı gözdağıyla sorguya çeken bir polis müdürü”"},
-  {"id":"P221","at":"I05@emir","k":"K","set":"KAYA/ORTA","kare":"Hermes'in parmağı: SIRRI SÖYLE.","hareket":"işaret; yazı","yazi":"SIRRI SÖYLE."},
-  {"id":"P222","at":"I06","k":"K","set":"KAYA/ORTA","kare":"Prometheus alay eder: plan / karşı plan, söz yazısı akar.","hareket":"yazı akar; baş hareketi"},
-  {"id":"P223","at":"I06@ben","k":"K","set":"KAYA/GÖK","kare":"Gökte Uranos'un ve Kronos'un tahtlarının hayaletleri düşer.","hareket":"düşüş"},
-  {"id":"P224","at":"I06@üçüncüsünün","k":"K","set":"KAYA/GÖK","kare":"Üçüncü tahtın düşüşü bir görüntü olarak (gerçek değil, soluk).","hareket":"soluk düşüş"},
-  {"id":"P225","at":"I07","k":"K","set":"KAYA/ORTA","kare":"Hermes suçlar; elini kaldırır.","hareket":"el; kanat"},
-  {"id":"P226","at":"I07@bu","k":"K","set":"KAYA","kare":"Prometheus'un zincirli elleri ↔ Hermes'in bileğinden tahta giden ince altın tasma ipi (uşaklık).","hareket":"ip gerilir","yazi":"“Bu felaketimi, senin uşaklığına değişmem.”"},
-  {"id":"P227","at":"I08","k":"K","set":"KAYA","kare":"Hermes çevresinde döner, sıkıştırır.","hareket":"yörünge"},
-  {"id":"P228","at":"I08@eyvah","k":"K","set":"KAYA/YAKIN","kare":"EYVAH! Acı yazısı, kartal gölgesi.","hareket":"sarsıntı; gölge","yazi":"“Eyvah!”"},
-  {"id":"P229","at":"I08@hermes","k":"K","set":"KAYA/ORTA","kare":"Hermes kendinden memnun yakalar.","hareket":"eğilme; kanatlı çizmeler","yazi":"“Zeus bu kelimeyi bilmez.”"},
-  {"id":"P230","at":"I08@prometeusun","k":"K","set":"KAYA/GENİŞ","kare":"Sakin cevap; arkada güneş diski gece-gündüz hızla döner (zaman).","hareket":"gün döngüsü","yazi":"“Yaşlanan zaman, her şeyi öğretir.”"},
-  {"id":"P231","at":"I07b","k":"K","set":"KAYA/ALT","kare":"Alttan kahraman karesi; zincirler ışıkta. Şart yazısı.","hareket":"alttan çevrinme; ışık"},
-  {"id":"P232","at":"I07b@ne#1","k":"K","set":"KAYA/ORTA","kare":"İki simge: kartal (işkence) ve öküz payı (hile), ikisinin de üstü çizilir.","hareket":"üstü çizilir"},
-
-  {"id":"P233","at":"J01","k":"K","set":"KAYA","kare":"DONMA: görüntü durur, renkler solar; yalnız alev titremeye devam eder. BÖLÜM KARTI.","hareket":"kamera kayar; alev","gecis":"donma 0,5 sn","yazi":"IX · ZİNCİRİN ÖBÜR UCU"},
-  {"id":"P234","at":"J02","k":"K","set":"LEVHA","kare":"F10'daki kil levha geri gelir: “Zeus'tan başka hiç kimse özgür değildir.”","hareket":"levha döner; altı çizilir"},
-  {"id":"P235","at":"J02@prometeus","k":"K","set":"KAYA/ZİNCİR","kare":"Zincirdeki Prometheus.","hareket":"zincir; nefes"},
-  {"id":"P236","at":"J02@erhat","k":"B","set":"SAYFA","kare":"Alıntı sayfada.","hareket":"yazı","gecis":"ink 0,5 sn","yazi":"“Ama bakalım gerçekten de öyle mi?” · s. xiii"},
-  {"id":"P237","at":"J04","k":"K","set":"KAYA→OLYMPOS","kare":"AÇILIM: kamera bilekteki zinciri bulutların içinden yukarı izler (A02'nin devamı), Olympos'a kadar: zincirin öbür ucu tahttaki Zeus'un bileğinde. Zeus kırmızı figür katmanında ilk kez görünür.","hareket":"uzun yukarı kayma; zincir gerilir","gecis":"ink 0,5 sn"},
-  {"id":"P238","at":"J04@prometeus","k":"K","set":"KAYA","kare":"Aşağı kesme: Prometheus; zincir boyunca altın ışık akar, duruşu özgür.","hareket":"ışık akışı; doğrulma","yazi":"“Gerçekte Zeus köle, Prometheus özgürdür.” · s. xiv"},
-  {"id":"P239","at":"J05","k":"K","set":"OLYMPOS","kare":"Tahttaki Zeus uşakları ve dalkavuklarıyla çevrili; taht büyür, Zeus çocuk boyuna küçülür.","hareket":"ölçek değişimi; eğilen figürler"},
-  {"id":"P240","at":"J05@onu","k":"K","set":"KAYA→OLYMPOS","kare":"İkisini bağlayan zincir Prometheus'un ucundan Zeus'a doğru ışır.","hareket":"ışık zincir boyunca"},
-  {"id":"P241","at":"J06","k":"B","set":"SAYFA","kare":"Alıntı kartı.","hareket":"yazı","gecis":"ink 0,5 sn","yazi":"“Zeus tutukladığı düşmanının elinde tutukludur aslında.”"},
-  {"id":"P242","at":"J06@yani","k":"K","set":"KAYA↔OLYMPOS","kare":"Kare 180° döner: kaya üstte, taht altta (tahterevalli). SANIK ve YARGIÇ etiketleri yer değiştirir.","hareket":"dönüş; etiketler kayar","yazi":"SANIK: özgür · YARGIÇ: tutsak"},
-  {"id":"P243","at":"J10","k":"B","set":"SAYFA","kare":"F10a'daki atölye şeridi; kölelerden biri başını kaldırır; terazi köleden yana eğilir.","hareket":"baş kalkar; terazi","gecis":"ink 0,5 sn","yazi":"“hakkın köleden yana olduğu” · s. xiii"},
-  {"id":"P244","at":"J10@erhata","k":"K","set":"TİYATRO","kare":"Tek kandil ışığında Aiskhylos yazar: yapayalnız.","hareket":"kandil; kalem","gecis":"ink 0,5 sn"},
-
-  {"id":"P245","at":"I08a","k":"K","set":"KAYA","kare":"Kayanın üstünde fırtına bulutları toplanır. BÖLÜM KARTI.","hareket":"bulutlar döner","gecis":"clay 0,8 sn","yazi":"X · KARTAL, FIRTINA VE SON SÖZ"},
-  {"id":"P246","at":"I08b","k":"K","set":"KAYA","kare":"Donma çözülür, renkler geri gelir. Hermes'in tehdidi: yıldırımın kayayı yarması bir görüntü olarak.","hareket":"renk dönüşü; çatlak görüntüsü"},
-  {"id":"P247","at":"I08b@uzun","k":"K","set":"KAYA/GECE","kare":"Yeraltında uzun zaman (karanlık, dönen yıldızlar), sonra ışığa dönüş.","hareket":"yıldız dönmesi; aydınlanma"},
-  {"id":"P248","at":"I08b@zeusun","k":"K","set":"KAYA/GÖK","kare":"Köpek biçimli bir kartal gölgesi gökyüzüne yayılır.","hareket":"gölge büyür"},
-  {"id":"P249","at":"I08b@çağrılmamış","k":"K","set":"SOFRA","kare":"Bir ziyafet masasında (symposion motifi) davetsiz konuk: kartal.","hareket":"kartal başını çevirir; kandil"},
-  {"id":"P250","at":"I08c","k":"K","set":"KAYA","kare":"Açılışın eşi (P007): kartal güneş diskinden iner; aynı kompozisyon.","hareket":"süzülme"},
-  {"id":"P251","at":"I08c@prometeus","k":"K","set":"KAYA/ALT","kare":"Alttan: meydan okuyan Prometheus; söz yazısı.","hareket":"alttan çevrinme","yazi":"“Ne yaparsa yapsın… beni öldüremez.”"},
-  {"id":"P252","at":"I09","k":"K","set":"KAYA","kare":"Hermes perileri kovar.","hareket":"el sallar; dalga"},
-  {"id":"P253","at":"I09@ama","k":"K","set":"KAYA","kare":"Periler kalır; kayada Prometheus'un çevresinde sıkı sıra olurlar. Söz yazısı.","hareket":"yaklaşma; saçlar","yazi":"“Hainlerden nefret etmeyi öğrendik.”"},
-  {"id":"P254","at":"I10","k":"K","set":"KAYA/GÖK","kare":"Yukarıda bulutlarda dev bir yıldırım kalkar (Zeus görünmez).","hareket":"yıldırım kalkar; bulut"},
-  {"id":"P255","at":"I10@artık","k":"K","set":"KAYA/FIRTINA","kare":"Yer sarsılır.","hareket":"sarsıntı; taş düşer"},
-  {"id":"P256","at":"I10@gök","k":"K","set":"KAYA/FIRTINA","kare":"Gök gürler, şimşekler çakar.","hareket":"çakmalar"},
-  {"id":"P257","at":"I10@rüzgârlar","k":"K","set":"KAYA/FIRTINA","kare":"Rüzgâr başları çarpışır; bulutlar girdap olur.","hareket":"girdap"},
-  {"id":"P258","at":"I10@gök#1","k":"K","set":"KAYA/FIRTINA","kare":"Deniz kuşağı yükselir, gök kuşağı iner: kadrajın kuşakları birbirine karışır.","hareket":"kuşaklar çöker"},
-  {"id":"P259","at":"I11","k":"K","set":"KAYA/YAKIN","kare":"Kaosun ortasında durgun yakın plan: yüzü göğe dönük (F13 kompozisyonunun eşi).","hareket":"çok yavaş yaklaşma; arkada fırtına"},
-  {"id":"P260","at":"I11@görüyor","k":"K","set":"KAYA","kare":"Son söz yazısı; kaya ayağının altında yarılır.","hareket":"yarılma; yazı","yazi":"“Görüyor musun, haksız yere neler çekiyorum.”"},
-  {"id":"P261","at":"I12","k":"B","set":"SAYFA","kare":"Kenar frizinde iki pano: susan Prometheus (F10b) → konuşan Prometheus.","hareket":"panolar","gecis":"ink 0,6 sn"},
-  {"id":"P262","at":"I12@son","k":"K","set":"KAYA","kare":"Kaya onu ve perileri yutar; son söz yazısı havada asılı kalır, parlar; kaya kapanır, sözler kalır.","hareket":"kapanma; yazı parlar","gecis":"ink 0,5 sn"},
-  {"id":"P263","at":"I12@erhatın","k":"B","set":"SAYFA","kare":"Havadaki yazı sayfadaki alıntıya dönüşür; tek ışık ateş.","hareket":"yazı dönüşür; alev","gecis":"ink 0,8 sn","yazi":"“Kıyamet de kopsa son söz özgür düşüncenindir.” · s. xv"},
-
-  {"id":"P264","at":"L01","k":"K","set":"FRİZ","kare":"Okçu (H10'un eşi) yayını gerer. BÖLÜM KARTI.","hareket":"yay","gecis":"clay 0,8 sn","yazi":"XI · HERAKLES'TEN OPPENHEIMER'A"},
-  {"id":"P265","at":"L02","k":"S","set":"AMFORA","kare":"Siyah figür: Herakles kartalı vurur; kartal düşer, zincir çözülür.","hareket":"ok uçuşu; düşüş","gecis":"clay 0,6 sn","yazi":"ΗΡΑΚΛΗΣ"},
-  {"id":"P266","at":"L02@tabii","k":"S","set":"AMFORA","kare":"Buluttan Zeus izin verir gibi baş sallar.","hareket":"baş sallama"},
-  {"id":"P267","at":"L02@ayshilosun","k":"S","set":"TİYATRO","kare":"'Kurtulmuş Prometheus' papirüsü toza döner (B02'nin eşi).","hareket":"toz"},
-  {"id":"P268","at":"L03","k":"B","set":"GALERİ","kare":"Aynı zincirli duruş yüzyıllar boyunca: vazo, kabartma, gravür, modern çizgi.","hareket":"galeri kayması","gecis":"ink 0,6 sn"},
-  {"id":"P269","at":"L04","k":"B","set":"SAYFA","kare":"Goethe'nin şiiri el yazısıyla (Almanca dizeler).","hareket":"yazı akar","yazi":"Goethe · Prometheus (1774)"},
-  {"id":"P270","at":"L04@götenin","k":"K","set":"ATÖLYE","kare":"Titan kilden küçük bir insan figürü biçimlendirir.","hareket":"yoğurma","gecis":"ink 0,5 sn"},
-  {"id":"P271","at":"L04@erhata","k":"B","set":"SAYFA","kare":"Küçük figür aracı alır, kendini biçimlendirir.","hareket":"figür kendi kendini yoğurur","gecis":"ink 0,5 sn","yazi":"“Asıl yaratıcı insanın kendisidir.” · s. xi"},
-  {"id":"P272","at":"L05","k":"B","set":"SAYFA","kare":"Dönem dizgisiyle başlık sayfası: Frankenstein; or, The Modern Prometheus (1818). Üstünde şimşek; kil figürün eli kıpırdar.","hareket":"şimşek; el","yazi":"Mary Shelley · Frankenstein (1818)"},
-  {"id":"P273","at":"L05@atom","k":"B","set":"MEŞALE","kare":"Kitap sırtı: American Prometheus. Koşucunun meşalesi ufukta göz alıcı bir aydınlığa dönüşür (soyut, film görüntüsü yok).","hareket":"meşale koşusu; beyaz parlama","yazi":"American Prometheus · Nolan, Oppenheimer (2023)"},
-  {"id":"P274","at":"L06","k":"S","set":"MEŞALE","kare":"Lampadedromia: meşale çağlar boyunca elden ele; sonunda yasak bir aleve uzanan bir el.","hareket":"bayrak koşusu; alev"},
-
-  {"id":"P275","at":"K08a","k":"B","set":"SAYFA","kare":"NASIL? kartı geri gelir (B06'nın eşi). BÖLÜM KARTI.","hareket":"harfler","gecis":"ink 0,8 sn","yazi":"XII · BAŞKALDIRAN YARATIK"},
-  {"id":"P276","at":"K08a@nasıl","k":"B","set":"BÖLÜNMÜŞ","kare":"B06'daki bölünmüş kare: Aiskhylos ↔ XX. yüzyılın ayağa kalkan figürü.","hareket":"çizgi akar"},
-  {"id":"P277","at":"K08a@erhatın#1","k":"S","set":"AMFORA","kare":"Taht kavgası frizinin ortasında duran Prometheus: siyasi bir kişi.","hareket":"friz döner","gecis":"clay 0,5 sn"},
-  {"id":"P278","at":"K08a@ama","k":"K","set":"TİYATRO","kare":"Aiskhylos yazar; tiyatroda Atinalı yurttaşlar izler.","hareket":"kalabalık; kandil","gecis":"ink 0,5 sn","yazi":"“politik görüşü en köklü” · s. vi"},
-  {"id":"P279","at":"K08c","k":"B","set":"SAYFA","kare":"Bir at gemi kırılır; kanatlı bir düşünce (kuş) kaçar.","hareket":"kırılma; kanat","gecis":"ink 0,5 sn","yazi":"“Akıl gücü kaba güçten üstündür; düşünceye gem vurulamaz.”"},
-  {"id":"P280","at":"K08c@belki","k":"K","set":"KAYA","kare":"Sanık sırasındaki zincirli figürün silueti aynı duruşta modern bir insan siluetine dönüşür.","hareket":"siluet dönüşümü"},
-  {"id":"P281","at":"K01","k":"B","set":"SAYFA","kare":"Önsözün ilk sayfası (v): soru yazılır; kenarda bir ilk insan figürü doğrulur.","hareket":"yazı; doğrulma","gecis":"ink 0,6 sn","yazi":"İnsan nedir?"},
-  {"id":"P282","at":"K02","k":"B","set":"SAYFA","kare":"Eğilmiş figürlerden oluşan bir frizden biri ayağa kalkar.","hareket":"ayağa kalkma","yazi":"“İnsan başkaldıran yaratıktır.” · s. v"},
-  {"id":"P283","at":"K02@doğaya","k":"B","set":"SAYFA","kare":"Figür meander çerçevesinin dışına adım atar: vazonun çerçevesinden çıkar.","hareket":"çerçeveden çıkış"},
-  {"id":"P284","at":"K02@insan#1","k":"B","set":"SAYFA","kare":"Bir çerçeve daha; yine çıkar (her seferinde yeniden).","hareket":"tekrar eden çıkış"},
-  {"id":"P285","at":"K04","k":"B","set":"SAYFA","kare":"Figür çelenk ve takılarını (gelenek süsleri) üstünden atar; süsler çizgi olarak düşer.","hareket":"süsler düşer"},
-  {"id":"P286","at":"K04@erhat","k":"B","set":"SAYFA","kare":"Kapalı küp (ELPİS) bir kenarda; figür ondan dönüp güneşli dünyaya yürür, elinde ateş.","hareket":"yürüyüş; alev","yazi":"“Umuda karşı da ayaklandık.” · s. vi"},
-  {"id":"P287","at":"K06","k":"B","set":"SAYFA","kare":"Çaba ve cefa: taşıyan, kuran figürlerden oluşan bir friz.","hareket":"friz akar","yazi":"“Tek ülkümüz insan olmak.” · s. vi"},
-  {"id":"P288","at":"K06@ve","k":"K","set":"KAYA/OLYMPOS","kare":"Sayfa kapanır; kapakta ateşli harflerle PROMETHEUS (A04'ün eşi). Ardından elinde ateşle kayadaki Prometheus (kapak karesi).","hareket":"harfler; alev","gecis":"ink 1,0 sn","yazi":"“Bu ülkünün ilk temsilcisi Prometheus'tur.” · s. vi"},
-
-  {"id":"P289","at":"M00","k":"B","set":"MASA","kare":"Bir masa: iki fincan, iki kalem, bir müsvedde, bir lamba (portre yok).","hareket":"lamba; buhar","gecis":"ink 0,8 sn","yazi":"XIII · ÇEVİRMENLERİN DİLEĞİ"},
-  {"id":"P290","at":"M00@çevirdikçe","k":"B","set":"MASA","kare":"Sayfalar çoğalıp sevinçle uçuşur.","hareket":"uçuşan sayfalar"},
-  {"id":"P291","at":"M00@dilekleri","k":"K","set":"SAHNE","kare":"Bir Türk tiyatrosunda perde açılır; ışık altında kırmızı figür Prometheus; seyirci siluetleri.","hareket":"perde; ışık","gecis":"ink 0,6 sn"},
-  {"id":"P292","at":"M02","k":"K","set":"KAYA/OLYMPOS","kare":"Doğrudan hitap: rezene sapındaki alev izleyiciye uzatılır (kapak karesi).","hareket":"alev yaklaşır","yazi":"Peki sen olsan?"},
-  {"id":"P293","at":"M03","k":"S","set":"BİTİŞ","kare":"Bitiş ekranı: solda Sisifos kayasını iterken (siyah figür çerçeve), sağda abone alanı; alev titremeye devam eder.","hareket":"Sisifos döngüsü; alev","gecis":"clay 0,8 sn"}
+  {
+   "id": "P001",
+   "at": "A01",
+   "k": "K",
+   "set": "KAYA/OLYMPOS",
+   "kare": "KAPAK KARESİ. Gece; Prometheus profilden koşar, yukarı kaldırdığı rezene sapının ucunda alev; karenin en parlak noktası alev. Arkada Olympos'un sivri tepesi.",
+   "hareket": "koşu döngüsü + kamera takibi; alev titremesi, arkasında kıvılcım izi",
+   "gecis": "siyah→açılış 0,3 sn"
+  },
+  {
+   "id": "P002",
+   "at": "A01@insanlara",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Aşağıda karanlık ova, mağara ağızlarında küçük insan figürleri; ateş ocaktan ocağa geçer, yüzler aydınlanır.",
+   "hareket": "kamera aşağı eğilir; ocaklar sırayla yanar (humanFires)"
+  },
+  {
+   "id": "P003",
+   "at": "A01@titan",
+   "k": "K",
+   "set": "KAYA/OLYMPOS",
+   "kare": "YAKIN: Prometheus omzunun üstünden Olympos'a geri bakar (bile bile). Alev yüzünü yandan aydınlatır.",
+   "hareket": "yavaş yaklaşma; saç ve sakal rüzgârda, alev"
+  },
+  {
+   "id": "P004",
+   "at": "A02",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "GENİŞ: çekiç iner, bilekteki halka kapanır; Prometheus kayaya mıhlı.",
+   "hareket": "beyaz çakma + sarsıntı; toz, dalgalar",
+   "gecis": "beyaz 0,15 sn"
+  },
+  {
+   "id": "P005",
+   "at": "A02@zeusun",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Bilekten çıkan zincir yukarı, bulutların içine uzanır. Kamera zinciri izler; 'asıl tutsak'ta zincir yukarıdan bir kez gerilip çekilir, bulutların arasında altın bir bilezik pırıltısı (açılmaz).",
+   "hareket": "kamera yukarı kayar; zincir gerilir, bulut akar, uzak şimşek",
+   "yazi": ""
+  },
+  {
+   "id": "P006",
+   "at": "A03",
+   "k": "K",
+   "set": "DÜNYA DİSKİ",
+   "kare": "Çok geniş: Okeanos ırmağıyla çevrili düz dünya diskinin kıyısında minicik kaya. Güneş diski doğar.",
+   "hareket": "güneş yükselir; bulutlar ve ırmak akar"
+  },
+  {
+   "id": "P007",
+   "at": "A03@kartal",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kartal güneş diskinin önünden süzülerek iner, gölgesi Prometheus'un üstünden geçer.",
+   "hareket": "eagle2 süzülme + kanat çırpma; gölge kayar"
+  },
+  {
+   "id": "P008",
+   "at": "A03@karaciğerini",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Kartal yanına konar, kanatlarıyla gövdesini örter (kan yok). Prometheus'un başı geriye, yumruk sıkılı.",
+   "hareket": "kanat vuruşları, sarsıntı; zincir gerilir"
+  },
+  {
+   "id": "P009",
+   "at": "A03@gece",
+   "k": "K",
+   "set": "KAYA/GECE",
+   "kare": "Gece: yıldızlar döner, kartal yok. Böğründe altın bir ışık atar ve söner (karaciğer yeniden büyür).",
+   "hareket": "yıldız dönmesi; nabız ışığı; nefes"
+  },
+  {
+   "id": "P010",
+   "at": "A03@sabah",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Şafak hızla gelir; güneş diskinin üstünde yine kartal silueti belirir. Kesme: güneş diski → kartalın gözü.",
+   "hareket": "hızlı şafak; kartal büyür"
+  },
+  {
+   "id": "P011",
+   "at": "A04",
+   "k": "K",
+   "set": "BAŞLIK",
+   "kare": "Sır siyahı üstünde vazo yazısı ΠΡΟΜΗΘΕΥΣ kil renginde yazılır, harfler ateş alıp PROMETHEUS'a dönüşür. Arkada zincirli siluet.",
+   "hareket": "ateşli harfler, kıvılcım; yavaş yaklaşma",
+   "yazi": "PROMETHEUS"
+  },
+  {
+   "id": "P012",
+   "at": "A06",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Katman değişimi: alev mürekkebe döner, krem kâğıt. Bir kitap açılır, 'ÖNSÖZ' başlığı; satırlar kendiliğinden yazılır.",
+   "hareket": "sayfa çevrilir; kalem çizgisi ilerler",
+   "gecis": "ink 1,0 sn",
+   "yazi": "Azra Erhat"
+  },
+  {
+   "id": "P013",
+   "at": "A06@bin",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sepya rakamlarla 1967 yazılır; altında künye: Aiskhylos, Zincire Vurulmuş Prometheus, çev. S. Eyüboğlu ve A. Erhat.",
+   "hareket": "yazı çizgisi; yavaş kayma",
+   "yazi": "1967"
+  },
+  {
+   "id": "P014",
+   "at": "A05",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sayfada iki ucu olan bir zincir çizilir: bir ucu küçük zincirli figürde, öbür ucu bir tahtın içine girer. Zincir bir soru işaretine kıvrılır.",
+   "hareket": "çizgi çizilir; zincir halkaları sallanır",
+   "yazi": "Zincirleyen nasıl tutsak olur?"
+  },
+  {
+   "id": "P015",
+   "at": "A05@ve",
+   "k": "K",
+   "set": "YAKIN",
+   "kare": "Avuç içinde küçük bir alev (bir avuç ateş), profilden kavuşturulmuş eller. Kıvılcım yükselir, bölüm kartına geçer.",
+   "hareket": "yaklaşma; alev"
+  },
+  {
+   "id": "P016",
+   "at": "B01",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Akşamüstü Dionysos tiyatrosu: orkestra çemberi, skene, sahnede tanrı maskeleri. BÖLÜM KARTI.",
+   "hareket": "vinç hareketiyle tiyatronun üstünden süzülme; meşaleler",
+   "gecis": "clay 0,8 sn",
+   "yazi": "I · ERHAT'IN SORUSU"
+  },
+  {
+   "id": "P017",
+   "at": "B02",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Aiskhylos (stilize kırmızı figür profil, ΑΙΣΧΥΛΟΣ yazısı) bir papirüs açar.",
+   "hareket": "papirüs açılır; lamba titremesi"
+  },
+  {
+   "id": "P018",
+   "at": "B02@tek",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Üç papirüs yan yana; ikisi toza dönüşüp dağılır, biri kalır: Zincire Vurulmuş Prometheus.",
+   "hareket": "toz parçacıkları; kalan papirüse yaklaşma",
+   "yazi": "Zincire Vurulmuş Prometheus"
+  },
+  {
+   "id": "P019",
+   "at": "B04",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir tiyatro maskesi sayfada insan yüzü profiline dönüşür.",
+   "hareket": "biçim dönüşümü; satırlar yazılır",
+   "gecis": "ink 0,8 sn"
+  },
+  {
+   "id": "P020",
+   "at": "B05",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Alıntı kartı. Kenar şeridinde Prometheus solda küçük bir insanla sağda bir tanrının arasında; insana döner.",
+   "hareket": "alıntı belirir; figür döner",
+   "yazi": "“İnsan dostu, tanrı düşmanı” · A. Erhat, s. v"
+  },
+  {
+   "id": "P021",
+   "at": "B05@yirminci",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Meander kuşağı zaman şeridine dönüşür; vazo figürü şerit boyunca antik çağdan XX. yüzyıla yürür.",
+   "hareket": "şerit kayar; yürüyüş döngüsü",
+   "yazi": "XX. yüzyıl"
+  },
+  {
+   "id": "P022",
+   "at": "B06",
+   "k": "B",
+   "set": "BÖLÜNMÜŞ",
+   "kare": "Bölünmüş kare: solda kırmızı figür Aiskhylos kalemle yazar; çizgisi yüzyılları geçip sağda beyaz zeminde ayağa kalkan bir figür çizer (yumruk yok, zincir kıran duruş).",
+   "hareket": "çizgi soldan sağa akar; yıl sayacı",
+   "yazi": "MÖ V. yy  →  XX. yy",
+   "olay": "'yirminci' kelimesinde çizgi sağ yarıya geçer, figür ayağa kalkar"
+  },
+  {
+   "id": "P023",
+   "at": "B06@yaratabildi",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Büyük soru kartı: NASIL? (filmin tek büyük sorusu; K08a'da geri döner).",
+   "hareket": "harfler mürekkeple dolar; sayfa hafif nefes alır",
+   "yazi": "NASIL?"
+  },
+  {
+   "id": "P024",
+   "at": "B07",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Zaman şeridi geri sarılır; üç taht siluetine varılır. Kâğıt kile döner (siyah figür katmanı başlar).",
+   "hareket": "geri sarma; tahtlar belirir",
+   "gecis": "clay 1,0 sn"
+  },
+  {
+   "id": "P025",
+   "at": "C01",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Olympos'un tepesinde boş, görkemli bir taht. BÖLÜM KARTI.",
+   "hareket": "yavaş yaklaşma; bulut şeritleri",
+   "yazi": "II · TANRILARIN TAHT KAVGASI"
+  },
+  {
+   "id": "P026",
+   "at": "C01@kayadaki",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Kayadaki Prometheus'un açık gözü uzaklara bakar; gözbebeğinde tahtın yansıması.",
+   "hareket": "göze yaklaşma; rüzgâr"
+  },
+  {
+   "id": "P027",
+   "at": "C02",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Alıntı: “hükümet darbesi”. Kenarda bir figür tahtı ötekinin altından çeker.",
+   "hareket": "taht devrilme döngüsü; satırlar",
+   "gecis": "ink 0,6 sn",
+   "yazi": "“hükümet darbesi” · A. Erhat, s. vi"
+  },
+  {
+   "id": "P028",
+   "at": "C02@bir#1",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Üç kuşak basamakta: dede, baba, oğul; her biri öncekini basamaktan iter.",
+   "hareket": "itme ritmi; friz kayar",
+   "gecis": "clay 0,6 sn"
+  },
+  {
+   "id": "P029",
+   "at": "C04",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Siyah figür amfora döner; ad etiketi: Hesiodos, Theogonia (İÖ ~700).",
+   "hareket": "amfora dönüşü; ışık parlaması gövdede kayar",
+   "yazi": "Hesiodos · Theogonia"
+  },
+  {
+   "id": "P030",
+   "at": "C04@kaos",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Khaos: siyah bir boşlukta kıvrılan meander girdabı.",
+   "hareket": "girdap döner"
+  },
+  {
+   "id": "P031",
+   "at": "C04@toprak",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Gaia: yatan toprak-kadın figürü, gövdesinden tepeler yükselir.",
+   "hareket": "tepeler büyür; amfora döner",
+   "yazi": "ΓΑΙΑ"
+  },
+  {
+   "id": "P032",
+   "at": "C04@gaya#1",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Uranos: yıldızlı, kemer gibi bükülen gök figürü Gaia'nın üstüne kapanır.",
+   "hareket": "yıldızlar parlar; kemer iner",
+   "yazi": "ΟΥΡΑΝΟΣ"
+  },
+  {
+   "id": "P033",
+   "at": "C04@ama",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Uranos yüzünü çevirir; küçük dev figürleri birer birer toprağa geri batar.",
+   "hareket": "batma ritmi; toprak dalgalanır"
+  },
+  {
+   "id": "P034",
+   "at": "C06",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Gaia kıvrık bir tırpan döver; çelik soğuk parlar (ateşten sönük).",
+   "hareket": "çekiç vuruşu; kıvılcım"
+  },
+  {
+   "id": "P035",
+   "at": "C06@hiçbiri",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Sıra hâlinde Titan çocuklar başlarını birer birer çevirir.",
+   "hareket": "baş çevirme dalgası"
+  },
+  {
+   "id": "P036",
+   "at": "C06@en",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "En küçükleri öne çıkar, tırpanı alır. ΚΡΟΝΟΣ.",
+   "hareket": "adım + tırpan kalkar",
+   "yazi": "ΚΡΟΝΟΣ"
+  },
+  {
+   "id": "P037",
+   "at": "C07",
+   "k": "S",
+   "set": "AMFORA/GECE",
+   "kare": "Gece; Kronos bir kayanın ardında pusuda, yıldızlar.",
+   "hareket": "yıldız parıltısı; nefes, gözler"
+  },
+  {
+   "id": "P038",
+   "at": "C07@tırpanı",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Tırpan karede siyah bir yay çizer; kesme. Gök (Uranos) yerden kopup yukarı çekilir (kan yok).",
+   "hareket": "savurma yayı + sarsıntı; gök ayrılır"
+  },
+  {
+   "id": "P039",
+   "at": "C07@erhat",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Beyaz zemin: DEVRİM yazılır; birinci taht (Uranos) devrilir.",
+   "hareket": "taht devrilir; mürekkep yayılır",
+   "gecis": "ink 0,6 sn",
+   "yazi": "DEVRİM"
+  },
+  {
+   "id": "P040",
+   "at": "C09",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Kronos tahtında; kundaklı bir bebeği ağzına kaldırır, kesme (gösterilmez).",
+   "hareket": "kaldırış; tahtın gölgesi",
+   "gecis": "clay 0,6 sn"
+  },
+  {
+   "id": "P041",
+   "at": "C09@oğullarından",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Gaia Kronos'un kulağına fısıldar (söz yazısı). Kundak sırası: beş kundak birer birer kaybolur.",
+   "hareket": "yutma ritmi; kehanet yazısı dalgalanır"
+  },
+  {
+   "id": "P042",
+   "at": "C10",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Rheia bebeği koynunda denizden Girit'e kaçar (gemi ya da koşu), Dikte mağarası.",
+   "hareket": "koşu; dalgalar"
+  },
+  {
+   "id": "P043",
+   "at": "C10@kundağa",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Kundağa sarılı taş Kronos'a uzatılır; yutar.",
+   "hareket": "uzatma + yutma"
+  },
+  {
+   "id": "P044",
+   "at": "C10@çocuk",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Mağarada bebek Zeus, keçi Amaltheia; Kuretler kalkan çarpar.",
+   "hareket": "kalkan vuruşları; keçinin başı"
+  },
+  {
+   "id": "P045",
+   "at": "C10@büyüyünce",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Büyümüş Zeus Kronos'a kardeşlerini kusturur: figürler ve taş yuvarlanarak çıkar; Kronos tahttan çekilir. İkinci taht devrilir.",
+   "hareket": "yuvarlanma; taht devrilir"
+  },
+  {
+   "id": "P046",
+   "at": "C12",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "İki taht simgesi yan yana, 1 ve 2. Altlarında tırpan (kaba kuvvet) ve kundak taşı (akıl). Teraziye konur, akıl ağır basar.",
+   "hareket": "terazi salınır",
+   "gecis": "ink 0,6 sn",
+   "yazi": "“kaba kuvvetin akılla yenilmesi” · A. Erhat, s. viii",
+   "olay": "'ikincisi'nde ikinci taht ve kundak taşı belirir, terazi akla eğilir"
+  },
+  {
+   "id": "P047",
+   "at": "C12@bu#1",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Yaşlı Uranos ile Gaia genç Zeus'a öğüt verir; Uranos 'ders almış' gibi sakalını sıvazlar.",
+   "hareket": "el hareketleri; amfora döner",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P048",
+   "at": "C14",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kenar frizinde Zeus'un arkasındaki kalabalıkta küçük bir figür; Erhat'ın kalemi onu daire içine alır: Prometheus.",
+   "hareket": "daire çizilir; figür başını kaldırır",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Prometheus işte bu devrimde rol oynamaktadır.” · s. viii"
+  },
+  {
+   "id": "P049",
+   "at": "C14@onu",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Kayadaki Prometheus'un kapalı dudakları; uzaklaşma.",
+   "hareket": "geri çekilme; rüzgâr",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P050",
+   "at": "C17",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Titanomakhia frizi döner: Titanlar Olymposlulara karşı; yerin altından yüz kollu devler kaya fırlatır.",
+   "hareket": "amfora dönüşü; kaya yağmuru, sarsıntı",
+   "gecis": "clay 0,6 sn",
+   "olay": "'yüz' kelimesinde yerden yüz kollu devler çıkar; kamera sarsılır"
+  },
+  {
+   "id": "P051",
+   "at": "C17@titanlar#1",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Tunç kapı bir çukurun üstüne kapanır: Tartaros.",
+   "hareket": "kapı kapanır + toz",
+   "yazi": "ΤΑΡΤΑΡΟΣ"
+  },
+  {
+   "id": "P052",
+   "at": "C17@erhata",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Boş savaş alanı çizgisi; ortada yalnız AKIL kelimesi ayakta kalır.",
+   "hareket": "toz dağılır; kelime belirir",
+   "gecis": "ink 0,5 sn",
+   "yazi": "AKIL"
+  },
+  {
+   "id": "P053",
+   "at": "C17@yıldırım",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Zeus elinde yıldırımla üçüncü tahta oturur (siyah figür); dünya diski dilimlere ayrılıp kardeşlere ve çocuklara uzatılır.",
+   "hareket": "yıldırım parlar; dilimler döner",
+   "gecis": "clay 0,5 sn",
+   "yazi": "ΖΕΥΣ",
+   "olay": "'paylaştırmaya'da dünya diski dilimlere ayrılır"
+  },
+  {
+   "id": "P054",
+   "at": "C18",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Dilimler yayılırken haritanın üstüne bir gölge düşer.",
+   "hareket": "gölge uzar; dilimler durur"
+  },
+  {
+   "id": "P055",
+   "at": "C18@prometeus",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Yolun ortasında dimdik tek figür: Prometheus. Bölüm sonu.",
+   "hareket": "yavaş yaklaşma; tek kıvılcım gözünde"
+  },
+  {
+   "id": "P056",
+   "at": "D01",
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Yukarıdan bakılan bir kylix ayağı üstünde döner; tondoda Zeus'un öfkeli gözü. BÖLÜM KARTI.",
+   "hareket": "kupa döner; göz kısılır",
+   "gecis": "clay 0,8 sn",
+   "yazi": "III · ZEUS'UN DİNMEZ ÖFKESİ"
+  },
+  {
+   "id": "P057",
+   "at": "D02",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Yaşlı İapetos; yanında dört oğul sırayla belirir, her ad söylendiğinde dipinto adı yazılır.",
+   "hareket": "figürler sırayla çıkar (Wd: atlas, menoitios, prometeus, epimeteus)",
+   "yazi": "ΑΤΛΑΣ · ΜΕΝΟΙΤΙΟΣ · ΠΡΟΜΗΘΕΥΣ · ΕΠΙΜΗΘΕΥΣ",
+   "olay": "her ad söylendiğinde (atlas, menoitios, prometeus, epimeteus) figür ve dipinto belirir"
+  },
+  {
+   "id": "P058",
+   "at": "D03",
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Lakonya kylixi tondosu: solda Atlas göğü taşır, sağda Prometheus sütuna bağlı, kartal.",
+   "hareket": "kupa yavaşça döner; kartal kanadı"
+  },
+  {
+   "id": "P059",
+   "at": "D03@atlas",
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Atlas'a yaklaşma: gök kubbesi omuzlarında, dizleri titrer.",
+   "hareket": "zorlanma titremesi; yıldızlar"
+  },
+  {
+   "id": "P060",
+   "at": "D03@menoitios",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Yıldırım iner; Menoitios açılan yarıktan aşağı düşer.",
+   "hareket": "çakma + düşüş"
+  },
+  {
+   "id": "P061",
+   "at": "D04",
+   "k": "S",
+   "set": "KYLIX",
+   "kare": "Kupa döner, Prometheus tarafı: sütuna bağlı, kartal göğsünde.",
+   "hareket": "dönüş; kanat"
+  },
+  {
+   "id": "P062",
+   "at": "D04@epimeteusa",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Kurdeleli bir küp Epimetheus'a doğru kayar; Epimetheus elini uzatır. Küpün kapağı titrer.",
+   "hareket": "kayma; kapak titremesi",
+   "yazi": "“armağan”"
+  },
+  {
+   "id": "P063",
+   "at": "D05",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Dört kardeş silueti, her birinin başının üstünde bir kıvılcım; altlarında 'TİTAN' yazısı.",
+   "hareket": "figürler sırayla belirir; kıvılcımlar titrer",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P063b",
+   "at": "D05@hayır",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "'TİTAN' yazısının üstü kırmızıyla çizilir; yerine 'ZEKÂ' yazılır, dört kıvılcım parlar.",
+   "hareket": "üstü çizme; kıvılcımlar"
+  },
+  {
+   "id": "P064",
+   "at": "D07",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Taht çizimi: Zeus'un kapalı yumruğunda tek bir kıvılcım (tekel).",
+   "hareket": "kıvılcım parmak arasından sızar",
+   "yazi": "“Akıl gücüyse Zeus'un tekelindedir” · s. ix"
+  },
+  {
+   "id": "P065",
+   "at": "D07@ve",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Başka bir yerde, Prometheus'un başında ikinci kıvılcım yanar; tahttaki siluetten sepya duman kaynar.",
+   "hareket": "duman kaynar; kıvılcım",
+   "yazi": "“dinmez bir öfke” · s. x"
+  },
+  {
+   "id": "P066",
+   "at": "D08",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Dev Zeus'un karşısında küçük ama dik Prometheus, başını kaldırmış.",
+   "hareket": "yavaş alttan çevrinme; pelerin dalgası",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P067",
+   "at": "D08@aldatır",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Üç hızlı pano: (1) el çabukluğu, paylar yer değiştirir; (2) Zeus omzunun üstünden bakar; (3) Zeus'un çelengi yan yatar, arkada tanrılar elleriyle ağızlarını kapatıp güler.",
+   "hareket": "kelimelere bağlı üç kesme (aldatır / tedirgin / gülünç)"
+  },
+  {
+   "id": "P068",
+   "at": "D09",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Ad ikiye ayrılır: PRO (önce) + METHEUS (düşünen).",
+   "hareket": "harfler ayrılır, alt yazı yazılır",
+   "gecis": "ink 0,5 sn",
+   "yazi": "PRO · METHEUS = önceden düşünen"
+  },
+  {
+   "id": "P069",
+   "at": "D09@kâhin",
+   "k": "S",
+   "set": "AMFORA/YAKIN",
+   "kare": "Prometheus'un gözü; gözbebeğinde gelecekten bir görüntü: düşen bir taht.",
+   "hareket": "göze dalma; görüntü belirir"
+  },
+  {
+   "id": "P070",
+   "at": "D09@gaya",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Geri çağrı: Gaia Kronos'a fısıldar ↔ Prometheus bilir. Üçüncü tahtın ayağı çatlar.",
+   "hareket": "çatlak ilerler"
+  },
+  {
+   "id": "P071",
+   "at": "D10",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Sayfada üç taht: ikisi devrik, üçüncüsü çatlak.",
+   "hareket": "çatlak ışıldar; mürekkep",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Üçüncü devrimin hazırlanması.” · s. x"
+  },
+  {
+   "id": "P072",
+   "at": "D11",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Yakın: Uranos'un tahtı devrilir.",
+   "hareket": "devrilme + toz",
+   "gecis": "clay 0,4 sn"
+  },
+  {
+   "id": "P073",
+   "at": "D11@kronos",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Kronos'un tahtı devrilir.",
+   "hareket": "devrilme + toz"
+  },
+  {
+   "id": "P074",
+   "at": "D11@sıra",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Üçüncü taht (Zeus) titrer; kamera çok yavaş yaklaşır; sessizlik.",
+   "hareket": "titreşim; yaklaşma"
+  },
+  {
+   "id": "P075",
+   "at": "E01",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Sunak: etrafta et yiyen insanlar (ziyafet frizi), sunakta yanan kemiklerin dumanı yukarı, tanrılara yükselir. BÖLÜM KARTI.",
+   "hareket": "duman; alevler",
+   "gecis": "clay 0,8 sn",
+   "yazi": "IV · MEKONE'DEKİ HİLE"
+  },
+  {
+   "id": "P076",
+   "at": "E03",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Hesiodos'un ad etiketi; pano açılır.",
+   "hareket": "pano kayar"
+  },
+  {
+   "id": "P077",
+   "at": "E03@mekone",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Mekone'de toplantı: solda oturan tanrılar, sağda ayakta insanlar karşı karşıya.",
+   "hareket": "kamera ortadan geçer; figürlerde nefes",
+   "yazi": "MEKONE"
+  },
+  {
+   "id": "P078",
+   "at": "E03@prometeus",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Ortada Prometheus koca bir öküzü keser; öküz silueti ikiye ayrılır.",
+   "hareket": "ayrılma; buhar"
+  },
+  {
+   "id": "P079",
+   "at": "E04",
+   "k": "S",
+   "set": "METOP",
+   "kare": "İki pay yan yana: biri çirkin işkembe torbası (içinde et, x-ışını taraması gösterir), öbürü parlak yağa sarılı (içinde kemik).",
+   "hareket": "tarama çizgisi; yağın parıltısı",
+   "olay": "'öbür' kelimesinde kamera ikinci paya kayar, tarama yağın altındaki kemiği gösterir"
+  },
+  {
+   "id": "P080",
+   "at": "E05",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Prometheus eliyle sunar (söz yazısı: Hangisini istersen seç); Zeus parlak paya uzanır.",
+   "hareket": "el uzanır; parıltı"
+  },
+  {
+   "id": "P081",
+   "at": "E05@altından",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Yağ kalkar: beyaz kemikler. Zeus'un profili donar.",
+   "hareket": "kaldırış; donma"
+  },
+  {
+   "id": "P082",
+   "at": "E05@o",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Zaman atlaması: yüzyıllar boyunca sunaklar; kemik dumanı tanrılara, et insanlara.",
+   "hareket": "friz akar; duman"
+  },
+  {
+   "id": "P083",
+   "at": "E07",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sayfada bir çizgi tanrıları insanlardan ayırır; küçük Prometheus çizgiyi aşıp insanların yanına geçer.",
+   "hareket": "adım; çizgi titrer",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P084",
+   "at": "E08",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kenarda Olympos tepesi ve tanrılar; mürekkep onları siler, tepeye insan figürleri çıkar.",
+   "hareket": "silinme + yükselme",
+   "yazi": "“Yeni bir devrimin hazırlayıcısıdır.” · s. x",
+   "olay": "'yani'de alıntı kartı belirir, tepe insanlara geçer"
+  },
+  {
+   "id": "P085",
+   "at": "E09",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Zeus'un gözü kısılır: hileyi görür ve yine de parlak payı alır (bile bile aldanır).",
+   "hareket": "göz kısılır; el ağırca kapanır",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P086",
+   "at": "E09@gururu",
+   "k": "S",
+   "set": "OVA",
+   "kare": "Zeus'un eli insan köyünün üstüne iner; ocaklar birer birer söner, karanlık çöker.",
+   "hareket": "sönme ritmi; duman"
+  },
+  {
+   "id": "P087",
+   "at": "E10",
+   "k": "S",
+   "set": "METOP/GECE",
+   "kare": "Gece; Prometheus göğe tırmanır, bir közü içi boş rezene sapına koyar.",
+   "hareket": "tırmanma; köz parlar"
+  },
+  {
+   "id": "P088",
+   "at": "E10@insanlara",
+   "k": "K",
+   "set": "KAYA/OLYMPOS",
+   "kare": "KAHRAMAN KARESİ (P001'in eşi): rezene sapıyla dağdan aşağı koşar.",
+   "hareket": "koşu + takip; alev izi",
+   "gecis": "ink 0,4 sn"
+  },
+  {
+   "id": "P089",
+   "at": "E10@hesiodosun",
+   "k": "S",
+   "set": "OLYMPOS",
+   "kare": "Olympos'ta sırtı dönük Zeus; aşağıdaki karanlık dünyada tek bir parlak nokta yanıp söner. Yumruk sıkılır.",
+   "hareket": "ışık titrer; pelerin dalgası, yumruk",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P090",
+   "at": "E12",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Hephaistos kilden bir kız yoğurur (kil vazonun kendi rengi).",
+   "hareket": "yoğurma; kil biçimlenir"
+  },
+  {
+   "id": "P091",
+   "at": "E12@tanrılar",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Tanrılar onu süsler: taç, giysi, gerdanlık süzülüp üstüne oturur.",
+   "hareket": "süzülen armağanlar"
+  },
+  {
+   "id": "P092",
+   "at": "E12@adı",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Dipinto adı yazılır: ΠΑΝΔΩΡΑ (bütün armağanlar).",
+   "hareket": "yazı yazılır; ışıltı",
+   "yazi": "ΠΑΝΔΩΡΑ"
+  },
+  {
+   "id": "P093",
+   "at": "E12@prometeus",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Geri dönüş: Prometheus kardeşini uyarır (söz yazısı: Zeus'tan armağan alma!).",
+   "hareket": "parmak sallama; yazı dalgası"
+  },
+  {
+   "id": "P094",
+   "at": "E12@ama",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Epimetheus kollarını açıp Pandora'yı karşılar; sonra başını arkaya çevirir: 'sonradan düşünen' arkasına bakar (Prometheus öne bakar).",
+   "hareket": "kucaklama; baş geriye döner"
+  },
+  {
+   "id": "P095",
+   "at": "E14",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Büyük küp (pithos); Pandora kapağı kaldırır.",
+   "hareket": "kapak kalkar; içeriden karanlık"
+  },
+  {
+   "id": "P096",
+   "at": "E14@hastalıklar",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Kanatlı küçük kara keres sürüsü küpten fırlar, dünya frizine yayılır.",
+   "hareket": "sürü parçacıkları; kamera geri çekilir"
+  },
+  {
+   "id": "P097",
+   "at": "E14@içeride",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Kapak kapanır; küpün dibinde küçük, sönük bir ışık: ELPİS (Umut).",
+   "hareket": "ışık atar; kapak sarsılır",
+   "yazi": "ΕΛΠΙΣ · Umut"
+  },
+  {
+   "id": "P098",
+   "at": "E11",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sayfada iki çentik (1, 2); ardından ağır bir yumruk/çekiç simgesi; mürekkep lekesi yayılır.",
+   "hareket": "çentikler; leke yayılır",
+   "gecis": "ink 0,6 sn",
+   "yazi": "kaba kuvvet"
+  },
+  {
+   "id": "P099",
+   "at": "E15",
+   "k": "S",
+   "set": "METOP",
+   "kare": "Asasıyla bir rapsod (Hesiodos) Zeus'u över (söz yazısı).",
+   "hareket": "asa vuruşu; yazı dalgası",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P100",
+   "at": "E15@ama",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sayfanın satırları aralanır; aralarında gizli bir görüntü: insanlar küçük bir Zeus'a güler.",
+   "hareket": "satırlar açılır; gülme",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P101",
+   "at": "E15@tahtının",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Tahtın ayakları siliniyor; taht boşlukta asılı kalır.",
+   "hareket": "silinme; taht sallanır"
+  },
+  {
+   "id": "P102",
+   "at": "E15@çünkü",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir kıvılcım tanrıların katından insanların başlarına iner.",
+   "hareket": "kıvılcım yolu",
+   "yazi": "“akıl gücü tanrılardan insanlara geçmiştir” · s. xi"
+  },
+  {
+   "id": "P103",
+   "at": "E16",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "Üçüncü taht devrilir; boşalan kaidede bir insan ayakta durur (oturmaz).",
+   "hareket": "devrilme; insan doğrulur",
+   "yazi": "“üçüncü ve son devrim” · s. xi"
+  },
+  {
+   "id": "P104",
+   "at": "E16@insan",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Bir insan silueti ateşin ışığında kendi ellerine bakar.",
+   "hareket": "alev; eller döner",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P105",
+   "at": "E16b",
+   "k": "K",
+   "set": "YAKIN",
+   "kare": "Avuçtaki alev (P015'in eşi) büyür; içinde zanaat yapan insanların frizi belirir.",
+   "hareket": "alev büyür; friz döner"
+  },
+  {
+   "id": "P106",
+   "at": "E16b@zincirin",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Bir zincir çizilir, öbür ucu kadrajdan çıkar; kil sır siyahına döner. Bir tragedya maskesi belirir.",
+   "hareket": "zincir çizgisi; maske",
+   "gecis": "ink 1,0 sn",
+   "olay": "'başka' kelimesinde kil sır siyahına döner, maske belirir"
+  },
+  {
+   "id": "P107",
+   "at": "F01",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Gündüz Atina tiyatrosu; skenede kaya dekoru ve Prometheus maskesi. BÖLÜM KARTI.",
+   "hareket": "süzülme; kalabalıkta kıpırtı",
+   "yazi": "V · DURUŞMA: KAFKA'NIN GÖZÜYLE"
+  },
+  {
+   "id": "P108",
+   "at": "F02",
+   "k": "S",
+   "set": "İKİ TABAK",
+   "kare": "İki tabak: solda siyah figür (Hesiodos), sağda kırmızı figür (Aiskhylos); taht kavgası frizleri aynı. 'Büsbütün değişir'de içlerindeki Prometheus figürleri değişir: hilekâr ↔ zincirli kahraman.",
+   "hareket": "tabaklar döner; figürler dönüşür",
+   "olay": "'büsbütün'de iki tabaktaki Prometheus figürleri dönüşür"
+  },
+  {
+   "id": "P109",
+   "at": "F03",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "İkinci soru sayfada yazılır.",
+   "hareket": "yazı; sayfa çevrilir",
+   "gecis": "ink 0,6 sn",
+   "yazi": "“Prometheus ne bakımdan insandır?” · s. xi"
+  },
+  {
+   "id": "P110",
+   "at": "F03@erhat",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kenar şeridi bir mahkeme çizer: uzun sıra, yüksek ve boş yargıç kürsüsü.",
+   "hareket": "çizgiler çizilir; kürsüye yaklaşma"
+  },
+  {
+   "id": "P111",
+   "at": "F03@oyunu",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kafka: devasa bir kapının önünde minicik bir figür bekler; kapı aralığından ışık.",
+   "hareket": "ışık titrer; figür bekler",
+   "yazi": "Kafka · Dava (1925)"
+  },
+  {
+   "id": "P112",
+   "at": "F05",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kaya sahnesi mahkeme yazılarıyla çerçevelenir: SANIK: PROMETHEUS.",
+   "hareket": "yazı şeridi iner; rüzgâr",
+   "gecis": "ink 0,8 sn",
+   "yazi": "SANIK: PROMETHEUS"
+  },
+  {
+   "id": "P113",
+   "at": "F05@suçu",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Taş bir yasa stelinin üstüne suç yazılır.",
+   "hareket": "kazıma yazı; toz",
+   "yazi": "SUÇ: ateşi çalmak · düzene karşı gelmek"
+  },
+  {
+   "id": "P114",
+   "at": "F05b",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kadrajın tepesinde karanlıkta yüksek, boş bir taht; 'Zeus' denince arkasında şimşek titrer. YARGIÇ: —",
+   "hareket": "şimşek titremesi; duman",
+   "yazi": "YARGIÇ: —"
+  },
+  {
+   "id": "P115",
+   "at": "F06",
+   "k": "K",
+   "set": "KAYA/GENİŞ",
+   "kare": "İskit: ıssız uçurum, rüzgâr, kuşlar.",
+   "hareket": "yavaş kayma; kuşlar, dalgalar",
+   "yazi": "İSKİT · dünyanın ucu"
+  },
+  {
+   "id": "P116",
+   "at": "F06@zeusun",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kratos ve Bia Prometheus'u sürükleyerek getirir.",
+   "hareket": "yürüyüş döngüleri; toz"
+  },
+  {
+   "id": "P117",
+   "at": "F06@kratos",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Ad etiketleri: KRATOS = GÜÇ, BİA = ZOR (Bia hep sessiz, miğferi yüzünü kapatır).",
+   "hareket": "etiketler; mızrak salınımı",
+   "yazi": "ΚΡΑΤΟΣ Güç · ΒΙΑ Zor"
+  },
+  {
+   "id": "P118",
+   "at": "F06@erhat",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Dipinto adlarının üstüne mühür gibi 'POLİS' basılır.",
+   "hareket": "mühür vuruşu",
+   "yazi": "POLİS"
+  },
+  {
+   "id": "P119",
+   "at": "F08",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Kratos parmağıyla gösterir; söz yazısı.",
+   "hareket": "işaret; yazı akar"
+  },
+  {
+   "id": "P120",
+   "at": "F08@insanseverlikten",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Prometheus'un kıpırtısız profili, gözler ileride.",
+   "hareket": "çok yavaş yaklaşma; nefes, rüzgâr"
+  },
+  {
+   "id": "P121",
+   "at": "F07",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hephaistos çekici elinde duraksar; önünde zincir.",
+   "hareket": "çekiç salınır; ocak közü"
+  },
+  {
+   "id": "P122",
+   "at": "F07@istemeyerek",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Çekiç tutan kolu titrer; başını çevirir.",
+   "hareket": "titreme; baş döner"
+  },
+  {
+   "id": "P123",
+   "at": "F07@ama",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Yukarıdaki boş taht karanlıkta belirir; Hephaistos çekici kaldırır.",
+   "hareket": "çekiç kalkar; şimşek"
+  },
+  {
+   "id": "P124",
+   "at": "F07@kendi#1",
+   "k": "K",
+   "set": "KAYA/ZİNCİR",
+   "kare": "Söz yazısı: Gücü yeni ele geçiren herkes serttir. Çekiç iner (efekte bağlı).",
+   "hareket": "vuruş + kıvılcım + sarsıntı"
+  },
+  {
+   "id": "P125",
+   "at": "F09",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hephaistos başı eğik inler (söz yazısı).",
+   "hareket": "omuz düşer; köz"
+  },
+  {
+   "id": "P126",
+   "at": "F09@güçün",
+   "k": "K",
+   "set": "KAYA/ALT",
+   "kare": "Kratos'un soğuk profili alttan; söz yazısı çizilir: Zeus'tan başka hiç kimse özgür değildir (altı çizilir, J02'de geri gelir).",
+   "hareket": "alttan çevrinme; yazının altı çizilir",
+   "yazi": "“Zeus'tan başka hiç kimse özgür değildir.”",
+   "olay": "'zeustan'da yazının altı çizilir; kamera alttan yavaşça yaklaşır"
+  },
+  {
+   "id": "P127",
+   "at": "F10",
+   "k": "K",
+   "set": "LEVHA",
+   "kare": "Yazı donar, kil bir levhaya kazınır; levha kenara konur.",
+   "hareket": "kazıma; levha döner"
+  },
+  {
+   "id": "P128",
+   "at": "F10@erhatın",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir terazinin iki kefesi: ÖZGÜRLÜK / KÖLELİK.",
+   "hareket": "terazi salınır",
+   "gecis": "ink 0,6 sn",
+   "yazi": "özgürlük · kölelik"
+  },
+  {
+   "id": "P129",
+   "at": "F10a",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kenar şeridi: Atina'da bir çömlekçi atölyesinde çalışan köleler (saygılı, vazo atölye sahnelerinden).",
+   "hareket": "çark döner; figürler çalışır"
+  },
+  {
+   "id": "P130",
+   "at": "F10a@prometeus",
+   "k": "K",
+   "set": "KAYA/ZİNCİR",
+   "kare": "Prometheus'un zincirli bilekleri: bir kölenin prangası gibi.",
+   "hareket": "zincir sallanır; nefes",
+   "gecis": "ink 0,5 sn",
+   "yazi": "desmotes · zincire vurulmuş"
+  },
+  {
+   "id": "P131",
+   "at": "F10a@ama",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Figürün tanrısal altın kenar ışığı söner, sade kile döner (bir tanrının köle durumuna düşürülmesi).",
+   "hareket": "ışık söner; çatlak"
+  },
+  {
+   "id": "P132",
+   "at": "F10b",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sayfa önceki sahneyi küçük frizlerle geri sarar: her panoda Prometheus'un ağzı kapalı.",
+   "hareket": "panolar kayar",
+   "gecis": "ink 0,5 sn",
+   "yazi": "Dikkat ettin mi?"
+  },
+  {
+   "id": "P133",
+   "at": "F10b@çekiç",
+   "k": "K",
+   "set": "KAYA/ZİNCİR",
+   "kare": "Çekiç iner (birinci vuruş).",
+   "hareket": "vuruş + sarsıntı",
+   "gecis": "ink 0,4 sn"
+  },
+  {
+   "id": "P134",
+   "at": "F10b@daha",
+   "k": "K",
+   "set": "KAYA/ZİNCİR",
+   "kare": "Çekiç bir daha iner.",
+   "hareket": "vuruş + sarsıntı"
+  },
+  {
+   "id": "P135",
+   "at": "F10b@zincire",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Profil: çene kilitli, sessiz. Kamera yavaşça yaklaşır.",
+   "hareket": "yaklaşma; toz"
+  },
+  {
+   "id": "P136",
+   "at": "F13",
+   "k": "K",
+   "set": "KAYA/GENİŞ",
+   "kare": "Kratos, Bia, Hephaistos kadrajdan çıkar; dev kayada yapayalnız minik figür.",
+   "hareket": "çıkış yürüyüşleri; geri çekilme, rüzgâr"
+  },
+  {
+   "id": "P137",
+   "at": "F13@ilk",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Başını göğe kaldırır.",
+   "hareket": "baş kalkar; yıldızlar"
+  },
+  {
+   "id": "P138",
+   "at": "F13@ey",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Ağzından göğe doğru vazo yazısı akar: EY KUTSAL GÖK.",
+   "hareket": "yazı akar; yıldız parıltısı",
+   "yazi": "EY KUTSAL GÖK"
+  },
+  {
+   "id": "P139",
+   "at": "F13@hızlı",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Yanakları şişkin rüzgâr başları üfler; bulutlar koşar.",
+   "hareket": "bulut akışı"
+  },
+  {
+   "id": "P140",
+   "at": "F13@ırmakların",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Kaynaklardan çizgi çizgi su akar.",
+   "hareket": "su çizgileri akar"
+  },
+  {
+   "id": "P141",
+   "at": "F13@deniz",
+   "k": "K",
+   "set": "KAYA/DENİZ",
+   "kare": "Dalgaların 'sayısız gülüşü': deniz kuşağında ışık pırıltıları koşar.",
+   "hareket": "pırıltılar; dalga"
+  },
+  {
+   "id": "P142",
+   "at": "F13@sen",
+   "k": "K",
+   "set": "KAYA/GENİŞ",
+   "kare": "Toprak: kayanın dibi, yeryüzü çizgisi.",
+   "hareket": "aşağı eğilme"
+  },
+  {
+   "id": "P143",
+   "at": "F13@bakın",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Bakın bana: profile hızlı yaklaşma.",
+   "hareket": "yaklaşma; alev ışığı titrer"
+  },
+  {
+   "id": "P144",
+   "at": "F14",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Kendi sözünü keser: rüzgâr birden durur, yakın plan.",
+   "hareket": "durgunluk içinde nefes; gözler kırpılır"
+  },
+  {
+   "id": "P145",
+   "at": "F14@olacak",
+   "k": "K",
+   "set": "KAYA/GÖZ",
+   "kare": "Gözünde gelecek titreşir: kartal, fırtına, okçu.",
+   "hareket": "görüntüler gözbebeğinde geçer"
+  },
+  {
+   "id": "P146",
+   "at": "F14@bana",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Başını eğer, kabullenir; zincirler gevşer.",
+   "hareket": "baş iner; zincir sarkar",
+   "olay": "'zorunluluğun'da zincirler gevşer, baş iner"
+  },
+  {
+   "id": "P147",
+   "at": "F14@yine",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Ağzı açılır, kapanır; söz yazısı yarım yazılıp silinir.",
+   "hareket": "yazı yazılıp silinir; nefes",
+   "olay": "'susabiliyorum'da yazı yarım kalıp silinir"
+  },
+  {
+   "id": "P148",
+   "at": "G01",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kayanın üstünde mahkeme şeridi: SAVUNMA. BÖLÜM KARTI.",
+   "hareket": "şerit iner; rüzgâr",
+   "gecis": "clay 0,8 sn",
+   "yazi": "VI · SAVUNMA: “BİLE BİLE YAPTIM”"
+  },
+  {
+   "id": "P149",
+   "at": "G02",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "İki sütun: BİLİNÇ ve ÖZGÜRLÜK; üstlerindeki lento bir insan figürünü taşır.",
+   "hareket": "sütunlar yükselir",
+   "gecis": "ink 0,6 sn",
+   "yazi": "bilinç · özgürlük"
+  },
+  {
+   "id": "P150",
+   "at": "G02@yani",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Sütunların arasındaki figür canlanır, insan olur.",
+   "hareket": "figür doğrulur"
+  },
+  {
+   "id": "P151",
+   "at": "G03",
+   "k": "K",
+   "set": "KAYA/DENİZ",
+   "kare": "Okeanos'un kızları dalga kuşağının üstünde yükselir (beyaz tenli kadın figürleri).",
+   "hareket": "dalgalar; yükselme",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P152",
+   "at": "G03@prometeus",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Prometheus onlara anlatır; periler dalgaların üstünde oturup dinler.",
+   "hareket": "kamera yay çizer; saçlar"
+  },
+  {
+   "id": "P153",
+   "at": "G03b",
+   "k": "K",
+   "set": "KAYA/MADALYON",
+   "kare": "Gökte bir tondo: Themis/Toprak genç Prometheus'a kehaneti fısıldar.",
+   "hareket": "madalyon döner; yazı",
+   "yazi": "ΘΕΜΙΣ · Adalet",
+   "olay": "'temis'te dipinto adı ΘΕΜΙΣ yazılır; madalyon yarım tur döner"
+  },
+  {
+   "id": "P154",
+   "at": "G03b@zafer",
+   "k": "K",
+   "set": "KAYA/MADALYON",
+   "kare": "Terazi: GÜÇ ↔ KURNAZLIK; kurnazlık ağır basar.",
+   "hareket": "terazi"
+  },
+  {
+   "id": "P155",
+   "at": "G05",
+   "k": "S",
+   "set": "MADALYON",
+   "kare": "Siyah figür geri dönüş: Titanlar sırtlarını döner; Prometheus Zeus'un yanına yürür.",
+   "hareket": "yürüyüş; dönüşler"
+  },
+  {
+   "id": "P156",
+   "at": "G05@kronosu",
+   "k": "S",
+   "set": "MADALYON",
+   "kare": "Prometheus Zeus'a fısıldar; Kronos Tartaros'a batar (C17'ye geri çağrı).",
+   "hareket": "batma; fısıltı yazısı"
+  },
+  {
+   "id": "P157",
+   "at": "G05@erhatın",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "C14'teki sayfa geri gelir: dairenin içindeki figür. ✓",
+   "hareket": "daire parlar",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P158",
+   "at": "G06",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Bileğinden yükselen zincir yukarıdaki boş tahta doğru gider (geri çağrı).",
+   "hareket": "yukarı kayma; zincir",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P159",
+   "at": "G06@zorbalığın",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Boş tahtın çevresinde karanlıkta açılan gözler (kuşku). Söz yazısı.",
+   "hareket": "gözler kırpışır",
+   "yazi": "“Zorbalığın bir hastalığı vardır: dostlarına güvenmez.”"
+  },
+  {
+   "id": "P160",
+   "at": "G07",
+   "k": "S",
+   "set": "MADALYON",
+   "kare": "Küçük insanlar; Zeus'un eli onları bir vazoyu silercesine siler; yerine yeni kil figürler.",
+   "hareket": "silme hareketi",
+   "olay": "'yeni'de silinen figürlerin yerine yeni kil figürler belirir"
+  },
+  {
+   "id": "P161",
+   "at": "G07@buna",
+   "k": "S",
+   "set": "MADALYON",
+   "kare": "Prometheus insanların önüne geçip kollarını açar: tek kişi.",
+   "hareket": "adım; kollar açılır"
+  },
+  {
+   "id": "P162",
+   "at": "G07b",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Profil; söz yazısı: Ölümlülere acıdım.",
+   "hareket": "yaklaşma; nefes",
+   "yazi": "“Ölümlülere acıdım.”"
+  },
+  {
+   "id": "P163",
+   "at": "G07b@ama",
+   "k": "K",
+   "set": "KAYA/GENİŞ",
+   "kare": "Geri çekilme: ıssız kaya; periler aşağıdan bakar.",
+   "hareket": "geri çekilme; dalga"
+  },
+  {
+   "id": "P164",
+   "at": "G08",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Her insanın arkasında küçük bir ölüm gölgesi; Prometheus'un eli geçer, gölgeler kaybolur.",
+   "hareket": "gölgeler söner"
+  },
+  {
+   "id": "P165",
+   "at": "G08@içlerine",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Göğüslerine küçük, solgun ışıklar yerleşir (kör umutlar; ateşten çok sönük).",
+   "hareket": "ışıklar yanar"
+  },
+  {
+   "id": "P166",
+   "at": "G08@sonra",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Rezene sapı ocağı tutuşturur: parlak ateş.",
+   "hareket": "tutuşma; yüzler aydınlanır"
+  },
+  {
+   "id": "P167",
+   "at": "G09",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Erhat'ın sorusu sayfada.",
+   "hareket": "yazı",
+   "gecis": "ink 0,6 sn",
+   "yazi": "“Ateşi tanrılardan çalıp insanlara vermek ne demektir?”"
+  },
+  {
+   "id": "P168",
+   "at": "G09@ona",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir efsane rulosu sarılıp rafa kaldırılır.",
+   "hareket": "sarılma"
+  },
+  {
+   "id": "P169",
+   "at": "G09@ayshilos",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Aiskhylos aynı ruloyu uzun bir frize açar: uygarlığın tarihi.",
+   "hareket": "rulo açılır; friz akar",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P170",
+   "at": "G10b",
+   "k": "K",
+   "set": "MAĞARA",
+   "kare": "Karanlık mağara: karıncalar gibi minik insanlar, açık ama görmeyen gözler.",
+   "hareket": "kıpırtı; damla"
+  },
+  {
+   "id": "P171",
+   "at": "G10b@yıldızları",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Yıldızlar ve sayılar: takımyıldız çizgileri bağlanır, yanında Yunan rakamları çakıllarla sayılır.",
+   "hareket": "çizgiler bağlanır; çakıllar dizilir",
+   "yazi": "Α Β Γ Δ"
+  },
+  {
+   "id": "P173",
+   "at": "G10b@harfleri",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Harfler: bir el balmumu tablete yazar.",
+   "hareket": "yazı"
+  },
+  {
+   "id": "P174",
+   "at": "G10b@hayvanları",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Hayvanlar ve gemi: boyunduruklu öküz saban çeker, arkada yelkenli dalgada.",
+   "hareket": "yürüyüş; yelken"
+  },
+  {
+   "id": "P176",
+   "at": "G10b@ilacı",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "İlaç ve madenler: havanda otlar, örsün üstünde kıvılcım.",
+   "hareket": "havan; çekiç + kıvılcım"
+  },
+  {
+   "id": "P178",
+   "at": "G10b@tek",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Geniş: bütün uygarlık frizi parlar, başında Prometheus'un ateşi.",
+   "hareket": "geri çekilme; friz akar"
+  },
+  {
+   "id": "P179",
+   "at": "G11",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Mahkeme şeridi; sanık başını kaldırır.",
+   "hareket": "baş kalkar",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P180",
+   "at": "G11@bunların",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Büyük söz yazısı: aynı kelime iki kez boyanır: İSTEYEREK, İSTEYEREK.",
+   "hareket": "yazı iki vuruşta",
+   "yazi": "“İsteyerek, isteyerek suç işledim.”"
+  },
+  {
+   "id": "P181",
+   "at": "G11@erhata",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Daktilo tutanağı (Courier): bugünkü bir sanığın ifadesi yazılır.",
+   "hareket": "daktilo harfleri; satır",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Ne yaptımsa bile bile yaptım.” · s. xi"
+  },
+  {
+   "id": "P182",
+   "at": "G13",
+   "k": "K",
+   "set": "KAYA/ALT",
+   "kare": "Alttan: göğüs açık, gururlu duruş; kayanın ağırlığı üstüne çöker.",
+   "hareket": "alttan yaklaşma; ışık aşağıdan",
+   "gecis": "ink 0,5 sn",
+   "yazi": "gurur · katlanma"
+  },
+  {
+   "id": "P183",
+   "at": "G12b",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Orta plan: Prometheus perilere döner, itiraf eder; periler başlarını eğer.",
+   "hareket": "yavaş yaklaşma; dalga"
+  },
+  {
+   "id": "P183b",
+   "at": "G12b@böyle",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "'Eriyip gitmek': yakın plan; figürün kil kenarları rüzgârda toz olup kopar.",
+   "hareket": "kenardan parçacık kopar; nefes"
+  },
+  {
+   "id": "P184",
+   "at": "G13b",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Bölünmüş: gözü (geleceği görüyor) ↔ bedeni (katlanıyor).",
+   "hareket": "bölüm çizgisi kayar"
+  },
+  {
+   "id": "P185",
+   "at": "G13b@yine",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Doğrulur; dağılma durur; ileri bakar.",
+   "hareket": "doğrulma; toz durulur"
+  },
+  {
+   "id": "P186",
+   "at": "H01",
+   "k": "K",
+   "set": "HARİTA",
+   "kare": "Bir inek silueti bir boğazı yüzerek geçer (merak). BÖLÜM KARTI.",
+   "hareket": "yüzme; dalga",
+   "gecis": "clay 0,8 sn",
+   "yazi": "VII · TANIKLAR VE “İNEK GEÇİDİ”",
+   "olay": "'istanbul'da inek silueti boğazı geçer"
+  },
+  {
+   "id": "P187",
+   "at": "H02",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Zeus'un evreni: boş tahtın çevresinde üç küme: kurbanlar, uşaklar, dalkavuk.",
+   "hareket": "kümeler çizilir",
+   "gecis": "ink 0,6 sn",
+   "yazi": "kurbanlar · uşaklar · dalkavuk"
+  },
+  {
+   "id": "P188",
+   "at": "H02@hepsi",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bütün figürler domino gibi tahta doğru eğilir.",
+   "hareket": "eğilme dalgası"
+  },
+  {
+   "id": "P189",
+   "at": "H02@tek",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Tek dik kalan: Prometheus (kırmızı vurgu).",
+   "hareket": "vurgu yanar",
+   "yazi": "“Tek başkaldıran Prometheus'tur.” · s. xiii"
+  },
+  {
+   "id": "P190",
+   "at": "H02@uşakları#1",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kratos/Bia simgeleri işaretlenir; kanatlı bir yaratık üstünde yaşlı bir figür yaklaşır.",
+   "hareket": "işaret; yaklaşma"
+  },
+  {
+   "id": "P191",
+   "at": "H04",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Okeanos dört ayaklı kanatlı bir kuşa binmiş gelir.",
+   "hareket": "kanat çırpma; süzülme",
+   "gecis": "ink 0,6 sn",
+   "yazi": "ΩΚΕΑΝΟΣ"
+  },
+  {
+   "id": "P192",
+   "at": "H04@kendini",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Okeanos parmak sallar; söz yazısı: Kendini bil.",
+   "hareket": "parmak; yazı",
+   "yazi": "“Kendini bil.”"
+  },
+  {
+   "id": "P193",
+   "at": "H04@prometeus",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Karşı plan: Prometheus'un alaycı cevabı.",
+   "hareket": "baş eğilir; yazı"
+  },
+  {
+   "id": "P194",
+   "at": "H04@kendi#1",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Okeanos rahatlamış, uçup gider.",
+   "hareket": "uçuş"
+  },
+  {
+   "id": "P195",
+   "at": "H05",
+   "k": "K",
+   "set": "KAYA/DENİZ",
+   "kare": "Periler konuşur; Yunanca söz kenarda: agan eleutherostomeis.",
+   "hareket": "dalga; yazı",
+   "yazi": "ἄγαν ἐλευθεροστομεῖς · “dilin fazla özgür” · s. xiii"
+  },
+  {
+   "id": "P196",
+   "at": "H05@başkaları",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Figürün çevresinde 'GURUR?' 'KİBİR?' etiketleri uçuşur, üstleri çizilir.",
+   "hareket": "etiketler; üstü çizme",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“hiçbir umuda yer vermeden” · s. xii"
+  },
+  {
+   "id": "P197",
+   "at": "H05@oysa",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Başında BİLİNÇ parlar; ağzından çıkan söz zinciri çözülür.",
+   "hareket": "parlama; halka açılır"
+  },
+  {
+   "id": "P198",
+   "at": "H05b",
+   "k": "K",
+   "set": "OVA",
+   "kare": "Geri çağrı (G08): göğüslerinde küçük solgun umut ışıklarıyla insanlar.",
+   "hareket": "ışıklar titrer",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P199",
+   "at": "H05b@kendisi",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Göğsünde ışık olmayan tek figür: Prometheus; gözleri açık, geleceği görüyor.",
+   "hareket": "yaklaşma; göz"
+  },
+  {
+   "id": "P200",
+   "at": "H06",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "İo koşarak gelir: boynuzlu genç kız; atsineği vızıldar.",
+   "hareket": "koşu; atsineği yörüngesi",
+   "yazi": "ΙΩ"
+  },
+  {
+   "id": "P201",
+   "at": "H06@zeusun",
+   "k": "K",
+   "set": "MADALYON",
+   "kare": "Madalyon: gözlü bir bulut (Zeus'un arzusu) ve Hera'nın tavus gözleri.",
+   "hareket": "tavus gözleri açılır"
+  },
+  {
+   "id": "P202",
+   "at": "H06@atsineği",
+   "k": "K",
+   "set": "DÜNYA DİSKİ",
+   "kare": "Atsineği İo'yu dünya diskinin çevresinde kovalar.",
+   "hareket": "dönen kovalamaca"
+  },
+  {
+   "id": "P203",
+   "at": "H07",
+   "k": "K",
+   "set": "HARİTA",
+   "kare": "Vazo haritası: İo'nun yolu noktalarla çizilir.",
+   "hareket": "yol çizilir; kayma"
+  },
+  {
+   "id": "P204",
+   "at": "H07@bosporos",
+   "k": "K",
+   "set": "HARİTA",
+   "kare": "İnek boğazı yüzerek geçer; ad bölünür: BOUS (inek) + POROS (geçit).",
+   "hareket": "yüzme; harfler",
+   "yazi": "BOS · POROS = inek geçidi"
+  },
+  {
+   "id": "P205",
+   "at": "H07@ayshilosun",
+   "k": "K",
+   "set": "HARİTA",
+   "kare": "Kırım'a yaklaşma: Kerç Boğazı.",
+   "hareket": "harita kayar",
+   "yazi": "Kerç Boğazı"
+  },
+  {
+   "id": "P206",
+   "at": "H07@ama",
+   "k": "K",
+   "set": "HARİTA",
+   "kare": "Harita İstanbul'a kayar: İstanbul Boğazı; orada da küçük bir inek geçer.",
+   "hareket": "kayma; yüzme",
+   "yazi": "İstanbul Boğazı"
+  },
+  {
+   "id": "P207",
+   "at": "H09",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "İo yere çöker, ölmeyi diler.",
+   "hareket": "çöküş; atsineği"
+  },
+  {
+   "id": "P208",
+   "at": "H09@prometeusun",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Söz yazısı: Ben ölemem bile. Kartalın gölgesi geçer; yukarıda boş taht çatlar.",
+   "hareket": "gölge; çatlak",
+   "yazi": "“Ben ölemem bile.”"
+  },
+  {
+   "id": "P209",
+   "at": "H10",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "İo'dan çıkan soy: meander şeridinde koşan 13 küçük figür (sayaç).",
+   "hareket": "koşu; sayaç 1→13"
+  },
+  {
+   "id": "P210",
+   "at": "H10@okçu",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "On üçüncü figür: aslan postlu okçu yayını gerer; kare donar.",
+   "hareket": "yay gerilir; post dalgalanır"
+  },
+  {
+   "id": "P211",
+   "at": "I01",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Yukarıda hafifçe titreyen boş taht; aşağıda küçük zincirli figür. BÖLÜM KARTI.",
+   "hareket": "titreşim; bulut",
+   "gecis": "clay 0,8 sn",
+   "yazi": "VIII · TAHTI SALLAYAN SIR"
+  },
+  {
+   "id": "P212",
+   "at": "I02",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Prometheus'un dudakları; önlerinde parlayan bir mühür.",
+   "hareket": "mühür parlar"
+  },
+  {
+   "id": "P213",
+   "at": "I02@zeus",
+   "k": "K",
+   "set": "MADALYON",
+   "kare": "Düğün: duvak kaldırma (anakalypsis) motifi, yüzler görünmez.",
+   "hareket": "duvak kalkar"
+  },
+  {
+   "id": "P214",
+   "at": "I02@ve",
+   "k": "K",
+   "set": "MADALYON",
+   "kare": "Bir çocuk silueti büyüyüp babasının gölgesini geçer.",
+   "hareket": "gölge büyür"
+  },
+  {
+   "id": "P215",
+   "at": "I03",
+   "k": "S",
+   "set": "TAHT",
+   "kare": "Üç taht: Uranos'un ve Kronos'unki devrik; Zeus'un gölgesi bir beşiğin üstüne düşer.",
+   "hareket": "gölge; beşik sallanır",
+   "gecis": "clay 0,6 sn"
+  },
+  {
+   "id": "P216",
+   "at": "I03@erhat",
+   "k": "B",
+   "set": "TAHT",
+   "kare": "D10 sayfası geri gelir: üçüncü tahtta çatlak.",
+   "hareket": "çatlak ilerler",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Üçüncü devrimin hazırlanması.”"
+  },
+  {
+   "id": "P217",
+   "at": "I03@ayshilosun",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Karanlıkta boş taht, çevresinde gözler; uzun gölgeler, sinirli şimşek titremeleri.",
+   "hareket": "gözler; şimşek",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P218",
+   "at": "I04",
+   "k": "K",
+   "set": "KAYA/GÖZ",
+   "kare": "Prometheus'un gözü: bilir. Bir ad bir mührün ardında gizli.",
+   "hareket": "göz; mühür"
+  },
+  {
+   "id": "P219",
+   "at": "I05",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Hermes uçarak iner: petasos, kanatlı çizmeler, kerykeion.",
+   "hareket": "iniş; kanatlı çizmeler",
+   "yazi": "ΕΡΜΗΣ"
+  },
+  {
+   "id": "P220",
+   "at": "I05@erhatın",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hermes'in yanına mühür gibi 'POLİS MÜDÜRÜ' basılır.",
+   "hareket": "mühür vuruşu",
+   "yazi": "“sanığı gözdağıyla sorguya çeken bir polis müdürü”"
+  },
+  {
+   "id": "P221",
+   "at": "I05@emir",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hermes'in parmağı: SIRRI SÖYLE.",
+   "hareket": "işaret; yazı",
+   "yazi": "SIRRI SÖYLE."
+  },
+  {
+   "id": "P222",
+   "at": "I06",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Prometheus alay eder: plan / karşı plan, söz yazısı akar.",
+   "hareket": "yazı akar; baş hareketi"
+  },
+  {
+   "id": "P223",
+   "at": "I06@ben",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Gökte Uranos'un ve Kronos'un tahtlarının hayaletleri düşer.",
+   "hareket": "düşüş"
+  },
+  {
+   "id": "P224",
+   "at": "I06@üçüncüsünün",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Üçüncü tahtın düşüşü bir görüntü olarak (gerçek değil, soluk).",
+   "hareket": "soluk düşüş"
+  },
+  {
+   "id": "P225",
+   "at": "I07",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hermes suçlar; elini kaldırır.",
+   "hareket": "el; kanat"
+  },
+  {
+   "id": "P226",
+   "at": "I07@bu",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Prometheus'un zincirli elleri ↔ Hermes'in bileğinden tahta giden ince altın tasma ipi (uşaklık).",
+   "hareket": "ip gerilir",
+   "yazi": "“Bu felaketimi, senin uşaklığına değişmem.”"
+  },
+  {
+   "id": "P227",
+   "at": "I08",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Hermes çevresinde döner, sıkıştırır.",
+   "hareket": "yörünge"
+  },
+  {
+   "id": "P228",
+   "at": "I08@eyvah",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "EYVAH! Acı yazısı, kartal gölgesi.",
+   "hareket": "sarsıntı; gölge",
+   "yazi": "“Eyvah!”"
+  },
+  {
+   "id": "P229",
+   "at": "I08@hermes",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "Hermes kendinden memnun yakalar.",
+   "hareket": "eğilme; kanatlı çizmeler",
+   "yazi": "“Zeus bu kelimeyi bilmez.”"
+  },
+  {
+   "id": "P230",
+   "at": "I08@prometeusun#1",
+   "k": "K",
+   "set": "KAYA/GENİŞ",
+   "kare": "Sakin cevap; arkada güneş diski gece-gündüz hızla döner (zaman).",
+   "hareket": "gün döngüsü",
+   "yazi": "“Yaşlanan zaman, her şeyi öğretir.”"
+  },
+  {
+   "id": "P231",
+   "at": "I07b",
+   "k": "K",
+   "set": "KAYA/ALT",
+   "kare": "Alttan kahraman karesi; zincirler ışıkta. Şart yazısı.",
+   "hareket": "alttan çevrinme; ışık"
+  },
+  {
+   "id": "P232",
+   "at": "I07b@ne",
+   "k": "K",
+   "set": "KAYA/ORTA",
+   "kare": "İki simge: kartal (işkence) ve öküz payı (hile), ikisinin de üstü çizilir.",
+   "hareket": "üstü çizilir"
+  },
+  {
+   "id": "P233",
+   "at": "J01",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "DONMA: görüntü durur, renkler solar; yalnız alev titremeye devam eder. BÖLÜM KARTI.",
+   "hareket": "kamera kayar; alev",
+   "gecis": "donma 0,5 sn",
+   "yazi": "IX · ZİNCİRİN ÖBÜR UCU"
+  },
+  {
+   "id": "P234",
+   "at": "J02",
+   "k": "K",
+   "set": "LEVHA",
+   "kare": "F10'daki kil levha geri gelir: “Zeus'tan başka hiç kimse özgür değildir.”",
+   "hareket": "levha döner; altı çizilir"
+  },
+  {
+   "id": "P235",
+   "at": "J02@prometeus",
+   "k": "K",
+   "set": "KAYA/ZİNCİR",
+   "kare": "Zincirdeki Prometheus.",
+   "hareket": "zincir; nefes"
+  },
+  {
+   "id": "P236",
+   "at": "J02@erhat",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Alıntı sayfada.",
+   "hareket": "yazı",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Ama bakalım gerçekten de öyle mi?” · s. xiii"
+  },
+  {
+   "id": "P237",
+   "at": "J04",
+   "k": "K",
+   "set": "KAYA→OLYMPOS",
+   "kare": "AÇILIM: kamera bilekteki zinciri bulutların içinden yukarı izler (A02'nin devamı), Olympos'a kadar: zincirin öbür ucu tahttaki Zeus'un bileğinde. Zeus kırmızı figür katmanında ilk kez görünür.",
+   "hareket": "uzun yukarı kayma; zincir gerilir",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P238",
+   "at": "J04@prometeus",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Aşağı kesme: Prometheus; zincir boyunca altın ışık akar, duruşu özgür.",
+   "hareket": "ışık akışı; doğrulma",
+   "yazi": "“Gerçekte Zeus köle, Prometheus özgürdür.” · s. xiv"
+  },
+  {
+   "id": "P239",
+   "at": "J05",
+   "k": "K",
+   "set": "OLYMPOS",
+   "kare": "Tahttaki Zeus uşakları ve dalkavuklarıyla çevrili; taht büyür, Zeus çocuk boyuna küçülür.",
+   "hareket": "ölçek değişimi; eğilen figürler"
+  },
+  {
+   "id": "P240",
+   "at": "J05@onu",
+   "k": "K",
+   "set": "KAYA→OLYMPOS",
+   "kare": "İkisini bağlayan zincir Prometheus'un ucundan Zeus'a doğru ışır.",
+   "hareket": "ışık zincir boyunca"
+  },
+  {
+   "id": "P241",
+   "at": "J06",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Alıntı kartı.",
+   "hareket": "yazı",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Zeus tutukladığı düşmanının elinde tutukludur aslında.”"
+  },
+  {
+   "id": "P242",
+   "at": "J06@yani",
+   "k": "K",
+   "set": "KAYA↔OLYMPOS",
+   "kare": "Kare 180° döner: kaya üstte, taht altta (tahterevalli). SANIK ve YARGIÇ etiketleri yer değiştirir.",
+   "hareket": "dönüş; etiketler kayar",
+   "yazi": "SANIK: özgür · YARGIÇ: tutsak"
+  },
+  {
+   "id": "P243",
+   "at": "J10",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "F10a'daki atölye şeridi; kölelerden biri başını kaldırır; terazi köleden yana eğilir.",
+   "hareket": "baş kalkar; terazi",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“hakkın köleden yana olduğu” · s. xiii"
+  },
+  {
+   "id": "P244",
+   "at": "J10@erhata",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Tek kandil ışığında Aiskhylos yazar: yapayalnız.",
+   "hareket": "kandil; kalem",
+   "gecis": "ink 0,5 sn",
+   "olay": "kamera kandile yaklaşır; alevin titremesi duvarda gölge oynatır"
+  },
+  {
+   "id": "P245",
+   "at": "I08a",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kayanın üstünde fırtına bulutları toplanır. BÖLÜM KARTI.",
+   "hareket": "bulutlar döner",
+   "gecis": "clay 0,8 sn",
+   "yazi": "X · KARTAL, FIRTINA VE SON SÖZ"
+  },
+  {
+   "id": "P246",
+   "at": "I08b",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Donma çözülür, renkler geri gelir. Hermes'in tehdidi: yıldırımın kayayı yarması bir görüntü olarak.",
+   "hareket": "renk dönüşü; çatlak görüntüsü"
+  },
+  {
+   "id": "P247",
+   "at": "I08b@uzun",
+   "k": "K",
+   "set": "KAYA/GECE",
+   "kare": "Yeraltında uzun zaman (karanlık, dönen yıldızlar), sonra ışığa dönüş.",
+   "hareket": "yıldız dönmesi; aydınlanma"
+  },
+  {
+   "id": "P248",
+   "at": "I08b@zeusun",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Köpek biçimli bir kartal gölgesi gökyüzüne yayılır.",
+   "hareket": "gölge büyür"
+  },
+  {
+   "id": "P249",
+   "at": "I08b@çağrılmamış",
+   "k": "K",
+   "set": "SOFRA",
+   "kare": "Bir ziyafet masasında (symposion motifi) davetsiz konuk: kartal.",
+   "hareket": "kartal başını çevirir; kandil"
+  },
+  {
+   "id": "P250",
+   "at": "I08c",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Açılışın eşi (P007): kartal güneş diskinden iner; aynı kompozisyon.",
+   "hareket": "süzülme"
+  },
+  {
+   "id": "P251",
+   "at": "I08c@prometeus",
+   "k": "K",
+   "set": "KAYA/ALT",
+   "kare": "Alttan: meydan okuyan Prometheus; söz yazısı.",
+   "hareket": "alttan çevrinme",
+   "yazi": "“Ne yaparsa yapsın… beni öldüremez.”"
+  },
+  {
+   "id": "P252",
+   "at": "I09",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Hermes perileri kovar.",
+   "hareket": "el sallar; dalga"
+  },
+  {
+   "id": "P253",
+   "at": "I09@ama",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Periler kalır; kayada Prometheus'un çevresinde sıkı sıra olurlar. Söz yazısı.",
+   "hareket": "yaklaşma; saçlar",
+   "yazi": "“Hainlerden nefret etmeyi öğrendik.”"
+  },
+  {
+   "id": "P254",
+   "at": "I10",
+   "k": "K",
+   "set": "KAYA/GÖK",
+   "kare": "Yukarıda bulutlarda dev bir yıldırım kalkar (Zeus görünmez).",
+   "hareket": "yıldırım kalkar; bulut",
+   "olay": "'prometeus'ta kamera kayaya iner, ilk sarsıntı"
+  },
+  {
+   "id": "P255",
+   "at": "I10@artık",
+   "k": "K",
+   "set": "KAYA/FIRTINA",
+   "kare": "Yer sarsılır.",
+   "hareket": "sarsıntı; taş düşer"
+  },
+  {
+   "id": "P256",
+   "at": "I10@gök",
+   "k": "K",
+   "set": "KAYA/FIRTINA",
+   "kare": "Gök gürler, şimşekler çakar.",
+   "hareket": "çakmalar"
+  },
+  {
+   "id": "P257",
+   "at": "I10@rüzgârlar",
+   "k": "K",
+   "set": "KAYA/FIRTINA",
+   "kare": "Rüzgâr başları çarpışır; bulutlar girdap olur.",
+   "hareket": "girdap"
+  },
+  {
+   "id": "P258",
+   "at": "I10@gök#1",
+   "k": "K",
+   "set": "KAYA/FIRTINA",
+   "kare": "Deniz kuşağı yükselir, gök kuşağı iner: kadrajın kuşakları birbirine karışır.",
+   "hareket": "kuşaklar çöker"
+  },
+  {
+   "id": "P259",
+   "at": "I11",
+   "k": "K",
+   "set": "KAYA/YAKIN",
+   "kare": "Kaosun ortasında durgun yakın plan: yüzü göğe dönük (F13 kompozisyonunun eşi).",
+   "hareket": "çok yavaş yaklaşma; arkada fırtına"
+  },
+  {
+   "id": "P260",
+   "at": "I11@görüyor",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Son söz yazısı; kaya ayağının altında yarılır.",
+   "hareket": "yarılma; yazı",
+   "yazi": "“Görüyor musun, haksız yere neler çekiyorum.”"
+  },
+  {
+   "id": "P261",
+   "at": "I12",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kenar frizinde iki pano: susan Prometheus (F10b) → konuşan Prometheus.",
+   "hareket": "panolar",
+   "gecis": "ink 0,6 sn",
+   "olay": "'konuşmakta'da ikinci pano canlanır"
+  },
+  {
+   "id": "P262",
+   "at": "I12@son",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Kaya onu ve perileri yutar; son söz yazısı havada asılı kalır, parlar; kaya kapanır, sözler kalır.",
+   "hareket": "kapanma; yazı parlar",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P263",
+   "at": "I12@erhatın#1",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Havadaki yazı sayfadaki alıntıya dönüşür; tek ışık ateş.",
+   "hareket": "yazı dönüşür; alev",
+   "gecis": "ink 0,8 sn",
+   "yazi": "“Kıyamet de kopsa son söz özgür düşüncenindir.” · s. xv",
+   "olay": "'kıyamet'te alıntı belirir; 'özgür' kelimesinde harfler ateş rengiyle parlar"
+  },
+  {
+   "id": "P264",
+   "at": "L01",
+   "k": "K",
+   "set": "FRİZ",
+   "kare": "Okçu (H10'un eşi) yayını gerer. BÖLÜM KARTI.",
+   "hareket": "yay",
+   "gecis": "clay 0,8 sn",
+   "yazi": "XI · HERAKLES'TEN OPPENHEIMER'A"
+  },
+  {
+   "id": "P265",
+   "at": "L02",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Siyah figür: Herakles kartalı vurur; kartal düşer, zincir çözülür.",
+   "hareket": "ok uçuşu; düşüş",
+   "gecis": "clay 0,6 sn",
+   "yazi": "ΗΡΑΚΛΗΣ"
+  },
+  {
+   "id": "P266",
+   "at": "L02@tabii",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Buluttan Zeus izin verir gibi baş sallar.",
+   "hareket": "baş sallama"
+  },
+  {
+   "id": "P267",
+   "at": "L02@ayshilosun",
+   "k": "S",
+   "set": "TİYATRO",
+   "kare": "'Kurtulmuş Prometheus' papirüsü toza döner (B02'nin eşi).",
+   "hareket": "toz"
+  },
+  {
+   "id": "P268",
+   "at": "L03",
+   "k": "B",
+   "set": "GALERİ",
+   "kare": "Aynı zincirli duruş yüzyıllar boyunca: vazo, kabartma, gravür, modern çizgi.",
+   "hareket": "galeri kayması",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P269",
+   "at": "L04",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Goethe'nin şiiri el yazısıyla (Almanca dizeler).",
+   "hareket": "yazı akar",
+   "yazi": "Goethe · Prometheus (1774)"
+  },
+  {
+   "id": "P270",
+   "at": "L04@götenin",
+   "k": "K",
+   "set": "ATÖLYE",
+   "kare": "Titan kilden küçük bir insan figürü biçimlendirir.",
+   "hareket": "yoğurma",
+   "gecis": "ink 0,5 sn"
+  },
+  {
+   "id": "P271",
+   "at": "L04@erhata",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Küçük figür aracı alır, kendini biçimlendirir.",
+   "hareket": "figür kendi kendini yoğurur",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Asıl yaratıcı insanın kendisidir.” · s. xi"
+  },
+  {
+   "id": "P272",
+   "at": "L05",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Dönem dizgisiyle başlık sayfası: Frankenstein; or, The Modern Prometheus (1818). Üstünde şimşek; kil figürün eli kıpırdar.",
+   "hareket": "şimşek; el",
+   "yazi": "Mary Shelley · Frankenstein (1818)"
+  },
+  {
+   "id": "P273",
+   "at": "L05@atom",
+   "k": "B",
+   "set": "MEŞALE",
+   "kare": "Kitap sırtı: American Prometheus. Koşucunun meşalesi ufukta göz alıcı bir aydınlığa dönüşür (soyut, film görüntüsü yok).",
+   "hareket": "meşale koşusu; beyaz parlama",
+   "yazi": "American Prometheus · Nolan, Oppenheimer (2023)",
+   "olay": "'nolanın'da meşale ufukta beyaz parlamaya dönüşür"
+  },
+  {
+   "id": "P274",
+   "at": "L06",
+   "k": "S",
+   "set": "MEŞALE",
+   "kare": "Lampadedromia: meşale çağlar boyunca elden ele; sonunda yasak bir aleve uzanan bir el.",
+   "hareket": "bayrak koşusu; alev",
+   "olay": "'el'de el alevin önünde durur; 'titanın'da alev büyür"
+  },
+  {
+   "id": "P275",
+   "at": "K08a",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "NASIL? kartı geri gelir (B06'nın eşi). BÖLÜM KARTI.",
+   "hareket": "harfler",
+   "gecis": "ink 0,8 sn",
+   "yazi": "XII · BAŞKALDIRAN YARATIK"
+  },
+  {
+   "id": "P276",
+   "at": "K08a@nasıl",
+   "k": "B",
+   "set": "BÖLÜNMÜŞ",
+   "kare": "B06'daki bölünmüş kare: Aiskhylos ↔ XX. yüzyılın ayağa kalkan figürü.",
+   "hareket": "çizgi akar"
+  },
+  {
+   "id": "P277",
+   "at": "K08a@erhatın#1",
+   "k": "S",
+   "set": "AMFORA",
+   "kare": "Taht kavgası frizinin ortasında duran Prometheus: siyasi bir kişi.",
+   "hareket": "friz döner",
+   "gecis": "clay 0,5 sn"
+  },
+  {
+   "id": "P278",
+   "at": "K08a@ama#1",
+   "k": "K",
+   "set": "TİYATRO",
+   "kare": "Aiskhylos yazar; tiyatroda Atinalı yurttaşlar izler.",
+   "hareket": "kalabalık; kandil",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“politik görüşü en köklü” · s. vi",
+   "olay": "'politik' kelimesinde tiyatro kalabalığına geçilir"
+  },
+  {
+   "id": "P279",
+   "at": "K08c",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Alıntı kartı sayfada yazılır; kenarda kaba güç (çomak) ile akıl (kıvılcım) terazide, akıl ağır basar.",
+   "hareket": "yazı; terazi",
+   "gecis": "ink 0,5 sn",
+   "yazi": "“Akıl gücü kaba güçten üstündür; düşünceye gem vurulamaz.”"
+  },
+  {
+   "id": "P279b",
+   "at": "K08c@düşünceye",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir at gemi kırılır; kanatlı bir düşünce (kuş) sayfadan kaçar.",
+   "hareket": "kırılma; kanat"
+  },
+  {
+   "id": "P280",
+   "at": "K08c@belki",
+   "k": "K",
+   "set": "KAYA",
+   "kare": "Sanık sırasındaki zincirli figürün silueti aynı duruşta modern bir insan siluetine dönüşür.",
+   "hareket": "siluet dönüşümü"
+  },
+  {
+   "id": "P281",
+   "at": "K01",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Önsözün ilk sayfası (v) açılır; sayfa numarası ve ilk satırlar.",
+   "hareket": "sayfa çevrilir; satırlar",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P281b",
+   "at": "K01@nedir",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "'İnsan nedir?' yazılır; kenarda bir ilk insan figürü dört ayaktan doğrulur.",
+   "hareket": "yazı; doğrulma",
+   "yazi": "İnsan nedir? Ne zaman insan olmaya başladı?"
+  },
+  {
+   "id": "P282",
+   "at": "K02",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Eğilmiş figürlerden oluşan bir frizden biri ayağa kalkar.",
+   "hareket": "ayağa kalkma",
+   "yazi": "“İnsan başkaldıran yaratıktır.” · s. v"
+  },
+  {
+   "id": "P283",
+   "at": "K02@doğaya",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Figür meander çerçevesinin dışına adım atar: vazonun çerçevesinden çıkar.",
+   "hareket": "çerçeveden çıkış"
+  },
+  {
+   "id": "P284",
+   "at": "K02@insan#1",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Bir çerçeve daha; yine çıkar (her seferinde yeniden).",
+   "hareket": "tekrar eden çıkış"
+  },
+  {
+   "id": "P285",
+   "at": "K04",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Figür çelenk ve takılarını (gelenek süsleri) üstünden atar; süsler çizgi olarak düşer.",
+   "hareket": "süsler düşer"
+  },
+  {
+   "id": "P286",
+   "at": "K04@erhat#1",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Kapalı küp (ELPİS) bir kenarda; figür ondan dönüp güneşli dünyaya yürür, elinde ateş.",
+   "hareket": "yürüyüş; alev",
+   "yazi": "“Umuda karşı da ayaklandık.” · s. vi",
+   "olay": "'bugün'de figür küpten döner, güneşe yürür"
+  },
+  {
+   "id": "P287",
+   "at": "K06",
+   "k": "B",
+   "set": "SAYFA",
+   "kare": "Çaba ve cefa: taşıyan, kuran figürlerden oluşan bir friz.",
+   "hareket": "friz akar",
+   "yazi": "“Tek ülkümüz insan olmak.” · s. vi"
+  },
+  {
+   "id": "P288",
+   "at": "K06@ve",
+   "k": "K",
+   "set": "KAYA/OLYMPOS",
+   "kare": "Sayfa kapanır; kapakta ateşli harflerle PROMETHEUS (A04'ün eşi). Ardından elinde ateşle kayadaki Prometheus (kapak karesi).",
+   "hareket": "harfler; alev",
+   "gecis": "ink 1,0 sn",
+   "yazi": "“Bu ülkünün ilk temsilcisi Prometheus'tur.” · s. vi",
+   "olay": "'prometeus'ta ateşli harfler tamamlanır, kayadaki kapak karesine kesme"
+  },
+  {
+   "id": "P289",
+   "at": "M00",
+   "k": "B",
+   "set": "MASA",
+   "kare": "Bir masa: iki fincan, iki kalem, bir müsvedde, bir lamba (portre yok).",
+   "hareket": "lamba; buhar",
+   "gecis": "ink 0,8 sn",
+   "yazi": "XIII · ÇEVİRMENLERİN DİLEĞİ"
+  },
+  {
+   "id": "P290",
+   "at": "M00@çevirdikçe",
+   "k": "B",
+   "set": "MASA",
+   "kare": "Sayfalar çoğalıp sevinçle uçuşur.",
+   "hareket": "uçuşan sayfalar"
+  },
+  {
+   "id": "P291",
+   "at": "M00@dilekleri",
+   "k": "K",
+   "set": "SAHNE",
+   "kare": "Bir Türk tiyatrosunda perde açılır; ışık altında kırmızı figür Prometheus; seyirci siluetleri.",
+   "hareket": "perde; ışık",
+   "gecis": "ink 0,6 sn"
+  },
+  {
+   "id": "P292",
+   "at": "M02",
+   "k": "K",
+   "set": "KAYA/OLYMPOS",
+   "kare": "Doğrudan hitap: rezene sapındaki alev izleyiciye uzatılır (kapak karesi).",
+   "hareket": "alev yaklaşır",
+   "yazi": "Peki sen olsan?"
+  },
+  {
+   "id": "P293",
+   "at": "M03",
+   "k": "S",
+   "set": "BİTİŞ",
+   "kare": "Bitiş ekranı: solda Sisifos kayasını iterken (siyah figür çerçeve), sağda abone alanı; alev titremeye devam eder.",
+   "hareket": "Sisifos döngüsü; alev",
+   "gecis": "clay 0,8 sn",
+   "olay": "bitiş ekranı: Sisifos döngüsü ve alev sürekli; 'abone'de abone alanı belirir"
+  }
  ]
 }

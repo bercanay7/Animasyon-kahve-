@@ -1,0 +1,2210 @@
+{
+ "s00_a": {
+  "wer": 0.2603,
+  "sure": 38.58,
+  "hatalar": [
+   [
+    "replace",
+    "düşün",
+    "düşünün"
+   ],
+   [
+    "replace",
+    "kayaya mıhlatan zeusun",
+    "kaya ya muhlatan zeus un"
+   ],
+   [
+    "replace",
+    "gün bir",
+    "gündü"
+   ],
+   [
+    "replace",
+    "bin dokuz yüz altmış yedide türkçeye",
+    "1967de türkçe ye"
+   ],
+   [
+    "replace",
+    "önsözünde",
+    "ön sözünde"
+   ],
+   [
+    "replace",
+    "zincirleyen",
+    "zincirlen"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ]
+  ]
+ },
+ "s00_b": {
+  "wer": 0.1918,
+  "sure": 39.08,
+  "hatalar": [
+   [
+    "replace",
+    "kayaya",
+    "kaya"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus ün"
+   ],
+   [
+    "replace",
+    "bin dokuz yüz altmış yedide türkçeye",
+    "1967de türkçe ye"
+   ],
+   [
+    "replace",
+    "önsözünde",
+    "ön sözünde"
+   ],
+   [
+    "replace",
+    "zincirleyen",
+    "zincirliyen"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ]
+  ]
+ },
+ "s01_a": {
+  "wer": 0.1325,
+  "sure": 43.1,
+  "hatalar": [
+   [
+    "replace",
+    "tragedya yazarı ayshilosun",
+    "tragedyay hazarı ayshilos un"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "beşinci",
+    "5"
+   ],
+   [
+    "replace",
+    "yirminci",
+    "20"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ]
+  ]
+ },
+ "s01_b": {
+  "wer": 0.1687,
+  "sure": 43.5,
+  "hatalar": [
+   [
+    "replace",
+    "sahnede",
+    "sahne de"
+   ],
+   [
+    "replace",
+    "atinalı tragedya",
+    "athena da tragedia"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayshilos un"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "beşinci",
+    "5"
+   ],
+   [
+    "replace",
+    "yirminci",
+    "20"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ]
+  ]
+ },
+ "s02_a": {
+  "wer": 0.1589,
+  "sure": 137.42,
+  "hatalar": [
+   [
+    "replace",
+    "o tahta",
+    "otahta"
+   ],
+   [
+    "replace",
+    "kayadaki",
+    "kayada ki"
+   ],
+   [
+    "replace",
+    "hepsini",
+    "hepsimi"
+   ],
+   [
+    "replace",
+    "efsanenin",
+    "efsani nin"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "iki yüzyıl",
+    "200 yıl"
+   ],
+   [
+    "replace",
+    "hesiodosun",
+    "hesiodos un"
+   ],
+   [
+    "replace",
+    "uranosu",
+    "uranos u"
+   ],
+   [
+    "replace",
+    "gayanın",
+    "beyan ın"
+   ],
+   [
+    "replace",
+    "iğdiş",
+    "iyi diş"
+   ],
+   [
+    "replace",
+    "devrim de",
+    "devrimde"
+   ],
+   [
+    "replace",
+    "rea",
+    "reha"
+   ],
+   [
+    "replace",
+    "kronosa",
+    "kronos a"
+   ],
+   [
+    "replace",
+    "zeustu",
+    "zeusdu"
+   ],
+   [
+    "replace",
+    "ikincisi",
+    "i kincisi"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "ile",
+    "la"
+   ],
+   [
+    "replace",
+    "prometeus da",
+    "pometheusta"
+   ],
+   [
+    "replace",
+    "on",
+    "10"
+   ],
+   [
+    "replace",
+    "yüz",
+    "100"
+   ],
+   [
+    "replace",
+    "tartarosa",
+    "tartar olsa"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "gayanın öğüdüyle",
+    "gaya nın öğüdüğüyle"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
+ },
+ "s02_b": {
+  "wer": 0.1473,
+  "sure": 137.44,
+  "hatalar": [
+   [
+    "replace",
+    "efsanenin",
+    "efsani nin"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "iki yüzyıl",
+    "200 yıl"
+   ],
+   [
+    "replace",
+    "hesiodosun",
+    "hesiodos un"
+   ],
+   [
+    "replace",
+    "uranosu",
+    "uranos u"
+   ],
+   [
+    "replace",
+    "gayanın",
+    "gaya nın"
+   ],
+   [
+    "replace",
+    "iğdiş",
+    "iyidiş"
+   ],
+   [
+    "replace",
+    "devrim de",
+    "devrimde"
+   ],
+   [
+    "replace",
+    "rea",
+    "rhea"
+   ],
+   [
+    "replace",
+    "kronosa",
+    "kronos a"
+   ],
+   [
+    "replace",
+    "zeustu",
+    "zeusdu"
+   ],
+   [
+    "replace",
+    "ikincisi",
+    "i kincisi"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "ile",
+    "la"
+   ],
+   [
+    "replace",
+    "prometeus da",
+    "prometheusta"
+   ],
+   [
+    "replace",
+    "on",
+    "10"
+   ],
+   [
+    "replace",
+    "yüz",
+    "100"
+   ],
+   [
+    "replace",
+    "tartarosa",
+    "tartar olsa"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "gayanın öğüdüyle",
+    "gaya nın övdüğüyle"
+   ],
+   [
+    "replace",
+    "paylaşmada",
+    "paylaşma da"
+   ],
+   [
+    "replace",
+    "engel",
+    "engelle"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
+ },
+ "s03_a": {
+  "wer": 0.2194,
+  "sure": 89.6,
+  "hatalar": [
+   [
+    "replace",
+    "kin",
+    "kim"
+   ],
+   [
+    "replace",
+    "apetosun",
+    "apetos un"
+   ],
+   [
+    "replace",
+    "tüyler ürperticiydi",
+    "tüylerürp erticiydi"
+   ],
+   [
+    "replace",
+    "karaciğeri",
+    "kara ciğeri"
+   ],
+   [
+    "replace",
+    "epimeteusa",
+    "epey meteus a"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın değişiğiyle"
+   ],
+   [
+    "replace",
+    "gücüyse zeusun tekelindedir",
+    "gücü ise zeus un tek elindedir"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın dişiyle"
+   ],
+   [
+    "replace",
+    "kronosu",
+    "kronos u"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "düşeceğini",
+    "düşücüğünü"
+   ]
+  ]
+ },
+ "s03_b": {
+  "wer": 0.2194,
+  "sure": 90.12,
+  "hatalar": [
+   [
+    "replace",
+    "ailesine",
+    "airesine"
+   ],
+   [
+    "replace",
+    "kin",
+    "kim"
+   ],
+   [
+    "replace",
+    "apetosun",
+    "apetos un"
+   ],
+   [
+    "replace",
+    "ürperticiydi",
+    "ürperteciydi"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "karaciğeri",
+    "kara ciğeri"
+   ],
+   [
+    "replace",
+    "epimeteusa",
+    "epimetheus a"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın değişiyle"
+   ],
+   [
+    "replace",
+    "gücüyse zeusun",
+    "gücü ise zeus un"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın de işiyle"
+   ],
+   [
+    "replace",
+    "kronosu",
+    "kronos u"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "düşeceğini",
+    "düşücüğünü"
+   ],
+   [
+    "replace",
+    "gelecekti",
+    "gerecekti"
+   ]
+  ]
+ },
+ "s04_a": {
+  "wer": 0.1255,
+  "sure": 148.4,
+  "hatalar": [
+   [
+    "replace",
+    "insanlar",
+    "i nsanlar"
+   ],
+   [
+    "replace",
+    "midesine",
+    "nidesine"
+   ],
+   [
+    "replace",
+    "yağa",
+    "yağı"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "efsanenin",
+    "efsane nin"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "rezene sapına",
+    "rezen hesapına"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "ta dibinden",
+    "tadibinden"
+   ],
+   [
+    "replace",
+    "hefaistos",
+    "hephaistos"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "epimeteus",
+    "epimetheus"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "insanların",
+    "i nsanların"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "durduğunu ise",
+    "durduğunuysa"
+   ]
+  ]
+ },
+ "s04_b": {
+  "wer": 0.1328,
+  "sure": 149.48,
+  "hatalar": [
+   [
+    "replace",
+    "insanlar",
+    "i nsanlar"
+   ],
+   [
+    "replace",
+    "yağa",
+    "yağ"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "efsanenin",
+    "efsane nin"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "rezene sapına",
+    "rezen hesapına"
+   ],
+   [
+    "replace",
+    "hesiodosun deyişiyle",
+    "hesiodos un değişiyle"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "ta dibinden",
+    "tadibinden"
+   ],
+   [
+    "replace",
+    "hefaistos",
+    "hephaistos"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "epimeteus",
+    "epimetheus"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "zeustan",
+    "zeusten"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "insanların",
+    "i nsanların"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "durduğunu ise",
+    "durduğunuysa"
+   ]
+  ]
+ },
+ "s05_a": {
+  "wer": 0.135,
+  "sure": 170.82,
+  "hatalar": [
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "şair de",
+    "şairde"
+   ],
+   [
+    "replace",
+    "önsözün",
+    "ön sözün"
+   ],
+   [
+    "replace",
+    "kafkanın",
+    "kafka nın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "yargıç ise",
+    "yargıçsa"
+   ],
+   [
+    "replace",
+    "i skit",
+    "iskit"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "prometeus zeusun",
+    "prometheus zeus un"
+   ],
+   [
+    "replace",
+    "insanseverlikten",
+    "i nsan severlikten"
+   ],
+   [
+    "replace",
+    "hefaistos",
+    "hephaistos"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "değişiyle"
+   ],
+   [
+    "replace",
+    "hefaistos",
+    "hephaistos"
+   ],
+   [
+    "replace",
+    "yüktür zeustan",
+    "yükdür zeus tam"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "dramın",
+    "dram ın"
+   ],
+   [
+    "replace",
+    "çağı",
+    "çağa"
+   ],
+   [
+    "replace",
+    "prometeus da",
+    "prometheusda"
+   ],
+   [
+    "replace",
+    "tanrının",
+    "tanrı nın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "çekiç",
+    "çekiş"
+   ],
+   [
+    "replace",
+    "apaçık",
+    "ap açık"
+   ]
+  ]
+ },
+ "s05_b": {
+  "wer": 0.1254,
+  "sure": 173.76,
+  "hatalar": [
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "şair de",
+    "şairde"
+   ],
+   [
+    "replace",
+    "büsbütün",
+    "büs bütün"
+   ],
+   [
+    "replace",
+    "önsözün",
+    "ön sözün"
+   ],
+   [
+    "replace",
+    "kafkanın",
+    "kafkan ın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "yargıç ise",
+    "yargıçsa"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "prometeus zeusun",
+    "prometheus zeus un"
+   ],
+   [
+    "replace",
+    "insanseverlikten",
+    "i nsan severlikten"
+   ],
+   [
+    "replace",
+    "demirci",
+    "denirci"
+   ],
+   [
+    "replace",
+    "hefaistos",
+    "hephaistos"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "çiğneyemez",
+    "çiğniyemez"
+   ],
+   [
+    "replace",
+    "deyişiyle",
+    "de işiyle"
+   ],
+   [
+    "replace",
+    "tanrılara",
+    "tangrılara"
+   ],
+   [
+    "replace",
+    "yüktür zeustan",
+    "güktür zeus tam"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "çağı",
+    "çağa"
+   ],
+   [
+    "replace",
+    "prometeus da",
+    "prometheusda"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "çekiç",
+    "çekiş"
+   ]
+  ]
+ },
+ "s06_a": {
+  "wer": 0.1461,
+  "sure": 150.32,
+  "hatalar": [
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "çekiç",
+    "çekiş"
+   ],
+   [
+    "replace",
+    "okeanosun",
+    "okeanos un"
+   ],
+   [
+    "replace",
+    "ayshilosta",
+    "ayshilos da"
+   ],
+   [
+    "replace",
+    "öbür",
+    "ögür"
+   ],
+   [
+    "replace",
+    "temis",
+    "temiz"
+   ],
+   [
+    "insert",
+    "",
+    "evet"
+   ],
+   [
+    "replace",
+    "prometeus zeusun",
+    "prometheus zeus un"
+   ],
+   [
+    "replace",
+    "kronosu tartarosa",
+    "kronos u tartar olsa"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "tanrının",
+    "tanrı nın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "içlerine",
+    "i çlerine"
+   ],
+   [
+    "replace",
+    "ayshilos ise",
+    "ayşil olsa"
+   ],
+   [
+    "replace",
+    "mağaralarda",
+    "mahralarda"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "i nsanlardaki",
+    "insanlardaki"
+   ],
+   [
+    "replace",
+    "prometeustan",
+    "prometheustan"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "hem de",
+    "hemde"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
+ },
+ "s06_b": {
+  "wer": 0.1423,
+  "sure": 147.58,
+  "hatalar": [
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "çekiç",
+    "çekiş"
+   ],
+   [
+    "replace",
+    "okeanosun",
+    "okeanos un"
+   ],
+   [
+    "replace",
+    "ayshilosta",
+    "ayshilos da"
+   ],
+   [
+    "replace",
+    "prometeus zeusun",
+    "prometheus zeus un"
+   ],
+   [
+    "replace",
+    "kronosu tartarosa",
+    "kronos u tartaros a"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "tanrının",
+    "tanrı nın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "görülmedim",
+    "görünmedim"
+   ],
+   [
+    "replace",
+    "içlerine",
+    "i çlerine"
+   ],
+   [
+    "replace",
+    "ayshilos ise",
+    "ayşil olsa"
+   ],
+   [
+    "replace",
+    "mağaralarda",
+    "maralarda"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "i nsanlardaki",
+    "insanlardaki"
+   ],
+   [
+    "replace",
+    "prometeustan",
+    "prometheustan"
+   ],
+   [
+    "replace",
+    "steyerek",
+    "stiyerek"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "hem de",
+    "hemde"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
+ },
+ "s07_a": {
+  "wer": 0.1674,
+  "sure": 112.56,
+  "hatalar": [
+   [
+    "replace",
+    "boğazının",
+    "boğazı nın"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "dalkavuklarıyla",
+    "dalkabuklarıyla"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "dalkavuk",
+    "dalkaluk"
+   ],
+   [
+    "insert",
+    "",
+    "el"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "boynuzlu",
+    "boynuzluğu"
+   ],
+   [
+    "replace",
+    "i yo zeusun",
+    "iyo zeus un"
+   ],
+   [
+    "replace",
+    "heranın",
+    "hera nın"
+   ],
+   [
+    "replace",
+    "atsineği",
+    "at sineği"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "bosporos",
+    "bosporus"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "aişilos un"
+   ],
+   [
+    "replace",
+    "i yo",
+    "iyo"
+   ],
+   [
+    "replace",
+    "ölmeyi diler prometeusun",
+    "ölmeyidiler prometheus un"
+   ],
+   [
+    "replace",
+    "ağırdır",
+    "ağardır"
+   ],
+   [
+    "replace",
+    "i şkencem zeusun",
+    "işkencem zeus un"
+   ],
+   [
+    "replace",
+    "yonun",
+    "onun"
+   ],
+   [
+    "replace",
+    "on üç",
+    "13"
+   ]
+  ]
+ },
+ "s07_b": {
+  "wer": 0.1366,
+  "sure": 114.96,
+  "hatalar": [
+   [
+    "replace",
+    "birinin",
+    "birimin"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "i yo zeusun",
+    "iyo zeus un"
+   ],
+   [
+    "replace",
+    "heranın",
+    "her anın"
+   ],
+   [
+    "replace",
+    "atsineği",
+    "at sineği"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "adını",
+    "adına"
+   ],
+   [
+    "replace",
+    "bosporos",
+    "bosporus"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "aişilos un"
+   ],
+   [
+    "replace",
+    "i yo",
+    "iyo"
+   ],
+   [
+    "replace",
+    "ölmeyi diler prometeusun",
+    "ölmeyidiler prometheus un"
+   ],
+   [
+    "replace",
+    "i şkencem zeusun",
+    "işkencem zeus un"
+   ],
+   [
+    "replace",
+    "yonun",
+    "onun"
+   ],
+   [
+    "replace",
+    "on üç",
+    "13"
+   ]
+  ]
+ },
+ "s08_a": {
+  "wer": 0.1243,
+  "sure": 92.62,
+  "hatalar": [
+   [
+    "replace",
+    "tıpkı uranosun",
+    "tıkkı uranos un"
+   ],
+   [
+    "replace",
+    "kronosun",
+    "kronos un"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşilos un"
+   ],
+   [
+    "replace",
+    "zeusu sürekli",
+    "zeus u süretli"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın değişiyle"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "görmedim",
+    "görmedin"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "aşağılayıcı",
+    "aşağılıyıcı"
+   ]
+  ]
+ },
+ "s08_b": {
+  "wer": 0.1302,
+  "sure": 92.88,
+  "hatalar": [
+   [
+    "replace",
+    "tıpkı uranosun",
+    "tıkkı uranos un"
+   ],
+   [
+    "replace",
+    "kronosun",
+    "kronos un"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşilos un"
+   ],
+   [
+    "replace",
+    "zeusu",
+    "zeus u"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın deyişiyle",
+    "erhat ın değişiyle"
+   ],
+   [
+    "replace",
+    "emir",
+    "enir"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "görmedim",
+    "görmedin"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "de hileyle",
+    "dehiyleyle"
+   ]
+  ]
+ },
+ "s09_a": {
+  "wer": 0.0818,
+  "sure": 61.34,
+  "hatalar": [
+   [
+    "replace",
+    "dalkavuklarına",
+    "dalkaluklarına"
+   ],
+   [
+    "replace",
+    "prometeustur erhatın deyişiyle",
+    "prometheustur erhat ın değişiyle"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayselos un"
+   ]
+  ]
+ },
+ "s09_b": {
+  "wer": 0.0727,
+  "sure": 62.24,
+  "hatalar": [
+   [
+    "replace",
+    "prometeustur erhatın deyişiyle",
+    "prometheustur erhat ın değişiyle"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşilos un"
+   ]
+  ]
+ },
+ "s10_a": {
+  "wer": 0.1296,
+  "sure": 90.42,
+  "hatalar": [
+   [
+    "replace",
+    "tehdidini",
+    "tehditini"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "karaciğerinle",
+    "kara ciğerine"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "gömülene dek",
+    "gömülenedek"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşilos un"
+   ],
+   [
+    "replace",
+    "düşüncenindir",
+    "düşüncelindir"
+   ]
+  ]
+ },
+ "s10_b": {
+  "wer": 0.1481,
+  "sure": 91.0,
+  "hatalar": [
+   [
+    "replace",
+    "dönelim",
+    "dönerim"
+   ],
+   [
+    "replace",
+    "tehdidini",
+    "tehditini"
+   ],
+   [
+    "replace",
+    "gömüleceksin",
+    "gömüreceksin"
+   ],
+   [
+    "replace",
+    "zeusun",
+    "zeus un"
+   ],
+   [
+    "replace",
+    "karaciğerinle",
+    "kara ciğerine"
+   ],
+   [
+    "replace",
+    "biliyordum",
+    "biliyordun"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zeus a"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ],
+   [
+    "replace",
+    "gömülene dek",
+    "gömülenedek"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşe los un"
+   ],
+   [
+    "replace",
+    "düşüncenindir",
+    "düşüncelindir"
+   ]
+  ]
+ },
+ "s11_a": {
+  "wer": 0.25,
+  "sure": 63.36,
+  "hatalar": [
+   [
+    "replace",
+    "prometeusun",
+    "prometeus un"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "tabii zeusun",
+    "tabi zeus un"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayshilos un"
+   ],
+   [
+    "replace",
+    "ise",
+    "a"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "şair göteye",
+    "şahir göte ye"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zehusa"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "meri şeli frankenştayn",
+    "mary shelley frankenstein"
+   ],
+   [
+    "replace",
+    "prometeus alt",
+    "prometheus alp"
+   ],
+   [
+    "replace",
+    "openhaymırın",
+    "oppenheimer ın"
+   ],
+   [
+    "replace",
+    "amerikan prometeus nolanın",
+    "american prometheus nolan ın"
+   ]
+  ]
+ },
+ "s11_b": {
+  "wer": 0.2328,
+  "sure": 64.24,
+  "hatalar": [
+   [
+    "replace",
+    "prometeusun",
+    "prometeus un"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "tabii zeusun",
+    "tabi zeus un"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayshilos un"
+   ],
+   [
+    "replace",
+    "oyun",
+    "olun"
+   ],
+   [
+    "replace",
+    "ise",
+    "a"
+   ],
+   [
+    "replace",
+    "prometeusu",
+    "prometeus u"
+   ],
+   [
+    "replace",
+    "zeusa",
+    "zehusa"
+   ],
+   [
+    "replace",
+    "erhata",
+    "erhat a"
+   ],
+   [
+    "replace",
+    "meri şeli frankenştayn",
+    "mary shelley frankenstein"
+   ],
+   [
+    "replace",
+    "prometeus alt",
+    "prometheus alp"
+   ],
+   [
+    "replace",
+    "openhaymırın",
+    "oppenheimer ın"
+   ],
+   [
+    "replace",
+    "amerikan prometeus nolanın",
+    "american prometheus nolan ın"
+   ]
+  ]
+ },
+ "s12_a": {
+  "wer": 0.1937,
+  "sure": 96.06,
+  "hatalar": [
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "beşinci",
+    "5"
+   ],
+   [
+    "replace",
+    "yirminci",
+    "20"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "bir dramın",
+    "vidramın"
+   ],
+   [
+    "replace",
+    "atinalı tragedya",
+    "atina lı tragedia"
+   ],
+   [
+    "replace",
+    "önsöze",
+    "ön söze"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşilos un"
+   ],
+   [
+    "replace",
+    "yüzyıl",
+    "yüz yıl"
+   ],
+   [
+    "replace",
+    "erhatın önsözü",
+    "erhat ın ön sözü"
+   ],
+   [
+    "replace",
+    "eğmeyi",
+    "eğmeği"
+   ],
+   [
+    "replace",
+    "insan",
+    "i nsan"
+   ],
+   [
+    "replace",
+    "erhatın kuşağı",
+    "erhat ın kuşa"
+   ],
+   [
+    "replace",
+    "kuşağı",
+    "kuşa"
+   ],
+   [
+    "replace",
+    "cefadan",
+    "cephaadan"
+   ],
+   [
+    "replace",
+    "önsöz",
+    "ön söz"
+   ],
+   [
+    "replace",
+    "ada bağlar",
+    "adab ağlar"
+   ],
+   [
+    "replace",
+    "ülkünün",
+    "ülkenin"
+   ],
+   [
+    "replace",
+    "prometeustur",
+    "prometheustur"
+   ]
+  ]
+ },
+ "s12_b": {
+  "wer": 0.1832,
+  "sure": 96.16,
+  "hatalar": [
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "milattan",
+    "nilattan"
+   ],
+   [
+    "replace",
+    "beşinci",
+    "5"
+   ],
+   [
+    "replace",
+    "yirminci",
+    "20"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "erhatın",
+    "erhat ın"
+   ],
+   [
+    "replace",
+    "onu",
+    "onun"
+   ],
+   [
+    "replace",
+    "atinalı",
+    "atinal ı"
+   ],
+   [
+    "replace",
+    "önsöze",
+    "ön söze"
+   ],
+   [
+    "replace",
+    "ayshilosun",
+    "ayşiros un"
+   ],
+   [
+    "replace",
+    "yüzyıl",
+    "yüz yıl"
+   ],
+   [
+    "replace",
+    "erhatın önsözü",
+    "erhat ın ön sözü"
+   ],
+   [
+    "replace",
+    "eğmeyi",
+    "eğmeği"
+   ],
+   [
+    "replace",
+    "insan",
+    "i nsan"
+   ],
+   [
+    "replace",
+    "erhatın kuşağı",
+    "erhat ın kuşa"
+   ],
+   [
+    "replace",
+    "kuşağı",
+    "kuşa"
+   ],
+   [
+    "replace",
+    "önsöz",
+    "ön söz"
+   ],
+   [
+    "replace",
+    "ada bağlar",
+    "adab ağlar"
+   ],
+   [
+    "replace",
+    "ülkünün",
+    "ülkenin"
+   ],
+   [
+    "replace",
+    "prometeustur",
+    "prometheustur"
+   ]
+  ]
+ },
+ "s13_a": {
+  "wer": 0.0926,
+  "sure": 30.78,
+  "hatalar": [
+   [
+    "replace",
+    "dilekleri",
+    "direkleri"
+   ],
+   [
+    "replace",
+    "isyankarın sisifosun",
+    "isyan karın sisyphos un"
+   ]
+  ]
+ },
+ "s13_b": {
+  "wer": 0.0926,
+  "sure": 29.72,
+  "hatalar": [
+   [
+    "replace",
+    "çevrilemeyeceğini",
+    "çeviremeyeceğini"
+   ],
+   [
+    "replace",
+    "isyankarın sisifosun",
+    "isyan karın sisyphos un"
+   ]
+  ]
+ }
+}

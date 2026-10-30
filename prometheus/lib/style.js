@@ -11,7 +11,7 @@ const C = {
 const STY = {
   black: { fill: C.ink, cut: C.clay, red: C.red, white: C.white, line: C.ink },
   blackNight: { fill: C.ink, cut: '#B85E37', red: C.red, white: C.white, line: C.ink },
-  red: { fill: '#C7683C', cut: C.ink, red: C.red, white: C.white, line: C.ink },
+  red: { fill: '#C9703F', cut: C.ink, red: C.red, white: C.white, line: C.ink, dilute: '#8A4724' },
   white: { fill: C.inkSoft, cut: C.paper, red: '#9A3B25', white: '#FFF8EA', line: C.inkSoft },
 };
 
