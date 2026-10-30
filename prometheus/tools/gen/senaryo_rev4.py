@@ -132,12 +132,70 @@ drop('K08b')
 set_('K08a', "[firmly] Peki ya Erhat'ın en baştaki sorusu? İki bin beş yüz yıl önceki bir yazar, yirminci yüzyılın başkaldıran insanını nasıl yaratabildi? Erhat'ın cevabı: Prometeus efsanede de politikti; ama onu modern anlamda politik bir drama dönüştüren, Atina'nın politik görüşü en köklü tragedya yazarı Ayshilos'tu.",
      alt="Peki ya Erhat'ın en baştaki sorusu? İki bin beş yüz yıl önceki bir yazar, XX. yüzyılın başkaldıran insanını nasıl yaratabildi? Erhat'ın cevabı: Prometheus efsanede de politikti; ama onu modern anlamda politik bir drama dönüştüren, Atina'nın politik görüşü en köklü tragedya yazarı Aiskhylos'tu.",
      kaynak="Erhat vi7–vi8 (B06'nın sorusu yeniden soruluyor; Erhat'ın cevabı)")
+
+# — rev 5: son kontrolün küçük düzeltmeleri (kurul/kararlar.md, tur 4) —
+set_('A06', "[thoughtfully] Bu tuhaf fikri, Azra Erhat ileri sürer: bin dokuz yüz altmış yedide, Türkçeye çevirdiği antik bir oyunun önsözünde.", kaynak="Erhat xvi2; xiv2, xiv5 (fikir Platon'da da var: Devlet IX; o yüzden 'ileri sürer')")
+set_('C02', "Erhat'a göre efsanenin de, oyunun da merkezinde, kendi çağının deyişiyle bir hükümet darbesi var: Bir kuşak, öncekini devirip yönetimi ele geçirir.",
+     alt="Erhat'a göre efsanenin de oyunun da merkezinde, kendi çağının deyişiyle bir “hükümet darbesi” var: Bir kuşak, öncekini devirip yönetimi ele geçirir.")
+set_('C04', S[idx('C04')]['tts'].replace("Teogonia'sına göre, önce Kaos vardı, sonra Toprak Ana, Gaya.", "Teogonia'sına göre, en başta Kaos vardı, sonra Toprak Ana, Gaya."))
+set_('D08', "Prometeus ise bu öfkeyi kışkırtmaktan geri durmaz. Keskin aklıyla da, geleceği görme gücüyle de, Zeus'u hem aldatır, hem tedirgin eder, hem de gülünç düşürür.", kaynak="Erhat x2 (kendi cümlelerimiz)")
+set_('E11', "[ominous] Erhat'ın okumasında, iki kez aldatılan Zeus'a artık tek bir yol kalır: kaba kuvvet.", kaynak="Erhat x5 (kendi cümlelerimiz) — ödemesi I10")
+set_('E15', "Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. [knowingly] Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş, egemenliği artık gerçek bir güce dayanmayan bir tanrı. Çünkü akıl gücü, tanrılardan insanlara geçmiştir.",
+     alt="Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş, egemenliği artık gerçek bir güce dayanmayan bir tanrı. Çünkü “akıl gücü tanrılardan insanlara geçmiştir.”")
+set_('E16b', "[knowingly] Demek ki Zeus'u öfkelendiren, bir avuç ateşten fazlasıydı. [slowly] Zincirin öbür ucunda kimin durduğunu ise, başka bir şair gösterecekti.")
+set_('F01', "[thoughtfully] Aynı Titan, Atina sahnesine çıktığında neden bambaşka birine dönüştü?")
+set_('F09', "[bitterly] Daha işe başlamadan Hefaistos inler: “Ah, nefret ettiğim zanaatım!” [coldly] Güç'ün cevabı buz gibidir: “Tanrılara hükmetmek dışında her iş bir yüktür. Zeus'tan başka hiç kimse özgür değildir.”",
+     alt="Daha işe başlamadan Hephaistos inler: “Ah, nefret ettiğim zanaatım!” Güç'ün cevabı buz gibidir: “Tanrılara hükmetmek dışında her iş bir yüktür. Zeus'tan başka hiç kimse özgür değildir.”", kaynak="ZVP 36–51 (kendi çevirimiz); Erhat xiii5")
+set_('F10b', "[slowly] Erhat burada okuruna sorar: Dikkat ettin mi? Bütün bu sahne boyunca Prometeus tek söz etmedi. Çekiç indi, bir daha indi; zincire, hakaretlere, sessizce katlandı.")
+set_('F14', "[softly] Sonra birden kendi sözünü keser: [whispers] “Ama ne diyorum? [softly] Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. [calmly] Bana biçilen yazgıya, olabildiğince kolay katlanmalıyım; zorunluluğun gücüyle savaşılmaz. [pained] [slowly] Yine de başıma gelenler üstüne… ne susabiliyorum, ne de konuşabiliyorum.”",
+     alt="Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum; hiçbir acı bana habersiz gelmeyecek. Bana biçilen yazgıya olabildiğince kolay katlanmalıyım; zorunluluğun gücüyle savaşılmaz. Yine de başıma gelenler üstüne… ne susabiliyorum ne de konuşabiliyorum.”")
+set_('G10b', S[idx('G10b')]['tts'], kaynak="ZVP 447–506 (kendi çevirimiz)")
+set_('G13', "[thoughtfully] Ve bu bilinç, onda hem gurur, hem de bir katlanma duygusu doğurur.", alt="Ve bu bilinç, onda hem gurur hem de bir “katlanma duygusu” doğurur.", kaynak="Erhat xii1 (kısa alıntı; atıf G11'den sürer)")
+set_('G12b', "[softly] Ama oyunda Prometeus, aynı konuşmada şunu da itiraf eder: [pained] [slowly] “Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.”",
+     alt="Ama oyunda Prometheus, aynı konuşmada şunu da itiraf eder: “Böyle cezalarla, bu ıssız, yüksek kayada eriyip gideceğimi… düşünmemiştim.”")
+set_('H04', "Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: [softly] “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” Prometeus geri çevirir: [wryly] “Her şeyi benimle göze aldın, ama suçun dışında kaldın; seni kıskanıyorum. Kendi başını derde sokma.”",
+     alt="Yaşlı Titan Okeanos, iyi niyetle aracılık önerir: “Kendini bil; tanrıların başında yeni bir zorba var. Diline sahip ol.” Prometheus geri çevirir: “Her şeyi benimle göze aldın, ama suçun dışında kaldın; seni kıskanıyorum. Kendi başını derde sokma.”", kaynak="ZVP 307–334 (330–331: ζηλῶ σ᾽…; kendi çevirimiz)")
+set_('H05', "Eyüboğlu ile Erhat'ın çevirisinde periler ona, sözünü sakınmıyorsun, der. [knowingly] Erhat, Yunanca ifadenin tam anlamını da verir: Dilin fazla özgür. Başkaları, hiçbir umuda yer vermeden direnen bu tutumu, gurur ya da kibir sanır. [slowly] Oysa ona özgürlüğü sağlayan, bilincidir.",
+     alt="Eyüboğlu ile Erhat'ın çevirisinde periler ona “sözünü sakınmıyorsun” der. Erhat, Yunanca ifadenin tam anlamını da verir: “dilin fazla özgür.” Başkaları, “hiçbir umuda yer vermeden” direnen bu tutumu “gurur ya da kibir” sanır. Oysa ona özgürlüğü sağlayan bilincidir.")
+set_('H05b', "[thoughtfully] İnsanlara, ölümlerini önceden görmesinler diye kör umutlar veren oydu. [slowly] Kendisi ise her şeyi önceden görüyordu… ve kendine hiçbir umut tanımadı.", kaynak="anlatıcının yan yana koyması (ZVP 248–250; Erhat xii4)")
+set_('I03', "[slowly] Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Babasını deviren oğul, şimdi oğlundan korkan babaydı. [knowingly] Ayshilos'un sahnesinde, Erhat'ın üçüncü devrimin hazırlanması dediği şey buydu: Zeus'u sürekli bir kuşkunun baskısı altında tutan bir bilgi.")
+set_('I04', S[idx('I04')]['tts'], kaynak="ZVP 913–925")
+set_('I06', S[idx('I06')]['tts'], kaynak="ZVP 953–959 (958: τρίτον… κοιρανοῦντα, 'üçüncüsü, şimdi hüküm süren'; kendi çevirimiz) — D11 ile bağ")
+set_('I07', "Hermes'in tehditlerine ilk cevabı keskindir: [firmly] “Bu felaketimi, senin uşaklığına değişmem.”", alt="Hermes'in tehditlerine ilk cevabı keskindir: “Bu felaketimi senin uşaklığına değişmem.”")
+set_('I08', "[slowly] Sorgu sürerken, Prometeus'un ağzından bir an tek bir inilti kaçar: [pained] “Eyvah!” [mocking] Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” [calmly] Prometeus'un cevabı: “Yaşlanan zaman, her şeyi öğretir.”",
+     alt="Sorgu sürerken, Prometheus'un ağzından bir an tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.”")
+set_('I08c', "[slowly] Açılıştaki kartal, Ayshilos'ta işte budur: hayır demenin bedeli. Prometeus karşılık verir: [defiantly] “Bu haberleri zaten biliyordum. Ne yaparsa yapsın… beni öldüremez.”",
+     alt="Açılıştaki kartal, Aiskhylos'ta işte budur: hayır demenin bedeli. Prometheus karşılık verir: “Bu haberleri zaten biliyordum. Ne yaparsa yapsın… beni öldüremez.”")
+set_('I10', "[intense] Sözle yenemediği sanığa karşı, Zeus'a yine o tek yol kalır: kaba kuvvet. Prometeus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök, denize karıştı.”",
+     alt="Sözle yenemediği sanığa karşı, Zeus'a yine o tek yol kalır: kaba kuvvet. Prometheus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine saldırıyor… gök denize karıştı.”")
+set_('I12', "[firmly] Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometeus, dünya başına yıkılıp perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. [slowly] Erhat'ın okumasında Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
+     alt="Erhat'ın dikkat çektiği gibi, başta tek söz etmeyen Prometheus, dünya başına yıkılıp perilerle birlikte gömülene dek konuşmakta direnir. Son söz onundur. Erhat'ın okumasında Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”")
+set_('J02', "Görünüşe bakılırsa cevap açık. Güç'ün sözünü hatırla: Zeus'tan başka hiç kimse özgür değildir. Prometeus ise zincirde; ölümsüz olduğu için, canına kıyma özgürlüğü bile yok. [intrigued] Erhat sorar: Ama bakalım, gerçekten de öyle mi?",
+     alt="Görünüşe bakılırsa cevap açık. Güç'ün sözünü hatırla: “Zeus'tan başka hiç kimse özgür değildir.” Prometheus ise zincirde; ölümsüz olduğu için canına kıyma özgürlüğü bile yok. Erhat sorar: “Ama bakalım gerçekten de öyle mi?”")
+set_('J05', "Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, bir çocuk gibi zayıf ve çaresizdir: Onu yıkımdan kurtarabilecek tek kişi, akıl gücünün taşıyıcısı Prometeus'tur.",
+     alt="Ona göre Zeus, bütün uşaklarına, dalkavuklarına rağmen, “bir çocuk gibi zayıf ve çaresizdir”: Onu yıkımdan kurtarabilecek tek kişi, “akıl gücünün taşıyıcısı” Prometheus'tur.")
+set_('K01', "[thoughtfully] Erhat'ın önsözü, daha ilk sayfasında şu soruya yer verir: İnsan nedir? Ne zaman insan olmaya başladı?")
+set_('K02', "Ve kendi çağının düşünürlerinin, sanki sözleşmiş gibi verdiği cevabı aktarır: İnsan, başkaldıran yaratıktır. Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, her seferinde yeniden başkaldırmasına bağlıdır.",
+     alt="Ve kendi çağının düşünürlerinin sanki sözleşmiş gibi verdiği cevabı aktarır: “İnsan başkaldıran yaratıktır.” Doğaya ya da geleneğe boyun eğmeyi reddettiği an insan olmuştur; insan kalması da, her seferinde yeniden başkaldırmasına bağlıdır.")
+set_('K04', "Erhat'ın kuşağı bu görüşü öylesine benimsemiştir ki, gelenek süslerini üstünden atar. [firmly] Erhat bunu kuşağı adına şöyle yazar: “Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz.”",
+     alt="Erhat'ın kuşağı bu görüşü öylesine benimsemiştir ki, gelenek süslerini üstünden atar. Erhat bunu kuşağı adına şöyle yazar: “Umuda karşı da ayaklandık: Bugün ve bu dünyada yaşamak istiyoruz.”")
+set_('K06', "Bu kuşağın tek ülküsü, insan olmaktı; bu uğurda hiçbir çabadan, hiçbir cefadan kaçmıyorlardı. [slowly] [reverently] Ve önsöz, bu ülküyü tek bir ada bağlar: Bu ülkünün ilk temsilcisi… Prometeus'tur.",
+     alt="Bu kuşağın tek ülküsü insan olmaktı; bu uğurda hiçbir çabadan, hiçbir cefadan kaçmıyorlardı. Ve önsöz bu ülküyü tek bir ada bağlar: “Bu ülkünün ilk temsilcisi Prometheus'tur.”", kaynak="Erhat vi3 (kendi cümlelerimiz), vi4 (kısa alıntı)")
+set_('M00', "[warmly] Erhat ile çeviri arkadaşı Sabahattin Eyüboğlu, başta bu oyunun çevrilemeyeceğini, sahnelenemeyeceğini düşünüyormuş. Çevirdikçe yanıldıklarını anlamışlar… ve coşmuşlar. Dilekleri, Prometeus'u bir Türk tiyatrosunda görmekti.")
 # K bloğu sırası: K01, K02, K04, K08a, K08b, K08c, K06 (zaten bu sırada); kuyruk M00, M02, M03
+
+set_('K08a', "[thoughtfully] Erhat'ın en baştaki sorusunu hatırla: Nasıl oldu da, milattan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi? [firmly] Erhat'ın cevabı: Prometeus'un kişiliği efsanede de politikti. Ama onu modern anlamda politik bir dramın kahramanı yapan, Atinalı tragedya yazarları içinde politik görüşü en köklü olan Ayshilos'tu.",
+     alt="Erhat'ın en baştaki sorusunu hatırla: Nasıl oldu da milattan önce beşinci yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi? Erhat'ın cevabı: Prometheus'un kişiliği efsanede de politikti. Ama onu “modern anlamda politik bir dram”ın kahramanı yapan, Atinalı tragedya yazarları içinde “politik görüşü en köklü” olan Aiskhylos'tu.",
+     kaynak="Erhat vi7–vi8 (kısa alıntılar)")
+set_('B06', S[idx('B06')]['tts'], kaynak="Erhat vi7 (cevabı K08a, K08c)")
+# K bölümü sırası: önce B06'nın cevabı, sonra önsözün açılışına dönüş ve son cümle
+for kid in ['K08a', 'K08c']:
+    k = S.pop(idx(kid)); S.insert(idx('K01'), k)
 # — bölüm adları (YouTube bölümleri) —
-REN = {'Açılış': 'Ateşi bile bile çalan Titan', 'Savunma': 'Savunma: “Bile bile yaptım”', 'Tanıklar': 'Tanıklar ve “inek geçidi”',
+REN = {'Açılış': 'Zincirdeki Titan', 'Duruşma': "Duruşma: Kafka'nın gözüyle", 'Savunma': 'Savunma: “Bile bile yaptım”', 'Tanıklar': 'Tanıklar ve “inek geçidi”',
        'Ateşin yolculuğu': "Herakles'ten Oppenheimer'a", 'Kapanış': 'Çevirmenlerin dileği'}
 for s in S: s['bolum'] = REN.get(s['bolum'], s['bolum'])
-d['revizyon'] = 4; d['segments'] = S
+d['revizyon'] = 5; d['segments'] = S
 ids = [s['id'] for s in S]; assert len(ids) == len(set(ids))
 json.dump(d, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 c = collections.OrderedDict(); tot = 0
