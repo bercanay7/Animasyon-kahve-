@@ -526,10 +526,12 @@ Kalan bilinen zayıflık: P170'te yüz yapısı (düz büst) basit kaldı; 7,7 s
 # Kapak A/B: CTR/paketleme kurulu ve başkan kararları
 Ortak başlık: "Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat". A "BİLE BİLE ÇALDI", B "ZEUS DA TUTSAK". Test seti `tools/kapak_seti.py` (tam boy, 246, 168, bulanık, gri, rozet, mobil akış).
 
-| Kapak | Tur 1 | Tur 2 | Karar (tur 2) |
-|---|---|---|---|
-| A "BİLE BİLE ÇALDI" | RED | **9,0** | ONAY |
-| B "ZEUS DA TUTSAK" | RED | 7,8 | RED |
+| Kapak | Tur 1 | Tur 2 | Tur 3 | Tur 4 | Karar |
+|---|---|---|---|---|---|
+| A "BİLE BİLE ÇALDI" | RED | 9,0 | 9,1 | **9,1** | ONAY |
+| B "ZEUS DA TUTSAK" | RED | 7,8 | 8,9 | **9,1** | ONAY |
+
+"Test ve karşılaştır" sırası: A birinci, B ikinci (A'nın odağı karenin üst ortasında, ateş konuyu anında tanıtıyor).
 
 ## Tur 1 → tur 2 (uygulandı, `kurul/kapak_tur2/`)
 - A: ateş büyük ve beyaz çekirdekli, karenin en parlak noktası; yazı ateşten sönük; figür büyük, bakışı aleve; sırtta kil kenar ışığı; zemin aydınlatıldı.
@@ -547,3 +549,11 @@ Ortak başlık: "Prometheus: Asıl Tutsak Kimdi? | Aiskhylos ve Azra Erhat". A "
 - A, cila: alevin ucu kenardan içeride; ÇALDI büyük harfi %18; yazı bloğu 40 px aşağı.
 - İkisi: taban rengi açıldı, kapaklarda vinyet .45 (köşeler ≈ 30).
 - Reddedilen: A-5, "P001 ilk karesi kapak geometrisiyle eşleşsin". Filmin ilk cümlesi kapağın vaadini kelimesi kelimesine karşılıyor ("Tanrılardan ateşi, bile bile çalıp…", 0:00,7). Kurul da vaadin anlam olarak karşılandığını yazdı. Render sürerken P001'i değiştirmek, kazancına göre pahalı bir yeniden render demekti.
+
+## Tur 3 → tur 4 (uygulandı, `kurul/kapak_tur4/`): iki kapak ONAY
+- B'nin ONAY koşulları:
+  - Zeus kümesi (önkol, yıldırım, yumruk, kelepçe, halka) F çevresinde 1,15 kat büyüdü ve aşağı indi. Yıldırım kısaldı ama aynı kalınlıkta; ucu kenardan içeride (1920'de y ≈ 68).
+  - TUTSAK'ın açık hâlesi koyu gölge oldu, rengi bir ton söndü, boyu 272 px.
+  - Sonuç: bulanıklık testinde tepe her yarıçapta Zeus'ta. r=12'de fark 18, koşul ≥ 10'du.
+- A: taban rengi çok az açıldı (köşeler ≥ 30).
+- Onaydan sonra: kurulun isteğe bağlı son maddesi uygulandı. TUTSAK'ta harf aralığı −1 oldu, K ile saç arası ≈ 38 px. `kapak_tur4` test seti bu son hâlle yeniden üretildi.

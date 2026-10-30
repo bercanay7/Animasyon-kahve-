@@ -100,7 +100,7 @@ SCENES.kapakB = (ctx, t) => {
     hold: { N: CUFF, F: CUFF }, onJoints: (j, m) => { J = j; M = m; } });
   const wN = jointPt(ctx, M, J.AN.wr);
   ironChain(ctx, [wN[0], wN[1] - 30], [ringW[0], ringW[1] + 23], { L0: len(sub(ringW, wN)) * 1.07, w: 20, link: 64, col: '#4A3426', hi: '#C9A888', bandCol: '#9C7B62' });
-  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#B9C3DD', '#CDB78F', { y1: 300, y2: 560, s1: 168, s2: 272, ls2: 0, sw2: 16, glow: 'rgba(0,0,0,.7)', blur: 24 });
+  kapakText2(ctx, 'ZEUS DA', 'TUTSAK', '#B9C3DD', '#CDB78F', { y1: 300, y2: 560, s1: 168, s2: 272, ls2: -1, sw2: 16, glow: 'rgba(0,0,0,.7)', blur: 24 });
 };
 // akışta kapağın kenarı koyu temaya karışmasın (köşeler ≥ 30): kapaklarda vinyet hafif
 SCENES.kapakA.post = { vig: .45 };
