@@ -5,3 +5,9 @@ Sonuç:
 - Doğru okunanlar: Prometeus, Hesiodos, Teogonia, Hefaistos, Epimeteus, İyo, Mekoni, Tetis, Klimene, Rea, Gaya.
 - "Ayshilos" ve "Ayskilos" yazımlarının ikisi de "Aişilos" diye okunuyor; Türkçedeki yaygın söyleyişe yakın, kabul. Senaryoda "Ayshilos" kalır.
 - "Epimeteus ise" → Whisper "Epimetheus'a" duydu; bölüm çekiminde yine kontrol edilecek.
+
+# Okunuş denemesi 2 (34 sn, ~553 kredi)
+Denenen adlar: Kerç, Bosporos, Temis, İapetos, Menoitios, Epimeteus, Mekone, Meri Şeli, Frankenştayn, Openhaymır, Göte. Hepsi doğru okundu (Whisper metni birebir).
+Denenen etiketler: knowingly, intrigued, firmly, pained, mocking, calmly, wryly, coldly, proudly, intense, whispers, softly; hepsi uygulanıyor.
+- [intense] belirgin biçimde yüksek (−15,7 dB tepe kelime).
+- [whispers] ~12 dB alçak (−36…−38 dB); miksajda fısıltı bölümüne +6 dB kazanç planlanır.
