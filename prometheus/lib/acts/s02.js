@@ -300,7 +300,7 @@ function amforaIIc(c, x0, x1, t) {
   }
   if (vis(AMY.tartaros)) {
     // Tartaros: çukurun ağzında çift kanatlı tunç kapı (kazıma panolar, eklenmiş beyaz çiviler); içeride Titanlar düşer; "kapatıldı"da kanatlar kapanır
-    const gx = AMY.tartaros, k = ramp(T('C17@tartarosa'), -.1, .6, E.in2), fl = T('C17@titanlar#1');
+    const gx = AMY.tartaros, k = ramp(T('C17@kapatıldı'), -.55, .02, E.in2), fl = T('C17@titanlar#1');
     c.fillStyle = C.ink; c.beginPath(); c.ellipse(gx, by + 3, 400, 46, 0, 0, PI); c.fill();
     c.fillStyle = '#3A2116'; c.fillRect(gx - 290, by - 300, 580, 300);
     c.save(); c.beginPath(); c.rect(gx - 290, by - 300, 580, 300); c.clip();

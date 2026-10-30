@@ -1014,10 +1014,12 @@ def s00_opening():
     fire_motif(W('A01', 'bile') - 0.1, 'D5', beat=0.36, gain=0.55, vib=14, drone='D4')
     fire_motif(Se('A01') + 0.05, 'A4', beat=0.24, gain=0.45, kind=FIRE_Q, vib=10)
     # A02 the hammer locks the chain; the lament bass climbs down under "asıl tutsak"
-    TH = Se('A01') + 0.6                     # the hammer falls in the silence before A02 (picture: P004)
+    TH = Se('A01') + 0.24                    # the hammer falls in the silence before A02 (picture: P004 at + .12)
     hammer(TH, vel=1.0)
     boom(TH, vel=0.6, f0=60, decay=1.2)
     chain_rattle(TH + 0.15, vel=0.3, dur=0.9)
+    hammer(W('A02', 'mıhlatan'), vel=0.85)     # second blow on "mıhlatan" (picture: P004)
+    chain_rattle(W('A02', 'mıhlatan') + 0.15, vel=0.25, dur=0.7)
     chain_motif(W('A02', 'zeusun') - 0.3, 'D3', beat=0.42, gain=0.38)
     pad(M('Eb3 G3 Bb3'), W('A02', 'asıl') - 0.4, Se('A02') + 1.2, gain=0.14, cutoff=600)
     # A03 the kylix eagle: tremolo strings, wing beats, the cry, night, and the dawn returning
@@ -1066,6 +1068,7 @@ def s01_question():
     for i, m in enumerate(['D5', 'A5', 'E6']):
         bell(W('B06', 'yaratabildi') + 0.5 + i * 0.22, m, vel=0.08)
     # B07 rewind into myth: reverse swell into the lyre
+    whoosh(W('B07', 'geriye') - 0.35, vel=0.22, dur=1.0, lo=400, hi=3000)   # the page rewinds (P024)
     riser(W('B07', 'taht'), 2.2, vel=0.24, kind='swell')
     strum(W('B07', 'taht') + 0.02, M('D3 A3 D4 F4 A4'), vel=0.4, spread=0.05)
 
@@ -1115,8 +1118,8 @@ def s02_thrones():
     war_drums(S('C17'), W('C17', 'tartarosa') + 0.2, beat=0.48, vel=0.6)
     bed(S('C17'), W('C17', 'tartarosa'), ['D2 A2 D3', 'C2 G2 C3', 'Bb1 F2 Bb2', 'A1 E2 A2'], gain=0.2, cutoff=600)
     boom(W('C17', 'yüz'), vel=0.6, f0=60, decay=1.0)
-    boom(W('C17', 'tartarosa'), vel=0.9, f0=58, decay=1.6)
-    metal(W('C17', 'tartarosa') + 0.05, f0=150, vel=0.4, decay=1.0, pan=0.1)
+    boom(W('C17', 'kapatıldı'), vel=0.9, f0=58, decay=1.6)    # the bronze gate shuts (P051)
+    metal(W('C17', 'kapatıldı') + 0.05, f0=150, vel=0.45, decay=1.3, pan=0.1)
     piano(W('C17', 'akıldan'), 'D4', vel=0.3)
     piano(W('C17', 'akıldan') + 0.5, 'A4', vel=0.25)
     thunder(W('C17', 'yıldırım'), vel=0.55)
@@ -1240,7 +1243,7 @@ def s05_trial():
     # F08 the purpose of the punishment; F07 Hephaistos unwilling, then the hammer
     pad(M('D3 Eb3 G3'), S('F08'), Se('F08') + 0.5, gain=0.13, cutoff=550)
     bowed(S('F07'), [('A3', 2.0, 0.6), ('Bb3', 1.4, 0.7), ('A3', 2.4, 0.6)], gain=0.24, stack=(0, -12), cutoff=800)
-    hammer(W('F07', 'kendi', 1), vel=1.0)
+    hammer(W('F07', 'kendi', 1) + 1.1, vel=1.0)   # picture: P117 hit = F07@kendi#1 + 1.1
     # F09 "Ah, nefret ettiğim zanaatım!" lament; Kratos' icy line over the chain motif
     aulos(W('F09', 'ah'), [('F5', 0.5), ('E5', 0.5), ('Eb5', 0.6), ('D5', 1.2)], gain=0.45, vib=14)
     chain_motif(W('F09', 'güçün'), 'D3', beat=0.55, gain=0.34)
@@ -1248,8 +1251,8 @@ def s05_trial():
     piano_arp(S('F10'), Se('F10a') + 0.5, ['D3 F3 A3 E4', 'Bb2 D3 F3 A3', 'G2 Bb2 D3 F3', 'A2 C#3 E3 G3'], step=0.42, vel=0.17)
     bed(S('F10'), Se('F10a') + 0.5, ['D3 F3 A3', 'Bb2 D3 F3', 'G2 Bb2 D3', 'A2 C#3 E3'], gain=0.1, cutoff=600)
     # F10b he said not a word: the hammer twice, then silence
-    hammer(W('F10b', 'çekiç'), vel=0.9)
-    hammer(W('F10b', 'daha'), vel=0.85)
+    hammer(W('F10b', 'indi'), vel=0.9)        # picture: P132–P133 hits on both "indi"
+    hammer(W('F10b', 'indi', 1), vel=0.85)
     pad(M('D2 A2'), W('F10b', 'zincire'), Se('F10b') + 1.0, gain=0.15, cutoff=300)
     # F13 alone, he speaks to the sky: choir, the "countless laughter" of the waves, Earth
     choir(M('D3 A3 D4 F4'), W('F13', 'ey'), W('F13', 'bakın'), gain=0.26, att=1.6, rel=1.0, vowel='a')
