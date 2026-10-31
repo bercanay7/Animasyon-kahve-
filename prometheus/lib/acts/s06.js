@@ -36,7 +36,7 @@ const G_rf = (c, x, gy, s, dir, lk, p = {}, o = {}) => figure(c, { x, y: gy - 44
 // --- P148–P150: bölüm kartı; kayanın üstünde mahkeme şeridi: SAVUNMA; kenar şeridi: bilinç · özgürlük; sanık başını kaldırır ---
 shot(PA('P148'), (ctx, st) => {
   const t = st.t, lt = st.lt, tY = A('G02@yani');
-  const c = F_cam(t, [[PA('P148'), { ...CAMS.alt }], [A('G02'), { ...CAMS.genis, x: 980 }], [tY, { ...CAMS.orta, x: 1060, y: 530, z: 1.35 }]], 1.0);   // baş Erhat şeridinin (y 190) altında kalmaz
+  const c = F_cam(t, [[PA('P148'), { ...CAMS.alt }], [A('G02'), { ...CAMS.genis, x: 980 }], [tY, { ...CAMS.orta, y: 470, z: 1.6 }]], 1.0);   // boy planı, baş Erhat şeridinin (y 190) altında; P151'in solundaki boşlukla belirgin kesme (atlama gibi okunmaz)
   const { wind } = kayaWorld(ctx, t, c, { sky: G_SKY });
   ctx.save(); cam(ctx, c, 1); promChained(ctx, t, { wind, look: lerp(.1, -.18, ramp(t, tY - .2, tY + .8)), poseMix: ['sessiz', 'direnis', ramp(t, tY - .1, tY + .7)] }); ctx.restore();
   kayaFront(ctx, t, c, wind);
