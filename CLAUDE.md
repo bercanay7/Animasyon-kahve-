@@ -82,6 +82,14 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
 - **Türkçe kelime seçimi:** "SAKIN DÖNME!" yerine "ARKANA BAKMA!" kullanıldı, çünkü "dönme" argo bir hakaret olarak da okunur. "TEK BAKIŞ YETTİ" önce "ilk görüşte aşk" gibi okunuyor.
 - Art arda iki videoda aynı kalıbı ("NEDEN …?") kullanma.
 - Duruşta T pozundan kaçın. "Geri dönme" gibi bir anı gövde ile başın yön zıtlığıyla göster.
+- **Cumhuriyet kapağı (5 tur):**
+  - Gerçek kişinin silueti (kalpaklı Atatürk profili) 168 px'te ancak doğru biçimle tanınıyor:
+    - kalpak kafatasından geniş, alında ve ensede kısa eğimle taşar;
+    - yumuşak köşeli, hafif genişleyen silindir;
+    - düzgün aralıklı yumru taç ya da kale gibi okunur, dik basamak silindir şapka gibi okunur.
+  - Kalıp kayması yüzde ince kâğıt boşluğu bırakıp gözyaşı gibi okunabilir; yakın plan yüzler kaymasız basılır.
+  - Ağız çizgisi yüz konturunu aşarsa "sigara" gibi okunur.
+  - Eller iki yanda ayna gibi olmalı; tek el sarkarsa "hata" gibi görünür.
 
 ## Ölçütler (YouTube Analytics)
 - **Gösterim tıklama oranı (TO):** kanalların yarısı %2–10 arasında.
