@@ -108,6 +108,11 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
 - **Kanaldaki diğer videolar:**
   - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
   - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
+- **Prometheus ("Prometheus: Asıl Tutsak Ki…", kapak "BİLE BİLE ÇALDI"), yayından 5 saat sonra:**
+  - Erişim: 484 gösterim, TO %5,8, 73 görüntüleme, 7,0 saat izlenme.
+  - İzleme: ortalama 9:02. Kanalın en güçlü başlangıcı.
+  - Trafik: Göz at %58,9, kanal sayfası %17,8, Önerilen %13,7. Kanal sayfası payı yüksek, yani Sisifos'la gelen izleyici geri dönüyor.
+  - İlk saatlerin TO'su ve izleme süresi sadık kitleden geldiği için şişkin. Geniş kitleye açıldıkça ikisi de düşer; asıl karşılaştırma 3. ve 5. günde yapılır.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Kitle (Sisifos, 5. gün) ve kanal yönü
