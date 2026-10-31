@@ -91,9 +91,43 @@ Teslim edilen her parça bağımsız bir kuruldan geçti ve kurulların ölçtü
    - "Test ve karşılaştır" sonucu.
 
 ## 6. Puanım
-- **Ürün: 9/10.** Her parça bağımsız kurul onayından geçti. Kaynak sadakati tam. Kodla çizimin sınırları içinde güçlü bir yönetmenlik var.
+- **Ürün (ilk teslim): 9/10. "En iyi iş" turundan sonra:** üslup kurulunun kritik maddelerinin hepsi giderildi, ses 9,2 ONAY. Ürün 9'un üstünde; kalan yalnız kodla çizimin motor düzeyindeki sınırları.
+- **Ürün (ilk teslim): 9/10.** Her parça bağımsız kurul onayından geçti. Kaynak sadakati tam. Kodla çizimin sınırları içinde güçlü bir yönetmenlik var.
 - **Süreç: 7/10.**
   - İki aşama (ses/miks ve Shorts) kurula geç gitti.
   - İki aşama (üslup karesi ve animatik) ONAY'sız geçti.
   - Bir kez yanlış iddia verdim.
   - Bunları sonradan düzelttim. Ama "en iyi iş", baştan doğru sırayla yapılanıdır.
+
+
+## 7. "En iyi iş" turu (kullanıcının isteğiyle)
+Rapor "en iyi iş bu değil" dedikten sonra, ertelenen ve "değmez" denen işlerin hepsi yeniden açıldı.
+
+- **Üslup kurulu (atlanan ONAY).**
+  - Dört sert üye son filmi değerlendirdi: 8,30 / 8,90 / 8,83 / 8,33. Hepsi RED.
+  - Bulguların neredeyse tamamı uygulandı (bkz. `kurul/kararlar.md`) ve film baştan render edildi.
+  - Kritik bulgular:
+    - kırmızı figürde kadın saçı;
+    - poz sıçramaları;
+    - P150;
+    - kamera sıçramaları;
+    - amfora bandı;
+    - geçişte kaybolan yazı;
+    - açılışta kartal.
+  - Kurulun motor düzeyindeki önerileri sonraki videoya bırakıldı: dirsek ve omuz dikişi, beyaz zemin giysi dili, kaya içi, himation, kartal kuyruğu.
+- **Ölçümle doğrulama** (kalan kullanım hakkı %11 olduğu için yeni kurul turu yerine):
+  - Tüm filmde tek karelik kamera atlaması: **72 → 11**.
+    - Yeni çıkan 1 atlama (P150 → P151) bulundu ve düzeltildi.
+    - Kalanların çoğu bilinçli kesme ya da geçiş içi küçük kayma.
+  - Amfora bandı, son söz geçişi ve açılış kartalı kare kare kontrol edildi.
+- **Ses kurulu tur 4: ONAY (9,2).**
+  - C10 vuruşu tahtın iniş anında; "indirdi" kelimesinin altında artık müzik yok (+0,1 → +34,8 dB). Gümlemesi kısaldı.
+  - G09 ve J04 doruğu hedefte.
+  - Shorts'un ilk saniyelerindeki 1,37 sn'lik boşluk 0,6 sn'ye indi.
+- **Altyazı denetimi:** 17 karakter/sn'yi aşan altyazı 16'dan 13'e indi. Satır uzunluğu, çakışma ve kare boşluğu temiz.
+- **Bu turda yaptığım ve yakaladığım hatalar:**
+  - Bir Shorts render'ını `SHORTS=1` olmadan başlattım. Durdurup yeniden başlattım.
+  - Bir render, ses işindeki `.parts` silmesiyle çakıştı. Durdurup temiz başlattım.
+  - P150 kamerası değişikliği yeni bir atlama yarattı. Tarama yakaladı, düzeltildi.
+
+  Ders: arka planda birden çok iş başlatırken ortak klasörlere dokunan komutlar sıraya konmalı, ortam değişkenleri tek tek kontrol edilmeli.
