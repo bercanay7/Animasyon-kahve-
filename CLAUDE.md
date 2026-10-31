@@ -101,6 +101,12 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - **Son:** sondaki düşüş bitiş ekranından (6:51), normal. Sona doğru (~6:10) küçük bir artış var: doruk anı. Shorts için en iyi aday bu an.
   - **Gövde:** YouTube'un "Önemli an" işareti yaklaşık 1:00–6:15 aralığını kapsıyor: izleyiciyi normalden uzun tutuyor. Bölümlü hikâye yapısı çalışıyor, korunmalı.
   - **Kanala etkisi:** Orfeus, "ARKANA BAKMA!" kapağıyla ve Sisifos'tan gelen önerilerle 7. günde ~92'den 244 görüntülemeye çıktı.
+- **Prometheus, ilk 5 saat** (23:55; kapak "BİLE BİLE ÇALDI"):
+  - Erişim: 484 gösterim, TO %5,8 (Sisifos'un ilk günkü %1,6'sının ~3,5 katı), 73 görüntüleme (gerçek zamanlı), 7,0 saat izlenme.
+  - İzleme: ortalama 9:02 (%38). Sisifos'ta izleyici başına ~3 dk'ydı.
+  - Trafik: Göz at %58,9, Kanal sayfaları %17,8, Önerilen %13,7.
+  - Saatlik ortalama izleme ~12 dk'dan ~6 dk'ya iniyor: ilk izleyiciler sadık kitle, sonrası geniş kitle. Son saatlerin verisi de henüz işlenmemiş olabilir.
+  - Ders: 24 dakikalık süre tıklamayı engellemedi. Merak sorusunu kapakla ve ilk cümleyle birebir eşlemek işe yaradı.
 - **Kanaldaki diğer videolar:**
   - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
   - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
