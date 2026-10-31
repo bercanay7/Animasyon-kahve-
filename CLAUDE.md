@@ -44,6 +44,24 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
    - Kare çekmek için: `node orfeus/shot.js out.png "v=a"`.
 9. **Yayın rehberi:** `yayin.md`. Başlık, açıklama (bölüm zaman damgalı), etiketler, altyazı, bitiş ekranı, zamanlama, ikinci ses kanalı.
 
+## Senaryo yapısı: Kahramanın Yolculuğu + kanalda işe yarayanlar
+Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, kontrol listesi olarak kullanılır. Her videonun konusu bu kalıba uymaz (tarih videoları, kolektif hikâyeler). Kalıba uymayan aşama zorlanmaz. Senaryo kurulu bu listeyle bakar.
+
+| Aşama | Videoda karşılığı | Sisifos verisinden ders |
+|---|---|---|
+| 0. Kanca | 0–5 sn: kapağın sorusu, büyük sınavdan bir kare (olayın ortasından başla) | Kayıp ilk 10–15 sn'de; kapak ile açılış aynı vaadi vermeli |
+| 1. Sıradan dünya | Kısa: kim, hangi dünya, kurallar ne | Uzatma |
+| 2. Çağrı ve eşik | Belayı başlatan seçim | Bölüm başlığı + küçük merak sorusu |
+| 3. Sınavlar, dostlar, düşmanlar | Bölüm bölüm ilerleyen hikâye | Gövde "Önemli an" oldu; bölümlü yapı tutuyor |
+| 4. Büyük sınav | İkonik an (Orfeus'un dönüp bakışı, Prometheus'un zincire vurulması) | Kapak bu andan seçilir |
+| 5. Bedel ya da ödül | Kazanılan ve kaybedilen | |
+| 6. Dönüş ya da kırılma | Mitin kalıbı nerede kırdığı: Orfeus dönüş yolunda, Sisifos sonsuz sınavda kırılır | Kanalın imzası: "yolculuk nerede kırıldı?" |
+| 7. İksir | Bugüne taşınan fikir (Camus, Erhat …); "Zaman Kuryesi"nin getirdiği soru | Doruk ~son dakika; abone çağrısı burada |
+| 8. Bitiş | Bitiş ekranı: seriden bir sonraki video | |
+
+- **Kanalın kendisi bir yolculuk:** izleyici geçmişe gider ve bir soruyla (iksirle) döner. Anlatıcı bu yolculuğun kuryesidir.
+- **Kahraman her zaman başlıktaki karakter değildir.** Örneğin Prometheus'ta kahraman insanlıktır: Prometheus ona ateşi (iksiri) veren ve bedelini ödeyen yol göstericidir. Kurul bu bakışın konuya uyup uymadığını değerlendirir.
+
 ## Kurul (bağımsız değerlendirme) yöntemi
 - Her kurul, `Agent` ile açılan ayrı bir alt ajandır. Türleri:
   - senaryo/yönetmenlik;
