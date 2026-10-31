@@ -113,6 +113,19 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - İzleme: ortalama 9:02. Kanalın en güçlü başlangıcı.
   - Trafik: Göz at %58,9, kanal sayfası %17,8, Önerilen %13,7. Kanal sayfası payı yüksek, yani Sisifos'la gelen izleyici geri dönüyor.
   - İlk saatlerin TO'su ve izleme süresi sadık kitleden geldiği için şişkin. Geniş kitleye açıldıkça ikisi de düşer; asıl karşılaştırma 3. ve 5. günde yapılır.
+- **Dört video yan yana (1 Kasım 2026):**
+
+  | Video | Süre | 0:30'da kalan | Ort. izleme | TO | Gösterim |
+  |---|---|---|---|---|---|
+  | Sisifos (7. gün) | 7:05 | %63 | 3:10 (%44,8) | %2,2 | 85 B, hâlâ hızlanıyor |
+  | Şarlken (13. gün) | 21:27 | **%79** | 8:58 (%41,8) | %10 (az gösterimde) | ~0,8 B; önerilen %38,6, kanal sayfası %35,1 |
+  | Cumhuriyet (2. gün) | 6:20 | %65 | 2:45 (%43,5) | **%1,1** | 14,2 B'de durdu |
+  | Prometheus (5. saat) | 24:00 | – | 9:02 (%37,6) | %5,8 | 484 (erken) |
+
+  - **Tutma her uzunlukta %42–45:** anlatım ve görsel kalite darboğaz değil. Uzun video aynı oranı tutuyor, izlenme başına ~3 kat izlenme süresi getiriyor.
+  - **Darboğaz paketleme (kapak ve başlık):** Sisifos'un gösterimi büyüdü, Cumhuriyet'inki %1,1 TO ile 14 B'de durdu (konusu da güne bağlıydı). Her videoda en az iki kapak hazırlanır ve "Test ve karşılaştır" ile denenir. Kapak kurulu "ilk bakışta anlaşılıyor mu?" sorusuna öncelik verir.
+  - **En iyi açılış Şarlken'de (%79):** yeni videoların açılışı onunla karşılaştırılır.
+  - **Kanal vitrin gibi çalışıyor:** diğer videolarda trafiğin %17–35'i kanal sayfasından geliyor. Sisifos kapı açıyor, izleyici kanala dağılıyor.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Kitle (Sisifos, 5. gün) ve kanal yönü
