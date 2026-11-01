@@ -178,6 +178,12 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   | Prometheus (5. saat) | 24:00 | – | 9:02 (%37,6) | %5,8 | 484 (erken) |
 
   - **Tutma her uzunlukta %42–45:** anlatım ve görsel kalite darboğaz değil. Uzun video aynı oranı tutuyor, izlenme başına ~3 kat izlenme süresi getiriyor.
+  - **Paketleme değişikliğinin sonucu (Cumhuriyet):**
+    - Değişiklik: kapak "SULTANIN ÖĞRENCİSİ", başlık "Abdülhamid, Kendi Sonunu Getiren Kuşağı Nasıl Yetiştirdi?".
+    - Sonuç: duran video yeniden açıldı. Görüntüleme 372'den 1.101'e, gösterim 14,2 B'den 18,5 B'ye çıktı.
+    - Ömür boyu TO %1,1'den %1,5'e çıktı. Değişiklikten sonraki gösterimlerde TO kabaca %2,5–3 (tahmin).
+    - Tutma %42,2'de korundu, yani yeni kapak yanıltmıyor.
+    - Ders: yayından sonra kapak ve başlık düzeltmek ölü bir videoyu diriltebilir.
   - **Darboğaz paketleme (kapak ve başlık):** Sisifos'un gösterimi büyüdü, Cumhuriyet'inki %1,1 TO ile 14 B'de durdu (konusu da güne bağlıydı). Her videoda en az iki kapak hazırlanır ve "Test ve karşılaştır" ile denenir. Kapak kurulu "ilk bakışta anlaşılıyor mu?" sorusuna öncelik verir.
   - **En iyi açılış Şarlken'de (%79):** yeni videoların açılışı onunla karşılaştırılır.
   - **Kanal vitrin gibi çalışıyor:** diğer videolarda trafiğin %17–35'i kanal sayfasından geliyor. Sisifos kapı açıyor, izleyici kanala dağılıyor.
