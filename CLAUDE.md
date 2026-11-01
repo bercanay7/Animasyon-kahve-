@@ -168,6 +168,38 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - **Köprü:** Prometheus yeni alanlara köprü olarak kullanılabilir:
     - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
     - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
+- **Sonraki video: Milton, *Kayıp Cennet* ve Şeytan** (kullanıcıyla konuşularak netleşti, 1 Kasım 2026).
+  - **Amaç:** "Şeytan haklı mıydı?" diye sormak değil. İzleyiciyi Şeytan'la empati kurduran bir **iç yolculuk** anlatmak.
+  - **Ağırlık:** ağırlık Şeytan'da. Milton'ın hayatı kısa tutulur; yalnız eseri kör olduktan sonra kızlarına ve yardımcılarına yazdırması öne çıkar (kullanıcıyı en çok etkileyen ayrıntı).
+    - Çerçeve fikri: kör bir şair, göremediği ışığı ve cehennemi anlatıyor. III. kitabın açılışındaki ışığa yakarış bunun için kullanılabilir.
+  - **İki okuma çarpışır, karar izleyiciye kalır:**
+    - Blake ve Romantikler: "Milton farkında olmadan Şeytan'ın tarafındaydı" (kullanıcı da buna yakın).
+    - C. S. Lewis: Şeytan gururuyla küçülür; başmelekten karabataka, kurbağaya, en sonunda yılana döner.
+  - **Başkaldırı teması:** kanalın ortak damarı (Sisifos, Prometheus, Şeytan).
+    - Kullanıcının görüşü: tarihteki başkaldırıların çoğu kısıtlanan hak ve özgürlüklere karşıdır, ama istisnalar var (ör. Mussolini, İran 1979). "Başkaldırı her zaman özgürlük müdür?" sorusu bu inceliği taşır.
+  - **Yalnız edebi okuma (kullanıcının kararı):** dinî karşılaştırma, ör. İblis, yapılmaz; video başta bunun Milton'ın destanının okuması olduğunu söyler.
+    - Tanrı ve Oğul figürle çizilmez, ışık olarak gösterilir (Doré de böyle yapar).
+  - **İç yolculuk planı (öneri; Kahramanın Yolculuğu kontrol listesiyle):**
+    - **0. Kanca:** destan da olayın ortasında başlar. İlk 5 saniye yanan gölde açılan gözler ve bir merak sorusu.
+    - **1. Sıradan dünya:** Cennet, Lucifer ("ışık taşıyan").
+    - **2. Çağrı:** Oğul'un yüceltilmesi; kıskançlık ve gurur; isyan.
+    - **3. Sınavlar:** cennetteki savaş, dokuz gün süren düşüş, Pandemonium ve şeytanlar meclisi.
+      - **"Cennette köle olacağıma cehennemde kral olurum"** (I. kitap, 263) 1. perdenin sonunda menteşe olur.
+    - **4. Büyük sınav ve duygusal doruk:** IV. kitaptaki Nifates Dağı iç konuşması, "Hangi yöne kaçsam cehennem; cehennem benim". Pişmanlık var ama gururdan eğilemiyor. Empatinin kurulduğu an burası.
+    - **5. Bedel ve ödül:** Aden'e sızma, Havva; kazanırken kaybetmek.
+    - **6. Kırılma:** X. kitapta şeytanlar yılana dönüşür (Lewis'in okuması).
+    - **7. İksir:** Milton'dan sonra Şeytan "insanlaştı": Romantikler ve Cabanel'in *Düşmüş Melek*'i (1847, gözünde bir damla yaş). Son soru izleyiciye: o gözyaşı pişmanlık mı, gurur mu? Başkaldırı ne zaman özgürlük, ne zaman insanın kendi cehennemi?
+  - **Üslup (kullanıcı bana bıraktı):** Gustave Doré'nin *Kayıp Cennet* gravürleri (1866).
+    - Siyah-beyaz çelik/ağaç baskı, yoğun tarama ve çapraz tarama, ışık huzmeleri, düşen melek siluetleri.
+    - Kodla çizime uygun: çizgi alanları, kontrast, siluet.
+    - Yeni ilkeller kurulacak: tarama motoru, kanat, alev ve bulut gravürü. Önce tek üslup karesi kurula onaylatılır.
+    - Cabanel tablosu kapanış sahnesi ve kapak adayıdır; telifli bir eser değil (1847).
+    - Yüz yakın planları azdır ve gravür diliyle stilize edilir.
+  - **Kaynak:**
+    - Kullanıcı eseri Türkçe çeviriden okudu, çevirmeni hatırlamıyor.
+    - Türkçe çeviriler telifli olabilir. Dizeler İngilizce özgün metinden (1674, kamu malı) kendi çevirimizle verilir; açıklamada kaynak yazılır.
+    - Tarihler, kitap ve dize numaraları ve Milton'ın hayatına dair ayrıntılar senaryo kurulunda kaynaktan doğrulanır.
+  - **Süre:** hikâye ne kadar gerektiriyorsa o kadar.
 - **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.
 
 ## Teknik notlar ve tuzaklar
