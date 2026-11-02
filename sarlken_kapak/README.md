@@ -15,10 +15,11 @@
 | Dosya | Ne | Kurul |
 |---|---|---|
 | `kapak_yeni_1_madalyalar.jpg` | "KANUNİ'NİN RAKİBİ / TAHTI BIRAKTI". Kanuni ile Şarlken madalyaları yüz yüze; aralarında yere bırakılmış imparatorluk tacı | TO 9/10, sanat 9/10: ONAY |
-| `kapak_yeni_2_salon.jpg` | Aynı yazı. Videonun ilk saniyelerindeki Brüksel salonu: boş taht, Şarlken ve prens | TO 8 → (son düzeltme), sanat: aşağıya bak |
+| `kapak_yeni_2_salon.jpg` | Aynı yazı. Videonun ilk saniyelerindeki Brüksel salonu: boş taht, Şarlken ve prens | Sanat 9/10 ONAY (4. tur). TO 8 verdi; tek engel olan şerit kenarını TO üyesinin tarif ettiği gibi düzelttim, gerileme kontrolü sanat üyesinde |
 | `kapak_kanuni.py` | Çizim kodu. Videonun motorunu kullanır; `gunluk-shorts/sarlken-uzun-dosya/` içine kopyalanıp `python3 kapak_kanuni.py K1v2` ya da `K3` ile çalışır | |
 
 ## Kurul (yeni düzen: iki üye, çapraz eleştiri, başkan kararı; 4 tur)
+- **Sonuç:** madalyalı kapak iki üyeden de 9/10 aldı. Salon kapağı sanat üyesinden 4. turda 9/10 aldı.
 - **Üyeler:** TO/paketleme stratejisti; sanat yönetmeni ve dönem doğruluğu.
 - **1. tur:** iki üye de 6/10 verdi.
   - Yazılar küçüktü.

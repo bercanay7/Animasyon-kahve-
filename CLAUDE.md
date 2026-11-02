@@ -174,7 +174,12 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
     - Yorum: YouTube videoyu hiç geniş bir göz atma testine sokmadı. Yayın sırasında kanalın kitlesi yoktu; şimdiki kitle (Sisifos) mit ve felsefe izleyicisi.
     - Paketleme fırsatı: videoda Kanuni ve 1529 Viyana bölümü var. Türk izleyici "Şarlken"i tanımıyor ama Kanuni'yi tanıyor. "Kanuni'nin rakibi tahtı neden bıraktı?" açısı doğru ve geniş kitleye açılır.
     - Doğruluk notu: 1529'da Viyana'yı savunan Şarlken değil, kardeşi Ferdinand'dı. Başlıkta "Kanuni'yi durduran" gibi bir iddia kullanılmaz.
-    - Proje: `claude/youtube-video-topic-emk7zu` dalında, `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru). Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
+    - Proje: `claude/youtube-video-topic-emk7zu` dalında, `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru).
+    - **Yeni paket (2 Kasım):** `sarlken_kapak/`.
+      - Kapaklar: "KANUNİ'NİN RAKİBİ / TAHTI BIRAKTI" (madalyalar + bırakılmış taç), salon versiyonu ve mevcut kapak (kontrol).
+      - Başlık: "Osmanlı'nın 'İspanya Kralı' Dediği İmparator: Şarlken Neden Vazgeçti?"
+      - 11:03 bölümü "Kanuni" adını taşıyacak şekilde yeniden adlandırıldı.
+      - Kurul dersleri: YouTube'un gerçek süre rozeti "önerilen" listesinde x 1440–1874, y 829–1034 alanını kaplar, bu bölgeye yazı konmaz. Çatlak taç "tahttan indirildi" anlamı verir; gönüllü bırakma için bütün, yere bırakılmış taç kullanılır. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
 - **Prometheus ("Prometheus: Asıl Tutsak Ki…", kapak "BİLE BİLE ÇALDI"), yayından 5 saat sonra:**
   - Erişim: 484 gösterim, TO %5,8, 73 görüntüleme, 7,0 saat izlenme.
   - İzleme: ortalama 9:02. Kanalın en güçlü başlangıcı.
