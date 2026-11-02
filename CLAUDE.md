@@ -170,7 +170,8 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - İlk saatlerin TO'su ve izleme süresi sadık kitleden geldiği için şişkin. Geniş kitleye açıldıkça ikisi de düşer; asıl karşılaştırma 3. ve 5. günde yapılır.
 - **Prometheus, 45. saat:**
   - Erişim: yaklaşık 20. saatte büyük bir göz atma testi geldi; gösterim birkaç saatte ~1 B'den 18 B'ye çıktı, sonra düz kaldı.
-  - TO %1 küsur (ilk saatlerdeki %5,8 sadık kitledendi).
+  - TO %1,6 (ilk saatlerdeki %5,8 sadık kitledendi); Sisifos'un aynı aşamadaki oranıyla aynı.
+  - Gösterim başına izlenme süresi (TO × ortalama izleme) 1,6 % × 6,7 dk ≈ 0,11 dk. Sisifos'ta 1,6 % × 2,9 dk ≈ 0,05 dk. Prometheus gösterim başına iki kattan fazla izlenme süresi getiriyor. Uzun videolarda bu ölçüt TO'dan daha anlamlı.
   - İzleme: 23:55'lik videoda ortalama 6:43 (%28,1). 0:30'da izleyicilerin %70'i kalıyor ("standart"), ama ilk dakikada ~%55'e iniyor.
   - Yorum: yükseliş durdu, çünkü geniş kitle testinde tıklama düşük kaldı. Sisifos'ta da dalgalar arasında ~1 günlük duraklama olmuştu.
   - Kural: 2–3 gün yeni dalga gelmezse paketleme (kapak ve başlık) kurulla yenilenir. Cumhuriyet'te bu yöntem işe yaradı.
