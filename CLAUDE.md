@@ -168,7 +168,13 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - Bu video artık kanalın kapısı: Prometheus ve diğer videolar bitiş ekranı, sabit yorum ve oynatma listesiyle buraya bağlanır.
 - **Kanaldaki diğer videolar:**
   - "Cumhuriyet'i Kuran Kuşak Nasıl Yetişti?" (29 Ekim; 6:20; kapak "KURUCU KADRO / AYNI SIRADA"): 15 saatte 61 görüntüleme.
-  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme. Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
+  - "Şarlken: Dünyayı Teslim Eden İmparator" (21:27): 11 günde 147 görüntüleme.
+    - 14. gün: toplam 1,0 B gösterim, TO %9,9.
+    - Trafik: önerilen %44,7, kanal sayfası %29,5, göz at yalnız %13,2.
+    - Yorum: YouTube videoyu hiç geniş bir göz atma testine sokmadı. Yayın sırasında kanalın kitlesi yoktu; şimdiki kitle (Sisifos) mit ve felsefe izleyicisi.
+    - Paketleme fırsatı: videoda Kanuni ve 1529 Viyana bölümü var. Türk izleyici "Şarlken"i tanımıyor ama Kanuni'yi tanıyor. "Kanuni'nin rakibi tahtı neden bıraktı?" açısı doğru ve geniş kitleye açılır.
+    - Doğruluk notu: 1529'da Viyana'yı savunan Şarlken değil, kardeşi Ferdinand'dı. Başlıkta "Kanuni'yi durduran" gibi bir iddia kullanılmaz.
+    - Proje: `claude/youtube-video-topic-emk7zu` dalında, `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru). Şimdiye kadar en iyi sonucu mit ve felsefe videoları verdi. Bu bir süre kuralı değil; aşağıdaki "Süre" maddesine bak.
 - **Prometheus ("Prometheus: Asıl Tutsak Ki…", kapak "BİLE BİLE ÇALDI"), yayından 5 saat sonra:**
   - Erişim: 484 gösterim, TO %5,8, 73 görüntüleme, 7,0 saat izlenme.
   - İzleme: ortalama 9:02. Kanalın en güçlü başlangıcı.
