@@ -100,7 +100,7 @@ SHOTS = [
                  dict(PERUZZI_A, x=560, y=880, h=450, action="count", dir=1, layer="front"),
                  dict(PERUZZI_B, x=1420, y=880, h=450, action="idle", dir=-1, layer="front")],
          cams=[(("c1s10", -0.15), (1060, 40, 1.16)), (("c1s10", "Peruzzi'nin", -0.2), (1000, 60, 1.34)), (("c1s10", "kaybedenlerin", 0.0), (980, 66, 1.42))],
-         ovl=P.ov(P.plate("GIOVANNI VILLANI", 1260, 180, ("c1s10", "Villani", -0.3), role="PERUZZİ ORTAĞI (1300'DEN)", w=760),
+         ovl=P.ov(P.plate("GIOVANNI VILLANI", 1260, 180, ("c1s10", "Villani", -0.3), role="1300'DE PERUZZİ ORTAĞI · ŞİRKETİ 1341'DE BATTI", w=760),
                   P.desat(("c1s10", "kaybedenlerin", -0.2), ("c1s10", "içindendi", 0.6), k_max=0.7, dark=0.25, tint="#6E7480", tint_a=0.12)),
          cam=("push",), tr=("zoomthru", 0.7, dict(at=(960, 560), at_b=(960, 520))), link="scale", label="Villani: Peruzzi ortağı; kaybedenlerin içinden"),
     # ── 12. VEBA: Floransa'nın rengi solar ───────────────────────────────────

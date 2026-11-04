@@ -119,3 +119,17 @@ Motif olarak **destekleniyor, ama tek başına insan yerine geçmemeli**: AN2 "m
 ### Tur 2 planı
 
 Aynı üyeler (SendMessage ile, aynı bağlam), yeni render + kanıt seti; raporlar `kurul/tur2/<KOD>.md`. Üyeler tur 1 maddelerinin kapanıp kapanmadığını tek tek işaretler; yeni puan verir.
+
+---
+
+## Tur 2 — 4 Kasım 2026 (P1 v2)
+
+### KA1 (olgu ve sayı, veto) — 1. aşama: anlatım + kaynak + paket → **ONAY 9,0** (anlatım 9,5 · kaynak 9,5 · paket 8,5; ekran v2 render sonrası ayrıca)
+
+Tur 1 anlatım maddelerinin hepsi kapandı; başkanın ek yamaları (c1s10 DBI, c2s20 de Roover n. 45, c2s21 DBI) birincil/otoriter metinle birebir. KA1 ayrıca iki yeni kaynağa erişti: **Casciu 2006** (*La Principessa saggia*; Aile Sözleşmesi on üç madde, Fransızca özgün, III. madde) ve **Online Catasto of 1427** (Brown Üniv.; 9.780 hane, 137 hane = %29,8, en zengini Strozzi). Başkan kararları (hepsi uygulandı):
+- **N1** Tim Parks "gerçekten okunanlar" altından çıktı → "Anlatımda anılan (kitap okunmadı; bilgi de Roover'da doğrulandı)".
+- **N2** Casciu 2006 ve Online Catasto kaynak listesine eklendi; **N8** Stefani rubrica numarasına baskı notu; **V3** DBI maddesine "karşı papa".
+- **N3** ekran Strozzi rakamı: iki kaynak (162.925 Wikipedia / 162.906 Online Catasto) → "≈163.000 FLORİN · YAKLAŞIK".
+- **N4** Villani levhası → "1300'DE PERUZZİ ORTAĞI · ŞİRKETİ 1341'DE BATTI"; **N5** Cavalcanti → "HAPİSTE · ≈1440".
+- **N7** kulak kontrolüne orijinal kayıttan c2s8 ("Faiz değil, hediye.") ve c1s6 ("ona göre") eklendi; **N10** YAYIN_TASLAK'taki "Tracy Parks" ve okunmamış kaynaklar kaldırıldı; **N11** etiketler: c0s4, c0s8, c0s11, c2s23, c2s30 ● (toplam 51 ●).
+- Türkçe ek: "5:39'de" → "5:39'da" (paket üreticisi artık okunuşa göre ek seçiyor).

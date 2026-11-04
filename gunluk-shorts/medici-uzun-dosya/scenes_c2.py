@@ -225,7 +225,7 @@ SHOTS = [
          cam=("pan", "r"), montage=True, tr="cut", link="audio", label="137 hane ≈ %30"),
     shot("p1_emblem", ("c2s23", "en", -0.15), icon="chest", metal="gold", size=420, pos=(1180, 560), mode="day", perde=1,
          ovl=P.ov(P.plate("PALLA STROZZI", 560, 300, ("c2s23", "Palla", -0.5), role="1427'NİN EN ZENGİNİ", w=720),
-                  P.count_up(560, 640, ("c2s23", "zengini", -0.05), 162925, dur=0.8, unit="FLORİN · BRÜT", size=150, bg=True, min_w=500, unit_size=36)),
+                  P.count_up(560, 640, ("c2s23", "zengini", -0.05), 163000, dur=0.8, unit="FLORİN · YAKLAŞIK", size=150, bg=True, min_w=500, unit_size=36)),
          cam=("push",), montage=True, tr="cut", link="audio", label="1427'nin en zengini: Palla Strozzi"),
     # ── 22. Giovanni sayımın yürürlüğe girmesini destekledi (Signoria salonu) ──
     shot("p1_oda", ("c2s24", -0.15), room="salon", variant="signoria", tod="day", mode="day", perde=1,
@@ -288,7 +288,7 @@ SHOTS = [
     shot("p1_oda", ("c2s30", -0.15), room="calisma", variant="hucre", tod="day", mode="day", perde=1, figure=None, lamp_day=0.6,
          actors=[dict(kind="soylu", seed=44, x=946, y=823, h=280, action="write", seated=True, dir=1)],
          cams=[(("c2s30", -0.15), (1100, 20, 1.20)), (("c2s30", "kimse", -0.3), (1170, 56, 1.48))],
-         ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="1440'LARDA · OLAYA DAHA YAKIN", w=760)),
+         ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · ≈1440 · OLAYA DAHA YAKIN", w=760)),
          cam=("push",), tr=("light", 0.5, dict(at=(1200, 560))), link="light", label="Cavalcanti yazar"),
     # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — Cavalcanti'nin sayfası yazılır (vuruş kartı; ANEKDOT) ──
     shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.6), write_b=("c2s30", "kimse", -0.2), stamp_at=("c2s30", "kederlenmemeli", -0.4),

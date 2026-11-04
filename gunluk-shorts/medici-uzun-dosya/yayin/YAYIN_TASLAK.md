@@ -35,7 +35,7 @@ Not: Başlıkta "satın aldı/ele geçirdi" gibi aşırı iddia kullanılmadı (
 Ortak blok (her açıklamanın sonuna): kaynaklar + ses/telif notu + etiketler.
 
 ```
-BAŞLICA KAYNAKLAR (seçme): Treccani (Dizionario Biografico, Enciclopedia Italiana), Britannica, Raymond de Roover, Tracy Parks, Goldthwaite, Padgett–Ansell, Uffizi/V&A/Met kurum sayfaları. Tam liste ve teyit notları: sabit yorumda.
+KAYNAKLAR: her parçada yalnız GERÇEKTEN OKUNAN metinler listelenir (birincil metinler + araştırmalar ayrı başlıkta; okunmayan ama anlatımda anılan eser "anlatımda anılan" diye ayrı). P1 için güncel liste: studio_paketi_P1/02_aciklama.txt (paket_P1.py üretir). Not (kurul tur 2, KA1-N10): eski taslaktaki "Tracy Parks" yanlıştı (doğrusu Tim Parks); Goldthwaite ve Padgett–Ansell okunmadan listelenmişti, kaldırıldı.
 
 Ses: yapay anlatıcı (ElevenLabs). Çizim, harita ve animasyonların tamamı kodla üretilmiştir; müzik ve ses efektleri sentezdir. Haritalardaki sınırlar yaklaşıktır.
 ```

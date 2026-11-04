@@ -30,3 +30,10 @@ Her klip: önceki cümle + YAMALI cümle + sonraki cümle (anlatım kanalı, mü
 | `yama_c2s20.mp3` | 7:43 | De Roover'ın andığı belgelere göre Martinus, Cossa'nın bir borca karşılık bıraktığı mitrayı geri almak için Giovanni'yi aforozla tehdit etmek zorunda kalmıştı. | atıf de Roover'a düzeltildi — ASR 'aforozla'yı 'Aforoz'da' duydu: okunuşa bakın |
 | `yama_c2s21.mp3` | 7:54 | Papalığın resmî kasa memurluğu da 1422'den sonra yirmi iki yıl kesintisiz, ardından on sekiz yıl aralıklarla Medici'de kaldı. | 1422'den 22 yıl kesintisiz + 18 yıl aralıklı (DBI) |
 | `yama_c2s27.mp3` | 8:44 | İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı. | 'torununun oğlu Lorentso' |
+
+### Orijinal kayıtta kulakla doğrulanacak iki yer (yama değil)
+
+| Dosya | Video zamanı | Cümle | Not |
+|---|---|---|---|
+| `orijinal_c2s8.mp3` | 6:29 | Faiz değil, hediye. | espri cümlesi; ASR 'FISD / Hediy' duydu — 'Faiz değil, hediye.' net mi? |
+| `orijinal_c1s6.mp3` | 2:17 | 1338'de kenti de saydı: ona göre Floransa'da yaklaşık doksan bin kişi yaşıyordu ve çocuklar okuma yazmanın yanında hesap okullarına da gidiyordu. | ASR 'ona göre'yi 'O ne gül?' duydu — 'ona göre' net mi? |

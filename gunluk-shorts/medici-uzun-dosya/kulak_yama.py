@@ -57,6 +57,21 @@ def main():
     k = old.find("\n\n## Kurul tur 1 ses yamaları")
     if k >= 0:
         old = old[:k]
+    # orijinal kayıtta ASR'nin eşleştiremediği, kulakla doğrulanması gereken yerler (kurul tur 2, KA1-N7)
+    ek = []
+    for sid, notu in (("c2s8", "espri cümlesi; ASR 'FISD / Hediy' duydu — 'Faiz değil, hediye.' net mi?"),
+                      ("c1s6", "ASR 'ona göre'yi 'O ne gül?' duydu — 'ona göre' net mi?")):
+        if sid in idx:
+            i = idx[sid]
+            a, b = max(0.0, ss[i]["t0"] - 0.6), ss[i]["t1"] + 0.6
+            out = os.path.join(DIR, f"orijinal_{sid}.mp3")
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", f"{a:.3f}", "-to", f"{b:.3f}", "-i", os.path.join(PA.OUT, "voice.wav"),
+                            "-ac", "1", "-b:a", "128k", out], check=True)
+            mm, s_ = divmod(int(ss[i]["t0"]), 60)
+            ek.append(f"| `orijinal_{sid}.mp3` | {mm}:{s_:02d} | {ss[i]['disp']} | {notu} |")
+    if ek:
+        blok += ("\n### Orijinal kayıtta kulakla doğrulanacak iki yer (yama değil)\n\n| Dosya | Video zamanı | Cümle | Not |\n|---|---|---|---|\n"
+                 + "\n".join(ek) + "\n")
     open(MD, "w", encoding="utf-8").write(old.rstrip("\n") + blok)
     print(f"{len(rows)} klip → {DIR}")
 

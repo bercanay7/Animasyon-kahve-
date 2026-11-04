@@ -13,24 +13,24 @@
  {
   "id": "c1",
   "part": 1,
-  "chars": 3003,
-  "words": 418,
-  "credits": 3003,
+  "chars": 2997,
+  "words": 419,
+  "credits": 2997,
   "usd": 0.6,
-  "sha": "16182cf7a292",
+  "sha": "ae9fa820baed",
   "gercek_ses": true,
-  "uretilen_sha": "16182cf7a292"
+  "uretilen_sha": "ae9fa820baed"
  },
  {
   "id": "c2",
   "part": 1,
-  "chars": 3193,
-  "words": 444,
-  "credits": 3193,
+  "chars": 3202,
+  "words": 447,
+  "credits": 3202,
   "usd": 0.64,
-  "sha": "decc6edd7b47",
+  "sha": "cbad07c9c21e",
   "gercek_ses": true,
-  "uretilen_sha": "decc6edd7b47"
+  "uretilen_sha": "cbad07c9c21e"
  },
  {
   "id": "c3",

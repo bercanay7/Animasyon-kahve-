@@ -30,21 +30,42 @@ BOLUMLER = [
     ("c2s22", "Catasto: Floransa servetini sayıyor (1427)"),
 ]
 
-KAYNAKLAR = """KAYNAKLAR (bu parçada gerçekten okunanlar)
+KAYNAKLAR = """KAYNAKLAR
 Birincil metinler:
 • Giovanni Villani, Nuova Cronica (florinin basılması, 1338 nüfusu ve okullar, Bardi–Peruzzi ve III. Edward)
 • Giovanni Boccaccio, Decameron, Birinci Gün, Giriş (1348 vebası)
-• Marchionne di Coppo Stefani, Floransa Kroniği, Rubrica 634 (veba ve toplu mezarlar)
+• Marchionne di Coppo Stefani, Floransa Kroniği, Rubrica 634 (Delizie degli eruditi toscani XIII baskısı; RIS baskısında rub. 643): veba ve toplu mezarlar
 • Dante, Cennet IX, 127–132 ("lanetli çiçek")
 • Niccolò Machiavelli, Floransa Tarihi, III–IV. kitaplar (1378 olayları, Giovanni di Bicci'nin ölümü)
 • Giovanni Cavalcanti, Floransa Tarihi, IV. kitap (Giovanni'nin son sözleri)
-Araştırmalar:
+Araştırmalar ve veri tabanları:
 • Raymond de Roover, The Rise and Decline of the Medici Bank, 1397–1494 (1963)
-• Dizionario Biografico degli Italiani (Treccani): Giovanni di Bicci de' Medici, Giovanni Villani, Michele di Lando, Marchionne di Coppo Stefani, XXIII. Johannes (Baldassarre Cossa), Anna Maria Luisa de' Medici maddeleri
-• Tim Parks, Medici Money (2005): anlatımda anılan aktarım
-Not: Aile Sözleşmesi'nin (1737) Fransızca özgün metnine erişemedik; 3. madde İtalyanca çevirisinden aktarılmıştır. Rivayetler ekranda ANEKDOT damgasıyla işaretlidir.{BIRINCIL}"""
+• Dizionario Biografico degli Italiani (Treccani): Giovanni di Bicci de' Medici, Giovanni Villani, Michele di Lando, Marchionne di Coppo Stefani, XXIII. Johannes (Baldassarre Cossa; karşı papa), Anna Maria Luisa de' Medici maddeleri
+• Stefano Casciu, "Principessa di gran saviezza…", La Principessa saggia (Livorno 2006), s. 30–57 (Aile Sözleşmesi: on üç madde, Fransızca özgün, III. madde)
+• Online Catasto of 1427 (yay. D. Herlihy, C. Klapisch-Zuber, R. B. Litchfield, A. Molho; Brown Üniversitesi): 1427 servet sayımı
+Anlatımda anılan:
+• Tim Parks, Medici Money (2005): kitabın kendisi okunmadı; aktarılan bilgi de Roover'da doğrulandı
+Rivayetler ekranda ANEKDOT damgasıyla, temsilî portreler TEMSİLÎ damgasıyla işaretlidir.{BIRINCIL}"""
 
 BIRINCIL_EK = ""          # KAY teyit tablosu (kurul/teyit_P1.md) sonucu doldurulur: gerçekten okunan birincil metinler
+
+
+_SAYI = {1: "bir", 2: "iki", 3: "üç", 4: "dört", 5: "beş", 6: "altı", 7: "yedi", 8: "sekiz", 9: "dokuz"}
+_ONLAR = {1: "on", 2: "yirmi", 3: "otuz", 4: "kırk", 5: "elli"}
+
+
+def _son_sozcuk(n):
+    return _SAYI[n % 10] if n % 10 else _ONLAR.get(n // 10, "sıfır")
+
+
+def ek_de(damga):
+    """'5:39' → "'da" (okunuş: beş otuz dokuz); büyük/küçük ünlü uyumu + fıstıkçı şahap."""
+    mm, ss = (int(x) for x in damga.split(":")[-2:])
+    w = _son_sozcuk(ss) if ss else _son_sozcuk(mm)
+    unlu = [c for c in w if c in "aıoueiöü"][-1]
+    sesli = "a" if unlu in "aıou" else "e"
+    sert = "t" if w[-1] in "çfhkpsşt" else "d"
+    return "'" + sert + sesli
 
 
 def ts(t):
@@ -84,7 +105,7 @@ def main():
     bol_txt = "\n".join(f"{ts(t)} {ad}" for t, ad in bol)
     kambiyo = ts(dict((a, t) for t, a in bol)["Faiz yasağı, kambiyo ve \"vicdan komitesi\""])
     aciklama = f"""Medici Ailesi (1/7): Kilise faizi yasaklamıştı; bir bankacı ailesi yine de para kazanmanın yolunu buldu.
-1743'te son Medici'nin ölümünden 1252'de basılan ilk florine geri sarıyoruz. {kambiyo}'de faiz yasağı ve "vicdan komitesi".
+1743'te son Medici'nin ölümünden 1252'de basılan ilk florine geri sarıyoruz. {kambiyo}{ek_de(kambiyo)} faiz yasağı ve "vicdan komitesi".
 
 18 Şubat 1743, Floransa. Yetmiş beş yaşında bir kadın ölüyor: Toskana'yı yönetmiş Medici hattının son üyesi Anna Maria Luisa. 31 Ekim 1737'de imzalanan Aile Sözleşmesi'nin 3. maddesine göre ailenin galerileri, tabloları, heykelleri ve kütüphaneleri Floransa'dan ve Büyük Dukalık'tan çıkarılamayacaktı. Peki bir bankacı ailesi, mirasını bir şehre bağlayacak noktaya nasıl geldi?
 

@@ -22,7 +22,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("Faiz değil, hediye.", None, "● teyit_P1 (birincil metin okundu) · ○ M1:§5B (mizah a)"),
           ], [
               ("Üstelik bu işin müşterilerinden biri, faizi yasaklayan Kilise'nin ta kendisiydi.", None, "● teyit_P1 (birincil metin okundu) · ○ M1:D19 (de Roover)"),
-              ("De Roover'a göre Roma şubesine ayrı sermaye verilmedi; kasayı Kilise'nin yatırdığı para doldurdu.", None, "○ M1:#27,D19 (\"de Roover'a göre\")"),
+              ("De Roover'a göre Roma şubesine ayrı sermaye verilmedi; kasayı Kilise'nin yatırdığı para doldurdu.", None, "◐ de Roover 1963 ('no capital … after 1426') — kurul tur 2 KA1 · önceki: ○ M1:#27,D19 (\"de Roover'a göre\")"),
               ("25 Mart 1402'de Venedik şubesi açıldı; Floransa'da o gün yılbaşıydı.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#28,D18 (kasıt söylenmez)"),
           ], [
               ("Çifte kaydı Medici'ler icat etti derler.", None, "● teyit_P1 (birincil metin okundu) · MİT M1:mit1"),
@@ -38,7 +38,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("Papalığın resmî kasa memurluğu da 1422'den sonra yirmi iki yıl kesintisiz, ardından on sekiz yıl aralıklarla Medici'de kaldı.", None, "● DBI 'Medici, Giovanni di Bicci': 'per 22 anni consecutivi e per altri 18 a intermittenza' (1422 Bartolomeo Bardi depositario) — kurul teyit_P1 ✗→düzeltildi"),
           ], [
               ("1427'de Floransa hanelerin servetini tek tek yazdırdı; bu sayıma catasto denir.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#39"),
-              ("Bir hesaba göre yüz otuz yedi hane, kayıtlı servetin yaklaşık yüzde otuzunu tutuyordu; en zengini Palla Strozzi'ydi.", None, "◐ Strozzi / ○ %29,8 M1:#39,§4B (\"bir hesaba göre\")"),
+              ("Bir hesaba göre yüz otuz yedi hane, kayıtlı servetin yaklaşık yüzde otuzunu tutuyordu; en zengini Palla Strozzi'ydi.", None, "● Online Catasto of 1427 (Herlihy–Klapisch-Zuber–Litchfield–Molho, Brown Üniv.): 137 hane = kayıtlı servetin %29,8'i; en zengini Palla Strozzi — kurul tur 2 KA1 · önceki: ◐ Strozzi / ○ %29,8 M1:#39,§4B (\"bir hesaba göre\")"),
               ("Giovanni bu sayımın yürürlüğe girmesini destekledi.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#38 (yıl 1426/27 çelişkili)"),
           ], [
               ("Giovanni 1420'de bankanın yönetimini oğullarına bırakmıştı; 1397'den o yıla kadar defterler yüz elli bini aşkın florin kâr gösterir.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1b:U5,b33; ◐ toplam M1:#35 (\"gösterir\")"),
@@ -46,7 +46,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "● teyit_P1 (birincil metin okundu) · ○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\"; DBI 'bisnipote' = torunun oğlu — kurul KA1-V6/KA2-Ö7)"),
               ("Son sözlerini ise iki kalemden, iki ayrı biçimde okuyoruz.", None, "● teyit_P1 (birincil metin okundu) · ANEKDOT M1:D11–D14"),
               ("Machiavelli, bir asra yakın sonra, onun ağzından oğullarına bir konuşma yazar: huzurla gidiyordur ve kıskançlık, insana verilenden değil, istediğinden doğar.", None, "ANEKDOT ◐ M1:D11,M5:K01 (\"Machiavelli'ye göre\"; kurgu payı)"),
-              ("Cavalcanti ise 1440'larda, olaya daha yakın bir kalemle, başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "ANEKDOT ○ M1:D12 (İngilizce çeviriden dolaylı; birebir söz yok)"),
+              ("Cavalcanti ise 1440'larda, olaya daha yakın bir kalemle, başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "● Cavalcanti, Istorie fiorentine IV (Polidori 1838, İtalyanca) — tarih '1440'lar' ◐ (hapiste, ≈1440; DBI) — kurul tur 2 KA1 · önceki: ANEKDOT ○ M1:D12 (İngilizce çeviriden dolaylı; birebir söz yok)"),
               ("Hangisi gerçekten söylendi, bilmiyoruz.", None, "YORUM"),
               ("Machiavelli onu, yoksulun ihtiyacını kimse istemeden de sık sık gideren biri olarak çizer.", None, "● teyit_P1 (birincil metin okundu) · ANEKDOT ◐ M1:D14"),
               ("Ama o kalem, Medici'nin siparişiyle çalışıyordu.", None, "◐ M1:D07,D11 (kaynak eleştirisi)"),

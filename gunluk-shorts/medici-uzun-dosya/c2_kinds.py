@@ -538,7 +538,7 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
     f = cx.f
     c = f.c
     cam = _bg(f, cx, seed)
-    pages = ((520, "MACHIAVELLİ", "BİR ASRA YAKIN SONRA", left_at, write_a, 11, "a"), (1400, "CAVALCANTI", "1440'LARDA", right_at, write_b, 17, "b"))
+    pages = ((520, "MACHIAVELLİ", "BİR ASRA YAKIN SONRA", left_at, write_a, 11, "a"), (1400, "CAVALCANTI", "≈1440 · HAPİSTE", right_at, write_b, 17, "b"))
     ks_ = {}
     for (x, name, role, at, wa, sd, key) in pages:
         if only and key != only:

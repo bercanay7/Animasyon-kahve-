@@ -34,7 +34,7 @@ CH = dict(id="c1", n="I", title="Florin Şehri", years="1252 – 1397", mood="cu
               ("O yılın Mayıs'ında, Medici ailesinin başka bir kolundan Salvestro, kurayla şehrin başı sayılan gonfaloniere olmuştu.", None, "● Machiavelli, Ist. fior. III ('was drawn Gonfalonier', Mayıs–Haziran 1378 Signoria'sı; Giovanni'nin atası DEĞİL düz9) — kurul tur 1 başkan doğrulaması"),
               ("Ama Floransa'yı asıl döndüren yün işçilerinin loncası yoktu; yani sesi de yoktu.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#19,D06"),
               ("22 Temmuz'da Ciompi denen bu işçiler Palazzo Vecchio'yu ele geçirdi; bir yün tarayıcısı, Michele di Lando, gonfaloniere oldu.", None, "● Machiavelli III (görevdeki gonfaloniere Luigi Guicciardini; Salvestro'nun dönemi Haziran'da bitmişti) — kurul KA1-K2/KA2-Ö1"),
-              ("Talepleri, yazıldığına göre, vergide adalet, işçilere lonca hakkı ve kamu borcunun azaltılmasıydı.", None, "○ M1:#19 (tek kaynak; \"yazıldığına göre\")"),
+              ("Talepleri, yazıldığına göre, vergide adalet, işçilere lonca hakkı ve kamu borcunun azaltılmasıydı.", None, "◐ Machiavelli III (Ciompi'nin kamu borcu/Monte talebi ✓); lonca/temsil ✓ — kurul tur 2 KA1 · önceki: ○ M1:#19 (tek kaynak; \"yazıldığına göre\")"),
               ("Bir buçuk asra yakın sonra, Medici'nin siparişiyle tarih yazan Machiavelli, adı bile belli olmayan bir isyancının ağzına koca bir konuşma koydu.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:D07,mit11 (mizah c; kurgu uyarısı)"),
               ("Konuşma tarihçinin; isyancının değil.", None, "◐ M1:D07"),
               ("Ağustos sonunda loncaların milisleri isyanı ezdi.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#21"),
