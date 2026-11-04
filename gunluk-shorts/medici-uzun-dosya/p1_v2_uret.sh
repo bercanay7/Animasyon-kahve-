@@ -20,8 +20,8 @@ if [[ "${1:-}" != "--render" ]]; then
 fi
 log "eski segmentler siliniyor"
 rm -f out_p1/seg/*.mp4 out_p1/seg/*.done out_p1/medici_p1_noaudio.mp4
-log "render (4 işçi, crf 19, slow)"
-nice -n 5 python3 render.py --part 1 --all --workers 4 --crf 19 2>&1 | tail -20 | tee -a "$LOG"
+log "render (${WORKERS:-2} işçi, crf 19, slow; işçi başına ≈4,6 GB — 4 işçi OOM oldu)"
+nice -n 5 python3 render.py --part 1 --all --workers "${WORKERS:-2}" --crf 19 2>&1 | tail -20 | tee -a "$LOG"
 log "birleştir + mux + QA"
 python3 render.py --part 1 --concat 2>&1 | tail -3 | tee -a "$LOG"
 python3 render.py --part 1 --mux 2>&1 | tail -3 | tee -a "$LOG"
