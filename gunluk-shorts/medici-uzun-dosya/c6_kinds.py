@@ -113,9 +113,9 @@ def k_tarif(cx, a_head=0.0, a_nose=None, a_chin=None, a_eye=None, a_smell=None, 
     ka = cx.amt(a_head, 0.9)
     s = ms / 640.0
     # madalya merkezine göre öznitelik noktaları (kalibre)
-    P_nose = (mx + 156 * s, my + 16 * s)
-    P_chin = (mx + 130 * s, my + 124 * s)
-    P_eye = (mx + 80 * s, my - 50 * s)
+    P_nose = (mx + 149 * s, my + 1 * s)       # cilt_medal v3 (MDL) kalibrasyonu: CMD.feature_point("m_lorenzo", …) × 640
+    P_chin = (mx + 129 * s, my + 96 * s)
+    P_eye = (mx + 89 * s, my - 62 * s)
     CMD.draw_medal_b(f, "m_lorenzo", mx, my, ms * (0.96 + 0.04 * ease_out(ka)), "bronze", alpha=ka, tilt=0.10 * math.sin(cx.t * 0.5), glint=None)
     # üst başlık
     hx = 1420

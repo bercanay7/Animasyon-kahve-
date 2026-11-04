@@ -13,16 +13,16 @@
   "ch": "c0"
  },
  {
-  "t": 2.1,
-  "name": "zoom_rush_long",
+  "t": 2.49,
+  "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
   "seed": 1001,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-1-zoomthru",
-  "note": "geçiş 'zoomthru' (1743 odası: yatak, arma)",
+  "id": "gecis-1-light",
+  "note": "geçiş 'light' (1743 odası: yatak (siluet))",
   "ch": "c0"
  },
  {
@@ -30,42 +30,27 @@
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1002,
+  "seed": 1003,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "palle"
   },
-  "id": "gecis-2-iris",
+  "id": "gecis-3-iris",
   "note": "geçiş 'iris' (boş taht, yabancı birlik)",
   "ch": "c0"
  },
  {
-  "t": 19.13,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1003,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-3-slide",
-  "note": "geçiş 'slide' (Medici salonu, tek siluet)",
-  "ch": "c0"
- },
- {
-  "t": 25.22,
+  "t": 24.92,
   "name": "candle_out_in",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1004,
+  "seed": 1005,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-4-candle",
-  "note": "geçiş 'candle' (imza masası 1737)",
+  "id": "gecis-5-candle",
+  "note": "geçiş 'candle' (31 Ekim 1737 · 114 gün)",
   "ch": "c0"
  },
  {
@@ -74,7 +59,7 @@
   "gain_db": -33.0,
   "pan": 0.0,
   "seed": 0,
-  "dur": 6.856999999999999,
+  "dur": 6.866999999999997,
   "loop": true,
   "params": {},
   "duck_db": -3,
@@ -85,20 +70,7 @@
   "ch": "c0"
  },
  {
-  "t": 28.692,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1005,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-5-sayfa",
-  "note": "geçiş 'sayfa' (114 GÜN takvim)",
-  "ch": "c0"
- },
- {
-  "t": 29.527,
+  "t": 29.517000000000003,
   "name": "page_turn",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -111,7 +83,7 @@
   "ch": "c0"
  },
  {
-  "t": 30.076999999999998,
+  "t": 30.067,
   "name": "page_turn",
   "gain_db": -26.4,
   "pan": 0.0,
@@ -124,20 +96,7 @@
   "ch": "c0"
  },
  {
-  "t": 30.477,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1006,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-6-zoomthru",
-  "note": "geçiş 'zoomthru' (imza, mühür, belgeye iniş)",
-  "ch": "c0"
- },
- {
-  "t": 30.527,
+  "t": 30.517000000000003,
   "name": "page_turn",
   "gain_db": -25.8,
   "pan": 0.0,
@@ -150,7 +109,7 @@
   "ch": "c0"
  },
  {
-  "t": 30.877,
+  "t": 30.867,
   "name": "page_turn",
   "gain_db": -25.2,
   "pan": 0.0,
@@ -163,7 +122,7 @@
   "ch": "c0"
  },
  {
-  "t": 31.177,
+  "t": 31.167,
   "name": "page_turn",
   "gain_db": -24.6,
   "pan": 0.0,
@@ -176,7 +135,7 @@
   "ch": "c0"
  },
  {
-  "t": 31.427,
+  "t": 31.417,
   "name": "page_turn",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -189,7 +148,7 @@
   "ch": "c0"
  },
  {
-  "t": 31.627,
+  "t": 31.617,
   "name": "page_turn",
   "gain_db": -23.4,
   "pan": 0.0,
@@ -309,26 +268,26 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1008,
+  "seed": 1009,
   "dur": 0.95,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-8-carry",
+  "id": "gecis-9-carry",
   "note": "geçiş 'carry' (masa başı: bilmiyoruz → biliyoruz)",
   "ch": "c0"
  },
  {
-  "t": 52.65,
+  "t": 52.8,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1009,
+  "seed": 1010,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-9-zoomthru",
+  "id": "gecis-10-zoomthru",
   "note": "geçiş 'zoomthru' (III. madde)",
   "ch": "c0"
  },
@@ -350,16 +309,16 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1010,
+  "seed": 1011,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-10-zoomthru",
+  "id": "gecis-11-zoomthru",
   "note": "geçiş 'zoomthru' (galeri: Vasari koridoru, 5 kalem)",
   "ch": "c0"
  },
  {
-  "t": 58.903,
+  "t": 58.907,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -372,18 +331,18 @@
   "ch": "c0"
  },
  {
-  "t": 64.0,
+  "t": 64.3,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1011,
-  "dur": 0.9,
+  "seed": 1012,
+  "dur": 0.6,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-11-slide",
-  "note": "geçiş 'slide' (harita: Büyük Dukalık, zincir)",
+  "id": "gecis-12-slide",
+  "note": "geçiş 'slide' (harita: Büyük Dukalık, zincir + kilit, 3. madde özeti)",
   "ch": "c0"
  },
  {
@@ -400,15 +359,15 @@
   "ch": "c0"
  },
  {
-  "t": 67.93,
+  "t": 69.95,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1012,
+  "seed": 1013,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-12-light",
+  "id": "gecis-13-light",
   "note": "geçiş 'light' (gerekçe: süs, yarar, merak)",
   "ch": "c0"
  },
@@ -455,30 +414,30 @@
   "ch": "c0"
  },
  {
-  "t": 85.65,
+  "t": 85.95,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1014,
-  "dur": 0.9,
+  "seed": 1015,
+  "dur": 0.6,
   "loop": false,
   "params": {
    "dir": "l"
   },
-  "id": "gecis-14-slide",
-  "note": "geçiş 'slide' (banka köşesi: nasıl geldi?)",
+  "id": "gecis-15-slide",
+  "note": "geçiş 'slide' (nasıl geldi? (Floransa silueti))",
   "ch": "c0"
  },
  {
-  "t": 91.545,
+  "t": 91.26,
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1015,
-  "dur": 0.9,
+  "seed": 1016,
+  "dur": 1.2,
   "loop": false,
   "params": {},
-  "id": "gecis-15-yikama",
+  "id": "gecis-16-yikama",
   "note": "geçiş 'yikama' (kılıç değil sikke; 1252)",
   "ch": "c0"
  },
@@ -509,7 +468,7 @@
   "ch": "c0"
  },
  {
-  "t": 98.657,
+  "t": 98.637,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -522,7 +481,7 @@
   "ch": "c0"
  },
  {
-  "t": 98.807,
+  "t": 98.787,
   "name": "tick",
   "gain_db": -30.0,
   "pan": 0.0,
@@ -535,7 +494,7 @@
   "ch": "c0"
  },
  {
-  "t": 98.957,
+  "t": 98.937,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -548,7 +507,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.107,
+  "t": 99.087,
   "name": "tick",
   "gain_db": -30.0,
   "pan": 0.0,
@@ -561,7 +520,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.25699999999999,
+  "t": 99.237,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -574,7 +533,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.407,
+  "t": 99.387,
   "name": "tick",
   "gain_db": -30.0,
   "pan": 0.0,
@@ -587,7 +546,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.557,
+  "t": 99.537,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -600,7 +559,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.707,
+  "t": 99.687,
   "name": "tick",
   "gain_db": -30.0,
   "pan": 0.0,
@@ -613,7 +572,7 @@
   "ch": "c0"
  },
  {
-  "t": 99.857,
+  "t": 99.837,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -626,7 +585,7 @@
   "ch": "c0"
  },
  {
-  "t": 100.00699999999999,
+  "t": 99.987,
   "name": "tick",
   "gain_db": -30.0,
   "pan": 0.0,
@@ -653,22 +612,22 @@
   "note": "ana başlık vuruşu"
  },
  {
-  "t": 106.83,
+  "t": 104.83,
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1017,
+  "seed": 1018,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "palle"
   },
-  "id": "gecis-17-iris",
+  "id": "gecis-18-iris",
   "note": "geçiş 'iris' (florin, 1252)",
   "ch": null
  },
  {
-  "t": 107.32000000000001,
+  "t": 105.32000000000001,
   "name": "coin_clink",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -681,35 +640,35 @@
   "ch": "c1"
  },
  {
-  "t": 109.188,
+  "t": 107.438,
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1018,
+  "seed": 1019,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "florin"
   },
-  "id": "gecis-18-iris",
+  "id": "gecis-19-iris",
   "note": "geçiş 'iris' (Floransa kendi altınını basıyor)",
   "ch": "c1"
  },
  {
-  "t": 113.94,
+  "t": 111.94,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1019,
+  "seed": 1020,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-19-zoomthru",
+  "id": "gecis-20-zoomthru",
   "note": "geçiş 'zoomthru' (3,5 g · 2 cm)",
   "ch": "c1"
  },
  {
-  "t": 115.933,
+  "t": 113.933,
   "name": "coin_clink",
   "gain_db": -20.0,
   "pan": 0.25,
@@ -721,35 +680,35 @@
   "ch": "c1"
  },
  {
-  "t": 120.48,
+  "t": 118.38,
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1020,
+  "seed": 1021,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "florin"
   },
-  "id": "gecis-20-iris",
+  "id": "gecis-21-iris",
   "note": "geçiş 'iris' (lanetli çiçek)",
   "ch": "c1"
  },
  {
-  "t": 127.79,
+  "t": 125.84,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1021,
+  "seed": 1022,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-21-light",
+  "id": "gecis-22-light",
   "note": "geçiş 'light' (darphane: basmaya devam)",
   "ch": "c1"
  },
  {
-  "t": 129.35,
+  "t": 127.35,
   "name": "knock_metal",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -762,7 +721,7 @@
   "ch": "c1"
  },
  {
-  "t": 129.5,
+  "t": 127.5,
   "name": "coin_clink",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -775,7 +734,7 @@
   "ch": "c1"
  },
  {
-  "t": 130.15,
+  "t": 128.15,
   "name": "knock_metal",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -788,7 +747,7 @@
   "ch": "c1"
  },
  {
-  "t": 130.3,
+  "t": 128.3,
   "name": "coin_clink",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -801,7 +760,7 @@
   "ch": "c1"
  },
  {
-  "t": 130.95,
+  "t": 128.95,
   "name": "knock_metal",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -814,7 +773,7 @@
   "ch": "c1"
  },
  {
-  "t": 131.1,
+  "t": 129.1,
   "name": "coin_clink",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -827,7 +786,7 @@
   "ch": "c1"
  },
  {
-  "t": 131.75,
+  "t": 129.75,
   "name": "knock_metal",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -840,7 +799,7 @@
   "ch": "c1"
  },
  {
-  "t": 131.9,
+  "t": 129.9,
   "name": "coin_clink",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -853,22 +812,22 @@
   "ch": "c1"
  },
  {
-  "t": 138.36,
+  "t": 136.56,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1023,
-  "dur": 0.9,
+  "seed": 1024,
+  "dur": 0.7,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-23-slide",
-  "note": "geçiş 'slide' (1338: 90.000 kişi)",
+  "id": "gecis-24-slide",
+  "note": "geçiş 'slide' (1338: ≈90.000 kişi (tahmin))",
   "ch": "c1"
  },
  {
-  "t": 140.41,
+  "t": 138.41,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -881,7 +840,7 @@
   "ch": "c1"
  },
  {
-  "t": 140.52,
+  "t": 138.52,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -894,7 +853,7 @@
   "ch": "c1"
  },
  {
-  "t": 140.63,
+  "t": 138.63,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -907,7 +866,7 @@
   "ch": "c1"
  },
  {
-  "t": 140.74,
+  "t": 138.74,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -920,7 +879,7 @@
   "ch": "c1"
  },
  {
-  "t": 140.85,
+  "t": 138.85,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -933,7 +892,7 @@
   "ch": "c1"
  },
  {
-  "t": 140.96,
+  "t": 138.96,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -946,7 +905,7 @@
   "ch": "c1"
  },
  {
-  "t": 141.10999999999999,
+  "t": 139.10999999999999,
   "name": "stamp_thud",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -959,7 +918,7 @@
   "ch": "c1"
  },
  {
-  "t": 141.338,
+  "t": 139.333,
   "name": "quill_scratch",
   "gain_db": -25.0,
   "pan": 0.2,
@@ -971,35 +930,37 @@
   "ch": "c1"
  },
  {
-  "t": 145.323,
+  "t": 143.323,
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1024,
+  "seed": 1025,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-24-carry",
+  "id": "gecis-25-carry",
   "note": "geçiş 'carry' (hesap okulları: defterlerin şehri)",
   "ch": "c1"
  },
  {
-  "t": 153.345,
-  "name": "page_turn",
-  "gain_db": -20.0,
+  "t": 151.83,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1025,
-  "dur": 1.1,
+  "seed": 1026,
+  "dur": 0.4,
   "loop": false,
-  "params": {},
-  "id": "gecis-25-sayfa",
-  "note": "geçiş 'sayfa' (Peruzzi'nin 15 şubesi; Bardi; çöküş)",
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-26-slide",
+  "note": "geçiş 'slide' (çok şubeli banka: Medici'nin icadı değil)",
   "ch": "c1"
  },
  {
-  "t": 155.53,
+  "t": 153.53,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -1012,7 +973,7 @@
   "ch": "c1"
  },
  {
-  "t": 155.69000000000003,
+  "t": 153.69000000000003,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -1025,7 +986,7 @@
   "ch": "c1"
  },
  {
-  "t": 155.85000000000002,
+  "t": 153.85000000000002,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -1038,7 +999,7 @@
   "ch": "c1"
  },
  {
-  "t": 156.01000000000002,
+  "t": 154.01000000000002,
   "name": "tick",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -1051,22 +1012,7 @@
   "ch": "c1"
  },
  {
-  "t": 166.99,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
-  "pan": 0.0,
-  "seed": 1026,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-26-carry",
-  "note": "geçiş 'carry' (Edward'ın ödemediği borç)",
-  "ch": "c1"
- },
- {
-  "t": 169.49,
+  "t": 167.49,
   "name": "stamp_thud",
   "gain_db": -21.0,
   "pan": 0.0,
@@ -1079,40 +1025,38 @@
   "ch": "c1"
  },
  {
-  "t": 173.14,
-  "name": "slide_glide",
-  "gain_db": -24.0,
+  "t": 170.45,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1027,
-  "dur": 0.9,
+  "seed": 1030,
+  "dur": null,
   "loop": false,
-  "params": {
-   "dir": "l"
-  },
-  "id": "gecis-27-slide",
-  "note": "geçiş 'slide' (kronikçi Villani)",
+  "params": {},
+  "id": "gecis-30-zoomthru",
+  "note": "geçiş 'zoomthru' (Villani: Peruzzi ortağı; kaybedenlerin içinden)",
   "ch": "c1"
  },
  {
-  "t": 183.695,
+  "t": 179.33,
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1029,
-  "dur": 0.9,
+  "seed": 1031,
+  "dur": 2.0,
   "loop": false,
   "params": {},
-  "id": "gecis-29-yikama",
+  "id": "gecis-31-yikama",
   "note": "geçiş 'yikama' (veba: renk solar)",
   "ch": "c1"
  },
  {
-  "t": 184.7,
+  "t": 181.38,
   "name": "wind",
   "gain_db": -35.0,
   "pan": 0.0,
   "seed": 0,
-  "dur": 31.82000000000002,
+  "dur": 32.31999999999999,
   "loop": true,
   "params": {},
   "fade_in": 1.5,
@@ -1122,48 +1066,33 @@
   "ch": "c1"
  },
  {
-  "t": 188.28,
+  "t": 185.61,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1030,
+  "seed": 1032,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-30-zoomthru",
+  "id": "gecis-32-zoomthru",
   "note": "geçiş 'zoomthru' (Boccaccio: sağlıklılar kaçar)",
   "ch": "c1"
  },
  {
-  "t": 191.577,
+  "t": 188.857,
   "name": "candle_out_in",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1031,
+  "seed": 1033,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-31-candle",
+  "id": "gecis-33-candle",
   "note": "geçiş 'candle' (hasta yalnız)",
   "ch": "c1"
  },
  {
-  "t": 195.587,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1032,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "l"
-  },
-  "id": "gecis-32-slide",
-  "note": "geçiş 'slide' (kapılar kapanır, sokak boş)",
-  "ch": "c1"
- },
- {
-  "t": 197.087,
+  "t": 194.267,
   "name": "gate_thud",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -1176,48 +1105,48 @@
   "ch": "c1"
  },
  {
-  "t": 199.23,
+  "t": 196.935,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1033,
-  "dur": 0.9,
+  "seed": 1035,
+  "dur": 0.4,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-33-slide",
+  "id": "gecis-35-slide",
   "note": "geçiş 'slide' (Stefani: on iki yaşında)",
   "ch": "c1"
  },
  {
-  "t": 203.17,
+  "t": 200.65,
   "name": "candle_out_in",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1034,
+  "seed": 1036,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-34-candle",
+  "id": "gecis-36-candle",
   "note": "geçiş 'candle' (yıllar sonra: kronik)",
   "ch": "c1"
  },
  {
-  "t": 205.598,
-  "name": "dip_drop",
-  "gain_db": -20.0,
+  "t": 202.74,
+  "name": "wash_swell",
+  "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1035,
-  "dur": null,
+  "seed": 1037,
+  "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-35-dip",
-  "note": "geçiş 'dip' (çukur, katman katman toprak)",
+  "id": "gecis-37-yikama",
+  "note": "geçiş 'yikama' (çukur, katman katman toprak)",
   "ch": "c1"
  },
  {
-  "t": 205.72,
+  "t": 202.89999999999998,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -1230,7 +1159,7 @@
   "ch": "c1"
  },
  {
-  "t": 207.01000000000002,
+  "t": 204.20000000000002,
   "name": "plaster_scrape",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -1243,22 +1172,22 @@
   "ch": "c1"
  },
  {
-  "t": 211.62,
+  "t": 209.1,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1036,
-  "dur": 0.9,
+  "seed": 1038,
+  "dur": 0.6,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-36-slide",
+  "id": "gecis-38-slide",
   "note": "geçiş 'slide' (bilmiyoruz → yazdığını biliyoruz)",
   "ch": "c1"
  },
  {
-  "t": 213.22,
+  "t": 210.4,
   "name": "quill_scratch",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -1271,25 +1200,27 @@
   "ch": "c1"
  },
  {
-  "t": 216.395,
-  "name": "wash_swell",
-  "gain_db": -23.0,
+  "t": 213.63,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1037,
-  "dur": 0.9,
+  "seed": 1039,
+  "dur": 0.8,
   "loop": false,
-  "params": {},
-  "id": "gecis-37-yikama",
-  "note": "geçiş 'yikama' (1378: öfke sokakta (sağdan sola kabarır))",
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-39-slide",
+  "note": "geçiş 'slide' (1378: öfke sokakta (halk))",
   "ch": "c1"
  },
  {
-  "t": 217.35,
+  "t": 214.53,
   "name": "crowd_murmur",
   "gain_db": -27.0,
   "pan": 0.45,
   "seed": 0,
-  "dur": 61.630000000000024,
+  "dur": 56.11000000000004,
   "loop": true,
   "params": {},
   "duck_db": -4,
@@ -1300,7 +1231,7 @@
   "ch": "c1"
  },
  {
-  "t": 219.35,
+  "t": 216.53,
   "name": "crowd_murmur",
   "gain_db": -31.0,
   "pan": -0.4,
@@ -1316,22 +1247,7 @@
   "ch": "c1"
  },
  {
-  "t": 221.51,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1038,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-38-slide",
-  "note": "geçiş 'slide' (Medici ailesinin başka bir kolu: Salvestro)",
-  "ch": "c1"
- },
- {
-  "t": 224.01,
+  "t": 221.19,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -1344,63 +1260,37 @@
   "ch": "c1"
  },
  {
-  "t": 226.52,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1039,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-39-zoomthru",
-  "note": "geçiş 'zoomthru' (halkın alkışıyla gonfaloniere)",
-  "ch": "c1"
- },
- {
-  "t": 232.62,
+  "t": 226.81,
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1040,
+  "seed": 1041,
   "dur": 0.95,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-40-carry",
+  "id": "gecis-41-carry",
   "note": "geçiş 'carry' (21 lonca; yün işçisinin yeri boş)",
   "ch": "c1"
  },
  {
-  "t": 239.73,
+  "t": 234.11,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1041,
-  "dur": 0.9,
+  "seed": 1042,
+  "dur": 0.7,
   "loop": false,
   "params": {
-   "dir": "l"
+   "dir": "r"
   },
-  "id": "gecis-41-slide",
+  "id": "gecis-42-slide",
   "note": "geçiş 'slide' (Ciompi Palazzo Vecchio'yu ele geçirir)",
   "ch": "c1"
  },
  {
-  "t": 244.71,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1042,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-42-zoomthru",
-  "note": "geçiş 'zoomthru' (kule: Michele di Lando gonfaloniere)",
-  "ch": "c1"
- },
- {
-  "t": 251.57,
+  "t": 238.23,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -1409,24 +1299,37 @@
   "loop": false,
   "params": {},
   "id": "gecis-43-zoomthru",
+  "note": "geçiş 'zoomthru' (kule: Michele di Lando gonfaloniere)",
+  "ch": "c1"
+ },
+ {
+  "t": 243.39,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1044,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-44-zoomthru",
   "note": "geçiş 'zoomthru' (Ciompi'nin talepleri)",
   "ch": "c1"
  },
  {
-  "t": 260.695,
-  "name": "page_turn",
-  "gain_db": -20.0,
+  "t": 251.39,
+  "name": "light_swell",
+  "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1044,
-  "dur": 1.1,
+  "seed": 1045,
+  "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-44-sayfa",
-  "note": "geçiş 'sayfa' (Machiavelli: isyancının ağzına konuşma (kurgu))",
+  "id": "gecis-45-light",
+  "note": "geçiş 'light' (Machiavelli: Medici siparişiyle tarih)",
   "ch": "c1"
  },
  {
-  "t": 263.13,
+  "t": 254.8,
   "name": "quill_scratch",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -1439,7 +1342,7 @@
   "ch": "c1"
  },
  {
-  "t": 263.43,
+  "t": 255.10000000000002,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -1452,63 +1355,61 @@
   "ch": "c1"
  },
  {
-  "t": 274.738,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1045,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "l"
-  },
-  "id": "gecis-45-slide",
-  "note": "geçiş 'slide' (loncaların milisleri)",
-  "ch": "c1"
- },
- {
-  "t": 283.985,
+  "t": 265.788,
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
   "seed": 1047,
-  "dur": 0.9,
+  "dur": 1.6,
   "loop": false,
   "params": {},
   "id": "gecis-47-yikama",
-  "note": "geçiş 'yikama' (bir kademe altta; kır gelirleri)",
+  "note": "geçiş 'yikama' (loncaların milisleri)",
   "ch": "c1"
  },
  {
-  "t": 292.12,
-  "name": "iris_ring",
-  "gain_db": -21.0,
-  "pan": 0.0,
-  "seed": 1048,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "obj": "palle"
-  },
-  "id": "gecis-48-iris",
-  "note": "geçiş 'iris' (Giovanni di Bicci: küçük pay)",
-  "ch": "c1"
- },
- {
-  "t": 297.889,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
+  "t": 277.325,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
   "seed": 1049,
+  "dur": 0.4,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-49-slide",
+  "note": "geçiş 'slide' (bir kademe altta; kır gelirleri)",
+  "ch": "c1"
+ },
+ {
+  "t": 283.95,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1050,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-49-zoomthru",
-  "note": "geçiş 'zoomthru' (Roma: Vieri di Cambio'nun bankası)",
+  "id": "gecis-50-light",
+  "note": "geçiş 'light' (Giovanni di Bicci: küçük pay)",
   "ch": "c1"
  },
  {
-  "t": 299.639,
+  "t": 290.26,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1051,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-51-zoomthru",
+  "note": "geçiş 'zoomthru' (Roma)",
+  "ch": "c1"
+ },
+ {
+  "t": 291.91,
   "name": "quill_scratch",
   "gain_db": -25.0,
   "pan": 0.0,
@@ -1520,7 +1421,7 @@
   "ch": "c1"
  },
  {
-  "t": 300.84,
+  "t": 293.9,
   "name": "stamp_thud",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -1533,50 +1434,22 @@
   "ch": "c1"
  },
  {
-  "t": 301.805,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1050,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-50-sayfa",
-  "note": "geçiş 'sayfa' (alacak ve borçlar devralınır)",
-  "ch": "c1"
- },
- {
-  "t": 309.14,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
-  "pan": 0.0,
-  "seed": 1051,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-51-carry",
-  "note": "geçiş 'carry' (1.500 florinlik çeyiz)",
-  "ch": "c1"
- },
- {
-  "t": 314.73,
+  "t": 307.37,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1052,
-  "dur": 0.9,
+  "seed": 1054,
+  "dur": 0.5,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-52-slide",
+  "id": "gecis-54-slide",
   "note": "geçiş 'slide' (hanedanın ilk sermayesi: evlilik sözleşmesi)",
   "ch": "c1"
  },
  {
-  "t": 316.93,
+  "t": 309.17,
   "name": "stamp_thud",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -1589,33 +1462,33 @@
   "ch": "c1"
  },
  {
-  "t": 319.875,
+  "t": 312.115,
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1053,
+  "seed": 1055,
   "dur": 0.9,
   "loop": false,
   "params": {},
-  "id": "gecis-53-yikama",
+  "id": "gecis-55-yikama",
   "note": "geçiş 'yikama' (1397: Roma'dan Floransa'ya taşınma)",
   "ch": "c1"
  },
  {
-  "t": 323.0,
+  "t": 315.29,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1054,
+  "seed": 1056,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-54-zoomthru",
+  "id": "gecis-56-zoomthru",
   "note": "geçiş 'zoomthru' (Orsanmichele köşesi: iğne)",
   "ch": "c1"
  },
  {
-  "t": 325.95,
+  "t": 318.19,
   "name": "pin_stick",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -1628,25 +1501,25 @@
   "ch": "c1"
  },
  {
-  "t": 329.59,
+  "t": 321.93,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1055,
+  "seed": 1057,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-55-zoomthru",
-  "note": "geçiş 'zoomthru' (köşede bir masa, bir defter; faiz günahtır)",
+  "id": "gecis-57-zoomthru",
+  "note": "geçiş 'zoomthru' (köşede bir masa, bir defter)",
   "ch": "c1"
  },
  {
-  "t": 331.23999999999995,
+  "t": 323.47999999999996,
   "name": "candle_flame",
   "gain_db": -37.0,
   "pan": 0.0,
   "seed": 0,
-  "dur": 20.920000000000073,
+  "dur": 21.79000000000002,
   "loop": true,
   "params": {},
   "duck_db": -3,
@@ -1657,7 +1530,7 @@
   "ch": "c1"
  },
  {
-  "t": 332.308,
+  "t": 324.538,
   "name": "coin_pile",
   "gain_db": -21.0,
   "pan": 0.2,
@@ -1669,7 +1542,7 @@
   "ch": "c1"
  },
  {
-  "t": 337.26800000000003,
+  "t": 329.50800000000004,
   "name": "page_turn",
   "gain_db": -21.0,
   "pan": -0.2,
@@ -1681,7 +1554,7 @@
   "ch": "c1"
  },
  {
-  "t": 347.76,
+  "t": 340.0,
   "name": "chapter_stinger",
   "gain_db": -9.0,
   "pan": 0.0,
@@ -1696,7 +1569,20 @@
   "note": "bölüm kartı c2 (altin)"
  },
  {
-  "t": 350.98,
+  "t": 341.59,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1060,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-60-light",
+  "note": "geçiş 'light' (banka: kambiyo; Kilise faizi yasakladı; bir yol)",
+  "ch": null
+ },
+ {
+  "t": 343.97,
   "name": "stamp_thud",
   "gain_db": -19.0,
   "pan": 0.0,
@@ -1709,33 +1595,22 @@
   "ch": "c2"
  },
  {
-  "t": 354.88,
-  "name": "light_swell",
-  "gain_db": -22.0,
+  "t": 350.88,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1058,
-  "dur": null,
+  "seed": 1061,
+  "dur": 0.7,
   "loop": false,
-  "params": {},
-  "id": "gecis-58-light",
-  "note": "geçiş 'light' (bankacılar bir yol buldu)",
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-61-slide",
+  "note": "geçiş 'slide' (Brugge: kese verilir, poliçe alınır)",
   "ch": "c2"
  },
  {
-  "t": 356.87,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1059,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-59-zoomthru",
-  "note": "geçiş 'zoomthru' (kambiyo: Brugge → Barselona)",
-  "ch": "c2"
- },
- {
-  "t": 359.52,
+  "t": 352.63,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -1748,7 +1623,7 @@
   "ch": "c2"
  },
  {
-  "t": 361.53,
+  "t": 354.64,
   "name": "quill_scratch",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -1761,7 +1636,7 @@
   "ch": "c2"
  },
  {
-  "t": 363.298,
+  "t": 356.408,
   "name": "coin_clink",
   "gain_db": -23.0,
   "pan": 0.2,
@@ -1773,35 +1648,20 @@
   "ch": "c2"
  },
  {
-  "t": 363.615,
-  "name": "page_turn",
-  "gain_db": -20.0,
+  "t": 359.635,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1060,
-  "dur": 1.1,
+  "seed": 1062,
+  "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-60-sayfa",
-  "note": "geçiş 'sayfa' (poliçe: Barselona'ya çekilmiş)",
+  "id": "gecis-62-zoomthru",
+  "note": "geçiş 'zoomthru' (poliçe gider, para döner: kur farkı)",
   "ch": "c2"
  },
  {
-  "t": 367.15,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1061,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-61-slide",
-  "note": "geçiş 'slide' (tahsil, ikinci poliçe, kazanç = kur farkı)",
-  "ch": "c2"
- },
- {
-  "t": 369.51,
+  "t": 362.63,
   "name": "paper_rustle",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -1813,63 +1673,7 @@
   "ch": "c2"
  },
  {
-  "t": 374.88,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
-  "pan": 0.0,
-  "seed": 1062,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-62-carry",
-  "note": "geçiş 'carry' (BORÇ ✗ FAİZ ✗ KUR FARKI ✓)",
-  "ch": "c2"
- },
- {
-  "t": 379.42,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1063,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-63-slide",
-  "note": "geçiş 'slide' (vicdan komitesi)",
-  "ch": "c2"
- },
- {
-  "t": 385.275,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1064,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-64-sayfa",
-  "note": "geçiş 'sayfa' (mevduat sözleşmesi: faiz yazılmaz)",
-  "ch": "c2"
- },
- {
-  "t": 390.15,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1065,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-65-zoomthru",
-  "note": "geçiş 'zoomthru' (faiz değil, hediye)",
-  "ch": "c2"
- },
- {
-  "t": 393.5,
+  "t": 386.53,
   "name": "coin_clink",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -1882,35 +1686,20 @@
   "ch": "c2"
  },
  {
-  "t": 397.04,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1066,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-66-slide",
-  "note": "geçiş 'slide' (müşteri: Kilise'nin ta kendisi)",
-  "ch": "c2"
- },
- {
-  "t": 401.97,
+  "t": 395.61,
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1067,
+  "seed": 1068,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-67-zoomthru",
+  "id": "gecis-68-zoomthru",
   "note": "geçiş 'zoomthru' (Roma şubesi: kasayı Kilise doldurdu)",
   "ch": "c2"
  },
  {
-  "t": 405.72,
+  "t": 399.21,
   "name": "coin_pile",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -1923,33 +1712,20 @@
   "ch": "c2"
  },
  {
-  "t": 410.195,
+  "t": 402.97,
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1068,
-  "dur": 0.9,
+  "seed": 1069,
+  "dur": 1.6,
   "loop": false,
   "params": {},
-  "id": "gecis-68-yikama",
+  "id": "gecis-69-yikama",
   "note": "geçiş 'yikama' (25 Mart 1402: Venedik şubesi; yılbaşı)",
   "ch": "c2"
  },
  {
-  "t": 416.955,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1069,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-69-sayfa",
-  "note": "geçiş 'sayfa' (çifte kayıt: Medici icadı mı? MİT)",
-  "ch": "c2"
- },
- {
-  "t": 418.89,
+  "t": 412.38,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -1962,22 +1738,7 @@
   "ch": "c2"
  },
  {
-  "t": 420.13,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
-  "pan": 0.0,
-  "seed": 1070,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-70-carry",
-  "note": "geçiş 'carry' (çifte kayıt: Cenova 1340 → …)",
-  "ch": "c2"
- },
- {
-  "t": 421.23,
+  "t": 414.72,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -1990,20 +1751,20 @@
   "ch": "c2"
  },
  {
-  "t": 427.54,
+  "t": 421.13,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1071,
+  "seed": 1072,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-71-light",
-  "note": "geçiş 'light' (her şubenin kendi ortaklığı ve defteri)",
+  "id": "gecis-72-light",
+  "note": "geçiş 'light' (fark defterde değil, yapıda)",
   "ch": "c2"
  },
  {
-  "t": 430.39,
+  "t": 423.88,
   "name": "quill_scratch",
   "gain_db": -25.0,
   "pan": 0.0,
@@ -2015,20 +1776,20 @@
   "ch": "c2"
  },
  {
-  "t": 434.98,
-  "name": "zoom_rush_long",
+  "t": 428.81,
+  "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1072,
+  "seed": 1074,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-72-zoomthru",
-  "note": "geçiş 'zoomthru' (Giovanni → Cossa: borç, papalık, Konstanz)",
+  "id": "gecis-74-light",
+  "note": "geçiş 'light' (Giovanni → Cossa: borç; papa (tiara))",
   "ch": "c2"
  },
  {
-  "t": 438.23,
+  "t": 431.72,
   "name": "coin_clink",
   "gain_db": -25.0,
   "pan": 0.0,
@@ -2041,7 +1802,7 @@
   "ch": "c2"
  },
  {
-  "t": 445.6,
+  "t": 439.09000000000003,
   "name": "knock_wood",
   "gain_db": -22.0,
   "pan": 0.0,
@@ -2054,35 +1815,20 @@
   "ch": "c2"
  },
  {
-  "t": 449.04,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1073,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-73-slide",
-  "note": "geçiş 'slide' (kefalet mi fidye mi: yol ayrımı)",
-  "ch": "c2"
- },
- {
-  "t": 456.27,
+  "t": 449.66,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1074,
+  "seed": 1077,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-74-light",
-  "note": "geçiş 'light' (Cossa'nın mezarı: ESKİ PAPA)",
+  "id": "gecis-77-light",
+  "note": "geçiş 'light' (Cossa'nın anıtı: ESKİ PAPA)",
   "ch": "c2"
  },
  {
-  "t": 463.067,
+  "t": 456.558,
   "name": "chisel_tap",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -2095,7 +1841,7 @@
   "ch": "c2"
  },
  {
-  "t": 465.052,
+  "t": 458.552,
   "name": "glass_chime",
   "gain_db": -31.0,
   "pan": 0.0,
@@ -2108,7 +1854,7 @@
   "ch": "c2"
  },
  {
-  "t": 467.197,
+  "t": 460.687,
   "name": "stamp_thud",
   "gain_db": -19.0,
   "pan": 0.0,
@@ -2121,20 +1867,20 @@
   "ch": "c2"
  },
  {
-  "t": 468.955,
+  "t": 462.605,
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1075,
+  "seed": 1080,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-75-sayfa",
-  "note": "geçiş 'sayfa' (rivayet: mitra, aforoz tehdidi (ANEKDOT))",
+  "id": "gecis-80-sayfa",
+  "note": "geçiş 'sayfa' (belge (de Roover): mitra borç karşılığı)",
   "ch": "c2"
  },
  {
-  "t": 470.69,
+  "t": 464.19,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -2147,7 +1893,7 @@
   "ch": "c2"
  },
  {
-  "t": 473.09,
+  "t": 466.59,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -2160,48 +1906,35 @@
   "ch": "c2"
  },
  {
-  "t": 481.02,
+  "t": 473.07,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1076,
+  "seed": 1083,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-76-light",
-  "note": "geçiş 'light' (papalığın resmî kasa memurluğu)",
+  "id": "gecis-83-light",
+  "note": "geçiş 'light' (kasa memurluğu: 1422'den sonra)",
   "ch": "c2"
  },
  {
-  "t": 486.17,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
+  "t": 484.43,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1077,
-  "dur": 0.9,
+  "seed": 1086,
+  "dur": 0.5,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-77-carry",
-  "note": "geçiş 'carry' (22 yıl Medici'de)",
+  "id": "gecis-86-slide",
+  "note": "geçiş 'slide' (catasto: görevliler kapı kapı)",
   "ch": "c2"
  },
  {
-  "t": 490.475,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1078,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-78-sayfa",
-  "note": "geçiş 'sayfa' (catasto: hanelerin servetini tek tek)",
-  "ch": "c2"
- },
- {
-  "t": 492.91,
+  "t": 486.58,
   "name": "quill_scratch",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -2214,7 +1947,7 @@
   "ch": "c2"
  },
  {
-  "t": 496.518,
+  "t": 490.188,
   "name": "paper_rustle",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -2226,22 +1959,7 @@
   "ch": "c2"
  },
  {
-  "t": 497.61,
-  "name": "slide_glide",
-  "gain_db": -24.0,
-  "pan": 0.0,
-  "seed": 1079,
-  "dur": 0.9,
-  "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-79-slide",
-  "note": "geçiş 'slide' (137 hane ≈ %30)",
-  "ch": "c2"
- },
- {
-  "t": 500.01,
+  "t": 493.67999999999995,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -2254,35 +1972,7 @@
   "ch": "c2"
  },
  {
-  "t": 503.09,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1080,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-80-zoomthru",
-  "note": "geçiş 'zoomthru' (en zengini Palla Strozzi)",
-  "ch": "c2"
- },
- {
-  "t": 506.84,
-  "name": "iris_ring",
-  "gain_db": -21.0,
-  "pan": 0.0,
-  "seed": 1081,
-  "dur": null,
-  "loop": false,
-  "params": {
-   "obj": "seal"
-  },
-  "id": "gecis-81-iris",
-  "note": "geçiş 'iris' (Giovanni catasto'yu destekledi)",
-  "ch": "c2"
- },
- {
-  "t": 509.01,
+  "t": 502.68,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -2295,35 +1985,35 @@
   "ch": "c2"
  },
  {
-  "t": 510.66,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
+  "t": 504.58,
+  "name": "slide_glide",
+  "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1082,
-  "dur": 0.9,
+  "seed": 1091,
+  "dur": 0.6,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-82-carry",
-  "note": "geçiş 'carry' (1420: yönetim oğullarına)",
+  "id": "gecis-91-slide",
+  "note": "geçiş 'slide' (1420: yönetim oğullarına)",
   "ch": "c2"
  },
  {
-  "t": 515.675,
+  "t": 509.495,
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1083,
+  "seed": 1092,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-83-sayfa",
-  "note": "geçiş 'sayfa' (defterler: 152.820 florin kâr)",
+  "id": "gecis-92-sayfa",
+  "note": "geçiş 'sayfa' (defterler: 150 bini aşkın florin kâr)",
   "ch": "c2"
  },
  {
-  "t": 517.81,
+  "t": 511.48,
   "name": "quill_scratch",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -2336,20 +2026,20 @@
   "ch": "c2"
  },
  {
-  "t": 522.25,
+  "t": 515.47,
   "name": "candle_out_in",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1084,
+  "seed": 1093,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-84-candle",
-  "note": "geçiş 'candle' (20 Şubat 1429; takvimde hâlâ 1428)",
+  "id": "gecis-93-candle",
+  "note": "geçiş 'candle' (20 Şubat 1429: ölüm döşeği (siluet))",
   "ch": "c2"
  },
  {
-  "t": 525.697,
+  "t": 519.327,
   "name": "candle_snuff",
   "gain_db": -27.0,
   "pan": 0.0,
@@ -2362,48 +2052,35 @@
   "ch": "c2"
  },
  {
-  "t": 529.32,
-  "name": "zoom_rush_long",
+  "t": 523.28,
+  "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1085,
+  "seed": 1094,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-85-zoomthru",
-  "note": "geçiş 'zoomthru' (Lorenzo'nun kaydına göre 180 bin florin)",
+  "id": "gecis-94-light",
+  "note": "geçiş 'light' (Lorenzo'nun kaydına göre 180 bin florin)",
   "ch": "c2"
  },
  {
-  "t": 538.64,
+  "t": 537.5,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1086,
-  "dur": 0.9,
+  "seed": 1096,
+  "dur": 0.4,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-86-slide",
-  "note": "geçiş 'slide' (iki kalem, iki biçim)",
+  "id": "gecis-96-slide",
+  "note": "geçiş 'slide' (Machiavelli yazar: onun ağzından)",
   "ch": "c2"
  },
  {
-  "t": 543.645,
-  "name": "page_turn",
-  "gain_db": -20.0,
-  "pan": 0.0,
-  "seed": 1087,
-  "dur": 1.1,
-  "loop": false,
-  "params": {},
-  "id": "gecis-87-sayfa",
-  "note": "geçiş 'sayfa' (Machiavelli yazar (ANEKDOT))",
-  "ch": "c2"
- },
- {
-  "t": 545.58,
+  "t": 539.05,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -2416,7 +2093,7 @@
   "ch": "c2"
  },
  {
-  "t": 549.248,
+  "t": 542.717,
   "name": "quill_scratch",
   "gain_db": -25.0,
   "pan": -0.2,
@@ -2428,22 +2105,20 @@
   "ch": "c2"
  },
  {
-  "t": 556.62,
-  "name": "cloth_sweep",
-  "gain_db": -23.0,
+  "t": 549.78,
+  "name": "light_swell",
+  "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1088,
-  "dur": 0.9,
+  "seed": 1098,
+  "dur": null,
   "loop": false,
-  "params": {
-   "dir": "r"
-  },
-  "id": "gecis-88-carry",
-  "note": "geçiş 'carry' (Cavalcanti yazar (ANEKDOT))",
+  "params": {},
+  "id": "gecis-98-light",
+  "note": "geçiş 'light' (Cavalcanti yazar)",
   "ch": "c2"
  },
  {
-  "t": 558.62,
+  "t": 552.09,
   "name": "stamp_thud",
   "gain_db": -24.0,
   "pan": 0.0,
@@ -2456,7 +2131,7 @@
   "ch": "c2"
  },
  {
-  "t": 562.908,
+  "t": 556.378,
   "name": "quill_scratch",
   "gain_db": -25.0,
   "pan": 0.2,
@@ -2468,37 +2143,37 @@
   "ch": "c2"
  },
  {
-  "t": 569.96,
+  "t": 563.905,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1089,
-  "dur": 0.9,
+  "seed": 1100,
+  "dur": 0.4,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-89-slide",
+  "id": "gecis-100-slide",
   "note": "geçiş 'slide' (hangisi söylendi: bilmiyoruz)",
   "ch": "c2"
  },
  {
-  "t": 572.78,
+  "t": 566.5,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1090,
-  "dur": 0.9,
+  "seed": 1101,
+  "dur": 0.6,
   "loop": false,
   "params": {
-   "dir": "l"
+   "dir": "r"
   },
-  "id": "gecis-90-slide",
-  "note": "geçiş 'slide' (yoksulun ihtiyacını kimse istemeden)",
+  "id": "gecis-101-slide",
+  "note": "geçiş 'slide' (yoksulun ihtiyacı (Giovanni; ANEKDOT))",
   "ch": "c2"
  },
  {
-  "t": 575.28,
+  "t": 568.75,
   "name": "coin_clink",
   "gain_db": -26.0,
   "pan": 0.0,
@@ -2511,20 +2186,7 @@
   "ch": "c2"
  },
  {
-  "t": 578.55,
-  "name": "zoom_rush_long",
-  "gain_db": -22.0,
-  "pan": 0.0,
-  "seed": 1091,
-  "dur": null,
-  "loop": false,
-  "params": {},
-  "id": "gecis-91-zoomthru",
-  "note": "geçiş 'zoomthru' (o kalem Medici'nin siparişiyle çalışıyordu)",
-  "ch": "c2"
- },
- {
-  "t": 581.3,
+  "t": 574.77,
   "name": "stamp_thud",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -2537,35 +2199,35 @@
   "ch": "c2"
  },
  {
-  "t": 583.81,
+  "t": 577.23,
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1092,
+  "seed": 1103,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "seal"
   },
-  "id": "gecis-92-iris",
+  "id": "gecis-103-iris",
   "note": "geçiş 'iris' (Cosimo: kırk yaşına yaklaşıyordu)",
   "ch": "c2"
  },
  {
-  "t": 588.11,
+  "t": 581.18,
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1093,
+  "seed": 1104,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-93-light",
+  "id": "gecis-104-light",
   "note": "geçiş 'light' (kapı: şehrin en yüksek kulesi)",
   "ch": "c2"
  },
  {
-  "t": 593.543,
+  "t": 587.013,
   "name": "lock_click",
   "gain_db": -23.0,
   "pan": 0.0,
@@ -2578,7 +2240,7 @@
   "ch": "c2"
  },
  {
-  "t": 596.46,
+  "t": 589.9300000000001,
   "name": "glass_chime",
   "gain_db": -26.0,
   "pan": 0.0,

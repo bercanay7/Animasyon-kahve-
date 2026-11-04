@@ -18,6 +18,8 @@ Kurallar (tarihler ve kaynaklar: notlar_donem.md):
   flags_allowed(y,b) Medici (palle) sancağı kamusal alay/kalabalıkta yalnız ≥1434 (Medici yönetimi) ve isyan/halk/lonca bağlamı dışında;
                      halk/lonca için nötr: Popolo (beyaz zemin kırmızı haç) · Komün (beyaz zemin kırmızı zambak) · düz renk
   medal_inscription  "PATER PATRIAE" yalnız ≥1464 (Signoria kararı 20 Mart 1465 = Floransa takviminde 1464); öncesi "COSMVS · MEDICES ·"
+  portrait_medal_is_anachronistic  portre madalyası türü 1438'den önce yok (Pisanello'nun ilk madalyası, VIII. Ioannes Palaiologos, 1438; KA1-V9):
+                     yıl < 1438 → True (cilt_medal madalyanın altına otomatik "TEMSİLÎ" damgası çizer) · ≥1438 → False · yıl yok → None (damga yok)
 
 Denetim kaydı: LOG_ON=True iken çizim kodu `note(öğe, **nitelikler)` ile NE ÇİZDİĞİNİ yazar (çekim, kare zamanı, yıl ile); qa_donem.py bu kaydı
 kuralların BAĞIMSIZ bir kopyasıyla denetler. Kayıt ucuzdur (kapalıyken tek bir if).
@@ -320,6 +322,18 @@ def medal_inscription(text, y=_UNSET):
         t = re.sub(r"(\s*·\s*)+$", " ·", t)
         return t
     return text
+
+
+PORTRAIT_MEDAL_FIRST = 1438     # Pisanello, VIII. Ioannes Palaiologos madalyası (Ferrara–Floransa konsili, 1438): Rönesans portre madalyasının ilki
+
+
+def portrait_medal_is_anachronistic(y=_UNSET):
+    """Portre madalyası bu yılda henüz yok mu? yıl < 1438 → True (madalya ancak TEMSİLÎ olabilir: cilt_medal.draw_medal_b otomatik "TEMSİLÎ"
+    damgası çizer) · ≥1438 → False · yıl yok (kapak/reel/önizleme, Program(shots=…)) → None (damga yok, eski çizim). KA1-V9."""
+    y = resolve(y)
+    if y is None:
+        return None
+    return y < PORTRAIT_MEDAL_FIRST
 
 
 # ───────────────────────────── denetim kaydı ─────────────────────────────
