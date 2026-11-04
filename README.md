@@ -27,3 +27,6 @@ Kalın, düz, geometrik çizimler (kuşbakışı Türk kahvesi fincanı, kahve �
 | 2.5–4 sn | Kamera köpüğe dalar: "KAHVELER *bizden!*" |
 | 4–6 sn | Eğik kayan şeritler: "BÜTÜN GÜN", fincanlar, "SABAHTAN AKŞAMA" |
 | 6–9 sn | Krem kapanış: Navitas logosu, "Bütün gün kahveler *bizden.*", "Tüm misafirlerimize ikramımızdır.", "1 EKİM · DÜNYA KAHVE GÜNÜ" |
+
+## Tenisçilere özel spa fiyat listesi
+`tenisci-spa-fiyat/` klasöründe: WhatsApp gruplarına gönderilecek tek sayfalık PDF (%20 tenisçi indirimli spa ve masaj fiyatları), kaynağı ve yeniden üretme betiği. Ayrıntılar klasördeki README'de.
