@@ -51,15 +51,52 @@ def ts(t):
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
+# kurul TE2-Ö9: sayı/unvan/belirleyici çiftleri ve sontakılar satır/replik sınırında bölünmez
+NUMW = {"bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz", "on", "yirmi", "otuz", "kırk", "elli", "altmış",
+        "yetmiş", "seksen", "doksan", "yüz", "bin", "milyon", "buçuk"}
+GLUE_NEXT = {"bu", "şu", "o", "bir", "her", "eski", "yeni", "ilk", "son", "en", "çok", "daha", "aziz"}
+GLUE_PREV = {"göre", "kadar", "gibi", "için", "ile", "değil", "bile", "da", "de", "ki", "mi", "mı", "mu", "mü", "olarak", "sonra", "önce"}
+
+
+def _bare(w):
+    return re.sub(r"[^\wçğıöşüâîû'’.]", "", w.lower()).strip("'’")
+
+
+def bad_break(left, right):
+    """left|right arasında bölmek okumayı yavaşlatır mı?"""
+    l, r = _bare(left), _bare(right)
+    if re.fullmatch(r"[ivxlc]+\.", l):                  # III. | Edward'ın
+        return True
+    if l.rstrip(".") in NUMW and r.split("'")[0].rstrip(".,;:") in NUMW:     # doksan | bin, yüz | elli
+        return True
+    if l.rstrip(".,;:") in NUMW and not re.search(r"[.,;:!?]$", left) and len(r) > 1:   # üç | buçuk, on | iki yaşındaydı
+        return True
+    if l in GLUE_NEXT and not re.search(r"[.,;:!?]$", left):
+        return True
+    if r.rstrip(".,;:!?”\"") in GLUE_PREV:
+        return True
+    return False
+
+
 def wrap2(text):
-    """≤2 satıra böl (ortaya yakın boşlukta)."""
+    """≤2 satıra böl (ortaya yakın boşlukta; noktalamadan sonra ve okumayı bölmeyen yerde)."""
     if len(text) <= MAXCH:
         return text
     best, bd = None, 1e9
-    for m in re.finditer(r" ", text):
-        i = m.start()
+    toks = text.split(" ")
+    pos = 0
+    for k in range(len(toks) - 1):
+        pos += len(toks[k])
+        i = pos
+        pos += 1
+        if i > MAXCH + 3 or len(text) - i - 1 > MAXCH + 3:
+            continue
         d = abs(len(text) / 2 - i)
-        if i <= MAXCH + 3 and len(text) - i - 1 <= MAXCH + 3 and d < bd:
+        if re.search(r"[.,;:!?]$", toks[k]):
+            d -= 6                                          # noktalamadan sonra bölmek doğal
+        if bad_break(toks[k], toks[k + 1]):
+            d += 40
+        if d < bd:
             best, bd = i, d
     if best is None:
         return text
@@ -70,10 +107,11 @@ def cues_for(sent):
     words = sent["words"]
     cues, cur = [], []
 
-    def flush():
-        if cur:
-            cues.append((cur[0]["t0"], cur[-1]["t1"], " ".join(w["w"] for w in cur)))
-            cur.clear()
+    def flush(keep=0):
+        if len(cur) > keep:
+            part = cur[:len(cur) - keep] if keep else cur[:]
+            cues.append((part[0]["t0"], part[-1]["t1"], " ".join(w["w"] for w in part)))
+            del cur[:len(cur) - keep]
 
     for i, w in enumerate(words):
         cur.append(w)
@@ -84,9 +122,33 @@ def cues_for(sent):
         comma = w["w"].rstrip("”\"")[-1:] == ","
         gap = (nxt["t0"] - w["t1"]) if nxt else 9
         too_long = nxt is not None and (len(txt) + 1 + len(nxt["w"]) > 2 * MAXCH - 6 or dur > MAXDUR)
-        if nxt is None or too_long or (end_p and len(txt) >= 18) or (comma and len(txt) >= 30) or (gap > 0.6 and len(txt) >= 22):
+        if nxt is None or (end_p and len(txt) >= 18) or (comma and len(txt) >= 30) or (gap > 0.6 and len(txt) >= 22):
             flush()
+        elif too_long:
+            # okumayı bölen yerde kesme: son sözcüğü sonraki repliğe taşı (TE2-Ö9)
+            flush(keep=1 if (len(cur) > 2 and bad_break(cur[-1]["w"], nxt["w"])) else 0)
     flush()
+    # yetim son replik (≤ 2 sözcük ya da < 20 karakter): önceki replikle birleştirip dengeli iki parçaya böl (TE2-Ö9)
+    if len(cues) >= 2:
+        a0, b0, t0 = cues[-2]
+        a1, b1, t1 = cues[-1]
+        if len(t1.split()) <= 2 or len(t1) < 20:
+            ws = [w for w in words if w["t0"] >= a0 - 1e-6]
+            allt = " ".join(w["w"] for w in ws)
+            if len(allt) <= 2 * MAXCH - 2 and (ws[-1]["t1"] - ws[0]["t0"]) <= MAXDUR + 1.5:
+                cues[-2:] = [(a0, b1, allt)]
+            else:
+                best, bd = None, 1e9
+                for k in range(1, len(ws)):
+                    lt = " ".join(w["w"] for w in ws[:k]); rt = " ".join(w["w"] for w in ws[k:])
+                    if len(lt) > 2 * MAXCH - 2 or len(rt) > 2 * MAXCH - 2:
+                        continue
+                    d = abs(len(lt) - len(rt)) - (8 if re.search(r"[.,;:!?]$", ws[k - 1]["w"]) else 0) + (40 if bad_break(ws[k - 1]["w"], ws[k]["w"]) else 0)
+                    if d < bd:
+                        best, bd = k, d
+                if best:
+                    cues[-2:] = [(ws[0]["t0"], ws[best - 1]["t1"], " ".join(w["w"] for w in ws[:best])),
+                                 (ws[best]["t0"], ws[-1]["t1"], " ".join(w["w"] for w in ws[best:]))]
     return cues
 
 
@@ -106,6 +168,13 @@ def main():
     for p, q in zip(cues, cues[1:]):
         if p[1] > q[0] - GAP:
             p[1] = max(q[0] - GAP, p[0] + 0.2)
+    # okuma hızı ≤ 17 kar/sn ve ≥ 1,2 sn: bitişi sonraki repliğe kadarki boşluğa uzat (en çok +0,8 sn; görüntü/sese dokunmaz) — TE2-Ö9
+    for k, p in enumerate(cues):
+        nxt0 = cues[k + 1][0] - GAP if k + 1 < len(cues) else p[1] + 0.8
+        n = len(p[2].replace("\n", " "))
+        need = max(n / 17.0, 1.2)
+        if p[1] - p[0] < need:
+            p[1] = min(max(p[1], p[0] + need), nxt0, p[1] + 0.8)
     n = len(cues)
     lines = [f"{i}\n{ts(a)} --> {ts(b)}\n{t}\n" for i, (a, b, t) in enumerate(cues, 1)]
     open(os.path.join(OUT, f"{tag}_tr.srt"), "w", encoding="utf-8").write("\n".join(lines))

@@ -77,3 +77,7 @@ medici-uzun-dosya/out_eski3/**/*.mp3
 medici-uzun-dosya/out_tam/
 medici-uzun-dosya/out_p*/*.flac
 medici-uzun-dosya/out_eski3/**/*.m4a
+
+# kurul düzeltme ajanlarının geçici önizleme kareleri/klipleri (büyük; repoya girmez)
+medici-uzun-dosya/out_p*/duzeltme/
+medici-uzun-dosya/t.mp4

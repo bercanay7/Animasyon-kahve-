@@ -88,18 +88,28 @@ def timeline():
 
 class Shot:
     """Bir çekim tanımı. Yönetmenlik alanları (YONETMENLIK_REHBERI §2-3, qa_flow okur):
-    cam (kamera ön ayarı), link (geçiş gerekçesi), longtake / montage (süre ve tür-tekrarı istisnaları).
-    Program doldurur: cam_in/cam_out (geçişte kamera devri), lead (gelen çekimin saatinin geçiş başına öne alınması, sn)."""
+    cam (kamera ön ayarı), link (geçiş gerekçesi), longtake / montage (süre ve tür-tekrarı istisnaları),
+    shutter ("auto" | True | False | sayı = alt örnek sayısı | dict(n=, at=, dur=, angle=) — hareket bulanıklığı; notlar_hareket.md).
+    tr: (ad, süre[, opts]) | "cut" (birinci sınıf sert kesme; None da sert kesmedir). Süre 0,25–2,4 sn (cilt_fx.TR_MIN/TR_MAX).
+    Program doldurur: cam_in/cam_out (geçişte kamera devri), lead (gelen çekimin saatinin geçiş başına öne alınması, sn), cam_auto (cam= verilmemişti, seçildi)."""
 
-    def __init__(self, kind_name, a, params, tr=None, label="", cam=None, link=None, longtake=False, montage=False):
+    def __init__(self, kind_name, a, params, tr=None, label="", cam=None, link=None, longtake=False, montage=False, shutter="auto"):
         self.kind, self.a, self.params, self.tr, self.label = kind_name, a, params, tr, label
         self.cam, self.link, self.longtake, self.montage = cam, link, bool(longtake), bool(montage)
+        self.shutter = shutter
+        self.cam_auto = False
         self.t0 = 0.0
         self.t1 = 0.0
         self.i = 0
         self.cam_in = False
         self.cam_out = False
         self.lead = 0.0
+
+    @property
+    def stable_seed(self):
+        """Çekim içeriğinden türetilen kararlı tohum (parça / tam film / reel kurgusunda aynı): otomatik kamera seçimi ve süreye bağlı miktarlar."""
+        import zlib
+        return zlib.crc32(f"{self.kind}|{self.label}|{self.a!r}".encode()) & 0x7FFFFFFF
 
     @property
     def dur(self):
@@ -116,13 +126,14 @@ def _is_map_view(v):
     return isinstance(v, (tuple, list)) and len(v) == 3 and all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in v)
 
 
-def shot(kind_name, a, tr=None, label="", cam=None, link=None, longtake=False, montage=False, **params):
-    """shot(tür, a=çapa, tr=(ad, süre[, opts]), label=…, cam=ön ayar, link=gerekçe, longtake=bool, montage=bool, **tür parametreleri).
-    map türünde cam=(lon,lat,zoom) (üç sayı) eski anlamıyla tür parametresi olarak kalır; kamera ön ayarı cam=("push", …) vb. ya da view= ile birlikte verilir."""
+def shot(kind_name, a, tr=None, label="", cam=None, link=None, longtake=False, montage=False, shutter="auto", **params):
+    """shot(tür, a=çapa, tr=(ad, süre[, opts]) | "cut", label=…, cam=ön ayar, link=gerekçe, longtake=bool, montage=bool, shutter="auto", **tür parametreleri).
+    map türünde cam=(lon,lat,zoom) (üç sayı) eski anlamıyla tür parametresi olarak kalır; kamera ön ayarı cam=("push", …) vb. ya da view= ile birlikte verilir.
+    cam= verilmezse Program tohumlu, ağırlıklı bir hareket seçer (cilt_cam.auto_spec; ardışık aynı aile yok)."""
     if kind_name == "map" and _is_map_view(cam):
         params["cam"] = cam
         cam = None
-    return Shot(kind_name, a, params, tr, label, cam, link, longtake, montage)
+    return Shot(kind_name, a, params, tr, label, cam, link, longtake, montage, shutter)
 
 
 class Ctx:
@@ -135,6 +146,8 @@ class Ctx:
         self.u = clamp(t / max(1e-6, self.dur))
         self.g = sh.t0 - self.lead + t   # global saniye
         self.seed = sh.i * 7 + 3
+        self.cam_seed = getattr(sh, "stable_seed", self.seed)     # kararlı tohum: süreye bağlı kamera miktarları / eğri çeşidi
+        self.speed_hint = 0.0                                     # anim.hint_speed: bu karede hızlı nesne (px/kare) → deklanşör
         # yönetmenlik alanları (cilt_medici.ckind ve cilt_cam okur)
         self.cam_spec = getattr(sh, "cam", None)
         self.cam_in = bool(getattr(sh, "cam_in", False))

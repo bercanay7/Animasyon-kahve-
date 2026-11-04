@@ -13,7 +13,18 @@ cam= biçimleri
   ("rack", (x,y), (x,y)[, opts])          odak kaydırma: odak noktası a→b; çevre bulanık (post), odak dairesi keskin
   ("track", yol_id)                       kayıtlı anahtar kareli yol (register_track; pano/Lab-B yolları da buraya kaydolur)
   [(çapa, (x, y, zoom, rot)), …]          serbest anahtar kare: çapa = yerel sn | (sid[, sözcük], ofset) | sid
-Tüm biçimlerde son eleman isteğe bağlı opts sözlüğü olabilir: pivot=(x,y), push=0.03 (pan/crane ek itme), hand=genlik, drift=(dx,dy) (px, itme ile birlikte).
+ ENG-B (Kasım 2026, kurul tur 1) eklemeleri — notlar_hareket.md:
+  "push" | ("push",) | ("push", "auto")   SÜREYE BAĞLI itme: miktar = 0,039·süre^0,47 (2,5 sn %6 · 8 sn %10,5 · 13 sn %13), tohumla ±%12 ve eğri çeşidi
+                                          (io/out/in); ("push", 0.08) eski sabit miktar; ("push", dict(rate=0.012)) → %/sn
+  ("pan", "r"|"l") / ("truck", …) / ("tilt", "up"|"down") / ("crane", …)  px verilmezse süreye bağlı; truck = derin paralaks (duvar ×0,15),
+                                          tilt = dönme hissi (duvar ×0,85, içerikle birlikte), pan/crane = ×0,40 (eski)
+  ("whip", "r"|"l"[, px][, dict(where="in"|"out"|"mid", at=çapa, dur=0.30)])   hızlı savrulma (hazırlık + oturma); deklanşör yönlü bulanıklık verir
+  "hand" | ("hand", genlik) | "drift"     elde mikro sürüklenme: yavaş gezinme (≈0,1–0,35 Hz, 6 px) + ince titreşim + ±0,12° + süreye bağlı yarım itme
+  "hand2"                                 güçlü elde (4 px titreşim; yalnız şiddet anları)
+  ("rack", a, b, dict(axis="y", …))       düzlemsel derinlik: odak bandı a.y → b.y kayar; ön/arka (alt/üst) bulanır (axis yok: dairesel, eski)
+Tüm biçimlerde son eleman isteğe bağlı opts sözlüğü olabilir: pivot=(x,y), push=0.03 (pan/crane ek itme), hand=genlik, drift=(dx,dy) (px, itme ile birlikte),
+ease="io"|"out"|"in"|"lin" (zaman eğrisi), shake=[(çapa, genlik_px[, süre]), …] (darbe sarsıntısı; anim.shake).
+cam= verilmezse compose.Program `auto_spec` ile tohumlu, ağırlıklı bir hareket seçer (ardışık aynı aile yok).
 
 Kamera durumu: x,y = kamera konumu (px; +x kamera sağa → içerik sola akar, +y kamera aşağı), zoom (1 = nötr), rot (derece, + = içerik saat yönünde).
 Zaman profili: Hermite (smoothstep ≡ ease_io); geçişte kamera devri için uç eğimi `CARRY` (cx.cam_in / cx.cam_out). t<0 (ön-tur) ve t>dur
@@ -30,6 +41,11 @@ from sk import H, W, clamp
 
 CARRY = 0.65                  # geçişte uç hızı (ortalama hızın katı); 0 → tam yumuşak duruş
 BASE_PUSH = 0.07
+AUTO_PUSH = (0.039, 0.47)     # süreye bağlı itme: miktar = a·süre^b  (2,5 sn %6 · 4 sn %7,6 · 8 sn %10,5 · 13 sn %13 · 16 sn %14,6) → hız kısa çekimde ≈2,4 %/sn, uzunda ≈0,9 %/sn
+AUTO_PUSH_LIM = (0.045, 0.16)
+PAN_RATE = 34.0               # süreye bağlı pan: px = 34·süre (110–300)
+WALL_KIND = dict(pan=0.40, crane=0.40, truck=0.15, tilt=0.85, whip=0.55)   # duvar paralaks çarpanı (içeriğe göre)
+PROFILES = {"io": None, "out": (1.8, 0.30), "in": (0.30, 1.8), "lin": (1.0, 1.0)}   # Hermite uç eğimleri (geçişte CARRY'den küçük olmaz)
 HAND_BASE = 0.06              # elde kamerada altta yatan yavaş itme
 ORBIT_R = 1000.0              # yörünge yarıçapı (px, içerik düzleminde)
 WALL_K = 0.40                 # duvar paralaks çarpanı (içeriğe göre)
@@ -105,21 +121,32 @@ def _parse(spec):
         a, o = _split_opts(spec)
         h = a[0].lower()
         if h in ("push", "pull"):
-            return Plan(h, spec, amt=float(a[1]) if len(a) > 1 else BASE_PUSH, **o)
-        if h == "pan":
+            amt = None                                       # None → süreye bağlı (AUTO_PUSH); sayı → sabit (eski)
+            if len(a) > 1 and not (isinstance(a[1], str) and a[1].lower() == "auto"):
+                amt = float(a[1])
+            return Plan(h, spec, amt=amt, **o)
+        if h in ("pan", "truck"):
             d = _dir(a[1] if len(a) > 1 else "r", ("r", "l"))
-            return Plan("pan", spec, d=d, px=float(a[2]) if len(a) > 2 else 140.0, **o)
-        if h == "crane":
+            return Plan(h, spec, d=d, px=float(a[2]) if len(a) > 2 else None, **o)
+        if h in ("crane", "tilt"):
             d = _dir(a[1] if len(a) > 1 else "up", ("up", "down"))
-            return Plan("crane", spec, d=d, px=float(a[2]) if len(a) > 2 else 120.0, **o)
+            return Plan(h, spec, d=d, px=float(a[2]) if len(a) > 2 else None, **o)
+        if h == "whip":
+            d = _dir(a[1] if len(a) > 1 else "r", ("r", "l"))
+            o.setdefault("where", "mid" if o.get("at") is not None else "in")
+            if o["where"] not in ("in", "out", "mid"):
+                raise ValueError("whip where= 'in' | 'out' | 'mid' olmalı")
+            return Plan("whip", spec, d=d, px=float(a[2]) if len(a) > 2 else 420.0, **o)
         if h == "orbit":
             return Plan("orbit", spec, deg=min(12.0, abs(float(a[1]))) if len(a) > 1 else 8.0, sgn=1.0 if len(a) < 2 or float(a[1]) >= 0 else -1.0, **o)
-        if h in ("hand", "hand2"):
-            amp = 1.5 if h == "hand" else 4.0
+        if h in ("hand", "hand2", "drift"):
+            strong = h == "hand2"
+            amp = 4.0 if strong else 1.0                     # titreşim genliği (px); yavaş gezinme ayrıca `wander` (varsayılan 6 px; hand2'de 3)
             if len(a) > 1:
                 amp = float(a[1])
-            o.setdefault("push", HAND_BASE)
-            return Plan("hand", spec, amp=amp, strong=(h == "hand2"), **o)
+            o.setdefault("push", None)                       # None → süreye bağlı itmenin yarısı
+            o.setdefault("wander", 3.0 if strong else 6.0)
+            return Plan("hand", spec, amp=amp, strong=strong, **o)
         if h == "rack":
             if len(a) < 3:
                 raise ValueError("rack: ('rack', (xa,ya), (xb,yb)) bekleniyor")
@@ -212,11 +239,43 @@ def hand_noise(t, seed, k):
     return float(np.sum(am * np.sin(2 * math.pi * fr * t + ph)))
 
 
+def slow_noise(t, seed, k):
+    """[-1, 1] yavaş gezinme (≈0,09–0,35 Hz; elde mikro sürüklenme). hand_noise ile aynı bankadan, 1/6 frekans."""
+    fr, ph, am = _noise_bank(seed + 7919, k)
+    return float(np.sum(am[:4] * np.sin(2 * math.pi * fr[:4] / 6.0 * t + ph[:4])) / max(1e-6, am[:4].sum()))
+
+
+def _u01(seed, k):
+    """Tohumlu düzgün [0,1) (süreçler arası aynı)."""
+    return (zlib.crc32(f"{seed}/{k}".encode()) & 0xFFFFFF) / float(0x1000000)
+
+
+def auto_push(dur, seed=None):
+    """Süreye bağlı itme miktarı: a·süre^b (AUTO_PUSH), tohumla ×0,88–1,12; AUTO_PUSH_LIM içinde."""
+    a, b = AUTO_PUSH
+    v = a * max(0.5, float(dur)) ** b
+    if seed is not None:
+        v *= 0.88 + 0.24 * _u01(seed, 1)
+    return clamp(v, *AUTO_PUSH_LIM)
+
+
+_PX_RULE = {"pan": (PAN_RATE, 110.0, 300.0), "truck": (26.0, 90.0, 240.0), "tilt": (20.0, 70.0, 180.0), "crane": (22.0, 80.0, 200.0)}
+
+
+def auto_px(kind, dur, seed=None):
+    """Süreye bağlı kayma (px): pan 34 px/sn (110–300), truck 26 (90–240), tilt 20 (70–180), crane 22 (80–200); tohumla ×0,88–1,12."""
+    r, lo, hi = _PX_RULE[kind]
+    v = clamp(r * float(dur), lo, hi)
+    if seed is not None:
+        v *= 0.88 + 0.24 * _u01(seed, 2)
+    return v
+
+
 # ───────────────────────────── durum ─────────────────────────────
 class CamState:
     """Bir karenin kamera durumu. İçerik dönüşümü: nokta p → P + (dx,dy)·L + R(rot·L)·(1+(s−1)L)·(p−P)  (L: katman çarpanı; P: pivot).
     Ham kamera değerleri (x, y, zoom, rot) pano/theatre türleri için de açıktır."""
-    __slots__ = ("x", "y", "zoom", "rot", "dx", "dy", "s", "pivot", "blur", "focus", "ws", "wdx", "wdy", "kind", "plan")
+    __slots__ = ("x", "y", "zoom", "rot", "dx", "dy", "s", "pivot", "blur", "focus", "ws", "wdx", "wdy", "kind", "plan", "faxis", "mblur")
 
     def __init__(self):
         self.x = self.y = self.rot = 0.0
@@ -229,6 +288,8 @@ class CamState:
         self.ws, self.wdx, self.wdy = 1.0, 0.0, 0.0
         self.kind = None
         self.plan = None
+        self.faxis = None             # rack: None (dairesel) | "y" (düzlemsel derinlik)
+        self.mblur = None             # whip: (vx, vy) px/kare — deklanşör yönlü bulanıklığı için (compose okur)
 
     def layer(self, L):
         """Katman çarpanı L için (dx, dy, s, rot)."""
@@ -254,11 +315,14 @@ def anchors_of(spec):
     pl = parse(spec)
     if pl is None:
         return []
+    out = []
     if pl.kind == "keys":
-        return [a for a, _ in pl.p["keys"]]
-    if pl.kind == "rack" and pl.p.get("at") is not None:
-        return [pl.p["at"]]
-    return []
+        out += [a for a, _ in pl.p["keys"]]
+    if pl.kind in ("rack", "whip") and pl.p.get("at") is not None:
+        out.append(pl.p["at"])
+    for it in (pl.p.get("shake") or []):
+        out.append(it[0])
+    return out
 
 
 def _smoothstep(x):
@@ -266,21 +330,78 @@ def _smoothstep(x):
     return x * x * (3 - 2 * x)
 
 
-def h_extent(plan):
+def _px(plan, dur, seed=None):
+    p = plan.p
+    return p["px"] if p.get("px") is not None else auto_px(plan.kind, dur, seed)
+
+
+def h_extent(plan, dur=6.0, seed=None):
     """Planın içerik düzleminde en büyük yatay kayması (px, tek yönde): şerit türlerinde örtme zumu için."""
     p, k = plan.p, plan.kind
-    if k == "pan":
-        return p["px"] / 2.0
+    if k in ("pan", "truck"):
+        return _px(plan, dur, seed) / 2.0
+    if k == "whip":
+        return p["px"] * (0.5 if p.get("where") == "mid" else 1.0)
     if k == "orbit":
         return ORBIT_R * math.sin(math.radians(p["deg"]) / 2.0)
     if k == "hand":
-        return float(p["amp"])
+        return float(p["amp"]) + float(p.get("wander", 0.0))
     if k == "track":
         tr = TRACKS.get(p["id"])
         return max(abs(v[1][0]) for v in tr) if tr and not callable(tr) else 0.0
     if k == "keys":
         return max(abs(v[0]) for _, v in p["keys"])
     return 0.0
+
+
+def _whip_in(tau, wd):
+    """Savrulma girişi: 1 → 0, başta hızlı, ≈%6 aşma ve oturma (τ<0: aynı eğimle doğrusal)."""
+    w = math.pi / (2.0 * max(0.05, wd))
+    sg = 1.41 / max(0.05, wd)
+    if tau < 0:
+        return 1.0 + sg * (-tau)
+    return math.exp(-sg * tau) * math.cos(w * tau)
+
+
+def _whip_out(tau, wd, back=0.04):
+    """Savrulma çıkışı: kısa hazırlık (−back) sonra hızlanarak 1'e (kesme ya da geçiş anında en hızlı); τ>wd doğrusal sürer."""
+    a = 0.30 * wd
+    if tau <= 0:
+        return 0.0
+    if tau < a:
+        return -back * (3 * (tau / a) ** 2 - 2 * (tau / a) ** 3)
+    u = (tau - a) / max(1e-6, wd - a)
+    if u <= 1.0:
+        return -back + (1.0 + back) * u ** 2.4
+    return 1.0 + (1.0 + back) * 2.4 * (u - 1.0)
+
+
+def _whip_mid(t, ta, wd, back=0.05, pre=0.16, over=0.07):
+    """Çekim içinde savrulma: ta'dan önce hafif hazırlık, ta'da hızlı geçiş (ilk varış wd sn), hafif aşma ve oturma → −back … 1."""
+    if t < ta:
+        return -back * (3 * clamp((t - (ta - pre)) / pre) ** 2 - 2 * clamp((t - (ta - pre)) / pre) ** 3)
+    L = -math.log(over)
+    w = (math.pi - math.atan(math.pi / L)) / max(0.05, wd)
+    sg = L * w / math.pi
+    tau = t - ta
+    e = math.exp(-sg * tau)
+    return -back + (1.0 + back) * (1.0 - e * (math.cos(w * tau) + (sg / w) * math.sin(w * tau)))
+
+
+def _prof_slopes(prof, cin, cout):
+    if prof in (None, "io"):
+        return (CARRY if cin else 0.0), (CARRY if cout else 0.0)
+    if prof == "out":
+        return 1.8, (0.30 if cout else 0.0)
+    if prof == "in":
+        return (0.30 if cin else 0.0), 1.8
+    return 1.0, 1.0                                          # lin
+
+
+def auto_profile(seed):
+    """Süreye bağlı (auto) itmede eğri çeşidi: io %45 · out %40 (hızlı giriş, uzun yumuşak çıkış) · in %15 (gerilim: hızlanan)."""
+    r = _u01(seed, 3)
+    return "io" if r < 0.45 else ("out" if r < 0.85 else "in")
 
 
 def state(cx, spec, plan=None, kind=None, native_pan=False):
@@ -292,28 +413,49 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
     t, dur = float(cx.t), max(1e-6, float(cx.dur))
     u = t / dur
     cin, cout = bool(getattr(cx, "cam_in", False)), bool(getattr(cx, "cam_out", False))
-    s0, s1 = (CARRY if cin else 0.0), (CARRY if cout else 0.0)
-    g = hermite(u, s0, s1)
     seed = int(getattr(cx, "seed", 1))
+    aseed = int(getattr(cx, "cam_seed", seed))             # kararlı tohum (parça/tam film aynı): süreye bağlı miktar, eğri çeşidi, odak kayması
     p = plan.p
     k = plan.kind
+    auto_amt = k in ("push", "pull") and p.get("amt") is None and p.get("rate") is None
+    prof = p.get("ease") or (auto_profile(aseed) if auto_amt else None)
+    s0, s1 = _prof_slopes(prof, cin, cout)
+    g = hermite(u, s0, s1)
     st = CamState()
     st.kind, st.plan = k, plan
     x = y = rot = 0.0
     z = 1.0
     kwall = WALL_K
-    if k == "push":
-        z = 1.0 + p["amt"] * g
-    elif k == "pull":
-        z = 1.0 + p["amt"] * (1.0 - g)
-    elif k == "pan":
+    if k in ("push", "pull"):
+        amt = p.get("amt")
+        if amt is None:
+            amt = float(p["rate"]) * dur if p.get("rate") is not None else auto_push(dur, aseed)
+        z = 1.0 + amt * g if k == "push" else 1.0 + amt * (1.0 - g)
+        if auto_amt and p.get("pivot") is None:             # süreye bağlı itmede odak merkezi tohumla hafif kayar (hep tam ortaya itme yok)
+            st.pivot = (W / 2 + 260.0 * (_u01(aseed, 4) - 0.5), H / 2 + 140.0 * (_u01(aseed, 5) - 0.5))
+    elif k in ("pan", "truck"):
         sgn = 1.0 if p["d"] == "r" else -1.0
-        x = 0.0 if native_pan else sgn * p["px"] * (g - 0.5)
+        px = _px(plan, dur, aseed)
+        x = 0.0 if native_pan else sgn * px * (g - 0.5)
+        z = 1.0 + p.get("push", 0.02 if k == "pan" else 0.015) * g
+        kwall = WALL_KIND[k]
+    elif k in ("crane", "tilt"):
+        sgn = -1.0 if p["d"] == "up" else 1.0               # kamera yukarı: y azalır, içerik aşağı akar
+        y = sgn * _px(plan, dur, aseed) * (g - 0.5)
         z = 1.0 + p.get("push", 0.02) * g
-    elif k == "crane":
-        sgn = -1.0 if p["d"] == "up" else 1.0           # kamera yukarı: y azalır, içerik aşağı akar
-        y = sgn * p["px"] * (g - 0.5)
-        z = 1.0 + p.get("push", 0.02) * g
+        kwall = WALL_KIND[k]
+    elif k == "whip":
+        sgn = 1.0 if p["d"] == "r" else -1.0
+        px, wd, where = float(p["px"]), float(p.get("dur", 0.30)), p.get("where", "in")
+        if where == "in":
+            x = -sgn * px * _whip_in(t, wd)
+        elif where == "out":
+            x = sgn * px * _whip_out(t - (dur - wd), wd)
+        else:
+            ta = _anchor_t(cx, p["at"]) if p.get("at") is not None else dur * 0.5
+            x = sgn * px * (_whip_mid(t, ta, wd) - 0.5)
+        z = 1.0 + 0.03 + p.get("push", 0.02) * g             # sabit %3 örtme + hafif itme (kenar açılmasın)
+        kwall = WALL_KIND["whip"]
     elif k == "orbit":
         phi = math.radians(p["deg"]) * (g - 0.5) * p["sgn"]
         x = ORBIT_R * math.sin(phi)
@@ -321,10 +463,13 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
         rot = -math.degrees(phi) * 0.10
         kwall = -0.35
     elif k == "hand":
-        a = p["amp"]
-        x = a * hand_noise(t, seed, 0)
-        y = a * 0.75 * hand_noise(t, seed, 1)
-        z = 1.0 + p.get("push", HAND_BASE) * g
+        a, wa = p["amp"], float(p.get("wander", 0.0))
+        x = a * hand_noise(t, seed, 0) + wa * slow_noise(t, seed, 0)
+        y = a * 0.75 * hand_noise(t, seed, 1) + wa * 0.7 * slow_noise(t, seed, 1)
+        rot = 0.12 * slow_noise(t, seed, 2) if wa > 0 else 0.0
+        pu = p.get("push")
+        pu = 0.5 * auto_push(dur, aseed) if pu is None else float(pu)
+        z = 1.0 + pu * g + (0.004 * slow_noise(t, seed, 3) if wa > 0 else 0.0)
     elif k == "rack":
         ra, rb = p["a"], p["b"]
         ta = p.get("at", None)
@@ -337,6 +482,7 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
         sig = float(p.get("sigma", 5.0))
         st.blur = sig * (1.0 + 0.55 * math.sin(math.pi * r))
         st.focus = (fx, fy, float(p.get("r", 300.0)))
+        st.faxis = p.get("axis")
     elif k == "track":
         tr = TRACKS.get(p["id"])
         if tr is None:
@@ -388,7 +534,7 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
                 sl0 = sl1 = 0.0
             out.append(_pchip(ts, chans[c], t, sl0 * (CARRY if cin else 0.0), sl1 * (CARRY if cout else 0.0)))
         x, y, z, rot = out[0], out[1], math.exp(out[2]), out[3]
-    # ek: drift, hand katkısı (her ön ayarda opts ile)
+    # ek: drift, hand katkısı, darbe sarsıntısı (her ön ayarda opts ile)
     dr = p.get("drift")
     if dr:
         x += dr[0] * (t - dur / 2)
@@ -397,8 +543,14 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
         a = float(p["hand"]) if not isinstance(p["hand"], bool) else 1.5
         x += a * hand_noise(t, seed, 0)
         y += a * 0.75 * hand_noise(t, seed, 1)
+    if p.get("shake"):
+        import anim
+        for j, it in enumerate(p["shake"]):
+            sx_, sy_ = anim.shake(t, _anchor_t(cx, it[0]), float(it[2]) if len(it) > 2 else 0.25, float(it[1]), seed=seed * 31 + j)
+            x += sx_
+            y += sy_
     if kind in BAND_KINDS and not native_pan:              # şerit uçları açığa çıkmasın: kaymayı örtecek sabit zum
-        z *= 1.0 + h_extent(plan) / (W / 2.0) * 1.03
+        z *= 1.0 + h_extent(plan, dur, aseed) / (W / 2.0) * 1.03
     st.x, st.y, st.zoom, st.rot = x, y, z, rot
     st.dx, st.dy, st.s = -x, -y, z
     pv = p.get("pivot")
@@ -409,6 +561,48 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
     ws0 = 1.0 + (z - 1.0) * 0.45
     st.ws = max(ws0, wall_cover(st.wdx, st.wdy) / 1.015)
     return st
+
+
+class _At:
+    """state()'i başka bir yerel saatte değerlendirmek için hafif Ctx vekili (çapalar aynı çekimde çözülür)."""
+    __slots__ = ("t", "dur", "cam_in", "cam_out", "seed", "cam_seed", "_cx")
+
+    def __init__(self, cx, t):
+        self._cx = cx
+        self.t, self.dur = t, cx.dur
+        self.cam_in, self.cam_out = getattr(cx, "cam_in", False), getattr(cx, "cam_out", False)
+        self.seed = getattr(cx, "seed", 1)
+        self.cam_seed = getattr(cx, "cam_seed", self.seed)
+
+    def at(self, a, key=None, off=0.0):
+        return self._cx.at(a, key, off)
+
+
+_PROBE = [(0.0, 0.0), (-W / 2, -H / 2), (W / 2, -H / 2), (-W / 2, H / 2), (W / 2, H / 2), (-W / 2, 0.0), (W / 2, 0.0), (0.0, -H / 2), (0.0, H / 2)]
+
+
+def _map_pts(st):
+    px, py = st.pivot or (W / 2, H / 2)
+    cr, sr = math.cos(math.radians(st.rot)), math.sin(math.radians(st.rot))
+    out = []
+    for qx, qy in _PROBE:
+        X, Y = W / 2 + qx - px, H / 2 + qy - py
+        out.append((px + st.dx + st.s * (cr * X - sr * Y), py + st.dy + st.s * (sr * X + cr * Y)))
+    return out
+
+
+def screen_speed(cx, spec=None, plan=None, kind=None, dt=1.0 / 24.0):
+    """Kamera kaynaklı ekran hızı (px/kare, 1920 ölçeği) cx.t'de: içerik dönüşümünün t ± dt/2 arası en büyük nokta yer değiştirmesi (köşe/kenar/merkez).
+    Dönüş: (en büyük, merkez vx, merkez vy) — deklanşör (compose) yönlü bulanıklık için. spec yoksa (0, 0, 0)."""
+    plan = plan or parse(spec)
+    if plan is None:
+        return 0.0, 0.0, 0.0
+    a = state(_At(cx, cx.t - dt / 2), None, plan=plan, kind=kind)
+    b = state(_At(cx, cx.t + dt / 2), None, plan=plan, kind=kind)
+    pa, pb = _map_pts(a), _map_pts(b)
+    vmax = max(math.hypot(q[0] - r[0], q[1] - r[1]) for q, r in zip(pa, pb))
+    return vmax, pb[0][0] - pa[0][0], pb[0][1] - pa[0][1]
+
 
 
 # ───────────────────────────── çekim hazırlığı (ckind sarmalayıcısı çağırır) ─────────────────────────────
@@ -495,11 +689,11 @@ def map_patch(cx):
 _MASK = {}
 
 
-def _focus_mask(fx, fy, r):
-    """(270, 480) float32: odak dairesi içinde 1, dışında 0 (yumuşak kenar); 1/4 çözünürlük."""
+def _focus_mask(fx, fy, r, axis=None):
+    """(270, 480) float32: odak dairesi (axis=None) ya da odak bandı (axis="y": düzlemsel derinlik, yalnız |y − fy|) içinde 1, dışında 0 (yumuşak kenar); 1/4 çözünürlük."""
     sh = (H // 4, W // 4)
     yy, xx = np.mgrid[0:sh[0], 0:sh[1]].astype(np.float32)
-    d = np.hypot(xx * 4 - fx, yy * 4 - fy)
+    d = np.abs(yy * 4 - fy) if axis == "y" else np.hypot(xx * 4 - fx, yy * 4 - fy)
     m = np.clip((r * 1.45 - d) / (r * 0.95), 0.0, 1.0)
     return m * m * (3 - 2 * m)
 
@@ -519,7 +713,7 @@ def postfx(cx):
     small = cv2.GaussianBlur(small, (0, 0), sig)
     blur = cv2.resize(small, (W, H), interpolation=cv2.INTER_LINEAR)
     fx, fy, r = st.focus
-    m = _focus_mask(fx, fy, r)
+    m = _focus_mask(fx, fy, r, getattr(st, "faxis", None))
     m = cv2.resize(m, (W, H), interpolation=cv2.INTER_LINEAR)
     out = cv2.blendLinear(arr, blur, m, 1.0 - m)
     out = np.ascontiguousarray(out)
@@ -531,24 +725,35 @@ def postfx(cx):
 
 
 # ───────────────────────────── statik analiz (qa_flow) ─────────────────────────────
-def describe(spec):
-    """qa_flow için: {'kind', 'dir', 'scale', 'shift'} (yaklaşık toplam ölçek değişimi oranı ve kayma px) ya da None."""
+def describe(spec, dur=None):
+    """qa_flow için: {'kind', 'family', 'dir', 'scale', 'shift', 'h', 'v'} (yaklaşık toplam ölçek değişimi oranı ve kayma px) ya da None.
+    dur: çekim süresi (süreye bağlı miktarlar için; yoksa 6 sn varsayılır)."""
     pl = parse(spec)
     if pl is None:
         return None
+    dd = 6.0 if dur is None else max(0.5, float(dur))
     p, k = pl.p, pl.kind
     d = dict(kind=k, dir=None, scale=0.0, shift=0.0, h=0.0, v=0.0)
     if k in ("push", "pull"):
-        d["scale"] = p["amt"]
+        amt = p.get("amt")
+        if amt is None:
+            amt = float(p["rate"]) * dd if p.get("rate") is not None else auto_push(dd)
+        d["scale"] = amt
         d["dir"] = "in" if k == "push" else "out"
-    elif k == "pan":
-        d.update(shift=p["px"], dir=p["d"], h=(1 if p["d"] == "r" else -1) * p["px"], scale=p.get("push", 0.02))
-    elif k == "crane":
-        d.update(shift=p["px"], dir=p["d"], v=(1 if p["d"] == "up" else -1) * p["px"], scale=p.get("push", 0.02))
+        d["auto"] = p.get("amt") is None
+    elif k in ("pan", "truck"):
+        px = _px(pl, dd)
+        d.update(shift=px, dir=p["d"], h=(1 if p["d"] == "r" else -1) * px, scale=p.get("push", 0.02 if k == "pan" else 0.015))
+    elif k in ("crane", "tilt"):
+        px = _px(pl, dd)
+        d.update(shift=px, dir=p["d"], v=(1 if p["d"] == "up" else -1) * px, scale=p.get("push", 0.02))
+    elif k == "whip":
+        d.update(shift=p["px"], dir=p["d"], h=(1 if p["d"] == "r" else -1) * p["px"], scale=0.03)
     elif k == "orbit":
         d.update(shift=2 * ORBIT_R * math.sin(math.radians(p["deg"]) / 2), scale=p.get("push", 0.03), dir="orbit")
     elif k == "hand":
-        d.update(shift=p["amp"] * 2, scale=p.get("push", HAND_BASE), dir="hand2" if p["strong"] else "hand")
+        pu = p.get("push")
+        d.update(shift=p["amp"] * 2 + float(p.get("wander", 0.0)) * 2, scale=(0.5 * auto_push(dd) if pu is None else pu), dir="hand2" if p["strong"] else "hand")
     elif k == "rack":
         d.update(shift=math.hypot(p["b"][0] - p["a"][0], p["b"][1] - p["a"][1]), scale=p.get("push", 0.05), dir="rack")
     elif k == "track":
@@ -561,6 +766,7 @@ def describe(spec):
             d.update(shift=max(max(xs) - min(xs), max(ys) - min(ys)), scale=max(zs) / min(zs) - 1.0)
             d["h"] = xs[-1] - xs[0]                       # + : kamera sağa
             d["v"] = -(ys[-1] - ys[0])                    # + : kamera yukarı
+            d["zdir"] = 1 if zs[-1] > zs[0] * 1.005 else (-1 if zs[-1] < zs[0] / 1.005 else 0)
         else:
             d["known"] = tr is not None
     elif k == "keys":
@@ -571,13 +777,75 @@ def describe(spec):
         d.update(shift=max(max(xs) - min(xs), max(ys) - min(ys)), scale=max(zs) / min(zs) - 1.0, dir="keys")
         d["h"] = xs[-1] - xs[0]
         d["v"] = -(ys[-1] - ys[0])
+        d["zdir"] = 1 if zs[-1] > zs[0] * 1.005 else (-1 if zs[-1] < zs[0] / 1.005 else 0)
+    d["family"] = _family_of(d)
     return d
 
 
-def motion_ok(spec):
-    """SPEC §1-1(a): ≥%6 ölçek ya da ≥120 px kayma."""
-    d = describe(spec)
+def _family_of(d):
+    k = d["kind"]
+    if k in ("push", "pull", "pan", "truck", "crane", "tilt", "whip", "orbit", "hand", "rack"):
+        return k
+    # track / keys: baskın harekete göre (ölçek ≥ %5 ve kayma < 140 px → itme/çekme; değilse yatay → pan, dikey → crane)
+    sc, sh = d.get("scale", 0.0), d.get("shift", 0.0)
+    if sc >= 0.05 and sh < 140.0:
+        return "pull" if d.get("zdir", 1) < 0 else "push"
+    if sh < 20.0 and sc < 0.02:
+        return "static"
+    return "pan" if abs(d.get("h", 0.0)) >= abs(d.get("v", 0.0)) else "crane"
+
+
+def family(spec, dur=None):
+    """cam spec'inin hareket ailesi: push | pull | pan | truck | tilt | crane | whip | orbit | hand | rack | static (anahtar kareliler baskın harekete göre) | None."""
+    d = describe(spec, dur)
+    return d["family"] if d else None
+
+
+def motion_ok(spec, dur=None):
+    """SPEC §1-1(a): ≥%6 ölçek ya da ≥120 px kayma (süreye bağlı miktarlar dur ile hesaplanır)."""
+    d = describe(spec, dur)
     return bool(d) and (d["scale"] >= 0.06 - 1e-9 or d["shift"] >= 120.0 - 1e-9)
+
+
+# ───────────────────────────── otomatik seçim (cam= verilmemiş çekimler) ─────────────────────────────
+AUTO_W = dict(push=0.28, pull=0.13, pan=0.18, truck=0.11, tilt=0.06, crane=0.06, hand=0.12, orbit=0.06)
+OPPOSITE = dict(push="pull", pull="push", tilt="crane", crane="tilt")
+
+
+def auto_spec(kind, dur, seed, prev=None, hdir="r", vdir="up"):
+    """cam= verilmemiş çekim için tohumlu, ağırlıklı hareket (compose.Program çağırır). prev: önceki çekimin ailesi (aynı aile ve push↔pull art arda seçilmez).
+    hdir/vdir: bölümün baskın yatay/dikey yönü (yön sözleşmesi §1-6; açık cam'lerden devralınır). Miktarlar süreye bağlı (auto_push / auto_px).
+    Dönüş: cam spec (tuple)."""
+    w = dict(AUTO_W)
+    if kind in BAND_KINDS:                                  # şerit türleri: pan yerleşik kaydırmaya çevrilir (gerçek paralaks)
+        w.update(pan=0.50, truck=0.0, orbit=0.0, tilt=0.0)
+    if kind == "map":
+        w.update(orbit=0.0, tilt=0.0, truck=0.06)
+    if dur < 2.6:                                           # kısa çekim: hızlı itme/çekme/kayma; yörünge ve dikey yok
+        w.update(orbit=0.0, tilt=0.0, crane=0.0)
+    if prev:
+        w[prev] = 0.0
+        if prev in OPPOSITE:
+            w[OPPOSITE[prev]] = 0.0
+    tot = sum(w.values())
+    r = _u01(seed, 11) * tot
+    fam = "push"
+    for k_, v in w.items():
+        if r < v:
+            fam = k_
+            break
+        r -= v
+    if fam in ("push", "pull"):
+        return (fam,)
+    if fam in ("pan", "truck"):
+        return (fam, hdir)
+    if fam == "tilt":
+        return ("tilt", vdir)
+    if fam == "crane":
+        return ("crane", vdir)
+    if fam == "orbit":
+        return ("orbit", round((4.0 + 4.0 * _u01(seed, 12)) * (1 if hdir == "r" else -1), 1))
+    return ("hand",)
 
 
 # ───────────────────────────── öz sınama ─────────────────────────────

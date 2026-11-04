@@ -22,7 +22,19 @@ CARD_GAP = {"c0": 4.5}  # c0 sonrası ana başlık (kurul tur 1: fresco_title h�
 DEFAULT_GAP = 3.0       # bölüm kartı boşluğu
 TARGET_RMS_DB = -21.0   # aktif konuşma RMS hedefi (nihai miks −14 LUFS'a ayrıca ayarlanır)
 CHAPTERS = S.PARTS[PA.PART] if PA.PART else [c["id"] for c in S.CHAPTERS]
-VERSION = {c: "v1" for c in CHAPTERS}
+def _latest(cid):
+    """bölümün en yeni GERÇEK ses sürümü (v2 > v1; Piper 'g' sürümü yalnız açıkça istenirse): yeniden çalıştırma yamayı geri almasın."""
+    import glob
+    import re as _re
+    best = 1
+    for f in glob.glob(os.path.join(RAW, f"{cid}_v*")):
+        m = _re.match(rf"{cid}_v(\d+)(?:_48k)?\.(?:wav|mp3)$", os.path.basename(f))
+        if m:
+            best = max(best, int(m.group(1)))
+    return f"v{best}"
+
+
+VERSION = {c: _latest(c) for c in CHAPTERS}
 for a in sys.argv[1:]:
     if "=" in a:
         k, v = a.split("="); VERSION[k] = v

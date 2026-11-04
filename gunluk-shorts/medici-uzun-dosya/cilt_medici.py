@@ -18,6 +18,7 @@ import numpy as np
 import skia
 
 import cilt_wall as CW
+import donem as DN
 import sk
 from sk import C, Frame, H, W, clamp, ease_io, ease_out, lerp, mix, seg, smooth
 
@@ -134,18 +135,22 @@ def ckind(name):
             cx.mode, cx.perde = m, p
             cx.f.cilt_mode = m
             cx.f.cilt_perde = p
-            spec = _pull_cam(name, cx, kw)
-            nested = getattr(cx, "_cam_for", _MISSING) is spec and spec is not None
-            if not nested:                                     # iç içe çağrıda (bir tür ötekini çağırırsa) durum yeniden hesaplanmaz
-                CAM.attach(cx, name, kw, fn)
-                cx._cam_for = spec
-            if name == "map" and getattr(cx, "cam_state", None) is not None:
-                with CAM.map_patch(cx):
+            DN.push(cx, name, kw)                              # dönem katmanı: bu çekimin yılı (cx.year; marka/çekim-listesi → None)
+            try:
+                spec = _pull_cam(name, cx, kw)
+                nested = getattr(cx, "_cam_for", _MISSING) is spec and spec is not None
+                if not nested:                                     # iç içe çağrıda (bir tür ötekini çağırırsa) durum yeniden hesaplanmaz
+                    CAM.attach(cx, name, kw, fn)
+                    cx._cam_for = spec
+                if name == "map" and getattr(cx, "cam_state", None) is not None:
+                    with CAM.map_patch(cx):
+                        r = fn(cx, **kw)
+                else:
                     r = fn(cx, **kw)
-            else:
-                r = fn(cx, **kw)
-            if not nested:
-                CAM.postfx(cx)
+                if not nested:
+                    CAM.postfx(cx)
+            finally:
+                DN.pop()
             return r
         import shots as SH
         SH.KINDS[name] = wrapper
@@ -626,14 +631,127 @@ def spr_wid(spr, scale=1.0):
 
 
 # ───────────────────────────── metin kısayolları ─────────────────────────────
-def ink(f, text, x, y, face="cap", size=44, color=None, align="l", track=0.0, alpha=1.0, emboss=True):
-    """Duvara işlenmiş yazı: vektör metin; gündüz hafif parlak alt dudak, gece hafif gölge."""
+# ───────────────────────────── kontrast zemini (TE2) ─────────────────────────────
+AUTO_SCRIM = True           # ink(): serbest yazının arka planı ölçülür; kontrast hedefin altındaysa yumuşak zemin (levha üstündeki yazıda zaten tetiklenmez)
+KICK_SCRIM = True           # kick(): serbest büyük-harf etiketler
+SCRIM_SMALL, SCRIM_LARGE, SCRIM_LARGE_PX = 4.5, 3.0, 46.0     # hedef oranlar (WCAG); ≥46 px (ekran) "büyük yazı"
+SCRIM_LOG = []              # LOG_TEXT iken tetiklenen zeminler (qa_yerlesim)
+
+
+def _hex_rgb(col):
+    if isinstance(col, str) and col.startswith("#") and len(col) in (7, 9):
+        return int(col[1:3], 16), int(col[3:5], 16), int(col[5:7], 16)
+    return None
+
+
+def _lin_c(v):
+    v = v / 255.0
+    return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+
+
+def rel_lum(rgb):
+    """WCAG göreli parlaklık (sRGB 0..255)."""
+    r, g, b = rgb
+    return 0.2126 * _lin_c(r) + 0.7152 * _lin_c(g) + 0.0722 * _lin_c(b)
+
+
+def contrast_ratio(l1, l2):
+    hi, lo = max(l1, l2), min(l1, l2)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+_LUT_LIN = np.array([_lin_c(v) for v in range(256)], np.float32)
+
+
+def contrast_scrim(f, x0, y0, x1, y1, color, size, alpha=1.0, force=False):
+    """Yazı kutusunun (yerel) arkasındaki GERÇEK pikselleri ölç; yazı rengiyle kontrast hedefin (küçük 4,5:1, büyük 3:1) altındaysa
+    kutunun arkasına yumuşak kenarlı koyu (açık yazı) / açık (koyu yazı) zemin çiz. Dönüş: (ölçülen oran, zemin alfası)."""
+    rgb = _hex_rgb(color)
+    if rgb is None:
+        return None, 0.0
+    try:
+        M = f.c.getTotalMatrix()
+        sc = math.sqrt(abs(M.getScaleX() * M.getScaleY() - M.getSkewX() * M.getSkewY()))
+        l, t_, r, b = device_rect(f, x0, y0, x1, y1)
+        fsx, fsy = _frame_scale(f)
+        fw, fh = getattr(f, "w", W), getattr(f, "h", H)
+        L_, T_ = int(max(0, l * fsx)), int(max(0, t_ * fsy))
+        R_, B_ = int(min(fw, r * fsx)), int(min(fh, b * fsy))
+        if R_ - L_ < 4 or B_ - T_ < 4:
+            return None, 0.0
+        img = f.surf.makeImageSnapshot(skia.IRect.MakeLTRB(L_, T_, R_, B_))
+        arr = img.toarray(colorType=skia.ColorType.kRGBA_8888_ColorType)
+    except Exception:                                      # noqa: BLE001
+        return None, 0.0
+    if arr is None or arr.size == 0:
+        return None, 0.0
+    if arr.shape[0] > 24 or arr.shape[1] > 96:
+        arr = cv2.resize(arr, (min(96, arr.shape[1]), min(24, arr.shape[0])), interpolation=cv2.INTER_AREA)
+    lum = 0.2126 * _LUT_LIN[arr[..., 0]] + 0.7152 * _LUT_LIN[arr[..., 1]] + 0.0722 * _LUT_LIN[arr[..., 2]]
+    lt = rel_lum(rgb)
+    light_text = lt > 0.30
+    lb = float(np.percentile(lum, 80 if light_text else 20))
+    cr = contrast_ratio(lt, lb)
+    target = SCRIM_LARGE if size * sc / fsx >= SCRIM_LARGE_PX else SCRIM_SMALL
+    if cr >= target and not force:
+        return cr, 0.0
+    if light_text:
+        scol, ls = "#120C07", rel_lum((18, 12, 7))
+        lmax = (lt + 0.05) / target - 0.05
+        need = (lb - lmax) / max(1e-4, lb - ls)
+    else:
+        scol, ls = "#F6EEDA", rel_lum((246, 238, 218))
+        lmin = (lt + 0.05) * target - 0.05
+        need = (lmin - lb) / max(1e-4, ls - lb)
+    a_s = clamp(need * 1.18 + 0.06, 0.0, 0.88)
+    if a_s <= 0.01:
+        return cr, 0.0
+    hh = y1 - y0
+    px, py = hh * 0.55, hh * 0.30
+    rad = hh * 0.45
+    p = skia.Paint(AntiAlias=True, Color=C(scol), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, max(2.0, hh * 0.28)))
+    p.setAlphaf(clamp(a_s * alpha))
+    f.c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(x0 - px, y0 - py, x1 + px, y1 + py), rad, rad), p)
+    if LOG_TEXT:
+        SCRIM_LOG.append(dict(box=(round(l, 1), round(t_, 1), round(r, 1), round(b, 1)), ratio=round(cr, 2), target=target, a=round(a_s, 3),
+                              g=round(float(getattr(getattr(DN.current(), "cx", None), "g", 0.0) or 0.0), 3) if DN.current() else None))
+    return cr, a_s
+
+
+def _log_text(f, typ, text, x0, y0, x1, y1, size=0.0, alpha=1.0, color=None):
+    """LOG_TEXT iken yazı/levha kutusunu ekran uzayında kaydet (qa_yerlesim)."""
+    if not LOG_TEXT or alpha < 0.30:
+        return
+    try:
+        M = f.c.getTotalMatrix()
+        sc = math.sqrt(abs(M.getScaleX() * M.getScaleY() - M.getSkewX() * M.getSkewY()))
+        box = device_rect(f, x0, y0, x1, y1)
+    except Exception:                                      # noqa: BLE001
+        return
+    fr = DN.current()
+    cx = fr.cx if fr else None
+    sh = getattr(cx, "sh", None)
+    fw, fh = getattr(f, "w", W), getattr(f, "h", H)
+    TEXT_LOG.append(dict(type=typ, text=text, size=round(size * sc / _frame_scale(f)[0], 1), box=tuple(round(v, 1) for v in box), alpha=round(alpha, 2),
+                         color=color, main=not (abs(fw * H - fh * W) > 2 or fw < W * 0.25), kind=(fr.kind if fr else None),
+                         shot=getattr(sh, "i", None), label=getattr(sh, "label", None), g=round(float(getattr(cx, "g", 0.0)), 3) if cx is not None else None))
+
+
+def ink(f, text, x, y, face="cap", size=44, color=None, align="l", track=0.0, alpha=1.0, emboss=True, log=True, scrim=None):
+    """Duvara işlenmiş yazı: vektör metin; gündüz hafif parlak alt dudak, gece hafif gölge.
+    scrim: None → modül ayarı (AUTO_SCRIM) · 'auto'/True → arka plan kontrastı ölçülür, hedefin altındaysa yumuşak koyu/açık zemin · False → yok."""
     color = color or TH.fg
     if not text:
         return 0.0
     blob, wid = sk.text_blob(face, text, size, track)
     ox = x - (wid / 2 if align == "c" else wid if align == "r" else 0)
     c = f.c
+    if log and LOG_TEXT:
+        _log_text(f, "ink", text, ox, y - size * 0.80, ox + wid, y + size * 0.24, size, alpha, color)
+    if scrim is None:
+        scrim = AUTO_SCRIM
+    if scrim and alpha > 0.02:
+        contrast_scrim(f, ox, y - size * 0.80, ox + wid, y + size * 0.24, color, size, alpha)
     if emboss and TH.day:
         c.save(); c.translate(ox + 0.8, y + 1.3)
         c.drawTextBlob(blob, 0, 0, f.paint("#FFF8E4", alpha=0.55 * alpha))
@@ -648,9 +766,9 @@ def ink(f, text, x, y, face="cap", size=44, color=None, align="l", track=0.0, al
     return wid
 
 
-def kick(f, text, x, y, alpha=1.0, size=30, track=10, align="c", face="title_m", color=None):
-    """Küçük büyük-harf etiket (Cinzel)."""
-    return ink(f, text, x, y, face=face, size=size, color=color or TH.fg2, align=align, track=track, alpha=alpha)
+def kick(f, text, x, y, alpha=1.0, size=30, track=10, align="c", face="title_m", color=None, scrim=None):
+    """Küçük büyük-harf etiket (Cinzel). Serbest etiket olduğundan kontrast zemini varsayılan olarak AÇIK (scrim=None → KICK_SCRIM)."""
+    return ink(f, text, x, y, face=face, size=size, color=color or TH.fg2, align=align, track=track, alpha=alpha, scrim=KICK_SCRIM if scrim is None else scrim)
 
 
 def fit_size(text, face, size, max_w, track=0.0):
@@ -689,10 +807,12 @@ def flourish_rule(f, x, y, w, alpha=1.0, color=None, grow=1.0):
     f.circle(x + 22, y, 2.6, color=color, alpha=alpha * 0.9)
 
 
-def tablet(f, x, y, w, h, alpha=1.0, rot=0.0, edge=None, fill=None, shadow=True, corner=10, border=True):
+def tablet(f, x, y, w, h, alpha=1.0, rot=0.0, edge=None, fill=None, shadow=True, corner=10, border=True, log=True):
     """Boyalı sıva levha (isim/etiket): ılık dolgu, çift ince çerçeve, köşe benekleri; gündüz krem, gece lacivert."""
     edge = edge or TH.plate_edge
     c = f.c
+    if log and LOG_TEXT and not rot:
+        _log_text(f, "tablet", None, x, y, x + w, y + h, 0.0, alpha)
     c.save()
     c.translate(x + w / 2, y + h / 2)
     if rot:
@@ -717,26 +837,181 @@ def tablet(f, x, y, w, h, alpha=1.0, rot=0.0, edge=None, fill=None, shadow=True,
     c.restore()
 
 
-def name_plate(f, name, role=None, dates=None, cx_=W / 2, y=800, alpha=1.0, w=None, t=1.0):
-    """Madalya/portre altı isim levhası (Cinzel isim, Cormorant italik rol, yıllar). t: açılış 0..1."""
+# ───────────────────────────── yerleşim güvencesi (ekran uzayı) ─────────────────────────────
+SAFE_RECT = (90.0, 60.0, 1830.0, 1020.0)          # yazı/levha güvenli alanı (1920×1080 ekran uzayı; STİL_REHBERİ: kenardan ≥90 px)
+HUD_RECT_DEFAULT = (1480.0, 10.0, 1900.0, 118.0)  # cilt_fx.HUD_RECT yoksa (ENG-B HUD'u küçültünce kendi sabitini tanımlar; burada yalnız okunur)
+HUD_GAP = 14.0                                    # levha–HUD arası en az boşluk (px)
+SUB_BAND = (938.0, 1042.0)                        # altyazı şeridi (y) — yalnız denetim için
+LOG_PLATES = False                                # True: her çizilen isim levhası PLATE_LOG'a (qa_yerlesim)
+PLATE_LOG = []
+LOG_TEXT = False                                  # True: ink/kick/stamp/tablet ekran kutuları TEXT_LOG'a (qa_yerlesim --yazi)
+TEXT_LOG = []
+
+
+def hud_rect():
+    """HUD dikdörtgeni (ekran uzayı): cilt_fx.HUD_RECT (ENG-B) ya da varsayılan."""
+    r = None
+    try:
+        import cilt_fx
+        r = getattr(cilt_fx, "HUD_RECT", None)
+    except Exception:                                      # noqa: BLE001 — döngüsel içe aktarma sırasında
+        r = None
+    try:
+        return tuple(float(v) for v in (r or HUD_RECT_DEFAULT))[:4]
+    except (TypeError, ValueError):
+        return HUD_RECT_DEFAULT
+
+
+def _frame_scale(f):
+    return (getattr(f, "w", W) or W) / float(W), (getattr(f, "h", H) or H) / float(H)
+
+
+def device_rect(f, x0, y0, x1, y1):
+    """Yerel (tuval) dikdörtgen → ekran uzayı sınırlayıcı kutu (l, t, r, b), 1920×1080 ölçeğinde."""
+    r = f.c.getTotalMatrix().mapRect(skia.Rect.MakeLTRB(x0, y0, x1, y1))
+    sx, sy = _frame_scale(f)
+    return (r.left() / sx, r.top() / sy, r.right() / sx, r.bottom() / sy)
+
+
+def _hits(a, b, g=0.0):
+    return a[2] > b[0] - g and a[0] < b[2] + g and a[3] > b[1] - g and a[1] < b[3] + g
+
+
+def screen_fit(f, x0, y0, x1, y1, avoid_hud=True, safe=None):
+    """Kamera dönüşümü altındaki yerel dikdörtgenin EKRAN UZAYINDAKİ son yerini güvenli alana ve HUD dışına kıstırır.
+    Dönüş: (dx, dy, k, info) — yerel öteleme + dikdörtgen merkezine göre ölçek (k ≤ 1; yalnız kutu güvenli alandan büyükse).
+    Önce merkez korunur, taşan kenar içeri kaydırılır; HUD ile kesişirse aşağı ya da sola (küçük yer değiştirme) itilir."""
+    M = f.c.getTotalMatrix()
+    sx, sy = _frame_scale(f)
+    S = safe or SAFE_RECT
+    SL, ST, SR, SB = S
+    l, t_, r, b = device_rect(f, x0, y0, x1, y1)
+    req = (l, t_, r, b)
+    dw, dh = r - l, b - t_
+    k = min(1.0, (SR - SL) / max(1e-6, dw), (SB - ST) / max(1e-6, dh))
+    if k < 1.0:
+        cxm, cym = (l + r) / 2, (t_ + b) / 2
+        dw, dh = dw * k, dh * k
+        l, r, t_, b = cxm - dw / 2, cxm + dw / 2, cym - dh / 2, cym + dh / 2
+    ddx = (SL - l) if l < SL else ((SR - r) if r > SR else 0.0)
+    ddy = (ST - t_) if t_ < ST else ((SB - b) if b > SB else 0.0)
+    l, r, t_, b = l + ddx, r + ddx, t_ + ddy, b + ddy
+    hud_hit = False
+    if avoid_hud:
+        hr = hud_rect()
+        g = HUD_GAP
+        if _hits((l, t_, r, b), hr, g):
+            hud_hit = True
+            down = (hr[3] + g) - t_
+            left = (hr[0] - g) - r
+            cand = []
+            if b + down <= SB + 0.5:
+                cand.append((abs(down), 0.0, down))
+            if l + left >= SL - 0.5:
+                cand.append((abs(left), left, 0.0))
+            if not cand:
+                cand.append((abs(down), 0.0, down))
+            _, ex, ey = min(cand)
+            ddx += ex
+            ddy += ey
+            l, r, t_, b = l + ex, r + ex, t_ + ey, b + ey
+    dx = dy = 0.0
+    if ddx or ddy:
+        inv = skia.Matrix()
+        if M.invert(inv):
+            v = inv.mapVector(ddx * sx, ddy * sy)
+            dx, dy = v.x(), v.y()
+    return dx, dy, k, dict(req=req, box=(l, t_, r, b), moved=(ddx, ddy), k=k, hud=hud_hit)
+
+
+PLATE_PAD = 55.0            # isim satırı yatay iç payı (her yan) — eski davranış: wn + 110
+PLATE_SUB_PAD = 40.0        # rol / yıl satırı yatay iç payı (her yan)
+PLATE_MIN_TITLE = 34.0      # çok uzun adda Cinzel isim en çok buraya kadar küçülür (okunurluk tabanı)
+
+
+def plate_layout(name, role=None, dates=None, w=None, name_font=("title_m", 50.0, 5.0), role_font=("cap_i", 34.0, 0.0), dates_font=("cap", 30.0, 3.0),
+                 min_w=460.0, line_h=(104.0, 44.0, 40.0)):
+    """İsim levhası ölçüleri: `w` artık ALT SINIR (kutu metin + paydan küçük olamaz); çok uzun metin güvenli alana sığmazsa yazı `fit_size` ile
+    küçülür (isim ≥34 px). Dönüş: dict(ww, hh, nsz, rsz, dsz, wn, wr, wd)."""
+    max_w = SAFE_RECT[2] - SAFE_RECT[0]
+    nf, ns, ntr = name_font
+    nsz = ns
+    wn = sk.text_width(name, nf, nsz, ntr) if name else 0.0
+    if wn + 2 * PLATE_PAD > max_w:
+        nsz = max(PLATE_MIN_TITLE, fit_size(name, nf, ns, max_w - 2 * PLATE_PAD, ntr))
+        wn = sk.text_width(name, nf, nsz, ntr)
+    rsz = dsz = 0.0
+    wr = wd = 0.0
+    if role:
+        rf, rs_, rtr = role_font
+        rsz = max(26.0, fit_size(role, rf, rs_, max_w - 2 * PLATE_SUB_PAD, rtr))
+        wr = sk.text_width(role, rf, rsz, rtr)
+    if dates:
+        df, ds_, dtr = dates_font
+        dsz = max(24.0, fit_size(dates, df, ds_, max_w - 2 * PLATE_SUB_PAD, dtr))
+        wd = sk.text_width(dates, df, dsz, dtr)
+    base = float(w) if w else float(min_w)
+    ww = max(base, wn + 2 * PLATE_PAD, (wr + 2 * PLATE_SUB_PAD) if role else 0.0, (wd + 2 * PLATE_SUB_PAD) if dates else 0.0)
+    hh = line_h[0] + (line_h[1] if role else 0.0) + (line_h[2] if dates else 0.0)
+    return dict(ww=ww, hh=hh, nsz=nsz, rsz=rsz, dsz=dsz, wn=wn, wr=wr, wd=wd)
+
+
+def _log_plate(f, name, role, dates, L, info, w_req):
+    if not LOG_PLATES:
+        return
+    fr = DN.current()
+    cx = fr.cx if fr else None
+    sh = getattr(cx, "sh", None)
+    PLATE_LOG.append(dict(text=name, role=role, dates=dates, w_req=w_req, ww=round(L["ww"], 1), hh=round(L["hh"], 1),
+                          nsz=round(L["nsz"], 1), wn=round(L["wn"], 1), wr=round(L["wr"], 1), wd=round(L["wd"], 1),
+                          box=tuple(round(v, 1) for v in info["box"]), req=tuple(round(v, 1) for v in info["req"]),
+                          moved=tuple(round(v, 1) for v in info["moved"]), k=round(info["k"], 3), hud=info["hud"],
+                          main=bool(info.get("main", True)), kind=(fr.kind if fr else None), shot=getattr(sh, "i", None), label=getattr(sh, "label", None),
+                          g=round(float(getattr(cx, "g", 0.0)), 3) if cx is not None else None, t=round(float(getattr(cx, "t", 0.0)), 3) if cx is not None else None))
+
+
+def plate_place(f, cx_, y, L, avoid_hud=True):
+    """Levha kutusunun (son konum, t=1) ekran kıskacı. Ana kare (1920×1080 oranlı) değilse kıskaç yok. Dönüş: (dx, dy, k, info)."""
+    x0, y0 = cx_ - L["ww"] / 2, y
+    fw, fh = getattr(f, "w", W), getattr(f, "h", H)
+    if abs(fw * H - fh * W) > 2 or fw < W * 0.25:
+        l, t_, r, b = device_rect(f, x0, y0, x0 + L["ww"], y0 + L["hh"])
+        return 0.0, 0.0, 1.0, dict(req=(l, t_, r, b), box=(l, t_, r, b), moved=(0.0, 0.0), k=1.0, hud=False, main=False)
+    return screen_fit(f, x0, y0, x0 + L["ww"], y0 + L["hh"], avoid_hud=avoid_hud)
+
+
+def name_plate(f, name, role=None, dates=None, cx_=W / 2, y=800, alpha=1.0, w=None, t=1.0, avoid_hud=True):
+    """Madalya/portre altı isim levhası (Cinzel isim, Cormorant italik rol, yıllar). t: açılış 0..1.
+    `w` ALT SINIRDIR (kutu metinden dar olamaz); son kutu EKRAN UZAYINDA güvenli alana (x∈[90,1830], y∈[60,1020]) ve HUD dışına kıstırılır
+    (kamera itmesi/kayması hesaba katılır; gerekirse levha küçülür). LOG_PLATES iken kutu PLATE_LOG'a yazılır."""
     a = alpha * smooth(t)
     if a <= 0:
         return
-    nsz = fit_size(name, "title_m", 50, 780, 5)
-    wn = sk.text_width(name, "title_m", nsz, 5)
-    ww = max(wn + 110, 460) if w is None else w
-    hh = 104 + (40 if role else 0) + (34 if dates else 0)
+    L = plate_layout(name, role, dates, w)
+    ww, hh = L["ww"], L["hh"]
+    dx, dy, k, info = plate_place(f, cx_, y, L, avoid_hud)
+    if a > 0.05:
+        _log_plate(f, name, role, dates, L, info, w)
+    c = f.c
+    c.save()
+    if dx or dy:
+        c.translate(dx, dy)
+    if k < 0.999:
+        c.translate(cx_, y + hh / 2)
+        c.scale(k, k)
+        c.translate(-cx_, -(y + hh / 2))
     x = cx_ - ww / 2
     yy = y + (1 - smooth(t)) * 16
-    tablet(f, x, yy, ww, hh, alpha=a)
-    ink(f, name, cx_, yy + 66, face="title_m", size=nsz, color=TH.fg, align="c", track=5, alpha=a)
+    tablet(f, x, yy, ww, hh, alpha=a, log=False)
+    ink(f, name, cx_, yy + 66, face="title_m", size=L["nsz"], color=TH.fg, align="c", track=5, alpha=a, log=False)
     yb = yy + 66
     if role:
-        yb += 42
-        ink(f, role, cx_, yb, face="cap_i", size=32, color=TH.fg2, align="c", alpha=a)
+        yb += 44
+        ink(f, role, cx_, yb, face="cap_i", size=L["rsz"], color=TH.fg2, align="c", alpha=a, log=False)
     if dates:
-        yb += 38
-        ink(f, dates, cx_, yb, face="cap", size=28, color=TH.fg3, align="c", track=3, alpha=a * 0.95)
+        yb += 40
+        ink(f, dates, cx_, yb, face="cap", size=L["dsz"], color=TH.fg3, align="c", track=3, alpha=a * 0.95, log=False)
+    c.restore()
 
 
 def stamp(f, text, x, y, rot=-0.10, size=56, color=None, alpha=1.0, t=1.0):
