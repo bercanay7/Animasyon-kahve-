@@ -292,8 +292,8 @@ SHOTS = [
          cam=("push",), tr=("light", 0.5, dict(at=(1200, 560))), link="light", label="Cavalcanti yazar"),
     # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — Cavalcanti'nin sayfası yazılır (vuruş kartı; ANEKDOT) ──
     shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.6), write_b=("c2s30", "kimse", -0.2), stamp_at=("c2s30", "kederlenmemeli", -0.4),
-         cam=[(("c2s30", "kimse", -0.3), (-330, 0, 1.18, 0)), (("c2s31", -0.2), (-300, 10, 1.30, 0))],
-         ovl=P.tag("CAVALCANTI'YE GÖRE", 600, 200, ("c2s30", "kimse", 0.0), size=40),
+         cam=[(("c2s30", "kimse", -0.3), (380, -30, 1.08, 0)), (("c2s30", "huzurla", 0.0), (430, 0, 1.24, 0)), (("c2s31", -0.2), (470, 24, 1.40, 0))],
+         ovl=P.tag("CAVALCANTI'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
          tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, left_at=("c2s31", -0.6), right_at=("c2s31", -0.6), write_a=("c2s29", -0.5), write_b=("c2s30", "başka", -0.3), q_at=("c2s31", "bilmiyoruz", -0.6),
