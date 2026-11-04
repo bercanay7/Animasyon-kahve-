@@ -90,3 +90,4 @@ toplam: 236 sn
 BrokenPipeError: [Errno 32] Broken pipe
 /usr/lib/python3.13/multiprocessing/resource_tracker.py:479: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-7cznnqxm', '/mp-baqgxwli', '/mp-5mf2vyxr', '/mp-sajus5a2', '/mp-lsmuirm6', '/mp-4o5u7vgo'}
   warnings.warn(
+[22:14:31] tur 2 KA2 yamaları sonrası: geçiş sesleri + miks
