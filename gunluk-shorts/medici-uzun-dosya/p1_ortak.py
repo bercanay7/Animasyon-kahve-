@@ -464,14 +464,14 @@ class P1Ofis(OD.Calisma):
         c, T = fr.c, self.T
         night = self.tod == "night"
         wx = self.wx
-        top, bot = ("#D6BE92", "#E4D0A8") if self.p1v == "ofis" else ("#C8B48C", "#D8C6A0")
+        top, bot = {"ofis": ("#D6BE92", "#E4D0A8"), "ev": ("#CDB89A", "#DCCBB0")}.get(self.p1v, ("#C8B48C", "#D8C6A0"))
         OD.plaster(c, xa, xb, OD.OV - 40, OD.Y_FL + 30, T, top, bot, amp=0.05)
         OD.cornice(c, xa, xb, 72, T, col="#6A4228", plaster=bot)
         OD.wainscot(c, xa, xb, OD.Y_FL - 120, OD.Y_FL + 18, T, "#7A4A2C", pw=170, seed=4)
         if OD._vis(wx(1760), 120, xa, xb):
             OD.draw_window(c, T, wx(1760), 214, 170, 300, night=night, shutters=True)
         # defter rafı: yatık ciltler (15. yy: sırt dışarı dizilmez)
-        if OD._vis(wx(520), 300, xa, xb):
+        if OD._vis(wx(520), 300, xa, xb) and self.p1v != "ev":
             x0, x1 = wx(300), wx(760)
             for yy in (300, 420):
                 OD.BOX(c, x0, yy, x1, yy + 16, "#5E3A20", T, hl=0.16, sh=0.24, ink=1.3)
@@ -485,8 +485,15 @@ class P1Ofis(OD.Calisma):
                     xx += w_ + 18 + rs.randint(16)
         if OD._vis(wx(1230), 160, xa, xb) and self.p1v == "ofis":
             OD.draw_tapestry(c, T, wx(1230), 196, 230, 290, seed=6, field="#2E4A3A", border="#B88A32", accent="#8E2A30")
-        if OD._vis(wx(1230), 160, xa, xb) and self.p1v != "ofis":
+        if OD._vis(wx(1230), 160, xa, xb) and self.p1v not in ("ofis", "ev"):
             OD.draw_hanging(c, T, wx(1080), wx(1400), 190, 470, "#2E3E5A", "#C9A45A", seed=3)
+        if self.p1v == "ev":                     # mütevazı ev (c1s25): defter rafı yok; sade duvar nişi + küçük tahta raf (testi/kâse)
+            if OD._vis(wx(560), 200, xa, xb):
+                OD.BOX(c, wx(380), 330, wx(740), 346, "#6A4A2C", T, hl=0.16, sh=0.24, ink=1.3)
+                for k, xx in enumerate((wx(430), wx(520), wx(610), wx(690))):
+                    c.drawOval(skia.Rect.MakeLTRB(xx - 22, 270 + 10 * (k % 2), xx + 22, 330), OD.PT(T(["#9A5A32", "#7A6A4A", "#A8743E", "#6A4A2C"][k]), 255))
+            if OD._vis(wx(1230), 160, xa, xb):
+                OD.draw_tapestry(c, T, wx(1230), 196, 230, 290, seed=9, field="#5A2E24", border="#9A7A3A", accent="#2E4A3A")
         sh = OD.LGP((0, OD.Y_FL - 30), (0, OD.Y_FL + 30), [("#1A0F06", 0.0, 0), ("#1A0F06", 1.0, 70)])
         c.drawRect(skia.Rect.MakeLTRB(xa, OD.Y_FL - 30, xb, OD.Y_FL + 30), sh)
 
@@ -595,10 +602,67 @@ class P1Yatak(OD.Oda1743):
             OD.draw_chair(c, T, self.CHAIR_X, self.FIG_Y, 270, 74, 92, facing=1)
 
 
+def _alcove_flat(c, T, x, y0, w, h, seed=1, rows=3):
+    """Kemerli raf nişi — 1397–1430 için YATIK defter yığınları (sırt dışarı dizme 16. yy; kurul SA2-K5) + birkaç rulo."""
+    x0, x1 = x - w / 2, x + w / 2
+    r = w / 2
+    yb = y0 + h
+    p = skia.Path()
+    p.moveTo(x0 - 16, yb + 4)
+    p.lineTo(x0 - 16, y0 + r)
+    p.arcTo(skia.Rect.MakeLTRB(x0 - 16, y0 - 16, x1 + 16, y0 + 2 * r + 16), 180, 180, False)
+    p.lineTo(x1 + 16, yb + 4)
+    p.close()
+    OD.FILLP(c, p, T(mix("#C9B994", "#FFFFFF", 0.12)), 255, 1.6, 200)
+    q = skia.Path()
+    q.moveTo(x0, yb)
+    q.lineTo(x0, y0 + r)
+    q.arcTo(skia.Rect.MakeLTRB(x0, y0, x1, y0 + 2 * r), 180, 180, False)
+    q.lineTo(x1, yb)
+    q.close()
+    c.drawPath(q, OD.LGP((0, y0), (0, yb), [("#2A1C12", 0.0), ("#4A3220", 1.0)]))
+    c.save()
+    c.clipPath(q, skia.ClipOp.kIntersect, True)
+    rs = OD._RS(seed * 53)
+    sh_h = (h - r * 0.55) / rows
+    cols_b = ["#6A2E24", "#233C8C", "#2E5A3A", "#8A5A2A", "#3A2A44", "#7A2E2A", "#E4D8B8"]
+    for ri in range(rows):
+        ys = y0 + r * 0.55 + (ri + 1) * sh_h
+        OD.R(c, x0, ys - 6, x1, ys + 2, T("#6E4524"))
+        xx = x0 + 12
+        while xx < x1 - 60:
+            bw = rs.uniform(56, 92)
+            n = 2 + int(rs.uniform(0, 3.99))
+            for k in range(n):
+                OD.draw_book(c, xx + bw / 2 + (k % 2) * 2, ys - 13 - k * 13, bw, 12, cols_b[int(rs.uniform(0, 6.99))])
+            xx += bw + rs.uniform(10, 22)
+    c.restore()
+
+
 class P1Banka(OD.Banka):
-    """Banka salonu; 0. masadaki (köşe) yazan bankacı = GIOVANNI (kit seed 5) — c1 sonu / c2 başı aynı kişi."""
+    """Banka salonu; 0. masadaki (köşe) yazan bankacı = GIOVANNI (kit seed 5) — c1 sonu / c2 başı aynı kişi.
+    Raf nişlerinde YATIK defter yığınları (kurul SA2-K5: 1397–1402'de sırt dışarı dizme yok)."""
     name = "p1banka"
     ST = [dict(x=330, act="write", seed=5), dict(x=1010, act="count", seed=8), dict(x=1690, act="write", seed=12), dict(x=2370, act="count", seed=17)]
+
+    def _draw_wall(self, fr, xa, xb):
+        c, T = fr.c, self.T
+        night = self.tod == "night"
+        wx = self.wx
+        OD.GRAD_V(c, xa, OD.OV - 40, xb, OD.Y_FL + 30, [(T("#BFB090"), 0.0), (T("#D2C4A2"), 1.0)])
+        OD.ashlar(c, xa, xb, OD.OV - 40, OD.Y_FL + 30, T, "#CFC09C", 64.0, seed=2)
+        OD.cornice(c, xa, xb, 72, T, col="#8A7650", plaster="#D8CBA8")
+        for i in range(5):
+            x = 330 + 600 * i
+            if OD._vis(wx(x), 200, xa, xb):
+                _alcove_flat(c, T, wx(x), 250, 320, 340, seed=i + 1, rows=3)
+        for i in range(4):
+            x = 630 + 600 * i
+            if OD._vis(wx(x), 100, xa, xb):
+                OD.draw_window(c, T, wx(x), 150, 110, 250, night=night, shutters=False, mullion=True)
+        OD.wainscot(c, xa, xb, OD.Y_FL - 70, OD.Y_FL + 18, T, "#7A5A3A", pw=190, seed=4)
+        sh = OD.LGP((0, OD.Y_FL - 30), (0, OD.Y_FL + 30), [("#1A0F06", 0.0, 0), ("#1A0F06", 1.0, 70)])
+        c.drawRect(skia.Rect.MakeLTRB(xa, OD.Y_FL - 30, xb, OD.Y_FL + 30), sh)
 
 
 OD.ROOMS["p1banka"] = P1Banka
@@ -704,3 +768,65 @@ def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C
                 f.rrect(x - wd / 2, ly - label_size - 4, wd, label_size + 30, 10, color="#120C08", alpha=0.78 * kl)
                 CM.ink(f, label, x, ly, face="title_m", size=label_size, color="#FFF4D6", align="c", track=8, alpha=kl, emboss=False)
     return fn
+
+
+# ───────────────────────────── yol haritası çipleri (kurul PK2-K7) ─────────────────────────────
+ROADMAP_C1 = [("coin", "ALTIN"), ("book", "HESAP"), ("hourglass", "VEBA"), ("torch", "ÖFKE"), ("coinbag", "ASIL HİKÂYE: MEDİCİ")]
+
+
+def roadmap(steps, items=None, x=72, y=96, dur=3.6):
+    """Sol üst sessiz yol haritası: steps=[(çapa, i)] — her adımda şerit `dur` sn görünür; geçmiş adımlar soluk yaldız, etkin adım parlak + etiket,
+    gelecek adımlar boş halka. Bölüm başı etiketi (y 28–82) altında; HUD'dan uzak. Ekran uzayı (ovl)."""
+    import icons
+    items = items or ROADMAP_C1
+
+    def fn(cx):
+        f = cx.f
+        act = None
+        for (an, i) in steps:
+            t0 = cx.at(an)
+            if t0 - 0.35 <= cx.t <= t0 + dur:
+                act = (t0, i)
+        if act is None:
+            return
+        t0, i = act
+        a = smooth((cx.t - t0 + 0.35) / 0.35) * (1.0 - smooth((cx.t - t0 - dur + 0.4) / 0.4))
+        if a <= 0.003:
+            return
+        n = len(items)
+        gap, r = 62.0, 23.0
+        lab = items[i][1]
+        lsz = 34
+        lw = sk.text_width(lab, "title_m", lsz, 5)
+        wd = 30 + gap * (n - 1) + 2 * r + 28 + lw + 26
+        hh = 66.0
+        f.rrect(x + 3, y + 6, wd, hh, 12, color="#000000", alpha=0.35 * a, blur=6)
+        f.rrect(x, y, wd, hh, 12, shader=f.lin(x, y, x, y + hh, [("#1E3282", 0.0), ("#0F1B52", 1.0)]), alpha=0.94 * a)
+        f.rrect(x, y, wd, hh, 12, style="stroke", sw=1.8, color="#D8B25A", alpha=0.9 * a)
+        cy = y + hh / 2
+        x0 = x + 30 + r
+        f.line(x0, cy, x0 + gap * (n - 1), cy, color="#D8B25A", sw=2.0, alpha=0.45 * a)
+        for j, (ic, _l) in enumerate(items):
+            px = x0 + gap * j
+            if j < i:
+                f.circle(px, cy, r, color="#3A3A5A", alpha=0.95 * a)
+                icons.draw_icon(f, ic, px, cy, size=r * 1.5, metal="gold", alpha=0.55 * a, glow=0.0, shadow=False)
+            elif j == i:
+                pulse = 0.5 + 0.5 * math.sin((cx.t - t0) * 5.0)
+                f.circle(px, cy, r + 10 + 4 * pulse, color="#F6D886", alpha=0.25 * a)
+                f.circle(px, cy, r + 2, color="#F6D886", alpha=a)
+                icons.draw_icon(f, ic, px, cy, size=r * 1.6, metal="bronze", alpha=a, glow=0.0, shadow=False)
+            else:
+                f.circle(px, cy, r - 2, style="stroke", sw=2.4, color="#C9A45A", alpha=0.7 * a)
+        CM.ink(f, lab, x0 + gap * (n - 1) + r + 28, cy + lsz * 0.36, face="title_m", size=lsz, color="#F6E3A8", align="l", track=5, alpha=a, emboss=False, scrim=False)
+    return fn
+
+
+def with_ovl(shots, extra, kinds_prefix=("p1_", "c0_", "c1_", "c2_")):
+    """Listeye toplu ovl ekler (ör. yol haritası): yalnız ovl destekleyen türler (p1_/cK_ sarmalayıcıları)."""
+    for s in shots:
+        if not s.kind.startswith(kinds_prefix):
+            continue
+        o = s.params.get("ovl")
+        s.params["ovl"] = ov(o, extra) if o else extra
+    return shots

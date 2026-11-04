@@ -769,7 +769,18 @@ def _silk(c, L, R, c1, h, sheen=True, g=0.0):
     return path
 
 
-def _strip_layer(style, bw, h, g, k, pad=190, trail=1):
+def _arms_variant(year):
+    """Geçiş kaplamasındaki palle'nin dönem biçimi (ENG-A donem.arms_variant; yıl yoksa None → cilt_medici kuralı)."""
+    if year is None:
+        return None
+    try:
+        import donem as DN
+        return DN.arms_variant(int(year))
+    except Exception:
+        return None
+
+
+def _strip_layer(style, bw, h, g, k, pad=190, trail=1, year=None):
     """Taşıyıcı şeridi ayrı saydam yüzeye çiz (merkez x = pad + bw/2, y=h/2'de); gölge dahil. trail: arkada sürüklenen şeritlerin yönü (+1 sağ, −1 sol)."""
     fr = _layer(int(bw + 2 * pad), h)
     c = fr.c
@@ -834,7 +845,7 @@ def _strip_layer(style, bw, h, g, k, pad=190, trail=1):
     if style == "banner":
         for yy in (h * 0.20, h * 0.50, h * 0.80):
             xm = x0 + 0.10 * (yy - h / 2)
-            CM.mini_palle(fr, xm, yy, 205, color="#F6E6B0", alpha=0.97)
+            CM.mini_palle(fr, xm, yy, 205, color="#F6E6B0", alpha=0.97, variant=_arms_variant(year))
             fr.circle(xm, yy, 128, style="stroke", sw=5, color="#EBCB78", alpha=0.95)
             fr.circle(xm, yy, 140, style="stroke", sw=1.6, color="#3A0E0A", alpha=0.6)
         for p in R[::2]:                                       # saçak (arka kenar)
@@ -857,7 +868,7 @@ def _strip_layer(style, bw, h, g, k, pad=190, trail=1):
     return fr
 
 
-def blend_carry(a, b, k, g=0.0, d=0.8, dir="r", strip="ribbon", slant=0.10, **_):
+def blend_carry(a, b, k, g=0.0, d=0.8, dir="r", strip="ribbon", slant=0.10, year=None, **_):
     """Carry: ön plandan bir öğe (strip: ribbon | ink | banner | paper) ekranı süpürür; değişim şeridin arkasında olur. dir = kamera yönü (r: şerit sağdan sola geçer)."""
     style = strip if strip in ("ribbon", "ink", "banner", "paper") else "ribbon"
     bw = {"ribbon": 330.0, "ink": 400.0, "banner": 420.0, "paper": 380.0}[style]
@@ -878,7 +889,7 @@ def blend_carry(a, b, k, g=0.0, d=0.8, dir="r", strip="ribbon", slant=0.10, **_)
     c.clipPath(sk.poly_path(poly), skia.ClipOp.kIntersect, True)
     c.drawImage(imgB, 0, 0)
     c.restore()
-    lay = _strip_layer(style, bw, H, g, k, pad, trail=1 if left else -1)
+    lay = _strip_layer(style, bw, H, g, k, pad, trail=1 if left else -1, year=year)
     kk = clamp(k)
     de_dk = max(0.0, (ease_io(clamp(kk + 0.01), 1.9) - ease_io(clamp(kk - 0.01), 1.9)) / 0.02)
     sp = de_dk * abs(x_to - x_from) / max(1e-6, d * 24.0)
@@ -1174,25 +1185,28 @@ def hud(f, g, ys, perde, mode="day", alpha=1.0):
     c.restore()
 
 
+CHAPTER_TAG_XY = (96, 60)                                    # sol üst bölüm etiketi (kurul TE2-K2 / ENG-A: güvenli alan x ≥ 96, y ≥ 60)
+
+
 def chapter_tag(f, text, a=1.0):
     """Sol üst bölüm adı (lapis levha). text hazır: 'IV · KUBBE VE KEFARET'."""
     if a <= 0:
         return
     sz = 30
     wd = min(780, sk.text_width(text, "title_m", sz, 5) + 52)
-    x, y = 60, 28
+    x, y = CHAPTER_TAG_XY
     f.rrect(x + 3, y + 6, wd, 54, 10, color="#000000", alpha=0.40 * a, blur=7)
     f.rrect(x, y, wd, 54, 10, shader=f.lin(x, y, x, y + 54, [("#1E3282", 0.0), ("#0F1B52", 1.0)]), alpha=0.96 * a)
     f.rrect(x, y, wd, 54, 10, style="stroke", sw=1.8, color="#D8B25A", alpha=0.9 * a)
     CM.ink(f, text, x + 26, y + 37, face="title_m", size=sz, color="#F1E1AE", align="l", track=5, alpha=a, emboss=False)
 
 
-def progress_line(f, prog, marks=()):
+def progress_line(f, prog, marks=(), alpha=1.0):
     """Alt kenarda çok ince ilerleme çizgisi (altyazı bölgesini işgal etmez: 5 px)."""
-    f.rect(0, H - 5, W, 5, color="#000000", alpha=0.40)
-    f.rect(0, H - 4, W * prog, 3, color="#D8B25A", alpha=0.9)
+    f.rect(0, H - 5, W, 5, color="#000000", alpha=0.40 * alpha)
+    f.rect(0, H - 4, W * prog, 3, color="#D8B25A", alpha=0.9 * alpha)
     for m in marks:
-        f.rect(m * W - 1, H - 7, 2, 7, color="#F4DD92", alpha=0.7)
+        f.rect(m * W - 1, H - 7, 2, 7, color="#F4DD92", alpha=0.7 * alpha)
 
 
 def part_title(f, t, part, t_in=1.2, t_out=4.8):

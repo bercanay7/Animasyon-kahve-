@@ -77,7 +77,7 @@ import script as _S                                            # noqa: E402  (PA
 PART_CHAPTERS = {p: list(cs) for p, cs in _S.PARTS.items()}
 PART_FIRST = {p: cs[0] for p, cs in PART_CHAPTERS.items()}
 N_PARTS = len(PART_CHAPTERS)
-HUD_SKIP = ("chapter_card", "fresco_title", "outro", "black")
+HUD_SKIP = ("chapter_card", "fresco_title", "outro", "black", "kapak_kilit", "kapak_kese")   # kapak yankısı (c0 0–3,7 sn) HUD'suz (ENG-A 7a)
 CARD_KINDS = ("chapter_card", "fresco_title", "outro", "black")
 PART_TITLE_IN, PART_TITLE_OUT = 1.2, 4.8                        # parça başlık bindirmesi: girer / çıkar (parça başından sn)
 CARD_TR = ("yikama", 0.9, dict(place="after"))                 # bölüm kartı / ana başlık girişi: malzeme geçişi, sessiz aralıkta
@@ -436,7 +436,7 @@ class Program:
         f = frame or Frame()
         cx = SH.Ctx(f, g - s.t0 + s.lead, s, self.tl)
         cx.perde = self._perde_at(g, s)
-        cx.year = self.ys.at(g)[0]
+        cx.year = self.ys.at(g)[0] if self.ys.e else None      # çekim listesi (reel/kapak) modunda yıl yok (donem.py sözleşmesi; ENG-A 7)
         SH.KINDS[s.kind](cx, **s.params)
         f._cx = cx                                             # deklanşör: kamera durumu + anim.hint_speed ipucu
         return f
@@ -477,6 +477,7 @@ class Program:
         if tr is None:
             f = self._render_shot(s, g)
             mode, pd = CM.mode_of(f)
+            hud_a = self._hud_vis(s)
             if self.shutter and post:                         # QA çağrıları (post=False) deklanşörsüz: ölçüm/yerleşim kareleri tek örnek
                 f = self._shutter(f, s, i, g, n)
         else:
@@ -493,8 +494,10 @@ class Program:
                 pmix = (ma, pa, mb, pb, smooth((k - 0.20) / 0.60))
             mode, pd = (mb, pb) if k > 0.5 else (ma, pa)
             s = sb if k > 0.5 else sa
+            hk = smooth((k - 0.15) / 0.70)
+            hud_a = (1.0 - hk) * self._hud_vis(sa) + hk * self._hud_vis(sb)   # HUD geçişte yumuşak söner/doğar (yarıda pat diye değil)
         f.cilt_mode, f.cilt_perde = mode, pd
-        self._overlay(f, g, s)
+        self._overlay(f, g, s, hud_a)
         img = f.rgb()
         if post:
             if pmix is not None:
@@ -605,6 +608,7 @@ class Program:
     def _blend(self, a, b, k, kind_, g, d=0.8, opts=None):
         opts = {x: v for x, v in (opts or {}).items() if x not in ("place", "lead")}
         if kind_ in FX.TR:
+            opts.setdefault("year", self.ys.at(g)[0] if self.ys.e else None)     # geçiş kaplamaları (sancak şeridi palle'si) dönem yılıyla çizilir
             return FX.blend(kind_, a, b, k, g, d=d, **opts)
         kk = smooth(k)
         if kind_ == "fade":
@@ -648,23 +652,28 @@ class Program:
         return a
 
     # ---- HUD / kaplama
-    def _overlay(self, f, g, s):
+    @staticmethod
+    def _hud_vis(s):
+        return 0.0 if (s.kind in HUD_SKIP or not getattr(s, "hud", True)) else 1.0
+
+    def _overlay(self, f, g, s, hud_a=None):
         tp = g - self.t_off
         if self.part and self.part >= 2 and self._pf_in and 0.0 <= tp <= PART_TITLE_OUT + 0.2 and s.kind not in ("chapter_card", "fresco_title", "outro"):
             FX.part_title(f, tp, self.part, PART_TITLE_IN, PART_TITLE_OUT)       # parça başlık bindirmesi (HUD'dan bağımsız)
-        if s.kind in HUD_SKIP or not self.hud:
+        ha = self._hud_vis(s) if hud_a is None else float(hud_a)
+        if ha <= 0.003 or not self.hud:
             return
         cid = self._chapter_of(g)
         if cid is None:
             return
         c = self.tl.chapters[cid]
         tl_ = g - c["t0"]
-        FX.progress_line(f, (g - self.t_off) / max(1e-6, self.total), self._chap_marks)
+        FX.progress_line(f, (g - self.t_off) / max(1e-6, self.total), self._chap_marks, alpha=ha)
         if cid != "c0" and tl_ < 5.5:
             n, title, _, _ = TITLES[cid]
             a = smooth(tl_ / 0.6) * (1 - smooth((tl_ - 4.6) / 0.9))
-            FX.chapter_tag(f, f"{n} · {sk.tr_upper(title)}", a)
-        FX.hud(f, g, self.ys, PERDE_OF[cid])
+            FX.chapter_tag(f, f"{n} · {sk.tr_upper(title)}", a * ha)
+        FX.hud(f, g, self.ys, PERDE_OF[cid], alpha=ha)
 
 
 # ───────────────────────────── kapanış çekimi ─────────────────────────────
@@ -696,8 +705,10 @@ def k_outro(cx, part=None, **_):
     CM.finish(f, cx, motes_n=36)
     # etiketler vinyet/toz üstünde, ekrana sabit (kurul SA1-Ö5 / TE2-Ö6: #E9C770, ≥34 px, okunur kontrast)
     for (x, y, w, h, lab) in slots:
-        sz = CM.fit_size(lab, "title_m", 38, w + 40, 6)
-        wd = sk.text_width(lab, "title_m", sz, 6) + 48
+        sz, trk = 38.0, 5.0
+        while sk.text_width(lab, "title_m", sz, trk) > 640 and sz > 34.0:   # ≥34 px korunur; yuvalar arası 220 px boşluk etiket taşmasını alır
+            sz, trk = sz - 1.0, max(2.0, trk - 0.75)
+        wd = sk.text_width(lab, "title_m", sz, trk) + 48
         yb = y + h + 54
         f.rrect(x + w / 2 - wd / 2, yb - sz - 8, wd, sz + 26, 10, color="#0B0805", alpha=0.62 * k)
-        f.text(lab, x + w / 2, yb, face="title_m", size=sz, color="#E9C770", align="c", track=6, alpha=k, shadow=(2, 3, 4, "#000000"))
+        f.text(lab, x + w / 2, yb, face="title_m", size=sz, color="#E9C770", align="c", track=trk, alpha=k, shadow=(2, 3, 4, "#000000"))

@@ -621,7 +621,7 @@ def k_sadaka(cx, who_at=None, give_at=None, stamp_at=None, seed=4, **_):
             CP.draw_coin(f, px, py, 68, spin=cx.t * 12 + i, alpha=min(1, u * 6) * min(1, (1 - u) * 6 + 0.1), shadow=0.2)
     kw = cx.amt(who_at, 0.6) if who_at is not None else 0.0
     if kw > 0.003:
-        CM.name_plate(f, "MACHIAVELLİ'NİN ÇİZDİĞİ", "KİMSE İSTEMEDEN DE", None, cx_=900, y=160, t=kw, w=860)
+        CM.name_plate(f, "MACHIAVELLİ'NİN ÇİZDİĞİ", "KİMSE İSTEMEDEN DE", None, cx_=920, y=160, t=kw, w=920)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
         CM.stamp(f, "ANEKDOT", 1560, 300, rot=-0.07, size=60, t=ks)

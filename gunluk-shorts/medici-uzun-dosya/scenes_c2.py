@@ -243,8 +243,8 @@ SHOTS = [
                   K.yil_panel(("c2s26", "20", -0.3), ("c2s26", "hâlâ", -0.2), ("c2s26", "Floransa", -0.1), x=1430, y=250)),
          cam=("push",), tr=("candle", 1.8, dict(at=(1229, 680), at_b=(960, 560))), link="light", label="20 Şubat 1429: ölüm döşeği (siluet)"),
     # ── 26. Lorenzo'nun (torununun oğlu) kaydına göre 180 bin florin ─────────
-    shot("p1_medal", ("c2s27", -0.15), key="m_lorenzo", metal="bronze", pos="l", size=620, at=0.0, mode="day", perde=1,
-         ovl=P.ov(P.plate("LORENZO", 1380, 330, ("c2s27", "torununun", -0.3), role="TORUNUNUN OĞLU · İLERİDE MUHTEŞEM", w=860),
+    shot("p1_medal", ("c2s27", -0.15), key="m_lorenzo", metal="bronze", pos="l", size=540, at=0.0, mode="day", perde=1,
+         ovl=P.ov(P.plate("LORENZO", 1410, 330, ("c2s27", "torununun", -0.3), role="TORUNUNUN OĞLU · İLERİDE MUHTEŞEM", w=820),
                   P.count_up(1380, 640, ("c2s27", "servet", 0.15), 180000, dur=1.2, unit="FLORİN", size=170, bg=True),
                   P.tag("LORENZO'NUN KAYDINA GÖRE", 1380, 860, ("c2s27", "kaydına", 0.0), size=38),
                   P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s27", "Lorenzo'nun", -0.2), size=34)),
@@ -253,12 +253,11 @@ SHOTS = [
     shot("c2_kalemler", ("c2s28", -0.15), mode="day", perde=1, left_at=("c2s28", "kalemden", -0.4), right_at=("c2s28", "iki", 1, -0.1),
          write_a=("c2s28", "kalemden", -0.1), write_b=("c2s28", "iki", 1, 0.1),
          cam=("truck", "r"), tr="cut", link="audio", label="iki kalem, iki biçim"),
-    # ── 28. Machiavelli bir asra yakın sonra onun ağzından bir konuşma yazar — çalışma odası (c1s20 ile aynı oda ve figür: geri çağırma) ──
-    shot("p1_oda", ("c2s29", -0.15), room="calisma", variant="kutuphane", tod="day", mode="day", perde=1, figure=None,
-         actors=[dict(P.MACHIAVELLI, x=1366, y=823, h=280, action="write", seated=True, dir=1)],
-         cams=[(("c2s29", -0.15), (1250, 30, 1.28)), (("c2s29", "huzurla", -0.4), (1320, 60, 1.46))],
+    # ── 28. Machiavelli bir asra yakın sonra onun (Giovanni'nin) ağzından oğullarına bir konuşma yazar: rulo yazarın masasından yaşlı adamın ağzına uzar ──
+    shot("c1_machiavelli", ("c2s29", -0.15), mode="day", perde=1, rebel_who="old", rebel_at=("c2s29", "onun", -0.3),
+         scroll_at=("c2s29", "konuşma", -0.4), scroll_to=("c2s29", "yazar", 0.6),
          ovl=P.plate("MACHIAVELLİ", 620, 170, ("c2s29", "Machiavelli", -0.2), role="BİR ASRA YAKIN SONRA", w=700),
-         cam=("push",), tr=("slide", 0.4, dict(dir="r")), link="dir", label="Machiavelli yazar (çalışma odası)"),
+         cam=("push",), tr=("slide", 0.4, dict(dir="r")), link="dir", label="Machiavelli yazar: onun ağzından"),
     # ── 29. ...huzurla gidiyordur; kıskançlık istediğinden doğar — ölüm döşeği, iki oğul (ANEKDOT, Machiavelli'ye göre) ──
     shot("p1_oda", ("c2s29", "huzurla", -0.4), room="p1yatak", variant="olum", tod="dusk", mode="night", perde=1, figure="lying",
          actors=[dict(P.COSIMO, x=780, y=880, h=430, action="idle", sil=True, dir=-1, rim_dir=-1, layer="front"),
@@ -274,13 +273,11 @@ SHOTS = [
          cams=[(("c2s30", -0.15), (1100, 20, 1.20)), (("c2s30", "kimse", -0.3), (1170, 56, 1.48))],
          ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="1440'LARDA · OLAYA DAHA YAKIN", w=760)),
          cam=("push",), tr=("light", 0.5, dict(at=(1200, 560))), link="light", label="Cavalcanti yazar"),
-    # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — aynı hücre, yakın; tomar yazılır ──
-    shot("p1_oda", ("c2s30", "kimse", -0.3), room="calisma", variant="hucre", tod="day", mode="day", perde=1, figure=None, lamp_day=0.6,
-         actors=[dict(kind="soylu", seed=44, x=946, y=823, h=280, action="write", seated=True, dir=1)],
-         cams=[(("c2s30", "kimse", -0.3), (1080, 90, 1.55)), (("c2s31", -0.2), (1100, 100, 1.62))],
-         ovl=P.ov(K.tomar(1010, 400, ("c2s30", "kimse", -0.1), ("c2s30", "kederlenmemeli", 0.3), w=600, dirn=1, lines=4),
-                  P.tag("CAVALCANTI'YE GÖRE", 1310, 200, ("c2s30", "kimse", 0.0), size=40)),
-         cam=("push",), tr="cut", link="cam", label="Cavalcanti'nin yazdığı (yakın)"),
+    # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — Cavalcanti'nin sayfası yazılır (vuruş kartı; ANEKDOT) ──
+    shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.6), write_b=("c2s30", "kimse", -0.2), stamp_at=("c2s30", "kederlenmemeli", -0.4),
+         cam=[(("c2s30", "kimse", -0.3), (-330, 0, 1.18, 0)), (("c2s31", -0.2), (-300, 10, 1.30, 0))],
+         ovl=P.tag("CAVALCANTI'YE GÖRE", 600, 200, ("c2s30", "kimse", 0.0), size=40),
+         tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, left_at=("c2s31", -0.6), right_at=("c2s31", -0.6), write_a=("c2s29", -0.5), write_b=("c2s30", "başka", -0.3), q_at=("c2s31", "bilmiyoruz", -0.6),
          cam=("pull",), tr=("slide", 0.35, dict(dir="r")), link="dir", label="hangisi söylendi: bilmiyoruz"),

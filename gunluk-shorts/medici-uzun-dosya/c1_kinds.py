@@ -330,7 +330,7 @@ def _shield(f, x, y, w, h, c1, c2, charge="cross", alpha=1.0, scale=1.0, rot=0.0
 # c1_agi — şube ağı (Peruzzi / Bardi)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_agi")
-def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=None, intro_at=None, seed=1, **_):
+def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=None, intro_at=None, keep_intro=False, seed=1, **_):
     """hubs=[dict(label, x, y, rx, ry, n, build=(a0,a1), die=(a0,a1), ang0, col)]; count=dict(at, to, x, y, label) → büyük sayaç (şube sayısı)."""
     f = cx.f
     c = f.c
@@ -394,7 +394,7 @@ def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=N
     if intro_at is not None and medici_at is not None:
         # genel "çok şubeli banka" şeması: ortada merkez, etrafında şubeler tek tek kurulur; Medici arması gelince solar
         ti = cx.at(intro_at)
-        fade = 1.0 - cx.amt(medici_at, 0.5, off=0.1)
+        fade = 1.0 if keep_intro else 1.0 - cx.amt(medici_at, 0.5, off=0.1)
         if fade > 0.003:
             gx, gy2 = 960.0, 560.0
             for q in range(8):
@@ -414,14 +414,16 @@ def k_agi(cx, hubs=(), count=None, medici_at=None, medici_no_at=None, label_at=N
     if medici_at is not None:
         km = cx.amt(medici_at, 0.5)
         if km > 0.003:
-            mx_, my_ = 250.0, 300.0
-            f.circle(mx_, my_, 170, shader=f.rad(mx_, my_, 170, [("#C03020", 0.0, int(60 * km)), ("#C03020", 1.0, 0)]))
-            CP.draw_arms(f, mx_, my_, 210 * (0.85 + 0.15 * sk.back_out(km)), alpha=km, shadow=0.5)
+            mx_, my_ = (330.0, 420.0) if keep_intro else (250.0, 300.0)
+            sz_ = 300.0 if keep_intro else 210.0
+            f.circle(mx_, my_, sz_ * 0.8, shader=f.rad(mx_, my_, sz_ * 0.8, [("#C03020", 0.0, int(60 * km)), ("#C03020", 1.0, 0)]))
+            CP.draw_arms(f, mx_, my_, sz_ * (0.85 + 0.15 * sk.back_out(km)), alpha=km, shadow=0.5)
             if medici_no_at is not None:
                 kn = cx.amt(medici_no_at, 0.32)
                 if kn > 0.003:
                     for sg in (1, -1):
-                        f.line(mx_ - 130 * kn, my_ - 130 * sg * kn, mx_ + 130 * kn, my_ + 130 * sg * kn, color="#A8201A", sw=16, alpha=0.95 * kn)
+                        r_ = sz_ * 0.62
+                        f.line(mx_ - r_ * kn, my_ - r_ * sg * kn, mx_ + r_ * kn, my_ + r_ * sg * kn, color="#A8201A", sw=16, alpha=0.95 * kn)
     if count is not None:
         ta = cx.at(count["at"])
         tb = cx.at(count["to"]) if count.get("to") is not None else ta + 1.5
@@ -650,7 +652,9 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
 # c1_machiavelli — tarihçi, isyancının ağzına koca bir konuşma koyar (KURGU)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_machiavelli")
-def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, stamp_text="KURGU", rebel_who="isyancı", order_big=None, plate_text="MACHIAVELLİ", seed=2, **_):
+def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, stamp_text="KURGU", rebel_who="isyancı", order_big=None, plate_text="MACHIAVELLİ",
+                  writer_kind="soylu", writer_seed=52, seed=2, **_):
+    """Tarihçi (yazar, P.MACHIAVELLI ile aynı figür) masasında yazar; konuşma rulosu karşıdaki siluetin ağzına uzar (c1: adsız isyancı; c2: rebel_who='old' → yaşlı Giovanni)."""
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
@@ -660,7 +664,7 @@ def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=Non
     f.rect(-100, gy, W + 200, 300, shader=f.lin(0, gy, 0, gy + 200, [("#7A5430", 0.0), ("#4E3218", 1.0)]))
     # yazar (sol) — masa başında yazan
     wx = 470
-    FA.actor(f, "banker", wx, gy, 560, cx.t, action="write", seed=4)
+    FA.actor(f, writer_kind, wx, gy, 560, cx.t, action="write", seed=writer_seed)
     kp = cx.amt(plate_at, 0.6) if plate_at is not None else 0.0
     if kp > 0.003:
         CM.name_plate(f, plate_text, None, None, cx_=wx + 60, y=gy - 840, t=kp)
@@ -757,7 +761,8 @@ def k_kademe(cx, elite_at=None, medici_at=None, field_at=None, income_at=None, s
     km = cx.amt(medici_at, 0.6) if medici_at is not None else 0.0
     if km > 0.003:
         CP.draw_arms(f, 915, steps[1][1] - 130, 190 * (0.85 + 0.15 * sk.back_out(km)), alpha=km, shadow=0.5)
-        CM.ink(f, "MEDİCİ", 915, steps[1][1] + 90, face="title_m", size=42, color="#4A2A12", align="c", track=12, alpha=km, emboss=False)
+        lab_ = "MEDİCİ'NİN BU KOLU"
+        CM.ink(f, lab_, 915, steps[1][1] + 90, face="title_m", size=CM.fit_size(lab_, "title_m", 40, 430, 6), color="#4A2A12", align="c", track=6, alpha=km, emboss=False)
         # bir kademe: ok
         ka = smooth(clamp((km - 0.2) / 0.8))
         f.line(716, steps[0][1] - 4, 716, steps[1][1] - 56, color="#A8201A", sw=7, alpha=0.9 * ka)
@@ -907,7 +912,7 @@ def k_okul(cx, kids_at=None, board_at=None, plate_at=None, seed=4, **_):
         FA.actor(f, "cocuk", x, gy + 36 - i * 8, 360, cx.t, action=kinds[i][1], seed=21 + i * 3, phase=0.31 * i, alpha=clamp(kk * 1.4 - i * 0.2))
     FA.actor(f, "tuccar", 1010, gy + 24, 560, cx.t, action="point", dir=1, seed=17, t0=0.0, target=(160, -250), alpha=kk)
     if plate_at is not None:
-        CM.name_plate(f, "HESAP OKULLARI", None, None, cx_=bx + bw / 2, y=60, t=cx.amt(plate_at, 0.6))
+        CM.name_plate(f, "HESAP OKULLARI", None, None, cx_=900, y=170, t=cx.amt(plate_at, 0.6))
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
@@ -994,7 +999,7 @@ def _scribble(x0, x1, y, n, seed=3):
 
 
 @ckind("c1_yazi")
-def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜĞÜNÜ BİLMİYORUZ", bottom="NE GÖRDÜĞÜNÜ, NE YAZDIĞINI BİLİYORUZ", seed=2, **_):
+def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜĞÜNÜ BİLMİYORUZ", bottom="NE GÖRDÜĞÜNÜ YAZDIĞINI BİLİYORUZ", seed=2, **_):
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
@@ -1002,13 +1007,13 @@ def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜ�
     cam.begin(f)
     col = TH.fg if TH.day else "#F0E2B8"
     # soru işareti
-    kq = cx.amt(q_at, 0.5) if q_at is not None else 0.0
+    kq = cx.amt(q_at, 0.35) if q_at is not None else 0.0
     if q_out is not None:
-        kq *= 1.0 - cx.amt(q_out, 0.6)
+        kq *= 1.0 - cx.amt(q_out, 0.35)
     if kq > 0.003:
         f.circle(960, 400, 300, shader=f.rad(960, 400, 300, [("#F0D27A", 0.0, int(80 * kq)), ("#F0D27A", 1.0, 0)]))
         icons.draw_icon(f, "question", 960, 400, size=360 * (0.85 + 0.15 * sk.back_out(kq)), metal="gold", alpha=kq, rot=0.06 * math.sin(cx.t * 3.0), glow=0.0)
-        CM.ink(f, top, 960, 650, face="title_m", size=CM.fit_size(top, "title_m", 44, 1500, 8), color=col, align="c", track=8, alpha=kq, emboss=False)
+        _yazi_satir(f, top, 680, kq, 58)
     # yazı: kalem satırı çizer
     ta = cx.at(w_at) if w_at is not None else 1e9
     tb = cx.at(w_to) if w_to is not None else ta + 2.4
@@ -1024,10 +1029,85 @@ def k_yazi(cx, q_at=None, q_out=None, w_at=None, w_to=None, top="NE DÜŞÜNDÜ�
         c.drawPath(pth, pp)
         qx, qy = pts[m]
         OD.quill(c, qx + 4, qy + 6, -58.0, 1.0)
-        kb = cx.amt(w_at, 0.7, off=0.3) if w_at is not None else 0.0
-        CM.ink(f, bottom, 960, 740, face="title_m", size=CM.fit_size(bottom, "title_m", 42, 1560, 8), color=col, align="c", track=8, alpha=kb, emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=20, light=CM.candle_light(cx.t, 2, base=(W * 0.5, H * 0.52), r=1500.0, sway=4.0))
+    if p > 0.003:
+        kb = cx.amt(w_at, 0.35, off=0.3) if w_at is not None else 0.0
+        _yazi_satir(f, bottom, 760, kb, 56)
+
+
+def _yazi_satir(f, text, y, a, size):
+    """Nakarat satırı: koyu yarı saydam levha + krem yazı (kontrast ≥7:1), ekran uzayı."""
+    if a <= 0.003:
+        return
+    sz = CM.fit_size(text, "title_m", size, 1600, 6)
+    wd = sk.text_width(text, "title_m", sz, 6) + 80
+    f.rrect(W / 2 - wd / 2, y - sz - 14, wd, sz + 40, 14, color="#0E0906", alpha=0.78 * a)
+    f.rrect(W / 2 - wd / 2, y - sz - 14, wd, sz + 40, 14, style="stroke", sw=2.0, color="#C9A45A", alpha=0.75 * a)
+    CM.ink(f, text, W / 2, y, face="title_m", size=sz, color="#FFF4D6", align="c", track=6, alpha=a, emboss=False, scrim=False)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# kura (c1s16): isim fişleri kesesinden (borsa) bir fiş çekilir, açılır: SALVESTRO — ekran uzayı ovl (kurul C-c1 "KURAYLA")
+# ─────────────────────────────────────────────────────────────────────────────
+def kura(x, y, show_at, draw_at, name="SALVESTRO", out=None, rise=300.0):
+    """Deri kese (x, y = gövde merkezi) + ağzından görünen katlı fişler; draw_at'ta bir fiş yükselir, açılır, adı okunur."""
+    def fn(cx):
+        f = cx.f
+        c = f.c
+        k = cx.amt(show_at, 0.4)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        # kese gövdesi
+        sw_ = 2.0 * math.sin(cx.t * 1.7)
+        c.save()
+        c.translate(x, y); c.rotate(sw_); c.translate(-x, -y)
+        f.oval(x + 8, y + 104, 130, 26, color="#000000", alpha=0.30 * k, blur=8)
+        body = skia.Path()
+        body.moveTo(x - 46, y - 70)
+        body.cubicTo(x - 150, y - 40, x - 150, y + 96, x, y + 100)
+        body.cubicTo(x + 150, y + 96, x + 150, y - 40, x + 46, y - 70)
+        body.close()
+        c.drawPath(body, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(x, y - 70), (x, y + 100)], [sk.C("#9A6436", int(255 * k)), sk.C("#5A3418", int(255 * k))], [0, 1])))
+        c.drawPath(body, f.paint("#2A1A0C", style="stroke", sw=3.0, alpha=0.9 * k))
+        # ağız + büzgü ipi
+        f.oval(x, y - 72, 52, 14, color="#3A2210", alpha=k)
+        f.line(x - 50, y - 64, x + 50, y - 64, color="#D8B25A", sw=4, alpha=0.9 * k)
+        f.line(x + 46, y - 64, x + 86, y - 20, color="#D8B25A", sw=3, alpha=0.8 * k)
+        # ağızdan görünen katlı fişler
+        for q in range(4):
+            jx = x - 36 + q * 24 + 3 * math.sin(cx.t * 3 + q)
+            f.rrect(jx - 10, y - 108 + 4 * (q % 2), 20, 40, 3, color="#F2E8CC", alpha=k)
+            f.rrect(jx - 10, y - 108 + 4 * (q % 2), 20, 40, 3, style="stroke", sw=1.4, color="#5A3E22", alpha=0.8 * k)
+        c.restore()
+        # çekilen fiş
+        td = cx.at(draw_at)
+        u = clamp((cx.t - td) / 0.7)
+        if u <= 0:
+            return
+        e = ease_out(u, 2.4)
+        sy = y - 100 - rise * e
+        op = smooth(clamp((cx.t - td - 0.55) / 0.45))              # açılma
+        sz = 52
+        wfull = sk.text_width(name, "title_m", sz, 6) + 70
+        ww = lerp(24, wfull, op)
+        hh = lerp(56, 84, op)
+        rot = lerp(-12.0, -2.0, e)
+        c.save()
+        c.translate(x, sy); c.rotate(rot)
+        f.rrect(-ww / 2 + 5, -hh / 2 + 8, ww, hh, 6, color="#000000", alpha=0.3 * k, blur=6)
+        f.rrect(-ww / 2, -hh / 2, ww, hh, 6, shader=f.lin(0, -hh / 2, 0, hh / 2, [("#FBF3DC", 0.0), ("#E8DAB4", 1.0)]), alpha=k)
+        f.rrect(-ww / 2, -hh / 2, ww, hh, 6, style="stroke", sw=2.0, color="#5A3E22", alpha=0.9 * k)
+        if op > 0.05:
+            f.line(-ww / 2 + 8, 0, ww / 2 - 8, 0, color="#C8B88E", sw=1.2, alpha=0.6 * op * k)       # katlama izi
+            CM.ink(f, name, 0, sz * 0.36, face="title_m", size=sz, color="#2A1A0C", align="c", track=6, alpha=op * k, emboss=False, scrim=False)
+        c.restore()
+        gl = clamp((cx.t - td - 0.9) / 0.6)
+        if 0 < gl < 1:
+            f.circle(x, sy, 120 + 80 * gl, shader=f.rad(x, sy, 200, [("#FFF4C0", 0.0, int(120 * math.sin(gl * math.pi))), ("#FFF4C0", 1.0, 0)]))
+    return fn
 
 
 import p1_ortak as _P  # noqa: E402

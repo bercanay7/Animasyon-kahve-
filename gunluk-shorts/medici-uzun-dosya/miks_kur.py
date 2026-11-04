@@ -37,6 +37,15 @@ PART = PA.PART
 OUT = os.environ.get("MEDICI_OUT_DIR") or PA.OUT          # MEDICI_OUT_DIR: yalnız deneme/fixture
 
 
+def _tail():
+    """Miks kuyruğu = compose.TAIL (parça sonu bekleme + bitiş ekranı; kurul tur 1: 1,3 + 7,0 = 8,3 sn)."""
+    try:
+        import compose
+        return float(getattr(compose, "TAIL", 7.0))
+    except Exception:                                   # noqa: BLE001
+        return 7.0
+
+
 def kontrol():
     """Girdi tutarlılığı: dosyalar var mı, voice süresi = bölüm toplamı mı, bölümler sırayla bitişik mi, parça tam mı, ses geçici mi."""
     hatalar, uyarilar = [], []
@@ -97,7 +106,7 @@ def kontrol():
             import ses_dsp as D
             tl_ = json.load(open(tp))
             raw, _ayar = sfx.load_cue_file(sp)
-            gates = muzik.gate_windows(chs, float(meta["total"]), 7.0, tl_)
+            gates = muzik.gate_windows(chs, float(meta["total"]), _tail(), tl_)
             quiet = [(g["a"], g["b"]) for g in gates if g["floor_db"] is None or g["floor_db"] <= -24]
             cues, warns = sfx.resolve_cues(raw, D.sent_index(tl_), chs, quiet_zones=quiet, warn=lambda *a: None)
             uyarilar.append(f"sfx_cues_p{PART}.json: {len(raw)} cue → {len(cues)} çözüldü, {len(warns)} uyarı" + (" (aşağıda)" if warns else ""))
@@ -131,7 +140,7 @@ def gecis_cikar():
     import sfx
     meta = json.load(open(os.path.join(OUT, "voice_chapters.json")))
     tl = json.load(open(os.path.join(OUT, "timeline.json")))
-    gates = muzik.gate_windows(meta["chapters"], float(meta["total"]), 7.0, tl)
+    gates = muzik.gate_windows(meta["chapters"], float(meta["total"]), _tail(), tl)
     quiet = [(g["a"], g["b"]) for g in gates if g["floor_db"] is None or g["floor_db"] <= -24]
     spans = [(c["id"], c["t0"], c["t1"]) for c in meta["chapters"]]
 

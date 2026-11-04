@@ -633,7 +633,7 @@ def window_snr_stats(Pv, Pm_final, act, mus, W=800, H=400):
 # ═══════════════════════════ ana akış ═══════════════════════════
 def main():
     ap = argparse.ArgumentParser(description="Medici parça miksi (voice + müzik + SFX)")
-    ap.add_argument("--tail", type=float, default=7.0, help="bitiş ekranı (sn): mix = voice + tail (compose.OUTRO = 7)")
+    ap.add_argument("--tail", type=float, default=None, help="bitiş kuyruğu (sn): mix = voice + tail; varsayılan compose.TAIL (END_HOLD + OUTRO = 8,3)")
     ap.add_argument("--onizleme", action="store_true", help="geçici ses / eksik bölüm: çıktılar ONIZLEME_ önekiyle; assert_gercek_ses atlanır")
     ap.add_argument("--preview", action="store_true", help="out_pN/ses_onizleme/ altına 20–30 sn'lik mp3 kesitleri")
     ap.add_argument("--fresh", action="store_true", help="müzik önbelleğini yok say")
@@ -677,6 +677,12 @@ def main():
 
     def P_(name):
         return os.path.join(OUT, pref + name)
+    if a.tail is None:
+        try:
+            import compose
+            a.tail = float(getattr(compose, "TAIL", 7.0))
+        except Exception:                               # noqa: BLE001
+            a.tail = 7.0
     tail = float(a.tail)
     Nv = len(voice)
     if abs(Nv / SR - total) > 0.05:
