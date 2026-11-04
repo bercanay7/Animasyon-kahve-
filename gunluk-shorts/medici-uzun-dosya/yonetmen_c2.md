@@ -43,7 +43,7 @@ Teyit düzeltmeleri: TİM PARKS; 1407 yok; 150.000'İ AŞKIN; c2s20 BELGE · DE 
 | 32 · 1420: yönetim oğullarına (5.0 sn) | c2s25 -0.15 | p1_oda | pull | slide, dir | slide: Giovanni ofisinde oğullarına devreder (Cosimo, Lorenzo); defter + anahtar geçer; '1420 · YÖNETİM OĞULLARINA' (HUD 1420). |
 | 33 · defterler: 150 bini aşkın florin kâr (6.6 sn) | c2s25 1397'den -0.30 | p1_ledger | pull | sayfa, material | sayfa: defterler — 150.000'İ AŞKIN florin kâr; 'DEFTERLER GÖSTERİR'. |
 | 34 · 20 Şubat 1429: ölüm döşeği (siluet) (7.8 sn) | c2s26 -0.15 | p1_oda | push | candle, light | candle 1,8: ölüm döşeği (alacakaranlık; ay yok); mum 'öldü'de söner; 20 ŞUBAT 1429 / FLORANSA TAKVİMİ paneli. |
-| 35 · Lorenzo'nun kaydına göre 180 bin florin (8.4 sn) | c2s27 -0.15 | p1_medal | pan r | light, light | light: Lorenzo madalyası (TEMSİLÎ PORTRE), 'TORUNUNUN OĞLU · İLERİDE MUHTEŞEM'; 180.000 FLORİN; 'LORENZO'NUN KAYDINA GÖRE'. |
+| 35 · Lorenzo'nun kaydına göre 180 bin florin (8.4 sn) | c2s27 -0.15 | p1_medal | pan r | light, light | light: Lorenzo madalyası (TEMSİLÎ damgası motorda), 'TORUNUNUN OĞLU · İLERİDE MUHTEŞEM'; 180.000 FLORİN; 'LORENZO'NUN KAYDINA GÖRE'. |
 | 36 · iki kalem, iki biçim (4.9 sn) | c2s28 -0.15 | c2_kalemler | truck r | kesme, audio | sert kesme: iki kalem, iki biçim — iki sayfa yazılmaya başlar. |
 | 37 · Machiavelli yazar: onun ağzından (5.8 sn) | c2s29 -0.15 | c1_machiavelli | push | slide, dir | slide: Machiavelli (c1 ile aynı figür) yazar; rulo yaşlı Giovanni'nin ağzına uzar ('onun ağzından'). |
 | 38 · ölüm döşeği konuşması (ANEKDOT) (7.2 sn) | c2s29 huzurla -0.40 | p1_oda | hand | kesme, audio | sert kesme: ölüm döşeği — iki oğul siluet, konuşma tomarı; 'MACHIAVELLİ'YE GÖRE', ANEKDOT (ink). |
@@ -52,7 +52,7 @@ Teyit düzeltmeleri: TİM PARKS; 1407 yok; 150.000'İ AŞKIN; c2s20 BELGE · DE 
 | 41 · hangisi söylendi: bilmiyoruz (2.8 sn) | c2s31 -0.15 | c2_kalemler | pull | slide, dir | slide 0,35: iki sayfa yan yana + soru işareti — hangisi söylendi, bilmiyoruz. |
 | 42 · yoksulun ihtiyacı (Giovanni; ANEKDOT) (6.5 sn) | c2s32 -0.15 | c2_sadaka | truck r | slide, dir | slide: Giovanni yoksula kimse istemeden verir (Machiavelli'nin çizdiği; ANEKDOT). |
 | 43 · o kalem Medici'nin siparişiyle çalışıyordu (4.5 sn) | c2s33 -0.15 | p1_oda | pull | kesme, audio | sert kesme: Machiavelli'nin odası — 'O KALEM'; Medici mührü düşer, 'MEDİCİ SİPARİŞİ'. |
-| 44 · Cosimo: kırk yaşına yaklaşıyordu (4.8 sn) | c2s34 -0.15 | p1_medal | push | iris, shape | iris (mühür): Cosimo madalyası (TEMSİLÎ PORTRE); 39 YAŞINDAYDI; 1389 DOĞUMLU. |
+| 44 · Cosimo: kırk yaşına yaklaşıyordu (4.8 sn) | c2s34 -0.15 | p1_medal | push | iris, shape | iris (mühür): Cosimo madalyası (TEMSİLÎ damgası motorda); 39 YAŞINDAYDI; 1389 DOĞUMLU. |
 | 45 · kapı: şehrin en yüksek kulesi (6.8 sn) | c2s35 -0.15 | p1_sehir | crane up 300 | light, light | light 1,6: kapı — kule, crane up; desatürasyon; parça sonu bekleme motorda (END_HOLD). |
 
 Kurul tur 1 kapanan maddeler: kart vadisi → dünya/figür (403–589 sn'de ≈20 dünya/figür çekimi); PİSA PAPASI · KARŞI PAPA; Cossa = Johannes tek levha; 1427'NİN EN ZENGİNİ;
