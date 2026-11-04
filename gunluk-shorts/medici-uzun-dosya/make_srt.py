@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """timeline.json → Türkçe altyazı (SRT) + YouTube bölüm zaman damgaları.
 
-  python3 make_srt.py            # yayin/sarlken_tr.srt (+ .vtt, _zamansiz.txt) ve yayin/bolumler.txt
+  MEDICI_PART=1 python3 make_srt.py      # yayin/medici_P1_tr.srt (+ .vtt, _zamansiz.txt) ve yayin/bolumler_P1.txt   (ya da: python3 make_srt.py --part 1)
 Altyazı satırları: ≤2 satır × ≤42 karakter, ≤5,5 sn, noktalama/duraklarda bölünür; sözcük zamanları timeline.json'dan.
 Ardışık satırlar çakışmaz (YouTube Studio çakışan altyazıyı kabul etmiyor): satır, sonrakinin başlamasından GAP önce kapanır."""
 import json
@@ -15,21 +15,31 @@ os.makedirs(OUT, exist_ok=True)
 MAXCH = 42
 MAXDUR = 5.5
 GAP = 0.02
+import argparse
+import sys
+
+sys.path.insert(0, HERE)
+import parca as PA  # noqa: E402
+
+# YouTube bölüm etiketleri (kart başlığından farklı olabilir: c0 başlığı alıntı gibi okunmasın)
 TITLES = {
-    "c0": "Giriş: 25 Ekim 1555",
-    "c1": "Dört Tahtın Çocuğu (1500–1518)",
-    "c2": "Taç Satılık (1519–1520)",
-    "c3": "Şehirlerin İsyanı (1520–1522)",
-    "c4": "Worms'ta Bir Keşiş (1521)",
-    "c5": "İmparator Hep Başka Yerde (1521–1555)",
-    "c6": "Kral, Esir, Düello (1521–1544)",
-    "c7": "Sultan: Hiç Karşılaşmadılar (1526–1547)",
-    "c8": "Akdeniz'de Barbaros (1534–1541)",
-    "c9": "Yeni Dünya: Altın, Gümüş ve Vicdan (1519–1552)",
-    "c10": "Faturayı Kim Ödedi?",
-    "c11": "Adamın Kendisi",
-    "c12": "Bırakmak (1555–1558)",
-    "c13": "Hesap",
+    "c0": "Giriş: 18 Şubat 1743, Floransa",
+    "c1": "Florin Şehri (1252–1397)",
+    "c2": "Defterin Sihri (1397–1429)",
+    "c3": "Kule ve Sürgün (1433–1464)",
+    "c4": "Kubbe ve Kefaret (1418–1460'lar)",
+    "c5": "Konsil, Kitap, Platon (1439–1492)",
+    "c6": "Lorenzo (1449–1478)",
+    "c7": "26 Nisan 1478: Pazzi Suikastı",
+    "c8": "Aslanın İni (1478–1481)",
+    "c9": "Defter Kapanıyor (1470–1494)",
+    "c10": "Rahip ve Kral (1492–1498)",
+    "c11": "Papa Oğulları (1512–1537)",
+    "c12": "Dük (1537–1574)",
+    "c13": "İki Kraliçe (1519–1642)",
+    "c14": "Yıldızlar, Notalar, Taşlar (1584–1737)",
+    "c15": "Son Medici'ler (1587–1737)",
+    "c16": "Hesap (1737–bugün)",
 }
 
 
@@ -81,7 +91,13 @@ def cues_for(sent):
 
 
 def main():
-    tl = json.load(open(os.path.join(HERE, "out", "timeline.json"), encoding="utf-8"))
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--part", type=int, default=PA.PART)
+    args = ap.parse_args()
+    if not args.part:
+        raise SystemExit("--part N (1–7) ya da MEDICI_PART gerekli")
+    tl = json.load(open(os.path.join(HERE, f"out_p{args.part}", "timeline.json"), encoding="utf-8"))
+    tag = f"medici_P{args.part}"
     cues = []
     for s in tl["sentences"]:
         for a, b, txt in cues_for(s):
@@ -92,22 +108,24 @@ def main():
             p[1] = max(q[0] - GAP, p[0] + 0.2)
     n = len(cues)
     lines = [f"{i}\n{ts(a)} --> {ts(b)}\n{t}\n" for i, (a, b, t) in enumerate(cues, 1)]
-    open(os.path.join(OUT, "sarlken_tr.srt"), "w", encoding="utf-8").write("\n".join(lines))
+    open(os.path.join(OUT, f"{tag}_tr.srt"), "w", encoding="utf-8").write("\n".join(lines))
     # yedek biçimler: WebVTT (iPhone .srt'yi seçtirmezse) ve zamansız metin (Studio "Without timing" kendisi hizalar)
     esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     vtt = ["WEBVTT", ""] + [f"{ts(a).replace(',', '.')} --> {ts(b).replace(',', '.')}\n{esc(t)}\n" for a, b, t in cues]
-    open(os.path.join(OUT, "sarlken_tr.vtt"), "w", encoding="utf-8").write("\n".join(vtt))
-    open(os.path.join(OUT, "sarlken_tr_zamansiz.txt"), "w", encoding="utf-8").write("\n\n".join(t for _, _, t in cues) + "\n")
-    # bölüm zaman damgaları: kart başlangıcı (t0 − 3 sn) ; c0 için 0:00
+    open(os.path.join(OUT, f"{tag}_tr.vtt"), "w", encoding="utf-8").write("\n".join(vtt))
+    open(os.path.join(OUT, f"{tag}_tr_zamansiz.txt"), "w", encoding="utf-8").write("\n\n".join(t for _, _, t in cues) + "\n")
+    # bölüm zaman damgaları: ilk bölüm 0:00; sonrakiler önceki bölümün bitişi (= kart/ana başlık başlangıcı)
     rows = []
+    prev = None
     for c in tl["chapters"]:
-        t = 0.0 if c["id"] == "c0" else max(0.0, c["t0"] - 3.0)
-        mm, ss = divmod(int(round(t)), 60)
+        t0 = 0.0 if prev is None else prev["t1"]
+        mm, ss = divmod(int(round(t0)), 60)
         h, mm = divmod(mm, 60)
         stamp = f"{h}:{mm:02d}:{ss:02d}" if h else f"{mm}:{ss:02d}"
         rows.append(f"{stamp} {TITLES[c['id']]}")
-    open(os.path.join(OUT, "bolumler.txt"), "w", encoding="utf-8").write("\n".join(rows) + "\n")
-    print(f"{n} altyazı satırı → yayin/sarlken_tr.srt (+ .vtt, _zamansiz.txt) ; bölüm damgaları → yayin/bolumler.txt")
+        prev = c
+    open(os.path.join(OUT, f"bolumler_P{args.part}.txt"), "w", encoding="utf-8").write("\n".join(rows) + "\n")
+    print(f"{n} altyazı satırı → yayin/{tag}_tr.srt (+ .vtt, _zamansiz.txt) ; bölüm damgaları → yayin/bolumler_P{args.part}.txt")
     print("\n".join(rows))
 
 
