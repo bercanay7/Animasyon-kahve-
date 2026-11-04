@@ -91,3 +91,6 @@ BrokenPipeError: [Errno 32] Broken pipe
 /usr/lib/python3.13/multiprocessing/resource_tracker.py:479: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-7cznnqxm', '/mp-baqgxwli', '/mp-5mf2vyxr', '/mp-sajus5a2', '/mp-lsmuirm6', '/mp-4o5u7vgo'}
   warnings.warn(
 [22:14:31] tur 2 KA2 yamaları sonrası: geçiş sesleri + miks
+UYARI: müzik çıpaları (CUES): 85 çıpa, 0 çözülemedi
+P1: girdiler tamam: 3 bölüm, toplam 590.230 sn → mix = toplam + bitiş ekranı (varsayılan 7 sn)
+otomatik geçiş sesleri: 62 cue (+ 0 çekim ipucu) → /home/user/Animasyon-kahve-/gunluk-shorts/medici-uzun-dosya/out_p1/sfx_gecis.json; geçişler: {'light': 13, 'iris': 5, 'candle': 4, 'zoomthru': 13, 'carry': 3, 'slide': 16, 'yikama': 6, 'sayfa': 2}
