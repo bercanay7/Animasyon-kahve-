@@ -81,3 +81,4 @@ medici-uzun-dosya/out_eski3/**/*.m4a
 # kurul düzeltme ajanlarının geçici önizleme kareleri/klipleri (büyük; repoya girmez)
 medici-uzun-dosya/out_p*/duzeltme/
 medici-uzun-dosya/t.mp4
+medici-uzun-dosya/out_p*/hizala_*.log
