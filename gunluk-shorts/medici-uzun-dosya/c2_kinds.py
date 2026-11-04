@@ -100,53 +100,34 @@ def k_nolist(cx, borc_at=None, borc_x=None, faiz_at=None, faiz_x=None, kur_at=No
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c2_hediye")
 def k_hediye(cx, open_at=None, tag_at=None, strike_at=None, gift_at=None, seed=3, **_):
+    """'Faiz değil, hediye' — DERİ KESE (kurul SA2-K2: modern hediye kutusu yerine); FAİZ etiketi çizilir, HEDİYE yaldız gelir."""
     f = cx.f
-    c = f.c
     cam = _bg(f, cx, seed)
-    x0, gy = 960, 780
+    x0, y0 = 960, 560
     kb = cx.amt(tag_at if tag_at is not None else 0.0, 0.45)
     ko = ease_out(clamp((cx.t - cx.at(open_at)) / 0.5), 2) if open_at is not None else 0.0
-    bob = 8 * math.sin(cx.t * 3.0)
-    w, h = 400, 280
-    # gölge
-    f.oval(x0 + 10, gy + 4, 250, 36, color="#000000", alpha=0.3, blur=8)
-    # kutu gövdesi
-    f.rect(x0 - w / 2, gy - h, w, h, shader=f.lin(x0 - w / 2, 0, x0 + w / 2, 0, [("#A8321E", 0.0), ("#C8452A", 0.5), ("#8E2A1A", 1.0)]))
-    f.rect(x0 - w / 2, gy - h, w, h, style="stroke", sw=4, color="#3A1008", alpha=0.85)
-    f.rect(x0 - 34, gy - h, 68, h, color="#E8C468")
-    # kapak (açılışta yukarı kalkar)
-    lid_y = gy - h - 70 - 150 * ko
-    rot = -22 * ko
-    c.save(); c.translate(x0 - w / 2 - 20, lid_y + 70); c.rotate(rot); c.translate(-(x0 - w / 2 - 20), -(lid_y + 70))
-    f.rect(x0 - w / 2 - 20, lid_y, w + 40, 70, shader=f.lin(0, lid_y, 0, lid_y + 70, [("#D8552E", 0.0), ("#A8321E", 1.0)]))
-    f.rect(x0 - w / 2 - 20, lid_y, w + 40, 70, style="stroke", sw=4, color="#3A1008", alpha=0.85)
-    f.rect(x0 - 34, lid_y, 68, 70, color="#F0D27A")
-    # fiyonk
-    for sg in (-1, 1):
-        bw = skia.Path(); bw.moveTo(x0, lid_y); bw.cubicTo(x0 + sg * 40, lid_y - 100, x0 + sg * 160, lid_y - 70, x0 + sg * 110, lid_y + 6); bw.close()
-        c.drawPath(bw, f.paint("#F0D27A")); c.drawPath(bw, f.paint("#7A5410", style="stroke", sw=3, alpha=0.8))
-    f.circle(x0, lid_y - 4, 24, color="#E8C468")
-    c.restore()
-    # içinden florinler fışkırır
+    bob = 6 * math.sin(cx.t * 3.0)
+    f.oval(x0 + 10, y0 + 230, 230, 34, color="#000000", alpha=0.3, blur=8)
+    f.circle(x0, y0, 330, shader=f.rad(x0, y0, 330, [("#F0D27A", 0.0, int(60 + 50 * ko)), ("#F0D27A", 1.0, 0)]))
+    icons.draw_icon(f, "p1_kese", x0, y0 + bob, size=440 * (0.94 + 0.06 * ko), metal="bronze", alpha=1.0, glow=0.0)
     if ko > 0.2:
-        for i in range(16):
-            ph = ((cx.t - cx.at(open_at)) * 0.9 + i * 0.137) % 1.0
-            xx = x0 + 150 * math.sin(i * 2.4) * ph
-            yy = gy - h - 40 - 420 * ph + 520 * ph * ph * 0.0
-            CP.draw_coin(f, xx, yy, 70 * (0.7 + 0.3 * ((i % 3) / 2)), spin=cx.t * 9 + i, alpha=min(1.0, ko) * (1 - ph) * 0.95, shadow=0.0)
-    # etiket: FAİZ (çizilir) → HEDİYE
+        for i in range(14):
+            ph = ((cx.t - cx.at(open_at)) * 0.85 + i * 0.137) % 1.0
+            xx = x0 + 170 * math.sin(i * 2.4) * ph
+            yy = y0 - 170 - 360 * ph
+            CP.draw_coin(f, xx, yy, 66 * (0.7 + 0.3 * ((i % 3) / 2)), spin=cx.t * 9 + i, alpha=min(1.0, ko) * (1 - ph) * 0.95, shadow=0.0)
+    cam.end(f)
     if kb > 0.003:
-        ty = gy - h / 2 + bob
-        CM.tablet(f, x0 + 250, ty - 150, 330, 120, alpha=kb, rot=0.12, corner=8)
-        CM.ink(f, "FAİZ", x0 + 415, ty - 76 + 6, face="title", size=64, color=TH.fg, align="c", track=8, alpha=kb, emboss=False)
+        ty = 760
+        f.rrect(1180, ty - 70, 360, 120, 12, color="#120C08", alpha=0.72 * kb)
+        CM.ink(f, "FAİZ", 1360, ty + 16, face="title", size=72, color="#FFF4D6", align="c", track=10, alpha=kb, emboss=False)
         ks = cx.amt(strike_at, 0.3) if strike_at is not None else 0.0
         if ks > 0.003:
-            f.line(x0 + 280, ty - 112 + 40 * (1 - ks) * 0, x0 + 280 + 270 * ks, ty - 82, color="#A8201A", sw=10, alpha=0.95)
+            f.line(1210, ty - 40, 1210 + 300 * ks, ty + 30 * ks, color="#D8382A", sw=12, alpha=0.95)
     kg = cx.amt(gift_at, 0.35) if gift_at is not None else 0.0
     if kg > 0.003:
         sp = _gilt_or_ink("HEDİYE", "title", 140, 12.0)
-        CM.draw_spr(f, sp, 960, 150, "c", alpha=kg, scale=0.7 + 0.3 * sk.back_out(kg), shadow=0.5 if not TH.day else 0.0, glow=0.25 * kg if not TH.day else 0.0)
-    cam.end(f)
+        CM.draw_spr(f, sp, 960, 190, "c", alpha=kg, scale=0.7 + 0.3 * sk.back_out(kg), shadow=0.5 if not TH.day else 0.0, glow=0.25 * kg if not TH.day else 0.0)
     CM.finish(f, cx, motes_n=26)
 
 
@@ -617,7 +598,7 @@ def k_sadaka(cx, who_at=None, give_at=None, stamp_at=None, seed=4, **_):
     for i in range(-2, 16):
         c.drawLine(i * 140, gy, i * 140 - 70, gy + 200, f.paint("#3A2410", style="stroke", sw=2.5, alpha=0.5))
     # sol: verici (zengin tüccar; yüz yok — kit figürü, üslup)
-    FA.actor(f, "tuccar", 520, gy + 20, 540, cx.t, action="idle", dir=1, seed=21, prop="sack")
+    FA.actor(f, "banker", 520, gy + 20, 560, cx.t, action="idle", dir=1, seed=5, prop="sack")   # Giovanni (insan çapası, kit seed 5)
     # sağ: üç yoksul; sırayla "bow" (teşekkür)
     t0 = cx.at(give_at) if give_at is not None else 0.0
     xs = (1150, 1420, 1690)
@@ -636,7 +617,7 @@ def k_sadaka(cx, who_at=None, give_at=None, stamp_at=None, seed=4, **_):
             CP.draw_coin(f, px, py, 68, spin=cx.t * 12 + i, alpha=min(1, u * 6) * min(1, (1 - u) * 6 + 0.1), shadow=0.2)
     kw = cx.amt(who_at, 0.6) if who_at is not None else 0.0
     if kw > 0.003:
-        CM.name_plate(f, "MACHIAVELLİ'NİN ÇİZDİĞİ", "KİMSE İSTEMEDEN DE", None, cx_=960, y=100, t=kw, w=860)
+        CM.name_plate(f, "MACHIAVELLİ'NİN ÇİZDİĞİ", "KİMSE İSTEMEDEN DE", None, cx_=900, y=160, t=kw, w=860)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
         CM.stamp(f, "ANEKDOT", 1560, 300, rot=-0.07, size=60, t=ks)

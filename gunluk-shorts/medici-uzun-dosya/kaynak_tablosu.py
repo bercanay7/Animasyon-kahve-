@@ -17,13 +17,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import script as S  # noqa: E402
 
-ORDER = ["ANEKDOT", "MİT", "○", "◐", "YORUM", "—"]
+ORDER = ["●", "ANEKDOT", "MİT", "○", "◐", "YORUM", "—"]
 
 
 def klass(tag: str) -> str:
     t = tag.strip()
     if not t or t == "—":
         return "—"
+    if t.startswith("●"):
+        return "●"
     for k in ("ANEKDOT", "MİT", "YORUM", "HAFIZA"):
         if t.startswith(k):
             return k
@@ -48,8 +50,14 @@ def main():
     L = []
     L.append(f"# MEDICI — Kaynak kapısı {'Parça ' + str(a.part) if a.part else '(tüm bölümler)'}")
     L.append("")
-    L.append("> **Sınırlama (kullanıcıya söylenir, Anayasa §5-1):** Bu ortam birincil metin açamıyor (WebFetch DNS hatası; yalnız arama özetleri). Hiçbir olgu ● değildir; video **◐ (nitelikli)** sayılır. "
-             "Tarih/sayı/ad için **yayın öncesi teyit listesi** aşağıdadır. Kaynak dayanakları: `arastirma/M1…M5` ve `brif/cK_brif.md` (kimlikler etikette).")
+    teyit = os.path.join(HERE, "kurul", f"teyit_P{a.part}.md") if a.part else None
+    if teyit and os.path.exists(teyit):
+        L.append(f"> **Teyit kapısı (kurul tur 1, 4 Kasım 2026):** birincil metinler doğrudan bağlantıyla açıldı (Gutenberg, it.wikisource, archive.org, Treccani). "
+                 f"Cümle cümle karar tablosu: `kurul/teyit_P{a.part}.md` (künye, özgün dilde alıntı, karar). ● = birincil ya da otoriter metin okundu ve iddiayı taşıyor; "
+                 "◐ = nitelikli kip ('… göre', 'aktarılır') korunur; ○ ve ANEKDOT ekranda damgalıdır. Başkan kararları: `kurul/KURUL.md`.")
+    else:
+        L.append("> **Sınırlama (kullanıcıya söylenir, Anayasa §5-1):** birincil metin okunmadı; video **◐ (nitelikli)** sayılır. "
+                 "Tarih/sayı/ad için **yayın öncesi teyit listesi** aşağıdadır. Kaynak dayanakları: `arastirma/M1…M5` ve `brif/cK_brif.md` (kimlikler etikette).")
     L.append("")
     L.append("## Özet")
     L.append("")

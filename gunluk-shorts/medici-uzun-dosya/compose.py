@@ -460,10 +460,10 @@ class Program:
         if tr is None:
             f = self._render_shot(s, g)
             mode, pd = CM.mode_of(f)
-            if self.shutter:
+            if self.shutter and post:                         # QA çağrıları (post=False) deklanşörsüz: ölçüm/yerleşim kareleri tek örnek
                 f = self._shutter(f, s, i, g, n)
         else:
-            if self.shutter:
+            if self.shutter and post:
                 self._sprev = (n, i, True, None)
             ia, ib, name, d, opts, k = tr
             sa, sb = self.shots[ia], self.shots[ib]

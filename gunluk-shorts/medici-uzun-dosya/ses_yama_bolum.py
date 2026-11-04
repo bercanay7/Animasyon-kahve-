@@ -40,7 +40,8 @@ PAD = 5                                      # 50 ms (kare)
 MIN_PAUSE = 15                               # cümle sınırı durağı ≥ 150 ms
 SIL_REL_DB = -32                             # sınır araması için sessizlik: tepe (p95) − 32 dB (ElevenLabs gürültü tabanı ≈ −68 dB, v1 eşiği −67 dB'de titriyor)
 YAMA = os.path.join(B.RAW, "yama_p1")
-PATCHES = {"c1": ["c1s11", "c1s16", "c1s18", "c1s23", "c1s24", "c1s26"], "c2": ["c2s1", "c2s7", "c2s27"]}
+PATCHES = {"c1": ["c1s10", "c1s11", "c1s16", "c1s18", "c1s23", "c1s24", "c1s26"], "c2": ["c2s1", "c2s7", "c2s20", "c2s21", "c2s27"]}
+# c1s10, c2s20, c2s21: birincil kaynak teyidi (kurul/teyit_P1.md + başkan doğrulaması: DBI Villani, de Roover n. 45, DBI Giovanni) — bağlamlı üretim + kırpma
 # c1s26 ("Roma'da") ve c2s1 ("Çözüm,"): orijinal ElevenLabs kaydında ilk sözcük yutulmuştu (ASR + süre analizi, 4 Kasım);
 # yeniden üretimde başa kesilecek bağlam kondu (<sid>_ham.mp3) ve kırpılmış klip <sid>.wav olarak kaydedildi (yerel ASR ile doğrulandı).
 

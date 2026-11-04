@@ -30,13 +30,19 @@ BOLUMLER = [
     ("c2s22", "Catasto: Floransa servetini sayıyor (1427)"),
 ]
 
-KAYNAKLAR = """KAYNAKLAR (bu parçada gerçekten dayanılanlar)
-• Niccolò Machiavelli, Floransa Tarihi (Istorie fiorentine), III–IV. kitaplar: 1378 olayları, Giovanni di Bicci'nin ölümü (birincil metin; Project Gutenberg İngilizce çevirisi üzerinden kontrol edildi)
-{BIRINCIL}• Dizionario Biografico degli Italiani (Treccani): Giovanni di Bicci de' Medici, Anna Maria Luisa de' Medici, Gian Gastone de' Medici maddeleri
+KAYNAKLAR = """KAYNAKLAR (bu parçada gerçekten okunanlar)
+Birincil metinler:
+• Giovanni Villani, Nuova Cronica (florinin basılması, 1338 nüfusu ve okullar, Bardi–Peruzzi ve III. Edward)
+• Giovanni Boccaccio, Decameron, Birinci Gün, Giriş (1348 vebası)
+• Marchionne di Coppo Stefani, Floransa Kroniği, Rubrica 634 (veba ve toplu mezarlar)
+• Dante, Cennet IX, 127–132 ("lanetli çiçek")
+• Niccolò Machiavelli, Floransa Tarihi, III–IV. kitaplar (1378 olayları, Giovanni di Bicci'nin ölümü)
+• Giovanni Cavalcanti, Floransa Tarihi, IV. kitap (Giovanni'nin son sözleri)
+Araştırmalar:
 • Raymond de Roover, The Rise and Decline of the Medici Bank, 1397–1494 (1963)
-• Tim Parks, Medici Money (2005)
-• Aile Sözleşmesi (Patto di famiglia, 31 Ekim 1737): Uffizi ve Floransa Belediyesi yayınları
-Not: Bazı olgular ikincil kaynak özetlerine dayanır; bunlar anlatımda "… göre / aktarılır" diye, rivayetler ekranda ANEKDOT damgasıyla işaretlidir."""
+• Dizionario Biografico degli Italiani (Treccani): Giovanni di Bicci de' Medici, Giovanni Villani, Michele di Lando, Marchionne di Coppo Stefani, XXIII. Johannes (Baldassarre Cossa), Anna Maria Luisa de' Medici maddeleri
+• Tim Parks, Medici Money (2005): anlatımda anılan aktarım
+Not: Aile Sözleşmesi'nin (1737) Fransızca özgün metnine erişemedik; 3. madde İtalyanca çevirisinden aktarılmıştır. Rivayetler ekranda ANEKDOT damgasıyla işaretlidir.{BIRINCIL}"""
 
 BIRINCIL_EK = ""          # KAY teyit tablosu (kurul/teyit_P1.md) sonucu doldurulur: gerçekten okunan birincil metinler
 

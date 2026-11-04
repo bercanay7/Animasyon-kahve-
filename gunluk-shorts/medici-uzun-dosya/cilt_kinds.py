@@ -105,11 +105,13 @@ def k_fresco_title(cx, text="MEDİCİ", sub="BANKA ÖLDÜ, GÜZELLİK KALDI", ki
     kk = clamp((cx.t - cx.at(panel_at)) / max(0.3, panel_dur))
     c.save(); c.translate(px, py)
 
-    def dr(al):
+    def dr(al, blend=None):
         p = skia.Paint(AntiAlias=True)
         p.setAlphaf(clamp(al))
+        if blend is not None:
+            p.setBlendMode(blend)
         c.drawImage(img, 0, 0, CM._LIN, p)
-    FX.giornata_reveal(c, paths, order, kk, dr, span=0.70, soft=0.30)
+    FX.giornata_reveal(c, paths, order, kk, dr, span=0.70, soft=0.30, feather=12.0, bounds=(0, 0, pw + 2 * b, ph + 2 * b))
     c.restore()
     # içerik
     gcol = "#E9C770"

@@ -337,7 +337,7 @@ class World:
 
     def layer(self, name, f, width, draw, **kw):
         if name in self.ERA_LAYERS:
-            kw.setdefault("era_tag", CT.era_tag(self.era))
+            kw.setdefault("era_tag", CT.era_tag(getattr(self, "era", None)))
         L = Layer(self.name, name, f, width, draw, tod=self.tod, **kw)
         self.layers[name] = L
         return L
@@ -1909,6 +1909,7 @@ class Corridor(World):
         span = PW - W
         F = Florence.__new__(Florence)
         F.tod, F.T, F.layers = self.tod, self.T, {}
+        F.era = None                     # Vasari Koridoru (1565+): pencerelerden görünen Duomo tam hâliyle (dönem eki yok)
         F.build()
         F.XD, F.XB = 2250, 2913
         self.F = F

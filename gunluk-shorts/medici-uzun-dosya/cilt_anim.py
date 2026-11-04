@@ -27,6 +27,7 @@ import skia
 
 import cilt_figs as FG
 import cilt_medici as CM
+import donem as DN
 import figs_horse as FH
 import figs_kit as K
 import figs_parts as FP
@@ -1032,8 +1033,46 @@ def place_fig(c, x, y, h, bake_h, dirn=1):
     c.scale(dirn * s, s)
 
 
+CONTACT_SHADOW = True          # figürlerin zemin temas gölgesi + ayak altı ortam kapanması (SA1: "kâğıt bebek havada" hissi)
+_CSHADOW = {}
+
+
+def _cshadow_img():
+    """Önbellekli yumuşak elips gölge sprite'ı (128×64, merkez koyu → kenar saydam)."""
+    img = _CSHADOW.get("e")
+    if img is None:
+        n_w, n_h = 128, 64
+        yy, xx = np.mgrid[0:n_h, 0:n_w].astype(np.float32)
+        r = np.hypot((xx - n_w / 2 + 0.5) / (n_w / 2), (yy - n_h / 2 + 0.5) / (n_h / 2))
+        a = np.clip(1.0 - r, 0, 1) ** 1.35
+        arr = np.dstack([np.full((n_h, n_w), 26, np.uint8), np.full((n_h, n_w), 16, np.uint8), np.full((n_h, n_w), 8, np.uint8), (a * 255).astype(np.uint8)])
+        img = _CSHADOW["e"] = sk.np_to_image(arr)
+    return img
+
+
+def contact_shadow(c, x, y, w, hgt, alpha=0.30, dx=0.0):
+    """Zemin temas gölgesi: (x,y) ayak noktası; w×hgt elips (yumuşak) + daha dar/koyu çekirdek (ortam kapanması). Işık sol-üstten → hafif sağa kayar."""
+    if not CONTACT_SHADOW or alpha <= 0.01 or w <= 1:
+        return
+    img = _cshadow_img()
+    src = skia.Rect.MakeWH(128, 64)
+    pt = skia.Paint(AntiAlias=True)
+    pt.setAlphaf(clamp(alpha))
+    c.drawImageRect(img, src, skia.Rect.MakeLTRB(x + dx - w / 2, y - hgt / 2, x + dx + w / 2, y + hgt / 2), LIN, pt)
+    pt2 = skia.Paint(AntiAlias=True)
+    pt2.setAlphaf(clamp(alpha * 0.85))
+    c.drawImageRect(img, src, skia.Rect.MakeLTRB(x + dx * 0.4 - w * 0.27, y - hgt * 0.22, x + dx * 0.4 + w * 0.27, y + hgt * 0.22), LIN, pt2)
+
+
+def _fig_shadow(c, x, y, h, alpha, kneel=False):
+    a = (0.30 if CM.TH.day else 0.24) * alpha
+    contact_shadow(c, x, y + h * 0.006, h * (0.46 if kneel else 0.36), h * (0.070 if kneel else 0.055), a, dx=h * 0.035)
+
+
 def _draw_pose(f, kit, bh, p, x, y, h, dirn, alpha=1.0, cf=None, layers=None, extra=None):
     c = f.c
+    if layers is None or "legs" in layers:
+        _fig_shadow(c, x, y, h, alpha)
     c.save()
     place_fig(c, x, y, h, bh, dirn)
     if layers is None:
@@ -1224,11 +1263,12 @@ class VStrips:
 
 @functools.lru_cache(maxsize=64)
 def flag_sprite(device, w, h, c1="#E0B84E", c2="#B33620"):
-    """Sancak bezi (w×h px; sol = serbest uç, sağ = sap kenarı). device: medici | lily | cross | plain | stripes."""
+    """Sancak bezi (w×h px; sol = serbest uç, sağ = sap kenarı). device: medici | lily | cross | plain | stripes |
+    medici_old (≤1464: altın zeminde 8 kırmızı palle, kenar boyunca) | medici_new (≥1465: üstte mavi zambaklı top + 5 kırmızı) — dönem kuralı donem.flag_sub."""
     F = FG.PFig(max(w, h) * 2)
     F.col = c1
     pts = [KC(0, 0), (w * 0.5, h * 0.02), KC(w, 0), KC(w, h), (w * 0.5, h * 0.98), KC(0, h)]
-    if device in ("medici", "lily", "cross", "plain", "stripes"):
+    if device in ("medici", "medici_old", "medici_new", "lily", "cross", "plain", "stripes"):
         # kırlangıç kuyruklu: serbest uçta çatal
         pts = [KC(0, 0), (w * 0.5, h * 0.03), KC(w, 0), KC(w, h), (w * 0.5, h * 0.97), KC(0, h), (w * 0.13, h * 0.5)]
     F.fill(poly([(p[0], p[1]) for p in pts]), rim=1.0)
@@ -1237,6 +1277,21 @@ def flag_sprite(device, w, h, c1="#E0B84E", c2="#B33620"):
         r = h * 0.15
         for (xx, yy) in ((0.42, 0.28), (0.62, 0.28), (0.52, 0.50), (0.72, 0.50), (0.42, 0.72), (0.62, 0.72)):
             F.fill(ell(w * xx, h * yy, r * 0.78, r * 0.78), rim=1.0, bound=False)
+    elif device in ("medici_old", "medici_new"):
+        r = h * 0.105 if device == "medici_old" else h * 0.12
+        if device == "medici_old":                          # 8 palle, kenar boyunca (in orlo); orta boş
+            pts = ((0.40, 0.20), (0.58, 0.17), (0.76, 0.20), (0.36, 0.48), (0.80, 0.48), (0.42, 0.76), (0.74, 0.76), (0.58, 0.86))
+        else:                                               # 6 palle in cinta: üstte mavi (büyük)
+            pts = ((0.58, 0.22), (0.40, 0.42), (0.76, 0.42), (0.44, 0.70), (0.72, 0.70), (0.58, 0.86))
+        for i, (xx, yy) in enumerate(pts):
+            blue = device == "medici_new" and i == 0
+            F.col = "#2A4FA8" if blue else c2
+            rr = r * (1.25 if blue else 1.0)
+            F.fill(ell(w * xx, h * yy, rr, rr), rim=1.0, bound=False)
+            if blue:
+                F.col = "#E8C45A"
+                for (lx, ly) in ((-0.36, -0.25), (0.36, -0.25), (0.0, 0.32)):
+                    F.fill(ell(w * xx + lx * rr, h * yy + ly * rr, rr * 0.20, rr * 0.20), rim=0.0, tone=0.0, bound=False)
     elif device == "lily":
         F.col = c2
         F.fill(CP_lily(w * 0.55, h * 0.50, h * 0.78), rim=0.9, bound=False)
@@ -1602,6 +1657,7 @@ def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.
     sway, aF, aB, breath = pz._sk
     cloth_for(kit, pz, t, phase * 6.28, lag=0.0, wave=0.0)
     c = f.c
+    _fig_shadow(c, x, y, h, alpha, kneel=(action in ("kneel", "pray")))
     c.save()
     place_fig(c, x, y, h, bh, dir)
     ex = pz.extra
@@ -2035,6 +2091,7 @@ def _ik_leg(hk, name, top_w, hoof_w, bend):
 
 def draw_rider(c, hk, T, x, y, h, bake_h, speed=120.0, gait="walk", dirn=1, phase=0.0, alpha=1.0, cf=None, prop=None, pose_out=None):
     """x,y: ayak hizası ekran; h: zeminden binici başlığına boy (px) — build_rider ile aynı sözleşme."""
+    contact_shadow(c, x - dirn * h * 0.10, y + h * 0.004, h * 0.86, h * 0.07, (0.28 if CM.TH.day else 0.22) * alpha, dx=h * 0.03)
     s = h / bake_h
     hs = hk.hs
     v = abs(speed) / s
@@ -2407,7 +2464,7 @@ def _puff(c, x, y, r, a, col="#CDB98E"):
     c.drawImageRect(img, skia.Rect.MakeWH(48, 48), skia.Rect.MakeXYWH(x - r, y - r, 2 * r, 2 * r), LIN, pt)
 
 
-def procession(f, t, cast, dirn=1, speed=120.0, rows=None, total=None, ease=(0.0, 0.0), y_off=0.0, alpha=1.0, grass=True, dust=True, night=False, cull=520):
+def procession(f, t, cast, dirn=1, speed=120.0, rows=None, total=None, ease=(0.0, 0.0), y_off=0.0, alpha=1.0, grass=True, dust=True, night=False, cull=520, flag_ctx="alay"):
     """Alayı çiz: `cast` = procession_cast(...). Sıralar arkadan öne, her sıra kendi zemin hızında (paralaks). speed = kamera yan kayma hızı (px/sn).
     Dönüş: çizilen birim sayısı. (x ekranı: X0 + dirn·(w·t − g·E(t)); yürüyüş hızı zemine göre w)."""
     rows = rows or ROW_DEF
@@ -2430,13 +2487,17 @@ def procession(f, t, cast, dirn=1, speed=120.0, rows=None, total=None, ease=(0.0
             if u["kind"] == "rider":
                 prop = None
                 if u.get("banner"):
-                    dev, c1, c2 = u["banner"]
+                    dev, c1, c2 = DN.flag_sub(u["banner"], ctx=flag_ctx)
+                    DN.note_once_per_frame("flag", where="alay_atli", device=dev, req=u["banner"][0], ctx=flag_ctx)
                     prop = _rider_banner(dev, c1, c2, t)
                 rider(f, xs, yy, u["h"], t, speed=w, gait=u["gait"], dir=dirn, seed=u["seed"], phase=u["phase"], alpha=alpha, prop=prop)
                 if dust and u["gait"] != "walk":
                     _rider_dust(f, u, t, xs, yy, w, dirn, g, E)
             else:
-                walker(f, u["ck"], xs, yy, u["h"], t, speed=w, dir=dirn, phase=u["phase"], seed=u["seed"], alpha=alpha, prop=u.get("prop"), flag=((u["flag"][0], 0.60, 0.42, u["flag"][1], u["flag"][2]) if u.get("flag") else None))
+                fl_ = DN.flag_sub(u["flag"], ctx=flag_ctx) if u.get("flag") else None
+                if fl_:
+                    DN.note_once_per_frame("flag", where="alay", device=fl_[0], req=u["flag"][0], ctx=flag_ctx)
+                walker(f, u["ck"], xs, yy, u["h"], t, speed=w, dir=dirn, phase=u["phase"], seed=u["seed"], alpha=alpha, prop=u.get("prop"), flag=((fl_[0], 0.60, 0.42, fl_[1], fl_[2]) if fl_ else None))
             n_drawn += 1
     return n_drawn
 
@@ -2550,7 +2611,8 @@ def _install_procession():
     from cilt_medici import TH, ckind
 
     @ckind("procession")
-    def k_procession(cx, seed=1, dir="r", density=1.0, mix=None, speed=125.0, pan=None, kick=None, caption=None, at=0.0, x0=0.0, ease=(0.9, 0.9), tod=None, rows=None, birds=5, dust=True, **_):
+    def k_procession(cx, seed=1, dir="r", density=1.0, mix=None, speed=125.0, pan=None, kick=None, caption=None, at=0.0, x0=0.0, ease=(0.9, 0.9), tod=None, rows=None, birds=5, dust=True,
+                     flag_ctx="alay", **_):
         """Gozzoli "Magi alayı" üslubunda KESİNTİSİZ, gerçekten yürüyen friz: sancaktarlar, atlılar (yürüyüş/tırıs; toz), pajlar, muhafızlar, ağır cübbeliler.
         3 derinlik sırası (her sıra kendi zemin hızında), arka plan peyzajı paralaks (gökyüzü 0,45 · tepe/ağaç 0,85), yön dir='r'|'l' (Medici yükselişi = r).
         density: yoğunluk; mix: dict(rider, noble, page, banner, guard, elder, cleric, common) ağırlıkları; speed/pan: kamera yan kayma (px/sn | 'r' | ('r', toplam_px));
@@ -2587,7 +2649,7 @@ def _install_procession():
             c.drawImage(mid, -(wmid - W) + mo, BAND_Y, CM._LIN, p)
         atmo_birds(c, t, birds, a, 0, W, BAND_Y + 40, BAND_Y + 190, speed=30.0 * dirn if dirn > 0 else 30.0, night=night, seed=seed)
         cast = _cast_cache(seed, dirn, float(density), tuple(sorted((mix or {}).items())))
-        procession(f, t, cast, dirn, spd, rows=None, total=cx.dur, ease=ease, y_off=BAND_Y, alpha=a, dust=dust, night=night)
+        procession(f, t, cast, dirn, spd, rows=None, total=cx.dur, ease=ease, y_off=BAND_Y, alpha=a, dust=dust, night=night, flag_ctx=flag_ctx)
         c.restore()
         for yy in (BAND_Y - 40, BAND_Y + BAND_H):
             vine_band(f, yy, a)

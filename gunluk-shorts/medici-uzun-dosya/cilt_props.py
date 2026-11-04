@@ -11,6 +11,7 @@ import numpy as np
 import skia
 
 import cilt_medici as CM
+import donem as DN
 import sk
 from sk import C, Frame, H, W, clamp, smooth
 
@@ -154,6 +155,9 @@ def lily_mask(m, cx, cy, s, v=255):
 ARMS_S = 1000
 SHIELD_BOX = (100, 60, 900, 960)
 BALLS = [(500, 232, 124, "blue"), (276, 346, 102, "red"), (724, 346, 102, "red"), (318, 600, 102, "red"), (682, 600, 102, "red"), (500, 790, 102, "red")]
+# 1465 öncesi (donem.medici_arms → 'red8'): mavi zambaklı top YOK; altın zeminde 8 kırmızı palle kenar boyunca (in orlo), orta boş
+BALLS_RED8 = [(305, 240, 88, "red"), (500, 222, 88, "red"), (695, 240, 88, "red"), (255, 455, 88, "red"), (745, 455, 88, "red"),
+              (322, 668, 88, "red"), (678, 668, 88, "red"), (500, 805, 88, "red")]
 
 
 def shield_path(inset=0.0):
@@ -174,9 +178,11 @@ def shield_path(inset=0.0):
 
 
 @functools.lru_cache(maxsize=8)
-def arms_array(size=1000, field="gold", flat=False):
+def arms_array(size=1000, field="gold", flat=False, variant="std"):
     """Palle arması RGBA uint8 (size×size). Yaldızlı sivri-tane (punch) zeminli altın alan, boncuklu kenar, kırmızı mine toplar,
-    üstte lapis top üzerinde 3 zambak. field: 'gold' | 'bone' (sıvaya boyalı beyaz alan)."""
+    üstte lapis top üzerinde 3 zambak. field: 'gold' | 'bone' (sıvaya boyalı beyaz alan).
+    variant: 'std' (≥1465 biçimi: mavi zambaklı top + 5 kırmızı; eski varsayılan) | 'red8' (≤1464: 8 kırmızı palle, mavi yok)."""
+    balls = BALLS_RED8 if variant == "red8" else BALLS
     S = ARMS_S
     Msh = Mask(S); Msh.fill(shield_path(0))
     msh = Msh.arr()
@@ -199,7 +205,7 @@ def arms_array(size=1000, field="gold", flat=False):
     red_m = np.zeros((S, S), np.float32)
     blue_m = np.zeros((S, S), np.float32)
     collar = np.zeros((S, S), np.float32)
-    for (bx, by, br, kind) in BALLS:
+    for (bx, by, br, kind) in balls:
         d = np.hypot(xx - bx, yy - by)
         inside = d < br
         dome = np.where(inside, np.sqrt(np.clip(1 - (d / br) ** 2, 0, 1)) * br * 0.62, 0)
@@ -209,9 +215,10 @@ def arms_array(size=1000, field="gold", flat=False):
         collar = np.maximum(collar, np.clip(1 - np.abs(d - (br + 7)) / 5.0, 0, 1))
     # zambaklar (mavi topta, 2 üstte + 1 altta)
     Ml = Mask(S)
-    bx, by, br, _ = BALLS[0]
-    for (dx, dy, sc) in ((-0.36, -0.14, 0.80), (0.36, -0.14, 0.80), (0.0, 0.34, 0.84)):
-        lily_mask(Ml, bx + dx * br, by + dy * br, br * sc)
+    bx, by, br, bk = balls[0]
+    if bk == "blue":
+        for (dx, dy, sc) in ((-0.36, -0.14, 0.80), (0.36, -0.14, 0.80), (0.0, 0.34, 0.84)):
+            lily_mask(Ml, bx + dx * br, by + dy * br, br * sc)
     mlily = Ml.arr()
     # yükseklik bileşimi
     base = 26.0
@@ -258,8 +265,16 @@ def arms_array(size=1000, field="gold", flat=False):
 
 
 @functools.lru_cache(maxsize=8)
-def arms_image(size=1000, field="gold", flat=False):
-    return sk.np_to_image(arms_array(size, field, flat))
+def arms_image(size=1000, field="gold", flat=False, variant="std"):
+    return sk.np_to_image(arms_array(size, field, flat, variant))
+
+
+def arms_variant(variant=None, where="draw_arms"):
+    """Dönem kuralı (donem.medici_arms): variant None → o an çizilen çekimin yılına göre ('std' yıl yoksa). Kayda yazar (qa_donem)."""
+    if variant is None:
+        variant = DN.arms_variant()
+    DN.note_once_per_frame("arms", where=where, variant=variant, blue=(variant == "std"))
+    return variant
 
 
 @functools.lru_cache(maxsize=8)
@@ -271,9 +286,11 @@ def arms_soft(kind="shadow"):
     return CM.blur_sil(a, 24.0, (255, 214, 140))
 
 
-def draw_arms(f, x, y, size=400, alpha=1.0, rot=0.0, shadow=0.55, glow=0.0, field="gold", glint=None):
-    """Palle armasını (x,y) merkezine çiz. glint: 0..1 yaldız üzerinde gezinen parlama bandı."""
-    img = arms_image(1000, field)
+def draw_arms(f, x, y, size=400, alpha=1.0, rot=0.0, shadow=0.55, glow=0.0, field="gold", glint=None, variant=None):
+    """Palle armasını (x,y) merkezine çiz. glint: 0..1 yaldız üzerinde gezinen parlama bandı.
+    variant: None → dönem kuralı (≤1464 mavi top yok: 'red8'; ≥1465/yıl yok: 'std') | 'std' | 'red8' (açık seçim: ör. marka işareti)."""
+    variant = arms_variant(variant)
+    img = arms_image(1000, field, False, variant)
     s = size / 1000.0
     c = f.c
     if shadow > 0:
@@ -300,16 +317,7 @@ def draw_arms(f, x, y, size=400, alpha=1.0, rot=0.0, shadow=0.55, glow=0.0, fiel
     c.drawImage(img, -500, -515, CM._LIN, p)
     if glint is not None:
         gx = -700 + 1400 * glint
-        L_, R_ = max(-520.0, gx - 170), min(520.0, gx + 170)
-        if R_ > L_:
-            c.save()
-            c.clipRect(skia.Rect.MakeLTRB(L_, -540, R_, 540))
-            c.saveLayer(skia.Rect.MakeLTRB(L_, -540, R_, 540), None)
-            c.drawImage(img, -500, -515, CM._LIN, skia.Paint(AntiAlias=True))
-            sh = skia.GradientShader.MakeLinear([(gx - 150, -400), (gx + 150, 400)], [C("#FFFFFF", 0), C("#FFF1BE", int(150 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-            c.drawRect(skia.Rect.MakeLTRB(L_, -540, R_, 540), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-            c.restore()
-            c.restore()
+        CM.soft_glint(c, img, -500, -515, (max(-520.0, gx - 230), -540, min(520.0, gx + 230), 540), gx, 170, alpha, "#FFF1BE", 150)
     c.restore()
 
 

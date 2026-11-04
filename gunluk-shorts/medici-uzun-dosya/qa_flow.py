@@ -19,6 +19,10 @@ Girdi: compose.Program(chapters=…, part=…) ya da çekim listesi (Program(sho
  (b) örnekleme (kare çizer): her 0,5 sn'de bir kare (240×135 gri) → ardışık fark (MAD; koyu karelerde parlaklıkla normalize: MAD/clamp(ort.parlaklık/150, 0,3, 1)) → DURGUNLUK (MAD<τ koşusu ≤1,5 sn) ve OLAY YOĞUNLUĞU
      (pencere başına ≥1 olay: kesme, geçiş ya da fark sıçraması; anlatı cümleleri varsa cümle penceresi, yoksa 3 sn penceresi)
  (c) video (isteğe bağlı): ffmpeg freezedetect.
+ (d) ENG-B (Kasım 2026, kurul tur 1 B.9) yeni kapılar: ardışık itme ≤5 (gerçek kamera ailesi; kendi kamerası olan türlerde cams/path) · kart dizisi
+     (ardışık kart ≤4 ve en geç 75 sn'de bir dünya/figür çekimi; aile haritası, p1_/pN_ öneki soyulur; shot(family=…) ya da sahne modülü AILE={tür: aile}
+     ile etiketlenir) · sert kesme payı ≥%15 · geçiş süresi dağılımı σ ≥0,25 sn · ölçülen hareket (örnek karelerde kare farkı; >6 sn ve hareketsiz çekim)
+     · ENG-A qa_yerlesim.py / qa_donem.py (varsa; --part modunda, alt süreçte).
 
 ── Kalibrasyon (τ) ─────────────────────────────────────────────────────
  τ = TAU. `--calibrate` ile ölçülür: (1) hiç kamera/olay içermeyen sabit çekimde MAD gürültü tabanı (toz zerreleri + tane); (2) reel'in kararlı bölümlerinde
@@ -47,6 +51,86 @@ CARD_KINDS = ("chapter_card", "fresco_title", "outro", "black")
 # altyazı bölgesi (SPEC y≈1250–1390 Shorts 1080×1920 koordinatıdır; 1920×1080 uzun filmde karşılığı alt şerit varsayımı): [üst, alt] px
 SUB_ZONE = (938.0, 1042.0)
 OK, FAIL, WARN, SKIP = "GEÇTİ", "KALDI", "UYARI", "PAS"
+# ENG-B kapı eşikleri (KURUL.md B.9)
+PUSH_RUN_MAX = 5                 # ardışık itme ailesi
+CARD_RUN_MAX = 4                 # ardışık kart çekimi
+WORLD_GAP_MAX = 75.0             # sn: en geç bu kadar sürede bir dünya/figür çekimi
+CUT_SHARE_MIN = 0.15             # sert kesme payı hedefi
+TR_SIGMA_MIN = 0.25              # geçiş süresi standart sapması (sn)
+MOT_LONG = 6.0                   # sn: bundan uzun çekimlerde ölçülen hareket denetlenir
+MOT_TAU = 1.25                   # 0,5 sn adımlı kare farkı medyanı bunun altındaysa "hareketsiz" (kalibrasyon 4 Kas: kurulun "durgun" dediği çekimler 0,78–1,23; canlı çekim medyanı ≈4,9)
+
+# aile haritası (taban tür adı, p1_/pN_ öneki soyulmuş): dünya (mekân/şehir/panorama), figür (insan eylemi), kart (harita/madalya/belge/diyagram)
+FAMILY_BASE = {
+    **{k: "dunya" for k in ("oda", "sehir", "pano", "build", "skyline", "frieze", "procession", "deniz", "deniz_rota", "deniz_kiyi", "deniz_filo", "liman",
+                            "theatre", "room", "field", "siege", "sea")},
+    **{k: "kart" for k in ("map", "medal", "medals", "coin", "palle", "emblem", "counter", "bars", "stacked", "timeline", "tree", "network", "iconrow",
+                           "quote", "title", "doc", "ledger", "letter", "black", "cephe")},
+    # Parça 1 bölüm türleri (orta kare + kod okuması; AN2 sınıflamasıyla uyumlu)
+    "c0_belge": "kart", "c0_gerekce": "kart", "c0_harita": "kart", "c0_kuyruk": "figur", "c0_sikke": "kart", "c0_takvim": "kart",
+    "c1_agi": "kart", "c1_cicek": "kart", "c1_darphane": "dunya", "c1_edward": "kart", "c1_kademe": "kart", "c1_kardes": "kart", "c1_kose": "kart",
+    "c1_lonca": "kart", "c1_machiavelli": "figur", "c1_okul": "figur", "c1_sokak": "dunya", "c1_toprak": "kart", "c1_yazi": "kart",
+    "c2_ayrim": "kart", "c2_hediye": "kart", "c2_kalemler": "kart", "c2_kasa": "kart", "c2_katasto": "kart", "c2_mezar": "kart", "c2_nolist": "kart",
+    "c2_rivayet": "kart", "c2_sadaka": "figur", "c2_borc": "kart",
+}
+_FAM_WORLD_TOK = ("sehir", "oda", "nef", "liman", "deniz", "pano", "saray", "sokak", "meydan", "skyline", "atolye", "galeri", "kusatma", "yuruyus",
+                  "giostra", "turnuva", "akademi", "careggi", "heyet", "konsey", "sahne", "bargello", "pencere", "kule", "hucre", "sakristi", "kutuphane")
+_FAM_CARD_TOK = ("map", "harita", "madalya", "medal", "doc", "defter", "ledger", "takvim", "sayac", "liste", "mektup", "_ag", "tree", "cetvel", "terazi",
+                 "zaman", "yil", "plan", "tally", "fatura", "unvan", "gazete", "ferman", "kapak", "harf", "dna", "sektor", "pay", "baslik", "nota")
+
+
+def base_kind(kind):
+    """p1_oda → oda, p5g_pano → pano (parça sarmalayıcı öneki soyulur)."""
+    import re
+    return re.sub(r"^p\d+[a-z]*_", "", kind)
+
+
+def family_of(s, prog=None):
+    """Çekimin görsel ailesi: 'dunya' | 'figur' | 'kart' | 'belirsiz'. Öncelik: shot(family=…) → sahne modülü AILE sözlüğü → FAMILY_BASE → ad sezgisi."""
+    fam = getattr(s, "family", None)
+    if fam in ("dunya", "figur", "kart"):
+        return fam
+    bk = base_kind(s.kind)
+    if prog is not None:
+        for mod in getattr(prog, "_chap_mod", {}).values():
+            ai = getattr(mod, "AILE", None)
+            if ai and (s.kind in ai or bk in ai):
+                return ai.get(s.kind, ai.get(bk))
+    if bk in FAMILY_BASE:
+        return FAMILY_BASE[bk]
+    low = "_" + bk
+    if any(t in low for t in _FAM_WORLD_TOK):
+        return "dunya"
+    if any(t in low for t in _FAM_CARD_TOK):
+        return "kart"
+    return "belirsiz"
+
+
+def cam_family(s):
+    """Çekimin GERÇEK kamera ailesi (qa): cam= (cilt_cam.describe; süreye bağlı miktarlar dahil); kendi kamerası olan türlerde (oda/pano/sehir/build
+    ve sarmalayıcıları) cam= uygulanmaz → cams= anahtar karelerinden (zum ≥%5 ve kayma <140 px → itme/çekme; değilse kayma) ya da path adından."""
+    import cilt_cam
+    if s.kind in CARD_KINDS:
+        return None
+    if s.kind in cilt_cam.OWN_CAMERA:
+        cams = s.params.get("cams")
+        if cams:
+            try:
+                vals = [tuple(v[1]) for v in cams]
+                xs, ys, zs = [v[0] for v in vals], [v[1] for v in vals], [(v[2] if len(v) > 2 else 1.0) for v in vals]
+                d = dict(kind="keys", scale=max(zs) / max(1e-6, min(zs)) - 1.0, shift=max(max(xs) - min(xs), max(ys) - min(ys)),
+                         h=xs[-1] - xs[0], v=-(ys[-1] - ys[0]), zdir=1 if zs[-1] > zs[0] * 1.005 else (-1 if zs[-1] < zs[0] / 1.005 else 0))
+                return "own:" + cilt_cam._family_of(d)
+            except Exception:
+                return "own:yol"
+        pth = str(s.params.get("path") or "")
+        return "own:push" if pth in ("in", "push") else ("own:pull" if pth in ("out", "pull") else "own:yol")
+    if s.cam is None:
+        return "yok"
+    try:
+        return cilt_cam.family(s.cam, s.dur)
+    except Exception:
+        return "?"
 
 
 # ───────────────────────────── yardımcılar ─────────────────────────────
@@ -203,28 +287,32 @@ def static_analysis(prog):
     by_ch = {}
     for s in shots:
         r = dict(i=s.i, kind=s.kind, label=s.label, t0=round(s.t0, 2), dur=round(s.dur, 2), cam=repr(s.cam) if s.cam is not None else None, link=s.link,
-                 tr=(list(s.tr_eff[:2]) if getattr(s, "tr_eff", None) else None), longtake=s.longtake, montage=s.montage, ch=ckey(s), card=s.kind in CARD_KINDS)
+                 tr=(list(s.tr_eff[:2]) if getattr(s, "tr_eff", None) else None), longtake=s.longtake, montage=s.montage, ch=ckey(s), card=s.kind in CARD_KINDS,
+                 cut_explicit=bool(s.tr) and not getattr(s, "tr_eff", None), cam_auto=bool(getattr(s, "cam_auto", False)),
+                 aile=family_of(s, prog) if s.kind not in CARD_KINDS else "kart*", camfam=cam_family(s))
         rows.append(r)
         by_ch.setdefault(r["ch"], []).append(r)
     gates = []
     real = [r for r in rows if not r["card"]]
 
-    # 1) kamera varlığı
+    # 1) kamera varlığı (cam= verilmemiş çekimlere Program tohumlu hareket seçer: cam_auto)
     own = set(cilt_cam.OWN_CAMERA)                      # kendi kamera yolu olan türler (pano/build): yerleşik kamera sayılır
     missing = [r for r in real if r["cam"] is None and r["kind"] not in own]
+    autos = [s for s in shots if getattr(s, "cam_auto", False)]
     weak, bad = [], []
     for s in shots:
-        if s.kind in CARD_KINDS or s.cam is None:
+        if s.kind in CARD_KINDS or s.cam is None or s.kind in own:
             continue
         try:
-            if not cilt_cam.motion_ok(s.cam):
+            if not cilt_cam.motion_ok(s.cam, s.dur):
                 weak.append(f"#{s.i} {s.kind} '{s.label}': {s.cam!r} (%6 ölçek / 120 px altında)")
         except Exception as e:
             bad.append(f"#{s.i} {s.kind}: cam={s.cam!r} ayrıştırılamadı ({e})")
     n_real = max(1, len(real))
     st = SKIP if not real else (OK if (not missing and not bad) else FAIL)
-    gates.append(dict(name="Kamera varlığı", status=st, value=f"{len(real) - len(missing)}/{len(real)} çekimde cam= var (%{100 * (len(real) - len(missing)) / n_real:.0f})",
-                      thr="%100", detail=[f"cam= YOK (örtük varsayılan push): #{r['i']} {r['kind']} '{r['label']}'" for r in missing[:30]] + bad))
+    gates.append(dict(name="Kamera varlığı", status=st, value=f"{len(real) - len(missing)}/{len(real)} çekimde kamera var (%{100 * (len(real) - len(missing)) / n_real:.0f}); otomatik seçilen {len(autos)}",
+                      thr="%100 (cam= yoksa Program tohumlu seçer)", detail=[f"cam= YOK: #{r['i']} {r['kind']} '{r['label']}'" for r in missing[:30]] + bad +
+                      [f"otomatik: #{s.i} {s.kind} '{s.label}' → {s.cam!r}" for s in autos[:30]]))
     gates.append(dict(name="Kamera hareket yeterliliği", status=OK if not weak else WARN, value=f"{len(weak)} çekim zayıf", thr="≥%6 ölçek ya da ≥120 px kayma", detail=weak[:30]))
 
     # 2) gerekçeli geçiş
@@ -233,10 +321,10 @@ def static_analysis(prog):
         rr = [r for r in lst if not r["card"]]
         cand += rr[1:]                                   # bölümün ilk çekimi karttan/açılıştan gelir
     n_c = max(1, len(cand))
-    unj = [r for r in cand if r["link"] in (None, "", "none")]
+    unj = [r for r in cand if r["link"] in (None, "", "none") and not r["cut_explicit"]]        # tr="cut" birinci sınıf kesmedir: gerekçesi kendisi
     linked = len(cand) - len(unj)
     fade_bare = [r for r in cand if r["tr"] and r["tr"][0] == "fade" and r["link"] in (None, "", "none")]
-    hard_bare = [r for r in cand if not r["tr"] and r["link"] in (None, "", "none")]
+    hard_bare = [r for r in cand if not r["tr"] and r["link"] in (None, "", "none") and not r["cut_explicit"]]
     ratio = linked / n_c
     fr = len(fade_bare) / n_c
     trs = {}
@@ -376,7 +464,137 @@ def static_analysis(prog):
                       thr="bölge dışı (SPEC y≈1250–1390 → 1080p varsayımı: alt şerit y≈%d–%d)" % (zn[0], zn[1]),
                       detail=hits + ([f"ölçülemedi (tür düzen tablosu yok / serbest çizim): {', '.join(nm)}"] if nm else []) + ["not: SPEC koordinatı 1080×1920 Shorts düzenine ait; uzun filmde altyazı varsayımı alt şerit"]))
     gates.append(_card_gate(prog, by_ch, chap_mode))
+    gates += _engb_static_gates(prog, rows, cand)
     return dict(rows=rows, gates=gates)
+
+
+def _runs(seq, pred):
+    """seq içinde pred'i sağlayan ardışık koşular → [(baş, son)] (indeksler)."""
+    out, i = [], 0
+    while i < len(seq):
+        if pred(seq[i]):
+            j = i
+            while j + 1 < len(seq) and pred(seq[j + 1]):
+                j += 1
+            out.append((i, j))
+            i = j + 1
+        else:
+            i += 1
+    return out
+
+
+def _engb_static_gates(prog, rows, cand):
+    """KURUL B.9 (ENG-B): ardışık itme, kart dizisi + dünya aralığı, sert kesme payı, geçiş süresi dağılımı."""
+    gates = []
+    real = [r for r in rows if not r["card"]]
+    # (a) ardışık itme: gerçek kamera ailesi (kart türleri diziyi böler)
+    seq = [r for r in rows]
+    pr = _runs(seq, lambda r: (not r["card"]) and (r["camfam"] in ("push", "own:push")))
+    longest = max([b - a + 1 for a, b in pr], default=0)
+    bad = [(a, b) for a, b in pr if b - a + 1 > PUSH_RUN_MAX]
+    fams = {}
+    for r in real:
+        fams[r["camfam"]] = fams.get(r["camfam"], 0) + 1
+    gates.append(dict(name="Ardışık itme", status=OK if not bad else FAIL, value=f"en uzun itme dizisi {longest}; {len(bad)} dizi > {PUSH_RUN_MAX}",
+                      thr=f"≤{PUSH_RUN_MAX} ardışık itme (kendi kameralı türlerde cams/path)",
+                      detail=[f"aile dağılımı: {dict(sorted(fams.items(), key=lambda kv: -kv[1]))}"] +
+                             [f"#{seq[a]['i']}–#{seq[b]['i']} ({seq[a]['t0']:.1f}–{seq[b]['t0'] + seq[b]['dur']:.1f} sn): {b - a + 1} itme" for a, b in bad]))
+    # (b) kart dizisi + dünya/figür aralığı
+    if not real:
+        gates.append(dict(name="Kart dizisi", status=SKIP, value="çekim yok", thr="", detail=[]))
+    else:
+        kr = _runs(seq, lambda r: (not r["card"]) and r["aile"] in ("kart", "belirsiz"))
+        klong = max([b - a + 1 for a, b in kr], default=0)
+        kbad = [(a, b) for a, b in kr if b - a + 1 > CARD_RUN_MAX]
+        t_start = prog.t_off
+        t_end = max((r["t0"] + r["dur"] for r in real), default=t_start)
+        worlds = [(r["t0"], r["t0"] + r["dur"]) for r in real if r["aile"] in ("dunya", "figur")]
+        gaps, prev_end = [], t_start
+        for (a_, b_) in worlds:
+            if a_ - prev_end > 0:
+                gaps.append((prev_end, a_))
+            prev_end = max(prev_end, b_)
+        if t_end - prev_end > 0:
+            gaps.append((prev_end, t_end))
+        gmax = max([b_ - a_ for a_, b_ in gaps], default=0.0)
+        gbad = [(a_, b_) for a_, b_ in gaps if b_ - a_ > WORLD_GAP_MAX]
+        unk = sorted({r["kind"] for r in real if r["aile"] == "belirsiz"})
+        st = OK if (not kbad and not gbad) else FAIL
+        share = sum(r["dur"] for r in real if r["aile"] in ("dunya", "figur")) / max(1e-6, sum(r["dur"] for r in real))
+        gates.append(dict(name="Kart dizisi", status=st,
+                          value=f"kart dizisi en uzun {klong} ({len(kbad)} > {CARD_RUN_MAX}); dünyasız en uzun {gmax:.0f} sn; dünya/figür %{100 * share:.0f}",
+                          thr=f"ardışık kart ≤{CARD_RUN_MAX} · ≤{WORLD_GAP_MAX:.0f} sn'de bir dünya/figür",
+                          detail=[f"#{seq[a]['i']}–#{seq[b]['i']} ({seq[a]['t0']:.1f}–{seq[b]['t0'] + seq[b]['dur']:.1f} sn): {b - a + 1} kart üst üste" for a, b in kbad] +
+                                 [f"dünyasız aralık {a_:.1f}–{b_:.1f} sn ({b_ - a_:.0f} sn)" for a_, b_ in gbad] +
+                                 ([f"ailesi belirsiz türler (kart sayıldı; shot(family=…) ya da sahne modülünde AILE={{tür: aile}}): {unk}"] if unk else [])))
+    # (c) sert kesme payı (bölüm içi çekim sınırları; kart girişleri hariç)
+    cuts = [r for r in cand if not r["tr"]]
+    n = max(1, len(cand))
+    cs = len(cuts) / n
+    gates.append(dict(name="Sert kesme payı", status=SKIP if not cand else (OK if cs >= CUT_SHARE_MIN else FAIL),
+                      value=f"%{100 * cs:.0f} ({len(cuts)}/{len(cand)} sınır; açık tr=\"cut\" {sum(1 for r in cuts if r['cut_explicit'])})",
+                      thr=f"≥%{100 * CUT_SHARE_MIN:.0f} (tr=\"cut\" / None)", detail=[f"kesmeler: {[r['i'] for r in cuts]}"]))
+    # (d) geçiş süresi dağılımı (tasarlı geçişler; kart girişleri hariç)
+    durs = [float(r["tr"][1]) for r in cand if r["tr"]]
+    if len(durs) >= 3:
+        mu = sum(durs) / len(durs)
+        sd = (sum((d - mu) ** 2 for d in durs) / len(durs)) ** 0.5
+        hist = {}
+        for d in durs:
+            b_ = "≤0,4" if d <= 0.4 else ("0,4–0,8" if d < 0.8 else ("0,8–1,2" if d <= 1.2 else ("1,2–1,8" if d <= 1.8 else ">1,8")))
+            hist[b_] = hist.get(b_, 0) + 1
+        gates.append(dict(name="Geçiş süresi dağılımı", status=OK if sd >= TR_SIGMA_MIN else FAIL, value=f"σ {sd:.2f} sn (ort. {mu:.2f}, {len(durs)} geçiş) {hist}",
+                          thr=f"σ ≥ {TR_SIGMA_MIN} sn (aralık 0,25–2,4)", detail=[]))
+    else:
+        gates.append(dict(name="Geçiş süresi dağılımı", status=SKIP, value=f"{len(durs)} geçiş (≥3 gerekli)", thr=f"σ ≥ {TR_SIGMA_MIN} sn", detail=[]))
+    return gates
+
+
+def motion_gate(prog, ns, mads):
+    """Ölçülen hareket: 0,5 sn adımlı örnek kare farkı (MAD, parlaklık normalize) çekim içinde (geçiş pencereleri hariç) → MOT_LONG sn'den uzun ve
+    medyanı MOT_TAU altında kalan çekimler "hareketsiz" (nominal cam= ne derse desin). Dönüş: (kapı, çekim başı ölçüm listesi)."""
+    per = {}
+    for i in range(len(mads)):
+        g0, g1 = ns[i] / FPS + prog.t_off, ns[i + 1] / FPS + prog.t_off
+        a, b = prog.shot_at(g0), prog.shot_at(g1)
+        if a != b or prog._trans_at(g0, a) is not None or prog._trans_at(g1, b) is not None:
+            continue
+        per.setdefault(a, []).append(mads[i])
+    rows, flagged = [], []
+    for si, vals in per.items():
+        s = prog.shots[si]
+        if s.kind in CARD_KINDS or not vals:
+            continue
+        med = sorted(vals)[len(vals) // 2]
+        rows.append(dict(i=si, kind=s.kind, label=s.label, t0=round(s.t0, 1), dur=round(s.dur, 1), mad_med=round(med, 3), n=len(vals)))
+        if s.dur > MOT_LONG and med < MOT_TAU:
+            flagged.append(rows[-1])
+    st = OK if not flagged else FAIL
+    return dict(name="Ölçülen hareket", status=st, value=f"{len(flagged)} çekim >{MOT_LONG:.0f} sn ve hareketsiz (medyan MAD<{MOT_TAU})",
+                thr=f">{MOT_LONG:.0f} sn çekimde medyan kare farkı ≥{MOT_TAU} (0,5 sn adım; geçişler hariç)",
+                detail=[f"#{r['i']} {r['kind']} '{r['label']}' {r['t0']}s ({r['dur']} sn): medyan {r['mad_med']}" for r in flagged]), rows
+
+
+def eng_a_gates(part, timeout=1800):
+    """ENG-A denetimleri (varsa): qa_yerlesim.py, qa_donem.py — alt süreçte (kendi argparse'ları ve kayıt bayrakları ile), çıkış kodu → kapı."""
+    import subprocess
+    out = []
+    for fn, name in (("qa_yerlesim.py", "Yerleşim (ENG-A)"), ("qa_donem.py", "Dönem (ENG-A)")):
+        path = os.path.join(HERE, fn)
+        if not os.path.exists(path):
+            continue
+        try:
+            r = subprocess.run([sys.executable, path, "--part", str(part)], capture_output=True, text=True, timeout=timeout, cwd=HERE)
+            lines = [l for l in r.stdout.splitlines() if l.strip() and "Fontconfig" not in l]
+            summ = next((l for l in lines if l.startswith(fn.split(".")[0])), lines[0] if lines else "(çıktı yok)")
+            st = OK if r.returncode == 0 else (FAIL if r.returncode == 1 else SKIP)
+            det = [l.strip() for l in lines if l.lstrip().startswith("✗")][:20]
+            if st == SKIP:
+                det.append((r.stderr or "").strip().splitlines()[-1] if r.stderr.strip() else f"çıkış kodu {r.returncode}")
+            out.append(dict(name=name, status=st, value=summ[:180], thr=f"{fn} çıkış kodu 0", detail=det))
+        except Exception as e:                                                    # noqa
+            out.append(dict(name=name, status=SKIP, value=f"çalıştırılamadı: {type(e).__name__}: {e}"[:180], thr=f"{fn}", detail=[]))
+    return out
 
 
 def _card_gate(prog, by_ch, chap_mode):
@@ -569,35 +787,42 @@ def print_report(title, gates, rows=None, quiet=False):
                     if d:
                         print(f"    - {d}")
     if rows is not None and not quiet:
-        print(f"\n{'#':>3} {'tür':<9}{'t0':>7}{'süre':>6}  {'cam':<36}{'giriş geçişi':<16}{'link':<9}etiket")
+        print(f"\n{'#':>3} {'tür':<9}{'t0':>7}{'süre':>6}  {'cam':<36}{'kamera ailesi':<14}{'aile':<9}{'giriş geçişi':<16}{'link':<9}etiket")
         for r in rows:
-            cam = (r["cam"] or "—")[:34]
-            tr = (f"{r['tr'][0]} {r['tr'][1]:.1f}" if r["tr"] else "—")
-            print(f"{r['i']:>3} {r['kind']:<9}{r['t0']:>7.1f}{r['dur']:>6.1f}  {cam:<36}{tr:<16}{str(r['link'] or '—'):<9}{r['label']}")
+            cam = (("auto " if r.get("cam_auto") else "") + (r["cam"] or "—"))[:34]
+            tr = (f"{r['tr'][0]} {r['tr'][1]:.2f}" if r["tr"] else ("kesme" if r.get("cut_explicit") else "—"))
+            print(f"{r['i']:>3} {r['kind']:<9}{r['t0']:>7.1f}{r['dur']:>6.1f}  {cam:<36}{str(r.get('camfam') or '—'):<14}{str(r.get('aile') or ''):<9}{tr:<16}{str(r['link'] or '—'):<9}{r['label']}")
     print(f"\nÖZET: {sum(1 for g in gates if g['status'] == OK)} GEÇTİ · {sum(1 for g in gates if g['status'] == FAIL)} KALDI · "
           f"{sum(1 for g in gates if g['status'] == WARN)} UYARI · {sum(1 for g in gates if g['status'] == SKIP)} PAS")
 
 
-def run(prog, fast=False, workers=2, tau=None, spec=None, video=None, json_path=None, title="", quiet=False, verbose=True):
+def run(prog, fast=False, workers=2, tau=None, spec=None, video=None, json_path=None, title="", quiet=False, verbose=True, eng_a=None):
     """prog: compose.Program. spec: işçilerin Program'ı yeniden kurması için dict(reel=True | part=…, chapters=…)."""
     tau = TAU if tau is None else tau
+    if eng_a is None:
+        eng_a = not fast
     t0 = time.time()
     st = static_analysis(prog)
     gates = list(st["gates"])
     samp = None
+    motion_rows = None
     if not fast:
         if spec is None:
             raise ValueError("örnekleme için spec gerekli (işçiler Program'ı yeniden kurar)")
         ns, mads, chgs, ms = sample_series(spec, prog, workers, verbose)
         samp = analyze_series(prog, ns, mads, chgs, tau, bool(getattr(prog, "hud", False)))
-        gates = samp["gates"][:1] + gates + samp["gates"][1:]
+        mg, motion_rows = motion_gate(prog, ns, mads)
+        gates = samp["gates"][:1] + gates + samp["gates"][1:] + [mg]
     else:
         gates.append(dict(name="Durgunluk", status=SKIP, value="ölçülmedi (--fast)", thr=f"≤{STILL_MAX} sn", detail=["örnekleme analizi için --fast olmadan çalıştır"]))
         gates.append(dict(name="Olay yoğunluğu", status=SKIP, value="ölçülmedi (--fast)", thr="≥%95", detail=[]))
+        gates.append(dict(name="Ölçülen hareket", status=SKIP, value="ölçülmedi (--fast)", thr=f">{MOT_LONG:.0f} sn çekimde medyan MAD ≥{MOT_TAU}", detail=[]))
     gates.append(freeze_check(video) if video else dict(name="Donma (ffmpeg)", status=SKIP, value="video verilmedi (--video yol.mp4)", thr="0 olay", detail=[]))
+    if eng_a and (spec or {}).get("part") and not (spec or {}).get("chapters"):
+        gates += eng_a_gates(spec["part"])
     print_report(title or "çekim listesi", gates, st["rows"], quiet)
     out = dict(title=title, tau=tau, still_max=STILL_MAX, step=STEP, elapsed=round(time.time() - t0, 1), gates=gates, shots=st["rows"],
-               sampling=dict(runs=samp["runs"], intervals=samp["intervals"]) if samp else None, sub_zone=SUB_ZONE, calibration=CALIBRATION_NOTE)
+               sampling=dict(runs=samp["runs"], intervals=samp["intervals"], motion=motion_rows) if samp else None, sub_zone=SUB_ZONE, calibration=CALIBRATION_NOTE)
     if json_path:
         os.makedirs(os.path.dirname(os.path.abspath(json_path)), exist_ok=True)
         json.dump(out, open(json_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -651,6 +876,8 @@ def main(argv=None):
     ap.add_argument("--json", default=os.path.join("out", "qa_flow.json"))
     ap.add_argument("--quiet", action="store_true")
     ap.add_argument("--calibrate", action="store_true")
+    ap.add_argument("--no-eng-a", action="store_true", help="ENG-A denetimlerini (qa_yerlesim/qa_donem) çalıştırma")
+    ap.add_argument("--eng-a", action="store_true", help="--fast'ta da ENG-A denetimlerini çalıştır")
     a = ap.parse_args(argv)
     if a.calibrate:
         calibrate(a.workers)
@@ -662,7 +889,8 @@ def main(argv=None):
         spec = dict(part=a.part, chapters=chs)
         title = f"Parça {a.part}" if a.part else (f"bölümler {a.chapters}" if a.chapters else "tüm film")
     prog = make_program(spec)
-    out = run(prog, fast=a.fast, workers=min(max(a.workers, 1), 4), tau=a.tau, spec=spec, video=a.video, json_path=a.json, title=title, quiet=a.quiet)
+    eng = False if a.no_eng_a else (True if a.eng_a else None)
+    out = run(prog, fast=a.fast, workers=min(max(a.workers, 1), 4), tau=a.tau, spec=spec, video=a.video, json_path=a.json, title=title, quiet=a.quiet, eng_a=eng)
     return 1 if any(g["status"] == FAIL for g in out["gates"]) else 0
 
 

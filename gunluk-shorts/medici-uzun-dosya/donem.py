@@ -2,6 +2,8 @@
 
 Yıl kaynağı: compose her karede `cx.year` (HUD yılı, int) yazar; `cilt_medici.ckind` sarmalayıcısı çekim çizilirken `push(cx, tür)` ile bağlamı
 kurar, çizim bitince `pop()` eder. Çizim kodu yılı `year()` ile okur (ya da açık `year=` parametresi alır).
+ÇEKİM YILI: HUD yılı bir çekimin ortasında dönebilir (YIL_AT sözcük çapası); yapı/arma çekim ortasında değişmesin diye dönem yılı o çekim
+boyunca HUD'da EN UZUN kalan yıldır (shot_year). Bölüm kartı: kendi `years` metninin ilk yılı.
 Yıl YOKSA (None) — önizleme/reel/kapak gibi `Program(shots=…)` modu (HUD yılı yok), marka türleri (ana başlık, bitiş), cx.year'sız çağrılar — tüm
 kural işlevleri None döner ve çağıran ESKİ (bugünkü) çizimi yapar: P2–P7 ve önizleme araçları bozulmaz.
 
@@ -41,21 +43,52 @@ class _Frame:
 _STACK = []
 
 
-def _program_has_years():
-    """`compose.Program(shots=…)` (reel/kapak/qa çekim listesi) modunda YearState boştur ve cx.year anlamsız (1397 varsayılanı) gelir.
-    Çağrı yığınında Program örneğini bulup yıl çizelgesi var mı bakar. Program bulunamazsa cx.year'a güvenilir."""
+def _find_program():
+    """Çağrı yığınında compose.Program örneğini bul (yoksa None)."""
     fr = sys._getframe(2)
-    for _ in range(14):
+    for _ in range(16):
         if fr is None:
             break
         s = fr.f_locals.get("self")
         if s is not None and type(s).__name__ == "Program":
-            if not getattr(s, "hud", True):
-                return False
-            e = getattr(getattr(s, "ys", None), "e", None)
-            return bool(e) if e is not None else True
+            return s
         fr = fr.f_back
-    return True
+    return None
+
+
+def _program_has_years(prog):
+    """`compose.Program(shots=…)` (reel/kapak/qa çekim listesi) modunda YearState boştur ve cx.year anlamsız (1397 varsayılanı) gelir."""
+    if prog is None:
+        return True
+    if not getattr(prog, "hud", True):
+        return False
+    e = getattr(getattr(prog, "ys", None), "e", None)
+    return bool(e) if e is not None else True
+
+
+_SHOT_YEAR = {}
+
+
+def shot_year(prog, sh):
+    """Çekimin DÖNEM yılı: çekim süresince HUD'da en uzun kalan yıl (eşitlikte sonraki). Yapılar çekim ortasında 'pop' etmesin diye
+    yıl çekim boyunca sabittir (HUD yılı çekimin ortasında dönse bile)."""
+    key = (id(prog), id(sh), getattr(sh, "t0", 0.0), getattr(sh, "t1", 0.0))
+    v = _SHOT_YEAR.get(key)
+    if v is None:
+        ys = getattr(prog, "ys", None)
+        t0, t1 = float(getattr(sh, "t0", 0.0)), float(getattr(sh, "t1", 0.0))
+        if ys is None or t1 <= t0:
+            return None
+        n = max(8, int((t1 - t0) * 4))
+        acc = {}
+        for i in range(n):
+            y = ys.at(t0 + (t1 - t0) * (i + 0.5) / n)[0]
+            acc[y] = acc.get(y, 0) + 1
+        v = max(acc.items(), key=lambda kv: (kv[1], kv[0]))[0]
+        if len(_SHOT_YEAR) > 4000:
+            _SHOT_YEAR.clear()
+        _SHOT_YEAR[key] = v
+    return v
 
 
 def _years_param(kw):
@@ -73,6 +106,11 @@ def push(cx, kind, kw=None):
         y = None if kind in BRAND_KINDS else _STACK[-1].year              # iç içe tür (p1_x → x): dış çekimin kararı geçerli
     else:
         y = getattr(cx, "year", None)
+        prog = _find_program() if y is not None else None
+        if y is not None and not _program_has_years(prog):
+            y = None
+        elif y is not None and prog is not None and getattr(cx, "sh", None) is not None:
+            y = shot_year(prog, cx.sh) or y
         if kind in BRAND_KINDS:
             y = None
         elif kind == "chapter_card":
@@ -82,8 +120,6 @@ def push(cx, kind, kw=None):
                 y = int(y)
             except (TypeError, ValueError):
                 y = None
-        if y is not None and not _program_has_years():
-            y = None
     _STACK.append(_Frame(y, kind, cx))
     return y
 

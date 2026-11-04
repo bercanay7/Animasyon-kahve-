@@ -36,46 +36,150 @@ def giornata_paths(seed, w=W, h=H):
     return paths, [float(o) for o in order]
 
 
-def giornata_reveal(c, paths, order, k, draw_fn, span=0.72, soft=0.30, seam=True, wet=0.20, sweep=False):
-    """k (0..1) ilerlemesinde yamaları sırayla açar. draw_fn(alpha): görüntüyü (kırpılmış tuvale) alfa ile çizer.
-    sweep=True: her yama mala darbesi gibi soldan sağa (yumuşak kenarlı) açılır — hayalet/çapraz-solma yok.
-    Her yamada: ıslak sıva koyulaşması (yeni açılan, sonra söner) + dikiş çizgisi."""
+def _patch_cov(c, pth, feather):
+    """Yamanın yumuşak kenarlı kaplaması (katmanın alfasına): dolgu + kenar şeridi, ikisi de bulanık → iç %100, kenar dışa doğru `feather` px'te söner."""
+    sg = max(0.5, feather / 2.4)
+    c.drawPath(pth, skia.Paint(AntiAlias=True, Color=C("#FFFFFF"), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, sg)))
+    c.drawPath(pth, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=feather * 1.2, Color=C("#FFFFFF"),
+                               MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, sg)))
+
+
+def giornata_reveal(c, paths, order, k, draw_fn, span=0.72, soft=0.30, seam=True, wet=0.20, sweep=False, feather=12.0, bounds=None):
+    """k (0..1) ilerlemesinde yamaları sırayla açar. draw_fn(alpha[, blend]): görüntüyü (kırpılmış tuvale) alfa ile çizer.
+    feather > 0 (varsayılan 12 px; kurul tur 1 SA1/SA2 "dikiş kenarı sert"): her yama yumuşak kenarlı kaplamayla açılır (draw_fn `blend` almalı;
+    almazsa eski sert kırpmaya düşer); bounds=(x0,y0,x1,y1): tüm açılım bu dikdörtgene kırpılır (dış kenarda hale olmasın).
+    sweep=True: her yama mala darbesi gibi soldan sağa (yumuşak kenarlı) açılır. Her yamada: ıslak sıva koyulaşması (yeni açılan, sonra söner) + dikiş çizgisi."""
+    if bounds is not None:
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(*bounds))
+    if feather > 0 and not sweep and k >= 1.0 - 1e-6 and all(smooth((k - o * span) / soft) >= 1.0 for o in order):
+        try:                                                   # hepsi açık: tek çizim (yumuşak kaplamaların birleşimiyle aynı görüntü)
+            draw_fn(1.0, None)
+            full = True
+        except TypeError:
+            full = False
+    else:
+        full = False
     for pth, o in zip(paths, order):
         a = smooth((k - o * span) / soft)
         if a <= 0:
             continue
-        c.save()
-        c.clipPath(pth, skia.ClipOp.kIntersect, True)
-        if sweep:
-            b = pth.getBounds()
-            x_edge = b.left() - 30 + (b.width() + 60) * a
-            # üç kademeli yumuşak kenar
-            for j, (off, al) in enumerate(((0, 1.0), (14, 0.66), (28, 0.33))):
+        if not full:
+            if sweep:
                 c.save()
-                c.clipRect(skia.Rect.MakeLTRB(b.left() - 40, b.top() - 4, x_edge - off, b.bottom() + 4))
-                draw_fn(1.0 if j == 0 else 1.0)
+                c.clipPath(pth, skia.ClipOp.kIntersect, True)
+                b = pth.getBounds()
+                x_edge = b.left() - 30 + (b.width() + 60) * a
+                for off, al in ((0, 0.34), (14, 0.5), (28, 1.0)):      # üç kademeli yumuşak kenar: birikimli kaplama 0,34 → 0,67 → 1
+                    c.save()
+                    c.clipRect(skia.Rect.MakeLTRB(b.left() - 40, b.top() - 4, x_edge - off, b.bottom() + 4))
+                    draw_fn(al)
+                    c.restore()
+                wl = wet * 4 * a * (1 - a)
+                if wl > 0.004:
+                    sh = skia.GradientShader.MakeLinear([(x_edge - 160, 0), (x_edge, 0)], [C("#3A2A14", 0), C("#3A2A14", int(255 * wl))], [0, 1])
+                    c.drawRect(skia.Rect.MakeLTRB(b.left() - 40, b.top(), x_edge, b.bottom()), skia.Paint(Shader=sh))
                 c.restore()
-                if j == 0:
-                    pass
-            # ıslak koyulaşma: yalnız kenarın hemen gerisinde
-            wl = wet * 4 * a * (1 - a)
-            if wl > 0.004:
-                sh = skia.GradientShader.MakeLinear([(x_edge - 160, 0), (x_edge, 0)], [C("#3A2A14", 0), C("#3A2A14", int(255 * wl))], [0, 1])
-                c.drawRect(skia.Rect.MakeLTRB(b.left() - 40, b.top(), x_edge, b.bottom()), skia.Paint(Shader=sh))
-        else:
-            draw_fn(a)
-            e = 4 * a * (1 - a)
-            if wet > 0 and e > 0.01:
-                c.drawPaint(skia.Paint(Color=C("#3A2A14", int(255 * wet * e))))
-        c.restore()
+            elif feather > 0:
+                b = pth.getBounds()
+                pad = feather * 2.0
+                c.saveLayer(skia.Rect.MakeLTRB(b.left() - pad, b.top() - pad, b.right() + pad, b.bottom() + pad), None)
+                _patch_cov(c, pth, feather)
+                try:
+                    draw_fn(a, skia.BlendMode.kSrcIn)
+                except TypeError:                                  # eski draw_fn(alpha): sert kırpma
+                    c.clear(skia.ColorTRANSPARENT)
+                    c.save()
+                    c.clipPath(pth, skia.ClipOp.kIntersect, True)
+                    draw_fn(a)
+                    c.restore()
+                e = 4 * a * (1 - a)
+                if wet > 0 and e > 0.01:
+                    c.drawPaint(skia.Paint(Color=C("#3A2A14", int(255 * wet * e)), BlendMode=skia.BlendMode.kSrcATop))
+                c.restore()
+            else:
+                c.save()
+                c.clipPath(pth, skia.ClipOp.kIntersect, True)
+                draw_fn(a)
+                e = 4 * a * (1 - a)
+                if wet > 0 and e > 0.01:
+                    c.drawPaint(skia.Paint(Color=C("#3A2A14", int(255 * wet * e))))
+                c.restore()
         if seam:
             e = 0.25 + 0.75 * 4 * a * (1 - a)
-            p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.6, Color=C("#2A1C0E", int(150 * e * min(1.0, a * 3))))
+            bl = skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 1.1) if feather > 0 else None
+            p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C("#2A1C0E", int(120 * e * min(1.0, a * 3))), MaskFilter=bl)
             c.drawPath(pth, p)
-            p2 = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#FFF4D6", int(130 * e * min(1.0, a * 3))))
+            p2 = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#FFF4D6", int(105 * e * min(1.0, a * 3))), MaskFilter=bl)
             c.save(); c.translate(1.6, 1.6)
             c.drawPath(pth, p2)
             c.restore()
+    if bounds is not None:
+        c.restore()
+
+
+@functools.lru_cache(maxsize=6)
+def _gio_maps(seed, q=4):
+    """Giornata geçişi için 1/q çözünürlük haritaları: yama etiketi, yama sırası/sol kenar/genişlik (tam çözünürlük px) + yollar."""
+    polys, _ = CW.giornate_polys(seed, W, H, band=(150, 260), cell=(300, 620))
+    paths, order = giornata_paths(seed)
+    hh, ww = H // q, W // q
+    lab = np.zeros((hh, ww), np.int32)
+    for i, p in enumerate(polys):
+        cv2.fillPoly(lab, [np.round(p / q).astype(np.int32)], i + 1)
+    if (lab == 0).any():                                          # yuvarlama boşlukları: en yakın yamanın etiketi
+        lab8 = lab.astype(np.float32)
+        lab = np.where(lab == 0, cv2.dilate(lab8, np.ones((3, 3), np.uint8)).astype(np.int32), lab)
+        lab[lab == 0] = 1
+    n = len(polys) + 1
+    od = np.zeros(n, np.float32)
+    lf_ = np.zeros(n, np.float32)
+    wd = np.ones(n, np.float32)
+    for i, p in enumerate(polys):
+        od[i + 1] = order[i]
+        lf_[i + 1] = float(p[:, 0].min())
+        wd[i + 1] = float(p[:, 0].max() - p[:, 0].min())
+    X = (np.arange(ww, dtype=np.float32) * q + q / 2.0)[None, :].repeat(hh, 0)
+    return lab, od, lf_, wd, X, paths, order
+
+
+def blend_giornata(a, b, k, g=0.0, seed=7, d=0.9, **_):
+    """Giornata açılımı: yeni çekim, freskin günlük sıva yamaları gibi sırayla açılır — her yama mala darbesi gibi soldan sağa, YUMUŞAK cepheyle
+    (≈70 px) ve yumuşak yama kenarıyla (≈10 px); cephenin gerisinde ıslak sıva koyulaşması; dikiş çizgisi yalnız yama açılırken görünür (k=1'de iz kalmaz).
+    Hesap 1/4 çözünürlükte maske (numpy/cv2) + tam çözünürlükte karışım (kurul tur 1: SA1/SA2 'dikiş kenarı sert' giderildi)."""
+    lab, od, lf_, wd, X, paths, order = _gio_maps(seed)
+    kk = smooth(k)
+    span, soft = 0.70, 0.30
+    act = np.clip((kk - od * span) / soft, 0.0, 1.0)
+    act = act * act * (3 - 2 * act)
+    act[0] = 1.0 if kk >= 1.0 else act[0]
+    xe = lf_ - 40.0 + (wd + 80.0) * act                            # yama başına cephe x'i
+    A_ = act[lab]
+    t_ = np.clip((xe[lab] - X) / 70.0 + 0.5, 0.0, 1.0)
+    M = t_ * t_ * (3 - 2 * t_)
+    M = np.where(A_ <= 0.0, 0.0, np.where(A_ >= 1.0, 1.0, M)).astype(np.float32)
+    M = cv2.GaussianBlur(M, (0, 0), 2.6)                           # yama kenarı ≈10 px yumuşak
+    wet = (0.20 * 4 * A_ * (1 - A_) * np.exp(-((xe[lab] - X) / 90.0) ** 2)).astype(np.float32)
+    wet = cv2.GaussianBlur(wet, (0, 0), 2.0) * M
+    Mf = cv2.resize(M, (W, H), interpolation=cv2.INTER_LINEAR)
+    rgb_a = np.ascontiguousarray(_arr(a))
+    rgb_b = np.ascontiguousarray(_arr(b))
+    o = cv2.blendLinear(rgb_a, rgb_b, 1.0 - Mf, Mf)
+    if float(wet.max()) > 0.003:
+        fac = 1.0 - cv2.resize(wet, (W, H), interpolation=cv2.INTER_LINEAR)[..., None] * (1.0 - np.array([0x14, 0x2A, 0x3A, 255], np.float32) / 255.0)[None, None, :]
+        o = np.clip(o.astype(np.float32) * fac, 0, 255).astype(np.uint8)
+    out = Frame()
+    c = out.c
+    c.drawImage(_img(o), 0, 0)
+    bl = skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 1.2)
+    for pth, o_, ai in zip(paths, order, act[1:]):
+        e = 4 * float(ai) * (1 - float(ai))
+        if e > 0.02:
+            c.drawPath(pth, skia.Paint(AntiAlias=True, Style=_STK, StrokeWidth=2.2, Color=C("#2A1C0E", int(110 * e)), MaskFilter=bl))
+            c.save(); c.translate(1.5, 1.5)
+            c.drawPath(pth, skia.Paint(AntiAlias=True, Style=_STK, StrokeWidth=1.1, Color=C("#FFF4D6", int(95 * e)), MaskFilter=bl))
+            c.restore()
+    return out
 
 
 # ───────────────────────────── geçişler ─────────────────────────────
@@ -212,22 +316,6 @@ def blend_page(a, b, k, g=0.0, **_):
     return out
 
 
-def blend_giornata(a, b, k, g=0.0, seed=7, **_):
-    """Giornata açılımı: yeni çekim, freskin günlük sıva yamaları gibi sırayla açılır (ıslak koyulaşma + dikiş çizgisi)."""
-    paths, order = giornata_paths(seed)
-    out = Frame()
-    c = out.c
-    c.drawImage(a.surf.makeImageSnapshot(), 0, 0)
-    imgB = b.surf.makeImageSnapshot()
-
-    def dr(al):
-        p = skia.Paint()
-        p.setAlphaf(clamp(al))
-        c.drawImage(imgB, 0, 0, skia.SamplingOptions(), p)
-    giornata_reveal(c, paths, order, smooth(k), dr, span=0.70, soft=0.30, sweep=True)
-    return out
-
-
 # ───────────────────────────── yeni geçişler (YONETMENLIK_REHBERI §3) ─────────────────────────────
 # Kural: gelen çekim geçiş BAŞLARKEN doğar (Shot.lead = süre): gelen çekimin ilk karesi geçişin ilk karesindedir; böylece nesne/iris/zum
 # geçişlerinde yeni sahne boş duvar değil yaşayan bir çekim olarak açılır. Giden çekim kamerası durmadan sürer (cam_out), gelen hareket halinde başlar (cam_in).
@@ -247,6 +335,7 @@ _BLURN = skia.kNormal_BlurStyle
 
 
 TR_MIN, TR_MAX = 0.25, 2.4                       # geçiş süresi aralığı (sn; kurul tur 1 AN2-Ö2): 0,25–0,4 "vuruş" · 0,9 standart · 1,6–2,4 "uzun"
+TR_MIN_KIND = dict(candle=0.6, iris=0.4, yikama=0.5, sayfa=0.45, giornata=0.5)   # bu geçişler 6 karede kaba sıçrar (kare testi): tür başına alt sınır
 CUT = "cut"                                       # birinci sınıf sert kesme: tr="cut" (ya da None). opts: dict(carry=False) kamerayı kesmede durdurur
 
 
@@ -267,7 +356,7 @@ def norm_tr(tr):
         name = tr[0]
         d = float(tr[1]) if len(tr) > 1 and not isinstance(tr[1], dict) else 0.8
         o = dict(tr[-1]) if len(tr) > 1 and isinstance(tr[-1], dict) else {}
-    d = min(max(d, TR_MIN), TR_MAX)
+    d = min(max(d, TR_MIN_KIND.get(name, TR_MIN)), TR_MAX)
     return name, d, o
 
 

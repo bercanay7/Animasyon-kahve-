@@ -20,6 +20,7 @@ import cilt_anim as FA
 import cilt_medici as CM
 import cilt_pano as PN
 import cilt_paper as PP
+import donem as DN
 import sk
 from cilt_medici import TH, ckind
 from sk import C, H, W, clamp, ease_io, mix, smooth
@@ -1213,6 +1214,8 @@ def k_oda(cx, room="oda1743", variant=None, tod=None, path=None, cams=None, acto
     night_theme = not TH.day
     tod = tod or ("night" if night_theme else "day")
     world = get_room(room, variant, tod)
+    if room in ("oda1743", "oda"):                                       # dönem kaydı: duvardaki arma (mavi zambaklı top) yalnız bu odada pişirilir
+        DN.note_once_per_frame("arms", where="oda1743_duvar", variant="std", blue=True)
     world.opts = opts
     world.actors_extra = actors            # None → odanın varsayılan figürleri; liste (boş dâhil) → onları kullan
     world.props_extra = props or []
@@ -1532,7 +1535,8 @@ def draw_tapestry(c, T, x, y0, w, h, seed=1, field="#2F5A5A", border="#B88A32", 
 
 
 def draw_arms(c, T, x, y, s=1.0, frame=True):
-    """Medici arması (palle): altın zemin, altı top (üstte lapis büyük, 5 sinabar), kabartma çerçeveli kalkan. (x,y) = üst orta, s ≈ genişlik/120."""
+    """Medici arması (palle): altın zemin, altı top (üstte lapis büyük, 5 sinabar), kabartma çerçeveli kalkan. (x,y) = üst orta, s ≈ genişlik/120.
+    Dönem: yalnız 1737–1743 odasında (oda1743) pişirilir → mavi top doğru (≥1465). Başka yılda kullanılacaksa donem.medici_arms'a bağlanmalı."""
     wd, hg = 120 * s, 138 * s
     if frame:
         FILLP(c, sk.poly_path([(x - wd * 0.62, y - 12 * s), (x + wd * 0.62, y - 12 * s), (x + wd * 0.62, y + hg * 0.72), (x, y + hg + 26 * s), (x - wd * 0.62, y + hg * 0.72)]),
@@ -1814,27 +1818,69 @@ def _drape_spr(w, h, col, col2, seed):
 _STRIPS = {}
 
 
-def draw_drape(c, x, y_top, w, h, t, col="#8E2A30", col2="#D2A33E", amp=0.045, seed=0, ph=0.0, tie=None):
-    """Hafif dalgalanan perde: (x sol kenar, y_top asılma çizgisi). tie = bağ yüksekliği oranı (0..1) → orada daralır (bağlı perde)."""
+def _drape_profile(u, tie, side, w, wt=0.40, wb=0.66):
+    """Kuşaklı (bağlı) perdenin genişlik profili: üstte tam genişlik → kuşakta wt (yumuşak toplanma) → altta wb'ye açılan dökümlü etek.
+    Kum saati DEĞİL: yalnız serbest kenar içeri çekilir (side='l': sol kenar sabit, sağ kenar çekilir), alt kısım kuşaktan yavaşça açılır."""
+    up = np.clip(u / max(1e-3, tie), 0.0, 1.0)
+    dn = np.clip((u - tie) / max(1e-3, 1.0 - tie), 0.0, 1.0)
+    s_up = up * up * (3 - 2 * up)
+    s_dn = dn ** 0.85
+    wf = np.where(u <= tie, 1.0 - (1.0 - wt) * s_up, wt + (wb - wt) * s_dn)
+    pull = (1.0 - wf) * w
+    if side == "l":
+        return np.zeros_like(u), -pull
+    return pull, np.zeros_like(u)
+
+
+def draw_drape(c, x, y_top, w, h, t, col="#8E2A30", col2="#D2A33E", amp=0.045, seed=0, ph=0.0, tie=None, side="l"):
+    """Hafif dalgalanan perde: (x sol kenar, y_top asılma çizgisi). tie = kuşak yüksekliği oranı (0..1) → kuşaklı perde: serbest kenar
+    (side='l' → sağ kenar; 'r' → sol kenar) kuşağa doğru yumuşakça toplanır, altta dökümlü açılır; kuşakta altın bağ + püskül.
+    Kenarlar düzgün (yumuşak yol kırpması): şeritlerin basamaklı kenarı görünmez (SA1-Ö4: kum saati biçimi + tırtıklı kenar giderildi)."""
     key = (int(w), int(h), col, col2, seed)
     cs = _STRIPS.get(key)
     if cs is None:
         spr = _drape_spr(int(w), int(h), col, col2, seed)
-        cs = _STRIPS[key] = FA.Strips(spr, 0, h + 8, step=max(5.0, h / 24.0))
+        cs = _STRIPS[key] = FA.Strips(spr, 0, h + 8, step=max(3.0, h / 64.0))
     u = np.clip(cs.ycen / max(1.0, h), 0.0, 1.0)
     a = w * amp
-    dx = a * (u ** 1.3) * np.sin(t * 1.1 - u * 2.6 + ph) + 0.4 * a * (u ** 1.1) * np.sin(t * 2.3 - u * 4.0 + ph * 1.7)
+    hold = 1.0 if tie is None else (1.0 - 0.85 * np.exp(-((u - tie) / 0.16) ** 2))     # kuşak kumaşı tutar: orada salınım azalır
+    dx = (a * (u ** 1.3) * np.sin(t * 1.1 - u * 2.6 + ph) + 0.4 * a * (u ** 1.1) * np.sin(t * 2.3 - u * 4.0 + ph * 1.7)) * hold
     dy = np.zeros_like(u)
-    exl = -w * 0.02 * u * np.sin(t * 1.3 + ph + u * 2.0)
-    exr = w * 0.02 * u * np.sin(t * 1.5 + ph + 1.0 + u * 2.0)
+    exl = -w * 0.02 * u * np.sin(t * 1.3 + ph + u * 2.0) * hold
+    exr = w * 0.02 * u * np.sin(t * 1.5 + ph + 1.0 + u * 2.0) * hold
     if tie is not None:
-        sq = np.exp(-((u - tie) / 0.07) ** 2) * w * 0.30
-        exl = exl + sq
-        exr = exr - sq
+        pl, pr = _drape_profile(u, tie, side, w)
+        exl = exl + pl
+        exr = exr + pr
+    X0 = x + cs.ox
+    Y0 = y_top + cs.oy
+    ys = cs.ycen
+    lx = (-cs.ox + dx + exl)
+    rx = (-cs.ox + cs.w + dx + exr)
+    # düzgün dış hat (şerit merkezlerinden geçen yumuşak yol) → kırpma
+    pts_l = [(float(lx[0]), float(cs.r0[0] - cs.oy))] + [(float(lx[i]), float(ys[i])) for i in range(cs.n)] + [(float(lx[-1]), float(cs.r1[-1] - cs.oy + 0.6))]
+    pts_r = [(float(rx[-1]), float(cs.r1[-1] - cs.oy + 0.6))] + [(float(rx[i]), float(ys[i])) for i in range(cs.n - 1, -1, -1)] + [(float(rx[0]), float(cs.r0[0] - cs.oy))]
+    outline = sk.smooth_path(pts_l + pts_r, True, 0.35)
     c.save()
-    c.translate(x + cs.ox, y_top + cs.oy)
-    cs.draw(c, dx, dy, exl, exr, 1.0)
+    c.translate(X0, Y0)
+    c.clipPath(outline, skia.ClipOp.kIntersect, True)
+    cs.draw(c, dx, dy, exl - 1.5, exr + 1.5, 1.0)
     c.restore()
+    if tie is not None:
+        k = int(np.argmin(np.abs(u - tie)))
+        ty = Y0 + float(ys[k])
+        xa, xb = X0 + float(lx[k]) - 3, X0 + float(rx[k]) + 3
+        c.save()
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 6, xb, ty + 6), 5, 5), PT("#000000", 60))
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 7, xb, ty + 5), 5, 5), PT(col2))
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 7, xb, ty + 5), 5, 5), STK(INK, 1.1, 170))
+        c.drawLine(xa + 3, ty - 4, xb - 3, ty - 4, STK("#FFF2C0", 1.2, 140, False))
+        kx = xb - 4 if side == "l" else xa + 4                    # püskül: serbest kenar tarafında hafifçe sallanır
+        sw = 2.5 * math.sin(t * 1.4 + ph)
+        c.drawLine(kx, ty + 4, kx + sw, ty + 26, STK(col2, 2.2, 230))
+        c.drawPath(sk.poly_path([(kx + sw - 6, ty + 24), (kx + sw + 6, ty + 24), (kx + sw + 4, ty + 46), (kx + sw - 4, ty + 46)]), PT(col2))
+        c.drawPath(sk.poly_path([(kx + sw - 6, ty + 24), (kx + sw + 6, ty + 24), (kx + sw + 4, ty + 46), (kx + sw - 4, ty + 46)]), STK(INK, 0.9, 150))
+        c.restore()
 
 
 # ═════════════════════════════ ODA 1743 (Anna Maria Luisa'nın odası; c0 açılışı / c16 kapanışı) ═════════════════════════════
@@ -2475,7 +2521,7 @@ class Salon(Room):
         dust_motes(c, t, x0 - 220, 240, x0 + 220, 760, n=26, seed=14, a=0.8, size=2.2, drift=(3, 5), col="#FFF3D0" if not night else "#BFD0F5")
         # baldaken: iki yan perde
         for sg, ph in ((-1, 0.3), (1, 1.4)):
-            draw_drape(c, x0 + sg * 200 - 34, 160, 68, 520, t, col="#8E2A30", col2=GOLD, amp=0.045, seed=5, ph=ph, tie=0.7)
+            draw_drape(c, x0 + sg * 200 - 34, 160, 68, 520, t, col="#8E2A30", col2=GOLD, amp=0.045, seed=5, ph=ph, tie=0.7, side="l" if sg < 0 else "r")
         draw_extra(ctx, "back")
 
     def dyn_front(self, ctx):

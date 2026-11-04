@@ -1,4 +1,19 @@
 {
+ "c1s10": {
+  "bolum": "c1",
+  "eski_ses_t0": 174.14,
+  "eski_ses_t1": 183.86,
+  "ham_bas": 66.97,
+  "ham_son": 76.66,
+  "sinir_farki_bas": 0.01,
+  "sinir_farki_son": -0.02,
+  "eski_konusma_sn": 9.69,
+  "yeni_konusma_sn": 8.4,
+  "fark_sn": -1.29,
+  "kazanc_db": -7.05,
+  "yeni_tepe": 0.21,
+  "eski_tepe": 0.204
+ },
  "c1s11": {
   "bolum": "c1",
   "eski_ses_t0": 184.7,
@@ -118,6 +133,36 @@
   "kazanc_db": -5.28,
   "yeni_tepe": 0.263,
   "eski_tepe": 0.238
+ },
+ "c2s20": {
+  "bolum": "c2",
+  "eski_ses_t0": 469.89,
+  "eski_ses_t1": 481.24,
+  "ham_bas": 119.66,
+  "ham_son": 130.98,
+  "sinir_farki_bas": 0.01,
+  "sinir_farki_son": -0.02,
+  "eski_konusma_sn": 11.32,
+  "yeni_konusma_sn": 9.93,
+  "fark_sn": -1.39,
+  "kazanc_db": -4.13,
+  "yeni_tepe": 0.314,
+  "eski_tepe": 0.255
+ },
+ "c2s21": {
+  "bolum": "c2",
+  "eski_ses_t0": 482.48,
+  "eski_ses_t1": 490.6,
+  "ham_bas": 132.15,
+  "ham_son": 140.36,
+  "sinir_farki_bas": -0.09,
+  "sinir_farki_son": 0.0,
+  "eski_konusma_sn": 8.21,
+  "yeni_konusma_sn": 9.78,
+  "fark_sn": 1.57,
+  "kazanc_db": -4.72,
+  "yeni_tepe": 0.308,
+  "eski_tepe": 0.282
  },
  "c2s27": {
   "bolum": "c2",

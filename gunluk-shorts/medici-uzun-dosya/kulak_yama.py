@@ -27,6 +27,9 @@ NOT = {
     "c2s1": "orijinalde yutulan 'Çözüm,' geri geldi (bölüm başı)",
     "c2s7": "Tim Parks (eski: 'Treysi')",
     "c2s27": "'torununun oğlu Lorentso'",
+    "c1s10": "Peruzzi ortağı Villani'nin kendisi (DBI); espri korunur",
+    "c2s20": "atıf de Roover'a düzeltildi — ASR 'aforozla'yı 'Aforoz'da' duydu: okunuşa bakın",
+    "c2s21": "1422'den 22 yıl kesintisiz + 18 yıl aralıklı (DBI)",
 }
 
 

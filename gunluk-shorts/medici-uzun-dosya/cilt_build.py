@@ -17,6 +17,7 @@ import skia
 
 import cilt_anim as FA
 import cilt_city as CT
+import donem as DN
 import cilt_medici as CM
 import cilt_pano as PN
 import sk
@@ -601,8 +602,9 @@ def draw_base(c, S, cam, az_sun):
         poly(c, q, ps(INK, 1.4, 190))
 
 
-def draw_lantern(c, S, cam, lp, az_sun):
-    """Fener (tempietto): sekizgen mermer kule, kemerli pencereler, konik çatı, yaldızlı küre ve haç — alttan yukarı yükselir (lp 0..1)."""
+def draw_lantern(c, S, cam, lp, az_sun, ball=True):
+    """Fener (tempietto): sekizgen mermer kule, kemerli pencereler, konik çatı, yaldızlı küre ve haç — alttan yukarı yükselir (lp 0..1).
+    ball=False: yaldızlı top + haç yok (Verrocchio 1471 öncesi; donem.duomo_stage)."""
     if lp <= 0.0:
         return
     Yb = Y_D1 + H_DOME
@@ -630,6 +632,9 @@ def draw_lantern(c, S, cam, lp, az_sun):
         lit = lit_of(45.0 * k, a, az_sun)
         poly(c, [p0, p1, apex], pf(S.col("#B8B0A0", "#EFE8D6", lit)))
         poly(c, [p0, p1, apex], ps(INK, 1.1, 170))
+    if not ball:
+        c.restore()
+        return
     bx, by = cam.P(0.0, 0.0, Yb + 204.0)
     z_ = cam.zs
     c.drawCircle(bx, by, 9.0 * z_, pf("#D8A63A"))
@@ -797,6 +802,14 @@ def dome_cam(p, a_orbit):
 def draw_dome(f, cx, p, t, night, S, a_orbit):
     c = f.c
     cam, n_done, lp, sc_al = dome_cam(p, a_orbit)
+    # dönem: yapım ilerlemesi (p) çekimin kendi zaman atlamasıdır; ama FENER ve TOP+HAÇ yılın kuralına uyar (fener 1446–1461, top+haç 1471)
+    st = DN.duomo_stage()
+    ball = True
+    if st is not None:
+        lp = min(lp, st.lantern)
+        ball = st.ball
+    DN.note_once_per_frame("duomo", where="build", dome=round(min(1.0, p / 0.78), 3), lantern=round(lp, 3), ball=bool(ball and lp >= 1.0), p=round(p, 3),
+                           era=None if st is None else "y")
     az_sun, el, sun_col = sun_state(p)
     z_ = cam.zs
     gy = 400.0 + cam.vy * z_
@@ -871,7 +884,7 @@ def draw_dome(f, cx, p, t, night, S, a_orbit):
         lit_c = lit_of(PSI8[kc], a, az_sun)
         c.drawPath(pa, ps(INK, w_ + 2.4, 130, True))
         c.drawPath(pa, ps(S.col("#CFC6AE", "#FFF8E4", lit_c + 0.2), w_, 255, True))
-    draw_lantern(c, S, cam, lp, az_sun)
+    draw_lantern(c, S, cam, lp, az_sun, ball=ball)
     if scaf:
         draw_deck_front(c, S, cam, Yp, R_in, R_out, sc_al, night, t)
         draw_crew(f, S, cam, Yp, Rm, t, sc_al)

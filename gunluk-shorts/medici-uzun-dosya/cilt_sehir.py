@@ -85,7 +85,7 @@ class SWorld(PN.World):
 
     def layer(self, name, f, width, draw, **kw):
         if name in self.ERA_LAYERS:
-            kw.setdefault("era_tag", CT.era_tag(self.era))
+            kw.setdefault("era_tag", CT.era_tag(getattr(self, "era", None)))
         L = SLayer(self.name, name, f, width, draw, tod=self.tod, **kw)
         self.layers[name] = L
         return L
@@ -1671,6 +1671,8 @@ class Meydan(SWorld):
         xa, xb = ctx.xa, ctx.xb
         sg = self._cdir
         dev = self._cdev
+        if dev:
+            DN.note_once_per_frame("flag", where="sehir_kalabalik", device=dev[0], req=(getattr(self, "_cdev_req", None) or dev)[0], ctx=ctx.p.get("flag_ctx", "kalabalik"))
         for m in self._palle_crowd:
             tt = t - m["d"]
             if tt < 0:
@@ -3468,7 +3470,7 @@ class SkylineDikey(SWorld):
     def build(self):
         self.vl = {}
         self.vl["far"] = VLayer(self.name, "far", 0.10, VLW, 700, 760, self._draw_far, self.tod)
-        self.vl["city"] = VLayer(self.name, "city", 0.22, VLW, 900, 760, self._draw_city_v, self.tod, era_tag=CT.era_tag(self.era))
+        self.vl["city"] = VLayer(self.name, "city", 0.22, VLW, 900, 760, self._draw_city_v, self.tod, era_tag=CT.era_tag(getattr(self, "era", None)))
         self.vl["mid"] = VLayer(self.name, "mid", 0.50, VLW, 2000, 760, self._draw_mid_v, self.tod)
         self.vl["main"] = VLayer(self.name, "main", 1.0, VLW, VH, 760, self._draw_main_v, self.tod)
         self.vl["near"] = VLayer(self.name, "near", 1.45, VLW, 760, 0, self._draw_near_v, self.tod)

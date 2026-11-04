@@ -20,7 +20,11 @@ CACHE = os.path.join(HERE, "out", "_cache", "cilt")
 W, H = 1920, 1080
 MG = 100
 WW, WH = W + 2 * MG, H + 2 * MG
-WALL_VER = 3
+WALL_VER = 4                    # v4 (kurul tur 1, SA1-Ö7/PK2-K15): giornata yama tonu kenarı yumuşak + düzensiz, ton farkı %60, dikiş daha ince/yumuşak
+GI_TONE = 0.60                  # giornata yama ton farkı çarpanı (v3: 1,0)
+GI_FEATHER = 6.0                # yama ton kenarı yumuşatma (Gauss σ, px; v3: 0,8 → sert dikdörtgen)
+GI_JAG = 5.0                    # yama kenarı düzensizliği (px, ≈30 px dalga)
+SEAM_K = {"day": 0.13, "dark": 0.07, "lit": 0.16}   # dikiş çizgisi koyuluğu (v3: 0,20 / 0,10 / 0,24)
 
 # ───────────────────────────── paletler ─────────────────────────────
 # (mod, perde) → duvar renkleri. Perde I: defter bejı; II: kireç beyazı (fresk renkleri öne çıksın); III: derin kırmızı-altın (barok).
@@ -290,16 +294,20 @@ def structure(seed, w=WW, h=WH):
     for i, p in enumerate(polys):
         cv2.fillPoly(lab, [p.astype(np.int32)], i + 1)
     nb = len(polys) + 1
-    bvals = np.clip(rs.normal(0, 0.012, nb), -0.026, 0.026).astype(np.float32)
-    wvals = np.clip(rs.normal(0, 0.011, nb), -0.022, 0.022).astype(np.float32)
+    bvals = (np.clip(rs.normal(0, 0.012, nb), -0.026, 0.026) * GI_TONE).astype(np.float32)
+    wvals = (np.clip(rs.normal(0, 0.011, nb), -0.022, 0.022) * GI_TONE).astype(np.float32)
     gvals = rs.uniform(0.8, 1.25, nb).astype(np.float32)
-    S["gi_b"] = cv2.GaussianBlur(bvals[lab], (0, 0), 0.8)
-    S["gi_w"] = cv2.GaussianBlur(wvals[lab], (0, 0), 0.8)
-    S["gi_g"] = gvals[lab]
+    # yama kenarı: küçük ölçekli düzensizlik (ayrı tohum: duvarın geri kalan rastgele dizisi v3 ile aynı kalır) + yumuşak geçiş
+    rj = np.random.RandomState(seed * 7 + 991)
+    yy_, xx_ = np.mgrid[0:h, 0:w].astype(np.float32)
+    labj = cv2.remap(lab, xx_ + lf(rj, h, w, 30) * GI_JAG, yy_ + lf(rj, h, w, 30) * GI_JAG, cv2.INTER_NEAREST, borderMode=cv2.BORDER_REPLICATE)
+    S["gi_b"] = cv2.GaussianBlur(bvals[labj], (0, 0), GI_FEATHER)
+    S["gi_w"] = cv2.GaussianBlur(wvals[labj], (0, 0), GI_FEATHER)
+    S["gi_g"] = cv2.GaussianBlur(gvals[labj], (0, 0), GI_FEATHER)
     sm = np.zeros((h, w), np.uint8)
     for s in seams:
         cv2.polylines(sm, [s.astype(np.int32).reshape(-1, 1, 2)], False, 255, 1, cv2.LINE_AA)
-    sm = cv2.GaussianBlur(sm.astype(np.float32) / 255.0, (0, 0), 0.6)
+    sm = cv2.GaussianBlur(sm.astype(np.float32) / 255.0, (0, 0), 1.0)
     vary = sstep(-1.2, 0.2, lf(rs, h, w, 90)) * 0.8 + 0.2           # dikiş boyunca görünürlük değişir
     sm = sm * vary
     S["seam"] = sm
@@ -359,7 +367,7 @@ def colorize(S, pal, kind="day", raking=1.0):
     col *= (1 - 0.40 * S["pit_dk"])[..., None]
     col *= (1 + 0.28 * S["pit_hi"])[..., None]
     # giornata dikişi
-    seam_k = {"day": 0.20, "dark": 0.10, "lit": 0.24 * raking}[kind]
+    seam_k = {"day": SEAM_K["day"], "dark": SEAM_K["dark"], "lit": SEAM_K["lit"] * raking}[kind]
     col *= (1 - seam_k * S["seam"])[..., None]
     col *= (1 + seam_k * 0.55 * S["seam_hi"])[..., None]
     # çatlaklar
@@ -421,7 +429,10 @@ def wall_arrays(mode, perde, seed):
         S = structure(seed * 13 + perde * 3 + (1 if mode == "night" else 0))
         for k in missing:
             arr = colorize(S, pal, k, raking=1.0)
-            cv2.imwrite(_png_path(f"wall_{mode}{perde}_{seed}_{k}"), cv2.cvtColor(arr, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_PNG_COMPRESSION, 3])
+            dst = _png_path(f"wall_{mode}{perde}_{seed}_{k}")
+            tmp = f"{dst}.{os.getpid()}.tmp.png"                 # atomik yazım: paralel işçiler yarım PNG okumasın
+            cv2.imwrite(tmp, cv2.cvtColor(arr, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_PNG_COMPRESSION, 3])
+            os.replace(tmp, dst)
             out[k] = arr
     if mode == "day":
         out["lit"] = out.pop("day")

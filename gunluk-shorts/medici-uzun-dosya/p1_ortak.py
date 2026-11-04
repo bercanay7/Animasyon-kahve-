@@ -26,6 +26,15 @@ def _wrap(inner):
 
     @ckind(name)
     def k(cx, ovl=None, **kw):
+        if inner == "sehir" and kw.get("actors"):
+            acts = []
+            for d in kw["actors"]:
+                d = dict(d)
+                an = d.pop("at", None)
+                if an is not None:
+                    d["t0"] = cx.at(an)
+                acts.append(d)
+            kw["actors"] = acts
         SH.KINDS[inner](cx, **kw)
         if ovl is not None:
             ovl(cx)
@@ -630,3 +639,37 @@ def _i_anahtar(m):
         m.rect(270, 108, 60, 24)
         m.rect(270, 70, 44, 22)
         m.c.restore()
+
+
+
+def candle_ovl(x, y, h=110, snuff_at=None, seed=1.3, lit=1.0):
+    """Ekran uzayında mum (alev titrer; snuff_at'ta söner, ince duman). Ölüm anının yalnız SEMBOLÜ — saat/tanık iddiası değil."""
+    def fn(cx):
+        k = lit
+        if snuff_at is not None:
+            k *= 1.0 - cx.amt(snuff_at, 0.45)
+        OD.candle(cx.f, x, y, h, cx.t, seed, lit=k, holder=True, smoke=True, halo=1.0)
+    return fn
+
+
+# ───────────────────────────── kurul tur 1: 1737 Vasari koridoru — yürüyenler SİLUET (Quattrocento kostümü 1737'de yanlış; KA1-V2, SA1-K2) ─────────────────────────────
+import cilt_pano as _PN
+
+
+class P1Corridor(_PN.Corridor):
+    name = "p1corridor"
+
+    def dyn_people(self, ctx):
+        f, t = ctx.f, ctx.t
+        xa, xb = ctx.xa, ctx.xb
+        vis = [p for p in self.people if xa - 240 < p["x0"] + (0 if p["idle"] else p["dir"] * p["w"] * t) < xb + 240]
+        vis.sort(key=lambda p: p["y"])
+        for p in vis:
+            if p["idle"]:
+                OD.sil_actor(f, p["kind"], p["x0"], p["y"], p["h"], t, action="talk", dir=p["dir"], seed=p["seed"], phase=p["phase"], color="#2A1E16", rim="#E8B070", rim_dir=p["dir"])
+            else:
+                x = p["x0"] + p["dir"] * p["w"] * t
+                OD.sil_actor(f, p["kind"], x, p["y"], p["h"], t, dir=p["dir"], seed=p["seed"], phase=p["phase"], color="#2A1E16", rim="#E8B070", rim_dir=p["dir"], walker=p["w"])
+
+
+_PN.WORLDS["p1corridor"] = P1Corridor

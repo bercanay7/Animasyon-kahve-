@@ -50,7 +50,7 @@ def _leaf(f, x, y, w, h, tone, alpha=1.0, back=False, grid=True, seed=0):
 
 
 @ckind("c0_takvim")
-def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2), n=114, final=("31", "EKİM", "1737"), unit="GÜN", seed=2, **_):
+def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2), n=114, final=("31", "EKİM", "1737"), unit="GÜN", show_at=None, seed=2, **_):
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.05, drift=(5.0, 2.0))
@@ -59,7 +59,7 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
     ta, tb = cx.at(start_at), cx.at(end_at)
     p = clamp((cx.t - ta) / max(1e-3, tb - ta))
     pe = ease_io(p, 2.0)
-    appear = cx.amt(start_at, 0.5, off=-0.6)
+    appear = cx.amt(show_at if show_at is not None else start_at, 0.5, off=-0.6)
     # takvim gövdesi (asılı, hafif sallanır)
     x0, y0, w, h = 380, 205, 500, 640
     sway = math.radians(0.7) * math.sin(cx.t * 1.3) * (1.0 - 0.6 * smooth(p))
@@ -139,7 +139,7 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
     sp = _gilt_or_ink(txt, "title", sz, 8.0)
     jit = (1.0 + 0.012 * math.sin(cx.t * 40)) if spin else 1.0
     CM.draw_spr(f, sp, xc, 640 + 20, "c", alpha=a, scale=jit, shadow=0.5 if not TH.day else 0.0, glow=0.20 * a if (not TH.day and p >= 1.0) else 0.0)
-    CM.ink(f, unit, xc, 640 + 108, face="title_m", size=62, color=TH.acc, align="c", track=22, alpha=a * cx.amt(start_at, 0.6, off=0.1), emboss=False)
+    CM.ink(f, unit, xc, 640 + 108, face="title_m", size=64, color=TH.acc if TH.day else "#F6D886", align="c", track=22, alpha=a * cx.amt(start_at, 0.6, off=0.1), emboss=False)
     # ilerleme çubuğu (çevrilen günler)
     bw = 520
     f.rrect(xc - bw / 2, 790, bw, 10, 5, color="#000000", alpha=0.35 * a)
@@ -389,10 +389,10 @@ def _arcade(f, x0, x1, gy, T):
         xa = i * mod
         cxm = xa + mod / 2
         aw = mod - 96
-        arch = skia.Path()
+        arch = skia.Path()                       # düz arşitravlı açıklık (Uffizi revağı: kemer yok — kurul SA2-K1)
         arch.moveTo(cxm - aw / 2, gy)
-        arch.lineTo(cxm - aw / 2, gy - 270)
-        arch.arcTo(skia.Rect.MakeLTRB(cxm - aw / 2, gy - 270 - aw / 2, cxm + aw / 2, gy - 270 + aw / 2), 180, 180, False)
+        arch.lineTo(cxm - aw / 2, gy - 360)
+        arch.lineTo(cxm + aw / 2, gy - 360)
         arch.lineTo(cxm + aw / 2, gy)
         arch.close()
         c.drawPath(arch, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, gy - 440), (0, gy)], [sk.C("#2A2018"), sk.C("#6E5A42")], [0, 1])))
@@ -411,10 +411,10 @@ def _portal(f, x, gy, glow):
     """Büyük giriş kapısı: kemerli, içeriden sıcak ışık."""
     c = f.c
     w, h = 330, 440
-    arch = skia.Path()
+    arch = skia.Path()                           # dikdörtgen kapı (düz lento)
     arch.moveTo(x - w / 2, gy)
-    arch.lineTo(x - w / 2, gy - h + w / 2)
-    arch.arcTo(skia.Rect.MakeLTRB(x - w / 2, gy - h, x + w / 2, gy - h + w), 180, 180, False)
+    arch.lineTo(x - w / 2, gy - h + 40)
+    arch.lineTo(x + w / 2, gy - h + 40)
     arch.lineTo(x + w / 2, gy)
     arch.close()
     c.drawPath(arch, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, gy - h), (0, gy)], [sk.C("#FFE2A0"), sk.C("#F0A850")], [0, 1])))
@@ -637,41 +637,58 @@ def sinir_extra(cx, cm, mv, border_at=None, label_at=None, items_at=None, lock_a
             y = fy + oy + bob
             f.circle(x, y + 36, 30, color="#000000", alpha=0.18 * k, blur=6)
             icons.draw_icon(f, ic, x, y, size=104 * (0.8 + 0.2 * sk.back_out(k)), metal="gold", alpha=k, glow=0.0)
-    # zincir ve kilit: sınırın doğu kenarına çapraz zincir
+    # ZİNCİR + ASMA KİLİT (kapak K1 motifi; kurul C-c0 / PK2-K5): "çıkarılamayacaktı"da iki zincir hazine kümesini sarar, kilit iner ve kulp kapanır
     if lock_at is not None:
-        kl = cx.amt(lock_at, 0.45)
+        import kapak_medici as KP
+        import anim
+        tl = cx.at(lock_at)
+        kl = clamp((cx.t - (tl - 0.55)) / 0.55)
         if kl > 0.003:
-            ex, ey = cm.ll(12.28, 43.55)
-            # zincir halkaları (sınır boyunca)
-            n = 9
-            for j in range(n):
-                u = j / (n - 1)
-                px = lerp(ex - 40, ex + 40, 0.5) + (u - 0.5) * 60
-                py = lerp(ey - 240, ey + 240, u)
-                if u > kl:
-                    continue
-                f.oval(px, py, 22, 12, style="stroke", sw=6, color="#2A2A30", alpha=0.95)
-                f.oval(px, py, 22, 12, style="stroke", sw=2, color="#B9B9C4", alpha=0.7)
-            icons.draw_icon(f, "keys", ex, ey, size=130 * (0.7 + 0.3 * sk.back_out(kl)), metal="silver", alpha=kl, glow=0.0)
-            fl = clamp((cx.t - cx.at(lock_at)) / 0.35)
+            ky = fy + 40
+            B = 150
+            R = B * 0.30
+            leg_y = ky - B * 0.10
+            e = ease_out(kl, 2.2)
+            pl = (fx - R - B * 0.02, leg_y)
+            pr = (fx + R + B * 0.02, leg_y)
+            a0 = (lerp(pl[0] - 900, pl[0], e), lerp(leg_y + 60, leg_y, e))
+            a1 = (lerp(pr[0] + 900, pr[0], e), lerp(leg_y + 60, leg_y, e))
+            KP.draw_chain(f, (fx - 980, fy + 120), a0, sag=50, L=B * 0.40)
+            KP.draw_chain(f, a1, (fx + 980, fy + 130), sag=50, L=B * 0.40)
+            yy = ky - 260 * (1.0 - anim.settle(cx.t, tl - 0.25, 0.35, 0.10))
+            t_cl = clamp((cx.t - tl) / 0.22)
+            drop = (1.0 - sk.back_out(t_cl)) * B * 0.12
+            f.circle(fx, yy + B * 0.4, B * 1.4, shader=f.rad(fx, yy + B * 0.4, B * 1.4, [("#FFB454", 0.0, int(70 * kl)), ("#FFB454", 1.0, 0)]))
+            KP.draw_padlock(f, fx, yy, B, drop=drop)
+            fl = clamp((cx.t - tl) / 0.40)
             if 0 < fl < 1:
-                f.circle(ex, ey, 260 * fl, shader=f.rad(ex, ey, 260 * fl + 1, [("#FFF1B8", 0.0, int(150 * (1 - fl))), ("#FFF1B8", 1.0, 0)]))
-    # özet kartı (alıntı değil: 3. maddenin ÖZETİ)
+                f.circle(fx, yy + 40, 300 * fl, shader=f.rad(fx, yy + 40, 300 * fl + 1, [("#FFF1B8", 0.0, int(160 * (1 - fl))), ("#FFF1B8", 1.0, 0)]))
+            dx, dy = anim.shake(cx.t, tl, 0.25, 4.0, seed=3)
+            if dx or dy:
+                anim.jolt(f, dx, dy)
+    # 3. MADDE · ÖZET kartı — ALINTI DEĞİL (tırnak yok; kurul KA2-Ö5): anlatımla aynı yüklem
     if quote_at is not None:
-        k = cx.amt(quote_at, 0.7)
+        k = cx.amt(quote_at, 0.6)
         if quote_out is not None:
             k *= 1.0 - cx.amt(quote_out, 0.6)
         if k > 0.003:
-            txt = "Hiçbir şey buradan çıkmayacak."
-            who = "SÖZLEŞMENİN 3. MADDESİNİN ÖZETİ"
-            sz = 78
-            wd = sk.text_width(txt, "cap_i", sz) + 200
-            x0, y0, hh = W / 2 - wd / 2, 640 + (1 - k) * 24, 214
-            CM.tablet(f, x0, y0, wd, hh, alpha=k, corner=12)
-            CM.draw_spr(f, CM.painted("“", "title", 170, 0.0, TH.acc if TH.day else "#D9A95A", 1.3, 9), x0 + 26, y0 + 118, "l", alpha=0.8 * k)
-            CM.ink(f, txt, W / 2 + 18, y0 + 104, face="cap_i", size=sz, color=TH.fg, align="c", alpha=k, emboss=False)
-            CM.flourish_rule(f, W / 2, y0 + 138, 420, alpha=k, grow=k)
-            CM.ink(f, who, W / 2, y0 + 184, face="title_m", size=28, color=TH.acc, align="c", track=9, alpha=k, emboss=False)
+            head = "3. MADDE · ÖZET"
+            l1, l2 = "Koleksiyonlar Floransa'dan ve", "Büyük Dukalık'tan çıkarılamaz."
+            sz = 56
+            wd = max(sk.text_width(l1, "cap_b", sz), sk.text_width(l2, "cap_b", sz)) + 160
+            x0, y0, hh = W / 2 - wd / 2, 600 + (1 - k) * 24, 300
+            f.rrect(x0, y0, wd, hh, 14, color="#120C08", alpha=0.80 * k)
+            f.rrect(x0, y0, wd, hh, 14, style="stroke", sw=2.4, color="#C9A45A", alpha=0.85 * k)
+            CM.ink(f, head, W / 2, y0 + 62, face="title_m", size=40, color="#F2C66A", align="c", track=12, alpha=k, emboss=False)
+            CM.flourish_rule(f, W / 2, y0 + 88, 380, alpha=k, grow=k)
+            CM.ink(f, l1, W / 2, y0 + 168, face="cap_b", size=sz, color="#FFF4D6", align="c", alpha=k, emboss=False)
+            CM.ink(f, l2, W / 2, y0 + 236, face="cap_b", size=sz, color="#FFF4D6", align="c", alpha=k, emboss=False)
+    # SINIR YAKLAŞIKTIR (kurul KA2-Ö5 / SA2-Ö5): temsilî sınır uyarısı (kalıcı, küçük)
+    if border_at is not None or label_at is not None:
+        kb_ = cx.amt(border_at if border_at is not None else label_at, 0.6)
+        if kb_ > 0.003:
+            f.rrect(108, 860, 410, 56, 10, color="#120C08", alpha=0.72 * kb_)
+            CM.ink(f, "SINIR YAKLAŞIKTIR", 313, 898, face="title_m", size=34, color="#FFF4D6", align="c", track=6, alpha=kb_, emboss=False)
     if label_at is not None:
         k = cx.amt(label_at, 0.7)
         if k > 0.003:
@@ -825,7 +842,7 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
     cam.begin(f)
     n = len(items)
     R = 148.0
-    gap = 420.0
+    gap = 540.0
     x0 = W / 2 - gap * (n - 1) / 2
     yc = 520.0
     d0 = cx.at(draw_at) if draw_at is not None else 0.0
@@ -836,11 +853,17 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
     CM.flourish_rule(f, W / 2, 268, 700, alpha=kt, grow=kt)
     if stamp is not None:
         CM.stamp(f, "ÇEVİRİ", 1500, 300, rot=-0.08, size=46, t=cx.amt(stamp, 0.3))
+    import anim
     for i, it in enumerate(items):
         x = x0 + i * gap
         kd = clamp((cx.t - (d0 + 0.16 * i)) / 0.9)
         e = ease_io(kd, 2.0)
         ka = cx.amt(it["at"], 0.5)
+        # hareket (kurul C-c0 "gerekçe madalyonu hareketi"): madalyon aşağıdan oturarak gelir, simge girince sallanır, ardından yavaş salınır
+        ent = anim.settle(cx.t, d0 + 0.16 * i - 0.2, 0.7, 0.12)
+        yc = 520.0 + 260.0 * (1.0 - ent) + 8.0 * math.sin(cx.t * 1.1 + i * 2.1)
+        t_ic = cx.at(it["at"])
+        rot_ic = 0.10 * anim.wobble(cx.t, t_ic + 0.2, amp=1.0, freq=2.6, decay=3.5)
         # arkada dönen ışın tacı (simge geldikten sonra)
         if ka > 0.003:
             for r_ in range(28):
@@ -861,8 +884,15 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
         if ka > 0.003:
             sc = 0.7 + 0.3 * sk.back_out(ka)
             pulse = 1.0 + 0.04 * math.sin(cx.t * 3 + i) * ka
-            icons.draw_icon(f, it["icon"], x, yc - 6, size=210 * sc * pulse, metal="gold", alpha=ka, glow=0.0)
-            CM.ink(f, it["label"], x, yc + R + 74 + (1 - ka) * 10, face="title_m", size=CM.fit_size(it["label"], "title_m", 34, gap - 30, 6), color=TH.fg, align="c", track=6, alpha=ka, emboss=False)
+            icons.draw_icon(f, it["icon"], x, yc - 6, size=210 * sc * pulse, metal="gold", alpha=ka, glow=0.0, rot=rot_ic)
+            # parıltı süpürmesi (simge girişinde)
+            gs = clamp((cx.t - t_ic - 0.15) / 0.7)
+            if 0 < gs < 1:
+                gx = x - R + 2 * R * gs
+                f.circle(gx, yc - 20, 60, shader=f.rad(gx, yc - 20, 60, [("#FFF4C0", 0.0, int(150 * math.sin(gs * math.pi))), ("#FFF4C0", 1.0, 0)]))
+            lsz = CM.fit_size(it["label"], "title_m", 40, gap - 12, 4)
+            f.rrect(x - gap / 2 + 12, yc + R + 34 + (1 - ka) * 10, gap - 24, lsz + 34, 10, color="#120C08", alpha=0.62 * ka)
+            CM.ink(f, it["label"], x, yc + R + 34 + lsz + 8 + (1 - ka) * 10, face="title_m", size=lsz, color="#FFF4D6", align="c", track=4, alpha=ka, emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
 

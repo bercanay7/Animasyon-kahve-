@@ -575,6 +575,23 @@ def gilt(text, face="title", size=120, track=8.0, metal="leaf", spec=0.85, bevel
     return Spr(sk.np_to_image(spr), ox, oy, spr.shape[1], spr.shape[0], wid, spr[..., 3])
 
 
+def soft_glint(c, img, ix, iy, bounds, gx, bw, alpha=1.0, col="#FFF1BE", peak=150, tilt=0.35):
+    """Yumuşak kenarlı parlama bandı: `img` (yerel ix,iy'de çizili) alfa maskesinin İÇİNDE, gx merkezli, ±bw yarı genişlikte eğik bant.
+    Görüntü ikinci kez çizilmez (SrcIn: bant rengi maskelenir) ve kırpma dikdörtgeni yoktur → dikdörtgen artefakt / çift opaklık oluşmaz."""
+    a = clamp(alpha)
+    if a <= 0.003 or bw <= 0:
+        return
+    L, T_, R_, B_ = bounds
+    if gx + bw < L or gx - bw > R_:
+        return
+    c.saveLayer(skia.Rect.MakeLTRB(L, T_, R_, B_), None)
+    c.drawImage(img, ix, iy, _LIN, skia.Paint(AntiAlias=True))
+    sh = skia.GradientShader.MakeLinear([(gx - bw, -tilt * bw), (gx + bw, tilt * bw)], [C(col, 0), C(col, int(peak * 0.35 * a)), C(col, int(peak * a)), C(col, int(peak * 0.35 * a)), C(col, 0)],
+                                        [0.0, 0.30, 0.5, 0.70, 1.0])
+    c.drawRect(skia.Rect.MakeLTRB(L, T_, R_, B_), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcIn))
+    c.restore()
+
+
 def draw_spr(f, spr, x, y, align="c", alpha=1.0, scale=1.0, glow=0.0, reveal=None, glow_color=None, shadow=0.0, glint=None):
     """Sprite'ı taban çizgisi (x,y) noktasına çiz. reveal: 0..1 soldan açılım (yumuşak kenar). shadow: alt-sağ yumuşak gölge şiddeti."""
     c = f.c
@@ -601,19 +618,10 @@ def draw_spr(f, spr, x, y, align="c", alpha=1.0, scale=1.0, glow=0.0, reveal=Non
     p.setAlphaf(clamp(alpha))
     c.drawImage(spr.img, 0, 0, _LIN, p)
     if glint is not None and 0.0 <= glint <= 1.0:
-        # parlama: yalnız dar bir bant içinde (saveLayer + SrcATop yalnız bu bantta → ucuz)
+        # parlama: yumuşak kenarlı eğik bant, sprite alfasıyla maskeli (sert kenarlı kırpma şeridi yok)
         bw = spr.h * 0.34
         gx = -spr.h * 0.5 + (spr.w + spr.h) * glint
-        L_, R_ = max(0.0, gx - bw), min(float(spr.w), gx + bw)
-        if R_ > L_:
-            c.save()
-            c.clipRect(skia.Rect.MakeLTRB(L_, 0, R_, spr.h))
-            c.saveLayer(skia.Rect.MakeLTRB(L_, 0, R_, spr.h), None)
-            c.drawImage(spr.img, 0, 0, _LIN, skia.Paint(AntiAlias=True))
-            sh = skia.GradientShader.MakeLinear([(gx - bw * 0.7, 0), (gx + bw * 0.25, spr.h * 0.5)], [C("#FFFFFF", 0), C("#FFF2C0", int(125 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-            c.drawRect(skia.Rect.MakeLTRB(L_, 0, R_, spr.h), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-            c.restore()
-            c.restore()
+        soft_glint(c, spr.img, 0, 0, (max(0.0, gx - bw * 1.3), 0, min(float(spr.w), gx + bw * 1.3), spr.h), gx, bw, alpha, "#FFF2C0", 125)
     if reveal is not None and reveal < 1.0:
         fw = max(8.0, spr.h * 0.25)
         sh = skia.GradientShader.MakeLinear([(x_edge - fw, 0), (x_edge, 0)], [skia.ColorBLACK, skia.ColorTRANSPARENT], [0, 1])
@@ -1065,15 +1073,21 @@ def wax_seal(f, x, y, r=54, color="#A52A1C", alpha=1.0, t=1.0, mono=None, palle=
     c.restore()
 
 
-def mini_palle(f, x, y, s, mono=False, color="#7A2018", alpha=1.0):
-    """Küçük altı-top (palle) şeması; mono=True mühür/oyuk için tek renk."""
-    for (dx, dy, rr) in PALLE_POS:
+def mini_palle(f, x, y, s, mono=False, color="#7A2018", alpha=1.0, variant=None):
+    """Küçük palle şeması; mono=True mühür/oyuk için tek renk. variant: None → dönem kuralı (yıl yoksa eski altı top) | 'std' | 'red8'."""
+    if variant is None:
+        a_ = DN.medici_arms()
+        variant = a_["variant"] if a_ else "std"
+        DN.note_once_per_frame("arms", where="mini_palle", variant=variant, blue=False, mono=bool(mono))
+    for (dx, dy, rr) in (PALLE_POS_RED8 if variant == "red8" else PALLE_POS):
         px, py = x + (dx - 0.5) * s * 0.78, y + (dy - 0.52) * s * 0.78
         f.circle(px, py, rr * s * 0.78, color=color, alpha=alpha)
 
 
 # palle konumları (kalkan birimi 1×1.15): üst mavi (büyük) + 5 kırmızı
 PALLE_POS = [(0.50, 0.17, 0.150), (0.19, 0.34, 0.125), (0.81, 0.34, 0.125), (0.27, 0.63, 0.125), (0.73, 0.63, 0.125), (0.50, 0.86, 0.125)]
+# 1465 öncesi: 8 palle kenar boyunca (in orlo), orta boş (donem.medici_arms)
+PALLE_POS_RED8 = [(0.25, 0.17, 0.105), (0.50, 0.14, 0.105), (0.75, 0.17, 0.105), (0.17, 0.42, 0.105), (0.83, 0.42, 0.105), (0.27, 0.67, 0.105), (0.73, 0.67, 0.105), (0.50, 0.88, 0.105)]
 
 
 # ───────────────────────────── yardımcılar ─────────────────────────────

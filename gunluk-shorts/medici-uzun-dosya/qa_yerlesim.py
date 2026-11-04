@@ -184,17 +184,17 @@ def main():
         for e in texts:
             if e["type"] != "ink" or not e.get("main", True) or not e.get("text"):
                 continue
-            key = (e["shot"], e["text"], e["frame"])
+            key = (e["shot"], e["text"])
             if key in seen_t:
                 continue
-            seen_t.add(key)
             b = e["box"]
             base = dict(cekim=e["shot"], etiket=e["label"], sn=e["g"], metin=e["text"], kutu=[round(v) for v in b], boy=e["size"])
+            n0 = len(twarn)
             if b[2] < 0 or b[0] > 1920 or b[3] < 0 or b[1] > 1080:
                 continue                                      # tamamen kadraj dışı (kamera geçişi) — görünmüyor
             if not inside(b, S, 2.0):
                 twarn.append(dict(base, tip="yazi_kenar"))
-            if e["hud_on"] and hits(b, HR, 0.0):
+            if e["hud_on"] and e.get("label") is not None and hits(b, HR, 0.0):     # label None = çekim dışı kaplama (HUD'un kendisi, bölüm etiketi)
                 twarn.append(dict(base, tip="yazi_hud"))
             if b[3] > sub[0] + 2 and b[1] < sub[1]:
                 twarn.append(dict(base, tip="yazi_altyazi"))
@@ -205,6 +205,8 @@ def main():
                 if hits(b, B) and not inside(b, B, 1.5) and (min(b[2], B[2]) - max(b[0], B[0])) > 0.5 * (b[2] - b[0]):
                     twarn.append(dict(base, tip="metin_levhadan_tasiyor", levha=[round(v) for v in B]))
                     break
+            if len(twarn) > n0:
+                seen_t.add(key)                                   # aynı çekimdeki aynı yazı bir kez raporlanır
 
     def count(lst):
         d = {}
