@@ -1,3 +1,11 @@
 [ASR] 143 koşu CRC eşleşmesiyle önbellekten taşındı (kaymış zaman)
 [ASR] 298 iş, önbellekte 287, işlenecek 11
   [ASR] 4/11 (%36) geçen 31 sn, kalan ≈ 54 sn
+  [ASR] 10/11 (%91) geçen 51 sn, kalan ≈ 5 sn
+[ASR] bitti: 11 iş, 53 sn
+[HMM] tur 1: 298 koşu özelliği; 296 güvenilir koşu ile eğitiliyor (442 sn)
+    HMM eğitim 1/8: kare başına log-olasılık -51.725
+    HMM eğitim 2/8: kare başına log-olasılık -47.765
+    HMM eğitim 3/8: kare başına log-olasılık -47.159
+    HMM eğitim 4/8: kare başına log-olasılık -46.960
+    HMM eğitim 5/8: kare başına log-olasılık -46.869

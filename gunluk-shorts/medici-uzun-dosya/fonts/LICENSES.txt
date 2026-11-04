@@ -10,3 +10,6 @@ IM Fell DW Pica   — Igino Marini (iginomarini.com, Google Fonts) — OFL 1.1
 
 Kaynak: npm paketleri @expo-google-fonts/* (Google Fonts dağıtımı).
 Lisans metni: https://openfontlicense.org
+
+Cinzel_900Black.ttf — Cinzel'in değişken (wght 400–900) Google Fonts dağıtımının wght=900 sabit örneği; latin + latin-ext
+alt kümeleri tek dosyada birleştirildi (fontTools instancer + merge; Türkçe İ Ş Ğ Ç Ö Ü). Kaynak: sisifos/fonts/Cinzel-normal-900-*.woff2. OFL 1.1.

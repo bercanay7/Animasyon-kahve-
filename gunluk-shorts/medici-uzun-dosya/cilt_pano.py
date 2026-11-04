@@ -23,6 +23,7 @@ import cilt_anim as FA
 import cilt_city as CT
 import cilt_medici as CM
 import cilt_scene as SC
+import donem as DN
 import sk
 from cilt_medici import TH, ckind
 from sk import C, H, W, clamp, mix, smooth
@@ -130,8 +131,9 @@ class Layer:
     """Paralaks katmanı: `draw(fr, xa, xb)` katman koordinatında [xa,xb] aralığındaki nesneleri çizer (fr: sk.Frame; fr.c ötelenmiş+kırpılmış).
     Kareaşlar TW px (scale<1 ise daha geniş katman aralığı) — tembel; disk önbelleği out/_cache/world."""
 
-    def __init__(self, world, name, f, width, draw, scale=1.0, opaque=False, h=None, wear=0, loss=0.0, tod="day", yr=None):
+    def __init__(self, world, name, f, width, draw, scale=1.0, opaque=False, h=None, wear=0, loss=0.0, tod="day", yr=None, era_tag=""):
         self.world, self.name, self.f, self.width, self.draw, self.scale, self.opaque = world, name, f, int(width), draw, scale, opaque
+        self.era_tag = era_tag or ""                  # dönem eki (yalnız dönem-bağımlı katmanlarda; eski önbellek adları değişmez)
         self.h = h or (800 + 2 * OV)
         self.y0, self.y1 = yr if yr else (0, self.h)
         self.TWL = TW / scale
@@ -143,7 +145,7 @@ class Layer:
         return max(1, int(math.ceil(self.width / self.TWL)))
 
     def _path(self, i):
-        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}_{VER}.png")
+        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}_{VER}{self.era_tag}.png")
 
     def tile(self, i):
         t = self.tiles.get(i)
@@ -311,9 +313,12 @@ class World:
     name = "base"
     PW = 8000
     interior = False
+    ERA_LAYERS = frozenset()          # dönem (yıl) bağımlı katmanlar: önbellek adlarına dönem eki eklenir (donem.py)
+    DUOMO = None                      # (katman_adı, x) — dönem kaydı için Duomo'nun katman konumu
 
-    def __init__(self, tod="day"):
+    def __init__(self, tod="day", era=None):
         self.tod = tod
+        self.era = era if self.ERA_LAYERS else None
         self.T = CT.Tint(tod)
         self.layers = {}
         self.build()
@@ -331,9 +336,22 @@ class World:
         pass
 
     def layer(self, name, f, width, draw, **kw):
+        if name in self.ERA_LAYERS:
+            kw.setdefault("era_tag", CT.era_tag(self.era))
         L = Layer(self.name, name, f, width, draw, tod=self.tod, **kw)
         self.layers[name] = L
         return L
+
+    def note_era(self, ctx):
+        """Dönem kaydı: Duomo bu karede görünüyorsa çizilen durumu yaz (qa_donem)."""
+        if not DN.LOG_ON or not self.DUOMO or not self.ERA_LAYERS:
+            return
+        L = self.layers.get(self.DUOMO[0])
+        if L is None:
+            return
+        xa, xb = ctx.view(L.f, m=0)
+        if xa - 900 < self.DUOMO[1] < xb + 900:
+            CT.note_era("pano:" + self.name, self.era)
 
     def bake_all(self, cam_x_range=None):
         """Tüm kareaşları önceden pişir (süre ölçümü / önbellek ısıtma)."""
@@ -348,10 +366,12 @@ class World:
 _WORLDS = {}
 
 
-def get_world(name, tod):
-    key = (name, tod)
+def get_world(name, tod, era=None):
+    cls = WORLDS[name]
+    era = era if cls.ERA_LAYERS else None
+    key = (name, tod, era)
     if key not in _WORLDS:
-        _WORLDS[key] = WORLDS[name](tod)
+        _WORLDS[key] = cls(tod, era) if cls.ERA_LAYERS else cls(tod)
     return _WORLDS[key]
 
 
@@ -598,7 +618,7 @@ def k_pano(cx, pano="florence", tod=None, cams=None, stations=None, kick=None, c
     tod = tod or ("night" if night_theme else "day")
     if band is None:
         band = (150, 800) if frame else (0, 800)
-    world = get_world(pano, tod)
+    world = get_world(pano, tod, CT.era_key() if WORLDS[pano].ERA_LAYERS else None)
     c = f.c
     a = cx.amt(at, 0.9) if at else 1.0
     dur = max(cx.dur, 1e-3)
@@ -652,6 +672,7 @@ def k_pano(cx, pano="florence", tod=None, cams=None, stations=None, kick=None, c
             getattr(world, item[1])(ctx)
             ctx.end()
     c.restore()
+    world.note_era(ctx)
     if frame:
         for yy in (by0 - 40, by0 + bh):
             FA.vine_band(f, yy, a)
@@ -721,6 +742,8 @@ class Florence(World):
     name = "florence"
     PW = 13400
     interior = False
+    ERA_LAYERS = frozenset({"city"})
+    DUOMO = ("city", 3700)
 
     # ── dünya kurulumu ──────────────────────────────────────────────────────
     def build(self):
@@ -877,19 +900,20 @@ class Florence(World):
             c.translate(XD - 1150, base)
             c.scale(1.18, 1.18)
             c.translate(-(XD - 1150), -base)
-            self.flag = CT.draw_pv(c, XD - 1150, base + 4, 1.0, T, 0.18)
-            self.flag = (XD - 1150 + (self.flag[0] - (XD - 1150)) * 1.18, base + (self.flag[1] - base) * 1.18)
+            era = self.era
+            fl = CT.draw_pv(c, XD - 1150, base + 4, 1.0, T, 0.18, stage=None if era is None else era[2])
+            if fl is None:                                       # Palazzo Vecchio yok/yarım (1314 öncesi): flama bir ortaçağ kulesinde
+                fl = (XD - 880, base - 161)
+            self.flag = (XD - 1150 + (fl[0] - (XD - 1150)) * 1.18, base + (fl[1] - base) * 1.18)
             c.restore()
-            # Duomo grubu (ölçek 1,25)
+            # Duomo grubu (ölçek 1,25) — dönem durumuna göre (donem.py)
             c.save()
             c.translate(XD, base)
             c.scale(1.25, 1.25)
             c.translate(-XD, -base)
-            CT.draw_dome(c, XD + 1000, base - 18, 120, 82, 32, 44, T, 0.28)
-            CT.draw_nave(c, XD + 70, XD + 640, base + 4, 124, T, 0.16)
-            CT.draw_bapt(c, XD + 700, base + 6, 96, 64, T, 0.12)
-            CT.draw_dome(c, XD, base - 108, 214, 132, 48, 74, T, 0.12)
-            CT.draw_campanile(c, XD + 205, base + 4, 54, 262, T, 0.12)
+            if era is None or era[3]:
+                CT.draw_dome(c, XD + 1000, base - 18, 120, 82, 32, 44, T, 0.28)
+            CT.draw_duomo_group(c, XD, base, T, era, depth=(0.16, 0.12, 0.12, 0.12))
             c.restore()
             c.restore()
         if night:
