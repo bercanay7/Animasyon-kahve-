@@ -27,6 +27,7 @@ import cilt_city as CT
 import cilt_medici as CM
 import cilt_pano as PN
 import cilt_scene as SC
+import donem as DN
 import sk
 from cilt_medici import TH, ckind
 from sk import C, H, W, clamp, mix, smooth
@@ -73,16 +74,18 @@ def _pt(col, a=255, aa=True, style=None, sw=1.0):
 
 # ═════════════════════════════ katman + dünya tabanı ═════════════════════════════
 class SLayer(PN.Layer):
-    """pano.Layer ile aynı; yalnız önbellek dosya adı bu modülün sürümünü taşır."""
+    """pano.Layer ile aynı; yalnız önbellek dosya adı bu modülün sürümünü taşır (dönem eki sürümden ÖNCE: _clean_stale onu silmez)."""
 
     def _path(self, i):
-        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}_{VER}.png")
+        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}{self.era_tag}_{VER}.png")
 
 
 class SWorld(PN.World):
     interior = False
 
     def layer(self, name, f, width, draw, **kw):
+        if name in self.ERA_LAYERS:
+            kw.setdefault("era_tag", CT.era_tag(self.era))
         L = SLayer(self.name, name, f, width, draw, tod=self.tod, **kw)
         self.layers[name] = L
         return L
@@ -520,8 +523,13 @@ def palazzo_front(f, x, y, w, h, kind="vecchio", door=None, T=None, depth=0.0, s
     return g
 
 
-def medici_shield(c, x, y, s, T=None):
-    """Medici kalkanı (stilize, altın zemin + altı kırmızı top; yazı yok): x,y merkez, s yarı genişlik."""
+def medici_shield(c, x, y, s, T=None, variant=None):
+    """Medici kalkanı (stilize, altın zemin + kırmızı toplar; yazı yok): x,y merkez, s yarı genişlik.
+    variant: None → dönem kuralı (donem.medici_arms; yıl yoksa eski: altı kırmızı top) | 'red8' (≤1464: 8 kırmızı, mavi yok) | 'std' (≥1465: üstte mavi zambaklı top + 5 kırmızı)."""
+    if variant is None:
+        a_ = DN.medici_arms()
+        variant = a_["variant"] if a_ else "old6"
+        DN.note_once_per_frame("arms", where="sehir_kalkan", variant=variant, blue=(variant == "std"))
     sp = skia.Path()
     sp.moveTo(x - s, y - s * 1.05)
     sp.lineTo(x + s, y - s * 1.05)
@@ -531,8 +539,21 @@ def medici_shield(c, x, y, s, T=None):
     sp.close()
     c.drawPath(sp, _pt("#E0B84E"))
     INKP(c, sp, 1.6, 200)
-    for (px, py) in ((0.0, -0.62), (-0.46, -0.12), (0.46, -0.12), (-0.24, 0.40), (0.24, 0.40), (0.0, 0.82)):
-        c.drawCircle(x + px * s, y + py * s, s * 0.21, _pt("#B33620"))
+    if variant == "red8":
+        balls = [(-0.50, -0.66, "r"), (0.0, -0.70, "r"), (0.50, -0.66, "r"), (-0.58, -0.10, "r"), (0.58, -0.10, "r"), (-0.34, 0.46, "r"), (0.34, 0.46, "r"), (0.0, 0.90, "r")]
+        rr = 0.19
+    elif variant == "std":
+        balls = [(0.0, -0.60, "b"), (-0.46, -0.10, "r"), (0.46, -0.10, "r"), (-0.24, 0.42, "r"), (0.24, 0.42, "r"), (0.0, 0.84, "r")]
+        rr = 0.21
+    else:
+        balls = [(0.0, -0.62, "r"), (-0.46, -0.12, "r"), (0.46, -0.12, "r"), (-0.24, 0.40, "r"), (0.24, 0.40, "r"), (0.0, 0.82, "r")]
+        rr = 0.21
+    for (px, py, k_) in balls:
+        r_ = s * rr * (1.18 if k_ == "b" else 1.0)
+        c.drawCircle(x + px * s, y + py * s, r_, _pt("#B33620" if k_ == "r" else "#2A4FA8"))
+        if k_ == "b":
+            for (lx, ly) in ((-0.36, -0.22), (0.36, -0.22), (0.0, 0.32)):
+                c.drawCircle(x + px * s + lx * r_, y + py * s + ly * r_, r_ * 0.17, _pt("#E8C45A"))
         c.drawCircle(x + px * s - s * 0.06, y + py * s - s * 0.07, s * 0.07, _pt("#FFFFFF", 90))
 
 
@@ -1265,6 +1286,8 @@ def _pile_sprite(kind="ates", seed=3):
 class Meydan(SWorld):
     name = "sehir_meydan"
     PW = 5200
+    ERA_LAYERS = frozenset({"city"})
+    DUOMO = ("city", 880)
     _draw_sky = PN.Florence._draw_sky
     _draw_hills = PN.Florence._draw_hills
     dyn_sky = PN.Florence.dyn_sky
@@ -1344,9 +1367,7 @@ class Meydan(SWorld):
             c.translate(XD, base)
             c.scale(1.18, 1.18)
             c.translate(-XD, -base)
-            CT.draw_nave(c, XD + 60, XD + 560, base + 4, 118, T, 0.16)
-            CT.draw_dome(c, XD, base - 100, 200, 124, 44, 70, T, 0.12)
-            CT.draw_campanile(c, XD + 196, base + 4, 50, 244, T, 0.12)
+            CT.draw_duomo_group(c, XD, base, T, self.era, nave=(60, 560, 4, 118), bapt=None, dome=(-100, 200, 124, 44, 70), camp=(196, 4, 50, 244))
             c.restore()
             for tx, th in ((XD - 760, 150), (XD + 1020, 142), (XD + 1500, 176), (XD + 2100, 134), (XD + 2700, 160)):
                 CT.draw_tower(c, tx, base, 30, th, T, 0.35, spire=(tx == XD + 1500))
@@ -1698,6 +1719,8 @@ class Meydan(SWorld):
         self._cdir = sg
         fk = p.get("flags", "medici" if pal else "lily")
         self._cdev = {"medici": ("medici", "#E0B84E", "#B33620"), "lily": ("lily", "#F4EEDC", "#B33620"), "stripes": ("stripes", "#233C8C", "#E0B84E"), "cross": ("cross", "#F4EEDC", "#B33620")}.get(fk) if fk else None
+        self._cdev_req = self._cdev
+        self._cdev = DN.flag_sub(self._cdev, ctx=p.get("flag_ctx", "alay" if pal else "kalabalik"))     # dönem: izinsiz Medici sancağı → düz altın
         n = int(p.get("n", 24 if pal else 32))
         kinds = ["halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk"]
         self._palle_crowd = []
@@ -1865,7 +1888,7 @@ class Meydan(SWorld):
             rank = {int(w): r for r, w in enumerate(order)}
             ctx.win_off = [0.10 * dur + 0.74 * dur * (rank[i] / max(1, n - 1)) for i in range(n)] + [0.90 * dur]
         elif act in ("palle", "kalabalik"):
-            key_ = (dur, act, p.get("dir"), p.get("n"), p.get("flags"), p.get("riders"))
+            key_ = (dur, act, p.get("dir"), p.get("n"), p.get("flags"), p.get("riders"), DN.year(), p.get("flag_ctx"))
             if getattr(self, "_pd", None) != key_:
                 self._prepare_crowd(cx, act, p)
                 self._pd = key_
@@ -2104,6 +2127,8 @@ class Sokak(SWorld):
     _draw_hills = PN.Florence._draw_hills
     dyn_sky = PN.Florence.dyn_sky
     _draw_city = Meydan._draw_city
+    ERA_LAYERS = frozenset({"city"})
+    DUOMO = ("city", 880)
 
     def build(self):
         PW = self.PW
@@ -2700,6 +2725,8 @@ def ks_ground(x):
 class KaleSur(SWorld):
     name = "sehir_kale_sur"
     PW = 3800
+    ERA_LAYERS = frozenset({"city"})
+    DUOMO = ("city", 1500)
     _draw_sky = PN.Florence._draw_sky
     _draw_hills = PN.Florence._draw_hills
     dyn_sky = PN.Florence.dyn_sky
@@ -2754,10 +2781,9 @@ class KaleSur(SWorld):
         base = 646
         XD = 1500
         if xa - 900 < XD < xb + 900:
-            CT.draw_nave(c, XD + 60, XD + 480, base + 4, 100, T, 0.24)
-            CT.draw_dome(c, XD, base - 88, 176, 108, 40, 60, T, 0.22)
-            CT.draw_campanile(c, XD + 178, base + 4, 44, 210, T, 0.22)
-            CT.draw_pv(c, XD + 800, base + 4, 0.80, T, 0.28)
+            CT.draw_duomo_group(c, XD, base, T, self.era, nave=(60, 480, 4, 100), bapt=None, dome=(-88, 176, 108, 40, 60), camp=(178, 4, 44, 210),
+                                depth=(0.24, 0.22, 0.22, 0.22))
+            CT.draw_pv(c, XD + 800, base + 4, 0.80, T, 0.28, stage=None if self.era is None else self.era[2])
         GRAD_V(c, xa, 636, xb, 760, [(T("#97A468", 0.3), 0.0), (T("#8C9A5A", 0.2), 1.0)])
 
     def _draw_main(self, fr, xa, xb):
@@ -3343,8 +3369,9 @@ class VLayer:
     draw(fr, r0, r1): katman tuval koordinatında (y aşağı; satır 0 = katmanın tepesi; zemin = LH) [r0,r1] satırlarını çizer."""
     TH = 1024
 
-    def __init__(self, world, name, fy, width, ground, pad, draw, tod="day", fx=0.0):
+    def __init__(self, world, name, fy, width, ground, pad, draw, tod="day", fx=0.0, era_tag=""):
         self.world, self.name, self.fy, self.fx = world, name, fy, fx
+        self.era_tag = era_tag or ""
         self.ground, self.pad = int(ground), int(pad)
         self.width, self.height, self.draw, self.tod = int(width), int(ground + pad), draw, tod
         self.tiles = {}
@@ -3353,7 +3380,7 @@ class VLayer:
         return int(math.ceil(self.height / self.TH))
 
     def _path(self, i):
-        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}_{VER}.png")
+        return os.path.join(CACHE, f"{self.world}_{self.tod}_{self.name}_{i}{self.era_tag}_{VER}.png")
 
     def tile(self, i):
         t = self.tiles.get(i)
@@ -3432,11 +3459,16 @@ class SkylineDikey(SWorld):
     name = "sehir_dikey"
     PW = VLW
     CAM_Y_SIGN = -1                      # cam=("crane","up",px): kamera yüksekliği artar (camy = zeminden yükseklik)
+    ERA_LAYERS = frozenset({"city"})
+
+    def note_era(self, ctx):
+        """Dikey planda Duomo arka planda (kule boyunca görünür): her karede kaydet."""
+        CT.note_era("sehir:dikey", self.era)
 
     def build(self):
         self.vl = {}
         self.vl["far"] = VLayer(self.name, "far", 0.10, VLW, 700, 760, self._draw_far, self.tod)
-        self.vl["city"] = VLayer(self.name, "city", 0.22, VLW, 900, 760, self._draw_city_v, self.tod)
+        self.vl["city"] = VLayer(self.name, "city", 0.22, VLW, 900, 760, self._draw_city_v, self.tod, era_tag=CT.era_tag(self.era))
         self.vl["mid"] = VLayer(self.name, "mid", 0.50, VLW, 2000, 760, self._draw_mid_v, self.tod)
         self.vl["main"] = VLayer(self.name, "main", 1.0, VLW, VH, 760, self._draw_main_v, self.tod)
         self.vl["near"] = VLayer(self.name, "near", 1.45, VLW, 760, 0, self._draw_near_v, self.tod)
@@ -3498,9 +3530,7 @@ class SkylineDikey(SWorld):
         c.translate(XD, base)
         c.scale(1.5, 1.5)
         c.translate(-XD, -base)
-        CT.draw_nave(c, XD + 70, XD + 640, base + 4, 124, T, 0.26)
-        CT.draw_dome(c, XD, base - 108, 214, 132, 48, 74, T, 0.22)
-        CT.draw_campanile(c, XD + 205, base + 4, 54, 262, T, 0.22)
+        CT.draw_duomo_group(c, XD, base, T, self.era, bapt=None, depth=(0.26, 0.22, 0.22, 0.22))
         c.restore()
         for tx, th in ((200, 210), (1500, 250), (1860, 180), (2150, 220)):
             CT.draw_tower(c, tx, base, 32, th, T, 0.32, spire=(tx == 1500))
@@ -3717,15 +3747,17 @@ def _clean_stale():
         pass
 
 
-def get_sworld(scene, act, tod):
+def get_sworld(scene, act, tod, era=None):
+    """Dünya örneği (önbellekli). era: dönem anahtarı (cilt_city.era_key; yalnız Duomo çizen dünyalarda anlamlı) — None → eski çizim."""
     _clean_stale()
     cls = CLASSES.get((scene, act)) or CLASSES.get((scene, None))
     if cls is None:
         raise ValueError(f"sehir: bilinmeyen sahne/act: {scene!r}/{act!r} (meydan: ates|odun|palle|pencere · sokak · kale: sur|castel|passetto · skyline_dikey)")
-    key = (cls.name, tod)
+    era = era if cls.ERA_LAYERS else None
+    key = (cls.name, tod, era)
     w = _SW.get(key)
     if w is None:
-        w = _SW[key] = cls(tod)
+        w = _SW[key] = cls(tod, era) if cls.ERA_LAYERS else cls(tod)
     return w
 
 
@@ -3749,7 +3781,7 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
     act = act or DEFAULT_ACT.get(scene)
     night_theme = not TH.day
     tod = tod or ACT_TOD.get((scene, act)) or ("night" if night_theme else "day")
-    world = get_sworld(scene, act, tod)
+    world = get_sworld(scene, act, tod, CT.era_key())
     if band is None:
         band = (150, 800) if frame else (0, 800)
     a = cx.amt(at, 0.9) if at else 1.0
@@ -3833,6 +3865,7 @@ def k_sehir(cx, scene="meydan", act=None, tod=None, cams=None, actors=None, stat
 
 def _sehir_finish(f, cx, c, ctx, world, tod, frame, by0, bh, a, kick, caption, at):
     """Bant süsleri + metin + günışığı/toz/vinyet (tüm sahneler için ortak son)."""
+    world.note_era(ctx)
     if frame:
         for yy in (by0 - 40, by0 + bh):
             FA.vine_band(f, yy, a)

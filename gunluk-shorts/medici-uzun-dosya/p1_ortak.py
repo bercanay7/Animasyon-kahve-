@@ -423,9 +423,9 @@ def oda_xy(x, y, cam):
 import icons as _icons
 import cilt_oda as OD
 
-GIOVANNI = dict(kind="banker", seed=77, robe="#6A1E24", robe2="#D2A33E", hat="scholar", hat_col="#2A1A14", beard=None)   # tekrar eden insan çapası
-COSIMO = dict(kind="banker", seed=78, robe="#233C8C", robe2="#D2A33E", hat="scholar", hat_col="#1E2438", beard=None)
-LORENZO_V = dict(kind="banker", seed=79, robe="#34261C", robe2="#D2A33E", hat="flatcap", hat_col="#5A1A20", beard=None)  # Giovanni'nin küçük oğlu (Lorenzo di Giovanni)
+GIOVANNI = dict(kind="banker", seed=5)     # tekrar eden insan çapası: koyu kızıl cüppe (lucco), koyu berretta (kit kostümü seed=5; p1banka 0. masa da bu)
+COSIMO = dict(kind="banker", seed=33)      # lacivert cüppe, kısa sakal
+LORENZO_V = dict(kind="banker", seed=13)   # Giovanni'nin küçük oğlu (Lorenzo di Giovanni): kahverengi cüppe
 
 
 def actor(base, **kw):
@@ -585,6 +585,13 @@ class P1Yatak(OD.Oda1743):
             OD.draw_chair(c, T, self.CHAIR_X, self.FIG_Y, 270, 74, 92, facing=1)
 
 
+class P1Banka(OD.Banka):
+    """Banka salonu; 0. masadaki (köşe) yazan bankacı = GIOVANNI (kit seed 5) — c1 sonu / c2 başı aynı kişi."""
+    name = "p1banka"
+    ST = [dict(x=330, act="write", seed=5), dict(x=1010, act="count", seed=8), dict(x=1690, act="write", seed=12), dict(x=2370, act="count", seed=17)]
+
+
+OD.ROOMS["p1banka"] = P1Banka
 OD.ROOMS["p1ofis"] = P1Ofis
 OD.ROOMS["p1salon"] = P1Salon
 OD.ROOMS["p1yatak"] = P1Yatak

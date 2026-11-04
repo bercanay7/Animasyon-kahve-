@@ -551,12 +551,15 @@ def era_key(y=_AUTO):
     return (DN.duomo_stage(y), DN.campanile_stage(y), DN.pv_stage(y), DN.sanlorenzo_dome(y))
 
 
+ERA_VER = "1"           # dönem çiziminin sürümü (draw_dome/_campanile/_pv aşamalı çizim kodu değişince artır: önbellek adına girer)
+
+
 def era_tag(era):
-    """Önbellek dosya adı eki: '' (eski) ya da '_e<…>'."""
+    """Önbellek dosya adı eki: '' (eski) ya da '_e<sürüm>…'."""
     if era is None:
         return ""
     d, cp, pv, sl = era
-    return f"_e{d.tag()}c{int(round(cp * 1000))}p{int(round(pv * 1000))}{'s' if sl else 'n'}"
+    return f"_e{ERA_VER}{d.tag()}c{int(round(cp * 1000))}p{int(round(pv * 1000))}{'s' if sl else 'n'}"
 
 
 def note_era(where, era, **extra):
@@ -587,8 +590,9 @@ def draw_duomo_group(c, cx_dome, base, T, era, nave=(70, 640, 4, 124), bapt=(700
         _scaffold(c, cx_dome + n0, cx_dome + n0 + (n1 - n0) * 0.45, base + ny - nh * (0.55 + 0.45 * d.nave) - 14, 16, T, depth[0], n=9, a=180)
     else:                                               # 1296 öncesi: eski Santa Reparata (alçak bazilika)
         draw_nave(c, cx_dome + n0 + (n1 - n0) * 0.25, cx_dome + n1, base + ny, nh * 0.62, T, depth[0])
-    bx, by, bw, bh = bapt
-    draw_bapt(c, cx_dome + bx, base + by, bw, bh, T, depth[1])
+    if bapt is not None:
+        bx, by, bw, bh = bapt
+        draw_bapt(c, cx_dome + bx, base + by, bw, bh, T, depth[1])
     if d is None or d.nave > 0.0:
         dy, dw, dhd, ddr, dl = dome
         draw_dome(c, cx_dome, base + dy, dw, dhd, ddr, dl, T, depth[2], stage=d)

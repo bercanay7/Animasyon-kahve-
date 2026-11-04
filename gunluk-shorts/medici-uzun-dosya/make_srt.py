@@ -75,6 +75,8 @@ def bad_break(left, right):
         return True
     if r.rstrip(".,;:!?”\"") in GLUE_PREV:
         return True
+    if (l, r[:5]) in (("okuma", "yazma"), ("alacak", "ve"), ("kâr", "ve")) or (l == "via" and r[:1].isalpha()):   # ikilemeler ve sokak adları
+        return True
     return False
 
 
@@ -82,6 +84,11 @@ def wrap2(text):
     """≤2 satıra böl (ortaya yakın boşlukta; noktalamadan sonra ve okumayı bölmeyen yerde)."""
     if len(text) <= MAXCH:
         return text
+    r = _wrap_try(text, 3)                                 # ≤ 42 hedef; 43–45 yalnız okumayı bölen bir kesmeden kaçınmak için (ceza)
+    return r if r else text
+
+
+def _wrap_try(text, slack):
     best, bd = None, 1e9
     toks = text.split(" ")
     pos = 0
@@ -89,17 +96,19 @@ def wrap2(text):
         pos += len(toks[k])
         i = pos
         pos += 1
-        if i > MAXCH + 3 or len(text) - i - 1 > MAXCH + 3:
+        if i > MAXCH + slack or len(text) - i - 1 > MAXCH + slack:
             continue
         d = abs(len(text) / 2 - i)
         if re.search(r"[.,;:!?]$", toks[k]):
             d -= 6                                          # noktalamadan sonra bölmek doğal
         if bad_break(toks[k], toks[k + 1]):
             d += 40
+        if i > MAXCH or len(text) - i - 1 > MAXCH:
+            d += 25                                         # 42'yi aşan satır: yumuşak ceza
         if d < bd:
             best, bd = i, d
     if best is None:
-        return text
+        return None
     return text[:best] + "\n" + text[best + 1:]
 
 

@@ -36,19 +36,19 @@
    "jeton": 418,
    "jeton_eslesen": 407,
    "jeton_oran": 0.9737,
-   "asr_sozcuk": 416,
+   "asr_sozcuk": 417,
    "asr_eslesen": 404,
-   "asr_oran": 0.9712,
-   "kosu": 119,
-   "kanitli_kosu": 118,
+   "asr_oran": 0.9688,
+   "kosu": 120,
+   "kanitli_kosu": 119,
    "bos_kosu": 0,
    "kanitsiz_kosu": 1,
-   "hmm_kosu": 119,
+   "hmm_kosu": 120,
    "model": {
-    "hece": 0.1368,
-    "soz": 0.0401,
-    "sabit": 0.1295,
-    "sigma": 0.15
+    "hece": 0.138,
+    "soz": 0.0444,
+    "sabit": 0.1033,
+    "sigma": 0.154
    },
    "celiski": 0,
    "aykiri_hiz": [],
@@ -58,18 +58,15 @@
      -3.0,
      "O yılın naysinde",
      "O yılın Mayıs'ında,"
+    ],
+    [
+     300.04,
+     -3.3,
+     "Roma işinin alacak",
+     "Roma işinin alacak"
     ]
    ],
-   "eksik_sozcuk": [
-    {
-     "tok": 334,
-     "kelime": "Roma'da",
-     "t": 293.219,
-     "onceki": "pay aldı.",
-     "sonraki": "Vyeri di",
-     "asr": "babasının mütevazı mirasından küçük bir pay aldı."
-    }
-   ],
+   "eksik_sozcuk": [],
    "eslesmeyen_bolgeler": [
     [
      66,
@@ -83,9 +80,9 @@
     ]
    ],
    "kosu_bilgi": {
-    "p95": -18.191066223964153,
-    "thr": -52.19106622396416,
-    "n_ham": 126,
+    "p95": -18.158712744416174,
+    "thr": -52.15871274441618,
+    "n_ham": 127,
     "n_gurultu": 4,
     "n_parca": 3,
     "n_bolunen": 0
@@ -93,16 +90,16 @@
   },
   "c2": {
    "jeton": 444,
-   "jeton_eslesen": 429,
-   "jeton_oran": 0.9662,
-   "asr_sozcuk": 439,
-   "asr_eslesen": 427,
-   "asr_oran": 0.9727,
-   "kosu": 126,
-   "kanitli_kosu": 125,
+   "jeton_eslesen": 430,
+   "jeton_oran": 0.9685,
+   "asr_sozcuk": 441,
+   "asr_eslesen": 428,
+   "asr_oran": 0.9705,
+   "kosu": 127,
+   "kanitli_kosu": 126,
    "bos_kosu": 0,
    "kanitsiz_kosu": 1,
-   "hmm_kosu": 126,
+   "hmm_kosu": 127,
    "model": {
     "hece": 0.1306,
     "soz": 0.0491,
@@ -110,24 +107,9 @@
     "sigma": 0.131
    },
    "celiski": 0,
-   "aykiri_hiz": [
-    [
-     344.26,
-     10.0,
-     "Cambio'daydı"
-    ]
-   ],
+   "aykiri_hiz": [],
    "akustik_suphe": [],
-   "eksik_sozcuk": [
-    {
-     "tok": 0,
-     "kelime": "Çözüm,",
-     "t": 344.259,
-     "onceki": "",
-     "sonraki": "kambiyodaydı. Kilise",
-     "asr": "Cambio'daydı"
-    }
-   ],
+   "eksik_sozcuk": [],
    "eslesmeyen_bolgeler": [
     [
      81,
@@ -141,9 +123,9 @@
     ]
    ],
    "kosu_bilgi": {
-    "p95": -18.417570467821054,
-    "thr": -52.41757046782105,
-    "n_ham": 138,
+    "p95": -18.417794968995654,
+    "thr": -52.41779496899565,
+    "n_ham": 139,
     "n_gurultu": 11,
     "n_parca": 1,
     "n_bolunen": 0
@@ -406,276 +388,276 @@
   },
   "c1s25": {
    "t0_durak": true,
-   "t1_durak": false,
+   "t1_durak": true,
    "run_a": 91,
    "run_b": 93
   },
   "c1s26": {
-   "t0_durak": false,
+   "t0_durak": true,
    "t1_durak": true,
-   "run_a": 93,
-   "run_b": 98
+   "run_a": 94,
+   "run_b": 99
   },
   "c1s27": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 99,
-   "run_b": 103
+   "run_a": 100,
+   "run_b": 104
   },
   "c1s28": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 104,
-   "run_b": 108
+   "run_a": 105,
+   "run_b": 109
   },
   "c1s29": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 109,
-   "run_b": 109
+   "run_a": 110,
+   "run_b": 110
   },
   "c1s30": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 110,
-   "run_b": 112
+   "run_a": 111,
+   "run_b": 113
   },
   "c1s31": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 113,
-   "run_b": 113
+   "run_a": 114,
+   "run_b": 114
   },
   "c1s32": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 114,
-   "run_b": 118
+   "run_a": 115,
+   "run_b": 119
   },
   "c2s1": {
    "t0_durak": true,
    "t1_durak": true,
    "run_a": 0,
-   "run_b": 0
+   "run_b": 1
   },
   "c2s2": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 1,
-   "run_b": 3
+   "run_a": 2,
+   "run_b": 4
   },
   "c2s3": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 4,
-   "run_b": 7
+   "run_a": 5,
+   "run_b": 8
   },
   "c2s4": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 8,
-   "run_b": 12
+   "run_a": 9,
+   "run_b": 13
   },
   "c2s5": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 13,
-   "run_b": 15
+   "run_a": 14,
+   "run_b": 16
   },
   "c2s6": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 16,
-   "run_b": 18
+   "run_a": 17,
+   "run_b": 19
   },
   "c2s7": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 19,
-   "run_b": 24
+   "run_a": 20,
+   "run_b": 25
   },
   "c2s8": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 25,
-   "run_b": 26
+   "run_a": 26,
+   "run_b": 27
   },
   "c2s9": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 27,
-   "run_b": 28
+   "run_a": 28,
+   "run_b": 29
   },
   "c2s10": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 29,
-   "run_b": 32
+   "run_a": 30,
+   "run_b": 33
   },
   "c2s11": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 33,
-   "run_b": 35
+   "run_a": 34,
+   "run_b": 36
   },
   "c2s12": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 36,
-   "run_b": 37
+   "run_a": 37,
+   "run_b": 38
   },
   "c2s13": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 38,
-   "run_b": 41
+   "run_a": 39,
+   "run_b": 42
   },
   "c2s14": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 42,
-   "run_b": 46
+   "run_a": 43,
+   "run_b": 47
   },
   "c2s15": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 47,
-   "run_b": 50
+   "run_a": 48,
+   "run_b": 51
   },
   "c2s16": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 51,
-   "run_b": 53
+   "run_a": 52,
+   "run_b": 54
   },
   "c2s17": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 54,
-   "run_b": 57
+   "run_a": 55,
+   "run_b": 58
   },
   "c2s18": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 58,
-   "run_b": 62
+   "run_a": 59,
+   "run_b": 63
   },
   "c2s19": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 63,
-   "run_b": 64
+   "run_a": 64,
+   "run_b": 65
   },
   "c2s20": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 65,
-   "run_b": 70
+   "run_a": 66,
+   "run_b": 71
   },
   "c2s21": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 71,
-   "run_b": 74
+   "run_a": 72,
+   "run_b": 75
   },
   "c2s22": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 75,
-   "run_b": 77
+   "run_a": 76,
+   "run_b": 78
   },
   "c2s23": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 78,
-   "run_b": 82
+   "run_a": 79,
+   "run_b": 83
   },
   "c2s24": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 83,
-   "run_b": 84
+   "run_a": 84,
+   "run_b": 85
   },
   "c2s25": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 85,
-   "run_b": 90
+   "run_a": 86,
+   "run_b": 91
   },
   "c2s26": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 91,
-   "run_b": 94
+   "run_a": 92,
+   "run_b": 95
   },
   "c2s27": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 95,
-   "run_b": 97
+   "run_a": 96,
+   "run_b": 98
   },
   "c2s28": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 98,
-   "run_b": 100
+   "run_a": 99,
+   "run_b": 101
   },
   "c2s29": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 101,
-   "run_b": 107
+   "run_a": 102,
+   "run_b": 108
   },
   "c2s30": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 108,
-   "run_b": 114
+   "run_a": 109,
+   "run_b": 115
   },
   "c2s31": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 115,
-   "run_b": 115
+   "run_a": 116,
+   "run_b": 116
   },
   "c2s32": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 116,
-   "run_b": 118
+   "run_a": 117,
+   "run_b": 119
   },
   "c2s33": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 119,
-   "run_b": 120
+   "run_a": 120,
+   "run_b": 121
   },
   "c2s34": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 121,
-   "run_b": 123
+   "run_a": 122,
+   "run_b": 124
   },
   "c2s35": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 124,
-   "run_b": 125
+   "run_a": 125,
+   "run_b": 126
   }
  },
  "toplam": {
   "jeton": 1037,
-  "jeton_eslesen": 1008,
-  "asr_sozcuk": 1029,
-  "asr_eslesen": 1003,
-  "kosu": 296,
-  "jeton_oran": 0.972,
-  "asr_oran": 0.9747,
+  "jeton_eslesen": 1009,
+  "asr_sozcuk": 1032,
+  "asr_eslesen": 1004,
+  "kosu": 298,
+  "jeton_oran": 0.973,
+  "asr_oran": 0.9729,
   "cumle": 85,
-  "cumle_t0_durakta": 84,
-  "cumle_t1_durakta": 84,
-  "seste_olmayan_sozcuk": 2
+  "cumle_t0_durakta": 85,
+  "cumle_t1_durakta": 85,
+  "seste_olmayan_sozcuk": 0
  },
- "scribe_md5": "e7d90f4f2887a92184cb95f90515b3c4",
- "uretim": "2026-11-04 16:01:31"
+ "scribe_md5": "4bad7ac1c1bd8706abc00f1aaf1dc0bb",
+ "uretim": "2026-11-04 16:07:38"
 }

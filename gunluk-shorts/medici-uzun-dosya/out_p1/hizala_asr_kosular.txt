@@ -51,7 +51,7 @@
    97.12-   99.41 d 2.29 p 0.64 [164:170)  6.1h/s ev 164-169 (6/6)       ASR: Saati 5 asra yakın geri alıyoruz.                | SEN: Saati beş asra yakın geri alıyoruz:
   100.05-  101.17 d 1.12 p-1.00 [170:175)  8.0h/s ev 170-174 (5/5)       ASR: 1252'ye.                                         | SEN: bin iki yüz elli ikiye.
 
-=== c1  (jeton 418, koşu 119) ===
+=== c1  (jeton 418, koşu 120) ===
   105.87-  107.05 d 1.18 p 0.37 [  0:  5)  7.6h/s ev 0-4 (5/5)           ASR: 1252'de                                          | SEN: Bin iki yüz elli ikide
   107.42-  109.73 d 2.31 p 0.72 [  5: 10)  6.5h/s ev 5-9 (5/5)           ASR: Florence'a kendi altınını basmaya başladı.       | SEN: Floransa kendi altınını basmaya başladı;
   110.45-  112.80 d 2.35 p 0.89 [ 10: 17)  6.4h/s ev 10-16 (7/8)         ASR: Kendini küçük görmeyen bir şehrin işi de bu.     | SEN: kendini küçük görmeyen bir şehrin işiydi bu.
@@ -136,7 +136,7 @@
   264.89-  265.41 d 0.52 p 0.35 [288:289)  5.8h/s ev 288-288 (1/1)       ASR: Konuşma                                          | SEN: Konuşma
   265.76-  266.46 d 0.70 p 0.40 [289:290)  5.7h/s ev 289-289 (1/1)       ASR: tarihçinin                                       | SEN: tarihçinin;
   266.86-  267.76 d 0.90 p 0.65 [290:292)  6.7h/s ev 290-291 (2/2)       ASR: İsyancının değil.                                | SEN: isyancının değil.
-  268.41-  269.70 d 1.29 p 0.35 [292:294)  4.7h/s ev 292-293 (2/2)       ASR: Ağustos sonunda                                  | SEN: Ağustos sonunda
+  268.41-  269.69 d 1.28 p 0.36 [292:294)  4.7h/s ev 292-293 (2/2)       ASR: Ağustos sonunda                                  | SEN: Ağustos sonunda
   270.05-  272.35 d 2.30 p 0.68 [294:298)  5.7h/s ev 294-297 (4/4)       ASR: Loncaların milisleri isyanı ezdi.                | SEN: loncaların milisleri isyanı ezdi.
   273.03-  275.84 d 2.81 p 0.53 [298:304)  6.4h/s ev 298-303 (6/6)       ASR: Yün işçilerinin kısa ömürlü loncası kaldırıldı   | SEN: Yün işçilerinin kısa ömürlü loncası kaldırıldı;
   276.37-  277.86 d 1.49 p 1.25 [304:307)  6.0h/s ev 304-306 (3/3)       ASR: Yönetimden de dışlandılar.                       | SEN: yönetimden de dışlandılar.
@@ -145,157 +145,159 @@
   284.40-  285.97 d 1.57 p 0.70 [317:320)  7.0h/s ev 317-319 (3/3)       ASR: kır gelirleriyle geçiniyordu.                    | SEN: kır gelirleriyle geçiniyordu.
   286.67-  287.39 d 0.72 p 0.40 [320:322)  6.9h/s ev 320-321 (2/2)       ASR: bu ailenin                                       | SEN: Bu ailenin
   287.79-  289.57 d 1.78 p 0.43 [322:327)  6.2h/s ev 322-326 (3/4)       ASR: Kovan Nedibitça adlı üyesi,                      | SEN: Covanni di Biççi adlı üyesi,
-  290.00-  292.98 d 2.98 p 0.24 [327:335)  7.0h/s ev 327-333 (7/7)       ASR: babasının mütevazı mirasından küçük bir pay aldı | SEN: babasının mütevazı mirasından küçük bir pay aldı. Roma'da
-  293.22-  295.62 d 2.40 p 0.80 [335:340)  5.8h/s ev 335-339 (5/5)       ASR: Vieri di Cambio'nun bankasında çalıştı.          | SEN: Vyeri di Kambiyo'nun bankasında çalıştı;
-  296.42-  297.44 d 1.02 p 0.41 [340:342)  5.9h/s ev 340-341 (2/2)       ASR: Viyeri çekilince,                                | SEN: Vyeri çekilince,
-  297.85-  299.45 d 1.60 p 0.44 [342:347)  6.3h/s ev 342-346 (5/5)       ASR: 1390'ların başında                               | SEN: bin üç yüz doksanların başında,
-  299.89-  301.21 d 1.32 p 0.32 [347:350)  6.1h/s ev 347-349 (3/3)       ASR: Roma işinin alacak                               | SEN: Roma işinin alacak
-  301.53-  302.87 d 1.34 p 0.85 [350:353)  6.0h/s ev 350-352 (3/3)       ASR: ve borçlarını devraldı.                          | SEN: ve borçlarını devraldı.
-  303.72-  304.84 d 1.12 p 0.36 [353:355)  6.3h/s ev 353-354 (2/2)       ASR: Ortakla karısı                                   | SEN: Ortaklığa karısı
-  305.20-  306.35 d 1.15 p 0.41 [355:357)  6.1h/s ev 355-356 (2/2)       ASR: Pikarda Buheri'nin                               | SEN: Pikkarda Bueri'nin
-  306.76-  308.79 d 2.03 p 0.72 [357:363)  5.9h/s ev 357-362 (6/7)       ASR: 1500 florynlik çeyzi ile girdi.                  | SEN: bin beş yüz florinlik çeyiziyle girdi;
-  309.51-  311.34 d 1.83 p 0.19 [363:366)  4.9h/s ev 363-365 (3/3)       ASR: Hanedanın ilk sermayesi                          | SEN: hanedanın ilk sermayesi,
-  311.53-  313.54 d 2.01 p 0.87 [366:371)  6.5h/s ev 366-370 (5/5)       ASR: Diyelim ki bir evlilik sözleşmesiydi             | SEN: diyelim ki, bir evlilik sözleşmesiydi.
-  314.41-  315.65 d 1.24 p 0.41 [371:376)  6.5h/s ev 371-375 (5/5)       ASR: 1397'de                                          | SEN: Bin üç yüz doksan yedide
-  316.06-  318.01 d 1.95 p 0.72 [376:380)  6.2h/s ev 376-379 (3/4)       ASR: işi Roma'dan Florence'a taşıdı.                  | SEN: işi Roma'dan Floransa'ya taşıdı:
-  318.73-  320.33 d 1.60 p 0.20 [380:382)  5.6h/s ev 380-381 (2/3)       ASR: Orsan Mikere yakınında                           | SEN: Orsanmikele yakınında,
-  320.53-  321.96 d 1.43 p 0.20 [382:386)  5.6h/s ev 382-385 (4/4)       ASR: via porta rossa ile                              | SEN: Viya Porta Rossa ile
-  322.16-  324.19 d 2.03 p 0.73 [386:390)  6.9h/s ev 386-389 (4/4)       ASR: Via Calimala'nın kesiştiği köşeye                | SEN: Viya Kalimala'nın kesiştiği köşeye.
-  324.92-  326.58 d 1.66 p 0.80 [390:394)  4.8h/s ev 390-393 (4/4)       ASR: Sermaye 10.000 florindi.                         | SEN: Sermaye on bin florindi.
-  327.38-  329.13 d 1.75 p 0.28 [394:396)  5.7h/s ev 394-395 (2/3)       ASR: Orsan Mikele'nin köşesinde                       | SEN: Orsanmikele'nin köşesinde
-  329.41-  330.38 d 0.97 p 0.32 [396:399)  5.2h/s ev 396-398 (3/3)       ASR: Artık bir masa...                                | SEN: artık bir masa
-  330.70-  331.88 d 1.18 p 0.71 [399:403)  5.1h/s ev 399-402 (4/4)       ASR: ve bir defter vardı.                             | SEN: ve bir defter vardı.
-  332.59-  334.18 d 1.59 p 0.57 [403:407)  6.9h/s ev 403-406 (4/4)       ASR: Para kazanmanın yolu belliydi                    | SEN: Para kazanmanın yolu belliydi.
-  334.75-  335.37 d 0.62 p 0.39 [407:409)  4.8h/s ev 407-408 (2/2)       ASR: Zor olan                                         | SEN: Zor olan,
-  335.76-  336.34 d 0.58 p 0.40 [409:410)  6.9h/s ev 409-409 (1/1)       ASR: kilisenin                                        | SEN: Kilise'nin
-  336.74-  337.87 d 1.13 p 0.28 [410:412)  4.4h/s ev 410-411 (2/2)       ASR: Faiz günahtır.                                   | SEN: “faiz günahtır”
-  338.15-  339.27 d 1.12 p 0.37 [412:415)  5.4h/s ev 412-414 (3/3)       ASR: dediği bir çağda                                 | SEN: dediği bir çağda
-  339.64-  341.12 d 1.48 p-1.00 [415:418)  6.1h/s ev 415-417 (3/3)       ASR: onu huzurla kazanmaktı                           | SEN: onu huzurla kazanmaktı.
+  290.00-  292.98 d 2.98 p 0.24 [327:334)  6.0h/s ev 327-333 (7/7)       ASR: babasının mütevazı mirasından küçük bir pay aldı | SEN: babasının mütevazı mirasından küçük bir pay aldı.
+  293.22-  293.77 d 0.55 p 0.24 [334:335)  5.5h/s ev 334-334 (1/1)       ASR: Roma'da                                          | SEN: Roma'da
+  294.01-  296.18 d 2.17 p 0.67 [335:340)  6.5h/s ev 335-339 (4/4)       ASR: Verdi Cambion'un bankasında çalıştı.             | SEN: Vyeri di Kambiyo'nun bankasında çalıştı;
+  296.85-  297.84 d 0.99 p 0.27 [340:342)  6.1h/s ev 340-341 (2/2)       ASR: Viyeri çekilince,                                | SEN: Vyeri çekilince,
+  298.11-  299.64 d 1.53 p 0.40 [342:347)  6.5h/s ev 342-346 (5/5)       ASR: 1390'ların başında                               | SEN: bin üç yüz doksanların başında,
+  300.04-  301.29 d 1.25 p 0.18 [347:350)  6.4h/s ev 347-349 (3/3)       ASR: Roma işinin alacak                               | SEN: Roma işinin alacak
+  301.47-  302.82 d 1.35 p 0.87 [350:353)  5.9h/s ev 350-352 (3/3)       ASR: ve borçlarını devraldı.                          | SEN: ve borçlarını devraldı.
+  303.69-  304.81 d 1.12 p 0.36 [353:355)  6.3h/s ev 353-354 (2/2)       ASR: Ortakla karısı                                   | SEN: Ortaklığa karısı
+  305.17-  306.32 d 1.15 p 0.41 [355:357)  6.1h/s ev 355-356 (2/2)       ASR: Pikarda Buheri'nin                               | SEN: Pikkarda Bueri'nin
+  306.73-  308.76 d 2.03 p 0.72 [357:363)  5.9h/s ev 357-362 (6/7)       ASR: 1500 florynlik çeyzi ile girdi.                  | SEN: bin beş yüz florinlik çeyiziyle girdi;
+  309.48-  311.28 d 1.80 p 0.22 [363:366)  5.0h/s ev 363-365 (3/3)       ASR: Hanedan'ın ilk sermayesi                         | SEN: hanedanın ilk sermayesi,
+  311.50-  313.51 d 2.01 p 0.87 [366:371)  6.5h/s ev 366-370 (5/6)       ASR: Diyelim ki bir evlilik sözleşmesi idi.           | SEN: diyelim ki, bir evlilik sözleşmesiydi.
+  314.38-  315.62 d 1.24 p 0.41 [371:376)  6.5h/s ev 371-375 (5/5)       ASR: 1397'de                                          | SEN: Bin üç yüz doksan yedide
+  316.03-  317.98 d 1.95 p 0.72 [376:380)  6.2h/s ev 376-379 (3/4)       ASR: işi Roma'dan Florence'a taşıdı.                  | SEN: işi Roma'dan Floransa'ya taşıdı:
+  318.70-  320.30 d 1.60 p 0.20 [380:382)  5.6h/s ev 380-381 (2/3)       ASR: Orsan Mikere yakınında                           | SEN: Orsanmikele yakınında,
+  320.50-  321.93 d 1.43 p 0.20 [382:386)  5.6h/s ev 382-385 (4/4)       ASR: via porta rossa ile                              | SEN: Viya Porta Rossa ile
+  322.13-  324.16 d 2.03 p 0.73 [386:390)  6.9h/s ev 386-389 (4/4)       ASR: Via Calimala'nın kesiştiği köşeye                | SEN: Viya Kalimala'nın kesiştiği köşeye.
+  324.89-  326.55 d 1.66 p 0.80 [390:394)  4.8h/s ev 390-393 (4/4)       ASR: Sermaye 10.000 florindi.                         | SEN: Sermaye on bin florindi.
+  327.35-  329.10 d 1.75 p 0.28 [394:396)  5.7h/s ev 394-395 (2/3)       ASR: Orsan Mikele'nin köşesinde                       | SEN: Orsanmikele'nin köşesinde
+  329.38-  330.35 d 0.97 p 0.32 [396:399)  5.2h/s ev 396-398 (3/3)       ASR: Artık bir masa...                                | SEN: artık bir masa
+  330.67-  331.85 d 1.18 p 0.71 [399:403)  5.1h/s ev 399-402 (4/4)       ASR: ve bir defter vardı.                             | SEN: ve bir defter vardı.
+  332.56-  334.15 d 1.59 p 0.57 [403:407)  6.9h/s ev 403-406 (4/4)       ASR: Para kazanmanın yolu belliydi                    | SEN: Para kazanmanın yolu belliydi.
+  334.72-  335.34 d 0.62 p 0.39 [407:409)  4.8h/s ev 407-408 (2/2)       ASR: Zor olan                                         | SEN: Zor olan,
+  335.73-  336.31 d 0.58 p 0.40 [409:410)  6.9h/s ev 409-409 (1/1)       ASR: kilisenin                                        | SEN: Kilise'nin
+  336.71-  337.84 d 1.13 p 0.28 [410:412)  4.4h/s ev 410-411 (2/2)       ASR: Faiz günahtır.                                   | SEN: “faiz günahtır”
+  338.12-  339.24 d 1.12 p 0.37 [412:415)  5.4h/s ev 412-414 (3/3)       ASR: dediği bir çağda                                 | SEN: dediği bir çağda
+  339.61-  341.09 d 1.48 p-1.00 [415:418)  6.1h/s ev 415-417 (3/3)       ASR: onu huzurla kazanmaktı                           | SEN: onu huzurla kazanmaktı.
 
-=== c2  (jeton 444, koşu 126) ===
-  344.26-  344.96 d 0.70 p 0.78 [  0:  2) 10.0h/s ev 1-1 (1/1)           ASR: Cambio'daydı                                     | SEN: Çözüm, kambiyodaydı.
-  345.74-  346.18 d 0.44 p 0.33 [  2:  3)  6.8h/s ev 2-2 (1/1)           ASR: Kilise                                           | SEN: Kilise
-  346.51-  349.35 d 2.84 p 0.67 [  3:  9)  6.0h/s ev 3-8 (6/6)           ASR: her türlü faizi tefecilik sahip yasaklamıştı.    | SEN: her türlü faizi tefecilik sayıp yasaklamıştı;
-  350.02-  351.60 d 1.58 p 0.60 [  9: 14)  6.3h/s ev 9-13 (4/4)          ASR: Bankacılarda bir yol buldular.                   | SEN: bankacılar da bir yol buldular.
-  352.20-  354.09 d 1.89 p 0.82 [ 14: 19)  6.3h/s ev 14-18 (5/5)         ASR: Klasik bir örnekte işleyiş şöyleydi              | SEN: Klasik bir örnekte işleyiş şöyleydi:
-  354.91-  355.45 d 0.54 p 0.39 [ 19: 20)  5.6h/s ev 19-19 (1/2)         ASR: Bir ügede                                        | SEN: Brüge'de
-  355.84-  357.73 d 1.89 p 0.50 [ 20: 25)  6.3h/s ev 20-24 (5/5)         ASR: Bir tüccara parayı peşin verirsin                | SEN: bir tüccara parayı peşin verirsin,
-  358.23-  361.00 d 2.77 p 0.73 [ 25: 31)  7.2h/s ev 25-30 (6/6)         ASR: karşılığında Barcelona'ya çekilmiş bir poliça al | SEN: karşılığında Barselona'ya çekilmiş bir poliçe alırsın.
-  361.73-  362.72 d 0.99 p 0.37 [ 31: 33)  6.1h/s ev 31-32 (2/2)         ASR: Vadesi gelince                                   | SEN: Vadesi gelince
-  363.09-  364.34 d 1.25 p 0.44 [ 33: 36)  6.4h/s ev 33-35 (3/3)         ASR: Poliche tahsil edilir.                           | SEN: poliçe tahsil edilir,
-  364.78-  366.89 d 2.11 p 0.49 [ 36: 43)  7.1h/s ev 36-42 (7/7)         ASR: ikinci bir poliçeyle de para geri döner.         | SEN: ikinci bir poliçeyle de para geri döner;
-  367.38-  367.86 d 0.48 p 0.28 [ 43: 44)  4.2h/s ev 43-43 (1/1)         ASR: Kazanç                                           | SEN: kazanç,
-  368.14-  368.91 d 0.77 p 0.55 [ 44: 46)  5.2h/s ev 44-45 (2/2)         ASR: Kur farkıdır.                                    | SEN: kur farkıdır.
-  369.46-  370.40 d 0.94 p 0.31 [ 46: 49)  5.3h/s ev 46-48 (3/3)         ASR: Ortada borç yok.                                 | SEN: Ortada borç yok,
-  370.71-  371.39 d 0.68 p 0.38 [ 49: 51)  4.4h/s ev 49-50 (2/2)         ASR: Faiz yok.                                        | SEN: faiz yok;
-  371.77-  373.18 d 1.41 p 0.82 [ 51: 55)  5.0h/s ev 51-54 (4/4)         ASR: Yalnızca kur farkı var.                          | SEN: yalnızca kur farkı var.
-  374.00-  376.10 d 2.10 p 0.33 [ 55: 60)  6.2h/s ev 55-59 (5/5)         ASR: Orta Çağ'ın en yaratıcı departmanı               | SEN: Orta Çağ'ın en yaratıcı departmanı
-  376.43-  377.42 d 0.99 p 0.62 [ 60: 62)  6.1h/s ev 60-61 (2/2)         ASR: muhtemelen buydu.                                | SEN: muhtemelen buydu:
-  378.04-  379.03 d 0.99 p 0.76 [ 62: 64)  6.1h/s ev 62-63 (2/2)         ASR: Vizdan Komitesi                                  | SEN: vicdan komitesi.
-  379.79-  381.54 d 1.75 p 0.12 [ 64: 68)  5.7h/s ev 64-67 (4/4)         ASR: Tim Parks'ın aktardığına göre                    | SEN: Tim Parks'ın aktardığına göre
-  381.66-  382.70 d 1.04 p 0.56 [ 68: 70)  6.7h/s ev 68-69 (2/2)         ASR: Mevduata gelince                                 | SEN: mevduata gelince,
-  383.26-  385.00 d 1.74 p 0.50 [ 70: 73)  5.2h/s ev 70-72 (3/3)         ASR: Faiz sözleşmeye yazılmaz.                        | SEN: faiz sözleşmeye yazılmaz;
-  385.50-  386.10 d 0.60 p 0.12 [ 73: 74)  3.3h/s ev 73-73 (1/1)         ASR: Banker                                           | SEN: banker
-  386.22-  387.63 d 1.41 p 0.28 [ 74: 77)  5.7h/s ev 74-76 (3/3)         ASR: bunu kendi takdiriyle                            | SEN: bunu kendi takdiriyle,
-  387.91-  389.33 d 1.42 p 0.48 [ 77: 81)  6.3h/s ev 77-80 (4/4)         ASR: bir lütuf olarak öderdi.                         | SEN: bir lütuf olarak öderdi.
-  389.81-  390.56 d 0.75 p 0.36 [ 81: 83)  5.3h/s ev -                   ASR: FisD                                             | SEN: Faiz değil,
-  390.92-  391.32 d 0.40 p 0.68 [ 83: 84)  7.5h/s ev 83-83 (1/1)         ASR: Hediy                                            | SEN: hediye.
-  392.00-  393.97 d 1.97 p 0.40 [ 84: 89)  7.1h/s ev 84-88 (5/5)         ASR: Üstelik bu işin müşterilerinden biri             | SEN: Üstelik bu işin müşterilerinden biri,
-  394.37-  396.91 d 2.54 p 0.77 [ 89: 94)  6.3h/s ev 89-93 (5/5)         ASR: Faizi yasaklayan kilisenin ta kendisiydi.        | SEN: faizi yasaklayan Kilise'nin ta kendisiydi.
-  397.68-  398.67 d 0.99 p 0.24 [ 94: 97)  6.1h/s ev 95-96 (2/2)         ASR: Derovara göre                                    | SEN: De Rover'a göre
-  398.91-  401.20 d 2.29 p 0.51 [ 97:102)  6.6h/s ev 97-101 (5/5)        ASR: Roma şubesine ayrı sermaye verilmedi.            | SEN: Roma şubesine ayrı sermaye verilmedi;
-  401.71-  402.18 d 0.47 p 0.34 [102:103)  6.4h/s ev 102-102 (1/2)       ASR: Kasa ye.                                         | SEN: kasayı
-  402.52-  404.28 d 1.76 p 0.83 [103:107)  7.4h/s ev 103-106 (4/4)       ASR: Kilisenin yatırdığı para doldurdu.               | SEN: Kilise'nin yatırdığı para doldurdu.
-  405.11-  406.95 d 1.84 p 0.42 [107:114)  5.4h/s ev 107-113 (7/7)       ASR: 25 Mart 1402'de                                  | SEN: Yirmi beş Mart bin dört yüz ikide
-  407.37-  408.68 d 1.31 p 0.68 [114:117)  6.9h/s ev 114-116 (3/3)       ASR: Venedik şubesi açıldı.                           | SEN: Venedik şubesi açıldı;
-  409.36-  411.18 d 1.82 p 0.67 [117:121)  5.5h/s ev 117-120 (4/4)       ASR: Florensa'da o gün yılbaşı                        | SEN: Floransa'da o gün yılbaşıydı.
-  411.85-  412.64 d 0.79 p 0.31 [121:123)  5.1h/s ev 121-122 (2/2)       ASR: çifte kaydı,                                     | SEN: Çifte kaydı
-  412.95-  414.54 d 1.59 p 0.55 [123:127)  6.3h/s ev 123-126 (4/4)       ASR: Medici'leri icad etti derler.                    | SEN: Mediçiler icat etti derler.
-  415.09-  415.72 d 0.63 p 0.50 [127:128)  6.3h/s ev 127-127 (1/1)       ASR: etmediler.                                       | SEN: Etmediler:
-  416.22-  416.90 d 0.68 p 0.35 [128:129)  5.9h/s ev 128-128 (1/1)       ASR: Genova'nın                                       | SEN: Cenova'nın
-  417.25-  419.00 d 1.75 p 0.42 [129:135)  6.3h/s ev 129-134 (6/6)       ASR: 1340 tarihli hesapları,                          | SEN: bin üç yüz kırk tarihli hesapları
-  419.42-  422.19 d 2.77 p 0.77 [135:142)  6.1h/s ev 135-141 (7/7)       ASR: Bunun bilinen en eski tam örneklerinden biridir. | SEN: bunun bilinen en eski tam örneklerinden biridir.
-  422.96-  424.05 d 1.09 p 0.30 [142:144)  5.5h/s ev 142-143 (2/2)       ASR: Medicinin farkı                                  | SEN: Mediçi'nin farkı
-  424.35-  425.27 d 0.92 p 0.29 [144:146)  5.4h/s ev 144-145 (2/2)       ASR: defterde değil,                                  | SEN: defterde değil,
-  425.56-  426.18 d 0.62 p 0.56 [146:147)  6.5h/s ev 146-146 (1/1)       ASR: Yapıdaydı.                                       | SEN: yapıdaydı:
-  426.74-  428.52 d 1.78 p 0.28 [147:151)  5.6h/s ev 147-150 (4/4)       ASR: her şubenin kendi ortaklığı,                     | SEN: her şubenin kendi ortaklığı,
-  428.80-  429.84 d 1.04 p 0.85 [151:154)  6.7h/s ev 151-153 (3/3)       ASR: kendi defteri vardı.                             | SEN: kendi defteri vardı.
-  430.69-  431.24 d 0.55 p 0.39 [154:155)  5.5h/s ev 154-154 (1/1)       ASR: Kovanı                                           | SEN: Covanni,
-  431.63-  434.59 d 2.96 p 0.45 [155:163)  6.4h/s ev 155-162 (8/8)       ASR: Baldassarre Cossa adlı bir kilise adamına borç v | SEN: Baldassarre Kossa adlı bir kilise adamına borç verdi;
-  435.04-  435.98 d 0.94 p 0.39 [163:165)  4.3h/s ev 163-164 (2/2)       ASR: Adam sonra                                       | SEN: adam sonra
-  436.37-  438.55 d 2.18 p 0.71 [165:171)  6.9h/s ev 165-170 (5/6)       ASR: 23. Yohannes adıyla Papa oldu.                   | SEN: Yirmi Üçüncü Yohannes adıyla papa oldu.
-  439.26-  440.32 d 1.06 p 0.35 [171:176)  5.7h/s ev 171-175 (5/5)       ASR: 1415'te                                          | SEN: Bin dört yüz on beşte
-  440.67-  441.73 d 1.06 p 0.36 [176:178)  4.7h/s ev 176-177 (2/2)       ASR: Constance consili                                | SEN: Konstanz Konsili
-  442.09-  443.40 d 1.31 p 0.60 [178:181)  6.9h/s ev 178-180 (3/3)       ASR: onu papalıktan indirdi.                          | SEN: onu papalıktan indirdi.
-  444.00-  445.14 d 1.14 p 0.35 [181:183)  6.1h/s ev 181-182 (2/3)       ASR: İndirilen kod sayı                               | SEN: İndirilen Kossa'yı
-  445.49-  447.01 d 1.52 p 0.14 [183:185)  5.3h/s ev 183-184 (2/2)       ASR: Kovanni'nin kefaletle                            | SEN: Covanni'nin kefaletle
-  447.15-  449.02 d 1.87 p 0.55 [185:190)  6.4h/s ev 185-189 (5/6)       ASR: ya da fidye ile kurtardığı yazılır.              | SEN: ya da fidyeyle kurtardığı yazılır;
-  449.57-  451.17 d 1.60 p 0.52 [190:194)  6.9h/s ev 190-193 (4/4)       ASR: Kaynaklar bu konuda ayrışıyor.                   | SEN: kaynaklar bu konuda ayrışıyor.
-  451.69-  452.12 d 0.43 p 0.37 [194:195)  4.7h/s ev 194-194 (1/1)       ASR: Kosa                                             | SEN: Kossa
-  452.49-  453.58 d 1.09 p 0.39 [195:197)  5.5h/s ev 195-196 (2/3)       ASR: Floransa da öldü.                                | SEN: Floransa'da öldü,
-  453.97-  455.22 d 1.25 p 0.58 [197:199)  6.4h/s ev 197-197 (1/2)       ASR: Vafdizhaneye gö                                  | SEN: Vaftizhane'ye gömüldü;
-  455.80-  457.49 d 1.69 p 0.56 [199:203)  5.9h/s ev 199-202 (4/4)       ASR: Mezarına yazılan söz şuydu;                      | SEN: mezarına yazılan söz şuydu:
-  458.05-  458.76 d 0.71 p 0.72 [203:205)  5.6h/s ev 203-204 (2/2)       ASR: Eski Papa                                        | SEN: “eski papa”.
-  459.48-  461.85 d 2.37 p 0.53 [205:210)  5.5h/s ev 205-209 (5/5)       ASR: Papa 5. Martinus itiraz etti.                    | SEN: Papa Beşinci Martinus itiraz etti.
-  462.38-  463.10 d 0.72 p 0.75 [210:212)  5.6h/s ev 210-211 (2/2)       ASR: Yazıt kaldı.                                     | SEN: Yazıt kaldı.
-  463.85-  464.61 d 0.76 p 0.31 [212:213)  5.3h/s ev 212-212 (1/1)       ASR: Treccani'nin                                     | SEN: Trekkani'nin
-  464.92-  466.07 d 1.15 p 0.38 [213:215)  6.1h/s ev 213-214 (2/2)       ASR: Kovanni maddesinde                               | SEN: Covanni maddesinde
-  466.45-  467.82 d 1.37 p 0.57 [215:220)  5.8h/s ev 215-219 (5/5)       ASR: bir de şu rivayet geçer.                         | SEN: bir de şu rivayet geçer:
-  468.39-  469.05 d 0.66 p 0.39 [220:221)  4.5h/s ev 220-220 (1/1)       ASR: Martinus                                         | SEN: Martinus,
-  469.44-  472.83 d 3.39 p 0.42 [221:230)  6.5h/s ev 221-229 (9/9)       ASR: Kosta'nın bir borca karşılık bıraktığı mitrayı g | SEN: Kossa'nın bir borca karşılık bıraktığı mitrayı geri almak için
-  473.25-  475.20 d 1.95 p 1.24 [230:234)  6.2h/s ev 230-233 (4/4)       ASR: Kovanni'yi Aforoz'la tehdit et                   | SEN: Covanni'yi aforozla tehdit etmiş.
-  476.44-  478.47 d 2.03 p 0.44 [234:239)  6.4h/s ev 234-238 (5/5)       ASR: Papalın resmi kasa memurluğu da.                 | SEN: Papalığın resmî kasa memurluğu da
-  478.91-  480.98 d 2.07 p 0.35 [239:245)  6.8h/s ev 239-244 (6/6)       ASR: 1420'lerin başından itibaren                     | SEN: bin dört yüz yirmilerin başından itibaren,
-  481.33-  482.15 d 0.82 p 0.32 [245:246)  6.1h/s ev 245-245 (1/1)       ASR: kesintilerle                                     | SEN: kesintilerle,
-  482.47-  484.56 d 2.09 p 0.81 [246:252)  6.2h/s ev 246-251 (6/6)       ASR: 22 yıl kadar Medici'de kaldı.                    | SEN: yirmi iki yıl kadar Mediçi'de kaldı.
-  485.37-  486.57 d 1.20 p 0.37 [252:257)  6.7h/s ev 252-256 (5/5)       ASR: 1427'de                                          | SEN: Bin dört yüz yirmi yedide
-  486.94-  489.75 d 2.81 p 0.66 [257:263)  5.7h/s ev 257-262 (6/6)       ASR: ...Floransa hanilerin servetini tek tek yazdırdı | SEN: Floransa hanelerin servetini tek tek yazdırdı;
-  490.41-  491.91 d 1.50 p 0.66 [263:267)  6.0h/s ev 263-266 (4/4)       ASR: Bu sayıma katasto denir.                         | SEN: bu sayıma katasto denir.
-  492.57-  493.42 d 0.85 p 0.35 [267:270)  7.1h/s ev 267-269 (3/3)       ASR: bir hesaba göre                                  | SEN: Bir hesaba göre
-  493.77-  494.97 d 1.20 p 0.39 [270:274)  5.8h/s ev 270-273 (4/4)       ASR: 137 hane,                                        | SEN: yüz otuz yedi hane,
-  495.36-  498.17 d 2.81 p 0.68 [274:280)  6.8h/s ev 274-279 (5/5)       ASR: kayıtlı servetin yaklaşık %30'unu tutuyordu.     | SEN: kayıtlı servetin yaklaşık yüzde otuzunu tutuyordu;
-  498.85-  499.62 d 0.77 p 0.40 [280:282)  5.2h/s ev 280-281 (2/2)       ASR: En zengini                                       | SEN: en zengini
-  500.02-  501.08 d 1.06 p 0.69 [282:284)  4.7h/s ev 283-283 (1/1)       ASR: Pallastrozydi.                                   | SEN: Palla Strottsi'ydi.
-  501.77-  502.31 d 0.54 p 0.39 [284:285)  5.6h/s ev 284-284 (1/2)       ASR: Kovan ni                                         | SEN: Covanni
-  502.70-  504.88 d 2.18 p 0.74 [285:290)  7.3h/s ev 285-288 (4/4)       ASR: bu sayımın yürürliğe girmesini                   | SEN: bu sayımın yürürlüğe girmesini destekledi.
-  505.62-  506.13 d 0.51 p 0.34 [290:291)  5.9h/s ev 290-290 (1/1)       ASR: Kovanni                                          | SEN: Covanni
-  506.47-  507.48 d 1.01 p 0.34 [291:295)  5.9h/s ev 291-294 (4/4)       ASR: 1420'de                                          | SEN: bin dört yüz yirmide
-  507.82-  510.11 d 2.29 p 0.66 [295:299)  7.4h/s ev 295-298 (4/4)       ASR: bankanın yönetimini oğullarına bırakmıştı.       | SEN: bankanın yönetimini oğullarına bırakmıştı;
-  510.77-  513.03 d 2.26 p 0.20 [299:307)  5.8h/s ev 299-306 (8/8)       ASR: 1397'den o yıla kadar...                         | SEN: bin üç yüz doksan yediden o yıla kadar
-  513.23-  513.85 d 0.62 p 0.32 [307:308)  4.8h/s ev 307-307 (1/1)       ASR: Defterler                                        | SEN: defterler
-  514.17-  516.62 d 2.45 p 0.64 [308:315)  5.3h/s ev 308-314 (7/7)       ASR: 150 bini aşkın fluorin kar gösterir.             | SEN: yüz elli bini aşkın florin kâr gösterir.
-  517.26-  517.98 d 0.72 p 0.35 [315:317)  5.6h/s ev 315-316 (2/2)       ASR: 20 Şubat                                         | SEN: Yirmi Şubat
-  518.33-  519.90 d 1.57 p 0.68 [317:323)  6.4h/s ev 317-322 (6/6)       ASR: 1429'da öldü.                                    | SEN: bin dört yüz yirmi dokuzda öldü;
-  520.58-  522.06 d 1.48 p 0.26 [323:326)  6.1h/s ev 323-325 (3/3)       ASR: "Floransa takvimine göre                         | SEN: Floransa takvimine göre
-  522.32-  524.20 d 1.88 p 0.83 [326:332)  5.3h/s ev 326-331 (6/6)       ASR: hala 1428'di.                                    | SEN: hâlâ bin dört yüz yirmi sekizdi.
-  525.03-  529.50 d 4.47 p 0.38 [332:341)  6.3h/s ev 332-340 (9/9)       ASR: İleride muhteşem diye anılacak torununun oğlu Lo | SEN: İleride Muhteşem diye anılacak torununun oğlu Lorentso'nun kaydına göre,
-  529.88-  530.85 d 0.97 p 0.27 [341:343)  6.2h/s ev 341-342 (2/2)       ASR: bıraktığı servet                                 | SEN: bıraktığı servet
-  531.12-  533.15 d 2.03 p 0.25 [343:348)  5.4h/s ev 343-347 (5/5)       ASR: 180.000 florin dolayındaydı.                     | SEN: yüz seksen bin florin dolayındaydı.
-  533.40-  534.48 d 1.08 p 0.45 [348:351)  6.5h/s ev 348-350 (3/3)       ASR: Son sözlerinin ise                               | SEN: Son sözlerini ise
-  534.93-  535.80 d 0.87 p 0.36 [351:353)  5.7h/s ev 351-352 (2/2)       ASR: iki kalemden                                     | SEN: iki kalemden,
-  536.16-  537.60 d 1.44 p 0.74 [353:357)  7.6h/s ev 353-356 (4/4)       ASR: iki ayrı biçimde okuyorsunuz                     | SEN: iki ayrı biçimde okuyoruz.
-  538.34-  539.01 d 0.67 p 0.38 [357:358)  6.0h/s ev 357-357 (1/1)       ASR: makyavelli,                                      | SEN: Makyavelli,
-  539.39-  540.63 d 1.24 p 0.38 [358:362)  5.6h/s ev 360-361 (2/2)       ASR: pirasları yakınsora.                             | SEN: bir asra yakın sonra,
-  541.01-  543.43 d 2.42 p 1.00 [362:368)  6.6h/s ev 362-367 (6/6)       ASR: Onun ağzından oğullarına bir konuşma yazar.      | SEN: onun ağzından oğullarına bir konuşma yazar:
-  544.43-  545.57 d 1.14 p 0.49 [368:370)  6.1h/s ev 368-369 (2/2)       ASR: huzurla gidiyordur.                              | SEN: huzurla gidiyordur
-  546.06-  546.96 d 0.90 p 0.45 [370:372)  4.4h/s ev 370-371 (2/2)       ASR: ve kıskançlık                                    | SEN: ve kıskançlık,
-  547.41-  548.81 d 1.40 p 0.45 [372:375)  6.4h/s ev 372-374 (3/3)       ASR: insana verilenden değil                          | SEN: insana verilenden değil,
-  549.26-  550.41 d 1.15 p 0.97 [375:377)  6.1h/s ev 375-376 (2/2)       ASR: istediğinden doğar.                              | SEN: istediğinden doğar.
-  551.38-  552.30 d 0.92 p 0.35 [377:379)  6.5h/s ev 377-377 (1/2)       ASR: Kaval Kantis'e                                   | SEN: Kavalkanti ise
-  552.65-  553.76 d 1.11 p 0.44 [379:383)  5.4h/s ev 379-382 (4/4)       ASR: 1440'larda                                       | SEN: bin dört yüz kırklarda,
-  554.20-  555.74 d 1.54 p 0.38 [383:388)  7.1h/s ev 383-387 (5/5)       ASR: olaya daha yakın bir kalemle                     | SEN: olaya daha yakın bir kalemle,
-  556.12-  557.09 d 0.97 p 0.81 [388:392)  6.2h/s ev 388-391 (4/4)       ASR: başka bir şey yazar.                             | SEN: başka bir şey yazar:
-  557.90-  558.36 d 0.46 p 0.48 [392:393)  4.3h/s ev 392-392 (1/1)       ASR: Kimse                                            | SEN: kimse
-  558.84-  562.28 d 3.44 p 0.43 [393:401)  6.1h/s ev 393-400 (8/7)       ASR: Dünyavî tasaları sonsuz huzurla değiştokuş ettiğ | SEN: dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için
-  562.71-  563.59 d 0.88 p 1.13 [401:402)  6.8h/s ev 401-401 (1/1)       ASR: Kederlenmemeli.                                  | SEN: kederlenmemeli.
-  564.72-  566.84 d 2.12 p 0.70 [402:406)  6.1h/s ev 402-405 (4/4)       ASR: Hangisi gerçekten söylendi bilmiyoruz.           | SEN: Hangisi gerçekten söylendi, bilmiyoruz.
-  567.54-  568.48 d 0.94 p 0.44 [406:408)  6.4h/s ev 406-407 (2/2)       ASR: makyaveli onu                                    | SEN: Makyavelli onu,
-  568.92-  571.48 d 2.56 p 0.16 [408:413)  5.9h/s ev 408-412 (5/5)       ASR: yoksulun ihtiyacını kimse istemeden de           | SEN: yoksulun ihtiyacını kimse istemeden de
-  571.64-  573.45 d 1.81 p 0.61 [413:419)  6.6h/s ev 413-418 (5/6)       ASR: Sık sık "gideren bile" olarak çizer              | SEN: sık sık gideren biri olarak çizer.
-  574.06-  574.79 d 0.73 p 0.41 [419:422)  6.8h/s ev 419-421 (3/3)       ASR: Ama o kalem                                      | SEN: Ama o kalem,
-  575.20-  577.18 d 1.98 p 1.36 [422:425)  7.1h/s ev 422-424 (3/3)       ASR: Medici'nin siparişiyle çalışıyordu.              | SEN: Mediçi'nin siparişiyle çalışıyordu.
-  578.54-  579.67 d 1.13 p 0.43 [425:427)  6.2h/s ev 425-426 (2/2)       ASR: Kovanni öldüğünde                                | SEN: Covanni öldüğünde
-  580.10-  580.93 d 0.83 p 0.37 [427:429)  6.0h/s ev 427-428 (2/2)       ASR: oğlu Kozimo                                      | SEN: oğlu Kozimo
-  581.30-  582.60 d 1.30 p 0.73 [429:432)  6.9h/s ev 429-431 (3/3)       ASR: 40 yaşına yaklaşıyordu.                          | SEN: kırk yaşına yaklaşıyordu.
-  583.33-  585.06 d 1.73 p 0.41 [432:437)  5.8h/s ev 432-436 (4/4)       ASR: Vika çilsuora aynı kozimo                        | SEN: Birkaç yıl sonra aynı Kozimo,
-  585.47-  588.52 d 3.05 p-1.00 [437:444)  6.2h/s ev 437-443 (7/7)       ASR: şehrin en yüksek kulesinde bir hücreye kapatılac | SEN: şehrin en yüksek kulesinde bir hücreye kapatılacaktı.
+=== c2  (jeton 444, koşu 127) ===
+  344.22-  344.70 d 0.48 p 0.28 [  0:  1)  4.2h/s ev 0-0 (1/1)           ASR: Çözüm                                            | SEN: Çözüm,
+  344.98-  345.80 d 0.82 p 0.78 [  1:  2)  6.1h/s ev 1-1 (1/2)           ASR: Kambiyoda idi.                                   | SEN: kambiyodaydı.
+  346.58-  347.02 d 0.44 p 0.33 [  2:  3)  6.8h/s ev 2-2 (1/1)           ASR: Kilise                                           | SEN: Kilise
+  347.35-  350.19 d 2.84 p 0.67 [  3:  9)  6.0h/s ev 3-8 (6/6)           ASR: her türlü faizi tefecilik sahip yasaklamıştı.    | SEN: her türlü faizi tefecilik sayıp yasaklamıştı;
+  350.86-  352.44 d 1.58 p 0.60 [  9: 14)  6.3h/s ev 9-13 (4/4)          ASR: Bankacılarda bir yol buldular.                   | SEN: bankacılar da bir yol buldular.
+  353.04-  354.93 d 1.89 p 0.82 [ 14: 19)  6.3h/s ev 14-18 (5/5)         ASR: Klasik bir örnekte işleyiş şöyleydi              | SEN: Klasik bir örnekte işleyiş şöyleydi:
+  355.75-  356.29 d 0.54 p 0.39 [ 19: 20)  5.6h/s ev 19-19 (1/2)         ASR: Bir ügede                                        | SEN: Brüge'de
+  356.68-  358.57 d 1.89 p 0.50 [ 20: 25)  6.3h/s ev 20-24 (5/5)         ASR: Bir tüccara parayı peşin verirsin                | SEN: bir tüccara parayı peşin verirsin,
+  359.07-  361.84 d 2.77 p 0.73 [ 25: 31)  7.2h/s ev 25-30 (6/6)         ASR: karşılığında Barcelona'ya çekilmiş bir poliça al | SEN: karşılığında Barselona'ya çekilmiş bir poliçe alırsın.
+  362.57-  363.56 d 0.99 p 0.37 [ 31: 33)  6.1h/s ev 31-32 (2/2)         ASR: Vadesi gelince                                   | SEN: Vadesi gelince
+  363.93-  365.18 d 1.25 p 0.44 [ 33: 36)  6.4h/s ev 33-35 (3/3)         ASR: Poliche tahsil edilir.                           | SEN: poliçe tahsil edilir,
+  365.62-  367.73 d 2.11 p 0.49 [ 36: 43)  7.1h/s ev 36-42 (7/7)         ASR: ikinci bir poliçeyle de para geri döner.         | SEN: ikinci bir poliçeyle de para geri döner;
+  368.22-  368.70 d 0.48 p 0.28 [ 43: 44)  4.2h/s ev 43-43 (1/1)         ASR: Kazanç                                           | SEN: kazanç,
+  368.98-  369.75 d 0.77 p 0.55 [ 44: 46)  5.2h/s ev 44-45 (2/2)         ASR: Kur farkıdır.                                    | SEN: kur farkıdır.
+  370.30-  371.24 d 0.94 p 0.31 [ 46: 49)  5.3h/s ev 46-48 (3/3)         ASR: Ortada borç yok.                                 | SEN: Ortada borç yok,
+  371.55-  372.23 d 0.68 p 0.38 [ 49: 51)  4.4h/s ev 49-50 (2/2)         ASR: Faiz yok.                                        | SEN: faiz yok;
+  372.61-  374.02 d 1.41 p 0.82 [ 51: 55)  5.0h/s ev 51-54 (4/4)         ASR: Yalnızca kur farkı var.                          | SEN: yalnızca kur farkı var.
+  374.84-  376.94 d 2.10 p 0.33 [ 55: 60)  6.2h/s ev 55-59 (5/5)         ASR: Orta Çağ'ın en yaratıcı departmanı               | SEN: Orta Çağ'ın en yaratıcı departmanı
+  377.27-  378.26 d 0.99 p 0.62 [ 60: 62)  6.1h/s ev 60-61 (2/2)         ASR: muhtemelen buydu.                                | SEN: muhtemelen buydu:
+  378.88-  379.87 d 0.99 p 0.76 [ 62: 64)  6.1h/s ev 62-63 (2/2)         ASR: Vizdan Komitesi                                  | SEN: vicdan komitesi.
+  380.63-  382.38 d 1.75 p 0.12 [ 64: 68)  5.7h/s ev 64-67 (4/4)         ASR: Tim Parks'ın aktardığına göre                    | SEN: Tim Parks'ın aktardığına göre
+  382.50-  383.54 d 1.04 p 0.56 [ 68: 70)  6.7h/s ev 68-69 (2/2)         ASR: Mevduata gelince                                 | SEN: mevduata gelince,
+  384.10-  385.84 d 1.74 p 0.50 [ 70: 73)  5.2h/s ev 70-72 (3/3)         ASR: Faiz sözleşmeye yazılmaz.                        | SEN: faiz sözleşmeye yazılmaz;
+  386.34-  386.94 d 0.60 p 0.12 [ 73: 74)  3.3h/s ev 73-73 (1/1)         ASR: Banker                                           | SEN: banker
+  387.06-  388.47 d 1.41 p 0.28 [ 74: 77)  5.7h/s ev 74-76 (3/3)         ASR: bunu kendi takdiriyle                            | SEN: bunu kendi takdiriyle,
+  388.75-  390.17 d 1.42 p 0.48 [ 77: 81)  6.3h/s ev 77-80 (4/4)         ASR: bir lütuf olarak öderdi.                         | SEN: bir lütuf olarak öderdi.
+  390.65-  391.40 d 0.75 p 0.36 [ 81: 83)  5.3h/s ev -                   ASR: FisD                                             | SEN: Faiz değil,
+  391.76-  392.16 d 0.40 p 0.68 [ 83: 84)  7.5h/s ev 83-83 (1/1)         ASR: Hediy                                            | SEN: hediye.
+  392.84-  394.81 d 1.97 p 0.40 [ 84: 89)  7.1h/s ev 84-88 (5/5)         ASR: Üstelik bu işin müşterilerinden biri             | SEN: Üstelik bu işin müşterilerinden biri,
+  395.21-  397.75 d 2.54 p 0.77 [ 89: 94)  6.3h/s ev 89-93 (5/5)         ASR: Faizi yasaklayan kilisenin ta kendisiydi.        | SEN: faizi yasaklayan Kilise'nin ta kendisiydi.
+  398.52-  399.51 d 0.99 p 0.24 [ 94: 97)  6.1h/s ev 95-96 (2/2)         ASR: Derovara göre                                    | SEN: De Rover'a göre
+  399.75-  402.04 d 2.29 p 0.51 [ 97:102)  6.6h/s ev 97-101 (5/5)        ASR: Roma şubesine ayrı sermaye verilmedi.            | SEN: Roma şubesine ayrı sermaye verilmedi;
+  402.55-  403.02 d 0.47 p 0.34 [102:103)  6.4h/s ev 102-102 (1/2)       ASR: Kasa ye.                                         | SEN: kasayı
+  403.36-  405.12 d 1.76 p 0.83 [103:107)  7.4h/s ev 103-106 (4/4)       ASR: Kilisenin yatırdığı para doldurdu.               | SEN: Kilise'nin yatırdığı para doldurdu.
+  405.95-  407.79 d 1.84 p 0.42 [107:114)  5.4h/s ev 107-113 (7/7)       ASR: 25 Mart 1402'de                                  | SEN: Yirmi beş Mart bin dört yüz ikide
+  408.21-  409.52 d 1.31 p 0.68 [114:117)  6.9h/s ev 114-116 (3/3)       ASR: Venedik şubesi açıldı.                           | SEN: Venedik şubesi açıldı;
+  410.20-  412.02 d 1.82 p 0.67 [117:121)  5.5h/s ev 117-120 (4/4)       ASR: Florensa'da o gün yılbaşı                        | SEN: Floransa'da o gün yılbaşıydı.
+  412.69-  413.48 d 0.79 p 0.31 [121:123)  5.1h/s ev 121-122 (2/2)       ASR: çifte kaydı,                                     | SEN: Çifte kaydı
+  413.79-  415.38 d 1.59 p 0.55 [123:127)  6.3h/s ev 123-126 (4/4)       ASR: Medici'leri icad etti derler.                    | SEN: Mediçiler icat etti derler.
+  415.93-  416.56 d 0.63 p 0.50 [127:128)  6.3h/s ev 127-127 (1/1)       ASR: etmediler.                                       | SEN: Etmediler:
+  417.06-  417.74 d 0.68 p 0.35 [128:129)  5.9h/s ev 128-128 (1/1)       ASR: Genova'nın                                       | SEN: Cenova'nın
+  418.09-  419.84 d 1.75 p 0.42 [129:135)  6.3h/s ev 129-134 (6/6)       ASR: 1340 tarihli hesapları,                          | SEN: bin üç yüz kırk tarihli hesapları
+  420.26-  423.03 d 2.77 p 0.77 [135:142)  6.1h/s ev 135-141 (7/7)       ASR: Bunun bilinen en eski tam örneklerinden biridir. | SEN: bunun bilinen en eski tam örneklerinden biridir.
+  423.80-  424.89 d 1.09 p 0.30 [142:144)  5.5h/s ev 142-143 (2/2)       ASR: Medicinin farkı                                  | SEN: Mediçi'nin farkı
+  425.19-  426.11 d 0.92 p 0.29 [144:146)  5.4h/s ev 144-145 (2/2)       ASR: defterde değil,                                  | SEN: defterde değil,
+  426.40-  427.02 d 0.62 p 0.56 [146:147)  6.5h/s ev 146-146 (1/1)       ASR: Yapıdaydı.                                       | SEN: yapıdaydı:
+  427.58-  429.36 d 1.78 p 0.28 [147:151)  5.6h/s ev 147-150 (4/4)       ASR: her şubenin kendi ortaklığı,                     | SEN: her şubenin kendi ortaklığı,
+  429.64-  430.68 d 1.04 p 0.85 [151:154)  6.7h/s ev 151-153 (3/3)       ASR: kendi defteri vardı.                             | SEN: kendi defteri vardı.
+  431.53-  432.08 d 0.55 p 0.39 [154:155)  5.5h/s ev 154-154 (1/1)       ASR: Kovanı                                           | SEN: Covanni,
+  432.47-  435.43 d 2.96 p 0.45 [155:163)  6.4h/s ev 155-162 (8/8)       ASR: Baldassarre Cossa adlı bir kilise adamına borç v | SEN: Baldassarre Kossa adlı bir kilise adamına borç verdi;
+  435.88-  436.82 d 0.94 p 0.39 [163:165)  4.3h/s ev 163-164 (2/2)       ASR: Adam sonra                                       | SEN: adam sonra
+  437.21-  439.39 d 2.18 p 0.71 [165:171)  6.9h/s ev 165-170 (5/6)       ASR: 23. Yohannes adıyla Papa oldu.                   | SEN: Yirmi Üçüncü Yohannes adıyla papa oldu.
+  440.10-  441.16 d 1.06 p 0.35 [171:176)  5.7h/s ev 171-175 (5/5)       ASR: 1415'te                                          | SEN: Bin dört yüz on beşte
+  441.51-  442.57 d 1.06 p 0.36 [176:178)  4.7h/s ev 176-177 (2/2)       ASR: Constance consili                                | SEN: Konstanz Konsili
+  442.93-  444.24 d 1.31 p 0.60 [178:181)  6.9h/s ev 178-180 (3/3)       ASR: onu papalıktan indirdi.                          | SEN: onu papalıktan indirdi.
+  444.84-  445.98 d 1.14 p 0.35 [181:183)  6.1h/s ev 181-182 (2/3)       ASR: İndirilen kod sayı                               | SEN: İndirilen Kossa'yı
+  446.33-  447.85 d 1.52 p 0.14 [183:185)  5.3h/s ev 183-184 (2/2)       ASR: Kovanni'nin kefaletle                            | SEN: Covanni'nin kefaletle
+  447.99-  449.86 d 1.87 p 0.55 [185:190)  6.4h/s ev 185-189 (5/6)       ASR: ya da fidye ile kurtardığı yazılır.              | SEN: ya da fidyeyle kurtardığı yazılır;
+  450.41-  452.01 d 1.60 p 0.52 [190:194)  6.9h/s ev 190-193 (4/4)       ASR: Kaynaklar bu konuda ayrışıyor.                   | SEN: kaynaklar bu konuda ayrışıyor.
+  452.53-  452.96 d 0.43 p 0.37 [194:195)  4.7h/s ev 194-194 (1/1)       ASR: Kosa                                             | SEN: Kossa
+  453.33-  454.42 d 1.09 p 0.39 [195:197)  5.5h/s ev 195-196 (2/3)       ASR: Floransa da öldü.                                | SEN: Floransa'da öldü,
+  454.81-  456.06 d 1.25 p 0.58 [197:199)  6.4h/s ev 197-197 (1/2)       ASR: Vafdizhaneye gö                                  | SEN: Vaftizhane'ye gömüldü;
+  456.64-  458.33 d 1.69 p 0.56 [199:203)  5.9h/s ev 199-202 (4/4)       ASR: Mezarına yazılan söz şuydu;                      | SEN: mezarına yazılan söz şuydu:
+  458.89-  459.60 d 0.71 p 0.72 [203:205)  5.6h/s ev 203-204 (2/2)       ASR: Eski Papa                                        | SEN: “eski papa”.
+  460.32-  462.69 d 2.37 p 0.53 [205:210)  5.5h/s ev 205-209 (5/5)       ASR: Papa 5. Martinus itiraz etti.                    | SEN: Papa Beşinci Martinus itiraz etti.
+  463.22-  463.94 d 0.72 p 0.75 [210:212)  5.6h/s ev 210-211 (2/2)       ASR: Yazıt kaldı.                                     | SEN: Yazıt kaldı.
+  464.69-  465.45 d 0.76 p 0.31 [212:213)  5.3h/s ev 212-212 (1/1)       ASR: Treccani'nin                                     | SEN: Trekkani'nin
+  465.76-  466.91 d 1.15 p 0.38 [213:215)  6.1h/s ev 213-214 (2/2)       ASR: Kovanni maddesinde                               | SEN: Covanni maddesinde
+  467.29-  468.66 d 1.37 p 0.57 [215:220)  5.8h/s ev 215-219 (5/5)       ASR: bir de şu rivayet geçer.                         | SEN: bir de şu rivayet geçer:
+  469.23-  469.89 d 0.66 p 0.39 [220:221)  4.5h/s ev 220-220 (1/1)       ASR: Martinus                                         | SEN: Martinus,
+  470.28-  473.67 d 3.39 p 0.42 [221:230)  6.5h/s ev 221-229 (9/9)       ASR: Kosta'nın bir borca karşılık bıraktığı mitrayı g | SEN: Kossa'nın bir borca karşılık bıraktığı mitrayı geri almak için
+  474.09-  476.04 d 1.95 p 1.24 [230:234)  6.2h/s ev 230-233 (4/4)       ASR: Kovanni'yi Aforoz'la tehdit et                   | SEN: Covanni'yi aforozla tehdit etmiş.
+  477.28-  479.31 d 2.03 p 0.44 [234:239)  6.4h/s ev 234-238 (5/5)       ASR: Papalın resmi kasa memurluğu da.                 | SEN: Papalığın resmî kasa memurluğu da
+  479.75-  481.82 d 2.07 p 0.35 [239:245)  6.8h/s ev 239-244 (6/6)       ASR: 1420'lerin başından itibaren                     | SEN: bin dört yüz yirmilerin başından itibaren,
+  482.17-  482.99 d 0.82 p 0.32 [245:246)  6.1h/s ev 245-245 (1/1)       ASR: kesintilerle                                     | SEN: kesintilerle,
+  483.31-  485.40 d 2.09 p 0.81 [246:252)  6.2h/s ev 246-251 (6/6)       ASR: 22 yıl kadar Medici'de kaldı.                    | SEN: yirmi iki yıl kadar Mediçi'de kaldı.
+  486.21-  487.41 d 1.20 p 0.37 [252:257)  6.7h/s ev 252-256 (5/5)       ASR: 1427'de                                          | SEN: Bin dört yüz yirmi yedide
+  487.78-  490.59 d 2.81 p 0.66 [257:263)  5.7h/s ev 257-262 (6/6)       ASR: ...Floransa hanilerin servetini tek tek yazdırdı | SEN: Floransa hanelerin servetini tek tek yazdırdı;
+  491.25-  492.75 d 1.50 p 0.66 [263:267)  6.0h/s ev 263-266 (4/4)       ASR: Bu sayıma katasto denir.                         | SEN: bu sayıma katasto denir.
+  493.41-  494.26 d 0.85 p 0.35 [267:270)  7.1h/s ev 267-269 (3/3)       ASR: bir hesaba göre                                  | SEN: Bir hesaba göre
+  494.61-  495.81 d 1.20 p 0.39 [270:274)  5.8h/s ev 270-273 (4/4)       ASR: 137 hane,                                        | SEN: yüz otuz yedi hane,
+  496.20-  499.01 d 2.81 p 0.68 [274:280)  6.8h/s ev 274-279 (5/5)       ASR: kayıtlı servetin yaklaşık %30'unu tutuyordu.     | SEN: kayıtlı servetin yaklaşık yüzde otuzunu tutuyordu;
+  499.69-  500.46 d 0.77 p 0.40 [280:282)  5.2h/s ev 280-281 (2/2)       ASR: En zengini                                       | SEN: en zengini
+  500.86-  501.92 d 1.06 p 0.69 [282:284)  4.7h/s ev 283-283 (1/1)       ASR: Pallastrozydi.                                   | SEN: Palla Strottsi'ydi.
+  502.61-  503.15 d 0.54 p 0.39 [284:285)  5.6h/s ev 284-284 (1/2)       ASR: Kovan ni                                         | SEN: Covanni
+  503.54-  505.72 d 2.18 p 0.74 [285:290)  7.3h/s ev 285-288 (4/4)       ASR: bu sayımın yürürliğe girmesini                   | SEN: bu sayımın yürürlüğe girmesini destekledi.
+  506.46-  506.97 d 0.51 p 0.34 [290:291)  5.9h/s ev 290-290 (1/1)       ASR: Kovanni                                          | SEN: Covanni
+  507.31-  508.32 d 1.01 p 0.34 [291:295)  5.9h/s ev 291-294 (4/4)       ASR: 1420'de                                          | SEN: bin dört yüz yirmide
+  508.66-  510.95 d 2.29 p 0.66 [295:299)  7.4h/s ev 295-298 (4/4)       ASR: bankanın yönetimini oğullarına bırakmıştı.       | SEN: bankanın yönetimini oğullarına bırakmıştı;
+  511.61-  513.87 d 2.26 p 0.20 [299:307)  5.8h/s ev 299-306 (8/8)       ASR: 1397'den o yıla kadar...                         | SEN: bin üç yüz doksan yediden o yıla kadar
+  514.07-  514.69 d 0.62 p 0.32 [307:308)  4.8h/s ev 307-307 (1/1)       ASR: Defterler                                        | SEN: defterler
+  515.01-  517.46 d 2.45 p 0.64 [308:315)  5.3h/s ev 308-314 (7/7)       ASR: 150 bini aşkın fluorin kar gösterir.             | SEN: yüz elli bini aşkın florin kâr gösterir.
+  518.10-  518.82 d 0.72 p 0.35 [315:317)  5.6h/s ev 315-316 (2/2)       ASR: 20 Şubat                                         | SEN: Yirmi Şubat
+  519.17-  520.74 d 1.57 p 0.68 [317:323)  6.4h/s ev 317-322 (6/6)       ASR: 1429'da öldü.                                    | SEN: bin dört yüz yirmi dokuzda öldü;
+  521.42-  522.90 d 1.48 p 0.26 [323:326)  6.1h/s ev 323-325 (3/3)       ASR: "Floransa takvimine göre                         | SEN: Floransa takvimine göre
+  523.16-  525.04 d 1.88 p 0.83 [326:332)  5.3h/s ev 326-331 (6/6)       ASR: hala 1428'di.                                    | SEN: hâlâ bin dört yüz yirmi sekizdi.
+  525.87-  530.34 d 4.47 p 0.38 [332:341)  6.3h/s ev 332-340 (9/9)       ASR: İleride muhteşem diye anılacak torununun oğlu Lo | SEN: İleride Muhteşem diye anılacak torununun oğlu Lorentso'nun kaydına göre,
+  530.72-  531.69 d 0.97 p 0.27 [341:343)  6.2h/s ev 341-342 (2/2)       ASR: bıraktığı servet                                 | SEN: bıraktığı servet
+  531.96-  533.99 d 2.03 p 0.25 [343:348)  5.4h/s ev 343-347 (5/5)       ASR: 180.000 florin dolayındaydı.                     | SEN: yüz seksen bin florin dolayındaydı.
+  534.24-  535.32 d 1.08 p 0.45 [348:351)  6.5h/s ev 348-350 (3/3)       ASR: Son sözlerinin ise                               | SEN: Son sözlerini ise
+  535.77-  536.64 d 0.87 p 0.36 [351:353)  5.7h/s ev 351-352 (2/2)       ASR: iki kalemden                                     | SEN: iki kalemden,
+  537.00-  538.44 d 1.44 p 0.74 [353:357)  7.6h/s ev 353-356 (4/4)       ASR: iki ayrı biçimde okuyorsunuz                     | SEN: iki ayrı biçimde okuyoruz.
+  539.18-  539.85 d 0.67 p 0.38 [357:358)  6.0h/s ev 357-357 (1/1)       ASR: makyavelli,                                      | SEN: Makyavelli,
+  540.23-  541.47 d 1.24 p 0.38 [358:362)  5.6h/s ev 360-361 (2/2)       ASR: pirasları yakınsora.                             | SEN: bir asra yakın sonra,
+  541.85-  544.27 d 2.42 p 1.00 [362:368)  6.6h/s ev 362-367 (6/6)       ASR: Onun ağzından oğullarına bir konuşma yazar.      | SEN: onun ağzından oğullarına bir konuşma yazar:
+  545.27-  546.41 d 1.14 p 0.49 [368:370)  6.1h/s ev 368-369 (2/2)       ASR: huzurla gidiyordur.                              | SEN: huzurla gidiyordur
+  546.90-  547.80 d 0.90 p 0.45 [370:372)  4.4h/s ev 370-371 (2/2)       ASR: ve kıskançlık                                    | SEN: ve kıskançlık,
+  548.25-  549.65 d 1.40 p 0.45 [372:375)  6.4h/s ev 372-374 (3/3)       ASR: insana verilenden değil                          | SEN: insana verilenden değil,
+  550.10-  551.25 d 1.15 p 0.97 [375:377)  6.1h/s ev 375-376 (2/2)       ASR: istediğinden doğar.                              | SEN: istediğinden doğar.
+  552.22-  553.14 d 0.92 p 0.35 [377:379)  6.5h/s ev 377-377 (1/2)       ASR: Kaval Kantis'e                                   | SEN: Kavalkanti ise
+  553.49-  554.60 d 1.11 p 0.44 [379:383)  5.4h/s ev 379-382 (4/4)       ASR: 1440'larda                                       | SEN: bin dört yüz kırklarda,
+  555.04-  556.58 d 1.54 p 0.38 [383:388)  7.1h/s ev 383-387 (5/5)       ASR: olaya daha yakın bir kalemle                     | SEN: olaya daha yakın bir kalemle,
+  556.96-  557.93 d 0.97 p 0.81 [388:392)  6.2h/s ev 388-391 (4/4)       ASR: başka bir şey yazar.                             | SEN: başka bir şey yazar:
+  558.74-  559.20 d 0.46 p 0.48 [392:393)  4.3h/s ev 392-392 (1/1)       ASR: Kimse                                            | SEN: kimse
+  559.68-  563.12 d 3.44 p 0.43 [393:401)  6.1h/s ev 393-400 (8/7)       ASR: Dünyavî tasaları sonsuz huzurla değiştokuş ettiğ | SEN: dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için
+  563.55-  564.43 d 0.88 p 1.13 [401:402)  6.8h/s ev 401-401 (1/1)       ASR: Kederlenmemeli.                                  | SEN: kederlenmemeli.
+  565.56-  567.68 d 2.12 p 0.70 [402:406)  6.1h/s ev 402-405 (4/4)       ASR: Hangisi gerçekten söylendi bilmiyoruz.           | SEN: Hangisi gerçekten söylendi, bilmiyoruz.
+  568.38-  569.32 d 0.94 p 0.44 [406:408)  6.4h/s ev 406-407 (2/2)       ASR: makyaveli onu                                    | SEN: Makyavelli onu,
+  569.76-  572.32 d 2.56 p 0.16 [408:413)  5.9h/s ev 408-412 (5/5)       ASR: yoksulun ihtiyacını kimse istemeden de           | SEN: yoksulun ihtiyacını kimse istemeden de
+  572.48-  574.29 d 1.81 p 0.61 [413:419)  6.6h/s ev 413-418 (5/6)       ASR: Sık sık "gideren bile" olarak çizer              | SEN: sık sık gideren biri olarak çizer.
+  574.90-  575.63 d 0.73 p 0.41 [419:422)  6.8h/s ev 419-421 (3/3)       ASR: Ama o kalem                                      | SEN: Ama o kalem,
+  576.04-  578.02 d 1.98 p 1.36 [422:425)  7.1h/s ev 422-424 (3/3)       ASR: Medici'nin siparişiyle çalışıyordu.              | SEN: Mediçi'nin siparişiyle çalışıyordu.
+  579.38-  580.51 d 1.13 p 0.43 [425:427)  6.2h/s ev 425-426 (2/2)       ASR: Kovanni öldüğünde                                | SEN: Covanni öldüğünde
+  580.94-  581.77 d 0.83 p 0.37 [427:429)  6.0h/s ev 427-428 (2/2)       ASR: oğlu Kozimo                                      | SEN: oğlu Kozimo
+  582.14-  583.44 d 1.30 p 0.73 [429:432)  6.9h/s ev 429-431 (3/3)       ASR: 40 yaşına yaklaşıyordu.                          | SEN: kırk yaşına yaklaşıyordu.
+  584.17-  585.90 d 1.73 p 0.41 [432:437)  5.8h/s ev 432-436 (4/4)       ASR: Vika çilsuora aynı kozimo                        | SEN: Birkaç yıl sonra aynı Kozimo,
+  586.31-  589.36 d 3.05 p-1.00 [437:444)  6.2h/s ev 437-443 (7/7)       ASR: şehrin en yüksek kulesinde bir hücreye kapatılac | SEN: şehrin en yüksek kulesinde bir hücreye kapatılacaktı.
