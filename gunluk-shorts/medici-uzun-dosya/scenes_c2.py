@@ -264,8 +264,7 @@ SHOTS = [
     shot("p1_medal", ("c2s27", -0.15), key="m_lorenzo", metal="bronze", pos="l", size=540, at=0.0, mode="day", perde=1,
          ovl=P.ov(P.plate("LORENZO", 1410, 330, ("c2s27", "torununun", -0.3), role="TORUNUNUN OĞLU · İLERİDE MUHTEŞEM", w=820),
                   P.count_up(1380, 640, ("c2s27", "servet", 0.15), 180000, dur=1.2, unit="FLORİN", size=170, bg=True),
-                  P.tag("LORENZO'NUN KAYDINA GÖRE", 1380, 860, ("c2s27", "kaydına", 0.0), size=38),
-                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s27", "Lorenzo'nun", -0.2), size=34)),
+                  P.tag("LORENZO'NUN KAYDINA GÖRE", 1380, 860, ("c2s27", "kaydına", 0.0), size=38)),   # TEMSİLÎ damgası motorda (1438 öncesi madalya; cilt_medal v3)
          cam=("pan", "r"), tr=("light", 0.8, dict(at=(500, 500))), link="light", label="Lorenzo'nun kaydına göre 180 bin florin"),
     # ── 27. son sözler iki kalemden, iki biçimde ─────────────────────────────
     shot("c2_kalemler", ("c2s28", -0.15), mode="day", perde=1, left_at=("c2s28", "kalemden", -0.4), right_at=("c2s28", "iki", 1, -0.1),
@@ -313,8 +312,7 @@ SHOTS = [
     shot("p1_medal", ("c2s34", -0.15), key="m_cosimo", metal="bronze", pos="l", size=640, at=0.0, mode="night", perde=1,
          ovl=P.ov(P.plate("COSIMO", 1380, 330, ("c2s34", "Cosimo", -0.15), role="GIOVANNI'NİN OĞLU", w=700),
                   P.count_up(1380, 640, ("c2s34", "Cosimo", 0.1), 39, dur=1.0, unit="YAŞINDAYDI", size=190, bg=True, unit_size=40),
-                  P.tag("1389 DOĞUMLU", 1380, 850, ("c2s34", "kırk", -0.4), size=38),
-                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s34", "Cosimo", 0.0), size=34)),
+                  P.tag("1389 DOĞUMLU", 1380, 850, ("c2s34", "kırk", -0.4), size=38)),   # TEMSİLÎ damgası motorda (1438 öncesi madalya)
          cam=("push",), tr=("iris", 0.9, dict(obj="seal", at=(500, 500), r=320)), link="shape", label="Cosimo: kırk yaşına yaklaşıyordu"),
     # ── 35. KAPI: şehrin en yüksek kulesinde bir hücre — sessiz, ağır (crane up; desatürasyon; END_HOLD motor) ──
     shot("p1_sehir", ("c2s35", -0.15), scene="skyline_dikey", tod="day", mode="day", perde=1,
