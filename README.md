@@ -29,4 +29,4 @@ Kalın, düz, geometrik çizimler (kuşbakışı Türk kahvesi fincanı, kahve �
 | 6–9 sn | Krem kapanış: Navitas logosu, "Bütün gün kahveler *bizden.*", "Tüm misafirlerimize ikramımızdır.", "1 EKİM · DÜNYA KAHVE GÜNÜ" |
 
 ## Tenisçilere özel spa fiyat listesi
-`tenisci-spa-fiyat/` klasöründe: WhatsApp gruplarına gönderilecek tek sayfalık PDF (%20 tenisçi indirimli spa ve masaj fiyatları), kaynağı ve yeniden üretme betiği. Ayrıntılar klasördeki README'de.
+`tenisci-spa-fiyat/` klasöründe: WhatsApp gruplarına gönderilecek tek sayfalık PDF (tek seanslarda %20, paketlerde %30 tenisçi indirimi, 31 Aralık 2026'ya kadar), kaynağı, yeniden üretme betiği ve bağımsız danışma kurulu değerlendirmesi (`kurul/`). Ayrıntılar klasördeki README'de.

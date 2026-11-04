@@ -1,5 +1,5 @@
 // Renders index.html to a single-page PDF sized to the content (phone-friendly, 1080 px wide)
-// and a PNG preview. Usage: NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js
+// and a JPG preview. Usage: NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js
 const path = require('path');
 const { chromium } = require('playwright');
 

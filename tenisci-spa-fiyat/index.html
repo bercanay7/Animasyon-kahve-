@@ -31,54 +31,48 @@ a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:center;gap:22px}
 .brand img{width:78px;height:78px;display:block}
 .brand .word{font-family:var(--f-head);font-size:42px;letter-spacing:.22em;line-height:1;color:var(--rose)}
-.brand .sub{margin-top:8px;font-size:22px;font-weight:600;letter-spacing:.24em;color:var(--muted)}
+.brand .sub{margin-top:8px;font-size:26px;font-weight:600;letter-spacing:.24em;color:var(--muted)}
 
-/* arched photo + badge */
-.hero{position:relative;margin-top:36px}
-.hero .photo{display:block;width:952px;height:480px;object-fit:cover;object-position:50% 55%;border-radius:476px 476px 28px 28px / 300px 300px 28px 28px}
-.badge{position:absolute;right:-8px;bottom:-60px;width:228px;height:228px;border-radius:50%;
-  background:var(--rose);color:var(--on-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;
-  border:8px solid var(--paper);text-align:center}
-.badge .pct{font-family:var(--f-head);font-size:84px;line-height:.9}
-.badge .lbl{margin-top:8px;font-size:21px;font-weight:600;letter-spacing:.14em;line-height:1.25}
+/* arched photo */
+.hero{margin-top:36px}
+.hero .photo{display:block;width:952px;height:340px;object-fit:cover;object-position:50% 55%;border-radius:476px 476px 28px 28px / 220px 220px 28px 28px}
 
 /* title */
-.title{margin-top:30px;padding-right:250px}
-.eyebrow{display:flex;align-items:center;gap:14px;font-size:27px;font-weight:600;letter-spacing:.18em;color:var(--amber)}
+.title{margin-top:34px}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:30px;font-weight:600;letter-spacing:.14em;color:var(--amber)}
 .eyebrow svg{width:38px;height:38px;flex:none}
-h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line-height:1.02;color:var(--rose);letter-spacing:-.005em}
-.lead{margin:20px 0 0;font-size:32px;line-height:1.42;color:var(--muted);max-width:900px}
+h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line-height:1.02;color:var(--rose);letter-spacing:-.005em}
+.lead{margin:18px 0 0;font-size:32px;line-height:1.42;color:var(--muted)}
 .lead b{color:var(--ink);font-weight:600}
+.lead a{color:var(--amber);font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
 
 /* price list */
 .list{margin-top:44px;padding:0 64px}
 .group+.group{margin-top:40px}
 .ghead{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px;border-bottom:2px solid var(--ink)}
 .ghead h2{margin:0;font-family:var(--f-head);font-weight:400;font-size:44px;color:var(--rose)}
-.ghead span{font-size:24px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+.ghead span{font-size:30px;font-weight:600;letter-spacing:.12em;color:var(--muted)}
 .row{display:flex;justify-content:space-between;align-items:center;gap:32px;padding:21px 0;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:0}
 .name{font-size:37px;font-weight:600;line-height:1.15;color:var(--ink)}
 .dur{font-weight:500;color:var(--muted);font-size:30px;white-space:nowrap}
-.tag{display:inline-block;vertical-align:5px;margin-left:12px;padding:5px 14px 4px;border-radius:999px;background:var(--sand);
-  color:var(--amber);font-size:19px;font-weight:600;letter-spacing:.14em}
 .desc{margin-top:6px;font-size:29px;line-height:1.3;color:var(--muted)}
 .price{flex:none;text-align:right}
-.old{font-size:27px;font-weight:500;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+.old{font-size:28px;font-weight:500;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
 .new{margin-top:2px;font-family:var(--f-head);font-size:52px;line-height:1;color:var(--rose);white-space:nowrap}
 .new small{font-family:var(--f-body);font-size:26px;font-weight:600;margin-left:6px;color:var(--ink)}
-.per{margin-top:6px;font-size:22px;font-weight:600;letter-spacing:.1em;color:var(--amber)}
+.per{margin-top:8px;font-size:28px;font-weight:600;color:var(--amber);white-space:nowrap}
 
 /* packages */
 .packs{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .pack{border:1.5px solid var(--line);border-radius:24px;padding:24px 28px 22px;display:flex;flex-direction:column}
-.pack .cnt{font-size:22px;font-weight:600;letter-spacing:.16em;color:var(--amber)}
-.pack .pname{margin-top:4px;font-size:34px;font-weight:600;color:var(--ink)}
+.pack .pname{font-size:34px;font-weight:600;color:var(--ink)}
 .pack .pp{margin-top:14px;display:flex;align-items:baseline;gap:14px}
 .pack .new{font-size:54px}
-.pack .unit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:27px;color:var(--muted)}
+.pack .unit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:30px;color:var(--muted)}
 .pack .unit b{color:var(--ink);font-weight:600}
-.pnote{margin-top:18px;font-size:27px;line-height:1.35;color:var(--muted)}
+.pnote{margin-top:18px;font-size:30px;line-height:1.35;color:var(--muted)}
+.pnote b{color:var(--ink);font-weight:600}
 
 /* includes */
 .incl{margin:36px 64px 0;padding:28px 36px;background:var(--sand);border-radius:28px;display:grid;gap:12px}
@@ -87,17 +81,16 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
 
 /* footer */
 .foot{position:relative;overflow:hidden;margin-top:44px;background:var(--dark);color:var(--on-dark);padding:52px 64px 44px}
-.court{position:absolute;right:64px;top:64px;width:360px;height:auto;opacity:.22}
-.foot .k{position:relative;font-size:24px;font-weight:600;letter-spacing:.2em;color:var(--amber-light)}
-.cta{position:relative;margin-top:22px;display:flex;align-items:center;gap:26px;width:fit-content;
+.court{position:absolute;right:64px;top:44px;width:290px;height:auto;opacity:.22}
+.cta{position:relative;display:flex;align-items:center;gap:26px;width:fit-content;
   background:var(--on-dark);color:var(--dark);border-radius:999px;padding:24px 44px 24px 30px}
 .cta svg{width:52px;height:52px;flex:none}
-.cta .t1{font-size:24px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+.cta .t1{font-size:30px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
 .cta .t2{font-family:var(--f-head);font-size:52px;line-height:1.05}
 .info{position:relative;margin-top:34px;display:grid;gap:12px;font-size:28px;line-height:1.35;color:var(--on-dark-muted)}
 .info b{color:var(--on-dark);font-weight:600}
 .legal{position:relative;margin-top:30px;padding-top:20px;border-top:1px solid var(--line-dark);display:flex;justify-content:space-between;
-  font-size:22px;font-weight:500;letter-spacing:.04em;color:var(--on-dark-muted)}
+  font-size:28px;font-weight:500;letter-spacing:.02em;color:var(--on-dark-muted)}
 </style>
 </head>
 <body>
@@ -112,27 +105,23 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
     </div>
   </div>
 
-  <div class="hero">
-    <img class="photo" src="havlu.jpg" alt="Masaj yatağında Navitas işlemeli havlu">
-    <div class="badge" aria-label="Yüzde 30'a varan tenisçi indirimi">
-      <div class="pct">%30</div>
-      <div class="lbl">’A VARAN<br>İNDİRİM</div>
-    </div>
-  </div>
-
   <div class="title">
     <div class="eyebrow">
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="24" cy="24" r="20"/><path d="M9.5 10.5c6.5 7.5 6.5 19.5 0 27"/><path d="M38.5 10.5c-6.5 7.5-6.5 19.5 0 27"/></svg>
-      TENİSÇİLERE ÖZEL
+      31 ARALIK 2026’YA KADAR GEÇERLİ
     </div>
-    <h1>Spa fiyat listesi</h1>
+    <h1>Tenisçilere özel<br>spa fiyatları</h1>
   </div>
-  <p class="lead">Kortun yorgunluğunu hamamda, saunada ve masajda bırakın. <b>Tek seanslarda %20, paketlerde %30 tenisçi indirimi.</b></p>
+  <p class="lead"><b>Kişi başı seanslarda ve VIP’te %20, paketlerde %30 indirim.</b><br>Tenisçi fiyatı için <a href="https://wa.me/905330713373?text=Merhaba%2C%20tenis%C3%A7ilere%20%C3%B6zel%20spa%20fiyat%20listesinden%20yaz%C4%B1yorum.%20Randevu%20almak%20istiyorum.%20%28Ref%3A%20TENIS-PDF%29">WhatsApp’tan yazmanız</a> ya da söylemeniz yeterli.</p>
+
+  <div class="hero">
+    <img class="photo" src="havlu.jpg" alt="Masaj yatağında Navitas işlemeli havlu">
+  </div>
 </div>
 
 <section class="list">
   <div class="group">
-    <div class="ghead"><h2>Masaj ve hamam</h2><span>KİŞİ BAŞI</span></div>
+    <div class="ghead"><h2>Tek seanslar</h2><span>%20 İNDİRİM · KİŞİ BAŞI</span></div>
 
     <div class="row">
       <div><div class="name">İsveç Masajı <span class="dur">· 50 dk</span></div>
@@ -141,8 +130,8 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
     </div>
 
     <div class="row">
-      <div><div class="name">Derin Doku Masajı <span class="dur">· 50 dk</span><span class="tag">KORTTAN SONRA</span></div>
-        <div class="desc">Boyun, omuz ve sırta odaklanan güçlü baskı</div></div>
+      <div><div class="name">Derin Doku Masajı <span class="dur">· 50 dk</span></div>
+        <div class="desc">Boyun, omuz ve sırt; baskı tercihinize göre ayarlanır</div></div>
       <div class="price"><div class="old">3.500 TL</div><div class="new">2.800<small>TL</small></div></div>
     </div>
 
@@ -166,22 +155,22 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
   </div>
 
   <div class="group">
-    <div class="ghead"><h2>Masaj paketleri</h2><span>%30 İNDİRİMLİ</span></div>
+    <div class="ghead"><h2>Masaj paketleri</h2><span>%30 İNDİRİM</span></div>
     <div class="packs">
-      <div class="pack"><div class="cnt">10 SEANS</div><div class="pname">İsveç paketi</div>
+      <div class="pack"><div class="pname">10 seans İsveç</div>
         <div class="pp"><div class="new">17.500<small>TL</small></div><div class="old">25.000 TL</div></div>
         <div class="unit">Seansı <b>1.750 TL</b></div></div>
-      <div class="pack"><div class="cnt">20 SEANS</div><div class="pname">İsveç paketi</div>
+      <div class="pack"><div class="pname">20 seans İsveç</div>
         <div class="pp"><div class="new">24.500<small>TL</small></div><div class="old">35.000 TL</div></div>
         <div class="unit">Seansı <b>1.225 TL</b></div></div>
-      <div class="pack"><div class="cnt">10 SEANS</div><div class="pname">Mix paket</div>
+      <div class="pack"><div class="pname">10 seans Mix</div>
         <div class="pp"><div class="new">21.000<small>TL</small></div><div class="old">30.000 TL</div></div>
         <div class="unit">Seansı <b>2.100 TL</b></div></div>
-      <div class="pack"><div class="cnt">20 SEANS</div><div class="pname">Mix paket</div>
+      <div class="pack"><div class="pname">20 seans Mix</div>
         <div class="pp"><div class="new">28.000<small>TL</small></div><div class="old">40.000 TL</div></div>
         <div class="unit">Seansı <b>1.400 TL</b></div></div>
     </div>
-    <div class="pnote">Paketler arkadaşınızla paylaşılabilir. Mix pakette her seansta masaj türünü siz seçersiniz.</div>
+    <div class="pnote"><b>Paketler peşin ödenir, 1 yıl içinde kullanılır.</b> Arkadaşınızla paylaşabilirsiniz. Mix’te her seansta İsveç, aromaterapi ya da derin doku seçersiniz.</div>
   </div>
 
   <div class="group">
@@ -189,8 +178,8 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
 
     <div class="row">
       <div><div class="name">Çift Masajı <span class="dur">· 50 dk</span></div>
-        <div class="desc">Çift odasında, iki terapistle aynı anda</div></div>
-      <div class="price"><div class="old">4.000 TL</div><div class="new">3.200<small>TL</small></div></div>
+        <div class="desc">İki kişi birlikte; sauna, hamam ve havuz dahil</div></div>
+      <div class="price"><div class="new">4.000<small>TL</small></div><div class="per">kampanya fiyatı</div></div>
     </div>
 
     <div class="row">
@@ -202,9 +191,10 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
 </section>
 
 <div class="incl">
-  <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Masajlara hamam, sauna ve buhar odası kullanımı dahil</div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Tek seans masajlarda hamam, sauna ve buhar odası dahil</div>
   <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Hamam kadın ve erkek için ayrı</div>
-  <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Ön ödeme yok, randevuyla</div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Randevu için ön ödeme yok</div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#96561a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>Üstü çizili fiyatlar liste fiyatıdır</div>
 </div>
 
 <footer class="foot">
@@ -212,17 +202,16 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
     <rect x="0" y="0" width="2377" height="1097"/>
     <path d="M0 137H2377M0 960H2377M1188.5 -60V1157M548.5 137V960M1828.5 137V960M548.5 548.5H1828.5"/>
   </svg>
-  <div class="k">RANDEVU</div>
-  <a class="cta" href="https://wa.me/905330713373?text=Merhaba%2C%20tenis%C3%A7ilere%20%C3%B6zel%20spa%20fiyat%20listesinden%20ula%C5%9F%C4%B1yorum.%20Randevu%20almak%20istiyorum.">
+  <a class="cta" href="https://wa.me/905330713373?text=Merhaba%2C%20tenis%C3%A7ilere%20%C3%B6zel%20spa%20fiyat%20listesinden%20yaz%C4%B1yorum.%20Randevu%20almak%20istiyorum.%20%28Ref%3A%20TENIS-PDF%29">
     <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#2e221c"/><path fill="#f5ede4" d="M16 7.2a8.8 8.8 0 0 0-7.6 13.2L7.2 24.8l4.5-1.2A8.8 8.8 0 1 0 16 7.2zm0 16a7.2 7.2 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 1 1 16 23.2zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a5.9 5.9 0 0 1-2.9-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.4 4.4 0 0 0 .9 2.3 10 10 0 0 0 3.8 3.4c1.4.6 2 .7 2.7.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.5z"/></svg>
-    <div><div class="t1">WhatsApp’tan yazın</div><div class="t2">0533 071 33 73</div></div>
+    <div><div class="t1">WhatsApp’tan randevu isteyin</div><div class="t2">0533 071 33 73</div></div>
   </a>
   <div class="info">
     <div><b>DoubleTree by Hilton Topkapı</b> · Bayrampaşa / İstanbul</div>
     <div>Hafta içi 07.00–22.00 · Hafta sonu 08.00–22.00</div>
     <div>Otel otoparkında ilk 3 saat ücretsiz</div>
   </div>
-  <div class="legal"><span>navitastopkapi.com</span><span>Kasım 2026</span></div>
+  <div class="legal"><span>navitastopkapi.com</span><span>Fiyatlar 31 Aralık 2026’ya kadar</span></div>
 </footer>
 
 </main>
