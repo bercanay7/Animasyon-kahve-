@@ -72,14 +72,14 @@ SHOTS = [
          plate_at=("c1s9", "İngiltere", -0.2), flow_at=("c1s9", "III.", -0.1), stop_at=("c1s9", "ödemediği", -0.2), stamp_at=("c1s9", "borçlar", 0.0),
          cam=("push", 0.07), tr=("carry", 0.9, dict(strip="ink", dir="r")), link="carry", label="Edward'ın ödemediği borç"),
     # ── 10a. kronikçi Villani (sol) ──────────────────────────────────────────
-    shot("c1_kardes", ("c1s10", -0.1), mode="day", perde=1, chron_at=("c1s10", -0.15), brother_at=("c1s10", "kardeşi", -0.4),
+    shot("c1_kardes", ("c1s10", -0.1), mode="day", perde=1, chron_at=("c1s10", -0.15), brother_at=("c1s10", "Peruzzi'nin", -0.4),
          link_at=("c1s10", "Peruzzi", -0.2), owner_at=("c1s10", "kaybedenlerin", -0.1),
-         cam=[(("c1s10", -0.1), (-240, 20, 1.08, 0)), (("c1s10", "kardeşi", -0.3), (-240, 20, 1.16, 0))],
+         cam=[(("c1s10", -0.1), (-240, 20, 1.08, 0)), (("c1s10", "Peruzzi'nin", -0.3), (-240, 20, 1.16, 0))],
          tr=("slide", 0.9, dict(dir="l")), link="dir", label="kronikçi Villani"),
     # ── 10b. kardeşi Peruzzi'de çalışıyordu: kadraj sağa kayar, ip bağlanır ──
-    shot("c1_kardes", ("c1s10", "kardeşi", -0.3), mode="day", perde=1, chron_at=("c1s10", "kronikçi", -0.4), brother_at=("c1s10", "kardeşi", -0.4),
+    shot("c1_kardes", ("c1s10", "Peruzzi'nin", -0.3), mode="day", perde=1, chron_at=("c1s10", "kronikçi", -0.4), brother_at=("c1s10", "Peruzzi'nin", -0.4),
          link_at=("c1s10", "Peruzzi", -0.2), owner_at=("c1s10", "kaybedenlerin", -0.1), toff=5.0,
-         cam=[(("c1s10", "kardeşi", -0.3), (0, 0, 1.0, 0)), (("c1s10", "ailesindendi", 0.5), (0, 0, 1.16, 0))],
+         cam=[(("c1s10", "Peruzzi'nin", -0.3), (0, 0, 1.0, 0)), (("c1s10", "içindendi", 0.5), (0, 0, 1.16, 0))],
          tr=None, link="cam", label="sayıyı veren adam, kaybedenlerin ailesinden"),
     # ── 11. VEBA: Floransa'nın rengi solar ───────────────────────────────────
     shot("p1_skyline", ("c1s11", -0.15), seed=3, tod="day", mode="day", perde=1, pan=240,
