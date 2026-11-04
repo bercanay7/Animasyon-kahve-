@@ -50,7 +50,7 @@ def _leaf(f, x, y, w, h, tone, alpha=1.0, back=False, grid=True, seed=0):
 
 
 @ckind("c0_takvim")
-def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2), n=114, final=("31", "EKİM", "1737"), unit="GÜN", show_at=None, seed=2, **_):
+def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2), n=114, final=("31", "EKİM", "1737"), unit="GÜN", show_at=None, first=None, seed=2, **_):
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.05, drift=(5.0, 2.0))
@@ -120,6 +120,14 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
             f.rrect(-lw_ / 2, -lh_ / 2, lw_, lh_, 6, color=mix(tone, "#000000", 0.05 + 0.04 * (i % 3)), alpha=al)
             f.rrect(-lw_ / 2, -lh_ / 2, lw_, lh_, 6, style="stroke", sw=1.4, color="#4A3420", alpha=0.45 * al)
             c.restore()
+    # ilk yaprak (çevrilmeden önce): başlangıç tarihi — sayfa boş görünmesin (kurul AN2: durağan boş kâğıt)
+    if first:
+        kf0 = appear * (1.0 - smooth(p / 0.05))
+        if kf0 > 0.01:
+            CM.ink(f, first[1], x0 + w / 2, y0 + 38, face="title_m", size=34, color="#F4E3B2", align="c", track=12, alpha=kf0, emboss=False)
+            sp0 = CM.painted(first[0], "title", 260, 6.0, "#3A2A1A", 1.3, 5)
+            CM.draw_spr(f, sp0, x0 + w / 2, y0 + h * 0.60, "c", alpha=kf0)
+            CM.ink(f, first[2], x0 + w / 2, y0 + h - 56, face="title_m", size=44, color="#4A3420", align="c", track=10, alpha=kf0, emboss=False)
     # son yaprak: tarih damgası
     kfin = cx.amt(end_at, 0.34)
     if kfin > 0:
@@ -526,10 +534,16 @@ def k_kuyruk(cx, scroll=(1180.0, 2020.0), sign_at=None, kick_at=None, kick="BUG�
     for yy in (by0 - 40, by0 + bh):
         FA.vine_band(f, yy, 1.0)
         c.drawLine(-40, yy + (40 if yy < by0 else 0), W + 40, yy + (40 if yy < by0 else 0), f.paint(TH.gold, style="stroke", sw=2.6, alpha=0.9))
-    if kick_at is not None:
-        k = cx.amt(kick_at, 0.8)
-        CM.kick(f, kick, W / 2, 104, alpha=k, size=36, track=18)
     CM.finish(f, cx, motes_n=22)
+    if kick_at is not None:                      # kurul SA1-Ö1/TE2: kicker okunur levha (ekran uzayı, ≥46 px, koyu zemin, kenardan içeride)
+        k = cx.amt(kick_at, 0.6)
+        if k > 0.003:
+            sz = 48
+            wd = sk.text_width(kick, "title_m", sz, 16) + 64
+            yk = 196 + (1 - k) * 14
+            f.rrect(W / 2 - wd / 2, yk - 52, wd, 74, 12, color="#120C08", alpha=0.80 * k)
+            f.rrect(W / 2 - wd / 2, yk - 52, wd, 74, 12, style="stroke", sw=2.0, color="#C9A45A", alpha=0.85 * k)
+            CM.ink(f, kick, W / 2, yk, face="title_m", size=sz, color="#FFF4D6", align="c", track=16, alpha=k, emboss=False)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -677,18 +691,15 @@ def sinir_extra(cx, cm, mv, border_at=None, label_at=None, items_at=None, lock_a
             sz = 56
             wd = max(sk.text_width(l1, "cap_b", sz), sk.text_width(l2, "cap_b", sz)) + 160
             x0, y0, hh = W / 2 - wd / 2, 600 + (1 - k) * 24, 300
-            f.rrect(x0, y0, wd, hh, 14, color="#120C08", alpha=0.80 * k)
-            f.rrect(x0, y0, wd, hh, 14, style="stroke", sw=2.4, color="#C9A45A", alpha=0.85 * k)
-            CM.ink(f, head, W / 2, y0 + 62, face="title_m", size=40, color="#F2C66A", align="c", track=12, alpha=k, emboss=False)
+            f.rrect(x0 + 6, y0 + 10, wd, hh, 14, color="#000000", alpha=0.35 * k, blur=10)
+            f.rrect(x0, y0, wd, hh, 14, color="#120C08", alpha=0.92 * k)
+            f.rrect(x0, y0, wd, hh, 14, style="stroke", sw=2.4, color="#C9A45A", alpha=0.9 * k)
+            CM.ink(f, head, W / 2, y0 + 62, face="title_m", size=42, color="#F6D886", align="c", track=12, alpha=k, emboss=False)
             CM.flourish_rule(f, W / 2, y0 + 88, 380, alpha=k, grow=k)
             CM.ink(f, l1, W / 2, y0 + 168, face="cap_b", size=sz, color="#FFF4D6", align="c", alpha=k, emboss=False)
             CM.ink(f, l2, W / 2, y0 + 236, face="cap_b", size=sz, color="#FFF4D6", align="c", alpha=k, emboss=False)
     # SINIR YAKLAŞIKTIR (kurul KA2-Ö5 / SA2-Ö5): temsilî sınır uyarısı (kalıcı, küçük)
-    if border_at is not None or label_at is not None:
-        kb_ = cx.amt(border_at if border_at is not None else label_at, 0.6)
-        if kb_ > 0.003:
-            f.rrect(108, 860, 410, 56, 10, color="#120C08", alpha=0.72 * kb_)
-            CM.ink(f, "SINIR YAKLAŞIKTIR", 313, 898, face="title_m", size=34, color="#FFF4D6", align="c", track=6, alpha=kb_, emboss=False)
+    # (uyarı levhası artık ekran uzayında: sahne dosyasında P.tag("SINIR YAKLAŞIKTIR", …) — kamera kaydırmasıyla kenarda kırpılmasın)
     if label_at is not None:
         k = cx.amt(label_at, 0.7)
         if k > 0.003:
@@ -890,9 +901,10 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
             if 0 < gs < 1:
                 gx = x - R + 2 * R * gs
                 f.circle(gx, yc - 20, 60, shader=f.rad(gx, yc - 20, 60, [("#FFF4C0", 0.0, int(150 * math.sin(gs * math.pi))), ("#FFF4C0", 1.0, 0)]))
-            lsz = CM.fit_size(it["label"], "title_m", 40, gap - 12, 4)
-            f.rrect(x - gap / 2 + 12, yc + R + 34 + (1 - ka) * 10, gap - 24, lsz + 34, 10, color="#120C08", alpha=0.62 * ka)
-            CM.ink(f, it["label"], x, yc + R + 34 + lsz + 8 + (1 - ka) * 10, face="title_m", size=lsz, color="#FFF4D6", align="c", track=4, alpha=ka, emboss=False)
+            lsz = max(34.0, CM.fit_size(it["label"], "title_m", 40, gap - 90, 3))
+            lw_ = sk.text_width(it["label"], "title_m", lsz, 3) + 56
+            f.rrect(x - lw_ / 2, yc + R + 34 + (1 - ka) * 10, lw_, lsz + 34, 10, color="#120C08", alpha=0.80 * ka)
+            CM.ink(f, it["label"], x, yc + R + 34 + lsz + 8 + (1 - ka) * 10, face="title_m", size=lsz, color="#FFF4D6", align="c", track=3, alpha=ka, emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
 

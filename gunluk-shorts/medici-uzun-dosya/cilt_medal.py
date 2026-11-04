@@ -32,6 +32,7 @@ medal.INSCR.setdefault("m_lorenzo", "LAVRENTIVS · MEDICES · FLORENTINVS ·")
 medal.INSCR.setdefault("m_giovanni", "IOHANNES · DE · MEDICIS ·")
 medal.INSCR.setdefault("m_lucrezia", "LVCRETIA · TORNABONA ·")
 V2 = True                       # erkek profilleri v2 üreteçle (False → eski medal.py profili)
+V2_FRAME = "v1"                 # "v1": yüz v1 ile aynı yerde/ölçekte (sahnelerdeki kalibre işaretler korunur) | "bust": omuzlu büst çerçevesi
 
 
 # ═════════════════════════════ PORTRE ÜRETECİ v2 (ENG-A; SA1-Ö6) ═════════════════════════════
@@ -203,12 +204,17 @@ def medal_array_v2(key, metal="gold", inscription=None, flip=False):
     d = medal.PEOPLE.get(key) or medal.PEOPLE["_anon"]
     S_ = medal.S
     por = portrait_height_v2(d, flip)
-    sc = 1.08 * (d.get("scale", 1.22) / 1.22)
+    # ÇERÇEVE: v1 ile AYNI (ölçek 1,22, aynı öteleme) → yüz öğeleri (burun, çene, göz) madalyada v1'deki yerinde kalır: sahne dosyalarındaki
+    # kalibre işaretler (ör. c6_tarif BASIK BURUN / ÖNE ÇIKIK ALT ÇENE) bozulmaz. Büst bu ölçekte iç halkayla kesilir (madalya kesimi).
     dy = d.get("dy", 0)
-    if flip:
-        Mtx = np.float32([[sc, 0, S_ / 2 - (S_ - 500) * sc + 10], [0, sc, S_ / 2 - 520 * sc + dy * 0.5]])
+    if V2_FRAME == "bust":                      # büst çerçevesi (omuz + madalya kesimi görünür; yüz öğeleri v1'den farklı yerde)
+        sc = 1.08 * (d.get("scale", 1.22) / 1.22)
+        tx = (S_ / 2 - (S_ - 500) * sc + 10) if flip else (S_ / 2 - 500 * sc - 10)
+        Mtx = np.float32([[sc, 0, tx], [0, sc, S_ / 2 - 520 * sc + dy * 0.5]])
     else:
-        Mtx = np.float32([[sc, 0, S_ / 2 - 500 * sc - 10], [0, sc, S_ / 2 - 520 * sc + dy * 0.5]])
+        sc = d.get("scale", 1.22)
+        tx = (S_ / 2 - 480 * sc - 85) if flip else (S_ / 2 - 520 * sc + 85)
+        Mtx = np.float32([[sc, 0, tx], [0, sc, S_ / 2 - 470 * sc + 20 + dy]])
     por = cv2.warpAffine(por, Mtx, (S_, S_), flags=cv2.INTER_LINEAR, borderValue=0)
     yy, xx = np.mgrid[0:S_, 0:S_].astype(np.float32)
     rr = np.hypot(xx - S_ / 2, yy - S_ / 2)

@@ -65,10 +65,19 @@ def make_program(part, timeline=None, lenient=True):
         SH.TL = tl
     try:
         return compose.Program(part=part)
-    except KeyError as e:
+    except (KeyError, AssertionError) as e:
         if not lenient:
             raise
-        print(f"[uyarı] çapa çözülemedi ({e}); eksik sözcük çapaları cümle başına düşürülerek devam ediliyor", file=sys.stderr)
+        print(f"[uyarı] çekim listesi kurulamadı ({e}); eksik sözcük çapaları cümle başına, ters sıralı çekim sınırları en az 0,05 sn'ye "
+              f"düşürülerek devam ediliyor (yalnız bu denetim süreci)", file=sys.stderr)
+    orig_add = compose.Program._add
+
+    def _add(self, s, t0, t1):
+        if t1 <= t0:
+            _MISSING_WORDS.append((f"sira:{getattr(s, 'label', '')}", f"{t0:.2f}>{t1:.2f}"))
+            t1 = t0 + 0.05
+        return orig_add(self, s, t0, t1)
+    compose.Program._add = _add
     orig = SH.Timeline.word
 
     def word(self, sid, key=None, nth=0, end=False):
@@ -194,7 +203,7 @@ def main():
                 continue                                      # tamamen kadraj dışı (kamera geçişi) — görünmüyor
             if not inside(b, S, 2.0):
                 twarn.append(dict(base, tip="yazi_kenar"))
-            if e["hud_on"] and e.get("label") is not None and hits(b, HR, 0.0):     # label None = çekim dışı kaplama (HUD'un kendisi, bölüm etiketi)
+            if e["hud_on"] and hits(b, HR, 0.0) and not inside(b, HR, 2.0):         # HUD'un kendi yazıları (kutunun içinde) hariç
                 twarn.append(dict(base, tip="yazi_hud"))
             if b[3] > sub[0] + 2 and b[1] < sub[1]:
                 twarn.append(dict(base, tip="yazi_altyazi"))

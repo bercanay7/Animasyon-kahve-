@@ -435,6 +435,7 @@ import cilt_oda as OD
 GIOVANNI = dict(kind="banker", seed=5)     # tekrar eden insan çapası: koyu kızıl cüppe (lucco), koyu berretta (kit kostümü seed=5; p1banka 0. masa da bu)
 COSIMO = dict(kind="banker", seed=33)      # lacivert cüppe, kısa sakal
 LORENZO_V = dict(kind="banker", seed=13)   # Giovanni'nin küçük oğlu (Lorenzo di Giovanni): kahverengi cüppe
+MACHIAVELLI = dict(kind="soylu", seed=52)  # c1s20 ve c2s29/c2s33: aynı çalışma odası (calisma kutuphane), aynı figür (görsel geri çağırma)
 
 
 def actor(base, **kw):
@@ -673,3 +674,33 @@ class P1Corridor(_PN.Corridor):
 
 
 _PN.WORLDS["p1corridor"] = P1Corridor
+
+
+def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C"):
+    """Balmumu mühür (palle) `at`'ta yukarıdan düşer, oturur (anim.settle), halka dalgası; altında koyu levhalı etiket. Ekran uzayı."""
+    import anim
+
+    def fn(cx):
+        f = cx.f
+        t_at = cx.at(at)
+        k = clamp((cx.t - (t_at - 0.25)) / 0.25)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        e = anim.settle(cx.t, t_at - 0.25, 0.45, 0.10)
+        yy = y - 240 * (1.0 - e)
+        f.circle(x + 8, y + r * 0.9, r * 0.9, color="#000000", alpha=0.25 * k * e, blur=10)
+        CM.wax_seal(f, x, yy, r, col, alpha=k, t=1.0, palle=True)
+        if cx.t >= t_at:
+            ph = clamp((cx.t - t_at) / 0.8)
+            if ph < 1.0:
+                f.circle(x, y, r * (1.05 + 0.8 * ph), style="stroke", sw=4, color="#E8C468", alpha=0.6 * (1 - ph))
+        if label:
+            kl = clamp((cx.t - t_at - 0.15) / 0.35) * k
+            if kl > 0.003:
+                wd = sk.text_width(label, "title_m", label_size, 8) + 56
+                ly = y + r + 74
+                f.rrect(x - wd / 2, ly - label_size - 4, wd, label_size + 30, 10, color="#120C08", alpha=0.78 * kl)
+                CM.ink(f, label, x, ly, face="title_m", size=label_size, color="#FFF4D6", align="c", track=8, alpha=kl, emboss=False)
+    return fn

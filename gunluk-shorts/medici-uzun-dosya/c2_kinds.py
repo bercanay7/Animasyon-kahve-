@@ -398,21 +398,19 @@ def _i_bulla(m):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# c2_rivayet — mitra borca karşılık bırakılır; Martinus aforozla tehdit eder (ANEKDOT)
+# c2_rivayet — mitra borca karşılık bırakılır; Martinus aforozla tehdit eder (BELGELİ: de Roover n. 45 — teyit_P1; eski adı korunur)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c2_rivayet")
-def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at=None, seed=4, **_):
+def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at=None, medal=True, src=("DE ROOVER", "ANDIĞI ARŞİV BELGELERİ"),
+              src_stamp="BELGE · DE ROOVER", pawn_label="BORÇ", seed=4, **_):
     f = cx.f
     c = f.c
     cam = _bg(f, cx, seed)
-    # kaynak: Treccani levhası + ANEKDOT damgası
     ks = cx.amt(src_at, 0.6) if src_at is not None else 0.0
-    if ks > 0.003:
-        CM.name_plate(f, "TRECCANI", "GIOVANNI MADDESİNDE", None, cx_=520, y=95, t=ks, w=620)
-        CM.stamp(f, "ANEKDOT", 1130, 175, rot=-0.07, size=60, t=cx.amt(src_at, 0.3, off=0.6))
-    # sol: Giovanni madalyası, orta: mitra (yastıkta, "BORÇ" etiketi), sağ: Martinus siluet
-    kmed = cx.amt(med_at, 0.6) if med_at is not None else 1.0
-    CMD.draw_medal_b(f, "m_giovanni", 400, 560, 430 * (0.92 + 0.08 * kmed), "bronze", False, alpha=kmed, tilt=0.12 * math.sin(cx.t * 0.5), glint=None)
+    # sol: Giovanni madalyası (isteğe bağlı), orta: mitra (yastıkta, etiket), sağ: Martinus siluet
+    if medal:
+        kmed = cx.amt(med_at, 0.6) if med_at is not None else 1.0
+        CMD.draw_medal_b(f, "m_giovanni", 400, 560, 430 * (0.92 + 0.08 * kmed), "bronze", False, alpha=kmed, tilt=0.12 * math.sin(cx.t * 0.5), glint=None)
     kp = cx.amt(pawn_at, 0.6) if pawn_at is not None else 0.0
     mx, my = 960, 600
     if kp > 0.003:
@@ -422,8 +420,9 @@ def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at
         f.rrect(mx - 170, my + 70, 340, 70, 30, style="stroke", sw=3, color="#D8B25A", alpha=0.9 * kp)
         icons.draw_icon(f, "c2_mitra", mx, my - 40 + 6 * math.sin(cx.t * 2.0), size=300 * (0.8 + 0.2 * sk.back_out(kp)), metal="gold", alpha=kp, glow=0.0)
         f.circle(mx, my - 40, 230, shader=f.rad(mx, my - 40, 230, [("#F0D27A", 0.0, int(70 * kp)), ("#F0D27A", 1.0, 0)]))
-        CM.tablet(f, mx - 120, my + 160, 240, 74, alpha=kp, rot=-0.04, corner=8)
-        CM.ink(f, "BORÇ", mx, my + 212, face="title_m", size=40, color=TH.fg, align="c", track=10, alpha=kp, emboss=False)
+        lw_ = max(240.0, sk.text_width(pawn_label, "title_m", 40, 8) + 70)
+        CM.tablet(f, mx - lw_ / 2, my + 160, lw_, 74, alpha=kp, rot=-0.04, corner=8)
+        CM.ink(f, pawn_label, mx, my + 212, face="title_m", size=40, color=TH.fg, align="c", track=8, alpha=kp, emboss=False)
     # Martinus: siluet, sağ elini uzatır (işaret)
     kq = cx.amt(ask_at, 0.6) if ask_at is not None else 0.0
     if kq > 0.003:
@@ -439,6 +438,11 @@ def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at
         CM.stamp(f, "AFOROZ TEHDİDİ", 1000, 845, rot=-0.04, size=56, t=cx.amt(threat_at, 0.3, off=0.5))
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
+    # kaynak levhası + kaynak damgası EKRAN UZAYINDA (kamera eğmesiyle kenardan taşmasın; HUD'dan uzak) — kurul teyit: olay belgeli → ANEKDOT/RİVAYET değil
+    if ks > 0.003:
+        CM.name_plate(f, src[0], src[1], None, cx_=600, y=170, t=ks, w=640)
+        if src_stamp:
+            CM.stamp(f, src_stamp, 1180, 300, rot=-0.06, size=54, t=cx.amt(src_at, 0.3, off=0.6))
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -759,3 +763,53 @@ def tomar(x, y, at, to, w=520, dirn=1, lines=5, out=None):
 
 import p1_ortak as _P2  # noqa: E402
 _P2.add_ovl(["c2_nolist", "c2_hediye", "c2_kasa", "c2_borc", "c2_ayrim", "c2_mezar", "c2_rivayet", "c2_katasto", "c2_yil", "c2_kalemler", "c2_sadaka"])
+
+
+def kasa_cubuk(x0, y, w, start_at, a_at, b_at, n_a=22, n_b=18, start_label="1422", out=None):
+    """Papalık kasa memurluğu (kurul teyit c2s21, DBI): düz yaldız şerit = n_a yıl KESİNTİSİZ, ardından kesikli şerit = n_b yıl ARALIKLI.
+    Yalnız başlangıç yılı yazılır (bitiş yılı iddiası yok). Ekran uzayı; yazılar ≥38 px, koyu zemin üstünde."""
+    def fn(cx):
+        f = cx.f
+        k0 = cx.amt(start_at, 0.5)
+        if out is not None:
+            k0 *= 1.0 - cx.amt(out, 0.4)
+        if k0 <= 0.003:
+            return
+        tot = float(n_a + n_b)
+        wa, wb = w * n_a / tot, w * n_b / tot
+        hb = 46.0
+        f.rrect(x0 - 110, y - 190, w + 150, 380, 18, color="#120C08", alpha=0.70 * k0)
+        f.rrect(x0 - 110, y - 190, w + 150, 380, 18, style="stroke", sw=2.0, color="#C9A45A", alpha=0.7 * k0)
+        f.line(x0, y + hb / 2 + 10, x0 + w * k0, y + hb / 2 + 10, color="#E8D4A0", sw=2.0, alpha=0.55 * k0)
+        # başlangıç çentiği + yıl
+        f.line(x0, y - hb / 2 - 18, x0, y + hb / 2 + 22, color="#F6D886", sw=4.0, alpha=k0)
+        CM.ink(f, start_label, x0, y + hb / 2 + 76, face="title", size=46, color="#F6D886", align="c", track=6, alpha=k0, emboss=False)
+        # düz şerit (kesintisiz)
+        ta = cx.at(a_at)
+        ua = ease_io(clamp((cx.t - ta) / 1.0), 1.8)
+        if ua > 0.002:
+            f.rrect(x0, y - hb / 2, wa * ua, hb, 8, shader=f.lin(0, y - hb / 2, 0, y + hb / 2, [("#F6D886", 0.0), ("#B8862E", 1.0)]), alpha=k0)
+            ka = clamp((cx.t - ta - 0.2) / 0.4) * k0
+            n = int(round(n_a * ua))
+            CM.ink(f, f"{n} YIL", x0 + wa / 2, y - hb / 2 - 26, face="title", size=56, color="#FFF4D6", align="c", track=6, alpha=ka, emboss=False)
+            CM.ink(f, "KESİNTİSİZ", x0 + wa / 2, y + hb / 2 + 76, face="title_m", size=38, color="#FFF4D6", align="c", track=6, alpha=clamp((cx.t - ta - 0.7) / 0.4) * k0, emboss=False)
+        # kesikli şerit (aralıklı)
+        tb = cx.at(b_at)
+        ub = ease_io(clamp((cx.t - tb) / 1.0), 1.8)
+        if ub > 0.002:
+            xb = x0 + wa
+            nseg = 7
+            sw_ = wb / nseg
+            for i in range(nseg):
+                s0 = xb + i * sw_ + 6
+                s1 = s0 + sw_ * 0.62
+                lim = xb + wb * ub
+                if s0 >= lim:
+                    break
+                f.rrect(s0, y - hb / 2 + 6, min(s1, lim) - s0, hb - 12, 6, color="#D8B25A", alpha=0.9 * k0)
+            kb = clamp((cx.t - tb - 0.2) / 0.4) * k0
+            CM.ink(f, "+", xb, y - hb / 2 - 30, face="title", size=56, color="#F6D886", align="c", alpha=kb, emboss=False)
+            n = int(round(n_b * ub))
+            CM.ink(f, f"{n} YIL", xb + wb / 2 + 10, y - hb / 2 - 26, face="title", size=56, color="#FFF4D6", align="c", track=6, alpha=kb, emboss=False)
+            CM.ink(f, "ARALIKLI", xb + wb / 2 + 10, y + hb / 2 + 76, face="title_m", size=38, color="#FFF4D6", align="c", track=6, alpha=clamp((cx.t - tb - 0.7) / 0.4) * k0, emboss=False)
+    return fn

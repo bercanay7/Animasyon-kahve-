@@ -10,11 +10,16 @@ Tüm çekimler cümle/sözcük çapalı (mutlak saniye yalnız kapak yankısın�
 import functools
 
 import anim
+import shots as SH
 from shots import shot
 import cilt_medici as CM
 import kapak_medici as KP
 import p1_ortak as P
 import c0_kinds as K
+
+if not getattr(SH.KINDS["kapak_kilit"], "_p1_ovl", False):     # kapak yankısına ekran-uzayı ovl (tarih künyesi); türün çizimi aynen kalır
+    P.add_ovl(["kapak_kilit"])
+    SH.KINDS["kapak_kilit"]._p1_ovl = True
 
 DOC = K.DOC_FILL          # oda1743: belge ekranı doldurur (cams anahtarı)
 
@@ -34,7 +39,8 @@ SHOTS = [
          cam=("push",), tr=("light", 0.6, dict(at=(900, 700))), link="light", label="1743 odası: yatak (siluet)"),
     # ── 2. "Toskana'yı yönetmiş Medici hattının son üyesi o." — arma parlar; levha: MEDİCİ'NİN SON ÜYESİ (kesme 9,2 sn) ──
     shot("p1_palle", ("c0s3", -0.1), size=560, pos=(640, 520), mode="night", perde=1,
-         ovl=P.ov(P.plate("ANNA MARIA LUISA", 1340, 380, ("c0s3", "Toskana'yı", -0.2), role="MEDİCİ'NİN SON ÜYESİ", w=780),
+         ovl=P.ov(P.plate("ANNA MARIA LUISA", 1340, 330, ("c0s3", "Toskana'yı", -0.2), w=720),
+                  P.tag("MEDİCİ'NİN SON ÜYESİ", 1340, 520, ("c0s3", "son", -0.35), size=52),
                   P.glint(640, 470, ("c0s3", "son", -0.1), r=300, dur=1.4)),
          cam=("push", dict(ease="out")), tr="cut", link="audio", label="arma: Medici'nin son üyesi"),
     # ── 3. Boş taht, yabancı birlik siluetleri girer ───────────────────────
@@ -46,16 +52,16 @@ SHOTS = [
          ovl=P.tag("5 YIL 7 AY ÖNCE", 560, 860, ("c0s4", "beş", -0.1), size=40, out=("c0s4", "ölmüştü", 0.9)),
          cam=("push",), tr=("iris", 0.9, dict(obj="palle", at=(640, 520), r=200)), link="shape", label="boş taht, yabancı birlik"),
     # ── 4. Medici salonu: palle frizi; tek siluet "hâlâ o duruyordu" (aynı saray → sert kesme) ──
-    shot("oda", ("c0s5", -0.1), room="salon", variant="medici", **ODA_DUSK,
+    shot("p1_oda", ("c0s5", -0.1), room="salon", variant="medici", **ODA_DUSK,
          cams=[(("c0s5", -0.1), (1100, 0, 1.0)), (("c0s5", "yüzyıllarca", 0.0), (1450, 20, 1.1)), (("c0s5", "hâlâ", 0.0), (1760, 50, 1.45))],
          actors=[dict(kind="soylu_f", x=1900, y=858, h=300, action="idle", sil=True, layer="front", seed=4)],
          cam=("pan", "r"), tr="cut", link="cam", label="Medici salonu, tek siluet"),
     # ── 5. 31 Ekim 1737 (zaman sıçraması, mum) · ölümünden 114 gün sonra: takvim ──
-    shot("c0_takvim", ("c0s6", -0.15), mode="night", perde=1, show_at=("c0s6", -0.3), start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2),
+    shot("c0_takvim", ("c0s6", -0.15), mode="night", perde=1, show_at=("c0s6", -0.3), start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört", 0.2), first=("9", "TEMMUZ", "1737"),
          ovl=P.tag("31 EKİM 1737", 1290, 250, ("c0s6", "31", -0.2), size=58),
-         cam=("tilt", "down", 80), tr=("candle", 1.6, dict(at=(960, 640), at_b=(630, 420))), link="light", label="31 Ekim 1737 · 114 gün"),
+         cam=("tilt", "down", 140), tr=("candle", 1.6, dict(at=(960, 640), at_b=(630, 420))), link="light", label="31 Ekim 1737 · 114 gün"),
     # ── 6. bir sözleşme imzalandı: kalem + mühür; kamera belgeye iner ───────
-    shot("oda", ("c0s6", "sözleşme", -0.5), room="oda1743", figure="seated", seal_at=("c0s6", "imzalandı", -0.1), **ODA_DUSK,
+    shot("p1_oda", ("c0s6", "sözleşme", -0.5), room="oda1743", figure="seated", seal_at=("c0s6", "imzalandı", -0.1), **ODA_DUSK,
          cams=[(("c0s6", "sözleşme", -0.5), (1820, 50, 1.5)), (("c0s6", "imzalandı", 0.0), (1900, 80, 2.4)), (("c0s7", -0.1), DOC)],
          cam=("push",), tr="cut", link="audio", label="imza, mühür, belgeye iniş"),
     # ── 7a. Belge: iki yan, iki mühür, 13 madde, FRANSIZCA ─────────────────
@@ -102,6 +108,7 @@ SHOTS = [
          cities=[dict(lon=11.25, lat=43.77, name="FLORANSA", kind="capital", at=("c0s12", "Floransa", -0.2), size=36)],
          extra=functools.partial(K.sinir_extra, border_at=("c0s12", "Büyük", 0.4), label_at=("c0s12", "Dukalık", -0.2), items_at=("c0s12", "Floransa", 0.0), lock_at=("c0s12", "çıkarılamayacaktı", 0.1),
                                  quote_at=("c0s12", "çıkarılamayacaktı", 0.65), quote_out=None),
+         ovl=P.tag("SINIR YAKLAŞIKTIR", 330, 880, ("c0s12", "Büyük", 0.4), size=36),
          cam=("truck", "r"), tr=("slide", 0.6, dict(dir="u")), link="dir", label="harita: Büyük Dukalık, zincir + kilit, 3. madde özeti"),
     # ── 12. Gerekçe: üç madalyon (oturarak gelir, simge sallanır, parıltı) ───
     shot("c0_gerekce", ("c0s13", "devletin", -0.5), mode="day", perde=1,

@@ -88,15 +88,15 @@ SHOTS = [
          cam=("push",), tr="cut", link="audio", label="müşteri: Kilise'nin ta kendisi"),
     # ── 9. Roma şubesi: ayrı sermaye yok; kasayı Kilise'nin parası doldurdu ───
     shot("c2_kasa", ("c2s10", -0.15), mode="day", perde=1, branch_at=("c2s10", "Roma", -0.2), nocap_at=("c2s10", "ayrı", -0.2), church_at=("c2s10", "Kilise'nin", -0.3), fill_at=("c2s10", "kasayı", -0.1), fill_to=("c2s10", "doldurdu", 0.3),
-         ovl=anim.stamp_ovl("DE ROOVER'A GÖRE", 1500, 860, ("c2s10", "Roover'a", 0.1), "ink", rot=-0.06, size=42),
-         cam=("pan", "l"), tr=("zoomthru", 0.5, dict(at=(1505, 700), at_b=(960, 520))), link="scale", label="Roma şubesi: kasayı Kilise doldurdu"),
+         ovl=P.tag("DE ROOVER'A GÖRE", 1480, 860, ("c2s10", "Roover'a", 0.0), size=40),
+         cam=("pan", "r"), tr=("zoomthru", 0.5, dict(at=(1505, 700), at_b=(960, 520))), link="scale", label="Roma şubesi: kasayı Kilise doldurdu"),
     # ── 10. 25 Mart 1402: Venedik şubesi; Floransa'da o gün yılbaşı ─────────
     shot("p1_map", ("c2s11", -0.15), mode="day", perde=1, approx=False,
          cams=[(("c2s11", -0.15), (11.9, 44.7, 3.6)), (("c2s11", "Venedik", 0.0), (12.0, 44.9, 4.6)), (("c2s11", "yılbaşıydı", 0.0), (11.8, 44.6, 4.0))],
          cities=[dict(lon=11.25, lat=43.77, name="FLORANSA", kind="capital", at=("c2s11", -0.0), size=36), dict(lon=12.34, lat=45.44, name="VENEDİK", kind="capital", at=("c2s11", "Venedik", -0.25), size=38)],
          routes=[dict(pts=[(11.25, 43.77), (11.9, 44.7), (12.34, 45.44)], at=("c2s11", "Venedik", -0.3), dur=1.4, width=7)],
          ovl=P.ov(P.tag("25 MART 1402", 470, 250, ("c2s11", "Mart", -0.3), size=52),
-                  anim.stamp_ovl("YILBAŞI", 1440, 420, ("c2s11", "yılbaşıydı", 0.0), "squash", rot=-0.07, size=70),
+                  anim.stamp_ovl("YILBAŞI", 1440, 420, ("c2s11", "yılbaşıydı", 0.0), "bounce", rot=-0.07, size=70),
                   P.icon_at("hourglass", 440, 520, ("c2s11", "Floransa'da", -0.1), size=170, glow=True, bob=5)),
          cam=("pan", "r"), tr=("yikama", 1.6), link="material", label="25 Mart 1402: Venedik şubesi; yılbaşı"),
     # ── 11. Çifte kaydı Medici'ler icat etti derler (MİT): kâtip yazar, aynı florin iki sütuna, sütunlar dengelenir ──
@@ -104,7 +104,7 @@ SHOTS = [
          actors=[dict(kind="banker", seed=61, x=1016, y=823, h=282, action="write", seated=True, dir=1)],
          cams=[(("c2s12", -0.15), (1270, 50, 1.36)), (("c2s13", -0.2), (1250, 56, 1.40))],
          ovl=P.ov(K.cifte_panel(("c2s12", "Çifte", 0.0), ("c2s12", "kaydı", 0.25), ("c2s12", "icat", 0.0)),
-                  anim.stamp_ovl("MİT", 1640, 300, ("c2s12", "derler", 0.0), "spin", rot=-0.1, size=104)),
+                  anim.stamp_ovl("MİT", 1640, 300, ("c2s12", "derler", 0.0), "drop", rot=-0.1, size=104)),
          cam="hand", tr="cut", link="audio", label="çifte kayıt: kâtip; MİT"),
     # ── 12. Etmediler: Cenova 1340 … (Venedik 1407 KALDIRILDI; arma yerine sözcük) ──
     shot("p1_timeline", ("c2s13", -0.15), a0=1320, a1=1520, step=20, mode="day", perde=1, title="ÇİFTE KAYDIN İZİ",
@@ -159,28 +159,34 @@ SHOTS = [
          cam=("push",), tr="cut", link="audio", label="V. Martinus itiraz eder"),
     # ── 17c. Yazıt kaldı (aynı anıt, parıltı) ────────────────────────────────
     shot("c2_mezar", ("c2s19", "Yazıt", -0.15), mode="day", perde=1, carve_at=("c2s18", "eski", -0.5), carve_to=("c2s18", "papa", 0.35), stay_at=("c2s19", "Yazıt", 0.0),
-         cam=("push", dict(rate=0.03)), tr="cut", link="cam", label="yazıt kaldı"),
-    # ── 18a. rivayet: Treccani'nin Giovanni maddesi (ANEKDOT); mitra borca karşılık ──
-    shot("c2_rivayet", ("c2s20", -0.15), mode="day", perde=1, src_at=("c2s20", "Treccani'nin", -0.2), pawn_at=("c2s20", "rivayet", -0.1),
-         cam=("tilt", "down", 90), tr=("sayfa", 0.5), link="material", label="rivayet: Treccani, mitra (ANEKDOT)"),
-    # ── 18b. Martinus mitrayı geri ister; Giovanni'yi aforozla tehdit eder (Giovanni elinde mitra) ──
+         cam=("tilt", "up", 130), tr="cut", link="cam", label="yazıt kaldı"),
+    # ── 18a. kaynak: de Roover'ın andığı arşiv belgeleri (BELGE — rivayet değil; teyit_P1 c2s20); mitra borca karşılık ──
+    shot("c2_rivayet", ("c2s20", -0.15), mode="day", perde=1, medal=False, pawn_at=("c2s20", "belgelere", -0.2), pawn_label="BORÇ KARŞILIĞI",
+         ovl=P.ov(P.plate("DE ROOVER", 600, 170, ("c2s20", "De", -0.25), role="ANDIĞI ARŞİV BELGELERİ", w=640),
+                  anim.stamp_ovl("BELGE · DE ROOVER", 1250, 360, ("c2s20", "belgelere", 0.0), "drop", rot=-0.06, size=50)),
+         cam=("tilt", "down", 130), tr=("sayfa", 0.5), link="material", label="belge (de Roover): mitra borç karşılığı"),
+    # ── 18b. Martinus mitrayı geri ister (papalık salonu; Giovanni elinde mitra) ─────────────────
     shot("p1_oda", ("c2s20", "Martinus", -0.3), room="p1salon", variant="papa", tod="day", mode="day", perde=1,
-         actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="point", at=("c2s20", "aforozla", -0.3), dir=-1, layer="back"),
+         actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="point", at=("c2s20", "geri", -0.3), dir=-1, layer="back"),
                  dict(G, x=1180, y=890, h=470, action="idle", dir=1, layer="front")],
-         cams=[(("c2s20", "Martinus", -0.3), (1450, 40, 1.25)), (("c2s20", "aforozla", 0.0), (1500, 50, 1.33))],
-         ovl=P.ov(P.icon_at("c2_mitra", 700, 660, ("c2s20", "Martinus", -0.3), size=150, bob=4),
-                  P.tag("BORÇ KARŞILIĞI", 700, 830, ("c2s20", "borca", -0.2), size=36),
-                  P.tag("RİVAYET", 1500, 220, ("c2s20", "Martinus", -0.2), size=36),
-                  anim.stamp_ovl("AFOROZ TEHDİDİ", 1220, 380, ("c2s20", "aforozla", 0.2), "squash", rot=-0.05, size=60),
+         cams=[(("c2s20", "Martinus", -0.3), (1450, 40, 1.25)), (("c2s20", "Giovanni'yi", -0.3), (1480, 44, 1.30))],
+         ovl=P.ov(P.icon_at("c2_mitra", 690, 690, ("c2s20", "Martinus", -0.3), size=150, bob=4),
+                  P.tag("BORÇ KARŞILIĞI BIRAKILAN MİTRA", 760, 200, ("c2s20", "borca", -0.2), size=40)),
+         cam=("push",), tr="cut", link="audio", label="Martinus mitrayı geri ister"),
+    # ── 18c. aforoz tehdidi (yakın iki kişilik; sert kesme) ─────────────────────────────────────
+    shot("p1_oda", ("c2s20", "Giovanni'yi", -0.3), room="p1salon", variant="papa", tod="day", mode="day", perde=1,
+         actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="threat", at=("c2s20", "aforozla", -0.35), dir=-1, layer="back"),
+                 dict(G, x=1180, y=890, h=470, action="bow", at=("c2s20", "tehdit", 0.0), dir=1, layer="front")],
+         cams=[(("c2s20", "Giovanni'yi", -0.3), (1400, 70, 1.55)), (("c2s21", -0.2), (1380, 76, 1.62))],
+         ovl=P.ov(P.icon_at("c2_mitra", 640, 700, ("c2s20", "Giovanni'yi", -0.3), size=170, bob=3),
+                  P.tag("AFOROZ TEHDİDİ", 960, 200, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
                   anim.impact_ovl(("c2s20", "aforozla", 0.2), amp=3)),
-         cam=("push",), tr="cut", link="audio", label="aforoz tehdidi (rivayet)"),
-    # ── 19. Papalığın resmî kasa memurluğu: 1420'lerin başından, kesintilerle 22 yıl (anahtar: halka aşağıda) ──
-    shot("p1_emblem", ("c2s21", -0.15), icon="p1_anahtar", metal="gold", size=440, pos=(640, 560), mode="day", perde=1,
+         cam=("push",), tr="cut", link="cam", label="aforoz tehdidi (belgeli)"),
+    # ── 19. Papalığın resmî kasa memurluğu: 1422'den · 22 yıl kesintisiz + 18 yıl aralıklı (teyit_P1 c2s21, DBI) ──
+    shot("p1_emblem", ("c2s21", -0.15), icon="p1_anahtar", metal="gold", size=360, pos=(380, 560), mode="day", perde=1,
          ovl=P.ov(P.tag("PAPALIĞIN RESMÎ KASA MEMURLUĞU", 960, 190, ("c2s21", "kasa", -0.4), size=46),
-                  P.tag("1420'LERİN BAŞINDAN İTİBAREN", 640, 860, ("c2s21", "1420'lerin", -0.2), size=40),
-                  P.count_up(1340, 560, ("c2s21", "yirmi", -0.35), 22, dur=0.8, unit="YIL", size=200, bg=True, min_w=320, unit_size=44),
-                  P.tag("KESİNTİLERLE", 1340, 800, ("c2s21", "kesintilerle", -0.2), size=40)),
-         cam=("truck", "r"), tr=("light", 0.7, dict(at=(640, 560))), link="light", label="papalığın kasa memurluğu · 22 yıl"),
+                  K.kasa_cubuk(800, 560, 960, ("c2s21", "1422'den", -0.3), ("c2s21", "yirmi", -0.3), ("c2s21", "ardından", -0.1))),
+         cam=("truck", "r"), tr=("light", 0.7, dict(at=(400, 560))), link="light", label="kasa memurluğu: 1422'den · 22 yıl kesintisiz + 18 yıl aralıklı"),
     # ── 20. 1427: Floransa hanelerin servetini tek tek yazdırdı — kayıt görevlileri kapı kapı ──
     shot("p1_sehir", ("c2s22", -0.15), scene="sokak", tod="day", mode="day", perde=1,
          actors=[dict(kind="banker", seed=61, x0=560, dir=1, speed=64, h=300, prop="book", at=("c2s22", -0.15)),
@@ -228,7 +234,7 @@ SHOTS = [
          total=dict(text="1397–1420 KÂR", amt=("150.000+ fl.",), at=("c2s25", "yüz", -0.1), row=7),
          mode="day", perde=1, seed=7, focus=(780, 560),
          ovl=P.ov(P.count_up(960, 215, ("c2s25", "yüz", -0.2), 150000, dur=1.0, unit="FLORİN KÂR", size=150, bg=True, suffix="+"),
-                  anim.stamp_ovl("DEFTERLER GÖSTERİR", 1480, 860, ("c2s25", "gösterir", 0.0), "ink", rot=-0.05, size=38)),
+                  P.tag("DEFTERLER GÖSTERİR", 1460, 860, ("c2s25", "gösterir", -0.1), size=40)),
          cam=("pull",), tr=("sayfa", 0.6), link="material", label="defterler: 150 bini aşkın florin kâr"),
     # ── 25. 20 Şubat 1429'da öldü; Floransa takvimine göre hâlâ 1428 (ölüm döşeği: siluet, mum söner; yer/saat/tanık iddiası yok) ──
     shot("p1_oda", ("c2s26", -0.15), room="p1yatak", variant="olum", tod="dusk", mode="night", perde=1, figure="lying",
@@ -240,16 +246,19 @@ SHOTS = [
     shot("p1_medal", ("c2s27", -0.15), key="m_lorenzo", metal="bronze", pos="l", size=620, at=0.0, mode="day", perde=1,
          ovl=P.ov(P.plate("LORENZO", 1380, 330, ("c2s27", "torununun", -0.3), role="TORUNUNUN OĞLU · İLERİDE MUHTEŞEM", w=860),
                   P.count_up(1380, 640, ("c2s27", "servet", 0.15), 180000, dur=1.2, unit="FLORİN", size=170, bg=True),
-                  anim.stamp_ovl("LORENZO'NUN KAYDINA GÖRE", 1400, 860, ("c2s27", "kaydına", 0.1), "ink", rot=-0.04, size=36),
-                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s27", "Lorenzo'nun", -0.2), size=30)),
-         cam=("pan", "l"), tr=("light", 0.8, dict(at=(500, 500))), link="light", label="Lorenzo'nun kaydına göre 180 bin florin"),
+                  P.tag("LORENZO'NUN KAYDINA GÖRE", 1380, 860, ("c2s27", "kaydına", 0.0), size=38),
+                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s27", "Lorenzo'nun", -0.2), size=34)),
+         cam=("pan", "r"), tr=("light", 0.8, dict(at=(500, 500))), link="light", label="Lorenzo'nun kaydına göre 180 bin florin"),
     # ── 27. son sözler iki kalemden, iki biçimde ─────────────────────────────
     shot("c2_kalemler", ("c2s28", -0.15), mode="day", perde=1, left_at=("c2s28", "kalemden", -0.4), right_at=("c2s28", "iki", 1, -0.1),
+         write_a=("c2s28", "kalemden", -0.1), write_b=("c2s28", "iki", 1, 0.1),
          cam=("truck", "r"), tr="cut", link="audio", label="iki kalem, iki biçim"),
-    # ── 28. Machiavelli bir asra yakın sonra onun ağzından bir konuşma yazar (sayfa yazılır) ──
-    shot("c2_kalemler", ("c2s29", -0.15), mode="day", perde=1, only="a", left_at=("c2s29", -0.15), write_a=("c2s29", "konuşma", -0.3),
-         cam=[(("c2s29", -0.15), (200, 0, 1.12, 0)), (("c2s29", "huzurla", -0.4), (330, 10, 1.30, 0))],
-         tr=("slide", 0.4, dict(dir="l")), link="dir", label="Machiavelli yazar"),
+    # ── 28. Machiavelli bir asra yakın sonra onun ağzından bir konuşma yazar — çalışma odası (c1s20 ile aynı oda ve figür: geri çağırma) ──
+    shot("p1_oda", ("c2s29", -0.15), room="calisma", variant="kutuphane", tod="day", mode="day", perde=1, figure=None,
+         actors=[dict(P.MACHIAVELLI, x=1366, y=823, h=280, action="write", seated=True, dir=1)],
+         cams=[(("c2s29", -0.15), (1250, 30, 1.28)), (("c2s29", "huzurla", -0.4), (1320, 60, 1.46))],
+         ovl=P.plate("MACHIAVELLİ", 620, 170, ("c2s29", "Machiavelli", -0.2), role="BİR ASRA YAKIN SONRA", w=700),
+         cam=("push",), tr=("slide", 0.4, dict(dir="r")), link="dir", label="Machiavelli yazar (çalışma odası)"),
     # ── 29. ...huzurla gidiyordur; kıskançlık istediğinden doğar — ölüm döşeği, iki oğul (ANEKDOT, Machiavelli'ye göre) ──
     shot("p1_oda", ("c2s29", "huzurla", -0.4), room="p1yatak", variant="olum", tod="dusk", mode="night", perde=1, figure="lying",
          actors=[dict(P.COSIMO, x=780, y=880, h=430, action="idle", sil=True, dir=-1, rim_dir=-1, layer="front"),
@@ -265,25 +274,32 @@ SHOTS = [
          cams=[(("c2s30", -0.15), (1100, 20, 1.20)), (("c2s30", "kimse", -0.3), (1170, 56, 1.48))],
          ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="1440'LARDA · OLAYA DAHA YAKIN", w=760)),
          cam=("push",), tr=("light", 0.5, dict(at=(1200, 560))), link="light", label="Cavalcanti yazar"),
-    # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli (sayfa; ANEKDOT) ──
-    shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.6), write_b=("c2s30", "kimse", -0.2), stamp_at=("c2s30", "kederlenmemeli", -0.4),
-         cam=[(("c2s30", "kimse", -0.3), (-330, 0, 1.18, 0)), (("c2s31", -0.2), (-300, 10, 1.30, 0))],
-         tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
+    # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — aynı hücre, yakın; tomar yazılır ──
+    shot("p1_oda", ("c2s30", "kimse", -0.3), room="calisma", variant="hucre", tod="day", mode="day", perde=1, figure=None, lamp_day=0.6,
+         actors=[dict(kind="soylu", seed=44, x=946, y=823, h=280, action="write", seated=True, dir=1)],
+         cams=[(("c2s30", "kimse", -0.3), (1080, 90, 1.55)), (("c2s31", -0.2), (1100, 100, 1.62))],
+         ovl=P.ov(K.tomar(1010, 400, ("c2s30", "kimse", -0.1), ("c2s30", "kederlenmemeli", 0.3), w=600, dirn=1, lines=4),
+                  P.tag("CAVALCANTI'YE GÖRE", 1310, 200, ("c2s30", "kimse", 0.0), size=40)),
+         cam=("push",), tr="cut", link="cam", label="Cavalcanti'nin yazdığı (yakın)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, left_at=("c2s31", -0.6), right_at=("c2s31", -0.6), write_a=("c2s29", -0.5), write_b=("c2s30", "başka", -0.3), q_at=("c2s31", "bilmiyoruz", -0.6),
          cam=("pull",), tr=("slide", 0.35, dict(dir="r")), link="dir", label="hangisi söylendi: bilmiyoruz"),
     # ── 32. Machiavelli onu yoksulun ihtiyacını kimse istemeden giderirken çizer (Giovanni verir) ──
     shot("c2_sadaka", ("c2s32", -0.15), mode="day", perde=1, who_at=("c2s32", "Machiavelli", -0.2), give_at=("c2s32", "yoksulun", -0.35), stamp_at=("c2s32", "çizer", -0.2),
-         cam=("truck", "l"), tr=("slide", 0.6, dict(dir="l")), link="dir", label="yoksulun ihtiyacı (Giovanni; ANEKDOT)"),
-    # ── 33. Ama o kalem Medici'nin siparişiyle çalışıyordu ──────────────────
-    shot("c1_machiavelli", ("c2s33", -0.15), mode="day", perde=1, plate_at=("c2s33", "kalem", -0.3), order_big=("c2s33", "siparişiyle", -0.35),
+         cam=("truck", "r"), tr=("slide", 0.6, dict(dir="r")), link="dir", label="yoksulun ihtiyacı (Giovanni; ANEKDOT)"),
+    # ── 33. Ama o kalem Medici'nin siparişiyle çalışıyordu — Machiavelli'nin odası (yakın), Medici mührü düşer ──
+    shot("p1_oda", ("c2s33", -0.15), room="calisma", variant="kutuphane", tod="day", mode="day", perde=1, figure=None,
+         actors=[dict(P.MACHIAVELLI, x=1366, y=823, h=280, action="write", seated=True, dir=1)],
+         cams=[(("c2s33", -0.15), (1500, 70, 1.55)), (("c2s34", -0.2), (1470, 64, 1.48))],
+         ovl=P.ov(P.tag("O KALEM", 620, 200, ("c2s33", "kalem", -0.3), size=46),
+                  P.seal_drop(1360, 430, ("c2s33", "siparişiyle", -0.1), r=110, label="MEDİCİ SİPARİŞİ")),
          cam=("pull",), tr="cut", link="audio", label="o kalem Medici'nin siparişiyle çalışıyordu"),
     # ── 34. Giovanni öldüğünde oğlu Cosimo kırk yaşına yaklaşıyordu ─────────
     shot("p1_medal", ("c2s34", -0.15), key="m_cosimo", metal="bronze", pos="l", size=640, at=0.0, mode="night", perde=1,
          ovl=P.ov(P.plate("COSIMO", 1380, 330, ("c2s34", "Cosimo", -0.15), role="GIOVANNI'NİN OĞLU", w=700),
                   P.count_up(1380, 640, ("c2s34", "Cosimo", 0.1), 39, dur=1.0, unit="YAŞINDAYDI", size=190, bg=True, unit_size=40),
-                  P.label("1389 DOĞUMLU · HESAPLA", 1380, 850, ("c2s34", "kırk", -0.4), size=32, face="title_m", track=8),
-                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s34", "Cosimo", 0.0), size=30)),
+                  P.tag("1389 DOĞUMLU", 1380, 850, ("c2s34", "kırk", -0.4), size=38),
+                  P.tag("TEMSİLÎ PORTRE", 480, 860, ("c2s34", "Cosimo", 0.0), size=34)),
          cam=("push",), tr=("iris", 0.9, dict(obj="seal", at=(500, 500), r=320)), link="shape", label="Cosimo: kırk yaşına yaklaşıyordu"),
     # ── 35. KAPI: şehrin en yüksek kulesinde bir hücre — sessiz, ağır (crane up; desatürasyon; END_HOLD motor) ──
     shot("p1_sehir", ("c2s35", -0.15), scene="skyline_dikey", tod="day", mode="day", perde=1,
@@ -293,4 +309,5 @@ SHOTS = [
          cam=("crane", "up", 300), tr=("light", 1.6, dict(at=(960, 520))), link="light", label="kapı: şehrin en yüksek kulesi"),
 ]
 YIL_AT = [(("c2s11", "1402'de", -0.1), 1402), (("c2s15", "papa", -0.1), 1410), (("c2s16", "1415'te", -0.1), 1415), (("c2s18", "öldü", -0.1), 1419),
-          (("c2s21", "1420'lerin", -0.1), 1420), (("c2s22", "1427'de", -0.1), 1427), (("c2s26", "1429'da", -0.1), 1429)]
+          (("c2s21", "1422'den", -0.1), 1422), (("c2s22", "1427'de", -0.1), 1427), (("c2s25", "1420'de", -0.1), 1420),
+          (("c2s26", "1429'da", -0.1), 1429)]

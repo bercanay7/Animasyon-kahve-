@@ -43,9 +43,12 @@ OUTRO = 7.0
 END_HOLD = 1.3                                                  # parça sonu: anlatı bittikten sonra son çekimde kalış (sn; c.t1 zaten ≈0,1 sn pay içerir → ≈1,4 sn nefes)
 TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 8,3 sn
 SHUTTER_ANGLE = 180.0                                           # deklanşör açısı (derece): pozlama = açı/360 kare
-SHUTTER_V_ON = 3.0                                              # px/kare: bu hızın altında bulanıklık yok (TE1: sakin çekim medyanı 0,24)
-SHUTTER_V_OBJ = 5.0                                             # px/kare: nesne/iç kamera hareketi bu hızı aşınca yeniden çizimli alt örnekleme
-SHUTTER_N_FAST = 12.0                                           # px/kare: bunun üstünde 5 alt örnek (altında 3)
+# seçici deklanşör tetikleri (px/kare, 1920 ölçeği) — kalibrasyon: kurulun P1'i, 603 örnek (notlar_hareket.md §7); maliyet hedefi ≤ +%25
+SHUTTER_V_CAM = 4.0                                             # cam= ön ayarının analitik ekran hızı
+SHUTTER_V_GLOB = 8.0                                            # ölçülen küresel (kamera benzeri, afin) hız — türün iç kamerası (oda/pano/şehir), belge zumu
+SHUTTER_OBJ_V, SHUTTER_OBJ_AREA = 16.0, 3.0                     # nesne: karenin ≥%3'ü ≥16 px/kare (koşan figürler, uçan sayfa, yağan sikke)
+SHUTTER_V_HINT = 8.0                                            # anim.hint_speed ipucu
+SHUTTER_N_FAST = 30.0                                           # bunun üstünde 5 alt örnek (altında 3; 60 üstü 7) + boşluk doldurma
 
 # bölüm → (roma no, başlık, yıl aralığı metni, başlangıç yılı)
 TITLES = {
@@ -119,43 +122,57 @@ def _bgra(f):
     return f.surf.makeImageSnapshot().toarray(colorType=_BGRA, alphaType=skia.AlphaType.kPremul_AlphaType)
 
 
-def _flow_speed(a, b):
-    """İki küçük gri kare (240×135) arası hareket hızı (px/kare, 1920 ölçeği): Farneback akışı; yalnız değişimi HAREKETLE açıklanan pikseller
-    (geri sarılmış fark < ham farkın yarısı) sayılır (belirme/solma hız sayılmaz); %95'lik. Neredeyse durgun karede (ort. fark < 0,35) 0."""
+def _flow_feats(a, b):
+    """İki küçük gri kare (240×135) arası hareket (px/kare, 1920 ölçeği) → (küresel, nesne_alanı_%, nesne_p90):
+    küresel = tüm kareye afin (öteleme+ölçek+dönme) oturtulmuş akışın köşe/merkez hızı (TE1 yöntemi: kamera ya da türün iç kamerası);
+    nesne = değişimi HAREKETLE açıklanan (geri sarılmış fark < ham farkın yarısı; belirme/solma sayılmaz) ve > SHUTTER_OBJ_V px/kare pikseller (% kare alanı, p90 hız).
+    Neredeyse durgun karede (ort. fark < 0,35) (0, 0, 0)."""
     d = cv2.absdiff(a, b)
     if float(d.mean()) < 0.35:
-        return 0.0
+        return 0.0, 0.0, 0.0
     fl = cv2.calcOpticalFlowFarneback(b, a, None, 0.5, 3, 11, 3, 5, 1.1, 0)     # b → a: a(x) ≈ b(x + fl)
     h, w = a.shape
-    gx, gy = _GRID.get((h, w)) or _GRID.setdefault((h, w), np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32)))
+    sc = W / float(w)
+    G = _GRID.get((h, w))
+    if G is None:
+        gx, gy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
+        A = np.stack([(gx - w / 2).ravel(), (gy - h / 2).ravel(), np.ones(h * w, np.float32)], 1)
+        G = _GRID[(h, w)] = (gx, gy, A, np.linalg.pinv(A))
+    gx, gy, A, Ap = G
+    cu, cv_ = Ap @ fl[..., 0].ravel(), Ap @ fl[..., 1].ravel()
+    vg = max(math.hypot(cu[0] * x + cu[1] * y + cu[2], cv_[0] * x + cv_[1] * y + cv_[2]) for x in (-w / 2, 0.0, w / 2) for y in (-h / 2, 0.0, h / 2)) * sc
     wb = cv2.remap(a, gx + fl[..., 0], gy + fl[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
     r = cv2.absdiff(b, wb).astype(np.float32)
     dd = d.astype(np.float32)
     valid = (dd > 6.0) & (r < 0.5 * dd)
-    if int(valid.sum()) < 25:
-        return 0.0
-    mag = np.hypot(fl[..., 0], fl[..., 1])[valid]
-    return float(np.percentile(mag, 95)) * (W / float(w))
+    mag = np.hypot(fl[..., 0], fl[..., 1]) * sc
+    fast = valid & (mag > SHUTTER_OBJ_V)
+    nf = int(fast.sum())
+    return float(vg), 100.0 * nf / float(h * w), (float(np.percentile(mag[fast], 90)) if nf >= 8 else 0.0)
 
 
-def _dir_blur(arr, vx, vy, length):
-    """Yönlü (çizgisel) bulanıklık: (vx, vy) doğrultusunda `length` px kutu çekirdeği (yarım çözünürlükte, sonra büyütülür)."""
-    L = max(1.0, float(length))
-    n = math.hypot(vx, vy)
-    ux, uy = vx / n, vy / n
-    k = int(min(41, max(3, round(L / 2.0) | 1)))
-    ker = np.zeros((k, k), np.float32)
-    c = k // 2
-    for j in range(k * 3):
-        tt = (j / (k * 3 - 1) - 0.5) * (L / 2.0)
-        x_, y_ = int(round(c + ux * tt)), int(round(c + uy * tt))
-        if 0 <= x_ < k and 0 <= y_ < k:
-            ker[y_, x_] = 1.0
-    ker /= max(1e-6, ker.sum())
-    hh, ww = arr.shape[:2]
-    sm = cv2.resize(arr, (ww // 2, hh // 2), interpolation=cv2.INTER_AREA)
-    sm = cv2.filter2D(sm, -1, ker, borderType=cv2.BORDER_REPLICATE)
-    return cv2.resize(sm, (ww, hh), interpolation=cv2.INTER_LINEAR)
+def _gap_fill(avg, first, last, frac):
+    """Alt örnekler arası boşluğu doldur (çok hızlı karelerde): İLK ve SON alt örnek arasındaki piksel başına akış (Farneback, 240×135) ölçülür;
+    ortalama görüntü bu alan boyunca ±frac/2 (komşu iki örnek arası oran) kaydırılıp 5 dokunuşla ortalanır (yarım çözünürlükte). Zum/paralaks/nesne
+    hareketi piksel başına doğru; ekrana sabit yazı/levhanın akışı 0 → keskin kalır (ayrıca yalnız örneklerin ayrıştığı piksellerde uygulanır)."""
+    hh, ww = avg.shape[:2]
+    gs = [cv2.cvtColor(cv2.resize(x[::4, ::4], (240, 135), interpolation=cv2.INTER_AREA), cv2.COLOR_BGRA2GRAY) for x in (first, last)]
+    fl = cv2.calcOpticalFlowFarneback(gs[1], gs[0], None, 0.5, 4, 13, 3, 5, 1.1, 0)       # son → ilk (küçük px)
+    h2, w2 = hh // 2, ww // 2
+    flh = cv2.resize(fl, (w2, h2), interpolation=cv2.INTER_LINEAR) * (w2 / 240.0)        # yarım çözünürlük px
+    src = cv2.resize(avg, (w2, h2), interpolation=cv2.INTER_AREA)
+    gx, gy = np.meshgrid(np.arange(w2, dtype=np.float32), np.arange(h2, dtype=np.float32))
+    acc = np.zeros(src.shape, np.uint16)
+    taps = [(-0.5 + (j + 0.5) / 5.0) * frac for j in range(5)]
+    for t in taps:
+        np.add(acc, cv2.remap(src, gx + t * flh[..., 0], gy + t * flh[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE), out=acc, casting="unsafe")
+    sm = cv2.resize(cv2.convertScaleAbs(acc, alpha=1.0 / len(taps)), (ww, hh), interpolation=cv2.INTER_LINEAR)
+    q = 4
+    da = cv2.absdiff(cv2.resize(first, (ww // q, hh // q), interpolation=cv2.INTER_AREA), cv2.resize(last, (ww // q, hh // q), interpolation=cv2.INTER_AREA)).max(axis=2)
+    m = (da > 6).astype(np.float32)
+    m = cv2.GaussianBlur(cv2.dilate(m, np.ones((5, 5), np.uint8)), (0, 0), 1.5)
+    m = np.ascontiguousarray(np.clip(cv2.resize(m, (ww, hh), interpolation=cv2.INTER_LINEAR), 0.0, 1.0))
+    return cv2.blendLinear(avg, sm, 1.0 - m, m)
 
 
 class _StubTL:
@@ -517,7 +534,8 @@ class Program:
     def _shutter(self, f, s, i, g, n):
         """Seçici deklanşör: karenin ekran hızı = en büyük(kamera analitiği [cilt_cam.screen_speed], önceki kareden ölçülen akış [nesne + türün iç kamerası],
         anim.hint_speed ipucu). Hızlıysa 180° pozlamada (açı/360 kare) N alt-kare yeniden çizilip ortalanır (post ve HUD'dan ÖNCE; çekim sınırı aşılmaz).
-        auto: kamera ≥ SHUTTER_V_ON ya da nesne/iç hareket ≥ SHUTTER_V_OBJ px/kare → N=3 (≥12 px/kare: 5; ≥30: 7). Geçiş karelerine uygulanmaz (geçişin kendi bulanıklığı var)."""
+        auto: cam= analitiği ≥4 · ölçülen küresel hız ≥8 · karenin ≥%3'ü ≥16 px/kare · ipucu ≥8 → N=3 (≥30 px/kare: 5; ≥60: 7). Örnekler arası boşluk >3 px ise
+        ilk/son örnek arası piksel akışıyla doldurulur (_gap_fill). Geçiş karelerine uygulanmaz (kendi bulanıklığı var)."""
         import time as _t
         import cilt_cam
         stt = self.shutter_stats
@@ -537,40 +555,45 @@ class Program:
                 vcam = 0.0
         vhint = float(getattr(cx, "speed_hint", 0.0) or 0.0) if cx is not None else 0.0
         arr = _bgra(f)
-        small = cv2.cvtColor(cv2.resize(arr, (240, 135), interpolation=cv2.INTER_AREA), cv2.COLOR_BGRA2GRAY)
-        vflow = 0.0
+        small = cv2.cvtColor(cv2.resize(arr[::4, ::4], (240, 135), interpolation=cv2.INTER_AREA), cv2.COLOR_BGRA2GRAY)   # 4'lü seyreltme + alan (≈1,6 ms)
+        vglob = area = vobj = 0.0
         pv = self._sprev
         if pv is not None and pv[0] == n - 1 and pv[1] == i and not pv[2] and pv[3] is not None:
-            vflow = _flow_speed(pv[3], small)
+            vglob, area, vobj = _flow_feats(pv[3], small)
         self._sprev = (n, i, False, small)
         stt["ms_flow"] += (_t.perf_counter() - t0) * 1000
-        v = max(vcam, vflow, vhint)
+        objhit = area >= SHUTTER_OBJ_AREA
+        v = max(vcam, vglob, vhint, vobj if objhit else 0.0)
         if isinstance(mode, int):
-            N = mode if mode >= 2 else (7 if v >= 30 else (5 if v >= SHUTTER_N_FAST else 3))
+            N = mode if mode >= 2 else (7 if v >= 2 * SHUTTER_N_FAST else (5 if v >= SHUTTER_N_FAST else 3))
         else:
-            if vcam < SHUTTER_V_ON and max(vflow, vhint) < SHUTTER_V_OBJ:
+            if vcam < SHUTTER_V_CAM and vglob < SHUTTER_V_GLOB and not objhit and vhint < SHUTTER_V_HINT:
                 stt["ms_total"] += (_t.perf_counter() - t0) * 1000
                 return f
-            N = 7 if v >= 30 else (5 if v >= SHUTTER_N_FAST else 3)
+            N = 7 if v >= 2 * SHUTTER_N_FAST else (5 if v >= SHUTTER_N_FAST else 3)
         E = ang / 360.0 / FPS                                       # pozlama (sn)
         offs = [E * ((j + 0.5) / N - 0.5) for j in range(N)]
         lo, hi = s.origin - 0.5 / FPS, s.t1 + 0.5 / FPS             # çekim sınırı (yerel saat aralığı) aşılmaz
-        acc = np.zeros(arr.shape, np.float32)
+        acc = np.zeros(arr.shape, np.uint16)                      # N ≤ 9 → uint16 taşmaz
+        first = last = None
         t1 = _t.perf_counter()
         for o in offs:
             if abs(o) < 1e-9:
-                acc += arr
+                aj = arr
             else:
-                fj = self._render_shot(s, min(max(g + o, lo), hi))
-                acc += _bgra(fj)
+                aj = _bgra(self._render_shot(s, min(max(g + o, lo), hi)))
                 stt["extra_renders"] += 1
+            np.add(acc, aj, out=acc, casting="unsafe")
+            first = aj if first is None else first
+            last = aj
         stt["ms_extra"] += (_t.perf_counter() - t1) * 1000
-        out = acc * (1.0 / N)
+        out = cv2.convertScaleAbs(acc, alpha=1.0 / N)
         gap = v * (E * FPS) / N                                     # alt örnekler arası ekran aralığı (px)
-        if gap > 3.0 and vcam >= 0.7 * v and (abs(vx) + abs(vy)) > 1e-3:   # çok hızlı kamera (savrulma): aradaki boşluğu yönlü yay
-            out = _dir_blur(out, vx, vy, gap)
+        if gap > 3.0 and N >= 3:                                    # çok hızlı hareket: kopyalar arası boşluğu piksel başına akış boyunca doldur
+            out = _gap_fill(out, first, last, 1.0 / (N - 1))
+            stt["gap_fill"] = stt.get("gap_fill", 0) + 1
         f2 = Frame()
-        f2.c.drawImage(skia.Image.fromarray(np.ascontiguousarray(np.clip(out + 0.5, 0, 255).astype(np.uint8)), colorType=_BGRA, alphaType=skia.AlphaType.kOpaque_AlphaType), 0, 0)
+        f2.c.drawImage(skia.Image.fromarray(np.ascontiguousarray(out), colorType=_BGRA, alphaType=skia.AlphaType.kOpaque_AlphaType), 0, 0)
         for a_ in ("cilt_mode", "cilt_perde", "_cx"):
             if hasattr(f, a_):
                 setattr(f2, a_, getattr(f, a_))

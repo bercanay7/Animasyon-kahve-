@@ -211,14 +211,25 @@ def k_cicek(cx, plate=None, florin_at=None, bloom_at=None, curse_at=None, shep_a
         # sap
         stem = skia.Path(); stem.moveTo(fx, gy + 20); stem.quadTo(fx + 40 * math.sin(cx.t * 1.1), gy - 160, fx + 4, fy + 110 * kb)
         c.drawPath(stem, f.paint(mix("#4E7A3C", "#241A2C", kc), style="stroke", sw=14, alpha=kb))
-        f.circle(fx, fy, 330 * kb, shader=f.rad(fx, fy, 330 * kb, [(mix("#F0D27A", "#6A2A8A", kc), 0.0, int(110 * kb)), ("#F0D27A", 1.0, 0)]))
-        icons.draw_icon(f, "fleur", fx, fy, size=470 * kb * (1.0 + 0.02 * math.sin(cx.t * 2.2)), metal="gold", alpha=kb * (1 - kc), rot=sway, glow=0.0)
+        f.circle(fx, fy, 330 * kb, shader=f.rad(fx, fy, 330 * kb, [(mix("#F0D27A", "#A8201A", kc), 0.0, int(110 * kb)), ("#F0D27A", 1.0, 0)]))
+        # Floransa zambağı (giglio): petaller arasında etamin çubukları (CP.lily_path); beyaz komün zemini lanetle belirir
+        sz_ = 470 * kb * (1.0 + 0.02 * math.sin(cx.t * 2.2))
         if kc > 0.003:
-            icons.draw_icon(f, "fleur", fx, fy, size=470 * kb * (1.0 + 0.02 * math.sin(cx.t * 2.2)), metal="c1_curse", alpha=kb * kc, rot=sway, glow=0.0)
-            # mor sis
+            f.circle(fx, fy, sz_ * 0.56, color="#F4EEDC", alpha=0.92 * kb * kc)
+            f.circle(fx, fy, sz_ * 0.56, style="stroke", sw=5, color="#C9A45A", alpha=0.9 * kb * kc)
+        c.save()
+        c.translate(fx, fy); c.rotate(math.degrees(sway)); c.translate(-fx, -fy)
+        lp = CP.lily_path(fx, fy + sz_ * 0.02, sz_ * 0.92)
+        f.path(lp, color="#000000", alpha=0.25 * kb, blur=6)
+        c.drawPath(lp, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(fx, fy - sz_ / 2), (fx, fy + sz_ / 2)],
+                   [sk.C(mix("#FFE9A0", "#E0402E", kc), int(255 * kb)), sk.C(mix("#B8862E", "#7A1410", kc), int(255 * kb))], [0, 1])))
+        c.drawPath(lp, f.paint(mix("#5A3A10", "#3A0A08", kc), style="stroke", sw=3.0, alpha=0.9 * kb))
+        c.restore()
+        if kc > 0.003:
+            # koyu kızıl sis (lanet) — mor değil
             for q in range(9):
                 ph = (cx.t * 0.35 + q / 9.0) % 1.0
-                f.circle(fx + 120 * math.sin(q * 2.3 + cx.t * 0.6), fy + 90 - 260 * ph, 26 + 40 * ph, color="#5A2A7A", alpha=0.20 * kc * (1 - ph), blur=8)
+                f.circle(fx + 120 * math.sin(q * 2.3 + cx.t * 0.6), fy + 90 - 260 * ph, 26 + 40 * ph, color="#6A1A14", alpha=0.18 * kc * (1 - ph), blur=8)
     # çoban + koyunlar
     ks = clamp((cx.t - cx.at(shep_at)) / 3.4) if shep_at is not None else 0.0
     tm = cx.at(morph_at) if morph_at is not None else 1e9
@@ -237,7 +248,7 @@ def k_cicek(cx, plate=None, florin_at=None, bloom_at=None, curse_at=None, shep_a
         if morph > 0.0:
             wsc = 1.05 + 0.15 * math.sin(morph * math.pi)
             _wolf(f, xs + 20 + 40 * clamp((cx.t - tm) / 1.5), gy + 14, wsc, cx.t, alpha=morph, dirn=1)
-            f.circle(xs + 40, gy - 150, 240, shader=f.rad(xs + 40, gy - 150, 240, [("#8A3AB0", 0.0, int(120 * math.sin(morph * math.pi))), ("#8A3AB0", 1.0, 0)]))
+            f.circle(xs + 40, gy - 150, 240, shader=f.rad(xs + 40, gy - 150, 240, [("#A8281E", 0.0, int(120 * math.sin(morph * math.pi))), ("#A8281E", 1.0, 0)]))
         # koyunlar (çeviren: kaçışır)
         for j, (dx, sc_) in enumerate(((-150, 0.85), (-250, 0.7), (-340, 0.8))):
             fl = clamp((cx.t - (tf + 0.12 * j)) / 1.2)
@@ -489,10 +500,12 @@ def k_toprak(cx, pit_at=None, layers_at=None, layers_to=None, n=8, seed=3, **_):
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
     CM.bgfill(f, cx, seed=seed, cam=cam, dress=None)
     cam.begin(f)
-    c.drawRect(skia.Rect.MakeLTRB(-50, -50, W + 50, H + 50), f.paint("#14100E"))
+    c.drawRect(skia.Rect.MakeLTRB(-50, -50, W + 50, H + 50), f.paint("#3A3634"))
     gy, x0, x1, ybot = 330.0, 460.0, 1460.0, 800.0
-    # toprak gövdesi (kesit)
-    f.rect(-50, gy, W + 100, H, shader=f.lin(0, gy, 0, H, [("#4A3420", 0.0), ("#2A1C10", 1.0)]))
+    # gökyüzü: soğuk gri, ufukta açık şerit (gece/saat iddiası yok)
+    f.rect(-50, -50, W + 100, gy + 50, shader=f.lin(0, 0, 0, gy, [("#4A4E58", 0.0), ("#8A8A86", 1.0)]))
+    # toprak gövdesi (kesit) — orta ton, katmanlar ilk karede seçilir
+    f.rect(-50, gy, W + 100, H, shader=f.lin(0, gy, 0, H, [("#7A5838", 0.0), ("#4A3420", 1.0)]))
     rs = [(37 * i) % 11 for i in range(80)]
     for i in range(70):
         xx = (i * 71) % W
@@ -533,8 +546,10 @@ def k_toprak(cx, pit_at=None, layers_at=None, layers_to=None, n=8, seed=3, **_):
             c.drawPath(pth, f.paint("#1E140A", style="stroke", sw=2.2, alpha=0.8))
             for q in range(14):
                 f.circle(wl + (wr - wl) * ((q * 37 + i * 11) % 100) / 100.0, top + ht * ((q * 53) % 100) / 100.0, 2.4, color="#2A1C10", alpha=0.5 * k)
+    # zemin parıltısı: ilk saniyeden yüzey ve çukur ağzı okunur
+    f.circle(W / 2, gy + 40, 900, shader=f.rad(W / 2, gy + 40, 900, [("#F2D9A0", 0.0, 70), ("#F2D9A0", 1.0, 0)]))
     cam.end(f)
-    CM.finish(f, cx, motes_n=16, light=CM.candle_light(cx.t, 3, base=(W * 0.5, H * 0.52), r=1100.0, sway=3.0))
+    CM.finish(f, cx, motes_n=16)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -545,7 +560,9 @@ _COL = [("#8E2A30", "#F0E6CC"), ("#233C8C", "#F0D27A"), ("#F0E6CC", "#8E2A30"), 
 
 
 @ckind("c1_lonca")
-def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, seed=2, **_):
+def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_at=None, remove_at=None, out_at=None, new_label="CIOMPI", seed=2, **_):
+    """21 lonca kalkanı (TEMSİLÎ: simgeler uydurma değil, işaretsiz şema — sahne ovl'unda not); yün işçisinin yeri boş.
+    c1s23 için: new_at → boş yuvada kısa ömürlü yeni lonca kalkanı (işaretsiz), remove_at → çatlar ve düşer (kaldırıldı), out_at → yün işçisi kadrajdan çıkar (dışlandılar)."""
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
@@ -567,15 +584,40 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, seed=
     # yün tarayıcısı siluet (boş yer) — alt orta
     kcr = cx.amt(carder_at, 0.6) if carder_at is not None else 0.0
     gy = 960
+    xo = 0.0
+    if out_at is not None:
+        uo = ease_in(clamp((cx.t - cx.at(out_at)) / 1.6), 1.6)
+        xo = -760.0 * uo
+        kcr *= 1.0 - smooth(clamp((uo - 0.55) / 0.45))
     if kcr > 0.003:
-        OD.sil_actor(f, "halk", 880, gy, 400, cx.t, action="work", dir=1, seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1, alpha=kcr) if False else OD.sil_actor(f, "halk", 880, gy, 400, cx.t, action="idle", dir=1, seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1)
+        xc_ = 880 + xo
+        OD.sil_actor(f, "halk", xc_, gy, 400, cx.t, action="idle", dir=(-1 if xo < -1 else 1), seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1, alpha=kcr)
         # yün tarağı + yün lifleri
-        f.line(880 + 70, gy - 170, 880 + 190, gy - 210, color="#4A3420", sw=8, alpha=kcr)
+        f.line(xc_ + 70, gy - 170, xc_ + 190, gy - 210, color="#4A3420", sw=8, alpha=kcr)
         for q in range(6):
-            f.line(880 + 170 + q * 9, gy - 224, 880 + 176 + q * 9, gy - 185, color="#4A3420", sw=3, alpha=kcr)
+            f.line(xc_ + 170 + q * 9, gy - 224, xc_ + 176 + q * 9, gy - 185, color="#4A3420", sw=3, alpha=kcr)
         for q in range(7):
             ph = (cx.t * 0.7 + q / 7.0) % 1.0
-            f.circle(880 + 230 + 30 * math.sin(q * 2 + cx.t), gy - 200 - 120 * ph, 10 + 8 * ph, color="#F2EBD8", alpha=0.7 * kcr * (1 - ph))
+            f.circle(xc_ + 230 + 30 * math.sin(q * 2 + cx.t), gy - 200 - 120 * ph, 10 + 8 * ph, color="#F2EBD8", alpha=0.7 * kcr * (1 - ph))
+    # kısa ömürlü yeni lonca: boş yuvada işaretsiz kalkan; kaldırılınca çatlar ve düşer
+    if new_at is not None:
+        kn = cx.amt(new_at, 0.5)
+        drop_, crack_ = 0.0, 0.0
+        if remove_at is not None:
+            tr_ = cx.at(remove_at)
+            crack_ = clamp((cx.t - tr_) / 0.25)
+            drop_ = ease_in(clamp((cx.t - tr_ - 0.35) / 0.9), 2.0)
+        if kn > 0.003 and drop_ < 1.0:
+            ys_ = gy - 150 + 520 * drop_
+            _shield(f, 1290, ys_, 150, 186, "#C9C2B0", "#7A7468", "circle", alpha=kn * (1 - drop_), scale=1.0, rot=28 * drop_)
+            if crack_ > 0:
+                pth = sk.poly_path([(1290 - 10, ys_ - 90), (1290 + 14, ys_ - 30), (1290 - 8, ys_ + 10), (1290 + 18, ys_ + 70)], False)
+                c.drawPath(pth, f.paint("#2A1A0C", style="stroke", sw=5, alpha=crack_ * (1 - drop_)))
+            kl_ = kn * (1 - smooth(clamp(drop_ * 3)))
+            if kl_ > 0.003:
+                wl_ = sk.text_width(new_label, "title_m", 38, 6) + 50
+                f.rrect(1290 - wl_ / 2, gy - 30, wl_, 58, 10, color="#120C08", alpha=0.78 * kl_)
+                CM.ink(f, new_label, 1290, gy + 12, face="title_m", size=38, color="#FFF4D6", align="c", track=6, alpha=kl_, emboss=False)
     # boş (kesikli) kalkan + çarpı
     ke = cx.amt(empty_at, 0.5) if empty_at is not None else 0.0
     if ke > 0.003:
@@ -822,21 +864,39 @@ def k_okul(cx, kids_at=None, board_at=None, plate_at=None, seed=4, **_):
     f.rect(-100, gy, W + 200, 300, shader=f.lin(0, gy, 0, gy + 200, [("#8A6038", 0.0), ("#563820", 1.0)]))
     for i in range(-2, 16):
         c.drawLine(i * 140, gy, i * 140 - 70, gy + 200, f.paint("#3A2410", style="stroke", sw=2.5, alpha=0.5))
-    # hesap tahtası (sağ): çerçeveli tahta + 5 sıra boncuk
-    bx, by, bw, bh = 1120, 250, 640, 430
+    # yazı levhası (sağ üst): kâğıt üstüne mürekkeple Hint-Arap rakamları ve toplama — satır satır yazılır
+    bx, by, bw, bh = 1120, 210, 640, 400
     kb = cx.amt(board_at, 0.7) if board_at is not None else 1.0
+    tb = cx.at(board_at) if board_at is not None else 0.0
     f.rrect(bx + 8, by + 12, bw, bh, 12, color="#000000", alpha=0.3 * kb, blur=10)
     f.rrect(bx, by, bw, bh, 12, shader=f.lin(bx, by, bx, by + bh, [("#6A4222", 0.0), ("#4A2C14", 1.0)]), alpha=kb)
-    f.rrect(bx + 22, by + 22, bw - 44, bh - 44, 6, shader=f.lin(bx, by, bx, by + bh, [("#2E3A2E", 0.0), ("#1E2820", 1.0)]), alpha=kb)
-    tb = cx.at(board_at) if board_at is not None else 0.0
-    for r in range(5):
-        yy = by + 78 + r * 70
-        c.drawLine(bx + 44, yy, bx + bw - 44, yy, f.paint("#D8C9A4", style="stroke", sw=3, alpha=0.8 * kb))
-        for q in range(9):
-            slide = 0.5 + 0.5 * math.sin((cx.t - tb) * (0.9 + 0.17 * r) + r * 1.7 + q * 0.31)
-            xx = bx + 70 + q * 52 + slide * (46 if q < 4 + (r % 3) else 0) * smooth(clamp((cx.t - tb) / 1.0))
-            f.circle(xx, yy, 19, shader=f.rad(xx - 6, yy - 6, 26, [("#F0D27A", 0.0), ("#B08A34", 1.0)]), alpha=kb)
-            f.circle(xx, yy, 19, style="stroke", sw=1.8, color="#3A2610", alpha=0.7 * kb)
+    f.rrect(bx + 20, by + 20, bw - 40, bh - 40, 6, shader=f.lin(bx, by, bx, by + bh, [("#F2E6C4", 0.0), ("#E2D2A8", 1.0)]), alpha=kb)
+    rows_ = ["1 2 3 4 5 6 7 8 9 0", "  347", "+ 125", "= 472"]
+    for r, txt in enumerate(rows_):
+        kr = clamp((cx.t - (tb + 0.4 + 0.75 * r)) / 0.6) * kb
+        if kr <= 0.003:
+            continue
+        yy = by + 104 + r * 82
+        if r == 3:
+            f.line(bx + 260, yy - 62, bx + 470, yy - 62, color="#2A1A0C", sw=3, alpha=kr)
+        f.c.save()
+        f.c.clipRect(skia.Rect.MakeLTRB(bx + 20, yy - 70, bx + 40 + (bw - 60) * kr, yy + 20))
+        CM.ink(f, txt, bx + bw / 2 if r == 0 else bx + 370, yy, face="cap_b", size=60 if r == 0 else 64, color="#2A1A0C", align="c", track=6 if r == 0 else 10, alpha=kr, emboss=False)
+        f.c.restore()
+    # sayma bezi (masa üstü, sağ alt): çizgili zemin + kayan jetonlar
+    cx0, cy0, cw_, ch_ = 1180, 700, 520, 150
+    f.rrect(cx0 + 6, cy0 + 10, cw_, ch_, 8, color="#000000", alpha=0.25 * kb, blur=8)
+    f.rrect(cx0, cy0, cw_, ch_, 8, shader=f.lin(cx0, cy0, cx0, cy0 + ch_, [("#3E5A3A", 0.0), ("#2E4A2E", 1.0)]), alpha=kb)
+    for q in range(4):
+        yy = cy0 + 28 + q * 32
+        f.line(cx0 + 16, yy, cx0 + cw_ - 16, yy, color="#D8C9A4", sw=2, alpha=0.7 * kb)
+    for q in range(7):
+        lane = q % 4
+        ph = smooth(clamp((cx.t - tb - 0.3 * q) / 0.6))
+        xx = cx0 + 60 + (q * 61) % 380 + 40 * ph
+        yy = cy0 + 28 + lane * 32
+        f.circle(xx, yy, 13, shader=f.rad(xx - 4, yy - 4, 18, [("#F0D27A", 0.0), ("#B08A34", 1.0)]), alpha=kb)
+        f.circle(xx, yy, 13, style="stroke", sw=1.6, color="#3A2610", alpha=0.7 * kb)
     # çocuklar (üç sıra masa) + hoca
     kk = cx.amt(kids_at, 0.5) if kids_at is not None else 1.0
     xs = (260, 520, 780)
@@ -845,9 +905,9 @@ def k_okul(cx, kids_at=None, board_at=None, plate_at=None, seed=4, **_):
         if kk * 1.4 - i * 0.2 <= 0.01:
             continue
         FA.actor(f, "cocuk", x, gy + 36 - i * 8, 360, cx.t, action=kinds[i][1], seed=21 + i * 3, phase=0.31 * i, alpha=clamp(kk * 1.4 - i * 0.2))
-    FA.actor(f, "rahip" if False else "banker", 1010, gy + 24, 560, cx.t, action="point", dir=1, seed=33, t0=0.0, target=(160, -250), alpha=kk)
+    FA.actor(f, "tuccar", 1010, gy + 24, 560, cx.t, action="point", dir=1, seed=17, t0=0.0, target=(160, -250), alpha=kk)
     if plate_at is not None:
-        CM.name_plate(f, "HESAP OKULLARI", None, None, cx_=bx + bw / 2, y=by + bh + 40, t=cx.amt(plate_at, 0.6))
+        CM.name_plate(f, "HESAP OKULLARI", None, None, cx_=bx + bw / 2, y=60, t=cx.amt(plate_at, 0.6))
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 

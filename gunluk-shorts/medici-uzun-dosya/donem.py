@@ -124,18 +124,32 @@ def push(cx, kind, kw=None):
     return y
 
 
+_LAST = [None]
+
+
 def pop():
+    """Çekim çizimi bitti. Son çekimin bağlamı, bir sonraki çekim başlayana dek 'son bağlam' olarak kalır: türün DIŞINDA ama aynı kareye
+    çizilen katmanlar (p1_ortak.add_ovl `ovl=` kaplamaları, geçiş şeritleri, HUD) da o çekimin yılını görür."""
     if _STACK:
-        _STACK.pop()
+        _LAST[0] = _STACK.pop()
 
 
 def year():
     """Şu an çizilen çekimin dönem yılı (yoksa None → eski çizim)."""
-    return _STACK[-1].year if _STACK else None
+    fr = current()
+    return fr.year if fr is not None else None
 
 
 def current():
-    return _STACK[-1] if _STACK else None
+    if _STACK:
+        return _STACK[-1]
+    return _LAST[0]
+
+
+def reset():
+    """Bağlamı tümden temizle (araçlar: Program dışı çizimden önce)."""
+    _STACK.clear()
+    _LAST[0] = None
 
 
 class use_year:

@@ -1060,13 +1060,13 @@ def contact_shadow(c, x, y, w, hgt, alpha=0.30, dx=0.0):
     pt.setAlphaf(clamp(alpha))
     c.drawImageRect(img, src, skia.Rect.MakeLTRB(x + dx - w / 2, y - hgt / 2, x + dx + w / 2, y + hgt / 2), LIN, pt)
     pt2 = skia.Paint(AntiAlias=True)
-    pt2.setAlphaf(clamp(alpha * 0.85))
-    c.drawImageRect(img, src, skia.Rect.MakeLTRB(x + dx * 0.4 - w * 0.27, y - hgt * 0.22, x + dx * 0.4 + w * 0.27, y + hgt * 0.22), LIN, pt2)
+    pt2.setAlphaf(clamp(alpha * 1.0))
+    c.drawImageRect(img, src, skia.Rect.MakeLTRB(x + dx * 0.4 - w * 0.30, y - hgt * 0.26, x + dx * 0.4 + w * 0.30, y + hgt * 0.26), LIN, pt2)
 
 
 def _fig_shadow(c, x, y, h, alpha, kneel=False):
-    a = (0.30 if CM.TH.day else 0.24) * alpha
-    contact_shadow(c, x, y + h * 0.006, h * (0.46 if kneel else 0.36), h * (0.070 if kneel else 0.055), a, dx=h * 0.035)
+    a = (0.46 if CM.TH.day else 0.34) * alpha
+    contact_shadow(c, x, y + h * 0.008, h * (0.50 if kneel else 0.42), h * (0.075 if kneel else 0.062), a, dx=h * 0.04)
 
 
 def _draw_pose(f, kit, bh, p, x, y, h, dirn, alpha=1.0, cf=None, layers=None, extra=None):

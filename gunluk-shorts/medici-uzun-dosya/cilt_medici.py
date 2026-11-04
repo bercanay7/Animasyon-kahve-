@@ -774,9 +774,29 @@ def ink(f, text, x, y, face="cap", size=44, color=None, align="l", track=0.0, al
     return wid
 
 
+KICK_SAFE = True            # kick(): son kutu ekran uzayında güvenli alana/HUD dışına kıstırılır (kamera itmesi üst kenara yapıştırmasın; TE2-Ö2)
+
+
 def kick(f, text, x, y, alpha=1.0, size=30, track=10, align="c", face="title_m", color=None, scrim=None):
-    """Küçük büyük-harf etiket (Cinzel). Serbest etiket olduğundan kontrast zemini varsayılan olarak AÇIK (scrim=None → KICK_SCRIM)."""
-    return ink(f, text, x, y, face=face, size=size, color=color or TH.fg2, align=align, track=track, alpha=alpha, scrim=KICK_SCRIM if scrim is None else scrim)
+    """Küçük büyük-harf etiket (Cinzel). Serbest etiket olduğundan kontrast zemini varsayılan olarak AÇIK (scrim=None → KICK_SCRIM);
+    kamera dönüşümü altında bile son kutusu güvenli alanda kalır (KICK_SAFE)."""
+    if not text:
+        return 0.0
+    dx = dy = 0.0
+    if KICK_SAFE:
+        fw, fh = getattr(f, "w", W), getattr(f, "h", H)
+        if not (abs(fw * H - fh * W) > 2 or fw < W * 0.25):
+            wid = sk.text_width(text, face, size, track)
+            ox = x - (wid / 2 if align == "c" else wid if align == "r" else 0)
+            pad = size * 0.55
+            dx, dy, _k, _i = screen_fit(f, ox - pad, y - size * 0.80 - pad * 0.6, ox + wid + pad, y + size * 0.24 + pad * 0.6)
+    if dx or dy:
+        f.c.save()
+        f.c.translate(dx, dy)
+    r = ink(f, text, x, y, face=face, size=size, color=color or TH.fg2, align=align, track=track, alpha=alpha, scrim=KICK_SCRIM if scrim is None else scrim)
+    if dx or dy:
+        f.c.restore()
+    return r
 
 
 def fit_size(text, face, size, max_w, track=0.0):
