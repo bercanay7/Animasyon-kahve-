@@ -107,7 +107,7 @@ SHOTS = [
                   anim.stamp_ovl("MİT", 1640, 300, ("c2s12", "derler", 0.0), "drop", rot=-0.1, size=104)),
          cam="hand", tr="cut", link="audio", label="çifte kayıt: kâtip; MİT"),
     # ── 12. Etmediler: Cenova 1340 … (Venedik 1407 KALDIRILDI; arma yerine sözcük) ──
-    shot("p1_timeline", ("c2s13", -0.15), a0=1320, a1=1520, step=20, mode="day", perde=1, title="ÇİFTE KAYDIN İZİ",
+    shot("p1_timeline", ("c2s13", -0.15), hud=False, a0=1320, a1=1520, step=20, mode="day", perde=1, title="ÇİFTE KAYDIN İZİ",
          events=[(1340, "CENOVA", ("c2s13", "Cenova'nın", -0.1)), (1494, "PACIOLI", ("c2s13", "biridir", -0.2))], hl=None,
          ovl=P.ov(anim.stamp_ovl("ETMEDİLER", 960, 800, ("c2s13", "Etmediler", 0.1), "spin", rot=-0.04, size=84, out=("c2s13", "tarihli", 0.0)),
                   P.tag("MEDİCİ İCADI", 1500, 300, ("c2s13", "eski", -0.4), size=40),
