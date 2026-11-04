@@ -13,12 +13,13 @@ claim that any one of them satisfies every member's conditions.**
 - ADDENDUM-01A madde 5: PDF'teki "hafta sonu 08.00" sitenin bütün kaynaklarıyla çelişiyor; hangisinin geçerli olduğu bilinmiyor.
 - ADDENDUM-01A madde 6-8: "Ön ödeme yok" kaynakta yalnız randevu için; dahil kutusu kaynağından geniş; "güçlü baskı" ve "KORTTAN SONRA" işletme kaynağında yok.
 - ADDENDUM-01A madde 9-11: README eski; telefon ölçüleri ve kaydırma; Kanal 7 emsali (masaj fiyatı kaydı bulunamadı).
-- ADDENDUM-01B: Round 1 raporlarındaki yeni iddiaların doğrulaması (doğrulayıcının ikinci geçişi).
+- ADDENDUM-01B madde 12-16 (doğrulayıcının ikinci geçişi): Meta satış başı maliyetlerinde dönem uyuşmazlığı (gerçek maliyet daha yüksek olabilir); Ekim kaynak farkının nedeni; Campus Challenge bir üyelik teklifi, üstü çizili fiyat kullanıyor, canlıda 404; Mix'e Spesiyal girmiyor (%69 senaryosu geçersiz); sitede hafta sonu saati var (her gün 07.00).
+- **ADDENDUM-01C madde 17-24 (karar sahibinin cevapları, Round 1'den sonra):** geçerlilik 31 (ya da 30) Aralık 2026; paketler peşin; bir yıl içinde kullanım; kanıt istenmiyor, WhatsApp'tan yazmak ya da söylemek yeterli; hafta sonu açılış 08.00 (PDF doğru, site yanlış); maliyet "çok yüksek değil", 20'li paketler indirimli listede kalsın; Çift Masajı 4.000 TL zaten kampanyalı, ek indirim yok; VIP 12.000 TL olabilir.
 
 **Karar sahibinin Round 1 sonrasındaki notları (pozisyon; test edilecek, öncül değil):**
 1. "Paketlerde daha ciddi iniyor." Kolaylaştırıcı bunu, paket indiriminin tek seanstan bilinçli olarak daha derin tutulduğu şeklinde yorumladı; kullanıcı bu yorumu düzeltmedi.
 2. "Pazarlama açısından fiyatları işte x99 gibi de yazabilirsin, bir öneri sadece." Örnek: tek seanslarda 2.399 / 2.799 / 3.599 / 1.799 / 3.199 / 11.999 TL. Paketlerde x99 ile "seans başı tam sayı" isteği çakışıyor: 17.499 TL'lik 10'lu paketin seansı 1.749,90 TL; seans x99 yapılırsa paket toplamı 17.490 / 24.480 / 20.990 / 27.980 TL olur.
-3. Kullanıcıya işletme soruları soruldu (son tarih, paket ödemesi ve kullanım süresi, tenisçinin nasıl tanınacağı, hafta sonu saati, seans maliyeti, VIP ve Çift'in kapsamı). Bu dosya yazılırken cevap gelmedi.
+3. Kullanıcıya işletme soruları soruldu (son tarih, paket ödemesi ve kullanım süresi, tenisçinin nasıl tanınacağı, hafta sonu saati, seans maliyeti, VIP ve Çift'in kapsamı). Cevaplar geldi ve ADDENDUM-01C'de olgu ve kısıt olarak kayıtlı. Karar sahibinin kısıtları: 20'li paketler ve VIP (12.000 TL) indirimli listede kalır; Çift Masajı ek indirimsiz 4.000 TL. Seçenek B, C ve D bu kısıtlarla çatışan danışma görüşleri olarak masada kalıyor; kurul danışmandır, karar sahibi karar verir.
 
 ## B. Positions
 
@@ -96,7 +97,9 @@ Her koltuk farklı bir analiz kattı; işaretlenecek koltuk yok.
 - K9. Lead tablosunda ayrı kaynak/kampanya değeri ve ref kodu; ön büroya tek satırlık kayıt kuralı.
 - K10. Önce sınırlı sayıda grup; 14 gün sonra değerlendirme.
 
-- **A. Düzeltmeli gönder; fiyat kapsamı karar sahibinin istediği gibi** (tek seanslar %20: 7 kalem; paketler %30: 10'lu ve 20'li İsveç, 10'lu ve 20'li Mix) + K1-K10. Backed (Round 1 eğilimi): tenisci, tasarim, grup-yoneticisi; onburo kural kartı cevaplanırsa. Cost: işletmenin K1-K3 cevapları; PDF'in yeniden üretimi. Main risk: 20'li paketin seansı (1.225 TL) maliyeti karşılamıyorsa ya da liste paketi müşterileri fark talep ederse, satılmış seanslar geri alınamaz.
+**01C'den sonra K1-K3'ün işletme cevapları:** K1 = 31 Aralık 2026; K2 = "WhatsApp'tan mesajla yazsa ya da söylese yeter", kanıt yok; K3 = paketler peşin, satın alındıktan sonra bir yıl içinde kullanılır.
+
+- **A. Düzeltmeli gönder; fiyat kapsamı karar sahibinin istediği gibi** (tek seanslar %20: İsveç, Derin Doku, Aromaterapi, Spesiyal, Kese Köpük ve VIP 12.000; Çift Masajı ek indirimsiz 4.000 TL; paketler %30: 10'lu ve 20'li İsveç, 10'lu ve 20'li Mix) + K1-K10. Backed (Round 1 eğilimi): tenisci, tasarim, grup-yoneticisi; onburo kural kartı cevaplanırsa. Cost: işletmenin K1-K3 cevapları; PDF'in yeniden üretimi. Main risk: 20'li paketin seansı (1.225 TL) maliyeti karşılamıyorsa ya da liste paketi müşterileri fark talep ederse, satılmış seanslar geri alınamaz.
 - **B. A + VIP indirimli listeden çıkar** (VIP ya hiç yer almaz ya da liste fiyatıyla, indirimsiz), paketler A'daki gibi. Backed: pazarlama; tenisci VIP'i ilk kısılacak kalem sayıyor. Cost: A'yla aynı. Main risk: A'nın 20'li paket riski aynen kalır.
 - **C. Kapsamı daralt:** tek seans %20 (VIP hariç; Çift liste fiyatında ya da çıkar), paketlerde yalnız 10'lu İsveç 17.500 ve 10'lu Mix 21.000 (%30); 20'li paketler seans maliyeti ve doluluk verisi gelene kadar yok + K1-K10, ayrıca kontenjan ve kodsuz talebe liste fiyatı. Backed: isletme; tam-fiyat'ın gönderim için koşulu. Cost: karar sahibinin 20'li paket isteğinden geri adım; daha az çekici paket kartı. Main risk: tenisçiler için en iyi paket teklifi düşer; 20'li paket isteyen liste fiyatına ya da iki 10'luya yönlendirilir.
 - **D. Şimdilik gönderme (en güçlü karşı görüş):** İşletme yazılı kural kartını (son tarih, uygunluk, paket ödeme ve kullanım süresi, seans maliyeti) verene kadar hiçbir sürüm gönderilmez; sonra en fazla C kapsamında, tek grupta, tek seans indirimi tanıtım (tek sefer) olarak denenir. Backed: tam-fiyat; tenisci ve onburo "cevaplar gelmezse" koşuluyla. Cost: birkaç haftalık olası satış ve boş saat. Main risk: erteleme tarihsiz kalırsa hiç göndermemeye dönüşür.
@@ -110,4 +113,5 @@ Her koltuk farklı bir analiz kattı; işaretlenecek koltuk yok.
 5. **Doğrulama ve sızıntı:** Grup kodu mu, "listeden yazmak yeterli" mi; kodsuz gelen talebe ne yapılır?
 6. **Tek seans indirimi:** Son tarihe kadar kalıcı mı, ilk ziyaret/tek sefer mi; saat kısıtı olsun mu?
 7. **Rozet ve ilk ekran:** "%30'a varan" yerine ne yazılsın (ya da hiçbir şey)?
-8. **Sıra:** İşletmenin cevapları gelmeden (K1-K3) hangi seçenek de gönderilemiyorsa, karar sahibine önerilecek ilk adım nedir ve ne kadar beklenir?
+8. **Sıra ve kısıtlar:** K1-K3 artık cevaplı (01C). Karar sahibinin kısıtları (20'li paketler ve VIP 12.000 listede; Çift 4.000) karşısında seçenek B, C ya da D'yi savunan koltuk, bunu hangi kanıtla ve hangi koşulla savunuyor? Gönderimden önce yapılması gereken son adım (cihaz testi, yönetici onayı, ön büro brifingi) nedir?
+9. **"Kanıt istenmiyor" kuralı (01C madde 20):** Bu kural "tenisçilere özel" başlığını ve sızıntı riskini nasıl etkiliyor? Başlık ya da metin buna göre değişmeli mi?
