@@ -31,7 +31,10 @@ os.chdir(HERE)
 import parca as PA  # noqa: E402
 
 FPS = 24
-MAXRATE, BUFSIZE = "9M", "18M"      # YouTube önerisi (1080p24 SDR ≈ 8 Mb/sn); film greni tepe bit hızını şişirmesin
+MAXRATE, BUFSIZE = "24M", "48M"     # kurul TE1: 9M/18M zor anları kıstırıyordu (SSIM 0,90); YouTube yeniden kodlar, yükleme kalitesi öncelikli
+# kurul TE1 (renk): rgb24 → yuv420p dönüşümü açıkça BT.709 (tam → sınırlı aralık); yoksa swscale BT.601 çevirip BT.709 etiketliyordu (kırmızılar turuncuya kayıyordu)
+COLOR_VF = "in_range=pc:out_range=tv:out_color_matrix=bt709"
+X264_TUNE = ["-aq-mode", "3", "-psy-rd", "1.0:0.15"]
 W, H = 1920, 1080
 N_PARTS = 7
 
@@ -52,12 +55,13 @@ def plan(nframes, seg):
 
 
 def ff_cmd(out, crf, preset, scale=None, threads=2):
-    vf = []
     if scale:
-        vf = ["-vf", f"scale={scale}:-2:flags=lanczos"]
-    return ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-            *vf, "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-maxrate", MAXRATE, "-bufsize", BUFSIZE, "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709",
-            "-colorspace", "bt709", "-g", "48", "-bf", "2", "-threads", str(threads), "-an", out]
+        vf = ["-vf", f"scale={scale}:-2:flags=lanczos:{COLOR_VF},setsar=1"]
+    else:
+        vf = ["-vf", f"scale={COLOR_VF},setsar=1"]
+    return ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-color_range", "pc", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+            *vf, "-c:v", "libx264", "-preset", preset, "-crf", str(crf), *X264_TUNE, "-maxrate", MAXRATE, "-bufsize", BUFSIZE, "-pix_fmt", "yuv420p",
+            "-color_range", "tv", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-g", "48", "-bf", "2", "-threads", str(threads), "-an", out]
 
 
 def render_segment(args):
@@ -194,8 +198,9 @@ def cmd_mux(a):
     ad = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audio]).decode().strip())
     print(f"PARÇA {a.part}: video {vd:.2f} sn, ses {ad:.2f} sn (fark {vd - ad:+.2f})")
     acodec = ["-c:a", "copy"] if audio.endswith(".m4a") else ["-c:a", "aac", "-b:a", "256k"]
+    # kurul TE1: -shortest videonun son karelerini kırpıyordu → süre videodan alınır; ses dili Türkçe etiketlenir
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", vid, "-i", audio, "-map", "0:v", "-map", "1:a", "-c:v", "copy", *acodec,
-                    "-shortest", "-movflags", "+faststart", out], check=True)
+                    "-t", f"{vd:.3f}", "-metadata:s:a:0", "language=tur", "-metadata:s:v:0", "language=tur", "-movflags", "+faststart", out], check=True)
     print(out, os.path.getsize(out) // 1_000_000, "MB")
 
 
@@ -281,7 +286,7 @@ def main():
     ap.add_argument("--segs", default=None, help="yalnız bu segmentler, ör. 0-3 veya 1,3,5-6")
     ap.add_argument("--seg", type=int, default=1200)
     ap.add_argument("--crf", type=int, default=19)
-    ap.add_argument("--preset", default="medium")
+    ap.add_argument("--preset", default="slow")   # kurul TE1: koyu degradelerde bantlaşma riskine karşı
     ap.add_argument("--scale", default=None)
     ap.add_argument("--out", default=None)
     ap.add_argument("--audio", default=None)

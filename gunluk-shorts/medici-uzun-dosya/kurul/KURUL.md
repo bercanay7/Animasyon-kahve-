@@ -1,0 +1,112 @@
+# Medici Parça 1 — Bağımsız Kurul Kayıtları
+
+Yöntem: kök `CLAUDE.md` (kullanıcı kararı, 1 Kasım). Her alanda en az iki bağımsız üye, farklı mercekler; önce bağımsız ilk bakış, sonra çapraz eleştiri, sonra başkan (ana oturum) doğrular, karar verir ve buraya yazar. Eşik ≥ 9/10. Kaynak-doğruluk ve hassasiyet-hukuk üyelerinin veto hakkı var. Kurul sesi dinleyemez (yalnız kare, ASR dökümü, ölçüm).
+
+Raporlar: `kurul/tur1/<KOD>.md` · kanıt: `out_p1/kurul/` (kurul_kanit.py) · brif: `kurul/KURUL_BRIFI_P1.md`
+
+---
+
+## Tur 1 — 4 Kasım 2026 (P1 v1: `out_p1/medici_P1.mp4`, 601,8 sn)
+
+### Üyeler ve puanlar
+
+| Kod | Alan · mercek | Puan | Karar |
+|---|---|---|---|
+| AN1 | Animasyon · hareket fiziği, kamera, geçiş zanaati | 6,5 | RED |
+| AN2 | Animasyon · kurgu ritmi, mizansen, yönetmenlik | 7,0 | RED |
+| SA1 | Sanat yönetimi · renk, ışık, kompozisyon, kapak | 7,5 (render 8,0) | RED |
+| SA2 | Sanat yönetimi · dönem doğruluğu, katman/okunurluk hataları | 5,0 | RED |
+| KA1 | Kaynak · olgu ve sayı denetimi (veto) | 6,0 | RED |
+| KA2 | Kaynak · yöntem dürüstlüğü, hassasiyet, hukuk (veto) | 7,0 | RED |
+| PK1 | Paket · kapak/başlık, tıklama vaadi | 6,0 | RED |
+| PK2 | Paket · izleyici tutma, açılış, vaat-karşılık | 6,0 | RED |
+| TE1 | Teknik · render, kodlama, ses ölçümü | 8,0 | RED |
+| TE2 | Teknik · erişilebilirlik, okunurluk, kontrast | 7,0 | RED |
+
+Sonuç: **RED (10/10)**. Hiçbir üye eşiğe yaklaşmadı; ortak engelleyiciler: (1) anlatımda 3 olgu hatası, (2) c2'nin "kart vadisi" (403–589 sn) ve kamera tekdüzeliği, (3) katman/plaka taşmaları ve dönem hataları, (4) kapak vaadi ile açılışın uyuşmaması.
+
+### Motor sorusu (kullanıcı: "bu animasyon ve çizim motorundan emin misin?")
+
+On üyenin onu: **motoru baştan yazma, iyileştir.** Gerekçeler: Skia (Chromium'un da kullandığı 2B motor) çizim kalitesinin sınırı değil; sorunlar motorun ÇEKİRDEĞİNDE değil üst katmanlarında:
+- mizansen (dünya/figür sahnesi yerine kart üstüne kart),
+- kamera tekdüzeliği (95 hareketin 78'i itme/push),
+- çekim içi hareket bulanıklığı yok (hızlı hareket "kayıyor"),
+- dönem/yıl denetimi yok (kubbe, arma, bayrak, madalya yazıtı yıla bakmıyor),
+- yerleşim korumaları yok (plaka genişliği, HUD çakışması),
+- paketleme (kapak/başlık) ayrı bir zanaat olarak ele alınmamış.
+
+Başkan kararı: motor korunur; aşağıdaki iyileştirmeler motor + sahne + paket katmanlarında uygulanır.
+
+### Başkan doğrulaması (birincil metin)
+
+Kurul üyeleri birincil metinlere erişemediklerini yazdı (WebFetch DNS hatası). Başkan, doğrudan bağlantıyla Gutenberg, Wikisource, Treccani ve archive.org'a erişti (HTTP 200):
+- Machiavelli, *History of Florence* (Gutenberg #2464), III. kitap: Salvestro de' Medici Mayıs–Haziran 1378 Signoria'sı için **kurayla** ("was drawn Gonfalonier") gonfaloniere oldu; Temmuz 1378 Ciompi ayaklanmasında görevdeki gonfaloniere **Luigi Guicciardini**'ydi; isyancılar Salvestro'yu şövalye yaptı. → KA1-K2 / KA2-Ö1 **doğrulandı** (c1s18 "ve Salvestro çekildi" yanlış) ve c1s16'daki "halkın alkışıyla seçilmişti" ifadesi de kaynağa uymuyor (kura).
+- Aynı eser, IV. kitap: Giovanni di Bicci'nin ölüm döşeği konuşması ("I die content…", kıskançlığın verilenden değil istenenden doğması) ve "istenmeden" verilen sadakalar → c2s29 ve c2s32 parafrazları **doğrulandı** (●).
+
+### Kabul edilen düzeltmeler
+
+#### A. Anlatım (SES YAMASI — ElevenLabs "Emrullah", eleven_v4, generations_count=1, tekrar yok)
+
+| Cümle | Eski | Yeni | Dayanak |
+|---|---|---|---|
+| c2s7 | "Tracy Parks'ın aktardığına göre…" | "Tim Parks'ın aktardığına göre mevduata gelince, faiz sözleşmeye yazılmaz; banker bunu kendi takdiriyle, bir lütuf olarak öderdi." | KA1-K1, KA2-E1 (zorunlu) |
+| c1s18 | "…gonfaloniere oldu ve Salvestro çekildi." | "22 Temmuz'da Ciompi denen bu işçiler Palazzo Vecchio'yu ele geçirdi; bir yün tarayıcısı, Michele di Lando, gonfaloniere oldu." | KA1-K2, KA2-Ö1 + Machiavelli III (zorunlu) |
+| c1s11 | "…ve Temmuz'a kadar kaldı." | "Veba, 1348 Mart'ında geldi ve yaz boyunca şehri bırakmadı." | KA1-K3, KA2-Ö2 (Stefani "Eylül" / Boccaccio "Mart–Temmuz"; iki kaynakla da uyumlu) |
+| c1s16 | "Aktarılana göre o yazın başında, … halkın alkışıyla … seçilmişti." | "O yılın Mayıs'ında, Medici ailesinin başka bir kolundan Salvestro, kurayla şehrin başı sayılan gonfaloniere olmuştu." | Başkan doğrulaması (Machiavelli III: "drawn") |
+| c1s23 | "Floransa tarihinin en kanlı günlerinden biri sayılır." | "Yün işçilerinin kısa ömürlü loncası kaldırıldı; yönetimden de dışlandılar." | KA1-V5 (dayanaksız üstünlük iddiası) |
+| c1s24 | "Medici adı o yıllarda…" | "Medici'nin bu kolu o yıllarda şehrin seçkinlerinin bir kademe altındaydı; kır gelirleriyle geçiniyordu." | KA1-V4, KA2-K1 |
+| c2s27 | "…büyük torunu Lorenzo'nun kaydına göre…" | "İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı." | KA1-V6, KA2-Ö7 (DBI "bisnipote") |
+
+Kullanıcının "Düzeltmeleri uygula" talebi ücretli yama için açık onaydır. Kota yetmezse: c1s18 için KA1'in ücretsiz yedeği (250,94–252,40 sn susturma), diğerleri ekran/altyazı düzeltmesiyle sınırlı kalır ve bu belgeye yazılır.
+
+#### B. Motor (ENG-A: yerleşim/dönem/görsel hata · ENG-B: hareket/kurgu/denetim)
+
+ENG-A
+1. `name_plate`: metin genişliğine göre otomatik genişlik (sabit `w` artık alt sınır), güvenli alan x∈[90, 1830], HUD dikdörtgeninden kaçınma (SA1-E1/E2, SA2).
+2. Dönem katmanı (yıl = HUD yılı, `cx.year`): Duomo kubbesi (<1420 yok; 1420–36 yarım; 1436–61 fenersiz; ≥1461 fener; ≥1471 top+haç), Campanile (1338 alt katlar, 1348 yarı, ≥1359 tam), Medici arması (≤1464 mavi zambaklı top yok), bayrak izin listesi (1378'de Medici sancağı yok), madalya yazıtı (PATER PATRIAE yalnız ≥1464) (SA2, KA1-S4).
+3. Perde kum saati biçimi (`cilt_oda`), madalyadaki dikdörtgen artefakt, giornata yıkamasının yumuşatılması (`cilt_wall`) (SA1/SA2).
+
+ENG-B
+4. HUD küçülür (~300×66, kenardan ≥72 px) (SA1, TE).
+5. Geçişler: süre aralığı 0,25–2,4 sn; sert kesme birinci sınıf (`tr="cut"`); geçişin ilk karesindeki çift kare hatası (k=(n+1)/N) (AN1).
+6. Seçici deklanşör/hareket bulanıklığı (hızlı çekimlerde) (AN1).
+7. `anim.py`: hazırlık (anticipation), oturma (settle), sarsıntı, göz kırpma; damga (stamp) çeşitliliği (AN1).
+8. Hıza bağlı itme (push) ve kamera çeşitliliği (AN1/AN2).
+9. `qa_flow` yeni kapılar: plaka/HUD güvenli alan; ardışık itme ≤ 5; ardışık kart ≤ 4 ve ≤ 75 sn'de bir dünya çekimi; sert kesme payı; geçiş süresi dağılımı (σ); ölçülen hareket; `qa_donem` dönem denetimi (AN2/SA2).
+10. Bitiş ekranı etiket kontrastı (#E9C770, ≥34 px); parça sonu bekleme 1,2–1,5 sn; fresk başlığı daha hızlı kurulsun → c0 kart boşluğu 6,5 → ~4,5 sn (AN2/PK2/TE).
+
+#### C. Sahneler (P1 sahne yazarı)
+
+c0: kicker yeri/boyu + kapak yankısı (0,3–3,5 sn, kapağın vaadi ilk 5 sn'de), yatak odası kesmesi 9,2 sn, plaka "MEDİCİ'NİN SON ÜYESİ", 3. madde kartı alıntı işaretsiz ("3. MADDE · ÖZET" / "Koleksiyonlar Floransa'dan ve Büyük Dukalık'tan çıkarılamaz."), harita "SINIR YAKLAŞIKTIR", "çıkarılamayacaktı"da zincir + asma kilit, 1737 koridor figürleri siluet, gerekçe madalyonu hareketi.
+c1: dönem kubbesi; nötr Ciompi bayrakları + halk kadrosu; abaküs → sayma bezi + yazılı rakamlar; şematik Peruzzi kalkanı, Bardi düğümleri; "MART 1348 · YAZ BOYUNCA"; "ÇEKİLDİ" kalkar; YIL_AT'a 1390'lar adımı; c1_agi ve Machiavelli çekimi yeniden sahnelenir (iki figür + raf); yol haritası çipleri; iris rengi kırmızı/beyaz; lonca armalarına "TEMSİLÎ".
+c2: **403–589 sn kart vadisi dünya/figür sahnelerine çevrilir** (Konstanz salonu, Martinus taht odası, catasto sokağı, yazıcı odaları, kambiyo figürleri, çift kayıt animasyonu); "PİSA PAPASI · BUGÜN KARŞI PAPA SAYILIR"; Cossa = Johannes etiketi; Strozzi "1427'NİN EN ZENGİNİ"; "150.000'İ AŞKIN"; "1407 VENEDİK" kalkar; madalya "COSMVS · MEDICES"; Cosimo yaşı 39; YIL_AT 1410/1419/1420; mezar gisant; anahtar yönü/tiara; hediye kutusu → kese; sert kesmeler, kamera çeşitliliği, montaj; parça sonu bekleme.
+
+#### D. Kapak (PK1/PK2/SA1)
+
+K1 "SON MEDİCİ / MİRASI KİLİTLEDİ" (1743 odası, belge + zincir + asma kilit, tek parlak odak) ve K2 "FAİZ YASAKTI" (kese + florin yağmuru, kayışta palle). Cinzel 900; kahraman başlık ≥ %18 yükseklik; rozet "1/7" 150×74 sol altta (süre rozeti köşesi boş); `kapak_qa.py` (246/168/120 px, gri, akış maketi, bölge denetimi).
+
+#### E. Paket metni (PK1/PK2/KA2)
+
+Başlık T1: "Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?"; açıklamanın ilk 2 satırı (PK1 3d); KA2-E2: yöntem cümlesi dürüst, kaynak listesi P1'de gerçekten dayanılanlar, ilk paragraf düzeltilir; bölümler yeniden zamanlanır; sabit yorum soru ile başlar; etiketlerden Lorenzo/Cosimo/Uffizi çıkar (P1'de yoklar), "Medici bankası, Mediciler, faiz yasağı, kambiyo" eklenir; `kaynaklar_P1.md`'ye teyit karar tablosu (KA2-E3), `SURUM_KUNYESI_P1.md`, `yayin_gunlugu.jsonl`.
+
+#### F. Teknik (TE1/TE2) — başkan doğruladı
+
+- **Renk matrisi (TE1, engelleyici):** render.py rgb24'ü swscale varsayılanıyla BT.601'e çevirip BT.709 etiketliyordu (kırmızılar turuncuya kayıyordu). Başkan sentetik testle doğruladı (eski: yamalarda 12 düzeye varan sapma; yeni: ≤ 3). Düzeltme uygulandı: `scale=in_range=pc:out_range=tv:out_color_matrix=bt709,setsar=1`, `-color_range tv`.
+- **Kodlayıcı (TE1):** preset slow, aq-mode 3, psy-rd 1.0:0.15, VBV 24M/48M (9M/18M zor anları kıstırıyordu, SSIM 0,90). Uygulandı.
+- **Mux (TE1):** `-shortest` son 3 kareyi kırpıyordu → süre videodan alınır; ses/görüntü dili `tur`. Uygulandı.
+- **Okunurluk (TE2):** kamera uzayında çizilen plakaların ekran güvenli alanına/HUD dışına kıstırılması, otomatik kontrast scrim'i (küçük yazı ≥ 4,5:1, büyük ≥ 3:1), tip tabanı 34/46 px (ENG-A); düşük kontrastlı anahtar yazılar, altyazı bandındaki etiketler, 206–212 sn karanlık çukur, nakarat metninin anlatımla eşitlenmesi (sahne yazarı); 11 yetim ve 15 hızlı altyazı repliği (başkan, make_srt). Fotosensitivite temiz.
+- **Hareket bulanıklığı (TE1/AN1/SA1):** 24 fps'te kalınır; uyarlamalı deklanşör (ENG-B).
+
+### Kullanıcı sorusu (4 Kasım): "Bu çizim tarzı çok mu basit, ucuz, yapay zekâ mı kokuyor?"
+
+Kurulda kimse "ucuz" demedi; "yapay zekâ kokusu" diyen olmadı (görseller üretken YZ değil, kodla çiziliyor; tipik YZ izleri yok). PK2: "ucuz hissetmedim, şablon hissettim" — yüzey kalitesi (kâğıt, mum ışığı, sikke kabartması, geçişler, panoramalar) Sisifos çıtasında; sorun sahne dili: çekimlerin yarısı "parşömen üstüne ikon + etiket + damga", 78/95 aynı itme, 7:00–9:40 "dokulu slayt gösterisi", tekrar eden bir insan çapası yok. SA1: "fresk ve defter" dili konu için doğru ve kanalın en zengin çıtası; tavan insan yüzü/eli/oyunculuk (figürler küçük, temas gölgesi yok, madalya portreleri en zayıf çizim). Çareler bu turun düzeltmelerinde (C: figürlü eylem sahneleri, Giovanni insan çapası, figür ölçeği; B: kamera çeşitliliği, deklanşör; ENG-A: temas gölgesi, madalya portreleri). **Tur 2'de sanat ve paket üyelerine bu soru açıkça sorulacak.**
+
+### Reddedilen / değiştirilen öneriler
+
+- **PK2 Ü1–Ü8 (ücretli cümle ekleme/çıkarma, izleyici tutma için):** reddedildi. Kullanıcı kuralı: içerik izleyici tutma için kesilmez. Yerine ücretsiz görsel karşılıklar: kapak yankısı (K2), yol haritası çipleri (K7), kambiyo/çift kayıt animasyonu (K9).
+- **KA2 Ö6 (Studio "Değiştirilmiş veya yapay içerik" → Evet):** değiştirildi. Kanal uygulaması "Hayır" + açıklamada yapay zekâ sesi satırı (CLAUDE.md kanal dersleri) korunur; içerik gerçekçi insan/olay taklidi değil, açıkça çizim animasyon. Muhalefet şerhi: KA2 "Evet"i öneriyor; karar kullanıcıya bildirilir.
+- **Motoru baştan yazma:** önerilmedi; kullanıcının sorusuna yanıt olarak kayda geçti.
+
+### Tur 2 planı
+
+Aynı üyeler (SendMessage ile, aynı bağlam), yeni render + kanıt seti; raporlar `kurul/tur2/<KOD>.md`. Üyeler tur 1 maddelerinin kapanıp kapanmadığını tek tek işaretler; yeni puan verir.

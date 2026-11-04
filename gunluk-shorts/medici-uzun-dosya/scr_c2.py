@@ -6,7 +6,7 @@ PRON = [
     (r"\bPalla Strozzi\b", "Palla Strottsi"), (r"\bStrozzi\b", "Strottsi"),
     (r"\bCavalcanti\b", "Kavalkanti"), (r"\bMachiavelli\b", "Makyavelli"),
     (r"\bPacioli\b", "Paçoli"), (r"\bcatasto\b", "katasto"),
-    (r"\bdepositario\b", "depozitaryo"), (r"\b[Dd]e Roover\b", "de Rover"), (r"\bTracy Parks\b", "Treysi Parks"),
+    (r"\bdepositario\b", "depozitaryo"), (r"\b[Dd]e Roover\b", "de Rover"),
     (r"\bBrugge\b", "Brüge"),
 ]
 
@@ -18,7 +18,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("Vadesi gelince poliçe tahsil edilir, ikinci bir poliçeyle de para geri döner; kazanç, kur farkıdır.", None, "◐ model M1:§5A"),
               ("Ortada borç yok, faiz yok; yalnızca kur farkı var.", None, "◐ gerekçe M1:§5B"),
               ("Orta Çağ'ın en yaratıcı departmanı muhtemelen buydu: vicdan komitesi.", None, "YORUM (mizah a; USLUP §5-B)"),
-              ("Tracy Parks'ın aktardığına göre mevduata gelince, faiz sözleşmeye yazılmaz; banker bunu kendi takdiriyle, bir lütuf olarak öderdi.", None, "○ M1:§5B (Parks özeti; \"aktardığına göre\")"),
+              ("Tim Parks'ın aktardığına göre mevduata gelince, faiz sözleşmeye yazılmaz; banker bunu kendi takdiriyle, bir lütuf olarak öderdi.", None, "○ M1:§5B (Tim Parks, Medici Money 2005 özeti; \"aktardığına göre\") — kurul KA1-K1/KA2-E1: ad düzeltildi"),
               ("Faiz değil, hediye.", None, "○ M1:§5B (mizah a)"),
           ], [
               ("Üstelik bu işin müşterilerinden biri, faizi yasaklayan Kilise'nin ta kendisiydi.", None, "○ M1:D19 (de Roover)"),
@@ -43,7 +43,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
           ], [
               ("Giovanni 1420'de bankanın yönetimini oğullarına bırakmıştı; 1397'den o yıla kadar defterler yüz elli bini aşkın florin kâr gösterir.", None, "◐ M1b:U5,b33; ◐ toplam M1:#35 (\"gösterir\")"),
               ("20 Şubat 1429'da öldü; Floransa takvimine göre hâlâ 1428'di.", None, "◐ M1:#40; M5:P1"),
-              ("İleride Muhteşem diye anılacak büyük torunu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\")"),
+              ("İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\"; DBI 'bisnipote' = torunun oğlu — kurul KA1-V6/KA2-Ö7)"),
               ("Son sözlerini ise iki kalemden, iki ayrı biçimde okuyoruz.", None, "ANEKDOT M1:D11–D14"),
               ("Machiavelli, bir asra yakın sonra, onun ağzından oğullarına bir konuşma yazar: huzurla gidiyordur ve kıskançlık, insana verilenden değil, istediğinden doğar.", None, "ANEKDOT ◐ M1:D11,M5:K01 (\"Machiavelli'ye göre\"; kurgu payı)"),
               ("Cavalcanti ise 1440'larda, olaya daha yakın bir kalemle, başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "ANEKDOT ○ M1:D12 (İngilizce çeviriden dolaylı; birebir söz yok)"),

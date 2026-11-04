@@ -268,6 +268,23 @@ def _isci_calis(job):
 def asr_calistir(isler, cache_path, wav_path, isci=2, baslik="ASR"):
     """isler: [(anahtar, t0_mutlak, t1_mutlak, crc, meta)] — önbellekte (aynı crc ile) olmayanları işler; sonucu cache_path'e yazar."""
     cache = cache_oku(cache_path)
+    # CRC ile yeniden kullanım (kurul tur 1 ses yaması): ses örnek örnek aynı ama zamanı kaymış koşu (boşluk/yama değişikliği sonrası)
+    # önbellekte başka anahtarla duruyorsa kopyalanır; anahtar (ch|a|b) ve meta yeni koşuya göre yazılır. Eşleşme = (crc, pencere süresi).
+    by_crc = {}
+    for _k, _e in cache.items():
+        if isinstance(_e, dict) and _e.get("text") is not None and _e.get("crc") is not None and "t0" in _e and "t1" in _e:
+            by_crc.setdefault((_e["crc"], round(_e["t1"] - _e["t0"], 3)), _e)
+    yeniden = 0
+    for j in isler:
+        if j[0] in cache and cache[j[0]].get("crc") == j[3] and cache[j[0]].get("text") is not None:
+            continue
+        _e = by_crc.get((j[3], round(j[2] - j[1], 3)))
+        if _e is not None:
+            cache[j[0]] = dict(_e, t0=round(j[1], 3), t1=round(j[2], 3), **(j[4] or {}))
+            yeniden += 1
+    if yeniden:
+        log(f"[{baslik}] {yeniden} koşu CRC eşleşmesiyle önbellekten taşındı (kaymış zaman)")
+        cache_yaz(cache_path, cache)
     eksik = [j for j in isler if not (j[0] in cache and cache[j[0]].get("crc") == j[3] and cache[j[0]].get("text") is not None)]
     log(f"[{baslik}] {len(isler)} iş, önbellekte {len(isler) - len(eksik)}, işlenecek {len(eksik)}")
     if not eksik:

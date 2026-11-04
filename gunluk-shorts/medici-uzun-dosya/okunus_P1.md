@@ -47,4 +47,4 @@ Gösterim (ekran) → ElevenLabs'e giden okunuş. **Kulak kontrolü bu sözcükl
 | Brugge | Brüge | 1 | c2s3 |
 | Cavalcanti | Kavalkanti | 1 | c2s30 |
 | Cosimo | Kozimo | 2 | c2s34, c2s35 |
-| Tracy Parks | Treysi Parks | 1 | c2s7 |
+| Tim Parks | (olduğu gibi) | 1 | c2s7 (kurul tur 1: "Tracy" hatası düzeltildi) |
