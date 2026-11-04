@@ -22,7 +22,7 @@
 
 ## 2. Kamera sözlüğü (`cam=` ön ayarları)
 
-Her `shot(...)` çağrısı `cam=` alır. **Her çekimde açıkça yaz:** `cam=` verilmezse türün eski varsayılanı (yavaş push + drift) çalışır; `qa_flow` bunu "örtük" sayıp Kamera kapısını KALDI yapar. Hepsi tüm cilt çekim türlerinde çalışır (motor: `cilt_cam.py`; `cilt_medici.ckind` sarmalayıcısı `cam/link/longtake/montage` alanlarını ayıklar, `CM.Cam` uygular; `map` türünde `mapsk.Cam` yamalanır). `map` türünün eski `cam=(lon, lat, zoom)` parametresi (üç sayı) tür parametresi olarak kalır; kamera ön ayarıyla birlikte harita görünümü için `view=(lon, lat, zoom)` kullan.
+Her `shot(...)` çağrısı `cam=` alır. **Kurul tur 1 (4 Kasım 2026) sonrası:** `cam=` verilmezse motor tohumlu, ağırlıklı bir seçim yapar (ardışık aynı aile yok; `qa_flow` bunu "örtük" saymaz); yine de anlamlı hareketi açıkça yaz. `push` süresi çekim süresine bağlıdır (0,039·süre^0,47); yeni ön ayarlar: `("pan"|"truck", "r")`, `("tilt"|"crane", "up")`, `("whip", "r", dict(where="in"|"out"|"mid"))`, `"hand"`/`"drift"`, `("rack", a, b, dict(axis="y"))`, ortak `ease=` ve `shake=[(çapa, px)]`; çekim başına `shutter="auto"|True|False` (hareket bulanıklığı) ve `hud=False`. Ayrıntı ve örnekler: `notlar_hareket.md`, yardımcılar: `anim.py`. Hepsi tüm cilt çekim türlerinde çalışır (motor: `cilt_cam.py`; `cilt_medici.ckind` sarmalayıcısı `cam/link/longtake/montage` alanlarını ayıklar, `CM.Cam` uygular; `map` türünde `mapsk.Cam` yamalanır). `map` türünün eski `cam=(lon, lat, zoom)` parametresi (üç sayı) tür parametresi olarak kalır; kamera ön ayarıyla birlikte harita görünümü için `view=(lon, lat, zoom)` kullan.
 
 | `cam=` | Ne | Ne zaman |
 |---|---|---|
@@ -38,12 +38,12 @@ Her `shot(...)` çağrısı `cam=` alır. **Her çekimde açıkça yaz:** `cam=`
 
 Her biçimin sonuna isteğe bağlı `dict` eklenebilir: `pivot=(x,y)` (zum merkezi), `push=0.03` (pan/crane ek itme), `hand=genlik`, `drift=(dx,dy)`.
 
-Kurallar: kamera **ease_io** ile başlar/biter (Hermite/smoothstep; doğrusal yok) — **geçişli uçlarda durmaz** (uç hızı ortalama hızın %65'i; `cx.cam_in/cam_out`); aynı çekimde iki ters hareket yok; `push` ile `pull` art arda gelirse (nefes) arada gerekçe vardır; yazı taşıyan nesne kamera kaymasıyla altyazı bölgesine girmez (Anayasa §12-7; `qa_flow` tür düzen tablosundan denetler); HUD alanı (sağ üst 420×110, sol üst bölüm etiketi) boş kalır. Tam genişlikte yatay şerit çizen türlerde (`skyline`, `frieze`, `procession`; `cilt_cam.BAND_KINDS`) `("pan", yön, px)` türün kendi kaydırmasına çevrilir (gerçek paralaks, şerit ucu açılmaz); çevrilemezse (ör. `frieze` sola) genel öteleme + sabit örtme zumu uygulanır. Kendi kamera yolu olan türlerde (`pano`: `cams=`, `build`: `orbit=`; `cilt_cam.OWN_CAMERA`) `cam=` kabul edilir ama uygulanmaz. Birleşik hareket: `("pan","r",160, dict(hand=1.5))`. `rack` noktaları 0–2 aralığındaysa ekran oranı sayılır: `(0.5, 0.45)` → (960, 486) px.
+Kurallar: kamera **ease_io** ile başlar/biter (Hermite/smoothstep; doğrusal yok) — **geçişli uçlarda durmaz** (uç hızı ortalama hızın %65'i; `cx.cam_in/cam_out`); aynı çekimde iki ters hareket yok; `push` ile `pull` art arda gelirse (nefes) arada gerekçe vardır; yazı taşıyan nesne kamera kaymasıyla altyazı bölgesine girmez (Anayasa §12-7; `qa_flow` tür düzen tablosundan denetler); HUD alanı (`cilt_fx.HUD_RECT` = 1548–1848 × 72–138; sol üst bölüm etiketi `CHAPTER_TAG_XY` = (96, 60)) boş kalır; levhalar `name_plate` ile ekran uzayında güvenli alana (x 90–1830, y 60–1020) ve HUD dışına kıstırılır (`qa_yerlesim.py`). Tam genişlikte yatay şerit çizen türlerde (`skyline`, `frieze`, `procession`; `cilt_cam.BAND_KINDS`) `("pan", yön, px)` türün kendi kaydırmasına çevrilir (gerçek paralaks, şerit ucu açılmaz); çevrilemezse (ör. `frieze` sola) genel öteleme + sabit örtme zumu uygulanır. Kendi kamera yolu olan türlerde (`pano`: `cams=`, `build`: `orbit=`; `cilt_cam.OWN_CAMERA`) `cam=` kabul edilir ama uygulanmaz. Birleşik hareket: `("pan","r",160, dict(hand=1.5))`. `rack` noktaları 0–2 aralığındaysa ekran oranı sayılır: `(0.5, 0.45)` → (960, 486) px.
 
 ## 3. Geçiş sözlüğü (`tr=(ad, süre[, opts])` + `link=`)
 
 **Mevcut (motorda, aynen):** `yikama` (pigment yıkama: ıslak boya yayılır) · `sayfa` (defter sayfası çevrilir) · `giornata` (fresk günlüğü: sıva parçaları sırayla) · `fade` · `dip` · `zoom` · `whip` · `wipe`.
-**Eklenen (`cilt_fx.py`; süre ≤ 1,0 sn; `opts` sözlüğü; `dir` her yerde KAMERA yönüdür: `r` içerik sola akar):**
+**Eklenen (`cilt_fx.py`; süre 0,25–2,4 sn (tür alt sınırı: candle 0,6, iris 0,4); `tr="cut"` ya da `None` birinci sınıf sert kesme — hedef payı ≥ %15; `opts` sözlüğü; `dir` her yerde KAMERA yönüdür: `r` içerik sola akar):**
 
 | ad | Tarif | `opts` | `link=` |
 |---|---|---|---|
@@ -138,6 +138,8 @@ Süre ≈68 dk → **7 parça, her biri ≈10 dk** (kullanıcı kararı, 19 Ekim
 - Parça sınırları kod tarafında tek yerde: `script.PARTS` (compose, parca, ses_birlestir, is_emri, miks hepsi buradan okur).
 
 ## 10. Ölçülebilir kapılar (`qa_flow.py`; her bölümde ve parçada çalışır)
+
+**Kurul tur 1 sonrası eklenen kapılar:** ardışık itme ≤ 5 · ardışık kart ≤ 4 ve en geç 75 sn'de bir dünya/figür çekimi · sert kesme payı ≥ %15 · geçiş süresi σ ≥ 0,25 sn · ölçülen hareket (6 sn'den uzun hareketsiz çekim yok) · tür tekrarı · **Yerleşim** (`qa_yerlesim.py`: levha taşması/kenar/HUD, 0 ihlal) · **Dönem** (`qa_donem.py`: kubbe/çan kulesi/arma/bayrak/madalya yazıtı HUD yılına uygun, 0 ihlal). Aile etiketi: `shot(family="dunya"|"figur"|"kart")`.
 
 | Kapı | Ölçüt | Eşik |
 |---|---|---|

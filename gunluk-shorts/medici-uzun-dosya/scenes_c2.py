@@ -146,7 +146,7 @@ SHOTS = [
          cam=("pan", "l"), tr="cut", link="audio", label="Konstanz 1415: taht boş, taç düşer"),
     # ── 16. kefalet mi fidye mi: kaynaklar ayrışıyor ─────────────────────────
     shot("c2_ayrim", ("c2s17", -0.15), mode="day", perde=1, walk_at=("c2s17", "İndirilen", -0.1), fork_at=("c2s17", "Giovanni'nin", -0.3), left_at=("c2s17", "kefaletle", -0.25), right_at=("c2s17", "fidyeyle", -0.25), stamp_at=("c2s17", "ayrışıyor", -0.3),
-         cam=("pan", "r"), tr=("slide", 0.45, dict(dir="r")), link="dir", label="kefalet mi fidye mi: yol ayrımı"),
+         cam=("pan", "r"), tr="cut", link="audio", label="kefalet mi fidye mi: yol ayrımı"),
     # ── 17a. Vaftizhane anıtı: gisant, perde; "ESKİ PAPA" oyulur ─────────────
     shot("c2_mezar", ("c2s18", -0.15), mode="day", perde=1, place_at=("c2s18", "Vaftizhane'ye", -0.3), carve_at=("c2s18", "eski", -0.5), carve_to=("c2s18", "papa", 0.35),
          cam=("tilt", "up", 120), tr=("light", 1.0, dict(at=(960, 760))), link="light", label="Cossa'nın anıtı: ESKİ PAPA"),
