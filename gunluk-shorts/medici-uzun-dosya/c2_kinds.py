@@ -644,5 +644,137 @@ def k_sadaka(cx, who_at=None, give_at=None, stamp_at=None, seed=4, **_):
     CM.finish(f, cx, motes_n=22)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# kurul tur 1 — sahne bindirmeleri (ovl): çifte kayıt defteri, yıl rulosu, konuşma tomarı
+# ─────────────────────────────────────────────────────────────────────────────
+def cifte_panel(a_at, b_at, bal_at, x0=1010, y0=236, w=800, h=560, out=None):
+    """Çifte kayıt (partita doppia): aynı florin önce DEBITORI, sonra CREDITORI sayfasına yazılır; iki sütun eşitlenir (terazi dengelenir).
+    Tutar/ad uydurulmaz: satırlar okunmaz mürekkep + florin simgesi."""
+    def fn(cx):
+        f = cx.f
+        c = f.c
+        kp = cx.amt(a_at, 0.45, off=-0.6)
+        if out is not None:
+            kp *= 1.0 - cx.amt(out, 0.4)
+        if kp <= 0.003:
+            return
+        yy = y0 + (1 - kp) * 30
+        f.rrect(x0 + 10, yy + 14, w, h, 12, color="#000000", alpha=0.30 * kp, blur=12)
+        for i in range(2):
+            px = x0 + i * w / 2
+            f.rect(px, yy, w / 2, h, shader=f.lin(px, 0, px + w / 2, 0, [("#EFE3BF", 0.0), ("#F8EFD6", 0.5), ("#E2D3A8", 1.0)] if i == 0 else [("#E2D3A8", 0.0), ("#F8EFD6", 0.5), ("#EFE3BF", 1.0)]), alpha=kp)
+        f.rect(x0, yy, w, h, style="stroke", sw=3, color="#4A3018", alpha=0.85 * kp)
+        c.drawLine(x0 + w / 2, yy + 6, x0 + w / 2, yy + h - 6, f.paint("#7A5A32", style="stroke", sw=3, alpha=0.8 * kp))
+        for i, hd in enumerate(("DEBITORI", "CREDITORI")):
+            cxp = x0 + w / 4 + i * w / 2
+            CM.ink(f, hd, cxp, yy + 62, face="title", size=40, color="#2A1608", align="c", track=6, alpha=kp, emboss=False)
+            c.drawLine(cxp - 150, yy + 80, cxp + 150, yy + 80, f.paint("#8A2A1E", style="stroke", sw=2.4, alpha=0.8 * kp))
+            for r in range(6):
+                ly = yy + 140 + r * 62
+                c.drawLine(x0 + i * w / 2 + 40, ly + 14, x0 + i * w / 2 + w / 2 - 40, ly + 14, f.paint("#B8A27A", style="stroke", sw=1.2, alpha=0.6 * kp))
+        # yazım: sol satır → sağ satır (aynı florin iki kez)
+        for i, at in enumerate((a_at, b_at)):
+            ta = cx.at(at)
+            pr = clamp((cx.t - ta) / 0.8)
+            if pr <= 0:
+                continue
+            lx = x0 + i * w / 2 + 50
+            ly = yy + 140 + 62 * 1
+            wl = (w / 2 - 190) * ease_io(pr, 1.4)
+            pth = skia.Path(); pth.moveTo(lx, ly + 4)
+            nn = max(2, int(wl / 12))
+            for q in range(1, nn + 1):
+                pth.lineTo(lx + q * wl / nn, ly + 4 + 5 * math.sin(q * 1.7 + i))
+            c.drawPath(pth, f.paint("#2E1C0C", style="stroke", sw=3.4, alpha=0.9 * kp))
+            if pr < 1:
+                OD.quill(c, lx + wl + 6, ly + 6, -58.0, 0.8)
+            kc = clamp((cx.t - ta - 0.6) / 0.3)
+            if kc > 0:
+                CP.draw_coin(f, x0 + i * w / 2 + w / 2 - 80, ly - 2, 64, spin=0.0, alpha=kc * kp, shadow=0.2)
+        # florin: önce sola iner, sonra yarısı sağa yansır (aynı tutar iki sütunda)
+        t_a, t_b = cx.at(a_at), cx.at(b_at)
+        for (ts, xa, xb) in ((t_a - 0.7, x0 + w / 2, x0 + w / 2 - 80), (t_b - 0.5, x0 + w / 2 - 80, x0 + w - 80)):
+            u = (cx.t - ts) / 0.7
+            if 0 < u < 1:
+                e = ease_io(u, 1.6)
+                CP.draw_coin(f, lerp(xa, xb, e), lerp(yy - 40, yy + 200, e) - 120 * math.sin(math.pi * e), 70, spin=cx.t * 12, alpha=min(1, u * 5), shadow=0.25)
+        # denge: alt satır toplamları + terazi
+        kb = cx.amt(bal_at, 0.5)
+        if kb > 0.003:
+            for i in range(2):
+                cxp = x0 + w / 4 + i * w / 2
+                c.drawLine(cxp - 130, yy + h - 92, cxp + 130, yy + h - 92, f.paint("#2E1C0C", style="stroke", sw=2.6, alpha=kp * kb))
+                CP.draw_coin(f, cxp, yy + h - 50, 58, spin=0.0, alpha=kp * kb, shadow=0.2)
+            CM.ink(f, "=", x0 + w / 2, yy + h - 34, face="title", size=64, color="#8A2A1E", align="c", alpha=kp * kb, emboss=False)
+            tilt = 0.18 * (1.0 - ease_out(kb, 2)) * math.cos(cx.t * 5.0)
+            icons.draw_icon(f, "scales", x0 + w / 2, yy - 70, size=140, metal="gold", alpha=kp * kb, rot=tilt, glow=0.0)
+    return fn
+
+
+def yil_panel(date_at, roll_at, cal_at, x=1420, y=300):
+    """Koyu zemin üstünde: '20 ŞUBAT' · '1429' → '1428' rulo · 'FLORANSA TAKVİMİ · YILBAŞI 25 MART' (kontrast ≥7:1)."""
+    def fn(cx):
+        f = cx.f
+        kd = cx.amt(date_at, 0.5)
+        if kd <= 0.003:
+            return
+        w, h = 560, 330
+        f.rrect(x - w / 2, y, w, h, 14, color="#0E0A08", alpha=0.72 * kd)
+        f.rrect(x - w / 2, y, w, h, 14, style="stroke", sw=2.0, color="#C9A45A", alpha=0.8 * kd)
+        CM.ink(f, "20 ŞUBAT", x, y + 70, face="title_m", size=50, color="#FFF4D6", align="c", track=14, alpha=kd, emboss=False)
+        yr_old, yr_new = "1429", "1428"
+        e = ease_io(clamp((cx.t - cx.at(roll_at)) / 0.9), 1.6) if roll_at is not None else 0.0
+        size = 104
+        wid = sk.text_width("1429", "title", size, 6)
+        x0 = x - wid / 2
+        f.c.save()
+        f.c.clipRect(skia.Rect.MakeLTRB(x - w / 2 + 10, y + 96, x + w / 2 - 10, y + 230))
+        for i in range(4):
+            wch = sk.text_width(yr_old[i], "title", size, 6)
+            xx = x0 + sum(sk.text_width(yr_old[j], "title", size, 6) for j in range(i)) + wch / 2
+            if yr_old[i] != yr_new[i] and e > 0:
+                CM.ink(f, yr_old[i], xx, y + 200 + 120 * e, face="title", size=size, color="#FFF4D6", align="c", alpha=kd * (1 - e), emboss=False)
+                CM.ink(f, yr_new[i], xx, y + 200 - 120 * (1 - e), face="title", size=size, color="#F2C66A", align="c", alpha=kd * e, emboss=False)
+            else:
+                CM.ink(f, yr_old[i], xx, y + 200, face="title", size=size, color="#FFF4D6", align="c", alpha=kd, emboss=False)
+        f.c.restore()
+        kc = cx.amt(cal_at, 0.5) if cal_at is not None else 0.0
+        if kc > 0.003:
+            CM.ink(f, "FLORANSA TAKVİMİ", x, y + 268, face="title_m", size=36, color="#FFF4D6", align="c", track=8, alpha=kd * kc, emboss=False)
+            CM.ink(f, "YILBAŞI 25 MART", x, y + 312, face="title_m", size=34, color="#F2C66A", align="c", track=8, alpha=kd * kc, emboss=False)
+    return fn
+
+
+def tomar(x, y, at, to, w=520, dirn=1, lines=5, out=None):
+    """Konuşma tomarı: (x,y)'den yana açılan parşömen şerit + okunmaz satırlar (anlatılan konuşma; alıntı metni yok)."""
+    def fn(cx):
+        f = cx.f
+        c = f.c
+        k = cx.amt(at, 0.3)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        ta, tb = cx.at(at), cx.at(to)
+        p = ease_io(clamp((cx.t - ta) / max(0.4, tb - ta)), 1.4)
+        ww = 40 + (w - 40) * p
+        hh = 46 + 34 * lines
+        x0 = x if dirn > 0 else x - ww
+        f.rrect(x0 + 6, y - hh / 2 + 10, ww, hh, 10, color="#000000", alpha=0.25 * k, blur=8)
+        f.rrect(x0, y - hh / 2, ww, hh, 10, shader=f.lin(0, y - hh / 2, 0, y + hh / 2, [("#F4EAC8", 0.0), ("#DCCB98", 1.0)]), alpha=k)
+        f.rrect(x0, y - hh / 2, ww, hh, 10, style="stroke", sw=2.5, color="#5A3E22", alpha=0.85 * k)
+        for i in range(lines):
+            ly = y - hh / 2 + 34 + i * 34
+            wl = max(0.0, ww - 60) * (0.95 if i % 2 == 0 else 0.75)
+            pth = skia.Path(); pth.moveTo(x0 + 30, ly)
+            nn = max(2, int(wl / 12))
+            for q in range(1, nn + 1):
+                pth.lineTo(x0 + 30 + q * wl / nn, ly + 4 * math.sin(q * 1.8 + i))
+            c.drawPath(pth, f.paint("#3A2410", style="stroke", sw=2.6, alpha=0.8 * k))
+        for xe in (x0, x0 + ww):
+            f.rrect(xe - 10, y - hh / 2 - 8, 20, hh + 16, 8, shader=f.lin(xe - 10, 0, xe + 10, 0, [("#B89A62", 0.0), ("#E8D4A0", 0.5), ("#9A7A44", 1.0)]), alpha=k)
+    return fn
+
+
 import p1_ortak as _P2  # noqa: E402
 _P2.add_ovl(["c2_nolist", "c2_hediye", "c2_kasa", "c2_borc", "c2_ayrim", "c2_mezar", "c2_rivayet", "c2_katasto", "c2_yil", "c2_kalemler", "c2_sadaka"])

@@ -902,9 +902,10 @@ class Florence(World):
             c.translate(-(XD - 1150), -base)
             era = self.era
             fl = CT.draw_pv(c, XD - 1150, base + 4, 1.0, T, 0.18, stage=None if era is None else era[2])
-            if fl is None:                                       # Palazzo Vecchio yok/yarım (1314 öncesi): flama bir ortaçağ kulesinde
-                fl = (XD - 880, base - 161)
-            self.flag = (XD - 1150 + (fl[0] - (XD - 1150)) * 1.18, base + (fl[1] - base) * 1.18)
+            if fl is None:                                       # Palazzo Vecchio yok/yarım (1314 öncesi): flama bir ortaçağ kulesinde (ölçeksiz)
+                self.flag = (XD - 880, base - 161)
+            else:
+                self.flag = (XD - 1150 + (fl[0] - (XD - 1150)) * 1.18, base + (fl[1] - base) * 1.18)
             c.restore()
             # Duomo grubu (ölçek 1,25) — dönem durumuna göre (donem.py)
             c.save()
