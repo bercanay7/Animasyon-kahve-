@@ -16,6 +16,12 @@ Geçiş modeli (YONETMENLIK_REHBERI §3): tr=(ad, süre[, opts]).
   * Kamera devri: geçişli girişte gelen çekim `cam_in`, giden `cam_out` (kamera ucu durmaz; cilt_cam uç eğimini korur).
   * lead: yeni geçişlerde (iris/slide/zoomthru/carry/light/candle; opts lead=True/False ile değişir) gelen çekimin yerel saati geçiş BAŞLARKEN başlar
     (Shot.lead = süre): yeni sahne boş duvar değil yaşayan çekim olarak açılır. Anlatı çapaları (cx.at) etkilenmez; mutlak yerel saniyeler (at=0.4) süre kadar erken gelir.
+  * ENG-B (Kasım 2026, kurul tur 1; notlar_hareket.md):
+    - süre 0,25–2,4 sn (cilt_fx.TR_MIN/TR_MAX); tr="cut" ya da None = sert kesme (kamera kesmede durmaz: cam_in/out; ("cut", dict(carry=False)) durdurur)
+    - geçiş ilerlemesi kareye kuantlı: N karelik geçişte k = (j+1)/(N+1) → ilk geçiş karesi giden çekimin kopyası değil, son karesi gelenin kopyası değil
+    - cam= verilmemiş çekime tohumlu, ağırlıklı hareket (cilt_cam.auto_spec; ardışık aynı aile yok; Shot.cam_auto=True)
+    - seçici deklanşör (Shot.shutter "auto"|True|False|N|dict): hızlı kamera/nesne karelerinde 180° alt-kare örneklemesi (Program.shutter_stats)
+    - parça sonu bekleme END_HOLD (anlatı bittikten sonra son kare nefes alır, sonra bitiş geçişi); bitiş ekranı etiketleri #E9C770 ≥34 px
 """
 import importlib
 import math
@@ -34,6 +40,12 @@ from sk import FPS, H, W, Frame, clamp, ease_out, smooth
 HERE = os.path.dirname(os.path.abspath(__file__))
 CHAPTER_IDS = [f"c{i}" for i in range(17)]
 OUTRO = 7.0
+END_HOLD = 1.3                                                  # parça sonu: anlatı bittikten sonra son çekimde kalış (sn; c.t1 zaten ≈0,1 sn pay içerir → ≈1,4 sn nefes)
+TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 8,3 sn
+SHUTTER_ANGLE = 180.0                                           # deklanşör açısı (derece): pozlama = açı/360 kare
+SHUTTER_V_ON = 3.0                                              # px/kare: bu hızın altında bulanıklık yok (TE1: sakin çekim medyanı 0,24)
+SHUTTER_V_OBJ = 5.0                                             # px/kare: nesne/iç kamera hareketi bu hızı aşınca yeniden çizimli alt örnekleme
+SHUTTER_N_FAST = 12.0                                           # px/kare: bunun üstünde 5 alt örnek (altında 3)
 
 # bölüm → (roma no, başlık, yıl aralığı metni, başlangıç yılı)
 TITLES = {
@@ -71,11 +83,11 @@ CARD_TR = ("yikama", 0.9, dict(place="after"))                 # bölüm kartı 
 def default_part():
     """part=None iken parça: MEDICI_PART ortam değişkeni (parca.py) ya da `out` bağlantısının out_pN'e çevrilmiş olması; yoksa None (tam film)."""
     v = os.environ.get("MEDICI_PART", "").strip()
-    if v in ("1", "2", "3"):
+    if v.isdigit() and int(v) in PART_CHAPTERS:
         return int(v)
     try:
         import re
-        m = re.search(r"out_p([123])$", os.path.realpath(os.path.join(HERE, "out")))
+        m = re.search(r"out_p([1-9])$", os.path.realpath(os.path.join(HERE, "out")))
         if m:
             return int(m.group(1))
     except OSError:
@@ -99,6 +111,53 @@ def _use_part_timeline(part):
         _PART_TL[0] = False
 
 
+_BGRA = skia.ColorType.kBGRA_8888_ColorType
+_GRID = {}
+
+
+def _bgra(f):
+    return f.surf.makeImageSnapshot().toarray(colorType=_BGRA, alphaType=skia.AlphaType.kPremul_AlphaType)
+
+
+def _flow_speed(a, b):
+    """İki küçük gri kare (240×135) arası hareket hızı (px/kare, 1920 ölçeği): Farneback akışı; yalnız değişimi HAREKETLE açıklanan pikseller
+    (geri sarılmış fark < ham farkın yarısı) sayılır (belirme/solma hız sayılmaz); %95'lik. Neredeyse durgun karede (ort. fark < 0,35) 0."""
+    d = cv2.absdiff(a, b)
+    if float(d.mean()) < 0.35:
+        return 0.0
+    fl = cv2.calcOpticalFlowFarneback(b, a, None, 0.5, 3, 11, 3, 5, 1.1, 0)     # b → a: a(x) ≈ b(x + fl)
+    h, w = a.shape
+    gx, gy = _GRID.get((h, w)) or _GRID.setdefault((h, w), np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32)))
+    wb = cv2.remap(a, gx + fl[..., 0], gy + fl[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    r = cv2.absdiff(b, wb).astype(np.float32)
+    dd = d.astype(np.float32)
+    valid = (dd > 6.0) & (r < 0.5 * dd)
+    if int(valid.sum()) < 25:
+        return 0.0
+    mag = np.hypot(fl[..., 0], fl[..., 1])[valid]
+    return float(np.percentile(mag, 95)) * (W / float(w))
+
+
+def _dir_blur(arr, vx, vy, length):
+    """Yönlü (çizgisel) bulanıklık: (vx, vy) doğrultusunda `length` px kutu çekirdeği (yarım çözünürlükte, sonra büyütülür)."""
+    L = max(1.0, float(length))
+    n = math.hypot(vx, vy)
+    ux, uy = vx / n, vy / n
+    k = int(min(41, max(3, round(L / 2.0) | 1)))
+    ker = np.zeros((k, k), np.float32)
+    c = k // 2
+    for j in range(k * 3):
+        tt = (j / (k * 3 - 1) - 0.5) * (L / 2.0)
+        x_, y_ = int(round(c + ux * tt)), int(round(c + uy * tt))
+        if 0 <= x_ < k and 0 <= y_ < k:
+            ker[y_, x_] = 1.0
+    ker /= max(1e-6, ker.sum())
+    hh, ww = arr.shape[:2]
+    sm = cv2.resize(arr, (ww // 2, hh // 2), interpolation=cv2.INTER_AREA)
+    sm = cv2.filter2D(sm, -1, ker, borderType=cv2.BORDER_REPLICATE)
+    return cv2.resize(sm, (ww, hh), interpolation=cv2.INTER_LINEAR)
+
+
 class _StubTL:
     """timeline.json yokken (reel) çapasız çalışma."""
     total = 0.0
@@ -119,9 +178,12 @@ class _StubTL:
 
 
 class Program:
-    def __init__(self, chapters=None, fast=False, part=None, shots=None, end=None):
+    def __init__(self, chapters=None, fast=False, part=None, shots=None, end=None, shutter=True):
         self.fast = fast
         self.hud = True
+        self.shutter = bool(shutter)                           # seçici deklanşör açık mı (qa örneklemesi kapatır)
+        self.shutter_stats = dict(frames=0, blur=0, extra_renders=0, ms_extra=0.0, ms_flow=0.0, ms_total=0.0, by_n={})
+        self._sprev = None                                     # (n, çekim, geçiş mi, küçük gri) — akış ölçümü için önceki kare
         self.t_off = 0.0
         self.shots = []
         self._years = []
@@ -195,7 +257,12 @@ class Program:
         if last_id:
             last = vc[last_id]
             otr = getattr(self._chap_mod.get(last_id), "OUTRO_TR", None) or CARD_TR
-            self._add(SH.shot("outro", a=last["t1"], tr=otr, link="material", mode="night", perde=PERDE_OF.get(last_id, 3), part=part, label="bitiş ekranı"), last["t1"], last["t1"] + OUTRO)
+            hold = float(getattr(self._chap_mod.get(last_id), "END_HOLD", END_HOLD))     # sahne modülü END_HOLD ile değiştirebilir
+            t_out = last["t1"] + hold
+            if self.shots and abs(self.shots[-1].t1 - last["t1"]) < 1e-6:
+                self.shots[-1].t1 = t_out                       # son çekim anlatıdan sonra `hold` sn sürer (son kare nefes alır)
+            self._last_hold = (last_id, last["t1"], t_out)
+            self._add(SH.shot("outro", a=t_out, tr=otr, link="material", mode="night", perde=PERDE_OF.get(last_id, 3), part=part, label="bitiş ekranı"), t_out, t_out + OUTRO)
         self.t_off = vc[pf]["t0"] if self._pf_in else 0.0
         self._finalize()
         # yıl çizelgesi: bölüm başlangıç yılı + sahne dosyasının YIL_AT listesi
@@ -252,9 +319,37 @@ class Program:
         self.shots.sort(key=lambda s: s.t0)
         for i, s in enumerate(self.shots):
             s.i = i
+        self._auto_cams()
+        for s in self.shots:
             self._check_cam(s)
         self.total = (self.shots[-1].t1 - self.t_off) if self.shots else 0.0
         self._link_flags()
+
+    def _auto_cams(self):
+        """cam= verilmemiş çekimlere tohumlu, ağırlıklı hareket (hep itme değil; ardışık aynı aile yok). Yatay/dikey yön bölümün açık cam'lerinden devralınır."""
+        import cilt_cam
+        own = cilt_cam.OWN_CAMERA
+        prev_fam, hdir, vdir = None, "r", "up"
+        for s in self.shots:
+            if s.kind in CARD_KINDS:
+                prev_fam = None
+                continue
+            if s.kind in own:
+                prev_fam = None
+                continue
+            if s.cam is None and not getattr(s, "cam_auto", False):
+                s.cam = cilt_cam.auto_spec(s.kind, max(0.5, s.dur), s.stable_seed, prev=prev_fam, hdir=hdir, vdir=vdir)
+                s.cam_auto = True
+            try:
+                d = cilt_cam.describe(s.cam, s.dur)
+            except Exception:
+                d = None
+            if d:
+                prev_fam = d["family"]
+                if d["kind"] in ("pan", "truck", "whip") and not s.cam_auto:
+                    hdir = d["dir"]
+                if d["kind"] in ("crane", "tilt") and not s.cam_auto:
+                    vdir = d["dir"]
 
     def _link_flags(self):
         """Geçişlerde kamera devri (cam_in/cam_out), etkin geçiş (tr_eff) ve gelen çekim saati (lead)."""
@@ -265,14 +360,17 @@ class Program:
         for i in range(1, len(self.shots)):
             s, p = self.shots[i], self.shots[i - 1]
             t = FX.norm_tr(s.tr)
-            if not t:
+            if not t:                                           # sert kesme ("cut" / None): kamera kesmede durmaz (kesmede hareket), lead yok
+                if FX.cut_opts(s.tr).get("carry", True):
+                    s.cam_in = True
+                    p.cam_out = True
                 continue
             name, d, o = t
             if name not in FX.TR and name not in ("fade", "dip", "zoom", "whip", "wipe"):
                 raise ValueError(f"bilinmeyen geçiş '{name}' (çekim #{s.i} {s.kind} '{s.label}'); geçerli: {sorted(list(FX.TR) + ['fade', 'dip', 'zoom', 'whip', 'wipe'])}")
             place = o.get("place", "before")
             cap = (p.dur if place != "after" else s.dur) * 0.85
-            d = max(0.2, min(d, cap)) if cap > 0.2 else max(0.05, cap)
+            d = max(FX.TR_MIN, min(d, cap)) if cap > FX.TR_MIN else max(0.05, cap)
             s.tr_eff = (name, d, o)
             if name not in FX.NO_CARRY:
                 s.cam_in = True
@@ -295,6 +393,9 @@ class Program:
             c = self.tl.chapters.get(cid)
             if c and c["t0"] - 0.01 <= g <= c["t1"] + 0.01:
                 return cid
+        lh = getattr(self, "_last_hold", None)                   # parça sonu bekleme: son bölüm sürer (HUD/ilerleme çizgisi sönmez)
+        if lh and lh[1] - 0.01 <= g <= lh[2] + 0.01:
+            return lh[0]
         return None
 
     def _perde_at(self, g, s=None):
@@ -320,7 +421,20 @@ class Program:
         cx.perde = self._perde_at(g, s)
         cx.year = self.ys.at(g)[0]
         SH.KINDS[s.kind](cx, **s.params)
+        f._cx = cx                                             # deklanşör: kamera durumu + anim.hint_speed ipucu
         return f
+
+    def _kq(self, g, ga, gb):
+        """Kareye kuantlı geçiş ilerlemesi: [ga, gb) penceresine düşen N karenin j.'si için k = (j+1)/(N+1).
+        Böylece ilk geçiş karesi giden çekimin (k=0), son geçiş karesi gelen çekimin (k=1) kopyası olmaz: donma/çift kare yok (kurul AN1-E7)."""
+        e = 1e-7
+        n0 = math.ceil((ga - self.t_off) * FPS - e)
+        n1 = math.ceil((gb - self.t_off) * FPS - e)
+        n = round((g - self.t_off) * FPS)
+        N = max(1, n1 - n0)
+        if abs((g - self.t_off) * FPS - n) > 1e-3:              # kare dışı zaman (alt-kare): sürekli k
+            return clamp((g - ga) / max(1e-6, gb - ga))
+        return clamp((n - n0 + 1) / (N + 1))
 
     def _trans_at(self, g, i):
         """g anında etkin geçiş → (idx_a, idx_b, ad, süre, opts, k) | None."""
@@ -328,13 +442,13 @@ class Program:
         if i > 0 and s.tr_eff:
             name, d, o = s.tr_eff
             if o.get("place") == "after" and g < s.t0 + d:
-                return i - 1, i, name, d, o, clamp((g - s.t0) / d)
+                return i - 1, i, name, d, o, self._kq(g, s.t0, s.t0 + d)
         if i + 1 < len(self.shots):
             nx = self.shots[i + 1]
             if nx.tr_eff:
                 name, d, o = nx.tr_eff
                 if o.get("place") != "after" and g >= nx.t0 - d:
-                    return i, i + 1, name, d, o, clamp((g - (nx.t0 - d)) / d)
+                    return i, i + 1, name, d, o, self._kq(g, nx.t0 - d, nx.t0)
         return None
 
     def frame(self, n, post=True):
@@ -346,7 +460,11 @@ class Program:
         if tr is None:
             f = self._render_shot(s, g)
             mode, pd = CM.mode_of(f)
+            if self.shutter:
+                f = self._shutter(f, s, i, g, n)
         else:
+            if self.shutter:
+                self._sprev = (n, i, True, None)
             ia, ib, name, d, opts, k = tr
             sa, sb = self.shots[ia], self.shots[ib]
             fa = self._render_shot(sa, g)
@@ -373,6 +491,93 @@ class Program:
             else:
                 img = CM.post(img, n, mode, pd)
         return img
+
+    # ---- seçici deklanşör (hareket bulanıklığı) ─────────────────────────────
+    def _shutter_mode(self, s, cx):
+        """Shot.shutter → ("off" | "auto" | N (zorunlu alt örnek; 0 = hıza göre ≥3), açı)."""
+        m = getattr(s, "shutter", "auto")
+        ang = SHUTTER_ANGLE
+        if m is None or m is False or m == "off" or (isinstance(m, (int, float)) and not isinstance(m, bool) and m <= 1):
+            return "off", ang
+        if m is True or m == "on":
+            return 0, ang
+        if isinstance(m, (int, float)):
+            return max(2, min(9, int(m))), ang
+        if isinstance(m, dict):
+            ang = float(m.get("angle", ang))
+            if m.get("at") is not None and cx is not None:
+                ta = cx.at(m["at"])
+                if ta <= cx.t <= ta + float(m.get("dur", 1.0)):
+                    return int(m.get("n", 0)), ang
+                return ("auto" if m.get("auto", True) else "off"), ang
+            if "n" in m:
+                return int(m["n"]), ang
+        return "auto", ang
+
+    def _shutter(self, f, s, i, g, n):
+        """Seçici deklanşör: karenin ekran hızı = en büyük(kamera analitiği [cilt_cam.screen_speed], önceki kareden ölçülen akış [nesne + türün iç kamerası],
+        anim.hint_speed ipucu). Hızlıysa 180° pozlamada (açı/360 kare) N alt-kare yeniden çizilip ortalanır (post ve HUD'dan ÖNCE; çekim sınırı aşılmaz).
+        auto: kamera ≥ SHUTTER_V_ON ya da nesne/iç hareket ≥ SHUTTER_V_OBJ px/kare → N=3 (≥12 px/kare: 5; ≥30: 7). Geçiş karelerine uygulanmaz (geçişin kendi bulanıklığı var)."""
+        import time as _t
+        import cilt_cam
+        stt = self.shutter_stats
+        stt["frames"] += 1
+        cx = getattr(f, "_cx", None)
+        mode, ang = self._shutter_mode(s, cx)
+        if mode == "off":
+            self._sprev = (n, i, False, None)
+            return f
+        t0 = _t.perf_counter()
+        vcam = vx = vy = 0.0
+        spec = getattr(cx, "cam_spec", None) if cx is not None else None
+        if spec is not None and s.kind not in cilt_cam.OWN_CAMERA:
+            try:
+                vcam, vx, vy = cilt_cam.screen_speed(cx, spec, kind=s.kind)
+            except Exception:
+                vcam = 0.0
+        vhint = float(getattr(cx, "speed_hint", 0.0) or 0.0) if cx is not None else 0.0
+        arr = _bgra(f)
+        small = cv2.cvtColor(cv2.resize(arr, (240, 135), interpolation=cv2.INTER_AREA), cv2.COLOR_BGRA2GRAY)
+        vflow = 0.0
+        pv = self._sprev
+        if pv is not None and pv[0] == n - 1 and pv[1] == i and not pv[2] and pv[3] is not None:
+            vflow = _flow_speed(pv[3], small)
+        self._sprev = (n, i, False, small)
+        stt["ms_flow"] += (_t.perf_counter() - t0) * 1000
+        v = max(vcam, vflow, vhint)
+        if isinstance(mode, int):
+            N = mode if mode >= 2 else (7 if v >= 30 else (5 if v >= SHUTTER_N_FAST else 3))
+        else:
+            if vcam < SHUTTER_V_ON and max(vflow, vhint) < SHUTTER_V_OBJ:
+                stt["ms_total"] += (_t.perf_counter() - t0) * 1000
+                return f
+            N = 7 if v >= 30 else (5 if v >= SHUTTER_N_FAST else 3)
+        E = ang / 360.0 / FPS                                       # pozlama (sn)
+        offs = [E * ((j + 0.5) / N - 0.5) for j in range(N)]
+        lo, hi = s.origin - 0.5 / FPS, s.t1 + 0.5 / FPS             # çekim sınırı (yerel saat aralığı) aşılmaz
+        acc = np.zeros(arr.shape, np.float32)
+        t1 = _t.perf_counter()
+        for o in offs:
+            if abs(o) < 1e-9:
+                acc += arr
+            else:
+                fj = self._render_shot(s, min(max(g + o, lo), hi))
+                acc += _bgra(fj)
+                stt["extra_renders"] += 1
+        stt["ms_extra"] += (_t.perf_counter() - t1) * 1000
+        out = acc * (1.0 / N)
+        gap = v * (E * FPS) / N                                     # alt örnekler arası ekran aralığı (px)
+        if gap > 3.0 and vcam >= 0.7 * v and (abs(vx) + abs(vy)) > 1e-3:   # çok hızlı kamera (savrulma): aradaki boşluğu yönlü yay
+            out = _dir_blur(out, vx, vy, gap)
+        f2 = Frame()
+        f2.c.drawImage(skia.Image.fromarray(np.ascontiguousarray(np.clip(out + 0.5, 0, 255).astype(np.uint8)), colorType=_BGRA, alphaType=skia.AlphaType.kOpaque_AlphaType), 0, 0)
+        for a_ in ("cilt_mode", "cilt_perde", "_cx"):
+            if hasattr(f, a_):
+                setattr(f2, a_, getattr(f, a_))
+        stt["blur"] += 1
+        stt["by_n"][N] = stt["by_n"].get(N, 0) + 1
+        stt["ms_total"] += (_t.perf_counter() - t0) * 1000
+        return f2
 
     def _blend(self, a, b, k, kind_, g, d=0.8, opts=None):
         opts = {x: v for x, v in (opts or {}).items() if x not in ("place", "lead")}
@@ -454,15 +659,22 @@ def k_outro(cx, part=None, **_):
     sp = CM.gilt("ZAMAN KURYESİ", "title", 92, 16.0)
     gl = ((cx.t - 1.6) * 0.30) % 2.4 if cx.t > 1.6 else None
     CM.draw_spr(f, sp, W / 2, H * 0.27, "c", alpha=a, glow=0.25 * a, shadow=0.6, glint=gl if (gl is not None and gl < 1) else None)
-    CM.kick(f, "TESLİMAT TAMAM", W / 2, H * 0.27 + 62, alpha=cx.amt(1.0, 1.0) * out, size=30, track=18, color="#E6C472")
+    CM.kick(f, "TESLİMAT TAMAM", W / 2, H * 0.27 + 66, alpha=cx.amt(1.0, 1.0) * out, size=36, track=18, color="#F2D98A")
     CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5, glint=((cx.t * 0.30 + 0.2) % 2.2) if (cx.t * 0.30 + 0.2) % 2.2 < 1 else None)
     k = cx.amt(2.6, 0.9) * out
     left = ("TÜM FİLM" if part == N_PARTS else "SIRADAKİ PARÇA") if part else "SIRADAKİ TESLİMAT"
     right = "ABONE OL · ZAMAN KURYESİ" if part else "ABONE OL  ·  ZAMAN KURYESİ"
     br = 0.80 + 0.20 * (0.5 + 0.5 * math.sin(cx.t * 1.7))          # yuvaların çerçevesi hafif nefes alır (durağan değil)
-    for (x, y, w, h, lab) in ((330, 640, 520, 292, left), (1070, 640, 520, 292, right)):
+    slots = ((330, 610, 520, 292, left), (1070, 610, 520, 292, right))
+    for (x, y, w, h, lab) in slots:
         f.rrect(x, y, w, h, 12, color="#000000", alpha=0.30 * k)
-        ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k * br, color="#D8B25A", gap=8)
-        CM.ink(f, lab, x + w / 2, y + h + 46, face="cap_b", size=28, color="#E6D3A0", align="c", track=7, alpha=0.95 * k)
+        ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k * br, color="#E9C770", gap=8)
     cam.end(f)
     CM.finish(f, cx, motes_n=36)
+    # etiketler vinyet/toz üstünde, ekrana sabit (kurul SA1-Ö5 / TE2-Ö6: #E9C770, ≥34 px, okunur kontrast)
+    for (x, y, w, h, lab) in slots:
+        sz = CM.fit_size(lab, "title_m", 38, w + 40, 6)
+        wd = sk.text_width(lab, "title_m", sz, 6) + 48
+        yb = y + h + 54
+        f.rrect(x + w / 2 - wd / 2, yb - sz - 8, wd, sz + 26, 10, color="#0B0805", alpha=0.62 * k)
+        f.text(lab, x + w / 2, yb, face="title_m", size=sz, color="#E9C770", align="c", track=6, alpha=k, shadow=(2, 3, 4, "#000000"))

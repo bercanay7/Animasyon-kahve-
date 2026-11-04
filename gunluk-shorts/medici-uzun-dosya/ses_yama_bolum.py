@@ -40,7 +40,9 @@ PAD = 5                                      # 50 ms (kare)
 MIN_PAUSE = 15                               # cümle sınırı durağı ≥ 150 ms
 SIL_REL_DB = -32                             # sınır araması için sessizlik: tepe (p95) − 32 dB (ElevenLabs gürültü tabanı ≈ −68 dB, v1 eşiği −67 dB'de titriyor)
 YAMA = os.path.join(B.RAW, "yama_p1")
-PATCHES = {"c1": ["c1s11", "c1s16", "c1s18", "c1s23", "c1s24"], "c2": ["c2s7", "c2s27"]}
+PATCHES = {"c1": ["c1s11", "c1s16", "c1s18", "c1s23", "c1s24", "c1s26"], "c2": ["c2s1", "c2s7", "c2s27"]}
+# c1s26 ("Roma'da") ve c2s1 ("Çözüm,"): orijinal ElevenLabs kaydında ilk sözcük yutulmuştu (ASR + süre analizi, 4 Kasım);
+# yeniden üretimde başa kesilecek bağlam kondu (<sid>_ham.mp3) ve kırpılmış klip <sid>.wav olarak kaydedildi (yerel ASR ile doğrulandı).
 
 
 def frames_db(x):
@@ -81,7 +83,7 @@ def pause_before(sil, f, lo):
             j = i - 1
             while j > lo and sil[j - 1]:
                 j -= 1
-            if i - j >= MIN_PAUSE:
+            if i - j >= MIN_PAUSE or (j == 0 and lo == 0):      # bölüm başı: baştaki sessizlik kısa olabilir
                 return i
             i = j
         else:
@@ -155,8 +157,9 @@ def main(dry=False):
             d_on, d_off = (on - fa) * 0.01, (off - fb) * 0.01
             if abs(d_on) > 0.35 or abs(d_off) > 0.45:
                 raise SystemExit(f"{sid}: sınır hizalamadan çok uzak (baş {d_on:+.2f} sn, son {d_off:+.2f} sn) — elle bakılmalı")
-            cut_a, cut_b = (on - PAD) * HOP, (off + PAD) * HOP
-            z = load_clip(os.path.join(YAMA, f"{sid}.mp3"))
+            cut_a, cut_b = max(0, on - PAD) * HOP, (off + PAD) * HOP
+            wav = os.path.join(YAMA, f"{sid}.wav")
+            z = load_clip(wav if os.path.exists(wav) else os.path.join(YAMA, f"{sid}.mp3"))
             seg, z_on, z_off, z_thr = clip_speech(z)
             old_sp = x[on * HOP: off * HOP]
             new_sp = seg[PAD * HOP: len(seg) - PAD * HOP]

@@ -88,10 +88,12 @@ def panel_image(w, h, b, tone, mode, perde, seed):
 
 
 @ckind("fresco_title")
-def k_fresco_title(cx, text="MEDİCİ", sub="BANKA ÖLDÜ, GÜZELLİK KALDI", kick="ZAMAN KURYESİ", at=2.6, panel_at=0.3, tone="lapis", arms=True,
+def k_fresco_title(cx, text="MEDİCİ", sub="BANKA ÖLDÜ, GÜZELLİK KALDI", kick="ZAMAN KURYESİ", at=0.55, panel_at=0.0, panel_dur=1.5, tone="lapis", arms=True,
                    seed=1, sub_face="cap_i", size=216, **_):
     """Ana başlık: duvarda giornata giornata açılan lapis fresk levhası + altın yıldızlar + yaldız harfli başlık + palle arması.
-    Zaman: panel_at'ten itibaren ~3 sn'de yamalar açılır; at'te başlık yaldızı belirir."""
+    Zaman (kurul tur 1, ENG-B: 4,5 sn'lik karta sığar): panel_at'ten itibaren panel_dur (1,5 sn) içinde yamalar açılır; armalar ve üst satır panelle
+    birlikte, başlık yaldızı at=0,55'te girer ve 1,4 sn'de TAM okunur (4,5 sn kartta çıkış geçişine dek ≥2,2 sn tam okunur); alt satır 2,05 sn'de tam.
+    Altın parıltı süpürmesi başlık oturunca (≈1,75 sn) 1,8 sn'de geçer; kamera yavaş itme + sürüklenme (CM.Cam varsayılanı)."""
     f = cx.f
     cam = CM.bgfill(f, cx, seed=seed, cam=CM.Cam(cx, push=0.05, drift=(6.0, 2.5)))
     cam.begin(f)
@@ -100,33 +102,33 @@ def k_fresco_title(cx, text="MEDİCİ", sub="BANKA ÖLDÜ, GÜZELLİK KALDI", ki
     px, py = (W - pw) / 2 - b, 118 - b + 6
     img = panel_image(pw, ph, b, tone, TH.mode, TH.perde, seed)
     paths, order = FX.giornata_paths(seed + 20, pw + 2 * b, ph + 2 * b)
-    kk = clamp((cx.t - cx.at(panel_at)) / 3.4)
+    kk = clamp((cx.t - cx.at(panel_at)) / max(0.3, panel_dur))
     c.save(); c.translate(px, py)
 
     def dr(al):
         p = skia.Paint(AntiAlias=True)
         p.setAlphaf(clamp(al))
         c.drawImage(img, 0, 0, CM._LIN, p)
-    FX.giornata_reveal(c, paths, order, kk, dr, span=0.74, soft=0.28)
+    FX.giornata_reveal(c, paths, order, kk, dr, span=0.70, soft=0.30)
     c.restore()
     # içerik
     gcol = "#E9C770"
-    ka = cx.amt(at - 1.2, 0.9)
+    ka = cx.amt(at - 0.45, 0.7)
     CM.ink(f, kick, W / 2, 196, face="title_m", size=32, color=gcol, align="c", track=16, alpha=ka)
     if arms:
-        aa = cx.amt(at - 1.6, 1.0)
+        aa = cx.amt(at - 0.55, 0.8)
         yy = 358 - (1 - aa) * 14
-        CP.draw_arms(f, W / 2, yy, 228 * (0.94 + 0.06 * aa), alpha=aa, shadow=0.6, glow=0.20 * aa, glint=((cx.t * 0.16) % 2.2) if (cx.t * 0.16) % 2.2 < 1 else None)
+        CP.draw_arms(f, W / 2, yy, 228 * (0.94 + 0.06 * aa), alpha=aa, shadow=0.6, glow=0.20 * aa, glint=((cx.t * 0.30) % 2.2) if (cx.t * 0.30) % 2.2 < 1 else None)
     size = CM.fit_size(text, "title", size, 1320, size * 0.12)
     sp = CM.gilt(text, "title", int(size), float(size * 0.12))
-    ta = cx.amt(at, 1.3)
-    gl = ((cx.t - cx.at(at) - 1.2) * 0.26) % 2.4 if cx.t > cx.at(at) + 1.2 else None
+    ta = cx.amt(at, 0.85)
+    gl = ((cx.t - cx.at(at) - 1.2) * 0.55) % 2.4 if cx.t > cx.at(at) + 1.2 else None
     if gl is not None and gl > 1:
         gl = None
     CM.draw_spr(f, sp, W / 2, 646, "c", alpha=ta, reveal=clamp(ta * 1.2), glow=0.30 * ta, shadow=0.6, glint=gl)
-    CM.flourish_rule(f, W / 2, 696, 820, alpha=cx.amt(at + 0.9, 0.8), color=gcol, grow=cx.amt(at + 0.9, 1.1))
+    CM.flourish_rule(f, W / 2, 696, 820, alpha=cx.amt(at + 0.5, 0.7), color=gcol, grow=cx.amt(at + 0.5, 0.8))
     if sub:
-        sa = cx.amt(at + 1.3, 1.0)
+        sa = cx.amt(at + 0.7, 0.8)
         szs = CM.fit_size(sub, sub_face, 56, 1240)
         CM.ink(f, sub, W / 2, 772, face=sub_face, size=szs, color=CREAM, align="c", alpha=sa, track=0)
     cam.end(f)

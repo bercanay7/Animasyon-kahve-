@@ -74,6 +74,36 @@
   "yeni_tepe": 0.257,
   "eski_tepe": 0.228
  },
+ "c1s26": {
+  "bolum": "c1",
+  "eski_ses_t0": 299.639,
+  "eski_ses_t1": 309.29,
+  "ham_bas": 194.27,
+  "ham_son": 203.91,
+  "sinir_farki_bas": 0.02,
+  "sinir_farki_son": 0.0,
+  "eski_konusma_sn": 9.64,
+  "yeni_konusma_sn": 9.61,
+  "fark_sn": -0.03,
+  "kazanc_db": -7.42,
+  "yeni_tepe": 0.209,
+  "eski_tepe": 0.218
+ },
+ "c2s1": {
+  "bolum": "c2",
+  "eski_ses_t0": 350.679,
+  "eski_ses_t1": 351.4,
+  "ham_bas": 0.13,
+  "ham_son": 0.83,
+  "sinir_farki_bas": 0.02,
+  "sinir_farki_son": -0.01,
+  "eski_konusma_sn": 0.7,
+  "yeni_konusma_sn": 1.57,
+  "fark_sn": 0.87,
+  "kazanc_db": -7.71,
+  "yeni_tepe": 0.203,
+  "eski_tepe": 0.225
+ },
  "c2s7": {
   "bolum": "c2",
   "eski_ses_t0": 386.21,

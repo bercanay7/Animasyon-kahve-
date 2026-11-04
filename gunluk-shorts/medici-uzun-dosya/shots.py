@@ -206,20 +206,38 @@ def plate(f, x, y, w, h, alpha=1.0, fill="#1B120B", edge="#C9962B", corner=18, g
 
 
 def name_plate(f, name, role=None, dates=None, cx_=W / 2, y=800, alpha=1.0, w=None, t=1.0):
-    """Madalya altı isim levhası; t (0..1) açılış animasyonu."""
+    """Madalya altı isim levhası (eski koyu-altın görünüm); t (0..1) açılış animasyonu.
+    Yerleşim cilt_medici.name_plate ile AYNI kurala bağlı (ENG-A): `w` alt sınır (kutu metinden dar olamaz), son kutu ekran uzayında güvenli alana
+    ve HUD dışına kıstırılır, LOG_PLATES iken PLATE_LOG'a yazılır."""
+    import cilt_medici as CM
     a = alpha * smooth(t)
-    nsz = fit_size(name, "title_m", 54, 760, 6)
-    wn = sk.text_width(name, "title_m", nsz, 6)
-    ww = max(wn + 100, 440) if w is None else w
-    hh = 96 + (34 if role else 0) + (0 if not dates else 0)
+    if a <= 0:
+        return
+    L = CM.plate_layout(name, role, dates, w, name_font=("title_m", 54.0, 6.0), role_font=("cap_i", 30.0, 0.0), dates_font=("cap", 26.0, 3.0),
+                        min_w=440.0, line_h=(96.0, 34.0, 30.0))
+    ww, hh = L["ww"], L["hh"]
+    dx, dy, k, info = CM.plate_place(f, cx_, y, L)
+    if a > 0.05:
+        CM._log_plate(f, name, role, dates, L, info, w)
+    f.c.save()
+    if dx or dy:
+        f.c.translate(dx, dy)
+    if k < 0.999:
+        f.c.translate(cx_, y + hh / 2)
+        f.c.scale(k, k)
+        f.c.translate(-cx_, -(y + hh / 2))
     x = cx_ - ww / 2
     yy = y + (1 - smooth(t)) * 18
     plate(f, x, yy, ww, hh, alpha=a)
-    f.text(name, cx_, yy + 56, face="title_m", size=nsz, color="#F3DE9A", align="c", track=6, alpha=a, shadow=(2, 3, 3, "#000000"))
+    f.text(name, cx_, yy + 56, face="title_m", size=L["nsz"], color="#F3DE9A", align="c", track=6, alpha=a, shadow=(2, 3, 3, "#000000"))
+    yb = yy + 56
     if role:
-        f.text(role, cx_, yy + 88, face="cap_i", size=28, color="#D9C795", align="c", alpha=a)
+        yb += 34
+        f.text(role, cx_, yb, face="cap_i", size=L["rsz"], color="#D9C795", align="c", alpha=a)
     if dates:
-        f.text(dates, cx_, yy + (88 if not role else 110) + (8 if role else 0), face="cap", size=24, color="#B9A674", align="c", track=3, alpha=a * 0.9)
+        yb += 30
+        f.text(dates, cx_, yb, face="cap", size=L["dsz"], color="#B9A674", align="c", track=3, alpha=a * 0.9)
+    f.c.restore()
 
 
 def kicker(f, text, x, y, alpha=1.0, color="#C9B27A", size=26, track=9, align="c", face="cap"):

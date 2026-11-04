@@ -862,6 +862,15 @@ def hud_rect():
         return HUD_RECT_DEFAULT
 
 
+def hud_gap():
+    """Levha–HUD en az boşluğu: cilt_fx.HUD_PAD (ENG-B) ya da HUD_GAP."""
+    try:
+        import cilt_fx
+        return float(getattr(cilt_fx, "HUD_PAD", HUD_GAP))
+    except Exception:                                      # noqa: BLE001
+        return HUD_GAP
+
+
 def _frame_scale(f):
     return (getattr(f, "w", W) or W) / float(W), (getattr(f, "h", H) or H) / float(H)
 
@@ -899,7 +908,7 @@ def screen_fit(f, x0, y0, x1, y1, avoid_hud=True, safe=None):
     hud_hit = False
     if avoid_hud:
         hr = hud_rect()
-        g = HUD_GAP
+        g = hud_gap()
         if _hits((l, t_, r, b), hr, g):
             hud_hit = True
             down = (hr[3] + g) - t_
@@ -1003,14 +1012,14 @@ def name_plate(f, name, role=None, dates=None, cx_=W / 2, y=800, alpha=1.0, w=No
     x = cx_ - ww / 2
     yy = y + (1 - smooth(t)) * 16
     tablet(f, x, yy, ww, hh, alpha=a, log=False)
-    ink(f, name, cx_, yy + 66, face="title_m", size=L["nsz"], color=TH.fg, align="c", track=5, alpha=a, log=False)
+    ink(f, name, cx_, yy + 66, face="title_m", size=L["nsz"], color=TH.fg, align="c", track=5, alpha=a, log=False, scrim=False)
     yb = yy + 66
     if role:
         yb += 44
-        ink(f, role, cx_, yb, face="cap_i", size=L["rsz"], color=TH.fg2, align="c", alpha=a, log=False)
+        ink(f, role, cx_, yb, face="cap_i", size=L["rsz"], color=TH.fg2, align="c", alpha=a, log=False, scrim=False)
     if dates:
         yb += 40
-        ink(f, dates, cx_, yb, face="cap", size=L["dsz"], color=TH.fg3, align="c", track=3, alpha=a * 0.95, log=False)
+        ink(f, dates, cx_, yb, face="cap", size=L["dsz"], color=TH.fg3, align="c", track=3, alpha=a * 0.95, log=False, scrim=False)
     c.restore()
 
 

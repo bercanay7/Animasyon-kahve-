@@ -33,38 +33,38 @@
    }
   },
   "c1": {
-   "jeton": 421,
+   "jeton": 418,
    "jeton_eslesen": 407,
-   "jeton_oran": 0.9667,
-   "asr_sozcuk": 419,
-   "asr_eslesen": 405,
-   "asr_oran": 0.9666,
-   "kosu": 126,
-   "kanitli_kosu": 124,
+   "jeton_oran": 0.9737,
+   "asr_sozcuk": 416,
+   "asr_eslesen": 404,
+   "asr_oran": 0.9712,
+   "kosu": 119,
+   "kanitli_kosu": 118,
    "bos_kosu": 0,
-   "kanitsiz_kosu": 2,
-   "hmm_kosu": 126,
+   "kanitsiz_kosu": 1,
+   "hmm_kosu": 119,
    "model": {
-    "hece": 0.141,
-    "soz": 0.0207,
-    "sabit": 0.1626,
-    "sigma": 0.161
+    "hece": 0.1368,
+    "soz": 0.0401,
+    "sabit": 0.1295,
+    "sigma": 0.15
    },
    "celiski": 0,
    "aykiri_hiz": [],
    "akustik_suphe": [
     [
-     116.91,
+     221.0,
      -3.0,
-     "yaklaşık 3,5 gram ağırlığında",
-     "yaklaşık üç buçuk gram ağırlığında,"
+     "O yılın naysinde",
+     "O yılın Mayıs'ında,"
     ]
    ],
    "eksik_sozcuk": [
     {
-     "tok": 337,
+     "tok": 334,
      "kelime": "Roma'da",
-     "t": 299.639,
+     "t": 293.219,
      "onceki": "pay aldı.",
      "sonraki": "Vyeri di",
      "asr": "babasının mütevazı mirasından küçük bir pay aldı."
@@ -77,20 +77,15 @@
      "ona göre"
     ],
     [
-     303,
-     305,
-     "Floransa tarihinin"
-    ],
-    [
-     326,
-     328,
+     323,
+     325,
      "di Biççi"
     ]
    ],
    "kosu_bilgi": {
-    "p95": -18.525198421620093,
-    "thr": -52.52519842162009,
-    "n_ham": 133,
+    "p95": -18.191066223964153,
+    "thr": -52.19106622396416,
+    "n_ham": 126,
     "n_gurultu": 4,
     "n_parca": 3,
     "n_bolunen": 0
@@ -98,49 +93,36 @@
   },
   "c2": {
    "jeton": 444,
-   "jeton_eslesen": 428,
-   "jeton_oran": 0.964,
+   "jeton_eslesen": 429,
+   "jeton_oran": 0.9662,
    "asr_sozcuk": 439,
-   "asr_eslesen": 426,
-   "asr_oran": 0.9704,
-   "kosu": 127,
-   "kanitli_kosu": 126,
+   "asr_eslesen": 427,
+   "asr_oran": 0.9727,
+   "kosu": 126,
+   "kanitli_kosu": 125,
    "bos_kosu": 0,
    "kanitsiz_kosu": 1,
-   "hmm_kosu": 127,
+   "hmm_kosu": 126,
    "model": {
-    "hece": 0.1271,
-    "soz": 0.0524,
-    "sabit": 0.1278,
-    "sigma": 0.125
+    "hece": 0.1306,
+    "soz": 0.0491,
+    "sabit": 0.1133,
+    "sigma": 0.131
    },
    "celiski": 0,
    "aykiri_hiz": [
     [
-     350.68,
-     9.7,
+     344.26,
+     10.0,
      "Cambio'daydı"
     ]
    ],
-   "akustik_suphe": [
-    [
-     350.68,
-     -3.9,
-     "Cambio'daydı",
-     "Çözüm, kambiyodaydı."
-    ],
-    [
-     580.3,
-     -3.3,
-     "Ama o kalem",
-     "Ama o kalem,"
-    ]
-   ],
+   "akustik_suphe": [],
    "eksik_sozcuk": [
     {
      "tok": 0,
      "kelime": "Çözüm,",
-     "t": 350.679,
+     "t": 344.259,
      "onceki": "",
      "sonraki": "kambiyodaydı. Kilise",
      "asr": "Cambio'daydı"
@@ -159,10 +141,10 @@
     ]
    ],
    "kosu_bilgi": {
-    "p95": -18.68340655565815,
-    "thr": -52.68340655565815,
-    "n_ham": 140,
-    "n_gurultu": 12,
+    "p95": -18.417570467821054,
+    "thr": -52.41757046782105,
+    "n_ham": 138,
+    "n_gurultu": 11,
     "n_parca": 1,
     "n_bolunen": 0
    }
@@ -342,133 +324,133 @@
    "t0_durak": true,
    "t1_durak": true,
    "run_a": 42,
-   "run_b": 44
+   "run_b": 43
   },
   "c1s12": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 45,
-   "run_b": 49
+   "run_a": 44,
+   "run_b": 48
   },
   "c1s13": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 50,
-   "run_b": 54
+   "run_a": 49,
+   "run_b": 53
   },
   "c1s14": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 55,
-   "run_b": 57
+   "run_a": 54,
+   "run_b": 56
   },
   "c1s15": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 58,
-   "run_b": 60
+   "run_a": 57,
+   "run_b": 59
   },
   "c1s16": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 61,
-   "run_b": 66
+   "run_a": 60,
+   "run_b": 62
   },
   "c1s17": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 67,
-   "run_b": 71
+   "run_a": 63,
+   "run_b": 67
   },
   "c1s18": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 72,
-   "run_b": 78
+   "run_a": 68,
+   "run_b": 72
   },
   "c1s19": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 79,
-   "run_b": 82
+   "run_a": 73,
+   "run_b": 76
   },
   "c1s20": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 83,
-   "run_b": 86
+   "run_a": 77,
+   "run_b": 80
   },
   "c1s21": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 87,
-   "run_b": 89
+   "run_a": 81,
+   "run_b": 83
   },
   "c1s22": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 90,
-   "run_b": 91
+   "run_a": 84,
+   "run_b": 85
   },
   "c1s23": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 92,
-   "run_b": 93
+   "run_a": 86,
+   "run_b": 87
   },
   "c1s24": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 94,
-   "run_b": 97
+   "run_a": 88,
+   "run_b": 90
   },
   "c1s25": {
    "t0_durak": true,
    "t1_durak": false,
-   "run_a": 98,
-   "run_b": 100
+   "run_a": 91,
+   "run_b": 93
   },
   "c1s26": {
    "t0_durak": false,
    "t1_durak": true,
-   "run_a": 100,
-   "run_b": 105
+   "run_a": 93,
+   "run_b": 98
   },
   "c1s27": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 106,
-   "run_b": 110
+   "run_a": 99,
+   "run_b": 103
   },
   "c1s28": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 111,
-   "run_b": 115
+   "run_a": 104,
+   "run_b": 108
   },
   "c1s29": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 116,
-   "run_b": 116
+   "run_a": 109,
+   "run_b": 109
   },
   "c1s30": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 117,
-   "run_b": 119
+   "run_a": 110,
+   "run_b": 112
   },
   "c1s31": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 120,
-   "run_b": 120
+   "run_a": 113,
+   "run_b": 113
   },
   "c1s32": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 121,
-   "run_b": 125
+   "run_a": 114,
+   "run_b": 118
   },
   "c2s1": {
    "t0_durak": true,
@@ -510,190 +492,190 @@
    "t0_durak": true,
    "t1_durak": true,
    "run_a": 19,
-   "run_b": 23
+   "run_b": 24
   },
   "c2s8": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 24,
-   "run_b": 25
+   "run_a": 25,
+   "run_b": 26
   },
   "c2s9": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 26,
-   "run_b": 27
+   "run_a": 27,
+   "run_b": 28
   },
   "c2s10": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 28,
-   "run_b": 31
+   "run_a": 29,
+   "run_b": 32
   },
   "c2s11": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 32,
-   "run_b": 34
+   "run_a": 33,
+   "run_b": 35
   },
   "c2s12": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 35,
-   "run_b": 36
+   "run_a": 36,
+   "run_b": 37
   },
   "c2s13": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 37,
-   "run_b": 40
+   "run_a": 38,
+   "run_b": 41
   },
   "c2s14": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 41,
-   "run_b": 45
+   "run_a": 42,
+   "run_b": 46
   },
   "c2s15": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 46,
-   "run_b": 49
+   "run_a": 47,
+   "run_b": 50
   },
   "c2s16": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 50,
-   "run_b": 52
+   "run_a": 51,
+   "run_b": 53
   },
   "c2s17": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 53,
-   "run_b": 56
+   "run_a": 54,
+   "run_b": 57
   },
   "c2s18": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 57,
-   "run_b": 61
+   "run_a": 58,
+   "run_b": 62
   },
   "c2s19": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 62,
-   "run_b": 63
+   "run_a": 63,
+   "run_b": 64
   },
   "c2s20": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 64,
-   "run_b": 69
+   "run_a": 65,
+   "run_b": 70
   },
   "c2s21": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 70,
-   "run_b": 73
+   "run_a": 71,
+   "run_b": 74
   },
   "c2s22": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 74,
-   "run_b": 76
+   "run_a": 75,
+   "run_b": 77
   },
   "c2s23": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 77,
-   "run_b": 81
+   "run_a": 78,
+   "run_b": 82
   },
   "c2s24": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 82,
-   "run_b": 83
+   "run_a": 83,
+   "run_b": 84
   },
   "c2s25": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 84,
-   "run_b": 89
+   "run_a": 85,
+   "run_b": 90
   },
   "c2s26": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 90,
-   "run_b": 93
+   "run_a": 91,
+   "run_b": 94
   },
   "c2s27": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 94,
-   "run_b": 98
+   "run_a": 95,
+   "run_b": 97
   },
   "c2s28": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 99,
-   "run_b": 101
+   "run_a": 98,
+   "run_b": 100
   },
   "c2s29": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 102,
-   "run_b": 108
+   "run_a": 101,
+   "run_b": 107
   },
   "c2s30": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 109,
-   "run_b": 115
+   "run_a": 108,
+   "run_b": 114
   },
   "c2s31": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 116,
-   "run_b": 116
+   "run_a": 115,
+   "run_b": 115
   },
   "c2s32": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 117,
-   "run_b": 119
+   "run_a": 116,
+   "run_b": 118
   },
   "c2s33": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 120,
-   "run_b": 121
+   "run_a": 119,
+   "run_b": 120
   },
   "c2s34": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 122,
-   "run_b": 124
+   "run_a": 121,
+   "run_b": 123
   },
   "c2s35": {
    "t0_durak": true,
    "t1_durak": true,
-   "run_a": 125,
-   "run_b": 126
+   "run_a": 124,
+   "run_b": 125
   }
  },
  "toplam": {
-  "jeton": 1040,
-  "jeton_eslesen": 1007,
-  "asr_sozcuk": 1032,
+  "jeton": 1037,
+  "jeton_eslesen": 1008,
+  "asr_sozcuk": 1029,
   "asr_eslesen": 1003,
-  "kosu": 304,
-  "jeton_oran": 0.9683,
-  "asr_oran": 0.9719,
+  "kosu": 296,
+  "jeton_oran": 0.972,
+  "asr_oran": 0.9747,
   "cumle": 85,
   "cumle_t0_durakta": 84,
   "cumle_t1_durakta": 84,
   "seste_olmayan_sozcuk": 2
  },
- "scribe_md5": "818d68cdffa6dddb8d9911ffc8ab8d44",
- "uretim": "2026-10-19 05:56:46"
+ "scribe_md5": "e7d90f4f2887a92184cb95f90515b3c4",
+ "uretim": "2026-11-04 16:01:31"
 }

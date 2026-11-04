@@ -83,8 +83,8 @@ SHOTS = [
          tr=None, link="cam", label="sayıyı veren adam, kaybedenlerin ailesinden"),
     # ── 11. VEBA: Floransa'nın rengi solar ───────────────────────────────────
     shot("p1_skyline", ("c1s11", -0.15), seed=3, tod="day", mode="day", perde=1, pan=240,
-         ovl=P.ov(P.desat(("c1s11", "1348", -0.2), ("c1s11", "kaldı", 0.1), k_max=0.93, dark=0.55, tint="#59607A", tint_a=0.18),
-                  P.tablet_text("MART – TEMMUZ 1348", 960, 215, ("c1s11", "Mart'ında", -0.2), size=42, face="title_m", pad=44)),
+         ovl=P.ov(P.desat(("c1s11", "1348", -0.2), ("c1s11", "bırakmadı", 0.1), k_max=0.93, dark=0.55, tint="#59607A", tint_a=0.18),
+                  P.tag("MART 1348 · YAZ BOYUNCA", 960, 215, ("c1s11", "Mart'ında", -0.2), size=46, face="title_m")),
          cam=("pan", "r", 240), tr=("yikama", 0.9), link="color", label="veba: renk solar"),
     # ── 12a. Boccaccio anlatır: sağlıklılar hastadan kaçar ───────────────────
     shot("c1_sokak", ("c1s12", -0.15), mode="day", perde=1,
@@ -133,14 +133,12 @@ SHOTS = [
                 dict(id="s", icon="flag", name="SALVESTRO", x=0.28, y=0.70, at=("c1s16", "Salvestro", -0.25), size=210, nsize=36),
                 dict(id="g", icon="family", name="BAŞKA BİR KOL", x=0.72, y=0.70, at=("c1s16", "başka", -0.3), size=210, nsize=36)],
          edges=[("r", "s", ("c1s16", "kolundan", -0.1)), ("r", "g", ("c1s16", "başka", 0.0))],
-         ovl=P.ov(P.label("1378", 960, 215, ("c1s16", -0.0), size=78, face="title", track=14),
-                  P.stamp("AKTARILANA GÖRE", 1500, 330, ("c1s16", "Aktarılana", 0.0), rot=-0.06, size=44)),
+         ovl=P.ov(P.label("MAYIS 1378", 960, 215, ("c1s16", "Mayıs'ında", -0.2), size=70, face="title", track=14)),
          tr=("slide", 0.9, dict(dir="r")), link="dir", label="Medici ailesinin başka bir kolu: Salvestro"),
     # ── 16b. halkın alkışıyla gonfaloniere ───────────────────────────────────
-    shot("p1_sehir", ("c1s16", "halkın", -0.3), scene="meydan", act="kalabalik", dir="r", flags="medici", mode="day", perde=1, cam=("push", 0.07),
-         ovl=P.ov(P.plate("SALVESTRO", 520, 215, ("c1s16", "halkın", 0.2), role="MEDİCİ AİLESİNİN BAŞKA KOLU · GONFALONIERE SEÇİLDİ", w=880),
-                  P.icon_at("flag", 1400, 330, ("c1s16", "gonfaloniere", -0.15), size=210, glow=True, bob=6),
-                  P.stamp("AKTARILIR", 1390, 660, ("c1s16", "gonfaloniere", 0.4), rot=-0.07, size=44)),
+    shot("p1_sehir", ("c1s16", "kurayla", -0.4), scene="meydan", act="kalabalik", dir="r", flags="lily", mode="day", perde=1, cam=("push", 0.07),
+         ovl=P.ov(P.plate("SALVESTRO", 520, 215, ("c1s16", "kurayla", 0.0), role="KURAYLA GONFALONIERE", w=880),
+                  P.icon_at("flag", 1400, 330, ("c1s16", "gonfaloniere", -0.15), size=210, glow=True, bob=6)),
          tr=("zoomthru", 0.9, dict(at=(960, 560), at_b=(960, 520))), link="scale", label="halkın alkışıyla gonfaloniere"),
     # ── 17. yün işçilerinin loncası yoktu ────────────────────────────────────
     shot("c1_lonca", ("c1s17", -0.1), mode="day", perde=1, rows_at=("c1s17", "Ama", 0.0), carder_at=("c1s17", "yün", -0.2), empty_at=("c1s17", "loncası", -0.15), mute_at=("c1s17", "sesi", -0.2),
@@ -152,8 +150,7 @@ SHOTS = [
          tr=("slide", 0.9, dict(dir="l")), link="dir", label="Ciompi Palazzo Vecchio'yu ele geçirir"),
     # ── 18b. kule: yün tarayıcısı gonfaloniere; Salvestro çekilir ────────────
     shot("p1_sehir", ("c1s18", "bir", -0.2), scene="skyline_dikey", tod="day", mode="day", perde=1, cam=("crane", "up", 300),
-         ovl=P.ov(P.plate("MICHELE DI LANDO", 460, 760, ("c1s18", "Michele", -0.3), role="YÜN TARAYICISI → GONFALONIERE", w=800, out=("c1s18", "Salvestro", 0.5)),
-                  P.plate("SALVESTRO", 1500, 760, ("c1s18", "Salvestro", -0.1), role="ÇEKİLDİ", w=560)),
+         ovl=P.ov(P.plate("MICHELE DI LANDO", 520, 760, ("c1s18", "Michele", -0.3), role="YÜN TARAYICISI → GONFALONIERE", w=820)),
          tr=("zoomthru", 0.9, dict(at=(1000, 420), at_b=(960, 520))), link="scale", label="kule: Michele di Lando gonfaloniere"),
     # ── 19. talepler (yazıldığına göre) ──────────────────────────────────────
     shot("p1_oda", ("c1s19", -0.1), room="salon", variant="signoria", tod="day", mode="day", perde=1, path="default", cam=("push", 0.06),
@@ -173,8 +170,7 @@ SHOTS = [
          cam=("push", 0.08), tr=("slide", 0.9, dict(dir="l")), link="dir", label="loncaların milisleri"),
     # ── 23. en kanlı günlerden biri: Floransa'nın üstüne kızıl pigment yıkama ──
     shot("p1_skyline", ("c1s23", -0.15), seed=5, tod="day", mode="day", perde=1, pan=220,
-         ovl=P.ov(P.desat(("c1s23", -0.1), ("c1s23", "tarihinin", 0.2), k_max=0.8, dark=0.45),
-                  P.red_bleed(("c1s23", "tarihinin", -0.3), dur=2.4, alpha=0.62)),
+         ovl=P.ov(P.desat(("c1s23", -0.1), ("c1s23", "dışlandılar", 0.2), k_max=0.8, dark=0.45)),
          cam=("pan", "l", 220), tr=("yikama", 0.9), link="color", label="Floransa tarihinin en kanlı günlerinden biri (yıkama)"),
     # ── 24. Medici adı bir kademe altta; kır gelirleri ───────────────────────
     shot("c1_kademe", ("c1s24", -0.1), mode="day", perde=1, elite_at=("c1s24", "seçkinlerin", -0.35), medici_at=("c1s24", "Medici", -0.1), field_at=("c1s24", "kır", -0.6), income_at=("c1s24", "gelirleriyle", -0.3),

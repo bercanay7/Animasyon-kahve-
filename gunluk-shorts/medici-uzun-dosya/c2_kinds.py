@@ -323,71 +323,75 @@ def k_ayrim(cx, walk_at=None, fork_at=None, left_at=None, right_at=None, stamp_a
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c2_mezar")
 def k_mezar(cx, place_at=None, carve_at=None, carve_to=None, protest_at=None, stay_at=None, seed=2, **_):
+    """Vaftizhane duvar anıtı (sadeleştirilmiş Donatello–Michelozzo düzeni): kemerli niş, iki yana açılan perde (baldaken), yatan tunç figür (gisant),
+    lahdin önünde AÇIK KREM yazıt levhası, harfler KOYU oyma (kontrast ≥7:1) ve ortalı. Martinus itirazı: mühür (anahtarlar bow aşağıda) + İTİRAZ."""
     f = cx.f
     c = f.c
     cam = _bg(f, cx, seed, dress="top")
-    gx, gy = 960, 900
-    # mekân: kemerli taş niş + sarkofaj + yazıt levhası
-    f.rect(260, 250, 1400, gy - 250, shader=f.lin(0, 250, 0, gy, [("#B9AA86", 0.0), ("#9C8C68", 1.0)]))
-    arch = skia.Path(); arch.moveTo(420, gy - 70); arch.lineTo(420, 560); arch.arcTo(skia.Rect.MakeLTRB(420, 280, 1500, 840), 180, 180, False); arch.lineTo(1500, gy - 70); arch.close()
-    c.drawPath(arch, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, 280), (0, gy)], [sk.C("#3A2E22"), sk.C("#5A4A38")], [0, 1])))
-    c.drawPath(arch, f.paint("#E3D3AC", style="stroke", sw=16))
+    gy = 900
+    # duvar: taş + mermer şeritleri
+    f.rect(230, 170, 1460, gy - 170, shader=f.lin(0, 170, 0, gy, [("#C9BB98", 0.0), ("#A99A76", 1.0)]))
+    for yy in range(210, gy, 92):
+        c.drawLine(230, yy, 1690, yy, f.paint("#7A6A4C", style="stroke", sw=1.4, alpha=0.35))
+    # niş (kemer) — koyu iç, ışıklı kenar
+    arch = skia.Path(); arch.moveTo(500, gy - 60); arch.lineTo(500, 470); arch.arcTo(skia.Rect.MakeLTRB(500, 230, 1420, 710), 180, 180, False); arch.lineTo(1420, gy - 60); arch.close()
+    c.drawPath(arch, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, 230), (0, gy)], [sk.C("#3E3226"), sk.C("#5E4E3A")], [0, 1])))
+    c.drawPath(arch, f.paint("#E6D8B4", style="stroke", sw=18))
     c.drawPath(arch, f.paint("#2A1A0C", style="stroke", sw=3, alpha=0.8))
-    # sarkofaj
-    f.rect(560, 640, 800, 190, shader=f.lin(0, 640, 0, 830, [("#D8CBA6", 0.0), ("#A89A74", 1.0)]))
-    f.rect(540, 610, 840, 44, color="#E8DCB8")
-    f.rect(560, 640, 800, 190, style="stroke", sw=3, color="#3A2A18", alpha=0.8)
-    f.rect(540, 610, 840, 44, style="stroke", sw=3, color="#3A2A18", alpha=0.8)
-    # yazıt levhası
-    px, py, pw, ph = 700, 700, 520, 90
-    f.rect(px, py, pw, ph, color="#7A6A4C", alpha=0.9)
+    # baldaken: tepedeki halkadan iki yana açılan perde
+    f.circle(960, 252, 16, color="#D2A33E")
+    for sg, ph in ((-1, 0.2), (1, 1.3)):
+        OD.draw_drape(c, 960 + sg * 300 - 80, 262, 160, 330, cx.t, col="#3E5A44", col2="#C9A45A", amp=0.035, seed=4, ph=ph, tie=0.75)
+    # lahit + üstünde sedir üzerinde yatan tunç figür
+    f.rect(600, 610, 720, 52, color="#D8CBA6")
+    f.rect(600, 610, 720, 52, style="stroke", sw=3, color="#3A2A18", alpha=0.85)
+    OD.lying_sil(f, 690, 600, cx.t, 1.05, color="#5A3A1E", rim="#E8C470", rim_dir=1, breath=0.0)
+    f.rect(570, 662, 780, 190, shader=f.lin(0, 662, 0, 852, [("#E2D6B2", 0.0), ("#B4A57E", 1.0)]))
+    f.rect(570, 662, 780, 190, style="stroke", sw=3, color="#3A2A18", alpha=0.85)
+    # yazıt levhası: açık krem, ortalı; harfler koyu oyma, harf harf
+    pw, ph = 600, 104
+    px, py = 960 - pw / 2, 700
+    f.rect(px, py, pw, ph, shader=f.lin(0, py, 0, py + ph, [("#F6EED6", 0.0), ("#E6DAB8", 1.0)]))
     f.rect(px, py, pw, ph, style="stroke", sw=3, color="#2A1A0C", alpha=0.9)
-    # yazıt: harf harf oyulur (altın yaprak)
     txt = "ESKİ PAPA"
     ta = cx.at(carve_at) if carve_at is not None else 0.0
     tb = cx.at(carve_to) if carve_to is not None else ta + 1.2
     p = clamp((cx.t - ta) / max(0.3, tb - ta))
     n = len(txt)
-    sz = 62
-    wid = sk.text_width(txt, "title", sz, 8)
-    xs = 960 - wid / 2
-    pos = xs
+    sz = 66
+    wid = sk.text_width(txt, "title", sz, 10)
+    pos = 960 - wid / 2
     for i, ch in enumerate(txt):
-        wch = sk.text_width(ch, "title", sz, 8)
+        wch = sk.text_width(ch, "title", sz, 10)
         ki = clamp(p * (n + 2) - i)
         if ki > 0 and ch != " ":
-            sp = CM.gilt(ch, "title", sz, 0.0)
-            CM.draw_spr(f, sp, pos + wch / 2, py + 66, "c", alpha=ki, scale=0.8 + 0.2 * ki, shadow=0.4)
+            CM.ink(f, ch, pos + wch / 2, py + 76, face="title", size=sz, color="#2A1608", align="c", track=0.0, alpha=ki, emboss=False)
+            CM.ink(f, ch, pos + wch / 2 + 1.5, py + 77.5, face="title", size=sz, color="#FFF6DA", align="c", track=0.0, alpha=0.35 * ki, emboss=False)
         pos += wch
-    # parıltı süpürmesi
     gl = ((cx.t - ta - 1.0) * 0.5) % 2.2
     if cx.t > ta + 1.0 and gl < 1.0:
         gxp = px + pw * gl
-        f.rect(gxp - 20, py, 40, ph, shader=f.lin(gxp - 20, 0, gxp + 20, 0, [("#FFF4C0", 0.0, 0), ("#FFF4C0", 0.5, 160), ("#FFF4C0", 1.0, 0)]))
-    # mum ışığı (yaşayan ortam): iki yanda mum, tozlu ışık
-    for cxx, sd in ((470, 3.1), (1450, 5.2)):
-        OD.candle(f, cxx, 840, 130, cx.t, sd, lit=1.0, holder=True)
-    # etiket: Vaftizhane + Cossa
+        f.rect(gxp - 22, py, 44, ph, shader=f.lin(gxp - 22, 0, gxp + 22, 0, [("#FFF4C0", 0.0, 0), ("#FFF4C0", 0.5, 120), ("#FFF4C0", 1.0, 0)]))
+    for cxx, sd in ((440, 3.1), (1480, 5.2)):
+        OD.candle(f, cxx, 860, 130, cx.t, sd, lit=1.0, holder=True)
+    kpr = cx.amt(protest_at, 0.3) if protest_at is not None else 0.0
+    cam.end(f)
     kpl = cx.amt(place_at, 0.6) if place_at is not None else 1.0
     if kpl > 0.003:
-        CM.name_plate(f, "VAFTİZHANE", "COSSA'NIN MEZARI", None, cx_=960, y=100, t=kpl, w=640)
-    # itiraz damgası + mühür (Martinus)
-    kpr = cx.amt(protest_at, 0.3) if protest_at is not None else 0.0
+        CM.name_plate(f, "VAFTİZHANE", "COSSA'NIN MEZARI", None, cx_=760, y=150, t=kpl, w=640)
     if kpr > 0.003:
-        CM.wax_seal(f, 1500, 330, 70, "#7A1A14", alpha=1.0, t=kpr, palle=False)
-        icons.draw_icon(f, "keys", 1500, 330, size=70, metal="gold", alpha=kpr, glow=0.0, shadow=False)
-        CM.ink(f, "V. MARTINUS", 1500, 440, face="title_m", size=30, color=TH.fg, align="c", track=8, alpha=kpr, emboss=False)
-        CM.stamp(f, "İTİRAZ", 1280, 560, rot=-0.12, size=72, t=kpr)
+        CM.wax_seal(f, 1560, 420, 74, "#7A1A14", alpha=1.0, t=kpr, palle=False)
+        icons.draw_icon(f, "p1_anahtar", 1560, 420, size=78, metal="gold", alpha=kpr, glow=0.0, shadow=False)
+        CM.ink(f, "V. MARTINUS", 1560, 540, face="title_m", size=36, color="#FFF4D6", align="c", track=8, alpha=kpr, emboss=False)
+        CM.stamp(f, "İTİRAZ", 1520, 640, rot=-0.10, size=72, t=kpr)
     ks = cx.amt(stay_at, 0.8) if stay_at is not None else 0.0
     if ks > 0.003:
         gg = (cx.t * 0.7) % 1.6
         if gg < 1.0:
             a = math.sin(gg * math.pi)
-            R = 110
-            f.circle(960, py + 48, R * (0.6 + 0.7 * gg), shader=f.rad(960, py + 48, R * 1.4, [("#FFF1B8", 0.0, int(120 * a * ks)), ("#FFF1B8", 1.0, 0)]))
-    cam.end(f)
+            R = 120
+            f.circle(960, py + 52, R * (0.6 + 0.7 * gg), shader=f.rad(960, py + 52, R * 1.4, [("#FFF1B8", 0.0, int(110 * a * ks)), ("#FFF1B8", 1.0, 0)]))
     CM.finish(f, cx, motes_n=24)
-
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -544,12 +548,18 @@ def k_yil(cx, date_at=None, snuff_at=None, roll_at=None, cal_at=None, seed=2, **
 # c2_kalemler — iki kalem, iki ayrı biçim
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c2_kalemler")
-def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_a=None, write_b=None, seed=5, **_):
+def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_a=None, write_b=None, only=None, seed=5, **_):
+    """İki kalem, iki biçim. Sayfalar kamera uzayında; İSİM LEVHALARI ve ANEKDOT damgası EKRAN uzayında (kamera kayınca kareden çıkmaz; HUD'un altına, altyazı bandına girmez)."""
     f = cx.f
     c = f.c
     cam = _bg(f, cx, seed)
-    for (x, name, role, at, wa, sd) in ((520, "MACHIAVELLİ", "BİR ASIR SONRA", left_at, write_a, 11), (1400, "CAVALCANTI", "1440'LARDA", right_at, write_b, 17)):
+    pages = ((520, "MACHIAVELLİ", "BİR ASRA YAKIN SONRA", left_at, write_a, 11, "a"), (1400, "CAVALCANTI", "1440'LARDA", right_at, write_b, 17, "b"))
+    ks_ = {}
+    for (x, name, role, at, wa, sd, key) in pages:
+        if only and key != only:
+            continue
         k = cx.amt(at, 0.6) if at is not None else 1.0
+        ks_[key] = k
         if k <= 0.003:
             continue
         pw, ph, py = 620, 560, 300
@@ -557,8 +567,6 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
         f.rrect(x - pw / 2 + 8, yy + 12, pw, ph, 10, color="#000000", alpha=0.28 * k, blur=10)
         f.rrect(x - pw / 2, yy, pw, ph, 8, shader=f.lin(0, yy, 0, yy + ph, [("#F3E9C9", 0.0), ("#E3D4A6", 1.0)]), alpha=k)
         f.rrect(x - pw / 2, yy, pw, ph, 8, style="stroke", sw=3, color="#5A3E22", alpha=0.85 * k)
-        CM.name_plate(f, name, role, None, cx_=x, y=110, t=k, w=560)
-        # satırlar (kalem yazar)
         ta = cx.at(wa) if wa is not None else 1e9
         pr = clamp((cx.t - ta) / 3.0)
         nl = 8
@@ -583,10 +591,16 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
     if kq > 0.003:
         f.circle(960, 560, 220, shader=f.rad(960, 560, 220, [("#F0D27A", 0.0, int(90 * kq)), ("#F0D27A", 1.0, 0)]))
         icons.draw_icon(f, "question", 960, 560, size=300 * (0.8 + 0.2 * sk.back_out(kq)), metal="gold", alpha=kq, rot=0.08 * math.sin(cx.t * 3.0), glow=0.0)
+    cam.end(f)
+    # ekran uzayı: levhalar (tek sayfa çekiminde ortada) + damga
+    for (x, name, role, at, wa, sd, key) in pages:
+        if key not in ks_ or ks_[key] <= 0.003:
+            continue
+        xx = 960 if only else (560 if key == "a" else 1300)
+        CM.name_plate(f, name, role, None, cx_=xx, y=150, t=ks_[key], w=600)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
-        CM.stamp(f, "ANEKDOT", 960, 880, rot=-0.05, size=60, t=ks)
-    cam.end(f)
+        CM.stamp(f, "ANEKDOT", 1500 if only else 960, 840, rot=-0.05, size=56, t=ks)
     CM.finish(f, cx, motes_n=22)
 
 

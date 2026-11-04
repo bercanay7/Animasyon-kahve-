@@ -353,3 +353,273 @@ def pop_label(text, x, y, at, size=56, face="title", color=None, out=None, track
         sp = CM.gilt(text, face, int(sz), track) if not TH.day else CM.engraved(text, face, int(sz), track, color or TH.fg)
         CM.draw_spr(f, sp, x, y, "c", alpha=k, scale=sc, shadow=0.0)
     return fn
+
+
+# ───────────────────────────── kurul tur 1: ekran-uzayı yardımcıları ─────────────────────────────
+SAFE_X0, SAFE_X1 = 96, 1824            # başlık güvenli alanı
+SUB_Y0 = 930                           # altyazı bandı (938–1042) — bunun altına yazı/damga yok
+HUD_RECT = (1440, 0, 1920, 124)        # yıl rulosu (küçülse de geniş tutulur)
+
+
+def tag(text, x, y, at, size=40, face="title_m", out=None, dur=0.45, dark=True, track=6.0, pad=26, align="c", alpha=1.0):
+    """Okunur etiket: koyu yarı saydam zemin üstüne açık krem yazı (kontrast ≥7:1) ya da açık zemin üstüne mürekkep (dark=False)."""
+    def fn(cx):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        f = cx.f
+        sz = CM.fit_size(text, face, size, SAFE_X1 - SAFE_X0 - 2 * pad, track)
+        wd = sk.text_width(text, face, sz, track) + 2 * pad
+        hh = sz * 1.05 + 2 * pad * 0.62
+        x0 = x - wd / 2 if align == "c" else x
+        x0 = max(SAFE_X0, min(SAFE_X1 - wd, x0))
+        yy = min(y, SUB_Y0 - hh / 2 - 6)
+        a = k * alpha
+        if dark:
+            f.rrect(x0, yy - hh / 2, wd, hh, 12, color="#120C08", alpha=0.74 * a)
+            f.rrect(x0, yy - hh / 2, wd, hh, 12, style="stroke", sw=2.0, color="#C9A45A", alpha=0.75 * a)
+            col = "#FFF4D6"
+        else:
+            CM.tablet(f, x0, yy - hh / 2, wd, hh, alpha=a, corner=10)
+            col = "#2A1A0C"
+        CM.ink(f, text, x0 + wd / 2, yy + sz * 0.36, face=face, size=sz, color=col, align="c", track=track, alpha=a, emboss=False)
+    return fn
+
+
+def prop_arc(icon, p0, p1, at, dur=0.9, size=110, lift=120, metal="gold", show_from=None, out=None, rot0=0.0, rot1=0.0, glow=False):
+    """Tek nesne (kese, poliçe, anahtar, mitra…) `at`'ta p0'dan p1'e yayla geçer; `show_from` verilirse o andan önce p0'da görünür, sonra p1'de kalır (`out`'a dek)."""
+    import icons
+
+    def fn(cx):
+        t = cx.t
+        t_at = cx.at(at)
+        t_vis = cx.at(show_from) if show_from is not None else t_at
+        k = clamp((t - t_vis) / 0.3)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.35)
+        if k <= 0.003:
+            return
+        u = clamp((t - t_at) / dur)
+        e = ease_io(u, 1.7)
+        x = p0[0] + (p1[0] - p0[0]) * e
+        y = p0[1] + (p1[1] - p0[1]) * e - lift * math.sin(math.pi * e)
+        r = rot0 + (rot1 - rot0) * e
+        bob = 3.0 * math.sin(t * 2.6) * (1.0 - math.sin(math.pi * e))
+        if glow:
+            cx.f.circle(x, y, size * 0.9, shader=cx.f.rad(x, y, size * 0.9, [("#F0D27A", 0.0, int(70 * k)), ("#F0D27A", 1.0, 0)]))
+        icons.draw_icon(cx.f, icon, x, y + bob, size=size, metal=metal, alpha=k, rot=r, glow=0.0)
+    return fn
+
+
+def oda_xy(x, y, cam):
+    """oda/pano ana düzlem noktası → ekran (cam=(camx, camy, zoom); frame='auto', zoom<1,55 bandı)."""
+    camx, camy, z = cam
+    return W / 2 + (x - camx) * z, 550 + (y - 470 - camy) * z
+
+
+# ───────────────────────────── kurul tur 1: P1 iç mekân setleri (cilt_oda alt sınıfları; çalışma anında kayıt) ─────────────────────────────
+import icons as _icons
+import cilt_oda as OD
+
+GIOVANNI = dict(kind="banker", seed=77, robe="#6A1E24", robe2="#D2A33E", hat="scholar", hat_col="#2A1A14", beard=None)   # tekrar eden insan çapası
+COSIMO = dict(kind="banker", seed=78, robe="#233C8C", robe2="#D2A33E", hat="scholar", hat_col="#1E2438", beard=None)
+LORENZO_V = dict(kind="banker", seed=79, robe="#34261C", robe2="#D2A33E", hat="flatcap", hat_col="#5A1A20", beard=None)  # Giovanni'nin küçük oğlu (Lorenzo di Giovanni)
+
+
+def actor(base, **kw):
+    d = dict(base)
+    d.update(kw)
+    return d
+
+
+class P1Ofis(OD.Calisma):
+    """Sayım odası / Medici evi çalışma odası (Calisma 'hucre' yerleşimi; haçsız, yataksız): sıcak sıva, kemerli pencere, yatık defter rafları, para sandığı, goblen."""
+    name = "p1ofis"
+
+    def __init__(self, variant, tod):
+        self.p1v = variant or "ofis"
+        self.PW = 2300
+        self.always_lit = False
+        self.variant = "hucre"
+        self.tod = tod
+        self.T = OD.OTint(tod)
+        self.layers = {}
+        self.opts = {}
+        self.key = f"{self.name}{self.p1v}"
+        self.build()
+
+    def _draw_wall(self, fr, xa, xb):
+        c, T = fr.c, self.T
+        night = self.tod == "night"
+        wx = self.wx
+        top, bot = ("#D6BE92", "#E4D0A8") if self.p1v == "ofis" else ("#C8B48C", "#D8C6A0")
+        OD.plaster(c, xa, xb, OD.OV - 40, OD.Y_FL + 30, T, top, bot, amp=0.05)
+        OD.cornice(c, xa, xb, 72, T, col="#6A4228", plaster=bot)
+        OD.wainscot(c, xa, xb, OD.Y_FL - 120, OD.Y_FL + 18, T, "#7A4A2C", pw=170, seed=4)
+        if OD._vis(wx(1760), 120, xa, xb):
+            OD.draw_window(c, T, wx(1760), 214, 170, 300, night=night, shutters=True)
+        # defter rafı: yatık ciltler (15. yy: sırt dışarı dizilmez)
+        if OD._vis(wx(520), 300, xa, xb):
+            x0, x1 = wx(300), wx(760)
+            for yy in (300, 420):
+                OD.BOX(c, x0, yy, x1, yy + 16, "#5E3A20", T, hl=0.16, sh=0.24, ink=1.3)
+                rs = OD._RS(int(yy))
+                xx = x0 + 22
+                while xx < x1 - 90:
+                    n = 2 + rs.randint(3)
+                    w_ = 70 + rs.randint(30)
+                    for k in range(n):
+                        OD.draw_book(c, xx + w_ / 2 + (k % 2) * 3, yy - 8 - k * 15, w_, 14, ["#6A2E24", "#2E4A6A", "#4A3A2A", "#7A5A2A"][(k + int(xx)) % 4])
+                    xx += w_ + 18 + rs.randint(16)
+        if OD._vis(wx(1230), 160, xa, xb) and self.p1v == "ofis":
+            OD.draw_tapestry(c, T, wx(1230), 196, 230, 290, seed=6, field="#2E4A3A", border="#B88A32", accent="#8E2A30")
+        if OD._vis(wx(1230), 160, xa, xb) and self.p1v != "ofis":
+            OD.draw_hanging(c, T, wx(1080), wx(1400), 190, 470, "#2E3E5A", "#C9A45A", seed=3)
+        sh = OD.LGP((0, OD.Y_FL - 30), (0, OD.Y_FL + 30), [("#1A0F06", 0.0, 0), ("#1A0F06", 1.0, 70)])
+        c.drawRect(skia.Rect.MakeLTRB(xa, OD.Y_FL - 30, xb, OD.Y_FL + 30), sh)
+
+    def _draw_main(self, fr, xa, xb):
+        c, T = fr.c, self.T
+        OD.floor_tiles(c, xa, xb, OD.Y_FL, OD.LH, T, "#A8603A", "#94522F", seed=8, w0=74.0, grow=1.13)
+        if OD._vis(520, 200, xa, xb):
+            OD.draw_chest(c, T, 380, 660, 792, 128, "#5A3A24")
+        if OD._vis(self.CH_X, 70, xa, xb):
+            OD.draw_chair(c, T, self.CH_X - 24, 808, 240, 72, 88, facing=1, col="#5A3A20", cushion="#7A2E2A")
+
+
+P1_SALON_PAL = {
+    "papa": dict(wall=("#A88468", "#C09C7E"), dado="#5A2A20", tap=("#7A1E24", "#C79A3C"), floor=("#C9B58A", "#7A3A2A"), cloth=("#8E2A30", "#D2A33E"), deco="tap", seat="#7A2E2A"),
+    "konstanz": dict(wall=("#A4A6A0", "#BCBDB4"), dado="#3A4650", tap=("#2A3E6E", "#C79A3C"), floor=("#B0AC9C", "#5E5A50"), cloth=("#2A3E6E", "#C79A3C"), deco="tap", seat="#2A3E6E"),
+}
+
+
+class P1Salon(OD.Salon):
+    """Taht salonu (Salon 'taht' yerleşimi) — palle frizi YOK (Medici dışı mekânlar): 'papa' (papalık kabul salonu, kızıl-altın), 'konstanz' (konsil salonu, serin taş)."""
+    name = "p1salon"
+
+    def __init__(self, variant, tod):
+        self.p1v = variant or "papa"
+        self.pal = P1_SALON_PAL.get(self.p1v, P1_SALON_PAL["papa"])
+        self.variant = "taht"
+        self.tod = tod
+        self.T = OD.OTint(tod)
+        self.layers = {}
+        self.opts = {}
+        self.key = f"{self.name}{self.p1v}"
+        self.build()
+
+    THRONE_S = 1.35
+
+    def _draw_main(self, fr, xa, xb):
+        """Taht büyük (s=1,35: oturan figür ölçeğine uysun), baldaken daha yukarıda; palle yok."""
+        c, T, P = fr.c, self.T, self.pal
+        s = self.THRONE_S
+        OD.floor_tiles(c, xa, xb, OD.Y_FL, OD.LH, T, P["floor"][0], P["floor"][1], seed=4, w0=74.0, grow=1.13)
+        if OD._vis(1700, 480, xa, xb):
+            OD.rug(c, 1360, 2040, 752, 900, T, field=P["tap"][0], border="#C79A3C", inset=0.16)
+            OD.draw_throne(c, T, 1700, 770, s)
+            pel = skia.Path()
+            pel.moveTo(1400, 60)
+            pel.lineTo(2000, 60)
+            n = 12
+            for i in range(n + 1):
+                xx = 2000 - 600 * i / n
+                pel.lineTo(xx, 116)
+                if i < n:
+                    pel.quadTo(xx - 25, 150, xx - 50, 116)
+            pel.close()
+            OD.FILLP(c, pel, T("#8E1F26"), 255, 1.5, 200, shader=OD.LGP((0, 60), (0, 150), [(T("#6A1018"), 0.0), (T("#A82A30"), 1.0)]))
+            OD.BOX(c, 1390, 40, 2010, 64, "#C79A3C", T, hl=0.22, sh=0.22, ink=1.5)
+        for x in (700, 2700):
+            if OD._vis(x, 100, xa, xb):
+                OD.chair_back(c, T, x, 730, 72, 230, cushion=P["seat"])
+
+    def seat_xy(self):
+        """Tahtta oturan figür için ayak noktası (ana düzlem) ve önerilen boy."""
+        s = self.THRONE_S
+        return 1700, 770 - 60 * s, 282 * (55 * s) / 74
+
+
+class P1Yatak(OD.Oda1743):
+    """Ölüm döşeği odası (Oda1743 yerleşimi; arma/goblen YOK, koyu yeşil örtü, sade duvar). Yalnız siluet; figure='lying'."""
+    name = "p1yatak"
+
+    def __init__(self, variant, tod):
+        self.p1v = variant or "olum"
+        self.variant = self.p1v
+        self.tod = tod
+        self.T = OD.OTint(tod)
+        self.layers = {}
+        self.opts = {}
+        self.key = f"{self.name}{self.p1v}"
+        self.build()
+
+    def _draw_wall(self, fr, xa, xb):
+        c, T = fr.c, self.T
+        night = self.tod == "night"
+        wx = self.wx
+        OD.plaster(c, xa, xb, OD.OV - 40, OD.Y_FL + 30, T, "#C2B08A", "#D2C29E", amp=0.05)
+        OD.cornice(c, xa, xb, 72, T)
+        OD.wainscot(c, xa, xb, OD.Y_FL - 150, OD.Y_FL + 18, T, "#6E4A30", seed=5)
+        if OD._vis(wx(430), 360, xa, xb):
+            OD.draw_hanging(c, T, wx(110), wx(760), 205, 548, "#2E4A3A", "#C9A45A", seed=7)
+        if OD._vis(wx(1010), 120, xa, xb):
+            OD.draw_window(c, T, wx(1010), 215, 190, 330, night=night)
+        if OD._vis(wx(1660), 80, xa, xb):
+            OD.sconce(c, T, wx(1660), 300, 1.1, 1)
+        if OD._vis(wx(2400), 70, xa, xb):
+            OD.draw_crucifix(c, T, wx(2400), 250, 1.0)
+        sh = OD.LGP((0, OD.Y_FL - 30), (0, OD.Y_FL + 30), [("#1A0F06", 0.0, 0), ("#1A0F06", 1.0, 70)])
+        c.drawRect(skia.Rect.MakeLTRB(xa, OD.Y_FL - 30, xb, OD.Y_FL + 30), sh)
+
+    def _draw_main(self, fr, xa, xb):
+        c, T = fr.c, self.T
+        OD.floor_tiles(c, xa, xb, OD.Y_FL, OD.LH, T, "#9A6A48", "#8A5C3E", seed=6)
+        if OD._vis(430, 330, xa, xb):
+            self.pillow = OD.draw_bed(c, T, self.BX0, self.BYB, 560, 500, 190, cover=("#2E4A3A", "#C9A45A"))
+        if OD._vis(1010, 150, xa, xb):
+            OD.draw_chest(c, T, 880, 1140, 772, 118)
+        if OD._vis(self.CHAIR_X, 70, xa, xb):
+            OD.draw_chair(c, T, self.CHAIR_X, self.FIG_Y, 270, 74, 92, facing=1)
+
+
+OD.ROOMS["p1ofis"] = P1Ofis
+OD.ROOMS["p1salon"] = P1Salon
+OD.ROOMS["p1yatak"] = P1Yatak
+
+
+@_icons.icon("p1_tiara")
+def _i_tiara(m):
+    """Papalık tacı (üç katlı, kovan biçimli) + üstte küre-haç."""
+    m.smooth([(150, 450), (160, 300), (190, 190), (256, 120), (322, 190), (352, 300), (362, 450)], close=True, t=0.22)
+    for yy in (420, 330, 240):
+        m.cut(sk.poly_path([(150, yy), (362, yy)], False), 9)
+    m.circle(256, 100, 22)
+    m.rect(250, 40, 12, 52, r=3)
+    m.rect(234, 56, 44, 10, r=3)
+
+
+@_icons.icon("p1_kese")
+def _i_kese(m):
+    """Bağcıklı para kesesi (deri)."""
+    m.smooth([(256, 170), (360, 230), (410, 360), (360, 450), (256, 470), (152, 450), (102, 360), (152, 230)], close=True, t=0.28)
+    m.smooth([(206, 170), (232, 110), (256, 96), (280, 110), (306, 170)], close=True, t=0.3)
+    m.cut(sk.poly_path([(196, 176), (316, 176)], False), 10)
+
+
+@_icons.icon("p1_anahtar")
+def _i_anahtar(m):
+    """Papalık anahtarları (çapraz): halka (bow) AŞAĞIDA, diş (ward) YUKARIDA — kurul SA2-K4."""
+    for ang in (-32, 32):
+        m.c.save()
+        m.c.translate(256, 256)
+        m.c.rotate(ang)
+        m.c.translate(-256, -256)
+        r = skia.Path(); r.addCircle(256, 392, 62)
+        m.stroke(r, 30)
+        m.rect(242, 72, 28, 270, r=6)
+        m.rect(270, 108, 60, 24)
+        m.rect(270, 70, 44, 22)
+        m.c.restore()

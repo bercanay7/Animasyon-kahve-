@@ -57,6 +57,8 @@ Kurul üyeleri birincil metinlere erişemediklerini yazdı (WebFetch DNS hatası
 | c1s24 | "Medici adı o yıllarda…" | "Medici'nin bu kolu o yıllarda şehrin seçkinlerinin bir kademe altındaydı; kır gelirleriyle geçiniyordu." | KA1-V4, KA2-K1 |
 | c2s27 | "…büyük torunu Lorenzo'nun kaydına göre…" | "İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı." | KA1-V6, KA2-Ö7 (DBI "bisnipote") |
 
+**Başkan bulgusu (yamadan sonra, ASR + süre analizi):** orijinal ElevenLabs kaydında iki sözcük yutulmuştu ve kurul bunu duyamazdı: **c2s1** "Çözüm, kambiyodaydı." cümlesinde "Çözüm," yok (0,70 sn'lik koşu yalnız "kambiyodaydı"; ASR "Cambio'daydı"), **c1s26** başındaki "Roma'da" yok (önceki cümleyle arası 0,24 sn; ASR "Vieri di Cambio'nun bankasında çalıştı"). İkisi de yeniden üretildi; ilk sözcük yine yutulmasın diye başa kesilecek bağlam kondu ("Bölüm iki." / "Küçük bir pay aldı."), kırpılan klip yerel ASR ile doğrulandı ("Çözüm, kambiyodaydı." · "Roma'da Vieri di Cambio'nun bankasında çalıştı…"). Toplam yama: 9 cümle, 942 kredi. Hizalayıcı "seste bulunmayan sözcük" raporu artık her yamada denetlenir.
+
 Kullanıcının "Düzeltmeleri uygula" talebi ücretli yama için açık onaydır. Kota yetmezse: c1s18 için KA1'in ücretsiz yedeği (250,94–252,40 sn susturma), diğerleri ekran/altyazı düzeltmesiyle sınırlı kalır ve bu belgeye yazılır.
 
 #### B. Motor (ENG-A: yerleşim/dönem/görsel hata · ENG-B: hareket/kurgu/denetim)

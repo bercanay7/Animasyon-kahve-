@@ -12,6 +12,7 @@ import skia
 
 import cilt_medici as CM
 import cilt_scene as SC
+import donem as DN
 import cilt_wall as CW
 import sk
 from sk import C, Frame, clamp, mix
@@ -57,8 +58,69 @@ def _lit_windows(c, rs, boxes, night, p=0.35):
 
 
 # ───────────────────────────── anıtlar ─────────────────────────────
-def draw_dome(c, x, y, w, hd, drum_h, lant_h, T, depth=0.0, outline=True):
-    """Brunelleschi kubbesi: (x, y=tambur tabanı). w taban genişliği."""
+WOOD = "#6B4A2A"
+
+
+def _scaffold(c, x0, x1, ytop, h, T, depth, n=None, a=210):
+    """Ahşap iskele: dikmeler + yatay tablalar + çapraz bağ (inşaat sürüyor)."""
+    col = C(T(WOOD, depth), a)
+    p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=col, StrokeCap=skia.Paint.kRound_Cap)
+    n = n or max(2, int((x1 - x0) / 16))
+    xs = [x0 + (x1 - x0) * i / (n - 1) for i in range(n)]
+    for xx in xs:
+        c.drawLine(xx, ytop + h, xx, ytop, p)
+    for k in range(1, 4):
+        yy = ytop + h * (1 - k / 3.4)
+        c.drawLine(x0 - 2, yy, x1 + 2, yy, p)
+    for i in range(len(xs) - 1):
+        c.drawLine(xs[i], ytop + h * 0.70, xs[i + 1], ytop + h * 0.30, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=C(T(WOOD, depth), int(a * 0.7))))
+
+
+def _crane(c, x, ytop, h, T, depth, flip=1):
+    """Basit yapı vinci (direk + kol + halat): kubbe/fener şantiyesi."""
+    col = C(T("#5A3E22", depth), 220)
+    p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.8, Color=col, StrokeCap=skia.Paint.kRound_Cap)
+    c.drawLine(x, ytop, x, ytop - h, p)
+    c.drawLine(x - flip * h * 0.10, ytop - h * 0.92, x + flip * h * 0.62, ytop - h * 0.78, p)
+    c.drawLine(x + flip * h * 0.55, ytop - h * 0.80, x + flip * h * 0.55, ytop - h * 0.40, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=0.9, Color=col))
+    c.drawRect(skia.Rect.MakeXYWH(x + flip * h * 0.55 - 2.5, ytop - h * 0.40, 5, 4), skia.Paint(AntiAlias=True, Color=C(T("#A88A62", depth))))
+
+
+def _bez(p0, p1, p2, p3, t):
+    u = 1 - t
+    return (u ** 3 * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t ** 3 * p3[0],
+            u ** 3 * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t ** 3 * p3[1])
+
+
+def _dome_halfw(x, yb, w, hd, ycut):
+    """Kubbe dış hattının (sağ yarı kübik) ycut yüksekliğindeki yarı genişliği."""
+    P = [(x + w * 0.47, yb), (x + w * 0.47, yb - hd * 0.66), (x + w * 0.20, yb - hd * 0.97), (x, yb - hd)]
+    lo, hi = 0.0, 1.0
+    for _ in range(30):
+        m = (lo + hi) / 2
+        if _bez(*P, m)[1] > ycut:
+            lo = m
+        else:
+            hi = m
+    return _bez(*P, (lo + hi) / 2)[0] - x
+
+
+def _crossing_stub(c, x, y, w, drum_h, T, depth, k):
+    """1380–1410: kubbe yok, tambur yok — sekizgen geçişin tribün duvarları yükseliyor (iskeleli şantiye)."""
+    marble = T("#EFE5CC", depth)
+    h = drum_h * (0.35 + 0.9 * k)
+    _R(c, x - w * 0.47, y - h * 0.15, x + w * 0.47, y + drum_h * 0.10, marble)
+    for dx in (-0.47, -0.25, 0.25, 0.47):
+        _R(c, x + dx * w - w * 0.035, y - h, x + dx * w + w * 0.035, y, marble)
+    c.drawRect(skia.Rect.MakeLTRB(x - w * 0.47, y - h * 0.15, x + w * 0.47, y + drum_h * 0.10), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#2A1A0C", 140)))
+    _scaffold(c, x - w * 0.50, x + w * 0.50, y - h - 10, h + 10, T, depth, n=7)
+
+
+def draw_dome(c, x, y, w, hd, drum_h, lant_h, T, depth=0.0, outline=True, stage=None):
+    """Brunelleschi kubbesi: (x, y=tambur tabanı). w taban genişliği.
+    stage: None → eski (tam kubbe + fener + top/haç) | donem.DuomoStage → o yılın durumu (tribün/tambur/kubbe/fener/top-haç; şantiyede iskele + vinç)."""
+    if stage is not None:
+        return _draw_dome_stage(c, x, y, w, hd, drum_h, lant_h, T, depth, outline, stage)
     tile = T("#C65B33", depth)
     tile2 = T("#9C3F25", depth)
     marble = T("#EFE5CC", depth)
@@ -114,6 +176,118 @@ def draw_dome(c, x, y, w, hd, drum_h, lant_h, T, depth=0.0, outline=True):
         c.drawRect(skia.Rect.MakeLTRB(x - lw, ly - lant_h * 0.62, x + lw, ly - 8), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#2A1A0C", 150)))
 
 
+def _draw_dome_stage(c, x, y, w, hd, drum_h, lant_h, T, depth, outline, st):
+    tile = T("#C65B33", depth)
+    tile2 = T("#9C3F25", depth)
+    marble = T("#EFE5CC", depth)
+    green = T("#6E9878", depth)
+    if st.drum <= 0.0:
+        if st.tribune > 0.0:
+            _crossing_stub(c, x, y, w, drum_h, T, depth, st.tribune)
+        return
+    dh = drum_h * st.drum
+    _R(c, x - w * 0.47, y - dh, x + w * 0.47, y, marble)
+    for k in range(4):
+        yy = y - drum_h + drum_h * (0.22 + 0.22 * k)
+        if yy > y - dh:
+            _R(c, x - w * 0.47, yy, x + w * 0.47, yy + 2.4, green, 200)
+    if st.drum >= 1.0:
+        for dx in (-0.24, 0.0, 0.24):
+            c.drawOval(skia.Rect.MakeXYWH(x + dx * w - w * 0.045, y - drum_h * 0.62, w * 0.09, drum_h * 0.34), skia.Paint(AntiAlias=True, Color=C(T("#3A2A1C", depth), 210)))
+    if outline:
+        c.drawRect(skia.Rect.MakeLTRB(x - w * 0.47, y - dh, x + w * 0.47, y), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#2A1A0C", 150)))
+    yb = y - drum_h
+    if st.drum < 1.0:
+        _scaffold(c, x - w * 0.50, x + w * 0.50, y - dh - 12, 14, T, depth, n=8)
+        return
+    if st.dome <= 0.0:                                       # 1415–1420: tambur açık (kubbe yok) — üstte iskele/vinç
+        c.drawOval(skia.Rect.MakeLTRB(x - w * 0.47, yb - w * 0.035, x + w * 0.47, yb + w * 0.035), skia.Paint(AntiAlias=True, Color=C(T("#3A2A1C", depth), 200)))
+        _scaffold(c, x - w * 0.48, x + w * 0.48, yb - 12, 12, T, depth, n=9, a=170)
+        return
+    dome = skia.Path()
+    dome.moveTo(x - w * 0.47, yb)
+    dome.cubicTo(x - w * 0.47, yb - hd * 0.66, x - w * 0.20, yb - hd * 0.97, x, yb - hd)
+    dome.cubicTo(x + w * 0.20, yb - hd * 0.97, x + w * 0.47, yb - hd * 0.66, x + w * 0.47, yb)
+    dome.close()
+    built = min(1.0, st.dome)
+    ycut = yb - hd * (built if built < 1.0 else 1.02)
+    c.save()
+    if built < 1.0:
+        c.clipRect(skia.Rect.MakeLTRB(x - w, ycut, x + w, yb + 2))
+    sh = skia.GradientShader.MakeLinear([(x - w * 0.5, 0), (x + w * 0.5, 0)], [C(mix(tile, "#FFFFFF", 0.14)), C(tile), C(tile2)], [0, 0.55, 1])
+    c.drawPath(dome, skia.Paint(AntiAlias=True, Shader=sh))
+    c.save()
+    c.clipPath(dome, skia.ClipOp.kIntersect, True)
+    for k in range(1, 9):
+        ty = yb - hd * k / 9.0
+        c.drawLine(x - w * 0.5, ty, x + w * 0.5, ty + 5 * (1 if k % 2 else -1), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#5A2412", 70)))
+    for th in (-0.80, -0.50, -0.20, 0.20, 0.50, 0.80):
+        pth = skia.Path()
+        pth.moveTo(x + math.sin(th) * w * 0.46, yb)
+        pth.quadTo(x + math.sin(th) * w * 0.40, yb - hd * 0.66, x + math.sin(th) * w * 0.03, yb - hd * 0.98)
+        c.drawPath(pth, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=w * 0.026, Color=C(T("#F2EAD4", depth)), StrokeCap=skia.Paint.kRound_Cap))
+        c.drawPath(pth, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#6A5A40", 120)))
+    c.restore()
+    if outline:
+        _ink(c, dome, 1.5, 190)
+    c.restore()
+    if built < 1.0:                                          # yarım kabuk: açık sekizgen ağız + iskele halkası + vinç
+        hw = _dome_halfw(x, yb, w, hd, ycut)
+        c.drawOval(skia.Rect.MakeLTRB(x - hw, ycut - max(2.0, hw * 0.10), x + hw, ycut + max(2.0, hw * 0.10)), skia.Paint(AntiAlias=True, Color=C(T("#2A1E14", depth), 230)))
+        c.drawOval(skia.Rect.MakeLTRB(x - hw, ycut - max(2.0, hw * 0.10), x + hw, ycut + max(2.0, hw * 0.10)), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.4, Color=C(marble, 230)))
+        _scaffold(c, x - hw * 0.95, x + hw * 0.95, ycut - 13, 12, T, depth, n=max(3, int(hw / 9)), a=190)
+        _crane(c, x + hw * 0.15, ycut - 4, max(16.0, hd * 0.30), T, depth, flip=-1)
+        return
+    ly = yb - hd
+    lw = w * 0.17
+    _R(c, x - lw * 1.15, ly - 8, x + lw * 1.15, ly + 2, marble)        # serraglio (fenerin oturduğu halka)
+    if st.lantern <= 0.0:
+        c.drawRect(skia.Rect.MakeLTRB(x - lw * 1.15, ly - 8, x + lw * 1.15, ly + 2), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.0, Color=C("#2A1A0C", 140)))
+        return
+    if st.lantern < 1.0:                                     # 1446–1461: fener yükseliyor (iskeleli gövde)
+        top = ly - 8 - lant_h * 0.62 * st.lantern
+        _R(c, x - lw, top, x + lw, ly - 8, marble)
+        for dx in (-0.55, 0.0, 0.55):
+            wy0 = max(top + 2, ly - lant_h * 0.46)
+            if wy0 < ly - 14:
+                c.drawRect(skia.Rect.MakeLTRB(x + dx * lw - lw * 0.22, wy0, x + dx * lw + lw * 0.22, ly - 12), skia.Paint(AntiAlias=True, Color=C(T("#4A3A28", depth), 200)))
+        c.drawRect(skia.Rect.MakeLTRB(x - lw, top, x + lw, ly - 8), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#2A1A0C", 150)))
+        _scaffold(c, x - lw * 1.35, x + lw * 1.35, top - 10, (ly - 8) - top + 10, T, depth, n=4, a=200)
+        _crane(c, x, top - 6, max(14.0, lant_h * 0.45), T, depth)
+        return
+    _R(c, x - lw, ly - lant_h * 0.62, x + lw, ly - 8, marble)
+    for dx in (-0.55, 0.0, 0.55):
+        c.drawPath(sk.smooth_path([(x + dx * lw - lw * 0.22, ly - 12), (x + dx * lw - lw * 0.22, ly - lant_h * 0.46), (x + dx * lw, ly - lant_h * 0.52), (x + dx * lw + lw * 0.22, ly - lant_h * 0.46), (x + dx * lw + lw * 0.22, ly - 12)], True, 0.3),
+                   skia.Paint(AntiAlias=True, Color=C(T("#4A3A28", depth), 200)))
+    _R(c, x - lw * 1.1, ly - lant_h * 0.64, x + lw * 1.1, ly - lant_h * 0.60, marble)
+    cone = sk.poly_path([(x - lw * 0.95, ly - lant_h * 0.64), (x, ly - lant_h * 0.96), (x + lw * 0.95, ly - lant_h * 0.64)])
+    c.drawPath(cone, skia.Paint(AntiAlias=True, Color=C(T("#E3D8BA", depth))))
+    if st.ball:                                               # ≥1471: Verrocchio'nun yaldızlı bakır topu + haç
+        c.drawCircle(x, ly - lant_h * 0.99, w * 0.022, skia.Paint(AntiAlias=True, Color=C(T("#D8A63A", depth))))
+        c.drawLine(x, ly - lant_h * 1.0, x, ly - lant_h * 1.16, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.4, Color=C(T("#D8A63A", depth))))
+        c.drawLine(x - 6, ly - lant_h * 1.10, x + 6, ly - lant_h * 1.10, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2, Color=C(T("#D8A63A", depth))))
+    if outline:
+        _ink(c, cone, 1.2, 170)
+        c.drawRect(skia.Rect.MakeLTRB(x - lw, ly - lant_h * 0.62, x + lw, ly - 8), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.1, Color=C("#2A1A0C", 150)))
+
+
+def dome_top(x, y, w, hd, drum_h, lant_h, stage=None):
+    """Kubbe grubunun o yılki en üst noktası (etiket çapası için): (x, y_üst)."""
+    if stage is None or stage.full:
+        return x, y - drum_h - hd - lant_h * 1.16
+    if stage.drum <= 0:
+        return x, y - (drum_h * (0.35 + 0.9 * stage.tribune) if stage.tribune > 0 else 0.0)
+    if stage.dome <= 0:
+        return x, y - drum_h * stage.drum
+    if stage.dome < 1:
+        return x, y - drum_h - hd * stage.dome
+    if stage.lantern <= 0:
+        return x, y - drum_h - hd - 8
+    if stage.lantern < 1:
+        return x, y - drum_h - hd - 8 - lant_h * 0.62 * stage.lantern
+    return x, y - drum_h - hd - lant_h * 0.96
+
+
 def draw_nave(c, x0, x1, y, h, T, depth=0.0):
     """Katedral nefi (kubbenin batısında = görüntüde sağda; uzun alçak kiremit çatı + yan koridor)."""
     wall = T("#EFE5CC", depth)
@@ -132,8 +306,20 @@ def draw_nave(c, x0, x1, y, h, T, depth=0.0):
     c.drawRect(skia.Rect.MakeLTRB(x0, y - h * 0.55, x1, y), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#2A1A0C", 150)))
 
 
-def draw_campanile(c, x, y, w, h, T, depth=0.0):
-    """Giotto çan kulesi: renkli mermer (beyaz/pembe/yeşil), alt panel/çıkıntılar, orta çift ışıklı pencereler, üstte üç ışıklı büyük pencere + saçak."""
+def draw_campanile(c, x, y, w, h, T, depth=0.0, stage=None):
+    """Giotto çan kulesi: renkli mermer (beyaz/pembe/yeşil), alt panel/çıkıntılar, orta çift ışıklı pencereler, üstte üç ışıklı büyük pencere + saçak.
+    stage: None → eski (tam) | 0..1 → o yılın yüksekliği (donem.campanile_stage; yarımken üst kenar iskeleli)."""
+    if stage is not None and stage < 1.0:
+        if stage <= 0.0:
+            return
+        hb = h * stage
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(x - w, y - hb, x + w, y + 4))
+        draw_campanile(c, x, y, w, h, T, depth, None)
+        c.restore()
+        c.drawLine(x - w / 2, y - hb, x + w / 2, y - hb, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=C("#2A1A0C", 160)))
+        _scaffold(c, x - w / 2 - 3, x + w / 2 + 3, y - hb - 16, 18, T, depth, n=4)
+        return
     cream = T("#EFE6D0", depth)
     pink = T("#D9A3A0", depth)
     green = T("#7CA286", depth)
@@ -170,8 +356,21 @@ def draw_campanile(c, x, y, w, h, T, depth=0.0):
     c.drawRect(skia.Rect.MakeLTRB(x0 - 5, y - h - 8, x1 + 5, y - h + 14), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.2, Color=C("#2A1A0C", 150)))
 
 
-def draw_pv(c, x, y, s, T, depth=0.0, flag=None):
-    """Palazzo Vecchio: taş sıralı blok + mazgal/çıkma + Arnolfo kulesi (çıkmalı, çan kafesi, kiremit külah, bayrak direği). Döner: bayrak direği ucu (x,y)."""
+def draw_pv(c, x, y, s, T, depth=0.0, flag=None, stage=None):
+    """Palazzo Vecchio: taş sıralı blok + mazgal/çıkma + Arnolfo kulesi (çıkmalı, çan kafesi, kiremit külah, bayrak direği). Döner: bayrak direği ucu (x,y).
+    stage: None → eski (tam) | 0 → yapı yok (1299 öncesi; dönüş None) | 0..1 → yükseliyor (iskeleli)."""
+    if stage is not None and stage < 1.0:
+        if stage <= 0.0:
+            return None
+        bh_full = 120 * s + 14 * s + 190 * s + 124 * s
+        hb = bh_full * stage
+        c.save()
+        c.clipRect(skia.Rect.MakeLTRB(x - 400 * s, y - hb, x + 400 * s, y + 4))
+        draw_pv(c, x, y, s, T, depth, flag, None)
+        c.restore()
+        bx0 = x - 190 * s * 0.62
+        _scaffold(c, bx0, bx0 + 190 * s, y - min(hb, 120 * s) - 14, 16, T, depth, n=8)
+        return None
     stone = T("#BFA77F", depth)
     stone2 = T("#A28A62", depth)
     bw, bh = 190 * s, 120 * s
@@ -341,9 +540,74 @@ def _arr(fr):
     return fr.surf.makeImageSnapshot().toarray(colorType=skia.ColorType.kRGBA_8888_ColorType, alphaType=skia.AlphaType.kUnpremul_AlphaType)
 
 
+_AUTO = object()
+
+
+def era_key(y=_AUTO):
+    """Dönem anahtarı (önbellek + çizim): (DuomoStage, çan kulesi oranı, Palazzo Vecchio oranı, San Lorenzo kubbesi) ya da None (yıl yok → eski çizim)."""
+    y = DN.year() if y is _AUTO else y
+    if y is None:
+        return None
+    return (DN.duomo_stage(y), DN.campanile_stage(y), DN.pv_stage(y), DN.sanlorenzo_dome(y))
+
+
+def era_tag(era):
+    """Önbellek dosya adı eki: '' (eski) ya da '_e<…>'."""
+    if era is None:
+        return ""
+    d, cp, pv, sl = era
+    return f"_e{d.tag()}c{int(round(cp * 1000))}p{int(round(pv * 1000))}{'s' if sl else 'n'}"
+
+
+def note_era(where, era, **extra):
+    """Dönem kaydı (qa_donem): bu karede çizilen Duomo/çan kulesi durumu."""
+    if not DN.LOG_ON:
+        return
+    if era is None:
+        DN.note_once_per_frame("duomo", where=where, era=None, **extra)
+        return
+    d, cp, pv, sl = era
+    DN.note_once_per_frame("duomo", where=where, nave=d.nave, tribune=d.tribune, drum=d.drum, dome=d.dome, lantern=d.lantern, ball=d.ball, **extra)
+    DN.note_once_per_frame("campanile", where=where, h=cp, **extra)
+    DN.note_once_per_frame("pv", where=where, h=pv, **extra)
+    DN.note_once_per_frame("sanlorenzo", where=where, dome=bool(sl), **extra)
+
+
+def draw_duomo_group(c, cx_dome, base, T, era, nave=(70, 640, 4, 124), bapt=(700, 6, 96, 64), dome=(-108, 214, 132, 48, 74), camp=(205, 4, 54, 262),
+                     depth=(0.16, 0.12, 0.12, 0.12)):
+    """Duomo grubu (nef + Vaftizhane + kubbe + çan kulesi) — dönem anahtarına göre (era None → eski tam hâl). Koordinatlar cx_dome'a göre."""
+    d = cp = None
+    if era is not None:
+        d, cp = era[0], era[1]
+    n0, n1, ny, nh = nave
+    if d is None or d.nave >= 1.0:
+        draw_nave(c, cx_dome + n0, cx_dome + n1, base + ny, nh, T, depth[0])
+    elif d.nave > 0.0:                                   # 1296–1380: nef inşa hâlinde (çatı yok/iskele)
+        draw_nave(c, cx_dome + n0, cx_dome + n1, base + ny, nh * (0.55 + 0.45 * d.nave), T, depth[0])
+        _scaffold(c, cx_dome + n0, cx_dome + n0 + (n1 - n0) * 0.45, base + ny - nh * (0.55 + 0.45 * d.nave) - 14, 16, T, depth[0], n=9, a=180)
+    else:                                               # 1296 öncesi: eski Santa Reparata (alçak bazilika)
+        draw_nave(c, cx_dome + n0 + (n1 - n0) * 0.25, cx_dome + n1, base + ny, nh * 0.62, T, depth[0])
+    bx, by, bw, bh = bapt
+    draw_bapt(c, cx_dome + bx, base + by, bw, bh, T, depth[1])
+    if d is None or d.nave > 0.0:
+        dy, dw, dhd, ddr, dl = dome
+        draw_dome(c, cx_dome, base + dy, dw, dhd, ddr, dl, T, depth[2], stage=d)
+    cxo, cyo, cw, chh = camp
+    draw_campanile(c, cx_dome + cxo, base + cyo, cw, chh, T, depth[3], stage=cp)
+
+
+def city_layers(PH=700, seed=1, mode="day", corner=True, era=_AUTO):
+    """Dönüş: dict(sky, hills, far, near, W_sky, W_hills, W_far, W_near, flag=(x,y) in far, windows) — her biri skia.Image.
+    era: dönem anahtarı (varsayılan: o an çizilen çekimin yılı, donem.year(); yıl yoksa eski tam Floransa)."""
+    if era is _AUTO:
+        era = era_key()
+    L = _city_layers(PH, seed, mode, corner, era)
+    note_era("skyline", era)
+    return L
+
+
 @functools.lru_cache(maxsize=6)
-def city_layers(PH=700, seed=1, mode="day", corner=True):
-    """Dönüş: dict(sky, hills, far, near, W_sky, W_hills, W_far, W_near, flag=(x,y) in far, windows) — her biri skia.Image."""
+def _city_layers(PH=700, seed=1, mode="day", corner=True, era=None):
     T = Tint(mode)
     rs = np.random.RandomState(seed)
     night = mode == "night"
@@ -415,12 +679,12 @@ def city_layers(PH=700, seed=1, mode="day", corner=True):
     draw_tower(c, 330, base_far, 30, 170, T, 0.30, spire=True)
     for tx, th in ((560, 120), (940, 138), (1620, 150), (1960, 118)):
         draw_tower(c, tx, base_far, 28, th, T, 0.35)
-    flag = draw_pv(c, px, base_far + 4, 1.0, T, 0.18)
-    draw_dome(c, 2150, base_far - 18, 120, 82, 32, 44, T, 0.28)          # San Lorenzo (uzak, batıda)
-    draw_nave(c, cx_dome + 70, cx_dome + 640, base_far + 4, 124, T, 0.16)
-    draw_bapt(c, cx_dome + 700, base_far + 6, 96, 64, T, 0.12)
-    draw_dome(c, cx_dome, base_far - 108, 214, 132, 48, 74, T, 0.12)
-    draw_campanile(c, cx_dome + 205, base_far + 4, 54, 262, T, 0.12)
+    flag = draw_pv(c, px, base_far + 4, 1.0, T, 0.18, stage=None if era is None else era[2])
+    if flag is None:                                                     # Palazzo Vecchio henüz yok/yarım: flama ortaçağ kulesinde
+        flag = (940, base_far - 149)
+    if era is None or era[3]:
+        draw_dome(c, 2150, base_far - 18, 120, 82, 32, 44, T, 0.28)      # San Lorenzo (uzak, batıda; büyük kubbe 1604 sonrası)
+    draw_duomo_group(c, cx_dome, base_far, T, era)
     x = 80
     while x < w_far:                          # önde ikinci sıra evler
         bw = rs.uniform(36, 70)
@@ -497,12 +761,19 @@ def city_layers(PH=700, seed=1, mode="day", corner=True):
 SPEEDS = dict(sky=0.12, hills=0.30, far=0.62, near=0.92)
 
 
-def anchors(PH=700):
-    """Anıt çapaları: ad → (katman, x, y) katman uzayında (üst uç)."""
+def anchors(PH=700, era=_AUTO):
+    """Anıt çapaları: ad → (katman, x, y) katman uzayında (üst uç). Dönem modunda Duomo/çan kulesi çapası o yılki yapının üstüne iner."""
     bf = int(PH * 0.745)
     rv = int(PH * 0.80)
+    if era is _AUTO:
+        era = era_key()
+    duo_y, camp_y = bf - 374, bf - 274
+    if era is not None:
+        duo_y = int(dome_top(1210, bf - 108, 214, 132, 48, 74, era[0])[1])
+        if era[1] < 1.0:
+            camp_y = int(bf + 4 - 262 * era[1] - 18)
     return dict(
-        duomo=("far", 1210, bf - 374), campanile=("far", 1415, bf - 274), pv=("far", 695, bf - 444),
+        duomo=("far", 1210, duo_y), campanile=("far", 1415, camp_y), pv=("far", 695, bf - 444),
         bapt=("far", 1910, bf - 112), santacroce=("far", 330, bf - 250), ponte=("near", 880, rv - 40 - 112),
         arno=("near", 1300, rv + 70),
     )

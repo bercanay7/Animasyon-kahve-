@@ -1,7 +1,8 @@
 """cilt_fx — Medici cildi: geçişler (pigment yıkaması / defter sayfası çevirme / giornata açılımı), giornata yama yardımcıları, HUD.
 
 Geçiş API'si (compose.Program._blend çağırır):  blend(kind, a, b, k, g) → Frame   kind ∈ {'yikama','sayfa','giornata'}
-HUD: hud(f, g, year_state, perde, bar)  — sağ üst 420×110 alanında yıl rulosu + ince perde göstergesi; bölüm adı sol üstte (ilk 5,5 sn).
+HUD: hud(f, g, year_state, perde)  — sağ üst HUD_RECT (300×66, kenarlardan 72 px) içinde yıl rulosu + ince perde göstergesi; bölüm adı sol üstte (ilk 5,5 sn).
+Geçiş süresi TR_MIN–TR_MAX (0,25–2,4 sn); tr="cut" / None = birinci sınıf sert kesme (is_cut, cut_opts).
 """
 import functools
 import math
@@ -245,19 +246,36 @@ _STK = skia.Paint.kStroke_Style
 _BLURN = skia.kNormal_BlurStyle
 
 
-def norm_tr(tr):
-    """tr → (ad, süre, opts) | None. tr=(ad, süre[, opts]) ya da 'ad'. Yeni geçişlerde süre ≤ 1,0 sn."""
+TR_MIN, TR_MAX = 0.25, 2.4                       # geçiş süresi aralığı (sn; kurul tur 1 AN2-Ö2): 0,25–0,4 "vuruş" · 0,9 standart · 1,6–2,4 "uzun"
+CUT = "cut"                                       # birinci sınıf sert kesme: tr="cut" (ya da None). opts: dict(carry=False) kamerayı kesmede durdurur
+
+
+def is_cut(tr):
+    """tr sert kesme mi: None / "" / "cut" / ("cut", …)."""
     if not tr:
+        return True
+    return (tr if isinstance(tr, str) else tr[0]) == CUT
+
+
+def norm_tr(tr):
+    """tr → (ad, süre, opts) | None (sert kesme). tr=(ad, süre[, opts]) ya da 'ad' ya da "cut"/None. Süre TR_MIN–TR_MAX (0,25–2,4 sn) aralığına kıstırılır."""
+    if is_cut(tr):
         return None
     if isinstance(tr, str):
         name, d, o = tr, 0.8, {}
     else:
         name = tr[0]
-        d = float(tr[1]) if len(tr) > 1 else 0.8
-        o = dict(tr[2]) if len(tr) > 2 and tr[2] else {}
-    if name in NEW_TR:
-        d = min(d, 1.0)
+        d = float(tr[1]) if len(tr) > 1 and not isinstance(tr[1], dict) else 0.8
+        o = dict(tr[-1]) if len(tr) > 1 and isinstance(tr[-1], dict) else {}
+    d = min(max(d, TR_MIN), TR_MAX)
     return name, d, o
+
+
+def cut_opts(tr):
+    """Sert kesmenin seçenekleri (tr=("cut", dict(carry=False)) gibi) → dict."""
+    if tr and not isinstance(tr, str) and len(tr) > 1 and isinstance(tr[-1], dict):
+        return dict(tr[-1])
+    return {}
 
 
 def lead_for(name, d, opts=None):
@@ -998,56 +1016,72 @@ class YearState:
         return cur, prev, clamp((g - t0) / self.roll)
 
 
-def _digit_roll(f, x, base_y, ch_old, ch_new, p, size, color, cw, clip_rect=None):
+def _digit_roll(f, x, base_y, ch_old, ch_new, p, size, color, cw, clip_rect=None, alpha=1.0):
     """Tek hane: eski üstten çıkar, yeni alttan girer (yumuşak)."""
     e = ease_io(p, 3)
     dy = size * 0.95
     if ch_old is not None and e < 1:
-        CM.ink(f, ch_old, x, base_y - dy * e, face="title", size=size, color=color, align="c", alpha=(1 - e) ** 1.2, emboss=False)
-    CM.ink(f, ch_new, x, base_y + dy * (1 - e), face="title", size=size, color=color, align="c", alpha=min(1.0, e * 1.6 + (1.0 if ch_old is None else 0.0)), emboss=False)
+        CM.ink(f, ch_old, x, base_y - dy * e, face="title", size=size, color=color, align="c", alpha=alpha * (1 - e) ** 1.2, emboss=False)
+    CM.ink(f, ch_new, x, base_y + dy * (1 - e), face="title", size=size, color=color, align="c", alpha=alpha * min(1.0, e * 1.6 + (1.0 if ch_old is None else 0.0)), emboss=False)
 
 
-def hud(f, g, ys, perde, mode="day"):
-    """Sağ üst: lapis tabletli yıl rulosu + I/II/III perde göstergesi. Alan: x∈[1500,1920], y∈[0,110]."""
+HUD_W, HUD_H, HUD_MARGIN = 300, 66, 72                     # kurul tur 1 (SA1-Ö8, TE2-K1): 420×110 → 300×66, sağ/üst kenardan 72 px
+HUD_RECT = (W - HUD_MARGIN - HUD_W, HUD_MARGIN, W - HUD_MARGIN, HUD_MARGIN + HUD_H)   # (x0, y0, x1, y1) = (1548, 72, 1848, 138): yıl tableti
+HUD_PAD = 18                                                 # gölge + nefes payı: levhalar HUD_RECT'ten en az bu kadar uzak dursun
+
+
+def hud_keepout(pad=HUD_PAD):
+    """HUD'un kaçınılacak alanı (x0, y0, x1, y1): tablet + gölge/nefes payı. ENG-A levha yerleşimi ve qa denetimi bunu kullanır."""
+    x0, y0, x1, y1 = HUD_RECT
+    return (x0 - pad, y0 - pad, x1 + pad, y1 + pad)
+
+
+def hud(f, g, ys, perde, mode="day", alpha=1.0):
+    """Sağ üst: lapis tabletli yıl rulosu + I/II/III perde göstergesi. Alan: HUD_RECT (300×66, kenarlardan 72 px)."""
     cur, prev, p = ys.at(g)
-    x0, y0, w, h = 1498, 20, 382, 82
+    x0, y0 = HUD_RECT[0], HUD_RECT[1]
+    w, h = HUD_W, HUD_H
     c = f.c
     # tablet (her modda lapis: kontrast sabit)
-    f.rrect(x0 + 4, y0 + 7, w, h, 12, color="#000000", alpha=0.42, blur=8)
-    f.rrect(x0, y0, w, h, 12, shader=f.lin(x0, y0, x0, y0 + h, [("#1E3282", 0.0), ("#0F1B52", 1.0)]), alpha=0.97)
-    f.rrect(x0, y0, w, h, 12, style="stroke", sw=2.2, color="#D8B25A", alpha=0.95)
-    f.rrect(x0 + 6, y0 + 6, w - 12, h - 12, 8, style="stroke", sw=1.0, color="#D8B25A", alpha=0.55)
+    f.rrect(x0 + 3, y0 + 5, w, h, 10, color="#000000", alpha=0.40 * alpha, blur=6)
+    f.rrect(x0, y0, w, h, 10, shader=f.lin(x0, y0, x0, y0 + h, [("#1E3282", 0.0), ("#0F1B52", 1.0)]), alpha=0.97 * alpha)
+    f.rrect(x0, y0, w, h, 10, style="stroke", sw=1.8, color="#D8B25A", alpha=0.95 * alpha)
+    f.rrect(x0 + 5, y0 + 5, w - 10, h - 10, 6, style="stroke", sw=0.9, color="#D8B25A", alpha=0.50 * alpha)
     # perde göstergesi (sol bölme)
-    px = x0 + 22
-    for i in (1, 2, 3):
+    sep = 98                                                  # ayırıcı x (tablet içinde)
+    fs = 21
+    widths = [sk.text_width(ROMAN[i], "title_m", fs, 2) for i in (1, 2, 3)]
+    gap = 9
+    px = x0 + (sep - (sum(widths) + 2 * gap)) / 2
+    for i, wd in zip((1, 2, 3), widths):
         s = ROMAN[i]
         on = i == perde
-        wd = sk.text_width(s, "title_m", 28, 2)
         col = "#F4D98A" if on else "#8E9FD2"
-        CM.ink(f, s, px + wd / 2, y0 + 49, face="title_m", size=28, color=col, align="c", track=2, alpha=1.0 if on else 0.9, emboss=False)
+        CM.ink(f, s, px + wd / 2, y0 + 40, face="title_m", size=fs, color=col, align="c", track=2, alpha=(1.0 if on else 0.9) * alpha, emboss=False)
         if on:
-            f.rect(px - 2, y0 + 58, wd + 4, 2.5, color="#F4D98A", alpha=0.95)
-        px += wd + 14
+            f.rect(px - 2, y0 + 47, wd + 4, 2.0, color="#F4D98A", alpha=0.95 * alpha)
+        px += wd + gap
     # ayırıcı
-    f.line(x0 + 128, y0 + 16, x0 + 128, y0 + h - 16, color="#D8B25A", sw=1.4, alpha=0.6)
+    f.line(x0 + sep, y0 + 13, x0 + sep, y0 + h - 13, color="#D8B25A", sw=1.2, alpha=0.6 * alpha)
     # yıl (rulo)
     s_new = str(cur)
     s_old = str(prev) if prev is not None else None
-    size = 56
-    cw = sk.text_width("0", "title", size, 0) + 3
-    cxr = x0 + 128 + (w - 128) / 2
+    size = 44
+    cw = sk.text_width("0", "title", size, 0) + 2.5
+    cxr = x0 + sep + (w - sep) / 2
     xs = cxr - cw * len(s_new) / 2 + cw / 2
+    base = y0 + 48
     c.save()
-    c.clipRect(skia.Rect.MakeLTRB(x0 + 134, y0 + 6, x0 + w - 8, y0 + h - 6))
+    c.clipRect(skia.Rect.MakeLTRB(x0 + sep + 5, y0 + 5, x0 + w - 6, y0 + h - 5))
     for i, chn in enumerate(s_new):
         cho = s_old[i] if (s_old is not None and i < len(s_old)) else None
         changed = cho is not None and cho != chn and p < 1
         if changed:
             # her hane biraz farklı gecikmeyle
             pp = clamp((p * (1.0 + 0.35 * (len(s_new) - 1 - i) / max(1, len(s_new) - 1))) - 0.1 * (len(s_new) - 1 - i))
-            _digit_roll(f, xs + i * cw, y0 + 61, cho, chn, clamp(pp), size, "#F6DD92", cw)
+            _digit_roll(f, xs + i * cw, base, cho, chn, clamp(pp), size, "#F6DD92", cw, alpha=alpha)
         else:
-            CM.ink(f, chn, xs + i * cw, y0 + 61, face="title", size=size, color="#F6DD92", align="c", emboss=False)
+            CM.ink(f, chn, xs + i * cw, base, face="title", size=size, color="#F6DD92", align="c", emboss=False, alpha=alpha)
     c.restore()
 
 
