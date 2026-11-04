@@ -3,6 +3,18 @@
 Dosyalar: `scenes_c1.py` (39 çekim; 3 longtake), `c1_kinds.py` (özel türler), `p1_ortak.py`, `yonetmen_c1.md`.
 Özel türler: `c1_cicek` (florin → zambak → kurt), `c1_darphane`, `c1_okul`, `c1_agi` (Peruzzi/Bardi şube ağı), `c1_edward`, `c1_kardes`, `c1_toprak` (toprak katman kesiti), `c1_yazi`, `c1_lonca`, `c1_machiavelli`, `c1_kademe`, `c1_kose`, `c1_sokak` (sehir/sokak sarmalayıcısı; `people=[…at=çapa]`, `door_at`).
 
+## Kurul tur 1 — güncel durum (4 Kasım; aşağıdaki eski bölümler tur 1 öncesidir, çelişkide bu bölüm geçerlidir)
+- 41 çekim (longtake yok; en uzun 9,8 sn). Yol haritası çipleri (`P.roadmap`, sol üst, 3,6 sn): ALTIN c1s1 · HESAP c1s6 · VEBA c1s11 · ÖFKE c1s15 · ASIL HİKÂYE: MEDİCİ c1s25.
+- Ekran olguları (yeni/değişen): "≈90.000 KİŞİ" + "VILLANI'YE GÖRE · TAHMİN" (teyit §3.6); "PERUZZİ BANKASI · 1330'LAR" + "15 ŞUBE" + "BİR KAYNAĞA GÖRE"; "ŞUBE SAYILARI TEMSİLÎ" (Bardi = Peruzzi = 15 düğüm, KA1-S2);
+  "GIOVANNI VILLANI · PERUZZİ ORTAĞI (1300'DEN)" (teyit c1s10, DBI); "MART 1348 · YAZ BOYUNCA"; "MAYIS 1378" (türetme, teyit §3.8); kurada çekilen fiş "SALVESTRO" + levha "SALVESTRO DE' MEDICI · MEDİCİ AİLESİNİN BAŞKA BİR KOLU" + "KURAYLA" + "GONFALONIERE · ŞEHRİN BAŞI";
+  "22 TEMMUZ 1378"; "MICHELE DI LANDO · YÜN TARAYICISI → GONFALONIERE" (ÇEKİLDİ yok); talepler dilekçesi (anlatımla aynı üç kalem) + "YAZILDIĞINA GÖRE"; "KURGU · KONUŞMA TARİHÇİNİN";
+  "KISA ÖMÜRLÜ LONCA KALDIRILDI" / "YÖNETİMDEN DE DIŞLANDILAR" (CIOMPI LONCASI kalkanı işaretsiz, temsilî); "MEDİCİ'NİN BU KOLU"; "ARMALAR TEMSİLÎ" (lonca/kademe);
+  "GIOVANNI DI BICCI · MEDİCİ'NİN BU KOLUNDAN" + "KÜÇÜK BİR PAY"; "VIERI DI CAMBIO · GIOVANNI'NİN PATRONU"; "1390'LARIN BAŞI", "ALACAK + BORÇ", "DEVRALDI"; sözleşme satırları "Piccarda Bueri", "çeyiz · 1.500 florin"; Orsanmichele levhası yalnız "VIA PORTA ROSSA" (teyit §3.5).
+- Görsel düzeltmeler: zambak = Floransa giglio'su (etaminli, `CP.lily_path`), lanette kızıl + beyaz komün zemini (mor yok); hesap okulunda yazılı rakamlar + çizgili sayma bezi/jeton (abaküs yok); çukur ilk karede okunur;
+  nakarat metni anlatımla birebir (koyu levha, krem, 56–58 px); 1378 kalabalığı/alayı: atlı yok, halk ağırlıklı, `flag_ctx` (Medici sancağı yok); banka nişlerinde YATIK defterler (`P1Banka`, SA2-K5).
+- Yeni setler: `p1ofis/peruzzi` (Peruzzi sayım odası, c1s8 + c1s10 geri çağırma), `p1ofis/ev` (Giovanni'nin mütevazı evi), `calisma/kutuphane` (Machiavelli; c2'de de aynı oda/figür), `salon/signoria` (kura), `salon/napoli` (Vieri'nin Roma bankası).
+- Kullanılmayan tür: `c1_kardes` (kardeş iddiası yanlıştı; teyit c1s10). YIL_AT: 1338 · 1348 · 1378 · 1390 · 1397.
+
 ## Kısıtlar (uygulananlar)
 - **Ağır sahneler (veba 13–20, Ciompi'nin ezilişi 29–30): mizah KAPALI, şiddet gösterilmez.** Veba = renk solması (doygunluk + soğuk ton; "gece/şafak/çan" iddiası yok), boş sokak, kapanan kapı, boş oda, toprak katmanı kesiti; ceset/beden/kan çizilmez. Ciompi'nin bastırılması = kızıl pigment yıkama (kan değil) + loncaların milis alayı; hiçbir beden yok.
 - Numerik kartlar akışın içinde (sayaçlar `count_up`, statik bekleme kartı yok): 3,5 GRAM · 2 CM · 90.000 KİŞİ · 15 ŞUBE · 12 YAŞINDA · 1.500 FLORİN · 10.000 FLORİN.

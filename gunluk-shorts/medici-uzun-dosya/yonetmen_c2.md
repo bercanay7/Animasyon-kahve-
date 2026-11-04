@@ -1,57 +1,61 @@
-# c2 — Yönetmen kartı (Defterin Sihri · 1397–1429 · 244 sn · gerçek ses · PARÇA 1 KAPANIŞI)
-Renk anahtarı: defter kâğıdı + yeşil çuha masa (banka) + florin altını; mizah sahnelerinde sinabar damgalar (YASAK, MİT, İTİRAZ, ANEKDOT); Cossa mezarında taş + mum; 20 Şubat 1429 çekiminde (yalnız sönen mum + yıl ruloyu) lapis/mum; KAPI: soluk gri-mavi tonda kule. Perde I ALTIN.
-Işık: gündüz nötr (kaynak saat/hava söylemiyor). Tek "ışık" olayı: c2_yil'de mum — ÖLÜM YERİ/SAAT/TANIK iddiası DEĞİL; yalnız sembol (sönen mum) ve düz duvar; kapıda `skyline_dikey` gün tonunda ama doygunluk + vinyet ile "ağır" (alacakaranlık/gece iddiası yok).
-Ana hareket yönü: soldan sağa (poliçe rotaları, şubeler, yol ayrımı), ters yön (slide l) yalnız bir yerde: yoksulun sadakası (c2_sadaka) önceki cam yönüne uysun diye.
-İmza sekans: "Defter dünyadır" — çekim 1–11: banka → kambiyo haritası (Brugge → Barselona) → poliçe → ikinci poliçe, kur farkı → BORÇ ✗ FAİZ ✗ KUR FARKI ✓ → vicdan komitesi damgası → mevduat/hediye paketi → Roma şubesinin kasası; sonra Cossa dizisi: borç → papa → Konstanz → mezar "ESKİ PAPA" (altın yaprak parıltısı).
-Mizah (c2'nin ana hamlesi): faiz yasağı ↔ kambiyo ↔ vicdan komitesi (5), faiz değil hediye (9), çifte kayıt MİT (13–14), eski papa yazıtı (18), mitra/aforoz (19, ANEKDOT). KAPALI: Giovanni'nin ölümü ve Cossa'nın esareti (yalnız yol ayrımı, kimse "yakalanmıyor").
-Kapı: "Birkaç yıl sonra aynı Cosimo, şehrin en yüksek kulesinde bir hücreye kapatılacaktı." → Palazzo Vecchio kulesinde yavaş crane up; çan sesi/olayı YOK; hücre görünmez (yalnız soluk bir parıltı); sonu sessiz ve ağır; bitiş ekranı Program'dan.
+# c2 — Yönetmen kartı (Defterin Sihri · 1397–1429 · 246 sn · gerçek ses) — kurul tur 1 sürümü (4 Kasım)
+Renk anahtarı: yeşil çuha + kireç-altın (banka, kambiyo) → kızıl-altın (papalık) → serin taş (Konstanz) → mum-alacakaranlık (ölüm döşeği) → desatüre gök (kule). Perde I ALTIN.
+Kurul: 403–589 sn "kart vadisi" dünya/figür sahnelerine çevrildi (Konstanz salonu, Martinus taht odası, catasto sokağı, yazıcı odaları, kambiyo figürleri, çifte kayıt paneli);
+ardışık kart ≤3, dünya/figür payı ≥%50, sert kesme ≈%45, itme oranı <%40. İnsan çapası: Giovanni (banker seed 5) masada, Brugge'de değil (örnek tüccarlar), Cossa ile, Martinus önünde (mitra),
+devirde oğullarıyla, ölüm döşeğinde; Cosimo seed 33, Lorenzo (oğul) seed 13.
+Ana hareket yönü: sağ; tek bilinçli ters: Konstanz (çekim 16, `pan l` + tiara düşer = düşüş yönü).
+Teyit düzeltmeleri: TİM PARKS; 1407 yok; 150.000'İ AŞKIN; c2s20 BELGE · DE ROOVER (ANEKDOT/RİVAYET/TRECCANİ yok); c2s21 1422'DEN · 22 YIL KESİNTİSİZ + 18 YIL ARALIKLI.
 
 
 | çekim | çapa | tür | cam | giriş geçişi (tr, link) | neden böyle |
 |---|---|---|---|---|---|
-| 1 · banka: kambiyo; Kilise faizi yasakladı (5.7 sn) | c2s1 -0.10 | p1_oda | push 0.06 | kesme, scale | c1'in banka köşesinden kesintisiz devam; 'KAMBİYO' damgası çarpar (c1 kapısına yanıt), Kilise tablosu + YASAK; kamera sağa kayar. |
-| 2 · bankacılar bir yol buldu (2.3 sn) | c2s2 bankacılar -0.20 | p1_oda | push 0.08 | light, light | light: 'bir yol buldular' — pusula simgesi büyür, florinler masalar arasında yay çizer; kısa (2,3 sn) vuruş. |
-| 3 · kambiyo: Brugge → Barselona (5.9 sn) | c2s3 -0.10 | p1_map | push 0.06 | zoomthru, scale | zoomthru ölçek: banka → harita; klasik örnek (KLASİK BİR ÖRNEK damgası); Brugge'de para, poliçe rota çizgisi Brugge → Barselona. |
-| 4 · poliçe: Barselona'ya çekilmiş (3.6 sn) | c2s3 karşılığında -0.20 | p1_doc | push 0.08 | sayfa, material | sayfa: POLİÇE belgesi (yakın plan: 'Brugge'de verilen / Barselona'da ödenir', mühür basılır) + florin yayı; haritadan belgeye malzeme geçişi. |
-| 5 · tahsil, ikinci poliçe, kazanç = kur farkı (7.7 sn) | c2s4 -0.10 | p1_map | pull 0.07 | slide, dir | slide r: aynı harita, ikinci poliçe Barselona → Brugge (mavi rota); 'VADESİ GELİNCE TAHSİL', para geri döner; 'KUR FARKI' vuruşu; kamera çekilir (pull). |
-| 6 · BORÇ ✗ FAİZ ✗ KUR FARKI ✓ (4.5 sn) | c2s5 -0.10 | c2_nolist | push 0.07 | carry, carry | carry(ink): üç levha — BORÇ ✗, FAİZ ✗, KUR FARKI ✓ (çarpılar 'yok' sözcüğünde, onay işareti 'yalnızca'da). |
-| 7 · vicdan komitesi (5.8 sn) | c2s6 -0.10 | p1_oda | push 0.07 | slide, dir | slide r: Medici salonu, masa başında siluet; 'VİCDAN KOMİTESİ' damgası + terazi simgesi + 'EN YARATICI DEPARTMAN' (mizah: kurumun kendisi). |
-| 8 · mevduat sözleşmesi: faiz yazılmaz (5.7 sn) | c2s7 -0.10 | p1_doc | push 0.07 | sayfa, material | sayfa: mevduat sözleşmesi, 'Faiz: —' satırı çarpılır; TRACY PARKS levhası ('aktardığına göre'). |
-| 9 · faiz değil, hediye (6.1 sn) | c2s7 banker -0.20 | c2_hediye | push 0.08 | zoomthru, scale | zoomthru ölçek: kırmızı hediye kutusu açılır, florinler fışkırır; FAİZ etiketi çizilir, yaldızlı HEDİYE gelir (mizah: faiz değil, hediye). |
-| 10 · müşteri: Kilise'nin ta kendisi (5.7 sn) | c2s9 -0.10 | p1_oda | push 0.07 | slide, dir | slide r: banka köşesi, tüccar siluet yanında kardinal siluet masaya yürür; 'MÜŞTERİ: KİLİSE' levhası; parıltı. |
-| 11 · Roma şubesi: kasayı Kilise doldurdu (7.4 sn) | c2s10 -0.10 | c2_kasa | push 0.08 | zoomthru, scale | zoomthru ölçek: ROMA ŞUBESİ — 'AYRI SERMAYE' çarpılır; KİLİSE haçından florinler akar, kasa dolar; DE ROOVER'A GÖRE damgası. |
-| 12 · 25 Mart 1402: Venedik şubesi; yılbaşı (6.7 sn) | c2s11 -0.10 | p1_map | push 0.07 | yikama, material | yikama (malzeme): 25 MART 1402, Floransa → Venedik rotası (yakın harita); YILBAŞI damgası ve kum saati (Floransa'da o gün yılbaşı). |
-| 13 · çifte kayıt: Medici icadı mı? MİT (3.2 sn) | c2s12 -0.10 | p1_ledger | push 0.07 | sayfa, material | sayfa: açık defter (DEBITORI / CREDITORI), giriş/çıkış satırları karşılıklı 'çifte'; Medici arması + MİT damgası ('icat etti derler'). |
-| 14 · çifte kayıt: Cenova 1340 → … (7.9 sn) | c2s13 -0.10 | p1_timeline | push 0.06 | carry, carry | carry(paper): zaman çizelgesi Cenova 1340 → Venedik 1407 → Pacioli 1494; Medici arması çizelge DIŞINDA ve çarpılı; ETMEDİLER damgası. |
-| 15 · her şubenin kendi ortaklığı ve defteri (7.7 sn) | c2s14 -0.10 | p1_network | push 0.07 | light, light | light: ağ — Floransa merkez, Roma ve Venedik şubeleri, her düğümde defter simgesi ('kendi ortaklığı, kendi defteri'). |
-| 16 · Giovanni → Cossa: borç, papalık, Konstanz (13.3 sn) | c2s15 -0.10 | c2_borc | push 0.06 | zoomthru, scale | zoomthru + uzun plan (13,3 sn, longtake): solda Giovanni bronz madalya, sağda Cossa siluet kardinal; borç florin yayı; taç gelir (XXIII. JOHANNES, PAPA); KONSTANZ KONSİLİ · 1415 levhası, tokmak iner, taç düşer. Yüz uydurulmaz. |
-| 17 · kefalet mi fidye mi: yol ayrımı (7.7 sn) | c2s17 -0.10 | c2_ayrim | push 0.07 | slide, dir | slide r: yol ayrımı — KEFALET (rulo) / FİDYE (kese) iki yol, siluet ikiye ayrılır; 'KAYNAKLAR AYRIŞIYOR' damgası (esaret/hücre gösterilmez). |
-| 18 · Cossa'nın mezarı: ESKİ PAPA (12.2 sn) | c2s18 -0.10 | c2_mezar | push 0.07 | light, light | light + uzun plan (12,2 sn, longtake): VAFTİZHANE / COSSA'NIN MEZARI levhası; harf harf oyulan 'ESKİ PAPA' (altın yaprak parıltısı); V. MARTINUS itiraz levhası + İTİRAZ damgası; yazıt yerinde kalır (sonda parıltı). |
-| 19 · rivayet: mitra, aforoz tehdidi (ANEKDOT) (12.6 sn) | c2s20 -0.10 | c2_rivayet | push 0.06 | sayfa, material | sayfa + uzun plan (12,6 sn, longtake): TRECCANI / GIOVANNI MADDESİNDE levhası + ANEKDOT damgası; Giovanni madalyası, yastıkta mitra ('BORÇ'), V. MARTINUS silueti; AFOROZ TEHDİDİ damgası. |
-| 20 · papalığın resmî kasa memurluğu (4.7 sn) | c2s21 -0.10 | p1_emblem | push 0.08 | light, light | light: iki anahtar (altın) — 'PAPALIĞIN RESMÎ KASA MEMURLUĞU', '1420'LERİN BAŞINDAN İTİBAREN'. |
-| 21 · 22 yıl Medici'de (4.2 sn) | c2s21 kesintilerle -0.30 | p1_counter | push 0.08 | carry, carry | carry: '22 YIL' sayılır (sayaç), solda anahtar, sağda Medici arması; 'KESİNTİLERLE'. |
-| 22 · catasto: hanelerin servetini tek tek (7.2 sn) | c2s22 -0.10 | c2_katasto | push 0.07 | sayfa, material | sayfa: KATASTO · 1427 — hane kayıtları kalemle tek tek yazılır; HANE sayacı artar. |
-| 23 · 137 hane ≈ %30 (6.2 sn) | c2s23 -0.10 | p1_stacked | push 0.07 | slide, dir | slide r: KAYITLI SERVET çubuğu — 137 HANE %29,8 (altın dilim) / geri kalan; BİR HESABA GÖRE damgası; sandık simgesi. |
-| 24 · en zengini Palla Strozzi (3.0 sn) | c2s23 en -0.15 | p1_emblem | push 0.08 | zoomthru, scale | zoomthru ölçek: sandık simgesi; PALLA STROZZI / EN ZENGİNİ levhası; '162.925 FLORİN · BRÜT' sayaç. |
-| 25 · Giovanni catasto'yu destekledi (3.9 sn) | c2s24 -0.10 | p1_medal | push 0.07 | iris, shape | iris(seal): Giovanni bronz madalya; 'CATASTO'YU DESTEKLEDİ' levhası, oy pusulası simgesi, DESTEKLEDİ damgası. |
-| 26 · 1420: yönetim oğullarına (4.9 sn) | c2s25 -0.10 | p1_tree | push 0.07 | carry, carry | carry(paper): 1420 — GIOVANNI → OĞULLARI ağacı ('yönetimin bırakılması'). |
-| 27 · defterler: 152.820 florin kâr (6.7 sn) | c2s25 1397'den -0.30 | p1_ledger | push 0.07 | sayfa, material | sayfa: 1397–1420 banka defterleri, '152.820 FLORİN KÂR' sayaç + toplam satırı; DEFTERLER GÖSTERİR damgası. |
-| 28 · 20 Şubat 1429; takvimde hâlâ 1428 (7.8 sn) | c2s26 -0.10 | c2_yil | push 0.06 | candle, light | candle: '20 ŞUBAT' — mum söner (yalnız sembol; yer/saat/tanık iddiası yok), yıl hanesi 1429 → 1428 ruloyla döner; 'FLORANSA TAKVİMİ · YILBAŞI 25 MART'. |
-| 29 · Lorenzo'nun kaydına göre 180 bin florin (8.6 sn) | c2s27 -0.10 | p1_medal | push 0.07 | zoomthru, scale | zoomthru ölçek: Lorenzo bronz madalya; 'İLERİDE MUHTEŞEM DİYE ANILACAK' levhası; '180.000 FLORİN' sayaç; LORENZO'NUN KAYDINA GÖRE damgası. |
-| 30 · iki kalem, iki biçim (4.9 sn) | c2s28 -0.10 | c2_kalemler | push 0.07 | slide, dir | slide r: iki panel — MACHIAVELLİ ('BİR ASIR SONRA') ve CAVALCANTI (1440'LARDA) levhaları belirir; 'iki ayrı biçim'. |
-| 31 · Machiavelli yazar (ANEKDOT) (13.0 sn) | c2s29 -0.10 | c1_machiavelli | push 0.06 | sayfa, material | sayfa + uzun plan (13 sn, longtake): MACHIAVELLİ levhası; yaşlı siluetin ağzından konuşma ruloşu açılır; ANEKDOT damgası. |
-| 32 · Cavalcanti yazar (ANEKDOT) (13.3 sn) | c2s30 -0.10 | c2_kalemler | anahtar kareli | carry, carry | carry(paper) + uzun plan (13,3 sn, longtake): kamera anahtar kareli olarak Cavalcanti panosuna kayar (kesme yok), satırlar yazılır; ANEKDOT. |
-| 33 · hangisi söylendi: bilmiyoruz (2.8 sn) | c2s31 -0.10 | c2_kalemler | anahtar kareli | slide, cam | slide (cam): iki panel geri çekilir, soru işareti pop: 'hangisi gerçekten söylendi, bilmiyoruz'. |
-| 34 · yoksulun ihtiyacını kimse istemeden (6.5 sn) | c2s32 -0.10 | c2_sadaka | push 0.07 | slide, dir | slide l: 'MACHIAVELLİ'NİN ÇİZDİĞİ · KİMSE İSTEMEDEN DE' levhası — verici ve yoksullar, florin yayları; ANEKDOT damgası (ters yön, önceki cam yönüne uyar). |
-| 35 · o kalem Medici'nin siparişiyle çalışıyordu (4.5 sn) | c2s33 -0.10 | c1_machiavelli | pull 0.08 | zoomthru, scale | zoomthru ölçek (pull): 'o kalem Medici'nin siparişiyle çalışıyordu' — Medici sipariş mührü büyür (order_big). |
-| 36 · Cosimo: kırk yaşına yaklaşıyordu (4.8 sn) | c2s34 -0.10 | p1_medal | push 0.07 | iris, shape | iris(seal): Cosimo bronz madalya; 'GIOVANNI'NİN OĞLU' levhası; '39 YAŞINDAYDI' sayaç + '1389 DOĞUMLU · HESAPLA' (39 doğrudan kaynak değil, hesap — ekranda öyle işaretli; anlatı 'kırk yaşına yaklaşıyordu'). |
-| 37 · kapı: şehrin en yüksek kulesi (5.4 sn) | c2s35 -0.10 | p1_sehir | crane up 300 | light, light | KAPI (light geçişi): skyline_dikey, yavaş crane up; doygunluk söner, kenar kararır; hücre için yalnız hafif parıltı; çan/ses olayı yok → sessiz ve ağır kapanış. |
+| 1 · banka: kambiyo; Kilise faizi yasakladı; bir yol (8.8 sn) | c2s1 -0.10 | p1_oda | pull | light, light | light: c1 sonundaki banka salonu (aynı Giovanni); KAMBİYO başlığı; Kilise tableti, YASAK (squash); 'bir yol' etiketi. |
+| 2 · Brugge: kese verilir, poliçe alınır (9.5 sn) | c2s3 -0.15 | p1_oda | push | slide, dir | slide: Brugge — iki büyük figür (banker + tüccar), kese → poliçe el değiştirir (prop_arc); 'KLASİK BİR ÖRNEK'. |
+| 3 · poliçe gider, para döner: kur farkı (7.7 sn) | c2s4 -0.15 | p1_map | pull | zoomthru, scale | zoomthru: poliçe Barselona'ya gider, para döner; 'VADESİ GELİNCE TAHSİL', KUR FARKI; etiketler altyazı bandı üstünde. |
+| 4 · BORÇ ✗ FAİZ ✗ KUR FARKI ✓ (4.5 sn) | c2s5 -0.15 | c2_nolist | pan r | kesme, audio | sert kesme: BORÇ ✗ FAİZ ✗ KUR FARKI ✓ vuruşu. |
+| 5 · vicdan komitesi (5.8 sn) | c2s6 -0.15 | p1_oda | pan r | kesme, audio | sert kesme: 'vicdan komitesi' — Medici salonu masası; VİCDAN KOMİTESİ (bounce: mizah). |
+| 6 · mevduat: faiz yazılmaz; lütuf (10.0 sn) | c2s7 -0.15 | p1_oda | push | kesme, audio | sert kesme: mevduat — müşteri eğilir, kese; 'TİM PARKS'IN AKTARDIĞINA GÖRE'; FAİZ ✗. |
+| 7 · faiz değil, hediye (2.2 sn) | c2s8 -0.20 | c2_hediye | push {'rate': 0.03} | kesme, audio | sert kesme: faiz değil, hediye — kese + sikke yağmuru (kutu yok). |
+| 8 · müşteri: Kilise'nin ta kendisi (5.7 sn) | c2s9 -0.15 | p1_oda | push | kesme, audio | sert kesme: sakristi — Kilise (kardinal) ile bankacı; 'MÜŞTERİ: KİLİSE'; kese geçer. |
+| 9 · Roma şubesi: kasayı Kilise doldurdu (7.4 sn) | c2s10 -0.15 | c2_kasa | pan r | zoomthru, scale | zoomthru: Roma şubesi kasası Kilise parasıyla dolar; 'DE ROOVER'A GÖRE' levhası. |
+| 10 · 25 Mart 1402: Venedik şubesi; yılbaşı (6.7 sn) | c2s11 -0.15 | p1_map | pan r | yikama, material | yikama 1,6: 25 Mart 1402 Venedik şubesi; YILBAŞI (bounce). |
+| 11 · çifte kayıt: kâtip; MİT (3.2 sn) | c2s12 -0.15 | p1_oda | hand | kesme, audio | sert kesme: yazıcı odası + çifte kayıt paneli (DEBITORI/CREDITORI denkleşir); MİT (drop). |
+| 12 · çifte kayıt: Cenova 1340 → Pacioli 1494 (7.9 sn) | c2s13 -0.15 | p1_timeline | pan r | kesme, audio | sert kesme: çifte kaydın izi — CENOVA 1340 → PACIOLI 1494 (1407 yok); ETMEDİLER (spin). |
+| 13 · fark defterde değil, yapıda (3.7 sn) | c2s14 -0.15 | p1_network | push 0.08 | light, light | light: 'fark defterde değil' — defter çizilir, Floransa düğümü belirir (vuruş). |
+| 14 · her şubenin kendi ortaklığı ve defteri (4.0 sn) | c2s14 her -0.20 | p1_network | pull 0.08 | kesme, audio | sert kesme: her şubenin kendi ortaklığı ve defteri (Roma, Venedik). |
+| 15 · Giovanni → Cossa: borç; papa (tiara) (8.6 sn) | c2s15 -0.15 | p1_oda | truck r | light, light | light: Giovanni ve Cossa (iki figür) — kese, tiara; 'COSSA = XXIII. JOHANNES · PİSA PAPASI · BUGÜN KARŞI PAPA SAYILIR'. |
+| 16 · Konstanz 1415: taht boş, taç düşer (4.7 sn) | c2s16 -0.15 | p1_oda | pan l | kesme, audio | sert kesme (bilinçli ters yön): Konstanz konsil salonu, ruhban sırası; tiara düşer; 'KONSTANZ KONSİLİ · 1415'. |
+| 17 · kefalet mi fidye mi: yol ayrımı (7.7 sn) | c2s17 -0.15 | c2_ayrim | pan r | kesme, audio | sert kesme: kefalet mi fidye mi — yol ayrımı (kaynaklar ayrışıyor). |
+| 18 · Cossa'nın anıtı: ESKİ PAPA (7.8 sn) | c2s18 -0.15 | c2_mezar | tilt up 120 | light, light | light 1,0: Vaftizhane anıtı — gisant, perde; 'ESKİ PAPA' oyulur. |
+| 19 · V. Martinus itiraz eder (2.9 sn) | c2s19 -0.15 | p1_oda | push | kesme, audio | sert kesme: V. Martinus taht odasında itiraz eder (İTİRAZ, spin). |
+| 20 · yazıt kaldı (1.5 sn) | c2s19 Yazıt -0.15 | c2_mezar | tilt up 130 | kesme, cam | sert kesme: yazıt kaldı (tilt up). |
+| 21 · belge (de Roover): mitra borç karşılığı (2.1 sn) | c2s20 -0.15 | c2_rivayet | tilt down 130 | sayfa, material | sayfa: kaynak — 'DE ROOVER · ANDIĞI ARŞİV BELGELERİ' + 'BELGE · DE ROOVER' (drop); mitra 'BORÇ KARŞILIĞI'. |
+| 22 · Martinus mitrayı geri ister (4.8 sn) | c2s20 Martinus -0.30 | p1_oda | push | kesme, audio | sert kesme: Martinus mitrayı geri ister; Giovanni elinde mitra; 'BORÇ KARŞILIĞI BIRAKILAN MİTRA'. |
+| 23 · aforoz tehdidi (belgeli) (4.2 sn) | c2s20 Giovanni'yi -0.30 | p1_oda | push | kesme, cam | sert kesme yakın iki kişilik: Martinus tehdit eder, Giovanni eğilir; 'AFOROZ TEHDİDİ'. |
+| 24 · kasa memurluğu: 1422'den sonra (4.4 sn) | c2s21 -0.15 | p1_emblem | push 0.08 | light, light | light: papalığın resmî kasa memurluğu — anahtar (halka aşağıda, diş yukarıda); '1422'DEN SONRA'. |
+| 25 · 22 yıl kesintisiz (1.9 sn) | c2s21 yirmi -0.15 | p1_emblem | truck r 130 | kesme, audio | MONTAJ sert kesme: düz yaldız şerit — 22 YIL KESİNTİSİZ. |
+| 26 · + 18 yıl aralıklı (4.3 sn) | c2s21 ardından -0.20 | p1_emblem | pull 0.07 | kesme, audio | MONTAJ sert kesme: kesikli şerit — + 18 YIL ARALIKLI; 'MEDİCİ'DE KALDI'. |
+| 27 · catasto: görevliler kapı kapı (7.2 sn) | c2s22 -0.15 | p1_sehir | truck r | slide, dir | slide: catasto sokağı — kayıt görevlileri kapı kapı (defter, kalem); 'KATASTO · 1427', 'HANE HANE'. |
+| 28 · catasto: 9.780 hane (2.6 sn) | c2s23 -0.15 | c2_katasto | push {'rate': 0.025} | kesme, audio | MONTAJ sert kesme: hane kutuları yazılır (9.780 hane: M1 ekran olgusu); '137 HANE'. |
+| 29 · 137 hane ≈ %30 (3.6 sn) | c2s23 kayıtlı -0.30 | p1_stacked | pan r | kesme, audio | MONTAJ sert kesme: %29,8 çubuğu + 'BİR HESABA GÖRE' (ink). |
+| 30 · 1427'nin en zengini: Palla Strozzi (2.9 sn) | c2s23 en -0.15 | p1_emblem | push | kesme, audio | MONTAJ sert kesme: PALLA STROZZI · 1427'NİN EN ZENGİNİ; 162.925 FLORİN · BRÜT. |
+| 31 · Giovanni catasto'yu destekledi (3.8 sn) | c2s24 -0.15 | p1_oda | hand | kesme, audio | sert kesme: Signoria — Giovanni catasto'yu destekler (DESTEKLEDİ, squash). |
+| 32 · 1420: yönetim oğullarına (5.0 sn) | c2s25 -0.15 | p1_oda | pull | slide, dir | slide: Giovanni ofisinde oğullarına devreder (Cosimo, Lorenzo); defter + anahtar geçer; '1420 · YÖNETİM OĞULLARINA' (HUD 1420). |
+| 33 · defterler: 150 bini aşkın florin kâr (6.6 sn) | c2s25 1397'den -0.30 | p1_ledger | pull | sayfa, material | sayfa: defterler — 150.000'İ AŞKIN florin kâr; 'DEFTERLER GÖSTERİR'. |
+| 34 · 20 Şubat 1429: ölüm döşeği (siluet) (7.8 sn) | c2s26 -0.15 | p1_oda | push | candle, light | candle 1,8: ölüm döşeği (alacakaranlık; ay yok); mum 'öldü'de söner; 20 ŞUBAT 1429 / FLORANSA TAKVİMİ paneli. |
+| 35 · Lorenzo'nun kaydına göre 180 bin florin (8.4 sn) | c2s27 -0.15 | p1_medal | pan r | light, light | light: Lorenzo madalyası (TEMSİLÎ PORTRE), 'TORUNUNUN OĞLU · İLERİDE MUHTEŞEM'; 180.000 FLORİN; 'LORENZO'NUN KAYDINA GÖRE'. |
+| 36 · iki kalem, iki biçim (4.9 sn) | c2s28 -0.15 | c2_kalemler | truck r | kesme, audio | sert kesme: iki kalem, iki biçim — iki sayfa yazılmaya başlar. |
+| 37 · Machiavelli yazar: onun ağzından (5.8 sn) | c2s29 -0.15 | c1_machiavelli | push | slide, dir | slide: Machiavelli (c1 ile aynı figür) yazar; rulo yaşlı Giovanni'nin ağzına uzar ('onun ağzından'). |
+| 38 · ölüm döşeği konuşması (ANEKDOT) (7.2 sn) | c2s29 huzurla -0.40 | p1_oda | hand | kesme, audio | sert kesme: ölüm döşeği — iki oğul siluet, konuşma tomarı; 'MACHIAVELLİ'YE GÖRE', ANEKDOT (ink). |
+| 39 · Cavalcanti yazar (6.4 sn) | c2s30 -0.15 | p1_oda | push | light, light | light: Cavalcanti hücrede yazar (1440'LARDA · OLAYA DAHA YAKIN). |
+| 40 · Cavalcanti'nin sayfası (ANEKDOT) (7.0 sn) | c2s30 kimse -0.30 | c2_kalemler | anahtar kareli | kesme, cam | sert kesme: Cavalcanti'nin sayfası yazılır (vuruş kartı); 'CAVALCANTI'YE GÖRE', ANEKDOT. |
+| 41 · hangisi söylendi: bilmiyoruz (2.8 sn) | c2s31 -0.15 | c2_kalemler | pull | slide, dir | slide 0,35: iki sayfa yan yana + soru işareti — hangisi söylendi, bilmiyoruz. |
+| 42 · yoksulun ihtiyacı (Giovanni; ANEKDOT) (6.5 sn) | c2s32 -0.15 | c2_sadaka | truck r | slide, dir | slide: Giovanni yoksula kimse istemeden verir (Machiavelli'nin çizdiği; ANEKDOT). |
+| 43 · o kalem Medici'nin siparişiyle çalışıyordu (4.5 sn) | c2s33 -0.15 | p1_oda | pull | kesme, audio | sert kesme: Machiavelli'nin odası — 'O KALEM'; Medici mührü düşer, 'MEDİCİ SİPARİŞİ'. |
+| 44 · Cosimo: kırk yaşına yaklaşıyordu (4.8 sn) | c2s34 -0.15 | p1_medal | push | iris, shape | iris (mühür): Cosimo madalyası (TEMSİLÎ PORTRE); 39 YAŞINDAYDI; 1389 DOĞUMLU. |
+| 45 · kapı: şehrin en yüksek kulesi (6.8 sn) | c2s35 -0.15 | p1_sehir | crane up 300 | light, light | light 1,6: kapı — kule, crane up; desatürasyon; parça sonu bekleme motorda (END_HOLD). |
 
-Ölçek geçişleri: banka → harita (3), hediye kutusu (9), Roma kasası (11), Konstanz (16), Strozzi (24), Lorenzo (29), Medici siparişi (35) — ≥2 ✔; kapıda crane up (37).
-Uzun plan(lar) (hepsi longtake): çekim 16 (borç/Konstanz, 13,3 sn), 18 (mezar, 12,2 sn), 19 (rivayet, 12,6 sn), 31 (Machiavelli, 13,0 sn), 32 (Cavalcanti, 13,3 sn).
-Mizah vuruşları: VİCDAN KOMİTESİ (7), HEDİYE (9), MİT (13–14), ESKİ PAPA (18), mitra/aforoz (19). Ağır/kapalı: Giovanni'nin ölümü (28: yalnız sönen mum + yıl ruloyu; yer/saat/tanık yok), kapı (37).
-Ses köprüleri: (a) çekim 1: c1'den oda tonu (banka ortamı) kesilmeden devam; (b) çekim 3: rota çizgisi çizilirken kâğıt/kalem hışırtısı; (c) çekim 28 `candle`: mum sönme sesi, ardından kısa sessizlik (ağır, mizah yok); (d) çekim 37 → bitiş ekranı: müzik çekilir, "kapatılacaktı." sonrası ≥1 sn sessizlik, sonra bitiş ekranı tınısı (Program'dan).
-`sfx=` ipuçları (ses ajanı için): damga çarpmaları (YASAK, KLASİK BİR ÖRNEK, VİCDAN KOMİTESİ, YILBAŞI, MİT, ETMEDİLER, İTİRAZ, ANEKDOT×4, AFOROZ TEHDİDİ, DESTEKLEDİ, BİR HESABA GÖRE, DE ROOVER'A GÖRE, LORENZO'NUN KAYDINA GÖRE), florin cıngırtısı (hediye, kasa, borç, sadaka), sayfa çevirme (4, 8, 13, 19, 22, 27, 31), kalem (22: catasto, 27, 31–32), tokmak vuruşu (16: Konstanz), harf oyma + yaldız parıltı (18), mum sönme (28), kule rüzgârı YOK (37 sessiz).
-Neden böyle? (1) Kambiyo haritada anlatılır: soyut bir 'poliçe' cümlesi, Brugge → Barselona rotasında yüzen kâğıt ve ikinci kâğıtla geri dönen para olarak görülür; böylece 'borç yok, faiz yok, yalnızca kur farkı' levhaları (6) izleyicinin zaten gördüğü mekanizmanın özeti olur. (2) Kapı çekimi sessiz ve ağır bırakıldı: Cosimo'nun hücresi gösterilmez (kaynakta ayrıntı yok), yalnız kulenin yavaş tırmanışı + renk söndürme; Parça 1'in kanca kapanışı 'sonra ne oldu?' sorusunu ekranda değil izleyicide bırakır.
-Bilinen kusur / istek: harita türünde Brugge–Barselona çizgisi düz rota (poliçe taşıyan haritacılık simgesi, gerçek yol değil); c1_machiavelli türü c2'de yeniden kullanıldı (aynı sahne dili). Motordan istek: `p1_ortak.py` sarmalayıcıları yerine `cilt_cam.OWN_CAMERA`'ya 'oda/sehir' resmî olarak eklensin.
-
+Kurul tur 1 kapanan maddeler: kart vadisi → dünya/figür (403–589 sn'de ≈20 dünya/figür çekimi); PİSA PAPASI · KARŞI PAPA; Cossa = Johannes tek levha; 1427'NİN EN ZENGİNİ;
+150.000'İ AŞKIN; 1407 yok; COSMVS · MEDICES (motor); Cosimo 39; YIL_AT 1402/1410/1415/1419/1422/1427/1420/1429; gisant; anahtar yönü + tiara; hediye kutusu → kese; sert kesmeler, kamera çeşitliliği,
+montaj; damga profilleri ≤2/profil; TİM PARKS; c2s20 BELGE · DE ROOVER; c2s21 1422'DEN · 22 YIL KESİNTİSİZ + 18 YIL ARALIKLI; boş sayfa kartları → yazıcı odaları.
+Ses: çekim 16 sert kesmede salon yankısı; 34 mum sönme; 45 sessizlik + çan uzak; sfx ipuçları: kese/sikke (2, 6, 7, 8), mühür (43), kilit/anahtar (24).

@@ -3,6 +3,15 @@
 Dosyalar: `scenes_c0.py` (16 çekim), `c0_kinds.py` (özel türler), `p1_ortak.py` (Parça 1 ortak bindirme kurucuları + `p1_*` sarmalayıcılar), `yonetmen_c0.md`.
 Çekim sırası: şehir silüeti → 1743 odası (zoomthru) → taht/yabancı birlik (iris) → Medici salonu → imza masası 1737 (candle) → 114 gün takvimi → masa/mühür (zoomthru) → belge (14,8 sn, tek kamera) → masa başı → III. madde → galeri (Vasari koridoru) → harita → gerekçe (üç madalyon) → Uffizi kuyruğu (audio) → banka köşesi → sikke/geri sarma (1252).
 
+## Kurul tur 1 — güncel durum (4 Kasım; aşağıdaki eski bölümler tur 1 öncesidir, çelişkide bu bölüm geçerlidir)
+- 17 çekim. 0–3,7 sn **kapak yankısı** `kapak_medici.kapak_sahne_shot("K1", yazi=True)` (kapakla aynı kare: belge + zincir + asma kilit); `kapak_kilit` türüne `P.add_ovl` ile ekran-uzayı künye: "18 ŞUBAT 1743" (46 px) + "FLORANSA" (38 px), koyu levha, alt sağ. HUD bu sürede motor tarafında gizlenir (ENG-B).
+- Yatak odası 3,7–9,1 sn; **9,1 sn sert kesme** → arma + "ANNA MARIA LUISA" levhası + "MEDİCİ'NİN SON ÜYESİ" (52 px koyu levha).
+- Takvim ilk yaprakta **9 TEMMUZ 1737** (Gian Gastone'nun ölümü; 114 gün hesabının başlangıcı, KA2 doğruladı) → 114 yaprak → 31 EKİM; sağ üstte "31 EKİM 1737" (58 px).
+- Harita: "SINIR YAKLAŞIKTIR" ekran levhası (kamera kaydırmasından bağımsız); "çıkarılamayacaktı"da iki zincir + asma kilit (`kapak_medici.draw_chain/draw_padlock`, settle + sarsıntı); "3. MADDE · ÖZET" kartı tırnaksız (koyu, %92 opak).
+- Vasari koridoru: `p1corridor` (1737 figürleri SİLUET). Gerekçe madalyonları: settle girişi, simge salınımı, parıltı; etiket levhaları metin genişliğinde.
+- Uffizi kuyruğu: düz arşitrav; "BUGÜN" kicker'ı 48 px koyu levha (ekran uzayı). "Nasıl geldi?" = Floransa silueti (alacakaranlık, ay yok); banka seti c1 sonuna kaldı.
+- Yön: tek bilinçli ters (çekim 16, geriye bakış). Sert kesme %31. qa_flow --part 1: c0 kapıları geçer (kart eksikliği giderildi: yonetmen_c0.md 17 satır).
+
 ## Kısıtlar (uygulananlar)
 - **Işık/ay:** pencerede AY/YILDIZ yok, "gece" iddiası yok. Oda `tod="dusk"` (alacakaranlık + mum havuzu, pencere nötr soluk cam); ilk çekim şehir silüeti de aynı sıcak "dusk" gökle. Kaynak saat/hava söylemiyor; "dusk" tod seçenekleri içinde en nötr olandır ("night" ay çizer, "day" mumu söndürür). Gerekçe `yonetmen_c0.md` "neden böyle" (2). Belge/saat geri sarma çekimleri `mode="night"` yalnız renk derecelendirmesidir (koyu lapis palet); gökyüzü/gece iddiası taşımaz.
 - **Alıntı kartı:** "SÖZLEŞMENİN 3. MADDESİNİN ÖZETİ" — Anna Maria Luisa'ya ATFEDİLMEZ (c0_harita, `sinir_extra`).

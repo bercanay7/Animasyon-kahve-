@@ -3,6 +3,15 @@
 Dosyalar: `scenes_c2.py` (37 çekim; 5 longtake), `c2_kinds.py` (özel türler), `p1_ortak.py`, `yonetmen_c2.md`.
 Özel türler: `c2_nolist` (BORÇ ✗ FAİZ ✗ KUR FARKI ✓), `c2_hediye`, `c2_kasa`, `c2_borc` (Giovanni–Cossa–taç–Konstanz), `c2_ayrim` (kefalet/fidye yol ayrımı), `c2_mezar` (ESKİ PAPA yazıtı), `c2_rivayet` (mitra/aforoz — ANEKDOT), `c2_katasto` (hane kutuları), `c2_yil` (20 Şubat 1429, mum + yıl ruloyu), `c2_kalemler` (Machiavelli/Cavalcanti panelleri), `c2_sadaka`. `c1_machiavelli` c2'de yeniden kullanıldı (`stamp_text`, `rebel_who="old"`, `order_big`). Özel simgeler: `c2_mitra`, `c2_bulla`.
 
+## Kurul tur 1 — güncel durum (4 Kasım; aşağıdaki eski bölümler tur 1 öncesidir, çelişkide bu bölüm geçerlidir)
+- 45 çekim; 403–589 sn kart vadisi dünya/figür sahnelerine çevrildi (ardışık kart ≤3). Damga profilleri bölümde ≤2/profil (squash: YASAK, DESTEKLEDİ · bounce: VİCDAN KOMİTESİ, YILBAŞI · spin: ETMEDİLER, İTİRAZ · drop: MİT, BELGE · DE ROOVER · ink: BİR HESABA GÖRE, ANEKDOT); diğer kaynak notları koyu levha (`P.tag`).
+- Teyit düzeltmeleri: "TİM PARKS"; zaman çizgisinde 1407 yok (CENOVA 1340 · PACIOLI 1494); "150.000'İ AŞKIN" (152.820 kalktı); c2s20 olay BELGELİ (de Roover n. 45): levha "DE ROOVER · ANDIĞI ARŞİV BELGELERİ" + "BELGE · DE ROOVER" (ANEKDOT/RİVAYET/TRECCANİ ekranda yok);
+  c2s21: "1422'DEN SONRA" → düz şerit "22 YIL KESİNTİSİZ" + kesikli şerit "18 YIL ARALIKLI" (bitiş yılı yazılmaz) + "MEDİCİ'DE KALDI".
+- Ekran olguları (anlatımda olmayan, M1 araştırma notundan): 9.780 hane (catasto kutusu), %29,8 (BİR HESABA GÖRE), 162.925 florin brüt (Strozzi) — kaynak: brif/c2_brif.md M1:#39; teyit_P1 bunları okunan birincil metinlerde bulamadı (KA2-K9 "ekran olguları" listesine alınmalı).
+- YIL_AT: 1402 · 1410 (c2s15 "papa") · 1415 · 1419 (c2s18 "öldü") · 1422 (c2s21) · 1427 · 1420 (c2s25 "1420'de", geri dönüş) · 1429.
+- Giovanni insan çapası: banka masası (1), Cossa ile (15), Martinus önünde mitra (22–23), Signoria (31), devir (32), ölüm döşeği (34, 38), sadaka (42). Machiavelli = c1 ile aynı figür (soylu seed 52) ve oda.
+- Boş sayfa kartları kaldırıldı: Machiavelli (çekim 37, rulo yaşlı Giovanni'nin ağzına), Cavalcanti hücresi (39), "o kalem" Machiavelli'nin odası + Medici mührü (43).
+
 ## Kısıtlar (uygulananlar)
 - **Kapı:** "Birkaç yıl sonra aynı Cosimo, şehrin en yüksek kulesinde bir hücreye kapatılacaktı." → Palazzo Vecchio kulesinde yavaş crane up (4160 px yüksekliğe), doygunluk + vinyet ile söner; hücre GÖSTERİLMEZ (yalnız kule ucunda soluk bir parıltı); çan/saat/ses olayı yok; bölüm sessiz ve ağır biter. Bitiş ekranı Program'dan.
 - **KAPALI (mizah/ayrıntı yok):** Giovanni'nin ölümü (yalnız sönen mum + yıl ruloyu; ölüm yeri/saati/tanık/yatak YOK) ve Cossa'nın esareti (yalnız yol ayrımı: kefalet/fidye; kimse "yakalanmıyor", hücre/kafes yok).
