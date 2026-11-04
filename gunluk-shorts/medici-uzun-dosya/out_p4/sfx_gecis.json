@@ -12,7 +12,7 @@
    "dur": 0.9,
    "loop": false,
    "params": {
-    "dir": "r"
+    "dir": "l"
    },
    "id": "gecis-1-carry",
    "note": "geçiş 'carry' (aforoz belgesi, kurşun mühür)",
@@ -226,7 +226,22 @@
    "loop": false,
    "params": {},
    "id": "gecis-16-zoomthru",
-   "note": "geçiş 'zoomthru' (mektup yolda: temsilci yazdı, Sultan tutuklattı)",
+   "note": "geçiş 'zoomthru' (mektup yolda: Pera'daki temsilci yazdı)",
+   "ch": "c8"
+  },
+  {
+   "t": 96.52,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1017,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-17-slide",
+   "note": "geçiş 'slide' (Sultan katili tutuklattı (zincir))",
    "ch": "c8"
   },
   {
@@ -234,11 +249,11 @@
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1017,
+   "seed": 1018,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-17-zoomthru",
+   "id": "gecis-18-zoomthru",
    "note": "geçiş 'zoomthru' (Antonio'nun aceleyle yolculuğu)",
    "ch": "c8"
   },
@@ -247,13 +262,13 @@
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1018,
+   "seed": 1019,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-18-carry",
+   "id": "gecis-19-carry",
    "note": "geçiş 'carry' (Pera: neden bilmiyoruz; ticaret ayrıcalıkları)",
    "ch": "c8"
   },
@@ -262,13 +277,13 @@
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1019,
+   "seed": 1020,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-19-slide",
+   "id": "gecis-20-slide",
    "note": "geçiş 'slide' (Bargello: heyet (24 Aralık), 29 Aralık)",
    "ch": "c8"
   },
@@ -277,11 +292,11 @@
    "name": "page_turn",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1021,
+   "seed": 1022,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-21-sayfa",
+   "id": "gecis-22-sayfa",
    "note": "geçiş 'sayfa' (Leonardo'nun sayfası: giysi etüdü ve notlar)",
    "ch": "c8"
   },
@@ -290,13 +305,13 @@
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1022,
+   "seed": 1023,
    "dur": 0.9,
    "loop": false,
    "params": {
-    "dir": "r"
+    "dir": "l"
    },
-   "id": "gecis-22-carry",
+   "id": "gecis-23-carry",
    "note": "geçiş 'carry' (harita: Ferrante ayrıldı, Lorenzo yukarı döndü)",
    "ch": "c8"
   },
@@ -305,11 +320,11 @@
    "name": "page_turn",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1023,
+   "seed": 1024,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-23-sayfa",
+   "id": "gecis-24-sayfa",
    "note": "geçiş 'sayfa' (barış maddeleri ve mühür)",
    "ch": "c8"
   },
@@ -318,12 +333,25 @@
    "name": "plaster_scrape",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1024,
+   "seed": 1025,
    "dur": 0.9,
    "loop": false,
    "params": {},
-   "id": "gecis-24-giornata",
-   "note": "geçiş 'giornata' (Yetmişler Konseyi (70 iskemle, 1480-85-90))",
+   "id": "gecis-25-giornata",
+   "note": "geçiş 'giornata' (Yetmişler Konseyi: yetmiş iskemle)",
+   "ch": "c8"
+  },
+  {
+   "t": 160.707,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1026,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-26-zoomthru",
+   "note": "geçiş 'zoomthru' (konsey 1485 ve 1490'da yenilendi)",
    "ch": "c8"
   },
   {
@@ -331,11 +359,11 @@
    "name": "dip_drop",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1025,
+   "seed": 1027,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-25-dip",
+   "id": "gecis-27-dip",
    "note": "geçiş 'dip' (denizden haber: Osmanlı donanması ufukta)",
    "ch": "c8"
   },
@@ -344,11 +372,11 @@
    "name": "dip_drop",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1026,
+   "seed": 1028,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-26-dip",
+   "id": "gecis-28-dip",
    "note": "geçiş 'dip' (Otranto: donanma çıkar, şehir düşer)",
    "ch": "c8"
   },
@@ -357,11 +385,11 @@
    "name": "light_swell",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1027,
+   "seed": 1029,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-27-light",
+   "id": "gecis-29-light",
    "note": "geçiş 'light' (harita: ordu Toskana'dan geri çağrılır)",
    "ch": "c8"
   },
@@ -370,44 +398,16 @@
    "name": "light_swell",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1028,
-   "dur": null,
-   "loop": false,
-   "params": {},
-   "id": "gecis-28-light",
-   "note": "geçiş 'light' (bulla düşer, affedildiler (Aralık 1480))",
-   "ch": "c8"
-  },
-  {
-   "t": 193.65,
-   "name": "cloth_sweep",
-   "gain_db": -23.0,
-   "pan": 0.0,
-   "seed": 1029,
-   "dur": 0.9,
-   "loop": false,
-   "params": {
-    "dir": "r"
-   },
-   "id": "gecis-29-carry",
-   "note": "geçiş 'carry' (döküm: bronz akar, kalıp açılır)",
-   "ch": "c8"
-  },
-  {
-   "t": 201.7,
-   "name": "zoom_rush_long",
-   "gain_db": -22.0,
-   "pan": 0.0,
    "seed": 1030,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-30-zoomthru",
-   "note": "geçiş 'zoomthru' (madalya: ısmarlanmış olabilir)",
+   "id": "gecis-30-light",
+   "note": "geçiş 'light' (bulla düşer: Papa'nın öfkesi geri plana)",
    "ch": "c8"
   },
   {
-   "t": 210.2,
+   "t": 188.128,
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
@@ -416,6 +416,47 @@
    "loop": false,
    "params": {},
    "id": "gecis-31-zoomthru",
+   "note": "geçiş 'zoomthru' (Aralık 1480: elçiler affedildi, mum mühür)",
+   "ch": "c8"
+  },
+  {
+   "t": 193.65,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1032,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-32-carry",
+   "note": "geçiş 'carry' (döküm: bronz akar, kalıp açılır)",
+   "ch": "c8"
+  },
+  {
+   "t": 201.7,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1033,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-33-zoomthru",
+   "note": "geçiş 'zoomthru' (madalya: ısmarlanmış olabilir)",
+   "ch": "c8"
+  },
+  {
+   "t": 210.2,
+   "name": "zoom_rush_long",
+   "gain_db": -22.0,
+   "pan": 0.0,
+   "seed": 1034,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-34-zoomthru",
    "note": "geçiş 'zoomthru' (madalyanın ters yüzü)",
    "ch": "c8"
   },
@@ -424,13 +465,13 @@
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1032,
+   "seed": 1035,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-32-slide",
+   "id": "gecis-35-slide",
    "note": "geçiş 'slide' (olası saldırıya imâ; tuhaf hediye; ölüm)",
    "ch": "c8"
   },
@@ -439,11 +480,11 @@
    "name": "dip_drop",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1033,
+   "seed": 1036,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-33-dip",
+   "id": "gecis-36-dip",
    "note": "geçiş 'dip' (Otranto Napoli'ye döner (Eylül 1481))",
    "ch": "c8"
   },
@@ -452,13 +493,13 @@
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1034,
+   "seed": 1037,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-34-carry",
+   "id": "gecis-37-carry",
    "note": "geçiş 'carry' (savaş barışa çevrildi (Medici arması, defne))",
    "ch": "c8"
   },
@@ -467,11 +508,11 @@
    "name": "candle_out_in",
    "gain_db": -21.0,
    "pan": 0.0,
-   "seed": 1035,
+   "seed": 1038,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-35-candle",
+   "id": "gecis-38-candle",
    "note": "geçiş 'candle' (KAPI: şube ışıkları birer birer söner)",
    "ch": "c8"
   },
@@ -480,11 +521,11 @@
    "name": "zoom_rush_long",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1038,
+   "seed": 1041,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-38-zoomthru",
+   "id": "gecis-41-zoomthru",
    "note": "geçiş 'zoomthru' (defter incelir)",
    "ch": "c9"
   },
@@ -493,13 +534,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1039,
+   "seed": 1042,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-39-carry",
+   "id": "gecis-42-carry",
    "note": "geçiş 'carry' (şap kristalleri)",
    "ch": "c9"
   },
@@ -508,27 +549,25 @@
    "name": "wash_swell",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1040,
+   "seed": 1043,
    "dur": 0.9,
    "loop": false,
    "params": {},
-   "id": "gecis-40-yikama",
+   "id": "gecis-43-yikama",
    "note": "geçiş 'yikama' (boyahaneler: bezler rüzgârda)",
    "ch": "c9"
   },
   {
-   "t": 259.24,
-   "name": "iris_ring",
-   "gain_db": -23.0,
+   "t": 258.46,
+   "name": "zoom_rush_long",
+   "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1041,
+   "seed": 1044,
    "dur": null,
    "loop": false,
-   "params": {
-    "obj": "seal"
-   },
-   "id": "gecis-41-iris",
-   "note": "geçiş 'iris' (harita: Foça yolu kesilir, Tolfa)",
+   "params": {},
+   "id": "gecis-44-zoomthru",
+   "note": "geçiş 'zoomthru' (harita: Foça yolu kesilir, Tolfa)",
    "ch": "c9"
   },
   {
@@ -536,13 +575,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1042,
+   "seed": 1045,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-42-carry",
+   "id": "gecis-45-carry",
    "note": "geçiş 'carry' (belge: dört mühür, biri Medici)",
    "ch": "c9"
   },
@@ -551,13 +590,13 @@
    "name": "iris_ring",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1043,
+   "seed": 1046,
    "dur": null,
    "loop": false,
    "params": {
     "obj": "seal"
    },
-   "id": "gecis-43-iris",
+   "id": "gecis-46-iris",
    "note": "geçiş 'iris' (aforoz damgası, altından gemi geçer)",
    "ch": "c9"
   },
@@ -566,11 +605,11 @@
    "name": "page_turn",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1044,
+   "seed": 1047,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-44-sayfa",
+   "id": "gecis-47-sayfa",
    "note": "geçiş 'sayfa' (defter: kazanç ?, 1475 zarar)",
    "ch": "c9"
   },
@@ -579,11 +618,11 @@
    "name": "zoom_rush_long",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1045,
+   "seed": 1048,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-45-zoomthru",
+   "id": "gecis-48-zoomthru",
    "note": "geçiş 'zoomthru' (Brugge şubesi, yardımcı Portinari)",
    "ch": "c9"
   },
@@ -592,13 +631,13 @@
    "name": "slide_glide",
    "gain_db": -26.0,
    "pan": 0.0,
-   "seed": 1046,
+   "seed": 1049,
    "dur": 0.8,
    "loop": false,
    "params": {
-    "dir": "r"
+    "dir": "l"
    },
-   "id": "gecis-46-slide",
+   "id": "gecis-49-slide",
    "note": "geçiş 'slide' (Cosimo'nun mumu söner, Portinari parlar)",
    "ch": "c9"
   },
@@ -607,13 +646,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1047,
+   "seed": 1050,
    "dur": 0.9,
    "loop": false,
    "params": {
-    "dir": "r"
+    "dir": "l"
    },
-   "id": "gecis-47-carry",
+   "id": "gecis-50-carry",
    "note": "geçiş 'carry' (sikkeler Portinari'den dükün yanına akar)",
    "ch": "c9"
   },
@@ -622,11 +661,11 @@
    "name": "zoom_rush_long",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1048,
+   "seed": 1051,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-48-zoomthru",
+   "id": "gecis-51-zoomthru",
    "note": "geçiş 'zoomthru' (marionet: palle ve taç çeker)",
    "ch": "c9"
   },
@@ -635,13 +674,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1049,
+   "seed": 1052,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-49-carry",
+   "id": "gecis-52-carry",
    "note": "geçiş 'carry' (harita: Brugge bayrak değişir, ışık söner)",
    "ch": "c9"
   },
@@ -650,13 +689,13 @@
    "name": "slide_glide",
    "gain_db": -26.0,
    "pan": 0.0,
-   "seed": 1050,
+   "seed": 1053,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-50-slide",
+   "id": "gecis-53-slide",
    "note": "geçiş 'slide' (Londra: krediler krala akar, sayaç 26.000+)",
    "ch": "c9"
   },
@@ -665,13 +704,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1051,
+   "seed": 1054,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-51-carry",
+   "id": "gecis-54-carry",
    "note": "geçiş 'carry' (geri ödenen sikkeler, güller, ≠ kaynaklar)",
    "ch": "c9"
   },
@@ -680,11 +719,11 @@
    "name": "page_turn",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1052,
+   "seed": 1055,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-52-sayfa",
+   "id": "gecis-55-sayfa",
    "note": "geçiş 'sayfa' (Londra çubuğu biter, lamba söner, zarar kartı)",
    "ch": "c9"
   },
@@ -693,11 +732,11 @@
    "name": "candle_out_in",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1053,
+   "seed": 1056,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-53-candle",
+   "id": "gecis-56-candle",
    "note": "geçiş 'candle' (KAPANIŞ: kandiller tek tek söner)",
    "ch": "c9"
   },
@@ -706,11 +745,11 @@
    "name": "light_swell",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1054,
+   "seed": 1057,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-54-light",
+   "id": "gecis-57-light",
    "note": "geçiş 'light' (suçlama çarkı döner (Suçlu kimdi?))",
    "ch": "c9"
   },
@@ -719,28 +758,28 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1055,
+   "seed": 1058,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-55-carry",
+   "id": "gecis-58-carry",
    "note": "geçiş 'carry' (Machiavelli yazar (Medici siparişi))",
    "ch": "c9"
   },
   {
-   "t": 360.497,
+   "t": 361.188,
    "name": "slide_glide",
    "gain_db": -26.0,
    "pan": 0.0,
-   "seed": 1056,
+   "seed": 1059,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-56-slide",
+   "id": "gecis-59-slide",
    "note": "geçiş 'slide' (çark AJANLAR'da durur)",
    "ch": "c9"
   },
@@ -749,13 +788,13 @@
    "name": "iris_ring",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1057,
+   "seed": 1060,
    "dur": null,
    "loop": false,
    "params": {
     "obj": "florin"
    },
-   "id": "gecis-57-iris",
+   "id": "gecis-60-iris",
    "note": "geçiş 'iris' (Sassetti: ≈30 yıl genel müdür)",
    "ch": "c9"
   },
@@ -764,13 +803,13 @@
    "name": "slide_glide",
    "gain_db": -26.0,
    "pan": 0.0,
-   "seed": 1058,
+   "seed": 1061,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-58-slide",
+   "id": "gecis-61-slide",
    "note": "geçiş 'slide' (Treccani tanımı)",
    "ch": "c9"
   },
@@ -779,13 +818,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1059,
+   "seed": 1062,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-59-carry",
+   "id": "gecis-62-carry",
    "note": "geçiş 'carry' (de Roover: devlet adamı ✓, iş adamı ✗)",
    "ch": "c9"
   },
@@ -794,11 +833,11 @@
    "name": "zoom_rush_long",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1060,
+   "seed": 1063,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-60-zoomthru",
+   "id": "gecis-63-zoomthru",
    "note": "geçiş 'zoomthru' (Goldthwaite: sakin çizgi, kriz yok)",
    "ch": "c9"
   },
@@ -807,13 +846,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1061,
+   "seed": 1064,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-61-carry",
+   "id": "gecis-64-carry",
    "note": "geçiş 'carry' (çark oturmaz: kime sorduğunuza bağlı)",
    "ch": "c9"
   },
@@ -822,11 +861,11 @@
    "name": "light_swell",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1062,
+   "seed": 1065,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-62-light",
+   "id": "gecis-65-light",
    "note": "geçiş 'light' (şapel: giornata, ironi (defter incelirken))",
    "ch": "c9"
   },
@@ -835,11 +874,11 @@
    "name": "candle_out_in",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1063,
+   "seed": 1066,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-63-candle",
+   "id": "gecis-66-candle",
    "note": "geçiş 'candle' (Piero kaçar (siluet), sürgün)",
    "ch": "c9"
   },
@@ -848,29 +887,27 @@
    "name": "slide_glide",
    "gain_db": -26.0,
    "pan": 0.0,
-   "seed": 1064,
+   "seed": 1067,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "l"
    },
-   "id": "gecis-64-slide",
+   "id": "gecis-67-slide",
    "note": "geçiş 'slide' (Palazzo Medici: mühür bandı, EL KONDU)",
    "ch": "c9"
   },
   {
-   "t": 415.84,
-   "name": "slide_glide",
-   "gain_db": -26.0,
+   "t": 415.24,
+   "name": "zoom_rush_long",
+   "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1065,
-   "dur": 0.8,
+   "seed": 1068,
+   "dur": null,
    "loop": false,
-   "params": {
-    "dir": "r"
-   },
-   "id": "gecis-65-slide",
-   "note": "geçiş 'slide' (bronzlar Palazzo Vecchio'ya taşınır)",
+   "params": {},
+   "id": "gecis-68-zoomthru",
+   "note": "geçiş 'zoomthru' (bronzlar Palazzo Vecchio'ya taşınır)",
    "ch": "c9"
   },
   {
@@ -878,13 +915,13 @@
    "name": "cloth_sweep",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1066,
+   "seed": 1069,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-66-carry",
+   "id": "gecis-69-carry",
    "note": "geçiş 'carry' (kesit: alt kat kalabalık, üst kat ışıklı ve boş)",
    "ch": "c9"
   },
@@ -893,11 +930,11 @@
    "name": "zoom_rush_long",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1067,
+   "seed": 1070,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-67-zoomthru",
+   "id": "gecis-70-zoomthru",
    "note": "geçiş 'zoomthru' (bankanın masası kayyumlara)",
    "ch": "c9"
   },
@@ -906,11 +943,11 @@
    "name": "page_turn",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1068,
+   "seed": 1071,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-68-sayfa",
+   "id": "gecis-71-sayfa",
    "note": "geçiş 'sayfa' (aralık çubukları: resmî son 1494, fiilî çözülme)",
    "ch": "c9"
   },
@@ -919,11 +956,11 @@
    "name": "light_swell",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1069,
+   "seed": 1072,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-69-light",
+   "id": "gecis-72-light",
    "note": "geçiş 'light' (bronzlar altın ışıkta (güzellik kaldı))",
    "ch": "c9"
   },
@@ -932,11 +969,11 @@
    "name": "dip_drop",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1070,
+   "seed": 1073,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-70-dip",
+   "id": "gecis-73-dip",
    "note": "geçiş 'dip' (defter kapanır (banka öldü))",
    "ch": "c9"
   },
@@ -945,13 +982,13 @@
    "name": "iris_ring",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1071,
+   "seed": 1074,
    "dur": null,
    "loop": false,
    "params": {
     "obj": "palle"
    },
-   "id": "gecis-71-iris",
+   "id": "gecis-74-iris",
    "note": "geçiş 'iris' (KAPI: kral Alpler'i aşar, rahip vaaz verir)",
    "ch": "c9"
   }

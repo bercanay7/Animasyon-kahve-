@@ -116,7 +116,20 @@
   "loop": false,
   "params": {},
   "id": "gecis-4-zoomthru",
-  "note": "geçiş 'zoomthru' (suçlama)",
+  "note": "geçiş 'zoomthru' (suçlama: sıradan yurttaşın üstüne çıkmak)",
+  "ch": "c3"
+ },
+ {
+  "t": 28.91,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1005,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-5-zoomthru",
+  "note": "geçiş 'zoomthru' (ölüm cezası ihtimali masadaydı)",
   "ch": "c3"
  },
  {
@@ -124,12 +137,12 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1005,
+  "seed": 1006,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-5-yikama",
-  "note": "geçiş 'yikama' (ekmek ve bekçi (gravür))",
+  "id": "gecis-6-yikama",
+  "note": "geçiş 'yikama' (Cosimo zehirlenmekten korkup yalnız ekmek yer (gravür))",
   "ch": "c3"
  },
  {
@@ -146,17 +159,30 @@
   "ch": "c3"
  },
  {
+  "t": 37.48,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1007,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-7-zoomthru",
+  "note": "geçiş 'zoomthru' (bekçi her yemekten önce tadar (gravür))",
+  "ch": "c3"
+ },
+ {
   "t": 43.27,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1006,
+  "seed": 1008,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-6-slide",
+  "id": "gecis-8-slide",
   "note": "geçiş 'slide' (küçük kâğıdın yolu)",
   "ch": "c3"
  },
@@ -190,11 +216,11 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1007,
+  "seed": 1009,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-7-sayfa",
+  "id": "gecis-9-sayfa",
   "note": "geçiş 'sayfa' (ölüm cezası → sürgün; küçük kâğıt)",
   "ch": "c3"
  },
@@ -216,11 +242,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1008,
+  "seed": 1010,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-8-zoomthru",
+  "id": "gecis-10-zoomthru",
   "note": "geçiş 'zoomthru' (Floransa → Padova)",
   "ch": "c3"
  },
@@ -229,14 +255,27 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1009,
+  "seed": 1011,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-9-carry",
-  "note": "geçiş 'carry' (sürgünün süresi: kaynaklar anlaşamıyor)",
+  "id": "gecis-11-carry",
+  "note": "geçiş 'carry' (sürgünün süresi: kaynaklar anlaşamıyor (bir yıl))",
+  "ch": "c3"
+ },
+ {
+  "t": 70.26,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1012,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-12-zoomthru",
+  "note": "geçiş 'zoomthru' (yirmi yıl diyen de; çoğu anlatıda on)",
   "ch": "c3"
  },
  {
@@ -244,13 +283,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1010,
+  "seed": 1013,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-10-slide",
+  "id": "gecis-13-slide",
   "note": "geçiş 'slide' (Padova → Venedik; elçi Floransa'ya)",
   "ch": "c3"
  },
@@ -274,13 +313,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1011,
+  "seed": 1014,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-11-carry",
+  "id": "gecis-14-carry",
   "note": "geçiş 'carry' (yanında Michelozzo)",
   "ch": "c3"
  },
@@ -289,13 +328,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1012,
+  "seed": 1015,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-12-slide",
+  "id": "gecis-15-slide",
   "note": "geçiş 'slide' (rüzgâr değişiyor)",
   "ch": "c3"
  },
@@ -304,14 +343,14 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1013,
+  "seed": 1016,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "l"
   },
-  "id": "gecis-13-carry",
-  "note": "geçiş 'carry' (kura ve Rinaldo'nun kurulu)",
+  "id": "gecis-16-carry",
+  "note": "geçiş 'carry' (kura: torbalardan çekilen kâğıtlar)",
   "ch": "c3"
  },
  {
@@ -328,17 +367,32 @@
   "ch": "c3"
  },
  {
-  "t": 100.53,
+  "t": 93.8,
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1014,
+  "seed": 1017,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "l"
   },
-  "id": "gecis-14-slide",
+  "id": "gecis-17-slide",
+  "note": "geçiş 'slide' (Rinaldo'nun olağanüstü kurul girişimi)",
+  "ch": "c3"
+ },
+ {
+  "t": 100.53,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1018,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "l"
+  },
+  "id": "gecis-18-slide",
   "note": "geçiş 'slide' (sürgün kararı kalktı)",
   "ch": "c3"
  },
@@ -347,13 +401,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1015,
+  "seed": 1019,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-15-carry",
+  "id": "gecis-19-carry",
   "note": "geçiş 'carry' (6 Ekim 1434: yalnız yolcu)",
   "ch": "c3"
  },
@@ -362,11 +416,11 @@
   "name": "plaster_scrape",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1016,
+  "seed": 1020,
   "dur": 0.9,
   "loop": false,
   "params": {},
-  "id": "gecis-16-giornata",
+  "id": "gecis-20-giornata",
   "note": "geçiş 'giornata' (Albizzi konakları ıssız)",
   "ch": "c3"
  },
@@ -388,11 +442,11 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1017,
+  "seed": 1021,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-17-sayfa",
+  "id": "gecis-21-sayfa",
   "note": "geçiş 'sayfa' (Rinaldo ve Strozzi sürgüne yürür)",
   "ch": "c3"
  },
@@ -401,11 +455,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1018,
+  "seed": 1022,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-18-light",
+  "id": "gecis-22-light",
   "note": "geçiş 'light' (boş koltuk, takılmayan taç, otuz yıl)",
   "ch": "c3"
  },
@@ -414,13 +468,13 @@
   "name": "iris_ring",
   "gain_db": -21.0,
   "pan": 0.0,
-  "seed": 1019,
+  "seed": 1023,
   "dur": null,
   "loop": false,
   "params": {
    "obj": "sun"
   },
-  "id": "gecis-19-iris",
+  "id": "gecis-23-iris",
   "note": "geçiş 'iris' (adı ve statüsü dışında bir kral)",
   "ch": "c3"
  },
@@ -429,13 +483,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1020,
+  "seed": 1024,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-20-carry",
+  "id": "gecis-24-carry",
   "note": "geçiş 'carry' (düzenin sırrı: torbalar)",
   "ch": "c3"
  },
@@ -456,13 +510,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1021,
+  "seed": 1025,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-21-slide",
+  "id": "gecis-25-slide",
   "note": "geçiş 'slide' (Cosimo torbaları doldurur)",
   "ch": "c3"
  },
@@ -484,11 +538,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1022,
+  "seed": 1026,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-22-zoomthru",
+  "id": "gecis-26-zoomthru",
   "note": "geçiş 'zoomthru' (torbaya kimin gireceğine kura karar vermiyordu)",
   "ch": "c3"
  },
@@ -497,14 +551,27 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1023,
+  "seed": 1027,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-23-slide",
-  "note": "geçiş 'slide' (Padgett-Ansell ağı: yalnız Medici üzerinden)",
+  "id": "gecis-27-slide",
+  "note": "geçiş 'slide' (Padgett-Ansell: aile grupları ağı)",
+  "ch": "c3"
+ },
+ {
+  "t": 156.81,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1028,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-28-light",
+  "note": "geçiş 'light' (gruplar yalnız Medici üzerinden bağlanır)",
   "ch": "c3"
  },
  {
@@ -512,11 +579,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1024,
+  "seed": 1029,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-24-zoomthru",
+  "id": "gecis-29-zoomthru",
   "note": "geçiş 'zoomthru' (arka odadaki defter)",
   "ch": "c3"
  },
@@ -550,11 +617,11 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1025,
+  "seed": 1030,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-25-sayfa",
+  "id": "gecis-30-sayfa",
   "note": "geçiş 'sayfa' (şube müdürleri: ayrı ortaklık kutuları)",
   "ch": "c3"
  },
@@ -563,14 +630,14 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1026,
+  "seed": 1031,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-26-slide",
-  "note": "geçiş 'slide' (kâr 186.382 → 290.791 FL; yarıdan fazlası Roma)",
+  "id": "gecis-31-slide",
+  "note": "geçiş 'slide' (kâr kartı: 186.382 → 290.791 FL)",
   "ch": "c3"
  },
  {
@@ -584,6 +651,19 @@
   "params": {},
   "id": "c3-kalem-kar",
   "note": "çekim 27: kâr cetveli",
+  "ch": "c3"
+ },
+ {
+  "t": 181.79,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1032,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-32-zoomthru",
+  "note": "geçiş 'zoomthru' (yarıdan fazlası Roma'dan)",
   "ch": "c3"
  },
  {
@@ -603,13 +683,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1027,
+  "seed": 1033,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-27-carry",
+  "id": "gecis-33-carry",
   "note": "geçiş 'carry' (holding etiketi, compagnia)",
   "ch": "c3"
  },
@@ -644,11 +724,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1028,
+  "seed": 1034,
   "dur": 0.9,
   "loop": false,
   "params": {},
-  "id": "gecis-28-yikama",
+  "id": "gecis-34-yikama",
   "note": "geçiş 'yikama' (Careggi villası, 1 Ağustos 1464)",
   "ch": "c3"
  },
@@ -657,11 +737,11 @@
   "name": "plaster_scrape",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1029,
+  "seed": 1035,
   "dur": 0.9,
   "loop": false,
   "params": {},
-  "id": "gecis-29-giornata",
+  "id": "gecis-35-giornata",
   "note": "geçiş 'giornata' (elli yıl: sürgün gelir, binalar kalır (ANEKDOT))",
   "ch": "c3"
  },
@@ -683,11 +763,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1030,
+  "seed": 1036,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-30-light",
+  "id": "gecis-36-light",
   "note": "geçiş 'light' (1494: sürgün geldi, binalar ayakta (dikey çıkış))",
   "ch": "c3"
  },
@@ -711,11 +791,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1033,
+  "seed": 1039,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-33-light",
+  "id": "gecis-39-light",
   "note": "geçiş 'light' (yün loncası katedralin yapımını denetler)",
   "ch": "c4"
  },
@@ -724,13 +804,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1034,
+  "seed": 1040,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-34-slide",
+  "id": "gecis-40-slide",
   "note": "geçiş 'slide' (kumaştan anlar, kubbeden değil; yarışma açar)",
   "ch": "c4"
  },
@@ -739,12 +819,51 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1035,
+  "seed": 1041,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-35-zoomthru",
+  "id": "gecis-41-zoomthru",
   "note": "geçiş 'zoomthru' (ilan çıkar: Ağustos 1418)",
+  "ch": "c4"
+ },
+ {
+  "t": 234.89,
+  "name": "knock_wood",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 40,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-civi-1",
+  "note": "çekim 4: ilan tahtasına çivi/çekiç vuruşları",
+  "ch": "c4"
+ },
+ {
+  "t": 235.44,
+  "name": "knock_wood",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 41,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-civi-2",
+  "note": "çivi",
+  "ch": "c4"
+ },
+ {
+  "t": 235.98999999999998,
+  "name": "knock_wood",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 42,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-civi-3",
+  "note": "çivi",
   "ch": "c4"
  },
  {
@@ -764,14 +883,27 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1036,
+  "seed": 1042,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-36-slide",
+  "id": "gecis-42-slide",
   "note": "geçiş 'slide' (modele 200 florin ödül, eylül sonu teslim)",
+  "ch": "c4"
+ },
+ {
+  "t": 237.79000000000002,
+  "name": "coin_pile",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 4,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-odul-florin",
+  "note": "çekim 5: 200 florin ödül (florin sütunu)",
   "ch": "c4"
  },
  {
@@ -779,11 +911,11 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1037,
+  "seed": 1043,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-37-sayfa",
+  "id": "gecis-43-sayfa",
   "note": "geçiş 'sayfa' (1420: tasarım seçilir; Ghiberti'yle birlikte)",
   "ch": "c4"
  },
@@ -792,11 +924,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1038,
+  "seed": 1044,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-38-yikama",
+  "id": "gecis-44-yikama",
   "note": "geçiş 'yikama' (yumurta mermer üstünde (Vasari'ye göre, gravür))",
   "ch": "c4"
  },
@@ -818,12 +950,25 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1039,
+  "seed": 1045,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-39-zoomthru",
+  "id": "gecis-45-zoomthru",
   "note": "geçiş 'zoomthru' («bunu biz de yapardık» — planı görselerdi)",
+  "ch": "c4"
+ },
+ {
+  "t": 259.87,
+  "name": "knock_wood",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 41,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-yumurta-2",
+  "note": "çekim 7: yumurta tıkırtısı",
   "ch": "c4"
  },
  {
@@ -831,11 +976,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1040,
+  "seed": 1046,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-40-yikama",
+  "id": "gecis-46-yikama",
   "note": "geçiş 'yikama' (aynı yumurta 1565'te Benzoni'de Kolomb'a bağlanır)",
   "ch": "c4"
  },
@@ -844,11 +989,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1041,
+  "seed": 1047,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-41-zoomthru",
+  "id": "gecis-47-zoomthru",
   "note": "geçiş 'zoomthru' (kim kimden aldı, bilmiyoruz)",
   "ch": "c4"
  },
@@ -857,14 +1002,27 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1042,
+  "seed": 1048,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-42-slide",
+  "id": "gecis-48-slide",
   "note": "geçiş 'slide' (25 Mart 1436: Floransa yılbaşısı)",
+  "ch": "c4"
+ },
+ {
+  "t": 277.69,
+  "name": "page_turn",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 42,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-takvim",
+  "note": "çekim 11: takvim yaprağı (25 Mart 1436)",
   "ch": "c4"
  },
  {
@@ -872,11 +1030,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1043,
+  "seed": 1049,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-43-light",
+  "id": "gecis-49-light",
   "note": "geçiş 'light' (Papa IV. Eugenius katedrali kutsar)",
   "ch": "c4"
  },
@@ -885,13 +1043,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1044,
+  "seed": 1050,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-44-slide",
+  "id": "gecis-50-slide",
   "note": "geçiş 'slide' (özel koro Dufay'in motetini söyler)",
   "ch": "c4"
  },
@@ -900,13 +1058,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1045,
+  "seed": 1051,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-45-carry",
+  "id": "gecis-51-carry",
   "note": "geçiş 'carry' (tenor partisi: kutsama ayininin ezgisi)",
   "ch": "c4"
  },
@@ -915,13 +1073,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1046,
+  "seed": 1052,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-46-slide",
+  "id": "gecis-52-slide",
   "note": "geçiş 'slide' (Terribilis est locus iste — «Ne heybetli bu yer.»)",
   "ch": "c4"
  },
@@ -930,12 +1088,25 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1047,
+  "seed": 1053,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-47-light",
+  "id": "gecis-53-light",
   "note": "geçiş 'light' (kubbe kalıpsız örülür (zaman atlamalı))",
+  "ch": "c4"
+ },
+ {
+  "t": 302.61,
+  "name": "rope_creak",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 43,
+  "dur": 2.6,
+  "loop": false,
+  "params": {},
+  "id": "c4-vinc-1",
+  "note": "çekim 16: kubbe kalıpsız örülür — vinç gıcırtısı",
   "ch": "c4"
  },
  {
@@ -951,15 +1122,41 @@
   "ch": "c4"
  },
  {
+  "t": 304.81,
+  "name": "chisel_tap",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 45,
+  "dur": 2.2,
+  "loop": false,
+  "params": {},
+  "id": "c4-tas-2",
+  "note": "çekim 16: taş işçiliği",
+  "ch": "c4"
+ },
+ {
+  "t": 306.21,
+  "name": "rope_creak",
+  "gain_db": -29.0,
+  "pan": 0.0,
+  "seed": 44,
+  "dur": 2.6,
+  "loop": false,
+  "params": {},
+  "id": "c4-vinc-2",
+  "note": "çekim 16: vinç gıcırtısı",
+  "ch": "c4"
+ },
+ {
   "t": 308.615,
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1048,
+  "seed": 1054,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-48-sayfa",
+  "id": "gecis-54-sayfa",
   "note": "geçiş 'sayfa' (Eski Sakristi: Medici'nin belgeli Brunelleschi'si)",
   "ch": "c4"
  },
@@ -968,12 +1165,25 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1049,
+  "seed": 1055,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-49-zoomthru",
+  "id": "gecis-55-zoomthru",
   "note": "geçiş 'zoomthru' (kitapçı Vespasiano yazar (ANEKDOT))",
+  "ch": "c4"
+ },
+ {
+  "t": 318.14,
+  "name": "quill_scratch",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 46,
+  "dur": 2.4,
+  "loop": false,
+  "params": {},
+  "id": "c4-kalem-vespasiano",
+  "note": "çekim 18: kitapçı Vespasiano yazar (ANEKDOT)",
   "ch": "c4"
  },
  {
@@ -981,13 +1191,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1050,
+  "seed": 1056,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-50-slide",
+  "id": "gecis-56-slide",
   "note": "geçiş 'slide' (vicdanda biriken yük)",
   "ch": "c4"
  },
@@ -996,13 +1206,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1051,
+  "seed": 1057,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-51-carry",
+  "id": "gecis-57-carry",
   "note": "geçiş 'carry' (yönetip başkalarının önüne geçmek isteyen çoğu adam)",
   "ch": "c4"
  },
@@ -1011,13 +1221,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1052,
+  "seed": 1058,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-52-slide",
+  "id": "gecis-58-slide",
   "note": "geçiş 'slide' (bu yükü atmak için Papa'yla konuşmaya gider)",
   "ch": "c4"
  },
@@ -1026,11 +1236,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1053,
+  "seed": 1059,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-53-zoomthru",
+  "id": "gecis-59-zoomthru",
   "note": "geçiş 'zoomthru' (Papa: San Marco'yu yaptır, on bin florin harca)",
   "ch": "c4"
  },
@@ -1039,12 +1249,25 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1054,
+  "seed": 1060,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-54-light",
+  "id": "gecis-60-light",
   "note": "geçiş 'light' (on bin yetmemiş: kırk binden fazla florin)",
+  "ch": "c4"
+ },
+ {
+  "t": 343.13,
+  "name": "coin_pile",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 47,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-florin-sutunu",
+  "note": "çekim 23: florin sütunu kırmızı sınırı aşar",
   "ch": "c4"
  },
  {
@@ -1064,12 +1287,38 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1055,
+  "seed": 1061,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-55-sayfa",
+  "id": "gecis-61-sayfa",
   "note": "geçiş 'sayfa' («kefaret» kelimesi sonradan eklenmiş)",
+  "ch": "c4"
+ },
+ {
+  "t": 349.08,
+  "name": "stamp_thud",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 48,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-etiket-kefaret",
+  "note": "çekim 24: 'KEFARET' etiketi yapışır (şak)",
+  "ch": "c4"
+ },
+ {
+  "t": 350.28,
+  "name": "paper_rustle",
+  "gain_db": -29.0,
+  "pan": 0.0,
+  "seed": 49,
+  "dur": 1.2,
+  "loop": false,
+  "params": {},
+  "id": "c4-etiket-soyulma",
+  "note": "çekim 24: etiket soyulur",
   "ch": "c4"
  },
  {
@@ -1077,13 +1326,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1056,
+  "seed": 1062,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-56-slide",
+  "id": "gecis-62-slide",
   "note": "geçiş 'slide' (San Marco'da iki hücre: biri kendine, biri konuklara)",
   "ch": "c4"
  },
@@ -1092,12 +1341,25 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1057,
+  "seed": 1063,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-57-zoomthru",
+  "id": "gecis-63-zoomthru",
   "note": "geçiş 'zoomthru' (konuk odası o zaman da kıyakmış (VIP))",
+  "ch": "c4"
+ },
+ {
+  "t": 365.52,
+  "name": "stamp_thud",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 50,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-etiket-vip",
+  "note": "çekim 26: VIP etiketi (şak)",
   "ch": "c4"
  },
  {
@@ -1105,13 +1367,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1058,
+  "seed": 1064,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-58-slide",
+  "id": "gecis-64-slide",
   "note": "geçiş 'slide' (Medici tek değildi; Rucellai defterine yazdı)",
   "ch": "c4"
  },
@@ -1132,13 +1394,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1059,
+  "seed": 1065,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-59-carry",
+  "id": "gecis-65-carry",
   "note": "geçiş 'carry' (elli yıl kazandı, harcamak daha tatlı)",
   "ch": "c4"
  },
@@ -1147,11 +1409,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1060,
+  "seed": 1066,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-60-zoomthru",
+  "id": "gecis-66-zoomthru",
   "note": "geçiş 'zoomthru' (Palla Strozzi'nin Üç Kral tablosu (yeniden çizim))",
   "ch": "c4"
  },
@@ -1160,11 +1422,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1061,
+  "seed": 1067,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-61-zoomthru",
+  "id": "gecis-67-zoomthru",
   "note": "geçiş 'zoomthru' (maiyette bir şahinci: strozziere)",
   "ch": "c4"
  },
@@ -1173,13 +1435,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1062,
+  "seed": 1068,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-62-slide",
+  "id": "gecis-68-slide",
   "note": "geçiş 'slide' (Strozzi sarayı Medici'yi aşacak (1489))",
   "ch": "c4"
  },
@@ -1188,11 +1450,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1063,
+  "seed": 1069,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-63-zoomthru",
+  "id": "gecis-69-zoomthru",
   "note": "geçiş 'zoomthru' (temel gününü bir astrolog seçer)",
   "ch": "c4"
  },
@@ -1201,11 +1463,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1064,
+  "seed": 1070,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-64-light",
+  "id": "gecis-70-light",
   "note": "geçiş 'light' (Pazzi'nin Brunelleschi'ye atfedilen şapeli)",
   "ch": "c4"
  },
@@ -1214,13 +1476,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1065,
+  "seed": 1071,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-65-slide",
+  "id": "gecis-71-slide",
   "note": "geçiş 'slide' (1478'de nasıl anılacağını biliyoruz, onlar bilmiyordu)",
   "ch": "c4"
  },
@@ -1229,11 +1491,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1066,
+  "seed": 1072,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-66-yikama",
+  "id": "gecis-72-yikama",
   "note": "geçiş 'yikama' (Cosimo Lippi'yi odaya kilitler (Vasari'ye göre, gravür))",
   "ch": "c4"
  },
@@ -1242,11 +1504,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1067,
+  "seed": 1073,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-67-zoomthru",
+  "id": "gecis-73-zoomthru",
   "note": "geçiş 'zoomthru' (çarşaflardan ip, pencereden iniş; serbestlik)",
   "ch": "c4"
  },
@@ -1268,12 +1530,25 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1068,
+  "seed": 1074,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-68-zoomthru",
+  "id": "gecis-74-zoomthru",
   "note": "geçiş 'zoomthru' (genç Lorenzo ailenin defterini açar)",
+  "ch": "c4"
+ },
+ {
+  "t": 427.83000000000004,
+  "name": "quill_scratch",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 51,
+  "dur": 3.5,
+  "loop": false,
+  "params": {},
+  "id": "c4-kalem-defter-ac",
+  "note": "çekim 37–38: toplam satırı yazılır",
   "ch": "c4"
  },
  {
@@ -1293,11 +1568,11 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1069,
+  "seed": 1075,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-69-sayfa",
+  "id": "gecis-75-sayfa",
   "note": "geçiş 'sayfa' (1434–1471: sadaka, yapı ve vergi)",
   "ch": "c4"
  },
@@ -1306,11 +1581,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1070,
+  "seed": 1076,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-70-zoomthru",
+  "id": "gecis-76-zoomthru",
   "note": "geçiş 'zoomthru' (altı yüz altmış üç bin florinden fazla)",
   "ch": "c4"
  },
@@ -1319,13 +1594,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1071,
+  "seed": 1077,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-71-slide",
+  "id": "gecis-77-slide",
   "note": "geçiş 'slide' (toplam Lorenzo'ya akıl almaz göründü; başka harcamalar dışındaydı)",
   "ch": "c4"
  },
@@ -1334,14 +1609,27 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1072,
+  "seed": 1078,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-72-carry",
+  "id": "gecis-78-carry",
   "note": "geçiş 'carry' (bu para kefaret miydi, yatırım mı: terazi)",
+  "ch": "c4"
+ },
+ {
+  "t": 448.03,
+  "name": "knock_metal",
+  "gain_db": -29.0,
+  "pan": 0.0,
+  "seed": 52,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c4-terazi",
+  "note": "çekim 41: terazi (kefaret mi yatırım mı)",
   "ch": "c4"
  },
  {
@@ -1349,13 +1637,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1073,
+  "seed": 1079,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-73-slide",
+  "id": "gecis-79-slide",
   "note": "geçiş 'slide' (kaynaklarda üç iz: vicdan, onur, ölümden sonra için bir yer)",
   "ch": "c4"
  },
@@ -1364,12 +1652,25 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1074,
+  "seed": 1080,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-74-light",
+  "id": "gecis-80-light",
   "note": "geçiş 'light' (duvarlar dikilmişti; kitap kulesi yükselir (c5 kapısı))",
+  "ch": "c4"
+ },
+ {
+  "t": 456.86,
+  "name": "paper_rustle",
+  "gain_db": -30.0,
+  "pan": 0.0,
+  "seed": 53,
+  "dur": 3.5,
+  "loop": false,
+  "params": {},
+  "id": "c4-kitap-kulesi",
+  "note": "çekim 43: kitap kulesi yükselirken kâğıt sürtünmesi",
   "ch": "c4"
  },
  {
@@ -1392,11 +1693,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1077,
+  "seed": 1083,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-77-light",
+  "id": "gecis-83-light",
   "note": "geçiş 'light' (masraf, veba korkusu, Cosimo'nun teklifi: birlikte etkili)",
   "ch": "c5"
  },
@@ -1405,14 +1706,47 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1078,
+  "seed": 1084,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-78-slide",
+  "id": "gecis-84-slide",
   "note": "geçiş 'slide' (yaklaşık yedi yüz kişilik Rum heyeti)",
+  "ch": "c5"
+ },
+ {
+  "t": 475.51,
+  "name": "crowd_murmur",
+  "gain_db": -33.0,
+  "pan": 0.0,
+  "seed": 0,
+  "dur": 9.699999999999989,
+  "loop": true,
+  "params": {},
+  "duck_db": -4,
+  "fade_in": 1.5,
+  "fade_out": 1.5,
+  "id": "c5-heyet-kalabalik",
+  "note": "çekim 3–4: kalabalık misafir (sözsüz uğultu)",
+  "ch": "c5"
+ },
+ {
+  "t": 475.90999999999997,
+  "name": "footsteps",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 60,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "kind": "stone",
+   "n_steps": 10,
+   "pace": 0.45
+  },
+  "id": "c5-heyet-adimlar",
+  "note": "çekim 3–4: yaklaşık yedi yüz kişilik Rum heyeti — kalabalık ayak sesi",
   "ch": "c5"
  },
  {
@@ -1420,11 +1754,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1079,
+  "seed": 1085,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-79-zoomthru",
+  "id": "gecis-85-zoomthru",
   "note": "geçiş 'zoomthru' (Floransa masrafları üstlenmeyi önerir: cömert ev sahibi, kalabalık misafir)",
   "ch": "c5"
  },
@@ -1433,12 +1767,25 @@
   "name": "page_turn",
   "gain_db": -20.0,
   "pan": 0.0,
-  "seed": 1080,
+  "seed": 1086,
   "dur": 1.1,
   "loop": false,
   "params": {},
-  "id": "gecis-80-sayfa",
+  "id": "gecis-86-sayfa",
   "note": "geçiş 'sayfa' (Temmuz 1439: Doğu ile Batı kiliselerinin birliği ilan edilir)",
+  "ch": "c5"
+ },
+ {
+  "t": 487.37,
+  "name": "wax_seal_stamp",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 61,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c5-birlik-muhur",
+  "note": "çekim 5: Temmuz 1439 birlik ilanı (mühür)",
   "ch": "c5"
  },
  {
@@ -1446,13 +1793,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1081,
+  "seed": 1087,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "l"
   },
-  "id": "gecis-81-slide",
+  "id": "gecis-87-slide",
   "note": "geçiş 'slide' (Bizans birliği Osmanlı tehdidi yüzünden istemişti)",
   "ch": "c5"
  },
@@ -1461,11 +1808,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1082,
+  "seed": 1088,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-82-zoomthru",
+  "id": "gecis-88-zoomthru",
   "note": "geçiş 'zoomthru' (vaat edilen yardım gelmedi; 1453'te İstanbul düştü)",
   "ch": "c5"
  },
@@ -1474,11 +1821,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1083,
+  "seed": 1089,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-83-yikama",
+  "id": "gecis-89-yikama",
   "note": "geçiş 'yikama' (Ficino'ya göre Plethon'u dinlemek Cosimo'da Platon merakını uyandırdı (gravür))",
   "ch": "c5"
  },
@@ -1487,11 +1834,11 @@
   "name": "zoom_rush_long",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1084,
+  "seed": 1090,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-84-zoomthru",
+  "id": "gecis-90-zoomthru",
   "note": "geçiş 'zoomthru' (Floransalılar Plethon'a «ikinci Platon» dermiş)",
   "ch": "c5"
  },
@@ -1500,11 +1847,11 @@
   "name": "wash_swell",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1085,
+  "seed": 1091,
   "dur": 0.8,
   "loop": false,
   "params": {},
-  "id": "gecis-85-yikama",
+  "id": "gecis-91-yikama",
   "note": "geçiş 'yikama' (Yunanca öğretimi 1453'te başlamadı (MİT))",
   "ch": "c5"
  },
@@ -1513,13 +1860,13 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1086,
+  "seed": 1092,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-86-slide",
+  "id": "gecis-92-slide",
   "note": "geçiş 'slide' (Manuel Chrysoloras Floransa'da 1396–1397'de ders vermişti)",
   "ch": "c5"
  },
@@ -1528,13 +1875,13 @@
   "name": "cloth_sweep",
   "gain_db": -23.0,
   "pan": 0.0,
-  "seed": 1087,
+  "seed": 1093,
   "dur": 0.9,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-87-carry",
+  "id": "gecis-93-carry",
   "note": "geçiş 'carry' (Niccoli borç içinde öldü; Cosimo borçları üstlendi)",
   "ch": "c5"
  },
@@ -1543,14 +1890,27 @@
   "name": "slide_glide",
   "gain_db": -24.0,
   "pan": 0.0,
-  "seed": 1088,
+  "seed": 1094,
   "dur": 0.8,
   "loop": false,
   "params": {
    "dir": "r"
   },
-  "id": "gecis-88-slide",
+  "id": "gecis-94-slide",
   "note": "geçiş 'slide' (≈800 el yazması Cosimo'nun denetiminde; San Marco'ya gitti)",
+  "ch": "c5"
+ },
+ {
+  "t": 531.028,
+  "name": "book_close",
+  "gain_db": -25.0,
+  "pan": 0.0,
+  "seed": 62,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c5-kitap-800",
+  "note": "çekim 13: ≈800 el yazması",
   "ch": "c5"
  },
  {
@@ -1570,11 +1930,11 @@
   "name": "light_swell",
   "gain_db": -22.0,
   "pan": 0.0,
-  "seed": 1089,
+  "seed": 1095,
   "dur": null,
   "loop": false,
   "params": {},
-  "id": "gecis-89-light",
+  "id": "gecis-95-light",
   "note": "geçiş 'light' (Floransa'nın halka açık bir kitaplığı doğdu)",
   "ch": "c5"
  },
@@ -1588,6 +1948,144 @@
   "loop": false,
   "params": {},
   "id": "c5-kitaplik",
+  "ch": "c5"
+ },
+ {
+  "t": 539.01,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1096,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-96-light",
+  "note": "geçiş 'light' (1463 dolaylarında Ficino'nun derlemesindeki mektup)",
+  "ch": "c5"
+ },
+ {
+  "t": 540.97,
+  "name": "paper_rustle",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 63,
+  "dur": 1.4,
+  "loop": false,
+  "params": {},
+  "id": "c5-mektup-kagit",
+  "note": "çekim 15: Ficino'nun derlemesindeki mektup",
+  "ch": "c5"
+ },
+ {
+  "t": 544.11,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1097,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-97-zoomthru",
+  "note": "geçiş 'zoomthru' (Careggi'ye tarlasını değil zihnini işlemek için geldi)",
+  "ch": "c5"
+ },
+ {
+  "t": 549.82,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1098,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-98-slide",
+  "note": "geçiş 'slide' (Ficino'dan Platon'un kitabını ve Orfik lirini getirmesini ister)",
+  "ch": "c5"
+ },
+ {
+  "t": 557.28,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1099,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-99-carry",
+  "note": "geçiş 'carry' (bir bankacı için fena bir alışveriş listesi değil)",
+  "ch": "c5"
+ },
+ {
+  "t": 564.31,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1100,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-100-slide",
+  "note": "geçiş 'slide' (Ficino'ya Platon'un bütün eserleri, şehirde ve Careggi yakınında birer ev)",
+  "ch": "c5"
+ },
+ {
+  "t": 573.565,
+  "name": "page_turn",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1101,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-101-sayfa",
+  "note": "geçiş 'sayfa' (sonradan «Platon Akademisi» dendi)",
+  "ch": "c5"
+ },
+ {
+  "t": 575.348,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1102,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-102-zoomthru",
+  "note": "geçiş 'zoomthru' (tüzüğü yoktu, üye kaydı tutulmadı)",
+  "ch": "c5"
+ },
+ {
+  "t": 579.79,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1103,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-103-carry",
+  "note": "geçiş 'carry' (Cosimo bu mektuptan yaklaşık bir yıl sonra öldü)",
+  "ch": "c5"
+ },
+ {
+  "t": 583.59,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1104,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-104-light",
+  "note": "geçiş 'light' (torunu Lorenzo, Janus Lascaris'i Doğu'ya gönderir)",
   "ch": "c5"
  },
  {
@@ -1605,6 +2103,47 @@
   "ch": "c5"
  },
  {
+  "t": 586.31,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1105,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-105-zoomthru",
+  "note": "geçiş 'zoomthru' (1490 ve 1491: iki yolculuk)",
+  "ch": "c5"
+ },
+ {
+  "t": 591.72,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1106,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-106-slide",
+  "note": "geçiş 'slide' (el yazması toplasın, II. Bayezid'le pazarlık yapsın)",
+  "ch": "c5"
+ },
+ {
+  "t": 595.65,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1107,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-107-zoomthru",
+  "note": "geçiş 'zoomthru' (1491'de Athos'a uğradı)",
+  "ch": "c5"
+ },
+ {
   "t": 598.53,
   "name": "rope_creak",
   "gain_db": -28.0,
@@ -1617,6 +2156,19 @@
   "ch": "c5"
  },
  {
+  "t": 599.635,
+  "name": "page_turn",
+  "gain_db": -20.0,
+  "pan": 0.0,
+  "seed": 1108,
+  "dur": 1.1,
+  "loop": false,
+  "params": {},
+  "id": "gecis-108-sayfa",
+  "note": "geçiş 'sayfa' (cep defteri: Lorenzo'nun istediği metinlerin listesi)",
+  "ch": "c5"
+ },
+ {
   "t": 600.727,
   "name": "page_turn",
   "gain_db": -22.0,
@@ -1626,6 +2178,185 @@
   "loop": false,
   "params": {},
   "id": "c5-cep-defteri",
+  "ch": "c5"
+ },
+ {
+  "t": 601.02,
+  "name": "quill_scratch",
+  "gain_db": -27.0,
+  "pan": 0.0,
+  "seed": 64,
+  "dur": 2.4,
+  "loop": false,
+  "params": {},
+  "id": "c5-kalem-defter-1",
+  "note": "çekim 27: cep defterinde Lorenzo'nun listesi",
+  "ch": "c5"
+ },
+ {
+  "t": 605.818,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1109,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-109-slide",
+  "note": "geçiş 'slide' (ve Medici kütüphanesinin o günkü içeriği)",
+  "ch": "c5"
+ },
+ {
+  "t": 607.618,
+  "name": "quill_scratch",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 65,
+  "dur": 2.4,
+  "loop": false,
+  "params": {},
+  "id": "c5-kalem-defter-2",
+  "note": "çekim 28: Medici kütüphanesinin içeriği",
+  "ch": "c5"
+ },
+ {
+  "t": 608.41,
+  "name": "light_swell",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1110,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-110-light",
+  "note": "geçiş 'light' (Lascaris iki yüz el yazması getirdiğini söyler)",
+  "ch": "c5"
+ },
+ {
+  "t": 610.67,
+  "name": "book_close",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 66,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c5-kitap-200",
+  "note": "çekim 29: Lascaris'in 200'ü (kitap yığını)",
+  "ch": "c5"
+ },
+ {
+  "t": 613.18,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1111,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-111-slide",
+  "note": "geçiş 'slide' (defterdeki liste bunun neredeyse iki katı)",
+  "ch": "c5"
+ },
+ {
+  "t": 615.48,
+  "name": "book_close",
+  "gain_db": -26.0,
+  "pan": 0.0,
+  "seed": 67,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c5-kitap-liste",
+  "note": "çekim 30: defterdeki liste neredeyse iki katı",
+  "ch": "c5"
+ },
+ {
+  "t": 617.19,
+  "name": "cloth_sweep",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 1112,
+  "dur": 0.9,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-112-carry",
+  "note": "geçiş 'carry' (pazarlığın ayrıntısını bilmiyoruz)",
+  "ch": "c5"
+ },
+ {
+  "t": 619.477,
+  "name": "zoom_rush_long",
+  "gain_db": -22.0,
+  "pan": 0.0,
+  "seed": 1113,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "gecis-113-zoomthru",
+  "note": "geçiş 'zoomthru' (tahtsız efendinin kitap hesabını Osmanlı topraklarında bir Rum bilgin yürütüyordu)",
+  "ch": "c5"
+ },
+ {
+  "t": 627.21,
+  "name": "slide_glide",
+  "gain_db": -24.0,
+  "pan": 0.0,
+  "seed": 1114,
+  "dur": 0.8,
+  "loop": false,
+  "params": {
+   "dir": "r"
+  },
+  "id": "gecis-114-slide",
+  "note": "geçiş 'slide' (Lascaris'in listesi Lorenzo için yazılmıştı; şimdi listenin sahibine bakalım)",
+  "ch": "c5"
+ },
+ {
+  "t": 628.61,
+  "name": "paper_rustle",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 68,
+  "dur": 1.4,
+  "loop": false,
+  "params": {},
+  "id": "c5-kapanis-kagit",
+  "note": "çekim 33: liste Lorenzo için yazılmıştı",
+  "ch": "c5"
+ },
+ {
+  "t": 630.11,
+  "name": "wax_seal_stamp",
+  "gain_db": -23.0,
+  "pan": 0.0,
+  "seed": 69,
+  "dur": null,
+  "loop": false,
+  "params": {},
+  "id": "c5-kapanis-muhur",
+  "note": "çekim 33: palla mührü",
+  "ch": "c5"
+ },
+ {
+  "t": 632.64,
+  "name": "light_swell",
+  "gain_db": -28.0,
+  "pan": 0.0,
+  "seed": 70,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 293.66
+  },
+  "id": "c5-kapanis-yanki",
+  "note": "çekim 33 / P2 kapanışı: palla büyürken sıcak 'yankı' (iris palla → bitiş ekranı)",
   "ch": "c5"
  }
 ]

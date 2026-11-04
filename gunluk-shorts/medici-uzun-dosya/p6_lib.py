@@ -99,6 +99,25 @@ def _fix_anchors(cx, base, kw):
     return kw
 
 
+def _medal_guard():
+    """Stok medal/medals türünde `at` geç olduğunda parıltı bandı (glint) alfa'dan bağımsız çizilip medalyonun şeritlerini erken gösterir; çağrı boyunca
+    cilt_medal.draw_medal_b yerel olarak sarılır (alfa ≈ 0 → çizme; alfa < 0.9 → parıltı yok). Dönüş: geri alma işlevi. Yalnız p6_ sarmalayıcıları etkilenir."""
+    import cilt_medal as _CMD
+    orig = _CMD.draw_medal_b
+
+    def guarded(*a, alpha=1.0, glint=None, **kw):
+        if alpha <= 0.012:
+            return None
+        if glint is not None and alpha < 0.9:
+            glint = None
+        return orig(*a, alpha=alpha, glint=glint, **kw)
+    _CMD.draw_medal_b = guarded
+
+    def restore():
+        _CMD.draw_medal_b = orig
+    return restore
+
+
 def _wrap(base):
     name = "p6_" + base
 
@@ -106,14 +125,19 @@ def _wrap(base):
         kw = _fix_anchors(cx, base, kw)
         if callable(mono):
             mono = float(mono(cx))
-        if mono and mono > 0.001:
-            mono_begin(cx.f, mono)
-            try:
+        guard = _medal_guard() if base in ("medal", "medals") else None
+        try:
+            if mono and mono > 0.001:
+                mono_begin(cx.f, mono)
+                try:
+                    SH.KINDS[base](cx, **kw)
+                finally:
+                    mono_end(cx.f)
+            else:
                 SH.KINDS[base](cx, **kw)
-            finally:
-                mono_end(cx.f)
-        else:
-            SH.KINDS[base](cx, **kw)
+        finally:
+            if guard is not None:
+                guard()
         if ovl is not None:
             ovl(cx)
     fn.__name__ = "k_" + name

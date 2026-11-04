@@ -1,16 +1,16 @@
 # notlar_c3 — Kule ve Sürgün (1433–1464) · sahne yazarı teslim notu (Parça 2 / c3)
 
-> Durum: scenes_c3.py tamam (31 çekim). Kontak/klip incelemesi ve kalan cilalar sürüyor — son güncelleme bu dosyanın altındaki "Kapılar" bölümünde.
+> Durum: scenes_c3.py tamam (37 çekim; 6 sahne iki çekime bölündü). Statik kapılar yeşil; kontak/klip incelemesi ve örneklemeli kapılar sürüyor — son güncelleme bu dosyanın altındaki "Kapılar" bölümünde.
 
 ## (a) Dosyalar ve çekim listesi özeti
-- `scenes_c3.py` (31 çekim, `YIL_AT`: 1434 · 1435 · 1450 · 1464 · 1494), `c3_kinds.py` (c3'e özel ~25 çekim türü, `@CM.ckind`), `p2_lib.py` (Parça 2'nin ortak yardımcıları: boya kısayolları, `begin/end` iskeleti, gravür katmanı, etiket/damga/etiket-yapıştırma, el-kol, torba, ekmek, kâse, kâğıt pusulası, `stamp_src` (○ glifli kaynak damgası), `p2_*` sarmalayıcılar, özel figür eylemleri `give/take/taste` ve oturan `eat/fear`), `yonetmen_c3.md` (kart), bu dosya.
+- `scenes_c3.py` (37 çekim, `YIL_AT`: 1434 · 1435 · 1450 · 1464 · 1494), `c3_kinds.py` (c3'e özel ~25 çekim türü, `@CM.ckind`), `p2_lib.py` (Parça 2'nin ortak yardımcıları: boya kısayolları, `begin/end` iskeleti, gravür katmanı, etiket/damga/etiket-yapıştırma, el-kol, torba, ekmek, kâse, kâğıt pusulası, `stamp_src` (○ glifli kaynak damgası), `p2_*` sarmalayıcılar, özel figür eylemleri `give/take/taste` ve oturan `eat/fear`), `yonetmen_c3.md` (kart), bu dosya.
 - Sıra: kule (dikey) → hücre → yarık → salon (Guadagni/Albizzi) → suçlama → gravür ekmek/bekçi → küçük kâğıdın yolu → karar → harita Padova → sürgün süresi → harita Venedik/elçi → Michelozzo → rüzgâr → kura/Rinaldo → ilan → dönüş → ıssız konaklar → sürgün kapısı → boş koltuk → "kral" → dolap/torbalar → torba doldurma → bekçi/kura → Padgett–Ansell ağı → defter → şube haritası → kâr kartı → holding etiketi → Careggi → elli yıl sözü (gravür) → final dikey (1494).
 - Brif §10 gereği **çıkarılan/değiştirilen**: rehberdeki "1434 dönüş: kalabalık alayı (friz)" yok — kalabalığın tepkisi kaynaksız → yalnız yolcu + ıssız konaklar; "Venedik'e gemi (pan r)" yok — deniz dünyası bu bölümde kullanılmadı (iş emri 'deniz yok'), Venedik harita rotası + elçi tomarıyla anlatıldı.
 - Rivayet dili: ANEKDOT cümleleri (ekmek/bekçi, küçük kâğıt, elli yıl sözü) gravür sepyasında; belgeli olaylar renkli. Kaynağı sonradan eklenen sözcükler (HOLDING) beyaz yapışkan etiket olarak sahneye 'sonradan' yapışır.
 
 ## (b) Bilinen kusurlar
-- Çekim uzunluğu medyanı 6,3 sn (hedef 4–6): bölümün cümleleri uzun (10 sn'yi aşan 6 cümle); bunlar bilinçli `longtake` (kâğıt yolu, kura, ağ, kâr, elli yıl). Kapı yalnız UYARI.
-- Yön denetimi 1 UYARI: sola giden iki tehdit çizgisi (kura→Rinaldo, sürgün kapısı) bilinçli tek kırılma olarak kurgulandı.
+- Uzun cümleler (10 sn'yi aşan 6 cümle) medyan çekim süresini 6,3 sn'ye çıkarıyordu; suçlama, gravür masa, sürgün süresi, kura, ağ ve kâr sahneleri iki çekime bölündü (aynı tür, ara geçiş zoomthru/slide/light; ikinci çekim sahneyi farklı çerçeveden sürdürür). Kalan bilinçli uzun planlar: küçük kâğıdın yolu (10,9 sn) ve elli yıl sözü (11,7 sn).
+- Yön denetimi: sola giden tek kamera sürgün kapısı (bilinçli yön bozma, tehdit/sürgün çizgisi); kura→Rinaldo sola geçişle kurulur, kamera nötr kalır.
 - Careggi villası ve final dikey şehir stok dünya diliyle düz/pastel; villa yakın planı yok (kaynakta ölüm odası yok → bilerek yalnız dış temsil).
 - Gravür çekimlerinde bekçi/çuval siluetlerinin kolları basit (kol-bilek detayı yok); kalabalık siluetleri kapı önünde üst üste biner (yoğun kalabalık hissi için bırakıldı).
 - Harita 'şube kutuları' ayrı yıllardaki şubeleri aynı karede gösterir (Roma, Venedik, Cenevre, Brugge, Londra, Milano, Avignon); anlatı tarih vermez, kutular tarihsiz.

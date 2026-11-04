@@ -258,7 +258,7 @@ def k_lonca_impl(cx, **_):
             PP_hand(f, "YARIŞMA", 1107, 462, 40, "#2A1A0E", clamp((kn - 0.7) * 3.3), seed=5)
     L.end(cx, cam, motes_n=14)
     L.tag(f, cx, "YÜN LONCASI", 560, 150, at=("c4s2", "yün", -0.15), size=36, w=440)
-    L.tag(f, cx, "KATEDRALİN YAPIMI", 1510, 120, at=("c4s2", "Katedralin", 0.0), size=30, w=520, hold=("c4s2", "yarışma", 0.1))
+    L.tag(f, cx, "KATEDRALİN YAPIMI", 1510, 185, at=("c4s2", "Katedralin", 0.0), size=30, w=520, hold=("c4s2", "yarışma", 0.1))
 
 
 @CM.ckind("c4_lonca")
@@ -606,8 +606,8 @@ def k_yumurta_impl(cx, **_):
         draw_bubble(f, 560, 250, 340, 200, [], kd, tail=(-30, 130))
         draw_dome_model(c, 560, 310, s=0.45 * (0.7 + 0.3 * ease_out(kd)), col="#CDA66A", glow=0.3 * kd, t=t)
     L.end(cx, cam, mono=1.0, motes_n=14, light=(1000.0, 560.0, 1500.0, 0.9))
-    L.tag(f, cx, "VASARI", 1500, 110, at=("c4s5", "Vasari'ye", -0.1), size=36, w=300, hold=("c4s6", "Rakipler", -0.3))
-    L.stamp_at(f, cx, "ANEKDOT", 1500, 200, at=("c4s5", "göre", 0.0), size=48, rot=-0.07, hold=("c4s6", "Rakipler", -0.3))
+    L.tag(f, cx, "VASARI", 1500, 175, at=("c4s5", "Vasari'ye", -0.1), size=36, w=300, hold=("c4s6", "Rakipler", -0.3))
+    L.stamp_at(f, cx, "ANEKDOT", 1500, 265, at=("c4s5", "göre", 0.0), size=48, rot=-0.07, hold=("c4s6", "Rakipler", -0.3))
     L.tag(f, cx, "BRUNELLESCHI", 470, 160, at=("c4s5", "Brunelleschi,", -0.1), size=30, w=380, hold=("c4s6", "Rakipler", -0.3))
     L.tag(f, cx, "RAKİPLERİ", 1640, 330, at=("c4s5", "rakiplerine", -0.1), size=30, w=320, hold=("c4s5", "yumurtayı", 0.3))
 
@@ -666,7 +666,7 @@ def k_kolomb_impl(cx, **_):
     L.end(cx, cam, motes_n=14)
     L.engr(f, cx, "1565", 960, 160, ("c4s7", "1565'te", -0.1), size=84, track=16, dur=0.9, glow=0.15)
     L.tag(f, cx, "BENZONI", 1010, 360, at=("c4s7", "Benzoni'nin", -0.1), size=34, w=340)
-    L.stamp_src(f, cx, "TEK KAYNAK", 1530, 130, at=("c4s7", "bağlanır;", -0.2), size=40, rot=-0.07)
+    L.stamp_src(f, cx, "TEK KAYNAK", 1500, 395, at=("c4s7", "bağlanır;", -0.2), size=40, rot=-0.07)
 
 
 @CM.ckind("c4_kolomb")
@@ -1083,7 +1083,7 @@ def k_vespasiano_impl(cx, **_):
     L.end(cx, cam, motes_n=16, light=(1000.0, 540.0, 1500.0, 0.9))
     L.tag(f, cx, "VESPASIANO", 960, 120, at=("c4s14", "Vespasiano", -0.1), size=40, sub="KİTAPÇI", w=520)
     L.tag(f, cx, "COSİMO'NUN ÖLÜMÜNDEN SONRA", 960, 250, at=("c4s14", "ölümünden", -0.2), size=32, w=760, hold=("c4s14", "şunu", 0.2))
-    L.stamp_at(f, cx, "ANEKDOT", 1560, 150, at=("c4s14", "yazar:", -0.2), size=46, rot=-0.07)
+    L.stamp_at(f, cx, "ANEKDOT", 1560, 205, at=("c4s14", "yazar:", -0.2), size=46, rot=-0.07)
 
 
 @CM.ckind("c4_vespasiano")
@@ -1172,7 +1172,7 @@ def k_papa_impl(cx, **_):
         CM.draw_spr(f, sp, 640, 340, "c", alpha=k10, shadow=0.0)
         CM.ink(f, "FLORİN", 640, 410, face="title_m", size=36, color=TH.fg2, align="c", track=6, alpha=k10, emboss=False)
     L.end(cx, cam, motes_n=14)
-    L.tag(f, cx, "PAPA", 1640, 170, at=("c4s15", "Papa'yla", -0.1), size=38, w=300)
+    L.tag(f, cx, "PAPA", 1640, 185, at=("c4s15", "Papa'yla", -0.1), size=38, w=300)
     L.tag(f, cx, "SAN MARCO", 1120, 400, at=("c4s16", "Marco'daki", -0.1), size=32, sub="DOMİNİKEN MANASTIRI", w=470)
     L.stamp_at(f, cx, "ANEKDOT", 220, 110, at=("c4s15", "Bu", -0.1), size=46, rot=-0.07)
 
@@ -1273,7 +1273,7 @@ def k_kefaret_impl(cx, **_):
     # soyulunca altta yalnız boş çizgiler kalır + KAYITLI DEĞİL
     L.end(cx, cam, motes_n=14)
     L.stamp_at(f, cx, "SONRADAN", 1090, 250, at=("c4s18", "sonradan,", -0.1), size=52, rot=-0.07, hold=("c4s18", "kayıtlı", -0.3))
-    L.tag(f, cx, "MODERN BİR YAZAR", 1500, 160, at=("c4s18", "modern", -0.1), size=34, w=520, hold=("c4s18", "kayıtlı", -0.3))
+    L.tag(f, cx, "MODERN BİR YAZAR", 1500, 180, at=("c4s18", "modern", -0.1), size=34, w=520, hold=("c4s18", "kayıtlı", -0.3))
     L.tag(f, cx, "PAPA", 360, 190, at=("c4s18", "Papa'nın", -0.2), size=36, w=280)
     L.stamp_at(f, cx, "KAYITLI DEĞİL", 1090, 800, at=("c4s18", "değil.", -0.5), size=62, rot=-0.06)
 
@@ -1727,7 +1727,7 @@ def k_strozzi_saray_impl(cx, **_):
             c.drawCircle(960, 300, 170 + 10 * math.sin(t * 4), S("#C79A3C", 7.0, int(240 * kc)))
             SOFT(c, 960, 300, 200, 200, "#FFE9A0", 110 * kc)
     L.end(cx, cam, motes_n=14)
-    L.tag(f, cx, "STROZZI", 1480, 130, at=("c4s24", "Strozzi'ler", -0.1), size=38, w=340)
+    L.tag(f, cx, "STROZZI", 1480, 180, at=("c4s24", "Strozzi'ler", -0.1), size=38, w=340)
     L.tag(f, cx, "MEDICI SARAYI", 380, 330, at=("c4s24", "Medici", -0.2), size=30, w=380)
     L.engr(f, cx, "1489", 960, 160, ("c4s24", "1489'da", -0.1), size=88, track=16, dur=0.9, glow=0.15)
 
@@ -1918,8 +1918,8 @@ def k_lippi_impl(cx, **_):
     if kkey > 0.003 and t < t_open:
         draw_key(c, RX0 - 56, 640, s=0.8 * kkey, rot=0.0 + 0.8 * clamp((t - t_lock) / 0.4))
     L.end(cx, cam, mono=1.0, motes_n=14, light=(1000.0, 560.0, 1500.0, 0.9))
-    L.tag(f, cx, "VASARI", 1500, 110, at=("c4s26", "Vasari'ye", -0.1), size=36, w=300)
-    L.stamp_at(f, cx, "ANEKDOT", 1500, 200, at=("c4s26", "göre", 0.0), size=48, rot=-0.07)
+    L.tag(f, cx, "VASARI", 1500, 175, at=("c4s26", "Vasari'ye", -0.1), size=36, w=300)
+    L.stamp_at(f, cx, "ANEKDOT", 1500, 265, at=("c4s26", "göre", 0.0), size=48, rot=-0.07)
     L.tag(f, cx, "FRA FILIPPO LIPPI", 960, 130, at=("c4s26", "Lippi'yi", -0.3), size=36, w=560, hold=("c4s27", "çarşafları", -0.3))
 
 

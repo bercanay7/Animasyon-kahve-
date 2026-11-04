@@ -1204,6 +1204,7 @@ def finale_c0(c, t_hit, G=None):
 def finale_end(c, t_final, kind, G=None):
     """Parça kapanışları (7 sn'lik 'SIRADAKİ PARÇA' / 'TÜM FİLM' ekranı süresince çözülme). Spec'te bölüm/kesit düzeyinde end_kind=… ile seçilir
     (yoksa 'dissolve'); yalnız PARÇANIN SON kesitinde çalışır.
+    bos      : P3 sonu (c7; yonetmen_c7): tek tel/kemik ton (gamba) son sözde söner, ardından boşluk (cue kapısı); vuruş yok
     yaldiz   : P1 sonu (c2; yonetmen_c2): son cümleden sonra ≥1 sn SESSİZLİK (cue kapısı) → yaldız tınısı: org açık beşli + gamba + tek lavta; vuruş yok
     dissolve : son cümleden hemen sonra tek yumuşak alçak timpani ("ağırlık merkezi vuruş", YONETMENLIK §9) + bölümün kendi tonikinde açık beşli + gamba drone + tek hafif lavta notası; sade çözülme (P1…P6 varsayılanı; p1/p2'de de aynı vuruş)
     p1  : altın majör → minöre soğuyan akor ('gölge') + alçak 'bedel' yayı; açık uç (D tonikli bölümler için; şu an hiçbir bölümde seçili değil)
@@ -1215,6 +1216,9 @@ def finale_end(c, t_final, kind, G=None):
     cd = c.T - t_final + 0.5
     pans = [-0.2, 0.2, -0.3, 0.3, 0.1, -0.1]
     st_o = (("flute", 1.0, 1.0), ("principal", 0.35, 1.0), ("flute", 0.3, 2.0))
+    if kind == "bos":
+        # P3 sonu (c7; yonetmen_c7): tek tel/kemik ton — gamba tonik, son sözün üstüne biner, 3,4 sn'de söner; ardından boşluk (cue kapısı); vuruş yok
+        c.put("drone", bowed_note(_hz(max(c.tonic, 38)), 3.4, 0.5, rng, attack=0.9, release=2.4, bright=0.45, body="gamba", bend=-20), t_final - 1.2, gain=g["bowed"] * 0.7)
     if kind == "yaldiz":
         # kapı cümlesinden sonra ≥1 sn ses yok (kapı zaten müziği susturur); sonra yaldız tınısı: org açık beşli (tonik+12, +19, +24) ağır açılır, gamba drone, tek lavta
         t0 = t_final + 1.5
@@ -1254,7 +1258,7 @@ def finale_end(c, t_final, kind, G=None):
         for dt, m, v in ((0.5, 69, 0.55), (1.7, 69, 0.5), (2.9, 73, 0.55), (4.6, 62, 0.5)):
             c.put("lute", lute_note(_hz(m), v, rng, ring=1.8), t_final + dt, gain=g["lute"], pan=0.12)
         c.put("bell", bell(_hz(86), 6.5, 0.6, rng, ring=1.5, strike=0.35), t_final + 3.4, gain=g["bell"] * 0.6, pan=0.2)
-    elif kind != "yaldiz":   # "dissolve": açık beşliyle sade çözülme (üçlüsüz: sonraki parçanın tonuyla çatışmaz) + tek hafif lavta notası
+    elif kind not in ("yaldiz", "bos"):   # "dissolve": açık beşliyle sade çözülme (üçlüsüz: sonraki parçanın tonuyla çatışmaz) + tek hafif lavta notası
         for kk, m in enumerate((c.tonic + 12, c.tonic + 19, c.tonic + 24)):
             c.put("organ", organ_note(_hz(m), cd, 0.6, rng, stops=st_o, attack=1.0, release=4.0), t_final + 0.05 * kk, gain=g["organ"], pan=pans[kk])
         c.put("drone", bowed_note(_hz(max(c.tonic, 38)), cd, 0.7, rng, attack=1.2, release=4.0, bright=0.5, body="gamba"), t_final, gain=g["bowed"])
@@ -1441,7 +1445,7 @@ def build_cue(seg, tail, seed=0):
     junction_pads(c, spec.get("pad_db", -1.0), start=xin > 0, end=(xout > 0 and fin != "c0"))
     if fin == "c0":
         FINALES["c0"](c, c.t1c + TITLE_DELAY, spec.get("finale_gain"))
-    elif fin in ("p1", "p2", "p3", "dissolve", "yaldiz"):
+    elif fin in ("p1", "p2", "p3", "dissolve", "yaldiz", "bos"):
         finale_end(c, c.t1c + 0.25, fin, spec.get("finale_gain"))
     return c
 
@@ -2157,7 +2161,7 @@ CUES = {
                                TH("lorenzo", "c6s25", dt=0.4, inst="lute", vel=0.45, stretch=1.45, g=0.9)],
                         events=[STOP(END("c6s19", -0.1), hold=0.8)]),
                    dict(mood="grave", mode="dorian", bpm=54, level_db=-1.0,
-                        arc=[(-1, .22), (0, .24), A("c6s26", .30), A("c6s27", .38), (1.0, .26)],            # son: c7'nin sessiz açılışına (arc .16) köprü; kavşak basamağı ≤ 4 dB
+                        arc=[(-1, .22), (0, .24), A("c6s26", .22), A("c6s27", .36), (1.0, .26)],            # son: c7'nin sessiz açılışına (arc .16) köprü; kavşak basamağı ≤ 4 dB
                         prog=[[(0, 2, "5"), (6, 2, ""), (3, 2, ""), (0, 2, "sus2")]], b_thr=2.0,
                         drone=dict(lvl=0.8, chunk_bars=4, fifth=True, bright=0.5),
                         choir=dict(inst="organ", stops=STOP_OPEN, lvl=0.45, lo=0.22, hi=0.32, voices=4, attack=0.9),
@@ -2175,7 +2179,7 @@ CUES = {
                    dict(until=(("c7s20", 0.0), 0.43), xf=3.0, mode="dorian",
                         arc=[(-1, .12), (0, .16), A("c7s1", .18), A("c7s2", .08), A("c7s3", .08), A("c7s4", .26), A("c7s5", .32), A("c7s6", .38), A("c7s7", .42),
                              A("c7s8", .44), A("c7s9", .50), A("c7s10", .52), A("c7s11", .46), A("c7s12", .36), A("c7s13", .30), A("c7s14", .22),
-                             A("c7s15", .05), (1.0, .05)],
+                             A("c7s15", .14), A("c7s16", .07), (1.0, .05)],
                         prog=[[(0, 2, "5"), (6, 2, ""), (0, 2, "5"), (3, 2, "")], [(0, 2, ""), (6, 2, ""), (3, 2, ""), (0, 2, "sus4")]], b_thr=0.45,
                         drone=dict(lvl=0.9, mode="roots", chunk_bars=2, fifth=True, bright=0.5),
                         arp=dict(inst="harp", pattern="ledger", lvl=0.45, lo=0.20, hi=0.30, p0=0.9, p1=0.1, transpose=12),
@@ -2185,7 +2189,7 @@ CUES = {
                         perc=dict(pattern="heartbeat", lvl=0.8, lo=0.32, hi=0.44, pitch=80, amp=0.7, win=[W("c7s5", END("c7s14", 0.0))]),
                         theme=[TH("bedel", "c7s1", dt=0.7, inst="gamba", vel=0.55, bend=-30, g=0.8)],
                         gates=[GATE(("c7s2", 1.0), END("c7s3", -2.0), lead=0.6, rel=2.5, floor_db=None, note="kilise girişi: ayin yankısı + kalabalık uğultusu (SFX), müzik yok"),
-                               GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")]),
+                               GATE(("c7s17", 0.0), ("c7s22", "aralarında", -0.1), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN (çekim 22–26): müzik çekim 21 sonunda çekilir (0,6 sn önce), sakristi kapısına dek sessizlik; sonra çok alçak drone")]),
                    dict(mode="phrygian", level_db=-1.0,
                         arc=[(-1, .05), (0, .05), A("c7s24", .12), A("c7s25", .26), A("c7s26", .42), A("c7s27", .52), A("c7s28", .56), A("c7s29", .50),
                              A("c7s30", .64), A("c7s31", .50), A("c7s32", .30), A("c7s35", .26), A("c7s37", .20), A("c7s38", .30), A("c7s41", .34),
@@ -2206,7 +2210,9 @@ CUES = {
                                 E("seq", ("c7s30", "palle", 2.4), hits=[(0.0, "dum", .9), (0.30, "tek", .55), (0.60, "dum", .9), (0.90, "tek", .55), (1.20, "dum", .9), (1.50, "tek", .55)], f=88.0, g=0.5),
                                 E("organ", ("c7s31", "alkışlandı", 0.0), midi=[50, 57, 62, 66], vel=0.5, dur=4.5, attack=0.4, release=2.0, g=0.45),
                                 E("gamba", "c7s40", dt=0.0, deg=[0], oct=0, vel=0.5, dur=6.0, attack=0.9, bend=-30, g=0.6)],
-                        gates=[GATE(("c7s15", 0.0), END("c7s23", 0.0), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN V5–V7: müzik çekilir")])]),
+                        end_kind="bos",      # yonetmen_c7: çekim 56–57 tek tel/kemik tonla kapanır, kopan ip için çok kısa tık, ardından boşluk
+                        gates=[GATE(("c7s17", 0.0), ("c7s22", "aralarında", -0.1), lead=0.6, rel=4.0, floor_db=None, note="YILDIZ AN (çekim 22–26): müzik çekim 21 sonunda çekilir (0,6 sn önce), sakristi kapısına dek sessizlik; sonra çok alçak drone"),
+                               GATE(END("c7s47", 0.7), END("c7s47", 9.0), lead=0.3, rel=1.0, floor_db=None, note="P3 sonu: tek tel bittikten sonra boşluk (kopan ip: tık)")])]),
     # c8: Aslanın İni — ciddi, diplomatik; 6/8 deniz. "Konuk muydu, rehine mi?" ve "O sırada Lorenzo Napoli'deydi." cümlelerinde müzik çekilir; sonda şube ışıkları sönüyor. (A dorian, 66 bpm)
     "c8": dict(mood="serious", tonic=45, mode="dorian", bpm=66, meter="6/8", level_db=0.0,
                arc=[(-1, .28), (0, .30), A("c8s1", .34), A("c8s3", .48), A("c8s5", .62), A("c8s6", .46), A("c8s7", .40), A("c8s9", .36), A("c8s10", .34),
@@ -2225,7 +2231,8 @@ CUES = {
                        E("lute", ("c8s34", "Londra", 0.0), deg=[7], vel=0.6, g=0.9), E("lute", ("c8s34", "Londra", 1.5), deg=[5], vel=0.5, g=0.85),
                        E("lute", ("c8s34", "Londra", 3.2), deg=[4], vel=0.42, g=0.8), E("lute", ("c8s34", "Londra", 5.2), deg=[2], vel=0.34, g=0.75),
                        E("lute", ("c8s34", "Londra", 7.6), deg=[0], vel=0.28, g=0.7)],
-               gates=[GATE(("c8s11", 0.0), END("c8s11", -0.4), lead=0.3, rel=2.5, floor_db=-24, note="Konuk muydu, rehine mi?"),
+               gates=[GATE(("c8s1", "Floransa'ya", 0.7), ("c8s1", "Floransa'ya", 2.1), lead=0.2, rel=2.0, floor_db=-20, note="interdikt damgası: boğuk sessizlik (ÇAN YOK)"),
+                      GATE(("c8s11", 0.0), END("c8s11", -0.4), lead=0.3, rel=2.5, floor_db=-24, note="Konuk muydu, rehine mi?"),
                       GATE(("c8s19", -0.1), END("c8s19", 0.0), lead=0.3, rel=1.8, floor_db=None, note="O sırada Lorenzo Napoli'deydi")]),
     # c9: defter kapanıyor — kuru-hüzünlü; tık-tık defter, şubeler tek tek kapanır (inen lavta notaları), "güzellik kaldı"da sıcak akor, sonda tehdit. (G aeolian, 60 bpm)
     "c9": dict(mood="dry", tonic=43, mode="aeolian", bpm=60, meter="4/4", level_db=-0.5,

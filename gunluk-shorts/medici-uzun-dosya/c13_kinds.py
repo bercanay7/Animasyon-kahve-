@@ -40,6 +40,9 @@ from sk import C, H, W, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
 INK_BROWN = "#2A180D"
 
+import cilt_cam as _CC  # noqa: E402
+_CC.OWN_CAMERA.add("c13_galeri")        # kendi dolly yolu (cams=) vardır; genel Cam uygulanmaz
+
 
 def _edge(f, p0, p1, k, col="#C8962B", sw=5.0, alpha=1.0, bow=0.0):
     """İki nokta arasında (yukarıdan aşağı eğri) altın bağ; k: ilerleme 0..1."""
@@ -311,16 +314,16 @@ def k_onay(cx, a_med=0.0, a_th1=None, a_th2=None, a_tick=None, a_q=None, a_fork=
     f, c, cam = L.begin(cx, seed=seed, dress="top")
     t = cx.t
     km = cx.amt(a_med, 0.9)
-    mx, my = 960, 230
+    mx, my = 750, 230
     if km > 0.003:
         CMD.draw_medal_b(f, "m_catherine", mx, my, 270 * (0.9 + 0.1 * ease_out(km)), "bronze", False, alpha=km, tilt=0.10 * math.sin(t * 0.6), inscription=False, shadow=0.5)
     # paneller
-    panels = [dict(x=520, y=700, w=700, title="LİDERLERİN ÖLDÜRÜLMESİ", sub="ONAYLAMIŞTI", a=a_th1, at=a_tick, sym="tick", col="#2F6B3A"),
-              dict(x=1400, y=700, w=700, title="KATLİAM", sub="BÜYÜK OLASILIKLA ONAYLAMAMIŞTI", a=a_th2, at=a_q, sym="q", col="#A8321E")]
+    panels = [dict(x=400, y=700, w=640, title="LİDERLERİN ÖLDÜRÜLMESİ", sub="ONAYLAMIŞTI", a=a_th1, at=a_tick, sym="tick", col="#2F6B3A"),
+              dict(x=1100, y=700, w=640, title="KATLİAM", sub="BÜYÜK OLASILIKLA ONAYLAMAMIŞTI", a=a_th2, at=a_q, sym="q", col="#A8321E")]
     for pnl in panels:
         kth = cx.amt(pnl["a"], 1.0) if pnl["a"] is not None else 0.0
         if kth > 0.003:
-            _edge(f, (mx + (-60 if pnl["x"] < 960 else 60), my + 135), (pnl["x"], pnl["y"] - 190), kth, col="#8E3342" if TH.day else "#F4DE90", sw=4.5, bow=(-80 if pnl["x"] < 960 else 80))
+            _edge(f, (mx + (-60 if pnl["x"] < mx else 60), my + 135), (pnl["x"], pnl["y"] - 190), kth, col="#8E3342" if TH.day else "#F4DE90", sw=4.5, bow=(-80 if pnl["x"] < mx else 80))
         kp = cx.amt(pnl["a"], 0.7, off=0.6) if pnl["a"] is not None else 0.0
         if kp <= 0.003:
             continue
@@ -339,16 +342,19 @@ def k_onay(cx, a_med=0.0, a_th1=None, a_th2=None, a_tick=None, a_q=None, a_fork=
                 sp = CM.engraved("?", "title", 150, 4.0, "#8A1810")
                 CM.draw_spr(f, sp, cxs, cys + 52, "c", alpha=ks * (0.85 + 0.15 * math.sin(t * 3)), scale=0.9 + 0.1 * ease_out(ks))
         CM.ink(f, pnl["sub"], pnl["x"], pnl["y"] + 140, face="cap_b", size=CM.fit_size(pnl["sub"], "cap_b", 34, pnl["w"] - 60, 2), color=pnl["col"], align="c", track=2, alpha=kp * cx.amt(pnl["at"], 0.6, off=0.2) if pnl["at"] is not None else 0.0, emboss=False)
-    # çatal
+    # çatal: «Tarihçiler tam bu noktada ayrılır» — soru işaretli iplik sağa doğru ikiye ayrılır
     if a_fork is not None:
-        k = ease_out(clamp((t - cx.at(a_fork)) / 1.2), 2.0)
+        k = ease_out(clamp((t - cx.at(a_fork)) / 1.4), 2.0)
         if k > 0.003:
-            x0, y0 = 1400, 800
+            x0, y0 = 1420, 720
+            colf = "#8E3342" if TH.day else "#F4DE90"
             for sgn in (-1, 1):
-                p1 = (x0 + 260 * k, y0 + sgn * 170 * k)
-                p2 = (x0 + 470 * k, y0 + sgn * 330 * k)
-                pts = [(x0, y0 + 20), (x0 + 120 * k, y0 + sgn * 40 * k), p1, p2]
-                f.path(sk.poly_path(L._catmull(pts, 10), False), style="stroke", sw=4.5, color="#8E3342" if TH.day else "#F4DE90", alpha=0.95)
+                p2 = (x0 + 340 * k, y0 + sgn * 190 * k)
+                pts = [(x0, y0), (x0 + 100 * k, y0 + sgn * 30 * k), (x0 + 220 * k, y0 + sgn * 110 * k), p2]
+                f.path(sk.poly_path(L._catmull(pts, 10), False), style="stroke", sw=4.5, color=colf, alpha=0.95)
+                if k > 0.85:
+                    sp = CM.engraved("?", "title", 92, 2.0, "#8A1810")
+                    CM.draw_spr(f, sp, p2[0] + 8, p2[1] + (30 if sgn > 0 else 30), "c", alpha=smooth((k - 0.85) / 0.15) * (0.85 + 0.15 * math.sin(t * 3 + sgn)))
     L.end(cx, cam, motes_n=18)
     if ovl:
         ovl(cx)
@@ -673,7 +679,7 @@ VIGN = {"crown": _v_crown, "crowd": _v_crowd, "castle": _v_castle, "window": _v_
 
 
 @CM.ckind("c13_zaman")
-def k_zaman(cx, events=(), y_line=470, head_lead=1100.0, x_exit=None, tail_at=None, tail_speed=900.0, seed=93, ovl=None, **_):
+def k_zaman(cx, events=(), y_line=400, head_lead=1100.0, x_exit=None, tail_at=None, tail_speed=900.0, seed=93, ovl=None, **_):
     """Zaman çizgisi + vinyetler. events=[dict(x, date, sub, at, kind, out=çapa|None)]; kind: crown|crowd|castle|window|door|border. İPLİK çizgisi kameranın önünde uzar; tail_at'ten
     sonra çizginin kuyruğu sağa çekilir ve sağ kenardan çıkar, kamera boş kalır. Kamera `cam=[(çapa, look(x,…))]` ile olayları izler."""
     f, c, cam = L.begin(cx, seed=seed, dress=None)
@@ -701,8 +707,8 @@ def k_zaman(cx, events=(), y_line=470, head_lead=1100.0, x_exit=None, tail_at=No
         CM.ink(f, ev["date"], x, y_line - 258 - (1 - k) * 20, face="title", size=CM.fit_size(ev["date"], "title", 50, 540, 5), color=TH.fg, align="c", track=5, alpha=k, emboss=False)
         c.drawLine(x, y_line - 230, x, y_line + 70, S("#6A5A48", 3, int(200 * k)))
         f.circle(x, y_line + 14 * math.sin(x / 210.0), 12, color="#F4DE90", alpha=k)
-        vy = y_line + 290
-        w, h = 400, 290
+        vy = y_line + 250
+        w, h = 480, 340
         CM.tablet(f, x - w / 2 - 14, vy - h / 2 - 14 + (1 - k) * 24, w + 28, h + 28, alpha=k, corner=14)
         _v_clip(c, x, vy + (1 - k) * 24, w, h)
         outk = ease_io(clamp((t - cx.at(ev["out"])) / 1.6)) if ev.get("out") is not None else 0.0
@@ -710,7 +716,7 @@ def k_zaman(cx, events=(), y_line=470, head_lead=1100.0, x_exit=None, tail_at=No
         c.restore()
         if ev.get("sub"):
             sz = CM.fit_size(ev["sub"], "cap_b", 34, 560, 2)
-            CM.ink(f, ev["sub"], x, vy + h / 2 + 62, face="cap_b", size=sz, color=TH.fg, align="c", track=2, alpha=k, emboss=False)
+            CM.ink(f, ev["sub"], x, vy + h / 2 + 56, face="cap_b", size=sz, color=TH.fg, align="c", track=2, alpha=k, emboss=False)
     L.end(cx, cam, motes_n=16)
     if ovl:
         ovl(cx)
@@ -902,25 +908,43 @@ def k_galeri(cx, cams=(), a_spark=None, spark_idx=0, dark_at=None, seed=97, ovl=
         ovl(cx)
 
 
-def frames24(at, x=960, y=880, n=24, n_port=3, step=0.07, out=None):
-    """«24 TABLO = 21 + 3»: 24 küçük çerçeve sırayla dolar; 21'i altın, 3'ü bronz (portre)."""
+def frames24(at, x=960, y=150, n=24, n_port=3, step=0.07, out=None, gap=40, caption="24 TABLO = 21 + 3"):
+    """«24 TABLO = 21 + 3»: 24 küçük çerçeve sırayla dolar; 21'i altın, 3'ü bronz (portre); dolunca altına başlık levhası."""
     def fn(cx):
         k0 = L._kk(cx, at, 0.5, out, 0.5)
         if k0 <= 0.003:
             return
         f = cx.f
-        gap = 52
         x0 = x - gap * (n - 1) / 2
         for i in range(n):
             k = clamp((cx.t - (cx.at(at) + i * step)) / 0.3)
             if k <= 0.003:
                 continue
             port = i >= n - n_port
-            xx = x0 + i * gap + (18 if port else 0)
-            f.rrect(xx - 17, y - 24 * k, 34, 48 * k, 4, color="#B07F22" if port else "#E8C468", alpha=0.95 * k0)
-            f.rrect(xx - 17, y - 24 * k, 34, 48 * k, 4, style="stroke", sw=2, color="#3A2610", alpha=0.9 * k0)
+            xx = x0 + i * gap + (10 if port else 0)
+            f.rrect(xx - 13, y - 20 * k, 26, 40 * k, 4, color="#B07F22" if port else "#E8C468", alpha=0.97 * k0)
+            f.rrect(xx - 13, y - 20 * k, 26, 40 * k, 4, style="stroke", sw=2, color="#3A2610", alpha=0.95 * k0)
             if port:
-                f.circle(xx, y - 4, 7 * k, color="#3A2610", alpha=0.7 * k0)
+                f.circle(xx, y - 3, 6 * k, color="#3A2610", alpha=0.75 * k0)
+        kc = clamp((cx.t - (cx.at(at) + n * step + 0.1)) / 0.5)
+        if caption and kc > 0.003:
+            wd = sk.text_width(caption, "title_m", 34, 5) + 60
+            CM.tablet(f, x - wd / 2, y + 36, wd, 64, alpha=kc * k0, corner=8)
+            CM.ink(f, caption, x, y + 80, face="title_m", size=34, color=TH.fg, align="c", track=5, alpha=kc * k0, emboss=False)
+    return fn
+
+
+def quote_tab(text, who, x, y, at, out=None, w=1100, size=50):
+    """Galeri üstüne binen alıntı levhası (italik metin + kaynak): at'ta belirir."""
+    def fn(cx):
+        k = L._kk(cx, at, 0.7, out, 0.5)
+        if k <= 0.003:
+            return
+        f = cx.f
+        sz = CM.fit_size(text, "cap_i", size, w - 120)
+        CM.tablet(f, x - w / 2, y - 80 + (1 - k) * 14, w, 190, alpha=k, corner=14)
+        CM.ink(f, text, x, y + 4 + (1 - k) * 14, face="cap_i", size=sz, color=TH.fg, align="c", alpha=k, emboss=False)
+        CM.ink(f, who, x, y + 70 + (1 - k) * 14, face="title_m", size=28, color=TH.acc, align="c", track=10, alpha=k * cx.amt(at, 0.6, off=0.3), emboss=False)
     return fn
 
 
@@ -941,6 +965,24 @@ def k_harf(cx, a_start=0.0, step=0.38, letters="ابتثجحخ", seed=83, ovl=No
     f, c, cam = L.begin(cx, seed=seed, dress="both")
     t = cx.t
     t0 = cx.at(a_start)
+    # arka duvar: harf kasaları (raflarda küçük madeni harf blokları), asma kandil
+    for yy in (200, 340, 480):
+        rs_ = np.random.RandomState(yy)
+        xx = 130
+        while xx < 1790:
+            wb, hb = rs_.uniform(16, 28), rs_.uniform(34, 64)
+            c.drawRect(skia.Rect.MakeXYWH(xx, yy - hb, wb, hb), skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(xx, 0), (xx + wb, 0)], [C("#C8CCD4"), C("#7A7E88")], [0, 1])))
+            c.drawRect(skia.Rect.MakeXYWH(xx, yy - hb, wb, hb), S("#2A2C34", 1.2, 220))
+            c.drawCircle(xx + wb / 2, yy - hb + 9, 2.2, P("#3A3C44", 200))
+            xx += wb + rs_.uniform(3, 9)
+        c.drawRect(skia.Rect.MakeXYWH(110, yy, 1700, 16), P("#6A4426", 255))
+        c.drawRect(skia.Rect.MakeXYWH(110, yy + 16, 1700, 4), P("#2A170B", 140))
+    lx, ly = 1500, 70
+    c.drawLine(lx, -20, lx, ly, S("#2A170B", 3, 255))
+    c.drawRoundRect(skia.Rect.MakeXYWH(lx - 22, ly, 44, 56), 8, 8, P("#3A2A12", 255))
+    fl_ = 0.85 + 0.15 * math.sin(t * 6.0)
+    c.drawRoundRect(skia.Rect.MakeXYWH(lx - 14, ly + 8, 28, 40), 8, 8, P("#FFC561", int(240 * fl_)))
+    PN.glow(c, lx, ly + 30, 260, "#FFB454", 0.35 * fl_)
     f.rect(-300, 760, 2500, 500, shader=f.lin(0, 760, 0, 1100, [("#7A5230", 0.0), ("#3A2410", 1.0)]))
     f.line(-300, 761, 2500, 761, color="#E8C78A", sw=2.4, alpha=0.8)
     n = len(letters)
@@ -1026,7 +1068,7 @@ def k_gok(cx, a_moons=0.0, a_name=None, seed=89, ovl=None, **_):
             f.circle(x, y, 7.5, color="#FFF9E0", alpha=a)
     # MEDİCİ yaldız yazı
     if a_name is not None:
-        kn = cx.amt(a_name, 2.2)
+        kn = cx.amt(a_name, 1.5)
         if kn > 0.003:
             sp = CM.gilt("MEDİCİ", "title", 170, 26)
             CM.draw_spr(f, sp, 1210, 820, "c", alpha=min(1.0, kn * 2.0), reveal=clamp(kn * 1.1), glow=0.35 * kn, shadow=0.6)
@@ -1037,21 +1079,32 @@ def k_gok(cx, a_moons=0.0, a_name=None, seed=89, ovl=None, **_):
 
 # ═════════════════════════════ st_vekalet (pano=nave istasyonu) ═════════════════════════════
 def st_vekalet(ctx, st):
-    """Katedral nefi, sunak önü: gelin ve rahip; yanında BOŞ YER (diz minderi, ışık lekesi): kral orada değildi (vekâlet). Yüz iddiası yok (stilize figür)."""
+    """Katedral nefi, sunak önü: gelin + rahip; solunda BOŞ YER (boş diz minderi + tepeden inen ışık huzmesi + toz): kral orada değildi (vekâlet). Yüz iddiası yok (stilize figür)."""
     f, c, t = ctx.f, ctx.c, ctx.t
     x = st["x"]
     yg = 836
-    k = clamp((t - ctx.t0) / 1.0) if hasattr(ctx, "t0") else 1.0
-    # boş yerin ışık lekesi (nefe vuran huzme)
-    pul = 0.8 + 0.2 * math.sin(t * 1.3)
-    c.drawOval(skia.Rect.MakeLTRB(x - 330, yg - 34, x - 30, yg + 24), P("#FFE9A8", int(120 * pul)))
-    PN.glow(c, x - 180, yg - 40, 260, "#FFE9A8", 0.30 * pul)
-    # diz minderi (boş)
-    c.drawRoundRect(skia.Rect.MakeLTRB(x - 250, yg - 22, x - 110, yg + 6), 10, 10, P("#8E1F26", 255))
-    c.drawRoundRect(skia.Rect.MakeLTRB(x - 250, yg - 22, x - 110, yg + 6), 10, 10, S("#3A0806", 2, 255))
-    # gelin + rahip
-    FA.actor(f, "soylu_f", x + 40, yg, 262, t, action="idle", dir=-1, seed=14, robe="#F2EAD8", robe2="#D8C8A0")
-    FA.actor(f, "rahip", x + 190, yg + 4, 262, t, action="talk", dir=-1, seed=18, prop="book")
+    pul = 0.85 + 0.15 * math.sin(t * 1.3)
+    kx = x - 190                                    # boş yerin ekseni
+    # tepeden inen ışık huzmesi (spot) — boş yeri işaretler
+    beam = skia.Path()
+    beam.moveTo(kx - 38, 210); beam.lineTo(kx + 38, 210); beam.lineTo(kx + 150, yg + 14); beam.lineTo(kx - 150, yg + 14); beam.close()
+    c.drawPath(beam, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, 210), (0, yg + 14)], [C("#FFF1B8", int(26 * pul)), C("#FFE9A8", int(120 * pul))], [0, 1])))
+    c.drawOval(skia.Rect.MakeLTRB(kx - 170, yg - 22, kx + 170, yg + 30), P("#FFE9A8", int(150 * pul)))
+    PN.glow(c, kx, yg - 30, 230, "#FFE9A8", 0.30 * pul)
+    for i in range(14):                              # huzmede süzülen toz
+        ph = (t * 0.16 + i / 14.0) % 1.0
+        xx = kx + math.sin(i * 2.1 + t * 0.7) * (24 + 110 * ph)
+        yy = 230 + ph * (yg - 250)
+        c.drawCircle(xx, yy, 2.2 + (i % 3), P("#FFF4D0", int(200 * math.sin(math.pi * ph))))
+    # boş diz minderi (prie-dieu): ahşap ayak + kırmızı minder (kimse yok)
+    c.drawRoundRect(skia.Rect.MakeLTRB(kx - 86, yg - 56, kx + 86, yg + 10), 8, 8, P("#6A4426", 255))
+    c.drawRoundRect(skia.Rect.MakeLTRB(kx - 86, yg - 56, kx + 86, yg + 10), 8, 8, S("#2A170B", 2.4, 255))
+    c.drawRoundRect(skia.Rect.MakeLTRB(kx - 74, yg - 74, kx + 74, yg - 44), 14, 14, P("#A8261A", 255))
+    c.drawRoundRect(skia.Rect.MakeLTRB(kx - 74, yg - 74, kx + 74, yg - 44), 14, 14, S("#3A0806", 2.2, 255))
+    c.drawLine(kx - 64, yg - 60, kx + 64, yg - 60, S("#E8C468", 2.0, 200))
+    # gelin + rahip (gelin boş yere dönük)
+    FA.actor(f, "soylu_f", x + 60, yg, 262, t, action="idle", dir=-1, seed=14, robe="#F2EAD8", robe2="#D8C8A0")
+    FA.actor(f, "rahip", x + 230, yg + 4, 262, t, action="talk", dir=-1, seed=18, prop="book")
 
 
 # ═════════════════════════════ c13 yardımcı bindirmeler (ovl) ═════════════════════════════
@@ -1147,4 +1200,30 @@ def span13(x0, x1, y, at, l0, l1, at1=None, dur=2.2, size=38, w=360):
             CM.ink(f, l1, x1, y - 66, face="title", size=CM.fit_size(l1, "title", size, w - 36, 4), color=TH.fg, align="c", track=4, alpha=k1, emboss=False)
         if k > 0.02:
             f.circle(xe, y, 9, color="#FFF1B8", alpha=0.95 if k < 0.99 else 0.0)
+    return fn
+
+
+def sil_child(x, y, h, at, kind="cocuk", seed=4, dir=-1, out=None, color="#1E140A", in_dur=0.8):
+    """Ekran uzayında tek siluet figür (yüz yok): at'ta belirir; stok dünyası `actors` desteklemediğinde (kale/sur) kullanılır; kamera o noktada tutulur."""
+    def fn(cx):
+        k = cx.amt(at, in_dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.6)
+        if k <= 0.01:
+            return
+        OD.sil_actor(cx.f, kind, x, y, h, cx.t, action="idle", dir=dir, seed=seed, color=color, alpha=k)
+    return fn
+
+
+def sil_group(items, at, out=None, color="#1E140A", in_dur=0.8, step=0.12):
+    """Ekran uzayında siluet topluluğu (yüz yok). items=[(x, y, h, action, seed, dir)]: at'tan itibaren sırayla belirir."""
+    def fn(cx):
+        base = cx.at(at)
+        for i, (x, y, h, act, sd, dr) in enumerate(items):
+            k = clamp((cx.t - (base + i * step)) / in_dur)
+            if out is not None:
+                k *= 1.0 - cx.amt(out, 0.6)
+            if k <= 0.01:
+                continue
+            OD.sil_actor(cx.f, "halk" if i % 2 == 0 else "soylu_f", x, y, h, cx.t, action=act, dir=dr, seed=sd, color=color, alpha=k)
     return fn

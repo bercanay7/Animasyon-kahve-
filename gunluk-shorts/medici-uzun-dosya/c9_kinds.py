@@ -426,12 +426,12 @@ def k_londra(cx, ovl=None, seed=9, **_):
         v = 26000 * ease_out(k0, 3)
         txt = CM.fmt_int(v)
         sp = CM.gilt(txt, "title", 118, 6.0) if not TH.day else CM.engraved(txt, "title", 118, 6.0, TH.fg)
-        CM.draw_spr(f, sp, 930, 900, "c", alpha=smooth(k0 * 5), shadow=0.5 if not TH.day else 0.0)
+        CM.draw_spr(f, sp, 930, 820, "c", alpha=smooth(k0 * 5), shadow=0.5 if not TH.day else 0.0)
         kplus = cx.amt(("c9s11", "fazla", -0.1), 0.4)
         if kplus > 0.003:
             sp2 = CM.gilt("+", "title", 118, 4.0) if not TH.day else CM.engraved("+", "title", 118, 4.0, TH.fg)
-            CM.draw_spr(f, sp2, 930 + sk.text_width(txt, "title", 118, 6.0) / 2 + 52, 900, "c", alpha=kplus)
-        CM.ink(f, "STERLİN", 930, 960, face="title_m", size=38, color=TH.acc if TH.day else "#E8B070", align="c", track=14, alpha=smooth(k0 * 4), emboss=False)
+            CM.draw_spr(f, sp2, 930 + sk.text_width(txt, "title", 118, 6.0) / 2 + 52, 820, "c", alpha=kplus)
+        CM.ink(f, "STERLİN", 930, 890, face="title_m", size=38, color=TH.acc if TH.day else "#E8B070", align="c", track=14, alpha=smooth(k0 * 4), emboss=False)
     cam.end(f)
     CM.finish(f, cx, motes_n=22, light=None if TH.day else CM.candle_light(t, seed, base=(960.0, 540.0), r=1850.0, sway=10.0))
     if ovl is not None:
@@ -474,7 +474,7 @@ def k_iki(cx, phase="kredi", ovl=None, seed=11, **_):
     c = f.c
     t = cx.t
     if phase == "devir":
-        xc, xp, yy, sz = 520.0, 1380.0, 470.0, 470.0
+        xc, xp, yy, sz = 1380.0, 520.0, 470.0, 470.0
         kd = cx.amt(("c9s7", "ölünce", -0.25), 0.55)
         CMD.draw_medal_b(f, "m_cosimo", xc, yy, sz, "bronze", False, alpha=1.0, tilt=0.12 * math.sin(t * 0.7), glint=None)
         if kd > 0.003:
@@ -581,7 +581,7 @@ def k_iki(cx, phase="kredi", ovl=None, seed=11, **_):
     if not TH.day:
         if phase == "devir":
             kd2 = ease_io(cx.amt(("c9s7", "ölünce", -0.1), 1.6))
-            light = CM.candle_light(t, seed, base=(lerp(960.0, 1380.0, kd2), 470.0), r=lerp(1750.0, 1050.0, kd2), sway=12.0)
+            light = CM.candle_light(t, seed, base=(lerp(960.0, 520.0, kd2), 470.0), r=lerp(1750.0, 1050.0, kd2), sway=12.0)
         elif phase == "kredi":
             light = CM.candle_light(t, seed, base=(960.0, 470.0), r=1700.0, sway=12.0)
         else:

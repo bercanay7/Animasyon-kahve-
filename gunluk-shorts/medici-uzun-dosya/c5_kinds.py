@@ -597,7 +597,7 @@ def k_careggi5_impl(cx, **_):
     CM.finish(f, cx, motes_n=12)
     L.date_plate(f, cx, "1463 DOLAYLARI", ("c5s9", "1463", -0.2), x=96, y=860, size=46)
     L.tag(f, cx, "FICINO'NUN DERLEMESİ", 420, 420, at=("c5s9", "Ficino'nun", -0.2), size=32, w=560, hold=("c5s9", "Careggi'ye", 0.0))
-    L.tag(f, cx, "MEKTUP", 460, 480, at=("c5s9", "mektupta", -0.2), size=36, w=300, hold=("c5s9", "Careggi'ye", 0.0))
+    L.tag(f, cx, "MEKTUP", 460, 505, at=("c5s9", "mektupta", -0.2), size=36, w=300, hold=("c5s9", "Careggi'ye", 0.0))
     L.tag(f, cx, "CAREGGİ", 960, 520, at=("c5s9", "Careggi'ye", -0.3), size=38, w=420)
     # B: tarla ✗ / zihin ✓ (mektubun içeriği)
     kt = ease_out(cx.amt(("c5s9", "tarlasını", -0.3), 0.8), 3)
@@ -751,7 +751,7 @@ def k_armagan_impl(cx, **_):
     L.end(cx, cam, motes_n=14)
     L.tag(f, cx, "PLATON'UN BÜTÜN ESERLERİ", 760, 190, at=("c5s12", "bütün", -0.3), size=32, w=640, hold=("c5s12", "şehirde", 0.0))
     L.tag(f, cx, "ŞEHİRDE BİR EV", 1380, 190, at=("c5s12", "şehirde", -0.2), size=32, w=420)
-    L.tag(f, cx, "CAREGGİ YAKININDA", 1680, 290, at=("c5s12", "Careggi", -0.2), size=28, sub="BİR EV DAHA", w=400)
+    L.tag(f, cx, "CAREGGİ YAKININDA", 1640, 290, at=("c5s12", "Careggi", -0.2), size=28, sub="BİR EV DAHA", w=500)
     L.tag(f, cx, "FICINO", 1000, 330, at=("c5s12", "Ficino'ya", -0.3), size=34, w=300)
 
 
@@ -1064,7 +1064,7 @@ def k_bilinmiyor_impl(cx, **_):
     L.end(cx, cam, motes_n=14)
     L.stamp_at(f, cx, "KAYITTA YOK", 960, 160, at=("c5s19", "bilmiyoruz;", -0.5), size=56, rot=-0.05, hold=("c5s19", "tahtsız", -0.3))
     L.tag(f, cx, "FLORANSA'NIN TAHTSIZ EFENDİSİ", 480, 130, at=("c5s19", "tahtsız", -0.2), size=30, w=640)
-    L.tag(f, cx, "OSMANLI TOPRAKLARI", 1500, 130, at=("c5s19", "Osmanlı", -0.2), size=32, w=520)
+    L.tag(f, cx, "OSMANLI TOPRAKLARI", 1500, 180, at=("c5s19", "Osmanlı", -0.2), size=32, w=520)
     L.tag(f, cx, "RUM BİLGİN", 1080, 190, at=("c5s19", "Rum", -0.2), size=34, w=340)
 
 

@@ -17,7 +17,7 @@ SHOTS = [
     shot("c4_secim", ("c4s4", -0.1), mode="day", cam=("push", 0.08), tr=("sayfa", 0.8), link="material", label="1420: tasarım seçilir; Ghiberti'yle birlikte"),
     shot("c4_yumurta", ("c4s5", -0.1), mode="day", cam=[(("c4s5", 0.0), look(1000, 560, 1.0)), (("c4s5", "yumurtayı", -0.3), look(960, 600, 1.3)), (("c4s5", "kimse", -0.2), look(1250, 580, 1.15)), (("c4s5", "tabanını", -0.5), look(900, 620, 1.5)), (("c4s6", -0.2), look(1000, 560, 1.0))],
          tr=("yikama", 0.8), link="material", label="yumurta mermer üstünde (Vasari'ye göre, gravür)"),
-    shot("c4_yumurta", ("c4s6", -0.15), mode="day", cam=[(("c4s6", -0.1), look(1000, 560, 1.0)), (("c4s6", "Rakipler", -0.2), look(1250, 560, 1.05)), (("c4s6", "planı", 0.0), look(700, 520, 1.15)), (("c4s6", "vermiş.", -0.2), look(900, 520, 1.05))],
+    shot("c4_yumurta", ("c4s6", -0.15), mode="day", cam=[(("c4s6", -0.1), look(1000, 560, 1.0)), (("c4s6", "Rakipler", -0.2), look(1250, 560, 1.05)), (("c4s6", "deyince,", 0.15), look(1250, 560, 1.05)), (("c4s6", "planı", 0.0), look(700, 520, 1.15)), (("c4s6", "vermiş.", -0.2), look(900, 520, 1.05))],
          tr=("zoomthru", 0.9, dict(at=(870, 700), at_b=(1000, 560))), link="scale", label="«bunu biz de yapardık» — planı görselerdi"),
     shot("c4_kolomb", ("c4s7", -0.1), mode="day", cam=("push", 0.06), tr=("yikama", 0.8), link="color", label="aynı yumurta 1565'te Benzoni'de Kolomb'a bağlanır"),
     shot("c4_kolomb", ("c4s7", "kim", -0.2), mode="day", cam=[(("c4s7", "kim", -0.2), look(960, 540, 1.0)), (("c4s7", "bilmiyoruz.", 0.0), look(960, 460, 1.45))],

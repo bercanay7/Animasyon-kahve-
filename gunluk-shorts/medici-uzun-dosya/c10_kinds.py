@@ -1360,3 +1360,592 @@ def joke_ovl(card_at, hang_at, fly_at, q_at, stamp_at, out_at, target=(1260, 700
                 blank_frame(c, qx, qy + 10 * math.sin(t * 1.6 + i * 1.7) + (1 - ease_out(kk)) * -60, 170, 220, a=kk * out, rot=rr + 0.04 * math.sin(t * 1.9 + i), q=1.0, t=t)
         L.stamp("KANIT YOK", 960, 600, stamp_at, size=96, rot=-0.07, out=out_at)(cx)
     return fn
+
+
+# ═════════════════════════════ V6 s28–s29 · hikâyenin yayılışı, geç ve zayıf kaynaklar; Britannica «önemsizdi» ═════════════════════════════
+@CM.ckind("c10_kaynak")
+def k_kaynak(cx, seed=8, spread_at=0.0, today_at=0.0, src_at=0.0, weak_at=0.0, b_at=0.0, art_at=0.0, book_at=0.0, burn_at=0.0, small_at=0.0, ovl=None, **_):
+    """İki evre. (1) ZAMAN ŞERİDİ: solda 1497 ateşi; kıvılcım şeridi baştan başa çok hızlı koşar (spread_at: «yayıldı»), yol boyunca rulolar (hikâye) fırlar; sağda «bugün»: başlık kartları (ovl);
+    kaynaklar (src_at) şeridin SAĞ ucunda küçük soluk noktalar → sola uzanan ince, kopuk, kesikli iplik (weak_at: geç/zayıf). (2) b_at'ta şerit aşağı süzülür; ortada açık Britannica kitabı:
+    sanat (boş çerçeve) ve kitap simgeleri sayfaya küçülerek konar (art_at/book_at), ateş sönük yalar (burn_at) ve önemsizleşir (small_at): tüy süzülür."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress="both", push=0.04, drift=(8.0, 2.0))
+    t = cx.t
+    import cilt_sehir as SE
+    p2 = ease_io(clamp((t - cx.at(b_at)) / 1.0))
+    ys = 610 + 420 * p2
+    a1 = 1.0 - p2
+    X0, X1 = 200, 1740
+    if a1 > 0.003:
+        # şerit
+        c.drawRect(skia.Rect.MakeLTRB(X0 - 40, ys - 20, X1 + 40, ys + 20), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, ys - 20), (0, ys + 20)], [C("#8A6A3A", int(255 * a1)), C("#5A3E22", int(255 * a1))], [0.0, 1.0])))
+        c.drawRect(skia.Rect.MakeLTRB(X0 - 40, ys - 20, X1 + 40, ys + 20), S("#2A1608", 2.0, int(220 * a1)))
+        for k in range(17):
+            c.drawLine(X0 + k * (X1 - X0) / 16, ys - 16, X0 + k * (X1 - X0) / 16, ys - 26, S("#2A1608", 2.0, int(180 * a1)))
+        # kıvılcım koşusu + iz
+        u = clamp((t - cx.at(spread_at)) / 1.15)
+        xs = lerp(X0, X1, ease_io(u, 2.0))
+        if u > 0.0:
+            c.drawLine(X0, ys, xs, ys, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=9.0, Color=C("#FFB347", int(200 * a1)), StrokeCap=skia.Paint.kRound_Cap, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 5)))
+            c.drawLine(X0, ys, xs, ys, S("#FFE6A0", 3.0, int(230 * a1)))
+            if u < 1.0:
+                PN.glow(c, xs, ys, 90, "#FFD27A", 0.55 * a1)
+        # rulolar (hikâye): kıvılcım geçerken fırlar
+        for i in range(8):
+            sx = X0 + 150 + i * 180
+            dt = t - cx.at(spread_at) - 1.15 * (ease_io_inv((sx - X0) / (X1 - X0)))
+            k = clamp(dt / 0.55)
+            if k <= 0.0:
+                continue
+            h = 90 + 80 * ((i * 5) % 3)
+            yy = ys - 30 - h * ease_out(k, 2.4) - 8 * math.sin(t * 2.0 + i)
+            c.drawLine(sx, ys - 16, sx, yy + 40, S("#3A2616", 2.4, int(200 * a1 * k)))
+            icons.draw_icon(f, "scroll", sx, yy, size=112 * (0.5 + 0.5 * ease_out(k)), metal="bronze", alpha=a1 * k, rot=0.12 * math.sin(t * 1.4 + i))
+        # 1497 ateşi (solda)
+        SE.bonfire(f, X0, ys - 14, 150, t, seed=3, k=0.85, glow_a=0.8 * a1, tod="dusk", smoke=False)
+        # bugün işareti
+        kt = cx.amt(today_at, 0.6)
+        if kt > 0.003:
+            c.drawLine(X1, ys - 20, X1, ys - 330, S("#A8321E", 4.0, int(220 * kt * a1)))
+            PN.glow(c, X1, ys, 70, "#FFFFFF", 0.0)
+        # kaynaklar: sağ uçta soluk noktalar + sola ince kopuk iplik
+        ksr = cx.amt(src_at, 0.5)
+        if ksr > 0.003:
+            dots = (1500, 1590, 1670)
+            for i, dx_ in enumerate(dots):
+                kk = cx.amt(src_at, 0.4, off=0.12 * i)
+                c.drawCircle(dx_, ys, 11 * ease_out(kk), P("#9A927C", int(230 * kk * a1)))
+                c.drawCircle(dx_, ys, 11 * ease_out(kk), S("#3A2E1A", 2.0, int(230 * kk * a1)))
+            kw = clamp((t - cx.at(weak_at)) / 1.6)
+            seg = skia.Path()
+            xx = 1480.0
+            seg.moveTo(xx, ys + 34)
+            n = 26
+            rs = np.random.RandomState(7)
+            for j in range(n):
+                nx = xx - (1480 - X0 - 120) / n
+                if j > 6 and j % 5 == 2:
+                    seg.moveTo(nx, ys + 34 + rs.uniform(-6, 6))
+                else:
+                    seg.lineTo(nx, ys + 34 + rs.uniform(-7, 7) * (1 + 1.4 * kw))
+                xx = nx
+            pw = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.4, Color=C("#4A3A24", int(235 * ksr * a1 * (1.0 - 0.45 * kw))))
+            pw.setPathEffect(skia.DashPathEffect.Make([7, 9 + 12 * kw], -t * 10))
+            c.drawPath(seg, pw)
+    # evre 2: Britannica kitabı
+    kb = ease_out(clamp((t - cx.at(b_at) - 0.35) / 1.0), 2.2)
+    if kb > 0.003:
+        bx, by = 960, 560 + (1 - kb) * 300
+        f.circle(10, 20, 290, color="#000000", alpha=0.20 * kb, blur=22)
+        icons.draw_icon(f, "book_open", bx, by, size=700, metal="bronze", alpha=kb)
+        ka = cx.amt(art_at, 0.8)
+        kk = cx.amt(book_at, 0.8)
+        kfl = ease_io(clamp((t - cx.at(burn_at)) / 0.5))
+        ksm = ease_out(clamp((t - cx.at(small_at)) / 1.1), 2.0)
+        if ka > 0.003:                                                             # sanat: boş çerçeve sayfaya küçülerek konar
+            sc = lerp(1.6, 0.62, ease_out(ka)) * (1.0 - 0.2 * ksm)
+            blank_frame(c, lerp(380, bx - 170, ease_out(ka)), lerp(300, by - 10, ease_out(ka)), 150 * sc, 190 * sc, a=ka, rot=lerp(-0.4, -0.05, ease_out(ka)), burn=0.0, q=0.0, t=t)
+        if kk > 0.003:                                                             # kitap
+            sc = lerp(1.6, 0.66, ease_out(kk)) * (1.0 - 0.2 * ksm)
+            icons.draw_icon(f, "book", lerp(1560, bx + 170, ease_out(kk)), lerp(300, by - 10, ease_out(kk)), size=110 * sc * 1.6, metal="gold", alpha=kk, rot=lerp(0.4, 0.05, ease_out(kk)))
+        if kfl > 0.01 and ka > 0.5:                                                 # sönük ateş yalayışı
+            for dx_ in (-150, 150):
+                SE.torch_flame(c, bx + dx_ * 1.13, by + 60, t, size=44 * kfl, seed=int(dx_) % 7 + 3)
+        # tüy: «önemsiz» → süzülür
+        kf2 = clamp((t - cx.at(small_at)) / 3.0)
+        if 0.0 < kf2 < 1.0:
+            fx = lerp(1450, 1150, kf2) + 90 * math.sin(kf2 * 7.0)
+            fy = lerp(240, 560, kf2)
+            icons.draw_icon(f, "feather", fx, fy, size=140, metal="gold", alpha=min(1.0, kf2 * 6) * (1.0 - smooth(clamp((kf2 - 0.85) / 0.15))), rot=0.5 * math.sin(kf2 * 9.0))
+    cam.end(f)
+    CM.finish(f, cx, motes_n=16, light=CM.candle_light(t, seed, base=(W * 0.45, 520), r=1500.0, sway=8.0))
+    if ovl is not None:
+        ovl(cx)
+
+
+def ease_io_inv(x):
+    """ease_io(u, 2.0)'nin tersi (yaklaşık): şerit koşusunda kıvılcımın bir x'e vardığı u."""
+    lo, hi = 0.0, 1.0
+    for _ in range(18):
+        m = (lo + hi) / 2
+        if ease_io(m, 2.0) < x:
+            lo = m
+        else:
+            hi = m
+    return (lo + hi) / 2
+
+
+# ═════════════════════════════ V7 s31 · komplo: beş mum, kapanan Büyük Konsey kapısı, mumlar söner ═════════════════════════════
+def palle_shield(c, x, y, s, a=1.0):
+    """Medici palle kalkanı (altın zeminde altı top) — soyut, yüz yok."""
+    if a <= 0.003:
+        return
+    al = int(255 * a)
+    c.save()
+    c.translate(x, y)
+    sh = skia.Path()
+    sh.moveTo(-s * 0.62, -s * 0.74)
+    sh.lineTo(s * 0.62, -s * 0.74)
+    sh.lineTo(s * 0.62, s * 0.10)
+    sh.cubicTo(s * 0.62, s * 0.56, s * 0.2, s * 0.84, 0, s * 0.98)
+    sh.cubicTo(-s * 0.2, s * 0.84, -s * 0.62, s * 0.56, -s * 0.62, s * 0.10)
+    sh.close()
+    c.drawPath(sh, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(-s * 0.6, -s * 0.7), (s * 0.6, s * 0.9)], [C("#F0D27A", al), C("#C79A3C", al), C("#8A6A22", al)], [0.0, 0.5, 1.0])))
+    c.drawPath(sh, S("#2A1608", 3.0, al))
+    for (px, py) in ((-0.30, -0.46), (0.30, -0.46), (-0.34, -0.06), (0.34, -0.06), (-0.14, 0.34), (0.14, 0.34), (0.0, -0.16)):
+        if (px, py) == (0.0, -0.16):
+            continue
+        c.drawCircle(px * s, py * s, s * 0.17, P("#A8321E", al))
+        c.drawCircle(px * s, py * s, s * 0.17, S("#2A1608", 2.0, int(al * 0.9)))
+    c.restore()
+
+
+@CM.ckind("c10_komplo")
+def k_komplo(cx, seed=10, med_at=0.0, back_at=0.0, plot_at=0.0, five_at=0.0, door_at=0.0, appeal_at=0.0, snuff_at=0.0, ovl=None, **_):
+    """Gece: solda Medici palle kalkanı, «geri getirmek» okuyla (back_at) geri döner; beş siluet-madalya (plot_at → five_at) her biri bir mumla sıralanır (komplo);
+    sağda Büyük Konsey kapısı (door_at: iki kanat tek hamlede kapanır); başvuru oku (appeal_at) kapıya çarpıp geri sekmeler; idam = mumlar sırayla söner (snuff_at), madalyalar kararır — beden/şiddet yok."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress="both", push=0.045, drift=(-6.0, 2.0))
+    t = cx.t
+    # --- Medici kalkanı ---
+    km = cx.amt(med_at, 0.8)
+    palle_shield(c, 250, 300, 110 * (0.8 + 0.2 * ease_out(km)), a=km)
+    kb = ease_io(clamp((t - cx.at(back_at)) / 1.5))
+    if km > 0.01 and kb > 0.003:                                                 # geri dönen ok
+        ap = skia.Path()
+        ap.moveTo(700, 240)
+        ap.cubicTo(600, 110, 400, 120, 372, 280)
+        pa = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=9.0, Color=C("#E8C25A", int(235 * km)), StrokeCap=skia.Paint.kRound_Cap)
+        m = skia.PathMeasure(ap, False)
+        seg = skia.Path()
+        m.getSegment(0, m.getLength() * kb, seg, True)
+        c.drawPath(seg, pa)
+        if kb > 0.97:
+            hp = sk.poly_path([(368, 300), (338, 254), (412, 262)])
+            c.drawPath(hp, P("#E8C25A", 240))
+    # --- beş madalya + mum ---
+    xs_ = [500, 720, 940, 1160, 1380]
+    ym = 650
+    kt_ = cx.amt(plot_at, 0.8)
+    if kt_ > 0.003:                                                              # konsey masası (komplocuların önünde)
+        c.drawRect(skia.Rect.MakeLTRB(380, 756, 1500, 838), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 756), (0, 838)], [C("#6A4A2A", int(255 * kt_)), C("#3A2616", int(255 * kt_))], [0.0, 1.0])))
+        c.drawRect(skia.Rect.MakeLTRB(380, 756, 1500, 770), P("#A8844A", int(255 * kt_)))
+        c.drawRect(skia.Rect.MakeLTRB(380, 756, 1500, 838), S("#1A0F08", 2.4, int(230 * kt_)))
+    kn = [cx.amt(plot_at if i < 2 else five_at, 0.7, off=0.18 * (i if i < 2 else i - 2)) for i in range(5)]
+    t_snuff = cx.at(snuff_at)
+    hats = ["berretto", "cap", "bare", "beret", "cap"]
+    for i, x in enumerate(xs_):
+        k = kn[i]
+        if k <= 0.003:
+            continue
+        sn = clamp((t - t_snuff - 0.30 * i) / 0.45)
+        dim = 1.0 - 0.7 * smooth(sn)
+        L.sil_medal(f, x, ym + 4 * math.sin(t * 1.2 + i), 100 * (0.88 + 0.12 * ease_out(k)), hat=hats[i], alpha=k * (0.55 + 0.45 * dim), tilt=0.03 * math.sin(t * 0.8 + i), flip=(i % 2 == 0), nose=1.0)
+        OD.candle(f, x, ym - 125 + (1 - ease_out(k)) * -20, 74, t, seed=i * 3 + 1, lit=k * (1.0 - smooth(sn)), holder=True, smoke=True)
+    # --- başvuru oku + kapı ---
+    xd, yd = 1650, 600
+    kd = ease_in(clamp((t - cx.at(door_at) + 0.20) / 0.22))                       # 0 açık … 1 kapalı (tek hamle)
+    hit = clamp((t - cx.at(door_at)) / 0.5)
+    shake = math.exp(-hit * 6.0) * math.sin(hit * 40.0) * 5.0 if hit > 0 else 0.0
+    kdo = cx.amt(door_at, 0.5, off=-1.6)                                             # kapı belirir (önceden)
+    if kdo > 0.003:
+        c.save()
+        c.translate(xd + shake, yd)
+        c.drawRect(skia.Rect.MakeLTRB(-190, -310, 190, 250), P("#5A4A34", int(255 * kdo)))
+        ar = skia.Path()
+        ar.moveTo(-150, 250)
+        ar.lineTo(-150, -110)
+        ar.arcTo(skia.Rect.MakeLTRB(-150, -280, 150, 20), 180, 180, False)
+        ar.lineTo(150, 250)
+        ar.close()
+        c.drawPath(ar, P("#0E0A08", int(255 * kdo)))
+        for sgn in (-1, 1):                                                            # iki kanat
+            wlf = 150 * (0.10 + 0.90 * kd)
+            lf = skia.Path()
+            lf.moveTo(sgn * 150, 250)
+            lf.lineTo(sgn * 150, -110)
+            lf.arcTo(skia.Rect.MakeLTRB(min(sgn * 150, sgn * 150 - sgn * 0.0), -280, max(sgn * 150, 0), 20), 180 if sgn < 0 else 270, 90, False)
+            c.save()
+            c.clipPath(ar, skia.ClipOp.kIntersect, True)
+            x_a = sgn * 150
+            x_b = sgn * (150 - wlf)
+            c.drawRect(skia.Rect.MakeLTRB(min(x_a, x_b), -290, max(x_a, x_b), 250), skia.Paint(Shader=skia.GradientShader.MakeLinear([(min(x_a, x_b), 0), (max(x_a, x_b), 0)], [C("#7A4E2C"), C("#5A3A20")], [0.0, 1.0])))
+            for yy in (-120, 40, 190):
+                c.drawRect(skia.Rect.MakeLTRB(min(x_a, x_b), yy, max(x_a, x_b), yy + 20), P("#2A2A30"))
+            c.drawRect(skia.Rect.MakeLTRB(min(x_a, x_b), -290, max(x_a, x_b), 250), S("#1A0F08", 2.4, 230))
+            c.restore()
+        if kd > 0.95:
+            c.drawCircle(-26, 70, 18, S("#C79A3C", 5.0, 230))
+            c.drawCircle(26, 70, 18, S("#C79A3C", 5.0, 230))
+        c.drawPath(ar, S("#2A1608", 5.0, int(240 * kdo)))
+        c.restore()
+        if 0.0 < hit < 0.8:                                                            # çarpma tozu
+            for j in range(6):
+                FA._puff(c, xd + (j - 2.5) * 70, yd + 240 - 14 * j % 3, 24 + 40 * hit, 0.35 * (1 - hit / 0.8), "#CDB98E")
+    ka = clamp((t - cx.at(appeal_at)) / 0.8)
+    if ka > 0.0:
+        u = ka
+        tgt = xd - 200
+        ax = lerp(xs_[-1] + 130, tgt, ease_io(min(1.0, u * 1.0)))
+        bounce = clamp((t - cx.at(door_at) - 0.05) / 0.8)
+        ax = ax - 160 * ease_out(bounce, 2.0)
+        al_ = 1.0 - smooth(clamp((bounce - 0.55) / 0.45))
+        ln = skia.Path()
+        ln.moveTo(xs_[-1] + 120, 470)
+        ln.lineTo(ax, 470)
+        pd = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=7.0, Color=C("#A8321E", int(240 * al_)), StrokeCap=skia.Paint.kRound_Cap)
+        pd.setPathEffect(skia.DashPathEffect.Make([18, 12], -t * 40))
+        c.drawPath(ln, pd)
+        hp = sk.poly_path([(ax + 26, 470), (ax - 4, 448), (ax - 4, 492)])
+        c.drawPath(hp, P("#A8321E", int(245 * al_)))
+    cam.end(f)
+    CM.finish(f, cx, motes_n=18, light=CM.candle_light(t, seed, base=(W * 0.45, 600), r=1500.0, sway=8.0))
+    if ovl is not None:
+        ovl(cx)
+
+
+# ═════════════════════════════ V7 s32 · 7 Nisan: ateşle sınama için hazırlanan, hiç yakılmayan koridor ═════════════════════════════
+@CM.ckind("c10_ordeal")
+def k_ordeal(cx, seed=11, build_at=0.0, path_at=0.0, never_at=0.0, crowd_at=None, sav_at=None, words_at=None, ovl=None, **_):
+    """Perspektifli meydan: iki yanda odun yığını sıraları (build_at: yığınlar yakından uzağa dizilir) ve arkalarında bekleyen siluet kalabalık; ortada ateşle sınama koridoru
+    (path_at: kesikli kızıl yol çizilir). never_at: «hiç yapılmadı» — meşaleler yanmaz, yolun üstü çizilir (✕), kalabalık sönükleşir, gün batar. Yüz yok, ateş yok."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress="both", push=0.05, drift=(0.0, 0.0))
+    t = cx.t
+    VX, VY = 960, 400
+    # gök + uzak cephe
+    c.drawRect(skia.Rect.MakeLTRB(0, 150, W, 560), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 150), (0, 560)], [C("#9CB4C8"), C("#F0D8A8")], [0.0, 1.0])))
+    for i in range(4):
+        cxx = (i * 520 + t * 14.0 * (0.6 + 0.25 * i)) % (W + 400) - 200
+        for q in range(3):
+            c.drawOval(skia.Rect.MakeLTRB(cxx + q * 70, 230 + 40 * (i % 2) - 14, cxx + q * 70 + 230, 230 + 40 * (i % 2) + 20), P("#FFFFFF", 70))
+    for i, (bx, bw, bh) in enumerate(((120, 260, 150), (390, 200, 120), (600, 180, 190), (800, 330, 150), (1150, 220, 130), (1390, 280, 170), (1690, 240, 140))):
+        c.drawRect(skia.Rect.MakeLTRB(bx, 470 - bh, bx + bw, 470), P(mix("#8A7A68", "#A89A82", (i % 3) / 3.0)))
+        c.drawRect(skia.Rect.MakeLTRB(bx, 470 - bh, bx + bw, 470), S("#4A3A28", 1.6, 140))
+        for wx in range(int(bx + 24), int(bx + bw - 20), 46):
+            c.drawRect(skia.Rect.MakeLTRB(wx, 470 - bh + 30, wx + 18, 470 - bh + 62), P("#3A2E22", 200))
+    # zemin
+    gp = skia.Path()
+    gp.addPoly([skia.Point(0, 470), skia.Point(W, 470), skia.Point(W, 930), skia.Point(0, 930)], True)
+    c.drawPath(gp, skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 470), (0, 930)], [C("#C2AE86"), C("#8E7A56")], [0.0, 1.0])))
+    for k in range(-12, 13):
+        c.drawLine(VX + k * 30, 470, VX + k * 150, 930, S("#5A4A30", 1.2, 70))
+    for k in range(1, 9):
+        yy = 470 + 460 * (k / 9.0) ** 1.5
+        c.drawLine(0, yy, W, yy, S("#5A4A30", 1.2, 60))
+    # koridor yolu
+    kp = ease_out(clamp((t - cx.at(path_at)) / 1.6))
+    x_near, y_near = 960, 925
+    lines = [(-1, 960 - 90, 960 - 20), (1, 960 + 90, 960 + 20)]
+    kn = clamp((t - cx.at(never_at)) / 0.7)
+    if kp > 0.003:
+        pa = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=9.0, Color=C("#A8321E", int(235 * (1.0 - 0.45 * kn))), StrokeCap=skia.Paint.kRound_Cap)
+        pa.setPathEffect(skia.DashPathEffect.Make([30, 18], -t * 36))
+        p = skia.Path()
+        p.moveTo(VX, 480)
+        p.lineTo(VX, 480 + (925 - 480) * kp)
+        c.drawPath(p, pa)
+    # odun yığınları (yakından uzağa dizilir) + arkalarında kalabalık
+    N = 9
+    kb = [cx.amt(build_at, 0.45, off=0.16 * (N - 1 - i)) for i in range(N)]
+    for i in range(N):                                                       # uzaktan yakına çiz (ressam sırası): i büyük = yakın
+        d = (i + 0.5) / N
+        s = 0.22 + 1.25 * d ** 1.2
+        y = 470 + 450 * d ** 1.5
+        L_ = 60 + 330 * d
+        for sg in (-1, 1):
+            x = VX + sg * L_
+            k = kb[i]
+            # bekleyen siluetler (yığının ardında)
+            for j in range(3):
+                bx = x + sg * (150 + j * 70) * s
+                kk = cx.amt(crowd_at if crowd_at is not None else build_at, 0.6, off=0.10 * (N - i) + 0.1 * j + 0.3)
+                if kk > 0.003:
+                    im = _bust_img((i * 5 + j * 3 + (0 if sg < 0 else 2)) % 6)
+                    dim = 1.0 - 0.6 * smooth(kn)
+                    L.blit(c, im, bx, y - 52 * s, a=kk * dim, sx=s * 1.15, ax=0.5, ay=1.0)
+            if k > 0.003:
+                w_, h_ = 190 * s, 40 * s
+                for r in range(3):
+                    yy = y - (r + 1) * h_ * 0.92 + (1 - ease_out(k)) * 60
+                    c.drawRoundRect(skia.Rect.MakeLTRB(x - w_ / 2 + 4 * s * r, yy - h_ / 2, x + w_ / 2 - 4 * s * r, yy + h_ / 2), h_ * 0.4, h_ * 0.4, P(["#6A4A2A", "#7A5632", "#5A3E22"][r], int(255 * k)))
+                    c.drawRoundRect(skia.Rect.MakeLTRB(x - w_ / 2 + 4 * s * r, yy - h_ / 2, x + w_ / 2 - 4 * s * r, yy + h_ / 2), h_ * 0.4, h_ * 0.4, S("#2A1608", max(1.0, 2.0 * s), int(230 * k)))
+                    c.drawCircle(x - w_ / 2 + 12 * s + 4 * s * r, yy, h_ * 0.30, S("#2A1608", max(1.0, 1.6 * s), int(150 * k)))
+    # meşaleler (yığınların başında): yanmaz (never) — sönük meşale simgesi
+    for sg in (-1, 1):
+        km = cx.amt(build_at, 0.6, off=1.4)
+        if km > 0.003:
+            icons.draw_icon(f, "torch", VX + sg * 190, 760, size=120, metal="bronze", alpha=km)
+    # Savonarola (kukuletalı siluet madalya) + sözleri (rulo)
+    if sav_at is not None:
+        ks = cx.amt(sav_at, 0.8)
+        if ks > 0.003:
+            L.sil_medal(f, 270, 700 - 5 * math.sin(t * 1.2), 118 * (0.9 + 0.1 * ease_out(ks)), hat="hood", alpha=ks, tilt=0.03 * math.sin(t * 0.8), nose=1.0)
+        kw = cx.amt(words_at, 0.6) if words_at is not None else 0.0
+        if kw > 0.003:
+            icons.draw_icon(f, "scroll", 470, 600 - 40 * ease_out(kw) + 8 * math.sin(t * 2.0), size=120 * (0.6 + 0.4 * ease_out(kw)), metal="bronze", alpha=kw, rot=0.1 * math.sin(t * 1.4))
+    # gün batar (hiç yapılmadı)
+    if kn > 0.003:
+        c.drawRect(skia.Rect.MakeLTRB(0, 150, W, 940), P("#0A1030", int(130 * smooth(clamp(kn)))))
+    cam.end(f)
+    CM.finish(f, cx, motes_n=14)
+    if ovl is not None:
+        ovl(cx)
+
+
+# ═════════════════════════════ V7 s33 · San Marco kuşatılır, Savonarola tutuklanır (plan görünümü) ═════════════════════════════
+@CM.ckind("c10_kusatma")
+def k_kusatma(cx, seed=12, ring_at=0.0, sav_at=0.0, arrest_at=0.0, ovl=None, **_):
+    """Manastırın PLANI (parşömen, kuşbakışı): avlu + revaklar + kilise; dışarıdan gelen siluet halka manastırın çevresini kapatır (ring_at) ve daralır; avluda kukuletalı
+    siluet-madalya (sav_at) üstüne zincir simgesi iner (arrest_at) ve madalya söner. Şiddet yok; silüet halka + zincir simgesi."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress="both", push=0.05, drift=(0.0, 0.0))
+    t = cx.t
+    ink = "#3A2616"
+    cxm, cym = 960, 560
+    # plan
+    c.save()
+    c.translate(cxm, cym)
+    c.scale(1.4, 1.4)
+    c.translate(-cxm, -cym)
+    c.drawRect(skia.Rect.MakeLTRB(cxm - 300, cym - 210, cxm + 300, cym + 190), P("#E8DCBA", 255))
+    c.drawRect(skia.Rect.MakeLTRB(cxm - 300, cym - 210, cxm + 300, cym + 190), S(ink, 7.0, 240))
+    c.drawRect(skia.Rect.MakeLTRB(cxm - 250, cym - 160, cxm - 20, cym + 140), P("#C9B88C", 255))
+    c.drawRect(skia.Rect.MakeLTRB(cxm - 250, cym - 160, cxm - 20, cym + 140), S(ink, 3.0, 230))
+    for k in range(7):                                                         # revak sütunları (avlu çevresi)
+        for (px, py) in ((cxm - 250 + 14, cym - 160 + 22 + k * 40), (cxm - 20 - 14, cym - 160 + 22 + k * 40)):
+            c.drawCircle(px, py, 6, P(ink, 230))
+    for k in range(5):
+        for (px, py) in ((cxm - 250 + 40 + k * 46, cym - 160 + 14), (cxm - 250 + 40 + k * 46, cym + 140 - 14)):
+            c.drawCircle(px, py, 6, P(ink, 230))
+    c.drawRect(skia.Rect.MakeLTRB(cxm + 10, cym - 150, cxm + 260, cym + 130), P("#D8C9A0", 255))          # kilise (haç planı)
+    c.drawRect(skia.Rect.MakeLTRB(cxm + 10, cym - 150, cxm + 260, cym + 130), S(ink, 3.0, 230))
+    c.drawRect(skia.Rect.MakeLTRB(cxm + 110, cym - 120, cxm + 160, cym + 100), P("#B8A678", 255))
+    c.drawRect(skia.Rect.MakeLTRB(cxm + 40, cym - 40, cxm + 230, cym + 10), P("#B8A678", 255))
+    c.drawRect(skia.Rect.MakeLTRB(cxm - 40, cym + 188, cxm + 40, cym + 194), P("#E8DCBA", 255))                # kapı aralığı
+    c.restore()
+    # halka
+    N = 26
+    kr = clamp((t - cx.at(ring_at)) / 1.8)
+    shrink = ease_io(clamp((t - cx.at(ring_at) - 1.4) / 1.4))
+    rx = lerp(780, 600, shrink)
+    ry = lerp(420, 350, shrink)
+    items = []
+    for j in range(N):
+        ang = -math.pi * 0.5 + 2 * math.pi * j / N
+        dly = (j / N) * 1.4
+        k = ease_out(clamp((t - cx.at(ring_at) - dly * 0.6) / 0.7))
+        if k <= 0.003:
+            continue
+        r_in = 1.0 + (1 - k) * 0.55
+        items.append((cym + math.sin(ang) * ry * r_in, cxm + math.cos(ang) * rx * r_in, j, k))
+    for (y_, x_, j, k) in sorted(items):
+        im = _bust_img((j * 5 + 1) % 6)
+        L.blit(c, im, x_, y_ + 38, a=k, sx=1.0, ax=0.5, ay=1.0)
+    # Savonarola madalyası + zincir
+    ks = cx.amt(sav_at, 0.8)
+    if ks > 0.003:
+        ka = ease_out(clamp((t - cx.at(arrest_at)) / 0.5))
+        L.sil_medal(f, cxm - 190, cym - 14 + 3 * math.sin(t * 1.3), 104 * (0.9 + 0.1 * ease_out(ks)), hat="hood", alpha=ks * (1.0 - 0.35 * ka), tilt=0.03 * math.sin(t * 0.8), nose=1.0)
+        if ka > 0.003:
+            sh = 6 * math.sin(ka * 40.0) * (1 - ka)
+            icons.draw_icon(f, "chains", cxm - 190 + sh, cym - 14 - (1 - ease_out(ka)) * 160, size=290 * (0.8 + 0.2 * ease_out(ka)), metal="bronze", alpha=ka)
+    cam.end(f)
+    CM.finish(f, cx, motes_n=12, light=CM.candle_light(t, seed, base=(W * 0.5, 520), r=1500.0, sway=8.0))
+    if ovl is not None:
+        ovl(cx)
+
+
+# ═════════════════════════════ V7 s34 · ayin: üç kukuletalı siluet altarın önünde diz çöker (şafak) ═════════════════════════════
+@CM.ckind("c10_ayin")
+def k_ayin(cx, seed=13, dawn_at=0.0, kneel_at=0.0, host_at=0.0, snuff_at=0.0, ovl=None, **_):
+    """Şapel: arkada yüksek kemerli pencere (dawn_at: «şafağında» — gece laciverdi altın ışığa açılır), altar (haç + iki mum), üç kukuletalı SİLUET (yüz yok) soldan yürüyüp
+    altara bakarak diz çöker (kneel_at); komünyon (host_at): altın disk altarın üstünde yükselir; snuff_at: mumlar söner (idam anlatılmaz, gösterilmez)."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress=None, push=0.045, drift=(-6.0, 0.0))
+    t = cx.t
+    T = OD.OTint("night")
+    yb = 850
+    OD.floor_planks(c, -200, 2300, 800, 1000, T, "#4A4038", seed=3, w0=200.0)
+    OD.ashlar(c, -200, 2300, 140, 800, T, "#7A6E5A", 64.0, seed=2)
+    OD.cornice(c, -200, 2300, 130, T, col="#5A4A34", plaster="#7A6E5A", gold=False)
+    # pencere: şafak
+    kd = ease_io(clamp((t - cx.at(dawn_at)) / 3.0))
+    wx, wy0, ww, wh = 960, 250, 300, 470
+    wp = skia.Path()
+    wp.moveTo(wx - ww / 2, wy0 + wh)
+    wp.lineTo(wx - ww / 2, wy0 + ww / 2)
+    wp.arcTo(skia.Rect.MakeLTRB(wx - ww / 2, wy0, wx + ww / 2, wy0 + ww), 180, 180, False)
+    wp.lineTo(wx + ww / 2, wy0 + wh)
+    wp.close()
+    c.save()
+    c.clipPath(wp, skia.ClipOp.kIntersect, True)
+    c.drawRect(skia.Rect.MakeLTRB(wx - ww / 2, wy0, wx + ww / 2, wy0 + wh), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, wy0), (0, wy0 + wh)], [C(mix("#0E1638", "#8FB0D8", kd)), C(mix("#1C2A5A", "#F6D79A", kd))], [0.0, 1.0])))
+    c.restore()
+    c.drawPath(wp, S("#2A1E10", 8.0, 240))
+    c.drawLine(wx, wy0 + 20, wx, wy0 + wh, S("#2A1E10", 5.0, 220))
+    c.drawLine(wx - ww / 2, wy0 + wh * 0.45, wx + ww / 2, wy0 + wh * 0.45, S("#2A1E10", 5.0, 220))
+    # pencereden zemine ışık huzmesi (şafakla birlikte)
+    if kd > 0.01:
+        lp = sk.poly_path([(wx - 120, wy0 + wh), (wx + 120, wy0 + wh), (wx + 560, yb + 60), (wx - 180, yb + 60)])
+        c.drawPath(lp, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, wy0 + wh), (0, yb + 60)], [C("#FFE2A0", int(90 * kd)), C("#FFE2A0", int(20 * kd))], [0.0, 1.0])))
+    # altar
+    ax = 1480
+    c.drawRect(skia.Rect.MakeLTRB(ax - 200, 640, ax + 200, 700), P("#6A5A44"))
+    c.drawRect(skia.Rect.MakeLTRB(ax - 200, 640, ax + 200, 650), P("#A89870"))
+    c.drawRect(skia.Rect.MakeLTRB(ax - 180, 700, ax + 180, yb), P("#4A3E2E"))
+    c.drawRect(skia.Rect.MakeLTRB(ax - 180, 700, ax + 180, yb), S("#1A120A", 2.4, 220))
+    c.drawRect(skia.Rect.MakeLTRB(ax - 150, 700, ax + 150, 790), P("#C8B88A", 255))
+    icons.draw_icon(f, "cross", ax, 520, size=210, metal="gold", alpha=1.0)
+    sn = clamp((t - cx.at(snuff_at)) / 0.6)
+    for k_, dx_ in enumerate((-130, 130)):
+        OD.candle(f, ax + dx_, 640, 90, t, seed=k_ * 5 + 2, lit=1.0 - smooth(clamp(sn - 0.25 * k_)), holder=True, smoke=True)
+    # komünyon: altın disk
+    kh = ease_out(clamp((t - cx.at(host_at)) / 1.3), 2.0)
+    if kh > 0.003:
+        PN.glow(c, ax, 560 - 40 * kh, 190, "#FFD27A", 0.35 * kh * (1.0 - smooth(sn)))
+        icons.draw_icon(f, "sun_disc", ax, 600 - 90 * kh, size=96 * (0.6 + 0.4 * kh), metal="gold", alpha=kh * (1.0 - 0.8 * smooth(sn)))
+    # üç siluet: soldan yürür, altara dönük diz çöker
+    t0 = cx.at(kneel_at)
+    for i, (xk, sd) in enumerate(((820, 12), (1000, 14), (1180, 16))):
+        u = clamp((t - t0 - 0.35 * i) / 2.2)
+        x_start = -140 - i * 150
+        xcur = lerp(x_start, xk, ease_out(u, 1.6))
+        if u < 1.0:
+            OD.sil_actor(f, "kesis", xcur, yb, 330, t, dir=1, seed=sd, color="#0A0604", rim="#F2C98A", rim_dir=1, walker=150.0 * (1.0 - ease_io(clamp(u * 1.0))) + 20.0)
+        else:
+            OD.sil_actor(f, "kesis", xk, yb, 330, t, action="pray", dir=1, seed=sd, color="#0A0604", rim="#F2C98A", rim_dir=1)
+    cam.end(f)
+    CM.finish(f, cx, motes_n=16, light=CM.candle_light(t, seed, base=(ax, 640), r=1300.0, sway=8.0))
+    if ovl is not None:
+        ovl(cx)
+
+
+# ═════════════════════════════ V7 s35 · küller Ponte Vecchio'dan Arno'ya (pano florence istasyonu) ═════════════════════════════
+def st_ash(ctx, st):
+    """Pano `florence` istasyonu: köprü hattından (paralaks düzeltmeli) gri kül tanecikleri savrulur, SAĞA sürüklenir, nehre düşer ve halka bırakır. Beden/kap yok: yalnız kül bulutu.
+    st: at (çapa, başlangıç), n, dur (yayılma süresi). Köprü x'i: ana düzlemde köprü merkezinin izdüşümü."""
+    f, c, t, cx = ctx.f, ctx.c, ctx.t, ctx.cx
+    t0 = cx.at(st["at"])
+    n = st.get("n", 110)
+    dur = st.get("dur", 3.2)
+    wx = ctx.Cx(1.0) + (ctx.world.XB - ctx.Cx(0.55))
+    rs = np.random.RandomState(31)
+    surge_t = cx.at(st["surge"]) if st.get("surge") is not None else t0 + 1.4
+    for i in range(n):
+        u = rs.rand()
+        b = t0 + u * dur
+        if rs.rand() < 0.45:
+            b = surge_t + rs.rand() * 0.9                                   # «atıldı» anında yoğun savrulma
+        age = t - b
+        if age <= 0.0 or age > 5.0:
+            continue
+        x0 = wx + (rs.rand() - 0.5) * 300
+        y0 = 548 + rs.uniform(-8, 8)
+        vx = 34.0 + rs.rand() * 70.0
+        vy = 26.0 + rs.rand() * 34.0
+        ph = rs.rand() * 6.28
+        sz = 1.8 + rs.rand() * 3.4
+        x = x0 + vx * age + math.sin(age * 2.6 + ph) * 16.0
+        y = y0 + vy * age + 0.5 * 10.0 * age * age * 0.4
+        land = 690.0 + rs.uniform(-12, 22)
+        a = min(1.0, age / 0.3) * (1.0 - smooth(clamp((age - 3.4) / 1.6)))
+        if y >= land:
+            ra = clamp((age - (land - y0) / (vy + 8.0)) / 1.2)
+            if ra < 1.0:
+                c.drawOval(skia.Rect.MakeLTRB(x - 26 * ra, land - 6 * ra, x + 26 * ra, land + 6 * ra), S("#C8D2E8", 1.6, int(120 * (1 - ra) * a)))
+            continue
+        c.drawCircle(x, y, sz, P(["#B9B3A6", "#8E887C", "#D2CCC0"][i % 3], int(235 * a)))
+
+
+# ═════════════════════════════ V4 s16 · «BİR SAAT» emri: yırtık kenarlı kâğıt + akan kum saati ═════════════════════════════
+def hourglass(c, x, y, h, k, t, a=1.0):
+    """Kum saati (cam + ahşap başlıklar): üst hazneden alta kum akar (k: 0..1 geçen oran). Çizilen: boşalan üst kum, birikken alt kum, ince akış çizgisi."""
+    w = h * 0.52
+    al = int(255 * a)
+    gl = skia.Path()
+    gl.moveTo(x - w / 2, y - h / 2 + 12)
+    gl.cubicTo(x - w / 2, y - h * 0.10, x - 8, y - 14, x - 8, y)
+    gl.cubicTo(x - 8, y + 14, x - w / 2, y + h * 0.10, x - w / 2, y + h / 2 - 12)
+    gl.lineTo(x + w / 2, y + h / 2 - 12)
+    gl.cubicTo(x + w / 2, y + h * 0.10, x + 8, y + 14, x + 8, y)
+    gl.cubicTo(x + 8, y - 14, x + w / 2, y - h * 0.10, x + w / 2, y - h / 2 + 12)
+    gl.close()
+    c.drawPath(gl, P("#DCE8EE", int(70 * a)))
+    c.save()
+    c.clipPath(gl, skia.ClipOp.kIntersect, True)
+    top_h = (h / 2 - 20) * (1.0 - k)
+    c.drawRect(skia.Rect.MakeLTRB(x - w / 2, y - 8 - top_h, x + w / 2, y - 6), P("#D8B26A", al))
+    bot_h = (h / 2 - 20) * k
+    bp = skia.Path()
+    bp.moveTo(x - w / 2, y + h / 2 - 12)
+    bp.lineTo(x - w * 0.34, y + h / 2 - 12 - bot_h * 0.55)
+    bp.lineTo(x, y + h / 2 - 12 - bot_h)
+    bp.lineTo(x + w * 0.34, y + h / 2 - 12 - bot_h * 0.55)
+    bp.lineTo(x + w / 2, y + h / 2 - 12)
+    bp.close()
+    c.drawPath(bp, P("#D8B26A", al))
+    if k < 0.99:
+        c.drawLine(x, y - 4, x, y + h / 2 - 12 - bot_h, S("#E8C888", 2.4, al))
+    c.restore()
+    c.drawPath(gl, S("#2A1608", 3.0, int(210 * a)))
+    for yy in (y - h / 2, y + h / 2 - 12):
+        c.drawRect(skia.Rect.MakeLTRB(x - w / 2 - 14, yy, x + w / 2 + 14, yy + 14), P("#6A4A2A", al))
+        c.drawRect(skia.Rect.MakeLTRB(x - w / 2 - 14, yy, x + w / 2 + 14, yy + 14), S("#2A1608", 2.0, al))
+
+
+@CM.ckind("c10_emir")
+def k_emir(cx, seed=14, glass_at=0.0, glass_dur=3.0, seal_at=0.0, ovl=None, **_):
+    """Kapıya çivilenen emir kâğıdı yakın plan: yırtık kenarlı sayfa, okunmaz satırlar, ortada kum saati (glass_at: kum akmaya başlar, glass_dur sn), seal_at'ta mühür (kırmızı balmumu) iner.
+    «Bir saat» süre birimidir — saat/zil iddiası yok; kum saati süre görseli."""
+    f, c, cam = L.begin(cx, bg="wall", seed=seed, dress="both", push=0.05, drift=(5.0, 2.0))
+    t = cx.t
+    # ahşap kapı zemini
+    c.drawRect(skia.Rect.MakeLTRB(0, 150, W, 930), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 0), (W, 0)], [C("#4A3220"), C("#6A4A2C"), C("#4A3220")], [0.0, 0.5, 1.0])))
+    for x in range(0, W, 160):
+        c.drawLine(x, 150, x, 930, S("#2A1A0C", 3.0, 150))
+    for yy in (330, 760):
+        c.drawRect(skia.Rect.MakeLTRB(0, yy, W, yy + 34), P("#2A2A30"))
+        for x in range(60, W, 140):
+            c.drawCircle(x, yy + 17, 7, P("#6A6A72"))
+    pw, ph = 760, 600
+    k0 = ease_out(clamp((t - cx.at(glass_at) + 1.0) / 0.7), 2.0)
+    c.save()
+    c.translate(960, 560 - (1 - k0) * 220)
+    c.rotate(-1.4 + 0.5 * math.sin(t * 0.9))
+    f.circle(10, 18, pw * 0.5, color="#000000", alpha=0.28 * k0, blur=20)
+    pp = PP.paper_image(pw, ph, 9, (226, 212, 180), "torn", (), 40, 1.2)
+    pp.draw(f, 0, 0, rot=0.0, scale=1.0, alpha=k0, shadow=0.0)
+    for dx in (-290, 290):
+        c.drawCircle(dx, -ph / 2 + 36, 9, P("#2A1A0C", int(240 * k0)))
+    for i in range(4):
+        L.scribble(c, -pw / 2 + 80, pw / 2 - 80 - (i % 2) * 120, -ph / 2 + 110 + i * 34, seed=70 + i, col="#3A2616", a=int(180 * k0), amp=3.0, w=2.4)
+    k = clamp((t - cx.at(glass_at)) / glass_dur)
+    hourglass(c, 0, 40, 330, k, t, a=k0)
+    for i in range(3):
+        L.scribble(c, -pw / 2 + 80, pw / 2 - 80 - (i % 2) * 140, ph / 2 - 120 + i * 30, seed=80 + i, col="#3A2616", a=int(180 * k0), amp=3.0, w=2.4)
+    ks = ease_out(clamp((t - cx.at(seal_at)) / 0.35), 2.2)
+    if ks > 0.003:
+        sx_, sy_ = 250, ph / 2 - 90
+        c.drawCircle(sx_, sy_, 54 * (1.6 - 0.6 * ks), P("#8A1E16", int(250 * ks)))
+        c.drawCircle(sx_, sy_, 54 * (1.6 - 0.6 * ks), S("#4A0E0A", 3.0, int(250 * ks)))
+        c.drawCircle(sx_, sy_, 34 * (1.6 - 0.6 * ks), S("#B8402E", 2.4, int(230 * ks)))
+        if ks > 0.9:
+            for j in range(5):
+                a_ = j * 1.26
+                c.drawLine(sx_ + 16 * math.cos(a_), sy_ + 16 * math.sin(a_), sx_ + 30 * math.cos(a_), sy_ + 30 * math.sin(a_), S("#B8402E", 2.4, 220))
+    c.restore()
+    cam.end(f)
+    CM.finish(f, cx, motes_n=12)
+    if ovl is not None:
+        ovl(cx)
+
+
+# ───────────── tür çeşitliliği: `oda` sarmalayıcısı (p5_oda ile aynı davranış, ayrı tür adı; kendi kamerası var) ─────────────
+import cilt_cam as _CC
+import shots as _SH
+
+
+def _k_c10_oda(cx, ovl=None, **kw):
+    _SH.KINDS["oda"](cx, **kw)
+    if ovl is not None:
+        ovl(cx)
+
+
+_SH.KINDS["c10_oda"] = _k_c10_oda
+_CC.OWN_CAMERA.add("c10_oda")

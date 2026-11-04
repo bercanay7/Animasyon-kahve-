@@ -775,7 +775,7 @@ def k_kagit_yolu_impl(cx, **_):
     if kc > 0.003:
         L.tag(f, cx, "1.100 DUKA", 960, 240, at=("c3s8", "bin", 0.0), size=52, w=420, hold=("c3s8", "gitti.", 0.4))
     L.tag(f, cx, "1.000", 960 + 360, 400, at=("c3s8", "bini", 0.0), size=44, w=260, hold=("c3s8", "gitti.", 0.4), sub="GONFALONIERE'YE")
-    L.stamp_at(f, cx, "ANEKDOT", 330, 270, at=("c3s8", "Yine", 0.0), size=46, rot=-0.08)
+    L.stamp_at(f, cx, "ANEKDOT", 330, 270, at=("c3s8", "Yine", 0.0), size=46, rot=-0.08, hold=("c3s8", "başkanından", -0.3))
 
 
 @CM.ckind("c3_kagit_yolu")
@@ -1891,7 +1891,7 @@ def k_ag_impl(cx, **_):
         SOFT(c, HUB[0], HUB[1], 200, 200, "#FFD060", 70 * kh)
         CP.draw_arms(f, HUB[0], HUB[1], 190 * (0.9 + 0.1 * ease_out(kh)), alpha=kh, shadow=0.6, glow=0.35 * kh, glint=((t * 0.3) % 2.0) if (t * 0.3) % 2.0 < 1 else None)
     L.end(cx, cam, motes_n=14)
-    L.tag(f, cx, "PADGETT · ANSELL", 960, 100, at=("c3s25", "Padgett", -0.1), size=36, sub="SOSYOLOGLAR", w=640)
+    L.tag(f, cx, "PADGETT · ANSELL", 960, 100, at=("c3s25", "Sosyologlar", 0.1), size=36, sub="SOSYOLOGLAR", w=640)
     L.tag(f, cx, "AİLE GRUPLARI", 420, 322, at=("c3s25", "aile", 0.0), size=30, w=400)
     L.tag(f, cx, "MEDICI", 960, 700, at=("c3s25", "Medici", 0.0), size=36, w=300)
 

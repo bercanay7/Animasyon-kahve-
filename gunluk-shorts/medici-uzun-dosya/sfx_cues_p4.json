@@ -12,6 +12,48 @@
  },
  "cues": [
   {
+   "id": "c8-kursun-muhur",
+   "bolum": "c8",
+   "ad": "stamp_thud",
+   "capa": [
+    "c8s1",
+    "Haziran",
+    0.5
+   ],
+   "seviye": -20,
+   "not": "çekim 2: aforoz belgesi — kurşun mühür darbesi",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 140
+  },
+  {
+   "id": "c8-tomar",
+   "bolum": "c8",
+   "ad": "letter_open",
+   "capa": [
+    "c8s1",
+    "Haziran",
+    0.9
+   ],
+   "seviye": -27,
+   "not": "çekim 2: tomar açılışı",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 141
+  },
+  {
+   "id": "c8-interdikt-damga",
+   "bolum": "c8",
+   "ad": "stamp_thud",
+   "capa": [
+    "c8s1",
+    "Floransa'ya",
+    0.6
+   ],
+   "seviye": -19,
+   "not": "çekim 3: interdikt damgası; ardından boğuk sessizlik (müzik kısık; ÇAN YOK)",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 142
+  },
+  {
    "id": "c8-belge",
    "bolum": "c8",
    "ad": "paper_rustle",
@@ -22,6 +64,66 @@
    ],
    "seviye": -26,
    "dur": 1.6
+  },
+  {
+   "id": "c8-kalem-latince",
+   "bolum": "c8",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s2",
+    0.5
+   ],
+   "seviye": -27,
+   "not": "çekim 4: Latince satır",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 143,
+   "sure": 2.2
+  },
+  {
+   "id": "c8-rota-1",
+   "bolum": "c8",
+   "ad": "brush_stroke",
+   "capa": [
+    "c8s3",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 5: Napoli ve Papalık harita çizgisi",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 144
+  },
+  {
+   "id": "c8-alay-adim",
+   "bolum": "c8",
+   "ad": "footsteps",
+   "capa": [
+    "c8s3",
+    "ordunun",
+    0.3
+   ],
+   "seviye": -28,
+   "not": "çekim 6: ordu yürür — alay adımları",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 145,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 10,
+    "pace": 0.5
+   }
+  },
+  {
+   "id": "c8-sancak",
+   "bolum": "c8",
+   "ad": "cloth_sweep",
+   "capa": [
+    "c8s3",
+    "ordunun",
+    0.6
+   ],
+   "seviye": -31,
+   "not": "çekim 6: sancak",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 146
   },
   {
    "id": "c8-hazine",
@@ -50,18 +152,6 @@
    "not": "ses köprüsü: kasa kapağı V3'e taşar"
   },
   {
-   "id": "c8-pisa-mektubu",
-   "bolum": "c8",
-   "ad": "quill_scratch",
-   "capa": [
-    "c8s8",
-    "yazıp",
-    0.0
-   ],
-   "seviye": -25,
-   "dur": 2.6
-  },
-  {
    "id": "c8-napoli-yolu",
    "bolum": "c8",
    "ad": "sea_waves",
@@ -79,6 +169,78 @@
    "dongu": true,
    "gir": 1.5,
    "cik": 1.5
+  },
+  {
+   "id": "c8-rota-2",
+   "bolum": "c8",
+   "ad": "brush_stroke",
+   "capa": [
+    "c8s7",
+    0.4
+   ],
+   "seviye": -28,
+   "not": "çekim 10: Floransa → Napoli rotası",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 147
+  },
+  {
+   "id": "c8-pisa-mektubu",
+   "bolum": "c8",
+   "ad": "quill_scratch",
+   "capa": [
+    "c8s8",
+    "yazıp",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.6
+  },
+  {
+   "id": "c8-yol-denizi",
+   "bolum": "c8",
+   "ad": "sea_waves",
+   "capa": [
+    "c8s9",
+    0.0
+   ],
+   "seviye": -32,
+   "not": "çekim 12–13: dalga",
+   "kaynak": "yonetmen_c8.md",
+   "bitis_capa": [
+    "c8s10",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5,
+   "seed": 148
+  },
+  {
+   "id": "c8-yol-tahta",
+   "bolum": "c8",
+   "ad": "ship_creak",
+   "capa": [
+    "c8s9",
+    0.6
+   ],
+   "seviye": -29,
+   "not": "çekim 12: tahta",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 149
+  },
+  {
+   "id": "c8-rota-3",
+   "bolum": "c8",
+   "ad": "brush_stroke",
+   "capa": [
+    "c8s12",
+    0.4
+   ],
+   "seviye": -28,
+   "not": "çekim 15: doğudan yolculuk",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 150
   },
   {
    "id": "c8-pera",
@@ -101,6 +263,19 @@
    "not": "Pera limanı"
   },
   {
+   "id": "c8-antonio-tahta",
+   "bolum": "c8",
+   "ad": "ship_creak",
+   "capa": [
+    "c8s15",
+    0.5
+   ],
+   "seviye": -29,
+   "not": "çekim 19: Antonio'nun aceleyle yolculuğu (tahta)",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 151
+  },
+  {
    "id": "c8-leonardo",
    "bolum": "c8",
    "ad": "quill_scratch",
@@ -115,19 +290,31 @@
    "not": "Leonardo asılı adamı çizdi (kod çizimi; ses yalnız kalem)"
   },
   {
-   "id": "c8-bertoldo",
+   "id": "c8-kalem-leonardo-yanı",
    "bolum": "c8",
-   "ad": "knock_metal",
+   "ad": "quill_scratch",
    "capa": [
-    "c8s28",
-    "bronza",
-    0.0
+    "c8s21",
+    0.6
    ],
-   "seviye": -26,
-   "parametre": {
-    "n_hits": 3
-   },
-   "dur": 1.2
+   "seviye": -27,
+   "not": "çekim 24: Ferrante ayrıldı, Lorenzo döndü (kalem)",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 152,
+   "sure": 2.0
+  },
+  {
+   "id": "c8-balmumu-1",
+   "bolum": "c8",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c8s22",
+    1.0
+   ],
+   "seviye": -22,
+   "not": "çekim 25: barış maddeleri — balmumu mühür",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 153
   },
   {
    "id": "c8-otranto-deniz",
@@ -147,6 +334,147 @@
    "dongu": true,
    "gir": 1.0,
    "cik": 1.5
+  },
+  {
+   "id": "c8-otranto-alev",
+   "bolum": "c8",
+   "ad": "fire_crackle",
+   "capa": [
+    "c8s25",
+    0.3
+   ],
+   "seviye": -31,
+   "not": "çekim 29: Otranto alevi (uzak; şiddet gösterilmez)",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 154,
+   "sure": 5.0,
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 2.0
+  },
+  {
+   "id": "c8-otranto-gurultu",
+   "bolum": "c8",
+   "ad": "thunder",
+   "capa": [
+    "c8s25",
+    1.0
+   ],
+   "seviye": -36,
+   "not": "çekim 29: uzak gürültü",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 155
+  },
+  {
+   "id": "c8-rota-4",
+   "bolum": "c8",
+   "ad": "brush_stroke",
+   "capa": [
+    "c8s26",
+    0.4
+   ],
+   "seviye": -28,
+   "not": "çekim 30: ordu geri çağrılır",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 156
+  },
+  {
+   "id": "c8-balmumu-2",
+   "bolum": "c8",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c8s27",
+    "Aralık",
+    1.0
+   ],
+   "seviye": -23,
+   "not": "çekim 32: elçiler affedildi — balmumu mühür",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 157
+  },
+  {
+   "id": "c8-bertoldo",
+   "bolum": "c8",
+   "ad": "knock_metal",
+   "capa": [
+    "c8s28",
+    "bronza",
+    0.0
+   ],
+   "seviye": -26,
+   "parametre": {
+    "n_hits": 3
+   },
+   "dur": 1.2
+  },
+  {
+   "id": "c8-dokum",
+   "bolum": "c8",
+   "ad": "fire_crackle",
+   "capa": [
+    "c8s28",
+    0.3
+   ],
+   "seviye": -32,
+   "not": "çekim 33: döküm sıvısı",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 158,
+   "sure": 4.0,
+   "dongu": true,
+   "gir": 0.8,
+   "cik": 1.5
+  },
+  {
+   "id": "c8-kalip",
+   "bolum": "c8",
+   "ad": "knock_metal",
+   "capa": [
+    "c8s28",
+    3.6
+   ],
+   "seviye": -26,
+   "not": "çekim 33: kalıp açılışı",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 159
+  },
+  {
+   "id": "c8-madalya-1",
+   "bolum": "c8",
+   "ad": "glass_chime",
+   "capa": [
+    "c8s29",
+    0.5
+   ],
+   "seviye": -31,
+   "not": "çekim 34: madalya parıltısı",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 160
+  },
+  {
+   "id": "c8-madalya-2",
+   "bolum": "c8",
+   "ad": "glass_chime",
+   "capa": [
+    "c8s30",
+    0.5
+   ],
+   "seviye": -32,
+   "not": "çekim 35: madalyanın ters yüzü",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 161
+  },
+  {
+   "id": "c8-madalya-3",
+   "bolum": "c8",
+   "ad": "glass_chime",
+   "capa": [
+    "c8s31",
+    0.6
+   ],
+   "seviye": -33,
+   "not": "çekim 36: madalya (ölüm; ağır)",
+   "kaynak": "yonetmen_c8.md",
+   "seed": 162
   },
   {
    "id": "c8-isik-1",
@@ -209,6 +537,113 @@
    "not": "şube ışıkları birer birer söner (lavta notalarıyla eşzamanlı)"
   },
   {
+   "id": "c9-defter-hisirti",
+   "bolum": "c9",
+   "ad": "paper_rustle",
+   "capa": [
+    "c9s1",
+    "defteri",
+    0.0
+   ],
+   "seviye": -26,
+   "not": "çekim 2: defter sayfaları tek tek kalkıp toza karışır",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 80,
+   "sure": 2.2
+  },
+  {
+   "id": "c9-sap-kristal",
+   "bolum": "c9",
+   "ad": "glass_chime",
+   "capa": [
+    "c9s2",
+    0.3
+   ],
+   "seviye": -33,
+   "not": "çekim 3: şap kristallerinin çıtırtısı",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 81
+  },
+  {
+   "id": "c9-dort-muhur-1",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s4",
+    0.2
+   ],
+   "seviye": -24,
+   "not": "çekim 6: 1466 pazarlama hakkı belgesi — dört mum mühür",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 82
+  },
+  {
+   "id": "c9-dort-muhur-2",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s4",
+    0.7
+   ],
+   "seviye": -24,
+   "not": "mühür",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 83
+  },
+  {
+   "id": "c9-dort-muhur-3",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s4",
+    1.2
+   ],
+   "seviye": -24,
+   "not": "mühür",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 84
+  },
+  {
+   "id": "c9-dort-muhur-4",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s4",
+    1.7
+   ],
+   "seviye": -24,
+   "not": "mühür",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 85
+  },
+  {
+   "id": "c9-damga-aforoz",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s5",
+    0.8
+   ],
+   "seviye": -22,
+   "not": "çekim 7: AFOROZ damgası",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 90
+  },
+  {
+   "id": "c9-mum-cosimo",
+   "bolum": "c9",
+   "ad": "candle_snuff",
+   "capa": [
+    "c9s7",
+    "ama",
+    0.8
+   ],
+   "seviye": -27,
+   "not": "çekim 10: Cosimo'nun mumu söner, Portinari parlar",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 93
+  },
+  {
    "id": "c9-kredi",
    "bolum": "c9",
    "ad": "coin_clink",
@@ -220,6 +655,32 @@
    "seviye": -24,
    "pan": 0.2,
    "seed": 8
+  },
+  {
+   "id": "c9-sikke-1",
+   "bolum": "c9",
+   "ad": "coin_clink",
+   "capa": [
+    "c9s8",
+    0.3
+   ],
+   "seviye": -25,
+   "not": "çekim 11: sikkeler Portinari'den dükün yanına akar",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 91
+  },
+  {
+   "id": "c9-damga-11",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s8",
+    1.3
+   ],
+   "seviye": -23,
+   "not": "çekim 11: damga",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 92
   },
   {
    "id": "c9-brugge",
@@ -236,6 +697,45 @@
    }
   },
   {
+   "id": "c9-londra-sikke",
+   "bolum": "c9",
+   "ad": "coin_clink",
+   "capa": [
+    "c9s11",
+    0.8
+   ],
+   "seviye": -25,
+   "not": "çekim 14: Londra — krediler krala akar",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 94
+  },
+  {
+   "id": "c9-geri-odeme-sikke",
+   "bolum": "c9",
+   "ad": "coin_clink",
+   "capa": [
+    "c9s12",
+    0.6
+   ],
+   "seviye": -26,
+   "not": "çekim 15: geri ödenen sikkeler",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 95
+  },
+  {
+   "id": "c9-damga-kaynaklar",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s12",
+    1.6
+   ],
+   "seviye": -24,
+   "not": "çekim 15: ≠ KAYNAKLAR damgası",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 96
+  },
+  {
    "id": "c9-londra",
    "bolum": "c9",
    "ad": "book_close",
@@ -249,6 +749,19 @@
    "parametre": {
     "pitch": 0.95
    }
+  },
+  {
+   "id": "c9-londra-mum",
+   "bolum": "c9",
+   "ad": "candle_snuff",
+   "capa": [
+    "c9s13",
+    1.5
+   ],
+   "seviye": -28,
+   "not": "çekim 16: Londra çubuğu biter, lamba söner",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 97
   },
   {
    "id": "c9-milano",
@@ -311,6 +824,701 @@
    }
   },
   {
+   "id": "c9-cark-1-1",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.2
+   ],
+   "seviye": -30,
+   "not": "çekim 18: suçlama çarkı hızla döner (iğne tıkırtısı, yavaşlayan)",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 100
+  },
+  {
+   "id": "c9-cark-1-2",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.27
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 101
+  },
+  {
+   "id": "c9-cark-1-3",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.3477
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 102
+  },
+  {
+   "id": "c9-cark-1-4",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.4339470000000001
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 103
+  },
+  {
+   "id": "c9-cark-1-5",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.5296811700000001
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 104
+  },
+  {
+   "id": "c9-cark-1-6",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.6359460987000003
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 105
+  },
+  {
+   "id": "c9-cark-1-7",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.7539001695570002
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 106
+  },
+  {
+   "id": "c9-cark-1-8",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    0.8848291882082704
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 107
+  },
+  {
+   "id": "c9-cark-1-9",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    1.0301603989111803
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 108
+  },
+  {
+   "id": "c9-cark-1-10",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    1.1914780427914102
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 109
+  },
+  {
+   "id": "c9-cark-1-11",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    1.3705406274984655
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 110
+  },
+  {
+   "id": "c9-cark-1-12",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    1.5693000965232968
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 111
+  },
+  {
+   "id": "c9-cark-1-13",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    1.7899231071408597
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 112
+  },
+  {
+   "id": "c9-cark-1-14",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    2.0348146489263543
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 113
+  },
+  {
+   "id": "c9-cark-1-15",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    2.3066442603082535
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 114
+  },
+  {
+   "id": "c9-cark-1-16",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    2.6083751289421615
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 115
+  },
+  {
+   "id": "c9-cark-1-17",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    2.9432963931257996
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 116
+  },
+  {
+   "id": "c9-cark-1-18",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    3.315058996369638
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 117
+  },
+  {
+   "id": "c9-cark-1-19",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    3.7277154859702986
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 118
+  },
+  {
+   "id": "c9-cark-1-20",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    4.185764189427031
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 119
+  },
+  {
+   "id": "c9-cark-1-21",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    4.694198250264005
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 120
+  },
+  {
+   "id": "c9-cark-1-22",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s15",
+    5.258560057793046
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 121
+  },
+  {
+   "id": "c9-cark-2-1",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    -0.5
+   ],
+   "seviye": -30,
+   "not": "çekim 20: çark AJANLAR'da durur (iğne ibreyi tıkırdatır)",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 130
+  },
+  {
+   "id": "c9-cark-2-2",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    -0.32
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 131
+  },
+  {
+   "id": "c9-cark-2-3",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    -0.11120000000000002
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 132
+  },
+  {
+   "id": "c9-cark-2-4",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    0.131008
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 133
+  },
+  {
+   "id": "c9-cark-2-5",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    0.41196928
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 134
+  },
+  {
+   "id": "c9-cark-2-6",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    0.7378843648
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 135
+  },
+  {
+   "id": "c9-cark-2-7",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    1.115945863168
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 136
+  },
+  {
+   "id": "c9-cark-2-8",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    1.55449720127488
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 137
+  },
+  {
+   "id": "c9-cark-2-9",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    2.0632167534788604
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 138
+  },
+  {
+   "id": "c9-cark-2-10",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    2.653331434035478
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 139
+  },
+  {
+   "id": "c9-cark-2-11",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    3.337864463481154
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 140
+  },
+  {
+   "id": "c9-cark-2-12",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s16",
+    "ajanlara",
+    4.131922777638138
+   ],
+   "seviye": -30,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 141
+  },
+  {
+   "id": "c9-damga-goldthwaite",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s18",
+    "Goldthwaite",
+    1.0
+   ],
+   "seviye": -24,
+   "not": "çekim 24: damga (kriz yok)",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 170
+  },
+  {
+   "id": "c9-cark-3-1",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    0.3
+   ],
+   "seviye": -31,
+   "not": "çekim 25: çark yavaşlar ama hiçbir dilimde oturmaz",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 150
+  },
+  {
+   "id": "c9-cark-3-2",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    0.5
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 151
+  },
+  {
+   "id": "c9-cark-3-3",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    0.724
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 152
+  },
+  {
+   "id": "c9-cark-3-4",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    0.9748800000000002
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 153
+  },
+  {
+   "id": "c9-cark-3-5",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    1.2558656000000001
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 154
+  },
+  {
+   "id": "c9-cark-3-6",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    1.5705694720000003
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 155
+  },
+  {
+   "id": "c9-cark-3-7",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    1.9230378086400004
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 156
+  },
+  {
+   "id": "c9-cark-3-8",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    2.3178023456768004
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 157
+  },
+  {
+   "id": "c9-cark-3-9",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    2.7599386271580166
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 158
+  },
+  {
+   "id": "c9-cark-3-10",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    3.255131262416979
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 159
+  },
+  {
+   "id": "c9-cark-3-11",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    3.8097470139070166
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 160
+  },
+  {
+   "id": "c9-cark-3-12",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    4.430916655575859
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 161
+  },
+  {
+   "id": "c9-cark-3-13",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    5.126626654244963
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 162
+  },
+  {
+   "id": "c9-cark-3-14",
+   "bolum": "c9",
+   "ad": "tick",
+   "capa": [
+    "c9s19",
+    5.905821852754359
+   ],
+   "seviye": -31,
+   "not": "çark tık",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 163
+  },
+  {
+   "id": "c9-muhur-bandi",
+   "bolum": "c9",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c9s22",
+    1.0
+   ],
+   "seviye": -23,
+   "not": "çekim 28: Palazzo Medici mühür bandı",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 171
+  },
+  {
+   "id": "c9-damga-28",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s22",
+    1.8
+   ],
+   "seviye": -24,
+   "not": "çekim 28: damga",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 172
+  },
+  {
+   "id": "c9-arabasi-adim",
+   "bolum": "c9",
+   "ad": "footsteps",
+   "capa": [
+    "c9s22",
+    "Donatello'nun",
+    0.3
+   ],
+   "seviye": -29,
+   "not": "çekim 29: bronzlar taşınır — ahşap tekerlek + adım",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 173,
+   "parametre": {
+    "kind": "wood",
+    "n_steps": 6,
+    "pace": 0.7
+   }
+  },
+  {
    "id": "c9-yagma",
    "bolum": "c9",
    "ad": "crowd_murmur",
@@ -332,6 +1540,37 @@
    "not": "Kalabalık bahçelere daldı (sözsüz; şiddet sesi yok)"
   },
   {
+   "id": "c9-damga-30",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s23",
+    1.6
+   ],
+   "seviye": -24,
+   "not": "çekim 30: damga (kesit)",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 174
+  },
+  {
+   "id": "c9-uzak-adimlar",
+   "bolum": "c9",
+   "ad": "footsteps",
+   "capa": [
+    "c9s23",
+    1.0
+   ],
+   "seviye": -32,
+   "not": "çekim 30: alt kat kalabalık adımları uzaktan (sözsüz, şiddetsiz)",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 175,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 8,
+    "pace": 0.55
+   }
+  },
+  {
    "id": "c9-kayyum-muhru",
    "bolum": "c9",
    "ad": "wax_seal_stamp",
@@ -342,6 +1581,81 @@
    ],
    "seviye": -20,
    "not": "KAYYUM mührü (brif §7)"
+  },
+  {
+   "id": "c9-kayyum-damga",
+   "bolum": "c9",
+   "ad": "stamp_thud",
+   "capa": [
+    "c9s24",
+    0.8
+   ],
+   "seviye": -21,
+   "not": "çekim 31: KAYYUM mührü çarpar",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 176
+  },
+  {
+   "id": "c9-defter-kapanis",
+   "bolum": "c9",
+   "ad": "book_close",
+   "capa": [
+    "c9s27",
+    0.6
+   ],
+   "seviye": -21,
+   "not": "çekim 34: defter kapanır, kapak tok çarpar",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 177
+  },
+  {
+   "id": "c9-mum-defter",
+   "bolum": "c9",
+   "ad": "candle_snuff",
+   "capa": [
+    "c9s27",
+    0.9
+   ],
+   "seviye": -27,
+   "not": "çekim 34: mum söner",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 178
+  },
+  {
+   "id": "c9-outro-mum",
+   "bolum": "c9",
+   "ad": "candle_snuff",
+   "capa": [
+    "c9s28",
+    "end",
+    0.3
+   ],
+   "seviye": -29,
+   "not": "P4 kapanışı (outro): mum üfleme",
+   "kaynak": "yonetmen_c9.md",
+   "seed": 179,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c9-kapi-ruzgar",
+   "bolum": "c9",
+   "ad": "wind",
+   "capa": [
+    "c9s28",
+    -0.2
+   ],
+   "seviye": -35,
+   "not": "çekim 35: kral Alpler'i aşar — rüzgâr/ses halkası (son)",
+   "kaynak": "yonetmen_c9.md",
+   "bitis_capa": [
+    "c9s28",
+    "end",
+    1.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 2.0,
+   "seed": 180
   }
  ]
 }

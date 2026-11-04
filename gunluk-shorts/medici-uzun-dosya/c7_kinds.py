@@ -20,6 +20,7 @@ import cilt_oda as OD
 import cilt_pano as PN
 import cilt_paper as PP
 import icons
+import icons_extra  # noqa: F401  (chains vb.)
 import medal
 import p3_lib as L
 import sk
@@ -45,21 +46,21 @@ def veil(f, color="#1E2A5A", a=0.0):
 
 
 def pigment_bloom(f, x, y, k, color="#8E2A1A", maxr=1500, a=0.85, seed=3):
-    """Pigment yıkama: (x,y) merkezli, kenarı lekeli kızıl bulut büyür (k 0..1). Kan değil: boya yıkaması (sulu pigment, kâğıt dokusu üstünde)."""
+    """Pigment yıkama: (x,y) merkezli, kenarı lekeli kızıl bulut büyür (k 0..1). Kan değil: boya yıkaması (sulu pigment, kâğıt dokusu üstünde).
+    Hızlı: önceden renklendirilmiş radyal sprite'lar (PN.glow) + tamamlanınca düz dolgu."""
     if k <= 0.003:
         return
     c = f.c
     r = maxr * ease_out(k)
     rs = np.random.RandomState(seed)
-    c.save()
-    for i in range(7):
+    for i in range(8):
         ang = rs.uniform(0, 6.283)
         d = rs.uniform(0.0, 0.35) * r
         rr = r * rs.uniform(0.55, 0.95)
-        c.drawCircle(x + math.cos(ang) * d, y + math.sin(ang) * d * 0.6, rr,
-                     skia.Paint(AntiAlias=True, Color=C(color, int(255 * a * rs.uniform(0.35, 0.6) * min(1.0, k * 2.2))), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 26 + 30 * rs.rand())))
-    c.drawCircle(x, y, r * 0.8, skia.Paint(AntiAlias=True, Color=C(color, int(255 * a * 0.55 * min(1.0, k * 2.0))), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 40)))
-    c.restore()
+        PN.glow(c, x + math.cos(ang) * d, y + math.sin(ang) * d * 0.6, rr, color, a * rs.uniform(0.45, 0.72) * min(1.0, k * 2.2))
+    PN.glow(c, x, y, r * 0.8, color, a * 0.8 * min(1.0, k * 2.0))
+    if k > 0.55:
+        c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), P(color, int(255 * a * 0.92 * clamp((k - 0.55) / 0.35))))
 
 
 # ═════════════════════════════ NEF DÜNYASI (çan / mum / ışık huzmesi YOK) ═════════════════════════════
@@ -85,7 +86,7 @@ class C7Nave(PN.Nave):
             xc = i * PN.BAY + PN.BAY / 2
             c.drawCircle(xc, PN.Y_FLOOR - 120, 46, skia.Paint(AntiAlias=True, Color=C("#2C221A")))
 
-    NOCOL = [(5000, 6700), (7000, 8300), (8500, 9900)]       # ana düzlem x aralıkları: ön plan sütunu aksiyonu örtmesin
+    NOCOL = [(4300, 6700), (7000, 8300), (8500, 9900)]       # ana düzlem x aralıkları: ön plan sütunu aksiyonu örtmesin
 
     def _draw_fg(self, fr, xa, xb):
         c = fr.c
@@ -201,8 +202,9 @@ def st_sil(ctx, st):
         if al <= 0.01:
             return
     col = st.get("color", SIL)
+    hat_kw = {"hat": st.get("hat")} if ("hat" in st or st.get("kind", "soylu") == "soylu") else {}
     if walk is not None:
-        OD.sil_actor(f, st.get("kind", "soylu"), x, y, h, t, dir=dirn, seed=st.get("seed", 3), color=col, rim=st.get("rim", RIM), rim_dir=st.get("rim_dir", 1), alpha=al, walker=v_now, prop=st.get("prop"), run=bool(st.get("run")) and v_now > 0)
+        OD.sil_actor(f, st.get("kind", "soylu"), x, y, h, t, dir=dirn, seed=st.get("seed", 3), color=col, rim=st.get("rim", RIM), rim_dir=st.get("rim_dir", 1), alpha=al, walker=v_now, prop=st.get("prop"), run=bool(st.get("run")) and v_now > 0, **hat_kw)
     else:
         kw = {}
         if st.get("at") is not None and st.get("action", "idle") in ("bow", "kneel", "point", "write", "count", "threat", "cheer", "pray", "handshake"):
@@ -211,7 +213,7 @@ def st_sil(ctx, st):
             if k_ in st:
                 kw[k_] = cx.at(st[k_]) if k_ == "rise_at" else st[k_]
         OD.sil_actor(f, st.get("kind", "soylu"), x, y, h, t, action=st.get("action", "idle"), dir=dirn, seed=st.get("seed", 3), color=col, rim=st.get("rim", RIM), rim_dir=st.get("rim_dir", 1),
-                     alpha=al, prop=st.get("prop"), **kw)
+                     alpha=al, prop=st.get("prop"), **kw, **hat_kw)
 
 
 def st_ayin(ctx, st):
@@ -335,6 +337,22 @@ def st_door(ctx, st):
     OD.door_bronze(ctx.f, x, y, h * 0.96, open_amount=op, w=w, seed=st.get("seed", 5), light=False, t=ctx.t)
 
 
+
+def st_hl(ctx, st):
+    """Pencere/nesne vurgusu: kesikli dikdörtgen çerçeve (pigment kızılı) + hafif lacivert dolgu. st: x, y (alt-orta), w, h, at, col."""
+    c, t = ctx.c, ctx.t
+    ts = _ts(ctx, st)
+    k = clamp(ts / 0.7)
+    if k <= 0.003:
+        return
+    x, y, w, h = st["x"], st["y"], st.get("w", 90), st.get("h", 110)
+    r = skia.Rect.MakeLTRB(x - w / 2, y - h, x + w / 2, y)
+    c.drawRoundRect(r, 8, 8, P("#1C2A66", int(60 * k)))
+    pr = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C(st.get("col", "#8E2A1A"), int(235 * k)), StrokeCap=skia.Paint.kRound_Cap)
+    pr.setPathEffect(skia.DashPathEffect.Make([12, 9], -t * 12))
+    c.drawRoundRect(r, 8, 8, pr)
+
+
 def draw_tags(f, cx, tags):
     """Ekran uzayı levhalar: tags=[dict(text, at, x, y, size, track, sub, hold, w)]."""
     for d in tags or ():
@@ -366,7 +384,7 @@ def k_c7_nef(cx, stations=(), cams=None, tags=(), veil_=None, bloom=None, shake=
         dt = cx.t - t0
         if 0 <= dt < shake[1]:
             a_ = shake[2] * math.exp(-dt * 4.0)
-            ucams = [(a, (v[0] + a_ * math.sin(cx.t * 61.0), v[1] + a_ * 0.6 * math.sin(cx.t * 47.0 + 1.0), v[2])) for a, v in cams]
+            ucams = [(a, (v[0] + a_ * math.sin(cx.t * 61.0), v[1] + a_ * 0.6 * math.sin(cx.t * 47.0 + 1.0), v[2])) for a, v in ucams]
     SH.KINDS["pano"](cx, pano="c7_nave", cams=ucams, stations=list(stations), kick=kick, caption=caption, **kw)
     f = cx.f
     if cams and tags:
@@ -710,8 +728,8 @@ def k_c7_yoklama(cx, a_open=0.0, a_embrace=None, a_check=None, a_armor=None, a_s
     xg = 1130
     xf = 700 + 150 * ke
     L.mono_begin(f)
-    OD.sil_actor(f, "soylu", xg, yg, h, cx.t, action="idle", dir=-1, seed=8, color="#2A2218", rim=RIM, rim_dir=1, alpha=ka)
-    OD.sil_actor(f, "soylu", xf, yg, h * 0.98, cx.t, action="handshake", dir=1, seed=3, color="#14100A", rim=RIM, rim_dir=-1, alpha=ka, t0=t0h, M=(0.40, -0.52))
+    OD.sil_actor(f, "soylu", xg, yg, h, cx.t, action="idle", dir=-1, seed=8, color="#2A2218", rim=RIM, rim_dir=1, alpha=ka, hat=None)
+    OD.sil_actor(f, "soylu", xf, yg, h * 0.98, cx.t, action="handshake", dir=1, seed=3, color="#14100A", rim=RIM, rim_dir=-1, alpha=ka, t0=t0h, M=(0.40, -0.52), hat=None)
     L.mono_end(f)
     if kz > 0.01:
         cx_, cy_ = xg - 6, yg - h * 0.60
@@ -771,6 +789,12 @@ def k_c7_iki_anlati(cx, a_open=0.0, a_l1=None, a_l2=None, a_r1=None, a_r2=None, 
             (70, 930, a_kimi1, a_l1, a_l2, "KİMİ", "KOMÜNYON", "pray"),
             (990, 1850, a_kimi2, a_r1, a_r2, "KİMİ", "EKMEĞİN KALDIRILMASI", "cheer"))):
         kp = ease_out(cx.amt(kk, 0.8)) if kk is not None else ka
+        if kp < 0.99:
+            # henüz anlatılmamış panel: kesikli boş çerçeve (yürüyen karıncalar) + «?»
+            pr = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.6, Color=C("#2A1A0C", int(180 * ka * (1 - kp))), StrokeCap=skia.Paint.kRound_Cap)
+            pr.setPathEffect(skia.DashPathEffect.Make([14, 11], -cx.t * 22))
+            c.drawRoundRect(skia.Rect.MakeLTRB(x0, 190, x1, 840), 14, 14, pr)
+            CM.ink(f, "?", (x0 + x1) / 2, 560, face="title", size=170, color="#2A1A0C", align="c", alpha=0.35 * ka * (1 - kp) * (0.8 + 0.2 * math.sin(cx.t * 2.4 + side)), emboss=False)
         if kp <= 0.01:
             continue
         mx = (x0 + x1) / 2
@@ -851,8 +875,11 @@ def k_c7_tally(cx, n=19, a0=0.0, a1=None, wash=None, num=None, num_at=None, sub=
     cam = _paper(cx, seed)
     if wash:
         col = {"red": "#8E2A1A", "navy": "#1C2A66"}.get(wash, wash)
-        pigment_bloom(f, W / 2, H / 2 - 40, 1.0, color=col, maxr=1900 * wash_k, a=0.96, seed=seed)
-        c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), P(col, 70))
+
+        def _wash(fr):
+            pigment_bloom(fr, W / 2, H / 2 - 40, 1.0, color=col, maxr=1900 * wash_k, a=0.96, seed=seed)
+            fr.c.drawRect(skia.Rect.MakeLTRB(0, 0, W, H), P(col, 70))
+        L.blit(c, L.bake(("c7wash", col, seed, wash_k), W, H, _wash), W / 2, H / 2)
     mc = mark_col or ("#F4EEDC" if wash else "#2A1A0C")
     pos, cell, ch = _tally_layout(n, area)
     t0 = cx.at(a0)
@@ -888,3 +915,312 @@ def k_c7_tally(cx, n=19, a0=0.0, a1=None, wash=None, num=None, num_at=None, sub=
         L.tag(f, cx, sub, W / 2, 470 if num else 330, at=sub_at, size=34, track=8, dur=0.5, w=sk.text_width(sub, "title_m", 34, 8) + 80)
     _overlay(f, cx, tags, (), veil_)
     CM.finish(f, cx, motes_n=22)
+
+
+# ═════════════════════════════ c7s31: Lorenzo pencerede (gravür; ANLATILIR) ═════════════════════════════
+@CM.ckind("c7_pencere")
+def k_c7_pencere(cx, a_open=0.0, a_win=None, a_wave=None, a_cheer=None, a_stamp=None, tags=(), seed=48, veil_=None, **_):
+    """Medici Sarayı'nın penceresi: karanlık kemerli pencerede Lorenzo SİLUETİ (boynunda sargı bandı, el kaldırır), altta alkışlayan kalabalık siluetleri; pencere çevresinde altın parıltı (renkli işaret). Gravür dili (anlatılır)."""
+    f = cx.f
+    c = f.c
+    cam = _paper(cx, seed)
+    ka = ease_out(cx.amt(a_open, 0.9))
+    kw = ease_out(cx.amt(a_win, 0.9)) if a_win is not None else ka
+    kv = ease_in(clamp(cx.amt(a_wave, 1.2))) if a_wave is not None else 0.0
+    kc = ease_out(cx.amt(a_cheer, 0.9)) if a_cheer is not None else 0.0
+    L.mono_begin(f)
+    # sarayın taş duvarı (bugnato sıraları)
+    wx0, wx1, wy0, wy1 = 320, 1600, 130, 760
+    c.drawRect(skia.Rect.MakeLTRB(wx0, wy0, wx1, wy1), P("#BFA77F", int(255 * ka)))
+    rs = np.random.RandomState(5)
+    rowh = 62
+    for r_i, yy in enumerate(range(wy0, wy1, rowh)):
+        c.drawLine(wx0, yy, wx1, yy, S("#3A2A18", 1.8, 150 * ka))
+        off = (r_i % 2) * 90
+        for xx in range(wx0 + off, wx1, 180):
+            c.drawLine(xx, yy, xx, yy + rowh, S("#3A2A18", 1.4, 120 * ka))
+    c.drawRect(skia.Rect.MakeLTRB(wx0, wy0, wx1, wy1), S("#1A1008", 3.0, 230 * ka))
+    c.drawRect(skia.Rect.MakeLTRB(wx0 - 30, wy1 - 6, wx1 + 30, wy1 + 28), P("#8E8576", int(255 * ka)))
+    # pencere (sivri çift kemer)
+    px, py, pw, ph = 960, 540, 250, 380
+    arch = skia.Path()
+    arch.moveTo(px - pw / 2, py)
+    arch.lineTo(px - pw / 2, py - ph * 0.62)
+    arch.quadTo(px - pw / 2, py - ph, px, py - ph * 1.08)
+    arch.quadTo(px + pw / 2, py - ph, px + pw / 2, py - ph * 0.62)
+    arch.lineTo(px + pw / 2, py)
+    arch.close()
+    c.drawPath(arch, P("#1A1008", int(255 * ka)))
+    c.drawPath(arch, S("#E8DCC0", 12, 235 * ka))
+    c.drawPath(arch, S("#1A1008", 2.6, 235 * ka))
+    # pencere içi: Lorenzo
+    if kw > 0.01:
+        c.save()
+        c.clipPath(arch, skia.ClipOp.kIntersect, True)
+        by = py - 40 + (1 - kw) * 130
+        c.drawCircle(px, by - 112, 44, P("#C8BA9A", int(255 * kw)))               # baş (yüzsüz; açık siluet)
+        sh = skia.Path()
+        sh.moveTo(px - 118, py + 10)
+        sh.lineTo(px - 108, by - 22)
+        sh.quadTo(px - 70, by - 52, px - 24, by - 58)
+        sh.lineTo(px + 24, by - 58)
+        sh.quadTo(px + 70, by - 52, px + 108, by - 22)
+        sh.lineTo(px + 118, py + 10)
+        sh.close()
+        c.drawPath(sh, P("#C8BA9A", int(255 * kw)))
+        # boyunda sargı bandı
+        c.drawPath(sk.smooth_path([(px - 40, by - 72), (px, by - 58), (px + 40, by - 72)], False, 0.5), skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=15, Color=C("#FFFFFF", int(255 * kw)), StrokeCap=skia.Paint.kRound_Cap))
+        # kalkan kol (el sallar)
+        sw = math.sin(cx.t * 5.2) * 0.35 * kv
+        ax, ay = px + 92, by - 20
+        ex, ey = ax + 40 + 30 * math.sin(sw), ay - 96 - 18 * math.cos(sw)
+        c.drawLine(ax, ay, ex, ey, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=30 * kv + 0.1, Color=C("#C8BA9A", int(255 * kv)), StrokeCap=skia.Paint.kRound_Cap))
+        c.drawCircle(ex, ey - 6, 17 * kv, P("#C8BA9A", int(255 * kv)))
+        c.restore()
+    # alkışlayan kalabalık (alt)
+    if kc > 0.01:
+        kinds = ("halk", "tuccar", "soylu", "soylu_f", "cocuk", "halk", "banker", "halk")
+        for i in range(10):
+            xx = 360 + i * 135 + (i % 2) * 28
+            OD.sil_actor(f, kinds[i % len(kinds)], xx, 900 + (i % 2) * 8, 210 - (i % 3) * 14, cx.t, action="cheer", dir=1 if i % 2 else -1, seed=60 + i, color="#1A1008", rim="#B8A888", alpha=kc, amount=0.8, hop=0.6)
+    L.mono_end(f)
+    # altın parıltı (renk işareti): pencere çevresi
+    if kw > 0.01:
+        PN.glow(c, px, py - 150, 380, "#FFD27A", 0.36 * kw)
+    cam.end(f)
+    draw_tags(f, cx, tags)
+    if a_stamp is not None:
+        L.stamp_at(f, cx, "ANLATILIR", 960, 100, a_stamp, rot=-0.06, size=50)
+    _overlay(f, cx, (), (), veil_)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ═════════════════════════════ c7s38–c7s41: taraflar (üç sütun) ═════════════════════════════
+@CM.ckind("c7_taraflar")
+def k_c7_taraflar(cx, title=None, cols=(), tags=(), veil_=None, seed=49, **_):
+    """Üç sütun: FLORANSA | ROMA | TARİHÇİLER (üçüncü sütun başlığı çapasında belirir; öncesinde gizli). cols=[dict(head, at, x, items=[dict(text|lines, at)], sub, sub_at, dim_at)];
+    title=(metin, çapa) üst başlık. Öğeler çapalarında belirir; aynı öğeler sonraki çekimde zaten görünür (çapa geçmiş)."""
+    f = cx.f
+    c = f.c
+    cam = _paper(cx, seed)
+    if title is not None:
+        kt = cx.amt(title[1], 0.8)
+        if kt > 0.003:
+            sp = CM.engraved(title[0], "title", 72, 12.0, TH.fg)
+            CM.draw_spr(f, sp, W / 2, 150, "c", alpha=min(1.0, kt * 1.5), reveal=clamp(kt * 1.15))
+    for col in cols:
+        kh = ease_out(cx.amt(col["at"], 0.8))
+        if kh <= 0.01:
+            continue
+        x = col["x"]
+        wd = col.get("w", 540)
+        c.save()
+        c.translate(0, (1 - kh) * 16)
+        CM.tablet(f, x - wd / 2, 230, wd, 650, alpha=kh, corner=14)
+        CM.ink(f, col["head"], x, 310, face="title_m", size=44, color=TH.fg, align="c", track=8, alpha=kh, emboss=False)
+        c.drawLine(x - wd * 0.36, 336, x + wd * 0.36, 336, S("#2A1A0C", 2.0, 170 * kh))
+        if col.get("sub"):
+            ks = cx.amt(col.get("sub_at", col["at"]), 0.6)
+            CM.ink(f, col["sub"], x, 372, face="cap_i", size=30, color=TH.fg2, align="c", alpha=kh * ks, emboss=False)
+        if col.get("icon"):
+            first = col["items"][0]["at"] if col.get("items") else None
+            kfirst = cx.amt(first, 0.6) if first is not None else 0.0
+            ki_ = ease_out(cx.amt(col["at"], 0.9)) * (1.0 - kfirst)
+            if ki_ > 0.01:
+                icons.draw_icon(f, col["icon"], x, 620, size=col.get("icon_size", 230), metal=col.get("metal", "gold"), alpha=ki_, shadow=True, glow=0.1)
+        yy = 430
+        for it in col.get("items", ()):
+            lines = it["text"].split("\n")
+            ki = cx.amt(it["at"], 0.6)
+            if ki > 0.003:
+                for li, ln in enumerate(lines):
+                    CM.ink(f, ln, x, yy + li * 44 + (1 - ki) * 8, face=it.get("face", "fell_i"), size=it.get("size", 38), color=it.get("color", INK), align="c", alpha=kh * ki, emboss=False)
+                if it.get("hl"):
+                    c.drawRect(skia.Rect.MakeLTRB(x - wd * 0.42, yy - 34, x + wd * 0.42, yy + len(lines) * 44 - 4), P("#E8C98A", int(70 * ki * kh)))
+            yy += len(lines) * 44 + 34
+        c.restore()
+    cam.end(f)
+    _overlay(f, cx, tags, (), veil_)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ═════════════════════════════ c7s43: Medici süzgeci ═════════════════════════════
+@CM.ckind("c7_suzgec")
+def k_c7_suzgec(cx, a_open=0.0, a_fall=None, a_gap=None, a_none=None, names=(), tags=(), seed=50, veil_=None, **_):
+    """Süzgeç (Medici topları) üstünden anlatı sayfaları geçer ve süzülmüş (kızıl topla damgalı) çıkar; altta kesikli BOŞ sayfa «Pazzi'lerin kendi sesi» + YOK damgası.
+    names=[ad,…]: sayfa başlıkları (bölümde adı geçen kaynaklar)."""
+    f = cx.f
+    c = f.c
+    cam = _paper(cx, seed)
+    ka = ease_out(cx.amt(a_open, 0.9))
+    cxs, cys, R_ = 960, 400, 280
+    # süzgeç: tunç halka + ağ
+    c.save()
+    c.clipPath(skia.Path().addCircle(cxs, cys, R_ - 8), skia.ClipOp.kIntersect, True)
+    c.drawRect(skia.Rect.MakeLTRB(cxs - R_, cys - R_, cxs + R_, cys + R_), P("#E8DCC0", int(70 * ka)))
+    for k in range(-9, 10):
+        c.drawLine(cxs + k * 28, cys - R_, cxs + k * 28, cys + R_, S("#5A3E22", 1.4, 150 * ka))
+        c.drawLine(cxs - R_, cys + k * 28, cxs + R_, cys + k * 28, S("#5A3E22", 1.4, 150 * ka))
+    c.restore()
+    # sayfalar (süzgeçten geçer)
+    t0 = cx.at(a_fall) if a_fall is not None else 0.0
+    n = len(names)
+    for i, nm in enumerate(names):
+        ts = t0 + i * 0.55
+        u = (cx.t - ts) / 2.6
+        if u <= 0 or u >= 1.25:
+            continue
+        xx = cxs + (i - (n - 1) / 2) * 120
+        yy = lerp(90, 760, clamp(u / 1.1))
+        passed = yy > cys + 12
+        w_, h_ = 150, 110
+        al = ka * clamp(u * 5) * (1 - clamp((yy - (cys + R_ + 20)) / 90.0))
+        c.save()
+        c.translate(xx, yy)
+        c.rotate(-4 + 3 * i + 2 * math.sin(cx.t * 1.3 + i))
+        if yy < cys - 20 or yy > cys + 20:
+            c.drawRect(skia.Rect.MakeLTRB(-w_ / 2, -h_ / 2, w_ / 2, h_ / 2), P("#F1E8CE", int(255 * al)))
+            c.drawRect(skia.Rect.MakeLTRB(-w_ / 2, -h_ / 2, w_ / 2, h_ / 2), S("#2A1A0C", 2.0, 220 * al))
+            for q in range(3):
+                c.drawLine(-w_ * 0.36, -h_ * 0.16 + q * 22, w_ * 0.36, -h_ * 0.16 + q * 22, S("#3A2616", 1.6, 150 * al))
+            CM.ink(f, nm, 0, -h_ * 0.30, face="cap_i", size=22, color=TH.fg, align="c", alpha=al, emboss=False)
+            if passed:
+                c.drawCircle(w_ * 0.30, h_ * 0.28, 15, P("#B33620", int(255 * al)))
+                c.drawCircle(w_ * 0.30, h_ * 0.28, 15, S("#2A1A0C", 1.6, 220 * al))
+        c.restore()
+    # süzgeç ön halka + palle toplar
+    c.drawCircle(cxs, cys, R_, S("#8A5A24", 16, 255 * ka))
+    c.drawCircle(cxs, cys, R_, S("#2A1A0C", 2.6, 230 * ka))
+    for k in range(6):
+        ang = math.radians(-90 + (k - 2.5) * 22)
+        bx, by = cxs + math.cos(ang) * (R_ + 32), cys + math.sin(ang) * (R_ + 32)
+        c.drawCircle(bx, by, 17, P("#B33620", int(255 * ka)))
+        c.drawCircle(bx, by, 17, S("#2A1A0C", 1.8, 230 * ka))
+    # boş sayfa (kesikli) + YOK
+    kg = ease_out(cx.amt(a_gap, 0.8)) if a_gap is not None else 0.0
+    if kg > 0.01:
+        pr = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C("#2A1A0C", int(220 * kg)), StrokeCap=skia.Paint.kRound_Cap)
+        pr.setPathEffect(skia.DashPathEffect.Make([16, 12], -cx.t * 14))
+        c.drawRect(skia.Rect.MakeLTRB(670, 745, 1250, 905), pr)
+        CM.ink(f, "PAZZİ'LERİN KENDİ SESİ", 960, 840, face="title_m", size=30, color=TH.fg, align="c", track=5, alpha=kg, emboss=False)
+    cam.end(f)
+    if a_none is not None:
+        L.stamp_at(f, cx, "YOK", 1390, 810, a_none, rot=-0.10, size=72)
+    _overlay(f, cx, tags, (), veil_)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ═════════════════════════════ c7s46: Bertoldo madalyası — dönen madalya ═════════════════════════════
+@CM.ckind("c7_madalya")
+def k_c7_madalya(cx, a_open=0.0, flips=(), a_cast=None, tags=(), stamps=(), size=620, pos=(960, 500), veil_=None, seed=51, **_):
+    """İki yüzlü madalya: flips=[çapa,…] her çapada madalya ters döner (Lorenzo yüzü ↔ Giuliano yüzü). Başta ısı kızıllığı soğur («bronza döküldü»; a_cast). Yüz iddiası yok: stilize madalya."""
+    f = cx.f
+    c = f.c
+    cam = _paper(cx, seed)
+    ka = ease_out(cx.amt(a_open, 0.9))
+    th = 0.0
+    for fa in flips:
+        u = clamp((cx.t - cx.at(fa)) / 0.75)
+        th += ease_io(u) * math.pi
+    face = int(math.floor((th + math.pi / 2) / math.pi)) % 2
+    cs = abs(math.cos(th))
+    keys = ("c7_pazzi_lor", "c7_pazzi_giu")
+    key = keys[face]
+    ins = medal.INSCR.get(key)
+    img = CMD.medal_img(key, "bronze", ins, False, 720)
+    x, y = pos
+    s = size / 720.0
+    PN.glow(c, x, y, size * 0.95, "#FFD27A", 0.20 * ka)
+    c.save()
+    c.translate(x + size * 0.035, y + size * 0.055)
+    c.scale(s * max(0.03, cs), s)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(0.55 * ka)
+    c.drawImage(CMD.medal_shadow(key, "bronze", ins, False, 720), -360, -360, CM._LIN, p)
+    c.restore()
+    c.save()
+    c.translate(x, y)
+    c.scale(s * max(0.03, cs), s)
+    p = skia.Paint(AntiAlias=True)
+    p.setAlphaf(ka)
+    c.drawImage(img, -360, -360, CM._LIN, p)
+    # dönerken kenara doğru kararma
+    if cs < 0.98:
+        c.drawCircle(0, 0, 352, P("#1A1008", int(120 * (1 - cs) * ka)))
+    # ısı kızıllığı (döküm): soğur
+    if a_cast is not None:
+        kh = 1.0 - clamp((cx.t - cx.at(a_cast)) / 2.4)
+        if kh > 0.01:
+            c.drawCircle(0, 0, 352, P("#FF7A28", int(150 * kh * ka)))
+    c.restore()
+    # kenar kalınlığı (ince elips) tam yanda
+    if cs < 0.14:
+        c.drawOval(skia.Rect.MakeLTRB(x - size * 0.03, y - size * 0.49, x + size * 0.03, y + size * 0.49), P("#8A5A24", int(255 * (1 - cs / 0.14) * ka)))
+    cam.end(f)
+    _overlay(f, cx, tags, stamps, veil_)
+    CM.finish(f, cx, motes_n=22)
+
+
+# ═════════════════════════════ c7s47: Floransa'nın Papa'yla barışı — ip kopar ═════════════════════════════
+@CM.ckind("c7_son")
+def k_c7_son(cx, a_open=0.0, a_thread=None, a_snap=None, a_veil=None, tags=(), veil_=None, seed=52, **_):
+    """Solda Medici arması, sağda papalık anahtarları; ince altın ip ikisini bağlar. «ölmüştü» çapasında ip KOPAR (iki yarı sarkar, solar); renk lacivert yasa döner."""
+    import shots as SH
+    f = cx.f
+    c = f.c
+    ts = cx.at(a_snap) if a_snap is not None else 1e9
+    dt = cx.t - ts
+    # arma (palle) sol — standart palle kind (pos/size)
+    SH.KINDS["palle"](cx, at=0.1, size=560, pos=(520, 500))
+    ka = ease_out(cx.amt(a_open, 0.9))
+    # anahtarlar sağ
+    icons.draw_icon(f, "keys", 1400, 500, size=520, metal="gold", alpha=ka, shadow=True, glow=0.1)
+    # ip
+    kt = ease_io(cx.amt(a_thread, 1.4)) if a_thread is not None else ka
+    x0, y0, x1, y1 = 800, 500, 1150, 500
+    if kt > 0.01:
+        if dt < 0:
+            sag = 28 * math.sin(cx.t * 1.1) + 20
+            path = skia.Path()
+            path.moveTo(x0, y0)
+            path.quadTo((x0 + x1) / 2, y0 + sag * 2, x1, y1)
+            pm = skia.PathMeasure(path, False)
+            seg = skia.Path()
+            pm.getSegment(0, pm.getLength() * kt, seg, True)
+            c.drawPath(seg, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=5.0, Color=C("#C79A3C", int(240 * ka)), StrokeCap=skia.Paint.kRound_Cap))
+        else:
+            k = clamp(dt / 1.6)
+            for sgn, xa_, xb_ in ((-1, x0, (x0 + x1) / 2), (1, x1, (x0 + x1) / 2)):
+                drop = ease_in(k) * 150
+                path = skia.Path()
+                path.moveTo(xa_, y0)
+                path.quadTo((xa_ + xb_) / 2, y0 + 30 + drop * 0.5, xb_ - sgn * -10 * k, y0 + drop)
+                al = (1 - clamp((dt - 0.6) / 1.2)) * ka
+                c.drawPath(path, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=5.0, Color=C("#C79A3C", int(240 * al)), StrokeCap=skia.Paint.kRound_Cap))
+    _overlay(f, cx, tags, (), None)
+    # lacivert yas: kopuştan sonra derinleşir
+    kv = ease_in(clamp((cx.t - cx.at(a_veil)) / 2.8)) if a_veil is not None else (ease_in(clamp(dt / 2.4)) if dt > 0 else 0.0)
+    if veil_ is not None:
+        col, a_, anc, dur = veil_
+        veil(f, col, a_ * clamp((cx.t - cx.at(anc)) / dur))
+    veil(f, "#101A44", 0.45 * kv)
+
+
+@CM.ckind("c7_doc")
+def k_c7_doc(cx, tags=(), stamps=(), veil_=None, **kw):
+    """Standart `doc` + ekran levhaları/damga/örtü."""
+    import shots as SH
+    SH.KINDS["doc"](cx, **kw)
+    _overlay(cx.f, cx, tags, stamps, veil_)
+
+
+@CM.ckind("c7_map")
+def k_c7_map(cx, tags=(), stamps=(), veil_=None, **kw):
+    """Standart `map` + ekran levhaları/damga/örtü."""
+    import shots as SH
+    SH.KINDS["map"](cx, **kw)
+    _overlay(cx.f, cx, tags, stamps, veil_)
+
+
+for _k in ("c7_map",):
+    cilt_cam.OWN_CAMERA.discard(_k)

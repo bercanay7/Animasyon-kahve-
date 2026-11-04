@@ -153,7 +153,22 @@
     "dir": "r"
    },
    "id": "gecis-11-slide",
-   "note": "geçiş 'slide' (Lucrezia Tornabuoni, şair)",
+   "note": "geçiş 'slide' (Lucrezia Tornabuoni, şair: dua şarkıları ve beş manzum anlatı)",
+   "ch": "c6"
+  },
+  {
+   "t": 67.207,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1012,
+   "dur": 0.7,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-12-slide",
+   "note": "geçiş 'slide' (Pulci'nin dostu; Morgante'ye ilham verdi (satırlara yakın plan))",
    "ch": "c6"
   },
   {
@@ -161,11 +176,11 @@
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1012,
+   "seed": 1013,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-12-zoomthru",
+   "id": "gecis-13-zoomthru",
    "note": "geçiş 'zoomthru' (1467: Roma → Piero'ya üç mektup)",
    "ch": "c6"
   },
@@ -174,14 +189,29 @@
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1013,
+   "seed": 1014,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-13-carry",
-   "note": "geçiş 'carry' (28 Mart tarihli ilk mektup)",
+   "id": "gecis-14-carry",
+   "note": "geçiş 'carry' (28 Mart tarihli ilk mektup: uzun boylu, narin, açık tenli, bol saçlı)",
+   "ch": "c6"
+  },
+  {
+   "t": 86.457,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1015,
+   "dur": 0.7,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-15-slide",
+   "note": "geçiş 'slide' (yüzü çok güzel olmasa da hoş (mektubun son satırı, yakın plan))",
    "ch": "c6"
   },
   {
@@ -189,11 +219,11 @@
    "name": "page_turn",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1014,
+   "seed": 1016,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-14-sayfa",
+   "id": "gecis-16-sayfa",
    "note": "geçiş 'sayfa' (defter kaydı: aldım ya da bana verildi (mizah: evlilik pazarı))",
    "ch": "c6"
   },
@@ -202,14 +232,29 @@
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1015,
+   "seed": 1017,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-15-slide",
-   "note": "geçiş 'slide' (düğün şenlikleri (alay soldan sağa))",
+   "id": "gecis-17-slide",
+   "note": "geçiş 'slide' (Roma'da vekâletle nikâh; şenlik alayı soldan sağa)",
+   "ch": "c6"
+  },
+  {
+   "t": 100.937,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1018,
+   "dur": 0.7,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-18-slide",
+   "note": "geçiş 'slide' (düğün şenlikleri 4 Haziran 1469'da Floransa'da başladı (alay devam eder))",
    "ch": "c6"
   },
   {
@@ -217,11 +262,11 @@
    "name": "wash_swell",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1016,
+   "seed": 1019,
    "dur": 0.9,
    "loop": false,
    "params": {},
-   "id": "gecis-16-yikama",
+   "id": "gecis-19-yikama",
    "note": "geçiş 'yikama' (Clarice, Poliziano'yu evden çıkarır (siluet))",
    "ch": "c6"
   },
@@ -230,11 +275,11 @@
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1017,
+   "seed": 1020,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-17-zoomthru",
+   "id": "gecis-20-zoomthru",
    "note": "geçiş 'zoomthru' (Clarice: ona uygun bir eğitmen olmadığına ikna olmuştu (yakın plan siluet))",
    "ch": "c6"
   },
@@ -243,13 +288,13 @@
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
-   "seed": 1018,
+   "seed": 1021,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-18-slide",
+   "id": "gecis-21-slide",
    "note": "geçiş 'slide' (okul yoktu, atölyeler vardı)",
    "ch": "c6"
   },
@@ -258,11 +303,11 @@
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1019,
+   "seed": 1022,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-19-zoomthru",
+   "id": "gecis-22-zoomthru",
    "note": "geçiş 'zoomthru' (Verrocchio'nun atölyesinden Leonardo, Perugino, Botticelli geçer)",
    "ch": "c6"
   },
@@ -271,13 +316,13 @@
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
-   "seed": 1020,
+   "seed": 1023,
    "dur": 0.9,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-20-carry",
+   "id": "gecis-23-carry",
    "note": "geçiş 'carry' (1476–77: Lorenzo ve Poliziano derleme)",
    "ch": "c6"
   },
@@ -286,11 +331,11 @@
    "name": "page_turn",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1021,
+   "seed": 1024,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-21-sayfa",
+   "id": "gecis-24-sayfa",
    "note": "geçiş 'sayfa' (Napoli'nin isteği; içinde Vita nova)",
    "ch": "c6"
   },
@@ -299,59 +344,16 @@
    "name": "light_swell",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1022,
+   "seed": 1025,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-22-light",
+   "id": "gecis-25-light",
    "note": "geçiş 'light' («Muhteşem» — bir saygı sözcüğü)",
    "ch": "c6"
   },
   {
    "t": 140.16,
-   "name": "slide_glide",
-   "gain_db": -24.0,
-   "pan": 0.0,
-   "seed": 1023,
-   "dur": 0.8,
-   "loop": false,
-   "params": {
-    "dir": "r"
-   },
-   "id": "gecis-23-slide",
-   "note": "geçiş 'slide' (Prens'in ithafı: iki «Muhteşem» damgası (unvan enflasyonu))",
-   "ch": "c6"
-  },
-  {
-   "t": 147.8,
-   "name": "plaster_scrape",
-   "gain_db": -23.0,
-   "pan": 0.0,
-   "seed": 1024,
-   "dur": 0.9,
-   "loop": false,
-   "params": {},
-   "id": "gecis-24-giornata",
-   "note": "geçiş 'giornata' (Condivi: genç sanatçının yonttuğu yaşlı faun (gravür))",
-   "ch": "c6"
-  },
-  {
-   "t": 154.277,
-   "name": "slide_glide",
-   "gain_db": -24.0,
-   "pan": 0.0,
-   "seed": 1025,
-   "dur": 0.8,
-   "loop": false,
-   "params": {
-    "dir": "r"
-   },
-   "id": "gecis-25-slide",
-   "note": "geçiş 'slide' (Lorenzo: yaşlıların dişleri tam olmaz (gravür))",
-   "ch": "c6"
-  },
-  {
-   "t": 158.13,
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
@@ -362,26 +364,24 @@
     "dir": "r"
    },
    "id": "gecis-26-slide",
-   "note": "geçiş 'slide' (diş kırılır; Lorenzo eve alır: oda, sofra, ayda beş dukat (gravür))",
+   "note": "geçiş 'slide' (Prens'in ithafı: iki «Muhteşem» damgası (unvan enflasyonu))",
    "ch": "c6"
   },
   {
-   "t": 166.01,
-   "name": "iris_ring",
-   "gain_db": -21.0,
+   "t": 147.8,
+   "name": "plaster_scrape",
+   "gain_db": -23.0,
    "pan": 0.0,
    "seed": 1027,
-   "dur": null,
+   "dur": 0.9,
    "loop": false,
-   "params": {
-    "obj": "sun"
-   },
-   "id": "gecis-27-iris",
-   "note": "geçiş 'iris' (Santa Croce Meydanı (temsil): tören, ittifak)",
+   "params": {},
+   "id": "gecis-27-giornata",
+   "note": "geçiş 'giornata' (Condivi: genç sanatçının yonttuğu yaşlı faun (gravür))",
    "ch": "c6"
   },
   {
-   "t": 174.608,
+   "t": 154.277,
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
@@ -392,11 +392,11 @@
     "dir": "r"
    },
    "id": "gecis-28-slide",
-   "note": "geçiş 'slide' (mızrak koşusu: hızlı yatay kayma)",
+   "note": "geçiş 'slide' (Lorenzo: yaşlıların dişleri tam olmaz (gravür))",
    "ch": "c6"
   },
   {
-   "t": 177.268,
+   "t": 158.13,
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
@@ -407,39 +407,41 @@
     "dir": "r"
    },
    "id": "gecis-29-slide",
-   "note": "geçiş 'slide' (kazanan Giuliano; seçtiği kadın Simonetta (madalyalar))",
+   "note": "geçiş 'slide' (diş kırılır; Lorenzo eve alır: oda, sofra, ayda beş dukat (gravür))",
    "ch": "c6"
   },
   {
-   "t": 183.72,
-   "name": "cloth_sweep",
-   "gain_db": -23.0,
+   "t": 166.01,
+   "name": "iris_ring",
+   "gain_db": -21.0,
    "pan": 0.0,
    "seed": 1030,
-   "dur": 0.9,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "obj": "sun"
+   },
+   "id": "gecis-30-iris",
+   "note": "geçiş 'iris' (Santa Croce Meydanı (temsil): tören, ittifak)",
+   "ch": "c6"
+  },
+  {
+   "t": 174.608,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1031,
+   "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-30-carry",
-   "note": "geçiş 'carry' (Botticelli sancağı (temsil); asıl sancak kayıp)",
+   "id": "gecis-31-slide",
+   "note": "geçiş 'slide' (mızrak koşusu: hızlı yatay kayma)",
    "ch": "c6"
   },
   {
-   "t": 190.815,
-   "name": "page_turn",
-   "gain_db": -20.0,
-   "pan": 0.0,
-   "seed": 1031,
-   "dur": 1.1,
-   "loop": false,
-   "params": {},
-   "id": "gecis-31-sayfa",
-   "note": "geçiş 'sayfa' (Poliziano'nun şiiri yarım kaldı)",
-   "ch": "c6"
-  },
-  {
-   "t": 195.84,
+   "t": 177.268,
    "name": "slide_glide",
    "gain_db": -24.0,
    "pan": 0.0,
@@ -450,11 +452,11 @@
     "dir": "r"
    },
    "id": "gecis-32-slide",
-   "note": "geçiş 'slide' (Simonetta (1476, yirmi üç yaşında); Giuliano — bilmiyoruz)",
+   "note": "geçiş 'slide' (kazanan Giuliano; seçtiği kadın Simonetta (madalyalar))",
    "ch": "c6"
   },
   {
-   "t": 204.24,
+   "t": 183.72,
    "name": "cloth_sweep",
    "gain_db": -23.0,
    "pan": 0.0,
@@ -465,6 +467,49 @@
     "dir": "r"
    },
    "id": "gecis-33-carry",
+   "note": "geçiş 'carry' (Botticelli sancağı (temsil); asıl sancak kayıp)",
+   "ch": "c6"
+  },
+  {
+   "t": 190.815,
+   "name": "page_turn",
+   "gain_db": -20.0,
+   "pan": 0.0,
+   "seed": 1034,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-34-sayfa",
+   "note": "geçiş 'sayfa' (Poliziano'nun şiiri yarım kaldı)",
+   "ch": "c6"
+  },
+  {
+   "t": 195.84,
+   "name": "slide_glide",
+   "gain_db": -24.0,
+   "pan": 0.0,
+   "seed": 1035,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-35-slide",
+   "note": "geçiş 'slide' (Simonetta (1476, yirmi üç yaşında); Giuliano — bilmiyoruz)",
+   "ch": "c6"
+  },
+  {
+   "t": 204.24,
+   "name": "cloth_sweep",
+   "gain_db": -23.0,
+   "pan": 0.0,
+   "seed": 1036,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-36-carry",
    "note": "geçiş 'carry' (Canzona (1490): ne güzel şey gençlik, ama kaçıp gidiyor)",
    "ch": "c6"
   },
@@ -473,11 +518,11 @@
    "name": "zoom_rush_long",
    "gain_db": -22.0,
    "pan": 0.0,
-   "seed": 1034,
+   "seed": 1037,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-34-zoomthru",
+   "id": "gecis-37-zoomthru",
    "note": "geçiş 'zoomthru' (üç yıl üç ay: ay cetveli (Giostra → 26 Nisan 1478, Pazar))",
    "ch": "c6"
   },
@@ -486,98 +531,44 @@
    "name": "dip_drop",
    "gain_db": -20.0,
    "pan": 0.0,
-   "seed": 1035,
+   "seed": 1038,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-35-dip",
+   "id": "gecis-38-dip",
    "note": "geçiş 'dip' (Giostra meydanı boş; ışık soğur; uzun gölge (Giuliano) — kapı: c7)",
    "ch": "c6"
   },
   {
-   "t": 224.33,
-   "name": "zoom_rush_long",
-   "gain_db": -22.0,
-   "pan": 0.0,
-   "seed": 1037,
-   "dur": null,
-   "loop": false,
-   "params": {},
-   "id": "gecis-37-zoomthru",
-   "note": "geçiş 'zoomthru' (Pazar sabahı: Duomo'ya yaklaşma)",
-   "ch": null
-  },
-  {
-   "t": 245.48,
-   "name": "slide_glide",
-   "gain_db": -29.0,
-   "pan": 0.0,
-   "seed": 1041,
-   "dur": 0.8,
-   "loop": false,
-   "params": {
-    "dir": "r"
-   },
-   "id": "gecis-41-slide",
-   "note": "geçiş 'slide' (unvansız bankacı ailesi: Medici)",
-   "ch": "c7"
-  },
-  {
-   "t": 252.255,
+   "t": 245.495,
    "name": "page_turn",
    "gain_db": -25.0,
    "pan": 0.0,
-   "seed": 1042,
+   "seed": 1044,
    "dur": 1.1,
    "loop": false,
    "params": {},
-   "id": "gecis-42-sayfa",
-   "note": "geçiş 'sayfa' (1474: bankerlik Medici'den Pazzi'ye (defter))",
+   "id": "gecis-44-sayfa",
+   "note": "geçiş 'sayfa' (unvansız bankacı ailesi: Medici)",
    "ch": "c7"
   },
   {
-   "t": 257.482,
-   "name": "zoom_rush_long",
-   "gain_db": -27.0,
-   "pan": 0.0,
-   "seed": 1043,
-   "dur": null,
-   "loop": false,
-   "params": {},
-   "id": "gecis-43-zoomthru",
-   "note": "geçiş 'zoomthru' (1476: şap tekeli de (yazılır, tek kaynak))",
-   "ch": "c7"
-  },
-  {
-   "t": 262.7,
+   "t": 252.24,
    "name": "slide_glide",
    "gain_db": -29.0,
    "pan": 0.0,
-   "seed": 1044,
+   "seed": 1045,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-44-slide",
-   "note": "geçiş 'slide' (Imola: Lorenzo para vermemiş)",
+   "id": "gecis-45-slide",
+   "note": "geçiş 'slide' (1474: bankerlik Medici'den Pazzi'ye (defter))",
    "ch": "c7"
   },
   {
-   "t": 267.545,
-   "name": "wash_swell",
-   "gain_db": -28.0,
-   "pan": 0.0,
-   "seed": 1045,
-   "dur": 0.9,
-   "loop": false,
-   "params": {},
-   "id": "gecis-45-yikama",
-   "note": "geçiş 'yikama' (Salviati: Pisa'ya girişi iki yıl engellendi)",
-   "ch": "c7"
-  },
-  {
-   "t": 273.145,
+   "t": 258.297,
    "name": "page_turn",
    "gain_db": -25.0,
    "pan": 0.0,
@@ -586,76 +577,623 @@
    "loop": false,
    "params": {},
    "id": "gecis-46-sayfa",
-   "note": "geçiş 'sayfa' (1477: Riario, Salviati, Francesco anlaştı (komplo panosu))",
+   "note": "geçiş 'sayfa' (1476: şap tekeli de (yazılır, tek kaynak))",
    "ch": "c7"
   },
   {
-   "t": 283.53,
+   "t": 261.9,
+   "name": "zoom_rush_long",
+   "gain_db": -27.0,
+   "pan": 0.0,
+   "seed": 1047,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-47-zoomthru",
+   "note": "geçiş 'zoomthru' (Imola: Lorenzo para vermemiş)",
+   "ch": "c7"
+  },
+  {
+   "t": 267.6,
    "name": "slide_glide",
    "gain_db": -29.0,
    "pan": 0.0,
-   "seed": 1047,
+   "seed": 1048,
    "dur": 0.8,
    "loop": false,
    "params": {
     "dir": "r"
    },
-   "id": "gecis-47-slide",
-   "note": "geçiş 'slide' (ilk plan ziyafette; Giuliano gelmeyince kiliseye (gravür))",
+   "id": "gecis-48-slide",
+   "note": "geçiş 'slide' (Salviati: Pisa'ya girişi iki yıl engellendi)",
    "ch": "c7"
   },
   {
-   "t": 290.38,
+   "t": 273.075,
    "name": "wash_swell",
    "gain_db": -28.0,
    "pan": 0.0,
-   "seed": 1048,
-   "dur": 0.8,
-   "loop": false,
-   "params": {},
-   "id": "gecis-48-yikama",
-   "note": "geçiş 'yikama' (Montesecco: kilisede kan dökmeyi reddetti)",
-   "ch": "c7"
-  },
-  {
-   "t": 297.015,
-   "name": "page_turn",
-   "gain_db": -25.0,
-   "pan": 0.0,
    "seed": 1049,
-   "dur": 1.1,
+   "dur": 0.9,
    "loop": false,
    "params": {},
-   "id": "gecis-49-sayfa",
-   "note": "geçiş 'sayfa' (yerine iki papaz seçildi)",
+   "id": "gecis-49-yikama",
+   "note": "geçiş 'yikama' (1477: Riario, Salviati ve Francesco komplo panosuna gelir (üç komplocu))",
    "ch": "c7"
   },
   {
-   "t": 301.727,
+   "t": 279.39,
    "name": "slide_glide",
    "gain_db": -29.0,
    "pan": 0.0,
    "seed": 1050,
-   "dur": 0.8,
+   "dur": 0.7,
    "loop": false,
    "params": {
     "dir": "r"
    },
    "id": "gecis-50-slide",
-   "note": "geçiş 'slide' (Treccani: bu değişiklik planın kısmen çökmesinin nedenlerinden)",
+   "note": "geçiş 'slide' (komplo panosu: hedefler Lorenzo ve Giuliano; oklar birleşir, altın üçgen «anlaştı»)",
    "ch": "c7"
   },
   {
-   "t": 307.82,
+   "t": 283.545,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1051,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-51-sayfa",
+   "note": "geçiş 'sayfa' (ilk plan ziyafette; Giuliano gelmeyince kiliseye (gravür))",
+   "ch": "c7"
+  },
+  {
+   "t": 290.34,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1052,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-52-slide",
+   "note": "geçiş 'slide' (Montesecco: kilisede kan dökmeyi reddetti)",
+   "ch": "c7"
+  },
+  {
+   "t": 297.04,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1053,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-53-yikama",
+   "note": "geçiş 'yikama' (yerine iki papaz seçildi)",
+   "ch": "c7"
+  },
+  {
+   "t": 301.742,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1054,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-54-sayfa",
+   "note": "geçiş 'sayfa' (Treccani: bu değişiklik planın kısmen çökmesinin nedenlerinden)",
+   "ch": "c7"
+  },
+  {
+   "t": 308.62,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1055,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-55-slide",
+   "note": "geçiş 'slide' (Stefano: Jacopo de' Pazzi'nin kızına Latince öğreten papaz)",
+   "ch": "c7"
+  },
+  {
+   "t": 312.92,
    "name": "zoom_rush_long",
    "gain_db": -27.0,
    "pan": 0.0,
-   "seed": 1051,
+   "seed": 1056,
    "dur": null,
    "loop": false,
    "params": {},
-   "id": "gecis-51-zoomthru",
-   "note": "geçiş 'zoomthru' (Stefano: Jacopo de' Pazzi'nin kızına Latince öğreten papaz)",
+   "id": "gecis-56-zoomthru",
+   "note": "geçiş 'zoomthru' (nef dolu, ayin başlamış; Giuliano'nun boş yeri (kesikli siluet))",
+   "ch": "c7"
+  },
+  {
+   "t": 319.15,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1057,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-57-slide",
+   "note": "geçiş 'slide' (Francesco ve Bandini Giuliano'nun evine gider; üçü kiliseye (sokak))",
+   "ch": "c7"
+  },
+  {
+   "t": 325.665,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1058,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-58-sayfa",
+   "note": "geçiş 'sayfa' (sarılır gibi yapıp giysinin altında zırh yoklar (gravür, anlatılır))",
+   "ch": "c7"
+  },
+  {
+   "t": 334.03,
+   "name": "cloth_sweep",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1059,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-59-carry",
+   "note": "geçiş 'carry' (iki varyant: komünyon ↔ ekmeğin kaldırılması (bölünmüş ekran))",
+   "ch": "c7"
+  },
+  {
+   "t": 342.67,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1060,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-60-slide",
+   "note": "geçiş 'slide' (ekmek kaldırılırken herkes diz çöker (dalga))",
+   "ch": "c7"
+  },
+  {
+   "t": 378.985,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1067,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-67-sayfa",
+   "note": "geçiş 'sayfa' (Francesco Nori, Bandini'nin hançerinden öldü (siluet + işaret))",
+   "ch": "c7"
+  },
+  {
+   "t": 384.52,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1068,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-68-yikama",
+   "note": "geçiş 'yikama' (boş nef: lacivert leke; papazlar toplanır (beden gösterilmez))",
+   "ch": "c7"
+  },
+  {
+   "t": 390.1,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1069,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-69-slide",
+   "note": "geçiş 'slide' (genç kardinal tutuklandı; haftalarca rehin)",
+   "ch": "c7"
+  },
+  {
+   "t": 395.94,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1070,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-70-yikama",
+   "note": "geçiş 'yikama' (aynı sırada Palazzo Vecchio: Salviati ve adamları saraya girer)",
+   "ch": "c7"
+  },
+  {
+   "t": 400.242,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1071,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-71-slide",
+   "note": "geçiş 'slide' (signoria salonu: gonfaloniere masa başında; adamlar yaklaşır; Petrucci hileyi sezip alarm verir (siluet))",
+   "ch": "c7"
+  },
+  {
+   "t": 408.837,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1072,
+   "dur": 0.6,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-72-slide",
+   "note": "geçiş 'slide' (Salviati'nin adamları bir odada kapana kısılır (ahşap kapı kapanır))",
+   "ch": "c7"
+  },
+  {
+   "t": 413.355,
+   "name": "whoosh_dir",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1073,
+   "dur": null,
+   "loop": false,
+   "params": {
+    "soft": false
+   },
+   "id": "gecis-73-whip",
+   "note": "geçiş 'whip' (Jacopo yüz silahlı adamla meydanda halkı ve özgürlüğü çağırır)",
+   "ch": "c7"
+  },
+  {
+   "t": 419.92,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1074,
+   "dur": 0.5,
+   "loop": false,
+   "params": {
+    "dir": "l"
+   },
+   "id": "gecis-74-slide",
+   "note": "geçiş 'slide' (karşılık veren çıkmaz (meydan boş kalır))",
+   "ch": "c7"
+  },
+  {
+   "t": 422.088,
+   "name": "cloth_sweep",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1075,
+   "dur": 0.9,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-75-carry",
+   "note": "geçiş 'carry' (Machiavelli'ye göre (çeviri bize ait))",
+   "ch": "c7"
+  },
+  {
+   "t": 429.31,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1076,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-76-slide",
+   "note": "geçiş 'slide' (sokaklarda «palle, palle» (Guicciardini yazar))",
+   "ch": "c7"
+  },
+  {
+   "t": 437.845,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1077,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-77-sayfa",
+   "note": "geçiş 'sayfa' (Lorenzo silahlı gençlerin korumasında Medici Sarayı'na (gravür))",
+   "ch": "c7"
+  },
+  {
+   "t": 442.507,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1078,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-78-slide",
+   "note": "geçiş 'slide' (yaralı boynuyla pencerede göründü ve alkışlandı (gravür))",
+   "ch": "c7"
+  },
+  {
+   "t": 447.31,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1079,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-79-yikama",
+   "note": "geçiş 'yikama' (Salviati Palazzo Vecchio penceresinden asıldı; yanına Francesco getirildi (yalnız pencere + levha))",
+   "ch": "c7"
+  },
+  {
+   "t": 455.35,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1080,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-80-slide",
+   "note": "geçiş 'slide' (Poliziano'ya göre (ANEKDOT; tek anlatıcı))",
+   "ch": "c7"
+  },
+  {
+   "t": 461.365,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1081,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-81-sayfa",
+   "note": "geçiş 'sayfa' (o gün yaklaşık otuz kişi daha idam edildi (çetele))",
+   "ch": "c7"
+  },
+  {
+   "t": 467.515,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1082,
+   "dur": 0.7,
+   "loop": false,
+   "params": {},
+   "id": "gecis-82-yikama",
+   "note": "geçiş 'yikama' (kalabalık başkalarını kendi eliyle öldürdü (karanlık kalabalık))",
+   "ch": "c7"
+  },
+  {
+   "t": 470.98,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1083,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-83-slide",
+   "note": "geçiş 'slide' (Jacopo kaçtı, birkaç gün içinde yakalanıp asıldı (harita; kaçış rotası))",
+   "ch": "c7"
+  },
+  {
+   "t": 474.158,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1084,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-84-slide",
+   "note": "geçiş 'slide' (cesedinin sonraki pazar çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır (harita; beden yok; ○ tek kaynak))",
+   "ch": "c7"
+  },
+  {
+   "t": 480.195,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1085,
+   "dur": 0.7,
+   "loop": false,
+   "params": {},
+   "id": "gecis-85-yikama",
+   "note": "geçiş 'yikama' (toplamda seksenden fazla kişi (çetele; navy pigment))",
+   "ch": "c7"
+  },
+  {
+   "t": 484.205,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1086,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-86-sayfa",
+   "note": "geçiş 'sayfa' (Papa'nın payı bugün de tartışılır; iki taraf iki ayrı hikâye (sütunlar))",
+   "ch": "c7"
+  },
+  {
+   "t": 490.07,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1087,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-87-slide",
+   "note": "geçiş 'slide' (Montesecco itirafı (4 Mayıs 1478): Floransa yayımladı)",
+   "ch": "c7"
+  },
+  {
+   "t": 497.425,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1088,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-88-sayfa",
+   "note": "geçiş 'sayfa' (Roma: reddetti, Lorenzo'yu aforoz etti; gerekçe mahkemesiz idam)",
+   "ch": "c7"
+  },
+  {
+   "t": 507.0,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1089,
+   "dur": 0.6,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-89-slide",
+   "note": "geçiş 'slide' (tarihçiler (Treccani): büyük olasılıkla biliyordu; istedi mi belli değil)",
+   "ch": "c7"
+  },
+  {
+   "t": 514.695,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1090,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-90-sayfa",
+   "note": "geçiş 'sayfa' (Maffei itirafı (2023): Papa, Napoli Kralı, Urbino Dükü teşvikçi diye anılır)",
+   "ch": "c7"
+  },
+  {
+   "t": 521.087,
+   "name": "zoom_rush_long",
+   "gain_db": -27.0,
+   "pan": 0.0,
+   "seed": 1091,
+   "dur": null,
+   "loop": false,
+   "params": {},
+   "id": "gecis-91-zoomthru",
+   "note": "geçiş 'zoomthru' (ama o da zorla yazılmış olabilir: damga yakın planda)",
+   "ch": "c7"
+  },
+  {
+   "t": 524.46,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1092,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-92-slide",
+   "note": "geçiş 'slide' (anlatıların çoğu Medici'nin süzgecinden geçti; Pazzi'lerin sesi yok)",
+   "ch": "c7"
+  },
+  {
+   "t": 531.76,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1093,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-93-yikama",
+   "note": "geçiş 'yikama' (Giuliano 30 Nisan'da San Lorenzo'ya gömüldü)",
+   "ch": "c7"
+  },
+  {
+   "t": 535.92,
+   "name": "slide_glide",
+   "gain_db": -29.0,
+   "pan": 0.0,
+   "seed": 1094,
+   "dur": 0.8,
+   "loop": false,
+   "params": {
+    "dir": "r"
+   },
+   "id": "gecis-94-slide",
+   "note": "geçiş 'slide' (tam bir ay sonra 26 Mayıs'ta Giuliano'nun gayrimeşru oğlu Giulio doğdu)",
+   "ch": "c7"
+  },
+  {
+   "t": 542.525,
+   "name": "page_turn",
+   "gain_db": -25.0,
+   "pan": 0.0,
+   "seed": 1095,
+   "dur": 1.1,
+   "loop": false,
+   "params": {},
+   "id": "gecis-95-sayfa",
+   "note": "geçiş 'sayfa' (Bertoldo'ya atfedilen madalya: bronza döküldü; iki yüz (Halkın Esenliği / Halkın Yası))",
+   "ch": "c7"
+  },
+  {
+   "t": 553.4,
+   "name": "wash_swell",
+   "gain_db": -28.0,
+   "pan": 0.0,
+   "seed": 1096,
+   "dur": 0.8,
+   "loop": false,
+   "params": {},
+   "id": "gecis-96-yikama",
+   "note": "geçiş 'yikama' (Floransa'nın Papa'yla barışı o sabah ölmüştü (ip kopar))",
    "ch": "c7"
   }
  ]

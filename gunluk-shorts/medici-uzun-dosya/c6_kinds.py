@@ -857,7 +857,7 @@ def k_magnifico(cx, a_open=0.0, a_mach=None, a_son=None, a_grand=None, a_ithaf=N
         if ast is not None:
             ks = cx.amt(ast, 0.3)
             if ks > 0.003:
-                CM.stamp(f, "MUHTEŞEM", px + 450, py + 6, rot=-0.10 + 0.04 * i, size=50, alpha=1.0, t=ks)
+                CM.stamp(f, "MUHTEŞEM", px + 505, py + 6, rot=-0.10 + 0.04 * i, size=50, alpha=1.0, t=ks)
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
