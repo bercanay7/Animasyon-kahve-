@@ -1,9 +1,17 @@
-# Tenisçilere Özel Spa Fiyat Listesi (WhatsApp grupları için)
+# Kurumlara ve gruplara özel spa fiyat listeleri (WhatsApp için)
 
-- `navitas-tenisci-spa-fiyat-listesi.pdf`: gruplara gönderilecek PDF. Tek sayfa, telefona göre (1080 px genişlik), 260 KB civarı. İki tıklanabilir WhatsApp bağlantısı var (giriş satırında ve alttaki düğmede), ikisi de aynı hazır mesajı açar.
-- `index.html`: kaynak. Fiyatı ya da metni burada değiştirip `NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js` ile PDF'i ve önizlemeyi yeniden üretin.
-- `onizleme.jpg`: yalnız kontrol için sayfanın görüntüsü (2160 px genişlik). Gruba gönderilecek bir biçim değil; görsel isteyen bir yönetici olursa PDF'in yerine ayrı bir 4:5 kart hazırlanmalı.
-- `kurul/`: listenin bağımsız danışma kurulu değerlendirmesi. `kurul/RECOMMENDATION.md`'den başlayın.
+Aynı fiyatlarla iki sürüm, tek şablondan üretilir:
+
+- `navitas-tenisci-spa-fiyat-listesi.pdf`: tenis WhatsApp grupları için. Uygunluk satırı: "Tenisçi fiyatı için WhatsApp'tan yazmanız ya da söylemeniz yeterli." Hazır mesajda `(Ref: TENIS-PDF)`. Alt bölümde tenis kortu motifi.
+- `navitas-karaca-spa-fiyat-listesi.pdf`: Karaca çalışanları için. İşletmenin kararıyla uygunluk kuralı yazılmadı; giriş satırında yalnız "Randevu için WhatsApp'tan yazın." var. Hazır mesajda `(Ref: KARACA-PDF)`. Karaca'nın logosu ya da marka öğesi kullanılmadı; yalnız adı geçiyor.
+
+Her iki PDF de tek sayfa, telefona göre (1080 px genişlik), yaklaşık 690 KB; iki tıklanabilir WhatsApp bağlantısı var (giriş satırında ve alttaki düğmede).
+
+- `sablon.html`: ortak sayfa. Sürüme göre değişen yerler `{{BASLIK}}`, `{{KURAL}}`, `{{IKON}}`, `{{MOTIF}}`, `{{WA}}`; değerleri `render.js` içindeki `VARIANTS` tablosunda. Yeni bir kurum için oraya bir satır eklemek yeter.
+- `render.js`: `NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js` ikisini birden, `... render.js karaca` yalnız birini üretir.
+- `foto/`: tesis fotoğrafları (havlu, masaj odası, Fin saunası, VIP Süit, havuz). Kullanıcının paylaştığı orijinallerden kırpıldı ve sitenin "edited" renk ayarıyla (site reposu `scripts/add-photos.py`) hafifçe ısıtıldı. Havuz fotoğrafının etiketi "Havuz · Çift Masajı'na dahil": kaynakta havuz yalnız Çift Masajı'na dahil.
+- `onizleme-tenisci.jpg`, `onizleme-karaca.jpg`: yalnız kontrol için sayfa görüntüleri; gruba gönderilecek biçim değil.
+- `kurul/`: tenisçi listesinin bağımsız danışma kurulu değerlendirmesi (`kurul/RECOMMENDATION.md`'den başlayın). Kurul tenisçi sürümünü değerlendirdi; Karaca sürümü aynı fiyat ve düzeltmeleri kullanıyor, ayrıca kurula sunulmadı.
 
 ## Fiyatlar (31 Aralık 2026'ya kadar geçerli)
 
@@ -27,15 +35,16 @@ Listede olmayan 30'lu İsveç paketi ve "10 masaj + 10 kese köpük" paketi içi
 
 ## Kurallar (işletmenin verdiği)
 
-- Geçerlilik: 31 Aralık 2026.
-- Kanıt istenmiyor: WhatsApp'tan bu listeden yazmak ya da söylemek yeterli.
+- Geçerlilik: 31 Aralık 2026 (iki sürümde de).
+- Tenisçi: kanıt istenmiyor, WhatsApp'tan bu listeden yazmak ya da söylemek yeterli. Karaca: PDF'te kural yok, resepsiyon uygular.
+- VIP 12.000 TL'ye iki terapistle kişi başı 60 dk masaj dahil (işletme teyidi).
 - Paketler peşin ödenir, satın alındıktan sonra bir yıl içinde kullanılır, arkadaşla paylaşılabilir. Mix'te her seansta İsveç, aromaterapi ya da derin doku seçilir.
 - Randevu için ön ödeme yok. Hafta içi 07.00–22.00, hafta sonu 08.00–22.00.
 
 ## Takip
 
-PDF'teki bağlantılar şu hazır mesajı açar: "Merhaba, tenisçilere özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: TENIS-PDF)". Ref kodu yalnız ölçüm içindir, fiyat şartı değildir. Grup mesajındaki bağlantılarda her gruba ayrı kod kullanın (TENIS-1, TENIS-2 ...). Lead tablosunda: DATA KAYNAĞI listesine "Tenisçi grubu" eklenir, KAMPANYA "Tenisçi listesi 2026", REF KODU mesajdaki kod (hazır mesajsız "tenis listesi" diyenler için TENIS-SOZLU).
+Tenisçi PDF'indeki bağlantılar "Merhaba, tenisçilere özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: TENIS-PDF)", Karaca PDF'indekiler aynı metni Karaca için ve `(Ref: KARACA-PDF)` ile açar. Ref kodu yalnız ölçüm içindir, fiyat şartı değildir. Grup mesajındaki bağlantılarda her gruba ayrı kod kullanın (TENIS-1, TENIS-2 ...). Lead tablosunda: DATA KAYNAĞI listesine "Tenisçi grubu" eklenir, KAMPANYA "Tenisçi listesi 2026", REF KODU mesajdaki kod (hazır mesajsız "tenis listesi" diyenler için TENIS-SOZLU).
 
 ## Tasarım
 
-Sitenin dili: Marcellus başlıklar, Hanken Grotesk metin, krem zemin, kahve ve amber tonları. Sıra: logo, geçerlilik tarihi, başlık, indirim ve uygunluk satırı, kemer kesimli kapak fotoğrafı (Navitas işlemeli havlu), fiyat listeleri, koşul kutusu, koyu alt bölümde WhatsApp düğmesi ve ince çizgili tenis kortu motifi. Önemli metin telefonda en az 10 pt (≥ 28 CSS px).
+Sitenin dili: Marcellus başlıklar, Hanken Grotesk metin, krem zemin, kahve ve amber tonları. Sıra: logo, geçerlilik tarihi, başlık, indirim satırı, kemer kesimli kapak fotoğrafı (Navitas spa işlemeli havlu), tek seanslar, masaj odası ve sauna fotoğrafları, paketler, VIP Süit ve havuz fotoğraflarıyla iki kişilik bölüm, koşul kutusu, koyu alt bölümde WhatsApp düğmesi (tenisçi sürümünde ince çizgili tenis kortu motifi). Önemli metin telefonda en az 10 pt (≥ 28 CSS px).

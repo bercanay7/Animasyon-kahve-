@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<title>Navitas · Tenisçilere Özel Spa Fiyat Listesi</title>
+<title>Navitas · {{BASLIK_DUZ}}</title>
 <style>
 @font-face{font-family:'Marcellus';font-weight:400;src:url(fonts/marcellus-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Marcellus';font-weight:400;src:url(fonts/marcellus-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -35,7 +35,7 @@ a{color:inherit;text-decoration:none}
 
 /* arched photo */
 .hero{margin-top:36px}
-.hero .photo{display:block;width:952px;height:340px;object-fit:cover;object-position:50% 55%;border-radius:476px 476px 28px 28px / 220px 220px 28px 28px}
+.hero .photo{display:block;width:952px;height:380px;object-fit:cover;object-position:50% 55%;border-radius:476px 476px 28px 28px / 220px 220px 28px 28px}
 
 /* title */
 .title{margin-top:34px}
@@ -74,6 +74,13 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 .pnote{margin-top:18px;font-size:30px;line-height:1.35;color:var(--muted)}
 .pnote b{color:var(--ink);font-weight:600}
 
+/* photo strips */
+.strip{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+.strip-top{margin:24px 0 6px}
+.strip figure{position:relative;margin:0;height:300px;border-radius:22px;overflow:hidden}
+.strip img{display:block;width:100%;height:100%;object-fit:cover}
+.strip figcaption{position:absolute;left:16px;bottom:16px;padding:7px 18px 8px;border-radius:999px;background:rgba(46,34,28,.78);color:var(--on-dark);font-size:26px;font-weight:600}
+
 /* includes */
 .incl{margin:36px 64px 0;padding:28px 36px;background:var(--sand);border-radius:28px;display:grid;gap:12px}
 .incl div{display:flex;align-items:flex-start;gap:18px;font-size:29px;line-height:1.35;color:var(--ink)}
@@ -107,15 +114,15 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 
   <div class="title">
     <div class="eyebrow">
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="24" cy="24" r="20"/><path d="M9.5 10.5c6.5 7.5 6.5 19.5 0 27"/><path d="M38.5 10.5c-6.5 7.5-6.5 19.5 0 27"/></svg>
+      {{IKON}}
       31 ARALIK 2026’YA KADAR GEÇERLİ
     </div>
-    <h1>Tenisçilere özel<br>spa fiyatları</h1>
+    <h1>{{BASLIK}}</h1>
   </div>
-  <p class="lead"><b>Kişi başı seanslarda ve VIP’te %20, paketlerde %30 indirim.</b><br>Tenisçi fiyatı için <a href="https://wa.me/905330713373?text=Merhaba%2C%20tenis%C3%A7ilere%20%C3%B6zel%20spa%20fiyat%20listesinden%20yaz%C4%B1yorum.%20Randevu%20almak%20istiyorum.%20%28Ref%3A%20TENIS-PDF%29">WhatsApp’tan yazmanız</a> ya da söylemeniz yeterli.</p>
+  <p class="lead"><b>Kişi başı seanslarda ve VIP’te %20, paketlerde %30 indirim.</b><br>{{KURAL}}</p>
 
   <div class="hero">
-    <img class="photo" src="havlu.jpg" alt="Masaj yatağında Navitas işlemeli havlu">
+    <img class="photo" src="foto/havlu.jpg" alt="Masaj yatağında Navitas spa işlemeli havlu ve gül">
   </div>
 </div>
 
@@ -152,6 +159,10 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
         <div class="desc">Sıcak mermer hamamda geleneksel kese</div></div>
       <div class="price"><div class="old">2.250 TL</div><div class="new">1.800<small>TL</small></div></div>
     </div>
+    <div class="strip">
+      <figure><img src="foto/masaj-odasi.jpg" alt="Navitas masaj odası"><figcaption>Masaj odası</figcaption></figure>
+      <figure><img src="foto/sauna.jpg" alt="Fin saunası, taşlar ve ahşap kova"><figcaption>Fin saunası</figcaption></figure>
+    </div>
   </div>
 
   <div class="group">
@@ -175,6 +186,10 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 
   <div class="group">
     <div class="ghead"><h2>İki kişilik</h2><span>İKİ KİŞİ TOPLAM</span></div>
+    <div class="strip strip-top">
+      <figure><img src="foto/vip.jpg" alt="VIP Süit: iki masaj yatağı ve jakuzi"><figcaption>VIP Süit</figcaption></figure>
+      <figure><img src="foto/havuz.jpg" alt="Kapalı havuz ve şezlonglar"><figcaption>Havuz · Çift Masajı’na dahil</figcaption></figure>
+    </div>
 
     <div class="row">
       <div><div class="name">Çift Masajı <span class="dur">· 50 dk</span></div>
@@ -198,11 +213,7 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 </div>
 
 <footer class="foot">
-  <svg class="court" viewBox="-20 -60 2417 1217" fill="none" stroke="#f5ede4" stroke-width="16" aria-hidden="true">
-    <rect x="0" y="0" width="2377" height="1097"/>
-    <path d="M0 137H2377M0 960H2377M1188.5 -60V1157M548.5 137V960M1828.5 137V960M548.5 548.5H1828.5"/>
-  </svg>
-  <a class="cta" href="https://wa.me/905330713373?text=Merhaba%2C%20tenis%C3%A7ilere%20%C3%B6zel%20spa%20fiyat%20listesinden%20yaz%C4%B1yorum.%20Randevu%20almak%20istiyorum.%20%28Ref%3A%20TENIS-PDF%29">
+{{MOTIF}}  <a class="cta" href="{{WA}}">
     <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#2e221c"/><path fill="#f5ede4" d="M16 7.2a8.8 8.8 0 0 0-7.6 13.2L7.2 24.8l4.5-1.2A8.8 8.8 0 1 0 16 7.2zm0 16a7.2 7.2 0 0 1-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3A7.2 7.2 0 1 1 16 23.2zm4-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a5.9 5.9 0 0 1-2.9-2.6c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.4 4.4 0 0 0 .9 2.3 10 10 0 0 0 3.8 3.4c1.4.6 2 .7 2.7.6.4-.1 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1l-.5-.5z"/></svg>
     <div><div class="t1">WhatsApp’tan randevu isteyin</div><div class="t2">0533 071 33 73</div></div>
   </a>
