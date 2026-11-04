@@ -73,12 +73,12 @@ def shade(im, box, alpha=0.62, blur=40):
 
 
 def part_badge(im, part, n=7):
-    """Parça numarası: sağ altta, her kapakta aynı yerde ve büyük."""
+    """Parça numarası: SOL ALTTA, her kapakta aynı yerde ve büyük (sağ alt = YouTube süre rozeti bölgesi, kapak kurulunun kuralı: yazı konmaz)."""
     w, h = im.size
     d = ImageDraw.Draw(im)
     bw, bh = 330, 150
-    x1, y1 = w - 36, h - 34
-    x0, y0 = x1 - bw, y1 - bh
+    x0, y1 = 36, h - 40
+    x1, y0 = x0 + bw, y1 - bh
     d.rounded_rectangle((x0, y0, x1, y1), 18, fill=(14, 22, 62), outline=GOLD, width=5)
     f = font("Cinzel_700Bold.ttf", 118)
     d.text((x0 + 36, (y0 + y1) / 2 + 4), str(part), font=f, fill=CREAM, anchor="lm")
