@@ -22,7 +22,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("Faiz değil, hediye.", None, "● teyit_P1 (birincil metin okundu) · ○ M1:§5B (mizah a)"),
           ], [
               ("Üstelik bu işin müşterilerinden biri, faizi yasaklayan Kilise'nin ta kendisiydi.", None, "● teyit_P1 (birincil metin okundu) · ○ M1:D19 (de Roover)"),
-              ("De Roover'a göre Roma şubesine ayrı sermaye verilmedi; kasayı Kilise'nin yatırdığı para doldurdu.", None, "◐ de Roover 1963 ('no capital … after 1426') — kurul tur 2 KA1 · önceki: ○ M1:#27,D19 (\"de Roover'a göre\")"),
+              ("De Roover'a göre Roma şubesi zamanla sermayesiz çalışır hale geldi; kasayı Kilise'nin yatırdığı para dolduruyordu.", None, "● de Roover 1963: Roma şubesinin sermayesi 1402'de 4.000, 1420'de 6.000 fl; 'the capital had already been withdrawn in 1426', 1429 sözleşmesinde 'no corpo'; papalık mevduatı ana kaynak — kurul tur 2 KA2-Y1 (eski cümle Averardo'nun ayrı bankasına ait cümleyi Giovanni'ye bağlıyordu)"),
               ("25 Mart 1402'de Venedik şubesi açıldı; Floransa'da o gün yılbaşıydı.", None, "● teyit_P1 (birincil metin okundu) · ◐ M1:#28,D18 (kasıt söylenmez)"),
           ], [
               ("Çifte kaydı Medici'ler icat etti derler.", None, "● teyit_P1 (birincil metin okundu) · MİT M1:mit1"),
@@ -46,7 +46,7 @@ CH = dict(id="c2", n="II", title="Defterin Sihri", years="1397 – 1429", mood="
               ("İleride Muhteşem diye anılacak torununun oğlu Lorenzo'nun kaydına göre, bıraktığı servet yüz seksen bin florin dolayındaydı.", None, "● teyit_P1 (birincil metin okundu) · ○ DBI/M5:D32 (\"Lorenzo'nun kaydına göre\"; DBI 'bisnipote' = torunun oğlu — kurul KA1-V6/KA2-Ö7)"),
               ("Son sözlerini ise iki kalemden, iki ayrı biçimde okuyoruz.", None, "● teyit_P1 (birincil metin okundu) · ANEKDOT M1:D11–D14"),
               ("Machiavelli, bir asra yakın sonra, onun ağzından oğullarına bir konuşma yazar: huzurla gidiyordur ve kıskançlık, insana verilenden değil, istediğinden doğar.", None, "ANEKDOT ◐ M1:D11,M5:K01 (\"Machiavelli'ye göre\"; kurgu payı)"),
-              ("Cavalcanti ise 1440'larda, olaya daha yakın bir kalemle, başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "● Cavalcanti, Istorie fiorentine IV (Polidori 1838, İtalyanca) — tarih '1440'lar' ◐ (hapiste, ≈1440; DBI) — kurul tur 2 KA1 · önceki: ANEKDOT ○ M1:D12 (İngilizce çeviriden dolaylı; birebir söz yok)"),
+              ("Cavalcanti ise 1430'larda, hapisteyken, olaya daha yakın bir kalemle başka bir şey yazar: kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli.", None, "● Cavalcanti, Istorie fiorentine IV (Polidori 1838); DBI 'Cavalcanti, Giovanni': Stinche'de ≈10 yıl, 'In prigione egli attese alla stesura delle Istorie fiorentine' — kurul tur 2 KA2-Y2"),
               ("Hangisi gerçekten söylendi, bilmiyoruz.", None, "YORUM"),
               ("Machiavelli onu, yoksulun ihtiyacını kimse istemeden de sık sık gideren biri olarak çizer.", None, "● teyit_P1 (birincil metin okundu) · ANEKDOT ◐ M1:D14"),
               ("Ama o kalem, Medici'nin siparişiyle çalışıyordu.", None, "◐ M1:D07,D11 (kaynak eleştirisi)"),

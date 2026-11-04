@@ -2,7 +2,7 @@
  "ses": "ElevenLabs Emrullah (DpEiQMnL9WxMsymCsjPY), eleven_v4, generations_count=1",
  "tarih": "2026-11-04",
  "akış": "OKz6I1NSKrLNX66p1aRt (Medici P1 – kurul tur 1 ses yamaları)",
- "kredi": 1460,
+ "kredi": 1840,
  "neden": "kurul tur 1 (kurul/KURUL.md, bölüm A)",
  "cumleler": [
   "c1s11",
@@ -16,7 +16,9 @@
   "c2s1",
   "c1s10",
   "c2s20",
-  "c2s21"
+  "c2s21",
+  "c2s10",
+  "c2s30"
  ],
- "not": "c1s26 ve c2s1: orijinal kayıtta ilk sözcük yutulmuştu; başa kesilecek bağlam ('Küçük bir pay aldı.' / 'Bölüm iki.') ile üretildi, <sid>_ham.mp3 → kırpılmış <sid>.wav (yerel ASR doğrulaması). c1s10/c2s20/c2s21: birincil kaynak teyidi düzeltmeleri; aynı bağlamlı üretim + kırpma + ASR doğrulaması."
+ "not": "c1s26 ve c2s1: orijinal kayıtta ilk sözcük yutulmuştu; başa kesilecek bağlam ('Küçük bir pay aldı.' / 'Bölüm iki.') ile üretildi, <sid>_ham.mp3 → kırpılmış <sid>.wav (yerel ASR doğrulaması). c1s10/c2s20/c2s21: birincil kaynak teyidi düzeltmeleri; aynı bağlamlı üretim + kırpma + ASR doğrulaması. c2s10/c2s30: kurul tur 2 KA2 (de Roover, DBI Cavalcanti)."
 }

@@ -44,7 +44,7 @@ Araştırmalar ve veri tabanları:
 • Stefano Casciu, "Principessa di gran saviezza…", La Principessa saggia (Livorno 2006), s. 30–57 (Aile Sözleşmesi: on üç madde, Fransızca özgün, III. madde)
 • Online Catasto of 1427 (yay. D. Herlihy, C. Klapisch-Zuber, R. B. Litchfield, A. Molho; Brown Üniversitesi): 1427 servet sayımı
 Anlatımda anılan:
-• Tim Parks, Medici Money (2005): kitabın kendisi okunmadı; aktarılan bilgi de Roover'da doğrulandı
+• Tim Parks, Medici Money (2005): kitabın kendisi okunmadı; aktarım kitabın özet notlarına dayanır, aynı bilgi de Roover'da doğrulandı
 Rivayetler ekranda ANEKDOT damgasıyla, temsilî portreler TEMSİLÎ damgasıyla işaretlidir.{BIRINCIL}"""
 
 BIRINCIL_EK = ""          # KAY teyit tablosu (kurul/teyit_P1.md) sonucu doldurulur: gerçekten okunan birincil metinler
@@ -111,7 +111,7 @@ def main():
 
 Medici'nin hikâyesi yedi parçada. Bu ilk parçada o odadan geriye, florin şehrine gidiyoruz: altın florinin doğuşu, veba ve Ciompi isyanı, Giovanni di Bicci'nin bankası, kambiyo, çifte kayıt ve "vicdan komitesi".
 
-Kaynak niteliği ekranda damgalarla (ANEKDOT, MİT, "… göre") ve anlatımda "göre / aktarılır" kipleriyle belirtilir. Sözleşmenin 3. maddesi ve Dante dizesindeki Türkçe karşılıklar bize aittir. Kaynaklar çeliştiğinde videoda bunu açıkça söylüyoruz.
+Kaynak niteliği ekranda damgalarla (ANEKDOT, MİT, "… göre") ve anlatımda "göre / aktarılır" kipleriyle belirtilir. Sözleşmenin 3. maddesi ve Dante dizesindeki Türkçe karşılıklar bize aittir. Önemli çelişkilerde (Cossa'nın kurtarılması, Giovanni'nin son sözleri) bunu videoda açıkça söylüyoruz.
 
 BÖLÜMLER
 {bol_txt}
@@ -125,7 +125,7 @@ Ses: yapay zekâ ile üretilmiş anlatıcı sesi (ElevenLabs, "Emrullah"). Çizi
 #Medici #Floransa #Rönesans #TarihBelgeseli
 """
     yorum = f"""Soru: Kilise faizi yasaklamıştı; bankacılar kambiyo ve "faiz değil, hediye" gibi yollar buldu ({kambiyo}). Sizce bu zekâ mıydı, dolambaçlı yol mu?
-Rakamlar ve tarihler açıklamadaki kaynaklara dayanır; rivayetler videoda ANEKDOT damgasıyla işaretlidir. Tam kaynak ve teyit tablosunu isteyene paylaşırız.
+Rakam ve tarihlerin dayanakları açıklamadaki kaynaklardır (1427 sayımı için Online Catasto of 1427); rivayetler videoda ANEKDOT, temsilî portreler TEMSİLÎ damgasıyla işaretlidir. Tam kaynak ve teyit tablosunu isteyene paylaşırız.
 Sıradaki: 2/7, Cosimo'nun kulesi, sürgün ve dönüş.
 """
     etiket = ["Medici", "Medici Ailesi", "Medici Ailesi Tarihi", "Mediciler", "Medici bankası", "faiz yasağı", "kambiyo",

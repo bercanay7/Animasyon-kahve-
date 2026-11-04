@@ -150,7 +150,8 @@ def k_kasa(cx, branch_at=None, nocap_at=None, church_at=None, fill_at=None, fill
         x, y = 470, 520
         CM.tablet(f, x - 230, y - 120, 460, 240, alpha=kn, corner=12)
         icons.draw_icon(f, "coinbag", x, y - 20, size=160, metal="gold", alpha=kn * 0.8, glow=0.0)
-        CM.ink(f, "AYRI SERMAYE", x, y + 98, face="title_m", size=32, color=TH.fg, align="c", track=7, alpha=kn, emboss=False)
+        CM.ink(f, "SERMAYE", x, y + 84, face="title_m", size=32, color=TH.fg, align="c", track=7, alpha=kn, emboss=False)
+        CM.ink(f, "1426'DA ÇEKİLDİ", x, y + 112, face="title_m", size=22, color=TH.fg, align="c", track=5, alpha=kn, emboss=False)   # kurul tur 2 KA2-Y1 (de Roover)
         kx = cx.amt(nocap_at, 0.32, off=0.35)
         if kx > 0.003:
             for sg in (1, -1):
@@ -538,7 +539,7 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
     f = cx.f
     c = f.c
     cam = _bg(f, cx, seed)
-    pages = ((520, "MACHIAVELLİ", "BİR ASRA YAKIN SONRA", left_at, write_a, 11, "a"), (1400, "CAVALCANTI", "≈1440 · HAPİSTE", right_at, write_b, 17, "b"))
+    pages = ((520, "MACHIAVELLİ", "BİR ASRA YAKIN SONRA", left_at, write_a, 11, "a"), (1400, "CAVALCANTI", "1430'LAR · HAPİSTE", right_at, write_b, 17, "b"))
     ks_ = {}
     for (x, name, role, at, wa, sd, key) in pages:
         if only and key != only:

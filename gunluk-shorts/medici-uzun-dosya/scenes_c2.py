@@ -86,8 +86,8 @@ SHOTS = [
                   P.prop_arc("coinbag", (1135, 690), (1505, 700), ("c2s9", "yasaklayan", -0.2), dur=0.9, size=120, lift=110, show_from=("c2s9", "müşterilerinden", -0.3)),
                   P.glint(1505, 640, ("c2s9", "kendisiydi", -0.1), r=170)),
          cam=("push",), tr="cut", link="audio", label="müşteri: Kilise'nin ta kendisi"),
-    # ── 9. Roma şubesi: ayrı sermaye yok; kasayı Kilise'nin parası doldurdu ───
-    shot("c2_kasa", ("c2s10", -0.15), mode="day", perde=1, branch_at=("c2s10", "Roma", -0.2), nocap_at=("c2s10", "ayrı", -0.2), church_at=("c2s10", "Kilise'nin", -0.3), fill_at=("c2s10", "kasayı", -0.1), fill_to=("c2s10", "doldurdu", 0.3),
+    # ── 9. Roma şubesi zamanla sermayesiz (de Roover: sermaye 1426'da çekildi); kasayı Kilise'nin parası dolduruyordu ───
+    shot("c2_kasa", ("c2s10", -0.15), mode="day", perde=1, branch_at=("c2s10", "Roma", -0.2), nocap_at=("c2s10", "sermayesiz", -0.2), church_at=("c2s10", "Kilise'nin", -0.3), fill_at=("c2s10", "kasayı", -0.1), fill_to=("c2s10", "dolduruyordu", 0.3),
          ovl=P.tag("DE ROOVER'A GÖRE", 1480, 860, ("c2s10", "Roover'a", 0.0), size=40),
          cam=("pan", "r"), tr=("zoomthru", 0.5, dict(at=(1505, 700), at_b=(960, 520))), link="scale", label="Roma şubesi: kasayı Kilise doldurdu"),
     # ── 10. 25 Mart 1402: Venedik şubesi; Floransa'da o gün yılbaşı ─────────
@@ -288,7 +288,7 @@ SHOTS = [
     shot("p1_oda", ("c2s30", -0.15), room="calisma", variant="hucre", tod="day", mode="day", perde=1, figure=None, lamp_day=0.6,
          actors=[dict(kind="soylu", seed=44, x=946, y=823, h=280, action="write", seated=True, dir=1)],
          cams=[(("c2s30", -0.15), (1100, 20, 1.20)), (("c2s30", "kimse", -0.3), (1170, 56, 1.48))],
-         ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · ≈1440 · OLAYA DAHA YAKIN", w=760)),
+         ovl=P.ov(P.plate("CAVALCANTI", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · 1430'LAR · OLAYA DAHA YAKIN", w=760)),
          cam=("push",), tr=("light", 0.5, dict(at=(1200, 560))), link="light", label="Cavalcanti yazar"),
     # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — Cavalcanti'nin sayfası yazılır (vuruş kartı; ANEKDOT) ──
     shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.6), write_b=("c2s30", "kimse", -0.2), stamp_at=("c2s30", "kederlenmemeli", -0.4),

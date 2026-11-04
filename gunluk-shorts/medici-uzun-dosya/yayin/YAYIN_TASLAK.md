@@ -145,7 +145,7 @@ Soru: [1] Cosimo'nun "kefaret" yatırımı mı, iyilik mi? ([2]'de açılır) ·
 ## 6. Studio kontrol listesi (parça başına ≤15 dk)
 
 1. Kapak: parça başına `yayin/kapak_P#_A.jpg` (B/C yedek); yedi kapak tek aile (aynı çerçeve, parça numarası büyük). 2. Dil: Türkçe; kategori: Eğitim. 3. **Altyazı:** `medici_P#_tr.srt` (zamanlamalı). 4. Bölümler: açıklamadaki damgalar (ilk satır 0:00; her bölüm ≥10 sn; parça başına 2–3 bölüm).
-5. **"Değiştirilmiş veya sentetik içerik":** **Evet** (yapay anlatıcı). 6. "Çocuklara özel değil"; yaş sınırı yok. 7. Oynatma listesi: **Medici (7 parça)** + **Uzun Dosya**.
+5. **"Değiştirilmiş veya sentetik içerik":** **Hayır** (kanal uygulaması, CLAUDE.md kanal dersleri; başkan kararı kurul/KURUL.md) + açıklamada "Ses: yapay zekâ ile üretilmiş anlatıcı sesi" satırı. Muhalefet şerhi: KA2 (tur 1 Ö6, tur 2) YouTube Yardım metnine dayanarak **Evet** öneriyor; son karar kanal sahibinin. 6. "Çocuklara özel değil"; yaş sınırı yok. 7. Oynatma listesi: **Medici (7 parça)** + **Uzun Dosya**.
 8. **Bitiş ekranı** (son 7 sn): P1–P6 "SIRADAKİ PARÇA" + "Abone ol"; P7 "TÜM FİLM" + "Abone ol".
 9. Yayın: Pazar 20:00 (+03), parçalar arası +7 gün (ya da hafta başı 2 parça). 10. Kısa fragmanlar: parça başına 1 dikey Kısa (kanca bölümü); başlık ve açıklama çakışmasız (SRT yükleme sorunu notu: Studio'da elle yüklenir).
 11. Her parçanın açıklaması kendi içinde bağımsız okunur (önceki/sonraki parça bağlantıları yayın sırasında eklenir).
