@@ -113,15 +113,23 @@ SHOTS = [
                   P.tag("MEDİCİ İCADI", 1500, 300, ("c2s13", "eski", -0.4), size=40),
                   P.crossout(1500, 300, 170, ("c2s13", "eski", 0.0), sw=10)),
          cam=("pan", "r"), tr="cut", link="audio", label="çifte kayıt: Cenova 1340 → Pacioli 1494"),
-    # ── 13. Medici'nin farkı yapıdaydı: her şubenin kendi ortaklığı, defteri ──
+    # ── 13a. Medici'nin farkı defterde değil, yapıdaydı (vuruş: DEFTER ✗ → YAPI) ──
     shot("p1_network", ("c2s14", -0.15), mode="day", perde=1, title="MEDİCİ'NİN FARKI: YAPI", legend=False, size=170,
+         nodes=[dict(id="f", name="FLORANSA", icon="coinbag", x=0.50, y=0.46, at=("c2s14", "yapıdaydı", -0.3), size=200)],
+         edges=[],
+         ovl=P.ov(P.icon_at("book", 640, 560, ("c2s14", "defterde", -0.3), size=170, out=("c2s14", "yapıdaydı", 0.2)),
+                  P.crossout(640, 560, 120, ("c2s14", "değil", -0.1), out=("c2s14", "yapıdaydı", 0.2)),
+                  P.tag("DEFTER DEĞİL", 640, 800, ("c2s14", "defterde", -0.1), size=40, out=("c2s14", "yapıdaydı", 0.2))),
+         cam=("push", 0.08), tr=("light", 0.6, dict(at=(960, 480))), link="light", label="fark defterde değil, yapıda"),
+    # ── 13b. her şubenin kendi ortaklığı, kendi defteri (aynı ağ; sert kesme) ──
+    shot("p1_network", ("c2s14", "her", -0.2), mode="day", perde=1, title="MEDİCİ'NİN FARKI: YAPI", legend=False, size=170,
          nodes=[dict(id="f", name="FLORANSA", icon="coinbag", x=0.50, y=0.42, at=("c2s14", -0.15), size=190),
                 dict(id="r", name="ROMA", icon="book", x=0.20, y=0.58, at=("c2s14", "şubenin", -0.1), size=160),
                 dict(id="v", name="VENEDİK", icon="book", x=0.80, y=0.58, at=("c2s14", "kendi", -0.1), size=160)],
          edges=[("f", "r", "ortaklik", ("c2s14", "ortaklığı", -0.2)), ("f", "v", "ortaklik", ("c2s14", "ortaklığı", 0.1))],
          ovl=P.ov(P.tag("KENDİ ORTAKLIĞI", 480, 860, ("c2s14", "ortaklığı", -0.1), size=38),
                   P.tag("KENDİ DEFTERİ", 1440, 860, ("c2s14", "defteri", -0.15), size=38)),
-         cam=("pull",), tr=("light", 0.6, dict(at=(960, 480))), link="light", label="her şubenin kendi ortaklığı ve defteri"),
+         cam=("pull", 0.08), tr="cut", link="audio", label="her şubenin kendi ortaklığı ve defteri"),
     # ── 14. Giovanni Cossa'ya borç verir; adam XXIII. Johannes adıyla papa olur (tiara) — 2 BÜYÜK figür ──
     shot("p1_oda", ("c2s15", -0.15), room="p1ofis", variant="ofis", tod="day", mode="day", perde=1, figure=None,
          actors=[dict(G, x=1000, y=880, h=460, action="talk", dir=1, layer="front"),
@@ -182,11 +190,21 @@ SHOTS = [
                   P.tag("AFOROZ TEHDİDİ", 960, 200, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
                   anim.impact_ovl(("c2s20", "aforozla", 0.2), amp=3)),
          cam=("push",), tr="cut", link="cam", label="aforoz tehdidi (belgeli)"),
-    # ── 19. Papalığın resmî kasa memurluğu: 1422'den · 22 yıl kesintisiz + 18 yıl aralıklı (teyit_P1 c2s21, DBI) ──
-    shot("p1_emblem", ("c2s21", -0.15), icon="p1_anahtar", metal="gold", size=360, pos=(380, 560), mode="day", perde=1,
+    # ── 19a. Papalığın resmî kasa memurluğu (anahtar; 1422'den sonra) — teyit_P1 c2s21 (DBI) ──
+    shot("p1_emblem", ("c2s21", -0.15), icon="p1_anahtar", metal="gold", size=420, pos=(960, 560), mode="day", perde=1,
          ovl=P.ov(P.tag("PAPALIĞIN RESMÎ KASA MEMURLUĞU", 960, 190, ("c2s21", "kasa", -0.4), size=46),
-                  K.kasa_cubuk(800, 560, 960, ("c2s21", "1422'den", -0.3), ("c2s21", "yirmi", -0.3), ("c2s21", "ardından", -0.1))),
-         cam=("truck", "r"), tr=("light", 0.7, dict(at=(400, 560))), link="light", label="kasa memurluğu: 1422'den · 22 yıl kesintisiz + 18 yıl aralıklı"),
+                  P.tag("1422'DEN SONRA", 960, 860, ("c2s21", "1422'den", -0.2), size=48),
+                  P.glint(960, 520, ("c2s21", "memurluğu", 0.0), r=220, dur=1.0)),
+         cam=("push", 0.08), tr=("light", 0.7, dict(at=(960, 560))), link="light", label="kasa memurluğu: 1422'den sonra"),
+    # ── 19b. MONTAJ: 22 yıl kesintisiz (düz şerit) ───────────────────────────
+    shot("p1_emblem", ("c2s21", "yirmi", -0.15), icon="p1_anahtar", metal="gold", size=300, pos=(380, 560), mode="day", perde=1, montage=True,
+         ovl=K.kasa_cubuk(800, 560, 960, ("c2s21", -0.2), ("c2s21", "yirmi", -0.1), ("c2s21", "ardından", -0.1)),
+         cam=("truck", "r", 130), tr="cut", link="audio", label="22 yıl kesintisiz"),
+    # ── 19c. MONTAJ: + 18 yıl aralıklı (kesikli şerit) ───────────────────────
+    shot("p1_emblem", ("c2s21", "ardından", -0.2), icon="p1_anahtar", metal="gold", size=300, pos=(380, 560), mode="day", perde=1, montage=True,
+         ovl=P.ov(K.kasa_cubuk(800, 560, 960, ("c2s21", -0.2), ("c2s21", "yirmi", -0.1), ("c2s21", "ardından", -0.1)),
+                  P.tag("MEDİCİ'DE KALDI", 1280, 860, ("c2s21", "Medici'de", -0.2), size=44)),
+         cam=("pull", 0.07), tr="cut", link="audio", label="+ 18 yıl aralıklı"),
     # ── 20. 1427: Floransa hanelerin servetini tek tek yazdırdı — kayıt görevlileri kapı kapı ──
     shot("p1_sehir", ("c2s22", -0.15), scene="sokak", tod="day", mode="day", perde=1,
          actors=[dict(kind="banker", seed=61, x0=560, dir=1, speed=64, h=300, prop="book", at=("c2s22", -0.15)),
