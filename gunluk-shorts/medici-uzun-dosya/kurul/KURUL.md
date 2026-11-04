@@ -133,3 +133,14 @@ Tur 1 anlatım maddelerinin hepsi kapandı; başkanın ek yamaları (c1s10 DBI, 
 - **N4** Villani levhası → "1300'DE PERUZZİ ORTAĞI · ŞİRKETİ 1341'DE BATTI"; **N5** Cavalcanti → "HAPİSTE · ≈1440".
 - **N7** kulak kontrolüne orijinal kayıttan c2s8 ("Faiz değil, hediye.") ve c1s6 ("ona göre") eklendi; **N10** YAYIN_TASLAK'taki "Tracy Parks" ve okunmamış kaynaklar kaldırıldı; **N11** etiketler: c0s4, c0s8, c0s11, c2s23, c2s30 ● (toplam 51 ●).
 - Türkçe ek: "5:39'de" → "5:39'da" (paket üreticisi artık okunuşa göre ek seçiyor).
+
+### KA2 (yöntem, hassasiyet, hukuk; veto) — 1. aşama → **RED 8,0** (Y1 + paket satırları düzelirse 9,0; Y1+Y2 sesle yamalanırsa 9,5)
+
+Tur 1'den E1, E3, Ö1, Ö2, Ö7, Ö8, K1 kapandı; KA2 12 yamanın hepsini kendi yerel Whisper'ıyla döktü, metinle uyumlu. Yeni bulgular ve başkan kararları:
+- **Y1 (engelleyici) c2s10** — başkan de Roover tam metninde doğruladı: Roma şubesinin 1402'de 4.000, 1420'de 6.000 florin sermayesi vardı; "the capital had already been withdrawn in 1426", 1429 sözleşmesinde "no corpo". Eski cümle de Roover'ın Averardo de' Medici'nin ayrı bankası için yazdığını Giovanni'ye bağlıyordu (araştırma notu M1:D19 hatası). **Ses yaması**: "De Roover'a göre Roma şubesi zamanla sermayesiz çalışır hale geldi; kasayı Kilise'nin yatırdığı para dolduruyordu." Ekran kartı "SERMAYE · 1426'DA ÇEKİLDİ".
+- **Y2 c2s30** — başkan DBI "Cavalcanti, Giovanni"de doğruladı: Stinche'de ≈10 yıl, Istorie'yi hapiste yazdı (olaylar 1420–1440). **Ses yaması**: "Cavalcanti ise 1430'larda, hapisteyken, olaya daha yakın bir kalemle başka bir şey yazar: …"; levhalar "1430'LAR · HAPİSTE".
+- **Y3 paket** — çelişki cümlesi daraltıldı ("önemli çelişkilerde…"), Tim Parks "okunmadı; özet notlarına dayanır" diye ayrı satırda, sabit yorum dayanak satırı (1427 sayımı için Online Catasto). KA2'nin önerdiği "137 hane hesabını okuyamadık" cümlesi kullanılmadı, çünkü KA1 aynı turda Online Catasto'da doğruladı.
+- **Y6 şablon** — YAYIN_TASLAK'ta "Tracy Parks", okunmamış kaynaklar ve Studio "Evet" düzeltildi (başkan kararı "Hayır" + açıklama satırı; KA2 muhalefet şerhi kayıtlı).
+- **Y7** — ses lisansı ve Studio kararı SURUM_KUNYESI_P1.md'ye yazılacak (ElevenLabs kütüphane sesi "Emrullah", professional; taklit değil, sahibinin lisansla paylaştığı ses).
+- **Y8** — kulak kontrolüne "aforozla" (c2s20), "kambiyodaydı" (c2s1) ve "Cavalcanti" (c2s30) özellikle işaretlendi.
+- Toplam ses yaması: **14 cümle, 1840 kredi**.
