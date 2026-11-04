@@ -32,9 +32,9 @@ Liste fiyatları işletmenin fiyat listesinden (site reposu `lib/rituals.ts`, `c
 | 10 seans Mix paket | 30.000 TL | 21.000 TL (seansı 2.100) |
 | 20 seans Mix paket | 40.000 TL | 28.000 TL (seansı 1.400) |
 | 30 seans İsveç paketi | 50.000 TL | 35.000 TL (seansı yaklaşık 1.167) |
-| 30 seans Mix paket | listede yok | 35.970 TL (seansı 1.199, işletmenin belirlediği özel fiyat) |
+| 30 seans Mix paket | listede yok | 35.000 TL (seansı yaklaşık 1.167, işletmenin belirlediği özel fiyat) |
 
-30'lu paketler işletmenin talimatıyla eklendi: 30'lu İsveç sitedeki liste fiyatından (50.000 TL) %30 indirimli; 30'lu Mix'in sitede liste fiyatı olmadığı için seansı 1.199 TL'ye gelecek şekilde 35.970 TL olarak belirlendi ve PDF'te üstü çizili fiyat yerine "özel fiyat" yazıyor. "10 masaj + 10 kese köpük" paketi için özel fiyat tanımlanmadı.
+30'lu paketler işletmenin talimatıyla eklendi: 30'lu İsveç sitedeki liste fiyatından (50.000 TL) %30 indirimli; 30'lu Mix'in sitede liste fiyatı olmadığı için işletme 30'lu İsveç'le aynı, düz 35.000 TL olarak belirledi; PDF'te üstü çizili fiyat yerine "özel fiyat" yazıyor. "10 masaj + 10 kese köpük" paketi için özel fiyat tanımlanmadı.
 
 ## Kurallar (işletmenin verdiği)
 
