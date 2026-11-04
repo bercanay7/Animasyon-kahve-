@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "title": "Tenis\u00e7ilere \u00f6zel spa fiyat listesi PDF'i",
+  "slug": "tenisci-spa-fiyat",
+  "dossier": 1,
+  "date": "2026-11-04",
+  "mode": "parallel",
+  "seats": [
+    {
+      "id": "isletme",
+      "title": "Spa i\u015fletme m\u00fcd\u00fcr\u00fc (gelir, marj, kapasite)",
+      "group": "\u0130\u015fletme",
+      "weight": 1.0
+    },
+    {
+      "id": "tenisci",
+      "title": "Kul\u00fcp tenis\u00e7isi (hedef m\u00fc\u015fteri)",
+      "group": "M\u00fc\u015fteri",
+      "weight": 2.0
+    },
+    {
+      "id": "grup-yoneticisi",
+      "title": "Tenis WhatsApp grubu y\u00f6neticisi / antren\u00f6r (kanal kap\u0131s\u0131)",
+      "group": "Kanal",
+      "weight": 1.0
+    },
+    {
+      "id": "onburo",
+      "title": "\u00d6n b\u00fcro ve terapist ekibi (uygulayanlar)",
+      "group": "Ekip",
+      "weight": 1.0
+    },
+    {
+      "id": "tasarim",
+      "title": "Mobil okunabilirlik ve marka tasar\u0131mc\u0131s\u0131",
+      "group": "Uzman",
+      "weight": 1.0
+    },
+    {
+      "id": "pazarlama",
+      "title": "Performans pazarlama ve lead takip sorumlusu",
+      "group": "Pazarlama",
+      "weight": 1.0
+    },
+    {
+      "id": "tam-fiyat",
+      "title": "Tam fiyat \u00f6deyen d\u00fczenli m\u00fc\u015fteri ve fiyat b\u00fct\u00fcnl\u00fc\u011f\u00fc (kar\u015f\u0131 koltuk)",
+      "group": "Ele\u015ftirmen",
+      "weight": 1.0
+    }
+  ]
+}

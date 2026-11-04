@@ -69,6 +69,17 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
 .new small{font-family:var(--f-body);font-size:26px;font-weight:600;margin-left:6px;color:var(--ink)}
 .per{margin-top:6px;font-size:22px;font-weight:600;letter-spacing:.1em;color:var(--amber)}
 
+/* packages */
+.packs{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pack{border:1.5px solid var(--line);border-radius:24px;padding:24px 28px 22px;display:flex;flex-direction:column}
+.pack .cnt{font-size:22px;font-weight:600;letter-spacing:.16em;color:var(--amber)}
+.pack .pname{margin-top:4px;font-size:34px;font-weight:600;color:var(--ink)}
+.pack .pp{margin-top:14px;display:flex;align-items:baseline;gap:14px}
+.pack .new{font-size:54px}
+.pack .unit{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:27px;color:var(--muted)}
+.pack .unit b{color:var(--ink);font-weight:600}
+.pnote{margin-top:18px;font-size:27px;line-height:1.35;color:var(--muted)}
+
 /* includes */
 .incl{margin:36px 64px 0;padding:28px 36px;background:var(--sand);border-radius:28px;display:grid;gap:12px}
 .incl div{display:flex;align-items:flex-start;gap:18px;font-size:29px;line-height:1.35;color:var(--ink)}
@@ -103,9 +114,9 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
 
   <div class="hero">
     <img class="photo" src="havlu.jpg" alt="Masaj yatağında Navitas işlemeli havlu">
-    <div class="badge" aria-label="Yüzde 20 tenisçi indirimi">
-      <div class="pct">%20</div>
-      <div class="lbl">TENİSÇİ<br>İNDİRİMİ</div>
+    <div class="badge" aria-label="Yüzde 30'a varan tenisçi indirimi">
+      <div class="pct">%30</div>
+      <div class="lbl">’A VARAN<br>İNDİRİM</div>
     </div>
   </div>
 
@@ -116,7 +127,7 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
     </div>
     <h1>Spa fiyat listesi</h1>
   </div>
-  <p class="lead">Kortun yorgunluğunu hamamda, saunada ve masajda bırakın. <b>Tüm fiyatlara %20 tenisçi indirimi uygulanmıştır.</b></p>
+  <p class="lead">Kortun yorgunluğunu hamamda, saunada ve masajda bırakın. <b>Tek seanslarda %20, paketlerde %30 tenisçi indirimi.</b></p>
 </div>
 
 <section class="list">
@@ -152,6 +163,25 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:84px;line
         <div class="desc">Sıcak mermer hamamda geleneksel kese</div></div>
       <div class="price"><div class="old">2.250 TL</div><div class="new">1.800<small>TL</small></div></div>
     </div>
+  </div>
+
+  <div class="group">
+    <div class="ghead"><h2>Masaj paketleri</h2><span>%30 İNDİRİMLİ</span></div>
+    <div class="packs">
+      <div class="pack"><div class="cnt">10 SEANS</div><div class="pname">İsveç paketi</div>
+        <div class="pp"><div class="new">17.500<small>TL</small></div><div class="old">25.000 TL</div></div>
+        <div class="unit">Seansı <b>1.750 TL</b></div></div>
+      <div class="pack"><div class="cnt">20 SEANS</div><div class="pname">İsveç paketi</div>
+        <div class="pp"><div class="new">24.500<small>TL</small></div><div class="old">35.000 TL</div></div>
+        <div class="unit">Seansı <b>1.225 TL</b></div></div>
+      <div class="pack"><div class="cnt">10 SEANS</div><div class="pname">Mix paket</div>
+        <div class="pp"><div class="new">21.000<small>TL</small></div><div class="old">30.000 TL</div></div>
+        <div class="unit">Seansı <b>2.100 TL</b></div></div>
+      <div class="pack"><div class="cnt">20 SEANS</div><div class="pname">Mix paket</div>
+        <div class="pp"><div class="new">28.000<small>TL</small></div><div class="old">40.000 TL</div></div>
+        <div class="unit">Seansı <b>1.400 TL</b></div></div>
+    </div>
+    <div class="pnote">Paketler arkadaşınızla paylaşılabilir. Mix pakette her seansta masaj türünü siz seçersiniz.</div>
   </div>
 
   <div class="group">
