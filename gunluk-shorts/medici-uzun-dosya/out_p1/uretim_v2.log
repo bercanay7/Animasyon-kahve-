@@ -69,3 +69,4 @@ toplam: 236 sn
 /usr/lib/python3.13/multiprocessing/resource_tracker.py:479: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-t9xitbib', '/mp-13931_g7', '/mp-haagwj3i', '/mp-hwxn9ykm', '/mp-z0dpt13t', '/mp-wxa7h1ur'}
   warnings.warn(
 [21:42:33] eski segmentler siliniyor
+[21:42:33] render (2 işçi, crf 19, slow; işçi başına ≈4,6 GB — 4 işçi OOM oldu)
