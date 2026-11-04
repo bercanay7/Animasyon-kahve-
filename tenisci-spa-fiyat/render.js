@@ -25,6 +25,7 @@ const VARIANTS = {
     IKON: TENIS_IKON,
     KURAL: 'Tenisçi fiyatı için <a href="{{WA}}">WhatsApp’tan yazmanız</a> ya da söylemeniz yeterli.',
     MOTIF: KORT,
+    ORTAK: '',
     WA: wa('Merhaba, tenisçilere özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: TENIS-PDF)'),
   },
   karaca: {
@@ -35,13 +36,15 @@ const VARIANTS = {
     IKON: YAPRAK_IKON,
     KURAL: 'Randevu için <a href="{{WA}}">WhatsApp’tan yazın</a>.',
     MOTIF: '',
+    // Karaca's own logo, unmodified, from karaca.com (use approved by the business owner, 2026-11-04).
+    ORTAK: '    <div class="partner"><span class="x" aria-hidden="true">×</span><img src="logo/karaca.svg" alt="Karaca"></div>\n',
     WA: wa('Merhaba, Karaca çalışanlarına özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: KARACA-PDF)'),
   },
 };
 
 function build(v) {
   let html = fs.readFileSync(path.join(dir, 'sablon.html'), 'utf8');
-  for (const key of ['BASLIK_DUZ', 'BASLIK', 'IKON', 'KURAL', 'MOTIF', 'WA']) {
+  for (const key of ['BASLIK_DUZ', 'BASLIK', 'IKON', 'KURAL', 'MOTIF', 'ORTAK', 'WA']) {
     html = html.split('{{' + key + '}}').join(v[key]);
   }
   html = html.split('{{WA}}').join(v.WA); // the rule line can carry the link too

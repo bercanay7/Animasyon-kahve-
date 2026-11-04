@@ -3,12 +3,13 @@
 Aynı fiyatlarla iki sürüm, tek şablondan üretilir:
 
 - `navitas-tenisci-spa-fiyat-listesi.pdf`: tenis WhatsApp grupları için. Uygunluk satırı: "Tenisçi fiyatı için WhatsApp'tan yazmanız ya da söylemeniz yeterli." Hazır mesajda `(Ref: TENIS-PDF)`. Alt bölümde tenis kortu motifi.
-- `navitas-karaca-spa-fiyat-listesi.pdf`: Karaca çalışanları için. İşletmenin kararıyla uygunluk kuralı yazılmadı; giriş satırında yalnız "Randevu için WhatsApp'tan yazın." var. Hazır mesajda `(Ref: KARACA-PDF)`. Karaca'nın logosu ya da marka öğesi kullanılmadı; yalnız adı geçiyor.
+- `navitas-karaca-spa-fiyat-listesi.pdf`: Karaca çalışanları için. İşletmenin kararıyla uygunluk kuralı yazılmadı; giriş satırında yalnız "Randevu için WhatsApp'tan yazın." var. Hazır mesajda `(Ref: KARACA-PDF)`. Başlıkta "Navitas × Karaca" düzeninde Karaca'nın kendi logosu var: `logo/karaca.svg`, karaca.com'un site başlığındaki yatay logo, hiç değiştirilmeden (renk ve oran aynı). Logonun bu listede kullanılmasına işletme 2026-11-04'te Karaca adına onay olduğunu bildirdi.
 
 Her iki PDF de tek sayfa, telefona göre (1080 px genişlik), yaklaşık 690 KB; iki tıklanabilir WhatsApp bağlantısı var (giriş satırında ve alttaki düğmede).
 
-- `sablon.html`: ortak sayfa. Sürüme göre değişen yerler `{{BASLIK}}`, `{{KURAL}}`, `{{IKON}}`, `{{MOTIF}}`, `{{WA}}`; değerleri `render.js` içindeki `VARIANTS` tablosunda. Yeni bir kurum için oraya bir satır eklemek yeter.
+- `sablon.html`: ortak sayfa. Sürüme göre değişen yerler `{{BASLIK}}`, `{{KURAL}}`, `{{IKON}}`, `{{MOTIF}}`, `{{ORTAK}}` (ortak kurum logosu), `{{WA}}`; değerleri `render.js` içindeki `VARIANTS` tablosunda. Yeni bir kurum için oraya bir satır eklemek yeter.
 - `render.js`: `NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js` ikisini birden, `... render.js karaca` yalnız birini üretir.
+- `logo/karaca.svg`: Karaca'nın resmi yatay logosu (kaynak: https://www.karaca.com/homepage/_next/static/media/karaca.18zadd84dr4do.svg, 2026-11-04). Yalnız Karaca sürümünde kullanılır.
 - `foto/`: tesis fotoğrafları (havlu, masaj odası, Fin saunası, VIP Süit, havuz). Kullanıcının paylaştığı orijinallerden kırpıldı ve sitenin "edited" renk ayarıyla (site reposu `scripts/add-photos.py`) hafifçe ısıtıldı. Havuz fotoğrafının etiketi "Havuz · Çift Masajı'na dahil": kaynakta havuz yalnız Çift Masajı'na dahil.
 - `onizleme-tenisci.jpg`, `onizleme-karaca.jpg`: yalnız kontrol için sayfa görüntüleri; gruba gönderilecek biçim değil.
 - `kurul/`: tenisçi listesinin bağımsız danışma kurulu değerlendirmesi (`kurul/RECOMMENDATION.md`'den başlayın). Kurul tenisçi sürümünü değerlendirdi; Karaca sürümü aynı fiyat ve düzeltmeleri kullanıyor, ayrıca kurula sunulmadı.
