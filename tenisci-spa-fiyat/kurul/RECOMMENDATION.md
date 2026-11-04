@@ -47,7 +47,7 @@
    - tam-fiyat "yazılı kural yok" gerekçesi kalktığı için D'den C'ye geçti (ROUND2-tam-fiyat).
 2. **Fiyat yapısına karşı iki itirazdan biri büyük ölçüde geri çekildi.**
    - isletme 20'li paketlere itirazını geri aldı (ROUND2-isletme, Changed). Gerekçesi şu maddeler: peşin ödeme (01C madde 18), bir yıllık kullanım (madde 19), 31 Aralık'ta kapanan pencere (madde 17) ve işletmenin "maliyet çok yüksek değil" beyanı (madde 22).
-   - pazarlama VIP itirazını geri aldı. Gerekçesi, lead tablosundaki Ekim VIP satışlarının bir kısmının 12.000 TL ve altında kayıtlı olması (ROUND2-pazarlama §3; doğrulama: VERIFICATION üçüncü geçiş).
+   - pazarlama VIP itirazını geri aldı. Gerekçesi, lead tablosundaki Ekim VIP satışlarının bir kısmının 12.000 TL ve altında kayıtlı olması (ROUND2-pazarlama §3). **Doğrulayıcı bu gerekçeyi yanıltıcı buldu (ADDENDUM-01D madde 25):** tutarlar doğru, ama 12.000 TL'lik satırlardan biri "VIP (hamam)" diye notlanmış ve masaj içermiyor olabilir; PDF'teki 12.000 TL'lik VIP ise kişi başı 60 dk masaj içeriyor. Karşı taraftaki "VIP liste fiyatından satılıyor" iddiası da kayıtlarla uyuşmuyor (01D madde 27): satışların yarısı 15.000 TL'nin altında. Pazarlama B'ye dönseydi sonuç A 4/7 (ağırlıklı 5/8) olurdu; çoğunluk değişmezdi.
    - Çift Masajı'nda karar sahibi isletme'nin Round 1 görüşüne geldi: ek indirim yok (01C madde 23).
 3. **Kalan tasarım ve metin sorunları ölçülerek çözüldü, sayfa uzamadı.**
    - Rozet kalktı. tasarim'ın ölçümüne göre rozet %20'lik listeyi bastırıyordu; tenisci ve grup-yoneticisi de "varan" kalıbını reklam dili saydı.
@@ -85,6 +85,7 @@
 - **Saat ve birleşme.** Akşam ve hafta sonu da geçerli mi? (01C bir kısıt koymuyor; tenisci kısıt olmamasını şart koşuyor.) Başka indirimlerle birleşir mi?
 - **Paket ayrıntıları.** Paket seanslarına ve yalnız Kese Köpük alan misafire hamam, sauna ve buhar odası dahil mi? Paket nakit mi, kartla mı, taksitle mi ödeniyor? Paylaşımda kullanan kişi nasıl kaydedilecek?
 - **Kampanyalar.** Çift Masajı'nın 4.000 TL'lik kampanyası 31 Aralık'a kadar sürüyor mu? VIP'e kese köpük dahil mi? (Kaynaklar çelişiyor: 01A madde 4.)
+- **VIP 12.000 TL'nin kapsamı.** Tenisçi VIP fiyatı 12.000 TL, PDF'te yazdığı gibi iki terapistle kişi başı 60 dk masajı içeriyor mu? Ekim'de 12.000 TL'den yapılan VIP satışlarından biri "VIP (hamam)" diye notlanmış (01D madde 25). Masajsız VIP 12.000 TL'ye satılıyorsa masajlı VIP'te 12.000 TL daha derin bir indirimdir. İşletme bunu teyit etmeli; gerekirse VIP satırının açıklaması ya da fiyatı değişir.
 - **Terapist primi.** Hangi fiyattan hesaplanacak?
 
 Kurulda ayrışan ama eylemi değiştirmeyen noktalar:
@@ -121,7 +122,7 @@ Kurulda ayrışan ama eylemi değiştirmeyen noktalar:
   - tam-fiyat D → C;
   - isletme C → B (20'li paket itirazı geri çekildi);
   - onburo şartlı (b/c/d) → A.
-- **Pazarlama B → A.** Round 1'de pazarlama'nın eğilimi VIP'i çıkarmaktı (B). Lead tablosundaki VIP satış tutarları nedeniyle A'ya geçti.
+- **Pazarlama B → A.** Round 1'de pazarlama'nın eğilimi VIP'i çıkarmaktı (B). Lead tablosundaki VIP satış tutarları nedeniyle A'ya geçti. Doğrulayıcı bu gerekçeyi oylamadan sonra yanıltıcı buldu (01D madde 25). Aynı geçişte isletme'nin "VIP liste fiyatından satılıyor" dayanağı da çürüdü (01D madde 27), bir de VIP edinme maliyeti için verilen "üst sınır" düzeltildi (01D madde 28). VIP sorusu bu yüzden kayıtlarla değil, işletmenin teyidiyle kapanır (§5).
 - **Karar sahibinin x99 önerisi.** Yedi koltuğun yedisi benimsemedi. Gerekçeler: marka dili, Marcellus rakam silueti, paketlerde "seans başı tam sayı" kuralıyla çakışma ve ön büroda tutarlılık. Karar sahibi yine de isterse koltukların ortak yedek önerisi, x99'u yalnız beş kişi başı tek seansta uygulamak (2.399 / 2.799 / 2.799 / 3.599 / 1.799).
 
 ## 8. Limits of this council
@@ -131,6 +132,8 @@ Kurulda ayrışan ama eylemi değiştirmeyen noktalar:
   - Seans başı maliyet sayı olarak bilinmiyor.
   - WhatsApp önizleme kırpması ve bağlantıların cihazlarda çalışması test edilmedi.
   - Kanal 7 için daha önce masaj paketi fiyatı verildiğine dair kayıt bulunamadı (yokluğu da kanıtlanmadı).
+  - Son PDF (15:54 sürümü) doğrulayıcı tarafından satır satır yeniden doğrulanmadı. Kolaylaştırıcı fiyatları, bağlantıları ve fontları kendisi kontrol etti (01D madde 30); bu kontrol bağımsız değil.
+  - Doğrulayıcı üç geçişte 101 iddia listeledi ve 97'sini kontrol etti. Round 2'deki yeni iddialar oylamadan sonra doğrulandı (01D); pazarlama'nın oy değişikliğinin dayanağı yanıltıcı çıktı, ama oylar yeniden alınmadı.
 - **Yasal soru.** İndirim ve önceki fiyat gösterimine dair yasal soru cevaplanmadı; profesyonele sorulmalı.
 - **Kolaylaştırıcının PDF'i hazırlaması.** PDF'i hazırlayan kolaylaştırıcı, kurulu da kurdu ve dosyeyi yazdı. Bu bir çıkar çatışması riski taşıyor. Hafifletmek için şunlar yapıldı: dosyedeki kendi seçimleri "test edilecek pozisyon" olarak işaretlendi, doğrulayıcı dosyeyi bağımsız kontrol etti (83 iddia) ve dosyenin hatalarını üyeler buldu.
 - **Paralel çalışma.** Kurul paralel modda çalıştı: her üye ayrı bir alt ajan olarak yazdı. Round 2'de üç üye kullanım sınırına takıldı. İkisi dosyasını sınırdan önce tamamlamıştı, biri (pazarlama) aynı brief'le kaldığı yerden devam ettirildi.
