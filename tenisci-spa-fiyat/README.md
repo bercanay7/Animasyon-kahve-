@@ -16,32 +16,25 @@ Her iki PDF de tek sayfa, telefona göre (1080 px genişlik), yaklaşık 690 KB;
 
 ## Fiyatlar (31 Aralık 2026'ya kadar geçerli)
 
-Liste fiyatları işletmenin fiyat listesinden (site reposu `lib/rituals.ts`, `components/pages/masaj.tsx`; yayındaki site fiyat göstermiyor). Tek seanslarda %20, paketlerde %30 tenisçi indirimi. Çift Masajı zaten kampanyalı fiyat olduğu için ek indirim yok. Fiyatlar yuvarlak; x99 önerisi kurulda değerlendirildi ve benimsenmedi.
+2026-11-05'te işletmenin talimatıyla sadeleştirildi: tek seans masaj çeşitleri ve Mix paketler çıkarıldı. Listede yalnız İsveç masajı paketleri, Çift Masajı ve VIP Süit var. İsveç masajının tek seans normal fiyatı (3.000 TL) indirimsiz, referans olarak yazıyor; her paketin altında bu fiyata göre avantaj gösteriliyor. Liste fiyatları işletmenin fiyat listesinden (site reposu `lib/rituals.ts`, `components/pages/masaj.tsx`; yayındaki site fiyat göstermiyor). Fiyatlar yuvarlak; x99 önerisi kurulda değerlendirildi ve benimsenmedi.
 
-| Hizmet | Liste | Tenisçi |
-|---|---|---|
-| İsveç Masajı, 50 dk | 3.000 TL | 2.400 TL |
-| Derin Doku Masajı, 50 dk | 3.500 TL | 2.800 TL |
-| Aromaterapi Masajı, 50 dk | 3.500 TL | 2.800 TL |
-| Navitas Spesiyal, 55 dk | 4.500 TL | 3.600 TL |
-| Kese Köpük, 30 dk | 2.250 TL | 1.800 TL |
-| Çift Masajı, 50 dk (iki kişi) | 4.000 TL (kampanya) | 4.000 TL |
-| VIP Özel Spa Süiti, 3 saat (iki kişi) | 15.000 TL | 12.000 TL |
-| 10 seans İsveç paketi | 25.000 TL | 17.500 TL (seansı 1.750) |
-| 20 seans İsveç paketi | 35.000 TL | 24.500 TL (seansı 1.225) |
-| 10 seans Mix paket | 30.000 TL | 21.000 TL (seansı 2.100) |
-| 20 seans Mix paket | 40.000 TL | 28.000 TL (seansı 1.400) |
-| 30 seans İsveç paketi | 50.000 TL | 35.000 TL (seansı yaklaşık 1.167) |
-| 30 seans Mix paket | listede yok | 40.000 TL (seansı yaklaşık 1.333, işletmenin belirlediği özel fiyat) |
+| Hizmet | Liste | Özel fiyat | Tek seansa (3.000 TL) göre |
+|---|---|---|---|
+| İsveç Masajı, 50 dk, tek seans | 3.000 TL | 3.000 TL (indirimsiz, referans) | — |
+| 10 seans İsveç paketi | 25.000 TL | 17.500 TL (seansı 1.750) | 12.500 TL avantaj, %41 daha uygun |
+| 20 seans İsveç paketi | 35.000 TL | 24.500 TL (seansı 1.225) | 35.500 TL avantaj, %59 daha uygun |
+| 30 seans İsveç paketi | 50.000 TL | 35.000 TL (seansı yaklaşık 1.167) | 55.000 TL avantaj, %61 daha uygun |
+| Çift Masajı, 50 dk (iki kişi) | 4.000 TL (kampanya) | 4.000 TL | — |
+| VIP Özel Spa Süiti, 3 saat (iki kişi) | 15.000 TL | 12.000 TL | — |
 
-30'lu paketler işletmenin talimatıyla eklendi: 30'lu İsveç sitedeki liste fiyatından (50.000 TL) %30 indirimli; 30'lu Mix'in sitede liste fiyatı olmadığı için işletme düz 40.000 TL olarak belirledi; PDF'te üstü çizili fiyat yerine "özel fiyat" yazıyor. "10 masaj + 10 kese köpük" paketi için özel fiyat tanımlanmadı.
+Avantaj yüzdeleri aşağı yuvarlandı (41,67 → %41; 59,17 → %59; 61,11 → %61), yani abartılmadı.
 
 ## Kurallar (işletmenin verdiği)
 
 - Geçerlilik: 31 Aralık 2026 (iki sürümde de).
 - Tenisçi: kanıt istenmiyor, WhatsApp'tan bu listeden yazmak ya da söylemek yeterli. Karaca: PDF'te kural yok, resepsiyon uygular.
 - VIP 12.000 TL'ye iki terapistle kişi başı 60 dk masaj dahil (işletme teyidi).
-- Paketler peşin ödenir, satın alındıktan sonra bir yıl içinde kullanılır, arkadaşla paylaşılabilir. Mix'te her seansta İsveç, aromaterapi ya da derin doku seçilir.
+- Paketler peşin ödenir, satın alındıktan sonra bir yıl içinde kullanılır, arkadaşla paylaşılabilir.
 - Randevu için ön ödeme yok. Hafta içi 07.00–22.00, hafta sonu 08.00–22.00.
 
 ## Takip
@@ -50,4 +43,4 @@ Tenisçi PDF'indeki bağlantılar "Merhaba, tenisçilere özel spa fiyat listesi
 
 ## Tasarım
 
-Sitenin dili: Marcellus başlıklar, Hanken Grotesk metin, krem zemin, kahve ve amber tonları. Sıra: logo, geçerlilik tarihi, başlık, indirim satırı, kemer kesimli kapak fotoğrafı (Navitas spa işlemeli havlu), tek seanslar, masaj odası ve sauna fotoğrafları, paketler, VIP Süit ve havuz fotoğraflarıyla iki kişilik bölüm, koşul kutusu, koyu alt bölümde WhatsApp düğmesi (tenisçi sürümünde ince çizgili tenis kortu motifi). Önemli metin telefonda en az 10 pt (≥ 28 CSS px).
+Sitenin dili: Marcellus başlıklar, Hanken Grotesk metin, krem zemin, kahve ve amber tonları. Sıra: logo, geçerlilik tarihi, başlık, indirim satırı, kemer kesimli kapak fotoğrafı (Navitas spa işlemeli havlu), İsveç masajı tek seans fiyatı ve paketler, masaj odası ve sauna fotoğrafları, VIP Süit ve havuz fotoğraflarıyla iki kişilik bölüm, koşul kutusu, koyu alt bölümde WhatsApp düğmesi (tenisçi sürümünde ince çizgili tenis kortu motifi). Önemli metin telefonda en az 10 pt (≥ 28 CSS px).
