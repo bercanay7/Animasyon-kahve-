@@ -189,3 +189,58 @@ Başkan önce engelleyicileri kendisi kapattı (1587cb4: hançer, sikke, ÇEYİZ
 - **SCN-1** (c0–c1): HUD yılları, metinler (KA2-D3, Villani), Loggia (donem kuralı + qa_donem), çakışmalar (13 MADDE, CIOMPI LONCASI, VILLANI damgası), Orsanmichele simgesi, 1743 odası, sıçrayan kesmeler (#8, #23, #46, #58), sikke açılışı, sessiz cepler, Ciompi belgesi, ışık geçişi bütçesi.
 - **SCN-2** (c2 + set çeşitlemesi): 1520 mührü, HUD 1418, Latince mezar yazıtı, KA2 küçükleri, çakışmalar (COSSA, poliçe, 1426), KUR FARKI, harita etiketleri, tiara, catasto (portata), Cavalcanti, İTİRAZ damgası, kule şeridi, aynı kartta kesmeler, ölü açılışlar, sessiz cepler, infografikler dünyaya, gerçek harfli sayfalar, Cosimo kartı, ışık geçişi bütçesi, yer başına set farkı ve ≥2× nesne ara planları.
 - **Başkan:** render.py segment başı deklanşör + çizelge özeti; paket (PK2-Y2, KA2 açıklama cümlesi); altyazı bölünmeleri (TE2: "III. Edward", "Michele di Lando"); v3 miks (geçiş sesleri + uzayan kuyruk), tam render, birleştirme, QA; tur 3 tek üyeli gerileme kontrolleri (her alandan üyenin kendi listesiyle).
+
+## Tur 3 — v3 sınaması (5 Kasım 2026)
+
+Her üye kendi tur 2 koşullarını v3'te tek tek sınadı ve düzeltmelerin getirdiği gerilemeleri aradı. Raporlar: `kurul/tur3/<KOD>.md`. Brif: `KURUL_BRIFI_P1_TUR3.md`.
+
+| Alan | Üye | Tur 1 | Tur 2 | **Tur 3** | Karar | Not |
+|---|---|---:|---:|---:|---|---|
+| Animasyon ve kurgu | AN1 animasyon yönetmeni | 6,5 | 7,5 | **9,0** | ONAY | Dört koşul kapandı. Açık (engelleyici değil): Y7 küçük hızlı nesnede deklanşör, 367,9–369,3 ölü bağlantı, yakın plan ellerde oturma yok, iki 1 karelik kesme girişi |
+| | AN2 kurgu ve ritim | 7,0 | 8,4 | **9,2** | ONAY | Ö1: üstten defter kadrajı 102 sn'de 4 kez → en çok ikisi üstten |
+| Sanat ve üslup | SA1 sanat yönetmeni | 7,5 | 8,6 | **9,1** | ONAY (koşullu) | Koşullar N1 (mitra havada) ve N2 (kol ağzı deseni taşıyor) v3.1'de kapatıldı (e7d6e73). Önemli: N3 (1737 belgesinde zikzak satırlar), Y6-k (defterde arayüz grafikleri), E-1 (eldiven eller, P2'ye) |
+| | SA2 dönem ve gelenek | 5,0 | 8,5 | **8,8** | RED | Y10 (mitra ikonunda Othala rününe benzeyen uydurma işaret) → v3.1'de yeniden çizildi (f0bdaad); üyenin beyanı: Y10 ile 9,4, Y11–Y13 ile 9,6. Y11–Y13 v3.1'de kapatıldı |
+| Kaynak ve doğruluk (veto) | KA1 konu uzmanı | 6,0 | 8,5 | **9,3** | ONAY · veto kalktı | N1/N2 (KA2 ile ortak) ve Y1 (Vieri levhası, HUD 1385) v3.1'de kapatıldı. T3 yedek başlığını onayladı |
+| Hassasiyet ve hukuk (veto) | KA2 kaynak/hukuk | 7,0 | 8,0 | **9,0** | ONAY · veto kalktı | N1 Konstanz eli, N2 "ÖZET · ÇEVİRİ BİZE AİT", N3, N4 → v3.1'de kapatıldı |
+| Kapak, başlık, paket | PK1 TO stratejisti | 6,0 | 9,0 | **9,5** | ONAY | G1 (kapak QA görseli), G2 (YAYIN_TASLAK §6.8) kapatıldı (e7d6e73) |
+| | PK2 ilk kez gören izleyici | 6,0 | 8,5 | **9,1** | ONAY | N1 (= AN2 Ö1, kart benzeri süre %46; 9,5 için ana madde); N2 bitiş ekranı 9:53 + P2 günü satırları → paket metnine yazıldı |
+| Teknik kalite | TE1 render/kodlama | 8,0 | 8,7 | — | bekleniyor | |
+| | TE2 erişilebilirlik/okunurluk | 7,0 | 8,6 | — | bekleniyor | |
+
+**Kullanıcının sorusu ("ucuz mu, yapay zekâ gibi mi?"):** Yanıtını değiştiren üyelerin hepsi aynı yöne gitti: hareket ve şablon kaynaklı "ucuz" izler büyük ölçüde gitti, yapay zekâ izlenimi yok (AN1, PK2, SA1). Kalan izler: figür oranlarının sadeliği, yakın plan ellerin "eldiven" ve katı kayan hâli (AN1, SA1 E-1) ve dört kez dönen defter kadrajı (AN2, PK2).
+
+**Başkan kararları:**
+- **AN2 Ö1 + PK2 N1 (ana madde):**
+  - #72 (çifte kayıt) ve #85 (catasto) üstten kalır.
+  - #83 (kasa) ≥2× el ve anahtar yakın planına, #88 (150.000+) üstten olmayan bir kadraja (eğik ciltli defterler ya da sandık) çevrilir.
+  - Defter içindeki arayüz grafikleri mürekkep diline çevrilir (SA1 Y6-k).
+  - Paket SCN-3'e verildi (`duzeltme_tur3/BRIF_SCN-3.md`).
+- **SA1 N3 (1737 belgesi):** belgenin Fransızca özgün metni kaynaklarımızda yok (araştırma M4/M4b: "görülmedi"; 5 Kasım'daki web taraması da bulamadı); uydurma Fransızca cümle kaynak üyelerinin kuralına aykırı. Karar: zikzak, **asemik el yazısına** çevrilir. Akan, okunmayan 18. yüzyıl eli gibi görünür, sözcük oluşturmaz; içerik iddiası taşımaz. SA1'in "çizilmemiş gibi" itirazını karşılar, kaynak kuralını bozmaz. ENG-E'ye verildi.
+- **KA1 N2 isteğe bağlı ek:** Machiavelli sayfasındaki İtalyanca alıntıya teyit tablosundaki (teyit_P1.md:92) birebir "…non vi recherà mai né invidia né pericolo, perché…" satırı eklenir; özgünde "kıskançlık" da görünür. Yer yoksa atlanır (SCN-3).
+- **PK2 Y9 (kırmızı geçiş, 271,1 sn):** nötr renge çevrilir; yalnız bu geçiş (ENG-E).
+- **PK2 Y8 (yankı):** zemin yeni K1 kapağıyla eşlenir; kilitteki beyaz parıltı kalkar (ENG-E).
+- **PK2 Y5 ("FAİZ" bölüm etiketi):** değişiklik yok. Üyenin kendisi önemini küçüğe indirdi; c2'nin görsel omurgası defter olduğu için "DEFTERİN SİHRİ" görüntüyle uyumlu.
+- **SA1 E-1 (eldiven eller):** P1'de AN1 Y-N2'nin hareket kısmı yapılır (oturma, bilek dönüşü); siluet yenilemesi P2'den önce motor işine yazıldı (`sonraki_parcalar_notlari.md`).
+
+### Tur 3 → v3.1 düzeltme planı
+- **Başkan (bitti):**
+  - SA2-Y10 mitra ikonu (f0bdaad);
+  - SA1 N1/N2, SA2-Y11, PK1 G1/G2 (e7d6e73);
+  - KA2 N1–N4, SA2-Y12/Y13, KA1-Y1, AN2 #91 (bf1645b);
+  - PK2 N2 paket metni.
+- **SCN-3** (`c2_kinds.py`, `scenes_c2.py`):
+  - defter tekrarı ve mürekkep grafikleri;
+  - AN1 Y-N1 (#63→#64), Y-N2 (kese ve mitra elleri; SA1 N4), Y-N3 (575,5), Y7 (florin yağmuru);
+  - PK2 Y7 (BORÇLULAR/ALACAKLILAR, MİT damgası);
+  - AN2 küçükleri (CAVALCANTİ levhası sıçraması, mitra boşluğu);
+  - KA1 N2 eki.
+- **ENG-E** (motor, c0, c1):
+  - deklanşör ipucu (AN1 Y7);
+  - `c0_belge` kesme girişi (AN1 Y-N3, 43,9);
+  - yankı (PK2 Y8);
+  - kırmızı geçiş (PK2 Y9);
+  - 1737 asemik yazı (SA1 N3).
+- **Sonra:**
+  - TE1/TE2 bulguları eklenir;
+  - tam zincir `VER=v31 bash p1_uret.sh` (≈45 dk; neredeyse bütün segmentler etkileniyor);
+  - tek üyeli gerileme kontrolleri: SA2 (Y10–Y13: RED'den dönüş için zorunlu), SA1 (N1–N4), AN2 + PK2 (defter), AN1 (hareket), KA1/KA2 (yeni metinler).

@@ -119,8 +119,12 @@ def bitis_zamanlari(dur):
     except Exception:                                      # noqa: BLE001
         outro, full = 7.0, 3.5
     yuva = dur - outro + full
-    es = min(yuva - 0.5, dur - 5.0)
-    return math.floor(es), math.floor(yuva)
+    # Öğeler yuvalar TAM göründükten sonraki ilk tam saniyede başlar (kurul tur 3 PK2-N2: 9:52,0'da kule hâlâ silinmenin altında,
+    # çerçeveler 9:52,3'te soluk, 9:52,9'da tam → 9:53). YouTube en az 5 sn ister; sığmazsa son 5 sn.
+    es = math.ceil(yuva)
+    if dur - es < 5.0:
+        es = math.floor(dur - 5.0)
+    return int(es), math.floor(yuva)
 
 
 def yayin_adimlari(bol, kambiyo, dur):
@@ -175,6 +179,9 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
 - Sabit yorum: 03_sabit_yorum.txt'yi kanal hesabıyla yorum olarak yaz → ⋮ → Sabitle. İçindeki {kambiyo} tıklanabilir bağlantı olur.
 - Bölümler: ilerleme çubuğunda {len(bol)} bölüm görünmeli ("0:00 {ilk}" … "{ts(son[0])} {son[1]}"). Görünmüyorsa açıklamayı bir kez daha kaydet; yine yoksa bana yaz.
 - Altyazı: CC düğmesinde "Türkçe" görünmeli (otomatik altyazı değil, yüklediğin dosya).
+- P2'nin yayın tarihi kesinleşince sabit yorumun son satırına yaz (ör. "Sıradaki: 2/7, Pazar 20:00"). Videodaki "SIRADAKİ PARÇA · 2/7" çerçevesine
+  ilk hafta YouTube başka bir video koyar; bu satır izleyiciye P2'nin ne zaman geleceğini söyler (kurul PK2-N2).
+- P2 YAYINLANDIĞI GÜN: bu videonun bitiş ekranında sol öğeyi ("İzleyiciye en uygun video") P2 videosuyla değiştir.
 
 3. KAPAK TESTİ ("Test ve karşılaştır")
 - K1 + K2; test sürerken başlığa dokunma; 14 gün ya da YouTube sonuç verene kadar.

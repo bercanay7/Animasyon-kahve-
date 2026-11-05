@@ -32,7 +32,7 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
      · Otomatik bölümler: açık kalabilir; açıklamadaki damgalar önceliklidir.
 3) Video öğeleri:
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
-   - Bitiş ekranı: 9:52'den videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:52'de belirir:
+   - Bitiş ekranı: 9:53'ten videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:52'de belirir:
      · Sol çerçeve ("SIRADAKİ PARÇA"): P2 yayınlanana dek "İzleyiciye en uygun video" öğesi (YouTube seçer). Yalnız bu videoyu içeren
        oynatma listesini KOYMA: izleyiciyi aynı videoya döndürür (kurul PK2-Y2). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
      · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.
@@ -43,6 +43,9 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
 - Sabit yorum: 03_sabit_yorum.txt'yi kanal hesabıyla yorum olarak yaz → ⋮ → Sabitle. İçindeki 5:39 tıklanabilir bağlantı olur.
 - Bölümler: ilerleme çubuğunda 9 bölüm görünmeli ("0:00 Son Medici ve 1737 sözleşmesi" … "8:06 Catasto: Floransa servetini sayıyor (1427)"). Görünmüyorsa açıklamayı bir kez daha kaydet; yine yoksa bana yaz.
 - Altyazı: CC düğmesinde "Türkçe" görünmeli (otomatik altyazı değil, yüklediğin dosya).
+- P2'nin yayın tarihi kesinleşince sabit yorumun son satırına yaz (ör. "Sıradaki: 2/7, Pazar 20:00"). Videodaki "SIRADAKİ PARÇA · 2/7" çerçevesine
+  ilk hafta YouTube başka bir video koyar; bu satır izleyiciye P2'nin ne zaman geleceğini söyler (kurul PK2-N2).
+- P2 YAYINLANDIĞI GÜN: bu videonun bitiş ekranında sol öğeyi ("İzleyiciye en uygun video") P2 videosuyla değiştir.
 
 3. KAPAK TESTİ ("Test ve karşılaştır")
 - K1 + K2; test sürerken başlığa dokunma; 14 gün ya da YouTube sonuç verene kadar.
