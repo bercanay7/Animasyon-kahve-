@@ -1,6 +1,6 @@
 # MEDICI — Yayın Taslağı (7 parça × ≈10 dk + isteğe bağlı Tam Film)
 
-Durum: **metin taslağı** (19 Ekim 2026; yapı kullanıcı önerisiyle 3 parçadan 7 parçaya çevrildi). Zaman damgaları, kapaklar, SRT ve dosya adları **gerçek anlatım + render bitince** `yayin/paket_kur.py` ile üretilecek; bu dosya başlık/açıklama/yorum/etiket metinlerinin kaynağıdır.
+Durum: **P2–P7 için metin taslağı** (19 Ekim 2026; yapı kullanıcı önerisiyle 3 parçadan 7 parçaya çevrildi). **Parça 1'in geçerli paketi bu dosya değil: `yayin/studio_paketi_P1/`** (`paket_P1.py` üretir; başlık, açıklama + bölüm damgaları, sabit yorum, etiketler, kapaklar K1/K2, SRT, adım adım yayın talimatı `00_yayin_adimlari.txt`; kurul tur 2, 5 Kasım 2026). Sonraki parçaların paketi de kendi `paket_P#.py` üreticisiyle `studio_paketi_P#/` içine yazılır; bu dosya o üreticilere başlık/açıklama/yorum/etiket taslağı verir.
 Yayın ritmi önerisi: **Pazar 20:00 (+03)**, parçalar arası **+7 gün** (7 hafta) — kanal verisi hızlı sarıyorsa hafta başı 2 parça (Pazar + Çarşamba); tek oynatma listesi **"Medici (7 parça)"**; yedi parça da yayınlandıktan sonra isteğe bağlı **Tam Film** (≈68 dk). İlk tarih, parçaların hazır olmasına göre sabitlenir (Şarlken 18 Ekim'de yayında).
 
 ## 1. Parça haritası
@@ -19,7 +19,7 @@ Yayın ritmi önerisi: **Pazar 20:00 (+03)**, parçalar arası **+7 gün** (7 ha
 
 | Parça | Önerilen | Alternatifler |
 |---|---|---|
-| 1/7 | `Medici (1/7): Bankacı Aile Nasıl Doğdu? Florin ve Defter` (55) | `Medici Ailesi (1/7): Altın Florinden Çifte Deftere` · `Medici (1/7): 1743'te Bir Oda, Bir Sözleşme` |
+| 1/7 | **`Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?`** (56; geçerli: `studio_paketi_P1/01_baslik.txt`) | Sonraki başlık testi için: T2 `Medici (1/7): Son Medici Mirasını Kilitledi. Peki Nasıl?` · T3 `Medici Ailesi (1/7): Faiz Yasaktı, Kilise Müşteri Oldu` (T3 yalnız kaynak üyesi onayıyla; kurul tur 2, PK1) |
 | 2/7 | `Medici (2/7): Cosimo'nun Sürgünü, Kubbe ve Kitaplar` (50) | `Medici (2/7): Bir Hücreden Floransa'nın Başına` · `Medici (2/7): Tahtsız Kral Cosimo` |
 | 3/7 | `Medici (3/7): Muhteşem Lorenzo ve Katedralde Suikast` (52) | `Medici (3/7): Pazzi Suikastı, 26 Nisan 1478` · `Medici (3/7): Bir Pazar Sabahı, Bir Katedral` |
 | 4/7 | `Medici (4/7): Aforoz, Osmanlı ve Bankanın Kapanışı` (50) | `Medici (4/7): Papa'ya Karşı Savaş, Napoli, İstanbul` · `Medici (4/7): Defter Neden Kapandı?` |
@@ -28,9 +28,11 @@ Yayın ritmi önerisi: **Pazar 20:00 (+03)**, parçalar arası **+7 gün** (7 ha
 | 7/7 | `Medici (7/7): Yıldızlar, Notalar ve Son Medici'nin Hesabı` (56) | `Medici (7/7): Galileo'dan Son Medici'ye` · `Medici (7/7): Rönesans'ı Gerçekten Onlar mı Yarattı?` |
 | Tam Film | `Medici Ailesi: Tam Film (7 Parça · 68 dk)` | `Medici: Floransa'nın Bankacıları, Dükleri ve Kraliçeleri (Tam Film)` |
 
+Seri öneki (kurul tur 2, PK1-Y8): P1 `Medici Ailesi (1/7):` ile çıkıyor; P2–P7 başlıkları kendi paket turunda aynı öneke çekilir (P5 o zaman 62 karaktere çıkar, kısaltılır; P4 alternatifi "Defter Neden Kapandı?" art arda "NEDEN" kalıbına takılır, kullanılmaz).
+
 Not: Başlıkta "satın aldı/ele geçirdi" gibi aşırı iddia kullanılmadı (Anayasa: dürüst vaat). 7/7 için alternatifteki soru formu, "Medici Rönesans'ı yarattı" tezini desteklemediğimiz için yalnızca soru olarak kullanılabilir.
 
-## 3. Açıklamalar (yapıştır; `[BÖLÜMLER]` yerine `bolumler_P*.txt` içeriği)
+## 3. Açıklamalar (P2–P7 taslağı; `[BÖLÜMLER]` yerine o parçanın paket üreticisinin `05_bolumler.txt` listesi gelir)
 
 Ortak blok (her açıklamanın sonuna): kaynaklar + ses/telif notu + etiketler.
 
@@ -41,18 +43,7 @@ Ses: yapay anlatıcı (ElevenLabs). Çizim, harita ve animasyonların tamamı ko
 ```
 
 ### Parça 1/7
-```
-18 Şubat 1743, Floransa. Yetmiş beş yaşında bir kadın ölüyor; geride, bir şehrin hazinesini "buradan çıkarılamaz" diye bağlayan bir sözleşme bırakıyor. Peki bir bankacı ailesi, mirasını bir şehre bağlayacak noktaya nasıl geldi?
-
-Medici'nin hikâyesi yedi parçada. Bu ilk parçada o odadan geriye, florin şehrine gidiyoruz: altın florinin doğuşu, kambiyo ve "vicdan komitesi", çifte kayıt defteri ve Giovanni'nin köşesi.
-
-Kaynakları açıkça ayırıyoruz: rivayetler "rivayet" diye, tartışmalı yerler "tartışmalı" diye, çevirileri bize ait olan satırlar "çeviri bize ait" diye anılır.
-
-[BÖLÜMLER]
-
-Sıradaki: 2/7 — Cosimo, kule, sürgün ve dönüş.
-#Medici #Floransa #Rönesans #TarihBelgeseli
-```
+**Geçerli metin: `studio_paketi_P1/02_aciklama.txt`** (bölüm damgaları dahil, olduğu gibi yapıştırılır; `paket_P1.py` üretir ve denetler: ilk damga 0:00, her bölüm ≥ 10 sn, açıklamada listeden önce damga yok, ≤ 5.000 karakter). Burada kopyası tutulmaz; iki kopya ayrışıyordu. Eski taslak metin kaldırıldı: tur 1'de kapatılan iki vaat hatasını ("buradan çıkarılamaz" tırnağı, "çifte kayıt defteri") taşıyordu.
 
 ### Parça 2/7
 ```
@@ -62,7 +53,7 @@ Eylül 1433'te Cosimo, Palazzo Vecchio'ya çağrıldı ve tutuklandı. Kapatıld
 
 [BÖLÜMLER]
 
-Önceki: 1/7 — Bankacı Aile Nasıl Doğdu? · Sıradaki: 3/7 — Muhteşem Lorenzo ve Pazzi suikastı.
+Önceki: 1/7 — Faiz Yasakken Nasıl Zengin Oldular? · Sıradaki: 3/7 — Muhteşem Lorenzo ve Pazzi suikastı.
 #Medici #CosimoDeMedici #Rönesans #TarihBelgeseli
 ```
 
@@ -132,6 +123,8 @@ Not: "Medici Rönesans'ı yarattı" tezini desteklemiyoruz; kaynaklar "en görü
 
 ## 4. Sabit yorum (yayından hemen sonra; parça başına)
 
+P1: `studio_paketi_P1/03_sabit_yorum.txt` (geçerli). Aşağıdaki ortak taslak P2–P7 içindir.
+
 ```
 📌 Rakamlar ve tarihler araştırma özetlerine dayanır; rivayetler videoda "rivayet" diye işaretlendi. Birincil metinlere (ör. Poliziano, Landucci) doğrudan erişemediğimiz yerlerde ikincil kaynakları açıkça belirttik. Tam kaynak/teyit tablosu isteyen yazsın, paylaşalım.
 Soru: [1] Cosimo'nun "kefaret" yatırımı mı, iyilik mi? ([2]'de açılır) · [2] Bir hücreden dönüp devleti tahtsız yönetmek: dâhilik mi, kurnazlık mı? · [3] Pazzi suikastında Papa'nın payı sizce ne? · [4] Lorenzo'nun Napoli'ye gitmesi cesaret miydi, kumar mı? · [5] Savonarola kâhin miydi, demagog mu? · [6] "Büyük dük" unvanı meşruiyet mi, makyaj mı? · [7] "Medici Rönesans'ı yarattı" demek ne kadar doğru?
@@ -140,19 +133,23 @@ Soru: [1] Cosimo'nun "kefaret" yatırımı mı, iyilik mi? ([2]'de açılır) ·
 
 ## 5. Etiketler (virgülle)
 
+P1: `studio_paketi_P1/04_etiketler.txt` (geçerli). Aşağıdaki ortak liste P2–P7 taslağıdır.
+
 `Medici, Medici Ailesi, Floransa, Rönesans, Lorenzo de Medici, Cosimo de Medici, Pazzi Suikastı, Savonarola, Catherine de Medici, Marie de Medici, Galileo, Uffizi, İtalya tarihi, tarih belgeseli, bankacılık tarihi, Zaman Kuryesi`
 
 ## 6. Studio kontrol listesi (parça başına ≤15 dk)
 
-1. Kapak: parça başına `yayin/kapak_P#_A.jpg` (B/C yedek); yedi kapak tek aile (aynı çerçeve, parça numarası büyük). 2. Dil: Türkçe; kategori: Eğitim. 3. **Altyazı:** `medici_P#_tr.srt` (zamanlamalı). 4. Bölümler: açıklamadaki damgalar (ilk satır 0:00; her bölüm ≥10 sn; parça başına 2–3 bölüm).
+Parça 1'in adım adım talimatı: **`studio_paketi_P1/00_yayin_adimlari.txt`** (bu listeden önce gelir).
+
+1. Kapak: **`studio_paketi_P#/kapak_P#_K1.jpg` varsayılan** (ilk yüklenen) + `kapak_P#_K2.jpg` "Test ve Karşılaştır"da (14 gün, başlık sabit); `ESKI_kapaklar/` içindekiler yüklenmez. Yedi kapak tek aile. 2. Dil: Türkçe; kategori: Eğitim. 3. **Altyazı:** `medici_P#_tr.srt` (zamanlamalı). 4. Bölümler: **paket üreticisinden** (`paket_P#.py` → `05_bolumler.txt`, açıklamaya gömülü; ilk damga 0:00, her bölüm ≥ 10 sn; P1'de 9 bölüm).
 5. **"Değiştirilmiş veya sentetik içerik":** **Hayır** (kanal uygulaması, CLAUDE.md kanal dersleri; başkan kararı kurul/KURUL.md) + açıklamada "Ses: yapay zekâ ile üretilmiş anlatıcı sesi" satırı. Muhalefet şerhi: KA2 (tur 1 Ö6, tur 2) YouTube Yardım metnine dayanarak **Evet** öneriyor; son karar kanal sahibinin. 6. "Çocuklara özel değil"; yaş sınırı yok. 7. Oynatma listesi: **Medici (7 parça)** + **Uzun Dosya**.
-8. **Bitiş ekranı** (son 7 sn): P1–P6 "SIRADAKİ PARÇA" + "Abone ol"; P7 "TÜM FİLM" + "Abone ol".
+8. **Bitiş ekranı** (son 7 sn): P1–P6 sol yuva "SIRADAKİ PARÇA": sonraki parça yayınlanana dek **Oynatma listesi: Medici (7 parça)**, yayınlanınca o parçanın videosu; sağ yuva "Abone ol". P7: "TÜM FİLM" + "Abone ol".
 9. Yayın: Pazar 20:00 (+03), parçalar arası +7 gün (ya da hafta başı 2 parça). 10. Kısa fragmanlar: parça başına 1 dikey Kısa (kanca bölümü); başlık ve açıklama çakışmasız (SRT yükleme sorunu notu: Studio'da elle yüklenir).
 11. Her parçanın açıklaması kendi içinde bağımsız okunur (önceki/sonraki parça bağlantıları yayın sırasında eklenir).
 
 ## 7. Dürüstlük ve kullanıcıya notlar
 
-* Kaynak kapısı: ● (birincil metin okundu) **hiçbir satırda yok** — bu ortamda WebFetch ile birincil sayfalar açılamadı; tüm olgular ◐/○ düzeyindedir. Yayın öncesi `kaynaklar_P1…P7.md` içindeki "Yayın öncesi teyit listesi" sayfa düzeyinde gözden geçirilmelidir (özellikle HAFIZA-Y satırları: Mehmed'in ölümü 3 Mayıs 1481, İnebahtı sonucu).
+* Kaynak kapısı: **P1: ● 51 · ◐ 17 · ○ 2 · ANEKDOT 1 · YORUM 12 · — 2** (85 cümle; birincil metinler curl ile açıldı: Villani, Boccaccio, Stefani, Dante, Machiavelli, Cavalcanti; araştırmalar: de Roover 1963, Treccani DBI, Casciu 2006, Online Catasto of 1427; cümle cümle tablo `kurul/teyit_P1.md`). P2–P7 henüz ◐/○ düzeyinde: her parçanın teyit turu kendi kurulundan önce yapılır, `kaynaklar_P2…P7.md` içindeki "Yayın öncesi teyit listesi" sayfa düzeyinde gözden geçirilir (özellikle HAFIZA-Y satırları: Mehmed'in ölümü 3 Mayıs 1481, İnebahtı sonucu).
 * **Kulak denetimi** (özel adların okunuşu) kullanıcıdadır: `okunus_P*.md` listesindeki adları dinle; hatalı yerde tek cümle `ses_yama.py` ile yamanır.
 * **c0 alıntı kartı:** "Hiçbir şey buradan çıkmayacak" **Anna Maria Luisa'nın sözü olarak sunulmaz**; sözleşmenin 3. maddesinin özetidir (c16 bunu söyler). Parça 1 başlığında/kapağında bu söz alıntı olarak kullanılmaz.
-* Ses lisansı/plan: ElevenLabs ticari kullanım koşullarını kontrol et (Şarlken notu geçerli).
+* Ses lisansı/plan: P1 için not `SURUM_KUNYESI_P1.md` içinde (kütüphane sesi "Emrullah", klon ya da taklit değil; ücretli abonelik). Kütüphane kullanım koşullarının ekran görüntüsü kanal sahibinin hesabından alınmalıdır.

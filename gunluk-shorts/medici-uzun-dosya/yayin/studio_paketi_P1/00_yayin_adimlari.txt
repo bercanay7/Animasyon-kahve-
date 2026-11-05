@@ -1,0 +1,58 @@
+YAYIN ADIMLARI: Medici Parça 1/7
+(paket_P1.py üretir; değiştirmek için betiği düzelt ve yeniden çalıştır. Kaynak: kurul tur 2, PK1-Y3.)
+
+Bütün işlemler YouTube Studio'da (studio.youtube.com) yapılır. Adımları sırayla uygula.
+
+0. YÜKLEMEDEN ÖNCE
+- Kulak kontrolü: yayin/KULAK_KONTROL_P1.md içindeki klipleri dinle (14 yamalı cümle + orijinal kayıttan 2 yer). Yanlış okunan bir yer varsa yalnız o cümle yeniden seslendirilir (ElevenLabs kredisi harcar; senin onayınla).
+- Kayıt için: ElevenLabs hesabında "Emrullah" kütüphane sesinin kullanım koşullarının ekran görüntüsünü al (SURUM_KUNYESI_P1.md, lisans notu).
+
+DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
+- medici_P1.mp4: video, 9:58, 1920×1080. Depoda yok; ayrıca gönderilir.
+- kapak_P1_K1.jpg: VARSAYILAN kapak ("SON MEDİCİ / MİRASI KİLİTLEDİ").
+- kapak_P1_K2.jpg: test kapağı ("FAİZ YASAKTI").
+- 01_baslik.txt, 02_aciklama.txt, 03_sabit_yorum.txt, 04_etiketler.txt (05_bolumler.txt açıklamanın içinde zaten var).
+- medici_P1_tr.srt: Türkçe altyazı. Telefonda .srt seçilemezse medici_P1_tr.vtt.
+- ESKI_kapaklar/: YÜKLEME (eski sürüm).
+
+1. YÜKLE
+1) Oluştur → Video yükle → medici_P1.mp4.
+2) Ayrıntılar:
+   - Başlık: Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?
+   - Açıklama: 02_aciklama.txt'nin TAMAMI (9 bölüm damgası içinde). Açıklamaya başka zaman damgası EKLEME: ilk damga 0:00 olmalı, yoksa bölümler oluşmayabilir.
+   - Küçük resim: kapak_P1_K1.jpg. İlk yüklenen kapak varsayılan kalır; videonun ilk 3 saniyesi bu kapağın yankısıdır.
+     Kanalda "Test ve karşılaştır" açıksa K2'yi de ekle (3. bölüm).
+   - Oynatma listesi: "Medici (7 parça)". Yoksa "Yeni oynatma listesi" ile oluştur; açıklaması: "Floransa'nın bankacı ailesi Medici, 1252'den 1743'e: yedi parça, her biri yaklaşık on dakika."
+   - Kitle: "Hayır, çocuklara özel değil". Yaş sınırı yok.
+   - Daha fazla göster:
+     · Ücretli tanıtım: yok.
+     · "Değiştirilmiş veya yapay içerik": Hayır (kanal uygulaması: video kodla çizilmiş animasyon, gerçek kişi ya da olay gerçekçi biçimde üretilmedi; yapay zekâ sesi açıklamanın sonunda yazılı). Kurul üyesi KA2'nin şerhi: YouTube Yardım metnine dayanarak "Evet" öneriyor. Son karar senin.
+     · Etiketler: 04_etiketler.txt.
+     · Video dili: Türkçe. Altyazı sertifikası: gerekmez. Kategori: Eğitim.
+     · Otomatik bölümler: açık kalabilir; açıklamadaki damgalar önceliklidir.
+3) Video öğeleri:
+   - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
+   - Bitiş ekranı: 9:53'ten videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:54'te belirir:
+     · Sol çerçeve ("SIRADAKİ PARÇA"): Oynatma listesi → Medici (7 parça). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
+     · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.
+     Öğeleri çerçevelerin üstüne yerleştir, dışına taşırma.
+4) Görünürlük: Planla → Pazar 20:00 (GMT+3). Parçalar arası bir hafta.
+
+2. YAYINDAN HEMEN SONRA
+- Sabit yorum: 03_sabit_yorum.txt'yi kanal hesabıyla yorum olarak yaz → ⋮ → Sabitle. İçindeki 5:39 tıklanabilir bağlantı olur.
+- Bölümler: ilerleme çubuğunda 9 bölüm görünmeli ("0:00 Son Medici ve 1737 sözleşmesi" … "8:06 Catasto: Floransa servetini sayıyor (1427)"). Görünmüyorsa açıklamayı bir kez daha kaydet; yine yoksa bana yaz.
+- Altyazı: CC düğmesinde "Türkçe" görünmeli (otomatik altyazı değil, yüklediğin dosya).
+
+3. KAPAK TESTİ ("Test ve karşılaştır")
+- K1 + K2; test sürerken başlığa dokunma; 14 gün ya da YouTube sonuç verene kadar.
+- YouTube kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sonuçsuz biterse ilk yüklenen kapak (K1) kalır.
+- K2 kazanırsa açılışı kırpma: ilk cümle ("18 Şubat 1743, Floransa.") K1 yankısının altında başlıyor ve test sonucu bu açılışla ölçüldü.
+- Özellik hesapta yoksa: K1 ile 72 saat bekle. Gösterim başına izlenme süresine bak (TO × ortalama izleme süresi). 2–3 gün yeni gösterim dalgası gelmezse K2'ye geç ve aynı trafik kaynağında (Göz at) önce/sonra karşılaştır.
+
+4. ANALİZ (48. saat ve 7. gün)
+- Studio → Analytics: Erişim (gösterim, TO, trafik kaynakları), Etkileşim (ortalama izleme süresi, izleyici tutma eğrisi, 0:30'da kalan %), Kitle. Ekran görüntülerini bana gönder; dersler CLAUDE.md'ye yazılır.
+- Kıyas: 0:30'da kalan (en iyisi Şarlken, %79), ortalama izlenme %40 ve üstü iyi, gösterim başına izlenme süresi.
+
+5. SONRAKİ BAŞLIK TESTİ İÇİN (kapak testi bittikten sonra; her seferinde tek değişken)
+- T2: Medici (1/7): Son Medici Mirasını Kilitledi. Peki Nasıl?
+- T3: Medici Ailesi (1/7): Faiz Yasaktı, Kilise Müşteri Oldu (yalnız kaynak üyesi onayıyla).

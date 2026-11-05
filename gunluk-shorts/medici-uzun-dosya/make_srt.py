@@ -202,8 +202,15 @@ def main():
         stamp = f"{h}:{mm:02d}:{ss:02d}" if h else f"{mm}:{ss:02d}"
         rows.append(f"{stamp} {TITLES[c['id']]}")
         prev = c
+    # paket üreticisi (paket_P#.py) cümleye çapalı ayrıntılı bölümleri yazdıysa geçerli liste odur; kart listesiyle ÜZERİNE YAZMA (kurul tur 2, PK1-Y2)
+    paket_bol = os.path.join(OUT, f"studio_paketi_P{args.part}", "05_bolumler.txt")
+    if os.path.exists(paket_bol):
+        rows = open(paket_bol, encoding="utf-8").read().strip("\n").split("\n")
+        kaynak = f"studio_paketi_P{args.part}/05_bolumler.txt (paket üreticisi)"
+    else:
+        kaynak = "bölüm kartları"
     open(os.path.join(OUT, f"bolumler_P{args.part}.txt"), "w", encoding="utf-8").write("\n".join(rows) + "\n")
-    print(f"{n} altyazı satırı → yayin/{tag}_tr.srt (+ .vtt, _zamansiz.txt) ; bölüm damgaları → yayin/bolumler_P{args.part}.txt")
+    print(f"{n} altyazı satırı → yayin/{tag}_tr.srt (+ .vtt, _zamansiz.txt) ; bölüm damgaları → yayin/bolumler_P{args.part}.txt ({kaynak})")
     print("\n".join(rows))
 
 

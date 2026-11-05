@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Parça 1 YouTube Studio paketi: başlık, açıklama, sabit yorum, etiketler, bölümler — zaman damgaları out_p1/timeline.json'dan.
 
-  python3 paket_P1.py            # yayin/studio_paketi_P1/01–05 dosyalarını yazar ve denetler
+  python3 paket_P1.py            # yayin/studio_paketi_P1/00–05 dosyalarını (00: yayın adımları) yazar, altyazıyı kopyalar ve denetler
 Kurul tur 1 (kurul/KURUL.md, bölüm E; PK1 3c–3g, KA2-E2): T1 başlık, ilk 2 satır vaadi, dürüst yöntem cümlesi, gerçek kaynak listesi,
 soru önde sabit yorum, P1'de olmayan adlar etiketten çıkar. Bölüm damgaları cümle çapasına bağlı: ses/kurgu değişince yeniden çalıştır.
-Denetimler: ilk bölüm 0:00, her bölüm ≥ 10 sn, başlık ≤ 60 karakter (kapı 4), açıklama ≤ 5000, etiketler toplamı ≤ 500 karakter.
+Denetimler: ilk bölüm 0:00, açıklamadaki ilk zaman damgası 0:00 (listeden önce damga yok; PK1-Y1), her bölüm ≥ 10 sn, başlık ≤ 60 karakter (kapı 4),
+açıklama ≤ 5000, etiketler toplamı ≤ 500 karakter.
 """
 import json
 import math
+import re
 import os
 import sys
 
@@ -54,18 +56,18 @@ _SAYI = {1: "bir", 2: "iki", 3: "üç", 4: "dört", 5: "beş", 6: "altı", 7: "y
 _ONLAR = {1: "on", 2: "yirmi", 3: "otuz", 4: "kırk", 5: "elli"}
 
 
-def _son_sozcuk(n):
-    return _SAYI[n % 10] if n % 10 else _ONLAR.get(n // 10, "sıfır")
-
-
-def ek_de(damga):
-    """'5:39' → "'da" (okunuş: beş otuz dokuz); büyük/küçük ünlü uyumu + fıstıkçı şahap."""
+def ek(damga, tur="de"):
+    """Zaman damgasına bulunma ('de) ya da ayrılma ('den) eki: okunuşun son sözcüğüne göre ünlü uyumu + sert ünsüz.
+    '9:53', 'den' → "'ten" (elli üç); '9:54', 'de' → "'te" (elli dört); '5:40', 'de' → "'ta" (kırk)."""
     mm, ss = (int(x) for x in damga.split(":")[-2:])
-    w = _son_sozcuk(ss) if ss else _son_sozcuk(mm)
+    n = ss if ss else mm
+    w = _SAYI[n % 10] if n % 10 else _ONLAR.get(n // 10, "sıfır")
     unlu = [c for c in w if c in "aıoueiöü"][-1]
-    sesli = "a" if unlu in "aıou" else "e"
-    sert = "t" if w[-1] in "çfhkpsşt" else "d"
-    return "'" + sert + sesli
+    on = unlu in "eiöü"
+    sert = w[-1] in "çfhkpsşt"
+    if tur == "de":
+        return "'" + ("t" if sert else "d") + ("e" if on else "a")
+    return "'" + ("t" if sert else "d") + ("en" if on else "an")
 
 
 def ts(t):
@@ -92,6 +94,90 @@ def zamanlar():
     return out, tl
 
 
+def video_suresi():
+    """Yükleme dosyasının süresi (sn): ffprobe; dosya yoksa anlatım sonu + compose.TAIL (8,3 sn)."""
+    import subprocess
+    v = os.path.join(OUT, "medici_P1.mp4")
+    if os.path.exists(v):
+        r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", v],
+                           capture_output=True, text=True)
+        try:
+            return float(r.stdout.strip())
+        except ValueError:
+            pass
+    tl = json.load(open(os.path.join(OUT, "timeline.json"), encoding="utf-8"))
+    return float(tl.get("total", 0.0)) + 8.3
+
+
+def yayin_adimlari(bol, kambiyo, dur):
+    """00_yayin_adimlari.txt (kurul tur 2, PK1-Y3): Studio'da sırayla uygulanacak adımlar. Bitiş ekranı: YouTube en az 5 sn ister;
+    videodaki yuvalar bitişten ≈4,4 sn önce belirir (compose.outro: amt(2.6, 0.9)) → öğeler son 5,5 sn'ye konur."""
+    es = ts(math.floor(dur - 5.5))
+    yuva = ts(math.floor(dur - 4.4))
+    mm, ss = divmod(dur, 60)
+    sure = f"{int(mm)}:{int(ss):02d}"
+    ilk, son = bol[0][1], bol[-1]
+    return f"""YAYIN ADIMLARI: Medici Parça 1/7
+(paket_P1.py üretir; değiştirmek için betiği düzelt ve yeniden çalıştır. Kaynak: kurul tur 2, PK1-Y3.)
+
+Bütün işlemler YouTube Studio'da (studio.youtube.com) yapılır. Adımları sırayla uygula.
+
+0. YÜKLEMEDEN ÖNCE
+- Kulak kontrolü: yayin/KULAK_KONTROL_P1.md içindeki klipleri dinle (14 yamalı cümle + orijinal kayıttan 2 yer). Yanlış okunan bir yer varsa yalnız o cümle yeniden seslendirilir (ElevenLabs kredisi harcar; senin onayınla).
+- Kayıt için: ElevenLabs hesabında "Emrullah" kütüphane sesinin kullanım koşullarının ekran görüntüsünü al (SURUM_KUNYESI_P1.md, lisans notu).
+
+DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
+- medici_P1.mp4: video, {sure}, 1920×1080. Depoda yok; ayrıca gönderilir.
+- kapak_P1_K1.jpg: VARSAYILAN kapak ("SON MEDİCİ / MİRASI KİLİTLEDİ").
+- kapak_P1_K2.jpg: test kapağı ("FAİZ YASAKTI").
+- 01_baslik.txt, 02_aciklama.txt, 03_sabit_yorum.txt, 04_etiketler.txt (05_bolumler.txt açıklamanın içinde zaten var).
+- medici_P1_tr.srt: Türkçe altyazı. Telefonda .srt seçilemezse medici_P1_tr.vtt.
+- ESKI_kapaklar/: YÜKLEME (eski sürüm).
+
+1. YÜKLE
+1) Oluştur → Video yükle → medici_P1.mp4.
+2) Ayrıntılar:
+   - Başlık: {BASLIK}
+   - Açıklama: 02_aciklama.txt'nin TAMAMI ({len(bol)} bölüm damgası içinde). Açıklamaya başka zaman damgası EKLEME: ilk damga 0:00 olmalı, yoksa bölümler oluşmayabilir.
+   - Küçük resim: kapak_P1_K1.jpg. İlk yüklenen kapak varsayılan kalır; videonun ilk 3 saniyesi bu kapağın yankısıdır.
+     Kanalda "Test ve karşılaştır" açıksa K2'yi de ekle (3. bölüm).
+   - Oynatma listesi: "Medici (7 parça)". Yoksa "Yeni oynatma listesi" ile oluştur; açıklaması: "Floransa'nın bankacı ailesi Medici, 1252'den 1743'e: yedi parça, her biri yaklaşık on dakika."
+   - Kitle: "Hayır, çocuklara özel değil". Yaş sınırı yok.
+   - Daha fazla göster:
+     · Ücretli tanıtım: yok.
+     · "Değiştirilmiş veya yapay içerik": Hayır (kanal uygulaması: video kodla çizilmiş animasyon, gerçek kişi ya da olay gerçekçi biçimde üretilmedi; yapay zekâ sesi açıklamanın sonunda yazılı). Kurul üyesi KA2'nin şerhi: YouTube Yardım metnine dayanarak "Evet" öneriyor. Son karar senin.
+     · Etiketler: 04_etiketler.txt.
+     · Video dili: Türkçe. Altyazı sertifikası: gerekmez. Kategori: Eğitim.
+     · Otomatik bölümler: açık kalabilir; açıklamadaki damgalar önceliklidir.
+3) Video öğeleri:
+   - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
+   - Bitiş ekranı: {es}{ek(es, 'den')} videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve {yuva}{ek(yuva, 'de')} belirir:
+     · Sol çerçeve ("SIRADAKİ PARÇA"): Oynatma listesi → Medici (7 parça). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
+     · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.
+     Öğeleri çerçevelerin üstüne yerleştir, dışına taşırma.
+4) Görünürlük: Planla → Pazar 20:00 (GMT+3). Parçalar arası bir hafta.
+
+2. YAYINDAN HEMEN SONRA
+- Sabit yorum: 03_sabit_yorum.txt'yi kanal hesabıyla yorum olarak yaz → ⋮ → Sabitle. İçindeki {kambiyo} tıklanabilir bağlantı olur.
+- Bölümler: ilerleme çubuğunda {len(bol)} bölüm görünmeli ("0:00 {ilk}" … "{ts(son[0])} {son[1]}"). Görünmüyorsa açıklamayı bir kez daha kaydet; yine yoksa bana yaz.
+- Altyazı: CC düğmesinde "Türkçe" görünmeli (otomatik altyazı değil, yüklediğin dosya).
+
+3. KAPAK TESTİ ("Test ve karşılaştır")
+- K1 + K2; test sürerken başlığa dokunma; 14 gün ya da YouTube sonuç verene kadar.
+- YouTube kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sonuçsuz biterse ilk yüklenen kapak (K1) kalır.
+- K2 kazanırsa açılışı kırpma: ilk cümle ("18 Şubat 1743, Floransa.") K1 yankısının altında başlıyor ve test sonucu bu açılışla ölçüldü.
+- Özellik hesapta yoksa: K1 ile 72 saat bekle. Gösterim başına izlenme süresine bak (TO × ortalama izleme süresi). 2–3 gün yeni gösterim dalgası gelmezse K2'ye geç ve aynı trafik kaynağında (Göz at) önce/sonra karşılaştır.
+
+4. ANALİZ (48. saat ve 7. gün)
+- Studio → Analytics: Erişim (gösterim, TO, trafik kaynakları), Etkileşim (ortalama izleme süresi, izleyici tutma eğrisi, 0:30'da kalan %), Kitle. Ekran görüntülerini bana gönder; dersler CLAUDE.md'ye yazılır.
+- Kıyas: 0:30'da kalan (en iyisi Şarlken, %79), ortalama izlenme %40 ve üstü iyi, gösterim başına izlenme süresi.
+
+5. SONRAKİ BAŞLIK TESTİ İÇİN (kapak testi bittikten sonra; her seferinde tek değişken)
+- T2: Medici (1/7): Son Medici Mirasını Kilitledi. Peki Nasıl?
+- T3: Medici Ailesi (1/7): Faiz Yasaktı, Kilise Müşteri Oldu (yalnız kaynak üyesi onayıyla).
+"""
+
+
 def main():
     bol, tl = zamanlar()
     hata = []
@@ -105,7 +191,7 @@ def main():
     bol_txt = "\n".join(f"{ts(t)} {ad}" for t, ad in bol)
     kambiyo = ts(dict((a, t) for t, a in bol)["Faiz yasağı, kambiyo ve \"vicdan komitesi\""])
     aciklama = f"""Medici Ailesi (1/7): Kilise faizi yasaklamıştı; bir bankacı ailesi yine de para kazanmanın yolunu buldu.
-1743'te son Medici'nin ölümünden 1252'de basılan ilk florine geri sarıyoruz. {kambiyo}{ek_de(kambiyo)} faiz yasağı ve "vicdan komitesi".
+1743'te son Medici'nin ölümünden 1252'de basılan ilk florine geri sarıyoruz; faiz yasağı ve "vicdan komitesi" de bu parçada.
 
 18 Şubat 1743, Floransa. Yetmiş beş yaşında bir kadın ölüyor: Toskana'yı yönetmiş Medici hattının son üyesi Anna Maria Luisa. 31 Ekim 1737'de imzalanan Aile Sözleşmesi'nin 3. maddesine göre ailenin galerileri, tabloları, heykelleri ve kütüphaneleri Floransa'dan ve Büyük Dukalık'tan çıkarılamayacaktı. Peki bir bankacı ailesi, mirasını bir şehre bağlayacak noktaya nasıl geldi?
 
@@ -137,15 +223,30 @@ Sıradaki: 2/7, Cosimo'nun kulesi, sürgün ve dönüş.
         hata.append(f"etiketler {len(et_txt)} > 500")
     if len(aciklama) > 5000:
         hata.append(f"açıklama {len(aciklama)} > 5000")
+    # YouTube bölümleri: açıklamadaki İLK zaman damgası 0:00 olmalı (kurul tur 2, PK1-Y1); listeden önce damga yazma
+    ilk = re.search(r"(?<![\d:])\d{1,2}:\d{2}(?::\d{2})?(?![\d:])", aciklama)
+    if not ilk or ilk.group(0) != "0:00":
+        hata.append(f"açıklamadaki ilk damga {ilk.group(0) if ilk else 'yok'} (0:00 olmalı)")
+    if not aciklama.split("BÖLÜMLER\n", 1)[-1].startswith("0:00 "):
+        hata.append("bölüm listesi 0:00 ile başlamıyor")
     os.makedirs(PK, exist_ok=True)
     open(os.path.join(PK, "01_baslik.txt"), "w", encoding="utf-8").write(BASLIK + "\n")
     open(os.path.join(PK, "02_aciklama.txt"), "w", encoding="utf-8").write(aciklama)
     open(os.path.join(PK, "03_sabit_yorum.txt"), "w", encoding="utf-8").write(yorum)
     open(os.path.join(PK, "04_etiketler.txt"), "w", encoding="utf-8").write(et_txt + "\n")
     open(os.path.join(PK, "05_bolumler.txt"), "w", encoding="utf-8").write(bol_txt + "\n")
+    open(os.path.join(PK, "00_yayin_adimlari.txt"), "w", encoding="utf-8").write(yayin_adimlari(bol, kambiyo, video_suresi()))
+    # altyazı paketin içinde de güncel olsun (make_srt.py yayin/ altına yazar)
+    import shutil
+    for uz in ("srt", "vtt"):
+        kay = os.path.join(HERE, "yayin", f"medici_P1_tr.{uz}")
+        if os.path.exists(kay):
+            shutil.copy2(kay, os.path.join(PK, f"medici_P1_tr.{uz}"))
+    # YAYIN_TASLAK'ın gösterdiği eski konum da aynı listeyi taşısın (kurul tur 2, PK1-Y2)
+    open(os.path.join(HERE, "yayin", "bolumler_P1.txt"), "w", encoding="utf-8").write(bol_txt + "\n")
     print(f"başlık ({len(BASLIK)}): {BASLIK}")
     print(bol_txt)
-    print(f"açıklama {len(aciklama)} kar., etiketler {len(et_txt)} kar., toplam süre {ts(tl['total'] if 'total' in tl else 0)}")
+    print(f"açıklama {len(aciklama)} kar., etiketler {len(et_txt)} kar., anlatım sonu {ts(tl['total'] if 'total' in tl else 0)}")
     if hata:
         raise SystemExit("PAKET HATASI: " + "; ".join(hata))
     print("paket yazıldı:", PK)
