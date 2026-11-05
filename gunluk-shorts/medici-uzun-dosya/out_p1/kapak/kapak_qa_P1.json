@@ -1,5 +1,5 @@
 {
- "tarih": "2026-11-04 16:19",
+ "tarih": "2026-11-05 01:57",
  "parca": 1,
  "esikler": {
   "kap_px": 9.0,
@@ -11,7 +11,9 @@
   "kahraman_oran": 0.18,
   "ikincil_oran": 0.1,
   "odak_payi": 0.6,
-  "boyut_mb": 2.0
+  "boyut_mb": 2.0,
+  "koyu_kenar": 35.0,
+  "koyu_pay": 0.35
  },
  "sure_rozeti": [
   960,
@@ -34,10 +36,15 @@
     1280,
     720
    ],
-   "mb": 0.25,
+   "mb": 0.272,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K1.yerlesim.json",
+   "koyu_tema": {
+    "kenar_ort": 38.4,
+    "koyu_pay": 0.083,
+    "gecti": true
+   },
    "yazilar": [
     {
      "ad": "kahraman",
@@ -54,41 +61,41 @@
      "olculen_kap_px": 138.6,
      "olculen_kap_px_min": 95.7,
      "govde_px": 26.4,
-     "kontrast": 11.82,
-     "gri_fark": 186.0,
+     "kontrast": 10.14,
+     "gri_fark": 167.0,
      "yazi_rgb": [
       237.0,
       193.0,
       101.0
      ],
      "zemin_rgb": [
-      13.0,
-      7.0,
-      7.0
+      41.0,
+      23.0,
+      17.0
      ],
      "boylar": {
       "246": {
        "kap_px": 25.4,
        "kap_px_min": 17.7,
        "govde_px": 5.07,
-       "kontrast": 11.86,
-       "gri_fark": 187.0,
+       "kontrast": 10.31,
+       "gri_fark": 170.0,
        "okunur": true
       },
       "168": {
        "kap_px": 17.3,
        "kap_px_min": 12.1,
        "govde_px": 3.46,
-       "kontrast": 11.68,
-       "gri_fark": 185.0,
+       "kontrast": 10.03,
+       "gri_fark": 167.0,
        "okunur": true
       },
       "120": {
        "kap_px": 12.4,
        "kap_px_min": 8.6,
        "govde_px": 2.47,
-       "kontrast": 11.79,
-       "gri_fark": 187.0,
+       "kontrast": 10.03,
+       "gri_fark": 167.0,
        "okunur": true
       }
      },
@@ -111,41 +118,41 @@
      "olculen_kap_px": 76.6,
      "olculen_kap_px_min": 73.4,
      "govde_px": 22.0,
-     "kontrast": 16.6,
-     "gri_fark": 222.0,
+     "kontrast": 14.03,
+     "gri_fark": 205.0,
      "yazi_rgb": [
       251.0,
       238.0,
       204.0
      ],
      "zemin_rgb": [
+      51.0,
       26.0,
-      11.0,
-      11.0
+      19.0
      ],
      "boylar": {
       "246": {
        "kap_px": 14.2,
        "kap_px_min": 14.2,
        "govde_px": 4.23,
-       "kontrast": 16.53,
-       "gri_fark": 222.0,
+       "kontrast": 14.29,
+       "gri_fark": 207.0,
        "okunur": true
       },
       "168": {
        "kap_px": 9.7,
        "kap_px_min": 9.7,
        "govde_px": 2.89,
-       "kontrast": 16.41,
-       "gri_fark": 221.0,
+       "kontrast": 14.03,
+       "gri_fark": 205.0,
        "okunur": true
       },
       "120": {
        "kap_px": 6.9,
        "kap_px_min": 6.9,
        "govde_px": 2.06,
-       "kontrast": 11.42,
-       "gri_fark": 183.0,
+       "kontrast": 9.6,
+       "gri_fark": 166.0,
        "okunur": true
       }
      },
@@ -159,15 +166,15 @@
     "parlak_leke": 1,
     "odak_payi": 1.0,
     "odak_p90": 243.0,
-    "cevre_medyan": 112.0,
-    "odak_cevre_fark": 131.0,
+    "cevre_medyan": 123.0,
+    "odak_cevre_fark": 120.0,
     "en_parlak_168": [
-     648,
+     640,
      513
     ],
     "en_parlak_168_odakta": true,
     "tek_odak": true,
-    "ortalama": 54.2,
+    "ortalama": 68.4,
     "p95": 229.0
    },
    "bolge": {
@@ -175,9 +182,9 @@
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0,
-     "kare_kenar": 0.0325,
+     "kare_kenar": 0.0323,
      "sure_rozeti_parlak": 0.0,
-     "sure_rozeti_ortalama": 6.7
+     "sure_rozeti_ortalama": 29.1
     },
     "denetlendi": true
    }
@@ -190,10 +197,15 @@
     1280,
     720
    ],
-   "mb": 0.214,
+   "mb": 0.23,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K2.yerlesim.json",
+   "koyu_tema": {
+    "kenar_ort": 37.9,
+    "koyu_pay": 0.105,
+    "gecti": true
+   },
    "yazilar": [
     {
      "ad": "kahraman",
@@ -210,41 +222,41 @@
      "olculen_kap_px": 165.6,
      "olculen_kap_px_min": 164.0,
      "govde_px": 45.9,
-     "kontrast": 12.08,
-     "gri_fark": 190.0,
+     "kontrast": 10.38,
+     "gri_fark": 170.0,
      "yazi_rgb": [
       237.0,
       194.0,
       102.0
      ],
      "zemin_rgb": [
-      9.0,
-      5.0,
-      5.0
+      38.0,
+      22.0,
+      17.0
      ],
      "boylar": {
       "246": {
        "kap_px": 30.8,
        "kap_px_min": 30.8,
        "govde_px": 8.83,
-       "kontrast": 12.07,
-       "gri_fark": 189.0,
+       "kontrast": 10.51,
+       "gri_fark": 171.0,
        "okunur": true
       },
       "168": {
        "kap_px": 21.0,
        "kap_px_min": 21.0,
        "govde_px": 6.03,
-       "kontrast": 12.06,
-       "gri_fark": 189.0,
+       "kontrast": 10.42,
+       "gri_fark": 170.0,
        "okunur": true
       },
       "120": {
        "kap_px": 15.0,
        "kap_px_min": 15.0,
        "govde_px": 4.31,
-       "kontrast": 10.75,
-       "gri_fark": 177.0,
+       "kontrast": 9.23,
+       "gri_fark": 156.0,
        "okunur": true
       }
      },
@@ -267,41 +279,41 @@
      "olculen_kap_px": 108.4,
      "olculen_kap_px_min": 105.0,
      "govde_px": 30.0,
-     "kontrast": 17.43,
-     "gri_fark": 230.0,
+     "kontrast": 14.96,
+     "gri_fark": 211.0,
      "yazi_rgb": [
       251.0,
       238.0,
       204.0
      ],
      "zemin_rgb": [
-      12.0,
-      6.0,
-      6.0
+      39.0,
+      23.0,
+      17.0
      ],
      "boylar": {
       "246": {
        "kap_px": 20.0,
        "kap_px_min": 20.0,
        "govde_px": 5.77,
-       "kontrast": 17.43,
-       "gri_fark": 230.0,
+       "kontrast": 15.25,
+       "gri_fark": 212.0,
        "okunur": true
       },
       "168": {
        "kap_px": 13.7,
        "kap_px_min": 13.7,
        "govde_px": 3.94,
-       "kontrast": 17.33,
-       "gri_fark": 229.0,
+       "kontrast": 14.91,
+       "gri_fark": 211.0,
        "okunur": true
       },
       "120": {
        "kap_px": 9.8,
        "kap_px_min": 9.8,
        "govde_px": 2.81,
-       "kontrast": 15.74,
-       "gri_fark": 218.5,
+       "kontrast": 13.54,
+       "gri_fark": 200.5,
        "okunur": true
       }
      },
@@ -311,29 +323,29 @@
     }
    ],
    "gri": {
-    "esik_p99": 198.0,
-    "parlak_leke": 4,
-    "odak_payi": 0.78,
-    "odak_p90": 170.0,
-    "cevre_medyan": 36.0,
-    "odak_cevre_fark": 134.0,
+    "esik_p99": 204.0,
+    "parlak_leke": 5,
+    "odak_payi": 0.875,
+    "odak_p90": 182.0,
+    "cevre_medyan": 54.0,
+    "odak_cevre_fark": 128.0,
     "en_parlak_168": [
      914,
      176
     ],
     "en_parlak_168_odakta": true,
     "tek_odak": true,
-    "ortalama": 45.5,
-    "p95": 206.0
+    "ortalama": 60.1,
+    "p95": 207.0
    },
    "bolge": {
     "ihlal": [],
     "ihlal_sayisi": 0,
     "piksel": {
-     "sure_rozeti_kenar": 0.0,
-     "kare_kenar": 0.0216,
+     "sure_rozeti_kenar": 0.0004,
+     "kare_kenar": 0.0212,
      "sure_rozeti_parlak": 0.0,
-     "sure_rozeti_ortalama": 13.6
+     "sure_rozeti_ortalama": 32.9
     },
     "denetlendi": true
    }

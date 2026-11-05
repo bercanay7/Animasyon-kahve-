@@ -12,6 +12,20 @@
  "zaman": 1.6,
  "aciklama": "1743 odası, imza masası yakın plan: Aile Antlaşması belgesi (mühürlü) + belgeyi saran demir zincir + pirinç asma kilit. Tek ışık kilitte (tek parlak odak); duvar ve masa kenarları sıcak karanlığa batar. Yüz yok.",
  "yazi_tipi": "fonts/Cinzel_900Black.ttf (Cinzel Black 900)",
+ "kapak_zemini": {
+  "ton": [
+   52,
+   32,
+   26
+  ],
+  "vinyet": 0.3,
+  "isinlar": false,
+  "golge": [
+   34,
+   21,
+   16
+  ]
+ },
  "yasak_bolgeler": {
   "sure_rozeti": [
    960,

@@ -125,6 +125,15 @@ KAPAK_SAHNE = {
         ),
     ),
 }
+# Yalnız kapak karesi (JPG) için zemin ayarı; videodaki yankı (0–3,3 sn) KAPAK_SAHNE parametreleriyle kalır (yazı ve kilit aynı, yankı kapağı tanıtır).
+# Kurul tur 2, PK1-Y4: koyu temada kapak kenarı sayfaya karışıyordu (168 px'te 4 px kenar halkası ort. gri ≈ 18, gri < 25 payı %57;
+# YouTube koyu tema ≈ 15) → karanlık sıcak kahve, dış vinyet hafif (ışık havuzu zaten merkezde toplar). Hedef: kenar ≥ 35, < 25 payı ≤ %35 (kapak_qa).
+# PK1-Y5: parıltının kolları yok, yumuşak parlama kalır (en parlak nokta yine kilit / kese ağzı).
+KAPAK_ZEMIN = {
+    "K1": dict(ton=(52, 32, 26), vinyet=0.30, isinlar=False),
+    "K2": dict(ton=(50, 32, 26), vinyet=0.30, isinlar=False),
+}
+KAPAK_GOLGE = (34, 21, 16)     # yazı zemini karartmasının hedef rengi (Pillow `shade`); eski yakın-siyah (8, 5, 4)
 KUTU = {}          # son çizilen kapak sahnesinin öğe kutuları (1920 tuvali): kapak_qa bölge denetimi bunları kullanır
 
 
@@ -198,9 +207,15 @@ def isik_havuzu(f, x, y, r, hue=(18, 10, 15), gain=1.0):
         c.drawRect(skia.Rect.MakeLTRB(max(0, L), B_, min(W, R_), H), edge)
 
 
-def parilti(f, x, y, r, a=1.0, col="#FFF6DA"):
-    """Dört kollu metal parıltısı (toplamsal): karenin en parlak noktası."""
+def parilti(f, x, y, r, a=1.0, col="#FFF6DA", isinlar=True):
+    """Metal parıltısı (toplamsal): karenin en parlak noktası. isinlar=True: dört kollu yıldız (videodaki kilit "tık"ı);
+    isinlar=False: yalnız yumuşak parlama (kapak karesi; kurul tur 2, PK1-Y5: kollu yıldız stok/YZ kapak klişesi)."""
     c = f.c
+    if not isinlar:
+        f.circle(x, y, r * 0.62, shader=f.rad(x, y, r * 0.62 + 0.1, [(col, 0.0, int(120 * a)), (col, 0.40, int(46 * a)), (col, 1.0, 0)]),
+                 blend=skia.BlendMode.kPlus)
+        f.circle(x, y, r * 0.18, shader=f.rad(x, y, r * 0.18 + 0.1, [(col, 0.0, int(255 * a)), (col, 1.0, 0)]), blend=skia.BlendMode.kPlus)
+        return
     for ang, ln in ((0, 1.0), (90, 1.0), (45, 0.42), (135, 0.42)):
         c.save()
         c.translate(x, y)
@@ -503,7 +518,8 @@ def _yazi_motor(f, satirlar, alpha):
 # ═════════════════════════════ kapak sahnesi türleri ═════════════════════════════
 @ckind("kapak_kilit")
 def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zincir=((-80, 612), (2000, 622), 70), kamera=("itme", 0.025),
-                  isik=(900, 732, 640, 1.0), ton=(18, 10, 15), kapan_at=0.45, duvar_y=470, hokka=(330, 700), yazi=None, seed=3, **_):
+                  isik=(900, 732, 640, 1.0), ton=(18, 10, 15), kapan_at=0.45, duvar_y=470, hokka=(330, 700), yazi=None, seed=3,
+                  vinyet=0.75, isinlar=True, **_):
     """K1 kapak sahnesi: 1743 imza masası yakın plan (oda1743'ün sıva/lambri/örtü/belge/mühür/hokka çizimleriyle), belgeyi saran demir zincir,
     pirinç asma kilit. kapan_at'ta kulp kapanır (geri sekme + parıltı). Tek ışık kilitte. yazi: kapak_sahne_shot(yazi=True) doldurur."""
     f, c = cx.f, cx.f.c
@@ -541,9 +557,10 @@ def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zin
     c.restore()
     flash = 1.0 + 0.6 * math.exp(-max(0.0, cx.t - (kapan_at or 0.0)) * 5.0) * (1.0 if cx.t >= (kapan_at or 0.0) else 0.0)
     sx, sy = piv[0] + (kx - B * 0.30 - piv[0]) * k, piv[1] + (ky + B * 0.06 - piv[1]) * k
-    parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash))
+    parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
     CM.motes(f, cx.t, n=8, seed=seed)
-    CM.vig(f, 0.75)
+    if vinyet:
+        CM.vig(f, vinyet)
     if yazi:
         a = smooth((cx.t - yazi.get("at", 0.3)) / 0.35) * (1 - smooth((cx.t - yazi.get("out", 3.2)) / 0.45))
         _yazi_motor(f, yazi["satirlar"], a)
@@ -558,7 +575,7 @@ def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zin
 
 @ckind("kapak_kese")
 def k_kapak_kese(cx, kese=(1400, 792, 440), yagmur=24, masa_sikke=(), kamera=("itme", 0.02), isik=(1400, 430, 720, 1.0), ton=(16, 10, 14),
-                 masa_y=800, yazi=None, seed=4, **_):
+                 masa_y=800, yazi=None, seed=4, vinyet=0.75, isinlar=True, **_):
     """K2 kapak sahnesi: banko masası (yeşil çuha, taş duvar), ağzı açık deri kese, boyun ipinde P1 palle kalkanı, ağza yağan florinler
     (CP.draw_coin: zambak / Vaftizci Yahya). Florinler sürekli düşer (döngü); tek ışık kesenin ağzında."""
     f, c = cx.f, cx.f.c
@@ -607,9 +624,10 @@ def k_kapak_kese(cx, kese=(1400, 792, 440), yagmur=24, masa_sikke=(), kamera=("i
         CP.draw_coin(f, x, y, s, spin=sp, tilt=tl, shadow=0.0, thick=0.10, glow=0.12, alpha=a)
         yb = [min(yb[0], x - s / 2), min(yb[1], y - s / 2), max(yb[2], x + s / 2), max(yb[3], y + s / 2)]
     OD.PN.glow(c, smx, smy - 10, Wp * 0.55, "#FFF0C0", 0.55)
-    parilti(f, smx - 30, smy - 20, Wp * 0.30, a=0.85)
+    parilti(f, smx - 30, smy - 20, Wp * 0.30, a=0.85, isinlar=isinlar)
     CM.motes(f, cx.t, n=10, seed=seed)
-    CM.vig(f, 0.75)
+    if vinyet:
+        CM.vig(f, vinyet)
     if yazi:
         a = smooth((cx.t - yazi.get("at", 0.3)) / 0.35) * (1 - smooth((cx.t - yazi.get("out", 3.2)) / 0.45))
         _yazi_motor(f, yazi["satirlar"], a)
@@ -672,7 +690,7 @@ def part_badge(im, part, n=7):
     return PARCA_ROZETI
 
 
-def shade(im, kind="ust", y1=330, x1=780, a=0.55):
+def shade(im, kind="ust", y1=330, x1=780, a=0.55, renk=(8, 5, 4)):
     """Yazı zemini için yumuşak sıcak-siyah karartma: 'ust' (üst bant, y < y1) ya da 'sol' (sol bölge, x < x1). Ölçüler 1280 biriminde."""
     arr = np.asarray(im).astype(np.float32)
     Hd, Wd = arr.shape[:2]
@@ -684,7 +702,7 @@ def shade(im, kind="ust", y1=330, x1=780, a=0.55):
         u = np.arange(Wd, dtype=np.float32)[None, :] / K
         m = np.clip(1 - (u - (x1 - 260)) / 260, 0, 1) * a
         m = np.repeat(m, Hd, axis=0)
-    arr = arr * (1 - m[..., None]) + np.array([8, 5, 4], np.float32) * m[..., None]
+    arr = arr * (1 - m[..., None]) + np.array(renk, np.float32) * m[..., None]
     return Image.fromarray(arr.astype(np.uint8))
 
 
@@ -713,10 +731,10 @@ def paths(part):
 def cover(part, kod):
     """Bir kapağı üretir: motor karesi (KAPAK_SAHNE) + yazı (PART_TEXT) + rozet → JPG 1280×720 + PNG 1920×1080 + yerleşim JSON."""
     sp = KAPAK_SAHNE[kod]
-    arr = engine_frame(kapak_sahne_shot(kod, part=part), sp["zaman"])
+    arr = engine_frame(kapak_sahne_shot(kod, part=part, **KAPAK_ZEMIN.get(kod, {})), sp["zaman"])
     kutu = {k_: (None if v is None else tuple(round(x / K, 1) for x in v)) for k_, v in KUTU[sp["tur"]].items()}
     im = Image.fromarray(arr).convert("RGB")
-    im = shade(im, "ust", y1=330, a=0.50) if kod == "K1" else shade(im, "sol", x1=780, a=0.55)
+    im = shade(im, "ust", y1=330, a=0.50, renk=KAPAK_GOLGE) if kod == "K1" else shade(im, "sol", x1=780, a=0.55, renk=KAPAK_GOLGE)
     ogeler = []
     for st in PART_TEXT[part][kod]:
         bb, m = text_line(im, st)
@@ -748,6 +766,7 @@ def cover(part, kod):
         q -= 4
     lay = dict(kapak=kod, parca=part, boyut=[1280, 720], jpg=os.path.relpath(jpg, HERE), png=os.path.relpath(png, HERE), jpg_kalite=q,
                tur=sp["tur"], zaman=sp["zaman"], aciklama=sp["aciklama"], yazi_tipi=f"fonts/{FONT_FILE} (Cinzel Black 900)",
+               kapak_zemini=dict(KAPAK_ZEMIN.get(kod, {}), golge=list(KAPAK_GOLGE)),
                yasak_bolgeler=dict(sure_rozeti=list(SURE_ROZETI), fare_simgeleri=list(FARE_SIMGE)), ogeler=ogeler)
     with open(os.path.join(kapak_dir, f"kapak_P{part}_{kod}.yerlesim.json"), "w", encoding="utf-8") as fh:
         json.dump(lay, fh, ensure_ascii=False, indent=1)

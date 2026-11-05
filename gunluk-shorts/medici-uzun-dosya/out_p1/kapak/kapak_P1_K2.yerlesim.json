@@ -12,6 +12,20 @@
  "zaman": 1.35,
  "aciklama": "1397–1429 Floransa banko masası (yeşil çuha): ağzı açık deri kese, içine yağan florinler; kese bağında P1 dönemi palle (altın alan, 6 kırmızı top; mavi zambaklı top YOK). Tek ışık kesenin ağzında. Yüz yok.",
  "yazi_tipi": "fonts/Cinzel_900Black.ttf (Cinzel Black 900)",
+ "kapak_zemini": {
+  "ton": [
+   50,
+   32,
+   26
+  ],
+  "vinyet": 0.3,
+  "isinlar": false,
+  "golge": [
+   34,
+   21,
+   16
+  ]
+ },
  "yasak_bolgeler": {
   "sure_rozeti": [
    960,

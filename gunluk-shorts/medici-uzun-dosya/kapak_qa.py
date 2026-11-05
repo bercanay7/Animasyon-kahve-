@@ -12,7 +12,9 @@ Her kapak için:
      süre rozeti ve başlık satırı taklidiyle;
   4) bölge denetimi: yazı / odak / öğe kutuları ∩ süre rozeti bölgesi (x 960–1250, y 553–689) ve fare simgesi bölgesi (x ≥ 1170, y ≤ 110; yalnız yazı)
      → kesişim varsa çıkış kodu 1; ek olarak süre rozeti bölgesinde piksel düzeyinde kenar/parlaklık uyarısı;
-  5) kontrast: kahraman (ve ikincil) yazı ile çevresi arasında WCAG oranı (hedef kahraman ≥ 7:1, ikincil ≥ 4,5:1).
+  5) kontrast: kahraman (ve ikincil) yazı ile çevresi arasında WCAG oranı (hedef kahraman ≥ 7:1, ikincil ≥ 4,5:1);
+  6) koyu tema ayrışması (kurul tur 2, PK1-Y4): 168×94'te 4 px kenar halkasının ortalama grisi ≥ 35 ve gri < 25 piksel payı ≤ %35
+     (YouTube koyu teması ≈ 15; kanal kıyası: Sisifos 59 / %22, Cumhuriyet "Sultanın Öğrencisi" 122 / %2) → altındaysa uyarı.
 Yerleşim bilgisi kapak_medici.py'nin yazdığı `out_pN/kapak/<ad>.yerlesim.json` dosyasından okunur (yazı maskeleri, kutular).
 Çıkış kodu: 0 = bölge ihlali yok; 1 = ihlal var; 2 = dosya/ölçü hatası (1280×720 değil, 2 MB üstü vb.)."""
 import argparse
@@ -34,7 +36,7 @@ SURE_ROZETI = (960, 553, 1250, 689)
 FARE_SIMGE = (1170, 0, 1280, 110)
 GENISLIKLER = (246, 168, 120)
 ESIK = dict(kap_px=9.0, govde_px=1.5, kontrast_kucuk=4.5, gri_fark=70, kahraman_kontrast=7.0, ikincil_kontrast=4.5, kahraman_oran=0.18, ikincil_oran=0.10,
-            odak_payi=0.60, boyut_mb=2.0)
+            odak_payi=0.60, boyut_mb=2.0, koyu_kenar=35.0, koyu_pay=0.35)
 # akış maketi: kanalın kapakları (dosya, başlık, süre). Süre/görüntüleme temsilîdir.
 REFERANS = [
     ("sisifos/kapak.png", "Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt", "7:05"),
@@ -159,6 +161,28 @@ def resize(img, w):
     return cv2.resize(img, (w, h), interpolation=cv2.INTER_AREA)
 
 
+def koyu_tema(img):
+    """Koyu tema ayrışması: 168×94 küçültmede 4 px kenar halkasının ortalama grisi + gri < 25 piksel payı (PK1-Y4 ölçüsü)."""
+    g = gray(resize(img, 168))
+    m = np.ones(g.shape, bool)
+    m[4:-4, 4:-4] = False
+    kt = dict(kenar_ort=round(float(g[m].mean()), 1), koyu_pay=round(float((g < 25).mean()), 3))
+    kt["gecti"] = bool(kt["kenar_ort"] >= ESIK["koyu_kenar"] and kt["koyu_pay"] <= ESIK["koyu_pay"])
+    return kt
+
+
+def sure_metni(part):
+    """Akış maketindeki süre rozeti: yükleme dosyasının gerçek süresi (ffprobe), yoksa '—'."""
+    import subprocess
+    v = os.path.join(HERE, f"out_p{part}", f"medici_P{part}.mp4")
+    try:
+        d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", v],
+                                 capture_output=True, text=True, timeout=30).stdout.strip())
+        return f"{int(d // 60)}:{int(d % 60):02d}"
+    except Exception:
+        return "—"
+
+
 # ───────────────────────────── testler ─────────────────────────────
 def analyse(path, part=None):
     r = dict(dosya=os.path.relpath(path, HERE) if path.startswith(HERE) else path, hatalar=[], uyarilar=[])
@@ -175,6 +199,11 @@ def analyse(path, part=None):
     lay, lay_path = load_layout(path, part)
     r["yerlesim"] = os.path.relpath(lay_path, HERE) if lay_path else None
     g = gray(img)
+    # ── 6: koyu tema ayrışması (kenar sayfaya karışıyor mu)
+    r["koyu_tema"] = koyu_tema(img)
+    if not r["koyu_tema"]["gecti"]:
+        r["uyarilar"].append(f"koyu temada kenar sayfaya karışıyor: 168 px kenar ort. gri {r['koyu_tema']['kenar_ort']:.0f} (≥ {ESIK['koyu_kenar']:.0f}), "
+                             f"gri < 25 payı %{r['koyu_tema']['koyu_pay'] * 100:.0f} (≤ %{ESIK['koyu_pay'] * 100:.0f})")
     # ── 1 + 5: yazılar (boy, okunurluk, kontrast)
     yazilar = []
     masks = []
@@ -420,6 +449,10 @@ def sheet(results, out_png, part):
                           (120, 230, 120) if gr["tek_odak"] else (255, 190, 90)))
             lines.append((f"odak p90 {gr['odak_p90']:.0f} − çevre {gr['cevre_medyan']:.0f} = {gr['odak_cevre_fark']:.0f} · 168'de en parlak: {'odakta' if gr['en_parlak_168_odakta'] else 'ODAK DIŞI'}",
                           "Regular", (220, 220, 220)))
+        kt = r.get("koyu_tema")
+        if kt:
+            lines.append((f"koyu tema: 168 px kenar ort. gri {kt['kenar_ort']:.0f} (≥ {ESIK['koyu_kenar']:.0f}) · gri < 25 payı %{kt['koyu_pay'] * 100:.0f} (≤ %{ESIK['koyu_pay'] * 100:.0f})",
+                          "Regular", (120, 230, 120) if kt["gecti"] else (255, 190, 90)))
         bz = r["bolge"]
         lines.append(("BÖLGE", "SemiBold", (255, 255, 255)))
         lines.append((f"ihlal {bz['ihlal_sayisi']}" + ("" if not bz["ihlal"] else ": " + ", ".join(f"{i['oge']}∩{i['bolge']}" for i in bz["ihlal"])),
@@ -436,8 +469,9 @@ def sheet(results, out_png, part):
         rows.append(np.asarray(can))
     # akış maketi
     cards = []
+    sure = sure_metni(part)
     for r in results:
-        cards.append((r["_img"], "Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?", "10:02", True))
+        cards.append((r["_img"], "Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?", sure, True))
     for rel, title, dur in REFERANS:
         p = os.path.join(KANAL, rel)
         if os.path.exists(p):
@@ -502,6 +536,7 @@ def main(argv=None):
             s += f"kahraman {k_['kap_px']:.0f}px (%{k_['kap_oran'] * 100:.1f}) 168={k_['boylar']['168']['kap_px']:.1f}px 120={k_['boylar']['120']['kap_px']:.1f}px kontrast {k_['kontrast']:.1f}:1 gri {k_['gri_fark']:.0f}; "
         if "odak_payi" in r["gri"]:
             s += f"odak payı %{r['gri']['odak_payi'] * 100:.0f}; "
+        s += f"koyu tema kenar {r['koyu_tema']['kenar_ort']:.0f} / <25 %{r['koyu_tema']['koyu_pay'] * 100:.0f}; "
         s += f"bölge ihlali {r['bolge']['ihlal_sayisi']}; hata {len(r['hatalar'])}; uyarı {len(r['uyarilar'])}"
         print(s)
         for u in r["uyarilar"]:
