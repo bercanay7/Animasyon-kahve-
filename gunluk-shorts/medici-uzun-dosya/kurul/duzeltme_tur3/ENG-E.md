@@ -4,7 +4,7 @@
 - **Alan (brif):** `anim.py`, `compose.py`, `c0_kinds.py`, `scenes_c0.py`, `scenes_c1.py`, `cilt_oda.py`, `kapak_medici.py`. `p1_ortak.py`'ye **yalnız ekleme** (0 satır silindi/değişti, 54 satır eklendi). `cilt_cam.py` brifte benimdi ama değiştirmem gerekmedi (yalnız `CUT_SLOPE`, `_end_factor`, `hermite` kullanıldı).
 - **Dokunmadıklarım:** `c2_kinds.py`, `scenes_c2.py` (SCN-3), `c1_kinds.py`, `cilt_fx.py`, `cilt_pano.py`, `cilt_medici.py`, `shots.py`, `qa_flow.py`. Anlatım, ses, `timeline.json`, altyazı değişmedi.
 - **Yapmadıklarım:** render, miks, git, kapak PNG/JPG üretimi.
-- **Kanıtlar:** `out_p1/duzeltme/tur3/ENG-E/` (01–08, hepsi JPEG ≤ 670 KB). Ölçüm betikleri: `…/scratchpad/enge/` (`olc_shutter.py`, `olc_misc.py`, `fr_probe.py`, `lonca_probe.py`, `dogrula.py`, `doku_yalniz.py`, `tex_scan.py`).
+- **Kanıtlar:** `out_p1/duzeltme/tur3/ENG-E/`: 01 ve 03–08, toplam 7 JPEG, en büyüğü 671 KB. Kesme duruşu için görüntü yok, sayılar §2'de. Ölçüm betikleri: `…/scratchpad/enge/` (`olc_shutter.py`, `olc_misc.py`, `fr_probe.py`, `lonca_probe.py`, `dogrula.py`, `doku_yalniz.py`, `tex_scan.py`).
 - **Brife sonradan eklenen maddeler (koordinatör):** TE1-Y9 (doku dikişi), TE2-G4 (FRANSIZCA), TE2-G5 (CİOMPİ LONCASI), TE2-G6 (bitiş satırı). Hepsi bu raporda.
 
 ## 0. Kısa sonuç
@@ -21,7 +21,9 @@
 | 8 | CİOMPİ LONCASI etiketi sağ kenarda | **Kapandı** (sahne kamerasıyla; ayrıntı §8) | TE2-G5 |
 | 9 | Bitiş ekranı "2/7 · COSİMO…" satırı | **Kapandı** | TE2-G6 |
 
-**Son kapı:** `qa_flow.py --part 1` → §10.
+**Son kapı:** `qa_flow.py --part 1` (2. koşu, 13:18): **20 GEÇTİ · 0 KALDI · 1 UYARI (eski #15 yön) · 1 PAS (video verilmedi)**. Ölçülen durum ara kayıt f4354b2 ile aynı; ayrıntı §10.
+- 1. koşudaki tek KALDI c2'deki #63'tendi (SCN-3), benim değişikliklerimden bağımsızdı (A/B ile kanıtlı).
+- SCN-3'ün düzeltmesinden sonra geçti.
 
 ---
 
@@ -226,7 +228,27 @@
 
 ## 10. Son kapı: qa_flow --part 1
 
-**1. koşu** (12:56–13:03; çıktı `…/scratchpad/enge_qa.txt`): **19 GEÇTİ · 1 KALDI · 1 UYARI · 1 PAS**.
+**2. (son) koşu** (13:13–13:18; çıktı `…/scratchpad/enge_qa.txt`, aynısı `enge_qa2.txt`): **20 GEÇTİ · 0 KALDI · 1 UYARI · 1 PAS**, çıkış kodu 0.
+- Bu turda kapı sayısı 22 (v3'te 19 GEÇTİ · 2 UYARI · 1 PAS). Bütün ölçülen kapılar GEÇTİ, KALDI yok.
+- Tek UYARI: yön denetimi. #15 `p1_skyline`, ENG-D'den beri kabul edilmiş eski uyarı (AN1-Y12).
+- PAS: donma (video verilmedi).
+- **Ölçülen durum:** koşu, SCN-3'ün 13:12:36'daki `scenes_c2.py` değişikliğinden sonra yapıldı.
+  - c2 dosyaları (`scenes_c2.py` a865474e…, `c2_kinds.py` 0f9d8c23…) ve benim dosyalarım, başkanın ara kaydı **f4354b2** (16:43) ile bit düzeyinde aynı.
+  - Oturum yeniden başladıktan sonra (16:44) bunu md5 ile doğruladım. Koşu yarıda kalmamıştı; üçüncü kez koşmadım (brif: en çok iki).
+
+```
+✓ Ölçülen hareket             GEÇTİ    0 çekim >6 sn ve hareketsiz (medyan MAD<1.25)
+✓ Beyan ↔ gerçekleşen kamera  GEÇTİ    42 çekim ölçüldü: ulaşmıyor 0, kısmen 0, gerçekleşen <%50/ters 0; kadraj koruması 0; …
+✓ Aynı görüntü kesmesi        GEÇTİ    38 sert kesme: kesin sıçrama 0, sınırda 0, muaf 0
+· Donma (ffmpeg)              PAS      video verilmedi (--video yol.mp4)
+✓ Yerleşim (ENG-A)            GEÇTİ    qa_yerlesim P1: 303 kare, 77 levha kaydı · İHLAL 0 · düzeltilen 3 · altyazı şeridi 0 …
+✓ Dönem (ENG-A)               GEÇTİ    qa_donem P1 [dönem katmanı açık]: 306 kare, 323 dönem kaydı · İHLAL 0 · uyarı 0
+ÖZET: 20 GEÇTİ · 0 KALDI · 1 UYARI · 1 PAS
+→ out/qa_flow.json
+çıkış kodu 0
+```
+
+**1. koşu** (12:56–13:03; çıktı `…/scratchpad/enge_qa_kosu1.txt`): **19 GEÇTİ · 1 KALDI · 1 UYARI · 1 PAS**. Ne olduğu ve neden benim değişikliklerimden bağımsız olduğu aşağıda.
 
 ```
 ✗ Ölçülen hareket             KALDI    1 çekim >6 sn ve hareketsiz (medyan MAD<1.25)
@@ -259,7 +281,7 @@
 - "Dönem": İHLAL 0.
 - "Durgunluk", "Altyazı bölgesi", "Kamera hareket yeterliliği".
 
-QA2_YER_TUTUCU
+Bu kapılar iki koşuda da aynı sonucu verdi. 2. koşuda #63 de geçti (SCN-3'ün düzeltmesiyle medyan 3,407).
 
 ## 11. Açık kalanlar ve en emin olmadığım noktalar
 
@@ -278,3 +300,7 @@ QA2_YER_TUTUCU
    - SCN-3 `scenes_c2.py`'yi 13:12:36'da değiştirdi. Ardından aynı yöntemle #63 medyanı **3,407** (eşik 1,25) ölçtüm ve son QA'yı ondan sonra koştum (§10, 2. koşu).
    - SCN-3 bundan sonra c2'yi yine değiştirirse son durum için onun raporundaki QA geçerlidir.
 9. **Geçici dosyalar.** Kare dökümlerimi (≈77 MB PNG) ve A/B denemesi için kurduğum bağ klasörünü sildim. Ölçüm betikleri ve JSON'lar `…/scratchpad/enge/`'de duruyor (küçük).
+10. **`qa_yerlesim.py` benden sonra değişti.**
+    - Çalışma ağacında 16:45:21'de 27 satır eklenmiş; ara kayıt f4354b2'den ve benim son QA koşumdan (13:18) sonra. Ben bu dosyaya dokunmadım.
+    - §10'daki "Yerleşim İHLAL 0" önceki sürümle ölçüldü. Yeni kuralın FRANSIZCA, CİOMPİ LONCASI ve bitiş satırı değişikliklerime etkisini ölçmedim.
+    - İki QA hakkımı kullandığım için yeniden koşmadım. Son birleşik durumu başkanın ya da SCN-3'ün son QA'sı göstermeli.
