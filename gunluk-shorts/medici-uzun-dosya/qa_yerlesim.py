@@ -12,6 +12,7 @@
   * cakisma       : aynı karede iki levha / etiket zemini / yazı / büyük sayı birbirinin üstüne biniyor (kısmi kesişim; bir yazının kendi
                     levhasının İÇİNDE durması çakışma sayılmaz). Kurul tur 2: SA1-Y2 ("1.500" × "EVLİLİK ÇEYİZİ"), SA1-Y3/AN2-Ö2 (GIOVANNI × COSSA).
 UYARI: duzeltildi (levha istenen yerinden kıstırıldı → sahne dosyasında nominal konum düzeltilmeli), altyazi_seridi (y 938–1042),
+       yarim_yazi (kutusunun %5–95'i ekranda olan okunur yazı; kurul tur 3 TE2-G1),
        (--yazi) serbest yazı kenar/HUD/altyazı, metin levhadan taşıyor.
 "ONCE" sütunu: aynı levhaların ESKİ kuralla (sabit w, kıskaçsız, eski HUD 1480–1900×10–118) ne olacağı — önce/sonra kıyası için.
 """
@@ -248,6 +249,29 @@ def main():
                 viol.append(dict(cekim=A["cekim"], etiket=A["etiket"], tur=f"{A['sinif']}×{B['sinif']}", sn=A["sn"], kare=fr_, metin=f"{A['metin']} × {B['metin']}",
                                  kutu=[round(v) for v in pa], tip="cakisma", ayrinti=f"öteki {[round(v) for v in pb]} · kesişim {ov:.0f} px²"))
 
+    # ── yarım görünen yazı (UYARI; kurul tur 3 TE2-G1: kamera sayfadan ayrılınca "80 HANE" ← 9.780 HANE gibi kesik sözcük/sayı kadrajda kalıyordu).
+    #    Kutusunun %5–95'i ekranda olan, okunur boyda (≥18 px) ve görünür (alfa ≥0,5) yazı. Aynı çekimde aynı yazı bir kez. Geçiş anındaki
+    #    kayma da yakalanabilir → İHLAL değil UYARI; liste elle gözden geçirilir. Kendi kamerasını kuran türlerin (OWN_CAMERA) yazıları ana
+    #    kare uzayında kaydedilmediği için burada görünmez (P2 öncesi motor işi: sonraki_parcalar_notlari.md). ──
+    yarim, seen_y = [], set()
+    for e in texts:
+        if not e.get("main", True) or e["type"] not in ("ink", "kick", "sayi") or not e.get("text"):
+            continue
+        if e.get("alpha", 1.0) < 0.5 or (e.get("size") or 0) < 18:
+            continue
+        b = e["box"]
+        ar = _area(b)
+        if ar <= 1.0:
+            continue
+        vis = _inter(b, (0.0, 0.0, 1920.0, 1080.0)) / ar
+        if 0.05 <= vis <= 0.95:
+            key = (e["shot"], e["text"])
+            if key in seen_y:
+                continue
+            seen_y.add(key)
+            yarim.append(dict(cekim=e["shot"], etiket=e["label"], sn=e["g"], metin=e["text"], kutu=[round(v) for v in b], gorunen=round(vis, 2), tip="yarim_yazi"))
+    warn.extend(yarim)
+
     twarn = []
     if a.yazi:
         tabs = [e for e in texts if e["type"] == "tablet" and e.get("main", True)]
@@ -293,6 +317,7 @@ def main():
     o = res["ozet"]
     line = (f"qa_yerlesim P{a.part}: {frames} kare, {len(seen)} levha kaydı · İHLAL {len(viol)} {o['ihlal_tip'] or ''} · "
             f"düzeltilen {o['uyari_tip'].get('duzeltildi', 0)} · altyazı şeridi {o['uyari_tip'].get('altyazi_seridi', 0)} · "
+            f"yarım yazı (uyarı) {o['uyari_tip'].get('yarim_yazi', 0)} · "
             f"ÖNCE (eski kural) {len(before)} {o['once_tip'] or ''}")
     if a.yazi:
         line += f" · yazı uyarıları {o['yazi_uyari_tip']}"
@@ -300,6 +325,8 @@ def main():
     print("→", os.path.relpath(out, HERE))
     for v in viol[:20]:
         print(f"  ✗ #{v['cekim']} {v['sn']:.1f}s {v['tip']}: {v['metin']} {v['kutu']} {v.get('ayrinti', '')}")
+    for v in [w for w in warn if w["tip"] == "yarim_yazi"][:12]:
+        print(f"  ~ #{v['cekim']} {v['sn']:.1f}s yarım yazı ({v['gorunen']:.0%} görünür): {v['metin']} {v['kutu']}")
     sys.exit(1 if viol else 0)
 
 
