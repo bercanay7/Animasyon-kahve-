@@ -34,7 +34,7 @@ Avantaj yüzdeleri aşağı yuvarlandı (41,67 → %41; 59,17 → %59; 61,11 →
 - Geçerlilik: 31 Aralık 2026 (iki sürümde de).
 - Tenisçi: kanıt istenmiyor, WhatsApp'tan bu listeden yazmak ya da söylemek yeterli. Karaca: PDF'te kural yok, resepsiyon uygular.
 - VIP 12.000 TL'ye iki terapistle kişi başı 60 dk masaj dahil (işletme teyidi).
-- Paketler peşin ödenir, satın alındıktan sonra bir yıl içinde kullanılır, arkadaşla paylaşılabilir.
+- Paketler peşin ödenir, satın alındıktan sonra bir yıl içinde kullanılır, arkadaşla paylaşılabilir. Paket seanslarına da hamam, sauna ve buhar odası dahil (işletme teyidi, 2026-11-05).
 - Randevu için ön ödeme yok. Hafta içi 07.00–22.00, hafta sonu 08.00–22.00.
 
 ## Takip
