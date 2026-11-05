@@ -707,19 +707,6 @@
    "ch": "c2"
   },
   {
-   "t": 511.005,
-   "name": "page_turn",
-   "gain_db": -20.0,
-   "pan": 0.0,
-   "seed": 1088,
-   "dur": 1.1,
-   "loop": false,
-   "params": {},
-   "id": "gecis-88-sayfa",
-   "note": "geçiş 'sayfa' (defterler: 150 bini aşkın florin kâr)",
-   "ch": "c2"
-  },
-  {
    "t": 517.28,
    "name": "candle_out_in",
    "gain_db": -21.0,
