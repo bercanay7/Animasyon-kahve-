@@ -151,3 +151,209 @@ Kaynak ve politika merceğinden: görüntü üretken yapay zekâ değil, kod. v1
 2. **Ö6 (Studio beyanı):** YouTube metni YZ anlatıcı sesini açıkça "bildirilmeli" listesinde saymıyor. "Hayır" savunulabilir; benim "Evet" önerim maliyetsizliğe ve "yalnız kendi sesini klonlamak muaf" ifadesine dayanıyor.
 3. **Y8:** "aforozla" ve "kambiyodaydı" ASR'nin hatası da olabilir. Son söz kulağın.
 4. **Sözleşmenin dili:** Casciu "Fransızca özgün, İtalyanca onaylı çeviri", Museo de' Medici "İtalyanca ve Fransızca iki nüsha" diyor. Anlatım ikisiyle de bağdaşıyor; ekrandaki "ITALIANO"nun çizilmesi tartışmalı.
+
+---
+
+## 2. aşama (ekran ve görsel olgular, hassasiyet) — v2 render (`out_p1/medici_P1.mp4`, 598,5 sn)
+
+### 2.1 Karar ve SON puan
+
+**SON: RED, 8,0/10 — VETO (tek madde: D1).**
+
+v2'de 471,7–475,8 sn arasında papa V. Martinus Giovanni'ye **hançer** çekiyor. Kaynakta olmayan bir şiddet uydurulmuş, ve bu bir din adamı figürü üzerinden yapılmış. Bu düzeltilmeden yayına çıkılmaz.
+
+Geri kalan her şey eşiğin üstünde:
+- 1. aşama maddelerimin hepsi kapandı. İki istisna var: Y8 (kulak kontrolü kullanıcıda) ve Y9 (küçük bir kayıt temizliği).
+- Ekrandaki kaynak damgaları ve nitelemeler, anlatımla ve kaynaklarla tutarlı (aşağıda tek tek).
+
+D1 düzeltilir, ücretsiz ekran düzeltmeleri D2 ve D3 de uygulanırsa v3'te **ONAY 9,2** veririm. Bunu v3'te yalnız 465–476 sn ve düzeltilen levhalar üzerinde kısa bir gerileme kontrolüyle teyit ederim.
+
+### 2.2 Neye dayandım
+
+- **Videoyu oynatamadım, sesi dinleyemedim.**
+- **v2'den kendi çıkardığım kareler:** sözcük çapalarına göre ≈100 kare. Hepsi `timeline.json`'daki sözcük zamanlarından seçildi; scratch: `…/scratchpad/ka2t2_v2/`. Bunlara şunlar dahil:
+  - 471,4–475,6 sn arası 8 kare;
+  - 465,4–467,6 sn arası 6 kare;
+  - 355,6–360,3 sn arası 4 kare;
+  - tam çözünürlüklü kırpımlar (402,5 sn Roma kartı; 499,6 ve 500,4 sn çubuk grafik).
+- **Kod:** `scenes_c2.py:186` (`kind="papa", action="threat"`) ve `cilt_anim.py:1556` (`act_threat`: "ŞİDDET İŞARETİ … kolu **hançerle** yukarı kalkar", `props.append(_prop_fn("dagger", …))`).
+- **Bağımsız ASR, yayınlanacak v2 mp4'ün kendi sesinden** (yerel Whisper medium; kesitler `timeline.json` zamanlarıyla):
+
+  | Cümle | ASR'nin duyduğu | Sonuç |
+  |---|---|---|
+  | c2s10 | "De Rovar'a göre Roma şubesi zamanla sermayesiz çalışır hale geldi. Kasayı kilisenin yatırdığı para dolduruyordu." | ✓ |
+  | c2s30 | "…ise 1430'larda hapisteyken olaya daha yakın bir kalemle…" | ✓; ad "Kavay Kant" duyuldu |
+  | c2s7 | "Tim Parks'ın aktardığına göre…" | ✓ |
+  | c1s16 | "O yılın mayısında…" | ✓ |
+  | c2s20 | "…Kovanni'yi **Aforoz'da** tehdit etmek…" | bu üçüncü bağımsız işaret |
+  | c2s1 | "Çözüm, kan bir odaydı." | işaretli |
+
+- **curl ile okunanlar:**
+  - DBI "Giovanni XXIII, antipapa": "una tomba che fu posta, **dopo lunghe discussioni**, nel battistero"; fidye için "35.000 gulden renani … un agente di Giovanni di Bicci".
+  - de Roover n. 826: "Joannes quodam papa XXIII (John XXIII, once pope)".
+  - Online Catasto (Brown) notu: "**the original declarations of wealth made in 1427 (9,780 households in Florence)**"; "Filippo di Tommaso Alberti **submitted his tax declaration** three times".
+- `SURUM_KUNYESI_P1.md` (Y7) ve `yayin/studio_paketi_P1/01–05` (Y3, Y5) yeniden okundu.
+
+### 2.3 1. aşama maddelerinin son durumu
+
+| Madde | Durum | Kanıt (v2) |
+|---|---|---|
+| **Y1** c2s10 | **KAPANDI** | Ses yaması v2 mp4'te (ASR ✓). Ekranda "ROMA ŞUBESİ · SERMAYE · 1426'DA ÇEKİLDİ" + "DE ROOVER'A GÖRE" (397–405 sn). Küçük bir yerleşim notu var (D7) |
+| **Y2** c2s30 | **KAPANDI** | Ses ✓. Levhalar "CAVALCANTI · HAPİSTE · 1430'LAR · OLAYA DAHA YAKIN" (555,8 sn) ve "1430'LAR · HAPİSTE" + "CAVALCANTI'YE GÖRE" + "ANEKDOT" (564,4 sn) |
+| **Y3** paket satırları | **KAPANDI** | Tim Parks "Anlatımda anılan … kitabın kendisi okunmadı" ayrı başlıkta; çelişki cümlesi daraltıldı; sabit yorum dayanağı Online Catasto. 137/%29,8 KA1'in Online Catasto teyidine dayanıyor; kendim sorgulamadım, ama 9.780 hane ve "declarations" bilgisini aynı kaynakta okudum |
+| **Y4** c0 kayıt yükseltmesi | **KAPANDI** | Casciu 2006 kaynak listesinde; ekranda "13 MADDE" + I–XIII + "FRANSIZCA" (42,8 sn) Casciu ile uyumlu |
+| **Y5** "5:39'da" | **KAPANDI** | — |
+| **Y6** YAYIN_TASLAK | **KAPANDI** | Satır 38 (yalnız okunanlar) ve satır 148 (Studio "Hayır" + şerh) |
+| **Y7** ses lisansı kaydı | **KAPANDI** | `SURUM_KUNYESI_P1.md` §"Anlatım ve ses lisansı": voice_id, professional kategori, tarihler, 14 yama, U3 uzlaşması, Studio kararı ve şerhim. Kütüphane koşullarının ekran görüntüsü kanal sahibinde (kullanıcı eylemi) |
+| **Y8** kulak kontrolü | **AÇIK** (kullanıcıda) | Yayınlanacak sesin ASR'si "aforozla"yı üçüncü kez "Aforoz'da" duydu; "kambiyodaydı" ve "Cavalcanti" de işaretli. "Aforozda" duyuluyorsa c2s20 yeniden üretilmeli: belgeli olgu cümlesi, ve SRT "aforozla" diyor |
+| **Y9** `notlar_c2.md` eski tablo | AÇIK, küçük | Kayıt temizliği |
+| **Ö6** Studio | Şerhim aynen kayıtlı, engellemiyorum | `SURUM_KUNYESI_P1.md` |
+
+### 2.4 Ekran bulguları
+
+#### ENGELLEYİCİ (VETO)
+
+**D1. 471,7–475,8 sn: papa V. Martinus hançer çekiyor.**
+
+Ne görünüyor (1920×1080'e göre):
+- Papa figürü x≈1060–1400, y≈140–800.
+- 471,9 sn: hançer elinde, bel hizasında.
+- 472,4 sn: hançer elinde.
+- 472,7 sn: hançer başının üstünde, saplama pozunda (≈(1250, 220)).
+- 473,3 ve 474,8 sn: "AFOROZ TEHDİDİ" levhası çıkıyor; Giovanni mitrayı tutarak eğilip geri çekiliyor.
+
+Bu sahne üç şeyi birden yapıyor:
+1. **Kaynakta olmayan bir şiddet uyduruyor.** De Roover n. 45: "Pope Martin V had to threaten Giovanni di Bicci with **excommunication** if he failed to obey and restore the pledge" (Camerani Marri 1951, belge 48–49). Ortada yazılı, dinî-hukuki bir yaptırım tehdidi var; silah yok.
+2. **Hassasiyet sorunu yaratıyor:** gerçek ve tarihî bir papayı silahlı saldırgan gibi çiziyor. Bu, Katolik izleyici için doğrudan, genel izleyici için de "Kilise = şiddet" diye okunabilecek bir karikatür. Kanalın Kilise'ye yaklaşımı videonun başka yerlerinde kurum ve kibir üzerine nazik bir mizah; bu kare o çizgiyi bozuyor.
+3. **Belgeye dayanan bir olguyu sansasyonla gölgeliyor.** Video bu cümle için "BELGE · DE ROOVER" damgası koymuşken, belgede olmayan bir hançer ekliyor.
+
+**Neden oldu (kod):**
+- `scenes_c2.py:186` `action="threat"` kullanıyor. `cilt_anim.act_threat` her çağrıda hançer ekliyor ("ŞİDDET İŞARETİ"); P7'deki Pazzi suikastı (`scenes_c7.py:136, 150–151, 177`) için yazılmış bir jest.
+
+**Yapılacak** (ücretsiz, yalnız bu segment yeniden render):
+- `action="point"` kullanılsın (`act_point` mevcut; 471,4 sn'de papa zaten işaret ediyor, o jest yeterli).
+- Bir **papalık mektubu (bulla)** gösterilsin. Projede `c2_bulla` simgesi var: kurşun mühürlü, ipe bağlı belge papanın elinde ya da papayla Giovanni arasında açılsın.
+- İsteğe bağlı küçük etiket: "AFOROZ TEHDİDİ · MEKTUPLA".
+- Giovanni'nin eğilmesi (saygı ya da itaat) hançer kalkınca sorun değil; kalabilir.
+
+**Motor önerisi (yeniden kullanıma karşı, ~15 dk):**
+- `threat` jesti ancak açık bir `prop="dagger"` parametresiyle hançer taşısın.
+- `qa_donem` ya da `qa_flow`'a basit bir kural: `kind in {papa, kardinal, rahip}` ve `action="threat"` ise uyarı.
+
+#### ÖNEMLİ (ücretsiz ekran düzeltmesi; veto değil)
+
+**D2. HUD yılı, kaynak yazarlarının sahnelerinde olayı yanlış tarihliyor** (SA2-Y3'ü doğruladım).
+- **119,4–127,1 sn:** "DANTE" ve "“lanetli çiçek”" sahnesinde HUD **1252**. Dante 1265'te doğdu; *Cennet* ≈1316–21'de yazıldı (genel bilgi, güven: yüksek).
+- **130,6–136,6 sn:** "GIOVANNI VILLANI · KRONİKÇİ · ESKİ DARPHANE YÖNETİCİSİ" sahnesinde HUD **1252**. DBI: Villani "ufficiale della Moneta nel **1317**", "sovrintendente alla moneta … nel **1327-28**".
+- **≈80–86 sn:** "Bugün Uffizi'nin kapısında…" kuyruğunda HUD **1737**.
+
+HUD kanalın "anlam taşıyan sayacı" (Anayasa §1). Bu karelerde ekran, olaya yanlış bir tarih yazıyor.
+
+Yapılacak, ikisinden biri:
+- bu çekimlerde HUD gizlensin (`hud=False`); ya da
+- levhalara tarih eklensin: "DANTE · CENNET, ≈1320"; "VILLANI · 1317'DE DARPHANE GÖREVLİSİ".
+
+Kuyrukta HUD gizlensin ya da "BUGÜN" yazsın.
+
+c2'deki Machiavelli (HUD 1429; levha "BİR ASRA YAKIN SONRA") ve Cavalcanti ("1430'LAR") levhaları zamanı kendisi söylüyor, sorun yok. Ama c1s20'deki Machiavelli levhası "MEDİCİ SİPARİŞİYLE TARİH YAZAR" (HUD 1378) zaman işareti taşımıyor; "≈1520" eklensin.
+
+**D3. 11,6–12,6 sn: "ANNA MARIA LUISA · MEDİCİ'NİN SON ÜYESİ" levhası** (x≈950–1730, y≈480–560).
+
+Anlatım aynı anda "Toskana'yı yönetmiş Medici hattının son üyesi" diyor; levha bu nitelemeyi düşürüyor. it.wiki: "Con la sua morte si estinse **il ramo granducale** della famiglia Medici". Yan kollar sürdü (güven: orta-yüksek). Kapaktaki "SON MEDİCİ" yaygın bir sıfat olarak kabul edilebilir; ama kimlik levhası bir olgu cümlesi gibi okunuyor.
+
+Yapılacak: "MEDİCİ HANEDANININ SON ÜYESİ" ya da "BÜYÜK DÜKAL KOLUN SON ÜYESİ".
+
+#### KÜÇÜK
+
+| # | Ne | Nerede | Önerim |
+|---|---|---|---|
+| D4 | Villani levhası "1300'DE PERUZZİ ORTAĞI · **ŞİRKETİ 1341'DE BATTI**" muğlak (SA2-Y5'i doğruladım). DBI'ye göre 1341'de batan, Villani'nin yönettiği **Buonaccorsi**; Peruzzi 1343'te battı. İzleyici "şirketi"ni Peruzzi sanabilir. Anlatım (c1s10) doğru | 172–180 sn; levha x≈880–1640, y≈180–320 | "1300'DE PERUZZİ ORTAĞI · YÖNETTİĞİ BUONACCORSI 1341'DE BATTI" |
+| D5 | Mezar yazıtı ekranda Türkçe oyulmuş "ESKİ PAPA" (SA2-Y8). Özgün yazıt Latince: de Roover n. 826 "Joannes quodam papa XXIII". c0'da çeviriye "ÇEVİRİ" damgası koyan video, burada çeviriyi taşa oyuyor (yöntem tutarlılığı). "Quondam" hem "eski" hem "merhum" demek; Martinus'un itirazı da bundan | 452,7–464,1 sn; yazıt x≈660–1260, y≈660–770 | Taşta "IOANNES QVONDAM PAPA XXIII", altında levha "ESKİ PAPA · ÇEVİRİ" |
+| D6 | Catasto "HANE HANE" ve kapı kapı memur ziyareti gibi sahnelenmiş (SA2-Y6). Online Catasto: veriler hane reislerinin **yazılı beyannameleri** ("declarations"). Anlatım "yazdırdı" diyor, uyumlu | 486,6–493,1 sn | Hane reisleri masaya beyanname (portata) getiriyor; etiket "BEYANNAME" |
+| D7 | "SERMAYE · 1426'DA ÇEKİLDİ" yazısı kırmızı X'in altında; "1426'da çekildi" cümlesinin üstü çizilmiş gibi okunuyor, tersine anlam riski | 397–405 sn; kart x≈180–640, y≈395–640 | X yalnız kese simgesinin üstüne; yazı X'in dışında |
+| D8 | "BELGE · DE ROOVER" damgası ≈0,8 sn, "DE ROOVER · ANDIĞI ARŞİV BELGELERİ" levhası ≈1,3 sn görünüyor. Bu bölümün yöntem damgası, okunmaya zaman kalmıyor | 465,4–466,7 sn | ≥2 sn tut, ya da damgayı oda çekiminde de göster |
+| D9 | "BRUGGE · KLASİK BİR ÖRNEK" nitelemesi 358,4 sn'den sonra "BARSELONA'YA ÇEKİLMİŞ POLİÇE" etiketinin altında kalıyor. Önceki ~3 sn okunur | 358,4–360,5 sn; x≈520–1400, y≈270–330 | Etiketi aşağı al |
+| D10 | Sayaç "150.000+"a doğru sayarken ara değerler artıyla yazılıyor ("143.194+"); kesin bir ara rakam gibi okunuyor | ≈515,4–516,4 sn | "+" yalnız son değerde, ya da yuvarlak adımlarla sayım |
+| D11 | Loggia dei Lanzi 1338 sahnesinde bitmiş görünüyor (SA2-Y2) | 141,4 sn, sağ kenar | Yapımı 1376–82 (güven: yüksek). Yalnız görsel anakronizm, anlatıda karşılığı yok; SA alanı |
+| D12 | 1520 tarihli "MEDİCİ SİPARİŞİ" mührü 1465 öncesi armayla (zambaksız palle) çizilmiş (SA2-Y4) | 575,5–580 sn | 1465'te XI. Louis'nin verdiği zambaklı mavi top sonrası arma (güven: yüksek). Görsel; SA alanı |
+| D13 | "Machiavelli'nin çizdiği" sahnesinde üç özdeş yoksul figür, 17. yüzyıl görünümlü şapkalar (SA1-Y5, SA2-K7). Hassasiyet açısından sorun yok: saygın duruş, sadaka veriliyor | 569,1–575,0 sn | Klon izlenimi "yoksul" kalıbını güçlendiriyor; yaş, cinsiyet ve duruş çeşitlensin |
+| D14 | Paket: "temsilî portreler TEMSİLÎ damgasıyla işaretlidir" yalnız madalyalar için doğru (Lorenzo 533,8 sn, Cosimo 583,7 sn ✓). Sahne figürleri de temsilî ama damgasız | `02_aciklama.txt` | "Madalya portreleri TEMSİLÎ damgasıyla işaretlidir; tüm figürler temsilîdir, gerçek benzerlik iddiası yoktur." |
+
+#### Doğruladığım ve doğru bulduğum ekran olguları ve damgaları
+
+- **c0:**
+  - kapak yankısı (1,6 sn) ve "18 ŞUBAT 1743";
+  - "31 EKİM 1737" + takvim "TEMMUZ 9 1737" (27,8 sn) ve 114 güne sayaç;
+  - "ANNA MARIA LUISA" / "LORRAINE TARAFI" mühürleri (38,9 sn);
+  - "13 MADDE", I–XIII, "FRANSIZCA" (42,8 sn);
+  - "ITALIANO" çizilmesi (48,4 sn): Casciu'nun "özgün Fransızca, İtalyancaya çevrilip onaylandı" bilgisiyle uyumlu, kabul;
+  - galeri "ÇEVİRİ" (61,1 sn);
+  - harita "3. MADDE · ÖZET / Koleksiyonlar Floransa'dan ve Büyük Dukalık'tan çıkarılamaz." tırnaksız + "SINIR YAKLAŞIKTIR" (68,5 sn);
+  - "GEREKÇE … ÇEVİRİ" (76,3 sn).
+- **c1:**
+  - "3,5 GRAM · 2 CM" (117 sn);
+  - "DANTE · “lanetli çiçek”" (çevirimiz, tırnaklı);
+  - "VILLANI'YE GÖRE · TAHMİN" (141,4 sn);
+  - "PERUZZİ … 15 ŞUBE · BİR KAYNAĞA GÖRE" (160,9 sn); "1340'LAR … ŞUBE SAYILARI TEMSİLÎ" (165,6 sn);
+  - "III. EDWARD · ÖDENMEDİ";
+  - "MART 1348 · YAZ BOYUNCA" (185,3 sn); veba ve toplu mezarda beden yok ("KATMAN KATMAN" yalnız toprak, 207,5 sn);
+  - "MARCHIONNE … 12 YAŞINDA";
+  - "SALVESTRO DE' MEDICI · MEDİCİ AİLESİNİN BAŞKA BİR KOLU · KURAYLA" (224,9 sn);
+  - "ARMALAR TEMSİLÎ";
+  - "MICHELE DI LANDO · YÜN TARAYICISI → GONFALONIERE", "ÇEKİLDİ" yok (243,4 sn);
+  - "CIOMPI'NİN TALEPLERİ … YAZILDIĞINA GÖRE": üç kalem anlatımla aynı (252 sn);
+  - "KURGU · KONUŞMA TARİHÇİNİN" (265,9 sn);
+  - "AĞUSTOS SONU" milis alayı, şiddet yok (271 sn); "YÖNETİMDEN DE DIŞLANDILAR" (276,5 sn);
+  - "MEDİCİ'NİN BU KOLUNDAN"; "1390'LARIN BAŞI · DEVRALDI · ALACAK + BORÇ"; "1.500 FLORİN";
+  - Orsanmichele yalnız "VIA PORTA ROSSA" (322,3 sn); "10.000 FLORİN".
+- **c2:**
+  - "BRUGGE · KLASİK BİR ÖRNEK" (355,6–358 sn);
+  - "VİCDAN KOMİTESİ · EN YARATICI DEPARTMAN";
+  - "TİM PARKS · AKTARDIĞINA GÖRE" (383,5 sn);
+  - "MİT" (415,7 sn); zaman çizgisi yalnız "1340 CENOVA · 1494 PACIOLI", "MEDİCİ İCADI ✗", 1407 yok (423,4 sn);
+  - "COSSA = XXIII. JOHANNES · PİSA PAPASI · BUGÜN KARŞI PAPA SAYILIR" (439,8 sn);
+  - "KAYNAKLAR AYRIŞIYOR · KEFALET/FİDYE": DBI'de fidye "35.000 gulden" ✓;
+  - "V. MARTINUS · İTİRAZ": DBI "dopo lunghe discussioni" ile uyumlu;
+  - "22 YIL KESİNTİSİZ + 18 YIL ARALIKLI · 1422" (484,4 sn);
+  - "KAYITLI SERVET %29,8 · 137 HANE · BİR HESABA GÖRE", son değerler 30/70 ✓;
+  - "PALLA STROZZI · 1427'NİN EN ZENGİNİ · 163.000 FLORİN · YAKLAŞIK" (502,1 sn);
+  - "GIOVANNI · CATASTO'YU DESTEKLEDİ";
+  - "150.000+ FLORİN KÂR" (516,8 sn);
+  - "20 ŞUBAT 1429 → 1428 · FLORANSA TAKVİMİ · YILBAŞI 25 MART";
+  - "LORENZO · TORUNUNUN OĞLU · İLERİDE MUHTEŞEM · 180.000 · LORENZO'NUN KAYDINA GÖRE" + "TEMSİLÎ";
+  - "MACHIAVELLİ'YE GÖRE · ANEKDOT";
+  - "MACHIAVELLİ'NİN ÇİZDİĞİ · KİMSE İSTEMEDEN DE";
+  - "O KALEM · MEDİCİ SİPARİŞİ";
+  - "COSIMO · 39 YAŞINDAYDI · 1389 DOĞUMLU" + "TEMSİLÎ";
+  - kule (hücre gösterilmiyor); bitiş ekranı.
+- **1737 imza sahnesi (32,0–34,5 sn; başkanın sorusu):** Odada, Medici arması altında bir siluet belgeyi mühürlüyor; yer ya da kimlik yazısı yok, anlatım yalnız "imzalandı" diyor. Sözleşme Viyana'da elçilerce imzalandı (Verga; Casciu: "Alla corte di Vienna agiva … il marchese Ferdinando Bartolommei"). Casciu'ya göre İtalyanca metin ayrıca "ratificati" (onaylandı); XIII. madde bir ay içinde onay öngörüyor. Bu yüzden sahne Floransa'daki **onay** olarak okunabilir. **Kabul ediyorum**, düzeltme gerekmiyor. İleride c0 yeniden render edilirse "VİYANA'DA İMZALANDI · FLORANSA'DA ONAY" küçük etiketi daha da kesin olur.
+
+### 2.5 Başkanın ilettiği bulgular (benim hükmüm)
+
+| | Bulgu | Hükmüm | Gerekçe / güven |
+|---|---|---|---|
+| a | Papanın hançeri (AN1/AN2) | **Doğrulandı, ENGELLEYİCİ (veto) = D1** | Kareler ve kod. Önerilen jest: işaret eden el + bulla, silah yok. Güven: yüksek |
+| b | HUD 1252 (Dante, Villani), HUD 1737 + bugün (SA2-Y3) | **Doğrulandı, ÖNEMLİ = D2** | Kareler 124,4, 133,5 ve 80,5 sn. Güven: yüksek |
+| c | Loggia dei Lanzi (SA2-Y2) | **Doğrulandı, küçük = D11** | 1376–82 (genel bilgi, güven: yüksek). 1378 Temmuz'da yapımı sürüyordu; 1338'de yoktu |
+| d | 1520 mührü, 1429 arması (SA2-Y4) | **Doğrulandı, küçük = D12** | 1465 öncesi arma; görsel, anlatıda iddia yok |
+| e | Villani levhası (SA2-Y5) | **Doğrulandı, küçük = D4** | Tur 2 1. aşamadaki c1s10 kararımla tutarlı: anlatım doğru, levha muğlak. DBI okundu |
+| f | "ESKİ PAPA" Türkçe yazıt (SA2-Y8) | **Doğrulandı, küçük = D5** | de Roover n. 826 okundu |
+| g | Catasto kapı kapı (SA2-Y6) | **Doğrulandı, küçük = D6** | Online Catasto notu "declarations" diyor, okundu |
+| h | Özdeş yoksullar, 17. yy şapkaları (SA1-Y5, SA2-K7) | **Kısmen.** Hassasiyet sorunu yok; sanat ve dönem sorunu = D13 | — |
+
+### 2.6 Kullanıcının sorusu (v2 karelerine göre, alanımdan)
+
+v2'de figürlü oda ve sokak sahneleri, halılar, ışık ve tutarlı karakter tasarımları "kodla, elle yönetilmiş" duruyor. Tipik YZ izleri yok: bozuk el, bozuk yazı, tutarsız mimari görmedim. Kaynak damgaları (BELGE, ANEKDOT, MİT, TEMSİLÎ, "…GÖRE") bilgi taşıyor ve güven veriyor.
+
+Ucuz ya da şablon hissini tek tek kareler veriyor:
+- belgeye dayanan bir anı sansasyona çeviren hançer (D1);
+- üç özdeş yoksul (D13);
+- birbirinin üstüne binen etiketler (D7, D9).
+
+Bunlar düzelirse, kaynak ve hukuk merceğinden çizim dili güven veren bir artıya dönüşüyor.
+
+### 2.7 En emin olmadığım nokta (2. aşama)
+
+1. **D3'ün ağırlığı.** "Son Medici" yaygın bir sıfat; ben levhayı olgu cümlesi saydığım için önemli dedim. Başkan "kapakla tutarlı sıfat" diye kabul ederse vetoya konu etmem.
+2. **Y8.** Üç bağımsız ASR da "aforozla"yı "Aforoz'da" duydu. Yine de Whisper'ın Türkçe dil modeli "-la"yı "-da"ya çevirebilir. Son söz kulağın.
+3. **Loggia'nın 1378 görünümü.** Yapımın Temmuz 1378'de ne kadar ilerlediğini kaynaktan okumadım; 1338 için anakronizm kesin.

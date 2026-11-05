@@ -1174,6 +1174,22 @@ def prop_sprite(name, h, c1="#6A4A2C", c2=GOLD):
         F.col = "#7A5A2A"
         F.fill(K.bar(-0.035 * h, -0.040 * h, 0.035 * h, -0.040 * h, 0.014 * h, 0.014 * h), rim=1.0)
         F.fill(K.bar(0, -0.035 * h, 0, 0.04 * h, 0.018 * h, 0.018 * h), rim=1.0)
+    elif name == "bulla":
+        # papalık belgesi (bulla): alt kenarı kıvrık (plica) parşömen, satırlar, ipek kordonla sarkan kurşun mühür. Tutuş noktası belgenin alt kenarı.
+        F.col = "#ECE2C8"
+        F.fill(poly([(-0.046 * h, -0.222 * h), (0.044 * h, -0.212 * h), (0.042 * h, -0.016 * h), (-0.049 * h, -0.026 * h)]), rim=1.0)
+        F.col = "#C2B08A"
+        F.fill(poly([(-0.049 * h, -0.044 * h), (0.042 * h, -0.034 * h), (0.042 * h, -0.016 * h), (-0.049 * h, -0.026 * h)]), rim=0.6, bound=False)
+        F.col = "#6E5C44"
+        for i in range(6):
+            yy = (-0.192 + i * 0.024) * h
+            F.fill(K.bar(-0.035 * h, yy, 0.031 * h, yy + 0.002 * h, 0.0032 * h, 0.0032 * h), rim=0.0, bound=False)
+        F.col = "#B33A2A"
+        F.fill(K.bar(-0.003 * h, -0.020 * h, -0.001 * h, 0.052 * h, 0.0042 * h, 0.0042 * h), rim=0.6)
+        F.col = "#8E9298"
+        F.fill(ell(-0.001 * h, 0.074 * h, 0.027 * h, 0.027 * h), rim=1.0)
+        F.col = "#B9BDC2"
+        F.fill(ell(-0.008 * h, 0.067 * h, 0.009 * h, 0.009 * h), rim=0.0, bound=False)
     elif name == "hammer":
         F.col = "#6A4A2C"
         F.fill(K.bar(0, 0.05 * h, 0, -0.12 * h, 0.012 * h, 0.010 * h), rim=0.9)
@@ -1572,6 +1588,31 @@ def act_threat(kit, T, phase=0.0, t0=0.4, dur=1.2, **_):
     return p
 
 
+def act_admonish(kit, T, phase=0.0, t0=0.5, dur=3.0, target=(1.0, -0.14), **_):
+    """UYARI / AFOROZ İLANI (şiddetsiz): yakın el mühürlü papalık belgesini (bulla) hedefe doğru omuz–baş hizasına kaldırır, uzak el açık avuçla
+    hafifçe kalkar; gövde dik, baş hafif yukarı. Belge baştan elde (alçakta) durur. Kurul tur 2 (AN1-Y1, AN2-E1): manevi/hukuki tehdit
+    sahnelerinde 'threat' (hançer) KULLANILMAZ; o eylem yalnız belgelenmiş şiddet anları içindir (Pazzi, 1527)."""
+    hb = kit.B["hb"]
+    k = pulse_(T, t0, 0.45, dur, 0.6)
+    ux, uy = target
+    n = math.hypot(ux, uy) or 1.0
+    ux, uy = ux / n, uy / n
+    reach = 0.86 * (kit.B["ua"] + kit.B["fa"])        # belge omuz hizasında öne uzatılır (yüzü kapatmaz; AN1-Y1 notu)
+
+    def arms(sho):
+        n0 = _relaxed(sho, hb, T, phase * 6.28, "n")
+        tgt = (sho[0] + ux * reach, sho[1] + uy * reach + 0.004 * hb * math.sin(T * 2.0))
+        a_near = ("ik", (lerp(n0[1][0], tgt[0], k), lerp(n0[1][1], tgt[1], k)))
+        f0 = _relaxed(sho, hb, T, phase * 6.28, "f")
+        ft = (sho[0] + 0.12 * hb, sho[1] + 0.06 * hb)
+        a_far = ("ik", (lerp(f0[1][0], ft[0], 0.65 * k), lerp(f0[1][1], ft[1], 0.65 * k)))
+        return a_far, a_near, "open", "fist"
+    p = stand(kit, T, phase, arms=arms, tor_add=2.5 * k, head_add=-5.0 * k)
+    w = p.arms[1][2]
+    p.props.append(_prop_fn("bulla", hb, w, -6.0 - 6.0 * k, layer="near"))
+    return p
+
+
 def _kf(u, keys):
     """Anahtar kare enterpolasyonu: keys=[(u, değer…)]; segment içinde ease. Dönüş: değer demeti."""
     for i in range(len(keys) - 1):
@@ -1639,7 +1680,8 @@ def act_work(kit, T, phase=0.0, mode="lay", period=None, high=0.0, **_):
     return p
 
 
-ACTIONS = dict(idle=act_idle, talk=act_talk, bow=act_bow, kneel=act_kneel, point=act_point, cheer=act_cheer, pray=act_pray, write=act_write, count=act_count, handshake=act_handshake, threat=act_threat, work=act_work)
+ACTIONS = dict(idle=act_idle, talk=act_talk, bow=act_bow, kneel=act_kneel, point=act_point, cheer=act_cheer, pray=act_pray, write=act_write, count=act_count, handshake=act_handshake, threat=act_threat, work=act_work,
+               admonish=act_admonish)
 STIL_KEYS = ("robe", "robe2", "hat", "hat_col", "hair", "skin", "hose_l", "hose_r", "pat", "beard", "cloak", "build", "sleeves", "nose", "body", "hem", "head", "barefoot")
 
 

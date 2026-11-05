@@ -244,7 +244,7 @@ SHOTS = [
     shot("p1_coin", ("c1s27", -0.1), n=1, size=420, pos=(520, 560), mode="day", perde=1, cam=("push",),
          ovl=P.ov(P.count_up(1290, 540, ("c1s27", "bin", -0.25), 1500, dur=1.1, unit="FLORİN", size=200),
                   P.icon_at("ring", 1630, 330, ("c1s27", "Piccarda", -0.1), size=170, glow=True, bob=6),
-                  P.label("EVLİLİK ÇEYİZİ", 1630, 450, ("c1s27", "çeyiziyle", -0.15), size=40, face="title_m", track=10),
+                  # "EVLİLİK ÇEYİZİ" etiketi kaldırıldı: "1.500"ün sıfırlarına biniyor ve güvenli alanı aşıyordu (kurul tur 2, SA1-Y2); üst levha aynı bilgiyi verir
                   P.tag("PICCARDA BUERI'NİN ÇEYİZİ", 960, 200, ("c1s27", "Piccarda", -0.15), size=50)),
          tr="cut", link="audio", label="1.500 florinlik çeyiz"),
     # ── 27b. ilk sermaye = bir evlilik sözleşmesi ────────────────────────────

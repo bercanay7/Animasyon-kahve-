@@ -17,7 +17,7 @@ KAPAK YANKISI (videonun ilk 0,3–3,5 sn'si; kapağın vaadi ilk 5 sn'de görün
 Kurallar (CLAUDE.md "Kapak dersleri", PK1 §3a/3b/6, SA1, PK2): kahraman yazı büyük harf ≥ %18 (130 px @720p), ikincil ≥ %10 ya da yok;
 süre rozeti bölgesi x 960–1250 × y 553–689 tamamen boş; sağ üst fare simgeleri x ≥ 1170, y ≤ 110 yazısız; parça rozeti "1/7" 150×74 sol altta;
 tek parlak odak (kilit / kesenin ağzı), geri kalan karanlık ve sakin; yüz yok (motorun en zayıf yeri); P1 dönemi (1397–1429) armada mavi
-zambaklı top YOK (1465 bahşişi; K2 palle = altın alan + 6 kırmızı top). K1 1743'te geçer: belgedeki mühür sonraki armayı taşıyabilir.
+zambaklı top YOK (1465 bahşişi; K2 palle = videonun red8 arması: altın alan + 8 kırmızı top). K1 1743'te geçer: belgedeki mühür sonraki armayı taşıyabilir.
 Kapak videonun söylemediğini vaat etmez: "Hiçbir şey buradan çıkmayacak" ve "çifte defter" kapakta yok."""
 import argparse
 import base64
@@ -111,7 +111,7 @@ KAPAK_SAHNE = {
     "K2": dict(
         tur="kapak_kese",
         aciklama="1397–1429 Floransa banko masası (yeşil çuha): ağzı açık deri kese, içine yağan florinler; kese bağında P1 dönemi palle "
-                 "(altın alan, 6 kırmızı top; mavi zambaklı top YOK). Tek ışık kesenin ağzında. Yüz yok.",
+                 "(altın alan, 8 kırmızı top — videonun 'red8' arması; mavi zambaklı top YOK). Tek ışık kesenin ağzında. Yüz yok.",
         zaman=1.35,
         params=dict(
             mode="night", perde=1, seed=4,
@@ -489,7 +489,8 @@ def draw_kese(f, x, y, Wp=440, palle=True):
     if palle:
         ps = int(w * 0.34)
         px, py = kx_ - w * 0.13, ky_ + w * 0.29 + ps * 0.42
-        f.image(_img(palle_erken(ps)), px, py, ax=0.5, ay=0.5, rot=0.06)
+        # videonun 1397–1429 arması (donem: 'red8' — altın alan, 8 kırmızı top, mavi top yok); eski 6 toplu çizim kaynaksızdı (kurul tur 2, PK1-Y6 / SA2 §5)
+        f.image(_img(CP.arms_array(ps, "gold", False, "red8")), px, py, ax=0.5, ay=0.5, rot=0.06)
         pal = (px - ps * 0.45, py - ps * 0.5, px + ps * 0.45, py + ps * 0.5)
     kutu = (x - w * 0.52, y0 + g["rim_y"] - w * 0.05, x + w * 0.52, y)
     return mx, my, g, kutu, pal

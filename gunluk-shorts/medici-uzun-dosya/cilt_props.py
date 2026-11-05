@@ -464,17 +464,10 @@ def draw_coin(f, x, y, size=420, spin=0.0, alpha=1.0, shadow=0.5, glow=0.0, thic
     p.setColorFilter(skia.ColorFilters.Matrix([br, 0, 0, 0, 0, 0, br, 0, 0, 0, 0, 0, br, 0, 0, 0, 0, 0, alpha, 0]))
     c.drawImage(img, -380, -380, CM._LIN, p)
     if glint is not None:
+        # yumuşak, sikke alfasıyla maskeli parlama bandı (arma/madalya ile aynı yardımcı). Kurul tur 2, SA1-Y1: eski sürüm sikkeyi sert kenarlı
+        # şeritte alfasız ve parlaklık süzgecisiz İKİNCİ KEZ çiziyordu → geçişte yarım sikke (302,3 sn), dönerken dikey dikiş (117,5–119,3 sn).
         gx = -520 + 1040 * glint
-        L_, R_ = max(-390.0, gx - 130), min(390.0, gx + 130)
-        if R_ > L_:
-            c.save()
-            c.clipRect(skia.Rect.MakeLTRB(L_, -390, R_, 390))
-            c.saveLayer(skia.Rect.MakeLTRB(L_, -390, R_, 390), None)
-            c.drawImage(img, -380, -380, CM._LIN, skia.Paint(AntiAlias=True))
-            sh = skia.GradientShader.MakeLinear([(gx - 110, -300), (gx + 110, 300)], [C("#FFFFFF", 0), C("#FFF4C8", int(190 * alpha)), C("#FFFFFF", 0)], [0, 0.5, 1])
-            c.drawRect(skia.Rect.MakeLTRB(L_, -390, R_, 390), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcATop))
-            c.restore()
-            c.restore()
+        CM.soft_glint(c, img, -380, -380, (-392.0, -392.0, 392.0, 392.0), gx, 120, alpha, "#FFF4C8", 170)
     c.restore()
     c.restore()
 

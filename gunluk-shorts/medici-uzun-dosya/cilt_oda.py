@@ -1001,7 +1001,7 @@ def get_room(name, variant, tod):
 
 
 # ═════════════════════════════ actors / props ═════════════════════════════
-_ONE_SHOT = ("bow", "kneel", "point", "handshake", "threat", "write", "count")
+_ONE_SHOT = ("bow", "kneel", "point", "handshake", "threat", "write", "count", "admonish")
 
 
 def _anchor_t(ctx, a, default=0.0):

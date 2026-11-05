@@ -149,6 +149,9 @@ def count_up(x, y, at, value, dur=1.4, unit=None, size=150, face="title", color=
             hh_ = sz * 0.95 + (unit_size * 1.7 if unit else 40) + 40
             CM.tablet(cx.f, x - wd / 2, y - sz * 0.80, wd, hh_, alpha=0.93 * k0, corner=14)
         CM.draw_spr(cx.f, sp, x, y, "c" if align == "c" else "l", alpha=k0, shadow=0.5 if shadow and not TH.day else 0.0)
+        if CM.LOG_TEXT:                                   # qa_yerlesim: büyük sayının ekran kutusu (yazı–yazı çakışma denetimi; kurul tur 2 SA1-Y2)
+            x0_ = x - sp.wid / 2 if align == "c" else x
+            CM._log_text(cx.f, "sayi", txt, x0_, y - sz * 0.80, x0_ + sp.wid, y + sz * 0.06, sz, k0)
         if unit:
             CM.ink(cx.f, unit, x, y + unit_size * 1.25 + 8, face="title_m", size=unit_size, color=TH.acc, align="c", track=14, alpha=k0 * cx.amt(at, min(0.8, 0.8 * dur), off=min(0.3, 0.3 * dur)), emboss=False)
     return fn

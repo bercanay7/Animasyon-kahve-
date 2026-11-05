@@ -9,6 +9,8 @@
   * metin_tasmasi : levhadaki ad/rol/yıl satırı levha genişliğine sığmıyor (iç pay < 16 px)
   * kenar         : levhanın son ekran kutusu güvenli alanın dışında (x∈[90,1830], y∈[60,1020])
   * hud           : levha HUD dikdörtgenine (cilt_fx.HUD_RECT, yoksa varsayılan) HUD_PAD'den yakın (HUD'suz kartlar hariç)
+  * cakisma       : aynı karede iki levha / etiket zemini / yazı / büyük sayı birbirinin üstüne biniyor (kısmi kesişim; bir yazının kendi
+                    levhasının İÇİNDE durması çakışma sayılmaz). Kurul tur 2: SA1-Y2 ("1.500" × "EVLİLİK ÇEYİZİ"), SA1-Y3/AN2-Ö2 (GIOVANNI × COSSA).
 UYARI: duzeltildi (levha istenen yerinden kıstırıldı → sahne dosyasında nominal konum düzeltilmeli), altyazi_seridi (y 938–1042),
        (--yazi) serbest yazı kenar/HUD/altyazı, metin levhadan taşıyor.
 "ONCE" sütunu: aynı levhaların ESKİ kuralla (sabit w, kıskaçsız, eski HUD 1480–1900×10–118) ne olacağı — önce/sonra kıyası için.
@@ -112,7 +114,7 @@ def main():
     prog = make_program(a.part, a.timeline)
     only = {int(x) for x in a.shots.split(",") if x.strip()}
     CM.LOG_PLATES = True
-    CM.LOG_TEXT = bool(a.yazi)
+    CM.LOG_TEXT = True                      # çakışma denetimi her zaman yazı kutularına bakar; --yazi yalnız ek UYARILARI açar
     S = CM.SAFE_RECT
     HR = CM.hud_rect()
     HG = CM.hud_gap()
@@ -185,6 +187,66 @@ def main():
             bad.append("hud")
         if bad:
             before.append(dict(base, kutu=[round(v) for v in lb], tip="+".join(bad)))
+
+    # ── çakışma (İHLAL): aynı karede levha × levha, levha × etiket zemini, zemin × zemin, yazı × yazı/sayı (kısmi kesişim) ──
+    def _area(b):
+        return max(0.0, b[2] - b[0]) * max(0.0, b[3] - b[1])
+
+    def _inter(p_, q_):
+        return max(0.0, min(p_[2], q_[2]) - max(p_[0], q_[0])) * max(0.0, min(p_[3], q_[3]) - max(p_[1], q_[1]))
+
+    def _onscreen(b):
+        return b[2] > 0 and b[0] < 1920 and b[3] > 0 and b[1] < 1080
+    by_frame = {}
+    seen_p = set()
+    for e in plates:
+        if not e.get("main", True):
+            continue
+        k_ = (e["shot"], e["text"], e["frame"])
+        if k_ in seen_p:
+            continue
+        seen_p.add(k_)
+        by_frame.setdefault(e["frame"], []).append(dict(sinif="levha", metin=e["text"], kutu=tuple(e["box"]), cekim=e["shot"], etiket=e["label"], sn=e["g_frame"]))
+    for e in texts:
+        if not e.get("main", True) or e["type"] not in ("tablet", "ink", "kick", "sayi"):
+            continue
+        if e["type"] != "tablet" and not e.get("text"):
+            continue
+        sinif = "zemin" if e["type"] == "tablet" else "yazi"
+        by_frame.setdefault(e["frame"], []).append(dict(sinif=sinif, metin=e.get("text") or "(zemin)", kutu=tuple(e["box"]), cekim=e["shot"], etiket=e["label"], sn=e["g"]))
+    cak_seen = set()
+    for fr_, els in by_frame.items():
+        els = [x for x in els if _onscreen(x["kutu"]) and _area(x["kutu"]) > 1.0]
+        for i in range(len(els)):
+            for j in range(i + 1, len(els)):
+                A, B = els[i], els[j]
+                pa, pb = A["kutu"], B["kutu"]
+                ov = _inter(pa, pb)
+                if ov <= 0:
+                    continue
+                kutular = {A["sinif"], B["sinif"]}
+                if kutular <= {"levha", "zemin"}:
+                    if inside(pa, pb, 2.0) or inside(pb, pa, 2.0):
+                        continue                                   # iç içe zemin (aynı öğenin katmanları)
+                    if ov < 0.04 * min(_area(pa), _area(pb)):
+                        continue                                   # gölge/çerçeve teması
+                elif "yazi" in kutular and kutular != {"yazi"}:
+                    Y_, Z_ = (A, B) if A["sinif"] == "yazi" else (B, A)
+                    if inside(Y_["kutu"], Z_["kutu"], 6.0):
+                        continue                                   # yazı kendi levhasının/zemininin içinde
+                    if _inter(Y_["kutu"], Z_["kutu"]) < 0.12 * _area(Y_["kutu"]):
+                        continue
+                else:                                              # yazı × yazı
+                    if A["metin"] == B["metin"]:
+                        continue
+                    if ov < 0.12 * min(_area(pa), _area(pb)):
+                        continue
+                key = (A["cekim"], A["metin"], B["metin"])
+                if key in cak_seen:
+                    continue
+                cak_seen.add(key)
+                viol.append(dict(cekim=A["cekim"], etiket=A["etiket"], tur=f"{A['sinif']}×{B['sinif']}", sn=A["sn"], kare=fr_, metin=f"{A['metin']} × {B['metin']}",
+                                 kutu=[round(v) for v in pa], tip="cakisma", ayrinti=f"öteki {[round(v) for v in pb]} · kesişim {ov:.0f} px²"))
 
     twarn = []
     if a.yazi:

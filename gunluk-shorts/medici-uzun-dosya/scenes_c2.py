@@ -177,17 +177,17 @@ SHOTS = [
     shot("p1_oda", ("c2s20", "Martinus", -0.3), room="p1salon", variant="papa", tod="day", mode="day", perde=1,
          actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="point", at=("c2s20", "geri", -0.3), dir=-1, layer="back"),
                  dict(G, x=1180, y=890, h=470, action="idle", dir=1, layer="front")],
-         cams=[(("c2s20", "Martinus", -0.3), (1450, 40, 1.25)), (("c2s20", "Giovanni'yi", -0.3), (1480, 44, 1.30))],
+         cams=[(("c2s20", "Martinus", -0.3), (1330, 10, 1.02)), (("c2s20", "Giovanni'yi", -0.3), (1360, 14, 1.07))],
          ovl=P.ov(P.icon_at("c2_mitra", 690, 690, ("c2s20", "Martinus", -0.3), size=150, bob=4),
                   P.tag("BORÇ KARŞILIĞI BIRAKILAN MİTRA", 760, 200, ("c2s20", "borca", -0.2), size=40)),
          cam=("push",), tr="cut", link="audio", label="Martinus mitrayı geri ister"),
-    # ── 18c. aforoz tehdidi (yakın iki kişilik; sert kesme) ─────────────────────────────────────
+    # ── 18c. aforoz tehdidi (yakın iki kişilik; sert kesme; 18b'ye göre ≥1,5× yakın). Papa mühürlü belgeyi kaldırır (şiddet jesti YOK; kurul tur 2 AN1-Y1/AN2-E1) ──
     shot("p1_oda", ("c2s20", "Giovanni'yi", -0.3), room="p1salon", variant="papa", tod="day", mode="day", perde=1,
-         actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="threat", at=("c2s20", "aforozla", -0.35), dir=-1, layer="back"),
+         actors=[dict(kind="papa", seed=7, x=1640, y=689, h=440, action="admonish", at=("c2s20", "aforozla", -0.45), dir=-1, layer="back"),
                  dict(G, x=1180, y=890, h=470, action="bow", at=("c2s20", "tehdit", 0.0), dir=1, layer="front")],
-         cams=[(("c2s20", "Giovanni'yi", -0.3), (1400, 70, 1.55)), (("c2s21", -0.2), (1380, 76, 1.62))],
+         cams=[(("c2s20", "Giovanni'yi", -0.3), (1400, 0, 1.55)), (("c2s21", -0.2), (1380, 6, 1.62))],
          ovl=P.ov(P.icon_at("c2_mitra", 640, 700, ("c2s20", "Giovanni'yi", -0.3), size=170, bob=3),
-                  P.tag("AFOROZ TEHDİDİ", 960, 200, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
+                  P.tag("AFOROZ TEHDİDİ", 960, 140, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
                   anim.impact_ovl(("c2s20", "aforozla", 0.2), amp=3)),
          cam=("push",), tr="cut", link="cam", label="aforoz tehdidi (belgeli)"),
     # ── 19a. Papalığın resmî kasa memurluğu (anahtar; 1422'den sonra) — teyit_P1 c2s21 (DBI) ──

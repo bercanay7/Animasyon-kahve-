@@ -1,5 +1,5 @@
 {
- "tarih": "2026-11-05 01:57",
+ "tarih": "2026-11-05 02:12",
  "parca": 1,
  "esikler": {
   "kap_px": 9.0,
@@ -335,7 +335,7 @@
     ],
     "en_parlak_168_odakta": true,
     "tek_odak": true,
-    "ortalama": 60.1,
+    "ortalama": 60.0,
     "p95": 207.0
    },
    "bolge": {
@@ -343,7 +343,7 @@
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0004,
-     "kare_kenar": 0.0212,
+     "kare_kenar": 0.021,
      "sure_rozeti_parlak": 0.0,
      "sure_rozeti_ortalama": 32.9
     },
