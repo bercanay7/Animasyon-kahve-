@@ -618,7 +618,7 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
         if key not in ks_ or ks_[key] <= 0.003:
             continue
         xx = 960 if only else (560 if key == "a" else 1300)
-        CM.name_plate(f, name, role, None, cx_=xx, y=150, t=ks_[key], w=600)
+        CM.name_plate(f, name, role, None, cx_=xx, y=158, t=ks_[key], w=600)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
         CM.stamp(f, "ANEKDOT", 1500 if only else 960, 840, rot=-0.05, size=56, t=ks)
@@ -971,10 +971,12 @@ def arm_hand(f, x, y, ang, size, sleeve="#6E1C1E", cuff="#C9A23A", kind="open", 
                        (ex - dx * cw - nx * w0 * 1.12, ey - dy * cw - ny * w0 * 1.12), (ex + dx * cw * 0.2 - nx * w0 * 1.05, ey + dy * cw * 0.2 - ny * w0 * 1.05)])
     c.drawPath(cf, f.paint(cuff, alpha=alpha))
     if fur:
-        for k in range(9):
-            u = k / 8.0
-            qx, qy = ex - dx * cw * 0.4 + nx * w0 * (1.1 - 2.2 * u), ey - dy * cw * 0.4 + ny * w0 * (1.1 - 2.2 * u)
-            f.circle(qx, qy, cw * 0.38, color=mix(cuff, "#FFFFFF", 0.1 if k % 2 else -0.0), alpha=alpha)
+        for k in range(11):
+            u = k / 10.0
+            for side, sh_ in ((0.0, 0.0), (0.55, 0.18)):
+                qx = ex - dx * cw * (0.15 + side) + nx * w0 * (1.15 - 2.3 * u)
+                qy = ey - dy * cw * (0.15 + side) + ny * w0 * (1.15 - 2.3 * u)
+                f.circle(qx, qy, cw * (0.55 - 0.1 * side), color=mix(cuff, "#FFFFFF" if k % 2 else "#000000", 0.12 + sh_), alpha=alpha)
     c.drawPath(cf, f.paint(mix(cuff, "#000000", 0.5), style="stroke", sw=max(1.2, size / 120), alpha=0.85 * alpha))
     hb = size / HAND_K.get(kind, 0.0885)
     spr = FA.hand_sprite(skin, int(round(hb)), kind)
@@ -1107,12 +1109,12 @@ def _masa_kasa(cx, f, P):
     tip = r or tip
     # sağ sayfa: zaman şeridi
     x0, y0 = _page_origin("r")
-    bx0, bw, byy, bh = x0 + 80, 620.0, y0 + 520, 44.0
+    bx0, bw, byy, bh = x0 + 175, 560.0, y0 + 520, 44.0
     wa, wb = bw * 22 / 40.0, bw * 18 / 40.0
     k0 = _wp(cx, P.get("start_at"), 0.5)
-    if k0 > 0:
+    if k0 > 0:                                                  # 1422: şeridin SOLUNDA (alttaki KESİNTİSİZ ile çakışmaz)
         c.drawLine(bx0, byy - bh / 2 - 22, bx0, byy + bh / 2 + 22, f.paint(INK_C, style="stroke", sw=5, alpha=k0))
-        r = _write(f, "1422", bx0, byy + bh / 2 + 78, 44, k0, face="title", color=INK_R, track=3)
+        r = _write(f, "1422", bx0 - 18 - sk.text_width("1422", "title", 44, 3), byy + 16, 44, k0, face="title", color=INK_R, track=3, align="l")
         tip = r or tip
         c.drawLine(bx0, byy + bh / 2 + 10, bx0 + bw * k0, byy + bh / 2 + 10, f.paint("#9A8460", style="stroke", sw=1.6, alpha=0.8))
     ua = ease_io(_wp(cx, P.get("a_at"), 1.0), 1.6)
@@ -1167,7 +1169,7 @@ def _masa_catasto(cx, f, P):
     nshow = int(9780 * p)
     full_rows = nshow // COLS
     pe = skia.DashPathEffect.Make([cw - 1.2, 1.2], 0)
-    pa = f.paint("#5A3E22", style="stroke", sw=ch - 1.4, alpha=0.88)
+    pa = f.paint("#8A6A44", style="stroke", sw=ch - 1.6, alpha=0.70)                # açık mürekkep: tek tek küçük kayıtlar (koyu blok değil)
     pa.setPathEffect(pe)
     for ri in range(min(ROWS, full_rows + 1)):
         n_here = COLS if ri < full_rows else nshow % COLS
@@ -1201,10 +1203,9 @@ def _masa_catasto(cx, f, P):
             f.rect(bx0 + 3, by0 + 3, (bw * 0.298 - 3) * uf, bh - 6, shader=f.lin(0, by0, 0, by0 + bh, [("#D8A93A", 0.0), ("#9A6A18", 1.0)]))
             if uf < 1:
                 tip = (bx0 + bw * 0.298 * uf, by0 + bh / 2)
-            CM.ink(f, "%29,8", bx0 + bw * 0.298 / 2, by0 + bh + 52, face="title", size=44, color=INK_R, align="c", track=3, alpha=clamp(uf * 1.5), emboss=False, scrim=False)
-            CM.ink(f, "137 HANE", bx0 + bw * 0.298 / 2, by0 + bh / 2 + 10, face="title_m", size=22, color="#2A1A08", align="c", track=2, alpha=clamp(uf * 1.5), emboss=False, scrim=False)
+            CM.ink(f, "%29,8 · 137 HANE", bx0, by0 + bh + 52, face="title", size=40, color=INK_R, align="l", track=3, alpha=clamp(uf * 1.5), emboss=False, scrim=False)
     if P.get("stamp_at") is not None:
-        CM.stamp(f, "BİR HESABA GÖRE", x0 + 560, y0 + 966, rot=-0.06, size=36, t=_wp(cx, P["stamp_at"], 0.3))
+        CM.stamp(f, "BİR HESABA GÖRE", x0 + 545, y0 + 690, rot=-0.07, size=38, t=_wp(cx, P["stamp_at"], 0.3))     # kayıtların üstüne basılmış damga
     # sağ sayfa: en zengini
     x0, y0 = _page_origin("r")
     r = _write(f, "PALLA STROZZİ", x0 + 395, y0 + 260, 50, _wp(cx, P.get("name_at"), 0.9), face="title")
@@ -1340,7 +1341,7 @@ def k_yakin(cx, scene="kese", push=0.06, seed=4, **P):
         f.rect(305, 40, 20, 420, color="#3A2E24", alpha=0.6, blur=14)
         f.rect(150, 210, 330, 18, color="#3A2E24", alpha=0.6, blur=14)
         f.circle(1500, 230, 70, color="#5A6468", alpha=0.7, blur=18)
-        f.rect(-60, 520, W + 120, 620, shader=f.lin(0, 520, 0, H, [("#2A3A54", 0.0), ("#141E30", 1.0)]))
+        f.rect(-60, 520, W + 120, 620, shader=f.lin(0, 520, 0, H, [("#2C3640", 0.0), ("#1A2028", 1.0)]))           # Brugge masa örtüsü (koyu arduvaz)
         f.line(-60, 522, W + 60, 522, color="#B8A070", sw=4, alpha=0.85)
         _letter(f, 1560, 900, 360, 230, rot=0.10, alpha=0.9, seal=False)
         OD.inkwell(c, 1720, 640, 2.6, cx.t)
@@ -1355,14 +1356,14 @@ def k_yakin(cx, scene="kese", push=0.06, seed=4, **P):
         hx_b = kx - 260 if ug < 1 else lerp(kx - 260, 560, clamp((cx.t - tg - 0.9) / 0.5))
         if up > 0.6:
             hx_b = lerp(560, 640, clamp((up - 0.6) / 0.4))
-        arm_hand(f, hx_b, 760, -6.0, 250, sleeve="#1C2440", cuff="#8A6A4A", kind="open", fur=True)             # banker (sol): lacivert yen, kürk ağız
+        arm_hand(f, hx_b, 760, -6.0, 250, sleeve="#3E4C8C", cuff="#5A4030", kind="open")                       # banker (sol): lacivert yen, koyu kürk ağız
         mr = ease_io(clamp((cx.t - tg - 0.35) / 0.7), 1.6)
         if cx.t >= tp - 0.5:                                    # tüccar: poliçeyi masada sola sürer
             lx = lerp(1400, 900, up)
             _letter(f, lx, 640, 300, 190, rot=-0.06 + 0.05 * up)
-            arm_hand(f, lx + 270, 650, 180.0, 250, sleeve="#3A5A9A", cuff="#E0B84E", kind="open", flip=True, alpha=1.0 - clamp((up - 0.9) / 0.1))
+            arm_hand(f, lx + 270, 650, 180.0, 250, sleeve="#5A7EC0", cuff="#E0B84E", kind="open", flip=True, alpha=1.0 - clamp((up - 0.9) / 0.1))
         elif mr > 0:                                            # tüccar eli keseyi alır
-            arm_hand(f, lerp(2150, kx + 330, mr), 700, 180.0, 250, sleeve="#3A5A9A", cuff="#E0B84E", kind="open", flip=True)
+            arm_hand(f, lerp(2150, kx + 330, mr), 700, 180.0, 250, sleeve="#5A7EC0", cuff="#E0B84E", kind="open", flip=True)
     elif scene == "mitra":
         f.rect(-60, -60, W + 120, H + 120, shader=f.lin(0, 0, W, H, [("#6A2420", 0.0), ("#8E3A2C", 0.5), ("#3A1414", 1.0)]))
         for (x_, y_, r_, col_) in ((300, 200, 160, "#F0D27A"), (1620, 160, 120, "#FFE6B0"), (1500, 760, 200, "#C9A23A"), (220, 820, 140, "#FFFFFF")):
@@ -1385,30 +1386,19 @@ def k_yakin(cx, scene="kese", push=0.06, seed=4, **P):
         f.rrect(px0, py0, pw, ph, 8, style="stroke", sw=3, color="#5A3E22", alpha=0.85)
         tw = cx.at(P.get("write_at", 0.0))
         ln = "Istorie fiorentine"                              # eserin adı (teyit_P1 kaynakları: MAC, Istorie fiorentine); belge metni UYDURULMAZ
-        pr = clamp((cx.t - tw) / 1.6)
+        pr = clamp((cx.t - tw) / 1.2)
         wl = sk.text_width(ln, "fell_i", 74)
-        tip = None
         if pr > 0:
             c.save()
             c.clipRect(skia.Rect.MakeLTRB(px0 + 80, py0 + 80, px0 + 92 + wl * pr, py0 + 300))
             PP.hand(f, ln, px0 + 90, py0 + 230, face="fell_i", size=74, color="#24160A", alpha=1.0, jitter=1.0, seed=31)
             c.restore()
-            if pr < 1:
-                tip = (px0 + 90 + wl * pr, py0 + 230)
-        for i in range(4):                                      # alt satırlar: soluk el yazısı dokusu (okunmaz)
-            ly = py0 + 380 + i * 74
-            kk = clamp((cx.t - tw - 1.4 - i * 0.35) / 0.6)
-            if kk > 0:
-                c.drawLine(px0 + 90, ly, px0 + 90 + (pw - 300) * (0.92 if i % 2 else 0.74) * kk, ly + 2, f.paint("#7A6646", style="stroke", sw=2.4, alpha=0.40))
-                if 0 < kk < 1 and tip is None:
-                    tip = (px0 + 90 + (pw - 300) * (0.92 if i % 2 else 0.74) * kk, ly)
-        if tip is None:
-            tip = (px0 + 90 + wl + 30, py0 + 236)
-        qa = -58.0
-        OD.quill(c, tip[0] + 6, tip[1] + 4, qa, 2.6)
-        d_ = (math.cos(math.radians(qa)), math.sin(math.radians(qa)))
-        gx, gy = tip[0] + d_[0] * 150, tip[1] + d_[1] * 150
-        arm_hand(f, gx + d_[0] * 120, gy + d_[1] * 120, qa + 180.0, 210, sleeve="#C9A23A", cuff="#2E4A8A", kind="fist", reach=5.0)   # Machiavelli'nin eli (sarı cüppe, mavi ağız)
+        tip = (px0 + 90 + wl * pr, py0 + 230)
+        wd_ = ease_io(clamp((cx.t - tw - 1.25) / 0.6), 1.6)        # yazı bitince el kalemle sağa-yukarı çekilir (mühüre yer açılır)
+        hx_, hy_ = tip[0] + 900 * wd_, tip[1] - 320 * wd_
+        if wd_ < 0.999:
+            arm_hand(f, hx_ + 120, hy_ - 30, 168.0, 190, sleeve="#C9A23A", cuff="#2E4A8A", kind="fist", reach=6.0)       # Machiavelli'nin eli (sarı cüppe, mavi ağız)
+            OD.quill(c, hx_ + 6, hy_ + 4, -58.0, 2.6)                                                                    # tüy, elin üstünden yükselir
     c.restore()
     if scene == "kalem" and P.get("seal_at") is not None:       # mühür EKRAN uzayında (kabartma okunur: r=170)
         _P.seal_drop(P.get("seal_x", 1240), P.get("seal_y", 660), P["seal_at"], r=170, label=P.get("seal_label"), label_size=44, year=P.get("seal_year"),

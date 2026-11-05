@@ -898,10 +898,36 @@ def palle_relief(f, x, y, s, variant="std", color="#A52A1C", alpha=1.0):
                 f.c.drawPath(lp, f.paint(lite, alpha=0.95 * alpha))
 
 
+class nesne_yili:
+    """NESNE YILI bağlamı (kurul tur 2 SA2-Y4): sahnede HUD yılından FARKLI bir yıla ait nesne (ör. 1520 Machiavelli siparişinin mührü, 1429 sahnesinde).
+    `with nesne_yili(1520): ...` içinde donem kuralları o yılla çalışır; dönem kaydı (qa_donem) aynı çekimin indisiyle ve o yılla yazılır.
+    Yerel çözüm: donem'in yığınına çekimin cx'i korunarak bir çerçeve itilir; donem bu iç yapıyı değiştirirse `donem.use_year`a düşer (SCN-1'e API isteği)."""
+
+    def __init__(self, y, kind=None):
+        self.y, self.kind, self._cm = int(y), kind, None
+
+    def __enter__(self):
+        import donem as DN
+        fr = DN.current()
+        if hasattr(DN, "_Frame") and hasattr(DN, "_STACK"):
+            DN._STACK.append(DN._Frame(self.y, self.kind or (fr.kind if fr else "nesne_yili"), fr.cx if fr else None))
+        else:
+            self._cm = DN.use_year(self.y, kind=self.kind or "nesne_yili")
+            self._cm.__enter__()
+        return self.y
+
+    def __exit__(self, *a):
+        import donem as DN
+        if self._cm is not None:
+            return self._cm.__exit__(*a)
+        DN.pop()
+        return False
+
+
 def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C", variant=None, year=None):
     """Balmumu mühür (palle) `at`'ta yukarıdan düşer, oturur (anim.settle), halka dalgası; altında koyu levhalı etiket. Ekran uzayı.
     Kurul tur 2 (SA2-Y4/KA1-Ö3): `year` = NESNE YILI (ör. 1520, Machiavelli siparişi) — arma HUD yılına değil o yıla göre çizilir ve dönem kaydına
-    o yılla yazılır (donem.use_year); `variant` açık verilirse ('std' | 'red8') o kullanılır. Palle tek renk KABARTMA (std: üst topta üç zambak)."""
+    o yılla yazılır (nesne_yili); `variant` açık verilirse ('std' | 'red8') o kullanılır. Palle tek renk KABARTMA (std: üst topta üç zambak)."""
     import anim
     import contextlib
     import donem as DN
@@ -917,7 +943,7 @@ def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C
         e = anim.settle(cx.t, t_at - 0.25, 0.45, 0.10)
         yy = y - 240 * (1.0 - e)
         f.circle(x + 8, y + r * 0.9, r * 0.9, color="#000000", alpha=0.25 * k * e, blur=10)
-        with (DN.use_year(year, kind="nesne_yili") if year is not None else contextlib.nullcontext()):
+        with (nesne_yili(year) if year is not None else contextlib.nullcontext()):
             v = variant or DN.arms_variant()
             CM.wax_seal(f, x, yy, r, col, alpha=k, t=1.0, palle=False)
             palle_relief(f, x, yy, r * 1.05, v, mix(col, "#000000", 0.18), alpha=0.95 * k)
