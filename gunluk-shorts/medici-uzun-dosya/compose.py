@@ -39,9 +39,14 @@ from sk import FPS, H, W, Frame, clamp, ease_out, smooth
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CHAPTER_IDS = [f"c{i}" for i in range(17)]
-OUTRO = 7.0
+# bitiş ekranı (ENG-D, kurul tur 2 PK2-Y6 + SA1-Y8; başkan kabulü): 10 sn; YouTube bitiş-ekranı yuvaları çıkışın OUTRO_SLOT_FULL. sn'sinde TAM görünür ve son kareye
+# dek kalır (eskisi 7 sn ve yuvalar yalnız son ≈3,5 sn görünüyordu). paket_P1.py YouTube bitiş ekranı başlangıcını OUTRO ve OUTRO_SLOT_FULL'dan hesaplar.
+OUTRO = 10.0
+OUTRO_SLOT_IN, OUTRO_SLOT_FADE = 0.55, 0.85                     # yuvalar: girer / tam görünene dek (sn, çıkış başından)
+OUTRO_SLOT_FULL = OUTRO_SLOT_IN + OUTRO_SLOT_FADE               # = 1,4 sn: yuvaların TAM görünür olduğu an (çıkış başından; ≤ 1,5)
+NEXT_PART_LINE = {1: "2/7 · COSIMO: SÜRGÜN VE DÖNÜŞ"}           # sol yuvanın ("SIRADAKİ PARÇA") altındaki küçük satır (parça → metin; yoksa satır yok)
 END_HOLD = 1.3                                                  # parça sonu: anlatı bittikten sonra son çekimde kalış (sn; c.t1 zaten ≈0,1 sn pay içerir → ≈1,4 sn nefes)
-TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 8,3 sn
+TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 11,3 sn (OUTRO değişince kendiliğinden)
 SHUTTER_ANGLE = 180.0                                           # deklanşör açısı (derece): pozlama = açı/360 kare
 # seçici deklanşör tetikleri (px/kare, 1920 ölçeği) — kalibrasyon: kurulun P1'i, 603 örnek (notlar_hareket.md §7); maliyet hedefi ≤ +%25
 SHUTTER_V_CAM = 4.0                                             # cam= ön ayarının analitik ekran hızı
@@ -173,6 +178,111 @@ def _gap_fill(avg, first, last, frac):
     m = cv2.GaussianBlur(cv2.dilate(m, np.ones((5, 5), np.uint8)), (0, 0), 1.5)
     m = np.ascontiguousarray(np.clip(cv2.resize(m, (ww, hh), interpolation=cv2.INTER_LINEAR), 0.0, 1.0))
     return cv2.blendLinear(avg, sm, 1.0 - m, m)
+
+
+# ───────────── kâğıt dokusu + film greni (ENG-D, kurul tur 2 TE1 §7 / Y8) ─────────────
+# Eski: CM.post sıva tanesini (tooth) EKRANA çakılı çarpıyordu (kamera kayınca resim dokunun altından kayıyor → "üstüne filtre" hissi; ölçüm TE1:
+# içerikle birlikte kaydırılmış korelasyon 0,07–0,16, sıfır kaymada 0,34–0,43) ve gren 6 karelik döngüydü (n % 6).
+# Yeni: doku DÜNYAYA kilitli — her karede çekimin kamera dönüşümü (cilt_cam durumu · oda/pano dünyası · harita kamerası) tersine çevrilerek doku
+# içerikle birlikte kayar ve ölçeklenir (deklanşörlü karede alt örneklerin dönüşümleriyle ortalanır: doku da hareket bulanıklığı alır; geçişte iki
+# çekimin dokusu karışır). Gren ekranda kalır ama döngüsüz: 4 geniş alan × kare başına tohumlu (96 px'lik) kaydırma.
+PAPER_WORLD = True                                              # False: eski ekran-uzayı doku (karşılaştırma / geri dönüş)
+PAPER_TOOTH, PAPER_GRAIN = 1.0, 1.35                            # CM.post varsayılanlarıyla aynı güç
+GRAIN_FIELDS, GRAIN_PAD = 4, 96
+_PAPER = {}
+
+
+def _tooth1():
+    t = _PAPER.get("tooth")
+    if t is None:
+        t = _PAPER["tooth"] = np.ascontiguousarray(CM.tooth_img(PAPER_TOOTH)[:, :, 0])
+    return t
+
+
+def _grain_fields():
+    g = _PAPER.get("grain")
+    if g is None:
+        rs = np.random.RandomState(4093)
+        g = []
+        for _ in range(GRAIN_FIELDS):
+            a = rs.randn((H + GRAIN_PAD) // 2, (W + GRAIN_PAD) // 2).astype(np.float32)
+            a = cv2.resize(a, (W + GRAIN_PAD, H + GRAIN_PAD), interpolation=cv2.INTER_LINEAR)
+            pos = np.clip(a * PAPER_GRAIN, 0, 255).astype(np.uint8)
+            neg = np.clip(-a * PAPER_GRAIN, 0, 255).astype(np.uint8)
+            g.append((cv2.merge([pos, pos, pos]), cv2.merge([neg, neg, neg])))
+        _PAPER["grain"] = g
+    return g
+
+
+def _h32(x):
+    x = (int(x) * 0x9E3779B1 + 0x7F4A7C15) & 0xFFFFFFFF
+    x ^= x >> 15
+    x = (x * 0x2C1B3C6D) & 0xFFFFFFFF
+    x ^= x >> 12
+    return x
+
+
+def grain_at(n):
+    """n. karenin (pos, neg) gren katmanları: alan = h(n) % 4, kaydırma (ox, oy) ∈ [0, 96)² — deterministik, döngüsüz (4·96² birleşim)."""
+    h = _h32(n)
+    pos, neg = _grain_fields()[h % GRAIN_FIELDS]
+    ox, oy = (h >> 4) % GRAIN_PAD, (h >> 12) % GRAIN_PAD
+    return pos[oy:oy + H, ox:ox + W], neg[oy:oy + H, ox:ox + W]
+
+
+def paper_matrix(cx):
+    """Çekim bağlamı → ekran → doku koordinatı 2×3 dönüşümü (warpAffine WARP_INVERSE_MAP) ya da None (ekrana çakılı).
+    Öncelik: cx.world_xf (oda/pano dünyası: cilt_pano.Ctx · harita: cilt_cam.map_patch) → cx.cam_state (CM.Cam ile çizen türler). Ölçek çekimin
+    başvuru zumuna göredir (pano: kamera yolunun ortası; harita: anahtar kare zumlarının geometrik ortası) → doku taneleri ekranda ≈ sabit boyda kalır."""
+    if cx is None:
+        return None
+    xf = getattr(cx, "world_xf", None)
+    if xf and xf[0] == "pano":
+        _, camx, camy, z, yc, hc = xf
+        pc = getattr(cx, "_pano_cam", None)
+        try:
+            zr = float(pc.at(pc.dur / 2.0)[2]) if pc is not None else z
+        except Exception:
+            zr = z
+        k = zr / max(1e-6, z)
+        return np.float32([[k, 0.0, zr * camx - k * W / 2.0], [0.0, k, zr * (hc + camy) - k * yc]])
+    if xf and xf[0] == "map":
+        _, wx, wy, z, ccx, ccy = xf
+        zr = float(getattr(cx, "_map_zref", z) or z)
+        k = zr / max(1e-6, z)
+        return np.float32([[k, 0.0, zr * wx - k * ccx], [0.0, k, zr * wy - k * ccy]])
+    st = getattr(cx, "cam_state", None)
+    if st is not None:
+        k = 1.0 / max(1e-6, st.s)
+        px, py = st.pivot or (W / 2.0, H / 2.0)
+        return np.float32([[k, 0.0, px - (px + st.dx) * k], [0.0, k, py - (py + st.dy) * k]])
+    return None
+
+
+def paper(img, n, samples=()):
+    """Kâğıt dokusu (dünyaya kilitli; samples = [(çekim bağlamı, ağırlık), …]) + döngüsüz film greni. img: uint8 RGB (CM.post tooth=0, grain=0 sonrası)."""
+    t1 = _tooth1()
+    acc, tot = None, 0.0
+    for cx_, w in (samples if PAPER_WORLD else ()):
+        if w <= 1e-4:
+            continue
+        M = paper_matrix(cx_)
+        tw = t1 if M is None else cv2.warpAffine(t1, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
+        if acc is None and len(samples) == 1:
+            acc, tot = tw, -1.0
+            break
+        acc = tw.astype(np.float32) * w if acc is None else acc + tw.astype(np.float32) * w
+        tot += w
+    if acc is None:
+        tw = t1
+    elif tot < 0:
+        tw = acc
+    else:
+        tw = np.clip(acc / max(1e-6, tot) + 0.5, 0, 255).astype(np.uint8)
+    a = cv2.multiply(img, cv2.cvtColor(tw, cv2.COLOR_GRAY2RGB), scale=1.0 / 230.0)
+    pos, neg = grain_at(n)
+    a = cv2.add(a, pos)
+    return cv2.subtract(a, neg)
 
 
 class _StubTL:
@@ -369,16 +479,22 @@ class Program:
                     vdir = d["dir"]
 
     def _link_flags(self):
-        """Geçişlerde kamera devri (cam_in/cam_out), etkin geçiş (tr_eff) ve gelen çekim saati (lead)."""
+        """Geçişlerde kamera devri (cam_in/cam_out), etkin geçiş (tr_eff) ve gelen çekim saati (lead).
+        Sert kesmede ayrıca cut_in/cut_out (ENG-D, kurul tur 2 AN1-Y11 "hareket üstünde kesme"): kesmeyle birleşen uçta kamera eğrisi yumuşamaz
+        (cilt_cam: uç eğimi ≥ 1 = ortalama hız; cilt_pano.PanoCam: anahtar karelerin uç eğimi sıfır değil, ilk/son parçanın eğimi)."""
         for s in self.shots:
             s.cam_in = s.cam_out = False
+            s.cut_in = s.cut_out = False
             s.lead = 0.0
             s.tr_eff = None
         for i in range(1, len(self.shots)):
             s, p = self.shots[i], self.shots[i - 1]
             t = FX.norm_tr(s.tr)
             if not t:                                           # sert kesme ("cut" / None): kamera kesmede durmaz (kesmede hareket), lead yok
-                if FX.cut_opts(s.tr).get("carry", True):
+                if FX.cut_opts(s.tr).get("carry", True) and s.kind not in CARD_KINDS and p.kind not in CARD_KINDS:
+                    s.cam_in = s.cut_in = True
+                    p.cam_out = p.cut_out = True
+                elif FX.cut_opts(s.tr).get("carry", True):
                     s.cam_in = True
                     p.cam_out = True
                 continue
@@ -480,6 +596,8 @@ class Program:
             hud_a = self._hud_vis(s)
             if self.shutter and post:                         # QA çağrıları (post=False) deklanşörsüz: ölçüm/yerleşim kareleri tek örnek
                 f = self._shutter(f, s, i, g, n)
+            cxs = getattr(f, "_cxs", None)                     # doku: deklanşörlü karede alt örneklerin kamera dönüşümleri (doku da bulanır)
+            tex = [(c_, 1.0) for c_ in cxs] if cxs else [(getattr(f, "_cx", None), 1.0)]
         else:
             if self.shutter and post:
                 self._sprev = (n, i, True, None)
@@ -489,6 +607,8 @@ class Program:
             fb = self._render_shot(sb, g)
             ma, pa = CM.mode_of(fa)
             mb, pb = CM.mode_of(fb)
+            wt = smooth((k - 0.20) / 0.60)
+            tex = [(getattr(fa, "_cx", None), 1.0 - wt), (getattr(fb, "_cx", None), wt)]   # geçişte iki çekimin dokusu karışır (sıçrama yok)
             f = self._blend(fa, fb, k, name, g, d, opts)
             if (ma, pa) != (mb, pb):                         # renk derecelendirme geçişte yumuşakça karışır (LUT sıçraması yok)
                 pmix = (ma, pa, mb, pb, smooth((k - 0.20) / 0.60))
@@ -503,13 +623,14 @@ class Program:
             if pmix is not None:
                 ma, pa, mb, pb, w = pmix
                 if w <= 0.001:
-                    img = CM.post(img, n, ma, pa)
+                    img = CM.post(img, n, ma, pa, tooth=0, grain=0)
                 elif w >= 0.999:
-                    img = CM.post(img, n, mb, pb)
+                    img = CM.post(img, n, mb, pb, tooth=0, grain=0)
                 else:
-                    img = cv2.addWeighted(CM.post(img, n, ma, pa), 1.0 - w, CM.post(img, n, mb, pb), w, 0)
+                    img = cv2.addWeighted(CM.post(img, n, ma, pa, tooth=0, grain=0), 1.0 - w, CM.post(img, n, mb, pb, tooth=0, grain=0), w, 0)
             else:
-                img = CM.post(img, n, mode, pd)
+                img = CM.post(img, n, mode, pd, tooth=0, grain=0)
+            img = paper(img, n, tex)                          # dünyaya kilitli kâğıt dokusu + döngüsüz gren (ENG-D)
         return img
 
     # ---- seçici deklanşör (hareket bulanıklığı) ─────────────────────────────
@@ -579,12 +700,16 @@ class Program:
         lo, hi = s.origin - 0.5 / FPS, s.t1 + 0.5 / FPS             # çekim sınırı (yerel saat aralığı) aşılmaz
         acc = np.zeros(arr.shape, np.uint16)                      # N ≤ 9 → uint16 taşmaz
         first = last = None
+        cxs = []                                                  # alt örneklerin çekim bağlamları (kâğıt dokusu da aynı pozlamayla bulanır — ENG-D)
         t1 = _t.perf_counter()
         for o in offs:
             if abs(o) < 1e-9:
                 aj = arr
+                cxs.append(cx)
             else:
-                aj = _bgra(self._render_shot(s, min(max(g + o, lo), hi)))
+                fj = self._render_shot(s, min(max(g + o, lo), hi))
+                aj = _bgra(fj)
+                cxs.append(getattr(fj, "_cx", None))
                 stt["extra_renders"] += 1
             np.add(acc, aj, out=acc, casting="unsafe")
             first = aj if first is None else first
@@ -597,6 +722,7 @@ class Program:
             stt["gap_fill"] = stt.get("gap_fill", 0) + 1
         f2 = Frame()
         f2.c.drawImage(skia.Image.fromarray(np.ascontiguousarray(out), colorType=_BGRA, alphaType=skia.AlphaType.kOpaque_AlphaType), 0, 0)
+        f2._cxs = cxs
         for a_ in ("cilt_mode", "cilt_perde", "_cx"):
             if hasattr(f, a_):
                 setattr(f2, a_, getattr(f, a_))
@@ -684,16 +810,26 @@ def k_outro(cx, part=None, **_):
     import cilt_orn as ORN
     import cilt_props as CP
     f = cx.f
-    cam = CM.bgfill(f, cx, seed=2, cam=CM.Cam(cx, push=0.03, drift=(4.0, 2.0)))
+    cam = CM.bgfill(f, cx, seed=2, cam=CM.Cam(cx, push=0.025, drift=(2.4, 1.2)))   # 10 sn'lik çıkış: kayma yarıya indi (toplam ≈ ±12 px)
     cam.begin(f)
-    out = 1 - smooth((cx.t - (cx.dur - 1.2)) / 1.2)
+    out = 1 - smooth((cx.t - (cx.dur - 0.6)) / 0.6)              # yalnız başlık/arma son 0,6 sn'de hafif söner; yuvalar ve etiketler SON KAREYE dek kalır (PK2-Y6)
     a = cx.amt(0.3, 1.2) * out
+    ty = H * 0.27
+    # başlığın arkasında koyu hale (SA1-Y8 / PK2: kabartma "ZAMAN KURYESİ" ≈3,0:1 → ≥4,5:1): yatay elips, kenarı yumuşak
+    f.c.save()
+    f.c.translate(W / 2, ty - 30)
+    f.c.scale(1.0, 0.19)
+    f.circle(0, 0, 760, shader=f.rad(0, 0, 760, [("#050302", 0.0, int(232 * a)), ("#050302", 0.58, int(196 * a)), ("#050302", 1.0, 0)]))
+    f.c.restore()
     sp = CM.gilt("ZAMAN KURYESİ", "title", 92, 16.0)
     gl = ((cx.t - 1.6) * 0.30) % 2.4 if cx.t > 1.6 else None
-    CM.draw_spr(f, sp, W / 2, H * 0.27, "c", alpha=a, glow=0.25 * a, shadow=0.6, glint=gl if (gl is not None and gl < 1) else None)
-    CM.kick(f, "TESLİMAT TAMAM", W / 2, H * 0.27 + 66, alpha=cx.amt(1.0, 1.0) * out, size=36, track=18, color="#F2D98A")
+    CM.draw_spr(f, sp, W / 2, ty, "c", alpha=a, glow=0.32 * a, shadow=0.75, glint=gl if (gl is not None and gl < 1) else None)
+    CM.kick(f, "TESLİMAT TAMAM", W / 2, ty + 66, alpha=cx.amt(1.0, 1.0) * out, size=36, track=18, color="#F2D98A")
     CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5, glint=((cx.t * 0.30 + 0.2) % 2.2) if (cx.t * 0.30 + 0.2) % 2.2 < 1 else None)
-    k = cx.amt(2.6, 0.9) * out
+    cam.end(f)
+    CM.finish(f, cx, motes_n=36)
+    # YouTube bitiş-ekranı yuvaları EKRANA SABİT (YouTube öğeleri sabit konumda biner; eskiden kamerayla kayıyordu) · çıkışın OUTRO_SLOT_FULL. sn'sinde tam
+    k = cx.amt(OUTRO_SLOT_IN, OUTRO_SLOT_FADE)
     left = ("TÜM FİLM" if part == N_PARTS else "SIRADAKİ PARÇA") if part else "SIRADAKİ TESLİMAT"
     right = "ABONE OL · ZAMAN KURYESİ" if part else "ABONE OL  ·  ZAMAN KURYESİ"
     br = 0.80 + 0.20 * (0.5 + 0.5 * math.sin(cx.t * 1.7))          # yuvaların çerçevesi hafif nefes alır (durağan değil)
@@ -701,14 +837,22 @@ def k_outro(cx, part=None, **_):
     for (x, y, w, h, lab) in slots:
         f.rrect(x, y, w, h, 12, color="#000000", alpha=0.30 * k)
         ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k * br, color="#E9C770", gap=8)
-    cam.end(f)
-    CM.finish(f, cx, motes_n=36)
-    # etiketler vinyet/toz üstünde, ekrana sabit (kurul SA1-Ö5 / TE2-Ö6: #E9C770, ≥34 px, okunur kontrast)
-    for (x, y, w, h, lab) in slots:
+    # etiketler (kurul SA1-Ö5 / TE2-Ö6: #E9C770, ≥34 px, okunur kontrast); sol yuvanın altında sonraki parça satırı (PK2-Y6: "2/7 · …")
+    nxt = NEXT_PART_LINE.get(part) if part else None
+    for j, (x, y, w, h, lab) in enumerate(slots):
         sz, trk = 38.0, 5.0
         while sk.text_width(lab, "title_m", sz, trk) > 640 and sz > 34.0:   # ≥34 px korunur; yuvalar arası 220 px boşluk etiket taşmasını alır
             sz, trk = sz - 1.0, max(2.0, trk - 0.75)
         wd = sk.text_width(lab, "title_m", sz, trk) + 48
-        yb = y + h + 54
-        f.rrect(x + w / 2 - wd / 2, yb - sz - 8, wd, sz + 26, 10, color="#0B0805", alpha=0.62 * k)
+        yb = y + h + 50
+        sub = nxt if (j == 0 and nxt) else None
+        ssz, strk = 28.0, 3.0
+        if sub:
+            while sk.text_width(sub, "title_m", ssz, strk) > 660 and ssz > 24.0:
+                ssz, strk = ssz - 1.0, max(1.5, strk - 0.5)
+            wd = max(wd, sk.text_width(sub, "title_m", ssz, strk) + 48)
+        hh = sz + 26 + ((ssz + 14) if sub else 0)                  # alt kenar ≤ 1020 (güvenli alan)
+        f.rrect(x + w / 2 - wd / 2, yb - sz - 8, wd, hh, 10, color="#0B0805", alpha=0.62 * k)
         f.text(lab, x + w / 2, yb, face="title_m", size=sz, color="#E9C770", align="c", track=trk, alpha=k, shadow=(2, 3, 4, "#000000"))
+        if sub:
+            f.text(sub, x + w / 2, yb + ssz + 14, face="title_m", size=ssz, color="#F2E4B8", align="c", track=strk, alpha=k, shadow=(2, 2, 3, "#000000"))

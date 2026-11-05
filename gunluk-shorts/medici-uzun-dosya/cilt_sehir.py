@@ -606,6 +606,128 @@ def loggia(c, x0, x1, y, h, T, depth=0.0, nb=3, seed=2):
     R(c, x0, y - 7, x1, y, T("#B8A67E", depth))
 
 
+def ev_cepheleri(c, x0, x1, y, T, depth=0.0, seed=7):
+    """Loggia dei Lanzi'den ÖNCE (1376'dan önce) meydanın o kenarı: sıradan Trecento ev cepheleri (kurul tur 2 SA2-Y2, donem.loggia_stage = 0).
+    Dört dar-orta ev: taş zemin kat + kemerli dükkân ağzı (bottega) ve kapı, sıvalı üst katlar, kepenkli kemerli pencereler, birinde konsollu çıkma
+    (sporto), geniş saçaklı (gronda) alçak kiremit çatı. Anıtsal öğe (kemer dizisi, friz, teras) YOK."""
+    rs = _RS(seed)
+    widths = [0.24, 0.27, 0.22, 0.27]
+    xs = [x0]
+    for wf in widths:
+        xs.append(xs[-1] + (x1 - x0) * wf)
+    for i in range(4):
+        a, b = xs[i] + (0 if i == 0 else 2), xs[i + 1] - (0 if i == 3 else 2)
+        w = b - a
+        h = rs.uniform(300.0, 380.0)
+        top = y - h
+        wall = T(CT.WALLS[(i * 2 + seed) % len(CT.WALLS)], depth)
+        R(c, a, top, b, y, wall)
+        R(c, a + w * 0.78, top, b, y, "#2A1A0C", 30)                                                 # sağ kenar gölgesi
+        gh = 112.0
+        stone_wall(c, a, y - gh, b, y, "#B9A27A", T, depth, seed=seed * 7 + i, ch=gh / 4.0, bw=(w * 0.16, w * 0.28), rustic=True)
+        # dükkân ağzı (yuvarlak kemer) + kapı
+        sx = a + w * 0.34
+        sp_ = arch_path(sx, y - 2, w * 0.40, gh * 0.92)
+        c.drawPath(sp_, _pt(T("#2A1C12", 0.0)))
+        INKP(c, sp_, 1.2, 160)
+        R(c, sx - w * 0.20, y - 24, sx + w * 0.20, y - 2, T("#7A5A38", depth))                      # tezgâh
+        dx_ = a + w * 0.80
+        dp_ = arch_path(dx_, y - 2, w * 0.17, gh * 0.78)
+        c.drawPath(dp_, _pt(T("#5A3A22", depth)))
+        INKP(c, dp_, 1.1, 160)
+        # kat silmesi
+        R(c, a - 2, y - gh - 7, b + 2, y - gh, T("#D9C9A0", depth))
+        INKR(c, a - 2, y - gh - 7, b + 2, y - gh, 1.0, 130)
+        # üst katlar: kepenkli kemerli pencereler
+        nfl = 2 if h < 345 else 3
+        flh = (h - gh - 40) / nfl
+        nw = 2 if w < 300 else 3
+        for f_ in range(nfl):
+            wy = y - gh - 18 - f_ * flh
+            for k in range(nw):
+                wx = a + (k + 0.5) * w / nw
+                ww, wh = min(34.0, w / nw * 0.36), flh * 0.62
+                wp = arch_path(wx, wy, ww, wh)
+                c.drawPath(wp, _pt(T("#241810", 0.0)))
+                INKP(c, wp, 1.0, 150)
+                for sg in (-1, 1):                                                                    # açık kepenk kanatları
+                    R(c, wx + sg * ww * 0.5, wy - wh * 0.86, wx + sg * ww * 0.5 + sg * ww * 0.42, wy, T("#6E4A2A" if (i + k) % 2 else "#5A6A4A", depth))
+                R(c, wx - ww * 0.62, wy - 2, wx + ww * 0.62, wy + 4, T("#CDBB92", depth))
+        # çıkma (sporto): ikinci evde üst kat konsollar üstünde dışa taşar
+        if i == 1:
+            sy0 = y - gh - 8
+            R(c, a - 10, top + 8, b + 10, sy0 - flh * 0.9, wall)
+            for k in range(int(w / 38) + 1):
+                kx = a - 6 + k * (w + 12) / max(1, int(w / 38))
+                POLY(c, [(kx - 6, sy0 - flh * 0.9), (kx + 6, sy0 - flh * 0.9), (kx + 2, sy0 - flh * 0.9 + 22), (kx - 2, sy0 - flh * 0.9 + 22)], T("#8A6A44", depth), 255, 1)
+        # geniş saçak (gronda) + alçak kiremit çatı
+        R(c, a - 16, top - 10, b + 16, top + 2, T("#7A5232", depth))
+        for k in range(int((w + 32) / 22)):
+            LINE(c, a - 14 + k * 22, top + 2, a - 14 + k * 22, top + 12, "#4A3220", 2.0, 200)
+        roof = sk.poly_path([(a - 18, top - 10), (a + w * 0.5, top - 10 - w * 0.12), (b + 18, top - 10)])
+        c.drawPath(roof, _pt(T(CT.ROOFS[(i + seed) % len(CT.ROOFS)], depth)))
+        INKP(c, roof, 1.1, 165)
+        if i == 2:                                                                                     # baca
+            R(c, a + w * 0.7, top - 10 - w * 0.10 - 26, a + w * 0.7 + 16, top - 10 - w * 0.04, T("#9C6A4A", depth))
+        INKR(c, a, top, b, y, 1.2, 150)
+
+
+def loggia_insaat(c, x0, x1, y, h, T, depth=0.0, nb=3, seed=3):
+    """Loggia dei Lanzi İNŞAATTA (1376–1381; donem.loggia_stage = 0.5): basamaklı taş zemin, kemerlerin binmediği yarım boy ayaklar (kaba taş
+    sıraları), ahşap iskele (dikme + yatay tabla + çapraz bağ), merdiven, taş yığını ve basit vinç. Kemer, friz, teras ve korkuluk YOK."""
+    rs = _RS(seed)
+    step = (x1 - x0) / nb
+    pier = step * 0.17
+    R(c, x0 - 10, y - 16, x1 + 10, y, T("#C8B88E", depth))                                            # basamak/zemin
+    INKR(c, x0 - 10, y - 16, x1 + 10, y, 1.1, 150)
+    ph = h * 0.62
+    for i in range(nb + 1):
+        px = x0 + i * step
+        hh = ph * (0.82 + 0.18 * rs.rand())
+        stone_wall(c, px - pier * 0.5, y - 16 - hh, px + pier * 0.5, y - 16, "#CDB98E", T, depth, seed=seed * 11 + i, ch=hh / 6.0, bw=(pier * 0.45, pier * 0.9), rustic=True)
+        R(c, px + pier * 0.12, y - 16 - hh, px + pier * 0.5, y - 16, "#1A1008", 34)
+        INKR(c, px - pier * 0.5, y - 16 - hh, px + pier * 0.5, y - 16, 1.2, 160)
+        for k in range(3):                                                                              # düzensiz üst sıra (yarım)
+            bx = px - pier * 0.5 + k * pier / 3.0
+            R(c, bx + 2, y - 16 - hh - (10 + 9 * ((i + k) % 2)), bx + pier / 3.0 - 2, y - 16 - hh, T("#C6B286", depth))
+    # ahşap iskele: her ayağın iki yanında dikmeler, tablalar, çapraz bağ
+    wood = T("#7A5A38", depth)
+    sp = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=3.2, Color=C(wood, 235), StrokeCap=skia.Paint.kRound_Cap)
+    sp2 = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.0, Color=C(wood, 200), StrokeCap=skia.Paint.kRound_Cap)
+    ytop = y - 16 - ph - 70
+    for i in range(nb + 1):
+        px = x0 + i * step
+        for sg in (-1, 1):
+            c.drawLine(px + sg * (pier * 0.5 + 18), y - 4, px + sg * (pier * 0.5 + 18), ytop, sp)
+        for k in range(1, 5):
+            yy = y - 16 - k * (ph + 50) / 4.6
+            c.drawLine(px - pier * 0.5 - 30, yy, px + pier * 0.5 + 30, yy, sp)
+            R(c, px - pier * 0.5 - 30, yy - 6, px + pier * 0.5 + 30, yy, T("#9A7A50", depth))      # tabla (kalas)
+        c.drawLine(px - pier * 0.5 - 18, y - 30, px + pier * 0.5 + 18, ytop + 40, sp2)
+    # merdiven (ikinci ayağa dayalı)
+    lx = x0 + step + pier * 0.5 + 40
+    for sg in (0, 1):
+        c.drawLine(lx + sg * 26, y - 4, lx + 70 + sg * 26, y - 16 - ph * 0.8, sp2)
+    for k in range(1, 9):
+        u_ = k / 9.0
+        c.drawLine(lx + 70 * u_, y - 4 - (ph * 0.8 - 12) * u_, lx + 26 + 70 * u_, y - 4 - (ph * 0.8 - 12) * u_, sp2)
+    # taş yığını + basit vinç (son aralıkta)
+    bx0 = x0 + step * (nb - 0.62)
+    for k in range(6):
+        bw_, bh_ = 54.0 + 10 * (k % 3), 26.0
+        bx_ = bx0 + (k % 3) * 58 - (k // 3) * 6 + (k // 3) * 29
+        by_ = y - 16 - (k // 3 + 1) * bh_
+        R(c, bx_, by_, bx_ + bw_, by_ + bh_, T("#D2C096", depth))
+        INKR(c, bx_, by_, bx_ + bw_, by_ + bh_, 1.0, 150)
+    cx_ = x0 + step * (nb - 0.18)
+    c.drawLine(cx_, y - 16, cx_, ytop - 40, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=5.0, Color=C(T("#5A3E22", depth), 240), StrokeCap=skia.Paint.kRound_Cap))
+    c.drawLine(cx_ + 20, ytop - 36, cx_ - step * 0.55, ytop - 8, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=4.0, Color=C(T("#5A3E22", depth), 240), StrokeCap=skia.Paint.kRound_Cap))
+    hx_ = cx_ - step * 0.48
+    c.drawLine(hx_, ytop - 10, hx_, y - 16 - ph * 0.55, sp2)
+    R(c, hx_ - 20, y - 16 - ph * 0.55, hx_ + 20, y - 16 - ph * 0.55 + 18, T("#D2C096", depth))
+    INKR(c, hx_ - 20, y - 16 - ph * 0.55, hx_ + 20, y - 16 - ph * 0.55 + 18, 1.0, 150)
+
+
 def narrow_house(c, x0, x1, y, h, T, seed=1, depth=0.22):
     """İki bina arasındaki dar araya sıkışmış gölgeli ev: kiremit beşik çatı, kemerli pencereler, alta doğru koyulaşma (sokak derinliği)."""
     rs = _RS(seed)
@@ -1325,7 +1447,8 @@ class Meydan(SWorld):
         self.layer("hills", 0.14, Lw(0.14), self._draw_hills, scale=0.5, wear=2, yr=(330, 800))
         self.layer("city", 0.30, Lw(0.30), self._draw_city, wear=2, yr=(60, 620))
         self.layer("mid", 0.62, Lw(0.62), self._draw_mid, wear=2, yr=(160, 860))
-        self.layer("main", 1.0, PW, self._draw_main, wear=4)
+        # Loggia dei Lanzi ana katmanda pişer → önbellek adı Loggia aşamasını taşır (≥1382 ve yılsız: eski ad; kurul tur 2 SA2-Y2)
+        self.layer("main", 1.0, PW, self._draw_main, wear=4, era_tag=CT.loggia_tag(getattr(self, "era", None)))
         self.ring = ring_members(PILE_X, 30, 4)
         self.pile = _pile_sprite("ates")
         self.pile_odun = _pile_sprite("odun", 5)
@@ -1403,7 +1526,13 @@ class Meydan(SWorld):
         if xa < PV_X0 + PV_W + 80 and xb > PV_X0 - 80 or (xb > self.G_PV["tower"][0] - 200 and xa < self.G_PV["tower"][0] + 200):
             palazzo_front(c, PV_X0, YG, PV_W, PV_H, "vecchio", door=0.0, T=T, seed=31)
         if xa < LOG_X1 + 80 and xb > LOG_X0 - 80:
-            loggia(c, LOG_X0, LOG_X1, YG - 6, LOG_H, T)
+            lg = CT.loggia_of(getattr(self, "era", None))                  # dönem: <1376 ev cepheleri · 1376–81 inşaat · ≥1382 / yılsız tam yapı
+            if lg is not None and lg <= 0.001:
+                ev_cepheleri(c, LOG_X0, LOG_X1, YG - 6, T)
+            elif lg is not None and lg < 0.999:
+                loggia_insaat(c, LOG_X0, LOG_X1, YG - 6, LOG_H, T)
+            else:
+                loggia(c, LOG_X0, LOG_X1, YG - 6, LOG_H, T)
         if xa < GEN_X0 + GEN_W + 80 and xb > GEN_X0 - 80:
             palazzo_front(c, GEN_X0, YG, GEN_W, GEN_H, "generic", door=0.0, T=T, seed=41)
         # meşale demirleri (cephe)
@@ -1456,9 +1585,14 @@ class Meydan(SWorld):
     def _banners(self, ctx):
         c, t = ctx.c, ctx.t
         xa, xb = ctx.xa, ctx.xb
-        # Loggia terasından sarkan kırmızı-krem bayraklar; Palazzo Vecchio kulesi flaması
+        # Loggia terasından sarkan kırmızı-krem bayraklar (yalnız yapı TAMKEN: teras yoksa bayrak havada kalmasın); Palazzo Vecchio kulesi flaması
+        lg = CT.loggia_of(getattr(self, "era", None))
+        if DN.LOG_ON and lg is not None and xa - 80 < LOG_X1 and xb + 80 > LOG_X0:
+            DN.note_once_per_frame("loggia", where="sehir:meydan", h=float(lg))       # qa_donem: Loggia dei Lanzi aşaması (kurul tur 2 SA2-Y2)
         top = YG - 6 - LOG_H - LOG_H * 0.24 - 10
         for i, lx in enumerate((LOG_X0 + 120, LOG_X0 + 640, LOG_X1 - 160)):
+            if lg is not None and lg < 0.999:
+                break
             if lx < xa - 120 or lx > xb + 60:
                 continue
             PN.draw_cloth(c, lx, top, "#B3361F", "#EDE4CC", 64, 150, t, ph=i * 1.7, wind=1.0, kind="tente", seed=70 + i)

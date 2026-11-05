@@ -522,49 +522,86 @@ def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zin
                   isik=(900, 732, 640, 1.0), ton=(18, 10, 15), kapan_at=0.45, duvar_y=470, hokka=(330, 700), yazi=None, seed=3,
                   vinyet=0.75, isinlar=True, **_):
     """K1 kapak sahnesi: 1743 imza masası yakın plan (oda1743'ün sıva/lambri/örtü/belge/mühür/hokka çizimleriyle), belgeyi saran demir zincir,
-    pirinç asma kilit. kapan_at'ta kulp kapanır (geri sekme + parıltı). Tek ışık kilitte. yazi: kapak_sahne_shot(yazi=True) doldurur."""
+    pirinç asma kilit. kapan_at'ta kulp kapanır (geri sekme + parıltı). Tek ışık kilitte. yazi: kapak_sahne_shot(yazi=True) doldurur.
+    HAREKET (ENG-D, kurul tur 2 AN1-Y2: yankıda beyan edilen cam=("push",) uygulanmıyordu, ilk 3,7 sn ölçek 1,0000): çekime cam= AÇIKÇA verilmişse
+    (videodaki yankı) beyan edilen kamera dünyaya (duvar/masa/belge/zincir/ışık havuzu/kilit) uygulanır (süreye bağlı itme ≈ %6–8), kulp kapanınca
+    hafif darbe sarsıntısı (anim.impact_ovl mantığı, ≈3,5 px · 0,25 sn), zincir sönümlü salınımla oturur, belgenin üstünden yumuşak bir ışık süpürür.
+    cam= verilmemişse (kapak karesi: kapak_sahne_shot → Program(shots=[…]) tohumlu kamera seçer, cam_auto) eski durağan kurgu AYNEN çizilir → kapak değişmez."""
+    import anim
     f, c = cx.f, cx.f.c
     T = CT.Tint("dusk")
     kx, ky, B = kilit
-    k = _itme(cx, kamera[1] if kamera else 0.0)
+    st = getattr(cx, "cam_state", None)
+    live = st is not None and not bool(getattr(getattr(cx, "sh", None), "cam_auto", False))
+    t_hit = (kapan_at if kapan_at is not None else 0.0) + 0.14         # kulbun yuvaya çarptığı an (back_out ≈ 0,55·0,25 sn)
+    k = 1.0 if live else _itme(cx, kamera[1] if kamera else 0.0)
     piv = (kx, ky)
-    c.save()
-    c.translate(kx, ky)
-    c.scale(k, k)
-    c.translate(-kx, -ky)
+
+    def world():                                                         # dünya dönüşümü: (canlı) beyan edilen kamera ∘ (kapak) tür içi itme
+        c.save()
+        if live:
+            P = st.pivot or (W / 2, H / 2)
+            c.translate(P[0] + st.dx, P[1] + st.dy)
+            c.scale(st.s, st.s)
+            c.translate(-P[0], -P[1])
+        c.translate(kx, ky)
+        c.scale(k, k)
+        c.translate(-kx, -ky)
+    world()
     OD.plaster(c, -40, W + 40, -40, duvar_y + 20, T, "#8C7458", "#7A6048", amp=0.05)
     OD.wainscot(c, -40, W + 40, duvar_y - 250, duvar_y + 10, T, "#6E4A30", pw=300.0, seed=2)
     OD.table_top(c, OD.TGeom(-260, H + 150, W + 520, H + 150 - duvar_y, 0.035), T, ("#8E2A30", "#D2A33E"))
     bx, by, bs, br = belge
     OD.doc_sheet(f, bx, by, bs, cx.t, n=13, seed=3, rot=br, seal=True, seal_t=1.0, shadow=0.6)
+    if live:                                                             # belgenin üstünden yumuşak ışık süpürmesi (1,0–2,5 sn), zincirin altında
+        u_sw = (cx.t - 1.0) / 1.5
+        if 0.0 < u_sw < 1.0:
+            c.save()
+            c.translate(bx, by)
+            c.rotate(math.degrees(br))
+            hw, hh = 550 * bs, 380 * bs
+            c.clipRect(skia.Rect.MakeLTRB(-hw, -hh, hw, hh))
+            xs_ = -hw - 260 + (2 * hw + 520) * smooth(u_sw)
+            a_sw = 0.22 * math.sin(math.pi * u_sw)
+            shd = skia.GradientShader.MakeLinear([(xs_ - 170, -hh), (xs_ + 170, hh)], [sk.C("#FFE6B0", 0), sk.C("#FFE6B0", int(255 * a_sw)), sk.C("#FFE6B0", 0)], [0, 0.5, 1])
+            c.drawRect(skia.Rect.MakeLTRB(-hw, -hh, hw, hh), skia.Paint(Shader=shd, BlendMode=skia.BlendMode.kPlus))
+            c.restore()
     if hokka:
         OD.inkwell(c, hokka[0], hokka[1], 4.0, cx.t)
     p0, p1, sag = zincir
+    if live:                                                             # zincir kulbun darbesiyle aşağı yaylanır, sönümlü salınımla oturur
+        sag = sag * (1.0 + 0.16 * anim.wobble(cx.t, t_hit, 1.0, 2.3, 4.2))
     R = B * 0.30
     leg_y = ky - B * 0.10
     z1 = draw_chain(f, p0, (kx - R - B * 0.02, leg_y), sag=sag, L=B * 0.40)
     z2 = draw_chain(f, (kx + R + B * 0.02, leg_y), p1, sag=sag, L=B * 0.40)
-    c.restore()
     isik_x, isik_y, isik_r, isik_k = isik
-    isik_havuzu(f, isik_x, isik_y, isik_r, hue=ton, gain=isik_k)
+    if live:                                                             # ışık havuzu masaya bağlı: kamerayla birlikte
+        isik_havuzu(f, isik_x, isik_y, isik_r, hue=ton, gain=isik_k)
+    c.restore()
+    if not live:
+        isik_havuzu(f, isik_x, isik_y, isik_r, hue=ton, gain=isik_k)
     t_cl = clamp((cx.t - kapan_at) / 0.25) if kapan_at is not None else 1.0
     drop = (1.0 - back_out(t_cl)) * B * 0.10
-    c.save()
-    c.translate(kx, ky)
-    c.scale(k, k)
-    c.translate(-kx, -ky)
+    world()
     OD.PN.glow(c, kx, ky + B * 0.35, B * 2.0, "#FFB454", 0.20)
     kb = draw_padlock(f, kx, ky, B, drop=drop)
-    c.restore()
     flash = 1.0 + 0.6 * math.exp(-max(0.0, cx.t - (kapan_at or 0.0)) * 5.0) * (1.0 if cx.t >= (kapan_at or 0.0) else 0.0)
-    sx, sy = piv[0] + (kx - B * 0.30 - piv[0]) * k, piv[1] + (ky + B * 0.06 - piv[1]) * k
-    parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
+    if live:                                                             # parıltı kilidin üstünde: kamerayla birlikte
+        parilti(f, kx - B * 0.30, ky + B * 0.06, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
+    c.restore()
+    if not live:
+        sx, sy = piv[0] + (kx - B * 0.30 - piv[0]) * k, piv[1] + (ky + B * 0.06 - piv[1]) * k
+        parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
     CM.motes(f, cx.t, n=8, seed=seed)
     if vinyet:
         CM.vig(f, vinyet)
     if yazi:
         a = smooth((cx.t - yazi.get("at", 0.3)) / 0.35) * (1 - smooth((cx.t - yazi.get("out", 3.2)) / 0.45))
         _yazi_motor(f, yazi["satirlar"], a)
+    if live:                                                             # kulp yuvaya oturunca kısa, sönümlü darbe sarsıntısı (tüm kare; ekran künyesi sonra çizilir)
+        dx_, dy_ = anim.shake(cx.t, t_hit, 0.25, 3.5, seed=seed * 13 + 1)
+        anim.jolt(f, dx_, dy_)
     # öğe kutuları (ekran): odak = asma kilit (kulp dâhil); mühür belgenin sağ altında
     ms = (bx + (330 * math.cos(br) - 262 * math.sin(br)) * bs, by + (330 * math.sin(br) + 262 * math.cos(br)) * bs)
     mr = 58 * bs * 1.1

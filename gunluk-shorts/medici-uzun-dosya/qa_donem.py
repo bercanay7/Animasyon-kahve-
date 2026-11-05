@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """qa_donem — DÖNEM DENETİMİ (ENG-A): parçanın kareleri gerçekten çizilir; çizim kodunun donem.note() ile yazdığı "NE ÇİZİLDİ" kaydı
-(Duomo/kubbe/fener/top-haç, çan kulesi, Palazzo Vecchio, San Lorenzo kubbesi, Medici arması, sancak, madalya yazıtı) HUD yılıyla birlikte,
-kuralların BAĞIMSIZ bir kopyasıyla (aşağıdaki RULES; donem.py'yi çağırmaz) denetlenir.
+(Duomo/kubbe/fener/top-haç, çan kulesi, Palazzo Vecchio, Loggia dei Lanzi, San Lorenzo kubbesi, Medici arması, sancak, madalya yazıtı) HUD yılıyla
+birlikte, kuralların BAĞIMSIZ bir kopyasıyla (aşağıdaki RULES; donem.py'yi çağırmaz) denetlenir.
 
   python3 qa_donem.py                      # Parça 1, çekim başına 3 kare → out_p1/duzeltme/ENG-A/qa_donem.json + özet satırı
   python3 qa_donem.py --eski               # ÖNCE ölçümü: dönem katmanı kapalıyken (eski çizim) aynı kayıt → aynı kurallar
@@ -75,6 +75,19 @@ def check(e):
     elif el == "pv":
         if (e.get("h", 1.0) or 0) > 0.001 and y < 1299:
             V.append(_v("palazzo_vecchio_erken", f"Palazzo Vecchio ama yıl {y} (<1299)"))
+    elif el == "loggia":
+        # Loggia dei Lanzi — BAĞIMSIZ kopya (donem.loggia_stage'i çağırmaz): yapım 1376 → 1382 (it.wikipedia "Loggia della Signoria"; başkan kararı,
+        # kurul tur 2 SA2-Y2/KA1-Ö1). h: 0 = yok (ev cepheleri) · 0<h<1 = inşaat (ayak + iskele) · 1 = tam yapı (kemer + friz + teras)
+        h = e.get("h", 1.0)
+        h = 1.0 if h is None else float(h)
+        if h > 0.001 and y < 1376:
+            V.append(_v("loggia_erken", f"Loggia dei Lanzi ({'tam' if h >= 0.999 else 'inşaat'}) ama yıl {y} (<1376: yapı yok)"))
+        if h >= 0.999 and y < 1382:
+            V.append(_v("loggia_tam_erken", f"Loggia dei Lanzi tam yapı ama yıl {y} (<1382: inşaat sürüyor)"))
+        if h < 0.999 and y >= 1382:
+            U.append(_v("loggia_eksik", f"Loggia {h:.2f} ama yıl {y} (≥1382: tam olmalı)"))
+        if h <= 0.001 and y >= 1376:
+            V.append(_v("loggia_yok_gec", f"Loggia hiç yok ama yıl {y} (≥1376: inşaat başlamıştı)"))
     elif el == "sanlorenzo":
         if e.get("dome") and y < 1604:
             V.append(_v("san_lorenzo_kubbe_erken", f"San Lorenzo büyük kubbesi ama yıl {y} (<1604)"))
@@ -106,6 +119,7 @@ def disable_period():
     DN.duomo_stage = lambda y=DN._UNSET: None if DN.resolve(y) is None else DN.FULL_DUOMO
     DN.campanile_stage = lambda y=DN._UNSET: None if DN.resolve(y) is None else 1.0
     DN.pv_stage = lambda y=DN._UNSET: None if DN.resolve(y) is None else 1.0
+    DN.loggia_stage = lambda y=DN._UNSET: None if DN.resolve(y) is None else 1.0
     DN.sanlorenzo_dome = lambda y=DN._UNSET: None if DN.resolve(y) is None else True
     DN.medici_arms = lambda y=DN._UNSET: None if DN.resolve(y) is None else dict(variant=DN.ARMS_STD, blue=True, n=6)
     DN.arms_variant = lambda y=DN._UNSET: DN.ARMS_STD

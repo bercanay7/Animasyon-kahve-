@@ -473,7 +473,7 @@ def k_kuyruk(cx, scroll=(1180.0, 2020.0), sign_at=None, kick_at=None, kick="BUG�
     if sign_at is not None:
         k = cx.amt(sign_at, 0.7)
         if k > 0.003:
-            sp = CM.gilt("UFFIZI", "title", 56, 14.0)
+            sp = CM.gilt("UFFİZİ", "title", 56, 14.0)          # kanal kuralı: ekran yazısı sk.tr_upper (kurul tur 2 TE2-Ö12)
             CM.draw_spr(f, sp, pxw, gy - 470, "c", alpha=k, glow=0.25 * k, shadow=0.4)
     # zemin
     f.rect(scr - 80, gy, W + 160, 120, color="#B9A682")
@@ -911,3 +911,47 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
 
 import p1_ortak as _P  # noqa: E402
 _P.add_ovl(['c0_takvim', 'c0_belge', 'c0_kuyruk', 'c0_sikke', 'c0_harita', 'c0_gerekce'])
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# kurul tur 2 (SCN-1): iki satırlı koyu etiket · belgeyle kayan sayaç
+# ─────────────────────────────────────────────────────────────────────────────
+def tag_lines(lines, x, y, at, size=52, face="title_m", out=None, dur=0.45, track=6.0, pad=26, gap=0.20, x_min=None):
+    """P.tag ile aynı görünüm (koyu yarı saydam zemin, altın kontur, krem yazı ≥7:1), ama ÇOK SATIRLI tek kutu: uzun etiket (KA2-D3 "MEDİCİ
+    HANEDANININ SON ÜYESİ") yanındaki armaya taşmasın diye iki satıra bölünür. Kutu güvenli alana ve altyazı bandının üstüne kıstırılır;
+    x_min: kutunun sol kenarı bundan sola geçmez (komşu öğeden kaçınma)."""
+    def fn(cx):
+        k = cx.amt(at, dur)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        f = cx.f
+        sx0, sx1 = _P.SAFE_X0, _P.SAFE_X1
+        sz = min(CM.fit_size(ln, face, size, sx1 - sx0 - 2 * pad, track) for ln in lines)
+        wd = max(sk.text_width(ln, face, sz, track) for ln in lines) + 2 * pad
+        lh = sz * 1.05
+        hh = lh * len(lines) + gap * sz * (len(lines) - 1) + 2 * pad * 0.62
+        x0 = max(sx0, min(sx1 - wd, x - wd / 2))
+        if x_min is not None:
+            x0 = max(x0, min(x_min, sx1 - wd))
+        yy = min(y, _P.SUB_Y0 - hh / 2 - 6)
+        top = yy - hh / 2 + (1 - k) * 8
+        f.rrect(x0, top, wd, hh, 12, color="#120C08", alpha=0.74 * k)
+        f.rrect(x0, top, wd, hh, 12, style="stroke", sw=2.0, color="#C9A45A", alpha=0.75 * k)
+        for i, ln in enumerate(lines):
+            by = top + pad * 0.62 + i * (lh + gap * sz) + lh * 0.5 + sz * 0.36
+            CM.ink(f, ln, x0 + wd / 2, by, face=face, size=sz, color="#FFF4D6", align="c", track=track, alpha=k, emboss=False)
+    return fn
+
+
+def belge_sayac(cams, doc_xy, at, value, out=None, **kw):
+    """c0_belge kamerasına BAĞLI sayaç (kurul tur 2 C1: "13 MADDE" kutusu Romen rakamlarını örtüyordu, qa_yerlesim çakışması 43,1 sn).
+    Kutu belge düzleminde kâğıdın DIŞINDA, masa üstünde durur (doc_xy belge koordinatı; kâğıt x∈[−550, 550]); kamera belgeye kayarken kutu
+    da kâğıtla birlikte kadrajdan çıkar (kayan nesne) ve rakamlar asla kutunun altına girmez. Boyut ekran uzayında sabit (okunurluk)."""
+    def fn(cx):
+        ks = _cam_keys(cx, cams)
+        dxc, dyc, s = _cr(ks, cx.t)
+        px, py = 960 - dxc * s, 520 - dyc * s
+        _P.count_up(px + doc_xy[0] * s, py + doc_xy[1] * s, at, value, out=out, **kw)(cx)
+    return fn

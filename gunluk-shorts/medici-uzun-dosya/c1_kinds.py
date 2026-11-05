@@ -562,7 +562,7 @@ _COL = [("#8E2A30", "#F0E6CC"), ("#233C8C", "#F0D27A"), ("#F0E6CC", "#8E2A30"), 
 
 
 @ckind("c1_lonca")
-def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_at=None, remove_at=None, out_at=None, new_label="CIOMPI", seed=2, **_):
+def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_at=None, remove_at=None, out_at=None, new_label="CİOMPİ", seed=2, **_):
     """21 lonca kalkanı (TEMSİLÎ: simgeler uydurma değil, işaretsiz şema — sahne ovl'unda not); yün işçisinin yeri boş.
     c1s23 için: new_at → boş yuvada kısa ömürlü yeni lonca kalkanı (işaretsiz), remove_at → çatlar ve düşer (kaldırıldı), out_at → yün işçisi kadrajdan çıkar (dışlandılar)."""
     f = cx.f
@@ -593,7 +593,8 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
         kcr *= 1.0 - smooth(clamp((uo - 0.55) / 0.45))
     if kcr > 0.003:
         xc_ = 880 + xo
-        OD.sil_actor(f, "halk", xc_, gy, 400, cx.t, action="idle", dir=(-1 if xo < -1 else 1), seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1, alpha=kcr)
+        OD.sil_actor(f, "halk", xc_, gy, 400, cx.t, action="idle", dir=(-1 if xo < -1 else 1), seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1, alpha=kcr,
+                     hat="coif")                                            # kurul tur 2 SA2-K7: siluette "17. yy şapkası" okunmasın (Trecento başlığı)
         # yün tarağı + yün lifleri
         f.line(xc_ + 70, gy - 170, xc_ + 190, gy - 210, color="#4A3420", sw=8, alpha=kcr)
         for q in range(6):
@@ -617,9 +618,11 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
                 c.drawPath(pth, f.paint("#2A1A0C", style="stroke", sw=5, alpha=crack_ * (1 - drop_)))
             kl_ = kn * (1 - smooth(clamp(drop_ * 3)))
             if kl_ > 0.003:
+                # kurul tur 2 (TE2-Y3): etiket altyazı bandının (y 938–1042) DIŞINA — kalkanın sağına, "ARMALAR TEMSİLÎ" hizasına (y≈880)
                 wl_ = sk.text_width(new_label, "title_m", 38, 6) + 50
-                f.rrect(1290 - wl_ / 2, gy - 30, wl_, 58, 10, color="#120C08", alpha=0.78 * kl_)
-                CM.ink(f, new_label, 1290, gy + 12, face="title_m", size=38, color="#FFF4D6", align="c", track=6, alpha=kl_, emboss=False)
+                lx_ = 1290 + 75 + 26 + wl_ / 2
+                f.rrect(lx_ - wl_ / 2, gy - 109, wl_, 58, 10, color="#120C08", alpha=0.78 * kl_)
+                CM.ink(f, new_label, lx_, gy - 67, face="title_m", size=38, color="#FFF4D6", align="c", track=6, alpha=kl_, emboss=False)
     # boş (kesikli) kalkan + çarpı
     ke = cx.amt(empty_at, 0.5) if empty_at is not None else 0.0
     if ke > 0.003:
@@ -652,7 +655,7 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
 # c1_machiavelli — tarihçi, isyancının ağzına koca bir konuşma koyar (KURGU)
 # ─────────────────────────────────────────────────────────────────────────────
 @ckind("c1_machiavelli")
-def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, stamp_text="KURGU", rebel_who="isyancı", order_big=None, plate_text="MACHIAVELLİ",
+def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=None, scroll_to=None, nameless_at=None, stamp_at=None, stamp_text="KURGU", rebel_who="isyancı", order_big=None, plate_text="MACHİAVELLİ",
                   writer_kind="soylu", writer_seed=52, seed=2, **_):
     """Tarihçi (yazar, P.MACHIAVELLI ile aynı figür) masasında yazar; konuşma rulosu karşıdaki siluetin ağzına uzar (c1: adsız isyancı; c2: rebel_who='old' → yaşlı Giovanni)."""
     f = cx.f
@@ -796,52 +799,157 @@ def k_kademe(cx, elite_at=None, medici_at=None, field_at=None, income_at=None, s
 # ─────────────────────────────────────────────────────────────────────────────
 # c1_kose — şehir planı: Orsanmichele; Via Porta Rossa × Via Calimala; köşeye iğne
 # ─────────────────────────────────────────────────────────────────────────────
+def _arch_pt(cxa, yb, w, h):
+    """Sivri (Gotik) kemer açıklığı yolu: cxa orta, yb taban, w genişlik, h tepe yüksekliği."""
+    p = skia.Path()
+    r = w / 2.0
+    p.moveTo(cxa - r, yb)
+    p.lineTo(cxa - r, yb - h + w * 0.70)
+    p.quadTo(cxa - r, yb - h + w * 0.18, cxa, yb - h)
+    p.quadTo(cxa + r, yb - h + w * 0.18, cxa + r, yb - h + w * 0.70)
+    p.lineTo(cxa + r, yb)
+    p.close()
+    return p
+
+
+def _orsanmichele(f, x, yb, s=1.0, alpha=1.0):
+    """Orsanmichele — KÜBİK GOTİK blok (kurul tur 2 SA2-K3: eski simge alınlıklı, dört sütunlu "Yunan tapınağı"ydı): zemin katta üç büyük sivri kemerli
+    açıklık (ajurlu dolgu), kat silmesi, iki üst katta ikiz kemerli pencereler (bifora), konsollu düz saçak; alınlık/sütun YOK. Ön cephe simgesi,
+    planın üstünde dik durur. (x, yb) = taban ortası; s ölçek."""
+    if alpha <= 0.003:
+        return
+    c = f.c
+    ink = "#3A2210"
+    c.save()
+    c.translate(x, yb)
+    c.scale(s, s)
+    W0, H0 = 230.0, 300.0
+    f.rrect(-W0 / 2 + 10, -H0 + 14, W0, H0, 4, color="#000000", alpha=0.28 * alpha, blur=10)              # gölge (plana düşer)
+    f.rect(-W0 / 2, -H0, W0, H0, shader=f.lin(0, -H0, 0, 0, [("#E2CFA6", 0.0), ("#CDB385", 1.0)]), alpha=alpha)
+    for sx_ in (-W0 / 2, W0 / 2 - 14):                                                                        # köşe payeleri
+        f.rect(sx_, -H0, 14, H0, color="#BFA273", alpha=alpha)
+    # zemin kat: üç sivri kemer + ajur (dörtlü yonca) + orta dikme
+    for ax in (-70.0, 0.0, 70.0):
+        ap = _arch_pt(ax, -6, 52, 110)
+        c.drawPath(ap, f.paint("#4A3826", alpha=alpha))
+        c.drawPath(ap, f.paint(ink, style="stroke", sw=2.2, alpha=0.85 * alpha))
+        qy = -6 - 110 + 30
+        for (dx_, dy_) in ((-7, 0), (7, 0), (0, -7), (0, 7)):
+            f.circle(ax + dx_, qy + dy_, 6.2, style="stroke", sw=1.8, color="#D9C59C", alpha=0.9 * alpha)
+        f.line(ax, qy + 14, ax, -6, color="#D9C59C", sw=2.0, alpha=0.8 * alpha)
+    # kat silmesi
+    f.rect(-W0 / 2 - 4, -136, W0 + 8, 9, color="#E9DAB6", alpha=alpha)
+    f.line(-W0 / 2 - 4, -127, W0 / 2 + 4, -127, color=ink, sw=1.4, alpha=0.7 * alpha)
+    # iki üst kat: ikiz kemerli pencereler
+    for (yb_w, hw) in ((-150.0, 62.0), (-224.0, 54.0)):
+        for wx_ in (-52.0, 52.0):
+            op = _arch_pt(wx_, yb_w, 46, hw)
+            c.drawPath(op, f.paint("#E9DAB6", alpha=alpha))
+            c.drawPath(op, f.paint(ink, style="stroke", sw=1.6, alpha=0.8 * alpha))
+            for dx_ in (-11.0, 11.0):
+                ip = _arch_pt(wx_ + dx_, yb_w - 4, 17, hw - 12)
+                c.drawPath(ip, f.paint("#3E2E20", alpha=alpha))
+            f.line(wx_, yb_w - 4, wx_, yb_w - hw + 14, color="#E9DAB6", sw=2.4, alpha=alpha)
+    f.rect(-W0 / 2 - 4, -218, W0 + 8, 6, color="#E9DAB6", alpha=alpha)
+    # konsollu saçak + düz dam
+    f.rect(-W0 / 2 - 10, -H0 - 14, W0 + 20, 14, color="#D8C49A", alpha=alpha)
+    f.rect(-W0 / 2 - 10, -H0 - 14, W0 + 20, 14, style="stroke", sw=1.6, color=ink, alpha=0.8 * alpha)
+    q = -W0 / 2 + 2
+    while q < W0 / 2 - 6:
+        f.rect(q, -H0, 8, 8, color="#A88A5C", alpha=alpha)
+        q += 17.0
+    f.rect(-W0 / 2, -H0, W0, H0, style="stroke", sw=2.6, color=ink, alpha=0.9 * alpha)
+    c.restore()
+
+
+_KOSE_ROT = -12.0
+
+
+def _kose_xy(ox, oy, u, v):
+    """Plan koordinatı (−12° döndürülmüş, (ox,oy) merkez) → ekran."""
+    a = math.radians(_KOSE_ROT)
+    return ox + u * math.cos(a) - v * math.sin(a), oy + u * math.sin(a) + v * math.cos(a)
+
+
 @ckind("c1_kose")
-def k_kose(cx, orsa_at=None, street1_at=None, street2_at=None, pin_at=None, seed=2, **_):
+def k_kose(cx, orsa_at=None, street1_at=None, street2_at=None, pin_at=None, move_at=None, seed=2, ox=960.0, oy=600.0, **_):
+    """Şehir planı (üstten, temsilî): Orsanmichele (kübik Gotik simge), Via Porta Rossa; köşeye iğne. Kurul tur 2 (AN1-Y4 "sessiz cep"):
+    anlatıya bağlı İKİNCİ SÜREKLİ HAREKET — "işi … köşeye taşıdı": florin kesesi Via Porta Rossa boyunca mürekkep izi bırakarak kesişime yürür,
+    iğne onun üstüne iner (move_at → pin_at); sokaklarda küçük yayalar, planın üstünden geçen yumuşak ışık süpürmesi. Sokaklar taş döşeli
+    (kadrajın her yeri dolu: eski sürümde alt kenarda koyu çerçeve görünüyordu)."""
     f = cx.f
     c = f.c
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
     CM.bgfill(f, cx, seed=seed, cam=cam, dress="both")
     cam.begin(f)
-    ox, oy = 960.0, 520.0
-    # şehir blokları (üstten): iki sokak X biçiminde keser
     rs = [(41 * i) % 17 for i in range(60)]
-    blocks = [(-100, -80, 560, 340), (-100, 380, 560, 420), (720, -80, 460, 340), (720, 480, 460, 380), (1000, -80, 420, 320), (1060, 640, 380, 280)]
-    # dört büyük blok (köşeler) + Orsanmichele bloğu (köşede)
     c.save()
     c.translate(ox, oy)
-    c.rotate(-12)
-    for (bx, by, bw, bh) in ((-1100, -700, 960, 560), (150, -700, 1100, 560), (-1100, 150, 960, 620), (150, 150, 1100, 620)):
+    c.rotate(_KOSE_ROT)
+    # taş döşeli sokak zemini (kadrajın tamamı) + derz izleri
+    c.drawRect(skia.Rect.MakeLTRB(-2200, -1500, 2200, 1500), f.paint("#E6DCC2"))
+    jp = f.paint("#B8A684", style="stroke", sw=1.2, alpha=0.45)
+    for k in range(-60, 61):
+        c.drawLine(-2200, k * 26.0, 2200, k * 26.0, jp)
+    # dört büyük blok (köşeler)
+    for (bx, by, bw, bh) in ((-1400, -1000, 1260, 860), (150, -1000, 1400, 860), (-1400, 150, 1260, 900), (150, 150, 1400, 900)):
         c.drawRect(skia.Rect.MakeXYWH(bx, by, bw, bh), f.paint("#C9B58A"))
         c.drawRect(skia.Rect.MakeXYWH(bx, by, bw, bh), f.paint("#5A3E22", style="stroke", sw=3, alpha=0.7))
-        for q in range(14):
+        for q in range(22):
             qx = bx + 40 + (q * 137) % int(bw - 120)
             qy = by + 40 + (q * 89) % int(bh - 120)
             c.drawRect(skia.Rect.MakeXYWH(qx, qy, 90 + rs[q] * 5, 60 + rs[q + 3] * 3), f.paint("#B33620", alpha=0.85))
             c.drawRect(skia.Rect.MakeXYWH(qx, qy, 90 + rs[q] * 5, 60 + rs[q + 3] * 3), f.paint("#3A1E10", style="stroke", sw=2, alpha=0.6))
-    # sokaklar (açık zemin) etiketleri
+    # sokaktaki küçük yayalar (sürekli ortam hareketi; ilk kareden)
+    for i in range(9):
+        horiz = i % 2 == 0
+        sp_ = 22.0 + 7.0 * (i % 4)
+        L = 2400.0
+        d = ((cx.t * sp_ * (1 if i % 3 else -1) + i * 517.0) % L) - L / 2
+        lane = -55.0 + 110.0 * ((i // 2) % 2)
+        uu, vv = (d, lane + 6) if horiz else (lane + 6, d)
+        c.drawOval(skia.Rect.MakeLTRB(uu - 9, vv - 5, uu + 11, vv + 7), f.paint("#000000", alpha=0.18))
+        c.drawCircle(uu, vv - 2, 8.5, f.paint(["#5A3A22", "#233C8C", "#7A2E2A", "#3E5A3A"][i % 4], alpha=0.85))
+        c.drawCircle(uu, vv - 3, 4.2, f.paint("#E2C3A0", alpha=0.9))
     c.restore()
-    # Orsanmichele: köşe bloğu (yüksek, kemerli)
+    # taşıma: florin kesesi Via Porta Rossa boyunca kesişime yürür, ardında mürekkep izi (move_at → pin_at)
+    kp = cx.amt(pin_at, 0.5) if pin_at is not None else 0.0
+    if move_at is not None and pin_at is not None:
+        ta, tb = cx.at(move_at), cx.at(pin_at)
+        u_ = clamp((cx.t - ta) / max(0.5, tb - ta))
+        if cx.t > ta - 0.4:
+            e_ = ease_io(u_, 1.6)
+            u0, u1 = -1150.0, -10.0
+            uc = u0 + (u1 - u0) * e_
+            xa_, ya_ = _kose_xy(ox, oy, u0, 6)
+            xb_, yb_ = _kose_xy(ox, oy, uc, 6)
+            tp = f.paint("#5A1A12", style="stroke", sw=5, alpha=0.75)
+            tp.setPathEffect(skia.DashPathEffect.Make([22, 14], 0))
+            c.drawLine(xa_, ya_, xb_, yb_, tp)
+            kb_ = clamp((cx.t - (ta - 0.4)) / 0.4) * (1.0 - smooth(clamp(kp * 1.6)))
+            if kb_ > 0.003:
+                bob = 6.0 * abs(math.sin(cx.t * 7.0)) * (1.0 - u_ if u_ < 1 else 0.0)
+                f.circle(xb_ + 6, yb_ + 10, 30, color="#000000", alpha=0.25 * kb_, blur=6)
+                icons.draw_icon(f, "coinbag", xb_, yb_ - 16 - bob, size=78, metal="gold", alpha=kb_, glow=0.0, shadow=False)
+    # Orsanmichele (kübik Gotik simge) + okunur levha
     ko = cx.amt(orsa_at, 0.7) if orsa_at is not None else 0.0
     if ko > 0.003:
-        c.save(); c.translate(ox + 190, oy - 190); c.rotate(-12); c.scale(0.9 + 0.1 * ko, 0.9 + 0.1 * ko)
-        f.rect(-130, -110, 260, 220, color="#E6D8B4", alpha=ko)
-        f.rect(-130, -110, 260, 220, style="stroke", sw=4, color="#3A2210", alpha=ko)
-        for q in range(4):
-            f.rect(-100 + q * 54, -80, 40, 120, color="#8A7048", alpha=ko)
-        f.poly([(-150, -110), (0, -170), (150, -110)], color="#B33620", alpha=ko)
-        c.restore()
-        CM.ink(f, "ORSANMICHELE", ox + 190, oy - 400, face="title_m", size=34, color=TH.fg, align="c", track=8, alpha=ko, emboss=False)
-    # sokak etiketleri
+        bxo, byo = ox + 250.0, oy - 152.0
+        _orsanmichele(f, bxo, byo + (1.0 - ease_out(ko, 2)) * 26, s=0.74 * (0.92 + 0.08 * ko), alpha=ko)
+        lab = "ORSANMİCHELE"
+        lw = sk.text_width(lab, "title_m", 36, 8) + 52
+        lx0, ly0 = bxo + 0.74 * 115 + 24, byo - 0.74 * 300 * 0.62
+        CM.tablet(f, lx0, ly0 - 30, lw, 62, alpha=ko, corner=10)
+        CM.ink(f, lab, lx0 + lw / 2, ly0 + 13, face="title_m", size=36, color="#2A1A0C", align="c", track=8, alpha=ko, emboss=False)
+    # sokak etiketi (yalnız Via Porta Rossa — teyit §3.5); ikinci sokak adsız
     k1 = cx.amt(street1_at, 0.6) if street1_at is not None else 0.0
     k2 = cx.amt(street2_at, 0.6) if street2_at is not None else 0.0
-    for (kk, txt, ang, px, py) in ((k1, "VIA PORTA ROSSA", -12, 520, 560), (k2, "VIA CALIMALA", 78, 1210, 600)):
+    for (kk, txt, ang, px, py) in ((k1, "VİA PORTA ROSSA", _KOSE_ROT, *_kose_xy(ox, oy, -470, 92)), (k2, "VİA CALİMALA", 78, *_kose_xy(ox, oy, 90, 380))):
         if kk > 0.003:
             c.save(); c.translate(px, py); c.rotate(ang)
             CM.ink(f, txt, 0, 0, face="title_m", size=40, color="#5A1A12", align="c", track=10, alpha=kk, emboss=False)
             c.restore()
-    # iğne: kesişim
-    kp = cx.amt(pin_at, 0.5) if pin_at is not None else 0.0
+    # iğne: kesişim (kese oraya vardığında iner)
     if kp > 0.003:
         drop = (1 - ease_out(kp, 3)) * 160
         f.circle(ox + 14, oy + 16, 22 * kp, color="#000000", alpha=0.3 * kp, blur=6)
@@ -851,6 +959,10 @@ def k_kose(cx, orsa_at=None, street1_at=None, street2_at=None, pin_at=None, seed
         if kp >= 1.0:
             ph = (cx.t * 0.8) % 1.0
             f.circle(ox, oy, 40 + 120 * ph, style="stroke", sw=4, color="#A8201A", alpha=0.6 * (1 - ph))
+    # planın üstünden geçen yumuşak ışık süpürmesi (soldan sağa; çekim boyunca)
+    dur_ = max(cx.dur, 1e-3)
+    gx = -500.0 + (W + 1000.0) * clamp(cx.t / dur_)
+    f.rect(gx - 420, 0, 840, H, shader=f.lin(gx - 420, 0, gx + 420, 0, [("#FFF2C8", 0.0, 0), ("#FFF2C8", 0.5, 46), ("#FFF2C8", 1.0, 0)]))
     cam.end(f)
     CM.finish(f, cx, motes_n=18)
 
@@ -1112,3 +1224,78 @@ def kura(x, y, show_at, draw_at, name="SALVESTRO", out=None, rise=300.0):
 
 import p1_ortak as _P  # noqa: E402
 _P.add_ovl(['c1_yazi', 'c1_sokak', 'c1_okul', 'c1_kardes', 'c1_darphane', 'c1_cicek', 'c1_agi', 'c1_edward', 'c1_toprak', 'c1_lonca', 'c1_machiavelli', 'c1_kademe', 'c1_kose'])
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# kurul tur 2 (SCN-1): oda kamerasına BAĞLI kaplama · gerçek harfli dilekçe tomarı
+# ─────────────────────────────────────────────────────────────────────────────
+def _oda_cam_now(cx, cams):
+    """p1_oda çekiminin o karedeki kamerası (camx, camy, zoom) — cilt_oda.k_oda ile aynı hesap (cams verildiğinde)."""
+    import cilt_pano as PN
+    dur = max(cx.dur, 1e-3)
+    return PN.PanoCam(cx, cams, None, dur).at(clamp(cx.t, 0.0, dur))
+
+
+def _oda_cy(z):
+    """Oda bandının ekran merkezi y (frame='auto'; zum 1,55→2,4 arası bant tam ekrana açılır: cilt_oda._band_for)."""
+    k = smooth(clamp((z - 1.55) / 0.85))
+    return 550.0 - 10.0 * k
+
+
+def oda_bagli(cams, ref, *fns):
+    """Ekran uzayında `ref` kamera (camx, camy, zoom) kadrajına göre tasarlanmış kaplamaları (soru işareti, konuşma tomarı …) ODA DÜNYASINA bağlar:
+    her karede ref → o anki kamera doğrusal dönüşümü uygulanır; kamera yaklaşır/çekilirken kaplama figürün yanında kalır (kurul tur 2 AN2-Ö1 #46:
+    yakın plandan geri çekilen çekimde tomar isyancının ağzından kopmasın)."""
+    fns = [g for g in fns if g]
+
+    def fn(cx):
+        camx, camy, z = _oda_cam_now(cx, cams)
+        rx, ry, rz = ref
+        A = z / rz
+        cyc, cyr = _oda_cy(z), _oda_cy(rz)
+        bx = 960.0 + (rx - camx) * z - 960.0 * A
+        by = cyc + (ry - camy) * z - cyr * A
+        c = cx.f.c
+        c.save()
+        c.translate(bx, by)
+        c.scale(A, A)
+        try:
+            for g in fns:
+                g(cx)
+        finally:
+            c.restore()
+    return fn
+
+
+def dilekce_tomar(x, y, at, to, text, text_at, w=560, dirn=1, size=40, out=None):
+    """Okunan dilekçe: (x,y)'den yana açılan parşömen şerit (c2 konuşma tomarıyla aynı dil) + GERÇEK HARFLERLE talep satırı (kurul tur 2 AN2-K3:
+    "anahtar talep sözcükleri gerçek harflerle, dalgalı çizgi değil"). Satır `text_at`ta soldan sağa yazılır (IM Fell italik, mürekkep)."""
+    def fn(cx):
+        f = cx.f
+        c = f.c
+        k = cx.amt(at, 0.3)
+        if out is not None:
+            k *= 1.0 - cx.amt(out, 0.4)
+        if k <= 0.003:
+            return
+        ta, tb = cx.at(at), cx.at(to)
+        p = ease_io(clamp((cx.t - ta) / max(0.4, tb - ta)), 1.4)
+        ww = 40 + (w - 40) * p
+        hh = size * 2.2
+        x0 = x if dirn > 0 else x - ww
+        f.rrect(x0 + 6, y - hh / 2 + 10, ww, hh, 10, color="#000000", alpha=0.25 * k, blur=8)
+        f.rrect(x0, y - hh / 2, ww, hh, 10, shader=f.lin(0, y - hh / 2, 0, y + hh / 2, [("#F6EDCF", 0.0), ("#E2D2A2", 1.0)]), alpha=k)
+        f.rrect(x0, y - hh / 2, ww, hh, 10, style="stroke", sw=2.5, color="#5A3E22", alpha=0.85 * k)
+        kt = clamp((cx.t - cx.at(text_at)) / 0.9)
+        if kt > 0.003:
+            tw = sk.text_width(text, "fell_i", size)
+            sz = size if tw < ww - 56 else max(24.0, size * (ww - 56) / max(1.0, tw))
+            tw = sk.text_width(text, "fell_i", sz)
+            tx0 = x0 + (ww - tw) / 2
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(tx0 - 4, y - hh / 2, tx0 + tw * ease_io(kt, 1.3) + 6, y + hh / 2))
+            CM.ink(f, text, tx0 + tw / 2, y + sz * 0.32, face="fell_i", size=sz, color="#2E1C0E", align="c", alpha=k, emboss=False, scrim=False)
+            c.restore()
+        for xe in (x0, x0 + ww):
+            f.rrect(xe - 10, y - hh / 2 - 8, 20, hh + 16, 8, shader=f.lin(xe - 10, 0, xe + 10, 0, [("#B89A62", 0.0), ("#E8D4A0", 0.5), ("#9A7A44", 1.0)]), alpha=k)
+    return fn

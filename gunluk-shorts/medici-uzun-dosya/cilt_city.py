@@ -544,22 +544,39 @@ _AUTO = object()
 
 
 def era_key(y=_AUTO):
-    """Dönem anahtarı (önbellek + çizim): (DuomoStage, çan kulesi oranı, Palazzo Vecchio oranı, San Lorenzo kubbesi) ya da None (yıl yok → eski çizim)."""
+    """Dönem anahtarı (önbellek + çizim): (DuomoStage, çan kulesi oranı, Palazzo Vecchio oranı, San Lorenzo kubbesi, Loggia dei Lanzi aşaması)
+    ya da None (yıl yok → eski çizim). Kurul tur 2: 5. öğe Loggia (donem.loggia_stage) — dünya örneği yıla göre ayrışsın; Duomo'lu katmanların
+    önbellek adı (era_tag) yalnız ilk dört öğeye bakar (Loggia o katmanlarda çizilmez → gereksiz yeniden pişirme yok)."""
     y = DN.year() if y is _AUTO else y
     if y is None:
         return None
-    return (DN.duomo_stage(y), DN.campanile_stage(y), DN.pv_stage(y), DN.sanlorenzo_dome(y))
+    return (DN.duomo_stage(y), DN.campanile_stage(y), DN.pv_stage(y), DN.sanlorenzo_dome(y), DN.loggia_stage(y))
 
 
 ERA_VER = "1"           # dönem çiziminin sürümü (draw_dome/_campanile/_pv aşamalı çizim kodu değişince artır: önbellek adına girer)
 
 
 def era_tag(era):
-    """Önbellek dosya adı eki: '' (eski) ya da '_e<sürüm>…'."""
+    """Önbellek dosya adı eki: '' (eski) ya da '_e<sürüm>…' (Duomo grubu: ilk dört öğe)."""
     if era is None:
         return ""
-    d, cp, pv, sl = era
+    d, cp, pv, sl = era[:4]
     return f"_e{ERA_VER}{d.tag()}c{int(round(cp * 1000))}p{int(round(pv * 1000))}{'s' if sl else 'n'}"
+
+
+def loggia_of(era):
+    """Dönem anahtarından Loggia dei Lanzi aşaması: None (yıl yok / eski anahtar → tam yapı çizilir) | 0 yok | 0<x<1 inşaat | 1 tam."""
+    if era is None or len(era) < 5:
+        return None
+    return era[4]
+
+
+def loggia_tag(era):
+    """Loggia'yı pişiren katmanın önbellek eki: tam yapı (≥1382) ve yılsız çizimde '' (eski dosya adları değişmez); aksi hâlde '_L<aşama>'."""
+    lg = loggia_of(era)
+    if lg is None or lg >= 0.999:
+        return ""
+    return f"_L{int(round(lg * 100)):d}"
 
 
 def note_era(where, era, **extra):
@@ -569,7 +586,7 @@ def note_era(where, era, **extra):
     if era is None:
         DN.note_once_per_frame("duomo", where=where, era=None, **extra)
         return
-    d, cp, pv, sl = era
+    d, cp, pv, sl = era[:4]
     DN.note_once_per_frame("duomo", where=where, nave=d.nave, tribune=d.tribune, drum=d.drum, dome=d.dome, lantern=d.lantern, ball=d.ball, **extra)
     DN.note_once_per_frame("campanile", where=where, h=cp, **extra)
     DN.note_once_per_frame("pv", where=where, h=pv, **extra)

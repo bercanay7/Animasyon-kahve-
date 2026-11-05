@@ -35,12 +35,13 @@ SHOTS = [
     # ── 1. 1743 odası: yatak (silüet, nefes), isim levhası ──────────────────
     shot("p1_oda", ("c0s2", -0.15), room="oda1743", figure="lying", **ODA_DUSK,
          cams=[(("c0s2", -0.15), (1000, 30, 1.12)), (("c0s2", "Luisa", 0.0), (960, 34, 1.22)), (("c0s3", -0.1), (900, 40, 1.30))],
-         ovl=P.plate("ANNA MARIA LUISA", 1400, 760, ("c0s2", "Anna", -0.1), w=640),
+         ovl=P.plate("ANNA MARİA LUİSA", 1400, 760, ("c0s2", "Anna", -0.1), w=640),
          cam=("push",), tr=("light", 0.6, dict(at=(900, 700))), link="light", label="1743 odası: yatak (siluet)"),
-    # ── 2. "Toskana'yı yönetmiş Medici hattının son üyesi o." — arma parlar; levha: MEDİCİ'NİN SON ÜYESİ (kesme 9,2 sn) ──
+    # ── 2. "Toskana'yı yönetmiş Medici hattının son üyesi o." — arma parlar; levha: MEDİCİ HANEDANININ SON ÜYESİ (kurul tur 2 KA2-D3: anlatımın
+    #       "Toskana'yı yönetmiş … hattının" nitelemesi düşmesin; iki satır: armaya taşmaz) (kesme 9,2 sn) ──
     shot("p1_palle", ("c0s3", -0.1), size=560, pos=(640, 520), mode="night", perde=1,
-         ovl=P.ov(P.plate("ANNA MARIA LUISA", 1340, 330, ("c0s3", "Toskana'yı", -0.2), w=720),
-                  P.tag("MEDİCİ'NİN SON ÜYESİ", 1340, 520, ("c0s3", "son", -0.35), size=52),
+         ovl=P.ov(P.plate("ANNA MARİA LUİSA", 1340, 330, ("c0s3", "Toskana'yı", -0.2), w=720),
+                  K.tag_lines(["MEDİCİ HANEDANININ", "SON ÜYESİ"], 1340, 560, ("c0s3", "son", -0.35), size=52, x_min=990),
                   P.glint(640, 470, ("c0s3", "son", -0.1), r=300, dur=1.4)),
          cam=("push", dict(ease="out")), tr="cut", link="audio", label="arma: Medici'nin son üyesi"),
     # ── 3. Boş taht, yabancı birlik siluetleri girer ───────────────────────
@@ -70,15 +71,21 @@ SHOTS = [
                (("c0s8", -0.1), (0, 0, 1.0)), (("c0s8", "on", 0.0), (-420, 20, 1.8)), (("c0s8", "ve", 0.0), (-150, -40, 1.25)), (("c0s8", "Fransızca", 0.2), (80, -90, 1.2)),
                (("c0s9", -0.15), (40, -110, 1.28))],
          seals=(("c0s7", "Anna", 0.0), ("c0s7", "Lorraine", 0.3)),
-         names_at=("ANNA MARIA LUISA", "LORRAINE TARAFI", ("c0s7", "Luisa", 0.15), ("c0s7", "tarafı", -0.3)),
+         names_at=("ANNA MARİA LUİSA", "LORRAINE TARAFI", ("c0s7", "Luisa", 0.15), ("c0s7", "tarafı", -0.3)),
          pen_at=("c0s7", "Bir", 0.0),
          num_at=("c0s8", "on", 0.0), num_dur=1.2, fr_at=("c0s8", "Fransızca", 0.0),
-         ovl=P.count_up(235, 440, ("c0s8", "on", -0.35), 13, dur=0.9, unit="MADDE", size=180, bg=True, min_w=300, unit_size=40, out=("c0s9", -0.1)),
+         # "13 MADDE" (kurul tur 2 C1): kâğıdın DIŞINDA, masa üstünde, belge düzlemine bağlı (doc x −760); kamera sağa kayınca kâğıtla birlikte
+         # kadrajdan çıkar, "Fransızca"da söner → Romen rakamlarının (I–XIII) üstüne asla binmez (eski: ekran x 235'te sabit, 42–43,9 sn çakışma)
+         ovl=K.belge_sayac([(("c0s7", -0.1), (0, 0, 0.97)), (("c0s7", "Luisa", 0.0), (-300, 150, 1.5)), (("c0s7", "Lorraine", 0.2), (300, 150, 1.5)),
+                            (("c0s8", -0.1), (0, 0, 1.0)), (("c0s8", "on", 0.0), (-420, 20, 1.8)), (("c0s8", "ve", 0.0), (-150, -40, 1.25)), (("c0s8", "Fransızca", 0.2), (80, -90, 1.2)),
+                            (("c0s9", -0.15), (40, -110, 1.28))], (-760, -25),
+                           ("c0s8", "on", -0.35), 13, dur=0.7, unit="MADDE", size=180, bg=True, min_w=300, unit_size=40, out=("c0s8", "Fransızca", -0.15)),
          tr=("zoomthru", 0.9, dict(at=(960, 520), at_b=(960, 520))), link="scale", cam="hand", label="belge: iki mühür, 13 madde, FRANSIZCA"),
-    # ── 7b. ITALIANO yazılır, çizilir (aynı belge, yakın — sert kesme) ──────
+    # ── 7b. ITALIANO yazılır, çizilir — KESME İLE YAKIN PLAN (kurul tur 2 AN2-Ö1 #8: eski ×1,21 sıçrama → ×1,64 ve konu ITALIANO'nun yazılacağı satır;
+    #        Romen rakamları kadraj dışında); yakında yavaş itme (≈%1,5/sn), çizgi çekilince hızlı geri çekiliş + carry ──
     shot("c0_belge", ("c0s9", -0.1), mode="night", perde=1,
-         cams=[(("c0s9", -0.1), (0, -150, 1.55)), (("c0s9", "bile", 0.0), (0, -120, 1.75)), (("c0s10", -0.4), (0, 0, 1.0))],
-         seals=(("c0s7", 0.0), ("c0s7", 0.0)), names_at=("ANNA MARIA LUISA", "LORRAINE TARAFI", ("c0s7", 0.0), ("c0s7", 0.0)),
+         cams=[(("c0s9", -0.1), (0, -170, 2.1)), (("c0s9", "diliyle", 0.0), (0, -172, 2.18)), (("c0s9", "yazılmamıştı", 0.45), (0, -176, 2.24)), (("c0s10", -0.4), (0, 0, 1.0))],
+         seals=(("c0s7", 0.0), ("c0s7", 0.0)), names_at=("ANNA MARİA LUİSA", "LORRAINE TARAFI", ("c0s7", 0.0), ("c0s7", 0.0)),
          num_at=("c0s8", "on", 0.0), num_dur=0.01, fr_at=("c0s8", 0.0),
          it_at=("c0s9", "diliyle", 0.0), it_strike_at=("c0s9", "yazılmamıştı", -0.2),
          tr="cut", link="cam", cam="hand", label="ITALIANO yazılır, çizilir"),
@@ -112,12 +119,14 @@ SHOTS = [
          cam=("truck", "r"), tr=("slide", 0.6, dict(dir="u")), link="dir", label="harita: Büyük Dukalık, zincir + kilit, 3. madde özeti"),
     # ── 12. Gerekçe: üç madalyon (oturarak gelir, simge sallanır, parıltı) ───
     shot("c0_gerekce", ("c0s13", "devletin", -0.5), mode="day", perde=1,
-         draw_at=("c0s13", "devletin", -0.5), stamp=("c0s13", "aktarılır", -0.1),
+         draw_at=("c0s13", "aktarılır", -0.3), stamp=("c0s13", "aktarılır", -0.1),
          items=[dict(icon="crown", label="DEVLETİN SÜSÜ", at=("c0s13", "devletin", -0.1)), dict(icon="scales", label="HALKIN YARARI", at=("c0s13", "halkın", -0.1)),
                 dict(icon="globe", label="YABANCILARIN MERAKI", at=("c0s13", "yabancıların", -0.1))],
-         cam=("truck", "r", 160), tr=("light", 0.7, dict(at=(960, 520))), link="light", label="gerekçe: süs, yarar, merak"),
-    # ── 13. Bugünün kuyruğu: "Yabancıların merakı." (sert kesme, ses köprüsü) ──
-    shot("c0_kuyruk", ("c0s14", 0), mode="day", perde=1, cam=("pan", "r"),
+         # kurul tur 2 (AN1-Y8/SA1-Y7): ışık patlaması c0+c1'de yalnız iki ifşa anında → burada malzeme geçişi: sözleşmenin sayfası çevrilir (gerekçe
+         # maddesi); lead + erken draw_at: sayfa açılırken başlık ve halkalar zaten çiziliyor (boş parşömenle açılış yok, AN1-Y6)
+         cam=("truck", "r", 160), tr=("sayfa", 0.7, dict(lead=True)), link="material", label="gerekçe: süs, yarar, merak"),
+    # ── 13. Bugünün kuyruğu: "Yabancıların merakı." (sert kesme, ses köprüsü) — BUGÜN: HUD gizli (kurul tur 2 AN2-K5/SA2-Y3/KA2-D2) ──
+    shot("c0_kuyruk", ("c0s14", 0), mode="day", perde=1, cam=("pan", "r"), hud=False,
          sign_at=("c0s15", "Uffizi", 0.0), kick_at=("c0s15", "Bugün", -0.1), coin_at=("c0s15", "müşterisi", 0.0),
          tr="cut", link="audio", label="Uffizi kuyruğu (bugün)"),
     # ── 14. "Peki bir bankacı ailesi … nasıl geldi?" — mirasın bağlandığı şehir (alacakaranlık), soru işareti (bilinçli ters yön) ──

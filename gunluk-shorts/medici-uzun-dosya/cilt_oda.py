@@ -777,21 +777,28 @@ def sil_actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, colo
     flat = flat_cf(color)
     warm = flat_cf(rim) if rim else None
     c = f.c
+    if alpha <= 0.002:
+        return
     rim_w = rim_w * 1.4 / max(1.0, FA.SCALE_HINT ** 0.6)
-    for off, cf in ((rim_w, warm), (0.0, flat)):
-        if cf is None:
-            continue
-        c.save()
-        c.translate(off * rim_dir * 0.9, -off * 0.5)
-        _SILCF[0] = cf
-        try:
-            if walker is not None:
-                FA.walker(f, kind, x, y, h, t, speed=walker, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
-            else:
-                FA.actor(f, kind, x, y, h, t, action=action, dir=dir, seed=seed, phase=phase, alpha=alpha, cf=cf, prop=prop, **p)
-        finally:
-            _SILCF[0] = None
-        c.restore()
+    # kenar ışığı + düz siluet TEK katmanda solar (kurul tur 2 SA2-Y1): yarı saydamken kenar ışığı kopyası siluetin içinden görünmez
+    a_in, opened = FA.fade_begin(c, alpha, FA.fig_rect(1.0, x, y, h + 2.0 * rim_w))
+    try:
+        for off, cf in ((rim_w, warm), (0.0, flat)):
+            if cf is None:
+                continue
+            c.save()
+            c.translate(off * rim_dir * 0.9, -off * 0.5)
+            _SILCF[0] = cf
+            try:
+                if walker is not None:
+                    FA.walker(f, kind, x, y, h, t, speed=walker, dir=dir, seed=seed, phase=phase, alpha=a_in, cf=cf, prop=prop, **p)
+                else:
+                    FA.actor(f, kind, x, y, h, t, action=action, dir=dir, seed=seed, phase=phase, alpha=a_in, cf=cf, prop=prop, **p)
+            finally:
+                _SILCF[0] = None
+            c.restore()
+    finally:
+        FA.fade_end(c, opened)
 
 
 def act_sit_talk(kit, T, phase=0.0, t0=0.0, energy=1.0, **_):
@@ -852,6 +859,7 @@ def seated_act(name):
 def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=None, rim="#E8A860", rim_dir=1, t0=0.0, alpha=1.0, energy=1.0, desk_top=False, **stil):
     """Masa başında oturan figür (masa/sandalye odanın kendi çizimidir; FA masası ÇİZİLMEZ). action: write | count | idle(oturan) …
     sil=renk → siluet. Dönüş: act_write ek bilgisi (satır, ilerleme) — belge yazılışını elle eşlemek için."""
+    _h, phase, stil = FA.clone_vary(f, kind, seed, x, y, h, phase, stil, seated=True)   # yan yana aynı kâtipler: başlık/ton/evre (boy masaya bağlı, değişmez)
     kit, bh = FA.kit_for(kind, seed, h, **stil)
     fn = seated_act(action)
     pz = fn(kit, t, phase=phase, t0=t0, **({'energy': energy} if action == 'talk' else {}))
@@ -860,37 +868,40 @@ def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=No
     c = f.c
     rw = 2.1 / max(1.0, FA.SCALE_HINT ** 0.6)
     passes = [(0.0, None)] if not sil else [(rw, flat_cf(rim)), (0.0, flat_cf(sil))]
-    for off, cf in passes:
+    # bütün geçişler (kenar ışığı + siluet) ve masa üstü TEK katmanda solar (kurul tur 2 SA2-Y1)
+    a_in, opened = FA.fade_begin(c, alpha, FA.fig_rect(1.0, x, y, h + 2.0 * rw)) if alpha > 0.002 else (alpha, False)
+    for off, cf in (passes if alpha > 0.002 else []):
         c.save()
         c.translate(off * rim_dir * 0.9, -off * 0.5)
         c.save()
         FA.place_fig(c, x, y, h, bh, dir)
         _SILCF[0] = cf
         try:
-            FA.draw_fig(c, kit, pz, alpha, cf)
+            FA.draw_fig(c, kit, pz, a_in, cf)
         finally:
             _SILCF[0] = None
         if desk_top and cf is None and getattr(pz, "extra", None):
-            FA.draw_desk_top(c, kit, pz, t, alpha)
+            FA.draw_desk_top(c, kit, pz, t, a_in)
         c.restore()
         c.restore()
+    FA.fade_end(c, opened)
     ex["s"] = h / bh
     ex["hb"] = kit.B["hb"]
     return ex
 
 
-def lying_sil(f, x, y, t, scale=1.0, color="#1A1008", rim="#E8A860", rim_dir=1, breath=1.0):
+def lying_sil(f, x, y, t, scale=1.0, color="#1A1008", rim="#E8A860", rim_dir=1, breath=1.0, cover=None):
     """Yatakta yatan kadın SİLÜETİ (yandan; baş solda yastıkta, örtü altında omuz/kalça/diz/ayak kabarıklıkları; yüz/ayrıntı yok): yavaş nefes.
-    (x,y) = yastığın alt-sol köşesi (mindere değdiği çizgi)."""
+    (x,y) = yastığın alt-sol köşesi (mindere değdiği çizgi).
+    cover=(örtü rengi, desen rengi) verilirse (yalnız oda1743; kurul tur 2 SA1-Ö4): gövde YORGANIN ALTINDA — kabarıklık örtünün kumaşı ve baklava
+    deseniyle dolar, üstte kenar ışığı, kıvrım gölgeleri, göğüste dönük çarşaf kenarı, minderle temas gölgesi; yalnız baş ve saç topuzu siluet
+    kalır (yüz yok). cover=None: eski düz siluet (öteki kullanımlar değişmez)."""
     c = f.c
     b = 1.0 + 0.045 * math.sin(t * 1.15) * breath
     s = scale
     pts = [(40, 8), (46, -22), (64, -52), (96, -62), (136, -58), (176, -46), (214, -50), (252, -48), (292, -40), (330, -44), (366, -34), (398, -24), (410, -6), (410, 8)]
 
-    def mound(dx, dy, col):
-        q = [(x + (px * s) + dx, y + (py * s * (b if py < -4 else 1.0)) + dy) for px, py in pts]
-        p = sk.smooth_path(q, True, 0.42)
-        c.drawPath(p, PT(col))
+    def head(dx, dy, col):
         hd = skia.Path()
         hd.addOval(skia.Rect.MakeLTRB(x + 4 * s + dx, y - 64 * s + dy, x + 62 * s + dx, y - 12 * s + dy))
         c.drawPath(hd, PT(col))
@@ -900,9 +911,59 @@ def lying_sil(f, x, y, t, scale=1.0, color="#1A1008", rim="#E8A860", rim_dir=1, 
         bn.quadTo(x + 64 * s + dx, y - 58 * s + dy, x + 54 * s + dx, y - 36 * s + dy)
         bn.close()
         c.drawPath(bn, PT(col))
+
+    def mound(dx, dy, col):
+        q = [(x + (px * s) + dx, y + (py * s * (b if py < -4 else 1.0)) + dy) for px, py in pts]
+        p = sk.smooth_path(q, True, 0.42)
+        c.drawPath(p, PT(col))
+        head(dx, dy, col)
+
+    if cover is None:
+        if rim:
+            mound(1.6 * rim_dir, -1.8, rim)
+        mound(0, 0, color)
+        return
+    c1, c2 = cover
+    q = [(x + px * s, y + py * s * (b if py < -4 else 1.0)) for px, py in pts]
+    body = sk.smooth_path(q, True, 0.42)
+    # minderle temas gölgesi (kabarıklığın altı ve ayak ucu)
+    sh = skia.Paint(AntiAlias=True, Color=sk.C("#000000", 95))
+    sh.setMaskFilter(skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 7.0 * s))
+    c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(x + 44 * s, y - 2 * s, x + 420 * s, y + 13 * s), 8 * s, 8 * s), sh)
+    # baş (siluet; kenar ışığı) — gövdenin ARKASINDA kalır (örtü omuzu örter)
     if rim:
-        mound(1.6 * rim_dir, -1.8, rim)
-    mound(0, 0, color)
+        head(1.6 * rim_dir, -1.8, rim)
+    head(0, 0, color)
+    # örtünün altındaki gövde: kumaş rengi, üstten ışık → alta koyulaşan degrade
+    gp = skia.Paint(AntiAlias=True)
+    gp.setShader(skia.GradientShader.MakeLinear([(0, y - 64 * s), (0, y + 8 * s)], [sk.C(mix(c1, "#FFFFFF", 0.16)), sk.C(c1), sk.C(mix(c1, "#000000", 0.38))], [0.0, 0.45, 1.0]))
+    c.drawPath(body, gp)
+    c.save()
+    c.clipPath(body, skia.ClipOp.kIntersect, True)
+    for xx in range(int(x + 70 * s), int(x + 410 * s), int(46 * s)):                               # örtünün baklava deseni (yatak örtüsüyle aynı)
+        for yy in (y - 34 * s, y - 2 * s):
+            dpp = sk.poly_path([(xx, yy - 11 * s), (xx + 13 * s, yy), (xx, yy + 11 * s), (xx - 13 * s, yy)])
+            c.drawPath(dpp, PT(c2, 80))
+    fold = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.4 * s, Color=sk.C(mix(c1, "#000000", 0.45), 150), StrokeCap=skia.Paint.kRound_Cap)
+    for (xa_, xb_, xc_) in ((150, 196, 236), (262, 300, 344), (340, 372, 400)):                     # kıvrım gölgeleri (kalça, diz, ayak)
+        fp = skia.Path()
+        fp.moveTo(x + xa_ * s, y - 44 * s)
+        fp.quadTo(x + xb_ * s, y - 18 * s, x + xc_ * s, y + 4 * s)
+        c.drawPath(fp, fold)
+    c.restore()
+    # göğüste dönük çarşaf kenarı (keten)
+    sp_ = sk.smooth_path([(x + 60 * s, y - 50 * s), (x + 82 * s, y - 60 * s), (x + 100 * s, y - 58 * s), (x + 104 * s, y - 20 * s), (x + 100 * s, y + 8 * s), (x + 74 * s, y + 8 * s), (x + 66 * s, y - 20 * s)], True, 0.35)
+    c.drawPath(sp_, PT(mix("#EDE4CC", "#000000", 0.08)))
+    c.drawPath(sp_, STK(INK, 1.1, 140))
+    # üst kenar ışığı (mum/pencere) + mürekkep dış hat
+    if rim:
+        rp = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.2 * s, Color=sk.C(rim, 150), StrokeCap=skia.Paint.kRound_Cap)
+        top = skia.Path()
+        top.moveTo(*q[2])
+        for (px_, py_) in q[3:12]:
+            top.lineTo(px_, py_)
+        c.drawPath(top, rp)
+    c.drawPath(body, STK(INK, 1.3, 170))
 
 
 # ═════════════════════════════ sahne motoru ═════════════════════════════
@@ -1888,6 +1949,65 @@ def _vis(xc, half, xa, xb):
     return xc + half >= xa and xc - half <= xb
 
 
+def _drape_aa_1743(c, x, y_top, w, h, t, col="#8E2A30", col2="#D2A33E", amp=0.045, seed=0, ph=0.0, tie=None, side="l"):
+    """1743 odasının bağlı yatak perdesi — draw_drape ile aynı kumaş ve hareket, KENAR YUMUŞATMASI DÜZELTİLMİŞ (kurul tur 2 SA1-Ö4: sağ çapraz kenar
+    basamaklıydı, x≈660–750 y≈380–840). Neden: draw_drape'in kırpma yolu şeritlerin dış kutusundan (sprite'ın 8 px saydam payı DAHİL) geçiyordu;
+    görünen kumaş kenarı ise her şeridin kendi (yumuşatmasız) dikdörtgen kenarıydı → basamak. Burada yol, her şeritte KUMAŞIN gerçek kenarından
+    (pay × şerit ölçeği içeride) geçer; AA kırpma kenarı keser. Yalnız oda1743 kullanır (ortak draw_drape değişmedi; SCN-2'ye not)."""
+    key = (int(w), int(h), col, col2, seed)
+    cs = _STRIPS.get(key)
+    if cs is None:
+        spr = _drape_spr(int(w), int(h), col, col2, seed)
+        cs = _STRIPS[key] = FA.Strips(spr, 0, h + 8, step=max(3.0, h / 64.0))
+    u = np.clip(cs.ycen / max(1.0, h), 0.0, 1.0)
+    a = w * amp
+    hold = 1.0 if tie is None else (1.0 - 0.85 * np.exp(-((u - tie) / 0.16) ** 2))
+    dx = (a * (u ** 1.3) * np.sin(t * 1.1 - u * 2.6 + ph) + 0.4 * a * (u ** 1.1) * np.sin(t * 2.3 - u * 4.0 + ph * 1.7)) * hold
+    dy = np.zeros_like(u)
+    exl = -w * 0.02 * u * np.sin(t * 1.3 + ph + u * 2.0) * hold
+    exr = w * 0.02 * u * np.sin(t * 1.5 + ph + 1.0 + u * 2.0) * hold
+    if tie is not None:
+        pl, pr = _drape_profile(u, tie, side, w)
+        exl = exl + pl
+        exr = exr + pr
+    X0 = x + cs.ox
+    Y0 = y_top + cs.oy
+    ys = cs.ycen
+    padx = float(cs.ox)
+    Ld = -cs.ox + dx + exl - 1.5                       # şeridin hedef kutusu (cs.draw ile aynı)
+    Rd = -cs.ox + cs.w + dx + exr + 1.5
+    sc = (Rd - Ld) / float(cs.w)
+    lx = Ld + padx * sc + 0.6                          # kumaşın gerçek kenarları (saydam payın içi)
+    rx = Rd - padx * sc - 0.6
+    pts_l = [(float(lx[0]), float(cs.r0[0] - cs.oy))] + [(float(lx[i]), float(ys[i])) for i in range(cs.n)] + [(float(lx[-1]), float(cs.r1[-1] - cs.oy + 0.6))]
+    pts_r = [(float(rx[-1]), float(cs.r1[-1] - cs.oy + 0.6))] + [(float(rx[i]), float(ys[i])) for i in range(cs.n - 1, -1, -1)] + [(float(rx[0]), float(cs.r0[0] - cs.oy))]
+    outline = sk.smooth_path(pts_l + pts_r, True, 0.35)
+    c.save()
+    c.translate(X0, Y0)
+    c.clipPath(outline, skia.ClipOp.kIntersect, True)
+    cs.draw(c, dx, dy, exl - 1.5, exr + 1.5, 1.0)
+    c.restore()
+    c.save()
+    c.translate(X0, Y0)
+    c.drawPath(outline, STK("#1A0A08", 1.1, 120, False))         # ince, yumuşatılmış kumaş kenarı
+    c.restore()
+    if tie is not None:
+        k = int(np.argmin(np.abs(u - tie)))
+        ty = Y0 + float(ys[k])
+        xa, xb = X0 + float(lx[k]) - 3, X0 + float(rx[k]) + 3
+        c.save()
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 6, xb, ty + 6), 5, 5), PT("#000000", 60))
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 7, xb, ty + 5), 5, 5), PT(col2))
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeLTRB(xa, ty - 7, xb, ty + 5), 5, 5), STK(INK, 1.1, 170))
+        c.drawLine(xa + 3, ty - 4, xb - 3, ty - 4, STK("#FFF2C0", 1.2, 140, False))
+        kx = xb - 4 if side == "l" else xa + 4
+        sw = 2.5 * math.sin(t * 1.4 + ph)
+        c.drawLine(kx, ty + 4, kx + sw, ty + 26, STK(col2, 2.2, 230))
+        c.drawPath(sk.poly_path([(kx + sw - 6, ty + 24), (kx + sw + 6, ty + 24), (kx + sw + 4, ty + 46), (kx + sw - 4, ty + 46)]), PT(col2))
+        c.drawPath(sk.poly_path([(kx + sw - 6, ty + 24), (kx + sw + 6, ty + 24), (kx + sw + 4, ty + 46), (kx + sw - 4, ty + 46)]), STK(INK, 0.9, 150))
+        c.restore()
+
+
 class Oda1743(Room):
     """Mumlu masa (belge · tüy kalem · mühür), pencere (gün ışığı huzmesi / ay), yatak (yan görünüm, başlık + tester), goblen, Medici arması, sandık.
     Parametreler: figure = "seated" (masada oturan kadın SİLÜETİ, belge yazar: 31 Ekim 1737 imza masası) | "lying" (yatakta yatan silüet: 18 Şubat 1743) | "both" | None;
@@ -2268,6 +2388,10 @@ SALON_PAL = {
     "pitti": dict(wall=("#E6DFCB", "#F0EAD8"), dado="#B8A070", tap=("#4468C0", "#D2A33E"), floor=("#DCD0AE", "#B8A27A"), cloth=("#4468C0", "#E8C25A"), deco="mirror", seat="#4468C0"),
     "taht": dict(wall=("#9A7A5C", "#B89A74"), dado="#5A3A28", tap=("#8E2A30", "#B88A32"), floor=("#C9B58A", "#7A3A2A"), cloth=("#8E2A30", "#D2A33E"), deco="palle", seat="#7A2E2A"),
 }
+# Kurul tur 2 (SCN-2, set çeşitlemesi): varyanta özel çizim kancaları. (varyant, "wall"|"main") → fn(oda, fr, xa, xb) — verilirse Salon'un o katmanını
+# TAMAMEN çizer (duvar: sıva/pencere/süs; ana: zemin/masa arkası). Palet SALON_PAL'a, ayrıca isteğe bağlı "light" (pencere ışığı rengi) eklenir.
+# Kancaları p1_ortak kaydeder (brugge · roma · katip · catasto); "napoli"/"medici"/"signoria"/"pitti"/"taht" eskisi gibi.
+SALON_HOOKS = {}
 
 
 def draw_throne(c, T, x, yb, s=1.0):
@@ -2371,6 +2495,9 @@ class Salon(Room):
     # ── statik ───────────────────────────────────────────────────────────
     def _draw_wall(self, fr, xa, xb):
         c, T, P = fr.c, self.T, self.pal
+        hook = SALON_HOOKS.get((self.variant, "wall"))
+        if hook is not None:                                    # SCN-2 set varyantı (brugge/roma/katip/catasto): duvar tümden kancada
+            return hook(self, fr, xa, xb)
         night = self.tod == "night"
         wx = self.wx
         plaster(c, xa, xb, OV - 40, Y_FL + 30, T, P["wall"][0], P["wall"][1], amp=0.05)
@@ -2403,6 +2530,9 @@ class Salon(Room):
 
     def _draw_main(self, fr, xa, xb):
         c, T, P = fr.c, self.T, self.pal
+        hook = SALON_HOOKS.get((self.variant, "main"))
+        if hook is not None:                                    # SCN-2 set varyantı: zemin + masa arkası kancada
+            return hook(self, fr, xa, xb)
         floor_tiles(c, xa, xb, Y_FL, LH, T, P["floor"][0], P["floor"][1], seed=4, w0=74.0, grow=1.13)
         # masanın arkasındaki sandalye sırtları
         if self.variant == "taht":
@@ -2459,7 +2589,7 @@ class Salon(Room):
         for i, x in enumerate(self.win_x):
             if _vis(wx(x), 400, ctx.xa, ctx.xb):
                 window_light(f, wx(x), 244, 150, 306, t, dx=300, y_floor=Y_FL + 30, a=0.20 if ctx.tod == "day" else (0.12 if ctx.tod == "dusk" else 0.09), seed=2 + i, patch=False,
-                             dust=10, night=night, part="shaft")
+                             dust=10, night=night, part="shaft", col=self.pal.get("light", "#FFE9A8"))
         if self.pal["deco"] == "banner":
             for i, x in enumerate(self.tap_x + [240, 3300]):
                 if _vis(wx(x), 140, ctx.xa, ctx.xb):
@@ -2473,7 +2603,8 @@ class Salon(Room):
         night = ctx.tod == "night"
         for i, x in enumerate(self.win_x):
             if _vis(x, 400, ctx.xa, ctx.xb):
-                window_light(f, x, 244, 150, 306, t, dx=300, y_floor=Y_FL + 70, a=0.20 if ctx.tod == "day" else (0.12 if ctx.tod == "dusk" else 0.09), seed=2 + i, patch=True, dust=0, night=night, part="patch", patch_h=110)
+                window_light(f, x, 244, 150, 306, t, dx=300, y_floor=Y_FL + 70, a=0.20 if ctx.tod == "day" else (0.12 if ctx.tod == "dusk" else 0.09), seed=2 + i, patch=True, dust=0, night=night, part="patch", patch_h=110,
+                             col=self.pal.get("light", "#FFE9A8"))
         if self.variant == "taht":
             self._dyn_taht(ctx)
             return

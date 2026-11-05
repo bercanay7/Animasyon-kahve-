@@ -12,6 +12,9 @@ Kurallar (tarihler ve kaynaklar: notlar_donem.md):
                      FENER 1446 → 23 Nis 1461 · tepe TOPU + HAÇ (Verrocchio) 1471
   campanile_stage(y) Giotto çan kulesi: 19 Tem 1334 temel atma · 1337 ilk kat (Giotto) · 1348 kabartma + niş katları (A. Pisano; veba durdurur) · 1359 tam (Talenti)
   pv_stage(y)        Palazzo Vecchio: 1299 başlar · kule ≈1310 · 1314 tamam (uzak siluetlerde)
+  loggia_stage(y)    Loggia dei Lanzi (Signoria Meydanı): <1376 YOK (yerinde sıradan ev cepheleri) · 1376–1381 İNŞAAT (ayaklar + iskele; kemer/teras yok) ·
+                     ≥1382 tam yapı (kurul tur 2 SA2-Y2 / KA1-Ö1, başkan kararı; it.wikipedia "Loggia della Signoria": "L'edificazione risale al
+                     periodo tra il 1376 e il 1382")
   sanlorenzo_dome(y) San Lorenzo'nun büyük kubbesi (Cappella dei Principi, Nigetti 1604) — öncesinde siluette kubbe yok
   medici_arms(y)     ≤1464: mavi (Fransa zambaklı) top YOK — 8 kırmızı palle (Cosimo dönemi kaydı; sayı 15. yy'da 5–11 arası değişken) ·
                      ≥1465 (XI. Louis, Montluçon, Mayıs 1465): üstte mavi top + 3 altın zambak, 5 kırmızı (Lorenzo dönemi biçimi)
@@ -245,6 +248,25 @@ def pv_stage(y=_UNSET):
     if y is None:
         return None
     return round(_lin(y, 1299, 1314), 3)
+
+
+LOGGIA_START, LOGGIA_DONE = 1376, 1382
+LOGGIA_NONE, LOGGIA_BUILD, LOGGIA_FULL = 0.0, 0.5, 1.0
+
+
+def loggia_stage(y=_UNSET):
+    """Loggia dei Lanzi (Signoria Meydanı, Palazzo Vecchio'nun yanındaki büyük revak): None → eski çizim (tam yapı) ·
+    y < 1376 → 0.0 YOK (yerinde sıradan ev cepheleri) · 1376 ≤ y ≤ 1381 → 0.5 İNŞAAT (ayaklar + ahşap iskele; kemer, friz, teras yok) ·
+    y ≥ 1382 → 1.0 TAM. Kurul tur 2 (SA2-Y2, KA1-Ö1; başkan kararı): 1338 meydanında ve 22 Temmuz 1378'de yapı bitmiş görünüyordu.
+    İnşaatın 1376–81 arasındaki ara aşamaları kaynakta okunmadı → tek "ayaklar + iskele" görünümü (yazılı tutum)."""
+    y = resolve(y)
+    if y is None:
+        return None
+    if y < LOGGIA_START:
+        return LOGGIA_NONE
+    if y < LOGGIA_DONE:
+        return LOGGIA_BUILD
+    return LOGGIA_FULL
 
 
 def sanlorenzo_dome(y=_UNSET):

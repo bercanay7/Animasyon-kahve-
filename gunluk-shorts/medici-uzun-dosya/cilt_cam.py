@@ -40,6 +40,7 @@ import sk
 from sk import H, W, clamp
 
 CARRY = 0.65                  # geçişte uç hızı (ortalama hızın katı); 0 → tam yumuşak duruş
+CUT_SLOPE = 1.0               # SERT KESMEYLE birleşen uçta en küçük uç eğimi (= ortalama hız; yumuşatma yok — "hareket üstünde kesme", kurul tur 2 AN1-Y11; ENG-D)
 BASE_PUSH = 0.07
 AUTO_PUSH = (0.039, 0.47)     # süreye bağlı itme: miktar = a·süre^b  (2,5 sn %6 · 4 sn %7,6 · 8 sn %10,5 · 13 sn %13 · 16 sn %14,6) → hız kısa çekimde ≈2,4 %/sn, uzunda ≈0,9 %/sn
 AUTO_PUSH_LIM = (0.045, 0.16)
@@ -53,11 +54,21 @@ WALL_MG = (W / 2 + 100.0, H / 2 + 100.0)     # cilt_wall.MG = 100 → duvar gör
 
 TRACKS = {}                   # yol_id → [(u 0..1, (x, y, zoom, rot)), …]  | callable(u) → (x, y, zoom, rot)
 BAND_KINDS = {"skyline", "frieze", "procession"}   # tam genişlikte yatay şerit çizen türler: yatay kamera kayması şerit uçlarını açığa çıkarır → sabit örtme zumu (yeni şerit türleri buraya eklenir)
+# ENG-D (kurul tur 2 AN2-K1 / TE1-Y5): tür adı pN_ önekiyle sarılmışsa (p1_procession, p6_skyline …) TABAN adla tanınır (base_kind);
+# pan VE truck türün kendi kaydırmasına çevrilir (yön türün dir'iyle çelişmiyorsa); çevrilemezse genel öteleme + kaymanın GERÇEK kapsamından örtme zumu.
 OWN_CAMERA = {"pano", "build"}        # kendi kamera yolu olan türler (pano: cams=, build: orbit=/crane): cam= alanı kabul edilir, cx.cam_spec'te durur ama CM.Cam'e UYGULANMAZ (çift hareket olmasın)
 _WARNED = set()
 
 
 # ───────────────────────────── yollar ─────────────────────────────
+def base_kind(name):
+    """Sarmalayıcı önekini soy: p1_procession → procession, p5g_pano → pano (qa_flow.base_kind ile aynı kural). None → None."""
+    if not name:
+        return name
+    import re
+    return re.sub(r"^p\d+[a-z]*_", "", str(name))
+
+
 def register_track(name, keys):
     """Anahtar kareli uzun plan yolu kaydet. keys: [(u, (x, y, zoom, rot)), …] (u 0..1 artan) ya da callable(u) → (x, y, zoom, rot).
     Pano/Lab-B yolları bunu çağırır; ("track", name) çekim kamerası olarak kullanılır."""
@@ -388,14 +399,26 @@ def _whip_mid(t, ta, wd, back=0.05, pre=0.16, over=0.07):
     return -back + (1.0 + back) * (1.0 - e * (math.cos(w * tau) + (sg / w) * math.sin(w * tau)))
 
 
-def _prof_slopes(prof, cin, cout):
+def _prof_slopes(prof, cin, cout, kin=False, kout=False):
+    """Hermite uç eğimleri. cin/cout: geçişle birleşen uç (CARRY); kin/kout: SERT KESMEYLE birleşen uç → en az CUT_SLOPE (yumuşatma yok)."""
     if prof in (None, "io"):
-        return (CARRY if cin else 0.0), (CARRY if cout else 0.0)
-    if prof == "out":
-        return 1.8, (0.30 if cout else 0.0)
-    if prof == "in":
-        return (0.30 if cin else 0.0), 1.8
-    return 1.0, 1.0                                          # lin
+        s0, s1 = (CARRY if cin else 0.0), (CARRY if cout else 0.0)
+    elif prof == "out":
+        s0, s1 = 1.8, (0.30 if cout else 0.0)
+    elif prof == "in":
+        s0, s1 = (0.30 if cin else 0.0), 1.8
+    else:
+        s0, s1 = 1.0, 1.0                                    # lin
+    if kin:
+        s0 = max(s0, CUT_SLOPE)
+    if kout:
+        s1 = max(s1, CUT_SLOPE)
+    return s0, s1
+
+
+def _end_factor(c_, k_):
+    """Anahtar kare / yol uçlarında eğim çarpanı: sert kesme → CUT_SLOPE, geçiş → CARRY, serbest uç → 0 (yumuşak duruş)."""
+    return CUT_SLOPE if k_ else (CARRY if c_ else 0.0)
 
 
 def auto_profile(seed):
@@ -413,13 +436,14 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
     t, dur = float(cx.t), max(1e-6, float(cx.dur))
     u = t / dur
     cin, cout = bool(getattr(cx, "cam_in", False)), bool(getattr(cx, "cam_out", False))
+    kin, kout = bool(getattr(cx, "cut_in", False)), bool(getattr(cx, "cut_out", False))   # sert kesmeyle birleşen uç (compose._link_flags)
     seed = int(getattr(cx, "seed", 1))
     aseed = int(getattr(cx, "cam_seed", seed))             # kararlı tohum (parça/tam film aynı): süreye bağlı miktar, eğri çeşidi, odak kayması
     p = plan.p
     k = plan.kind
     auto_amt = k in ("push", "pull") and p.get("amt") is None and p.get("rate") is None
     prof = p.get("ease") or (auto_profile(aseed) if auto_amt else None)
-    s0, s1 = _prof_slopes(prof, cin, cout)
+    s0, s1 = _prof_slopes(prof, cin, cout, kin, kout)
     g = hermite(u, s0, s1)
     st = CamState()
     st.kind, st.plan = k, plan
@@ -497,7 +521,7 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
                 e = 0.002
                 v1, v2 = (tr(gc), tr(gc + e)) if g < 0 else (tr(gc - e), tr(gc))
                 sl = [(v2[c] - v1[c]) / e for c in range(4)]
-                dg = (g - gc) * (CARRY if (cin if g < 0 else cout) else 0.0)
+                dg = (g - gc) * (_end_factor(cin, kin) if g < 0 else _end_factor(cout, kout))
                 x, y, z, rot = x + sl[0] * dg, y + sl[1] * dg, max(0.05, z + sl[2] * dg), rot + sl[3] * dg
         else:
             us = [kk[0] for kk in tr]
@@ -507,8 +531,8 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
             for c in range(4):
                 seg0 = (ch[c][1] - ch[c][0]) / max(1e-9, us[1] - us[0]) if len(us) > 1 else 0.0
                 seg1 = (ch[c][-1] - ch[c][-2]) / max(1e-9, us[-1] - us[-2]) if len(us) > 1 else 0.0
-                d0 = seg0 * (CARRY if cin else 0.0)
-                d1 = seg1 * (CARRY if cout else 0.0)
+                d0 = seg0 * _end_factor(cin, kin)
+                d1 = seg1 * _end_factor(cout, kout)
                 v = _pchip(us, ch[c], gc, d0, d1)
                 # uzatma: g dışına çıkıldıysa uç eğimiyle doğrusal sürdür
                 if g < 0:
@@ -532,7 +556,7 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
                 sl1 = (chans[c][-1] - chans[c][-2]) / (ts[-1] - ts[-2])
             else:
                 sl0 = sl1 = 0.0
-            out.append(_pchip(ts, chans[c], t, sl0 * (CARRY if cin else 0.0), sl1 * (CARRY if cout else 0.0)))
+            out.append(_pchip(ts, chans[c], t, sl0 * _end_factor(cin, kin), sl1 * _end_factor(cout, kout)))
         x, y, z, rot = out[0], out[1], math.exp(out[2]), out[3]
     # ek: drift, hand katkısı, darbe sarsıntısı (her ön ayarda opts ile)
     dr = p.get("drift")
@@ -549,8 +573,8 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
             sx_, sy_ = anim.shake(t, _anchor_t(cx, it[0]), float(it[2]) if len(it) > 2 else 0.25, float(it[1]), seed=seed * 31 + j)
             x += sx_
             y += sy_
-    if kind in BAND_KINDS and not native_pan:              # şerit uçları açığa çıkmasın: kaymayı örtecek sabit zum
-        z *= 1.0 + h_extent(plan, dur, aseed) / (W / 2.0) * 1.03
+    if kind and base_kind(kind) in BAND_KINDS and not native_pan:   # şerit uçları açığa çıkmasın: kaymanın GERÇEK kapsamını örtecek sabit zum
+        z *= _band_cover(cx, plan, dur)
     st.x, st.y, st.zoom, st.rot = x, y, z, rot
     st.dx, st.dy, st.s = -x, -y, z
     pv = p.get("pivot")
@@ -565,17 +589,44 @@ def state(cx, spec, plan=None, kind=None, native_pan=False):
 
 class _At:
     """state()'i başka bir yerel saatte değerlendirmek için hafif Ctx vekili (çapalar aynı çekimde çözülür)."""
-    __slots__ = ("t", "dur", "cam_in", "cam_out", "seed", "cam_seed", "_cx")
+    __slots__ = ("t", "dur", "cam_in", "cam_out", "cut_in", "cut_out", "seed", "cam_seed", "_cx")
 
     def __init__(self, cx, t):
         self._cx = cx
         self.t, self.dur = t, cx.dur
         self.cam_in, self.cam_out = getattr(cx, "cam_in", False), getattr(cx, "cam_out", False)
+        self.cut_in, self.cut_out = getattr(cx, "cut_in", False), getattr(cx, "cut_out", False)
         self.seed = getattr(cx, "seed", 1)
         self.cam_seed = getattr(cx, "cam_seed", self.seed)
 
     def at(self, a, key=None, off=0.0):
         return self._cx.at(a, key, off)
+
+
+_COVER = {}
+
+
+def _band_cover(cx, plan, dur):
+    """Şerit türünde genel yatay ötelemenin (pan/truck/whip/orbit/hand + drift/hand/sarsıntı ekleri) GERÇEK en büyük |x|'ini çekimin görünür
+    aralığında (−0,1 … süre+0,7 sn: deklanşör alt örnekleri ve "after" geçişlerindeki uzatma dâhil) sayısal olarak bulur → şerit ucunu kapatan sabit zum.
+    (Eski h_extent yalnız ±px/2 varsayıyordu; geçiş uzatması, drift ve sarsıntı şerit ucunu açıyordu — kurul tur 2 AN2-K1 / TE1-Y5.) Önbellekli."""
+    key = (repr(plan.spec), round(float(dur), 3), bool(getattr(cx, "cam_in", False)), bool(getattr(cx, "cam_out", False)),
+           bool(getattr(cx, "cut_in", False)), bool(getattr(cx, "cut_out", False)), int(getattr(cx, "seed", 1)), int(getattr(cx, "cam_seed", 1)))
+    v = _COVER.get(key)
+    if v is None:
+        ext = 0.0
+        n = 48
+        for j in range(n + 1):
+            tt = -0.1 + (float(dur) + 0.8) * j / n
+            s_ = state(_At(cx, tt), None, plan=plan, kind=None)
+            ext = max(ext, abs(s_.x))
+        if plan.kind == "hand" or plan.p.get("hand"):          # titreşim tepeleri örnek aralarına düşebilir: genlik payı
+            ext += float(plan.p.get("amp", 0.0) if plan.kind == "hand" else (plan.p["hand"] if not isinstance(plan.p["hand"], bool) else 1.5))
+        v = 1.0 + (ext + 2.0) / (W / 2.0)
+        if len(_COVER) > 512:
+            _COVER.clear()
+        _COVER[key] = v
+    return v
 
 
 _PROBE = [(0.0, 0.0), (-W / 2, -H / 2), (W / 2, -H / 2), (-W / 2, H / 2), (W / 2, H / 2), (-W / 2, 0.0), (W / 2, 0.0), (0.0, -H / 2), (0.0, H / 2)]
@@ -614,70 +665,123 @@ def _sig(fn):
         return {}
 
 
-def _native_skyline(plan, kw, raw):
+SKYLINE_MAX_PX = 500.0       # skyline kendi kaydırması cilt_city.PW_EXTRA (520 px) ile sınırlı: daha büyük kayma yerleşik çevrilemez
+
+
+def _dir_sign(v):
+    """Tür dir parametresi → ±1 (1 / "r" / "R" → +1; -1 / "l" → −1); tanınmazsa None."""
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        return 1 if v >= 0 else -1
+    if isinstance(v, str) and v:
+        return 1 if v[0].lower() == "r" else (-1 if v[0].lower() == "l" else None)
+    return None
+
+
+def _native_skyline(plan, kw, raw, px):
+    """skyline yerleşik kaydırma (4 katman paralaks, şerit ucu açılmaz). Sahne türün pan= miktarını da yazmışsa (P1/P6/P7'de yaygın: aynı hareket iki kez
+    beyan ediliyordu → genel öteleme + tür kaydırması ÜST ÜSTE biniyordu) kamera beyanı geçerlidir; dir= verilmişse yönle çelişmemeli; x0 verilmişse çevrilmez."""
     ps = _sig(raw)
-    if not all(k in ps for k in ("pan", "dir", "x0")) or any(k in kw for k in ("pan", "dir", "x0")) or plan.p["px"] > 500:
+    if not all(k in ps for k in ("pan", "dir", "x0")) or "x0" in kw or px > SKYLINE_MAX_PX:
         return False
-    kw["pan"] = float(plan.p["px"])
-    kw["dir"] = 1 if plan.p["d"] == "r" else -1
-    kw["x0"] = 0.0 if plan.p["d"] == "r" else float(plan.p["px"])
+    sg = 1 if plan.p["d"] == "r" else -1
+    if "dir" in kw and _dir_sign(kw["dir"]) not in (None, sg):
+        return False
+    kw["pan"] = float(px)
+    kw["dir"] = sg
+    kw["x0"] = 0.0 if sg > 0 else float(px)
     return True
 
 
-def _native_procession(plan, kw, raw):
+def _native_procession(plan, kw, raw, px):
+    """procession yerleşik kaydırma: pan=(yön, toplam px). Türün dir= yönüyle çelişen beyanda (ör. dir='l' alay + ("truck","r")) çevrilmez: alayın yürüyüş yönü
+    sahne kararıdır (§1-6); o zaman genel öteleme + örtme zumu uygulanır."""
     ps = _sig(raw)
     if "pan" not in ps or "pan" in kw:
         return False
-    kw["pan"] = (plan.p["d"], float(plan.p["px"]))
+    if "dir" in kw and _dir_sign(kw["dir"]) not in (None, 1 if plan.p["d"] == "r" else -1):
+        return False
+    kw["pan"] = (plan.p["d"], float(px))
     return True
 
 
-def _native_frieze(plan, kw, raw, dur):
+def _native_frieze(plan, kw, raw, dur, px):
     ps = _sig(raw)
     if plan.p["d"] != "r" or not all(k in ps for k in ("speed", "x0")) or any(k in kw for k in ("speed", "x0")):
         return False
-    kw["speed"] = float(plan.p["px"]) / max(1.0, dur)
+    kw["speed"] = float(px) / max(1.0, dur)
     return True
+
+
+def _inner_raw(bk, kind_name, raw):
+    """Sarmalanmış şerit türü (p1_procession …) için iç türün çiğ çizim işlevi (imza denetimi); sarmalanmamışsa raw."""
+    if bk == kind_name:
+        return raw
+    try:
+        import shots as SH
+        fn = SH.KINDS.get(bk)
+    except Exception:
+        fn = None
+    return getattr(fn, "_raw", fn) if fn is not None else None
 
 
 def attach(cx, kind_name, kw, raw=None):
     """cx.cam_state'i hesapla (spec varsa). map: kendi drift'ini sıfırla (çift itme olmasın). OWN_CAMERA türleri: durum uygulanmaz.
-    Şerit türlerinde (skyline / procession / frieze) ("pan","r"|"l",px) türün kendi kaydırmasına çevrilir (gerçek paralaks; şerit ucu açılmaz); çevrilemezse genel öteleme + örtme zumu."""
+    Şerit türlerinde (skyline / procession / frieze; pN_ önekli sarmalayıcılar da TABAN adla — ENG-D) ("pan"|"truck", "r"|"l"[, px]) türün kendi
+    kaydırmasına çevrilir (gerçek paralaks; şerit ucu açılmaz); çevrilemezse genel öteleme + kaymanın gerçek kapsamından örtme zumu (_band_cover)."""
     spec = getattr(cx, "cam_spec", None)
     cx.cam_state = None
     if spec is None or kind_name in OWN_CAMERA:
         return None
     plan = parse(spec)
     native = False
-    if plan is not None and plan.kind == "pan" and raw is not None:
-        if kind_name == "skyline":
-            native = _native_skyline(plan, kw, raw)
-        elif kind_name == "procession":
-            native = _native_procession(plan, kw, raw)
-        elif kind_name == "frieze":
-            native = _native_frieze(plan, kw, raw, float(cx.dur))
+    bk = base_kind(kind_name)
+    if plan is not None and plan.kind in ("pan", "truck") and bk in BAND_KINDS:
+        braw = _inner_raw(bk, kind_name, raw)
+        if braw is not None:
+            px = _px(plan, float(cx.dur), int(getattr(cx, "cam_seed", getattr(cx, "seed", 1))))
+            if bk == "skyline":
+                native = _native_skyline(plan, kw, braw, px)
+            elif bk == "procession":
+                native = _native_procession(plan, kw, braw, px)
+            elif bk == "frieze":
+                native = _native_frieze(plan, kw, braw, float(cx.dur), px)
     cx.cam_state = state(cx, spec, plan=plan, kind=kind_name, native_pan=native)
-    if kind_name == "map" and not kw.get("cams") and "drift" not in kw:
-        kw["drift"] = (0.0, 0.0, 0.0)
+    if bk == "map":
+        if not kw.get("cams") and "drift" not in kw:
+            kw["drift"] = (0.0, 0.0, 0.0)
+        try:                                                # doku dünya kilidi için çekimin başvuru zumu (anahtar kare zumlarının geometrik ortası)
+            zs = [float(v[2]) for _, v in (kw.get("cams") or []) if len(v) > 2]
+            v0 = kw.get("cam", kw.get("view"))
+            if not zs and isinstance(v0, (tuple, list)) and len(v0) == 3:
+                zs = [float(v0[2])]
+            if zs:
+                cx._map_zref = math.exp(sum(math.log(max(1e-6, z_)) for z_ in zs) / len(zs))
+        except Exception:
+            pass
     return cx.cam_state
 
 
 @contextlib.contextmanager
 def map_patch(cx):
-    """map türü kendi mapsk.Cam'ini kullanır: oluşturulan her Cam'e ekran-uzayı kayma/zoom eklenir (içerik +dx kayar → dünya merkezi −dx/zoom)."""
+    """map türü kendi mapsk.Cam'ini kullanır: oluşturulan her Cam'e ekran-uzayı kayma/zoom eklenir (içerik +dx kayar → dünya merkezi −dx/zoom).
+    ENG-D: son oluşturulan Cam (çizimde kullanılan) cx.world_xf'e yazılır → compose kâğıt dokusunu harita dünyasına kilitler (kurul tur 2 TE1 §7)."""
     st = getattr(cx, "cam_state", None)
-    if st is None or (abs(st.dx) < 1e-3 and abs(st.dy) < 1e-3 and abs(st.s - 1.0) < 1e-6):
-        yield
-        return
+    move = not (st is None or (abs(st.dx) < 1e-3 and abs(st.dy) < 1e-3 and abs(st.s - 1.0) < 1e-6))
     import mapsk
     orig = mapsk.Cam
+    ctx_ = cx
 
     class _Cam(orig):
         def __init__(self, lon, lat, zoom, rot=0.0, cx=W / 2, cy=H / 2):
-            z = zoom * st.s
+            z = zoom * st.s if move else zoom
             super().__init__(lon, lat, z, rot, cx, cy)
-            self.wx -= st.dx / z
-            self.wy -= st.dy / z
+            if move:
+                self.wx -= st.dx / z
+                self.wy -= st.dy / z
+            try:
+                ctx_.world_xf = ("map", float(self.wx), float(self.wy), float(self.zoom), float(self.cx), float(self.cy))
+            except Exception:
+                pass
     mapsk.Cam = _Cam
     try:
         yield
@@ -817,7 +921,7 @@ def auto_spec(kind, dur, seed, prev=None, hdir="r", vdir="up"):
     hdir/vdir: bölümün baskın yatay/dikey yönü (yön sözleşmesi §1-6; açık cam'lerden devralınır). Miktarlar süreye bağlı (auto_push / auto_px).
     Dönüş: cam spec (tuple)."""
     w = dict(AUTO_W)
-    if kind in BAND_KINDS:                                  # şerit türleri: pan yerleşik kaydırmaya çevrilir (gerçek paralaks)
+    if kind in BAND_KINDS:                                  # şerit türleri: pan yerleşik kaydırmaya çevrilir (gerçek paralaks) — tohumlu seçim P2–P7'de değişmesin diye taban ad değil
         w.update(pan=0.50, truck=0.0, orbit=0.0, tilt=0.0)
     if kind == "map":
         w.update(orbit=0.0, tilt=0.0, truck=0.06)

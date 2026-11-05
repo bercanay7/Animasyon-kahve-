@@ -99,11 +99,25 @@ class Spr:
         self.w, self.h = img.width(), img.height()
 
 
+_CF_CTX = [None]          # draw_fig süresince figürün renk süzgeci (siluet/gölge): baş, ayakkabı ve el aksesuarı sprite'larına da uygulanır
+
+
+def _cf_paint():
+    cf = _CF_CTX[0]
+    if cf is None:
+        return None
+    pt = skia.Paint(AntiAlias=False)
+    pt.setColorFilter(cf)
+    return pt
+
+
 def blit(c, spr, jx, jy, X, Y, ang=0.0, sx=1.0):
-    """Sprite'ı eklem noktası (jx,jy: figür-koordinatı) → hedef (X,Y); ang derece döndür; sx: x ölçeği (ayna)."""
+    """Sprite'ı eklem noktası (jx,jy: figür-koordinatı) → hedef (X,Y); ang derece döndür; sx: x ölçeği (ayna).
+    draw_fig içinde çağrılırsa figürün renk süzgecini (_CF_CTX) de uygular (kurul tur 2 SA2-Y1: baş/ayakkabı süzgeçsiz kalıyordu)."""
     ix, iy = spr.ox + jx, spr.oy + jy
+    pt = _cf_paint()
     if ang == 0.0 and sx == 1.0:
-        c.drawImage(spr.img, X - ix, Y - iy, LIN)
+        c.drawImage(spr.img, X - ix, Y - iy, LIN, pt)
         return
     c.save()
     c.translate(X, Y)
@@ -111,8 +125,37 @@ def blit(c, spr, jx, jy, X, Y, ang=0.0, sx=1.0):
         c.rotate(ang)
     if sx != 1.0:
         c.scale(sx, 1.0)
-    c.drawImage(spr.img, -ix, -iy, LIN)
+    c.drawImage(spr.img, -ix, -iy, LIN, pt)
     c.restore()
+
+
+# ── tek katmanda soldurma (kurul tur 2 SA2-Y1) ──
+# alpha<1 iken figürün TÜM parçaları (gövde, kollar, baş, ayakkabı, eller, aksesuar, sancak, `extra`) önce opak olarak bir katmana çizilir, katman
+# tek alfa ile birleştirilir: baş ve ayakkabılar gövdeden önce opak gelmez; üst üste binen parçalarda (kol gövdenin önünde) çift koyulaşma olmaz.
+FADE_LAYER = True
+FIG_BOUNDS = (-1.6, -2.4, 1.6, 0.40)       # figür koordinatında katman sınırı (bake boyu birimi): sancak/mızrak ucu, kalkık kol, eğilme, gölge payı
+
+
+def fig_rect(bh, x=0.0, y=0.0, s=1.0):
+    """Figürün katman sınırı: yerel figür koordinatında (s=1) ya da ekranda (x,y ayak noktası; s = ekran boyu / bake boyu)."""
+    x0, y0, x1, y1 = FIG_BOUNDS
+    k = bh * s
+    return skia.Rect.MakeLTRB(x + x0 * k, y + y0 * k, x + x1 * k, y + y1 * k)
+
+
+def fade_begin(c, alpha, rect=None):
+    """alpha<1 → alfa katmanı aç. Dönüş: (içeride kullanılacak alfa, katman açıldı mı). İçeride her şey alpha=1.0 ile çizilir."""
+    if FADE_LAYER and alpha < 0.999:
+        pt = skia.Paint()
+        pt.setAlphaf(clamp(alpha))
+        c.saveLayer(rect, pt)
+        return 1.0, True
+    return alpha, False
+
+
+def fade_end(c, opened):
+    if opened:
+        c.restore()
 
 
 _CR = {}
@@ -348,6 +391,9 @@ def costume(kind, seed=0, **over):
     d.update({k: v for k, v in over.items() if v is not None})
     if "hat" in over and over["hat"] is None:
         d["hat"] = "none"
+    if over.get("hat") in ("cappuccio", "feltcap", "coif") and "hat_col" not in over:     # dönem başlıkları: RNG dizisini bozmadan (seed'den) kumaş rengi
+        pal = {"cappuccio": _HOOD_COLS, "feltcap": _FELT_COLS, "coif": ("#EDE4CC",)}[over["hat"]]
+        d["hat_col"] = pal[(int(seed) * 7 + len(kind)) % len(pal)]
     return tuple(sorted(d.items(), key=lambda kv: kv[0]))
 
 
@@ -372,6 +418,27 @@ def _add_hat3(F, kind, hx, hy, hh, rot_=0.0, back=None):
         for part in P:
             is_back = len(part) > 3
             if back is None or back == is_back:
+                F.fill(place(part[0], hx, hy, hh, rot_), rim=part[1], tone=part[2])
+    elif kind == "cappuccio":
+        # 14.–15. yy cappuccio / chaperon: yüzü açık sıkı kukuleta + omuza oturan yaka (gorget) + tepeden sırta sarkan becchetto (kuyruk).
+        # Siluette Trecento okunur (geniş kenarlı 17. yy şapkasının yerine; kurul tur 2 SA2-K7).
+        # becchetto: tepe arkasındaki sivri uçtan dışarı doğru kıvrılıp ense hizasında boyundan AYRIK sarkar (siluette kukuleta okunsun, "uzun saç" değil)
+        P = [(sp([KC(-0.46, -0.70), (-0.72, -0.70), (-0.98, -0.48), (-1.12, -0.06), (-1.16, 0.46), (-1.10, 0.98), KC(-1.00, 1.30), (-0.94, 0.96), (-0.98, 0.46),
+                  (-0.94, -0.02), (-0.80, -0.34), KC(-0.56, -0.50)], True, 0.8), 0.9, 0.06, "back"),
+             (sp([KC(0.37, -0.31), (0.26, -0.58), (0.02, -0.72), (-0.30, -0.72), KC(-0.62, -0.68), (-0.60, -0.36), (-0.62, -0.02), (-0.64, 0.32), (-0.76, 0.70), KC(-0.74, 0.98),
+                  (-0.30, 1.06), (0.16, 1.04), KC(0.46, 0.92), (0.40, 0.76), (0.20, 0.65), KC(0.00, 0.57), (-0.03, 0.30), (0.01, 0.02), (0.12, -0.20)], True, 0.85), 1.0, 0.0),
+             (lens((0.34, -0.30), (0.06, -0.06), 0.03, 0.04), 0.0, 0.22),
+             (lens((-0.66, 0.74), (0.40, 0.90), 0.02, -0.06), 0.0, 0.18)]
+        for part in P:
+            is_back = len(part) > 3
+            if back is None or back == is_back:
+                F.fill(place(part[0], hx, hy, hh, rot_), rim=part[1], tone=part[2])
+    elif kind == "feltcap":
+        # keçe kep (berretta tonda): yuvarlak alçak tepe + dar kıvrık bant; kenarsız.
+        P = [(sp([KC(0.40, -0.30), (0.45, -0.50), (0.32, -0.72), (0.02, -0.82), (-0.30, -0.76), (-0.48, -0.56), KC(-0.48, -0.30), (-0.04, -0.36)], True, 0.85), 1.0, 0.0),
+             (sp([KC(-0.53, -0.22), (0.0, -0.19), KC(0.47, -0.25), (0.47, -0.36), (0.0, -0.31), (-0.53, -0.35)], True, 0.6), 1.0, 0.14)]
+        for part in P:
+            if back in (None, False):
                 F.fill(place(part[0], hx, hy, hh, rot_), rim=part[1], tone=part[2])
     else:
         FG.add_hat2(F, kind, hx, hy, hh, rot_, back)
@@ -434,7 +501,8 @@ def _dims(spec, h):
     return B
 
 
-def _paint_head(spec, h, B):
+def _paint_head(spec, h, B, eye="open"):
+    """eye: 'open' | 'closed' (göz kırpma karesi: göz yerine kısa kapak çizgisi; AN1)."""
     d = dict(spec)
     F = FG.PFig(h)
     hb = B["hb"]
@@ -452,7 +520,7 @@ def _paint_head(spec, h, B):
     hair_k = d.get("hair_s") or ("long" if kind in ("m",) else ("bob" if kind in ("c",) else "bun"))
     if kind == "m" and d["kind"] in ("halk", "asker", "denizci"):
         hair_k = "bob"
-    if d["hair"] and hat not in ("cowl",) and not (hat == "tiara"):
+    if d["hair"] and hat not in ("cowl", "cappuccio") and not (hat == "tiara"):
         F.col = d["hair"]
         F.fill(place(FP.hair_path(hair_k), hx, hy, hh, 0), rim=1.0)
     F.col = d["skin"]
@@ -460,7 +528,10 @@ def _paint_head(spec, h, B):
     # göz + kaş (küçük ama canlandırır)
     if hh > 11:
         F.col = INK
-        F.fill(place(ell(0.215, -0.045, 0.034, 0.024, -8), hx, hy, hh, 0), rim=0.0, tone=0.2, alpha=0.9, bound=False)
+        if eye == "closed":       # kapalı göz: hafif aşağı kıvrık ince kapak çizgisi (göz açıkken çizilen elipsin yerinde)
+            F.fill(place(lens((0.178, -0.040), (0.254, -0.034), 0.0085, 0.014), hx, hy, hh, 0), rim=0.0, tone=0.2, alpha=0.85, bound=False)
+        else:
+            F.fill(place(ell(0.215, -0.045, 0.034, 0.024, -8), hx, hy, hh, 0), rim=0.0, tone=0.2, alpha=0.9, bound=False)
         F.fill(place(lens((0.17, -0.115), (0.32, -0.105), 0.016, -0.02), hx, hy, hh, 0), rim=0.0, tone=0.2, alpha=0.55, bound=False)
     if kind == "c" and not hat_on:
         F.col = d["hair"]
@@ -707,7 +778,7 @@ def build_kit(spec, h):
 # ═════════════════════════════ iskelet çözümü + figür çizimi ═════════════════════════════
 class Pose:
     """Kare başına çözülmüş iskelet (bake px, figür koordinatı: ayak orijin, +x ileri, y yukarı −)."""
-    __slots__ = ("hip", "tor", "head", "sho", "neck", "legs", "arms", "robe", "cloak", "props", "foot", "hands", "waist", "scale_y", "_sk", "extra", "robe_low")
+    __slots__ = ("hip", "tor", "head", "sho", "neck", "legs", "arms", "robe", "cloak", "props", "foot", "hands", "waist", "scale_y", "_sk", "extra", "robe_low", "eye")
 
     def __init__(self):
         self.props = []
@@ -716,6 +787,7 @@ class Pose:
         self.robe_low = None
         self.scale_y = 1.0
         self.extra = None
+        self.eye = 0                 # 1: göz kapalı (kırpma karesi)
 
 
 def solve(kit, hip, tor, head_ang, ank_f, ank_n, fang_f, fang_n, arm_f, arm_n, hk_f="open", hk_n="open"):
@@ -804,7 +876,21 @@ def sh_c(p, yc, ctop):
 
 
 def draw_fig(c, kit, p, alpha=1.0, cf=None, layers=("back", "legs", "body", "head", "arms")):
-    """Çözülmüş iskeleti (figür koordinatlarında) çiz. Çağıran c'ye zaten ölçek/ayna/öteleme uygulamıştır."""
+    """Çözülmüş iskeleti (figür koordinatlarında) çiz. Çağıran c'ye zaten ölçek/ayna/öteleme uygulamıştır.
+    alpha<1: tek katmanda solar (fade_begin); cf: renk süzgeci baş/ayakkabı/aksesuar dahil bütün parçalara uygulanır."""
+    if alpha <= 0.002:
+        return
+    alpha, opened = fade_begin(c, alpha, fig_rect(kit.h))
+    prev = _CF_CTX[0]
+    _CF_CTX[0] = cf
+    try:
+        _draw_fig_parts(c, kit, p, alpha, cf, layers)
+    finally:
+        _CF_CTX[0] = prev
+        fade_end(c, opened)
+
+
+def _draw_fig_parts(c, kit, p, alpha, cf, layers):
     B = kit.B
     if "back" in layers:
         if kit.cloak is not None and p.cloak is not None:
@@ -841,7 +927,12 @@ def draw_fig(c, kit, p, alpha=1.0, cf=None, layers=("back", "legs", "body", "hea
             kit.robe.draw(c, *p.robe, alpha, cf)
     if "head" in layers:
         nx, ny = B["neck"]
-        blit(c, kit.head, nx, ny, p.neck[0], p.neck[1], p.tor + p.head)
+        hs = kit.head
+        if getattr(p, "eye", 0) and cf is None and B["hh"] > 11:          # göz kırpma karesi (siluette gerekmez)
+            hs = getattr(kit, "head_c", None)
+            if hs is None:
+                hs = kit.head_c = _paint_head(kit.spec, kit.h, B, eye="closed")
+        blit(c, hs, nx, ny, p.neck[0], p.neck[1], p.tor + p.head)
     if "arms" in layers:
         for pr in p.props:
             if pr[0] == "mid":
@@ -1018,13 +1109,169 @@ def set_scale_hint(z):
     SCALE_HINT = float(z)
 
 
+# ═════════════════════════════ dönem kostümü (kurul tur 2 SA2-K7, SA1-Y5, SA2-Ö4) ═════════════════════════════
+# Çekim yılı (donem.year(): HUD'da en uzun kalan yıl) 1500'den önceyse 17. yy okunan geniş kenarlı şapkalar (straw/slouch/plume) ve
+# dönemine erken başlıklar yerini cappuccio/chaperon, coif, keçe kep ya da mazzocchio'ya bırakır; 1340 öncesinde (Dante'nin, 1252 florininin
+# Floransası) brokar desen ve iki renk çorap (mi-parti) yok, tunik dizi geçer, mazzocchio/şapka yerine kukuleta ve coif.
+# Yıl yoksa (önizleme/reel/kapak) eski çizim. Seçim (tür, seed) ile deterministik: aynı kişi aynı dönemde hep aynı başlıkla çıkar.
+PERIOD_COSTUME = True
+_ERA_EDGES = (1340, 1380, 1400, 1480, 1500)
+_HOOD_COLS = ("#7A2E24", "#5A3A26", "#2E4A3A", "#3A3048", "#8A6A48", "#6E2A20", "#4A3A2A")
+_FELT_COLS = ("#5A3A26", "#7A2E24", "#3A302A", "#6A5238", "#2E3A4A")
+
+
+def _era(y):
+    if y is None or not PERIOD_COSTUME:
+        return None
+    for i, e in enumerate(_ERA_EDGES):
+        if y < e:
+            return i
+    return None
+
+
+def period_hat(kind, hat, y, r=0.0):
+    """Başlığın y yılındaki karşılığı (r: 0..1 deterministik seçim). Değişmiyorsa aynısını döndürür."""
+    if y is None or y >= 1500 or not hat or hat == "none":
+        return hat
+    rich = kind in ("soylu", "tuccar", "banker")
+    if hat in ("straw", "slouch", "plume"):                          # geniş kenarlı: siluette 17. yy
+        if kind == "denizci":
+            return "woolcap" if r < 0.6 else "feltcap"
+        if kind == "cocuk":
+            return ("coif", "feltcap", "none")[int(r * 3) % 3]
+        if rich:
+            return "mazzocchio" if (y >= 1380 and r < 0.5) else "cappuccio"
+        return ("cappuccio", "feltcap", "coif", "cappuccio")[int(r * 4) % 4]
+    if hat == "beret" and y < 1480:                                  # tüylü Rönesans bereti 1490'lar sonrası
+        if rich:
+            return "mazzocchio" if y >= 1380 else "cappuccio"
+        return "feltcap"
+    if hat == "frenchhood":                                          # Fransız başlığı 16. yy
+        return "veil" if r < 0.6 else "coif"
+    if hat == "morion":                                              # İspanyol morion 16. yy ortası
+        return "sallet"
+    if hat == "woolcap" and kind in ("halk", "cocuk"):              # Frig külahı siluette "tüylü şapka" okunuyor (231,6 sn)
+        return "feltcap" if (kind == "cocuk" or r >= 0.55) else "cappuccio"
+    if hat == "mazzocchio" and y < 1380:                             # mazzocchio (cappuccio a foggia) 14. yy sonu
+        return "cappuccio"
+    if hat == "tall" and y < 1400:
+        return "veil" if kind == "soylu_f" else "cappuccio"
+    if hat in ("flatcap", "scholar") and y < 1340:
+        return "cappuccio" if r < 0.6 else "coif"
+    return hat
+
+
+def _hat_r(kind, seed):
+    return (zlib.crc32(f"{kind}:{seed}:hat".encode()) & 0xFFFF) / 65536.0
+
+
+def _period_spec(spec, kind, seed, y, explicit=()):
+    """costume() çıktısını y yılına uyarla (yalnız başlık, desen, çorap, etek boyu). explicit: sahnenin açıkça verdiği anahtarlar (başlık hariç korunur)."""
+    if y is None or y >= 1500:
+        return spec
+    d = dict(spec)
+    r = _hat_r(d["kind"], seed)
+    hat0 = d["hat"]
+    hat = period_hat(d["kind"], hat0, y, r)
+    if hat != hat0:
+        d["hat"] = hat
+        if hat == "cappuccio":
+            d["hat_col"] = d["hat_col"] if (hat0 in ("mazzocchio", "tall", "beret", "flatcap") and d["kind"] in ("soylu", "tuccar", "banker")) else _HOOD_COLS[int(r * 7919) % len(_HOOD_COLS)]
+        elif hat == "feltcap":
+            d["hat_col"] = _FELT_COLS[int(r * 6007) % len(_FELT_COLS)]
+        elif hat in ("coif", "veil"):
+            d["hat_col"] = "#EDE4CC"
+        elif hat == "sallet":
+            d["hat_col"] = "#8A8E96"
+        elif hat == "woolcap":
+            d["hat_col"] = d["hat_col"] if hat0 == "woolcap" else ("#A8321E", "#233C8C", "#8A6A48", "#6E7F58")[int(r * 4) % 4]
+    if y < 1340:                                                     # Dante'nin / 1252 florininin Floransası
+        if d.get("pat") and d["kind"] not in ("papa", "kardinal") and "pat" not in explicit:
+            d["pat"] = None                                          # brokar/nar deseni 15. yy lüksü
+        if d.get("hose_l") != d.get("hose_r") and "hose_r" not in explicit:
+            d["hose_r"] = d["hose_l"]                                # iki renk çorap (mi-parti) 1340'lardan sonra
+        if "hem" not in explicit and d["kind"] not in ("asker",):
+            if d["body"] == "short":
+                d["hem"] = max(d["hem"], -0.27)                      # tunik dize iner
+            elif d["body"] == "mid":
+                d["hem"] = max(d["hem"], -0.20)
+    return tuple(sorted(d.items(), key=lambda kv: kv[0]))
+
+
 def kit_for(kind, seed, h, **stil):
-    key = (kind, seed, tuple(sorted(stil.items(), key=lambda kv: kv[0])) if stil else ())
+    era = _era(DN.year()) if PERIOD_COSTUME else None
+    key = (kind, seed, tuple(sorted(stil.items(), key=lambda kv: kv[0])) if stil else (), era)
     spec = _COS.get(key)
     if spec is None:
-        spec = _COS[key] = costume(kind, seed, **stil)
+        spec = costume(kind, seed, **stil)
+        if era is not None:
+            spec = _period_spec(spec, kind, seed, DN.year(), tuple(stil.keys()))
+        _COS[key] = spec
     bh = _bake_for(h * SCALE_HINT)
     return build_kit(spec, bh), bh
+
+
+# ── aynı kalıptan çoğaltılmış figürler (kurul tur 2 SA1-Y5): örnek başına otomatik çeşitleme ──
+# Aynı karede, yakında (≤ min(2,6·h, 640 px)), aynı türden ve aynı görünümde (aynı tür+seed ya da aynı başlık+sakal+giysi tonu ailesi) ikinci,
+# üçüncü … duran figür çizilirse sırasına göre çeşitlenir: boy (±%6–8; masa başında değil), başlık (dönemin seçeneklerinden), giysi tonu, poz evresi.
+# Yalnız `actor`/oturan figürde (yürüyen, kalabalık, alay ve h<240 figürler kapsam dışı: konumları kayar, kırpılır → çeşitleme kare kare
+# açılıp kapanmasın, "pop" olmasın). İlk çizilen örnek kalıbın kendisidir (sahnenin kahramanı değişmez).
+CLONE_VARY = True
+CLONE_MIN_H = 240.0
+_VAR_H = (1.0, 0.935, 1.065, 0.955, 1.075, 0.965)
+_ALT_HATS = dict(halk=("cappuccio", "feltcap", "coif", "woolcap"), tuccar=("mazzocchio", "cappuccio", "feltcap", "flatcap"),
+                 soylu=("mazzocchio", "cappuccio", "tall", "flatcap"), soylu_f=("veil", "coif", "frenchhood"), banker=("scholar", "flatcap", "cappuccio"),
+                 cocuk=("feltcap", "coif", "none"), denizci=("woolcap", "feltcap", "straw"), asker=("sallet", "morion"), rahip=("biretta", "coif"))
+
+
+def _look(spec_d):
+    """Görünüm kimliği: başlık + sakal + giysi tonu ailesi (ton 30°, değer 0,15 kovası)."""
+    import colorsys
+    r_, g_, b_ = (v / 255.0 for v in sk.rgb(spec_d.get("robe", "#808080")))
+    hh_, ss_, vv_ = colorsys.rgb_to_hsv(r_, g_, b_)
+    return (spec_d.get("hat"), spec_d.get("beard"), int(hh_ * 12) if ss_ > 0.15 else -1, int(vv_ / 0.15))
+
+
+def clone_vary(f, kind, seed, x, y, h, phase, stil, seated=False):
+    """Aynı karede yakındaki aynı-görünüm kopyaları ayırt et. Dönüş: (h, phase, stil)."""
+    if not CLONE_VARY or h < CLONE_MIN_H:
+        return h, phase, stil
+    reg = getattr(f, "_fa_clone", None)
+    if reg is None:
+        reg = []
+        try:
+            f._fa_clone = reg
+        except AttributeError:
+            return h, phase, stil
+    kind_ = ALIAS.get(kind, kind)
+    ikey = (kind_, seed, round(float(x), 1), round(float(y), 1), round(float(h), 1), tuple(sorted(stil.items())) if stil else ())
+    for e in reg:                                                    # aynı örneğin ikinci geçişi (siluet kenar ışığı + dolgu)
+        if e["ikey"] == ikey:
+            return e["out"]
+    base = dict(costume(kind_, seed, **stil))
+    lk = _look(base)
+    y_ = DN.year() if PERIOD_COSTUME else None
+    hat0 = base.get("hat")
+    hat_final = period_hat(kind_, hat0, y_, _hat_r(kind_, seed)) if y_ is not None else hat0
+    R = min(2.6 * h, 640.0)
+    group = [e for e in reg if e["kind"] == kind_ and (e["look"] == lk or e["seed"] == seed) and abs(e["x"] - x) < R
+             and abs(e["y"] - y) < 0.35 * h and 0.8 < h / max(1.0, e["h"]) < 1.25]
+    rank = (max(e["rank"] for e in group) + 1) if group else 0
+    out = (h, phase, stil)
+    if rank > 0:
+        st = dict(stil)
+        used = {e["hat"] for e in group}
+        if "hat" not in stil and hat_final in used:                  # başlık gruptakiyle aynıysa dönemin başka bir seçeneği
+            alts = [period_hat(kind_, a, y_, 0.0) if y_ is not None else a for a in _ALT_HATS.get(kind_, ())]
+            alts = [a for a in dict.fromkeys(alts) if a not in used]
+            if alts:
+                st["hat"] = hat_final = alts[(rank - 1 + seed) % len(alts)]
+        if "robe" not in stil and base.get("robe"):
+            st["robe"] = mix(base["robe"], "#1A1008", 0.17) if rank % 2 else mix(base["robe"], "#F4EEDC", 0.15)
+        hk = 1.0 if seated else _VAR_H[rank % len(_VAR_H)]
+        out = (h * hk, (phase + 0.37 * rank) % 1.0, st)
+    reg.append(dict(ikey=ikey, kind=kind_, seed=seed, look=lk, x=float(x), y=float(y), h=float(h), rank=rank, hat=hat_final, out=out))
+    return out
 
 
 def place_fig(c, x, y, h, bake_h, dirn=1):
@@ -1070,17 +1317,21 @@ def _fig_shadow(c, x, y, h, alpha, kneel=False):
 
 
 def _draw_pose(f, kit, bh, p, x, y, h, dirn, alpha=1.0, cf=None, layers=None, extra=None):
+    if alpha <= 0.002:
+        return
     c = f.c
     if layers is None or "legs" in layers:
         _fig_shadow(c, x, y, h, alpha)
     c.save()
     place_fig(c, x, y, h, bh, dirn)
+    a_in, opened = fade_begin(c, alpha, fig_rect(bh))           # figür + extra tek katmanda solar (SA2-Y1)
     if layers is None:
-        draw_fig(c, kit, p, alpha, cf)
+        draw_fig(c, kit, p, a_in, cf)
     else:
-        draw_fig(c, kit, p, alpha, cf, layers)
+        draw_fig(c, kit, p, a_in, cf, layers)
     if extra is not None:
         extra(c, p, kit)
+    fade_end(c, opened)
     c.restore()
 
 
@@ -1109,6 +1360,96 @@ def ramp(T, t0, d):
 def pulse_(T, t0, rise, hold, fall):
     """t0'da yükselir (rise sn), hold sn bekler, fall sn'de iner → 0..1."""
     return ramp(T, t0, rise) * (1.0 - ramp(T, t0 + rise + hold, fall))
+
+
+# ═════════════════════════════ oyunculuk (kurul tur 2 AN1: "kukla" hissi) ═════════════════════════════
+# Kit geneline: büyük jestlerde hazırlık (anticipation) + varışta ve dönüşte sönümlü oturma (settle); figür başına rastgele evreli göz kırpma;
+# konuşma/yürüyüşte dirsekten gecikmeli takip (follow-through); `look=` ile baş karşıdakine döner. Değer ve hız her yerde sürekli (pop yok).
+# Kapatmak için: ACT_V2 / BLINK / FOLLOW = False (eski davranış birebir).
+import anim as AN                                                    # noqa: E402  (saf zaman işlevleri; döngüsel içe aktarma yok)
+
+ACT_V2 = True
+BLINK = True
+FOLLOW = True
+BLINK_EVERY = (3.0, 6.0)          # sn: iki kırpma arası (tohumlu, figür başına evre)
+BLINK_DUR = 0.21                  # sn: kapak eğrisi süresi; ≥0,5 kapalı kısım ≈2–3 kare (24 fps)
+FT_LAG = 0.09                     # sn: ön kolun üst kolu izleme gecikmesi
+LOOK_LIM = (-17.0, 21.0)          # baş çevirme sınırı (°): yukarı / aşağı
+
+
+def gesture_env(T, t0, rise, hold, fall, back=0.14, pre=0.16, over=0.10, over_fall=0.06):
+    """0 → 1 → 0 jest zarfı (pulse_'ın oyunculu sürümü): t0'dan `pre` sn önce ters yönde −back'e çekilir (hazırlık), t0'da kalkar,
+    t0+rise'da hedefe ulaşır, `over` kadar aşıp sönümlü oturur; t0+rise+hold'da döner, dinlenmeyi `over_fall` aşıp oturur.
+    ACT_V2=False → pulse_ (eski). Değer ve hız sürekli."""
+    if not ACT_V2:
+        return pulse_(T, t0, rise, hold, fall)
+    if T <= t0 - pre:
+        a = 0.0
+    elif T < t0:
+        a = -back * smooth((T - (t0 - pre)) / max(1e-6, pre))
+    else:
+        a = -back + (1.0 + back) * AN.settle(T, t0, rise, over)
+    t1 = t0 + rise + hold
+    d = AN.settle(T, t1, fall, over_fall) if T > t1 else 0.0
+    return a - d
+
+
+def gesture_on(T, t0, rise, back=0.10, pre=0.14, over=0.08):
+    """Tek yönlü jest (0 → 1, kalıcı): hazırlık + aşmalı oturma. ACT_V2=False → ramp (eski)."""
+    if not ACT_V2:
+        return ramp(T, t0, rise)
+    if T <= t0 - pre:
+        return 0.0
+    if T < t0:
+        return -back * smooth((T - (t0 - pre)) / max(1e-6, pre))
+    return -back + (1.0 + back) * AN.settle(T, t0, rise, over)
+
+
+def blink_eye(kit, T, phase=0.0, salt=0):
+    """Göz kırpma: 1 = bu karede göz kapalı. Gözü çizilen figürlerde (baş ≥ 12 px pişirme) figür başına tohumlu evre; 3–6 sn'de bir, 2–3 kare."""
+    if not BLINK or kit.B["hh"] <= 11:
+        return 0
+    sd = getattr(kit, "_bseed", None)
+    if sd is None:
+        sd = kit._bseed = zlib.crc32(repr(kit.spec).encode()) & 0xFFFFFF
+    s = (sd ^ (int(phase * 99991) * 2654435761) ^ (salt * 40503)) & 0xFFFFFF
+    return 1 if AN.blink(T, seed=s, every=BLINK_EVERY, dur=BLINK_DUR) >= 0.5 else 0
+
+
+def _ft_arm(B, sho, off_now, off_lag, bend=1.0):
+    """Dirsekten gecikmeli takip: üst kol şimdiki hedefe (sho+off_now) göre, dirsek bükümü `FT_LAG` önceki hedefe göre → el üst kolu izler."""
+    if not FOLLOW:
+        return ("ik", (sho[0] + off_now[0], sho[1] + off_now[1]))
+    ua, fa = B["ua"], B["fa"]
+    ex, ey, wx, wy = ik2(sho[0], sho[1], sho[0] + off_now[0], sho[1] + off_now[1], ua, fa, bend)
+    ex2, ey2, wx2, wy2 = ik2(sho[0], sho[1], sho[0] + off_lag[0], sho[1] + off_lag[1], ua, fa, bend)
+    a1 = math.atan2(ey - sho[1], ex - sho[0])
+    b1 = math.atan2(ey2 - sho[1], ex2 - sho[0])
+    b2 = math.atan2(wy2 - ey2, wx2 - ex2)
+    bend_lag = (b2 - b1 + math.pi) % (2 * math.pi) - math.pi
+    fa_ang = a1 + bend_lag
+    return ("fk", (ex, ey, ex + fa * math.cos(fa_ang), ey + fa * math.sin(fa_ang)))
+
+
+def apply_look(p, kit, bh, x, y, h, dirn, look, w=1.0):
+    """Baş karşıdakine döner: look=(lx, ly) — x, y ile aynı koordinat düzleminde bakılan nokta (ör. karşıdakinin başı).
+    Profil figürde baş yalnız eğilir (yukarı/aşağı, LOOK_LIM); hedef arkadaysa dokunulmaz. w: 0..1 ağırlık (sürekli geçiş için)."""
+    if look is None or w <= 0.001:
+        return p
+    try:
+        lx, ly = float(look[0]), float(look[1])
+    except (TypeError, ValueError, IndexError):
+        return p
+    s = h / bh
+    nx = x + dirn * p.neck[0] * s
+    eye_y = y + (p.neck[1] - 0.10 * kit.B["hb"]) * s
+    dx = (lx - nx) * dirn
+    if dx <= 0.05 * h:
+        return p
+    ang = math.degrees(math.atan2(ly - eye_y, dx))
+    k = smooth((dx - 0.05 * h) / (0.25 * h))                          # çok yakında yumuşak giriş (sıçrama yok)
+    p.head += w * k * 0.8 * (clamp(ang, *LOOK_LIM) - p.tor)           # gövdeye göre hedef açı; baş sallama/duruş eğimi üstüne eklenir
+    return p
 
 
 @functools.lru_cache(maxsize=256)
@@ -1342,27 +1683,34 @@ def act_idle(kit, T, phase=0.0, **_):
 
 
 def act_talk(kit, T, phase=0.0, energy=1.0, **_):
-    """Konuşurken jest: vurgu atımlarıyla eli öne açar, baş vurguda hafifçe eğilir."""
+    """Konuşurken jest: vurgu atımlarıyla eli öne açar, baş vurguda hafifçe eğilir. FOLLOW: ön kol üst kolu FT_LAG gecikmeyle izler (AN1)."""
     hb = kit.B["hb"]
     ph = phase * 6.283
-    env = 0.55 + 0.45 * math.sin(T * 0.9 + ph)
     beat = max(0.0, math.sin(T * 3.4 + ph * 2.0 + 0.7 * math.sin(T * 0.6)))
-    env2 = max(0.0, math.sin(T * 0.47 + ph + 2.0))
+
+    def g_near(TT):
+        en = 0.55 + 0.45 * math.sin(TT * 0.9 + ph)
+        bt = max(0.0, math.sin(TT * 3.4 + ph * 2.0 + 0.7 * math.sin(TT * 0.6)))
+        return ((0.20 + 0.05 * math.sin(TT * 2.0 + ph) + 0.035 * bt) * hb * (0.55 + 0.45 * energy),
+                (0.17 - 0.07 * bt + 0.025 * math.sin(TT * 1.4 + ph)) * hb - 0.04 * hb * en * energy)
+
+    def g_far(TT):
+        e2 = max(0.0, math.sin(TT * 0.47 + ph + 2.0))
+        return ((0.07 + 0.10 * e2) * hb, (0.26 - 0.13 * e2) * hb)
 
     def arms(sho):
-        gx = sho[0] + (0.20 + 0.05 * math.sin(T * 2.0 + ph) + 0.035 * beat) * hb * (0.55 + 0.45 * energy)
-        gy = sho[1] + (0.17 - 0.07 * beat + 0.025 * math.sin(T * 1.4 + ph)) * hb - 0.04 * hb * env * energy
-        fx = sho[0] + (0.07 + 0.10 * env2) * hb
-        fy = sho[1] + (0.26 - 0.13 * env2) * hb
-        return ("ik", (fx, fy)), ("ik", (gx, gy)), "open", "open"
+        return _ft_arm(kit.B, sho, g_far(T), g_far(T - FT_LAG)), _ft_arm(kit.B, sho, g_near(T), g_near(T - FT_LAG)), "open", "open"
     return stand(kit, T, phase, arms=arms, head_add=2.4 * beat * energy, tor_add=0.8 * beat * energy)
 
 
 def act_bow(kit, T, phase=0.0, t0=0.5, dur=2.2, depth=34.0, **_):
-    """Selam: gövde kalçadan öne eğilir, baş uyar, el göğse gider; bekler; kalkar."""
+    """Selam: gövde kalçadan öne eğilir, baş uyar, el göğse gider; bekler; kalkar. ACT_V2: önce hafif dikleşme (hazırlık), dipte ve dönüşte oturma."""
     hb = kit.B["hb"]
     u = (T - t0) / dur
-    b = ease5(clamp(u / 0.38)) * (1 - ease5(clamp((u - 0.62) / 0.38)))
+    if ACT_V2:
+        b = gesture_env(T, t0, 0.38 * dur, 0.24 * dur, 0.38 * dur, back=0.10, pre=0.18, over=0.09, over_fall=0.07)
+    else:
+        b = ease5(clamp(u / 0.38)) * (1 - ease5(clamp((u - 0.62) / 0.38)))
     th = depth * b
 
     def arms(sho):
@@ -1385,9 +1733,14 @@ def act_kneel(kit, T, phase=0.0, t0=0.5, dur=1.6, rise_at=None, pray=1.0, **_):
     """Diz çökme: pelvis iner, arka diz yere değer, ön ayak ilerler, eller göğüste kenetlenir, baş eğilir. rise_at: kalkış zamanı."""
     hb = kit.B["hb"]
     ah = kit.B["ah"]
-    k = ramp(T, t0, dur)
-    if rise_at is not None:
-        k *= 1.0 - ramp(T, rise_at, dur)
+    if ACT_V2:                                                        # iniş: hafif kalkış (hazırlık) + dizin yere oturması; kalkışta da oturma
+        k = gesture_on(T, t0, dur, back=0.05, pre=0.16, over=0.06)
+        if rise_at is not None:
+            k = k - AN.settle(T, rise_at, dur, 0.05) * (k if T > rise_at else 0.0) if T > rise_at else k
+    else:
+        k = ramp(T, t0, dur)
+        if rise_at is not None:
+            k *= 1.0 - ramp(T, rise_at, dur)
     th = kit.B["th"]
     hip_y_stand = -(ah + 0.985 * (th + kit.B["sh"]))
     hip_y_kneel = -(th * 1.02 + 0.0)
@@ -1660,6 +2013,9 @@ def act_work(kit, T, phase=0.0, mode="lay", period=None, high=0.0, **_):
             pa = skia.Path()
             pa.moveTo(w[0], w[1])
             pa.quadTo(w[0] + 0.30 * hb, w[1] - 0.30 * hb + 0.08 * hb * (1.0 - pull), w[0] + 0.66 * hb, w[1] - 0.86 * hb)
+            if _CF_CTX[0] is not None:
+                rp = skia.Paint(rp)
+                rp.setColorFilter(_CF_CTX[0])
             c.drawPath(pa, rp)
         p.props.append(("near", rope))
         return p
@@ -1690,6 +2046,7 @@ def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.
     Parametreler (eyleme göre): t0 (başlangıç sn), dur, depth, target=(dx,dy), rise_at, energy, amount, M …  prop='staff'|'book'… ile eline aksesuar."""
     stil = {k: v for k, v in p.items() if k in STIL_KEYS}
     ap = {k: v for k, v in p.items() if k not in STIL_KEYS}
+    h, phase, stil = clone_vary(f, kind, seed, x, y, h, phase, stil)          # aynı kalıptan kopyalar çeşitlenir (SA1-Y5)
     kit, bh = kit_for(kind, seed, h, **stil)
     prop = ap.pop("prop", None)
     fn = ACTIONS[action]
@@ -1698,20 +2055,24 @@ def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.
         attach_prop(kit, pz, prop, t, ap.get("prop_hand", "near"))
     sway, aF, aB, breath = pz._sk
     cloth_for(kit, pz, t, phase * 6.28, lag=0.0, wave=0.0)
+    if alpha <= 0.002:
+        return pz
     c = f.c
     _fig_shadow(c, x, y, h, alpha, kneel=(action in ("kneel", "pray")))
     c.save()
     place_fig(c, x, y, h, bh, dir)
+    a_in, opened = fade_begin(c, alpha, fig_rect(bh))           # masa, kollar ve extra dahil tek katman (SA2-Y1)
     ex = pz.extra
     if ex and ex.get("desk"):
-        draw_fig(c, kit, pz, alpha, cf, ("back", "legs", "body", "head"))
-        draw_desk(c, kit, pz, t, alpha)
-        draw_fig(c, kit, pz, alpha, cf, ("arms",))
-        draw_desk_top(c, kit, pz, t, alpha)
+        draw_fig(c, kit, pz, a_in, cf, ("back", "legs", "body", "head"))
+        draw_desk(c, kit, pz, t, a_in)
+        draw_fig(c, kit, pz, a_in, cf, ("arms",))
+        draw_desk_top(c, kit, pz, t, a_in)
     else:
-        draw_fig(c, kit, pz, alpha, cf)
+        draw_fig(c, kit, pz, a_in, cf)
     if extra is not None:
         extra(c, pz, kit)
+    fade_end(c, opened)
     c.restore()
     return pz
 
@@ -1803,7 +2164,7 @@ def _flag_fn(top, hb, T, flag, v=0.0, ph=0.0):
             dh[i] = 1.0 + 0.05 * math.sin(ph_ + 1.0) * u * wind
         c.save()
         c.translate(top[0] - wpx, top[1] + 0.02 * hpx)
-        cs.draw(c, dy.tolist(), dh.tolist())
+        cs.draw(c, dy.tolist(), dh.tolist(), cf=_CF_CTX[0])        # siluette sancak da süzülür
         c.restore()
     return fn
 
@@ -2150,6 +2511,7 @@ def draw_rider(c, hk, T, x, y, h, bake_h, speed=120.0, gait="walk", dirn=1, phas
     c.save()
     c.translate(x, y)
     c.scale(dirn * s, s)
+    alpha, opened = fade_begin(c, alpha, skia.Rect.MakeLTRB(-1.8 * bake_h, -2.6 * bake_h, 1.8 * bake_h, 0.4 * bake_h))   # at + binici + sancak tek katman (SA2-Y1)
     pt = None
     if alpha < 1.0 or cf is not None:
         pt = skia.Paint(AntiAlias=False)
@@ -2208,8 +2570,14 @@ def draw_rider(c, hk, T, x, y, h, bake_h, speed=120.0, gait="walk", dirn=1, phas
         c.save()
         c.translate(sp_[0], sp_[1])
         c.rotate(pitch + sway)
-        prop(c, hk)
+        prev = _CF_CTX[0]
+        _CF_CTX[0] = cf
+        try:
+            prop(c, hk)
+        finally:
+            _CF_CTX[0] = prev
         c.restore()
+    fade_end(c, opened)
     c.restore()
     return P
 
@@ -2232,11 +2600,16 @@ def handshake(f, kindA, kindB, x, y, h, t, gap=0.60, t0=0.5, seedA=0, seedB=1, a
     Mw = (x, y - 0.50 * h)
     pa = act_handshake(kitA, t, 0.1, t0=t0, M=((Mw[0] - xa) / sA / kitA.B["hb"], (Mw[1] - y) / sA / kitA.B["hb"]))
     pb = act_handshake(kitB, t, 0.6, t0=t0 + 0.05, M=((xb - Mw[0]) / sB / kitB.B["hb"], (Mw[1] - y) / sB / kitB.B["hb"]))
+    if alpha <= 0.002:
+        return
+    c = f.c
+    a_in, opened = fade_begin(c, alpha, skia.Rect.MakeLTRB(xa - 1.6 * h, y - 2.4 * h, xb + 1.6 * h, y + 0.4 * h))   # iki figür tek katman (SA2-Y1)
     for kit, bh, p, xx, dd, hh, ph in ((kitA, bhA, pa, xa, 1, h, 0.1), (kitB, bhB, pb, xb, -1, h * 0.97, 0.6)):
         cloth_for(kit, p, t, ph * 6.28, lag=0.0, wave=0.0)
-        _draw_pose(f, kit, bh, p, xx, y, hh, dd, alpha, None, ("back", "legs", "body", "head"))
+        _draw_pose(f, kit, bh, p, xx, y, hh, dd, a_in, None, ("back", "legs", "body", "head"))
     for kit, bh, p, xx, dd, hh in ((kitB, bhB, pb, xb, -1, h * 0.97), (kitA, bhA, pa, xa, 1, h)):
-        _draw_pose(f, kit, bh, p, xx, y, hh, dd, alpha, None, ("arms",))
+        _draw_pose(f, kit, bh, p, xx, y, hh, dd, a_in, None, ("arms",))
+    fade_end(c, opened)
 
 
 def threat(f, t, x, y, h, dir=1, t0=0.4, dur=1.2, victim="kardinal", attacker="asker", alpha=1.0, color="#1A1008", rim="#E8A860", gap=0.55, seed=0):
@@ -2259,13 +2632,17 @@ def threat(f, t, x, y, h, dir=1, t0=0.4, dur=1.2, victim="kardinal", attacker="a
     pv = stand(kitV, t, 0.4, arms=arms_v, tor_add=-6.0 * k, head_add=-5.0 * k)
     cloth_for(kitV, pv, t, 0.0, lag=0.0, wave=0.0)
     # kurbanı saldırganın karşısına çevir (dir tersi)
+    if alpha <= 0.002:
+        return
+    c = f.c
+    a_in, opened = fade_begin(c, alpha, skia.Rect.MakeLTRB(min(xa, xv) - 1.6 * h, y - 2.4 * h, max(xa, xv) + 1.6 * h, y + 0.4 * h))   # kenar ışığı + siluet tek katman
     for off, cf_ in ((1.6, warm), (0.0, flat)):
         for kit, bh, p, xx, dd, hh in ((kitV, bhV, pv, xv, -dir, h * 0.98), (kitA, bhA, pa, xa, dir, h)):
-            c = f.c
             c.save()
             c.translate(-off * dir, -off * 0.9)
-            _draw_pose(f, kit, bh, p, xx, y, hh, dd, alpha, cf_)
+            _draw_pose(f, kit, bh, p, xx, y, hh, dd, a_in, cf_)
             c.restore()
+    fade_end(c, opened)
 
 
 # ═════════════════════════════ KALABALIK ═════════════════════════════
@@ -2552,7 +2929,7 @@ def _rider_banner(dev, c1, c2, T):
         c.save()
         c.translate(hand[0], hand[1])
         c.rotate(-4.0 + 2.0 * math.sin(T * 2.0))
-        c.drawImage(spr.img, -spr.ox, -spr.oy, LIN)
+        c.drawImage(spr.img, -spr.ox, -spr.oy, LIN, _cf_paint())
         c.restore()
         hb = u * 2.2
         top = (hand[0] + 0.98 * hb * math.sin(math.radians(-4.0)), hand[1] - 0.98 * hb)

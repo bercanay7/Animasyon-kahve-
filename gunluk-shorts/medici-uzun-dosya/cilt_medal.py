@@ -1617,9 +1617,18 @@ def medal_img(key, metal="bronze", inscription=None, flip=False, size=720, age=N
     return sk.np_to_image(medal_array_b(key, metal, inscription, flip, size, age))
 
 
+SHADOW_SIGMA = 16.0
+SHADOW_PAD = 64          # ≥ 4σ: bulanık gölge tuvalin kenarında düz dikey/yatay çizgiyle kesilmesin (kurul tur 2 SA1-E4 kalıntısı)
+
+
 @functools.lru_cache(maxsize=32)
-def medal_shadow(key, metal="bronze", inscription=None, flip=False, size=720, age=None):
-    return CM.blur_sil(medal_array_b(key, metal, inscription, flip, size, age)[..., 3], 16.0, (14, 8, 2))
+def medal_shadow(key, metal="bronze", inscription=None, flip=False, size=720, age=None, pad=0):
+    """Madalyanın bulanık gölge silueti. pad>0: tuval her yandan pad px büyütülür (draw_medal_b: SHADOW_PAD) — çizerken ofset −size/2 − pad.
+    pad=0: eski sözleşme (size² tuval; bulanık kenar tuval sınırında kesilir) — eski çağıranlar (c7_kinds, c8_kinds) için korunur."""
+    a = medal_array_b(key, metal, inscription, flip, size, age)[..., 3]
+    if pad:
+        a = np.pad(a, int(pad))
+    return CM.blur_sil(a, SHADOW_SIGMA, (14, 8, 2))
 
 
 def draw_temsili(f, x, y, size, alpha=1.0, text=STAMP_TEXT):
@@ -1687,7 +1696,7 @@ def draw_medal_b(f, key, x, y, size, metal="bronze", flip=False, alpha=1.0, tilt
     if shadow > 0:
         c.save(); c.translate(x + size * 0.035, y + size * 0.055); c.scale(s * cs, s)
         p = skia.Paint(AntiAlias=True); p.setAlphaf(clamp(shadow * alpha))
-        c.drawImage(medal_shadow(key, metal, ins, flip, 720, ag), -360, -360, CM._LIN, p)
+        c.drawImage(medal_shadow(key, metal, ins, flip, 720, ag, SHADOW_PAD), -360 - SHADOW_PAD, -360 - SHADOW_PAD, CM._LIN, p)
         c.restore()
     c.save(); c.translate(x, y); c.scale(s * cs, s)
     p = skia.Paint(AntiAlias=True); p.setAlphaf(clamp(alpha))

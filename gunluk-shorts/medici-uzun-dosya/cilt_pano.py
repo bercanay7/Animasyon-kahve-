@@ -35,6 +35,14 @@ OV = 70                         # dikey taşma (kamera y kayması)
 TW = 1024                       # kareaş genişliği (px)
 LIN = skia.SamplingOptions(skia.FilterMode.kLinear)
 INK = "#2A1A0C"
+EDGE_FILL = 320.0               # dünya sınırını aşan görünür şerit en çok bu kadar (katman px) aynayla doldurulur (ENG-D; kurul tur 2 AN1-Y10)
+OOB = {}                        # (dünya, katman) → en büyük aşım (katman px): tanı / qa
+
+
+def _oob_note(layer, ov):
+    k = (layer.world, layer.name)
+    if ov > OOB.get(k, 0.0):
+        OOB[k] = float(ov)
 
 
 # ═════════════════════════════ küçük çizim yardımcıları ═════════════════════════════
@@ -184,8 +192,7 @@ class Layer:
             pass
         return img, x0
 
-    def draw_view(self, c, xa, xb):
-        """Görünür aralıktaki kareaşları çiz (c: katman dönüşümü uygulanmış tuval)."""
+    def _tiles(self, c, xa, xb):
         i0 = max(0, int(math.floor(xa / self.TWL)))
         i1 = min(self.n_tiles() - 1, int(math.floor(xb / self.TWL)))
         inv = 1.0 / self.scale
@@ -198,10 +205,37 @@ class Layer:
             c.drawImage(img, 0, 0, LIN)
             c.restore()
 
+    def draw_view(self, c, xa, xb):
+        """Görünür aralıktaki kareaşları çiz (c: katman dönüşümü uygulanmış tuval).
+        ENG-D (kurul tur 2 AN1-Y10: 545,5 sn'de oda dekoru bitiyor, sol kenarda lacivert şerit): görünür aralık dünyanın [0, genişlik] sınırını
+        aşarsa aşan şerit dünyanın kenar bölgesinin AYNASIYLA doldurulur (EDGE_FILL px'e dek; duvar/zemin/gök kesintisiz sürer). Kamera değişmez:
+        oda kamerasını dışarıda yeniden hesaplayan yardımcılar (dünyaya bağlı kaplamalar) bozulmaz. Aşım OOB'ye yazılır (qa / tanı)."""
+        self._tiles(c, xa, xb)
+        wd = float(self.n_tiles() * self.TWL)                    # çizilen gerçek sağ uç (son kareaş sonu; dünya çizimi kareaşın tamamını doldurur)
+        if xa < -0.5:
+            ov = min(-xa, EDGE_FILL)
+            _oob_note(self, ov)
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(-ov - 2.0, -1e5, 0.0, 1e5))
+            c.scale(-1.0, 1.0)                                   # x → −x: [0, ov] bölgesi [−ov, 0]'a aynalanır
+            self._tiles(c, 0.0, ov)
+            c.restore()
+        if xb > wd + 0.5:
+            ov = min(xb - wd, EDGE_FILL)
+            _oob_note(self, ov)
+            c.save()
+            c.clipRect(skia.Rect.MakeLTRB(wd, -1e5, wd + ov + 2.0, 1e5))
+            c.translate(2.0 * wd, 0.0)
+            c.scale(-1.0, 1.0)                                   # x → 2·uç − x
+            self._tiles(c, wd - ov, wd)
+            c.restore()
+
 
 # ═════════════════════════════ kamera yolu ═════════════════════════════
-def pchip(ts, vs):
-    """Tekdüze kübik Hermite (uçlarda eğim 0 → yumuşak başlama/bitiş). Dönüş: f(t)."""
+def pchip(ts, vs, e0=0.0, e1=0.0, tau=0.6):
+    """Tekdüze kübik Hermite. Uç eğimleri: e0/e1 = ilk/son parçanın eğiminin katı (0 → yumuşak başlama/bitiş, eski davranış).
+    e>0 iken (ENG-D: geçişte CARRY, SERT KESMEDE 1,0 — kurul tur 2 AN1-Y11 "kesmede 1 karelik kamera duruşu") anahtar karelerin ötesinde kamera
+    durmaz: o eğimle başlar ve tau sn'de sönümlenerek sürer (x = v + e·d·tau·(1 − e^(−Δt/tau)); en çok e·d·tau kadar yol). Dönüş: f(t)."""
     n = len(ts)
     ts = [float(t) for t in ts]
     vs = [float(v) for v in vs]
@@ -217,12 +251,15 @@ def pchip(ts, vs):
             w1 = 2 * h[i] + h[i - 1]
             w2 = h[i] + 2 * h[i - 1]
             m[i] = (w1 + w2) / (w1 / d[i - 1] + w2 / d[i])
+    m[0] = float(e0) * d[0]
+    m[-1] = float(e1) * d[-1]
+    tau = max(1e-3, float(tau))
 
     def f(t):
         if t <= ts[0]:
-            return vs[0]
+            return vs[0] - (m[0] * tau * (1.0 - math.exp(-(ts[0] - t) / tau)) if m[0] else 0.0)
         if t >= ts[-1]:
-            return vs[-1]
+            return vs[-1] + (m[-1] * tau * (1.0 - math.exp(-(t - ts[-1]) / tau)) if m[-1] else 0.0)
         lo, hi = 0, n - 1
         while hi - lo > 1:
             mid = (lo + hi) // 2
@@ -257,9 +294,18 @@ class PanoCam:
             keys.append((keys[0][0] + 1.0,) + keys[0][1:])
         self.keys = keys
         ts = [k[0] for k in keys]
-        self.fx = pchip(ts, [k[1] for k in keys])
-        self.fy = pchip(ts, [k[2] for k in keys])
-        self.fz = pchip(ts, [k[3] for k in keys])
+        # uç eğimleri (ENG-D): sert kesmeyle birleşen uçta 1,0 (hareket üstünde kesme), geçişte CARRY (rehber §2), serbest uçta 0 (eski yumuşak duruş)
+        import cilt_cam as _CAM
+        e0 = _CAM._end_factor(bool(getattr(cx, "cam_in", False)), bool(getattr(cx, "cut_in", False)))
+        e1 = _CAM._end_factor(bool(getattr(cx, "cam_out", False)), bool(getattr(cx, "cut_out", False)))
+        self.fx = pchip(ts, [k[1] for k in keys], e0, e1)
+        self.fy = pchip(ts, [k[2] for k in keys], e0, e1)
+        self.fz = pchip(ts, [k[3] for k in keys], e0, e1)
+        self.dur = float(dur)
+        try:
+            cx._pano_cam = self                                  # doku dünya kilidi (compose): çekimin başvuru zumu at(dur/2)
+        except Exception:
+            pass
 
     def at(self, t):
         return self.fx(t), self.fy(t), max(0.5, self.fz(t))
@@ -277,6 +323,10 @@ class Ctx:
         self.night = tod == "night"
         self.alpha = alpha
         self.hc = 800 / 2 + OV                # görüntü merkezi (katman y)
+        try:                                  # doku dünya kilidi (compose, ENG-D / kurul tur 2 TE1 §7): ana düzlem (f=1) dünya → ekran dönüşümü
+            cx.world_xf = ("pano", float(camx), float(camy), float(z), float(band[0] + band[1] / 2.0), self.hc)
+        except Exception:
+            pass
 
     def Cx(self, fct):
         return W / 2 + (self.camx - W / 2) * fct

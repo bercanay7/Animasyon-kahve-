@@ -287,25 +287,104 @@ def stamp_pose(t, t0, profile="squash", dur=None, seed=0):
     return Pose(sx=s, sy=s, alpha=0.25 + 0.75 * k, ink=k, impact=0.35 * imp)
 
 
-def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None, alpha=1.0, draw=None, shadow=True, ink=True, seed=0, **kw):
+STAMP_BACK = True              # kurul tur 2 TE2-Y5: damganın altına kâğıt yaması — yazı ↔ hemen arkasındaki zemin ≥4,5:1
+STAMP_BACK_ALPHA = 0.95        # yamanın örtücülüğü (en koyu / en desenli arka planda da hedef tutsun)
+STAMP_CR_MIN = 7.0             # koyu mürekkep ↔ açık kâğıt NOMİNAL hedef: renk derecelendirme (post) kontrastı ≈%30 düşürüyor → son karede ölçülen ≥4,5:1
+STAMP_CR_MIN_NIGHT = 6.0       # açık (gece) mürekkep ↔ koyu kâğıt
+PAPER_LIGHT = ("#FCF7EA", "#F3EBD7")      # koyu (sinabar) mürekkep → açık kâğıt fişi
+PAPER_DARK = ("#24180F", "#160E09")       # açık (gece) mürekkep → koyu kâğıt fişi
+
+
+def _lum(hexcol):
+    """WCAG göreli parlaklık ('#RRGGBB')."""
+    import sk
+    v = []
+    for ch in sk.rgb(hexcol):
+        c = ch / 255.0
+        v.append(c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2]
+
+
+def _cr(la, lb):
+    return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
+
+
+def stamp_back_colors(color):
+    """Mürekkep rengine göre (kâğıt üst/alt rengi, gerekirse koyulaştırılmış/açılmış mürekkep). Damga dili korunur: kırmızı mürekkep, yalnız tonu."""
+    import sk
+    li = _lum(color)
+    dark_ink = li < 0.22
+    paper = PAPER_LIGHT if dark_ink else PAPER_DARK
+    lp = min(_lum(paper[0]), _lum(paper[1])) if dark_ink else max(_lum(paper[0]), _lum(paper[1]))
+    ink = color
+    k = 0.0
+    target = STAMP_CR_MIN if dark_ink else STAMP_CR_MIN_NIGHT
+    while _cr(_lum(ink), lp) < target and k < 0.6:              # mürekkebi kâğıttan uzaklaştır (koyu mürekkebi koyulaştır, açığı aç)
+        k += 0.04
+        ink = sk.mix(color, "#1A0604" if dark_ink else "#FFF1E6", k)
+    return paper, ink
+
+
+def stamp_back(f, x, y, text, size, rot, alpha, seed=0):
+    """Damga kâğıt fişi: damganın çerçevesinden biraz büyük, hafif farklı açıyla oturmuş, yumuşak gölgeli kâğıt (gece koyu kâğıt).
+    (x, y, rot) damganın OTURDUĞU yer — fiş damgayla birlikte zıplamaz/dönmez (damga fişe vurur)."""
+    if alpha <= 0.003:
+        return
+    import skia
+    import sk
+    import cilt_medici as CM
+    paper, _ink = stamp_back_colors(CM.TH.acc if CM.TH.day else "#E56A52")
+    c = f.c
+    wd = sk.text_width(text, "title", size, 7) + 64
+    mx, my = 0.17 * size + 6, 0.13 * size + 4
+    x0, y0, x1, y1 = -wd / 2 - mx, -size * 0.86 - my, wd / 2 + mx, size * 0.66 + my
+    r = _rng(f"{text}:{seed}", 31)
+    tilt = math.degrees(rot) + (0.55 + 0.5 * r()) * (1 if r() < 0.5 else -1)
+    c.save()
+    c.translate(x, y)
+    c.rotate(tilt)
+    day = CM.TH.day
+    sp = skia.Paint(AntiAlias=True, Color=sk.C("#120A04", int(255 * (0.26 if day else 0.50) * alpha)),
+                    MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 5.0))
+    rr = 0.10 * size
+    c.drawRoundRect(skia.Rect.MakeLTRB(x0 + 3, y0 + 5, x1 + 3, y1 + 5), rr, rr, sp)
+    pp = skia.Paint(AntiAlias=True)
+    pp.setShader(skia.GradientShader.MakeLinear([skia.Point(0, y0), skia.Point(0, y1)], [sk.C(paper[0]), sk.C(paper[1])]))
+    pp.setAlphaf(STAMP_BACK_ALPHA * alpha)
+    c.drawRoundRect(skia.Rect.MakeLTRB(x0, y0, x1, y1), rr, rr, pp)
+    ep = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=1.3, Color=sk.C("#7C5C2E" if day else "#C9A45A", int(255 * 0.45 * alpha)))
+    c.drawRoundRect(skia.Rect.MakeLTRB(x0 + 0.6, y0 + 0.6, x1 - 0.6, y1 - 0.6), rr, rr, ep)
+    c.restore()
+
+
+def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None, alpha=1.0, draw=None, shadow=True, ink=True, seed=0, back=None, **kw):
     """Damgayı profil pozuyla çiz. draw: çizim işlevi (varsayılan cilt_medici.stamp; imza draw(f, text, x, y, rot=, size=, color=, alpha=, t=1.0, **kw)).
     Gölge sıçraması: damga kâğıttan yüksekken yumuşak gölge sağ-alta kayar, darbede altına toplanır. Mürekkep: darbeden sonra kenarda hafif yayılma.
+    back: kâğıt fişi (None → STAMP_BACK; yalnız varsayılan CM.stamp çiziminde): damga fişe vurur; mürekkep gerekirse koyulaştırılır (TE2-Y5).
     Dönüş: darbe zarfı (0..1) — kamera/kare sarsıntısı için (impact_ovl ya da cam=(…, dict(shake=[…])))."""
     p = stamp_pose(t, t0, profile, seed=seed)
     if not p.vis or p.alpha <= 0.003:
         return 0.0
     import skia
+    use_back = False
     if draw is None:
         import cilt_medici as CM
         draw = CM.stamp
+        use_back = STAMP_BACK if back is None else bool(back)
         if color is None:
             color = CM.TH.acc if CM.TH.day else "#E56A52"          # CM.stamp ile aynı varsayılan (mürekkep gölgesi de bu renkte)
+        if use_back:
+            color = stamp_back_colors(color)[1]
     c = f.c
     a = alpha * p.alpha
     import sk
     wd = sk.text_width(text, "title", size, 8) + 60
     hh = size * 1.5
     col = color or "#A8261E"
+    if use_back:                                               # kâğıt fişi damgadan önce görünür (damga ona iner); oturduğu yerde sabit
+        ap = APPROACH.get(profile if profile in STAMP_PROFILES else "squash", 0.2)
+        kb = _smooth((t - t0 + ap) / max(ap, 0.25))            # yaklaşımın başında 0 → (en geç darbeden 0,2 sn sonra) 1; sürekli
+        stamp_back(f, x, y, text, size, rot, alpha * kb, seed=seed)
     if shadow and p.lift > 0.01:                               # gölge sıçraması (kâğıttan yükseklik)
         c.save()
         c.translate(x + p.dx + 16 * p.lift, y + p.dy + 22 * p.lift)
@@ -321,7 +400,7 @@ def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None
         c.rotate(math.degrees(rot) + p.rot)
         grow = 1.0 + 0.06 * p.ink
         c.scale(grow, grow)
-        ip = skia.Paint(AntiAlias=True, Color=sk.C(col, int(255 * 0.16 * a * p.ink)), BlendMode=skia.BlendMode.kMultiply,
+        ip = skia.Paint(AntiAlias=True, Color=sk.C(col, int(255 * (0.07 if use_back else 0.16) * a * p.ink)), BlendMode=skia.BlendMode.kMultiply,
                         MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 9.0))
         c.drawRoundRect(skia.Rect.MakeLTRB(-wd / 2 - 6, -size * 0.85 - 6, wd / 2 + 6, -size * 0.85 + hh + 6), 12, 12, ip)
         c.restore()
