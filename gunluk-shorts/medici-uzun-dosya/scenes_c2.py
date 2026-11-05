@@ -231,18 +231,19 @@ SHOTS = [
          ovl=P.ov(P.tag("AFOROZ TEHDİDİ", 960, 140, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
                   anim.impact_ovl(("c2s20", "aforozla", 0.2), amp=3)),
          cam=("push",), tr="cut", link="cam", label="aforoz tehdidi (belgeli)"),
-    # ── 19. YAKIN PLAN (≥2×) · PAPALIK KASASI (10,6 sn; kurul tur 3 AN2-Ö1/PK2-N1: üstten açık defter DEĞİL): kızıl kadife kaplı kasa — baş öğe EL ve ANAHTARLAR
-    #        (el 'memurluğu'nda anahtarları kapağa bırakır, açılıp kadrajdan çekilir); bilgi kapağa iğneli kâğıt şeritte, tüy kalemle: başlık yazılı açılır,
-    #        1422 · 22 düz çentik KESİNTİSİZ · + 18 YIL kesikli çentik ARALIKLI · MEDİCİ'DE KALDI (sözcük/sayılar eskisiyle aynı; dolum çubuğu yok). ──
+    # ── 19. YAKIN PLAN (≥2×) · PAPALIK KASASI (10,6 sn; kurul tur 3 AN2-Ö1/PK2-N1: üstten açık defter DEĞİL): kızıl kadife kaplı kasa — baş öğe ANAHTARLAR
+    #        (v3.2, kurul tur 3b PK2-G1/SA1-E-1: el YOK; halkalı anahtarlar kadrajın üstünden kadifeye düşer, 'kasa'da değer, sekip oturur); bilgi kapağa iğneli
+    #        kâğıt şeritte, tüy kalemle: başlık yazılı açılır, 1422 · 22 düz çentik KESİNTİSİZ · + 18 YIL kesikli çentik ARALIKLI · MEDİCİ'DE KALDI. ──
     shot("c2_yakin", ("c2s21", -0.15), scene="kasa", mode="day", perde=1, family="dunya",
-         keys_at=("c2s21", -0.45), keys_dur=1.35, release_at=("c2s21", "memurluğu", 0.2), start_at=("c2s21", "1422'den", -0.1),
+         land_at=("c2s21", "kasa", 0.0), fall_dur=1.15, start_at=("c2s21", "1422'den", -0.1),       # v3.2 (PK2-G1): el yok; anahtarlar üstten düşer, 'kasa'da değer
          a_at=("c2s21", "yirmi", -0.1), a_to=("c2s21", "yıl", -0.05), a_lab=("c2s21", "yıl", -0.05), a_word=("c2s21", "kesintisiz", 0.0),
-         b_at=("c2s21", "sekiz", -0.25), b_to=("c2s21", "yıl", 1, -0.1), b_lab=("c2s21", "yıl", 1, -0.05), b_word=("c2s21", "aralıklarla", 0.0),
-         medici_at=("c2s21", "Medici'de", -0.1), kaldi_at=("c2s21", "kaldı", 0.0),
+         b_at=("c2s21", "sekiz", -0.25), b_to=("c2s21", "yıl", 1, -0.1), b_lab=("c2s21", "yıl", 1, -0.05), b_word=("c2s21", "aralıklarla", 0.0), b_word_dur=0.45,
+         medici_at=("c2s21", "aralıklarla", 0.2), medici_dur=0.5, kaldi_at=("c2s21", "aralıklarla", 0.5), kaldi_dur=0.3,     # v3.2 (TE2-G9): son hâl ≈484,6'da tamam
          cams=[(("c2s21", -0.15), (1260, 860, 1.00)), (("c2s21", "memurluğu", 0.1), (1300, 880, 1.03)), (("c2s21", "1422'den", 0.15), (1010, 700, 1.15)),
                (("c2s21", "yirmi", -0.15), (1020, 705, 1.18)), (("c2s21", "kesintisiz", 0.35), (1120, 705, 1.18)), (("c2s21", "ardından", 0.1), (1300, 705, 1.16)),
-               (("c2s21", "aralıklarla", 0.3), (1460, 710, 1.14)), (("c2s21", "Medici'de", 0.1), (1600, 720, 1.10)), (("c2s21", "kaldı", 0.35), (1300, 815, 0.88))],   # sonda şerit + anahtarlar birlikte (≈0,7 sn)
-         tr="cut", link="audio", label="yakın plan: papalık kasası; el anahtarları bırakır; 22 + 18 yıl (kâğıt şerit)"),
+               (("c2s21", "aralıklarla", -0.25), (1440, 710, 1.13)), (("c2s21", "aralıklarla", 0.8), (1300, 815, 0.88)), (("c2s22", 0.2), (1300, 815, 0.886))],
+         # v3.2 (TE2-G9): kamera son çerçeveye ≈484,6'da oturur ve geçişe (485,94) dek durur: şeridin son hâli + anahtarlar ≥1,3 sn keskin
+         tr="cut", link="audio", label="yakın plan: papalık kasası; anahtarlar kadifeye düşer; 22 + 18 yıl (kâğıt şerit)"),
     # ── 20. 1427: CATASTO dairesi — hane reisleri yazılı beyannamelerini (portata) masaya getirir; görevliler yazar (kapı kapı DEĞİL; KA1/KA2/SA2-Y6).
     #        Gün ışığında renkli figürler (simsiyah siluet yaya yok). ──
     shot("p1_oda", ("c2s22", -0.15), room="salon", variant="catasto", tod="day", mode="day", perde=1,
@@ -339,13 +340,13 @@ SHOTS = [
                   ("değiş tokuş ettiği için", ("c2s30", "değiş", -0.05)), ("kederlenmemeli.", ("c2s30", "kederlenmemeli", -0.05))],
          cam=[(("c2s30", "kimse", -0.3), (380, -30, 1.08, 0)), (("c2s30", "huzurla", 0.0), (430, 0, 1.24, 0)), (("c2s31", -0.2), (470, 24, 1.40, 0))],
          ovl=P.ov(CAV_PLATE_95, P.tag("CAVALCANTİ'YE GÖRE", 560, 850, ("c2s30", "kimse", 0.0), size=40),
-                  P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 850, ("c2s30", "tasaları", 0.0), size=30)),      # KA2 tur 3 N2; y 880→850 (+ satır aralığı 74→64): iki satırlık altyazı (559,95–565,28) bandının üstünde (TE2-G2 ilkesi)
+                  P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 850, ("c2s30", "tasaları", 0.0), size=34)),      # KA2 tur 3 N2; y 880→850 (+ satır aralığı 74→64): iki satırlık altyazı (559,95–565,28) bandının üstünde (TE2-G2 ilkesi)
          tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz — iki sayfa, iki söz yan yana (yazılmış) ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, full=True, q_at=("c2s31", "bilmiyoruz", -0.6),
          lines_a=[("huzurla gidiyordur", 0.0), ("ve kıskançlık,", 0.0), ("insana verilenden değil,", 0.0), ("istediğinden doğar.", 0.0)],
          lines_b=[("kimse dünyevi tasaları", 0.0), ("sonsuz huzurla", 0.0, True), ("değiş tokuş ettiği için", 0.0), ("kederlenmemeli.", 0.0)],
-         ovl=P.tag("TÜRKÇE SATIRLAR ÖZET · ÇEVİRİ BİZE AİT", 960, 905, ("c2s31", -0.05), size=30),      # KA2/KA1 tur 3 N2
+         ovl=P.tag("TÜRKÇE SATIRLAR ÖZET · ÇEVİRİ BİZE AİT", 960, 905, ("c2s31", -0.05), size=34),      # KA2/KA1 tur 3 N2
          cam=("pull",), tr=("slide", 0.35, dict(dir="r")), link="dir", label="hangisi söylendi: bilmiyoruz"),
     # ── 32. Machiavelli onu yoksulun ihtiyacını kimse istemeden giderirken çizer (Giovanni verir; derinlikli, eşit aralıksız yoksullar) ──
     shot("c2_sadaka", ("c2s32", -0.15), mode="day", perde=1, who_at=("c2s32", "Machiavelli", -0.2), give_at=("c2s32", "yoksulun", -0.35), stamp_at=("c2s32", "çizer", -0.2),

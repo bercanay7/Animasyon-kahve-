@@ -261,7 +261,7 @@ cilt_cam.OWN_CAMERA.add("c0_belge")      # kendi kamera anahtarları (cams=) var
 
 @ckind("c0_belge")
 def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_at=None, it_strike_at=None, hl_at=None, hl_out=None,
-            names_at=None, third_at=None, scrim_at=None, seed=3, pen_at=None, names_out=None, names_hide=(), **_):
+            names_at=None, third_at=None, scrim_at=None, seed=3, pen_at=None, names_out=None, names_hide=(), script_alpha=1.0, **_):
     """Belge (1100×760 kâğıt; oda belgesiyle aynı). cams=[(çapa, (doc_x, doc_y, ölçek))] — belge koordinatında (0,0 = merkez) ekran merkezine gelen nokta + ölçek.
     seals=(sol_çapa, sağ_çapa); names_at=(sol,sağ) mühür altı etiketleri; num_at: 13 Romen rakamı sırayla; fr_at: FRANSIZCA damgası;
     it_at/it_strike_at: ITALIANO yazılır / çizilir; hl_at: III. madde vurgusu (hl_out'ta söner)."""
@@ -272,7 +272,7 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
     ks = _cam_keys(cx, cams or [(0.0, (0.0, 0.0, 0.97))])
     dxc, dyc, s = _doc_cam(cx, ks)
     px, py = 960 - dxc * s, 520 - dyc * s
-    OD.doc_sheet(f, px, py, s, cx.t, n=13, shown=None, seed=seed, rot=DOC_ROT, seal=False, shadow=0.6)
+    OD.doc_sheet(f, px, py, s, cx.t, n=13, shown=None, seed=seed, rot=DOC_ROT, seal=False, shadow=0.6, script_alpha=script_alpha)   # v3.2: #8 yakında gövde yazısı ≈%70
     c.save()
     c.translate(px, py)
     c.rotate(math.degrees(DOC_ROT))

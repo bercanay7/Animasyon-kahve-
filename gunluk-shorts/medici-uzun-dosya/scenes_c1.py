@@ -229,8 +229,10 @@ SHOTS = [
     # ── 23. kısa ömürlü lonca kaldırıldı; yönetimden de dışlandılar (c1s17 armaları geri döner) ──
     shot("c1_lonca", ("c1s23", -0.15), mode="day", perde=1, rows_at=("c1s22", -0.6), carder_at=("c1s22", -0.6), new_at=("c1s22", -0.6), new_label="CİOMPİ LONCASI",
          remove_at=("c1s23", "kaldırıldı", -0.1), empty_at=("c1s23", "kaldırıldı", 1.0), out_at=("c1s23", "yönetimden", 0.0),
-         ovl=P.ov(P.tag("KISA ÖMÜRLÜ LONCA KALDIRILDI", 960, 200, ("c1s23", "kaldırıldı", 0.2), size=48, out=("c1s23", "yönetimden", -0.2)),
-                  P.tag("YÖNETİMDEN DE DIŞLANDILAR", 960, 200, ("c1s23", "yönetimden", 0.0), size=48),
+         # v3.2 (ENG-E; kurul tur 3b SA1-G1, AN2): iki levha (eski y≈160–240) üst sıradaki armaların tepesini örtüyordu → y≈87–169 (merkez 128),
+         # x 900 (HUD dikdörtgeni x ≥ 1440'tan uzak: kutu ≈371–1429); arma ızgarasının üst sırası da c1_kinds'te 30 px aşağıda → arada ≥30 px
+         ovl=P.ov(P.tag("KISA ÖMÜRLÜ LONCA KALDIRILDI", 900, 128, ("c1s23", "kaldırıldı", 0.2), size=48, out=("c1s23", "yönetimden", -0.2)),
+                  P.tag("YÖNETİMDEN DE DIŞLANDILAR", 900, 128, ("c1s23", "yönetimden", 0.0), size=48),
                   TEMSILI(("c1s23", -0.15))),
          # kurul tur 3 (ENG-E): TE2-G5 — "CİOMPİ LONCASI" etiketi tür içinde kalkanın sağına sabit (dünya x≈1391–1855); eski ("pull",) itmesiyle x≈1420–1917'ye
          # çıkıyordu (güvenli çizginin dışında). Aynı geri çekiliş (odak (1072, 597), %6,8 → 0) anahtar karelerle; içerik 100 px sola → etiket ≤ ≈1820.

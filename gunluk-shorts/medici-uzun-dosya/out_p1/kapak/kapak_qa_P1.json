@@ -1,5 +1,5 @@
 {
- "tarih": "2026-11-05 16:48",
+ "tarih": "2026-11-05 19:51",
  "parca": 1,
  "esikler": {
   "kap_px": 9.0,
@@ -36,7 +36,7 @@
     1280,
     720
    ],
-   "mb": 0.263,
+   "mb": 0.264,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K1.yerlesim.json",
@@ -162,7 +162,7 @@
     }
    ],
    "gri": {
-    "esik_p99": 241.9,
+    "esik_p99": 242.0,
     "parlak_leke": 1,
     "odak_payi": 1.0,
     "odak_p90": 243.0,
@@ -182,7 +182,7 @@
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0,
-     "kare_kenar": 0.0312,
+     "kare_kenar": 0.032,
      "sure_rozeti_parlak": 0.0,
      "sure_rozeti_ortalama": 29.1
     },

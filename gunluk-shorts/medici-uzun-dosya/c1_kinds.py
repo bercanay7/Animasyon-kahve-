@@ -567,6 +567,13 @@ _CHG = ["cross", "bend", "bars", "chief", "circle", "star", "lily"]
 _COL = [("#8E2A30", "#F0E6CC"), ("#233C8C", "#F0D27A"), ("#F0E6CC", "#8E2A30"), ("#3E7A5A", "#F0E6CC"), ("#D2A33E", "#233C8C"), ("#5A3E7A", "#F0D27A"), ("#B33620", "#F0E6CC")]
 
 
+# arma ızgarası (v3.2, ENG-E; kurul tur 3b SA1-G1/AN2): #48'de üstteki iki levha (ekran y≈160–240) üst sıradaki armaların tepesini örtüyordu →
+# üst sıra 30 px aşağı (270 → 300), sıra aralığı 190 → 175: ALT SIRA YERİNDE (650) kalır, yeni Ciompi kalkanı / boş yuva (1290, 810) ile çakışma doğmaz.
+# Levhalar da sahnede y≈87–169'a çıktı → arada ≥30 px boşluk (kamera itmesi ve kalkan salınımı dâhil).
+LONCA_Y0, LONCA_DY = 300, 175
+LONCA_OUT_DUR, LONCA_OUT_PX = 2.4, 1150.0      # out_at: yün işçisi yürüyerek kadrajdan TAMAMEN çıkar (eskiden 1,6 sn'de 760 px kayıp "ARMALAR TEMSİLÎ" üstünde soluyordu)
+
+
 @ckind("c1_lonca")
 def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_at=None, remove_at=None, out_at=None, new_label="CİOMPİ", seed=2, **_):
     """21 lonca kalkanı (TEMSİLÎ: simgeler uydurma değil, işaretsiz şema — sahne ovl'unda not); yün işçisinin yeri boş.
@@ -578,7 +585,7 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
     cam.begin(f)
     t0 = cx.at(rows_at) if rows_at is not None else 0.0
     # 21 arma: 3 sıra × 7
-    sx0, sy0, dx, dy = 960 - 3 * 190, 270, 190, 190
+    sx0, sy0, dx, dy = 960 - 3 * 190, LONCA_Y0, 190, LONCA_DY
     for r in range(3):
         for k in range(7):
             i = r * 7 + k
@@ -593,14 +600,27 @@ def k_lonca(cx, rows_at=None, carder_at=None, empty_at=None, mute_at=None, new_a
     kcr = cx.amt(carder_at, 0.6) if carder_at is not None else 0.0
     gy = 960
     xo = 0.0
+    v_walk = 0.0
     if out_at is not None:
-        uo = ease_in(clamp((cx.t - cx.at(out_at)) / 1.6), 1.6)
-        xo = -760.0 * uo
-        kcr *= 1.0 - smooth(clamp((uo - 0.55) / 0.45))
+        # v3.2 (ENG-E; SA1-G1 notu): yürüyerek (adım döngüsü) kadrajdan TAMAMEN çıkar; yalnız kadraj dışındayken söner
+        to_ = cx.at(out_at)
+        u_ = clamp((cx.t - to_) / LONCA_OUT_DUR)
+        uo = ease_in(u_, 1.3)
+        xo = -LONCA_OUT_PX * uo
+        if 0.0 < u_ < 1.0:
+            v_walk = LONCA_OUT_PX * 1.3 * u_ ** 0.3 / LONCA_OUT_DUR       # zemine göre hız (px/sn): adım döngüsü buna eşlenir
+        kcr *= 1.0 - smooth(clamp((uo - 0.92) / 0.08))
     if kcr > 0.003:
         xc_ = 880 + xo
         OD.sil_actor(f, "halk", xc_, gy, 400, cx.t, action="idle", dir=(-1 if xo < -1 else 1), seed=6, color="#2A1E15", rim="#E8B070", rim_dir=1, alpha=kcr,
-                     hat="coif")                                            # kurul tur 2 SA2-K7: siluette "17. yy şapkası" okunmasın (Trecento başlığı)
+                     hat="coif", walker=(v_walk if v_walk > 1.0 else None))  # kurul tur 2 SA2-K7: siluette "17. yy şapkası" okunmasın (Trecento başlığı)
+        if v_walk > 1.0:                                                    # deklanşör: yürüyerek çıkan figürün gerçek hızı (ENG-E)
+            import anim as _AN
+
+            def _fig(tt):
+                xx = 880 - LONCA_OUT_PX * ease_in(clamp((tt - to_) / LONCA_OUT_DUR), 1.3)
+                return _AN.box_pts(xx, gy - 200, -110, -200, 110, 200)
+            _AN.hint_pts(cx, _fig(cx.t - _AN.DT_HINT / 2), _fig(cx.t + _AN.DT_HINT / 2))
         # yün tarağı + yün lifleri
         f.line(xc_ + 70, gy - 170, xc_ + 190, gy - 210, color="#4A3420", sw=8, alpha=kcr)
         for q in range(6):
