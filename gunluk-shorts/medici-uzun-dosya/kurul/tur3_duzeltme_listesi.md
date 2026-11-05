@@ -43,4 +43,11 @@ Neredeyse bütün segmentler etkilendiği için v3.1 tam zincirle üretilir (`VE
 | 31 | TE1-Y11 + §8 (süreç) | `.done` özetine kod özeti; birleştirmede kod özeti, akış imzası, kare sayısı ve renk etiketi öz sınaması | B | **yapıldı** (render.py) |
 | 32 | TE1-Y6 (küçük) | H.264 seviye 5.0 → 4.1 (`-refs 4 -level:v 4.1`) | B | **yapıldı** (render.py; deneme kodlaması seviye 41) |
 | 33 | TE1-Y10, Y12 (küçük) | Uzun karanlık bitiş ekranında hafif bantlaşma; karmaşık karelerde SSIM 0,940 | B | **iş yok** (üye: "iş gerekmez"; bedel beklenen) |
-| — | TE2 | rapor bekleniyor | | |
+| 34 | TE2-G1 (önemli) | Defter çekimlerinde kamera sayfadan ayrılınca yarım sözcük/sayı kadrajda (#85 "80 HANE", "7 HANE"; #72 "MEDİLER"; #83) → ayrılan sayfanın etiketleri söner ya da ≥90 px pay | SCN-3 | sürüyor |
+| 35 | TE2-G2 + G7 (önemli) | ETMEDİLER (416,5–421,4) ve KENDİ DEFTERİ (429,8–431,6) altyazı bandında → ≥80 px yukarı | SCN-3 | sürüyor |
+| 36 | TE2-Y5 kalanı | BELGE · DE ROOVER damgası fişsiz (466,9–469; ≈3,5:1) → `anim.paper_stamp` | SCN-3 | sürüyor |
+| 37 | TE2-G4 (gerileme) | FRANSIZCA damgası sağ kenarda (x≈1915) → sağ uç ≤1830 | ENG-E | sürüyor |
+| 38 | TE2-G5 | CİOMPİ LONCASI etiketi x≈1887 → ≥60 px sola | ENG-E | sürüyor |
+| 39 | TE2-G6 | Bitiş ekranı "2/7 · COSIMO": 28 → ≥34 px, tr_upper (COSİMO), ≥40 px yukarı | ENG-E | sürüyor |
+| 40 | TE2-G8 | DEFTERLER GÖSTERİR ≈0,5 sn | B | **yapıldı** (#4: "defterler" sözcüğünde, ≈4 sn); SCN-3 #88'de korur |
+| 41 | TE2 (süreç) | `qa_yerlesim` OWN_CAMERA yazılarını (world→ekran) ve sprite damgaları görmüyor; yarım görünen yazı kuralı yok | B | ajanlar bitince (dosya çakışmasın diye) |

@@ -205,7 +205,7 @@ Her üye kendi tur 2 koşullarını v3'te tek tek sınadı ve düzeltmelerin get
 | Kapak, başlık, paket | PK1 TO stratejisti | 6,0 | 9,0 | **9,5** | ONAY | G1 (kapak QA görseli), G2 (YAYIN_TASLAK §6.8) kapatıldı (e7d6e73) |
 | | PK2 ilk kez gören izleyici | 6,0 | 8,5 | **9,1** | ONAY | N1 (= AN2 Ö1, kart benzeri süre %46; 9,5 için ana madde); N2 bitiş ekranı 9:53 + P2 günü satırları → paket metnine yazıldı |
 | Teknik kalite | TE1 render/kodlama | 8,0 | 8,7 | **9,1** | ONAY | Koşulların hepsi kapandı (segment başı deklanşör bit bit aynı, 13 segment tek çizelge özeti, birleşim kayıpsız, renk ve ses doğru). YENİ Y9 (önemli): dünyaya kilitli kâğıt dokusu `BORDER_REFLECT` ile aynalanıyor, örnek karelerin %44'ünde dikiş → döşenebilir doku + `BORDER_WRAP` (ENG-E). Y11 (kod özeti) ve birleştirme öz sınaması, Y6 (seviye 4.1) → başkan, render.py |
-| | TE2 erişilebilirlik/okunurluk | 7,0 | 8,6 | — | bekleniyor | |
+| | TE2 erişilebilirlik/okunurluk | 7,0 | 8,6 | **9,0** | ONAY | Koşullar kapandı (Y5 kısmen: BELGE · DE ROOVER fişsiz ≈3,5:1). Yeni: G1 defter çekimlerinde yarım sözcük/sayı kadrajda, G2 ETMEDİLER altyazı bandında (önemli); G4 FRANSIZCA ve G5 CİOMPİ LONCASI sağ kenarda; G6 "2/7 · COSIMO" 28 px, tr_upper yok, denetim çubuğu bölgesinde. Üç madde (DE ROOVER fişi, ETMEDİLER yukarı, sol sayfa etiketleri sönsün) ile 9,4. `qa_yerlesim` OWN_CAMERA yazılarını ve sprite damgaları görmüyor |
 
 **Kullanıcının sorusu ("ucuz mu, yapay zekâ gibi mi?"):** Yanıtını değiştiren üyelerin hepsi aynı yöne gitti: hareket ve şablon kaynaklı "ucuz" izler büyük ölçüde gitti, yapay zekâ izlenimi yok (AN1, PK2, SA1). Kalan izler: figür oranlarının sadeliği, yakın plan ellerin "eldiven" ve katı kayan hâli (AN1, SA1 E-1) ve dört kez dönen defter kadrajı (AN2, PK2).
 
@@ -240,7 +240,8 @@ Her üye kendi tur 2 koşullarını v3'te tek tek sınadı ve düzeltmelerin get
   - yankı (PK2 Y8);
   - kırmızı geçiş (PK2 Y9);
   - 1737 asemik yazı (SA1 N3).
+- **TE1/TE2 bulguları (tur 3 sonu):** TE1-Y9 doku dikişi ve TE2 G4/G5/G6 → ENG-E; TE2 G1/G2/G7/Y5 → SCN-3; TE1-Y11/§8/Y6 → başkan (render.py, 28fbd1c).
 - **Sonra:**
-  - TE1/TE2 bulguları eklenir;
+  - `qa_yerlesim`: OWN_CAMERA türlerinin yazı kutuları ekran uzayına + yarım görünen yazı kuralı (TE2);
   - tam zincir `VER=v31 bash p1_uret.sh` (≈45 dk; neredeyse bütün segmentler etkileniyor);
   - tek üyeli gerileme kontrolleri: SA2 (Y10–Y13: RED'den dönüş için zorunlu), SA1 (N1–N4), AN2 + PK2 (defter), AN1 (hareket), KA1/KA2 (yeni metinler).
