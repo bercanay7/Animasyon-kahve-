@@ -11,7 +11,7 @@
    "color_transfer": "bt709",
    "color_primaries": "bt709",
    "r_frame_rate": "24/1",
-   "bit_rate": "11107664"
+   "bit_rate": "11256574"
   },
   {
    "codec_name": "aac",
@@ -19,12 +19,12 @@
    "sample_rate": "48000",
    "channels": 2,
    "r_frame_rate": "0/0",
-   "bit_rate": "205000"
+   "bit_rate": "204847"
   }
  ],
  "format": {
   "duration": "601.541667",
-  "size": "851012599",
-  "bit_rate": "11317754"
+  "size": "862197959",
+  "bit_rate": "11466510"
  }
 }
