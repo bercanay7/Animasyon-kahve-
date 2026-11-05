@@ -20,6 +20,12 @@ import cilt_cam
 from sk import H, W, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
 
+def _paper_stamp(*a, **k):
+    """P1'de bütün damgalar tek dilde: kâğıt fişli, ≥4,5:1 mürekkep (anim.paper_stamp = CM.stamp imzası; kurul tur 2 TE2-Y5, ENG-C isteği)."""
+    import anim as _AN
+    return _AN.paper_stamp(*a, **k)
+
+
 def _gilt_or_ink(txt, face, size, track, color=None):
     if TH.day:
         return CM.engraved(txt, face, int(size), track, color or TH.fg)
@@ -269,7 +275,7 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
     if fr_at is not None:
         k = cx.amt(fr_at, 0.3)
         if k > 0:
-            CM.stamp(f, "FRANSIZCA", 150, -40, rot=-0.12, size=86, color="#A8321E", alpha=1.0, t=k)
+            _paper_stamp(f, "FRANSIZCA", 150, -40, rot=-0.12, size=86, color="#A8321E", alpha=1.0, t=k)
     # ITALIANO (elle yazılır) + sinabar çizgi
     if it_at is not None:
         k = clamp((cx.t - cx.at(it_at)) / 0.55)
@@ -863,7 +869,7 @@ def k_gerekce(cx, title="GEREKÇE", items=(), draw_at=None, stamp=None, seed=1, 
     CM.draw_spr(f, sp, W / 2, 232, "c", alpha=kt, shadow=0.0)
     CM.flourish_rule(f, W / 2, 268, 700, alpha=kt, grow=kt)
     if stamp is not None:
-        CM.stamp(f, "ÇEVİRİ", 1500, 300, rot=-0.08, size=46, t=cx.amt(stamp, 0.3))
+        _paper_stamp(f, "ÇEVİRİ", 1500, 300, rot=-0.08, size=46, t=cx.amt(stamp, 0.3))
     import anim
     for i, it in enumerate(items):
         x = x0 + i * gap

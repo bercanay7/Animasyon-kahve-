@@ -18,6 +18,12 @@ import sk
 from cilt_medici import TH, ckind
 from sk import H, W, clamp, ease_io, ease_out, lerp, mix, smooth
 
+
+def _paper_stamp(*a, **k):
+    """P1'de bütün damgalar tek dilde: kâğıt fişli, ≥4,5:1 mürekkep (anim.paper_stamp = CM.stamp imzası; kurul tur 2 TE2-Y5, ENG-C isteği)."""
+    import anim as _AN
+    return _AN.paper_stamp(*a, **k)
+
 _OWN = {"oda", "pano", "sehir", "build"}
 
 # ── harita sarmalayıcısı: ROTA UCUNU İZLEYEN KAMERA (ENG-D, kurul tur 2 AN1-Y2) ─────────────────────────────
@@ -210,7 +216,7 @@ def stamp(text, x, y, at, rot=-0.10, size=56, color=None, out=None, dur=0.3):
             t_out = 1.0
         if t <= 0 or t_out <= 0.01:
             return
-        CM.stamp(cx.f, text, x, y, rot=rot, size=size, color=color, alpha=t_out, t=t)
+        _paper_stamp(cx.f, text, x, y, rot=rot, size=size, color=color, alpha=t_out, t=t)
     return fn
 
 

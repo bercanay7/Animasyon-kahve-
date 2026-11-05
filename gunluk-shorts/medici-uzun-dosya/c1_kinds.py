@@ -26,6 +26,12 @@ from cilt_medici import TH, ckind
 from sk import H, W, clamp, ease_in, ease_io, ease_out, lerp, mix, smooth
 
 
+def _paper_stamp(*a, **k):
+    """P1'de bütün damgalar tek dilde: kâğıt fişli, ≥4,5:1 mürekkep (anim.paper_stamp = CM.stamp imzası; kurul tur 2 TE2-Y5, ENG-C isteği)."""
+    import anim as _AN
+    return _AN.paper_stamp(*a, **k)
+
+
 sk.METAL["c1_curse"] = [("#0A0612", 0.0), ("#2A1640", 0.30), ("#6A3A8A", 0.56), ("#2A1640", 0.80), ("#0A0612", 1.0)]
 
 
@@ -487,7 +493,7 @@ def k_edward(cx, flow_at=None, stop_at=None, plate_at=None, stamp_at=None, seed=
         for sg in (1, -1):
             f.line(mx - 62 * kx, my - 62 * sg * kx, mx + 62 * kx, my + 62 * sg * kx, color="#A8201A", sw=18, alpha=0.95 * kx)
     if stamp_at is not None:
-        CM.stamp(f, "ÖDENMEDİ", 960, 800, rot=-0.07, size=70, t=cx.amt(stamp_at, 0.3))
+        _paper_stamp(f, "ÖDENMEDİ", 960, 800, rot=-0.07, size=70, t=cx.amt(stamp_at, 0.3))
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
@@ -724,7 +730,7 @@ def k_machiavelli(cx, plate_at=None, order_at=None, rebel_at=None, scroll_at=Non
             ex_, ey_ = pts[m]
             OD.quill(c, ex_ + 6, ey_ + 8, -58.0, 0.9)
     if stamp_at is not None:
-        CM.stamp(f, stamp_text, 960, 340, rot=-0.08, size=96, t=cx.amt(stamp_at, 0.3))
+        _paper_stamp(f, stamp_text, 960, 340, rot=-0.08, size=96, t=cx.amt(stamp_at, 0.3))
     if order_big is not None:
         kb = cx.amt(order_big, 0.4)
         if kb > 0.003:
@@ -1070,7 +1076,7 @@ def k_kardes(cx, chron_at=None, brother_at=None, link_at=None, owner_at=None, se
         c.drawPath(part, pa)
     ko = cx.amt(owner_at, 0.5) if owner_at is not None else 0.0
     if ko > 0.003:
-        CM.stamp(f, "KAYBEDENLERİN AİLESİNDEN", 780, 400, rot=-0.04, size=44, t=ko)
+        _paper_stamp(f, "KAYBEDENLERİN AİLESİNDEN", 780, 400, rot=-0.04, size=44, t=ko)
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 

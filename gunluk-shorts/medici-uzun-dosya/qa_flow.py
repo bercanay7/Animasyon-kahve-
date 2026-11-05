@@ -765,7 +765,8 @@ def _probe_cam(prog, s):
     L, n = _layers(A, B)
     cand = [l for l in L if l["mag"] >= 1.0 and l["n"] >= 15 and max(l["sx"], l["sy"]) >= 0.12]
     ratio = max([_proj(_disp(l["M"]), dD) for l in cand], default=0.0)
-    out = dict(i=s.i, kind=s.kind, t0=round(s.t0, 2), cam=repr(s.cam), decl=round(decl, 1), frac=round(frac, 4), ratio=round(ratio, 2))
+    # acand = 0: nötr ↔ beyan karelerinde ölçülebilir hareket katmanı yok (beyan kadraj boyunu aşıyor / içerik eşleşmiyor) → oran ölçülemez (KISMEN sayılmaz)
+    out = dict(i=s.i, kind=s.kind, t0=round(s.t0, 2), cam=repr(s.cam), decl=round(decl, 1), frac=round(frac, 4), ratio=round(ratio, 2), acand=len(cand))
     if cilt_cam.base_kind(s.kind) == "map" and frac < CAMREAL_CHG and getattr(cilt_cam, "MAP_GUARD_ON", False):
         cilt_cam.MAP_GUARD_ON = False                         # tanı: harita kadraj koruması mı beyanı durduruyor?
         try:
@@ -909,14 +910,21 @@ def camreal_gate(prog, pr):
     """Beyan ↔ gerçekleşen kamera kapısı (AN1-Y2): KALDI = (A) kamera çizime ulaşmıyor / kısmen ulaşıyor ya da (B) %20→%80 gerçekleşen hareket beyanın
     %50'sinden az ya da ters. Kendi kameralı türler (oda/pano/şehir/belge; cams=/path=) ölçülmez (cam= orada bilinçli uygulanmaz) — sayısı yazılır."""
     import cilt_cam
-    noapp, part, mism, unm, errs, guarded = [], [], [], [], [], []
+    noapp, part, mism, unm, errs, guarded, unm_a = [], [], [], [], [], [], []
     rows = [d for (k, i), d in sorted(pr.items(), key=lambda kv: kv[0][1]) if k == "cam"]
+    band = [d for d in rows if d.get("band")]
     for d in rows:
         if "err" in d:
             errs.append(f"#{d['i']}: ölçüm hatası {d['err']}")
             continue
+        if d.get("band"):
+            continue
         tag = f"#{d['i']} {d['kind']} {d['t0']:.1f} sn {d['cam'][:44]}"
         tm = d.get("time")
+        if d["decl"] >= CAMREAL_MINPX and d["frac"] >= CAMREAL_CHG and d["ratio"] < CAMREAL_MIN and d.get("acand", 1) == 0:
+            # kamera çizime ulaşıyor (değişen piksel ≥ eşik) ama fark testinde ölçülebilir katman yok → oran yok; karar (B) zaman testinin
+            unm_a.append(f"{tag} (beyan {d['decl']:.0f} px, değişen %{100 * d['frac']:.0f})")
+            d = dict(d, ratio=1.0)
         if d["decl"] >= CAMREAL_MINPX and d["frac"] < CAMREAL_CHG and d.get("guard") and tm and tm["ratio"] >= CAMREAL_MIN:
             guarded.append(f"{tag}: ön ayar harita KADRAJ KORUMASIYLA durduruluyor (rota/kent noktaları zaten kenar payında); gerçekleşen hareket "
                            f"(sahnenin anahtar kareleri) beyanla uyumlu, izdüşüm {tm['ratio']:.2f} → beyan gereksiz/sahnede sadeleştirilebilir")
@@ -934,9 +942,11 @@ def camreal_gate(prog, pr):
             mism.append(f"{tag}: %20→%80 beyan {tm['decl']:.0f} px, gerçekleşen {tm['real']:.0f} px, izdüşüm {tm['ratio']:.2f}" + (" (TERS yön)" if tm["ratio"] < 0 else ""))
     own = [s for s in prog.shots if s.kind in cilt_cam.OWN_CAMERA and s.kind not in CARD_KINDS]
     bad = noapp + part + mism
-    val = (f"{len(rows)} çekim ölçüldü: ulaşmıyor {len(noapp)}, kısmen {len(part)}, gerçekleşen <%50/ters {len(mism)}; kadraj koruması {len(guarded)}; "
-           f"ölçülemedi {len(unm)}; kendi kameralı {len(own)} (ölçülmez)")
-    det = noapp + part + mism + guarded + errs + ([f"ölçülemedi (zaman testi; içerik değişiyor / yalnız duvar): {', '.join(unm)}"] if unm else [])
+    val = (f"{len(rows) - len(band)} çekim ölçüldü: ulaşmıyor {len(noapp)}, kısmen {len(part)}, gerçekleşen <%50/ters {len(mism)}; kadraj koruması {len(guarded)}; "
+           f"ölçülemedi {len(unm)}" + (f" (fark testi oransız {len(unm_a)})" if unm_a else "") +
+           f"; şerit {len(band)} (yerleşik kaydırma); kendi kameralı {len(own)} (ölçülmez)")
+    det = (noapp + part + mism + guarded + errs + ([f"ölçülemedi (zaman testi; içerik değişiyor / yalnız duvar): {', '.join(unm)}"] if unm else [])
+           + ([f"fark testi oransız (kamera çizime ulaşıyor, ölçülebilir katman yok; karar zaman testinin): {', '.join(unm_a)}"] if unm_a else []))
     return dict(name="Beyan ↔ gerçekleşen kamera", status=((FAIL if bad else (WARN if guarded else OK)) if rows else SKIP), value=val,
                 thr=f"(A) beyan çizime ulaşır (fark testinde izdüşüm ≥{CAMREAL_MIN}); (B) %20→%80 gerçekleşen ≥ beyanın %{100 * CAMREAL_MIN:.0f}'si, aynı yönde",
                 detail=det)

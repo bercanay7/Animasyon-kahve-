@@ -33,6 +33,12 @@ import c0_kinds as K0
 import c1_kinds as K1
 import p1_ortak as _P
 
+
+def _paper_stamp(*a, **k):
+    """P1'de bütün damgalar tek dilde: kâğıt fişli, ≥4,5:1 mürekkep (anim.paper_stamp = CM.stamp imzası; kurul tur 2 TE2-Y5, ENG-C isteği)."""
+    import anim as _AN
+    return _AN.paper_stamp(*a, **k)
+
 _shield = K1._shield
 
 
@@ -301,7 +307,7 @@ def k_ayrim(cx, walk_at=None, fork_at=None, left_at=None, right_at=None, stamp_a
     # ? ve damga
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
-        CM.stamp(f, "KAYNAKLAR AYRIŞIYOR", 960, 130 + 20, rot=-0.04, size=56, t=ks)
+        _paper_stamp(f, "KAYNAKLAR AYRIŞIYOR", 960, 130 + 20, rot=-0.04, size=56, t=ks)
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
@@ -375,7 +381,7 @@ def k_mezar(cx, place_at=None, carve_at=None, carve_to=None, protest_at=None, st
         CM.wax_seal(f, 1560, 420, 74, "#7A1A14", alpha=1.0, t=kpr, palle=False)
         icons.draw_icon(f, "p1_anahtar", 1560, 420, size=78, metal="gold", alpha=kpr, glow=0.0, shadow=False)
         CM.ink(f, "V. MARTİNUS", 1560, 540, face="title_m", size=36, color="#FFF4D6", align="c", track=8, alpha=kpr, emboss=False)
-        CM.stamp(f, "İTİRAZ", 1520, 640, rot=-0.10, size=72, t=kpr)
+        _paper_stamp(f, "İTİRAZ", 1520, 640, rot=-0.10, size=72, t=kpr)
     ks = cx.amt(stay_at, 0.8) if stay_at is not None else 0.0
     if ks > 0.003:
         gg = (cx.t * 0.7) % 1.6
@@ -446,14 +452,14 @@ def k_rivayet(cx, src_at=None, med_at=None, pawn_at=None, ask_at=None, threat_at
         bx = lerp(1350, 560, u)
         by = lerp(380, 400, u) - 140 * math.sin(math.pi * u)
         icons.draw_icon(f, "c2_bulla", bx, by, size=220 * (0.7 + 0.3 * kt), metal="gold", alpha=kt, rot=-0.18 + 0.4 * u, glow=0.0)
-        CM.stamp(f, "AFOROZ TEHDİDİ", 1000, 845, rot=-0.04, size=56, t=cx.amt(threat_at, 0.3, off=0.5))
+        _paper_stamp(f, "AFOROZ TEHDİDİ", 1000, 845, rot=-0.04, size=56, t=cx.amt(threat_at, 0.3, off=0.5))
     cam.end(f)
     CM.finish(f, cx, motes_n=24)
     # kaynak levhası + kaynak damgası EKRAN UZAYINDA (kamera eğmesiyle kenardan taşmasın; HUD'dan uzak) — kurul teyit: olay belgeli → ANEKDOT/RİVAYET değil
     if ks > 0.003:
         CM.name_plate(f, src[0], src[1], None, cx_=600, y=170, t=ks, w=640)
         if src_stamp:
-            CM.stamp(f, src_stamp, 1180, 300, rot=-0.06, size=54, t=cx.amt(src_at, 0.3, off=0.6))
+            _paper_stamp(f, src_stamp, 1180, 300, rot=-0.06, size=54, t=cx.amt(src_at, 0.3, off=0.6))
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -621,7 +627,7 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
         CM.name_plate(f, name, role, None, cx_=xx, y=158, t=ks_[key], w=600)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
-        CM.stamp(f, "ANEKDOT", 1500 if only else 960, 840, rot=-0.05, size=56, t=ks)
+        _paper_stamp(f, "ANEKDOT", 1500 if only else 960, 840, rot=-0.05, size=56, t=ks)
     CM.finish(f, cx, motes_n=22)
 
 
@@ -664,7 +670,7 @@ def k_sadaka(cx, who_at=None, give_at=None, stamp_at=None, seed=4, **_):
         CM.name_plate(f, "MACHİAVELLİ'NİN ÇİZDİĞİ", "KİMSE İSTEMEDEN DE", None, cx_=880, y=160, t=kw, w=920)
     ks = cx.amt(stamp_at, 0.3) if stamp_at is not None else 0.0
     if ks > 0.003:
-        CM.stamp(f, "ANEKDOT", 1520, 300, rot=-0.07, size=60, t=ks)
+        _paper_stamp(f, "ANEKDOT", 1520, 300, rot=-0.07, size=60, t=ks)
     cam.end(f)
     CM.finish(f, cx, motes_n=22)
 
@@ -1056,7 +1062,7 @@ def _masa_iz(cx, f, P):
             wd = sk.text_width("MEDİCİ İCADI", "title_m", 38, 4.0)
             c.drawLine(x0 + 395 - wd / 2 - 12, y0 + 322, x0 + 395 - wd / 2 - 12 + (wd + 24) * ks, y0 + 314, f.paint("#A8201A", style="stroke", sw=7, alpha=0.9))
     if P.get("stamp_at") is not None:
-        CM.stamp(f, "ETMEDİLER", x0 + 395, y0 + 820, rot=-0.05, size=70, t=_wp(cx, P["stamp_at"], 0.3))
+        _paper_stamp(f, "ETMEDİLER", x0 + 395, y0 + 820, rot=-0.05, size=70, t=_wp(cx, P["stamp_at"], 0.3))
     # ── sağ sayfa ──
     x0, y0 = _page_origin("r")
     r = _write(f, "MEDİCİ'NİN FARKI: YAPI", x0 + 395, y0 + 130, 40, _wp(cx, P.get("head_at"), 1.0))
@@ -1205,7 +1211,7 @@ def _masa_catasto(cx, f, P):
                 tip = (bx0 + bw * 0.298 * uf, by0 + bh / 2)
             CM.ink(f, "%29,8 · 137 HANE", bx0, by0 + bh + 52, face="title", size=40, color=INK_R, align="l", track=3, alpha=clamp(uf * 1.5), emboss=False, scrim=False)
     if P.get("stamp_at") is not None:
-        CM.stamp(f, "BİR HESABA GÖRE", x0 + 545, y0 + 690, rot=-0.07, size=38, t=_wp(cx, P["stamp_at"], 0.3))     # kayıtların üstüne basılmış damga
+        _paper_stamp(f, "BİR HESABA GÖRE", x0 + 545, y0 + 690, rot=-0.07, size=38, t=_wp(cx, P["stamp_at"], 0.3))     # kayıtların üstüne basılmış damga
     # sağ sayfa: en zengini
     x0, y0 = _page_origin("r")
     r = _write(f, "PALLA STROZZİ", x0 + 395, y0 + 260, 50, _wp(cx, P.get("name_at"), 0.9), face="title")
