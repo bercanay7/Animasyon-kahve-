@@ -59,4 +59,4 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
 
 5. SONRAKİ BAŞLIK TESTİ İÇİN (kapak testi bittikten sonra; her seferinde tek değişken)
 - T2: Medici (1/7): Son Medici Mirasını Kilitledi. Peki Nasıl?
-- T3: Medici Ailesi (1/7): Faiz Yasaktı, Kilise Müşteri Oldu (yalnız kaynak üyesi onayıyla).
+- T3: Medici Ailesi (1/7): Faiz Yasaktı, Kilise Müşteri Oldu (kaynak üyeleri KA1 ve KA2 kurul tur 3'te onayladı: de Roover, papalık mevduatı ve Camera Apostolica; ironi kurumun maliyesine yönelik, inanca değil).
