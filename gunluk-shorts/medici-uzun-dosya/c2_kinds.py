@@ -397,12 +397,25 @@ def k_mezar(cx, place_at=None, carve_at=None, carve_to=None, protest_at=None, st
 # ─────────────────────────────────────────────────────────────────────────────
 @icons.icon("c2_mitra")
 def _i_mitra(m):
-    m.smooth([(120, 440), (140, 200), (256, 70), (372, 200), (392, 440)], close=True, t=0.25)
-    m.rect(104, 410, 304, 54, r=12)
-    m.cut(sk.poly_path([(256, 112), (256, 410)], False), 8)
-    m.cut(sk.poly_path([(168, 330), (256, 250), (344, 330)], False), 7)
-    m.cut(sk.poly_path([(256, 130), (200, 190), (256, 250), (312, 190), (256, 130)], False), 5)
-    m.circle(256, 80, 24)
+    """Mitra (rehin bırakılan; de Roover n. 45): gövde, ortada işlemeli dikey kuşak (titulus), tabanda yatay kuşak (circulus), kuşaklarda
+    inci dizisi, titulusun üstünde küçük Latin haçı. Kurul tur 3 SA2-Y10: eski çizimdeki dikey çizgi + baklava + ters V, Othala rününe (ᛟ)
+    benzeyen uydurma bir işaret oluşturuyordu → tamamen kaldırıldı; yalnız gerçek mitra süslemesi."""
+    def ring(x, y, r):
+        pth = skia.Path()
+        pth.addCircle(x, y, r)
+        return pth
+    m.smooth([(120, 440), (140, 200), (256, 70), (372, 200), (392, 440)], close=True, t=0.25, v=205)   # gövde (kuşaklardan alçak)
+    m.poly([(230, 98), (282, 98), (288, 410), (224, 410)], v=255)                                       # titulus (yükseltilmiş kuşak)
+    m.rect(104, 404, 304, 60, r=12, v=255)                                                              # circulus
+    m.cut(sk.poly_path([(230, 104), (225, 404)], False), 4)
+    m.cut(sk.poly_path([(282, 104), (287, 404)], False), 4)
+    m.cut(sk.poly_path([(110, 405), (402, 405)], False), 4)
+    m.cut(sk.poly_path([(256, 122), (256, 186)], False), 7)                                             # Latin haçı (dikey)
+    m.cut(sk.poly_path([(236, 144), (276, 144)], False), 7)                                             # Latin haçı (yatay)
+    for yy in range(222, 396, 34):                                                                       # titulus incileri
+        m.cut(ring(256, yy, 9), 3)
+    for xx in (138, 176, 214, 298, 336, 374):                                                            # circulus incileri
+        m.cut(ring(xx, 434, 9), 3)
 
 
 @icons.icon("c2_bulla")
