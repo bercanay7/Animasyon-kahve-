@@ -258,7 +258,7 @@ Her üye kendi tur 3 açık/yeni maddelerini ve v3.1'in kendi alanına getirdiğ
 
 | Alan | Üye | Tur 3 | **Tur 3b** | Karar | Not |
 |---|---|---:|---:|---|---|
-| Animasyon ve kurgu | AN1 animasyon yönetmeni | 9,0 | — | bekleniyor | |
+| Animasyon ve kurgu | AN1 animasyon yönetmeni | 9,0 | **9,3** | ONAY | Y7, Y-N1, Y-N2, Y-N3 kapandı; sessiz süre %2,1 → %1,2; 38 kesmenin hiçbirinde donuk uç yok |
 | | AN2 kurgu ve ritim | 9,2 | **9,5** | ONAY | Ö1 kapandı: üstten defter 4 → 2 çekim, aralarında 62 sn. Sıçrayan kesme 0, kesme girişi duruşu 0 |
 | Sanat ve üslup | SA1 sanat yönetmeni | 9,1 (koşullu) | **9,3** | ONAY | N1–N4, Y6-k kapandı. Yeni G1: #48 levhaları arma ızgarasını örtüyor (düzelirse 9,4); G2 catasto ruloları; G3 KEFALET simgesi |
 | | SA2 dönem ve gelenek | 8,8 (RED) | **9,5** | ONAY | Y10–Y13 kapandı. Küçük: asemik elin eğimi, #88 cildi 18.–19. yy. gibi |
@@ -268,6 +268,8 @@ Her üye kendi tur 3 açık/yeni maddelerini ve v3.1'in kendi alanına getirdiğ
 | | PK2 ilk kez gören izleyici | 9,1 | **9,5** | ONAY | N1 kapandı (kart payı 7–8. dk %59 → %37). Küçük: #83'te el yumru gibi; başlık HUD'a 10 px giriyor |
 | Teknik kalite | TE1 render/kodlama | 9,1 | **9,4** | ONAY | Y9 doku dikişi kapandı (0,508 → −0,015); 13 segment tek çizelge+kod özeti; MD5 birebir |
 | | TE2 erişilebilirlik/okunurluk | 9,0 | **9,4** | ONAY | G1–G8, Y5 kapandı. Küçük: #83 son hâl 0,7 sn; 1737 genel planında tek ad; ÖZET 30 px |
+
+**SONUÇ: v3.1 — 10/10 ONAY (9,3–9,5), her alanda iki üye ≥ 9; iki veto üyesi de ONAY.**
 
 **Kullanıcının sorusu ("ucuz mu, yapay zekâ gibi mi?") — tur 3b:**
 - Hiçbir üye yapay zekâ izi bulmadı.
