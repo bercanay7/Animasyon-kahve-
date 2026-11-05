@@ -585,10 +585,15 @@ def soft_glint(c, img, ix, iy, bounds, gx, bw, alpha=1.0, col="#FFF1BE", peak=15
     if gx + bw < L or gx - bw > R_:
         return
     c.saveLayer(skia.Rect.MakeLTRB(L, T_, R_, B_), None)
+    c.save()
+    c.clipRect(skia.Rect.MakeLTRB(L, T_, R_, B_), False)          # maske yalnız tam piksellere
     c.drawImage(img, ix, iy, _LIN, skia.Paint(AntiAlias=True))
+    c.restore()
     sh = skia.GradientShader.MakeLinear([(gx - bw, -tilt * bw), (gx + bw, tilt * bw)], [C(col, 0), C(col, int(peak * 0.35 * a)), C(col, int(peak * a)), C(col, int(peak * 0.35 * a)), C(col, 0)],
                                         [0.0, 0.30, 0.5, 0.70, 1.0])
-    c.drawRect(skia.Rect.MakeLTRB(L, T_, R_, B_), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcIn))
+    # SrcIn dikdörtgeni katmanı TAMAMEN örtsün: kesirli sınırda katman tam piksele yuvarlanıyor, eski dikdörtgen kenar sütununu kısmen
+    # örtüp ham görüntüyü (opak) bırakıyordu → düşük alfada 1 px'lik opak sütun (ENG-D bulgusu, bitiş ekranı)
+    c.drawRect(skia.Rect.MakeLTRB(L - 4, T_ - 4, R_ + 4, B_ + 4), skia.Paint(Shader=sh, BlendMode=skia.BlendMode.kSrcIn))
     c.restore()
 
 

@@ -25,7 +25,8 @@ DOC = K.DOC_FILL          # oda1743: belge ekranı doldurur (cams anahtarı)
 
 ODA_DUSK = dict(tod="dusk", mode="night", perde=1)
 
-_ECHO = KP.kapak_sahne_shot("K1", a=0.0, yazi=True, yazi_at=0.3, yazi_out=3.2, cam=("push",), label="kapak yankısı K1: SON MEDİCİ / MİRASI KİLİTLEDİ")
+_ECHO = KP.kapak_sahne_shot("K1", a=0.0, yazi=True, yazi_at=0.3, yazi_out=3.2, cam=("push",), isinlar=False,     # kapakla aynı: kollu yıldız yok (PK1-Y5, SA1-Y7)
+                            label="kapak yankısı K1: SON MEDİCİ / MİRASI KİLİTLEDİ")
 _ECHO.params["ovl"] = P.ov(P.tag("18 ŞUBAT 1743", 1590, 812, ("c0s1", "18", -0.05), size=46, out=("c0s2", -0.3)),
                            P.tag("FLORANSA", 1590, 888, ("c0s1", "Floransa", -0.3), size=38, out=("c0s2", -0.3)))
 

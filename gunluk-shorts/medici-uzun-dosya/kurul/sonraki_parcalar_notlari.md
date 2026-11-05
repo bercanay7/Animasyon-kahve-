@@ -21,3 +21,10 @@ Parça 1 düzeltmeleri sırasında ajanların ve kurulun, sonraki parçalara ta�
 - **Bina listesi (SA2 §6.2):** Palazzo Medici ≥1444; Uffizi ≥1560; Pitti ≥1458 (büyük genişleme 1560'lar); "Santa Croce çan kulesi" etiketi (bugünkü 1842) ekranda kullanılacaksa teyit.
 - **1438 sonrası madalyalar (SA2 §6.5, KA2):** TEMSİLÎ/"benzerlik iddiası yok" işareti tarihten bağımsız olmalı.
 - **Seri başlık öneki (PK1-Y8):** P2–P7 `Medici Ailesi (n/7):` öneğine çekilecek; P5 62 karaktere çıkıyor → kısalt; P4 "Defter Neden Kapandı?" art arda NEDEN kuralına takılır.
+
+## ENG-D'den (kamera, geçiş, bitiş ekranı)
+- `compose.OUTRO` = 10 sn bütün parçalarda geçerli (yuvalar `OUTRO_SLOT_FULL` = 1,4 sn'de tam görünür; `TAIL` 11,3 sn); her parçanın miksi bu kuyrukla üretilir.
+- Bitiş ekranındaki "sıradaki parça" satırı yalnız Parça 1 için tanımlı; P2–P6 için metin eklenmeli, P7 "TÜM FİLM".
+- Skyline'da sahne hem `pan=` hem kamera pan'ı yazmışsa kaydırma miktarı artık kameranınki: bu çekimlere ilk render'da bakılmalı.
+- `qa_flow` P2 duman testi: 13 GEÇTİ · 7 KALDI (5'i önceden vardı; yeniler: ışık geçişi 16 > 4 bütçe, #114 kamera "kısmen").
+- Kesme ucundaki kamera eğimi (`CUT_SLOPE` 1,0) büyük kaydırmalı oda çekimlerinde ani kalkış gibi okunabilir; gerekirse 0,6–0,8.

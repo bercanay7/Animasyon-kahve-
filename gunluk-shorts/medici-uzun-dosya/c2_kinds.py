@@ -1334,7 +1334,10 @@ def k_yakin(cx, scene="kese", push=0.06, seed=4, **P):
     f = cx.f
     c = f.c
     dur = max(cx.dur, 1e-3)
-    u = ease_io(clamp(cx.t / dur), 1.4)
+    x_ = clamp(cx.t / dur)
+    kin, kout = bool(getattr(cx, "cut_in", False)), bool(getattr(cx, "cut_out", False))
+    # sert kesmeyle birleşen uçta kamera durmasın ("hareket üstünde kesme"; AN1-Y11, ENG-D isteği: 355,76 ve 575,50 sn)
+    u = x_ if (kin and kout) else ease_out(x_) if kin else ease_in(x_) if kout else ease_io(x_, 1.4)
     zz = 1.0 + push * u
     c.save()
     c.translate(W / 2, H / 2)
