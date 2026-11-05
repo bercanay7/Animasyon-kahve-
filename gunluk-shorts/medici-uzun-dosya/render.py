@@ -64,6 +64,17 @@ def ff_cmd(out, crf, preset, scale=None, threads=2):
             "-color_range", "tv", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-g", "48", "-bf", "2", "-threads", str(threads), "-an", out]
 
 
+def timeline_digest(part):
+    """Parçanın zaman çizelgesinin özeti (sha1, ilk 12): segmentlerin aynı çizelgeyle üretildiğini birleştirmeden önce denetlemek için
+    (kurul tur 2, TE1 §6: v2'de 0–6. segmentler ses yamasından önceki çizelgeyle kalmıştı)."""
+    import hashlib
+    p_ = os.path.join(part_dirs(part)[0], "timeline.json")
+    try:
+        return hashlib.sha1(open(p_, "rb").read()).hexdigest()[:12]
+    except OSError:
+        return "yok"
+
+
 def render_segment(args):
     part, idx, n0, n1, crf, preset = args
     import numpy as np
@@ -76,6 +87,13 @@ def render_segment(args):
         return idx, 0.0, 0
     import compose
     prog = compose.Program(part=part)
+    if n0 > 0:
+        # deklanşör ısınması: seçici hareket bulanıklığı önceki karenin küçük kopyasına bakar (Program._sprev); segmentin ilk karesi
+        # önceki kareyi bilmezse bulanık komşular arasında keskin çıkar (kurul tur 2, TE1 §5: n=4800, 200,0 sn) → n0−1 çizilip atılır
+        try:
+            prog.frame(n0 - 1)
+        except Exception:                                  # noqa: BLE001
+            pass
     tmp = final + ".tmp.mp4"
     ff = subprocess.Popen(ff_cmd(tmp, crf, preset), stdin=subprocess.PIPE)
     t0 = time.time()
@@ -100,7 +118,7 @@ def render_segment(args):
     if rc != 0:
         raise RuntimeError(f"ffmpeg hata kodu {rc} (P{part} seg {idx})")
     os.replace(tmp, final)
-    open(final + ".done", "w").write(f"{n0} {n1} {time.time() - t0:.1f}\n")
+    open(final + ".done", "w").write(f"{n0} {n1} {time.time() - t0:.1f} {timeline_digest(part)}\n")
     return idx, time.time() - t0, errs
 
 
@@ -165,6 +183,20 @@ def cmd_concat(a):
     missing = [f for f in files if not os.path.exists(f + ".done")]
     if missing:
         raise SystemExit(f"eksik segment: {len(missing)} (ör. {os.path.basename(missing[0])}); önce --all")
+    # her segment güncel zaman çizelgesiyle mi üretildi? (.done: "n0 n1 süre özet"; eski biçimde özet yok → uyarı)
+    cur = timeline_digest(a.part)
+    eski, yok = [], []
+    for f in files:
+        parts_ = open(f + ".done").read().split()
+        if len(parts_) < 4:
+            yok.append(os.path.basename(f))
+        elif parts_[3] != cur:
+            eski.append(os.path.basename(f))
+    if eski and not getattr(a, "force", False):
+        raise SystemExit(f"{len(eski)} segment başka bir zaman çizelgesiyle üretilmiş ({', '.join(eski[:4])}…): onları silip yeniden üret "
+                         f"ya da --force")
+    if yok:
+        print(f"[uyarı] {len(yok)} segmentte çizelge özeti yok (eski biçim): {', '.join(yok[:4])}…", flush=True)
     lst = os.path.join(SEG, "concat.txt")
     open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
     out = noaudio_path(a.part)
@@ -290,6 +322,7 @@ def main():
     ap.add_argument("--scale", default=None)
     ap.add_argument("--out", default=None)
     ap.add_argument("--audio", default=None)
+    ap.add_argument("--force", action="store_true", help="--concat: çizelge özeti farklı segmentleri yine de birleştir")
     a = ap.parse_args()
     if a.tam:
         return cmd_tam(a)

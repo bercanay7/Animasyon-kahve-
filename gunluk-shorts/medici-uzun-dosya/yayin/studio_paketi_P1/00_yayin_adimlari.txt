@@ -32,8 +32,9 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
      · Otomatik bölümler: açık kalabilir; açıklamadaki damgalar önceliklidir.
 3) Video öğeleri:
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
-   - Bitiş ekranı: 9:53'ten videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:54'te belirir:
-     · Sol çerçeve ("SIRADAKİ PARÇA"): Oynatma listesi → Medici (7 parça). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
+   - Bitiş ekranı: 9:53'ten videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:55'te belirir:
+     · Sol çerçeve ("SIRADAKİ PARÇA"): P2 yayınlanana dek "İzleyiciye en uygun video" öğesi (YouTube seçer). Yalnız bu videoyu içeren
+       oynatma listesini KOYMA: izleyiciyi aynı videoya döndürür (kurul PK2-Y2). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
      · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.
      Öğeleri çerçevelerin üstüne yerleştir, dışına taşırma.
 4) Görünürlük: Planla → Pazar 20:00 (GMT+3). Parçalar arası bir hafta.

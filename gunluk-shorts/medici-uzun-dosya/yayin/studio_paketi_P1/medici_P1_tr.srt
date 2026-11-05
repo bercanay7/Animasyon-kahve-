@@ -201,13 +201,13 @@ bankasının on beş şubesi vardı.
 Peruzzi de Bardi de 1340'larda battı;
 
 46
-00:02:46,040 --> 00:02:49,118
-sebep olarak çoğu zaman
-İngiltere Kralı III.
+00:02:46,040 --> 00:02:48,758
+sebep olarak çoğu zaman İngiltere Kralı
 
 47
-00:02:49,138 --> 00:02:51,550
-Edward'ın ödemediği borçlar gösterilir.
+00:02:48,778 --> 00:02:51,550
+III. Edward'ın ödemediği
+borçlar gösterilir.
 
 48
 00:02:52,100 --> 00:02:56,790
@@ -291,8 +291,8 @@ Palazzo Vecchio'yu ele geçirdi;
 
 65
 00:03:59,980 --> 00:04:04,130
-bir yün tarayıcısı, Michele
-di Lando, gonfaloniere oldu.
+bir yün tarayıcısı,
+Michele di Lando, gonfaloniere oldu.
 
 66
 00:04:04,940 --> 00:04:08,090

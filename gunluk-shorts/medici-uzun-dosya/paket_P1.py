@@ -47,7 +47,7 @@ Araştırmalar ve veri tabanları:
 • Online Catasto of 1427 (yay. D. Herlihy, C. Klapisch-Zuber, R. B. Litchfield, A. Molho; Brown Üniversitesi): 1427 servet sayımı
 Anlatımda anılan:
 • Tim Parks, Medici Money (2005): kitabın kendisi okunmadı; aktarım kitabın özet notlarına dayanır, aynı bilgi de Roover'da doğrulandı
-Rivayetler ekranda ANEKDOT damgasıyla, temsilî portreler TEMSİLÎ damgasıyla işaretlidir.{BIRINCIL}"""
+Rivayetler ekranda ANEKDOT damgasıyla, madalya portreleri TEMSİLÎ damgasıyla işaretlidir; videodaki bütün figürler temsilîdir, gerçek benzerlik iddiası yoktur.{BIRINCIL}"""
 
 BIRINCIL_EK = ""          # KAY teyit tablosu (kurul/teyit_P1.md) sonucu doldurulur: gerçekten okunan birincil metinler
 
@@ -109,11 +109,24 @@ def video_suresi():
     return float(tl.get("total", 0.0)) + 8.3
 
 
+def bitis_zamanlari(dur):
+    """YouTube bitiş ekranı başlangıcı ve videodaki yuvaların tam göründüğü an (sn). Çıkış çekimi videonun son compose.OUTRO saniyesi;
+    yuvalar çıkış başından compose.OUTRO_SLOT_FULL sn sonra tam görünür (yoksa eski değer 3,5). Öğeler yuvalardan 0,5 sn önce başlar;
+    YouTube en az 5 sn ister."""
+    try:
+        import compose
+        outro, full = float(compose.OUTRO), float(getattr(compose, "OUTRO_SLOT_FULL", 3.5))
+    except Exception:                                      # noqa: BLE001
+        outro, full = 7.0, 3.5
+    yuva = dur - outro + full
+    es = min(yuva - 0.5, dur - 5.0)
+    return math.floor(es), math.floor(yuva)
+
+
 def yayin_adimlari(bol, kambiyo, dur):
-    """00_yayin_adimlari.txt (kurul tur 2, PK1-Y3): Studio'da sırayla uygulanacak adımlar. Bitiş ekranı: YouTube en az 5 sn ister;
-    videodaki yuvalar bitişten ≈4,4 sn önce belirir (compose.outro: amt(2.6, 0.9)) → öğeler son 5,5 sn'ye konur."""
-    es = ts(math.floor(dur - 5.5))
-    yuva = ts(math.floor(dur - 4.4))
+    """00_yayin_adimlari.txt (kurul tur 2, PK1-Y3; PK2-Y2): Studio'da sırayla uygulanacak adımlar."""
+    es_s, yuva_s = bitis_zamanlari(dur)
+    es, yuva = ts(es_s), ts(yuva_s)
     mm, ss = divmod(dur, 60)
     sure = f"{int(mm)}:{int(ss):02d}"
     ilk, son = bol[0][1], bol[-1]
@@ -152,7 +165,8 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
 3) Video öğeleri:
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
    - Bitiş ekranı: {es}{ek(es, 'den')} videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve {yuva}{ek(yuva, 'de')} belirir:
-     · Sol çerçeve ("SIRADAKİ PARÇA"): Oynatma listesi → Medici (7 parça). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
+     · Sol çerçeve ("SIRADAKİ PARÇA"): P2 yayınlanana dek "İzleyiciye en uygun video" öğesi (YouTube seçer). Yalnız bu videoyu içeren
+       oynatma listesini KOYMA: izleyiciyi aynı videoya döndürür (kurul PK2-Y2). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
      · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.
      Öğeleri çerçevelerin üstüne yerleştir, dışına taşırma.
 4) Görünürlük: Planla → Pazar 20:00 (GMT+3). Parçalar arası bir hafta.
@@ -211,7 +225,7 @@ Ses: yapay zekâ ile üretilmiş anlatıcı sesi (ElevenLabs, "Emrullah"). Çizi
 #Medici #Floransa #Rönesans #TarihBelgeseli
 """
     yorum = f"""Soru: Kilise faizi yasaklamıştı; bankacılar kambiyo ve "faiz değil, hediye" gibi yollar buldu ({kambiyo}). Sizce bu zekâ mıydı, dolambaçlı yol mu?
-Rakam ve tarihlerin dayanakları açıklamadaki kaynaklardır (1427 sayımı için Online Catasto of 1427); rivayetler videoda ANEKDOT, temsilî portreler TEMSİLÎ damgasıyla işaretlidir. Tam kaynak ve teyit tablosunu isteyene paylaşırız.
+Rakam ve tarihlerin dayanakları açıklamadaki kaynaklardır (1427 sayımı için Online Catasto of 1427); rivayetler videoda ANEKDOT, madalya portreleri TEMSİLÎ damgasıyla işaretlidir; bütün figürler temsilîdir. Tam kaynak ve teyit tablosunu isteyene paylaşırız.
 Sıradaki: 2/7, Cosimo'nun kulesi, sürgün ve dönüş.
 """
     etiket = ["Medici", "Medici Ailesi", "Medici Ailesi Tarihi", "Mediciler", "Medici bankası", "faiz yasağı", "kambiyo",

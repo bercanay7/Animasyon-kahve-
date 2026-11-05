@@ -56,6 +56,8 @@ NUMW = {"bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz"
         "yetmiş", "seksen", "doksan", "yüz", "bin", "milyon", "buçuk"}
 GLUE_NEXT = {"bu", "şu", "o", "bir", "her", "eski", "yeni", "ilk", "son", "en", "çok", "daha", "aziz"}
 GLUE_PREV = {"göre", "kadar", "gibi", "için", "ile", "değil", "bile", "da", "de", "ki", "mi", "mı", "mu", "mü", "olarak", "sonra", "önce"}
+NAME_PART = {"di", "de'", "del", "della", "dei", "degli", "van", "von"}       # Michele | di Lando, Giovanni di | Bicci (kurul tur 2, TE2)
+ROMAN_DOT = re.compile(r"[IVXLC]+\.")                                       # "III." cümle sonu değil, unvan sırası
 
 
 def _bare(w):
@@ -76,6 +78,10 @@ def bad_break(left, right):
     if r.rstrip(".,;:!?”\"") in GLUE_PREV:
         return True
     if (l, r[:5]) in (("okuma", "yazma"), ("alacak", "ve"), ("kâr", "ve")) or (l == "via" and r[:1].isalpha()):   # ikilemeler ve sokak adları
+        return True
+    if left[:1].isupper() and r in NAME_PART:                # ad parçacığı: "Michele | di Lando"
+        return True
+    if l in NAME_PART and right[:1].isupper():               # "di | Lando", "de' | Medici"
         return True
     return False
 
@@ -127,7 +133,7 @@ def cues_for(sent):
         txt = " ".join(x["w"] for x in cur)
         dur = cur[-1]["t1"] - cur[0]["t0"]
         nxt = words[i + 1] if i + 1 < len(words) else None
-        end_p = w["w"].rstrip("”\"")[-1:] in ".?!…:;"
+        end_p = w["w"].rstrip("”\"")[-1:] in ".?!…:;" and not ROMAN_DOT.fullmatch(w["w"])     # "III." unvan sırası, cümle sonu değil (TE2)
         comma = w["w"].rstrip("”\"")[-1:] == ","
         gap = (nxt["t0"] - w["t1"]) if nxt else 9
         too_long = nxt is not None and (len(txt) + 1 + len(nxt["w"]) > 2 * MAXCH - 6 or dur > MAXDUR)
