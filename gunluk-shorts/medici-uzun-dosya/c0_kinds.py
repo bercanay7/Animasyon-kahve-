@@ -261,7 +261,7 @@ cilt_cam.OWN_CAMERA.add("c0_belge")      # kendi kamera anahtarları (cams=) var
 
 @ckind("c0_belge")
 def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_at=None, it_strike_at=None, hl_at=None, hl_out=None,
-            names_at=None, third_at=None, scrim_at=None, seed=3, pen_at=None, **_):
+            names_at=None, third_at=None, scrim_at=None, seed=3, pen_at=None, names_out=None, names_hide=(), **_):
     """Belge (1100×760 kâğıt; oda belgesiyle aynı). cams=[(çapa, (doc_x, doc_y, ölçek))] — belge koordinatında (0,0 = merkez) ekran merkezine gelen nokta + ölçek.
     seals=(sol_çapa, sağ_çapa); names_at=(sol,sağ) mühür altı etiketleri; num_at: 13 Romen rakamı sırayla; fr_at: FRANSIZCA damgası;
     it_at/it_strike_at: ITALIANO yazılır / çizilir; hl_at: III. madde vurgusu (hl_out'ta söner)."""
@@ -321,8 +321,13 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
             f.circle(330, 262, 22, style="stroke", sw=3.0, color="#E8D49A", alpha=0.85 * ring_a)
             f.circle(330, 262, 9, color="#E8D49A", alpha=0.7 * ring_a)
     if names_at:
-        for (txt, x, an) in ((names_at[0], -330, names_at[2]), (names_at[1], 330, names_at[3])):
+        for ni, (txt, x, an) in enumerate(((names_at[0], -330, names_at[2]), (names_at[1], 330, names_at[3]))):
             k = cx.amt(an, 0.5)
+            for (hi, h_out, h_in) in names_hide:            # (ad sırası, sönme çapası, dönüş çapası): kamera öbür tarafa geçince
+                if hi == ni:                                # kenarda yarım kalan ad söner, tam görünüme dönünce geri gelir
+                    k *= clamp(1.0 - cx.amt(h_out, 0.35) + (cx.amt(h_in, 0.35) if h_in is not None else 0.0))
+            if names_out is not None:                      # kamera mühürlerden ayrılınca adlar söner: alt kenarda yarım ad kalmasın
+                k *= 1.0 - cx.amt(names_out, 0.4)          # (başkan, kurul tur 3 TE2-G1 ilkesi; qa_yerlesim yarım yazı: 43,1 sn %71)
             if k > 0.003:
                 CM.ink(f, txt, x, 262 + 94 + (1 - k) * 8, face="title_m", size=26, color="#4A2A16", align="c", track=5, alpha=k, emboss=False)
     # kalem (imza anı)

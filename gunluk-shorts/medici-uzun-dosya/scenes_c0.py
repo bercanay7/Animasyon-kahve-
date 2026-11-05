@@ -75,6 +75,8 @@ SHOTS = [
                (("c0s9", -0.15), (40, -110, 1.28))],
          seals=(("c0s7", "Anna", 0.0), ("c0s7", "Lorraine", 0.3)),
          names_at=("ANNA MARİA LUİSA", "LORRAİNE TARAFI", ("c0s7", "Luisa", 0.15), ("c0s7", "tarafı", -0.3)),
+         names_out=("c0s8", -0.1),              # kamera tam görünüme dönerken adlar söner (43,1 sn alt kenarda yarım ad kalıyordu; qa_yerlesim)
+         names_hide=[(0, ("c0s7", "Lorraine", -0.5), None)],     # kamera Lorraine tarafına kayarken sol ad (≈37,8–38,6 sn sol kenarda yarım) söner
          pen_at=("c0s7", "Bir", 0.0),
          num_at=("c0s8", "on", 0.0), num_dur=1.2, fr_at=("c0s8", "Fransızca", 0.0),
          # "13 MADDE" (kurul tur 2 C1): kâğıdın DIŞINDA, masa üstünde, belge düzlemine bağlı (doc x −760); kamera sağa kayınca kâğıtla birlikte
