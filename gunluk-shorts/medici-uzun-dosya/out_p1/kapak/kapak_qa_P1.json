@@ -1,5 +1,5 @@
 {
- "tarih": "2026-11-05 02:12",
+ "tarih": "2026-11-05 07:07",
  "parca": 1,
  "esikler": {
   "kap_px": 9.0,
@@ -36,13 +36,13 @@
     1280,
     720
    ],
-   "mb": 0.272,
+   "mb": 0.266,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K1.yerlesim.json",
    "koyu_tema": {
     "kenar_ort": 38.4,
-    "koyu_pay": 0.083,
+    "koyu_pay": 0.085,
     "gecti": true
    },
    "yazilar": [
@@ -78,7 +78,7 @@
        "kap_px": 25.4,
        "kap_px_min": 17.7,
        "govde_px": 5.07,
-       "kontrast": 10.31,
+       "kontrast": 10.35,
        "gri_fark": 170.0,
        "okunur": true
       },
@@ -169,20 +169,20 @@
     "cevre_medyan": 123.0,
     "odak_cevre_fark": 120.0,
     "en_parlak_168": [
-     640,
-     513
+     648,
+     521
     ],
     "en_parlak_168_odakta": true,
     "tek_odak": true,
     "ortalama": 68.4,
-    "p95": 229.0
+    "p95": 230.0
    },
    "bolge": {
     "ihlal": [],
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0,
-     "kare_kenar": 0.0323,
+     "kare_kenar": 0.0324,
      "sure_rozeti_parlak": 0.0,
      "sure_rozeti_ortalama": 29.1
     },
@@ -197,13 +197,13 @@
     1280,
     720
    ],
-   "mb": 0.23,
+   "mb": 0.225,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K2.yerlesim.json",
    "koyu_tema": {
     "kenar_ort": 37.9,
-    "koyu_pay": 0.105,
+    "koyu_pay": 0.106,
     "gecti": true
    },
    "yazilar": [
@@ -222,7 +222,7 @@
      "olculen_kap_px": 165.6,
      "olculen_kap_px_min": 164.0,
      "govde_px": 45.9,
-     "kontrast": 10.38,
+     "kontrast": 10.41,
      "gri_fark": 170.0,
      "yazi_rgb": [
       237.0,
@@ -230,7 +230,7 @@
       102.0
      ],
      "zemin_rgb": [
-      38.0,
+      37.0,
       22.0,
       17.0
      ],
@@ -304,7 +304,7 @@
        "kap_px": 13.7,
        "kap_px_min": 13.7,
        "govde_px": 3.94,
-       "kontrast": 14.91,
+       "kontrast": 14.96,
        "gri_fark": 211.0,
        "okunur": true
       },
@@ -325,7 +325,7 @@
    "gri": {
     "esik_p99": 204.0,
     "parlak_leke": 5,
-    "odak_payi": 0.875,
+    "odak_payi": 0.884,
     "odak_p90": 182.0,
     "cevre_medyan": 54.0,
     "odak_cevre_fark": 128.0,
@@ -343,7 +343,7 @@
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0004,
-     "kare_kenar": 0.021,
+     "kare_kenar": 0.0208,
      "sure_rozeti_parlak": 0.0,
      "sure_rozeti_ortalama": 32.9
     },

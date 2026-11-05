@@ -936,26 +936,29 @@ def _punzonato_dots(seed=7):
             n = int(2 * math.pi * R0 / step)
             off = rs.rand() * 2 * math.pi / n
             for i in range(n):
+                if rs.rand() < 0.14:                              # elde zımbalanmış: arada düşmüş noktalar (makine düzeni değil)
+                    continue
                 d.append((j, off + 2 * math.pi * i / n, R0 * (1.0 + 0.012 * rs.randn()), rs.rand() * 6.283, (j == 3 and i % 3 == 0)))
         _PUNZ[seed] = d
     return d
 
 
-def _punzonato(c, ax, ay, kk, I, g, col="#FFE7A6"):
-    """Halka halka beliren zımbalı altın noktalar: iç halkadan dışa açılır (k ile), her nokta ışığı kendi fazında yakalar (deterministik); toplamsal, düşük."""
+def _punzonato(c, ax, ay, kk, I, g, col="#F2C766"):
+    """Halka halka beliren zımbalı altın noktalar: iç halkadan dışa açılır (k ile), her nokta ışığı kendi fazında yakalar (deterministik); toplamsal, DÜŞÜK
+    (altın tonu; beyaz yıldız/kıvılcım değil — kurul tur 2 SA1-Y7)."""
     sc = 0.94 + 0.12 * kk
     p = skia.Paint(AntiAlias=True, Color=C(col), BlendMode=_PLUS)
     ph = skia.Paint(AntiAlias=True, Color=C(col), BlendMode=_PLUS, MaskFilter=skia.MaskFilter.MakeBlur(_BLURN, 3.2))
     for (j, ang, R0, phs, ros) in _punzonato_dots():
         on = smooth((kk - (0.10 + 0.07 * j)) / 0.22) * (1.0 - smooth((kk - (0.70 + 0.05 * j)) / 0.25))
-        a = I * on * (0.50 + 0.50 * math.sin(g * 3.1 + phs) ** 2) * (1.0 - 0.13 * j)
+        a = I * on * (0.40 + 0.60 * math.sin(g * 3.1 + phs) ** 2) * (1.0 - 0.15 * j)
         if a <= 0.01:
             continue
         x, y = ax + math.cos(ang) * R0 * sc, ay + math.sin(ang) * R0 * sc * 0.92
-        ph.setAlphaf(clamp(0.55 * a))
-        c.drawCircle(x, y, 6.0, ph)
-        p.setAlphaf(clamp(0.95 * a))
-        c.drawCircle(x, y, 2.1 if not ros else 2.6, p)
+        ph.setAlphaf(clamp(0.26 * a))
+        c.drawCircle(x, y, 5.5, ph)
+        p.setAlphaf(clamp(0.58 * a))
+        c.drawCircle(x, y, 1.9 if not ros else 2.4, p)
         if ros:                                                   # rozet: dört küçük yaprak noktası
             for q in range(4):
                 c.drawCircle(x + math.cos(q * 1.5708 + ang) * 5.2, y + math.sin(q * 1.5708 + ang) * 5.2, 1.3, p)
@@ -1015,8 +1018,10 @@ def blend_light(a, b, k, g=0.0, d=0.8, at=None, col="#FFD98A", rays=None, spread
     else:
         # 3) yumuşak yaldız parlaması: geniş, düşük, kenarsız (varak üstünde kayan ışık) + punzonato halkaları
         gx = ax + 46.0 * math.sin(math.pi * (kk - 0.5))           # parlama kaynağın üstünde hafifçe süzülür (ışık varakta kayar)
-        _add_small(c, _glow_small([(gx, ay, 640, "#FFD27A", 0.17 * I, 1.30), (gx, ay, 260, "#FFE9B8", 0.20 * I, 1.6)]))
+        _add_small(c, _glow_small([(gx, ay, 660, "#F2C35E", 0.15 * I, 1.30), (gx, ay, 300, "#FFDC98", 0.10 * I, 1.6)]))
         _punzonato(c, ax, ay, kk, I, g)
+        _glow(c, gx, ay, 240, "#FFE2A2", 0.24 * I, 2.0)            # sıcak çekirdek (beyaza patlamayan, küçük)
+        return out
     _glow(c, ax, ay, 300, "#FFF1C8", 0.42 * I, 1.8)
     return out
 

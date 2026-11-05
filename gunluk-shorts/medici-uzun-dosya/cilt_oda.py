@@ -856,14 +856,18 @@ def seated_act(name):
     return SEATED_ACTS[name]
 
 
-def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=None, rim="#E8A860", rim_dir=1, t0=0.0, alpha=1.0, energy=1.0, desk_top=False, **stil):
+def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=None, rim="#E8A860", rim_dir=1, t0=0.0, alpha=1.0, energy=1.0, desk_top=False,
+           look=None, look_w=1.0, **stil):
     """Masa başında oturan figür (masa/sandalye odanın kendi çizimidir; FA masası ÇİZİLMEZ). action: write | count | idle(oturan) …
-    sil=renk → siluet. Dönüş: act_write ek bilgisi (satır, ilerleme) — belge yazılışını elle eşlemek için."""
+    sil=renk → siluet. look=(lx, ly): baş o noktaya döner (FA.apply_look). Dönüş: act_write ek bilgisi (satır, ilerleme) — belge yazılışını elle eşlemek için."""
     _h, phase, stil = FA.clone_vary(f, kind, seed, x, y, h, phase, stil, seated=True)   # yan yana aynı kâtipler: başlık/ton/evre (boy masaya bağlı, değişmez)
     kit, bh = FA.kit_for(kind, seed, h, **stil)
     fn = seated_act(action)
     pz = fn(kit, t, phase=phase, t0=t0, **({'energy': energy} if action == 'talk' else {}))
     ex = dict(pz.extra) if getattr(pz, "extra", None) else {}
+    if look is not None and action in ("talk", "listen"):              # yazan/sayan/okuyan masaya bakar; konuşan/dinleyen karşıdakine
+        FA.apply_look(pz, kit, bh, x, y, h, dir, look, look_w)
+    pz.eye = FA.blink_eye(kit, t, phase) if not sil else 0
     FA.cloth_for(kit, pz, t, phase * 6.28, lag=0.0, wave=0.0)
     c = f.c
     rw = 2.1 / max(1.0, FA.SCALE_HINT ** 0.6)
@@ -1074,9 +1078,55 @@ def _anchor_t(ctx, a, default=0.0):
         return float(a) if isinstance(a, (int, float)) else default
 
 
+LOOK_AUTO = True                     # kurul tur 2 AN1: oda sahnesinde konuşan/dinleyen/işaret eden figürün başı önündeki en yakın figüre döner
+_LOOK_ACTS = ("talk", "listen", "point", "admonish")
+
+
+def _room_peers(ctx):
+    """Bu karenin duran oda figürleri (yürüyenler hariç): bakış hedefi adayları. Kare başına bir kez (ctx kareye özgü)."""
+    lst = getattr(ctx, "_fa_peers", None)
+    if lst is None:
+        room = getattr(ctx, "room", None) or getattr(ctx, "world", None)
+        try:
+            src = room.actors_extra if getattr(room, "actors_extra", None) is not None else room.default_actors(ctx)
+        except Exception:                                   # noqa: BLE001 — bakış süs; çizimi asla düşürmesin
+            src = []
+        lst = []
+        for o in src or []:
+            if not isinstance(o, dict) or o.get("walk") is not None or "x" not in o or "y" not in o:
+                continue
+            oh = float(o.get("h", 260))
+            lst.append((o, float(o["x"]), float(o["y"]), oh, float(o["y"]) - (0.71 if o.get("seated") else 0.86) * oh))
+        try:
+            ctx._fa_peers = lst
+        except AttributeError:
+            pass
+    return lst
+
+
+def _auto_look(ctx, orig, x, y, h, dirn):
+    """Önündeki (yüzünün döndüğü yanda) en yakın duran figürün başı → (hedef, ağırlık). Uzaklık sınırında ağırlık yumuşakça söner."""
+    best = None
+    for (o, ox, oy, oh, hy) in _room_peers(ctx):
+        if o is orig:
+            continue
+        m = max(h, oh)
+        dx = (ox - x) * dirn
+        if dx < 0.15 * h or dx > 3.4 * m or abs(oy - y) > 1.2 * m:
+            continue
+        if best is None or dx < best[0]:
+            best = (dx, ox, hy, m)
+    if best is None:
+        return None, 0.0
+    dx, ox, hy, m = best
+    return (ox, hy), 1.0 - smooth((dx - 2.6 * m) / (0.8 * m))
+
+
 def draw_actor(ctx, d):
-    """actors öğesi: dict(kind, x, y, h, action, at, dir, seed, sil, prop, walk=(x_son, hız), t0, rise_at, …). x,y = ana düzlem koordinatı (ayak)."""
+    """actors öğesi: dict(kind, x, y, h, action, at, dir, seed, sil, prop, walk=(x_son, hız), t0, rise_at, look, …). x,y = ana düzlem koordinatı (ayak).
+    look: (lx, ly) bakılan nokta | False (kapalı) | yoksa LOOK_AUTO: talk/listen/point/admonish eyleminde önündeki en yakın figürün başı."""
     f, t = ctx.f, ctx.t
+    orig = d
     d = dict(d)
     kind = d.pop("kind", "halk")
     x, y, h = d.pop("x"), d.pop("y"), d.pop("h", 260)
@@ -1089,11 +1139,21 @@ def draw_actor(ctx, d):
     d.pop("layer", None)
     walk = d.pop("walk", None)
     rim_dir = d.pop("rim_dir", 1)
+    look = d.pop("look", None)
+    look_w = d.pop("look_w", 1.0)
+    if look is None and LOOK_AUTO and walk is None and action in _LOOK_ACTS:
+        look, w_ = _auto_look(ctx, orig, x, y, h, dirn)
+        look_w = look_w * w_
+    if look is False:
+        look = None
     if d.pop("seated", False):
         stil = {k: v for k, v in d.items() if k in FA.STIL_KEYS}
         seated(f, kind, x, y, h, t, action if action in ("write", "count", "talk", "listen", "read") else "listen", dirn, seed=seed, phase=phase,
-               sil=(sil if isinstance(sil, str) else "#1A1008") if sil else None, rim_dir=rim_dir if rim_dir else (1 if dirn > 0 else -1), t0=_anchor_t(ctx, at, 0.0), energy=d.get("energy", 1.0), **stil)
+               sil=(sil if isinstance(sil, str) else "#1A1008") if sil else None, rim_dir=rim_dir if rim_dir else (1 if dirn > 0 else -1), t0=_anchor_t(ctx, at, 0.0), energy=d.get("energy", 1.0),
+               look=look, look_w=look_w, **stil)
         return
+    if walk is None and look is not None:
+        d["look"], d["look_w"] = look, look_w
     t_at = _anchor_t(ctx, at, 0.0)
     for k in ("rise_at", "t_exit", "exit_at"):
         if k in d and not isinstance(d[k], (int, float)):
@@ -2022,6 +2082,7 @@ class Oda1743(Room):
     DOC_S = 0.17
     CANDLE_UV = (0.64, 0.66)
     CLOTH = ("#8E2A30", "#D2A33E")
+    SLEEP_COVER = ("#8E2A30", GOLD)        # yatan figür yorganın altında (yatak örtüsüyle aynı kumaş; kurul tur 2 SA1-Ö4) — yalnız name == "oda1743"
 
     def build(self):
         self.g = TGeom(self.TX0, self.TY, self.TW, self.TD)
@@ -2131,7 +2192,8 @@ class Oda1743(Room):
         # yatan siluet
         if fig in ("lying", "both"):
             px, py = getattr(self, "pillow", (self.BX0 + 68, self.BYB - 156))
-            lying_sil(f, px + 8, py + 10, t, 1.0, color="#1A1008", rim="#E8A860" if night else "#C79A5A", rim_dir=1)
+            cov = self.SLEEP_COVER if self.name == "oda1743" else None           # alt sınıflar (p1yatak…) eski düz siluette kalır
+            lying_sil(f, px + 8, py + 10, t, 1.0, color="#1A1008", rim="#E8A860" if night else "#C79A5A", rim_dir=1, cover=cov)
         # masa tablası + eşyalar
         table_top(c, g, T, self.CLOTH)
         dxx, dyy = self.doc_xy
@@ -2181,9 +2243,10 @@ class Oda1743(Room):
     def dyn_front(self, ctx):
         f, c, t = ctx.f, ctx.c, ctx.t
         draw_extra(ctx, "front")
-        # bağlı yatak perdesi: ayak ucunda, yavaş dalga
+        # bağlı yatak perdesi: ayak ucunda, yavaş dalga — oda1743'te kenarı yumuşatılmış sürüm (SA1-Ö4); alt sınıflar ortak draw_drape'te kalır
         bx0 = self.BX0 + 560
-        draw_drape(c, bx0 + 14, self.BYB - 492 + 28 + 30, 74, 395, t, col="#8E2A30", col2=GOLD, amp=0.04, seed=2, ph=0.5, tie=0.62)
+        _dr = _drape_aa_1743 if self.name == "oda1743" else draw_drape
+        _dr(c, bx0 + 14, self.BYB - 492 + 28 + 30, 74, 395, t, col="#8E2A30", col2=GOLD, amp=0.04, seed=2, ph=0.5, tie=0.62)
 
     def dyn_fg(self, ctx):
         f, c, t = ctx.f, ctx.c, ctx.t

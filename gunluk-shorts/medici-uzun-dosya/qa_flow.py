@@ -23,6 +23,12 @@ Girdi: compose.Program(chapters=…, part=…) ya da çekim listesi (Program(sho
      (ardışık kart ≤4 ve en geç 75 sn'de bir dünya/figür çekimi; aile haritası, p1_/pN_ öneki soyulur; shot(family=…) ya da sahne modülü AILE={tür: aile}
      ile etiketlenir) · sert kesme payı ≥%15 · geçiş süresi dağılımı σ ≥0,25 sn · ölçülen hareket (örnek karelerde kare farkı; >6 sn ve hareketsiz çekim)
      · ENG-A qa_yerlesim.py / qa_donem.py (varsa; --part modunda, alt süreçte).
+ (e) ENG-D (Kasım 2026, kurul tur 2) kare çizerek ölçülen kapılar (çekim tek başına, kaplamasız; ORB + çok katmanlı RANSAC benzerlik):
+     · BEYAN ↔ GERÇEKLEŞEN KAMERA — (A) fark testi: aynı anda nötr ↔ beyan kamerayla iki kare → kamera çizime ulaşıyor mu (izdüşüm ≥0,5);
+       (B) zaman testi: %20→%50→%80 dünya hareketi ↔ beyan (izdüşüm ≥0,5, ters yön KALDI). Kendi kameralı türler ölçülmez.
+     · AYNI GÖRÜNTÜ KESMESİ — sert kesmede A'nın son ↔ B'nin ilk karesi: inlier ≥100 ve ölçek 0,8–1,35 → aday; 1/1,12–1,12 ve hizalı farkta
+       değişen ≤%35 → KALDI, diğer aday → UYARI; shot(jump=True) muaf. Sert kesme payı aynı görüntü kesmelerini SAYMAZ.
+     · IŞIK GEÇİŞİ BÜTÇESİ (statik) — parça başına "light" ≤4.
 
 ── Kalibrasyon (τ) ─────────────────────────────────────────────────────
  τ = TAU. `--calibrate` ile ölçülür: (1) hiç kamera/olay içermeyen sabit çekimde MAD gürültü tabanı (toz zerreleri + tane); (2) reel'in kararlı bölümlerinde
@@ -59,6 +65,16 @@ CUT_SHARE_MIN = 0.15             # sert kesme payı hedefi
 TR_SIGMA_MIN = 0.25              # geçiş süresi standart sapması (sn)
 MOT_LONG = 6.0                   # sn: bundan uzun çekimlerde ölçülen hareket denetlenir
 MOT_TAU = 1.25                   # 0,5 sn adımlı kare farkı medyanı bunun altındaysa "hareketsiz" (kalibrasyon 4 Kas: kurulun "durgun" dediği çekimler 0,78–1,23; canlı çekim medyanı ≈4,9)
+# ENG-D kapı eşikleri (kurul tur 2: AN1-Y2/Y3/Y8, AN2-Ö1, SA1-Y7)
+CAMREAL_MIN = 0.50               # beyan ↔ gerçekleşen kamera: gerçekleşen hareketin beyan edilen yöndeki izdüşümü ≥ beyanın %50'si
+CAMREAL_MINPX = 8.0              # beyan edilen hareket (yoklama ızgarasında en büyük yer değiştirme, px) bunun altındaysa ölçülmez
+CAMREAL_CHG = 0.005              # fark testi: nötr ↔ beyan kamerayla çizilen AYNI anın karelerinde değişen piksel payı bunun altındaysa → kamera çizime ULAŞMIYOR
+JUMP_INLIERS = 100               # aynı görüntü kesmesi: A'nın son ↔ B'nin ilk karesi ORB+RANSAC benzerlik inlier'ı
+JUMP_SCALE = (0.80, 1.35)        # bu ölçek aralığında ve inlier ≥ JUMP_INLIERS → sıçrama adayı (AN2-Ö1)
+JUMP_HARD = 1.12                 # ölçek 1/1,12 … 1,12 ve hizalı farkta değişen pay ≤ JUMP_CHG → kesin sıçrama (KALDI; AN2: #23 ×0,99, #58 ×1,01, aynı kart)
+JUMP_CHG = 0.35                  # (1,12–1,35 ya da değişen pay > %35 → sınırda: UYARI; AN2: #8 ×1,21, #46 ×1,15 "vurgu itmesi gibi okunabilir")
+LIGHT_MAX = 4                    # parça başına "light" (ışık patlaması) geçişi bütçesi (AN1-Y8 / SA1-Y7)
+NEUTRAL_CAM = [(0.0, (0.0, 0.0, 1.0, 0.0)), (1.0, (0.0, 0.0, 1.0, 0.0))]   # fark testinde nötr kamera (özdeş durum)
 
 # aile haritası (taban tür adı, p1_/pN_ öneki soyulmuş): dünya (mekân/şehir/panorama), figür (insan eylemi), kart (harita/madalya/belge/diyagram)
 FAMILY_BASE = {
@@ -547,7 +563,21 @@ def _engb_static_gates(prog, rows, cand):
                           thr=f"σ ≥ {TR_SIGMA_MIN} sn (aralık 0,25–2,4)", detail=[]))
     else:
         gates.append(dict(name="Geçiş süresi dağılımı", status=SKIP, value=f"{len(durs)} geçiş (≥3 gerekli)", thr=f"σ ≥ {TR_SIGMA_MIN} sn", detail=[]))
+    gates.append(light_budget_gate(prog))
     return gates
+
+
+def light_budget_gate(prog):
+    """ENG-D (kurul tur 2 AN1-Y8 / SA1-Y7): "light" geçişi (ışık patlaması) parça başına ≤ LIGHT_MAX. Bölüm kartı/bitiş ekranı girişleri dâhil tüm sınırlar sayılır."""
+    hits = [s for s in prog.shots if getattr(s, "tr_eff", None) and s.tr_eff[0] == "light"]
+    per = {}
+    for s in hits:
+        cid = prog._chapter_of(s.t0 + 0.01) if getattr(prog, "hud", False) else "reel"
+        per[cid or "kart"] = per.get(cid or "kart", 0) + 1
+    st = OK if len(hits) <= LIGHT_MAX else FAIL
+    return dict(name="Işık geçişi bütçesi", status=st, value=f"{len(hits)} \"light\" geçişi {dict(sorted(per.items()))}",
+                thr=f"parça başına ≤{LIGHT_MAX} (ifşa/yıldız an; gerisi kesme, malzeme geçişi ya da eşleşen nesne)",
+                detail=[f"#{s.i} {s.kind} {s.t0:.1f} sn ({s.tr_eff[1]:.2f} sn) '{s.label}'" for s in hits])
 
 
 def motion_gate(prog, ns, mads):
@@ -573,6 +603,372 @@ def motion_gate(prog, ns, mads):
     return dict(name="Ölçülen hareket", status=st, value=f"{len(flagged)} çekim >{MOT_LONG:.0f} sn ve hareketsiz (medyan MAD<{MOT_TAU})",
                 thr=f">{MOT_LONG:.0f} sn çekimde medyan kare farkı ≥{MOT_TAU} (0,5 sn adım; geçişler hariç)",
                 detail=[f"#{r['i']} {r['kind']} '{r['label']}' {r['t0']}s ({r['dur']} sn): medyan {r['mad_med']}" for r in flagged]), rows
+
+
+# ───────────────────────────── ENG-D: kare çizerek ölçülen kapılar (kamera beyanı · aynı görüntü kesmesi) ─────────────────────────────
+# Kurul tur 2: AN1-Y2 (beyan edilen kamera 5 çekimde uygulanmıyor), AN2-Ö1 + AN1-Y3 (sıçrayan kesme). Ölçüm videodan DEĞİL motordan: çekim tek
+# başına (HUD/geçiş/deklanşör/kâğıt dokusu yok) ve ekran-uzayı kaplamaları (ovl) çıkarılarak çizilir — ekrana çakılı doku ve sabit levhalar ölçümü
+# "durağan"a çekmesin (AN1'in video ölçümündeki LK/faz korelasyonu ekrana çakılı kâğıt dokusuna kilitleniyordu; bkz. ENG-D raporu).
+_GRIDP = []
+
+
+def _probe_grid():
+    import numpy as np
+    if not _GRIDP:
+        gx, gy = np.meshgrid(np.linspace(0.12, 0.88, 5) * 1920.0, np.linspace(0.15, 0.85, 4) * 1080.0)
+        _GRIDP.append(np.stack([gx.ravel(), gy.ravel()], 1))
+    return _GRIDP[0]
+
+
+def _render_gray(prog, s, g, cam=None):
+    """Çekimi tek başına g anında çiz (HUD/geçiş/deklanşör/post yok; ekran-uzayı ovl çıkarılır) → gri uint8. cam: geçici kamera beyanı (fark testi)."""
+    import cv2
+    sp, sc = s.params, s.cam
+    s.params = {k: v for k, v in s.params.items() if k != "ovl"}
+    if cam is not None:
+        s.cam = cam
+    try:
+        img = prog._render_shot(s, g).rgb()
+    finally:
+        s.params, s.cam = sp, sc
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+
+def _orb_pairs(A, B, mask=None):
+    import cv2
+    import numpy as np
+    orb = cv2.ORB_create(nfeatures=5000, fastThreshold=7)
+    ka, da = orb.detectAndCompute(A, mask)
+    kb, db = orb.detectAndCompute(B, mask)
+    if da is None or db is None or len(ka) < 10 or len(kb) < 10:
+        return np.zeros((0, 2), np.float32), np.zeros((0, 2), np.float32)
+    mt = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True).match(da, db)
+    return np.float32([ka[m.queryIdx].pt for m in mt]), np.float32([kb[m.trainIdx].pt for m in mt])
+
+
+def _ransac(pa, pb, thr=2.5):
+    import cv2
+    if len(pa) < 8:
+        return None, None
+    cv2.setRNGSeed(1234)                                      # deterministik
+    M, inl = cv2.estimateAffinePartial2D(pa, pb, method=cv2.RANSAC, ransacReprojThreshold=thr, maxIters=5000, confidence=0.995)
+    if M is None:
+        return None, None
+    return M, inl.ravel().astype(bool)
+
+
+def _spread(p):
+    import numpy as np
+    if len(p) < 3:
+        return 0.0, 0.0
+    return (float((np.percentile(p[:, 0], 95) - np.percentile(p[:, 0], 5)) / 1920.0),
+            float((np.percentile(p[:, 1], 95) - np.percentile(p[:, 1], 5)) / 1080.0))
+
+
+def _disp(M):
+    P = _probe_grid()
+    return P @ M[:, :2].T + M[:, 2] - P
+
+
+def _layers(A, B, maxl=3):
+    """A→B ORB eşleşmelerinde art arda en çok maxl benzerlik katmanı (RANSAC; her katmanın inlier'ları çıkarılıp kalanlara yeniden): ekran-uzayı (özdeş),
+    duvar (paralaks) ve içerik katmanları ayrışır. Dönüş: ([dict(M, n, sx, sy, mag)], eşleşme sayısı)."""
+    import numpy as np
+    pa, pb = _orb_pairs(A, B)
+    n = len(pa)
+    out, rem = [], np.ones(n, bool)
+    for _ in range(maxl):
+        idx = np.where(rem)[0]
+        if len(idx) < 12:
+            break
+        M, inl = _ransac(pa[idx], pb[idx])
+        if M is None or inl.sum() < 12:
+            break
+        sel = idx[inl]
+        sx, sy = _spread(pa[sel])
+        out.append(dict(M=M, n=int(inl.sum()), sx=sx, sy=sy, mag=float(np.hypot(*_disp(M).T).max())))
+        rem[sel] = False
+    return out, n
+
+
+def _proj(dR, dD):
+    """Gerçekleşen yer değiştirme alanının beyan edilen alana izdüşüm oranı (1 = birebir; 0 = hiç; < 0 = ters yön)."""
+    return float((dR * dD).sum() / max(1e-9, (dD * dD).sum()))
+
+
+def _state_xf(prog, s, g, spec=None):
+    """Beyan edilen kameranın g anındaki içerik dönüşümü (cilt_cam durumu) → (ölçek, öteleme, merkez, dönme); harita türünde zum merkezi ekran ortası."""
+    import math
+    import numpy as np
+    import cilt_cam
+    import shots as SH
+    cx = SH.Ctx(None, g - s.t0 + s.lead, s, prog.tl)
+    st = cilt_cam.state(cx, s.cam if spec is None else spec, kind=s.kind)
+    if st is None:                                           # beyan yok → özdeş
+        return 1.0, np.zeros(2), np.array((960.0, 540.0)), np.eye(2)
+    mk = cilt_cam.base_kind(s.kind) == "map"
+    P = np.array((960.0, 540.0) if (mk or st.pivot is None) else st.pivot, float)
+    c, s_ = math.cos(math.radians(st.rot)), math.sin(math.radians(st.rot))
+    return st.s, np.array([st.dx, st.dy]), P, np.array([[c, -s_], [s_, c]])
+
+
+def _wall_xf(prog, s, g):
+    """Aynı kamera durumunun DUVAR katmanı dönüşümü (CM.Cam.wall: ölçek ws·1,015 ekran ortasında, öteleme wdx/wdy — paralaks ×0,15–0,85).
+    Zaman testinde duvar katmanını içerikle karıştırmamak için (yoksa pan'da oran ≈0,40 = duvar paralaksı çıkar)."""
+    import numpy as np
+    import cilt_cam
+    import shots as SH
+    cx = SH.Ctx(None, g - s.t0 + s.lead, s, prog.tl)
+    st = cilt_cam.state(cx, s.cam, kind=s.kind)
+    if st is None:
+        return 1.0, np.zeros(2), np.array((960.0, 540.0)), np.eye(2)
+    return st.ws * 1.015, np.array([st.wdx, st.wdy]), np.array((960.0, 540.0)), np.eye(2)
+
+
+def _xf_apply(x, p):
+    s, d, P, R = x
+    return P + d + s * (p - P) @ R.T
+
+
+def _xf_inv(x, q):
+    s, d, P, R = x
+    return P + ((q - P - d) / s) @ R
+
+
+def _probe_cam(prog, s):
+    """Beyan ↔ gerçekleşen kamera:
+    (A) FARK: beyanın en büyük olduğu anda (%15/%50/%85'ten) NÖTR ve BEYAN EDİLEN kamerayla çizilen iki kare: nesne animasyonu iki karede özdeş,
+        fark yalnız kameradan gelir → kamera çizime ULAŞIYOR MU (değişen piksel payı) ve ne kadar (en iyi hareket katmanının beyana izdüşüm oranı).
+    (B) ZAMAN: %20 → %50 → %80 karelerinde dünya katmanının benzerlik hareketi (iki adım zincir) ↔ aynı aralıkta beyan edilen hareket (izdüşüm oranı).
+        Sahnenin kendi anahtar kareleri beyanı bozuyorsa (ör. ("pull",) beyanı + cams'te zum içeri) burada görünür. Şerit türlerinde (iç kaydırma) yok."""
+    import cv2
+    import numpy as np
+    import cilt_cam
+    P = _probe_grid()
+    best = None
+    for u in (0.15, 0.5, 0.85):
+        g = s.t0 + u * s.dur
+        dD = _xf_apply(_state_xf(prog, s, g), P) - P
+        m = float(np.hypot(*dD.T).max())
+        if best is None or m > best[0]:
+            best = (m, g, dD)
+    decl, g, dD = best
+    A = _render_gray(prog, s, g, cam=NEUTRAL_CAM)
+    B = _render_gray(prog, s, g)
+    frac = float((cv2.absdiff(A, B) > 8).mean())
+    L, n = _layers(A, B)
+    cand = [l for l in L if l["mag"] >= 1.0 and l["n"] >= 15 and max(l["sx"], l["sy"]) >= 0.12]
+    ratio = max([_proj(_disp(l["M"]), dD) for l in cand], default=0.0)
+    out = dict(i=s.i, kind=s.kind, t0=round(s.t0, 2), cam=repr(s.cam), decl=round(decl, 1), frac=round(frac, 4), ratio=round(ratio, 2))
+    if cilt_cam.base_kind(s.kind) in cilt_cam.BAND_KINDS:
+        out["time"], out["time_note"] = None, "şerit türü: iç kaydırma (ölçülmez)"
+        return out
+    gs = [s.t0 + u * s.dur for u in (0.2, 0.5, 0.8)]
+    fr = [_render_gray(prog, s, g_) for g_ in gs]
+    xs = [_state_xf(prog, s, g_) for g_ in gs]
+    ws = [_wall_xf(prog, s, g_) for g_ in gs]
+    Mt = np.eye(3)
+    notes = []
+    for k in range(2):
+        dstep = _xf_apply(xs[k + 1], _xf_inv(xs[k], P)) - P
+        wstep = _xf_apply(ws[k + 1], _xf_inv(ws[k], P)) - P
+        L, n = _layers(fr[k], fr[k + 1])
+        mov = [l for l in L if l["mag"] >= 1.0 and l["n"] >= 15 and max(l["sx"], l["sy"]) >= 0.12]
+        walls = []
+        if float(np.hypot(*(dstep - wstep).T).max()) > 3.0:     # duvar paralaksı içerikten ayrışıyorsa: duvara daha iyi uyan katman içerik sayılmaz
+            for l in mov:
+                d_ = _disp(l["M"])
+                if float(np.hypot(*(d_ - wstep).T).mean()) < float(np.hypot(*(d_ - dstep).T).mean()):
+                    walls.append(l)
+        cont = [l for l in mov if not any(l is w_ for w_ in walls)]
+        score = (lambda l_: _proj(_disp(l_["M"]), dstep)) if float(np.abs(dstep).max()) > 0.5 else (lambda l_: l_["n"])
+        if cont:                                             # dünya (içerik) katmanı: beyana en iyi uyan hareketli katman (ışık havuzu/karanlık kenarda
+            l = max(cont, key=score)                         # az özellikli içerik de sayılır — ör. kapak yankısı, tek madalya)
+            M, note = l["M"], f"hareket {l['n']}"
+        elif walls:
+            out["time"], out["time_note"] = None, "ölçülemedi (yalnız duvar katmanı eşleşti; duvar beyana uygun kayıyor)"
+            return out
+        elif L and L[0]["mag"] < 1.0 and L[0]["n"] >= max(40, 0.25 * n) and L[0]["sx"] >= 0.35 and L[0]["sy"] >= 0.25:
+            M, note = np.float64([[1, 0, 0], [0, 1, 0]]), f"durağan {L[0]['n']}/{n}"
+        else:
+            out["time"], out["time_note"] = None, "ölçülemedi (içerik değişiyor / eşleşme zayıf)"
+            return out
+        notes.append(note)
+        Mt = np.vstack([M, [0, 0, 1]]) @ Mt
+    dT = _xf_apply(xs[2], _xf_inv(xs[0], P)) - P
+    dR = _disp(Mt[:2])
+    out["time"] = dict(decl=round(float(np.hypot(*dT.T).max()), 1), real=round(float(np.hypot(*dR.T).max()), 1), ratio=round(_proj(dR, dT), 2), notes=notes)
+    return out
+
+
+def _probe_cut(prog, i):
+    """Aynı görüntü kesmesi: A'nın son karesi ↔ B'nin ilk karesi (kaplamasız), ORB + RANSAC benzerlik (asma bant şeritleri maskeli)
+    → inlier, ölçek, yayılım ve hizalanmış farkta değişen piksel payı (aynı zemin, yeni konu ayrımı)."""
+    import math
+    import cv2
+    import numpy as np
+    s, p = prog.shots[i], prog.shots[i - 1]
+    A = _render_gray(prog, p, s.t0 - 1.0 / FPS)
+    B = _render_gray(prog, s, s.t0 + 1e-3)
+    mask = np.full(A.shape, 255, np.uint8)
+    mask[95:170, :] = 0
+    mask[930:1005, :] = 0
+    pa, pb = _orb_pairs(A, B, mask)
+    M, inl = _ransac(pa, pb)
+    if M is None:
+        return dict(i=i, inl=0, n=len(pa), scale=0.0, chg=1.0, sx=0.0, sy=0.0)
+    sc = math.hypot(M[0, 0], M[1, 0])
+    chg = 1.0
+    if inl.sum() >= JUMP_INLIERS:
+        hh, ww = A.shape
+        wa = cv2.warpAffine(A, M, (ww, hh), flags=cv2.INTER_LINEAR, borderValue=0)
+        valid = (cv2.warpAffine(np.full_like(A, 255), M, (ww, hh), flags=cv2.INTER_NEAREST, borderValue=0) > 0) & (mask > 0)
+        dd = cv2.absdiff(cv2.GaussianBlur(wa, (0, 0), 2), cv2.GaussianBlur(B, (0, 0), 2))
+        chg = float((dd[valid] > 22).mean()) if valid.any() else 1.0
+    sx, sy = _spread(pa[inl]) if inl.sum() >= 3 else (0.0, 0.0)
+    return dict(i=i, inl=int(inl.sum()), n=len(pa), scale=round(sc, 3), chg=round(chg, 3), sx=round(sx, 2), sy=round(sy, 2))
+
+
+def probe_tasks(prog):
+    """Kare çizerek ölçülecek işler: ("cam", i) beyanlı kamera çekimleri (kart ve kendi kameralı türler hariç); ("cut", i) çekimler arası sert kesmeler."""
+    import cilt_cam
+    tasks = []
+    for s in prog.shots:
+        if s.kind in CARD_KINDS or s.cam is None or s.kind in cilt_cam.OWN_CAMERA:
+            continue
+        tasks.append(("cam", s.i))
+    for i in range(1, len(prog.shots)):
+        s, p = prog.shots[i], prog.shots[i - 1]
+        if s.kind in CARD_KINDS or p.kind in CARD_KINDS or getattr(s, "tr_eff", None):
+            continue
+        tasks.append(("cut", i))
+    return tasks
+
+
+def _probe_worker(args):
+    spec, tasks = args
+    import cv2
+    cv2.setNumThreads(1)
+    prog = make_program(spec)
+    out = []
+    for kind, i in tasks:
+        try:
+            out.append((kind, i, _probe_cam(prog, prog.shots[i]) if kind == "cam" else _probe_cut(prog, i)))
+        except Exception as e:                                                    # noqa
+            out.append((kind, i, dict(i=i, err=f"{type(e).__name__}: {e}"[:160])))
+    return out
+
+
+def probe_series(spec, prog, workers=2, verbose=True):
+    """ENG-D ölçüm kapıları için kareleri işçilerde çiz → {("cam"|"cut", i): sonuç}."""
+    tasks = probe_tasks(prog)
+    if not tasks:
+        return {}
+    k = max(1, min(workers, 4))
+    blocks = [b for b in (tasks[j::k] for j in range(k)) if b]
+    t0 = time.time()
+    try:
+        import pickle
+        pickle.dumps(spec)
+        picklable = True
+    except Exception:
+        picklable = False
+    if picklable and len(blocks) > 1:
+        ctx = mp.get_context("spawn")
+        with ctx.Pool(len(blocks)) as pool:
+            res = pool.map(_probe_worker, [(spec, b) for b in blocks])
+    else:
+        res = [_probe_worker((spec, b)) for b in blocks]
+    out = {}
+    for r in res:
+        for kind, i, d in r:
+            out[(kind, i)] = d
+    if verbose:
+        nc = sum(1 for t in tasks if t[0] == "cam")
+        print(f"  ölçüm (ENG-D): {len(tasks)} iş ({nc} kamera, {len(tasks) - nc} kesme), {len(blocks)} işlem, {time.time() - t0:.0f} sn", flush=True)
+    return out
+
+
+def camreal_gate(prog, pr):
+    """Beyan ↔ gerçekleşen kamera kapısı (AN1-Y2): KALDI = (A) kamera çizime ulaşmıyor / kısmen ulaşıyor ya da (B) %20→%80 gerçekleşen hareket beyanın
+    %50'sinden az ya da ters. Kendi kameralı türler (oda/pano/şehir/belge; cams=/path=) ölçülmez (cam= orada bilinçli uygulanmaz) — sayısı yazılır."""
+    import cilt_cam
+    noapp, part, mism, unm, errs = [], [], [], [], []
+    rows = [d for (k, i), d in sorted(pr.items(), key=lambda kv: kv[0][1]) if k == "cam"]
+    for d in rows:
+        if "err" in d:
+            errs.append(f"#{d['i']}: ölçüm hatası {d['err']}")
+            continue
+        tag = f"#{d['i']} {d['kind']} {d['t0']:.1f} sn {d['cam'][:44]}"
+        if d["decl"] >= CAMREAL_MINPX and d["frac"] < CAMREAL_CHG:
+            noapp.append(f"{tag}: kamera çizime ULAŞMIYOR (beyan {d['decl']:.0f} px; nötr ↔ beyan karelerinde değişen piksel %{100 * d['frac']:.2f})")
+        elif d["decl"] >= CAMREAL_MINPX and d["ratio"] < CAMREAL_MIN:
+            part.append(f"{tag}: kamera KISMEN uygulanıyor (izdüşüm {d['ratio']:.2f})")
+        tm = d.get("time")
+        if tm is None:
+            if str(d.get("time_note", "")).startswith("ölçülemedi"):
+                unm.append(tag)
+        elif tm["decl"] >= CAMREAL_MINPX and tm["ratio"] < CAMREAL_MIN:
+            mism.append(f"{tag}: %20→%80 beyan {tm['decl']:.0f} px, gerçekleşen {tm['real']:.0f} px, izdüşüm {tm['ratio']:.2f}" + (" (TERS yön)" if tm["ratio"] < 0 else ""))
+    own = [s for s in prog.shots if s.kind in cilt_cam.OWN_CAMERA and s.kind not in CARD_KINDS]
+    bad = noapp + part + mism
+    val = (f"{len(rows)} çekim ölçüldü: ulaşmıyor {len(noapp)}, kısmen {len(part)}, gerçekleşen <%50/ters {len(mism)}; ölçülemedi {len(unm)}; "
+           f"kendi kameralı {len(own)} (ölçülmez)")
+    det = noapp + part + mism + errs + ([f"ölçülemedi (zaman testi; içerik değişiyor): {', '.join(unm)}"] if unm else [])
+    return dict(name="Beyan ↔ gerçekleşen kamera", status=(OK if not bad else FAIL) if rows else SKIP, value=val,
+                thr=f"(A) beyan çizime ulaşır (fark testinde izdüşüm ≥{CAMREAL_MIN}); (B) %20→%80 gerçekleşen ≥ beyanın %{100 * CAMREAL_MIN:.0f}'si, aynı yönde",
+                detail=det)
+
+
+def jump_gate(prog, pr):
+    """Aynı görüntü kesmesi kapısı (AN2-Ö1 / AN1-Y3). Dönüş: (kapı, aynı görüntü sayılan kesmelerin çekim indeksleri — sert kesme payından düşülür)."""
+    hard, soft, exempt, errs = [], [], [], []
+    same = set()
+    for (k, i), d in sorted(pr.items(), key=lambda kv: kv[0][1]):
+        if k != "cut":
+            continue
+        if "err" in d:
+            errs.append(f"#{i}: ölçüm hatası {d['err']}")
+            continue
+        s, p = prog.shots[i], prog.shots[i - 1]
+        if d["inl"] >= JUMP_INLIERS and JUMP_SCALE[0] <= d["scale"] <= JUMP_SCALE[1]:
+            sure = (1.0 / JUMP_HARD <= d["scale"] <= JUMP_HARD) and d["chg"] <= JUMP_CHG
+            line = (f"#{i} {s.t0:.2f} sn {p.kind} → {s.kind} ('{s.label}'): inlier {d['inl']}, ölçek ×{d['scale']:.2f}, "
+                    f"hizalı farkta değişen %{100 * d['chg']:.0f}")
+            if getattr(s, "jump", False):
+                exempt.append(line + " — jump=True (bilinçli; muaf)")
+                same.add(i)
+            elif sure:
+                hard.append(line + " → kesin sıçrama")
+                same.add(i)
+            else:
+                soft.append(line + " → sınırda (vurgu itmesi gibi okunabilir / aynı zemin, yeni konu)")
+    n = sum(1 for (k, _i) in pr if k == "cut")
+    st = FAIL if hard else (WARN if soft else OK)
+    gate = dict(name="Aynı görüntü kesmesi", status=st if n else SKIP, value=f"{n} sert kesme: kesin sıçrama {len(hard)}, sınırda {len(soft)}, muaf {len(exempt)}",
+                thr=f"inlier ≥{JUMP_INLIERS} ve ölçek {JUMP_SCALE[0]}–{JUMP_SCALE[1]} → aday; 1/{JUMP_HARD}–{JUMP_HARD} ve değişen ≤%{100 * JUMP_CHG:.0f} → KALDI, diğer aday → UYARI; jump=True muaf",
+                detail=hard + soft + exempt + errs)
+    return gate, same
+
+
+def cut_share_gate(rows, same=None):
+    """Sert kesme payı (ENG-B) — ENG-D: AYNI GÖRÜNTÜ kesmeleri (aynı kartın/kadrajın devamı; jump=True dâhil) sayılmaz: yalnız mekân, ölçek ya da konu değişen sınırlar."""
+    by_ch = {}
+    for r in rows:
+        by_ch.setdefault(r["ch"], []).append(r)
+    cand = []
+    for ch, lst in by_ch.items():
+        rr = [r for r in lst if not r["card"]]
+        cand += rr[1:]
+    cuts = [r for r in cand if not r["tr"]]
+    same = same or set()
+    real = [r for r in cuts if r["i"] not in same]
+    n = max(1, len(cand))
+    cs = len(real) / n
+    return dict(name="Sert kesme payı", status=SKIP if not cand else (OK if cs >= CUT_SHARE_MIN else FAIL),
+                value=f"%{100 * cs:.0f} ({len(real)}/{len(cand)} sınır; aynı görüntü kesmesi sayılmadı: {len(cuts) - len(real)})",
+                thr=f"≥%{100 * CUT_SHARE_MIN:.0f} (tr=\"cut\" / None; yalnız mekân/ölçek/konu değişen kesmeler)",
+                detail=[f"sayılan kesmeler: {[r['i'] for r in real]}"] + ([f"sayılmayan (aynı görüntü): {sorted(same)}"] if same else []))
 
 
 def eng_a_gates(part, timeout=1800):
@@ -806,23 +1202,32 @@ def run(prog, fast=False, workers=2, tau=None, spec=None, video=None, json_path=
     gates = list(st["gates"])
     samp = None
     motion_rows = None
+    probe = None
     if not fast:
         if spec is None:
             raise ValueError("örnekleme için spec gerekli (işçiler Program'ı yeniden kurar)")
         ns, mads, chgs, ms = sample_series(spec, prog, workers, verbose)
         samp = analyze_series(prog, ns, mads, chgs, tau, bool(getattr(prog, "hud", False)))
         mg, motion_rows = motion_gate(prog, ns, mads)
-        gates = samp["gates"][:1] + gates + samp["gates"][1:] + [mg]
+        probe = probe_series(spec, prog, workers, verbose)                     # ENG-D: kamera beyanı + aynı görüntü kesmesi (kare çizerek)
+        cg = camreal_gate(prog, probe)
+        jg, same = jump_gate(prog, probe)
+        gates = [cut_share_gate(st["rows"], same) if g_["name"] == "Sert kesme payı" else g_ for g_ in gates]   # aynı görüntü kesmeleri payda sayılmaz
+        gates = samp["gates"][:1] + gates + samp["gates"][1:] + [mg, cg, jg]
     else:
         gates.append(dict(name="Durgunluk", status=SKIP, value="ölçülmedi (--fast)", thr=f"≤{STILL_MAX} sn", detail=["örnekleme analizi için --fast olmadan çalıştır"]))
         gates.append(dict(name="Olay yoğunluğu", status=SKIP, value="ölçülmedi (--fast)", thr="≥%95", detail=[]))
         gates.append(dict(name="Ölçülen hareket", status=SKIP, value="ölçülmedi (--fast)", thr=f">{MOT_LONG:.0f} sn çekimde medyan MAD ≥{MOT_TAU}", detail=[]))
+        gates.append(dict(name="Beyan ↔ gerçekleşen kamera", status=SKIP, value="ölçülmedi (--fast)", thr="kare çizerek ölçülür", detail=[]))
+        gates.append(dict(name="Aynı görüntü kesmesi", status=SKIP, value="ölçülmedi (--fast)", thr="kare çizerek ölçülür",
+                          detail=["--fast: 'Sert kesme payı' aynı görüntü kesmelerini ayıklamadan sayar"]))
     gates.append(freeze_check(video) if video else dict(name="Donma (ffmpeg)", status=SKIP, value="video verilmedi (--video yol.mp4)", thr="0 olay", detail=[]))
     if eng_a and (spec or {}).get("part") and not (spec or {}).get("chapters"):
         gates += eng_a_gates(spec["part"])
     print_report(title or "çekim listesi", gates, st["rows"], quiet)
     out = dict(title=title, tau=tau, still_max=STILL_MAX, step=STEP, elapsed=round(time.time() - t0, 1), gates=gates, shots=st["rows"],
-               sampling=dict(runs=samp["runs"], intervals=samp["intervals"], motion=motion_rows) if samp else None, sub_zone=SUB_ZONE, calibration=CALIBRATION_NOTE)
+               sampling=dict(runs=samp["runs"], intervals=samp["intervals"], motion=motion_rows) if samp else None, sub_zone=SUB_ZONE, calibration=CALIBRATION_NOTE,
+               probe=[dict(test=k, **v) for (k, _i), v in sorted(probe.items(), key=lambda kv: (kv[0][1], kv[0][0]))] if probe else None)
     if json_path:
         os.makedirs(os.path.dirname(os.path.abspath(json_path)), exist_ok=True)
         json.dump(out, open(json_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

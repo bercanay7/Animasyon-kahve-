@@ -45,6 +45,7 @@ OUTRO = 10.0
 OUTRO_SLOT_IN, OUTRO_SLOT_FADE = 0.55, 0.85                     # yuvalar: girer / tam görünene dek (sn, çıkış başından)
 OUTRO_SLOT_FULL = OUTRO_SLOT_IN + OUTRO_SLOT_FADE               # = 1,4 sn: yuvaların TAM görünür olduğu an (çıkış başından; ≤ 1,5)
 NEXT_PART_LINE = {1: "2/7 · COSIMO: SÜRGÜN VE DÖNÜŞ"}           # sol yuvanın ("SIRADAKİ PARÇA") altındaki küçük satır (parça → metin; yoksa satır yok)
+OUTRO_TITLE_LIFT = 1.25                                         # "ZAMAN KURYESİ" kabartmasının toplamsal ışık geçişi (koyu hale ile birlikte kontrast ≥ 4,5:1)
 END_HOLD = 1.3                                                  # parça sonu: anlatı bittikten sonra son çekimde kalış (sn; c.t1 zaten ≈0,1 sn pay içerir → ≈1,4 sn nefes)
 TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 11,3 sn (OUTRO değişince kendiliğinden)
 SHUTTER_ANGLE = 180.0                                           # deklanşör açısı (derece): pozlama = açı/360 kare
@@ -259,26 +260,30 @@ def paper_matrix(cx):
     return None
 
 
+def _tooth_warp(t1, cx_):
+    M = paper_matrix(cx_)
+    return t1 if M is None else cv2.warpAffine(t1, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
+
+
 def paper(img, n, samples=()):
-    """Kâğıt dokusu (dünyaya kilitli; samples = [(çekim bağlamı, ağırlık), …]) + döngüsüz film greni. img: uint8 RGB (CM.post tooth=0, grain=0 sonrası)."""
+    """Kâğıt dokusu (dünyaya kilitli; samples = [(çekim bağlamı, ağırlık), …]) + döngüsüz film greni. img: uint8 RGB (CM.post tooth=0, grain=0 sonrası).
+    Maliyet (ENG-D ölçümü): tek örnek 1 çarpıtma (≈1,5 ms, 1 kanal); deklanşörlü karede en çok 3 örnek (ilk/orta/son) tam sayı birikimle;
+    geçişte 2 örnek addWeighted."""
     t1 = _tooth1()
-    acc, tot = None, 0.0
-    for cx_, w in (samples if PAPER_WORLD else ()):
-        if w <= 1e-4:
-            continue
-        M = paper_matrix(cx_)
-        tw = t1 if M is None else cv2.warpAffine(t1, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
-        if acc is None and len(samples) == 1:
-            acc, tot = tw, -1.0
-            break
-        acc = tw.astype(np.float32) * w if acc is None else acc + tw.astype(np.float32) * w
-        tot += w
-    if acc is None:
+    sm = [(c_, w) for c_, w in (samples if PAPER_WORLD else ()) if w > 1e-4]
+    if not sm:
         tw = t1
-    elif tot < 0:
-        tw = acc
-    else:
-        tw = np.clip(acc / max(1e-6, tot) + 0.5, 0, 255).astype(np.uint8)
+    elif len(sm) == 1:
+        tw = _tooth_warp(t1, sm[0][0])
+    elif len(sm) == 2:
+        w0, w1 = sm[0][1], sm[1][1]
+        tw = cv2.addWeighted(_tooth_warp(t1, sm[0][0]), w0 / (w0 + w1), _tooth_warp(t1, sm[1][0]), w1 / (w0 + w1), 0)
+    else:                                                       # deklanşör: eşit ağırlıklı alt örnekler → ilk/orta/son (pozlama boyunca doku da bulanır)
+        pick = [sm[0], sm[len(sm) // 2], sm[-1]]
+        acc = np.zeros((H, W), np.uint16)
+        for c_, _w in pick:
+            np.add(acc, _tooth_warp(t1, c_), out=acc, casting="unsafe")
+        tw = cv2.convertScaleAbs(acc, alpha=1.0 / len(pick))
     a = cv2.multiply(img, cv2.cvtColor(tw, cv2.COLOR_GRAY2RGB), scale=1.0 / 230.0)
     pos, neg = grain_at(n)
     a = cv2.add(a, pos)
@@ -824,8 +829,21 @@ def k_outro(cx, part=None, **_):
     sp = CM.gilt("ZAMAN KURYESİ", "title", 92, 16.0)
     gl = ((cx.t - 1.6) * 0.30) % 2.4 if cx.t > 1.6 else None
     CM.draw_spr(f, sp, W / 2, ty, "c", alpha=a, glow=0.32 * a, shadow=0.75, glint=gl if (gl is not None and gl < 1) else None)
+    if a > 0.003:                                                  # kabartmanın ışık yüzü açılır (SA1-Y8): harf toplamsal ikinci geçişle aydınlanır; zemin etkilenmez
+        f.c.save()
+        f.c.translate(W / 2 - sp.wid / 2 - sp.ox, ty - sp.oy)
+        npass = max(1, int(math.ceil(OUTRO_TITLE_LIFT)))
+        pp = skia.Paint(AntiAlias=True, BlendMode=skia.BlendMode.kPlus)
+        pp.setAlphaf(clamp(OUTRO_TITLE_LIFT / npass * a))
+        for _ in range(npass):
+            f.c.drawImage(sp.img, 0, 0, skia.SamplingOptions(skia.FilterMode.kLinear), pp)
+        f.c.restore()
     CM.kick(f, "TESLİMAT TAMAM", W / 2, ty + 66, alpha=cx.amt(1.0, 1.0) * out, size=36, track=18, color="#F2D98A")
-    CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=cx.amt(1.4, 1.0) * out, shadow=0.5, glint=((cx.t * 0.30 + 0.2) % 2.2) if (cx.t * 0.30 + 0.2) % 2.2 < 1 else None)
+    a_arms = cx.amt(1.4, 1.0) * out
+    g_arms = (cx.t * 0.30 + 0.2) % 2.2
+    # parıltı yalnız arma tam görünürken: CM.soft_glint katman sınırında (alfadan bağımsız) 1 px'lik opak sütun bırakabiliyor — arma belirirken (alfa≈0,01)
+    # 593 sn'de ince dikey çizgi olarak görüldü (ENG-D; kök neden cilt_medici.soft_glint, raporda)
+    CP.draw_arms(f, W / 2, H * 0.455, 200, alpha=a_arms, shadow=0.5, glint=g_arms if (g_arms < 1 and a_arms > 0.98) else None)
     cam.end(f)
     CM.finish(f, cx, motes_n=36)
     # YouTube bitiş-ekranı yuvaları EKRANA SABİT (YouTube öğeleri sabit konumda biner; eskiden kamerayla kayıyordu) · çıkışın OUTRO_SLOT_FULL. sn'sinde tam

@@ -325,15 +325,15 @@ def stamp_back_colors(color):
     return paper, ink
 
 
-def stamp_back(f, x, y, text, size, rot, alpha, seed=0):
+def stamp_back(f, x, y, text, size, rot, alpha, seed=0, ink=None):
     """Damga kâğıt fişi: damganın çerçevesinden biraz büyük, hafif farklı açıyla oturmuş, yumuşak gölgeli kâğıt (gece koyu kâğıt).
-    (x, y, rot) damganın OTURDUĞU yer — fiş damgayla birlikte zıplamaz/dönmez (damga fişe vurur)."""
+    (x, y, rot) damganın OTURDUĞU yer — fiş damgayla birlikte zıplamaz/dönmez (damga fişe vurur). ink: damganın (özgün) mürekkebi → kâğıt kutbu."""
     if alpha <= 0.003:
         return
     import skia
     import sk
     import cilt_medici as CM
-    paper, _ink = stamp_back_colors(CM.TH.acc if CM.TH.day else "#E56A52")
+    paper, _ink = stamp_back_colors(ink or (CM.TH.acc if CM.TH.day else "#E56A52"))
     c = f.c
     wd = sk.text_width(text, "title", size, 7) + 64
     mx, my = 0.17 * size + 6, 0.13 * size + 4
@@ -367,6 +367,7 @@ def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None
         return 0.0
     import skia
     use_back = False
+    ink0 = None
     if draw is None:
         import cilt_medici as CM
         draw = CM.stamp
@@ -374,6 +375,7 @@ def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None
         if color is None:
             color = CM.TH.acc if CM.TH.day else "#E56A52"          # CM.stamp ile aynı varsayılan (mürekkep gölgesi de bu renkte)
         if use_back:
+            ink0 = color
             color = stamp_back_colors(color)[1]
     c = f.c
     a = alpha * p.alpha
@@ -384,7 +386,7 @@ def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None
     if use_back:                                               # kâğıt fişi damgadan önce görünür (damga ona iner); oturduğu yerde sabit
         ap = APPROACH.get(profile if profile in STAMP_PROFILES else "squash", 0.2)
         kb = _smooth((t - t0 + ap) / max(ap, 0.25))            # yaklaşımın başında 0 → (en geç darbeden 0,2 sn sonra) 1; sürekli
-        stamp_back(f, x, y, text, size, rot, alpha * kb, seed=seed)
+        stamp_back(f, x, y, text, size, rot, alpha * kb, seed=seed, ink=ink0)
     if shadow and p.lift > 0.01:                               # gölge sıçraması (kâğıttan yükseklik)
         c.save()
         c.translate(x + p.dx + 16 * p.lift, y + p.dy + 22 * p.lift)
@@ -412,6 +414,21 @@ def stamp(f, text, x, y, t, t0, profile="squash", rot=-0.10, size=56, color=None
     draw(f, text, x, y, rot=rot, size=size, color=color, alpha=a, t=1.0, **kw)
     c.restore()
     return p.impact
+
+
+def paper_stamp(f, text, x, y, rot=-0.10, size=56, color=None, alpha=1.0, t=1.0, back=None, seed=0):
+    """cilt_medici.stamp ile AYNI imza (+ back, seed): sahnelerdeki doğrudan CM.stamp çağrıları bunu kullanınca kâğıt fişi ve
+    ≥4,5:1 mürekkep tonu gelir (TE2-Y5). t: CM.stamp'taki çarpma animasyonu (0 → 1); fiş damgayla birlikte (t·3) belirir, oturduğu yerde durur."""
+    if t <= 0:
+        return
+    import cilt_medici as CM
+    use_back = STAMP_BACK if back is None else bool(back)
+    if color is None:
+        color = CM.TH.acc if CM.TH.day else "#E56A52"
+    if use_back:
+        stamp_back(f, x, y, text, size, rot, alpha * min(1.0, t * 3.0), seed=seed, ink=color)
+        color = stamp_back_colors(color)[1]
+    CM.stamp(f, text, x, y, rot=rot, size=size, color=color, alpha=alpha, t=t)
 
 
 # ───────────────────────────── ovl kurucuları (p1_ortak.ov ile birlikte) ─────────────────────────────

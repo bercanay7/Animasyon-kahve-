@@ -47,7 +47,7 @@ SHOTS = [
     # ── 4. Dante: lanetli çiçek (Floransa zambağı: altın → lanette kızıl; beyaz komün zemini; etamin) — HUD gizli (kurul tur 2 SA2-Y3/KA2-D2:
     #       "lanetli çiçek" dizesi ≈1320'lerin, HUD 1252 olayı yanlış tarihliyordu) ──
     shot("c1_cicek", ("c1s3", -0.1), mode="day", perde=1, hud=False,
-         plate=("DANTE", ("c1s3", "Dante", -0.1), 330, 150),
+         plate=("DANTE", ("c1s3", "Dante", -0.1), 381, 150),
          florin_at=("c1s3", -0.1), bloom_at=("c1s3", "lanetli", -0.45), curse_at=("c1s3", "lanetli", 0.0), shep_at=("c1s3", "dedi", -0.5),
          morph_at=("c1s3", "kurda", 0.0), flee_at=("c1s3", "çeviren", -0.4), quote_at=("c1s3", "lanetli", 0.0),
          cam=("push",), tr=("iris", 1.1, dict(obj="florin", at=(960, 508), r=240)), link="shape", label="lanetli çiçek"),
@@ -103,7 +103,7 @@ SHOTS = [
                  dict(PERUZZI_B, x=1420, y=880, h=450, action="idle", dir=-1, layer="front")],
          cams=[(("c1s10", -0.15), (1060, 40, 1.16)), (("c1s10", "Peruzzi'nin", -0.2), (1000, 60, 1.34)), (("c1s10", "kaybedenlerin", 0.0), (980, 66, 1.42))],
          # kurul tur 2 (SA2-Y5/KA1-Ö2/KA2-D4; başkan DBI "Villani, Giovanni" ile doğruladı): 1341'de batan Peruzzi değil, Villani'nin yönettiği Buonaccorsi
-         ovl=P.ov(P.plate("GİOVANNİ VİLLANİ", 1260, 180, ("c1s10", "Villani", -0.3), role="1300'DE PERUZZİ ORTAĞI · YÖNETTİĞİ BUONACCORSİ 1341'DE BATTI", w=760),
+         ovl=P.ov(P.plate("GİOVANNİ VİLLANİ", 1260, 180, ("c1s10", "Villani", -0.3), role="1300'DE PERUZZİ ORTAĞI · YÖNETTİĞİ BUONACCORSİ 1341'DE BATTI", w=1030),
                   P.desat(("c1s10", "kaybedenlerin", -0.2), ("c1s10", "içindendi", 0.6), k_max=0.7, dark=0.25, tint="#6E7480", tint_a=0.12)),
          cam=("push",), tr=("zoomthru", 0.7, dict(at=(960, 560), at_b=(960, 520))), link="scale", label="Villani: Peruzzi ortağı; kaybedenlerin içinden"),
     # ── 12. VEBA: Floransa'nın rengi solar ───────────────────────────────────
@@ -149,7 +149,8 @@ SHOTS = [
          cam=("tilt", "down", 140), tr=("yikama", 0.8), link="color", label="çukur, katman katman toprak"),
     # ── 15. ne düşündüğünü bilmiyoruz; ne gördüğünü yazdığını biliyoruz (nakarat = anlatım) ──
     shot("c1_yazi", ("c1s14", -0.1), mode="night", perde=1, q_at=("c1s14", "düşündüğünü", -0.3), q_out=("c1s14", "ne", 1, 0.3), w_at=("c1s14", "gördüğünü", -0.2), w_to=("c1s14", "biliyoruz", 0.4),
-         cam=("push",), tr=("slide", 0.6, dict(dir="u")), link="dir", label="bilmiyoruz → yazdığını biliyoruz"),
+         # ENG-D "beyan ↔ gerçekleşen" kapısı (kurul tur 2): itme ölçülen hareketin yarısına ulaşmıyordu (içerik merkezde) → açılan geri çekiliş ("biliyoruz")
+         cam=("pull",), tr=("slide", 0.6, dict(dir="u")), link="dir", label="bilmiyoruz → yazdığını biliyoruz"),
     # ── 16. 1378: bu kez öfke sokaktaydı (halk kadrosu; atlı yok; Medici sancağı yok) ──
     shot("p1_procession", ("c1s15", -0.1), dir="l", density=1.6, seed=4, speed=150.0, flag_ctx="ciompi",
          mix=dict(common=0.55, banner=0.2, guard=0.1, elder=0.15, rider=0.0, noble=0.0, page=0.0, cleric=0.0), mode="day", perde=1,
@@ -161,7 +162,7 @@ SHOTS = [
                  dict(kind="soylu", seed=26, x=1560, y=880, h=430, action="point", at=("c1s16", "kurayla", -0.4), dir=-1, layer="front")],
          cams=[(("c1s16", -0.15), (1320, 40, 1.18)), (("c1s16", "kurayla", -0.3), (1360, 56, 1.30))],
          ovl=P.ov(P.tag("MAYIS 1378", 480, 200, ("c1s16", "Mayıs'ında", -0.2), size=52, out=("c1s16", "Salvestro", -0.5)),
-                  P.plate("SALVESTRO DE' MEDİCİ", 600, 150, ("c1s16", "Salvestro", -0.3), role="MEDİCİ AİLESİNİN BAŞKA BİR KOLU", w=760),
+                  P.plate("SALVESTRO DE' MEDİCİ", 600, 150, ("c1s16", "Salvestro", -0.3), role="MEDİCİ AİLESİNİN BAŞKA BİR KOLU", w=800),
                   K.kura(1000, 700, ("c1s16", -0.1), ("c1s16", "kurayla", -0.2), name="SALVESTRO", rise=210.0),
                   P.tag("KURAYLA", 1440, 300, ("c1s16", "kurayla", 0.2), size=56, dur=0.25),
                   P.tag("GONFALONİERE · ŞEHRİN BAŞI", 1100, 880, ("c1s16", "gonfaloniere", -0.2), size=44)),
@@ -247,12 +248,13 @@ SHOTS = [
          cam=("push",), tr=("light", 0.7, dict(at=(760, 560))), link="light", label="Giovanni di Bicci: küçük pay"),
     # ── 26a. Roma ────────────────────────────────────────────────────────────
     shot("p1_map", ("c1s26", -0.1), mode="day", perde=1, approx=False,
-         cams=[(("c1s26", -0.1), (11.9, 43.0, 3.3)), (("c1s26", "bankasında", 0.0), (12.3, 42.2, 5.0))],
+         # kurul tur 2 (SA2-K14 sınıfı): son karede "FLORANSA" etiketi üst çerçevede kesiliyordu → iniş daha az derin, iki şehir kadrajda kalır
+         cams=[(("c1s26", -0.1), (11.9, 43.0, 3.3)), (("c1s26", "bankasında", 0.0), (12.15, 42.55, 4.3))],
          cities=[dict(lon=11.25, lat=43.77, name="FLORANSA", kind="capital", at=("c1s26", -0.0), size=32), dict(lon=12.50, lat=41.89, name="ROMA", kind="capital", at=("c1s26", "Roma'da", -0.2), size=36)],
          routes=[dict(pts=[(11.25, 43.77), (11.8, 42.9), (12.50, 41.89)], at=("c1s26", "Roma'da", -0.3), dur=1.6, width=7)],
          cam=("push", 0.07), tr=("zoomthru", 0.7, dict(at=(960, 500), at_b=(960, 520))), link="scale", label="Roma"),
     # ── 26b. Vieri di Cambio'nun bankası (Roma): Vieri çekilir, alacak ve borçlar Giovanni'ye geçer ──
-    shot("p1_oda", ("c1s26", "çalıştı", -0.3), room="salon", variant="napoli", **DAY, path="default",
+    shot("p1_oda", ("c1s26", "çalıştı", -0.3), room="salon", variant="roma", **DAY, path="default",
          actors=[dict(G, x=1240, y=880, h=440, action="write", dir=1, layer="front"),
                  dict(VIERI, x=1560, y=880, h=450, action="talk", dir=-1, layer="front", walk=(2300, 160), walk_at=("c1s26", "çekilince", -0.1))],
          cams=[(("c1s26", "çalıştı", -0.3), (1380, 40, 1.22)), (("c1s26", "devraldı", -0.4), (1300, 56, 1.34))],
@@ -282,7 +284,8 @@ SHOTS = [
          cities=[dict(lon=12.50, lat=41.89, name="ROMA", kind="capital", at=("c1s28", -0.0), size=34), dict(lon=11.25, lat=43.77, name="FLORANSA", kind="capital", at=("c1s28", "Floransa'ya", -0.2), size=34)],
          routes=[dict(pts=[(12.50, 41.89), (11.8, 42.9), (11.25, 43.77)], at=("c1s28", "Roma'dan", -0.25), dur=2.0, width=8)],
          ovl=P.tag("1397", 960, 200, ("c1s28", "1397'de", -0.1), size=72),
-         cam=("pull",), tr=("yikama", 0.9), link="material", label="1397: Roma'dan Floransa'ya taşınma"),
+         # ENG-D "beyan ↔ gerçekleşen" kapısı (kurul tur 2): harita kendi anahtar karelerinde Floransa'ya YAKLAŞIYOR (zum 4,0 → 5,4); "pull" beyanı TERS idi → push
+         cam=("push",), tr=("yikama", 0.9), link="material", label="1397: Roma'dan Floransa'ya taşınma"),
     # ── 28b. Orsanmichele köşesi: levhada yalnız VIA PORTA ROSSA (teyit §3.5); köşeye iğne. Kurul tur 2: Orsanmichele kübik Gotik simge (SA2-K3);
     #        "sessiz cep" (AN1-Y4) → ikinci sürekli hareket: kese Via Porta Rossa boyunca köşeye yürür ("taşıdı … köşeye"), yayalar, ışık süpürmesi;
     #        kamera itmesi ≈%1,5/sn ──

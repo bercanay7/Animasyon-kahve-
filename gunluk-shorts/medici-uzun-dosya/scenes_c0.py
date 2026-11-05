@@ -35,7 +35,7 @@ SHOTS = [
     # ── 1. 1743 odası: yatak (silüet, nefes), isim levhası ──────────────────
     shot("p1_oda", ("c0s2", -0.15), room="oda1743", figure="lying", **ODA_DUSK,
          cams=[(("c0s2", -0.15), (1000, 30, 1.12)), (("c0s2", "Luisa", 0.0), (960, 34, 1.22)), (("c0s3", -0.1), (900, 40, 1.30))],
-         ovl=P.plate("ANNA MARİA LUİSA", 1400, 760, ("c0s2", "Anna", -0.1), w=640),
+         ovl=P.plate("ANNA MARİA LUİSA", 1400, 760, ("c0s2", "Anna", -0.1), w=700),
          cam=("push",), tr=("light", 0.6, dict(at=(900, 700))), link="light", label="1743 odası: yatak (siluet)"),
     # ── 2. "Toskana'yı yönetmiş Medici hattının son üyesi o." — arma parlar; levha: MEDİCİ HANEDANININ SON ÜYESİ (kurul tur 2 KA2-D3: anlatımın
     #       "Toskana'yı yönetmiş … hattının" nitelemesi düşmesin; iki satır: armaya taşmaz) (kesme 9,2 sn) ──
@@ -115,8 +115,10 @@ SHOTS = [
          cities=[dict(lon=11.25, lat=43.77, name="FLORANSA", kind="capital", at=("c0s12", "Floransa", -0.2), size=36)],
          extra=functools.partial(K.sinir_extra, border_at=("c0s12", "Büyük", 0.4), label_at=("c0s12", "Dukalık", -0.2), items_at=("c0s12", "Floransa", 0.0), lock_at=("c0s12", "çıkarılamayacaktı", 0.1),
                                  quote_at=("c0s12", "çıkarılamayacaktı", 0.65), quote_out=None),
-         ovl=P.tag("SINIR YAKLAŞIKTIR", 330, 880, ("c0s12", "Büyük", 0.4), size=36),
-         cam=("truck", "r"), tr=("slide", 0.6, dict(dir="u")), link="dir", label="harita: Büyük Dukalık, zincir + kilit, 3. madde özeti"),
+         # kurul tur 2 (yerleşim): etiket "3. MADDE · ÖZET" kartının sol-alt köşesine biniyordu (x≈480–568, y≈852–900) → sol üst, deniz üstü
+         ovl=P.tag("SINIR YAKLAŞIKTIR", 330, 300, ("c0s12", "Büyük", 0.4), size=36),
+         # ENG-D "beyan ↔ gerçekleşen" kapısı (kurul tur 2 AN1-Y2): kayma kilit anına doğru hızlanır (ease in) — beyan edilen hareket ölçülenle tutarlı
+         cam=("truck", "r", dict(ease="in")), tr=("slide", 0.6, dict(dir="u")), link="dir", label="harita: Büyük Dukalık, zincir + kilit, 3. madde özeti"),
     # ── 12. Gerekçe: üç madalyon (oturarak gelir, simge sallanır, parıltı) ───
     shot("c0_gerekce", ("c0s13", "devletin", -0.5), mode="day", perde=1,
          draw_at=("c0s13", "aktarılır", -0.3), stamp=("c0s13", "aktarılır", -0.1),

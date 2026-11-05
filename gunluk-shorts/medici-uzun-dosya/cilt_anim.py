@@ -1034,6 +1034,12 @@ def gait(kit, T, v, phase=0.0, run=False, stride=1.0, pace=1.0):
     fl = 85.0 if run else 14.0
     ka_n = fl + (0 if run else 20.0 * max(0.0, th_n / Aa))
     ka_f = fl + (0 if run else 20.0 * max(0.0, th_f / Aa))
+    if FOLLOW and not run:                                            # ön kol üst kolu ≈0,06 döngü geriden izler (AN1: "tek eklemden sallanma")
+        dl = 2 * math.pi * 0.06
+        th_nl = -Aa * math.cos(2 * math.pi * u_n - dl)
+        th_fl = Aa * math.cos(2 * math.pi * u_n - dl)
+        ka_n = max(2.0, (th_nl - th_n) + fl + 20.0 * max(0.0, th_nl / Aa))
+        ka_f = max(2.0, (th_fl - th_f) + fl + 20.0 * max(0.0, th_fl / Aa))
     p = solve(kit, hip, tor, head_ang, ank[0], ank[1], fang[0], fang[1], ("ang", (th_f, ka_f)), ("ang", (th_n, ka_n)))
     aF = max(ank[0][0], ank[1][0]) - hip[0]
     aB = hip[0] - min(ank[0][0], ank[1][0])
@@ -1348,6 +1354,7 @@ def walker(f, kind, x, y, h, t, speed=90.0, dir=1, phase=0.0, seed=0, alpha=1.0,
     if prop:
         attach_prop(kit, p, prop, t, "near", flag=flag, v=v)
     cloth_for(kit, p, t, phase * 6.28, lag=min(v * 0.06, 0.22 * bh) * (1.5 if run else 1.0), wave=0.0)
+    p.eye = blink_eye(kit, t, phase) if cf is None else 0
     _draw_pose(f, kit, bh, p, x, y, h, dir, alpha, cf, layers, extra)
     return p
 
@@ -1733,20 +1740,21 @@ def act_kneel(kit, T, phase=0.0, t0=0.5, dur=1.6, rise_at=None, pray=1.0, **_):
     """Diz çökme: pelvis iner, arka diz yere değer, ön ayak ilerler, eller göğüste kenetlenir, baş eğilir. rise_at: kalkış zamanı."""
     hb = kit.B["hb"]
     ah = kit.B["ah"]
-    if ACT_V2:                                                        # iniş: hafif kalkış (hazırlık) + dizin yere oturması; kalkışta da oturma
-        k = gesture_on(T, t0, dur, back=0.05, pre=0.16, over=0.06)
-        if rise_at is not None:
-            k = k - AN.settle(T, rise_at, dur, 0.05) * (k if T > rise_at else 0.0) if T > rise_at else k
+    if ACT_V2:                                                        # iniş: hazırlık + gövde/baş dipte sönümlü oturur; kalkışta da oturma
+        k = gesture_on(T, t0, dur, back=0.05, pre=0.16, over=0.05)
+        if rise_at is not None and T > rise_at:
+            k = k * (1.0 - AN.settle(T, rise_at, dur, 0.05))
     else:
         k = ramp(T, t0, dur)
         if rise_at is not None:
             k *= 1.0 - ramp(T, rise_at, dur)
+    kl = clamp(k)                                                     # kalça/ayak: aşma yok (diz yere girmesin, ayak havaya kalkmasın)
     th = kit.B["th"]
     hip_y_stand = -(ah + 0.985 * (th + kit.B["sh"]))
     hip_y_kneel = -(th * 1.02 + 0.0)
     hip = (0.0, 0.0)
-    hip_add = (-0.03 * hb * k, (hip_y_kneel - hip_y_stand) * k)
-    feet = _kneel_feet(kit, k)
+    hip_add = (-0.03 * hb * kl, (hip_y_kneel - hip_y_stand) * kl)
+    feet = _kneel_feet(kit, kl)
     bounce = 0.004 * hb * math.sin(T * 1.9 + phase * 6.28)
 
     def arms(sho):
@@ -1762,9 +1770,9 @@ def act_kneel(kit, T, phase=0.0, t0=0.5, dur=1.6, rise_at=None, pray=1.0, **_):
 
 
 def act_point(kit, T, phase=0.0, t0=0.6, dur=3.0, target=(1.0, -0.35), **_):
-    """İşaret etme: kol hedef yönüne uzanır; işaret parmağı; gövde/baş hafifçe döner."""
+    """İşaret etme: kol hedef yönüne uzanır; işaret parmağı; gövde/baş hafifçe döner. ACT_V2: önce el geri çekilir (hazırlık), varışta ve inişte oturur."""
     hb = kit.B["hb"]
-    k = pulse_(T, t0, 0.55, dur, 0.55)
+    k = gesture_env(T, t0, 0.55, dur, 0.55, back=0.14, pre=0.17, over=0.07, over_fall=0.06)
     ux, uy = target
     n = math.hypot(ux, uy) or 1.0
     ux, uy = ux / n, uy / n
@@ -1911,7 +1919,7 @@ def act_count(kit, T, phase=0.0, t0=0.0, period=1.6, **_):
 def act_handshake(kit, T, phase=0.0, t0=0.5, M=(0.30, -0.50), lead=0.0, **_):
     """El sıkışma yarısı (iki figürden biri): hedef M (figür koordinatı, hb), ileri uzanır, 3 kez sallar, bırakır. İki figürü `handshake()` birleştirir."""
     hb = kit.B["hb"]
-    k = pulse_(T, t0, 0.55, 1.45, 0.55)
+    k = gesture_env(T, t0, 0.55, 1.45, 0.55, back=0.06, pre=0.14, over=0.03, over_fall=0.05)   # eller buluşma noktasını aşmasın (az aşma)
     pump = 0.022 * math.sin((T - t0 - 0.5) * 2 * math.pi * 2.7) * ease(clamp((T - t0 - 0.4) / 0.2)) * k
 
     def arms(sho):
@@ -1925,17 +1933,18 @@ def act_handshake(kit, T, phase=0.0, t0=0.5, M=(0.30, -0.50), lead=0.0, **_):
 def act_threat(kit, T, phase=0.0, t0=0.4, dur=1.2, **_):
     """ŞİDDET İŞARETİ (yalnız jest): saldırgan öne atılır, kolu hançerle yukarı kalkar; gövde ileri eğik. Siluet çiziminde kullanılır."""
     hb = kit.B["hb"]
-    k = ramp(T, t0, dur * 0.55) * (1 - 0.0 * ramp(T, t0 + dur * 2, 0.5))
+    k = gesture_on(T, t0, dur * 0.55, back=0.12, pre=0.16, over=0.08)   # ACT_V2: geri çekilip atılır, kol aşıp oturur
+    kl = clamp(k)                                                        # ayak adımı: aşma yok (ayak kaymaz)
     ah = kit.B["ah"]
-    ank_n = (lerp(0.04, 0.26, k) * hb, -ah)
-    ank_f = (lerp(-0.034, -0.17, k) * hb, -ah)
+    ank_n = (lerp(0.04, 0.26, kl) * hb, -ah)
+    ank_f = (lerp(-0.034, -0.17, kl) * hb, -ah)
 
     def arms(sho):
         up = (sho[0] + 0.04 * hb, sho[1] - 0.285 * hb)
         tgt = (lerp(_relaxed(sho, hb, T, 0, "n")[1][0], up[0], k), lerp(_relaxed(sho, hb, T, 0, "n")[1][1], up[1], k))
         fr = (sho[0] + 0.22 * hb * k + (1 - k) * 0.0, sho[1] + 0.16 * hb)
         return ("ik", (lerp(_relaxed(sho, hb, T, 0, "f")[1][0], fr[0], k), lerp(_relaxed(sho, hb, T, 0, "f")[1][1], fr[1], k))), ("ik", tgt), "open", "fist"
-    p = stand(kit, T, phase, arms=arms, tor_add=16.0 * k, head_add=-4.0 * k, hip_add=(0.04 * hb * k, 0.04 * hb * k), feet=(ank_f, ank_n, -6.0 * k, -4.0 * k))
+    p = stand(kit, T, phase, arms=arms, tor_add=16.0 * k, head_add=-4.0 * k, hip_add=(0.04 * hb * kl, 0.04 * hb * kl), feet=(ank_f, ank_n, -6.0 * kl, -4.0 * kl))
     w = p.arms[1][2]
     p.props.append(_prop_fn("dagger", kit.B["hb"], w, -4.0 * k, layer="near"))
     return p
@@ -1946,7 +1955,7 @@ def act_admonish(kit, T, phase=0.0, t0=0.5, dur=3.0, target=(1.0, -0.14), **_):
     hafifçe kalkar; gövde dik, baş hafif yukarı. Belge baştan elde (alçakta) durur. Kurul tur 2 (AN1-Y1, AN2-E1): manevi/hukuki tehdit
     sahnelerinde 'threat' (hançer) KULLANILMAZ; o eylem yalnız belgelenmiş şiddet anları içindir (Pazzi, 1527)."""
     hb = kit.B["hb"]
-    k = pulse_(T, t0, 0.45, dur, 0.6)
+    k = gesture_env(T, t0, 0.45, dur, 0.6, back=0.12, pre=0.17, over=0.08, over_fall=0.06)   # ACT_V2: belge önce hafif iner, kalkar, oturur
     ux, uy = target
     n = math.hypot(ux, uy) or 1.0
     ux, uy = ux / n, uy / n
@@ -2041,9 +2050,10 @@ ACTIONS = dict(idle=act_idle, talk=act_talk, bow=act_bow, kneel=act_kneel, point
 STIL_KEYS = ("robe", "robe2", "hat", "hat_col", "hair", "skin", "hose_l", "hose_r", "pat", "beard", "cloak", "build", "sleeves", "nose", "body", "hem", "head", "barefoot")
 
 
-def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.0, cf=None, extra=None, **p):
-    """Eylem oynatan figür. action: idle | talk | bow | kneel | point | cheer | pray | write | count | handshake | threat.
-    Parametreler (eyleme göre): t0 (başlangıç sn), dur, depth, target=(dx,dy), rise_at, energy, amount, M …  prop='staff'|'book'… ile eline aksesuar."""
+def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.0, cf=None, extra=None, look=None, look_w=1.0, **p):
+    """Eylem oynatan figür. action: idle | talk | bow | kneel | point | cheer | pray | write | count | handshake | threat | admonish | work.
+    Parametreler (eyleme göre): t0 (başlangıç sn), dur, depth, target=(dx,dy), rise_at, energy, amount, M …  prop='staff'|'book'… ile eline aksesuar.
+    look=(lx, ly): baş o noktaya (x, y ile aynı düzlemde; ör. karşıdakinin başı) döner — iki kişilik sahnede konuşan karşısındakine bakar; look_w 0..1."""
     stil = {k: v for k, v in p.items() if k in STIL_KEYS}
     ap = {k: v for k, v in p.items() if k not in STIL_KEYS}
     h, phase, stil = clone_vary(f, kind, seed, x, y, h, phase, stil)          # aynı kalıptan kopyalar çeşitlenir (SA1-Y5)
@@ -2053,6 +2063,9 @@ def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.
     pz = fn(kit, t, phase=phase, **ap)
     if prop:
         attach_prop(kit, pz, prop, t, ap.get("prop_hand", "near"))
+    if look is not None:
+        apply_look(pz, kit, bh, x, y, h, dir, look, look_w)
+    pz.eye = blink_eye(kit, t, phase) if cf is None else 0
     sway, aF, aB, breath = pz._sk
     cloth_for(kit, pz, t, phase * 6.28, lag=0.0, wave=0.0)
     if alpha <= 0.002:
@@ -2606,6 +2619,7 @@ def handshake(f, kindA, kindB, x, y, h, t, gap=0.60, t0=0.5, seedA=0, seedB=1, a
     a_in, opened = fade_begin(c, alpha, skia.Rect.MakeLTRB(xa - 1.6 * h, y - 2.4 * h, xb + 1.6 * h, y + 0.4 * h))   # iki figür tek katman (SA2-Y1)
     for kit, bh, p, xx, dd, hh, ph in ((kitA, bhA, pa, xa, 1, h, 0.1), (kitB, bhB, pb, xb, -1, h * 0.97, 0.6)):
         cloth_for(kit, p, t, ph * 6.28, lag=0.0, wave=0.0)
+        p.eye = blink_eye(kit, t, ph)
         _draw_pose(f, kit, bh, p, xx, y, hh, dd, a_in, None, ("back", "legs", "body", "head"))
     for kit, bh, p, xx, dd, hh in ((kitB, bhB, pb, xb, -1, h * 0.97), (kitA, bhA, pa, xa, 1, h)):
         _draw_pose(f, kit, bh, p, xx, y, hh, dd, a_in, None, ("arms",))
@@ -2747,6 +2761,7 @@ def crowd(f, t, rect, n, seed=1, wave=0.0, mode="mill", dir=1, h=(130, 240), spe
                 p.tor += 2.0 * wv * wave
         lag = min((sp_ if mode in ("march", "run") else abs(dvx)) / s_ * 0.06, 0.22 * bh) * (1.5 if mode == "run" else 1.0)
         cloth_for(kit, p, T, m["phase"] * 6.28, lag=lag, wave=0.0)
+        p.eye = blink_eye(kit, T, m["phase"], m["i"]) if cf is None else 0
         a_ = alpha
         _draw_pose(f, kit, bh, p, xs, yy, hh, face, a_, cf)
         out_n += 1
