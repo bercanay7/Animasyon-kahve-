@@ -80,8 +80,9 @@ SHOTS = [
                  dict(PERUZZI_B, x=1240, y=880, h=450, action="talk", at=("c1s8", "Peruzzi", -0.3), dir=-1, layer="front")],
          cams=[(("c1s8", "bir", -0.3), (880, 40, 1.20)), (("c1s9", -0.2), (980, 56, 1.30))],
          ovl=P.ov(P.tag("PERUZZİ BANKASI · 1330'LAR", 700, 190, ("c1s8", "1330'larda", -0.2), size=46),
-                  P.count_up(1440, 470, ("c1s8", "on", -0.35), 15, dur=0.8, unit="ŞUBE", size=190, bg=True, min_w=330, unit_size=44),
-                  anim.stamp_ovl("BİR KAYNAĞA GÖRE", 1440, 290, ("c1s8", "kaynağa", 0.1), "ink", rot=-0.05, size=40)),
+                  # sayaç iki ortağın arasındaki boş duvarda (eski x=1440 sağdaki ortağın başını örtüyordu; başkan v3 kontrolü)
+                  P.count_up(960, 520, ("c1s8", "on", -0.35), 15, dur=0.8, unit="ŞUBE", size=190, bg=True, min_w=330, unit_size=44),
+                  anim.stamp_ovl("BİR KAYNAĞA GÖRE", 960, 310, ("c1s8", "kaynağa", 0.1), "ink", rot=-0.05, size=40)),
          cam=("push",), tr="cut", link="audio", label="Peruzzi sayım odası: 15 şube"),
     # ── 10a. MONTAJ: Peruzzi de Bardi de 1340'larda battı (sert kesmeler) ─────
     shot("c1_agi", ("c1s9", -0.15), mode="day", perde=1, montage=True,
