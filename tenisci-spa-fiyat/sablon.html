@@ -68,7 +68,9 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 .per{margin-top:8px;font-size:28px;font-weight:600;color:var(--amber);white-space:nowrap}
 
 /* İsveç reference + package rows */
-.plead{margin-top:18px;font-size:30px;line-height:1.35;color:var(--muted)}
+.ref{margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:32px;padding:24px 28px;background:var(--sand);border-radius:24px}
+.ref .lbl{font-size:26px;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+.plead{margin-top:20px;font-size:30px;line-height:1.35;color:var(--muted)}
 .plist{margin-top:18px;display:grid;gap:16px}
 .prow{border:1.5px solid var(--line);border-radius:24px;padding:22px 28px 20px;display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:24px}
 .prow .pname{font-size:38px;font-weight:600;color:var(--ink)}
@@ -127,7 +129,7 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
     </div>
     <h1>{{BASLIK}}</h1>
   </div>
-  <p class="lead"><b>İsveç paketlerinde %30, diğer masajlarda ve VIP’te %20 indirim.</b><br>{{KURAL}}</p>
+  <p class="lead"><b>İsveç masajı paketlerinde %30, VIP Süit’te %20 indirim.</b><br>{{KURAL}}</p>
 
   <div class="hero">
     <img class="photo" src="foto/havlu.jpg" alt="Masaj yatağında Navitas spa işlemeli havlu ve gül">
@@ -136,46 +138,13 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 
 <section class="list">
   <div class="group">
-    <div class="ghead"><h2>Tek seanslar</h2><span>KİŞİ BAŞI</span></div>
-
-    <div class="row">
+    <div class="ghead"><h2>İsveç masajı paketleri</h2><span>%30 İNDİRİM</span></div>
+    <div class="ref">
       <div><div class="name">İsveç Masajı <span class="dur">· 50 dk</span></div>
         <div class="desc">Uzun, akıcı dokunuşlarla klasik masaj</div></div>
-      <div class="price"><div class="new">3.000<small>TL</small></div><div class="per">normal fiyat</div></div>
+      <div class="price"><div class="lbl">TEK SEANS</div><div class="new">3.000<small>TL</small></div></div>
     </div>
-
-    <div class="row">
-      <div><div class="name">Derin Doku Masajı <span class="dur">· 50 dk</span></div>
-        <div class="desc">Boyun, omuz ve sırt; baskı tercihinize göre ayarlanır</div></div>
-      <div class="price"><div class="old">3.500 TL</div><div class="new">2.800<small>TL</small></div></div>
-    </div>
-
-    <div class="row">
-      <div><div class="name">Aromaterapi Masajı <span class="dur">· 50 dk</span></div>
-        <div class="desc">Aromatik yağlarla yumuşak, ritmik masaj</div></div>
-      <div class="price"><div class="old">3.500 TL</div><div class="new">2.800<small>TL</small></div></div>
-    </div>
-
-    <div class="row">
-      <div><div class="name">Navitas Spesiyal <span class="dur">· 55 dk</span></div>
-        <div class="desc">Kese köpük ve ardından masaj, tek seansta</div></div>
-      <div class="price"><div class="old">4.500 TL</div><div class="new">3.600<small>TL</small></div></div>
-    </div>
-
-    <div class="row">
-      <div><div class="name">Kese Köpük <span class="dur">· 30 dk</span></div>
-        <div class="desc">Sıcak mermer hamamda geleneksel kese</div></div>
-      <div class="price"><div class="old">2.250 TL</div><div class="new">1.800<small>TL</small></div></div>
-    </div>
-    <div class="strip">
-      <figure><img src="foto/masaj-odasi.jpg" alt="Navitas masaj odası"><figcaption>Masaj odası</figcaption></figure>
-      <figure><img src="foto/sauna.jpg" alt="Fin saunası, taşlar ve ahşap kova"><figcaption>Fin saunası</figcaption></figure>
-    </div>
-  </div>
-
-  <div class="group">
-    <div class="ghead"><h2>İsveç masajı paketleri</h2><span>%30 İNDİRİM</span></div>
-    <div class="plead">Tek seans normal fiyatı 3.000 TL; paketle seansı 1.167 TL’ye kadar iner.</div>
+    <div class="plead">Paketle seansı 1.167 TL’ye kadar iner:</div>
     <div class="plist">
       <div class="prow">
         <div><div class="pname">10 seans</div><div class="unit">Seansı <b>1.750 TL</b></div></div>
@@ -194,6 +163,10 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
       </div>
     </div>
     <div class="pnote"><b>Paketler peşin ödenir, 1 yıl içinde kullanılır.</b> Arkadaşınızla paylaşabilirsiniz.</div>
+    <div class="strip">
+      <figure><img src="foto/masaj-odasi.jpg" alt="Navitas masaj odası"><figcaption>Masaj odası</figcaption></figure>
+      <figure><img src="foto/sauna.jpg" alt="Fin saunası, taşlar ve ahşap kova"><figcaption>Fin saunası</figcaption></figure>
+    </div>
   </div>
 
   <div class="group">
