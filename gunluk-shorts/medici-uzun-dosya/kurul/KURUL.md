@@ -144,3 +144,48 @@ Tur 1'den E1, E3, Ö1, Ö2, Ö7, Ö8, K1 kapandı; KA2 12 yamanın hepsini kendi
 - **Y7** — ses lisansı ve Studio kararı SURUM_KUNYESI_P1.md'ye yazılacak (ElevenLabs kütüphane sesi "Emrullah", professional; taklit değil, sahibinin lisansla paylaştığı ses).
 - **Y8** — kulak kontrolüne "aforozla" (c2s20), "kambiyodaydı" (c2s1) ve "Cavalcanti" (c2s30) özellikle işaretlendi.
 - Toplam ses yaması: **14 cümle, 1840 kredi**.
+
+### Tur 2 — tam kurul sonucu (5 Kasım 2026; v2 videosu, 598,5 sn)
+
+| Alan | Üye | Tur 1 | Tur 2 | Karar | ONAY koşulu (üyenin kendi beyanı) |
+|---|---|---:|---:|---|---|
+| Animasyon ve kurgu | AN1 animasyon yönetmeni | 6,5 | **7,5** | RED | hançer; beyan edilen kamera (açılış + 4 harita); aynı kartta kesme; figür oyunculuğu → ≈9 |
+| | AN2 kurgu ve ritim | 7,0 | **8,4** | RED | hançer + sıçrayan kesmeler + levha çakışması → 9,1; set çeşitlemesiyle 9,5 |
+| Sanat ve üslup | SA1 sanat yönetmeni | 7,5 | **8,6** | RED | yarım sikke + yazı çakışması (engelleyici), madalya gölgesi, levha çakışması → 9,1 |
+| | SA2 dönem ve gelenek | 5,0 | **8,5** | RED | figür alfa, Loggia, HUD yılı, 1520 mührü, kapak arması → 9,5 (1252 kıyafeti açık kalırsa 9,0) |
+| Kaynak ve doğruluk (veto) | KA1 konu uzmanı | 6,0 | 9,0 (1. aş.) → **8,5** (2. aş.) | RED · VETO | hançer + Loggia, Villani levhası, 1520 mührü, HUD yılları → 9,5 |
+| Hassasiyet ve hukuk (veto) | KA2 kaynak/hukuk | 7,0 | 8,0 → **8,0** | RED · VETO | hançer (D1) + HUD (D2) + "hanedanın son üyesi" (D3) → 9,2 |
+| Kapak, başlık, paket | PK1 TO stratejisti | 6,0 | **9,0** | ONAY | Y1 + Y2 (uygulandı: 7313435, f449175) |
+| | PK2 ilk kez gören izleyici | 6,0 | **8,5** | RED | hançer + bitiş ekranı sol öğesi → 9,0 |
+| Teknik kalite | TE1 render/kodlama | 8,0 | **8,7** | RED | sikke segmentleri, friz kenarı, segment başı deklanşör, 0–6 segmentleri yeni çizelgeyle → 9+ |
+| | TE2 erişilebilirlik/okunurluk | 7,0 | **8,6** | RED | levha/yazı çakışmaları, altyazı bandı, "1426'DA ÇEKİLDİ", damga kontrastı → 9,3 |
+
+**Ortak engelleyici (beş üye ayrı ayrı buldu: AN1, AN2, PK2, KA1, KA2):** 471,7–475,8 sn'de papa V. Martinus "aforoz tehdidi" çekiminde **hançer** çekiyor (`scenes_c2.py` 18c `action="threat"` → `cilt_anim.act_threat` hançer aksesuarı ekliyor). Kaynak (de Roover n. 45) yalnız yazılı aforoz tehdidinden söz eder; görüntü belgesiz şiddet ve dinî figürü silahla gösteriyordu. **Başkan kararı ve uygulama (1587cb4):** yeni şiddetsiz jest `admonish`: papa kurşun mühürlü papalık belgesini (bulla) omuz hizasında Giovanni'ye uzatır; yüz ve taç açık; "AFOROZ TEHDİDİ" etiketi kolun üstünde. 18b kadrajı 1,02–1,07'ye genişletildi → 18c (1,55) artık sıçrayan kesme değil, ≥1,45× yakınlaştırma (AN2-Ö1 #82). `threat` eylemi yalnız belgelenmiş şiddet anları (Pazzi, 1527) için kalır.
+
+**Başkan doğrulaması (kareden ve kaynaktan):**
+- Yarım sikke (302,29 sn: yalnız sol üçte bir) ve dikiş (302,5) kareden doğrulandı; kök neden kodda: parıltı kolu sikkeyi sert şeritte alfasız ve parlaklık süzgecisiz ikinci kez çiziyordu. Düzeltme sonrası 302,29–302,55 ve 113–119 sn kareleri temiz.
+- "EVLİLİK ÇEYİZİ" × "1.500" (306,9), GIOVANNI × COSSA (433,6), boş parşömen (535,3), Uffizi "BUGÜN" + HUD 1737 (82,0), DANTE/VILLANI + HUD 1252 (122/133), 1520 mührü 8 toplu (577,5), gövdesiz baş (143,9), üç özdeş figür (571), kesik BRUGGE/BARSELONA (365,4), bitiş başlığı kontrastı (597,5) kareden doğrulandı.
+- Villani: Treccani DBI "Villani, Giovanni" — "compagnia dei Buonaccorsi nella quale egli aveva assunto un ruolo apicale … nel 1341 la compagnia fallì"; "ufficiale della Moneta nel 1317", "sovrintendente alla moneta d'oro e d'argento … 1327-28". → KA1'in levha metni kabul.
+- Yeni `qa_yerlesim` çakışma denetimi ilk koşuda bilinen GIOVANNI×COSSA'nın yanında iki gerçek çakışma daha buldu (kareden doğrulandı): 360,4 sn poliçe etiketi × BRUGGE levhası ("KLASİK BİR ÖRNEK" örtülüyor; KA2 de buldu) ve 43,1 sn "13 MADDE" kutusu × sözleşme madde numaraları.
+
+**Başkan kararları (çatışmalar):**
+- **Villani HUD yılı:** SA2 1317 önerdi, KA1 1338 → **1338** (levha "ESKİ darphane yöneticisi" diyor; c1s6'nın 1338'i ile süreklilik). Dante çekimi ve Machiavelli çekimleri (c1s20–21) ile Uffizi "BUGÜN" kuyruğunda HUD **gizli**; evlilik sözleşmesi (27b) **1385** (KA1: DBI + de Roover); c2s17 kefalet/fidye **1418** (KA1).
+- **K2 kapak arması:** SA2 "videoyla tutarlı 8 top", KA1 "6 toplu erken biçim de belgeli, olgu açısından değişiklik gerekmez" → **8 top (red8)** uygulandı: ikisi de olgu olarak doğru; tutarlılık (video + sonraki parçalar tek kural) belirleyici.
+- **Işık patlaması geçişi:** 13 kullanım → parça başına ≤4 (c0+c1 ≤2, c2 ≤2); ışınlı yıldız parlaması kaldırılır (SA1-Y7, AN1-Y8, PK1-Y5'in video karşılığı).
+- **Bitiş ekranı (PK2-Y6):** çıkış 7 → 10 sn, yuvalar çıkışın ≤1,5. sn'sinde tam görünür, sol yuvanın altına "2/7 · COSIMO: SÜRGÜN VE DÖNÜŞ"; miks kuyruğu buna göre yeniden üretilir. **PK2-Y2:** P2 yayınlanana dek bitiş ekranı sol öğesi P1'i içeren oynatma listesi değil "İzleyiciye en uygun" (yayın adımlarına yazılır).
+- **PK2-Y4 (K2'ye tıklayan açılışta K1 yazısını görür):** kabul edilmedi, kayda geçti — Test ve Karşılaştır izlenme süresi payıyla seçer; K2 açılışla uyumsuzluk yüzünden izlenme kaybediyorsa test bunu ölçer (PK1'in görüşü). Kullanıcıya not edilir.
+- **TE1 §5 (deklanşör segment başında önceki kareyi bilmiyor):** kabul; render.py segment başında n0−1 karesini çizip atar. **TE1 §6:** v3'te bütün segmentler aynı zaman çizelgesiyle yeniden üretilir; `.done` dosyasına çizelge özeti yazılır, birleştirme öncesi denetlenir.
+
+**Reddedilen / ertelenen:**
+- Lorenzo madalyasının saç ve burun düzeltmesi (SA1 §4) P3'e ertelendi (Lorenzo P1'de 6 sn'lik kişi kartı; P3'te merkezde).
+- SA2-K6 (kafes cam), K11 (1737–43 iç mekânları Quattrocento kitiyle): üye tarafından "stil/kimlik kararı olarak kabul" — değişiklik yok.
+- PK2'nin tur 1 ücretli öğe önerileri (Ü1–Ü8) kullanıcı kuralıyla reddedilmişti; PK2 tur 2'de de kabul etti.
+
+### Tur 2 → v3 düzeltme planı (5 Kasım 2026)
+
+Başkan önce engelleyicileri kendisi kapattı (1587cb4: hançer, sikke, ÇEYİZ, çakışma denetimi, K2 arması). Kalan işler dört pakette, dosya sahipliği ayrık:
+- **ENG-C** (figür ve hareket motoru): figür soldurmada alfa (SA2-Y1), oyunculuk (hazırlık, oturma, göz kırpma, dirsek takibi, bakış; AN1), örnek çeşitlemesi ve dönem başlıkları (SA1-Y5, SA2-K7), damga kontrastı (TE2-Y5), madalya gölgesi (SA1-E4).
+- **ENG-D** (kamera, geçiş, kapılar): beyan edilen kameranın uygulanması + "beyan ↔ gerçekleşen" kapısı (AN1-Y2), "aynı görüntü kesmesi" kapısı (AN2-Ö1), ışık geçişi görünümü + bütçe kapısı, friz şerit ucu (AN2-K1, TE1), set kenarı güvencesi (AN1-Y10), kesmede kamera duruşu (AN1-Y11), bitiş ekranı (SA1-Y8, PK2-Y6), kâğıt dokusunun dünyaya bağlanması (TE1 §7).
+- **SCN-1** (c0–c1): HUD yılları, metinler (KA2-D3, Villani), Loggia (donem kuralı + qa_donem), çakışmalar (13 MADDE, CIOMPI LONCASI, VILLANI damgası), Orsanmichele simgesi, 1743 odası, sıçrayan kesmeler (#8, #23, #46, #58), sikke açılışı, sessiz cepler, Ciompi belgesi, ışık geçişi bütçesi.
+- **SCN-2** (c2 + set çeşitlemesi): 1520 mührü, HUD 1418, Latince mezar yazıtı, KA2 küçükleri, çakışmalar (COSSA, poliçe, 1426), KUR FARKI, harita etiketleri, tiara, catasto (portata), Cavalcanti, İTİRAZ damgası, kule şeridi, aynı kartta kesmeler, ölü açılışlar, sessiz cepler, infografikler dünyaya, gerçek harfli sayfalar, Cosimo kartı, ışık geçişi bütçesi, yer başına set farkı ve ≥2× nesne ara planları.
+- **Başkan:** render.py segment başı deklanşör + çizelge özeti; paket (PK2-Y2, KA2 açıklama cümlesi); altyazı bölünmeleri (TE2: "III. Edward", "Michele di Lando"); v3 miks (geçiş sesleri + uzayan kuyruk), tam render, birleştirme, QA; tur 3 tek üyeli gerileme kontrolleri (her alandan üyenin kendi listesiyle).
