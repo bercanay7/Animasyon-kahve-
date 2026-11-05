@@ -240,7 +240,7 @@ SHOTS = [
          medici_at=("c2s21", "Medici'de", -0.1), kaldi_at=("c2s21", "kaldı", 0.0),
          cams=[(("c2s21", -0.15), (1260, 860, 1.00)), (("c2s21", "memurluğu", 0.1), (1300, 880, 1.03)), (("c2s21", "1422'den", 0.15), (1010, 700, 1.15)),
                (("c2s21", "yirmi", -0.15), (1020, 705, 1.18)), (("c2s21", "kesintisiz", 0.35), (1120, 705, 1.18)), (("c2s21", "ardından", 0.1), (1300, 705, 1.16)),
-               (("c2s21", "aralıklarla", 0.3), (1460, 710, 1.14)), (("c2s21", "Medici'de", 0.1), (1600, 720, 1.10)), (("c2s22", -0.25), (1300, 820, 0.88))],
+               (("c2s21", "aralıklarla", 0.3), (1460, 710, 1.14)), (("c2s21", "Medici'de", 0.1), (1600, 720, 1.10)), (("c2s21", "kaldı", 0.35), (1300, 815, 0.88))],   # sonda şerit + anahtarlar birlikte (≈0,7 sn)
          tr="cut", link="audio", label="yakın plan: papalık kasası; el anahtarları bırakır; 22 + 18 yıl (kâğıt şerit)"),
     # ── 20. 1427: CATASTO dairesi — hane reisleri yazılı beyannamelerini (portata) masaya getirir; görevliler yazar (kapı kapı DEĞİL; KA1/KA2/SA2-Y6).
     #        Gün ışığında renkli figürler (simsiyah siluet yaya yok). ──
