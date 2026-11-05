@@ -258,7 +258,9 @@ Sınama sayfası: `g3_kopya_cesitleme_sinama.jpg`. Tur 2'deki 31/32/33 düzeni v
 |---|---|
 | 1. Görev 1–5 sonrası | **20 GEÇTİ · 0 KALDI · 1 UYARI · 1 PAS** |
 | 2. Çeşitleme + el eklemeleri sonrası | 19 GEÇTİ · **1 KALDI** · 1 UYARI · 1 PAS |
-| 3. Güncel kodla yeniden | (aşağıda güncellenir) |
+| 3. Güncel kodla yeniden (son durum) | **19 GEÇTİ · 0 KALDI · 2 UYARI · 1 PAS** |
+
+3. koşudaki ikinci uyarı ENG-D'nin yeni harita kapısı: "#63 p1_map: kadraj koruması 1, beyan sahnede sadeleştirilebilir".
 
 **2. koşudaki KALDI benim değişikliğimden gelmiyor:**
 - Kapı: "Beyan ↔ gerçekleşen kamera", #63 `p1_map` 361,1 sn; gerekçe "harita KADRAJ KORUMASI durduruyor".
