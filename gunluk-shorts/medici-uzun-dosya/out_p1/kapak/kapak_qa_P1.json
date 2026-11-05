@@ -1,5 +1,5 @@
 {
- "tarih": "2026-11-05 11:55",
+ "tarih": "2026-11-05 16:48",
  "parca": 1,
  "esikler": {
   "kap_px": 9.0,
@@ -36,13 +36,13 @@
     1280,
     720
    ],
-   "mb": 0.266,
+   "mb": 0.263,
    "mod": "RGB",
    "icc": "sRGB built-in",
    "yerlesim": "out_p1/kapak/kapak_P1_K1.yerlesim.json",
    "koyu_tema": {
     "kenar_ort": 38.4,
-    "koyu_pay": 0.085,
+    "koyu_pay": 0.083,
     "gecti": true
    },
    "yazilar": [
@@ -162,19 +162,19 @@
     }
    ],
    "gri": {
-    "esik_p99": 241.0,
+    "esik_p99": 241.9,
     "parlak_leke": 1,
     "odak_payi": 1.0,
     "odak_p90": 243.0,
-    "cevre_medyan": 123.0,
-    "odak_cevre_fark": 120.0,
+    "cevre_medyan": 124.0,
+    "odak_cevre_fark": 119.0,
     "en_parlak_168": [
      648,
-     521
+     513
     ],
     "en_parlak_168_odakta": true,
     "tek_odak": true,
-    "ortalama": 68.4,
+    "ortalama": 68.5,
     "p95": 230.0
    },
    "bolge": {
@@ -182,7 +182,7 @@
     "ihlal_sayisi": 0,
     "piksel": {
      "sure_rozeti_kenar": 0.0,
-     "kare_kenar": 0.0324,
+     "kare_kenar": 0.0312,
      "sure_rozeti_parlak": 0.0,
      "sure_rozeti_ortalama": 29.1
     },
