@@ -8,7 +8,7 @@ Bütün işlemler YouTube Studio'da (studio.youtube.com) yapılır. Adımları s
 - Kayıt için: ElevenLabs hesabında "Emrullah" kütüphane sesinin kullanım koşullarının ekran görüntüsünü al (SURUM_KUNYESI_P1.md, lisans notu).
 
 DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
-- medici_P1.mp4: video, 9:58, 1920×1080. Depoda yok; ayrıca gönderilir.
+- medici_P1.mp4: video, 10:01, 1920×1080. Depoda yok; ayrıca gönderilir.
 - kapak_P1_K1.jpg: VARSAYILAN kapak ("SON MEDİCİ / MİRASI KİLİTLEDİ").
 - kapak_P1_K2.jpg: test kapağı ("FAİZ YASAKTI").
 - 01_baslik.txt, 02_aciklama.txt, 03_sabit_yorum.txt, 04_etiketler.txt (05_bolumler.txt açıklamanın içinde zaten var).
@@ -32,7 +32,7 @@ DOSYALAR (bu klasör: yayin/studio_paketi_P1/)
      · Otomatik bölümler: açık kalabilir; açıklamadaki damgalar önceliklidir.
 3) Video öğeleri:
    - Altyazı ekle → Dosya yükle → "Zamanlamalı" → medici_P1_tr.srt (dil: Türkçe).
-   - Bitiş ekranı: 9:53'ten videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:55'te belirir:
+   - Bitiş ekranı: 9:52'den videonun sonuna kadar (YouTube en az 5 sn istiyor). Videodaki iki çerçeve 9:52'de belirir:
      · Sol çerçeve ("SIRADAKİ PARÇA"): P2 yayınlanana dek "İzleyiciye en uygun video" öğesi (YouTube seçer). Yalnız bu videoyu içeren
        oynatma listesini KOYMA: izleyiciyi aynı videoya döndürür (kurul PK2-Y2). P2 yayınlanınca bu öğeyi P2 videosuyla değiştir.
      · Sağ çerçeve ("ABONE OL · ZAMAN KURYESİ"): "Abone ol" öğesi.

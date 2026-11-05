@@ -1,16 +1,16 @@
 # Medici Parça 1/7 — sürüm künyesi (Kanal Anayasası, kalite kapısı)
 
-**Durum (4 Kasım 2026):** v2 hazır, **bağımsız kurul tur 2 sürüyor** (sonuç `kurul/KURUL.md`). Yayın kararı ve YouTube Studio ayarları kanal sahibinde. Kulak kontrolü (yamalı cümleler + orijinal kayıttan iki yer) kullanıcıda: `yayin/KULAK_KONTROL_P1.md`.
+**Durum (5 Kasım 2026):** **v3** hazır (kurul tur 2 düzeltmeleri), **bağımsız kurul tur 3 sürüyor** (sonuç `kurul/KURUL.md`). Yayın kararı ve YouTube Studio ayarları kanal sahibinde. Kulak kontrolü (yamalı cümleler + orijinal kayıttan iki yer) kullanıcıda: `yayin/KULAK_KONTROL_P1.md`.
 
 ## Dosya
-- `out_p1/medici_P1.mp4` — 1920×1080, 24 fps (CFR), 14.365 kare, **598,54 sn (9:58,5)**; H.264 High (libx264 crf 19, preset slow, aq-mode 3, psy-rd 1.0:0.15, VBV 24M/48M), ≈10,3 Mb/sn; **BT.709 sınırlı aralık** (rgb24 → yuv420p dönüşümü açıkça BT.709; kurul TE1 bulgusu düzeltildi), SAR 1:1; AAC 205 kb/sn; ses ve görüntü dili `tur`; faststart. Dosya 787 MB (yüklemeye uygun; repoya girmez).
-- Üretim: `p1_v2_uret.sh` (qa_flow → geçiş sesleri → miks → render → birleştir → mux → QA); render 12 segment, 2 işçi (4 işçide işçi başına ≈4,6 GB ile bellek sınırı aşıldı), segment 7–11 anlatım yamasından sonra yeniden üretildi; birleşim kayıpsız (`-c copy`).
+- `out_p1/medici_P1.mp4` (**v3**) — 1920×1080, 24 fps (CFR), 14.437 kare, **601,54 sn (10:01,5)**; H.264 High (libx264 crf 19, preset slow, aq-mode 3, psy-rd 1.0:0.15, VBV 24M/48M), ≈11,1 Mb/sn; **BT.709 sınırlı aralık** (rgb24 → yuv420p dönüşümü açıkça BT.709; kurul TE1 bulgusu düzeltildi), SAR 1:1; AAC 205 kb/sn; ses ve görüntü dili `tur`; faststart. Dosya 851 MB (yüklemeye uygun; repoya girmez).
+- Üretim: `p1_uret.sh` (VER=v3: qa_flow → geçiş sesleri → miks → render → birleştir → mux → QA); render 13 segment, 2 işçi, 33,9 dk, kare hatası 0; segment başında deklanşör ısınması (n0−1 çizilip atılır) ve `.done` dosyalarında zaman çizelgesi özeti, birleştirme öncesi denetlendi (kurul TE1 §5–6); birleşim kayıpsız (`-c copy`).
 
 ## Ölçüm
-- Ses: **−14,04 LUFS** (BS.1770; ffmpeg ve pyloudnorm bağımsız ölçümleri −14,04), **true peak −1,80 dBTP**, LRA 3,5 LU; video/ses süre farkı 0,01 sn.
+- Ses: **−14,04 LUFS** (BS.1770; ffmpeg ve pyloudnorm bağımsız ölçümleri −14,04), **true peak −1,80 dBTP** (AAC çözülmüş −1,48), LRA 3,5 LU; video/ses süre farkı 0,01 sn; bitiş ekranı kuyruğu 11,3 sn (çıkış 10 sn).
 - Görüntü QA (`render.py --qa`): kare hatası 0; siyah/donuk bölge 0.
-- Akış ve yerleşim (`qa_flow.py --part 1`, `out_p1/qa_flow_v2.txt`): 17 kapı (yerleşim — levha taşma/HUD — ve dönem kapıları dahil); dönem ihlali 0 (`qa_donem`), yerleşim ihlali 0 (`qa_yerlesim`).
-- Altyazı (`yayin/medici_P1_tr.srt`): 158 replik, ort. 14,0 kar/sn, azami 17,0; ≤ 2 satır; yetim replik birleştirme ve sayı/unvan bölünme kuralları (`make_srt.py`).
+- Akış ve yerleşim (`qa_flow.py --part 1`, `out_p1/qa_flow_v3.txt`): **19 GEÇTİ · 0 KALDI · 2 UYARI · 1 PAS** — tur 2 sonrası yeni kapılar: beyan ↔ gerçekleşen kamera, aynı görüntü kesmesi, ışık geçişi bütçesi (≤4); `qa_yerlesim` artık levha/yazı çakışmasını da ihlal sayar (ihlal 0); dönem ihlali 0 (`qa_donem`, Loggia kuralı dahil). Hareket: durgun kare oranı %0,17, en uzun durgun koşu 0,5 sn (`out_p1/kurul/hareket.json`).
+- Altyazı (`yayin/medici_P1_tr.srt`): 158 replik, ort. 14,0 kar/sn, azami 17,0; ≤ 2 satır; yetim replik birleştirme, sayı/unvan ve ad parçacığı bölünme kuralları ("III. Edward", "Michele di Lando"; `make_srt.py`).
 
 ## Anlatım ve ses lisansı
 - Ses: **ElevenLabs kütüphane sesi "Emrullah"** (voice_id `DpEiQMnL9WxMsymCsjPY`, kategori *professional*; kütüphane tanımı: "Emrullah Uzun brings over 20 years of professional voice-over…"), model `eleven_v4`, `generations_count=1`. voice_id her üretimde `creative_list_voices` ile doğrulandı (CLAUDE.md kuralı).
@@ -25,7 +25,7 @@
 ## Görsel, müzik, efekt
 - Görüntünün tamamı kodla çizildi (Python 3.13.16, skia-python 144.0.post2, numpy 2.5.3, numba 0.68.0; ffmpeg 6.1.1). Harici görsel, fotoğraf, yapay zekâ görseli yok. Kurul tur 1 sonrası motor: dönem katmanı (`donem.py`), ekran uzayında levha kıstırma ve otomatik kontrast zemini, HUD 300×66, 0,25–2,4 sn geçişler ve sert kesme, seçici deklanşör (hareket bulanıklığı), madalya v3 (1438 öncesi otomatik TEMSİLÎ damgası), figür temas gölgesi.
 - Müzik ve efektler sentez (`muzik.py`, `sfx.py`; 85 müzik çıpası, 105 SFX cue, 62 otomatik geçiş sesi); yazı tipleri SIL OFL (Cinzel, Cormorant, EB Garamond).
-- Kapaklar (motor + Pillow): `yayin/studio_paketi_P1/kapak_P1_K1.jpg` ("SON MEDİCİ / MİRASI KİLİTLEDİ") ve `kapak_P1_K2.jpg` ("FAİZ YASAKTI"); denetim `out_p1/kapak/kapak_qa_P1.png` (kahraman yazı ≥ %18, süre rozeti ve fare üstü bölgeleri boş). Öneri: Test ve Karşılaştır, 14 gün, başlık sabit.
+- Kapaklar (motor + Pillow): `yayin/studio_paketi_P1/kapak_P1_K1.jpg` ("SON MEDİCİ / MİRASI KİLİTLEDİ") ve `kapak_P1_K2.jpg` ("FAİZ YASAKTI"); denetim `out_p1/kapak/kapak_qa_P1.png` (kahraman yazı ≥ %18, kontrast 10,1:1 / 10,4:1, süre rozeti ve fare üstü bölgeleri boş, koyu temada kenar ayrışması: 168 px kenar ort. gri 38, gri < 25 payı %8–10; parıltı kolları yok; K2 arması videoyla aynı red8). Yayın: K1 varsayılan, Test ve Karşılaştır 14 gün, başlık sabit (`yayin/studio_paketi_P1/00_yayin_adimlari.txt`).
 
 ## Kaynak kapısı
 - `kaynaklar_P1.md` (85 cümle): **● 51 · ◐ 17 · ○ 2 · ANEKDOT 1 · YORUM 12 · — 2**; cümle cümle teyit tablosu `kurul/teyit_P1.md` (birincil metinler curl ile açıldı: Villani, Boccaccio, Stefani, Dante, Machiavelli, Cavalcanti; araştırmalar: de Roover 1963 tam metin, Treccani DBI, Casciu 2006, Online Catasto of 1427).
@@ -33,4 +33,5 @@
 
 ## Kurul
 - Tur 1 (P1 v1): 10/10 RED (AN1 6,5 · AN2 7,0 · SA1 7,5 · SA2 5,0 · KA1 6,0 · KA2 7,0 · PK1 6,0 · PK2 6,0 · TE1 8,0 · TE2 7,0); motor kararı: yeniden yazma değil, iyileştirme.
-- Tur 2 (P1 v2): sürüyor; 1. aşamada KA1 ONAY 9,0, KA2 RED 8,0 (iki bulgusu yamalandı). Sonuçlar `kurul/KURUL.md`.
+- Tur 2 (P1 v2): PK1 9,0 ONAY; diğerleri RED (AN1 7,5 · AN2 8,4 · SA1 8,6 · SA2 8,5 · KA1 8,5 veto · KA2 8,0 veto · PK2 8,5 · TE1 8,7 · TE2 8,6). Ortak engelleyici: papanın elinde hançer (471,7 sn) → şiddetsiz "bulla" jesti. Düzeltmeler dört pakette (ENG-C, ENG-D, SCN-1, SCN-2) + başkan; raporlar `kurul/duzeltme_tur2/`.
+- Tur 3 (P1 v3): sürüyor; sonuçlar `kurul/KURUL.md`.

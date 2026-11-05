@@ -1,43 +1,43 @@
 MEDICI — PARÇA 1 — SES RAPORU (miks.py)
 ================================================================================
-süre: mix 598.530 sn = voice 590.230 + bitiş ekranı 8.30; 48 kHz stereo; çıktı AAC 192k (+ FLAC stem'ler)
+süre: mix 601.530 sn = voice 590.230 + bitiş ekranı 11.30; 48 kHz stereo; çıktı AAC 192k (+ FLAC stem'ler)
 bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlılığı: snr_bias)
 
 [1] NİHAİ MİKS
   entegre loudness (BS.1770, kendi ölçümüm) : -14.00 LUFS   (hedef −14,0)
-  ffmpeg loudnorm ölçümü (bağımsız)          : -14.04 LUFS ; LRA 3.50 LU ; eşik -24.75
+  ffmpeg loudnorm ölçümü (bağımsız)          : -14.04 LUFS ; LRA 3.50 LU ; eşik -24.78
   pyloudnorm ölçümü (bağımsız, üçüncü)       : -14.04 LUFS
   true-peak (4× aşırı örnekleme)            : -1.80 dBTP   (hedef ≤ −1,0)
   ffmpeg true-peak                           : -1.80 dBTP
-  kısa-dönem (3 sn) tepe / anlık tepe       : -11.4 / -9.3 LUFS ; LRA 3.5 LU
-  limiter: tavan -1.80 dBTP; maks. kazanç azaltma 0.91 dB; >1 dB azaltma süresi %0.000; >3 dB %0.0000
+  kısa-dönem (3 sn) tepe / anlık tepe       : -11.4 / -9.4 LUFS ; LRA 3.5 LU
+  limiter: tavan -1.80 dBTP; maks. kazanç azaltma 0.56 dB; >1 dB azaltma süresi %0.000; >3 dB %0.0000
   master kazancı (toplamdan sonra)          : +4.54 dB
   örnek tepe: -1.81 dBFS ; kırpılan örnek sayısı (|x|≥0,9995): 0
-  DC ofset: L -3.72e-04  R -3.70e-04
-  mix_audio.m4a (AAC 192k): 15.5 MB, 598.55 sn; çözülmüş TP -1.51 dBTP; -14.05 LUFS
+  DC ofset: L -3.71e-04  R -3.68e-04
+  mix_audio.m4a (AAC 192k): 15.5 MB, 601.54 sn; çözülmüş TP -1.48 dBTP; -14.05 LUFS
 
 [2] KONUŞMA / MÜZİK (kendi ölçümüm; konuşma-aktif karelerde ortalama güç)
   konuşma RMS (işlenmiş, ön-master) : -20.2 dBFS   (ham ses -20.2)
   müzik RMS (konuşma altında)       : -42.0 dBFS   → konuşma − müzik = 21.8 dB   (hedef 20…24)
-  SFX RMS (konuşma karelerinde)     : -46.7 dBFS
+  SFX RMS (konuşma karelerinde)     : -47.7 dBFS
   müzik bandı ort. RMS (ducking öncesi, nominal): -27.5 dBFS   (şart −24…−28)
-  8 sn pencerelerde konuşma−müzik (n=140): p5 20.0 · p25 20.5 · medyan 21.3 · p75 23.0 · p95 27.2 dB; [19, 26] içinde %91
-  DUCK DERİNLİĞİ (müzik kazancı; nominal bandına göre, konuşma bölgesi): ort. -13.65 dB, aralık -17.9 … -8.1; kapalı döngü seviyeleme -4.03 … +3.00 dB
+  8 sn pencerelerde konuşma−müzik (n=140): p5 20.0 · p25 20.5 · medyan 21.2 · p75 22.9 · p95 27.3 dB; [19, 26] içinde %91
+  DUCK DERİNLİĞİ (müzik kazancı; nominal bandına göre, konuşma bölgesi): ort. -13.59 dB, aralık -17.9 … -8.1; kapalı döngü seviyeleme -4.04 … +3.00 dB
   bölüm bazında (konuşma-aktif kareler; kare = 10 ms):
    bölüm   konuşma   müzik    fark   ducking ort.   en kötü 8 sn penceresi   en iyi 8 sn
-   c0      -20.0    -41.4    21.3    -14.0 dB        20.0 dB            24.6 dB
+   c0      -20.0    -41.4    21.3    -14.1 dB        20.0 dB            24.5 dB
    c1      -20.1    -42.5    22.4    -13.3 dB        19.2 dB            32.4 dB
-   c2      -20.3    -41.8    21.5    -13.8 dB        19.7 dB            28.6 dB
+   c2      -20.3    -41.8    21.5    -13.6 dB        19.6 dB            28.8 dB
   en kötü 8 sn penceresi (tüm bölümler): 19.2 dB ; en iyi: 32.4 dB
   bölüm kartı / başlık boşluklarında müzik yükselişi (ölçülen: plato − konuşma altı düzey; hedef 8–10 dB):
    t=  101.17–  105.74 sn   yükseliş  +9.0 dB   (kazanç değişimi +6.7 dB)   [ana başlık]
-   t=  339.78–  342.92 sn   yükseliş  +8.9 dB   (kazanç değişimi +8.1 dB)
-   t=  590.23–  598.53 sn   yükseliş  +9.0 dB   (kazanç değişimi +7.6 dB)
+   t=  339.78–  342.92 sn   yükseliş  +8.9 dB   (kazanç değişimi +8.6 dB)
+   t=  590.23–  601.53 sn   yükseliş  +9.0 dB   (kazanç değişimi +5.2 dB)
   bölüm bazında nihai miks loudness (gerçek BS.1770; bölüm süresi boyunca, kart boşlukları hariç):
    bölüm  entegre LUFS  kısa-dönem maks.  anlık maks.
-   c0        -14.01          -12.4         -9.3
-   c1        -13.94          -11.7         -9.4
-   c2        -13.96          -11.4         -9.5
+   c0        -14.01          -12.4         -9.4
+   c1        -13.93          -11.7         -9.4
+   c2        -13.95          -11.4         -9.5
 
 [3] GEÇİŞ SIÇRAMALARI (dB)
    (a) bölümler arası, nihai mikste konuşmalı bölgelerde 12 sn entegre LUFS (önceki sonu → sonraki başı):
@@ -45,24 +45,24 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
          c1→c2      -14.68 →   -14.67   fark +0.01 dB
    (b) ham müzik bandında (ducking öncesi) çapraz geçiş merkezleri çevresinde (basamak yeri çapraz geçiş bölgesi ±0,5 sn içinde; bilinçli kapılar ve kuru duraklarla çakışan pencereler hariç): yan yana iki pencerenin RMS farkı (basamak; 6 sn asıl ölçüt, 3 sn ve 1 sn bilgi/gevşek sınır):
        c0      sınırı @    107.0 sn   basamak (6 sn pencere)   1.8 dB   (3 sn pencere   2.8 dB · 1 sn adımı   3.1 dB)
-       c1      sınırı @    341.3 sn   basamak (6 sn pencere)   0.8 dB   (3 sn pencere   1.6 dB · 1 sn adımı   1.5 dB)
-   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): c0: +0.0/-1.6, c1: +1.6/+1.1, c2: -1.1/+0.0
+       c1      sınırı @    341.3 sn   basamak (6 sn pencere)   0.7 dB   (3 sn pencere   1.8 dB · 1 sn adımı   1.5 dB)
+   (c) kavşak düzey eşlemesi (muzik._junction_trims; kesit başı / sonu dB, her uca en çok ±3 dB): c0: +0.0/-1.6, c1: +1.6/+1.0, c2: -1.0/+0.0
 
 [4] SESSİZLİK BÖLGELERİ (müzik kapıları; c7 yıldız an, c10 9 Kasım, c13 1572 vb.)
    kesit   başlangıç–bitiş (sn)   tür             müzik RMS (ducking sonrası)   SFX RMS   miks−ses RMS (kestirim)   not
    c1       270.54–  276.55   kısık (-30 dB)     -75.0 dBFS                   -79.7      -69.2 dBFS (final ölçeği)   Ciompi ezildi
-   c2       520.54–  521.84   TAM SESSİZ        -171.9 dBFS                   -47.2      -42.7 dBFS (final ölçeği)   Giovanni'nin ölümü: mum söner, kısa sessizlik (ağır, mizah yok)
-   c2       589.91–  591.71   TAM SESSİZ        -178.2 dBFS                  -200.0     -173.6 dBFS (final ölçeği)   P1 sonu: müzik çekilir, ≥1 sn sessizlik (kapı cümlesi)
+   c2       520.54–  521.84   TAM SESSİZ        -160.3 dBFS                   -47.2      -42.7 dBFS (final ölçeği)   Giovanni'nin ölümü: mum söner, kısa sessizlik (ağır, mizah yok)
+   c2       589.91–  591.71   TAM SESSİZ        -182.7 dBFS                  -200.0     -178.0 dBFS (final ölçeği)   P1 sonu: müzik çekilir, ≥1 sn sessizlik (kapı cümlesi)
 
 [5] SPEKTRAL DENGE (Welch, güç payı %)  düşük<250 Hz | orta 250–4k | yüksek>4k | centroid
   voice (ham)         51.7 |  45.4 |   2.9 |    542 Hz
   voice (işlenmiş)    49.8 |  48.5 |   1.7 |    482 Hz
-  müzik (mikste)      37.1 |  59.8 |   3.1 |    852 Hz
-  sfx bus             33.2 |  62.7 |   4.0 |    805 Hz
-  MIKS (nihai)        49.6 |  48.7 |   1.8 |    488 Hz
+  müzik (mikste)      36.3 |  60.6 |   3.1 |    834 Hz
+  sfx bus             39.4 |  55.6 |   5.0 |    856 Hz
+  MIKS (nihai)        49.6 |  48.6 |   1.8 |    488 Hz
   oktav profili (göreli dB; bantlar 63–125–250–500–1k–2k–4k–8k–16k Hz):
     voice (işlenmiş)     -1.9   -1.0    0.0   -5.7  -11.2  -11.4  -15.3  -16.7
-    müzik (mikste)       -0.5   -0.4   -0.3    0.0   -2.9   -3.4   -8.3  -23.1
+    müzik (mikste)       -1.2   -0.4    0.0   -0.3   -3.3   -3.9   -8.6  -23.5
     MIKS (nihai)         -1.9   -1.0    0.0   -5.6  -11.0  -11.3  -15.1  -16.7
 
 [6] SES (voice) ZİNCİRİ
@@ -75,13 +75,13 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   kesit    ruh       mod         bpm  ölçü  başlangıç  bitiş    uzunluk  (bölüm süresi)  çapraz geçiş (giriş/çıkış)  ön-kazanç  snr_bias  olay/tema/kapı
   c0      solemn    dorian       58  4/4       0.00   110.00   110.00  (101.20)        0 / 6 sn          -3.8 dB   +0.0    2/4/0
   c1      curious   mixolydian   72  6/8     104.00   343.80   239.80  (234.10)        6 / 5 sn          -8.6 dB   +0.0    3/5/1
-  c2      dry       mixolydian   70  4/4     338.80   598.53   259.73  (247.43)        5 / 0 sn          -3.9 dB   +0.0    4/0/2
+  c2      dry       mixolydian   70  4/4     338.80   601.53   262.73  (247.43)        5 / 0 sn          -4.0 dB   +0.0    4/0/2
   reverb: algoritmik salon IR'ı, fftconvolve; ölçülen RT60: 500 Hz 2.24 sn, 1 kHz 2.16 sn (ort. 2.20 sn), 2 kHz 1.88 sn
   c0 başlık vuruşu: c0 t1 + 2.8 sn = 104.00 sn
-  parça kapanışı: son bölüm t1 = 590.23 → çözülme 590.48 sn, sönüş 598.53 sn (kuyruk 8.3 sn)
+  parça kapanışı: son bölüm t1 = 590.23 → çözülme 590.48 sn, sönüş 601.53 sn (kuyruk 11.3 sn)
 
 [8] SFX
-  cue sayısı: 169 (elle/JSON 105, otomatik geçiş 62, varsayılan başlık/kart 2); kullanılan: candle_flame×2, candle_out_in×4, candle_snuff×1, chapter_stinger×1, chisel_tap×1, cloth_sweep×3, coin_clink×11, coin_pile×3, coin_roll×1, crowd_murmur×3, gate_thud×1, glass_chime×2, iris_ring×5, knock_metal×4, knock_wood×1, light_swell×13, lock_click×2, page_turn×11, paper_rustle×3, pin_stick×1, plaster_scrape×1, quill_scratch×12, slide_glide×16, stamp_thud×23, tick×20, title_hit×1, wash_swell×6, wax_seal_stamp×3, wind×1, zoom_rush_long×13
+  cue sayısı: 167 (elle/JSON 105, otomatik geçiş 60, varsayılan başlık/kart 2); kullanılan: candle_flame×2, candle_out_in×5, candle_snuff×1, chapter_stinger×1, chisel_tap×1, cloth_sweep×3, coin_clink×11, coin_pile×3, coin_roll×1, crowd_murmur×3, dip_drop×1, gate_thud×1, glass_chime×2, iris_ring×5, knock_metal×4, knock_wood×1, light_swell×4, lock_click×2, page_turn×14, paper_rustle×3, pin_stick×1, plaster_scrape×1, quill_scratch×12, slide_glide×16, stamp_thud×23, tick×20, title_hit×1, wash_swell×6, wax_seal_stamp×3, wind×1, zoom_rush_long×15
   kütüphane (65): applause_far, bell_toll_low, book_close, brush_stroke, candle_flame, candle_out_in, candle_snuff, cannon_boom, chapter_stinger, chisel_tap, church_ambience, church_bell, cloth_sweep, coin_clink, coin_pile, coin_roll, crowd_chant, crowd_murmur, dip_drop, distant_trumpet, door_bolt, door_bronze, drum_hit, fire_crackle, footsteps, gate_thud, glass_chime, gong_hit, heartbeat, hoof_far, horse_hooves, iris_ring, keyboard_action, knock_metal, knock_wood, letter_open, light_swell, lock_click, magic_chime, page_turn, paper_rustle, pin_stick, plaster_scrape, press_thud, quill_scratch, rain, rope_creak, sea_waves, ship_creak, slide_glide, stamp_thud, sword_clash, thunder, tick, title_hit, type_set, wash_swell, water_lap, wax_seal_stamp, whoosh, whoosh_dir, whoosh_long, wind, zoom_rush, zoom_rush_long
 
 [9] ZAMAN ÇİZELGESİ UYUMU (timeline.json ↔ voice.wav)
@@ -94,7 +94,7 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   [GEÇTİ] entegre loudness −14 ± 0,5 LUFS  → -14.00
   [GEÇTİ] pyloudnorm bağımsız ölçüm −14 ± 0,6 LUFS  → -14.04
   [GEÇTİ] true-peak ≤ −1,0 dBTP (wav)  → -1.80
-  [GEÇTİ] true-peak ≤ −1,0 dBTP (m4a çözülmüş)  → -1.51
+  [GEÇTİ] true-peak ≤ −1,0 dBTP (m4a çözülmüş)  → -1.48
   [GEÇTİ] kırpılan örnek sayısı = 0  → 0
   [GEÇTİ] DC ofset < 1e-3  → 3.7e-04
   [GEÇTİ] konuşma − müzik genel ≥ 19 dB  → 21.8
@@ -103,15 +103,15 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
   [GEÇTİ] spektral denge: MIKS centroid, işlenmiş sesin ±%15'i içinde (müzik/efekt sesi matlaştırmaz, boğmaz)  → 488 Hz / ses 482 Hz
   [GEÇTİ] spektral denge: MIKS düşük bant (<250 Hz) payı ≤ %65 ve yüksek bant (>4 kHz) payı ≥ %0,5  → düşük %49.6 · yüksek %1.8
   [GEÇTİ] müzik nominal ort. RMS −24…−28 dBFS  → -27.5
-  [GEÇTİ] süre = voice + kuyruk (±1 örnek)  → 598.530 sn
+  [GEÇTİ] süre = voice + kuyruk (±1 örnek)  → 601.530 sn
   [GEÇTİ] boşluk yükselişi 8–10 dB (ölçülen, ±0,7)  → min 8.9 maks 9.0
   [GEÇTİ] geçişte 12 sn LUFS sıçraması ≤ 1,5 dB (tüm geçişler)  → maks 0.80
   [GEÇTİ] ham müzik bandında kavşak düzey basamağı: yan yana 6 sn pencere ≤ 4 dB, 3 sn pencere ≤ 6 dB (tüm kesit sınırları)  → 6 sn maks 1.8 · 3 sn maks 2.8 (1 sn adımı maks 3.1)
-  [GEÇTİ] sessizlik bölgesi c2 520.5–521.8: müzik ≤ −80 dBFS  → -171.9
-  [GEÇTİ] sessizlik bölgesi c2 589.9–591.7: müzik ≤ −80 dBFS  → -178.2
+  [GEÇTİ] sessizlik bölgesi c2 520.5–521.8: müzik ≤ −80 dBFS  → -160.3
+  [GEÇTİ] sessizlik bölgesi c2 589.9–591.7: müzik ≤ −80 dBFS  → -182.7
   [GEÇTİ] timeline.json uyumu (cümle içi konuşma ≥ 0,70; cümle arası ≤ 0,10; bölüm sınırı ≤ 0,6 sn)  → 0.832 / 0.074
 
 YENİDEN ÜRETME (tek komut): MEDICI_PART=1 python3 miks_kur.py     (+ --preview ile out_pN/ses_onizleme/ mp3 kesitleri)
   girdiler : out_p1/voice.wav, voice_chapters.json, timeline.json, sfx_cues_p1.json, [out_p1/sfx_gecis.json]
   çıktılar : out_p1/mix_audio.m4a, stem_music|voice|sfx.flac, sfx_cues_used.json, audio_report.txt
-toplam çalışma süresi: 158 sn
+toplam çalışma süresi: 184 sn
