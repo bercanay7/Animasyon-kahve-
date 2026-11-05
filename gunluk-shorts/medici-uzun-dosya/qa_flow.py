@@ -745,6 +745,12 @@ def _probe_cam(prog, s):
     import numpy as np
     import cilt_cam
     P = _probe_grid()
+    pl = cilt_cam.parse(s.cam)
+    if cilt_cam.base_kind(s.kind) in cilt_cam.BAND_KINDS and pl is not None and pl.kind in ("pan", "truck"):
+        # şerit türü: yatay beyan türün kendi kaydırmasına çevrilir (cilt_cam.attach); sahne aynı pan'ı tür parametresi olarak da yazmış olabilir →
+        # nötr ↔ beyan farkı anlamsız. Şerit uçlarını cilt_cam._band_cover / yerleşik kaydırma güvenceye alır.
+        return dict(i=s.i, kind=s.kind, t0=round(s.t0, 2), cam=repr(s.cam), decl=0.0, frac=1.0, ratio=1.0, band=True, time=None,
+                    time_note="şerit türü: yerleşik kaydırma (ölçülmez)")
     best = None
     for u in (0.15, 0.5, 0.85):
         g = s.t0 + u * s.dur
@@ -760,6 +766,12 @@ def _probe_cam(prog, s):
     cand = [l for l in L if l["mag"] >= 1.0 and l["n"] >= 15 and max(l["sx"], l["sy"]) >= 0.12]
     ratio = max([_proj(_disp(l["M"]), dD) for l in cand], default=0.0)
     out = dict(i=s.i, kind=s.kind, t0=round(s.t0, 2), cam=repr(s.cam), decl=round(decl, 1), frac=round(frac, 4), ratio=round(ratio, 2))
+    if cilt_cam.base_kind(s.kind) == "map" and frac < CAMREAL_CHG and getattr(cilt_cam, "MAP_GUARD_ON", False):
+        cilt_cam.MAP_GUARD_ON = False                         # tanı: harita kadraj koruması mı beyanı durduruyor?
+        try:
+            out["guard"] = bool(float((cv2.absdiff(A, _render_gray(prog, s, g)) > 8).mean()) >= CAMREAL_CHG)
+        finally:
+            cilt_cam.MAP_GUARD_ON = True
     if cilt_cam.base_kind(s.kind) in cilt_cam.BAND_KINDS:
         out["time"], out["time_note"] = None, "şerit türü: iç kaydırma (ölçülmez)"
         return out
@@ -775,7 +787,8 @@ def _probe_cam(prog, s):
         L, n = _layers(fr[k], fr[k + 1])
         mov = [l for l in L if l["mag"] >= 1.0 and l["n"] >= 15 and max(l["sx"], l["sy"]) >= 0.12]
         walls = []
-        if float(np.hypot(*(dstep - wstep).T).max()) > 3.0:     # duvar paralaksı içerikten ayrışıyorsa: duvara daha iyi uyan katman içerik sayılmaz
+        if cilt_cam.base_kind(s.kind) != "map" and float(np.hypot(*(dstep - wstep).T).max()) > 3.0:   # duvar paralaksı içerikten ayrışıyorsa (haritada duvar yok):
+            # duvara daha iyi uyan katman içerik sayılmaz
             for l in mov:
                 d_ = _disp(l["M"])
                 if float(np.hypot(*(d_ - wstep).T).mean()) < float(np.hypot(*(d_ - dstep).T).mean()):
@@ -788,7 +801,10 @@ def _probe_cam(prog, s):
         elif walls:
             out["time"], out["time_note"] = None, "ölçülemedi (yalnız duvar katmanı eşleşti; duvar beyana uygun kayıyor)"
             return out
-        elif L and L[0]["mag"] < 1.0 and L[0]["n"] >= max(40, 0.25 * n) and L[0]["sx"] >= 0.35 and L[0]["sy"] >= 0.25:
+        elif (L and L[0]["mag"] < 1.0 and L[0]["n"] >= max(40, 0.25 * n) and L[0]["sx"] >= 0.35 and L[0]["sy"] >= 0.25
+              and float(cv2.absdiff(cv2.resize(fr[k], (480, 270), interpolation=cv2.INTER_AREA),
+                                    cv2.resize(fr[k + 1], (480, 270), interpolation=cv2.INTER_AREA)).mean()) < 1.5):
+            # dünya gerçekten durağan (iki kare neredeyse aynı): gerçekleşen 0. Kare çok değişiyorsa (belirme/zum) durağan SAYILMAZ → ölçülemedi
             M, note = np.float64([[1, 0, 0], [0, 1, 0]]), f"durağan {L[0]['n']}/{n}"
         else:
             out["time"], out["time_note"] = None, "ölçülemedi (içerik değişiyor / eşleşme zayıf)"
@@ -893,15 +909,21 @@ def camreal_gate(prog, pr):
     """Beyan ↔ gerçekleşen kamera kapısı (AN1-Y2): KALDI = (A) kamera çizime ulaşmıyor / kısmen ulaşıyor ya da (B) %20→%80 gerçekleşen hareket beyanın
     %50'sinden az ya da ters. Kendi kameralı türler (oda/pano/şehir/belge; cams=/path=) ölçülmez (cam= orada bilinçli uygulanmaz) — sayısı yazılır."""
     import cilt_cam
-    noapp, part, mism, unm, errs = [], [], [], [], []
+    noapp, part, mism, unm, errs, guarded = [], [], [], [], [], []
     rows = [d for (k, i), d in sorted(pr.items(), key=lambda kv: kv[0][1]) if k == "cam"]
     for d in rows:
         if "err" in d:
             errs.append(f"#{d['i']}: ölçüm hatası {d['err']}")
             continue
         tag = f"#{d['i']} {d['kind']} {d['t0']:.1f} sn {d['cam'][:44]}"
-        if d["decl"] >= CAMREAL_MINPX and d["frac"] < CAMREAL_CHG:
-            noapp.append(f"{tag}: kamera çizime ULAŞMIYOR (beyan {d['decl']:.0f} px; nötr ↔ beyan karelerinde değişen piksel %{100 * d['frac']:.2f})")
+        tm = d.get("time")
+        if d["decl"] >= CAMREAL_MINPX and d["frac"] < CAMREAL_CHG and d.get("guard") and tm and tm["ratio"] >= CAMREAL_MIN:
+            guarded.append(f"{tag}: ön ayar harita KADRAJ KORUMASIYLA durduruluyor (rota/kent noktaları zaten kenar payında); gerçekleşen hareket "
+                           f"(sahnenin anahtar kareleri) beyanla uyumlu, izdüşüm {tm['ratio']:.2f} → beyan gereksiz/sahnede sadeleştirilebilir")
+        elif d["decl"] >= CAMREAL_MINPX and d["frac"] < CAMREAL_CHG:
+            why = (" — harita KADRAJ KORUMASI durduruyor: beyan, sahnenin anahtar karelerinde zaten kenar payına dayanmış rota/kent noktalarını kadraj dışına "
+                   "iterdi → sahnede beyan ya da anahtar kare düzeltilmeli") if d.get("guard") else ""
+            noapp.append(f"{tag}: kamera çizime ULAŞMIYOR (beyan {d['decl']:.0f} px; nötr ↔ beyan karelerinde değişen piksel %{100 * d['frac']:.2f}){why}")
         elif d["decl"] >= CAMREAL_MINPX and d["ratio"] < CAMREAL_MIN:
             part.append(f"{tag}: kamera KISMEN uygulanıyor (izdüşüm {d['ratio']:.2f})")
         tm = d.get("time")
@@ -912,10 +934,10 @@ def camreal_gate(prog, pr):
             mism.append(f"{tag}: %20→%80 beyan {tm['decl']:.0f} px, gerçekleşen {tm['real']:.0f} px, izdüşüm {tm['ratio']:.2f}" + (" (TERS yön)" if tm["ratio"] < 0 else ""))
     own = [s for s in prog.shots if s.kind in cilt_cam.OWN_CAMERA and s.kind not in CARD_KINDS]
     bad = noapp + part + mism
-    val = (f"{len(rows)} çekim ölçüldü: ulaşmıyor {len(noapp)}, kısmen {len(part)}, gerçekleşen <%50/ters {len(mism)}; ölçülemedi {len(unm)}; "
-           f"kendi kameralı {len(own)} (ölçülmez)")
-    det = noapp + part + mism + errs + ([f"ölçülemedi (zaman testi; içerik değişiyor): {', '.join(unm)}"] if unm else [])
-    return dict(name="Beyan ↔ gerçekleşen kamera", status=(OK if not bad else FAIL) if rows else SKIP, value=val,
+    val = (f"{len(rows)} çekim ölçüldü: ulaşmıyor {len(noapp)}, kısmen {len(part)}, gerçekleşen <%50/ters {len(mism)}; kadraj koruması {len(guarded)}; "
+           f"ölçülemedi {len(unm)}; kendi kameralı {len(own)} (ölçülmez)")
+    det = noapp + part + mism + guarded + errs + ([f"ölçülemedi (zaman testi; içerik değişiyor / yalnız duvar): {', '.join(unm)}"] if unm else [])
+    return dict(name="Beyan ↔ gerçekleşen kamera", status=((FAIL if bad else (WARN if guarded else OK)) if rows else SKIP), value=val,
                 thr=f"(A) beyan çizime ulaşır (fark testinde izdüşüm ≥{CAMREAL_MIN}); (B) %20→%80 gerçekleşen ≥ beyanın %{100 * CAMREAL_MIN:.0f}'si, aynı yönde",
                 detail=det)
 

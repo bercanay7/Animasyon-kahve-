@@ -1049,14 +1049,14 @@ def k_kardes(cx, chron_at=None, brother_at=None, link_at=None, owner_at=None, se
     k2 = cx.amt(brother_at, 0.6) if brother_at is not None else 1.0
     if k1 > 0.003:
         FA.actor(f, "banker", 480, gy + 20, 500, T, action="write", seed=4, alpha=k1)
-        CM.name_plate(f, "GIOVANNI VILLANI", "KRONİKÇİ", None, cx_=520, y=gy - 790, t=k1)
+        CM.name_plate(f, "GİOVANNİ VİLLANİ", "KRONİKÇİ", None, cx_=520, y=gy - 790, t=k1)   # tr_upper (kurul tur 2 TE2; scenes_c1 levhasıyla aynı)
         # kronik defteri: açık kitap + yanında "borç" satırı
         OD.draw_book(c, 760, gy - 150, 150, 26, "#6A2E24", True) if False else None
     if k2 > 0.003:
         FA.actor(f, "banker", 1440, gy + 20, 500, T, action="count", dir=-1, seed=9, alpha=k2)
         # Peruzzi kalkanı: kasa üstünde asılı
         _shield(f, 1440, 350, 130, 162, "#3E5FB8", "#F0E6CC", "bars", alpha=k2, scale=1.0)
-        CM.name_plate(f, "VILLANI'NİN KARDEŞİ", "PERUZZİ'DE ÇALIŞIYORDU", None, cx_=1400, y=gy - 790, t=k2, w=660)
+        CM.name_plate(f, "VİLLANİ'NİN KARDEŞİ", "PERUZZİ'DE ÇALIŞIYORDU", None, cx_=1400, y=gy - 790, t=k2, w=660)
     # ip: kronikçi → kardeş (aile bağı), üzerinde "kaybedenlerin ailesi"
     kl = cx.amt(link_at, 0.8) if link_at is not None else 0.0
     if kl > 0.003:

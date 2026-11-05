@@ -3661,7 +3661,10 @@ class SkylineDikey(SWorld):
             CT.draw_house(c, x, LH - 120 + (rs.rand() * 8 - 4), bw, bh, rs, T, 0.40, wins)
             x += bw + rr.uniform(-6, 8)
         base = LH - 124
-        XD = 700
+        # kurul tur 2 B8 / SA1-K3 (SCN-2 teşhisi): XD=700'de çan kulesi (XD+1,5·205, 81 px) Palazzo Vecchio gövdesinin (VX±VTW/2 = 975–1265)
+        # sol kenarından ≈8–12 px taşıyıp beyaz şerit gibi görünüyordu; katmanların yatay paralaksı yok (fx=0) → kamera çözmez.
+        # XD=730: çan kulesi 997–1078 → tamamen gövdenin arkasında; kubbe (XD±160 → 570–890) solda görünür kalır.
+        XD = 730
         c.save()
         c.translate(XD, base)
         c.scale(1.5, 1.5)

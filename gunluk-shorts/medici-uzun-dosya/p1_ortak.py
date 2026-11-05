@@ -24,8 +24,11 @@ _OWN = {"oda", "pano", "sehir", "build"}
 # p1_map çekimlerinde kamera, çizilmekte olan rotanın ucunu izler: rota ucunun dünya yolunun MAP_FOLLOW kadarı kadar harita merkezi kayar
 # (rota başladığında hızı 0, rota bittiğinde orada kalır; birden çok rota toplanır — gidiş-dönüşte kamera da gider ve döner). Ekrandaki kayma
 # yumuşak sınırla en çok MAP_FOLLOW_MAX·genişlik. Beyan edilen cam= (push/pull/pan) ve sahnenin cams= anahtar kareleri aynen üstüne biner.
+# KADRAJ KORUMASI: başlamış rotaların noktaları (kentler: rotanın başı/ara/sonu) izleme yüzünden güvenli alanın (MAP_KEEP kenar payları) dışına
+# itilemez; nokta sahnenin kendi kamerasında zaten pay dışındaysa izleme onu daha da dışarı itemez (ör. #63 kur farkı: BRUGGE üst kenarda).
 MAP_FOLLOW = 0.34
 MAP_FOLLOW_MAX = 0.14
+MAP_KEEP = (170.0, 160.0, 330.0, 190.0)       # sol, üst, sağ (kent adı sağa yazılır), alt — px
 _RT = {}
 
 
@@ -43,8 +46,11 @@ def _route_world(pts):
 
 
 def map_follow(cx, routes):
-    """Rotaların çizim ilerlemesine göre izleme kayması (dünya pikseli, dx, dy): Σ (uç(ilerleme) − uç(0))·MAP_FOLLOW."""
+    """Rotaların çizim ilerlemesine göre izleme kayması (dünya pikseli) ve kadrajda tutulacak noktalar.
+    Dönüş: ((dx, dy) = Σ (uç(ilerleme) − uç(0))·MAP_FOLLOW, [başlamış rotaların dünya noktaları])."""
+    import mapdata
     fx = fy = 0.0
+    keep = []
     for r in routes or ():
         pts = r.get("pts")
         if not pts or len(pts) < 2:
@@ -61,28 +67,42 @@ def map_follow(cx, routes):
         p1, _ = pm.getPosTan(L * pr)
         fx += (p1.x() - p0.x()) * MAP_FOLLOW
         fy += (p1.y() - p0.y()) * MAP_FOLLOW
-    return fx, fy
+        keep += [mapdata.to_world(float(a), float(b)) for a, b in pts]
+    return (fx, fy), keep
 
 
 class _follow_patch:
-    """mapsk.Cam'e rota izleme kaymasını ekler (iç map türünün cilt_cam.map_patch'i bunun ÜSTÜNE kurulur: beyan edilen kamera da uygulanır)."""
+    """mapsk.Cam'e rota izleme kaymasını ekler (iç map türünün cilt_cam.map_patch'i bunun ÜSTÜNE kurulur: beyan edilen kamera da uygulanır).
+    Kadraj koruması: izleme, `keep` noktalarını güvenli alanın (MAP_KEEP) dışına itmez (zaten dışındaysa daha da dışarı itmez)."""
 
-    def __init__(self, f_world):
-        self.fw = f_world
+    def __init__(self, fk):
+        self.fw, self.keep = fk
 
     def __enter__(self):
         import mapsk
         self.orig = mapsk.Cam
         fwx, fwy = self.fw
+        keep = list(self.keep)
         lim = MAP_FOLLOW_MAX * W
+        ml, mt, mr, mb = MAP_KEEP
 
         class _Cam(self.orig):
             def __init__(s_, lon, lat, zoom, rot=0.0, cx=W / 2, cy=H / 2):
                 super().__init__(lon, lat, zoom, rot, cx, cy)
-                m = math.hypot(fwx, fwy) * s_.zoom                   # ekrandaki kayma (px) → yumuşak sınır
+                z = max(1e-6, s_.zoom)
+                m = math.hypot(fwx, fwy) * z                         # ekrandaki kayma (px) → yumuşak sınır
                 k_ = (lim * math.tanh(m / lim) / m) if m > 1e-6 else 1.0
-                s_.wx += fwx * k_
-                s_.wy += fwy * k_
+                fx, fy = fwx * k_, fwy * k_
+                lo_x = lo_y = -1e9
+                hi_x = hi_y = 1e9
+                for (px_, py_) in keep:                             # ekran x(F) = x0 − F·z: payın dışına itme yok
+                    x0, y0 = s_.cx + (px_ - s_.wx) * z, s_.cy + (py_ - s_.wy) * z
+                    hi_x = min(hi_x, (x0 - min(x0, ml)) / z)
+                    lo_x = max(lo_x, (x0 - max(x0, W - mr)) / z)
+                    hi_y = min(hi_y, (y0 - min(y0, mt)) / z)
+                    lo_y = max(lo_y, (y0 - max(y0, H - mb)) / z)
+                s_.wx += min(max(fx, lo_x), hi_x)
+                s_.wy += min(max(fy, lo_y), hi_y)
         mapsk.Cam = _Cam
         return self
 
@@ -106,6 +126,10 @@ def _wrap(inner):
                     d["t0"] = cx.at(an)
                 acts.append(d)
             kw["actors"] = acts
+        if inner == "map":                                       # kadraj koruması: beyan edilen ön ayar rota/kent noktalarını payın dışına itemez
+            import mapdata
+            cx._map_keep = ([mapdata.to_world(float(a), float(b)) for r in (kw.get("routes") or ()) for a, b in (r.get("pts") or ())] +
+                            [mapdata.to_world(float(c_["lon"]), float(c_["lat"])) for c_ in (kw.get("cities") or ()) if "lon" in c_ and "lat" in c_])
         if inner == "map" and kw.get("routes") and MAP_FOLLOW > 0:   # harita: kamera çizilen rotanın ucunu izler
             with _follow_patch(map_follow(cx, kw["routes"])):
                 SH.KINDS[inner](cx, **kw)
@@ -898,30 +922,13 @@ def palle_relief(f, x, y, s, variant="std", color="#A52A1C", alpha=1.0):
                 f.c.drawPath(lp, f.paint(lite, alpha=0.95 * alpha))
 
 
-class nesne_yili:
-    """NESNE YILI bağlamı (kurul tur 2 SA2-Y4): sahnede HUD yılından FARKLI bir yıla ait nesne (ör. 1520 Machiavelli siparişinin mührü, 1429 sahnesinde).
-    `with nesne_yili(1520): ...` içinde donem kuralları o yılla çalışır; dönem kaydı (qa_donem) aynı çekimin indisiyle ve o yılla yazılır.
-    Yerel çözüm: donem'in yığınına çekimin cx'i korunarak bir çerçeve itilir; donem bu iç yapıyı değiştirirse `donem.use_year`a düşer (SCN-1'e API isteği)."""
-
-    def __init__(self, y, kind=None):
-        self.y, self.kind, self._cm = int(y), kind, None
-
-    def __enter__(self):
-        import donem as DN
-        fr = DN.current()
-        if hasattr(DN, "_Frame") and hasattr(DN, "_STACK"):
-            DN._STACK.append(DN._Frame(self.y, self.kind or (fr.kind if fr else "nesne_yili"), fr.cx if fr else None))
-        else:
-            self._cm = DN.use_year(self.y, kind=self.kind or "nesne_yili")
-            self._cm.__enter__()
-        return self.y
-
-    def __exit__(self, *a):
-        import donem as DN
-        if self._cm is not None:
-            return self._cm.__exit__(*a)
-        DN.pop()
-        return False
+def nesne_yili(y, kind=None):
+    """NESNE YILI bağlamı (kurul tur 2 SA2-Y4): sahnede HUD yılından FARKLI bir yıla ait nesne (ör. 1429 sahnesinde 1520 siparişinin mührü).
+    `with nesne_yili(1520): ...` — resmî API'ye devreder (donem.nesne_yili). Eski yerel çözüm çıkışta donem.pop() ile 'son bağlam'ı iç çerçeveye
+    çeviriyordu; ekran kaplamasında kullanılınca aynı karede sonra çizilen katmanlar 1520'yi görüyordu (SCN-1 bulgusu). Resmî API yığını ve
+    'son bağlam'ı girişteki hâline döndürür."""
+    import donem as DN
+    return DN.nesne_yili(y, kind)
 
 
 def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C", variant=None, year=None):

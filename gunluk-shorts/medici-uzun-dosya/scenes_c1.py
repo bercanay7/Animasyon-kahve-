@@ -47,7 +47,7 @@ SHOTS = [
     # ── 4. Dante: lanetli çiçek (Floransa zambağı: altın → lanette kızıl; beyaz komün zemini; etamin) — HUD gizli (kurul tur 2 SA2-Y3/KA2-D2:
     #       "lanetli çiçek" dizesi ≈1320'lerin, HUD 1252 olayı yanlış tarihliyordu) ──
     shot("c1_cicek", ("c1s3", -0.1), mode="day", perde=1, hud=False,
-         plate=("DANTE", ("c1s3", "Dante", -0.1), 381, 150),
+         plate=("DANTE", ("c1s3", "Dante", -0.1), 430, 150),   # x 381→430: itme sonunda (z≈1,13) sol kenar ≥90 (qa_yerlesim "düzeltildi" uyarısı kalktı)
          florin_at=("c1s3", -0.1), bloom_at=("c1s3", "lanetli", -0.45), curse_at=("c1s3", "lanetli", 0.0), shep_at=("c1s3", "dedi", -0.5),
          morph_at=("c1s3", "kurda", 0.0), flee_at=("c1s3", "çeviren", -0.4), quote_at=("c1s3", "lanetli", 0.0),
          cam=("push",), tr=("iris", 1.1, dict(obj="florin", at=(960, 508), r=240)), link="shape", label="lanetli çiçek"),
@@ -319,4 +319,4 @@ P.with_ovl(SHOTS, P.roadmap([(("c1s1", 0.4), 0), (("c1s6", "hesap", -0.2), 1), (
 # ayrı 1338 adımı gereksizdi, birleşti) · evlilik sözleşmesi belgesi (27b, "hanedanın") 1385 (DBI: Piccarda Bueri ile evlilik 1385; de Roover: Ekim 1385),
 # ardından c1s28'de 1397. Dante (c1s3) ve Machiavelli (c1s20–21) çekimlerinde HUD gizli (shot(hud=False)).
 YIL_AT = [(("c1s5", -0.2), 1338), (("c1s11", "Veba", -0.1), 1348), (("c1s15", "1378'de", -0.1), 1378), (("c1s26", "1390'ların", -0.1), 1390),
-          (("c1s27", "hanedanın", -0.3), 1385), (("c1s28", "1397'de", -0.1), 1397)]
+          (("c1s27", -0.1), 1385), (("c1s28", "1397'de", -0.1), 1397)]        # çeyiz + evlilik sözleşmesi 1385 (DBI, de Roover); cümle sınırında tek geri adım (başkan, SCN-1 sorusu)

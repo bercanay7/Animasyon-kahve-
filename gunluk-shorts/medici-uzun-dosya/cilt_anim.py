@@ -450,18 +450,59 @@ def _hand_point():
                (0.50, 0.16), (0.34, 0.20), (0.14, 0.17), KC(0, 0.14)], True, 0.9)
 
 
+HAND_DETAIL_MIN = 26.0      # el boyu (px) bundan büyükse parmak ayrımı, boğum kıvrımları ve tırnak çizilir (yakın plan; SCN-2 c2_yakin isteği)
+
+# el-birimi (bilek (0,0), parmaklar +x) ayrıntı çizgileri: (yol noktaları, kalınlık çarpanı, saydamlık)
+_HAND_LINES = {
+    "open": [([(0.50, -0.105), (0.70, -0.10), (0.93, -0.055)], 1.0, 0.55), ([(0.50, -0.015), (0.72, -0.008), (0.955, 0.018)], 1.0, 0.55),
+             ([(0.48, 0.075), (0.66, 0.088), (0.83, 0.118)], 1.0, 0.50),
+             ([(0.525, -0.198), (0.56, -0.15), (0.535, -0.112)], 0.8, 0.45), ([(0.745, -0.158), (0.775, -0.122), (0.75, -0.088)], 0.8, 0.40),
+             ([(0.055, -0.13), (0.075, 0.0), (0.055, 0.12)], 0.7, 0.28)],
+    "thumb": [([(0.29, -0.215), (0.325, -0.18), (0.31, -0.15)], 0.8, 0.42)],
+    "fist": [([(0.40, -0.205), (0.435, 0.0), (0.405, 0.195)], 1.0, 0.55), ([(0.52, -0.215), (0.565, -0.02), (0.54, 0.17)], 1.0, 0.55),
+             ([(0.625, -0.185), (0.67, -0.03), (0.645, 0.115)], 1.0, 0.50), ([(0.12, -0.15), (0.14, 0.0), (0.12, 0.15)], 0.7, 0.28)],
+    "thumb_fist": [([(0.40, -0.22), (0.43, -0.18), (0.41, -0.14)], 0.8, 0.42)],
+    "point": [([(0.785, -0.335), (0.81, -0.28), (0.79, -0.215)], 0.8, 0.45), ([(0.98, -0.33), (1.0, -0.28), (0.985, -0.225)], 0.7, 0.40),
+              ([(0.50, -0.13), (0.555, 0.0), (0.51, 0.13)], 1.0, 0.52), ([(0.61, -0.12), (0.655, 0.01), (0.615, 0.10)], 1.0, 0.48)],
+}
+_HAND_NAILS = {"open": [((0.905, -0.042), (0.985, -0.014))], "thumb": [((0.445, -0.362), (0.512, -0.335))], "thumb_fist": [((0.535, -0.282), (0.605, -0.232))],
+               "point": [((1.16, -0.322), (1.255, -0.298))]}
+
+
+def _hand_detail(F, part, s, sc=1.0):
+    """Yakın plan el ayrıntısı (fresk çizgi dili): parmak ayrımları, boğum kıvrımları, bilek kıvrımı (koyu ince çizgi) + açık tırnak."""
+    w = max(1.0, s * 0.024)
+    for pts, wk, a in _HAND_LINES.get(part, ()):
+        F.line(place(sp([(x * sc, y * sc) for x, y in pts], False, 0.9), 0, 0, s, 0), w * wk, tone=0.2, alpha=min(0.8, a + 0.10))
+    for p0, p1 in _HAND_NAILS.get(part, ()):
+        q0, q1 = (p0[0] * sc, p0[1] * sc), (p1[0] * sc, p1[1] * sc)
+        F.fill(place(lens(q0, q1, 0.020 * sc, 0.006 * sc), 0, 0, s, 0), rim=0.0, tone=0.85, alpha=0.55, bound=False)
+        F.line(place(lens(q0, q1, 0.020 * sc, 0.006 * sc), 0, 0, s, 0), w * 0.6, tone=0.2, alpha=0.40)
+
+
 def _hand_spr(skin, h, kind):
     F = FG.PFig(h)
     F.col = skin
     s = 0.085 * h
+    det = s >= HAND_DETAIL_MIN
     if kind == "point":
         F.fill(place(_hand_point(), 0, 0, s, 0), rim=1.0)
+        if det:
+            _hand_detail(F, "point", s)
     elif kind == "fist":
         F.fill(K.hand_pt("fist", 0, 0, s * 0.95, 0), rim=1.0)
+        if det:
+            _hand_detail(F, "fist", s * 0.95)
         F.fill(K.hand_pt("thumb_fist", 0, 0, s * 0.95, 0), rim=1.0)
+        if det:
+            _hand_detail(F, "thumb_fist", s * 0.95)
     else:
         F.fill(K.hand_pt("open", 0, 0, s, 0), rim=1.0)
+        if det:
+            _hand_detail(F, "open", s)
         F.fill(K.hand_pt("thumb", 0, 0, s, 0), rim=1.0)
+        if det:
+            _hand_detail(F, "thumb", s)
     img, ox, oy = F.sprite(pad=5)
     return Spr(img, ox, oy)
 
@@ -1218,13 +1259,47 @@ def kit_for(kind, seed, h, **stil):
 
 
 # ── aynı kalıptan çoğaltılmış figürler (kurul tur 2 SA1-Y5): örnek başına otomatik çeşitleme ──
-# Aynı karede, yakında (≤ min(2,6·h, 640 px)), aynı türden ve aynı görünümde (aynı tür+seed ya da aynı başlık+sakal+giysi tonu ailesi) ikinci,
-# üçüncü … duran figür çizilirse sırasına göre çeşitlenir: boy (±%6–8; masa başında değil), başlık (dönemin seçeneklerinden), giysi tonu, poz evresi.
-# Yalnız `actor`/oturan figürde (yürüyen, kalabalık, alay ve h<240 figürler kapsam dışı: konumları kayar, kırpılır → çeşitleme kare kare
-# açılıp kapanmasın, "pop" olmasın). İlk çizilen örnek kalıbın kendisidir (sahnenin kahramanı değişmez).
+# İki katman:
+#  (1) inst_jitter — ANONİM türlerde (halk, çocuk, denizci, asker; kadında yalnız ton) tür+seed'e bağlı boy (±%5–6) ve giysi tonu (±%8–11).
+#      Kareden ve komşudan bağımsız → yürüyen/kalabalık/alay figürlerinde de sıçrama yok; aynı kişi her çekimde aynı.
+#  (2) clone_vary — aynı karede yakında (Δx ≤ min(2,6·h, 640 px)) DURAN aynı türden figürler: anonim türlerde görünümden bağımsız, diğer türlerde
+#      yalnız gerçek kopyada (aynı tür+seed ya da aynı başlık+sakal+giysi tonu ailesi) sıraya göre çeşitlenir: boy (masa başında değil), başlık
+#      (dönemin seçeneklerinden), sakal, giysi tonu, poz evresi. Ön plan / arka plan farkı (boy oranı 0,4–2,5) da grup sayılır.
+#      Yalnız `actor`/oturan, h≥240 figürde (yürüyen, kalabalık, alay kapsam dışı: konumları kayar, kırpılır → çeşitleme kare kare açılıp
+#      kapanmasın). İlk çizilen örnek kalıbın kendisidir; adı olan kişilerin türleri (banker, soylu, papa …) yalnız gerçek kopyada değişir.
 CLONE_VARY = True
 CLONE_MIN_H = 240.0
+INST_JITTER = True
+ANON_KINDS = ("halk", "cocuk", "denizci", "asker")
+_JIT = dict(halk=(0.06, 0.11), cocuk=(0.05, 0.10), denizci=(0.06, 0.10), asker=(0.05, 0.08), soylu_f=(0.0, 0.08))
+_JIT_CACHE = {}
 _VAR_H = (1.0, 0.935, 1.065, 0.955, 1.075, 0.965)
+
+
+def inst_jitter(kind, seed, h, stil, seated=False):
+    """Örnek başına (tür+seed'e bağlı) boy ve giysi tonu çeşitlemesi — anonim türlerde. Dönüş: (h, stil)."""
+    if not INST_JITTER:
+        return h, stil
+    kind_ = ALIAS.get(kind, kind)
+    j = _JIT.get(kind_)
+    if j is None:
+        return h, stil
+    key = (kind_, seed, tuple(sorted(stil.items())) if stil else ())
+    v = _JIT_CACHE.get(key)
+    if v is None:
+        r1 = (zlib.crc32(f"{kind_}:{seed}:jh".encode()) & 0xFFFF) / 65535.0
+        r2 = (zlib.crc32(f"{kind_}:{seed}:jt".encode()) & 0xFFFF) / 65535.0
+        robe = None
+        if "robe" not in stil and j[1] > 0:
+            base = dict(costume(kind_, seed, **stil))
+            k = j[1] * (2.0 * r2 - 1.0)
+            robe = mix(base["robe"], "#F4EEDC" if k > 0 else "#1A1008", abs(k))
+        v = _JIT_CACHE[key] = (1.0 + j[0] * (2.0 * r1 - 1.0), robe)
+    hk, robe = v
+    if robe is not None:
+        stil = dict(stil)
+        stil["robe"] = robe
+    return (h if seated else h * hk), stil
 _ALT_HATS = dict(halk=("cappuccio", "feltcap", "coif", "woolcap"), tuccar=("mazzocchio", "cappuccio", "feltcap", "flatcap"),
                  soylu=("mazzocchio", "cappuccio", "tall", "flatcap"), soylu_f=("veil", "coif", "frenchhood"), banker=("scholar", "flatcap", "cappuccio"),
                  cocuk=("feltcap", "coif", "none"), denizci=("woolcap", "feltcap", "straw"), asker=("sallet", "morion"), rahip=("biretta", "coif"))
@@ -1259,11 +1334,12 @@ def clone_vary(f, kind, seed, x, y, h, phase, stil, seated=False):
     y_ = DN.year() if PERIOD_COSTUME else None
     hat0 = base.get("hat")
     hat_final = period_hat(kind_, hat0, y_, _hat_r(kind_, seed)) if y_ is not None else hat0
-    R = min(2.6 * h, 640.0)
-    group = [e for e in reg if e["kind"] == kind_ and (e["look"] == lk or e["seed"] == seed) and abs(e["x"] - x) < R
-             and abs(e["y"] - y) < 0.35 * h and 0.8 < h / max(1.0, e["h"]) < 1.25]
+    anon = kind_ in ANON_KINDS
+    group = [e for e in reg if e["kind"] == kind_ and (anon or e["look"] == lk or e["seed"] == seed)
+             and abs(e["x"] - x) < min(2.6 * max(h, e["h"]), 640.0) and abs(e["y"] - y) < 0.45 * max(h, e["h"]) and 0.4 < h / max(1.0, e["h"]) < 2.5]
     rank = (max(e["rank"] for e in group) + 1) if group else 0
     out = (h, phase, stil)
+    beard_f = base.get("beard")
     if rank > 0:
         st = dict(stil)
         used = {e["hat"] for e in group}
@@ -1272,11 +1348,18 @@ def clone_vary(f, kind, seed, x, y, h, phase, stil, seated=False):
             alts = [a for a in dict.fromkeys(alts) if a not in used]
             if alts:
                 st["hat"] = hat_final = alts[(rank - 1 + seed) % len(alts)]
+        used_b = {e["beard"] for e in group}
+        if "beard" not in stil and beard_f in used_b and kind_ in TEMPL:     # sakal da gruptakiyle aynıysa şablonun başka seçeneği
+            alts_b = [b for b in dict.fromkeys(TEMPL[kind_]["beard"]) if b not in used_b]
+            if alts_b:
+                st["beard"] = beard_f = alts_b[(rank - 1 + seed) % len(alts_b)]
+                if st["beard"] is None:
+                    st["beard"] = ""                                 # costume: None "değiştirme" demek → boş dize = sakalsız
         if "robe" not in stil and base.get("robe"):
             st["robe"] = mix(base["robe"], "#1A1008", 0.17) if rank % 2 else mix(base["robe"], "#F4EEDC", 0.15)
         hk = 1.0 if seated else _VAR_H[rank % len(_VAR_H)]
         out = (h * hk, (phase + 0.37 * rank) % 1.0, st)
-    reg.append(dict(ikey=ikey, kind=kind_, seed=seed, look=lk, x=float(x), y=float(y), h=float(h), rank=rank, hat=hat_final, out=out))
+    reg.append(dict(ikey=ikey, kind=kind_, seed=seed, look=lk, x=float(x), y=float(y), h=float(h), rank=rank, hat=hat_final, beard=beard_f, out=out))
     return out
 
 
@@ -1344,6 +1427,7 @@ def _draw_pose(f, kit, bh, p, x, y, h, dirn, alpha=1.0, cf=None, layers=None, ex
 def walker(f, kind, x, y, h, t, speed=90.0, dir=1, phase=0.0, seed=0, alpha=1.0, run=False, cf=None, layers=None, prop=None, flag=None, extra=None, **stil):
     """Tek yürüyen figür. x,y = ayak noktası (ekran); h nominal boy; speed = zemine göre px/sn (≈0 → bekleme); dir=±1; phase 0..1.
     prop: staff | crosier | spear | halberd | pole (sancak: flag=(device,w,h,c1,c2)) | book | cross | torch | sack | basket."""
+    h, stil = inst_jitter(kind, seed, h, stil)                                 # anonim türde örnek başına boy/ton (tür+seed'e bağlı; sıçramasız)
     kit, bh = kit_for(kind, seed, h, **stil)
     s = h / bh
     v = abs(speed) / s
@@ -2057,6 +2141,7 @@ def actor(f, kind, x, y, h, t, action="idle", dir=1, seed=0, phase=0.0, alpha=1.
     stil = {k: v for k, v in p.items() if k in STIL_KEYS}
     ap = {k: v for k, v in p.items() if k not in STIL_KEYS}
     h, phase, stil = clone_vary(f, kind, seed, x, y, h, phase, stil)          # aynı kalıptan kopyalar çeşitlenir (SA1-Y5)
+    h, stil = inst_jitter(kind, seed, h, stil)                                 # anonim türde örnek başına boy/ton (sıçramasız)
     kit, bh = kit_for(kind, seed, h, **stil)
     prop = ap.pop("prop", None)
     fn = ACTIONS[action]
@@ -2730,7 +2815,8 @@ def crowd(f, t, rect, n, seed=1, wave=0.0, mode="mill", dir=1, h=(130, 240), spe
             face = 1 if dvx > 0 else -1
             if abs(dvx) < 9.0:
                 face = m["dir0"] if (int(t / m["P"] * 0.5 + m["r"] * 5) % 2 == 0) else -m["dir0"]
-        kit, bh = kit_for(m["kind"], m["seed"], hh)
+        _hj, st_j = inst_jitter(m["kind"], m["seed"], hh, {}, seated=True)    # kalabalıkta boy zaten rastgele; yalnız giysi tonu
+        kit, bh = kit_for(m["kind"], m["seed"], hh, **st_j)
         s_ = hh / bh
         T = t + m["r2"] * 3.0
         wv = 0.0

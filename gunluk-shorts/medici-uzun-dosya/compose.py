@@ -689,6 +689,12 @@ class Program:
         pv = self._sprev
         if pv is not None and pv[0] == n - 1 and pv[1] == i and not pv[2] and pv[3] is not None:
             vglob, area, vobj = _flow_feats(pv[3], small)
+        elif (g - 1.0 / FPS) >= s.origin - 1e-6:
+            # önceki kare yok (segment başı, geçişten hemen sonra, tek kare çizimi): aynı çekimin bir önceki ANI çizilip akış ölçülür → deklanşör kararı
+            # çizim sırasından bağımsız, kare bit-birebir deterministik (ENG-D; kurul tur 2 TE1-Y1: 200,000 sn segment başında tek keskin kare)
+            prev_small = cv2.cvtColor(cv2.resize(_bgra(self._render_shot(s, g - 1.0 / FPS))[::4, ::4], (240, 135), interpolation=cv2.INTER_AREA), cv2.COLOR_BGRA2GRAY)
+            vglob, area, vobj = _flow_feats(prev_small, small)
+            stt["prev_renders"] = stt.get("prev_renders", 0) + 1
         self._sprev = (n, i, False, small)
         stt["ms_flow"] += (_t.perf_counter() - t0) * 1000
         objhit = area >= SHUTTER_OBJ_AREA

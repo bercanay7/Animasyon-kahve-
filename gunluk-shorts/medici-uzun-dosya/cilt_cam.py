@@ -761,23 +761,72 @@ def attach(cx, kind_name, kw, raw=None):
     return cx.cam_state
 
 
+MAP_GUARD = (170.0, 160.0, 330.0, 190.0)    # harita kadraj koruması kenar payları (sol, üst, sağ — kent adı sağa yazılır —, alt; px)
+MAP_GUARD_ON = True                          # False: koruma kapalı (qa_flow tanı için: beyan korumadan mı uygulanmıyor?)
+
+
+def _map_guard(lon, lat, zoom, ccx, ccy, s, dx, dy, keep, margins=MAP_GUARD):
+    """Harita ön ayarının (s, dx, dy) korunacak dünya noktalarını (rota/kent) güvenli alanın dışına itmesini önler (ENG-D; kurul tur 2: #63 BRUGGE).
+    Sahnenin kendi kamerasında (ön ayarsız) ekranda olan her nokta için: son konum ≥ min(ilk konum, pay) ve ≤ max(ilk konum, W/H − pay).
+    Önce itme ölçeği (s > 1 iken) sınırlanır, sonra kayma kıstırılır. Dönüş: (s', dx', dy')."""
+    import mapdata
+    ml, mt, mr, mb = margins
+    wx0, wy0 = mapdata.to_world(lon, lat)
+    pts = []
+    for (px_, py_) in keep:
+        x0, y0 = ccx + (px_ - wx0) * zoom, ccy + (py_ - wy0) * zoom
+        if 0.0 <= x0 <= W and 0.0 <= y0 <= H:
+            pts.append((x0, y0))
+    if not pts:
+        return s, dx, dy
+    if s > 1.0:
+        lim = s
+        for (x0, y0) in pts:
+            rx, ry = x0 - ccx, y0 - ccy
+            if ry < -1e-6:
+                lim = min(lim, (ccy + dy - min(y0, mt)) / (-ry))
+            elif ry > 1e-6:
+                lim = min(lim, (max(y0, H - mb) - ccy - dy) / ry)
+            if rx < -1e-6:
+                lim = min(lim, (ccx + dx - min(x0, ml)) / (-rx))
+            elif rx > 1e-6:
+                lim = min(lim, (max(x0, W - mr) - ccx - dx) / rx)
+        s = max(1.0, min(s, lim))
+    lo_x = lo_y = -1e9
+    hi_x = hi_y = 1e9
+    for (x0, y0) in pts:
+        xs, ys = ccx + (x0 - ccx) * s, ccy + (y0 - ccy) * s
+        lo_x, hi_x = max(lo_x, min(x0, ml) - xs), min(hi_x, max(x0, W - mr) - xs)
+        lo_y, hi_y = max(lo_y, min(y0, mt) - ys), min(hi_y, max(y0, H - mb) - ys)
+    if lo_x <= hi_x:
+        dx = min(max(dx, lo_x), hi_x)
+    if lo_y <= hi_y:
+        dy = min(max(dy, lo_y), hi_y)
+    return s, dx, dy
+
+
 @contextlib.contextmanager
 def map_patch(cx):
     """map türü kendi mapsk.Cam'ini kullanır: oluşturulan her Cam'e ekran-uzayı kayma/zoom eklenir (içerik +dx kayar → dünya merkezi −dx/zoom).
-    ENG-D: son oluşturulan Cam (çizimde kullanılan) cx.world_xf'e yazılır → compose kâğıt dokusunu harita dünyasına kilitler (kurul tur 2 TE1 §7)."""
+    ENG-D: son oluşturulan Cam (çizimde kullanılan) cx.world_xf'e yazılır → compose kâğıt dokusunu harita dünyasına kilitler (kurul tur 2 TE1 §7).
+    cx._map_keep (dünya noktaları; p1 harita sarmalayıcısı rota ve kentlerden doldurur) verilmişse ön ayar bu noktaları kadraj dışına itemez (_map_guard)."""
     st = getattr(cx, "cam_state", None)
     move = not (st is None or (abs(st.dx) < 1e-3 and abs(st.dy) < 1e-3 and abs(st.s - 1.0) < 1e-6))
+    keep = getattr(cx, "_map_keep", None)
     import mapsk
     orig = mapsk.Cam
     ctx_ = cx
 
     class _Cam(orig):
         def __init__(self, lon, lat, zoom, rot=0.0, cx=W / 2, cy=H / 2):
-            z = zoom * st.s if move else zoom
+            s_, dx_, dy_ = (st.s, st.dx, st.dy) if move else (1.0, 0.0, 0.0)
+            if move and keep and MAP_GUARD_ON:
+                s_, dx_, dy_ = _map_guard(lon, lat, zoom, cx, cy, s_, dx_, dy_, keep)
+            z = zoom * s_
             super().__init__(lon, lat, z, rot, cx, cy)
             if move:
-                self.wx -= st.dx / z
-                self.wy -= st.dy / z
+                self.wx -= dx_ / z
+                self.wy -= dy_ / z
             try:
                 ctx_.world_xf = ("map", float(self.wx), float(self.wy), float(self.zoom), float(self.cx), float(self.cy))
             except Exception:

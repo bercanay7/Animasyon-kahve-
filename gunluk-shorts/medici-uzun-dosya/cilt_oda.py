@@ -861,6 +861,7 @@ def seated(f, kind, x, y, h, t, action="write", dir=1, seed=0, phase=0.0, sil=No
     """Masa başında oturan figür (masa/sandalye odanın kendi çizimidir; FA masası ÇİZİLMEZ). action: write | count | idle(oturan) …
     sil=renk → siluet. look=(lx, ly): baş o noktaya döner (FA.apply_look). Dönüş: act_write ek bilgisi (satır, ilerleme) — belge yazılışını elle eşlemek için."""
     _h, phase, stil = FA.clone_vary(f, kind, seed, x, y, h, phase, stil, seated=True)   # yan yana aynı kâtipler: başlık/ton/evre (boy masaya bağlı, değişmez)
+    _h, stil = FA.inst_jitter(kind, seed, h, stil, seated=True)                          # anonim türde örnek başına giysi tonu
     kit, bh = FA.kit_for(kind, seed, h, **stil)
     fn = seated_act(action)
     pz = fn(kit, t, phase=phase, t0=t0, **({'energy': energy} if action == 'talk' else {}))

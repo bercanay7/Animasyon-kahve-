@@ -95,7 +95,10 @@ def _shape(name, text, size, track):
     buf = hb.Buffer()
     buf.add_str(text)
     buf.guess_segment_properties()
-    hb.shape(font, buf, {"liga": False, "clig": False, "kern": True})
+    feats = {"liga": False, "clig": False, "kern": True}
+    if not any(ch.islower() for ch in text):
+        feats["lnum"] = True          # büyük harfli satırda hizalı rakam: Cormorant/EB Garamond eski stil "1300" telefonda "13oo" okunuyordu (kurul tur 2, TE2-Y11)
+    hb.shape(font, buf, feats)
     sc = size / upem
     xs, gl, x = [], [], 0.0
     for info, pos in zip(buf.glyph_infos, buf.glyph_positions):

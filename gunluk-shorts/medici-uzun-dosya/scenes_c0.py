@@ -71,7 +71,7 @@ SHOTS = [
                (("c0s8", -0.1), (0, 0, 1.0)), (("c0s8", "on", 0.0), (-420, 20, 1.8)), (("c0s8", "ve", 0.0), (-150, -40, 1.25)), (("c0s8", "Fransızca", 0.2), (80, -90, 1.2)),
                (("c0s9", -0.15), (40, -110, 1.28))],
          seals=(("c0s7", "Anna", 0.0), ("c0s7", "Lorraine", 0.3)),
-         names_at=("ANNA MARİA LUİSA", "LORRAINE TARAFI", ("c0s7", "Luisa", 0.15), ("c0s7", "tarafı", -0.3)),
+         names_at=("ANNA MARİA LUİSA", "LORRAİNE TARAFI", ("c0s7", "Luisa", 0.15), ("c0s7", "tarafı", -0.3)),
          pen_at=("c0s7", "Bir", 0.0),
          num_at=("c0s8", "on", 0.0), num_dur=1.2, fr_at=("c0s8", "Fransızca", 0.0),
          # "13 MADDE" (kurul tur 2 C1): kâğıdın DIŞINDA, masa üstünde, belge düzlemine bağlı (doc x −760); kamera sağa kayınca kâğıtla birlikte
@@ -85,7 +85,7 @@ SHOTS = [
     #        Romen rakamları kadraj dışında); yakında yavaş itme (≈%1,5/sn), çizgi çekilince hızlı geri çekiliş + carry ──
     shot("c0_belge", ("c0s9", -0.1), mode="night", perde=1,
          cams=[(("c0s9", -0.1), (0, -170, 2.1)), (("c0s9", "diliyle", 0.0), (0, -172, 2.18)), (("c0s9", "yazılmamıştı", 0.45), (0, -176, 2.24)), (("c0s10", -0.4), (0, 0, 1.0))],
-         seals=(("c0s7", 0.0), ("c0s7", 0.0)), names_at=("ANNA MARİA LUİSA", "LORRAINE TARAFI", ("c0s7", 0.0), ("c0s7", 0.0)),
+         seals=(("c0s7", 0.0), ("c0s7", 0.0)), names_at=("ANNA MARİA LUİSA", "LORRAİNE TARAFI", ("c0s7", 0.0), ("c0s7", 0.0)),
          num_at=("c0s8", "on", 0.0), num_dur=0.01, fr_at=("c0s8", 0.0),
          it_at=("c0s9", "diliyle", 0.0), it_strike_at=("c0s9", "yazılmamıştı", -0.2),
          tr="cut", link="cam", cam="hand", label="ITALIANO yazılır, çizilir"),

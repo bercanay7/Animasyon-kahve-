@@ -171,6 +171,37 @@ class use_year:
         pop()
 
 
+class nesne_yili:
+    """NESNE YILI bağlamı (resmî API; kurul tur 2 SA2-Y4, SCN-2 isteği): sahnede HUD/çekim yılından FARKLI bir yıla ait nesne
+    (ör. 1429 sahnesinde 1520 Machiavelli siparişinin mührü). `with donem.nesne_yili(1520): …` içinde dönem kuralları o yılla çalışır.
+    - Çekimin cx'i korunur: iç içe ckind'ler (push) bu yılı devralır, qa_donem kaydı aynı çekimin indisine yazılır.
+    - Ekran uzayı kaplamalarında da (çekim pop edildikten sonra, yığın boşken) güvenli: çıkışta yığın derinliği VE 'son bağlam' (_LAST)
+      girişteki hâline döner — aynı karede sonra çizilen katmanlar (öteki kaplamalar, geçiş, HUD) yine çekimin yılını görür.
+      (`use_year`/`pop` çıkışta _LAST'ı iç çerçeveye çevirir; nesne yılı için bu istenmez.)
+    - y=None → bağlam değişmez (no-op)."""
+
+    def __init__(self, y, kind=None):
+        self.y = None if y is None else int(y)
+        self.kind = kind
+        self._depth = None
+        self._last = None
+
+    def __enter__(self):
+        if self.y is None:
+            return year()
+        fr = current()
+        self._depth, self._last = len(_STACK), _LAST[0]
+        _STACK.append(_Frame(self.y, self.kind or (fr.kind if fr is not None else "nesne_yili"), fr.cx if fr is not None else None))
+        return self.y
+
+    def __exit__(self, *a):
+        if self._depth is not None:
+            del _STACK[self._depth:]
+            _LAST[0] = self._last
+            self._depth = None
+        return False
+
+
 _UNSET = object()
 
 
