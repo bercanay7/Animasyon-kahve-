@@ -31,13 +31,13 @@ Dosyalar: `scenes_c2.py` (37 çekim; 5 longtake), `c2_kinds.py` (özel türler),
 | VADESİ GELİNCE TAHSİL; 2. POLİÇE; KUR FARKI | c2s4 | ◐ model M1:§5A |
 | BORÇ ✗ · FAİZ ✗ · KUR FARKI ✓ | c2s5 | ◐ gerekçe M1:§5B |
 | VİCDAN KOMİTESİ; EN YARATICI DEPARTMAN (terazi) | c2s6 | YORUM (mizah a) |
-| MEVDUAT SÖZLEŞMESİ; Faiz: —; TRACY PARKS · AKTARDIĞINA GÖRE | c2s7 | ○ M1:§5B |
+| MEVDUAT SÖZLEŞMESİ; Faiz: —; TİM PARKS · AKTARDIĞINA GÖRE (v1'de yanlış 'TRACY PARKS'; kurul tur 1, düzeltildi) | c2s7 | ○ M1:§5B |
 | hediye kutusu; FAİZ çizilir; HEDİYE | c2s8 | ○ M1:§5B (mizah a) |
 | MÜŞTERİ: KİLİSE (kardinal siluet) | c2s9 | ○ M1:D19 |
 | ROMA ŞUBESİ; AYRI SERMAYE ✗; KİLİSE → kasa; DE ROOVER'A GÖRE | c2s10 | ○ M1:#27,D19 |
 | 25 MART 1402; FLORANSA → VENEDİK; YILBAŞI | c2s11 | ◐ M1:#28,D18 |
 | DEBITORI/CREDITORI defteri; Medici arması; MİT | c2s12 | MİT M1:mit1 |
-| ÇİFTE KAYDIN İZİ: CENOVA 1340 · VENEDİK 1407 · PACIOLI 1494; Medici arması ✗; ETMEDİLER | c2s13 | ◐ M1:#71,#76 (1407 ve 1494 brif zaman çizelgesi kalemleri; anlatıda "Cenova 1340" geçer) |
+| ÇİFTE KAYDIN İZİ: CENOVA 1340 · PACİOLİ 1494 (v3: masa defterinde; v1'deki 'VENEDİK 1407' kaldırıldı); Medici arması ✗; ETMEDİLER | c2s13 | ◐ M1:#71,#76 (anlatıda "Cenova 1340" geçer) |
 | MEDİCİ'NİN FARKI: YAPI; FLORANSA/ROMA/VENEDİK; KENDİ ORTAKLIĞI · KENDİ DEFTERİ | c2s14 | ◐ M1:§5C |
 | GIOVANNI · BORÇ VEREN; BALDASSARRE COSSA · KİLİSE ADAMI; XXIII. JOHANNES · PAPA; KONSTANZ KONSİLİ · 1415 | c2s15–16 | ◐ M1b:b28,bD13,U4,b29 (yalnız "borç") |
 | KEFALET / FİDYE; KAYNAKLAR AYRIŞIYOR | c2s17 | ○ M1:D16,M1b:b30 (tutar yok) |
@@ -49,7 +49,7 @@ Dosyalar: `scenes_c2.py` (37 çekim; 5 longtake), `c2_kinds.py` (özel türler),
 | PALLA STROZZI · EN ZENGİNİ; 162.925 FLORİN · BRÜT | c2s23 | ◐ Strozzi M1:#39 |
 | GIOVANNI · CATASTO'YU DESTEKLEDİ; DESTEKLEDİ | c2s24 | ◐ M1:#38 (yıl 1426/27 çelişkili: yıl yazılmaz) |
 | 1420 · BANKANIN YÖNETİMİ (Giovanni → oğulları) | c2s25 | ◐ M1b:U5,b33 |
-| 1397–1420 · 152.820 FLORİN KÂR; DEFTERLER GÖSTERİR | c2s25 | ◐ toplam M1:#35 ("gösterir") |
+| 150.000+ FLORİN KÂR (v1'deki '152.820' anlatıma göre '150.000+' oldu); DEFTERLER GÖSTERİR | c2s25 | ● de Roover Tablo 8 (KA2 tur 3) |
 | 20 ŞUBAT 1429 (mum söner); yıl 1429 → 1428; FLORANSA TAKVİMİ · YILBAŞI 25 MART | c2s26 | ◐ M1:#40; M5:P1 |
 | LORENZO · İLERİDE MUHTEŞEM DİYE ANILACAK; 180.000 FLORİN; LORENZO'NUN KAYDINA GÖRE | c2s27 | ○ DBI/M5:D32 |
 | MACHIAVELLİ · BİR ASIR SONRA; CAVALCANTI · 1440'LARDA; ANEKDOT ×2; soru işareti | c2s28–31 | ANEKDOT ◐/○ M1:D11–D14 (birebir söz yok) |

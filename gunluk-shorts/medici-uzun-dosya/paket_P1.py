@@ -211,7 +211,7 @@ def main():
 
 Medici'nin hikâyesi yedi parçada. Bu ilk parçada o odadan geriye, florin şehrine gidiyoruz: altın florinin doğuşu, veba ve Ciompi isyanı, Giovanni di Bicci'nin bankası, kambiyo, çifte kayıt ve "vicdan komitesi".
 
-Kaynak niteliği ekranda damgalarla (ANEKDOT, MİT, "… göre") ve anlatımda "göre / aktarılır" kipleriyle belirtilir. Sözleşmenin 3. maddesi ve Dante dizesindeki Türkçe karşılıklar bize aittir. Önemli çelişkilerde (Cossa'nın kurtarılması, Giovanni'nin son sözleri) bunu videoda açıkça söylüyoruz.
+Kaynak niteliği ekranda damgalarla (ANEKDOT, MİT, "… göre") ve anlatımda "göre / aktarılır" kipleriyle belirtilir. Sözleşmenin 3. maddesi, Dante dizesi ve Machiavelli ile Cavalcanti'den aktarılan sözlerin Türkçeleri bize aittir; Machiavelli ve Cavalcanti'nin sözleri özetle aktarılmıştır, ekrandaki İtalyanca satırlar özgün metinlerden kısa alıntılardır. Önemli çelişkilerde (Cossa'nın kurtarılması, Giovanni'nin son sözleri) bunu videoda açıkça söylüyoruz.
 
 BÖLÜMLER
 {bol_txt}
