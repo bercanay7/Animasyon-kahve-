@@ -319,5 +319,6 @@ P.with_ovl(SHOTS, P.roadmap([(("c1s1", 0.4), 0), (("c1s6", "hesap", -0.2), 1), (
 # Kurul tur 2 (başkan kararları; KA1/KA2/SA2): 1338 artık c1s5 BAŞINDA (Villani levhası "ESKİ darphane yöneticisi" 1338 rakamıyla tutarlı; c1s6'daki
 # ayrı 1338 adımı gereksizdi, birleşti) · evlilik sözleşmesi belgesi (27b, "hanedanın") 1385 (DBI: Piccarda Bueri ile evlilik 1385; de Roover: Ekim 1385),
 # ardından c1s28'de 1397. Dante (c1s3) ve Machiavelli (c1s20–21) çekimlerinde HUD gizli (shot(hud=False)).
-YIL_AT = [(("c1s5", -0.2), 1338), (("c1s11", "Veba", -0.1), 1348), (("c1s15", "1378'de", -0.1), 1378), (("c1s26", "1390'ların", -0.1), 1390),
+YIL_AT = [(("c1s5", -0.2), 1338), (("c1s11", "Veba", -0.1), 1348), (("c1s15", "1378'de", -0.1), 1378), (("c1s26", -0.2), 1385),    # Vieri'nin Roma şubesi: Giovanni 1385'ten yönetir (KA1 tur 3, de Roover)
+          (("c1s26", "1390'ların", -0.1), 1390),
           (("c1s27", -0.1), 1385), (("c1s28", "1397'de", -0.1), 1397)]        # çeyiz + evlilik sözleşmesi 1385 (DBI, de Roover); cümle sınırında tek geri adım (başkan, SCN-1 sorusu)

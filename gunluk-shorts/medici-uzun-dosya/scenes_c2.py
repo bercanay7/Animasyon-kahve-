@@ -144,7 +144,7 @@ SHOTS = [
          cam="hand", tr="cut", link="audio", label="çifte kayıt: kâtip; MİT"),
     # ── 12. MASA · İZ (tek sürekli kamera, 15,6 sn): kâtibin defterinden masadaki deftere — sol sayfa çifte kaydın izi (Cenova 1340 …),
     #        kamera sağ sayfaya kayar: Medici'nin farkı yapıda (Floransa → Roma, Venedik). Eski #71–#73 (zaman çizgisi + iki ağ kartı) tek çekim. ──
-    shot("c2_masa", ("c2s13", -0.15), v="iz", mode="day", perde=1, longtake=True, family="dunya",
+    shot("c2_masa", ("c2s13", -0.15), v="iz", mode="day", perde=1, longtake=True, family="dunya", hud=False,     # 1320–1520 çizelgesi: HUD gizli (SA2 tur 3 Y12)
          start=("c2s13", -0.15), stamp_at=("c2s13", "Etmediler", 0.1), myth_at=("c2s13", "eski", -0.6), myth_x=("c2s13", "eski", 0.05),
          events=[(1340, "CENOVA", ("c2s13", "Cenova'nın", -0.1), True), (1494, "PACİOLİ", ("c2s13", "biridir", -0.2), True)],
          head_at=("c2s14", -0.15), book_at=("c2s14", "defterde", -0.3), book_x=("c2s14", "değil", -0.1),
@@ -170,7 +170,7 @@ SHOTS = [
     shot("p1_oda", ("c2s16", -0.15), room="p1salon", variant="konstanz", tod="day", mode="day", perde=1,
          actors=[dict(kind="kardinal", seed=31, x=1230, y=870, h=420, action="idle", dir=1, layer="front"),
                  dict(kind="rahip", seed=32, x=1360, y=860, h=400, action="idle", dir=1, layer="back"),
-                 dict(kind="rahip", seed=33, x=2060, y=860, h=400, action="idle", dir=-1, layer="back"),
+                 dict(kind="rahip", seed=33, x=1880, y=860, h=400, action="idle", dir=-1, layer="back"),      # kardinalin işaret kolu ensesinden geçmesin (KA2 tur 3 N1)
                  dict(kind="kardinal", seed=35, x=2190, y=870, h=420, action="point", at=("c2s16", "indirdi", -0.3), dir=-1, layer="front")],
          cams=[(("c2s16", -0.15), (1720, 30, 1.18)), (("c2s16", "indirdi", 0.0), (1600, 50, 1.26))],
          ovl=P.ov(P.tag("KONSTANZ KONSİLİ · 1415", 640, 190, ("c2s16", "Konstanz", -0.3), size=46),
@@ -241,7 +241,7 @@ SHOTS = [
                  dict(kind="soylu", seed=14, x=3050, y=882, h=420, walk=(2150, 72), walk_at=("c2s22", "servetini", -0.3), dir=-1, layer="front", prop="book")],
          cams=[(("c2s22", -0.15), (1300, 40, 1.15)), (("c2s22", "yazdırdı", 0.0), (1520, 50, 1.20)), (("c2s23", -0.2), (1680, 56, 1.24))],
          ovl=P.ov(P.tag("CATASTO · 1427", 560, 200, ("c2s22", "1427'de", -0.2), size=48),
-                  P.tag("HANE REİSLERİNİN BEYANNAMESİ · PORTATA", 1060, 300, ("c2s22", "yazdırdı", -0.2), size=36)),
+                  P.tag("HANE BEYANNAMESİ · PORTATA", 560, 290, ("c2s22", "yazdırdı", -0.2), size=36)),      # kısa metin, CATASTO'nun altında; kalkanın (x≥1030) solunda biter (SA2 tur 3 Y13)
          cam=("truck", "r"), tr=("slide", 0.5, dict(dir="r")), link="dir", label="catasto dairesi: beyanname getiren hane reisleri"),
     # ── 21. MASA · CATASTO (tek çekim, 9,2 sn): görevlilerin masasındaki kayıt defteri — 9.780 hane ızgarası yazılır, 137 hane altın;
     #        ALT KENARDA %29,8 mürekkep şeridi (BİR HESABA GÖRE); kamera sağ sayfaya: PALLA STROZZİ · 163.000. Eski #87–#89 montaj kartları tek çekim. ──
@@ -277,7 +277,7 @@ SHOTS = [
          total=dict(text="1397–1420 KÂR", amt=("150.000+ fl.",), at=("c2s25", "yüz", -0.1), row=7),
          mode="day", perde=1, seed=7, focus=(780, 560),
          ovl=P.ov(P.count_up(960, 215, ("c2s25", "yüz", -0.35), 150000, dur=0.9, unit="FLORİN KÂR", size=150, bg=True, suffix="+", step=5000, suffix_final=True),
-                  P.tag("DEFTERLER GÖSTERİR", 1460, 860, ("c2s25", "gösterir", -0.1), size=40)),
+                  P.tag("DEFTERLER GÖSTERİR", 1460, 860, ("c2s25", "defterler", -0.1), size=40)),      # "defterler" sözcüğünde (KA2 tur 3 N3)
          cam=("pull",), tr=("sayfa", 0.6), link="material", label="defterler: 150 bini aşkın florin kâr"),
     # ── 25. 20 Şubat 1429'da öldü; Floransa takvimine göre hâlâ 1428 (ölüm döşeği: siluet, mum söner; yer/saat/tanık iddiası yok) ──
     shot("p1_oda", ("c2s26", -0.15), room="p1yatak", variant="olum", tod="dusk", mode="night", perde=1, figure="lying",
@@ -292,7 +292,7 @@ SHOTS = [
                   P.tag("LORENZO'NUN KAYDINA GÖRE", 1380, 860, ("c2s27", "kaydına", 0.0), size=38)),   # TEMSİLÎ damgası motorda (1438 öncesi madalya; cilt_medal v3)
          cam=("pan", "r"), tr=("dip", 0.8), link="light", label="Lorenzo'nun kaydına göre 180 bin florin"),
     # ── 27. son sözler iki kalemden, iki biçimde — sayfalar İLK karede hazır (ölü açılış yok); kaynağın kendi sözleri soluk el yazısıyla akar ──
-    shot("c2_kalemler", ("c2s28", -0.15), mode="day", perde=1, write_a=("c2s28", "kalemden", -0.1), write_b=("c2s28", "iki", 1, 0.1),
+    shot("c2_kalemler", ("c2s28", -0.15), mode="day", perde=1, write_a=("c2s28", -0.1), write_b=("c2s28", "kalemden", -0.1),     # boş sayfa açılışı yok (AN2 tur 3 #91)
          cam=("truck", "r"), tr="cut", link="audio", label="iki kalem, iki biçim"),
     # ── 28. Machiavelli bir asra yakın sonra onun (Giovanni'nin) ağzından oğullarına bir konuşma yazar: rulo yazarın masasından yaşlı adamın ağzına uzar;
     #        ikinci sürekli hareket (C3): "bir asra yakın sonra" — pencere ışığı sahneyi süpürür (zaman akar) ──
@@ -323,19 +323,21 @@ SHOTS = [
          lines_b=[("kimse dünyevi tasaları", ("c2s30", "kimse", -0.05)), ("sonsuz huzurla", ("c2s30", "sonsuz", -0.05), True),
                   ("değiş tokuş ettiği için", ("c2s30", "değiş", -0.05)), ("kederlenmemeli.", ("c2s30", "kederlenmemeli", -0.05))],
          cam=[(("c2s30", "kimse", -0.3), (380, -30, 1.08, 0)), (("c2s30", "huzurla", 0.0), (430, 0, 1.24, 0)), (("c2s31", -0.2), (470, 24, 1.40, 0))],
-         ovl=P.tag("CAVALCANTİ'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
+         ovl=P.ov(P.tag("CAVALCANTİ'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
+                  P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 880, ("c2s30", "tasaları", 0.0), size=30)),      # KA2 tur 3 N2
          tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz — iki sayfa, iki söz yan yana (yazılmış) ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, full=True, q_at=("c2s31", "bilmiyoruz", -0.6),
          lines_a=[("huzurla gidiyordur", 0.0), ("ve kıskançlık,", 0.0), ("insana verilenden değil,", 0.0), ("istediğinden doğar.", 0.0)],
          lines_b=[("kimse dünyevi tasaları", 0.0), ("sonsuz huzurla", 0.0, True), ("değiş tokuş ettiği için", 0.0), ("kederlenmemeli.", 0.0)],
+         ovl=P.tag("TÜRKÇE SATIRLAR ÖZET · ÇEVİRİ BİZE AİT", 960, 905, ("c2s31", -0.05), size=30),      # KA2/KA1 tur 3 N2
          cam=("pull",), tr=("slide", 0.35, dict(dir="r")), link="dir", label="hangisi söylendi: bilmiyoruz"),
     # ── 32. Machiavelli onu yoksulun ihtiyacını kimse istemeden giderirken çizer (Giovanni verir; derinlikli, eşit aralıksız yoksullar) ──
     shot("c2_sadaka", ("c2s32", -0.15), mode="day", perde=1, who_at=("c2s32", "Machiavelli", -0.2), give_at=("c2s32", "yoksulun", -0.35), stamp_at=("c2s32", "çizer", -0.2),
          cam=("truck", "r"), tr=("slide", 0.6, dict(dir="r")), link="dir", label="yoksulun ihtiyacı (Giovanni; ANEKDOT)"),
     # ── 33. YAKIN PLAN (≥2×, el + tüy kalem): "o kalem" eseri yazar; Medici siparişinin mührü düşer — NESNE YILI 1520: zambaklı üst top + 5 top (std) ──
     shot("c2_yakin", ("c2s33", -0.15), scene="kalem", write_at=("c2s33", -0.1), seal_at=("c2s33", "siparişiyle", -0.1), seal_label="MEDİCİ SİPARİŞİ",
-         seal_year=1520, seal_variant="std", seal_x=1200, seal_y=620, push=0.0, mode="day", perde=1,
+         seal_year=1520, seal_variant="std", seal_x=1200, seal_y=620, push=0.0, mode="day", perde=1, hud=False,     # 1520'ler nesnesi: HUD gizli (KA2/KA1 tur 3 N4)
          ovl=P.tag("O KALEM", 520, 200, ("c2s33", "kalem", -0.3), size=46),
          family="dunya", tr="cut", link="audio", label="yakın plan: o kalem; Medici siparişi (1520 mührü)"),
     # ── 34. Giovanni öldüğünde oğlu Cosimo kırk yaşına yaklaşıyordu — levhalar erken (≈580,6), yaş SAYILMAZ, çıkış ≤1,0 sn (AN2-K4) ─────────
