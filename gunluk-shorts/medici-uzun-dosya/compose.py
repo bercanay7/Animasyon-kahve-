@@ -44,7 +44,10 @@ CHAPTER_IDS = [f"c{i}" for i in range(17)]
 OUTRO = 10.0
 OUTRO_SLOT_IN, OUTRO_SLOT_FADE = 0.55, 0.85                     # yuvalar: girer / tam görünene dek (sn, çıkış başından)
 OUTRO_SLOT_FULL = OUTRO_SLOT_IN + OUTRO_SLOT_FADE               # = 1,4 sn: yuvaların TAM görünür olduğu an (çıkış başından; ≤ 1,5)
-NEXT_PART_LINE = {1: "2/7 · COSIMO: SÜRGÜN VE DÖNÜŞ"}           # sol yuvanın ("SIRADAKİ PARÇA") altındaki küçük satır (parça → metin; yoksa satır yok)
+NEXT_PART_LINE = {1: "2/7 · Cosimo: Sürgün ve Dönüş"}           # sol yuvanın ("SIRADAKİ PARÇA") altındaki satır (parça → metin; yoksa satır yok). Çizimde sk.tr_upper'dan
+                                                                # geçer (kurul tur 3 TE2-G6: "COSIMO" noktasız çıkıyordu; levhalar "COSİMO") → küçük harfle yaz
+OUTRO_SLOT_Y = 556                                              # yuvaların üst kenarı (eski 610; TE2-G6: alt satır oynatıcı denetim çubuğu bölgesinden ≥40 px yukarı)
+OUTRO_SUB_SIZE = 34.0                                           # alt satır puntosu (eski 28; kurul tabanı ≥34 px)
 OUTRO_TITLE_LIFT = 1.25                                         # "ZAMAN KURYESİ" kabartmasının toplamsal ışık geçişi (koyu hale ile birlikte kontrast ≥ 4,5:1)
 END_HOLD = 1.3                                                  # parça sonu: anlatı bittikten sonra son çekimde kalış (sn; c.t1 zaten ≈0,1 sn pay içerir → ≈1,4 sn nefes)
 TAIL = END_HOLD + OUTRO                                         # miks kuyruğu (miks.py --tail): bekleme + bitiş ekranı = 11,3 sn (OUTRO değişince kendiliğinden)
@@ -190,6 +193,15 @@ def _gap_fill(avg, first, last, frac):
 PAPER_WORLD = True                                              # False: eski ekran-uzayı doku (karşılaştırma / geri dönüş)
 PAPER_TOOTH, PAPER_GRAIN = 1.0, 1.35                            # CM.post varsayılanlarıyla aynı güç
 GRAIN_FIELDS, GRAIN_PAD = 4, 96
+# ENG-E (kurul tur 3 TE1-Y9): dünyaya kilitli doku eskiden 1920×1080'lik TEK görüntünün BORDER_REFLECT ile çarpıtılmasıydı → kamera/dünya kayınca
+# doku koordinatı görüntünün dışına taşıyor, taşan yer AYNALANIYORDU (P1'de 2 sn'lik örneklemede karelerin %46'sında ekran içinde dikiş; kabartma
+# sol-üst ışıkla gölgelendiği için dikişin iki yanında ışık yönü de dönüyordu). Yeni: aynı doku modeli (cilt_wall.tooth: kum tanesi + gözenek, aynı
+# σ'lar, aynı ışık yönü ve normalleştirme) PERİYODİK sınırla (np.pad wrap + döngüsel Sobel) üretilir ve BORDER_WRAP ile döşenir → dikiş yok.
+# Periyot ekranın 2 katı: P1'de ölçülen en büyük doku açıklığı 1,33·ekran → periyot ekranda tekrar etmez. Hız: ofset periyoda indirilir ve karo
+# sarmalı dolguyla genişletilir → çarpıtma (k ≤ 1,6) hep dizinin içinde kalır (≈1,2 ms; eski REFLECT taşınca ≈3 ms). False → eski davranış.
+PAPER_WRAP = True
+TOOTH_TILE = (3840, 2160)                                       # karo periyodu (px)
+TOOTH_PAD = (3072, 1728)                                        # sarmalı dolgu (px): hızlı yol k·W + 2 ≤ 3072 ve k·H + 2 ≤ 1728 iken
 _PAPER = {}
 
 
@@ -198,6 +210,60 @@ def _tooth1():
     if t is None:
         t = _PAPER["tooth"] = np.ascontiguousarray(CM.tooth_img(PAPER_TOOTH)[:, :, 0])
     return t
+
+
+def _blur_wrap(a, sigma):
+    """Döngüsel (periyodik sınırlı) Gauss bulanıklığı: çekirdek yarıçapı (≈4σ) kadar sarmalı dolgu → bulanıklık → kırp."""
+    p = int(math.ceil(4.0 * sigma)) + 2
+    b = cv2.GaussianBlur(np.pad(a, p, mode="wrap"), (0, 0), sigma)
+    return np.ascontiguousarray(b[p:-p, p:-p])
+
+
+def _gn_wrap(rs, h, w, sigma):
+    """cilt_wall.gn'in periyodik eşi: bulanık normal gürültü, std'ye bölünmüş."""
+    n = _blur_wrap(rs.standard_normal((h, w)).astype(np.float32), sigma)
+    return n / (n.std() + 1e-6)
+
+
+def _sobel_wrap(h):
+    """cv2.Sobel(ksize=3) ile aynı çekirdek, döngüsel sınırla (np.roll): (gx, gy)."""
+    d = np.roll(h, -1, 1) - np.roll(h, 1, 1)
+    gx = np.roll(d, 1, 0) + 2.0 * d + np.roll(d, -1, 0)
+    e = np.roll(h, -1, 0) - np.roll(h, 1, 0)
+    gy = np.roll(e, 1, 1) + 2.0 * e + np.roll(e, -1, 1)
+    return gx, gy
+
+
+def tooth_periodic(size=TOOTH_TILE, seed=5, strength=PAPER_TOOTH):
+    """cilt_wall.tooth ile AYNI model ve sabitler (kazanç·230; seyrek kum taneleri + ince gaussian + iri tane + gözenek; tek ışık sol-üst), ama her
+    süzgeç döngüsel sınırla → görüntü her iki eksende periyodik (döşenince dikiş yok). Ölçüm (ENG-E): ort. 229,40 / std 8,17 / yüksek geçiren std 7,77 /
+    özilinti ve ışık yönü imzası eski 1920×1080 dokuyla aynı; döşeme sınırındaki fark ve ayna korelasyonu iç dağılımın içinde."""
+    wt, ht = int(size[0]), int(size[1])
+    rs = np.random.RandomState(seed)
+    h = 0.30 * _gn_wrap(rs, ht, wt, 0.65)
+    for dens, sg, amp in ((0.10, 0.95, 0.55), (0.035, 1.6, 0.75), (0.006, 2.6, 1.0)):
+        g = (rs.rand(ht, wt) < dens).astype(np.float32) * rs.uniform(0.5, 1.0, (ht, wt)).astype(np.float32)
+        h += amp * _blur_wrap(g, sg) * (sg * 2.2)
+    h += 0.18 * _gn_wrap(rs, ht, wt, 7.0)
+    gx, gy = _sobel_wrap(h)
+    sh = 0.55 * gx + 0.65 * gy
+    sh /= (np.abs(sh).std() + 1e-6)
+    gain = 1.0 + 0.020 * strength * sh + 0.012 * strength * (h - h.mean()) / (h.std() + 1e-6)
+    sp = rs.rand(ht, wt)
+    pores = _blur_wrap((sp < 0.0016).astype(np.float32), 0.8) * 3.0
+    gain *= 1.0 - 0.10 * np.clip(pores, 0, 1)
+    gain *= np.where(sp > 0.9988, 1.035, 1.0)
+    return np.clip(gain * 230.0, 0, 255).astype(np.uint8)
+
+
+def _tooth_tile():
+    """(periyodik karo, sarmalı dolgulu geniş dizi) — süreç başına bir kez (≈2,6 sn), önbellekli."""
+    v = _PAPER.get("tile")
+    if v is None:
+        t = tooth_periodic(TOOTH_TILE)
+        big = np.ascontiguousarray(np.pad(t, ((0, TOOTH_PAD[1]), (0, TOOTH_PAD[0])), mode="wrap"))
+        v = _PAPER["tile"] = (t, big)
+    return v
 
 
 def _grain_fields():
@@ -262,7 +328,21 @@ def paper_matrix(cx):
 
 def _tooth_warp(t1, cx_):
     M = paper_matrix(cx_)
-    return t1 if M is None else cv2.warpAffine(t1, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
+    if M is None:
+        return t1
+    if not PAPER_WRAP:                                          # eski: tek görüntü + ayna (dikişli)
+        return cv2.warpAffine(t1, M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REFLECT)
+    tile, big = _tooth_tile()
+    pw, ph = TOOTH_TILE
+    M2 = np.array(M, np.float64)
+    M2[0, 2] %= pw                                              # aynı doku noktası (periyot): hep dizinin başına yakın
+    M2[1, 2] %= ph
+    M2 = M2.astype(np.float32)
+    kx, ky = float(M2[0, 0]), float(M2[1, 1])
+    if M2[0, 1] == 0 and M2[1, 0] == 0 and 0 < kx * W + 2 <= TOOTH_PAD[0] and 0 < ky * H + 2 <= TOOTH_PAD[1]:
+        # hızlı yol: örneklenen her nokta sarmalı dolgulu dizinin İÇİNDE (sınır kipi kullanılmaz; güvenlik için REPLICATE)
+        return cv2.warpAffine(big, M2, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+    return cv2.warpAffine(tile, M2, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_WRAP)
 
 
 def paper(img, n, samples=()):
@@ -553,9 +633,12 @@ class Program:
             return 3
         return PERDE_OF.get(cid, 2)
 
-    def _render_shot(self, s, g, frame=None):
+    def _render_shot(self, s, g, frame=None, g_nom=None):
         f = frame or Frame()
         cx = SH.Ctx(f, g - s.t0 + s.lead, s, self.tl)
+        # karenin NOMİNAL yerel saati (ENG-E): deklanşör alt örneklerinde cx.t ±1/96 sn kayar; sayaç gibi AYRIK öğeler cx.t_nom'u okursa alt örnekler
+        # arasında rakam değişmez (hayalet rakam olmaz). Normal çizimde cx.t ile aynı.
+        cx.t_nom = (g if g_nom is None else g_nom) - s.t0 + s.lead
         cx.perde = self._perde_at(g, s)
         cx.year = self.ys.at(g)[0] if self.ys.e else None      # çekim listesi (reel/kapak) modunda yıl yok (donem.py sözleşmesi; ENG-A 7)
         SH.KINDS[s.kind](cx, **s.params)
@@ -718,7 +801,7 @@ class Program:
                 aj = arr
                 cxs.append(cx)
             else:
-                fj = self._render_shot(s, min(max(g + o, lo), hi))
+                fj = self._render_shot(s, min(max(g + o, lo), hi), g_nom=g)
                 aj = _bgra(fj)
                 cxs.append(getattr(fj, "_cx", None))
                 stt["extra_renders"] += 1
@@ -857,12 +940,13 @@ def k_outro(cx, part=None, **_):
     left = ("TÜM FİLM" if part == N_PARTS else "SIRADAKİ PARÇA") if part else "SIRADAKİ TESLİMAT"
     right = "ABONE OL · ZAMAN KURYESİ" if part else "ABONE OL  ·  ZAMAN KURYESİ"
     br = 0.80 + 0.20 * (0.5 + 0.5 * math.sin(cx.t * 1.7))          # yuvaların çerçevesi hafif nefes alır (durağan değil)
-    slots = ((330, 610, 520, 292, left), (1070, 610, 520, 292, right))
+    slots = ((330, OUTRO_SLOT_Y, 520, 292, left), (1070, OUTRO_SLOT_Y, 520, 292, right))
     for (x, y, w, h, lab) in slots:
         f.rrect(x, y, w, h, 12, color="#000000", alpha=0.30 * k)
         ORN.hairline_frame(f, x, y, w, h, alpha=0.95 * k * br, color="#E9C770", gap=8)
     # etiketler (kurul SA1-Ö5 / TE2-Ö6: #E9C770, ≥34 px, okunur kontrast); sol yuvanın altında sonraki parça satırı (PK2-Y6: "2/7 · …")
     nxt = NEXT_PART_LINE.get(part) if part else None
+    nxt = sk.tr_upper(nxt) if nxt else nxt                          # TE2-G6: Türkçe büyük harf (COSİMO)
     for j, (x, y, w, h, lab) in enumerate(slots):
         sz, trk = 38.0, 5.0
         while sk.text_width(lab, "title_m", sz, trk) > 640 and sz > 34.0:   # ≥34 px korunur; yuvalar arası 220 px boşluk etiket taşmasını alır
@@ -870,10 +954,12 @@ def k_outro(cx, part=None, **_):
         wd = sk.text_width(lab, "title_m", sz, trk) + 48
         yb = y + h + 50
         sub = nxt if (j == 0 and nxt) else None
-        ssz, strk = 28.0, 3.0
-        if sub:
-            while sk.text_width(sub, "title_m", ssz, strk) > 660 and ssz > 24.0:
-                ssz, strk = ssz - 1.0, max(1.5, strk - 0.5)
+        ssz, strk = OUTRO_SUB_SIZE, 3.0
+        if sub:                                                    # TE2-G6: ≥34 px korunur → önce harf aralığı daralır, punto 34'ün altına inmez
+            while sk.text_width(sub, "title_m", ssz, strk) > 660 and strk > 1.0:
+                strk = max(1.0, strk - 0.5)
+            while sk.text_width(sub, "title_m", ssz, strk) > 660 and ssz > 34.0:
+                ssz -= 1.0
             wd = max(wd, sk.text_width(sub, "title_m", ssz, strk) + 48)
         hh = sz + 26 + ((ssz + 14) if sub else 0)                  # alt kenar ≤ 1020 (güvenli alan)
         f.rrect(x + w / 2 - wd / 2, yb - sz - 8, wd, hh, 10, color="#0B0805", alpha=0.62 * k)

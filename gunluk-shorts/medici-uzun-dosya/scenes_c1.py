@@ -232,7 +232,12 @@ SHOTS = [
          ovl=P.ov(P.tag("KISA ÖMÜRLÜ LONCA KALDIRILDI", 960, 200, ("c1s23", "kaldırıldı", 0.2), size=48, out=("c1s23", "yönetimden", -0.2)),
                   P.tag("YÖNETİMDEN DE DIŞLANDILAR", 960, 200, ("c1s23", "yönetimden", 0.0), size=48),
                   TEMSILI(("c1s23", -0.15))),
-         cam=("pull",), tr=("carry", 0.7, dict(strip="banner", dir="r")), link="carry", label="lonca kaldırıldı; dışlandılar"),
+         # kurul tur 3 (ENG-E): TE2-G5 — "CİOMPİ LONCASI" etiketi tür içinde kalkanın sağına sabit (dünya x≈1391–1855); eski ("pull",) itmesiyle x≈1420–1917'ye
+         # çıkıyordu (güvenli çizginin dışında). Aynı geri çekiliş (odak (1072, 597), %6,8 → 0) anahtar karelerle; içerik 100 px sola → etiket ≤ ≈1820.
+         # PK2-Y9 — "isyanı ezdi"nin hemen ardından kırmızı bant + mühür daireleri ("banner") "kan" çağrışımı yapıyordu → mürekkep şeridi (yalnız bu geçiş;
+         # "paper" şeridinin ortasında kırmızı balmumu mühür var — cilt_fx — o yüzden "ink": kırmızı ve daire yok).
+         cam=[(("c1s23", -0.15), (100, 0, 1.068, 0)), (("c1s24", -0.1), (100, 0, 1.0, 0)), dict(pivot=(1072, 597))],
+         tr=("carry", 0.7, dict(strip="ink", dir="r")), link="carry", label="lonca kaldırıldı; dışlandılar"),
     # ── 24. Medici'nin bu kolu bir kademe altta; kır gelirleri ───────────────
     shot("c1_kademe", ("c1s24", -0.1), mode="day", perde=1, elite_at=("c1s24", "seçkinlerinin", -0.35), medici_at=("c1s24", "Medici'nin", -0.1), field_at=("c1s24", "kır", -0.6), income_at=("c1s24", "gelirleriyle", -0.3),
          ovl=TEMSILI(("c1s24", "seçkinlerinin", 0.0)),

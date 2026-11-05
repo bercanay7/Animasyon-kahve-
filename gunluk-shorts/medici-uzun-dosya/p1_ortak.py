@@ -217,6 +217,8 @@ def stamp(text, x, y, at, rot=-0.10, size=56, color=None, out=None, dur=0.3):
         if t <= 0 or t_out <= 0.01:
             return
         _paper_stamp(cx.f, text, x, y, rot=rot, size=size, color=color, alpha=t_out, t=t)
+        import anim as _AN                                       # ENG-E (kurul tur 3 AN1-Y7): çarpma ölçeğinin gerçek hızı → deklanşör
+        _AN.hint_pop(cx, x, y, _AN.cm_stamp_box(text, size), at, dur, _AN.cm_stamp_scale, rot=rot)
     return fn
 
 
@@ -458,6 +460,7 @@ def coin_arc(p0, p1, at, n=6, dur=1.0, gap=0.16, lift=170, size=64, out=None):
             y = p0[1] + (p1[1] - p0[1]) * e - lift * math.sin(math.pi * e)
             a = min(1.0, u * 6) * min(1.0, (1 - u) * 6 + 0.2)
             CP.draw_coin(cx.f, x, y, size, spin=cx.t * 14 + i, alpha=a, shadow=0.25)
+            _hint_coin(cx, p0, p1, t0 + gap * i, dur, lift, size, i)      # ENG-E (kurul tur 3 AN1-Y7): sikkenin gerçek hızı → deklanşör
     return fn
 
 
@@ -535,7 +538,57 @@ def prop_arc(icon, p0, p1, at, dur=0.9, size=110, lift=120, metal="gold", show_f
             icon(cx.f, x, y + bob, size, k, r)
         else:
             icons.draw_icon(cx.f, icon, x, y + bob, size=size, metal=metal, alpha=k, rot=r, glow=0.0)
+        _hint_arc(cx, p0, p1, t_at, dur, lift, size, rot0, rot1)        # ENG-E (kurul tur 3 AN1-Y7): uçan nesnenin gerçek hızı → deklanşör
     return fn
+
+
+# ── deklanşör ipuçları (ENG-E, kurul tur 3 AN1-Y7; YENİ yardımcılar): uçan nesne / sikke / düşen mühür GERÇEK ekran hızını bildirir (anim.hint_pts).
+#    Eskiden hiç bildirmiyordu: akış ölçümü küçük nesneyi (karenin <%3'ü) görmediği için 20–40 px/kare uçan nesne keskin kalıyordu. ──
+def _arc_pos(p0, p1, t_at, dur, lift, rot0, rot1, tt):
+    """prop_arc'ın tt anındaki (x, y + bob, dönüş) konumu — prop_arc ile aynı formül."""
+    u = clamp((tt - t_at) / dur)
+    e = ease_io(u, 1.7)
+    x = p0[0] + (p1[0] - p0[0]) * e
+    y = p0[1] + (p1[1] - p0[1]) * e - lift * math.sin(math.pi * e)
+    bob = 3.0 * math.sin(tt * 2.6) * (1.0 - math.sin(math.pi * e))
+    return x, y + bob, rot0 + (rot1 - rot0) * e
+
+
+def _hint_arc(cx, p0, p1, t_at, dur, lift, size, rot0, rot1):
+    import anim
+    dt = anim.DT_HINT
+    if not (t_at - dt <= cx.t <= t_at + dur + dt):
+        return 0.0
+    h = size / 2.0
+    pts = []
+    for tt in (cx.t - dt / 2, cx.t + dt / 2):
+        x, y, r = _arc_pos(p0, p1, t_at, dur, lift, rot0, rot1, tt)
+        pts.append(anim.box_pts(x, y, -h, -h, h, h, rot=r))
+    return anim.hint_pts(cx, pts[0], pts[1])
+
+
+def _hint_coin(cx, p0, p1, t_start, dur, lift, size, i):
+    """coin_arc'taki bir sikke: yaydaki konum + dikey eksende dönen kenar (draw_coin: genişlik ∝ |cos(spin)|)."""
+    import anim
+    dt = anim.DT_HINT
+    pts = []
+    for tt in (cx.t - dt / 2, cx.t + dt / 2):
+        e = ease_io(clamp((tt - t_start) / dur), 1.6)
+        x = p0[0] + (p1[0] - p0[0]) * e
+        y = p0[1] + (p1[1] - p0[1]) * e - lift * math.sin(math.pi * e)
+        hw = 0.5 * size * max(0.012, abs(math.cos(tt * 14 + i)))
+        pts.append([(x - hw, y), (x + hw, y), (x, y - 0.5 * size), (x, y + 0.5 * size), (x, y)])
+    return anim.hint_pts(cx, pts[0], pts[1])
+
+
+def _hint_seal_drop(cx, x, y, t_at, r):
+    """seal_drop: mühür 240 px yukarıdan düşer ve oturur (anim.settle) — aynı formül."""
+    import anim
+    dt = anim.DT_HINT
+    if not (t_at - 0.25 - dt <= cx.t <= t_at + 0.8):
+        return 0.0
+    pa, pb = [anim.box_pts(x, y - 240 * (1.0 - anim.settle(tt, t_at - 0.25, 0.45, 0.10)), -r, -r, r, r) for tt in (cx.t - dt / 2, cx.t + dt / 2)]
+    return anim.hint_pts(cx, pa, pb)
 
 
 def tiara_draw(f, x, y, size, alpha=1.0, rot=0.0):
@@ -961,6 +1014,7 @@ def seal_drop(x, y, at, r=120, label=None, label_size=44, out=None, col="#A52A1C
             CM.wax_seal(f, x, yy, r, col, alpha=k, t=1.0, palle=False)
             palle_relief(f, x, yy, r * 1.05, v, mix(col, "#000000", 0.18), alpha=0.95 * k)
             DN.note_once_per_frame("arms", where="muhur", variant=v, blue=False, mono=True, nesne_yili=year)
+        _hint_seal_drop(cx, x, y, t_at, r)                        # ENG-E (kurul tur 3 AN1-Y7): düşen mührün gerçek hızı → deklanşör
         if cx.t >= t_at:
             ph = clamp((cx.t - t_at) / 0.8)
             if ph < 1.0:

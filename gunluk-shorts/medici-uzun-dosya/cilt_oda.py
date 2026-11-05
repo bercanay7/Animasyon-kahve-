@@ -429,9 +429,222 @@ def _paper(seed, tone, w=1100, h=760):
     return PP.paper_image(w, h, seed, tone, "deckle", (), 44, 1.0)
 
 
+# ── belge yazısı (kurul tur 3 SA1-N3, ENG-E) ──────────────────────────────────────────────────────────────────────────────────────────────
+# Eski gövde satırları ZİKZAK çizgiydi (yer tutucu); c2'de sayfalar gerçek harflerle yazılınca 1737 belgesi "çizilmemiş" gibi okunuyordu. Belgenin
+# özgün Fransızca metni kaynaklarda yok → gerçek cümle YAZILMAZ: ASEMİK el yazısı (harf alfabesi yok; kalem izi yordamsal): taban çizgisi ile
+# x-yüksekliği arasında salınan minimler (kemer/çanak/sivri bağlantı), ovaller, üst/alt uzantı ilmekleri, uzun-s benzeri dikme; değişken x-yüksekliği,
+# sözcük araları, satır başında büyük harf benzeri kıvrım, sağa eğim (≈11–13°), basınç (inen vuruş kalın, çıkan kıl çizgi), mürekkep vuruş başında koyu
+# ve sözcükler boyunca açılır (her 3–7 sözcükte "hokkaya batırma"), düzensiz satır sonları. Düşük kontrast, tohumlu (deterministik).
+# Satır tabanları ESKİSİYLE AYNI (top 150, adım min(420/(n−1), 40)) → c0_belge'nin III. madde vurgusu ve Romen rakamları hizada kalır.
+SCRIPT_ASEMIC = True                       # False → eski zikzak (_script_img_zigzag)
+SCRIPT_RES = 2                             # yazı görüntüsü çözünürlük çarpanı: belge 2,5× büyütülse de görüntü ≤1,25× büyür; küçültmede mipmap
+SCRIPT_ASC, SCRIPT_DESC = 22.5, 12.5       # satır tabanına göre en büyük üst / alt uzantı (belge px; kalem kalınlığı dâhil) → kısmi gösterim kırpması
+_ASC_GEN, _DESC_GEN = 21.0, 11.5           # üretimde uzantı tavanı (nokta)
+_SCRIPT_SAMP = skia.SamplingOptions(skia.FilterMode.kLinear, skia.MipmapMode.kLinear)
+
+
+def _asm_catmull(pts, step):
+    """Tekdüze Catmull-Rom: noktalar arası ≈step aralıklı örnekler."""
+    if len(pts) < 2:
+        return list(pts)
+    P = [pts[0]] + list(pts) + [pts[-1]]
+    out = []
+    for i in range(1, len(P) - 2):
+        p0, p1, p2, p3 = P[i - 1], P[i], P[i + 1], P[i + 2]
+        m = max(3, int(math.ceil(math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / step)))
+        for j in range(m):
+            t = j / m
+            t2, t3 = t * t, t * t * t
+            out.append(tuple(0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * t + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * t2 + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * t3)
+                             for k in (0, 1)))
+    out.append(pts[-1])
+    return out
+
+
+def _asm_mix(a, b, k):
+    a = sk.rgb(a) if isinstance(a, str) else a
+    b = sk.rgb(b) if isinstance(b, str) else b
+    return tuple(int(round(a[i] + (b[i] - a[i]) * k)) for i in range(3))
+
+
+def _asm_pen(c, pts, wmin, wmax, col0, col1, res, levels=5):
+    """Kalem vuruşu: aşağı inen parça kalın (basınç), çıkan kıl çizgi; vuruş başında mürekkep birikir (ilk ≈10 px kalın + koyu nokta), renk vuruş
+    boyunca açılır. Genişlik 5 düzeye nicelenip ardışık aynı düzeyler tek yol olarak çizilir (hız)."""
+    n = len(pts)
+    if n < 2:
+        return
+    L = [0.0]
+    for k in range(n - 1):
+        L.append(L[-1] + math.hypot(pts[k + 1][0] - pts[k][0], pts[k + 1][1] - pts[k][1]))
+    tot = max(1e-6, L[-1])
+    wtop = wmax * 1.3
+    qs = []
+    for k in range(n - 1):
+        dx, dy = pts[k + 1][0] - pts[k][0], pts[k + 1][1] - pts[k][1]
+        d = math.hypot(dx, dy) or 1e-6
+        down = max(0.0, dy / d)
+        w = wmin + (wmax - wmin) * down * down * (3 - 2 * down) + 0.30 * (wmax - wmin) * math.exp(-L[k] / 10.0)
+        qs.append(min(levels - 1, int(round((w - wmin) / (wtop - wmin) * (levels - 1)))))
+    paint = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeCap=skia.Paint.kRound_Cap, StrokeJoin=skia.Paint.kRound_Join)
+    k0 = 0
+    while k0 < len(qs):
+        q = qs[k0]
+        k1 = k0
+        while k1 + 1 < len(qs) and qs[k1 + 1] == q:
+            k1 += 1
+        col = _asm_mix(col0, col1, min(1.0, L[k0] / tot * 1.15))
+        paint.setColor(skia.Color(col[0], col[1], col[2], 255))
+        paint.setStrokeWidth(res * (wmin + (wtop - wmin) * q / (levels - 1)))
+        p = skia.Path()
+        p.moveTo(res * pts[k0][0], res * pts[k0][1])
+        for k in range(k0 + 1, k1 + 2):
+            p.lineTo(res * pts[k][0], res * pts[k][1])
+        c.drawPath(p, paint)
+        k0 = k1 + 1
+    col = _asm_mix(col0, "#000000", 0.12)
+    c.drawCircle(res * pts[0][0], res * pts[0][1], res * wmax * 0.60, skia.Paint(AntiAlias=True, Color=skia.Color(col[0], col[1], col[2], 255)))
+
+
+def _asm_word(rs, x, hx, units, jit=0.055, mark_p=0.03):
+    """Bir "sözcüğün" kalem izi (yerel: taban y = 0, yukarı −; harf alfabesi yok). Dönüş: (vuruşlar, aksan benzeri çentikler, bitiş x)."""
+    strokes, marks = [], []
+
+    def J():
+        return hx * jit * rs.randn()
+    pts = [(x - 0.30 * hx, 0.16 * hx), (x + J(), -0.30 * hx + J())]                 # giriş kıl çizgisi
+    cx_ = x
+    for _u in range(units):
+        r = rs.rand()
+        hk = hx * (0.84 + 0.26 * rs.rand())
+        wk = hx * (0.50 + 0.20 * rs.rand())
+        if r < 0.64:                                              # minim: kemer (∩), çanak (∪) ya da sivri bağlantı
+            q = rs.rand()
+            if q < 0.48:
+                pts += [(cx_ + 0.06 * wk + J(), -0.72 * hk + J()), (cx_ + 0.34 * wk + J(), -1.04 * hk + J()), (cx_ + 0.68 * wk + J(), -0.86 * hk + J()),
+                        (cx_ + 0.78 * wk + J(), -0.08 * hk + J())]
+            elif q < 0.90:
+                pts += [(cx_ + 0.16 * wk + J(), -1.0 * hk + J()), (cx_ + 0.20 * wk + J(), -0.28 * hk + J()), (cx_ + 0.46 * wk + J(), 0.02 * hk + J()),
+                        (cx_ + 0.82 * wk + J(), -0.50 * hk + J())]
+            else:
+                pts += [(cx_ + 0.30 * wk + J(), -0.10 * hk + J()), (cx_ + 0.62 * wk + J(), -0.98 * hk + J())]
+            cx_ += 0.86 * wk
+        elif r < 0.80:                                            # oval (saat yönünün tersine), üstten çıkış
+            ow = wk * (1.0 + 0.3 * rs.rand())
+            pts += [(cx_ + 0.70 * ow, -0.92 * hk), (cx_ + 0.30 * ow + J(), -1.0 * hk), (cx_ + 0.04 * ow + J(), -0.52 * hk), (cx_ + 0.24 * ow + J(), 0.0),
+                    (cx_ + 0.64 * ow + J(), -0.32 * hk), (cx_ + 0.76 * ow + J(), -0.92 * hk), (cx_ + 1.0 * ow + J(), -0.70 * hk)]
+            cx_ += 1.02 * ow
+        elif r < 0.89:                                            # üst uzantı ilmeği (yukarı sağa çık, sola dönüp in)
+            ah = min(_ASC_GEN * 0.96, hk * (1.75 + 0.35 * rs.rand()))
+            pts += [(cx_ + 0.30 * wk, -0.85 * hk), (cx_ + 0.86 * wk + J(), -ah * 0.90), (cx_ + 0.74 * wk + J(), -ah), (cx_ + 0.46 * wk + J(), -ah * 0.84),
+                    (cx_ + 0.30 * wk + J(), -0.14 * hk), (cx_ + 0.56 * wk + J(), 0.0), (cx_ + 0.92 * wk + J(), -0.38 * hk)]
+            cx_ += 1.0 * wk
+        elif r < 0.97:                                            # alt uzantı ilmeği
+            dh = min(_DESC_GEN * 0.95, hk * (0.90 + 0.25 * rs.rand()))
+            pts += [(cx_ + 0.18 * wk + J(), -0.96 * hk), (cx_ + 0.24 * wk + J(), 0.28 * hk), (cx_ + 0.16 * wk + J(), dh), (cx_ - 0.16 * wk + J(), dh * 0.84),
+                    (cx_ + 0.06 * wk + J(), 0.30 * hk), (cx_ + 0.78 * wk + J(), -0.34 * hk)]
+            cx_ += 0.90 * wk
+        else:                                                     # uzun dikme (uzun-s benzeri): yukarıdan aşağı, kalem kalkar
+            ah = min(_ASC_GEN * 0.92, hk * (1.8 + 0.3 * rs.rand()))
+            dh = min(_DESC_GEN * 0.9, hk * 0.85)
+            pts += [(cx_ + 0.25 * wk, -0.6 * hk), (cx_ + 0.70 * wk, -ah * 0.95), (cx_ + 0.52 * wk, -ah), (cx_ + 0.32 * wk, -0.4 * hk), (cx_ + 0.20 * wk, dh)]
+            strokes.append(pts)
+            pts = [(cx_ + 0.44 * wk, -0.32 * hk)]
+            cx_ += 0.74 * wk
+        if rs.rand() < mark_p:                                    # aksan benzeri küçük çentik
+            marks.append((cx_ - 0.3 * wk, -1.55 * hk, rs.rand() < 0.5))
+    pts += [(cx_ + 0.28 * hx, -0.34 * hx)]                        # çıkış kıl çizgisi
+    strokes.append(pts)
+    return strokes, marks, cx_ + 0.28 * hx
+
+
+def _asm_cap(rs, x, hx, kinds=(0, 1, 2)):
+    """Satır başı büyük harf benzeri kıvrım (büyük ilmek + kuyruk; harf değil). Dönüş: (vuruş, bitiş x)."""
+    s = min(_ASC_GEN / 2.75, hx) * (0.95 + 0.1 * rs.rand())
+    k = kinds[rs.randint(len(kinds))]
+    if k == 0:
+        pts = [(0.2, -0.3), (0.95, -2.2), (1.15, -2.65), (0.8, -2.7), (0.55, -2.1), (0.5, -1.0), (0.38, -0.05), (0.05, 0.3), (-0.12, 0.05), (0.4, -0.15), (1.0, 0.0), (1.4, -0.3)]
+    elif k == 1:
+        pts = [(1.0, -2.0), (0.9, -2.6), (0.45, -2.6), (0.15, -2.0), (0.35, -1.35), (0.75, -1.3), (0.25, -1.1), (0.05, -0.45), (0.35, 0.02), (0.95, -0.1), (1.35, -0.45)]
+    else:
+        pts = [(0.05, -1.9), (0.55, -2.68), (1.15, -2.35), (1.15, -1.25), (0.8, -0.25), (0.3, 0.05), (0.1, -0.25), (0.42, -0.35), (0.48, -1.6), (0.45, -2.3), (0.62, -0.55),
+               (0.85, 0.0), (1.35, -0.32)]
+    return [(x + u * s, v * s) for u, v in pts], x + 1.45 * s
+
+
+def _script_img_asemic(seed, n, w=1100, h=760, ink="#3A2616", res=SCRIPT_RES):
+    """Asemik el yazısı görüntüsü (RGBA, (w·res)×(h·res), belge uzayı res ölçekli; mipmap'li). Sözcük ve harf OLUŞTURMAZ (yordamsal kalem izi)."""
+    surf = skia.Surface(int(w * res), int(h * res))
+    c = surf.getCanvas()
+    c.clear(skia.ColorTRANSPARENT)
+    rs = _RS(seed * 977 + n + 101)
+    slant = 0.20 + 0.04 * rs.rand()
+    dark, light = _asm_mix(ink, "#000000", 0.18), _asm_mix(ink, "#A88A68", 0.42)
+
+    def draw(strokes, marks, base, alpha, wmax, slant_):
+        lay = skia.Paint()
+        lay.setAlphaf(alpha)                                      # sözcük katmanı: kendi içinde üst üste binen vuruşlar koyulaşmaz
+        c.saveLayer(None, lay)
+        for s_ in strokes:
+            sp = _asm_catmull(s_, 0.40)
+            pen_pts = [(px + (-py) * slant_, base + py) for (px, py) in sp]
+            _asm_pen(c, pen_pts, 0.40, wmax, dark, light, res)
+        for (mx, my, acute) in marks:
+            px, py = mx + (-my) * slant_, base + my
+            p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=res * 0.8, StrokeCap=skia.Paint.kRound_Cap, Color=skia.Color(*dark, 255))
+            c.drawLine(res * (px - 1.2), res * (py + (1.4 if acute else -1.0)), res * (px + 1.4), res * (py - (1.4 if acute else -1.0)), p)
+        c.restore()
+
+    L, Rr = 150, w - 150
+    # başlık: büyük kıvrım + 3 iri "sözcük" (okunur harf dizisi çıkmasın diye titreşim yüksek, çentik yok)
+    hx = 13.0
+    x = w * 0.33 + rs.uniform(-8, 8)
+    cp, x = _asm_cap(rs, x, hx * 0.9, kinds=(1, 2))
+    draw([cp], [], 96, 0.80, 2.2, slant)
+    for _wi in range(3):
+        st, mk, x = _asm_word(rs, x + hx * 0.15, hx, int(rs.randint(3, 7)), jit=0.09, mark_p=0.0)
+        draw(st, mk, 96 + rs.uniform(-1, 1), 0.80, 2.2, slant)
+        x += hx * 0.9
+    top, step = 150, (h - 150 - 190) / max(1, n - 1) if n > 1 else 40
+    dip = 0
+    for i in range(n):
+        y = top + i * min(step, 40)
+        x = L + (36 if i == 0 or rs.rand() < 0.12 else 0)
+        end = Rr - (rs.uniform(30, 260) if (i == n - 1 or rs.rand() < 0.15) else rs.uniform(0, 30))
+        hl = 7.8 * (0.94 + 0.12 * rs.rand())
+        tilt = rs.uniform(-0.6, 0.6) / 800.0
+        cp, x = _asm_cap(rs, x, hl)
+        draw([cp], [], y + 0.5 * math.sin(i), 0.78, 1.7, slant)
+        x += hl * 0.25
+        while x < end - 2.5 * hl:
+            rr = rs.rand()
+            units = 1 + (0 if rr < 0.04 else (1 if rr < 0.20 else (2 if rr < 0.40 else int(rs.randint(3, 6)) if rr < 0.80 else int(rs.randint(6, 10)))))
+            if x + units * 0.62 * hl + 0.5 * hl > end:
+                units = int((end - x - 0.5 * hl) / (0.62 * hl))
+                if units < 1:
+                    break
+            hx = hl * (0.92 + 0.16 * rs.rand())
+            base = y + (x - L) * tilt + 0.7 * math.sin(x * 0.012 + i * 1.7)
+            st, mk, x2 = _asm_word(rs, x, hx, units)
+            draw(st, mk, base, 0.76 - 0.06 * dip, 1.55 * hx / 7.8, slant + rs.uniform(-0.03, 0.03))
+            x = x2 + hl * (0.55 + 0.45 * rs.rand())
+            dip += 1                                              # mürekkep tükendikçe sözcükler açılır; 3–7 sözcükte bir "hokkaya batırma"
+            if dip > 2 + rs.randint(0, 4):
+                dip = 0
+    return surf.makeImageSnapshot().withDefaultMipmaps()
+
+
 @functools.lru_cache(maxsize=6)
 def _script_img(seed, n, w=1100, h=760, ink="#3A2616"):
-    """Okunmaz el yazısı: n satır (kıvrık kısa vuruşlardan sözcükler), başlık satırı. RGBA görüntü (belge uzayı w×h; orijin sol-üst)."""
+    """Belge yazısı görüntüsü (doc_sheet): SCRIPT_ASEMIC → asemik el yazısı ((w·SCRIPT_RES)×(h·SCRIPT_RES)); değilse eski zikzak (w×h).
+    Çözünürlük, görüntü genişliğinden okunur (img.width() / w)."""
+    if SCRIPT_ASEMIC:
+        return _script_img_asemic(seed, n, w, h, ink)
+    return _script_img_zigzag(seed, n, w, h, ink)
+
+
+@functools.lru_cache(maxsize=6)
+def _script_img_zigzag(seed, n, w=1100, h=760, ink="#3A2616"):
+    """ESKİ okunmaz yazı (yer tutucu zikzak): n satır (kıvrık kısa vuruşlardan sözcükler), başlık satırı. RGBA görüntü (belge uzayı w×h; orijin sol-üst)."""
     fr = sk.Frame(w, h)
     fr.clear(skia.ColorTRANSPARENT)
     c = fr.c
@@ -478,25 +691,44 @@ def doc_sheet(f, x, y, scale, t=0.0, n=13, shown=None, seed=3, rot=-0.012, tone=
     c.rotate(math.degrees(rot))
     c.scale(scale, scale)
     img = _script_img(seed, n)
+    ires = img.width() / 1100.0                                   # asemik yazı SCRIPT_RES× çözünürlükte (eski zikzak 1×)
+    samp = _SCRIPT_SAMP if ires > 1.001 else LIN
+
+    def _draw_script():
+        if ires > 1.001:
+            c.save()
+            c.scale(1.0 / ires, 1.0 / ires)
+            c.drawImage(img, 0, 0, samp, p_)
+            c.restore()
+        else:
+            c.drawImage(img, 0, 0, samp, p_)
     sh = n if shown is None else clamp(shown, 0, n)
     c.save()
     c.translate(-550, -380)
     full = int(math.floor(sh))
     frac = sh - full
     top, step = 150.0, min((760 - 150 - 190) / max(1, n - 1), 40.0)
-    # başlık her zaman; satırlar: üstten full satırlar tam, sıradaki kesirli (soldan açılır)
-    ylim = top + (full - 1) * step + step * 0.55 if full >= 1 else 120
+    # başlık her zaman; satırlar: üstten full satırlar tam, sıradaki kesirli (soldan açılır). Asemik yazıda bant sınırları uzantı paylarından
+    # (SCRIPT_ASC/DESC: tam satırlar tabanın DESC altına dek, yazılan satır [taban − ASC, taban + DESC]) → yazılmamış satırın üst ilmekleri erken görünmez
+    asm = ires > 1.001
+    if asm:
+        ylim = top + (full - 1) * step + SCRIPT_DESC if full >= 1 else top - SCRIPT_ASC - 1.0
+    else:
+        ylim = top + (full - 1) * step + step * 0.55 if full >= 1 else 120
     c.save()
     c.clipRect(skia.Rect.MakeLTRB(0, 0, 1100, ylim if sh < n else 760))
     p_ = skia.Paint(AntiAlias=True)
     p_.setAlphaf(alpha)
-    c.drawImage(img, 0, 0, LIN, p_)
+    _draw_script()
     c.restore()
     if sh < n and frac > 0.01:
         ycur = top + full * step
         c.save()
-        c.clipRect(skia.Rect.MakeLTRB(150, ycur - step * 0.55, 150 + (1100 - 300) * frac, ycur + step * 0.45))
-        c.drawImage(img, 0, 0, LIN, p_)
+        if asm:
+            c.clipRect(skia.Rect.MakeLTRB(140, ycur - SCRIPT_ASC, 150 + (1100 - 300) * frac, ycur + SCRIPT_DESC))
+        else:
+            c.clipRect(skia.Rect.MakeLTRB(150, ycur - step * 0.55, 150 + (1100 - 300) * frac, ycur + step * 0.45))
+        _draw_script()
         c.restore()
     c.restore()
     if seal:

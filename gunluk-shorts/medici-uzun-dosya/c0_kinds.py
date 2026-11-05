@@ -10,6 +10,7 @@ import math
 
 import skia
 
+import anim
 import cilt_medici as CM
 import cilt_oda as OD
 import cilt_props as CP
@@ -53,6 +54,16 @@ def _leaf(f, x, y, w, h, tone, alpha=1.0, back=False, grid=True, seed=0):
             yy = gy0 + gh * j / rows
             if yy < y + h - 6:
                 c.drawLine(gx0, yy, gx0 + gw, yy, gp)
+
+
+def _leaf_fly_pts(i, s, x0, y0, w, h):
+    """k_takvim'deki i. savrulan yaprağın (s = uçuş ilerlemesi) dört köşesi + merkezi — çizimle aynı formül (deklanşör hız ipucu için)."""
+    dxl = (-70 + 26 * math.sin(i * 1.7)) * s + 60 * math.sin(s * 5 + i) * (1 - s)
+    lx = x0 + w * (0.30 + 0.35 * ((i * 37) % 10) / 10.0) + dxl
+    ly = y0 + 40 + 700 * s * s + 80 * s
+    ang = math.radians(math.sin(i) * 25 + 160 * s * (1 if i % 2 else -1))
+    lw_, lh_ = w * 0.34, h * 0.30
+    return anim.box_pts(lx, ly, -lw_ / 2, -lh_ / 2, lw_ / 2, lh_ / 2, rot=ang)
 
 
 @ckind("c0_takvim")
@@ -126,6 +137,8 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
             f.rrect(-lw_ / 2, -lh_ / 2, lw_, lh_, 6, color=mix(tone, "#000000", 0.05 + 0.04 * (i % 3)), alpha=al)
             f.rrect(-lw_ / 2, -lh_ / 2, lw_, lh_, 6, style="stroke", sw=1.4, color="#4A3420", alpha=0.45 * al)
             c.restore()
+            if al > 0.02:                                     # ENG-E (kurul tur 3 AN1-Y7): savrulan yaprağın gerçek hızı (konum + dönüş) → deklanşör
+                anim.hint_pts(cx, *[_leaf_fly_pts(i, (tt - ts) / 1.05, x0, y0, w, h) for tt in (cx.t - anim.DT_HINT / 2, cx.t + anim.DT_HINT / 2)])
     # ilk yaprak (çevrilmeden önce): başlangıç tarihi — sayfa boş görünmesin (kurul AN2: durağan boş kâğıt)
     if first:
         kf0 = appear * (1.0 - smooth(p / 0.05))
@@ -146,12 +159,13 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
     c.restore()
     # sayaç
     xc = 1290
-    val = int(round(n * pe))
+    tq = getattr(cx, "t_nom", cx.t)                          # ENG-E: sayaç karenin nominal saatinden — deklanşör alt örneklerinde rakam değişmez (hayalet rakam yok)
+    val = int(round(n * ease_io(clamp((tq - ta) / max(1e-3, tb - ta)), 2.0)))
     a = cx.amt(start_at, 0.4, off=-0.2)
     txt = str(val)
     sz = 300
     sp = _gilt_or_ink(txt, "title", sz, 8.0)
-    jit = (1.0 + 0.012 * math.sin(cx.t * 40)) if spin else 1.0
+    jit = (1.0 + 0.012 * math.sin(tq * 40)) if spin else 1.0
     CM.draw_spr(f, sp, xc, 640 + 20, "c", alpha=a, scale=jit, shadow=0.5 if not TH.day else 0.0, glow=0.20 * a if (not TH.day and p >= 1.0) else 0.0)
     CM.ink(f, unit, xc, 640 + 108, face="title_m", size=64, color=TH.acc if TH.day else "#F6D886", align="c", track=22, alpha=a * cx.amt(start_at, 0.6, off=0.1), emboss=False)
     # ilerleme çubuğu (çevrilen günler)
@@ -167,7 +181,11 @@ def k_takvim(cx, start_at=("c0s6", "ölümünden", -0.3), end_at=("c0s6", "dört
 # ─────────────────────────────────────────────────────────────────────────────
 DOC_FILL = (1986.944, 161.505, 5.705882)         # oda1743: belge ekranı doldurur (cams anahtarı)
 DOC_ROT = -0.012
-ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"]
+# FRANSIZCA damgasının belge düzlemindeki merkezi. Kurul tur 3 TE2-G4 (ENG-E): eski (150, −40) #8'in 2,1–2,24× yakın planında harfleri x≈1880–1940'a,
+# kırmızı çerçeveyi ve fişi ekran dışına itiyordu → 85 belge px sola: #8 boyunca harfler ≤ ≈1750, çerçeve ≤ ≈1830, fiş ≤ ≈1880; #7'de ("Fransızca")
+# damga kadrajın ortasına iner (≈x 940). Aynı belge düzlemi: #7, #8 ve #10'da aynı yer (süreklilik).
+FR_XY = (65.0, -40.0)
+ROMAN =["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"]
 LINE_Y = [-380 + 150 + 35.0 * i for i in range(13)]       # doc_sheet satır tabanları (belge merkezi = 0,0)
 
 
@@ -194,6 +212,45 @@ def _cam_keys(cx, cams):
     return ks
 
 
+def _cr_cut(vals, t, e0=0.0, e1=0.0, tau=0.6):
+    """_cr ile aynı (anahtarlar arası smoothstep, iç anahtarlarda hız 0), ama UÇLARDA eğim: e0/e1 = ilk/son aralığın ortalama hızının katı.
+    e > 0 iken uç aralık Hermite'tir (dış uçta e, iç uçta 0; e ≤ 3 için tekdüze, aşma yok) ve anahtarın ötesinde kamera durmaz: o hızla sürer, tau sn'de
+    sönümlenir (cilt_pano.pchip ile aynı uzatma: en çok e·v·tau yol). e0 = e1 = 0 → _cr ile bit-birebir aynı (geçişli uçlar ve P7'nin girişi değişmez)."""
+    n = len(vals)
+    if n < 2 or (e0 <= 0.0 and e1 <= 0.0):
+        return _cr(vals, t)
+    if t <= vals[0][0]:
+        (ta, va), (tb, vb) = vals[0], vals[1]
+        if e0 <= 0.0:
+            return va
+        k = tau * (1.0 - math.exp(-(ta - t) / tau))
+        return tuple(a - e0 * (b - a) / max(1e-6, tb - ta) * k for a, b in zip(va, vb))
+    if t >= vals[-1][0]:
+        (ta, va), (tb, vb) = vals[-2], vals[-1]
+        if e1 <= 0.0:
+            return vb
+        k = tau * (1.0 - math.exp(-(t - tb) / tau))
+        return tuple(b + e1 * (b - a) / max(1e-6, tb - ta) * k for a, b in zip(va, vb))
+    i = 0
+    while i < n - 2 and t > vals[i + 1][0]:
+        i += 1
+    (ta, va), (tb, vb) = vals[i], vals[i + 1]
+    u = clamp((t - ta) / max(1e-6, tb - ta))
+    s0 = e0 if i == 0 else 0.0
+    s1 = e1 if i == n - 2 else 0.0
+    g = (u ** 3 - 2 * u * u + u) * s0 + (3 * u * u - 2 * u ** 3) + (u ** 3 - u * u) * s1
+    return tuple(a + (b - a) * g for a, b in zip(va, vb))
+
+
+def _doc_cam(cx, ks):
+    """c0_belge kamerası (k_belge ve belge_sayac AYNI işlevi kullanır → sayaç belgeye bağlı kalır). Kurul tur 3 AN1-Y-N3 (ENG-E): SERT KESMEYLE birleşen
+    uçta eğim cilt_cam.CUT_SLOPE ("hareket üstünde kesme"; cilt_cam/cilt_pano ile aynı kural): 43,9 sn'de #8 kesmeden hızsız başlıyordu (ilk adım ≈0),
+    #7 son anahtarından sonra kesmeye dek duruyordu. Geçişli uçlara (zoomthru/carry) dokunulmaz: e = 0, eski smoothstep."""
+    e0 = cilt_cam._end_factor(False, bool(getattr(cx, "cut_in", False)))
+    e1 = cilt_cam._end_factor(False, bool(getattr(cx, "cut_out", False)))
+    return _cr_cut(ks, cx.t, e0, e1)
+
+
 def _hand(f, text, x, y, size, color, alpha=1.0, seed=0, align="l"):
     import cilt_paper as PP
     PP.hand(f, text, x, y, "fell_i", size, color, alpha, 1.0, seed=seed, align=align)
@@ -213,7 +270,7 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
     cam = CM.Cam(cx, push=0.0, drift=(0.0, 0.0))
     CM.bgfill(f, cx, seed=seed, cam=cam, dress=None)
     ks = _cam_keys(cx, cams or [(0.0, (0.0, 0.0, 0.97))])
-    dxc, dyc, s = _cr(ks, cx.t)
+    dxc, dyc, s = _doc_cam(cx, ks)
     px, py = 960 - dxc * s, 520 - dyc * s
     OD.doc_sheet(f, px, py, s, cx.t, n=13, shown=None, seed=seed, rot=DOC_ROT, seal=False, shadow=0.6)
     c.save()
@@ -254,9 +311,12 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
     if seals:
         la, ra = seals
         CM.wax_seal(f, -330, 262, 58, "#A52A1C", alpha=1.0, t=cx.amt(la, 0.45), palle=True)
+        _SEAL_BOX = (-58 * 1.15, -58 * 1.15, 58 * 1.15, 58 * 1.15)
+        anim.hint_pop(cx, -330, 262, _SEAL_BOX, la, 0.45, anim.cm_seal_scale)      # ENG-E (AN1-Y7): mühür "çarpması"nın gerçek hızı → deklanşör
         kr = cx.amt(ra, 0.45)
         if kr > 0:
             CM.wax_seal(f, 330, 262, 58, "#233C8C", alpha=1.0, t=kr, palle=False)
+            anim.hint_pop(cx, 330, 262, _SEAL_BOX, ra, 0.45, anim.cm_seal_scale)
             ring_a = smooth(kr)
             f.circle(330, 262, 22, style="stroke", sw=3.0, color="#E8D49A", alpha=0.85 * ring_a)
             f.circle(330, 262, 9, color="#E8D49A", alpha=0.7 * ring_a)
@@ -271,11 +331,12 @@ def k_belge(cx, cams=None, seals=None, num_at=None, num_dur=1.1, fr_at=None, it_
         if k > 0.003:
             qx = -330 + 90 * (1.0 - k) + 12 * math.sin(cx.t * 9)
             OD.quill(c, qx, 262 + 4, -58.0, 0.9, alpha=k * (1 - cx.amt(pen_at, 1.0, off=1.4)))
-    # FRANSIZCA damgası
+    # FRANSIZCA damgası (konum FR_XY: kurul tur 3 TE2-G4 — #8 yakın planında sağ kenara taşıyordu)
     if fr_at is not None:
         k = cx.amt(fr_at, 0.3)
         if k > 0:
-            _paper_stamp(f, "FRANSIZCA", 150, -40, rot=-0.12, size=86, color="#A8321E", alpha=1.0, t=k)
+            _paper_stamp(f, "FRANSIZCA", FR_XY[0], FR_XY[1], rot=-0.12, size=86, color="#A8321E", alpha=1.0, t=k)
+            anim.hint_pop(cx, FR_XY[0], FR_XY[1], anim.cm_stamp_box("FRANSIZCA", 86), fr_at, 0.3, anim.cm_stamp_scale, rot=-0.12)   # ENG-E (AN1-Y7)
     # ITALIANO (elle yazılır) + sinabar çizgi
     if it_at is not None:
         k = clamp((cx.t - cx.at(it_at)) / 0.55)
@@ -446,7 +507,12 @@ def k_kuyruk(cx, scroll=(1180.0, 2020.0), sign_at=None, kick_at=None, kick="BUG�
     CM.bgfill(f, cx, seed=seed, cam=cam, dress=None)
     u = clamp(cx.t / max(1e-6, cx.dur))
     cam_st = getattr(cx, "cam_state", None)
-    scr = lerp(scroll[0], scroll[1], ease_io(u, 2.0))
+    kin, kout = bool(getattr(cx, "cut_in", False)), bool(getattr(cx, "cut_out", False))
+    if kin or kout:                  # ENG-E (kurul tur 3 AN1-Y-N3 taraması): kendi kaydırması sert kesmeyle birleşen uçta durmasın (cilt_cam.CUT_SLOPE; #14 77,97 sn)
+        s0, s1 = (cilt_cam.CUT_SLOPE if kin else 0.0), (cilt_cam.CUT_SLOPE if kout else 0.0)
+        scr = lerp(scroll[0], scroll[1], cilt_cam.hermite(u, s0, s1))
+    else:
+        scr = lerp(scroll[0], scroll[1], ease_io(u, 2.0))
     zoom = (cam_st.s if cam_st is not None else 1.0)
     gy = 860.0
     c.save()
@@ -597,6 +663,16 @@ def k_sikke(cx, sw_at=None, no_at=None, coin_at=None, cd_a=None, cd_b=None, y_fr
             if e < 0.97:
                 CP.draw_coin(f, x + g * 46 * (1 - e) * 2.0, cym + math.sin(cx.t * 1.2) * 6, size, spin=spin - g * 0.5, alpha=0.18 * kc, shadow=0.0)
         CP.draw_coin(f, x, cym + math.sin(cx.t * 1.2) * 6, size, spin=spin, alpha=kc, shadow=0.55, glow=0.22 * kc, glint=gl if gl < 1 else None)
+        if e < 1.0:                                           # ENG-E (kurul tur 3 AN1-Y7): yuvarlanan sikkenin gerçek hızı (≈110–170 px/kare; akış ≈20 ölçüyordu) → deklanşör
+            tc_ = cx.at(coin_at)
+
+            def _coin_pts(tt):
+                e_ = ease_out(clamp((tt - tc_) / 1.0), 3)
+                x_, y_ = lerp(W + 380, cxm, e_), cym + math.sin(tt * 1.2) * 6
+                sz_ = 470 * (0.92 + 0.08 * e_)
+                hw_ = 0.5 * sz_ * max(0.012, abs(math.cos(tt * 0.9 + 0.35 + (1 - e_) * 14.0)))
+                return [(x_ - hw_, y_), (x_ + hw_, y_), (x_, y_ - sz_ / 2), (x_, y_ + sz_ / 2), (x_, y_)]
+            anim.hint_pts(cx, _coin_pts(cx.t - anim.DT_HINT / 2), _coin_pts(cx.t + anim.DT_HINT / 2))
     # geri sarma halkası + yıl sayacı
     if cd_a is not None and cd_b is not None:
         ta, tb = cx.at(cd_a), cx.at(cd_b)
@@ -957,7 +1033,7 @@ def belge_sayac(cams, doc_xy, at, value, out=None, **kw):
     da kâğıtla birlikte kadrajdan çıkar (kayan nesne) ve rakamlar asla kutunun altına girmez. Boyut ekran uzayında sabit (okunurluk)."""
     def fn(cx):
         ks = _cam_keys(cx, cams)
-        dxc, dyc, s = _cr(ks, cx.t)
+        dxc, dyc, s = _doc_cam(cx, ks)                         # k_belge ile aynı kamera (kesme ucu eğimi dâhil)
         px, py = 960 - dxc * s, 520 - dyc * s
         _P.count_up(px + doc_xy[0] * s, py + doc_xy[1] * s, at, value, out=out, **kw)(cx)
     return fn

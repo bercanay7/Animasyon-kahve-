@@ -207,10 +207,23 @@ def isik_havuzu(f, x, y, r, hue=(18, 10, 15), gain=1.0):
         c.drawRect(skia.Rect.MakeLTRB(max(0, L), B_, min(W, R_), H), edge)
 
 
-def parilti(f, x, y, r, a=1.0, col="#FFF6DA", isinlar=True):
+SICAK_YANSIMA = "#F0B45A"      # sicak=True parıltının rengi: pirinçte sıcak yansıma (beyaz değil)
+
+
+def parilti(f, x, y, r, a=1.0, col="#FFF6DA", isinlar=True, sicak=False):
     """Metal parıltısı (toplamsal): karenin en parlak noktası. isinlar=True: dört kollu yıldız (videodaki kilit "tık"ı);
-    isinlar=False: yalnız yumuşak parlama (kapak karesi; kurul tur 2, PK1-Y5: kollu yıldız stok/YZ kapak klişesi)."""
+    isinlar=False: yalnız yumuşak parlama (kapak karesi; kurul tur 2, PK1-Y5: kollu yıldız stok/YZ kapak klişesi).
+    sicak=True (ENG-E, kurul tur 3 PK2-Y8b; varsayılan False → kapak karesi değişmez): beyaz sıcak nokta YOK — pirincin üstünde yumuşak, yatık, sıcak
+    renkli bir yansıma (ekran karışımı: renk kırpılıp beyaza patlamaz). Videodaki yankı bunu kullanır (kilidin sol üstündeki beyaz leke kalktı)."""
     c = f.c
+    if sicak:
+        c.save()
+        c.translate(x, y)
+        c.scale(1.0, 0.62)
+        f.circle(0, 0, r * 0.72, shader=f.rad(0, 0, r * 0.72 + 0.1, [(SICAK_YANSIMA, 0.0, int(105 * a)), (SICAK_YANSIMA, 0.45, int(46 * a)), (SICAK_YANSIMA, 1.0, 0)]),
+                 blend=skia.BlendMode.kScreen)
+        c.restore()
+        return
     if not isinlar:
         f.circle(x, y, r * 0.62, shader=f.rad(x, y, r * 0.62 + 0.1, [(col, 0.0, int(120 * a)), (col, 0.40, int(46 * a)), (col, 1.0, 0)]),
                  blend=skia.BlendMode.kPlus)
@@ -520,7 +533,7 @@ def _yazi_motor(f, satirlar, alpha):
 @ckind("kapak_kilit")
 def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zincir=((-80, 612), (2000, 622), 70), kamera=("itme", 0.025),
                   isik=(900, 732, 640, 1.0), ton=(18, 10, 15), kapan_at=0.45, duvar_y=470, hokka=(330, 700), yazi=None, seed=3,
-                  vinyet=0.75, isinlar=True, **_):
+                  vinyet=0.75, isinlar=True, parilti_sicak=False, **_):
     """K1 kapak sahnesi: 1743 imza masası yakın plan (oda1743'ün sıva/lambri/örtü/belge/mühür/hokka çizimleriyle), belgeyi saran demir zincir,
     pirinç asma kilit. kapan_at'ta kulp kapanır (geri sekme + parıltı). Tek ışık kilitte. yazi: kapak_sahne_shot(yazi=True) doldurur.
     HAREKET (ENG-D, kurul tur 2 AN1-Y2: yankıda beyan edilen cam=("push",) uygulanmıyordu, ilk 3,7 sn ölçek 1,0000): çekime cam= AÇIKÇA verilmişse
@@ -586,13 +599,21 @@ def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zin
     world()
     OD.PN.glow(c, kx, ky + B * 0.35, B * 2.0, "#FFB454", 0.20)
     kb = draw_padlock(f, kx, ky, B, drop=drop)
+    if live and kapan_at is not None and kapan_at - 0.05 <= cx.t <= kapan_at + 0.35:
+        # ENG-E (kurul tur 3 AN1-Y7): kapanan kulbun gerçek hızı (≈20 px/kare; karenin %0,2'si → akış görmüyordu) → deklanşör. Yalnız videodaki yankı
+        # (kapak karesi deklanşörsüz: engine_frame shutter=False → kapak değişmez)
+        def _kulp(tt):
+            d_ = (1.0 - back_out(clamp((tt - kapan_at) / 0.25))) * B * 0.10
+            return anim.box_pts(kx, ky - B * 0.20 - d_, -B * 0.36, -B * 0.20, B * 0.36, B * 0.20)
+        anim.hint_pts(cx, _kulp(cx.t - anim.DT_HINT / 2), _kulp(cx.t + anim.DT_HINT / 2))
     flash = 1.0 + 0.6 * math.exp(-max(0.0, cx.t - (kapan_at or 0.0)) * 5.0) * (1.0 if cx.t >= (kapan_at or 0.0) else 0.0)
     if live:                                                             # parıltı kilidin üstünde: kamerayla birlikte
-        parilti(f, kx - B * 0.30, ky + B * 0.06, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
+        parilti(f, kx - B * 0.30, ky + B * 0.06, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar,
+                sicak=parilti_sicak)
     c.restore()
     if not live:
         sx, sy = piv[0] + (kx - B * 0.30 - piv[0]) * k, piv[1] + (ky + B * 0.06 - piv[1]) * k
-        parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar)
+        parilti(f, sx, sy, B * 0.45 * (0.85 + 0.15 * math.sin(cx.t * 2.0)) * min(1.6, flash), a=min(1.0, 0.8 * flash), isinlar=isinlar, sicak=parilti_sicak)
     CM.motes(f, cx.t, n=8, seed=seed)
     if vinyet:
         CM.vig(f, vinyet)
@@ -601,6 +622,7 @@ def k_kapak_kilit(cx, belge=(900, 812, 0.66, -0.035), kilit=(900, 700, 290), zin
         _yazi_motor(f, yazi["satirlar"], a)
     if live:                                                             # kulp yuvaya oturunca kısa, sönümlü darbe sarsıntısı (tüm kare; ekran künyesi sonra çizilir)
         dx_, dy_ = anim.shake(cx.t, t_hit, 0.25, 3.5, seed=seed * 13 + 1)
+        anim.hint_shake(cx, t_hit, 0.25, 3.5, seed * 13 + 1)        # ENG-E: sarsıntının gerçek hızı → deklanşör
         anim.jolt(f, dx_, dy_)
     # öğe kutuları (ekran): odak = asma kilit (kulp dâhil); mühür belgenin sağ altında
     ms = (bx + (330 * math.cos(br) - 262 * math.sin(br)) * bs, by + (330 * math.sin(br) + 262 * math.cos(br)) * bs)

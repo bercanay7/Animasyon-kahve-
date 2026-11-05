@@ -5,6 +5,9 @@ koyu kızıl cüppe; c1 sonu banka köşesi → c2 açılış → Cossa'ya borç
 KURUL TUR 2 (5 Kasım, SCN-2): "DEFTER DÜNYADIR" — şema/infografik kartları masadaki açık deftere taşındı (c2_masa: İZ · KASA · CATASTO; aynı kartta
 sıçrayan kesme yok, tek sürekli kamera, el + tüy kalem); nesne/el yakın planları (c2_yakin: kese · mitra · kalem); yer başına set farkı (Brugge Flaman,
 papalık anahtar-tiara kumaşı, Konstanz kartallı, kâtip odası, Catasto dairesi, Stinche hücresi); ışık patlaması c2'de 2 (bölüm açılışı + kapı).
+KURUL TUR 3 (5 Kasım, SCN-3): üstten tam açılım defter EN ÇOK İKİ (#72 İZ, #85 CATASTO; başlıkları yazılı açılır, kalem yalnız yeni veriyi yazar) —
+kasa ≥2× yakın plan (c2_yakin kasa: el + anahtarlar, kâğıt şeritte 22 + 18 çentik), 150.000+ kapalı defterler (c2_defterler, üç çeyrek eğik); defter içi
+grafikler mürekkep/tüy kalem (elle eksen, beşli çetele, tarama); kenarda yarım yazı söner; altyazı bandına (y ≥ 880) önemli yazı/damga yok (TE2-G1/G2/G7).
 Kurallar: ardışık kart ≤3 · dünya çekimi ≤35 sn arayla · ardışık itme ≤3 · sert kesme ≈%35 (tr="cut") · geçiş süresi 0,35–1,8 sn.
 Mizah (c2): faiz yasağı ↔ kambiyo ↔ vicdan komitesi; "faiz değil hediye"; "eski papa"; çifte kayıt miti. KAPALI: ölüm (siluet + mum), Cossa'nın esareti.
 Kapı: "...bir hücreye kapatılacaktı." → Palazzo Vecchio kulesinde yavaş crane up, sessiz ve ağır (END_HOLD motor; bitiş ekranı Program'dan).
@@ -45,13 +48,18 @@ def light_sweep(a, b, alpha=0.20, col="#FFE6B0", w=420):
 
 
 def stamp_hold(text, x, y, until, rot=-0.06, size=54):
-    """Önceki çekimdeki damga kesmeden sonra AYNI ekran yerinde bir süre daha durur ve söner (KA2-D8: ≥2 sn okunur)."""
+    """Önceki çekimdeki damga kesmeden sonra AYNI ekran yerinde bir süre daha durur ve söner (KA2-D8: ≥2 sn okunur).
+    Kurul tur 3 (TE2-Y5): kâğıt fişli (anim.paper_stamp — önceki çekimdeki stamp_ovl ile aynı görünüm; kırmızı halı üstünde fişsiz ≈3,5:1 idi)."""
     def fn(cx):
         a = 1.0 - smooth(clamp((cx.t - cx.at(until)) / 0.4))
         if a > 0.003:
-            CM.stamp(cx.f, text, x, y, rot=rot, size=size, alpha=a, t=1.0)
+            anim.paper_stamp(cx.f, text, x, y, rot=rot, size=size, alpha=a, t=1.0)
     return fn
 
+
+CAV_PLATE = P.plate("CAVALCANTİ", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · 1430'LAR · OLAYA DAHA YAKIN", w=760)     # #94 ve #95: aynı levha, aynı yer
+CAV_PLATE_95 = P.plate("CAVALCANTİ", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · 1430'LAR · OLAYA DAHA YAKIN", w=760,
+                       out=("c2s30", "kimse", 0.15))      # kesmenin iki yanında AYNI yerde (AN2 tur 3: 340 px sıçrama yok), sonra söner: kamera ittikçe sayfayı örtmesin
 
 SHOTS = [
     # ── 1. Çözüm kambiyodaydı · Kilise faizi yasakladı · bankacılar bir yol buldu — c1'in köşe masasından (Giovanni) devam, salon açılır ──
@@ -73,12 +81,15 @@ SHOTS = [
                   P.icon_at("p1_kese", 727, 690, ("c2s3", "Brugge'de", 0.2), size=110, metal="bronze", bob=3)),
          cam=("push",), tr=("slide", 0.7, dict(dir="r")), link="dir", label="Brugge: Flaman salonu, klasik bir örnek"),
     # ── 2b. YAKIN PLAN (≥2×, el + nesne): kese peşin verilir, karşılığında Barselona'ya çekilmiş poliçe alınır ──
-    shot("c2_yakin", ("c2s3", "parayı", -0.3), scene="kese", give_at=("c2s3", "peşin", -0.15), pol_at=("c2s3", "karşılığında", 0.05), push=0.07, mode="day", perde=1,
+    #     kurul tur 3 (AN1-Y-N2, SA1-N4): kese kesmeden önce yola çıkar (hareket üstünde kesme), çan eğrisi + %8 aşmalı oturma, ≈10° bilek dönüşü;
+    #     tüccar poliçeyi sürer, keseyi alıp kadrajdan ÇIKAR (kol solmaz); banker poliçeyi kendine çeker
+    shot("c2_yakin", ("c2s3", "parayı", -0.3), scene="kese", push_at=("c2s3", "parayı", -0.55), pol_at=("c2s3", "karşılığında", -0.35),
+         take_at=("c2s3", "Barselona'ya", 0.55), get_at=("c2s3", "poliçe", -0.25), push=0.07, mode="day", perde=1,
          ovl=P.tag("BARSELONA'YA ÇEKİLMİŞ POLİÇE", 960, 190, ("c2s3", "Barselona'ya", -0.2), size=44),
          family="dunya", tr="cut", link="cam", label="yakın plan: kese elden ele, poliçe karşılığında"),
     # ── 3. Vadesi gelince tahsil; ikinci poliçeyle para geri döner; kazanç = kur farkı (BRUGGE etiketi kadrajda; BARSELONA solda, simge üstünü örtmez) ──
     shot("p1_map", ("c2s4", -0.15), mode="day", perde=1, approx=False,
-         cams=[(("c2s4", -0.15), (2.7, 46.2, 1.72)), (("c2s4", "ikinci", -0.3), (2.8, 46.3, 1.80)), (("c2s4", "kazanç", -0.3), (2.8, 46.4, 1.68))],
+         cams=[(("c2s4", -0.15), (1.55, 46.33, 1.26)), (("c2s5", 2.5), (4.35, 46.36, 1.36))],   # kurul tur 3 (AN1-Y-N1): geniş çerçeve, hafif itme + sağa kayma kesmeyi aşar (son anahtar kesmeden 2,6 sn sonra: kesmede hareketli); kentler kadraj payında (koruma durdurmaz)
          cities=[dict(lon=3.22, lat=51.21, name="BRUGGE", kind="capital", at=-0.5, size=36), dict(lon=2.17, lat=41.39, name="BARSELONA", kind="capital", at=-0.5, size=36, side="l")],
          routes=[dict(pts=[(3.22, 51.21), (0.9, 46.3), (2.17, 41.39)], at=("c2s4", -0.1), dur=1.0, width=7, color="#A8321E"),
                  dict(pts=[(2.17, 41.39), (5.1, 46.0), (3.22, 51.21)], at=("c2s4", "ikinci", -0.3), dur=1.6, width=7, color="#233C8C")],
@@ -86,13 +97,13 @@ SHOTS = [
                  dict(kind="coins", lon=2.6, lat=42.2, size=96, at=("c2s4", "tahsil", -0.3), bob=4),
                  dict(kind="scroll", lon=2.17, lat=41.39, size=84, at=("c2s4", "ikinci", -0.2), route=[(2.6, 42.2), (5.1, 46.0), (3.22, 51.0)], move_at=("c2s4", "poliçeyle", -0.3), move_dur=1.4, glow=0.0),
                  dict(kind="coinbag", lon=3.6, lat=50.7, size=100, at=("c2s4", "geri", -0.1), bob=4),
-                 dict(kind="coin", lon=4.6, lat=50.0, size=64, at=("c2s4", "kazanç", 0.0), bob=7),          # C3: anlatıya bağlı ikinci hareket — kazanç (kur farkı) kesenin yanında belirir, sallanır
-                 dict(kind="coin", lon=4.9, lat=49.5, size=56, at=("c2s4", "kur", -0.1), bob=6)],
+                 dict(kind="coin", lon=4.6, lat=50.0, size=64, at=("c2s4", "kazanç", 0.0), bob=11),         # C3: anlatıya bağlı ikinci hareket — kazanç (kur farkı) kesenin yanında belirir, kesmeye dek sallanır
+                 dict(kind="coin", lon=4.9, lat=49.5, size=56, at=("c2s4", "kur", -0.1), bob=10)],
          ovl=P.ov(P.tag("VADESİ GELİNCE TAHSİL", 560, 250, ("c2s4", "Vadesi", -0.1), size=40, out=("c2s4", "kazanç", -0.3)),
                   P.pop_label("KUR FARKI", 1440, 250, ("c2s4", "kur", -0.1), size=84, track=10)),
-         cam=("pull",), tr=("zoomthru", 0.55, dict(at=(760, 470), at_b=(960, 520))), link="scale", label="poliçe gider, para döner: kur farkı"),
+         cam=("push", dict(rate=0.012)), tr=("zoomthru", 0.55, dict(at=(760, 470), at_b=(960, 520))), link="scale", label="poliçe gider, para döner: kur farkı"),   # rota merkezine %1,2/sn itme; kadraj koruması durdurmaz
     # ── 4. Ortada borç yok, faiz yok; yalnızca kur farkı ─────────────────────
-    shot("c2_nolist", ("c2s5", -0.15), mode="day", perde=1, borc_at=("c2s5", "borç", -0.25), borc_x=("c2s5", "yok", -0.15), faiz_at=("c2s5", "faiz", -0.25), faiz_x=("c2s5", "yok", 1, -0.15), kur_at=("c2s5", "yalnızca", -0.2),
+    shot("c2_nolist", ("c2s5", -0.15), mode="day", perde=1, borc_at=("c2s5", -0.65), borc_hit=("c2s5", "borç", -0.12), borc_x=("c2s5", "yok", -0.15),   # BORÇ ilk karede hazır (AN1-Y-N1) faiz_at=("c2s5", "faiz", -0.25), faiz_x=("c2s5", "yok", 1, -0.15), kur_at=("c2s5", "yalnızca", -0.2),
          cam=("pan", "r"), tr="cut", link="audio", label="BORÇ ✗ FAİZ ✗ KUR FARKI ✓"),
     # ── 5. vicdan komitesi (mizah): Medici salonu, masa başı siluetler ─────────
     shot("p1_oda", ("c2s6", -0.15), room="salon", variant="medici", sil=True, tod="day", mode="day", perde=1, path="heads",
@@ -140,20 +151,20 @@ SHOTS = [
          actors=[dict(kind="banker", seed=61, x=1016, y=823, h=282, action="write", seated=True, dir=1)],
          cams=[(("c2s12", -0.15), (1270, 50, 1.36)), (("c2s13", -0.2), (1250, 56, 1.40))],
          ovl=P.ov(K.cifte_panel(("c2s12", "Çifte", 0.0), ("c2s12", "kaydı", 0.25), ("c2s12", "icat", 0.0)),
-                  anim.stamp_ovl("MİT", 1640, 300, ("c2s12", "derler", 0.0), "drop", rot=-0.1, size=104)),
+                  anim.stamp_ovl("MİT", 1600, 590, ("c2s12", "derler", 0.0), "drop", rot=-0.1, size=96)),      # CREDITORI başlığını örtmez (PK2 tur 3 Y7)
          cam="hand", tr="cut", link="audio", label="çifte kayıt: kâtip; MİT"),
     # ── 12. MASA · İZ (tek sürekli kamera, 15,6 sn): kâtibin defterinden masadaki deftere — sol sayfa çifte kaydın izi (Cenova 1340 …),
     #        kamera sağ sayfaya kayar: Medici'nin farkı yapıda (Floransa → Roma, Venedik). Eski #71–#73 (zaman çizgisi + iki ağ kartı) tek çekim. ──
     shot("c2_masa", ("c2s13", -0.15), v="iz", mode="day", perde=1, longtake=True, family="dunya", hud=False,     # 1320–1520 çizelgesi: HUD gizli (SA2 tur 3 Y12)
          start=("c2s13", -0.15), stamp_at=("c2s13", "Etmediler", 0.1), myth_at=("c2s13", "eski", -0.6), myth_x=("c2s13", "eski", 0.05),
          events=[(1340, "CENOVA", ("c2s13", "Cenova'nın", -0.1), True), (1494, "PACİOLİ", ("c2s13", "biridir", -0.2), True)],
-         head_at=("c2s14", -0.15), book_at=("c2s14", "defterde", -0.3), book_x=("c2s14", "değil", -0.1),
+         yapi_at=("c2s14", "yapıdaydı", -0.1), book_at=("c2s14", "defterde", -0.3), book_x=("c2s14", "değil", -0.1),
          nodes=[("f", ("c2s14", "yapıdaydı", -0.3)), ("r", ("c2s14", "şubenin", -0.1)), ("v", ("c2s14", "kendi", -0.1))],
          edges=[("f", "r", ("c2s14", "ortaklığı", -0.25)), ("f", "v", ("c2s14", "ortaklığı", 0.1))],
-         labels=[("KENDİ ORTAKLIĞI", ("c2s14", "ortaklığı", -0.1), 870), ("KENDİ DEFTERİ", ("c2s14", "defteri", -0.15), 935)],
+         labels=[("KENDİ ORTAKLIĞI", ("c2s14", "ortaklığı", -0.1), 735), ("KENDİ DEFTERİ", ("c2s14", "defteri", -0.15), 795)],     # altyazı bandının üstünde (TE2-G7)
          cams=[(("c2s13", -0.15), (1060, 860, 0.98)), (("c2s13", "Cenova'nın", 0.0), (880, 845, 1.12)), (("c2s13", "1340", 0.3), (820, 850, 1.20)),
                (("c2s13", "eski", -0.4), (900, 845, 1.10)), (("c2s13", "biridir", 0.35), (1040, 860, 1.02)), (("c2s14", "farkı", 0.0), (1620, 870, 1.10)),
-               (("c2s14", "yapıdaydı", 0.0), (1690, 880, 1.14)), (("c2s14", "her", 0.0), (1690, 895, 1.04)), (("c2s14", "vardı", 0.5), (1680, 900, 1.08))],
+               (("c2s14", "yapıdaydı", 0.0), (1690, 870, 1.12)), (("c2s14", "her", 0.0), (1690, 880, 1.05)), (("c2s14", "vardı", 0.5), (1680, 885, 1.07))],
          tr=("zoomthru", 0.6, dict(at=(1410, 520), at_b=(960, 540))), link="scale", label="masa · iz: Cenova 1340 → yapı (tek kamera)"),
     # ── 14. Giovanni Cossa'ya borç verir; adam XXIII. Johannes adıyla papa olur (BEYAZ tiara, altın taçlar) — levhalar çakışmaz (GIOVANNI solda-aşağıda) ──
     shot("p1_oda", ("c2s15", -0.15), room="p1ofis", variant="ofis", tod="day", mode="day", perde=1, figure=None,
@@ -209,7 +220,7 @@ SHOTS = [
                   P.tag("BORÇ KARŞILIĞI BIRAKILAN MİTRA", 760, 200, ("c2s20", "borca", -0.2), size=40)),
          cam=("push",), tr="cut", link="audio", label="Martinus mitrayı geri ister"),
     # ── 18b'. YAKIN PLAN (≥2×): rehin mitra Giovanni'nin elinde; papalık eli uzanır ("geri almak için") ──
-    shot("c2_yakin", ("c2s20", "mitrayı", -0.25), scene="mitra", reach_at=("c2s20", "geri", -0.25), push=0.05, mode="day", perde=1,
+    shot("c2_yakin", ("c2s20", "mitrayı", -0.25), scene="mitra", reach_at=("c2s20", "geri", -0.35), push=0.08, drift=(-70.0, 8.0), mode="day", perde=1,   # itme + papalık eline kayma (AN1-Y-N2)
          family="dunya", tr="cut", link="cam", label="yakın plan: rehin mitra, papalık eli"),
     # ── 18c. aforoz tehdidi (yakın iki kişilik; sert kesme; 18b'ye göre ≥1,5× yakın). Papa mühürlü belgeyi kaldırır (şiddet jesti YOK; kurul tur 2 AN1-Y1/AN2-E1) ──
     shot("p1_oda", ("c2s20", "Giovanni'yi", -0.3), room="p1salon", variant="papa", tod="day", mode="day", perde=1,
@@ -219,17 +230,18 @@ SHOTS = [
          ovl=P.ov(P.tag("AFOROZ TEHDİDİ", 960, 140, ("c2s20", "aforozla", 0.1), size=56, dur=0.25),
                   anim.impact_ovl(("c2s20", "aforozla", 0.2), amp=3)),
          cam=("push",), tr="cut", link="cam", label="aforoz tehdidi (belgeli)"),
-    # ── 19. MASA · KASA (tek çekim, 10,6 sn): papalık kasası (kızıl kadife) — bir el anahtarları deftere bırakır; sağ sayfada 1422'den
-    #        22 YIL düz mürekkep şerit dolar, + 18 YIL kesikli; MEDİCİ'DE KALDI. Eski #83–#85 (üç anahtar kartı, iki sıçrayan kesme) tek çekim. ──
-    shot("c2_masa", ("c2s21", -0.15), v="kasa", mode="day", perde=1, family="dunya",
-         head_at=("c2s21", -0.1), head2_at=("c2s21", "kasa", -0.3), start_at=("c2s21", "1422'den", -0.2), a_at=("c2s21", "yirmi", -0.1), b_at=("c2s21", "ardından", -0.1),
-         medici_at=("c2s21", "Medici'de", -0.2),
-         keys=dict(in_at=("c2s21", "resmî", -0.2), put_at=("c2s21", "memurluğu", 0.1), size=360, **{"from": (2300.0, 250.0), "to": (905.0, 900.0)}),
-         hand=dict(ang=205.0, size=230, sleeve="#6E1C1E", cuff="#C9A23A", flip=True),
-         cams=[(("c2s21", -0.15), (1300, 860, 0.92)), (("c2s21", "memurluğu", 0.0), (1060, 880, 1.08)), (("c2s21", "1422'den", -0.2), (1120, 880, 1.04)),
-               (("c2s21", "sonra", 0.1), (1640, 880, 1.14)), (("c2s21", "ardından", 0.0), (1690, 880, 1.20)), (("c2s21", "Medici'de", 0.0), (1480, 880, 1.00)),
-               (("c2s22", -0.2), (1460, 875, 0.97))],
-         tr="cut", link="audio", label="masa · kasa: el anahtarları bırakır; 22 + 18 yıl"),
+    # ── 19. YAKIN PLAN (≥2×) · PAPALIK KASASI (10,6 sn; kurul tur 3 AN2-Ö1/PK2-N1: üstten açık defter DEĞİL): kızıl kadife kaplı kasa — baş öğe EL ve ANAHTARLAR
+    #        (el 'memurluğu'nda anahtarları kapağa bırakır, açılıp kadrajdan çekilir); bilgi kapağa iğneli kâğıt şeritte, tüy kalemle: başlık yazılı açılır,
+    #        1422 · 22 düz çentik KESİNTİSİZ · + 18 YIL kesikli çentik ARALIKLI · MEDİCİ'DE KALDI (sözcük/sayılar eskisiyle aynı; dolum çubuğu yok). ──
+    shot("c2_yakin", ("c2s21", -0.15), scene="kasa", mode="day", perde=1, family="dunya",
+         keys_at=("c2s21", -0.45), keys_dur=1.35, release_at=("c2s21", "memurluğu", 0.2), start_at=("c2s21", "1422'den", -0.1),
+         a_at=("c2s21", "yirmi", -0.1), a_to=("c2s21", "yıl", -0.05), a_lab=("c2s21", "yıl", -0.05), a_word=("c2s21", "kesintisiz", 0.0),
+         b_at=("c2s21", "sekiz", -0.25), b_to=("c2s21", "yıl", 1, -0.1), b_lab=("c2s21", "yıl", 1, -0.05), b_word=("c2s21", "aralıklarla", 0.0),
+         medici_at=("c2s21", "Medici'de", -0.1), kaldi_at=("c2s21", "kaldı", 0.0),
+         cams=[(("c2s21", -0.15), (1260, 860, 1.00)), (("c2s21", "memurluğu", 0.1), (1300, 880, 1.03)), (("c2s21", "1422'den", 0.15), (1010, 700, 1.15)),
+               (("c2s21", "yirmi", -0.15), (1020, 705, 1.18)), (("c2s21", "kesintisiz", 0.35), (1120, 705, 1.18)), (("c2s21", "ardından", 0.1), (1300, 705, 1.16)),
+               (("c2s21", "aralıklarla", 0.3), (1460, 710, 1.14)), (("c2s21", "Medici'de", 0.1), (1600, 720, 1.10)), (("c2s22", -0.25), (1300, 820, 0.88))],
+         tr="cut", link="audio", label="yakın plan: papalık kasası; el anahtarları bırakır; 22 + 18 yıl (kâğıt şerit)"),
     # ── 20. 1427: CATASTO dairesi — hane reisleri yazılı beyannamelerini (portata) masaya getirir; görevliler yazar (kapı kapı DEĞİL; KA1/KA2/SA2-Y6).
     #        Gün ışığında renkli figürler (simsiyah siluet yaya yok). ──
     shot("p1_oda", ("c2s22", -0.15), room="salon", variant="catasto", tod="day", mode="day", perde=1,
@@ -249,8 +261,8 @@ SHOTS = [
          start=("c2s23", -0.15), fill_at=("c2s23", -0.1), fill_to=("c2s23", "hane", 0.0), h137_at=("c2s23", "yüz", -0.2),
          bar_at=("c2s23", "kayıtlı", -0.3), fill_bar_at=("c2s23", "yüzde", -0.3), stamp_at=("c2s23", "kayıtlı", 0.2),
          name_at=("c2s23", "Palla", -0.5), role_at=("c2s23", "en", -0.1), num_at=("c2s23", "zengini", -0.05),
-         cams=[(("c2s23", -0.15), (1000, 870, 1.00)), (("c2s23", "hane", 0.0), (900, 880, 1.10)), (("c2s23", "kayıtlı", 0.1), (900, 1040, 1.22)),
-               (("c2s23", "tutuyordu", 0.0), (920, 1030, 1.18)), (("c2s23", "zengini", 0.0), (1680, 900, 1.12)), (("c2s24", -0.2), (1700, 900, 1.17))],
+         cams=[(("c2s23", -0.15), (970, 830, 1.10)), (("c2s23", "hane", 0.0), (920, 860, 1.14)), (("c2s23", "kayıtlı", 0.1), (920, 965, 1.22)),
+               (("c2s23", "tutuyordu", 0.0), (935, 960, 1.18)), (("c2s23", "zengini", 0.0), (1680, 890, 1.12)), (("c2s24", -0.2), (1700, 890, 1.17))],
          tr="cut", link="cam", label="masa · catasto: 9.780 hane, %29,8 kenarda, Strozzi"),
     # ── 22. Giovanni sayımın yürürlüğe girmesini destekledi (Signoria salonu) ──
     shot("p1_oda", ("c2s24", -0.15), room="salon", variant="signoria", tod="day", mode="day", perde=1,
@@ -271,14 +283,15 @@ SHOTS = [
                   P.prop_arc("book", (760, 690), (1160, 690), ("c2s25", "oğullarına", -0.2), dur=0.8, size=120, lift=90, show_from=("c2s25", -0.15)),
                   P.prop_arc("p1_anahtar", (780, 610), (1180, 620), ("c2s25", "bırakmıştı", -0.2), dur=0.7, size=90, lift=70, show_from=("c2s25", -0.15))),
          cam=("pull",), tr=("slide", 0.6, dict(dir="r")), link="dir", label="1420: yönetim oğullarına"),
-    # ── 24. 1397'den o yıla kadar defterler 150 bini aşkın florin kâr gösterir (sayaç yuvarlak adımlarla; "+" yalnız son değerde — KA2-D10) ─
-    shot("p1_ledger", ("c2s25", "1397'den", -0.3), head="1397 – 1420", title_l="DEBITORI", title_r="CREDITORI",
-         left=[dict(text="Banka defterleri", at=("c2s25", "defterler", -0.3), hl=("c2s25", "kâr", -0.2))], right=[dict(text="Kâr", at=("c2s25", "florin", -0.4))],
-         total=dict(text="1397–1420 KÂR", amt=("150.000+ fl.",), at=("c2s25", "yüz", -0.1), row=7),
-         mode="day", perde=1, seed=7, focus=(780, 560),
+    # ── 24. 1397'den o yıla kadar defterler 150 bini aşkın florin kâr gösterir — KAPALI, CİLTLİ DEFTERLER, üç çeyrek eğik açı (kurul tur 3 AN2-Ö1/PK2-N1:
+    #        üstten açık defter DEĞİL): sırtlarda yalnız 1397 ve 1420, yanında sandık ve florin; ilk deftere bağlı etikette 1397 – 1420. Kamera sağa kayar.
+    #        Sayaç yuvarlak adımlarla, "+" yalnız son değerde (KA2-D10); DEFTERLER GÖSTERİR "defterler" sözcüğünde basar ve ≥1,2 sn kalır (KA2 N3, TE2-G8). ─
+    shot("c2_defterler", ("c2s25", "1397'den", -0.3), mode="day", perde=1, family="dunya",
+         cams=[(("c2s25", "1397'den", -0.3), (-34.0, 60.0, 6.0)), (("c2s25", "kadar", 0.1), (-6.0, 60.0, 10.0)), (("c2s25", "florin", 0.0), (4.0, 61.0, 13.0)),
+               (("c2s26", -0.2), (8.0, 62.0, 15.0))],
          ovl=P.ov(P.count_up(960, 215, ("c2s25", "yüz", -0.35), 150000, dur=0.9, unit="FLORİN KÂR", size=150, bg=True, suffix="+", step=5000, suffix_final=True),
-                  P.tag("DEFTERLER GÖSTERİR", 1460, 860, ("c2s25", "defterler", -0.1), size=40)),      # "defterler" sözcüğünde (KA2 tur 3 N3)
-         cam=("pull",), tr=("sayfa", 0.6), link="material", label="defterler: 150 bini aşkın florin kâr"),
+                  P.tag("DEFTERLER GÖSTERİR", 700, 840, ("c2s25", "defterler", -0.1), size=40)),      # "defterler" sözcüğünde; bandın üstünde; mum geçişinin alevinden (x≈1229) uzak
+         tr="cut", link="cam", label="kapalı defterler 1397–1420: 150 bini aşkın florin kâr"),
     # ── 25. 20 Şubat 1429'da öldü; Floransa takvimine göre hâlâ 1428 (ölüm döşeği: siluet, mum söner; yer/saat/tanık iddiası yok) ──
     shot("p1_oda", ("c2s26", -0.15), room="p1yatak", variant="olum", tod="dusk", mode="night", perde=1, figure="lying",
          cams=[(("c2s26", -0.15), (820, 40, 1.25)), (("c2s27", -0.2), (760, 50, 1.33))],
@@ -316,14 +329,15 @@ SHOTS = [
     shot("p1_oda", ("c2s30", -0.15), room="p1zindan", tod="day", mode="day", perde=1, figure=None, lamp_day=0.6,
          actors=[dict(CAVALCANTI, x=946, y=823, h=280, action="write", seated=True, dir=1)],
          cams=[(("c2s30", -0.15), (1100, 20, 1.20)), (("c2s30", "kimse", -0.3), (1170, 56, 1.48))],
-         ovl=P.ov(P.plate("CAVALCANTİ", 620, 170, ("c2s30", "Cavalcanti", -0.2), role="HAPİSTE · 1430'LAR · OLAYA DAHA YAKIN", w=760)),
+         ovl=P.ov(CAV_PLATE),
          cam=("push",), tr=("sayfa", 0.5), link="material", label="Cavalcanti yazar (Stinche hücresi)"),
     # ── 30b. ...kimse dünyevi tasaları sonsuz huzurla değiş tokuş ettiği için kederlenmemeli — sayfaya söz GERÇEK harflerle, anlatımla birebir (ANEKDOT) ──
     shot("c2_kalemler", ("c2s30", "kimse", -0.3), mode="day", perde=1, only="b", right_at=("c2s30", "kimse", -0.95), write_b=("c2s30", "kimse", -0.3), stamp_at=("c2s30", "kederlenmemeli", -0.4),
+         plate=False,                                                                    # levha #94'teki ile AYNI (CAV_PLATE): kesmede sıçramaz (AN2 tur 3)
          lines_b=[("kimse dünyevi tasaları", ("c2s30", "kimse", -0.05)), ("sonsuz huzurla", ("c2s30", "sonsuz", -0.05), True),
                   ("değiş tokuş ettiği için", ("c2s30", "değiş", -0.05)), ("kederlenmemeli.", ("c2s30", "kederlenmemeli", -0.05))],
          cam=[(("c2s30", "kimse", -0.3), (380, -30, 1.08, 0)), (("c2s30", "huzurla", 0.0), (430, 0, 1.24, 0)), (("c2s31", -0.2), (470, 24, 1.40, 0))],
-         ovl=P.ov(P.tag("CAVALCANTİ'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
+         ovl=P.ov(CAV_PLATE_95, P.tag("CAVALCANTİ'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
                   P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 880, ("c2s30", "tasaları", 0.0), size=30)),      # KA2 tur 3 N2
          tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz — iki sayfa, iki söz yan yana (yazılmış) ───────────────────────────
@@ -336,8 +350,8 @@ SHOTS = [
     shot("c2_sadaka", ("c2s32", -0.15), mode="day", perde=1, who_at=("c2s32", "Machiavelli", -0.2), give_at=("c2s32", "yoksulun", -0.35), stamp_at=("c2s32", "çizer", -0.2),
          cam=("truck", "r"), tr=("slide", 0.6, dict(dir="r")), link="dir", label="yoksulun ihtiyacı (Giovanni; ANEKDOT)"),
     # ── 33. YAKIN PLAN (≥2×, el + tüy kalem): "o kalem" eseri yazar; Medici siparişinin mührü düşer — NESNE YILI 1520: zambaklı üst top + 5 top (std) ──
-    shot("c2_yakin", ("c2s33", -0.15), scene="kalem", write_at=("c2s33", -0.1), seal_at=("c2s33", "siparişiyle", -0.1), seal_label="MEDİCİ SİPARİŞİ",
-         seal_year=1520, seal_variant="std", seal_x=1200, seal_y=620, push=0.0, mode="day", perde=1, hud=False,     # 1520'ler nesnesi: HUD gizli (KA2/KA1 tur 3 N4)
+    shot("c2_yakin", ("c2s33", -0.15), scene="kalem", write_at=("c2s33", -0.3), seal_at=("c2s33", "siparişiyle", -0.1), seal_label="MEDİCİ SİPARİŞİ",
+         seal_year=1520, seal_variant="std", seal_x=1200, seal_y=620, push=0.05, mode="day", perde=1, hud=False,     # 1520'ler nesnesi: HUD gizli (KA2/KA1 tur 3 N4); kesmede kamera ve kalem hareketli (AN1-Y-N3)
          ovl=P.tag("O KALEM", 520, 200, ("c2s33", "kalem", -0.3), size=46),
          family="dunya", tr="cut", link="audio", label="yakın plan: o kalem; Medici siparişi (1520 mührü)"),
     # ── 34. Giovanni öldüğünde oğlu Cosimo kırk yaşına yaklaşıyordu — levhalar erken (≈580,6), yaş SAYILMAZ, çıkış ≤1,0 sn (AN2-K4) ─────────

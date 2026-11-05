@@ -25,8 +25,10 @@ DOC = K.DOC_FILL          # oda1743: belge ekranı doldurur (cams anahtarı)
 
 ODA_DUSK = dict(tod="dusk", mode="night", perde=1)
 
-_ECHO = KP.kapak_sahne_shot("K1", a=0.0, yazi=True, yazi_at=0.3, yazi_out=3.2, cam=("push",), isinlar=False,     # kapakla aynı: kollu yıldız yok (PK1-Y5, SA1-Y7)
-                            label="kapak yankısı K1: SON MEDİCİ / MİRASI KİLİTLEDİ")
+# kurul tur 3 PK2-Y8 (ENG-E): yankı YENİ K1 kapağının zeminiyle (KP.KAPAK_ZEMIN["K1"]: ton (52, 32, 26), vinyet 0,30, ışın yok) — eskiden KAPAK_SAHNE'nin
+# yakın-siyah tonu (18, 10, 15) + vinyet 0,75 ile çiziliyordu (0,6 sn kenar grisi 18, kapak 38). Kilidin sol üstündeki beyaz parıltı → yumuşak sıcak yansıma.
+_ECHO = KP.kapak_sahne_shot("K1", a=0.0, yazi=True, yazi_at=0.3, yazi_out=3.2, cam=("push",), parilti_sicak=True,     # kapakla aynı: kollu yıldız yok (PK1-Y5, SA1-Y7)
+                            label="kapak yankısı K1: SON MEDİCİ / MİRASI KİLİTLEDİ", **KP.KAPAK_ZEMIN["K1"])
 _ECHO.params["ovl"] = P.ov(P.tag("18 ŞUBAT 1743", 1590, 812, ("c0s1", "18", -0.05), size=46, out=("c0s2", -0.3)),
                            P.tag("FLORANSA", 1590, 888, ("c0s1", "Floransa", -0.3), size=38, out=("c0s2", -0.3)))
 

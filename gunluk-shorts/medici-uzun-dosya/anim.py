@@ -15,6 +15,8 @@ Zaman sözleşmesi: t = çekimin yerel saati (cx.t, sn); t0 = olayın yerel sani
   impact_ovl(at, amp=4.0, dur=0.25)              ovl (p1_ortak.ov ile): çapada tüm kareyi kısa sarsar (ovl listesinin SONUNA koy)
   stamp_ovl(text, x, y, at, profile=…, …)        ovl: damga + isteğe bağlı kare sarsıntısı (at = DARBE anı)
   hint_speed(cx, px_per_frame)                   deklanşöre ipucu: bu karede hızlı nesne var (compose.Program okur; "auto" modda alt örnekleme)
+  hint_pts(cx, pa, pb) · speed_pts · box_pts     GERÇEK hız ipucu (ENG-E, kurul tur 3 AN1-Y7): aynı noktaların t ± 1/48 sn konumları → px/kare (tuval dönüşümüyle ekranda)
+  stamp_pts · hint_shake · hint_pop(cm_stamp_scale | cm_seal_scale) · cm_stamp_box   damga pozu / kare sarsıntısı / "çarpma" ölçeği için hazır hesaplar
 """
 import math
 import zlib
@@ -451,27 +453,38 @@ def jolt(f, dx, dy, zoom=None):
 
 
 def impact_ovl(at, amp=4.0, dur=0.25, seed=0):
-    """ovl: `at` çapasında tüm kare kısa ve sönümlü sarsılır (2–6 px önerilir). p1_ortak.ov(...) listesinin SONUNA koy (önce çizilenleri kaydırır)."""
+    """ovl: `at` çapasında tüm kare kısa ve sönümlü sarsılır (2–6 px önerilir). p1_ortak.ov(...) listesinin SONUNA koy (önce çizilenleri kaydırır).
+    Sarsıntının gerçek hızı deklanşöre bildirilir (hint_shake; ENG-E)."""
     def fn(cx):
         t0 = cx.at(at)
-        dx, dy = shake(cx.t, t0, dur, amp, seed=seed + getattr(cx, "seed", 0))
+        sd = seed + getattr(cx, "seed", 0)
+        dx, dy = shake(cx.t, t0, dur, amp, seed=sd)
+        hint_shake(cx, t0, dur, amp, sd)
         jolt(cx.f, dx, dy)
     return fn
 
 
 def stamp_ovl(text, x, y, at, profile="squash", rot=-0.10, size=56, color=None, out=None, out_dur=0.4, jolt_amp=0.0, seed=0, **kw):
     """ovl: profilli damga. at = DARBE anı (eski P.stamp'ta `at` iniş başlangıcıydı; burada vuruşun kendisi). out: solma çapası.
-    jolt_amp > 0 ise darbede kare de sarsılır (o zaman bu ovl'u listenin sonuna koy)."""
+    jolt_amp > 0 ise darbede kare de sarsılır (o zaman bu ovl'u listenin sonuna koy).
+    Deklanşör (kurul tur 3 AN1-Y7, ENG-E): damga kutusunun köşelerinin GERÇEK ekran hızı bildirilir (yaklaşma + darbe sonrası ezilme/sekme; bütün profiller).
+    Eskiden yalnız squash/bounce/drop yaklaşmasında sabit 9,0 px/kare bildiriliyordu: darbe anındaki ≈30–60 px/kare ve darbe sonrası yaylanma (≈10–40) atlanıyordu."""
+    pr = profile if profile in STAMP_PROFILES else "squash"
+
     def fn(cx):
         t0 = cx.at(at)
         a = 1.0 if out is None else 1.0 - _smooth((cx.t - cx.at(out)) / out_dur)
         if a <= 0.003:
             return
         imp = stamp(cx.f, text, x, y, cx.t, t0, profile, rot=rot, size=size, color=color, alpha=a, seed=seed, **kw)
-        if profile in ("squash", "bounce", "drop") and cx.t - t0 > -APPROACH[profile]:
-            hint_speed(cx, 9.0 if cx.t < t0 else 0.0)
+        if -APPROACH[pr] - DT_HINT <= cx.t - t0 <= STAMP_HINT_AFTER:
+            pa = stamp_pts(cx.t - DT_HINT / 2, t0, profile, x, y, rot, size, text, seed)
+            pb = stamp_pts(cx.t + DT_HINT / 2, t0, profile, x, y, rot, size, text, seed)
+            if pa and pb:
+                hint_pts(cx, pa, pb)
         if jolt_amp > 0 and imp > 0.01:
             dx, dy = shake(cx.t, t0, 0.25, jolt_amp, seed=seed + 11)
+            hint_shake(cx, t0, 0.25, jolt_amp, seed + 11)
             jolt(cx.f, dx, dy)
     return fn
 
@@ -491,6 +504,115 @@ def hint_speed(cx, px_per_frame):
 def speed_of(p0, p1, dt):
     """İki konum arası ekran hızı (px/kare, 24 fps): hint_speed için yardımcı. dt sn."""
     return math.hypot(p1[0] - p0[0], p1[1] - p0[1]) / max(1e-6, dt) / 24.0
+
+
+# ── gerçek hız ipuçları (ENG-E, kurul tur 3 AN1-Y7): küçük hızlı nesneler (damga, uçan nesne, sikke, yaprak) deklanşöre KENDİ hızlarını bildirir.
+# Akış ölçümü (compose._flow_feats) küçük nesneyi yakalamıyor (karenin <%3'ü) ya da çok hızlıyı eksik ölçüyordu (≈110 px/karede 22). Hız, nesnenin aynı
+# noktalarının (kutu köşeleri + merkez) t ± DT_HINT/2'deki konumlarından hesaplanır; noktalar o anki tuval dönüşümüyle ekrana eşlenir.
+DT_HINT = 1.0 / 24.0                 # ölçüm aralığı: bir kare
+STAMP_HINT_AFTER = 0.6               # damga: darbeden sonra bu kadar sn daha (ezilme/sekme/dönme yaylanması sönene dek)
+
+
+def speed_pts(pa, pb, dt=DT_HINT):
+    """Aynı noktaların iki anki konumları (iki liste) → en büyük hız (px/kare, 24 fps)."""
+    v = 0.0
+    for p, q in zip(pa, pb):
+        v = max(v, speed_of(p, q, dt))
+    return v
+
+
+def _mxy(m, p):
+    q = m.mapXY(float(p[0]), float(p[1]))
+    return (q.x(), q.y())
+
+
+def hint_pts(cx, pa, pb, dt=DT_HINT, m="canvas"):
+    """Nesnenin aynı noktalarının t − dt/2 ve t + dt/2'deki YEREL tuval konumları → gerçek ekran hızı → hint_speed. Dönüş: hız (px/kare).
+    m="canvas": noktalar cx.f.c'nin o anki dönüşümüyle ekrana eşlenir (çizim oda/belge düzlemindeyse kamera ölçeği de girer); None: ekran uzayı.
+    Yalnız nesnenin kendi hareketi; kamera hızı compose'ta ayrıca (cilt_cam analitiği + akış) ölçülür."""
+    if m == "canvas":
+        try:
+            m = cx.f.c.getTotalMatrix()
+        except Exception:
+            m = None
+    if m is not None and not m.isIdentity():
+        pa = [_mxy(m, p) for p in pa]
+        pb = [_mxy(m, p) for p in pb]
+    v = speed_pts(pa, pb, dt)
+    if v > 0.0:
+        hint_speed(cx, v)
+    return v
+
+
+def box_pts(x, y, u0, v0, u1, v1, rot=0.0, s=1.0):
+    """(x, y) merkezli yerel kutunun (u0, v0)–(u1, v1) dört köşesi + merkezi: önce s ölçeği, sonra rot (radyan) dönüşü (CM.stamp / ikon düzeni)."""
+    cr, sr = math.cos(rot), math.sin(rot)
+    out = []
+    for u, v in ((u0, v0), (u1, v0), (u0, v1), (u1, v1), (0.0, 0.0)):
+        out.append((x + s * (u * cr - v * sr), y + s * (u * sr + v * cr)))
+    return out
+
+
+def stamp_pts(t, t0, profile, x, y, rot=-0.10, size=56, text="", seed=0):
+    """anim.stamp'ın t anındaki kutu köşeleri (ekran-uzayı yerel tuval): CM.stamp çerçevesi (sk.text_width + 64) × (−0,86·size … 0,66·size),
+    pozun (stamp_pose) öteleme/dönme/ölçeği ile. Görünmüyorsa None."""
+    p = stamp_pose(t, t0, profile, seed=seed)
+    if not p.vis or p.alpha <= 0.003:
+        return None
+    import sk
+    hw = 0.5 * (sk.text_width(text, "title", size, 7) + 64)
+    cr, sr = math.cos(rot), math.sin(rot)
+    pr = math.radians(p.rot)
+    cp, sp = math.cos(pr), math.sin(pr)
+    out = []
+    for u, v in ((-hw, -0.86 * size), (hw, -0.86 * size), (-hw, 0.66 * size), (hw, 0.66 * size), (0.0, 0.0)):
+        a, b = (u * cr - v * sr) * p.sx, (u * sr + v * cr) * p.sy        # CM.stamp: rotate(rot) · anim.stamp: scale(sx, sy) → rotate(p.rot) → +(x+dx, y+dy)
+        out.append((x + p.dx + a * cp - b * sp, y + p.dy + a * sp + b * cp))
+    return out
+
+
+def hint_shake(cx, t0, dur, amp, seed=0, freq=10.0, dt=DT_HINT):
+    """Tüm karenin sarsıntısının (anim.shake → jolt) gerçek hızı → hint_speed (ekran uzayı)."""
+    a = shake(cx.t - dt / 2, t0, dur, amp, seed=seed, freq=freq)
+    b = shake(cx.t + dt / 2, t0, dur, amp, seed=seed, freq=freq)
+    v = speed_of(a, b, dt)
+    if v > 0.0:
+        hint_speed(cx, v)
+    return v
+
+
+def cm_stamp_scale(k):
+    """cilt_medici.stamp'ın çarpma ölçeği (t = k): 1 + (1 − back_out(k))·0,8."""
+    import sk
+    return 1.0 + (1.0 - sk.back_out(k)) * 0.8 if k < 1 else 1.0
+
+
+def cm_seal_scale(k):
+    """cilt_medici.wax_seal'ın çarpma ölçeği (t = k): 1 + (1 − back_out(k))·0,55."""
+    import sk
+    return 1.0 + (1.0 - sk.back_out(k)) * 0.55 if k < 1 else 1.0
+
+
+def hint_pop(cx, x, y, box, at, dur, scale_fn, rot=0.0, ease=None, dt=DT_HINT, m="canvas"):
+    """Çapada "çarpma" ölçeğiyle beliren nesnenin (k = ease((t − at)/dur), ölçek scale_fn(k), merkez (x, y)) gerçek ekran hızı → hint_speed.
+    box = yerel kutu (u0, v0, u1, v1), rot radyan. CM.stamp (cm_stamp_scale), CM.wax_seal (cm_seal_scale), P.stamp için. Dönüş: hız (px/kare)."""
+    t0 = cx.at(at)
+    e = ease or _smooth
+    ka = e(_clamp((cx.t - dt / 2 - t0) / max(1e-6, dur)))
+    kb = e(_clamp((cx.t + dt / 2 - t0) / max(1e-6, dur)))
+    if kb <= 0.0 or ka >= 1.0:
+        return 0.0
+    sa, sb = scale_fn(ka), scale_fn(kb)
+    if abs(sa - sb) < 1e-7:
+        return 0.0
+    return hint_pts(cx, box_pts(x, y, *box, rot=rot, s=sa), box_pts(x, y, *box, rot=rot, s=sb), dt, m)
+
+
+def cm_stamp_box(text, size):
+    """CM.stamp çerçevesinin yerel kutusu (u0, v0, u1, v1)."""
+    import sk
+    hw = 0.5 * (sk.text_width(text, "title", size, 7) + 64)
+    return (-hw, -0.86 * size, hw, 0.66 * size)
 
 
 if __name__ == "__main__":                                       # öz sınama: süreklilik + aralıklar
