@@ -990,12 +990,16 @@ def arm_hand(f, x, y, ang, size, sleeve="#6E1C1E", cuff="#C9A23A", kind="open", 
                        (ex - dx * cw - nx * w0 * 1.12, ey - dy * cw - ny * w0 * 1.12), (ex + dx * cw * 0.2 - nx * w0 * 1.05, ey + dy * cw * 0.2 - ny * w0 * 1.05)])
     c.drawPath(cf, f.paint(cuff, alpha=alpha))
     if fur:
+        # kürk tutamları kol ağzının İÇİNE kırpılır (kurul tur 3 SA1-N2: daireler kol ağzının dışına taşıyordu)
+        c.save()
+        c.clipPath(cf, skia.ClipOp.kIntersect, True)
         for k in range(11):
             u = k / 10.0
             for side, sh_ in ((0.0, 0.0), (0.55, 0.18)):
                 qx = ex - dx * cw * (0.15 + side) + nx * w0 * (1.15 - 2.3 * u)
                 qy = ey - dy * cw * (0.15 + side) + ny * w0 * (1.15 - 2.3 * u)
                 f.circle(qx, qy, cw * (0.55 - 0.1 * side), color=mix(cuff, "#FFFFFF" if k % 2 else "#000000", 0.12 + sh_), alpha=alpha)
+        c.restore()
     c.drawPath(cf, f.paint(mix(cuff, "#000000", 0.5), style="stroke", sw=max(1.2, size / 120), alpha=0.85 * alpha))
     hb = size / HAND_K.get(kind, 0.0885)
     spr = FA.hand_sprite(skin, int(round(hb)), kind)

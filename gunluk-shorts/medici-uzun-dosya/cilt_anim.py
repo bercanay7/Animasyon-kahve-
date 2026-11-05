@@ -1214,7 +1214,13 @@ def _hat_r(kind, seed):
 
 def _period_spec(spec, kind, seed, y, explicit=()):
     """costume() çıktısını y yılına uyarla (yalnız başlık, desen, çorap, etek boyu). explicit: sahnenin açıkça verdiği anahtarlar (başlık hariç korunur)."""
-    if y is None or y >= 1500:
+    if y is None:
+        return spec
+    if y < 1511 and kind == "papa" and "beard" not in explicit and dict(spec).get("beard"):
+        d0 = dict(spec)
+        d0["beard"] = None                                           # 1511 öncesi papalar sakalsız (II. Julius ile değişti; kurul tur 3 SA2-Y11)
+        spec = tuple(sorted(d0.items(), key=lambda kv: kv[0]))
+    if y >= 1500:
         return spec
     d = dict(spec)
     r = _hat_r(d["kind"], seed)
@@ -1606,6 +1612,18 @@ def prop_sprite(name, h, c1="#6A4A2C", c2=GOLD):
         F.col = "#7A5A2A"
         F.fill(K.bar(-0.035 * h, -0.040 * h, 0.035 * h, -0.040 * h, 0.014 * h, 0.014 * h), rim=1.0)
         F.fill(K.bar(0, -0.035 * h, 0, 0.04 * h, 0.018 * h, 0.018 * h), rim=1.0)
+    elif name == "mitra":
+        # rehin mitra elde (tabanından tutulur; kurul tur 3 SA1-N1: havada asılı ikon yerine figürün eline bağlı). Krem gövde, altın titulus
+        # ve circulus, kırmızı Latin haçı (SA2-Y10'daki ikonla aynı süsleme dili; rün benzeri işaret yok).
+        F.col = "#F1E5C3"
+        F.fill(sp([KC(-0.058 * h, 0.0), (-0.062 * h, -0.10 * h), (-0.036 * h, -0.172 * h), KC(0.0, -0.212 * h), (0.036 * h, -0.172 * h), (0.062 * h, -0.10 * h),
+                   KC(0.058 * h, 0.0)], True, 0.6), rim=1.0)
+        F.col = GOLD
+        F.fill(poly([(-0.011 * h, -0.196 * h), (0.011 * h, -0.196 * h), (0.013 * h, -0.004 * h), (-0.013 * h, -0.004 * h)]), rim=0.8, bound=False)
+        F.fill(poly([(-0.060 * h, -0.026 * h), (0.060 * h, -0.026 * h), (0.058 * h, 0.004 * h), (-0.058 * h, 0.004 * h)]), rim=0.8, bound=False)
+        F.col = "#8E1F1F"
+        F.fill(K.bar(0, -0.178 * h, 0, -0.142 * h, 0.0036 * h, 0.0036 * h), rim=0.0, bound=False)
+        F.fill(K.bar(-0.011 * h, -0.166 * h, 0.011 * h, -0.166 * h, 0.0036 * h, 0.0036 * h), rim=0.0, bound=False)
     elif name == "bulla":
         # papalık belgesi (bulla): alt kenarı kıvrık (plica) parşömen, satırlar, ipek kordonla sarkan kurşun mühür. Tutuş noktası belgenin alt kenarı.
         F.col = "#ECE2C8"
@@ -2197,7 +2215,7 @@ def attach_prop(kit, p, prop, T, hand="near", flag=None, v=0.0):
             a_ = ang_p * D2R
             top = (wx + 0.98 * hb * math.sin(a_), wy - 0.98 * hb * math.cos(a_))
             p.props.append(("mid" if i == 1 else "far", _flag_fn(top, hb, T, flag, v)))
-    elif prop in ("book", "cross"):
+    elif prop in ("book", "cross", "mitra"):
         tgt = (p.sho[0] + 0.095 * hb, p.sho[1] + 0.10 * hb)
         ex, ey, wx, wy = ik2(p.sho[0], p.sho[1], tgt[0], tgt[1], kit.B["ua"], kit.B["fa"], 1.0)
         arms = list(p.arms)
