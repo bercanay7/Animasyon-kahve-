@@ -204,7 +204,7 @@ Her üye kendi tur 2 koşullarını v3'te tek tek sınadı ve düzeltmelerin get
 | Hassasiyet ve hukuk (veto) | KA2 kaynak/hukuk | 7,0 | 8,0 | **9,0** | ONAY · veto kalktı | N1 Konstanz eli, N2 "ÖZET · ÇEVİRİ BİZE AİT", N3, N4 → v3.1'de kapatıldı |
 | Kapak, başlık, paket | PK1 TO stratejisti | 6,0 | 9,0 | **9,5** | ONAY | G1 (kapak QA görseli), G2 (YAYIN_TASLAK §6.8) kapatıldı (e7d6e73) |
 | | PK2 ilk kez gören izleyici | 6,0 | 8,5 | **9,1** | ONAY | N1 (= AN2 Ö1, kart benzeri süre %46; 9,5 için ana madde); N2 bitiş ekranı 9:53 + P2 günü satırları → paket metnine yazıldı |
-| Teknik kalite | TE1 render/kodlama | 8,0 | 8,7 | — | bekleniyor | |
+| Teknik kalite | TE1 render/kodlama | 8,0 | 8,7 | **9,1** | ONAY | Koşulların hepsi kapandı (segment başı deklanşör bit bit aynı, 13 segment tek çizelge özeti, birleşim kayıpsız, renk ve ses doğru). YENİ Y9 (önemli): dünyaya kilitli kâğıt dokusu `BORDER_REFLECT` ile aynalanıyor, örnek karelerin %44'ünde dikiş → döşenebilir doku + `BORDER_WRAP` (ENG-E). Y11 (kod özeti) ve birleştirme öz sınaması, Y6 (seviye 4.1) → başkan, render.py |
 | | TE2 erişilebilirlik/okunurluk | 7,0 | 8,6 | — | bekleniyor | |
 
 **Kullanıcının sorusu ("ucuz mu, yapay zekâ gibi mi?"):** Yanıtını değiştiren üyelerin hepsi aynı yöne gitti: hareket ve şablon kaynaklı "ucuz" izler büyük ölçüde gitti, yapay zekâ izlenimi yok (AN1, PK2, SA1). Kalan izler: figür oranlarının sadeliği, yakın plan ellerin "eldiven" ve katı kayan hâli (AN1, SA1 E-1) ve dört kez dönen defter kadrajı (AN2, PK2).

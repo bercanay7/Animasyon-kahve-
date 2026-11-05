@@ -39,4 +39,8 @@ Neredeyse bütün segmentler etkilendiği için v3.1 tam zincirle üretilir (`VE
 | 27 | PK2-Y5 (küçük, isteğe bağlı) | "FAİZ" bölüm etiketi | B | **değişiklik yok** (KURUL.md tur 3 kararı) |
 | 28 | SA1-E-1 (P2'ye) | Yakın plan el silueti ("eldiven") | B | P2 öncesi motor işi; `sonraki_parcalar_notlari.md` |
 | 29 | KA1 (P2–P7) | Loggia terası 1583'te eklendi → 1382–1582 terassız aşama | B | `sonraki_parcalar_notlari.md` |
-| — | TE1, TE2 | raporlar bekleniyor | | |
+| 30 | TE1-Y9 (önemli, yeni gerileme) | Kâğıt dokusu `BORDER_REFLECT` ile aynalanıyor (karelerin %44'ünde dikiş; 110,0 sn x≈1537) → döşenebilir doku + `BORDER_WRAP` | ENG-E | sürüyor |
+| 31 | TE1-Y11 + §8 (süreç) | `.done` özetine kod özeti; birleştirmede kod özeti, akış imzası, kare sayısı ve renk etiketi öz sınaması | B | **yapıldı** (render.py) |
+| 32 | TE1-Y6 (küçük) | H.264 seviye 5.0 → 4.1 (`-refs 4 -level:v 4.1`) | B | **yapıldı** (render.py; deneme kodlaması seviye 41) |
+| 33 | TE1-Y10, Y12 (küçük) | Uzun karanlık bitiş ekranında hafif bantlaşma; karmaşık karelerde SSIM 0,940 | B | **iş yok** (üye: "iş gerekmez"; bedel beklenen) |
+| — | TE2 | rapor bekleniyor | | |

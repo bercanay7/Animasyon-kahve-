@@ -59,9 +59,48 @@ def ff_cmd(out, crf, preset, scale=None, threads=2):
         vf = ["-vf", f"scale={scale}:-2:flags=lanczos:{COLOR_VF},setsar=1"]
     else:
         vf = ["-vf", f"scale={COLOR_VF},setsar=1"]
+    # kurul tur 3 TE1-Y6: seviye 5.0 (ref=5) → 4.1 (ref=4); 1080p'de DPB sınırı 4 referans. Ana dosya televizyon/telefon donanım
+    # çözücülerinde de oynasın; YouTube zaten yeniden kodlar, görüntü değişmez.
     return ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-color_range", "pc", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
             *vf, "-c:v", "libx264", "-preset", preset, "-crf", str(crf), *X264_TUNE, "-maxrate", MAXRATE, "-bufsize", BUFSIZE, "-pix_fmt", "yuv420p",
+            "-refs", "4", "-level:v", "4.1",
             "-color_range", "tv", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-g", "48", "-bf", "2", "-threads", str(threads), "-an", out]
+
+
+CODE_SKIP = ("qa_", "paket_", "make_srt", "miks_", "kapak_qa", "test_")
+
+
+def code_digest():
+    """Kare üreten kodun özeti (sha1, ilk 12): bu klasördeki *.py (denetim, paket, altyazı ve miks betikleri hariç).
+    Kurul tur 3 TE1-Y11: çizelge özeti kodu kapsamıyordu; kısmî render'da eski ve yeni segmentler farklı koddan çıkabiliyordu.
+    Havuz 'spawn' ile her segmentte modülleri yeniden yükler → özet, segment compose'u yüklemeden hemen önce okunur."""
+    import hashlib
+    h = hashlib.sha1()
+    for fn in sorted(glob.glob(os.path.join(HERE, "*.py"))):
+        b = os.path.basename(fn)
+        if b.startswith(CODE_SKIP):
+            continue
+        h.update(b.encode())
+        with open(fn, "rb") as fh:
+            h.update(fh.read())
+    return h.hexdigest()[:12]
+
+
+def stream_sig(path):
+    """Birleştirme denetimi için akış imzası: kodlayıcı ayarı ve renk etiketleri (segmentler arasında aynı olmalı; TE1 tur 3 §8)."""
+    keys = ("codec_name", "profile", "level", "width", "height", "pix_fmt", "color_range", "color_space", "color_transfer", "color_primaries",
+            "r_frame_rate", "refs", "has_b_frames")
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=" + ",".join(keys), "-of", "json", path],
+                       capture_output=True, text=True, check=True)
+    st = (json.loads(r.stdout).get("streams") or [{}])[0]
+    return tuple((k, str(st.get(k))) for k in keys)
+
+
+def frame_count(path):
+    """Paket sayımıyla kare sayısı (çözmeden, hızlı)."""
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-count_packets", "-show_entries", "stream=nb_read_packets",
+                        "-of", "csv=p=0", path], capture_output=True, text=True, check=True)
+    return int(r.stdout.strip().split(",")[0])
 
 
 def timeline_digest(part):
@@ -85,6 +124,7 @@ def render_segment(args):
     final = os.path.join(SEG, f"seg_{idx:04d}.mp4")
     if os.path.exists(final + ".done"):
         return idx, 0.0, 0
+    cdig = code_digest()                                   # bu süreç compose'u şimdi yükleyecek: özet yüklenen kodun özeti
     import compose
     prog = compose.Program(part=part)
     if n0 > 0:
@@ -118,7 +158,7 @@ def render_segment(args):
     if rc != 0:
         raise RuntimeError(f"ffmpeg hata kodu {rc} (P{part} seg {idx})")
     os.replace(tmp, final)
-    open(final + ".done", "w").write(f"{n0} {n1} {time.time() - t0:.1f} {timeline_digest(part)}\n")
+    open(final + ".done", "w").write(f"{n0} {n1} {time.time() - t0:.1f} {timeline_digest(part)} {cdig}\n")
     return idx, time.time() - t0, errs
 
 
@@ -183,25 +223,62 @@ def cmd_concat(a):
     missing = [f for f in files if not os.path.exists(f + ".done")]
     if missing:
         raise SystemExit(f"eksik segment: {len(missing)} (ör. {os.path.basename(missing[0])}); önce --all")
-    # her segment güncel zaman çizelgesiyle mi üretildi? (.done: "n0 n1 süre özet"; eski biçimde özet yok → uyarı)
-    cur = timeline_digest(a.part)
-    eski, yok = [], []
+    # her segment güncel zaman çizelgesiyle VE güncel kodla mı üretildi? (.done: "n0 n1 süre çizelge_özeti kod_özeti"; eski biçim → uyarı)
+    force = getattr(a, "force", False)
+    cur, ccur = timeline_digest(a.part), code_digest()
+    eski, yok, kod_eski, kod_yok, kodlar = [], [], [], [], set()
     for f in files:
         parts_ = open(f + ".done").read().split()
         if len(parts_) < 4:
             yok.append(os.path.basename(f))
         elif parts_[3] != cur:
             eski.append(os.path.basename(f))
-    if eski and not getattr(a, "force", False):
+        if len(parts_) < 5:
+            kod_yok.append(os.path.basename(f))
+        else:
+            kodlar.add(parts_[4])
+            if parts_[4] != ccur:
+                kod_eski.append(os.path.basename(f))
+    if eski and not force:
         raise SystemExit(f"{len(eski)} segment başka bir zaman çizelgesiyle üretilmiş ({', '.join(eski[:4])}…): onları silip yeniden üret "
                          f"ya da --force")
+    if (kod_eski or len(kodlar) > 1) and not force:
+        raise SystemExit(f"{len(kod_eski)} segment şimdiki koddan farklı kodla üretilmiş ({', '.join(kod_eski[:4])}…; {len(kodlar)} ayrı kod özeti). "
+                         f"Kısmî render'da süren çekimin iki yanı farklı koddan çıkar (kurul tur 3 TE1-Y11): yeniden üret ya da --force")
     if yok:
         print(f"[uyarı] {len(yok)} segmentte çizelge özeti yok (eski biçim): {', '.join(yok[:4])}…", flush=True)
+    if kod_yok:
+        print(f"[uyarı] {len(kod_yok)} segmentte kod özeti yok (eski biçim): {', '.join(kod_yok[:4])}…", flush=True)
+    # öz sınama 1: bütün segmentler aynı kodlayıcı ayarı ve renk etiketleriyle mi? (kopyala-birleştir tek SPS varsayar)
+    imzalar = {}
+    for f in files:
+        imzalar.setdefault(stream_sig(f), []).append(os.path.basename(f))
+    if len(imzalar) > 1:
+        ayrinti = "; ".join(f"{len(v)} segment: " + ", ".join(f"{k}={x}" for k, x in sig if x not in ("None",)) for sig, v in imzalar.items())
+        if not force:
+            raise SystemExit(f"segmentlerin akış imzaları farklı ({ayrinti}): yeniden üret ya da --force")
+        print(f"[uyarı] segmentlerin akış imzaları farklı: {ayrinti}", flush=True)
     lst = os.path.join(SEG, "concat.txt")
     open(lst, "w").write("".join(f"file '{f}'\n" for f in files))
     out = noaudio_path(a.part)
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", out], check=True)
-    print(out, os.path.getsize(out) // 1_000_000, "MB")
+    # öz sınama 2: kare sayısı planla, akış imzası segmentlerle aynı mı? (kurul tur 3 TE1 §8)
+    nout = frame_count(out)
+    sig_out = stream_sig(out)
+    hata = []
+    if nout != nf:
+        hata.append(f"kare sayısı {nout} ≠ plan {nf}")
+    if len(imzalar) == 1 and sig_out != next(iter(imzalar)):
+        hata.append("birleşik dosyanın akış imzası segmentlerinkinden farklı")
+    sd = dict(sig_out)
+    if (sd.get("color_space"), sd.get("color_transfer"), sd.get("color_primaries"), sd.get("color_range")) != ("bt709", "bt709", "bt709", "tv"):
+        hata.append(f"renk etiketleri BT.709/tv değil ({sd.get('color_space')}/{sd.get('color_transfer')}/{sd.get('color_primaries')}/{sd.get('color_range')})")
+    if hata:
+        msg = "birleştirme öz sınaması KALDI: " + "; ".join(hata)
+        if not force:
+            raise SystemExit(msg)
+        print("[uyarı] " + msg, flush=True)
+    print(out, os.path.getsize(out) // 1_000_000, "MB", f"· {nout} kare · seviye {sd.get('level')} · ref {sd.get('refs')} · kod {ccur}", flush=True)
 
 
 def find_audio(part, explicit=None):
@@ -322,7 +399,7 @@ def main():
     ap.add_argument("--scale", default=None)
     ap.add_argument("--out", default=None)
     ap.add_argument("--audio", default=None)
-    ap.add_argument("--force", action="store_true", help="--concat: çizelge özeti farklı segmentleri yine de birleştir")
+    ap.add_argument("--force", action="store_true", help="--concat: çizelge/kod özeti ya da akış imzası farklı segmentleri yine de birleştir")
     a = ap.parse_args()
     if a.tam:
         return cmd_tam(a)
