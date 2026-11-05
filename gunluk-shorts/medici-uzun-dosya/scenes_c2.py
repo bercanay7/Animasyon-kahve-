@@ -103,7 +103,8 @@ SHOTS = [
                   P.pop_label("KUR FARKI", 1440, 250, ("c2s4", "kur", -0.1), size=84, track=10)),
          cam=("push", dict(rate=0.012)), tr=("zoomthru", 0.55, dict(at=(760, 470), at_b=(960, 520))), link="scale", label="poliçe gider, para döner: kur farkı"),   # rota merkezine %1,2/sn itme; kadraj koruması durdurmaz
     # ── 4. Ortada borç yok, faiz yok; yalnızca kur farkı ─────────────────────
-    shot("c2_nolist", ("c2s5", -0.15), mode="day", perde=1, borc_at=("c2s5", -0.65), borc_hit=("c2s5", "borç", -0.12), borc_x=("c2s5", "yok", -0.15),   # BORÇ ilk karede hazır (AN1-Y-N1) faiz_at=("c2s5", "faiz", -0.25), faiz_x=("c2s5", "yok", 1, -0.15), kur_at=("c2s5", "yalnızca", -0.2),
+    shot("c2_nolist", ("c2s5", -0.15), mode="day", perde=1, borc_at=("c2s5", -0.65), borc_hit=("c2s5", "borç", -0.12), borc_x=("c2s5", "yok", -0.15),   # BORÇ ilk karede hazır (AN1-Y-N1)
+         faiz_at=("c2s5", "faiz", -0.25), faiz_x=("c2s5", "yok", 1, -0.15), kur_at=("c2s5", "yalnızca", -0.2),
          cam=("pan", "r"), tr="cut", link="audio", label="BORÇ ✗ FAİZ ✗ KUR FARKI ✓"),
     # ── 5. vicdan komitesi (mizah): Medici salonu, masa başı siluetler ─────────
     shot("p1_oda", ("c2s6", -0.15), room="salon", variant="medici", sil=True, tod="day", mode="day", perde=1, path="heads",
@@ -337,8 +338,8 @@ SHOTS = [
          lines_b=[("kimse dünyevi tasaları", ("c2s30", "kimse", -0.05)), ("sonsuz huzurla", ("c2s30", "sonsuz", -0.05), True),
                   ("değiş tokuş ettiği için", ("c2s30", "değiş", -0.05)), ("kederlenmemeli.", ("c2s30", "kederlenmemeli", -0.05))],
          cam=[(("c2s30", "kimse", -0.3), (380, -30, 1.08, 0)), (("c2s30", "huzurla", 0.0), (430, 0, 1.24, 0)), (("c2s31", -0.2), (470, 24, 1.40, 0))],
-         ovl=P.ov(CAV_PLATE_95, P.tag("CAVALCANTİ'YE GÖRE", 560, 880, ("c2s30", "kimse", 0.0), size=40),
-                  P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 880, ("c2s30", "tasaları", 0.0), size=30)),      # KA2 tur 3 N2
+         ovl=P.ov(CAV_PLATE_95, P.tag("CAVALCANTİ'YE GÖRE", 560, 850, ("c2s30", "kimse", 0.0), size=40),
+                  P.tag("TÜRKÇESİ ÖZET · ÇEVİRİ BİZE AİT", 1360, 850, ("c2s30", "tasaları", 0.0), size=30)),      # KA2 tur 3 N2; y 880→850 (+ satır aralığı 74→64): iki satırlık altyazı (559,95–565,28) bandının üstünde (TE2-G2 ilkesi)
          tr="cut", link="cam", label="Cavalcanti'nin sayfası (ANEKDOT)"),
     # ── 31. hangisi gerçekten söylendi, bilmiyoruz — iki sayfa, iki söz yan yana (yazılmış) ───────────────────────────
     shot("c2_kalemler", ("c2s31", -0.15), mode="day", perde=1, full=True, q_at=("c2s31", "bilmiyoruz", -0.6),

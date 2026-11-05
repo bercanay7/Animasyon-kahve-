@@ -619,7 +619,8 @@ def k_kalemler(cx, left_at=None, right_at=None, q_at=None, stamp_at=None, write_
         for i, it in enumerate(lines or ()):                    # anahtar söz: anlatımdakiyle birebir, satır satır
             txt, la = it[0], it[1]
             hl = it[2] if len(it) > 2 else False
-            ly = yy + (230 if orig else 110) + i * 74
+            ly = yy + (230 if orig else 110) + i * (64 if orig else 74)     # özgün alıntının altında sıkı aralık: 4. satır, altyazı bandının
+                                                                            # üstündeki 'ÖZET' levhalarına binmesin (başkan, tur 3 → v3.1)
             wl = sk.text_width(txt, "fell_i", 46)
             dur_ = max(0.5, min(1.1, 0.055 * len(txt)))
             pr = 1.0 if full else clamp((cx.t - cx.at(la)) / dur_)
