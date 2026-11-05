@@ -245,3 +245,44 @@ Her üye kendi tur 2 koşullarını v3'te tek tek sınadı ve düzeltmelerin get
   - `qa_yerlesim`: OWN_CAMERA türlerinin yazı kutuları ekran uzayına + yarım görünen yazı kuralı (TE2);
   - tam zincir `VER=v31 bash p1_uret.sh` (≈45 dk; neredeyse bütün segmentler etkileniyor);
   - tek üyeli gerileme kontrolleri: SA2 (Y10–Y13: RED'den dönüş için zorunlu), SA1 (N1–N4), AN2 + PK2 (defter), AN1 (hareket), KA1/KA2 (yeni metinler).
+
+## Tur 3b — v3.1 gerileme kontrolü (5 Kasım 2026)
+
+v3.1 tam render olarak üretildi:
+- 601,54 sn, 14.437 kare, seviye 4.1, tek kod özeti (ae58fa355abb);
+- qa_flow 20 GEÇTİ · 0 KALDI;
+- −14,04 LUFS / −1,80 dBTP;
+- kare hatası 0.
+
+Her üye kendi tur 3 açık/yeni maddelerini ve v3.1'in kendi alanına getirdiği gerilemeleri sınadı. Brif: `KURUL_BRIFI_P1_TUR3B.md`; raporlar: `kurul/tur3b/<KOD>.md`.
+
+| Alan | Üye | Tur 3 | **Tur 3b** | Karar | Not |
+|---|---|---:|---:|---|---|
+| Animasyon ve kurgu | AN1 animasyon yönetmeni | 9,0 | — | bekleniyor | |
+| | AN2 kurgu ve ritim | 9,2 | **9,5** | ONAY | Ö1 kapandı: üstten defter 4 → 2 çekim, aralarında 62 sn. Sıçrayan kesme 0, kesme girişi duruşu 0 |
+| Sanat ve üslup | SA1 sanat yönetmeni | 9,1 (koşullu) | **9,3** | ONAY | N1–N4, Y6-k kapandı. Yeni G1: #48 levhaları arma ızgarasını örtüyor (düzelirse 9,4); G2 catasto ruloları; G3 KEFALET simgesi |
+| | SA2 dönem ve gelenek | 8,8 (RED) | **9,5** | ONAY | Y10–Y13 kapandı. Küçük: asemik elin eğimi, #88 cildi 18.–19. yy. gibi |
+| Kaynak ve doğruluk (veto) | KA1 konu uzmanı | 9,3 | **9,5** | ONAY · veto yok | Yeni metinlerin hepsi kaynakla birebir (Machiavelli, Cavalcanti, kasa şeridi 22+18, BORÇLULAR/ALACAKLILAR, PORTATA) |
+| Hassasiyet ve hukuk (veto) | KA2 kaynak/hukuk | 9,0 | **9,4** | ONAY · veto yok | N1–N4 kapandı; hassasiyet taraması temiz |
+| Kapak, başlık, paket | PK1 TO stratejisti | 9,5 | **9,5** | ONAY | Yeni K1 kapağı, yankı, bitiş ekranı, paket doğru |
+| | PK2 ilk kez gören izleyici | 9,1 | **9,5** | ONAY | N1 kapandı (kart payı 7–8. dk %59 → %37). Küçük: #83'te el yumru gibi; başlık HUD'a 10 px giriyor |
+| Teknik kalite | TE1 render/kodlama | 9,1 | **9,4** | ONAY | Y9 doku dikişi kapandı (0,508 → −0,015); 13 segment tek çizelge+kod özeti; MD5 birebir |
+| | TE2 erişilebilirlik/okunurluk | 9,0 | **9,4** | ONAY | G1–G8, Y5 kapandı. Küçük: #83 son hâl 0,7 sn; 1737 genel planında tek ad; ÖZET 30 px |
+
+**Kullanıcının sorusu ("ucuz mu, yapay zekâ gibi mi?") — tur 3b:**
+- Hiçbir üye yapay zekâ izi bulmadı.
+- "Ucuz" okunabilecek tek kare olarak iki üye (PK2, SA1) aynı yeri gösterdi: #83'te ≥2× yakın planda anahtarları bırakan parmaksız el (476,3–478,3).
+- Eldiven eller P2 öncesi motor işi.
+
+**Başkan kararı — v3.2 cila turu:**
+- Tur 3b'nin küçük notları, hiçbiri koşul olmadan, tek bir cila turunda kapatılır (`duzeltme_tur3/BRIF_v32_CILA.md`):
+  - #83: el kadraj dışında, anahtarlar düşer; başlık ve HUD arasında pay; son hâl ≥1,2 sn sabit;
+  - #88: parşömen (limp vellum) cilt, kayış, mürekkeple yıl;
+  - ÖZET etiketleri 34 px;
+  - catasto ruloları;
+  - KEFALET simgesi;
+  - asemik el: eğim 20–25°, sabit x-yüksekliği;
+  - 1737 genel planında iki ad;
+  - #48 levhaları.
+- Ardından tek tam render ve ilgili üyelerle tek maddelik doğrulama (PK2, SA1, SA2, TE2).
+- **Not (TE2):** temizlikte tur 3 raporunun andığı `te2_t3/*.png` kanıtları silindi; maddeler tur 3b'de v3.1'de yeni kanıtla yeniden sınandı.
