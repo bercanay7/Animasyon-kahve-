@@ -1,2 +1,6 @@
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+  örnekleme: 1203 kare, 2 işlem, 107 sn (ortalama 144 ms/kare)
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+  ölçüm (ENG-D): 84 iş (46 kamera, 38 kesme), 2 işlem, 67 sn
