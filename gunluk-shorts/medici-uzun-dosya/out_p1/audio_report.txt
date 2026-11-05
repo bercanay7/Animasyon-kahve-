@@ -114,4 +114,4 @@ bölümler: c0, c1, c2; konuşma−müzik penceresi: [20, 24] dB (bölüm yanlı
 YENİDEN ÜRETME (tek komut): MEDICI_PART=1 python3 miks_kur.py     (+ --preview ile out_pN/ses_onizleme/ mp3 kesitleri)
   girdiler : out_p1/voice.wav, voice_chapters.json, timeline.json, sfx_cues_p1.json, [out_p1/sfx_gecis.json]
   çıktılar : out_p1/mix_audio.m4a, stem_music|voice|sfx.flac, sfx_cues_used.json, audio_report.txt
-toplam çalışma süresi: 126 sn
+toplam çalışma süresi: 120 sn
