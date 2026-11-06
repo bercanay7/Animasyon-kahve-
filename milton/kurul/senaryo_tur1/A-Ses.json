@@ -53,7 +53,7 @@
    "sira": 4,
    "id": "GENEL (çekim uzunluğu; s06, s04, s11)",
    "onem": "yüksek",
-   "sorun": "Sisifos'un en uzun çekimi (Camus, 149 kelime) sona doğru hızlandı: ilk altı cümlede 5,9 hece/sn, doruk olan son dört cümlede 7,5 hece/sn. Dokuz gün bölümünde de benzer bir eğilim var (5,5'ten 6,7'ye).\n\nMilton'da 'Güneşe itiraf' tek çekimde 280 kelime (2.010 karakter):\n- G09 132. kelimede, G13 222. kelimede.\n- Bu, Emrullah'ın okuduğu en uzun çekimin neredeyse iki katı.\n- E09 menteşesi 150. kelimede, L09 136. kelimede.",
+   "sorun": "Sisifos'un en uzun çekimi (Camus, 149 kelime) sona doğru hızlandı: ilk altı cümlede 5,9 hece/sn, doruk olan son dört cümlede 7,5 hece/sn. Sisifos'un 'Ölümü zincirleyen adam' bölümünde de benzer bir eğilim var (5,5'ten 6,7'ye).\n\nMilton'da 'Güneşe itiraf' tek çekimde 280 kelime (2.010 karakter):\n- G09 132. kelimede, G13 222. kelimede.\n- Bu, Sisifos'ta ölçtüğüm en uzun çekimin neredeyse iki katı (Prometheus çekimleri bu depoda yok, onları ölçemedim).\n- E09 menteşesi 150. kelimede, L09 136. kelimede.",
    "oneri": "Seslendirme için bölümleri parçala; doruk her çekimin başında olsun:\n- G: G01–G06 (97 kelime) / G07–G10 (76) / G11–G15 (107)\n- E: E01–E08 (150) / E09–E14 (95)\n- L: L01–L06 (101) / L07–L12 (128)\n\nUygulama:\n- Segmentlere isteğe bağlı bir 'vo_parca' alanı ekle.\n- vo_sections.py ve build_vo.py gruplamayı (bolum, vo_parca) çiftiyle yapsın; secim.json anahtarı 'Güneşe itiraf/2' gibi olsun.\n- Her parçanın ilk sözcüğünden önce o anın etiketini yeniden yaz; önceki çağrının tonu yeni çağrıya taşınmaz."
   },
   {

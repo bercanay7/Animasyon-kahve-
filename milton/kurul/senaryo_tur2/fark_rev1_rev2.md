@@ -1,0 +1,352 @@
+# Rev1 → rev2 farkları (otomatik)
+
+Biçim: id · bölüm · rev1 altyazı → rev2 altyazı. "YENİ" = rev1'de yoktu. Silinenler en sonda.
+
+- **A01** (Cehennem benim):
+  - rev1: “Hangi yana kaçsam cehennem… cehennem benim.” Bunu söyleyen, bir zamanlar cennetin en parlak meleğiydi.
+  - rev2: “Hangi yana kaçsam cehennem. Ben cehennemim.”
+- **A02** (Cehennem benim):
+  - rev1: Şimdi yanan bir gölün ortasında gözlerini açıyor. Dokuz gün boyunca düşmüştü. Etrafında alev var ama ışık yok; Milton'ın deyişiyle, görünür bir karanlık.
+  - rev2: Bunu söyleyen, bir zamanlar cennetin en parlak meleğiydi.
+- **A03** (Cehennem benim):
+  - rev1: Elmas zincirlerle bu göle bağlı. Birazdan zincirlerinden kurtulacak, cehennemin kapısından çıkıp Kaos'u aşacak. Ama nereye giderse gitsin, cehennem de onunla gelecek.
+  - rev2: Birazdan cehennemden kaçacak. Ama cehennemden bir adım bile uzaklaşamayacak. Neden?
+- **A04** (Cehennem benim):
+  - rev1: Peki zincirleri çözülen birini, cehennemde tutan neydi?
+  - rev2: Hikâye, onun gözlerini açtığı yerde başlar: yanan bir gölün ortasında. Dokuz gün düşmüştü. Etrafında alev var ama ışık yok; yalnızca görünür bir karanlık. Kırılmaz zincirlerle bu göle bağlı.
+- **A05** (Cehennem benim):
+  - rev1: Bu hikâye bir kutsal kitaptan değil, bir şiirden: John Milton'ın 1667'de yayımlanan destanı, Kayıp Cennet'ten. Buradaki Şeytan, bir şairin yarattığı bir karakter.
+  - rev2: Bu hikâye bir şiirden: John Milton'ın destanı, Kayıp Cennet'ten. Buradaki Şeytan, Milton'ın kaleminden çıkmış bir karakter; biz de onu bir din anlatısı olarak değil, bir edebiyat eseri olarak okuyacağız.
+- **A06** (Cehennem benim):
+  - rev1: Ve onu yaratan şair, bu dizeleri söylerken hiçbir şey göremiyordu.
+  - rev2: Ve bu destanı yazdıran şair, hiçbir şey göremiyordu.
+- **B01** (Kör şair):
+  - rev1: Londra, on yedinci yüzyıl. John Milton, kırk üç yaşına geldiğinde gözleri tamamen kararmıştı.
+  - rev2: Hiçbir şey göremeyen bir adam, cehennemi nasıl bu kadar iyi gördü?
+- **B02** (Kör şair):
+  - rev1: Ama Milton yalnızca bir şair değildi. Kral Birinci Charles'ın yargılanıp idam edilmesini savunmuş, kralı deviren devrimin hükümetinde çalışmıştı.
+  - rev2: Londra'da bir ev; gece. Gözleri görmeyen bir adam uyuyamıyor. Anlatılanlara göre bazen dizeleri uykusuz gecelerde zihninde kurar, kızını uyandırıp ona yazdırırdı: kırk dizeyi bir solukta söyler, sonra yirmiye indirirdi. Çoğu zaman da evde kim varsa, ona.
+- **B03** (Kör şair):
+  - rev1: Sonra devrim çöktü. 1660'ta krallık geri döndü. Milton saklandı; kitapları cellat eliyle yakıldı; kendisi yakalanıp hapse atıldı.
+  - rev2: İki küçük kızına, hiç bilmedikleri dilleri okumayı öğretmişti: İbranice, Yunanca, Latince. Kızlar, göremeyen babalarına, tek kelimesini anlamadıkları metinleri sesli okurdu. Bu saatler, yıllar içinde onlar için dayanılmaz bir hâl aldı.
+- **B04** (Kör şair):
+  - rev1: Dostlarının araya girmesiyle kurtuldu. Ama artık kör, yoksul ve yenilmiş bir adamdı.
+  - rev2: Milton kırk üç yaşında tamamen kör olmuştu. Ama yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuş, kralı deviren devrimin hükümetinde çalışmıştı.
+- **B05** (Kör şair):
+  - rev1: Ve tam o yıllarda, bir destanı yazdırmaya koyuldu.
+  - rev2: Sonra devrim çöktü; krallık geri döndü. Kitapları cellat eliyle yakıldı, kendisi bir süre hapse atıldı. Destana devrim henüz ayaktayken başlamıştı; büyük kısmını bu yenilginin içinde yazdırdı.
+- **B06** (Kör şair):
+  - rev1: Dizeleri çoğu zaman geceleri, uykusuzken kafasında kuruyordu. Bazen kızlarından birini uyandırıp yazdırır, kırk dizeyi bir solukta söyleyip sonra yirmiye indirirdi.
+  - rev2: Destanın üçüncü kitabında kendi körlüğünü anlatır: “Mevsimler döner; ama bana gün dönmez. Ne sabah ne akşam, ne bahar çiçeği ne yaz gülü. Ne de bir insan yüzü.”
+- **B07** (Kör şair):
+  - rev1: Sabahları da evde kim varsa ona yazdırırdı: yeğenine, dostlarına, tuttuğu yardımcılara.
+  - rev2: “Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.”
+- **B08** (Kör şair):
+  - rev1: İki küçük kızına, anlamını bilmedikleri dillerde okumayı öğretmişti: İbranice, Yunanca, Latince. Kızlar, anlamadıkları sözcükleri göremeyen babalarına okurdu.
+  - rev2: Işığını ve devrimini kaybetmiş bir şair, ışığını ve savaşını kaybetmiş bir meleği anlatacaktı.
+- **B09** (Kör şair):
+  - rev1: Babalarıyla araları iyi değildi; bu okuma saatleri, yıllar içinde onlar için dayanılmaz bir hâl almıştı.
+  - rev2: Yeğeninin anlattığına göre, bu hikâyenin ilk dizeleri çok daha önce, Milton'ın gözleri henüz görürken, bir tiyatro oyununun açılışı olarak yazılmıştı. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın güneşe yaptığı bir itiraftı. Oraya geleceğiz.
+- **B10** (Kör şair):
+  - rev1: Destanın üçüncü kitabında Milton kendi körlüğünü anlatır: “Mevsimler döner; ama bana gün dönmez. Ne sabah ne akşam, ne bahar çiçeği ne yaz gülü… ne de bir insan yüzü.”
+  - rev2: Ama önce, o meleğin düşmeden önceki hâline bakalım.
+- **C02** (Işık taşıyan):
+  - rev1: Milton'ın cenneti, ışıktan bir dünyadır. Ve o dünyanın en parlak varlıklarından biri, başmeleklerin ilki; ilki değilse bile, en büyüklerinden biridir.
+  - rev2: Milton'ın cenneti ışıktan bir dünyadır. O dünyanın en parlak varlıklarından biri bir başmelektir: başmeleklerin en büyüklerinden biri, belki de en büyüğü.
+- **C03** (Işık taşıyan):
+  - rev1: Milton ona bir yerde Lucifer der: ışık taşıyan. Yüzü, yıldızların arasındaki sabah yıldızı gibi parlıyormuş.
+  - rev2: Milton onun cennetteki adını vermez: “Eski adı artık cennette anılmıyor; ona bundan böyle Şeytan deyin.” Yalnızca birkaç yerde, “öyle diyelim” diyerek ona Lucifer der, yani ışık taşıyan. Bir zamanlar meleklerin arasında, yıldızların arasındaki sabah yıldızından bile parlakmış.
+- **C04** (Işık taşıyan):
+  - rev1: Asıl adını ise hiç söylemez. “Eski adı artık cennette anılmıyor,” der. “Ona bundan böyle Şeytan deyin.”
+  - rev2: Bir gün, Milton'ın anlattığına göre, Tanrı bütün melekleri toplar ve Oğul'u onların başına geçirir. Bundan sonra herkes onun önünde diz çökecek; ona karşı gelen, Tanrı'ya karşı gelmiş sayılacak ve dönüşü olmayan bir karanlığa düşecektir.
+- **C05** (Işık taşıyan):
+  - rev1: Bir gün, Milton'ın anlattığına göre, Tanrı bütün melekleri toplar ve Oğul'u onların başına geçirir. Bundan sonra herkes onun önünde diz çökecek; ona karşı gelen, Tanrı'ya karşı gelmiş sayılacaktır.
+  - rev2: Gece yarısı, yardımcısını gizlice uyandırır. Ordulara bir yalan söylenir: Kuzeydeki saraya, yeni kralı karşılamaya hazırlanmak için gidecekler.
+- **C06** (Işık taşıyan):
+  - rev1: Başmelek bu manzaraya dayanamaz. Milton sebebini iki kelimeyle söyler: kıskançlık ve gurur. Kendini küçültülmüş sayar.
+  - rev2: Ve orada konuşur. Sözlerindeki kelime, isyanların en eski kelimesidir: özgürlük.
+- **C07** (Işık taşıyan):
+  - rev1: Gece yarısı, emrindeki melekleri uyandırır ve onları kuzeye, kendi sarayına götürür.
+  - rev2: “Boyun eğip diz mi bükeceksiniz? Biz cennetin öz evlatlarıyız. Hepimiz eşit değiliz belki, ama hepimiz eşit ölçüde özgürüz. Yasa olmadan da yoldan çıkmayan bizlere, kim yasa koyabilir?”
+- **C08** (Işık taşıyan):
+  - rev1: Ve orada, isyanların en eski kelimesiyle konuşur: özgürlük.
+  - rev2: Sabah yıldızı gibi yüzü ve yalanlarıyla, cennetin ordularının üçte birini peşinden sürükler.
+- **C09** (Işık taşıyan):
+  - rev1: “Boynunuzu eğip dizinizi mi bükeceksiniz? Biz cennetin yerlisiyiz. Hepimiz eşit değilsek de, hepimiz özgürüz. Yasasız da yanılmayanlara kim yasa koyabilir?”
+  - rev2: Neden? Kendisine sorsanız: özgürlük için. Milton'a sorsanız, iki kelime: kıskançlık ve gurur. Kendini küçük düşürülmüş saymıştı. Bu iki cevap, hikâyenin sonuna kadar yan yana yürüyecek.
+- **C10** (Işık taşıyan):
+  - rev1: Cennetin ordularının üçte biri, onun peşinden gider.
+  - rev2: Ama bir melek ayağa kalkar. Adı Abdiel'dir.
+- **C11** (Işık taşıyan):
+  - rev1: Ama bir melek ayağa kalkar. Adı Abdiel'dir.
+  - rev2: Abdiel ona karşı çıkar; sonra binlerce küçümseyen bakışın arasından, tek başına yürüyüp gider. Milton onu şöyle anlatır: binlerce hainin arasında sadık kalan tek kişi.
+- **C12** (Işık taşıyan):
+  - rev1: Abdiel ona karşı çıkar; sonra binlerce küçümseyen bakışın arasından, tek başına yürüyüp gider. Milton onu şöyle anlatır: sadakatsizlerin arasında sadık kalan tek kişi.
+  - rev2: Peki burada asıl başkaldıran kim: kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Bu soruyu aklında tut.
+- **D01** (Dokuz gün):
+  - rev1: Ölümsüz bir varlık, acıyı ilk kez nasıl tanır?
+  - rev2: Cennette ilk kez kılıçlar çekilir. Ve ölümsüz bir varlık, birazdan acının ne olduğunu öğrenecek.
+- **D02** (Dokuz gün):
+  - rev1: Cennette savaş başlar. İlk darbeyi Abdiel vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler ve onuncu adımda dizinin üstüne çöker.
+  - rev2: İlk darbeyi Abdiel vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler, onuncu adımda dizinin üstüne çöker.
+- **D03** (Dokuz gün):
+  - rev1: Abdiel darbeden önce ona şunu söylemişti: “Asıl kölelik, akılsıza hizmet etmektir. Seninkiler şimdi sana hizmet ediyor. Ama sen özgür değilsin; kendi kendinin tutsağısın.”
+  - rev2: Abdiel darbeden önce ona şunu söylemişti: “Asıl kölelik budur: akılsıza ya da kendinden üstüne başkaldırana hizmet etmek; seninkilerin şimdi sana ettiği gibi. Sen de özgür değilsin; kendi kendinin tutsağısın.”
+- **D04** (Dokuz gün):
+  - rev1: Savaşın ortasında bir başmeleğin kılıcı, Şeytan'ın sağ yanını yarar. Ve Milton yazar: Şeytan acıyı ilk kez o an tanıdı.
+  - rev2: Ve eklemişti: “Sen cehennemde, kendi krallığında hüküm sür; bırak ben cennette hizmet edeyim. Ama cehennemde krallık değil, zincir bekle.”
+- **D05** (Dokuz gün):
+  - rev1: Yarası çabucak kapanır. Ama bir zamanlar parlayan zırhı artık lekelidir.
+  - rev2: Savaşın ortasında bir başmeleğin kılıcı, Şeytan'ın sağ yanını yarar. Milton yazar: Şeytan acıyı ilk kez o an tanıdı.
+- **D06** (Dokuz gün):
+  - rev1: Asiler barutu ve topu icat eder. Sadık melekler de dağları kökünden söküp üzerlerine atar.
+  - rev2: Yarası çabucak kapanır. Ama bir zamanlar parlayan zırhı artık lekelidir.
+- **D07** (Dokuz gün):
+  - rev1: Üçüncü gün, Oğul ışıktan bir arabayla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.
+  - rev2: Asiler barutu ve topu icat eder. Sadık melekler de dağları kökünden söküp üzerlerine atar.
+- **D08** (Dokuz gün):
+  - rev1: Dokuz gün düştüler. Kaos kükredi. Sonunda cehennem ağzını açıp onları yuttu ve üzerlerine kapandı.
+  - rev2: Üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.
+- **D09** (Dokuz gün):
+  - rev1: Ve hikâye, en başta gördüğümüz yere döner: yanan göle.
+  - rev2: Dokuz gün düştüler. Kaos kükredi. Sonunda cehennem ağzını açıp onları yuttu ve üzerlerine kapandı.
+- **D10** YENİ (Dokuz gün): Ve hikâye, en başta gördüğümüz yere döner: yanan göle.
+- **E02** (Cehennemde kral):
+  - rev1: Şeytan yanında yatan yardımcısı Beelzebub'u görür. İlk sözleri bir şaşkınlıktır: “Sen o musun? Ah, ne kadar düşmüş, ne kadar değişmişsin! Bir zamanlar ışık diyarında, binlerce parlak varlığı gölgede bırakırdın.”
+  - rev2: Şeytan, yanında yatan yardımcısı Beelzebub'u görür. İlk sözleri bir şaşkınlıktır: “Sen o musun? Ah, ne kadar düşmüş, ne kadar değişmişsin! Bir zamanlar ışık diyarında, binlerce parlak varlığı gölgede bırakırdın.”
+- **E03** (Cehennemde kral):
+  - rev1: Ama hemen toparlanır: “Savaş alanını kaybettik; ne olmuş? Her şey kaybedilmedi. Yenilmez irade, intikam, ölümsüz nefret ve asla boyun eğmeyen cesaret, hâlâ bizde.”
+  - rev2: Ama hemen toparlanır: “Meydanı kaybettik; ne çıkar? Her şey kaybedilmiş değil: yenilmez irade, intikam hırsı, ölümsüz nefret ve asla boyun eğmeyen yüreklilik hâlâ bizde.”
+- **E04** (Cehennemde kral):
+  - rev1: Milton bu sözlerin hemen ardından küçük bir not düşer: Şeytan, acı içinde böbürleniyordu; içi derin bir umutsuzlukla kıvranırken.
+  - rev2: Şair bu sözlerin hemen ardından bir not düşer: Şeytan acı içinde böbürleniyordu; içi derin bir umutsuzlukla kıvranırken. Bu sözleri yazdıran adam da, bir savaşı kaybetmişti.
+- **E05** (Cehennemde kral):
+  - rev1: Gölden kalkar. Kalkanı omzunda, ay gibi asılıdır. Bir geminin direği kadar uzun mızrağına yaslanarak, yanan topraklarda yürür.
+  - rev2: Sonra gölden kalkar. Milton'a göre bunu ancak cennet izin verdiği için yapabilir.
+- **E06** (Cehennemde kral):
+  - rev1: Yüzünde yıldırımların açtığı derin izler var. Ama hâlâ, yıkılmış bir başmelek kadar görkemli.
+  - rev2: Yanan kıyıya çıkınca cehennemi selamlar: “Elveda, mutlu ovalar; selam size, dehşetler! Ve sen, en derin cehennem, yeni sahibini karşıla. Zihin kendi dünyasıdır; kendi içinde cehennemi cennet, cenneti cehennem yapabilir.”
+- **E07** (Cehennemde kral):
+  - rev1: Yenik ordusunun karşısına geçip konuşmaya başladığında, sesi düğümlenir. Üç kez dener; üç kez, kendi küçümsemesine rağmen, gözlerinden yaşlar boşanır. Milton'ın deyişiyle: meleklerin ağladığı gibi.
+  - rev2: Sonra destanın en ünlü dizesini söyler: “Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”
+- **E09** (Cehennemde kral):
+  - rev1: Ve destanın en ünlü dizesini söyler: “Cehennemde hüküm sürmek, cennette hizmet etmekten iyidir.”
+  - rev2: Kalkanı omzunda ay gibi asılıdır. Mızrağının yanında en büyük geminin direği bir değnek gibi kalırdı; ona yaslanarak yanan topraklarda yürür.
+- **E10** (Cehennemde kral):
+  - rev1: Yani: cennette köle olacağıma, cehennemde kral olurum.
+  - rev2: Yüzünde yıldırımların açtığı derin izler var; ama hâlâ yıkılmış bir başmelek kadar görkemli. Milton o yüzü anlatırken iki şeyi yan yana yazar: kaşlarının altında gurur, gözlerinde pişmanlık.
+- **E11** (Cehennemde kral):
+  - rev1: Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.
+  - rev2: Ordusuna bakar: kendi suçu yüzünden cennetten atılmış milyonlarca ruh. Yıldırım çarpmış bir ormanın ağaçları gibi yanık, ama hâlâ ayaktalar. Konuşmaya hazırlanır; boğazı düğümlenir. Üç kez dener; üç kez, ağlamayı gururuna yediremese de, gözlerinden yaşlar boşanır: meleklerin ağladığı gibi.
+- **E12** (Cehennemde kral):
+  - rev1: Mecliste kimi yeni bir savaş ister, kimi sessizce katlanmayı, kimi cehennemde kendi krallıklarını kurmayı. Sonunda Şeytan'ın planı kabul edilir: Tanrı'nın yeni yarattığı dünyaya, insana saldırmak.
+  - rev2: Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.
+- **E13** (Cehennemde kral):
+  - rev1: Kimsenin gitmeye cesaret edemediği bu yolculuğa, yalnızca o gönüllü olur.
+  - rev2: Mecliste kimi yeni bir savaş ister, kimi sessizce katlanmayı, kimi cehennemde kendi krallıklarını kurmayı. Sonunda Şeytan'ın planı kabul edilir: Tanrı'nın yeni yarattığı dünyaya, insana saldırmak.
+- **E14** (Cehennemde kral):
+  - rev1: Ayağa kalktığında bütün cehennem önünde eğilir; onu Tanrı'ya denk sayıp yüceltirler. Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır.
+  - rev2: Kimsenin gitmeye cesaret edemediği bu yolculuğa, yalnızca o gönüllü olur.
+- **E15** YENİ (Cehennemde kral): Ayağa kalktığında bütün cehennem önünde eğilir; onu Tanrı'ya denk sayıp yüceltirler. Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır.
+- **F01** (Kapıdaki bekçiler):
+  - rev1: Kendi aklından doğmuş bir şeyle yüz yüze gelsen, onu tanır mıydın?
+  - rev2: Cehennemin kapısında, onu çok iyi tanıyan biri bekliyordu. Peki Şeytan onu neden tanımadı?
+- **F02** (Kapıdaki bekçiler):
+  - rev1: Cehennemin dokuz katlı kapısında iki bekçi vardır: yarısı kadın, yarısı yılan bir varlık… ve biçimi olmayan bir gölge.
+  - rev2: Dokuz katmanlı kapıda iki bekçi vardır: yarısı kadın, yarısı yılan bir varlık; ve biçimi olmayan bir gölge.
+- **F03** (Kapıdaki bekçiler):
+  - rev1: Şeytan gölgeyle dövüşmeye hazırlanırken kadın araya girer: “Beni unuttun mu? Cennette sen isyanı tasarlarken, başından ben doğmuştum. Bana Günah dediler.”
+  - rev2: Şeytan gölgeyle dövüşmeye hazırlanırken kadın araya girer: “Beni unuttun mu? Cennette sen isyanı tasarlarken başının sol yanı yarıldı ve ben oradan doğdum. Bana Günah dediler.”
+- **F04** (Kapıdaki bekçiler):
+  - rev1: Şeytan onu tanımaz. Kendi aklından doğan şeyi tanımaz. Ve o gölgenin, Günah'tan doğan Ölüm olduğunu öğrenir.
+  - rev2: Şeytan onu tanımaz; kendi aklından doğan şeyi tanımaz. Ve dövüşmek üzere olduğu o gölgenin kim olduğunu öğrenir: Ölüm. Kendi oğlu.
+- **F05** (Kapıdaki bekçiler):
+  - rev1: Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.
+  - rev2: Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.
+- **F06** (Kapıdaki bekçiler):
+  - rev1: Kanatlarını açıp uçar; sonra boşluğa düşer, binlerce kulaç aşağı. Bir rüzgâr onu yeniden yukarı fırlatmasa, hâlâ düşüyor olurdu.
+  - rev2: Kanatlarını açıp uçar; sonra boşluğa düşer, binlerce kulaç aşağı. Bir rüzgâr onu yeniden yukarı fırlatmasa, hâlâ düşüyor olurdu.
+- **F07** (Kapıdaki bekçiler):
+  - rev1: Sonunda uzakta bir şey görür: cennete altın bir zincirle asılı, ayın yanındaki en küçük yıldız kadar bir dünya.
+  - rev2: Sonunda uzakta bir şey görür: cennete altın bir zincirle asılı, ayın yanındaki en küçük yıldız kadar bir dünya.
+- **F08** (Kapıdaki bekçiler):
+  - rev1: Güneşe varır. Genç bir melek kılığına girip güneşin bekçisi Uriel'e yolu sorar. Milton'a göre ne insan ne melek, ikiyüzlülüğü göremez.
+  - rev2: Güneşe varır. Genç bir melek kılığına girip güneşin bekçisi Uriel'e yolu sorar. Milton'a göre ne insan ne melek, ikiyüzlülüğü göremez.
+- **F09** (Kapıdaki bekçiler):
+  - rev1: Uriel yolu gösterir. Şeytan aşağı süzülür ve bir dağın, Nifates'in tepesine konar.
+  - rev2: Uriel yolu gösterir. Şeytan aşağı süzülür ve bir dağın, Nifates'in tepesine konar.
+- **G01** (Güneşe itiraf):
+  - rev1: Kimse duymadığını sanırken, Şeytan kendine ne söyler?
+  - rev2: Kimsenin duymadığını sanırken, Şeytan kendine ne söyler?
+- **G02** (Güneşe itiraf):
+  - rev1: Cehennemden kaçmıştır. Ama Milton uyarır: cehennemi yanında getirmişti. Kendinden kaçamadığı gibi, cehennemden de bir adım uzaklaşamazdı.
+  - rev2: Cehennemden kurtulmuştur. Ama şair uyarır: Cehennemi içinde taşıyor. Kendinden nasıl kaçamıyorsa, cehennemden de bir adım uzaklaşamaz.
+- **G02b** YENİ (Güneşe itiraf): Ve şimdi, Milton'ın yıllar önce, gözleri henüz görürken yazdığı o ilk dizeler.
+- **G03** (Güneşe itiraf):
+  - rev1: Güneşe bakar ve konuşmaya başlar: “Ey ihtişamla taçlanmış güneş… sana dostça seslenmiyorum. Işınlarından nefret ettiğimi söylemek için adını anıyorum; çünkü bana hangi yücelikten düştüğümü hatırlatıyorlar.”
+  - rev2: Güneşe bakar: “Ey ihtişamla taçlanmış güneş… Sana dostça seslenmiyorum. Işınlarından nefret ettiğimi söylemek için adını anıyorum; çünkü bana hangi yücelikten düştüğümü hatırlatıyorlar.”
+- **G04** (Güneşe itiraf):
+  - rev1: Sonra, hiç beklemediğimiz bir şey söyler: “O, benden bu karşılığı hak etmemişti. Beni yaratmıştı; iyiliğini başa kakmazdı. Hizmeti de ağır değildi.”
+  - rev2: Sonra hiç beklemediğimiz bir şey söyler, hem de Tanrı için: “Benden böyle bir karşılığı hak etmemişti. Beni yaratmıştı; iyiliğini kimsenin başına kakmazdı. Ona hizmet etmek de ağır değildi.”
+- **G06** (Güneşe itiraf):
+  - rev1: Ve kendine bir soru sorar: “Senin de onlar gibi özgür iraden var mıydı? Vardı. O hâlde kimi suçlayacaksın?”
+  - rev2: Sonra kendine bir soru sorar: “Sadık kalanlar gibi senin de özgür iraden, ayakta kalma gücün yok muydu? Vardı. O hâlde kimi suçlayacaksın?”
+- **G07** (Güneşe itiraf):
+  - rev1: “Vay zavallı bana! Sonsuz öfkeden, sonsuz umutsuzluktan nereye kaçayım? Hangi yana kaçsam cehennem. Cehennem benim.”
+  - rev2: “Vay hâlime! Sonsuz gazaptan, sonsuz umutsuzluktan nereye kaçayım? Hangi yana kaçsam cehennem. Ben cehennemim.”
+- **G09** (Güneşe itiraf):
+  - rev1: Bir an yumuşar: “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?” Cevabı yine kendisi verir: “Bir yol kaldı: boyun eğmek. Ama o kelimeyi, gururum yasaklıyor.”
+  - rev2: Bir an yumuşar: “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”
+- **G09b** YENİ (Güneşe itiraf): Cevabı yine kendisi verir: “Bir yol kaldı: boyun eğmek. Ama o sözü ağzıma almayı, gururum yasaklıyor.”
+- **G10** (Güneşe itiraf):
+  - rev1: Gururu… ve cehennemde bıraktığı ordunun önünde rezil olma korkusu. Onlara boyun eğmeyi değil, Tanrı'yı yenmeyi vaat etmişti.
+  - rev2: Gururu, ve cehennemde bıraktığı ordunun önünde rezil olma korkusu. Onlara vaat ettiği şey boyun eğmek değil, Tanrı'yı yenmekti.
+- **G12** (Güneşe itiraf):
+  - rev1: Ve en dürüst cümlesini kurar: “Diyelim ki pişman oldum ve eski yerime döndüm. Ne kadar sürer? Yükseklik, eski düşüncelerimi geri getirir. Acı içinde verdiğim sözleri, rahata erince geri alırım.”
+  - rev2: Belki de en dürüst sözünü söyler: “Diyelim ki pişman oldum ve eski yerime döndüm. Ne kadar sürer? Yükselince, yükseklik yine başımı döndürür. Acı içinde verdiğim sözleri, rahata erince geri alırım.”
+- **G13** (Güneşe itiraf):
+  - rev1: Sonunda kararını verir: “Elveda umut. Umutla birlikte elveda korku; elveda pişmanlık. Kötülük… sen benim iyiliğim ol.”
+  - rev2: “Bunu beni cezalandıran da biliyor. O barış vermekten ne kadar uzaksa, ben de dilemekten o kadar uzağım.”
+- **G14** (Güneşe itiraf):
+  - rev1: Bu sözleri söylerken yüzü üç kez değişir: öfkeyle, kıskançlıkla, umutsuzlukla. Kimsenin görmediğini sanır; ama güneşin bekçisi Uriel, hepsini görmüştür.
+  - rev2: Sonunda kararını verir: “Elveda umut. Umutla birlikte, elveda korku. Elveda pişmanlık.” “Kötülük: sen benim iyiliğim ol.”
+- **G15** (Güneşe itiraf):
+  - rev1: İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı. Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. Ve ilk kez, ona acıyoruz.
+  - rev2: Bu sözleri söylerken yüzü üç kez değişir: öfkeyle, kıskançlıkla, umutsuzlukla. Kimsenin görmediğini sanır; ama güneşin bekçisi Uriel, hepsini görmüştür.
+- **G16** YENİ (Güneşe itiraf): Şeytan'ı burada, onu alkışlayan bir kalabalık olmadan görüyoruz. Maskesiz. Acımak, hak vermek değildir. Ama ilk kez, ona acıyoruz.
+- **H05** (Aden'de bir yabancı):
+  - rev1: “Düşüncelerim onları hayranlıkla izliyor,” der. “Onları sevebilirdim. Kimsesiz hâllerine acıyabilirim; bana acıyan olmasa da.”
+  - rev2: “Onları hayranlıkla seyrediyorum,” der. “Onları sevebilirim bile. Bu savunmasız hâllerine acıyabilirim; bana acıyan olmasa da.”
+- **H06** (Aden'de bir yabancı):
+  - rev1: “Masumiyetiniz karşısında eriyorum,” der. Ama hemen ekler: krallığının çıkarı, onur ve intikam, onu bunu yapmaya zorlamaktadır.
+  - rev2: “Masumiyetiniz karşısında yüreğim yumuşuyor,” der. Ama hemen ekler: krallığının çıkarı, onuru ve intikamı onu buna mecbur bırakıyor.
+- **H07** (Aden'de bir yabancı):
+  - rev1: Milton burada araya girer: “Böyle konuştu iblis; ve zorunluluğu, o zorbaların bahanesini, şeytanca işlerine kılıf yaptı.”
+  - rev2: Şair burada araya girer: “Böyle konuştu Şeytan; zorbaların hep sığındığı bahaneyle, zorunlulukla, şeytanca işlerine kılıf uydurdu.”
+- **H08** (Aden'de bir yabancı):
+  - rev1: Sonra iki insanın birbirine sarılışını izler: “Nefret dolu manzara! İşkence dolu manzara! Bu ikisi birbirinin kollarında cennetteler. Bense ne sevincin ne sevginin olduğu bir cehenneme itilmişim.”
+  - rev2: Sonra iki insanı yan yana görür: “Nefret edilesi manzara! İşkence veren manzara! Bu ikisi birbirinin kollarında cennetteler. Bense, sevincin de sevginin de olmadığı bir cehenneme itildim.”
+- **H11** (Aden'de bir yabancı):
+  - rev1: “Beni tanımıyor musunuz?” diye kükrer. Melekler cevap verir: “Parlaklığının hâlâ aynı olduğunu sanma. İyi olmaktan çıktığın gün, o ışık seni terk etti.”
+  - rev2: “Beni tanımıyor musunuz?” diye kükrer. Melekler cevap verir: “Parlaklığının hâlâ aynı olduğunu sanma. İyi olmaktan çıktığın gün, o ışık seni terk etti. Şimdi günahına benziyorsun.”
+- **H12** (Aden'de bir yabancı):
+  - rev1: Şeytan utanç içinde kalakalır. İyiliğin ne kadar heybetli olduğunu hisseder ve kaybettiğine yanar; en çok da, ışığının gözle görülür biçimde söndüğünü fark edince.
+  - rev2: Şeytan utanç içinde kalakalır. İyiliğin ne kadar heybetli olduğunu hisseder ve kaybettiğine yanar; en çok da sönükleşen ışığının başkalarının gözünden kaçmadığını görünce.
+- **I01** (Yılanın içinde):
+  - rev1: İntikam, insanı rahatlatır mı?
+  - rev2: İntikam, tatlı mıdır?
+- **I04** (Yılanın içinde):
+  - rev1: Uyuyan bir yılan bulur ve ağzından içine girer. “Ne iğrenç bir iniş!” der. “Bir zamanlar tanrılarla en yüksek yer için yarışan ben, şimdi bir hayvanın içine sıkışıyorum.”
+  - rev2: Uyuyan bir yılan bulur ve ağzından içine girer: “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”
+- **I06** (Yılanın içinde):
+  - rev1: Sabah, Havva'yı bahçede yalnız görür. Ve destanın belki de en tuhaf anı gelir: Şeytan bir süre kendi kötülüğünden ayrı durur. Nefreti, hilesi, kıskançlığı, intikamı… hepsi elinden düşer. Milton'ın deyişiyle, bir süre sersemlemiş gibi iyi kalır.
+  - rev2: Sabah, Havva'yı bahçede yalnız görür. Sonra destanın belki de en şaşırtıcı anı gelir: Havva'nın masumiyeti karşısında Şeytan, kendi kötülüğünden kopup dalgın durur. Nefreti, hilesi, kıskançlığı, intikamı; hepsi elinden düşer. Milton'ın deyişiyle, bir süre sersem bir iyilik içinde donakalır.
+- **I08** (Yılanın içinde):
+  - rev1: Yılanın diliyle konuşur, Havva'yı ikna eder. Havva meyveyi koparır ve yer.
+  - rev2: Yılanın diliyle konuşur, Havva'yı ikna eder. Havva meyveyi koparır ve yer; sonra Âdem de.
+- **I09** (Yılanın içinde):
+  - rev1: Dünya yarasını hisseder; doğa iç çeker. Ve suçlu yılan, sessizce çalılığa sıvışır.
+  - rev2: Dünya yarayı hisseder; doğa iç çeker ve her şeyin kaybedildiğini haber verir. Suçlu yılan, sessizce çalılığa süzülür.
+- **I10** (Yılanın içinde):
+  - rev1: Kazanmıştır. Peki bu zafer, neye benzeyecek?
+  - rev2: Kazanmıştır.
+- **J02** (Alkış):
+  - rev1: Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir. Cehennem çığlıklarla onu karşılar.
+  - rev2: Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir; Milton'ın deyişiyle, sahte bir parıltıyla. Cehennem çığlıklarla onu karşılar.
+- **J06** (Alkış):
+  - rev1: Şaşırır; ama şaşırmaya bile vakti kalmaz. Yüzünün sivrildiğini hisseder. Kolları kaburgalarına yapışır, bacakları birbirine dolanır ve yüzüstü yere yığılır: devasa bir yılan.
+  - rev2: Nifates Dağı'nda, bu kalabalığın önünde rezil olmaktan korktuğu için boyun eğememişti. Şimdi aynı kalabalık ona tıslıyor.
+- **J07** (Alkış):
+  - rev1: Konuşmak ister; ağzından yalnızca tıslama çıkar. Bütün şeytanlar yılana dönüşmüştür.
+  - rev2: Şaşırır; ama çok geçmeden asıl kendi hâline şaşırır. Yüzünün sivrildiğini hisseder. Kolları kaburgalarına yapışır, bacakları birbirine dolanır ve yüzüstü yere yığılır: devasa bir yılan. Önünde diz çökülen kral, şimdi karnının üstünde.
+- **J08** (Alkış):
+  - rev1: Günah işlediği biçimde cezalandırılmıştır. Alkışları ıslığa, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.
+  - rev2: Konuşmak ister; ağzından yalnızca tıslama çıkar. Bütün şeytanlar yılana dönüşmüştür.
+- **J09** (Alkış):
+  - rev1: Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.
+  - rev2: Günahı hangi kılıkta işlediyseler, cezasını da o kılıkta çekerler. Alkışları tıslamaya, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.
+- **J10** (Alkış):
+  - rev1: Ve Şeytan destandan sessizce çekilir. Son iki kitapta bir daha sahneye çıkmaz.
+  - rev2: Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.
+- **J11** YENİ (Alkış): Ve Şeytan destandan sessizce çekilir. Son iki kitapta bir daha sahneye çıkmaz.
+- **K01** (Dünya önlerindeydi):
+  - rev1: Peki bu hikâyenin kahramanı kim?
+  - rev2: Destan, Şeytan'la bitmez. Son sahnede Âdem ile Havva, kaybettikleri cennetten, Aden'den çıkar. Milton yazar: “İnsanca birkaç damla gözyaşı döktüler; ama çabucak sildiler. Bütün dünya önlerindeydi.”
+- **K02** (Dünya önlerindeydi):
+  - rev1: Milton destanın en başında amacını açıkça söyler: Tanrı'nın yollarını insanlara haklı göstermek.
+  - rev2: Onlar, Şeytan'ın yapmadığını yapmışlardı: kusurlarını kabul edip bağışlanma dilemişlerdi.
+- **K03** (Dünya önlerindeydi):
+  - rev1: Ama yüz yıldan fazla sonra, şair ve ressam William Blake başka bir şey görür.
+  - rev2: Ama Milton'ın Tanrı'sı bunu destanın başında söylemişti: İnsan aldatıldı; bu yüzden merhamet bulacak. İsyancı melekler kendi kendilerini ayarttı; onlar bulamayacak.
+- **K04** (Dünya önlerindeydi):
+  - rev1: Blake'e göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.
+  - rev2: Şeytan hakkındaki asıl kavga ise, Milton öldükten sonra başladı.
+- **K05** (İki okuma):
+  - rev1: Romantik şairler de Şeytan'da bir isyan kahramanı gördü. Shelley'ye göre, Kayıp Cennet'teki Şeytan'ın enerjisini ve görkemini hiçbir şey aşamazdı.
+  - rev2: Bu hikâyenin kahramanı kim?
+- **K06** (İki okuma):
+  - rev1: Yirminci yüzyılda ise, Narnia'nın yazarı C. S. Lewis tam tersini savundu.
+  - rev2: Milton destanın en başında amacını açıkça söyler: Tanrı'nın insanlara karşı yollarının adil olduğunu göstermek.
+- **K07** (İki okuma):
+  - rev1: Lewis'e göre bu, bir kahramanın değil, bir küçülmenin hikâyesiydi: Kahramandan generale, generalden politikacıya, oradan casusa, yatak odası penceresinden içeri bakan bir şeye, sonra bir kurbağaya… ve en sonunda bir yılana.
+  - rev2: Ama yüz yıldan fazla sonra, şair ve ressam William Blake başka bir şey gördü: Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.
+- **K08** (İki okuma):
+  - rev1: Gerçekten de destan boyunca Şeytan'ın ışığı söner, biçimi bozulur: başmelekten karabataka, kurbağaya, yılana.
+  - rev2: Kendine sor: bu hikâyeden aklında kalan sözler, kimin sözleri?
+- **K09** (İki okuma):
+  - rev1: Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendi tahtını kuruyor.
+  - rev2: Romantik şairler de Şeytan'da bir isyan kahramanı gördü.
+- **K10** (İki okuma):
+  - rev1: Milton o tahtı, doğunun en zengin krallarının hazinelerinden bile görkemli anlatır. Cenneti zorbalıkla suçlayan Şeytan, onun yerine kendi tahtını kurar.
+  - rev2: Yirminci yüzyılda ise Narnia'nın yazarı C. S. Lewis, Kayıp Cennet'e Önsöz adlı kitabında tam tersini savundu.
+- **K11** (İki okuma):
+  - rev1: Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile, kralı deviren Cromwell, Lord Koruyucu unvanıyla ülkeyi tek başına yönetti ve yerini oğluna bıraktı.
+  - rev2: Lewis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: “Kahramandan generale, generalden politikacıya, oradan casusa, yatak odası penceresinden içeri bakan bir şeye, sonra bir kurbağaya ve en sonunda bir yılana.”
+- **K12** (İki okuma):
+  - rev1: Abdiel'in sözünü hatırla: “Sen özgür değilsin; kendi kendinin tutsağısın.” Başkaldırı her zaman özgürlük müdür?
+  - rev2: Şeytan bunu kendisi de söylemişti, yılanın içine girmeden önce: “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır.”
+- **K13** YENİ (İki okuma): Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Hürmüz'ün ve Hindistan'ın krallarının hazinelerinden bile görkemli bir taht kuruyor.
+- **K14** YENİ (İki okuma): Milton'ın kendi cevabı Abdiel'in ağzındadır: Asıl kölelik, akılsıza hizmet etmektir. Son kitapta da yeryüzünün ilk zorbası için şunu yazar: Tanrı insanı, insanın efendisi yapmadı.
+- **K15** YENİ (İki okuma): Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile kralı deviren Cromwell, kendisine sunulan tacı reddetti; ama Lord Koruyucu olarak taçsız bir kral gibi yönetti ve yerini oğluna bıraktı.
+- **K16** YENİ (İki okuma): Kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Abdiel'in sözünü hatırla: “Sen özgür değilsin; kendi kendinin tutsağısın.” Başkaldırı her zaman özgürlük müdür?
+- **L02** (Bir damla yaş):
+  - rev1: Milton'dan sonra ressamlar Şeytan'ı yeniden ve yeniden çizdi. 1866'da Gustave Doré'nin gravürlerinde, karanlığa düşen kanatlı bir siluet oldu. Bu videodaki çizimler de onun izinden gidiyor.
+  - rev2: 1847 yılında genç bir Fransız ressam, Alexandre Cabanel, düşmüş bir meleği şöyle resmetti:
+- **L03** (Bir damla yaş):
+  - rev1: Ondan yirmi yıl önce, Roma'daki Villa Medici'de genç bir Fransız ressam, Alexandre Cabanel, Düşmüş Melek'i yaptı.
+  - rev2: Kayalara uzanmış, kollarını yüzünün önünde kavuşturmuş bir melek. Kollarının arasından bize bakıyor. Gözleri öfkeli; ve dolu.
+- **L04** (Bir damla yaş):
+  - rev1: Kayalara uzanmış, kollarını yüzünün önünde kavuşturmuş bir melek. Kollarının arasından bize bakıyor. Gözleri öfkeli… ve dolu.
+  - rev2: Bu gözyaşının Milton'da bir karşılığı var: Milton da Şeytan'ı yenik ordusunun karşısında ağlatmıştı; ağlamayı gururuna yediremese de, meleklerin ağladığı gibi.
+- **L05** (Bir damla yaş):
+  - rev1: Bu gözyaşı, ressamın uydurması değildi. Milton, Şeytan'ı yenik ordusunun karşısında ağlatmıştı: kendi küçümsemesine rağmen, meleklerin ağladığı gibi.
+  - rev2: O gözyaşı pişmanlık mıydı, gurur mu? Milton ikisini aynı yüzde, yan yana yazar. Destanın bir yerinde ağlıyor; başka bir yerinde, “boyun eğmek” sözünü ağzına alamıyor.
+- **L06** (Bir damla yaş):
+  - rev1: O gözyaşı pişmanlık mıydı, gurur mu? Belki ikisi birden. Destanda bir yerde ağlıyor; bir yerde, “boyun eğmek” kelimesini söyleyemiyor.
+  - rev2: En başta sorduk: Cehennemden kaçan biri, neden cehennemden bir adım bile uzaklaşamadı?
+- **L07** (Bir damla yaş):
+  - rev1: Ve destan, Şeytan'la bitmez. Son sahnede iki insan, Âdem ile Havva, cennetten çıkar. Milton yazar: “Birkaç damla gözyaşı döktüler; ama çabuk sildiler. Dünya, bütün genişliğiyle önlerindeydi.”
+  - rev2: Cevabın yarısını Nifates Dağı'nda, kendi ağzından duyduk: “Bir yol kaldı: boyun eğmek. Ama o sözü ağzıma almayı, gururum yasaklıyor.” Abdiel onu uyarmıştı: Cehennemde krallık değil, zincir bekle. Krallığı buldu. Zincir ise kimsenin vurmadığı, kendi eliyle vurduğu bir zincirdi: gururu.
+- **L08** (Bir damla yaş):
+  - rev1: Onlar, Şeytan'ın yapamadığını yapmıştı: suçlarını kabul edip af dilemişlerdi.
+  - rev2: Ama destan öbür yarısını da söyler: O kapı ona açık değildi. Şeytan da biliyordu: “Bunu beni cezalandıran da biliyor.” Peki onu orada tutan gururu muydu, yoksa hiç açılmamış bir kapı mı? Cevap, hangi okumayı seçtiğine bağlı.
+- **L09** (Bir damla yaş):
+  - rev1: En başta sorduk: Zincirleri çözülen birini, cehennemde tutan neydi? Milton'ın cevabı belki de Nifates Dağı'nda söylenemeyen o tek kelimede saklı. Kimsenin takmadığı, insanın kendi eliyle taktığı bir zincir.
+  - rev2: Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Ama belki de, insanın içinde de bir cehennem taşıyabileceğini en iyi o gördü.
+- **L10** (Bir damla yaş):
+  - rev1: Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Ama belki de cehennemin en çok insanın içinde olduğunu, en iyi o gördü.
+  - rev2: Peki sen ne düşünüyorsun? O gözyaşı pişmanlık mıydı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.
+- **L11** (Bir damla yaş):
+  - rev1: Peki sen ne düşünüyorsun? Blake mi haklıydı, Lewis mi? O gözyaşı pişmanlık mı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.
+  - rev2: Shelley, Şeytan'a benzeyen tek kahramanın Prometheus olduğunu yazar; ama bir farkla: Prometheus'ta hırs, kıskançlık ve intikam yoktu. Ateşi kendisi için değil, insanlar için çalan o asinin hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.
+
+Not: rev2'de kimlikler (id) yeniden dağıtıldı; aynı id farklı cümle olabilir. Sıra için senaryo_rev2.json esastır.
+
+## Rev1'de olup rev2'de aynı id ile bulunmayanlar
+- B11: “Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.”
+- B12: Işığını kaybetmiş bir şair, ışığını kaybetmiş bir meleği anlatacaktı.
+- B13: Yeğeninin anlattığına göre, Milton bu hikâyenin ilk dizelerini yıllar önce yazmıştı. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın, güneşe yaptığı bir itiraftı. Oraya geleceğiz.
+- B14: Ama önce, o meleğin düşmeden önceki hâline bakalım.
+- C13: Peki burada asıl başkaldıran kim: kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Bu soruyu aklında tut.
+- E08: Sonra cehennemi selamlar: “Elveda mutlu topraklar; merhaba dehşet. Zihin kendi yeridir. Kendi içinde cehennemi cennet, cenneti cehennem yapabilir.”
+- L12: Tanrılara kafa tutan bir başka asinin, Prometheus'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.
