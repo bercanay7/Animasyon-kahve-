@@ -1,0 +1,959 @@
+{
+ "voice": "Emrullah (voice_id seslendirme öncesi creative_list_voices ile bulunur)",
+ "revizyon": 1,
+ "not": "tts: seslendirme metni (ses etiketleri, özel adlar okunuşa göre, sayılar yazıyla). alt: altyazı metni. kaynak: iddianın dayanağı. KC = Kayıp Cennet, 1674 baskısı, kitap.dize (kaynak/kayip_cennet_1674_dizeler.json). Bütün dize çevirileri bizim (özgün metin kamu malı). DNB = Dictionary of National Biography, cilt 38 (1894), 'Milton, John'.",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Alev gölü",
+   "tts": "[slowly] [deep voice] “Hangi yana kaçsam cehennem… cehennem benim.” … Bunu söyleyen, bir zamanlar cennetin en parlak meleğiydi.",
+   "alt": "“Hangi yana kaçsam cehennem… cehennem benim.” Bunu söyleyen, bir zamanlar cennetin en parlak meleğiydi.",
+   "kaynak": "KC IV.75; parlaklık: I.84–87, VII.131–133"
+  },
+  {
+   "id": "A02",
+   "bolum": "Alev gölü",
+   "tts": "[darkly] Şimdi yanan bir gölün ortasında gözlerini açıyor. Dokuz gün boyunca düşmüştü. Etrafında alev var ama ışık yok; Milton'ın deyişiyle, görünür bir karanlık.",
+   "alt": "Şimdi yanan bir gölün ortasında gözlerini açıyor. Dokuz gün boyunca düşmüştü. Etrafında alev var ama ışık yok; Milton'ın deyişiyle, görünür bir karanlık.",
+   "kaynak": "KC I.56–58 (gözler), VI.871 (dokuz gün düştüler), I.62–63 (darkness visible)"
+  },
+  {
+   "id": "A03",
+   "bolum": "Alev gölü",
+   "tts": "Elmas zincirlerle bu göle bağlı. Birazdan zincirlerinden kurtulacak, cehennemin kapısından çıkıp Kaos'u aşacak. Ama nereye giderse gitsin, cehennem de onunla gelecek.",
+   "alt": "Elmas zincirlerle bu göle bağlı. Birazdan zincirlerinden kurtulacak, cehennemin kapısından çıkıp Kaos'u aşacak. Ama nereye giderse gitsin, cehennem de onunla gelecek.",
+   "kaynak": "KC I.48, I.209–213 (zincir ve göl), II.871–1055 (kapı, Kaos), IV.18–23 (cehennemi içinde taşır)"
+  },
+  {
+   "id": "A04",
+   "bolum": "Alev gölü",
+   "tts": "[curious] Peki zincirleri çözülen birini, cehennemde tutan neydi?",
+   "alt": "Peki zincirleri çözülen birini, cehennemde tutan neydi?",
+   "kaynak": "merak sorusu; cevabı G09, L09"
+  },
+  {
+   "id": "A05",
+   "bolum": "Alev gölü",
+   "tts": "[thoughtfully] Bu hikâye bir kutsal kitaptan değil, bir şiirden: Con Milton'ın bin altı yüz altmış yedi'de yayımlanan destanı, Kayıp Cennet'ten. Buradaki Şeytan, bir şairin yarattığı bir karakter.",
+   "alt": "Bu hikâye bir kutsal kitaptan değil, bir şiirden: John Milton'ın 1667'de yayımlanan destanı, Kayıp Cennet'ten. Buradaki Şeytan, bir şairin yarattığı bir karakter.",
+   "kaynak": "ilk baskı Ağustos 1667 (10 kitap), ikinci baskı 1674 (12 kitap); kullanıcı kararı: yalnız edebi okuma"
+  },
+  {
+   "id": "A06",
+   "bolum": "Alev gölü",
+   "tts": "[softly] Ve onu yaratan şair, bu dizeleri söylerken hiçbir şey göremiyordu.",
+   "alt": "Ve onu yaratan şair, bu dizeleri söylerken hiçbir şey göremiyordu.",
+   "kaynak": "körlük: 1652'den itibaren tam kör (Leonard 2000; DNB)"
+  },
+  {
+   "id": "B01",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[thoughtfully] Londra, on yedinci yüzyıl. Con Milton, kırk üç yaşına geldiğinde gözleri tamamen kararmıştı.",
+   "alt": "Londra, on yedinci yüzyıl. John Milton, kırk üç yaşına geldiğinde gözleri tamamen kararmıştı.",
+   "kaynak": "Milton d. 9 Aralık 1608; 1652'de tam kör (43 yaşında)"
+  },
+  {
+   "id": "B02",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Ama Milton yalnızca bir şair değildi. Kral Birinci Çarls'ın yargılanıp idam edilmesini savunmuş, kralı deviren devrimin hükümetinde çalışmıştı.",
+   "alt": "Ama Milton yalnızca bir şair değildi. Kral Birinci Charles'ın yargılanıp idam edilmesini savunmuş, kralı deviren devrimin hükümetinde çalışmıştı.",
+   "kaynak": "The Tenure of Kings and Magistrates (1649), Eikonoklastes (1649); Yabancı Diller Sekreteri 1649–1660"
+  },
+  {
+   "id": "B03",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[darkly] Sonra devrim çöktü. Bin altı yüz altmış'ta krallık geri döndü. Milton saklandı; kitapları cellat eliyle yakıldı; kendisi yakalanıp hapse atıldı.",
+   "alt": "Sonra devrim çöktü. 1660'ta krallık geri döndü. Milton saklandı; kitapları cellat eliyle yakıldı; kendisi yakalanıp hapse atıldı.",
+   "kaynak": "Restorasyon Mayıs 1660; Avam Kamarası 16 Haziran 1660 kararı, yakma Ağustos 1660; kısa süreli hapis, Aralık 1660'ta salıverildi (DNB s. 33–34)"
+  },
+  {
+   "id": "B04",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Dostlarının araya girmesiyle kurtuldu. Ama artık kör, yoksul ve yenilmiş bir adamdı.",
+   "alt": "Dostlarının araya girmesiyle kurtuldu. Ama artık kör, yoksul ve yenilmiş bir adamdı.",
+   "kaynak": "Marvell vb. (Wikipedia 'John Milton', DNB s. 34); maddi kayıplar DNB s. 34"
+  },
+  {
+   "id": "B05",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[softly] Ve tam o yıllarda, bir destanı yazdırmaya koyuldu.",
+   "alt": "Ve tam o yıllarda, bir destanı yazdırmaya koyuldu.",
+   "kaynak": "yazım 1658–1663/64 (Aubrey; DNB s. 34)"
+  },
+  {
+   "id": "B06",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Dizeleri çoğu zaman geceleri, uykusuzken kafasında kuruyordu. Bazen kızlarından birini uyandırıp yazdırır, kırk dizeyi bir solukta söyleyip sonra yirmiye indirirdi.",
+   "alt": "Dizeleri çoğu zaman geceleri, uykusuzken kafasında kuruyordu. Bazen kızlarından birini uyandırıp yazdırır, kırk dizeyi bir solukta söyleyip sonra yirmiye indirirdi.",
+   "kaynak": "DNB s. 37 (uykusuz gecelerde kızına yazdırır; 40 dize → 20)"
+  },
+  {
+   "id": "B07",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Sabahları da evde kim varsa ona yazdırırdı: yeğenine, dostlarına, tuttuğu yardımcılara.",
+   "alt": "Sabahları da evde kim varsa ona yazdırırdı: yeğenine, dostlarına, tuttuğu yardımcılara.",
+   "kaynak": "DNB s. 37 (10–30 dizeyi evde bulunan herkese); yeğen Edward Phillips; 'a series of aides in his employ'"
+  },
+  {
+   "id": "B08",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[sadly] İki küçük kızına, anlamını bilmedikleri dillerde okumayı öğretmişti: İbranice, Yunanca, Latince. Kızlar, anlamadıkları sözcükleri göremeyen babalarına okurdu.",
+   "alt": "İki küçük kızına, anlamını bilmedikleri dillerde okumayı öğretmişti: İbranice, Yunanca, Latince. Kızlar, anlamadıkları sözcükleri göremeyen babalarına okurdu.",
+   "kaynak": "DNB s. 36 (Phillips: iki küçük kız, İbranice, belki Süryanice, Yunanca, Latince, anlamını bilmeden)"
+  },
+  {
+   "id": "B09",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Babalarıyla araları iyi değildi; bu okuma saatleri, yıllar içinde onlar için dayanılmaz bir hâl almıştı.",
+   "alt": "Babalarıyla araları iyi değildi; bu okuma saatleri, yıllar içinde onlar için dayanılmaz bir hâl almıştı.",
+   "kaynak": "DNB s. 36 (Phillips: 'almost beyond endurance'; ilişkiler 'unfortunate')"
+  },
+  {
+   "id": "B10",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[thoughtfully] Destanın üçüncü kitabında Milton kendi körlüğünü anlatır: “Mevsimler döner; ama bana gün dönmez. Ne sabah ne akşam, ne bahar çiçeği ne yaz gülü… ne de bir insan yüzü.”",
+   "alt": "Destanın üçüncü kitabında Milton kendi körlüğünü anlatır: “Mevsimler döner; ama bana gün dönmez. Ne sabah ne akşam, ne bahar çiçeği ne yaz gülü… ne de bir insan yüzü.”",
+   "kaynak": "KC III.40–44 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "B11",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[softly] “Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.”",
+   "alt": "“Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.”",
+   "kaynak": "KC III.51–55 (çevirimiz)"
+  },
+  {
+   "id": "B12",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Işığını kaybetmiş bir şair, ışığını kaybetmiş bir meleği anlatacaktı.",
+   "alt": "Işığını kaybetmiş bir şair, ışığını kaybetmiş bir meleği anlatacaktı.",
+   "kaynak": "anlatıcının köprüsü"
+  },
+  {
+   "id": "B13",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "[mysterious] Yeğeninin anlattığına göre, Milton bu hikâyenin ilk dizelerini yıllar önce yazmıştı. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın, güneşe yaptığı bir itiraftı. Oraya geleceğiz.",
+   "alt": "Yeğeninin anlattığına göre, Milton bu hikâyenin ilk dizelerini yıllar önce yazmıştı. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın, güneşe yaptığı bir itiraftı. Oraya geleceğiz.",
+   "kaynak": "DNB s. 34: Phillips, tasarlanan tragedyanın açılışının (~1642) şimdi IV. kitabın başındaki Şeytan konuşması olduğunu bildirir (KC IV.32 vd.); ödemesi G03, G15"
+  },
+  {
+   "id": "B14",
+   "bolum": "Karanlıkta yazdıran şair",
+   "tts": "Ama önce, o meleğin düşmeden önceki hâline bakalım.",
+   "alt": "Ama önce, o meleğin düşmeden önceki hâline bakalım.",
+   "kaynak": ""
+  },
+  {
+   "id": "C01",
+   "bolum": "Işık taşıyan",
+   "tts": "[curious] Her şeye sahip olan biri, neden başkaldırır?",
+   "alt": "Her şeye sahip olan biri, neden başkaldırır?",
+   "kaynak": "bölüm sorusu; cevabı C06"
+  },
+  {
+   "id": "C02",
+   "bolum": "Işık taşıyan",
+   "tts": "[warmly] Milton'ın cenneti, ışıktan bir dünyadır. Ve o dünyanın en parlak varlıklarından biri, başmeleklerin ilki; ilki değilse bile, en büyüklerinden biridir.",
+   "alt": "Milton'ın cenneti, ışıktan bir dünyadır. Ve o dünyanın en parlak varlıklarından biri, başmeleklerin ilki; ilki değilse bile, en büyüklerinden biridir.",
+   "kaynak": "KC V.659–661 ('of the first, if not the first Arch-Angel')"
+  },
+  {
+   "id": "C03",
+   "bolum": "Işık taşıyan",
+   "tts": "Milton ona bir yerde Lusifer der: ışık taşıyan. Yüzü, yıldızların arasındaki sabah yıldızı gibi parlıyormuş.",
+   "alt": "Milton ona bir yerde Lucifer der: ışık taşıyan. Yüzü, yıldızların arasındaki sabah yıldızı gibi parlıyormuş.",
+   "kaynak": "KC VII.131–133 (Lucifer); V.708–709 (sabah yıldızı gibi yüzü); Lucifer: Lat. 'ışık taşıyan'"
+  },
+  {
+   "id": "C04",
+   "bolum": "Işık taşıyan",
+   "tts": "Asıl adını ise hiç söylemez. “Eski adı artık cennette anılmıyor,” der. “Ona bundan böyle Şeytan deyin.”",
+   "alt": "Asıl adını ise hiç söylemez. “Eski adı artık cennette anılmıyor,” der. “Ona bundan böyle Şeytan deyin.”",
+   "kaynak": "KC V.658–659 (çevirimiz)"
+  },
+  {
+   "id": "C05",
+   "bolum": "Işık taşıyan",
+   "tts": "[slowly] Bir gün, Milton'ın anlattığına göre, Tanrı bütün melekleri toplar ve Oğul'u onların başına geçirir. Bundan sonra herkes onun önünde diz çökecek; ona karşı gelen, Tanrı'ya karşı gelmiş sayılacaktır.",
+   "alt": "Bir gün, Milton'ın anlattığına göre, Tanrı bütün melekleri toplar ve Oğul'u onların başına geçirir. Bundan sonra herkes onun önünde diz çökecek; ona karşı gelen, Tanrı'ya karşı gelmiş sayılacaktır.",
+   "kaynak": "KC V.600–615; Tanrı ve Oğul figürle değil ışıkla gösterilir (kullanıcı kararı)"
+  },
+  {
+   "id": "C06",
+   "bolum": "Işık taşıyan",
+   "tts": "Başmelek bu manzaraya dayanamaz. Milton sebebini iki kelimeyle söyler: kıskançlık ve gurur. Kendini küçültülmüş sayar.",
+   "alt": "Başmelek bu manzaraya dayanamaz. Milton sebebini iki kelimeyle söyler: kıskançlık ve gurur. Kendini küçültülmüş sayar.",
+   "kaynak": "KC V.662–665 ('fraught with envy… through pride… thought himself impaired')"
+  },
+  {
+   "id": "C07",
+   "bolum": "Işık taşıyan",
+   "tts": "[darkly] Gece yarısı, emrindeki melekleri uyandırır ve onları kuzeye, kendi sarayına götürür.",
+   "alt": "Gece yarısı, emrindeki melekleri uyandırır ve onları kuzeye, kendi sarayına götürür.",
+   "kaynak": "KC V.667–689"
+  },
+  {
+   "id": "C08",
+   "bolum": "Işık taşıyan",
+   "tts": "Ve orada, isyanların en eski kelimesiyle konuşur: özgürlük.",
+   "alt": "Ve orada, isyanların en eski kelimesiyle konuşur: özgürlük.",
+   "kaynak": "KC V.787–802 (giriş)"
+  },
+  {
+   "id": "C09",
+   "bolum": "Işık taşıyan",
+   "tts": "[firmly] “Boynunuzu eğip dizinizi mi bükeceksiniz? Biz cennetin yerlisiyiz. Hepimiz eşit değilsek de, hepimiz özgürüz. Yasasız da yanılmayanlara kim yasa koyabilir?”",
+   "alt": "“Boynunuzu eğip dizinizi mi bükeceksiniz? Biz cennetin yerlisiyiz. Hepimiz eşit değilsek de, hepimiz özgürüz. Yasasız da yanılmayanlara kim yasa koyabilir?”",
+   "kaynak": "KC V.787–799 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "C10",
+   "bolum": "Işık taşıyan",
+   "tts": "Cennetin ordularının üçte biri, onun peşinden gider.",
+   "alt": "Cennetin ordularının üçte biri, onun peşinden gider.",
+   "kaynak": "KC V.709–710"
+  },
+  {
+   "id": "C11",
+   "bolum": "Işık taşıyan",
+   "tts": "[softly] Ama bir melek ayağa kalkar. Adı Abdiyel'dir.",
+   "alt": "Ama bir melek ayağa kalkar. Adı Abdiel'dir.",
+   "kaynak": "KC V.803–808"
+  },
+  {
+   "id": "C12",
+   "bolum": "Işık taşıyan",
+   "tts": "Abdiyel ona karşı çıkar; sonra binlerce küçümseyen bakışın arasından, tek başına yürüyüp gider. Milton onu şöyle anlatır: sadakatsizlerin arasında sadık kalan tek kişi.",
+   "alt": "Abdiel ona karşı çıkar; sonra binlerce küçümseyen bakışın arasından, tek başına yürüyüp gider. Milton onu şöyle anlatır: sadakatsizlerin arasında sadık kalan tek kişi.",
+   "kaynak": "KC V.896–907 ('faithful found among the faithless, faithful only he… though single')"
+  },
+  {
+   "id": "C13",
+   "bolum": "Işık taşıyan",
+   "tts": "[thoughtfully] Peki burada asıl başkaldıran kim: kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Bu soruyu aklında tut.",
+   "alt": "Peki burada asıl başkaldıran kim: kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Bu soruyu aklında tut.",
+   "kaynak": "kurulum; ödemesi K12"
+  },
+  {
+   "id": "D01",
+   "bolum": "Dokuz gün",
+   "tts": "[curious] Ölümsüz bir varlık, acıyı ilk kez nasıl tanır?",
+   "alt": "Ölümsüz bir varlık, acıyı ilk kez nasıl tanır?",
+   "kaynak": "bölüm sorusu; cevabı D04"
+  },
+  {
+   "id": "D02",
+   "bolum": "Dokuz gün",
+   "tts": "Cennette savaş başlar. İlk darbeyi Abdiyel vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler ve onuncu adımda dizinin üstüne çöker.",
+   "alt": "Cennette savaş başlar. İlk darbeyi Abdiel vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler ve onuncu adımda dizinin üstüne çöker.",
+   "kaynak": "KC VI.189–195"
+  },
+  {
+   "id": "D03",
+   "bolum": "Dokuz gün",
+   "tts": "Abdiyel darbeden önce ona şunu söylemişti: “Asıl kölelik, akılsıza hizmet etmektir. Seninkiler şimdi sana hizmet ediyor. Ama sen özgür değilsin; kendi kendinin tutsağısın.”",
+   "alt": "Abdiel darbeden önce ona şunu söylemişti: “Asıl kölelik, akılsıza hizmet etmektir. Seninkiler şimdi sana hizmet ediyor. Ama sen özgür değilsin; kendi kendinin tutsağısın.”",
+   "kaynak": "KC VI.178–181 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "D04",
+   "bolum": "Dokuz gün",
+   "tts": "[darkly] Savaşın ortasında bir başmeleğin kılıcı, Şeytan'ın sağ yanını yarar. Ve Milton yazar: Şeytan acıyı ilk kez o an tanıdı.",
+   "alt": "Savaşın ortasında bir başmeleğin kılıcı, Şeytan'ın sağ yanını yarar. Ve Milton yazar: Şeytan acıyı ilk kez o an tanıdı.",
+   "kaynak": "KC VI.320–327 ('Then Satan first knew pain')"
+  },
+  {
+   "id": "D05",
+   "bolum": "Dokuz gün",
+   "tts": "Yarası çabucak kapanır. Ama bir zamanlar parlayan zırhı artık lekelidir.",
+   "alt": "Yarası çabucak kapanır. Ama bir zamanlar parlayan zırhı artık lekelidir.",
+   "kaynak": "KC VI.330–334"
+  },
+  {
+   "id": "D06",
+   "bolum": "Dokuz gün",
+   "tts": "Asiler barutu ve topu icat eder. Sadık melekler de dağları kökünden söküp üzerlerine atar.",
+   "alt": "Asiler barutu ve topu icat eder. Sadık melekler de dağları kökünden söküp üzerlerine atar.",
+   "kaynak": "KC VI.482–520, VI.584–594 (barut, top); VI.639–666 (dağlar)"
+  },
+  {
+   "id": "D07",
+   "bolum": "Dokuz gün",
+   "tts": "[awed] Üçüncü gün, Oğul ışıktan bir arabayla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
+   "alt": "Üçüncü gün, Oğul ışıktan bir arabayla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
+   "kaynak": "KC VI.699, VI.748–866"
+  },
+  {
+   "id": "D08",
+   "bolum": "Dokuz gün",
+   "tts": "[slowly] Dokuz gün düştüler. Kaos kükredi. Sonunda cehennem ağzını açıp onları yuttu ve üzerlerine kapandı.",
+   "alt": "Dokuz gün düştüler. Kaos kükredi. Sonunda cehennem ağzını açıp onları yuttu ve üzerlerine kapandı.",
+   "kaynak": "KC VI.871–875"
+  },
+  {
+   "id": "D09",
+   "bolum": "Dokuz gün",
+   "tts": "Ve hikâye, en başta gördüğümüz yere döner: yanan göle.",
+   "alt": "Ve hikâye, en başta gördüğümüz yere döner: yanan göle.",
+   "kaynak": ""
+  },
+  {
+   "id": "E01",
+   "bolum": "Cehennemde kral",
+   "tts": "[curious] Her şeyini kaybeden biri, ilk olarak ne söyler?",
+   "alt": "Her şeyini kaybeden biri, ilk olarak ne söyler?",
+   "kaynak": "bölüm sorusu"
+  },
+  {
+   "id": "E02",
+   "bolum": "Cehennemde kral",
+   "tts": "Şeytan yanında yatan yardımcısı Belzebub'u görür. İlk sözleri bir şaşkınlıktır: “Sen o musun? Ah, ne kadar düşmüş, ne kadar değişmişsin! Bir zamanlar ışık diyarında, binlerce parlak varlığı gölgede bırakırdın.”",
+   "alt": "Şeytan yanında yatan yardımcısı Beelzebub'u görür. İlk sözleri bir şaşkınlıktır: “Sen o musun? Ah, ne kadar düşmüş, ne kadar değişmişsin! Bir zamanlar ışık diyarında, binlerce parlak varlığı gölgede bırakırdın.”",
+   "kaynak": "KC I.79–87 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "E03",
+   "bolum": "Cehennemde kral",
+   "tts": "[firmly] Ama hemen toparlanır: “Savaş alanını kaybettik; ne olmuş? Her şey kaybedilmedi. Yenilmez irade, intikam, ölümsüz nefret ve asla boyun eğmeyen cesaret, hâlâ bizde.”",
+   "alt": "Ama hemen toparlanır: “Savaş alanını kaybettik; ne olmuş? Her şey kaybedilmedi. Yenilmez irade, intikam, ölümsüz nefret ve asla boyun eğmeyen cesaret, hâlâ bizde.”",
+   "kaynak": "KC I.105–109 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "E04",
+   "bolum": "Cehennemde kral",
+   "tts": "Milton bu sözlerin hemen ardından küçük bir not düşer: Şeytan, acı içinde böbürleniyordu; içi derin bir umutsuzlukla kıvranırken.",
+   "alt": "Milton bu sözlerin hemen ardından küçük bir not düşer: Şeytan, acı içinde böbürleniyordu; içi derin bir umutsuzlukla kıvranırken.",
+   "kaynak": "KC I.125–126"
+  },
+  {
+   "id": "E05",
+   "bolum": "Cehennemde kral",
+   "tts": "Gölden kalkar. Kalkanı omzunda, ay gibi asılıdır. Bir geminin direği kadar uzun mızrağına yaslanarak, yanan topraklarda yürür.",
+   "alt": "Gölden kalkar. Kalkanı omzunda, ay gibi asılıdır. Bir geminin direği kadar uzun mızrağına yaslanarak, yanan topraklarda yürür.",
+   "kaynak": "KC I.283–296"
+  },
+  {
+   "id": "E06",
+   "bolum": "Cehennemde kral",
+   "tts": "Yüzünde yıldırımların açtığı derin izler var. Ama hâlâ, yıkılmış bir başmelek kadar görkemli.",
+   "alt": "Yüzünde yıldırımların açtığı derin izler var. Ama hâlâ, yıkılmış bir başmelek kadar görkemli.",
+   "kaynak": "KC I.591–601"
+  },
+  {
+   "id": "E07",
+   "bolum": "Cehennemde kral",
+   "tts": "[softly] Yenik ordusunun karşısına geçip konuşmaya başladığında, sesi düğümlenir. Üç kez dener; üç kez, kendi küçümsemesine rağmen, gözlerinden yaşlar boşanır. Milton'ın deyişiyle: meleklerin ağladığı gibi.",
+   "alt": "Yenik ordusunun karşısına geçip konuşmaya başladığında, sesi düğümlenir. Üç kez dener; üç kez, kendi küçümsemesine rağmen, gözlerinden yaşlar boşanır. Milton'ın deyişiyle: meleklerin ağladığı gibi.",
+   "kaynak": "KC I.604–621 ('Tears, such as Angels weep'); kurulum, ödemesi L05"
+  },
+  {
+   "id": "E08",
+   "bolum": "Cehennemde kral",
+   "tts": "[thoughtfully] Sonra cehennemi selamlar: “Elveda mutlu topraklar; merhaba dehşet. Zihin kendi yeridir. Kendi içinde cehennemi cennet, cenneti cehennem yapabilir.”",
+   "alt": "Sonra cehennemi selamlar: “Elveda mutlu topraklar; merhaba dehşet. Zihin kendi yeridir. Kendi içinde cehennemi cennet, cenneti cehennem yapabilir.”",
+   "kaynak": "KC I.249–255 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "E09",
+   "bolum": "Cehennemde kral",
+   "tts": "[slowly] [firmly] Ve destanın en ünlü dizesini söyler: “Cehennemde hüküm sürmek, cennette hizmet etmekten iyidir.”",
+   "alt": "Ve destanın en ünlü dizesini söyler: “Cehennemde hüküm sürmek, cennette hizmet etmekten iyidir.”",
+   "kaynak": "KC I.263 (çevirimiz)"
+  },
+  {
+   "id": "E10",
+   "bolum": "Cehennemde kral",
+   "tts": "… Yani: cennette köle olacağıma, cehennemde kral olurum.",
+   "alt": "Yani: cennette köle olacağıma, cehennemde kral olurum.",
+   "kaynak": "I.263'ün anlatıcı açımlaması"
+  },
+  {
+   "id": "E11",
+   "bolum": "Cehennemde kral",
+   "tts": "Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonyum, bütün şeytanların meclisi.",
+   "alt": "Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.",
+   "kaynak": "KC I.670–730, I.697 ('in an hour'), I.756 (Pandæmonium)"
+  },
+  {
+   "id": "E12",
+   "bolum": "Cehennemde kral",
+   "tts": "Mecliste kimi yeni bir savaş ister, kimi sessizce katlanmayı, kimi cehennemde kendi krallıklarını kurmayı. Sonunda Şeytan'ın planı kabul edilir: Tanrı'nın yeni yarattığı dünyaya, insana saldırmak.",
+   "alt": "Mecliste kimi yeni bir savaş ister, kimi sessizce katlanmayı, kimi cehennemde kendi krallıklarını kurmayı. Sonunda Şeytan'ın planı kabul edilir: Tanrı'nın yeni yarattığı dünyaya, insana saldırmak.",
+   "kaynak": "KC II.51–378 (Moloch, Belial, Mammon, Beelzebub; plan Şeytan'ındır: II.379–380)"
+  },
+  {
+   "id": "E13",
+   "bolum": "Cehennemde kral",
+   "tts": "[darkly] Kimsenin gitmeye cesaret edemediği bu yolculuğa, yalnızca o gönüllü olur.",
+   "alt": "Kimsenin gitmeye cesaret edemediği bu yolculuğa, yalnızca o gönüllü olur.",
+   "kaynak": "KC II.417–466"
+  },
+  {
+   "id": "E14",
+   "bolum": "Cehennemde kral",
+   "tts": "[slowly] Ayağa kalktığında bütün cehennem önünde eğilir; onu Tanrı'ya denk sayıp yüceltirler. Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır.",
+   "alt": "Ayağa kalktığında bütün cehennem önünde eğilir; onu Tanrı'ya denk sayıp yüceltirler. Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır.",
+   "kaynak": "KC II.476–479; taht: II.1–6"
+  },
+  {
+   "id": "F01",
+   "bolum": "Kapıdaki kız",
+   "tts": "[curious] Kendi aklından doğmuş bir şeyle yüz yüze gelsen, onu tanır mıydın?",
+   "alt": "Kendi aklından doğmuş bir şeyle yüz yüze gelsen, onu tanır mıydın?",
+   "kaynak": "bölüm sorusu; cevabı F04"
+  },
+  {
+   "id": "F02",
+   "bolum": "Kapıdaki kız",
+   "tts": "Cehennemin dokuz katlı kapısında iki bekçi vardır: yarısı kadın, yarısı yılan bir varlık… ve biçimi olmayan bir gölge.",
+   "alt": "Cehennemin dokuz katlı kapısında iki bekçi vardır: yarısı kadın, yarısı yılan bir varlık… ve biçimi olmayan bir gölge.",
+   "kaynak": "KC II.645–673"
+  },
+  {
+   "id": "F03",
+   "bolum": "Kapıdaki kız",
+   "tts": "Şeytan gölgeyle dövüşmeye hazırlanırken kadın araya girer: “Beni unuttun mu? Cennette sen isyanı tasarlarken, başından ben doğmuştum. Bana Günah dediler.”",
+   "alt": "Şeytan gölgeyle dövüşmeye hazırlanırken kadın araya girer: “Beni unuttun mu? Cennette sen isyanı tasarlarken, başından ben doğmuştum. Bana Günah dediler.”",
+   "kaynak": "KC II.746–760 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "F04",
+   "bolum": "Kapıdaki kız",
+   "tts": "[darkly] Şeytan onu tanımaz. Kendi aklından doğan şeyi tanımaz. Ve o gölgenin, Günah'tan doğan Ölüm olduğunu öğrenir.",
+   "alt": "Şeytan onu tanımaz. Kendi aklından doğan şeyi tanımaz. Ve o gölgenin, Günah'tan doğan Ölüm olduğunu öğrenir.",
+   "kaynak": "KC II.737–745, II.781–789"
+  },
+  {
+   "id": "F05",
+   "bolum": "Kapıdaki kız",
+   "tts": "Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.",
+   "alt": "Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.",
+   "kaynak": "KC II.871–916"
+  },
+  {
+   "id": "F06",
+   "bolum": "Kapıdaki kız",
+   "tts": "Kanatlarını açıp uçar; sonra boşluğa düşer, binlerce kulaç aşağı. Bir rüzgâr onu yeniden yukarı fırlatmasa, hâlâ düşüyor olurdu.",
+   "alt": "Kanatlarını açıp uçar; sonra boşluğa düşer, binlerce kulaç aşağı. Bir rüzgâr onu yeniden yukarı fırlatmasa, hâlâ düşüyor olurdu.",
+   "kaynak": "KC II.927–938"
+  },
+  {
+   "id": "F07",
+   "bolum": "Kapıdaki kız",
+   "tts": "Sonunda uzakta bir şey görür: cennete altın bir zincirle asılı, ayın yanındaki en küçük yıldız kadar bir dünya.",
+   "alt": "Sonunda uzakta bir şey görür: cennete altın bir zincirle asılı, ayın yanındaki en küçük yıldız kadar bir dünya.",
+   "kaynak": "KC II.1051–1053"
+  },
+  {
+   "id": "F08",
+   "bolum": "Kapıdaki kız",
+   "tts": "Güneşe varır. Genç bir melek kılığına girip güneşin bekçisi Uriyel'e yolu sorar. Milton'a göre ne insan ne melek, ikiyüzlülüğü göremez.",
+   "alt": "Güneşe varır. Genç bir melek kılığına girip güneşin bekçisi Uriel'e yolu sorar. Milton'a göre ne insan ne melek, ikiyüzlülüğü göremez.",
+   "kaynak": "KC III.634–684"
+  },
+  {
+   "id": "F09",
+   "bolum": "Kapıdaki kız",
+   "tts": "Uriyel yolu gösterir. Şeytan aşağı süzülür ve bir dağın, Nifates'in tepesine konar.",
+   "alt": "Uriel yolu gösterir. Şeytan aşağı süzülür ve bir dağın, Nifates'in tepesine konar.",
+   "kaynak": "KC III.724–742"
+  },
+  {
+   "id": "G01",
+   "bolum": "Güneşe itiraf",
+   "tts": "[curious] Kimse duymadığını sanırken, Şeytan kendine ne söyler?",
+   "alt": "Kimse duymadığını sanırken, Şeytan kendine ne söyler?",
+   "kaynak": "bölüm sorusu"
+  },
+  {
+   "id": "G02",
+   "bolum": "Güneşe itiraf",
+   "tts": "Cehennemden kaçmıştır. Ama Milton uyarır: cehennemi yanında getirmişti. Kendinden kaçamadığı gibi, cehennemden de bir adım uzaklaşamazdı.",
+   "alt": "Cehennemden kaçmıştır. Ama Milton uyarır: cehennemi yanında getirmişti. Kendinden kaçamadığı gibi, cehennemden de bir adım uzaklaşamazdı.",
+   "kaynak": "KC IV.18–23"
+  },
+  {
+   "id": "G03",
+   "bolum": "Güneşe itiraf",
+   "tts": "[slowly] Güneşe bakar ve konuşmaya başlar: “Ey ihtişamla taçlanmış güneş… sana dostça seslenmiyorum. Işınlarından nefret ettiğimi söylemek için adını anıyorum; çünkü bana hangi yücelikten düştüğümü hatırlatıyorlar.”",
+   "alt": "Güneşe bakar ve konuşmaya başlar: “Ey ihtişamla taçlanmış güneş… sana dostça seslenmiyorum. Işınlarından nefret ettiğimi söylemek için adını anıyorum; çünkü bana hangi yücelikten düştüğümü hatırlatıyorlar.”",
+   "kaynak": "KC IV.32–39 (çevirimiz, kısaltılmış); Phillips'e göre ilk yazılan dizeler (DNB s. 34)"
+  },
+  {
+   "id": "G04",
+   "bolum": "Güneşe itiraf",
+   "tts": "[softly] Sonra, hiç beklemediğimiz bir şey söyler: “O, benden bu karşılığı hak etmemişti. Beni yaratmıştı; iyiliğini başa kakmazdı. Hizmeti de ağır değildi.”",
+   "alt": "Sonra, hiç beklemediğimiz bir şey söyler: “O, benden bu karşılığı hak etmemişti. Beni yaratmıştı; iyiliğini başa kakmazdı. Hizmeti de ağır değildi.”",
+   "kaynak": "KC IV.42–45 (çevirimiz)"
+  },
+  {
+   "id": "G05",
+   "bolum": "Güneşe itiraf",
+   "tts": "“Keşke beni sıradan bir melek yaratsaydı. O zaman mutlu kalırdım.”",
+   "alt": "“Keşke beni sıradan bir melek yaratsaydı. O zaman mutlu kalırdım.”",
+   "kaynak": "KC IV.58–61 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "G06",
+   "bolum": "Güneşe itiraf",
+   "tts": "[thoughtfully] Ve kendine bir soru sorar: “Senin de onlar gibi özgür iraden var mıydı? Vardı. O hâlde kimi suçlayacaksın?”",
+   "alt": "Ve kendine bir soru sorar: “Senin de onlar gibi özgür iraden var mıydı? Vardı. O hâlde kimi suçlayacaksın?”",
+   "kaynak": "KC IV.63–68 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "G07",
+   "bolum": "Güneşe itiraf",
+   "tts": "[sadly] [slowly] “Vay zavallı bana! Sonsuz öfkeden, sonsuz umutsuzluktan nereye kaçayım? Hangi yana kaçsam cehennem. Cehennem benim.”",
+   "alt": "“Vay zavallı bana! Sonsuz öfkeden, sonsuz umutsuzluktan nereye kaçayım? Hangi yana kaçsam cehennem. Cehennem benim.”",
+   "kaynak": "KC IV.73–75 (çevirimiz)"
+  },
+  {
+   "id": "G08",
+   "bolum": "Güneşe itiraf",
+   "tts": "“En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
+   "alt": "“En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
+   "kaynak": "KC IV.76–78 (çevirimiz)"
+  },
+  {
+   "id": "G09",
+   "bolum": "Güneşe itiraf",
+   "tts": "[softly] Bir an yumuşar: “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?” … Cevabı yine kendisi verir: “Bir yol kaldı: boyun eğmek. Ama o kelimeyi, gururum yasaklıyor.”",
+   "alt": "Bir an yumuşar: “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?” Cevabı yine kendisi verir: “Bir yol kaldı: boyun eğmek. Ama o kelimeyi, gururum yasaklıyor.”",
+   "kaynak": "KC IV.79–82 (çevirimiz); A04 sorusunun cevabı burada saklı, L09'da açılır"
+  },
+  {
+   "id": "G10",
+   "bolum": "Güneşe itiraf",
+   "tts": "Gururu… ve cehennemde bıraktığı ordunun önünde rezil olma korkusu. Onlara boyun eğmeyi değil, Tanrı'yı yenmeyi vaat etmişti.",
+   "alt": "Gururu… ve cehennemde bıraktığı ordunun önünde rezil olma korkusu. Onlara boyun eğmeyi değil, Tanrı'yı yenmeyi vaat etmişti.",
+   "kaynak": "KC IV.82–86"
+  },
+  {
+   "id": "G11",
+   "bolum": "Güneşe itiraf",
+   "tts": "[bitterly] “Onlar beni cehennemin tahtında yüceltirken, içimde nasıl inlediğimi bilmiyorlar. Tacım ve asam ne kadar yükselirse, ben o kadar aşağı düşüyorum.”",
+   "alt": "“Onlar beni cehennemin tahtında yüceltirken, içimde nasıl inlediğimi bilmiyorlar. Tacım ve asam ne kadar yükselirse, ben o kadar aşağı düşüyorum.”",
+   "kaynak": "KC IV.86–92 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "G12",
+   "bolum": "Güneşe itiraf",
+   "tts": "[thoughtfully] Ve en dürüst cümlesini kurar: “Diyelim ki pişman oldum ve eski yerime döndüm. Ne kadar sürer? Yükseklik, eski düşüncelerimi geri getirir. Acı içinde verdiğim sözleri, rahata erince geri alırım.”",
+   "alt": "Ve en dürüst cümlesini kurar: “Diyelim ki pişman oldum ve eski yerime döndüm. Ne kadar sürer? Yükseklik, eski düşüncelerimi geri getirir. Acı içinde verdiğim sözleri, rahata erince geri alırım.”",
+   "kaynak": "KC IV.93–97 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "G13",
+   "bolum": "Güneşe itiraf",
+   "tts": "[slowly] Sonunda kararını verir: “Elveda umut. Umutla birlikte elveda korku; elveda pişmanlık. Kötülük… sen benim iyiliğim ol.”",
+   "alt": "Sonunda kararını verir: “Elveda umut. Umutla birlikte elveda korku; elveda pişmanlık. Kötülük… sen benim iyiliğim ol.”",
+   "kaynak": "KC IV.108–110 (çevirimiz)"
+  },
+  {
+   "id": "G14",
+   "bolum": "Güneşe itiraf",
+   "tts": "[softly] Bu sözleri söylerken yüzü üç kez değişir: öfkeyle, kıskançlıkla, umutsuzlukla. Kimsenin görmediğini sanır; ama güneşin bekçisi Uriyel, hepsini görmüştür.",
+   "alt": "Bu sözleri söylerken yüzü üç kez değişir: öfkeyle, kıskançlıkla, umutsuzlukla. Kimsenin görmediğini sanır; ama güneşin bekçisi Uriel, hepsini görmüştür.",
+   "kaynak": "KC IV.114–130"
+  },
+  {
+   "id": "G15",
+   "bolum": "Güneşe itiraf",
+   "tts": "[thoughtfully] İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı. Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. … Ve ilk kez, ona acıyoruz.",
+   "alt": "İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı. Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. Ve ilk kez, ona acıyoruz.",
+   "kaynak": "DNB s. 34 (Phillips); empati anı"
+  },
+  {
+   "id": "H01",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[curious] Yok etmeye geldiğin bir şeyi, sevebilir misin?",
+   "alt": "Yok etmeye geldiğin bir şeyi, sevebilir misin?",
+   "kaynak": "bölüm sorusu"
+  },
+  {
+   "id": "H02",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "Şeytan Aden bahçesine varır. Doğudaki tek kapıyı küçümser; tek sıçrayışta duvarın üstünden atlar.",
+   "alt": "Şeytan Aden bahçesine varır. Doğudaki tek kapıyı küçümser; tek sıçrayışta duvarın üstünden atlar.",
+   "kaynak": "KC IV.178–183"
+  },
+  {
+   "id": "H03",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "Bahçenin en yüksek ağacına, hayat ağacına tüner: bir karabatak gibi.",
+   "alt": "Bahçenin en yüksek ağacına, hayat ağacına tüner: bir karabatak gibi.",
+   "kaynak": "KC IV.194–196"
+  },
+  {
+   "id": "H04",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[softly] Ve ilk kez onları görür: Âdem ile Havva'yı.",
+   "alt": "Ve ilk kez onları görür: Âdem ile Havva'yı.",
+   "kaynak": "KC IV.288 vd."
+  },
+  {
+   "id": "H05",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[softly] “Düşüncelerim onları hayranlıkla izliyor,” der. “Onları sevebilirdim. Kimsesiz hâllerine acıyabilirim; bana acıyan olmasa da.”",
+   "alt": "“Düşüncelerim onları hayranlıkla izliyor,” der. “Onları sevebilirdim. Kimsesiz hâllerine acıyabilirim; bana acıyan olmasa da.”",
+   "kaynak": "KC IV.358–375 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "H06",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "“Masumiyetiniz karşısında eriyorum,” der. Ama hemen ekler: krallığının çıkarı, onur ve intikam, onu bunu yapmaya zorlamaktadır.",
+   "alt": "“Masumiyetiniz karşısında eriyorum,” der. Ama hemen ekler: krallığının çıkarı, onur ve intikam, onu bunu yapmaya zorlamaktadır.",
+   "kaynak": "KC IV.388–392"
+  },
+  {
+   "id": "H07",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[firmly] Milton burada araya girer: “Böyle konuştu iblis; ve zorunluluğu, o zorbaların bahanesini, şeytanca işlerine kılıf yaptı.”",
+   "alt": "Milton burada araya girer: “Böyle konuştu iblis; ve zorunluluğu, o zorbaların bahanesini, şeytanca işlerine kılıf yaptı.”",
+   "kaynak": "KC IV.393–394 (çevirimiz: 'necessity, the tyrant's plea')"
+  },
+  {
+   "id": "H08",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "Sonra iki insanın birbirine sarılışını izler: “Nefret dolu manzara! İşkence dolu manzara! Bu ikisi birbirinin kollarında cennetteler. Bense ne sevincin ne sevginin olduğu bir cehenneme itilmişim.”",
+   "alt": "Sonra iki insanın birbirine sarılışını izler: “Nefret dolu manzara! İşkence dolu manzara! Bu ikisi birbirinin kollarında cennetteler. Bense ne sevincin ne sevginin olduğu bir cehenneme itilmişim.”",
+   "kaynak": "KC IV.505–511 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "H09",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[darkly] Gece olunca, Havva'nın kulağının dibine çömelir: bir kurbağa gibi. Ona rüyalar fısıldar.",
+   "alt": "Gece olunca, Havva'nın kulağının dibine çömelir: bir kurbağa gibi. Ona rüyalar fısıldar.",
+   "kaynak": "KC IV.799–809"
+  },
+  {
+   "id": "H10",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "Bekçi meleklerden biri mızrağının ucuyla ona dokununca, gerçek biçimine döner.",
+   "alt": "Bekçi meleklerden biri mızrağının ucuyla ona dokununca, gerçek biçimine döner.",
+   "kaynak": "KC IV.810–819"
+  },
+  {
+   "id": "H11",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "“Beni tanımıyor musunuz?” diye kükrer. Melekler cevap verir: “Parlaklığının hâlâ aynı olduğunu sanma. İyi olmaktan çıktığın gün, o ışık seni terk etti.”",
+   "alt": "“Beni tanımıyor musunuz?” diye kükrer. Melekler cevap verir: “Parlaklığının hâlâ aynı olduğunu sanma. İyi olmaktan çıktığın gün, o ışık seni terk etti.”",
+   "kaynak": "KC IV.827–840 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "H12",
+   "bolum": "Aden'de bir yabancı",
+   "tts": "[slowly] Şeytan utanç içinde kalakalır. İyiliğin ne kadar heybetli olduğunu hisseder ve kaybettiğine yanar; en çok da, ışığının gözle görülür biçimde söndüğünü fark edince.",
+   "alt": "Şeytan utanç içinde kalakalır. İyiliğin ne kadar heybetli olduğunu hisseder ve kaybettiğine yanar; en çok da, ışığının gözle görülür biçimde söndüğünü fark edince.",
+   "kaynak": "KC IV.846–850"
+  },
+  {
+   "id": "I01",
+   "bolum": "Yılanın içinde",
+   "tts": "[curious] İntikam, insanı rahatlatır mı?",
+   "alt": "İntikam, insanı rahatlatır mı?",
+   "kaynak": "bölüm sorusu; cevabı I05"
+  },
+  {
+   "id": "I02",
+   "bolum": "Yılanın içinde",
+   "tts": "Şeytan bahçeden kovulur. Yedi gece boyunca karanlıkla birlikte dünyanın çevresinde döner. Sekizinci gece, gizlice geri sızar.",
+   "alt": "Şeytan bahçeden kovulur. Yedi gece boyunca karanlıkla birlikte dünyanın çevresinde döner. Sekizinci gece, gizlice geri sızar.",
+   "kaynak": "KC IV.1013–1015; IX.53–69"
+  },
+  {
+   "id": "I03",
+   "bolum": "Yılanın içinde",
+   "tts": "[sadly] Dünyaya bakar ve yine itiraf eder: “Bir şeyden sevinç duyabilseydim, seni nasıl da dolaşırdım! Ama etrafımda ne kadar güzellik görürsem, içimde o kadar işkence duyuyorum.”",
+   "alt": "Dünyaya bakar ve yine itiraf eder: “Bir şeyden sevinç duyabilseydim, seni nasıl da dolaşırdım! Ama etrafımda ne kadar güzellik görürsem, içimde o kadar işkence duyuyorum.”",
+   "kaynak": "KC IX.114–122 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "I04",
+   "bolum": "Yılanın içinde",
+   "tts": "Uyuyan bir yılan bulur ve ağzından içine girer. “Ne iğrenç bir iniş!” der. “Bir zamanlar tanrılarla en yüksek yer için yarışan ben, şimdi bir hayvanın içine sıkışıyorum.”",
+   "alt": "Uyuyan bir yılan bulur ve ağzından içine girer. “Ne iğrenç bir iniş!” der. “Bir zamanlar tanrılarla en yüksek yer için yarışan ben, şimdi bir hayvanın içine sıkışıyorum.”",
+   "kaynak": "KC IX.159–167, IX.182–190 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "I05",
+   "bolum": "Yılanın içinde",
+   "tts": "[thoughtfully] Ve kendi geleceğini söyler: “İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.”",
+   "alt": "Ve kendi geleceğini söyler: “İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.”",
+   "kaynak": "KC IX.171–172 (çevirimiz)"
+  },
+  {
+   "id": "I06",
+   "bolum": "Yılanın içinde",
+   "tts": "[softly] Sabah, Havva'yı bahçede yalnız görür. Ve destanın belki de en tuhaf anı gelir: Şeytan bir süre kendi kötülüğünden ayrı durur. Nefreti, hilesi, kıskançlığı, intikamı… hepsi elinden düşer. Milton'ın deyişiyle, bir süre sersemlemiş gibi iyi kalır.",
+   "alt": "Sabah, Havva'yı bahçede yalnız görür. Ve destanın belki de en tuhaf anı gelir: Şeytan bir süre kendi kötülüğünden ayrı durur. Nefreti, hilesi, kıskançlığı, intikamı… hepsi elinden düşer. Milton'ın deyişiyle, bir süre sersemlemiş gibi iyi kalır.",
+   "kaynak": "KC IX.455–466 ('stupidly good': 17. yy'da 'sersemlemiş, donakalmış')"
+  },
+  {
+   "id": "I07",
+   "bolum": "Yılanın içinde",
+   "tts": "[darkly] Ama içinde hep yanan o cehennem, cennetin ortasında bile, bu sevinci çabucak bitirir.",
+   "alt": "Ama içinde hep yanan o cehennem, cennetin ortasında bile, bu sevinci çabucak bitirir.",
+   "kaynak": "KC IX.467–470"
+  },
+  {
+   "id": "I08",
+   "bolum": "Yılanın içinde",
+   "tts": "Yılanın diliyle konuşur, Havva'yı ikna eder. Havva meyveyi koparır ve yer.",
+   "alt": "Yılanın diliyle konuşur, Havva'yı ikna eder. Havva meyveyi koparır ve yer.",
+   "kaynak": "KC IX.532–781"
+  },
+  {
+   "id": "I09",
+   "bolum": "Yılanın içinde",
+   "tts": "[slowly] Dünya yarasını hisseder; doğa iç çeker. Ve suçlu yılan, sessizce çalılığa sıvışır.",
+   "alt": "Dünya yarasını hisseder; doğa iç çeker. Ve suçlu yılan, sessizce çalılığa sıvışır.",
+   "kaynak": "KC IX.782–785"
+  },
+  {
+   "id": "I10",
+   "bolum": "Yılanın içinde",
+   "tts": "Kazanmıştır. Peki bu zafer, neye benzeyecek?",
+   "alt": "Kazanmıştır. Peki bu zafer, neye benzeyecek?",
+   "kaynak": ""
+  },
+  {
+   "id": "J01",
+   "bolum": "Alkış",
+   "tts": "[curious] Zafer anında, insan ne duymayı bekler?",
+   "alt": "Zafer anında, insan ne duymayı bekler?",
+   "kaynak": "bölüm sorusu"
+  },
+  {
+   "id": "J02",
+   "bolum": "Alkış",
+   "tts": "Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir. Cehennem çığlıklarla onu karşılar.",
+   "alt": "Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir. Cehennem çığlıklarla onu karşılar.",
+   "kaynak": "KC X.441–457"
+  },
+  {
+   "id": "J03",
+   "bolum": "Alkış",
+   "tts": "[firmly] “İnsanı yaratıcısından kopardım,” der. “Hem de bir elmayla! Gülmeye değmez mi?”",
+   "alt": "“İnsanı yaratıcısından kopardım,” der. “Hem de bir elmayla! Gülmeye değmez mi?”",
+   "kaynak": "KC X.485–488 (çevirimiz, kısaltılmış)"
+  },
+  {
+   "id": "J04",
+   "bolum": "Alkış",
+   "tts": "Ve susar. O büyük alkışı bekler.",
+   "alt": "Ve susar. O büyük alkışı bekler.",
+   "kaynak": "KC X.504–506"
+  },
+  {
+   "id": "J05",
+   "bolum": "Alkış",
+   "tts": "[darkly] [slowly] Ama her yandan, sayısız dilden yükselen tek bir ses duyar: kasvetli, ortak bir tıslama. Herkesin aşağılaması.",
+   "alt": "Ama her yandan, sayısız dilden yükselen tek bir ses duyar: kasvetli, ortak bir tıslama. Herkesin aşağılaması.",
+   "kaynak": "KC X.506–509"
+  },
+  {
+   "id": "J06",
+   "bolum": "Alkış",
+   "tts": "Şaşırır; ama şaşırmaya bile vakti kalmaz. Yüzünün sivrildiğini hisseder. Kolları kaburgalarına yapışır, bacakları birbirine dolanır ve yüzüstü yere yığılır: devasa bir yılan.",
+   "alt": "Şaşırır; ama şaşırmaya bile vakti kalmaz. Yüzünün sivrildiğini hisseder. Kolları kaburgalarına yapışır, bacakları birbirine dolanır ve yüzüstü yere yığılır: devasa bir yılan.",
+   "kaynak": "KC X.509–514"
+  },
+  {
+   "id": "J07",
+   "bolum": "Alkış",
+   "tts": "Konuşmak ister; ağzından yalnızca tıslama çıkar. Bütün şeytanlar yılana dönüşmüştür.",
+   "alt": "Konuşmak ister; ağzından yalnızca tıslama çıkar. Bütün şeytanlar yılana dönüşmüştür.",
+   "kaynak": "KC X.517–521"
+  },
+  {
+   "id": "J08",
+   "bolum": "Alkış",
+   "tts": "[slowly] Günah işlediği biçimde cezalandırılmıştır. Alkışları ıslığa, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "alt": "Günah işlediği biçimde cezalandırılmıştır. Alkışları ıslığa, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "kaynak": "KC X.516, X.545–547"
+  },
+  {
+   "id": "J09",
+   "bolum": "Alkış",
+   "tts": "Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
+   "alt": "Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
+   "kaynak": "KC X.547–570"
+  },
+  {
+   "id": "J10",
+   "bolum": "Alkış",
+   "tts": "[thoughtfully] Ve Şeytan destandan sessizce çekilir. Son iki kitapta bir daha sahneye çıkmaz.",
+   "alt": "Ve Şeytan destandan sessizce çekilir. Son iki kitapta bir daha sahneye çıkmaz.",
+   "kaynak": "KC XI–XII: Şeytan yalnız anılır, görünmez"
+  },
+  {
+   "id": "K01",
+   "bolum": "İki okuma",
+   "tts": "[curious] Peki bu hikâyenin kahramanı kim?",
+   "alt": "Peki bu hikâyenin kahramanı kim?",
+   "kaynak": "bölüm sorusu"
+  },
+  {
+   "id": "K02",
+   "bolum": "İki okuma",
+   "tts": "Milton destanın en başında amacını açıkça söyler: Tanrı'nın yollarını insanlara haklı göstermek.",
+   "alt": "Milton destanın en başında amacını açıkça söyler: Tanrı'nın yollarını insanlara haklı göstermek.",
+   "kaynak": "KC I.26 (çevirimiz)"
+  },
+  {
+   "id": "K03",
+   "bolum": "İki okuma",
+   "tts": "Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk başka bir şey görür.",
+   "alt": "Ama yüz yıldan fazla sonra, şair ve ressam William Blake başka bir şey görür.",
+   "kaynak": "Blake, The Marriage of Heaven and Hell (1790–93)"
+  },
+  {
+   "id": "K04",
+   "bolum": "İki okuma",
+   "tts": "[firmly] Bleyk'e göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "alt": "Blake'e göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "kaynak": "Blake, MHH lv. 5–6, 'The Voice of the Devil' notu (çevirimiz)"
+  },
+  {
+   "id": "K05",
+   "bolum": "İki okuma",
+   "tts": "Romantik şairler de Şeytan'da bir isyan kahramanı gördü. Şeli'ye göre, Kayıp Cennet'teki Şeytan'ın enerjisini ve görkemini hiçbir şey aşamazdı.",
+   "alt": "Romantik şairler de Şeytan'da bir isyan kahramanı gördü. Shelley'ye göre, Kayıp Cennet'teki Şeytan'ın enerjisini ve görkemini hiçbir şey aşamazdı.",
+   "kaynak": "Shelley, A Defence of Poetry (1821; yay. 1840) (çevirimiz)"
+  },
+  {
+   "id": "K06",
+   "bolum": "İki okuma",
+   "tts": "Yirminci yüzyılda ise, Narniya'nın yazarı Si Es Luis tam tersini savundu.",
+   "alt": "Yirminci yüzyılda ise, Narnia'nın yazarı C. S. Lewis tam tersini savundu.",
+   "kaynak": "Lewis, A Preface to Paradise Lost (1942), bölüm 13"
+  },
+  {
+   "id": "K07",
+   "bolum": "İki okuma",
+   "tts": "[thoughtfully] Luis'e göre bu, bir kahramanın değil, bir küçülmenin hikâyesiydi: Kahramandan generale, generalden politikacıya, oradan casusa, yatak odası penceresinden içeri bakan bir şeye, sonra bir kurbağaya… ve en sonunda bir yılana.",
+   "alt": "Lewis'e göre bu, bir kahramanın değil, bir küçülmenin hikâyesiydi: Kahramandan generale, generalden politikacıya, oradan casusa, yatak odası penceresinden içeri bakan bir şeye, sonra bir kurbağaya… ve en sonunda bir yılana.",
+   "kaynak": "Lewis 1942, bölüm 13 (kısa alıntı, çevirimiz; telifli eser: yalnız kısa alıntı)"
+  },
+  {
+   "id": "K08",
+   "bolum": "İki okuma",
+   "tts": "Gerçekten de destan boyunca Şeytan'ın ışığı söner, biçimi bozulur: başmelekten karabataka, kurbağaya, yılana.",
+   "alt": "Gerçekten de destan boyunca Şeytan'ın ışığı söner, biçimi bozulur: başmelekten karabataka, kurbağaya, yılana.",
+   "kaynak": "KC I.591–601, IV.196, IV.800, IX.182–190, X.511–514"
+  },
+  {
+   "id": "K09",
+   "bolum": "İki okuma",
+   "tts": "[thoughtfully] Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendi tahtını kuruyor.",
+   "alt": "Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendi tahtını kuruyor.",
+   "kaynak": "Tenure of Kings (1649); KC II.1–6"
+  },
+  {
+   "id": "K10",
+   "bolum": "İki okuma",
+   "tts": "Milton o tahtı, doğunun en zengin krallarının hazinelerinden bile görkemli anlatır. Cenneti zorbalıkla suçlayan Şeytan, onun yerine kendi tahtını kurar.",
+   "alt": "Milton o tahtı, doğunun en zengin krallarının hazinelerinden bile görkemli anlatır. Cenneti zorbalıkla suçlayan Şeytan, onun yerine kendi tahtını kurar.",
+   "kaynak": "KC II.1–6; I.124 ('the tyranny of Heaven')"
+  },
+  {
+   "id": "K11",
+   "bolum": "İki okuma",
+   "tts": "Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile, kralı deviren Kromvel, Lord Koruyucu unvanıyla ülkeyi tek başına yönetti ve yerini oğluna bıraktı.",
+   "alt": "Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile, kralı deviren Cromwell, Lord Koruyucu unvanıyla ülkeyi tek başına yönetti ve yerini oğluna bıraktı.",
+   "kaynak": "kullanıcının görüşü (CLAUDE.md); Cromwell Lord Koruyucu 1653–1658, halefi oğlu Richard (1658)"
+  },
+  {
+   "id": "K12",
+   "bolum": "İki okuma",
+   "tts": "[slowly] Abdiyel'in sözünü hatırla: “Sen özgür değilsin; kendi kendinin tutsağısın.” … Başkaldırı her zaman özgürlük müdür?",
+   "alt": "Abdiel'in sözünü hatırla: “Sen özgür değilsin; kendi kendinin tutsağısın.” Başkaldırı her zaman özgürlük müdür?",
+   "kaynak": "KC VI.181; C13'ün ödemesi"
+  },
+  {
+   "id": "L01",
+   "bolum": "Bir damla yaş",
+   "tts": "[curious] Peki ya o gözyaşları?",
+   "alt": "Peki ya o gözyaşları?",
+   "kaynak": "bölüm sorusu; E07'nin ödemesi"
+  },
+  {
+   "id": "L02",
+   "bolum": "Bir damla yaş",
+   "tts": "Milton'dan sonra ressamlar Şeytan'ı yeniden ve yeniden çizdi. Bin sekiz yüz altmış altı'da Güstav Dore'nin gravürlerinde, karanlığa düşen kanatlı bir siluet oldu. Bu videodaki çizimler de onun izinden gidiyor.",
+   "alt": "Milton'dan sonra ressamlar Şeytan'ı yeniden ve yeniden çizdi. 1866'da Gustave Doré'nin gravürlerinde, karanlığa düşen kanatlı bir siluet oldu. Bu videodaki çizimler de onun izinden gidiyor.",
+   "kaynak": "Doré, Paradise Lost, Cassell 1866, 50 levha"
+  },
+  {
+   "id": "L03",
+   "bolum": "Bir damla yaş",
+   "tts": "Ondan yirmi yıl önce, Roma'daki Villa Mediçi'de genç bir Fransız ressam, Aleksandr Kabanel, Düşmüş Melek'i yaptı.",
+   "alt": "Ondan yirmi yıl önce, Roma'daki Villa Medici'de genç bir Fransız ressam, Alexandre Cabanel, Düşmüş Melek'i yaptı.",
+   "kaynak": "Cabanel, L'Ange déchu, 1847, Villa Médicis'ten ikinci envoi; Musée Fabre, Montpellier"
+  },
+  {
+   "id": "L04",
+   "bolum": "Bir damla yaş",
+   "tts": "[softly] Kayalara uzanmış, kollarını yüzünün önünde kavuşturmuş bir melek. Kollarının arasından bize bakıyor. Gözleri öfkeli… ve dolu.",
+   "alt": "Kayalara uzanmış, kollarını yüzünün önünde kavuşturmuş bir melek. Kollarının arasından bize bakıyor. Gözleri öfkeli… ve dolu.",
+   "kaynak": "tablonun betimi (Musée Fabre; Wikipedia 'The Fallen Angel')"
+  },
+  {
+   "id": "L05",
+   "bolum": "Bir damla yaş",
+   "tts": "Bu gözyaşı, ressamın uydurması değildi. Milton, Şeytan'ı yenik ordusunun karşısında ağlatmıştı: kendi küçümsemesine rağmen, meleklerin ağladığı gibi.",
+   "alt": "Bu gözyaşı, ressamın uydurması değildi. Milton, Şeytan'ı yenik ordusunun karşısında ağlatmıştı: kendi küçümsemesine rağmen, meleklerin ağladığı gibi.",
+   "kaynak": "KC I.619–620"
+  },
+  {
+   "id": "L06",
+   "bolum": "Bir damla yaş",
+   "tts": "[thoughtfully] O gözyaşı pişmanlık mıydı, gurur mu? Belki ikisi birden. Destanda bir yerde ağlıyor; bir yerde, “boyun eğmek” kelimesini söyleyemiyor.",
+   "alt": "O gözyaşı pişmanlık mıydı, gurur mu? Belki ikisi birden. Destanda bir yerde ağlıyor; bir yerde, “boyun eğmek” kelimesini söyleyemiyor.",
+   "kaynak": "I.620 ve IV.81–82"
+  },
+  {
+   "id": "L07",
+   "bolum": "Bir damla yaş",
+   "tts": "[slowly] Ve destan, Şeytan'la bitmez. Son sahnede iki insan, Âdem ile Havva, cennetten çıkar. Milton yazar: “Birkaç damla gözyaşı döktüler; ama çabuk sildiler. Dünya, bütün genişliğiyle önlerindeydi.”",
+   "alt": "Ve destan, Şeytan'la bitmez. Son sahnede iki insan, Âdem ile Havva, cennetten çıkar. Milton yazar: “Birkaç damla gözyaşı döktüler; ama çabuk sildiler. Dünya, bütün genişliğiyle önlerindeydi.”",
+   "kaynak": "KC XII.645–647 (çevirimiz)"
+  },
+  {
+   "id": "L08",
+   "bolum": "Bir damla yaş",
+   "tts": "Onlar, Şeytan'ın yapamadığını yapmıştı: suçlarını kabul edip af dilemişlerdi.",
+   "alt": "Onlar, Şeytan'ın yapamadığını yapmıştı: suçlarını kabul edip af dilemişlerdi.",
+   "kaynak": "KC X.1097–1104"
+  },
+  {
+   "id": "L09",
+   "bolum": "Bir damla yaş",
+   "tts": "[slowly] En başta sorduk: Zincirleri çözülen birini, cehennemde tutan neydi? Milton'ın cevabı belki de Nifates Dağı'nda söylenemeyen o tek kelimede saklı. … Kimsenin takmadığı, insanın kendi eliyle taktığı bir zincir.",
+   "alt": "En başta sorduk: Zincirleri çözülen birini, cehennemde tutan neydi? Milton'ın cevabı belki de Nifates Dağı'nda söylenemeyen o tek kelimede saklı. Kimsenin takmadığı, insanın kendi eliyle taktığı bir zincir.",
+   "kaynak": "A04'ün cevabı; G09; VI.181"
+  },
+  {
+   "id": "L10",
+   "bolum": "Bir damla yaş",
+   "tts": "[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Ama belki de cehennemin en çok insanın içinde olduğunu, en iyi o gördü.",
+   "alt": "Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Ama belki de cehennemin en çok insanın içinde olduğunu, en iyi o gördü.",
+   "kaynak": "çerçevenin kapanışı (B10–B12)"
+  },
+  {
+   "id": "L11",
+   "bolum": "Bir damla yaş",
+   "tts": "[curious] Peki sen ne düşünüyorsun? Bleyk mi haklıydı, Luis mi? O gözyaşı pişmanlık mı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.",
+   "alt": "Peki sen ne düşünüyorsun? Blake mi haklıydı, Lewis mi? O gözyaşı pişmanlık mı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.",
+   "kaynak": "izleyiciye soru"
+  },
+  {
+   "id": "L12",
+   "bolum": "Bir damla yaş",
+   "tts": "[warmly] Tanrılara kafa tutan bir başka asinin, Prometeus'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.",
+   "alt": "Tanrılara kafa tutan bir başka asinin, Prometheus'un hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.",
+   "kaynak": "bitiş ekranı: Prometheus videosu + abone"
+  }
+ ]
+}
