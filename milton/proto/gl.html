@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><canvas id="g" width="1920" height="1080"></canvas>
+<script>
+window.prof=()=>{ const c=document.getElementById('g'); const gl=c.getContext('webgl2',{preserveDrawingBuffer:true}); if(!gl) return 'webgl2 yok';
+ const info=gl.getExtension('WEBGL_debug_renderer_info'); const ren=info?gl.getParameter(info.UNMASKED_RENDERER_WEBGL):'?';
+ const vs=`#version 300 es
+ in vec2 p; void main(){gl_Position=vec4(p,0,1);}`;
+ const fs=`#version 300 es
+ precision highp float; out vec4 o; uniform float t;
+ void main(){ vec2 q=gl_FragCoord.xy; float a=q.x*0.001+t; float u=fract((-q.x*sin(a)+q.y*cos(a))/5.0+sin(q.x*0.03)*0.1); float d=0.5; float ink=clamp((d*0.5-abs(u-0.5))*5.0+0.5,0.,1.); o=vec4(vec3(1.0-ink),1); }`;
+ const sh=(ty,src)=>{const s=gl.createShader(ty); gl.shaderSource(s,src); gl.compileShader(s); return s;};
+ const pr=gl.createProgram(); gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs)); gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs)); gl.linkProgram(pr); gl.useProgram(pr);
+ const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+ const l=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+ const tl=gl.getUniformLocation(pr,'t'); const px=new Uint8Array(4);
+ const c2=document.createElement('canvas'); c2.width=1920; c2.height=1080; const x2=c2.getContext('2d');
+ const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
+ let t0=performance.now(); for(let i=0;i<10;i++){ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,c2); gl.uniform1f(tl,i*.1); gl.drawArrays(gl.TRIANGLES,0,3); x2.drawImage(c,0,0); x2.getImageData(0,0,1,1); }
+ return {ren, ms:(performance.now()-t0)/10}; };
+window.ready=Promise.resolve(1);
+</script></body></html>

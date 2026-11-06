@@ -1,0 +1,189 @@
+{
+  "uye": "H-Hassasiyet",
+  "mercek": "Toplumsal ve dinî hassasiyet okuru: çoğunluğu Müslüman ve dindar, bir kısmı laik Türk izleyicinin bu Şeytan anlatısını nasıl duyacağına, hangi kelimenin gereksiz yere yaralayacağına ve hangi cümlenin bağlamından koparılıp yanlış yayılabileceğine bakıyorum; amaç sansür değil, hikâyeyi koruyup riski düşürmek.",
+  "karar": "RED",
+  "puanlar": {"K1": 9, "K2": 9, "K3": 9, "K4": 8.5, "K5": 9, "K6": 8, "K7": 8.5},
+  "agirlikli": 8.78,
+  "puan_gerekceleri": {
+    "K1": "Hassasiyete değen dizeleri kaynaktan kendim çektim: V.600–615, V.656–666, IV.32–48, IV.73–86, IV.388–394, IV.502–511, IX.159–172, IX.455–466, IX.906–916, IX.990–999, X.429–441, X.485–490, X.504–516, X.1097–1104, XII.641–649, II.1–6, VI.174–181. Hepsi metne sadık, uydurma yok. Kusurlar çeviri tercihinde: 'iblis' ('Fiend', H07), 'tanrılarla' ('Gods' melekleri kastediyor, I04), 'suçlarını' ('faults', L08) ve A05'teki 'kutsal kitaptan değil' (hikâyenin tohumu Kitab-ı Mukaddes'te). I08'de Âdem'in de yediği atlanmış; yanlış değil ama seçici.",
+    "K2": "Kanca güçlü ve hassasiyet açısından iyi kurulmuş: ilk ~28 saniyede 'Şeytan' kelimesi bile geçmiyor, açılış 'cennetin en parlak meleği' ile yapılıyor. Çerçeve ~0:30'da geliyor. Kapak A ile açılış aynı vaadi veriyor (IV.75).",
+    "K3": "Kurulum–ödeme zinciri sağlam: A04→G09→L09, E07→L05, C13→K12, B13→G15. Dindar izleyiciyi asıl koruyan bu yapı. Ahlaki yay şöyle: gurur Şeytan'ı kendi cehennemine kapatıyor, Âdem ile Havva af diliyor. Böylece video Şeytan'la empati kurduruyor ama onu haklı çıkarmıyor.",
+    "K4": "136 segment, ~2.230 kelime; duraklarla ~17–19 dk. Her bölüm bir soruyla açılıyor. Benim merceğimden fazla sahne yok. Milton'ın hayatı bölümü (B, 14 segment) 'kısa tutulsun' kararına göre biraz uzun, ama kullanıcının en sevdiği ayrıntıyı taşıyor.",
+    "K5": "Empati anlatıcının savunmasıyla değil, Şeytan'ın kendi itirafıyla kuruluyor (G04–G13). Bu hem psikolojik olarak en derin, hem dinî açıdan en az kışkırtıcı yol. G15 ve L10'daki iki anlatıcı cümlesi düzeltilirse 9,5 olur.",
+    "K6": "Türkçe akıcı, ama merceğime değen altı kelime seçimi var: 'iblis' (H07), 'yaratan' (A05–A06), 'tanrılarla' (I04), 'suçlarını' (L08), 'kafa tutan' (L12) ve 'kutsal kitaptan değil' (A05). Hepsi tek kelimelik ya da tek cümlelik düzeltme.",
+    "K7": "Tanrı ve Oğul'un ışık olarak gösterilmesi hem karara hem kodla çizime uyuyor. Risk üç yerde: Âdem ile Havva'nın tasviri, Doré'deki çıplaklık ve Pandemonyum'un mimarisi. Kurallar baştan konursa (düzeltme 5 ve 6) sorun kalmaz."
+  },
+  "ayri_degerlendirmeler": {
+    "Şeytan kelimesi": "Sorun değil. 'Satan'ın yerleşik Türkçe karşılığı; büyük harfle özel ad olarak kullanılması doğru. 'Lusifer' daha okült, 'İblis' ise karşılaştırma açar; ikisine de geçilmesin. Düşüşten önce 'başmelek', C04'teki ad değişiminden sonra 'Şeytan' denmesi dramaturjik olarak da iyi, korunmalı. Çerçeve anlarında (A05, G15, Shorts) 'Milton'ın Şeytan'ı' denebilir. Anlatıcı hiçbir yerde 'Şeytan'ı anlamaya çalışalım' ya da 'ona hak verelim' demiyor; böyle kalmalı.",
+    "Oğul / 'Tanrı'nın Oğul'u başa geçirmesi'": "Senaryo en hassas sözcüklerden zaten kaçınmış: 'Tanrı'nın Oğlu', 'biricik Oğlum' ve 'doğurdum' (V.603–604), 'Baba', 'Mesih' (V.664). C05 de 'Milton'ın anlattığına göre' diye atfedilmiş. 'Başa geçirmek' Milton'a sadık ('your head I him appoint', V.606), kalabilir. Tek öneri, ilk anışta 'destanda Oğul diye anılan' demek (düzeltme 9). İsa ya da Mesih adı hiç geçmemeli.",
+    "Tanrı'nın bir karakter gibi anlatılması": "Risk düşük. Tanrı'ya tırnak içinde söz verilmiyor ve seslendirilmiyor; eylemleri ya 'Milton'ın anlattığına göre' ya Şeytan'ın ağzından aktarılıyor. 'Zorbalık' suçlaması yalnız Şeytan'ın ağzında; Milton'ın anlatıcısı ise zorbalığı Şeytan'a geri yüklüyor (H07). G04'te Tanrı'nın iyiliğini Şeytan kendisi teslim ediyor. Bu yapı korunmalı. Düzeltilecekler: K02 'haklı göstermek', I04 'tanrılarla', A06 'onu yaratan şair'.",
+    "Âdem ile Havva": "Metin saygılı; L08'deki ahlaki ders dindar izleyiciyle buluşuyor. Risk metinde değil görselde: Âdem İslam'da peygamberdir ve Doré onları çıplak çizer (düzeltme 5). Metinde iki düzeltme var: I08'e Âdem'in de yediği eklensin (düzeltme 13), L08'de 'suç' yerine 'kusur' densin (düzeltme 12).",
+    "af dilemek": "Sorun değil, tersine güçlü: Milton'a sadık ('pardon begged', X.1101) ve evrensel. 'Tövbe' kelimesine çevrilmesin, çünkü İslami bir terim ve karşılaştırma açar.",
+    "Blake: 'farkında olmadan Şeytan'ın tarafındaydı'": "Kalmalı; kullanıcının istediği çarpışma bu. Cümle açıkça Blake'e bağlansın ('der Bleyk') ve Blake'in 'şeytan' sözüyle neyi kastettiği tek cümleyle söylensin (düzeltme 10). Lewis'in karşı okuması hemen ardından geldiği için denge zaten var.",
+    "G15 'ona acıyoruz'": "Kalmalı, çünkü videonun kalbi. Ama hüküm vermeyen, yalnız bir ayrım koyan tek cümle eklenmeli: 'Acımak, hak vermek değildir.' Shorts'ta çerçevesiz kullanılmasın (düzeltme 3 ve 7).",
+    "A05 çerçevesi: yeterli mi, yeri doğru mu": "Yeri doğru (~0:28–0:38): kancadan sonra, 'Şeytan' kelimesinin ilk geçtiği yerde ve ilk dinî içerikten (C05, ~2:40) önce. Başa alınırsa kanca ölür. İçeriği güçlendirilmeli (düzeltme 2) ve çerçeve başlığa, Shorts'a ve sabit yoruma da taşınmalı (düzeltme 7, 16, 17).",
+    "Siyasi hassasiyet (K11)": "Risk düşük–orta. Örnek Kromvel'e bağlı olduğu için savunulabilir. 'Tek başına yönetti' yerine taç reddi anlatılsın, görseller 17. yüzyılda kalsın (düzeltme 15). 'Başkaldırı' kelimesi tek başına sorun değil.",
+    "Mussolini / İran 1979": "Eklenmesin. İran eklenirse engelleyici sayarım. İkinci bir örnek istenirse Napolyon (düzeltme 8).",
+    "Hukuk (TCK 216, 5816)": "Anlatıcının sesinde dinî değerleri aşağılayan bir ifade yok. Alay (J03 'Hem de bir elmayla!') Şeytan'ın ağzında ve Milton'dan geliyor. Mevcut hâliyle TCK 216 riski görmüyorum; 5816 kapsamına giren bir unsur yok. Telif ve YouTube politikaları alanın ikinci üyesinin işi."
+  },
+  "engelleyici": [
+    "H07: Milton'ın 'the Fiend' sözü 'iblis' diye çevrilmiş. 'İblis' Kur'an'daki addır; Milton'ın karakterini Kur'an'daki figürle özdeşleştirir ve kullanıcının 'dinî karşılaştırma, ör. İblis, yapılmaz' kararını harfiyen çiğner. Üstelik bu, Şeytan'ın diz çökmeyi reddettiğini anlatan bir videoda izleyiciyi secde sahnesi (Bakara 34) karşılaştırmasına iter. Tek kelimelik düzeltme (düzeltme 1); yapılınca engel kalkar."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "H07",
+      "sorun": "“Böyle konuştu iblis” sözünde 'iblis', Türk kulağında doğrudan Kur'an'daki İblis'tir. Kullanıcının bağlayıcı kararına aykırı (engelleyici).",
+      "oneri": "tts/alt: “Böyle konuştu Düşman; ve zorunluluğu, o zorbaların bahanesini, şeytanca işlerine kılıf yaptı.” Gerekçe: 'Satan' sözcüğü İbranice 'hasım, düşman' demektir; Milton da onu sık sık 'the Enemy / the Adversary' diye anar. Daha sade seçenek: “Böyle konuştu Şeytan; …”. 'İblis' kelimesi senaryoda, altyazıda, açıklamada ve etiketlerde hiç geçmesin.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "A05, A06",
+      "sorun": "Çerçeve doğru yerde, ama iki zayıflığı var. (a) 'Bir kutsal kitaptan değil' olumsuzlaması dikkati kutsal kitaba çekiyor ve doğruluk açısından da tartışmalı, çünkü hikâyenin tohumu Kitab-ı Mukaddes'te. (b) A05'te 'bir şairin yarattığı', A06'da 'onu yaratan şair' deniyor. Dindar dilde 'yaratmak' Allah'a mahsustur; 'Şeytan'ı yaratan şair' sözü üst üste iki kez geliyor ve G04'teki 'Beni yaratmıştı' (Tanrı) ile çakışıyor.",
+      "oneri": "A05 tts: “[thoughtfully] Bu hikâye bir şairin destanından: Con Milton'ın bin altı yüz altmış yedide yayımlanan Kayıp Cennet'inden. Buradaki Şeytan, Milton'ın kaleminden çıkmış bir karakter. Biz de onu bir din anlatısı olarak değil, bir edebiyat eseri olarak okuyacağız.” A06 tts: “[softly] Ve onu yazan şair, bu dizeleri söylerken hiçbir şey göremiyordu.” Yeri değişmesin. Görselde 1667 baskısının kapak sayfası, yani bir kitap nesnesi görünsün; 'bu bir kitap' görüntüyle de söylensin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "id": "G15",
+      "sorun": "“Ve ilk kez, ona acıyoruz.” Videonun kalbi ve korunmalı. Ama 'biz' öznesiyle izleyicinin duygusunu onun yerine ilan ediyor. Bağlamından en kolay koparılacak cümle de bu: 5 saniyelik bir kesit 'bu kanal Şeytan'a acımayı öğütlüyor' diye yayılabilir. Videonun asıl tezi ('soru Şeytan haklı mıydı değil') burada tek cümleyle söylenirse hem dindar izleyici korunur hem empati keskinleşir.",
+      "oneri": "tts: “[thoughtfully] İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı. Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. … Acımak, hak vermek değildir. … Ama ilk kez, ona acıyoruz.” Bu cümle hüküm vermiyor, yalnız bir ayrım koyuyor; Blake–Lewis kararı yine izleyicide kalıyor. H05'teki 'bana acıyan olmasa da' ironisi de böylece güçleniyor.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "id": "L12",
+      "sorun": "“Tanrılara kafa tutan bir başka asinin…” sözü ve ardından sıcak tonlu abone çağrısı geliyor. Anlatıcı kendi sesiyle Şeytan'ı ve Prometheus'u 'tanrılara kafa tutan asiler' diye aynı rafa koyuyor, sonra 'bu hikâyeler hoşuna gidiyorsa abone ol' diyor. Dindar izleyici bunu kanalın Tanrı'ya kafa tutmayı kutlaması diye okur; 'kafa tutmak' da argo ve kışkırtıcı. Üstelik cümle, videonun 'başkaldırı her zaman özgürlük müdür?' sorusunu son saniyede geri alıyor.",
+      "oneri": "Shelley'nin Prometheus Unbound önsözündeki karşılaştırması (1820, kamu malı) köprüyü hem güvenli hem anlamlı yapar. tts: “[warmly] Şeli, Şeytan'a benzeyen tek kahramanın Prometeus olduğunu yazar; ama bir farkla: Prometeus'ta hırs, kıskançlık ve intikam yoktu. Ateşi kendisi için değil, insanlar için çalan o asinin hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.” Alıntıyı kaynak denetçisi doğrulasın. Daha kısa güvenli seçenek: “Başkaldırının bir başka yüzü: Zeus'tan ateşi çalıp insanlara getiren Prometeus'un hikâyesi ekranda.”",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "id": "H04, H08, H09, L07 (görsel)",
+      "sorun": "Âdem İslam'da ilk peygamberdir; peygamber tasviri dindar izleyicinin en hassas çizgilerinden biri. Kullanıcının kararı yalnız Tanrı ve Oğul'u kapsıyor; Âdem ile Havva için bir kural yok. Doré levhaları ikisini çıplak çizer. H08'deki 'birbirine sarılış' ve H09'daki uyuyan çift en riskli kareler.",
+      "oneri": "Senaryo metni aynı kalır, görsele kural konur. (1) Âdem ile Havva hiçbir zaman yüz yakın planında görünmez: uzak, küçük siluet, çoğunlukla arkadan ya da Şeytan'ın bakış açısından (ön planda Şeytan, uzakta iki siluet). (2) Çıplaklık yok: siluetler yaprak, saç, gölge ya da taramayla örtülü. (3) H08'de öpüşme ya da sarılma yakın planı yok; ağacın altında yan yana iki siluet yeter. (4) L07'de iki siluet el ele, arkadan, uzaklaşırken görünür; Doré'nin son levhası da böyledir. Bu kurallar kodla çizimin zayıf yanlarına (yüz ve el) zaten uyuyor.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 6,
+      "id": "E11, K10, J02 (görsel ve metin)",
+      "sorun": "Milton Şeytan'ı bir yerde 'büyük Sultan' diye anar (I.348). Şeytanların çekilişini 'Türk hilali'nden kaçan İran şahına benzetir (X.433–434; J02'nin hemen öncesi). Tahtını da 'doğunun barbar kralları'nın hazinesiyle kıyaslar (II.1–4). Senaryo ilk ikisini almamış, bu doğru; ama K10'da 'doğunun en zengin kralları' deniyor. Asıl risk görselde: Pandemonyum ya da Şeytan'ın tahtı kubbe, minare, hilal, sarık, Osmanlı tahtı ya da Arap harfiyle çizilirse 'cehennemin sarayı = cami ya da Osmanlı' diye okunur. Böyle bir görsel yayına girerse engelleyici sayarım.",
+      "oneri": "Metin: K10 “Milton o tahtı, Hürmüz'ün ve Hindistan'ın krallarının hazinelerinden bile görkemli anlatır.” Bu II.2'ye birebir sadık; 'doğu' genellemesini ve izleyicinin 'biz' okumasını kaldırıyor. I.348 ve X.433–434'teki benzetmeler senaryoya hiç girmesin. Görsel: Pandemonyum Milton'daki gibi Dor sütunlu, altın tavanlı bir tapınak olsun (I.710–717). Kubbe, minare, hilal, sarık, Arap harfi ve Osmanlı motifi kullanılmasın. Şeytanların yüzü ya da kıyafeti hiçbir etnik ya da dinî gruba benzetilmesin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 7,
+      "id": "G03–G15 (Shorts)",
+      "sorun": "Nifates iç konuşması Shorts için doğal aday (CLAUDE.md: doruk anı Shorts'un en iyi adayı). Ama Shorts'ta A05 çerçevesi olmayacak. Çerçevesiz bir dikey videoda 'Cehennem benim', 'Kötülük… sen benim iyiliğim ol' ve 'ona acıyoruz' cümleleri dindar izleyiciye doğrudan Şeytan övgüsü gibi gelebilir.",
+      "oneri": "Her Shorts'un ilk cümlesi ve ilk karesindeki yazı çerçeveyi taşısın. Örnek ilk cümle: “Milton'ın Kayıp Cennet destanında, Şeytan güneşe bir itirafta bulunur…”; ekranda 'John Milton, Kayıp Cennet (1667)' yazsın. G15 kullanılırsa 'Acımak, hak vermek değildir' cümlesiyle birlikte kullanılsın. Hiçbir Shorts G13 ('Kötülük… sen benim iyiliğim ol') ile bitmesin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 8,
+      "id": "K11 (ekleme: Mussolini / İran 1979)",
+      "sorun": "Kullanıcının verdiği istisna örnekleri senaryoda yok. İran 1979 Türkiye'de laik–dindar fay hattının tam üstünde: bir yanda 'Türkiye İran olmasın' sloganı, öbür yanda İslami bir devrim. Şeytan'ın 'özgürlük deyip kendi tahtını kurması'nın hemen ardından anılırsa 'İslam devrimini Şeytan'a benzetti' diye okunur ve iki kitleyi aynı anda kızdırır. Eklenirse engelleyici sayarım. Mussolini'nin siyasi riski düşük, ama doğruluk sorunu var: faşizm özgürlük adına değil, liberal özgürlüğe karşı yola çıktı. Ayrıca 'faşist' bugün Türk siyasetinde karşılıklı kullanılan bir hakaret.",
+      "oneri": "Ekleme gerekmez. Kromvel örneği Milton'ın kendi hayatından geliyor; en sağlam ve en risksiz örnek bu. Kullanıcı ikinci bir örnek isterse Mussolini ya da İran yerine Napolyon önerilir: Türkiye'de güncel bir karşılığı yok ve K05'teki Romantiklere doğrudan bağlanıyor. Öneri cümle: “Romantikler de bunu gözleriyle gördü: özgürlük diye başlayan Fransız Devrimi'nden, tacı kendi eliyle başına koyan bir imparator çıktı.” Bu cümleyi kaynak denetçisi doğrulasın.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 9,
+      "id": "C05, D07",
+      "sorun": "Müslüman izleyici için 'Tanrı'nın oğlu' fikri (İhlâs: 'doğurmadı, doğurulmadı') en hassas nokta. Senaryo bunu iyi idare ediyor (bkz. ayri_degerlendirmeler). Tek eksik şu: ilk anışta izleyici 'Oğul'un kim olduğunu bilmeyebilir ve boşluğu 'İsa' diye doldurur. İsa'yı ışıktan bir arabayla savaşan biri olarak düşünmek ikinci bir hassasiyet açar.",
+      "oneri": "C05 tts: “[slowly] Bir gün, Milton'ın anlattığına göre, Tanrı bütün melekleri toplar ve destanda ‘Oğul’ diye anılan varlığı onların başına geçirir. Bundan sonra herkes onun önünde diz çökecek; ona karşı gelen, Tanrı'ya karşı gelmiş sayılacaktır.” Kurallar: (1) 'İsa', 'Mesih', 'Tanrı'nın Oğlu' ve 'Baba' hiçbir yerde geçmez. (2) 'Secde' kelimesi kullanılmaz; 'diz çökmek' kalır. (3) Tanrı'ya ve Oğul'a tırnak içinde söz ve Emrullah sesiyle replik verilmez. (4) İkisi de yüzsüz, biçimsiz bir ışık olarak çizilir; D07'de arabanın üstünde figür değil bir ışık kaynağı olur. 'Allah' değil 'Tanrı' denmesi doğru, değişmesin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 10,
+      "id": "K04",
+      "sorun": "“Farkında olmadan Şeytan'ın tarafındaydı.” Cümle kalmalı. Ama 'Şeytan'ın tarafı' dindar kulakta Kur'an'daki 'hizbüşşeytan' (Şeytan'ın taraftarları) ifadesini çağırır ve anlatıcının kendi cümlesi gibi duyulabilir.",
+      "oneri": "tts: “[firmly] Bleyk'e göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü, der Bleyk, gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.” İsteğe bağlı ek cümle: “Bleyk'in o kitabında ‘şeytan’, kötülükten çok tutkunun ve enerjinin adıdır.” Bu ekin dayanağı Cennet ile Cehennemin Evliliği'ndeki 'Evil is the active springing from Energy' cümlesi; kaynak denetçisi doğrulasın.",
+      "onem": "orta"
+    },
+    {
+      "sira": 11,
+      "id": "L10",
+      "sorun": "“Cehennemin en çok insanın içinde olduğunu…” Videonun son tezi anlatıcının ağzından söyleniyor. Dindar kulak bunu 'gerçek bir cehennem yok, cehennem insanın içinde' diye, yani âhireti inkâr eden modernist bir yorum gibi duyabilir. Laik izleyici için de 'en çok' gereksiz bir hüküm.",
+      "oneri": "tts: “[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Ama belki de insanın içinde de bir cehennem taşıyabileceğini, en iyi o gördü.” Buradaki 'de' bağlacı inkâr okumasını kapatıyor. Cümle Milton'ın 'the Hell within him' (IV.20) düşüncesine de daha sadık.",
+      "onem": "orta"
+    },
+    {
+      "sira": 12,
+      "id": "L08",
+      "sorun": "“Suçlarını kabul edip af dilemişlerdi.” Ahlaki yay olarak çok güçlü; dindar izleyiciyle buluşan yer burası, korunmalı. Ancak Âdem İslam'da peygamberdir ve dindar dilde peygamberin hatası 'zelle' diye anılır; 'suç' sert gelir. Milton da 'faults' der (X.1100–1101); 'kusur' hem daha sadık hem daha yumuşak.",
+      "oneri": "tts/alt: “Onlar, Şeytan'ın yapamadığını yapmıştı: kusurlarını alçakgönüllülükle kabul edip af dilemişlerdi.” 'Af dilemek' ve G09'daki 'bağışlanma' kalsın; 'tövbe' kullanılmasın.",
+      "onem": "orta"
+    },
+    {
+      "sira": 13,
+      "id": "I08",
+      "sorun": "“Havva meyveyi koparır ve yer.” Âdem'in de yediği (IX.996–999) atlanmış, bu yüzden düşüşün tek sorumlusu kadın gibi kalıyor. Bu hem kadın izleyiciyi (%22,5) hem dindar izleyiciyi rahatsız eder: Kur'an anlatısında ikisi birlikte yer ve sorumluluk ortaktır. Ekleme Milton'a da daha sadık.",
+      "oneri": "tts/alt: “Yılanın diliyle konuşur, Havva'yı ikna eder. Havva meyveyi koparır ve yer. Sonra Âdem de, onu yalnız bırakmamak için, meyveden yer.” Dayanak: IX.906–916, IX.996–999.",
+      "onem": "orta"
+    },
+    {
+      "sira": 14,
+      "id": "I04",
+      "sorun": "“Bir zamanlar tanrılarla en yüksek yer için yarışan ben.” Milton 'Gods' derken (IX.163–164) melekleri kastediyor. Türkçede 'tanrılar' çoğulu ise cennette birden çok tanrı varmış gibi duyulur: dindar kulağa şirk çağrışımı yapar, laik izleyicinin kafasını karıştırır. IX.167 aynı fikri tekil ve daha güçlü biçimde söylüyor.",
+      "oneri": "İkinci alıntının yerine: “Bir zamanlar Tanrı'nın yüceliğine göz diken ben, şimdi bir hayvanın içine sıkışıyorum.” (IX.163–167.) Bu, Şeytan'ın kendi kibrini itiraf etmesi; dindar izleyicinin ahlaki sezgisiyle de örtüşüyor.",
+      "onem": "orta"
+    },
+    {
+      "sira": 15,
+      "id": "K11",
+      "sorun": "Genel cümleler bugünkü Türk siyasetinin sözlüğüyle ('tek adam', 'saray', halefiyet tartışmaları) örtüşüyor: 'özgürlük diye yola çıkıp yeni bir taht kurdu', 'ülkeyi tek başına yönetti', 'yerini oğluna bıraktı'. İktidar da muhalefet de karşı tarafa gönderme yapıldığını sanabilir ve yorumlar siyasete kayar. Örnek Kromvel'e bağlı olduğu için risk düşük. En çağrışımlı ifade 'tek başına'; üstelik tarihsel olarak da tartışmalı bir basitleştirme, çünkü bir Devlet Konseyi ve parlamentolar vardı. 'Başkaldırı' kelimesi tek başına sorun değil.",
+      "oneri": "tts: “Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile, kralı deviren Kromvel, kendisine sunulan tacı reddetti; ama Lord Koruyucu unvanıyla taçsız bir kral gibi yönetti ve yerini oğluna bıraktı.” Tacın reddi 1657'de (notlar.md). Görseller 17. yüzyılda kalsın: kalabalık, bayrak, meydan, Türk sembolü ya da bugüne ait hiçbir şey olmasın. Taç ve boş taht motifi Şeytan'ın tahtıyla eşleşsin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 16,
+      "id": "A01 / kapak (yayın paketine not)",
+      "sorun": "Kapak A'da 'CEHENNEM BENİM' yazısı Doré tarzı bir Şeytan'la birlikte duruyor. Tek başına okununca 'cehennem benim mülküm' diye bir böbürlenme, hatta satanist içerik gibi görünebilir; oysa Milton'daki anlam ('cehennem benim kendim') umutsuzluk. Dindar izleyici kaydırır ya da şikâyet eder. Kapak B (Cabanel) empati vaadini doğru verir ve bir sanat eseri olduğunu belli eder, ama tablodaki figür çıplak bir genç.",
+      "oneri": "Kapak kuruluna: A kullanılacaksa başlıkta 'Milton' ya da 'Kayıp Cennet' geçsin; çerçeve paketlemede de bulunsun. B kullanılacaksa yalnız gözler, kollar ve gözyaşı kırpılsın, gövde görünmesin. Videoda Cabanel tablosu gösterilirken de (L03–L05) gövde kırpılsın ya da sahne gravür diliyle yeniden çizilsin. 'Lusifer' (C03) başlıkta, etikette ve kapakta kullanılmasın; popüler kültürde okült çağrışımı var.",
+      "onem": "orta"
+    },
+    {
+      "sira": 17,
+      "id": "L11 (yayın)",
+      "sorun": "“Yorumlarda yaz” çağrısı doğru. Ama bu video iki tartışma davet eder: dinî karşılaştırma ('Kur'an'da İblis Âdem'e secde etmedi, burada başka') ve K11'den bugünkü siyasete kayan kavga. Kullanıcının kararı videoda karşılaştırmayı yasaklıyor; yorumlarda bunu karşılamanın yolu sabit yorum.",
+      "oneri": "yayin.md'ye eklensin. (1) Sabit yorum: “Bu video, John Milton'ın 1667'de yayımlanan Kayıp Cennet destanının edebî bir okumasıdır; dinî anlatılarla karşılaştırma yapmaz. Sizce Blake mi haklıydı, Lewis mi? O gözyaşı pişmanlık mı, gurur mu?” (2) YouTube Studio'da 'uygunsuz olabilecek yorumları incelemeye al' ayarı açık olsun. (3) Yayın günü Ramazan, kandil geceleri ve bayramlarla çakışmasın (Diyanet takviminden bakılsın).",
+      "onem": "orta"
+    },
+    {
+      "sira": 18,
+      "id": "K02",
+      "sorun": "“Tanrı'nın yollarını insanlara haklı göstermek.” Çeviri doğru, ama 'Tanrı'yı haklı göstermek' dindar kulağa Tanrı yargılanıyormuş ve savunulmaya muhtaçmış gibi gelir.",
+      "oneri": "tts/alt: “Milton destanın en başında amacını açıkça söyler: Tanrı'nın yollarının adil olduğunu insanlara göstermek.” I.26'daki 'justify' zaten 'adil olduğunu göstermek' demek; anlam aynı kalıyor, ton saygılı oluyor.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 19,
+      "id": "K01",
+      "sorun": "Videonun en tartışmalı bölümü burada açılıyor. Çerçeveyi bir kelimeyle hatırlatmanın bir maliyeti yok.",
+      "oneri": "“[curious] Peki bu destanın kahramanı kim?”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 20,
+      "id": "D03 (isteğe bağlı)",
+      "sorun": "E09–E10'daki 'cennette hizmet etmek = kölelik' fikri Şeytan'ın ağzında ve kalmalı; kullanıcının seçtiği menteşe bu. Ama dindar dilde 'kul' olmak bir onurdur. Milton bu itirazı Abdiel'e zaten yaptırıyor (VI.174–176); senaryo o cümleyi atlamış.",
+      "oneri": "D03'teki alıntının başına ekle: “Hizmete kölelik adını takıyorsun; haksızsın.” Ardından mevcut metin devam eder ('Asıl kölelik, akılsıza hizmet etmektir…'). E10 değişmesin.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 21,
+      "id": "F01–F04 (bölüm adı)",
+      "sorun": "'Kapıdaki kız' YouTube bölüm başlığı olursa romantik ya da tık tuzağı gibi okunur. Ayrıca F02'deki 'yarısı kadın' figürü Doré'de çıplaktır. Milton'daki Günah–Ölüm ensest ve tecavüz anlatısının (II.760–814) senaryoya alınmaması ise doğru.",
+      "oneri": "Bölüm adı “Cehennemin kapısı” ya da “Kapıdaki Günah” olsun. II.760–814 dışarıda kalsın. Görselde Günah figürü saç, pul ve gölgeyle örtülü bir siluet olsun.",
+      "onem": "düşük"
+    }
+  ],
+  "korunmali": [
+    "C11–C13 ve D03, Abdiyel: kalabalığa karşı tek başına duran sadık melek, 'asıl başkaldıran kim?' sorusuyla kahramanlaştırılıyor. Dindar izleyiciye de bir kahraman veriyor. K12'deki ödeme videonun dengesini taşıyor.",
+    "G04–G06 ve G09–G12: Şeytan, Tanrı'nın iyiliğini ve kendi özgür iradesini kendisi itiraf ediyor ('Hizmeti de ağır değildi', 'O hâlde kimi suçlayacaksın?', 'gururum yasaklıyor'). Empati anlatıcının savunmasıyla değil Şeytan'ın itirafıyla kuruluyor; hem en derin hem en az kışkırtıcı yol bu.",
+    "L08 ve G09: Âdem ile Havva af diliyor, Şeytan ise 'boyun eğmek' kelimesini söyleyemiyor. Kibir ile alçakgönüllülük ekseni bütün kitlelerle buluşan ahlaki çekirdek (yalnız 'suç' yerine 'kusur' denmeli).",
+    "C05 ve D07: Tanrı'ya ve Oğul'a hiç tırnak içinde söz verilmiyor; olaylar 'Milton'ın anlattığına göre' diye atfediliyor; 'Allah' değil 'Tanrı' deniyor; 'Tanrı'nın Oğlu', 'Baba', 'Mesih' ve 'doğurdum' sözlerinden kaçınılıyor.",
+    "H07 (kelime düzeltilince): Milton'ın anlatıcısı araya girip zorunluluğu 'zorbaların bahanesi' diye adlandırıyor; 'zorba' suçlamasını Şeytan'ın ağzından alıp ona geri veriyor. Ayrıca F03–F04'te Günah–Ölüm ensestinin, I.348 ve X.434'teki 'Sultan' ve 'Türk hilali' benzetmelerinin dışarıda bırakılması korunmalı."
+  ],
+  "en_emin_olmadigim_nokta": "C05'teki 'diz çökme' sahnesi. Dindar izleyici bunu hemen Kur'an'daki secde sahnesiyle (Bakara 34) eşleyecek: orada İblis Âdem'e secde etmeyi reddeder, burada Şeytan Oğul'un önünde diz çökmeyi. Kullanıcının kararı gereği bu farkın videoda söylenmesini önermiyorum; çerçeveye (A05), 'Milton'ın anlattığına göre' atfına ve sabit yoruma güveniyorum. Ama bu sessizlik bir kısım izleyiciye 'hikâyeyi çarpıtıyorlar' diye görünür mü, ölçemiyorum; tepkinin büyüklüğünü ancak yayından sonraki yorumlar gösterir. A05'e 'Milton bu anlatıyı kendi hayal gücüyle genişletti; başka geleneklerdeki anlatılardan ayrılır' gibi bir cümle eklenebilirdi, ama bu da karşılaştırmaya kapı aralar. O yüzden şimdilik önermiyorum; başkanın kararına bırakıyorum."
+}

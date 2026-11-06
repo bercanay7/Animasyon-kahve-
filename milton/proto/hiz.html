@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script>
+<script>
+const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
+function scene(t){
+  const {tx,px,tone,pat,fill}=GR;
+  GR.begin(1,0,1);
+  // gökyüzü: yukarı koyu
+  let g=tx.createLinearGradient(0,0,0,H); g.addColorStop(0,tone(.25)); g.addColorStop(.6,tone(.75)); g.addColorStop(1,tone(.4));
+  tx.fillStyle=g; tx.fillRect(0,0,W,H);
+  // ışık huzmesi
+  tx.save(); tx.globalCompositeOperation='lighter'; const rg=tx.createRadialGradient(1300,-100,10,1300,-100,900); rg.addColorStop(0,'rgba(255,255,255,.7)'); rg.addColorStop(1,'rgba(255,255,255,0)'); tx.fillStyle=rg; tx.fillRect(0,0,W,H); tx.restore();
+  // bulutlar
+  for(let k=0;k<6;k++){ const p=new Path2D(); const cx=200+k*300+Math.sin(t+k)*20, cy=300+((k*97)%180); p.ellipse(cx,cy,220,70,0,0,TAU);
+    const cg=tx.createRadialGradient(cx-40,cy-30,10,cx,cy,230); cg.addColorStop(0,tone(.9)); cg.addColorStop(1,tone(.35));
+    fill(p,cg,{th:.15*Math.sin(k),ph:0,id:2}); }
+  // kaya
+  const r=new Path2D(); r.moveTo(0,H); r.lineTo(0,700); r.lineTo(300,640); r.lineTo(520,760); r.lineTo(760,820); r.lineTo(900,H); r.closePath();
+  const kg=tx.createLinearGradient(0,640,400,H); kg.addColorStop(0,tone(.45)); kg.addColorStop(1,tone(.05)); fill(r,kg,{th:-.6,ph:0,id:4});
+  // alevler
+  for(let k=0;k<14;k++){ const f=new Path2D(); const bx=900+k*75, hgt=160+60*Math.sin(t*3+k); f.moveTo(bx-35,H); f.quadraticCurveTo(bx-30,H-hgt*.6,bx+Math.sin(t*4+k)*20,H-hgt); f.quadraticCurveTo(bx+30,H-hgt*.5,bx+35,H); f.closePath();
+    const fg=tx.createLinearGradient(0,H-hgt,0,H); fg.addColorStop(0,tone(.95)); fg.addColorStop(1,tone(.55)); fill(f,fg,{th:PI/2,ph:0,id:3}); }
+}
+window.bench=(n)=>{ const r={draw:0,eng:0}; for(let i=0;i<n;i++){ let t0=performance.now(); scene(i/30); let t1=performance.now(); GR.engrave(ctx); let t2=performance.now(); r.draw+=t1-t0; r.eng+=t2-t1;} r.draw/=n; r.eng/=n; return r; };
+window.ready=Promise.resolve(buildTextures());
+</script></body></html>

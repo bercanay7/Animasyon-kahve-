@@ -1,0 +1,200 @@
+{
+  "uye": "T-Izleyici",
+  "mercek": "Milton'ı tanımayan, Kayıp Cennet'i okumamış, mit ve felsefe videolarını seven ama telefonda akışı sabırsızca kaydıran, şüpheci, ilk kez gören izleyici (şeytanın avukatı).",
+  "karar": "RED",
+  "puanlar": {"K1": 8.5, "K2": 8, "K3": 8.5, "K4": 7.5, "K5": 9, "K6": 8.5, "K7": 8},
+  "agirlikli": 8.3,
+  "engelleyici": [
+    "Veto alanım değil, kaynak üyelerinin teyidine: E07→E08 sırası destana ters. ‘Elveda mutlu topraklar’ ve ‘Cehennemde hüküm sürmek…’ (I.249–263) Şeytan gölden kalkarken Beelzebub'a söylenir; ordu önündeki gözyaşı (I.619–620) çok sonra gelir. E08'deki ‘Sonra cehennemi selamlar’ olgusal olarak yanlış.",
+    "Veto alanım değil, kaynak üyelerinin teyidine: G15 ‘İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı’ cümlesi monoloğun sonunda geliyor ve bütün monoloğu (G03–G14) kapsıyormuş gibi duruyor. Phillips'in tanıklığı (DNB s. 34) yalnız açılış parçası için (IV.32 vd.)."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "A01–A04",
+      "sorun": "Merak sorusu (A04) dördüncü cümlede, ≈0:32'de geliyor. Oysa kanal verisine göre kayıp ilk 10–15 sn'de ve kural ‘soruyu ilk cümlede sor’. Daha kötüsü, soru sorulmadan cevaplanıyor: A01 ‘cehennem benim’ diyor, A03'ün son cümlesi ‘nereye giderse gitsin, cehennem de onunla gelecek’ diyor. Şüpheci izleyici 0:30'da ‘cevap: kendisi, tamam’ deyip kaydırır.",
+      "oneri": "A01'den hemen sonra (≈0:08) soruyu sor: ‘[curious] Peki cehennemden kaçabilen biri, neden hâlâ cehennemdeydi?’ (zincir bilgisi gerektirmeyen, somut bir paradoks). A03'ü kırp: ‘Elmas zincirlerle bu göle bağlı. Birazdan zincirlerinden kurtulacak, cehennemin kapısından çıkıp karanlık boşluğu aşacak, ta dünyaya kadar uçacak.’ Son cümleyi sil; ‘cehennemi yanında getirdi’ fikri ilk kez G02'de duyulsun. A04'ü sil; L09 aynı soruyu kelimesi kelimesine tekrar etsin.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "B02–B04, B07, B09",
+      "sorun": "Kancadan hemen sonra, 1:02–1:31 arasında Charles'ın idamı, devrim hükümeti, Restorasyon, cellat, hapis ve dostların aracılığı anlatılıyor. Şeytan için gelen izleyici burada tarih dersi dinliyor; videoyu kapatacağım ilk yer burası. Prometheus'ta da tutma 0:30'da %70 iken ilk dakikada ~%55'e düşüyordu ve bu blok tam o pencereye denk geliyor. B07, B06'nın tekrarı. B09 belirsiz kalıyor (‘araları iyi değildi’).",
+      "oneri": "B02+B03+B04'ü tek nefese indir (~28 sn → ~11 sn): ‘Kralın idamını savunmuş bir devrimciydi. Devrim çöküp krallık geri dönünce kitapları cellat eliyle yakıldı, kendisi hapse atıldı; kör, yoksul ve yenik çıktı.’ Devrimci ayrıntısının ödemesi zaten K09'da. B07'yi sil. B09'u B08'e kat: ‘Kızlar, anlamadıkları sözcükleri göremeyen babalarına saatlerce okudu; bu saatler zamanla onlar için dayanılmaz oldu.’ Bölüm ~2:03'ten ~1:15'e iner. B06, B08, B10–B12 ve B13 aynen kalır.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "id": "J10→K01",
+      "sorun": "J10'da (≈16:22) Şeytan sahneden çekiliyor ve izleyici ‘hikâye bitti’ diyor. Ardından dört dakika yorum ve tarih geliyor ama araya yeni bir kanca konmamış. Videonun en büyük ikinci kopma noktası burası.",
+      "oneri": "J10'un sonuna yeni bir kanca ekle: ‘[thoughtfully] Ve Şeytan destandan sessizce çekilir. Son iki kitapta bir daha görünmez. … Ama okurlar onu bırakmadı. Üç yüz yılı aşkın bir süredir aynı soruyu soruyorlar.’ K01'i ‘Peki’siz sor: ‘[curious] Bu hikâyenin kahramanı kim?’",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "id": "K05, K07–K11",
+      "sorun": "16:57–18:26 arası ders anlatımına dönüşüyor. Shelley (K05) Blake'in söylediğini tekrarlıyor ve yeni bir ad yükü getiriyor. K07 ile K08 aynı listeyi iki kez sayıyor. Taht fikri üç kez söyleniyor (E14, K09, K10). K11 senaryonun en uzun cümlesi (~22 sn) ve ‘Kromvel’ ile ‘Lord Koruyucu’ yeni, açıklanmamış adlar. Telefonda burayı ileri sararım.",
+      "oneri": "K05'i sil; Romantikleri K04'ün sonuna yarım cümleyle kat: ‘Romantikler de ona hak verdi.’ K08'i ‘Gerçekten de: karabatak, kurbağa, yılan.’ diye kısalt ve gerisini kendi sahnelerimizden sessiz bir montaja bırak. K09 ile K10'u birleştir: ‘[thoughtfully] Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, cennetin tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Doğunun en zengin krallarınınkinden görkemli bir taht kuruyor.’ K11'in son cümlesi: ‘Milton'ın kendi devriminde bile, kralı deviren Kromvel sonunda ülkeyi tek başına yönetti ve yerini oğluna bıraktı.’ Unvan atılır.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "id": "L02–L03",
+      "sorun": "Doruk ve abone çağrısı son dakikalarda olmalı. Tam orada, 18:36–19:01 arasında sanat tarihi geliyor: Doré, 1866, Cabanel, Villa Medici, 1847. Sıra da ters (önce 1866, sonra ‘ondan yirmi yıl önce’), bu yüzden kulakla dinlerken zaman çizelgesi karışıyor. Bu bir müze turu cümlesi.",
+      "oneri": "L02'yi sil. Doré notu açıklamaya ya da ilk dakikadaki küçük bir ekran yazısına gitsin. L03: ‘[softly] Bin sekiz yüz kırk yedide genç bir ressam, Aleksandr Kabanel, onu şöyle çizdi:’ Ardından doğrudan L04 gelsin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 6,
+      "id": "L09 (+L06–L08)",
+      "sorun": "Ödeme bulanık. ‘Nifates Dağı’ adı yalnız 9:26'da bir kez geçti; 19:53'te kimse hatırlamaz. ‘O tek kelime’nin hangisi olduğunu izleyici kendisi bulmak zorunda kalıyor. Ayrıca L07–L09 sırası (af dileyen Âdem ile Havva → boyun eğemeyen Şeytan → gurur zinciri) sonu Lewis'in, yani ortodoks okumanın tarafına yatırıyor. Video izleyiciyi Şeytan'la empatiye götürdü; sonda ‘ders: boyun eğ’ mesajını alan izleyicide bu ters tepebilir. Bu da ‘karar izleyiciye kalır’ kararıyla çelişiyor.",
+      "oneri": "L09: ‘[slowly] En başta sorduk: cehennemden kaçabilen biri, neden hâlâ cehennemdeydi? Cevap, güneşe itiraf ettiği o dağda söyleyemediği tek kelimedeydi: boyun eğmek. … Onu orada tutan, kimsenin takmadığı, kendi eliyle taktığı bir zincirdi: gururu.’ Hemen ardından Blake'e son sözü ver (yeni L09b): ‘[thoughtfully] Ama Bleyk'in gözünden bakarsan, belki de o kelimeyi söylememek, elinde kalan son özgürlüktü.’ Böylece iki okuma son ana kadar çarpışır.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 7,
+      "id": "E05–E10",
+      "sorun": "Sıra destanın tersine işliyor (bkz. engelleyici). Doğru sıra dramatik olarak da daha güçlü: önce kabadayılık, sonra maskenin ordunun önünde çatlaması. E09 ile E10 en ünlü dizeyi iki kez söylüyor; ‘Yani:’ öğretmen sesi gibi duyuluyor ve vuruşu öldürüyor.",
+      "oneri": "Yeni sıra: E04 → E08 (‘Gölden kalkarken cehennemi selamlar: …’) → E09 → E05 → E06 → E07 → E11. E09'u tek ve temiz bir vuruşa indir: ‘[slowly] [firmly] Ve destanın en ünlü dizesini söyler: … “Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan iyidir.”’ ‘Hükümdar/hizmetkâr’ ses yankısı akılda kalır. E10'u sil.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 8,
+      "id": "F01, F04",
+      "sorun": "F01'in sorusu soyut; F03'e kadar neyin sorulduğunu anlamadım. F04 ise asıl şoku saklıyor: o gölge, Şeytan'ın Günah'tan olan kendi oğlu (II.782 ‘Thine own begotten’). Şeytan oğluyla dövüşmek üzereydi. Bu söylenmeyince ‘kendi aklından doğanı tanımaz’ fikri yarım kalıyor.",
+      "oneri": "F01: ‘[curious] Cehennemin kapısında onu çok iyi tanıyan biri bekliyordu. Peki Şeytan onu neden tanımadı?’ F04: ‘[darkly] Şeytan onu tanımaz. Kendi aklından doğan şeyi tanımaz. Ve dövüşmek üzere olduğu o biçimsiz gölgenin kim olduğunu öğrenir: Günah'la kendisinden doğan oğlu, Ölüm.’ Ensest ayrıntısına girilmez; dili hassasiyet üyeleri teyit etsin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 9,
+      "id": "G03, G15",
+      "sorun": "B13'ün ödemesi dokuz dakika sonra ve monoloğun en sonunda geliyor. G15 bütün monoloğu ‘ilk dizeler’ sayıyormuş gibi duruyor (bkz. engelleyici). ‘Ona acıyoruz’ izleyiciye ne hissedeceğini söylüyor; şüpheci izleyici ‘hayır, acımıyorum’ diye direnir.",
+      "oneri": "G03'ün hemen ardına ekle: ‘[softly] Bu dizeler, Milton'ın bu hikâye için yazdığı ilk dizelerdi; destana başlamadan yıllar önce.’ G15: ‘[thoughtfully] Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. … Ve belki ilk kez, ona acıyorsun.’",
+      "onem": "orta"
+    },
+    {
+      "sira": 10,
+      "id": "G08, G10, G14 (+H10)",
+      "sorun": "Videonun kanca dizesi G07'de (≈10:28) geri geliyor ama G08'e nefes almadan bağlanıyor. ‘Dipteki daha derin dip’ soyut kalıyor ve vuruşu sulandırıyor. G10, G11'in söyleyeceğini önceden anlatıyor. G14'te Uriel'in her şeyi görmesi bir ipucu ama hiç ödenmiyor; H10'daki ‘bekçi meleklerden biri’ buna bağlanmıyor. ‘Yüzü üç kez değişir’ ise yüz yakın planı istiyor, yani kod çiziminin zayıf yanı.",
+      "oneri": "G07'den sonra 2 sn sessizlik bırak ve A01'in görüntüsüne geri dön. G08'i sil ya da çok kısalt. G10'u tek cümleye indir: ‘Gururu… ve cehennemdeki ordusunun önünde rezil olma korkusu.’ G14: ‘… Kimsenin görmediğini sanır; ama güneşin bekçisi Uriyel hepsini görmüştür ve bahçenin bekçilerini uyarmaya gider.’ (IV.124–130, IV.555 vd.) H10: ‘Uriyel'in uyarısıyla bahçeyi arayan bekçilerden biri, mızrağının ucuyla ona dokununca…’ Yüzdeki değişimi, siluetin çevresindeki ışığın rengi üç kez dalgalanarak göstersin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 11,
+      "id": "Bölüm soruları (C01, D01, E01, F01, G01, H01, I01, J01, K01, L01)",
+      "sorun": "On bir bölümün hepsi ‘[curious] + genel bir soru’ ile açılıyor. Beşinciden sonra kalıp tahmin edilir hâle geliyor ve bilgi yarışması ya da kişisel gelişim videosu tadı veriyor (‘İntikam, insanı rahatlatır mı?’, ‘Zafer anında, insan ne duymayı bekler?’). En iyi çalışanlar hikâyeye özgü olanlar (D01, G01, H01). I10 ile J01 arka arkaya iki soru. ‘Peki’ kelimesi altı yerde geçiyor (A04, C13, I10, K01, L01, L11).",
+      "oneri": "I01: ‘[curious] Bir zamanlar tanrılarla yarışan bir başmelek, bir yılanın içine girmeye nasıl razı olur?’ J01'i sil; I10'daki ‘Peki bu zafer, neye benzeyecek?’ yeter. Bir iki bölümü soru yerine bir cümle kancasıyla aç. Örneğin E01: ‘[darkly] Gözlerini açtığında yanında sağ kolu yatıyordu. Onu zor tanıdı.’ (I.84 ‘If thou beest he’). ‘Peki’lerin yarısını at.",
+      "onem": "orta"
+    },
+    {
+      "sira": 12,
+      "id": "C02–C05",
+      "sorun": "C02'deki ‘başmeleklerin ilki; ilki değilse bile’ kulakla dinlerken düğüm oluyor. C03 ‘ona Lusifer der’ diyor, C04 ‘asıl adını hiç söylemez’ diyor; izleyici ‘Lusifer onun adı değil mi?’ diye takılır. C05'teki ‘Oğul’, Hristiyan teolojisini bilmeyen izleyiciye açıklanmadan geliyor (‘Oğul kim?’); görüntüde ışık olacağı için daha da muğlak kalıyor.",
+      "oneri": "C02: ‘Ve o dünyanın en parlak varlıklarından biri, en büyük başmeleklerden biridir.’ C03–C04: ‘Milton ona bir yerde Lusifer der: ışık taşıyan. Ama bu bile bir benzetmedir; asıl adını hiç söylemez. “Eski adı artık cennette anılmıyor. Ona bundan böyle Şeytan deyin.”’ C05: ‘… Tanrı bütün melekleri toplar ve kendi Oğlu'nu onların başına geçirir.’ Bu ifadeyi hassasiyet üyeleri teyit etsin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 13,
+      "id": "D02–D03, D06",
+      "sorun": "D03 bir geri dönüş (‘darbeden önce şunu söylemişti’); kulakla dinlerken sıra karışıyor. D06'daki ‘asiler topu icat eder’, ilk kez gören izleyici için videonun en şaşırtıcı bilgilerinden biri ama tek cümlede harcanıyor.",
+      "oneri": "Sırayı düz kur: ‘Savaştan önce Abdiyel, Şeytan'ın karşısına dikilir: “… Sen özgür değilsin; kendi kendinin tutsağısın.” Ve ilk darbeyi o vurur…’ D06: ‘Asiler barutu ve topu icat eder. Evet: Milton'ın cennetinde top ateşlenir. Sadık melekler de dağları kökünden söküp üzerlerine atar.’",
+      "onem": "orta"
+    },
+    {
+      "sira": 14,
+      "id": "I02–I03",
+      "sorun": "I03 aynı ağıdın üçüncü kopyası: H08 ve I06–I07 de ‘güzellik gördükçe acı çeker’ diyor. 13:49–14:24 arası ‘yine mi?’ dediğim yer. I02'deki yedi gece/sekizinci gece ayrıntısı hikâyeye bir şey katmıyor.",
+      "oneri": "I03'ü sil; aynı fikir I07'de daha güçlü. I02: ‘Şeytan bahçeden kovulur; ama yedi gece sonra karanlığa gizlenip geri sızar.’",
+      "onem": "orta"
+    },
+    {
+      "sira": 15,
+      "id": "J08",
+      "sorun": "F03'ten beri Günah bir karakterin adı. ‘Günah işlediği biçimde’ denince kulak bir an ‘Günah mı işledi?’ diye karışıyor. Cezanın mantığı da somut değil.",
+      "oneri": "‘[slowly] Yılan kılığında suç işlemişti; yılan kılığında cezalandırılır. Alkışları ıslığa, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.’ (X.516 ‘punished in the shape he sinned’)",
+      "onem": "orta"
+    },
+    {
+      "sira": 16,
+      "id": "K12",
+      "sorun": "Abdiel son kez 5:01'de anıldı. 18:26'da ‘Abdiyel'in sözünü hatırla’ dendiğinde izleyici kimi hatırlaması gerektiğini bilmiyor.",
+      "oneri": "‘[slowly] Kalabalığa karşı tek başına yürüyüp giden o meleğin, Abdiyel'in sözünü hatırla: “Sen özgür değilsin; kendi kendinin tutsağısın.” … Başkaldırı her zaman özgürlük müdür?’ Görüntüde C12'deki yalnız yürüyüş karesi geri gelsin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 17,
+      "id": "L11",
+      "sorun": "Üç soru birden soruluyor (Blake mi Lewis mi, gözyaşı, başkaldırı) ve bu yorum çağrısını sulandırıyor; telefonda kimse üç paragraf yazmaz. Başkaldırı sorusu zaten K12'de soruldu.",
+      "oneri": "‘[curious] Sen ne dersin: o gözyaşı pişmanlık mıydı, gurur mu? Yorumlara tek kelime yaz.’ İki seçenekli, tek kelimelik bir soru, yorum yazmayı en kolaylaştıran biçim.",
+      "onem": "orta"
+    },
+    {
+      "sira": 18,
+      "id": "A05–A06",
+      "sorun": "0:36'da hem tarih hem ‘kutsal kitap’ kelimesi geliyor. İzleyici bir an ‘din videosu mu?’ diye kuşkulanıyor; tarih bu noktada gereksiz. A05 ile A06 tek vuruşta birleşebilir.",
+      "oneri": "‘[thoughtfully] Bu Şeytan bir kutsal kitaptan değil, bir şiirden çıktı: Con Milton'ın destanı Kayıp Cennet'ten. Bir şairin yarattığı bir karakter. … [softly] Ve o şair, bu dizeleri söylerken hiçbir şey göremiyordu.’ Yayın yılı (1667) B bölümüne ya da bir ekran yazısına taşınsın.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 19,
+      "id": "L04, E07",
+      "sorun": "L04'teki ‘kollarının arasından bize bakıyor, gözleri dolu’ ve E07'deki gözyaşı yüz yakın planı istiyor; bu, kod çiziminin en zayıf yanı. Kodla çizilmiş bir taklit, gerçek tablonun gücünü veremez.",
+      "oneri": "L04'te gerçek Cabanel tablosunu (1847, kamu malı) göster: yavaşça yaklaş, kamera göze insin. Gerçek bir esere geçiş, ilk kez gören izleyiciye ‘bu uydurma değil’ duygusu verir. Fotoğraf hakkını telif üyesi teyit etsin. E07'de gözyaşı, silüette tek bir ışık damlasıyla gösterilsin.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 20,
+      "id": "A05, B03, L02/L03 (tts)",
+      "sorun": "Sayılardan sonraki kesme işareti (‘altmış yedi'de’, ‘altmış'ta’, ‘altmış altı'da’) TTS'te araya bir durak sokabilir ya da ‘yedi de’ gibi kopuk okunabilir.",
+      "oneri": "‘bin altı yüz altmış yedide’, ‘bin altı yüz altmışta’ gibi bitişik yaz. Seslendirme üyeleri ölçsün.",
+      "onem": "düşük"
+    }
+  ],
+  "korunmali": [
+    "A01: açılış cümlesi kapağın vaadini ilk 3 saniyede birebir karşılıyor. Kural tam olarak bu.",
+    "A06 + B08 + B12 + L10: kör şair çerçevesi. Anlamadıkları dilleri kör babalarına okuyan kızlar, ‘Işığını kaybetmiş bir şair, ışığını kaybetmiş bir meleği anlatacaktı’ cümlesi ve kapanıştaki ‘cehennemin en çok insanın içinde olduğunu en iyi o gördü’. Bu, videoyu bir arşiv anlatımından çıkarıp hikâye yapan omurga.",
+    "C13 + E14: ‘Asıl başkaldıran kim: kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı?’ sorusu izleyiciyi taraf yapıyor. ‘Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır’ ironisi senaryonun en iyi cümlelerinden.",
+    "G04–G05, G12, G13: iç yolculuğun kalbi. ‘O, benden bu karşılığı hak etmemişti’, ‘Keşke beni sıradan bir melek yaratsaydı’, ‘Acı içinde verdiğim sözleri, rahata erince geri alırım’, ‘Kötülük… sen benim iyiliğim ol’.",
+    "J02–J07: alkış beklerken tıslama, sonra yüzüstü yere yılan olarak yığılış. Videonun en sinematik ve en iyi kurulmuş ödemesi; kod çiziminin güçlü olduğu dönüşüm alanında. Hiç kısaltılmamalı.",
+    "E07 → L01/L05: gözyaşı ilmeği. 12 dakika önce kurulup sonda Cabanel'le ödeniyor; kapak B'nin dayanağı."
+  ],
+  "en_emin_olmadigim_nokta": "‘CEHENNEM BENİM’ ifadesinin kapakta nasıl okunacağı. Bağlamsız gördüğümde aklıma ilk ‘Bu ev benim’ kalıbı geldi, yani ‘cehennem benim malım’ diye bir kabadayılık. Ama ‘Katil benim’ kalıbı da ‘cehennemin kendisi benim’ okumasını destekliyor. Ana dili Türkçe olan izleyicilerin çoğu belki ikisini birden duyar. Bu çift anlam bir kusur da olabilir, ters köşe bir kazanç da: kapakta kabadayılık, videoda trajedi. Bu yüzden ‘kesin değiştirin’ demiyorum; A/B testi istiyorum. İkinci belirsizliğim: B bölümünü kısaltmayı önerdim ama yerinden oynatmadım. III. kitabın ışığa yakarışını (B10–B11) destanın kendisinde olduğu gibi Şeytan'ın ışığa vardığı ana (F07–F08) taşımak daha güçlü bir yapı olabilir; yine de kullanıcının en sevdiği ayrıntının başta kurulması gerektiğini düşündüğüm için bunu öneri listesine koymadım.",
+  "sure_tahmini": "Etiketler çıkarılmış tts metni 13 karakter/sn ile ≈ 20:42 tutuyor. ‘…’ durakları, [slowly] etiketleri ve bölüm geçişleriyle ≈ 22–23 dk. Yukarıdaki kesintilerle ≈ 19–20 dk olur ve hikâyeden hiçbir şey eksilmez; çıkan kısımlar tekrar, ad yükü ya da ders anlatımı.",
+  "izleyici_gunlugu": [
+    "0:00–0:08 A01: tuttu. Kapakta okuduğum cümleyi duydum; ‘en parlak melek’ ile kimden söz edildiğini anladım.",
+    "0:19–0:32 A03–A04: ‘Bana sonu anlattın.’ Soru geldiğinde cevabını zaten biliyordum.",
+    "0:36–0:50 A05: ‘Kutsal kitap’ ve ‘bin altı yüz altmış yedi’ duyunca ders kokusu aldım. A06 (kör şair) beni geri kazandı.",
+    "1:02–1:31 B02–B04: kapatma noktası 1, en güçlüsü. Şeytan için geldim, İngiliz devrimi dinliyorum.",
+    "1:35–2:41 B06, B08, B10–B12: yeniden içerideyim. İnsanî ayrıntılar ve ‘ışığını kaybetmiş şair/melek’ tüyleri diken diken etti. B07 ile B09 ağır.",
+    "3:02–3:30 C02–C04: kafam karıştı (‘ilki değilse bile’, ‘Lusifer der ama asıl adı değil?’). C05: ‘Oğul kim?’",
+    "4:37 C13: tamamen içerideyim; soru beni taraf yaptı.",
+    "4:50–5:15 D02–D03: sıra karıştı (‘darbeden önce söylemişti’). 5:24 D06: ‘Melekler top mu icat etti?!’ Daha fazlasını istedim, hemen geçildi.",
+    "5:53 D09: rahatladım, kancadaki görüntüye döndük. Ama bunun için beş dakika bekledim.",
+    "7:11–7:34 E08–E10: aynı dizenin iki çevirisi ve ‘Yani:’ öğretmen sesi gibi geldi.",
+    "8:17 F01: anlamadım. 8:31 F03: ağzım açık kaldı. 8:43 F04: ‘Ölüm onun oğlu mu?’ diye merak ettim, söylenmedi.",
+    "9:32–12:06 G: videonun kalbi. G08 ile G10 tempoyu düşürüyor, G14'teki Uriel ipucu boşa düşüyor. G15'teki ‘ona acıyoruz’a ‘bana ne hissedeceğimi söyleme’ dedim.",
+    "13:49–14:24 I02–I03: kapatma noktası 2, hafif: ‘Yine aynı ağıt.’",
+    "15:10–15:16 I10 + J01: arka arkaya iki soru.",
+    "15:28–16:15 J03–J09: en iyi kısım; ekrana kilitlendim.",
+    "16:22 J10: kapatma noktası 3, güçlü: ‘Hikâye bitti.’",
+    "16:57–18:26 K05, K08–K11: kapatma noktası 4. Shelley, aynı liste iki kez, taht üç kez, Kromvel ve Lord Koruyucu: ders anlatımı.",
+    "18:36–19:01 L02–L03: kapatma noktası 5. Doruğun gelmesi gereken yerde müze turu.",
+    "19:33 L07: çok güzel. 19:53 L09: ‘Nifates neydi? Hangi kelime?’ 20:09 L10: güçlü kapanış. 20:18 L11: üç sorudan yalnız birine cevap yazarım."
+  ],
+  "aciklanmayan_adlar": [
+    "Oğul (C05, D07): en ciddisi. Hristiyan teolojisini bilmeyen Türk izleyici ‘Oğul kim?’ der; görüntüde ışık olacağı için daha da muğlak.",
+    "Lusifer / asıl ad (C03–C04): kulağa çelişki gibi geliyor.",
+    "Nifates (F09 → L09): bir kez geçiyor, on dakika sonra ödemede adıyla anılıyor; hatırlanmaz. L09'da ‘güneşe itiraf ettiği o dağ’ demek yeter.",
+    "Abdiyel (C11 → K12): ilk tanıtım iyi, ama 13 dakika sonraki hatırlatmada kim olduğu yeniden söylenmeli.",
+    "Uriyel (F08, G14): ‘güneşin bekçisi’ diye tanıtılması yeterli; ama G14'teki ipucu ödenmiyor.",
+    "Kromvel ve ‘Lord Koruyucu’ (K11): açıklanmıyor. Unvan atılmalı.",
+    "Şeli ve ‘Romantik şairler’ (K05): fazladan ad yükü; ‘Romantik’ bir akım olarak açıklanmıyor.",
+    "Kaos (A03): ilk duyuşta özel ad değil, ‘karmaşa’ anlamında soyut bir kelime gibi geliyor. F05'te açıklanıyor; A03'te hiç kullanılmasın.",
+    "Milton (A02): 0:17'de ‘Milton'ın deyişiyle’ deniyor, kim olduğu ise 0:36'da söyleniyor. Küçük bir sorun.",
+    "Güstav Dore, Villa Mediçi (L02–L03): gereksiz ad ve tarih yükü.",
+    "Yeterince açıklananlar: Belzebub (E02, ‘yardımcısı’), Pandemonyum (E11), Günah ve Ölüm (F03–F04), Bleyk (‘şair ve ressam’), Luis (‘Narniya'nın yazarı’; çok iyi bir bağ, Türk izleyici filmlerden tanıyor), karabatak, Âdem ile Havva."
+  ],
+  "beni_etkileyen_an": "En çok G04–G05 ve G12. Şeytan'ın ‘O, benden bu karşılığı hak etmemişti’ ve ‘Keşke beni sıradan bir melek yaratsaydı’ demesi, sonra ‘Acı içinde verdiğim sözleri, rahata erince geri alırım’ itirafı: bir kötü karakteri değil, tanıdığım bir insanı duydum. İkinci sırada J03–J07: alkış beklerken gelen tıslama. Üçüncü sırada B08 ile B12: kör babalarına anlamadıkları dilleri okuyan kızlar ve ışığını kaybetmiş şair/melek eşleşmesi. D04'teki ‘Şeytan acıyı ilk kez o an tanıdı’ ve I06'daki ‘sersemlemiş gibi iyi kalır’ da akılda kalıyor.",
+  "yorum_yazar_miydim": "Evet, iki kez. G12'den sonra: ‘“Acı içinde verdiğim sözleri, rahata erince geri alırım.” Bu Şeytan'ın değil, hepimizin itirafı; yarım kalan her pişmanlığın özeti.’ Sonda L11'e: ‘Gurur. Ağlarken bile “boyun eğmek” diyemedi.’ Şeytanın avukatı olarak üçüncü bir yorum da yazardım: ‘Sonu Lewis'e yatırdınız. Af dileyen Âdem ile Havva, boyun eğemeyen Şeytan… Bleyk'e son sözü vermediniz.’ Beklediğim eleştirel yorumlar: ‘Milton'ın hayatını hızlı geçin, Şeytan için geldik’, ‘Oğul kim?’ ve bir kesimden ‘Şeytan'a acınmaz’.",
+  "kapak_baslik_CEHENNEM_BENIM": "Kapağı tek başına görsem büyük olasılıkla tıklamazdım; doğru bir başlıkla belki tıklardım. Üç nedeni var. (1) Bağlamsız okununca ilk anlam ‘cehennem benim malım’ oluyor, yani ‘Bu ev benim’ kalıbı: bir kötü karakterin kabadayılığı, bir metal albümü ya da bir korku kanalı. Asıl anlam (‘cehennemin kendisi benim’) ancak dizenin ilk yarısıyla açılıyor. (2) Bu bir soru değil, sahibi belli olmayan bir iddia: kimin, neden söylediğini bilmiyorum. Kanatlı karanlık bir figürle birlikte görünce ‘dinî video’ ya da ‘korku hikâyesi’ diye okudum; mitoloji ve felsefe izleyicisi olarak beni çağıran bir şey yok. (3) Türk akışında iri harflerle ‘ŞEYTAN + CEHENNEM’, kitlenin bir kısmını uzaklaştırır. Bir kısmını da dinî içerik bekleterek getirir ve hayal kırıklığına uğratır; bu da tutma ve beğeni oranı için risk. Artıları da var: iki kelime olduğu için harf yüksekliği %18'i rahatça geçer, birinci tekil şahıs güçlü duruyor ve açılışın ilk 3 saniyesi kapağı birebir karşılıyor, yani vaat uyumu kusursuz. Önerilerim: (a) Başlık kapak yazısını tekrarlamasın, eksik bağlamı versin. Örneğin ‘Şeytan'a Acıdığın Tek Hikâye | Milton, Kayıp Cennet’ ya da ‘Kör Bir Şairin Şeytan'ı | Milton, Kayıp Cennet’ (ilkini hassasiyet üyeleri değerlendirsin). İkisinde de ‘kör şair’ ve ‘acımak’, bu videoyu sıradan bir Şeytan videosundan ayıran şeyler. (b) B seçeneği ‘ŞEYTAN AĞLADI’ olsun: paradoks, duygu ve I.620'ye dayanan gerçek bir bilgi bir arada. 168 px'te tek bir gözyaşı ışığı odak olabilir. Ben buna tıklardım. Ama B kazanırsa açılışın ilk 5 saniyesi E07'deki gözyaşıyla başlamalı. (c) Çift anlam kaldırılmak istenirse ‘BEN CEHENNEMİM’ de denenebilir."
+}

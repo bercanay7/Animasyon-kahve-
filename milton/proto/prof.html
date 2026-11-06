@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body><canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script>
+<script>
+const cv=document.getElementById('c'); const ctx=cv.getContext('2d');
+window.prof=()=>{ const {tx,px}=GR; GR.begin(.5,0,1); const r={};
+ let t0=performance.now(); for(let i=0;i<5;i++){ tx.fillRect(0,0,1,1); tx.getImageData(0,0,1920,1080);} r.get=(performance.now()-t0)/5;
+ t0=performance.now(); for(let i=0;i<5;i++) GR.engrave(ctx); r.eng=(performance.now()-t0)/5;
+ const im=ctx.createImageData(1920,1080); t0=performance.now(); for(let i=0;i<5;i++) ctx.putImageData(im,0,0); r.put=(performance.now()-t0)/5;
+ t0=performance.now(); for(let i=0;i<5;i++) cv.toDataURL('image/jpeg',.96); r.jpg=(performance.now()-t0)/5; return r; };
+window.ready=Promise.resolve(buildTextures());
+</script></body></html>

@@ -1,0 +1,164 @@
+{
+  "uye": "K-Denetim",
+  "mercek": "Kaynak denetçisi ve uydurma avcısı: her dize atfını 1674 metninden tek tek çektim, biyografi iddialarını DNB 1894, notlar.md ve web kaynaklarıyla karşılaştırdım; sorduğum soru ‘bu cümlenin dayanağı ne ve dayanağı tam olarak bunu mu söylüyor?’",
+  "karar": "RED",
+  "puanlar": {"K1": 7, "K2": 9, "K3": 9, "K4": 8.5, "K5": 9, "K6": 8.5, "K7": 8.5},
+  "agirlikli": 8.43,
+  "genel_not": "Yaklaşık 70 KC atfını tek tek çektim. Dize aralıklarının neredeyse tamamı doğru, çeviriler aslına sadık; yanlış aralık yalnız A01'de (I.84–87). Sorun dizelerde değil üç yerde: Milton'ın hayatının kronolojisi (B05), Phillips tanıklığının kapsamı (B13/G15) ve I. kitaptaki olay sırası (E08). Üçü de kolay düzelir; düzelince K1 9,5 olur. RED kararı yalnız veto kuralından: yanlış bilgi düzeltilmeden iş bitmez.",
+  "engelleyici": [
+    "G15 (ve B13): Phillips (Life of Mr. John Milton, 1694) yalnız ‘on dize’ (bir baskı varyantında ‘altı dize’) bildirir; yorumcular bunları IV.32–41 olarak belirler. G15 ise G03–G14'ün tamamını (IV.32–113: ‘cehennem benim’, ‘Kötülük sen benim iyiliğim ol’ dahil) ‘ilk yazılan dizeler’ diye sunuyor. Kaynağın söylediğinden çok daha geniş bir iddia; ayrıca A06 ile çelişme riski var (o dizeler görebildiği yıllarda yazıldı).",
+    "B05: ‘Ve tam o yıllarda, bir destanı yazdırmaya koyuldu.’ B03–B04'ün ardından, destana Restorasyon yenilgisinden (1660) sonra başlandığını söylüyor. DNB s. 34: ‘In 1658 he settled down to the composition’. Aubrey'e göre Restorasyondan iki yıl önce başladı, üç yıl sonra bitirdi. Wikipedia: 1658–1664. Videonun biyografik çerçevesinde kronoloji hatası.",
+    "E08: ‘Sonra cehennemi selamlar’. E08–E10 (I.242–263) Şeytan'ın gölden çıkıp Belzebub'la konuştuğu ilk andır. E05'teki kalkan ve mızrakla kıyıya yürüyüş (I.283–296), E06 (I.589–601) ve E07'deki gözyaşı (I.615–621) bundan SONRA gelir. ‘Sonra’ bağlacı sırayı tersine çeviriyor: izleyici ağlayarak başlayan ordu konuşmasını (I.622 vd.) ‘Elveda mutlu topraklar… Cehennemde hüküm sürmek…’ sanıyor. En ünlü dize orduya değil, Belzebub'a söylenir."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "G15, B13",
+      "sorun": "Phillips'in tanıklığı yalnız IV.32–41 civarındaki on dizeyi (bir baskıda ‘Six Verses’) kapsar; bunlar destan için değil, tasarlanan bir tragedyanın açılışı için yazılmıştı. DNB s. 34 bunu ‘the speech of Satan’ diye genelleştirir, ama birincil tanık Phillips'tir. G15 bütün iç konuşmayı ilk dizeler sayıyor ve G14'ün arkasına konduğu için G03–G14'ün hepsini kapsıyor.",
+      "oneri": "G15: “Yeğeninin anlattığına göre, bu konuşmanın ilk on dizesi Milton'ın bu hikâye için yazdığı ilk dizelerdi: destana başlamadan yıllar önce, henüz görebildiği günlerde, bir tiyatro oyununun açılışı olarak. Şeytan'ı ilk kez kimse dinlemezken konuşurken görüyoruz. … Ve ilk kez, ona acıyoruz.” B13: “Yeğeninin anlattığına göre Milton bu hikâyeyi önce bir tiyatro oyunu olarak tasarlamış, açılışı için birkaç dize yazmıştı; yıllar önce, henüz görebildiği günlerde. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın güneşe yaptığı bir itiraftı. Oraya geleceğiz.” Kaynak: ‘Edward Phillips, Life of Mr. John Milton (1694), Ten Verses (bir baskıda Six); KC IV.32–41; DNB s. 34’. ‘Alkışlayan bir kalabalık olmadan’ ifadesini ‘kimse dinlemezken’ yap: Şeytan Kaos'ta (F05–F09) zaten yalnızdı; IV.32 onun ilk iç konuşmasıdır.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "B05",
+      "sorun": "Destanın yazımı 1658'de, Restorasyondan iki yıl önce başlar (DNB s. 34; Aubrey; Wikipedia 1658–1664). Mevcut sıra, yenilgiden sonra başlandığını söylüyor. Kaynak alanı (1658–1663/64) metnin söylediğiyle çelişiyor.",
+      "oneri": "B05: “Destana aslında iki yıl önce, devrim henüz ayaktayken başlamıştı. Ama büyük kısmını bu yenilginin içinde, kör ve yoksul, yazdırdı.” Kaynak: ‘DNB s. 34 (1658'de başlar; Aubrey: 1663'te biter); Aubrey: Restorasyondan 2 yıl önce başlar, 3 yıl sonra biter; Wikipedia John Milton: 1658–1664’.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 3,
+      "id": "E05–E10",
+      "sorun": "I. kitabın olay sırası bozuk. Milton'da sıra şöyle: gölden kalkış (I.221–228) → ‘Elveda mutlu topraklar… Cehennemde hüküm sürmek’ (I.242–263, Belzebub'a) → kalkan ve mızrakla kıyıya yürüyüş (I.283–296) → ordunun önünde yüzündeki izler (I.589–601) → üç kez ağlama (I.615–621) → ordu konuşması (I.622 vd.). Senaryoda E08 ‘Sonra’ ile gözyaşı sahnesinin ardına gelmiş.",
+      "oneri": "Sırayı şöyle kur: E05'in ilk cümlesi (“Gölden kalkar.”) → E08 → E09 → E10 → E05'in geri kalanı (kalkan, mızrak) → E06 → E07 → E11. E08'in girişi: “Yanan toprağa ilk ayak bastığında, yanındaki Belzebub'a dönüp cehennemi selamlar: …” Sıra değişmeyecekse en az değişiklik: E08 “Oysa gölden ilk çıktığında, cehennemi şöyle selamlamıştı: …” Kaynak: ‘KC I.221–228, I.242–263’.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 4,
+      "id": "A06",
+      "sorun": "“Bu dizeleri söylerken hiçbir şey göremiyordu.” Hangi dizenin hangi yıl yazıldığı belli değil. Senaryonun kendi iddiasına göre (B13/G15) bu konuşmanın bir bölümü görebildiği yıllarda yazıldı. Kaynak alanındaki ‘1652 (DNB)’ de doğru değil: DNB s. 32 yalnız Defensio'yu yazarken görmesini yitirdiğini söyler, yıl vermez.",
+      "oneri": "A06: “Ve onu yaratan şair, bu destanı yazdırırken hiçbir şey göremiyordu.” Kaynak: ‘DNB s. 32 (Defensio sırasında görmesini yitirdi); Wikipedia: By 1652 totally blind’.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "id": "L06, L09",
+      "sorun": "G09'da Şeytan ‘boyun eğmek’ kelimesini söylüyor: IV.81–82 ‘None left but by submission; and that word / Disdain forbids me’. Kelimeyi ağzına alıyor, yasaklanan boyun eğmenin kendisi. L06 ‘söyleyemiyor’, L09 ‘söylenemeyen o tek kelime’ diyerek hem metinle hem izleyicinin G09'da duyduğuyla çelişiyor.",
+      "oneri": "L06: “…bir yerde, “boyun eğmek” kelimesini ağzına alıyor ama gururu ona izin vermiyor.” L09: “Milton'ın cevabı belki de Nifates Dağı'nda gururunun yasakladığı o tek kelimede saklı. … Kimsenin takmadığı, insanın kendi eliyle taktığı bir zincir.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "id": "C03, C04",
+      "sorun": "Milton ‘Lucifer’ adını tek yerde değil üç yerde kullanır: V.760 ‘so call that structure in the dialect of men’, VII.131–132 ‘So call him’, X.425 ‘so by allusion called’. Her seferinde ‘öyle diyelim’ kaydını ekler. C03'teki ‘bir yerde’ yanlış. Hemen ardından gelen C04 ‘Asıl adını ise hiç söylemez’ de izleyiciye çelişki gibi geliyor. (C04'teki sözü V. kitapta anlatıcı Rafael söyler; ‘der’ şiirin anlatıcısına bağlanırsa sorun yok.)",
+      "oneri": "C03: “Milton ona birkaç yerde Lusifer der, ama hep “öyle diyelim” diye ekleyerek: ışık taşıyan. Yüzü, yıldızların arasındaki sabah yıldızı gibi parlıyormuş.” C04: “Cennetteki asıl adını ise hiç söylemez: “Eski adı artık cennette anılmıyor. Ona bundan böyle Şeytan deyin.”” Kaynak C03: ‘KC V.760–762, VII.131–133, X.425–426; V.708–709’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 7,
+      "id": "A01",
+      "sorun": "Kaynak yanlış. I.84–87 (‘Clothed with transcendent brightness, didst outshine myriads’) Şeytan'ın Belzebub'a söylediği sözdür ve Belzebub'un eski parlaklığını anlatır. Ayrıca A01'deki ‘en parlak meleği’ ifadesi C02'nin temkinli diliyle (‘en parlak varlıklarından biri’, V.659–660 ‘of the first, if not the first’) tutarsız.",
+      "oneri": "A01: “… Bunu söyleyen, bir zamanlar cennetin en parlak meleklerinden biriydi.” Kaynak: ‘KC IV.75; parlaklık: V.659–660, V.708–709, VII.131–133’. VII.132–133 (‘brighter once amidst the host of Angels than that star the stars among’) ‘en parlak’ ifadesini de taşıyabilir; o zaman metin kalabilir, yalnız I.84–87 çıkarılır.",
+      "onem": "orta"
+    },
+    {
+      "sira": 8,
+      "id": "E05",
+      "sorun": "Mızrağın boyu küçültülmüş. Milton onu direkle eşitlemez: Norveç dağlarının en uzun çamından yapılmış bir amiral gemisi direği bile onun yanında ‘bir değnek’ kalır (I.292–294). Kaynak alanında gölden kalkış (I.221–228) da eksik.",
+      "oneri": "E05: “Gölden kalkar. Kalkanı omzunda, ay gibi asılıdır. En büyük gemilerin direği bile yanında bir değnek gibi kalan mızrağına yaslanarak, yanan topraklarda yürür.” Kaynak: ‘KC I.221–228, I.283–296’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 9,
+      "id": "D03",
+      "sorun": "VI.178–181'in mantığı kaymış. Abdiel'e göre kölelik, akılsıza ya da kendinden üstüne başkaldırana hizmet etmektir, ‘şimdi seninkilerin sana hizmet ettiği gibi’. Yani köle olanlar Şeytan'ın takipçileridir. Senaryodaki ‘Seninkiler şimdi sana hizmet ediyor. Ama sen…’ cümlesi bu iddiayı düşürüyor; ‘Ama’ bağlacı da metinde yok. K12'nin ödemesi bu cümleye dayandığı için önemli.",
+      "oneri": "D03: “Asıl kölelik, akılsıza hizmet etmektir; kendinden üstüne başkaldırana hizmet etmektir. Şimdi seninkilerin sana hizmet ettiği gibi. Sen de özgür değilsin; kendi kendinin tutsağısın.” İsteğe bağlı: VI.183–184 (‘Reign thou in Hell, thy kingdom; let me serve / In Heaven God ever blest’) I.263'ün Abdiel ağzından önceden yankısıdır ve E09–E10 için hazır bir kurulum olur.",
+      "onem": "orta"
+    },
+    {
+      "sira": 10,
+      "id": "K11",
+      "sorun": "‘Lord Koruyucu unvanıyla ülkeyi tek başına yönetti’ abartılı: Koruyucu, Danışma Meclisi (Council of State) ve parlamentolarla birlikte yönetti (parlamentoları dağıttığı da oldu). 1657'de kendisine önerilen tacı reddetti (notlar.md). ‘Yerini oğluna bıraktı’ savunulabilir, ama Oliver'ın Richard'ı adaylığı ölüm döşeğindeki bir bildirime dayanır; ‘öldüğünde yerine oğlu geçti’ daha güvenli. İlk cümle (‘başkaldırıların çoğu…’) kullanıcının tezidir ve olgu gibi sunuluyor. Kullanıcı kararı olduğu için korunur, ama kaynak alanına ‘anlatıcının görüşü (kullanıcı kararı)’ yazılmalı.",
+      "oneri": "K11'in son cümlesi: “Milton'ın kendi devriminde bile, kralın idam fermanını imzalayanlardan Kromvel, Lord Koruyucu unvanıyla devletin başına geçti; taç önerildiğinde reddetti, ama öldüğünde yerine oğlu geçti.” İsteğe bağlı ironi, doğru ve kaynaklı: Milton da Koruyucu'nun hükümetinde çalışıyordu (DNB s. 32–33). Kaynak: ‘notlar.md: Cromwell 1653–1658, taç reddi 1657, Richard 1658’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 11,
+      "id": "L05",
+      "sorun": "‘Bu gözyaşı, ressamın uydurması değildi’ cümlesi Cabanel'in gözyaşını Milton'dan aldığını söylüyor. notlar.md'nin kendi kaydı ise ‘senaryo bu etkiyi iddia etmez’ diyor. Web aramasında Musée Fabre eğitim belgelerinin tablonun Kayıp Cennet'ten esinlendiğini, Cabanel'in 27 Ocak 1847'de Villa Médicis kütüphanesinden Milton'ı ödünç aldığını yazdığı görülüyor. Ama belgeyi bu oturumda açamadım: museefabre-old.montpellier3m.fr ağ ayarlarında engelli. Gözyaşının özellikle I.620'den geldiği ise çıkarımdır.",
+      "oneri": "Başkan belgeyi doğrularsa: “Müzenin kayıtlarına göre Cabanel bu tabloya başlamadan önce Kayıp Cennet'i okuyordu. Ve Milton'da da Şeytan ağlar: yenik ordusunun karşısında, kendi küçümsemesine rağmen, meleklerin ağladığı gibi.” Kaynak: ‘Musée Fabre eğitim belgesi (Nocturne fiche N1); KC I.619–620’. Doğrulanamazsa: “Bu gözyaşının bir karşılığı Milton'da da var: …”",
+      "onem": "orta"
+    },
+    {
+      "sira": 12,
+      "id": "B06",
+      "sorun": "DNB s. 37 ‘At times he would compose during sleepless nights’ der, yani ‘bazen’; senaryodaki ‘çoğu zaman’ abartı. ‘Kırk dize → yirmi’ DNB'de ayrı bir cümledir, gece sahnesine bağlanmamıştır. Anekdotun kökü geç ve ikinci el tanıklıklardır (Richardson 1734 gibi). Kızların yazdırmadaki payı tartışmalıdır; Wikipedia yalnız ‘a series of aides in his employ’ der. B13'teki gibi bir ‘anlatılana göre’ kaydı gerekir.",
+      "oneri": "B06: “Anlatılanlara göre, bazı uykusuz gecelerde dizeleri kafasında kurar, kızlarından birini kaldırıp yazdırırdı. Kırk dizeyi bir solukta söyler, sonra yirmiye indirirdi.” Kaynak: ‘DNB s. 37 (Richardson ve Phillips'ten)’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 13,
+      "id": "J02",
+      "sorun": "X.449–452: ‘clad with what permissive glory since his fall was left him, or false glitter’. Parıltı eski parlaklığı değildir; düşüşten kalan, belki de sahte bir pırıltıdır. Bu ayrıntı ışığın sönme çizgisine (H11–H12, K08) doğrudan hizmet ediyor.",
+      "oneri": "J02: “… tahtına çıkar ve birden, düşüşten ona kalan parlaklıkla, belki de sahte bir pırıltıyla belirir. Cehennem çığlıklarla onu karşılar.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 14,
+      "id": "I04, I05",
+      "sorun": "Sıra: ‘O foul descent!’ (IX.163–167) ve intikam sözü (IX.171–172), Şeytan yılanı ararken, yılana girmeden ÖNCE söylenir; yılanın ağzından giriş IX.187–188'dedir. Senaryo önce girişi, sonra sözü veriyor.",
+      "oneri": "I04: “Uyuyan bir yılan arar. “Ne iğrenç bir iniş!” der. “Bir zamanlar tanrılarla en yüksek yer için yarışan ben, şimdi bir hayvanın içine girmek zorundayım.”” I05'in sonuna ekle: “Sonra yılanı bulur ve ağzından içine girer.” Kaynak: ‘KC IX.158–172, IX.182–191’.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 15,
+      "id": "H07",
+      "sorun": "‘Fiend’ sözcüğü ‘iblis’ diye çevrilmiş. Kullanıcının ‘İblis'le dinî karşılaştırma yok’ kararına istemeden dokunuyor; Türk izleyici bunu İslami bir terim olarak okuyabilir. Hassasiyet alanının da bakması gerekir.",
+      "oneri": "H07: “Milton burada araya girer: “Böyle konuştu o kötü ruh; ve zorunluluğu, zorbaların o eski bahanesini, şeytanca işlerine kılıf yaptı.””",
+      "onem": "düşük"
+    },
+    {
+      "sira": 16,
+      "id": "B04, B08, B09",
+      "sorun": "B04: DNB s. 33–34'e göre kurtuluşta dostların payı kesin değil; onu hukuki sonuçlardan Af Yasası (Indemnity Act) kurtardı. ‘Kör, yoksul’ ise doğru (DNB s. 34 ‘Blind, infirm, and poor’). B08: Phillips ‘the two youngest’ der, yani küçük iki kızı (üç kızı vardı). Masson'a göre bu niyetten çok sonuçtur; ‘öğretmişti’ ifadesi kasıt yüklüyor. B09: Phillips'in sözü ‘almost beyond endurance’, yani ‘neredeyse’.",
+      "oneri": "B04: “Af yasası ve dostlarının araya girmesiyle kurtuldu. Ama artık kör, yoksul ve yenilmiş bir adamdı.” B08: “Küçük iki kızı ona İbranice, Yunanca, Latince kitaplar okurdu; anlamını bilmeden. Kızlar, anlamadıkları sözcükleri göremeyen babalarına okurdu.” B09: “… bu okuma saatleri, yıllar içinde onlar için neredeyse dayanılmaz bir hâl almıştı.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 17,
+      "id": "E11, C07, H11, I02, D02, F06",
+      "sorun": "Küçük metin sapmaları. E11: I.697 ‘in an hour’ der, yani ‘bir saat içinde’; ‘bir saatten kısa’ metinde yok. Pandemonium I.756'da ‘Şeytan ve beylerinin başkenti’dir, adı ‘bütün şeytanlar’ demektir. C07: V.671–672'de Şeytan yalnız yardımcısını uyandırır; lejyonları o toplar (V.696–698). H11: cevap veren tek melektir, Zefon (IV.834); Şeytan kükremez, küçümseyerek sorar (IV.827 ‘filled with scorn’). I02: Şeytan kovulmaz, Cebrail'in tehdidiyle kaçar (IV.1013–1015, IX.53–54 ‘fled’). D02: VI.189–191 silahı adlandırmaz (‘a noble stroke… on the proud crest’). F06: Şeytan'ı fırlatan rüzgâr değil, ‘ateş ve güherçileyle dolu bir bulut’tur (II.936–937); düşüş ‘on bin kulaç’tır (II.934).",
+      "oneri": "E11: “Bir saat içinde, yerden devasa bir yapı yükselir: Pandemonyum, yani ‘bütün şeytanlar’; cehennemin başkenti.” C07: “Gece yarısı, yardımcısını uyandırır; onun eliyle bütün lejyonlarını kuzeye, kendi sarayına götürür.” H11: ““Beni tanımıyor musunuz?” der küçümseyerek. Meleklerden biri cevap verir: …” I02: “Şeytan, Cebrail'in tehdidiyle bahçeden kaçar.” D02: “Darbesi Şeytan'ın miğferine iner…” F06: “…sonra boşluğa düşer, on bin kulaç aşağı. Ateşle dolu bir bulut onu yeniden yukarı fırlatmasa, hâlâ düşüyor olurdu.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 18,
+      "id": "L07, L03, L04",
+      "sorun": "L07: XII.645 ‘Some natural tears they dropt’. ‘Natural’ (insanca, doğal) sözcüğü I.620'deki ‘Tears, such as Angels weep’ ile bilinçli bir karşılıktır; çeviride düşmüş, oysa videonun gözyaşı ödemesi tam buna dayanıyor. L03: 1866−1847 = 19 yıl. L04: Wikipedia betiminde kaya geçmiyor (eller kavuşmuş, yüzü kısmen kolla örtülü, izleyiciye öfkeyle bakıyor, gözlerinde yaş var, ayaklarının yanında dikenli böğürtlen dalı). ‘Kayalara uzanmış’ tablonun görüntüsüyle ya da müze kaydıyla doğrulanmalı.",
+      "oneri": "L07: “… Milton yazar: “İnsanca birkaç damla gözyaşı döktüler; ama çabuk sildiler. Dünya, bütün genişliğiyle önlerindeydi.”” L03: “Ondan neredeyse yirmi yıl önce…” L04 kaynağına müze kaydını yaz; kaya doğrulanamazsa: “Yere uzanmış, kollarını yüzünün önünde kavuşturmuş bir melek.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 19,
+      "id": "kaynak alanı (birden çok segment)",
+      "sorun": "Eksik ya da yanlış kaynaklar: A01 (I.84–87 Belzebub'dur); A06 ve B01 (1652 tarihi DNB'de yok, kaynağı Wikipedia/Leonard 2000; B01'in kaynağında hiç atıf yok); B03 (‘Aralık 1660'ta salıverildi’ ve ‘yakma Ağustos 1660’ DNB s. 33–34'te geçmiyor; DNB yalnız 13 Ağustos bildirisini ve ‘next session’da salıverme kararını verir; tarih için Masson ya da Wikipedia yazılmalı); B06 (DNB s. 37'nin kökü Richardson/Phillips); B13 ve G15 (birincil tanık Phillips 1694); C03 (V.760 ve X.425 eklenmeli); C08 (‘giriş’ yerine V.772–802); D09 boş (I.50–53 eklenmeli: gölde dokuz gün yattılar); E05 (I.221–228 eklenmeli); E08 (sıra notu); K11 (ilk cümle görüş; Cromwell için notlar.md); L05 (Musée Fabre belgesi); J10 (‘son iki kitap’ 1674'teki on iki kitaplık sayıma göredir, A05 ise 1667'yi anıyor; 1667 baskısında Şeytan'ın görünmediği yer son kitaptır. Açıklamada ‘dize ve kitap numaraları 1674 baskısına göre’ notu yeterli). B14 ve I10 boş, ama olgusal iddia taşımıyorlar, sorun yok.",
+      "oneri": "Kaynak alanlarını yukarıdaki gibi güncelle. Yayın açıklamasına künye ekle: ‘Dize numaraları: Paradise Lost, 2. baskı 1674. Çeviriler kanala aittir. Biyografi: DNB 1894; E. Phillips, Life of Milton (1694).’",
+      "onem": "orta"
+    }
+  ],
+  "korunmali": [
+    "G03–G13: Nifates iç konuşmasının bütün atıfları (IV.32–113) dize dize doğru, çeviriler aslına sadık. Videonun empati omurgası sağlam bir zemine oturuyor.",
+    "A01 ↔ G07 (IV.75) halkası ve A04 → G09 (IV.79–82) → L09 kurulum-ödeme zinciri: kanca doğrudan metnin en ünlü dizesine dayanıyor.",
+    "E07 + L05: I.619–620 ‘Tears, such as Angels weep’ doğru aktarılmış; Cabanel'e kurulan köprü metinden geliyor, uydurma değil.",
+    "J04–J08: X.504–547 (tıslama, ‘punished in the shape he sinned’, ‘triumph to shame cast on themselves from their own mouths’) eksiksiz ve doğru; Lewis okumasını (K07–K08) metinle kanıtlıyor.",
+    "I06: IX.463–466 ‘Stupidly good’ doğru yerde; 17. yüzyıl anlamıyla ilgili kaynak notu da doğru.",
+    "B10–B11: III.40–55 körlük yakarışı doğru aralık ve sadık çeviri; çerçevenin (L10) dayanağı."
+  ],
+  "en_emin_olmadigim_nokta": "Phillips tanıklığının tam kapsamı. Grub Street Project'in bibliyografik notuna göre 1694 Life'ın iki baskı varyantından birinde ‘Ten Verses’, ötekinde ‘Six Verses’ geçiyor (Shawcross #367/#368). Yorumcular bunu IV.32–41 olarak belirliyor. Yani ‘ilk dizeler’ iddiası 6 ile 10 dize arasını kapsıyor; birincil baskıyı göremedim. İkincisi, Cabanel'in Milton'ı ödünç aldığı bilgisi müze belgesine dayanıyor ama belgeyi açamadım (museefabre-old.montpellier3m.fr bu oturumda ağda engelli). Başkan izin verirse doğrulanabilir.",
+  "web_kaynaklari": [
+    "https://en.wikipedia.org/wiki/John_Milton (1652 tam körlük; ‘a series of aides’; 1658–1664 yazım; Restorasyon)",
+    "https://en.wikipedia.org/wiki/The_Fallen_Angel_(painting) (1847, Villa Médicis, ikinci envoi, betim, ölçüler, Musée Fabre 1889)",
+    "https://grubstreetproject.net/publications/R4807 (Phillips 1694, Ten/Six Verses varyantı)",
+    "https://ore.exeter.ac.uk/repository/handle/10871/39467 (McDowell: Phillips Kayıp Cennet'in başlıca katiplerinden)",
+    "https://museefabre-old.montpellier3m.fr/content/download/16029/117966/version/1/file/UPV_HAMC2_MuseeFabre_Nocturne_Fiche_Info_N1.pdf (arama özeti: Milton esini, 27 Ocak 1847 ödünç; açılamadı)"
+  ]
+}

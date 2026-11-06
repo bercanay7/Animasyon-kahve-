@@ -1,0 +1,215 @@
+{
+  "uye": "S-Dram",
+  "mercek": "Dramaturg: Şeytan'ın iç yolculuğunu Kahramanın Yolculuğu kontrol listesiyle (zorlamadan) ve trajedi eğrisiyle okuyor; istek–ihtiyaç ayrımına, kurulum–ödeme zincirlerine, empatinin yerine ve dozuna, doruk ile sona bakıyor.",
+  "karar": "RED",
+  "puanlar": {"K1": 8.5, "K2": 8.5, "K3": 8.0, "K4": 7.5, "K5": 8.5, "K6": 8.5, "K7": 8.0},
+  "agirlikli": 8.23,
+  "puan_gerekceleri": {
+    "K1": "Dize ve DNB dayanakları büyük ölçüde sağlam; elle kontrol ettiğim IV.73–113, I.600–625, VI.172–196, V.772–802, X.504–521, X.1086–1104, XII.641–649 metne uyuyor. Dramaturji açısından üç kayma var: E08'deki “Sonra” sırası metinle ters (I.242–263, I.604–621'den önce gelir); G15 bütün iç konuşmayı “ilk dizeler” sayıyor (Phillips yalnız güneşe hitabın açılışını anlatır, DNB s. 34); K11'deki “ülkeyi tek başına yönetti” abartılı.",
+    "K2": "Olayın ortasından açılış (IV.75 + yanan göl) kapak A ile birebir örtüşüyor. Ancak merak sorusu A04'te, ~0:25'te geliyor; soyut kalıyor ve A03 (“cehennem de onunla gelecek”) cevabın yarısını önceden veriyor. Kapak B'nin (gözyaşı) vaadi ilk 15 saniyede hiç karşılanmıyor.",
+    "K3": "Omurga güçlü: olayın ortasından başlayıp geri dönüş, D09'da göle dönüş, Freytag trajedisi (doruk ortada, Nifates; sonra iniş ve J'de felaket). Kurulumların çoğu var, ödemelerden üçü bulanık (A04→L09, C13→K12, B13→G15). Sonda üç ayrı “son” var (J10, K12, L09–L11). Cabanel, kullanıcının planındaki kapanış sahnesi değil.",
+    "K4": "Her bölüm bir soruyla açılıyor, bu iyi. Ama B (Milton, ~1:45) hikâye daha başlamadan araya giriyor ve kendi sorusu yok. K (~1:50) felaketten sonra gelen bir ders gibi. I10 ile J01 aynı soruyu iki kez soruyor. 12 bölüm sorusunun 12'si de aynı [curious] kalıbında.",
+    "K5": "Empati doğru basamaklarla kuruluyor: E04 maske → E07 gözyaşı → G Nifates → H05 → I06 → J aşağılanma. Karşı ağırlıklar da var (C06, H07, H09), Şeytan güzellenmiyor. Sorunlar üç: G15'te duyguyu izleyiciye dikte eden “ona acıyoruz” cümlesi; E07'de gözyaşının nedeninin eksik olması; son dört dakikanın acımayı bir tartışmaya çevirmesi.",
+    "K6": "Türkçe akıcı, okunuşlar doğru yazılmış. H07'deki “iblis” kelimesi kullanıcı kararıyla çelişiyor. “Cehennem benim” iki türlü okunuyor (sahiplik ve kimlik); bu bir ödemeye çevrilebilir. [curious] etiketi tekdüze.",
+    "K7": "Siluet, ışık sönmesi ve dönüşüm (J06) kod çizimine çok uygun. Tekrarlanan diz çökme pozu da ucuz ve güçlü bir motif olur. Zayıf noktalar: kapanış karesi Cabanel yakın planı (yüz, gözyaşı, eller), G14'te yüzün üç kez değişmesi, E02'de Belzebub'un yüzü."
+  },
+  "engelleyici": [
+    "E08: “Sonra cehennemi selamlar” ifadesi olay sırasını tersine çeviriyor. I.249–263 (zihin kendi yeridir / cehennemde hüküm sürmek) metinde I.604–621'deki gözyaşından önce gelir. Ya sıra düzeltilmeli (düzeltme 5) ya da “Sonra” kalkmalı. Kaynak alanının veto kapsamına girebilir.",
+    "G15 (+B13): “İşte Milton'ın bu hikâye için yazdığı ilk dizeler bunlardı” cümlesi bütün iç konuşmayı (IV.32–113) kapsıyormuş gibi okunuyor. Oysa DNB s. 34'e göre Phillips yalnız güneşe hitabın açılışını (IV.32 vd.) anlatır. Doğru ifade: “bilinen en eski dizeler”, ödeme yeri G03'ün önü (düzeltme 8).",
+    "H07: “Böyle konuştu iblis”. Türk izleyici için “İblis” Kur'an'daki adla özdeşleşir. Kullanıcının kararı (dinî karşılaştırma yok, ör. İblis) gereği bu kelime metinde geçmemeli (düzeltme 13). Hassasiyet alanına iletilmeli."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "J10, L07, L08, K01–K12, L01–L12",
+      "sorun": "Sonda üç ayrı “son” var: J10 (Şeytan sahneden çekilir), K12 (yavaş soru ve duraklama) ve L09/L10/L11. “İki okuma” bölümü (K), felaket (J) ile duygusal kapanış (L) arasına giren 1:50'lik bir ders gibi duruyor; izleyici J10'da hikâyenin bittiğini sanıyor. CLAUDE.md'ye göre Cabanel kapanış sahnesi olmalı, ama şu an ondan sonra Âdem ve Havva, cevap, çerçeve ve üç soru geliyor. L02'deki Doré notu (“Bu videodaki çizimler de onun izinden gidiyor”) son duygusal bölümde büyüyü bozuyor. L03 ise kronolojide geri sarıyor (“Ondan yirmi yıl önce”).",
+      "oneri": "Yeni sıra: J01–J08 → J10 → L07 → L08 → K01 … K12 (sıkıştırılmış, bkz. 9) → L01 → L03 → L04 → L05 → L06 → L09 → L10 → L11 → L12.\n- Destan kendi sonunda kapanır (J10 → L07 kesintisiz akar: “Ve destan, Şeytan'la bitmez…”).\n- “Peki bu hikâyenin kahramanı kim?” sorusu hikâye bittikten sonra doğal olarak gelir.\n- Cabanel'in gözyaşı son sahne olur.\n- L02 anlatımdan çıkar; Doré notu açıklamaya ve bir ekran yazısına taşınır.\n- L03'ün yeni metni: “Bin sekiz yüz kırk yedi'de, Roma'daki Villa Mediçi'de, genç bir Fransız ressam, Aleksandr Kabanel, Düşmüş Melek'i yaptı.”\n- L08'in yeni metni (Nifates'e bağlanır, X.1099–1101): “Şeytan'ın Nifates Dağı'nda söyleyemediğini onlar söyledi: yere kapanıp suçlarını kabul ettiler ve af dilediler.”\n- L08'in ardına bir cümle eklenir (L01'e geri dönüşü hazırlar): “Şeytan'ın gözyaşlarının ardından bir savaş söylevi gelmişti. Onlarınkinin ardından, bir yol.” (I.620–662 ve XII.645–649)",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "L09",
+      "sorun": "A04'ün ödemesi bulanık. L09 “cevap… o tek kelimede saklı” diyor ama kelimeyi söylemiyor. Ardından gelen “insanın kendi eliyle taktığı bir zincir” ile birlikte, zincirin kelime mi yoksa gurur mu olduğu belli olmuyor. Kanalın imzası olan “yolculuk nerede kırıldı?” sorusu videoda hiç sorulmuyor. Kapanış tek bir okumaya (Lewis/Milton) yaslanıyor, oysa karar izleyiciye kalmalı.",
+      "oneri": "L09'u üç parçaya böl:\n- L09a: “[slowly] En başta sormuştuk: Kurtulmanın yolunu bilen biri, neden cehennemde kaldı? Bu yolculuk nerede kırıldı? Savaşta değil, gölde değil: Nifates Dağı'nda, söylenemeyen tek bir kelimede. … Boyun eğmek.”\n- L09b: “Cennette melekleri tam da bu kelimeye karşı ayaklandırmıştı. Onu söyleyemedi; gururu ve peşinden gelen kalabalığın önünde küçük düşme korkusu buna izin vermedi. … O kalabalık sonunda ona tısladı. Kimsenin takmadığı, kendi eliyle taktığı bir zincir.”\n- L09c: “[thoughtfully] Romantiklerin gözünde, o kelimeyi söylememek bir asinin onuruydu. Luis'in gözünde, cehennemin ta kendisi.”\nKaynaklar: IV.79–83, V.787, X.508–509.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 3,
+      "id": "A03, A04",
+      "sorun": "Merak sorusu soyut ve geç geliyor (~0:25). A03'teki “cehennem de onunla gelecek”, A04'ün cevabını (cehennem kendisidir) önceden veriyor; soru gerilimini kaybediyor. Kapak B (Cabanel'in gözyaşı) seçilirse, ilk 15 saniyede bu vaadi karşılayan hiçbir şey yok. Somut bir merak boşluğu (tek bir kelime) ve şaşırtıcı bir vaat (Şeytan ağlar) tutmayı güçlendirir.",
+      "oneri": "- A03: “[darkly] Birazdan zincirleri çözülecek; cehennemin kapısı önünde açılacak. Ama nereye giderse gitsin, cehennem de onunla gelecek.” (Kaos kısmı çıkar.)\n- A04: “[curious] Bu destanda Şeytan ağlar. Pişmanlık duyar. Kurtulmanın yolunu bile bilir: tek bir kelime. … Ama o kelimeyi söyleyemez. Neden?”\n- Cevabın ilk yarısı G09'da (kelime), ikinci yarısı ve ironisi L09'da (neden + tıslayan kalabalık) gelir.\n- “Pişmanlık duyar” ifadesi I.605 ('signs of remorse'), IV.79–80 ve IV.109'a ('Farewell, remorse') dayanır. “Tövbe eder” denmez.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "id": "J05, J06",
+      "sorun": "Videonun en güçlü dramatik ironisi kurulmuş ama ödenmemiş. G10'da Şeytan, kalabalığın önünde rezil olma korkusuyla boyun eğemez. J05'te o kalabalık alkış yerine tıslar. Senaryo bu iki anı birbirine bağlamıyor. Aynı şekilde E14 (“Diz çökmeyi reddeden melek, şimdi önünde diz çökülen bir kraldır”) ile X.514 (“on his belly prone”) arasındaki ayna da kurulmuş ama söylenmemiş.",
+      "oneri": "- J05'ten sonra yeni J05b: “[slowly] Nifates Dağı'nda boyun eğememişti; çünkü bu kalabalığın önünde rezil olmaktan korkuyordu. Şimdi aynı kalabalık, ona tıslıyor.”\n- J06'nın sonuna: “… ve yüzüstü yere yığılır: devasa bir yılan. Önünde diz çökülen kral, şimdi karnının üstünde.”\n- Diz çökme motifi görsel olarak da aynı poz kütüphanesiyle tekrar edilir: C05/C09 → D02 → E14 → G09 → J06 → L08.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "id": "E05–E10",
+      "sorun": "Sıra metne ters: I.242–263 (“Elveda mutlu topraklar… Cehennemde hüküm sürmek…”) metinde I.283–296'daki yürüyüşten ve I.604–621'deki gözyaşından önce gelir. Dramatik olarak da Milton'ın sırası daha güçlü: böbürlenmenin doruğundan hemen sonra maskede çatlak (gözyaşı), ardından gözyaşının üstüne kurulan saray (Pandemonyum). E07'de gözyaşının nedeni de yok. Milton'a göre Şeytan, onun yüzünden cennetten atılan ve hâlâ ona sadık kalan milyonlarca ruha bakarken ağlar (I.605–611). Empatinin anahtarı bu; G10 ve J05b'yi de bu hazırlar.",
+      "oneri": "- Sıra: E01 E02 E03 E04 → E08 E09 E10 → E05 E06 E07 → E11 E12 E13 E14.\n- E08 başı: “Gölden kalkar ve cehennemi selamlar: “Elveda mutlu topraklar; merhaba dehşet! Ve sen, en derin cehennem, yeni sahibini karşıla. Zihin kendi yeridir…”” (I.249–255; “yeni sahibini” = I.252 'thy new possessor', bkz. 10).\n- E05: “Kalkanı omzunda ay gibi asılı, bir geminin direği kadar uzun mızrağına yaslanarak yanan topraklarda yürür ve ordusunu çağırır.”\n- E07: “[softly] Ordusu karşısında dizilir: onun yüzünden cennetten atılmış milyonlarca ruh, yıldırım çarpmış bir orman gibi. Işıkları solmuş; ama hâlâ ona sadıklar. Konuşmaya hazırlanır. Üç kez dener; üç kez, küçümsemesine rağmen, gözlerinden yaşlar boşanır: meleklerin ağladığı gibi.” (I.605–620)\n- E07'de gurur/pişmanlık kelimeleri kullanılmaz; açılış L06'ya saklanır.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 6,
+      "id": "L06",
+      "sorun": "“O gözyaşı pişmanlık mıydı, gurur mu? Belki ikisi birden” şu an bir tahmin olarak kalıyor. Oysa Milton aynı yüzü anlatırken iki kelimeyi art arda iki cümlede yan yana koyar: 'considerate pride' (I.603) ve 'signs of remorse' (I.605). Bu bilgi ödemeyi metne dayalı bir açılışa çevirir; sona da bir “aha” anı ekler.",
+      "oneri": "L06: “[thoughtfully] O gözyaşı pişmanlık mıydı, gurur mu? Milton o yüzü anlatırken ikisini yan yana yazar: kaşlarının altında gurur, gözlerinde pişmanlık. … Belki ikisi birden. Bir yerde ağlıyor; bir yerde “boyun eğmek” kelimesini söyleyemiyor.” Kaynak: I.600–605, IV.81–82.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 7,
+      "id": "C05–C10",
+      "sorun": "C06, Milton'ın hükmünü (kıskançlık ve gurur) Şeytan'ın kendi gerekçesini (özgürlük, C08–C09) duymadan veriyor. Bu sıra izleyiciyi daha çağrı anında yargıcın yerine oturtuyor ve empatiyi kapatıyor. İki okumanın (Blake ve Lewis) tohumunu ekmek için en iyi yer de burası: bölümün sorusu “neden başkaldırır?”, cevabı iki tane.",
+      "oneri": "- Sıra: C01–C05 → C07 → C08 → C09 → C10 → C06 (yeni) → C11–C13.\n- C06: “[thoughtfully] Neden? Kendisine sorsanız: özgürlük için. Milton'a sorsanız, iki kelime: kıskançlık ve gurur. Kendini küçültülmüş saymıştı. … Bu iki cevap, hikâyenin sonuna kadar yan yana yürüyecek.”\n- C09'daki “Boynunuzu eğip…” (V.787 'submit your necks') ile G09'daki “boyun eğmek” aynı Türkçe sözcükle ve aynı görsel jestle verilir; kulak bunu yakalar.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 8,
+      "id": "B13, G02–G03, G15",
+      "sorun": "1) Kapsam: Phillips yalnız güneşe hitabın açılışını bildirir (DNB s. 34: 'the opening passage… was the speech of Satan… at the beginning of the fourth book'). G15 ise bütün iç konuşmayı “ilk dizeler” sayıyor.\n2) Yer: ödeme konuşmanın sonuna konmuş; G03'ten önce gelirse dizelere ağırlık kazandırır.\n3) “Ve ilk kez, ona acıyoruz” cümlesi duyguyu izleyiciye dikte ediyor. Şüpheci izleyicide direnç doğurur (“hayır, acımıyorum”). “İlk kez” de doğru değil, çünkü E07 zaten bir acıma anı. Acıma temasının asıl yeri H05 (“bana acıyan olmasa da”).",
+      "oneri": "- B13: “[mysterious] Yeğeninin anlattığına göre, bu hikâyenin bilinen en eski dizelerini Milton yıllar önce, bir tiyatro oyununun açılışı olarak yazmıştı. Ve o dizeler bir zafer şarkısı değildi: Şeytan'ın güneşe yaptığı bir itiraftı. Oraya geleceğiz.”\n- G02b (G02 ile G03 arasına, yeni): “[softly] Ve işte, Milton'ın yıllar önce yazdığı o ilk dizeler.”\n- G15: “[softly] Şeytan'ı ilk kez alkışlayan bir kalabalık olmadan görüyoruz. … Maskesiz.” (E04 ve G11'deki maskenin ödemesi.)\n- H05'ten sonra anlatıcı yorum yapmaz: “bana acıyan olmasa da” bir duraklama ve ekran yazısıyla yankılanır.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 9,
+      "id": "K03–K12",
+      "sorun": "K, 12 segmentlik bir anlatım dersi. Anlatıcı K08'deki “Gerçekten de” ile Lewis'in tarafını tutuyor. Blake'in iddiası için izleyicinin kendi deneyimi kanıt olarak hiç kullanılmıyor. K12 Abdiel'in alıntısını ödüyor, ama C13'ün sorusunu (“kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı?”) ödemiyor. K11'deki “ülkeyi tek başına yönetti” abartılı.",
+      "oneri": "- K03 ile K04 birleşir: “Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk başka bir şey gördü: Milton melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.”\n- K04b (yeni; izleyicinin belleği kanıt olur): “[softly] Kendine sor: bu hikâyeden aklında kalan sözler, kimin sözleri?”\n- K05: “Romantikler için o, destanın asıl kahramanıydı. Şeli'ye göre, Kayıp Cennet'teki Şeytan'ın enerjisini ve görkemini hiçbir şey aşamazdı.”\n- K06 ile K07 birleşir (Lewis).\n- K08: “Destanda bunun da izleri var: başmelekten karabataka, kurbağaya, yılana.” (“Gerçekten de” çıkar; görselde H03, H09 ve J06 hızla geri çağrılır.)\n- K09 ile K10 birleşir: “[thoughtfully] Peki ya Milton? Kralı deviren bir devrimin adamı, tahta başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Cenneti zorbalıkla suçlayıp, doğunun en zengin krallarınınkinden görkemli bir taht kuruyor.”\n- K11: “Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile, kralı deviren Kromvel tacı reddetti; ama Lord Koruyucu olarak bir kral gibi yönetti ve yerini oğluna bıraktı.” (Taç reddi 1657, notlar.md.)\n- K12: “[slowly] Abdiyel'i hatırla. Kalabalık Şeytan'ın peşinden “özgürlük” diye yürürken, tek başına duran oydu. Ve ona şunu söylemişti: “Sen özgür değilsin; kendi kendinin tutsağısın.” … Başkaldırı her zaman özgürlük müdür?”\n- İsteğe bağlı K12 ara cümlesi (kaynak kurulu doğrulamalı, notlar.md'de yok: The Readie and Easie Way, 1660): “Bin altı yüz altmış'ın baharında, herkes krala dönerken, Milton hâlâ cumhuriyeti savunan bir kitapçık yayımlıyordu.”",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 10,
+      "id": "A01, G07 (+E08)",
+      "sorun": "Türkçede “Cehennem benim” iki türlü okunur: sahiplik (“cehennem bana ait”, “Dünya benim” gibi) ve kimlik (“cehennem benim kendim”). A01'i ve kapak A'yı ilk kez gören izleyici bunu büyük olasılıkla bir böbürlenme (“cehennemin kralı”) olarak okur. Satan I.252'de gerçekten de cehennemin “yeni sahibi” olduğunu ilan eder. Bu belirsizlik bir kusur olarak bırakılırsa kancayı yanlış okutur. Açıkça ödenirse kapak tasarımının bir parçası olur.",
+      "oneri": "- E08'e I.252 eklenir (bkz. 5): “Ve sen, en derin cehennem, yeni sahibini karşıla.”\n- G07'den sonra yeni G07b: “[softly] En başta duyduğumuz söz bu. Gölün kıyısında cehenneme “yeni sahibin geldi” demişti. Şimdi “cehennem benim” derken sahibi olduğunu söylemiyor: cehennemin kendisi olduğunu söylüyor.”\n- Başkan bu yolu istemezse A01/G07 tek anlamlı biçime çevrilir: “Cehennemin kendisi benim.” Bu durumda kapak A metni de değişir.",
+      "onem": "orta"
+    },
+    {
+      "sira": 11,
+      "id": "B01–B14",
+      "sorun": "Milton bölümü ~1:45 sürüyor; Şeytan'ın hikâyesi ~2:30'da başlıyor. Kanca Şeytan'ı vaat etti, izleyici biyografi alıyor: kullanıcının “arşiv videosu” itirazının riski burada. Diğer bütün bölümlerin bir merak sorusu var, B'nin yok. B09 (kızların acısı) hiçbir yerde ödenmiyor. Çerçevenin asıl gücü olan iki paralellikten (ışığını kaybetmiş şair/melek, yenilmiş devrimci/asi) yalnız biri söyleniyor.",
+      "oneri": "Hedef 60–70 sn.\n- B00 (yeni, bölüm sorusu): “[curious] Hiçbir şey göremeyen bir adam, cehennemi nasıl bu kadar canlı görebildi?” Cevabı B11'de (iç ışık), son yankısı L10'da.\n- B01: “[thoughtfully] Londra, bin altı yüz elli iki. Con Milton kırk üç yaşında ve gözleri tamamen kararmış.”\n- B02–B04 iki cümleye iner: “Ama o yalnızca bir şair değildi: Kral Birinci Çarls'ın idamını savunmuş, kralı deviren devrimin hükümetinde çalışmıştı. Bin altı yüz altmış'ta krallık geri döndü; Milton saklandı, kitapları cellat eliyle yakıldı, kısa bir süre hapis yattı. Dostları sayesinde kurtuldu; ama artık kör, yoksul ve yenilmiş bir adamdı.” (DNB s. 33–34: 'Blind, infirm, and poor, depressed by the triumph of the principles which he most detested'.)\n- B06 ile B07 birleşir: “Dizeleri geceleri, uykusuzken kafasında kurardı. Kimi gece kızlarından birini uyandırıp yazdırır, kırk dizeyi bir solukta söyleyip yirmiye indirirdi. Sabahları da evde kim varsa ona yazdırırdı.”\n- B08 ile B09 birleşir: “İki küçük kızına, anlamını bilmedikleri dillerde okumayı öğretmişti. Kızlar, anlamadıkları sözcükleri göremeyen babalarına okurdu; yıllar içinde bu saatler onlar için dayanılmaz bir hâl aldı.”\n- B12: “Işığını ve davasını kaybetmiş bir şair; ışığını ve savaşını kaybetmiş bir meleği anlatacaktı.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 12,
+      "id": "D02, D03",
+      "sorun": "Abdiel'in sözü (D03) darbeden (D02) sonra “darbeden önce şunu söylemişti” diye geri dönüşle veriliyor. Bu, geri dönüşün içinde bir geri dönüş olur ve sözü vuruşsuz bırakır. Metindeki sıra (VI.172–181 söz, VI.189 darbe) daha güçlü: söz söylenir, darbe onu noktalar. Ayrıca kanatlarını “diz çökmeyeceğiz” diye açan asinin ilk kez diz çöktüğü an (VI.194 'on bended knee') geçiştiriliyor.",
+      "oneri": "- D02 (yeni): “Cennette savaş başlar. Abdiyel, ordunun önünde Şeytan'ı bulur ve ona şunu söyler: “Asıl kölelik, akılsıza hizmet etmektir. Seninkiler şimdi sana hizmet ediyor. Ama sen özgür değilsin; kendi kendinin tutsağısın.””\n- D03 (yeni): “[firmly] Ve ilk darbeyi vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler, onuncu adımda dizinin üstüne çöker.” İsteğe bağlı ek: “Diz çökmeyi reddeden melek, ilk kez diz çöküyor.” Motifin açık söylendiği yerler E14 ve J06 olduğu için bu ek isteğe bağlıdır; görselde aynı poz yeterli olabilir.",
+      "onem": "orta"
+    },
+    {
+      "sira": 13,
+      "id": "H07, E03",
+      "sorun": "H07'deki “Böyle konuştu iblis” ifadesi kullanıcı kararıyla çelişiyor (bkz. engelleyici). Ayrıca H07'deki büyük ironi (cenneti zorbalıkla suçlayan, zorbanın bahanesine sığınır) söylenmiyor. K10 da “Cenneti zorbalıkla suçlayan Şeytan” diyor, ama izleyici bu suçlamayı (I.124 'the tyranny of Heaven') hiç duymadı.",
+      "oneri": "- E03'ün sonuna: “O büyük düşman şimdi zaferle, cennetin zorbalığını tek başına sürdürüyor. Onunla asla barışmayacağız.” (I.122–124)\n- H07: “[firmly] Milton burada araya girer: “Böyle konuştu Şeytan; ve zorunluluğu, zorbaların o bilinen bahanesini, şeytanca işlerine kılıf yaptı.” … Cenneti zorbalıkla suçlayan, şimdi bir zorbanın bahanesine sığınıyor.” (IV.393–394)",
+      "onem": "orta"
+    },
+    {
+      "sira": 14,
+      "id": "L11",
+      "sorun": "Üç soru yorumları dağıtıyor; “Bleyk mi Luis mi?” sorusu zaten öteki ikisinin içinde. Kullanıcının istediği son sorular iki tane: gözyaşı ve başkaldırı.",
+      "oneri": "L11: “[curious] Peki sen ne düşünüyorsun? O gözyaşı pişmanlık mıydı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 15,
+      "id": "L12",
+      "sorun": "Prometheus'a geçiş genel kalıyor (“bir başka asi”) ve bitiş ekranına tıklamayı organik bir merakla beslemiyor. Kamu malı bir kaynak bu köprüyü hem kanalın başkaldırı damarına hem de kullanıcının “her başkaldırı özgürlük değildir” inceliğine bağlıyor: Shelley, Prometheus Unbound önsözü (1820). Shelley orada Şeytan'ı “the Hero of Paradise Lost” diye anar ve Prometheus'u daha şiirsel bir karakter bulur, çünkü onda 'ambition, envy, revenge, and a desire for personal aggrandisement' yoktur.",
+      "oneri": "L12: “[warmly] Şeli, Şeytan'ı bu destanın kahramanı sayıyordu. Ama ondan daha şiirsel bulduğu bir asi vardı: hırs, kıskançlık, intikam ve kendini yüceltme arzusu olmadan tanrılara direnen Prometeus. Onun hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, kanala abone olmayı unutma.” Kaynak notlar.md'de yok; kaynak kurulu alıntıyı doğrulamalı.",
+      "onem": "orta"
+    },
+    {
+      "sira": 16,
+      "id": "I10, J01",
+      "sorun": "I10 (“Peki bu zafer neye benzeyecek?”) ile J01 (“Zafer anında insan ne duymayı bekler?”) art arda aynı soruyu soruyor.",
+      "oneri": "I10'u yalnız “Kazanmıştır.” bırak; tek kelimelik sert bir vuruş olur. J01 korunur.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 17,
+      "id": "E10",
+      "sorun": "“Yani: cennette köle olacağıma…” açıklayıcı bir ton taşıyor. Oysa bu, Türk izleyicinin bildiği, sosyal medyada dolaşan bir söz: bir tanıma anı fırsatı.",
+      "oneri": "E10: “… Bu sözü belki başka bir hâliyle duymuşsundur: “Cennette köle olacağıma, cehennemde kral olurum.” Kaynağı burası.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 18,
+      "id": "F04, H11 (+C04, E02)",
+      "sorun": "Tanınma ve kimlik kaybı motifi dağınık duruyor. C04'te Şeytan eski adını kaybeder; E02'de arkadaşını zor tanır; F04'te kendi aklından doğanı tanımaz; H11'de tanınmaz; J06'da kendine şaşar. Bu zincir bir kez açıkça bağlanırsa F (Kapıdaki kız) bölümünün iç yolculuktaki yeri netleşir.",
+      "oneri": "- H11'in başına: “Kapıda kendi aklından doğanı tanımamıştı. Şimdi kimse onu tanımıyor.”\n- E02 sonuna isteğe bağlı: “Belzebub'un yüzünde, kendi düşüşünü görür.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 19,
+      "id": "C06 (isteğe bağlı)",
+      "sorun": "Çağrı anında izleyicinin kendi deneyimiyle bağ kurabileceği bir cümle yok. “Kendini küçültülmüş sayar” ifadesi soyut kalıyor. Empatinin kaldıracı, haklı çıkarma değil tanımadır.",
+      "oneri": "C06'nın sonuna: “[softly] Bu duyguyu tanırız: dün en öndeydin; bugün bir başkasının önünde eğilmen bekleniyor.” Oğul'la değil duygunun kendisiyle bağ kurar. Yine de hassasiyet okuru bakmalı.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 20,
+      "id": "L04, G14, E02 (görselleştirme)",
+      "sorun": "Kapanış karesi (Cabanel) ve kapak adayı B, kod çiziminin en zayıf alanı olan yüz yakın planını istiyor: kollar, göz, gözyaşı. G14'teki “yüzü üç kez değişir” ve E02'deki Belzebub'un yüzü de aynı sorunu taşıyor.",
+      "oneri": "- L04: tablonun kamu malı bir reprodüksiyonu kullanılabilir (telif kurulu karar versin) ya da yalnız göz ve kol bölgesi gravür taramasıyla stilize edilir. Kare yavaşça yaklaşır; gözyaşı karenin tek ve en parlak noktası olur (CLAUDE.md kapak dersi: tek odak).\n- G14: yüz yerine siluetin üzerinden üç kez geçen ışık ya da tarama yoğunluğu değişimi.\n- E02: lav yüzeyinde yansıma; Şeytan, Belzebub'a bakarken kendi yansımasını görür.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 21,
+      "id": "Bölüm soruları, D04, E07",
+      "sorun": "12 bölüm sorusunun 12'si de aynı [curious] etiketi ve çoğu “Peki…” kalıbıyla açılıyor; 20 dakikada bu bir şablon gibi duyulur. Hikâyenin içinde “Milton yazar/der” araya girmeleri bazı yerlerde izleyiciyi sahneden çıkarıyor.",
+      "oneri": "- Etiketleri çeşitlendir: H01 [whispers], J01 [darkly], G01 [softly].\n- D04: “Ve Şeytan, acıyı ilk kez o an tanır.” (“Ve Milton yazar” çıkar.)\n- C05'teki “Milton'ın anlattığına göre” korunur, çünkü hassasiyet gereği gerekli.",
+      "onem": "düşük"
+    }
+  ],
+  "yolculuk_haritasi": {
+    "0_kanca": "A01–A04. Olayın ortasından başlar: IV.75 + yanan göl; destanın kendisi de böyle başlar. Kapak A ile birebir. Kapak B (gözyaşı) için A04'te “ağlar” vaadi gerekli (düzeltme 3).",
+    "cerceve": "A05–A06, B (kör şair) → G02b → K09 → L10. Kuryenin dış hikâyesi. Ortada kayboluyor; G02b ile bir kez hatırlatılmalı.",
+    "1_siradan_dunya": "C02–C04: ışık dünyası, Lusifer, kaybolan ad. Kısa ve doğru.",
+    "2_cagri_esik": "C05–C10: Oğul'un yüceltilmesi → gece yarısı → “özgürlük” söylevi → ordunun üçte biri. Eşik bekçisi ve ayna karakter Abdiel'dir (C11–C12): kalabalığa uymayan tek kişi.",
+    "3_sinavlar_dostlar_dusmanlar": "D (savaş, ilk acı, düşüş), E (göl, Belzebub, gözyaşı, Pandemonyum, meclis, gönüllülük, taht), F (Günah ve Ölüm: kendi ürünüyle karşılaşma; Kaos; Uriel'in kandırılması).",
+    "4_buyuk_sinav": "G (Nifates). Sınav içseldir: pişmanlık mı, gurur mu? Kahraman bu sınavı kaybeder (G13 “Kötülük, sen benim iyiliğim ol”). Videonun ortasında, Freytag trajedisinin dönüm noktası. Kalıba zorlamıyorum: Şeytan dönüşü olmayan bir trajik kahraman.",
+    "5_bedel_odul": "H–I. Ödül zaferdir (I08–I09). Bedel kendi biçimi (I04 “Ne iğrenç bir iniş!”) ve kaçırılan iki kapı: sevebilmek/acıyabilmek (H05) ve “sersemlemiş gibi iyi” kalmak (I06).",
+    "6_kirilma": "J: alkış → tıslama → yılan. Kırılma Nifates'te olur, J'de görünür hâle gelir. Kanalın imzası olan “yolculuk nerede kırıldı?” sorusu L09'da açıkça sorulmalı.",
+    "7_iksir": "Dönüşü ve iksiri Şeytan değil, Âdem ile Havva taşır (L07–L08: söyleyemediği kelimeyi onlar söyler; “dünya önlerindedir”). Kalıbın kırıldığı yer burası ve videonun asıl fikri. Bu yüzden L07–L08 hikâyenin sonuna, K'den önce gelmeli. Ardından K (iki okuma) ve L (Cabanel, gözyaşı, iki soru) gelir.",
+    "8_bitis": "L12: Prometheus. Shelley köprüsü önerildi (düzeltme 15)."
+  },
+  "istek_ihtiyac": {
+    "istedigi": "Diz çökmemek, ikinci olmamak (V.782 'Knee-tribute… prostration vile', V.787). Sonra hüküm sürmek (I.263), intikam ve alkış (X.504–505 'expecting their universal shout, and high applause').",
+    "ihtiyaci": "“Boyun eğmek” kelimesini söyleyebilmek: gururundan özgürleşmek, “sıradan bir melek” olmayı kabul edebilmek (IV.58–61). Abdiel'in teşhisiyle: kendi kendinin tutsaklığından kurtulmak (VI.181).",
+    "trajik_ironi": "İstediklerinin hepsini alır: taht (E14), zafer (I09). Hepsi tersine döner: tıslama (J05), karnı üstünde sürünen yılan (J06). İhtiyacını görür (G09, G12) ve reddeder (G13). Senaryo bu omurgayı taşıyor. Eksik olan iki şey: isteğin bir motif olarak (diz çökme) görünür kılınması ve kalabalık ironisinin (E07 → G10 → J05) açıkça bağlanması."
+  },
+  "kurulum_odeme": [
+    {"kurulum": "A04", "odeme": "G09, L09", "durum": "zayıf", "not": "L09 kelimeyi söylemiyor; zincirin kelime mi gurur mu olduğu belirsiz. Düzeltme 2 ve 3."},
+    {"kurulum": "E07", "odeme": "L05, L06", "durum": "tutuyor, güçlendirilmeli", "not": "Gözyaşının nedeni (sadık kalan ordu) eksik. L06, I.603–605 ile tahminden metne dayalı açılışa çevrilmeli. Düzeltme 5 ve 6."},
+    {"kurulum": "C13, D03", "odeme": "K12", "durum": "yarım", "not": "Alıntı ödeniyor, C13'ün “kalabalığa karşı tek başına duran” sorusu ödenmiyor. Düzeltme 9."},
+    {"kurulum": "B13", "odeme": "G15", "durum": "tutuyor ama yeri ve kapsamı yanlış", "not": "Ödeme G03'ün önüne (G02b) taşınmalı ve “bilinen en eski” denmeli. Düzeltme 8."},
+    {"kurulum": "G10 (kalabalığın önünde rezil olma korkusu)", "odeme": "J05", "durum": "ödenmemiş", "not": "Videonun en güçlü ironisi. Düzeltme 4."},
+    {"kurulum": "E14 (önünde diz çökülen kral)", "odeme": "J06 (karnı üstünde)", "durum": "ödenmemiş", "not": "Düzeltme 4."},
+    {"kurulum": "A01 (“Cehennem benim”)", "odeme": "G07", "durum": "tutuyor", "not": "Çift anlam (sahiplik/kimlik) G07b ile bir ödemeye çevrilebilir. Düzeltme 10."},
+    {"kurulum": "F08 (ikiyüzlülüğü kimse göremez)", "odeme": "G14 (Uriel gördü)", "durum": "tutuyor", "not": "İyi kurulmuş."},
+    {"kurulum": "E04 (acı içinde böbürlenme)", "odeme": "G11 (içimde nasıl inlediğimi bilmiyorlar)", "durum": "tutuyor", "not": "Maske motifi; G15 “Maskesiz” ile kapanabilir."},
+    {"kurulum": "I.124 (cennetin zorbalığı)", "odeme": "H07, K10", "durum": "kurulum eksik", "not": "İzleyici suçlamayı hiç duymuyor. Düzeltme 13."},
+    {"kurulum": "B11 (gözler aç ki göreyim)", "odeme": "L10", "durum": "tutuyor, sıkılaştırılabilir", "not": "Öneri L10: “[softly] Kör şair, ölümlü gözün göremediğini görmek için ışık istemişti. Belki gördüğü buydu: cehennem bir yer değil; insanın içinde taşıdığı bir şey.”"},
+    {"kurulum": "B02 (devrimci Milton)", "odeme": "K09, K11", "durum": "tutuyor", "not": ""}
+  ],
+  "ozet_degerlendirme": {
+    "empati": "Empati doğru yerde kuruluyor ve dozu doğru. Basamaklar: E04 maske → E07 gözyaşı → G Nifates (özellikle G12'deki, ödünün geri alınacağını bilen dürüstlük) → H05 “bana acıyan olmasa da” → I06 “sersemlemiş gibi iyi” → J aşağılanma. Karşı ağırlıklar (C06, H07, H09, I08) Şeytan'ı güzellemiyor. İzleyici Nifates'te ve H05'te gerçekten acıyacak. Ama G15 bunu söyleyerek bozuyor; son dört dakika (K) da acımayı bir tartışmaya çeviriyor. Sıralama düzeltmesiyle son duygu, Cabanel'in gözyaşı ve L09'daki “kendi eliyle taktığı zincir” olur.",
+    "doruk_ve_son": "Duygusal doruk G (orta), görsel doruk J (yılana dönüşüm), kapanış L. Trajedi için bu eğri doğru. Ancak YouTube verisi doruk anını son dakikaya istiyor. Düzeltme 1, 2 ve 6 ile son dakika L06 + L09 olur: metne dayalı bir açılış, kancanın ödemesi ve ironinin kapanışı. Abone çağrısı L12'de kalabilir.",
+    "iki_okuma": "Şu hâliyle K duygusal akışı kesiyor: felaketten sonra 1:50'lik bir ders. Hikâye L07–L08 ile önce kapanırsa ve K izleyicinin kendi belleğini kanıt olarak kullanırsa (K04b), aynı içerik bir yansıma anına dönüşür. Tohum C06'da ekilmiş olur.",
+    "milton_cercevesi": "Hikâyeye gerçekten bir şey katıyor: (1) ışığını kaybetmiş şair ile ışığını kaybetmiş melek, (2) yenilmiş devrimci ile yenilmiş asi, (3) B13'ün açık döngüsü. Ama B çok uzun, kendi sorusu yok ve hikâyenin başlamasını geciktiriyor. 60–70 saniyeye inmeli, ortada (G02b) bir kez hatırlatılmalı ve L10'da B11'in duasıyla kapanmalı."
+  },
+  "korunmali": [
+    "A01–A02: olayın ortasından açılış. IV.75 + “görünür bir karanlık”; destanın kendi açılışı ve kapak vaadiyle aynı.",
+    "E04: “acı içinde böbürleniyordu; içi umutsuzlukla kıvranırken”. Maske motifinin kurulumu ve iç yolculuğun anahtarı.",
+    "G04–G13 (özellikle G05, G09, G12): Nifates iç konuşması. G12'de, pişman olsa bile yükselince ödünü geri alacağını bilmesi, karakterin en modern ve en acıklı anı.",
+    "I06: “sersemlemiş gibi iyi” (IX.465). Kötülüğün bir an elinden düştüğü an; empatiyi yargıya dönüştürmeden kurar.",
+    "J04–J07: alkış beklentisi → tıslama → yılana dönüşüm. Hem anlatının felaketi hem kod çiziminin en güçlü alanı."
+  ],
+  "en_emin_olmadigim_nokta": "Son bölümün sırası. Kullanıcının planı Cabanel'i kapanış sahnesi yapıyor; ben de buna göre önerdim (L07–L08 öne, Cabanel sona). Ama destanın kendi son imgesi (Âdem ile Havva'nın el ele, dünyaya yürümesi) belki daha güçlü ve daha umutlu bir son kare. Hangisinin son dakikada daha iyi tutacağını yalnız kurgu (animatik) gösterir. İkinci belirsizliğim: “Cehennem benim” çift anlamını ödemeye çevirmek (G07b) mi, yoksa tek anlamlı bir biçime geçmek mi? Bu kapak A'yı doğrudan etkiler; Kanca ve tutma kurulundaki “ilk kez gören izleyici” üyesi buna bakmalı."
+}

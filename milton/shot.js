@@ -8,8 +8,8 @@ const path = require('path'); const fs = require('fs');
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   page.on('console', m => console.log('[page]', m.text()));
   page.on('pageerror', e => console.log('[err]', e.message));
-  const q = new URLSearchParams({ render: 1, ...(process.env.SCENE ? { scene: process.env.SCENE } : {}), ...(process.env.RS ? { rs: process.env.RS } : {}) });
-  await page.goto('file://' + path.resolve(__dirname, 'film.html') + '?' + q);
+  const q = new URLSearchParams({ render: 1, ...(process.env.EXTRA ? Object.fromEntries(new URLSearchParams(process.env.EXTRA)) : {}), ...(process.env.SCENE ? { scene: process.env.SCENE } : {}), ...(process.env.RS ? { rs: process.env.RS } : {}) });
+  await page.goto('file://' + path.resolve(__dirname, process.env.PAGE || 'film.html') + '?' + q);
   await page.evaluate(() => window.ready);
   const mb = +(process.env.MB || 1);
   for (const t of ts) {
