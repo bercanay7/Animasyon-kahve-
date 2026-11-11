@@ -1,0 +1,215 @@
+{
+ "uye": "A-Dil",
+ "karar": "ONAY",
+ "puanlar": {
+  "K1": 9.5,
+  "K2": 9.0,
+  "K3": 9.5,
+  "K4": 9.0,
+  "K5": 9.5,
+  "K6": 9.0,
+  "K7": 8.5
+ },
+ "agirlikli": 9.2,
+ "puan_gerekceleri": {
+  "K1": "Yeni ve değişen alıntıları özgünle karşılaştırdım (II.756, III.51–55, IV.103–104, VI.183–186, IX.169–172, X.516, XII.69–70): sadık. Kalanlar küçük: K11'de bir basamağın açıklamaya dönüşmesi, D06 'bir zamanlar'.",
+  "K2": "Dize, kimlik, paradoks, 'Onu orada tutan ne?': açılış dil olarak temiz. A06'daki 'yazdıran' tek pürüz.",
+  "K3": "Soru zinciri artık sözcük düzeyinde de kapalı: A03 'Onu orada tutan ne?' → J11 → L06 → L08 aynı sözcüklerle. D03 ↔ E07 (hükümdar, hizmetkâr), F03 ↔ H11 (benzemek), B01 → L09 (görmek). L08'deki 'öbür yarısını' küçük bir kopukluk.",
+  "K4": "Çift söylenenler temizlenmiş; alkış sahnesi bölünmüyor. Eklenen cümlelerin her biri bir kurulum ya da ödeme taşıyor.",
+  "K5": "G bölümü Türkçede doğal bir iç ses olarak okunuyor; G16 ve L08b izleyiciyi yargıya zorlamadan içeri alıyor.",
+  "K6": "Tur 2'deki kritik ve yüksek maddelerin hepsi karşılandı; programla taradığım etiket kuralı tutuyor. Kalanlar üç orta (K07, L08, L09) ve küçükler; hepsi tek cümlelik.",
+  "K7": "B04 (yanan kitaplar, saklanan kör yazar) gravür için güçlü bir sahne ekledi. Yüz yakın planına yaslanan anlar (E10, G15, L03) duruyor."
+ },
+ "dogrulama": [
+  {
+   "bulgu": "A-Dil tur 2, 1 (engelleyici): C05'te özne düşmüş",
+   "durum": "karşılandı",
+   "not": "'O gece yarısı başmelek, yardımcısını gizlice uyandırır. Ordularına bir yalan söyletir…' Özne açık; engelleyici kalktı."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 2: G13 'O barış', 'Bunu beni'; L08'de yanlış yarım alıntı, 'O kapı', 'okuma'",
+   "durum": "karşılandı",
+   "not": "G13: 'Beni cezalandıran da bunu biliyor. Bu yüzden, barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.' (IV.103–104, 'therefore' yerinde). L08 dizenin ikinci yarısını alıntılıyor ve 'bağışlanma yolu' diyor; 'okuma' terimi çıkmış. L08'de yeni küçük pürüz: 'öbür yarısını' (düzeltme 2)."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 3: L04 ve L05'te özne kayması, 'Milton'da / Milton da'",
+   "durum": "karşılandı",
+   "not": "L04: 'destanda bir karşılığı var: Milton'ın Şeytan'ı da… ağlar'. L05: 'Şeytan destanın bir yerinde ağlıyor; başka bir yerinde, “boyun eğmek” sözünü kendine yasaklıyor.'"
+  },
+  {
+   "bulgu": "A-Dil tur 2, 4: L07 'kendi ağzından', 'zincir… bir zincirdi'",
+   "durum": "karşılandı",
+   "not": "'Krallığı buldu; zinciri de. Ama o zinciri ona kimse vurmadı. Kendi eliyle vurdu: gururu.' Abdiyel'in sözü tırnak içinde. G09b ve L07'de dize birebir aynı: 'Ama o sözü bana gururum yasaklıyor' (özgüne de daha yakın: 'forbids me')."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 5–10: B02, C09, A05, E11, E09, E05",
+   "durum": "karşılandı",
+   "not": "B02 yeniden kurulmuş, körlük tekrarı azalmış ('Bir adam uyuyamıyor'); C09 'Peki neden başkaldırdı? Ona sorsan…'; A05 'destanından… bu hikâyeyi'; E11 'onun suçu yüzünden'; E09 'o mızrağa yaslanarak'; E05 'göklerin izniyle'."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 11: E04 sarkan '-ken'",
+   "durum": "karşılandı",
+   "not": "'…böbürleniyordu; ama içi derin bir umutsuzlukla kıvranıyordu.' Yeni eklenen cümlede küçük bir tekrar var (düzeltme 9)."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 12: K03",
+   "durum": "kısmen",
+   "not": "Dolaylı anlatıma çevrilmiş ve soruyla açılıyor ('Peki Şeytan da dileyebilir miydi?'); 'bunu' öncülsüzlüğü kalktı. 'en başta' (III. kitap) ve 'merhamet bulacak' duruyor; ikisini de artık kabul edilebilir buluyorum."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 13: B05 'bir süre hapse atıldı', 'Destana devrim'",
+   "durum": "kısmen",
+   "not": "Hapis cümlesi çıkmış, B04 tek sahne olmuş. 'Destana devrim henüz ayaktayken başlamıştı' aynen duruyor (düzeltme 8)."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 14–19: B08, L11, H11, bölüm adı A, J09, C03",
+   "durum": "karşılandı",
+   "not": "B08 yalın hâlinde; L11 'Şair Şeli'ye göre…' diye tanıtıyor; H11 'küçümseyerek… Meleklerden biri'; bölüm adı 'Ben cehennemim'; J09 tekil; C03 'çekinerek, ona Lüsifer adını yakıştırır'."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 20: tekrar eden kalıplar ve süre",
+   "durum": "kısmen",
+   "not": "Çift söylenenler temizlenmiş (C03'ün yıldız cümlesi, K14'teki Abdiyel tekrarı, K09). Kendi sayımımla altyazıda cümle başı 'Ve' 14, 'Ama' 17 (rev2: 14 ve 21); KURUL.md'deki 8 ve 7 segment başını sayıyor. [curious] 11. 2.586 kelime; süre artık ölçüt değil, eklenen cümleler (F03 'Sana benziyordum', L06 basamağı, L08b) hikâyeye bir şey katıyor."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 21: tts 'Milton'ın', etiket sızıntıları, eski kimlikli göndermeler",
+   "durum": "karşılandı",
+   "not": "tts'te 13 yerde 'Milton'un', altyazıda 'Milton'ın'; sözcük sayısı aynı. H05, H06, J03, K16 düzelmiş ('der'ler atılmış, altyazıdaki ',” der' de kalkmış). `kaynak` alanlarında var olmayan kimliğe gönderme kalmamış (programla tarandı)."
+  },
+  {
+   "bulgu": "A-Dil tur 2, 22–29 (düşük): A06, B09, C06, C11, D03, E10, K06/K11/K13, L09",
+   "durum": "kısmen",
+   "not": "C11 ve K13 düzelmiş. Ötekiler duruyor; son toplu maddede yeniden verdim."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 1 (yüksek): I01 [whispers]",
+   "durum": "karşılandı",
+   "not": "'[darkly] İntikam, tatlı mıdır?' Metinde [whispers] yok."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 2 (yüksek): H06, K07, K11, K16 sızıntıları",
+   "durum": "karşılandı",
+   "not": "H06 '[wistfully] “…” [calmly] Ama hemen ekler'; K07 [passionately]; K11 [wryly]; K16 '[firmly] “…” [thoughtfully] Başkaldırı…'. Programla tarandı: 139 segmentin hepsi etiketle başlıyor; alıntı kapanışından sonra etiketsiz anlatıcı kalmamış. Tek istisna H07: şairin sözü anlatıcıyla aynı [gravely] içinde; bilinçli görünüyor."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 3 (yüksek): çekim uzunluğu, vo_parca",
+   "durum": "kısmen",
+   "not": "Alan senaryoda var ve 28 çekim, en uzunu 139 kelime (kendi sayımım tutuyor). Araçlar alanı okumuyor (düzeltme 4)."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 4 (yüksek): A01/G07/G08 etiketleri",
+   "durum": "karşılandı",
+   "not": "A01 '[slowly] [softly]'; G07 '[anguished] … [slowly] [softly] Hangi yana kaçsam cehennem. Ben cehennemim.'; G08 [trembling]. Dize iki yerde harfi harfine aynı."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 5–10 (orta): J06'nın yeri, [calmly] dozu, noktalı virgüller, L08 etiketi",
+   "durum": "karşılandı",
+   "not": "Sıra J05 → J07 → J08 → J06 → J09. [calmly] ile başlayan segment 49 (programla sayıldı). tts'te L03 'Gözleri öfkeli. Ve dolu.', F02 ve I06 düzelmiş. L08 alıntısı [bitterly], G13 ile aynı."
+  },
+  {
+   "bulgu": "A-Ses tur 2, 11–12: araçlar (Whisper ipucu, merge.json, sec.py) ve ses karesi",
+   "durum": "karşılanmadı",
+   "not": "Senaryo kapısının dışında; seslendirme aşamasının işi. KURUL.md'de ayrıca kayda geçmemiş; seslendirme kontrol listesine alınmalı."
+  }
+ ],
+ "engelleyici": [],
+ "duzeltmeler": [
+  {
+   "sira": 1,
+   "id": "K07",
+   "sorun": "'Çünkü, der Blake, gerçek bir şairdi': araya giren 'der Bleyk' sözü seste virgül duraklarıyla ayrışmıyor (A-Ses'in ölçümüne göre virgül 0,06 sn). Kulakta 'Bleyk gerçek bir şairdi' diye birleşebiliyor; özne Milton'dan Blake'e kayıyor. Atıf (hassasiyet kararı) korunarak düz sıraya çevrilebilir.",
+   "eski": "…Çünkü, der Blake, gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "oneri": "[calmly] Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk bambaşka bir şey ileri sürdü: [passionately] Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Bleyk'in gerekçesi şuydu: Milton gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "onem": "orta"
+  },
+  {
+   "sira": 2,
+   "id": "L08",
+   "sorun": "Rev3'ün getirdiği küçük gerileme: 'Ama destan öbür yarısını da söyler' cümlesindeki 'öbür yarı' artık öncülsüz. Rev2'de L07 'Cevabın yarısını… duyduk' diye başlıyordu; rev3'te L07 'Nifates Dağı'nda bir çıkış görmüştü' oldu, 'yarı' sözü kalktı. Ayrıca art arda 'destan… destanında'.",
+   "eski": "Ama destan öbür yarısını da söyler: Milton'ın destanında bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. …",
+   "oneri": "[thoughtfully] Ama destan bir şey daha söyler: bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: [bitterly] “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” [thoughtfully] Onu orada tutan gururu muydu, yoksa Milton'un ona hiç açmadığı bir kapı mı? (altyazıda 'Milton'ın')",
+   "onem": "orta"
+  },
+  {
+   "sira": 3,
+   "id": "L09",
+   "sorun": "Işığa yakarış B bölümünden buraya taşınınca alıntının başındaki 'Öyleyse' dayanaksız kaldı: özgünde 'So much the rather' bir önceki dizelere (körlüğe) bağlanır, burada ise önünde 'tek bir şey diler' var. Kapanış cümlesindeki 'Belki de… içinde de' çifte 'de' de duruyor.",
+   "eski": "…Destanın bir yerinde tek bir şey diler: “Öyleyse sen, göksel ışık, içime parla. …” Belki de bu yüzden, insanın içinde de bir cehennem taşıyabileceğini en iyi o gördü.",
+   "oneri": "[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: [reverently] “Sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” [thoughtfully] Belki de bu yüzden, insanın kendi içinde bir cehennem taşıyabileceğini en iyi o gördü.",
+   "onem": "orta"
+  },
+  {
+   "sira": 4,
+   "id": "GENEL: vo_parca (tools/vo_sections.py, tools/build_vo.py)",
+   "sorun": "A-Ses'in tur 2 bulgusu (madde 3) yarı yarıya karşılandı. Senaryoda 15 segment 'vo_parca: 1' taşıyor ve bölümlerle birlikte 28 çekim çıkıyor (kendi sayımım: en uzunu E06–E11, 139 kelime; G bölümü 117/76/124). Ama araçlar alanı okumuyor: vo_sections.py (satır 8) ve build_vo.py (satır 21) hâlâ yalnız 'bolum'a göre grupluyor. Bu hâliyle 'Güneşe itiraf' yine tek çekimde 317 kelime üretilir. Senaryo kapısını engellemez; seslendirmeden (kredi) önce zorunlu.",
+   "eski": "if not secs or secs[-1]['ad'] != s['bolum']: …",
+   "oneri": "Gruplama koşuluna 'or s.get(\"vo_parca\")' eklensin; parça adı 'Güneşe itiraf/2' gibi olsun ve vo/secim.json anahtarı da bu ad olsun. 'bolum' alanına dokunulmasın (YouTube bölümleri ondan çıkıyor).",
+   "onem": "orta"
+  },
+  {
+   "sira": 5,
+   "id": "K14",
+   "sorun": "'yeryüzünün ilk zorbasını öğrenen Âdem': 'birini öğrenmek' Türkçede kurulmuyor; kastedilen 'ilk zorbanın haberini alan / ilk zorbadan söz edilince'.",
+   "eski": "Milton son kitapta, yeryüzünün ilk zorbasını öğrenen Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
+   "oneri": "[calmly] Milton son kitapta, yeryüzünün ilk zorbasını haber alan Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
+   "onem": "düşük"
+  },
+  {
+   "sira": 6,
+   "id": "J09",
+   "sorun": "J06 buraya taşınınca aynı şey art arda iki kez söyleniyor: J06 'alkış yerine tıslama yükseliyor', J09 'Alkışlar tıslamaya… dönüşür'. J09'un ikinci cümlesinde 'kendi ağızlarından' çoğulunun öncülü de (şeytanlar) iki segment geride.",
+   "eski": "…Alkışlar tıslamaya, zafer kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "oneri": "[gravely] Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Şeytanların zaferi, kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "onem": "düşük"
+  },
+  {
+   "sira": 7,
+   "id": "K11",
+   "sorun": "'Oradan casusa; yatak odası ya da banyo pencerelerinden içeri bakan bir şeye.': noktalı virgül ikinci öğeyi 'casus'un açıklaması yapıyor. Lewis'te bu ayrı bir basamak ('and thence to a thing that peers…'). Telifli kısa alıntı olduğu için basamak sayısı özgünle aynı kalmalı.",
+   "eski": "…Oradan casusa; yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. …",
+   "oneri": "…[wryly] “Kahramandan generale. Generalden politikacıya. Politikacıdan casusa. Oradan, yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”",
+   "onem": "düşük"
+  },
+  {
+   "sira": 8,
+   "id": "B04, B05",
+   "sorun": "B04 çok iyi bir sahne oldu ('Alevleri göremezdi; sekiz yıldır kördü'). İki küçük pürüz: 'cellat onun kitaplarını ateşe atarken, yazarı saklanıyordu' aynı kişiyi iki ayrı adla anıyor ('onun… yazarı'). B05'te tur 2'de yazdığım 'Destana devrim… başlamıştı' çözülme sorunu duruyor ('devrim' ilk anda özne gibi duyuluyor).",
+   "eski": "…Londra'da cellat onun kitaplarını ateşe atarken, yazarı saklanıyordu. … / Destana devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
+   "oneri": "…Londra'da cellat kitaplarını ateşe atarken, kendisi saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü. / [calmly] Destanına, devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
+   "onem": "düşük"
+  },
+  {
+   "sira": 9,
+   "id": "E04",
+   "sorun": "Sarkan '-ken' düzeldi. Yeni cümlede 'Şair bu sözlerin… / bu sözlerin şairi' aynı iki sözcük çapraz tekrarlanıyor.",
+   "eski": "…Destan yayımlandığında, bu sözlerin şairi de bir savaşı kaybetmişti.",
+   "oneri": "…[softly] Destan yayımlandığında, onu yazdıran adam da bir savaş kaybetmişti.",
+   "onem": "düşük"
+  },
+  {
+   "sira": 10,
+   "id": "L06, I06",
+   "sorun": "L06: 'Bir cevabı duyduk' (belirsiz 'bir' ile belirtme eki) aksıyor. I06: 'Sabah, yılanın içinde, Havva'yı bahçede yalnız görür' diziminde 'yılanın içinde' ilk anda Havva'ya bağlanabiliyor.",
+   "eski": "L06: …Bir cevabı duyduk: Cehennemi içinde taşıyordu. … / I06: Sabah, yılanın içinde, Havva'yı bahçede yalnız görür.",
+   "oneri": "L06: …İlk cevabı duyduk: Cehennemi içinde taşıyordu. Peki içindeki o cehennemden bir çıkış var mıydı? / I06: Sabah, yılanın gözlerinden, Havva'yı bahçede yalnız görür.",
+   "onem": "düşük"
+  },
+  {
+   "sira": 11,
+   "id": "GENEL: etiket yazımı ve sayım",
+   "sorun": "(a) Aynı duygu iki yazımla: D08 ve F07 '[awed]', E09 ve E12 '[in awe]'. G08 ve G09 '[trembling]' (A-Ses madde 13: kılavuzdaki biçim '[trembling voice]'). (b) KURUL.md 'cümle başında Ve 8, Ama 7' diyor; bu sayı segment başını sayıyor. Altyazıda cümle başı sayılınca 'Ve' 14 (rev2: 14), 'Ama' 17 (rev2: 21). Sorun saymıyorum; kayıtta ölçü adı düzeltilsin.",
+   "eski": "[awed] / [in awe]; [trembling]",
+   "oneri": "Dört yerde '[in awe]', iki yerde '[trembling voice]'. İsteğe bağlı: C06 'Orada konuşur.', I05 'Farkında olmadan kendi sonunu söyler:' ('Ve' düşer).",
+   "onem": "düşük"
+  },
+  {
+   "sira": 12,
+   "id": "Tur 1–2'den kalan küçükler",
+   "sorun": "Başkanın 'tur 3'te yeniden bakılacak' dediği maddeler. Metne yeniden baktım; aşağıdakiler duruyor. Hiçbiri onayı etkilemiyor; seslendirmeden önce toplu geçilebilir.",
+   "eski": "A06 'bu destanı yazdıran şair' · B09 'Yeğeninin anlattığına göre' · B10 'önce… önceki' · C06 'Sözlerindeki kelime' · D02 'kendinden üstüne başkaldırana' · D05 'yarar' · D06 'bir zamanlar parlayan' · E10 'kaşlarının altında gurur' · E13 'savaş ister, … katlanmayı' · F09 'bir dağın, Nifates'in tepesine' · H09 ve K11 'kurbağa' · H11 'İyi olmaktan çıktığın gün' · J03 'Gülmeye değmez mi?' · K06 'insanlara karşı yollarının' · K11 'yükselişin değil, küçülmenin' · K15 'elinden alınan… geri istemek' · L03 've dolu' · L08b 'herkesin, söylemeyi' · L10 'Yorumlarda yaz' · G10 'Gururu, ve' · G14 yan yana iki tırnak bloğu",
+   "oneri": "A06 'bu destanın şairi' · B09 'Milton'un yeğeninin anlattığına göre' · B10 'Ama önce o meleği, henüz düşmemişken görelim.' · C06 'Dilinden düşürmediği kelime' · D02 'kendinden değerlisine başkaldırana' · D05 'yarıp geçer' · D06 'az önce parlayan' · E10 'kaşlarında gurur' · E13 'savaş açmayı ister, … katlanmayı' · F09 'Nifates Dağı'nın tepesine' · 'kara kurbağası' · H11 'İyi olmayı bıraktığın gün' · J03 'Gülmeye değer, değil mi?' · K06 'Tanrı'nın yollarının adil olduğunu insanlara göstermek' · K11 'yükselişin değil, alçalışın' (I04–I05 ile aynı sözcük) · K15 'insanların elinden alınan… geri almak' · L03 've dolu dolu' · L08b virgülsüz · L10 'Yorumlara yaz' · G10 altyazıda 'Gururu… ve' · G14 tek tırnak",
+   "onem": "düşük"
+  }
+ ],
+ "en_emin_olmadigim_nokta": "K07'deki 'Çünkü, der Bleyk, gerçek bir şairdi' gerçekten yanlış duyulur mu, yoksa cümlenin devamı ('farkında olmadan Şeytan'ın tarafındaydı') özneyi kurtarır mı: bunu ancak ses belirler; metinde riskli gördüğüm için düz sırayı önerdim. İkinci olarak tts'teki 'Milton'un' ile altyazıdaki 'Milton'ın' farkı Whisper karşılaştırmasında ve kelime eşlemesinde sorun çıkarmamalı (sözcük sayısı aynı), ama bunu çalıştırıp görmedim. Üçüncü olarak yeni etiketlerin ([anguished], [coldly], [scornfully], [passionately]) bu seste nasıl çıkacağı ve [calmly] dozunun yeterince inip inmediği metinden bilinemez; ses karesi şart."
+}

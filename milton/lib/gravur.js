@@ -15,6 +15,8 @@ const GR = (() => {
   const w = DW, h = DH;
   const tc = makeCanvas(w, h), tx = tc.getContext('2d', { willReadFrequently: true });
   const pc = makeCanvas(w, h), px = pc.getContext('2d', { willReadFrequently: true });
+  // üst katman (ox): basmadan sonra çıktıya bindirilen keskin çizgiler (kontur, beyaz çizgi, göz ışığı)
+  const oc = makeCanvas(w, h), ox = oc.getContext('2d');
   const PAPER = [230, 223, 207], INK = [26, 23, 21];
   // pürüzsüz 1B gürültü tablosu (çizgi titreşimi), 1024 örnek, dairesel
   const NZ = new Float32Array(1024);
@@ -80,7 +82,8 @@ const GR = (() => {
   function begin(bgTone = 1, bgTh = 0, bgId = 1, c = null) {
     cam = c || { x: 0, y: 0, s: 1 };
     patches = []; cache = new Map(); fm = new DOMMatrix(); fRot = 0; fFlip = false;
-    for (const cx of [tx, px]) { cx.setTransform(RS, 0, 0, RS, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.filter = 'none'; }
+    for (const cx of [tx, px, ox]) { cx.setTransform(RS, 0, 0, RS, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.filter = 'none'; }
+    ox.save(); ox.setTransform(1, 0, 0, 1, 0, 0); ox.clearRect(0, 0, w, h); ox.restore();
     tx.fillStyle = tone(bgTone); tx.fillRect(0, 0, W, H);
     px.fillStyle = hatch({ th: bgTh, id: bgId }); px.fillRect(0, 0, W, H);
   }
@@ -148,10 +151,11 @@ const GR = (() => {
     }
     out.save(); out.setTransform(1, 0, 0, 1, 0, 0);
     out.putImageData(img, 0, 0);
+    out.drawImage(oc, 0, 0);
     out.restore();
   }
   // evre arabelleğine yazan modüller (FG.sculpt) için: yama rengi baytları
   function bufBytes(id) { const n = patches.length; patches.push({ t: 3, id }); return [n & 255, n >> 8, HB[n]]; }
-  return { tc, tx, pc, px, STY, PAPER, INK, PHB, tone, pat, hatch, patGrad, phaseOf, begin, fill, getCam: () => cam, bufBytes,
+  return { tc, tx, pc, px, oc, ox, STY, PAPER, INK, PHB, tone, pat, hatch, patGrad, phaseOf, begin, fill, getCam: () => cam, bufBytes,
     setT, frame, unframe, save, restore, engrave, inkCol: `rgb(${INK})`, paperCol: `rgb(${PAPER})` };
 })();

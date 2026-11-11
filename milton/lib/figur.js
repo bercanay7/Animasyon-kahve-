@@ -267,6 +267,74 @@ const FG = (() => {
     spline(P, U.map(([x, y]) => { x *= dir * h; y *= h; return [cx + x * c - y * s, cy + x * s + y * c]; }), true, .55);
     return P;
   }
+  // gövde dış hattı (omuzlar, bel, kalça)
+  function torsoPath(J, h, k = 1) {
+    const { shL, shR, hpL, hpR, nk } = J, P = new Path2D();
+    const mid = [(shL[0] + shR[0] + hpL[0] + hpR[0]) / 4, (shL[1] + shR[1] + hpL[1] + hpR[1]) / 4];
+    const wc = (p, q) => [lerp(mid[0], p[0], q * k), lerp(mid[1], p[1], q)];
+    const wst = (sh, hp) => [lerp(sh[0], hp[0], .5) + (mid[0] - lerp(sh[0], hp[0], .5)) * .16, lerp(sh[1], hp[1], .5)];
+    spline(P, [wc(shL, 1.12), wst(shL, hpL), wc(hpL, 1.06), [lerp(hpL[0], hpR[0], .5), lerp(hpL[1], hpR[1], .5) + h * .15],
+      wc(hpR, 1.06), wst(shR, hpR), wc(shR, 1.12), [nk[0], nk[1] + h * .1]], true, .9);
+    return P;
+  }
+  // zırh: göğüslük (orta sırtlı, karında yatay levhalar), omuzluklar, boyunluk. Doré'nin Şeytan'ındaki gibi; çıplaklık çağrışımı bırakmaz.
+  function armor(J, h, sh = {}) {
+    const { shL, shR, hpL, hpR, nk } = J;
+    const sc = [(shL[0] + shR[0]) / 2, (shL[1] + shR[1]) / 2], hc = [(hpL[0] + hpR[0]) / 2, (hpL[1] + hpR[1]) / 2];
+    const L = Math.hypot(hc[0] - sc[0], hc[1] - sc[1]), ux = (hc[0] - sc[0]) / L, uy = (hc[1] - sc[1]) / L, nx = -uy, ny = ux;
+    const sw = Math.hypot(shR[0] - shL[0], shR[1] - shL[1]), at = (al, sd) => [sc[0] + ux * al + nx * sd, sc[1] + uy * al + ny * sd];
+    const ta = Math.atan2(ny, nx);
+    const xs = [shL[0], shR[0], hpL[0], hpR[0]], ys = [shL[1], shR[1], hpL[1], hpR[1], nk[1]];
+    const bb = [Math.min(...xs) - h, Math.min(...ys) - h, Math.max(...xs) + h, Math.max(...ys) + h];
+    const TP = torsoPath(J, h, 1.04);
+    sculpt(bb, c => {
+      c.fill(TP);
+      for (const s of [shL, shR]) { c.beginPath(); c.ellipse(s[0], s[1] + h * .04, h * .46, h * .36, ta, 0, TAU); c.fill(); } // omuzluklar
+      c.beginPath(); c.ellipse(nk[0], nk[1] + h * .12, h * .3, h * .16, ta, 0, TAU); c.fill();                            // boyunluk
+    }, c => {
+      const blob = (x, y, rx, ry, a, v) => { c.save(); c.translate(x, y); c.rotate(a); c.scale(1, ry / rx); const g = c.createRadialGradient(0, 0, 0, 0, 0, rx); g.addColorStop(0, `rgba(255,255,255,${v})`); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(-rx, -rx, rx * 2, rx * 2); c.restore(); };
+      let q = at(L * .26, 0); blob(q[0], q[1], sw * .52, L * .3, ta, .7);                    // göğüs kubbesi
+      for (const s of [shL, shR]) blob(s[0], s[1], h * .4, h * .32, ta, .95);                // omuzluk kubbeleri
+      c.lineCap = 'round'; c.strokeStyle = 'rgba(255,255,255,.75)';
+      c.lineWidth = h * .07; c.beginPath(); let a0 = at(L * .06, 0), a1 = at(L * .62, 0); c.moveTo(a0[0], a0[1]); c.lineTo(a1[0], a1[1]); c.stroke(); // orta sırt
+      c.lineWidth = h * .075;
+      for (let k = 0; k < 3; k++) { const f = .66 + k * .13, hw = sw * (.4 - k * .01); const p0 = at(L * f, -hw), p1 = at(L * f, hw), pm = at(L * (f + .05), 0); c.beginPath(); c.moveTo(p0[0], p0[1]); c.quadraticCurveTo(pm[0], pm[1], p1[0], p1[1]); c.stroke(); } // karın levhaları
+    }, Object.assign({ id: 9, infl: h * .2, bump: .55, depth: 30, axis: .5, wrap: 2.0, lo: .03, hi: .8, edge: .6 }, sh));
+    return TP;
+  }
+  // profil baş (yüz gölgede, ön hatta kenar ışığı), geriye savrulan saç, tek göz ışığı
+  function headProfile(cx, cy, hh, dir = 1, tilt = 0, o = {}) {
+    const HP = profilePath(cx, cy, hh, dir, tilt), sh = o.sh || {}, t = o.t || 0;
+    const c0 = Math.cos(tilt * dir), s0 = Math.sin(tilt * dir), loc = (x, y) => [cx + (x * dir * c0 - y * s0) * hh, cy + (x * dir * s0 + y * c0) * hh];
+    // saç: tepeden enseye, arkaya ve yukarı savrulan tutamlar (kafanın arkasında; önce çizilir)
+    const strands = [];
+    const r = rng(o.seed || 11);
+    for (let i = 0; i < 9; i++) {
+      const f = i / 8, b = loc(lerp(.12, -.36, f), lerp(-.5, .12, f)), ang = lerp(-2.2, -3.5, f) + Math.sin(t * .9 + i) * .05 * (o.wind ?? 1);
+      const Ln = hh * (lerp(.55, .8, Math.sin(f * PI)) + r() * .15) * (o.hair ?? 1), wd = hh * (.2 + r() * .06);
+      const a = (dir > 0 ? ang : PI - ang) + tilt * dir, tip = [b[0] + Math.cos(a) * Ln, b[1] + Math.sin(a) * Ln];
+      const nx = -Math.sin(a), ny = Math.cos(a), cv = (r() - .3) * Ln * .35 * dir;
+      const P = new Path2D(); P.moveTo(b[0] + nx * wd * .5, b[1] + ny * wd * .5);
+      P.quadraticCurveTo((b[0] + tip[0]) / 2 + nx * (wd * .6 + cv), (b[1] + tip[1]) / 2 + ny * (wd * .6 + cv), tip[0], tip[1]);
+      P.quadraticCurveTo((b[0] + tip[0]) / 2 + nx * (cv - wd * .3), (b[1] + tip[1]) / 2 + ny * (cv - wd * .3), b[0] - nx * wd * .5, b[1] - ny * wd * .5); P.closePath();
+      strands.push(P);
+    }
+    const bbH = [cx - hh * 1.6, cy - hh * 1.5, cx + hh * 1.6, cy + hh * 1.2];
+    sculpt(bbH, c => { for (const P of strands) c.fill(P); const k = loc(-.12, -.2); c.beginPath(); c.arc(k[0], k[1], hh * .34, 0, TAU); c.fill(); }, null,
+      Object.assign({ id: 5, infl: hh * .05, depth: 30, lo: .02, hi: .5, amb: .03, rim: 1.0, axis: (dir > 0 ? -.5 : .5), wrap: 1.4, edge: .3 }, sh, o.hairSh || {}));
+    sculpt(bbH, c => c.fill(HP), null,
+      Object.assign({ id: 5, infl: hh * .07, depth: 40, lo: .02, hi: .4, amb: .02, rim: 1.5, axis: .9 * dir, wrap: 1.2, edge: .25 }, sh, o.faceSh || {}));
+    const eo = o.eye ?? 1;
+    if (eo > 0) { const e = loc(.2, -.07); tx.fillStyle = tone(1); tx.beginPath(); tx.ellipse(e[0], e[1], hh * .06, hh * .026 * eo, tilt * dir, 0, TAU); tx.fill(); }
+    return HP;
+  }
+  // bütün Şeytan: uzak kol ve bacaklar, zırh, baş, yakın kol. o: {h, hh (baş), near, dir (yüzün baktığı yön), tilt, sh (ortak ışık), anchor, legs, eye, t}
+  function satan(J, o) {
+    const h = o.h, sh = Object.assign({ lit: [.75, -.55], lz: .2, lo: .03, hi: .8, amb: .04, rim: 1.0, rimDir: [.75, -.6], anchor: o.anchor }, o.sh || {});
+    sbody(J, { h, near: o.near || 'L', noHead: true, noTorso: true, legs: o.legs !== false, sh: Object.assign({ axis: -.45, wrap: 1.6, bump: .3, edge: .5, depth: 30 }, sh) });
+    armor(J, h, Object.assign({}, sh, { hi: Math.min(.85, sh.hi + .05) }));
+    headProfile(J.hd[0], J.hd[1], o.hh || h * 1.15, o.dir || 1, o.tilt ?? -.25, { sh: { lit: sh.lit, lz: sh.lz, rimDir: sh.rimDir, anchor: o.anchor }, eye: o.eye, t: o.t, seed: o.seed, wind: o.wind });
+  }
   // heykel yoluyla beden: parçalar maskeye, kaslar tümseğe; gölge + eş-yükselti tarama
   function sbody(J, o) {
     const h = o.h, near = o.near || 'R', far = near === 'R' ? 'L' : 'R';
@@ -278,24 +346,20 @@ const FG = (() => {
     const legs = o.legs !== false;
     if (legs) { for (const s of [far, near]) { L('hp' + s, 'kn' + s, PROF.thigh, s); L('kn' + s, 'an' + s, PROF.shin, s); } }
     for (const s of [far, near]) { L('sh' + s, 'el' + s, PROF.upperArm, s); L('el' + s, 'wr' + s, PROF.foreArm, s); }
-    const drawTorso = c => { // gövde ve boyun, baş
-      const { shL, shR, hpL, hpR, nk, hd } = J;
-      const P = new Path2D();
-      const mid = [(shL[0] + shR[0] + hpL[0] + hpR[0]) / 4, (shL[1] + shR[1] + hpL[1] + hpR[1]) / 4];
-      const wc = (p, k) => [lerp(mid[0], p[0], k), lerp(mid[1], p[1], k)];
-      spline(P, [wc(shL, 1.12), [lerp(shL[0], hpL[0], .45) + (mid[0] - lerp(shL[0], hpL[0], .45)) * .12, lerp(shL[1], hpL[1], .45)], wc(hpL, 1.06), [lerp(hpL[0], hpR[0], .5), lerp(hpL[1], hpR[1], .5) + h * .15],
-        wc(hpR, 1.06), [lerp(shR[0], hpR[0], .45) + (mid[0] - lerp(shR[0], hpR[0], .45)) * .12, lerp(shR[1], hpR[1], .45)], wc(shR, 1.12), [nk[0], nk[1] + h * .1]], true, .9);
-      c.fill(P);
+    const drawTorso = c => { // gövde, boyun, baş
+      const { nk, hd } = J;
+      if (!o.noTorso) c.fill(torsoPath(J, h));
       c.fill(capsule(nk, [lerp(nk[0], hd[0], .6), lerp(nk[1], hd[1], .6)], f => h * .21).P);
       if (o.noHead) return;
       if (o.profile) c.fill(profilePath(hd[0], hd[1], h, o.profile, o.tilt || 0));
-      else { const H = new Path2D(); H.ellipse(hd[0], hd[1], h * .38, h * .5, o.tilt || 0, 0, TAU); c.fill(H); }
+      else { const Hh = new Path2D(); Hh.ellipse(hd[0], hd[1], h * .38, h * .5, o.tilt || 0, 0, TAU); c.fill(Hh); }
     };
     const mask = c => { drawTorso(c); for (const k of caps) c.fill(k.c.P); for (const s of ['L', 'R']) { const w = J['wr' + s], e = J['el' + s]; const a = Math.atan2(w[1] - e[1], w[0] - e[0]); c.beginPath(); c.ellipse(w[0] + Math.cos(a) * h * .16, w[1] + Math.sin(a) * h * .16, h * .24, h * .16, a, 0, TAU); c.fill(); } };
     const bumps = c => {
       const blob = (x, y, rx, ry, a, v) => { c.save(); c.translate(x, y); c.rotate(a); c.scale(1, ry / rx); const g = c.createRadialGradient(0, 0, 0, 0, 0, rx); g.addColorStop(0, `rgba(255,255,255,${v})`); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(-rx, -rx, rx * 2, rx * 2); c.restore(); };
       const { shL, shR, hpL, hpR } = J, sw = Math.hypot(shR[0] - shL[0], shR[1] - shL[1]);
       const ta = Math.atan2(shR[1] - shL[1], shR[0] - shL[0]);
+      if (o.noTorso) { for (const sd of ['L', 'R']) { const sh = J['sh' + sd], el = J['el' + sd]; blob(lerp(sh[0], el[0], .5), lerp(sh[1], el[1], .5), h * .3, h * .2, Math.atan2(el[1] - sh[1], el[0] - sh[0]), .6); if (legs) { const hp = J['hp' + sd], kn = J['kn' + sd]; blob(lerp(hp[0], kn[0], .4), lerp(hp[1], kn[1], .4), h * .4, h * .26, Math.atan2(kn[1] - hp[1], kn[0] - hp[0]), .5); } } return; }
       if (o.back) { // sırt: kürek kemikleri, omurga yanı kas sütunları, deltoidler, bel çukuru
         const scx = (shL[0] + shR[0]) / 2, scy = (shL[1] + shR[1]) / 2, hcx = (hpL[0] + hpR[0]) / 2, hcy = (hpL[1] + hpR[1]) / 2, Lb = Math.hypot(hcx - scx, hcy - scy);
         const ux = (hcx - scx) / Lb, uy = (hcy - scy) / Lb, nx = -uy, ny = ux, at = (al, sd) => [scx + ux * al + nx * sd, scy + uy * al + ny * sd];
@@ -335,5 +399,5 @@ const FG = (() => {
     sbody(J, { h: 120, near: 'R', face: .45, tilt: -.1, sh: { lit: [-.6, -.7], lo: .1, hi: .95, rim: .5, axis: .15, wrap: 2.6 } });
     FG._last = [];
   }
-  return { capsule, limb, torso, head, hand, body, sbody, profilePath, contour, test, PROF, sculpt, blurF };
+  return { capsule, limb, torso, head, hand, body, sbody, profilePath, torsoPath, armor, headProfile, satan, contour, test, PROF, sculpt, blurF };
 })();

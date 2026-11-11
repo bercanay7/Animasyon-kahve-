@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script><script src="../lib/figur.js"></script><script src="../lib/siluet.js"></script>
+<script>
+const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
+function renderFrame(t){ ctx.setTransform(RS,0,0,RS,0,0); const {tx,tone}=GR; GR.begin(.6,0,1);
+  let g=tx.createLinearGradient(0,0,W,0); g.addColorStop(0,tone(.75)); g.addColorStop(.55,tone(.85)); g.addColorStop(.62,tone(.2)); g.addColorStop(1,tone(.12)); tx.fillStyle=g; tx.fillRect(0,0,W,H);
+  const h=62;
+  // 1) ayakta, mızraklı (koyu, kenar ışıklı)
+  SF.draw(SF.rig({x:260,y:560,h,facing:1,twist:.35,head:.15,armN:[-.15,.35],armF:[.5,.9],legN:[.1,-.1],legF:[-.12,-.05]}),{lum:0,lit:[.8,-.5],t,spear:{grip:'F',ang:.08}});
+  // 2) yürüyor, yandan
+  SF.draw(SF.rig({x:640,y:560,h,facing:1,twist:.8,lean:.12,head:-.1,armN:[-.35,.5],armF:[.45,.6],legN:[.45,-.25],legF:[-.4,-.35]}),{lum:.15,lit:[.8,-.5],t,spear:{grip:'F',ang:.2}});
+  // 3) dizinin üstüne çökmüş (D04)
+  SF.draw(SF.rig({x:980,y:700,h,facing:-1,twist:.7,lean:.35,head:-.3,armN:[.5,.4],armF:[.9,.3],legN:[1.35,-1.6],legF:[.2,-1.5]}),{lum:.3,lit:[-.8,-.5],t});
+  // 4) cennetteki başmelek: ışıklı (koyu zeminde)
+  SF.draw(SF.rig({x:1380,y:560,h,facing:-1,twist:.3,head:.2,armN:[.1,.2],armF:[-.3,.4]}),{lum:1,lit:[-.6,-.7],t});
+  // 5) küçük boy
+  SF.draw(SF.rig({x:1720,y:620,h:30,facing:-1,twist:.5,armN:[.1,.2]}),{lum:.9,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.1}});
+  GR.engrave(ctx); applyPaper(ctx,.8); }
+window.renderFrame=renderFrame; window.renderFrameMB=renderFrame; window.ready=Promise.resolve(buildTextures());
+</script></body></html>
