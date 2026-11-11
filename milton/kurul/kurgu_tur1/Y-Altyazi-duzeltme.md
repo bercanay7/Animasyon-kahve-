@@ -60,10 +60,10 @@ Ek: #203 (7,01 sn) ikiye bölündü ("Bu sözleri söylerken yüzü üç kez de�
 
 ## Düzelmeyen ya da yeni çıkan durumlar
 
-- **Satır 43 karakter (6 yer: #26, #49, #54, #150, #225, #378):** yumuşak sınır (44) içinde, bilerek kabul. Daha kötü bir kesme ya da üç satır gerektirirdi.
-- **> 17 kr/sn (3 altyazı):** sayı aynı kaldı, ama kümesi değişti: #169 "Sana dostça seslenmiyorum." (17,7), #240 "İyiliğin ne kadar heybetli|olduğunu hisseder" (18,5; yeni, cümle bölme sonucu, komşuları bitişik olduğu için uzatılamıyor), #249 "Bir zamanlar en yüce yer için yarışan ben," (17,7). Eski #198 hız aşımı, başlangıç payı 0,5 sn'ye çıkarılarak giderildi. En yüksek hız 18,3'ten 18,5'e çıktı; sayı artmadı.
+- **Satır 43 karakter (6 yer: #27, #50, #54, #151, #226, #380):** yumuşak sınır (44) içinde, bilerek kabul. Daha kötü bir kesme ya da üç satır gerektirirdi.
+- **> 17 kr/sn (3 altyazı):** sayı aynı kaldı, ama kümesi değişti: #170 "Sana dostça seslenmiyorum." (17,7), #239 "İyiliğin ne kadar heybetli|olduğunu hisseder" (18,5; yeni, cümle bölme sonucu, komşuları bitişik olduğu için uzatılamıyor), #248 "Bir zamanlar en yüce yer için yarışan ben," (17,7). Eski #198 hız aşımı, başlangıç payı 0,5 sn'ye çıkarılarak giderildi. En yüksek hız 18,3'ten 18,5'e çıktı; sayı artmadı.
 - **Erken başlama:** #199 "“Beni cezalandıran da bunu biliyor." konuşmadan 479 ms önce açılıyor (önceki altyazıdan sonraki 0,7 sn'lik sessizlikte; hız için). #248 ve #279 da 130-150 ms önde.
-- **Kalan tek kötü altyazı sonu/satır sonu:** #64 "…yüzü|ve yalanlarıyla, cennetin" ve #327 "Hürmüz'ün ve Hindistan'ın|hazinelerinden". "cennetin" gibi apostrofsuz tamlayanlar sezgisel regex'e yakalanmıyor; "Hindistan'ın hazinelerinden" tek satırda 54 karakter olduğundan kırılması kaçınılmaz.
-- **#186 ve benzerleri:** "Bağışlanmaya?”" artık tek başına altyazı değil; ama "Bir an yumuşar: “Pişmanlığa hiç yer|kalmadı mı? Bağışlanmaya?”" tek altyazıya girdi (64 kr).
+- **Kalan tek kötü altyazı sonu/satır sonu:** #64 "…yüzü|ve yalanlarıyla, cennetin" ve #330 "Hürmüz'ün ve Hindistan'ın|hazinelerinden". "cennetin" gibi apostrofsuz tamlayanlar sezgisel regex'e yakalanmıyor; "Hindistan'ın hazinelerinden" tek satırda 54 karakter olduğundan kırılması kaçınılmaz.
+- **#186 (ve benzerleri):** "Bağışlanmaya?”" artık tek başına altyazı değil; ama "Bir an yumuşar: “Pişmanlığa hiç yer|kalmadı mı? Bağışlanmaya?”" tek altyazıya girdi (64 kr).
 - **Tırnak cezası kapsamı:** cümle sonunda biten ve tırnağı sonraki cümleye taşan altyazılar (ör. #1 "“Hangi yana kaçsam cehennem.") cezaya girmez; cümle sınırı kesindir.
 - Ölçüm betikleri: `.../scratchpad/m/olc.py` (önce/sonra tablosu), `show.py` (örnek gösterimi). Önceki araç ve çıktı yedekleri: `.../scratchpad/srt.onceki.py`, `.../scratchpad/milton.tr.onceki.srt`.
