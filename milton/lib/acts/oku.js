@@ -396,7 +396,7 @@ function oku_k10(st) {
   kit_yaz('Önsöz', xc, 560, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'önsöz') - .2, .9), wipe: true });
   kit_yaz('1942', xc, 730, { f: 'b', px: 48, w: 600, ls: 10, ...k, a: kit_a(t, Wd('K10', 'önsöz') + .4, .9), wipe: true });
 }
-plan('P123', (ctx, st) => levha(ctx, null, () => oku_k10(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+plan('P123', (ctx, st) => levha(ctx, camLerp({ cx: 1000 }, { cx: 930 }, st.p, E.sine), () => oku_k10(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ═════════════════ K12: yılan en üste bakar ═════════════════
 function oku_k12(st) {
@@ -438,12 +438,16 @@ function oku_k13(st) {
   if (am > 0) {
     GR.tx.save(); GR.tx.globalAlpha = am;
     const T = oku_taht(1450, 800, 140, .34 + .66 * oku_u(t, Wd('K13', 'kendine'), Wd('K13', 'kuruyor')), oku_u(t, Wd('K13', 'hazinelerinden') - .2, Wd('K13', 'taht')));
-    const h = 38, J = SF.rig({ x: 1460, y: T.oturak[1] - 6, h, facing: -1, twist: .4, head: .15, armN: [.9, .4], armF: [.6, .7], legN: [1.45, -1.45], legF: [1.35, -1.4] });
+    // taht kurulurken melek ayakta, elinde bir mücevher; «kuruyor»da tahta oturur
+    const h = 38, tk = Wd('K13', 'kuruyor'), u = E.io2(oku_u(t, tk - .4, tk + .8));
+    const J = SF.rig({ x: lerp(1700, 1460, u), y: lerp(800 - 3.95 * h, T.oturak[1] - 6, u), h, facing: -1, twist: .4, head: lerp(-.1, .15, u), armN: [lerp(1.3, .9, u), lerp(-.5, .4, u)], armF: [lerp(.1, .6, u), lerp(.2, .7, u)],
+      legN: [lerp(.12, 1.45, u), lerp(-.05, -1.45, u)], legF: [lerp(-.1, 1.35, u), lerp(-.03, -1.4, u)] });
     for (const [side, P] of [[-1, { span: 360, open: .55, lift: .65, droop: .3, rot: -.15, seed: 71, root: .1 }], [1, { span: 330, open: .5, lift: .55, droop: .35, rot: .15, seed: 72, root: .12 }]]) {
       const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
       GR.frame(sh[0] - side * h * .25, sh[1] + h * .15, P.rot, side, 1); KN.feathered(Object.assign({ dark: .93, rim: 0, ruin: .1, t: 0, lit: [.5 * side, -.8] }, P)); GR.unframe(); }
     GR.tx.restore();
     kit_fig(J, { lum: 0, lit: [-.6, -.8], t, legs: true, cloak: 1.1, lines: 0, seed: 9 }, am);
+    if (u < 1) { const w = J.wrN, D = new Path2D(), k = 1 - u; poly(D, [[w[0] - 4, w[1] - 26 * k], [w[0] + 14 * k, w[1] - 12 * k], [w[0] - 4, w[1] + 2], [w[0] - 22 * k, w[1] - 12 * k]], true); GR.fill(D, GR.tone(.975), { th: 0, id: 0 }); oku_vurus([[w[0] - 4, w[1] - 26 * k], [w[0] - 4, w[1] + 2]], 3, .02, .5); }
   }
 }
 plan('P126', (ctx, st) => levha(ctx, null, () => oku_k13(st), [KIT_K, 0, 1]), { tr: KIT_TR });
