@@ -17,7 +17,7 @@ function pair(x,y,h,L,R,o={}){
     GR.frame(sh[0]-side*h*.25, sh[1]+h*.15, P.rot||0, side, 1);
     const t0=performance.now(); fn(Object.assign({lit:[lit[0]*side,lit[1]]},P)); ms=Math.max(ms,performance.now()-t0);
     GR.unframe(); }
-  if(FIG) SF.draw(J,{lum:o.lum??0,lit,t:o.t||0,legs:o.legs!==false,skirt:o.legs!==false});
+  if(FIG) try{ SF.draw(J,{lum:o.lum??0,lit,t:o.t||0,legs:o.legs!==false,skirt:o.legs!==false}); }catch(e){ console.log("figür çizilemedi:", e.message); }
 }
 const A={span:560,open:.95,lift:.9,dark:0,rim:.4,ruin:0,droop:0};
 const B={span:560,open:.6,lift:.55,dark:.9,rim:.7,ruin:.7,droop:0};

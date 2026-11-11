@@ -1243,7 +1243,7 @@ def a_hook():
     span = W('A01', 'ben') - W('A01', 'hangi') + 0.6
     fall(W('A01', 'hangi') - 0.25, 'G2', beat=span / 9.0, gain=0.3)
     choir_line(W('A01', 'cehennemim'), [(note('Ab5'), 0.7, 1.0), (note('G5'), 1.4, 0.8)], gain=0.16, vowel='u')
-    boom(W('A01', 'cehennemim'), vel=0.35, f0=70, decay=1.0, knock=0.2)
+    boom(We('A01', 'cehennemim') + 0.05, vel=0.3, f0=70, decay=1.0, knock=0.2)   # after the word, never on it
     # A02: match-cut to the archangel in light: the LIGHT motif, complete, G major (the only time before heaven)
     T = S('A02') - 0.15
     riser(T + 0.1, 0.9, vel=0.12, kind='cym')
@@ -1422,9 +1422,9 @@ def d_war():
         timp(a + (k + 1) * step, 'G2', vel=0.18 + 0.03 * k)
     thunder(W('D09', 'kaos') + 0.05, vel=0.55)
     wind(S('D09'), Se('D09') + 0.5, vel=0.08, lo=100, hi=900, gust=1.0)
-    T = W('D09', 'kapandı')
-    boom(T + 0.05, vel=0.75, f0=70, decay=1.6, knock=0.7)
-    door(T - 1.6, vel=0.25, dur=1.6)
+    T = We('D09', 'kapandı')
+    boom(T + 0.05, vel=0.65, f0=70, decay=1.6, knock=0.7)
+    door(T - 1.6, vel=0.2, dur=1.6)
     # D10: back to the lake
     fire_bed(Se('D09') + 0.4, nxt('D10') + 1.0, vel=0.12, crack=0.5)
     drone('G1 D2', Se('D09') + 0.2, nxt('D10') + 1.0, gain=0.2)
@@ -1580,7 +1580,7 @@ def g_confession():
     bl = (b + 1.3 - c) / 5.5
     light(c, 'broken', beat=bl, inst='viol', gain=0.26)
     light(c, 'broken', beat=bl, inst='choir', gain=0.12, vowel='u')
-    boom(W('G07', 'ben'), vel=0.3, f0=65, decay=1.6, knock=0.15)
+    boom(We('G07', 'cehennemim') + 0.05, vel=0.26, f0=65, decay=1.6, knock=0.15)
     consort('G2 D3 Ab3 D4', W('G07', 'ben'), nxt('G07') + 1.5, gain=0.08, cutoff=800)
     # G08: the deeper deep: the drone sinks an octave
     drone('G0 G1', S('G08') - 0.2, Se('G08') + 1.0, gain=0.16, cutoff=180)
@@ -1710,9 +1710,9 @@ def i_serpent():
     wind(W('I09', 'iç') - 0.3, Se('I09') + 1.0, vel=0.1, gust=1.0, att=0.6)
     hiss(W('I09', 'yılan'), Se('I09') + 0.6, vel=0.03, lo=1500, hi=6000)
     # I10: 'Kazanmıştır.' one deep blow, a hollow open fifth, then black
-    T = S('I10')
-    boom(T, vel=0.55, f0=65, decay=1.6, knock=0.3)
-    timp(T, 'G2', vel=0.3)
+    T = Se('I10') + 0.05                  # the blow falls just after the word
+    boom(T, vel=0.5, f0=65, decay=1.6, knock=0.3)
+    timp(T, 'G2', vel=0.28)
     organ('G1 D2 G2', T - 0.05, Se('I10') + 2.2, gain=0.1, att=0.05, rel=1.8, chiff=0.0)
 
 

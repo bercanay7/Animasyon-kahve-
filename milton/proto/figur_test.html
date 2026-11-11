@@ -3,7 +3,7 @@
 <script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script><script src="../lib/siluet.js"></script>
 <script>
 // Siluet figür sınama sayfası. ?v=1 beş poz, 2 göl pozu (belden yukarısı, zincir, pelerin), 3 lum süpürmesi (1 → .6 → .3 → 0),
-// 4 hareket (nefes, pelerin, saç; t ile). Zemin her düzende solda açık, sağda koyu: figür iki zeminde de okunmalı.
+// 4 hareket (nefes, pelerin, saç; t ile), 5 yakın plan (h 150). lum 1 ve .6 figürlerinde uzun giysi (robe). Zemin her düzende solda açık, sağda koyu: figür iki zeminde de okunmalı.
 const Q=new URLSearchParams(location.search), V=+(Q.get('v')||1);
 const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
 // göl pozu (lib/sahne/gol.js için önerilen)
@@ -17,7 +17,7 @@ function renderFrame(t){ const {tx,tone}=GR; GR.begin(.6,0,1); let ms=0;
     D(SF.rig({x:250,y:560,h,facing:1,twist:.35,head:.15,armN:[-.15,.35],armF:[.5,.9],legN:[.1,-.1],legF:[-.12,-.05]}),{lum:0,lit:[.8,-.5],t,spear:{grip:'F',ang:.08},cloak:1});
     D(SF.rig({x:600,y:560,h,facing:1,twist:.8,lean:.12,head:-.1,armN:[-.35,.5],armF:[.45,.6],legN:[.45,-.25],legF:[-.4,-.35]}),{lum:.15,lit:[.8,-.5],t,spear:{grip:'F',ang:.2}});
     D(SF.rig({x:930,y:700,h,facing:-1,twist:.7,lean:.35,head:-.3,armN:[.5,.4],armF:[.9,.3],legN:[1.35,-1.6],legF:[.2,-1.5]}),{lum:.3,lit:[-.8,-.5],t,cloak:.7});
-    D(SF.rig({x:1400,y:560,h,facing:-1,twist:.3,head:.2,armN:[.3,.6],armF:[-.12,.15],legN:[.08,-.06],legF:[-.08,-.04]}),{lum:1,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.05},cloak:1});
+    D(SF.rig({x:1400,y:560,h,facing:-1,twist:.3,head:.2,armN:[.3,.6],armF:[-.12,.15],legN:[.08,-.06],legF:[-.08,-.04]}),{lum:1,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.05},cloak:1,robe:true});
     D(SF.rig({x:1730,y:640,h:30,facing:-1,twist:.5,armN:[.1,.2]}),{lum:.9,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.1}});
     D(SF.rig({x:1820,y:640,h:30,facing:1,twist:.5,armN:[.1,.2]}),{lum:0,lit:[.6,-.7],t,cloak:1});
   } else if(V===2||V===4){
@@ -39,7 +39,7 @@ function renderFrame(t){ const {tx,tone}=GR; GR.begin(.6,0,1); let ms=0;
   } else if(V===3){
     const L=[1,.6,.3,0], h=66;
     L.forEach((lum,i)=>{ const x=240+i*480; split(x-240,x+240,0,H,x+30);
-      D(SF.rig({x,y:600,h,facing:1,twist:.35,head:.25,armN:[-.3,.5],armF:[.55,.7],legN:[.1,-.08],legF:[-.14,-.05]}),{lum,lit:[.75,-.6],t,cloak:1,spear:{grip:'F',ang:.12}}); });
+      D(SF.rig({x,y:600,h,facing:1,twist:.35,head:.25,armN:[-.3,.5],armF:[.55,.7],legN:[.1,-.08],legF:[-.14,-.05]}),{lum,lit:[.75,-.6],t,cloak:1,spear:{grip:'F',ang:.12},robe:i<2}); });
   }
   console.log("figms",ms.toFixed(1)); GR.engrave(ctx); applyPaper(ctx,.8);
   ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.fillStyle='#c00'; ctx.font='20px monospace'; ctx.fillText(`v${V} t=${t} figür en çok ${ms.toFixed(1)} ms`,10,1070); ctx.restore(); }

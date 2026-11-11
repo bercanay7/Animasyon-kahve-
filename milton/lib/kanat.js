@@ -4,8 +4,10 @@
 //  - kanat üç kütle okunur: ışıklı sırt (küçük örtü tüyleri), orta sıra (büyük örtüler), sarkan uçuş tüyleri;
 //  - tüyler tek tek değil 2-4'lük kümeler hâlinde; ayrım yalnız küme sınırında, ışık-gölge sınırında ve uçlarda;
 //  - tüy içi tarama balıksırtı: sapın iki yanında ayrı açı, tüy kavsini izler;
-//  - yanık kanat koyu kütledir, tüyler ışık alan kenarda ince kâğıt çizgisiyle ayrışır (GR.ox);
-//    parlak kanat açık kütledir, tüyler gölge kenarında ince mürekkep çizgisiyle ayrışır.
+//  - yanık kanat koyu kütledir, tüyler yalnız ışık alan kenarda kâğıt çizgisiyle ayrışır;
+//    parlak kanat açık kütledir, arkadaki taramayla ayrılır; gölge yanında sivrilen mürekkep vuruşları ve iç yüzde koyu çapa.
+//  - bütün çizgiler ton katmanında tam opak dolgu biçimidir (ton 1 kâğıt, 0 mürekkep); alfa yok, çizgi kalınlıkla söner,
+//    kalın yeri en az 3 px (1920 ölçeği). Çizim sırasına uyar: öndeki tüy/nesne arkadakinin çizgisini örter.
 // Rastgelelik yalnız rng(seed); tüy sayısı ve sırası parametreyle değişmez (animasyonda sıçrama yok).
 'use strict';
 const KN = (() => {
@@ -87,18 +89,31 @@ const KN = (() => {
     }
   }
 
-  // ── üst katman çizgileri: konik (uçlara doğru incelen) çizgi ──
-  // MW: en ince çizgi (yerel birim; 1920 ölçeğinde 3 px). Daha ince çizgi telefon boyunda moiré yapar.
-  let MW = 3;
-  function setMW(ctx) { const m = ctx.getTransform(); MW = 3 * RS / (Math.hypot(m.a, m.b) || 1); return MW; }
-  function taper(ox, pts, w0, w1, col, a) {
-    if (a <= .01 || pts.length < 2) return;
-    ox.strokeStyle = col; ox.globalAlpha = Math.min(1, a); ox.lineCap = 'round';
-    for (let i = 1; i < pts.length; i++) {
-      const s = (i - .5) / (pts.length - 1); ox.lineWidth = Math.max(MW, lerp(w0, w1, Math.sin(s * PI)));
-      ox.beginPath(); ox.moveTo(pts[i - 1][0], pts[i - 1][1]); ox.lineTo(pts[i][0], pts[i][1]); ox.stroke();
+  // ── vuruş: ton katmanına tam opak dolgu biçimi (ton 1 kâğıt, ton 0 mürekkep); alfa yok, çizgi kalınlıkla söner ──
+  // PX: yerel birimde 1920 ölçeğinin 1 px'i. Çizginin kalın yeri en az 3 px (telefon boyunda moiré olmasın).
+  let PX = 1;
+  function setPX() { const m = tx.getTransform(); PX = RS / (Math.hypot(m.a, m.b) || 1); return PX; }
+  // pts boyunca, wf(s) genişlik profiliyle (s: 0..1), inset > 0 ise sol normale doğru (biçimin içine) kaydırılmış dolgu
+  function vurus(pts, wf, v, inset = 0) {
+    const n = pts.length; if (n < 2) return;
+    const Lf = [], Rt = [];
+    for (let i = 0; i < n; i++) {
+      const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)], d = nrm([b[0] - a[0], b[1] - a[1]]), nn = [-d[1], d[0]];
+      const w = Math.max(0, wf(i / (n - 1))) / 2, o = inset ? w * inset : 0, p = pts[i];
+      Lf.push([p[0] + nn[0] * (w + o), p[1] + nn[1] * (w + o)]); Rt.push([p[0] - nn[0] * (w - o), p[1] - nn[1] * (w - o)]);
     }
-    ox.globalAlpha = 1;
+    const P = new Path2D(); poly(P, [...Lf, ...Rt.reverse()], true);
+    tx.fillStyle = tone(v); tx.fill(P);
+  }
+  const prof = { // genişlik profilleri (en kalın yer = 1)
+    both: s => Math.pow(Math.sin(clamp(s) * PI), .55),                      // iki uçta sivri
+    fade: s => s < .08 ? .6 + s / .08 * .4 : Math.pow(1 - (s - .08) / .92, .9), // kenarda dolgun, içeride sıfıra
+  };
+  // kavis: p0'dan d0 doğrultusunda başlayıp d1'e dönen eğri (karesel Bézier örnekleri)
+  function curve(p0, d0, d1, L, n = 10) {
+    const c = [p0[0] + d0[0] * L * .5, p0[1] + d0[1] * L * .5], e = [c[0] + d1[0] * L * .5, c[1] + d1[1] * L * .5], out = [];
+    for (let i = 0; i <= n; i++) { const t = i / n; out.push([(1 - t) * (1 - t) * p0[0] + 2 * t * (1 - t) * c[0] + t * t * e[0], (1 - t) * (1 - t) * p0[1] + 2 * t * (1 - t) * c[1] + t * t * e[1]]); }
+    return out;
   }
 
   // ── tüylü kanat ──
@@ -160,14 +175,38 @@ const KN = (() => {
       F.sep = (first ? lerp(.55, .85, mid) : .12 * mid) * lerp(.25, 1, dark);
       F.rag = F.G < 2 ? clamp(ruin * (.4 + .9 * F.burnR) + dark * .15 * F.burnR) * .18 : 0;
       F.burn = F.G < 2 ? clamp((ruin * 1.1 + dark * .25) * (.35 + .9 * F.burnR) - .15) : 0;
+      // çapa: açık kanadın iç yüzü (gövdeye yakın alt sıra) düz koyu; kanadın ~%15-25'i
+      F.la = la; F.anc = smooth(inv(.52, .2, F.u)) * (1 - dk2) * (o.anchor ?? 1);
+      if (F.anc > 0) { F.v0 = lerp(F.v0, .32, F.anc); F.v1 = lerp(F.v1, .03, F.anc); F.dv *= 1 - F.anc; F.sep *= 1 - F.anc; }
     }
     const geoms = Fs.map(featherGeom);
     // 0) zar: tüy tabanlarının arkasında, boşluk görünmesin
     const back = new Path2D();
     { const pts = [[0, 0], E, Wr]; for (let u = .66; u >= .05; u -= .06) { const [x, y, ba] = bone(u); const F = Fs.reduce((p, c) => Math.abs(c.u - u) < Math.abs(p.u - u) ? c : p); pts.push([x + Math.cos(F.a) * F.L * .5, y + Math.sin(F.a) * F.L * .5]); } pts.push([S * .02, S * .08]); spline(back, pts, true, .6); }
-    fill(back, tone(V(.55, .03)), { type: 'bend', ox: 0, oy: 0, a: K.aF + PI / 2, k: 0, id: 6 });
+    fill(back, tone(lerp(V(.55, .03), .05, (1 - dk2) * (o.anchor ?? 1) * .8)), { type: 'bend', ox: 0, oy: 0, a: K.aF + PI / 2, k: 0, id: 6 });
     // 1) uçuş tüyleri: dıştan içe (içteki üstte)
-    for (let i = 0; i < Fs.length; i++) drawFeather(Fs[i], geoms[i], C);
+    // çizgi kipleri: koyu kanatta kâğıt (ışık kenarı), açık kanatta mürekkep (gölge yanı); geçişte kalınlıkla söner
+    setPX();
+    const wP = smooth(inv(.35, .75, dk2)) * (rim > 0 ? Math.min(1, rim * 1.6) : 0), wI = smooth(inv(.6, .25, dk2));
+    const rs = rng(seed * 131 + 7);
+    function featherLines(F, G) {
+      if (F.thin > .5 || F.L < S * .06) return;
+      const face = dot(G.n, lit), inset = -F.lead, f0 = F.G < 3 ? 5 : 3;
+      // ışık kenarı: küme başı, ışığa bakan; örtülerde yalnız üst sıra (ya da çok ışıklı büyük örtü)
+      const okP = F.cp === 0 && face > .15 && (F.G < 3 || F.G === 4 || face > .45);
+      if (wP > 0 && okP) vurus(G.Lp.slice(f0), s => prof.both(s) * 3.4 * PX * wP, 1, inset);
+      if (wI > 0 && F.anc < .5) {
+        if (F.cp === 0 && face < -.1) vurus(G.Lp.slice(f0), s => prof.both(s) * 3.2 * PX * wI, 0, inset);
+        // gölge yanında forma giren mürekkep vuruşu: arka kenardan tüy boyunca, uca doğru sivrilir
+        if (F.G < 3 && F.la < .55 && (F.cp === 0 || rs() < .4)) {
+          const i0 = 3 + Math.floor(rs() * 3), L = clamp(F.L * (.3 + rs() * .35), 25 * PX, 90 * PX);
+          const p0 = G.Tp[i0], d = G.sp ? nrm([G.Sp[i0 + 1][0] - G.Sp[i0][0], G.Sp[i0 + 1][1] - G.Sp[i0][1]]) : dir(F.a);
+          const n2 = [-G.n[0], -G.n[1]], st = [p0[0] - n2[0] * 2 * PX, p0[1] - n2[1] * 2 * PX];
+          vurus(curve(st, nrm([d[0] - n2[0] * .25, d[1] - n2[1] * .25]), d, L), s => prof.fade(s) * 3.2 * PX * wI, 0, 0);
+        }
+      }
+    }
+    for (let i = 0; i < Fs.length; i++) { drawFeather(Fs[i], geoms[i], C); featherLines(Fs[i], geoms[i]); }
     // 2) örtü tüyleri: büyükler (orta sıra), sonra ortancalar
     const cov = [];
     const rowDef = [{ n: 13, u0: .93, u1: .1, Lk: .19, wk: .075, v: () => vMid, beta: .08, g: 3 }, { n: 10, u0: .82, u1: .12, Lk: .115, wk: .065, v: () => lerp(vMid, vRidge, .55), beta: .06, g: 4 }];
@@ -193,7 +232,7 @@ const KN = (() => {
         cov.push([F, featherGeom(F)]);
       }
       // sıra sınırı: bu sıranın üstüne bir sonraki sıra koyu bant bırakır (kütle ayrımı)
-      for (const [F, G] of cov.filter(c => c[0].G === R.g)) drawFeather(F, G, C);
+      for (const [F, G] of cov.filter(c => c[0].G === R.g)) { F.la = .6; F.anc = 0; drawFeather(F, G, C); featherLines(F, G); }
     }
     // 3) sırt: küçük örtü tüyleri ve ön kenar tek kütle. Yanık kanatta düz siyah; ışık yalnız üst katmandaki seyrek beyaz çizgilerle verilir.
     //    Kök: omuz arkasından yükselen kürek kavsi (o.root, varsayılan .1 × span).
@@ -219,53 +258,22 @@ const KN = (() => {
       g.addColorStop(0, tone(clamp(vRidge + .03 * (1 - dark) + rl * .1))); g.addColorStop(1, tone(clamp(lerp(vRidge, vMid, .5 * (1 - dark)) + rl * .1)));
       fill(ridge, g, { type: 'bend', ox: E[0], oy: E[1], a: K.aF, k: 0, id: 6 }); }
 
-    // 4) üst katman: koyu kanatta ışık kenarına kâğıt çizgisi, parlak kanatta gölge kenarına mürekkep çizgisi.
-    //    Kurallar: en ince 3 px (1920 ölçeği), koşut çizgiler arası en az 8 px; yalnız küme başı, uç ve ön kenar.
-    const ox = GR.ox; ox.save(); ox.setTransform(tx.getTransform()); ox.lineJoin = 'round';
-    const mw = setMW(ox), lw = mw / 3 * sc * (o.lw ?? 1);   // lw: yerel birimde 1920 ölçeğinin 1 px'i × kanat ölçeği
-    const all = Fs.map((F, i) => [F, geoms[i]]).concat(cov);
-    const hide = P => { ox.globalCompositeOperation = 'destination-out'; ox.globalAlpha = 1; ox.fillStyle = '#000'; ox.fill(P); ox.globalCompositeOperation = 'source-over'; };
-    hide(back);
-    for (const [F, G] of all) {
-      hide(G.full); // örtülen çizgiler silinir (üstteki tüy alttakinin çizgisini kapatır)
-      if (F.cp !== 0 && !(F.G === 0 && !F.thin)) continue;   // küme başı ya da (geri çekilmemiş) birincil
-      const vm = (F.v0 + F.v1) / 2, dk = clamp(inv(.45, .15, vm)), lt = clamp(inv(.55, .85, vm));
-      const face = dot(G.n, lit), f0 = F.G < 3 ? 6 : 4, lead1 = F.cp === 0;
-      if (dk > 0 && rim > 0) { // kâğıt çizgisi: ışığa bakan kenar ve uç
-        if (lead1) taper(ox, G.Lp.slice(f0), 3 * lw, 4.2 * lw, GR.paperCol, rim * dk * clamp(face * 1.6 + .35));
-        if (F.G < 3 && F.L > S * .2) taper(ox, [...G.Lp.slice(-4), ...G.Tp.slice(-3).reverse()], 3 * lw, 3.6 * lw, GR.paperCol, rim * dk * clamp(face + .7) * .85);
-      }
-      if (lt > 0) { // mürekkep çizgisi: küme başında gölge kenarı ve uç
-        if (lead1) taper(ox, G.Lp.slice(f0 - 1), 3 * lw, 3.8 * lw, GR.inkCol, lt * clamp(-face * .8 + .6) * .8);
-        if (F.G < 3 && F.L > S * .2) taper(ox, [...G.Lp.slice(-3), ...G.Tp.slice(-4).reverse()], 3 * lw, 3.4 * lw, GR.inkCol, lt * .55);
+    // 4) sırt çizgileri (ton katmanında, tam opak): tek kesintisiz ön kenar ışığı + ışık tarafından kütleye giren, sivrilen vuruşlar
+    const seg = [lead[1], lead[0], ...lead.slice(2)];
+    if (wP > 0) vurus(seg, s => (s < .04 ? s / .04 : s > .96 ? (1 - s) / .04 : 1) * 4.2 * PX * wP, 1, 1);
+    if (wP > 0) {
+      let acc = 0, next = (8 + rs() * 10) * PX;
+      for (let i = 1; i < thk.length; i++) {
+        const P = thk[i], Q = thk[i - 1]; acc += Math.hypot(P.x - Q.x, P.y - Q.y);
+        if (acc < next) continue;
+        acc = 0; next = Math.max(12 * PX, (14 + rs() * 30) * PX * Math.max(.7, S / 600));   // aralık: düzensiz, en az 12 px
+        const lt = dot(P.nn, lit); if (lt < .25 || P.u < .04) continue;
+        const bd = dir(bone(P.u)[2]), inw = [-P.nn[0], -P.nn[1]], fd = dir(fa(P.u));
+        const L = Math.max(25 * PX, lerp(25, 90, Math.pow(rs(), 1.3)) * PX * Math.max(.7, S / 600) * lerp(.6, 1, lt));
+        const st = [P.x + P.nn[0] * (P.th - 3 * PX), P.y + P.nn[1] * (P.th - 3 * PX)];
+        vurus(curve(st, nrm([inw[0] * .8 + bd[0] * .6, inw[1] * .8 + bd[1] * .6]), nrm([fd[0] * .7 + bd[0] * .3, fd[1] * .7 + bd[1] * .3]), L), s => prof.fade(s) * 3.3 * PX * wP, 1, 0);
       }
     }
-    hide(ridge);
-    { const dk = clamp(inv(.5, .12, vRidge)), lt = clamp(inv(.6, .9, vRidge));
-      const seg = [lead[1], lead[0], ...lead.slice(2)];
-      // ön kenar: kesintisiz kenar ışığı (yanık) ya da kontur (parlak)
-      if (dk > 0) taper(ox, seg, 3 * lw, 5 * lw, GR.paperCol, rim * dk);
-      if (lt > 0) taper(ox, seg, 3 * lw, 4 * lw, GR.inkCol, lt * .7);
-      if (lt > 0) taper(ox, trail.slice(1, -1).filter((_, i) => i % 2 === 0), 3 * lw, 3.6 * lw, GR.inkCol, lt * .6); // pulların dış uçlarından geçen yumuşak sınır
-      // sırtın içinde ışık kenarından içe incelen seyrek beyaz çizgiler (3-6), kenarı izler; aralık >= 9 px
-      if (dk > 0 && rim > 0) {
-        const n = clamp(Math.round(S / 180), 3, 6), gap = Math.max(10 * lw, S * .018);
-        for (let j = 0; j < n; j++) {
-          const off = S * .01 + gap * (j + .6), run = [];
-          let best = [];
-          for (const P of thk) {
-            const ok = off < P.T - gap * .5 && dot(P.nn, lit) > .35 && P.u > .04;
-            if (ok) run.push([P.x + P.nn[0] * (P.th - off), P.y + P.nn[1] * (P.th - off)]);
-            else { if (run.length > best.length) best = run.slice(); run.length = 0; }
-          }
-          if (run.length > best.length) best = run.slice();
-          const keep = Math.round(best.length * lerp(.55, .2, j / Math.max(1, n - 1))), s0 = Math.floor((best.length - keep) * .5);
-          const pts = best.slice(s0, s0 + keep);
-          if (pts.length > 2) taper(ox, pts, 3 * lw, lerp(4.4, 3.2, j / n) * lw, GR.paperCol, rim * dk * lerp(.95, .6, j / n));
-        }
-      }
-    }
-    ox.restore();
     return { E, Wr, Tp, bone, back, ridge, feathers: Fs };
   }
 
@@ -322,27 +330,24 @@ const KN = (() => {
     cl.moveTo(Wr[0] - S * .01, Wr[1]); cl.quadraticCurveTo(Wr[0] + Math.cos(ca) * S * .05, Wr[1] + Math.sin(ca) * S * .05, Wr[0] + Math.cos(ca + .5) * S * .07, Wr[1] + Math.sin(ca + .5) * S * .07);
     cl.quadraticCurveTo(Wr[0] + Math.cos(ca) * S * .03, Wr[1] + Math.sin(ca) * S * .03, Wr[0] + S * .012, Wr[1] + S * .005); cl.closePath();
     fill(cl, tone(V(.3, .02)), { th: ca, id: 6 });
-    // üst katman: kemiklerin ışık yanı ve zar kenarı
-    const ox = GR.ox; ox.save(); ox.setTransform(tx.getTransform());
-    const lw = setMW(ox) / 3 * Math.max(.5, S / 550) * (o.lw ?? 1);
-    const dk = clamp(inv(.5, .15, vM)), lt = clamp(inv(.5, .8, vM));
-    const lineOn = (a, b, w, side) => { const d = nrm([b[0] - a[0], b[1] - a[1]]), n = [-d[1], d[0]], s = dot(n, lit) > 0 ? 1 : -1, ff = side * s;
-      return [[a[0] + n[0] * w * ff, a[1] + n[1] * w * ff], [lerp(a[0], b[0], .5) + n[0] * w * ff, lerp(a[1], b[1], .5) + n[1] * w * ff], [b[0] + n[0] * w * .5 * ff, b[1] + n[1] * w * .5 * ff]]; };
-    const segs = [[[0, 0], E, S * .025], [E, Wr, S * .018]]; for (const f of fing) segs.push([Wr, f.kn, S * .01], [f.kn, f.tp, S * .006]);
+    // çizgiler (ton katmanında, tam opak): kemiklerin ışık yanı (kâğıt) ya da gölge yanı (mürekkep), zar kenarı
+    setPX();
+    const wP = smooth(inv(.5, .2, vM)) * Math.min(1, rim * 1.6), wI = smooth(inv(.5, .75, vM));
+    const lineOn = (a, b, w, side) => { const d = nrm([b[0] - a[0], b[1] - a[1]]), n = [-d[1], d[0]], s = dot(n, lit) > 0 ? 1 : -1, ff = side * s, pts = [];
+      for (let i = 0; i <= 8; i++) { const t = i / 8, ww = w * lerp(1, .5, t) * .55; pts.push([lerp(a[0], b[0], t) + n[0] * ww * ff, lerp(a[1], b[1], t) + n[1] * ww * ff]); } return pts; };
+    const segs = [[[0, 0], E, S * .03], [E, Wr, S * .022]]; for (const f of fing) segs.push([Wr, f.kn, S * .011], [f.kn, f.tp, S * .008]);
     for (const [a, b, w] of segs) {
-      if (dk > 0) taper(ox, lineOn(a, b, w, 1), 3 * lw, 4 * lw, GR.paperCol, rim * dk);
-      if (lt > 0) taper(ox, lineOn(a, b, w, -1), 3 * lw, 3.6 * lw, GR.inkCol, lt * .8);
+      if (wP > 0) vurus(lineOn(a, b, w, 1), s => prof.both(s) * 3.4 * PX * wP, 1);
+      if (wI > 0) vurus(lineOn(a, b, w, -1), s => prof.both(s) * 3.2 * PX * wI, 0);
     }
-    // zar kenarı: kavisli oyuklar boyunca ince çizgi
+    // zar kenarı: ışığa bakan oyuklarda ince ışık
     for (let j = 0; j < 4; j++) {
       const a = tips[j], b = tips[j + 1], m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], to = nrm([Wr[0] - m[0], Wr[1] - m[1]]), d = Math.hypot(b[0] - a[0], b[1] - a[1]) * (j < 3 ? .2 : .14);
       const c = [m[0] + to[0] * d * 2, m[1] + to[1] * d * 2], pts = [];
-      for (let i = 0; i <= 10; i++) { const s = i / 10; pts.push([(1 - s) * (1 - s) * a[0] + 2 * s * (1 - s) * c[0] + s * s * b[0], (1 - s) * (1 - s) * a[1] + 2 * s * (1 - s) * c[1] + s * s * b[1]]); }
-      const face = dot(nrm([-to[0], -to[1]]), lit);
-      if (dk > 0) taper(ox, pts, 3 * lw, 3.6 * lw, GR.paperCol, rim * dk * clamp(face + .5));
-      if (lt > 0) taper(ox, pts, 3 * lw, 3.4 * lw, GR.inkCol, lt * .7);
+      for (let i = 0; i <= 12; i++) { const s = i / 12; pts.push([(1 - s) * (1 - s) * a[0] + 2 * s * (1 - s) * c[0] + s * s * b[0], (1 - s) * (1 - s) * a[1] + 2 * s * (1 - s) * c[1] + s * s * b[1]]); }
+      const face = dot(nrm([-to[0], -to[1]]), lit), inset = dot([-(pts[6][1] - pts[5][1]), pts[6][0] - pts[5][0]], to) > 0 ? 1 : -1;
+      if (wP > 0 && face > -.2) vurus(pts, s => prof.both(s) * 3.2 * PX * wP, 1, inset);
     }
-    ox.restore();
     return { E, Wr, Tp: fing[0].tp, bone, fingers: fing };
   }
   return { feathered, bat, skel };

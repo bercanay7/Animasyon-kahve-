@@ -62,6 +62,8 @@ const GR = (() => {
     if (o.type === 'rad') { const [cx, cy] = wpt(o.cx, o.cy); return reg({ t: 1, id, cx, cy, ph: o.ph || 0 }); }
     if (o.type === 'bend') { const [ox, oy] = wpt(o.ox, o.oy), a = wang(o.a || 0); return reg({ t: 2, id, ox, oy, ca: Math.cos(a), sa: Math.sin(a), k: (o.k || 0) * (fFlip ? -1 : 1), ph: o.ph || 0 }); }
     if (o.type === 'buf') return reg({ t: 3, id });
+    // perspektifli yatay tarama (su, zemin): aralık y0'da p0, y0 + D'de p1 (uzakta sık, yakında seyrek)
+    if (o.type === 'persp') { const y0 = wpt(0, o.y0)[1], k = o.D / Math.max(.01, o.p1 - o.p0); return reg({ t: 4, id, y0, k, c: o.p0 * k, ph: o.ph || 0 }); }
     const th = wang(o.th || 0), c = Math.cos(th), s = Math.sin(th);
     let ph = o.ph || 0; if (an) ph -= (an[1] * c - an[0] * s) / P;
     const key = an ? null : `${id}|${Math.round(th * 4096)}|${Math.round(ph * 4096)}`;
@@ -134,10 +136,11 @@ const GR = (() => {
         if (r >= 1) ink = 1;
         else if (r > 0) {
           const wx = x * kk + ox, t = p.t;
-          let U, along;
+          let U, along, Pl = Pdv;
           if (t === 0) { U = (wy * p.c - wx * p.s) * invP + p.ph; along = wx * p.c + wy * p.s; }
           else if (t === 1) { const dx = wx - p.cx, dy = wy - p.cy; U = Math.sqrt(dx * dx + dy * dy) * invP + p.ph; along = wx * .8 + wy * .6; }
           else if (t === 2) { const dx = wx - p.ox, dy = wy - p.oy, pp = dx * p.ca + dy * p.sa, qq = dy * p.ca - dx * p.sa; U = (qq + p.k * pp * pp) * invP + p.ph; along = pp; }
+          else if (t === 4) { const q = Math.max(1, wy - p.y0 + p.c); U = p.k * Math.log(q / p.c) + p.ph; along = wx; Pl = q / p.k * devPer; }
           else { U = PHB[y * w + x]; along = wx * .8 + wy * .6; }
           const ai = along * st.wf + st.ph + 65536, a0 = ai | 0, af = ai - a0;
           U += (NZ[a0 & 1023] * (1 - af) + NZ[(a0 + 1) & 1023] * af) * st.wv + 8192;
@@ -150,7 +153,7 @@ const GR = (() => {
           d = f0 + (f1 - f0) * r;
           if (rb < 0) d = rb < -TW ? 0 : f0 * (1 + rb / TW);
           else if (rg > 1) d = rg > 1 + TW ? 1.2 : d + (1.2 - d) * (rg - 1) / TW;
-          ink = (d * .5 - (u > .5 ? u - .5 : .5 - u)) * Pdv + .5;
+          ink = (d * .5 - (u > .5 ? u - .5 : .5 - u)) * Pl + .5;
           if (ink < 0) ink = 0; else if (ink > 1) ink = 1;
           const ct = st.ct;
           if (d > ct) { // çapraz tarama: düz ikinci aile

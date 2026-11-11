@@ -59,7 +59,7 @@ const SF = (() => {
     const a = Math.atan2(wr[1] - el[1], wr[0] - el[0]), c = Math.cos(a), s = Math.sin(a), sd = sg;
     const loc = (x, y) => [wr[0] + (x * c - y * s * sd) * h, wr[1] + (x * s + y * c * sd) * h];
     const H = new Path2D();
-    spline(H, [[-.1, -.15], [.18, -.2], [.5, -.19], [.72, -.1], [.76, .05], [.66, .18], [.36, .23], [.08, .22], [-.1, .15]].map(([x, y]) => loc(x, y)), true, .8); // ~.8 baş uzunluğunda kama/yumruk
+    spline(H, [[-.3, -.11], [-.02, -.13], [.28, -.17], [.52, -.15], [.64, -.06], [.64, .07], [.54, .15], [.4, .17], [.3, .26], [.16, .27], [.06, .18], [-.3, .11]].map(([x, y]) => loc(x, y)), true, .8); // bileğe yumuşak bağlanan yumruk, başparmak çıkıntısı (~.8 baş)
     out.push(H);
     return out;
   }
@@ -86,13 +86,13 @@ const SF = (() => {
     // başın arkasına akan tek yumuşak kütle; ucunda 3 yumuşak, kıvrık tutam (sivri diken yok). Salınım küçük.
     const sw = k => [Math.sin(t * .9 + k * 1.3) * .025 * wind - .03 * wind, Math.sin(t * .7 + k) * .02 * wind];
     const j = () => (r() - .5) * .03;
-    const pts = [[.24, -.43], [.08, -.58], [-.16, -.62], [-.38, -.56], [-.52, -.44],
-      [-.61 + j(), -.34 + j()], [-.59, -.24],       // tutam 1
-      [-.61 + j(), -.14 + j()], [-.57, -.04],       // tutam 2
-      [-.56 + j(), .06 + j()], [-.48, .14],         // tutam 3
-      [-.42, .22], [-.3, .16], [-.24, -.04], [-.08, -.3], [.12, -.38]]
+    const pts = [[.24, -.43], [.08, -.58], [-.16, -.62], [-.38, -.57], [-.53, -.46],
+      [-.6 + j(), -.32], [-.6, -.2],                 // tek yumuşak dalga, sonra enseye iner
+      [-.58 + j(), -.07], [-.54, .04],
+      [-.5, .12], [-.44, .19],
+      [-.38, .22], [-.3, .16], [-.24, -.04], [-.08, -.3], [.12, -.38]]
       .map((p, k) => { const w = k >= 4 && k <= 11 ? sw(k) : [0, 0], m = k >= 4 && k <= 11 ? 1 : 0; return L(p[0] + w[0] * m, p[1] + w[1] * m); });
-    const P = new Path2D(); spline(P, pts, true, .7); out.push(P);
+    const P = new Path2D(); spline(P, pts, true, .85); out.push(P);
     return out;
   }
 
@@ -118,7 +118,7 @@ const SF = (() => {
   // o: {lum (0..1), lit: [x,y] (ışığa doğru), t, anchor, eye (0..1), hair (false | uzunluk), wind, spear: {grip:'N'|'F', ang, len, up},
   //   armor (true), skirt (true), legs (true), waterY (bu çizginin altı çizilmez), rim (kenar ışığı kalınlığı, baş biriminde; .07),
   //   tilt, headScale, seed,
-  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (beyaz çizgi sayısı, 0–4; 2), armorAlpha (.85)}
+  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (vuruş yoğunluğu, 0 = yok … 4; 2), robe (true | uzunluk: bele oturan, bileğe inen uzun giysi; skirt yerine), armorAlpha (.85)}
   function draw(J, o = {}) {
     const h = J.h, f = J.f, lum = clamp(o.lum ?? 0), t = o.t || 0, wind = o.wind ?? 1;
     let lit = o.lit || [.7, -.7]; { const l = Math.hypot(lit[0], lit[1]) || 1; lit = [lit[0] / l, lit[1] / l]; }
@@ -173,7 +173,20 @@ const SF = (() => {
     G[2].push(T);
     const hd = J.hd, HL = headLoc(hd[0], hd[1], hh, f, tilt);
     G[2].push(limb(Q(.16, .08), HL(-.02, .36), () => .27 * h, () => .26 * h, 4));    // boyun: kalın, öne eğik; çene altını doldurur
-    if (o.skirt !== false && legs) {
+    const robe = !!o.robe && legs;
+    if (robe) {
+      // uzun giysi: bele oturur, ayak bileğine iner; alt kenar hafif dalgalı, iki bacağın arasında kırılır
+      const Lr = o.robe === true ? 1 : o.robe, A1 = J.anN, A2 = J.anF, sx = (A1[0] - A2[0]) * rt[0] + (A1[1] - A2[1]) * rt[1];
+      const [aL, aR] = sx < 0 ? [A1, A2] : [A2, A1], spread = Math.abs(sx) / h;
+      const hemY = (p, k) => [p[0] + dn[0] * h * (.05 - .25 * (1 - Lr)) + rt[0] * k * h, p[1] + dn[1] * h * (.05 - .25 * (1 - Lr)) + rt[1] * k * h];
+      const mid = [(aL[0] + aR[0]) / 2 - dn[0] * h * (.1 + .35 * clamp(spread - .3, 0, 1.5)), (aL[1] + aR[1]) / 2 - dn[1] * h * (.1 + .35 * clamp(spread - .3, 0, 1.5))];
+      const wv = i => Math.sin(t * 1.2 + i * 1.9) * .03 * h * wind;
+      const qq = (al, sd) => { const q = Q(al, sd * f); return q; };
+      const pts = [qq(1.7, -(hwH + .26)), qq(2.15, -(hwH + .4)), qq(3.0, -(hwH + .5)), hemY(aL, -.5), hemY(aL, -.15), hemY(aL, .2), mid, hemY(aR, -.2), hemY(aR, .15), hemY(aR, .5), qq(3.0, hwH + .5), qq(2.15, hwH + .4), qq(1.7, hwH + .26)];
+      for (let i = 3; i <= 9; i++) pts[i] = [pts[i][0] + dn[0] * wv(i), pts[i][1] + dn[1] * wv(i)];
+      const K = new Path2D(); spline(K, pts, true, .55); G[2].push(K);
+    }
+    if (o.skirt !== false && legs && !robe) {
       const K = new Path2D(), n = 7, y0 = 1.95, y1 = 2.95, w0 = hwH + .3, w1 = hwH + .46, pts = [Q(y0, -w0)];
       for (let i = 0; i < n; i++) { const a = -w1 + (i / n) * 2 * w1, b = -w1 + ((i + 1) / n) * 2 * w1, sw = Math.sin(t * 1.1 + i * 1.7) * .015 + (i % 2) * .05; pts.push(Q(y1 + sw, a + .02), Q(y1 + sw, b - .02), Q(y1 - .08, b)); }
       pts.push(Q(y0, w0)); poly(K, pts, true); G[2].push(K);
@@ -203,9 +216,10 @@ const SF = (() => {
     const toL = p => { const q = ML.transformPoint(new DOMPoint(p[0], p[1])); return [q.x, q.y]; };
 
     // ── tonlar ve etkiler (lum'a bağlı yumuşak geçişler) ──
-    const core = lerp(.03, .97, sst(.1, .9, lum) ** 1.3);
+    const core = lerp(.03, .97, sst(.42, .78, lum));
     const coreG = [core, lum < .2 ? core : lerp(core, core * .72, sst(.2, .8, lum)), core, core];
-    const sRim = 1 - sst(.45, .85, lum), sWL = 1 - sst(.12, .4, lum), sLit = sst(.06, .35, lum) * (1 - sst(.75, 1, lum)), sSh = sst(.3, .7, lum), sInk = sst(.35, .75, lum);
+    const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = sst(.5, .75, lum);
+    const light = lum >= .6, skTone = light ? 0 : 1, sgS = light ? -1 : 1;     // vuruşlar: koyu figürde ışık yanından beyaz, açıkta gölge yanından mürekkep
     const rw = Math.max(3, hd_ * (o.rim ?? .075));
     // ışık merkezi: kenar ışığı burada en kalın; uzaklaştıkça incelir (beyaz çizgiler incelip söner, saydamlaşmaz)
     const lc = toL([sc[0] + lit[0] * 1.1 * h - up[0] * .35 * h, sc[1] + lit[1] * 1.1 * h - up[1] * .35 * h]);
@@ -219,17 +233,70 @@ const SF = (() => {
       for (const P of G[g]) m.fill(P);
       AM.push(m.getImageData(0, 0, BW, BH).data);
     }
+    // ── vuruşlar (beyaz çizgi tekniği): ışık yanındaki kenardan kütleye giren, kesit kavsini izleyen, içe sivrilen çizgiler ──
+    // Çapalar gövde/uzuv yerel koordinatında (rng(seed) ile sabit); kenar her karede maskede yürüyerek bulunur, poz değişince kaymaz.
+    const dens = clamp(o.lines ?? 2, 0, 4), sv = [lv[0] * sgS, lv[1] * sgS];               // vuruşun girdiği yan (koyu: ışık, açık: gölge)
+    const ins = (a, x, y) => { const qx = x | 0, qy = y | 0; return qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] >= 128; };
+    const lin = v => { const w = [ML.a * v[0] + ML.c * v[1], ML.b * v[0] + ML.d * v[1]], l = Math.hypot(w[0], w[1]) || 1; return [w[0] / l, w[1] / l]; };
+    const strk = (c, a, P, dOut, L, w, bend, bdir) => {                    // P: içerde çapa (yerel cihaz), dOut: dışa doğru
+      if (!a || !ins(a, P[0], P[1])) return;
+      let E = null; for (let s2 = 0; s2 < 3 * hd_; s2 += 1) { const x = P[0] + dOut[0] * s2, y = P[1] + dOut[1] * s2; if (!ins(a, x, y)) { E = [x, y]; break; } }
+      if (!E) return;
+      const n = 10, A = [], B = [], din = [-dOut[0], -dOut[1]], nn = [-din[1], din[0]];
+      for (let i = 0; i <= n; i++) { const u = i / n, cx = E[0] + din[0] * L * u + bdir[0] * bend * L * u * u, cy = E[1] + din[1] * L * u + bdir[1] * bend * L * u * u, hw = w * .5 * Math.pow(1 - u, .85) + .15;
+        A.push([cx + nn[0] * hw, cy + nn[1] * hw]); B.push([cx - nn[0] * hw, cy - nn[1] * hw]); }
+      const Pp = new Path2D(); poly(Pp, [[E[0] + dOut[0] * 1.5, E[1] + dOut[1] * 1.5], ...A, ...B.reverse()], true); c.fill(Pp);
+    };
+    const SKc = cnv('K'); let SK = null;
+    const rS = rng((o.seed || 3) * 101 + 13), minGap = 12 / hd_;              // aralık ≥ 12 px (baş biriminde)
+    const torsoStrokes = [], limbStrokes = [];
+    { // gövde: çapalar boy boyunca farklı aralık ve uzunlukta; kesit boyunca (yana) hafif aşağı kavisli
+      const n = Math.round(dens * 3); let al = .12 + rS() * .1;
+      for (let i = 0; i < 8; i++) { const step = Math.max(minGap, (1.7 / Math.max(1, n)) * (.65 + .7 * rS())), Ls = .22 + .5 * rS(), wj = rS();
+        if (i < n && al < 1.9) torsoStrokes.push({ al, Ls, wj }); al += step; }
+      // uzuvlar: kesit boyunca (eksene çapraz) 1–3 vuruş
+      const segs = [[1, J.shF, J.elF], [1, J.elF, J.wrF], [3, J.shN, J.elN], [3, J.elN, J.wrN]];
+      if (legs && !robe) segs.push([1, J.hpF, J.knF], [1, J.knF, J.anF], [2, J.hpN, J.knN], [2, J.knN, J.anN]);
+      for (const [g, p0, p1] of segs) { const k = Math.round(dens * .75); let u = .2 + .15 * rS();
+        for (let i = 0; i < 3; i++) { const segL = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) / h, step = Math.max(minGap / Math.max(.3, segL), .22 + .25 * rS()), Ls = .16 + .2 * rS();
+          if (i < k && u < .85) limbStrokes.push({ g, p0, p1, u, Ls }); u += step; } }
+    }
+    if (dens > 0 && hd_ > 34) {
+      clr(SKc); SKc.fillStyle = '#fff'; let any = false;
+      for (const S of limbStrokes) {
+        const a = AM[S.g], P0 = toL(S.p0), P1 = toL(S.p1), ax = [P1[0] - P0[0], P1[1] - P0[1]], La = Math.hypot(ax[0], ax[1]) || 1, d = [ax[0] / La, ax[1] / La];
+        let nrm = [-d[1], d[0]]; const dt = nrm[0] * sv[0] + nrm[1] * sv[1]; if (Math.abs(dt) < .3) continue; if (dt < 0) nrm = [-nrm[0], -nrm[1]];
+        strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(2.6, hd_ * .032), .12, d); any = true;
+      }
+      // pelerin: gölge/ışık yanından içeri birkaç uzun kıvrım vuruşu
+      if (AM[0]) for (let i = 0; i < Math.round(dens * 2); i++) { const al = .6 + i * .55 + rS() * .2, P = toL(Q(al, -(swH + .2 + .2 * al))); strk(SKc, AM[0], P, sv, hd_ * (.5 + .4 * rS()), Math.max(3, hd_ * .035), .15, lin(dn)); any = true; }
+      if (any) SK = SKc.getImageData(0, 0, BW, BH).data;
+    }
     // zırh çizgileri ve göz: ana grubun tonuna karışır (öndeki kol ve sahnedeki önde çizilen her şey örter)
-    let AR = null; const arTone = lum < .5 ? 1 : 0;
+    let AR = null; const arTone = skTone;
     {
       clr(Z); Z.setTransform(ML.a, ML.b, ML.c, ML.d, ML.e, ML.f); Z.fillStyle = '#fff'; let any = false;
       if (o.armor !== false && hd_ > 40) {
         any = true; const k = sc0, wA = Math.max(3, hd_ * .034);
-        taper(Z, [Q(.1, cs - .46), Q(.27, cs - .14), Q(.29, cs + .1), Q(.12, cs + .44)], wA, k);                 // yaka
         for (let b2 = 0, nb = lum < .5 ? 0 : 1; b2 < nb; b2++) { const al = 1.45; taper(Z, [Q(al, -(swH * .72 + .05)), Q(al + .07, cs), Q(al, swH * .72 + .1)], wA * (1 - .12 * b2), k); } // lorika bantları
         taper(Z, [Q(1.98, -(hwH + .3)), Q(2.03, cs), Q(1.98, hwH + .3)], wA * 1.3, k);                        // kemer
-        for (const sd of [-1, 1]) taper(Z, [Q(-.04, sd * swH * .55), Q(.1, sd * (swH + .12)), Q(.42, sd * (swH + .24))], wA * .9, k); // omuzluk kenarı
-        if (o.skirt !== false && legs) for (let i = 1; i < 7; i += 2) { const a2 = -(hwH + .46) + (i / 7) * 2 * (hwH + .46); taper(Z, [Q(2.1, a2 * .85), Q(2.85, a2)], wA * .8, k); }
+        for (const sd of [-1, 1]) taper(Z, [Q(.02, sd * swH * .6), Q(.14, sd * (swH + .1)), Q(.4, sd * (swH + .2))], wA * .85, k); // omuzluk kenarı (omuz başına tek çizgi)
+        if (o.skirt !== false && legs && !robe) for (let i = 1; i < 7; i += 2) { const a2 = -(hwH + .46) + (i / 7) * 2 * (hwH + .46); taper(Z, [Q(2.1, a2 * .85), Q(2.85, a2)], wA * .8, k); }
+      }
+      if (dens > 0 && hd_ > 34) {
+        // gövde vuruşları: ışık (ya da gölge) yanındaki gövde kenarından içeri
+        const side = (rt[0] * sv[0] + rt[1] * sv[1]) * 1 >= 0 ? 1 : -1, rD = lin([rt[0] * side, rt[1] * side]);
+        if (Math.abs(lin(rt)[0] * sv[0] + lin(rt)[1] * sv[1]) > .2) for (const S of torsoStrokes) {
+          const P = toL(Q(S.al, side * f * .15)); Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0);
+          strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(2.8, hd_ * (.028 + .012 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
+        }
+        // saç telleri: ışık yanında 3–4 ince, kıvrık vuruş (yalnız koyu figür, ışık üstten)
+        if (!light && lit[1] < 0 && o.hair !== false) {
+          const sw2 = Math.sin(t * .8) * .02 * wind, k = sc0;
+          for (const c of [[[.14, -.5], [-.06, -.56], [-.3, -.52], [-.44, -.42]], [[.04, -.44], [-.16, -.48], [-.36, -.42], [-.5, -.3]], [[-.12, -.38], [-.3, -.36], [-.46, -.24], [-.52, -.1]], [[.18, -.42], [.02, -.47], [-.14, -.44]]])
+            taper(Z, c.map(([x, y]) => HL(x + sw2, y)), Math.max(2, hd_ * .022), k);
+          any = true;
+        }
       }
       const eo = o.eye ?? (lum < .5 ? 1 : 0);
       if (eo > 0 && hd_ > 24) {                                                    // göz: kaşın altında tek ince ışık
@@ -248,16 +315,13 @@ const SF = (() => {
       const xi = x | 0, yi = y | 0, fx = x - xi, fy = y - yi, i = (yi * BW + xi) * 4 + 3;
       return ((a[i] * (1 - fx) + a[i + 4] * fx) * (1 - fy) + (a[i + BW4] * (1 - fx) + a[i + BW4 + 4] * fx) * fy) * (1 / 255);
     };
-    const nWL = hd_ > 40 ? Math.round(clamp(o.lines ?? 2, 0, 4)) : 0, gapWL = Math.max(9, hd_ * .11);
-    const WL = []; { let a = rw; for (let j = 0; j < nWL; j++) { const w = Math.max(3.2, hd_ * (.052 - .008 * j)); a += gapWL * (1 + .35 * j); WL.push([a, w]); a += w; } }
-    const Dl = hd_ * lerp(.25, .45, lum), Ds = hd_ * .2, rI0 = Math.max(1.4, hd_ * .016), rI1 = Math.max(1.6, hd_ * .04);
+    const Dl = hd_ * lerp(.25, .45, lum), Ds = hd_ * .2, rI0 = 0, rI1 = Math.max(2, hd_ * .035);
     const DIR = Array.from({ length: 8 }, (_, k) => { const a = k * TAU / 8, dx = Math.cos(a), dy = Math.sin(a); return [dx, dy, rI0 + rI1 * Math.max(0, -(dx * lx + dy * ly))]; });
-    const doRL = sRim > .01 || sWL > .01, Dmax = (WL.length && sWL > .01 ? WL[WL.length - 1][0] + WL[WL.length - 1][1] : rw) + 1.5;
+    const doRL = sRim > .01, Dmax = rw + 1.5;
     const rIm = rI0 + rI1 + 1;
     const full = (a, x, y) => { const qx = (x + .5) | 0, qy = (y + .5) | 0; return qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] === 255; };
     const crisp = v => v <= .2 ? 0 : v >= .8 ? 1 : (v - .2) / .6;
-    const nkL = toL(Q(-.08, 0)), upL = (() => { const v = [ML.a * up[0] + ML.c * up[1], ML.b * up[0] + ML.d * up[1]], l = Math.hypot(v[0], v[1]) || 1; return [v[0] / l, v[1] / l]; })();
-    const R0 = .55 * hd_, R1 = 3.6 * hd_, Q0 = .25 * hd_, Q1 = 2.0 * hd_;
+    const R0 = .55 * hd_, R1 = 3.6 * hd_;
     let img = F.__img; if (!img || img.width !== BW || img.height !== BH) img = F.__img = F.createImageData(BW, BH);
     const O = img.data;
     for (let y = 0; y < BH; y++) for (let x = 0; x < BW; x++) {
@@ -276,10 +340,11 @@ const SF = (() => {
           if (!(qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] === 255)) {
             const ddx = x - lc[0], ddy = y - lc[1], dd = Math.sqrt(ddx * ddx + ddy * ddy);
             if (sRim > .01) { const fd = clamp(1 - (dd - R0) / (R1 - R0)), w = rw * (g < 2 ? .75 : 1) * (.3 + .7 * fd); tg += (1 - tg) * sRim * crisp(1 - smp(a, x + lx * w, y + ly * w)); }
-            if (g === 2 && sWL > .01 && (x - nkL[0]) * upL[0] + (y - nkL[1]) * upL[1] < 0) { const fq = clamp(1 - (dd - Q0) / (Q1 - Q0)); for (let j = 0; j < nWL; j++) { const a0 = WL[j][0], w = WL[j][1] * clamp((fq - .22 * j) / (1 - .22 * j)); if (w < .9) continue; const s0 = smp(a, x + lx * a0, y + ly * a0); if (s0 <= 0) continue; tg += (1 - tg) * sWL * crisp(s0 * (1 - smp(a, x + lx * (a0 + w), y + ly * (a0 + w)))); } }
+            // (eko çizgiler kaldırıldı: yerlerine vuruşlar)
           }
         }
         if (g === 2 && AR) { const r = AR[i + 3] * (1 / 255); if (r > 0) tg += (arTone - tg) * crisp(r); }
+        else if (g !== 2 && SK) { const r = SK[i + 3] * (1 / 255); if (r > 0) tg += (skTone - tg) * crisp(r); }
         vp = vp * (1 - c) + tg * c; al = al * (1 - c) + c;
       }
       if (al > 0) { const v = vp / al * 255; O[i] = O[i + 1] = O[i + 2] = v; O[i + 3] = al * 255; } else O[i + 3] = 0;

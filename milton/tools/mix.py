@@ -129,7 +129,7 @@ def voice_chain(vo):
     return vo
 
 
-SPEECH_GAP = 17.0      # konuşma altında müzik, anlatımın bu kadar LU altında (ortanca; hedef ≥ 14–16)
+SPEECH_GAP = 15.0      # konuşma altında müzik, anlatımın bu kadar LU altında (ortanca; hedef ≥ 14–16)
 
 
 def kweight(x):
@@ -186,7 +186,7 @@ def main():
     act = np.clip((20 * np.log10(ve + 1e-9) + 42) / 10, 0, 1); del ve
     target = db(-3 * act).astype(np.float32); del act
     look = int(.12 * SR); target = np.concatenate([target[look:], np.ones(look, np.float32)])
-    duck = smooth_gain(target, .1, 1.5).astype(np.float32); del target   # yavaş bırakma: cümle aralarında pompalama yok
+    duck = smooth_gain(target, .1, .9).astype(np.float32); del target   # 0,9 sn bırakma: aralarda müzik nefes alır, pompalama yok
     ir = reverb_ir(1.2)
     vo_send = np.stack([signal.oaconvolve(vo * np.float32(db(-26)), ir[c].astype(np.float32))[:N].astype(np.float32) for c in range(2)])
     mu, msr = sf.read(A('audio/music.wav'), always_2d=True, dtype='float32')

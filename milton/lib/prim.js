@@ -30,19 +30,29 @@ const PR = (() => {
   function drawPuff(p, L, id, tn) {
     const P = puffPath(p.x, p.y, p.r, p.s), R = puffRad(p.r, p.s), light = tn.core > .6;
     fill(P, tone(light ? tn.core : snap(tn.core)), { th: -.25, ph: p.ph, id });
-    const v = light ? 1 - tn.rim : tn.rim;                         // çizgi dozu: ışık (ya da gölge) şiddeti
-    const K = Math.max(1, Math.min(4, Math.round(.6 + v * 3.6))), gap = Math.max(13, p.r * .13), th0 = Math.max(3.6, p.r * .07 * (.5 + v));
-    const la = Math.atan2(L[1], L[0]) + (light ? PI : 0), q = rng(p.s + 5);
+    const v = light ? 1 - tn.rim : tn.rim;                         // doz: ışık (ya da gölge) şiddeti
+    const la = Math.atan2(L[1], L[0]) + (light ? PI : 0), q = rng(p.s + 5), sc = clamp(p.r / 150, .5, 1.6);
     tx.save(); tx.clip(P); tx.fillStyle = tone(light ? .05 : 1);
-    for (let k = 0; k < K; k++) {
-      const d = gap * (k + .45), half = (1.45 - .3 * k) * (.6 + .4 * v) * (.9 + q() * .2), c0 = la + (q() - .5) * .16 * (k + 1), th = th0 * (1 - k / (K + 1.5));
-      if (half < .2 || p.r - d < p.r * .35) break;
-      const n = 18, A = [], B = [];
-      for (let i = 0; i <= n; i++) {
-        const u = i / n, a = c0 - half + 2 * half * u, ro = R(a) - d, w = th * Math.pow(Math.sin(PI * u), .75);
-        A.push([p.x + Math.cos(a) * ro * FX, p.y + Math.sin(a) * ro * FY]); B.push([p.x + Math.cos(a) * (ro - w) * FX, p.y + Math.sin(a) * (ro - w) * FY]);
-      }
+    if (v > .08) {
+      // kenar ışığı: tek ince hilal, uçları sivri
+      const half = (.85 + .5 * v) * (.9 + q() * .2), th = Math.max(4.5, 11 * sc * (.5 + v)), n = 18, A = [], B = [];
+      for (let i = 0; i <= n; i++) { const u = i / n, a = la - half + 2 * half * u, ro = R(a) - 5, w = th * Math.pow(Math.sin(PI * u), .8);
+        A.push([p.x + Math.cos(a) * ro * FX, p.y + Math.sin(a) * ro * FY]); B.push([p.x + Math.cos(a) * (ro - w) * FX, p.y + Math.sin(a) * (ro - w) * FY]); }
       tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+      // vuruşlar: ışık yanındaki dilimden kütlenin içine giren, kesit kavsini izleyen, sivrilen kısa çizgiler.
+      // Uzunluk ve aralık düzensiz (eşit olursa tarak gibi durur); hepsi aynı yöne kıvrılır (bıçak izi).
+      const ha = PI * (.2 + .14 * v), sg = q() < .5 ? -1 : 1, beta = .5 + q() * .25;
+      let a = la - ha + q() * .1;
+      while (a < la + ha) {
+        const edge = 1 - Math.pow(Math.abs(a - la) / ha, 2), len = (40 + q() * q() * 130) * sc * (.45 + .55 * edge) * (.7 + .5 * v), w0 = Math.max(3.6, 6.5 * sc), m = 9, A2 = [], B2 = [];
+        for (let i = 0; i <= m; i++) {
+          const u = i / m, s2 = len * u, aa = a + sg * s2 * Math.cos(beta) / p.r, rr = R(aa) - 9 - th - s2 * Math.sin(beta) * (1 + .5 * u), hw = w0 * .5 * Math.pow(1 - u, 1.15);
+          const cx = p.x + Math.cos(aa) * rr * FX, cy = p.y + Math.sin(aa) * rr * FY, nx = Math.cos(aa), ny = Math.sin(aa);
+          A2.push([cx + nx * hw, cy + ny * hw]); B2.push([cx - nx * hw, cy - ny * hw]);
+        }
+        tx.beginPath(); poly(tx, [...A2, ...B2.reverse()], true); tx.fill();
+        a += (20 + q() * 34) / p.r;
+      }
     }
     tx.restore();
     return P;
@@ -117,7 +127,7 @@ const PR = (() => {
     const spine = [];
     for (let i = 0; i <= m; i++) {
       const f = i / m;
-      const off = wid * (.3 * curl * Math.sin(f * PI * 1.1 + k + t * .8 * sp) * f + .16 * Math.sin(f * PI * 2.4 - t * 2.1 * sp + k * 2) * f * f);
+      const off = wid * (.55 * curl * Math.sin(f * PI * 1.25 + k * .3 + t * .8 * sp) * f + .22 * Math.sin(f * PI * 2.4 - t * 2.1 * sp + k * 2) * f * f);   // S kavisli eksen
       spine.push([x + sl * f * H + cl * off, y - cl * f * H + sl * off]);
     }
     const edge = (ins, top) => {
@@ -140,7 +150,7 @@ const PR = (() => {
     const tip = spine[m], ax = Math.atan2(tip[1] - y, tip[0] - x);
     const res = { outer: edge(1, 1), inner: edge(o.inner ?? .55, .8), base: [x, y], ax, H, wid, curl, seed, frags: [] };
     // kopan parçalar: dil ucundan ayrılıp yükselen, küçülen alev kırıntıları (büyüklük döngü sınırlarında sıfır: sıçrama yok)
-    if (hash(seed + 3.3) > .45) {
+    if (o.frags !== false && hash(seed + 3.3) > .45) {
       const c = (t * .42 * sp + hash(seed + 4.4) * 7) % 1, s = wid * .26 * Math.sin(PI * c) * (1 - .45 * c);
       if (s > 1) {
         const fx = tip[0] + Math.cos(ax) * (c * H * .4 + s) + Math.sin(c * 5 + k) * wid * .15, fy = tip[1] + Math.sin(ax) * (c * H * .4 + s);
@@ -159,14 +169,15 @@ const PR = (() => {
     const id = o.id ?? 3, edgeT = o.edge ?? .64, core = o.core ?? 1, U = new Path2D();
     for (const g of list) {
       // kabuk taraması: dilin ekseni boyunca akan, eğriliğini izleyen çizgiler
-      fill(g.outer, tone(edgeT), { type: 'bend', ox: g.base[0], oy: g.base[1], a: g.ax, k: -g.curl * .9 / Math.max(60, g.H), ph: hash(g.seed + 9.1), id });
+      // büyük dilde kabuk akış çizgileriyle taranır; küçük ve orta dilde (H < 240) tarama iki üç dikey çizgiye düşüp koni gibi okunduğu için dil bütünüyle kâğıt kalır
+      fill(g.outer, tone(g.H < (o.solidBelow ?? 240) ? 1 : edgeT), { type: 'bend', ox: g.base[0], oy: g.base[1], a: g.ax, k: -g.curl * .9 / Math.max(60, g.H), ph: hash(g.seed + 9.1), id });
       U.addPath(g.outer);
     }
     tx.fillStyle = tone(core);
     for (const g of list) { tx.fill(g.inner); for (const f of g.frags) tx.fill(fragPath(f, .8)); }
     // dip: koyuya gömülen taban (kısa tarama)
     const b = o.base ?? .25;
-    if (b < 1) {
+    if (b < 1 && hgt >= (o.solidBelow ?? 240)) {
       tx.save(); tx.clip(U); tx.globalCompositeOperation = 'darken';
       const yb = y + hgt * .06, g = tx.createLinearGradient(0, yb, 0, yb - hgt * (o.dip ?? .3));
       g.addColorStop(0, tone(b)); g.addColorStop(.55, tone(lerp(b, 1, .6))); g.addColorStop(1, tone(1));
@@ -208,7 +219,7 @@ const PR = (() => {
     const yb = y + hgt * .1, P = new Path2D(), Q = new Path2D();
     P.moveTo(x0, yb); for (const [a, b] of top) P.lineTo(a, b); P.lineTo(x1 + step, yb); P.closePath();
     Q.moveTo(x0, yb); for (const [a, b] of inn) Q.lineTo(a, Math.min(b, yb - 1)); Q.lineTo(x1 + step, yb); Q.closePath();
-    fill(P, tone(o.bandEdge ?? .88), { th: -PI / 2, ph: hash(seed), id });
+    fill(P, tone(o.bandEdge ?? 1), { th: -PI / 2, ph: hash(seed), id });   // taramasız: dikey çizgiler küçük boyda çit gibi okunuyordu
     tx.fillStyle = tone(o.core ?? 1); tx.fill(Q);
     return P;
   }
@@ -351,6 +362,23 @@ const PR = (() => {
     }
     tx.restore();
   }
+  // Kenar vuruşları: bir çokgen çizgisi boyunca, verilen yönde kütlenin içine giren sivri kısa çizgiler (koyu kütlede kâğıt rengi).
+  // pts: kenar noktaları; dir: [dx, dy] içe doğru yön; o: {len: [en az, en çok], gap: [en az, en çok], w, v, seed, bend, clip (Path2D)}
+  function cuts(pts, dir, o = {}) {
+    const r = rng(o.seed || 31), d = nrm(dir), [l0, l1] = o.len || [22, 80], [g0, g1] = o.gap || [14, 34], w0 = o.w ?? 3.6, bend = o.bend ?? .25;
+    tx.save(); if (o.clip) tx.clip(o.clip); tx.fillStyle = tone(o.v ?? 1);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const a = pts[i], b = pts[i + 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]); let s = r() * g1;
+      while (s < L) {
+        const x = lerp(a[0], b[0], s / L), y = lerp(a[1], b[1], s / L), len = l0 + r() * r() * (l1 - l0), an = Math.atan2(d[1], d[0]) + (r() - .5) * .3, m = 8, A = [], B = [];
+        for (let k = 0; k <= m; k++) { const u = k / m, aa = an + bend * u, cx = x + Math.cos(an + bend * u * .5) * len * u + d[0] * 2, cy = y + Math.sin(an + bend * u * .5) * len * u + d[1] * 2, hw = w0 * .5 * Math.pow(1 - u, 1.15), nx = -Math.sin(aa), ny = Math.cos(aa);
+          A.push([cx + nx * hw, cy + ny * hw]); B.push([cx - nx * hw, cy - ny * hw]); }
+        tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+        s += g0 + r() * (g1 - g0);
+      }
+    }
+    tx.restore();
+  }
   // yumuşak ışık lekesi (ton katmanında aydınlatma ya da karartma)
   function glow(x, y, r0, r1, v, a = 1, op = 'lighter') {
     const g = tx.createRadialGradient(x, y, r0, x, y, r1);
@@ -370,7 +398,7 @@ const PR = (() => {
     const id = o.id ?? 8, r = rng(o.seed || 11), D = y1 - y0;
     const P = new Path2D(); P.rect(-200, y0, W + 400, D + 1);
     if (o.tone) { const g = tx.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, tone(o.tone[0])); g.addColorStop(1, tone(o.tone[1])); tx.fillStyle = g; tx.fill(P); }
-    px.fillStyle = hatch({ th: 0, ph: o.ph ?? 0, id }); px.fill(P);
+    px.fillStyle = hatch({ type: 'persp', y0, D, p0: o.p0 ?? 7.5, p1: o.p1 ?? GR.STY[id].P, ph: o.ph ?? 0, id }); px.fill(P);   // ufukta sık, yakında seyrek
     tx.save(); tx.globalCompositeOperation = 'lighter';
     // dalga sırtları
     const nc = o.crests ?? 46, cv = o.crestV ?? .3;
@@ -426,5 +454,5 @@ const PR = (() => {
       c.restore();
     }
   }
-  return { cloud, smoke, flame, flameBank, rock, rays, shafts, glow, lake, chain, puff: drawPuff };
+  return { cloud, smoke, flame, flameBank, rock, rays, shafts, cuts, glow, lake, chain, puff: drawPuff };
 })();
