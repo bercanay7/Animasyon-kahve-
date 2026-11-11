@@ -96,8 +96,8 @@ function cen_c03(t) {
   const L = { x: 1900, y: 60 }, tL = Wd('C03', 'lüsifer'), sa = .35 + .65 * E.out3(cen_u(t, tL - .3, tL + .9));
   cen_gok(L, { r0: 160, a: .8, v: .66, mid: .86, kama: [{ a: PI * .78, w: .035, len: 1400 }] });
   cen_bulut({ x: 1500, y: 960, w: 1300, h: 150, seed: 81, L, sh: .95, n: 8, len: 2 });
-  const J = cen_basmelek({ x: 880, y: 1130, h: 122, facing: -1, L, t, lum: 1, head: .28, twist: .22, armN: [.05, .3], armF: [-.1, .4], spear: false, open: -.3, lift: .1, wingRot: .1, cloak: .4, shade: .1, legs: false });
-  const hd = J.hd; cen_yildiz(hd[0] - 30, hd[1] - 1.6 * 122 + Math.sin(t * .8) * 2, 30, sa);
+  const J = cen_basmelek({ x: 900, y: 1180, h: 140, wingSpan: 4.4 * 140, facing: -1, L, t, lum: 1, head: .28, twist: .22, armN: [.05, .3], armF: [-.1, .4], spear: false, open: -.3, lift: .1, wingRot: .1, cloak: .4, shade: .1, legs: false });
+  const hd = J.hd; cen_yildiz(hd[0] - 30, hd[1] - 1.5 * 140 + Math.sin(t * .8) * 2, 30, sa);
   cen_bulut({ x: 300, y: 1110, w: 1300, h: 120, seed: 82, L, sh: 1, n: 8, len: 1.4, by: -.2 });
 }
 plan('P020', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 930, cy: 520, z: 1.06 }, st.p, E.io2), () => cen_c03(st.t), [.8, 0, 1]),
@@ -194,8 +194,8 @@ function cen_c08(t) {
     const a = q() * TAU, r = Math.sqrt(q()) * 1, x0 = 1250 + Math.cos(a) * r * 560, y0 = 470 + Math.sin(a) * r * 300, fol = (i % 3) === 0, ph = q(), sz = 2.6 + q() * 3.2;
     let x = x0, y = y0;
     if (fol) { const k = E.io2(clamp(go * 1.25 - ph * .25)); x = lerp(x0, lx - 60 - (x0 - 1250) * .45 + 120, k); y = lerp(y0, ly + (y0 - 470) * .55, k); }
-    const K = new Path2D(); K.arc(x, y, sz * 1.9 + 3, 0, TAU); tx.fillStyle = tone(.05); tx.fill(K);
-    const D = new Path2D(); D.arc(x, y, sz * 1.25, 0, TAU); tx.fillStyle = tone(1); tx.fill(D);
+    const K = new Path2D(); K.arc(x, y, sz * 1.5 + 2, 0, TAU); tx.fillStyle = tone(.05); tx.fill(K);
+    const D = new Path2D(); poly(D, [[x, y - sz * 2], [x + sz * .45, y - sz * .45], [x + sz * 2, y], [x + sz * .45, y + sz * .45], [x, y + sz * 2], [x - sz * .45, y + sz * .45], [x - sz * 2, y], [x - sz * .45, y - sz * .45]], true); tx.fillStyle = tone(1); tx.fill(D);
   }
   cen_yildiz(lx, ly, 14, 1);
 }
@@ -208,7 +208,7 @@ function cen_c10(t) {
   const AX = 1000, L = { x: AX, y: 520 };
   cen_gok(L, { r0: lerp(40, 150, gl), a: .3 + .7 * gl, v: .44, mid: lerp(.6, .82, gl), dark: .4 });
   // sönük kalabalık: hafif taralı gövdeler (ton .62); uzak sıralar önce
-  const crowd = (y, h, n, sd, v) => cen_saflar([{ y, h, x0: -40, x1: 1980, n, facing: 1, seed: sd, v: v * .62, sh: .1, spear: false, dy: .4, wing: .5 }], { t, L });
+  const crowd = (y, h, n, sd, v) => cen_saflar([{ y, h, x0: -40, x1: 1980, n, facing: 1, seed: sd, v: v * .5, sh: .1, spear: false, dy: .4, wing: .5 }], { t, L });
   cen_bulut({ x: 960, y: 640, w: 2400, h: 60, seed: 141, L, sh: .9, n: 16, len: 4, cuts: 0, base: false });
   crowd(700, 12, 36, 51, .66); crowd(800, 17, 26, 52, .64);
   // Abdiel: diz çökmüş hâlden kalkar; ışık onda toplanır
@@ -224,13 +224,13 @@ function cen_c11(t) {
   cen_gok(L, { r0: 90, a: .7, v: .46, mid: .74, dark: .35 });
   cen_bulut({ x: 1200, y: 660, w: 2800, h: 60, seed: 151, L, sh: .9, n: 20, len: 4, cuts: 0, base: false });
   // arka saf: ona dönük, sönük; geçtiği yerde hafif geri çekilir
-  cen_saflar([{ y: 760, h: 16, x0: 0, x1: 2400, n: 40, facing: -1, seed: 61, v: .42, sh: .1, spear: false, dy: .3 }], { t, L });
+  cen_saflar([{ y: 760, h: 16, x0: 0, x1: 2400, n: 40, facing: -1, seed: 61, v: .3, sh: .1, spear: false, dy: .3 }], { t, L });
   // Abdiel: yürüyüş (bacak salınımı), dik baş
   const ph = (t - s0) * 3.4, sw = Math.sin(ph) * .38;
   cen_basmelek({ x: AX, y: 900 - 3.95 * 40 + Math.abs(Math.cos(ph)) * -3, h: 40, facing: 1, L: { x: AX + 400, y: 100 }, t, lum: 1, head: .12, twist: .55, armN: [-sw * .6, .2], armF: [sw * .6, .2], legN: [sw, -.1 - .2 * Math.max(0, -Math.sin(ph))], legF: [-sw, -.1 - .2 * Math.max(0, Math.sin(ph))], spear: false, fold: 1, wingRot: .3, cloak: .5 });
   // ön saf: kadrajı kesen sönük bedenler, aralanmış
   const R = rng(62);
-  for (let i = 0; i < 12; i++) { const x = -100 + i * 230 + (R() - .5) * 60, gap = Math.exp(-Math.pow((x - AX) / 260, 2)) * 70; cen_melek({ x: x + Math.sign(x - AX) * gap, y: 1180 + (R() - .5) * 30, h: 46, f: x < AX ? 1 : -1, lx: .3, ly: -.95, spear: null, v: .4, sh: .12, seed: 70 + i, wing: .6 }); }
+  for (let i = 0; i < 12; i++) { const x = -100 + i * 230 + (R() - .5) * 60, gap = Math.exp(-Math.pow((x - AX) / 260, 2)) * 70; cen_melek({ x: x + Math.sign(x - AX) * gap, y: 1180 + (R() - .5) * 30, h: 46, f: x < AX ? 1 : -1, lx: .3, ly: -.95, spear: null, v: .28, sh: .12, seed: 70 + i, wing: .6 }); }
 }
 plan('P028', (ctx, st) => levha(ctx, camLerp({ cx: 760, cy: 560, z: 1.05 }, { cx: 1160, cy: 560, z: 1.05 }, st.p, E.sine), () => cen_c11(st.t), [.6, 0, 1]),
   { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C11', 'binlerce') - .2; quote(ctx, '“binlerce hainin arasında sadık kalan tek kişi”', 960, 190, st.t - t0, { px: 66, per: .45 }); } });

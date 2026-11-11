@@ -11,7 +11,7 @@
 //     kama: [{a (açı), w (en geniş yerin yarı açısı), len, at (en geniş yerin oranı)}], dark (0..1 alacakaranlık)}
 function cen_gok(L, o = {}) {
   const { tx, px, tone } = GR, a = o.a ?? 1, dk = o.dark || 0;
-  const r0 = (o.r0 ?? 110) * (.35 + .65 * a), r1 = o.r1 ?? 1900;
+  const r0 = (o.r0 ?? 110) * (.35 + .65 * a), r1 = (o.r1 ?? 1900) * (1 - .4 * dk);
   const vf = o.v ?? .72, vm = o.mid ?? .88;
   const g = tx.createRadialGradient(L.x, L.y, r0 * .6, L.x, L.y, r1);
   const k = v => clamp(lerp(v, v * .85, dk));
@@ -261,7 +261,7 @@ function cen_mizrak(gx, gy, a, L, up, w, h) {
 // Sabah yıldızı: sekiz kollu kâğıt beyazı yıldız; çevresinde kendi küçük eş merkezli halesi (koyu halka taraması, ayırma için)
 function cen_yildiz(x, y, r, a = 1) {
   const { tx, px, tone } = GR; if (a <= 0) return;
-  const R2 = r * (2.2 + .8 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
+  const R2 = r * (1.7 + .5 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
   const g = tx.createRadialGradient(x, y, r * .6, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.3, tone(lerp(.85, .5, a))); g.addColorStop(.7, tone(lerp(.85, .62, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
   tx.save(); tx.globalCompositeOperation = 'source-over'; tx.fillStyle = g; tx.fill(D); tx.restore();
   px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
@@ -271,9 +271,8 @@ function cen_yildiz(x, y, r, a = 1) {
 }
 // İkinci ışık (Oğul): figürsüz kâğıt disk; çevresinde koyulaşan kısa halka taraması (ayrım için). Yüz, el, hale, haç yok.
 function cen_isik(x, y, r, a = 1) {
-  const { tx, px, tone } = GR, R2 = r * 3.4, D = new Path2D(); D.arc(x, y, R2, 0, TAU);
-  const g = tx.createRadialGradient(x, y, r, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.25, tone(lerp(.9, .6, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
-  tx.fillStyle = g; tx.fill(D); px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
+  const { tx, tone } = GR;
+  PR.glow(x, y, r, r * 2.6, 1, a * .8);
   const C = new Path2D(); C.arc(x, y, r, 0, TAU); tx.fillStyle = tone(1); tx.fill(C);
 }
 // Uzak saray: Dor sütunlu, alınlıklı tapınak (kubbe yok). x, y taban ortası; s ölçek (taban genişliği px); lx ışık yanı (±1)
