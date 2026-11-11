@@ -69,16 +69,16 @@
   {
    "id": "B04",
    "bolum": "Kör şair",
-   "tts": "[darkly] Bu adam yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuştu. Sonra devrim çöktü, krallık geri döndü. Londra'da cellat onun kitaplarını ateşe atarken, yazarı saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü.",
-   "alt": "Bu adam yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuştu. Sonra devrim çöktü, krallık geri döndü. Londra'da cellat onun kitaplarını ateşe atarken, yazarı saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü.",
-   "kaynak": "Tenure of Kings, Eikonoklastes (1649); DNB s. 33 (16 Haziran 1660 kararı, cellat eliyle yakma, saklanma); 1652'de tam kör → 1660'ta sekiz yıl; '1660' ekran yazısı"
+   "tts": "[darkly] Bu adam yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuştu. Devrim çöküp krallık geri dönünce, Londra'da cellat onun kitaplarını ateşe atarken yazarı saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü.",
+   "alt": "Bu adam yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuştu. Devrim çöküp krallık geri dönünce, Londra'da cellat onun kitaplarını ateşe atarken yazarı saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü.",
+   "kaynak": "d. 9 Aralık 1608, 1652'de tam kör; Tenure of Kings, Eikonoklastes (1649); Yabancı Diller Sekreteri 1649–1660"
   },
   {
    "id": "B05",
    "bolum": "Kör şair",
-   "tts": "[calmly] Destana devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
-   "alt": "Destana devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
-   "kaynak": "DNB s. 34 (yazım 1658'de başlar; Aubrey'e göre 1663'te biter)"
+   "tts": "[calmly] Destanına, devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
+   "alt": "Destanına, devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.",
+   "kaynak": "DNB s. 33 (16 Haziran 1660 kararı, yakma; yazın tutuklanma, harç ödeyince salıverilme); DNB s. 34 (yazım 1658'de başlar, Aubrey'e göre 1663'te biter); '1660' ekran yazısı"
   },
   {
    "id": "B06",
@@ -114,7 +114,7 @@
    "bolum": "Işık taşıyan",
    "tts": "[curious] Her şeye sahip olan biri, neden başkaldırır?",
    "alt": "Her şeye sahip olan biri, neden başkaldırır?",
-   "kaynak": "bölüm sorusu; iki cevabı C06"
+   "kaynak": "bölüm sorusu; iki cevabı C09"
   },
   {
    "id": "C02",
@@ -199,7 +199,7 @@
    "bolum": "Dokuz gün",
    "tts": "[darkly] Cennette ilk kez kılıçlar çekilir. Ve ölümsüz bir varlık, birazdan acının ne olduğunu öğrenecek.",
    "alt": "Cennette ilk kez kılıçlar çekilir. Ve ölümsüz bir varlık, birazdan acının ne olduğunu öğrenecek.",
-   "kaynak": "bölüm vaadi; ödemesi D04"
+   "kaynak": "bölüm vaadi; ödemesi D05"
   },
   {
    "id": "D02",
@@ -247,9 +247,9 @@
   {
    "id": "D08",
    "bolum": "Dokuz gün",
-   "tts": "[awed] Üçüncü gün, destanda Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
-   "alt": "Üçüncü gün, destanda Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
-   "kaynak": "KC VI.699, VI.748–866"
+   "tts": "[awed] Kimse üstün gelemez. Destanda üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
+   "alt": "Kimse üstün gelemez. Destanda üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
+   "kaynak": "KC VI.693–694 (savaş sonuçsuz), VI.699, VI.748–866"
   },
   {
    "id": "D09",
@@ -313,7 +313,7 @@
    "bolum": "Cehennemde kral",
    "tts": "[calmly] Sonra destanın en ünlü dizesini söyler: [proudly] “Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”",
    "alt": "Sonra destanın en ünlü dizesini söyler: “Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”",
-   "kaynak": "KC I.263 (çevirimiz). Menteşe; Abdiel'in uyarısı D04"
+   "kaynak": "KC I.263 (çevirimiz). Menteşe; Abdiel'in uyarısı D03"
   },
   {
    "id": "E08",
@@ -325,8 +325,8 @@
   {
    "id": "E09",
    "bolum": "Cehennemde kral",
-   "tts": "[in awe] Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır; o mızrağa yaslanarak yanan topraklarda yürür.",
-   "alt": "Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır; o mızrağa yaslanarak yanan topraklarda yürür.",
+   "tts": "[awed] Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır.",
+   "alt": "Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır.",
    "kaynak": "KC I.283–296"
   },
   {
@@ -346,9 +346,9 @@
   {
    "id": "E12",
    "bolum": "Cehennemde kral",
-   "tts": "[in awe] Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonyum, bütün şeytanların meclisi.",
-   "alt": "Şeytanlar cehennemin toprağından altın kazar. Bir saatten kısa sürede, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.",
-   "kaynak": "KC I.670–730 (I.697 'in an hour'), I.756; görsel: Dor sütunlu, altın tavanlı tapınak (I.713–717)",
+   "tts": "[awed] Sonunda konuşur; ordu işe koyulur. Şeytanlar cehennemin toprağından altın kazar. Bir saat içinde, yerden devasa bir saray yükselir: Pandemonyum, bütün şeytanların meclisi.",
+   "alt": "Sonunda konuşur; ordu işe koyulur. Şeytanlar cehennemin toprağından altın kazar. Bir saat içinde, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.",
+   "kaynak": "KC I.663 ('He spake'), I.670–730 (I.697 'in an hour'), I.756; görsel: Dor sütunlu, altın tavanlı tapınak (I.713–717)",
    "vo_parca": 1
   },
   {
@@ -403,9 +403,9 @@
   {
    "id": "F05",
    "bolum": "Kapıdaki bekçiler",
-   "tts": "[darkly] Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.",
-   "alt": "Kapı açılır. Önünde ne başı ne sonu olan karanlık bir okyanus vardır: Kaos.",
-   "kaynak": "KC II.871–916",
+   "tts": "[darkly] Günah kapıyı açar. Şeytan'ın önünde ne başı ne sonu olan bir okyanus vardır: Kaos.",
+   "alt": "Günah kapıyı açar. Şeytan'ın önünde ne başı ne sonu olan bir okyanus vardır: Kaos.",
+   "kaynak": "KC II.871–884 (kapıyı Günah açar), II.890–916",
    "vo_parca": 1
   },
   {
@@ -496,14 +496,14 @@
   {
    "id": "G08",
    "bolum": "Güneşe itiraf",
-   "tts": "[trembling] “En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
+   "tts": "[trembling voice] “En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
    "alt": "“En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
    "kaynak": "KC IV.76–78 (çevirimiz)"
   },
   {
    "id": "G09",
    "bolum": "Güneşe itiraf",
-   "tts": "[calmly] Bir an yumuşar: [trembling] “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”",
+   "tts": "[calmly] Bir an yumuşar: [trembling voice] “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”",
    "alt": "Bir an yumuşar: “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”",
    "kaynak": "KC IV.79–80 (çevirimiz). Ardından filmin tek tam sessizliği (plan.json gap 2,0)"
   },
@@ -666,16 +666,16 @@
   {
    "id": "I04",
    "bolum": "Yılanın içinde",
-   "tts": "[calmly] Uyuyan bir yılan bulur. İçine girmeden önce bir an durur: [disgusted] “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”",
-   "alt": "Uyuyan bir yılan bulur. İçine girmeden önce bir an durur: “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”",
-   "kaynak": "KC IX.159–167 (çevirimiz, kısaltılmış); yılana giriş IX.187–190"
+   "tts": "[calmly] Saklanmak için uyuyan bir yılan arar; ararken kendinden iğrenir: [disgusted] “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”",
+   "alt": "Saklanmak için uyuyan bir yılan arar; ararken kendinden iğrenir: “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”",
+   "kaynak": "KC IX.159–167 (çevirimiz, kısaltılmış; sözler yılanı ararken söylenir)"
   },
   {
    "id": "I05",
    "bolum": "Yılanın içinde",
-   "tts": "[calmly] Ve kendi geleceğini söyler: [bitterly] “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır. İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.”",
-   "alt": "Ve kendi geleceğini söyler: “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır. İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.”",
-   "kaynak": "KC IX.169–172 (çevirimiz). K12'de anılır"
+   "tts": "[calmly] Ve kendi geleceğini söyler: [bitterly] “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır. İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.” [calmly] Sonra yılanı bulur ve ağzından içine girer.",
+   "alt": "Ve kendi geleceğini söyler: “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır. İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.” Sonra yılanı bulur ve ağzından içine girer.",
+   "kaynak": "KC IX.169–172 (çevirimiz); yılana giriş IX.182–190. K12'de anılır"
   },
   {
    "id": "I06",
@@ -723,8 +723,8 @@
   {
    "id": "J02",
    "bolum": "Alkış",
-   "tts": "[calmly] Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir; Milton'un deyişiyle, sahte bir parıltıyla. Cehennem onu sevinç haykırışlarıyla karşılar.",
-   "alt": "Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden eski parlaklığıyla belirir; Milton'ın deyişiyle, sahte bir parıltıyla. Cehennem onu sevinç haykırışlarıyla karşılar.",
+   "tts": "[calmly] Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden belirir: düşüşten ona kalan ışıkla ya da, Milton'un deyişiyle, sahte bir parıltıyla. Cehennem onu sevinç haykırışlarıyla karşılar.",
+   "alt": "Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden belirir: düşüşten ona kalan ışıkla ya da, Milton'ın deyişiyle, sahte bir parıltıyla. Cehennem onu sevinç haykırışlarıyla karşılar.",
    "kaynak": "KC X.441–457 (X.451–452 'false glitter')"
   },
   {
@@ -773,15 +773,15 @@
   {
    "id": "J09",
    "bolum": "Alkış",
-   "tts": "[gravely] Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Alkışlar tıslamaya, zafer kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
-   "alt": "Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Alkışlar tıslamaya, zafer kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
-   "kaynak": "KC X.516 (yalnız Şeytan), X.545–547"
+   "tts": "[gravely] Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Zafer, kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "alt": "Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Zafer, kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.",
+   "kaynak": "KC X.516, X.545–547"
   },
   {
    "id": "J10",
    "bolum": "Alkış",
-   "tts": "[darkly] Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
-   "alt": "Önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
+   "tts": "[darkly] Ceza bitmez: önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
+   "alt": "Ceza bitmez: önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.",
    "kaynak": "KC X.547–570"
   },
   {
@@ -808,9 +808,9 @@
   {
    "id": "K03",
    "bolum": "Dünya önlerindeydi",
-   "tts": "[thoughtfully] Peki Şeytan da dileyebilir miydi? Milton'un destanında bunun cevabı en başta verilir: İnsan aldatıldı; bu yüzden merhamet bulacak. Asi melekler kendi kendilerini ayarttı; onlar bulamayacak.",
-   "alt": "Peki Şeytan da dileyebilir miydi? Milton'ın destanında bunun cevabı en başta verilir: İnsan aldatıldı; bu yüzden merhamet bulacak. Asi melekler kendi kendilerini ayarttı; onlar bulamayacak.",
-   "kaynak": "KC III.129–132 (dolaylı anlatım; Tanrı'ya replik verilmez). Ödemesi L08"
+   "tts": "[thoughtfully] Peki Şeytan da dileyebilir miydi? Milton'un destanında bunun cevabı daha üçüncü kitapta verilir: İnsan aldatıldı; bu yüzden merhamet bulacak. Asi melekler kendi kendilerini ayarttı; onlar bulamayacak.",
+   "alt": "Peki Şeytan da dileyebilir miydi? Milton'ın destanında bunun cevabı daha üçüncü kitapta verilir: İnsan aldatıldı; bu yüzden merhamet bulacak. Asi melekler kendi kendilerini ayarttı; onlar bulamayacak.",
+   "kaynak": "KC III.129–132; ikinci okuma için kurulum (K-Uzman); L08"
   },
   {
    "id": "K04",
@@ -836,8 +836,8 @@
   {
    "id": "K07",
    "bolum": "İki okuma",
-   "tts": "[calmly] Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk bambaşka bir şey ileri sürdü: [passionately] Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü, der Bleyk, gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
-   "alt": "Ama yüz yıldan fazla sonra, şair ve ressam William Blake bambaşka bir şey ileri sürdü: Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü, der Blake, gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "tts": "[calmly] Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk bambaşka bir şey ileri sürdü: [passionately] Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Bleyk'in gerekçesi şuydu: Milton gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
+   "alt": "Ama yüz yıldan fazla sonra, şair ve ressam William Blake bambaşka bir şey ileri sürdü: Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Blake'in gerekçesi şuydu: Milton gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.",
    "kaynak": "Blake, The Marriage of Heaven and Hell (1790–93), 'The Voice of the Devil' notu (çevirimiz)"
   },
   {
@@ -858,31 +858,31 @@
   {
    "id": "K11",
    "bolum": "İki okuma",
-   "tts": "[calmly] Luis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: [wryly] “Kahramandan generale. Generalden politikacıya. Oradan casusa; yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”",
-   "alt": "Lewis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: “Kahramandan generale. Generalden politikacıya. Oradan casusa; yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”",
-   "kaynak": "Lewis 1942, bölüm 13 (kısa alıntı, tam, çevirimiz; altyazıda tırnak içinde)"
+   "tts": "[calmly] Luis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: [wryly] “Kahramandan generale. Generalden politikacıya. Oradan casusa. Yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”",
+   "alt": "Lewis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: “Kahramandan generale. Generalden politikacıya. Oradan casusa. Yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”",
+   "kaynak": "Lewis 1942, bölüm 13 (kısa alıntı, çevirimiz; altyazıda tırnak içinde)"
   },
   {
    "id": "K12",
    "bolum": "İki okuma",
-   "tts": "[calmly] Şeytan da bunu, yılana girmeden önce kendi ağzıyla söylemişti.",
-   "alt": "Şeytan da bunu, yılana girmeden önce kendi ağzıyla söylemişti.",
+   "tts": "[calmly] Şeytan da bunu, yılana girmeden önce kendi ağzıyla söylemişti: yükselmeye kalkan, yükseldiği kadar alçalır.",
+   "alt": "Şeytan da bunu, yılana girmeden önce kendi ağzıyla söylemişti: yükselmeye kalkan, yükseldiği kadar alçalır.",
    "kaynak": "KC IX.169–170 (I05)"
   },
   {
    "id": "K13",
    "bolum": "İki okuma",
-   "tts": "[thoughtfully] Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendine, Hürmüz'ün ve Hindistan'ın hazinelerinden görkemli bir taht kuruyor.",
-   "alt": "Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendine, Hürmüz'ün ve Hindistan'ın hazinelerinden görkemli bir taht kuruyor.",
+   "tts": "[thoughtfully] Bleyk mi haklı, Luis mi? Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendine, Hürmüz'ün ve Hindistan'ın hazinelerinden görkemli bir taht kuruyor.",
+   "alt": "Blake mi haklı, Lewis mi? Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendine, Hürmüz'ün ve Hindistan'ın hazinelerinden görkemli bir taht kuruyor.",
    "kaynak": "Tenure of Kings (1649); KC II.1–6",
    "vo_parca": 1
   },
   {
    "id": "K14",
    "bolum": "İki okuma",
-   "tts": "[calmly] Milton son kitapta, yeryüzünün ilk zorbasını öğrenen Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
-   "alt": "Milton son kitapta, yeryüzünün ilk zorbasını öğrenen Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
-   "kaynak": "KC XII.64–71 (konuşan Âdem; zorba adsız kalır)"
+   "tts": "[calmly] Üstelik Milton son kitapta Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
+   "alt": "Üstelik Milton son kitapta Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.",
+   "kaynak": "KC XII.64–71 (konuşan Âdem)"
   },
   {
    "id": "K15",
@@ -951,15 +951,15 @@
   {
    "id": "L07",
    "bolum": "Bir damla yaş",
-   "tts": "[calmly] Nifates Dağı'nda bir çıkış görmüştü: [coldly] “Bir yol kaldı: boyun eğmek. Ama o sözü bana gururum yasaklıyor.” [calmly] Abdiyel onu uyarmıştı: [firmly] “Cehennemde krallık değil, zincir bekle.” [calmly] Krallığı buldu; zinciri de. Ama o zinciri ona kimse vurmadı. Kendi eliyle vurdu: gururu.",
-   "alt": "Nifates Dağı'nda bir çıkış görmüştü: “Bir yol kaldı: boyun eğmek. Ama o sözü bana gururum yasaklıyor.” Abdiel onu uyarmıştı: “Cehennemde krallık değil, zincir bekle.” Krallığı buldu; zinciri de. Ama o zinciri ona kimse vurmadı. Kendi eliyle vurdu: gururu.",
-   "kaynak": "KC IV.81–82, VI.186"
+   "tts": "[calmly] Nifates Dağı'nda bir çıkış görmüştü: [coldly] “Bir yol kaldı: boyun eğmek. Ama o sözü bana gururum yasaklıyor.” [calmly] Abdiyel onu uyarmıştı: [firmly] “Cehennemde krallık değil, zincir bekle.” [calmly] Krallığı buldu; zinciri de. Gölün zincirleri çözülmüştü; bu zinciri ise ona kimse vurmadı. Kendi eliyle vurdu: gururu.",
+   "alt": "Nifates Dağı'nda bir çıkış görmüştü: “Bir yol kaldı: boyun eğmek. Ama o sözü bana gururum yasaklıyor.” Abdiel onu uyarmıştı: “Cehennemde krallık değil, zincir bekle.” Krallığı buldu; zinciri de. Gölün zincirleri çözülmüştü; bu zinciri ise ona kimse vurmadı. Kendi eliyle vurdu: gururu.",
+   "kaynak": "KC IV.81–82, VI.186; gölün zincirleri I.48, I.210"
   },
   {
    "id": "L08",
    "bolum": "Bir damla yaş",
-   "tts": "[thoughtfully] Ama destan öbür yarısını da söyler: Milton'un destanında bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: [bitterly] “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” [thoughtfully] Onu orada tutan gururu muydu, yoksa Milton'un ona hiç açmadığı bir kapı mı?",
-   "alt": "Ama destan öbür yarısını da söyler: Milton'ın destanında bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” Onu orada tutan gururu muydu, yoksa Milton'ın ona hiç açmadığı bir kapı mı?",
+   "tts": "[thoughtfully] Ama destan bir şey daha söyler: bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: [bitterly] “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” [thoughtfully] Onu orada tutan gururu muydu, yoksa Milton'un ona hiç açmadığı bir kapı mı?",
+   "alt": "Ama destan bir şey daha söyler: bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” Onu orada tutan gururu muydu, yoksa Milton'ın ona hiç açmadığı bir kapı mı?",
    "kaynak": "KC III.129–132, IV.104 (iki okuma A03'ün sorusunda çarpışır; karar izleyicide)"
   },
   {
@@ -972,8 +972,8 @@
   {
    "id": "L09",
    "bolum": "Bir damla yaş",
-   "tts": "[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: [reverently] “Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” [thoughtfully] Belki de bu yüzden, insanın içinde de bir cehennem taşıyabileceğini en iyi o gördü.",
-   "alt": "Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: “Öyleyse sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” Belki de bu yüzden, insanın içinde de bir cehennem taşıyabileceğini en iyi o gördü.",
+   "tts": "[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: [reverently] “Sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” [thoughtfully] Belki de bu yüzden, insanın kendi içinde bir cehennem taşıyabileceğini en iyi o gördü.",
+   "alt": "Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: “Sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” Belki de bu yüzden, insanın kendi içinde bir cehennem taşıyabileceğini en iyi o gördü.",
    "kaynak": "KC III.51–55 (çevirimiz); B01'in cevabı, çerçevenin kapanışı",
    "vo_parca": 1
   },
@@ -987,8 +987,8 @@
   {
    "id": "L11",
    "bolum": "Bir damla yaş",
-   "tts": "[warmly] Şair Şeli'ye göre Prometeus'a benzeyen tek hayalî karakter, Milton'un Şeytan'ıydı; ama Prometeus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Ateşi insanlar için çalan o asinin hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
-   "alt": "Şair Shelley'ye göre Prometheus'a benzeyen tek hayalî karakter, Milton'ın Şeytan'ıydı; ama Prometheus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Ateşi insanlar için çalan o asinin hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
+   "tts": "[warmly] Ateşi insanlar için çalan bir başka asinin, Prometeus'un hikâyesi ekranda. Romantik şair Şeli'ye göre Prometeus'a benzeyen tek hayalî karakter, Milton'un Şeytan'ıydı; ama Prometeus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
+   "alt": "Ateşi insanlar için çalan bir başka asinin, Prometheus'un hikâyesi ekranda. Romantik şair Shelley'ye göre Prometheus'a benzeyen tek hayalî karakter, Milton'ın Şeytan'ıydı; ama Prometheus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
    "kaynak": "Shelley, Prometheus Unbound önsözü (1820): 'The only imaginary being resembling in any degree Prometheus, is Satan… exempt from the taints of ambition, envy, revenge' (K-Uzman ve K-Denetim doğruladı); bitiş ekranı: Prometheus videosu + abone"
   }
  ]

@@ -172,7 +172,7 @@ s('G07', b, "[slowly] [anguished] “Vay hâlime! Sonsuz gazaptan, sonsuz umutsu
   "KC IV.73–75 (çevirimiz). A01 ile aynı kompozisyon ve ekran yazısı")
 s('G08', b, "[anguished] “En derin dipte, beni yutmak için ağzını açan daha derin bir dip var. Onun yanında, çektiğim cehennem cennet gibi kalıyor.”",
   "KC IV.76–78 (çevirimiz)")
-s('G09', b, "[calmly] Bir an yumuşar: [trembling] “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”",
+s('G09', b, "[calmly] Bir an yumuşar: [trembling voice] “Pişmanlığa hiç yer kalmadı mı? Bağışlanmaya?”",
   "KC IV.79–80 (çevirimiz). Ardından filmin tek tam sessizliği (plan.json gap 2,0)")
 s('G09b', b, "[calmly] Cevabı yine kendisi verir: [coldly] “Bir yol kaldı: boyun eğmek. Ama o sözü ağzıma almayı, gururum yasaklıyor.”",
   "KC IV.81–82 (çevirimiz); C07 'boyun eğmek' ile aynı sözcük; L09b")

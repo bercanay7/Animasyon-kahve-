@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script><script src="../lib/figur.js"></script><script src="../lib/siluet.js"></script><script src="../lib/kanat.js"></script>
+<script>
+// Kanat deneme sayfası. ?v=1 parlak melek çifti, 2 yanık/yıkılmış, 3 katlı, 4 yarasa, 5 1→2 ara durumlar, 6 küçük boy (250 px)
+const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
+const Q=new URLSearchParams(location.search), V=+(Q.get('v')||1), FIG=Q.get('fig')!=='0';
+const LIT=[.6,-.8];               // dünya ışık yönü (sağ üst)
+let ms=0;
+// bir figür ve iki kanat. L, R: kanat parametreleri; x,y: kalça; h: baş yüksekliği; fn: KN.feathered ya da KN.bat
+function pair(x,y,h,L,R,o={}){
+  const J=SF.rig({x,y,h,facing:o.facing||1,twist:o.twist??.15,head:o.head??0,armN:o.armN||[.15,.25],armF:o.armF||[-.15,.25],legN:[.05,-.05],legF:[-.05,-.04]});
+  const fn=o.bat?KN.bat:KN.feathered;
+  for(const [side,P] of [[-1,L],[1,R]]){ if(!P) continue;
+    const sh=side<0?(J.shN[0]<J.shF[0]?J.shN:J.shF):(J.shN[0]<J.shF[0]?J.shF:J.shN);
+    GR.frame(sh[0]-side*h*.25, sh[1]+h*.15, P.rot||0, side, 1);
+    const t0=performance.now(); fn(Object.assign({lit:[LIT[0]*side,LIT[1]]},P)); ms=Math.max(ms,performance.now()-t0);
+    GR.unframe(); }
+  if(FIG) SF.draw(J,{lum:o.lum??0,lit:LIT,t:o.t||0,legs:o.legs!==false});
+}
+const A={span:560,open:.95,lift:.9,dark:0,rim:.4,ruin:0,droop:0};
+const B={span:560,open:.6,lift:.55,dark:.9,rim:.7,ruin:.7,droop:0};
+const B2={span:560,open:.85,lift:.15,dark:.9,rim:.7,ruin:.7,droop:.85};
+const mixP=(a,b,p)=>{const o={};for(const k in a)o[k]=typeof a[k]==='number'?lerp(a[k],b[k],p):a[k];return o;};
+function renderFrame(t){ ctx.setTransform(RS,0,0,RS,0,0); const {tx,tone}=GR; GR.begin(.5,0,1);
+  // zemin: orta ton; sol yarı açık, sağ yarı koyu
+  const g=tx.createLinearGradient(0,0,W,0); g.addColorStop(0,tone(.8)); g.addColorStop(.49,tone(.72)); g.addColorStop(.51,tone(.26)); g.addColorStop(1,tone(.18)); tx.fillStyle=g; tx.fillRect(0,0,W,H);
+  ms=0;
+  if(V===1) pair(960,700,58,Object.assign({},A,{seed:11,t}),Object.assign({},A,{seed:12,t}),{lum:.95});
+  if(V===2) pair(960,760,58,Object.assign({},B,{seed:31,t}),Object.assign({},B2,{seed:32,t}),{lum:0});
+  if(V===3){ const F={span:520,open:0,lift:.6,rim:.6,ruin:0};
+    pair(560,760,58,Object.assign({},F,{seed:5,dark:0,t}),Object.assign({},F,{seed:6,dark:0,t}),{lum:.95,facing:-1,twist:.2});
+    pair(1360,760,58,Object.assign({},F,{seed:7,dark:.9,ruin:.5,t}),Object.assign({},F,{seed:8,dark:.9,ruin:.5,t}),{lum:0,twist:.2}); }
+  if(V===4) pair(960,760,58,{span:600,open:.95,lift:.75,dark:.85,rim:.7,seed:3,t},{span:560,open:.75,lift:.45,dark:.85,rim:.7,seed:4,t},{lum:0,bat:1});
+  if(V===5) for(let i=0;i<3;i++){ const p=(i+1)/4, s=.55;
+    const a=mixP(A,B,p), b=mixP(A,B2,p); a.span*=s; b.span*=s;
+    pair(360+i*600,800,58*s,Object.assign(a,{seed:11,t}),Object.assign(b,{seed:12,t}),{lum:lerp(.95,0,p)}); }
+  if(V===6){ const s=250/560;
+    pair(380,800,58*s,Object.assign({},A,{span:250,seed:11,t}),Object.assign({},A,{span:250,seed:12,t}),{lum:.95});
+    pair(960,800,58*s,Object.assign({},B,{span:250,seed:31,t}),Object.assign({},B2,{span:250,seed:32,t}),{lum:0});
+    pair(1540,800,58*s,{span:250,open:.95,lift:.75,dark:.85,rim:.7,seed:3,t},{span:240,open:.75,lift:.45,dark:.85,rim:.7,seed:4,t},{lum:0,bat:1}); }
+  GR.engrave(ctx); applyPaper(ctx,.8);
+  console.log('kanat en uzun', ms.toFixed(1),'ms');
+}
+window.renderFrame=renderFrame; window.renderFrameMB=renderFrame; window.ready=Promise.resolve(buildTextures());
+</script></body></html>

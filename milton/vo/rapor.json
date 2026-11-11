@@ -1,0 +1,24 @@
+{
+ "s13_a": {
+  "wer": 0.0132,
+  "sure": 39.64,
+  "hatalar": [
+   [
+    "replace",
+    "çektiğim",
+    "çektiğin"
+   ]
+  ]
+ },
+ "s13_b": {
+  "wer": 0.0132,
+  "sure": 40.46,
+  "hatalar": [
+   [
+    "replace",
+    "çektiğim",
+    "çektiğin"
+   ]
+  ]
+ }
+}

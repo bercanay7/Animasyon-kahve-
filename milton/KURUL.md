@@ -202,3 +202,36 @@ Rev3'te sayılar `tools/gen/senaryo_v3.py` çıktısından alınıyor.
 
 ### Tur 3 (gerileme kontrolü)
 Kalanlar küçük metin düzeltmeleri olduğu için alan başına tek üye: S-Dram, K-Denetim, H-Hassasiyet, T-Izleyici, A-Dil. Raporlar `kurul/senaryo_tur3/`.
+
+| Üye | Mercek | Puan | Karar |
+|---|---|---|---|
+| S-Dram | dramaturg (Kahramanın Yolculuğu) | 9,03 | ONAY |
+| K-Denetim | kaynak denetçisi | 9,16 | ONAY |
+| H-Hassasiyet | toplumsal ve dinî hassasiyet | 9,38 | ONAY |
+| T-Izleyici | ilk kez gören izleyici | 9,10 | ONAY |
+| A-Dil | Türkçe diksiyon | 9,20 | ONAY |
+
+**Durum: Kapı 1 (senaryo) GEÇTİ.** Engelleyici bulgu yok. Karar: IV.75 çevirisi "Ben cehennemim" (bölüm adı ve kapak A yazısı da bu).
+
+**Onaydan sonraki rötuşlar** (yapı ve olgu değişmedi; `tools/gen/senaryo_v3.py` içinde iki ayrı blok):
+1. Üyelerin düşük/orta öncelikli önerileri: B05, D08, E09, E12, I04, I05, J02, J09, K03, K07, K11, K12, K14, L07, L08, L09, L11.
+2. ABT taraması (`kurul/senaryo_tur3/ABT-tarama.md`, kullanıcının `yonetmenlik` becerisindeki kontrol listesiyle). Hüküm: "liste değil, hikâye"; 13 bölümün 13'ünde AMA var; üç "ve sonra" kuyruğu bulundu. 10 önerinin 8'i alındı: B04, D08, E09, E12, F05, J10, K13, K14. Dayanak dizeleri başkan kaynaktan doğruladı (VI.693–694, I.663, II.871–884).
+   - Reddedilen: H02 "Bu kararla" (gönderme yaptığı karar dört cümle geride, arada bölüm başlığı var) ve I01 "Peki" (bölüm açan yalın soru daha güçlü; "Peki" K13'te de var).
+   - E12 ve F05 önerilen biçimden farklı yazıldı: "Sonunda konuşur; ordu işe koyulur." ve "Şeytan'ın önünde" (özne Günah olunca "önünde" belirsiz kalıyordu).
+3. Ses etiketi: `[trembling]` yerine kılavuzdaki `[trembling voice]`.
+
+Son durum: 139 cümle, 18.645 karakter, 2.605 kelime; 28 çekim (`vo/bolumler.json`). Kayıt düzeltmesi (A-Dil): tur 1 kaydındaki "Ve 8, Ama 7" sayısı cümle başlarını değil, segment başlarını sayar.
+
+**Tek cümlelik vaat:** Cehennemden kaçan Şeytan'ı orada tutan ne? (A03 → G02 → J11 → L06–L08)
+
+**Sonraki kapılara devredilenler:**
+- Miks: A01'in sesi G07 çekiminden kesilir; L07/L08'deki yankı alıntıları G çekimlerinden alınır.
+- Kırmızı çizgilere ekler (H-Hassasiyet tur 3): ışıkta yüz, el, hale ya da haç olmaz; C04'te secde sırası olmaz; taht ve şeytanlar hiçbir etnik ya da dinî topluluğa benzemez; müzikte ezan, tilavet, ney ve makam çağrışımı olmaz.
+- Yayın paketi koşulları: başlıkta Milton ya da Kayıp Cennet geçer; açıklamanın ilk satırı edebi okuma notudur; sabit yorum aynı notu taşır; dinî günlerde yayınlanmaz; Cabanel yalnız gözler ve kollar; Lewis künyesi ekranda (K10–K11) ve açıklamada; "değiştirilmiş veya yapay içerik" beyanı yayın aşamasında karara bağlanır.
+
+## Seslendirme: deneme çekimi (s13, Nifates)
+Emrullah, `eleven_v4`, iki çekim. Whisper: iki çekimde de kelime hatası yok (tek fark "çektiğim/çektiğin", Whisper'ın duyum farkı). Ölçüm:
+- `[softly]` düzeyi 6–9 dB düşürüyor; `[slowly]` hızı düşürmüyor ("Hangi yana kaçsam cehennem" 14,6 kr/sn).
+- "Ben cehennemim" öncesinde 0,64–0,74 sn durak, cümle 10,6 kr/sn: doruk cümlesi ayrışıyor.
+- Ortalama hız ~12 kr/sn; film ~26 dk + bölüm arası duraklar.
+Karar: etiket düzeni çalışıyor; kalan 27 çekim aynı düzenle üretilir. Duraklar `vo/plan.json` ile ayarlanır.

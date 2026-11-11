@@ -1,148 +1,321 @@
-// Gravür ilkelleri: bulut/duman, alev, kaya, ışık huzmesi, göl yüzeyi, zincir.
-// Hepsi GR (gravur.js) katmanlarına çizer: ton → GR.tx, desen → GR.px. Koordinatlar dünya birimidir.
+// Gravür ilkelleri (v2, üslup kurulu tur 1 sonrası): bulut/duman, alev, kaya, ışık huzmesi, göl yüzeyi, zincir.
+// Hepsi GR (gravur.js) katmanlarına çizer: ton → GR.tx, tarama yaması → GR.px. Koordinatlar dünya birimidir.
+// İlkeler: ton sert bantlarla verilir (bulanıklık yok); çizgi doğrultusu nesneyi izler (bulut yay, alev akış, kaya faset);
+// durağan nesnenin çizgisi zamanla kaymaz; hareket yavaş ve süreklidir; rastgelelik yalnız rng(seed) ile.
 'use strict';
 const PR = (() => {
-  const { tx, px, tone, pat, fill } = GR;
+  const { tx, px, tone, fill, hatch } = GR;
+  const nrm = (v) => { const l = Math.hypot(v[0], v[1]) || 1; return [v[0] / l, v[1] / l]; };
+  // çok koyu ton düz siyaha çekilir (eşiğe yakın tonlarda çizgi kesik kesik kırılmasın)
+  const snap = v => v < .2 ? .03 : v;
+  const sstep = (a, b, x) => { const u = clamp((x - a) / (b - a)); return u * u * (3 - 2 * u); };
 
   // ── bulut / duman ──
-  // Kabarık bulut: üst kenarı yuvarlak kümelerden, altı yassı. Işık yönü (lx, ly) ile her küme ayrı gölgelenir.
-  // o: {x, y, w, h, seed, lit: [lx, ly] (birim), base (gölge tonu), hi (ışıklı ton), th (çizgi doğrultusu), id, ph, drift}
-  function cloud(o) {
-    const r = rng(o.seed || 1), n = o.n || Math.max(6, Math.round(o.w / (o.h * .45)));
-    const puffs = [];
-    for (let i = 0; i < n; i++) {
-      const f = (i + .5) / n, edge = Math.pow(Math.sin(f * PI), .7);
-      const rr = o.h * (.28 + .4 * edge) * (.7 + r() * .6);
-      puffs.push({ x: o.x - o.w / 2 + f * o.w + (r() - .5) * o.w / n * .8, y: o.y - rr * (.25 + r() * .45) * edge, r: rr });
-      if (r() < .6) { const rr2 = rr * (.45 + r() * .3); puffs.push({ x: puffs[puffs.length - 1].x + (r() - .5) * rr, y: puffs[puffs.length - 1].y - rr * (.5 + r() * .4), r: rr2 }); }
-    }
-    for (let i = 0; i < n; i++) { const k = r(); puffs.push({ x: o.x - o.w / 2 + (i + r() * 1.6 - .3) / n * o.w, y: o.y + o.h * (-.08 + r() * .34 - k * .12), r: o.h * (.16 + k * k * .5) }); }
-    const [lx, ly] = o.lit || [0, -1];
-    const base = o.base ?? .25, hi = o.hi ?? .92, th = o.th ?? 0, id = o.id ?? 2, ph = o.ph ?? 0, drift = o.drift || 0;
-    const U = new Path2D();
-    for (const p of puffs) { U.moveTo(p.x + drift + p.r, p.y); U.arc(p.x + drift, p.y, p.r, 0, TAU); }
-    // desen: bütün bulut tek doğrultu (Doré: bulut, göğün yatay çizgileriyle örülür)
-    px.fillStyle = pat(th, ph, id); px.fill(U);
-    // ton: yumuşak kenarlı gövde + ışık yönünden gelen kabartı
-    tx.save();
-    tx.filter = `blur(${(o.soft ?? 5)}px)`;
-    tx.fillStyle = tone(base); tx.fill(U);
-    tx.filter = 'none';
-    tx.clip(U);
-    for (const p of puffs.sort((a, b) => (a.x * lx + a.y * ly) - (b.x * lx + b.y * ly))) {
-      const cx = p.x + drift + lx * p.r * .35, cy = p.y + ly * p.r * .35;
-      const g = tx.createRadialGradient(cx, cy, p.r * .05, cx, cy, p.r * 1.05);
-      g.addColorStop(0, tone(hi, .85)); g.addColorStop(.5, tone(lerp(hi, base, .5), .45)); g.addColorStop(1, tone(base, 0));
-      tx.fillStyle = g; tx.fillRect(cx - p.r * 1.1, cy - p.r * 1.1, p.r * 2.2, p.r * 2.2);
-      // kümenin gölge tarafı: ışığın tersinde koyu hilal
-      const sx = p.x + drift - lx * p.r * .55, sy = p.y - ly * p.r * .55;
-      const sg = tx.createRadialGradient(sx, sy, p.r * .1, sx, sy, p.r * .9);
-      sg.addColorStop(0, tone(base * .6, .5)); sg.addColorStop(1, tone(base, 0));
-      tx.fillStyle = sg; tx.fillRect(sx - p.r, sy - p.r, p.r * 2, p.r * 2);
-    }
+  // Tek küme (yumru): hafif dalgalı daire. Ton üç sert bant: ışıklı sırt (rim), gövde (body), koyu çekirdek (core).
+  // Tarama: kümenin gölge yanındaki bir merkez çevresinde yaylar; çizgiler kümenin kavsini izler.
+  const FX = 1.18, FY = .84; // kümeler yatayda yassı
+  function puffPath(x, y, r, s) {
+    const q = rng(s), a1 = q() * TAU, a2 = q() * TAU, k1 = .05 + q() * .05, k2 = .03 + q() * .03, n = 22, pts = [];
+    for (let i = 0; i < n; i++) { const a = i / n * TAU, rr = r * (1 + k1 * Math.sin(3 * a + a1) + k2 * Math.sin(5 * a + a2)); pts.push([x + Math.cos(a) * rr * FX, y + Math.sin(a) * rr * FY]); }
+    const P = new Path2D(); spline(P, pts, true); return P;
+  }
+  function drawPuff(p, L, id, tn) {
+    const P = puffPath(p.x, p.y, p.r, p.s);
+    // tarama merkezi kümenin altında, uzakta: yaylar kümenin üst kabarıklığına koşut akar (Doré kümülüsü), göbek görünmez
+    fill(P, null, { type: 'rad', cx: p.x - L[0] * p.r * .5, cy: p.y + p.r * 1.6, ph: p.ph, id });
+    // gölge yanı koyu (komşu kümelere ve arka dolguya karışır); ışık yanında gövde hilali ve en dışta sırt hilali
+    tx.save(); tx.clip(P);
+    tx.fillStyle = tone(snap(tn.core)); tx.fill(P);
+    const D1 = new Path2D(); D1.ellipse(p.x + L[0] * p.r * .14, p.y + L[1] * p.r * .14, p.r * .97 * FX, p.r * .97 * FY, 0, 0, TAU);
+    tx.clip(D1); tx.fillStyle = tone(snap(tn.rim)); tx.fill(D1);
+    tx.fillStyle = tone(snap(tn.body)); tx.beginPath(); tx.ellipse(p.x - L[0] * p.r * .12, p.y - L[1] * p.r * .12, p.r * .9 * FX, p.r * .9 * FY, 0, 0, TAU); tx.fill();
     tx.restore();
+    return P;
+  }
+  // Bulut kümesi: birkaç büyük kütle; her kütlenin ışık yanında öne taşan küçük yumrular. Arkadakiler koyu.
+  // o: {x, y, w, h, seed, lit: [lx, ly] (ışığın geldiği yön), base (gölge/gövde tonu), hi (ışıklı sırt tonu), core (gölge yanı tonu), id, drift, n,
+  //     depth (arkadakilerin kararma oranı), back (false: arka koyu dolgu yok; ince duman için)}
+  // Değişen anlamlar: th ve soft artık kullanılmıyor (çizgi kümenin kavsini izler, bulanıklık yok).
+  function cloud(o) {
+    const r = rng(o.seed || 1), L = nrm(o.lit || [0, -1]), id = o.id ?? 2, drift = o.drift || 0;
+    const base = o.base ?? .25, hi = o.hi ?? .92, n = o.n || Math.max(2, Math.round(o.w / (o.h * .8)));
+    const puffs = [], la = Math.atan2(L[1], L[0]), ex = o.x - o.w / 2 + drift;
+    for (let i = 0; i < n; i++) {
+      const f = (i + .5 + (r() - .5) * .5) / n, env = .6 + .4 * Math.sqrt(Math.sin(clamp(f) * PI));
+      const R = o.h * (.36 + r() * .5) * env;
+      const cx = ex + f * o.w, cy = o.y + (r() - .5) * o.h * .25 - L[1] * R * .15;
+      puffs.push({ x: cx, y: cy, r: R, lay: 0 });
+      // ışık yanına taşan yumrular: boyları ve aralıkları düzensiz (alt sıra eşit dizilmesin)
+      const m = Math.floor(r() * 3);
+      for (let j = 0; j < m; j++) {
+        const a = la + (r() - .5) * 2.4, d = R * (.55 + r() * .3), rr = R * (.32 + r() * .3);
+        puffs.push({ x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d, r: rr, lay: 1 });
+      }
+    }
+    for (const p of puffs) { p.s = (o.seed || 1) * 977 + Math.round(p.x * 13 + p.y * 7); p.ph = r(); p.k = (p.x - o.x) * L[0] + (p.y - o.y) * L[1] + p.lay * o.h * .25; }
+    puffs.sort((a, b) => a.k - b.k);
+    // arka dolgu: kümelerin arasını kapatan koyu, sakin kütle (gök arada görünmesin)
+    if (o.back !== false) {
+      const B = new Path2D();
+      for (const p of puffs) if (!p.lay) { B.moveTo(p.x + p.r * 1.05, p.y - L[1] * p.r * .25); B.ellipse(p.x, p.y - L[1] * p.r * .25, p.r * 1.05, p.r * .9, 0, 0, TAU); }
+      fill(B, tone(snap(base * .45)), { type: 'rad', cx: o.x + drift, cy: o.y - L[1] * o.h, ph: r(), id });
+    }
+    const N = puffs.length, dep = o.depth ?? .45, U = new Path2D();
+    puffs.forEach((p, i) => {
+      const back = 1 - i / Math.max(1, N - 1); // 1 = en arka
+      const dk = 1 - dep * back;
+      const rim = hi * (1 - dep * .6 * back), body = lerp(base, hi, o.mid ?? .7) * dk, core = (o.core ?? base * .4) * dk;
+      U.addPath(drawPuff(p, L, id, { rim, body, core }));
+    });
     return { puffs, path: U };
   }
-  // Duman sütunu: yükselen, genişleyen, kıvrılan kümeler (alttan ateşle aydınlanır)
+  // Duman sütunu: yükselen, genişleyen kümeler; alttan ateşle aydınlanır (ışık aşağıdan).
+  // o: {x, y, h, r0, r1, sway, n, seed, t, glow (alttaki sırt tonu), base, id, rise (yükselme hızı, 0 = durağan)}
   function smoke(o) {
-    const r = rng(o.seed || 3), n = o.n || 14, t = o.t || 0;
+    const r = rng(o.seed || 3), n = o.n || 10, t = o.t || 0, id = o.id ?? 2, rise = o.rise || 0;
+    const base = o.base ?? .2, glow = o.glow ?? .7, list = [];
     for (let i = 0; i < n; i++) {
-      const f = i / (n - 1);
-      const yy = o.y - f * o.h, rr = o.r0 + (o.r1 - o.r0) * f;
-      const xx = o.x + Math.sin(f * 3.1 + (o.seed || 0) + t * .15) * o.sway * f + (r() - .5) * rr * .4;
-      const P = new Path2D(); P.arc(xx, yy, rr * (.8 + r() * .4), 0, TAU);
-      const g = tx.createRadialGradient(xx, yy + rr * .5, rr * .1, xx, yy, rr);
-      const below = lerp(o.glow ?? .7, o.base ?? .2, f);
-      g.addColorStop(0, tone(below)); g.addColorStop(1, tone((o.base ?? .2) * .8));
-      fill(P, g, { th: (o.th ?? 0) + (r() - .5) * .25, ph: r(), id: 2 });
+      let f = i / n; const jx = r() - .5, jr = r(), ph = r();
+      let grow = 1;
+      if (rise) { f = (f + t * rise) % 1; grow = sstep(0, .12, f) * (1 - sstep(.88, 1, f)); }
+      const yy = o.y - f * o.h, rr = (o.r0 + (o.r1 - o.r0) * f) * (.8 + jr * .4) * grow;
+      if (rr < 1) continue;
+      const xx = o.x + Math.sin(f * 3.1 + (o.seed || 0) + t * .12) * (o.sway || 0) * f + jx * rr * .5;
+      list.push({ x: xx, y: yy, r: rr, f, ph, s: (o.seed || 3) * 131 + i });
+    }
+    list.sort((a, b) => a.f - b.f).reverse(); // üstteki (uzak) önce, alttaki öne
+    for (const p of list) {
+      const rim = lerp(glow, base * 1.4, Math.pow(p.f, .7));
+      drawPuff(p, [0, 1], id, { rim, body: lerp(rim, base, .6), core: base * .35 });
     }
   }
 
   // ── alev ──
-  // Alev dili: tabandan (x, y) yukarı, yükseklik hgt, genişlik wid; t ile kıvrılır. Çizgiler alevin akışı yönünde.
-  function flame(x, y, hgt, wid, t, seed = 0, o = {}) {
-    const k = seed * 1.7, sway = o.sway ?? .45, sp = o.speed ?? 1;
-    const m = 14, L = [], R = [];
-    const curl = (o.curl ?? 1) * (hash(seed + .5) < .5 ? -1 : 1);
-    const H0 = hgt * (.82 + .18 * Math.sin(t * 2.7 * sp + k * 2) + .08 * fbm1(t * 1.3 * sp + k, 2));
-    let cx = x;
+  // Bir dilin geometrisi: omurga, dış biçim (kenar kabuğu) ve iç biçim (temiz kâğıt). t ile uzar, eğilir; yan dişler yukarı akar.
+  function tongue(x, y, hh, wid, t, seed, o) {
+    const k = hash(seed * 1.37 + .5) * 40, sp = o.speed ?? 1, m = 18;
+    const lean = (o.lean ?? 0) + (hash(seed + 2.1) - .5) * .45 + .14 * fbm1(t * .3 * sp + k, 3) * (o.sway ?? 1);
+    const H = hh * (.86 + .1 * Math.sin(t * 1.15 * sp + k) + .12 * fbm1(t * .7 * sp + k * 1.3, 5));
+    const curl = (hash(seed + 7.7) < .5 ? -1 : 1) * (o.curl ?? 1);
+    const cl = Math.cos(lean), sl = Math.sin(lean);
     const spine = [];
     for (let i = 0; i <= m; i++) {
       const f = i / m;
-      // gövde: yukarı doğru kıvrılan S eğrisi; dalgalar yukarı akar (t ile)
-      cx = x + Math.sin(f * 2.4 * PI * .5 + k) * wid * .35 * f * curl + Math.sin(f * 6.0 - t * 5.5 * sp + k) * wid * .22 * f * sway + fbm1(t * .8 * sp + k + f * 2, 3) * wid * .3 * f;
-      spine.push([cx, y - f * H0]);
+      const off = wid * (.3 * curl * Math.sin(f * PI * 1.1 + k + t * .8 * sp) * f + .16 * Math.sin(f * PI * 2.4 - t * 2.1 * sp + k * 2) * f * f);
+      spine.push([x + sl * f * H + cl * off, y - cl * f * H + sl * off]);
     }
-    for (let i = 0; i <= m; i++) {
-      const f = i / m, [sx, sy] = spine[i];
-      const ww = wid * .5 * Math.pow(1 - f, .9) * (1 + .3 * Math.sin(f * 9 - t * 7 * sp + k * 3)) * (f < .12 ? .8 + f * 1.6 : 1);
-      const j = i < m ? spine[i + 1] : spine[i], q = i > 0 ? spine[i - 1] : spine[i];
-      const tg = Math.atan2(j[1] - q[1], j[0] - q[0]) + PI / 2;
-      L.push([sx + Math.cos(tg) * ww, sy + Math.sin(tg) * ww]); R.push([sx - Math.cos(tg) * ww, sy - Math.sin(tg) * ww]);
+    const edge = (ins, top) => {
+      const Lp = [], Rp = [];
+      for (let i = 0; i <= m; i++) {
+        const f = i / m * top, j = Math.min(m, Math.round(f * m)), [sx, sy] = spine[j];
+        const a = spine[Math.min(m, j + 1)], b = spine[Math.max(0, j - 1)];
+        const tg = Math.atan2(a[1] - b[1], a[0] - b[0]) + PI / 2;
+        const pr = f < .12 ? .7 + .3 * f / .12 : Math.pow(Math.max(0, (1 - f) / .88), 1.3);
+        const tear = sstep(.22, .55, f);
+        const wl = wid * .5 * pr * (1 + .2 * tear * Math.sin(f * 15 - t * 4.2 * sp + k * 3)) * ins;
+        const wr = wid * .5 * pr * (1 + .2 * tear * Math.sin(f * 13 - t * 3.7 * sp + k * 5 + 1.7)) * ins;
+        Lp.push([sx + Math.cos(tg) * wl, sy + Math.sin(tg) * wl]); Rp.push([sx - Math.cos(tg) * wr, sy - Math.sin(tg) * wr]);
+      }
+      const P = new Path2D(), all = [...Lp, ...Rp.reverse()];
+      P.moveTo(all[0][0], all[0][1]);
+      for (let i = 1; i < all.length; i++) { const a = all[i - 1], b = all[i]; P.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); }
+      P.closePath(); return P;
+    };
+    const tip = spine[m], ax = Math.atan2(tip[1] - y, tip[0] - x);
+    const res = { outer: edge(1, 1), inner: edge(o.inner ?? .55, .8), base: [x, y], ax, H, wid, curl, seed, frags: [] };
+    // kopan parçalar: dil ucundan ayrılıp yükselen, küçülen alev kırıntıları (büyüklük döngü sınırlarında sıfır: sıçrama yok)
+    if (hash(seed + 3.3) > .45) {
+      const c = (t * .42 * sp + hash(seed + 4.4) * 7) % 1, s = wid * .26 * Math.sin(PI * c) * (1 - .45 * c);
+      if (s > 1) {
+        const fx = tip[0] + Math.cos(ax) * (c * H * .4 + s) + Math.sin(c * 5 + k) * wid * .15, fy = tip[1] + Math.sin(ax) * (c * H * .4 + s);
+        res.frags.push({ x: fx, y: fy, s });
+      }
     }
-    const P = new Path2D(), all = [...L, ...R.reverse()];
-    P.moveTo(all[0][0], all[0][1]);
-    for (let i = 1; i < all.length; i++) { const a = all[i - 1], b = all[i]; P.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2); }
-    P.closePath();
-    const tip = spine[m];
-    const g = tx.createLinearGradient(0, y, 0, tip[1]);
-    g.addColorStop(0, tone(o.base ?? .5)); g.addColorStop(.25, tone(o.core ?? .96)); g.addColorStop(.75, tone(o.core ?? .96)); g.addColorStop(1, tone(o.tip ?? .7));
-    const th = Math.atan2(tip[1] - y, tip[0] - x);
-    fill(P, g, { fill: GR.patGrad(x, y, tip[0], tip[1], [[0, th + .3 * curl], [.5, th], [1, th - .35 * curl]], seed * .37, 3) });
-    // iç gölge damarı: alev dilinin ortasında koyu, kıvrık iz (gravürde alevi alev yapan)
-    tx.save(); tx.clip(P);
-    tx.strokeStyle = tone(o.vein ?? .35, .55); tx.lineWidth = wid * .14; tx.lineCap = 'round';
-    tx.beginPath(); spline(tx, spine.slice(2, m - 2).map(([sx, sy], i) => [sx + Math.sin(i * 1.3 + t * 3 + k) * wid * .12, sy]), false); tx.stroke();
-    tx.restore();
+    return res;
+  }
+  function fragPath(f, ins) {
+    const P = new Path2D(), s = f.s * ins;
+    P.moveTo(f.x, f.y - s * 1.9); P.quadraticCurveTo(f.x + s * 1.05, f.y - s * .2, f.x, f.y + s * .8);
+    P.quadraticCurveTo(f.x - s * 1.05, f.y - s * .2, f.x, f.y - s * 1.9); P.closePath(); return P;
+  }
+  // Dil listesini tek kütle olarak bas: önce bütün dış kabuklar (taralı), sonra bütün iç biçimler (temiz kâğıt) → diller birbirine kaynar.
+  function drawTongues(list, y, hgt, o) {
+    const id = o.id ?? 3, edgeT = o.edge ?? .64, core = o.core ?? 1, U = new Path2D();
+    for (const g of list) {
+      // kabuk taraması: dilin ekseni boyunca akan, eğriliğini izleyen çizgiler
+      fill(g.outer, tone(edgeT), { type: 'bend', ox: g.base[0], oy: g.base[1], a: g.ax, k: -g.curl * .9 / Math.max(60, g.H), ph: hash(g.seed + 9.1), id });
+      U.addPath(g.outer);
+    }
+    tx.fillStyle = tone(core);
+    for (const g of list) { tx.fill(g.inner); for (const f of g.frags) tx.fill(fragPath(f, .8)); }
+    // dip: koyuya gömülen taban (kısa tarama)
+    const b = o.base ?? .25;
+    if (b < 1) {
+      tx.save(); tx.clip(U); tx.globalCompositeOperation = 'darken';
+      const yb = y + hgt * .06, g = tx.createLinearGradient(0, yb, 0, yb - hgt * (o.dip ?? .3));
+      g.addColorStop(0, tone(b)); g.addColorStop(.55, tone(lerp(b, 1, .6))); g.addColorStop(1, tone(1));
+      tx.fillStyle = g; tx.fillRect(-400, yb - hgt * 1.2, W + 800, hgt * 1.4); tx.restore();
+    }
+    return U;
+  }
+  // Tek alev dili: tabandan (x, y) yukarı, yükseklik hgt, genişlik wid.
+  // o: {sway, speed, curl, lean, inner (iç kâğıt oranı), edge (kabuk tonu), core (iç ton), base (dip tonu), id}
+  // Değişen anlamlar: tip ve vein artık kullanılmıyor (içi temiz kâğıt, koyu damar yok).
+  function flame(x, y, hgt, wid, t, seed = 0, o = {}) {
+    const g = tongue(x, y, hgt, wid, t, seed, o);
+    drawTongues([g], y, hgt, o);
+    return g.outer;
+  }
+  // Uzak alev sırası: tek tek dil değil, sürekli titrek ışık bandı; üstünde alttan aydınlanan ince duman.
+  function flameBand(x0, x1, y, hgt, t, seed, o) {
+    const id = o.id ?? 3, r = rng(seed + 51), env = o.env || (() => 1);
+    if (o.smoke !== false) { // ince duman: yalnız ton katmanında topaklı bir pus şeridi; göğün çizgisi sürer, kalınlaşır (kabarcık deseni yok)
+      const sy = y - hgt * (o.smokeY ?? .5), sh = hgt * (o.smokeH ?? 2.2), D = new Path2D();
+      D.moveTo(x0, sy);
+      for (let x = x0; x <= x1 + 20; x += 20) {
+        const f = clamp((x - x0) / (x1 - x0)), e = env(f);
+        D.lineTo(x, sy - sh * e * (.35 + .65 * noise2(x / 140 + seed, t * .03, 7)) * (.6 + .4 * noise2(x / 47, seed, 8)));
+      }
+      D.lineTo(x1, sy); D.closePath();
+      const g = tx.createLinearGradient(0, sy - sh, 0, sy);
+      g.addColorStop(0, `rgba(0,0,0,${o.smokeA ?? .5})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+      tx.save(); tx.globalCompositeOperation = 'multiply'; tx.fillStyle = g; tx.fill(D); tx.restore();
+    }
+    const step = 5, top = [], inn = [];
+    for (let x = x0; x <= x1 + step; x += step) {
+      const f = clamp((x - x0) / (x1 - x0)), e = env(f);
+      const s1 = Math.pow(noise2(x / 34 + seed * 3.1, t * .55, 1), 1.8), s2 = Math.pow(noise2(x / 13 + seed, t * .9 + 4, 2), 3);
+      const hh = hgt * e * (.22 + .95 * s1 + .35 * s2);
+      top.push([x, y - hh]); inn.push([x, y - hh * .55 + hgt * .05]);
+    }
+    const yb = y + hgt * .1, P = new Path2D(), Q = new Path2D();
+    P.moveTo(x0, yb); for (const [a, b] of top) P.lineTo(a, b); P.lineTo(x1 + step, yb); P.closePath();
+    Q.moveTo(x0, yb); for (const [a, b] of inn) Q.lineTo(a, Math.min(b, yb - 1)); Q.lineTo(x1 + step, yb); Q.closePath();
+    fill(P, tone(o.edge ?? .68), { th: -PI / 2, ph: hash(seed), id });
+    tx.fillStyle = tone(o.core ?? 1); tx.fill(Q);
     return P;
   }
-  // Alev öbeği: bir çizgi boyunca birçok dil
+  // Alev öbeği: bir çizgi boyunca birbirine kaynayan diller.
+  // o: {n, env(f), wr (genişlik/boy), band (uzak sıra kipi; varsayılan hgt < 100 ise açık), lean, edge, core, base, smoke, ...flame seçenekleri}
   function flameBank(x0, x1, y, hgt, t, seed = 0, o = {}) {
-    const r = rng(seed + 9), n = o.n || Math.round((x1 - x0) / (hgt * .35));
+    if (o.band ?? hgt < 100) return flameBand(x0, x1, y, hgt, t, seed, o);
+    const r = rng(seed + 9), n = o.n || Math.max(2, Math.round((x1 - x0) / (hgt * .2))), list = [];
     for (let i = 0; i < n; i++) {
-      const f = (i + r() * .8) / n, hh = hgt * (.45 + r() * .75) * (o.env ? o.env(f) : 1);
-      flame(lerp(x0, x1, f), y + r() * hgt * .1, hh, hh * (o.wr ?? (.42 + r() * .22)), t + r() * 10, seed * 31 + i, o);
+      const f = (i + .5 + (r() - .5) * .9) / n, big = r() < .25 ? 1.35 : 1;
+      const hh = hgt * (.4 + r() * .7) * big * (o.env ? o.env(clamp(f)) : 1);
+      const wr = (o.wr ?? .45) * .85 * (.7 + r() * .6);
+      const bx = lerp(x0, x1, f), by = y + (r() - .5) * hgt * .12;
+      const sd = seed * 31 + i;
+      list.push(tongue(bx, by, hh, hh * wr, t + r() * 10, sd, o));
+      if (r() < .4) { // çatal: ana dilin yanından kopan ikinci uç
+        const g = list[list.length - 1], fx = bx + Math.cos(g.ax) * hh * .35, fy = by + Math.sin(g.ax) * hh * .35;
+        list.push(tongue(fx, fy, hh * (.4 + r() * .2), hh * wr * .45, t + r() * 10, sd + 500, Object.assign({}, o, { lean: (o.lean ?? 0) + (r() < .5 ? -.45 : .45) })));
+      }
     }
+    // tabanda sürekli şerit: dilleri birbirine bağlar; uçlarda sıfıra iner (kutu gibi kesilmez)
+    const strip = { outer: new Path2D(), inner: new Path2D(), base: [x0, y], ax: -PI / 2, H: hgt, curl: 0, seed, frags: [] };
+    const sh = hgt * .2, sp2 = [], ip = [];
+    for (let x = x0; x <= x1 + 1; x += 10) {
+      const f = (x - x0) / (x1 - x0), e = Math.sqrt(Math.max(0, Math.sin(f * PI))) * (o.env ? o.env(clamp(f)) : 1);
+      const hh = sh * e * (.6 + .5 * noise2(x / 40, t * .5 + seed, 3));
+      sp2.push([x, y - hh]); ip.push([x, y - hh * .35]);
+    }
+    strip.outer.moveTo(x0, y); for (const q of sp2) strip.outer.lineTo(q[0], q[1]); for (let x = x1; x >= x0; x -= 16) strip.outer.lineTo(x, y + sh * .12 * noise2(x / 23, seed, 6)); strip.outer.closePath();
+    strip.inner.moveTo(x0, y); for (const q of ip) strip.inner.lineTo(q[0], q[1]); strip.inner.lineTo(x1, y); strip.inner.closePath();
+    list.unshift(strip);
+    return drawTongues(list, y, hgt, o);
   }
 
   // ── kaya ──
-  // Köşeli kaya kütlesi: dış çizgi noktaları (pts), ışık yönü; ton + benekli çapraz tarama
+  // Köşeli kütle: dış çizgi (pts) Voronoi fasetlere bölünür; her faset tek ton ve kendi tarama doğrultusu.
+  // Işığa bakan faset temiz kâğıt, gölgedeki çapraz taramalı. Kırıklar sivri uçlu koyu kamalardır.
+  // o: {lit, hi, mid, lo (ışıklı/orta/gölge tonları), seed, facets (sayı), th (ana doğrultu), id, cracks (kama sayısı ≈ cracks/6), rim (ışıklı sırt kalınlığı px)}
+  function clipHalf(poly, ax, ay, bx, by) { // |p-a| <= |p-b| yarı düzlemi
+    const nx = bx - ax, ny = by - ay, c = (bx * bx + by * by - ax * ax - ay * ay) / 2, out = [];
+    const inside = p => p[0] * nx + p[1] * ny <= c;
+    for (let i = 0; i < poly.length; i++) {
+      const p = poly[i], q = poly[(i + 1) % poly.length], ip = inside(p), iq = inside(q);
+      if (ip) out.push(p);
+      if (ip !== iq) { const dp = p[0] * nx + p[1] * ny - c, dq = q[0] * nx + q[1] * ny - c, u = dp / (dp - dq); out.push([lerp(p[0], q[0], u), lerp(p[1], q[1], u)]); }
+    }
+    return out;
+  }
   function rock(pts, o = {}) {
     const P = new Path2D(); poly(P, pts, true);
-    const [lx, ly] = o.lit || [-.6, -.8];
+    const L = nrm(o.lit || [-.6, -.8]), r = rng(o.seed || 5), id = o.id ?? 4;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     for (const [x, y] of pts) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, rr = Math.max(x1 - x0, y1 - y0) / 2;
-    const g = tx.createLinearGradient(cx + lx * rr, cy + ly * rr, cx - lx * rr, cy - ly * rr);
-    g.addColorStop(0, tone(o.hi ?? .7)); g.addColorStop(.5, tone(o.mid ?? .35)); g.addColorStop(1, tone(o.lo ?? .08));
-    fill(P, g, { th: o.th ?? -.7, ph: o.ph ?? 0, id: o.id ?? 4 });
-    // yüzey kırıkları: kısa koyu çatlaklar ve açık sırtlar (ton katmanına)
-    const r = rng(o.seed || 5);
-    tx.save(); tx.clip(P); tx.lineCap = 'round';
-    for (let i = 0; i < (o.cracks ?? 40); i++) {
-      const sx = lerp(x0, x1, r()), sy = lerp(y0, y1, r()), a = (r() - .5) * 2.2 + (o.crackA ?? -.4), l = 10 + r() * rr * .25;
-      tx.strokeStyle = tone(r() < .55 ? .05 : .85, .6); tx.lineWidth = 1 + r() * 2.5;
-      tx.beginPath(); tx.moveTo(sx, sy);
-      tx.quadraticCurveTo(sx + Math.cos(a + .4) * l * .5, sy + Math.sin(a + .4) * l * .5, sx + Math.cos(a) * l, sy + Math.sin(a) * l); tx.stroke();
+    // tohumlar: kütlenin içinde
+    const nf = o.facets || clamp(Math.round((x1 - x0) * (y1 - y0) / 9000), 7, 24), seeds = [];
+    for (let g = 0; seeds.length < nf && g < nf * 60; g++) {
+      const sx = lerp(x0, x1, r()), sy = lerp(y0, y1, r());
+      if (tx.isPointInPath(P, sx * RS, sy * RS) && seeds.every(s => Math.hypot(s[0] - sx, s[1] - sy) > rr * .16)) seeds.push([sx, sy]);
     }
-    tx.restore();
+    const hiT = o.hi ?? .95, midT = o.mid ?? .4, loT = snap(o.lo ?? .1), th0 = o.th ?? -.7;
+    const big = [[x0 - 50, y0 - 50], [x1 + 50, y0 - 50], [x1 + 50, y1 + 50], [x0 - 50, y1 + 50]];
+    tx.save(); px.save(); tx.clip(P); px.clip(P);
+    tx.fillStyle = tone(loT); tx.fill(P); // alt dolgu: faset dikişlerinde açık iz kalmasın
+    const facets = [];
+    seeds.forEach((s, i) => {
+      let cell = big;
+      for (let j = 0; j < seeds.length && cell.length; j++) if (j !== i) cell = clipHalf(cell, s[0], s[1], seeds[j][0], seeds[j][1]);
+      if (cell.length < 3) return;
+      // faset normali: kütlenin merkezinden dışa + rastgele eğim; ışıkla nokta çarpımı → üç basamaklı ton
+      const ox = (s[0] - cx) / rr, oy = (s[1] - cy) / rr, n = nrm([ox * 1.4 + (r() - .5) * 1.1, oy * 1.4 + (r() - .5) * 1.1]);
+      const lit = n[0] * L[0] + n[1] * L[1];
+      const v = lit > .55 ? hiT : lit > .15 ? lerp(midT, hiT, .55) : lit > -.35 ? midT : loT; // dört basamak
+      const th = th0 + Math.atan2(n[1], n[0]) * .5 + (r() - .5) * .5;
+      const F = new Path2D(); poly(F, cell, true);
+      fill(F, tone(v), { th, ph: r(), id });
+      facets.push({ cell, v, n });
+    });
+    // kırıklar: faset sınırlarında sivri koyu kamalar
+    const nw = o.wedges ?? Math.round((o.cracks ?? 30) / 6);
+    tx.fillStyle = tone(.02);
+    for (let i = 0; i < nw && facets.length; i++) {
+      const fc = facets[Math.floor(r() * facets.length)].cell, k = Math.floor(r() * fc.length), a = fc[k], b = fc[(k + 1) % fc.length];
+      const u0 = .15 + r() * .3, u1 = u0 + .3 + r() * .3, w = 2 + r() * 4, dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1;
+      const p0 = [lerp(a[0], b[0], u0), lerp(a[1], b[1], u0)], p1 = [lerp(a[0], b[0], Math.min(1, u1)), lerp(a[1], b[1], Math.min(1, u1))], um = (u0 + Math.min(1, u1)) / 2;
+      const nx = -dy / l * w, ny = dx / l * w, sd = r() < .5 ? 1 : -1;
+      tx.beginPath(); tx.moveTo(p0[0], p0[1]); tx.lineTo(lerp(a[0], b[0], um) + nx * sd, lerp(a[1], b[1], um) + ny * sd); tx.lineTo(p1[0], p1[1]); tx.closePath(); tx.fill();
+    }
+    tx.restore(); px.restore();
+    // ışıklı sırt: ışığa bakan dış kenarlarda sürekli ince açık bant (nokta ya da kesik yok)
+    if (o.rim) {
+      tx.save(); tx.clip(P); tx.strokeStyle = tone(1); tx.lineWidth = o.rim * 2; tx.lineJoin = 'round';
+      for (let i = 0; i < pts.length - 1; i++) {
+        const a = pts[i], b = pts[i + 1], en = nrm([b[1] - a[1], -(b[0] - a[0])]);
+        if (en[0] * L[0] + en[1] * L[1] > .25) { tx.beginPath(); tx.moveTo(a[0], a[1]); tx.lineTo(b[0], b[1]); tx.stroke(); }
+      }
+      tx.restore();
+    }
     return P;
   }
 
   // ── ışık huzmesi ──
-  // Kaynak (sx, sy) çevresinde yayılan ışınlar: ton katmanında aydınlatır, desen katmanında çizgileri kaynağa doğru çevirir.
+  // Kaynaktan (sx, sy) inen, kenarları belli ışık kolonları. İçi ışın doğrultusunda seyrek çizgi, uç yumuşak söner.
+  // o: {seed, t, str (parlaklık 0–1), w0 (kaynakta genişlik), width (kolon açısal genişlik oranı), pattern (false = yalnız ton), slit: {w, h, a} (tonozdaki yarık)}
+  // Değişen anlamlar: blur kullanılmıyor (kenarlar keskin); pattern varsayılanı artık açık.
   function rays(sx, sy, a0, a1, n, reach, o = {}) {
-    const r = rng(o.seed || 21), t = o.t || 0;
+    const r = rng(o.seed || 21), t = o.t || 0, str = o.str ?? .5, w0 = o.w0 ?? 8;
     for (let i = 0; i < n; i++) {
-      const a = lerp(a0, a1, (i + r()) / n), da = (a1 - a0) / n * (.25 + r() * .5);
-      const L = reach * (.6 + r() * .4), str = (o.str ?? .5) * (.5 + r() * .5) * (.75 + .25 * Math.sin(t * .7 + i * 1.3));
-      tx.save(); tx.filter = `blur(${o.blur ?? 18}px)`;
-      const P = new Path2D(); P.moveTo(sx, sy); P.lineTo(sx + Math.cos(a - da) * L, sy + Math.sin(a - da) * L);
-      P.lineTo(sx + Math.cos(a + da) * L, sy + Math.sin(a + da) * L); P.closePath();
-      const g = tx.createLinearGradient(sx, sy, sx + Math.cos(a) * L, sy + Math.sin(a) * L);
-      g.addColorStop(0, `rgba(255,255,255,${str})`); g.addColorStop(1, 'rgba(255,255,255,0)');
-      tx.globalCompositeOperation = 'lighter'; tx.fillStyle = g; tx.fill(P); tx.restore();
-      if (o.pattern === true) { px.fillStyle = pat(a, 0, 7); px.fill(P); }
+      const a = lerp(a0, a1, (i + .2 + r() * .6) / n), da = (a1 - a0) / n * (o.width ?? (.12 + r() * .22));
+      const Lr = reach * (.65 + r() * .35), s = str * (.6 + r() * .4) * (.88 + .12 * Math.sin(t * .45 + i * 1.7));
+      const c = Math.cos(a), sn = Math.sin(a), nx = -sn, ny = c, ww = w0 * (.5 + r());
+      const P = new Path2D(), e = (u, sd) => { const hw = ww + Lr * u * Math.tan(da) * (u > .7 ? (1 - u) / .3 : 1); return [sx + c * Lr * u + sd * nx * hw, sy + sn * Lr * u + sd * ny * hw]; };
+      P.moveTo(...e(0, 1)); for (const u of [.7, .85, 1]) P.lineTo(...e(u, 1)); for (const u of [.85, .7, 0]) P.lineTo(...e(u, -1)); P.closePath();
+      const g = tx.createLinearGradient(sx, sy, sx + c * Lr, sy + sn * Lr), v0 = lerp(.3, .8, s);
+      g.addColorStop(0, tone(v0)); g.addColorStop(.55, tone(v0 * .75)); g.addColorStop(1, tone(v0 * .3));
+      tx.save(); tx.globalCompositeOperation = 'lighten'; tx.fillStyle = g; tx.fill(P); tx.restore();
+      if (o.pattern !== false) { px.fillStyle = hatch({ th: a, ph: r(), id: 7 }); px.fill(P); }
+    }
+    if (o.slit) { // yarık: koyu tonozda dar, yırtık kenarlı açıklık
+      const sl = o.slit === true ? {} : o.slit, w = sl.w ?? 220, h = sl.h ?? 26, aa = sl.a ?? -.08, q = rng((o.seed || 21) + 5), m = 14, up = [], dn = [];
+      for (let i = 0; i <= m; i++) { const f = i / m, e = Math.sin(f * PI); up.push([(f - .5) * w, -h * .5 * e * (.6 + q() * .7)]); dn.push([(f - .5) * w, h * .5 * e * (.5 + q() * .6)]); }
+      const P = new Path2D(), ca = Math.cos(aa), sa = Math.sin(aa), T = p => [sx + p[0] * ca - p[1] * sa, sy + p[0] * sa + p[1] * ca];
+      const all = [...up, ...dn.reverse()].map(T); poly(P, all, true);
+      fill(P, tone(1), { th: aa, id: 7 });
     }
   }
   // yumuşak ışık lekesi (ton katmanında aydınlatma ya da karartma)
@@ -154,26 +327,64 @@ const PR = (() => {
   }
 
   // ── göl yüzeyi ──
-  // Yatay dalgalı çizgiler; perspektifle uzakta sıklaşır (evre ve doğrultu gradyanı ile değil, katmanlı bantlarla)
+  // Tek, sürekli yatay tarama (zamana bağlı evre yok). Hareket yalnız ton katmanında:
+  // alev yansımalarının yavaşça uzayıp kısalan dikey sütunları (üst üste yatay açık tireler) ve ince açık dalga sırtları.
+  // Perspektif: tireler ufka doğru kısalır, incelir ve sıklaşır.
+  // o: {id, ph, seed, tone: [ufuk, yakın] (verilirse zemin tonu boyanır), crests (sırt sayısı), crestV (sırt parlaklığı),
+  //     refl: [{x, w, v, len}] (yansıma sütunları; verilmezse nrefl kadar kendiliğinden), nrefl}
+  // Değişen anlamlar: bands artık kullanılmıyor.
   function lake(y0, y1, t, o = {}) {
-    const bands = o.bands || 10;
-    for (let i = 0; i < bands; i++) {
-      const f0 = i / bands, f1 = (i + 1) / bands;
-      const ya = lerp(y0, y1, Math.pow(f0, 1.7)), yb = lerp(y0, y1, Math.pow(f1, 1.7));
-      const P = new Path2D(); P.rect(-200, ya, W + 400, yb - ya + 1);
-      px.fillStyle = pat(Math.sin(i * 1.9 + t * .3) * .03, i * .37 + t * .05, 8); px.fill(P);
+    const id = o.id ?? 8, r = rng(o.seed || 11), D = y1 - y0;
+    const P = new Path2D(); P.rect(-200, y0, W + 400, D + 1);
+    if (o.tone) { const g = tx.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, tone(o.tone[0])); g.addColorStop(1, tone(o.tone[1])); tx.fillStyle = g; tx.fill(P); }
+    px.fillStyle = hatch({ th: 0, ph: o.ph ?? 0, id }); px.fill(P);
+    tx.save(); tx.globalCompositeOperation = 'lighter';
+    // dalga sırtları
+    const nc = o.crests ?? 46, cv = o.crestV ?? .3;
+    for (let i = 0; i < nc; i++) {
+      const f = Math.pow(r(), 1.5), yy = y0 + 4 + f * (D - 8), ln = lerp(24, 280, f) * (.6 + r() * .8), th = lerp(1.2, 3.2, f);
+      const xx = r() * W, a = cv * (.5 + r() * .5) * (.7 + .3 * Math.sin(t * .5 + i * 2.3));
+      tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.ellipse(xx + Math.sin(t * .1 + i) * 6, yy, ln / 2, th, 0, 0, TAU); tx.fill();
     }
+    // yansıma sütunları
+    const refl = o.refl || Array.from({ length: o.nrefl ?? 6 }, () => ({ x: r() * W, w: 60 + r() * 120, v: .35 + r() * .3 }));
+    refl.forEach((q, j) => {
+      const len = (q.len ?? D * .55) * (.82 + .18 * Math.sin(t * .4 + j * 1.9)), K = q.rows ?? 22;
+      for (let k = 0; k < K; k++) {
+        const g = k / K, yy = y0 + 3 + Math.pow(g, 1.45) * len;
+        if (yy > y1) break;
+        const ww = q.w * (1 - .45 * g) * (.55 + .45 * (noise1(k * .9 + t * .35 + j * 7, j) * .5 + .5));
+        const xx = q.x + q.w * .22 * noise1(k * .37 + t * .22 + j * 3, j + 9) * (.3 + g);
+        const a = q.v * Math.pow(1 - g, .8), hh = lerp(1.4, 4, g);
+        tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.ellipse(xx, yy, ww / 2, hh, 0, 0, TAU); tx.fill();
+      }
+    });
+    tx.restore();
   }
 
   // ── zincir ──
-  function chain(x0, y0, x1, y1, link = 26, o = {}) {
-    const L = Math.hypot(x1 - x0, y1 - y0), n = Math.max(2, Math.floor(L / (link * .78))), a = Math.atan2(y1 - y0, x1 - x0);
+  // Büyük, okunur halkalar: koyu halka gövdesi, ışığa bakan yanda açık kenar. Sarkma (sag) eğrisini izler.
+  // o: {sag, v (ışıklı kenar tonu), dark (halka tonu), lit: [lx, ly] (ışığın geldiği yön), over (true: keskin üst katmana, GR.ox)}
+  // link varsayılanı 34 px (kurul: 32–36).
+  function chain(x0, y0, x1, y1, link = 34, o = {}) {
+    const Lc = Math.hypot(x1 - x0, y1 - y0), n = Math.max(2, Math.floor(Lc / (link * .74))), sag = o.sag || 0;
+    const L = nrm(o.lit || [.6, -.8]), c = o.over ? GR.ox : tx;
+    const dark = o.over ? GR.inkCol : tone(o.dark ?? .02), light = o.over ? GR.paperCol : tone(o.v ?? .97);
+    const pos = f => [lerp(x0, x1, f), lerp(y0, y1, f) + Math.sin(f * PI) * sag];
     for (const pass of [0, 1]) for (let i = 0; i < n; i++) {
-      const f = (i + .5) / n, cx = lerp(x0, x1, f), cy = lerp(y0, y1, f) + Math.sin(f * PI) * (o.sag || 0);
-      tx.save(); tx.translate(cx, cy); tx.rotate(a); if (i % 2) tx.scale(1, .4);
-      tx.lineWidth = link * (pass ? .13 : .34); tx.strokeStyle = tone(pass ? (o.v ?? .8) : (o.dark ?? .02));
-      tx.beginPath(); tx.ellipse(0, 0, link * .5, link * .3, 0, 0, TAU); tx.stroke(); tx.restore();
+      const f = (i + .5) / n, [cx, cy] = pos(f), p2 = pos(f + .01), p1 = pos(f - .01), a = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+      const la = Math.atan2(L[1], L[0]) - a; // yerel ışık açısı
+      c.save(); c.translate(cx, cy); c.rotate(a); c.lineCap = 'round';
+      if (i % 2 === 0) { // yüzü dönük halka
+        if (!pass) { c.strokeStyle = dark; c.lineWidth = link * .2; c.beginPath(); c.ellipse(0, 0, link * .5, link * .3, 0, 0, TAU); c.stroke(); }
+        else { c.strokeStyle = light; c.lineWidth = link * .07; c.beginPath(); c.ellipse(0, 0, link * .5, link * .3, 0, la - .9, la + .9); c.stroke(); }
+      } else { // yan dönük halka: kalın çubuk
+        const ly = Math.sin(la) >= 0 ? 1 : -1;
+        if (!pass) { c.strokeStyle = dark; c.lineWidth = link * .26; c.beginPath(); c.moveTo(-link * .4, 0); c.lineTo(link * .4, 0); c.stroke(); }
+        else { c.strokeStyle = light; c.lineWidth = link * .06; c.beginPath(); c.moveTo(-link * .3, ly * link * .06); c.lineTo(link * .3, ly * link * .06); c.stroke(); }
+      }
+      c.restore();
     }
   }
-  return { cloud, smoke, flame, flameBank, rock, rays, glow, lake, chain };
+  return { cloud, smoke, flame, flameBank, rock, rays, glow, lake, chain, puff: drawPuff };
 })();

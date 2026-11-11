@@ -1,0 +1,30 @@
+{
+ "s13_a": {
+  "cer": 0.0024,
+  "sure": 39.64,
+  "farklar": [
+   {
+    "id": "G08",
+    "t": 15.5,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "nındaçektiğimcehennemcenn",
+    "bag_hyp": "nındaçektiğincehennemcenn"
+   }
+  ]
+ },
+ "s13_b": {
+  "cer": 0.0024,
+  "sure": 40.46,
+  "farklar": [
+   {
+    "id": "G08",
+    "t": 15.76,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "nındaçektiğimcehennemcenn",
+    "bag_hyp": "nındaçektiğincehennemcenn"
+   }
+  ]
+ }
+}

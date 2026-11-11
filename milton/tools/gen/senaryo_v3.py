@@ -133,10 +133,50 @@ DEG.update({
  'L11': ("[warmly] Şair Shelley'ye göre Prometheus'a benzeyen tek hayalî karakter, Milton'ın Şeytan'ıydı; ama Prometheus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Ateşi insanlar için çalan o asinin hikâyesi ekranda. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
          "Shelley, Prometheus Unbound önsözü (1820): 'The only imaginary being resembling in any degree Prometheus, is Satan… exempt from the taints of ambition, envy, revenge' (K-Uzman ve K-Denetim doğruladı); bitiş ekranı: Prometheus videosu + abone"),
 })
+
+# ── tur 3 sonrası rötuşlar (üyelerin "düşük/orta" önerileri; onaydan sonra, yapı değişmez) ──
+DEG.update({
+ 'B05': ("[calmly] Destanına, devrim henüz ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.", None),
+ 'D08': ("[awed] Destanda üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.", None),
+ 'E12': ("[awed] Şeytanlar cehennemin toprağından altın kazar. Bir saat içinde, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.", None),
+ 'E09': ("[awed] Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır; o mızrağa yaslanarak yanan topraklarda yürür.", None),
+ 'I04': ("[calmly] Saklanmak için uyuyan bir yılan arar; ararken kendinden iğrenir: [disgusted] “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”",
+         "KC IX.159–167 (çevirimiz, kısaltılmış; sözler yılanı ararken söylenir)"),
+ 'I05': ("[calmly] Ve kendi geleceğini söyler: [bitterly] “Kim yükselmeye kalkarsa, yükseldiği kadar alçalmak zorundadır. İntikam önce tatlıdır; ama çok geçmeden acılaşır ve dönüp sahibini vurur.” [calmly] Sonra yılanı bulur ve ağzından içine girer.",
+         "KC IX.169–172 (çevirimiz); yılana giriş IX.182–190. K12'de anılır"),
+ 'J02': ("[calmly] Şeytan cehenneme döner. Sıradan bir asker kılığında saraya girer, tahtına çıkar ve birden belirir: düşüşten ona kalan ışıkla ya da, Milton'ın deyişiyle, sahte bir parıltıyla. Cehennem onu sevinç haykırışlarıyla karşılar.", None),
+ 'J09': ("[gravely] Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Zafer, kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.", None),
+ 'K03': ("[thoughtfully] Peki Şeytan da dileyebilir miydi? Milton'ın destanında bunun cevabı daha üçüncü kitapta verilir: İnsan aldatıldı; bu yüzden merhamet bulacak. Asi melekler kendi kendilerini ayarttı; onlar bulamayacak.", None),
+ 'K07': ("[calmly] Ama yüz yıldan fazla sonra, şair ve ressam William Blake bambaşka bir şey ileri sürdü: [passionately] Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Blake'in gerekçesi şuydu: Milton gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.", None),
+ 'K11': ("[calmly] Lewis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: [wryly] “Kahramandan generale. Generalden politikacıya. Oradan casusa. Yatak odası ya da banyo pencerelerinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”", None),
+ 'K12': ("[calmly] Şeytan da bunu, yılana girmeden önce kendi ağzıyla söylemişti: yükselmeye kalkan, yükseldiği kadar alçalır.", "KC IX.169–170 (I05)"),
+ 'K14': ("[calmly] Milton son kitapta Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.", "KC XII.64–71 (konuşan Âdem)"),
+ 'L07': ("[calmly] Nifates Dağı'nda bir çıkış görmüştü: [coldly] “Bir yol kaldı: boyun eğmek. Ama o sözü bana gururum yasaklıyor.” [calmly] Abdiel onu uyarmıştı: [firmly] “Cehennemde krallık değil, zincir bekle.” [calmly] Krallığı buldu; zinciri de. Gölün zincirleri çözülmüştü; bu zinciri ise ona kimse vurmadı. Kendi eliyle vurdu: gururu.",
+         "KC IV.81–82, VI.186; gölün zincirleri I.48, I.210"),
+ 'L08': ("[thoughtfully] Ama destan bir şey daha söyler: bağışlanma yolu, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: [bitterly] “Barışı bağışlamaktan o ne kadar uzaksa, dilemekten ben o kadar uzağım.” [thoughtfully] Onu orada tutan gururu muydu, yoksa Milton'ın ona hiç açmadığı bir kapı mı?",
+         "KC III.129–132, IV.104 (iki okuma A03'ün sorusunda çarpışır; karar izleyicide)"),
+ 'L09': ("[thoughtfully] Kör şair bu hikâyeyi zifiri karanlıkta yazdırdı. Destanın bir yerinde tek bir şey diler: [reverently] “Sen, göksel ışık, içime parla. Orada gözler aç ki, ölümlü gözün göremediğini göreyim ve anlatayım.” [thoughtfully] Belki de bu yüzden, insanın kendi içinde bir cehennem taşıyabileceğini en iyi o gördü.",
+         "KC III.51–55 (çevirimiz); B01'in cevabı, çerçevenin kapanışı"),
+ 'L11': ("[warmly] Ateşi insanlar için çalan bir başka asinin, Prometheus'un hikâyesi ekranda. Romantik şair Shelley'ye göre Prometheus'a benzeyen tek hayalî karakter, Milton'ın Şeytan'ıydı; ama Prometheus hırstan, kıskançlıktan ve intikamdan arınmış olarak anlatılabilirdi. Bu hikâyeler hoşuna gidiyorsa, Zaman Kuryesi'ne abone olmayı unutma.",
+         "Shelley, Prometheus Unbound önsözü (1820): 'The only imaginary being resembling in any degree Prometheus, is Satan… exempt from the taints of ambition, envy, revenge' (K-Uzman ve K-Denetim doğruladı); bitiş ekranı: Prometheus videosu + abone"),
+})
+# ── ABT taraması (kurul/senaryo_tur3/ABT-tarama.md): "ve sonra" kuyruklarını kıran köprüler; başkan 8/10 maddeyi aldı ──
+DEG.update({
+ 'B04': ("[darkly] Bu adam yalnızca bir şair değil, bir devrimciydi: Kralın idamını savunmuştu. Devrim çöküp krallık geri dönünce, Londra'da cellat onun kitaplarını ateşe atarken yazarı saklanıyordu. Alevleri göremezdi; sekiz yıldır kördü.", None),
+ 'D08': ("[awed] Kimse üstün gelemez. Destanda üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir. Asiler cennetin kıyısına kadar sürülür ve kendilerini boşluğa atarlar.",
+         "KC VI.693–694 (savaş sonuçsuz), VI.699, VI.748–866"),
+ 'E09': ("[awed] Kalkanı omzunda ay gibi asılıdır. Mızrağı öyle büyüktür ki, en büyük geminin direği yanında değnek gibi kalır.", None),
+ 'E12': ("[awed] Sonunda konuşur; ordu işe koyulur. Şeytanlar cehennemin toprağından altın kazar. Bir saat içinde, yerden devasa bir saray yükselir: Pandemonium, bütün şeytanların meclisi.",
+         "KC I.663 ('He spake'), I.670–730 (I.697 'in an hour'), I.756; görsel: Dor sütunlu, altın tavanlı tapınak (I.713–717)"),
+ 'F05': ("[darkly] Günah kapıyı açar. Şeytan'ın önünde ne başı ne sonu olan bir okyanus vardır: Kaos.", "KC II.871–884 (kapıyı Günah açar), II.890–916"),
+ 'J10': ("[darkly] Ceza bitmez: önlerinde meyveyle dolu ağaçlar belirir. Açlıkla saldırırlar; meyveler ağızlarında acı küle döner.", None),
+ 'K13': ("[thoughtfully] Blake mi haklı, Lewis mi? Peki ya Milton? Kralların devrilebileceğini savunan bir devrimci, Tanrı'nın tahtına başkaldıran bir meleği yazıyor. Ama o melek cehennemde ne yapıyor? Kendine, Hürmüz'ün ve Hindistan'ın hazinelerinden görkemli bir taht kuruyor.", None),
+ 'K14': ("[calmly] Üstelik Milton son kitapta Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.", "KC XII.64–71 (konuşan Âdem)"),
+})
 SIL |= {'K09'}
 # ilk etiketi değiştir ([calmly] dozu; A-Ses)
-ETIKET = {'D07': 'tense', 'E10': 'gravely', 'E12': 'in awe', 'F05': 'darkly', 'F06': 'tense', 'H02': 'wryly', 'H03': 'darkly',
-          'I08': 'gravely', 'I10': 'quietly', 'J08': 'tense', 'J10': 'darkly', 'J07': 'tense', 'G08': 'trembling'}
+ETIKET = {'D07': 'tense', 'E10': 'gravely', 'E12': 'awed', 'F05': 'darkly', 'F06': 'tense', 'H02': 'wryly', 'H03': 'darkly',
+          'I08': 'gravely', 'I10': 'quietly', 'J08': 'tense', 'J10': 'darkly', 'J07': 'tense', 'G08': 'trembling voice'}
 # seslendirme parçaları: uzun bölümler bu kimliklerde yeni çekime bölünür (bolum alanı değişmez)
 PARCA = {'B06', 'C06', 'D05', 'E06', 'E12', 'F05', 'G07', 'G11', 'H07', 'I06', 'J05', 'K10', 'K13', 'L06', 'L09'}
 SIRA = {'Alkış': ['J01', 'J02', 'J03', 'J04', 'J05', 'J07', 'J08', 'J06', 'J09', 'J10', 'J11']}
@@ -156,7 +196,7 @@ for bo, order in SIRA.items():
     assert set(order) == set(by), (set(order) ^ set(by))
     for n, i in zip(idx, order): T[n] = by[i]
 # bayat çapraz göndermeleri düzelt
-FIX = [('L09–L09c', 'L06–L08'), ('L09b', 'L07'), ('L09c', 'L08'), ('ödemesi L05', 'ödemesi L04'), ('ödemesi K12', 'ödemesi K16'), ('ödemesi L10', 'ödemesi L09')]
+FIX = [('cevabı C06', 'cevabı C09'), ('ödemesi D04', 'ödemesi D05'), ('uyarısı D04', 'uyarısı D03'), ('L09–L09c', 'L06–L08'), ('L09b', 'L07'), ('L09c', 'L08'), ('ödemesi L05', 'ödemesi L04'), ('ödemesi K12', 'ödemesi K16'), ('ödemesi L10', 'ödemesi L09')]
 S = []
 for i, bo, m, k in T:
     for a, b in FIX: k = k.replace(a, b)
