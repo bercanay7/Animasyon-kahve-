@@ -10,7 +10,7 @@ for b in bol:
     a, c = k.get(b['onek'] + '_a'), k.get(b['onek'] + '_b')
     if not a or not c: raise SystemExit(f"eksik çekim: {b['onek']}")
     pick = 'a' if (a['cer'] < c['cer'] - .003 or (abs(a['cer'] - c['cer']) <= .003 and a['sure'] <= c['sure'])) else 'b'
-    sel[b['ad']] = f"{b['onek']}_{pick}.mp3"
+    sel[b['onek']] = f"{b['onek']}_{pick}.mp3"
     ch = a if pick == 'a' else c
     rap.append(f"{b['onek']} {b['ad'][:28]:28}  a {a['cer']:.3f} {a['sure']:6.1f} sn | b {c['cer']:.3f} {c['sure']:6.1f} sn  → {pick}  ({len(ch['farklar'])} fark)")
 json.dump(sel, open(os.path.join(ROOT, 'vo', 'secim.json'), 'w'), ensure_ascii=False, indent=1)

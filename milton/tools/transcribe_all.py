@@ -6,7 +6,7 @@ import torch, whisper
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 torch.set_num_threads(int(sys.argv[1]) if len(sys.argv) > 1 else 4)
 only = sys.argv[2].split(',') if len(sys.argv) > 2 else None
-P = "Prometeus, Ayshilos, Hesiodos, Teogonia, Zeus, Gaya, Uranos, Kronos, Rea, Titan, Tartaros, İapetos, Atlas, Menoitios, Epimeteus, Mekone, Pandora, Hefaistos, Hermes, Kratos, Bia, Okeanos, Temis, İyo, Bosporos, Kerç, Herakles, Göte, Meri Şeli, Frankenştayn, Openhaymır, Azra Erhat, Eyüboğlu, Kafka."
+P = "Con Milton, Kayıp Cennet, Lüsifer, Şeytan, Belzebub, Pandemonyum, Abdiyel, Uriyel, Nifates, Kaos, Aden, Âdem, Havva, Günah, Ölüm, Oğul, Hürmüz, Hindistan, Kromvel, Vilyım Bleyk, Şeli, Si Es Luis, Luis, Narniya, Aleksandr Kabanel, Prometeus, Zaman Kuryesi."
 norm = lambda s: re.sub(r"[^\wçğıöşüâî]+", ' ', s.lower().replace('İ', 'i').replace('I', 'ı').replace("'", '').replace('’', '').replace('â', 'a').replace('î', 'i').replace('û', 'u')).split()
 secs = {s['onek']: s for s in json.load(open(os.path.join(ROOT, 'vo', 'bolumler.json')))}
 m = whisper.load_model('small')

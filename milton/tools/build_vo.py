@@ -1,6 +1,6 @@
 """Seçilen seslendirme take'lerini senaryo cümlelerine böler, aralarına kurgu boşlukları koyarak
 tek anlatım izi (vo.wav) ve zaman çizelgesi (timeline.js) üretir.
-Kullanım: python3 tools/build_vo.py   (vo/secim.json: {bölüm: dosya})"""
+Kullanım: python3 tools/build_vo.py   (vo/secim.json: {çekim öneki: dosya}; vo/bolumler.json: çekimler)"""
 import json, re, difflib, subprocess, numpy as np, sys
 SR = 48000
 d = json.load(open('senaryo.json'))
@@ -16,15 +16,18 @@ norm1 = lambda w: re.sub(r"[^\wçğıöşüâî]+", '', w.lower().replace('İ', 
 def words_of(text):
     return [w for w in (norm1(x) for x in re.sub(r'\[[^\]]*\]', ' ', text).replace('…', ' ').split()) if w]
 
-secs = []
-for s in d['segments']:
-    if not secs or secs[-1][0] != s['bolum']: secs.append((s['bolum'], []))
-    secs[-1][1].append(s)
+# çekimler: vo/bolumler.json (tools/vo_sections.py). Bir bölüm birden çok çekime bölünmüş olabilir (vo_parca).
+byid = {s['id']: s for s in d['segments']}
+bol = json.load(open('vo/bolumler.json'))
+adlar = []
+for b in bol:
+    if b['ad'] not in adlar: adlar.append(b['ad'])
+secs = [(b['onek'], b['ad'], [byid[i] for i in b['ids']], k == len(bol) - 1 or bol[k + 1]['ad'] != b['ad']) for k, b in enumerate(bol)]
 
 out = []; t = plan.get('once', 1.0); cues = {}; allwords = []
 out.append(np.zeros(int(t * SR), np.float32))
-for si, (bolum, segs) in enumerate(secs):
-    f = sel[bolum]
+for onek, bolum, segs, bolum_sonu in secs:
+    si = adlar.index(bolum); f = sel[onek]
     a = load('vo/' + f)
     hw = []
     for w in json.load(open('vo/' + f.rsplit('.', 1)[0] + '.words.json')):
@@ -119,7 +122,7 @@ for si, (bolum, segs) in enumerate(secs):
             if o == k: allwords.append({'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': round(t + st[i] - c0 + shift[i], 3), 'e': round(t + en[i] - c0 + shift[i], 3)})
         out.append(clip); t += len(clip) / SR
         g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
-        if k == len(segs) - 1: g += plan.get('secGap', 1.5)
+        if k == len(segs) - 1 and bolum_sonu: g += plan.get('secGap', 1.5)
         out.append(np.zeros(int(g * SR), np.float32)); t += g
 t += plan.get('sonra', 0)
 out.append(np.zeros(int(plan.get('sonra', 0) * SR), np.float32))

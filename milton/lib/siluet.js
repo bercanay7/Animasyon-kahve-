@@ -48,17 +48,21 @@ const SF = (() => {
     spline(P, U.map(([x, y]) => { x *= dir * h; y *= h; return [cx + x * c - y * s, cy + x * s + y * c]; }), true, .55);
     return P;
   }
-  // geriye savrulan saç: üç dört büyük, dalgalı tutam (alev gibi), kafatasıyla birleşik
+  // saç: klasik kısa kıvırcık saç; kafatasının tepesinden enseye küçük yumrular (Doré'nin Şeytan'ı gibi). len > 1 ise ensede uzar ve rüzgârda savrulur.
   function hairPath(cx, cy, h, dir, tilt, t, wind = 1, len = 1, seed = 3) {
     const r = rng(seed), P = new Path2D(), c = Math.cos(-tilt * dir), s = Math.sin(-tilt * dir);
     const loc = (x, y) => [cx + (x * dir * c - y * s) * h, cy + (x * dir * s + y * c) * h];
-    const k = loc(-.1, -.2); P.moveTo(k[0] + h * .36, k[1]); P.arc(k[0], k[1], h * .36, 0, TAU);
-    for (let i = 0; i < 4; i++) {
-      const fq = i / 3, b0 = loc(lerp(.1, -.34, fq), lerp(-.5, -.02, fq)), b1 = loc(lerp(-.12, -.42, fq), lerp(-.42, .26, fq));
-      const ang = lerp(-.55, .35, fq) + Math.sin(t * .8 + i * 1.7) * .07 * wind, L = h * lerp(.75, 1.05, Math.sin(fq * PI)) * len * (.9 + r() * .2);
-      const ax = -Math.cos(ang) * dir, ay = Math.sin(ang), tip = [(b0[0] + b1[0]) / 2 + ax * L, (b0[1] + b1[1]) / 2 + ay * L - h * .1 * Math.sin(t * .6 + i)];
-      const m0 = [b0[0] + ax * L * .5, b0[1] + ay * L * .5 - h * .16], m1 = [b1[0] + ax * L * .55, b1[1] + ay * L * .55 + h * .1];
-      P.moveTo(b0[0], b0[1]); P.quadraticCurveTo(m0[0], m0[1], tip[0], tip[1]); P.quadraticCurveTo(m1[0], m1[1], b1[0], b1[1]); P.closePath();
+    const k = loc(-.08, -.16); P.moveTo(k[0] + h * .37, k[1]); P.arc(k[0], k[1], h * .37, 0, TAU);
+    const n = 9;
+    for (let i = 0; i < n; i++) { // alından enseye yumrular
+      const fq = i / (n - 1), ang = lerp(-1.25, 2.55, fq), rr = h * (.36 + r() * .03), q = loc(-.08 - Math.cos(ang + PI / 2) * 0, 0);
+      const px = -.08 + Math.sin(ang) * -.36 * 1, py = -.16 - Math.cos(ang) * .36, b = loc(px, py), rad = h * (.1 + r() * .035);
+      P.moveTo(b[0] + rad, b[1]); P.arc(b[0], b[1], rad, 0, TAU);
+    }
+    if (len > 1) for (let i = 0; i < 3; i++) { // ense tutamları (uzun saç)
+      const b0 = loc(-.36, lerp(-.05, .3, i / 2)), L = h * (.35 + .25 * (len - 1)) * (1 + i * .15), sw = Math.sin(t * .9 + i * 1.3) * .12 * wind;
+      const tip = [b0[0] - dir * L * Math.cos(.5 + sw), b0[1] + L * Math.sin(.5 + sw)];
+      P.moveTo(b0[0], b0[1] - h * .09); P.quadraticCurveTo((b0[0] + tip[0]) / 2, (b0[1] + tip[1]) / 2 - h * .16, tip[0], tip[1]); P.quadraticCurveTo((b0[0] + tip[0]) / 2, (b0[1] + tip[1]) / 2 + h * .1, b0[0], b0[1] + h * .09); P.closePath();
     }
     return P;
   }
@@ -102,15 +106,15 @@ const SF = (() => {
     const P = (al, sd) => [sc[0] - up[0] * al * h + rt[0] * sd * h, sc[1] - up[1] * al * h + rt[1] * sd * h]; // al: omuzdan aşağı (baş), sd: yana (baş)
     const swH = Math.hypot(shF[0] - shN[0], shF[1] - shN[1]) / h / 2, hwH = Math.hypot(hpF[0] - hpN[0], hpF[1] - hpN[1]) / h / 2;
     const T = new Path2D();
-    spline(T, [P(-.3, 0), P(-.22, swH * .5), P(-.02, swH + .28), P(.35, swH + .22), P(1.0, swH * .92 + .06), P(1.55, swH * .74 + .06), P(2.0, hwH + .3), P(2.2, hwH + .34),
-      P(2.2, -hwH - .34), P(2.0, -hwH - .3), P(1.55, -swH * .74 - .06), P(1.0, -swH * .92 - .06), P(.35, -swH - .22), P(-.02, -swH - .28), P(-.22, -swH * .5)], true, .75);
+    spline(T, [P(-.3, 0), P(-.24, swH * .45), P(-.16, swH + .2), P(.02, swH + .44), P(.32, swH + .4), P(.5, swH + .2), P(1.0, swH * .8 + .1), P(1.6, swH * .56 + .12), P(2.0, hwH + .28), P(2.2, hwH + .32),
+      P(2.2, -hwH - .32), P(2.0, -hwH - .28), P(1.6, -swH * .56 - .12), P(1.0, -swH * .8 - .1), P(.5, -swH - .2), P(.32, -swH - .4), P(.02, -swH - .44), P(-.16, -swH - .2), P(-.24, -swH * .45)], true, .7);
     const Nk = limb(nk, [J.hd[0], J.hd[1] + .2 * h], () => .2 * h, () => .2 * h, 4);
     part(Nk, Object.assign({ hs: HS(.9 * f) }, base));
     part(T, Object.assign({ hs: HS(.5 * f, 9) }, base));
     // etek: belden uyluk ortasına açılan şeritler (pteruges)
     if (o.skirt !== false && o.legs !== false) {
-      const K = new Path2D(), n = 7, y0 = 1.95, y1 = 3.05, w0 = hwH + .3, w1 = hwH + .52, pts = [P(y0, -w0)];
-      for (let i = 0; i < n; i++) { const a = -w1 + (i / n) * 2 * w1, b = -w1 + ((i + 1) / n) * 2 * w1, sw2 = Math.sin(t * 1.1 + i) * .02; pts.push(P(y1 - .05 + sw2, a + .02), P(y1 + .1 + sw2, (a + b) / 2), P(y1 - .05 + sw2, b - .02), P(y1 - .22, b)); }
+      const K = new Path2D(), n = 6, y0 = 1.95, y1 = 2.95, w0 = hwH + .3, w1 = hwH + .46, pts = [P(y0, -w0)];
+      for (let i = 0; i < n; i++) { const a = -w1 + (i / n) * 2 * w1, b = -w1 + ((i + 1) / n) * 2 * w1, sw2 = Math.sin(t * 1.1 + i * 1.7) * .015 + (i % 2) * .05; pts.push(P(y1 + sw2, a + .015), P(y1 + sw2, b - .015), P(y1 - .1, b)); }
       pts.push(P(y0, w0)); poly(K, pts, true); part(K, Object.assign({ hs: HS(PI / 2 + J.lean, 9) }, base));
       parts.push({ k: 'skirt', n, y0, y1, w0, w1 });
     }
@@ -128,13 +132,14 @@ const SF = (() => {
     if (o.armor !== false) {
       const L2 = (a, b, c) => { ox.beginPath(); ox.moveTo(a[0], a[1]); if (c) ox.quadraticCurveTo(c[0], c[1], b[0], b[1]); else ox.lineTo(b[0], b[1]); ox.stroke(); };
       ox.save(); ox.clip(T);
-      L2(P(.3, -swH - .3), P(.3, swH + .3), P(.62, 0));                                   // göğüslük üst kavsi
-      L2(P(.1, 0), P(1.45, 0));                                                           // orta sırt
-      for (let k = 0; k < 3; k++) L2(P(1.5 + k * .17, -swH - .2), P(1.5 + k * .17, swH + .2), P(1.58 + k * .17, 0)); // karın levhaları
-      for (const s of [-1, 1]) L2(P(.42, s * (swH - .12)), P(-.02, s * (swH + .3)), P(.5, s * (swH + .34)));   // omuzluk kenarı
+      for (const sd of [-1, 1]) L2(P(.42, sd * .04), P(.5, sd * (swH + .22)), P(.86, sd * (swH * .55)));          // göğüs kavisleri (iki ayrı yay)
+      for (let k = 0; k < 3; k++) L2(P(1.22 + k * .2, -swH * .7 - .1), P(1.22 + k * .2, swH * .7 + .1), P(1.3 + k * .2, 0)); // karın levhaları
+      for (const sd of [-1, 1]) L2(P(.5, sd * (swH + .2)), P(-.1, sd * (swH + .1)), P(.3, sd * (swH - .14)));             // omuzluk alt kenarı
+      ox.lineWidth = Math.max(2, h * .05); L2(P(1.98, -hwH - .3), P(1.98, hwH + .3));                                    // kemer
+      ox.lineWidth = Math.max(1.4, h * .028);
       ox.restore();
       const sk = parts.find(q => q.k === 'skirt');
-      if (sk) for (let i = 1; i < sk.n; i++) { const a = -sk.w1 + (i / sk.n) * 2 * sk.w1; L2(P(sk.y0 + .1, a * (sk.w0 / sk.w1)), P(sk.y1 - .12, a)); }
+      if (sk) for (let i = 1; i < sk.n; i++) { const a = -sk.w1 + (i / sk.n) * 2 * sk.w1; L2(P(sk.y0 + .14, a * (sk.w0 / sk.w1)), P(sk.y1 - .14, a)); }
       for (const [e, w] of [[J.elN, J.wrN], [J.elF, J.wrF]]) { const m = [lerp(e[0], w[0], .55), lerp(e[1], w[1], .55)], a = Math.atan2(w[1] - e[1], w[0] - e[0]) + PI / 2; L2([m[0] - Math.cos(a) * .15 * h, m[1] - Math.sin(a) * .15 * h], [m[0] + Math.cos(a) * .15 * h, m[1] + Math.sin(a) * .15 * h]); } // bileklik
     }
     const eo = o.eye ?? (lum < .5 ? 1 : 0);

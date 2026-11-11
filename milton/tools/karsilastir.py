@@ -15,12 +15,11 @@ def merge_tokens(hw):
     return out
 
 d = json.load(open(os.path.join(ROOT, 'senaryo.json')))
-secs = {}
-for s in d['segments']: secs.setdefault(s['bolum'], []).append(s)
-onek = {b['onek']: b['ad'] for b in json.load(open(os.path.join(ROOT, 'vo', 'bolumler.json')))}
+byid = {s['id']: s for s in d['segments']}
+secs = {b['onek']: [byid[i] for i in b['ids']] for b in json.load(open(os.path.join(ROOT, 'vo', 'bolumler.json')))}
 res = {}
 for wj in sorted(glob.glob(os.path.join(ROOT, 'vo', 's[0-9][0-9]_[ab].words.json'))):
-    key = os.path.basename(wj).split('.')[0]; segs = secs[onek[key[:3]]]
+    key = os.path.basename(wj).split('.')[0]; segs = secs[key[:3]]
     hw = merge_tokens(json.load(open(wj)))
     # referans karakter dizisi ve her karakterin sahibi (cümle kimliği)
     ref, rown = '', []
