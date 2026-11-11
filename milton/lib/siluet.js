@@ -243,9 +243,8 @@ const SF = (() => {
       let E = null; for (let s2 = 0; s2 < 4 * hd_; s2 += 1) { const x = P[0] + dOut[0] * s2, y = P[1] + dOut[1] * s2; if (!ins(a, x, y)) { E = [x, y]; break; } }
       if (!E) return;
       const n = 10, A = [], B = [], din = [-dOut[0], -dOut[1]], nn = [-din[1], din[0]];
-      const uE = w > 2.6 ? 1 - Math.pow(2.6 / w, 1 / .85) : 0;                       // uç: genişlik 2 px'e inince küt biter (1 px'lik kıl kalmaz)
-      if (uE * L < 4) return;
-      for (let i = 0; i <= n; i++) { const u = i / n * uE, cx = E[0] + din[0] * L * u + bdir[0] * bend * L * u * u, cy = E[1] + din[1] * L * u + bdir[1] * bend * L * u * u, hw = Math.max(1.3, w * .5 * Math.pow(1 - u, .85));
+      const uE = 1;                                                               // genişlik kenarda w, uçta 2,6 px: uç küt biter (1 px'lik kıl kalmaz)
+      for (let i = 0; i <= n; i++) { const u = i / n * uE, cx = E[0] + din[0] * L * u + bdir[0] * bend * L * u * u, cy = E[1] + din[1] * L * u + bdir[1] * bend * L * u * u, hw = 1.3 + Math.max(0, w * .5 - 1.3) * Math.pow(1 - u, .85);
         A.push([cx + nn[0] * hw, cy + nn[1] * hw]); B.push([cx - nn[0] * hw, cy - nn[1] * hw]); }
       const Pp = new Path2D(); poly(Pp, [[E[0] + dOut[0] * 1.5, E[1] + dOut[1] * 1.5], ...A, ...B.reverse()], true); c.fill(Pp);
     };
@@ -268,7 +267,7 @@ const SF = (() => {
       for (const S of limbStrokes) {
         const a = AM[S.g], P0 = toL(S.p0), P1 = toL(S.p1), ax = [P1[0] - P0[0], P1[1] - P0[1]], La = Math.hypot(ax[0], ax[1]) || 1, d = [ax[0] / La, ax[1] / La];
         let nrm = [-d[1], d[0]]; const dt = nrm[0] * sv[0] + nrm[1] * sv[1]; if (Math.abs(dt) < .3) continue; if (dt < 0) nrm = [-nrm[0], -nrm[1]];
-        strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(3, hd_ * .034), .12, d); any = true;
+        strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(3.8, hd_ * .04), .12, d); any = true;
       }
       // pelerin: gölge/ışık yanından içeri birkaç uzun kıvrım vuruşu
       if (AM[0]) for (let i = 0; i < Math.round(dens * 2); i++) { const al = .6 + i * .55 + rS() * .2, P = toL(Q(al, -(swH + .2 + .2 * al))); strk(SKc, AM[0], P, sv, hd_ * (.5 + .4 * rS()), Math.max(3, hd_ * .035), .15, lin(dn)); any = true; }
@@ -290,7 +289,7 @@ const SF = (() => {
         const side = (rt[0] * sv[0] + rt[1] * sv[1]) * 1 >= 0 ? 1 : -1, rD = lin([rt[0] * side, rt[1] * side]);
         if (Math.abs(lin(rt)[0] * sv[0] + lin(rt)[1] * sv[1]) > .2) for (const S of torsoStrokes) {
           const P = toL(Q(S.al, side * f * .15)); Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0);
-          strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(3.2, hd_ * (.032 + .012 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
+          strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(4.2, hd_ * (.04 + .015 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
         }
         // uzun giysi kıvrımları: etekten yukarı giren uzun, sivrilen vuruşlar (ışık ya da gölge yanında yoğun)
         if (robe) { const rF = rng((o.seed || 3) * 7 + 1), dD = lin(dn), dU = [-dD[0], -dD[1]];
@@ -361,7 +360,7 @@ const SF = (() => {
         if (qx >= 0 && qy >= 0 && qx < BW && qy < BH) { const j = (qy * BW + qx) * 4 + 3; let hit = false; for (let g = 0; g < 4; g++) if (AM[g] && AM[g][j] > 0) { hit = true; break; }
           if (hit) { const hv = crisp(un(x - lx * halo, y - ly * halo)) * (1 - al);
             if (hv > 0) { const gx = un(x - halo, y) - un(x + halo, y), gy = un(x, y - halo) - un(x, y + halo), gl = Math.hypot(gx, gy);
-              if (gl > .05 && halo * (gx * lx + gy * ly) / gl < -2) { const v0 = al > 0 ? vp / al : 1; vp = vp + (1 - al) * hv; al = al + (1 - al) * hv; vp = Math.min(vp, al); } } } }
+              if (gl > .05 && halo * (gx * lx + gy * ly) / gl < -2) { vp = vp + (1 - al) * hv; al = al + (1 - al) * hv; vp = Math.min(vp, al); } } } }
       }
       if (al > 0) { const v = vp / al * 255; O[i] = O[i + 1] = O[i + 2] = v; O[i + 3] = al * 255; } else O[i + 3] = 0;
     }

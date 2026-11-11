@@ -38,7 +38,7 @@ function cizGol(t, o = {}) {
   }
   GR.restore();
   PR.glow(FX, WY + 10, 6, 170, 1, .2);                 // su çizgisinde ateş ışığı (figürün arkasında kalır)
-  SF.draw(J, { lum: 0, lit: LIT, t, legs: false, skirt: false, waterY: WY, eye: o.eyes ?? 1, wind: .6, cloak: 1.2 });
+  SF.draw(J, { lum: 0, lit: LIT, t, legs: false, skirt: false, waterY: WY, eye: o.eyes ?? 1, wind: .6, cloak: 1.2, halo: 3.5, lines: 2 });
   // zincirler (kırılmaz zincir; I.48): ön kolun suya girdiği noktadan çıkar, su yüzeyinde dışa uzanır
   GR.tx.save(); { const C = new Path2D(); C.rect(-4000, -4000, 12000, 4000 + WY + 16); GR.tx.clip(C); }
   for (const [el, wr, dx] of [[J.elN, J.wrN, -120], [J.elF, J.wrF, 120]]) {
