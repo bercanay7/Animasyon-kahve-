@@ -37,6 +37,7 @@ const GR = (() => {
   sty(7, { P: 12.0, wv: .02, wf: 1 / 90, ct: 1.1 });      // ışık huzmesi
   sty(8, { P: 12.5, wv: .08, wf: 1 / 46, ct: .88 });      // su, göl yüzeyi
   sty(9, { P: 5.8, wv: .03, wf: 1 / 60, ct: .7, cr: 1.0 }); // zırh, kumaş
+  sty(10, { P: 20, wv: .02, wf: 1 / 120, lo: .05 });  // açık gök (cennet, Aden gündüzü): çok seyrek, ince çizgi; açık zeminde göz yormaz
   // ton baytı → ham oran r = (koyuluk − lo) / (hi − lo); kırpılmaz. r ≤ 0 kâğıt, r ≥ 1 düz siyah; arası çizgi kalınlığı f0…f1.
   const DL = () => STY.map(s => { const a = new Float32Array(256); for (let i = 0; i < 256; i++) { const d = Math.pow(1 - i / 255, s.g); a[i] = (d - s.lo) / (s.hi - s.lo); } return a; });
 
@@ -62,6 +63,8 @@ const GR = (() => {
     if (o.type === 'rad') { const [cx, cy] = wpt(o.cx, o.cy); return reg({ t: 1, id, cx, cy, ph: o.ph || 0 }); }
     if (o.type === 'bend') { const [ox, oy] = wpt(o.ox, o.oy), a = wang(o.a || 0); return reg({ t: 2, id, ox, oy, ca: Math.cos(a), sa: Math.sin(a), k: (o.k || 0) * (fFlip ? -1 : 1), ph: o.ph || 0 }); }
     if (o.type === 'buf') return reg({ t: 3, id });
+    // ışınsal tarama: (cx, cy) merkezinden çıkan n ışın çizgisi; aralık merkezden uzaklaştıkça açılır, merkez yakınında (aralık < 6 px) çizgi yok
+    if (o.type === 'ray') { const [cx, cy] = wpt(o.cx, o.cy); return reg({ t: 5, id, cx, cy, n: Math.round(o.n || 90), ph: o.ph || 0, w: o.w }); }
     // perspektifli yatay tarama (su, zemin): aralık y0'da p0, y0 + D'de p1 (uzakta sık, yakında seyrek)
     if (o.type === 'persp') { const y0 = wpt(0, o.y0)[1], k = o.D / Math.max(.01, o.p1 - o.p0); return reg({ t: 4, id, y0, k, c: o.p0 * k, ph: o.ph || 0 }); }
     const th = wang(o.th || 0), c = Math.cos(th), s = Math.sin(th);
@@ -152,11 +155,12 @@ const GR = (() => {
         if (r >= 1) ink = 1;
         else if (r > 0) {
           const wx = x * kk + ox, t = p.t;
-          let U, along, Pl = Pdv;
+          let U, along, Pl = Pdv, fade = 1, capW = 9;
           if (t === 0) { U = (wy * p.c - wx * p.s) * invP + p.ph; along = wx * p.c + wy * p.s; }
           else if (t === 1) { const dx = wx - p.cx, dy = wy - p.cy; U = Math.sqrt(dx * dx + dy * dy) * invP + p.ph; along = wx * .8 + wy * .6; }
           else if (t === 2) { const dx = wx - p.ox, dy = wy - p.oy, pp = dx * p.ca + dy * p.sa, qq = dy * p.ca - dx * p.sa; U = (qq + p.k * pp * pp) * invP + p.ph; along = pp; }
           else if (t === 4) { const q = Math.max(1, wy - p.y0 + p.c); U = p.k * Math.log(q / p.c) + p.ph; along = wx; Pl = q / p.k * devPer; }
+          else if (t === 5) { const dx = wx - p.cx, dy = wy - p.cy, rr = Math.sqrt(dx * dx + dy * dy), per = TAU * rr / p.n; U = Math.atan2(dy, dx) * p.n / TAU + p.ph + p.n; along = rr; Pl = per * devPer; fade = per < 6 ? 0 : per < 12 ? (per - 6) / 6 : 1; capW = (p.w || 3.2) / per; }
           else { U = PHB[y * w + x]; along = wx * .8 + wy * .6; }
           const ai = along * st.wf + st.ph + 65536, a0 = ai | 0, af = ai - a0;
           U += (NZ[a0 & 1023] * (1 - af) + NZ[(a0 + 1) & 1023] * af) * st.wv + 8192;
@@ -170,8 +174,10 @@ const GR = (() => {
           if (rb < 0) d = rb < -TW ? 0 : f0 * (1 + rb / TW);
           else if (rg > 1) d = rg > 1 + TW ? 1.2 : d + (1.2 - d) * (rg - 1) / TW;
           if (d < 1) d *= 1 + JT[ji] * JIT.th;
+          if (d > capW && d < 1) d = capW;   // ışınsal taramada çizgi kalınlığı sabit kalır (uzakta kalınlaşıp hız çizgisine dönmez)
           ink = (d * .5 - (u > .5 ? u - .5 : .5 - u)) * Pl + .5;
           if (ink < 0) ink = 0; else if (ink > 1) ink = 1;
+          if (fade < 1) ink *= fade;
           const ct = st.ct;
           if (d > ct) { // çapraz tarama: düz ikinci aile
             const cc = p.t === 0 ? p.c * Math.cos(st.cr) - p.s * Math.sin(st.cr) : Math.cos(st.cr - .5), ss = p.t === 0 ? p.s * Math.cos(st.cr) + p.c * Math.sin(st.cr) : Math.sin(st.cr - .5);

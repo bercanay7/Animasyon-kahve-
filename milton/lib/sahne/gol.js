@@ -7,7 +7,7 @@
 //     head (baş eğimi; .42), lean (.04), rise (figürün sudan yükselişi, px), fx (figür ekseni), sway (kanat salınımı, 0 = yok),
 //     open/lift (kanat açılışı için 0..1 ek: 0 = üslup karesi), legs (true: bacaklar; ayağa kalkış), loose (0..1 zincirlerin kopup düşmesi),
 //     shaft (0..1 üstten figüre inen izin huzmesi), mid (figürün yanında çizilecek ek: (J) => {}, göl ile ön alevler arasında),
-//     dim (0..1: sahneyi karanlığa gömer; açılış için), front (false: ön alevler ve kaya yok)}
+//     light (0..1: ışıkla açılış; 0 = zifiri, 1 = tam), front (false: ön alevler ve kaya yok)}
 function cizGol(t, o = {}) {
   const { tx, tone, fill } = GR;
   const FX = o.fx ?? 880, HZ = 600, WY = 800;         // figür ekseni, ufuk, su çizgisi (figürün beli)
@@ -68,18 +68,26 @@ function cizGol(t, o = {}) {
   }
   if (o.mid) o.mid(J);
   if (o.front !== false) {
-    // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle). Kopuk alev uçları yok (frags: false):
+    // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle). Kopuk alev uçları yok (frags: false); çatalsız tohumlar (190, 93), dar diller (en/boy ≤ .7), uçlar aynı yöne (A04 kurulu):
     // kanadın önünde damla gibi asılı kalan uç 'mum alevi' okuması veriyordu (kurul tur 6)
-    PR.flameBank(FX - 340, FX - 70, WY + 40, 150, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .5, strip: .5, frags: false });
-    PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6, solidBelow: 500, speed: .5, strip: .5, frags: false });
+    PR.flameBank(FX - 340, FX - 70, WY + 40, 240, t, 190, { n: 4, env: f => .45 + .55 * (1 - f), wr: .45, curl: .35, lean: .08, solidBelow: 500, speed: .5, strip: .3, frags: false });
+    PR.flameBank(FX + 80, FX + 370, WY + 38, 250, t, 93, { n: 5, env: f => .45 + .55 * f, wr: .45, curl: .35, lean: .08, solidBelow: 500, speed: .5, strip: .3, frags: false });
     // sağ ön: büyük alev dilleri (çerçeve; tohum 27: diller tek kütle hâlinde yukarı akar, X biçimli çift yok; kurul tur 6); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
-    PR.flameBank(1480, W + 120, H + 30, 380, t, 27, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55, curl: .45, lean: -.1 });
+    PR.flameBank(1560, W + 140, H + 30, 300, t, 27, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .27, curl: .45, lean: -.1 });   // A04 kurulu: yarı hız, daha küçük, kadrajın dışına doğru
     const RK = [[-20, 556], [38, 566], [72, 584], [96, 612], [132, 640], [170, 648], [206, 664], [214, 700], [238, 732], [272, 748], [300, 772], [304, 818], [320, 862], [352, 884], [384, 916], [378, 968], [398, 1010], [404, H + 20], [-20, H + 20]];
     const RP = PR.rock(RK, { lit: [.85, -.45], hi: .05, mid: .03, lo: .02, seed: 2, th: -.9, rim: 6, facets: 10 });
     PR.cuts(RK.slice(0, 11), [-.5, .87], { len: [16, 190], gap: [44, 130], w: 6, seed: 5, clip: RP, bend: -.35 });
   }
-  if (o.dim) { tx.save(); tx.globalAlpha = clamp(o.dim); tx.fillStyle = tone(.02); tx.fillRect(-400, -800, W + 800, H + 1600); tx.restore(); }
+  if (o.light != null && o.light < 1) gol_isik(o.light, 910, 590);
   return J;
+}
+// Işıkla açılış (A04 kurulu): baskıdan önce ton katmanı çarpımla karartılır. Çarpan, odaktaki (cx, cy) parıltıdan dışa doğru açılır:
+// önce çekirdek beyazlar, çevresi taramayla (çizgiler kalınken incelerek) belirir. Her an yalnız mürekkep ve kâğıt basılır (gri yok).
+function gol_isik(L, cx, cy) {
+  const { tx } = GR, T = tx.getTransform(); tx.save(); tx.setTransform(1, 0, 0, 1, 0, 0);
+  const p = T.transformPoint(new DOMPoint(cx, cy)), R = 2300 * RS, g = tx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
+  for (let i = 0; i <= 8; i++) { const f = i / 8, v = clamp(L * 1.9 - f * 1.25); const c = Math.round(255 * v); g.addColorStop(f, `rgb(${c},${c},${c})`); }
+  tx.globalCompositeOperation = 'multiply'; tx.fillStyle = g; tx.fillRect(0, 0, tx.canvas.width, tx.canvas.height); tx.restore();
 }
 // "göklerin izniyle" (I.210–213): yarıktan figüre inen dar, keskin kenarlı ışık sütunu; a: 0..1 şiddet
 function gol_izin(fx, a, t) {
@@ -107,8 +115,9 @@ function cizKiyi(t, o = {}) {
   let g = tx.createLinearGradient(0, -400, 0, HZ);
   g.addColorStop(0, tone(.02)); g.addColorStop(.6, tone(.03)); g.addColorStop(.88, tone(.12)); g.addColorStop(1, tone(.3));
   tx.fillStyle = g; tx.fillRect(-400, -800, W + 800, HZ + 800);
-  PR.glow(FX, HZ - 10, 100, 400, 1, 1);
-  PR.glow(FX, HZ - 50, 50, 280, 1, .8);
+  PR.glow(FX, HZ - 10, 120, 560, 1, 1);           // KIY kurulu notu: parıltı genişletildi (koyu oran %80+ idi)
+  PR.glow(FX, HZ - 50, 50, 300, 1, .85);
+  PR.glow(FX, HZ + 10, 200, 1100, 1, .35);
   PR.cloud({ x: 60, y: HZ - 290, w: 900, h: 230, seed: 12, lit: [.75, .65], base: .02, hi: .8, core: .02, n: 4, drift: Math.sin(t * .1) * 10 });
   PR.cloud({ x: 1760, y: HZ - 330, w: 960, h: 240, seed: 19, lit: [-.75, .65], base: .02, hi: .75, core: .02, n: 4, drift: Math.sin(t * .08 + 1) * 10 });
   // göl şeridi ve uzak alev duvarı (göl kıyısının ötesinde; I.61–62: "her yanı yanan bir fırın")
@@ -123,7 +132,12 @@ function cizKiyi(t, o = {}) {
   K.push([W + 200, GY + 700], [-200, GY + 700]);
   // kıyı zemini: sırtta alev duvarının ışığını alan, öne doğru kararan yatay taramalı düzlük; sırtta ince kenar ışığı
   const KP = new Path2D(); poly(KP, K, true);
-  { const gg = tx.createLinearGradient(0, GY - 10, 0, GY + 260); gg.addColorStop(0, tone(.3)); gg.addColorStop(1, tone(.02)); GR.fill(KP, gg, { type: 'persp', y0: GY, D: 500, p0: 9.5, p1: 12.5, id: 8 }); }
+  { const gg = tx.createLinearGradient(0, GY - 10, 0, GY + 260); gg.addColorStop(0, tone(.46)); gg.addColorStop(.55, tone(.14)); gg.addColorStop(1, tone(.02)); GR.fill(KP, gg, { type: 'persp', y0: GY, D: 500, p0: 9.5, p1: 12.5, id: 8 }); }
+  // kıyıda alev duvarının geniş yansımaları: sırta yakın, yatay, uçları sivrilen birkaç kâğıt şerit
+  { const q = rng(29); tx.save(); tx.clip(KP);
+    for (let i = 0; i < 6; i++) { const y = GY + 18 + i * i * 9 + q() * 8, x = FX + (q() - .5) * 900 * (1 + i * .3), L = (520 - i * 60) * (.7 + q() * .5);
+      gol_vurus(tx, [[x - L / 2, y], [x, y + 2], [x + L / 2, y]], 9 - i, .95, .5); }
+    tx.restore(); }
   tx.save(); tx.clip(KP); gol_vurus(tx, K.slice(1, -2).map(([x, y]) => [x, y + 3]), 7, .95, .1); tx.restore();
   // sol önde kırık kaya çıkıntısı (göldeki kayanın eşi): koyu kütle, ışıklı sırt, içe giren vuruşlar
   if (o.front !== false) {
@@ -141,7 +155,8 @@ function kiy_seytan(t, p) {
   const h = p.h ?? 56, J = SF.rig({ x: p.x, y: p.gy - 3.95 * h, h, facing: p.facing ?? 1, twist: p.twist ?? .3, lean: p.lean ?? -.02, head: p.head ?? .1, shTilt: p.shTilt ?? -.04,
     armN: p.armN || [.15, .2], armF: p.armF || [-.12, .15], legN: p.legN || [.12, -.05], legF: p.legF || [-.1, -.03] });
   const LIT = p.lit || [.3, -.95];
-  if (p.wings !== false) for (const [side, P] of [[-1, { span: 9.2 * h, open: .62, lift: .45, droop: .55, rot: -.06, seed: 31, root: .1 }], [1, { span: 8.2 * h, open: .58, lift: .3, droop: .75, rot: .1, seed: 32, root: .12 }]]) {
+  const wk = p.wingK ?? 1;
+  if (p.wings !== false) for (const [side, P] of [[-1, { span: 9.2 * h * wk, open: .62, lift: .45, droop: .55, rot: -.06, seed: 31, root: .1 }], [1, { span: 8.2 * h * wk, open: .58, lift: .3, droop: .75, rot: .1, seed: 32, root: .12 }]]) {
     const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
     GR.frame(sh[0] - side * h * .25, sh[1] + h * .15, P.rot, side, 1);
     KN.feathered(Object.assign({ dark: .92, rim: .75, ruin: .6, t, lit: [LIT[0] * side, LIT[1]] }, P, { open: lerp(P.open, 1, p.open || 0), lift: lerp(P.lift, .8, p.lift || 0) }));

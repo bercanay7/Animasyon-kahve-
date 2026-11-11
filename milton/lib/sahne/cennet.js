@@ -261,12 +261,12 @@ function cen_mizrak(gx, gy, a, L, up, w, h) {
 // Sabah yıldızı: sekiz kollu kâğıt beyazı yıldız; çevresinde kendi küçük eş merkezli halesi (koyu halka taraması, ayırma için)
 function cen_yildiz(x, y, r, a = 1) {
   const { tx, px, tone } = GR; if (a <= 0) return;
-  const R2 = r * (1.7 + .5 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
-  const g = tx.createRadialGradient(x, y, r * .6, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.3, tone(lerp(.85, .5, a))); g.addColorStop(.7, tone(lerp(.85, .62, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
-  tx.save(); tx.globalCompositeOperation = 'source-over'; tx.fillStyle = g; tx.fill(D); tx.restore();
+  const R2 = r * (1.9 + .5 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
+  const g = tx.createRadialGradient(x, y, 0, x, y, R2); g.addColorStop(0, tone(.06)); g.addColorStop(.62, tone(.08)); g.addColorStop(.85, tone(.45)); g.addColorStop(1, 'rgba(0,0,0,0)');
+  tx.save(); tx.globalAlpha = clamp(a * 1.5); tx.fillStyle = g; tx.fill(D); tx.restore();
   px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
   const S = new Path2D(), n = 8, pts = [];
-  for (let i = 0; i < n * 2; i++) { const an = i / (n * 2) * TAU - PI / 2, rr = i % 2 ? r * .22 : (i % 4 === 0 ? r * (1.6 + .6 * a) : r * .95); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
+  for (let i = 0; i < n * 2; i++) { const an = i / (n * 2) * TAU - PI / 2, rr = i % 2 ? r * .2 : (i % 4 === 0 ? r * (1.3 + .5 * a) : r * .8); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
   poly(S, pts, true); tx.fillStyle = tone(1); tx.fill(S);
 }
 // İkinci ışık (Oğul): figürsüz kâğıt disk; çevresinde koyulaşan kısa halka taraması (ayrım için). Yüz, el, hale, haç yok.

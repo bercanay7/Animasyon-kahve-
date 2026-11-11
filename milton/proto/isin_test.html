@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script><script src="../lib/prim.js"></script><script src="../lib/figur.js"></script><script src="../lib/siluet.js"></script><script src="../lib/kanat.js"></script>
+<script>
+// Açık (cennet) tarifi denemesi: ışınsal seyrek gök + koyu çapa önünde kâğıt beyazı figür
+const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
+function renderFrame(t){ ctx.setTransform(RS,0,0,RS,0,0); const {tx,tone,fill}=GR, SX=1380, SY=150;
+  GR.begin(1,0,10);
+  // gök: ışık merkezinden uzaklaştıkça hafifçe koyulaşan ton; tarama ışınsal ve seyrek (üslup 10)
+  const g=tx.createRadialGradient(SX,SY,160,SX,SY,1700); g.addColorStop(0,tone(1)); g.addColorStop(.18,tone(.95)); g.addColorStop(.5,tone(.8)); g.addColorStop(1,tone(.62));
+  const S=new Path2D(); S.rect(-50,-50,W+100,H+100); fill(S,g,{type:'ray',cx:SX,cy:SY,n:96,id:10,w:3});
+  // koyu çapa: arkadaki bulut duvarı (düz siyah kütle + ışık yanında beyaz vuruşlar; cehennem bulutuyla aynı dil)
+  PR.cloud({x:520,y:520,w:1300,h:520,seed:21,lit:[.8,-.6],base:.02,hi:.9,core:.02,n:3});
+  // ön teras: kâğıt beyazı yumrular (altı koyu)
+  PR.cloud({x:700,y:1010,w:1700,h:260,seed:43,lit:[.5,-.85],base:.98,hi:.4,core:.98,n:5,depth:.05,back:false});
+  // başmelek: kâğıt beyazı, koyu duvarın önünde
+  const h=84, LIT=[.7,-.65], J=SF.rig({x:640,y:860-4*h,h,facing:1,twist:.32,head:.2,armN:[-.12,.25],armF:[.45,.8]});
+  for(const [side,P] of [[-1,{span:560,open:.9,lift:.6,rot:-.08,seed:11}],[1,{span:520,open:.85,lift:.75,rot:.1,seed:12}]]){
+    const sh=side<0?(J.shN[0]<J.shF[0]?J.shN:J.shF):(J.shN[0]<J.shF[0]?J.shF:J.shN);
+    GR.frame(sh[0]-side*h*.25,sh[1]+h*.1,P.rot,side,1); KN.feathered(Object.assign({dark:0,rim:.4,ruin:0,droop:0,t,anchor:.4,lit:[LIT[0]*side,LIT[1]]},P)); GR.unframe(); }
+  SF.draw(J,{lum:1,lit:LIT,t,cloak:.9,lines:0,spear:{grip:'F',ang:.05}});
+  GR.engrave(ctx); applyPaper(ctx,.8); applyVignette(ctx,.25); }
+window.renderFrame=renderFrame; window.renderFrameMB=renderFrame; window.ready=Promise.resolve(buildTextures());
+</script></body></html>
