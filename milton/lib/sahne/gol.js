@@ -22,7 +22,7 @@ function cizGol(t, o = {}) {
   // ── göl ──
   PR.lake(HZ, H, t, { tone: [.2, .02], crests: 26, p0: 9.5, refl: [{ x: FX + 30, w: 460, v: .95, len: 380, rows: 26 }, { x: 340, w: 200, v: .6, len: 220 }, { x: 1440, w: 240, v: .65, len: 240 }] });
   PR.flameBank(-60, W + 60, HZ + 2, 30, t, 1, { env: f => .2 + .8 * Math.pow(Math.sin(f * PI), 2) });
-  PR.flameBank(1230, 1710, 676, 165, t, 5, { n: 6, wr: .42, curl: 1, speed: .7, solidBelow: 500, env: f => .35 + .65 * Math.sin(f * PI) });
+  PR.flameBank(1230, 1710, 676, 130, t, 5, { n: 7, wr: .5, curl: .8, speed: .7, solidBelow: 500, env: f => .35 + .65 * Math.sin(f * PI) });
   PR.flameBank(150, 540, 708, 220, t, 9, { n: 5, wr: .45, curl: 1, speed: .7, solidBelow: 500, env: f => .35 + .65 * Math.sin(f * PI) });
   // ── Şeytan: belden yukarısı gölün üstünde; arkadan aydınlanan koyu kütle, yüzü yarığa dönük ──
   const br = Math.sin(t * .6) * 2, h = 98;
@@ -50,11 +50,11 @@ function cizGol(t, o = {}) {
   PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .5, strip: .5 });
   PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6, solidBelow: 500, speed: .5, strip: .5 });
   // sağ ön: büyük alev dilleri (çerçeve); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
-  PR.flameBank(1480, W + 120, H + 30, 380, t, 14, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55 });
-  const RK = [[-20, 560], [70, 582], [130, 640], [205, 662], [236, 730], [300, 770], [318, 860], [386, 915], [404, H + 20], [-20, H + 20]];
+  PR.flameBank(1480, W + 120, H + 30, 380, t, 14, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55, curl: .45, lean: -.1 });
+  const RK = [[-20, 556], [38, 566], [72, 584], [96, 612], [132, 640], [170, 648], [206, 664], [214, 700], [238, 732], [272, 748], [300, 772], [304, 818], [320, 862], [352, 884], [384, 916], [378, 968], [398, 1010], [404, H + 20], [-20, H + 20]];
   const RP = PR.rock(RK,
     { lit: [.85, -.45], hi: .05, mid: .03, lo: .02, seed: 2, th: -.9, rim: 6, facets: 10 });
-  PR.cuts(RK.slice(0, 6), [-.5, .87], { len: [16, 190], gap: [44, 130], w: 6, seed: 5, clip: RP, bend: -.35 });
+  PR.cuts(RK.slice(0, 11), [-.5, .87], { len: [16, 190], gap: [44, 130], w: 6, seed: 5, clip: RP, bend: -.35 });
 }
 // tek başına üslup karesi (uslup.html)
 function sahneGol(t, o = {}) {

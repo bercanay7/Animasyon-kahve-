@@ -112,7 +112,7 @@ const GR = (() => {
   function restore() { tx.restore(); px.restore(); ox.restore(); }
 
   // ── basma ──
-  const SG = .2, TW = .08;                       // kademe genişliği ve uç sivrilmesi (ham oran biriminde)
+  const SG = .2, TW = .025;                       // kademe genişliği ve uç sivrilmesi (ham oran biriminde)
   const HSH = new Float32Array(256); { const r = rng(977); for (let i = 0; i < 256; i++) HSH[i] = r(); }
   let img = null;
   function engrave(out, camArg = null) {

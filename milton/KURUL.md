@@ -316,3 +316,20 @@ Kalıcı hedefler (U-Gravur): sahne başına koyu piksel oranı cehennem %65–7
 
 ## Müzik ve miks (ilk sürüm)
 `audio/score.py` (sentez; örnek ses ve ücretli araç yok), `tools/mix.py`, `audio/muzik.md`. Ölçüm (ajanın raporu; ses kurulu doğrulayacak): entegre −14,0 LUFS, gerçek tepe −2,5 dBTP; konuşma altında müzik ortanca 20 LU aşağıda; J04'te gerçek sessizlik (yaklaşık 7,9 sn). Motifler: IŞIK (Si–Re–La–Sol; her dönüşte eksilir, L09'da Milton için tam döner), DÜŞÜŞ (inen kromatik bas), ABDİEL, ADEN. Yasaklar (ezan, tilavet, ney, makam, ilahi) brief'te verildi; kulakla son onay kullanıcıda. Dinleme kopyası kullanıcıya gönderildi.
+
+### Tur 5
+| Üye | Puan | Karar | "En çok puan getirir" dediği tek değişiklik |
+|---|---|---|---|
+| U-Sanat | 8,3 | RED (eşik 9) | figüre alttan alev ışığı; olmazsa arka kenar ışığını güçlendirmek |
+| U-Gravur | 8,25 | RED (eşik 9) | gövde ile kanat ayrımı (kâğıt boşluğu, daha çok gövde vuruşu, kanat kökünde sakin koyu şerit) |
+| U-Teknik | 8,7 | RED (eşik 9) | göl çizgilerinde kalınlık alt sınırı |
+
+Üçü de yine "engelleyen bulgu yok" dedi. U-Gravur: "RED bitmişlikten geliyor, dilden değil; kapının amacı dili onaylamaksa bu kare yeterli."
+
+**Başkan kararı:**
+1. Gövde–kanat ayrımı: figürde ışık yanında ince kâğıt boşluğu (`halo`), gövdede 6–9 vuruş, baş ve omuzda güçlü arka ışık; kanat kökünde vuruşsuz koyu şerit; kanat içindeki damla delikleri kapatılır. *(ajanlarda)*
+2. Göl ve motor: çizgi ve aralık uçları kıl gibi incelmeden küt biter; göl sırtları ve yansıma tireleri en az 4 px, küt uçlu. *(uygulandı)*
+3. Bulut: kenar hilali yalnız öndeki yumruların örtmediği yaylarda; kısa parça atılır ("göz" okuması). *(uygulandı)*
+4. Sağ alt alev: uçlar yukarı ve tek yöne akar; ufuk alevleri alçaldı; kaya dış hattı kırıklı. *(uygulandı)*
+
+**Reddedilen bulgu:** U-Sanat'ın "figüre alttan alev ışığı" önerisi. Milton'ın metni açık: "yet from those flames / No light, but rather darkness visible" (I.62–63); anlatım da A04'te "alev var ama ışık yok; yalnızca görünür bir karanlık" diyor. Alevlerin figürü aydınlatması görüntüyü sözle çelişkiye düşürür (kaynak/doğruluk alanı estetik oyla geçersiz kılınamaz). Üyenin kendi yedek önerisi (arka kenar ışığını güçlendirmek) uygulandı.

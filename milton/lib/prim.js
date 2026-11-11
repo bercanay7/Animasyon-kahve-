@@ -39,14 +39,26 @@ const PR = (() => {
       const half = (.85 + .5 * v) * (.9 + q() * .2), th = Math.max(4.5, 11 * sc * (.5 + v)), n = 18, A = [], B = [];
       for (let i = 0; i <= n; i++) { const u = i / n, a = la - half + 2 * half * u, ro = R(a) - 5, w = th * Math.pow(Math.sin(PI * u), .8);
         A.push([p.x + Math.cos(a) * ro * FX, p.y + Math.sin(a) * ro * FY]); B.push([p.x + Math.cos(a) * (ro - w) * FX, p.y + Math.sin(a) * (ro - w) * FY]); }
-      const vis = k => !hidden(A[k][0], A[k][1]);
-      if (vis(n >> 1) && (vis(2) || vis(n - 2))) { tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill(); }
+      // hilal yalnız öndeki yumruların örtmediği yaylarda çizilir; kısa kalan parça atılır (yüzen kırıntı, "göz" okuması olmaz)
+      const vis = A.map(q2 => !hidden(q2[0], q2[1]));
+      for (let i0 = 0; i0 <= n;) {
+        if (!vis[i0]) { i0++; continue; }
+        let i1 = i0; while (i1 < n && vis[i1 + 1]) i1++;
+        if (i1 - i0 >= 6) {
+          const m2 = i1 - i0, a2 = [], b2 = [];
+          for (let i = i0; i <= i1; i++) { const u2 = (i - i0) / m2, k2 = Math.max(.25, Math.pow(Math.sin(PI * u2), .8)), w2 = th * k2 * Math.pow(Math.sin(PI * i / n), .8) / Math.max(.25, Math.pow(Math.sin(PI * i / n), .8)) || th * k2;
+            const dx = B[i][0] - A[i][0], dy = B[i][1] - A[i][1], L2 = Math.hypot(dx, dy) || 1, ww2 = Math.max(2.4, Math.min(L2, th * k2));
+            a2.push(A[i]); b2.push([A[i][0] + dx / L2 * ww2, A[i][1] + dy / L2 * ww2]); }
+          tx.beginPath(); poly(tx, [...a2, ...b2.reverse()], true); tx.fill();
+        }
+        i0 = i1 + 1;
+      }
       // vuruşlar: ışık yanındaki dilimden kütlenin içine giren, kesit kavsini izleyen, sivrilen kısa çizgiler.
       // Uzunluk ve aralık düzensiz (eşit olursa tarak gibi durur); hepsi aynı yöne kıvrılır (bıçak izi).
       const ha = PI * (.2 + .14 * v), sg = q() < .5 ? -1 : 1, beta = .5 + q() * .25;
       let a = la - ha + q() * .1;
       while (a < la + ha) {
-        if (hidden(p.x + Math.cos(a) * R(a) * FX, p.y + Math.sin(a) * R(a) * FY)) { a += (20 + q() * 34) / p.r; q(); q(); continue; }
+        if (hidden(p.x + Math.cos(a) * R(a) * FX, p.y + Math.sin(a) * R(a) * FY) || hidden(p.x + Math.cos(a + sg * .12) * R(a) * .8 * FX, p.y + Math.sin(a + sg * .12) * R(a) * .8 * FY)) { a += (20 + q() * 34) / p.r; q(); q(); continue; }
         const edge = 1 - Math.pow(Math.abs(a - la) / ha, 2), len = (40 + q() * q() * 130) * sc * (.45 + .55 * edge) * (.7 + .5 * v), w0 = Math.max(3.6, 6.5 * sc), m = 9, A2 = [], B2 = [];
         for (let i = 0; i <= m; i++) {
           const u = i / m, s2 = len * u, aa = a + sg * s2 * Math.cos(beta) / p.r, rr = R(aa) - 9 - th - s2 * Math.sin(beta) * (1 + .5 * u), hw = Math.max(1, w0 * .5 * Math.pow(1 - u, 1.15));
@@ -425,7 +437,7 @@ const PR = (() => {
     for (let i = 0; i < nc; i++) {
       const f = Math.pow(r(), 1.5), yy = y0 + 4 + f * (D - 8), ln = lerp(24, 280, f) * (.6 + r() * .8), th = lerp(1.6, 3.4, f);
       const xx = r() * W, a = cv * (.5 + r() * .5) * (.7 + .3 * Math.sin(t * .5 + i * 2.3));
-      tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.ellipse(xx + Math.sin(t * .1 + i) * 6, yy, ln / 2, th, 0, 0, TAU); tx.fill();
+      tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.roundRect(xx + Math.sin(t * .1 + i) * 6 - ln / 2, yy - Math.max(2, th), ln, Math.max(4, th * 2), 2); tx.fill();
     }
     // yansıma sütunları
     const refl = o.refl || Array.from({ length: o.nrefl ?? 6 }, () => ({ x: r() * W, w: 60 + r() * 120, v: .35 + r() * .3 }));
@@ -437,7 +449,7 @@ const PR = (() => {
         const ww = q.w * (1 - .45 * g) * (.55 + .45 * (noise1(k * .9 + t * .35 + j * 7, j) * .5 + .5));
         const xx = q.x + q.w * .22 * noise1(k * .37 + t * .22 + j * 3, j + 9) * (.3 + g);
         const a = q.v * Math.pow(1 - g, .8), hh = lerp(1.4, 4, g);
-        tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.ellipse(xx, yy, ww / 2, hh, 0, 0, TAU); tx.fill();
+        tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.roundRect(xx - ww / 2, yy - Math.max(2, hh), ww, Math.max(4, hh * 2), 2); tx.fill();
       }
     });
     tx.restore();

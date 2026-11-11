@@ -151,6 +151,7 @@ const KN = (() => {
       if (cLeft <= 0) { ci++; cSize = 2 + Math.floor(r() * 3); cLeft = cSize; cOff = (r() - .5) * .12; }
       const cp = 1 - (cLeft - 1) / Math.max(1, cSize - 1); cLeft--;  // küme içindeki konum: 0 ilk … 1 son
       if (cp === 0 && kind < 2) kind = 2;                    // küme başı: uzun, sivri, en çok çentikli
+      const L0 = L;
       if (kind === 0) { L *= 1 - .8 * dm; w *= 1 - .3 * dm; }
       if (kind === 1) L *= 1 - .3 * dm;
       const jag = Array.from({ length: 7 }, () => r());
@@ -159,7 +160,7 @@ const KN = (() => {
       if (thin > 0) { L *= 1 - .7 * thin; w *= 1 - .35 * thin; }
       const lead = Math.sin(a - ba) >= 0 ? -1 : 1;            // dar bayrak kemik ucuna bakar
       const leadFix = dot([-Math.sin(a) * lead, Math.cos(a) * lead], dir(ba)) > 0 ? lead : -lead;
-      Fs.push({ G: G.g, q, u, bx, by, a, ba, L, w, kind, dm, jag, ci, cp, cOff, tb, burnR, nf, ph, thin, lead: leadFix, pointed: G.g === 0 || ruin > .3,
+      Fs.push({ G: G.g, q, u, bx, by, a, ba, L, L0, w, kind, dm, jag, ci, cp, cOff, tb, burnR, nf, ph, thin, lead: leadFix, pointed: G.g === 0 || ruin > .3,
         bend: G.g === 0 ? .07 + .03 * q : .05, beta: G.g === 0 ? .15 : .17 });
     }
     // tonlar: kütle eğimi + küme yuvarlanması (küme ilk tüyü ışıklı, sonu gölgede); ayrım yalnız küme sınırında
@@ -182,18 +183,18 @@ const KN = (() => {
     const geoms = Fs.map(featherGeom);
     // 0) zar: tüy tabanlarının arkasında, boşluk görünmesin
     const back = new Path2D();
-    { const pts = [[0, 0], E, Wr]; for (let u = .66; u >= .05; u -= .06) { const [x, y, ba] = bone(u); const F = Fs.reduce((p, c) => Math.abs(c.u - u) < Math.abs(p.u - u) ? c : p); pts.push([x + Math.cos(F.a) * F.L * .5, y + Math.sin(F.a) * F.L * .5]); } pts.push([S * .02, S * .08]); spline(back, pts, true, .6); }
+    { const pts = [[0, 0], E, Wr, Tp]; for (const F of Fs) { const k = F.G === 0 ? .72 : .78; pts.push([F.bx + Math.cos(F.a) * F.L0 * k, F.by + Math.sin(F.a) * F.L0 * k]); } pts.push([S * .02, S * .08]); poly(back, pts, true); }
     fill(back, tone(lerp(V(.55, .03), .05, (1 - dk2) * (o.anchor ?? 1) * .8)), { type: 'bend', ox: 0, oy: 0, a: K.aF + PI / 2, k: 0, id: 6 });
     // 1) uçuş tüyleri: dıştan içe (içteki üstte)
     // çizgi kipleri: koyu kanatta kâğıt (ışık kenarı), açık kanatta mürekkep (gölge yanı); geçişte kalınlıkla söner
     setPX();
     const wP = smooth(inv(.35, .75, dk2)) * (rim > 0 ? Math.min(1, rim * 1.6) : 0), wI = smooth(inv(.6, .25, dk2));
-    const rs = rng(seed * 131 + 7);
+    const rs = rng(seed * 131 + 7), ROOT = .12;
     function featherLines(F, G) {
-      if (F.thin > .5 || F.L < S * .06) return;
+      if (F.thin > .5 || F.L < S * .06 || (F.u ?? 1) < ROOT) return;   // kökte sakin koyu şerit
       const face = dot(G.n, lit), inset = -F.lead, f0 = F.G < 3 ? 5 : 3;
       // ışık kenarı: küme başı, ışığa bakan; örtülerde yalnız üst sıra (ya da çok ışıklı büyük örtü)
-      const okP = F.cp === 0 && face > .15 && (F.G < 3 || F.G === 4 || face > .45);
+      const okP = F.cp === 0 && face > .15 && (F.G < 3 || F.G === 4 || face > .45) && (F.G >= 3 || F.L > S * .18);
       if (wP > 0 && okP) vurus(G.Lp.slice(f0), s => prof.both(s) * 3.4 * PX * wP, 1, inset);
       if (wI > 0 && F.anc < .5) {
         if (F.cp === 0 && face < -.1) vurus(G.Lp.slice(f0), s => prof.both(s) * 3.2 * PX * wI, 0, inset);
@@ -224,7 +225,7 @@ const KN = (() => {
         const mx = bxo + Math.cos(a) * L * .5, my = byo + Math.sin(a) * L * .5, la = lightAt(mx, my);
         const roll = (.5 - cp) * V(.1, .015) + co * V(1, .1), lft = (la - .5) * V(.24, .03);
         const v = R.v();
-        const F = { G: R.g, bx: bxo, by: byo, a, L, w, lead, kind: 2, dm: 0, jag: Array.from({ length: 7 }, () => r()), nf: .7, ph: r(), pointed: false, bend: .04, beta: R.beta,
+        const F = { G: R.g, u, bx: bxo, by: byo, a, L, w, lead, kind: 2, dm: 0, jag: Array.from({ length: 7 }, () => r()), nf: .7, ph: r(), pointed: false, bend: .04, beta: R.beta,
           cp, v0: clamp(v + lft + roll + V(.02, .02)), v1: clamp(v - V(.06, .02) + lft + roll), rag: 0, burn: R.g === 3 ? clamp(ruin * .5 * r() - .1) : 0 };
         F.dv = V(.04, .025) * (dot(dir(a + PI / 2 * lead), lit) > 0 ? 1 : -1);
         const mid = bell((F.v0 + F.v1) / 2, .5, .3);
@@ -259,7 +260,7 @@ const KN = (() => {
       fill(ridge, g, { type: 'bend', ox: E[0], oy: E[1], a: K.aF, k: 0, id: 6 }); }
 
     // 4) sırt çizgileri (ton katmanında, tam opak): tek kesintisiz ön kenar ışığı + ışık tarafından kütleye giren, sivrilen vuruşlar
-    const seg = [lead[1], lead[0], ...lead.slice(2)];
+    const seg = lead.slice(2 + Math.ceil(ROOT / uEnd * 24));   // kenar ışığı omzun yanında kesilir
     if (wP > 0) vurus(seg, s => (s < .04 ? s / .04 : s > .96 ? (1 - s) / .04 : 1) * 4.2 * PX * wP, 1, 1);
     if (wP > 0) {
       let acc = 0, next = (8 + rs() * 10) * PX;
@@ -267,7 +268,7 @@ const KN = (() => {
         const P = thk[i], Q = thk[i - 1]; acc += Math.hypot(P.x - Q.x, P.y - Q.y);
         if (acc < next) continue;
         acc = 0; next = Math.max(12 * PX, (14 + rs() * 30) * PX * Math.max(.7, S / 600));   // aralık: düzensiz, en az 12 px
-        const lt = dot(P.nn, lit); if (lt < .25 || P.u < .04) continue;
+        const lt = dot(P.nn, lit); if (lt < .25 || P.u < ROOT) continue;
         const bd = dir(bone(P.u)[2]), inw = [-P.nn[0], -P.nn[1]], fd = dir(fa(P.u));
         const L = Math.max(25 * PX, lerp(25, 90, Math.pow(rs(), 1.3)) * PX * Math.max(.7, S / 600) * lerp(.6, 1, lt));
         const st = [P.x + P.nn[0] * (P.th - 3 * PX), P.y + P.nn[1] * (P.th - 3 * PX)];
@@ -280,7 +281,7 @@ const KN = (() => {
         const P = thk[i], Q = thk[i - 1]; acc += Math.hypot(P.x - Q.x, P.y - Q.y);
         if (acc < next) continue;
         acc = 0; next = Math.max(12 * PX, (14 + rs() * 30) * PX * Math.max(.7, S / 600));
-        const fd = dir(fa(P.u)), la = lightAt(P.x + fd[0] * S * .1, P.y + fd[1] * S * .1); if (la > .5 || P.u < .06) continue;
+        const fd = dir(fa(P.u)), la = lightAt(P.x + fd[0] * S * .1, P.y + fd[1] * S * .1); if (la > .5 || P.u < ROOT) continue;
         const L = Math.max(25 * PX, lerp(25, 90, Math.pow(rs(), 1.2)) * PX * Math.max(.7, S / 600) * lerp(1, .5, la * 2));
         const st = [P.x + fd[0] * (P.T - P.th) * .8, P.y + fd[1] * (P.T - P.th) * .8];
         vurus(curve(st, fd, nrm([fd[0] - P.nn[0] * .2, fd[1] - P.nn[1] * .2]), L), s => prof.fade(s) * 3.2 * PX * wI, 0, 0);

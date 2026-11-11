@@ -118,7 +118,7 @@ const SF = (() => {
   // o: {lum (0..1), lit: [x,y] (ışığa doğru), t, anchor, eye (0..1), hair (false | uzunluk), wind, spear: {grip:'N'|'F', ang, len, up},
   //   armor (true), skirt (true), legs (true), waterY (bu çizginin altı çizilmez), rim (kenar ışığı kalınlığı, baş biriminde; .07),
   //   tilt, headScale, seed,
-  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (vuruş yoğunluğu, 0 = yok … 4; 2), robe (true | uzunluk: bele oturan, bileğe inen uzun giysi; skirt yerine), armorAlpha (.85)}
+  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (vuruş yoğunluğu, 0 = yok … 4; 2), halo (px: ışık yanında arkadaki koyu kütleye karşı kâğıt rengi ayırma boşluğu; 0), robe (true | uzunluk: bele oturan, bileğe inen uzun giysi; skirt yerine), armorAlpha (.85)}
   function draw(J, o = {}) {
     const h = J.h, f = J.f, lum = clamp(o.lum ?? 0), t = o.t || 0, wind = o.wind ?? 1;
     let lit = o.lit || [.7, -.7]; { const l = Math.hypot(lit[0], lit[1]) || 1; lit = [lit[0] / l, lit[1] / l]; }
@@ -220,7 +220,7 @@ const SF = (() => {
     const coreG = [core, lerp(core, core * .86, sst(.5, .9, lum)), core, core];
     const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = sst(.5, .75, lum);
     const light = lum >= .6, skTone = light ? 0 : 1, sgS = light ? -1 : 1;     // vuruşlar: koyu figürde ışık yanından beyaz, açıkta gölge yanından mürekkep
-    const rw = Math.max(3, hd_ * (o.rim ?? .075));
+    const rw = Math.max(3, hd_ * (o.rim ?? .09));
     // ışık merkezi: kenar ışığı burada en kalın; uzaklaştıkça incelir (beyaz çizgiler incelip söner, saydamlaşmaz)
     const lc = toL([sc[0] + lit[0] * 1.1 * h - up[0] * .35 * h, sc[1] + lit[1] * 1.1 * h - up[1] * .35 * h]);
 
@@ -253,8 +253,8 @@ const SF = (() => {
     const rS = rng((o.seed || 3) * 101 + 13), minGap = 12 / hd_;              // aralık ≥ 12 px (baş biriminde)
     const torsoStrokes = [], limbStrokes = [];
     { // gövde: çapalar boy boyunca farklı aralık ve uzunlukta; kesit boyunca (yana) hafif aşağı kavisli
-      const n = Math.round(dens * 2.5 * clamp(hd_ / 110, .45, 1)); let al = .12 + rS() * .1;
-      for (let i = 0; i < 8; i++) { const step = Math.max(minGap, (1.7 / Math.max(1, n)) * (.6 + .8 * rS())), Ls = .18 + .6 * rS() * rS() + .12 * rS(), wj = rS();
+      const n = Math.round(dens * 2.7 * clamp(hd_ / 110, .45, 1)); let al = .1 + rS() * .08;
+      for (let i = 0; i < 11; i++) { const step = Math.max(minGap, (1.75 / Math.max(1, n)) * (.6 + .8 * rS())), Ls = .18 + .6 * rS() * rS() + .12 * rS(), wj = rS();
         if (i < n && al < 1.9) torsoStrokes.push({ al, Ls, wj }); al += step; }
       // uzuvlar: kesit boyunca (eksene çapraz) 1–3 vuruş
       const segs = [[1, J.shF, J.elF], [1, J.elF, J.wrF], [3, J.shN, J.elN], [3, J.elN, J.wrN]];
@@ -323,6 +323,8 @@ const SF = (() => {
     const doRL = sRim > .01, Dmax = rw + 1.5;
     const rIm = rI0 + rI1 + 1;
     const full = (a, x, y) => { const qx = (x + .5) | 0, qy = (y + .5) | 0; return qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] === 255; };
+    const halo = Math.max(0, (o.halo || 0) * sc0) * (1 - sst(.4, .6, lum));
+    const un = (x, y) => { let m = 0; for (let g = 0; g < 4; g++) if (AM[g]) { const v = smp(AM[g], x, y); if (v > m) m = v; } return m; };
     const crisp = v => v <= .2 ? 0 : v >= .8 ? 1 : (v - .2) / .6;
     const R0 = .55 * hd_, R1 = 3.6 * hd_;
     let img = F.__img; if (!img || img.width !== BW || img.height !== BH) img = F.__img = F.createImageData(BW, BH);
@@ -352,6 +354,14 @@ const SF = (() => {
         if (g === 2 && AR) { const r = AR[i + 3] * (1 / 255); if (r > 0) tg += (arTone - tg) * crisp(r); }
         else if (g !== 2 && SK) { const r = SK[i + 3] * (1 / 255); if (r > 0) tg += (skTone - tg) * crisp(r); }
         vp = vp * (1 - c) + tg * c; al = al * (1 - c) + c;
+      }
+      if (halo > 0 && al < .999) {
+        // ayırma boşluğu: siluetin ışık yanında, arkadaki koyu kütlenin üstüne kâğıt rengi ince boşluk (kalınlık kenar açısıyla değişir, uçta küt)
+        const qx = (x - lx * halo + .5) | 0, qy = (y - ly * halo + .5) | 0;
+        if (qx >= 0 && qy >= 0 && qx < BW && qy < BH) { const j = (qy * BW + qx) * 4 + 3; let hit = false; for (let g = 0; g < 4; g++) if (AM[g] && AM[g][j] > 0) { hit = true; break; }
+          if (hit) { const hv = crisp(un(x - lx * halo, y - ly * halo)) * (1 - al);
+            if (hv > 0) { const gx = un(x - halo, y) - un(x + halo, y), gy = un(x, y - halo) - un(x, y + halo), gl = Math.hypot(gx, gy);
+              if (gl > .05 && halo * (gx * lx + gy * ly) / gl < -2) { const v0 = al > 0 ? vp / al : 1; vp = vp + (1 - al) * hv; al = al + (1 - al) * hv; vp = Math.min(vp, al); } } } }
       }
       if (al > 0) { const v = vp / al * 255; O[i] = O[i + 1] = O[i + 2] = v; O[i + 3] = al * 255; } else O[i + 3] = 0;
     }

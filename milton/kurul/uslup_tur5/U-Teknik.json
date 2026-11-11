@@ -1,0 +1,39 @@
+{
+  "uye": "U-Teknik",
+  "tur": 5,
+  "karar": "RED",
+  "puanlar": {"U1": null, "U2": 8.7, "U3": null, "U4": null, "U5": 8.7, "U6": null},
+  "agirlikli": 8.7,
+  "puan": 8.7,
+  "tur4_bulgulari": [
+    {"bulgu": "Göl ufuk kuşağı 427 px'te Nyquist'ten geçiyor, kontrast çukuru (y640/780/860)", "durum": "kısmen", "olcum": "427 BILINEAR yerel std (8 satır): y620:12, y640:15, y660:33, y700:28, y740:25, y780:24 (tur 4: 15), y820:26, y840:30, y860:16 (tur 4: 11), y880:19. y780 çukuru kapandı (15 -> 24); y860 çukuru 11 -> 16'ya yükseldi ama komşuya göre (30) hâlâ düşük; y620–640 çukuru 12–15 olarak sürüyor (BOX referansında da 21/16: bir kısmı gerçek içerik, ufuk bandı/alev). Tüm karede tepe/medyan: 427 LANCZOS 104, BILINEAR 103 (tur 4: 103/104; aynı), 640: 121/110. Gözle belirgin bant yok."},
+    {"bulgu": "İnce vuruş uçları 1–2 px (1 px beyaz koşu oranı)", "durum": "kısmen", "olcum": "1 px beyaz koşu: tüm kare %6,3 (tur 4: %7,1); kanat sol %9,0 (%13,4), kanat sağ %13,6 (%14,6), figür %7,0 (%7,2), kaya %7,1 (%10,5), bulut %6,8 (%6,9), göl ufuk y600–700 %2,6 (%3,9), göl orta %14,7 (%9,9), göl önü y850–1000 %21,3 (%19,0), gök %0,6. İskelet beyaz p1/p5/p50 = 2/2/4 px, koyu 2/2/8. Çizgiler 2 px'in altına inmiyor (iskelet), ama 1 px koşular eşik 110'daki yarı-AA kenar parçalarından geliyor; kanat sağ ve göl önü en kötü. Siyah 1 px: kanat sağ %7,8 (%10,0), figür %9,1 (%3,7; arttı), tüm kare %2,2."},
+    {"bulgu": "Alev titreşimi, rozet alanı", "durum": "giderildi", "olcum": "Kare farkı MAD 0,349 (tur 4: 0,395); >20 oranı %0,39; 61 karelik dizi MAD ort. 0,352, maks. 0,402. En kötü blok (1664,960)=8,3 (tur 4: 12,5); sonra (512,704)=7,4; (576,704)=6,9 (sol alev); (1728,960)=5,1; (1600,960)=4,9. Dizide en kötü: (1664,960)=7,3; (1792,960)=6,7; (1728,960)=6,2. Alev rozet alanında (x1440–1874 y829–1034) hâlâ, ama (1856,896)=10,7 bloğu söndü. Sağ alt alev bölgesi MAD 2,45 (tur 4: 2,38)."}
+  ],
+  "duzeltmeler_engelleyen": [],
+  "duzeltmeler_sahne_sirasinda": [
+    {"sira": 1, "bolge": "göl önü x400–1500 y850–1050 ve göl orta x1000–1700 y700–850", "sorun": "Perspektifle çizgi seyrekleşirken beyaz çizgi kalınlığı 2 px'e düşüyor ve sonunda 1 px'e sönüyor: beyaz 1 px koşu göl önü %21,3, göl orta %14,7 (en yüksek iki bölge). 427'de bu çizgiler kayboluyor/titriyor, göl önü yerel std 8–19.", "oneri": "Perspektifi çizgi aralığıyla ver, kalınlığı 3 px'te tut; gölün önünde çizgi 3 px altına inecekse çizgiyi at (gol.js kalınlık alt sınırı: max(3, ...)). Bu tek değişiklik tüm kare 1 px oranını %6,3 -> yaklaşık %4'e çeker ve U2/U5'e ~0,3 puan getirir.", "onem": "orta"},
+    {"sira": 2, "bolge": "kanat sağ x1020–1200 y560–760", "sorun": "Beyaz 1 px %13,6, siyah 1 px %7,8: tüy vuruşlarında küt uç 2 px ama yarım piksel kenar parçaları 1 px sayılıyor.", "oneri": "Vuruş poligonunu tam piksel konumuna yuvarla (kanat.js kenar koordinatları Math.round) ya da kalınlık alt sınırını 2,5 px yap.", "onem": "düşük"},
+    {"sira": 3, "bolge": "ufuk kuşağı x300–1900 y610–650 ve y860", "sorun": "427 BILINEAR'da yerel kontrast y620:12, y640:15, y860:16; komşular 25–33.", "oneri": "Ufuk çizgi aralığını 9,5 px'ten 10,5 px'e çıkar ve alev/ufuk bandı geçişini y640'a denk getirme.", "onem": "düşük"},
+    {"sira": 4, "bolge": "sağ alt alev x1560–1920 y880–1080", "sorun": "Sağ alt yay taramalı alev hâlâ en titreşen bölge (MAD 2,45, blok 8,3) ve rozet alanında.", "oneri": "Alevi rozet alanından çıkar (x<1440) ya da taramayı kaldır.", "onem": "düşük"}
+  ],
+  "en_cok_puan_getirecek_tek_degisiklik": "Gölün önündeki ve ortasındaki çizgi kalınlık alt sınırını 3 px'e çekmek (gol.js): ince çizgi oranını en çok orada (%14,7 ve %21,3) kaldı; tahminen +0,3 puan (8,7 -> ~9,0). 9,0'a yakınım ama ölçüm üzerinden hâlâ 0,3 eksik.",
+  "yirmi_dort_dakika_yorgunluk": "Göz yormaz. Düz siyah %72,9, ortalama gri 67,1, kare farkı 0,35/255, sabit katmanlarda sıfır titreşim. Tek not: göl önü ince çizgileri küçük ekranda kaybolup titreyebilir (düzeltme 1).",
+  "korunmali": [
+    "Gök MAD 0,003, sol üst 0,000; bulut 0,08; kanat 0,44–0,54; figür 0,26.",
+    "Alev rozeti: en kötü blok 12,5 -> 8,3; dizi ortalaması 0,352.",
+    "427 spektral tepe/medyan 103–104 (tur 3: 127–132), 640: 110–121.",
+    "CRF18 4,32 Mbps, PSNR 46,8 dB (min 44,7), SSIM-Y 0,9982; 480p CRF28 0,34 Mbps SSIM 0,9916.",
+    "Değer: <40 %72,9, >200 %17,2, ara ton %9,9; max 221; odak (992,476) figürün hemen arkası.",
+    "Çizim süresi 286 ms (251–529); 43.200 kare ≈ 3,4 saat tek işçi, 4 işçide ~51 dk."
+  ],
+  "olcumler": {
+    "titresim": {"MAD_255": 0.349, "oran_fark_gt20": 0.0039, "oran_fark_gt8": 0.0054, "dizi_MAD_ort": 0.352, "dizi_MAD_maks": 0.402, "en_kotu_5_blok": [[1664,960,8.3],[512,704,7.4],[576,704,6.9],[1728,960,5.1],[1600,960,4.9]], "dizi_en_kotu_5": [[1664,960,7.28],[1792,960,6.73],[1728,960,6.15],[512,704,6.06],[1472,1024,5.9]], "bolge_MAD": {"gok":0.003,"sol_ust":0.0,"kaya":0.309,"gol_alt":0.306,"bulut_sol":0.079,"kanat_sol":0.441,"kanat_sag":0.537,"figur":0.257,"alev_sag_alt":2.452}},
+    "kucultme": {"640": {"LANCZOS": [16.05,121], "BILINEAR": [8.57,110]}, "427": {"LANCZOS": [19.90,104], "BILINEAR": [9.80,103]}, "246": {"LANCZOS": [9.90,9], "BILINEAR": [6.97,44]}, "ufuk_kusagi_427_BILINEAR_yerel_std": {"y600":26,"y620":12,"y640":15,"y660":33,"y680":23,"y700":28,"y720":21,"y740":25,"y760":27,"y780":24,"y800":24,"y820":26,"y840":30,"y860":16,"y880":19,"y900":18}, "ufuk_kusagi_427_BOX_yerel_std": {"y600":35,"y620":21,"y640":16,"y660":38,"y700":36,"y780":34,"y860":18}},
+    "cizgi_kosulari_1px_orani": {"beyaz": {"gok":0.006,"gol_ufuk":0.026,"gol_orta":0.147,"gol_on":0.213,"kanat_sol":0.090,"kanat_sag":0.136,"figur":0.070,"bulut":0.068,"kaya":0.071,"tum_kare":0.063}, "siyah": {"gok":0.017,"gol_ufuk":0.045,"gol_orta":0.011,"gol_on":0.018,"kanat_sol":0.039,"kanat_sag":0.078,"figur":0.091,"bulut":0.056,"kaya":0.051,"tum_kare":0.022}, "iskelet_beyaz_p1_p5_p50": [2,2,4], "iskelet_koyu_p1_p5_p50": [2,2,8]},
+    "sikistirma": {"61_kare_1080p_CRF18": {"bps": 4318875, "PSNR_ort": 46.82, "PSNR_min": 44.67, "SSIM_Y": 0.99825}, "CRF28_480p": {"bps": 336460, "SSIM_Y": 0.99157}},
+    "deger": {"yuzde_lt40": 72.9, "yuzde_gt200": 17.2, "yuzde_ara": 9.9, "ort": 67.1, "max": 221, "top1_agirlik_merkezi": [992,476]},
+    "cizim_suresi": {"ort_ms": 286, "aralik_ms": "251–529", "ilk_4_kare_ms": [482,322,370,278]}
+  },
+  "en_emin_olmadigim_nokta": "1 px koşu oranının eşik 110'a duyarlı olması: yarı AA kenar parçaları sayıma karışıyor; vuruş çizgileri 2 px olsa bile oranlar sıfırlanmıyor. Ayrıca 427'de y620–640 çukurunun ufuk çizgisinden mi alev bandından mı geldiğini ayıramadım."
+}
