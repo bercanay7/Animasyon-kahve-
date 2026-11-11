@@ -458,3 +458,18 @@ Hiçbir ölçüt 7'nin altında değil. İki üye de kavramı, "PİŞMAN MIYDI?"
 - P-TO, B: kapağın kendisinde istek yok; filmin ilk karesindeki (0–0,9 sn) göz planında damla 25 px, bir saniyeden kısa sürede tanınmıyor. Plan yakın ölçekte yeniden çiziliyor (göz kadrajın ~%45'i, damla ≥ 80 px); aynı işte filmdeki damla ve iris kapaktaki gravür çizime uyduruluyor.
 - P-TO test planını onayladı: A ana kapak, B ikinci seçenek; başlık 1. aday; filmdeki damla siyah-beyaz kalır (üye katıldı).
 - İki maddeden sonra tek üyeli gerileme kontrolü: A için P-Sanat, B'nin açılış vaadi için P-TO.
+
+### Kapak kurulu tur 4 (tek maddelik gerileme kontrolleri) ve kapı kararı
+| Üye | A | B |
+|---|---|---|
+| P-TO | **9,0 ONAY** (korundu) | 8,9 (RED; eşiğe 0,07) |
+| P-Sanat | **9,0 ONAY** (8,9 → 9,0; alev dibi kapandı) | **9,0 ONAY** (korundu) |
+
+**Kapak kapısı, başkan kararı:**
+- **Kapak A (“BEN CEHENNEMİM”) kapıyı GEÇTİ:** iki üyeden de ≥ 9,0. Ana kapak.
+- **Kapak B ("PİŞMAN MIYDI?") kapıyı tam geçmedi:** sanat yönetmeni 9,0 ONAY, TO stratejisti 8,9. Stratejistin istediği tek düzeltme (filmin ilk karesindeki gözün yakın çizilmesi) yapıldı ve "vaat" ölçütü 8,5'ten 9,5'e çıktı. Kalan açığı üye kavrama bağlıyor (tek renkli koyu zemin akışta daha az ayrışıyor; gözün kimin olduğu başlığa muhtaç) ve **yeni bir rötuş turu önermiyor**; B'yi "Test ve karşılaştır"da ikinci seçenek olarak onaylıyor.
+- Karar: B, **eşiğin 0,07 altında kaldığı açıkça kaydedilerek** teste ikinci seçenek olarak girer. Gerekçe: test B'yi gösterimlerin yalnız bir bölümünde gösterir ve kazananı izlenme süresi payıyla seçer; iki kapak birbirinden bilerek farklı (açık/koyu zemin; söz/soru). Bu, "her aşama ≥ 9" kuralından küçük ve bilinçli bir sapmadır; kullanıcıya bildirilir. Kullanıcı isterse B için kavram değişikliğiyle yeni bir tur açılır (ör. açık zeminli B).
+- Başlık: "Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton". Test sürerken başlık değişmez.
+- 48. saat analizine not (P-TO): A'dan gelen izleyicide ilk 0,9 sn'lik göz planı ilk 3 saniyede kayıp yaratıyor mu, tutma eğrisinden bakılacak.
+
+Puanların seyri: A: P-TO 8,3 → 8,8 → 9,0 → 9,0; P-Sanat 7,9 → 8,4 → 8,9 → 9,0. B: P-TO 7,3 → 8,3 → 8,7 → 8,9; P-Sanat 7,4 → 8,3 → 9,0 → 9,0. Dokuz tasarım turu (tur 1–9); kırılma noktaları: koyu zeminden açık zemine geçiş (A), "ŞEYTAN AĞLADI" yazısının bırakılması (B), piktogram figürden gravür figüre geçiş (A), emoji damladan gravür damlaya geçiş (B).
