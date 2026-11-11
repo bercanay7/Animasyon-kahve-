@@ -11,7 +11,7 @@
 // ── gök ──
 // L: {x, y}; o: {r0 (temiz kâğıt yarıçapı), r1 (en koyu tona varılan uzaklık), v (en koyu ton ≥ .6), n (ışın sayısı), ph, kama: [{a, w, len}] (≤ 2)}
 function cen_gok(L, o = {}) {
-  const { tx, px, tone } = GR, r0 = o.r0 ?? 300, r1 = o.r1 ?? 1500, v = Math.max(.6, o.v ?? .66);
+  const { tx, px, tone } = GR, r0 = o.r0 ?? 300, r1 = o.r1 ?? 1500, v = Math.max(.6, o.v ?? .72);
   const g = tx.createRadialGradient(L.x, L.y, r0 * .7, L.x, L.y, Math.max(r0 + 10, r1));
   g.addColorStop(0, tone(1)); g.addColorStop(.2, tone(.97)); g.addColorStop(.55, tone(lerp(.97, v, .7))); g.addColorStop(1, tone(v));
   tx.fillStyle = g; tx.fillRect(-1600, -1600, W + 3200, H + 3200);
@@ -45,7 +45,7 @@ function cen_bank(o) {
     top.push([x, y]);
   }
   const P = new Path2D(); P.moveTo(x0, yb); for (const p of top) P.lineTo(p[0], p[1]); P.lineTo(x1, yb); P.closePath();
-  tx.fillStyle = tone(o.v ?? .02); tx.fill(P); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(P);
+  tx.fillStyle = tone(o.v ?? .02); tx.fill(P); px.fillStyle = GR.hatch({ th: PI / 2, id: 0 }); px.fill(P);
   // kenar hilali: üst kenarın ışığa bakan yerlerinde, kalınlığı açıyla değişen ince kâğıt şerit
   const rim = o.rim ?? 1;
   if (rim > 0) {
@@ -65,7 +65,7 @@ function cen_bank(o) {
   const ck = o.cuts ?? 1;
   if (ck > 0) {
     const pts = top.filter((_, i) => i % 3 === 0), mx = pts.map(p => [p[0], p[1] + 9]);
-    PR.cuts(mx, [L.x > (x0 + x1) / 2 ? -.25 : .25, 1], { len: [14, 30 + 110 * ck], gap: [46, 150 / Math.max(.4, ck)], w: 5.5, v: .97, seed: (o.seed || 1) + 7, clip: P, bend: .3 * (L.x > (x0 + x1) / 2 ? -1 : 1) });
+    PR.cuts(mx, [L.x > (x0 + x1) / 2 ? -.25 : .25, 1], { len: [20, 50 + 130 * ck], gap: [50, 160 / Math.max(.4, ck)], w: 7, v: .97, seed: (o.seed || 1) + 7, clip: P, bend: .3 * (L.x > (x0 + x1) / 2 ? -1 : 1) });
   }
   return { path: P, top, yAt: x => { const i = clamp(Math.round((x - x0) / step), 0, top.length - 1); return top[i][1]; } };
 }
@@ -100,7 +100,7 @@ function cen_kanat(rx, ry, side, S, o = {}) {
   // gölge yanı vuruşları: arka kenar çentiklerinden kanadın içine (öne kenara doğru), sivrilen
   tx.save(); tx.clip(P); tx.fillStyle = tone(.02);
   for (let k = 0; k < (o.strokes ?? 5); k++) {
-    const i = 1 + Math.floor(q() * (trail.length - 3)), p0 = trail[i], len = S * (.12 + q() * .2), bend = (q() - .5) * .3, m = 8, A = [], B = [], w0 = Math.max(3, S * .012);
+    const i = Math.floor(q() * trail.length), p0 = trail[i], len = S * (.12 + q() * .2), bend = (q() - .5) * .3, m = 8, A = [], B = [], w0 = Math.max(3, S * .012);
     const dv = [-nd[0] * .85 + ax[0] * .15 * side * 0, -nd[1] * .85 + ax[1] * .15];
     for (let j = 0; j <= m; j++) { const u = j / m, c = [p0[0] + dv[0] * len * u + ax[0] * bend * len * u * u, p0[1] + dv[1] * len * u + ax[1] * bend * len * u * u], hw = Math.max(1.1, w0 * .5 * Math.pow(1 - u, 1.1)); A.push(W2(c[0] + ax[0] * hw, c[1] + ax[1] * hw)); B.push(W2(c[0] - ax[0] * hw, c[1] - ax[1] * hw)); }
     tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
@@ -131,9 +131,9 @@ function cen_basmelek(p) {
   }
   if (p.mid) p.mid(J);
   const so = dk ? { lum: 0, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: 2, eye: 1, wind: .5, seed: p.seed || 3, halo: 3, robe: p.robe }
-    : { lum: 1, plain: true, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 1, eye: 0, wind: .5, seed: p.seed || 3, robe: p.robe, hair: p.hair };
+    : { lum: 1, plain: true, armor: false, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 0, eye: 0, wind: .5, seed: p.seed || 3, robe: p.robe, hair: p.hair };
   const sp = p.spear === false ? null : Object.assign({ grip: 'F', ang: .03, len: 7.8, up: .66 }, p.spear || {});
-  const spear = () => { const g = J['wr' + sp.grip], a = (sp.ang || 0) * J.f; cen_mizrak(g[0] + J.f * h * .2, g[1] + h * .08, a, sp.len * h, sp.up, Math.max(1.8, h * .05), h, dk ? 0 : 1); };
+  const spear = () => { const g = J['wr' + sp.grip], a = (sp.ang || 0) * J.f; cen_mizrak(g[0] + J.f * h * .2, g[1] + h * .08, a, sp.len * h, sp.up, Math.max(1.8, h * .05), h, dk ? 0 : (p.spV ?? 1)); };
   if (sp && sp.grip === 'F') spear();
   SF.draw(J, so);
   if (sp && sp.grip !== 'F') spear();
@@ -148,20 +148,24 @@ function cen_kanatKoyu(rx, ry, side, S, o) {
 }
 // kanat yolu (çizmeden): cen_kanat ile aynı geometri
 cen_kanat._yol = (rx, ry, side, S, o = {}) => {
+  // ekseni kökten uca hafif yukarı kavisli uzun damla; ön kenar ince, arka kenar geniş (kökte), uca doğru sivrilir; arka kenarda uca doğru eğik küçük tüy dişleri
   const lift = o.lift ?? .55, op = o.open ?? .8, t = o.t || 0;
   const th = -lerp(.1, 1.15, lift) + (1 - op) * 1.3 + Math.sin(t * .6 + (o.seed || 1)) * .012;
   const W2 = (x, y) => [rx + side * x, ry + y], ax = [Math.cos(th), Math.sin(th)], nd = [-ax[1], ax[0]];
-  const tip = [ax[0] * S, ax[1] * S], arch = [ax[0] * S * .32 - nd[0] * S * .12, ax[1] * S * .32 - nd[1] * S * .12];
-  const lead = [[0, 0], [arch[0] * .5 - nd[0] * S * .05, arch[1] * .5 - nd[1] * S * .05], arch, [ax[0] * S * .7 - nd[0] * S * .07, ax[1] * S * .7 - nd[1] * S * .07], tip];
-  const n = 8, trail = [];
-  for (let i = 0; i <= n; i++) {
-    const u = i / n, base = [tip[0] * (1 - u), tip[1] * (1 - u)], dep = S * (.06 + .36 * Math.sin(PI * Math.min(1, .15 + u * .95)) * (.55 + .45 * op)) * (1 - .7 * u * u);
-    const fd = [lerp(nd[0], ax[0], .35 * (1 - u)), lerp(nd[1], ax[1], .35 * (1 - u))];
-    const pt = [base[0] + nd[0] * dep + fd[0] * S * .05, base[1] + nd[1] * dep + fd[1] * S * .05], nt = [base[0] + nd[0] * dep * .86, base[1] + nd[1] * dep * .86];
-    if (i > 0) trail.push(nt); trail.push(pt);
+  const c = u => [ax[0] * S * u - nd[0] * S * .13 * Math.sin(PI * u), ax[1] * S * u - nd[1] * S * .13 * Math.sin(PI * u)];
+  const wl = u => S * .045 * Math.pow(Math.sin(PI * Math.min(1, u * 1.1)), .6) + S * .03 * (1 - u);
+  const wt = u => S * (.16 + .26 * Math.sin(PI * Math.min(1, u * 1.35))) * Math.pow(1 - u, .55) * (.6 + .4 * op);
+  const n = 30, lead = [], trail = [], q = rng((o.seed || 1) * 31 + 1), nt = 9;
+  for (let i = 0; i <= n; i++) { const u = i / n, p = c(u), w = wl(u); lead.push([p[0] - nd[0] * w, p[1] - nd[1] * w]); }
+  for (let i = n; i >= 0; i--) {
+    const u = i / n, p = c(u), w = wt(u), ph = (u * nt) % 1, tooth = S * .03 * (1 - Math.abs(ph - .5) * 2) * Math.min(1, u * 4) * (1 - u * .4);
+    trail.push([p[0] + nd[0] * (w + tooth) + ax[0] * tooth * .9, p[1] + nd[1] * (w + tooth) + ax[1] * tooth * .9]);
   }
-  trail.push([S * .04 * nd[0], S * .1]);
-  const P = new Path2D(); spline(P, [...lead, ...trail].map(p => W2(p[0], p[1])), true, .45); return { P, trail, ax, nd, W2, th };
+  const P = new Path2D(); poly(P, [...lead, ...trail].map(p => W2(p[0], p[1])), true);
+  // vuruş çapaları: diş dipleri (arka kenar)
+  const nts = []; for (let k = 1; k < nt; k++) { const u = k / nt, p = c(u), w = wt(u); nts.push([p[0] + nd[0] * w, p[1] + nd[1] * w]); }
+  return { P, trail: nts, ax, nd, W2, th };
+};
 };
 
 // Mızrak: düz sap, yaprak biçimli demir. v: 0 mürekkep (açık figürde), 1 kâğıt (koyu zemin önünde, uzak saflarda)

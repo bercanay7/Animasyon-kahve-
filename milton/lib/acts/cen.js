@@ -7,9 +7,9 @@ const cen_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 // ═════════ P019 (C02): melek safları arasında başmelek (açık tariflerin üslup karesi) ═════════
 function cen_c02(t, o = {}) {
   const L = { x: 1380, y: 110 }, dr = Math.sin(t * .07) * 6;
-  cen_gok(L, { r0: 330, r1: 1300, v: .64, n: 96, kama: [{ a: PI * .83, w: .03, len: 1100 }] });
+  cen_gok(L, { r0: 330, r1: 1300, v: .72, n: 96, kama: [{ a: PI * .83, w: .03, len: 1100 }] });
   // sol: başmeleğin arkasındaki koyu bulut duvarı (sakin, geniş kabarımlı)
-  cen_bank({ x0: -120, x1: 980, y: 300, amp: 70, wl: 420, seed: 3, L, cuts: .8, drift: dr });
+  cen_bank({ x0: -120, x1: 900, y: 250, amp: 80, wl: 420, seed: 3, L, cuts: .8, drift: dr });
   // sağ: basamaklı saflar: koyu bank, beyaz saf, koyu bank ... (uzaklaştıkça küçülür)
   cen_bank({ x0: 820, x1: 2060, y: 470, amp: 22, wl: 300, seed: 5, L, cuts: .5, drift: -dr });
   cen_safKutle({ x0: 900, x1: 2000, y: 560, h: 6.5, seed: 11, nSp: 12 });
@@ -21,7 +21,7 @@ function cen_c02(t, o = {}) {
   // başmelek: kalça (640, 560), koyu duvarın önünde; ayakları ön terasta
   cen_basmelek({ x: 600, y: 560, h: 76, facing: 1, L, t, head: .2, twist: .32, armN: [-.08, .3], armF: [.2, 1.3], lift: .45, open: .75, wingS: 4.6 });
   // ön teras: kâğıt üst yüz, koyu ön yüz (karenin alt çapası)
-  cen_teras({ x0: -140, x1: 2100, y: 862, d: 34, seed: 9, L, cuts: .8 });
+  cen_teras({ x0: -140, x1: 2100, y: 870, d: 70, seed: 9, L, cuts: .8 });
 }
 plan('P019', (ctx, st) => {
   const cam = camLerp({ cx: 1000, cy: 540, z: 1.05 }, { cx: 920, cy: 540, z: 1.05 }, st.p, E.io2);

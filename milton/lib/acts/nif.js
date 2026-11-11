@@ -75,20 +75,28 @@ function nif_aden(E, t) {
 // tepe: koyu kütle, ışık (güneş) yanında kenar ışığı ve içe giren beyaz vuruşlar. P: {x, y (zirve), s, lit: [lx, ly], seed}
 const NIF_TEPE = [[-1300, 520], [-1060, 400], [-880, 330], [-720, 250], [-600, 196], [-470, 150], [-350, 96], [-250, 66], [-160, 36], [-96, 14], [-44, 2], [0, 0], [40, 4], [96, 18], [150, 42], [230, 64], [330, 110], [440, 140], [560, 200], [700, 240], [860, 310], [1040, 360], [1300, 520], [1300, 1400], [-1300, 1400]];
 function nif_tepe(P) {
-  const s = P.s ?? 1, pts = NIF_TEPE.map(([x, y]) => [P.x + x * s, P.y + y * s]);
+  const s = P.s ?? 1, r = rng((P.seed || 3) * 13 + 1), pts = [];
+  // kırık sırt: her kenara düzensiz basamaklar (küçük ölçekte düz eğim cetvel gibi okunmasın); zirvenin yakını sakin
+  NIF_TEPE.forEach(([x, y], i) => {
+    pts.push([P.x + x * s, P.y + y * s]);
+    const nx = NIF_TEPE[i + 1]; if (!nx || i >= NIF_TEPE.length - 3) return;
+    const q = Math.min(1, Math.abs(x) / 300);
+    for (const u of [.33, .66]) { const ax = lerp(x, nx[0], u), ay = lerp(y, nx[1], u); pts.push([P.x + ax * s + (r() - .5) * 30 * q, P.y + ay * s + (r() - .3) * 46 * q * Math.max(s, .6)]); }
+  });
   const lit = P.lit || [.3, -.95];
   const RP = PR.rock(pts, { lit, hi: .06, mid: .035, lo: .02, seed: P.seed || 3, th: -.6, rim: Math.max(3, 6 * s), facets: 14 });
   // ışık yanındaki sırtlardan içeri giren beyaz vuruşlar (sırtın güneşe bakan yanı)
-  const side = lit[0] >= 0 ? 1 : -1, ridge = side > 0 ? pts.slice(11, 23) : pts.slice(0, 12).reverse();
+  const side = lit[0] >= 0 ? 1 : -1, ridge = side > 0 ? pts.slice(33, 67) : pts.slice(0, 34).reverse();
   PR.cuts(ridge, [-.35 * side, .94], { len: [14 * s, 130 * s], gap: [36 * s, 110 * s], w: Math.max(4, 6 * s), seed: (P.seed || 3) + 4, clip: RP, bend: .3 * side });
   return { path: RP, top: [P.x, P.y] };
 }
-// bütün set: o: {sun: {x,y,r}, hz, tepe: {x,y,s}, aden: {x,y,w,s} | false, dark, soft, beams, fig (tepe) => {}, front: () => {}}
+// bütün set: o: {sun: {x,y,r}, hz, tepe: {x,y,s}, aden: {x,y,w,s} | false, dark, soft, beams, clouds, mid0 (gökten sonra), mid1 (sıradağlardan sonra), fig (tepe) => {}, front: () => {}}
 function cizNifates(t, o = {}) {
   const S = o.sun || { x: 1060, y: 430, r: 300 };
   nif_gok(S, o);
   if (o.mid0) o.mid0(S);
   nif_siralar({ hz: o.hz ?? 800, dark: o.dark, aden: o.aden, t });
+  if (o.mid1) o.mid1(S);
   const tp = o.tepe || { x: 900, y: 940, s: 1 };
   const L = [S.x - tp.x, S.y - tp.y], l = Math.hypot(L[0], L[1]) || 1;
   const T = nif_tepe(Object.assign({ lit: [L[0] / l, L[1] / l] }, tp));
@@ -470,13 +478,13 @@ function nif_gozler(cx, cy, n, a, t, seed) {   // karanlık kütlede çift çift
   const { tx, tone } = GR, r = rng(seed), E2 = [];
   for (let i = 0; i < n; i++) {
     const row = Math.floor(Math.sqrt(r()) * 5), d = 1 - row / 5;   // 0 en uzak sıra
-    E2.push({ x: cx + (r() - .5) * (500 + 900 * d), y: cy - 230 + row * 95 + (r() - .5) * 40, s: .35 + .75 * d, o: r(), row });
+    E2.push({ x: cx + (r() - .5) * (500 + 900 * d), y: cy - 260 + row * 100 + (r() - .5) * 70, s: .35 + .75 * d, o: r(), row });
   }
   E2.sort((p, q) => p.row - q.row);
   tx.fillStyle = tone(.96);
   for (const e of E2) {
     const op = clamp((a - e.o * .85) / .15); if (op <= 0) continue;
-    const w = 13 * e.s, hh = Math.max(1.6, 2.6 * e.s * op), gap = 16 * e.s;
+    const w = 20 * e.s, hh = Math.max(2.4, 4.2 * e.s * op), gap = 24 * e.s;
     for (const sd of [-1, 1]) { const x = e.x + sd * gap; tx.beginPath(); tx.moveTo(x - w, e.y + sd * .5); tx.quadraticCurveTo(x, e.y - hh * (sd < 0 ? 1 : .8), x + w, e.y - sd * .5); tx.quadraticCurveTo(x, e.y + hh * .7, x - w, e.y + sd * .5); tx.fill(); }
   }
 }
@@ -484,14 +492,14 @@ plan('P076', (ctx, st) => {
   const t = st.t, S0 = { x: 1780, y: 330, r: 270 }, tO = Wd('G10', 'ordunun'), tE = Wd('G10', 'onlara');
   const a = E.io2(nif_u(t, tO - .5, tE + 1)), dk = E.io2(nif_u(t, st.at, tO + 1));
   levha(ctx, camLerp({ cx: 960, cy: 540, z: 1.04 }, { cx: 960, cy: 540, z: 1 }, st.p, E.io2), () => cizNifates(t, {
-    sun: S0, hz: 940, tepe: { x: 1300, y: 978, s: 1, seed: 19 }, t, dark: .15 * dk, clouds: [{ x: 1900, y: 820, w: 500, h: 160, seed: 25, n: 2 }],
-    mid0: () => {
+    sun: S0, hz: 940, tepe: { x: 1300, y: 978, s: 1, seed: 19 }, t, dark: .15 * dk, mid0: () => {
       // sırtındaki karanlık: sol yarıyı kaplayan duman kütlesi (güneşe bakan kenarı ince ışıklı); içinde gözler
-      PR.cloud({ x: 420, y: 470, w: 1300, h: 620, seed: 33, lit: [1, -.2], base: .03, hi: .8, core: .02, n: 5, drift: Math.sin(t * .06) * 10 });
-      nif_gozler(430, 520, 70, a, t, 7);
+      PR.cloud({ x: 380, y: 300, w: 1150, h: 420, seed: 33, lit: [1, -.1], base: .03, hi: .8, core: .02, n: 5, drift: Math.sin(t * .06) * 10 });
+      PR.cloud({ x: 520, y: 700, w: 1300, h: 460, seed: 35, lit: [1, -.3], base: .03, hi: .75, core: .02, n: 5, drift: Math.sin(t * .05 + 2) * 10 });
+      nif_gozler(470, 560, 46, a, t, 7);
     },
     fig: () => nif_seytan({ x: 1300, y: 0, ground: 975, h: 92, facing: 1, twist: .55, lean: .05, head: -.18, shTilt: .03, t, armN: [.08, .2], armF: [-.06, .2],
-      legN: [.1, -.04], legF: [-.1, -.03], lum: .2, lit: nif_isik(S0, 1300, 550), wings: NIF_KAPALI }) }), NIF_BG);
+      legN: [.1, -.04], legF: [-.1, -.03], lum: .2, lit: nif_isik(S0, 1300, 550), wings: NIF_PROF }) }), NIF_BG);
 }, { tr: { type: 'cut' } });
 
 // ═════════ P079 (G13): güneş ile figür arasındaki mesafe açılır ═════════
@@ -501,7 +509,7 @@ plan('P079', (ctx, st) => {
     sun: S0, hz: 900, tepe: { x: 560, y: 905, s: .85, seed: 21 }, t, dark: .1 * u, aden: { x: 1250, y: 905, w: 300, s: .7 },
     clouds: [{ x: 60, y: 140, w: 820, h: 330, seed: 12, n: 4 }, { x: 1900, y: 60, w: 700, h: 260, seed: 19, n: 3 }],
     fig: (tp) => nif_seytan({ x: tp[0], y: 0, ground: tp[1] + 2, h: 64, facing: 1, twist: .55, head: .04, t, armN: [.08, .2], armF: [-.08, .2],
-      legN: [.12, -.04], legF: [-.1, -.03], lum: .18, lit: nif_isik(S0, tp[0], tp[1] - 160), wings: NIF_KAPALI }) }), NIF_BG);
+      legN: [.12, -.04], legF: [-.1, -.03], lum: .18, lit: nif_isik(S0, tp[0], tp[1] - 160), wings: NIF_PROF }) }), NIF_BG);
 }, { tr: { type: 'fade', dur: .8 } });
 
 // ═════════ P080 (G14): güneşe sırtını döner; gölgesi uzayıp Aden'e ulaşır ═════════
@@ -511,19 +519,25 @@ plan('P080', (ctx, st) => {
   const turn = E.io2(nif_u(t, tS + .2, Wd('G14', 'verir') + .8)), L = E.io2(nif_u(t, tE - .5, tK + .3));
   const fc = turn < .5 ? 1 : -1, tw = Math.abs(1 - 2 * turn) * .85;
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => cizNifates(t, {
-    sun: S0, hz: 870, tepe: { x: 1120, y: 732, s: .62, seed: 23 }, t, dark: .2, aden: { x: 380, y: 872, w: 360, s: .9 },
+    sun: S0, hz: 760, tepe: { x: 1120, y: 732, s: .62, seed: 23 }, t, dark: .2,
     clouds: [{ x: 340, y: 150, w: 1150, h: 380, seed: 12, n: 5 }],
+    mid1: () => {   // güneşin aydınlattığı geniş vadi (gölgenin düştüğü açık zemin) ve uzakta Aden
+      const V = new Path2D(); V.moveTo(-300, 790); for (let x = -300; x <= 2200; x += 80) V.lineTo(x, 790 + 12 * Math.sin(x * .004)); V.lineTo(2200, 1400); V.lineTo(-300, 1400); V.closePath();
+      const g = GR.tx.createLinearGradient(0, 790, 0, 1080); g.addColorStop(0, GR.tone(.86)); g.addColorStop(1, GR.tone(.62));
+      GR.fill(V, g, { type: 'persp', y0: 790, D: 300, p0: 9, p1: 12, id: 8 });
+      nif_aden({ x: 400, y: 890, w: 460, s: 1.7 }, t);
+    },
     fig: (tp) => {
       // gölge: ayaklardan güneşin tersine, yamaçtan vadiye inen koyu, sivrilen şerit; ucu Aden'e ulaşır
-      const fx = tp[0], fy = tp[1] + 2, ex = lerp(fx - 60, 420, L), ey = lerp(fy + 12, 880, L);
+      const fx = tp[0], fy = tp[1] + 2, ex = lerp(fx - 60, 560, L), ey = lerp(fy + 12, 870, L);
       if (L > .01) {
         const dx = ex - fx, dy = ey - fy, ln = Math.hypot(dx, dy), nx = -dy / ln, ny = dx / ln, P = new Path2D();
-        P.moveTo(fx + nx * 10, fy + ny * 10); P.quadraticCurveTo(fx + dx * .5 + nx * 34, fy + dy * .5 + ny * 34 - 20, ex + nx * 16, ey + ny * 16);
-        P.lineTo(ex - nx * 30, ey - ny * 6); P.quadraticCurveTo(fx + dx * .5 - nx * 20, fy + dy * .5 - ny * 20 - 10, fx - nx * 10, fy - ny * 10); P.closePath();
+        P.moveTo(fx + nx * 8, fy + ny * 8); P.quadraticCurveTo(fx + dx * .5 + nx * 40, fy + dy * .5 + ny * 40, ex + nx * 46, ey + ny * 30);
+        P.quadraticCurveTo(ex - dx * .03, ey + 22, ex - nx * 40, ey - ny * 26); P.quadraticCurveTo(fx + dx * .5 - nx * 30, fy + dy * .5 - ny * 30, fx - nx * 8, fy - ny * 8); P.closePath();
         GR.fill(P, GR.tone(.03), { th: Math.atan2(dy, dx), id: 0 });
       }
       nif_seytan({ x: fx, y: 0, ground: fy, h: 46, facing: fc, twist: .1 + tw, head: lerp(.02, -.12, turn), t, armN: [.08, .2], armF: [-.08, .2],
-        legN: [.1, -.04], legF: [-.1, -.03], lum: .15, lit: nif_isik(S0, fx, fy - 120), wings: NIF_KAPALI });
+        legN: [.1, -.04], legF: [-.1, -.03], lum: .15, lit: nif_isik(S0, fx, fy - 120), wings: Object.assign({}, NIF_PROF, { spanL: 6 }) });
     } }), NIF_BG);
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 520, 190, st, Wd('G14', 'kötülük'), { maxW: 760 }) });
+  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 380, 130, st, Wd('G14', 'kötülük'), { maxW: 620, px: 66 }) });
