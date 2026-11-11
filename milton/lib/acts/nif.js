@@ -373,17 +373,10 @@ function nif_kanatVurus(F, v, w = 7) {
 }
 // göğüs alevi (kao_gogusAlev'in akrabası): sivri uçlu kâğıt beyazı dil + iki küçük yan dil; taban (x, y), boy L, yarı genişlik wd
 function nif_gogusAlev(x, y, L, wd, t) {
-  const tone = GR.tone, sw = (k) => Math.sin(t * 2.1 + k) * wd * .35 + noise1(t * .7 + k, 3) * wd * .25;
-  const dil = (bx, L, w, k) => {
-    const s0 = sw(k), P = new Path2D(); P.moveTo(bx - w, y);
-    P.bezierCurveTo(bx - w * 1.3, y - L * .35, bx + s0 * .5 - w * .3, y - L * .7, bx + s0, y - L);
-    P.bezierCurveTo(bx + s0 * .6 + w * .4, y - L * .65, bx + w * 1.3, y - L * .35, bx + w, y);
-    P.quadraticCurveTo(bx, y + w * .7, bx - w, y); P.closePath();
-    GR.fill(P, tone(1), { th: -PI / 2, id: 3 });
-  };
-  dil(x - wd * 1.1, L * .45, wd * .55, 1.3); dil(x + wd * 1.1, L * .5, wd * .55, 2.7); dil(x, L, wd, 0);
-  // içte sivrilen iki mürekkep vuruşu (alev üslubu)
-  nif_vurus([[x - wd * .25, y - L * .05], [x - wd * .35 + sw(0) * .2, y - L * .3], [x + sw(0) * .4, y - L * .55]], wd * .28, .04);
+  const fo = { speed: .45, sway: .8, curl: .8, solidBelow: 1e5, strokeAbove: 70, frags: false, inner: .5 };
+  PR.flame(x - wd * 1.3, y + wd * .3, L * .5, wd * 1.3, t + 2, 23, Object.assign({ lean: -.25 }, fo));
+  PR.flame(x + wd * 1.3, y + wd * .3, L * .56, wd * 1.3, t + 5, 24, Object.assign({ lean: .25 }, fo));
+  PR.flame(x, y + wd * .5, L, wd * 2.2, t, 21, fo);
 }
 // A01: güneşe karşı karanlık figür
 function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
@@ -398,13 +391,13 @@ function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
   tx.lineWidth = 7; for (const w of F.wings) tx.stroke(w.path);
   tx.lineWidth = 6; tx.stroke(F.headE);
   GR.fill(F.cloak, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 5; tx.stroke(F.cloak);
-  GR.fill(F.head, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 6; tx.stroke(F.headE);
+  GR.fill(F.head, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 6; tx.save(); { const q = P(0, -.83); tx.beginPath(); tx.rect(q[0] - 200, q[1] - 300, 400, 300); tx.clip(); } tx.stroke(F.headE); tx.restore();
   tx.restore();
   nif_kanatVurus(F, 1, 6);
   // iç cehennem: göğüs hizasında tek kâğıt beyazı alev (P003'teki göğüs alevinin akrabası); 'cehennemim' ile büyür
-  const c = P(0, -.5), k = lerp(.8, 1.4, a);
+  const c = P(0, -.55), k = lerp(.8, 1.4, a);
   tx.save(); tx.clip(F.cloak);
-  nif_gogusAlev(c[0], c[1], .17 * U * k, .03 * U * k, t);
+  nif_gogusAlev(c[0], c[1], .19 * U * k, .03 * U * k, t);
   tx.restore();
   return F;
 }
@@ -443,7 +436,7 @@ plan('P001', (ctx, st) => {
   const t = st.t, tC = Wd('A01', 'cehennemim');
   levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_kancaA01(t, E.io2(nif_u(t, tC - .2, tC + .9))), NIF_BG);
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1520, 160, st.lt, { t0, px: 84, panel: false }); } });
+  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1600, 175, st.lt, { t0, px: 84, panel: false }); } });
 plan('P002', (ctx, st) => {
   const t = st.t, s0 = S('A02'), s1 = Se('A02');
   const op = E.out2(nif_u(t, s0 + .1, s0 + 1.2)), rl = E.out2(nif_u(t, s0, s0 + .5)) * (1 - E.io2(nif_u(t, s1 - .9, s1 + .4)));

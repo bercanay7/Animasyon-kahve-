@@ -274,7 +274,7 @@ function cen_melek(p) {
 function cen_yildiz(x, y, r, a = 1, o = {}) {
   const { tx, tone } = GR; if (a <= 0) return;
   const S = new Path2D(), pts = [];
-  for (let i = 0; i < 16; i++) { const an = i / 16 * TAU - PI / 2, rr = i % 2 ? r * .1 : (i % 4 === 0 ? r * (.55 + .45 * a) : r * .42 * (.6 + .4 * a)); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
+  for (let i = 0; i < 16; i++) { const an = i / 16 * TAU - PI / 2, rr = i % 2 ? r * .08 : (i % 4 === 0 ? r * (.55 + .45 * a) : r * .2 * (.6 + .4 * a)); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
   poly(S, pts, true);
   if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'miter'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); GR.px.fillStyle = GR.hatch({ th: 0, id: 0 }); GR.px.fill(S); }
   tx.fillStyle = tone(1); tx.fill(S);
