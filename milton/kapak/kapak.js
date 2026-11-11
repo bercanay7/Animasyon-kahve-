@@ -290,14 +290,16 @@ function kpk_alevRenk7(ctx, F) {
     for (let j = 0; j < 3; j++) D[i + j] = lerp(D[i + j], CD[i + j] * f, k); }
   ctx.putImageData(I, x0, y0);
 }
-function kpk_korHale7(ctx, F) {
+function kpk_korHale7(ctx, F, taban = false) {
   const c = [F.base[0], F.base[1] - F.L * .42];
   const G = makeCanvas(DW, DH), g = G.getContext('2d'); g.setTransform(RS, 0, 0, RS, 0, 0);
   g.save(); g.translate(c[0], c[1]); g.scale(1, 1.3);
   const r = 118, q = g.createRadialGradient(0, 0, 20, 0, 0, r); q.addColorStop(0, 'rgba(255,120,30,.6)'); q.addColorStop(.42, 'rgba(235,85,20,.24)'); q.addColorStop(1, 'rgba(200,50,10,0)');
   g.fillStyle = q; g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.restore();
-  g.globalCompositeOperation = 'destination-in'; g.fillStyle = '#fff'; g.fill(F.cloak);
-  g.globalCompositeOperation = 'destination-out'; g.lineWidth = 60; g.stroke(F.cloak);   // kenar ışıkları turuncu almaz
+  g.globalCompositeOperation = 'destination-in'; g.fillStyle = '#fff';
+  if (taban) {   // ikinci geçiş: yalnız alevin tabanı (karartılmış kor, çevresindeki ışımayla aynı tona gelir; taban ayrı bir koyu leke gibi okunmaz)
+    g.fill(F.dil); const v = g.createLinearGradient(0, F.base[1] - F.L * .3, 0, F.base[1] - 20); v.addColorStop(0, 'rgba(255,255,255,0)'); v.addColorStop(1, '#fff'); g.fillStyle = v; g.fillRect(0, 0, W, H);
+  } else { g.fill(F.cloak); g.globalCompositeOperation = 'destination-out'; g.lineWidth = 60; g.stroke(F.cloak); }   // kenar ışıkları turuncu almaz
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'screen'; ctx.drawImage(G, 0, 0); ctx.restore();
 }
 async function kpk_a7(ctx) {
@@ -305,7 +307,7 @@ async function kpk_a7(ctx) {
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => { F = kpk_a7Sahne(KPK.t); }, NIF_BG);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = '#f3ece1'; ctx.fillRect(0, 0, DW, DH); ctx.restore();
   applyPaper(ctx, .8); applyVignette(ctx, .45);
-  if (KPK.renk) { kpk_korHale7(ctx, F); kpk_alevRenk7(ctx, F); }
+  if (KPK.renk) { kpk_korHale7(ctx, F); kpk_alevRenk7(ctx, F); kpk_korHale7(ctx, F, true); }
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.strokeStyle = KPK_INK; ctx.lineWidth = 2 * 7 * 1.5 * RS; ctx.strokeRect(0, 0, DW, DH); ctx.restore();
   if (KPK.notext) return;
   const Y = KPK_A7.yazi, Z = kpk_yazi(ctx, KPK_YAZI.a[0], { x: Y.x, y: Y.y, cap: 210, maxW: Y.w, align: 'left', gap: .3, col: KPK_INK });
