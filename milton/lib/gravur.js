@@ -111,6 +111,14 @@ const GR = (() => {
   function save() { tx.save(); px.save(); ox.save(); }
   function restore() { tx.restore(); px.restore(); ox.restore(); }
 
+  // oyma titremesi alanı: 512×512, döşenebilir (tam sayı frekanslı sinüslerin toplamı), örnek aralığı 2 dünya pikseli.
+  // Dalga boyu 40–120 px; JX/JY kenar sapması (±1), JT çizgi kalınlığı dalgası (±1).
+  const JS = .5, JIT = { amp: 1.2, th: .06 };
+  const JX = new Float32Array(262144), JY = new Float32Array(262144), JT = new Float32Array(262144);
+  { const r = rng(4242), mk = (A, n) => { const C = []; for (let k = 0; k < n; k++) { const a = r() * TAU, f = 9 + r() * 17; C.push([Math.round(Math.cos(a) * f), Math.round(Math.sin(a) * f), r() * TAU, .5 + r()]); }
+      let mx = 0; for (let y = 0; y < 512; y++) for (let x = 0; x < 512; x++) { let v = 0; for (const c of C) v += c[3] * Math.sin(TAU * (c[0] * x + c[1] * y) / 512 + c[2]); A[y * 512 + x] = v; if (Math.abs(v) > mx) mx = Math.abs(v); }
+      for (let i = 0; i < 262144; i++) A[i] /= mx; };
+    mk(JX, 7); mk(JY, 7); mk(JT, 5); }
   // ── basma ──
   const SG = .2, TW = .025;                       // kademe genişliği ve uç sivrilmesi (ham oran biriminde)
   const HSH = new Float32Array(256); { const r = rng(977); for (let i = 0; i < 256; i++) HSH[i] = r(); }
@@ -122,16 +130,24 @@ const GR = (() => {
     const O = img.data, D = DL();
     const pr = PAPER[0], pg = PAPER[1], pb = PAPER[2], ir = INK[0] - pr, ig = INK[1] - pg, ib = INK[2] - pb;
     const kk = 1 / (RS * cam.s), ox = cam.x, oy = cam.y, devPer = RS * cam.s;
-    const nP = patches.length;
+    const nP = patches.length, ja = JIT.amp * devPer, w4 = w * 4;
     for (let y = 0; y < h; y++) {
       let i = y * w * 4, lastKey = -1, p = patches[0], st = STY[p.id], dl = D[p.id], invP = 1 / st.P, Pdv = st.P * devPer;
       const wy = y * kk + oy;
+      const jy = ((wy * JS) | 0) & 511;
       for (let x = 0; x < w; x++, i += 4) {
-        const key = Pd[i] | (Pd[i + 1] << 8);
-        if (key !== lastKey || Pd[i + 2] !== HB[key]) {
-          if (key < nP && Pd[i + 2] === HB[key]) { p = patches[key]; st = STY[p.id]; dl = D[p.id]; invP = 1 / st.P; Pdv = st.P * devPer; lastKey = key; }
+        // oyma titremesi: her piksel, dünyaya bağlı sabit bir sapma alanından okunur (kenarlar ve çizgiler matematik pürüzsüzlüğünü yitirir;
+        // alan zamanla değişmez, kamera kayınca resimle birlikte kayar: titreşim yaratmaz)
+        const ji = ((((x * kk + ox) * JS) | 0) & 511) | (jy << 9);
+        let fx = x + JX[ji] * ja, fy = y + JY[ji] * ja;
+        if (fx < 0) fx = 0; else if (fx > w - 1.001) fx = w - 1.001; if (fy < 0) fy = 0; else if (fy > h - 1.001) fy = h - 1.001;
+        const x0 = fx | 0, y0 = fy | 0, ax = fx - x0, ay = fy - y0, i0 = (y0 * w + x0) * 4, ip = (((fy + .5) | 0) * w + ((fx + .5) | 0)) * 4;
+        const tv = (T[i0] * (1 - ax) + T[i0 + 4] * ax) * (1 - ay) + (T[i0 + w4] * (1 - ax) + T[i0 + w4 + 4] * ax) * ay;
+        const key = Pd[ip] | (Pd[ip + 1] << 8);
+        if (key !== lastKey || Pd[ip + 2] !== HB[key]) {
+          if (key < nP && Pd[ip + 2] === HB[key]) { p = patches[key]; st = STY[p.id]; dl = D[p.id]; invP = 1 / st.P; Pdv = st.P * devPer; lastKey = key; }
         }
-        const r = dl[T[i]];
+        const r = dl[(tv + .5) | 0];
         let ink = 0, d = 0;
         if (r >= 1) ink = 1;
         else if (r > 0) {
@@ -153,6 +169,7 @@ const GR = (() => {
           d = f0 + (f1 - f0) * r;
           if (rb < 0) d = rb < -TW ? 0 : f0 * (1 + rb / TW);
           else if (rg > 1) d = rg > 1 + TW ? 1.2 : d + (1.2 - d) * (rg - 1) / TW;
+          if (d < 1) d *= 1 + JT[ji] * JIT.th;
           ink = (d * .5 - (u > .5 ? u - .5 : .5 - u)) * Pl + .5;
           if (ink < 0) ink = 0; else if (ink > 1) ink = 1;
           const ct = st.ct;
@@ -175,5 +192,5 @@ const GR = (() => {
   // evre arabelleğine yazan modüller (FG.sculpt) için: yama rengi baytları
   function bufBytes(id) { const n = patches.length; patches.push({ t: 3, id }); return [n & 255, n >> 8, HB[n]]; }
   return { tc, tx, pc, px, oc, ox, STY, PAPER, INK, PHB, tone, pat, hatch, patGrad, phaseOf, begin, fill, getCam: () => cam, bufBytes,
-    setT, frame, unframe, save, restore, engrave, inkCol: `rgb(${INK})`, paperCol: `rgb(${PAPER})` };
+    setT, frame, unframe, save, restore, engrave, JIT, inkCol: `rgb(${INK})`, paperCol: `rgb(${PAPER})` };
 })();

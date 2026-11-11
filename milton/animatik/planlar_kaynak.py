@@ -74,7 +74,7 @@ P = [
  ('E07', 'KIY', .2, "Mızrağını yere saplar; arkasında alev duvarı", "saplama darbesi; büyük alıntı", "“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”"),
  ('E08', 'KIY', .2, "Aynı kare; alıntının altına bildiğimiz hâli", "", "cennette köle olacağıma, cehennemde kral olurum"),
  ('E09', 'KIY', .2, "Ölçek karesi: omzunda ay gibi kalkan; mızrağın yanında küçücük bir gemi direği", "aşağıdan yukarı kaydırma", ""),
- ('E10', 'KIY', .2, "Yüz yakın plan (¾, gravür): yıldırım izleri; kaş ve göz", "iki etiket belirir", "gurur  ·  pişmanlık"),
+ ('E10', 'KIY', .2, "Omuz üstü profil silueti (h≈150), alev duvarına karşı: yüzde yıldırım izleri birkaç beyaz vuruş; kaş çıkıntısı ve gözdeki tek ışık (gerçekçi yüz yakın planı yok)", "iki etiket kaşa ve göze doğru belirir", "gurur  ·  pişmanlık"),
  ('E11', 'KIY', .2, "Yıldırım çarpmış orman ↔ yanık ama ayakta melek safları; önlerinde Şeytan", "orman saflara çözülür; üç kez dener; üç damla yaş", ""),
  ('E12', 'KIY', .2, "Şeytanlar toprağı kazar; yerden Dor sütunlu, altın tavanlı saray yükselir", "saray yükselir", "PANDEMONIUM"),
  ('E13', 'MEC', .22, "Meclis: sütunlu salon, saflar; ortada yeni dünyanın küçük küresi", "küre belirir", ""),

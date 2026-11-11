@@ -1,0 +1,43 @@
+{
+  "uye": "U-Teknik",
+  "tur": 6,
+  "karar": "ONAY",
+  "puanlar": {"U1": null, "U2": 9.0, "U3": null, "U4": null, "U5": 9.0, "U6": null},
+  "agirlikli": 9.0,
+  "puan": 9.0,
+  "tur5_bulgulari": [
+    {"bulgu": "Göl önü ve ortasında 1 px'e sönen ince çizgiler (alt sınır 3 px)", "durum": "giderildi", "olcum": "1 px beyaz koşu oranı: göl orta %14,7 -> %1,1; göl önü %21,3 -> %6,8; göl ufuk %2,6 -> %2,0; tüm kare %6,3 -> %2,6; gök %0,4. Beyaz medyan gölde 3 px, iskelet beyaz p1/p5/p50 = 2/2/6 px (p50 4 -> 6)."},
+    {"bulgu": "Kanat sağ vuruş uçları, yarım piksel kenar parçaları", "durum": "kısmen", "olcum": "Kanat sağ beyaz 1 px %13,6 -> %12,1, siyah 1 px %7,8 -> %7,7: neredeyse değişmedi. Kanat sol %9,0 -> %4,6, figür %7,0 -> %6,9, kaya %7,1 -> %8,1 (hafif arttı), bulut %6,8 -> %6,5."},
+    {"bulgu": "Ufuk kuşağı 427 px yerel kontrast çukurları", "durum": "kısmen (kabul edilebilir)", "olcum": "427 BILINEAR yerel std: y620:13, y640:19 (tur 5: 12, 15), y660:33, y700:26, y720:19, y780:24, y820:26, y840:32; y860:5 ve y880:12 BOX referansında da 5/14: çukur moiré değil, göl o satırda düz siyaha dönüyor (içerik). Spektral tepe/medyan 427: LANCZOS 105, BILINEAR 103 (tur 5: 104/103); 640: 121/112. y620–640 hâlâ 13–19 (BOX 20–23): ufuk bandı içeriği, bant yok."},
+    {"bulgu": "Titreşim, rozet alanı alevi", "durum": "giderildi", "olcum": "Kare farkı MAD 0,319 (tur 5: 0,349); >20 oranı %0,36; 61 karelik dizi MAD ort. 0,312, maks. 0,379. En kötü blok (512,704)=7,8 (sol alev), (576,704)=6,9, (1728,960)=4,4 (sağ alt alev; tur 5'te 8,3). Dizi en kötü: (1600,960)=7,1; (512,704)=6,1; (1728,960)=5,8. Sağ alt alev bölgesi MAD 2,45 -> 1,91. Gök 0,003, sol üst 0,000, kaya 0,32, kanat 0,40–0,52, figür 0,26."}
+  ],
+  "duzeltmeler_engelleyen": [],
+  "duzeltmeler_sahne_sirasinda": [
+    {"sira": 1, "bolge": "kanat sağ x1000–1230 y520–780", "sorun": "Beyaz 1 px %12,1, siyah 1 px %7,7: filmdeki en yüksek ince çizgi oranı. 427'de tüy vuruşları kıl gibi titreyebilir.", "oneri": "kanat.js tüy vuruşu poligon köşelerini Math.round ile tam piksele oturt, alt kalınlık 2,5 px.", "onem": "düşük"},
+    {"sira": 2, "bolge": "göl önü x1000–1700 y850–1000", "sorun": "Beyaz 1 px hâlâ %6,8 (tum kare %2,6'nın 2,6 katı); gölün önünde çizgi seyrek olduğundan etkisi sınırlı.", "oneri": "Alt sınırı 3,5 px yap.", "onem": "düşük"},
+    {"sira": 3, "bolge": "kaya x0–380 y600–1060", "sorun": "Kaya beyaz 1 px %8,1 (tur 5: %7,1); kırıklı dış hat yarım piksel parçalar üretiyor.", "oneri": "Dış hat vuruşlarını tam piksele yuvarla.", "onem": "düşük"},
+    {"sira": 4, "bolge": "sol alev x500–640 y680–760", "sorun": "En titreşen blok (512,704)=7,8 sol alev (z=1,0).", "oneri": "Sahne kurgusunda alev hızını düşük tut; sorun değil.", "onem": "düşük"}
+  ],
+  "karar_sorusu_cevabi": "Teknik açıdan dil onaylanabilir: ince çizgi oranı, titreşim, sıkıştırma ve 427 px davranışı film boyunca korunabilir seviyede. Kalan maddeler sahne üretimi sırasında düzeltilebilir. Puanı 9,0'da veriyorum, bir üst puan için kanat sağ ince çizgi oranı (%12,1) ve kaya (%8,1) düşmeli.",
+  "yirmi_dort_dakika_yorgunluk": "Göz yormaz. Düz siyah %73,9, ortalama gri 66,1, kare farkı 0,32/255, sabit katmanlarda sıfır titreşim; 427 px'te çizgi çukurları içerikten (düz siyah), moiré'den değil.",
+  "korunmali": [
+    "Göl çizgileri: 1 px beyaz orta %1,1, önü %6,8; 3 px alt sınır korunmalı.",
+    "Gök MAD 0,003, sol üst 0,000; tüm kare 1 px beyaz %2,6, siyah %1,7.",
+    "Kare farkı 0,32; dizi MAD 0,312; en kötü blok 7,8.",
+    "427 spektral tepe/medyan 103–105 (tur 3: 127–132).",
+    "CRF18 3,80 Mbps, PSNR 47,3 dB (min 45,1), SSIM-Y 0,9983; 480p CRF28 0,35 Mbps SSIM 0,9921.",
+    "Değer: <40 %73,9, >200 %17,1, ara ton %9,0; max 221; odak (992,478) figürün hemen arkası.",
+    "Çizim süresi 292 ms (257–574): 43.200 kare ≈ 3,5 saat tek işçi, 4 işçide ~53 dk."
+  ],
+  "olcumler": {
+    "titresim": {"MAD_255": 0.319, "oran_fark_gt20": 0.0036, "oran_fark_gt8": 0.0050, "dizi_MAD_ort": 0.312, "dizi_MAD_maks": 0.379, "en_kotu_5_blok": [[512,704,7.8],[576,704,6.9],[1728,960,4.4],[576,640,4.2],[960,768,4.0]], "dizi_en_kotu_5": [[1600,960,7.08],[512,704,6.09],[1728,960,5.76],[1728,1024,4.76],[1408,576,4.61]], "bolge_MAD": {"gok":0.003,"sol_ust":0.0,"kaya":0.321,"gol_alt":0.331,"kanat_sol":0.404,"kanat_sag":0.521,"figur":0.257,"alev_sag_alt":1.910}},
+    "kucuk_tepe_medyan": {"640": {"LANCZOS": [15.78,121], "BILINEAR": [8.35,112]}, "427": {"LANCZOS": [19.64,105], "BILINEAR": [9.69,103]}, "246": {"LANCZOS": [10.40,10], "BILINEAR": [7.10,43]}},
+    "ufuk_427_BILINEAR_yerel_std": {"y600":28,"y620":13,"y640":19,"y660":33,"y680":23,"y700":26,"y720":19,"y740":25,"y760":29,"y780":24,"y800":24,"y820":26,"y840":32,"y860":5,"y880":12,"y900":11},
+    "ufuk_427_BOX_yerel_std": {"y620":23,"y640":20,"y660":38,"y720":20,"y780":34,"y860":5,"y880":14},
+    "cizgi_kosulari_1px_orani": {"beyaz": {"gok":0.004,"gol_ufuk":0.020,"gol_orta":0.011,"gol_on":0.068,"kanat_sol":0.046,"kanat_sag":0.121,"figur":0.069,"bulut":0.065,"kaya":0.081,"tum_kare":0.026}, "siyah": {"gok":0.011,"gol_ufuk":0.029,"gol_orta":0.011,"gol_on":0.033,"kanat_sol":0.022,"kanat_sag":0.077,"figur":0.034,"bulut":0.035,"kaya":0.070,"tum_kare":0.017}, "iskelet_beyaz_p1_p5_p50": [2,2,6], "iskelet_koyu_p1_p5_p50": [2,2,8]},
+    "sikistirma": {"61_kare_1080p_CRF18": {"bps": 3803245, "PSNR_ort": 47.30, "PSNR_min": 45.08, "SSIM_Y": 0.99834}, "CRF28_480p": {"bps": 346225, "SSIM_Y": 0.99208}},
+    "deger": {"yuzde_lt40": 73.9, "yuzde_gt200": 17.1, "yuzde_ara": 9.0, "ort": 66.1, "max": 221, "top1_agirlik_merkezi": [992,478]},
+    "cizim_suresi": {"ort_ms": 292, "aralik_ms": "257–574", "ilk_4_kare_ms": [604,374,300,312]}
+  },
+  "en_emin_olmadigim_nokta": "9,0 sınırında olmam: ince çizgi oranı (kanat sağ %12,1) ölçümün eşiğine (110) duyarlı, ayrıca sahne üretiminde farklı kareler farklı çıkabilir. Yalnız tek ana kare (t=1,0) ölçtüm; hareketli çekimlerde ufuk bandı ve kanat vuruşlarını tekrar ölçmek gerek."
+}

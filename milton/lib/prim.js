@@ -192,7 +192,7 @@ const PR = (() => {
     for (const g of list) { tx.fill(g.inner); for (const f of g.frags) tx.fill(fragPath(f, .8)); }
     // taramasız (kâğıt beyazı) dillerde biçimi içteki mürekkep vuruşları verir: dipten yukarı, omurgayı izleyen, sivrilen 2–4 çizgi
     for (const g of list) {
-      if (!g.spine || g.H >= (o.solidBelow ?? 240) || g.H < 46) continue;
+      if (!g.spine || g.H >= (o.solidBelow ?? 240) || g.H < (o.strokeAbove ?? 100)) continue;   // küçük dilde mürekkep vuruşu diken gibi okunur: çizilmez
       const q = rng(g.seed * 7 + 3), nS = g.H > 130 ? 3 : 2, m = g.spine.length - 1;
       tx.save(); tx.clip(g.outer); tx.fillStyle = tone(.04);
       for (let k = 0; k < nS; k++) {

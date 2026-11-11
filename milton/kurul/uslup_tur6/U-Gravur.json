@@ -1,0 +1,52 @@
+{
+  "uye": "U-Gravur",
+  "mercek": "Doré ve 19. yüzyıl ağaç/çelik baskı geleneği; kalın çizgili linol/ağaç baskı tutarlılığı",
+  "olcut_tanimi": "9 = gerçek bir ağaç baskı levhasının yanında bitmiş durur (tur 1'den beri aynı).",
+  "karar": "RED",
+  "puanlar": {"U1": 8.5, "U2": 8.5, "U3": 8.5, "U4": 8.5, "U5": 8.0, "U6": 8.5},
+  "puan": 8.45,
+  "dokuza_mesafe": 0.55,
+  "engelleyen_bulgu": "Yok. Dil onaylanabilir düzeyde; kalan bulguların hepsi sahne üretimi sırasında düzeltilebilir.",
+  "genel_hukum": "Gövde ile kanat ayrımı işe yaradı. Sağ kol kanadın önünde ışık kenarıyla ayrışıyor; gövdede kesit boyunca düzensiz vuruşlar var ve figür artık 1:1'de de beden olarak okunuyor (x 800–1010, y 560–800). Gölge yanında kenarın kanada karışması doğru (kayıp-bulunmuş kenar). Arka ışığın güçlenmesi profili ve enseyi netleştirmiş. Alttan alev ışığının Milton'ın 'görünür karanlık' cümlesiyle reddedilmesi gravür açısından da doğru: Doré de bu sahnede figürü alevle değil karşı ışıkla kurar. Kanat içindeki damla delikler kapanmış. Ölçümlerim: koyu %74,4, kâğıt %17,1, kare farkı 0,53. Puanı 9'un altında tutan iki şey var. (1) Küçük ama ucuz okunan iki kalıntı: sol kanat içinde mum gibi duran kâğıt boşluğu ve sağ altta hâlâ çaprazlaşan alev çifti. (2) Bitmişlik: bütün kenarlar (bulut dış hattı, kaya kırığı, gök çizgileri, kanat siluetleri) matematik olarak pürüzsüz. Gerçek bir ağaç baskı levhasında oyulmuş kenar hafifçe titrer ve yer yer çentiklenir. Bu, karenin hâlâ 'çok temiz vektör' görünmesinin son kaynağı.",
+  "olcumler": {
+    "koyu_piksel_lt60": 0.744,
+    "kagit_gt200": 0.171,
+    "ardisik_kare_ortalama_fark": 0.53,
+    "en_kotu_64_blok": [[9.4, "x 512, y 704 (sol ön alev)"], [9.1, "x 576, y 704"]]
+  },
+  "tur5_bulgulari": [
+    {"sira": 1, "bulgu": "Gövde–kanat tek siyah kütle", "durum": "giderildi", "not": "Işık yanında kâğıt boşluğu, gövdede kesit vuruşları, kanat kökünde vuruşsuz koyu şerit; sağ kol ayrışıyor. U4 ve U3 8,0 → 8,5."},
+    {"sira": 2, "bulgu": "Kırıntılar (bulut ve kanat damla delikleri)", "durum": "kısmen", "not": "Buluttaki beyaz damla ve kanattaki damla delikler gitti. Sağ bulutun ortasında iki kopuk küçük hilal sürüyor (x 1700–1722, y 365–392 ve x 1855–1905, y 365–410). Yeni bir kalıntı da var: sol kanat içinde mum biçimli kâğıt boşluğu (bkz. düzeltme 1)."},
+    {"sira": 3, "bulgu": "Sağ alt alev boynuz/dokunaç, X çaprazı", "durum": "kısmen", "not": "Sağdaki diller yukarı ve tek yöne akıyor. En soldaki çift (x 1425–1535, y 920–1040) hâlâ V/X biçiminde çaprazlaşıyor; boynuz okuması orada duruyor."},
+    {"sira": 4, "bulgu": "Huzme bulutun önünden geçiyor", "durum": "giderilmedi", "not": "Düşük öncelik; x 1230–1600, y 280–520'de huzme sağ bulutun önünde."},
+    {"sira": 5, "bulgu": "Sahne başına koyu oran hedefi", "durum": "sahne kurullarına devredildi", "not": ""}
+  ],
+  "duzeltmeler_engelleyen": [],
+  "duzeltmeler_sahne_uretiminde": [
+    {"sira": 1, "onem": "orta", "bolge": "sol kanat içi x 562–602, y 565–635 (yakin_z1.25: x 530–560, y 515–565)",
+     "ne": "Tüy uçları arasındaki kâğıt boşluğu dikdörtgen gövde + damla tepe biçiminde; yanan mum gibi okunuyor. Odağa yakın ve 'ucuz' okumanın en hızlı kaynağı.",
+     "nasil": "Tüy ucu boşlukları uçta sivri, kökte kapalı kama biçiminde olsun. Paralel kenarlı (dikdörtgen) boşluk kalmasın; boşluğun tepesinde ayrık damla oluşmasın (kapalı adacık filtresini kanattaki boşluklara da uygula)."},
+    {"sira": 2, "onem": "orta", "bolge": "sağ alt alev, en soldaki çift x 1425–1535, y 920–1040",
+     "ne": "İki dil V/X biçiminde çaprazlaşıyor; boynuz okuması.",
+     "nasil": "Soldaki dilin ucunu da sağa (diğerlerinin yönüne) kıvır ya da çifti tabanda tek kütle yap; uçlar birbirinden uzaklaşmasın, birbirinin üstünden geçmesin."},
+    {"sira": 3, "onem": "orta (9 için gerekli)", "bolge": "bütün kare: bulut dış hatları x 0–760 / 1250–1920, y 0–510; kaya kırığı x 0–390, y 560–1080; kanat siluetleri; gök ve göl çizgileri",
+     "ne": "Bütün kenarlar ve çizgiler matematik olarak pürüzsüz. Dil ağaç baskı, ama kenar vektör; gerçek levhanın yanında 'fazla temiz' duruyor. Bitmişlik açığının ana kaynağı bu.",
+     "nasil": "Oyma titremesi: kütle kenarlarına ve uzun çizgilere düşük frekanslı, dünyaya ve nesneye bağlı (zamanla DEĞİŞMEYEN) kenar sapması. Genlik 0,6–1,2 px, dalga boyu 40–120 px; kenar boyunca her 150–400 px'te bir 2–4 px'lik küçük çentik ya da taşma. Gök ve göl çizgilerinde aynı mantıkla ±0,5 px kalınlık dalgası. Gürültü dünya koordinatından üretilmeli ki titreşim artmasın; kare farkı ölçümüyle doğrulanmalı."},
+    {"sira": 4, "onem": "düşük", "bolge": "sağ bulut x 1700–1722, y 365–392 ve x 1855–1905, y 365–410",
+     "ne": "Bulut ortasında kopuk küçük hilaller.",
+     "nasil": "Kenar hilali, görünür dış kenarın en az 60 px'lik kesintisiz yayına oturmuyorsa çizme."},
+    {"sira": 5, "onem": "düşük", "bolge": "huzmeler x 1230–1600, y 280–520",
+     "ne": "Huzme bulut kütlesinin önünden geçiyor.",
+     "nasil": "Bulut maskesinin içinde huzmeyi kes."}
+  ],
+  "en_cok_puan_getirecek_tek_degisiklik": "Oyma titremesi (düzeltme 3). Kalan açık artık tek tek kusurlardan çok bütün karenin 'vektör temizliği'. Kenara ve çizgiye nesneye bağlı, durağan küçük bir sapma ve seyrek çentik, U1 ve U5'i 9'a taşır (ağırlıklı +0,15–0,2). Mum ve X alev düzeltmeleri (1–2) U5'e ayrıca +0,5 getirir. Üçü birlikte puanı ~8,8–9,0 aralığına çıkarır. Risk: gürültü zamana bağlanırsa titreşim yaratır; dünya koordinatında sabit olmalı.",
+  "yirmi_dort_dakika_goz_yorgunlugu": "Hayır. Titreşim çok düşük, vuruşlar iri ve seyrek, çapraz tarama ve benek yok.",
+  "korunmali": [
+    "İki yönlü vuruş grameri: koyu kütlede kâğıt vuruşu, alevde mürekkep vuruşu.",
+    "Gövde–kanat kayıp-bulunmuş kenarı (ışıkta kâğıt boşluğu, gölgede birleşme) ve gövdedeki kesit vuruşları.",
+    "Alttan ışığın reddi: figür yalnız karşı ışıkla kurulu; 'görünür karanlık' cümlesiyle uyumlu.",
+    "Tek odak, perspektifli göl, kâğıt kütle + mürekkep vuruşlu ön alevler.",
+    "Kamera yaklaşmasının 1,25 ile sınırlı olması."
+  ],
+  "en_emin_olmadigim_nokta": "Oyma titremesinin dozu. Fazlası kareyi 'elle çizilmiş titrek' ya da 'bozuk baskı' gibi gösterir; azı fark edilmez. Bir deneme karesinde 0,6 / 1,0 / 1,5 px genlikle üç sürüm yan yana bakılmalı. Ayrıca bu öneri tur 1'den beri ilk kez dile geliyor, çünkü daha büyük sorunlar önündeydi; sonradan icat edilmiş bir koşul gibi okunmasın: ölçüt aynı ('levhanın yanında bitmiş durur'), yalnız sıra ona geldi."
+}

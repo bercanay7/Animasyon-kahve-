@@ -47,7 +47,7 @@ function cizGol(t, o = {}) {
   }
   GR.tx.restore();
   // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle)
-  PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .5, strip: .5 });
+  PR.flameBank(FX - 340, FX - 70, WY + 40, 150, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .5, strip: .5 });
   PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6, solidBelow: 500, speed: .5, strip: .5 });
   // sağ ön: büyük alev dilleri (çerçeve); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
   PR.flameBank(1480, W + 120, H + 30, 380, t, 14, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55, curl: .45, lean: -.1 });

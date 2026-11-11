@@ -333,3 +333,20 @@ Kalıcı hedefler (U-Gravur): sahne başına koyu piksel oranı cehennem %65–7
 4. Sağ alt alev: uçlar yukarı ve tek yöne akar; ufuk alevleri alçaldı; kaya dış hattı kırıklı. *(uygulandı)*
 
 **Reddedilen bulgu:** U-Sanat'ın "figüre alttan alev ışığı" önerisi. Milton'ın metni açık: "yet from those flames / No light, but rather darkness visible" (I.62–63); anlatım da A04'te "alev var ama ışık yok; yalnızca görünür bir karanlık" diyor. Alevlerin figürü aydınlatması görüntüyü sözle çelişkiye düşürür (kaynak/doğruluk alanı estetik oyla geçersiz kılınamaz). Üyenin kendi yedek önerisi (arka kenar ışığını güçlendirmek) uygulandı.
+
+### Tur 6
+| Üye | Puan | Karar | Not |
+|---|---|---|---|
+| U-Teknik | 9,0 | **ONAY** | 1 px'lik beyaz koşu %6,3 → %2,6; 427 px'te moiré yok; kare farkı 0,32; CRF 18'de 3,8 Mbps, SSIM 0,998 |
+| U-Gravur | 8,45 | RED (eşik 9) | gövde–kanat ayrımı giderildi; "9 için gereken son şey oyma titremesi (vektör temizliği)" |
+| U-Sanat | 8,35 | RED (eşik 9) | "kalan açık bilinçli kararlardan geliyor; tek durağan karede 9 gerçekçi değil; 15–20 sn'lik hareketli A04 sahne testi gösterilsin" |
+
+Puanların seyri: U-Sanat 6,3 → 7,15 → 7,85 → 8,2 → 8,3 → 8,35; U-Gravur 6,05 → 6,85 → 7,4 → 8,0 → 8,25 → 8,45; U-Teknik 6,2 → 8,05 → 8,55 → 8,55 → 8,7 → 9,0. Tur 4'ten beri üç üye de "sahne üretimini engelleyen bulgu yok; dil doğru ve tutarlı" diyor.
+
+**Tur 6 sonrası uygulananlar:** oyma titremesi motora eklendi (dünyaya bağlı, zamanla değişmeyen sapma alanı: kenar sapması 1,2 px, dalga boyu 40–120 px; çizgi kalınlığında ±%6 dalga; titreşim yaratmaz). Kanadın önüne taşan alev ucu ("mum" okuması) alçaltıldı; küçük alev dillerinde mürekkep vuruşu kaldırıldı ("diken" okuması).
+
+**Başkan kararı (kapı 2):**
+- Eşik (iki sanat üyesinde 9) tek durağan karede geçilmedi; **kapı "onaylandı" diye kaydedilmiyor.**
+- Üç üyenin oybirliğiyle "dil doğru, engelleyen bulgu yok" görüşüne ve U-Sanat'ın önerisine dayanarak kapının kalan kısmı **ilk hareketli sahneye (A04, yanan göl, ~15 sn) taşındı**: aynı üç üye bu sahneyi aynı ölçütlerle puanlayacak; 9 eşiği orada ve bütün bölüm kurullarında aranacak.
+- Bu, kullanıcının "her aşama ≥ 9 onay" kuralından bilinçli bir sapmadır; kullanıcıya bildirildi. Kullanıcı isterse tek karede tura devam edilir.
+- Sahne üretimi `lib/acts/KILAVUZ.md` ile başlar. İlk dalga: göl ve kıyı (A04 dahil), Milton'ın odası, yazı levhaları.

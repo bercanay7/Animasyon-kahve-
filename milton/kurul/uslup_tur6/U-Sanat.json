@@ -1,0 +1,40 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 8.35,
+  "puanlar": {"U1": 8, "U2": 8.5, "U3": 8.5, "U4": 8.5, "U5": 8, "U6": 8.5},
+  "dokuza_kalan": 0.65,
+  "puan_gerekcesi": "Dürüst puan 8,35 (tur 5'te 8,3). Gövde ile kanat arasındaki ayrım ve arka/üst kenar ışığı figürü belirgin biçimde kanadın önüne çıkardı; U4 8'den 8,5'e çıktı. Alttan alev ışığının reddini kabul ediyorum: kaynak gerekçesi (I.62–63, A04 anlatımı) doğru ve görüntü sözle çelişmemeli. Kalan açık iki türlü. (a) Birkaç küçük kalıntı: kanadın içinde mum alevi ya da gözyaşı gibi duran beyaz damla, sağ uzak alevlerde diken okuması, sağ bulut ucunda spiral. Bunlar U5'i 8'de tutuyor. (b) Tek bir durağan karede bu yöntemle artık kolay kapanmayacak bir tavan: figür bilinçli olarak düz siyah siluet (yönetmenlik kuralı), dil Doré'den çok linol baskı ya da gravür afişi gibi. Kalıntılar temizlense karenin 8,6–8,7 civarına çıkacağını tahmin ediyorum. 9'a bu karede küçük düzeltmelerle ulaşmak gerçekçi değil.",
+  "olcumler": {
+    "koyu_<60": 0.744,
+    "kagit_>200": 0.171,
+    "kare_farki_ortalama": 0.53,
+    "en_kotu_64px_blok": 9.4,
+    "not": "Brief ile uyumlu; titreşim sorunu yok."
+  },
+  "tur5_bulgulari": [
+    {"no": 1, "bulgu": "Figür alev ışığı almıyor, sahneden kopuk", "durum": "kaynak gerekçesiyle reddedildi; yedek öneri uygulandı (kısmen giderildi)", "not": "Baş, ense ve omuz üstündeki kenar ışığı güçlendi. Gövdenin ışık yanında kanattan ayıran kâğıt boşluğu var; sağ kol kanadın önünde ayrışıyor (x 960–1110, y 600–790). Figür artık kanada yapışık görünmüyor. Yeni küçük not: gövdedeki yatay vuruşlar (x 840–960, y 570–790; yakin_z1.25'te x 860–1000, y 540–760) yer yer kaburga ya da çizgili kumaş gibi okunuyor. Düşmüş bir figürde kaburga okuması rahatsız etmiyor; vuruşların yönü biraz eğilirse ve sıklığı düzensizleşirse kas gibi okunur."},
+    {"no": 2, "bulgu": "Sağ bulutta göz okuması", "durum": "büyük ölçüde giderildi", "not": "Badem biçimli göz kalktı. Sağ kenardaki küçük kıvrık uç hâlâ var (x 1855–1905, y 365–410); salyangoz ya da spiral gibi, küçük."},
+    {"no": 3, "bulgu": "Sağ uzak alevlerde diken; bulut altında hortum", "durum": "kısmen", "not": "Hortum okuması gitti, alevler alçaldı. Ama sağ uzak grup (x 1240–1700, y 600–680) hâlâ düz beyaz bir taban şeridi ve üstünde ince siyah kancalar; alev değil diken ya da pençe gibi. Ufuk uzaklığında okunması kritik değil, ama U5'i aşağı çekiyor."},
+    {"no": 4, "bulgu": "Sol kanatta beyaz damla", "durum": "giderilmedi", "not": "Kanat içinde tek bir beyaz damla ya da mum alevi biçimi hâlâ var (ana karede x 560–580, y 575–610; yakin_z1.25'te x 535–555, y 515–555). Muhtemelen tüyler arasından görünen uzak bir alev. Kanadın içinde gözyaşı ya da mum gibi okunuyor ve göz oraya takılıyor."},
+    {"no": 5, "bulgu": "Kaya dış kenarı poligon", "durum": "giderildi", "not": "Kırıklı dış hat organik ve iyi."}
+  ],
+  "duzeltmeler": {
+    "engelleyen": [],
+    "sahne_uretimi_sirasinda": [
+      {"sira": 1, "bolge": "sol kanat x 560–580, y 575–610", "sorun": "Kanat içinde beyaz damla ya da mum alevi biçimi.", "oneri": "Kanadın arkasından görünen uzak alevleri kanat siluetiyle maskele (kanat dolgusu alev katmanının önünde, boşluksuz olsun). Ya da sol uzak alev bandını x < 330'da bitir.", "onem": "orta"},
+      {"sira": 2, "bolge": "sağ uzak alevler x 1240–1700, y 600–680", "sorun": "Beyaz şerit üstünde siyah kancalar diken gibi okunuyor.", "oneri": "Uzak ölçekte mürekkep vuruşunu kaldır ya da tek bir kısa vuruşa indir; beyaz dil kütlesi taban şeridinin en az 3 katı yükselsin. Alternatif: bu grubu tamamen kaldır; ufuk parıltısı ve sol uzak alev bandı yeter.", "onem": "orta"},
+      {"sira": 3, "bolge": "gövde x 840–960, y 570–790", "sorun": "Yatay ve paralel vuruşlar kaburga ya da çizgili kumaş gibi.", "oneri": "siluet.js: gövde vuruşlarına ±12–20° yön farkı ve düzensiz aralık ver, ışık tarafında daha uzun olsunlar. Kesit boyunca giden kavis korunsun.", "onem": "düşük"},
+      {"sira": 4, "bolge": "sağ bulut ucu x 1855–1905, y 365–410", "sorun": "Spiral ya da salyangoz biçimli kıvrık uç.", "oneri": "Hilal eğriliğine sınır koy; uç kendine dönmesin.", "onem": "düşük"}
+    ]
+  },
+  "baskana_not": "Tur 4'ten beri bu karede engelleyen bir bulgum yok; dilin kendisini (değer planı, tek odak, 'beyaz çizgi' grameri, alev dili, siluet figür, titreşimsiz motor) onaylanabilir buluyorum. Son iki turda puan 8,2 → 8,3 → 8,35 arttı: getiri azalıyor. Kalan açığın büyük kısmı tek bir durağan karede küçük düzeltmelerle kapanmaz; bilinçli kararlardan (siluet figür, alttan ışık yok, gravürün sadeleştirilmesi) geliyor. Önerim: yukarıdaki 4 küçük düzeltme yapılsın, ardından tek kareyi yeniden puanlamak yerine 15–20 saniyelik hareketli bir sahne testi (A04, kamera kayması ve alev hareketiyle) kurula gösterilsin. Hareket potansiyelini (U6) ve 'ucuz durmama' isteğini (U5) asıl o test gösterir. 9 eşiğinin bu kapıda katı uygulanıp uygulanmayacağı başkanın kararı. Benim kanaatim, bu dilin sahne üretimine başlamak için yeterli olduğu.",
+  "korunmali": [
+    "Gövde ile kanat ayrımı (ışık yanında kâğıt boşluğu) ve güçlenmiş arka/üst kenar ışığı.",
+    "Kırıklı kaya kenarı, tek alev dili, sivrilen huzmeler, perspektifli göl.",
+    "Tek odak ve değer planı; titreşimsiz motor."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Hayır. Koşul aynı: cennet ve Aden sahneleri yüksek anahtarda kurulsun.",
+  "en_emin_olmadigim_nokta": "8,35 ile 9 arasındaki farkın ne kadarının gerçek bir kalite eksiği, ne kadarının benim ölçütümün (U1: 'Doré'yi çağrıştırıyor mu') bilinçli olarak sadeleştirilmiş bir dile uygulanmasından geldiği. Kullanıcı 'göz yormasın' önceliğini koyduğu için dil Doré'nin yoğunluğundan kasten uzak. Bunu kusur saymaya devam edersem U1 8'de takılı kalır. Bu sorunun cevabı tek karede değil, hareketli sahne testinde ve kullanıcının kendi gözünde."
+}
