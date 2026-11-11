@@ -453,3 +453,10 @@ function oku_k15b(st) {
   kit_yaz('Cromwell, 1657', 960, 900 - 40, { f: 'a', px: 68, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
 }
 plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ── P002g (A02 sonu → A03): ön gösterim (başkan eklemesi, kapak kurulu tur 1) ──
+// "…en parlak meleğiydi." biter bitmez, A03 başlamadan önceki ~1,3 sn'lik sessizlikte Cabanel'in gözü ve biriken damla.
+// Amaç: finaldeki gözyaşını (L03) açılışta ekmek; gözyaşı kapağının vaadi ilk 11 saniyede karşılanır.
+shot(Se('A02') + .05, (ctx, st) => {
+  levha(ctx, { cx: 940, cy: 520, z: 1 }, () => cab_yakin(st.t, { yas: lerp(.45, 1, E.out2 ? E.out2(st.p) : st.p), kay: 0 }), [.03, 0, 1]);
+}, { id: 'P002g', tr: { type: 'cut' } });

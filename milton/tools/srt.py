@@ -11,16 +11,52 @@ def fmt(t):
     ms = int(round(t * 1000)); h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
     return f'{h:02d}:{m:02d}:{s:02d},{ms:03d}'
 
-def wrap(words):
-    """iki satıra dengeli böl"""
+# ---- dile duyarlı bölme cezaları (kurul/kurgu_tur1/Y-Altyazi.md, kural #2-#4) ----
+SOFT = 44  # yumuşak satır sınırı: 43-44 küçük ceza, üstü büyük ceza
+DANGLE = set('bir bu şu o en çok daha bütün her hiç ve ama ya da de ki için gibi kadar ile mi mı mu mü'.split())  # satır/altyazı sonunda kalmamalı
+ADJNUM = set('ilk son tek aynı başka diğer kendi büyük küçük yeni eski bazı birçok birkaç hangi kaç ne hiçbir iki üç dört beş altı yedi sekiz dokuz on yirmi yüz bin'.split())  # sıfat/sayı + ad ayrılmasın
+LEAD = set('kadar gibi için ile mi mı mu mü'.split())  # öncekine bağlı sözcükler satır/altyazı başında yalnız kalmasın
+def _low(w): return w.replace('İ', 'i').replace('I', 'ı').lower()
+def _core(w): return re.sub(r'[,;:.?!…”“"]+$|^[“"]+', '', w)
+def pen_end(w):
+    """w sözcüğünden sonra kesmenin cezası (negatif = ödül)"""
+    if w[-1] in ',;:.?!…' or w[-2:] in ('.”', '?”', '!”', ',”'): return -25
+    c = _low(_core(w)); p = 0
+    if c in DANGLE: p += 60
+    if re.search(r"'(n?[ıiuü]n)$", c) or (len(c) >= 6 and re.search(r'n[ıiuü]n$', c)): p += 50  # tamlayan eki
+    if c in ADJNUM: p += 40
+    return p
+def pen_start(w):
+    return 40 if _low(_core(w)) in LEAD else 0
+def open_quote_tail(words, n=4):
+    """son n sözcük içinde açılıp kapanmayan açılış tırnağı var mı"""
+    tail = words[-n:]
+    for i, w in enumerate(tail):
+        if '“' in w and '”' not in w[w.index('“'):] and not any('”' in x for x in tail[i + 1:]): return True
+    return False
+def pen_quote(prev, nxt):
+    """prev | nxt kesmesinde tırnak cezası"""
+    p = 0
+    if open_quote_tail(prev): p += 100  # alıntının başı önceki altyazının/satırın kuyruğuna sıkışmasın
+    if '”' in nxt[0] and '“' not in nxt[0] and not any('“' in x for x in prev[-6:]): p += 80  # kapanış tırnağı ilk sözcükte yalnız kalmasın
+    return p
+def brk_pen(prev, nxt):
+    return pen_end(prev[-1]) + pen_start(nxt[0]) + pen_quote(prev, nxt)
+def over_pen(n):
+    o = n - MAXL
+    return 0 if o <= 0 else 15 * min(o, SOFT - MAXL) + 100 * max(0, n - SOFT)
+def wrap2(words):
+    """iki satıra dil bilgisine duyarlı böl → (metin, maliyet)"""
     s = ' '.join(words)
-    if len(s) <= MAXL: return s
-    best, bi = 1e9, 1
+    best, bi = (over_pen(len(s)), 0) if len(s) <= SOFT else (1e9, 0)
+    if len(s) <= MAXL or len(words) < 2: return s, best
     for i in range(1, len(words)):
         a, b = ' '.join(words[:i]), ' '.join(words[i:])
-        cost = abs(len(a) - len(b)) - (12 if words[i - 1][-1] in ',.:;…?!' else 0) + 100 * max(0, len(a) - MAXL, len(b) - MAXL)
+        cost = abs(len(a) - len(b)) + brk_pen(words[:i], words[i:]) + over_pen(len(a)) + over_pen(len(b))
         if cost < best: best, bi = cost, i
-    return ' '.join(words[:bi]) + '\n' + ' '.join(words[bi:])
+    if bi == 0: return s, best
+    return ' '.join(words[:bi]) + '\n' + ' '.join(words[bi:]), best
+def wrap(words): return wrap2(words)[0]
 
 MERGE = {(sid, tok): n for sid, m in json.load(open(os.path.join(ROOT, 'tools', 'merge.json'))).items() if not sid.startswith('_') for tok, n in m.items()}
 cues = []
