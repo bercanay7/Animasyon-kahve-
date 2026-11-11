@@ -152,6 +152,25 @@ def short_term(x, win=3.0, hop=1.0):
     return st / SR, -0.691 + 10 * np.log10(pw + 1e-12)
 
 
+def ride(mu, vo, gap=SPEECH_GAP, up=3.0, down=-9.0):
+    """Yavaş fader (miksçinin eli): konuşma boyunca müziği anlatımın 'gap' LU altında tutar.
+    3 sn pencere / 0,5 sn adım; kazanç medyan + 2 sn ortalama ile yumuşatılır (pompalama yok);
+    konuşmasız aralarda komşu değerler arasında doğrusal geçer, yani aradaki nefes/kabarma korunur.
+    Yükseltme en çok +3 dB (seyrek bölümler seyrek kalır), kısma en çok -9 dB."""
+    from scipy.ndimage import median_filter
+    ts, lm = short_term(mu, 3.0, 0.5)
+    _, lv = short_term(vo[None, :], 3.0, 0.5)
+    sp = (lv > -26) & (lm > -70)
+    gdb = np.clip(lv - gap - lm, down, up)
+    if sp.sum() < 3:
+        return np.ones(mu.shape[1], np.float32)
+    tc = ts + 1.5
+    gi = np.interp(tc, tc[sp], median_filter(gdb[sp], 5, mode='nearest'))
+    gi = uniform_filter1d(gi, 4, mode='nearest')
+    print(f'fader: kazanç %5 {np.percentile(gi, 5):+.1f} dB, ortanca {np.median(gi):+.1f}, %95 {np.percentile(gi, 95):+.1f}', flush=True)
+    return db(np.interp(np.arange(mu.shape[1]) / SR, tc, gi)).astype(np.float32)
+
+
 def main():
     # bellek: 26 dk × 48 kHz stereo ≈ 550 MB/kanal (float64); ara diziler silinir, büyük diziler float32 tutulur
     stems = '--stems' in sys.argv
@@ -184,6 +203,7 @@ def main():
     g = (-16 - SPEECH_GAP) - float(np.median(lm[sp & (lm > -70)]))
     mu *= np.float32(db(g))
     print(f'müzik kazancı {g:+.1f} dB (konuşma altı ortanca → {-16 - SPEECH_GAP:.1f} LUFS)', flush=True)
+    mu *= ride(mu, vo)[None, :]
     # vuruşların tepeleri son sınırlayıcıyı çalıştırıp anlatımı bastırmasın: müzik kendi sınırlayıcısından geçer (ses kurulu tur 1)
     # sınırlayıcı yalnız konuşma sırasında sıkı (-8 dBFS); konuşmasız boşlukta doruklar serbest (-1 dBFS) (ses kurulu tur 2)
     va = (np.clip((20 * np.log10(envelope(vo) + 1e-9) + 42) / 10, 0, 1) > .3).astype(np.float32)

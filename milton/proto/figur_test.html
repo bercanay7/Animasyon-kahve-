@@ -7,7 +7,7 @@
 const Q=new URLSearchParams(location.search), V=+(Q.get('v')||1);
 const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
 // göl pozu (lib/sahne/gol.js için önerilen)
-const GOL={ x:0, y:0, h:98, facing:1, twist:.3, lean:.04, head:.42, shTilt:-.1, armN:[-2.55,-.35], armF:[.32,.12] };
+const GOL={ x:0, y:0, h:98, facing:1, twist:.3, lean:.04, head:.42, shTilt:-.1, armN:[.3,.25], armF:[.38,.2] };   // iki kol suda (yönetmen kararı)
 function split(x0,x1,y0,y1,xs){ const {tx,tone}=GR; const g=tx.createLinearGradient(x0,0,x1,0), u=(xs-x0)/(x1-x0);
   g.addColorStop(0,tone(.82)); g.addColorStop(Math.max(0,u-.03),tone(.9)); g.addColorStop(Math.min(1,u+.03),tone(.16)); g.addColorStop(1,tone(.08)); tx.fillStyle=g; tx.fillRect(x0,y0,x1-x0,y1-y0); }
 function chain(x0,y0,x1,y1){ const {tx,tone}=GR; tx.save(); tx.strokeStyle=tone(.55); tx.lineWidth=5; tx.setLineDash([16,6]); tx.beginPath(); tx.moveTo(x0,y0); tx.quadraticCurveTo((x0+x1)/2,(y0+y1)/2+10,x1,y1); tx.stroke(); tx.restore(); }
@@ -17,7 +17,7 @@ function renderFrame(t){ const {tx,tone}=GR; GR.begin(.6,0,1); let ms=0;
     D(SF.rig({x:250,y:560,h,facing:1,twist:.35,head:.15,armN:[-.15,.35],armF:[.5,.9],legN:[.1,-.1],legF:[-.12,-.05]}),{lum:0,lit:[.8,-.5],t,spear:{grip:'F',ang:.08},cloak:1});
     D(SF.rig({x:600,y:560,h,facing:1,twist:.8,lean:.12,head:-.1,armN:[-.35,.5],armF:[.45,.6],legN:[.45,-.25],legF:[-.4,-.35]}),{lum:.15,lit:[.8,-.5],t,spear:{grip:'F',ang:.2}});
     D(SF.rig({x:930,y:700,h,facing:-1,twist:.7,lean:.35,head:-.3,armN:[.5,.4],armF:[.9,.3],legN:[1.35,-1.6],legF:[.2,-1.5]}),{lum:.3,lit:[-.8,-.5],t,cloak:.7});
-    D(SF.rig({x:1400,y:560,h,facing:-1,twist:.3,head:.2,armN:[.12,.25],armF:[-.25,.3],legN:[.08,-.06],legF:[-.08,-.04]}),{lum:1,lit:[-.6,-.7],t,spear:{grip:'F',ang:-.05}});
+    D(SF.rig({x:1400,y:560,h,facing:-1,twist:.3,head:.2,armN:[.3,.6],armF:[-.12,.15],legN:[.08,-.06],legF:[-.08,-.04]}),{lum:1,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.05},cloak:1});
     D(SF.rig({x:1730,y:640,h:30,facing:-1,twist:.5,armN:[.1,.2]}),{lum:.9,lit:[-.6,-.7],t,spear:{grip:'N',ang:-.1}});
     D(SF.rig({x:1820,y:640,h:30,facing:1,twist:.5,armN:[.1,.2]}),{lum:0,lit:[.6,-.7],t,cloak:1});
   } else if(V===2||V===4){
@@ -35,7 +35,7 @@ function renderFrame(t){ const {tx,tone}=GR; GR.begin(.6,0,1); let ms=0;
   } else if(V===5){ // yakın inceleme: büyük boy (h 150), koyu ve açık
     split(0,W,0,H,960);
     D(SF.rig({x:480,y:960,h:150,facing:1,twist:.3,head:.35,armN:[-.3,.4],armF:[.4,.2]}),{lum:0,lit:[.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6});
-    D(SF.rig({x:1440,y:960,h:150,facing:-1,twist:.3,head:.1,armN:[.3,.4],armF:[-.4,.2]}),{lum:1,lit:[-.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6});
+    D(SF.rig({x:1440,y:960,h:150,facing:-1,twist:.3,head:.1,armN:[.3,.6],armF:[-.12,.15]}),{lum:1,lit:[-.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6,spear:{grip:'N',ang:-.05}});
   } else if(V===3){
     const L=[1,.6,.3,0], h=66;
     L.forEach((lum,i)=>{ const x=240+i*480; split(x-240,x+240,0,H,x+30);

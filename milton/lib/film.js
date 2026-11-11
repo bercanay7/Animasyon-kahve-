@@ -69,7 +69,7 @@ function drawFilm(ctx, t) {
   post(ctx, t);
 }
 // Son işlem: kâğıt dokusu + vinyet (baskı yüzeyi). Çekimler bunu kendileri uygulamaz.
-function post(ctx, t) { applyPaper(ctx, .8); applyVignette(ctx, .55); }
+function post(ctx, t) { applyPaper(ctx, .8); applyVignette(ctx, .45); }
 
 // Üst katman (ekran yazıları): baskıdan sonra, kamera dönüşümü olmadan çizilir (telefonda okunurluk).
 function drawOver(ctx, t) {

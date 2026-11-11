@@ -29,7 +29,7 @@ const SF = (() => {
     // kısa, kalın boyun: çene omuz çizgisinin ~.3 baş üstünde
     const nk = [shC[0] + up[0] * .14 * h, shC[1] + up[1] * .14 * h];
     const hd = [nk[0] + up[0] * .64 * h + rt[0] * f * .1 * h, nk[1] + up[1] * .64 * h + rt[1] * f * .1 * h];
-    const arm = (sh, a) => { const a1 = a[0] + lean * f, el = [sh[0] + dirv(a1, f)[0] * 1.45 * h, sh[1] + dirv(a1, f)[1] * 1.45 * h], a2 = a1 + a[1]; return [el, [el[0] + dirv(a2, f)[0] * 1.2 * h, el[1] + dirv(a2, f)[1] * 1.2 * h]]; };
+    const arm = (sh, a) => { const a1 = a[0] + lean * f, el = [sh[0] + dirv(a1, f)[0] * 1.35 * h, sh[1] + dirv(a1, f)[1] * 1.35 * h], a2 = a1 + a[1]; return [el, [el[0] + dirv(a2, f)[0] * 1.05 * h, el[1] + dirv(a2, f)[1] * 1.05 * h]]; };
     const leg = (hp, a) => { const kn = [hp[0] + dirv(a[0], f)[0] * 2.0 * h, hp[1] + dirv(a[0], f)[1] * 2.0 * h], a2 = a[0] + a[1]; return [kn, [kn[0] + dirv(a2, f)[0] * 1.95 * h, kn[1] + dirv(a2, f)[1] * 1.95 * h], a2]; };
     const [elN, wrN] = arm(shN, p.armN || [.12, .2]), [elF, wrF] = arm(shF, p.armF || [-.1, .15]);
     const [knN, anN, sN] = leg(hpN, p.legN || [.06, -.06]), [knF, anF, sF] = leg(hpF, p.legF || [-.06, -.04]);
@@ -52,56 +52,47 @@ const SF = (() => {
     const s1 = ((wr[0] - sh[0]) * (el[1] - sh[1]) - (wr[1] - sh[1]) * (el[0] - sh[0])) >= 0 ? 1 : -1; // bükümün iç yanı
     const inA = s1 > 0; // limb'in +normal yanı bükümün içi mi
     { const P = new Path2D(); P.ellipse(sh[0], sh[1] - .01 * h, .25 * h, .23 * h, 0, 0, TAU); out.push(P); } // omuz başı (deltoid + omuzluk)
-    out.push(limb(sh, el, inA ? bump(.26 * h, .16 * h, .06 * h, .42) : bump(.28 * h, .16 * h, .05 * h, .3), inA ? bump(.28 * h, .16 * h, .05 * h, .3) : bump(.26 * h, .16 * h, .06 * h, .42)));
-    out.push(circ(el, .165 * h));
-    out.push(limb(el, wr, bump(.18 * h, .115 * h, .06 * h, .22), bump(.175 * h, .115 * h, .045 * h, .3)));
+    out.push(limb(sh, el, inA ? bump(.23 * h, .2 * h, .11 * h, .45) : bump(.24 * h, .2 * h, .1 * h, .35), inA ? bump(.24 * h, .2 * h, .1 * h, .35) : bump(.23 * h, .2 * h, .11 * h, .45))); // uç omuz başının içinde kalır (köşe yok)
+    out.push(circ(el, .2 * h));
+    out.push(limb(el, wr, bump(.21 * h, .135 * h, .085 * h, .24), bump(.2 * h, .135 * h, .06 * h, .3)));
     // el: kapalı yumruk (kama), başparmak yumrusu
     const a = Math.atan2(wr[1] - el[1], wr[0] - el[0]), c = Math.cos(a), s = Math.sin(a), sd = sg;
     const loc = (x, y) => [wr[0] + (x * c - y * s * sd) * h, wr[1] + (x * s + y * c * sd) * h];
     const H = new Path2D();
-    spline(H, [[-.06, -.11], [.12, -.14], [.3, -.14], [.41, -.07], [.43, .04], [.37, .13], [.2, .17], [.04, .16], [-.06, .11]].map(([x, y]) => loc(x, y)), true, .8);
+    spline(H, [[-.1, -.15], [.18, -.2], [.5, -.19], [.72, -.1], [.76, .05], [.66, .18], [.36, .23], [.08, .22], [-.1, .15]].map(([x, y]) => loc(x, y)), true, .8); // ~.8 baş uzunluğunda kama/yumruk
     out.push(H);
     return out;
   }
   function legPaths(hp, kn, an, sa, h, f) {
     const out = [];
-    out.push(limb(hp, kn, bump(.37 * h, .2 * h, .05 * h, .3), bump(.35 * h, .19 * h, .04 * h, .35)));
-    out.push(circ(kn, .19 * h));
+    out.push(limb(hp, kn, bump(.45 * h, .24 * h, .08 * h, .3), bump(.43 * h, .23 * h, .06 * h, .35)));
+    out.push(circ(kn, .23 * h));
     // baldır arkada şişer (bakışın tersi); limb'in +normal yanı hangi yan?
     const nx = -(an[1] - kn[1]), back = (nx * f) < 0; // +normal bakışın tersine mi
-    out.push(limb(kn, an, back ? bump(.19 * h, .1 * h, .08 * h, .28) : bump(.18 * h, .1 * h, .02 * h, .2), back ? bump(.18 * h, .1 * h, .02 * h, .2) : bump(.19 * h, .1 * h, .08 * h, .28)));
+    out.push(limb(kn, an, back ? bump(.22 * h, .11 * h, .12 * h, .28) : bump(.21 * h, .11 * h, .03 * h, .2), back ? bump(.21 * h, .11 * h, .03 * h, .2) : bump(.22 * h, .11 * h, .12 * h, .28)));
     const F = new Path2D(); // ayak: bakış yönüne uzanan kama (çarık)
     spline(F, [[-.16, -.16], [.12, -.18], [.4, .0], [.66, .14], [.66, .22], [-.2, .22], [-.22, .05]].map(([x, y]) => [an[0] + x * f * h, an[1] + y * h]), true, .6);
     out.push(F);
     return out;
   }
   // baş profili (sağa bakar; dir ile aynalanır): alın, kaş çıkıntısı, burun, dudak, çene, çene açısı
-  const HEAD = [[-.4, -.06], [-.33, -.36], [-.06, -.52], [.22, -.46], [.34, -.3], [.38, -.16], [.42, -.09], [.38, -.03], [.45, .1], [.5, .15], [.4, .18],
-    [.41, .22], [.37, .25], [.4, .3], [.35, .35], [.38, .44], [.28, .53], [.12, .5], [-.02, .4], [-.2, .42], [-.36, .26]];
+  const HEAD = [[-.45, -.04], [-.43, -.3], [-.26, -.5], [.02, -.56], [.24, -.47], [.34, -.32], [.37, -.17], [.385, -.1], [.4, -.05], [.475, .1], [.45, .145], [.39, .165],
+    [.405, .215], [.39, .245], [.405, .28], [.375, .33], [.395, .41], [.34, .5], [.18, .52], [.02, .44], [-.14, .44], [-.32, .36], [-.44, .2]];
   function headLoc(cx, cy, h, dir, tilt) { const c = Math.cos(-tilt * dir), s = Math.sin(-tilt * dir); return (x, y) => { x *= dir * h; y *= h; return [cx + x * c - y * s, cy + x * s + y * c]; }; }
   function headPath(cx, cy, h, dir, tilt) { const L = headLoc(cx, cy, h, dir, tilt), P = new Path2D(); spline(P, HEAD.map(([x, y]) => L(x, y)), true, .55); return P; }
   // saç: kafatası örtüsü + geriye savrulan 7 sivri perçem (rüzgârla hafif oynar). Boncuk ve alın bandı yok.
   function hairPaths(cx, cy, h, dir, tilt, t, wind = 1, len = 1, seed = 3) {
     const r = rng(seed * 31 + 7), L = headLoc(cx, cy, h, dir, tilt), out = [];
-    const cap = new Path2D(); // kafatasını arkadan ve üstten taşan saç kütlesi (alın çizgisi açık kalır)
-    spline(cap, [[.24, -.44], [.02, -.6], [-.3, -.55], [-.5, -.32], [-.52, -.05], [-.42, .18], [-.28, .22], [-.16, .02], [0, -.22], [.2, -.32]].map(([x, y]) => L(x, y)), true, .8);
-    out.push(cap);
-    const n = 6;
-    for (let i = 0; i < n; i++) {
-      // kökler saç kütlesinin arka kenarında; perçemler geriye (rüzgâr yönüne) akar, uçları hafif kıvrılır
-      const u = i / (n - 1), phi = lerp(-.15, 1.85, u) + (r() - .5) * .1;
-      const root = [-.1 - Math.sin(phi) * .3, -.14 - Math.cos(phi) * .32];
-      const sway = Math.sin(t * (1.1 + .19 * i) + i * 1.7) * .07 * wind + Math.sin(t * .43 + i * 2.1) * .04 * wind;
-      let d = [-1, lerp(-.5, .55, u) - .1 * wind]; { const l = Math.hypot(d[0], d[1]); d = [d[0] / l, d[1] / l]; }
-      const ca = Math.cos(sway), sa = Math.sin(sway); d = [d[0] * ca - d[1] * sa, d[0] * sa + d[1] * ca];
-      const Ln = (.42 + .2 * r()) * lerp(1.1, .7, u) * (len > 1 ? 1 + .4 * (len - 1) : 1), w = .14 + .05 * r();
-      const nn = [-d[1], d[0]], tip = [root[0] + d[0] * Ln, root[1] + d[1] * Ln - .07], curl = (.07 + .05 * r()) * (u < .5 ? -1 : 1);
-      const mid = [root[0] + d[0] * Ln * .5 + nn[0] * curl, root[1] + d[1] * Ln * .5 + nn[1] * curl];
-      const a0 = L(root[0] + nn[0] * w, root[1] + nn[1] * w), a1 = L(root[0] - nn[0] * w, root[1] - nn[1] * w);
-      const m0 = L(mid[0] + nn[0] * w * .75, mid[1] + nn[1] * w * .75), m1 = L(mid[0] - nn[0] * w * .6, mid[1] - nn[1] * w * .6), T = L(tip[0], tip[1]);
-      const P = new Path2D(); P.moveTo(a0[0], a0[1]); P.quadraticCurveTo(m0[0], m0[1], T[0], T[1]); P.quadraticCurveTo(m1[0], m1[1], a1[0], a1[1]); P.closePath();
-      out.push(P);
-    }
+    // başın arkasına akan tek yumuşak kütle; ucunda 3 yumuşak, kıvrık tutam (sivri diken yok). Salınım küçük.
+    const sw = k => [Math.sin(t * .9 + k * 1.3) * .025 * wind - .03 * wind, Math.sin(t * .7 + k) * .02 * wind];
+    const j = () => (r() - .5) * .03;
+    const pts = [[.24, -.43], [.08, -.58], [-.16, -.62], [-.38, -.56], [-.52, -.44],
+      [-.61 + j(), -.34 + j()], [-.59, -.24],       // tutam 1
+      [-.61 + j(), -.14 + j()], [-.57, -.04],       // tutam 2
+      [-.56 + j(), .06 + j()], [-.48, .14],         // tutam 3
+      [-.42, .22], [-.3, .16], [-.24, -.04], [-.08, -.3], [.12, -.38]]
+      .map((p, k) => { const w = k >= 4 && k <= 11 ? sw(k) : [0, 0], m = k >= 4 && k <= 11 ? 1 : 0; return L(p[0] + w[0] * m, p[1] + w[1] * m); });
+    const P = new Path2D(); spline(P, pts, true, .7); out.push(P);
     return out;
   }
 
@@ -127,7 +118,7 @@ const SF = (() => {
   // o: {lum (0..1), lit: [x,y] (ışığa doğru), t, anchor, eye (0..1), hair (false | uzunluk), wind, spear: {grip:'N'|'F', ang, len, up},
   //   armor (true), skirt (true), legs (true), waterY (bu çizginin altı çizilmez), rim (kenar ışığı kalınlığı, baş biriminde; .07),
   //   tilt, headScale, seed,
-  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (beyaz çizgi sayısı, 0–4; 3), armorAlpha (.85)}
+  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (beyaz çizgi sayısı, 0–4; 2), armorAlpha (.85)}
   function draw(J, o = {}) {
     const h = J.h, f = J.f, lum = clamp(o.lum ?? 0), t = o.t || 0, wind = o.wind ?? 1;
     let lit = o.lit || [.7, -.7]; { const l = Math.hypot(lit[0], lit[1]) || 1; lit = [lit[0] / l, lit[1] / l]; }
@@ -162,7 +153,7 @@ const SF = (() => {
       P.closePath();
       cloakP = P; G[0].push(P);
     }
-    HSs[0] = { type: 'bend', ox: Q(0, 0)[0], oy: Q(0, 0)[1], a: Math.atan2(dn[1], dn[0]) + (-.25 * f), k: -.0015 * f, id: 9 };
+    HSs[0] = { type: 'bend', ox: Q(0, 0)[0], oy: Q(0, 0)[1], a: Math.atan2(dn[1], dn[0]) + (-.25 * f), k: -.0015 * f, id: 0 };
     // uzak taraf: kol, bacak, (uzak elde) mızrak
     const spearP = sp => { const g = J['wr' + sp.grip], a = (sp.ang ?? 0) * f, d = [Math.sin(a), -Math.cos(a)], L = (sp.len ?? 7.5) * h, u = sp.up ?? .62;
       const top = [g[0] + d[0] * L * u, g[1] + d[1] * L * u], bot = [g[0] - d[0] * L * (1 - u), g[1] - d[1] * L * (1 - u)], n = [d[1], -d[0]], w0 = Math.max(.045 * h, 1.6);
@@ -181,7 +172,7 @@ const SF = (() => {
       [2.32, -(hwH + .3)], [2.05, -(hwH + .27)], [1.68, -(hwH + .1)], [1.3, -(swH * .72 + .06)], [.9, -(swH * .9 + .06 + .1 * tw)], [.5, -(swH + .14)], [.2, -(swH + .14)], [-.05, -(swH * .85 + .04)], [-.13, -(swH * .5 + .04)], [-.2, -.24]].map(([a, s]) => Q(a, s)), true, .75);
     G[2].push(T);
     const hd = J.hd, HL = headLoc(hd[0], hd[1], hh, f, tilt);
-    G[2].push(limb(Q(.15, .02), HL(-.04, .38), () => .22 * h, () => .21 * h, 4));    // boyun: başın ~%50'si kalınlığında
+    G[2].push(limb(Q(.16, .08), HL(-.02, .36), () => .27 * h, () => .26 * h, 4));    // boyun: kalın, öne eğik; çene altını doldurur
     if (o.skirt !== false && legs) {
       const K = new Path2D(), n = 7, y0 = 1.95, y1 = 2.95, w0 = hwH + .3, w1 = hwH + .46, pts = [Q(y0, -w0)];
       for (let i = 0; i < n; i++) { const a = -w1 + (i / n) * 2 * w1, b = -w1 + ((i + 1) / n) * 2 * w1, sw = Math.sin(t * 1.1 + i * 1.7) * .015 + (i % 2) * .05; pts.push(Q(y1 + sw, a + .02), Q(y1 + sw, b - .02), Q(y1 - .08, b)); }
@@ -213,7 +204,7 @@ const SF = (() => {
 
     // ── tonlar ve etkiler (lum'a bağlı yumuşak geçişler) ──
     const core = lerp(.03, .97, sst(.1, .9, lum) ** 1.3);
-    const coreG = [lerp(.03, .62, sst(.1, .9, lum)), lum < .2 ? core : lerp(core, core * .72, sst(.2, .8, lum)), core, core];
+    const coreG = [core, lum < .2 ? core : lerp(core, core * .72, sst(.2, .8, lum)), core, core];
     const sRim = 1 - sst(.45, .85, lum), sWL = 1 - sst(.12, .4, lum), sLit = sst(.06, .35, lum) * (1 - sst(.75, 1, lum)), sSh = sst(.3, .7, lum), sInk = sst(.35, .75, lum);
     const rw = Math.max(3, hd_ * (o.rim ?? .075));
     // ışık merkezi: kenar ışığı burada en kalın; uzaklaştıkça incelir (beyaz çizgiler incelip söner, saydamlaşmaz)
@@ -235,8 +226,7 @@ const SF = (() => {
       if (o.armor !== false && hd_ > 40) {
         any = true; const k = sc0, wA = Math.max(3, hd_ * .034);
         taper(Z, [Q(.1, cs - .46), Q(.27, cs - .14), Q(.29, cs + .1), Q(.12, cs + .44)], wA, k);                 // yaka
-        taper(Z, [Q(.34, cs), Q(.75, cs + .02), Q(1.2, cs * .9)], wA * .9, k);                                // ortadan inen tek sırt çizgisi
-        for (let b2 = 0, nb = lum < .5 ? 2 : 3; b2 < nb; b2++) { const al = 1.36 + b2 * (lum < .5 ? .3 : .22); taper(Z, [Q(al, -(swH * .72 + .05)), Q(al + .07, cs), Q(al, swH * .72 + .1)], wA * (1 - .12 * b2), k); } // lorika bantları
+        for (let b2 = 0, nb = lum < .5 ? 0 : 1; b2 < nb; b2++) { const al = 1.45; taper(Z, [Q(al, -(swH * .72 + .05)), Q(al + .07, cs), Q(al, swH * .72 + .1)], wA * (1 - .12 * b2), k); } // lorika bantları
         taper(Z, [Q(1.98, -(hwH + .3)), Q(2.03, cs), Q(1.98, hwH + .3)], wA * 1.3, k);                        // kemer
         for (const sd of [-1, 1]) taper(Z, [Q(-.04, sd * swH * .55), Q(.1, sd * (swH + .12)), Q(.42, sd * (swH + .24))], wA * .9, k); // omuzluk kenarı
         if (o.skirt !== false && legs) for (let i = 1; i < 7; i += 2) { const a2 = -(hwH + .46) + (i / 7) * 2 * (hwH + .46); taper(Z, [Q(2.1, a2 * .85), Q(2.85, a2)], wA * .8, k); }
@@ -258,7 +248,7 @@ const SF = (() => {
       const xi = x | 0, yi = y | 0, fx = x - xi, fy = y - yi, i = (yi * BW + xi) * 4 + 3;
       return ((a[i] * (1 - fx) + a[i + 4] * fx) * (1 - fy) + (a[i + BW4] * (1 - fx) + a[i + BW4 + 4] * fx) * fy) * (1 / 255);
     };
-    const nWL = hd_ > 40 ? Math.round(clamp(o.lines ?? 3, 0, 4)) : 0, gapWL = Math.max(9, hd_ * .11);
+    const nWL = hd_ > 40 ? Math.round(clamp(o.lines ?? 2, 0, 4)) : 0, gapWL = Math.max(9, hd_ * .11);
     const WL = []; { let a = rw; for (let j = 0; j < nWL; j++) { const w = Math.max(3.2, hd_ * (.052 - .008 * j)); a += gapWL * (1 + .35 * j); WL.push([a, w]); a += w; } }
     const Dl = hd_ * lerp(.25, .45, lum), Ds = hd_ * .2, rI0 = Math.max(1.4, hd_ * .016), rI1 = Math.max(1.6, hd_ * .04);
     const DIR = Array.from({ length: 8 }, (_, k) => { const a = k * TAU / 8, dx = Math.cos(a), dy = Math.sin(a); return [dx, dy, rI0 + rI1 * Math.max(0, -(dx * lx + dy * ly))]; });
@@ -277,7 +267,8 @@ const SF = (() => {
         const a = AM[g]; if (!a) continue; const c = a[i + 3] * (1 / 255); if (c <= 0) continue;
         let tg = coreG[g];
         if (sLit > .01 && !full(a, x + lx * Dl, y + ly * Dl)) { let n = 0; for (let k = 1; k <= 4; k++) n += smp(a, x + lx * Dl * k / 4, y + ly * Dl * k / 4); tg += (Math.min(1, coreG[g] + .5) - tg) * sLit * (1 - n / 4); }
-        if (sSh > .01 && !full(a, x - lx * Ds, y - ly * Ds)) { let n = 0; for (let k = 1; k <= 4; k++) n += smp(a, x - lx * Ds * k / 4, y - ly * Ds * k / 4); tg += (Math.max(0, coreG[g] - .35) - tg) * sSh * .85 * (1 - n / 4); }
+        const Dsg = g === 0 ? Ds * 2.4 : Ds;
+        if (sSh > .01 && !full(a, x - lx * Dsg, y - ly * Dsg)) { let n = 0; for (let k = 1; k <= 4; k++) n += smp(a, x - lx * Dsg * k / 4, y - ly * Dsg * k / 4); tg += (Math.max(0, coreG[g] - (g === 0 ? .6 : .35)) - tg) * sSh * .85 * (1 - n / 4); }
         if (sInk > .01 && !(full(a, x + rIm, y) && full(a, x - rIm, y) && full(a, x, y + rIm) && full(a, x, y - rIm))) { let e = 1; for (let k = 0; k < 8 && e > 0; k++) { const D = DIR[k], s = smp(a, x + D[0] * D[2], y + D[1] * D[2]); if (s < e) e = s; } tg -= tg * sInk * (1 - e); }
         if (doRL) {
           // hızlı ret: ışık yönünde en derin örnek de kütlenin içindeyse kenar ışığı ve beyaz çizgi yok
