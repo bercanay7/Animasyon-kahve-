@@ -289,7 +289,7 @@ function kit_ikiPano(st, o = {}) {
   // sağ: kalabalık sola gider; tek figür sağa yürür, sırtı kalabalığa dönük
   if (a2 > 0) pano(P2, () => {
     kit_yer(P2[0], P2[2], G + 6, { w: 3 });
-    kit_kalabalik(1040, 1420, G, 50, -1, 23, a2);
+    kit_kalabalik(1040, 1420, G, 50, -1, 23, a2 * (1 - .72 * (o.sonuk || 0)));
     kit_bas(kit_pelerinli(1640, G + 8, 56, 1, { tilt: .05, walk: true, seed: 9 }), .02, a2, 4);
     if (a2 >= 1) kit_kivrim(1640, G + 8, 56, 1, 6, .97, 3);
   });
@@ -550,3 +550,116 @@ plan('P142', (ctx, st) => levha(ctx, null, () => {
   kit_cizgi(960, 760, 260, { a: 1 });
   kit_yaz('ZAMAN KURYESİ', 960, 830, { f: 'b', px: 64, ls: 16, a: kit_a(t, S('L11') + .2, 1.2), wipe: true });
 }, [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ════════════════ BİLEŞİK LEVHALAR ════════════════
+// Her pano kendi gravür geçişiyle (kendi kamerasıyla) ayrı bir tuvale basılır, sonra levhanın üstüne kendi dikdörtgenine kırpılarak konur.
+// Böylece başka setlerin çizicileri (iç içe GR.frame kullananlar dahil) hiç değiştirilmeden yarım ya da üçte bir levhaya girer.
+const KIT_BUF = [0, 1, 2].map(() => { const c = makeCanvas(DW, DH); return c.getContext('2d', { willReadFrequently: true }); });
+function kit_pano(ctx, i, cam, fn, r, bg = [.04, 0, 1]) {   // r: [x, y, w, h] ekran px
+  if (r[2] <= 1 || r[3] <= 1) return;
+  const b = KIT_BUF[i]; levha(b, cam, fn, bg);
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.rect(r[0] * RS, r[1] * RS, r[2] * RS, r[3] * RS); ctx.clip(); ctx.drawImage(b.canvas, 0, 0); ctx.restore();
+}
+// pano kamerası: dünya noktası (wx, wy), panonun ortasına (r) gelsin; z yakınlık
+const kit_panoKam = (wx, wy, r, z = 1) => ({ cx: wx - (r[0] + r[2] / 2 - W / 2) / z, cy: wy - (r[1] + r[3] / 2 - H / 2) / z, z });
+
+// ════════ P015 (B08): ikiye bölünmüş levha: karanlıkta kör şair | gölde melek; iki yarı ortadan açılır ════════
+plan('P015', (ctx, st) => {
+  const t = st.t, u = E.io2(kit_a(t, S('B08') - .1, 1.3)), w = 880 * u;
+  levha(ctx, null, () => { const B = new Path2D(); B.rect(-10, -10, W + 20, H + 20); kit_dol(B, .03); kit_cerceve(.95); }, [.03, 0, 1]);
+  const RL = [960 - 8 - w, 62, w, H - 124], RR = [968, 62, w, H - 124];
+  kit_pano(ctx, 0, kit_panoKam(720, 520, [80, 62, 880, H - 124]), () => cizOda(t, { sair: { bas: .5 } }), RL, [.03, 0, 1]);
+  kit_pano(ctx, 1, kit_panoKam(900, 560, [968, 62, 880, H - 124]), () => cizGol(t, { head: .5, sway: .02 }), RR);
+}, { tr: KIT_TR });
+
+// ════════ P111 (J06): Nifates'te dik duran siluet | tıslayan salon ════════
+function kit_salon(t, uz) {   // sade salon: üstten sızan ışık, iki sütun; boyunları uzayan koyu kalabalık kütlesi, açık ağızlar
+  const { tx } = GR;
+  tx.fillStyle = GR.tone(.04); tx.fillRect(-200, -200, W + 400, H + 400);
+  PR.glow(1440, 360, 60, 560, 1, .95); PR.glow(1440, 360, 20, 260, 1, .8);
+  for (const x of [1080, 1800]) { const C = new Path2D(); C.rect(x - 38, 60, 76, 1000); GR.fill(C, GR.tone(.03), { th: 0, id: 0 }); kit_hat(x - 30, 70, x - 30, 1000, 4, .9); }
+  const r = rng(91), rows = [[640, 30, .7], [720, 40, .85], [820, 52, 1]];
+  for (const [yb, s, k] of rows) {
+    const U = new Path2D(); let x = 960 - s;
+    const heads = [];
+    while (x < 1960) { const hgt = s * (1.6 + 2.6 * uz * (.6 + .6 * r())) * k, lean = (r() - .5) * .8 + (x < 1440 ? .4 : -.4), ph = r() * TAU; heads.push([x, hgt, lean, ph]); x += s * (1.1 + .5 * r()); }
+    const B = new Path2D(); B.rect(940, yb, 1000, 400);
+    for (const [hx, hgt, lean, ph] of heads) {
+      B.moveTo(hx + s * .7, yb + 4); B.ellipse(hx, yb + 4, s * .7, s * .55, 0, PI, TAU);   // omuz yumrusu
+      const sw = Math.sin(t * 1.3 + ph) * s * .15 * uz, top = [hx + lean * hgt * .5 + sw, yb - hgt], pts = [];
+      for (let q = 0; q <= 10; q++) { const v = q / 10; pts.push([lerp(hx, top[0], v) + Math.sin(v * PI * 1.5 + ph) * s * .25 * uz, lerp(yb, top[1], v)]); }
+      oku_vurus(pts, s * .5, .03, .7);
+      const d = lean >= 0 ? 1 : -1, Hd = new Path2D(); Hd.ellipse(top[0] + d * s * .2, top[1], s * .42, s * .26, d * .2, 0, TAU); GR.fill(Hd, GR.tone(.03), { th: 0, id: 0 });
+      if (uz > .4) oku_vurus([[top[0] + d * s * .1, top[1] + 2], [top[0] + d * s * .55, top[1] + s * .12 * uz]], Math.max(3, s * .1), .97, .3);   // açık ağız
+    }
+    GR.fill(B, GR.tone(.03), { th: 0, id: 0 });
+  }
+}
+plan('P111', (ctx, st) => {
+  const t = st.t, uz = E.io2(kit_a(t, Wd('J06', 'şimdi') - .2, 2.6));
+  levha(ctx, null, () => { const B = new Path2D(); B.rect(-10, -10, W + 20, H + 20); kit_dol(B, .03); kit_cerceve(.95); }, [.03, 0, 1]);
+  const RL = [80, 62, 872, H - 124], RR = [968, 62, 872, H - 124];
+  kit_pano(ctx, 0, kit_panoKam(900, 600, RL), () => cizNifates(t, { fig: (tp, S0) => nif_seytan({ x: tp[0], y: 0, ground: tp[1] + 2, h: 44, facing: 1, twist: .35, head: .2, t, lum: .2, lit: nif_isik(S0, tp[0], tp[1] - 100) }) }), RL, [.5, 0, 1]);
+  kit_pano(ctx, 1, null, () => kit_salon(t, .15 + .85 * uz), RR, [.04, 0, 1]);
+}, { tr: KIT_TR });
+
+// ════════ P122 (K08): filmde duyduğumuz Şeytan sözleri sayfada birikir (yalnız senaryodaki sözler, kelimesi değişmeden) ════════
+const KIT_SOZ = [
+  ['“Cehennemde hükümdar olmak,', 'cennette hizmetkâr olmaktan yeğdir.”', 520, 210, -.02],
+  ['“Zihin kendi dünyasıdır.”', null, 1400, 250, .03],
+  ['“Meydanı kaybettik; ne çıkar?”', null, 640, 450, .02],
+  ['“Ben cehennemim.”', null, 1380, 480, -.03],
+  ['“Elveda umut.”', null, 540, 660, -.015],
+  ['“Kötülük: sen benim iyiliğim ol.”', null, 1300, 720, .02],
+];
+plan('P122', (ctx, st) => levha(ctx, null, () => {
+  const t = st.t, t0 = S('K08') + .1, dt = Math.max(.5, (Se('K08') - t0 - .6) / KIT_SOZ.length);
+  kit_cerceve();
+  KIT_SOZ.forEach(([a, b, x, y, rot], i) => {
+    const ai = kit_a(t, t0 + i * dt, 1);
+    kit_yaz(a, x, y, { f: 'a', px: 66, a: ai, wipe: true, rot });
+    if (b) kit_yaz(b, x + 10, y + 80, { f: 'a', px: 66, a: kit_a(t, t0 + i * dt + .45, 1), wipe: true, rot });
+  });
+}, [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ════════ P130 (K16): C12'nin iki silueti geri gelir; Abdiel'in sözünde tek yürüyen vurgulanır ════════
+plan('P130', (ctx, st) => levha(ctx, null, () => {
+  const t = st.t, v = E.io2(kit_a(t, Wd('K16', 'sen') - .2, 1.2));
+  kit_cerceve();
+  kit_ikiPano(st, { a1: 1 - .72 * v, a2: 1, sonuk: v });
+  kit_yaz('Başkaldırı her zaman özgürlük müdür?', 960, 800, { f: 'a', px: 80, a: kit_a(t, Wd('K16', 'başkaldırı') - .2, 1.2), wipe: true });
+}, [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ════════ P135 (L05): aynı profil, iki etiket; altında kilitli söz ════════
+let KIT_P135 = null;
+plan('P135', (ctx, st) => {
+  const t = st.t;
+  levha(ctx, { cx: 940, cy: 550, z: 1.04 }, () => {
+    const J = cizProfil(t, { iz: 1, head: .1 }), { ox } = GR;
+    KIT_P135 = J;
+    const lab = [[gol_hl(J, .3, -.055), 'pişmanlık mı,', 1430, 560, Wd('L05', 'pişmanlık')], [gol_hl(J, .3, -.2), 'gurur mu?', 1430, 330, Wd('L05', 'gurur')]];
+    for (const [p, s, x, y, tw] of lab) {
+      const a = kit_a(t, tw - .2, .9); if (a <= 0) continue;
+      kit_yaz(s, x, y, { f: 'a', px: 76, v: .975, bg: .03, a, wipe: true, align: 'left' });
+      const e = E.out3(a); ox.save(); ox.strokeStyle = GR.paperCol; ox.lineWidth = 3; ox.lineCap = 'round'; ox.beginPath(); ox.moveTo(x - 24, y); ox.lineTo(lerp(x - 24, p[0] + 40, e), lerp(y, p[1], e)); ox.stroke(); ox.restore();
+    }
+  });
+}, { tr: KIT_TR,
+  over: (ctx, st) => { const t = st.t, tB = Wd('L05', 'boyun'), tY = Wd('L05', 'yasaklıyor');
+    nif_kilitliSoz(ctx, 'boyun eğmek', 1440, 780, clamp((t - tB + .3) / .6) * clamp((st.end - t) / .5), clamp((t - tY + .2) / .7)); } });
+
+// ════════ P136 (L06): üç pano: göl | kaçış | içteki göl ════════
+plan('P136', (ctx, st) => {
+  const t = st.t, P = [[120, 250, 540, 600], [690, 250, 540, 600], [1260, 250, 540, 600]];
+  const tw = [S('L06'), Wd('L06', 'kaçan') - .3, Wd('L06', 'cehennemi') - .3];
+  levha(ctx, null, () => {
+    kit_cerceve();
+    P.forEach(([x, y, w, h]) => { kit_kutu(x - 14, y - 14, x + w + 14, y + h + 14, 4); });
+    kit_yaz('Onu orada tutan neydi?', 960, 150, { f: 'a', px: 80, a: kit_a(t, Wd('L06', 'orada') - .3, 1.1), wipe: true });
+  }, [KIT_K, 0, 1]);
+  const ac = i => { const a = kit_a(t, tw[i], 1.2); return a; };
+  const op = (i, r) => { const a = E.io2(ac(i)), hh = r[3] * a; return [r[0], r[1] + (r[3] - hh) / 2, r[2], hh]; };   // pano ortadan açılır
+  kit_pano(ctx, 0, kit_panoKam(900, 600, P[0], .9), () => cizGol(t, { sway: .02 }), op(0, P[0]));
+  kit_pano(ctx, 1, kit_panoKam(960, 520, P[1], .9), () => { kao_bosluk(t, { lt: t - S('L06'), cx: 960, cy: 120, r0: 140, r1: 1100, sy: .8 }); kao_ucan(t, { x: 960, y: 640 - 60 * kit_a(t, tw[1], 8), h: 34, lean: -.2, head: .35, open: .95, lift: .7, flap: Math.sin(t * 1.6) * .15, lum: .08, lit: [0, -1], seed: 9 }); }, op(1, P[1]));
+  kit_pano(ctx, 2, kit_panoKam(900, 600, P[2], .9), () => nif_a01(t), op(2, P[2]), [.5, 0, 1]);
+}, { tr: KIT_TR });

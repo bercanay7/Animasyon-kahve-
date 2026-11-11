@@ -28,30 +28,7 @@ plan('P019', (ctx, st) => {
   levha(ctx, cam, () => cen_c02(st.t), [.8, 0, 1]);
 }, { tr: { type: 'fade', dur: .8 } });
 
-// ═════════ P002 (A02): eşleme kesmesi: Nifates silueti → ışıklı başmelek (aynı duruş, aynı kadraj) ═════════
-// Yerleşim NIF ile ortak: kalça (860, 560), h 96, facing 1. Işık güneşten dairesel olarak açılır (ara ton yok: dairenin içi cennet levhası,
-// dışı siluet levhası), cümle sonunda aynı yoldan kapanır.
-const CEN_A02_L = { x: 1330, y: 290 };
-function cen_a02Fig(t, dark) {
-  return cen_basmelek({ x: 860, y: 560, h: 96, facing: 1, L: CEN_A02_L, t, dark, head: .22, twist: .3, armN: [-.1, .25], armF: [.35, .6], spear: false, lift: .4, open: .7, wingS: 5 });
-}
-function cen_a02(t) {
-  const s0 = S('A02'), s1 = Se('A02'), L = CEN_A02_L;
-  const R = 2600 * E.in2(cen_u(t, s0, s0 + 1)) * (1 - E.in2(cen_u(t, s1 - .1, s1 + .9)));
-  // dış: güneşe karşı siluet (Nifates): açık gök, koyu figür, koyu kıyı
-  cen_gok(L, { r0: 260, r1: 1200, v: .7, n: 90 });
-  cen_bank({ x0: -100, x1: 2020, y: 930, amp: 20, wl: 300, seed: 41, L, cuts: .6, ends: false });
-  cen_a02Fig(t, true);
-  if (R > 1) {
-    GR.save(); const C = new Path2D(); C.arc(L.x, L.y, R, 0, TAU); GR.tx.clip(C); GR.px.clip(C); GR.ox.clip(C);
-    cen_gok(L, { r0: 300, r1: 1200, v: .72, n: 90 });
-    cen_bank({ x0: 180, x1: 1500, y: 300, amp: 70, wl: 380, seed: 42, L, cuts: .8 });          // figürün arkasında koyu bulut duvarı
-    cen_teras({ x0: -100, x1: 2020, y: 905, d: 30, seed: 43, L, cuts: .7 });
-    cen_a02Fig(t, false);
-    GR.restore();
-  }
-}
-plan('P002', (ctx, st) => levha(ctx, null, () => cen_a02(st.t), [.8, 0, 1]), { tr: { type: 'cut' } });
+// P002 (A02) nif.js'e taşındı (kanca çifti A01/A02 tek elde).
 
 // ═════════ P017 (B10): sayfadaki güneş büyür, cennetin ışığına açılır ═════════
 function cen_b10(t) {

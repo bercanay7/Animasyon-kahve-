@@ -256,3 +256,200 @@ function oku_k11(st) {
   OKU_AD.forEach((s, i) => { if (s) kit_yaz(s, OKU_BAS[i].cx, OKU_BAS[i].y + 64, { f: 'a', px: 50, v: .975, bg: .03, a: a[i], wipe: true }); });
 }
 plan('P124', (ctx, st) => levha(ctx, camLerp({ cx: 940 }, { cx: 980 }, st.p, E.sine), () => oku_k11(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ bölüm kartları (açık ve koyu levha; yazı ton katmanına basılır, sahne ışıkla açılır) ═════════════════
+function oku_kart(st, baslik, soru, koyu, tBas, tSoru, motif) {
+  const t = st.t, v = koyu ? .975 : .02, bg = koyu ? .03 : KIT_K;
+  kit_cerceve(koyu ? .95 : .02);
+  if (motif) motif();
+  kit_cizgi(960, 330, 230, { v, a: kit_a(t, tBas - .4, 1) });
+  kit_yaz(baslik, 960, 440, { f: 'b', px: 104, ls: 16, v, bg, a: kit_a(t, tBas - .2, 1.2), wipe: true });
+  kit_yaz(soru, 960, 590, { f: 'a', px: 72, v, bg, a: kit_a(t, tSoru - .2, 1), wipe: true });
+  oku_isikAc(oku_u(t, st.at, st.at + 1.4), 960, 480);
+}
+plan('P119', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'İKİ OKUMA', 'Bu destanın kahramanı kim?', false, st.at + .3, Wd('K05', 'bu')), [KIT_K, 0, 1]),
+  { tr: { type: 'black', dur: 1.4, end: true } });
+plan('P131', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'BİR DAMLA YAŞ', 'Peki ya o gözyaşları?', true, st.at + .3, Wd('L01', 'peki'), () => {
+  const x = 960, y = 230, r = 16, T = new Path2D(); T.moveTo(x, y - r * 2.2); T.bezierCurveTo(x + r * .6, y - r * 1.2, x + r, y - r * .5, x + r, y); T.arc(x, y, r, 0, PI); T.bezierCurveTo(x - r, y - r * .5, x - r * .6, y - r * 1.2, x, y - r * 2.2); T.closePath();
+  GR.fill(T, GR.tone(.975), { th: 0, id: 0 });
+}), [.03, 0, 1]), { tr: { type: 'black', dur: 1.4, end: true } });
+
+// ═════════════════ K07: Blake'in masası ═════════════════
+// ilmekli serbest çizgi (uzamış sikloit) bir yol boyunca; frac: 0..1 çizilen kısım; keskin üst katmana
+function oku_ilmek(c, pts, R, K, frac, w = 3) {
+  const S = [0]; for (let i = 1; i < pts.length; i++) S.push(S[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  const Ltot = S[S.length - 1], at = s => { let i = 1; while (i < S.length - 1 && S[i] < s) i++; const u = (s - S[i - 1]) / ((S[i] - S[i - 1]) || 1), a = pts[i - 1], b = pts[i], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [lerp(a[0], b[0], u), lerp(a[1], b[1], u), dx / l, dy / l]; };
+  const th1 = Ltot / K * frac; if (th1 <= 0) return;
+  c.save(); c.strokeStyle = GR.inkCol; c.lineWidth = w; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath();
+  for (let th = 0; th <= th1; th += .2) { const [x, y, tx, ty] = at(th * K), sx = x - tx * R * Math.sin(th) - ty * R * (1 - Math.cos(th)), sy = y - ty * R * Math.sin(th) + tx * R * (1 - Math.cos(th)); th ? c.lineTo(sx, sy) : c.moveTo(sx, sy); }
+  c.stroke(); c.restore();
+}
+const oku_daire = (cx, cy, r, n = 16) => Array.from({ length: n + 1 }, (_, i) => [cx + Math.cos(i / n * TAU - PI / 2) * r, cy + Math.sin(i / n * TAU - PI / 2) * r]);
+// melek (sert): cüppe, baş, dimdik iki kanat; dik ve sık düz çizgilerle (soldan sağa sırayla) doldurulur
+function oku_melekSert(c, x, y, s, frac) {
+  const L = (a, b) => [x + a * s, y + b * s], P = new Path2D();
+  poly(P, [L(-.35, 1), L(-.22, -.55), L(.22, -.55), L(.35, 1)], true);
+  P.moveTo(...L(.2, -.82)); P.arc(...L(0, -.82), .2 * s, 0, TAU);
+  poly(P, [L(-.25, -.5), L(-.62, -1.45), L(-.5, .45), L(-.28, .2)], true); poly(P, [L(.25, -.5), L(.62, -1.45), L(.5, .45), L(.28, .2)], true);
+  const x0 = x - .65 * s, x1 = x + .65 * s, n = Math.floor((x1 - x0) / 9);
+  c.save(); c.clip(P); c.strokeStyle = GR.inkCol; c.lineWidth = 3; c.beginPath();
+  for (let i = 0; i < n * frac; i++) { const xx = x0 + i * 9 + 4; c.moveTo(xx, y - 1.6 * s); c.lineTo(xx, y + 1.05 * s); }
+  c.stroke(); c.restore();
+  if (frac > .05) { c.save(); c.globalAlpha = clamp(frac * 3); c.strokeStyle = GR.inkCol; c.lineWidth = 3.5; c.stroke(P); c.restore(); }
+}
+// şeytan (serbest): yarasa kanatlı figür, kıvrak ilmekli çizgilerle
+function oku_seytanSerbest(c, x, y, s, frac, seed) {
+  const L = (a, b) => [x + a * s, y + b * s], r = rng(seed);
+  const govde = [L(0, -.6), L(.3, -.3), L(.25, .4), L(.45, 1), L(-.45, 1), L(-.25, .4), L(-.3, -.3), L(0, -.6)];
+  const bas = oku_daire(x, y - .85 * s, .22 * s, 12), boynuz = [L(-.16, -1.0), L(-.3, -1.3), L(-.06, -1.06)], boynuz2 = [L(.16, -1.0), L(.3, -1.3), L(.06, -1.06)];
+  const kanat = sd => [L(.25 * sd, -.3), L(.9 * sd, -1.2), L(1.25 * sd, -.75), L(1.05 * sd, -.55), L(1.12 * sd, -.2), L(.85 * sd, -.1), L(.85 * sd, .2), L(.35 * sd, .1)];
+  const parts = [bas, boynuz, boynuz2, govde, kanat(-1), kanat(1)];
+  parts.forEach((p, i) => oku_ilmek(c, p, 9 + 4 * r(), 5.5, clamp(frac * parts.length - i), 3));
+  // çevresinde serbest kıvrımlar (alev gibi)
+  for (let k = 0; k < 3; k++) { const a = r() * TAU, cx = x + Math.cos(a) * 1.2 * s, cy = y + .3 * s + Math.sin(a) * .5 * s, sp = []; for (let q = 0; q <= 20; q++) { const u = q / 20; sp.push([cx + Math.cos(u * 5 + a) * 26 * (1 - u), cy - u * 70 + Math.sin(u * 5 + a) * 14]); }
+    oku_ilmek(c, sp, 6, 5, clamp(frac * 3 - 2 - k * .2), 3); }
+}
+function oku_k07(st) {
+  const t = st.t, { tx, ox } = GR;
+  // masa: koyu ahşap, kâğıt rengi seyrek damar vuruşları
+  const M = new Path2D(); M.rect(62, 62, W - 124, H - 124); GR.fill(M, GR.tone(.06), { th: -.08, id: 4 });
+  { const r = rng(71); for (let i = 0; i < 9; i++) { const y = 110 + i * 105 + r() * 30, x0 = 80 + r() * 300, pts = []; for (let k = 0; k <= 20; k++) { const u = k / 20; pts.push([x0 + u * (500 + r() * 400), y + Math.sin(u * 4 + i) * 8 - u * 30]); } oku_vurus(pts, 5, .9, .2); } }
+  kit_cerceve(.95);
+  // açık defter (iki sayfa), masaya gölge
+  const Bk = (dx, dy) => { const P = new Path2D(); spline(P, [[300 + dx, 168 + dy], [800 + dx, 150 + dy], [820 + dx, 160 + dy], [1320 + dx, 150 + dy], [1320 + dx, 752 + dy], [820 + dx, 742 + dy], [800 + dx, 752 + dy], [300 + dx, 760 + dy]], true, .25); return P; };
+  GR.fill(Bk(18, 20), GR.tone(.03), { th: 0, id: 0 });
+  const Bp = Bk(0, 0); GR.fill(Bp, GR.tone(.975), { th: 0, id: 1 });
+  tx.save(); tx.clip(Bp); tx.globalCompositeOperation = 'multiply'; const g = tx.createLinearGradient(760, 0, 860, 0); g.addColorStop(0, GR.tone(1)); g.addColorStop(.5, GR.tone(.55)); g.addColorStop(1, GR.tone(1)); tx.fillStyle = g; tx.fillRect(740, 100, 140, 700); tx.restore();
+  tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4; tx.stroke(Bp); tx.restore();
+  // bakır levha ve kalem (burin)
+  const Cu = new Path2D(); Cu.rect(1400, 180, 380, 320);
+  const cg = tx.createLinearGradient(1400, 180, 1780, 500); cg.addColorStop(0, GR.tone(.8)); cg.addColorStop(.5, GR.tone(.5)); cg.addColorStop(1, GR.tone(.68));
+  GR.fill(Cu, cg, { th: -.6, id: 0 }); tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4; tx.stroke(Cu); tx.restore();
+  { const P = new Path2D(); poly(P, [[1450, 600], [1700, 380], [1708, 388], [1462, 610]], true); P.moveTo(1488, 590); P.ellipse(1470, 604, 30, 20, -.72, 0, TAU); GR.fill(P, GR.tone(.03), { th: 0, id: 0 }); oku_vurus([[1478, 586], [1690, 392]], 3, .9, .5); }
+  // künye plakası
+  const Pl = new Path2D(); Pl.rect(470, 786, 680, 88); GR.fill(Pl, GR.tone(.975), { th: 0, id: 1 }); kit_kutu(470, 786, 1150, 874, 4); kit_kutu(482, 798, 1138, 862, 2.6);
+  kit_yaz('WILLIAM BLAKE · 1793', 810, 830, { f: 'b', px: 42, w: 700, ls: 6, a: kit_a(t, Wd('K07', 'vilyım') - .3, 1.1), wipe: true });
+  // çizimler: solda sert çizgili melekler ("zincirliydi"), sağda serbest çizgili şeytanlar ("özgür")
+  const fa = oku_u(t, Wd('K07', 'melekleri') - .3, Wd('K07', 'zincirliydi', 0, true) + .3), fs = oku_u(t, Wd('K07', 'şeytanları') - .2, Wd('K07', 'özgür', 0, true) + 1.2);
+  [[420, 470], [550, 470], [680, 470]].forEach(([x, y], i) => oku_melekSert(ox, x, y, 120, clamp(fa * 3 - i)));
+  [[960, 480, 3], [1180, 470, 8]].forEach(([x, y, sd], i) => oku_seytanSerbest(ox, x, y, 100, clamp(fs * 2 - i), sd));
+}
+plan('P121', (ctx, st) => levha(ctx, camLerp({ cx: 940 }, { cx: 990 }, st.p, E.sine), () => oku_k07(st), [.06, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ K10: Lewis'in kitabının kapağı (portre yok) ═════════════════
+function oku_k10(st) {
+  const t = st.t, { tx } = GR, X0 = 660, X1 = 1260, Y0 = 110, Y1 = 860;
+  kit_cerceve();
+  const Sh = new Path2D(); Sh.rect(X0 + 22, Y0 + 22, X1 - X0, Y1 - Y0); GR.fill(Sh, GR.tone(.4), { th: -.8, id: 0 });
+  const C = new Path2D(); C.rect(X0, Y0, X1 - X0, Y1 - Y0); GR.fill(C, GR.tone(.04), { th: 0, id: 0 });
+  const Sp = new Path2D(); Sp.rect(X0, Y0, 46, Y1 - Y0); GR.fill(Sp, GR.tone(.02), { th: 0, id: 0 });
+  kit_hat(X0 + 46, Y0, X0 + 46, Y1, 3, .9);
+  kit_kutu(X0 + 76, Y0 + 30, X1 - 30, Y1 - 30, 4, .95); kit_kutu(X0 + 90, Y0 + 44, X1 - 44, Y1 - 44, 2.6, .95);
+  const xc = (X0 + 46 + X1) / 2, k = { v: .975, bg: .04 };
+  kit_yaz('C. S. LEWIS', xc, 260, { f: 'b', px: 66, ls: 8, ...k, a: kit_a(t, Wd('K10', 'si') - .2, 1.2), wipe: true });
+  kit_cizgi(xc, 360, 120, { v: .95, a: kit_a(t, Wd('K10', 'luis'), 1) });
+  kit_yaz('Kayıp Cennet\'e', xc, 470, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'kayıp') - .2, 1), wipe: true });
+  kit_yaz('Önsöz', xc, 560, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'önsöz') - .2, .9), wipe: true });
+  kit_yaz('1942', xc, 730, { f: 'b', px: 48, w: 600, ls: 10, ...k, a: kit_a(t, Wd('K10', 'önsöz') + .4, .9), wipe: true });
+}
+plan('P123', (ctx, st) => levha(ctx, null, () => oku_k10(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ K12: yılan en üste bakar ═════════════════
+function oku_k12(st) {
+  const t = st.t, bak = E.io2(oku_u(t, Wd('K12', 'yılana') - .2, Wd('K12', 'girmeden') + .6));
+  kit_cerceve();
+  kit_kirp(() => { oku_merdiven(); oku_siluetler([1, 0, 0, 0, 0, 0, 1], t, { bak }); });
+  if (bak > .3) {   // bakış çizgisi: yılanın başından en üst basamağa seyrek noktalar
+    const B = OKU_BAS, a = [B[6].cx - 10, B[6].y - 10 - 58 * (1.2 + .5 * bak)], b = [B[0].cx + 40, B[0].y - 140], { ox } = GR, n = 26;
+    ox.save(); ox.fillStyle = GR.inkCol; for (let i = 2; i < n * E.io2(clamp((bak - .3) / .7)); i++) { const u = i / n; ox.beginPath(); ox.arc(lerp(a[0], b[0], u), lerp(a[1], b[1], u) - Math.sin(u * PI) * 120, 3.6, 0, TAU); ox.fill(); } ox.restore();
+  }
+  kit_yaz('“yükseldiği kadar alçalır”', 1240, 210, { f: 'a', px: 80, a: kit_a(t, Wd('K12', 'yükseldiği') - .5, 1.2), wipe: true });
+}
+plan('P125', (ctx, st) => levha(ctx, camLerp({ cx: 980 }, { cx: 940 }, st.p, E.sine), () => oku_k12(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ K13: devrilmiş taç | taht kuran melek ═════════════════
+function oku_taht(x, yG, s, ad, mucevher) {   // sade, yüksek arkalıklı, basamaklı taht (belirli bir kültürü çağrıştırmaz)
+  const L = (a, b) => [x + a * s, yG + b * s], P = new Path2D();
+  const nb = Math.round(3 * clamp(ad));
+  for (let i = 0; i < nb; i++) poly(P, [L(-1.3 + i * .22, -i * .22), L(1.3 - i * .22, -i * .22), L(1.3 - i * .22, -(i + 1) * .22), L(-1.3 + i * .22, -(i + 1) * .22)], true);
+  const yb = -.66; poly(P, [L(-.62, yb), L(-.62, yb - .7), L(-.75, yb - .72), L(-.75, yb - .82), L(.75, yb - .82), L(.75, yb - .72), L(.62, yb - .7), L(.62, yb)], true);   // oturak ve kolluklar
+  poly(P, [L(-.55, yb - .8), L(-.55, yb - 2.9), L(-.4, yb - 3.25), L(0, yb - 3.45), L(.4, yb - 3.25), L(.55, yb - 2.9), L(.55, yb - .8)], true);              // yüksek arkalık
+  GR.fill(P, GR.tone(.03), { th: 0, id: 0 });
+  for (let i = 0; i < nb; i++) kit_hat(L(-1.3 + i * .22 + .04, 0)[0], L(0, -i * .22 - .03)[1], L(1.3 - i * .22 - .04, 0)[0], L(0, -i * .22 - .03)[1], 3, .95);
+  kit_hat(L(-.5, 0)[0], L(0, yb - 2.95)[1], L(.5, 0)[0], L(0, yb - 2.95)[1], 3, .95);
+  if (mucevher > 0) { const r = rng(5); for (let i = 0; i < 9; i++) { const pos = [r(), r()]; if (i / 9 > mucevher) continue; const p = L((pos[0] - .5) * .8, yb - 1.1 - pos[1] * 1.9), D = new Path2D(); poly(D, [[p[0], p[1] - 9], [p[0] + 7, p[1]], [p[0], p[1] + 9], [p[0] - 7, p[1]]], true); GR.fill(D, GR.tone(.975), { th: 0, id: 0 }); } }
+  return { oturak: L(0, yb - .82) };
+}
+function oku_k13(st) {
+  const t = st.t, { tx } = GR;
+  kit_cerceve();
+  kit_yaz('Blake mi, Lewis mi?', 960, 168, { f: 'a', px: 84, a: kit_a(t, Wd('K13', 'bleyk') - .2, 1.2), wipe: true });
+  kit_hat(140, 800, 1780, 800, 4);
+  // sol: yere devrilmiş, yan yatmış taç
+  const ac = kit_a(t, Wd('K13', 'kralların') - .3, 1.1);
+  if (ac > 0) { GR.save(); GR.frame(520, 730, -1.32 + .25 * (1 - E.out3(ac)), 1, 1); tx.globalAlpha = ac; const Cp = kit_tac(0, 0, 115); GR.fill(Cp, GR.tone(.975), { th: 0, id: 1 }); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 7; tx.lineJoin = 'round'; tx.stroke(Cp); kit_hat(-115, 8, 115, 8, 6); GR.unframe(); GR.restore();
+    const S = new Path2D(); S.ellipse(560, 812, 170, 12, 0, 0, TAU); GR.fill(S, GR.tone(.35), { th: 0, id: 0 }); }
+  // sağ: taht ve üstünde kanatlı koyu melek; taht 'kendine'den 'kuruyor'a basamak basamak kurulur, mücevherler 'hazinelerinden'de
+  const am = kit_a(t, Wd('K13', 'meleği') - .2, 1.2);
+  if (am > 0) {
+    GR.tx.save(); GR.tx.globalAlpha = am;
+    const T = oku_taht(1450, 800, 140, .34 + .66 * oku_u(t, Wd('K13', 'kendine'), Wd('K13', 'kuruyor')), oku_u(t, Wd('K13', 'hazinelerinden') - .2, Wd('K13', 'taht')));
+    const h = 38, J = SF.rig({ x: 1460, y: T.oturak[1] - 6, h, facing: -1, twist: .4, head: .15, armN: [.9, .4], armF: [.6, .7], legN: [1.45, -1.45], legF: [1.35, -1.4] });
+    for (const [side, P] of [[-1, { span: 360, open: .55, lift: .65, droop: .3, rot: -.15, seed: 71, root: .1 }], [1, { span: 330, open: .5, lift: .55, droop: .35, rot: .15, seed: 72, root: .12 }]]) {
+      const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
+      GR.frame(sh[0] - side * h * .25, sh[1] + h * .15, P.rot, side, 1); KN.feathered(Object.assign({ dark: .93, rim: 0, ruin: .1, t: 0, lit: [.5 * side, -.8] }, P)); GR.unframe(); }
+    GR.tx.restore();
+    kit_fig(J, { lum: 0, lit: [-.6, -.8], t, legs: true, cloak: 1.1, lines: 0, seed: 9 }, am);
+  }
+}
+plan('P126', (ctx, st) => levha(ctx, null, () => oku_k13(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ K15: kırılan zincir; halkalar bir taht biçiminde yeniden dizilir ═════════════════
+const OKU_ZN = 53, OKU_ZK = 27;   // halka sayısı, kırılma yeri
+function oku_yolNokta(P, u) { const S = [0]; for (let i = 1; i < P.length; i++) S.push(S[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1])); const s = u * S[S.length - 1]; let i = 1; while (i < S.length - 1 && S[i] < s) i++; const v = (s - S[i - 1]) / ((S[i] - S[i - 1]) || 1); return [lerp(P[i - 1][0], P[i][0], v), lerp(P[i - 1][1], P[i][1], v), Math.atan2(P[i][1] - P[i - 1][1], P[i][0] - P[i - 1][0])]; }
+function oku_halka(x, y, a, i) {   // sırayla yüzü ve yanı görünen halka
+  const { tx } = GR; tx.save(); tx.translate(x, y); tx.rotate(a);
+  const P = new Path2D(); if (i % 2 === 0) { P.ellipse(0, 0, 25, 15, 0, 0, TAU); P.ellipse(0, 0, 15, 6, 0, 0, TAU); } else { P.roundRect(-25, -6, 50, 12, 6); }
+  GR.fill(P, GR.tone(.02), { th: a, id: 0 }, 'evenodd'); tx.restore();
+}
+function oku_k15(st) {
+  const t = st.t;
+  kit_cerceve();
+  const tK = Wd('K15', 'özgürlükleri'), kr = E.out3(oku_u(t, tK - .2, tK + .6)), mf = oku_u(t, Wd('K15', 'bazıları') - .2, Wd('K15', 'kurdu', 0, true) + .5);
+  const A = [[840, 610], [840, 330], [890, 278], [960, 258], [1030, 278], [1080, 330], [1080, 610]], B = [[790, 850], [790, 618], [1130, 618], [1130, 850]];
+  for (let i = 0; i < OKU_ZN; i++) {
+    const half = i < OKU_ZK ? -1 : 1, x0 = 165 + i * 30 + half * 60 * kr, y0 = 480 + kr * 18 * Math.abs(i - OKU_ZK + .5) / OKU_ZK * 2, a0 = 0;
+    const q = i < OKU_ZK ? oku_yolNokta(A, i / (OKU_ZK - 1)) : oku_yolNokta(B, (i - OKU_ZK) / (OKU_ZN - OKU_ZK - 1));
+    const u = E.io3(clamp(mf * 1.6 - (i < OKU_ZK ? i / OKU_ZK : (i - OKU_ZK) / (OKU_ZN - OKU_ZK)) * .6));
+    oku_halka(lerp(x0, q[0], u), lerp(y0, q[1], u) - Math.sin(u * PI) * 60, lerp(a0, q[2], u), i);
+  }
+  if (kr > 0 && kr < 1) { const { ox } = GR; ox.save(); ox.strokeStyle = GR.inkCol; ox.lineWidth = 4; ox.lineCap = 'round'; for (let k = 0; k < 10; k++) { const a = k / 10 * TAU, r0 = 30 + 40 * kr, r1 = r0 + 40 * (1 - kr) + 10; ox.beginPath(); ox.moveTo(960 + 2 + Math.cos(a) * r0, 480 + Math.sin(a) * r0); ox.lineTo(960 + Math.cos(a) * r1, 480 + Math.sin(a) * r1); ox.stroke(); } ox.restore(); }
+  if (mf > .9) kit_hat(700, 856, 1220, 856, 4);
+}
+plan('P128', (ctx, st) => levha(ctx, null, () => oku_k15(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+
+// ═════════════════ K15b: geri itilen taç; Cromwell (dönem silueti, portre değil) ═════════════════
+function oku_k15b(st) {
+  const t = st.t, { tx } = GR, G = 800;
+  kit_cerceve();
+  kit_hat(140, G, 1780, G, 4);
+  // yüksek arkalıklı koltuk
+  const K = new Path2D(); poly(K, [[590, G], [590, 236], [578, 220], [618, 196], [658, 220], [646, 236], [646, 590], [800, 590], [800, 612], [784, 612], [784, G], [768, G], [768, 612], [646, 612], [646, G]], true);
+  GR.fill(K, GR.tone(.03), { th: 0, id: 0 }); kit_kutu(604, 250, 632, 576, 3, .95);
+  // Cromwell: oturan koyu siluet, uzun saç, geniş beyaz yaka; kolu öne uzanmış, avuç dışa (geri iter)
+  const h = 38, push = E.io2(oku_u(t, Wd('K15b', 'reddetti') - .4, Wd('K15b', 'reddetti') + .6));
+  const J = SF.rig({ x: 712, y: 584, h: 38, facing: 1, twist: .55, lean: -.05 - .05 * push, head: .05, armN: [1.55 - .1 * push, -.2 - .3 * push], armF: [.6, .9], legN: [1.5, -1.5], legF: [1.4, -1.45] });
+  kit_fig(J, { lum: 0, lit: [.6, -.8], t, legs: true, skirt: false, cloak: .8, lines: 0, hair: 1.5, armor: false, seed: 7, halo: 5 });
+  { const c = J.nk, Y = new Path2D(); spline(Y, [[c[0] - 28, c[1] - 4], [c[0] + 30, c[1] - 6], [c[0] + 46, c[1] + 22], [c[0] + 12, c[1] + 40], [c[0] - 34, c[1] + 34], [c[0] - 46, c[1] + 12]], true, .8); GR.fill(Y, GR.tone(.975), { th: 0, id: 1 }); tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 3.5; tx.stroke(Y); tx.restore(); }
+  // yastık üstünde taç: masacığın üstünde, 'reddetti'de geri itilir
+  const dx = 150 * push, mx = 1010 + dx;
+  const Tb = new Path2D(); poly(Tb, [[920 + dx, 640], [1100 + dx, 640], [1100 + dx, 656], [1080 + dx, 656], [1070 + dx, G], [1054 + dx, G], [1062 + dx, 656], [958 + dx, 656], [966 + dx, G], [950 + dx, G], [940 + dx, 656], [920 + dx, 656]], true); GR.fill(Tb, GR.tone(.03), { th: 0, id: 0 });
+  const Ys = new Path2D(); spline(Ys, [[mx - 105, 634], [mx - 60, 604], [mx + 60, 604], [mx + 105, 634], [mx + 60, 646], [mx - 60, 646]], true, .8); GR.fill(Ys, GR.tone(.975), { th: 0, id: 1 }); tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4.5; tx.stroke(Ys); tx.restore();
+  const Cp = kit_tac(mx, 578, 44); GR.fill(Cp, GR.tone(.975), { th: 0, id: 1 }); tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4.5; tx.lineJoin = 'round'; tx.stroke(Cp); tx.restore();
+  // yanında genç siluet: 'oğluna'da belirginleşir
+  const ao = kit_a(t, Wd('K15b', 'oğluna') - .4, 1.2), h2 = 32;
+  const J2 = SF.rig({ x: 470, y: G - 3.95 * h2, h: h2, facing: 1, twist: .4, head: .02, armN: [.1, .2], armF: [-.1, .2] });
+  kit_fig(J2, { lum: 0, lit: [.6, -.8], t, legs: true, cloak: 1, lines: 0, hair: 1.2, armor: false, seed: 11 }, .22 + .78 * ao);
+  kit_yaz('Cromwell, 1657', 960, 900 - 40, { f: 'a', px: 68, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
+}
+plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), { tr: KIT_TR });
