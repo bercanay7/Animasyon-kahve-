@@ -1,0 +1,77 @@
+{
+  "uye": "S-Dram",
+  "karar": "ONAY",
+  "puanlar": {"K1": 9.0, "K2": 9.5, "K3": 9.5, "K4": 8.5, "K5": 9.0, "K6": 9.0, "K7": 8.5},
+  "agirlikli": 9.03,
+  "puan_gerekceleri": {
+    "K1": "Kendi merceğimden kalan doğruluk kayması görmedim. Tur 2'de işaretlenen Shelley cümlesinin yönü L11'de düzelmiş, K14'te konuşan Âdem olarak yazılmış, L08'deki alıntı doğru dizeye (IV.104) bağlanmış. Tek gevşek ifade J11'de: “Cevabın bir parçası, destanın son sahnesinde saklı”; asıl ipucu son sahnede değil, K02–K03'te (X. ve III. kitap).",
+    "K2": "A03 artık finaldeki cevapla aynı soruyu soruyor (“Onu orada tutan ne?”). Soru 0:15'te, J11'de yeniden açılıyor, L06'da adım adım kapanıyor. Kapak vaadi ilk saniyede.",
+    "K3": "Kurulum–ödeme zincirlerinin hepsi tutuyor: A03 → G02 → J11 → L06–L08; B01 → L09; B09 → G02b; C07 → G09b → L05 → L07; C12 → K16; D03 → E07 → L07; E10–E11 → L04–L05; E15 → J07; G10 → J06; G13 ve K03 → L08; G15 → H10; F03 ↔ H11; I01 → I05 → K12. D02–D04 Milton'ın sırasına girmiş. Alkış sahnesi bölünmüyor.",
+    "K4": "Ölçüt “bu cümle hikâyeye bir şey katıyor mu?” olunca çoğu ek yerini hak ediyor. Milton bölümü 223'ten 193 kelimeye inmiş ve siyaset tek sahne olmuş. Kalan: felaketten (J11) sonraki kuyruk 613 kelime, toplamın %24'ü. J11'deki kanca bunu taşıyor, ama K14 ve J09'un ikinci cümlesi yerini tam hak etmiyor.",
+    "K5": "Empati zinciri tam; iksir L08b ile izleyiciye taşınıyor. G16 “belki” ile yumuşamış, ama hâlâ gösteren değil söyleyen bir cümle. I03 (güzellik karşısındaki işkence itirafı) tempo için çıkmış; küçük bir empati kaybı.",
+    "K6": "Yeniden yazılan cümleler akıcı. Küçük pürüz: G13 ve L08'de “barışı bağışlamak” ile aynı segmentteki “bağışlanma yolu” iki ayrı anlamda kullanılıyor.",
+    "K7": "Görsel kırmızı çizgiler yazılmış, ayna kompozisyonlar tanımlı. Kapanış karesi (L06–L10 sırasında ekranda ne olacağı) hâlâ yazılı değil; G15'teki üç yüz değişimi kod çizimi için zor."
+  },
+  "dogrulama": [
+    {"bulgu": "S-Dram tur 2, 1: Milton bölümünün kısalması, siyasetin tek sahneye inmesi", "durum": "kısmen", "not": "Kendi sayımımla 193 kelime (rev2: 223). B04 tek sahne oldu ve çalışıyor: cellat kitapları yakarken yazar alevleri göremiyor. Işığa yakarış L09'a taşındı. ~170 hedefi tutmadı; başkanın gerekçesi (kızlar ve yazdırma ayrıntısı kullanıcının en sevdiği kısım) bana uygun."},
+    {"bulgu": "S-Dram tur 2, 2: L08'in son cümlesi, B01'in “nasıl?” cevabı, iksirin izleyiciye taşınması, kapanış karesi", "durum": "kısmen", "not": "İlk üçü karşılandı: L08 soruyla bitiyor, L09 yakarışla B01'i cevaplıyor (“Belki de bu yüzden…”), L08b iksiri taşıyor. Kapanış karesi metinde hâlâ tanımsız; animasyon kapısına kalıyor."},
+    {"bulgu": "S-Dram tur 2, 3: “İki okuma”nın sıkışması, Abdiel tekrarı, K16'nın bağlamı", "durum": "kısmen", "not": "K09 çıktı, K12 tek cümlelik bir geri çağırmaya indi, K14'teki Abdiel tekrarı kalktı, K16 “Başta bir soru bırakmıştık” diye açılıyor. Uzunluk neredeyse aynı (254 → 246 kelime). K14 yeni hâliyle ayrı bir sorun taşıyor (düzeltme 1)."},
+    {"bulgu": "S-Dram tur 2, 4 / S-Yon tur 2, 5: G16", "durum": "karşılandı", "not": "S-Yon'un biçimi alınmış: “Ona hak vermek zorunda değiliz. Yine de, belki ilk kez, ona acıyoruz.” Mantık sırası düzeldi, “belki” dikteyi yumuşatıyor. Benim koşullu önerim alınmadı; ısrar etmiyorum."},
+    {"bulgu": "S-Dram tur 2, 5 / S-Yon tur 2, 3 (yüksek): D02–D04'ün sırası ve D03 ↔ E07 yankısı", "durum": "karşılandı", "not": "Önce söz (D02, D03), sonra “kılıç iner” (D04). D03 ile E07 aynı çifti kullanıyor (hükümdar, hizmetkâr). Bilinen söyleyiş E08 olarak geri gelmiş."},
+    {"bulgu": "S-Dram tur 2, 6: K01–K03'ün sırası ve K03'teki “bunu”", "durum": "kısmen", "not": "Sıra değişmedi, ama K03 “Peki Şeytan da dileyebilir miydi?” sorusuyla açıldığı için K02'den doğal akıyor ve “bunu” sorunu çözülmüş. Başkanın gerekçesi (J11'deki kanca son sahneyi vaat ediyor) bana uygun."},
+    {"bulgu": "S-Dram tur 2, 7 / S-Yon tur 2, 9–10: F03 ↔ H11 ve C09 ↔ H12 aynaları", "durum": "kısmen", "not": "F03'e “Sana benziyordum” eklenmiş; H11 ile ayna tamam. H12'ye ortak sözcük eklenmemiş; kaynak notu hâlâ “C09 'küçültülmüş' ile ayna” diyor, metinde böyle bir yankı yok."},
+    {"bulgu": "S-Dram tur 2, 8: E05, E09, E11, J10 kırpmaları", "durum": "karşılanmadı", "not": "Düşük önemliydi. E05 teoloji dengesi için duruyor, kabul. E11'de ordunun sadakati hâlâ yok."},
+    {"bulgu": "S-Dram tur 2, 10: çapraz atıflar ve A bölümünün adı", "durum": "kısmen", "not": "Bölüm adı “Ben cehennemim” oldu; atıfların çoğu güncel. Eski kalanlar: C01 “iki cevabı C06” (C09), D01 “ödemesi D04” (D05), E07 “Abdiel'in uyarısı D04” (D03). Kimlik sırası da düz değil: J06, J08'den sonra geliyor; B07, I03 ve K09 boş."},
+    {"bulgu": "S-Yon tur 2, 1 (yüksek): ana soru ile final cevabı arasındaki eksik basamak", "durum": "karşılandı", "not": "A03 “Onu orada tutan ne?”; L06 “Bir cevabı duyduk: Cehennemi içinde taşıyordu. Peki içindeki o cehennemden bir çıkış var mıydı?”; L07 “Nifates Dağı'nda bir çıkış görmüştü”."},
+    {"bulgu": "S-Yon tur 2, 2 (yüksek): L08'deki alıntının yanlış yere bağlanması", "durum": "karşılandı", "not": "Alıntı IV.104'ün ikinci yarısı oldu; “kapı” okuması III.129–132'ye dayandırılıyor (“kendi kendini ayartan asi meleklere açık değildir”)."},
+    {"bulgu": "S-Yon tur 2, 4 (orta): ışığa yakarışın B'den L09'a taşınması", "durum": "karşılandı", "not": "B01'in sorusu film boyunca açık kalıyor ve final şairin kendi sesini kazanıyor."},
+    {"bulgu": "S-Yon tur 2, 6–7 (orta): bilinen söyleyiş, K16'nın soru başı", "durum": "karşılandı", "not": "E08 ve K16."}
+  ],
+  "gerileme_kontrolu": "Yeniden yazılan cümlelere tek tek baktım (A03, B02, B04–B05, C05, D02–D04, E04, E08, F03, G13, H10–H11, I04–I06, J06, J09, J11, K03, K07–K08, K11–K16, L04–L09, L11). Dramaturjiyi bozan bir gerileme yok. Üç küçük yan etki var: (1) J06 ile J09 art arda aynı şeyi söylüyor (alkış → tıslama); (2) K14 dinleyici için bağlamsız kalıyor; (3) K09 çıkınca “Romantikler” sözcüğü metinde hiç geçmiyor. Hepsi aşağıda, onayı engellemiyor.",
+  "engelleyici": [],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "K14",
+      "sorun": "“Milton son kitapta, yeryüzünün ilk zorbasını öğrenen Âdem'e şunu söyletir” cümlesi ilk kez duyan için fazla sıkışık: zorba kim, Âdem bunu nasıl öğreniyor, bunun K13'teki soruyla (devrimci Milton neden bir asiyi yazıyor?) ne ilgisi var? Cümle K13'ün cevabı olarak konmuş, ama bağı kurmuyor.",
+      "oneri": "K14: “[calmly] Milton'un kendi ölçüsü destanın son kitabındadır. Âdem, yeryüzünde ilk kez bir insanın ötekilere hükmettiğini öğrenince şöyle der: Tanrı insanı, insanın efendisi yapmadı.” Bağ kurulamayacaksa cümle çıkarılabilir; K13'ten K15'e geçiş onsuz da akıyor.",
+      "onem": "orta"
+    },
+    {
+      "sira": 2,
+      "id": "J06, J09",
+      "sorun": "İki cümle arayla aynı şey iki kez söyleniyor: J06 “alkış yerine tıslama yükseliyor”, J09 “Alkışlar tıslamaya … dönüşür”.",
+      "oneri": "J09: “[gravely] Milton'a göre Şeytan, günahı hangi kılıkta işlediyse cezasını da o kılıkta çeker. Zafer, kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 3,
+      "id": "L08b, L09, L10 (kapanış)",
+      "sorun": "Son dakika izleyici – Milton – izleyici diye gidip geliyor (L08b, L09, L10). Kapanış karesi de yazılı değil; kullanıcının planında Cabanel kapanış sahnesi.",
+      "oneri": "- İsteğe bağlı sıra: L08 → L09 → L08b → L10. L09 “insanın içinde de bir cehennem” diye bitiyor; “Belki herkesin… bir söz vardır” buradan doğrudan izleyiciye bağlanır.\n- Animasyon kapısı için not: L10, Cabanel'in gözündeki yaşın üstünde bitsin (kırmızı çizgi 7'ye göre yalnız gözler ve kollar).",
+      "onem": "düşük"
+    },
+    {
+      "sira": 4,
+      "id": "L11",
+      "sorun": "K09 çıkınca “Romantikler” metinde hiç geçmiyor; kullanıcının kararı iki okumayı “Blake/Romantikler ve Lewis” diye adlandırıyor. Şeli de ilk kez L11'de, tanıtılmadan geçiyor.",
+      "oneri": "L11: “[warmly] Romantik şair Şeli'ye göre Prometeus'a benzeyen tek hayalî karakter, Milton'un Şeytan'ıydı; …”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 5,
+      "id": "H12, E11, L05",
+      "sorun": "Üç küçük yankı eksik: C09 ↔ H12 aynası yalnız kaynak notunda; E11'de ordunun sadakati (I.611) yok, oysa J06'daki ironi buna dayanıyor; L05, E10'daki somut imgeyi tekrar etmiyor.",
+      "oneri": "- H12 sonuna: “Bir zamanlar kendini küçük düşürülmüş saymıştı. Şimdi gerçekten küçülmüştü.” Eklenmeyecekse kaynak notundaki ayna iddiası silinsin.\n- E11: “… yanık; ama hâlâ ayakta, hâlâ ona sadıklar.”\n- L05: “Milton'un o yüz için yazdığını hatırla: kaşlarının altında gurur, gözlerinde pişmanlık.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 6,
+      "id": "J11, kaynak notları, kimlikler",
+      "sorun": "J11 cevabın ipucunu “destanın son sahnesinde” gösteriyor; asıl ipucu K02–K03'te. Üç çapraz atıf eski (C01, D01, E07). J06 kimliği J08'den sonra geliyor; B07, I03, K09 boş.",
+      "oneri": "- J11: “Cevabın bir parçası, destanın sonunda saklı.”\n- Atıflar C09, D05, D03 olarak güncellensin.\n- Zaman çizelgesi kurulmadan önce kimlikler sıraya konsun ya da boşluklar `not` alanına yazılsın.",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "Felaketten sonraki kuyruk. J11'den sona 613 kelime var (toplamın %24'ü); Sisifos hızıyla ~6:20. Her parçanın işlevi var ve J11'deki kanca ana soruyu açık tutuyor, bu yüzden onay verdim. Ama izleyicinin yılana dönüşümden sonra iki okuma bölümünü sonuna kadar izleyip izlemeyeceğini metinden bilemem; bunu ilk tam kurgu (animatik) ve yayından sonra tutma eğrisi gösterir. Eğri K05–K16'da düşerse ilk kırpılacak yer K14 ile K15b olur."
+}

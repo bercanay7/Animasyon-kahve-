@@ -1,0 +1,89 @@
+{
+  "uye": "K-Denetim",
+  "karar": "ONAY",
+  "puanlar": {"K1": 9.3, "K2": 9, "K3": 9.5, "K4": 9, "K5": 9.5, "K6": 9, "K7": 8.5},
+  "agirlikli": 9.16,
+  "genel_not": "Engelleyici bulgum yok. Tur 2'deki tek engelleyici (L11, Shelley'nin yönü) düzelmiş; iki üyenin kritik ve yüksek düzeltmelerinin hepsi rev3'te karşılanmış. Rev3'te yeni ya da değişen 19 iddianın hepsini 1674 metninden, DNB'den ve web'den yeniden kontrol ettim: yanlış bilgi bulmadım. Kalanların hepsi düşük önemli; seslendirmeden önce düzeltilmesi kolay ama onayı bekletmez.",
+  "rev3_iddia_dogrulamasi": [
+    {"id": "B04", "sonuc": "doğru", "not": "Cellat eliyle yakma kararı 16 Haziran 1660 (DNB s. 33). 13 Ağustos bildirisi yazarların ‘hitherto concealed themselves’ olduğunu söyler; Milton'ın saklandığı yer Bartholomew Close (DNB s. 33). Yakma bundan sonra, Af Yasası'ndan (29 Ağustos) önce yapıldı; yani ‘yakılırken saklanıyordu’ tutuyor. ‘Sekiz yıldır kör’: 1652 → 1660, doğru. Yakmanın yeri ve günü için bkz. en emin olmadığım nokta."},
+    {"id": "B05", "sonuc": "doğru", "not": "‘Devrim ayaktayken başlamıştı. Bu yenilginin içinde bitirdi.’ DNB s. 34: 1658'de başlar, Aubrey'e göre 1663'te biter. ‘Büyük kısmını’ çıkarımı gitmiş."},
+    {"id": "D02", "sonuc": "doğru", "not": "VI.127–130: Abdiel safından çıkıp Şeytan'ı yarı yolda karşılar. VI.178–181 çevirisi rev2'deki gibi sadık. Silah metinde adlandırılmaz (düşük, aşağıda)."},
+    {"id": "D03", "sonuc": "doğru", "not": "VI.183–186: ‘Reign thou in Hell… let me serve in Heaven… Yet chains in Hell, not realms, expect.’ ‘Hükümdar / hizmetkâr’ I.263 ile aynı fiil çiftini (reign / serve) taşıyor; Milton'daki yankı da bu."},
+    {"id": "D04", "sonuc": "doğru", "not": "VI.189–195: darbe sözden sonra; on adım, onuncuda diz."},
+    {"id": "E04", "sonuc": "doğru", "not": "I.125–126 ‘Vaunting aloud, but racked with deep despair’: ‘yüksek sesle’ artık metinde. ‘Destan yayımlandığında… bir savaşı kaybetmişti’: 1667 ve 1660, kesin. K-Uzman'ın tarihleme itirazı karşılanmış."},
+    {"id": "F03", "sonuc": "doğru", "not": "II.756 ‘Likest to thee in shape and countenance bright’."},
+    {"id": "G13", "sonuc": "doğru", "not": "IV.103–104: ‘This knows my Punisher; therefore as far from granting he, as I from begging, peace.’ ‘Bu yüzden’ yerinde; kaynak alanı ‘Bunu’nun neye baktığını doğru yazıyor."},
+    {"id": "H10", "sonuc": "doğru", "not": "IV.555–588: Uriel güneş ışınıyla inip Cebrail'i uyarır. IV.781–790: Cebrail İturiel ile Zefon'u gönderir. IV.810–813: İturiel mızrağıyla dokunur. Uyarı bekçilere Cebrail üzerinden ulaşır; ‘Uriel'in haber verdiği bekçi melekler’ bunu karşılıyor."},
+    {"id": "H11", "sonuc": "doğru", "not": "IV.827 ‘filled with scorn’; IV.834 ‘Zephon, answering scorn with scorn’; IV.835–840. ‘Aynı küçümsemeyle karşılık verir’ dizenin kendisi."},
+    {"id": "I04–I05", "sonuc": "doğru (küçük sıra farkı)", "not": "IX.163–172 tek konuşmadır ve yılana girişten (IX.187–188) öncedir; rev3 bunu doğru veriyor, K12 ile çelişki kalktı. Milton'da Şeytan bu sözleri yılanı ararken söyler (IX.158–162, 179–182); rev3 önce buldurup sonra ‘bir an durur’ diyor. Düşük."},
+    {"id": "J06", "sonuc": "doğru", "not": "X.545–546 ‘the applause they meant, turned to exploding hiss’. ‘Alkış yerine tıslama yükseliyor’ kalabalığa kasıt yüklemiyor."},
+    {"id": "J09", "sonuc": "doğru", "not": "X.516 tekil; X.545–547."},
+    {"id": "K03", "sonuc": "doğru", "not": "III.129–132, dolaylı anlatımla. Yalnız ‘en başta’ üçüncü kitap için fazla; düşük."},
+    {"id": "K11", "sonuc": "doğru", "not": "Lewis'in cümlesi artık eksiksiz (‘bedroom or bathroom windows’ dahil)."},
+    {"id": "K14", "sonuc": "doğru", "not": "XII.63–71: konuşan Âdem; ‘söyletir’ doğru fiil. Zorba XII.24–37'de adsızdır."},
+    {"id": "K15b", "sonuc": "doğru", "not": "Taç reddi 1657; Richard 1658'de yerine geçti. ‘Taçsız bir kral gibi’ niteleme olarak kalıyor, savunulabilir."},
+    {"id": "L08", "sonuc": "doğru", "not": "III.129–132 destanın kendi beyanı olarak, IV.104 Şeytan'ın sözü olarak verilmiş; alıntının göndergesi artık kaymıyor."},
+    {"id": "L09", "sonuc": "doğru", "not": "III.51–55; rev1'den beri aynı sadık çeviri, yalnız yeri değişmiş."},
+    {"id": "L11", "sonuc": "doğru", "not": "‘Prometheus'a benzeyen tek hayalî karakter, Milton'ın Şeytan'ıydı… arınmış olarak anlatılabilirdi’ Shelley'nin cümlesiyle yön ve kip olarak aynı (‘susceptible of being described as exempt from the taints of ambition, envy, revenge’)."}
+  ],
+  "dogrulama": [
+    {"bulgu": "T2-1 (K-Denetim ve K-Uzman, kritik): L11'de Shelley'nin yönü ters", "durum": "karşılandı", "not": "Yön ve ‘anlatılabilirdi’ kipi düzelmiş; kaynak alanında özgün cümle var."},
+    {"bulgu": "T2-2 (K-Denetim): K14'te konuşan Âdem", "durum": "karşılandı", "not": "‘Âdem'e şunu söyletir’. ‘Milton'ın kendi cevabı Abdiel'in ağzındadır’ cümlesi çıkmış; Abdiel'in sözü K16'da kendi adıyla duruyor."},
+    {"bulgu": "T2-3 (K-Denetim ve K-Uzman 5): L08'de alıntının göndergesi", "durum": "karşılandı", "not": "IV.104'ün ikinci yarısı kullanılmış."},
+    {"bulgu": "T2-4 (K-Denetim ve K-Uzman 3): I04–I05 sırası", "durum": "karşılandı", "not": "Söz girişten önce; küçük sıra farkı için bkz. düzeltme 1."},
+    {"bulgu": "T2-5 (K-Denetim): J09 çoğul", "durum": "karşılandı", "not": "‘Milton'a göre Şeytan, günahı hangi kılıkta işlediyse…’"},
+    {"bulgu": "T2-6 (K-Denetim): L05 ‘ağzına alamıyor’; L07 zincir", "durum": "kısmen", "not": "L05 ‘kendine yasaklıyor’ olmuş, G09b'den ‘ağzıma almayı’ çıkmış. L07 ‘o zinciri ona kimse vurmadı’ diyor; A04'teki zincirlerle sürtüşme azalmış ama sürüyor (düzeltme 2)."},
+    {"bulgu": "T2-7 (K-Denetim): remorse / repentance", "durum": "karşılanmadı", "not": "G14 hâlâ ‘Elveda pişmanlık’. Düşük; anlamı bozmuyor."},
+    {"bulgu": "T2-8 (K-Denetim): bölüm adı ve bayat göndermeler", "durum": "kısmen", "not": "Bölüm adı ‘Ben cehennemim’. Göndermelerin çoğu güncel; üçü bayat (düzeltme 4)."},
+    {"bulgu": "T2-9 (K-Denetim): küçük sapmalar", "durum": "kısmen", "not": "H11, K11, K13 düzelmiş. B03, E12, F06, I02, J02, K03, L03 duruyor."},
+    {"bulgu": "K-Uzman 2 (yüksek): E04 ve B05'te dayanaksız tarihleme", "durum": "karşılandı", "not": "E04 ‘destan yayımlandığında’, B05 ‘bitirdi’."},
+    {"bulgu": "K-Uzman 4 (orta): J05–J06 kalabalığa kasıt yüklüyordu", "durum": "karşılandı", "not": "J05'ten ‘Herkesin aşağılaması’ çıkmış; J06 X.545–546'ya uygun."},
+    {"bulgu": "K-Uzman 7 (orta): K07'ye ‘Blake için şeytan enerji demekti’ eki", "durum": "reddedildi", "not": "Gerekçe bana uygun. K07 ‘ileri sürdü’ ve ‘der Blake’ ile görüşü Blake'e bağlıyor; atıf doğru, eksik bir olgu yok."},
+    {"bulgu": "K-Uzman 8 (orta): Lewis alıntısı kısaltılmıştı", "durum": "karşılandı", "not": "Tam alıntı."},
+    {"bulgu": "K-Uzman, tur 2 çapraz: ‘Blind, infirm, and poor’ DNB dosyasında yok", "durum": "reddedildi", "not": "İfade dosyada var: `kaynak/dnb_milton_1894.md` satır 137 (basılı s. 34). Sözcük rev2'de çıktığı için sonuç değişmiyor; kayıt düzelsin diye yazıyorum."}
+  ],
+  "engelleyici": [],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "I04",
+      "sorun": "Milton'da Şeytan bu sözleri yılanı ararken söyler (IX.158–162), sonra bulur ve girer (IX.182–188). Rev3 önce buldurup ‘içine girmeden önce bir an durur’ diyor; ‘durma’ metinde yok.",
+      "oneri": "“Saklanmak için uyuyan bir yılan arar; ararken kendinden iğrenir: “Ne iğrenç bir alçalış! …”” I05'in sonuna: “Sonra yılanı bulur ve ağzından içine girer.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 2,
+      "id": "L07",
+      "sorun": "‘Zinciri de [buldu]. Ama o zinciri ona kimse vurmadı’: A04'te göle bağlayan zincirler var (I.48, I.210) ve Abdiel'in ‘zincir bekle’ sözü önce onlarla gerçekleşir. Cümle mecazı kastediyor ama düz okunursa senaryonun kendi başıyla çelişiyor.",
+      "oneri": "“Krallığı buldu; zinciri de. Gölün zincirleri çözüldü; asıl zinciri ise ona kimse vurmadı. Kendi eliyle vurdu: gururu.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 3,
+      "id": "E12, J02, K03",
+      "sorun": "E12: metin ‘bir saatten kısa’ diyor, kendi kaynak alanı ‘in an hour’ (I.697). J02: ‘eski parlaklığıyla’ ile ‘sahte bir parıltıyla’ yan yana; X.450–452 ‘düşüşten ona kalan ışık ya da sahte parıltı’ der. K03: III. kitap ‘en başta’ değil.",
+      "oneri": "E12: “Bir saat içinde…” J02: “…birden parlayarak belirir; Milton'ın deyişiyle, düşüşten ona kalan ışıkla ya da sahte bir parıltıyla.” K03: “…bunun cevabı üçüncü kitapta verilir…”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 4,
+      "id": "kaynak alanları",
+      "sorun": "Üç gönderme bayat: C01 ‘iki cevabı C06’ (C09), D01 ‘ödemesi D04’ (D05), E07 ‘Abdiel'in uyarısı D04’ (D03). B04'ün kaynağı yakmanın yapıldığını DNB s. 33'e bağlıyor; DNB yalnız kararı ve bildiriyi verir. D10 boş.",
+      "oneri": "Göndermeleri güncelle. B04 kaynağına ekle: ‘yakmanın yapıldığı: Wikipedia Eikonoklastes; Masson’. D10: ‘KC I.50–53’.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 5,
+      "id": "B03, D02, D04, F06, I02, G14, K08, L03",
+      "sorun": "Önceki turlardan kalan küçük sadakat notları. B03: Phillips ‘the two youngest’ ve ‘almost beyond endurance’ der. D02/D04: Abdiel'in silahı metinde adlandırılmaz (VI.189 ‘a noble stroke’). F06: ‘on bin kulaç’ ve ateşli bir bulut (II.934–937). I02: Şeytan kaçar (IX.53–54). G14: ‘remorse’. K08: ‘çoğu’ ölçülemez bir genelleme. L03: ‘kayalara’ hâlâ doğrulanmadı.",
+      "oneri": "B03: “Küçük iki kızına… neredeyse dayanılmaz oldu.” D04: “Sonra darbe iner.” F06: “…on bin kulaç aşağı. Ateşli bir bulut onu yeniden yukarı fırlatmasa…” I02: “Şeytan bahçeden kaçmak zorunda kalır.” G14: “Elveda vicdan azabı.” K08: “…akılda kalan sözlerin birçoğu, Şeytan'ın sözleri.” L03: görsel hazırlanırken tabloya bakılarak doğrulansın.",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "B04'teki ‘Londra'da cellat onun kitaplarını ateşe atarken’ sahnesinin yeri ve günü. Karar (16 Haziran), bildiri (13 Ağustos; yazarlar hâlâ saklanıyor) ve yakmanın cellat eliyle yapıldığı sağlam. Yakmanın 27 Ağustos'ta yapıldığını tek bir web kaynağında gördüm; bildiri ise kitapların şeriflere teslim edilip ‘bir sonraki ağır ceza oturumunda’ yakılmasını emrediyor, yani yakma yalnız Londra'da olmayabilir. Milton'ın o sırada saklandığı sonucu iki durumda da tutuyor, bu yüzden engel saymadım; yayın açıklamasında gün verilecekse Masson'dan doğrulanmalı. Musée Fabre belgesi hâlâ açılamıyor (museefabre-old.montpellier3m.fr ağda engelli); L04 etki iddia etmediği için senaryoyu etkilemiyor.",
+  "web_kaynaklari": [
+    "https://en.wikipedia.org/wiki/Eikonoklastes (yakma, Af Yasası 29 Ağustos 1660)",
+    "https://exhibits.libraries.rutgers.edu/milton/restoration-censorship-and-paradise-lost (Restorasyon sansürü)",
+    "https://knarf.english.upenn.edu/PShelley/prompref.html (Shelley önsözü, tur 2'de doğrulandı)"
+  ]
+}

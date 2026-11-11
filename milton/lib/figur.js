@@ -198,11 +198,12 @@ const FG = (() => {
     let lx = lit[0], ly = lit[1], lz = lzz; const ln = Math.hypot(lx, ly, lz); lx /= ln; ly /= ln; lz /= ln;
     const amb = o.amb ?? .12, lo = o.lo ?? .08, hi = o.hi ?? .95, rim = o.rim ?? 0, rd = o.rimDir || [-lit[0], -lit[1]];
     const kz = (o.depth ?? 26) * RS * 3, id = o.id ?? 5, edge = o.edge ?? .9, ph = Math.round(((o.ph || 0) % 1 + 1) % 1 * 256) & 255;
-    // tarama alanı: düz çizgiler (θ0) formun yüksekliğiyle bükülür → uzvu saran kavisler. Evre piksel başına yazılır.
+    // tarama alanı: düz çizgiler (θ0) formun yüksekliğiyle bükülür → bedeni saran kavisler. Evre, GR.PHB arabelleğine yazılır.
+    // anchor: nesnenin çapa noktası (dünya); nesne kayınca çizgiler onunla kayar.
     const th0 = o.axis ?? 0, Pst = GR.STY[id].P, K = o.wrap ?? 2.2, Kb = o.wrapB ?? .6;
-    const cs0 = Math.cos(th0), sn0 = Math.sin(th0), cm = GR.getCam(), kk = 1 / (RS * cm.s);
+    const cs0 = Math.cos(th0), sn0 = Math.sin(th0), cm = GR.getCam(), kk = 1 / (RS * cm.s), an = o.anchor || [0, 0];
     const Hb = new Float32Array(N); for (let i = 0; i < N; i++) Hb[i] = Math.sqrt(Math.max(0, Hm[i])) + Bb[i] * Kb / K;
-    const U = (x, y, i) => { const wx = (x + x0 * RS) * kk + cm.x, wy = (y + y0 * RS) * kk + cm.y; return (wy * cs0 - wx * sn0) / Pst + K * Hb[i]; };
+    const bytes = GR.bufBytes(id), PHB = GR.PHB, gx0 = x0 * RS, gy0 = y0 * RS;
     for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
       const i = y * w + x, m = M[i];
       if (m < .003) continue;
@@ -218,13 +219,12 @@ const FG = (() => {
       const tv = v * 255;
       td[k] = td[k] * (1 - a) + tv * a; td[k + 1] = td[k]; td[k + 2] = td[k];
       if (a > .5) {
-        const u = U(x, y, i), ux = U(x + 1, y, i + 1) - U(x - 1, y, i - 1), uy = U(x, y + 1, i + w) - U(x, y - 1, i - w);
-        let th = Math.atan2(uy, ux) - PI / 2;
-        const ab = Math.round(((th % PI) + PI) % PI / PI * 256) & 255;
-        const wx = (x + x0 * RS) * kk + cm.x, wy = (y + y0 * RS) * kk + cm.y;
-        const base = (wy * GR.COS[ab] - wx * GR.SIN[ab]) / Pst;
-        let g = u - base + ph / 256; g -= Math.floor(g);
-        pd[k] = ab; pd[k + 1] = Math.round(g * 256) & 255; pd[k + 2] = id;
+        const X = x + gx0, Y = y + gy0;
+        if (X >= 0 && X < DW && Y >= 0 && Y < DH) {
+          const wx = X * kk + cm.x - an[0], wy = Y * kk + cm.y - an[1];
+          PHB[Y * DW + X] = (wy * cs0 - wx * sn0) / Pst + K * Hb[i] + (o.ph || 0);
+        }
+        pd[k] = bytes[0]; pd[k + 1] = bytes[1]; pd[k + 2] = bytes[2];
       }
     }
     tx.putImageData(T, x0 * RS, y0 * RS); px.putImageData(Pd, x0 * RS, y0 * RS);
