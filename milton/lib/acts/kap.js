@@ -43,9 +43,9 @@ function kap_sahne(t, o = {}) {
   const { tx, tone } = GR, lt = o.lt ?? 1;
   tx.fillStyle = tone(.02); tx.fillRect(-400, -400, W + 800, H + 800);
   kap_kapi(t, o);
-  PR.glow(960, KAP_GY + 10, 60, 640, 1, .9 * lt);                     // kapının dibinde alev ışığı (odak)
+  PR.glow(960, KAP_GY + 10, 60, 800, 1, .9 * lt);                     // kapının dibinde alev ışığı (odak)
   const G = new Path2D(); G.rect(-400, KAP_GY, W + 800, 600);
-  { const g = tx.createRadialGradient(960, KAP_GY, 0, 960, KAP_GY, 760); g.addColorStop(0, tone(.55 * lt)); g.addColorStop(.45, tone(.12 * lt)); g.addColorStop(1, tone(.02)); GR.fill(G, g, { type: 'persp', y0: KAP_GY, D: 300, p0: 9.5, p1: 12.5, id: 8 }); }
+  { const g = tx.createRadialGradient(960, KAP_GY, 0, 960, KAP_GY, 980); g.addColorStop(0, tone(.55 * lt)); g.addColorStop(.45, tone(.12 * lt)); g.addColorStop(1, tone(.02)); GR.fill(G, g, { type: 'persp', y0: KAP_GY, D: 300, p0: 9.5, p1: 12.5, id: 8 }); }
   if (o.mid) o.mid();
   PR.flameBank(520, 1400, KAP_GY + 14, 80, t, 37, { band: false, n: 8, wr: .6, curl: .4, speed: .55, solidBelow: 500, strip: .4, frags: false, env: f => .4 + .6 * Math.sin(f * PI) });
   if (o.fig) o.fig();

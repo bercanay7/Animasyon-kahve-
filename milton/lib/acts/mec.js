@@ -61,7 +61,7 @@ function mec_sira(R, st) {
 }
 function mec_siraCiz(R, st, lt) {
   const { tx, tone } = GR, P = mec_sira(R, st);
-  const ze = R.z - MEC.zc, v = lerp(.3, .02, clamp((2.7 - ze) / 1.2)), rim = .35 + .65 * clamp((ze - 1.2) / 1.4);
+  const ze = R.z - MEC.zc, v = lerp(.24, .02, clamp((2.7 - ze) / 1.4)), rim = .5 + .5 * clamp((ze - 1.2) / 1.4);
   if (rim * lt > .05) { tx.save(); tx.translate(0, -2.6); tx.fillStyle = tone(.95 * rim * lt + .03); tx.fill(P); tx.restore(); }
   GR.fill(P, tone(v), { th: 0, id: 8 });
 }
@@ -106,7 +106,7 @@ function mec_sutun(X, z, lt) {
   P.moveTo(x - r1, ye); P.quadraticCurveTo(x - r0 * 1.2, ye - 4 * k, x - r0 * 1.22, yt + 16 * k); P.lineTo(x + r0 * 1.22, yt + 16 * k); P.quadraticCurveTo(x + r0 * 1.2, ye - 4 * k, x + r1, ye); P.closePath();
   P.rect(x - r0 * 1.3, yt - 2, r0 * 2.6, 18 * k + 2);
   const sd0 = X < 0 ? 1 : -1, Lc = lt * clamp(.3 + .7 * (z - .9) / 2.6), g = GR.tx.createLinearGradient(x + sd0 * r0, 0, x - sd0 * r0, 0);
-  g.addColorStop(0, tone(.025 + .62 * Lc)); g.addColorStop(.18, tone(.025 + .42 * Lc)); g.addColorStop(.5, tone(.025)); g.addColorStop(1, tone(.025));
+  g.addColorStop(0, tone(.025 + .8 * Lc)); g.addColorStop(.3, tone(.025 + .5 * Lc)); g.addColorStop(.5, tone(.025)); g.addColorStop(1, tone(.025));
   GR.fill(P, g, { th: -PI / 2, id: 9, anchor: [x, yb] });
   // ışık koridor yanından (iç yüz): kenar ışığı + kütlenin içine giren, uzunluğu düzensiz yiv vuruşları
   const sd = X < 0 ? 1 : -1, r = rng(Math.round(z * 100) + (X < 0 ? 0 : 50)), L = lt * clamp(.35 + .65 * (z - .9) / 2.6);
@@ -146,7 +146,7 @@ function mec_salon(t, o = {}) {
   GR.fill(back, tone(.04), { th: 0, id: 1 });
   const [tgx, tgy] = mec_P(0, MW.DTOP - 330, MW.TZ), gx = o.gx ?? tgx, gy = o.gy ?? tgy, gk = MEC.K / 1.25;
   if (gl > .01) {
-    const gR = o.gR ?? 330 * gk;
+    const gR = o.gR ?? 560 * gk;
     tx.save(); if (o.gClip !== false) tx.clip(back);
     PR.glow(gx, gy, 20 * gk, gR * Math.sqrt(gl), 1, Math.min(1, gl));
     PR.glow(gx, gy, 10 * gk, gR * .45 * Math.sqrt(gl), 1, Math.min(1, gl));
@@ -156,7 +156,7 @@ function mec_salon(t, o = {}) {
   for (const sd of [-1, 1]) { const P = new Path2D(), a = mec_P(sd * bw, MW.ENT, BZ), b = mec_P(sd * (bw - 120), MW.FL, BZ); P.rect(Math.min(a[0], b[0]), a[1], Math.abs(b[0] - a[0]), b[1] - a[1]); GR.fill(P, tone(.03), { th: -PI / 2, id: 9 }); }
   // zemin: perspektifli tarama, tahta yakın yerde parıltının yansıması
   { const yb = mec_P(0, MW.FL, BZ)[1], G = new Path2D(); G.rect(-400, yb, W + 800, H + 600 - yb);
-    const g = tx.createRadialGradient(MEC.vx, yb, 0, MEC.vx, yb, 520 * gk); g.addColorStop(0, tone(.1 + .42 * Math.min(1, gl) * lt)); g.addColorStop(.3, tone(.05 + .14 * gl * lt)); g.addColorStop(.75, tone(.03 + .05 * gl * lt)); g.addColorStop(1, tone(.025));
+    const g = tx.createRadialGradient(MEC.vx, yb, 0, MEC.vx, yb, 900 * gk); g.addColorStop(0, tone(.1 + .42 * Math.min(1, gl) * lt)); g.addColorStop(.3, tone(.05 + .14 * gl * lt)); g.addColorStop(.75, tone(.03 + .05 * gl * lt)); g.addColorStop(1, tone(.025));
     GR.fill(G, g, { type: 'persp', y0: yb, D: 420, p0: 9.5, p1: 12.5, id: 8 });
     // koridor boyunca yansıma: parlak cilalı zeminde uçları sivrilen yatay kâğıt çizgiler (uzakta uzun ve sık, yakında kısa ve seyrek)
     const q = rng(41); tx.save(); tx.clip(G);
