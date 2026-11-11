@@ -63,7 +63,9 @@ Başkaldırı serisinin öteki videoları: Sisifos ve Prometheus (oynatma listes
 ```
 
 ## Yayın koşulları (kuruldan devredilenler)
-- Dinî günlerde ve onların arifesinde yayınlanmaz.
+- Dinî günlerde ve onların arifesinde yayınlanmaz. Ayrıntı (hassasiyet üyesi, kurgu kurulu tur 1): Ramazan boyunca ve kandil günlerinde yayın yok (tarihler Diyanet takviminden doğrulanır); perşembe akşamı ve cuma günü yayın yok; 24–26 Aralık arası yayın yok; yayından önce gündem kontrol edilir.
+- Yayın günü yorumlar yakından izlenir (sabit yorum edebi çerçeveyi taşır).
+- Hiçbir Shorts C04 (selam), F02–F04 (kapıdaki bekçiler) ya da "Kazanmıştır." ile başlamaz ve bitmez; hiçbir Shorts G14 ile bitmez; Shorts'un ilk cümlesi ve ilk karesi edebi çerçeveyi taşır.
 - Kategori: Eğitim. Video dili: Türkçe. Kitle: çocuklara özel değil.
 - "Değiştirilmiş veya yapay içerik" beyanı: video gerçekçi görüntü içermez (stilize gravür animasyonu); karar yayın paketi kurulunda kayda geçirilir.
 - Altyazı: `milton.tr.srt` (izleyicilerin ~%38'i Türkçe altyazıyla izliyor).

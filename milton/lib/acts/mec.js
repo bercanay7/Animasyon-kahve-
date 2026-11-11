@@ -458,7 +458,12 @@ plan('P055', (ctx, st) => {
   levha(ctx, cam, () => mec_salon(t, { K: 2.2, zc: 1.0, vy: 190, serit: .9, glow: 1.05, crowd: (f, R) => mec_selam(f, R, t, tE),
     fig: () => mec_seytan(t, { X: 0, z: MW.TZ - .3, head: .22, armN: [.25, .2], armF: [-.15, .15], lum: .25, cloak: 1.3, wingK: .85, open: .35, lift: .35 }) }));
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => quote(ctx, 'Diz çökmeyi reddeden melek…', 960, 836, st.t - Wd('E15', 'reddeden') + .3, { px: 72, panel: .85 }) });   // taht, figür ve sütunlardan uzak: alt koyu kütle
+  over: (ctx, st) => {   // taht, figür ve sütunlardan uzak: alt koyu kütle
+    // quote() geçiş alfasını ezdiği için (film.js) P056 kartına geçerken yazı kendi söner: 'ctx.globalAlpha' yazımlarını k ile çarpan vekil bağlam
+    const k = st.t > st.end ? 1 - E.sine(clamp((st.t - st.end) / .6)) : 1; if (k <= 0) return;
+    const cx = new Proxy(ctx, { get: (t, p) => { const v = t[p]; return p === 'globalAlpha' ? v / k : typeof v === 'function' ? v.bind(t) : v; }, set: (t, p, v) => { t[p] = p === 'globalAlpha' ? v * k : v; return true; } });
+    quote(cx, 'Diz çökmeyi reddeden melek…', 960, 836, st.t - Wd('E15', 'reddeden') + .3, { px: 72, panel: .85 });
+  } });
 
 // ═════════ J01 (P104): bölüm kartı ALKIŞ; boş taht ═════════
 plan('P104', (ctx, st) => {

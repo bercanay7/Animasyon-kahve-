@@ -839,8 +839,8 @@ function oda_P140(t) {
 plan('P140', (ctx, st) => levha(ctx, null, () => { oda_P140(st.t); }, [.03, 0, 1]), {
   tr: { type: 'black', dur: 1.2 },
   over: (ctx, st) => { const lt = st.t - Wd('L09', 'sen') - .2;
-    quote(ctx, '“göksel ışık,\niçime parla”', 1560, 150, lt, { px: 72 });
-    txt(ctx, 'KAYIP CENNET · III. 51–52', 1530, 280, { font: FONT.baslik(40, 600), px: 40, ls: 3, a: E.sine(clamp((lt - 1.1) / .6)) }); } });
+    quote(ctx, '“göksel ışık,\niçime parla”', 1440, 150, lt, { px: 72 });
+    txt(ctx, 'KAYIP CENNET · III. 51–52', 1440, 280, { font: FONT.baslik(40, 600), px: 40, ls: 3, a: E.sine(clamp((lt - 1.1) / .6)) }); } });
 // Yıl/yer etiketi (P011, P118): aynı biçim, aynı köşe (sol üst, sol kenar x 140, y 110; Cinzel 56 px, harf aralığı 6)
 function oda_yil(ctx, s, lt, d) {
   ctx.save(); ctx.font = FONT.baslik(56, 600); ctx.letterSpacing = '6px'; const w = ctx.measureText(s).width; ctx.restore();

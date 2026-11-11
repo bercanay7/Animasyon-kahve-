@@ -893,7 +893,7 @@ plan('P098', (ctx, st) => {
   }, [.04, 0, 1]);
 }, { tr: { type: 'cut' }, over: (ctx, st) => {
   const t0 = Wd('I05', 'yükseldiği') - .5, e = Wd('I05', 'sonra');
-  ctx.save(); ctx.globalAlpha *= clamp((e - st.t) / .6); quote(ctx, '“yükseldiği kadar alçalmak zorundadır”', 620, 220, st.t - t0, { px: 72, panel: .55, maxW: 900 }); ctx.restore();
+  ctx.save(); ctx.globalAlpha *= clamp((e - st.t) / .6); quote(ctx, '“yükseldiği kadar alçalmak zorundadır”', 430, 200, st.t - t0, { px: 72, panel: .55, maxW: 620 }); ctx.restore();
 } });
 
 // ═════════ P100 (I07): alev geri gelir ═════════

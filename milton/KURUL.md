@@ -404,3 +404,17 @@ Ortak brif ve malzeme: `kurul/kurgu_tur1/BRIF.md` (her plandan baş/orta/son kar
 - B'nin vaadi finalde (22:44) karşılanıyordu. **Açılışa P002g eklendi:** A02 ile A03 arasındaki 1,3 sn'lik sessizlikte Cabanel gözü ve biriken damla (`oku.js` sonu). İki kapağın vaadi de ilk 11 saniyede.
 - A: alev karenin en parlak yeri değil (odak bölünüyor), açık temada kenar kayboluyor, köşe bulutları "kir". Tur 6'da düzeltiliyor.
 - Başlık: "Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton".
+
+### Kapı 3, tur 1 (devam): hassasiyet
+| Alan | Üye | Puan | Karar | Öne çıkan |
+|---|---|---|---|---|
+| Hassasiyet (veto) | H-Hassasiyet (toplumsal ve dinî hassasiyet okuru) | 7,8 | RED | iki engelleyici: C04'te tek sıra hâlinde profilden eğilen beş figür namaz safı gibi; kapıdaki Günah figürü baştan ayağa siyah, kukuletalı (çarşaflı kadın gibi) ve üstünde "GÜNAH" yazısı |
+
+**Başkan kararları:**
+- İki engelleyici de kabul (veto alanı). C04 yeniden kuruluyor: tek sıra yok; derinlikte düzensiz, kanatlı kalabalık; ¾ arkadan; tek diz yerde, gövde dik; iniş dalga hâlinde. Günah figürü: boyunun en az %45'i pullu yılan halkaları, kukuleta yok (dağınık saç, antik dökümlü kumaş), düz siyah değil taramalı; etiket "GÜNAH · kendi kızı" (F04'teki "ÖLÜM · kendi oğlu" ile koşut; alegoriyi açık eder).
+- Sabah yıldızı dört kollu hâliyle "LUCIFER" yazısının yanında haç gibi okunuyor: çok ışınlı, yönsüz yıldıza çevriliyor.
+- Havva'nın yakın plandaki çıplak ön kolları (I08): uzun yenli kol.
+- Şiirden yapılan bütün doğrudan alıntılara künye (kitap ve dize numarası) ekleniyor: bağlamından kopuk ekran görüntüsünde de sözün bir destandan olduğu görünür.
+- Kapak A'nın yazısı tırnak içine alınıyor ve altına küçük "MILTON · KAYIP CENNET" satırı deneniyor.
+- Yayın koşulları `youtube.md`'ye işlendi (Ramazan, kandiller, perşembe akşamı–cuma, 24–26 Aralık; yorum izleme; Shorts kısıtları).
+- Düşük öncelikliler sahiplerine verilecek: G05'te önde tek figür + arkada saflar (imam ve cemaat okuması), E13'te tavandan sarkan küre (kandil okuması), E04 levhasında kıvrık iç figür (cenin okuması).

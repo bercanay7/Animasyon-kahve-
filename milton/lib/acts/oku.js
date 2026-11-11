@@ -267,9 +267,9 @@ function oku_kart(st, baslik, soru, koyu, tBas, tSoru, motif) {
   kit_yaz(soru, 960, 590, { f: 'a', px: 72, v, bg, a: kit_a(t, tSoru - .2, 1), wipe: true });
   oku_isikAc(oku_u(t, st.at, st.at + 1.4), 960, 480);
 }
-plan('P119', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'İKİ OKUMA', 'Bu destanın kahramanı kim?', false, st.at + .3, Wd('K05', 'bu')), [KIT_K, 0, 1]),
+plan('P119', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'İKİ OKUMA', 'Bu destanın kahramanı kim?', false, st.at + 1.2, Wd('K05', 'bu')), [KIT_K, 0, 1]),
   { tr: { type: 'black', dur: 1.4, end: true } });
-plan('P131', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'BİR DAMLA YAŞ', 'Peki ya o gözyaşları?', true, st.at + .3, Wd('L01', 'peki'), () => {
+plan('P131', (ctx, st) => levha(ctx, null, () => oku_kart(st, 'BİR DAMLA YAŞ', 'Peki ya o gözyaşları?', true, st.at + 1.2, Wd('L01', 'peki'), () => {
   const x = 960, y = 230, r = 16, T = new Path2D(); T.moveTo(x, y - r * 2.2); T.bezierCurveTo(x + r * .6, y - r * 1.2, x + r, y - r * .5, x + r, y); T.arc(x, y, r, 0, PI); T.bezierCurveTo(x - r, y - r * .5, x - r * .6, y - r * 1.2, x, y - r * 2.2); T.closePath();
   GR.fill(T, GR.tone(.975), { th: 0, id: 0 });
 }), [.03, 0, 1]), { tr: { type: 'black', dur: 1.4, end: true } });
@@ -450,7 +450,7 @@ function oku_k15b(st) {
   const ao = kit_a(t, Wd('K15b', 'oğluna') - .4, 1.2), h2 = 32;
   const J2 = SF.rig({ x: 470, y: G - 3.95 * h2, h: h2, facing: 1, twist: .4, head: .02, armN: [.1, .2], armF: [-.1, .2] });
   kit_fig(J2, { lum: 0, lit: [.6, -.8], t, legs: true, cloak: 1, lines: 0, hair: 1.2, armor: false, seed: 11 }, .22 + .78 * ao);
-  kit_yaz('Cromwell, 1657', 960, 805, { f: 'a', px: 60, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
+  kit_yaz('Cromwell, 1657', 960, 400, { f: 'a', px: 68, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
 }
 plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 

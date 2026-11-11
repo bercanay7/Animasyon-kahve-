@@ -156,7 +156,7 @@ plan('P059', (ctx, st) => {
     const t1 = st.t - Wd('F04', 'ölüm'), t2 = st.t - Wd('F04', 'kendi', 1);
     if (t1 <= 0) return;
     ctx.save(); ctx.font = FONT.baslik(56, 600); ctx.letterSpacing = '8px'; const a = ctx.measureText('ÖLÜM').width, b = ctx.measureText(' · kendi oğlu').width; ctx.restore();
-    const x0 = 1000 - (a + b) / 2;
+    const x0 = 1120 - (a + b) / 2;   // sol mızrak çizgisinin sağında
     etiket(ctx, 'ÖLÜM', x0 + a / 2, 105, t1, 99, { px: 56, ls: 8, panel: .9 });
     if (t2 > 0) etiket(ctx, ' · kendi oğlu', x0 + a + b / 2, 105, t2, 99, { px: 56, ls: 8, panel: .9 });
   } });
