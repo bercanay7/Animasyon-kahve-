@@ -2,9 +2,9 @@
 // Değer planı (göz yormasın diye üç büyük kütle): zifiri tonoz (düz siyah), ufukta figürün arkasında tek parlak leke,
 // koyu göl. Tarama yalnız geçişlerde; çizgi doğrultusu az (yatay göl, kavisli duman, ışın).
 'use strict';
-function sahneGol(t, o = {}) {
+// cizGol: açık levhaya çizer (GR.begin/engrave çağırmaz). o: {eyes (göz açıklığı 0–1), chains (false: zincir yok), fig (false: figür yok)}
+function cizGol(t, o = {}) {
   const { tx, tone, fill } = GR;
-  GR.begin(.04, 0, 1, o.cam);
   const FX = 880, HZ = 600, WY = 800;                 // figür ekseni, ufuk, su çizgisi (figürün beli)
   // ── gök: zifiri; yalnız ufka yakın dar bir kuşak aydınlık ──
   let g = tx.createLinearGradient(0, 0, 0, HZ);
@@ -21,9 +21,9 @@ function sahneGol(t, o = {}) {
   PR.cloud({ x: 1640, y: 350, w: 800, h: 210, seed: 17, lit: [-.8, .6], base: .02, hi: .5, core: .02, n: 4, drift: Math.sin(t * .08 + 1) * 10 });
   // ── göl ──
   PR.lake(HZ, H, t, { tone: [.3, .02], refl: [{ x: FX + 30, w: 300, v: .7, len: 330 }, { x: 330, w: 110, v: .3 }, { x: 1420, w: 130, v: .34 }] });
-  PR.flameBank(-60, W + 60, HZ + 2, 44, t, 1, { env: f => .2 + .8 * Math.pow(Math.sin(f * PI), 2) });
-  PR.flameBank(1180, 1700, 668, 120, t, 5, { env: f => .35 + .65 * Math.sin(f * PI) });
-  PR.flameBank(120, 560, 700, 130, t, 9, { env: f => .35 + .65 * Math.sin(f * PI) });
+  PR.flameBank(-60, W + 60, HZ + 2, 30, t, 1, { env: f => .2 + .8 * Math.pow(Math.sin(f * PI), 2) });
+  PR.flameBank(1220, 1700, 672, 150, t, 5, { n: 6, wr: .55, env: f => .35 + .65 * Math.sin(f * PI) });
+  PR.flameBank(150, 540, 704, 160, t, 9, { n: 5, wr: .55, env: f => .35 + .65 * Math.sin(f * PI) });
   // ── Şeytan: belden yukarısı gölün üstünde; arkadan aydınlanan koyu kütle, yüzü yarığa dönük ──
   const br = Math.sin(t * .6) * 2, h = 98;
   const J = SF.rig({ x: FX, y: WY + 26 + br * .3, h, facing: 1, twist: .3, lean: .05, head: .35, shTilt: .06,
@@ -41,13 +41,15 @@ function sahneGol(t, o = {}) {
   PR.chain(J.wrF[0], J.wrF[1], J.wrF[0] + 170, WY + 40, 34, { sag: 14, v: .9 });
   // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle)
   PR.glow(FX, WY + 10, 6, 170, 1, .2);
-  PR.flameBank(FX - 330, FX - 60, WY + 36, 120, t, 7, { env: f => .4 + .6 * (1 - f), wr: .55 });
-  PR.flameBank(FX + 70, FX + 360, WY + 34, 110, t, 8, { env: f => .4 + .6 * f, wr: .55 });
+  PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6 });
+  PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6 });
   // sağ ön: büyük alev dilleri (çerçeve); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
   PR.flameBank(1480, W + 120, H + 30, 380, t, 4, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8 });
   PR.rock([[-20, 560], [70, 582], [130, 640], [205, 662], [236, 730], [300, 770], [318, 860], [386, 915], [404, H + 20], [-20, H + 20]],
     { lit: [.85, -.45], hi: .05, mid: .03, lo: .02, seed: 2, th: -.9, rim: 6, facets: 10 });
-  GR.engrave(o.out || ctx);
-  applyPaper(o.out || ctx, .8);
-  applyVignette(o.out || ctx, .6);
+}
+// tek başına üslup karesi (uslup.html)
+function sahneGol(t, o = {}) {
+  GR.begin(.04, 0, 1, o.cam); cizGol(t, o); GR.engrave(o.out || ctx);
+  applyPaper(o.out || ctx, .8); applyVignette(o.out || ctx, .6);
 }
