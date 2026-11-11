@@ -2,7 +2,7 @@
 <canvas id="c" width="1920" height="1080"></canvas>
 <script src="../lib/core.js"></script><script src="../lib/style.js"></script><script src="../lib/gravur.js"></script><script src="../lib/figur.js"></script><script src="../lib/siluet.js"></script><script src="../lib/kanat.js"></script>
 <script>
-// Kanat deneme sayfası. ?v=1 parlak melek çifti, 2 yanık/yıkılmış, 3 katlı, 4 yarasa, 5 1→2 ara durumlar, 6 küçük boy (250 px)
+// Kanat deneme sayfası. ?v=1 parlak melek çifti, 2 yanık/yıkılmış, 3 katlı, 4 yarasa, 5 1→2 ara durumlar, 6 küçük boy (250 px), 7 tek ara durum (?p=0..1)
 const cv=document.getElementById('c'); cv.width=DW; cv.height=DH; const ctx=cv.getContext('2d');
 const Q=new URLSearchParams(location.search), V=+(Q.get('v')||1), FIG=Q.get('fig')!=='0';
 const LIT=[.6,-.8];               // dünya ışık yönü (sağ üst)
@@ -35,6 +35,8 @@ function renderFrame(t){ ctx.setTransform(RS,0,0,RS,0,0); const {tx,tone}=GR; GR
   if(V===5) for(let i=0;i<3;i++){ const p=(i+1)/4, s=.55;
     const a=mixP(A,B,p), b=mixP(A,B2,p); a.span*=s; b.span*=s;
     pair(360+i*600,800,58*s,Object.assign(a,{seed:11,t}),Object.assign(b,{seed:12,t}),{lum:lerp(.95,0,p)}); }
+  if(V===7){ const p=+(Q.get('p')||.5); const a=mixP(A,B,p), b=mixP(A,B2,p); // tek ara durum (sıçrama denetimi için ?p=)
+    pair(960,760,58,Object.assign(a,{seed:11,t}),Object.assign(b,{seed:12,t}),{lum:lerp(.95,0,p)}); }
   if(V===6){ const s=250/560;
     pair(380,800,58*s,Object.assign({},A,{span:250,seed:11,t}),Object.assign({},A,{span:250,seed:12,t}),{lum:.95});
     pair(960,800,58*s,Object.assign({},B,{span:250,seed:31,t}),Object.assign({},B2,{span:250,seed:32,t}),{lum:0});

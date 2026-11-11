@@ -26,7 +26,7 @@ const PR = (() => {
     // gölge yanı koyu (komşu kümelere ve arka dolguya karışır); ışık yanında gövde hilali ve en dışta sırt hilali
     tx.save(); tx.clip(P);
     tx.fillStyle = tone(snap(tn.core)); tx.fill(P);
-    const D1 = new Path2D(); D1.ellipse(p.x + L[0] * p.r * .14, p.y + L[1] * p.r * .14, p.r * .97 * FX, p.r * .97 * FY, 0, 0, TAU);
+    const D1 = new Path2D(); D1.ellipse(p.x + L[0] * p.r * .22, p.y + L[1] * p.r * .22, p.r * .92 * FX, p.r * .92 * FY, 0, 0, TAU);
     tx.clip(D1); tx.fillStyle = tone(snap(tn.rim)); tx.fill(D1);
     tx.fillStyle = tone(snap(tn.body)); tx.beginPath(); tx.ellipse(p.x - L[0] * p.r * .12, p.y - L[1] * p.r * .12, p.r * .9 * FX, p.r * .9 * FY, 0, 0, TAU); tx.fill();
     tx.restore();
@@ -52,7 +52,8 @@ const PR = (() => {
         puffs.push({ x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d, r: rr, lay: 1 });
       }
     }
-    for (const p of puffs) { p.s = (o.seed || 1) * 977 + Math.round(p.x * 13 + p.y * 7); p.ph = r(); p.k = (p.x - o.x) * L[0] + (p.y - o.y) * L[1] + p.lay * o.h * .25; }
+    puffs.forEach((p, i) => { p.s = (o.seed || 1) * 977 + i * 31; }); // biçim tohumu konumdan bağımsız (kayınca titremesin)
+    for (const p of puffs) { p.ph = r(); p.k = (p.x - o.x) * L[0] + (p.y - o.y) * L[1] + p.lay * o.h * .25; }
     puffs.sort((a, b) => a.k - b.k);
     // arka dolgu: kümelerin arasını kapatan koyu, sakin kütle (gök arada görünmesin)
     if (o.back !== false) {
@@ -64,7 +65,7 @@ const PR = (() => {
     puffs.forEach((p, i) => {
       const back = 1 - i / Math.max(1, N - 1); // 1 = en arka
       const dk = 1 - dep * back;
-      const rim = hi * (1 - dep * .6 * back), body = lerp(base, hi, o.mid ?? .7) * dk, core = (o.core ?? base * .4) * dk;
+      const rim = hi * (1 - dep * .6 * back), body = lerp(base, hi, o.mid ?? .7) * dk, core = (o.core ?? lerp(base, lerp(base, hi, .7), .25)) * dk;
       U.addPath(drawPuff(p, L, id, { rim, body, core }));
     });
     return { puffs, path: U };
@@ -171,14 +172,15 @@ const PR = (() => {
     const id = o.id ?? 3, r = rng(seed + 51), env = o.env || (() => 1);
     if (o.smoke !== false) { // ince duman: yalnız ton katmanında topaklı bir pus şeridi; göğün çizgisi sürer, kalınlaşır (kabarcık deseni yok)
       const sy = y - hgt * (o.smokeY ?? .5), sh = hgt * (o.smokeH ?? 2.2), D = new Path2D();
-      D.moveTo(x0, sy);
+      D.moveTo(x0, y);
       for (let x = x0; x <= x1 + 20; x += 20) {
         const f = clamp((x - x0) / (x1 - x0)), e = env(f);
         D.lineTo(x, sy - sh * e * (.35 + .65 * noise2(x / 140 + seed, t * .03, 7)) * (.6 + .4 * noise2(x / 47, seed, 8)));
       }
-      D.lineTo(x1, sy); D.closePath();
-      const g = tx.createLinearGradient(0, sy - sh, 0, sy);
-      g.addColorStop(0, `rgba(0,0,0,${o.smokeA ?? .5})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+      D.lineTo(x1, y); D.lineTo(x0, y); D.closePath();
+      // pus bandın arkasına, taban çizgisine kadar iner: parlak bant her zaman koyu dumanın önünde durur
+      const g = tx.createLinearGradient(0, sy - sh, 0, y), A = o.smokeA ?? .55;
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.45, `rgba(0,0,0,${A * .7})`); g.addColorStop(1, `rgba(0,0,0,${A})`);
       tx.save(); tx.globalCompositeOperation = 'multiply'; tx.fillStyle = g; tx.fill(D); tx.restore();
     }
     const step = 5, top = [], inn = [];
@@ -186,12 +188,12 @@ const PR = (() => {
       const f = clamp((x - x0) / (x1 - x0)), e = env(f);
       const s1 = Math.pow(noise2(x / 34 + seed * 3.1, t * .55, 1), 1.8), s2 = Math.pow(noise2(x / 13 + seed, t * .9 + 4, 2), 3);
       const hh = hgt * e * (.22 + .95 * s1 + .35 * s2);
-      top.push([x, y - hh]); inn.push([x, y - hh * .55 + hgt * .05]);
+      top.push([x, y - hh]); inn.push([x, y - hh * .7 + hgt * .03]);
     }
     const yb = y + hgt * .1, P = new Path2D(), Q = new Path2D();
     P.moveTo(x0, yb); for (const [a, b] of top) P.lineTo(a, b); P.lineTo(x1 + step, yb); P.closePath();
     Q.moveTo(x0, yb); for (const [a, b] of inn) Q.lineTo(a, Math.min(b, yb - 1)); Q.lineTo(x1 + step, yb); Q.closePath();
-    fill(P, tone(o.edge ?? .68), { th: -PI / 2, ph: hash(seed), id });
+    fill(P, tone(o.bandEdge ?? .88), { th: -PI / 2, ph: hash(seed), id });
     tx.fillStyle = tone(o.core ?? 1); tx.fill(Q);
     return P;
   }
@@ -305,7 +307,7 @@ const PR = (() => {
       const c = Math.cos(a), sn = Math.sin(a), nx = -sn, ny = c, ww = w0 * (.5 + r());
       const P = new Path2D(), e = (u, sd) => { const hw = ww + Lr * u * Math.tan(da) * (u > .7 ? (1 - u) / .3 : 1); return [sx + c * Lr * u + sd * nx * hw, sy + sn * Lr * u + sd * ny * hw]; };
       P.moveTo(...e(0, 1)); for (const u of [.7, .85, 1]) P.lineTo(...e(u, 1)); for (const u of [.85, .7, 0]) P.lineTo(...e(u, -1)); P.closePath();
-      const g = tx.createLinearGradient(sx, sy, sx + c * Lr, sy + sn * Lr), v0 = lerp(.3, .8, s);
+      const g = tx.createLinearGradient(sx, sy, sx + c * Lr, sy + sn * Lr), v0 = lerp(.45, .92, s);
       g.addColorStop(0, tone(v0)); g.addColorStop(.55, tone(v0 * .75)); g.addColorStop(1, tone(v0 * .3));
       tx.save(); tx.globalCompositeOperation = 'lighten'; tx.fillStyle = g; tx.fill(P); tx.restore();
       if (o.pattern !== false) { px.fillStyle = hatch({ th: a, ph: r(), id: 7 }); px.fill(P); }
@@ -364,24 +366,31 @@ const PR = (() => {
 
   // ── zincir ──
   // Büyük, okunur halkalar: koyu halka gövdesi, ışığa bakan yanda açık kenar. Sarkma (sag) eğrisini izler.
-  // o: {sag, v (ışıklı kenar tonu), dark (halka tonu), lit: [lx, ly] (ışığın geldiği yön), over (true: keskin üst katmana, GR.ox)}
+  // o: {sag, v (ışıklı kenar tonu), dark (halka tonu), halo (ayırma halesi tonu; false = yok), lit: [lx, ly] (ışığın geldiği yön), over (true: keskin üst katmana, GR.ox)}
   // link varsayılanı 34 px (kurul: 32–36).
   function chain(x0, y0, x1, y1, link = 34, o = {}) {
     const Lc = Math.hypot(x1 - x0, y1 - y0), n = Math.max(2, Math.floor(Lc / (link * .74))), sag = o.sag || 0;
     const L = nrm(o.lit || [.6, -.8]), c = o.over ? GR.ox : tx;
     const dark = o.over ? GR.inkCol : tone(o.dark ?? .02), light = o.over ? GR.paperCol : tone(o.v ?? .97);
     const pos = f => [lerp(x0, x1, f), lerp(y0, y1, f) + Math.sin(f * PI) * sag];
-    for (const pass of [0, 1]) for (let i = 0; i < n; i++) {
+    const halo = o.over ? GR.paperCol : tone(o.halo ?? .78);
+    // geçişler: 0 = açık ayırma halesi (koyu zeminde halkayı ayırır), 1 = koyu halka, 2 = ışıklı kenar
+    for (const pass of [0, 1, 2]) for (let i = 0; i < n; i++) {
+      if (pass === 0 && o.halo === false) break;
       const f = (i + .5) / n, [cx, cy] = pos(f), p2 = pos(f + .01), p1 = pos(f - .01), a = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
       const la = Math.atan2(L[1], L[0]) - a; // yerel ışık açısı
       c.save(); c.translate(cx, cy); c.rotate(a); c.lineCap = 'round';
+      const col = [halo, dark, light][pass];
+      c.strokeStyle = col;
       if (i % 2 === 0) { // yüzü dönük halka
-        if (!pass) { c.strokeStyle = dark; c.lineWidth = link * .2; c.beginPath(); c.ellipse(0, 0, link * .5, link * .3, 0, 0, TAU); c.stroke(); }
-        else { c.strokeStyle = light; c.lineWidth = link * .07; c.beginPath(); c.ellipse(0, 0, link * .5, link * .3, 0, la - .9, la + .9); c.stroke(); }
+        c.lineWidth = link * [.34, .2, .09][pass]; c.beginPath();
+        if (pass < 2) c.ellipse(0, 0, link * .5, link * .3, 0, 0, TAU); else c.ellipse(0, 0, link * .5, link * .3, 0, la - 1, la + 1);
+        c.stroke();
       } else { // yan dönük halka: kalın çubuk
         const ly = Math.sin(la) >= 0 ? 1 : -1;
-        if (!pass) { c.strokeStyle = dark; c.lineWidth = link * .26; c.beginPath(); c.moveTo(-link * .4, 0); c.lineTo(link * .4, 0); c.stroke(); }
-        else { c.strokeStyle = light; c.lineWidth = link * .06; c.beginPath(); c.moveTo(-link * .3, ly * link * .06); c.lineTo(link * .3, ly * link * .06); c.stroke(); }
+        c.lineWidth = link * [.4, .26, .08][pass]; c.beginPath();
+        if (pass < 2) { c.moveTo(-link * .4, 0); c.lineTo(link * .4, 0); } else { c.moveTo(-link * .3, ly * link * .05); c.lineTo(link * .3, ly * link * .05); }
+        c.stroke();
       }
       c.restore();
     }

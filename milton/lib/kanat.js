@@ -19,9 +19,9 @@ const KN = (() => {
   function skel(o) {
     const S = o.span, op = clamp(o.open ?? 1), lf = (o.lift ?? .5) + (o.flap || 0), dr = clamp(o.droop || 0);
     const th = -lerp(.12, 1.3, lf);                       // kolun genel doğrultusu: 0 yatay … -1.3 dik
-    const aH = lerp(-1.5, th - .32, op);
-    let aF = lerp(-1.15, th + .1, op);
-    let aM = lerp(aF + 2.75, th + .2 - .08 * lf, op);
+    const aH = lerp(-1.05, th - .32, op);
+    let aF = lerp(-1.62, th + .1, op);
+    let aM = lerp(PI / 2 + .15, th + .2 - .08 * lf, op);
     aF += (PI / 2 - aF) * dr * .22;                       // sarkma: ön kol hafif, el kemiği çok iner (kırık kanat)
     aM += (PI / 2 + .3 - aM) * dr * .75;
     const E = [S * .17 * Math.cos(aH), S * .17 * Math.sin(aH)];
@@ -115,7 +115,7 @@ const KN = (() => {
     const r = rng(seed * 7919 + 13);
     // değer tablosu (parlak ↔ yanık): sırt, orta sıra, uçuş tüyü tabanı/ucu
     const V = (b, k) => lerp(b, k, dark);
-    const vRidge = V(.97, .24), vMid = V(.92, .07), vFb = V(.86, .06), vFt = V(.66, .02);
+    const vRidge = lerp(.98, .12, Math.pow(dark, 1.8)), vMid = V(.95, .07), vFb = V(.86, .06), vFt = V(.6, .02);
     const C = { sh: [shd[0], shd[1]], shadeDrop: V(.3, .08) };
     const sc = Math.max(.5, S / 550);                       // çizgi kalınlık ölçeği
     // kanat merkezinden ışığa doğru konum: kütle içi ışık eğimi
@@ -154,12 +154,12 @@ const KN = (() => {
       const m = F.L * .5, mx = F.bx + Math.cos(F.a) * m, my = F.by + Math.sin(F.a) * m, la = lightAt(mx, my);
       const roll = (.5 - F.cp) * V(.2, .04) + F.cOff * V(1, .25);
       const v0 = lerp(vFb, vMid, F.G === 2 ? .5 : 0), v1 = vFt;
-      const lift = (la - .5) * V(.3, .07);
+      const lift = (la - .5) * V(.45, .07);
       F.v0 = clamp(v0 + lift + roll); F.v1 = clamp(v1 + lift + roll * .8 - .04 * F.tb);
       F.dv = V(.05, .03) * (dot(dir(F.a + PI / 2 * F.lead), lit) > 0 ? 1 : -1);
       const first = F.cp === 0;
       const mid = bell((F.v0 + F.v1) / 2, .5, .28);          // ışık-gölge sınırı
-      F.sep = first ? lerp(.55, .85, mid) : .12 * mid;
+      F.sep = (first ? lerp(.55, .85, mid) : .12 * mid) * lerp(.25, 1, dark);
       F.rag = F.G < 2 ? clamp(ruin * (.4 + .9 * F.burnR) + dark * .15 * F.burnR) * .5 : 0;
       F.burn = F.G < 2 ? clamp((ruin * 1.1 + dark * .25) * (.35 + .9 * F.burnR) - .15) : 0;
     }
@@ -191,17 +191,17 @@ const KN = (() => {
           cp, v0: clamp(v + lft + roll + V(.02, .05)), v1: clamp(v - V(.06, .03) + lft + roll), rag: 0, burn: R.g === 3 ? clamp(ruin * .5 * r() - .1) : 0 };
         F.dv = V(.04, .025) * (dot(dir(a + PI / 2 * lead), lit) > 0 ? 1 : -1);
         const mid = bell((F.v0 + F.v1) / 2, .5, .3);
-        F.sep = cp === 0 ? lerp(.45, .8, mid) : .1;
+        F.sep = (cp === 0 ? lerp(.45, .8, mid) : .1) * lerp(.2, 1, dark);
         cov.push([F, featherGeom(F)]);
       }
       // sıra sınırı: bu sıranın üstüne bir sonraki sıra koyu bant bırakır (kütle ayrımı)
       for (const [F, G] of cov.filter(c => c[0].G === R.g)) drawFeather(F, G, C);
     }
     // 3) sırt: küçük örtü tüyleri ve ön kenar tek kütle; tarama kemik kavsini izler (eş merkezli yaylar)
-    const ridge = new Path2D(), lead = [], trail = [];
+    const ridge = new Path2D(), lead = [], trail = [], uEnd = lerp(.62, .9, Math.sqrt(op));
     const sideN = u => { const [, , ba] = bone(u); return [Math.cos(ba - PI / 2), Math.sin(ba - PI / 2)]; }; // ön kenar normali
     for (let i = 0; i <= 24; i++) {
-      const u = lerp(.0, .9, i / 24), [x, y, ba] = bone(u), nn = sideN(u);
+      const u = lerp(.0, uEnd, i / 24), [x, y, ba] = bone(u), nn = sideN(u);
       const th = S * (.028 + .012 * bell(u, .62, .1)) * (u > .75 ? lerp(1, .5, (u - .75) / .15) : 1);
       lead.push([x + nn[0] * th, y + nn[1] * th]);
       const a = fa(u), sc2 = i % 2 ? .75 : 1;   // pul pul arka kenar
@@ -209,25 +209,29 @@ const KN = (() => {
       trail.push([x + Math.cos(a) * dep, y + Math.sin(a) * dep]);
     }
     lead.unshift([-S * .02, S * .05]); trail.unshift([S * .03, S * .1]);
+    { const [x, y, ba] = bone(uEnd), nn = sideN(uEnd), d = dir(ba), c = S * .03; lead.push([x + d[0] * c + nn[0] * c * .4, y + d[1] * c + nn[1] * c * .4]); trail.push([x + d[0] * c * .6 - nn[0] * c * .6, y + d[1] * c * .6 - nn[1] * c * .6]); } // yuvarlak bilek ucu
     spline(ridge, [...lead, ...trail.reverse()], true, .7);
     const cc = circ([0, 0], E, Tp);
     const rh = cc && Math.hypot(cc[0], cc[1]) < S * 3 ? { type: 'rad', cx: cc[0], cy: cc[1], id: 6 } : { type: 'bend', ox: 0, oy: 0, a: K.aF, k: 0, id: 6 };
     // sırt gölgesi: orta sıraya düşen bant
-    tx.save(); tx.translate(shd[0] * S * .012, shd[1] * S * .012 + S * .008); tx.fillStyle = tone(V(.45, .02), .8); tx.fill(ridge); tx.restore();
+    tx.save(); tx.translate(shd[0] * S * .012, shd[1] * S * .012 + S * .008); tx.fillStyle = tone(V(.45, .02), lerp(.2, .8, dark)); tx.fill(ridge); tx.restore();
     { const g = tx.createLinearGradient(E[0] + sideN(.4)[0] * S * .04, E[1] + sideN(.4)[1] * S * .04, E[0] - sideN(.4)[0] * S * .08, E[1] - sideN(.4)[1] * S * .08);
       const rl = lightAt(E[0], E[1]) - .5;
-      g.addColorStop(0, tone(clamp(vRidge + V(.03, .1) + rl * V(.1, .15)))); g.addColorStop(.45, tone(clamp(vRidge + rl * V(.1, .1)))); g.addColorStop(1, tone(clamp(lerp(vRidge, vMid, V(.5, .85)) + rl * V(.1, .05))));
+      g.addColorStop(0, tone(clamp(vRidge + V(.03, .14) + rl * V(.1, .12)))); g.addColorStop(.3, tone(clamp(vRidge + rl * V(.1, .06)))); g.addColorStop(1, tone(clamp(lerp(vRidge, vMid, V(.5, .85)) + rl * V(.1, .05))));
       fill(ridge, g, rh); }
 
     // 4) üst katman: koyu kanatta ışık kenarına kâğıt çizgisi, parlak kanatta gölge kenarına mürekkep çizgisi
     const ox = GR.ox; ox.save(); ox.setTransform(tx.getTransform()); ox.lineJoin = 'round';
     const k = Math.hypot(ox.getTransform().a, ox.getTransform().b) || 1, lw = sc / k * (o.lw ?? 1); // çizgi kalınlığı ekranda sabit oranlı
     const all = Fs.map((F, i) => [F, geoms[i]]).concat(cov);
+    const hide = P => { ox.globalCompositeOperation = 'destination-out'; ox.globalAlpha = 1; ox.fillStyle = '#000'; ox.fill(P); ox.globalCompositeOperation = 'source-over'; };
+    hide(back);
     for (const [F, G] of all) {
+      hide(G.full); // örtülen çizgiler silinir (üstteki tüy alttakinin çizgisini kapatır)
       const vm = (F.v0 + F.v1) / 2, dk = clamp(inv(.45, .15, vm)), lt = clamp(inv(.55, .85, vm));
       const ed = F.lead > 0 ? G.Lp : G.Lp; // görünen kenar: dar bayrak tarafı
       const ndir = G.n, face = dot(ndir, lit);
-      const f0 = F.G < 3 ? 6 : 4;
+      const f0 = F.G < 3 ? 5 : 3;
       if (dk > 0 && rim > 0) { // kâğıt çizgisi: ışığa bakan kenar, yalnız küme başı ya da uç
         const a = rim * dk * clamp(face * 1.6 + .2) * (F.cp === 0 ? 1 : .0);
         taper(ox, ed.slice(f0), .4 * lw, 2.0 * lw, GR.paperCol, a * .95);
@@ -235,17 +239,22 @@ const KN = (() => {
         taper(ox, [...G.Lp.slice(-4), ...G.Tp.slice(-4).reverse()], .3 * lw, 1.4 * lw, GR.paperCol, tipA);
       }
       if (lt > 0) { // mürekkep çizgisi: gölgeye bakan kenar, küme başı
-        const a = lt * clamp(-face * 1.4 + .35) * (F.cp === 0 ? 1 : .25);
-        taper(ox, ed.slice(f0 - 1), .3 * lw, 1.6 * lw, GR.inkCol, a * .8);
-        if (F.G < 3) taper(ox, [...G.Lp.slice(-3), ...G.Tp.slice(-5).reverse()], .3 * lw, 1.3 * lw, GR.inkCol, lt * .55);
+        const a = lt * clamp(-face * .8 + .6) * (F.cp === 0 ? 1 : F.G < 3 ? .35 : .15);
+        taper(ox, ed.slice(f0 - 1), .3 * lw, 1.7 * lw, GR.inkCol, a * .85);
+        taper(ox, [...G.Lp.slice(-3), ...G.Tp.slice(-5).reverse()], .3 * lw, 1.3 * lw, GR.inkCol, lt * (F.G < 3 ? .6 : F.cp === 0 ? .45 : .2));
       }
     }
     // sırt kenarı: ön kenar boyunca ışık (koyu kanat) ya da kontur (parlak kanat)
+    hide(ridge);
     { const dk = clamp(inv(.5, .15, vRidge)), lt = clamp(inv(.6, .9, vRidge));
       const seg = lead.slice(1), parts = [];
       for (let i = 1; i < seg.length; i++) { const e = nrm([seg[i][0] - seg[i - 1][0], seg[i][1] - seg[i - 1][1]]), nn = [e[1], -e[0]]; parts.push(dot(nn, lit)); }
       if (dk > 0) taper(ox, seg, .5 * lw, 2.2 * lw, GR.paperCol, rim * dk * clamp(Math.max(...parts) * 1.5 + .3));
-      if (lt > 0) taper(ox, seg, .5 * lw, 1.8 * lw, GR.inkCol, lt * .7 * clamp(-Math.min(...parts) + .4)); }
+      if (lt > 0) taper(ox, seg, .5 * lw, 1.8 * lw, GR.inkCol, lt * .7 * clamp(-Math.min(...parts) + .4));
+      // pul pul arka kenar: sırt kütlesini orta sıradan ayırır
+      const tr = trail.slice(1, -1);
+      if (lt > 0) taper(ox, tr, .4 * lw, 1.5 * lw, GR.inkCol, lt * .7);
+      if (dk > 0) taper(ox, tr, .3 * lw, 1.2 * lw, GR.paperCol, rim * dk * .35); }
     ox.restore();
     return { E, Wr, Tp, bone, back, ridge, feathers: Fs };
   }
@@ -257,7 +266,7 @@ const KN = (() => {
     const t = o.t || 0, dark = clamp(o.dark ?? .7), rim = o.rim ?? .5, r = rng((o.seed || 1) * 4513 + 7), dr = clamp(o.droop || 0);
     const lit = nrm(o.lit || [.55, -.85]), V = (b, k) => lerp(b, k, dark);
     // parmaklar: bilekten yelpaze; katlıyken ön kol boyunca geri yatar
-    const rel = [-.2, .4, .95, 1.5], Ls = [.5, .46, .38, .3], fing = [];
+    const rel = [-.2, .35, .82, 1.28], Ls = [.5, .46, .38, .3], fing = [];
     for (let j = 0; j < 4; j++) {
       let a = lerp(K.aF + 2.85 + j * .05, K.aF + rel[j] * (1 + .15 * K.lf) - .1, op);
       a += (PI / 2 - a) * dr * .3 + Math.sin(t * 1.2 + j) * .008 * op;
@@ -265,7 +274,7 @@ const KN = (() => {
       const a2 = a + (.12 + .05 * j) * op * (j === 0 ? -.5 : 1), tp = [kn[0] + Math.cos(a2) * L * .52, kn[1] + Math.sin(a2) * L * .52];
       fing.push({ a, a2, L, kn, tp });
     }
-    const body = [S * .03, S * lerp(.42, .55, op)];
+    const body = [S * .04, S * lerp(.3, .36, op)];
     const tips = [...fing.map(f => f.tp), body];
     // zar panelleri: parmak j ile j+1 arası; kenar kavisli oyuk
     const scallop = (P, a, b, dep) => { const m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], to = nrm([Wr[0] - m[0], Wr[1] - m[1]]), d = Math.hypot(b[0] - a[0], b[1] - a[1]) * dep;

@@ -25,7 +25,7 @@ const GR = (() => {
   // üslup tablosu (P mantıksal px): cr = çapraz doğrultu farkı (radyan), ct = çapraz eşik (koyuluk),
   // wv = el titreşimi genliği (periyot), wf = titreşim sıklığı (1/px), g = ton eğrisi üssü, lo/hi = temiz kâğıt ve düz siyah eşikleri
   const STY = [];
-  function sty(id, o) { STY[id] = Object.assign({ P: 8, cr: .9, ct: .8, wv: .05, wf: 1 / 60, g: 1, lo: .07, hi: .94, ph: id * 137 }, o); }
+  function sty(id, o) { STY[id] = Object.assign({ P: 8, cr: .9, ct: .8, wv: .05, wf: 1 / 60, g: 1, lo: .07, hi: .93, f0: .1, f1: .88, ph: id * 137 }, o); if (!o.cross) STY[id].ct = 9; }   // f0–f1: en ince ve en kalın çizgi oranı (kıl gibi siyah ya da beyaz çizgi kalmaz; kırık çizgi ve küçük boyda benek olmaz)
   sty(0, {});                                            // genel
   sty(1, { P: 9.0, wv: .03, wf: 1 / 90, ct: .9 });       // gökyüzü: sakin, seyrek
   sty(2, { P: 8.0, wv: .06, wf: 1 / 50, ct: .72 });      // bulut, duman: kavisli, koyuda çapraz
@@ -36,7 +36,8 @@ const GR = (() => {
   sty(7, { P: 9.0, wv: .02, wf: 1 / 90, ct: 1.1 });      // ışık huzmesi
   sty(8, { P: 9.0, wv: .08, wf: 1 / 46, ct: .88 });      // su, göl yüzeyi
   sty(9, { P: 5.8, wv: .03, wf: 1 / 60, ct: .7, cr: 1.0 }); // zırh, kumaş
-  const DL = () => STY.map(s => { const a = new Float32Array(256); for (let i = 0; i < 256; i++) { let d = Math.pow(1 - i / 255, s.g); a[i] = d < s.lo ? 0 : d > s.hi ? 1 : (d - s.lo) / (s.hi - s.lo); } return a; });
+  // ton baytı → ham oran r = (koyuluk − lo) / (hi − lo); kırpılmaz. r ≤ 0 kâğıt, r ≥ 1 düz siyah; arası çizgi kalınlığı f0…f1.
+  const DL = () => STY.map(s => { const a = new Float32Array(256); for (let i = 0; i < 256; i++) { const d = Math.pow(1 - i / 255, s.g); a[i] = (d - s.lo) / (s.hi - s.lo); } return a; });
 
   // ── yama tablosu ──
   // Renk kodu: R,G = kimlik; B = kimliğin sağlaması (kenar yumuşatmasının karıştırdığı pikseller geçersiz sayılır, soldaki yamayı sürdürür)
@@ -105,6 +106,8 @@ const GR = (() => {
   function restore() { tx.restore(); px.restore(); }
 
   // ── basma ──
+  const SG = .2, TW = .08;                       // kademe genişliği ve uç sivrilmesi (ham oran biriminde)
+  const HSH = new Float32Array(256); { const r = rng(977); for (let i = 0; i < 256; i++) HSH[i] = r(); }
   let img = null;
   function engrave(out, camArg = null) {
     if (camArg) cam = camArg;
@@ -122,10 +125,10 @@ const GR = (() => {
         if (key !== lastKey || Pd[i + 2] !== HB[key]) {
           if (key < nP && Pd[i + 2] === HB[key]) { p = patches[key]; st = STY[p.id]; dl = D[p.id]; invP = 1 / st.P; Pdv = st.P * devPer; lastKey = key; }
         }
-        const d = dl[T[i]];
-        let ink = 0;
-        if (d >= 1) ink = 1;
-        else if (d > 0) {
+        const r = dl[T[i]];
+        let ink = 0, d = 0;
+        if (r >= 1) ink = 1;
+        else if (r > 0) {
           const wx = x * kk + ox, t = p.t;
           let U, along;
           if (t === 0) { U = (wy * p.c - wx * p.s) * invP + p.ph; along = wx * p.c + wy * p.s; }
@@ -135,6 +138,14 @@ const GR = (() => {
           const ai = along * st.wf + st.ph + 65536, a0 = ai | 0, af = ai - a0;
           U += (NZ[a0 & 1023] * (1 - af) + NZ[(a0 + 1) & 1023] * af) * st.wv + 8192;
           const u = U - (U | 0);
+          // Çizgiler kâğıda ve siyaha aynı hizada değil, kademeli girer (her çizginin eşiği ayrı; uçlar sivrilir):
+          // ton geçişlerinde düz bir sınır çizgisi ya da daire izi kalmaz.
+          const hb = HSH[(U | 0) & 255], hg = HSH[((U + .5) | 0) + 97 & 255];
+          const rb = r - SG * hb, rg = r + SG * hg;          // siyah çizgi en erken r = 0'da başlar; beyaz aralık en geç r = 1'de kapanır
+          const f0 = st.f0, f1 = st.f1;
+          d = f0 + (f1 - f0) * r;
+          if (rb < 0) d = rb < -TW ? 0 : f0 * (1 + rb / TW);
+          else if (rg > 1) d = rg > 1 + TW ? 1.2 : d + (1.2 - d) * (rg - 1) / TW;
           ink = (d * .5 - (u > .5 ? u - .5 : .5 - u)) * Pdv + .5;
           if (ink < 0) ink = 0; else if (ink > 1) ink = 1;
           const ct = st.ct;

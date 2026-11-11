@@ -20,5 +20,114 @@
     "çektiğin"
    ]
   ]
+ },
+ "s00_a": {
+  "wer": 0.0851,
+  "sure": 49.1,
+  "hatalar": [
+   [
+    "replace",
+    "gözlerini",
+    "gözlerine"
+   ],
+   [
+    "replace",
+    "gölün",
+    "gülün"
+   ],
+   [
+    "replace",
+    "con miltonun",
+    "gon milt un"
+   ],
+   [
+    "replace",
+    "kaleminden",
+    "kareminden"
+   ],
+   [
+    "replace",
+    "biz de",
+    "bizde"
+   ]
+  ]
+ },
+ "s00_b": {
+  "wer": 0.0745,
+  "sure": 48.28,
+  "hatalar": [
+   [
+    "replace",
+    "cennetin",
+    "cennet in"
+   ],
+   [
+    "replace",
+    "con miltonun",
+    "john milton ın"
+   ],
+   [
+    "replace",
+    "biz de",
+    "bizde"
+   ]
+  ]
+ },
+ "s01_a": {
+  "wer": 0.0862,
+  "sure": 62.5,
+  "hatalar": [
+   [
+    "replace",
+    "zaman da",
+    "zamanda"
+   ],
+   [
+    "replace",
+    "kırk",
+    "40"
+   ],
+   [
+    "replace",
+    "yirmiye",
+    "20 ye"
+   ],
+   [
+    "replace",
+    "i ki",
+    "2"
+   ],
+   [
+    "replace",
+    "branice",
+    "braniye"
+   ],
+   [
+    "replace",
+    "cellat",
+    "celle at"
+   ]
+  ]
+ },
+ "s01_b": {
+  "wer": 0.0431,
+  "sure": 61.4,
+  "hatalar": [
+   [
+    "replace",
+    "zaman da",
+    "zamanda"
+   ],
+   [
+    "replace",
+    "branice",
+    "braniye"
+   ],
+   [
+    "replace",
+    "cellat",
+    "celle at"
+   ]
+  ]
  }
 }
