@@ -118,13 +118,14 @@ function txt(ctx, s, x, y, o = {}) {
 function quote(ctx, s, x, y, lt, o = {}) {
   if (NOTEXT || !s) return;
   const px = o.px || 68, lh = px * 1.22;
-  ctx.save(); ctx.font = FONT.alinti(px); const L = wrapLines(ctx, s, o.maxW || 1240), y0 = y - (L.length - 1) * lh / 2;
+  ctx.save(); const A0 = ctx.globalAlpha;   // geçiş alfası ezilmez, çarpılır
+  ctx.font = FONT.alinti(px); const L = wrapLines(ctx, s, o.maxW || 1240), y0 = y - (L.length - 1) * lh / 2;
   const t0 = o.t0 || 0, per = o.per ?? .5, aAll = clamp((lt - t0) / .5);
   const kpx = Math.max(40, Math.round(px * .42)), kEk = o.kaynak ? kpx + 34 : 0;   // künye: telefon kuralı ≥ 40 px; panel künyeyi de kapsar
-  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = aAll; softPanel(ctx, x, y + kEk / 2, wd * .5 + px * 1.8, L.length * lh * .5 + px * 1.2 + kEk / 2, o.panel ?? .8); }
+  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = A0 * aAll; softPanel(ctx, x, y + kEk / 2, wd * .5 + px * 1.8, L.length * lh * .5 + px * 1.2 + kEk / 2, o.panel ?? .8); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = o.col || PAPER_CSS;
-  L.forEach((l, i) => { const a = clamp((lt - t0 - i * per) / .6); if (a <= 0) return; ctx.globalAlpha = E.sine(a); ctx.fillText(l, x, y0 + i * lh + (1 - E.out3(a)) * 10); });
-  if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = E.sine(a); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + (L.length - 1) * lh + px * .62 + 30 + kpx / 2); }
+  L.forEach((l, i) => { const a = clamp((lt - t0 - i * per) / .6); if (a <= 0) return; ctx.globalAlpha = A0 * E.sine(a); ctx.fillText(l, x, y0 + i * lh + (1 - E.out3(a)) * 10); });
+  if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = A0 * E.sine(a); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + (L.length - 1) * lh + px * .62 + 30 + kpx / 2); }
   ctx.restore();
 }
 // Bölüm kartı: ince çizgi + büyük harfli başlık + altında bölümün merak sorusu. lt: çekim içi zaman, d: süre
@@ -132,7 +133,7 @@ function chapterCard(ctx, title, soru, lt, d = 3.6, o = {}) {
   if (NOTEXT) return;
   const a = clamp(lt / .6) * clamp((d - lt) / .6); if (a <= 0) return;
   const x = o.x ?? W / 2, y = o.y ?? 430, px = o.px || 92;
-  ctx.save(); ctx.globalAlpha = E.sine(a);
+  ctx.save(); ctx.globalAlpha *= E.sine(a);
   softPanel(ctx, x, y + 40, 900, 300, .9);
   const u = E.out3(clamp(lt / 1.1)), lw = 250 * u;
   ctx.strokeStyle = PAPER_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - lw, y - px * .82); ctx.lineTo(x + lw, y - px * .82); ctx.stroke();

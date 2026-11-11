@@ -272,11 +272,16 @@ function cen_melek(p) {
 
 // Sabah yıldızı: sade sekiz kollu kâğıt beyazı ışık (koyu kütlenin önünde çizilir). r: uzun kol boyu; a: 0..1 parlama
 function cen_yildiz(x, y, r, a = 1, o = {}) {
-  const { tx, tone } = GR; if (a <= 0) return;
-  const S = new Path2D(), pts = [];
-  for (let i = 0; i < 16; i++) { const an = i / 16 * TAU - PI / 2, rr = i % 2 ? r * .08 : (i % 4 === 0 ? r * (.55 + .45 * a) : r * .2 * (.6 + .4 * a)); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
-  poly(S, pts, true);
-  if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'miter'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); GR.px.fillStyle = GR.hatch({ th: 0, id: 0 }); GR.px.fill(S); }
+  // küçük dolu çekirdek (daire) + 14 kısa, sivrilen, boyları düzensiz ışın; hiçbir yön baskın değil (haç ya da pusula okunmasın)
+  const { tx, px, tone } = GR; if (a <= 0) return;
+  const q = rng(o.seed || 5), n = 14, S = new Path2D(), k = .55 + .45 * a, c = r * .2, ph = q() * TAU;
+  for (let i = 0; i < n; i++) {
+    const an = ph + (i + (q() - .5) * .35) / n * TAU, len = r * k * (.45 + .45 * q()), w = r * (.05 + .03 * q()), ca = Math.cos(an), sa = Math.sin(an);
+    const b0 = [x + ca * c * .7, y + sa * c * .7];
+    S.moveTo(b0[0] - sa * w, b0[1] + ca * w); S.lineTo(x + ca * (c + len), y + sa * (c + len)); S.lineTo(b0[0] + sa * w, b0[1] - ca * w); S.closePath();
+  }
+  S.moveTo(x + c, y); S.arc(x, y, c, 0, TAU);
+  if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'round'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(S); }
   tx.fillStyle = tone(1); tx.fill(S);
 }
 // İkinci ışık (Oğul): figürsüz temiz kâğıt disk ve parıltı. Yüz, el, hale, haç yok.
@@ -285,16 +290,28 @@ function cen_isik(x, y, r, a = 1) {
   PR.glow(x, y, r, r * 2.6, 1, a * .8);
   const C = new Path2D(); C.arc(x, y, r, 0, TAU); tx.fillStyle = tone(1); tx.fill(C);
 }
-// Uzak saray: Dor sütunlu, alınlıklı tapınak (kubbe yok). Koyu kütle; ışık yanında kâğıt kenar. x, y taban ortası; s taban genişliği
+// Uzak saray (Milton V.756–761: "piramitler ve kuleler; elmas ocaklarından yontulmuş, altın kayalar"): tepede basamaklı piramit
+// ve kalın, basamaklı, kristal/obelisk gibi sivrilen kule kümeleri. Koyu siluet; ışık yanında kâğıt beyazı "elmas" parıltı vuruşları.
+// Kubbe, hilal, ince şerefeli külahlı kule yok. x, y taban ortası; s taban genişliği; lx ışık yanı (±1)
 function cen_saray(x, y, s, lx = 1) {
   const { tx, px, tone } = GR, u = s / 10, B = new Path2D(), R = new Path2D();
-  B.rect(x - 5 * u, y - .6 * u, 10 * u, .6 * u); B.rect(x - 4.6 * u, y - 1 * u, 9.2 * u, .4 * u);
-  B.rect(x - 4.3 * u, y - 5.4 * u, 8.6 * u, .8 * u);
-  B.moveTo(x - 4.7 * u, y - 5.4 * u); B.lineTo(x, y - 7.3 * u); B.lineTo(x + 4.7 * u, y - 5.4 * u); B.closePath();
-  for (let i = 0; i < 6; i++) { const cx = x - 3.8 * u + i * 1.52 * u; B.rect(cx - .32 * u, y - 4.6 * u, .64 * u, 3.6 * u); R.rect(cx + lx * .32 * u - (lx > 0 ? .18 * u : 0), y - 4.5 * u, .18 * u, 3.4 * u); }
-  R.moveTo(x, y - 7.3 * u); R.lineTo(x + lx * 4.7 * u, y - 5.4 * u); R.lineTo(x + lx * 4.4 * u, y - 5.4 * u); R.lineTo(x, y - 7.0 * u); R.closePath();
+  // basamaklı piramit (orta)
+  const st = 5, pw = 6 * u, ph = 4.2 * u;
+  for (let i = 0; i < st; i++) { const w = pw * (1 - i / st), hh = ph / st; B.rect(x - w / 2, y - hh * (i + 1), w, hh + 1); R.rect(lx > 0 ? x + w / 2 - .22 * u : x - w / 2, y - hh * (i + 1), .22 * u, hh * .7); }
+  // kristal kuleler: kalın gövde, iki basamak, sivri uç (obelisk); farklı boylar
+  const T = [[-4.1, 1.3, 6.4], [-2.6, 1.0, 8.6], [2.5, 1.1, 9.4], [3.9, 1.3, 6.8], [0, 1.0, 7.4]];
+  for (const [dx, w, H] of T) {
+    const cx = x + dx * u, ww = w * u, hh = H * u, yb = y;
+    B.moveTo(cx - ww / 2, yb); B.lineTo(cx - ww / 2, yb - hh * .55); B.lineTo(cx - ww * .38, yb - hh * .58); B.lineTo(cx - ww * .38, yb - hh * .78); B.lineTo(cx, yb - hh);
+    B.lineTo(cx + ww * .38, yb - hh * .78); B.lineTo(cx + ww * .38, yb - hh * .58); B.lineTo(cx + ww / 2, yb - hh * .55); B.lineTo(cx + ww / 2, yb); B.closePath();
+    // elmas parıltı: ışık yanında ince fasetler (sivri kâğıt vuruşları)
+    const e = lx > 0 ? 1 : -1;
+    R.moveTo(cx + e * ww * .1, yb - hh * .97); R.lineTo(cx + e * ww * .32, yb - hh * .78); R.lineTo(cx + e * ww * .22, yb - hh * .62); R.closePath();
+    R.moveTo(cx + e * ww * .3, yb - hh * .5); R.lineTo(cx + e * ww * .44, yb - hh * .52); R.lineTo(cx + e * ww * .42, yb - hh * .12); R.closePath();
+  }
+  B.rect(x - 5 * u, y - .4 * u, 10 * u, .7 * u);
   tx.fillStyle = tone(.03); tx.fill(B); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(B);
-  tx.fillStyle = tone(.95); tx.fill(R);
+  tx.fillStyle = tone(.96); tx.fill(R);
 }
 // Açık levhada yazı: panel yok; mürekkep harf (temiz kâğıt bölgeye) ya da kâğıt harf (koyu kütle üstüne). col: INK_CSS | PAPER_CSS
 function cen_yazi(ctx, s, x, y, a, o = {}) {

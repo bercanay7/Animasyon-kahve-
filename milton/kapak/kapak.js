@@ -247,14 +247,16 @@ function kpk_siluet7(t, o = {}) {
     P.quadraticCurveTo(bx + w * .4 + ln * .9, by - L * .86, bx + w * .45 + ln * .5, by - L * .68);
     P.bezierCurveTo(bx + w * 1.15, by - L * .45, bx + w * 1.05, by - L * .1, bx, by); P.closePath(); return P; };
   const D = [[fb[0] - 34, fb[1] - 4, 146, 30, -26], [fb[0] + 32, fb[1] - 2, 110, 26, 22], [fb[0], fb[1] + 6, 251, 38, 14]];
+  const DP = new Path2D();
   tx.save(); tx.clip(C);
   for (const [bx, by, L, w, ln] of D) {
+    DP.addPath(dil(bx, by, L, w, ln));
     GR.fill(dil(bx, by, L, w, ln), GR.tone(1), { th: 0, id: 0 });
     kpk_vurus([[bx - w * .45, by - L * .14], [bx - w * .5 + ln * .3, by - L * .42], [bx - w * .15 + ln * .7, by - L * .74]], Math.max(4, w * .2), .04, .35, .2);
     if (L > 200) kpk_vurus([[bx + w * .4, by - L * .2], [bx + w * .32 + ln * .5, by - L * .5], [bx + w * .15 + ln * .8, by - L * .76]], 5, .04, .4, .2);
   }
   tx.restore();
-  return { cloak: C, wings: R, base: fb, L: 245, core: [fb[0] + 2, fb[1] - 245 * .4], head: Hd };
+  return { cloak: C, wings: R, dil: DP, base: fb, L: 245, core: [fb[0] + 2, fb[1] - 245 * .4], head: Hd };
 }
 function kpk_a7Sahne(t) {
   const { sun } = KPK_A6, { tx } = GR, K = KPK_A6.K;
@@ -269,13 +271,13 @@ function kpk_a7Sahne(t) {
 }
 function kpk_alevRenk7(ctx, F) {
   const [bx, by] = F.base, L = F.L, c = F.core;
-  const x0 = Math.round(bx - 120), y0 = Math.round(by - L - 20), x1 = Math.round(bx + 120), y1 = Math.round(by + 20), w = x1 - x0, h = y1 - y0;
-  const m = KPK_mc; m.setTransform(1, 0, 0, 1, 0, 0); m.clearRect(0, 0, DW, DH); m.setTransform(RS, 0, 0, RS, 0, 0); m.fillStyle = '#fff'; m.fill(F.cloak);
+  const x0 = Math.round(bx - 120), y0 = Math.round(by - L - 20), x1 = Math.round(bx + 120), y1 = Math.round(by + 30), w = x1 - x0, h = y1 - y0;
+  const m = KPK_mc; m.setTransform(1, 0, 0, 1, 0, 0); m.clearRect(0, 0, DW, DH); m.setTransform(RS, 0, 0, RS, 0, 0); m.fillStyle = '#fff'; m.fill(F.dil); m.strokeStyle = '#fff'; m.lineWidth = 6; m.stroke(F.dil);
   const C = makeCanvas(w, h), cx = C.getContext('2d'); cx.translate(-x0, -y0);
-  const g = cx.createRadialGradient(c[0], c[1] + 10, 6, c[0], c[1], L * .78);
-  g.addColorStop(0, '#fffcef'); g.addColorStop(.22, '#ffe696'); g.addColorStop(.48, '#ffa63c'); g.addColorStop(.75, '#e6501e'); g.addColorStop(1, '#a5230f');
+  const g = cx.createRadialGradient(c[0], c[1] + 10, 4, c[0], c[1], L * .7);
+  g.addColorStop(0, '#fffcef'); g.addColorStop(.12, '#fff0b4'); g.addColorStop(.3, '#ffc35e'); g.addColorStop(.55, '#ff8a30'); g.addColorStop(.8, '#e0481c'); g.addColorStop(1, '#9a200e');
   cx.fillStyle = g; cx.fillRect(x0, y0, w, h);
-  cx.globalCompositeOperation = 'multiply'; const gb = cx.createLinearGradient(0, by - L * .36, 0, by - 4); gb.addColorStop(0, '#fff'); gb.addColorStop(.55, '#d0663a'); gb.addColorStop(.85, '#4a1206'); gb.addColorStop(1, '#140402');
+  cx.globalCompositeOperation = 'multiply'; const gb = cx.createLinearGradient(0, by - L * .42, 0, by - 12); gb.addColorStop(0, '#fff'); gb.addColorStop(.5, '#c4562c'); gb.addColorStop(.8, '#2a0803'); gb.addColorStop(1, '#0a0201');
   cx.fillStyle = gb; cx.fillRect(x0, y0, w, h);   // taban: kor rengine koyulaşıp karanlığa erir
   const MD = m.getImageData(x0, y0, w, h).data, CD = cx.getImageData(0, 0, w, h).data, I = ctx.getImageData(x0, y0, w, h), D = I.data;
   for (let i = 0; i < D.length; i += 4) { const a = MD[i + 3] / 255; if (!a) continue; const Lp = (D[i] + D[i + 1] + D[i + 2]) / 3, k = a * clamp((Lp - 70) / 100), f = clamp(Lp / 175, 0, 1);
@@ -300,8 +302,19 @@ async function kpk_a7(ctx) {
   if (KPK.renk) { kpk_korHale7(ctx, F); kpk_alevRenk7(ctx, F); }
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.strokeStyle = KPK_INK; ctx.lineWidth = 2 * 7 * 1.5 * RS; ctx.strokeRect(0, 0, DW, DH); ctx.restore();
   if (KPK.notext) return;
-  const Y = KPK_A6.yazi;
-  kpk_yazi(ctx, KPK_YAZI.a[0], { x: Y.x, y: Y.y, cap: 210, maxW: Y.w, align: 'left', gap: .3, col: KPK_INK });
+  const Y = KPK_A6.yazi, Z = kpk_yazi(ctx, KPK_YAZI.a[0], { x: Y.x, y: Y.y, cap: 210, maxW: Y.w, align: 'left', gap: .3, col: KPK_INK });
+  if (KQ.has('sade')) return;
+  // tırnaklar (kıvrık, Cinzel): harf yüksekliğinin ~%35'i; açılış bloğun sol üstünde, kapanış sağ altta (blok genişlemez)
+  const qf = KQ.get('tirnak') || 'Cinzel', [b0, b1] = [Z.boxes[0], Z.boxes[1]], qh = Z.cap * .35;
+  ctx.save(); ctx.setTransform(RS, 0, 0, RS, 0, 0); ctx.fillStyle = KPK_INK; ctx.textBaseline = 'alphabetic';
+  let qpx = 100; ctx.font = `900 ${qpx}px ${qf}`; const mq = ctx.measureText('“'); qpx *= qh / (mq.actualBoundingBoxAscent + mq.actualBoundingBoxDescent); ctx.font = `900 ${qpx}px ${qf}`;
+  const m1 = ctx.measureText('“'), m2 = ctx.measureText('”');
+  ctx.fillText('“', b0[0] + m1.actualBoundingBoxLeft, b0[1] - 24 - m1.actualBoundingBoxDescent);
+  ctx.fillText('”', b1[2] - m2.actualBoundingBoxRight, b1[3] + 24 + m2.actualBoundingBoxAscent);
+  // künye: MİLTON · KAYIP CENNET (Cinzel 700, aralıklı, açık mürekkep), bloğa sola hizalı
+  ctx.font = '700 60px Cinzel'; ctx.letterSpacing = '9px'; const kc = ctx.measureText('H').actualBoundingBoxAscent; ctx.font = `700 ${60 * 42 / kc}px Cinzel`; ctx.letterSpacing = (9 * 42 / kc) + 'px';
+  ctx.fillStyle = '#4a433c'; ctx.fillText('MİLTON · KAYIP CENNET', b1[0] + 4, b1[3] + 24 + 42 + 12);
+  ctx.restore();
 }
 async function kpk_a(ctx) {
   if (KQ.has('tur6')) return kpk_a6(ctx);
@@ -467,8 +480,8 @@ function kpk_b7Sahne(t) {
   // parlama: kapağın hemen altında hafif yamuk, keskin kenarlı küçük pencere
   { const h = new Path2D(); poly(h, [[ic[0] + 14, G.y - 16], [ic[0] + 31, G.y - 18], [ic[0] + 33, G.y - 4], [ic[0] + 16, G.y - 3]], true); GR.fill(h, GR.tone(1), { th: 0, id: 0 }); }
   // saç buklesi ipucu (sol üst): koyu kütle + üç ışık hilali
-  for (const [x, y, rad] of [[650, 262, 62], [722, 246, 46], [786, 240, 34], [610, 330, 40]]) { const P = new Path2D(); P.arc(x, y, rad, 0, TAU); GR.fill(P, INK, { th: 0, id: 0 }); }
-  for (const [x, y, rad, a0] of [[650, 262, 62, -2.2], [722, 246, 46, -2.0], [610, 330, 40, -2.6]]) { const q = []; for (let k = 0; k <= 8; k++) { const a = a0 + 1.5 * k / 8; q.push([x + Math.cos(a) * rad * .74, y + Math.sin(a) * rad * .74]); } kpk_vurus(q, 6, .95, .5, .2); }
+  for (const [x, y, rad] of [[668, 296, 44], [730, 282, 34], [782, 274, 24], [634, 340, 34]]) { const P = new Path2D(); P.arc(x, y, rad, 0, TAU); GR.fill(P, INK, { th: 0, id: 0 }); }
+  for (const [x, y, rad, a0] of [[668, 296, 44, -2.4], [730, 282, 34, -2.2], [634, 340, 34, -2.8]]) { const q = []; for (let k = 0; k <= 8; k++) { const a = a0 + 1.5 * k / 8; q.push([x + Math.cos(a) * rad * .74, y + Math.sin(a) * rad * .74]); } kpk_vurus(q, 6, .95, .5, .2); }
   // ıslak iz: kapaktan damlaya incelen kâğıt çizgi, solunda tek mürekkep çizgisi
   const D0 = [G.x + 70, G.y + 58], top = [D[0] - r * .28, D[1] - r * 3.0], pts = [];
   for (let k = 0; k <= 10; k++) { const u = k / 10; pts.push([lerp(D0[0], top[0], u) + Math.sin(u * 3) * 4, lerp(D0[1], top[1] + 4, u)]); }
