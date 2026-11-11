@@ -210,7 +210,7 @@ function cen_safKutle(o) {
   // beyaz kütlede: aralarda alttan giren sivri mürekkep vuruşları (bedenleri ayırır), seyrek
   if (light && h > 7) {
     GR.save(); tx.clip(P); px.clip(P);
-    heads.forEach((H, i) => { if (q() > (o.folds ?? .45)) return; const x0 = H.x + H.f * H.w * (.6 + q() * .4), L = (yb - H.sh) * (.4 + q() * .35), pts = [];
+    heads.forEach((H, i) => { if (q() > (o.folds ?? 0)) return; const x0 = H.x + H.f * H.w * (.6 + q() * .4), L = (yb - H.sh) * (.4 + q() * .35), pts = [];
       for (let j = 0; j <= 8; j++) pts.push([x0 + (q() - .5) * .4, yb + 2 - L * j / 8]);
       cen_vurus(pts, Math.max(3.2, h * .2)); });
     GR.restore();
@@ -303,3 +303,39 @@ function cen_yazi(ctx, s, x, y, a, o = {}) {
 // ── kaba eskiz uyumu: cizCennet(t, o) = C02 levhası ──
 function cizCennet(t, o = {}) { return cen_c02(t, o); }
 function sahneCennet(t, o = {}) { GR.begin(.9, 0, 1, o.cam); cizCennet(t, o); GR.engrave(o.out || ctx); applyPaper(o.out || ctx, .8); applyVignette(o.out || ctx, .25); }
+
+// ═════════ Cennet v3 (yönetmen düzeltme turu): Nifates dilinde bulut terasları, çizgili ışıklı figür, büyük KN kanat ═════════
+// Bulut katı: Nifates'teki gibi koyu, kıvrımlı kenarlı bulut kümesi (PR.cloud koyu kip: ışık yanında kâğıt hilal, biçimi izleyen beyaz vuruşlar);
+// altı yb'ye kadar düz koyu gövde (teras). Damla çizgi yok. o: {x0, x1, y (kümelerin ekseni), h, yb, seed, L, n, hi, t}
+function cen_bulutKat(o) {
+  const { tx, px, tone } = GR, L = o.L || { x: W / 2, y: -300 }, cx = (o.x0 + o.x1) / 2;
+  let lx = L.x - cx, ly = L.y - o.y; { const l = Math.hypot(lx, ly) || 1; lx /= l; ly /= l; }
+  if (o.yb != null) { const B = new Path2D(), q = rng((o.seed || 1) + 5), xa = o.x0 + o.h * .9, xb = o.x1 - o.h * .9, y0 = o.y + o.h * .15;
+    B.moveTo(xa, o.yb); B.lineTo(xa - o.h * .3, Math.min(o.yb, y0 + o.h * .5)); B.quadraticCurveTo(xa, y0, xa + o.h, y0); B.lineTo(xb - o.h, y0); B.quadraticCurveTo(xb, y0, xb + o.h * .3, Math.min(o.yb, y0 + o.h * .5)); B.lineTo(xb, o.yb); B.closePath(); tx.fillStyle = tone(.025); tx.fill(B); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(B); }
+  PR.cloud({ x: cx, y: o.y, w: o.x1 - o.x0, h: o.h, seed: o.seed || 1, lit: [lx, ly], base: .03, hi: o.hi ?? .85, core: .02, n: o.n || Math.max(3, Math.round((o.x1 - o.x0) / (o.h * 1.3))), drift: o.t ? Math.sin(o.t * .07 + (o.seed || 1)) * 8 : 0 });
+}
+// (a) Işıklı çizgili başmelek: SF lum 1 (kontur, zırh eteği, pelerin kıvrımı açık) + büyük sağlam KN kanat (dark ~.05).
+// p: cen_basmelek ile aynı; wingS (her kanat, baş boyu; 7.5), open, lift, droop, lines (1.5), cloak (.9), spear
+function cen_aydin(p) {
+  const h = p.h, t = p.t || 0;
+  const J = SF.rig({ x: p.x, y: p.y, h, facing: p.facing ?? 1, twist: p.twist ?? .3, lean: p.lean ?? 0, head: p.head ?? .15, shTilt: p.shTilt ?? -.03,
+    armN: p.armN || [-.1, .3], armF: p.armF || [.45, .8], legN: p.legN || [.1, -.05], legF: p.legF || [-.08, -.02] });
+  let lx = p.L.x - J.shC[0], ly = p.L.y - J.shC[1]; { const l = Math.hypot(lx, ly) || 1; lx /= l; ly /= l; }
+  const LIT = p.lit || [lx, ly], lum = p.lum ?? 1, back = !!p.back;   // back: (b) ters ışık
+  if (p.wing !== false) for (const [side, P] of [[-1, { span: (p.wingS ?? 7.5) * h, seed: 61, root: .1, rot: -.08 }], [1, { span: (p.wingS ?? 7.5) * .9 * h, seed: 62, root: .12, rot: .1 }]]) {
+    if (p.prof && side > 0) continue;
+    let sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN), sd = side, rot = P.rot + (p.wingRot || 0) * side;
+    if (p.prof) { sd = -J.f; sh = [J.shC[0] - J.f * .2 * h, J.shC[1]]; rot = (-.25 - .75) * J.f + (p.wingRot || 0); }
+    GR.frame(sh[0] - sd * h * .25, sh[1] + h * .15, rot, sd, 1);
+    KN.feathered({ span: P.span, open: p.open ?? .85, lift: p.lift ?? .6, droop: p.droop ?? .15, ruin: 0, dark: back ? .93 : (p.wDark ?? .05), rim: back ? .85 : .5, t, seed: P.seed, root: P.root, lit: [LIT[0] * sd, LIT[1]] });
+    GR.unframe();
+  }
+  if (p.mid) p.mid(J);
+  const sp = p.spear === false ? null : Object.assign({ grip: 'F', ang: .03, len: 7.8, up: .66 }, p.spear || {});
+  const spear = () => { const g = J['wr' + sp.grip], a = (sp.ang || 0) * J.f; cen_mizrak(g[0] + J.f * h * .2, g[1] + h * .08, a, sp.len * h, sp.up, Math.max(1.8, h * .05), h, back ? 0 : 1); };
+  if (sp && sp.grip === 'F') spear();
+  SF.draw(J, back ? { lum: p.lum ?? .12, lit: LIT, t, legs: p.legs ?? true, skirt: true, lines: 2, eye: 0, wind: .5, cloak: p.cloak ?? .9, halo: 3.5, seed: p.seed || 3 }
+    : { lum, lit: LIT, t, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 1.5, eye: 0, wind: .5, cloak: p.cloak ?? .9, halo: 0, seed: p.seed || 3 });
+  if (sp && sp.grip !== 'F') spear();
+  return J;
+}

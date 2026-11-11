@@ -15,7 +15,7 @@ function nif_gok(S, o = {}) {
   const { tx, px, tone } = GR, dk = o.dark || 0, sf = o.soft || 0, r = S.r;
   const lo = lerp(.66, .6, dk);   // en koyu gök tonu (.6'nın altına inmez)
   const g = tx.createRadialGradient(S.x, S.y, r, S.x, S.y, r * 4.6);
-  if (o.tight) { g.addColorStop(0, tone(.9)); g.addColorStop(.1, tone(.88)); } else { g.addColorStop(0, tone(1)); g.addColorStop(.12, tone(1)); }
+  if (o.tight) { g.addColorStop(0, tone(.8)); g.addColorStop(.1, tone(.82)); } else { g.addColorStop(0, tone(1)); g.addColorStop(.12, tone(1)); }
   g.addColorStop(.3, tone(lerp(.9, .86, dk))); g.addColorStop(.6, tone(lerp(.76, .7, dk))); g.addColorStop(1, tone(lo));
   tx.fillStyle = g; tx.fillRect(-2000, -2000, W + 4000, H + 4000);
   px.fillStyle = GR.hatch({ type: 'ray', cx: S.x, cy: S.y, n: 96, id: 10, w: 3 }); px.fillRect(-2000, -2000, W + 4000, H + 4000);
@@ -314,12 +314,15 @@ function nif_kancaYol(op = 0, K = NIF_KANCA) {
   const wings = [];
   // kanat noktaları (sağ kanat; sol aynası): yarı kapalı ve açık; aynı sayıda nokta, '!' sivri köşe (tüy ucu)
   const K0 = [[.05, -.74], [.085, -.95], [.165, -1.08], [.265, -1.02], [.3, -.86], [.29, -.6], [.265, -.34], [.245, -.02, 1], [.222, -.15], [.205, -.05, 1], [.188, -.2], [.17, -.13, 1], [.15, -.34], [.125, -.55], [.08, -.67]];
-  const K1 = [[.05, -.74], [.12, -.93], [.3, -1.1], [.5, -1.07], [.63, -.98], [.69, -.8], [.69, -.6], [.67, -.34, 1], [.61, -.43], [.58, -.27, 1], [.52, -.4], [.48, -.26, 1], [.4, -.42], [.27, -.54], [.12, -.64]];
+  const K1 = [[.05, -.74], [.12, -.95], [.26, -1.16], [.42, -1.24], [.56, -1.2], [.64, -1.06], [.66, -.86], [.64, -.58, 1], [.58, -.7], [.54, -.48, 1], [.48, -.62], [.42, -.42, 1], [.34, -.56], [.22, -.6], [.1, -.66]];
   for (const sd of [-1, 1]) {
-    const pts = K0.map((k, i) => { const [ax, ay, sh] = k, [bx, by] = K1[i]; return Object.assign(P(sd * L(ax, bx), L(ay, by)), { sh }); });
-    const W = new Path2D(); W.moveTo(...pts[0]);
-    for (let i = 1; i < pts.length; i++) {
-      const a = pts[i - 1], b = pts[i];
+    let pts = K0.map((k, i) => { const [ax, ay, sh] = k, [bx, by] = K1[i]; return Object.assign(P(sd * L(ax, bx), L(ay, by)), { sh }); });
+    // bütün parçalar aynı dönüş yönünde (saat yönünün tersi): birleşik yolda örtüşen parçalar birbirini silmesin (nonzero)
+    let ar = 0; for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; ar += a[0] * b[1] - b[0] * a[1]; }
+    const ord = ar > 0 ? pts.slice().reverse() : pts;
+    const W = new Path2D(); W.moveTo(...ord[0]);
+    for (let i = 1; i < ord.length; i++) {
+      const a = ord[i - 1], b = ord[i];
       if (b.sh || a.sh) W.lineTo(b[0], b[1]);             // tüy uçları sivri
       else W.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
     }
@@ -335,12 +338,13 @@ function nif_kancaYol(op = 0, K = NIF_KANCA) {
   C.quadraticCurveTo(...P(.05, 0), ...P(.1, -.03)); C.quadraticCurveTo(...P(.15, -.005), ...P(.19, -.06));
   C.quadraticCurveTo(...P(.15, -.45), ...P(.115, -.74));
   C.quadraticCurveTo(...P(.1, -.79), ...P(.035, -.79)); C.closePath();
-  for (const sd of [-1, 1]) { const f = P(sd * .05, -.012); C.moveTo(f[0] + .032 * U, f[1]); C.ellipse(f[0], f[1], .032 * U, .014 * U, 0, 0, TAU); }   // ayak uçları
+  for (const sd of [-1, 1]) { const f = P(sd * .05, -.012); C.moveTo(f[0] + .032 * U, f[1]); C.ellipse(f[0], f[1], .032 * U, .014 * U, 0, 0, TAU, true); }   // ayak uçları
   // baş: hafif yukarı kalkık (çene öne), kısa boyun
-  const Hd = new Path2D(); { const h0 = P(.004, -.855); Hd.moveTo(h0[0] + .043 * U, h0[1]); Hd.ellipse(h0[0], h0[1], .043 * U, .055 * U, -.08, 0, TAU); }
-  Hd.rect(...P(-.024, -.82), .048 * U, .04 * U);
+  const Hd = new Path2D(); { const h0 = P(.004, -.855); Hd.moveTo(h0[0] + .043 * U, h0[1]); Hd.ellipse(h0[0], h0[1], .043 * U, .055 * U, -.08, 0, TAU, true); }
+  { const a = P(-.024, -.82), b = P(.024, -.78); Hd.moveTo(a[0], a[1]); Hd.lineTo(a[0], b[1]); Hd.lineTo(b[0], b[1]); Hd.lineTo(b[0], a[1]); Hd.closePath(); }   // boyun (saat yönünün tersi)
+  const HE = new Path2D(); { const h0 = P(.004, -.855); HE.ellipse(h0[0], h0[1], .043 * U, .055 * U, -.08, 0, TAU); }
   const all = new Path2D(); for (const w of wings) all.addPath(w.path); all.addPath(C); all.addPath(Hd);
-  return { wings, cloak: C, head: Hd, all, P };
+  return { wings, cloak: C, head: Hd, headE: HE, all, P };
 }
 // sivri uçlu dolgu vuruş (tx'e): pts dünya noktaları, w en kalın yer, v ton
 function nif_vurus(pts, w, v) {
@@ -360,12 +364,26 @@ function nif_kanatVurus(F, v, w = 7) {
     const p = W.pts, sd = W.sd;
     GR.tx.save(); GR.tx.clip(W.path);
     // kemerin altından üç tüy ucuna doğru akan uzun vuruşlar
-    for (const [ai, ti, f] of [[2, 7, .82], [3, 9, .78], [4, 11, .72]]) {
+    for (const [ai, ti, f] of [[4, 7, .8], [3, 9, .76], [2, 11, .7]]) {
       const a = [lerp(p[ai][0], p[1][0], .25), p[ai][1] + 30], e = [lerp(a[0], p[ti][0], f), lerp(a[1], p[ti][1], f)];
       nif_vurus([a, [lerp(a[0], e[0], .5) + sd * 10, lerp(a[1], e[1], .5)], e], w, v);
     }
     GR.tx.restore();
   }
+}
+// göğüs alevi (kao_gogusAlev'in akrabası): sivri uçlu kâğıt beyazı dil + iki küçük yan dil; taban (x, y), boy L, yarı genişlik wd
+function nif_gogusAlev(x, y, L, wd, t) {
+  const tone = GR.tone, sw = (k) => Math.sin(t * 2.1 + k) * wd * .35 + noise1(t * .7 + k, 3) * wd * .25;
+  const dil = (bx, L, w, k) => {
+    const s0 = sw(k), P = new Path2D(); P.moveTo(bx - w, y);
+    P.bezierCurveTo(bx - w * 1.3, y - L * .35, bx + s0 * .5 - w * .3, y - L * .7, bx + s0, y - L);
+    P.bezierCurveTo(bx + s0 * .6 + w * .4, y - L * .65, bx + w * 1.3, y - L * .35, bx + w, y);
+    P.quadraticCurveTo(bx, y + w * .7, bx - w, y); P.closePath();
+    GR.fill(P, tone(1), { th: -PI / 2, id: 3 });
+  };
+  dil(x - wd * 1.1, L * .45, wd * .55, 1.3); dil(x + wd * 1.1, L * .5, wd * .55, 2.7); dil(x, L, wd, 0);
+  // içte sivrilen iki mürekkep vuruşu (alev üslubu)
+  nif_vurus([[x - wd * .25, y - L * .05], [x - wd * .35 + sw(0) * .2, y - L * .3], [x + sw(0) * .4, y - L * .55]], wd * .28, .04);
 }
 // A01: güneşe karşı karanlık figür
 function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
@@ -378,16 +396,15 @@ function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
   GR.fill(F.all, GR.tone(.02), { th: 0, id: 0 });
   tx.save(); tx.clip(F.all); tx.strokeStyle = GR.tone(1);
   tx.lineWidth = 7; for (const w of F.wings) tx.stroke(w.path);
-  tx.lineWidth = 6; tx.stroke(F.head);
+  tx.lineWidth = 6; tx.stroke(F.headE);
   GR.fill(F.cloak, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 5; tx.stroke(F.cloak);
-  GR.fill(F.head, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 6; tx.stroke(F.head);
+  GR.fill(F.head, GR.tone(.02), { th: 0, id: 0 }); tx.lineWidth = 6; tx.stroke(F.headE);
   tx.restore();
   nif_kanatVurus(F, 1, 6);
   // iç cehennem: göğüs hizasında tek kâğıt beyazı alev (P003'teki göğüs alevinin akrabası); 'cehennemim' ile büyür
-  const c = P(0, -.5), k = lerp(.75, 1.35, a);
+  const c = P(0, -.42), k = lerp(.7, 1.25, a);
   tx.save(); tx.clip(F.cloak);
-  PR.glow(c[0], c[1] - .08 * U * k, 4, .16 * U * k, .3, .5 * a);
-  PR.flame(c[0], c[1], .3 * U * k, .12 * U * k, t, 21, { speed: .3, sway: .4, curl: .35, solidBelow: 1e5, strokeAbove: 1e5, frags: false, inner: .5 });
+  nif_gogusAlev(c[0], c[1], .17 * U * k, .03 * U * k, t);
   tx.restore();
   return F;
 }
