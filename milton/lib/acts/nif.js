@@ -371,14 +371,14 @@ function nif_vurus(pts, w, v) {
   c.fillStyle = GR.tone(v); c.beginPath(); poly(c, [...A, ...B.reverse()], true); c.fill();
 }
 // kanat içi tüy vuruşları: kemerden aşağı akan birkaç uzun, sivrilen çizgi (A01'de kâğıt rengi, A02'de mürekkep)
-function nif_kanatVurus(F, v, w = 7) {
+function nif_kanatVurus(F, v, w = 7, k = 1) {
   for (const W of F.wings) {
     const p = W.pts, sd = W.sd;
     GR.tx.save(); GR.tx.clip(W.path);
     // kemerin altından üç tüy ucuna doğru akan uzun vuruşlar
     for (const [ai, ti, f] of [[4, 7, .8], [3, 9, .76], [2, 11, .7]]) {
-      const a = [lerp(p[ai][0], p[1][0], .25), p[ai][1] + 30], e = [lerp(a[0], p[ti][0], f), lerp(a[1], p[ti][1], f)];
-      nif_vurus([a, [lerp(a[0], e[0], .5) + sd * 10, lerp(a[1], e[1], .5)], e], w, v);
+      const a = [lerp(p[ai][0], p[1][0], .25), p[ai][1] + 30 * k], e = [lerp(a[0], p[ti][0], f), lerp(a[1], p[ti][1], f)];
+      nif_vurus([a, [lerp(a[0], e[0], .5) + sd * 10 * k, lerp(a[1], e[1], .5)], e], Math.max(4, w * k), v);
     }
     GR.tx.restore();
   }
@@ -391,23 +391,40 @@ function nif_gogusAlev(x, y, L, wd, t) {
   PR.flame(x, y + wd * .5, L, wd * 2.2, t, 21, fo);
 }
 // A01: güneşe karşı karanlık figür
-function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
-  const S0 = { x: 880, y: 430, r: 330 }, F = nif_kancaYol(0), { P } = F, U = NIF_KANCA.U, tx = GR.tx;
-  // güneş: temiz kâğıt disk; ışınsal tarama diskin hemen dışında başlar (çizgi çember yok)
-  nif_gok(S0, { ring: false, tight: true, beams: [], clouds: [{ x: -120, y: 60, w: 640, h: 240, seed: 12, n: 3 }, { x: 1720, y: 130, w: 1100, h: 420, seed: 19, n: 4 }], t });
-  nif_siralar({ hz: 890 });
-  nif_tepe({ x: NIF_KANCA.x, y: NIF_KANCA.y + 6, s: 1, seed: 3, lit: [0, -1] });
-  // figür: düz siyah; arkadan güneş: dış hatta ince kâğıt kenar ışığı; pelerin kanatların önünde (kenarında ince ışık)
+// o: {K (figür yeri ve boyu; varsayılan NIF_KANCA), sun, clouds, hz, tepe (false: zirve yok), dive (0..1: siyah içe dalış + kareyi dolduran alevler)}
+// kanca figürü (A01 dili): düz siyah siluet, kesintisiz kenar ışığı, kanat içi vuruşlar, göğüste tek alev. K: {x, y (ayaklar), U (boy)}
+function nif_kancaSiluet(t, a, K = NIF_KANCA) {
+  const F = nif_kancaYol(0, K), { P } = F, U = K.U, tx = GR.tx, ks = U / 640;
   GR.fill(F.all, GR.tone(.02), { th: 0, id: 0 });
-  // kenar ışığı: keskin üst katmanda (GR.ox) kesintisiz 3 px kâğıt çizgisi, siluetin içinde (titreme alanından geçmez)
-  { const o = GR.ox; o.save(); o.clip(F.all); o.strokeStyle = GR.paperCol; o.lineWidth = 6; for (const w of F.wings) o.stroke(w.path); o.stroke(F.headE);
-    o.restore(); o.save(); o.clip(F.cloak); o.lineWidth = 6; o.strokeStyle = GR.paperCol; o.stroke(F.cloak); o.restore(); }
-  nif_kanatVurus(F, 1, 6);
-  // iç cehennem: göğüs hizasında tek kâğıt beyazı alev (P003'teki göğüs alevinin akrabası); 'cehennemim' ile büyür
+  // kenar ışığı: keskin üst katmanda (GR.ox) kesintisiz kâğıt çizgisi, siluetin içinde (titreme alanından geçmez)
+  { const ow = Math.max(3, 6 * ks), O = GR.ox; O.save(); O.clip(F.all); O.strokeStyle = GR.paperCol; O.lineWidth = ow; for (const w of F.wings) O.stroke(w.path); O.stroke(F.headE);
+    O.restore(); O.save(); O.clip(F.cloak); O.lineWidth = ow; O.strokeStyle = GR.paperCol; O.stroke(F.cloak); O.restore(); }
+  if (U > 200) nif_kanatVurus(F, 1, 6, ks);
+  // iç cehennem: göğüs hizasında tek kâğıt beyazı alev (P003'teki göğüs alevinin akrabası)
   const c = P(0, -.55), k = lerp(.8, 1.4, a);
   tx.save(); tx.clip(F.cloak);
-  nif_gogusAlev(c[0], c[1], .19 * U * k, .03 * U * k, t);
+  nif_gogusAlev(c[0], c[1], .19 * U * Math.max(.3, k), .03 * U * Math.max(.3, k), t);
   tx.restore();
+  return F;
+}
+function nif_kancaA01(t, a, o = {}) {   // a: 0..1+ alevin büyüklüğü ('cehennemim')
+  const K = o.K || NIF_KANCA, S0 = o.sun || { x: 880, y: 430, r: 330 }, ks = K.U / 640, U = K.U, tx = GR.tx;
+  // güneş: temiz kâğıt disk; ışınsal tarama diskin hemen dışında başlar (çizgi çember yok)
+  nif_gok(S0, { beams: [], clouds: o.clouds || [{ x: -120, y: 60, w: 640, h: 240, seed: 12, n: 3 }, { x: 1720, y: 130, w: 1100, h: 420, seed: 19, n: 4 }], t });
+  nif_siralar({ hz: o.hz ?? 890 });
+  if (o.tepe !== false) nif_tepe(o.tepe || { x: K.x, y: K.y + 6 * ks, s: ks, seed: 3, lit: [0, -1] });
+  const F = nif_kancaSiluet(t, a, K), c = F.P(0, -.55);
+  const dv = clamp(o.dive || 0);
+  if (dv > 0) {   // dalış: göğüsten büyüyen siyah (siluetin içi kareyi doldurur) ve onunla büyüyen alevler
+    const R = 2300 * Math.pow(dv, 1.6), Dk = new Path2D(); Dk.ellipse(c[0], c[1], R * .9, R, 0, 0, TAU);
+    GR.fill(Dk, GR.tone(.02), { th: 0, id: 0 });
+    { const O = GR.ox; O.save(); O.globalCompositeOperation = 'destination-out'; O.fill(Dk); O.restore(); }
+    const kk = 1.4 + 6 * Math.pow(dv, 1.3), by = c[1] + .1 * U * kk * .5 + 500 * dv;
+    tx.save(); tx.clip(Dk);
+    nif_gogusAlev(c[0], Math.min(by, H + 40), .19 * U * kk, .03 * U * kk, t);
+    if (dv > .35) PR.flameBank(-200, W + 200, H + 60, 700 * E.in2((dv - .35) / .65), t, 27, { n: 7, env: f => .55 + .45 * Math.abs(Math.cos(f * PI)), wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .5, curl: .45, solidBelow: 1e5 });
+    tx.restore();
+  }
   return F;
 }
 // A02: aynı baş + pelerin yolu (konum, ölçek aynı), kâğıt beyazı; kanatlar KN.feathered (kök aynı omuz noktasında), yarı kapalıdan açığa.
@@ -418,9 +435,8 @@ function nif_kancaA02(t, op, rl) {
   const { tx, tone } = GR, F = nif_kancaYol(0), { P } = F, U = NIF_KANCA.U, M = tx.getTransform();
   const BG = new Path2D(); BG.rect(-400, -400, W + 800, H + 800); GR.fill(BG, tone(.02), { th: 0, id: 0 });
   // alçak bulut kütlesi (zirvenin yerinde): katmanlı, kenar ışıklı
-  PR.cloud({ x: NIF_KANCA.x - 420, y: NIF_KANCA.y + 110, w: 1100, h: 200, seed: 46, lit: [.3, -1], base: .03, hi: .85, core: .02, n: 4, drift: Math.sin(t * .1) * 6 });
-  PR.cloud({ x: NIF_KANCA.x + 480, y: NIF_KANCA.y + 120, w: 1200, h: 210, seed: 47, lit: [-.3, -1], base: .03, hi: .85, core: .02, n: 4, drift: Math.sin(t * .08 + 1) * 6 });
-  PR.cloud({ x: NIF_KANCA.x, y: NIF_KANCA.y + 70, w: 900, h: 150, seed: 48, lit: [0, -1], base: .03, hi: .9, core: .02, n: 4 });
+  PR.cloud({ x: NIF_KANCA.x - 560, y: NIF_KANCA.y + 150, w: 1300, h: 330, seed: 12, lit: [.35, -1], base: .03, hi: .85, core: .02, n: 4, drift: Math.sin(t * .1) * 6 });
+  PR.cloud({ x: NIF_KANCA.x + 620, y: NIF_KANCA.y + 160, w: 1300, h: 330, seed: 19, lit: [-.35, -1], base: .03, hi: .85, core: .02, n: 4, drift: Math.sin(t * .08 + 1) * 6 });
   const A = NIF_A02_KANAT[0], B = NIF_A02_KANAT[1], u = E.io2(clamp(op)), mx = k => lerp(A[k], B[k], u);
   nif_kancaKanat({ open: mx('open'), lift: mx('lift'), droop: mx('droop'), rot: mx('rot'), dark: 0, rim: .75, lit: [0, -1], t });
   GR.fill(F.cloak, tone(1), { th: PI / 2, id: 9 }); GR.fill(F.head, tone(1), { th: 0, id: 0 });
@@ -450,7 +466,7 @@ plan('P001', (ctx, st) => {
   const t = st.t, tC = Wd('A01', 'cehennemim');
   levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_kancaA01(t, E.io2(nif_u(t, tC - .2, tC + .9))), NIF_BG);
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1650, 150, st.lt, { t0, px: 84, panel: false }); } });
+  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1560, 150, st.lt, { t0, px: 84, panel: false }); } });
 plan('P002', (ctx, st) => {
   const t = st.t, s0 = S('A02'), s1 = Se('A02');
   const op = E.out2(nif_u(t, s0 + .1, s0 + 1.2)), rl = E.out2(nif_u(t, s0, s0 + .5)) * (1 - E.io2(nif_u(t, s1 - .9, s1 + .4)));
@@ -494,21 +510,18 @@ plan('P065', (ctx, st) => {
   levha(ctx, camLerp({ cx: 1000, cy: 540, z: 1 }, { cx: 960, cy: 540, z: 1 }, st.p, E.io2), () => cizNifates(t, {
     sun: S0, hz: 860, tepe: { x: 1290, y: 862, s: .6, seed: 7 }, t, aden: { x: 380, y: 850, w: 300, s: .8 },
     clouds: [{ x: 560, y: 250, w: 1600, h: 560, seed: 12, n: 5 }],
-    fig: (tp) => nif_seytan({ x: tp[0], y: 0, ground: tp[1] + 2, h: 24, facing: 1, twist: .35, head: .1, t, lum: .22, lit: nif_isik(S0, tp[0], tp[1] - 100),
-      wings: NIF_PELERIN }) }), NIF_BG);
+    fig: (tp) => nif_kancaSiluet(t, .3, { x: tp[0], y: tp[1] + 3, U: 190 }) }), NIF_BG);
 }, { tr: { type: 'black', dur: 1.4, end: true },
   over: (ctx, st) => chapterCard(ctx, 'GÜNEŞE İTİRAF', 'Kimsenin duymadığını sanırken, Şeytan kendine ne söyler?', st.lt, st.d, { x: 620, y: 290 }) });
 
-// ═════════ P066 (G02): siluetin göğsünde yanan göl ═════════
-// 'cehennemi' kelimesinde göğüste bir kor belirir, 'taşıyor' ile pencere açılır; 'kaçamıyorsa' ile alevler en yüksek.
+// ═════════ P066 (G02): aynı kanca figürü (A01), göğsünde küçük alev: "cehennemi içinde taşıyor" ═════════
+// Alev 'cehennemi'de belirir (küçük), 'kaçamıyorsa'da biraz büyür. Kadraj: figür sola, güneş sağda; yatay kaydırma.
 plan('P066', (ctx, st) => {
-  const t = st.t, S0 = { x: 1430, y: 400, r: 300 }, tC = Wd('G02', 'cehennemi'), tK = Wd('G02', 'kaçamıyorsa');
-  const k = .55 * E.io2(nif_u(t, tC - .2, tC + 1.4)) + .45 * E.io2(nif_u(t, tK - 1, tK + 1.2));
-  const P = { x: 720, y: 0, ground: 980, h: 100, facing: 1, twist: .45, lean: .02, head: .02, shTilt: -.03, armN: [.1, .3], armF: [-.08, .25], legN: [.12, -.05], legF: [-.1, -.03] };
-  levha(ctx, camLerp({ cx: 860, cy: 530, z: 1 }, { cx: 860, cy: 530, z: 1.1 }, st.p, E.io2), () => cizNifates(t, {
-    sun: S0, hz: 930, tepe: { x: 720, y: 982, s: 1, seed: 9 }, t, clouds: [{ x: 60, y: 120, w: 820, h: 330, seed: 12, n: 4 }],
-    fig: () => nif_seytan(Object.assign({}, P, { t, lum: .22, lit: nif_isik(S0, 720, 500), wings: NIF_PELERIN,
-      ic: k > .01 ? Object.assign({ k }, NIF_IC) : null })) }), NIF_BG);
+  const t = st.t, tC = Wd('G02', 'cehennemi'), tK = Wd('G02', 'kaçamıyorsa');
+  const a = -.7 + .7 * E.io2(nif_u(t, tC - .2, tC + 1.2)) + .35 * E.io2(nif_u(t, tK - .6, tK + 1));
+  levha(ctx, { cx: lerp(1000, 970, E.io2(st.p)), cy: 540, z: 1 }, () => nif_kancaA01(t, a, {
+    K: { x: 720, y: 930, U: 560 }, sun: { x: 1330, y: 420, r: 300 }, hz: 900,
+    clouds: [{ x: -100, y: 60, w: 760, h: 260, seed: 21, n: 3 }, { x: 1900, y: 820, w: 700, h: 200, seed: 29, n: 3 }] }), NIF_BG);
 }, { tr: { type: 'cut' } });
 
 // ═════════ P068 (G03): profil güneşe karşı; eliyle gözünü siper eder (alttan) ═════════
@@ -584,24 +597,18 @@ plan('P070', (ctx, st) => {
   }, NIF_BG);
 }, { tr: { type: 'fade', dur: .8 } });
 
-// ═════════ P072 (G07): doruk; kamera siluetin içine girer, yanan göl kareyi doldurur ═════════
-// Siluetin içi baştan yanar (iç cehennem, kanatlar dahil). 'nereye kaçayım' ile baş kalkar; 'hangi yana' ile maske göğüsten büyür
-// (kamera değil maske büyür: yakınlaşma sınırı 1,25) ve 'ben' kelimesine kadar kareyi doldurur: yalnız yanan göl kalır.
+// ═════════ P072 (G07): doruk; A01 karesinin birebir geri çağrısı (aynı kadraj, aynı figür) ═════════
+// Alev açılıştakinden de büyür ('nereye'), 'hangi'den 'ben'e göğüsten büyüyen siyah kareyi kaplar ve alevler onunla büyür (içe dalış);
+// 'ben' kelimesinde onaylı yanan göl karesine kesme.
 plan('P072', (ctx, st) => {
-  const t = st.t, S0 = { x: 1460, y: 380, r: 290 }, tN = Wd('G07', 'nereye'), tH = Wd('G07', 'hangi'), tB = Wd('G07', 'ben');
-  const lift = E.io2(nif_u(t, tN - .3, tN + 1.2)), gp = nif_u(t, tH, tB - .1);
-  const P = { x: 860, y: 0, ground: 975, h: 100, facing: 1, twist: .5, lean: lerp(.08, .02, lift), head: lerp(-.25, .15, lift), shTilt: lerp(.07, -.02, lift),
-    armN: [.05, .55], armF: [-.05, .5], legN: [.12, -.05], legF: [-.1, -.03] };
-  const J0 = nif_rig(P), c = [J0.hip[0], J0.hip[1] - .7 * J0.h];
-  levha(ctx, { cx: 960, cy: 540, z: 1 }, () => {
-    if (gp >= 1) { nif_icGolTam(t); return; }
-    cizNifates(t, {
-      sun: S0, hz: 930, tepe: { x: 860, y: 977, s: 1, seed: 15 }, t, clouds: [{ x: 400, y: 150, w: 1150, h: 400, seed: 12, n: 5 }],
-      fig: () => nif_seytan(Object.assign({}, P, { t, lum: .2, lit: nif_isik(S0, 860, 500), wings: NIF_PELERIN,
-        ic: Object.assign({ k: 1 }, NIF_IC, { grow: { g: lerp(1, 6.5, Math.pow(gp, 1.6)), c, p: gp } }) })) });
-  }, NIF_BG);
-}, { tr: { type: 'fade', dur: .6 },
-  over: (ctx, st) => nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84 }) });
+  const t = st.t, tN = Wd('G07', 'nereye'), tH = Wd('G07', 'hangi'), tB = Wd('G07', 'ben');
+  const a = 1 + .6 * E.io2(nif_u(t, tN - .3, tN + 1.5)), dv = nif_u(t, tH, tB - .05);
+  levha(ctx, { cx: 960, cy: 540, z: 1 }, () => { if (t >= tB - .05) nif_icGolTam(t); else nif_kancaA01(t, a, { dive: dv }); }, NIF_BG);
+}, { tr: { type: 'cut' },
+  over: (ctx, st) => {
+    if (st.t < Wd('G07', 'ben') - .05) quote(ctx, '“Hangi yana kaçsam cehennem.”', 1560, 150, st.lt, { t0: Wd('G07', 'hangi') - st.at, px: 68, maxW: 600, panel: false });
+    else nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84 });
+  } });
 // tam kare iç cehennem (maskenin büyümesi bittikten sonra): yerel çerçeve dünya ile aynı
 function nif_icGolTam(t) { cizGol(t, { fig: false, chains: false, sway: .02 }); }
 

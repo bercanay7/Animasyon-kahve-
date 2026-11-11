@@ -533,14 +533,14 @@ function mec_kalinYilan(x0, y0, L, dir, r, t, ph, rise = .5, L2, head) {
     if (u <= .55) { const v = u / .55; C.push([x0 + dir * v * L, y0 + Math.sin(v * TAU * 1.1 + ph + t * .45) * r * 1.2 * (1 - v * v)]); }
     else { const v = (u - .55) / .45, cx = xb + dir * r * 1.5, cy = lerp(y0, hy, .65), a0 = [(1 - v) * (1 - v) * xb + 2 * v * (1 - v) * cx + v * v * hx, (1 - v) * (1 - v) * y0 + 2 * v * (1 - v) * cy + v * v * hy];
       C.push([a0[0] + Math.sin(v * PI) * r * .5 * Math.sin(t * .7 + ph), a0[1]]); } }
-  adn_yilan(C, u => r * (u < .12 ? .25 + 6.25 * u : u > .9 ? .8 + (1 - u) * 2 : 1), { L: L2 || { x: 960, y: 200 }, goz: 1, rim: Math.max(4, r * .12), kesik: .9, t });
+  adn_yilan(C, u => r * (u < .12 ? .25 + 6.25 * u : u > .9 ? .8 + (1 - u) * 2 : 1), { L: L2 || { x: 960, y: 200 }, goz: 1, rim: Math.max(5, r * .2), kesik: 1, t });
   return C[n];
 }
 // ═════════ J08 (P110): aynı orta plan; öndekiler artık kalın yılan gövdeleri; tahtın önünde büyük yılan ═════════
 plan('P110', (ctx, st) => {
   const t = st.t;
   levha(ctx, null, () => mec_salon(t, { K: 2.0, zc: 1.0, vy: 120, serit: .6, glow: .75, lt: .8, crowd: 'yilan', zmax: 2.2, fig: () => mec_buyukYilan(t), figZ: 3.2,
-    front: () => { mec_kalinYilan(-80, 1040, 330, 1, 50, t, 0, 1, null, [420, 760]); mec_kalinYilan(820, 1090, 260, -1, 44, t, 2, 1, null, [500, 860]); mec_kalinYilan(1120, 1080, 280, 1, 46, t, 4, 1, null, [1440, 800]); mec_kalinYilan(2000, 1040, 300, -1, 50, t, 1, 1, null, [1640, 740]); } }));
+    front: () => { mec_kalinYilan(-80, 1040, 330, 1, 50, t, 0, 1, null, [380, 640]); mec_kalinYilan(820, 1090, 260, -1, 44, t, 2, 1, null, [610, 700]); mec_kalinYilan(1120, 1080, 280, 1, 46, t, 4, 1, null, [1320, 690]); mec_kalinYilan(2000, 1040, 300, -1, 50, t, 1, 1, null, [1560, 630]); } }));
 }, { tr: { type: 'cut' } });
 
 // ═════════ J10 (P113): tek ağacın orta planı; dallarda beyaz meyveler, yılanlar uzanır; "küle"de meyve ağızda dağılır ═════════
@@ -568,7 +568,7 @@ function mec_tekAgac(t, gr, reach, ash) {
 plan('P113', (ctx, st) => {
   const t = st.t, w = k => Wd('J10', k);
   const gr = mec_u(t, w('ağaçlar') - .3, w('belirir') + 1.2), reach = E.io2(mec_u(t, w('açlıkla') - .2, w('saldırırlar') + .8)), ash = mec_u(t, w('küle') - .3, w('küle') + 2.0);
-  levha(ctx, null, () => mec_salon(t, { K: 2.0, zc: 1.0, vy: 120, serit: .5, glow: .55, lt: .6, crowd: null, front: () => {
+  levha(ctx, null, () => mec_salon(t, { K: 2.0, zc: 1.0, vy: 120, serit: .5, glow: 1.3, gx: 960, gy: 260, gR: 760, gClip: false, lt: .6, crowd: null, front: () => {
     mec_tekAgac(t, gr, reach, ash);
     const L2 = { x: 960, y: 300 };
     // dört yılan aşağıdan meyvelere uzanır; en büyüğünün başı "küle"de bir meyveye varır
