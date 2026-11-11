@@ -1,0 +1,335 @@
+{
+  "uye": "T-Tutma",
+  "karar": "RED",
+  "puanlar": {
+    "K1": 9,
+    "K2": 9,
+    "K3": 9,
+    "K4": 8.5,
+    "K5": 9.5,
+    "K6": 9,
+    "K7": 8.5
+  },
+  "agirlikli": 8.95,
+  "puan_gerekceleri": {
+    "K1": "Tur 1'de işaret ettiğim iç çelişki (A06 / B13 / G15) giderildi: A06 'bu destanı yazdıran şair', B09 'gözleri henüz görürken, bir tiyatro oyununun açılışı olarak', G02b yalnız açılış dizeleri. L04 artık Cabanel'in Milton'dan aldığını iddia etmiyor. Kalan tek not L11: Shelley'nin cümlesinin yönü ters çevrilmiş olabilir (aşağıda, düşük).",
+    "K2": "Kapak metni 0:00–0:03,5'te birebir duyuluyor, konuşan 0:08'de açılıyor, soru 0:09–0:15'te, sahne 0:16–0:30'da. Şarlken ölçüsünde bir açılış. Tam puan vermememin iki sebebi: A03'teki 'Neden?' sorusunu A01 zaten yüzeyde cevaplıyor ('Ben cehennemim'), ve 0:30 işaretinin tam üstünde 15,6 saniyelik çerçeve cümlesi (A05) duruyor.",
+    "K3": "Kurulum–ödeme ağı daha da sıkılaştı (D04 → L07, G10 → J06, E15 → J07, F04 ↔ H11, B01 → L09). Ama J11 ile K01 art arda iki 'bitti' sinyali veriyor; yeniden kanca (K04) bunlardan 40 saniye sonra geliyor.",
+    "K4": "Tur 1'deki tekrarların çoğu temizlendi (K08, K09/K10, I10/J01, E09/E10, L02). Buna karşılık metin 16.148 karakterden 18.342'ye çıktı: tahmini süre 22:04'ten 24:50'ye. Hikâye bittikten sonraki kısım 4:14'ten 5:15'e (saf konuşma) uzadı. 'İki okuma' bölümü KURUL.md'de 'sıkıştırıldı' diye geçiyor, ölçümde uzamış (1.648 → 1.867 karakter).",
+    "K5": "G bölümü G13 ve G16 ile derinleşti; E10'daki 'kaşlarının altında gurur, gözlerinde pişmanlık' L05'i hazırlıyor. Değişmedi, en güçlü ölçüt.",
+    "K6": "tts'te '…' kalmadı, yıllar '… yılında' kalıbında, her segment etiketle başlıyor. Kulakla zor iki yer var: D03 ('kendinden üstüne başkaldırana hizmet etmek') ve C03 (çift 'arasında'). 13 segment 230 karakterin üstünde; en uzunu K15, 318 karakter.",
+    "K7": "Değişmedi. G15 'yüzü üç kez değişir' ve E10'daki yüz tarifi yakın plan istiyor; ışık ve siluetle çözülmeli."
+  },
+  "capraz": {
+    "katildigim": [
+      "Kanca teşhisi (eşimin 1. maddesi): soru geç geliyordu ve A03 cevabı önceden veriyordu. Rev2 ikimizin önerisinin birleşimi.",
+      "B'deki siyaset bloğu için 'kapatma noktası 1' teşhisi (2. madde). Ben sırayı değiştirmeyi önermiştim, eşim kısaltmayı. Rev2 sırayı değiştirdi ama blok hâlâ 27 saniye (B04–B05, 1:36–2:04). Süre 24:50'ye çıktığı için artık eşimin kısaltma önerisine de katılıyorum.",
+      "J10'daki 'hikâye bitti' sinyali (3. madde): ikimiz de bağımsız olarak aynı noktayı ve aynı çareyi yazdık.",
+      "G15'teki Uriel ipucunun ödenmemesi (10. madde): ben F08 → G14 bağını 'kurulum–ödeme' sayıp geçmiştim; eşim haklı, ipucu H10'a bağlanmıyor. Rev2'de de bağlanmamış.",
+      "D03'ün geri dönüşle anlatılması (13. madde): kulakla sıra karışıyor. Rev2'de D04 de aynı kalıpla eklendi ('Ve eklemişti'), sorun büyüdü.",
+      "E bölümünün sırası ve tek vuruşluk ünlü dize (7. madde); F01 ve F04 önerileri (8. madde); L02–L03'ün müze turu olması (5. madde). Üçü de rev2'de uygulanmış ve işe yarıyor.",
+      "Kapak B için 'ŞEYTAN AĞLADI' önerisi: paradoks, duygu ve I.620'ye dayanan bir bilgi. A/B için iyi bir ikinci seçenek; şartı da doğru yazmış (ilk 5 saniyede gözyaşı)."
+    ],
+    "katilmadigim": [
+      "J01'in silinip I10'daki sorunun kalması (11. madde): 'Zafer anında insan ne duymayı bekler?' sorusu J04'teki 'alkışı bekler' cümlesini kuruyor; I10'un tek kelimelik 'Kazanmıştır.' kapanışı daha sert. Rev2 benim önerdiğim yönde ve doğru.",
+      "G10'un tek cümleye indirilmesi (10. madde): rev2'de G10 artık J06'nın kurulumu ('ordunun önünde rezil olma korkusu' → 'aynı kalabalık ona tıslıyor'). Kısaltılırsa ödeme havada kalır.",
+      "G08'in silinmesi: 'daha derin dip' kod çiziminin en kolay ve en güçlü kurabileceği görüntülerden (dikey uçurum). Eşimin asıl derdi, G07'den sonra nefes olmaması, haklı; çaresi silmek değil, G07'den sonra 1 saniyelik durak.",
+      "Başlık önerisi 'Şeytan'a Acıdığın Tek Hikâye': eşimin kendi itirazıyla çelişiyor ('bana ne hissedeceğimi söyleme'). Başlık izleyiciye duygusunu dikte ediyor ve hassasiyet riski taşıyor.",
+      "L04'te gerçek Cabanel tablosunun gösterilmesi (19. madde) için kısmen: videonun içinde, siyah-beyaz filmdeki tek renkli kare olarak güçlü bir kırılma olur, buna katılıyorum. Ama aynı tablo kapak B olarak yağlıboya hâliyle kullanılırsa akışta videonun üslubundan sapar; kapakta gravür diliyle yeniden çizilmeli.",
+      "K11 için önerdiği 'ülkeyi tek başına yönetti' ifadesi kaynakça zayıftı; rev2'deki 'taçsız bir kral gibi' daha doğru."
+    ],
+    "gozden_kacan": [
+      "A06'daki tutarsızlık: eşim G15'i yakaladı ama kendi A05–A06 önerisinde 'bu dizeleri söylerken hiçbir şey göremiyordu' ifadesini korudu; yani çelişkinin öbür ucunu görmedi.",
+      "0. karenin kapak karesiyle aynı olması ve iki kapağın (A ve B) aynı açılışla sınanacağı. Kapak B'yi önerdi ama açılışın iki kapağa birden nasıl hizmet edeceğini yazmadı.",
+      "Bitiş ekranı: L11/L12'den sonra kuyruk süresi, öğe seçimi ve abone çağrısının uzunluğu.",
+      "YouTube bölüm başlıkları ve başlık–kapak–0:15–final arasındaki vaat zinciri.",
+      "Süre tahmini: önerdiği kesintilerle 19–20 dakika öngörmüştü. Rev2 ters yöne gitti; kurulun toplam etkisini (herkes bir şey ekletti) ikimiz de öngörmedik."
+    ]
+  },
+  "dogrulama": [
+    {
+      "bulgu": "Tur 1 / 1: merak sorusu ilk 15 saniyeye (A01–A04)",
+      "durum": "karşılandı",
+      "not": "A03 tahmini 0:08,7–0:15,1. A04'te 'Milton'ın deyişiyle' kalktı, yol özeti kalktı. L06 soruyu kelimesi kelimesine yineliyor."
+    },
+    {
+      "bulgu": "Tur 1 / 1: çerçeve cümlesi ve yıl (A05)",
+      "durum": "kısmen",
+      "not": "1667 ekran yazısına gitti. Ama A05 kısalmadı, uzadı: 181 → 202 karakter, 0:30,6–0:46,2. Metin hassasiyet üyelerinin ortak metni; kısaltma önerim aşağıda, kararı onlarındır."
+    },
+    {
+      "bulgu": "Tur 1 / 2: B bölümü soruyla ve sahneyle açılsın",
+      "durum": "karşılandı",
+      "not": "B01 soru (0:52), B02 gece sahnesi (0:58). Tarih kartı seslendirmeden çıktı. B08 köprüsü önerdiğim metin."
+    },
+    {
+      "bulgu": "Tur 1 / 2 ve eşimin 2. maddesi: B'nin süresi",
+      "durum": "kısmen",
+      "not": "Bölüm 2:11'den 2:06'ya indi, yani kısalmadı; hikâye 2:58'de başlıyor (rev1'de 3:12). Siyaset bloğu (B04–B05) 27 saniye. KURUL.md'deki 'iki cümleye indi' ifadesi ölçüyle uyuşmuyor: iki segment, beş cümle."
+    },
+    {
+      "bulgu": "Tur 1 / 3: A06 / B13 / G15 tutarlılığı",
+      "durum": "karşılandı",
+      "not": "A06, B09 ve G02b metinde doğruladım. G02b'nin G03'ten önce gelmesi (eşimin önerisi) benim önerdiğim sondaki açıklamadan daha iyi: izleyici dizeleri beklentiyle dinliyor."
+    },
+    {
+      "bulgu": "Tur 1 / 4: 0. kare = kapak karesi, gözyaşı ışığı, G07'de aynı kompozisyon",
+      "durum": "kısmen",
+      "not": "Kaynak notlarında G07 için 'A01 ile aynı kompozisyon ve ekran yazısı' ve A01 için künye yazısı var. Kapakla aynı kare ve gözyaşı ışığı yazılmamış; bunlar animasyon ve kapak kapısına kalıyor, orada yeniden soracağım."
+    },
+    {
+      "bulgu": "Tur 1 / 5 ve eşimin 3. maddesi: J10'daki 'hikâye bitti' sinyali",
+      "durum": "kısmen",
+      "not": "Önerdiğim cümle K04'e kondu ('asıl kavga, Milton öldükten sonra başladı'), ama J11 hiç değişmedi ve araya K01–K03 girdi. K01 'Son sahnede' diye başlıyor. Yani izleyici 19:13'te 'Şeytan çekildi', 19:20'de 'son sahne' duyuyor; kanca 19:56'da. Sinyal zayıflamadı, ikiye çıktı. Düzeltme 1."
+    },
+    {
+      "bulgu": "Tur 1 / 6: K09 + K10 birleşsin",
+      "durum": "karşılandı",
+      "not": "K13 tek cümle; 'Hürmüz'ün ve Hindistan'ın kralları' ile."
+    },
+    {
+      "bulgu": "Tur 1 / 7: K08'deki liste tekrarı",
+      "durum": "karşılandı",
+      "not": "Yerine K12 geldi (Şeytan'ın kendi sözü, IX.169–170). Tekrar yerine kanıt; önerimden iyi."
+    },
+    {
+      "bulgu": "Tur 1 / 8: F01 somut soru",
+      "durum": "karşılandı",
+      "not": "Eşimin metni kullanılmış; F04 'Ölüm. Kendi oğlu.' ile vuruyor."
+    },
+    {
+      "bulgu": "Tur 1 / 9: I10 ve J01 art arda iki soru",
+      "durum": "karşılandı",
+      "not": "I10 'Kazanmıştır.'"
+    },
+    {
+      "bulgu": "Tur 1 / 10: L01–L05",
+      "durum": "kısmen",
+      "not": "Doré cümlesi çıktı, L02 tek cümle, L04 etki iddia etmiyor. L01'e hatırlatma eklenmedi: gözyaşı E11'de (8:36), soru L01'de (22:33), arada 14 dakika var. Hatırlatma L04'te geliyor, 20 saniye geç."
+    },
+    {
+      "bulgu": "Tur 1 / 11: L11'de üç soru",
+      "durum": "karşılandı",
+      "not": "L10'da iki soru kaldı (kullanıcının planındaki ikisi)."
+    },
+    {
+      "bulgu": "Tur 1 / 12: abone çağrısı ve bitiş ekranı",
+      "durum": "kısmen",
+      "not": "Kanal adı çağrıya girdi. Ama L11 270 karaktere, yaklaşık 21 saniyeye çıktı ve yeni bir ad getiriyor: 'Şeli' videoda ilk kez burada geçiyor (K09 artık ad vermiyor). Düzeltme 6."
+    },
+    {
+      "bulgu": "Tur 1 / 16: anlatı içi 'Milton' atıfları",
+      "durum": "kısmen",
+      "not": "C–J arasında 14'ten 12'ye, toplamda 29'dan 27'ye indi. E04, G02 ve H07'de 'şair' kullanılmış. Düşük öncelikli, ısrar etmiyorum."
+    },
+    {
+      "bulgu": "Tur 1 / 17: G iç konuşmasında tekdüzelik",
+      "durum": "kısmen",
+      "not": "G09'dan sonra 2 saniyelik sessizlik planlanmış, etiket paleti çeşitlenmiş. Bölüm 2:44'ten 3:02'ye çıktı (G02b, G13, G16). İçerik değerli, kısaltma istemiyorum; G07'den sonra kısa bir durak yeter."
+    },
+    {
+      "bulgu": "Tur 1 / 18: [curious] kalıbı",
+      "durum": "karşılandı",
+      "not": "D01 cümle kancası oldu, I01 [whispers]. 11 [curious] kaldı, kabul edilebilir."
+    },
+    {
+      "bulgu": "Tur 1 / 19: yazıyla sayılarda kesme işareti",
+      "durum": "karşılandı",
+      "not": "'Bin sekiz yüz kırk yedi yılında'."
+    },
+    {
+      "bulgu": "Tur 1 / 20: K11 tek parçada 282 karakter",
+      "durum": "karşılanmadı",
+      "not": "Yeni K15 318 karakter, tahmini 24,5 saniye; senaryonun en uzun segmenti. 'Tek başına' ifadesi düzeltilmiş, bölme yapılmamış. Düzeltme 2."
+    },
+    {
+      "bulgu": "KURUL.md iddiası: 'iki okuma (sıkıştırıldı)'",
+      "durum": "kısmen",
+      "not": "Tekrarlar çıktı, ama K08, K12 ve K14 eklendi, K15 uzadı. Bölüm 1.648 karakterden 1.867'ye, 2:14'ten 2:30'a çıktı. Önündeki yeni K01–K04 ile birlikte hikâye sonrası kısım 62 saniye uzadı."
+    },
+    {
+      "bulgu": "Eşimin 6. maddesi: final ödemesi bulanık, son tek okumaya yatıyor",
+      "durum": "karşılandı",
+      "not": "L07 'boyun eğmek' sözünü açıkça söylüyor; J06 Nifates adını tazeliyor; L08 ikinci okumayı aynı sorunun üstüne koyuyor. Eşimin önerdiği Blake cümlesi yerine K-Uzman'ın 'açılmamış kapı' okuması kullanılmış; karar yine izleyicide kalıyor."
+    },
+    {
+      "bulgu": "Eşimin 10. maddesi: Uriel ipucu H10'a bağlansın",
+      "durum": "karşılanmadı",
+      "not": "H10 hâlâ 'Bekçi meleklerden biri'. KURUL.md'de ret gerekçesi yok; gözden kaçmış görünüyor. Düzeltme 7."
+    },
+    {
+      "bulgu": "Eşimin 13. maddesi: D02–D03 düz sırayla",
+      "durum": "karşılanmadı",
+      "not": "Geri dönüş kalıbı duruyor ve D04 ile ikiye çıktı. Ret gerekçesi yazılmamış. Düzeltme 4."
+    },
+    {
+      "bulgu": "Eşimin 12. maddesi: C02–C05 ('Lusifer', 'Oğul kim?')",
+      "durum": "kısmen",
+      "not": "C02 sadeleşti. C03 açıklığa kavuştu ama 277 karaktere çıktı. 'Oğul' açıklanmadan kaldı; hassasiyet üyelerinin alanı."
+    },
+    {
+      "bulgu": "Eşimin 14. maddesi: I03 aynı ağıdın üçüncü kopyası",
+      "durum": "karşılanmadı",
+      "not": "I02 ve I03 değişmedi; ret gerekçesi yok. Düzeltme 8."
+    },
+    {
+      "bulgu": "Eşimin 9. maddesi: 'ona acıyoruz' izleyiciye duygusunu söylüyor",
+      "durum": "reddedildi",
+      "not": "G16'da cümle kaldı, önüne 'Acımak, hak vermek değildir' eklendi. KURUL.md'de açık ret gerekçesi yok ama G16 iki üyenin ortak metni; hassasiyet gerekçesini kabul ediyorum. Yalnız iki öğüt cümlesi art arda geliyor; düzeltme 9'da tek kelimelik bir yumuşatma öneriyorum."
+    }
+  ],
+  "engelleyici": [
+    "J11 → K01–K04 (alanım içinde, veto değil): tur 1'de iki üyenin bağımsız olarak 'yüksek' dediği 'hikâye bitti' sinyali rev2'de güçlendi. 19:13'te 'Şeytan destandan çekilir', 19:20'de 'Son sahnede', kanca 19:56'da. Bu noktadan sonra 5,5 dakika var. Düzeltme 1 uygulanmadan ONAY veremiyorum."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "J11, K01, K04",
+      "sorun": "Tahmini 19:13–20:01. İki bitiş sinyali art arda geliyor (J11 'destandan çekilir', K01 'Destan, Şeytan'la bitmez. Son sahnede…'), yeniden kanca (K04) 40 saniye sonra. İzleyici 19:35'te 'Bütün dünya önlerindeydi' cümlesini videonun sonu sanar; oysa 5 dakika 15 saniye daha var. K01–K03'ün asıl işlevi de görünmüyor: bu üç cümle A03'ün cevabının ikinci yarısını (L08) kuruyor, ama izleyiciye sonsöz gibi geliyor.",
+      "oneri": "Kancayı bitiş sinyalinin önüne al ve baştaki soruyu hatırlat:\nJ11 → [thoughtfully] Şeytan destandan sessizce çekilir; son iki kitapta bir daha sahneye çıkmaz. Ama baştaki sorumuz hâlâ ortada: onu cehennemde tutan neydi? Cevabın bir parçası, destanın son sahnesinde saklı.\nK01 → [softly] O sahnede Şeytan yoktur. Âdem ile Havva, kaybettikleri cennetten, Aden'den çıkar. Milton yazar: [tenderly] “İnsanca birkaç damla gözyaşı döktüler; ama çabucak sildiler. Bütün dünya önlerindeydi.”\nK04 aynen kalır. Böylece K01–K03 sonsöz değil ipucu olur ve 'Dünya önlerindeydi' bölümü videonun sonu gibi duyulmaz.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "K14, K15, K16",
+      "sorun": "Tahmini 21:38–22:31. 'İki okuma' bölümü kısalması gerekirken 2:30'a çıktı ve en ağır yeri sonu: K14 ile K16 kırk saniye içinde Abdiel'i iki kez çağırıyor (aynı söz D03'te de söylenmişti), K14 açıklanmayan yeni bir gönderme getiriyor ('yeryüzünün ilk zorbası'), K15 318 karakterle senaryonun en uzun segmenti.",
+      "oneri": "K14 → [calmly] Milton'ın kendi cevabı son kitaptadır: Tanrı insanı, insanın efendisi yapmadı.   (Abdiel K16'ya kalır; ~7 sn kazanç. 'İlk zorba' ayrıntısı kaynak alanına künye olarak gider.)\nK15 ikiye bölünür:\nK15a [calmly] Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu.\nK15b [thoughtfully] Milton'ın kendi devriminde bile: kralı deviren Kromvel kendisine sunulan tacı reddetti, ama taçsız bir kral gibi yönetti ve yerini oğluna bıraktı.   ('Lord Koruyucu' unvanı ekran yazısına; eşimin 4. maddesiyle aynı yönde.)",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "id": "A03 (ve L06, L08)",
+      "sorun": "A03'ün 'Neden?' sorusunu A01 yüzeyde cevaplıyor: 'Hangi yana kaçsam cehennem. Ben cehennemim.' Şüpheci izleyici 0:15'te 'çünkü cehennem kendisi, az önce söyledi' der. Bu ifadeyi tur 1'de ben önermiştim; kapak metni 'Ben cehennemim' olunca totoloji keskinleşti. Eşim aynı riski tur 1'de A03 için yazmıştı ('soru sorulmadan cevaplanıyor'), haklıymış. Videonun asıl sorusu 'neden' değil 'onu orada tutan ne'; L08 de tam bu kelimelerle soruyor.",
+      "oneri": "A03 → [curious] Birazdan cehennemden kaçacak. Ama cehennemden bir adım bile uzaklaşamayacak. Onu orada tutan ne?\nL06 → [slowly] En başta sorduk: Cehennemden kaçan biri, cehennemden neden bir adım bile uzaklaşamadı? Onu orada tutan neydi?\nL08'deki 'Peki onu orada tutan gururu muydu, yoksa hiç açılmamış bir kapı mı?' cümlesi böylece A03'ün kelimesi kelimesine yankısı olur. Süre değişmez.",
+      "onem": "orta"
+    },
+    {
+      "sira": 4,
+      "id": "D02, D03, D04",
+      "sorun": "Tahmini 5:26–6:02. Darbe önce anlatılıyor, sonra 27 saniye boyunca iki geri dönüş geliyor ('şunu söylemişti', 'Ve eklemişti'). D03'ün cümlesi kulakla zor: 'akılsıza ya da kendinden üstüne başkaldırana hizmet etmek; seninkilerin şimdi sana ettiği gibi'. Destanda sıra düz: önce söz (VI.171–188), sonra darbe (VI.189–193); darbe sözün noktasıdır.",
+      "oneri": "Sıra D01 → D03 → D04 → D02 olsun:\nD03 → [calmly] Şeytan'ın karşısına ilk çıkan Abdiyel'dir: [firmly] “Asıl kölelik, akılsıza hizmet etmektir; seninkilerin şimdi sana ettiği gibi. Sen de özgür değilsin; kendi kendinin tutsağısın.”\nD04 → [firmly] “Sen cehennemde, kendi krallığında hüküm sür; bırak ben cennette hizmet edeyim. Ama cehennemde krallık değil, zincir bekle.”\nD02 → [calmly] Ve ilk darbeyi o vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler, onuncu adımda dizinin üstüne çöker.\n('Kendinden üstüne başkaldırana' ifadesinin çıkması kaynak üyelerine sorulsun; K-Uzman D03'ün mantığını bu ifadeyle düzeltmişti. Kalacaksa: 'akılsıza ya da kendinden değerlisine isyan edene hizmet etmektir'.)",
+      "onem": "orta"
+    },
+    {
+      "sira": 5,
+      "id": "J06",
+      "sorun": "Tahmini 18:17–18:26. Tıslama (J05) ile dönüşüm (J07) arasına 9 saniyelik bir açıklama girmiş. Ödeme değerli, yeri yanlış: videonun en sinematik zincirini (alkış bekler → tıslama → yılan) tam ortasından bölüyor. Eşim bu zincir için 'hiç kısaltılmamalı, ekrana kilitlendim' yazmıştı.",
+      "oneri": "J06, J08'den sonraya alınsın (J05 → J07 → J08 → J06 → J09). Metin aynı kalabilir: 'Nifates Dağı'nda, bu kalabalığın önünde rezil olmaktan korktuğu için boyun eğememişti. Şimdi aynı kalabalık, onunla birlikte tıslıyor.' ('ona tıslıyor' yerine 'onunla birlikte', çünkü o noktada kendisi de yılan.)",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "id": "L11 (abone ve bitiş ekranı)",
+      "sorun": "Tahmini 24:29–24:50. Çağrı 270 karakter, yaklaşık 21 saniye ve üç ayrı fikir taşıyor (Shelley karşılaştırması, Prometheus videosu, abone). 'Şeli' adı videoda ilk kez burada geçiyor; bitiş ekranı kartları açılmışken izleyici yeni bir ad çözmez. Seslendirme son karede bitiyorsa kartlara süre kalmıyor. Kaynak notu da açık: Shelley'nin önsözünde benzetmenin yönü ters ('Prometheus'a benzeyen tek hayalî varlık Şeytan'dır'); bunu bellekten yazıyorum, kaynak denetçisi önsözden doğrulamalı.",
+      "oneri": "L11 → [warmly] Romantik şair Şeli'ye göre Prometeus'a en çok benzeyen karakter Şeytan'dı; ama bir farkla: Prometeus'ta kıskançlık da intikam da yoktu. Ateşi insanlar için çalan o asinin hikâyesi ekranda. Zaman Kuryesi'nin bir sonraki sorusunu kaçırmamak için abone ol.   (~215 karakter)\nArdından 8–10 saniyelik müzik ve görüntü kuyruğu. Öğeler: Prometheus videosu, 'Mitler ve Felsefe' oynatma listesi, abone düğmesi.",
+      "onem": "orta"
+    },
+    {
+      "sira": 7,
+      "id": "H10",
+      "sorun": "G15'te Uriel her şeyi görüyor, ama bu ipucu bir yere bağlanmıyor (eşimin tur 1 bulgusu; rev2'de karşılanmamış).",
+      "oneri": "H10 → [calmly] Uriyel'in uyarısıyla bahçeyi arayan bekçi meleklerden biri, mızrağının ucuyla ona dokununca gerçek biçimine döner.   (KC IV.555–563 Uriel'in uyarısı; IV.810–819.) Sekiz kelime ekler, açık kalan tek ipucunu kapatır.",
+      "onem": "orta"
+    },
+    {
+      "sira": 8,
+      "id": "B04–B05, C03, E09, I03 (süre)",
+      "sorun": "Rev2 18.342 karakter: saf konuşma 23:31, duraklarla yaklaşık 24:50. Süre sınırı yok, ölçüt 'bu cümle hikâyeye bir şey katıyor mu'. Dört yerde cevap 'başka bir cümle bunu zaten söylüyor': B04–B05 siyaseti 27 saniyede anlatıyor; C03'ün son cümlesini C08 yineliyor ('sabah yıldızı'); E09 tümüyle görüntüyle anlatılabilecek bir tarif; I03 'güzellik gördükçe acı çeker' fikrinin üçüncü söylenişi (H08 ve I06–I07).",
+      "oneri": "B04+B05 → [thoughtfully] Milton yalnızca bir şair değil, bir devrimciydi: kralın idamını savunmuş, kralı deviren hükümette çalışmıştı. [darkly] Destana devrim ayaktayken başladı. Sonra devrim çöktü; kitapları cellat eliyle yakıldı, kendisi hapse atıldı. Destanın büyük kısmını bu yenilginin içinde yazdırdı.   ('Kırk üç yaşında kör oldu' bilgisi B02'ye girer: 'Kırk üç yaşından beri gözleri görmeyen bir adam uyuyamıyor.')\nC03'ün son cümlesi ('Bir zamanlar meleklerin arasında…') silinir.\nE09 → E10'un başına tek yan cümle: 'Kalkanı omzunda ay gibi asılı, yanan topraklarda yürür.' Mızrak benzetmesi görüntüye kalır.\nI03 → I02'nin sonuna tek cümle: 'Dünyaya bakar; gördüğü her güzellik, içindeki işkenceyi büyütür.'\nToplam kazanç yaklaşık 35 saniye; hiçbir kurulum ya da ödeme eksilmiyor.",
+      "onem": "orta"
+    },
+    {
+      "sira": 9,
+      "id": "G16",
+      "sorun": "'Acımak, hak vermek değildir. Ama ilk kez, ona acıyoruz.' Art arda iki cümle izleyiciye ne düşüneceğini ve ne hissedeceğini söylüyor. Birincisi hassasiyet gerekçesiyle kalmalı; ikincisi eşimin tur 1'de yazdığı direnci doğurabilir.",
+      "oneri": "G16 → [thoughtfully] Şeytan'ı burada, onu alkışlayan bir kalabalık olmadan görüyoruz. Maskesiz. Acımak, hak vermek değildir. Ama belki ilk kez, ona acımak mümkün.   (Hassasiyet üyeleri onaylarsa.)",
+      "onem": "düşük"
+    },
+    {
+      "sira": 10,
+      "id": "A05",
+      "sorun": "0:30,6–0:46,2. Çerçeve cümlesi 0:30 ölçüm noktasının tam üstünde ve 202 karakter. A01'de ekranda 'John Milton · Kayıp Cennet · IV.75' künyesi zaten edebi çerçeveyi 0. saniyede kuruyor.",
+      "oneri": "Hassasiyet üyeleri kabul ederse: A05 → [thoughtfully] Bu hikâye bir şiirden: Con Milton'ın destanı, Kayıp Cennet'ten. Buradaki Şeytan, Milton'ın kaleminden çıkmış bir karakter; onu bir din anlatısı olarak değil, bir edebiyat eseri olarak okuyacağız.   ('biz de' çıkar; ~6 karakter. Asıl kazanç sırada: A06 ile yer değiştirmesi mümkün değil, o yüzden bu maddeyi yalnız kayda geçiriyorum; veto alanının metnine dokunulmasını istemiyorum.)",
+      "onem": "düşük"
+    },
+    {
+      "sira": 11,
+      "id": "L01, L07",
+      "sorun": "L01 14 dakika önceki gözyaşına hatırlatmasız dönüyor. L07 286 karakter, tek segmentte üç hamle (alıntı, Abdiel'in uyarısı, zincir).",
+      "oneri": "L01 → [curious] Peki ya o gözyaşları? Yenik ordusunun önünde üç kez ağlayan o melek?\nL07 ikiye bölünsün: L07a alıntıya kadar ('…gururum yasaklıyor.'), L07b 'Abdiyel onu uyarmıştı…' Görüntü ve nefes için; metin aynı.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 12,
+      "id": "E07 (ünlü dize)",
+      "sorun": "Rev2'deki 'hükümdar / hizmetkâr' çevirisi kulakta iyi duruyor. Ama Türkçede bilinen ve aranan biçim ('Cennette köle olacağıma cehennemde kral olurum'; CLAUDE.md'de kullanıcının kendi ifadesi) artık videoda hiç geçmiyor.",
+      "oneri": "Seslendirme değişmesin. Bilinen biçim açıklamanın ilk paragrafına ve etiketlere girsin; bölüm başlığında kısa hâli kullanılsın ('Cehennemde hükümdar, cennette hizmetkâr'). Kullanıcıya da haber verilsin, çünkü ifade onundu.",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "Süre. 13 karakter/saniye ile rev2 yaklaşık 24:50 tutuyor; Emrullah alıntılı ve etiketli cümlelerde %10 yavaş okursa 27 dakikayı bulur. Kullanıcı süre sınırı koymadı ve Prometheus (24:00) gösterim başına izlenme süresinde Sisifos'un iki katını getirdi, yani uzunluk tek başına sorun değil. Emin olamadığım şey, hikâye bittikten sonraki 5 dakika 15 saniyenin (J11'den sona) izleyiciyi tutup tutmayacağı: doruk, abone çağrısı ve bitiş ekranı orada, ama Prometheus'ta ortalama izleme 6:43'tü, yani izleyicilerin çoğu oraya hiç varmıyor. Düzeltme 1 ve 2 bu kısmı toparlıyor; yine de gerçek cevap ancak yayından sonraki tutma eğrisinde görülür. 'Ben cehennemim' konusunda görüşüm: kapakta iyelik okumasını ortadan kaldırdığı için doğru seçim; seste 'cehennem. Ben cehennemim' yankısı korunuyor. Puanımı buna bağlamadım.",
+  "ek_zaman_tahmini_rev2": {
+    "yontem": "tts metni etiketsiz, 13 kr/sn; cümle arası 0,45 sn; bölüm geçişi 1,5 sn; G09 ve J04'ten sonra senaryoda yazan 2,0 sn sessizlik. tts'te '…' yok; öbür duraklar vo/plan.json'a gireceği için hesapta yok, gerçek süre biraz daha uzun olur.",
+    "toplam": "18.342 karakter (rev1: 16.148). Saf konuşma 23:31, duraklarla ~24:50 (rev1: ~22:04).",
+    "bolumler": {
+      "A Açılış": "0:00 (0:52)",
+      "B Kör şair": "0:52 (2:06)",
+      "C Işık taşıyan": "2:58 (2:20)",
+      "D Dokuz gün": "5:18 (1:31)",
+      "E Cehennemde kral": "6:49 (2:56)",
+      "F Kapıdaki bekçiler": "9:45 (1:25)",
+      "G Güneşe itiraf": "11:10 (3:02)",
+      "H Aden'de bir yabancı": "14:12 (1:50)",
+      "I Yılanın içinde": "16:02 (1:36)",
+      "J Alkış": "17:38 (1:42)",
+      "K01–K04 Dünya önlerindeydi": "19:20 (0:42)",
+      "K05–K16 İki okuma": "20:03 (2:30)",
+      "L Bir damla yaş": "22:33 (2:17)"
+    },
+    "ilk_dakika": {
+      "0–5 sn": "A01 'Ben cehennemim' ~2,5–3,5. sn'de; kapak A ile birebir. A02 başlıyor. TUTAR.",
+      "5–15 sn": "A02 'cennetin en parlak meleği' 4–8 sn; A03 sorusu 8,7–15,1 sn. TUTAR (düzeltme 3 ile daha sağlam).",
+      "15–30 sn": "A04 yanan göl, dokuz gün, görünür karanlık, zincirler. Dört kısa cümle, hepsi görüntü. TUTAR.",
+      "30–52 sn": "A05 çerçeve cümlesi 30,6–46,2 sn: açılışın tek bilgi verici yeri, 0:30 ölçümünün üstünde. A06 kör şair 46,6–50,6 sn: geri kazanır.",
+      "0:52–1:36": "B01 sorusu, B02 gece sahnesi, B03 kızlar. Rev1'de burada tarih kartı vardı; şimdi videonun en insani 40 saniyesi. TUTAR.",
+      "1:36–2:04": "B04–B05 siyaset. Kalan en riskli yer; düzeltme 8 ile ~20 saniyeye iner."
+    },
+    "dusus_riskleri": [
+      "1: 19:13–20:01, J11 ve K01'deki çifte bitiş sinyali (düzeltme 1).",
+      "2: 21:38–22:31, K14–K16 (düzeltme 2).",
+      "3: 8:10–9:25, E09–E13: 75 saniye tarif ve meclis özeti; arada tek olay gözyaşı (düzeltme 8, E09).",
+      "4: 3:02–3:54, C02–C04: hikâye başlar başlamaz 52 saniye ad ve ferman açıklaması (düzeltme 8, C03).",
+      "5: 1:36–2:04, B04–B05 (düzeltme 8)."
+    ],
+    "hedef": "0:30'da ≥%70 (Şarlken %79), 1:00'da ≥%60 (Prometheus ~%55).",
+    "duzeltmelerden_sonra": "Yaklaşık 24:15. Kazanç süreden çok akışta."
+  },
+  "ek_bolum_basliklari_rev2": [
+    "0:00 Ben cehennemim",
+    "0:52 Kör şair cehennemi nasıl gördü?",
+    "2:58 Işık taşıyan: Lucifer neden başkaldırdı?",
+    "5:18 Cennette savaş ve dokuz günlük düşüş",
+    "6:49 Cehennemde hükümdar, cennette hizmetkâr",
+    "9:45 Cehennemin kapısındaki bekçiler",
+    "11:10 Güneşe itiraf: Nifates Dağı",
+    "14:12 Aden'de bir yabancı: Âdem ile Havva",
+    "16:02 Yılanın içinde: intikam tatlı mıdır?",
+    "17:38 Beklenen alkış",
+    "19:20 Şeytan'ın yapmadığı şey",
+    "20:03 Kahraman kim? Blake ve C. S. Lewis",
+    "22:33 Bir damla yaş: Cabanel'in Düşmüş Melek'i"
+  ],
+  "ek_bolum_basliklari_notu": "Zamanlar tahmini; seslendirmeden sonra timeline.js'ten alınmalı. 19:20 bölümüne 'Destanın sonu' ya da 'Dünya önlerindeydi' adı verilmesin: ilerleme çubuğunda 'son' okunur ve izleyici çıkar. senaryo.json'da A bölümünün adı hâlâ 'Cehennem benim'; kapak kararıyla birlikte 'Ben cehennemim' olmalı.",
+  "ek_paketleme": {
+    "kapak_A": "Metin 'BEN CEHENNEMİM' (başkan kararı). İki satır öneririm: 'BEN' / 'CEHENNEMİM'. On harflik ikinci satır büyük harf yüksekliğini %18'in üstünde tutmaya izin veriyor. 'İ' noktalı büyük harf için fontun latin-ext sürümü kullanılmalı. Tek odak: karenin en parlak noktası güneş ya da gözdeki ışık; ikinci beyaz leke olmasın. Sağ alttaki süre rozeti bölgesi (1920×1080'de x 1440–1874, y 829–1034) boş kalsın.",
+    "acilisla_uyum": "A01 aynı iki kelimeyi 2,5–3,5. saniyede söylüyor. 0. kare kapakla aynı kompozisyon olsun; 'Ben cehennemim' ekran yazısı kapaktaki yazı karakteriyle, altında 'John Milton · Kayıp Cennet · IV.75' künyesi. G07'de (12:18) aynı kare ve aynı yazı geri gelsin.",
+    "kapak_B": "Eşimin önerisi 'ŞEYTAN AĞLADI': gravür diliyle çizilmiş, kollarının arasından bakan melek, odakta tek bir gözyaşı ışığı. Yağlıboya tablo kapakta kullanılmasın. İki kapak aynı açılışla sınanacağı için A01'de, 'cehennemim' kelimesinde siluetin gözünde tek bir ışık noktası belirmeli; B kazanırsa vaat böyle karşılanır.",
+    "basliklar": [
+      "1 (önerim): “Şeytan Neden Geri Dönemedi? | Milton'ın Kayıp Cennet'i” (54 kr). Kapak duyguyu, başlık soruyu veriyor. Rev2'nin iki cevaplı finaline de uyuyor: 'dönemedi' hem gururu hem açılmamış kapıyı taşır.",
+      "2: “Cehennemden Kaçtı, Kendinden Kaçamadı | Milton'ın Kayıp Cennet'i” (64 kr). A03'ün ve IV.21–22'nin kendisi; Orfeus başlığındaki kalıpla ('…Etti, …-amadı') aynı aileden. 'Şeytan' kelimesi başlıkta olmadığı için dinî içerik beklentisini azaltır, ama aranabilirliği de azaltır.",
+      "3: “Kör Bir Şairin Yazdırdığı Şeytan | Milton, Kayıp Cennet” (55 kr). B01 açısı; soru kalıbı istenmezse."
+    ],
+    "baslik_notu": "'Kayıp Cennet' her seçenekte geçsin. 'Test ve karşılaştır' sürerken başlık değiştirilmez; başlık yayından önce seçilmeli. Önceki iki kapak 'BİLE BİLE ÇALDI' ve 'KANUNİ'NİN RAKİBİ / TAHTI BIRAKTI' olduğu için kalıp tekrarı yok.",
+    "yayin": "Açıklamanın ilk satırında 'Kayıp Cennet (Paradise Lost)' ve bilinen dize biçimi ('Cennette köle olacağıma cehennemde kral olurum'). Sabit yorum: 'Blake mi, Lewis mi?' anketi. Shorts adayları: J04–J08 (alkış → tıslama → yılan), G07–G09b ('Ben cehennemim' → 'boyun eğmek'); G14 ile biten Shorts yapılmaz (senaryodaki hassasiyet notu)."
+  }
+}

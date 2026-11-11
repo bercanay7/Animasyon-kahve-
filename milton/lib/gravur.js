@@ -14,7 +14,7 @@ const GR = (() => {
   const tc = makeCanvas(w, h), tx = tc.getContext('2d', { willReadFrequently: true });
   const pc = makeCanvas(w, h), px = pc.getContext('2d', { willReadFrequently: true });
   // kâğıt ve mürekkep (Doré baskıları: krem kâğıt, sıcak siyah)
-  const PAPER = [234, 227, 211], INK = [20, 17, 15];
+  const PAPER = [230, 223, 207], INK = [26, 23, 21];
   const COS = new Float32Array(256), SIN = new Float32Array(256);
   for (let i = 0; i < 256; i++) { const a = i / 256 * Math.PI; COS[i] = Math.cos(a); SIN[i] = Math.sin(a); }
   // pürüzsüz 1B gürültü tablosu (çizgi titreşimi ve kesiklik), 1024 örnek, dairesel
@@ -32,16 +32,17 @@ const GR = (() => {
   //   g = ton eğrisi üssü, ds = kesiklik (0..1), df = kesik sıklığı (1/px), jt = doğrultu titreşimi (θ birimi), ph = gürültü evresi
   const STY = [];
   function sty(id, o) { STY[id] = Object.assign({ P: 5.2, cr: 64, ct: .62, wv: .06, wf: 1 / 38, g: 1, ds: .5, df: 1 / 9, jt: 0, ph: id * 137 }, o); }
-  sty(0, {});                                                   // genel
-  sty(1, { P: 4.6, wv: .04, wf: 1 / 60, ct: .80, g: 1.1, ds: .55, df: 1 / 11 }); // gökyüzü: ince yatay çizgi, açıkta kırılır
-  sty(2, { P: 4.8, wv: .12, wf: 1 / 30, ct: .70, ds: .85, df: 1 / 7, jt: 6 });   // bulut, duman: dalgalı, benekli
-  sty(3, { P: 5.4, wv: .20, wf: 1 / 22, ct: .60, g: .9, ds: .45, df: 1 / 12 }); // alev: akan, kıvrak
-  sty(4, { P: 4.0, wv: .08, wf: 1 / 20, ct: .45, cr: 84, ds: .9, df: 1 / 6, jt: 18 }); // kaya: benekli, çapraz
-  sty(5, { P: 3.3, wv: .03, wf: 1 / 50, ct: .70, g: 1.05, ds: .25, df: 1 / 14 }); // ten: ince, yuvarlak
-  sty(6, { P: 2.9, wv: .02, ct: .74, cr: 40, ds: .2, df: 1 / 16 });              // tüy, kanat zarı: çok ince
-  sty(7, { P: 6.0, wv: .03, wf: 1 / 80, ct: .70, ds: .35, df: 1 / 14 });         // ışık huzmesi
-  sty(8, { P: 4.4, wv: .14, wf: 1 / 26, ct: .64, ds: .7, df: 1 / 8 });          // su, göl yüzeyi
-  sty(9, { P: 3.8, wv: .05, ct: .66, cr: 70, ds: .4, df: 1 / 10 });             // kumaş, zırh
+  // Göz yormama ilkesi (kullanıcı kararı): seyrek ve kalın çizgi, az benek, sakin geniş alanlar; video sıkıştırmasında titreşmez.
+  sty(0, { P: 6.4, ds: .2 });                                                   // genel
+  sty(1, { P: 6.6, wv: .03, wf: 1 / 70, ct: .86, g: 1.1, ds: .22, df: 1 / 16 }); // gökyüzü: sakin yatay çizgi
+  sty(2, { P: 6.8, wv: .10, wf: 1 / 40, ct: .80, ds: .3, df: 1 / 12, jt: 0 });   // bulut, duman
+  sty(3, { P: 7.0, wv: .16, wf: 1 / 26, ct: .9, g: .9, ds: .12, df: 1 / 16 });   // alev
+  sty(4, { P: 5.8, wv: .07, wf: 1 / 26, ct: .6, cr: 84, ds: .4, df: 1 / 10, jt: 5 }); // kaya
+  sty(5, { P: 4.8, wv: .02, wf: 1 / 60, ct: .82, g: 1.05, ds: .08, df: 1 / 18 }); // ten
+  sty(6, { P: 4.6, wv: .02, ct: .86, cr: 40, ds: .06, df: 1 / 18 });             // tüy
+  sty(7, { P: 7.0, wv: .03, wf: 1 / 80, ct: .8, ds: .2, df: 1 / 16 });           // ışık huzmesi
+  sty(8, { P: 6.4, wv: .12, wf: 1 / 34, ct: .82, ds: .28, df: 1 / 12 });         // su, göl yüzeyi
+  sty(9, { P: 5.2, wv: .04, ct: .78, cr: 70, ds: .2, df: 1 / 12 });              // kumaş, zırh
   const DL = STY.map(s => { const a = new Float32Array(256); for (let i = 0; i < 256; i++) a[i] = Math.pow(1 - i / 255, s.g); return a; });
 
   // ── çizim yardımcıları ──
@@ -115,7 +116,8 @@ const GR = (() => {
       const wy = y * k + oy;
       for (let x = 0; x < w; x++, i += 4) {
         const id = Pd[i + 2];
-        const d = DL[id] ? DL[id][T[i]] : DL[0][T[i]];
+        let d = DL[id] ? DL[id][T[i]] : DL[0][T[i]];
+        d = d < .07 ? 0 : d > .94 ? 1 : (d - .07) / .87;
         let ink = 0;
         if (d > .004) {
           const wx = x * k + ox;

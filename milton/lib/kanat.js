@@ -22,7 +22,7 @@ const KN = (() => {
     const g = tx.createLinearGradient(bx, by, tipx, tipy);
     g.addColorStop(0, tone(v0)); g.addColorStop(.5, tone(lerp(v0, v1, .85))); g.addColorStop(1, tone(v1));
     const th = Math.atan2(tipy - by, tipx - bx);
-    fill(P, g, { fill: GR.patGrad(bx, by, tipx, tipy, [[0, th + k * 1.4], [1, th - k * 1.4]], o.ph || 0, o.id ?? 6) });
+    fill(P, g, { th, ph: o.ph || 0, id: o.id ?? 6 });
     // ışık ve gölge kenarları: tüyleri ayıran ton farkı
     tx.save(); tx.clip(P); tx.lineCap = 'round'; tx.lineJoin = 'round';
     tx.strokeStyle = tone(o.shade ?? .06, .8); tx.lineWidth = Math.max(1.5, w * .2);

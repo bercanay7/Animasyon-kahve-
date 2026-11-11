@@ -1,0 +1,129 @@
+{
+  "uye": "H-Hassasiyet",
+  "karar": "ONAY",
+  "puanlar": {"K1": 9, "K2": 9.5, "K3": 9.5, "K4": 8.5, "K5": 9.5, "K6": 9, "K7": 9},
+  "agirlikli": 9.15,
+  "capraz": {
+    "katildigim": [
+      "H07 'iblis': ikimiz birbirimizden bağımsız aynı bulguya vardık; rev2'de düzeltilmiş.",
+      "Âdem ile Havva'nın görsel kuralı: H-Hukuk'un kuralı benimkinden daha ölçülebilir (kadrajın en çok %15'i, I08'de yalnız el ve meyve silueti, H09'da yakın plan yok). Görsel kapıda onun metni esas alınsın.",
+      "Savaştaki başmeleğin ve bekçi meleklerin adsız kalması (Mikail ve Cebrail anılmıyor): bunu ben gözden kaçırmıştım, çok yerinde. Rev2'de D05 'bir başmeleğin kılıcı' ve H10 'bekçi meleklerden biri' hâlâ adsız; sonraki revizyonlarda da öyle kalmalı.",
+      "A01'de ilk saniyede ekran künyesi ('John Milton · Kayıp Cennet · IV.75'): çerçeveyi kancayı bozmadan ilk kareye taşıyor. Rev2'de A01 kaynak notuna girmiş.",
+      "Lewis alıntısında eser adı ve tırnak şartı: benim alanım değil ama katılıyorum. 'Bu alıntı kapakta, başlıkta ya da Shorts'ta kanca olmaz' sınırı hassasiyet açısından da doğru.",
+      "Paketleme kuralları: başlıkta 'Milton' ya da 'Kayıp Cennet' geçsin; 'Şeytan haklıydı' ve 'Şeytan'ın gerçek hikâyesi' kalıpları ile İblis, Kur'an, Allah, Hz. Âdem etiketleri kullanılmasın.",
+      "Bitiş ekranında ve oynatma listesinde Cumhuriyet ya da Abdülhamid videosunun bu videonun hemen ardına konmaması: ben düşünmemiştim, katılıyorum.",
+      "D07 (rev2'de D08) için 'Milton'ın destanında üçüncü gün, Oğul…' önerisi: katılıyorum; rev2'de uygulanmamış (düzeltme 5).",
+      "TCK 216 değerlendirmesi: metinde aşağılama unsuru yok, hukuki risk düşük; asıl risk toplumsal tepki."
+    ],
+    "katilmadigim": [
+      "A05 önerisindeki 'bir kutsal kitaptan değil' ve 'Anlattığımız bir inanç değil, bir şiir' cümleleri. İlki dikkati kutsal kitaba çekiyor. İkincisi dindar kulakta 'bu inançlar yalnızca şiir' diye duyulabilir; üstelik Kayıp Cennet inançlı bir Hristiyan'ın dinî destanıdır, yani cümle doğrulukta da tartışılır. Rev2'deki ortak metin bu ikisini de almamış; iddiayı esere değil bizim okuma yöntemimize bağlıyor, bu daha güvenli.",
+      "G15 için 'belki ilk kez, ona acıyoruz' önerisi ve 'hassasiyet riski düşük' derecesi. 'Belki' cümleyi yumuşatır ama bağlamından kesilen 5 saniyelik parçayı korumaz. Shorts planı düşünülünce risk düşük değil. Rev2'deki 'Acımak, hak vermek değildir' ayrımı daha sağlam.",
+      "J03 için sunulan 'O da buna gücendi; gülünecek şey değil mi?' seçeneği. Hukuken aşağılama sayılmayabilir, ama ölçüt TCK 216 değil, dindar izleyicinin duyduğu şey: Tanrı'nın gücenmesiyle alay eden bir cümle, Emrullah'ın zafer tonunda okunur ve kesilip paylaşılır. Mevcut hâl kalmalı; sadakat için bu kadarı gerekmez.",
+      "'K11 olduğu gibi kalsın' görüşü. 'Tek başına yönetti' ifadesi bugünkü 'tek adam' sözlüğüne değiyordu. Rev2'de taç reddiyle değiştirildi (K15), doğru karar.",
+      "Tur 1'de K6'ya 9 verilmesi ve tek sorunlu sözcük olarak 'iblis'in görülmesi. H-Hukuk hassasiyeti çoğunlukla hukuki eşikle (aşağılama unsuru var mı) ölçüyor. Hukuken sorunsuz bir cümle yine de dindar izleyiciyi kaçırabilir; tur 1'de ayrıca altı sözcük seçimi vardı (aşağıda).",
+      "Sabit yorumdaki 'inançlara hakaret içeren yorumlar kaldırılır' cümlesi. Tehdit dili tartışmayı davet eder; denetim sessizce, Studio ayarıyla yapılsın. Sabit yorum yalnız çerçeveyi ve soruyu taşısın."
+    ],
+    "gozden_kacan": [
+      "Tur 1'deki sözcük düzeyi riskler: L12 'Tanrılara kafa tutan bir başka asi' ile abone çağrısı, I04 'tanrılarla', L08 'suçlarını' (Âdem peygamber), L10 'cehennemin en çok insanın içinde olduğu', A06 'onu yaratan şair', K02 'Tanrı'nın yollarını haklı göstermek', I08'de yükün yalnız Havva'da kalması.",
+      "Milton'ın Doğu benzetmeleri: Şeytan'a 'büyük Sultan' demesi (I.348) ve 'Türk hilali' benzetmesi (X.433–434). Bunlarla bağlantılı olarak Pandemonyum'un kubbe, minare ya da hilalle çizilmesi riski. Bu, H-Hukuk'un kendi alanına da girer: cehennemin sarayını camiye benzeten bir kare TCK 216 şikâyetinin en olası tetikleyicisi olurdu.",
+      "F02'deki 'yarısı kadın' Günah figürü Doré'de çıplaktır; Âdem ile Havva için koyduğu çıplaklık kuralı bu figürü kapsamıyor. Yaş sınırı riski aynı.",
+      "'Oğul'un İsa ya da Mesih adıyla anılmaması kuralı. D07 için atıf önermiş, ama adlandırma yasağını yazmamış. İsa İslam'da peygamberdir; ışıktan bir savaş arabasıyla savaşan İsa çağrışımı ikinci bir hassasiyet açar.",
+      "Shorts'un hangi cümleyle bitemeyeceği (G14 'Kötülük: sen benim iyiliğim ol') ve yayın gününün Ramazan, kandil ve bayramlarla çakışmaması.",
+      "Rev2 için: K08'deki 'Kendine sor' cümlesi izleyicinin kendisini 'Şeytan'ın tarafında' ilan ediyor (düzeltme 1). Hukuki bir sorun değil, ama alan eşimin de tur 2'de bakmasını isterim."
+    ]
+  },
+  "dogrulama": [
+    {"bulgu": "T1-1 (engelleyici) H07 'iblis'", "durum": "karşılandı", "not": "Rev2 H07: “Böyle konuştu Şeytan; …”. Metinde 'iblis', 'İsa', 'Mesih', 'secde', 'tövbe', 'Allah', 'Baba', 'Sultan' ve 'tanrılar' sözcüklerini taradım: hiçbiri geçmiyor. Engel kalktı."},
+    {"bulgu": "T1-2 A05–A06 çerçeve; 'yaratan şair'", "durum": "karşılandı", "not": "A05 önerdiğim metinle yazılmış ('Milton'ın kaleminden çıkmış bir karakter; … bir din anlatısı olarak değil, bir edebiyat eseri olarak okuyacağız'). A06 'bu destanı yazdıran şair'. Çerçeve ~0:23–0:27'de başlıyor, ilk dinî içerikten (C04, ~2:45) önce. 1667 ekran yazısına alınmış; sorun değil."},
+    {"bulgu": "T1-3 G15 'ona acıyoruz'", "durum": "karşılandı", "not": "G16: “Acımak, hak vermek değildir. Ama ilk kez, ona acıyoruz.” 'Maskesiz' eklemesi de iyi."},
+    {"bulgu": "T1-4 L12 'Tanrılara kafa tutan bir başka asi'", "durum": "karşılandı", "not": "L11 Shelley köprüsüyle yazılmış; 'kafa tutan' yok. Kaynak notunda doğrulama K-Denetim'e bırakılmış; alıntının yönü (Shelley 'Prometheus'a benzeyen tek hayalî varlık Şeytan'dır' der) onun işi."},
+    {"bulgu": "T1-5 Âdem ile Havva görsel kuralı", "durum": "kısmen", "not": "H04, H08 ve K01 kaynak notlarına 'uzak, örtülü siluet', 'yan yana iki siluet', 'arkadan, el ele' yazılmış. H09 (uyuyan Havva) ve I08 (meyve) için not yok. Kural henüz tek bir yerde toplanmamış (düzeltme 6)."},
+    {"bulgu": "T1-6 Pandemonyum ve Doğu benzetmeleri", "durum": "kısmen", "not": "K13 'Hürmüz'ün ve Hindistan'ın kralları' olmuş; E12 notunda 'Dor sütunlu, altın tavanlı tapınak' var; I.348 ve X.434 benzetmeleri metinde yok. Yasak listesi (kubbe, minare, hilal, sarık, Arap harfi, Osmanlı motifi yok) hiçbir yerde yazılı değil (düzeltme 6)."},
+    {"bulgu": "T1-7 Shorts çerçevesi", "durum": "kısmen", "not": "G14 notunda 'Shorts bu cümleyle bitmez' var. Shorts'un ilk cümlesi ve ekran etiketi Shorts kapısının işi; ertelenmesi makul, ama ertelenenler listesine yazılmalı."},
+    {"bulgu": "T1-8 İran 1979 ve Mussolini eklenmesin; ikinci örnek gerekirse Napolyon", "durum": "reddedildi", "not": "İran ve Mussolini eklenmemiş: karşılandı. Napolyon reddedilmiş; gerekçe bana uygun. Ben de 'ekleme gerekmez' demiştim, Napolyon yalnız kullanıcı ikinci örnek isterse diye bir yedekti."},
+    {"bulgu": "T1-9 C05/D07 'Oğul'un ilk anılışı", "durum": "karşılanmadı", "not": "C04'te 'Oğul'u onların başına geçirir' aynen duruyor; D08 'Oğul ışıktan bir savaş arabasıyla gelir'. KURUL.md'de reddedildiği yazılmamış. 'Milton'ın anlattığına göre' atfı C04'te var, yani risk orta kalıyor. C04'e ebedî ceza eklendiği ve 'araba' 'savaş arabası' olduğu için önerim sürüyor (düzeltme 5)."},
+    {"bulgu": "T1-10 K04 Blake: 'der Bleyk' atfı", "durum": "karşılanmadı", "not": "Geriledi. Rev1 'Bleyk'e göre' diyordu; rev2 K07 'Bleyk başka bir şey gördü: Milton … Şeytan'ın tarafındaydı' diyor. 'Gördü' fiili iddiayı doğru kabul eder; Lewis içinse 'savundu' deniyor. Ardından gelen K08 izleyiciyi de işin içine katıyor (düzeltme 1 ve 2)."},
+    {"bulgu": "T1-11 L10 'cehennemin en çok insanın içinde olduğu'", "durum": "karşılandı", "not": "L09: 'insanın içinde de bir cehennem taşıyabileceğini'."},
+    {"bulgu": "T1-12 L08 'suçlarını'", "durum": "karşılandı", "not": "K02: 'kusurlarını kabul edip bağışlanma dilemişlerdi'. 'Yapamadığını' da 'yapmadığını' olmuş; sorumluluğu Şeytan'a veriyor, iyi."},
+    {"bulgu": "T1-13 I08 Âdem'in de yemesi", "durum": "karşılandı", "not": "I08: 'Havva meyveyi koparır ve yer; sonra Âdem de.' Kısa ama yeterli."},
+    {"bulgu": "T1-14 I04 'tanrılarla'", "durum": "karşılandı", "not": "I04: 'Bir zamanlar en yüce yer için yarışan ben'."},
+    {"bulgu": "T1-15 K11 'tek başına yönetti'", "durum": "karşılandı", "not": "K15: 'kendisine sunulan tacı reddetti; ama Lord Koruyucu olarak taçsız bir kral gibi yönetti'. Görsellerin 17. yüzyılda kalması kuralı görsel kapıya taşınmalı."},
+    {"bulgu": "T1-16 Kapak A'daki 'CEHENNEM BENİM' iyelik okuması", "durum": "karşılandı", "not": "Başkan 'Ben cehennemim'i kesinleştirmiş. Görüşüm: benim merceğimden de doğru seçim; 'cehennem benim malım' böbürlenmesini kapatıyor, umutsuzluk anlamını bırakıyor. Tek tutarsızlık: A bölümünün adı hâlâ 'Cehennem benim' (düzeltme 8). Kapak B'nin kırpılması ve başlık kuralı kapak kapısına kaldı."},
+    {"bulgu": "T1-17 Sabit yorum, yorum denetimi, yayın günü", "durum": "kısmen", "not": "Yayın paketine ertelenmiş; makul. KURUL.md'nin ertelenenler listesinde adı geçmiyor, eklenmeli."},
+    {"bulgu": "T1-18 K02 'haklı göstermek'", "durum": "karşılandı", "not": "K06: 'Tanrı'nın insanlara karşı yollarının adil olduğunu göstermek'."},
+    {"bulgu": "T1-19 K01 'hikâyenin' yerine 'destanın'", "durum": "karşılanmadı", "not": "K05 hâlâ 'Bu hikâyenin kahramanı kim?'. Düşük öncelikli; yine de tek kelime (düzeltme 8)."},
+    {"bulgu": "T1-20 D03'e Abdiel'in 'hizmete kölelik diyorsun' itirazı", "durum": "kısmen", "not": "Cümle eklenmemiş, ama aynı işi D04 görüyor: 'bırak ben cennette hizmet edeyim'. Ayrıca E'deki 'köle olacağıma' açımlaması kalkmış, E07 'hizmetkâr' diyor. Yeterli; ısrar etmiyorum."},
+    {"bulgu": "T1-21 Bölüm adı 'Kapıdaki kız'", "durum": "karşılandı", "not": "'Kapıdaki bekçiler' olmuş."},
+    {"bulgu": "H-Hukuk: Lewis künyesi ve tırnak", "durum": "karşılandı", "not": "K10'da kitabın adı anlatımda geçiyor; K11'de alıntı altyazıda tırnak içinde; ekran künyesi kaynak notunda."},
+    {"bulgu": "H-Hukuk: C10 'yalanlarla' (V.709–710)", "durum": "karşılandı", "not": "C08: 'Sabah yıldızı gibi yüzü ve yalanlarıyla…'. C05'teki 'Ordulara bir yalan söylenir' de aynı dengeyi güçlendiriyor."},
+    {"bulgu": "H-Hukuk: yapay içerik beyanı", "durum": "reddedildi", "not": "Ertelenmiş, karar kullanıcıya bırakılmış. Hassasiyet açısından bir etkisi yok; gerekçe uygun."},
+    {"bulgu": "K-Uzman: Shelley'nin 'Şeytan ahlaken Tanrı'dan üstündü' görüşü (başkan reddi)", "durum": "reddedildi", "not": "Gerekçe bana tamamen uygun. Bu cümle girseydi engelleyici yazardım: anlatıcının ağzından, Tanrı'yı Şeytan'la ahlak yarışına sokan tek cümle olurdu."},
+    {"bulgu": "Yeni cümle C04: 'dönüşü olmayan bir karanlığa düşecektir' (V.611–615)", "durum": "karşılandı", "not": "Metne sadık ('without redemption, without end'). 'Milton'ın anlattığına göre' atfı aynı cümlede. Tanrı'ya tırnak içi söz verilmiyor. Sorun yok; yalnız Oğul'a itaatsizliğe ebedî ceza bağlandığı için düzeltme 5'teki atıf daha da yararlı."},
+    {"bulgu": "Yeni cümle E05: 'bunu ancak cennet izin verdiği için yapabilir' (I.209–213)", "durum": "karşılandı", "not": "Sadık ve dindar izleyiciyle uyumlu: Şeytan kendi gücüyle değil, izinle kalkıyor. Milton'ın devamındaki gerekçe (I.214–220) alınmamış; bu doğru, çünkü 'kendi lanetini artırsın diye' açıklaması tartışma açardı. Değişmesin."},
+    {"bulgu": "Yeni cümle G13: 'Bunu beni cezalandıran da biliyor…' (IV.103–104)", "durum": "kısmen", "not": "Şeytan'ın tırnak içindeki sözü; sorun değil. Ama çeviride 'therefore' düşmüş. Milton'da Tanrı'nın barış vermemesi, Şeytan'ın pişmanlığının sahte olacağını bilmesine bağlıdır (IV.93–103). 'Bu yüzden' geri konursa hem daha sadık olur hem Tanrı'nın tavrı keyfî görünmez (düzeltme 4)."},
+    {"bulgu": "Yeni cümle K03: 'Milton'ın Tanrı'sı … söylemişti' (III.129–132)", "durum": "kısmen", "not": "İçerik sadık ve gerekçesiyle verilmiş ('aldatıldı; bu yüzden', 'kendi kendilerini ayarttı'). İki pürüz: 'Milton'ın Tanrı'sı' iyelik kalıbı ve iki nokta üst üsteden sonra Tanrı'nın sözünün doğrudan cümlelerle gelmesi; tur 1'de övdüğüm 'Tanrı'ya replik verilmez' çizgisine en çok yaklaşan yer burası (düzeltme 4)."},
+    {"bulgu": "Yeni cümle K14: 'Tanrı insanı, insanın efendisi yapmadı' (XII.64–71)", "durum": "karşılandı", "not": "Hassasiyet açısından kazanç: Milton'ın kendi terazisini gösteriyor (yalnız Tanrı'nın krallığı meşru), böylece K13'teki 'Tanrı'nın tahtına başkaldırı = krala başkaldırı' eşleştirmesini dengeliyor. 'Yeryüzünün ilk zorbası' adsız kalmalı: Nemrut adı İbrahim kıssasını çağırır ve karşılaştırma açar. Sözü destanda Âdem söyler; 'şunu yazar' ifadesinin yeterliliği K1 üyelerinin işi."},
+    {"bulgu": "Yeni cümle L08: 'O kapı ona açık değildi … hiç açılmamış bir kapı mı?'", "durum": "kısmen", "not": "İki okumanın çarpışması kullanıcı kararı ve K-Uzman'ın engelleyicisi; itirazım yok. Üç pürüz var: (a) 'O kapı ona açık değildi' anlatıcının düz hükmü gibi duruyor, destanın verdiği gerekçe yok; (b) G13 alıntısı burada başka bir şeye bağlanmış ('bunu' artık kapının kapalı olduğunu gösteriyor, oysa Milton'da pişmanlığın sahte olacağını gösterir); (c) gerekçesiz 'hiç açılmamış kapı' dindar izleyicide 'video Tanrı'yı suçluyor' okumasına kayabilir (düzeltme 3)."},
+    {"bulgu": "F03–F04: Günah ve Ölüm", "durum": "karşılandı", "not": "F03 metne sadık (II.752–760). F04 'Ölüm. Kendi oğlu.' (II.782 'Thine own begotten') ensesti söylemiyor: Ölüm'ün annesi ve nasıl doğduğu anlatılmıyor. Bu sınır korunmalı; II.760–814 senaryoya ve görsele girmesin. 'Kendi oğlu' ile C04'teki 'Oğul' arasındaki yankı Milton'ın kendi tasarımıdır; seslendirmede vurgulanıp alaya çevrilmesin. F02'deki Günah figürü görselde örtülü siluet olmalı (düzeltme 6)."}
+  ],
+  "engelleyici": [],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "K08",
+      "sorun": "Yeni cümle: “Kendine sor: bu hikâyeden aklında kalan sözler, kimin sözleri?” Hemen önceki cümle 'farkında olmadan Şeytan'ın tarafındaydı' ile bitiyor. İkisi yan yana gelince anlatıcı izleyiciye 'sen de farkında olmadan Şeytan'ın tarafındasın' demiş oluyor. Dindar izleyici için videonun tek kişisel suçlaması bu; kesilip paylaşılmaya da çok uygun. Gözlem değerli, ama ikinci tekil şahısla söylenmesi gereksiz.",
+      "oneri": "tts/alt: “[softly] Gerçekten de bu hikâyeden akılda kalan sözlerin çoğu, Şeytan'ın sözleri.” Aynı gözlemi izleyiciyi taraf ilan etmeden yapıyor; Blake'in neden böyle düşündüğünü açıklıyor ve K12'de Şeytan'ın kendi sözüyle gelen karşı kanıta yer bırakıyor.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 2,
+      "id": "K07",
+      "sorun": "Gerileme: rev1'de 'Bleyk'e göre' vardı, rev2'de “Vilyım Bleyk başka bir şey gördü: Milton … farkında olmadan Şeytan'ın tarafındaydı.” 'Gördü' fiili iddiayı gerçek sayar. Lewis içinse 'tam tersini savundu' deniyor. Bu dengesizlik anlatıcıyı Blake'in yanına koyuyor; 'karar izleyiciye kalır' ilkesine de, tur 1'deki 'hizbüşşeytan' çağrışımı uyarıma da aykırı.",
+      "oneri": "tts: “[thoughtfully] Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk bambaşka bir şey ileri sürdü: Ona göre Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü, der Bleyk, gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.” Altyazı aynı, 'William Blake' yazımıyla.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "id": "L08",
+      "sorun": "Videonun son cevabı. (a) “O kapı ona açık değildi” anlatıcının düz hükmü gibi okunuyor ve destanın gerekçesini taşımıyor; gerekçe 180 saniye önce K03'te kaldı. (b) “Şeytan da biliyordu: ‘Bunu beni cezalandıran da biliyor’” alıntısı yanlış yere bağlanmış: IV.103'teki 'This', Şeytan'ın pişmanlığının sahte olacağıdır (IV.93–102), kapının kapalı olduğu değil. (c) Gerekçesiz 'hiç açılmamış bir kapı' dindar izleyicide 'Tanrı ona hiç şans vermedi, video Tanrı'yı suçluyor' okumasına kayabilir. İki okumanın çarpışması kalmalı; yalnız ikinci okuma destana atfedilip gerekçesiyle verilmeli.",
+      "oneri": "tts: “[thoughtfully] Ama destan öbür yarısını da söyler: Milton'ın destanında o kapı, kendi kendini ayartan asi meleklere açık değildir. Şeytan bunu da biliyordu: [quietly] “O barış vermekten ne kadar uzaksa, ben de dilemekten o kadar uzağım.” [thoughtfully] Peki onu orada tutan gururu muydu, yoksa ona hiç açılmamış bir kapı mı? Cevap, hangi okumayı seçtiğine bağlı.” IV.104'ün bu yarısı iki okumayı tek cümlede taşıyor: kapı kapalı, ama o da çalmıyor. Soru ve 'hiç açılmamış kapı' ifadesi yerinde kalıyor.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "id": "K03, G13",
+      "sorun": "K03: 'Milton'ın Tanrı'sı' kalıbı edebiyat eleştirisinde yerleşik, ama dindar kulakta 'herkesin Tanrı'sı ayrı mı?' diye duyulabilir. Ayrıca iki noktadan sonra Tanrı'nın sözü doğrudan cümlelerle geliyor; tırnak yok ama bir repliğe çok yakın. 'Destanın başında' da üçüncü kitap için fazla erken. G13: çeviride 'therefore' düşmüş; Tanrı'nın barış vermemesinin nedeni kaybolunca tavır keyfî görünüyor.",
+      "oneri": "K03 tts/alt: “[thoughtfully] Ama Milton'ın destanında Tanrı bunu çok önce, üçüncü kitapta söylemişti: insan aldatıldığı için merhamet bulacak; asi melekler ise kendi kendilerini ayarttıkları için bulamayacaktı.” İsteğe bağlı ek, aynı dizelerden (III.132): “Destan buna iki ad verir: merhamet ve adalet.” Seslendirmede bu cümle anlatıcı tonunda kalsın, ses değişmesin; görselde yalnız ışık olsun. G13 tts/alt: “Bunu beni cezalandıran da biliyor; bu yüzden o barış vermekten ne kadar uzaksa, ben de dilemekten o kadar uzağım.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 5,
+      "id": "C04, D08",
+      "sorun": "Tur 1'deki 9 numaralı bulgum uygulanmamış, reddedildiği de yazılmamış. 'Oğul' ilk kez açıklamasız geçiyor; izleyici boşluğu 'İsa' diye doldurabilir. Rev2'de C04'e ebedî ceza eklendi ve D08'de 'araba' 'savaş arabası' oldu; ikisi de bu boşluğu daha hassas yapıyor.",
+      "oneri": "İkisinden en az biri: C04 “… Tanrı bütün melekleri toplar ve destanda ‘Oğul’ diye anılan varlığı onların başına geçirir.” ya da H-Hukuk'un önerisiyle D08 “[awed] Milton'ın destanında üçüncü gün, Oğul ışıktan bir savaş arabasıyla gelir.” Tercihim ikisi birden; yalnız biri seçilecekse D08, çünkü C04'te atıf zaten var. 'İsa' ve 'Mesih' adları hiçbir aşamada kullanılmasın; arabanın üstünde figür değil ışık olsun.",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "id": "GÖRSEL KURALLAR (E12, F02, H04–H09, I08, K01, K03, K15, D08)",
+      "sorun": "Tur 1'deki görsel kurallar segment notlarına dağılmış ve yalnız olumlu biçimde yazılmış (ne çizileceği var, ne çizilmeyeceği yok). H09, I08 ve F02 için not yok. Üslup karesi ve kurgu kapısına geçerken kurallar kaybolabilir.",
+      "oneri": "KURUL.md'ye ya da senaryonun 'not' alanına tek bir 'görsel kırmızı çizgiler' listesi yazılsın: (1) Tanrı ve Oğul yalnız yüzsüz ışık; D08'de arabanın üstünde figür yok; K03'te Tanrı'nın sözü anılırken yalnız ışık. (2) Âdem ile Havva uzak, örtülü siluet, yüz yakın planı yok; H09'da uyuyan Havva örtülü ve uzak; I08'de yalnız el ve meyve silueti. (3) F02'deki Günah figürü saç, pul ve gölgeyle örtülü. (4) Pandemonyum ve taht Dor sütunlu tapınak; kubbe, minare, hilal, sarık, Arap harfi ve Osmanlı motifi yok. (5) K15'te yalnız 17. yüzyıl; bugüne ait kalabalık, bayrak ya da Türk sembolü yok. (6) Savaşan başmelekler adsız. Aynı listeye ertelenenler de eklensin: Shorts çerçevesi, sabit yorum, yayın günü.",
+      "onem": "orta"
+    },
+    {
+      "sira": 7,
+      "id": "F04, K14 (koruma notu)",
+      "sorun": "Mevcut metin doğru sınırda duruyor; sonraki revizyonda ya da açıklamada bu sınır aşılabilir.",
+      "oneri": "F04'e Ölüm'ün annesi ve doğumu eklenmesin (II.760–814). K14'teki 'yeryüzünün ilk zorbası' adsız kalsın; 'Nemrut' denmesin. İkisi de değişiklik değil, sınırın kayda geçmesi.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 8,
+      "id": "A (bölüm adı), K05",
+      "sorun": "A bölümünün adı hâlâ 'Cehennem benim'; karar 'Ben cehennemim' olduğuna göre YouTube bölüm başlığına iyelik okuması geri sızar. K05'te 'destanın' önerim uygulanmamış.",
+      "oneri": "Bölüm adı: 'Ben cehennemim'. K05: “[curious] Bu destanın kahramanı kim?”",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "L08'in videonun son cevabı olarak dindar izleyicide bıraktığı iz. Rev1 gururla bitiyordu (insanın kendi eliyle taktığı zincir); bu, dindar izleyicinin ahlaki sezgisiyle örtüşüyordu. Rev2 son sözü ikinci okumaya veriyor: 'hiç açılmamış bir kapı mı?'. Bu, destana daha sadık ve kullanıcının 'iki okuma çarpışsın' kararına uygun; o yüzden engelleyici yazmıyorum. Düzeltme 3'teki atıf ve gerekçe riski azaltır. Ama sıralamanın etkisini ölçemiyorum: soru iki seçeneği de sayıyor, yine de sonda duran seçenek akılda kalır. Bir seçenek sırayı çevirmek olurdu (önce kapalı kapı, sonra Şeytan'ın 'gururum yasaklıyor' sözü, sonra soru). Bunu önermiyorum, çünkü K-Uzman'ın kurduğu dengeyi bozabilir; kararı başkana bırakıyorum. C04'teki diz çökme sahnesinin Bakara 34 ile eşlenmesi konusundaki tur 1 belirsizliğim de sürüyor."
+}

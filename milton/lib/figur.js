@@ -42,8 +42,8 @@ const FG = (() => {
   }
   // kas profilleri (f: 0 proksimal → 1 distal), yarıçap birimi: baş yüksekliği h
   const PROF = {
-    upperArm: h => f => h * (.2 + .06 * Math.sin(PI * Math.min(1, f * 1.3)) - .05 * f),
-    foreArm: h => f => h * (.19 - .085 * f + .04 * Math.sin(PI * Math.min(1, f * 2))),
+    upperArm: h => f => h * (.27 + .07 * Math.sin(PI * Math.min(1, f * 1.3)) - .06 * f),
+    foreArm: h => f => h * (.235 - .09 * f + .05 * Math.sin(PI * Math.min(1, f * 2))),
     thigh: h => f => h * (.33 - .15 * f + .04 * Math.sin(PI * f)),
     shin: h => f => h * (.2 - .1 * f + .06 * Math.sin(PI * Math.min(1, f * 1.8))),
   };
@@ -210,7 +210,7 @@ const FG = (() => {
       let nx = -gx, ny = -gy, nz = 1; const nl = Math.hypot(nx, ny, nz); nx /= nl; ny /= nl; nz /= nl;
       let d = nx * lx + ny * ly + nz * lz; d = d < 0 ? 0 : d;
       let v = amb + (1 - amb) * d;
-      if (rim > 0) { const f = 1 - nz, rr = nx * rd[0] + ny * rd[1]; if (rr > 0) v += rim * f * f * rr * 1.6; }
+      if (rim > 0) { const f = 1 - nz, rr = o.rimAll ? Math.max(o.rimAll, nx * rd[0] + ny * rd[1]) : nx * rd[0] + ny * rd[1]; if (rr > 0) v += rim * f * f * rr * 1.6; }
       v = lo + (hi - lo) * Math.min(1, v);
       const e = Math.max(0, Ms[i] < .999 ? (1 - Ms[i]) * 2.2 : 0) * edge * (d < .35 ? 1.2 : .7);
       v *= 1 - Math.min(.92, e);
@@ -260,6 +260,13 @@ const FG = (() => {
     for (const P of parts) ctx.stroke(P);
     ctx.restore();
   }
+  // profil baş yolu: merkez (cx,cy), baş yüksekliği h, dir = +1 sağa bakar, tilt radyan (+ arkaya yatık)
+  function profilePath(cx, cy, h, dir = 1, tilt = 0) {
+    const U = [[-.4, -.08], [-.3, -.38], [-.02, -.52], [.24, -.42], [.34, -.24], [.33, -.12], [.37, -.05], [.49, .09], [.39, .14], [.41, .2], [.36, .245], [.4, .29], [.34, .36], [.37, .45], [.24, .53], [-.02, .44], [-.14, .36], [-.2, .62], [-.42, .62], [-.42, .2]];
+    const c = Math.cos(tilt * dir), s = Math.sin(tilt * dir), P = new Path2D();
+    spline(P, U.map(([x, y]) => { x *= dir * h; y *= h; return [cx + x * c - y * s, cy + x * s + y * c]; }), true, .55);
+    return P;
+  }
   // heykel yoluyla beden: parçalar maskeye, kaslar tümseğe; gölge + eş-yükselti tarama
   function sbody(J, o) {
     const h = o.h, near = o.near || 'R', far = near === 'R' ? 'L' : 'R';
@@ -280,13 +287,28 @@ const FG = (() => {
         wc(hpR, 1.06), [lerp(shR[0], hpR[0], .45) + (mid[0] - lerp(shR[0], hpR[0], .45)) * .12, lerp(shR[1], hpR[1], .45)], wc(shR, 1.12), [nk[0], nk[1] + h * .1]], true, .9);
       c.fill(P);
       c.fill(capsule(nk, [lerp(nk[0], hd[0], .6), lerp(nk[1], hd[1], .6)], f => h * .21).P);
-      const H = new Path2D(); H.ellipse(hd[0], hd[1], h * .38, h * .5, o.tilt || 0, 0, TAU); c.fill(H);
+      if (o.noHead) return;
+      if (o.profile) c.fill(profilePath(hd[0], hd[1], h, o.profile, o.tilt || 0));
+      else { const H = new Path2D(); H.ellipse(hd[0], hd[1], h * .38, h * .5, o.tilt || 0, 0, TAU); c.fill(H); }
     };
-    const mask = c => { drawTorso(c); for (const k of caps) c.fill(k.c.P); for (const s of ['L', 'R']) { const w = J['wr' + s], e = J['el' + s]; const a = Math.atan2(w[1] - e[1], w[0] - e[0]); c.beginPath(); c.ellipse(w[0] + Math.cos(a) * h * .14, w[1] + Math.sin(a) * h * .14, h * .2, h * .12, a, 0, TAU); c.fill(); } };
+    const mask = c => { drawTorso(c); for (const k of caps) c.fill(k.c.P); for (const s of ['L', 'R']) { const w = J['wr' + s], e = J['el' + s]; const a = Math.atan2(w[1] - e[1], w[0] - e[0]); c.beginPath(); c.ellipse(w[0] + Math.cos(a) * h * .16, w[1] + Math.sin(a) * h * .16, h * .24, h * .16, a, 0, TAU); c.fill(); } };
     const bumps = c => {
       const blob = (x, y, rx, ry, a, v) => { c.save(); c.translate(x, y); c.rotate(a); c.scale(1, ry / rx); const g = c.createRadialGradient(0, 0, 0, 0, 0, rx); g.addColorStop(0, `rgba(255,255,255,${v})`); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fillRect(-rx, -rx, rx * 2, rx * 2); c.restore(); };
       const { shL, shR, hpL, hpR } = J, sw = Math.hypot(shR[0] - shL[0], shR[1] - shL[1]);
       const ta = Math.atan2(shR[1] - shL[1], shR[0] - shL[0]);
+      if (o.back) { // sırt: kürek kemikleri, omurga yanı kas sütunları, deltoidler, bel çukuru
+        const scx = (shL[0] + shR[0]) / 2, scy = (shL[1] + shR[1]) / 2, hcx = (hpL[0] + hpR[0]) / 2, hcy = (hpL[1] + hpR[1]) / 2, Lb = Math.hypot(hcx - scx, hcy - scy);
+        const ux = (hcx - scx) / Lb, uy = (hcy - scy) / Lb, nx = -uy, ny = ux, at = (al, sd) => [scx + ux * al + nx * sd, scy + uy * al + ny * sd];
+        for (const sd of [-1, 1]) {
+          const sh = sd < 0 ? shR : shL; blob(sh[0], sh[1] + h * .08, h * .36, h * .3, ta, .9);
+          let q = at(Lb * .2, sd * sw * .27); blob(q[0], q[1], sw * .2, sw * .26, ta + sd * .35, .85);   // kürek kemiği
+          q = at(Lb * .55, sd * sw * .1); blob(q[0], q[1], sw * .09, Lb * .34, ta, .6);                    // omurga yanı
+          q = at(Lb * .5, sd * sw * .36); blob(q[0], q[1], sw * .14, Lb * .26, ta - sd * .12, .45);        // kanat kası (lat)
+          const el = J['el' + (sd < 0 ? 'R' : 'L')]; blob(lerp(sh[0], el[0], .55), lerp(sh[1], el[1], .55), h * .3, h * .2, Math.atan2(el[1] - sh[1], el[0] - sh[0]), .6);
+        }
+        const tq = at(-h * .05, 0); blob(tq[0], tq[1], sw * .3, h * .22, ta, .7);                         // trapez
+        return;
+      }
       for (const [s, sh, hp] of [['L', shL, hpL], ['R', shR, hpR]]) {
         blob(sh[0], sh[1] + h * .05, h * .32, h * .26, ta, .9); // deltoid
         blob(lerp(sh[0], hp[0], .22) + (shL[0] + shR[0] - 2 * sh[0]) * .2, lerp(sh[1], hp[1], .22), sw * .26, sw * .17, ta, .8); // göğüs
@@ -297,6 +319,7 @@ const FG = (() => {
       for (let k = 0; k < 3; k++) for (const s of [-1, 1]) { const f = .48 + k * .14; blob(lerp(sc[0], hc[0], f) + s * sw * .09, lerp(sc[1], hc[1], f), sw * .1, sw * .075, ta, .45); }
       // yüz: burun, kaş kemiği, elmacık, çene
       const hd = J.hd, fc = o.face ?? .4;
+      if (o.profile) { blob(hd[0] + o.profile * h * .12, hd[1] + h * .12, h * .2, h * .16, 0, .7); blob(hd[0] - o.profile * h * .05, hd[1] - h * .2, h * .28, h * .2, 0, .6); return; }
       blob(hd[0] + fc * h * .22, hd[1] + h * .05, h * .08, h * .16, 0, .9);
       blob(hd[0] + fc * h * .12, hd[1] - h * .12, h * .26, h * .07, 0, .7);
       blob(hd[0] + fc * h * .14, hd[1] + h * .34, h * .14, h * .1, 0, .6);
@@ -312,5 +335,5 @@ const FG = (() => {
     sbody(J, { h: 120, near: 'R', face: .45, tilt: -.1, sh: { lit: [-.6, -.7], lo: .1, hi: .95, rim: .5, axis: .15, wrap: 2.6 } });
     FG._last = [];
   }
-  return { capsule, limb, torso, head, hand, body, sbody, contour, test, PROF, sculpt, blurF };
+  return { capsule, limb, torso, head, hand, body, sbody, profilePath, contour, test, PROF, sculpt, blurF };
 })();

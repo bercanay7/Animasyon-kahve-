@@ -16,7 +16,7 @@ const PR = (() => {
       puffs.push({ x: o.x - o.w / 2 + f * o.w + (r() - .5) * o.w / n * .8, y: o.y - rr * (.25 + r() * .45) * edge, r: rr });
       if (r() < .6) { const rr2 = rr * (.45 + r() * .3); puffs.push({ x: puffs[puffs.length - 1].x + (r() - .5) * rr, y: puffs[puffs.length - 1].y - rr * (.5 + r() * .4), r: rr2 }); }
     }
-    for (let i = 0; i < n; i++) puffs.push({ x: o.x - o.w / 2 + (i + r()) / n * o.w, y: o.y + o.h * (.05 + r() * .12), r: o.h * (.3 + r() * .18) });
+    for (let i = 0; i < n; i++) { const k = r(); puffs.push({ x: o.x - o.w / 2 + (i + r() * 1.6 - .3) / n * o.w, y: o.y + o.h * (-.08 + r() * .34 - k * .12), r: o.h * (.16 + k * k * .5) }); }
     const [lx, ly] = o.lit || [0, -1];
     const base = o.base ?? .25, hi = o.hi ?? .92, th = o.th ?? 0, id = o.id ?? 2, ph = o.ph ?? 0, drift = o.drift || 0;
     const U = new Path2D();
@@ -167,11 +167,11 @@ const PR = (() => {
 
   // ── zincir ──
   function chain(x0, y0, x1, y1, link = 26, o = {}) {
-    const L = Math.hypot(x1 - x0, y1 - y0), n = Math.floor(L / (link * .8)), a = Math.atan2(y1 - y0, x1 - x0);
-    for (let i = 0; i < n; i++) {
+    const L = Math.hypot(x1 - x0, y1 - y0), n = Math.max(2, Math.floor(L / (link * .78))), a = Math.atan2(y1 - y0, x1 - x0);
+    for (const pass of [0, 1]) for (let i = 0; i < n; i++) {
       const f = (i + .5) / n, cx = lerp(x0, x1, f), cy = lerp(y0, y1, f) + Math.sin(f * PI) * (o.sag || 0);
-      tx.save(); tx.translate(cx, cy); tx.rotate(a); if (i % 2) tx.scale(1, .35);
-      tx.lineWidth = link * .18; tx.strokeStyle = tone(o.v ?? .15);
+      tx.save(); tx.translate(cx, cy); tx.rotate(a); if (i % 2) tx.scale(1, .4);
+      tx.lineWidth = link * (pass ? .13 : .34); tx.strokeStyle = tone(pass ? (o.v ?? .8) : (o.dark ?? .02));
       tx.beginPath(); tx.ellipse(0, 0, link * .5, link * .3, 0, 0, TAU); tx.stroke(); tx.restore();
     }
   }

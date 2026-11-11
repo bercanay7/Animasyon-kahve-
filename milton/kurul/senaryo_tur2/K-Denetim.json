@@ -1,0 +1,148 @@
+{
+  "uye": "K-Denetim",
+  "karar": "RED",
+  "puanlar": {"K1": 8.5, "K2": 9, "K3": 9.5, "K4": 8.5, "K5": 9.5, "K6": 9, "K7": 8.5},
+  "agirlikli": 8.93,
+  "genel_not": "Tur 1'deki üç engelleyicim (ilk dizeler iddiası, yazımın başlangıç tarihi, I. kitabın sırası) rev2'de gerçekten düzelmiş; metne bakarak doğruladım. Yeni eklenen on iddianın sekizi dizeyle birebir tutuyor. Tutmayan iki yer var: L11'deki Shelley cümlesi kaynağın yönünü ters çeviriyor, K14 ise Âdem'in sözünü Milton'ın kendi sözü gibi veriyor. RED yalnız veto kuralından: L11 doğrulamam istenen bir atıftı ve doğrulamadan geçmedi. Düzeltme tek cümle. Aşağıdaki 1–3 uygulanırsa oyum ONAY'a döner; bunun için tam tur gerekmez, tek üyeli gerileme kontrolü yeter.",
+  "yeni_iddia_dogrulamasi": [
+    {"id": "C04", "atif": "KC V.611–615", "sonuc": "doğru", "not": "‘Him who disobeys, Me disobeys… falls into utter darkness… without redemption, without end.’ ‘Dönüşü olmayan bir karanlık’ aslına uygun."},
+    {"id": "D04", "atif": "KC VI.183–186", "sonuc": "doğru", "not": "‘Reign thou in Hell, thy kingdom; let me serve in Heaven… Yet chains in Hell, not realms, expect.’ Çeviri sadık; darbeden önce söylenir (VI.189)."},
+    {"id": "E05", "atif": "KC I.209–213", "sonuc": "doğru", "not": "‘nor ever thence had risen… but that the will and high permission of all-ruling Heaven left him at large.’ Kalkışın kendisi I.221–222'dedir; kaynak alanına eklenebilir."},
+    {"id": "G13", "atif": "KC IV.103–104", "sonuc": "doğru", "not": "‘This knows my Punisher; therefore as far from granting he, as I from begging, peace.’ G12'nin (IV.93–97) hemen ardında durduğu için ‘Bunu’ doğru şeye bakıyor: geri döneceğini. L08'deki kullanımı için düzeltme 3'e bak."},
+    {"id": "K03", "atif": "KC III.129–132", "sonuc": "doğru", "not": "‘The first sort by their own suggestion fell, self-tempted… Man falls, deceived by the other first: Man therefore shall find grace, the other none.’ Yalnız ‘destanın başında’ yerine ‘üçüncü kitabında’ daha kesin."},
+    {"id": "K12", "atif": "KC IX.169–170", "sonuc": "doğru", "not": "‘Who aspires, must down as low as high he soared.’ ‘Yılanın içine girmeden önce’ de doğru (giriş IX.187–188). Ama I04 aynı konuşmayı girişle birlikte veriyor; düzeltme 4."},
+    {"id": "K14", "atif": "KC XII.64–71", "sonuc": "kısmen", "not": "Dize doğru (‘man over men he made not lord’), ama konuşan Milton'ın anlatıcısı değil, Âdem'dir (XII.63 ‘Whereto thus Adam’). Mikail hemen ardından onu kısmen düzeltir (XII.79–90). Düzeltme 2."},
+    {"id": "F03", "atif": "KC II.752–758", "sonuc": "doğru", "not": "‘till on the left side opening wide… out of thy head I sprung.’ ‘Başının sol yanı yarıldı’ aslına uygun. F04'teki ‘Kendi oğlu’ da doğru (II.781–782 ‘Thine own begotten’)."},
+    {"id": "K15", "atif": "Cromwell", "sonuc": "doğru", "not": "Tacı 8 Mayıs 1657'de reddetti; değiştirilmiş Humble Petition and Advice ona halefini belirleme hakkı verdi; Richard Eylül 1658'de yerine geçti (Wikipedia ‘Humble Petition and Advice’, olivercromwell.org). ‘Taçsız bir kral gibi yönetti’ bir nitelemedir, olgu değil; tarih yazımında yaygın ve savunulabilir. ‘Tek başına yönetti’ abartısı gitmiş."},
+    {"id": "L11", "atif": "Shelley, Prometheus Unbound önsözü (1820)", "sonuc": "yanlış yön", "not": "Shelley'nin cümlesi: ‘The only imaginary being resembling in any degree Prometheus, is Satan… [Prometheus] exempt from the taints of ambition, envy, revenge, and a desire for personal aggrandisement.’ Yani Prometheus'a benzeyen tek varlık Şeytan'dır. Senaryo tersini yazıyor. Yıl ve ‘hırs, kıskançlık, intikam’ doğru. Düzeltme 1."}
+  ],
+  "capraz": {
+    "katildigim": [
+      "Teoloji dengesi (K-Uzman engelleyici 1). Tur 1'de bunu ben kaçırdım. V.611–615, III.129–132, I.209–213 ve IV.103–104 metinde gerçekten var ve dördünü de dizeden doğruladım. Bunlar olmadan ‘Milton'ın cevabı’ yarım kalıyordu. İki okumayı A03'ün sorusunda çarpıştırma fikri de metne dayanıyor.",
+      "İlk dizeler iddiası, yazım tarihi ve I. kitabın sırası: üçünü birbirimizden bağımsız bulduk, aynı dizelere dayandırdık.",
+      "Cabanel'in gözyaşı (L05): ikimiz de notlar.md'nin kendi kaydıyla çeliştiğini yazdık.",
+      "D03'ün mantığı ve VI.183–186'nın I.263'ün habercisi olarak kurulması.",
+      "‘Myself am Hell’ bir kimlik cümlesidir; ‘Ben cehennemim’ aslına uygun, ‘Cehennem benim’ iyelik okumasına açık. Başkanın kararına katılıyorum.",
+      "‘Remorse’ ile ‘repentance’ ayrımı (K-Uzman 12): I.605 ve IV.109 ‘remorse’, IV.80 ‘repentance’. Rev2'de ikisi de hâlâ ‘pişmanlık’. Düzeltme 7.",
+      "İsyanın yalanla başladığı (V.671–693, V.709–710) ve gözyaşının nedeni (I.605–611): ikisi de dizede var, rev2'ye doğru girmiş."
+    ],
+    "katilmadigim": [
+      "‘Yoksul’ engelleyicisi (K-Uzman 4). DNB s. 34 kendi sesiyle ‘Blind, infirm, and poor’ yazar. Aynı sayfada Phillips'in ‘considerable estate’ görüşü de var. Yani ‘yoksul’ kaynağa aykırı değildi, kaynak kendi içinde iki şey söylüyor. Sözcüğün çıkarılması zarar vermedi, ama bu engelleyici düzeyinde bir hata değildi.",
+      "‘Lucifer iki yerde’ (K-Uzman 20). Üç yerde geçer: V.760, VII.131, X.425. Metinde arattım. Rev2'deki ‘birkaç yerde’ ve kaynak alanı doğru.",
+      "L12 için önerdiği cümle (‘Şeytan'a benzeyen tek kahraman Prometheus'tu’). Shelley tersini yazar: Prometheus'a benzeyen tek hayalî varlık Şeytan'dır. Rev2'deki L11 hatası bu öneriden geliyor.",
+      "‘Milton… şunu yazar: Tanrı insanı insanın efendisi yapmadı’ (K-Uzman 11). XII.64–71 Âdem'in sözüdür ve Mikail hemen ardından sınırlar: düşüşten beri gerçek özgürlük yitmiştir, zorbalığa da izin verilir (XII.79–90). ‘Milton'ın kendi cevabı’ demek bir yorumu olgu gibi sunuyor.",
+      "J05 itirazı (K-Uzman 15). ‘Herkesin aşağılaması’ X.508–509'un düz çevirisidir (‘the sound of publick scorn’). Şeytanların alkışlamak istediği J09'da zaten söyleniyor. J05'i değiştirmeye gerek yok.",
+      "Lewis'e ‘propaganda’ tezinin atfı (K-Uzman 10): 13. bölümdeki karşılığını bulamadım. Başkanın bunu rev2'ye almaması doğru."
+    ],
+    "gozden_kacan": [
+      "‘Boyun eğmek’ sözünü Şeytan'ın IV.81'de fiilen söylediği; rev1'deki ‘söyleyemiyor’ ile çelişkiyi yalnız dolaylı anmıştı.",
+      "Phillips tanıklığının dize sayısındaki varyant: 1694 Life'ın bir baskısında ‘Ten Verses’, ötekinde ‘Six Verses’ (Shawcross #367/#368).",
+      "Cabanel betimindeki ‘kayalara uzanmış’ ifadesinin kaynakta geçmediği; Wikipedia betiminde kaya yok.",
+      "X.516'nın tekil olduğu (‘punished in the shape he sinned’): yılan kılığında günah işleyen yalnız Şeytan'dır, ötekiler suç ortağıdır (X.520–521).",
+      "E12'deki ‘bir saatten kısa’ dışında kendi önerdiği F06 ve F08 düzeltmeleri için dize numarası vermişti, ama Pandemonium'un ‘meclis’ değil ‘başkent’ olduğunu (I.756) yazmamıştı."
+    ]
+  },
+  "dogrulama": [
+    {"bulgu": "T1-1: ‘İlk dizeler’ iddiası bütün iç konuşmayı kapsıyordu (G15, B13)", "durum": "karşılandı", "not": "B09 ve G02b iddiayı güneşe seslenişin açılışına daraltıyor; kaynak alanı IV.32–41 diyor. G04 ‘Sonra’ ile ayrıldığı için sınır anlaşılıyor. ‘Gözleri henüz görürken’ DNB s. 34'teki ~1642 tarihiyle uyumlu."},
+    {"bulgu": "T1-2: Yazım 1660'tan sonra başlamış gibi anlatılıyordu (B05)", "durum": "karşılandı", "not": "‘Destana devrim henüz ayaktayken başlamıştı; büyük kısmını bu yenilginin içinde yazdırdı.’ DNB s. 34 ile uyumlu. ‘Büyük kısmını’ Aubrey'in takviminden çıkarımdır, kabul edilebilir."},
+    {"bulgu": "T1-3: I. kitabın sırası tersti (E05–E10)", "durum": "karşılandı", "not": "Sıra artık Milton'ınki: I.209–222 kalkış → I.249–255 selam → I.263 → I.283–296 yürüyüş → I.591–605 yüz → I.605–621 gözyaşı."},
+    {"bulgu": "T1-4: A06 ‘bu dizeleri söylerken’", "durum": "karşılandı", "not": "‘Bu destanı yazdıran şair, hiçbir şey göremiyordu.’ Kaynak alanından DNB atfı da çıkmış."},
+    {"bulgu": "T1-5: ‘Boyun eğmek’ sözünü söyleyemiyor (L06, L09)", "durum": "kısmen", "not": "G09b artık ‘o sözü ağzıma almayı gururum yasaklıyor’ diyor, L05 de buna uyuyor. Ama Şeytan sözü aynı cümlede söylüyor; ‘ağzına alamıyor’ hâlâ izleyicinin duyduğuyla çelişiyor. Düzeltme 6."},
+    {"bulgu": "T1-6: Lucifer ‘bir yerde’; C03–C04 çelişkisi", "durum": "karşılandı", "not": "‘Yalnızca birkaç yerde, öyle diyelim diyerek’; kaynak V.760, VII.131–133, X.425."},
+    {"bulgu": "T1-7: A01 kaynağı (I.84–87 Belzebub'dur)", "durum": "karşılandı", "not": "A02 kaynağı V.659–661, V.708–709, VII.131–133. C03 de VII.132–133'ü metne taşıyor."},
+    {"bulgu": "T1-8: Mızrak ve direk", "durum": "karşılandı", "not": "E09: ‘Mızrağının yanında en büyük geminin direği bir değnek gibi kalırdı.’ I.292–294 ile uyumlu."},
+    {"bulgu": "T1-9: D03'ün mantığı", "durum": "karşılandı", "not": "‘…ya da kendinden üstüne başkaldırana hizmet etmek; seninkilerin şimdi sana ettiği gibi. Sen de özgür değilsin.’ VI.178–181 ile uyumlu."},
+    {"bulgu": "T1-10: Cromwell ‘tek başına yönetti’", "durum": "karşılandı", "not": "K15'te tacı reddettiği yazılmış; bkz. yeni iddia doğrulaması."},
+    {"bulgu": "T1-11: Cabanel'in gözyaşı Milton'dan (L05)", "durum": "karşılandı", "not": "L04: ‘Bu gözyaşının Milton'da bir karşılığı var.’ Etki iddiası yok."},
+    {"bulgu": "T1-12: Gece yazdırma ‘çoğu zaman’ ve kayıtsız (B06)", "durum": "karşılandı", "not": "B02: ‘Anlatılanlara göre bazen…’. ‘Çoğu zaman da evde kim varsa’ DNB'deki ‘frequently’ ile uyumlu."},
+    {"bulgu": "T1-13: J02 ‘eski parlaklığıyla’", "durum": "kısmen", "not": "‘Sahte bir parıltıyla’ eklenmiş, ama ‘eski parlaklığıyla’ duruyor. X.450–452 ‘düşüşten ona kalan ışık ya da sahte parıltı’ der; eski parlaklık demez."},
+    {"bulgu": "T1-14: I04–I05 sırası", "durum": "karşılanmadı", "not": "I04 hâlâ ‘yılan bulur ve ağzından içine girer:’ deyip IX.163–167'yi veriyor. Rev2'de K12 aynı konuşmanın devamı için ‘yılanın içine girmeden önce’ dediğinden artık senaryonun kendi içinde çelişki var. Düzeltme 4."},
+    {"bulgu": "T1-15: ‘İblis’ (H07)", "durum": "karşılandı", "not": "‘Böyle konuştu Şeytan’."},
+    {"bulgu": "T1-16: B04 dostlar; B08–B09 kızlar", "durum": "kısmen", "not": "Dostlar cümlesi çıkarılmış. B03'te ‘İki küçük kızına… öğretmişti’ ve ‘dayanılmaz’ duruyor: Phillips ‘the two youngest’ ve ‘almost beyond endurance’ der, Masson bunun niyet değil sonuç olduğunu yazar (DNB s. 36). Düşük."},
+    {"bulgu": "T1-17: Küçük metin sapmaları (E11, C07, H11, I02, D02, F06)", "durum": "kısmen", "not": "C05 düzelmiş. Kalanlar duruyor: E12 ‘bir saatten kısa’ (kendi kaynak alanı ‘in an hour’ diyor), H11 ‘kükrer / melekler’, I02 ‘kovulur’, D02 ‘kılıcı’, F06 ‘binlerce kulaç / bir rüzgâr’. Hepsi düşük."},
+    {"bulgu": "T1-18: ‘Natural tears’; yirmi yıl; kayalar", "durum": "kısmen", "not": "K01'de ‘İnsanca’ var; ‘yirmi yıl’ çıkmış. L03'teki ‘kayalara uzanmış’ hâlâ doğrulanmadı."},
+    {"bulgu": "T1-19: Kaynak alanları", "durum": "kısmen", "not": "A02, A06, B05, B09, C03, C06 düzelmiş. Kimlikler yeniden dağıtılınca çapraz göndermeler bayatlamış: düzeltme 8."},
+    {"bulgu": "K-Uzman 1: Teoloji dengesi", "durum": "karşılandı", "not": "C04, E05, G13, K03 ve L08 metne dayanıyor. XI.1–5 (önden gelen lütuf) alınmamış; gerekli değil."},
+    {"bulgu": "K-Uzman 8: İsyanın yalanla başlaması", "durum": "karşılandı", "not": "C05 ve C08; V.667–693 ve V.709–710 ile uyumlu."},
+    {"bulgu": "K-Uzman 9: Shelley'nin ‘ahlaken üstün’ görüşü", "durum": "reddedildi", "not": "Gerekçe bana uygun: kaynak açısından bir eksik doğurmuyor, K07 ve K09 Romantik okumayı taşıyor. Yalnız reddedilen bulgunun yan ürünü olan L11 cümlesi yanlış yönde."},
+    {"bulgu": "K-Uzman 10: Lewis'in temsili", "durum": "karşılandı", "not": "K11 ‘bir yükselişin değil, bir küçülmenin’; K12 metinden destek veriyor. Alıntı Lewis'in cümlesiyle uyumlu, yalnız ‘or bathroom’ atılmış."},
+    {"bulgu": "K-Uzman 12: Gözyaşının nedeni; remorse/repentance", "durum": "kısmen", "not": "Neden E11'e girmiş (I.605–611). Sözcük ayrımı yapılmamış."},
+    {"bulgu": "K-Uzman 14: Ölüm kendi oğlu", "durum": "karşılandı", "not": "F04, II.781–782."}
+  ],
+  "engelleyici": [
+    "L11: Shelley atfı kaynağın yönünü ters çeviriyor. Shelley ‘Prometheus'a benzeyen tek hayalî varlık Şeytan'dır’ der; senaryo ‘Şeytan'a benzeyen tek kahramanın Prometheus olduğunu yazar’ diyor. ‘Shelley yazar’ diye verilen bir cümle onun yazdığı olmalı. Tek cümlelik düzeltme (düzeltme 1)."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "L11",
+      "sorun": "Shelley'nin cümlesi ters çevrilmiş. Özgün: ‘The only imaginary being resembling in any degree Prometheus, is Satan; and Prometheus is… a more poetical character than Satan, because… he is susceptible of being described as exempt from the taints of ambition, envy, revenge, and a desire for personal aggrandisement.’",
+      "oneri": "“Shelley, Prometheus'a benzeyen tek hayalî kahramanın Milton'ın Şeytan'ı olduğunu yazar; ama bir farkla: Prometheus'ta hırs, kıskançlık ve intikam yoktu. Ateşi kendisi için değil, insanlar için çalan o asinin hikâyesi ekranda. …” Kaynak alanı: ‘Shelley, Prometheus Unbound, Preface (1820); doğrulandı’. ‘Kaynak denetçisi doğrulayacak’ notu silinsin.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "id": "K14",
+      "sorun": "XII.64–71'i söyleyen Âdem'dir, anlatıcı değil; Mikail ardından sınırlar (XII.79–90). ‘Milton'ın kendi cevabı’ ve ‘şunu yazar’ bir yorumu Milton'ın beyanı gibi sunuyor.",
+      "oneri": "“Destanın cevabı Abdiel'in ağzındadır: Asıl kölelik, akılsıza hizmet etmektir. Son kitapta da Milton, yeryüzünün ilk zorbasını duyan Âdem'e şunu söyletir: Tanrı insanı, insanın efendisi yapmadı.” Kaynak: ‘KC VI.178–181; XII.24–37 (zorba), XII.63–71 (Âdem)’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 3,
+      "id": "L08",
+      "sorun": "IV.103'teki ‘This’ Şeytan'ın geri döneceğine bakar (IV.93–102), kapının kapalı olduğuna değil. L08'de alıntı ‘O kapı ona açık değildi’ cümlesinin ardına konunca ‘Bunu’ başka bir şeye bağlanıyor. Ayrıca bu söz destanın değil Şeytan'ın kendi yargısıdır; destanın kendi sözü III.131–132'dir ve o K03'te verildi.",
+      "oneri": "“Ama destan öbür yarısını da söyler: O kapı ona açık değildi. Şeytan da böyle düşünüyordu: “O barış vermekten ne kadar uzaksa, ben de dilemekten o kadar uzağım.” Peki onu orada tutan gururu muydu, yoksa hiç açılmamış bir kapı mı? …” Kaynak: ‘KC III.131–132, V.615; IV.103–104’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 4,
+      "id": "I04, I05",
+      "sorun": "Tur 1'den kalan sıra hatası rev2'de iç çelişkiye dönüştü: I04 konuşmayı yılana girerken veriyor, K12 aynı konuşmanın devamı için ‘girmeden önce’ diyor. Milton'da IX.163–172 önce, giriş IX.187–188'de.",
+      "oneri": "I04: “Saklanacak bir yılan arar: “Ne iğrenç bir alçalış! Bir zamanlar en yüce yer için yarışan ben, şimdi bir hayvanın bedenine hapsoluyorum.”” I05'in sonuna: “Sonra uyuyan yılanı bulur ve ağzından içine girer.” Kaynak I04: ‘KC IX.158–167’; I05: ‘KC IX.171–172, IX.182–190’.",
+      "onem": "orta"
+    },
+    {
+      "sira": 5,
+      "id": "J09",
+      "sorun": "Rev2'de çoğula çevrilince yanlışlaşmış: yılan kılığında günah işleyen yalnız Şeytan'dır (X.516 ‘punished in the shape he sinned’). Ötekiler ‘suç ortağı olarak’ dönüşür (X.520–521); ortak olan ceza ve suçtur (X.544–545), kılık değil.",
+      "oneri": "“Şeytan günahı hangi kılıkta işlediyse, cezasını da o kılıkta çeker; ötekiler de suç ortağı olarak. Alkışları tıslamaya, zaferleri kendi ağızlarından kendi üstlerine yağan bir utanca dönüşür.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "id": "L05, L07",
+      "sorun": "L05 ‘ağzına alamıyor’: Şeytan sözü G09b'de söylüyor, yasaklanan boyun eğmenin kendisi. L07 ‘kimsenin vurmadığı zincir’: A04'te göle bağlayan zincirler var (I.48, I.210), E05'te de ancak cennetin izniyle kalkıyor; cümle senaryonun kendi kurduğuyla sürtüşüyor.",
+      "oneri": "L05: “…başka bir yerinde, “boyun eğmek” sözünü kendine yasaklıyor.” L07 sonu: “Krallığı buldu. Gölün zincirleri çözülmüştü; onu tutan zincir ise kendi eliyle vurduğu bir zincirdi: gururu.”",
+      "onem": "düşük"
+    },
+    {
+      "sira": 7,
+      "id": "G14, E10, L05",
+      "sorun": "Milton iki ayrı sözcük kullanır: ‘remorse’ (I.605, IV.109) ve ‘repentance’ (IV.80). İkisi de ‘pişmanlık’ olunca G09'daki soru ile G14'teki veda aynı şeye bakıyor gibi duruyor. I.605'teki ‘remorse’ ayrıca ordusuna dönüktür.",
+      "oneri": "G14: “Elveda umut. Umutla birlikte, elveda korku. Elveda vicdan azabı.” E10 ve L05 ‘pişmanlık’ olarak kalabilir; G09'daki ‘pişmanlık’ (repentance) ile G14 böylece ayrışır.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 8,
+      "id": "bölüm adı ve kaynak alanları",
+      "sorun": "A bölümünün adı hâlâ ‘Cehennem benim’; karar ‘Ben cehennemim’ ve bu ad YouTube bölüm damgasına gider. Kimlikler değişince göndermeler bayatlamış: A03 ‘L09–L09c’ (L06–L08), B01 ‘L10’ (L09), C01 ‘C06’ (C09), C12 ‘K12’ (K16), D01 ‘D04’ (D05), D04 ve G09b ‘L09b’ (L07), G13 ve K03 ‘L09c’ (L08), E11 ‘L05’ (L04). E08 kimliği yok. E12'nin kaynağı ‘in an hour’ derken metin ‘bir saatten kısa’ diyor. B04'te 43 yaş için atıf yok. D10 boş (I.50–53 eklenebilir).",
+      "oneri": "Bölüm adını ‘Ben cehennemim’ yap; göndermeleri yukarıdaki gibi güncelle. E12: “Bir saat içinde, yerden devasa bir saray yükselir: Pandemonium, cehennemin başkenti.” Seslendirme `tools/build_vo.py` kimliklere bağlandığı için E08 boşluğu sorun çıkarmıyorsa kalabilir.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 9,
+      "id": "B03, J02, H11, I02, D02, F06, K03, K11, K13, L03",
+      "sorun": "Tur 1'den kalan ve yeni küçük sapmalar. B03: ‘the two youngest’, ‘almost beyond endurance’. J02: ‘eski parlaklığıyla’ (X.450–452). H11: cevap veren tek melek, Zefon; Şeytan küçümseyerek sorar. I02: Şeytan kaçar (IX.53–54). D02: silah adlandırılmaz (VI.189–191). F06: on bin kulaç; ateşli bir bulut (II.934–937). K03: ‘destanın başında’ değil üçüncü kitapta. K11: tırnak içindeki alıntıdan ‘or bathroom’ atılmış. K13: II.2 ‘wealth of Ormus and of Ind’ der, kralları II.4'te ‘the gorgeous East’ için anar. L03: kaya doğrulanmadı.",
+      "oneri": "B03: “Küçük iki kızı… Bu saatler, yıllar içinde onlar için neredeyse dayanılmaz bir hâl aldı.” J02: “…birden, düşüşten ona kalan parlaklıkla belirir; Milton'ın deyişiyle, belki de sahte bir parıltıyla.” H11: ““Beni tanımıyor musunuz?” der küçümseyerek. Meleklerden biri cevap verir: …” I02: “Şeytan bahçeden kaçmak zorunda kalır.” D02: “Darbesi Şeytan'ın miğferine iner…” F06: “…on bin kulaç aşağı. Ateşli bir bulut onu yeniden yukarı fırlatmasa…” K03: “…bunu üçüncü kitapta söylemişti…” K11: açıklamaya ‘alıntı kısaltılmıştır’ notu. K13: “Hürmüz'ün ve Hindistan'ın servetinden bile görkemli bir taht”. L03: tablonun görüntüsüyle doğrula ya da “Yere uzanmış…”.",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "İki nokta. Birincisi, L11'i engelleyici saymam: cümlenin özü doğru (Shelley ikisini karşılaştırır ve Prometheus'u hırs, kıskançlık ve intikamdan arınmış bulur), yanlış olan yalnız benzetmenin yönü. Başkan bunu ‘orta’ sayabilir; ben ‘Shelley yazar’ diye verilen cümlenin yazdığıyla aynı olması gerektiği için veto düzeyinde tuttum. İkincisi, Phillips tanıklığının dize sayısı ve tarihi: ‘on dize’ ve IV.32–41 ikincil kaynaklardan doğrulandı, 1694 baskısını göremedim. Aubrey'in aynı dizeler için ‘altı dize’ ve ‘destandan 15–16 yıl önce’ dediğini hatırlıyorum, ama bu oturumda doğrulayamadım; B09'daki ‘gözleri henüz görürken’ şimdilik DNB s. 34'teki ~1642 tarihine dayanıyor. Musée Fabre belgesi de hâlâ açılamıyor (museefabre-old.montpellier3m.fr ağda engelli); L04 artık etki iddia etmediği için bu engel değil.",
+  "ben_cehennemim_gorusu": "‘Myself am Hell’ kimlik bildirir; ‘Ben cehennemim’ doğru çeviridir ve I.252'deki ‘yeni sahibi’ böbürlenmesiyle karışmaz.",
+  "web_kaynaklari": [
+    "https://knarf.english.upenn.edu/PShelley/prompref.html (Shelley, Prometheus Unbound önsözü, 1820 metni)",
+    "https://litcharts.com/lit/prometheus-unbound/quotes (aynı cümlenin alıntısı)",
+    "https://en.wikipedia.org/wiki/Humble_Petition_and_Advice (Cromwell: taç reddi, halef belirleme)",
+    "https://www.olivercromwell.org/wordpress/?p=782 (8 Mayıs 1657 konuşması)"
+  ]
+}
