@@ -1,0 +1,47 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 8.3,
+  "puanlar": {"U1": 8, "U2": 8.5, "U3": 8.5, "U4": 8, "U5": 8, "U6": 8.5},
+  "dokuza_kalan": 0.7,
+  "puan_gerekcesi": "Dürüst puan 8,3 (tur 4'te 8,2). Alevlerde tek dil kuruldu ve yakın alevler artık alev gibi okunuyor. Bu, U5'i 7,5'ten 8'e çıkardı. Ama değişiklikler kalıntı temizliğiydi; karenin tavanını belirleyen şey değişmedi. Figür hâlâ tamamen düz siyah, içi boş bir siluet: alevlerin ortasında duruyor ama alevden hiç ışık almıyor. Bu yüzden sahneye yapıştırılmış bir kesik kâğıt gibi duruyor; Doré'nin figürü ise her zaman ışıkla modellenir (U1, U4). Ayrıca birkaç yeni ya da kalan okuma sorunu var (bulutta göz, uzak alevlerde diken, sağ bulutun altında hortum). Kapıyı açmak için puanı yükseltmiyorum.",
+  "olcumler": {
+    "koyu_<60": 0.736,
+    "kagit_>200": 0.172,
+    "kare_farki_ortalama": 0.59,
+    "en_kotu_64px_blok": "10,7 (x 1664–1728, y 960–1024; sağ alt alev). Kabul edilebilir.",
+    "not": "Brief'teki ölçümlerle uyumlu (kare farkını 0,59 ölçtüm; JPEG farkından olabilir)."
+  },
+  "tur4_bulgulari": [
+    {"no": 1, "bulgu": "Alevde iki dil; düz beyaz biçimler sıçrama, kuş ya da maça gibi", "durum": "büyük ölçüde giderildi", "not": "Figür yanındaki alevler (x 515–810 ve 975–1250, y 690–845) beyaz kütle ve dipten yukarı akan mürekkep vuruşlarıyla alev gibi okunuyor; maça boşluğu yok. Sol uzak alev (x 200–290, y 570–680) iyi. Sağ uzak grup (x 1235–1710, y 560–680) hâlâ zayıf: düz beyaz bir taban şeridi ve üstünde ince siyah kancalar. Alevden çok diken, boynuz ya da beyaz bir ada üstünde pençe gibi okunuyor. Sağ alttaki çerçeve alev (x 1440–1920, y 830–1080) alev ile boynuz arasında; kabul edilebilir."},
+    {"no": 2, "bulgu": "Bulutta yüzen beyaz kırıntılar", "durum": "kısmen", "not": "Kırıntıların çoğu gitti. Ama sağ bulutta tek bir beyaz badem biçimi kaldı (x 1515–1535, y 425–455). Üstündeki kavisli hilalle birlikte göz gibi okunuyor ve sağ bulutu bir yaratık ya da balina başına çeviriyor; yakin_z1.25'te (x 1730–1750, y 335–360) daha belirgin. Sağ kenardaki kıvrık uç (x 1850–1905, y 365–410) salyangoz ya da ikinci bir göz gibi."},
+    {"no": 3, "bulgu": "Zincir bilezik gibi", "durum": "giderildi (karar olarak)", "not": "Geniş planda yalnız bilek halkası, zincir bilgisi ayrı yakın planda. Mantıklı bir yönetmenlik çözümü."},
+    {"no": 4, "bulgu": "Huzme lazer gibi", "durum": "giderildi", "not": "Kaynakta kalın, uca doğru sivri; ışık olarak okunuyor."},
+    {"no": 5, "bulgu": "Kaya kenarı poligon", "durum": "kısmen", "not": "İç vuruşlar düzensiz ve iyi, ama dış kenar hâlâ uzun düz segmentler (x 0–400, y 570–1080)."},
+    {"no": 6, "bulgu": "Sol bulutta istiridye ya da yelpaze vuruşları", "durum": "kısmen", "not": "Hâlâ yer yer tek merkezli yelpaze (x 380–740, y 300–420); küçük."}
+  ],
+  "en_cok_puan_getirecek_tek_degisiklik": {
+    "ne": "Figüre ve kanatların alt yüzüne alttan gelen alev ışığı vermek.",
+    "nerede": "figür x 780–1000, y 480–830; kanat alt kenarları x 330–800 ve 980–1200, y 560–800",
+    "nasil": "lib/siluet.js ve kanat.js: figürün alt-ön yüzeylerine, alev kütlelerine bakan taraflarda, mevcut 'beyaz çizgi' dilinde vuruşlar ekle: çene altı, boyun önü, göğüs kafesinin alt kenarı, ön kolların alt yüzü, kanat tüylerinin alt uçları. Vuruşlar 2–5 px, ışığa yakın yerde sık, yukarı doğru seyrelip sönsün. Toplam figür alanının %8–12'sini geçmesin; siluet ve tek odak bozulmasın. Arkadan gelen ufuk ışığı kenarı vermeye devam etsin, alttan gelen alev ışığı hacmi versin. İki ışık arasındaki karanlık çekirdek yüzü gizlemeyi sürdürür.",
+    "neden": "Şu an figür sahneden kopuk düz bir kesik kâğıt. Alev ışığı (1) figürü sahneye bağlar, (2) 'alev var ama ışık yok' cümlesinin karanlığını bozmadan hacim verir, (3) Doré'nin ışıkla modelleme ilkesine yaklaştırır, (4) karakterin anlatısını (cehennem tarafından aydınlatılan düşmüş melek) tek görüntüde kurar. Tahminim: U1 +0,5, U3 +0,5, U4 +1, yani ağırlıklı ~+0,4–0,5. Kalan kalıntı temizliğiyle (bulut gözü, uzak alev) birlikte 9'a ulaşılabilir."
+  },
+  "duzeltmeler": {
+    "engelleyen": [],
+    "sahne_uretimi_sirasinda": [
+      {"sira": 1, "bolge": "figür ve kanat alt yüzleri x 330–1200, y 480–830", "sorun": "Figür alev ışığı almıyor, sahneden kopuk.", "oneri": "Yukarıdaki 'en çok puan getirecek tek değişiklik'.", "onem": "yüksek"},
+      {"sira": 2, "bolge": "sağ bulut x 1515–1535, y 425–455 ve x 1850–1905, y 365–410", "sorun": "Beyaz badem ve kıvrık uç göz gibi okunuyor; bulut yüze dönüşüyor.", "oneri": "prim.js cloud: kapalı (iki ucu sivri ve kısa, < 40 px) vuruşları ele; hilal uçları kıvrılıp kendine dönmesin (eğrilik sınırı).", "onem": "orta"},
+      {"sira": 3, "bolge": "sağ uzak alev grubu x 1235–1710, y 560–680; sağ bulutun altındaki koyu hortum x 1440–1495, y 520–620", "sorun": "Beyaz taban şeridi üstünde ince siyah kancalar diken ya da pençe gibi okunuyor. Bulutun altından inen koyu kavisli çizgi hortum ya da dokunaç gibi.", "oneri": "Uzak alevlerde beyaz dilleri belirgin kıl (kütle yüksekliği taban şeridinin en az 3 katı), mürekkep vuruşları kısa kalsın (dil boyunun ≤ %40'ı). Koyu hortum çizgisinin kaynağı (muhtemelen huzme ya da bulut vuruşu) neyse, onu ufuk bandına kadar uzatma.", "onem": "orta"},
+      {"sira": 4, "bolge": "sol kanat x 555–575, y 590–620", "sorun": "Tüy üstünde tek bir beyaz damla var; gözyaşı ya da hata gibi.", "oneri": "kanat.js: kısa kapalı vuruşları ele (bulutla aynı kural).", "onem": "düşük"},
+      {"sira": 5, "bolge": "kaya dış kenarı x 0–400, y 570–1080", "sorun": "Uzun düz segmentler.", "oneri": "±6 px düşük frekanslı bükülme ve 2–3 çentik.", "onem": "düşük"}
+    ]
+  },
+  "korunmali": [
+    "Alevde tek dil: kâğıt beyazı kütle + dipten akan mürekkep vuruşları; taramasız taban şeridi.",
+    "Tek odak, değer planı, perspektifli göl, sivrilen huzme yelpazesi.",
+    "Kanat ve bulut 'beyaz çizgi' grameri; titreşimsiz motor."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Hayır. Tur 4'teki koşul geçerli: cennet ve Aden sahneleri yüksek anahtarda kurulsun ki film tek bir karanlıkta kalmasın.",
+  "en_emin_olmadigim_nokta": "Alttan alev ışığının Milton'ın 'alev var ama ışık yok; yalnızca görünür bir karanlık' imgesine aykırı düşüp düşmediği. Ben düşmediğini düşünüyorum: ışık yalnız figürün alt yüzlerinde, seyrek ve karanlığın içinde kalırsa 'görünür karanlık' fikrini güçlendirir. Ama bu bir anlatı kararı; senaryo ve yönetmen tarafı reddederse, aynı puanı başın ve omuzun arka kenar ışığını genişletip güçlendirerek kısmen alabiliriz (daha az kazanç, ~+0,2)."
+}

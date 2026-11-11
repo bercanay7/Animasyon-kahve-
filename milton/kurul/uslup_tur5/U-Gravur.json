@@ -1,0 +1,55 @@
+{
+  "uye": "U-Gravur",
+  "mercek": "Doré ve 19. yüzyıl ağaç/çelik baskı geleneği; kalın çizgili linol/ağaç baskı tutarlılığı",
+  "karar": "RED",
+  "puanlar": {"U1": 8.5, "U2": 8.5, "U3": 8.0, "U4": 8.0, "U5": 8.0, "U6": 8.5},
+  "puan": 8.25,
+  "dokuza_mesafe": 0.75,
+  "engelleyen_bulgu": "Yok. Dil doğru ve tutarlı; aşağıdaki bulguların hepsi sahne üretimi sırasında düzeltilebilir.",
+  "genel_hukum": "Alev artık tek dilde ve doğru dilde. Ön, orta ve uzak alevler kâğıt beyazı kütle, içinde dipten yukarı akan, sivrilen mürekkep vuruşlarıyla çizilmiş. Bu, cehennemdeki beyaz çizginin tam tersi; bütün karenin grameri kendi içinde tutarlı (koyu kütlede kâğıt vuruşu, açık kütlede mürekkep vuruşu). Figür önündeki alevler (x 520–810 ve 970–1250, y 560–850) ilk kez gerçekten ateş gibi duruyor. Maça boşluğu yok. Kaya vuruşları seyrek ve uzunlukları düzensiz. Huzmeler kaynakta kalın, uçta sivri. Puanı dürüst verdim: 8,25. 9'a varmayı engelleyen artık dil değil, karenin 'bitmişliği' ve karakterin okunması. Gövde ile kanat tek bir siyah kütleye karışıyor. Sağ bulutta yüzen kırıntılar iddiaya rağmen duruyor. Sağ alt alevler boynuz ya da dokunaç gibi okunuyor.",
+  "olcumler": {
+    "koyu_piksel_lt60": 0.736,
+    "kagit_gt200": 0.172,
+    "ardisik_kare_ortalama_fark": 0.59,
+    "en_kotu_64_blok": [[10.7, "x 1664, y 960 (sağ alt alev)"], [9.2, "x 576, y 704 (sol ön alev)"]],
+    "not": "Ölçümüm brief'le uyumlu (koyu %73,6, kâğıt %17,2). Kare farkı 0,59 (brief 0,35); ikisi de çok düşük."
+  },
+  "tur4_bulgulari": [
+    {"sira": "S1", "bulgu": "Alevde iki dil", "durum": "giderildi", "not": "Kâğıt kütle + sivrilen mürekkep vuruşları her boyda; yay tarama yalnız sağ altta."},
+    {"sira": "S2", "bulgu": "Alevde maça boşluğu", "durum": "giderildi", "not": ""},
+    {"sira": "S3", "bulgu": "Sağ bulutta yüzen kırıntı", "durum": "giderilmedi", "not": "Hâlâ var. Bulut gövdesinde beyaz damla (x 1515–1530, y 430–455); kenara bağlı olmayan kısa yatay çizik (x 1790–1845, y 393–398); bulutun ortasında kopuk küçük hilaller (x 1700–1725, y 365–395 ve x 1855–1905, y 365–410). İddia 2 bu bölgede doğrulanmadı."},
+    {"sira": "S4", "bulgu": "Ufuk alevleri boynuz/kayık", "durum": "giderildi", "not": "5–6 düzensiz dil, mürekkep vuruşlu; boynuz okuması kalmadı. Ortadaki uzun dil (x 1440–1510, y 520–660) hafif deniz yosunu gibi, sorun değil."},
+    {"sira": "S5", "bulgu": "Sol bulut alt loblarında yelpaze", "durum": "giderildi", "not": "Vuruş sayısı azalmış; mantar altı okuması zayıfladı."},
+    {"sira": "S6", "bulgu": "Kaya dikenleri eşit boy", "durum": "giderildi", "not": "Uzunluk düzensiz ve seyrek. Kaya artık neredeyse tümüyle düz siyah; repoussoir olarak kabul edilebilir."},
+    {"sira": "S7", "bulgu": "Huzme cetvel çizgisi", "durum": "giderildi", "not": "Kaynakta kalın, uçta sivri; bulut kütlesinin önünden geçmesi sürüyor ama artık ışık gibi okunuyor."},
+    {"sira": "S8", "bulgu": "Sahne başına koyu oran hedefi", "durum": "sahne kurullarına devredildi", "not": ""}
+  ],
+  "duzeltmeler_engelleyen": [],
+  "duzeltmeler_sahne_uretiminde": [
+    {"sira": 1, "onem": "yüksek", "bolge": "gövde–kanat birleşimi x 780–1120, y 560–800; özellikle sağ kol ve sağ kanat x 1000–1120, y 600–790",
+     "ne": "Figürün gövdesi, kolları ve kanat kökü tek bir düz siyah kütleye karışıyor. Sağ kol kanadın içinde kayboluyor; gövdede yalnız 3–4 vuruş var. Uzak planda siluet okunuyor, ama 1:1'de 'yıkılmış başmelek' bedeni bir leke. U4 ve U3'ü 8'de tutan bu.",
+     "nasil": "Gövdenin ve kolların ışık tarafındaki kontur boyunca, kanattan ayıran 3–4 px kâğıt boşluğu (kayıp-bulunmuş kenar: ışıkta açık, gölgede kapalı). Gövdede kesit boyunca 6–9 forma giren vuruş (şimdi 3–4). Kanat kökünde vuruşsuz koyu bir şerit; gövde kanattan öne çıksın."},
+    {"sira": 2, "onem": "orta", "bolge": "sağ bulut x 1500–1910, y 360–460; sol kanat içi x 560–625, y 540–605",
+     "ne": "Yüzen kırıntılar: bulutun içinde beyaz damla, kopuk çizik ve hilaller. Sol kanadın içinde iki küçük beyaz damla deliği (x ≈568, y ≈580 ve x ≈612, y ≈555): gözyaşı ya da damlama gibi.",
+     "nasil": "Vuruş üretiminde iki filtre. (a) Her vuruşun başlangıç noktası görünür bir ışık kenarından en çok 4 px içeride olsun. (b) Alanı 400 px²'den küçük kapalı kâğıt adacıkları silinsin. Kanattaki damla delikler tüy ucu boşluğu değilse kapatılsın."},
+    {"sira": 3, "onem": "orta", "bolge": "sağ alt alev x 1440–1920, y 820–1080",
+     "ne": "En yakın alevlerin uçları dışa kıvrılıp çaprazlaşıyor (x 1450–1560, y 900–1000'de X biçimi). Boynuz, keçi boynuzu ya da dokunaç gibi okunuyor; ön plandaki tek büyük alev kütlesi bu olduğu için etkisi büyük.",
+     "nasil": "Uçlar yukarı ve tek yöne (ısının yükseldiği yöne) aksın, çaprazlaşma olmasın. Dilleri tabanda birbirine kaynayan tek kütle yap; uçta 2–3 dile ayrılsın. Yay taraması kalsın."},
+    {"sira": 4, "onem": "düşük", "bolge": "huzmeler x 920–1710, y 20–520",
+     "ne": "Huzmeler sağ bulut kütlesinin önünden geçiyor (x 1230–1600, y 280–520); ışık bulutun arkasından değil önünden geliyor gibi.",
+     "nasil": "Bulut kütlesinin içinde huzmeyi kes; bulutun alt kenarından yeniden çıksın."},
+    {"sira": 5, "onem": "düşük", "bolge": "bütün film",
+     "ne": "Koyu %73,6, açılış karesi için doğru; filmin genel ortalaması olmamalı.",
+     "nasil": "Sahne kurullarında koyu oran hedefleri: cehennem %65–75, geçiş %50–60, cennet ve Aden %20–35."}
+  ],
+  "en_cok_puan_getirecek_tek_degisiklik": "Gövde–kanat ayrımı (düzeltme 1): ışık tarafında 3–4 px kâğıt boşluğu + gövdede kesit boyunca 6–9 vuruş. Karenin odağı figür; şimdi tek siyah leke gibi okunduğu için U4 (karakter) ve U3 (odak) 8'de kalıyor. Bu tek değişiklik ikisini 8,5–9'a taşır: ağırlıklı yaklaşık +0,2–0,3. Kırıntı filtresi (düzeltme 2) U5'e +0,5 getirir (ağırlıklı +0,05) ve ucuz bir iştir; ikisi birlikte puanı ~8,6'ya çıkarır. 9 için ayrıca sağ alt alevin düzelmesi gerekir.",
+  "yirmi_dort_dakika_goz_yorgunlugu": "Hayır. Titreşim çok düşük, çapraz tarama ve benek yok, vuruşlar iri ve seyrek.",
+  "korunmali": [
+    "İki yönlü vuruş grameri: koyu kütlede kâğıt vuruşu, açık kütlede (alev) mürekkep vuruşu. Üslubun en güçlü ve en tutarlı buluşu.",
+    "Figür önündeki alevler (x 520–810, 970–1250, y 560–850): kâğıt kütle + dipten akan mürekkep vuruşu.",
+    "Ufuk parıltısının taramasız kâğıt çekirdeği ve tek odak.",
+    "Perspektifli göl, düz siyah ve yansıma.",
+    "Kamera yaklaşmasının 1,25 ile sınırlı olması."
+  ],
+  "en_emin_olmadigim_nokta": "9 eşiğinin bu tür kodla çizilmiş, kasıtlı olarak sadeleştirilmiş bir dilde ne demek olduğu. Ben ölçütleri tur 1'den beri aynı tuttum: 9, 'gerçek bir ağaç baskı levhasının yanında bitmiş durur' demek. Kare bugün dil olarak buna çok yakın, bitmişlik olarak değil. Başkan kapının amacını yalnız 'dil' olarak tanımlarsa (brief tur 4'teki karar sorusu), bu kare o amaç için yeterli; benim RED'im kural gereği ve bitmişlikten geliyor."
+}
