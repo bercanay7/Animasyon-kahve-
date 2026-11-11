@@ -28,6 +28,14 @@ function cen_gok(L, o = {}) {
   }
 }
 
+// Sivri vuruş: pts boyunca, kalından inceye; tarama yaması vuruş doğrultusunda (ince uç kesik kesik basılmaz). v: ton
+function cen_vurus(pts, w0, v = .02) {
+  const { tx, px, tone } = GR, n = pts.length - 1, A = [], B = [];
+  for (let i = 0; i <= n; i++) { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1, hw = Math.max(1.2, w0 * .5 * Math.pow(1 - i / n, 1.1));
+    A.push([pts[i][0] - dy / l * hw, pts[i][1] + dx / l * hw]); B.push([pts[i][0] + dy / l * hw, pts[i][1] - dx / l * hw]); }
+  const P = new Path2D(); poly(P, [...A, ...B.reverse()], true);
+  tx.fillStyle = tone(v); tx.fill(P); px.fillStyle = GR.hatch({ th: Math.atan2(pts[n][1] - pts[0][1], pts[n][0] - pts[0][0]), id: 0 }); px.fill(P);
+}
 // ── koyu bulut bankı / teras ──
 // Yatay, sakin üst kenar (birkaç geniş, alçak kabarım); düz siyah gövde; üst kenarda ışığa bakan yerde ince kâğıt hilal,
 // kenardan içeri giren, sivrilen, düzensiz beyaz vuruşlar.
@@ -41,13 +49,13 @@ function cen_bank(o) {
     const u = (x - x0) / Math.max(1, x1 - x0);
     // kabarımlar: yuvarlak tepeler (|sin|) — blob değil, geniş ve alçak
     let y = o.y - amp * (.55 * Math.abs(Math.sin((x + dr) / wl * PI + ph1)) + .3 * Math.abs(Math.sin((x + dr) / (wl * .53) * PI + ph2)) + .15 * Math.sin((x + dr) / (wl * 2.1) * PI + ph3));
-    if (o.ends !== false) { const e = Math.min(u, 1 - u) * (x1 - x0) / (amp * 3 + 40); if (e < 1) y += (1 - Math.sqrt(Math.max(0, 1 - Math.pow(1 - e, 2)))) * (yb - o.y) * .5; }
+    if (o.ends !== false) { const e = Math.min(u, 1 - u) * (x1 - x0) / (o.endW ?? 280); if (e < 1) y += Math.pow(1 - e, 2.2) * (o.endD ?? 380); }
     top.push([x, y]);
   }
   const P = new Path2D(); P.moveTo(x0, yb); for (const p of top) P.lineTo(p[0], p[1]); P.lineTo(x1, yb); P.closePath();
   tx.fillStyle = tone(o.v ?? .02); tx.fill(P); px.fillStyle = GR.hatch({ th: PI / 2, id: 0 }); px.fill(P);
   // kenar hilali: üst kenarın ışığa bakan yerlerinde, kalınlığı açıyla değişen ince kâğıt şerit
-  const rim = o.rim ?? 1;
+  const rim = o.rim ?? 0;
   if (rim > 0) {
     tx.save(); tx.clip(P); tx.fillStyle = tone(.97);
     let seg = [];
@@ -98,16 +106,15 @@ function cen_kanat(rx, ry, side, S, o = {}) {
   const { tx, px, tone } = GR, q = rng((o.seed || 1) * 97 + 3), K = cen_kanat._yol(rx, ry, side, S, o), { P, trail, ax, nd, W2, th } = K;
   tx.fillStyle = tone(.985); tx.fill(P); px.fillStyle = GR.hatch({ th: th * side, id: 6 }); px.fill(P);
   // gölge yanı vuruşları: arka kenar çentiklerinden kanadın içine (öne kenara doğru), sivrilen
-  tx.save(); tx.clip(P); tx.fillStyle = tone(.02);
+  GR.save(); tx.clip(P); px.clip(P); tx.fillStyle = tone(.02);
   for (let k = 0; k < (o.strokes ?? 5); k++) {
-    const i = Math.floor(q() * trail.length), p0 = trail[i], len = S * (.12 + q() * .2), bend = (q() - .5) * .3, m = 8, A = [], B = [], w0 = Math.max(3, S * .012);
-    const dv = [-nd[0] * .85 + ax[0] * .15 * side * 0, -nd[1] * .85 + ax[1] * .15];
-    for (let j = 0; j <= m; j++) { const u = j / m, c = [p0[0] + dv[0] * len * u + ax[0] * bend * len * u * u, p0[1] + dv[1] * len * u + ax[1] * bend * len * u * u], hw = Math.max(1.1, w0 * .5 * Math.pow(1 - u, 1.1)); A.push(W2(c[0] + ax[0] * hw, c[1] + ax[1] * hw)); B.push(W2(c[0] - ax[0] * hw, c[1] - ax[1] * hw)); }
-    tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+    const p0 = trail[Math.floor(q() * trail.length)], len = S * (.1 + q() * .18), bend = (q() - .5) * .25, pts = [];
+    for (let j = 0; j <= 8; j++) { const u = j / 8; pts.push(W2(p0[0] - nd[0] * len * u + ax[0] * bend * len * u * u + ax[0] * 2, p0[1] - nd[1] * len * u + ax[1] * bend * len * u * u)); }
+    cen_vurus(pts, Math.max(4, S * .014));
   }
   // kök çapası: kanadın gövdeye bağlandığı alt köşede küçük koyu kama
-  if ((o.anchor ?? 1) > 0) { const C = [[0, S * .02], [S * .16 * ax[0] + nd[0] * S * .1, S * .16 * ax[1] + nd[1] * S * .1], [nd[0] * S * .2, S * .14]].map(p => W2(p[0], p[1])); tx.beginPath(); spline(tx, C, true, .5); tx.fill(); }
-  tx.restore();
+  if ((o.anchor ?? 0) > 0) { const C = [[0, S * .02], [S * .16 * ax[0] + nd[0] * S * .1, S * .16 * ax[1] + nd[1] * S * .1], [nd[0] * S * .2, S * .14]].map(p => W2(p[0], p[1])); tx.beginPath(); spline(tx, C, true, .5); tx.fill(); }
+  GR.restore();
   return P;
 }
 
@@ -124,14 +131,14 @@ function cen_basmelek(p) {
     const S = (p.wingS ?? 5.2) * h, f = J.f;
     // arka kanat (bakış yönünde, gövdenin arkasında) önce, yakın kanat sonra; ikisi de gövdenin arkasında
     for (const side of [f, -f]) {
-      const sh = side === f ? J.shF : J.shN, rx = sh[0] - side * h * .1, ry = sh[1] + h * .25;
-      if (dk) { cen_kanatKoyu(rx, ry, side, S * (side === f ? .9 : 1), { lift: (p.lift ?? .55) + (side === f ? .08 : 0), open: p.open ?? .8, seed: side > 0 ? 12 : 11, t, L: p.L }); }
-      else cen_kanat(rx, ry, side, S * (side === f ? .9 : 1), { lift: (p.lift ?? .55) + (side === f ? .08 : 0), open: p.open ?? .8, seed: side > 0 ? 12 : 11, t, strokes: p.wStrokes ?? 5 });
+      const sh = side === f ? [J.shC[0] - side * h * .2, J.shC[1]] : J.shN, rx = sh[0] - side * h * .1, ry = sh[1] + h * .25;
+      if (dk) { cen_kanatKoyu(rx, ry, side, S * (side === f ? .95 : 1), { lift: (p.lift ?? .55) + (side === f ? .08 : 0), open: p.open ?? .8, seed: side > 0 ? 12 : 11, t, L: p.L }); }
+      else cen_kanat(rx, ry, side, S * (side === f ? .95 : 1), { lift: (p.lift ?? .55) + (side === f ? .08 : 0), open: p.open ?? .8, seed: side > 0 ? 12 : 11, t, strokes: p.wStrokes ?? 5 });
     }
   }
   if (p.mid) p.mid(J);
   const so = dk ? { lum: 0, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: 2, eye: 1, wind: .5, seed: p.seed || 3, halo: 3, robe: p.robe }
-    : { lum: 1, plain: true, armor: false, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 0, eye: 0, wind: .5, seed: p.seed || 3, robe: p.robe, hair: p.hair };
+    : { lum: 1, plain: true, armor: false, lit: LIT, t, cloak: p.cloak ?? false, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 0, eye: 0, wind: .5, seed: p.seed || 3, robe: p.robe, hair: p.hair };
   const sp = p.spear === false ? null : Object.assign({ grip: 'F', ang: .03, len: 7.8, up: .66 }, p.spear || {});
   const spear = () => { const g = J['wr' + sp.grip], a = (sp.ang || 0) * J.f; cen_mizrak(g[0] + J.f * h * .2, g[1] + h * .08, a, sp.len * h, sp.up, Math.max(1.8, h * .05), h, dk ? 0 : (p.spV ?? 1)); };
   if (sp && sp.grip === 'F') spear();
@@ -166,7 +173,6 @@ cen_kanat._yol = (rx, ry, side, S, o = {}) => {
   const nts = []; for (let k = 1; k < nt; k++) { const u = k / nt, p = c(u), w = wt(u); nts.push([p[0] + nd[0] * w, p[1] + nd[1] * w]); }
   return { P, trail: nts, ax, nd, W2, th };
 };
-};
 
 // Mızrak: düz sap, yaprak biçimli demir. v: 0 mürekkep (açık figürde), 1 kâğıt (koyu zemin önünde, uzak saflarda)
 function cen_mizrak(gx, gy, a, L, up, w, h, v = 0) {
@@ -174,6 +180,7 @@ function cen_mizrak(gx, gy, a, L, up, w, h, v = 0) {
   const b0 = [gx - c * L * (1 - up), gy - s * L * (1 - up)], t0 = [gx + c * L * up, gy + s * L * up];
   const SP = new Path2D(); poly(SP, [[b0[0] + n[0] * w, b0[1] + n[1] * w], [t0[0] + n[0] * w, t0[1] + n[1] * w], [t0[0] + n[0] * w * 2.4 + c * tl * .3, t0[1] + n[1] * w * 2.4 + s * tl * .3], [t0[0] + c * tl, t0[1] + s * tl],
     [t0[0] - n[0] * w * 2.4 + c * tl * .3, t0[1] - n[1] * w * 2.4 + s * tl * .3], [t0[0] - n[0] * w, t0[1] - n[1] * w], [b0[0] - n[0] * w, b0[1] - n[1] * w]], true);
+  if (v) { tx.save(); tx.lineWidth = 3; tx.strokeStyle = tone(0); tx.stroke(SP); tx.restore(); }
   tx.fillStyle = tone(v ? .98 : 0); tx.fill(SP); px.fillStyle = GR.hatch({ th: a - PI / 2, id: 7 }); px.fill(SP);
 }
 
@@ -187,25 +194,26 @@ function cen_safKutle(o) {
   let x = o.x0 - h * q();
   while (x < o.x1 + h) {
     const hh = h * (.9 + q() * .22), top = o.y - 7.1 * hh * (1 - .28 * bw) + (q() - .5) * hh * .6, f = q() < .5 ? 1 : -1;
-    heads.push({ x: x + bw * hh * .5 * f, y: top + .5 * hh + bw * hh * .7, r: .42 * hh, sh: top + 1.25 * hh + bw * hh * .5, w: .95 * hh, wing: q() < .35, f, hh });
-    x += hh * (1.05 + q() * .95);
+    const st = q() < .5 ? 0 : hh * (.5 + q() * .7);
+    heads.push({ x: x + bw * hh * .5 * f, y: top + st + .62 * hh + bw * hh * .7, r: .34 * hh, sh: top + st + 1.05 * hh + bw * hh * .5, w: .9 * hh, wing: q() < .3, f, hh });
+    x += hh * (.8 + q() * 1.0);
   }
   // gövde: omuz hattından aşağı birleşik
   const sh = [[o.x0 - h * 2, yb]];
   for (const H of heads) { sh.push([H.x - H.w, H.sh + H.hh * .25]); sh.push([H.x - H.w * .7, H.sh]); sh.push([H.x + H.w * .7, H.sh]); sh.push([H.x + H.w, H.sh + H.hh * .25]); }
   sh.push([o.x1 + h * 2, yb]);
   const B = new Path2D(); spline(B, sh, true, .35); P.addPath(B);
-  for (const H of heads) { const C = new Path2D(); C.ellipse(H.x, H.y, H.r, H.r * 1.15, 0, 0, TAU); P.addPath(C);
+  for (const H of heads) { const C = new Path2D(); C.ellipse(H.x, H.y, H.r, H.r * 1.22, bw * .5 * H.f, 0, TAU); P.addPath(C);
     if (H.wing) { const Wg = new Path2D(); const bx = H.x - H.f * H.w * .8; poly(Wg, [[bx - H.f * H.hh * .1, H.sh + H.hh], [bx - H.f * H.hh * .55, H.sh - H.hh * 1.5], [bx + H.f * H.hh * .35, H.sh + H.hh * .2]], true); P.addPath(Wg); } }
   const v = o.v ?? .985, light = v > .5;
   tx.fillStyle = tone(v); tx.fill(P); px.fillStyle = GR.hatch({ th: PI / 2, id: 10 }); px.fill(P);
   // beyaz kütlede: aralarda alttan giren sivri mürekkep vuruşları (bedenleri ayırır), seyrek
   if (light && h > 7) {
-    tx.save(); tx.clip(P); tx.fillStyle = tone(.02);
-    heads.forEach((H, i) => { if (q() > (o.folds ?? .55)) return; const x0 = H.x + H.f * H.w * (.6 + q() * .4), y0 = yb, L = (yb - H.sh) * (.45 + q() * .4), w0 = Math.max(2.6, h * .16), A = [], Bq = [];
-      for (let j = 0; j <= 8; j++) { const u = j / 8, cx = x0 + (q() - .5) * .5, cy = y0 - L * u, hw = Math.max(1.1, w0 * .5 * Math.pow(1 - u, 1.1)); A.push([cx - hw, cy]); Bq.push([cx + hw, cy]); }
-      tx.beginPath(); poly(tx, [...A, ...Bq.reverse()], true); tx.fill(); });
-    tx.restore();
+    GR.save(); tx.clip(P); px.clip(P);
+    heads.forEach((H, i) => { if (q() > (o.folds ?? .45)) return; const x0 = H.x + H.f * H.w * (.6 + q() * .4), L = (yb - H.sh) * (.4 + q() * .35), pts = [];
+      for (let j = 0; j <= 8; j++) pts.push([x0 + (q() - .5) * .4, yb + 2 - L * j / 8]);
+      cen_vurus(pts, Math.max(3.2, h * .2)); });
+    GR.restore();
   }
   // mızraklar: seyrek, boyları farklı
   const nSp = o.nSp ?? 10;
@@ -248,11 +256,11 @@ function cen_melek(p) {
     if (h > 18) { tx.save(); tx.translate(-p.f * h * .06, 0); tx.fillStyle = tone(.03); tx.fill(Y.arm); tx.restore(); }
     tx.fillStyle = tone(v); tx.fill(Y.arm);
     if (h > 16) { const q = rng((p.seed || 1) * 7 + 3), nn = h > 30 ? 3 : 2;
-      tx.save(); tx.clip(Y.P); tx.fillStyle = tone(.02);
-      for (let i = 0; i < nn; i++) { const fx = -(.62 - i * (.3 + .1 * q())), L0 = (1.4 + q() * 1.6) * h * Y.k, w0 = Math.max(2.6, h * .09), x0 = p.x + fx * p.f * h, y0 = p.y + 4, bend = (q() - .5) * .3 * h, A = [], B = [];
-        for (let m = 0; m <= 8; m++) { const u = m / 8, cx = x0 + bend * u * u, cy = y0 - L0 * u, hw = Math.max(1.1, w0 * .5 * Math.pow(1 - u, 1.1)); A.push([cx - hw, cy]); B.push([cx + hw, cy]); }
-        tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill(); }
-      tx.restore(); }
+      GR.save(); tx.clip(Y.P); px.clip(Y.P);
+      for (let i = 0; i < nn; i++) { const fx = -(.62 - i * (.3 + .1 * q())), L0 = (1.4 + q() * 1.6) * h * Y.k, x0 = p.x + fx * p.f * h, bend = (q() - .5) * .3 * h, pts = [];
+        for (let m = 0; m <= 8; m++) { const u = m / 8; pts.push([x0 + bend * u * u, p.y + 4 - L0 * u]); }
+        cen_vurus(pts, Math.max(3.2, h * .09)); }
+      GR.restore(); }
   } else {
     // koyu siluet: ışık yanında ince kâğıt kenar (kaydırılmış kâğıt kopya altta)
     if (p.lx != null && h > 10) { tx.save(); tx.translate(p.lx * 2.5, p.ly * 2.5); tx.fillStyle = tone(.9); tx.fill(all); tx.restore(); }

@@ -9,7 +9,7 @@ function cen_c02(t, o = {}) {
   const L = { x: 1380, y: 110 }, dr = Math.sin(t * .07) * 6;
   cen_gok(L, { r0: 330, r1: 1300, v: .72, n: 96, kama: [{ a: PI * .83, w: .03, len: 1100 }] });
   // sol: başmeleğin arkasındaki koyu bulut duvarı (sakin, geniş kabarımlı)
-  cen_bank({ x0: -120, x1: 900, y: 250, amp: 80, wl: 420, seed: 3, L, cuts: .8, drift: dr });
+  cen_bank({ x0: -120, x1: 880, y: 270, amp: 80, wl: 420, seed: 3, L, cuts: .8, drift: dr });
   // sağ: basamaklı saflar: koyu bank, beyaz saf, koyu bank ... (uzaklaştıkça küçülür)
   cen_bank({ x0: 820, x1: 2060, y: 470, amp: 22, wl: 300, seed: 5, L, cuts: .5, drift: -dr });
   cen_safKutle({ x0: 900, x1: 2000, y: 560, h: 6.5, seed: 11, nSp: 12 });
@@ -29,212 +29,216 @@ plan('P019', (ctx, st) => {
 }, { tr: { type: 'fade', dur: .8 } });
 
 // ═════════ P002 (A02): eşleme kesmesi: Nifates silueti → ışıklı başmelek (aynı duruş, aynı kadraj) ═════════
-// Yerleşim NIF ile ortak: kalça (860, 560), h 96, facing 1, kanatlar yarı açık. Işık 1 sn'de açılır, cümle sonunda söner.
+// Yerleşim NIF ile ortak: kalça (860, 560), h 96, facing 1. Işık güneşten dairesel olarak açılır (ara ton yok: dairenin içi cennet levhası,
+// dışı siluet levhası), cümle sonunda aynı yoldan kapanır.
+const CEN_A02_L = { x: 1330, y: 290 };
+function cen_a02Fig(t, dark) {
+  return cen_basmelek({ x: 860, y: 560, h: 96, facing: 1, L: CEN_A02_L, t, dark, head: .22, twist: .3, armN: [-.1, .25], armF: [.35, .6], spear: false, lift: .4, open: .7, wingS: 5 });
+}
 function cen_a02(t) {
-  const s0 = S('A02'), s1 = Se('A02'), on = E.io2(cen_u(t, s0, s0 + 1)), off = E.io2(cen_u(t, s1 - .2, s1 + .9)), a = on * (1 - .85 * off);
-  const L = { x: 1360, y: 240 };
-  cen_gok(L, { r0: 150, a, v: lerp(.4, .72, a), mid: lerp(.55, .9, a), dark: 1 - a, kama: [{ a: PI * .86, w: .04, len: 1300 }, { a: PI * .62, w: .03, len: 900 }] });
-  cen_bulut({ x: 1300, y: 900, w: 1700, h: 150, seed: 51, L, sh: .95, n: 10, len: 1.8 });
-  cen_basmelek({ x: 860, y: 560, h: 96, facing: 1, L, t, lum: lerp(.12, 1, smooth(inv(.42, .58, a))), head: .22, twist: .3, armN: [-.1, .25], armF: [.35, .6], spear: false, open: -.25, lift: -.2, cloak: .7 });
-  cen_bulut({ x: 560, y: 1100, w: 2300, h: 130, seed: 52, L, sh: 1, n: 12, len: 1.5, by: -.2 });
+  const s0 = S('A02'), s1 = Se('A02'), L = CEN_A02_L;
+  const R = 2600 * E.in2(cen_u(t, s0, s0 + 1)) * (1 - E.in2(cen_u(t, s1 - .1, s1 + .9)));
+  // dış: güneşe karşı siluet (Nifates): açık gök, koyu figür, koyu kıyı
+  cen_gok(L, { r0: 260, r1: 1200, v: .7, n: 90 });
+  cen_bank({ x0: -100, x1: 2020, y: 930, amp: 20, wl: 300, seed: 41, L, cuts: .6, ends: false });
+  cen_a02Fig(t, true);
+  if (R > 1) {
+    GR.save(); const C = new Path2D(); C.arc(L.x, L.y, R, 0, TAU); GR.tx.clip(C); GR.px.clip(C); GR.ox.clip(C);
+    cen_gok(L, { r0: 300, r1: 1200, v: .72, n: 90 });
+    cen_bank({ x0: 180, x1: 1500, y: 300, amp: 70, wl: 380, seed: 42, L, cuts: .8 });          // figürün arkasında koyu bulut duvarı
+    cen_teras({ x0: -100, x1: 2020, y: 905, d: 30, seed: 43, L, cuts: .7 });
+    cen_a02Fig(t, false);
+    GR.restore();
+  }
 }
 plan('P002', (ctx, st) => levha(ctx, null, () => cen_a02(st.t), [.8, 0, 1]), { tr: { type: 'cut' } });
 
 // ═════════ P017 (B10): sayfadaki güneş büyür, cennetin ışığına açılır ═════════
 function cen_b10(t) {
-  const { tx, ox, tone } = GR, s0 = S('B10'), u = E.io2(cen_u(t, s0 - .2, Se('B10') + .9)), v = E.io2(cen_u(t, s0 + .9, Se('B10') + 1.6));
-  const L = { x: lerp(863, 960, u), y: lerp(184, 200, u) }, R = lerp(128, 2000, u);
-  // güneş çizimi büyür: halkası açılıp göğün eş merkezli taramasına dönüşür
-  GR.fill(new Path2D('M-500 -500 H2500 V1600 H-500 Z'), tone(lerp(.975, .74, E.sine(cen_u(u, .1, .8)))), { type: 'rad', cx: L.x, cy: L.y, id: 1 });
-  const g = tx.createRadialGradient(L.x, L.y, R * .3, L.x, L.y, R);
-  g.addColorStop(0, tone(1)); g.addColorStop(.25, tone(lerp(.4, .97, u))); g.addColorStop(.6, tone(lerp(.72, .86, u))); g.addColorStop(1, tone(lerp(.975, .76, u)));
-  const D = new Path2D(); D.arc(L.x, L.y, R, 0, TAU); GR.fill(D, g, { type: 'rad', cx: L.x, cy: L.y, id: 1 });
-  { const ka = E.sine(cen_u(u, .3, .9)); if (ka > 0) { tx.save(); tx.globalCompositeOperation = 'lighten'; tx.fillStyle = tone(1);
-    for (const [an, wd] of [[PI * .68, .05], [PI * .5, .035], [PI * .3, .045]]) { const P = new Path2D(), Lk = 1300 * ka, n = 12, A = [], B = [];
-      for (let i = 0; i <= n; i++) { const q = i / n, r = 40 + Lk * q, w = wd * (q < .35 ? Math.pow(q / .35, .6) : Math.pow(1 - (q - .35) / .65, 1.4)); A.push([L.x + Math.cos(an - w) * r, L.y + Math.sin(an - w) * r]); B.push([L.x + Math.cos(an + w) * r, L.y + Math.sin(an + w) * r]); }
-      poly(P, [[L.x, L.y], ...A, ...B.reverse()], true); tx.fill(P); } tx.restore(); } }
-  if (u > .6) { const k = (u - .6) / .4; tx.save(); tx.globalAlpha = k; const g2 = tx.createRadialGradient(L.x, L.y, R * .5, L.x, L.y, R * 1.2); g2.addColorStop(0, 'rgba(0,0,0,0)'); g2.addColorStop(1, tone(.72)); tx.fillStyle = g2; tx.fillRect(-500, -500, W + 1000, H + 1000); tx.restore(); }
-  // çizilmiş halka ve ışınlar: büyüdükçe incelir, söner
-  const fa = 1 - E.sine(cen_u(u, .25, .7));
-  if (fa > 0) { ox.save(); ox.globalAlpha = fa; ox.strokeStyle = GR.inkCol; ox.lineCap = 'round'; ox.lineWidth = 3.4; const r0 = 30 * (1 + 9 * u);
+  const { ox } = GR, s0 = S('B10'), u = E.io2(cen_u(t, s0 - .2, Se('B10') + 1.2)), v = E.io2(cen_u(t, s0 + .2, Se('B10') + 1.6));
+  const L = { x: lerp(863, 960, u), y: lerp(184, 160, u) };
+  // ışınlar en baştan: güneşin çevresi temiz kâğıt (büyür), dışı seyrek ışınlı
+  cen_gok(L, { r0: lerp(150, 380, u), r1: lerp(700, 1400, u), v: lerp(.8, .7, u), n: 96 });
+  // çizilmiş halka ve ışınlar: büyüdükçe söner
+  const fa = 1 - E.sine(cen_u(u, .15, .55));
+  if (fa > 0) { ox.save(); ox.globalAlpha = fa; ox.strokeStyle = GR.inkCol; ox.lineCap = 'round'; ox.lineWidth = 3.4; const r0 = 30 * (1 + 5 * u);
     ox.beginPath(); ox.arc(L.x, L.y, r0, 0, TAU); ox.stroke();
-    for (let i = 0; i < 12; i++) { const a = i / 12 * TAU + .1, l = (i % 2 ? 16 : 26) * (1 + 9 * u); ox.beginPath(); ox.moveTo(L.x + Math.cos(a) * r0 * 1.33, L.y + Math.sin(a) * r0 * 1.33); ox.lineTo(L.x + Math.cos(a) * (r0 * 1.33 + l), L.y + Math.sin(a) * (r0 * 1.33 + l)); ox.stroke(); }
+    for (let i = 0; i < 12; i++) { const a = i / 12 * TAU + .1, l = (i % 2 ? 16 : 26) * (1 + 5 * u); ox.beginPath(); ox.moveTo(L.x + Math.cos(a) * r0 * 1.33, L.y + Math.sin(a) * r0 * 1.33); ox.lineTo(L.x + Math.cos(a) * (r0 * 1.33 + l), L.y + Math.sin(a) * (r0 * 1.33 + l)); ox.stroke(); }
     ox.restore(); }
-  // bulut terasları alttan yükselir
-  if (v > 0) {
-    const dy = (1 - v) * 420;
-    cen_bulut({ x: 380, y: 860 + dy, w: 1000, h: 170, seed: 61, L, sh: .9, n: 7, len: 2 });
-    cen_bulut({ x: 1560, y: 840 + dy * 1.2, w: 1000, h: 160, seed: 62, L, sh: .9, n: 7, len: 2 });
-    cen_bulut({ x: 960, y: 1130 + dy * .7, w: 2400, h: 130, seed: 63, L, sh: 1, n: 12, len: 1.6, by: -.2 });
-  }
+  // koyu bulut bankları alttan yükselir
+  const dy = (1 - v) * 520;
+  cen_bank({ x0: -120, x1: 820, y: 560 + dy, amp: 60, wl: 360, seed: 61, L, cuts: .8 });
+  cen_bank({ x0: 1100, x1: 2040, y: 540 + dy * 1.15, amp: 60, wl: 360, seed: 62, L, cuts: .8 });
+  cen_teras({ x0: -140, x1: 2060, y: 860 + dy * .6, d: 40, seed: 63, L, cuts: .7 });
 }
 plan('P017', (ctx, st) => levha(ctx, null, () => cen_b10(st.t), [.975, 0, 1]), { tr: { type: 'paper', dur: 1.0 } });
 
-// ═════════ P018 (C01): bölüm kartı "IŞIK TAŞIYAN": ışık sütunları, bulut terasları ═════════
+// ═════════ P018 (C01): bölüm kartı "IŞIK TAŞIYAN": ışık, bulut terasları ═════════
 function cen_c01(t) {
-  const L = { x: 960, y: 200 };
-  cen_gok(L, { r0: 360, r1: 1500, v: .7, mid: .9, kama: [{ a: PI * .62, w: .05, len: 1100, at: .5 }, { a: PI * .5, w: .04, len: 1000, at: .5 }, { a: PI * .38, w: .05, len: 1100, at: .5 }] });
-  cen_bulut({ x: 260, y: 760, w: 900, h: 180, seed: 71, L, sh: .95, n: 6, len: 2.6, drift: Math.sin(t * .1) * 6 });
-  cen_bulut({ x: 1680, y: 740, w: 900, h: 170, seed: 72, L, sh: .95, n: 6, len: 2.6, drift: -Math.sin(t * .1) * 6 });
-  cen_bulut({ x: 960, y: 1080, w: 2600, h: 140, seed: 73, L, sh: 1, n: 12, len: 1.4, by: -.2 });
+  const L = { x: 960, y: 210 }, dr = Math.sin(t * .1) * 6;
+  cen_gok(L, { r0: 520, r1: 1400, v: .72, n: 100 });
+  cen_bank({ x0: -140, x1: 700, y: 600, amp: 70, wl: 380, seed: 71, L, cuts: .8, drift: dr });
+  cen_bank({ x0: 1220, x1: 2060, y: 590, amp: 70, wl: 380, seed: 72, L, cuts: .8, drift: -dr });
+  cen_teras({ x0: -140, x1: 2060, y: 880, d: 46, seed: 73, L, cuts: .7 });
 }
-// açık kart: ince mürekkep çizgi + başlık + soru (kâğıt zeminde mürekkep harf)
+// açık kart: ince mürekkep çizgi + başlık + soru (temiz kâğıt bölgede mürekkep harf; panel yok)
 function cen_kart(ctx, title, soru, lt, d) {
   if (NOTEXT) return;
   const a = clamp(lt / .6) * clamp((d - lt) / .6); if (a <= 0) return;
-  const x = 960, y = 400, px = 92;
+  const x = 960, y = 330, px = 92;
   ctx.save(); ctx.globalAlpha *= E.sine(a);
-  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1); g.addColorStop(0, `rgba(${GR.PAPER},.95)`); g.addColorStop(.62, `rgba(${GR.PAPER},.9)`); g.addColorStop(1, `rgba(${GR.PAPER},0)`);
-  ctx.save(); ctx.translate(x, y + 40); ctx.scale(780, 250); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill(); ctx.restore();
   const lw = 250 * E.out3(clamp(lt / 1.1)); ctx.strokeStyle = INK_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - lw, y - px * .82); ctx.lineTo(x + lw, y - px * .82); ctx.stroke();
   txt(ctx, title, x, y, { px, ls: 10, col: INK_CSS });
-  ctx.font = FONT.alinti(54); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = INK_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6);
-  wrapLines(ctx, soru, 1200).forEach((l, i) => ctx.fillText(l, x, y + px * .98 + i * 62));
+  ctx.font = FONT.alinti(56); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = INK_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6);
+  wrapLines(ctx, soru, 1200).forEach((l, i) => ctx.fillText(l, x, y + px * 1.0 + i * 62));
   ctx.restore();
 }
 plan('P018', (ctx, st) => levha(ctx, null, () => cen_c01(st.t), [.8, 0, 1]),
   { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => cen_kart(ctx, 'IŞIK TAŞIYAN', 'Her şeye sahip olan biri, neden başkaldırır?', st.lt, st.end - st.at) });
 
-// ═════════ P020 (C03): profil, alnının üstünde sabah yıldızı; "LUCIFER · ışık taşıyan" ═════════
+// ═════════ P020 (C03): profil (belden yukarı), alnının üstünde sabah yıldızı; "LUCIFER · ışık taşıyan" ═════════
 function cen_c03(t) {
-  const L = { x: 1900, y: 60 }, tL = Wd('C03', 'lüsifer'), sa = .35 + .65 * E.out3(cen_u(t, tL - .3, tL + .9));
-  cen_gok(L, { r0: 160, a: .8, v: .66, mid: .86, kama: [{ a: PI * .78, w: .035, len: 1400 }] });
-  cen_bulut({ x: 1500, y: 960, w: 1300, h: 150, seed: 81, L, sh: .95, n: 8, len: 2 });
-  const J = cen_basmelek({ x: 900, y: 1070, h: 140, wingSpan: 4.4 * 140, facing: -1, L, t, lum: 1, head: .28, twist: .22, armN: [.05, .3], armF: [-.1, .4], spear: false, open: -.3, lift: .1, wingRot: .1, cloak: .4, shade: .1, legs: false });
-  const hd = J.hd; cen_yildiz(hd[0] - 30, hd[1] - 1.5 * 140 + Math.sin(t * .8) * 2, 30, sa);
-  cen_bulut({ x: 300, y: 1110, w: 1300, h: 120, seed: 82, L, sh: 1, n: 8, len: 1.4, by: -.2 });
+  const L = { x: 1760, y: 90 }, tL = Wd('C03', 'lüsifer'), sa = .4 + .6 * E.out3(cen_u(t, tL - .3, tL + .9));
+  cen_gok(L, { r0: 360, r1: 1300, v: .72, n: 96 });
+  cen_bank({ x0: -140, x1: 1240, y: 220, amp: 80, wl: 460, seed: 81, L, cuts: .8, drift: Math.sin(t * .07) * 6 });
+  const J = cen_basmelek({ x: 860, y: 1080, h: 138, facing: -1, L, t, head: .3, twist: .2, armN: [.05, .3], armF: [-.1, .4], spear: false, lift: .55, open: .55, wingS: 4.2, legs: false });
+  const hd = J.hd; cen_yildiz(hd[0] - 34, hd[1] - 1.6 * 138 + Math.sin(t * .8) * 2, 78, sa);
 }
-plan('P020', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 930, cy: 520, z: 1.06 }, st.p, E.io2), () => cen_c03(st.t), [.8, 0, 1]),
+plan('P020', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 940, cy: 530, z: 1.06 }, st.p, E.io2), () => cen_c03(st.t), [.8, 0, 1]),
   { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => {
     const t0 = Wd('C03', 'lüsifer') - .1, a = E.sine(clamp((st.t - t0) / .6)) * clamp((st.end - st.t) / .5);
-    cen_yazi(ctx, 'LUCIFER · ışık taşıyan', 1340, 200, a, { px: 58, ls: 5 }); } });
+    cen_yazi(ctx, 'LUCIFER · ışık taşıyan', 1480, 800, a, { px: 46, ls: 4 }); } });
 
-// ═════════ P021 (C04): iki ışık (Tanrı ve Oğul yalnız ışıktır); melekler saray selamıyla eğilir; başmelek dik durur ═════════
+// ═════════ P021 (C04): iki ışık (yalnız ışık); melekler Batı saray selamıyla eğilir; başmelek dik durur, gölgesi uzar ═════════
 function cen_c04(t) {
-  const { tx, tone } = GR, tO = Wd('C04', 'oğulu'), tD = Wd('C04', 'diz'), L = { x: 560, y: 120 };
+  const { tx, px, tone } = GR, tO = Wd('C04', 'oğulu'), tD = Wd('C04', 'diz'), L = { x: 520, y: 130 };
   const o2 = E.io2(cen_u(t, tO - .4, tO + 1.4)), dl = E.io2(cen_u(t, tD - .5, Se('C04')));
-  cen_gok(L, { r0: 110, r1: 1500, v: .6, mid: .82, kama: [{ a: PI * .7, w: .04, len: 1150 * (.6 + .4 * o2) }, { a: PI * .4, w: .035, len: 1000 * (.6 + .4 * o2) }] });
-  // ikinci ışık (Oğul): figürsüz, yalnız kâğıt parıltı; birincinin yanında, daha küçük
-  if (o2 > 0) cen_isik(1060, 210, 44 * o2, o2);
-  // ışınlar açılır: kama boyu ilk sözle büyür (cen_gok içinde sabit; ek ince kama)
-  cen_bulut({ x: 960, y: 760, w: 2200, h: 110, seed: 91, L, sh: .9, n: 14, len: 1.2, by: .2 });
-  // dağınık gruplar: Batı saray selamı (tek diz, baş eğik); her grup kendi zamanında eğilir
-  const G = [[200, 860, 30, 4, 1], [560, 800, 22, 5, 1], [820, 780, 18, 5, -1], [1130, 830, 26, 4, -1], [420, 1010, 44, 3, 1], [960, 1000, 40, 3, -1]];
-  G.forEach(([x0, y0, h, n, f], gi) => { const q = rng(gi * 13 + 5);
-    for (let i = 0; i < n; i++) { const x = x0 + (i - n / 2) * h * 2.3 + (q() - .5) * h * 1.2, y = y0 + (q() - .5) * h * .8, b = E.io2(cen_u(dl, gi * .08 + q() * .1, gi * .08 + q() * .1 + .45));
-      let lx = L.x - x, ly = L.y - (y - 5 * h); const l = Math.hypot(lx, ly); cen_melek({ x, y, h: h * (.92 + q() * .16), f, lx: lx / l, ly: ly / l, bow: b, spear: null, seed: gi * 17 + i, wing: .8 }); } });
-  cen_bulut({ x: 1500, y: 930, w: 900, h: 120, seed: 92, L, sh: .95, n: 7, len: 1.6, by: .1 });
-  // başmelek: sağ kenarda dik; gölgesi bulut zemininde uzar
-  const fx = 1610, fy = 920, sl = lerp(140, 520, dl);
-  { const P = new Path2D(); P.moveTo(fx - 40, fy - 4); P.quadraticCurveTo(fx + sl * .5, fy + 10, fx + sl, fy + 30); P.lineTo(fx + sl - 20, fy + 52); P.quadraticCurveTo(fx + sl * .45, fy + 40, fx + 30, fy + 14); P.closePath();
-    tx.fillStyle = tone(.04); tx.fill(P); GR.px.fillStyle = GR.hatch({ th: .05, id: 9 }); GR.px.fill(P); }
-  cen_basmelek({ x: fx, y: fy - 3.95 * 66, h: 66, facing: -1, L, t, lum: .92, head: .1, twist: .3, armN: [-.05, .2], armF: [.2, 1.3], shade: lerp(.13, .2, dl), wingRot: -.1, fold: .4 });
-  cen_bulut({ x: 900, y: 1130, w: 2600, h: 120, seed: 93, L, sh: 1, n: 12, len: 1.4, by: -.2 });
+  cen_gok(L, { r0: 300, r1: 1500, v: .72, n: 100 });
+  if (o2 > 0) cen_isik(1010, 190, 46 * o2, o2);
+  // arka: koyu kalabalık bankı; önünde eğilen beyaz saf
+  cen_bank({ x0: -120, x1: 1320, y: 560, amp: 26, wl: 300, seed: 91, L, cuts: .6 });
+  cen_safKutle({ x0: -60, x1: 1250, y: 700, h: 13, seed: 92, nSp: 0, bow: E.io2(cen_u(dl, .1, .7)) });
+  cen_bank({ x0: -140, x1: 1340, y: 700, amp: 18, wl: 300, seed: 93, L, cuts: .7, ends: false });
+  // ön plan: üç büyükçe figür tek diz üstünde (her biri kendi anında), koyu bankın önünde
+  [[200, 980, 64, .0], [520, 1000, 70, .12], [880, 990, 62, .22]].forEach(([x, y, h, d], i) =>
+    cen_melek({ x, y, h, f: 1, bow: E.io2(cen_u(dl, d, d + .45)), spear: null, seed: 30 + i, wing: 0 }));
+  // sağ: başmelek, koyu duvarın önünde dik; zemin açık teras, gölgesi üstünde uzar
+  cen_bank({ x0: 1340, x1: 2060, y: 330, amp: 50, wl: 300, seed: 94, L, cuts: .8 });
+  cen_teras({ x0: 1280, x1: 2060, y: 900, d: 110, seed: 95, L, cuts: .6 });
+  const fx = 1620, fy = 930, sl = lerp(120, 420, dl);
+  { const P = new Path2D(); P.moveTo(fx - 36, fy - 2); P.quadraticCurveTo(fx + sl * .5, fy + 12, fx + sl, fy + 34); P.lineTo(fx + sl - 24, fy + 56); P.quadraticCurveTo(fx + sl * .45, fy + 44, fx + 26, fy + 16); P.closePath();
+    tx.fillStyle = tone(.02); tx.fill(P); px.fillStyle = GR.hatch({ th: .05, id: 0 }); px.fill(P); }
+  cen_basmelek({ x: fx, y: fy - 3.95 * 66, h: 66, facing: -1, L, t, head: .12, twist: .3, armN: [-.05, .2], armF: [.2, 1.3], lift: .35, open: .5, wingS: 4.2 });
+  cen_bank({ x0: -140, x1: 1300, y: 1040, amp: 14, wl: 300, seed: 96, L, cuts: .5, ends: false });
 }
 plan('P021', (ctx, st) => levha(ctx, null, () => cen_c04(st.t), [.8, 0, 1]), { tr: { type: 'fade', dur: .8 } });
 
 // ═════════ P022 (C05): cennetin alacakaranlığı; başmelek yardımcısının kulağına eğilir; uzakta kuzeye yürüyen saflar, tepede saray ═════════
 function cen_c05(t) {
-  const L = { x: 1640, y: 330 }, s0 = S('C05');
-  cen_gok(L, { r0: 70, a: .55, v: .5, mid: .7, dark: .55 });
-  // tepede saray (kuzey)
-  cen_bulut({ x: 1640, y: 470, w: 520, h: 110, seed: 101, L, sh: .9, n: 5, len: 2.4, cuts: .4 });
-  cen_saray(1640, 405, 170, 1, .95);
-  // kuzeye yürüyen saflar: sağa doğru küçülür
-  const mv = (t - s0) * 9;
-  cen_bulut({ x: 1250, y: 640, w: 1500, h: 70, seed: 102, L, sh: .9, n: 10, len: 2.2, cuts: 0 });
-  cen_saflar([{ y: 600, h: 8, x0: 760 + mv, x1: 1500 + mv, n: 30, facing: 1, seed: 21, sh: .14, v: .9 }], { t, L });
-  cen_saflar([{ y: 680, h: 12, x0: 640 + mv * 1.3, x1: 1560 + mv * 1.3, n: 26, facing: 1, seed: 22, v: .93 }], { t, L });
-  cen_bulut({ x: 1300, y: 760, w: 1700, h: 90, seed: 103, L, sh: .95, n: 12, len: 2.2 });
-  // ön sol: iki figür; başmelek arkadan yardımcısının kulağına eğilir
-  cen_bulut({ x: 420, y: 960, w: 1100, h: 160, seed: 104, L, sh: .95, n: 7, len: 1.6 });
-  cen_basmelek({ x: 600, y: 600, h: 70, facing: 1, L, t, lum: .86, head: -.05, twist: .35, armN: [.1, .3], armF: [.3, .4], spear: false, wingRot: .1, fold: .8, seed: 9, cloak: .3 });
-  cen_basmelek({ x: 450, y: 580 + Math.sin(t * .5) * 2, h: 72, facing: 1, L, t, lum: .88, head: -.32, lean: .22, twist: .3, armN: [.35, .4], armF: [.5, .5], spear: false, fold: .7, wingRot: .15, cloak: .8 });
-  cen_bulut({ x: 700, y: 1120, w: 2400, h: 120, seed: 105, L, sh: 1, n: 12, len: 1.4, by: -.2 });
+  const L = { x: 1700, y: 300 }, s0 = S('C05'), mv = (t - s0) * 10;
+  cen_gok(L, { r0: 170, r1: 900, v: .62, n: 84 });
+  // tepede saray: koyu tepenin üstünde koyu siluet
+  cen_bank({ x0: 1380, x1: 2060, y: 420, amp: 30, wl: 240, seed: 101, L, cuts: .6 });
+  cen_saray(1650, 400, 200, -1);
+  // kuzeye yürüyen beyaz saflar (koyu bankların önünde)
+  cen_bank({ x0: 520, x1: 2080, y: 520, amp: 18, wl: 300, seed: 102, L, cuts: .5 });
+  cen_safKutle({ x0: 620 + mv * .7, x1: 1500 + mv * .7, y: 610, h: 8, seed: 103, nSp: 10 });
+  cen_bank({ x0: 480, x1: 2080, y: 606, amp: 16, wl: 280, seed: 104, L, cuts: .6, ends: false });
+  cen_safKutle({ x0: 560 + mv, x1: 1600 + mv, y: 740, h: 12.5, seed: 105, nSp: 9 });
+  cen_bank({ x0: 440, x1: 2080, y: 736, amp: 18, wl: 300, seed: 106, L, cuts: .7, ends: false });
+  // ön sol: koyu duvarın önünde iki beyaz figür; başmelek arkadan yardımcısının kulağına eğilir
+  cen_bank({ x0: -140, x1: 700, y: 330, amp: 60, wl: 380, seed: 107, L, cuts: .8 });
+  cen_basmelek({ x: 560, y: 610, h: 70, facing: 1, L, t, head: -.05, twist: .35, armN: [.1, .3], armF: [.3, .4], spear: false, lift: .25, open: .35, wingS: 4, seed: 9 });
+  cen_basmelek({ x: 410, y: 590 + Math.sin(t * .5) * 2, h: 72, facing: 1, L, t, head: -.32, lean: .22, twist: .3, armN: [.35, .4], armF: [.5, .5], spear: false, lift: .3, open: .4, wingS: 4.2 });
+  cen_teras({ x0: -140, x1: 2080, y: 900, d: 36, seed: 108, L, cuts: .8 });
 }
 plan('P022', (ctx, st) => levha(ctx, null, () => cen_c05(st.t), [.6, 0, 1]), { tr: { type: 'fade', dur: 1.0 } });
 
 // ═════════ P023 (C06): yüksek tepede ordusuna hitap; kolu havada; "özgürlük" ═════════
 function cen_c06(t) {
-  const L = { x: 1500, y: 140 }, tK = Wd('C06', 'konuşur'), up = E.out3(cen_u(t, tK - .2, tK + .9));
-  cen_gok(L, { r0: 110, a: .75, v: .56, mid: .78, dark: .3, kama: [{ a: PI * .75, w: .035, len: 1300 }] });
-  // tepe: yükselen bulut kayası; üstünde figür
-  cen_bulut({ x: 720, y: 660, w: 820, h: 170, seed: 111, L, sh: .85, n: 7, len: 2.2, cuts: .7 });
-  cen_basmelek({ x: 720, y: 640 - 3.95 * 58 + 10, h: 58, facing: 1, L, t, lum: .85, head: .2 + .1 * up, twist: .35, armN: [lerp(-.1, 2.15, up), lerp(.3, .35, up)], armF: [.1, .5], wingRot: .2, fold: .9, spear: false });
-  // aşağıda ordu: başlar ve mızraklar, tepeye dönük
-  cen_bulut({ x: 1400, y: 760, w: 1300, h: 70, seed: 112, L, sh: .9, n: 12, len: 4, cuts: 0, base: false });
-  cen_saflar([{ y: 820, h: 11, x0: 1000, x1: 1990, n: 30, facing: -1, seed: 31, dy: .6 }, { y: 930, h: 17, x0: 1050, x1: 1990, n: 18, facing: -1, seed: 32, dy: .5 }], { t, L });
-  cen_saflar([{ y: 960, h: 16, x0: -40, x1: 380, n: 8, facing: 1, seed: 34, dy: .5 }], { t, L });
-  cen_bulut({ x: 900, y: 1110, w: 2600, h: 130, seed: 113, L, sh: 1, n: 12, len: 1.4, by: -.2 });
+  const L = { x: 1560, y: 130 }, tK = Wd('C06', 'konuşur'), up = E.out3(cen_u(t, tK - .2, tK + .9));
+  cen_gok(L, { r0: 300, r1: 1300, v: .7, n: 96 });
+  // tepenin arkasında koyu bulut duvarı; tepe basamaklı koyu kütle
+  cen_bank({ x0: -140, x1: 1240, y: 300, amp: 40, wl: 380, seed: 111, L, cuts: .8 });
+  cen_bank({ x0: 420, x1: 1000, y: 660, amp: 14, wl: 200, seed: 112, L, cuts: .7 });
+  cen_basmelek({ x: 710, y: 660 - 3.95 * 58 + 6, h: 58, facing: 1, L, t, head: .2 + .1 * up, twist: .35, armN: [lerp(-.1, 2.15, up), lerp(.3, .35, up)], armF: [.1, .5], lift: .3, open: .45, wingS: 4, spear: false });
+  // aşağıda ordu: beyaz saflar tepeye dönük, koyu bankların önünde
+  cen_bank({ x0: 900, x1: 2080, y: 700, amp: 16, wl: 280, seed: 113, L, cuts: .5 });
+  cen_safKutle({ x0: 980, x1: 2000, y: 800, h: 10, seed: 114, nSp: 10 });
+  cen_bank({ x0: -140, x1: 2080, y: 798, amp: 16, wl: 300, seed: 115, L, cuts: .6, ends: false });
+  cen_safKutle({ x0: -60, x1: 2000, y: 950, h: 16, seed: 116, nSp: 12 });
+  cen_bank({ x0: -140, x1: 2080, y: 946, amp: 18, wl: 300, seed: 117, L, cuts: .8, ends: false });
 }
-plan('P023', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 860, cy: 500, z: 1.12 }, st.p, E.io2), () => cen_c06(st.t), [.7, 0, 1]),
+plan('P023', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 900, cy: 520, z: 1.08 }, st.p, E.io2), () => cen_c06(st.t), [.7, 0, 1]),
   { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => {
     const t0 = Wd('C06', 'özgürlük') - .1, a = E.sine(clamp((st.t - t0) / .7)) * clamp((st.end - st.t) / .4);
-    cen_yazi(ctx, 'özgürlük', 1340, 300, a, { px: 104, font: FONT.alinti(104), ls: 2 }); } });
+    cen_yazi(ctx, 'özgürlük', 1420, 330, a, { px: 104, font: FONT.alinti(104), ls: 2 }); } });
 
-// ═════════ P024 (C07): alttan bakış: dinleyen saflar, mızrak ormanı; mızraklar tek tek kalkar ═════════
+// ═════════ P024 (C07): alttan bakış: dinleyen saflar; mızraklar tek tek kalkar (az ve boyları farklı) ═════════
 function cen_c07(t) {
-  const L = { x: 1380, y: 70 }, t0 = Wd('C07', 'biz'), t1 = Wd('C07', 'koyabilir');
-  cen_gok(L, { r0: 120, a: .8, v: .58, mid: .82, dark: .25, kama: [{ a: PI * .72, w: .035, len: 1200 }, { a: PI * .55, w: .03, len: 900 }] });
-  // mızrak açısı: her mızrak kendi anında yatıktan dikeye
-  const ang = (i, x, sd) => { const q = hash(i * 7.31 + sd), tt = lerp(t0, t1, q); return lerp(-.95, 0, E.out3(cen_u(t, tt, tt + .8))); };
-  cen_bulut({ x: 960, y: 760, w: 2400, h: 70, seed: 121, L, sh: .95, n: 16, len: 3, cuts: 0, base: false });
-  cen_saflar([{ y: 790, h: 13, x0: -20, x1: 1960, n: 40, facing: 1, seed: 41, dy: .5, spearAng: (i, x) => ang(i, x, 1) }], { t, L });
-  cen_saflar([{ y: 930, h: 22, x0: -40, x1: 1980, n: 22, facing: 1, seed: 42, dy: .4, spearAng: (i, x) => ang(i, x, 2) }], { t, L });
-  cen_saflar([{ y: 1200, h: 42, x0: -60, x1: 2000, n: 10, facing: 1, seed: 43, dy: .3, spearAng: (i, x) => ang(i, x, 3) }], { t, L });
+  const L = { x: 1300, y: 60 }, t0 = Wd('C07', 'biz'), t1 = Wd('C07', 'koyabilir');
+  cen_gok(L, { r0: 340, r1: 1300, v: .72, n: 100 });
+  const ang = (i, sd) => { const q = hash(i * 7.31 + sd), tt = lerp(t0, t1, q); return lerp(-1.0, 0, E.out3(cen_u(t, tt, tt + .8))); };
+  cen_bank({ x0: -140, x1: 2080, y: 560, amp: 40, wl: 360, seed: 121, L, cuts: .7 });
+  cen_safKutle({ x0: -60, x1: 2000, y: 700, h: 13, seed: 122, nSp: 10, spAng: i => ang(i, 1) });
+  cen_bank({ x0: -140, x1: 2080, y: 696, amp: 18, wl: 300, seed: 123, L, cuts: .6, ends: false });
+  cen_safKutle({ x0: -60, x1: 2000, y: 880, h: 22, seed: 124, nSp: 9, spAng: i => ang(i, 2) });
+  cen_bank({ x0: -140, x1: 2080, y: 876, amp: 20, wl: 320, seed: 125, L, cuts: .7, ends: false });
+  cen_safKutle({ x0: -100, x1: 2040, y: 1150, h: 38, seed: 126, nSp: 8, spAng: i => ang(i, 3) });
 }
-plan('P024', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 560, z: 1.04 }, { cx: 960, cy: 520, z: 1.04 }, st.p, E.io2), () => cen_c07(st.t), [.7, 0, 1]), { tr: { type: 'fade', dur: .8 } });
+plan('P024', (ctx, st) => levha(ctx, camLerp({ cx: 940, cy: 540, z: 1.04 }, { cx: 1000, cy: 540, z: 1.04 }, st.p, E.io2), () => cen_c07(st.t), [.7, 0, 1]), { tr: { type: 'fade', dur: .8 } });
 
-// ═════════ P025 (C08): gökte ışık noktaları: üçte biri ayrılıp onun peşine kayar ═════════
+// ═════════ P025 (C08): koyu bulut kütlesinde ışık noktaları: üçte biri ayrılıp onun peşine kayar ═════════
 function cen_c08(t) {
-  const { tx, tone } = GR, L = { x: 1560, y: 230 }, tY = Wd('C08', 'yalanlarıyla'), tU = Wd('C08', 'üçte'), s0 = S('C08');
+  const { tx, px, tone } = GR, L = { x: 1640, y: 120 }, tY = Wd('C08', 'yalanlarıyla'), s0 = S('C08');
   const go = E.io2(cen_u(t, tY, Se('C08') + 1.2)), lead = E.io2(cen_u(t, s0, Se('C08') + 1.5));
-  cen_gok(L, { r0: 120, a: .85, v: .5, mid: .8, dark: .35 });
-  cen_bulut({ x: 1500, y: 1060, w: 1500, h: 120, seed: 131, L, sh: 1, n: 10, len: 1.4 });
-  // önder: sabah yıldızı, sola ve aşağı (ışıktan uzağa) kayar
-  const lx = lerp(1100, 360, lead), ly = lerp(520, 640, lead);
-  const q = rng(77), N = 130;
+  cen_gok(L, { r0: 300, r1: 1200, v: .72, n: 96 });
+  cen_bank({ x0: -160, x1: 2080, y: 400, amp: 44, wl: 420, seed: 131, L, cuts: .6, yb: 700, ends: false });
+  cen_teras({ x0: -160, x1: 2080, y: 900, d: 50, seed: 132, L, cuts: .6 });
+  const lx = lerp(1050, 300, lead), ly = lerp(520, 640, lead), q = rng(77), N = 130;
   for (let i = 0; i < N; i++) {
-    const a = q() * TAU, r = Math.sqrt(q()) * 1, x0 = 1250 + Math.cos(a) * r * 560, y0 = 470 + Math.sin(a) * r * 300, fol = (i % 3) === 0, ph = q(), sz = 5 + q() * 4;
+    const a = q() * TAU, r = Math.sqrt(q()), x0 = 1300 + Math.cos(a) * r * 520, y0 = 560 + Math.sin(a) * r * 100, fol = (i % 3) === 0, ph = q(), sz = 4 + q() * 4;
     let x = x0, y = y0;
-    if (fol) { const k = E.io2(clamp(go * 1.25 - ph * .25)); x = lerp(x0, lx - 60 - (x0 - 1250) * .45 + 120, k); y = lerp(y0, ly + (y0 - 470) * .55, k); }
-    const K = new Path2D(); K.arc(x, y, sz * 1.5 + 2, 0, TAU); tx.fillStyle = tone(.05); tx.fill(K);
-    const D = new Path2D(); poly(D, [[x, y - sz * 2], [x + sz * .45, y - sz * .45], [x + sz * 2, y], [x + sz * .45, y + sz * .45], [x, y + sz * 2], [x - sz * .45, y + sz * .45], [x - sz * 2, y], [x - sz * .45, y - sz * .45]], true); tx.fillStyle = tone(1); tx.fill(D);
+    if (fol) { const k = E.io2(clamp(go * 1.25 - ph * .25)); x = lerp(x0, lx + 60 + (x0 - 1300) * .45, k); y = lerp(y0, ly + (y0 - 540) * .55, k); }
+    const D = new Path2D(); poly(D, [[x, y - sz * 2], [x + sz * .45, y - sz * .45], [x + sz * 2, y], [x + sz * .45, y + sz * .45], [x, y + sz * 2], [x - sz * .45, y + sz * .45], [x - sz * 2, y], [x - sz * .45, y - sz * .45]], true);
+    tx.fillStyle = tone(1); tx.fill(D);
   }
-  cen_yildiz(lx, ly, 22, 1);
+  cen_yildiz(lx, ly, 34, 1);
 }
-plan('P025', (ctx, st) => levha(ctx, null, () => cen_c08(st.t), [.6, 0, 1]),
-  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C08', 'üçte') - .1; etiket(ctx, 'üçte biri', 560, 300, st.t - t0, st.end - t0 + .2, { px: 48, ls: 4 }); } });
+plan('P025', (ctx, st) => levha(ctx, null, () => cen_c08(st.t), [.7, 0, 1]),
+  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C08', 'üçte') - .1, a = clamp((st.t - t0) / .5) * clamp((st.end - st.t) / .5);
+    cen_yazi(ctx, 'üçte biri', 500, 480, E.sine(a), { px: 50, ls: 4, col: PAPER_CSS }); } });
 
-// ═════════ P027 (C10): sönük kalabalıkta tek parlak figür ayağa kalkar: Abdiel ═════════
+// ═════════ P027 (C10): koyu kalabalığın içinde tek beyaz figür ayağa kalkar: Abdiel ═════════
 function cen_c10(t) {
   const tK = Wd('C10', 'kalkar'), up = E.io2(cen_u(t, tK - .6, tK + .7)), gl = E.io2(cen_u(t, tK - .3, Se('C10') + .5));
-  const AX = 1000, L = { x: AX, y: 520 };
-  cen_gok(L, { r0: lerp(40, 150, gl), a: .3 + .7 * gl, v: .44, mid: lerp(.6, .82, gl), dark: .6 });
-  // sönük kalabalık: hafif taralı gövdeler (ton .62); uzak sıralar önce
-  const crowd = (y, h, n, sd, v) => cen_saflar([{ y, h, x0: -40, x1: 1980, n, facing: 1, seed: sd, v: v * .2, sh: .1, spear: false, dy: .4, wing: .5 }], { t, L });
-  cen_bulut({ x: 960, y: 640, w: 2400, h: 60, seed: 141, L, sh: .9, n: 16, len: 4, cuts: 0, base: false });
-  crowd(700, 12, 36, 51, .66); crowd(800, 17, 26, 52, .64);
-  // Abdiel: diz çökmüş hâlden kalkar; ışık onda toplanır
-  let lx = 0, ly = -1; cen_melek({ x: AX, y: 900, h: 42, f: -1, lx: .2, ly: -.98, bow: 1 - up, spear: null, seed: 5, v: .99, sh: .16 });
-  crowd(960, 26, 16, 53, .6); crowd(1130, 38, 11, 54, .58);
+  const AX = 1000, L = { x: AX, y: 470 };
+  cen_gok(L, { r0: lerp(120, 320, gl), r1: 1100, v: .66, n: 90 });
+  const crowd = (y, h, n, sd) => { const q = rng(sd); for (let i = 0; i < n; i++) { const x = -40 + (i + .5 + (q() - .5) * .8) / n * 2020; if (Math.abs(x - AX) < h * 1.6 && h > 20) continue;
+    let lx = L.x - x, ly = L.y - (y - 6 * h); const l = Math.hypot(lx, ly); cen_melek({ x, y: y + (q() - .5) * h * .4, h: h * (.9 + q() * .2), f: x < AX ? 1 : -1, lx: lx / l, ly: ly / l, v: .03, spear: null, seed: sd * 50 + i, wing: .5 }); } };
+  cen_bank({ x0: -140, x1: 2080, y: 530, amp: 24, wl: 300, seed: 55, L, cuts: .5, ends: false });
+  crowd(700, 12, 40, 51); crowd(800, 17, 28, 52);
+  cen_melek({ x: AX, y: 900, h: 42, f: -1, bow: 1 - up, spear: null, seed: 5, v: .99, wing: .9 });
+  crowd(960, 26, 17, 53); crowd(1130, 38, 11, 54);
 }
-plan('P027', (ctx, st) => levha(ctx, null, () => cen_c10(st.t), [.6, 0, 1]),
-  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C10', 'abdiyeldir') - .1; etiket(ctx, 'ABDIEL', 1000, 150, st.t - t0, st.end - t0 + .3, { px: 48 }); } });
+plan('P027', (ctx, st) => levha(ctx, null, () => cen_c10(st.t), [.7, 0, 1]),
+  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C10', 'abdiyeldir') - .1, a = clamp((st.t - t0) / .5) * clamp((st.end - st.t) / .5);
+    cen_yazi(ctx, 'ABDIEL', 1000, 250, E.sine(a), { px: 50 }); } });
 
 // ═════════ P028 (C11): Abdiel açılan safların arasından tek başına yürüyüp gider (yandan kaydırma) ═════════
 function cen_c11(t) {
-  const s0 = S('C11'), tY = Wd('C11', 'yürüyüp'), w = cen_u(t, s0, Se('C11') + 1), AX = lerp(560, 1900, w), L = { x: AX + 80, y: 300 };
-  cen_gok(L, { r0: 90, a: .7, v: .46, mid: .74, dark: .55 });
-  cen_bulut({ x: 1200, y: 660, w: 2800, h: 60, seed: 151, L, sh: .9, n: 20, len: 4, cuts: 0, base: false });
-  // arka saf: ona dönük, sönük; geçtiği yerde hafif geri çekilir
-  cen_saflar([{ y: 760, h: 16, x0: 0, x1: 2400, n: 40, facing: -1, seed: 61, v: .14, sh: .1, spear: false, dy: .3 }], { t, L });
-  // Abdiel: yürüyüş (bacak salınımı), dik baş
+  const s0 = S('C11'), w = cen_u(t, s0, Se('C11') + 1), AX = lerp(560, 1900, w), L = { x: AX + 60, y: 260 };
+  cen_gok(L, { r0: 260, r1: 1100, v: .66, n: 90 });
+  cen_bank({ x0: -140, x1: 2500, y: 560, amp: 24, wl: 300, seed: 65, L: { x: 1200, y: 260 }, cuts: .5, ends: false });
+  const q0 = rng(61);
+  for (let i = 0; i < 44; i++) { const x = -60 + i * 58 + (q0() - .5) * 30, d = x - AX, h = 16 * (.9 + q0() * .2);
+    let lx = L.x - x, ly = L.y - 600; const l = Math.hypot(lx, ly); cen_melek({ x: x + Math.sign(d) * Math.exp(-d * d / 9000) * 18, y: 770 + (q0() - .5) * 8, h, f: d < 0 ? 1 : -1, lx: lx / l, ly: ly / l, v: .03, spear: null, seed: 70 + i, wing: .5 }); }
   const ph = (t - s0) * 3.4, sw = Math.sin(ph) * .38;
-  cen_basmelek({ x: AX, y: 900 - 3.95 * 40 + Math.abs(Math.cos(ph)) * -3, h: 40, facing: 1, L: { x: AX + 400, y: 100 }, t, lum: 1, head: .12, twist: .55, armN: [-sw * .6, .2], armF: [sw * .6, .2], legN: [sw, -.1 - .2 * Math.max(0, -Math.sin(ph))], legF: [-sw, -.1 - .2 * Math.max(0, Math.sin(ph))], spear: false, fold: 1, wingRot: .3, cloak: .5 });
-  // ön saf: kadrajı kesen sönük bedenler, aralanmış
+  cen_basmelek({ x: AX, y: 900 - 3.95 * 40 - Math.abs(Math.cos(ph)) * 3, h: 40, facing: 1, L: { x: AX + 400, y: 100 }, t, head: .12, twist: .55, armN: [-sw * .6, .2], armF: [sw * .6, .2],
+    legN: [sw, -.1 - .2 * Math.max(0, -Math.sin(ph))], legF: [-sw, -.1 - .2 * Math.max(0, Math.sin(ph))], spear: false, lift: .2, open: .2, wingS: 3.6 });
   const R = rng(62);
-  for (let i = 0; i < 12; i++) { const x = -100 + i * 230 + (R() - .5) * 60, gap = Math.exp(-Math.pow((x - AX) / 260, 2)) * 70; cen_melek({ x: x + Math.sign(x - AX) * gap, y: 1180 + (R() - .5) * 30, h: 46, f: x < AX ? 1 : -1, lx: .3, ly: -.95, spear: null, v: .12, sh: .12, seed: 70 + i, wing: .6 }); }
+  for (let i = 0; i < 12; i++) { const x = -100 + i * 230 + (R() - .5) * 60, gap = Math.exp(-Math.pow((x - AX) / 260, 2)) * 70; let lx = L.x - x, ly = L.y - 900; const l = Math.hypot(lx, ly);
+    cen_melek({ x: x + Math.sign(x - AX) * gap, y: 1180 + (R() - .5) * 30, h: 46, f: x < AX ? 1 : -1, lx: lx / l, ly: ly / l, spear: null, v: .03, seed: 90 + i, wing: .6 }); }
 }
-plan('P028', (ctx, st) => levha(ctx, camLerp({ cx: 760, cy: 560, z: 1.05 }, { cx: 1160, cy: 560, z: 1.05 }, st.p, E.sine), () => cen_c11(st.t), [.6, 0, 1]),
-  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C11', 'binlerce') - .2; quote(ctx, '“binlerce hainin arasında sadık kalan tek kişi”', 960, 190, st.t - t0, { px: 66, per: .45 }); } });
+plan('P028', (ctx, st) => levha(ctx, camLerp({ cx: 760, cy: 560, z: 1.05 }, { cx: 1160, cy: 560, z: 1.05 }, st.p, E.sine), () => cen_c11(st.t), [.7, 0, 1]),
+  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C11', 'binlerce') - .2; quote(ctx, '“binlerce hainin arasında sadık kalan tek kişi”', 960, 190, st.t - t0, { px: 66, per: .45, panel: false, col: INK_CSS }); } });
