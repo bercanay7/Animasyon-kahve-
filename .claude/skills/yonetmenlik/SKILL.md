@@ -61,3 +61,30 @@ Vaat edilmeyen şeyi başlık/kapakta gösterme · selam/uzun intro ile açma ·
 Gösterim · TO · ort. izleme (%) · 0:30'da kalan % · trafik payı (Göz at/Önerilen/Kanal) · tutma grafiğinde ilk düşüş saniyesi · spike'lar ("sevildi" / "anlaşılmadı" diye etiketle) · ders → CLAUDE.md "Ölçütler"e işle.
 
 Kaynaklar (yardım sayfaları, erişim 2026-11-11, 3–6 ayda yenile): support.google.com/youtube/answer/9314415 (retention), /13861714 (Test ve Karşılaştır), /2801973 (spam/aldatıcı politikalar), /10059070 (Shorts). Repo fikirleri (claude-youtube MIT, claude-gtm-plugin MIT) yalnız paraphrase; kurulmadı; ücretli bağlantıları (DataForSEO/Gemini/Buffer) alınmadı.
+
+## Hikâye yapısı seç (kontrol listesi, kalıp değil)
+Kanalın asıl listesi kökteki `CLAUDE.md`'deki Kahramanın Yolculuğu tablosudur; burası, videonun uzunluğuna ve konusuna göre **hangi iskeletin** daha rahat oturduğunu seçmek içindir. Uymayan aşamayı zorlama. Bu yapılar film/edebiyat geleneğinden gelir; YouTube'da tek başına izlenme garantilemez (kanıt düzeyi C): kapak, başlık ve ilk 15 sn belirleyicidir. Kendi verine (CLAUDE.md "Ölçütler") bak.
+
+| Uzunluk / tür | Önerilen iskelet |
+|---|---|
+| Shorts (≤60 sn) | **Pixar omurgası:** Bir zamanlar… / Her gün… / Bir gün… / Bu yüzden… / Bu yüzden… / Sonunda… (kanca = "Bir gün…" ya da "Sonunda…"dan başla) |
+| 5–12 dk mit/felsefe | **Harmon çemberi** (aşağıda) |
+| 12–25 dk biyografi/tarih | **Kahramanın Yolculuğu** (CLAUDE.md tablosu) + bölüm başına ABT |
+| Fikir/felsefe denemesi | **Kişōtenketsu:** giriş → gelişme → dönüş (beklenmedik bilgi/bakış) → birleştirme (çatışma şart değil) |
+
+### Dan Harmon çemberi (8 adım)
+1. **Konfor:** kahraman nerede, kural ne. 2. **İhtiyaç:** bir şey eksik/istenir. 3. **Yabancı dünyaya giriş:** eşiği geçer. 4. **Uyum:** denemeler, öğrenme. 5. **Ödül:** istediğini alır. 6. **Bedel:** bunun karşılığını öder (kırılma anı; kanalın "yolculuk nerede kırıldı?" imzası). 7. **Dönüş:** bildiği dünyaya geri. 8. **Değişim:** artık farklıdır → "bugüne taşınan iksir".
+Kahraman bazen başlıktaki kişi değil insanlıktır (CLAUDE.md, Prometheus notu).
+
+### ABT: Ve… Ama… Bu yüzden…
+Her bölümün ve cümle geçişinin kontrolü. "…ve sonra… ve sonra…" ile giden anlatı hikâye değil listedir. Her bölümde en az bir **AMA** (engel/çelişki) ve bir **BU YÜZDEN** (sonuç) olmalı. Taslağı tara: "ve sonra" zinciri varsa AMA/BU YÜZDEN ile kır.
+
+### İzleyiciyi tutan psikoloji (kontrol)
+- **Merak açığı:** soruyu aç, cevabı geciktir; her anda en az bir açık soru taşı. (Sisifos'ta kanca bu yüzden tuttu, bkz. CLAUDE.md.)
+- **Beklentiyi yıkma:** "Herkes X sanıyor, ama…" mit videolarında izleyicinin bildiği hikâyenin başka yüzünü gösterir; doğruluk veto kuralına tabidir (kurul).
+- **Bahis ve tırmanış:** her bölümde kaybedilecek şey bir öncekinden büyük; bölüm sonunda küçük bir "tadımlık" sonraki bölüme köprü.
+- **Vaat → ilerleme → ödül:** başlıkta vaat, ilk 30 sn'de kanıt, sonda gerçekten teslim. Teslim edilmeyen vaat memnuniyeti düşürür.
+- **Çözülmeyen kalıp riski:** art arda videolarda aynı iskelet ve aynı başlık kalıbı ("NEDEN…?") izleyiciyi ve "şablon seri" riskini besler; kalıbı koru, süsünü değiştir.
+
+### Taslak kontrol listesi (kurula girmeden önce)
+□ Tek cümlelik vaat yazılı □ İlk 5 sn kapağın vaadini karşılıyor □ Her bölümde AMA + BU YÜZDEN var □ En az bir açık döngü sonuna kadar taşınıyor □ Büyük sınav/kırılma anı net (kapak buradan seçilir) □ Sonda iksir: bugüne taşınan fikir □ Doğruluk: tarih, alıntı, atıf kaynakla doğrulandı.
