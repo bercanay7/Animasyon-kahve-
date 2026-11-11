@@ -217,7 +217,7 @@ const SF = (() => {
 
     // ── tonlar ve etkiler (lum'a bağlı yumuşak geçişler) ──
     const core = lerp(.03, .97, sst(.42, .78, lum));
-    const coreG = [core, lum < .2 ? core : lerp(core, core * .72, sst(.2, .8, lum)), core, core];
+    const coreG = [core, lerp(core, core * .86, sst(.5, .9, lum)), core, core];
     const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = sst(.5, .75, lum);
     const light = lum >= .6, skTone = light ? 0 : 1, sgS = light ? -1 : 1;     // vuruşlar: koyu figürde ışık yanından beyaz, açıkta gölge yanından mürekkep
     const rw = Math.max(3, hd_ * (o.rim ?? .075));
@@ -293,8 +293,8 @@ const SF = (() => {
         // saç telleri: ışık yanında 3–4 ince, kıvrık vuruş (yalnız koyu figür, ışık üstten)
         if (!light && lit[1] < 0 && o.hair !== false) {
           const sw2 = Math.sin(t * .8) * .02 * wind, k = sc0;
-          for (const c of [[[.14, -.5], [-.06, -.56], [-.3, -.52], [-.44, -.42]], [[.04, -.44], [-.16, -.48], [-.36, -.42], [-.5, -.3]], [[-.12, -.38], [-.3, -.36], [-.46, -.24], [-.52, -.1]], [[.18, -.42], [.02, -.47], [-.14, -.44]]])
-            taper(Z, c.map(([x, y]) => HL(x + sw2, y)), Math.max(2, hd_ * .022), k);
+          for (const c of [[[.06, -.55], [-.06, -.53], [-.14, -.57]], [[-.22, -.55], [-.34, -.5], [-.42, -.54]], [[-.47, -.4], [-.55, -.32], [-.53, -.24]]])   // kısa, kıvrık teller: yalnız saç kütlesinin üst-arka kenarında
+            taper(Z, c.map(([x, y]) => HL(x + sw2, y)), Math.max(2, hd_ * .02), k);
           any = true;
         }
       }

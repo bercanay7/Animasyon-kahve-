@@ -172,12 +172,12 @@ const KN = (() => {
       F.dv = V(.05, .012) * (dot(dir(F.a + PI / 2 * F.lead), lit) > 0 ? 1 : -1);
       const first = F.cp === 0;
       const mid = bell((F.v0 + F.v1) / 2, .5, .28);          // ışık-gölge sınırı
-      F.sep = (first ? lerp(.55, .85, mid) : .12 * mid) * lerp(.25, 1, dark);
+      F.sep = (first ? lerp(.55, .85, mid) : .12 * mid) * lerp(.25, 1, dark) * (1 - smooth(inv(.5, .9, dk2)));
       F.rag = F.G < 2 ? clamp(ruin * (.4 + .9 * F.burnR) + dark * .15 * F.burnR) * .18 : 0;
       F.burn = F.G < 2 ? clamp((ruin * 1.1 + dark * .25) * (.35 + .9 * F.burnR) - .15) : 0;
       // çapa: açık kanadın iç yüzü (gövdeye yakın alt sıra) düz koyu; kanadın ~%15-25'i
-      F.la = la; F.anc = smooth(inv(.52, .2, F.u)) * (1 - dk2) * (o.anchor ?? 1);
-      if (F.anc > 0) { F.v0 = lerp(F.v0, .32, F.anc); F.v1 = lerp(F.v1, .03, F.anc); F.dv *= 1 - F.anc; F.sep *= 1 - F.anc; }
+      F.la = la; F.anc = smooth(inv(.6, .3, F.u)) * (1 - dk2) * (o.anchor ?? 1);
+      if (F.anc > 0) { F.v0 = lerp(F.v0, .1, F.anc); F.v1 = lerp(F.v1, .03, F.anc); F.dv *= 1 - F.anc; F.sep *= 1 - F.anc; }
     }
     const geoms = Fs.map(featherGeom);
     // 0) zar: tüy tabanlarının arkasında, boşluk görünmesin
@@ -272,6 +272,18 @@ const KN = (() => {
         const L = Math.max(25 * PX, lerp(25, 90, Math.pow(rs(), 1.3)) * PX * Math.max(.7, S / 600) * lerp(.6, 1, lt));
         const st = [P.x + P.nn[0] * (P.th - 3 * PX), P.y + P.nn[1] * (P.th - 3 * PX)];
         vurus(curve(st, nrm([inw[0] * .8 + bd[0] * .6, inw[1] * .8 + bd[1] * .6]), nrm([fd[0] * .7 + bd[0] * .3, fd[1] * .7 + bd[1] * .3]), L), s => prof.fade(s) * 3.3 * PX * wP, 1, 0);
+      }
+    }
+    if (wI > 0) {
+      let acc = 0, next = (10 + rs() * 10) * PX;
+      for (let i = 1; i < thk.length; i++) {
+        const P = thk[i], Q = thk[i - 1]; acc += Math.hypot(P.x - Q.x, P.y - Q.y);
+        if (acc < next) continue;
+        acc = 0; next = Math.max(12 * PX, (14 + rs() * 30) * PX * Math.max(.7, S / 600));
+        const fd = dir(fa(P.u)), la = lightAt(P.x + fd[0] * S * .1, P.y + fd[1] * S * .1); if (la > .5 || P.u < .06) continue;
+        const L = Math.max(25 * PX, lerp(25, 90, Math.pow(rs(), 1.2)) * PX * Math.max(.7, S / 600) * lerp(1, .5, la * 2));
+        const st = [P.x + fd[0] * (P.T - P.th) * .8, P.y + fd[1] * (P.T - P.th) * .8];
+        vurus(curve(st, fd, nrm([fd[0] - P.nn[0] * .2, fd[1] - P.nn[1] * .2]), L), s => prof.fade(s) * 3.2 * PX * wI, 0, 0);
       }
     }
     return { E, Wr, Tp, bone, back, ridge, feathers: Fs };

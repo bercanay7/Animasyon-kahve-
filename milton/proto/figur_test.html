@@ -35,7 +35,7 @@ function renderFrame(t){ const {tx,tone}=GR; GR.begin(.6,0,1); let ms=0;
   } else if(V===5){ // yakın inceleme: büyük boy (h 150), koyu ve açık
     split(0,W,0,H,960);
     D(SF.rig({x:480,y:960,h:150,facing:1,twist:.3,head:.35,armN:[-.3,.4],armF:[.4,.2]}),{lum:0,lit:[.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6});
-    D(SF.rig({x:1440,y:960,h:150,facing:-1,twist:.3,head:.1,armN:[.3,.6],armF:[-.12,.15]}),{lum:1,lit:[-.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6,spear:{grip:'N',ang:-.05}});
+    D(SF.rig({x:1440,y:960,h:150,facing:-1,twist:.3,head:.1,armN:[.5,.45],armF:[-.12,.15]}),{lum:1,lit:[-.55,-.8],t,legs:false,cloak:1,waterY:1070,wind:.6,spear:{grip:'N',ang:-.05}});
   } else if(V===3){
     const L=[1,.6,.3,0], h=66;
     L.forEach((lum,i)=>{ const x=240+i*480; split(x-240,x+240,0,H,x+30);
