@@ -6,44 +6,58 @@
 const sav_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 
 // ═════════ Kaos boşluğu ═════════
-// Zemin düz siyah; ışık hedefinin (cx, cy) çevresinde yassı, yumuşak bir aydınlık: çizgileri hedefin üstünde kemerlenen kavisli akış (bend).
-// Girdap kolları (kao_kol): hilal biçimli büyük kütleler; ışığa bakan iç kenarı kâğıda yakın, dışa doğru düz siyaha iner;
-// çizgiler kolun kavsini izler (her kolun kendi merkezi: eş merkezli halka okunmaz). İç kenarda sivrilen kâğıt kenar ışığı, kütlenin içinde kavsi izleyen 1–2 beyaz akış vuruşu.
-// o: {cx, cy, sy (aydınlığın yassılığı), glow: [r0, r1, a], k (zemin çizgisinin kavsi, 1/px), kollar: [kol...]}
+// "Ne ışık ne karanlık": ışık hedefinin (cx, cy) çevresinde yassı bir aydınlık alan; çizgileri hedefin çevresinde kemerlenen kavisli akış (bend),
+// hedefte temiz kâğıt, dışa doğru kalınlaşıp düz siyaha iner. Üstünde girdap kolları (kao_kol): düz siyah, hilal biçimli bulut kütleleri;
+// hedefe bakan iç kenarı kabarık (bulut yumruları), orada sivrilen kâğıt kenar ışığı ve kütleye giren düzensiz beyaz vuruşlar.
+// Kolların arası açık alan: koyu figür orada, açık zeminin önünde okunur.
+// o: {cx, cy, sy (aydınlığın yassılığı), r0 (temiz kâğıt yarıçapı), r1 (siyaha varış), v (hedef tonu), k (zemin çizgisinin kavsi, 1/px), kollar: [kol...]}
 function kao_bosluk(t, o = {}) {
-  const { tx, px, tone } = GR, cx = o.cx ?? 960, cy = o.cy ?? 540, sy = o.sy ?? .6;
+  const { tx, px, tone } = GR, cx = o.cx ?? 960, cy = o.cy ?? 540, sy = o.sy ?? .62;
   tx.fillStyle = tone(.02); tx.fillRect(-1600, -1600, W + 3200, H + 3200);
-  px.fillStyle = GR.hatch({ type: 'bend', ox: cx, oy: cy, a: 0, k: o.k ?? -1 / 1500, id: 2 }); px.fillRect(-1600, -1600, W + 3200, H + 3200);
-  if (o.glow) { const [g0, g1, ga] = o.glow; tx.save(); tx.translate(cx, cy); tx.scale(1, sy); tx.translate(-cx, -cy); PR.glow(cx, cy, g0, g1, 1, ga); tx.restore(); }
-  return (o.kollar || []).map((K, i) => kao_kol(t, K, i));
+  px.fillStyle = GR.hatch({ type: 'bend', ox: cx, oy: cy, a: o.a ?? 0, k: o.k ?? -1 / 2400, id: 2 }); px.fillRect(-1600, -1600, W + 3200, H + 3200);
+  const r0 = o.r0 ?? 120, r1 = o.r1 ?? 1100, v = o.v ?? 1;
+  tx.save(); tx.translate(cx, cy); tx.scale(1, sy); tx.translate(-cx, -cy);
+  const g = tx.createRadialGradient(cx, cy, 0, cx, cy, r1);
+  const f0 = r0 / r1; g.addColorStop(0, tone(v)); g.addColorStop(f0, tone(v * .97)); g.addColorStop(f0 + (1 - f0) * .25, tone(v * .62)); g.addColorStop(f0 + (1 - f0) * .55, tone(v * .34)); g.addColorStop(f0 + (1 - f0) * .8, tone(.12)); g.addColorStop(1, tone(.02));
+  tx.fillStyle = g; tx.fillRect(cx - r1, cy - r1, r1 * 2, r1 * 2); tx.restore();
+  return (o.kollar || []).map((K, i) => kao_kol(t, K, i, [cx, cy]));
 }
-// kol: {ox, oy (yay merkezi), R, a0 (başlangıç açısı), span (yay, radyan; işaret yönü verir), wd (kalınlık), v (iç kenar tonu), lit (iç kenar ışığı 0..1), seed, rot (dönüş hızı), taper ([baş, son] sivrilme üssü)}
-function kao_kol(t, K, i = 0) {
-  const { tx, px, tone } = GR, q = rng((K.seed || 1) * 37 + i), m = 44, inner = [], outer = [];
-  const a0 = K.a0 + (K.rot ?? .006) * t * Math.sign(K.span), ph = q() * TAU, ph2 = q() * TAU, R = K.R, wd = K.wd;
+// kol: {ox, oy (yay merkezi), R, a0 (başlangıç açısı), span (yay, radyan; işaret yönü verir), wd (kalınlık), nb (yumru sayısı), bump (yumru boyu, wd oranı),
+//       lit (kenar ışığı 0..1), seed, rot (dönüş hızı), skew}
+function kao_kol(t, K, i = 0, L = null) {
+  const { tx, px, tone } = GR, q = rng((K.seed || 1) * 37 + i), m = 64, inner = [], outer = [];
+  const a0 = K.a0 + (K.rot ?? .005) * t * Math.sign(K.span), ph = q() * TAU, ph2 = q() * TAU, R = K.R, wd = K.wd, nb = K.nb ?? 5, bp = K.bump ?? .3;
+  const bph = q();
   for (let k = 0; k <= m; k++) {
-    const u = k / m, a = a0 + K.span * u, e = Math.pow(Math.sin(PI * Math.pow(u, K.skew ?? .75)), .7);
-    const Rr = R * (1 + (K.spiral ?? .06) * u + .025 * Math.sin(u * 4.5 + ph));
-    const wi = wd * .45 * e * (1 + .12 * Math.sin(u * 6 + ph2)), wo = wd * .55 * e * (1 + .15 * Math.sin(u * 3.3 + ph));
+    const u = k / m, a = a0 + K.span * u, e = Math.pow(Math.sin(PI * Math.pow(u, K.skew ?? .7)), .6);
+    const Rr = R * (1 + (K.spiral ?? .05) * u + .02 * Math.sin(u * 4.5 + ph));
+    const lobe = Math.pow(Math.abs(Math.sin(PI * (u * nb + bph))), .55);       // iç kenarda yuvarlak yumrular
+    const wi = wd * .45 * e * (1 + bp * lobe), wo = wd * .55 * e * (1 + .12 * Math.sin(u * 3.3 + ph2));
     inner.push([K.ox + Math.cos(a) * (Rr - wi), K.oy + Math.sin(a) * (Rr - wi)]);
     outer.push([K.ox + Math.cos(a) * (Rr + wo), K.oy + Math.sin(a) * (Rr + wo)]);
   }
   const P = new Path2D(); spline(P, [...inner, ...outer.slice().reverse()], true, .8);
-  const v = K.v ?? .7, g = tx.createRadialGradient(K.ox, K.oy, Math.max(1, R - wd * .5), K.ox, K.oy, R + wd * .6);
-  g.addColorStop(0, tone(v)); g.addColorStop(.3, tone(v * .62)); g.addColorStop(.62, tone(v * .25)); g.addColorStop(.85, tone(.03)); g.addColorStop(1, tone(.02));
-  GR.fill(P, g, { type: 'rad', cx: K.ox, cy: K.oy, id: 2, ph: q() });
-  if ((K.lit ?? 1) > 0) {
+  GR.fill(P, tone(.02), { type: 'rad', cx: K.ox, cy: K.oy, id: 2 });
+  const lit = K.lit ?? 1;
+  if (lit > 0) {
+    const Lx = L ? L[0] : K.ox, Ly = L ? L[1] : K.oy;
     tx.save(); tx.clip(P);
-    const k0 = Math.round(m * .12), k1 = Math.round(m * .88), rim = [];
-    for (let k = k0; k <= k1; k += 2) { const d = [outer[k][0] - inner[k][0], outer[k][1] - inner[k][1]], l = Math.hypot(d[0], d[1]) || 1; rim.push([inner[k][0] + d[0] / l * 2, inner[k][1] + d[1] / l * 2]); }
-    gol_vurus(tx, rim, (K.rimW ?? 8) * (K.lit ?? 1), .97, .4);
-    // akış vuruşları: kütlenin içinde kavsi izleyen, iki ucu sivri beyaz çizgiler (kenara koşut eko değil: farklı uzunluk ve derinlik)
-    for (let j = 0; j < (K.flow ?? 2); j++) {
-      const f0 = .15 + q() * .35, f1 = Math.min(.92, f0 + .2 + q() * .35), dep = .18 + q() * .3, pts = [];
-      for (let k = Math.round(m * f0); k <= Math.round(m * f1); k += 2) pts.push([lerp(inner[k][0], outer[k][0], dep), lerp(inner[k][1], outer[k][1], dep)]);
-      if (pts.length > 3) gol_vurus(tx, pts, (K.flowW ?? 6) * (K.lit ?? 1), .9, .6);
+    // kenar ışığı: iç kenar boyunca, hedefe bakan yerde kalın, teğet yerlerde sivrilerek biter (parça parça)
+    let seg = [];
+    const flush = () => { if (seg.length > 3) gol_vurus(tx, seg, (K.rimW ?? 9) * lit, .97, .35); seg = []; };
+    for (let k = 2; k <= m - 2; k++) {
+      const a = inner[k - 1], b = inner[k + 1], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1;
+      let nx = dy / l, ny = -dx / l; const toO = [outer[k][0] - inner[k][0], outer[k][1] - inner[k][1]]; if (nx * toO[0] + ny * toO[1] > 0) { nx = -nx; ny = -ny; }   // dışa (hedefe) normal
+      let lx = Lx - inner[k][0], ly = Ly - inner[k][1]; { const ll = Math.hypot(lx, ly) || 1; lx /= ll; ly /= ll; }
+      const f = nx * lx + ny * ly;
+      if (f < .25) { flush(); continue; }
+      seg.push([inner[k][0] - nx * 2.5, inner[k][1] - ny * 2.5]);
     }
+    flush();
     tx.restore();
+    // içe giren vuruşlar: yumruların ışıklı yanından kütleye
+    const pts = inner.filter((_, k) => k % 3 === 0 && k > 3 && k < m - 3), dir = [outer[m >> 1][0] - inner[m >> 1][0], outer[m >> 1][1] - inner[m >> 1][1]];
+    PR.cuts(pts, dir, { len: [14, 40 + wd * .45 * (K.cutL ?? 1)], gap: [46, 150], w: 6, v: .95, seed: (K.seed || 1) * 7 + 3, clip: P, bend: (K.bend ?? .3) * Math.sign(K.span) });
   }
   return { path: P, inner, outer };
 }
@@ -67,8 +81,7 @@ function kao_ucan(t, p) {
 // göğüsteki alev: küçük kâğıt beyazı dil + yumuşak parıltı (karenin en parlak noktası). a: 0..1
 function kao_gogusAlev(J, t, a = 1, s = 1) {
   if (a <= 0) return;
-  const { tx, tone } = GR, h = J.h, x = J.shC[0] + J.rt[0] * J.f * h * .25 - J.up[0] * .55 * h, y = J.shC[1] - J.up[1] * .55 * h;
-  PR.glow(x, y, 2, h * 2.6 * s, 1, .5 * a);
+  const { tx, tone } = GR, h = J.h, [x, y] = kao_alevYer(J);
   const L = h * .62 * s * (.9 + .1 * Math.sin(t * 5.3)) * a, wd = h * .2 * s * a, sw = Math.sin(t * 3.1) * wd * .5;
   if (L < 2) return;
   const P = new Path2D(); P.moveTo(x - wd, y + wd * .6);
@@ -94,16 +107,15 @@ function kao_agiz(t, X, Y, o = {}) {
   PR.cuts(R.slice(1, 6), [.45, .9], { len: [14, 120], gap: [44, 120], w: 6, seed: 9, clip: RP2, bend: -.3 });
 }
 const KAO_P003 = [
-  { ox: 960, oy: 1170, R: 430, a0: -2.85, span: 1.55, wd: 130, v: .82, seed: 1 },
-  { ox: 840, oy: 1120, R: 720, a0: -.25, span: -1.75, wd: 180, v: .68, seed: 2 },
-  { ox: 1010, oy: 1260, R: 1020, a0: -3.0, span: 1.25, wd: 230, v: .55, seed: 3 },
-  { ox: 880, oy: 1220, R: 1380, a0: -.42, span: -1.15, wd: 260, v: .45, seed: 4 },
-  { ox: 900, oy: 1320, R: 1560, a0: -2.55, span: .8, wd: 200, v: .32, seed: 5 },
+  { ox: 980, oy: 1150, R: 560, a0: -3.05, span: 1.15, wd: 190, nb: 4, seed: 1 },
+  { ox: 820, oy: 1120, R: 760, a0: -.05, span: -1.2, wd: 230, nb: 5, seed: 2 },
+  { ox: 1040, oy: 1240, R: 1120, a0: -2.75, span: 1.05, wd: 300, nb: 5, seed: 3 },
+  { ox: 860, oy: 1200, R: 1300, a0: -.55, span: -1.0, wd: 320, nb: 5, seed: 4 },
 ];
 function kao_p003(t) {
   const t0 = S('A03'), tT = Wd('A03', 'tutan'), X = 900, Y = 1020;
   const u = E.out2(sav_u(t, t0 - .4, tT)), hov = sav_u(t, tT - .6, tT + 1.5);
-  kao_bosluk(t, { cx: X, cy: Y + 60, kollar: KAO_P003 });
+  kao_bosluk(t, { cx: X, cy: Y + 40, r0: 160, r1: 1250, sy: .7, kollar: KAO_P003 });
   kao_agiz(t, X, Y, { e: lerp(1, .7, u) });
   // yükseliş: ağızdan hızla çıkar, yavaşlar; "tutan"da durur
   const x = lerp(860, 1000, E.io2(u)), y = lerp(960, 470, u) + Math.sin(t * 1.6) * 6 * hov;
@@ -149,18 +161,16 @@ function kao_kapi(X, Y, w, h, a, t) {
   tx.restore();
 }
 const KAO_P138 = [
-  { ox: 1230, oy: 330, R: 330, a0: -2.6, span: 1.9, wd: 120, v: .78, seed: 11 },
-  { ox: 1150, oy: 360, R: 600, a0: 1.05, span: 1.55, wd: 210, v: .72, seed: 12 },
-  { ox: 1240, oy: 300, R: 660, a0: -.55, span: -1.6, wd: 190, v: .6, seed: 13 },
-  { ox: 1120, oy: 420, R: 1020, a0: 2.05, span: 1.15, wd: 260, v: .5, seed: 14 },
-  { ox: 1300, oy: 380, R: 1150, a0: -1.6, span: -1.0, wd: 240, v: .4, seed: 15 },
+  { ox: 1250, oy: 320, R: 420, a0: -2.75, span: 1.5, wd: 170, nb: 4, seed: 11 },
+  { ox: 1200, oy: 300, R: 560, a0: -.45, span: -1.25, wd: 200, nb: 4, seed: 13 },
+  { ox: 1150, oy: 380, R: 900, a0: 1.95, span: 1.2, wd: 300, nb: 5, seed: 14 },
+  { ox: 1300, oy: 380, R: 1000, a0: .55, span: -1.0, wd: 280, nb: 4, seed: 15 },
 ];
 function kao_p138(t) {
   const tG = Wd('L08', 'gururu'), tK = Wd('L08', 'kapı');
   const a = E.io2(sav_u(t, tK - .3, tK + 1.8)), g = E.io2(sav_u(t, tG - .2, tG + 1.2));
   const DX = 1220, DY = 120, DW = 210, DH = 400, GY = DY + DH;
-  kao_bosluk(t * .5, { cx: DX, cy: DY + DH * .5, kollar: KAO_P138 });
-  PR.glow(DX, DY + DH * .5, DW * .4, DW * (1.5 + .5 * a), 1, .35 + .25 * a);
+  kao_bosluk(t * .5, { cx: DX, cy: DY + DH * .55, r0: 200 + 40 * a, r1: 1350 + 100 * a, sy: .8, kollar: KAO_P138 });
   // kapının sekisi: koyu kaya; üst yüzüne eşikten ışık vurur
   const SK = [[DX - 290, GY + 4], [DX - 120, GY - 2], [DX + 120, GY - 2], [DX + 300, GY + 6], [DX + 340, GY + 40], [DX + 250, GY + 120], [DX + 90, GY + 170], [DX - 60, GY + 160], [DX - 220, GY + 110], [DX - 320, GY + 46]];
   const SP = PR.rock(SK, { lit: [0, -1], hi: .05, mid: .03, lo: .02, seed: 21, th: .2, rim: 6, facets: 6 });
@@ -173,9 +183,10 @@ function kao_p138(t) {
   const RP = PR.rock(RK, { lit: [.6, -.8], hi: .05, mid: .03, lo: .02, seed: 12, th: .3, rim: 5, facets: 6 });
   PR.cuts(RK.slice(0, 5), [-.2, 1], { len: [10, 60], gap: [40, 100], w: 5, seed: 14, clip: RP, bend: .2 });
   const br = Math.sin(t * .5) * 1.2;
+  if (g > 0) PR.glow(FX - 8, FY - 34 * 5.3, 2, 34 * 3, 1, .35 * g);
   const J = kiy_seytan(t, { x: FX, gy: FY + br * .2, h: 34, facing: -1, twist: .35, head: lerp(-.1, -.22, g), lean: .04, armN: [.08, .15], armF: [-.05, .12], lum: .06, lit: [.8, -.6],
     open: -.3, lift: -.25, wingK: .8, cloak: 1.6 });
-  kao_gogusAlev(J, t, g * .9, .9);
+  kao_gogusAlev(J, t, g * .9, .9, false);
 }
 plan('P138', (ctx, st) => {
   const cam = camLerp({ cx: 975, cy: 540, z: 1 }, { cx: 945, cy: 540, z: 1 }, st.p, E.sine);
