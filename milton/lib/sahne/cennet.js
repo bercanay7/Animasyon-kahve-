@@ -12,7 +12,7 @@
 function cen_gok(L, o = {}) {
   const { tx, px, tone } = GR, a = o.a ?? 1, dk = o.dark || 0;
   const r0 = (o.r0 ?? 110) * (.35 + .65 * a), r1 = o.r1 ?? 1900;
-  const vf = o.v ?? .7, vm = o.mid ?? .88;
+  const vf = o.v ?? .72, vm = o.mid ?? .88;
   const g = tx.createRadialGradient(L.x, L.y, r0 * .6, L.x, L.y, r1);
   const k = v => clamp(lerp(v, v * .62, dk));
   g.addColorStop(0, tone(1)); g.addColorStop(.08, tone(lerp(k(vm), 1, a * .9)));
@@ -49,10 +49,11 @@ function cen_bulut(o) {
   const { tx, tone, fill } = GR, r = rng(o.seed || 1), L = o.L || { x: W / 2, y: -200 }, sh = o.sh ?? .8, dr = o.drift || 0;
   const n = o.n || Math.max(3, Math.round(o.w / (o.h * .9))), P = [];
   for (let i = 0; i < n; i++) {
-    const f = (i + .5 + (r() - .5) * .6) / n, env = .55 + .45 * Math.sqrt(Math.sin(clamp(f) * PI));
-    const R = o.h * (.42 + r() * .42) * env, cx = o.x - o.w / 2 + f * o.w + dr, cy = o.y - R * (.25 + r() * .25);
+    const f = (i + .5 + (r() - .5) * .8) / n, env = .5 + .5 * Math.sqrt(Math.sin(clamp(f) * PI));
+    const R = o.h * (.3 + r() * .62) * env, cx = o.x - o.w / 2 + f * o.w + dr, cy = o.y - R * (.15 + r() * .45) + (r() - .5) * o.h * .2;
     P.push({ x: cx, y: cy, r: R, s: (o.seed || 1) * 131 + i * 17, lay: 0 });
-    if (r() < .7) { const a = -PI / 2 + (r() - .5) * 1.8, rr = R * (.4 + r() * .3); P.push({ x: cx + Math.cos(a) * R * .62, y: cy + Math.sin(a) * R * .5, r: rr, s: (o.seed || 1) * 131 + i * 17 + 7, lay: 1 }); }
+    const m = r() < .35 ? 0 : r() < .7 ? 1 : 2;
+    for (let k = 0; k < m; k++) { const a = -PI / 2 + (r() - .5) * 2.2, rr = R * (.3 + r() * .38); P.push({ x: cx + Math.cos(a) * R * .75, y: cy + Math.sin(a) * R * .55, r: rr, s: (o.seed || 1) * 131 + i * 17 + 7 + k, lay: 1 }); }
   }
   // arkadan öne: üstteki küçük yumrular önce (alttakiler onları örter: teras alt kenarı önde kalır)
   P.sort((a, b) => (a.y + a.r * .5) - (b.y + b.r * .5));
@@ -63,10 +64,12 @@ function cen_bulut(o) {
     Bd.moveTo(xs[0].x - xs[0].r * .9, xs[0].y);
     for (const p of xs) Bd.lineTo(p.x, p.y);
     const xe = xs[xs.length - 1]; Bd.lineTo(xe.x + xe.r * .9, xe.y);
-    for (let x = xe.x + xe.r * .9; x >= xs[0].x - xs[0].r * .9; x -= 40) Bd.lineTo(x, yb + Math.sin(x * .013 + 2) * o.h * .15 + (q() - .5) * o.h * .08);
+    const xa = xs[0].x - xs[0].r * .9, xb = xe.x + xe.r * .9;
+    for (let x = xb; x >= xa; x -= 30) { const u = (x - xa) / (xb - xa), e = Math.pow(Math.sin(PI * u), .45);
+      Bd.lineTo(x, o.y + (yb - o.y) * e + Math.sin(x * .013 + 2) * o.h * .15 * e + (q() - .5) * o.h * .06); }
     Bd.closePath(); U.addPath(Bd);
     const g = tx.createLinearGradient(0, o.y, 0, yb); g.addColorStop(0, tone(lerp(.985, .45, sh))); g.addColorStop(.5, tone(lerp(.985, .2, sh))); g.addColorStop(1, tone(lerp(.985, .04, sh)));
-    fill(Bd, g, { type: 'bend', ox: o.x, oy: o.y - o.h, a: 0, k: .25 / o.w, id: 2 });
+    fill(Bd, g, { type: 'rad', cx: L.x, cy: L.y, id: 2, ph: .3 });
   }
   const blob = p => { const q = rng(p.s), a1 = q() * TAU, a2 = q() * TAU, k1 = .05 + q() * .05, k2 = .03 + q() * .03, pts = [];
     for (let i = 0; i < 24; i++) { const a = i / 24 * TAU, rr = p.r * (1 + k1 * Math.sin(3 * a + a1) + k2 * Math.sin(5 * a + a2)); pts.push([p.x + Math.cos(a) * rr * 1.2, p.y + Math.sin(a) * rr * (o.flat ?? .78)]); }

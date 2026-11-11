@@ -114,15 +114,15 @@ function nif_kanat(J, p) {
     GR.unframe();
   }
 }
-function nif_sfdraw(J, p) {
-  return SF.draw(J, { lum: p.lum ?? .2, lit: p.lit || [.3, -.95], t: p.t || 0, legs: p.legs ?? true, skirt: true, eye: p.eye ?? 0, wind: p.wind ?? .5,
-    cloak: p.cloak ?? 1.3, halo: p.halo ?? 3.5, lines: 2, seed: p.seed || 3 });
+function nif_sfdraw(J, p, mask) {   // mask: maske geçişi (beyaz vuruş ve kenar ışığı yok: kütle delinmez)
+  return SF.draw(J, { lum: mask ? 0 : p.lum ?? .2, lit: p.lit || [.3, -.95], t: p.t || 0, legs: p.legs ?? true, skirt: true, eye: mask ? 0 : p.eye ?? 0, wind: p.wind ?? .5,
+    cloak: p.cloak ?? 1.3, halo: mask ? 0 : p.halo ?? 3.5, lines: mask ? 0 : 2, rim: mask ? .001 : undefined, seed: p.seed || 3 });
 }
 function nif_seytan(p) {
   const J = nif_rig(p);
   if (p.wings !== false) nif_kanat(J, p);
   if (p.mid) p.mid(J);
-  if (p.ic) nif_icCehennem(J, () => nif_sfdraw(J, p), Object.assign({ t: p.t }, p.ic));
+  if (p.ic) nif_icCehennem(J, m => nif_sfdraw(J, p, m), Object.assign({ t: p.t }, p.ic));
   else nif_sfdraw(J, p);
   return J;
 }
@@ -163,17 +163,18 @@ function nif_icCehennem(J, drawFig, o = {}) {
   const mg = 2.6 * h * sc;
   x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(DW, Math.ceil(x1 + mg)); y1 = Math.min(DH, Math.ceil(y1 + mg));
   const bw = x1 - x0, bh = y1 - y0;
-  if (bw < 4 || bh < 4 || kOpen <= 0) { drawFig(); return; }
+  if (bw < 4 || bh < 4 || kOpen <= 0) { drawFig(false); return; }
   // 1) maske: beyaz kutuda figür
   const S0 = tx.getImageData(x0, y0, bw, bh);
   tx.save(); tx.setTransform(1, 0, 0, 1, 0, 0); tx.fillStyle = '#fff'; tx.fillRect(x0, y0, bw, bh); tx.restore();
-  drawFig();
+  drawFig(true);
   const Bw = tx.getImageData(x0, y0, bw, bh).data;
   tx.putImageData(S0, x0, y0);
   const n = bw * bh, A = new Float32Array(n);
   const neckY = o.neck === false ? -1e9 : M.transformPoint(new DOMPoint(J.nk[0], J.nk[1] + .25 * h)).y - y0;
   const botY = o.bot == null ? 1e9 : M.transformPoint(new DOMPoint(J.hip[0], J.hip[1] + o.bot * h)).y - y0;
   for (let y = 0; y < bh; y++) { if (y < neckY || y > botY) continue; for (let x = 0, i = y * bw; x < bw; x++, i++) { const v = Bw[i * 4]; A[i] = v < 60 ? 1 : v < 110 ? (110 - v) / 50 : 0; } }
+  if (window.NIF_DBG) { let c = 0, hist = new Array(8).fill(0); for (let i = 0; i < n; i++) { if (A[i] > 0) c++; hist[Bw[i * 4] >> 5]++; } console.log('mask', bw, bh, c, neckY, hist.join(',')); }
   // aşındırma (kare çekirdekli min süzgeç, ayrık iki geçiş)
   const er = Math.round((o.erode ?? .22) * h * sc * lerp(1.8, 1, E.out2(kOpen)));
   if (er > 0) {
@@ -184,7 +185,7 @@ function nif_icCehennem(J, drawFig, o = {}) {
   if (window.NIF_DBG == 1) A.fill(1);
   if (window.NIF_DBG == 2) { const im = new ImageData(bw, bh); for (let i = 0; i < n; i++) { im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = Bw[i * 4] * .5 + A[i] * 120; im.data[i * 4 + 3] = 255; } tx.putImageData(im, x0, y0); return; }
   // 2) figür gerçek hâliyle
-  drawFig();
+  drawFig(false);
   // 3) maske tuvali (büyüme için ölçeklenebilir)
   const G = o.grow, g = G ? Math.max(1, G.g) : 1;
   let R = [x0, y0, bw, bh], MA = A;

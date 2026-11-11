@@ -362,9 +362,9 @@ function oda_ayakta(o) {
 function px_rot(x, y, a) { const tx = GR.tx; tx.translate(x, y); tx.rotate(a); tx.translate(-x, -y); }
 function oda_satir(x, y, L, u, sil, seed, w = 6.5) {
   const e = u * (1 - sil); if (e < .02) return;
-  const r = rng(seed), n = 8, pts = [], a1 = r() * TAU, a2 = r() * TAU;
-  for (let i = 0; i <= n; i++) { const s = i / n * e; pts.push([x + s * L, y + Math.sin(s * L / 38 + a1) * 2.2 + Math.sin(s * L / 17 + a2) * 1.2]); }
-  oda_cizgi(pts, w + 12, .03, .5);   // koyu ayırma payı: taralı zeminde de okunur
+  const r = rng(seed), n = 8, pts = [], a1 = r() * TAU, a2 = r() * TAU, ka = .55;
+  for (let i = 0; i <= n; i++) { const s = i / n * e; pts.push([x + s * L, y + (Math.sin(s * L / 38 + a1) * 2.2 + Math.sin(s * L / 17 + a2) * 1.2) * ka]); }
+  oda_cizgi(pts, w + 10, .03, .5);   // koyu ayırma payı: taralı zeminde de okunur
   oda_cizgi(pts, w, 1, .5);
 }
 
@@ -408,6 +408,7 @@ function cizOda(t, o = {}) {
   const fl = mum ? oda_mumAlev(mum.x, mum.y, mum.s, mum) : null;
   const L = o.L || (fl && mum.alev > .02 ? fl : null), al = mum ? mum.alev : 1, R = o.R ?? 520;
   GR.fill(oda_dik(-400, FL, W + 800, H - FL + 400), tone(.03), { th: 0, id: 0 });                 // taban
+  if (o.ayTaban) GR.fill(oda_cok([[160, FL + 2], [470, FL + 2], [660, H + 20], [300, H + 20]]), tone(.5), { th: 0, id: 0 });
   if (L && o.isik !== false) oda_isik(L[0], L[1], (o.r0 ?? 250) * Math.min(1, al * 1.2), (o.r1 ?? 640) * (.35 + .65 * al), o.isikV ?? 1);
   if (o.pen !== false) oda_pencere(t, Object.assign({ x0: 250, y0: 170, x1: 590, y1: 560, mod: 'ay', ay: [356, 248] }, o.pen || {}));
   if (o.raf !== false) oda_raf(1400, 1800, 240, FL - 160, L, { R: o.rafR ?? 760 });
@@ -433,7 +434,7 @@ function cizOda(t, o = {}) {
 // Mumun yakın planı (P008, P118): masa kenarı, büyük mum; alev gölün alev diliyle aynı biçim (PR.flame, içinde mürekkep vuruşları).
 function cizMumYakin(t, o = {}) {
   const { tone } = GR, x = o.x ?? 1560, y = o.y ?? 930, s = o.s ?? 3.1, alev = o.alev ?? 1, boy = o.boy ?? .55;
-  const fl = oda_mumAlev(x, y - 22, s, { alev, boy }), L = alev > .02 ? fl : null;
+  const fl = oda_mumAlev(x, y - 22, s, { alev, boy, ah: 60 }), L = alev > .02 ? fl : null;
   GR.fill(oda_dik(-400, y, W + 800, 400), tone(.03), { th: 0, id: 0 });
   if (L) oda_isik(fl[0], fl[1], 170 * Math.min(1, alev * 1.3), (o.r1 ?? 820) * (.3 + .7 * alev));
   // masa kenarı: üst yüz ışıkta
@@ -441,7 +442,7 @@ function cizMumYakin(t, o = {}) {
   if (L) { const g = GR.tx.createRadialGradient(x, y, 0, x, y, 560); g.addColorStop(0, tone(1)); g.addColorStop(.35, tone(1)); g.addColorStop(.7, tone(.45)); g.addColorStop(1, tone(.04)); GR.fill(top, g, { th: 0, id: 0 }); }
   else GR.fill(top, tone(.03), { th: 0, id: 0 });
   oda_kut(oda_dik(-400, y, W + 800, 36), { L, c: [x, y + 18], w: 8, R: 640 });
-  const M = oda_mum(t, x, y - 22, s, { alev, boy, seed: 4, L: o.L, ah: 66, aw: 21 });
+  const M = oda_mum(t, x, y - 22, s, { alev, boy, seed: 4, L: o.L, ah: 60, aw: 27 });
   return { L, M, F: fl };
 }
 
@@ -459,10 +460,10 @@ function oda_evler(L, r, list, R) {
 // baş-omuz (arkadan): y omuz çizgisi, s baş boyu; gövde aşağı v = alt (baş biriminde) kadar iner
 function oda_bust(x, y, s, f, sapka, sd, alt = 4) {
   const r = rng(sd), M = (u, v) => [x + f * u * s, y + v * s], sw = .95 + r() * .3, ln = (r() - .5) * .18, U = new Path2D();
-  U.addPath(oda_yol([[-1.1 * sw, alt], [-1.08 * sw, 1.0], [-.9 * sw, .26], [-.42, .0], [.42, .0], [.9 * sw, .26], [1.08 * sw, 1.0], [1.1 * sw, alt]].map(p => M(...p)), .7));
+  U.addPath(oda_yol([[-1.2 * sw, alt], [-1.24 * sw, .9], [-1.12 * sw, .3], [-.7, .06], [-.3, .0], [.3, .0], [.7, .06], [1.12 * sw, .3], [1.24 * sw, .9], [1.2 * sw, alt]].map(p => M(...p)), .6));
   U.addPath(oda_cok([[-.2, -.3], [.2, -.3], [.24, .1], [-.24, .1]].map(p => M(...p))));
   const hc = [ln, -.64], H = (u, v) => M(hc[0] + u, hc[1] + v), hp = [];
-  for (let k = 0; k < 16; k++) { const a = k / 16 * TAU; hp.push(H(Math.cos(a) * .4, Math.sin(a) * .52)); }
+  for (let k = 0; k < 16; k++) { const a = k / 16 * TAU; hp.push(H(Math.cos(a) * .36, Math.sin(a) * .47)); }
   U.addPath(oda_yol(hp, .9));
   if (sapka === 'yuksek') { U.addPath(oda_yol([[-.42, -.36], [-.35, -1.38], [-.2, -1.46], [.2, -1.46], [.35, -1.38], [.42, -.36]].map(p => H(...p)), .5)); U.addPath(oda_yol([[-.92, -.34], [-.8, -.48], [.8, -.48], [.92, -.34], [.8, -.24], [-.8, -.24]].map(p => H(...p)), .6)); }
   else if (sapka === 'genis') { U.addPath(oda_yol([[-.4, -.36], [-.34, -.98], [.34, -.98], [.4, -.36]].map(p => H(...p)), .6)); U.addPath(oda_yol([[-1.12, -.14], [-.9, -.42], [.9, -.42], [1.12, -.14], [.96, -.22], [-.96, -.22]].map(p => H(...p)), .6)); }
@@ -483,7 +484,7 @@ function cizLondra(t, o = {}) {
   const { tx, tone } = GR, FX = o.fx ?? 1010, FY = o.fy ?? 830, GY = 690;
   const fl = 1 + .06 * Math.sin(t * 2.1) + .05 * fbm1(t * .8, 9), L = [FX, FY - 140];
   // gök: ateşle alttan aydınlanan pus
-  oda_isik(FX, FY - 150, 0, 900 * fl, .58);
+  oda_isik(FX, FY - 150, 0, 860 * fl, .66);
   oda_evler(L, rng(71), [{ x: -40, w: 200, y: GY, hg: 290 }, { x: 178, w: 170, y: GY, hg: 240 }, { x: 362, w: 220, y: GY, hg: 320 }, { x: 604, w: 150, y: GY, hg: 210 },
     { x: 1290, w: 160, y: GY, hg: 220 }, { x: 1470, w: 210, y: GY, hg: 310 }, { x: 1700, w: 240, y: GY, hg: 280 }], 1150);
   // zemin: arnavut kaldırımı; ateşin çevresi aydınlık (yassı ışık)
@@ -534,9 +535,9 @@ plan('P007', (ctx, st) => levha(ctx, camLerp({ cx: 900, cy: 560, z: 1 }, { cx: 8
 }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 } });
 
 // P008 (B01): bölüm kartı "KÖR ŞAİR"; mumun yakın planı: alev, gölün alev diliyle aynı biçim.
-plan('P008', (ctx, st) => levha(ctx, null, () => { cizMumYakin(st.t, {}); }, [.03, 0, 1]), {
+plan('P008', (ctx, st) => levha(ctx, null, () => { cizMumYakin(st.t, { r1: 660 }); }, [.03, 0, 1]), {
   tr: { type: 'black', dur: 1.4, end: true },
-  over: (ctx, st) => { const a = PA('P008'); chapterCard(ctx, 'KÖR ŞAİR', 'Hiçbir şey göremeyen bir adam,\ncehennemi nasıl bu kadar iyi gördü?', st.t - a + .2, Se('B01') + .5 - a, { x: 640, y: 420 }); } });
+  over: (ctx, st) => { const a = PA('P008'); chapterCard(ctx, 'KÖR ŞAİR', 'Hiçbir şey göremeyen bir adam,\ncehennemi nasıl bu kadar iyi gördü?', st.t - a + .2, Se('B01') + .5 - a, { x: 590, y: 420 }); } });
 
 // P009 (B02): gece; ay ışığında koltukta şair; başından dize çizgileri yükselir. Kızı mumla gelir, masaya oturur, yazar.
 // 'kırk dizeyi'de çizgiler çoğalır, 'yirmiye'de yarısı silinir.
@@ -550,7 +551,8 @@ function oda_P009(t) {
   const L = masada ? oda_mumAlev(1050, ODA_YER.my, 1, { boy: .8 }) : (t > tK - .5 ? elMum : null);
   const ayL = [310, 340];
   return cizOda(t, {
-    yer, mum: masada ? { boy: .8 } : null, L: L || ayL, isik: !!L, r1: 640, R: L ? 520 : 1400, rafR: L ? 640 : 10,
+    yer, mum: masada ? { boy: .8 } : null, L: L || ayL, isik: !!L, r1: 640, R: L ? 520 : 10, rafR: L ? 640 : 10,
+    isikEk: () => { const a = 1 - .55 * (L ? 1 : 0); oda_isik(310, 360, 60, 560, .62 * a); }, ayTaban: true,
     pen: { x0: 150, y0: 170, x1: 470, y1: 540, ay: [250, 248] },
     sair: { bas: .2, fw: -.05, L: L || ayL, R: L ? 600 : 1400, rw: L ? 6 : 4, vurus: !!L },
     on: () => {
@@ -607,7 +609,7 @@ plan('P010', (ctx, st) => levha(ctx, camLerp({ cx: 1000, cy: 540, z: 1.06 }, { c
 // P011 (B04): Londra, 1660: meydanda cellat kitapları ateşe atıyor; kalabalık; sayfalar savrulur.
 plan('P011', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 960, cy: 560, z: 1.08 }, st.p, E.lin), () => {
   cizLondra(st.t, { tA: Wd('B04', 'ateşe') + .2 });
-}, [.03, 0, 1]), { tr: { type: 'fade', dur: 1.0 }, over: (ctx, st) => etiket(ctx, 'LONDRA, 1660', 330, 130, st.lt - .6, st.d - .4, { px: 44 }) });
+}, [.03, 0, 1]), { tr: { type: 'fade', dur: 1.0 }, over: (ctx, st) => etiket(ctx, 'LONDRA, 1660', 300, 110, st.lt - .6, st.d - .4, { px: 44 }) });
 
 // P012 (B04@yazarı): karanlık odada, aralık kalmış kapının ardında saklanan şair. Kapı aralığından giren ateş ışığı (dikey yarık)
 // odaya yelpaze gibi yayılır; yüzünü ve önünü yalayıp titrer. Gözü çizilmez (boş bakış).
@@ -672,7 +674,7 @@ function oda_P013(t) {
     const Wr = [lerp(W + 160, X + 60, e), sy - 22], Sh = [Wr[0] + 520, Wr[1] - 150];
     const kol = oda_uzuv(Sh, Wr, u => 66 - 20 * u, u => 60 - 18 * u, 10);
     const el = oda_yol([[Wr[0] + 8, Wr[1] - 22], [Wr[0] - 40, Wr[1] - 20], [Wr[0] - 96, Wr[1] - 8], [Wr[0] - 118, Wr[1] - 1], [Wr[0] - 112, Wr[1] + 3], [Wr[0] - 34, Wr[1] + 4], [Wr[0] - 22, Wr[1] + 26], [Wr[0] - 6, Wr[1] + 30], [Wr[0] + 10, Wr[1] + 8]], .7);
-    oda_kut(oda_birles(kol, el), { L, c: Wr, w: 6, R: 1300 });
+    oda_kut(oda_birles(kol, el), { L, c: Wr, w: 12, R: 1300 });
     const ka = Math.atan2(Sh[1] - Wr[1], Sh[0] - Wr[0]), cx = Wr[0] + Math.cos(ka) * 34, cy = Wr[1] + Math.sin(ka) * 34, nx = -Math.sin(ka), ny = Math.cos(ka);
     const kolluk = oda_cok([[cx - nx * 46, cy - ny * 46], [cx + nx * 44, cy + ny * 44], [cx + nx * 44 + Math.cos(ka) * 16, cy + ny * 44 + Math.sin(ka) * 16], [cx - nx * 46 + Math.cos(ka) * 16, cy - ny * 46 + Math.sin(ka) * 16]]);
     oda_acik(kolluk, { L, c: [cx, cy], w: 7, tn: .97, sv: .04 });

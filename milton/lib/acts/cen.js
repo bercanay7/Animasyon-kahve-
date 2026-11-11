@@ -7,7 +7,7 @@ const cen_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 // ═════════ P019 (C02): melek safları arasında başmelek (açık tariflerin üslup karesi) ═════════
 function cen_c02(t, o = {}) {
   const L = { x: 1520, y: 110 };
-  cen_gok(L, { r0: 130, v: .62, mid: .86, kama: [{ a: PI * .8, w: .045, len: 1500 }, { a: PI * .6, w: .03, len: 900 }] });
+  cen_gok(L, { r0: 130, v: .7, mid: .88, kama: [{ a: PI * .8, w: .045, len: 1500 }, { a: PI * .6, w: .03, len: 900 }] });
   // ordunun arkasındaki bulut duvarı: üstü ışıklı yumrular, gövdesi aşağı doğru koyulaşır (safların zemini ve karenin koyu çapası)
   cen_bulut({ x: 1470, y: 440, w: 1300, h: 130, seed: 31, L, sh: 1, n: 10, len: 3.4, cuts: .7, base: false });
   // saflar: uzak mızrak ormanı + üç üst üste binen sıra (ışığa doğru küçülür)
