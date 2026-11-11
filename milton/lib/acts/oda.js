@@ -410,6 +410,7 @@ function cizOda(t, o = {}) {
   GR.fill(oda_dik(-400, FL, W + 800, H - FL + 400), tone(.03), { th: 0, id: 0 });                 // taban
   if (o.ayTaban) GR.fill(oda_cok([[160, FL + 2], [470, FL + 2], [660, H + 20], [300, H + 20]]), tone(.5), { th: 0, id: 0 });
   if (L && o.isik !== false) oda_isik(L[0], L[1], (o.r0 ?? 250) * Math.min(1, al * 1.2), (o.r1 ?? 640) * (.35 + .65 * al), o.isikV ?? 1);
+  if (o.isikEk) o.isikEk();
   if (o.pen !== false) oda_pencere(t, Object.assign({ x0: 250, y0: 170, x1: 590, y1: 560, mod: 'ay', ay: [356, 248] }, o.pen || {}));
   if (o.raf !== false) oda_raf(1400, 1800, 240, FL - 160, L, { R: o.rafR ?? 760 });
   if (o.arka) o.arka(L);
@@ -552,7 +553,7 @@ function oda_P009(t) {
   const ayL = [310, 340];
   return cizOda(t, {
     yer, mum: masada ? { boy: .8 } : null, L: L || ayL, isik: !!L, r1: 640, R: L ? 520 : 10, rafR: L ? 640 : 10,
-    isikEk: () => { const a = 1 - .55 * (L ? 1 : 0); oda_isik(310, 360, 60, 560, .62 * a); }, ayTaban: true,
+    isikEk: () => { const a = 1 - .55 * (L ? 1 : 0); oda_isik(310, 360, 60, 560, .62 * a); }, ayTaban: true, masaUstu: masada ? {} : false,
     pen: { x0: 150, y0: 170, x1: 470, y1: 540, ay: [250, 248] },
     sair: { bas: .2, fw: -.05, L: L || ayL, R: L ? 600 : 1400, rw: L ? 6 : 4, vurus: !!L },
     on: () => {
