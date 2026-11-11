@@ -27,8 +27,8 @@ Bölümler
 10:56 Güneşe itiraf
 14:09 Aden'de bir yabancı
 16:01 Yılanın içinde
-17:37 Alkış
-19:34 Bütün dünya önlerindeydi
+17:37 Alkış yerine tıslama
+19:34 Âdem bağışlandı; ya Şeytan?
 20:21 İki okuma: Blake mi, Lewis mi?
 22:44 Bir damla yaş
 

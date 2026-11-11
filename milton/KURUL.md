@@ -473,3 +473,17 @@ Hiçbir ölçüt 7'nin altında değil. İki üye de kavramı, "PİŞMAN MIYDI?"
 - 48. saat analizine not (P-TO): A'dan gelen izleyicide ilk 0,9 sn'lik göz planı ilk 3 saniyede kayıp yaratıyor mu, tutma eğrisinden bakılacak.
 
 Puanların seyri: A: P-TO 8,3 → 8,8 → 9,0 → 9,0; P-Sanat 7,9 → 8,4 → 8,9 → 9,0. B: P-TO 7,3 → 8,3 → 8,7 → 8,9; P-Sanat 7,4 → 8,3 → 9,0 → 9,0. Dokuz tasarım turu (tur 1–9); kırılma noktaları: koyu zeminden açık zemine geçiş (A), "ŞEYTAN AĞLADI" yazısının bırakılması (B), piktogram figürden gravür figüre geçiş (A), emoji damladan gravür damlaya geçiş (B).
+
+### Kapı 3, tur 1 (devam): kanca ve tutma, kurgu
+| Alan | Üye | Puan | Karar | Öne çıkan |
+|---|---|---|---|---|
+| Kanca ve tutma | T-Tutma (tutma stratejisti) | 7,6 | RED | üç engelleyici: A05 başlık levhası 40–49. sn arası kıpırtısız (çıkış kapısı); A04 başında ~4 sn siyah ekran; bitiş ekranında "ekranda" denince sol kutu boş. Tahmin: 0:30'da kalan %64–71, ortalama izleme %25–31 |
+| Kanca ve tutma | T-Izleyici (ilk kez gören izleyici) | 7,0 | RED | aynı iki açılış bulgusu; üç tekdüze bölge (Nifates 3 dk, okuma levhaları, kıyı serisi); iki levhada siluetin karnındaki figür "hamile kadın" gibi; "9–12 dk izlerim, Nifates'te bırakırım" |
+| Animasyon ve kurgu | N-Kurgu (kurgu ve ritim) | 7,7 | RED | kesmeler cümleye oturuyor (129/144); tempo düz, doruklarda hızlanmıyor; filmin %25,5'i levha, 20:19–22:42 arası 143 sn kesintisiz açık levha; geçişlerin %62'si fade ve konuşmanın başına biniyor; aynı kadraj tekrarları |
+
+Üç üye birbirinden bağımsız olarak aynı yerleri gösterdi; bulguların hepsi kabul. İşler sahne sahibine göre birleştirildi:
+- **Levhalar (ilk parti):** A05'te itme + «kaleminden»de tüy kalemin açılış figürünü sayfaya çizmesi; B09 ve C09'a kelimeye bağlı hareket; E04 ve G08'de karındaki figür kalkıyor (gölge / iç içe kuyular).
+- **Göl ve kıyı:** A04'te siyah ≤ 0,5 sn, gözler «gözlerini»de iri ve parlak, göl «yanan»da tam görünür; E11 ve L04'te gözyaşı okunur boyda; kıyı serisinde kadraj çeşitliliği.
+- **Sırada:** "İki okuma" bloğu (K03, K06, K08, K14, K16, L10) ve bitiş ekranı; Nifates'te ölçek çeşitliliği ve G07'de "içindeki göl" maskesi; A03'te itme ve «tutan»da soluk zincir (L07'nin tohumu); J07'de daha yakın kadraj; savaş ve yılana giriş bloklarında kadraj tekrarı; geçiş politikası (aynı set içinde kesme; fade yalnız mekân/zaman sıçramasında ve sessizlikte).
+- **Reddedilen (T-Tutma):** açıklamanın ilk satırına kancanın alınması. Gerekçe: ilk satırın edebi okuma notu olması hassasiyet alanının (veto) şartı. Bölüm adı önerileri kabul edildi ("Alkış yerine tıslama", "Âdem bağışlandı; ya Şeytan?"; yalnız YouTube bölüm adları, ekran yazısı değil).
+- **Shorts adayları (T-Tutma):** K10–K13 başı (21:00–21:46), E05–E08 (7:22–8:02), G02b + G06–G08 (~41 sn).
