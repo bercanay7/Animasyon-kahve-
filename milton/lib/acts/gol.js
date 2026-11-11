@@ -309,7 +309,7 @@ plan('P050', (ctx, st) => {
 // arada kalkık kırık kanat uçları ve seyrek mızraklar. Uzaklaştıkça küçülür ve soluklaşır (ton açılır: tarama incelir).
 const GOL_SAF = (() => {
   const r = rng(77), rows = [];
-  for (const [y, h, x0, x1, v] of [[604, 9, 420, 1990, .4], [622, 12, 420, 1990, .3], [648, 16, 430, 1990, .2], [690, 22, 440, 1990, .1], [756, 31, 450, 1990, .02]]) {
+  for (const [y, h, x0, x1, v] of [[612, 12, 420, 1990, .42], [640, 17, 420, 1990, .3], [684, 25, 430, 1990, .18], [752, 36, 440, 1990, .08], [860, 52, 460, 1990, .02]]) {
     const F = []; let x = x0 + r() * h;
     while (x < x1 + h) { F.push({ x, dy: (r() - .5) * h * .5, hs: .85 + r() * .3, w: r() < .3 ? (r() < .5 ? -1 : 1) : 0, sp: r() < .12, tr: r() }); x += h * (.55 + r() * .75); }
     rows.push({ y, h, v, F });
@@ -359,25 +359,22 @@ function cizOrdu(t, o = {}) {
     }
   }
   // önde Şeytan: pelerin ve katlı kanatla sarılı koyu siluet (iç kontur yok; yalnız ışık kenarı ve birkaç vuruş); baş hafif eğik
-  const h = 118, br = Math.sin(t * .6) * 2;
-  const J = SF.rig({ x: 470, y: 930 + br, h, facing: 1, twist: .3, lean: .04, head: o.head ?? -.12, shTilt: -.05, armN: [.1, .15], armF: [-.06, .12] });
-  GR.frame(J.shN[0] - 4, J.shN[1] + 70, -.2, -1, 1);
-  KN.feathered({ span: 560, open: .25, lift: .45, droop: .5, ruin: .55, dark: .94, rim: .55, t, seed: 35, root: .1, lit: [-.5, -.85] });
-  GR.unframe();
-  SF.draw(J, { lum: .2, lit: [.55, -.8], t, legs: true, skirt: true, armor: false, eye: 1, wind: .6, cloak: 1.7, halo: 0, lines: .6 });
+  const h = 130, br = Math.sin(t * .6) * 2;
+  const J = SF.rig({ x: 330, y: 960 + br, h, facing: 1, twist: .3, lean: .04, head: o.head ?? -.12, shTilt: -.05, armN: [.1, .15], armF: [-.06, .12] });
+  SF.draw(J, { lum: .2, lit: [.55, -.8], t, legs: true, skirt: true, armor: false, eye: 1, wind: .6, cloak: 1.7, halo: 3, lines: .6 });
   return J;
 }
 // gözyaşı yakın planı (E11 notu): h 150 profil (P050 karesinin eşi); yanaktan çeneye inen ıslak iz, çeneden düşen parlak damla
 function gol_yasPlani(t, yas, head) {
-  const J = cizProfil(t, { iz: 1, head });
+  const J = cizProfil(t, { iz: .67, head });
   const { tx, tone } = GR;
   yas.forEach((t0, i) => {
     const u = (t - t0) / 1.4; if (u <= 0) return;
     const e = gol_hl(J, .27 - .02 * i, -.02), c = gol_hl(J, .24 - .03 * i, .4), k = E.in2(Math.min(u, 1));
     const p = [lerp(e[0], c[0], k), lerp(e[1], c[1], k)];
-    gol_vurus(tx, [e, [lerp(e[0], p[0], .5) + 2, lerp(e[1], p[1], .5)], p], 4, .96, .3);                       // ıslak iz (kalır)
+    gol_vurus(tx, [e, [lerp(e[0], p[0], .5) + 2, lerp(e[1], p[1], .5)], p], 5, .96, .3);                       // ıslak iz (kalır)
     let q = p; if (u > 1) { const f = u - 1; q = [c[0] + f * 10, c[1] + 900 * f * f]; }                     // çeneden kopup düşer
-    if (u < 1.6) { const D = new Path2D(); D.moveTo(q[0], q[1] - 15); D.quadraticCurveTo(q[0] + 8, q[1] + 3, q[0], q[1] + 8); D.quadraticCurveTo(q[0] - 8, q[1] + 3, q[0], q[1] - 15); tx.fillStyle = tone(.98); tx.fill(D); }
+    if (u < 1.6) { const D = new Path2D(); D.moveTo(q[0], q[1] - 20); D.quadraticCurveTo(q[0] + 11, q[1] + 4, q[0], q[1] + 11); D.quadraticCurveTo(q[0] - 11, q[1] + 4, q[0], q[1] - 20); tx.fillStyle = tone(.98); tx.fill(D); }
   });
 }
 plan('P051', (ctx, st) => {
