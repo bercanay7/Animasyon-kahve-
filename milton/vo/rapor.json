@@ -129,5 +129,1441 @@
     "celle at"
    ]
   ]
+ },
+ "s02_a": {
+  "wer": 0.1026,
+  "sure": 39.02,
+  "hatalar": [
+   [
+    "replace",
+    "destanın",
+    "destan ın"
+   ],
+   [
+    "replace",
+    "yaz gülü",
+    "yazgülü"
+   ],
+   [
+    "replace",
+    "yeğeninin",
+    "yeğenin in"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ]
+  ]
+ },
+ "s02_b": {
+  "wer": 0.1154,
+  "sure": 39.32,
+  "hatalar": [
+   [
+    "replace",
+    "destanın",
+    "destan ın"
+   ],
+   [
+    "replace",
+    "yaz gülü",
+    "yazgülü"
+   ],
+   [
+    "replace",
+    "yeğeninin",
+    "yeğenin in"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ],
+   [
+    "replace",
+    "itiraftı",
+    "itirafdı"
+   ]
+  ]
+ },
+ "s03_a": {
+  "wer": 0.1698,
+  "sure": 57.58,
+  "hatalar": [
+   [
+    "replace",
+    "başkaldırır miltonun",
+    "baş kaldırır milton un"
+   ],
+   [
+    "replace",
+    "ışıktan",
+    "işıktan"
+   ],
+   [
+    "replace",
+    "başmelektir başmeleklerin",
+    "baş melektir baş meleklerin"
+   ],
+   [
+    "delete",
+    "ışık taşıyan",
+    ""
+   ],
+   [
+    "replace",
+    "miltonun",
+    "miltun un"
+   ],
+   [
+    "replace",
+    "oğulu",
+    "oğlu"
+   ],
+   [
+    "replace",
+    "tanrıya",
+    "tanrı ya"
+   ],
+   [
+    "replace",
+    "başmelek",
+    "baş melek"
+   ]
+  ]
+ },
+ "s03_b": {
+  "wer": 0.1604,
+  "sure": 56.44,
+  "hatalar": [
+   [
+    "replace",
+    "başkaldırır miltonun",
+    "baş kaldırır milton un"
+   ],
+   [
+    "replace",
+    "ışıktan",
+    "işıktan"
+   ],
+   [
+    "replace",
+    "başmelektir başmeleklerin",
+    "baş melektir baş meleklerin"
+   ],
+   [
+    "replace",
+    "ışık",
+    "işık"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "miltun un"
+   ],
+   [
+    "replace",
+    "oğulu",
+    "oğlu"
+   ],
+   [
+    "replace",
+    "tanrıya",
+    "tanrı ya"
+   ],
+   [
+    "replace",
+    "başmelek",
+    "baş melek"
+   ]
+  ]
+ },
+ "s04_a": {
+  "wer": 0.104,
+  "sure": 63.42,
+  "hatalar": [
+   [
+    "replace",
+    "konuşur",
+    "kuyuşur"
+   ],
+   [
+    "replace",
+    "eğip",
+    "eğit"
+   ],
+   [
+    "replace",
+    "bükeceksiniz",
+    "dükeceksiniz"
+   ],
+   [
+    "replace",
+    "yalanlarıyla",
+    "yalanları ile"
+   ],
+   [
+    "replace",
+    "başkaldırdı",
+    "baş kaldırdı"
+   ],
+   [
+    "replace",
+    "miltona sorsan",
+    "milton a sorsam"
+   ],
+   [
+    "replace",
+    "abdiyeldir abdiyel",
+    "abdieldir abdiel"
+   ],
+   [
+    "replace",
+    "küçümseyen",
+    "küçümsiyen"
+   ]
+  ]
+ },
+ "s04_b": {
+  "wer": 0.072,
+  "sure": 64.6,
+  "hatalar": [
+   [
+    "replace",
+    "boyun eğip",
+    "boyunayıp"
+   ],
+   [
+    "replace",
+    "yalanlarıyla",
+    "yalanları ile"
+   ],
+   [
+    "replace",
+    "başkaldırdı",
+    "baş kaldırdı"
+   ],
+   [
+    "replace",
+    "miltona",
+    "milton a"
+   ],
+   [
+    "replace",
+    "küçümseyen",
+    "küçümsüyan"
+   ]
+  ]
+ },
+ "s05_a": {
+  "wer": 0.08,
+  "sure": 39.12,
+  "hatalar": [
+   [
+    "replace",
+    "başkaldırana",
+    "baş kaldırana"
+   ],
+   [
+    "replace",
+    "tutsağısın",
+    "tutsasın"
+   ],
+   [
+    "replace",
+    "hizmetkar kalayım",
+    "hizmetkak alayım"
+   ],
+   [
+    "replace",
+    "adımda",
+    "adında"
+   ]
+  ]
+ },
+ "s05_b": {
+  "wer": 0.0667,
+  "sure": 40.1,
+  "hatalar": [
+   [
+    "replace",
+    "başkaldırana",
+    "baş kaldırana"
+   ],
+   [
+    "replace",
+    "tutsağısın",
+    "tutsasın"
+   ],
+   [
+    "replace",
+    "adım",
+    "adın"
+   ],
+   [
+    "replace",
+    "adımda",
+    "adında"
+   ]
+  ]
+ },
+ "s06_a": {
+  "wer": 0.0581,
+  "sure": 46.96,
+  "hatalar": [
+   [
+    "replace",
+    "başmeleğin",
+    "baş meleğin"
+   ],
+   [
+    "replace",
+    "lekelidir",
+    "lekeledir"
+   ],
+   [
+    "replace",
+    "destanda",
+    "bestanda"
+   ],
+   [
+    "replace",
+    "ışıktan",
+    "işıktan"
+   ]
+  ]
+ },
+ "s06_b": {
+  "wer": 0.0698,
+  "sure": 46.62,
+  "hatalar": [
+   [
+    "replace",
+    "başmeleğin",
+    "baş meleğin"
+   ],
+   [
+    "replace",
+    "lekelidir",
+    "lekeledir"
+   ],
+   [
+    "replace",
+    "ışıktan",
+    "işıktan"
+   ],
+   [
+    "replace",
+    "yanan göle",
+    "yanangöle"
+   ]
+  ]
+ },
+ "s07_a": {
+  "wer": 0.0594,
+  "sure": 52.7,
+  "hatalar": [
+   [
+    "replace",
+    "ne",
+    "ve"
+   ],
+   [
+    "replace",
+    "eğmeyen yüreklilik",
+    "eğniyen güretlilik"
+   ],
+   [
+    "replace",
+    "yayımlandığında",
+    "yayınlandığında"
+   ],
+   [
+    "replace",
+    "miltona",
+    "milton a"
+   ]
+  ]
+ },
+ "s07_b": {
+  "wer": 0.0297,
+  "sure": 53.2,
+  "hatalar": [
+   [
+    "replace",
+    "böbürleniyordu",
+    "böbürlemiyordu"
+   ],
+   [
+    "replace",
+    "miltona",
+    "milton a"
+   ]
+  ]
+ },
+ "s08_a": {
+  "wer": 0.0526,
+  "sure": 73.5,
+  "hatalar": [
+   [
+    "replace",
+    "kıyıya",
+    "kıyı ya"
+   ],
+   [
+    "replace",
+    "destanın",
+    "destan ın"
+   ],
+   [
+    "replace",
+    "yeğdir",
+    "yeğedir"
+   ],
+   [
+    "replace",
+    "başmelek",
+    "baş melek"
+   ]
+  ]
+ },
+ "s08_b": {
+  "wer": 0.0451,
+  "sure": 73.66,
+  "hatalar": [
+   [
+    "replace",
+    "destanın",
+    "destan ın"
+   ],
+   [
+    "replace",
+    "yeğdir",
+    "yeğedir"
+   ],
+   [
+    "replace",
+    "başmelek",
+    "baş melek"
+   ],
+   [
+    "replace",
+    "yıldırım",
+    "yıldırın"
+   ]
+  ]
+ },
+ "s09_a": {
+  "wer": 0.0548,
+  "sure": 40.86,
+  "hatalar": [
+   [
+    "replace",
+    "koyulur",
+    "kolulur"
+   ],
+   [
+    "replace",
+    "kimi",
+    "kim"
+   ],
+   [
+    "replace",
+    "tanrıya",
+    "tanrı ya"
+   ]
+  ]
+ },
+ "s09_b": {
+  "wer": 0.0411,
+  "sure": 42.44,
+  "hatalar": [
+   [
+    "replace",
+    "kimi",
+    "kim"
+   ],
+   [
+    "replace",
+    "tanrıya",
+    "tanrı ya"
+   ]
+  ]
+ },
+ "s10_a": {
+  "wer": 0.0,
+  "sure": 37.92,
+  "hatalar": []
+ },
+ "s10_b": {
+  "wer": 0.013,
+  "sure": 38.76,
+  "hatalar": [
+   [
+    "replace",
+    "onu",
+    "onun"
+   ]
+  ]
+ },
+ "s11_a": {
+  "wer": 0.0959,
+  "sure": 37.2,
+  "hatalar": [
+   [
+    "replace",
+    "güneşe",
+    "güneş e"
+   ],
+   [
+    "replace",
+    "güneşin",
+    "güneş in"
+   ],
+   [
+    "replace",
+    "uriyele",
+    "uriel e"
+   ],
+   [
+    "replace",
+    "uriyel",
+    "uriel"
+   ]
+  ]
+ },
+ "s11_b": {
+  "wer": 0.1096,
+  "sure": 37.9,
+  "hatalar": [
+   [
+    "replace",
+    "güneşin",
+    "güneş in"
+   ],
+   [
+    "replace",
+    "uriyele",
+    "uriye yle"
+   ],
+   [
+    "replace",
+    "uriyel",
+    "uriye l"
+   ],
+   [
+    "replace",
+    "nifatesin",
+    "nifates in"
+   ]
+  ]
+ },
+ "s12_a": {
+  "wer": 0.0684,
+  "sure": 61.9,
+  "hatalar": [
+   [
+    "replace",
+    "cehennemi",
+    "cehenneni"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ],
+   [
+    "replace",
+    "dostça",
+    "dosya"
+   ],
+   [
+    "replace",
+    "anıyorum",
+    "anlıyorum"
+   ],
+   [
+    "replace",
+    "iyiliğini",
+    "i yiliğini"
+   ],
+   [
+    "replace",
+    "kakmazdı",
+    "kalkmazdı"
+   ]
+  ]
+ },
+ "s12_b": {
+  "wer": 0.0684,
+  "sure": 62.42,
+  "hatalar": [
+   [
+    "replace",
+    "ne",
+    "mi"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ],
+   [
+    "replace",
+    "dostça",
+    "dosya"
+   ],
+   [
+    "replace",
+    "anıyorum",
+    "anlıyorum"
+   ],
+   [
+    "replace",
+    "iyiliğini",
+    "i yiliğini"
+   ],
+   [
+    "replace",
+    "kakmazdı",
+    "kalkmazdı"
+   ]
+  ]
+ },
+ "s14_a": {
+  "wer": 0.0323,
+  "sure": 67.94,
+  "hatalar": [
+   [
+    "replace",
+    "içimde",
+    "i çimde"
+   ],
+   [
+    "replace",
+    "uzağım",
+    "uzam"
+   ],
+   [
+    "replace",
+    "uriyel",
+    "uriel"
+   ]
+  ]
+ },
+ "s14_b": {
+  "wer": 0.0484,
+  "sure": 67.6,
+  "hatalar": [
+   [
+    "replace",
+    "içimde",
+    "i çimde"
+   ],
+   [
+    "replace",
+    "diyelim ki",
+    "diğerimki"
+   ],
+   [
+    "replace",
+    "uzağım",
+    "uzam"
+   ],
+   [
+    "replace",
+    "uriyel",
+    "uriel"
+   ]
+  ]
+ },
+ "s15_a": {
+  "wer": 0.0441,
+  "sure": 36.86,
+  "hatalar": [
+   [
+    "replace",
+    "karabatak",
+    "kara batak"
+   ],
+   [
+    "replace",
+    "savunmasız",
+    "salınmasız"
+   ]
+  ]
+ },
+ "s15_b": {
+  "wer": 0.0735,
+  "sure": 36.78,
+  "hatalar": [
+   [
+    "replace",
+    "duvarın",
+    "duvarım"
+   ],
+   [
+    "replace",
+    "karabatak",
+    "kara batak"
+   ],
+   [
+    "replace",
+    "savunmasız",
+    "salınmasız"
+   ],
+   [
+    "replace",
+    "masumiyetiniz",
+    "masuniyetiniz"
+   ]
+  ]
+ },
+ "s16_a": {
+  "wer": 0.1066,
+  "sure": 66.2,
+  "hatalar": [
+   [
+    "replace",
+    "edilesi",
+    "edilesin"
+   ],
+   [
+    "replace",
+    "bense sevincin de",
+    "ben ise sevincinde"
+   ],
+   [
+    "replace",
+    "çömelir",
+    "çömedir"
+   ],
+   [
+    "replace",
+    "uriyelin",
+    "uriyer in"
+   ],
+   [
+    "replace",
+    "ucuyla",
+    "ucu ile"
+   ],
+   [
+    "replace",
+    "küçümseyerek",
+    "küçümsiyerek"
+   ],
+   [
+    "replace",
+    "kalakalır",
+    "kala kalır"
+   ],
+   [
+    "replace",
+    "sönükleşen",
+    "sönüpleşen"
+   ]
+  ]
+ },
+ "s16_b": {
+  "wer": 0.1066,
+  "sure": 66.14,
+  "hatalar": [
+   [
+    "replace",
+    "bense",
+    "ben ise"
+   ],
+   [
+    "replace",
+    "itildim",
+    "eğitildim"
+   ],
+   [
+    "replace",
+    "havvanın",
+    "havva nın"
+   ],
+   [
+    "replace",
+    "uriyelin",
+    "uriel in"
+   ],
+   [
+    "replace",
+    "mızrağının",
+    "mızra nın"
+   ],
+   [
+    "replace",
+    "beni",
+    "bilini"
+   ],
+   [
+    "replace",
+    "küçümseyerek",
+    "küçümsiyerek"
+   ],
+   [
+    "replace",
+    "kalakalır",
+    "kala kalır"
+   ]
+  ]
+ },
+ "s17_a": {
+  "wer": 0.0267,
+  "sure": 38.44,
+  "hatalar": [
+   [
+    "replace",
+    "geri sızar",
+    "gerisizar"
+   ]
+  ]
+ },
+ "s17_b": {
+  "wer": 0.0267,
+  "sure": 38.58,
+  "hatalar": [
+   [
+    "replace",
+    "geri sızar",
+    "gerisizar"
+   ]
+  ]
+ },
+ "s18_a": {
+  "wer": 0.1294,
+  "sure": 48.32,
+  "hatalar": [
+   [
+    "replace",
+    "yılanın",
+    "yılının"
+   ],
+   [
+    "replace",
+    "havvanın",
+    "havva nın"
+   ],
+   [
+    "replace",
+    "miltonun deyişiyle",
+    "milton un değişiyle"
+   ],
+   [
+    "replace",
+    "donakalır",
+    "donak alır"
+   ],
+   [
+    "replace",
+    "meyveyi",
+    "meyvayı"
+   ],
+   [
+    "replace",
+    "adem de",
+    "ademde"
+   ]
+  ]
+ },
+ "s18_b": {
+  "wer": 0.1529,
+  "sure": 49.08,
+  "hatalar": [
+   [
+    "replace",
+    "yılanın",
+    "yılının"
+   ],
+   [
+    "replace",
+    "havvanın",
+    "havva nın"
+   ],
+   [
+    "replace",
+    "miltonun deyişiyle",
+    "milton un değişiyle"
+   ],
+   [
+    "replace",
+    "donakalır",
+    "donak alır"
+   ],
+   [
+    "replace",
+    "havva meyveyi",
+    "hava meyvayı"
+   ],
+   [
+    "replace",
+    "adem de",
+    "ademde"
+   ],
+   [
+    "replace",
+    "iç",
+    "it"
+   ]
+  ]
+ },
+ "s19_a": {
+  "wer": 0.2075,
+  "sure": 27.68,
+  "hatalar": [
+   [
+    "replace",
+    "anında",
+    "han ın da"
+   ],
+   [
+    "replace",
+    "duymayı",
+    "durmayı"
+   ],
+   [
+    "replace",
+    "miltonun deyişiyle",
+    "milton un değişiyle"
+   ],
+   [
+    "replace",
+    "hem de",
+    "hemde"
+   ],
+   [
+    "replace",
+    "gülmeye değmez",
+    "gülme edeymez"
+   ]
+  ]
+ },
+ "s19_b": {
+  "wer": 0.1132,
+  "sure": 27.6,
+  "hatalar": [
+   [
+    "replace",
+    "duymayı",
+    "durmayı"
+   ],
+   [
+    "replace",
+    "miltonun deyişiyle",
+    "milton ın değişiyle"
+   ],
+   [
+    "replace",
+    "hem de",
+    "hemde"
+   ]
+  ]
+ },
+ "s20_a": {
+  "wer": 0.0515,
+  "sure": 74.54,
+  "hatalar": [
+   [
+    "replace",
+    "yüzünün",
+    "yüzünüm"
+   ],
+   [
+    "replace",
+    "karnının",
+    "kanının"
+   ],
+   [
+    "replace",
+    "eğememişti",
+    "eğmemişti"
+   ],
+   [
+    "replace",
+    "miltona",
+    "milton a"
+   ],
+   [
+    "replace",
+    "acı küle",
+    "acıküle"
+   ]
+  ]
+ },
+ "s20_b": {
+  "wer": 0.0735,
+  "sure": 71.98,
+  "hatalar": [
+   [
+    "replace",
+    "yüzünün",
+    "yüzünüm"
+   ],
+   [
+    "replace",
+    "yığılır",
+    "yürülür"
+   ],
+   [
+    "replace",
+    "nifates dağında",
+    "nifat estağında"
+   ],
+   [
+    "replace",
+    "eğememişti",
+    "eğmemişti"
+   ],
+   [
+    "replace",
+    "miltona",
+    "milton a"
+   ],
+   [
+    "replace",
+    "belirir",
+    "bedirir"
+   ],
+   [
+    "replace",
+    "acı küle",
+    "acık kule"
+   ]
+  ]
+ },
+ "s21_a": {
+  "wer": 0.1408,
+  "sure": 41.94,
+  "hatalar": [
+   [
+    "replace",
+    "şeytanla",
+    "şeytan la"
+   ],
+   [
+    "replace",
+    "sahnede",
+    "sahmede"
+   ],
+   [
+    "replace",
+    "şeytanın",
+    "şeytan ın"
+   ],
+   [
+    "replace",
+    "dileyebilir",
+    "dileyabilir"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ],
+   [
+    "replace",
+    "kavga ise",
+    "kavgaysa"
+   ]
+  ]
+ },
+ "s21_b": {
+  "wer": 0.1408,
+  "sure": 41.68,
+  "hatalar": [
+   [
+    "replace",
+    "sahnede",
+    "sahne de"
+   ],
+   [
+    "replace",
+    "adenden",
+    "ademden"
+   ],
+   [
+    "replace",
+    "i nsanca",
+    "insanca"
+   ],
+   [
+    "replace",
+    "gözyaşı",
+    "göz yeşil"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ],
+   [
+    "replace",
+    "kendilerini",
+    "kendilerine"
+   ]
+  ]
+ },
+ "s22_a": {
+  "wer": 0.0882,
+  "sure": 34.64,
+  "hatalar": [
+   [
+    "replace",
+    "yüz",
+    "100"
+   ],
+   [
+    "replace",
+    "vilyım bleyk",
+    "william blake"
+   ],
+   [
+    "replace",
+    "tanrıyı",
+    "tanrıya"
+   ],
+   [
+    "replace",
+    "bleykin",
+    "blake in"
+   ]
+  ]
+ },
+ "s22_b": {
+  "wer": 0.0882,
+  "sure": 35.7,
+  "hatalar": [
+   [
+    "replace",
+    "yüz",
+    "100"
+   ],
+   [
+    "replace",
+    "vilyım",
+    "william"
+   ],
+   [
+    "replace",
+    "tanrıyı",
+    "tanrı yı"
+   ],
+   [
+    "replace",
+    "bleykin",
+    "bleyk in"
+   ]
+  ]
+ },
+ "s24_a": {
+  "wer": 0.1951,
+  "sure": 63.6,
+  "hatalar": [
+   [
+    "replace",
+    "bleyk mi",
+    "blake mı"
+   ],
+   [
+    "replace",
+    "tanrının",
+    "tanrı nın"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "hürmüzün",
+    "hürmüz ün"
+   ],
+   [
+    "replace",
+    "hindistanın",
+    "hindistan ın"
+   ],
+   [
+    "replace",
+    "ademe",
+    "adem e"
+   ],
+   [
+    "replace",
+    "başkaldırıların",
+    "baş kaldırıların"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ],
+   [
+    "replace",
+    "kromvel",
+    "cromwell"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "abdiyelin",
+    "abdiye nin"
+   ],
+   [
+    "replace",
+    "tutsağısın başkaldırı",
+    "tutsasın baş kaldırı"
+   ]
+  ]
+ },
+ "s24_b": {
+  "wer": 0.1463,
+  "sure": 62.16,
+  "hatalar": [
+   [
+    "replace",
+    "bleyk mi",
+    "blake mı"
+   ],
+   [
+    "replace",
+    "tanrının",
+    "tanrı nın"
+   ],
+   [
+    "replace",
+    "başkaldıran",
+    "baş kaldıran"
+   ],
+   [
+    "replace",
+    "hürmüzün",
+    "hürmüz ün"
+   ],
+   [
+    "replace",
+    "hindistanın",
+    "hindistan ın"
+   ],
+   [
+    "replace",
+    "ademe",
+    "adem e"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ],
+   [
+    "replace",
+    "kromvel",
+    "cromwell"
+   ],
+   [
+    "replace",
+    "abdiyelin",
+    "abdiye nin"
+   ],
+   [
+    "replace",
+    "tutsağısın",
+    "tutsasın"
+   ]
+  ]
+ },
+ "s25_b": {
+  "wer": 0.1446,
+  "sure": 42.26,
+  "hatalar": [
+   [
+    "replace",
+    "gözyaşları bin sekiz yüz kırk yedi",
+    "göz yaşları 1847"
+   ],
+   [
+    "replace",
+    "miltonun şeytanı",
+    "milton un şeytan ı"
+   ],
+   [
+    "replace",
+    "yenik ordusunun",
+    "yeni kordusunun"
+   ]
+  ]
+ },
+ "s26_a": {
+  "wer": 0.0609,
+  "sure": 59.1,
+  "hatalar": [
+   [
+    "replace",
+    "birini",
+    "dirini"
+   ],
+   [
+    "replace",
+    "cehennemi",
+    "cehenneni"
+   ],
+   [
+    "replace",
+    "çözülmüştü",
+    "çözülüştü"
+   ],
+   [
+    "replace",
+    "kendini",
+    "kendine"
+   ],
+   [
+    "replace",
+    "uzağım",
+    "uzam"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton ın"
+   ]
+  ]
+ },
+ "s26_b": {
+  "wer": 0.0435,
+  "sure": 59.3,
+  "hatalar": [
+   [
+    "replace",
+    "gölün",
+    "gönül"
+   ],
+   [
+    "replace",
+    "kendini",
+    "kendine"
+   ],
+   [
+    "replace",
+    "uzağım",
+    "uzam"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ]
+  ]
+ },
+ "s27_a": {
+  "wer": 0.1538,
+  "sure": 54.32,
+  "hatalar": [
+   [
+    "replace",
+    "kör şair",
+    "körşahir"
+   ],
+   [
+    "replace",
+    "şey diler",
+    "şeydiler"
+   ],
+   [
+    "replace",
+    "göremediğini",
+    "göremeyediğini"
+   ],
+   [
+    "replace",
+    "insanlar",
+    "i nsanlar"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "şeliye",
+    "şeli ye"
+   ],
+   [
+    "replace",
+    "prometeusa",
+    "prometheus a"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
+ },
+ "s27_b": {
+  "wer": 0.1442,
+  "sure": 55.04,
+  "hatalar": [
+   [
+    "replace",
+    "kör şair",
+    "körşahir"
+   ],
+   [
+    "replace",
+    "şey diler",
+    "şeydiler"
+   ],
+   [
+    "replace",
+    "parla",
+    "parlı"
+   ],
+   [
+    "replace",
+    "göremediğini",
+    "göremeydiğini"
+   ],
+   [
+    "replace",
+    "prometeusun",
+    "prometheus un"
+   ],
+   [
+    "replace",
+    "şeliye",
+    "şeli ye"
+   ],
+   [
+    "replace",
+    "prometeusa",
+    "prometheus a"
+   ],
+   [
+    "replace",
+    "miltonun",
+    "milton un"
+   ],
+   [
+    "replace",
+    "prometeus",
+    "prometheus"
+   ]
+  ]
  }
 }

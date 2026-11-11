@@ -1,7 +1,8 @@
 """Seçilen seslendirme take'lerini senaryo cümlelerine böler, aralarına kurgu boşlukları koyarak
 tek anlatım izi (vo.wav) ve zaman çizelgesi (timeline.js) üretir.
 Kullanım: python3 tools/build_vo.py   (vo/secim.json: {çekim öneki: dosya}; vo/bolumler.json: çekimler)"""
-import json, re, difflib, subprocess, numpy as np, sys
+import json, re, difflib, subprocess, numpy as np, sys, os
+eksik = []
 SR = 48000
 d = json.load(open('senaryo.json'))
 sel = json.load(open('vo/secim.json'))
@@ -27,7 +28,20 @@ secs = [(b['onek'], b['ad'], [byid[i] for i in b['ids']], k == len(bol) - 1 or b
 out = []; t = plan.get('once', 1.0); cues = {}; allwords = []
 out.append(np.zeros(int(t * SR), np.float32))
 for onek, bolum, segs, bolum_sonu in secs:
-    si = adlar.index(bolum); f = sel[onek]
+    si = adlar.index(bolum); f = sel.get(onek)
+    if not f or not os.path.exists('vo/' + f):
+        # yer tutucu: çekim henüz yok. Tahmini sürede sessizlik; işaretler ve kelimeler eşit aralıkla dağıtılır (çekim gelince yeniden kurulur).
+        print('YER TUTUCU:', onek, [s_['id'] for s_ in segs]); eksik.append(onek)
+        for k, s in enumerate(segs):
+            ws = words_of(s['tts']); dur = max(1.2, len(re.sub(r'\[[^\]]*\]', '', s['tts'])) / 12.3)
+            cues[s['id']] = {'s': round(t, 3), 'e': round(t + dur, 3), 'sec': si, 'yer_tutucu': True}
+            dw = [x for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split() if norm1(x)]
+            for i, w in enumerate(ws): allwords.append({'id': s['id'], 'w': w, 'd': dw[i] if i < len(dw) else '', 's': round(t + dur * i / len(ws), 3), 'e': round(t + dur * (i + .8) / len(ws), 3)})
+            out.append(np.zeros(int(dur * SR), np.float32)); t += dur
+            g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
+            if k == len(segs) - 1 and bolum_sonu: g += plan.get('secGap', 1.5)
+            out.append(np.zeros(int(g * SR), np.float32)); t += g
+        continue
     a = load('vo/' + f)
     hw = []
     for w in json.load(open('vo/' + f.rsplit('.', 1)[0] + '.words.json')):
@@ -132,4 +146,4 @@ with wave.open('vo/vo.wav', 'wb') as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes((np.clip(vo, -1, 1) * 32767).astype(np.int16).tobytes())
 open('timeline.js', 'w').write('// tools/build_vo.py tarafından üretildi\nwindow.CUES = ' + json.dumps(cues) + ';\nwindow.WORDS = ' + json.dumps(allwords, ensure_ascii=False) + ';\nwindow.DUR = ' + str(round(t, 3)) + ';\n')
-print('süre', round(t, 2), 'sn =', f'{int(t // 60)}:{t % 60:04.1f}')
+print('süre', round(t, 2), 'sn =', f'{int(t // 60)}:{t % 60:04.1f}', '| yer tutucu çekimler:', eksik or 'yok')

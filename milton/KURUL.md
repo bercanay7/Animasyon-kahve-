@@ -235,3 +235,39 @@ Emrullah, `eleven_v4`, iki çekim. Whisper: iki çekimde de kelime hatası yok (
 - "Ben cehennemim" öncesinde 0,64–0,74 sn durak, cümle 10,6 kr/sn: doruk cümlesi ayrışıyor.
 - Ortalama hız ~12 kr/sn; film ~26 dk + bölüm arası duraklar.
 Karar: etiket düzeni çalışıyor; kalan 27 çekim aynı düzenle üretilir. Duraklar `vo/plan.json` ile ayarlanır.
+
+## Kapı 2: Üslup karesi (yanan göl, A04)
+
+### Tur 1
+U-Sanat 6,3 · U-Gravur 6,05 · U-Teknik 6,2: RED. Ana bulgular: tarama ekran filtresi gibi; alevler şablon; kanat "panjur"; yüz maske; göğüs çıplaklık çağrışımı; telefon boyunda aliasing; göl ve bedende titreşim. Raporlar `kurul/uslup_tur1/`.
+Yapılanlar: motor v2 (yama tablosu, her biçime kendi tarama türü, seyrek kalın çizgi); heykel figür yerine oranlı iskeletten siluet (`lib/siluet.js`); kanat ve doğa ilkelleri iki Opus ajanıyla yeniden yazıldı.
+
+### Tur 2
+| Üye | Puan | Karar | En önemli bulgu |
+|---|---|---|---|
+| U-Sanat | 7,15 | RED (U4 karakter 6) | figür eklemli manken gibi; bulut halkaları; sağ kanat ve yarık |
+| U-Gravur | 6,85 | RED (U1, U4, U5 < 7) | göğüs zırhının iki yayı (kırmızı çizgi 6); bulut halkaları; dokusuz düz siyah → "beyaz çizgi" tekniği |
+| U-Teknik | 8,05 | RED | 427 px'te çizgi periyodu Nyquist sınırında; 1 px'lik beyaz çizgiler |
+
+Giderildiği doğrulananlar (üyelerin ölçümü): tek odak (en parlak nokta başın hemen arkası); titreşim (kare farkı 3,33 → 0,43; en kötü blok 40 → 13,3); kesikli çizgi ve benek; kodlama (CRF 18: 6,0 Mbps, SSIM 0,9986).
+
+**Başkan kararı (hepsi kabul):**
+1. Figür: tek sürekli dış kontur, eğimli omuz ve kalın boyun, göğüste yay yok (düz plaka + orta çizgi + yatay bantlar), pelerin, savrulan saç, asimetrik poz (bir kol zinciri gerer). Opus ajanına verildi.
+2. Bulut: eş merkezli halka taraması kaldırıldı. Yumru tek ton kütle; biçimi ışık yanında kenarı izleyen, uçları sivrilen 1–4 hilal çizgi verir ("beyaz çizgi").
+3. Çizgi aralığı: gök 12, bulut 11, göl 12,5, kaya 9 px; beyaz aralık en az 3 px, siyah çizgi en az 1,7 px.
+4. Çizgi uçları kademeli ve sivri (ton geçişinde düz sınır ya da daire izi kalmaz); çapraz tarama kapalı.
+5. Yarık: keskin dar yırtık + kısa, sivrilen birkaç huzme (çapraz kurdele kaldırıldı).
+6. Göl: ufka yakın dar kuşak dışında düz siyah + yansıma tireleri; orta ton taraması karenin dörtte birinin altına indirildi.
+7. Kanat: sarkık kanatta ayrık sivri tüyler, kesintisiz ön kenar ışığı, sırtta halka tarama yok. Kanat ajanına verildi.
+8. Kaya: koyu siluet + ışıklı sırt çizgisi (fasetli "low-poly" görüntü kaldırıldı).
+
+Reddedilen: yok. Ertelenen: sağ alt alevin süre rozeti bölgesine girmesi (yalnız kapakta geçerli bir ölçüt; film karesinde sorun değil).
+
+Kalıcı ders: cennet ve Aden sahneleri kâğıt ağırlıklı (yüksek anahtar) kurulacak; 24 dakika boyunca %70 siyah tekdüze kalır (U-Sanat, U-Gravur).
+
+## Seslendirme: üretim ve seçim
+- 28 çekim, her biri iki varyant (Emrullah, `eleven_v4`); toplam 41.158 kredi istendi. **Hesabın kredisi üretim sırasında bitti:** s23 (K10–K12) iki varyantı ve s25'in a varyantı "failed" döndü (yeniden üretilmedi). Kalan kredi 237; s23 için en az 492 kredi gerekiyor.
+- İnen 53 dosya Whisper (small) ile yazıya döküldü; karakter hata oranı 0,000–0,032. Kalan farkların neredeyse hepsi iki varyantta da aynı (Whisper'ın yazım ve duyum farkı: Blake/Bleyk, Cromwell/Kromvel, "tutsağısın/tutsasın"); gerçek okuma hatası saptanmadı. Kulakla son onay kullanıcıda.
+- Seçim: `vo/secim.json` (en düşük hata; eşitlikte kısa olan). Duraklar: `vo/plan.json` (A-Ses önerisi rev3 kimliklerine uyarlandı).
+- Zaman çizelgesi: `timeline.js`, **25:49**. s23 yer tutucu sessizlikle duruyor (36 sn tahmini); çekim gelince `tools/build_vo.py` yeniden çalıştırılır, görüntü işaretlere bağlı olduğu için kendiliğinden kayar.
+- Bölüm başlangıçları: 0:00 Ben cehennemim · 0:56 Kör şair · 2:45 Işık taşıyan · 4:57 Dokuz gün · 6:31 Cehennemde kral · 9:32 Kapıdaki bekçiler · 10:56 Güneşe itiraf · 14:09 Aden'de bir yabancı · 16:01 Yılanın içinde · 17:37 Alkış · 19:34 Dünya önlerindeydi · 20:21 İki okuma · 22:47 Bir damla yaş.

@@ -25,16 +25,17 @@ const GR = (() => {
   // üslup tablosu (P mantıksal px): cr = çapraz doğrultu farkı (radyan), ct = çapraz eşik (koyuluk),
   // wv = el titreşimi genliği (periyot), wf = titreşim sıklığı (1/px), g = ton eğrisi üssü, lo/hi = temiz kâğıt ve düz siyah eşikleri
   const STY = [];
-  function sty(id, o) { STY[id] = Object.assign({ P: 8, cr: .9, ct: .8, wv: .05, wf: 1 / 60, g: 1, lo: .07, hi: .93, f0: .1, f1: .88, ph: id * 137 }, o); if (!o.cross) STY[id].ct = 9; }   // f0–f1: en ince ve en kalın çizgi oranı (kıl gibi siyah ya da beyaz çizgi kalmaz; kırık çizgi ve küçük boyda benek olmaz)
+  function sty(id, o) { STY[id] = Object.assign({ P: 9, cr: .9, ct: .8, wv: .05, wf: 1 / 60, g: 1, lo: .07, hi: .93, f0: .1, f1: .88, ph: id * 137 }, o); const S = STY[id]; if (!o.cross) S.ct = 9;
+    if (o.f1 == null) S.f1 = Math.min(.88, 1 - 3 / S.P); if (o.f0 == null) S.f0 = Math.max(.1, 1.7 / S.P); }   // beyaz aralık ≥ 3 px, siyah çizgi ≥ 1,7 px (telefon boyunda kaybolmasın)   // f0–f1: en ince ve en kalın çizgi oranı (kıl gibi siyah ya da beyaz çizgi kalmaz; kırık çizgi ve küçük boyda benek olmaz)
   sty(0, {});                                            // genel
-  sty(1, { P: 9.0, wv: .03, wf: 1 / 90, ct: .9 });       // gökyüzü: sakin, seyrek
-  sty(2, { P: 8.0, wv: .06, wf: 1 / 50, ct: .72 });      // bulut, duman: kavisli, koyuda çapraz
-  sty(3, { P: 8.5, wv: .04, wf: 1 / 40, ct: 1.1, lo: .14 }); // alev: içi temiz kâğıt, çapraz yok
-  sty(4, { P: 7.0, wv: .09, wf: 1 / 30, ct: .55, cr: 1.1 }); // kaya: çapraz taramalı
+  sty(1, { P: 12.0, wv: .03, wf: 1 / 90, ct: .9 });       // gökyüzü: sakin, seyrek
+  sty(2, { P: 11.0, wv: .06, wf: 1 / 50, ct: .72 });      // bulut, duman: kavisli, koyuda çapraz
+  sty(3, { P: 9.5, wv: .04, wf: 1 / 40, ct: 1.1, lo: .14 }); // alev: içi temiz kâğıt, çapraz yok
+  sty(4, { P: 9.0, wv: .09, wf: 1 / 30, ct: .55, cr: 1.1 }); // kaya: çapraz taramalı
   sty(5, { P: 5.6, wv: .02, wf: 1 / 70, ct: .8 });       // ten
-  sty(6, { P: 6.0, wv: .02, wf: 1 / 70, ct: .86, cr: .6, lo: .12 }); // tüy
-  sty(7, { P: 9.0, wv: .02, wf: 1 / 90, ct: 1.1 });      // ışık huzmesi
-  sty(8, { P: 9.0, wv: .08, wf: 1 / 46, ct: .88 });      // su, göl yüzeyi
+  sty(6, { P: 9.0, wv: .02, wf: 1 / 70, ct: .86, cr: .6, lo: .12 }); // tüy
+  sty(7, { P: 12.0, wv: .02, wf: 1 / 90, ct: 1.1 });      // ışık huzmesi
+  sty(8, { P: 12.5, wv: .08, wf: 1 / 46, ct: .88 });      // su, göl yüzeyi
   sty(9, { P: 5.8, wv: .03, wf: 1 / 60, ct: .7, cr: 1.0 }); // zırh, kumaş
   // ton baytı → ham oran r = (koyuluk − lo) / (hi − lo); kırpılmaz. r ≤ 0 kâğıt, r ≥ 1 düz siyah; arası çizgi kalınlığı f0…f1.
   const DL = () => STY.map(s => { const a = new Float32Array(256); for (let i = 0; i < 256; i++) { const d = Math.pow(1 - i / 255, s.g); a[i] = (d - s.lo) / (s.hi - s.lo); } return a; });
@@ -79,31 +80,34 @@ const GR = (() => {
   }
   const tone = (v, a = 1) => { const b = Math.round(clamp(v) * 255); return a < 1 ? `rgba(${b},${b},${b},${a})` : `rgb(${b},${b},${b})`; };
   const PHB = new Float32Array(w * h); // evre arabelleği (buf yamaları)
-  let cam = { x: 0, y: 0, s: 1 };
+  let cam = { x: 0, y: 0, s: 1 }, camM = new DOMMatrix([RS, 0, 0, RS, 0, 0]);
   function begin(bgTone = 1, bgTh = 0, bgId = 1, c = null) {
     cam = c || { x: 0, y: 0, s: 1 };
     patches = []; cache = new Map(); fm = new DOMMatrix(); fRot = 0; fFlip = false;
-    for (const cx of [tx, px, ox]) { cx.setTransform(RS, 0, 0, RS, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.filter = 'none'; }
+    // kamera: cam.x, cam.y ekranın sol üst köşesine gelen dünya noktası, cam.s yakınlık. Çizim dünya koordinatında yapılır;
+    // tarama çizgileri dünyaya bağlıdır (kamera kayınca resimle birlikte kayar, yaklaşınca kalınlaşır).
+    const k = RS * cam.s; camM = new DOMMatrix([k, 0, 0, k, -cam.x * k, -cam.y * k]);
+    for (const cx of [tx, px, ox]) { cx.setTransform(camM); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.filter = 'none'; }
     ox.save(); ox.setTransform(1, 0, 0, 1, 0, 0); ox.clearRect(0, 0, w, h); ox.restore();
-    tx.fillStyle = tone(bgTone); tx.fillRect(0, 0, W, H);
-    px.fillStyle = hatch({ th: bgTh, id: bgId }); px.fillRect(0, 0, W, H);
+    tx.fillStyle = tone(bgTone); tx.fillRect(cam.x - 2, cam.y - 2, W / cam.s + 4, H / cam.s + 4);
+    px.fillStyle = hatch({ th: bgTh, id: bgId }); px.fillRect(cam.x - 2, cam.y - 2, W / cam.s + 4, H / cam.s + 4);
   }
   // bir yolu iki katmana birden doldur. toneStyle: renk ya da gradyan; hs: tarama tanımı (hatch) ya da {fill: hazır yama rengi}
   function fill(path, toneStyle, hs, rule = 'nonzero') {
     if (toneStyle != null) { tx.fillStyle = toneStyle; tx.fill(path, rule); }
     if (hs) { px.fillStyle = hs.fill || hatch(hs); px.fill(path, rule); }
   }
-  function setT(a, b, c, d, e, f) { tx.setTransform(a, b, c, d, e, f); px.setTransform(a, b, c, d, e, f); }
+  function setT(a, b, c, d, e, f) { tx.setTransform(a, b, c, d, e, f); px.setTransform(a, b, c, d, e, f); ox.setTransform(a, b, c, d, e, f); }
   // yerel çizim çerçevesi: dünya (x,y)'de, ang radyan dönük, side = ±1 aynalı, k ölçekli
   function frame(x, y, ang = 0, side = 1, k = 1) {
     fm = new DOMMatrix().translate(x, y).rotate(ang * 180 / PI).scale(side * k, k); fRot = ang; fFlip = side < 0;
-    const d = new DOMMatrix().scale(RS).multiply(fm);
+    const d = camM.multiply(fm);
     setT(d.a, d.b, d.c, d.d, d.e, d.f);
     return fm;
   }
-  function unframe() { setT(RS, 0, 0, RS, 0, 0); fm = new DOMMatrix(); fRot = 0; fFlip = false; }
-  function save() { tx.save(); px.save(); }
-  function restore() { tx.restore(); px.restore(); }
+  function unframe() { setT(camM.a, camM.b, camM.c, camM.d, camM.e, camM.f); fm = new DOMMatrix(); fRot = 0; fFlip = false; }
+  function save() { tx.save(); px.save(); ox.save(); }
+  function restore() { tx.restore(); px.restore(); ox.restore(); }
 
   // ── basma ──
   const SG = .2, TW = .08;                       // kademe genişliği ve uç sivrilmesi (ham oran biriminde)

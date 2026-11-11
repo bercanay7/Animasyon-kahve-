@@ -1,0 +1,96 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 7.15,
+  "puanlar": {"U1": 7, "U2": 7.5, "U3": 8, "U4": 6, "U5": 7, "U6": 7.5},
+  "gerekce_ozet": "Tur 1'e göre büyük sıçrama. Değer planı ve tek odak artık doğru: ölçülen en parlak 64 px blok x 848, y 448'de, başın hemen arkasında. Profil baş ışığa karşı okunuyor, ekran filtresi görüntüsü büyük ölçüde gitti. RED sebebi U4 < 7: figür bir düşmüş başmelek gibi değil, eklemli bir ahşap manken ya da oyuncak asker gibi okunuyor. Göğüs zırhının iki yay çizgisi göğüs ya da sütyen gibi okunuyor (hassasiyet riski). Sağ kanat bir kıl yığınına dönüşüyor. İkinci sorun bulutlar: iç içe halkalı tarama mantar, arı kovanı ve uçan daire biçimleri üretiyor.",
+  "tur1_bulgulari": [
+    {"no": 1, "bulgu": "Her şey aynı yatay taramada (ekran filtresi)", "durum": "kısmen", "not": "Nesneye özgü tarama geldi: kaya çapraz, kanat tüy yönünde, bulut yay. Ama gök ve göl hâlâ karenin yarısından fazlasını kaplayan, yüksek karşıtlıklı, kalın yatay bir ızgara (y 80–560 ve y 620–1080 arası orta tonlar)."},
+    {"no": 2, "bulgu": "Alevler tek şablon, mum dizisi gibi", "durum": "kısmen", "not": "Diller kaynaşıyor, içi temiz kâğıt, sağ ön alev kontur taramalı; iyi. Ama ufuk ve bel hizasındaki sivri dişli beyaz tutamlar artık ateş değil ot, saz ya da buğday başağı gibi okunuyor (x 150–550, y 560–690; x 1240–1680, y 590–665; x 540–1250, y 700–830)."},
+    {"no": 3, "bulgu": "Yüz kar maskesi gibi", "durum": "giderildi", "not": "Profil baş yarığa doğru yukarı bakıyor, ışık arkadan. Burun ve çene siluetle okunuyor; 640 ve 427 boylarında da seçiliyor."},
+    {"no": 4, "bulgu": "Göğüste meme ucu gibi okunan iki koyu leke", "durum": "giderilmedi (biçim değiştirdi)", "not": "Lekeler gitti, yerine göğüs zırhının iki açık yay çizgisi geldi (x 800–990, y 610–665). Bire bir ve 640'ta göğüs ya da sütyen kenarı gibi okunuyor. Kırmızı çizgi 6 açısından riski sürüyor, hatta cinsiyet belirsizliği ekliyor."},
+    {"no": 5, "bulgu": "Kanatlar simetrik T pozu, tarak gibi tek tip", "durum": "kısmen", "not": "Asimetri ve sarkık kanat var; sol kanatta tüy kümeleri ve yanık uçlar iyi (x 350–830, y 410–700). Sağ kanat (x 1000–1200, y 540–790) kolun arkasında koyu, saçaklı bir kütleye dönüşüyor; kanat yerine kürk, saman ya da yosun gibi okunuyor. Kanat kökü sağda görünmüyor."},
+    {"no": 6, "bulgu": "Odak dağınık, en parlak nokta ufuk boşluğunda", "durum": "giderildi", "not": "Tek odak başın arkasında. Göz parıltıdan profile, oradan kanatlara iniyor."},
+    {"no": 7, "bulgu": "Bulutlar bulanık leke + moiré", "durum": "kısmen", "not": "Bulanıklık gitti, büyük düz siyah kütleler geldi; iyi. Ama halkalı tarama yeni bir sorun yarattı: sol bulut (x 510–790, y 180–420) mantar şapkası ya da arı kovanı, sağ alt bulut (x 1350–1610, y 400–535) uçan daire, sol uç (x 220–560, y 420–560) dalgalı çatı gibi okunuyor. telefon_427_x3'te bu halkalar moiré veriyor."},
+    {"no": 8, "bulgu": "Nefeste çizgiler gövdede yüzüyor", "durum": "giderildi", "not": "Ölçtüm: ardışık iki kare arasında ortalama fark figür bölgesinde 1,64, kanat bölgesinde 2,03, karenin tamamında 0,84 (tur 1'de figür 6,47)."},
+    {"no": 9, "bulgu": "Kaya kenarında dikiş gibi noktalar, düz şablon", "durum": "giderildi", "not": "Fasetli, çapraz taramalı, sağlam bir repoussoir oldu. Küçük risk: düzlemler fazla düzgün kırıldığı için 'low-poly' vektör gibi duruyor."},
+    {"no": 10, "bulgu": "Zincirler zayıf, poz edilgen ve simetrik", "durum": "kısmen", "not": "Halkalar büyüdü ve okunuyor, ama bileklere bağlı değiller: suyun altında yüzen iki ayrı parça gibi duruyorlar (x 600–780 ve 1075–1255, y 840–880). Kollar yine iki yanda dümdüz sarkıyor."},
+    {"no": 11, "bulgu": "Düz siyah ve temiz kâğıt az, her yer çizgili gri", "durum": "giderildi", "not": "Ölçüm: piksellerin %71,4'ü < 40, %11,2'si > 200, ortalama 62,9. Bu kez tersine aşırıya kaçma riski var; bkz. 24 dakika yanıtı."}
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "bolge": "gövde x 740–1010, y 590–830; poz sayfası figur_pozlar.jpg tüm figürler",
+      "sorun": "Figür eklemli bir ahşap manken ya da oyuncak asker gibi. Kutu gövde, kare omuzluklar, dikdörtgen kol segmentleri, eklemlerde açık çizgiyle verilen kesik kenarlar ve çok ince, uzun bir boyun var. Başmelek değil robot gibi duruyor. Göğüsteki iki yay çizgisi göğüs ya da sütyen gibi okunuyor. figur_pozlar.jpg'de 'ışıklı başmelek' kolsuz, başı kesik bir torso heykeli gibi; yürüyen ve diz çöken pozlar tahta kukla gibi.",
+      "oneri": "lib/siluet.js: (1) Siluet kesik segmentlerden değil, tek sürekli dış konturdan (union + 6–10 px'lik yuvarlatma) çizilsin. Eklem yerlerindeki iç kontur çizgileri kaldırılsın; kenar ışığı yalnız ışık tarafında ve kesintisiz olsun. (2) Oran: omuz genişliği baş genişliğinin ~2,6 katı; boyun kalınlığı başın %45'i olsun (şu an ~%25); trapez kası boyundan omza eğimli insin, kare omuzluk olmasın. (3) Göğüs zırhı: iki yarım ay yay yerine tek bir yatay kaburga/plaka sınırı ver (göğüs altı, y ≈ 650 hizasında bir çizgi). Ortada dikey bir sırt çizgisi ve boyun altında bir yaka kenarı olsun; hiçbir çizgi göğüs kavsini izlemesin. (4) Poz: omuzlar öne düşük (−8°), bir omuz ötekinden 15–20 px aşağıda, baş geriye ve yukarı. Kollardan biri dirsekten kırılıp suyun üstüne çıksın ve zinciri gersin. Hikâyenin 'ilk uyanış' anı pozdan okunsun. (5) 'Işıklı başmelek' pozuna kol ve baş tamamlansın; kâğıt beyazı figürde iç tarama yerine yalnız gölge tarafında 3–4 çizgilik form taraması olsun.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "bolge": "bulutlar: sol x 510–790, y 180–420; sol uç x 220–560, y 420–560; sağ alt x 1350–1610, y 400–535; sağ kenar x 1660–1920, y 380–460",
+      "sorun": "İç içe halkalı (yay) tarama bulutları mantar, kovan, uçan daire ya da hedef tahtası gibi okutuyor. Doré bulutu ya da dumanı böyle değildir; kütlenin ışıklı kenarında kısa, kıvrılan çizgiler bulunur, gövde düz koyudur. Halkalar ayrıca 427'de moiré yapıyor.",
+      "oneri": "lib/prim.js cloud: (1) Yay taramasını tek bir merkezden değil, kütlenin alt kenarını izleyen paralel kavislerle kur. Çizgiler kenara paralel gitsin, 3–6 çizgide sivrilerek düz siyaha karışsın; merkez etrafında dönmesin. (2) Yumru dış hatlarını daha düzensiz ver: 3 sert ton kalsın, ama her yumrunun alt kenarı düz yatay değil, aşağı sarkan duman dilleriyle bitsin. Mantar şapkası biçimi alttaki düz kesimden geliyor. (3) Sağ alt bulut (1350–1610) karede gereksiz bir ikinci kütle; kaldır ya da sağ büyük kütleyle birleştir. (4) Tek bir bulut gövdesinde ışıklı kenarın kâğıt beyazı alanı %15'i geçmesin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "bolge": "sağ kanat x 1000–1200, y 530–800; kanat kökleri x 800–1010, y 580–640",
+      "sorun": "Sağ kanat, kolun arkasında koyu ve saçaklı tek bir kütle; kanat biçimi (ön kenar kemiği, uçuş tüylerinin yelpazesi) okunmuyor. 640 ve 427'de saman ya da kürk gibi duruyor. Her iki kanadın kökü omuzluğun arkasında kayboluyor; kanat gövdeye yapıştırılmış gibi.",
+      "oneri": "lib/kanat.js: (1) Sağ kanadın ön kenarına (kemik çizgisi) kesintisiz bir kâğıt beyazı kenar ışığı ver (3–5 px; ışık arkadan ve sağ üstten gelir). Siluet bu çizgiyle ayrışır. (2) Sarkık kanatta uçuş tüyleri aşağı doğru 4–6 ayrık, uzun ve sivri uçla bitsin (saçak değil). (3) Kanat kökünü omuz arkasından 20–30 px yukarıda göster; kürek kemiğinden çıkan bir kavis görünsün. (4) Sağ kanadın üst kenarındaki halkalı yay taraması (x 1000–1180, y 550–610) buluttaki halkayla aynı dilde; tüy doğrultusunda kısa çizgiye çevir, yoksa kanat da 'kovan' gibi okunur.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "bolge": "sağ üst yarık ve huzme x 1180–1730, y 0–520",
+      "sorun": "Yarık, sağ üstten aşağı sola inen çizgili çapraz bir bant olarak çizilmiş. Işık yarığı ya da huzme gibi değil, bir kurdele, yol ya da afiş şeridi gibi okunuyor. Ucundaki yırtık beyaz biçim (x 1500–1730, y 0–40) iyi, ama huzme görünmüyor. Bant, figürün bakış çizgisiyle de birleşmiyor; bant figürün başına değil, sağ alttaki buluta iniyor.",
+      "oneri": "lib/sahne/gol.js ve prim.js rays: (1) Yırtığı tek, keskin, kâğıt beyazı bir şekil olarak koru (bulutta düzensiz kenarlı bir çatlak; 180×40 px yeter). (2) Çapraz şeridi kaldır; yerine yırtıktan figürün başına doğru inen 3–5 ince, kenarları sivrilerek kaybolan huzme ver: düz siyah üzerinde kesik, seyrek ve kâğıt beyazı çizgiler, opaklık uca doğru azalan. Huzmenin ekseni yırtıktan (1600, 20) başa (870, 460) gitsin. (3) Huzme parlaklığı ufuk parıltısını geçmesin; odak yine başın arkası kalsın.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "bolge": "alevler: uzak bant x 150–550, y 560–690 ve x 1240–1680, y 590–665; bel hizası x 540–1250, y 700–830",
+      "sorun": "Kaynaşan diller doğru yön, ama sivri, dik ve eşit yükseklikte dişler ot, saz ya da buğday tarlası gibi okunuyor. Alevin kıvrılan, yukarıda yırtılıp kopan dili yok. Ufuktaki beyaz şerit (x 0–1920, y 540–600) karlı bir sıradağ gibi okunuyor.",
+      "oneri": "lib/prim.js flameBank: (1) Dil uçlarını S kavisli ver (yanal salınım genliği dil boyunun %15–25'i), bazı uçlar ayrı bir damla olarak kopsun. (2) Boy dağılımını genişlet: komşu dil boyları 0,4–1,8 kat; tek bir dişli sıra yerine 2–3 ana kütle ve aralarında boşluk olsun. (3) Ufuktaki beyaz şeridin üst kenarındaki dağ zirvesi biçimini dalgalı ve düşük genlikli yap (±6 px); sivri tepeler sıradağ çağrışımı yapıyor. (4) Bel hizasındaki alevler figürün belini çit gibi sarıyor; figürün hemen önünde (x 760–1000) boşluk bırak, gövde sudan çıksın.",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "bolge": "zincirler x 600–780 ve x 1075–1255, y 840–880; bilekler x 740–780 ve x 1000–1040, y 760–800",
+      "sorun": "Zincirler bileklerden kopuk, suyun altında ayrı yatay parçalar olarak duruyor. 'Göle bağlı' anlamı kurulmuyor.",
+      "oneri": "lib/sahne/gol.js PR.chain: zincir bilekten başlasın, su yüzeyini (y ≈ 806) kessin, suyun altında ton .35'e düşerek aşağı doğru kaybolsun. Kaldırılan kolda zincir gergin ve havada olsun; bir halkada kâğıt beyazı ışık yeter.",
+      "onem": "orta"
+    },
+    {
+      "sira": 7,
+      "bolge": "göl x 0–1920, y 620–1080; gök orta ton bandı x 650–1400, y 60–420",
+      "sorun": "Göz konforu açısından en riskli alan bu. Ekranın kabaca %40'ı, yüksek karşıtlıklı, %50'ye yakın doluluklu kalın yatay çizgilerden oluşan bir ızgara. Bu tür ızgaralar görsel rahatsızlık (pattern glare) yaratan desenin tam kendisi: geniş alan, tek frekans, yüksek karşıtlık. Kısa bir sahnede sorun değil, ama 24 dakikada yorar.",
+      "oneri": "lib/gravur.js ve gol.js lake: (1) Göl gövdesini büyük ölçüde düz siyah yap. Yalnız parıltının yansıma sütununda (x 700–1050) ve alev diplerinde, aralığı 12–16 px olan seyrek, sivrilen, kâğıt beyazı ışık çizgileri kalsın (Doré'de su: koyu yüzey + parıltı çizgileri). (2) Gökteki orta ton bandında çizgi aralığını parıltıdan uzaklaştıkça artır (P 7 → 11). Böylece ızgara frekansı tek ve sabit olmaz. (3) Kural olarak orta ton taramalı alan ekranın %25'ini geçmesin; bunu otomatik bir ölçü olarak render denetimine ekle.",
+      "onem": "orta"
+    },
+    {
+      "sira": 8,
+      "bolge": "kaya x 0–400, y 540–1080",
+      "sorun": "Kaya iyi çalışıyor, ama düz kesilmiş faset düzlemleri ve her düzlemin içindeki birebir paralel çizgiler 'low-poly' vektör görüntüsü veriyor. Doré taşı kırık, çatlaklı ve organiktir.",
+      "oneri": "lib/prim.js rock: faset kenarlarına ±4–8 px düşük frekanslı bükülme ekle. Her düzlemin taramasında θ'yı düzlem içinde ±0,05π kıvır. Gölge düzlemlerinden 1–2 tanesini düz siyah bırak (şu an hepsi taramalı).",
+      "onem": "düşük"
+    },
+    {
+      "sira": 9,
+      "bolge": "baş x 840–960, y 470–560",
+      "sorun": "Profil okunuyor, ama saç kütlesi düzgün boncuk dizisi (x 845–880, y 470–530) gibi; topuz ya da örgü saç gibi duruyor. Ensedeki ve kulak arkasındaki ince açık çizgi küpe ya da kulaklık gibi okunuyor (x 900–915, y 520–550).",
+      "oneri": "lib/siluet.js baş: saçı 5–7 düzensiz, geriye savrulan tutam olarak ver; kenar ışığı yalnız tutamların uçlarında olsun. Boyundaki dikey açık çizgiyi kaldır.",
+      "onem": "düşük"
+    }
+  ],
+  "korunmali": [
+    "Değer planı ve tek odak: başın hemen arkasında parıltı, profil siluet (ölçülen en parlak nokta x 848, y 448).",
+    "Düz siyah kütleler ile temiz kâğıt arasındaki sert karşıtlık; kenarı sivrilen kademeli çizgi uçları.",
+    "Sol kanattaki tüy kümeleri, yanık ve eksik uçlar, sarkık kanat asimetrisi.",
+    "Profil baş ve yukarı, ışığa bakış; sahnenin anlatısını tek başına taşıyor.",
+    "Fasetli kaya ön planı ve sağ ön alevlerin kontur taraması.",
+    "Titreşimsiz motor (kare-kare fark figürde 1,6), çapraz taramanın kapalı olması."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Bu haliyle evet, iki yerden yorar. Birincisi, göl ve gök orta tonlarındaki geniş, yüksek karşıtlıklı, tek frekanslı yatay ızgara (karenin ~%40'ı). Bu, görsel rahatsızlık yapan desenin ta kendisi; uzun izlemede titreşim ve yorgunluk hissi verir. Telefonda (427) moiré de üretiyor. İkincisi, karenin %71'i düz siyah. Tek tek kareler için güçlü, ama 24 dakika boyunca hep bu karanlıkta kalmak monotonlaşır. Çözüm, ızgarayı dağıtmak (7. madde: orta ton taramasını ekranın en fazla %25'ine indirmek, aralığı değişken yapmak, suyu düz siyah + seyrek ışık çizgisine çevirmek) ve filmde değer anahtarını sahneden sahneye değiştirmek: cennet, Aden ve ışık sahneleri kâğıt ağırlıklı (yüksek anahtar) olsun, cehennem sahneleri bu karedeki gibi alçak anahtarda kalsın. Bu iki düzeltmeyle dil 24 dakika taşınır; çizgi kalınlığı ve seyrekliği zaten göz dostu.",
+  "en_emin_olmadigim_nokta": "Figür sorununun yalnız siluet çiziminin inceltilmesiyle (sürekli kontur, oran, poz) çözülüp çözülmeyeceği. Kodla eklemli iskeletten çizilen bir figür hareket ettikçe yeniden 'kukla' görüntüsüne dönebilir. Belki figürün büyük bölümünü pelerin, kanat ve gölge kütlesiyle örtmek, yani anatomiyi değil siluetin genel kütlesini göstermek, daha güvenli bir yoldur. Bunu ancak 2–3 saniyelik hareketli bir figür testi gösterir; tek kareden karar veremiyorum. İkinci belirsizlik: göğüs çizgisinin çağrışımı benim okumam. Hassasiyet okurunun da bakması gerekir."
+}

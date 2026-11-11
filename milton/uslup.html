@@ -6,7 +6,7 @@
 <script>
 const cv = document.getElementById('c'), ctx = cv.getContext('2d'); cv.width = DW; cv.height = DH;
 const Q = new URLSearchParams(location.search);
-function renderFrame(t) { ctx.setTransform(RS, 0, 0, RS, 0, 0); sahneGol(t, { placeholder: Q.has("ph") }); }
+function renderFrame(t) { ctx.setTransform(RS, 0, 0, RS, 0, 0); const z = +(Q.get("z") || 1), cx = +(Q.get("cx") || W / 2), cy = +(Q.get("cy") || H / 2); sahneGol(t, { cam: { x: cx - W / 2 / z, y: cy - H / 2 / z, s: z } }); }
 window.renderFrame = renderFrame; window.renderFrameMB = (t) => renderFrame(t);
 window.ready = (async () => { buildTextures(); return true; })();
 </script></body></html>

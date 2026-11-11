@@ -1,0 +1,1300 @@
+{
+ "_not": "Plan listesi (yönetmen: ana oturum). Çalıştır: python3 animatik/planlar_kaynak.py → animatik/planlar.json + planlar.js\nSatır: (çapa, set, lum, kadraj, hareket, yazı). Çapa yazımı film.js A() ile aynı: 'B02', 'B02@kelime', 'B02@kelime#1', '+0.4'.\nlum: Şeytan'ın ışığı (1 cennetteki başmelek … 0 sönmüş); filmin görsel omurgası, yalnız azalır (J02'deki sahte parıltı dışında).",
+ "setler": {
+  "NIF": "Nifates Dağı: sarp tepe, dev güneş diski, uzakta Aden; figür güneşe karşı siluet",
+  "GOL": "Yanan göl (üslup karesi): zifiri tonoz, ufuk parıltısı, alevler, zincir",
+  "ODA": "Milton'ın odası: gece, pencere, koltukta kör şair silueti, mum, yazı masası",
+  "LON": "Londra 1660: meydan, kitap ateşi, kalabalık siluetleri",
+  "KIT": "Kitap sayfası / gravür levhası: başlık sayfası, dize, kenar notu (ekran yazıları burada basılır)",
+  "CEN": "Cennet: ışık sütunları, bulut terasları, melek safları; Tanrı ve Oğul yalnız ışık",
+  "SAV": "Cennetteki savaş ve düşüş: kılıçlar, ışık arabası, boşlukta düşen bedenler",
+  "KIY": "Yanan kıyı ve ordu: göl kenarı, yanık orman gibi saflar, Pandemonium'un yükselişi",
+  "MEC": "Pandemonium'un içi: Dor sütunlu salon, taht, meclis",
+  "KAP": "Cehennem kapısı: dokuz katlı kapı, Günah (örtülü siluet) ve Ölüm (biçimsiz gölge)",
+  "KAO": "Kaos ve gökler: girdaplı boşluk, zincire asılı dünya, güneş ve Uriel",
+  "ADN": "Aden: duvar, hayat ağacı, çardak; Âdem ile Havva yalnız uzak örtülü siluet",
+  "CIK": "Aden'den çıkış: kapı, alevli kılıç, önde geniş ova ve gün doğumu",
+  "OKU": "İki okuma: gravürcü masası, kitap kapakları, küçülme merdiveni, taç ve taht",
+  "CAB": "Cabanel'in Düşmüş Melek'i: bizim gravür yorumumuz, yalnız gözler ve kollar"
+ },
+ "planlar": [
+  {
+   "id": "P001",
+   "at": "A01",
+   "set": "NIF",
+   "lum": 0.12,
+   "kadraj": "Büyük sınavdan kare: Nifates'te güneşe karşı Şeytan silueti; siluetin içinde yanan göl (iç cehennem motifi)",
+   "hareket": "yavaş yaklaşma; içteki alevler kıpırdar",
+   "yazi": "“Ben cehennemim.”"
+  },
+  {
+   "id": "P002",
+   "at": "A02",
+   "set": "CEN",
+   "lum": 1,
+   "kadraj": "Aynı duruş, aynı kadraj; ama ışıklı başmelek, parlak kanatlar (eşleme kesmesi)",
+   "hareket": "ışık 1 sn'de açılır, cümle sonunda söner",
+   "yazi": ""
+  },
+  {
+   "id": "P003",
+   "at": "A03",
+   "set": "KAO",
+   "lum": 0.1,
+   "kadraj": "Geniş: cehennem ağzından yukarı uçan küçük kanatlı figür; göğsünde küçük bir alev onunla birlikte gidiyor",
+   "hareket": "figür yükselir, alev peşini bırakmaz; soru kelimesinde durur",
+   "yazi": "Onu orada tutan ne?"
+  },
+  {
+   "id": "P004",
+   "at": "A04",
+   "set": "GOL",
+   "lum": 0.1,
+   "kadraj": "Karanlıkta açılan iki göz → geri çekilince üslup karesi: gölde belden yukarı Şeytan, kırık kanatlar",
+   "hareket": "gözler açılır; geri çekilme; 'zincirlerle'de zincire iniş",
+   "yazi": "görünür karanlık"
+  },
+  {
+   "id": "P005",
+   "at": "A04@zincirlerle",
+   "set": "GOL",
+   "lum": 0.1,
+   "kadraj": "Zincir yakın planı: bilekten göle inen halkalar",
+   "hareket": "yavaş kaydırma",
+   "yazi": ""
+  },
+  {
+   "id": "P006",
+   "at": "A05",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "1667 başlık sayfası (bizim çizimimiz): PARADISE LOST · JOHN MILTON; altında Türkçe ad",
+   "hareket": "sayfa mürekkeple belirir; 'edebiyat eseri'nde not satırı",
+   "yazi": "KAYIP CENNET · John Milton, 1667 / bir destanın okuması"
+  },
+  {
+   "id": "P007",
+   "at": "A06",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Karanlık oda: koltukta kör şair silueti; önünde yanan mum, yüzü ışığa dönük ama gözler kapalı",
+   "hareket": "mum titrer; yavaş yaklaşma",
+   "yazi": ""
+  },
+  {
+   "id": "P008",
+   "at": "B01",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Bölüm kartı: aynı odanın üstünde; mumun alevi gölün alevine benzer",
+   "hareket": "kart 3,5 sn",
+   "yazi": "KÖR ŞAİR"
+  },
+  {
+   "id": "P009",
+   "at": "B02",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Gece; pencere, ay. Şairin başından ince dize çizgileri yükselir; kızı mumla gelir, masaya oturur, tüy kalemle yazar",
+   "hareket": "dizeler akar; 'kırk dizeyi'de çizgiler çoğalır, 'yirmiye'de yarısı silinir",
+   "yazi": ""
+  },
+  {
+   "id": "P010",
+   "at": "B03",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "İki kız masada dev kitaplardan sesli okuyor; harfler (İbranice, Yunanca, Latince) süs olarak havada",
+   "hareket": "harfler dökülür; cümle sonunda kızların başı öne düşer",
+   "yazi": ""
+  },
+  {
+   "id": "P011",
+   "at": "B04",
+   "set": "LON",
+   "lum": null,
+   "kadraj": "Meydanda cellat kitapları ateşe atıyor; kalabalık siluetleri",
+   "hareket": "alev yükselir, sayfalar savrulur",
+   "yazi": "Londra, 1660"
+  },
+  {
+   "id": "P012",
+   "at": "B04@yazarı",
+   "set": "LON",
+   "lum": null,
+   "kadraj": "Karanlık bir kapı aralığında saklanan şair; alev ışığı yüzüne vuruyor, gözleri boş",
+   "hareket": "ışık titrer",
+   "yazi": ""
+  },
+  {
+   "id": "P013",
+   "at": "B05",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Masada büyüyen el yazması yığını",
+   "hareket": "sayfalar üst üste biner",
+   "yazi": "1667"
+  },
+  {
+   "id": "P014",
+   "at": "B06",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Şairin profili karanlıkta; arkasındaki pencerede mevsimler geçer (çiçek, gül, kar), ışık ona ulaşmaz",
+   "hareket": "pencerede dört mevsim; alıntı satır satır",
+   "yazi": "“…ama bana gün dönmez.”"
+  },
+  {
+   "id": "P015",
+   "at": "B08",
+   "set": "KIT",
+   "lum": 0.1,
+   "kadraj": "İkiye bölünmüş levha: solda karanlıkta şair, sağda gölde melek; ikisi de başını aynı açıyla yukarı kaldırmış",
+   "hareket": "iki yarı ortadan açılır",
+   "yazi": ""
+  },
+  {
+   "id": "P016",
+   "at": "B09",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Eski bir taslak sayfası (oyun taslağı); sayfada küçük bir güneş çizimi",
+   "hareket": "sayfa çevrilir; güneş parlar",
+   "yazi": "Oraya geleceğiz."
+  },
+  {
+   "id": "P017",
+   "at": "B10",
+   "set": "CEN",
+   "lum": 1,
+   "kadraj": "Sayfadaki güneş büyüyüp cennetin ışığına dönüşür",
+   "hareket": "beyaza açılma",
+   "yazi": ""
+  },
+  {
+   "id": "P018",
+   "at": "C01",
+   "set": "CEN",
+   "lum": 1,
+   "kadraj": "Bölüm kartı: ışık sütunları, bulut terasları",
+   "hareket": "kart",
+   "yazi": "IŞIK TAŞIYAN"
+  },
+  {
+   "id": "P019",
+   "at": "C02",
+   "set": "CEN",
+   "lum": 1,
+   "kadraj": "Melek safları arasında başmelek: ışıklı beden, açık parlak kanatlar, mızrak",
+   "hareket": "yavaş kaydırma; saflar derinlikte küçülür",
+   "yazi": ""
+  },
+  {
+   "id": "P020",
+   "at": "C03",
+   "set": "CEN",
+   "lum": 1,
+   "kadraj": "Profil; alnının üstünde sabah yıldızı",
+   "hareket": "yıldız parlar; ad gravür harfle belirir",
+   "yazi": "LUCIFER · ışık taşıyan"
+  },
+  {
+   "id": "P021",
+   "at": "C04",
+   "set": "CEN",
+   "lum": 0.92,
+   "kadraj": "Tepede büyük ışık, yanında ikinci ışık (Oğul); melekler Batı saray selamıyla eğilir; başmelek kenarda dik durur, yüzüne ilk gölge düşer",
+   "hareket": "ışınlar açılır; saflar eğilir; onun gölgesi uzar",
+   "yazi": ""
+  },
+  {
+   "id": "P022",
+   "at": "C05",
+   "set": "CEN",
+   "lum": 0.88,
+   "kadraj": "Cennetin alacakaranlığı: başmelek yardımcısının kulağına eğilmiş; uzakta kuzeye yürüyen saflar, tepede saray",
+   "hareket": "saflar ilerler",
+   "yazi": ""
+  },
+  {
+   "id": "P023",
+   "at": "C06",
+   "set": "CEN",
+   "lum": 0.85,
+   "kadraj": "Yüksek bir tepede ordusuna hitap ediyor; kolu havada",
+   "hareket": "yaklaşma; 'özgürlük'te kelime belirir",
+   "yazi": "özgürlük"
+  },
+  {
+   "id": "P024",
+   "at": "C07",
+   "set": "CEN",
+   "lum": 0.85,
+   "kadraj": "Alttan bakış: dinleyen saflar, mızrak ormanı",
+   "hareket": "mızraklar tek tek kalkar",
+   "yazi": ""
+  },
+  {
+   "id": "P025",
+   "at": "C08",
+   "set": "CEN",
+   "lum": 0.8,
+   "kadraj": "Gökte ışık noktaları: ordunun üçte biri ötekilerden ayrılıp onun peşine kayar",
+   "hareket": "noktalar akar",
+   "yazi": "üçte biri"
+  },
+  {
+   "id": "P026",
+   "at": "C09",
+   "set": "KIT",
+   "lum": 0.8,
+   "kadraj": "Profil yarı ışık yarı gölge; iki yanında iki cevap",
+   "hareket": "kelimeler sırayla",
+   "yazi": "özgürlük  |  kıskançlık ve gurur"
+  },
+  {
+   "id": "P027",
+   "at": "C10",
+   "set": "CEN",
+   "lum": 0.8,
+   "kadraj": "Sönük kalabalığın içinde tek parlak figür ayağa kalkar: Abdiel",
+   "hareket": "ışık onda toplanır",
+   "yazi": "ABDIEL"
+  },
+  {
+   "id": "P028",
+   "at": "C11",
+   "set": "CEN",
+   "lum": 0.8,
+   "kadraj": "Abdiel açılan safların arasından tek başına yürüyüp gider",
+   "hareket": "yandan kaydırma",
+   "yazi": "“binlerce hainin arasında sadık kalan tek kişi”"
+  },
+  {
+   "id": "P029",
+   "at": "C12",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "İki siluet yan yana: kalabalığın önündeki önder; kalabalığa sırtını dönmüş tek yürüyen",
+   "hareket": "soru belirir",
+   "yazi": "Asıl başkaldıran kim?"
+  },
+  {
+   "id": "P030",
+   "at": "D01",
+   "set": "SAV",
+   "lum": 0.75,
+   "kadraj": "Bölüm kartı; kınından çıkan kılıç sıraları ışığı yakalar",
+   "hareket": "kılıçlar dalga gibi çekilir",
+   "yazi": "DOKUZ GÜN"
+  },
+  {
+   "id": "P031",
+   "at": "D02",
+   "set": "SAV",
+   "lum": 0.75,
+   "kadraj": "Abdiel ile Şeytan karşı karşıya, kılıçlar kalkık",
+   "hareket": "yavaş yaklaşma; alıntı",
+   "yazi": "“Sen de özgür değilsin; kendi kendinin tutsağısın.”"
+  },
+  {
+   "id": "P032",
+   "at": "D03",
+   "set": "SAV",
+   "lum": 0.75,
+   "kadraj": "Abdiel'in yakın silueti; arkasında ışık",
+   "hareket": "",
+   "yazi": "“…krallık değil, zincir bekle.”"
+  },
+  {
+   "id": "P033",
+   "at": "D04",
+   "set": "SAV",
+   "lum": 0.7,
+   "kadraj": "Kılıç iner; Şeytan geriler, onuncu adımda dizinin üstüne çöker",
+   "hareket": "darbe sarsıntısı; adımlar sayılır",
+   "yazi": ""
+  },
+  {
+   "id": "P034",
+   "at": "D05",
+   "set": "SAV",
+   "lum": 0.6,
+   "kadraj": "Bir başmeleğin kılıcı sağ yanını yarar: ışıklı bedende koyu yarık",
+   "hareket": "ışık çizgisi; figür bükülür",
+   "yazi": ""
+  },
+  {
+   "id": "P035",
+   "at": "D06",
+   "set": "SAV",
+   "lum": 0.55,
+   "kadraj": "Göğüs zırhı yakın: parlak yüzeyde koyu leke yayılır",
+   "hareket": "leke büyür",
+   "yazi": ""
+  },
+  {
+   "id": "P036",
+   "at": "D07",
+   "set": "SAV",
+   "lum": 0.55,
+   "kadraj": "Solda duman püskürten toplar; sağda kökünden sökülüp fırlatılan dağlar",
+   "hareket": "soldan sağa kaydırma",
+   "yazi": ""
+  },
+  {
+   "id": "P037",
+   "at": "D08",
+   "set": "SAV",
+   "lum": 0.5,
+   "kadraj": "Işıktan savaş arabası: figürsüz, tekerlek izli parlak kama; asiler cennet duvarının kıyısına sürülür ve boşluğa atlar",
+   "hareket": "ışık soldan girer, karanlık kütleyi iter",
+   "yazi": ""
+  },
+  {
+   "id": "P038",
+   "at": "D09",
+   "set": "SAV",
+   "lum": 0.3,
+   "kadraj": "Düşüş: karanlıkta çapraz düşen bedenler ve kanatlar; altta açılan cehennem ağzı",
+   "hareket": "uzun düşüş; I–IX sayacı; ağız kapanır",
+   "yazi": "dokuz gün"
+  },
+  {
+   "id": "P039",
+   "at": "D10",
+   "set": "GOL",
+   "lum": 0.1,
+   "kadraj": "Yanan göl (A04 karesine dönüş)",
+   "hareket": "siyahtan açılma",
+   "yazi": ""
+  },
+  {
+   "id": "P040",
+   "at": "E01",
+   "set": "GOL",
+   "lum": 0.1,
+   "kadraj": "Bölüm kartı",
+   "hareket": "kart",
+   "yazi": "CEHENNEMDE KRAL"
+  },
+  {
+   "id": "P041",
+   "at": "E02",
+   "set": "GOL",
+   "lum": 0.1,
+   "kadraj": "Gölde iki figür: Şeytan, yanında yüzüstü yatan Beelzebub'a dönmüş",
+   "hareket": "baş döner; alıntı",
+   "yazi": "“Ah, ne kadar düşmüş, ne kadar değişmişsin!”"
+  },
+  {
+   "id": "P042",
+   "at": "E03",
+   "set": "GOL",
+   "lum": 0.12,
+   "kadraj": "Dirseklerinin üstünde doğrulur; çene yukarı",
+   "hareket": "doğrulma; dört kelime sırayla",
+   "yazi": "irade · intikam · nefret · yüreklilik"
+  },
+  {
+   "id": "P043",
+   "at": "E04",
+   "set": "KIT",
+   "lum": 0.12,
+   "kadraj": "Dış siluet dik ve mağrur; siluetin içinde kıvrılmış küçük bir figür (iç umutsuzluk)",
+   "hareket": "iç figür belirir",
+   "yazi": ""
+  },
+  {
+   "id": "P044",
+   "at": "E04@destan",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Kısa ara: şair karanlık odada, başı öne eğik",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P045",
+   "at": "E05",
+   "set": "GOL",
+   "lum": 0.15,
+   "kadraj": "Gölden kalkar: dev figür ayakta, kanatlar açılır; üstten inen huzmede zincirler çözülür",
+   "hareket": "kalkış; alev damlaları dökülür; zincir düşer",
+   "yazi": ""
+  },
+  {
+   "id": "P046",
+   "at": "E06",
+   "set": "KIY",
+   "lum": 0.18,
+   "kadraj": "Yanan kıyıda ayakta, kolu cehenneme açık",
+   "hareket": "geniş plan; alıntı",
+   "yazi": "“Zihin kendi dünyasıdır.”"
+  },
+  {
+   "id": "P047",
+   "at": "E07",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Mızrağını yere saplar; arkasında alev duvarı",
+   "hareket": "saplama darbesi; büyük alıntı",
+   "yazi": "“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”"
+  },
+  {
+   "id": "P048",
+   "at": "E08",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Aynı kare; alıntının altına bildiğimiz hâli",
+   "hareket": "",
+   "yazi": "cennette köle olacağıma, cehennemde kral olurum"
+  },
+  {
+   "id": "P049",
+   "at": "E09",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Ölçek karesi: omzunda ay gibi kalkan; mızrağın yanında küçücük bir gemi direği",
+   "hareket": "aşağıdan yukarı kaydırma",
+   "yazi": ""
+  },
+  {
+   "id": "P050",
+   "at": "E10",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Yüz yakın plan (¾, gravür): yıldırım izleri; kaş ve göz",
+   "hareket": "iki etiket belirir",
+   "yazi": "gurur  ·  pişmanlık"
+  },
+  {
+   "id": "P051",
+   "at": "E11",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Yıldırım çarpmış orman ↔ yanık ama ayakta melek safları; önlerinde Şeytan",
+   "hareket": "orman saflara çözülür; üç kez dener; üç damla yaş",
+   "yazi": ""
+  },
+  {
+   "id": "P052",
+   "at": "E12",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "Şeytanlar toprağı kazar; yerden Dor sütunlu, altın tavanlı saray yükselir",
+   "hareket": "saray yükselir",
+   "yazi": "PANDEMONIUM"
+  },
+  {
+   "id": "P053",
+   "at": "E13",
+   "set": "MEC",
+   "lum": 0.22,
+   "kadraj": "Meclis: sütunlu salon, saflar; ortada yeni dünyanın küçük küresi",
+   "hareket": "küre belirir",
+   "yazi": ""
+  },
+  {
+   "id": "P054",
+   "at": "E14",
+   "set": "MEC",
+   "lum": 0.25,
+   "kadraj": "Yalnız o ayağa kalkar",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P055",
+   "at": "E15",
+   "set": "MEC",
+   "lum": 0.25,
+   "kadraj": "Bütün salon önünde Batı saray selamıyla eğilir",
+   "hareket": "saflar eğilir; ironi cümlesi",
+   "yazi": "Diz çökmeyi reddeden melek…"
+  },
+  {
+   "id": "P056",
+   "at": "F01",
+   "set": "KAP",
+   "lum": 0.25,
+   "kadraj": "Bölüm kartı; karanlıkta dev kapı",
+   "hareket": "kart",
+   "yazi": "KAPIDAKİ BEKÇİLER"
+  },
+  {
+   "id": "P057",
+   "at": "F02",
+   "set": "KAP",
+   "lum": 0.25,
+   "kadraj": "Dokuz katlı kapı; iki bekçi: örtülü kadın silueti (eteği yılan kıvrımı), biçimsiz taçlı gölge",
+   "hareket": "yavaş yaklaşma",
+   "yazi": ""
+  },
+  {
+   "id": "P058",
+   "at": "F03",
+   "set": "KAP",
+   "lum": 0.25,
+   "kadraj": "Kadın araya girer; arkada anı: başmeleğin başından doğan ışık",
+   "hareket": "anı belirir, söner",
+   "yazi": "GÜNAH"
+  },
+  {
+   "id": "P059",
+   "at": "F04",
+   "set": "KAP",
+   "lum": 0.25,
+   "kadraj": "Gölge mızrağını kaldırır; iki profil karşı karşıya",
+   "hareket": "",
+   "yazi": "ÖLÜM · kendi oğlu"
+  },
+  {
+   "id": "P060",
+   "at": "F05",
+   "set": "KAO",
+   "lum": 0.25,
+   "kadraj": "Kapı açılır: girdaplı, ufuksuz karanlık okyanus",
+   "hareket": "kapı kanatları ayrılır",
+   "yazi": "KAOS"
+  },
+  {
+   "id": "P061",
+   "at": "F06",
+   "set": "KAO",
+   "lum": 0.25,
+   "kadraj": "Uçuş ve düşüş: figür girdapta küçülür; rüzgâr yukarı fırlatır",
+   "hareket": "düşüş, sıçrama",
+   "yazi": ""
+  },
+  {
+   "id": "P062",
+   "at": "F07",
+   "set": "KAO",
+   "lum": 0.25,
+   "kadraj": "Uzakta: cennetin ışığından ince zincirle sarkan küçük küre",
+   "hareket": "yavaş yaklaşma",
+   "yazi": ""
+  },
+  {
+   "id": "P063",
+   "at": "F08",
+   "set": "KAO",
+   "lum": 0.6,
+   "kadraj": "Güneş diski; üstünde parlak bekçi Uriel; yanında genç melek kılığında küçük figür (sahte parlaklık)",
+   "hareket": "Uriel kolunu uzatır",
+   "yazi": "URIEL"
+  },
+  {
+   "id": "P064",
+   "at": "F09",
+   "set": "NIF",
+   "lum": 0.25,
+   "kadraj": "Dağın tepesine süzülür; kılık düşer, koyu siluet kalır",
+   "hareket": "konuş",
+   "yazi": "Nifates Dağı"
+  },
+  {
+   "id": "P065",
+   "at": "G01",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Bölüm kartı; geniş plan: tepede yalnız figür, dev güneş",
+   "hareket": "kart",
+   "yazi": "GÜNEŞE İTİRAF"
+  },
+  {
+   "id": "P066",
+   "at": "G02",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Siluetin göğsünde yanan göl: cehennemi içinde taşıyor",
+   "hareket": "içteki alev büyür",
+   "yazi": ""
+  },
+  {
+   "id": "P067",
+   "at": "G02b",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Gündüz: genç Milton pencere önünde yazıyor (gözleri görüyor)",
+   "hareket": "ışık içeri dolar",
+   "yazi": ""
+  },
+  {
+   "id": "P068",
+   "at": "G03",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Profil güneşe karşı; eliyle gözünü siper eder",
+   "hareket": "ışınlar yüzüne vurur",
+   "yazi": "“Ey güneş… ışınlarından nefret ediyorum.”"
+  },
+  {
+   "id": "P069",
+   "at": "G04",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Baş öne eğilir; ışık yumuşar",
+   "hareket": "",
+   "yazi": "“Hak etmemişti.”"
+  },
+  {
+   "id": "P070",
+   "at": "G05",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Güneş diskinin içinde anı: safların arasında sıradan küçük bir melek",
+   "hareket": "anı belirir",
+   "yazi": ""
+  },
+  {
+   "id": "P071",
+   "at": "G06",
+   "set": "KIT",
+   "lum": 0.22,
+   "kadraj": "Karşı karşıya iki aynı profil (kendisiyle)",
+   "hareket": "",
+   "yazi": "“O hâlde kimi suçlayacaksın?”"
+  },
+  {
+   "id": "P072",
+   "at": "G07",
+   "set": "NIF",
+   "lum": 0.2,
+   "kadraj": "Doruk: kamera siluetin içine girer; yanan göl kareyi doldurur",
+   "hareket": "içe dalış",
+   "yazi": "“Ben cehennemim.”"
+  },
+  {
+   "id": "P073",
+   "at": "G08",
+   "set": "KIT",
+   "lum": 0.2,
+   "kadraj": "Siluetin içinde siluet, onun içinde bir tane daha: dibin altında dip",
+   "hareket": "aşağı iniş",
+   "yazi": ""
+  },
+  {
+   "id": "P074",
+   "at": "G09",
+   "set": "NIF",
+   "lum": 0.22,
+   "kadraj": "Bir dizi ışığa doğru bükülmeye başlar",
+   "hareket": "yavaş bükülme",
+   "yazi": "“Pişmanlığa hiç yer kalmadı mı?”"
+  },
+  {
+   "id": "P075",
+   "at": "G09b",
+   "set": "NIF",
+   "lum": 0.2,
+   "kadraj": "Durur, doğrulur; 'boyun eğmek' sözü bir zincir halkasıyla kilitlenir",
+   "hareket": "doğrulma; halka kapanır",
+   "yazi": "boyun eğmek"
+  },
+  {
+   "id": "P076",
+   "at": "G10",
+   "set": "NIF",
+   "lum": 0.2,
+   "kadraj": "Arkasında hayal: onu izleyen ordunun gözleri",
+   "hareket": "gözler belirir",
+   "yazi": ""
+  },
+  {
+   "id": "P077",
+   "at": "G11",
+   "set": "KIT",
+   "lum": 0.2,
+   "kadraj": "Terazi: taç ve asa yükselir, figür aşağı iner",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P078",
+   "at": "G12",
+   "set": "KIT",
+   "lum": 0.2,
+   "kadraj": "Döngü: diz çöken → yükselen → başı dönen → düşen figürler bir halka üstünde",
+   "hareket": "halka döner",
+   "yazi": ""
+  },
+  {
+   "id": "P079",
+   "at": "G13",
+   "set": "NIF",
+   "lum": 0.18,
+   "kadraj": "Güneş ile figür arasındaki mesafe açılır",
+   "hareket": "kamera geri çekilir",
+   "yazi": ""
+  },
+  {
+   "id": "P080",
+   "at": "G14",
+   "set": "NIF",
+   "lum": 0.15,
+   "kadraj": "Güneşe sırtını döner; gölgesi uzayıp Aden'e ulaşır",
+   "hareket": "dönüş; gölge uzar",
+   "yazi": "“Kötülük: sen benim iyiliğim ol.”"
+  },
+  {
+   "id": "P081",
+   "at": "G15",
+   "set": "NIF",
+   "lum": 0.15,
+   "kadraj": "Yüz üç kez değişir (üç ton); güneşte küçük bir göz: Uriel izliyor",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P082",
+   "at": "G16",
+   "set": "NIF",
+   "lum": 0.15,
+   "kadraj": "Tepede küçük, yalnız figür; kalabalık yok",
+   "hareket": "uzun bekleme",
+   "yazi": ""
+  },
+  {
+   "id": "P083",
+   "at": "H01",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "Bölüm kartı; bahçenin duvarı ve ağaç tepeleri",
+   "hareket": "kart",
+   "yazi": "ADEN'DE BİR YABANCI"
+  },
+  {
+   "id": "P084",
+   "at": "H02",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "Duvarın üstünden tek sıçrayış",
+   "hareket": "sıçrama yayı",
+   "yazi": ""
+  },
+  {
+   "id": "P085",
+   "at": "H03",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "Hayat ağacının tepesinde karabatak silueti; gözü parlıyor",
+   "hareket": "kuş kanat toplar",
+   "yazi": ""
+  },
+  {
+   "id": "P086",
+   "at": "H04",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "Ağacın tepesinden bakış: uzakta, yaprakların arasında iki küçük örtülü siluet (arkadan)",
+   "hareket": "yavaş yaklaşma, uzak kalır",
+   "yazi": ""
+  },
+  {
+   "id": "P087",
+   "at": "H05",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "Karabatağın gölgesi yerde hâlâ melek biçiminde",
+   "hareket": "",
+   "yazi": "“Onları sevebilirim bile.”"
+  },
+  {
+   "id": "P088",
+   "at": "H06",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "İçindeki alev küçülür; sonra yeniden büyür",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P089",
+   "at": "H07",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Sayfa kenarına düşülmüş not gibi şairin sözü",
+   "hareket": "not yazılır",
+   "yazi": "“zorbaların bahanesi: zorunluluk”"
+  },
+  {
+   "id": "P090",
+   "at": "H08",
+   "set": "ADN",
+   "lum": 0.15,
+   "kadraj": "İki küçük siluet el ele; ön planda başını çeviren koyu kuş",
+   "hareket": "",
+   "yazi": "“Bense… bir cehenneme itildim.”"
+  },
+  {
+   "id": "P091",
+   "at": "H09",
+   "set": "ADN",
+   "lum": 0.12,
+   "kadraj": "Gece: çardakta uyuyan uzak figür; kulağının yakınında küçük kurbağa silueti; rüya dumanı",
+   "hareket": "duman kıvrılır",
+   "yazi": ""
+  },
+  {
+   "id": "P092",
+   "at": "H10",
+   "set": "ADN",
+   "lum": 0.12,
+   "kadraj": "Mızrak ucu dokunur: kurbağa patlayıp gerçek biçimine döner",
+   "hareket": "dönüşüm (biçim geçişi)",
+   "yazi": ""
+  },
+  {
+   "id": "P093",
+   "at": "H11",
+   "set": "ADN",
+   "lum": 0.12,
+   "kadraj": "Parlak bekçi melekler karşısında sönük Şeytan",
+   "hareket": "",
+   "yazi": "“Şimdi günahına benziyorsun.”"
+  },
+  {
+   "id": "P094",
+   "at": "H12",
+   "set": "ADN",
+   "lum": 0.1,
+   "kadraj": "Başı eğik; onların ışığı yanında kendi ışığının azlığı",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P095",
+   "at": "I01",
+   "set": "ADN",
+   "lum": 0.1,
+   "kadraj": "Bölüm kartı",
+   "hareket": "kart",
+   "yazi": "YILANIN İÇİNDE"
+  },
+  {
+   "id": "P096",
+   "at": "I02",
+   "set": "KAO",
+   "lum": 0.1,
+   "kadraj": "Dünya küresi: gece yarısıyla birlikte dönen küçük figür; I–VII sayacı",
+   "hareket": "küre döner",
+   "yazi": ""
+  },
+  {
+   "id": "P097",
+   "at": "I04",
+   "set": "ADN",
+   "lum": 0.1,
+   "kadraj": "Otların arasında uyuyan kıvrık yılan; üstünde duraksayan koyu siluet",
+   "hareket": "",
+   "yazi": "“Ne iğrenç bir alçalış!”"
+  },
+  {
+   "id": "P098",
+   "at": "I05",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Siluet duman olup yılanın ağzından içeri akar",
+   "hareket": "akış",
+   "yazi": "“yükseldiği kadar alçalmak zorundadır”"
+  },
+  {
+   "id": "P099",
+   "at": "I06",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Sabah: uzakta çiçekler arasında tek figür; yılan dik durmuş, içindeki alev bir an söner",
+   "hareket": "alev söner",
+   "yazi": "sersem bir iyilik"
+  },
+  {
+   "id": "P100",
+   "at": "I07",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Alev geri gelir",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P101",
+   "at": "I08",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Dala uzanan el silueti ve meyve; sonra ikinci el",
+   "hareket": "meyve kopar",
+   "yazi": ""
+  },
+  {
+   "id": "P102",
+   "at": "I09",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Gök kararır, yapraklar dökülür; yılan çalılığa süzülür",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P103",
+   "at": "I10",
+   "set": "ADN",
+   "lum": 0.08,
+   "kadraj": "Siyah; yalnız yılanın gözü",
+   "hareket": "",
+   "yazi": "Kazanmıştır."
+  },
+  {
+   "id": "P104",
+   "at": "J01",
+   "set": "MEC",
+   "lum": 0.08,
+   "kadraj": "Bölüm kartı; boş taht",
+   "hareket": "kart",
+   "yazi": "ALKIŞ"
+  },
+  {
+   "id": "P105",
+   "at": "J02",
+   "set": "MEC",
+   "lum": 0.3,
+   "kadraj": "Sıradan asker kılığında salondan geçer; tahtta birden belirir (sahte parıltı)",
+   "hareket": "parıltı patlar",
+   "yazi": ""
+  },
+  {
+   "id": "P106",
+   "at": "J03",
+   "set": "MEC",
+   "lum": 0.3,
+   "kadraj": "Elinde elma, kolu havada",
+   "hareket": "",
+   "yazi": "“Hem de bir elmayla!”"
+  },
+  {
+   "id": "P107",
+   "at": "J04",
+   "set": "MEC",
+   "lum": 0.3,
+   "kadraj": "Geniş salon; bekleyiş",
+   "hareket": "hareketsiz, uzun",
+   "yazi": ""
+  },
+  {
+   "id": "P108",
+   "at": "J05",
+   "set": "MEC",
+   "lum": 0.25,
+   "kadraj": "Kalabalığın boyunları uzar; salon tıslamayla dolar",
+   "hareket": "siluetler bozulur",
+   "yazi": ""
+  },
+  {
+   "id": "P109",
+   "at": "J07",
+   "set": "MEC",
+   "lum": 0.1,
+   "kadraj": "Dönüşüm: kollar gövdeye yapışır, bacaklar dolanır, yüzüstü düşer: dev yılan",
+   "hareket": "biçim geçişi (filmin anahtar animasyonu)",
+   "yazi": "Önünde diz çökülen kral, şimdi karnının üstünde."
+  },
+  {
+   "id": "P110",
+   "at": "J08",
+   "set": "MEC",
+   "lum": 0.05,
+   "kadraj": "Salon kıvrılan yılanlarla dolu",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P111",
+   "at": "J06",
+   "set": "KIT",
+   "lum": 0.05,
+   "kadraj": "İkiye bölünmüş levha: solda Nifates'te dik duran siluet, sağda tıslayan salon",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P112",
+   "at": "J09",
+   "set": "KIT",
+   "lum": 0.05,
+   "kadraj": "Kural bir levha yazısı gibi",
+   "hareket": "",
+   "yazi": "günah hangi kılıkta, ceza o kılıkta"
+  },
+  {
+   "id": "P113",
+   "at": "J10",
+   "set": "MEC",
+   "lum": 0.05,
+   "kadraj": "Meyveli ağaçlar belirir; yılanlar saldırır; meyve kül olur",
+   "hareket": "meyve dağılır",
+   "yazi": ""
+  },
+  {
+   "id": "P114",
+   "at": "J11",
+   "set": "MEC",
+   "lum": 0,
+   "kadraj": "Yılan kareden çıkar; boş, karanlık salon",
+   "hareket": "çıkış; soru geri gelir",
+   "yazi": "Onu orada tutan neydi?"
+  },
+  {
+   "id": "P115",
+   "at": "K01",
+   "set": "CIK",
+   "lum": null,
+   "kadraj": "Kapıda alevli kılıç; önde geniş ova, gün doğumu; el ele yürüyen iki küçük figür",
+   "hareket": "geniş plan, yavaş",
+   "yazi": "“Bütün dünya önlerindeydi.”"
+  },
+  {
+   "id": "P116",
+   "at": "K02",
+   "set": "CIK",
+   "lum": null,
+   "kadraj": "Önceki an: iki figür başları eğik diz çökmüş (uzak); köşede dik duran Şeytan silueti",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P117",
+   "at": "K03",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "İki sütunlu levha",
+   "hareket": "sütunlar sırayla",
+   "yazi": "İnsan aldatıldı → merhamet  |  Asi melek kendi kendini ayarttı → yok"
+  },
+  {
+   "id": "P118",
+   "at": "K04",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Mum söner",
+   "hareket": "",
+   "yazi": "1674"
+  },
+  {
+   "id": "P119",
+   "at": "K05",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Bölüm kartı",
+   "hareket": "kart",
+   "yazi": "İKİ OKUMA / Bu destanın kahramanı kim?"
+  },
+  {
+   "id": "P120",
+   "at": "K06",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Destanın ilk sayfası",
+   "hareket": "dize belirir",
+   "yazi": "Tanrı'nın yollarının adil olduğunu göstermek (I. 26)"
+  },
+  {
+   "id": "P121",
+   "at": "K07",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Gravürcü masası: kalem, bakır levha, künye plakası; açık defterde solda zincir gibi sert çizgili melekler, sağda serbest çizgili şeytanlar",
+   "hareket": "çizgiler çizilir",
+   "yazi": "WILLIAM BLAKE · 1793"
+  },
+  {
+   "id": "P122",
+   "at": "K08",
+   "set": "KIT",
+   "lum": 0.2,
+   "kadraj": "Filmde duyduğumuz Şeytan sözleri sayfada birikir",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P123",
+   "at": "K10",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Kitap kapağı",
+   "hareket": "",
+   "yazi": "C. S. LEWIS · Kayıp Cennet'e Önsöz, 1942"
+  },
+  {
+   "id": "P124",
+   "at": "K11",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Küçülme merdiveni: basamak basamak inen siluetler (zırhlı başmelek, general, kürsüde politikacı, pencereden bakan casus, kurbağa, yılan)",
+   "hareket": "siluetler sözle birlikte tek tek yanar",
+   "yazi": "kahraman → general → politikacı → casus → kurbağa → yılan"
+  },
+  {
+   "id": "P125",
+   "at": "K12",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "En alt basamaktaki yılan en üste bakar",
+   "hareket": "",
+   "yazi": "“yükseldiği kadar alçalır”"
+  },
+  {
+   "id": "P126",
+   "at": "K13",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Solda devrilmiş bir taç; sağda mücevherli taht kuran melek",
+   "hareket": "",
+   "yazi": "Blake mi, Lewis mi?"
+  },
+  {
+   "id": "P127",
+   "at": "K14",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Levha yazısı",
+   "hareket": "",
+   "yazi": "“Tanrı insanı, insanın efendisi yapmadı.”"
+  },
+  {
+   "id": "P128",
+   "at": "K15",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Kırılan zincir; sonra zincirin halkaları bir taht biçiminde yeniden dizilir",
+   "hareket": "biçim geçişi",
+   "yazi": ""
+  },
+  {
+   "id": "P129",
+   "at": "K15b",
+   "set": "OKU",
+   "lum": null,
+   "kadraj": "Yastık üstünde geri itilen taç; yüksek arkalıklı koltukta 17. yüzyıl silueti; yanında genç bir siluet",
+   "hareket": "",
+   "yazi": "Cromwell, 1657"
+  },
+  {
+   "id": "P130",
+   "at": "K16",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "C12'nin iki silueti geri gelir",
+   "hareket": "",
+   "yazi": "Başkaldırı her zaman özgürlük müdür?"
+  },
+  {
+   "id": "P131",
+   "at": "L01",
+   "set": "CAB",
+   "lum": null,
+   "kadraj": "Bölüm kartı",
+   "hareket": "kart",
+   "yazi": "BİR DAMLA YAŞ"
+  },
+  {
+   "id": "P132",
+   "at": "L02",
+   "set": "CAB",
+   "lum": null,
+   "kadraj": "Çerçeveli levha: kayalara uzanmış melek (yalnız kollar ve gözler görünür)",
+   "hareket": "çerçeve belirir",
+   "yazi": "Alexandre Cabanel · Düşmüş Melek, 1847"
+  },
+  {
+   "id": "P133",
+   "at": "L03",
+   "set": "CAB",
+   "lum": null,
+   "kadraj": "Göze yaklaşma: öfkeli bakış; gözde bir damla birikir",
+   "hareket": "damla süzülür",
+   "yazi": ""
+  },
+  {
+   "id": "P134",
+   "at": "L04",
+   "set": "KIY",
+   "lum": 0.2,
+   "kadraj": "E11 karesi: ordunun karşısında ağlayan Şeytan",
+   "hareket": "",
+   "yazi": ""
+  },
+  {
+   "id": "P135",
+   "at": "L05",
+   "set": "KIT",
+   "lum": 0.2,
+   "kadraj": "Aynı yüz, iki etiket; altında kilitli söz",
+   "hareket": "",
+   "yazi": "pişmanlık mı, gurur mu?"
+  },
+  {
+   "id": "P136",
+   "at": "L06",
+   "set": "KIT",
+   "lum": 0.1,
+   "kadraj": "Üç kare yan yana: göl, kaçış, içteki göl",
+   "hareket": "",
+   "yazi": "Onu orada tutan neydi?"
+  },
+  {
+   "id": "P137",
+   "at": "L07",
+   "set": "NIF",
+   "lum": 0.1,
+   "kadraj": "Gölün çözülmüş zincirleri yerde; kendi elinden kendi bileğine uzanan yeni zincir",
+   "hareket": "halka halka çizilir",
+   "yazi": "gururu"
+  },
+  {
+   "id": "P138",
+   "at": "L08",
+   "set": "KAO",
+   "lum": 0.1,
+   "kadraj": "Tek karede: yukarıda kapalı bir ışık kapısı; aşağıda ona sırtını dönmüş siluet",
+   "hareket": "",
+   "yazi": "gururu mu, açılmayan kapı mı?"
+  },
+  {
+   "id": "P139",
+   "at": "L08b",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Siyah zeminde tek satır",
+   "hareket": "",
+   "yazi": "Belki herkesin, söylemeyi kendine yasakladığı bir söz vardır."
+  },
+  {
+   "id": "P140",
+   "at": "L09",
+   "set": "ODA",
+   "lum": null,
+   "kadraj": "Kör şair; siluetinin içinde yükselen ışık (Şeytan'ın iç cehenneminin karşılığı: iç ışık)",
+   "hareket": "ışık içten büyür",
+   "yazi": "“göksel ışık, içime parla”"
+  },
+  {
+   "id": "P141",
+   "at": "L10",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "İki soru",
+   "hareket": "",
+   "yazi": "O gözyaşı pişmanlık mıydı, gurur mu? / Başkaldırı ne zaman özgürlük?"
+  },
+  {
+   "id": "P142",
+   "at": "L11",
+   "set": "KIT",
+   "lum": null,
+   "kadraj": "Bitiş ekranı: solda sıradaki video yuvası (Prometheus), sağda abone yuvası",
+   "hareket": "",
+   "yazi": "ZAMAN KURYESİ"
+  }
+ ]
+}

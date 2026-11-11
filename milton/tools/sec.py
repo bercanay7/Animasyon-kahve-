@@ -8,7 +8,10 @@ bol = json.load(open(os.path.join(ROOT, 'vo', 'bolumler.json')))
 sel, rap = {}, []
 for b in bol:
     a, c = k.get(b['onek'] + '_a'), k.get(b['onek'] + '_b')
-    if not a or not c: raise SystemExit(f"eksik çekim: {b['onek']}")
+    if not a and not c: rap.append(f"{b['onek']} {b['ad'][:28]:28}  ÇEKİM YOK (yer tutucu)"); continue
+    if not a or not c:
+        pick = 'a' if a else 'b'; ch = a or c; sel[b['onek']] = f"{b['onek']}_{pick}.mp3"
+        rap.append(f"{b['onek']} {b['ad'][:28]:28}  tek çekim → {pick}  CER {ch['cer']:.3f} {ch['sure']:6.1f} sn ({len(ch['farklar'])} fark)"); continue
     pick = 'a' if (a['cer'] < c['cer'] - .003 or (abs(a['cer'] - c['cer']) <= .003 and a['sure'] <= c['sure'])) else 'b'
     sel[b['onek']] = f"{b['onek']}_{pick}.mp3"
     ch = a if pick == 'a' else c

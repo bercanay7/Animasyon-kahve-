@@ -1,4 +1,695 @@
 {
+ "s00_a": {
+  "cer": 0.0111,
+  "sure": 49.1,
+  "farklar": [
+   {
+    "id": "A04",
+    "t": 16.64,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "onungözleriniaçtığıyerdeb",
+    "bag_hyp": "onungözlerineaçtığıyerdeb"
+   },
+   {
+    "id": "A04",
+    "t": 19.74,
+    "ref": "ö",
+    "hyp": "ü",
+    "bag_ref": "laryananbirgölünortasında",
+    "bag_hyp": "laryananbirgülünortasında"
+   },
+   {
+    "id": "A05",
+    "t": 33.26,
+    "ref": "c",
+    "hyp": "g",
+    "bag_ref": "yebirşiirdenconmiltonunde",
+    "bag_hyp": "yebirşiirdengonmiltundest"
+   },
+   {
+    "id": "A05",
+    "t": 33.44,
+    "ref": "on",
+    "hyp": "",
+    "bag_ref": "irdenconmiltonundestanında",
+    "bag_hyp": "irdengonmiltundestanında"
+   },
+   {
+    "id": "A05",
+    "t": 38.26,
+    "ref": "l",
+    "hyp": "r",
+    "bag_ref": "nbirşairinkalemindençıkmı",
+    "bag_hyp": "nbirşairinkaremindençıkmı"
+   }
+  ]
+ },
+ "s00_b": {
+  "cer": 0.0056,
+  "sure": 48.28,
+  "farklar": [
+   {
+    "id": "A05",
+    "t": 32.14,
+    "ref": "c",
+    "hyp": "j",
+    "bag_ref": "yebirşiirdenconmiltonunde",
+    "bag_hyp": "yebirşiirdenjohnmiltonınd"
+   },
+   {
+    "id": "A05",
+    "t": 32.14,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "birşiirdenconmiltonundes",
+    "bag_hyp": "birşiirdenjohnmiltonındes"
+   },
+   {
+    "id": "A05",
+    "t": 32.4,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "denconmiltonundestanından",
+    "bag_hyp": "enjohnmiltonındestanından"
+   }
+  ]
+ },
+ "s01_a": {
+  "cer": 0.0029,
+  "sure": 62.5,
+  "farklar": [
+   {
+    "id": "B03",
+    "t": 28.18,
+    "ref": "c",
+    "hyp": "y",
+    "bag_ref": "tmiştiibraniceyunancalati",
+    "bag_hyp": "tmiştiibraniyeyunancalati"
+   },
+   {
+    "id": "B04",
+    "t": 49.88,
+    "ref": "",
+    "hyp": "e",
+    "bag_ref": "londradacellatonunkitapl",
+    "bag_hyp": "londradacelleatonunkitapl"
+   }
+  ]
+ },
+ "s01_b": {
+  "cer": 0.0029,
+  "sure": 61.4,
+  "farklar": [
+   {
+    "id": "B03",
+    "t": 27.52,
+    "ref": "c",
+    "hyp": "y",
+    "bag_ref": "tmiştiibraniceyunancalati",
+    "bag_hyp": "tmiştiibraniyeyunancalati"
+   },
+   {
+    "id": "B04",
+    "t": 49.04,
+    "ref": "",
+    "hyp": "e",
+    "bag_ref": "londradacellatonunkitapl",
+    "bag_hyp": "londradacelleatonunkitapl"
+   }
+  ]
+ },
+ "s02_a": {
+  "cer": 0.0023,
+  "sure": 39.02,
+  "farklar": [
+   {
+    "id": "B09",
+    "t": 23.58,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "haöncemiltonungözlerihenü",
+    "bag_hyp": "haöncemiltonıngözlerihenü"
+   }
+  ]
+ },
+ "s02_b": {
+  "cer": 0.0046,
+  "sure": 39.32,
+  "farklar": [
+   {
+    "id": "B09",
+    "t": 23.26,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "haöncemiltonungözlerihenü",
+    "bag_hyp": "haöncemiltonıngözlerihenü"
+   },
+   {
+    "id": "B09",
+    "t": 33.56,
+    "ref": "t",
+    "hyp": "d",
+    "bag_ref": "ığıbiritiraftıorayagelece",
+    "bag_hyp": "ığıbiritirafdıorayagelece"
+   }
+  ]
+ },
+ "s03_a": {
+  "cer": 0.0202,
+  "sure": 57.58,
+  "farklar": [
+   {
+    "id": "C03",
+    "t": 28.4,
+    "ref": "ışıktaşıyan",
+    "hyp": "",
+    "bag_ref": "nıyakıştırırışıktaşıyanbirgünmilton",
+    "bag_hyp": "nıyakıştırırbirgünmiltun"
+   },
+   {
+    "id": "C04",
+    "t": 31.08,
+    "ref": "o",
+    "hyp": "u",
+    "bag_ref": "anbirgünmiltonunanlattığı",
+    "bag_hyp": "ırbirgünmiltununanlattığı"
+   },
+   {
+    "id": "C04",
+    "t": 34.94,
+    "ref": "u",
+    "hyp": "",
+    "bag_ref": "ritoplarveoğuluonlarınbaş",
+    "bag_hyp": "ritoplarveoğluonlarınbaş"
+   }
+  ]
+ },
+ "s03_b": {
+  "cer": 0.0031,
+  "sure": 56.44,
+  "farklar": [
+   {
+    "id": "C04",
+    "t": 30.42,
+    "ref": "o",
+    "hyp": "u",
+    "bag_ref": "anbirgünmiltonunanlattığı",
+    "bag_hyp": "anbirgünmiltununanlattığı"
+   },
+   {
+    "id": "C04",
+    "t": 34.36,
+    "ref": "u",
+    "hyp": "",
+    "bag_ref": "ritoplarveoğuluonlarınbaş",
+    "bag_hyp": "ritoplarveoğluonlarınbaş"
+   }
+  ]
+ },
+ "s04_a": {
+  "cer": 0.0138,
+  "sure": 63.42,
+  "farklar": [
+   {
+    "id": "C06",
+    "t": 0.5,
+    "ref": "on",
+    "hyp": "uy",
+    "bag_ref": "veoradakonuşursözlerin",
+    "bag_hyp": "veoradakuyuşursözlerin"
+   },
+   {
+    "id": "C07",
+    "t": 6.92,
+    "ref": "p",
+    "hyp": "t",
+    "bag_ref": "rlükboyuneğipdizmibükecek",
+    "bag_hyp": "rlükboyuneğitdizmidükecek"
+   },
+   {
+    "id": "C07",
+    "t": 7.48,
+    "ref": "b",
+    "hyp": "d",
+    "bag_ref": "yuneğipdizmibükeceksinizb",
+    "bag_hyp": "yuneğitdizmidükeceksinizb"
+   },
+   {
+    "id": "C08",
+    "t": 20.64,
+    "ref": "y",
+    "hyp": "i",
+    "bag_ref": "üveyalanlarıylacennetinor",
+    "bag_hyp": "üveyalanlarıilecennetinor"
+   },
+   {
+    "id": "C08",
+    "t": 20.64,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "eyalanlarıylacennetinordu",
+    "bag_hyp": "eyalanlarıilecennetinordu"
+   },
+   {
+    "id": "C09",
+    "t": 29.74,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "miltonasorsanikikelimekıs",
+    "bag_hyp": "miltonasorsamikikelimekıs"
+   },
+   {
+    "id": "C10",
+    "t": 42.24,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "alkaradıabdiyeldirabdiyel",
+    "bag_hyp": "alkaradıabdieldirabdielo"
+   },
+   {
+    "id": "C11",
+    "t": 43.5,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "diyeldirabdiyelonakarşıçı",
+    "bag_hyp": "bdieldirabdielonakarşıçı"
+   },
+   {
+    "id": "C11",
+    "t": 45.66,
+    "ref": "e",
+    "hyp": "i",
+    "bag_ref": "rsonraküçümseyenbakışları",
+    "bag_hyp": "rsonraküçümsiyenbakışları"
+   }
+  ]
+ },
+ "s04_b": {
+  "cer": 0.0097,
+  "sure": 64.6,
+  "farklar": [
+   {
+    "id": "C07",
+    "t": 6.64,
+    "ref": "eği",
+    "hyp": "ayı",
+    "bag_ref": "zgürlükboyuneğipdizmibükece",
+    "bag_hyp": "zgürlükboyunayıpdizmibükece"
+   },
+   {
+    "id": "C08",
+    "t": 21.22,
+    "ref": "y",
+    "hyp": "i",
+    "bag_ref": "üveyalanlarıylacennetinor",
+    "bag_hyp": "üveyalanlarıilecennetinor"
+   },
+   {
+    "id": "C08",
+    "t": 21.22,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "eyalanlarıylacennetinordu",
+    "bag_hyp": "eyalanlarıilecennetinordu"
+   },
+   {
+    "id": "C11",
+    "t": 46.58,
+    "ref": "e",
+    "hyp": "ü",
+    "bag_ref": "rsonraküçümseyenbakışları",
+    "bag_hyp": "rsonraküçümsüyanbakışları"
+   },
+   {
+    "id": "C11",
+    "t": 46.58,
+    "ref": "e",
+    "hyp": "a",
+    "bag_ref": "onraküçümseyenbakışlarına",
+    "bag_hyp": "onraküçümsüyanbakışlarına"
+   }
+  ]
+ },
+ "s05_a": {
+  "cer": 0.0092,
+  "sure": 39.12,
+  "farklar": [
+   {
+    "id": "D02",
+    "t": 24.36,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "endinintutsağısınsencehenn",
+    "bag_hyp": "endinintutsasınsencehenn"
+   },
+   {
+    "id": "D03",
+    "t": 28.48,
+    "ref": "r",
+    "hyp": "",
+    "bag_ref": "ettehizmetkarkalayımamace",
+    "bag_hyp": "ettehizmetkakalayımamace"
+   },
+   {
+    "id": "D04",
+    "t": 37.38,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "leronuncuadımdadizininüst",
+    "bag_hyp": "leronuncuadındadizininüst"
+   }
+  ]
+ },
+ "s05_b": {
+  "cer": 0.0092,
+  "sure": 40.1,
+  "farklar": [
+   {
+    "id": "D02",
+    "t": 24.82,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "endinintutsağısınsencehenn",
+    "bag_hyp": "endinintutsasınsencehenn"
+   },
+   {
+    "id": "D04",
+    "t": 36.66,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "rşeytanonadımgerileronunc",
+    "bag_hyp": "rşeytanonadıngerileronunc"
+   },
+   {
+    "id": "D04",
+    "t": 38.36,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "leronuncuadımdadizininüst",
+    "bag_hyp": "leronuncuadındadizininüst"
+   }
+  ]
+ },
+ "s06_a": {
+  "cer": 0.0041,
+  "sure": 46.96,
+  "farklar": [
+   {
+    "id": "D06",
+    "t": 14.56,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "hıartıklekelidirasilerbar",
+    "bag_hyp": "hıartıklekeledirasilerbar"
+   },
+   {
+    "id": "D08",
+    "t": 24.88,
+    "ref": "d",
+    "hyp": "b",
+    "bag_ref": "üstüngelemezdestandaüçünc",
+    "bag_hyp": "üstüngelemezbestandaüçünc"
+   }
+  ]
+ },
+ "s06_b": {
+  "cer": 0.0021,
+  "sure": 46.62,
+  "farklar": [
+   {
+    "id": "D06",
+    "t": 14.52,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "hıartıklekelidirasilerbar",
+    "bag_hyp": "hıartıklekeledirasilerbar"
+   }
+  ]
+ },
+ "s07_a": {
+  "cer": 0.0103,
+  "sure": 52.7,
+  "farklar": [
+   {
+    "id": "E03",
+    "t": 22.3,
+    "ref": "n",
+    "hyp": "v",
+    "bag_ref": "anıkaybettikneçıkarherşey",
+    "bag_hyp": "anıkaybettikveçıkarherşey"
+   },
+   {
+    "id": "E03",
+    "t": 30.18,
+    "ref": "me",
+    "hyp": "ni",
+    "bag_ref": "easlaboyuneğmeyenyüreklili",
+    "bag_hyp": "easlaboyuneğniyengüretlili"
+   },
+   {
+    "id": "E03",
+    "t": 30.68,
+    "ref": "y",
+    "hyp": "g",
+    "bag_ref": "boyuneğmeyenyüreklilikhal",
+    "bag_hyp": "boyuneğniyengüretlilikhal"
+   },
+   {
+    "id": "E03",
+    "t": 30.68,
+    "ref": "k",
+    "hyp": "t",
+    "bag_ref": "neğmeyenyüreklilikhalabiz",
+    "bag_hyp": "neğniyengüretlilikhalabiz"
+   },
+   {
+    "id": "E04",
+    "t": 43.6,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "dudestanyayımlandığındabu",
+    "bag_hyp": "dudestanyayınlandığındabu"
+   }
+  ]
+ },
+ "s07_b": {
+  "cer": 0.0017,
+  "sure": 53.2,
+  "farklar": [
+   {
+    "id": "E04",
+    "t": 38.5,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "sesleböbürleniyorduamaiçi",
+    "bag_hyp": "sesleböbürlemiyorduamaiçi"
+   }
+  ]
+ },
+ "s08_a": {
+  "cer": 0.0012,
+  "sure": 73.5,
+  "farklar": [
+   {
+    "id": "E07",
+    "t": 24.24,
+    "ref": "",
+    "hyp": "e",
+    "bag_ref": "rolmaktanyeğdirbizimbild",
+    "bag_hyp": "rolmaktanyeğedirbizimbild"
+   }
+  ]
+ },
+ "s08_b": {
+  "cer": 0.0024,
+  "sure": 73.66,
+  "farklar": [
+   {
+    "id": "E07",
+    "t": 24.12,
+    "ref": "",
+    "hyp": "e",
+    "bag_ref": "rolmaktanyeğdirbizimbild",
+    "bag_hyp": "rolmaktanyeğedirbizimbild"
+   },
+   {
+    "id": "E11",
+    "t": 57.84,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "caruhyıldırımçarpmışbiror",
+    "bag_hyp": "caruhyıldırınçarpmışbiror"
+   }
+  ]
+ },
+ "s09_a": {
+  "cer": 0.0044,
+  "sure": 40.86,
+  "farklar": [
+   {
+    "id": "E12",
+    "t": 2.44,
+    "ref": "y",
+    "hyp": "l",
+    "bag_ref": "şurorduişekoyulurşeytanla",
+    "bag_hyp": "şurorduişekolulurşeytanla"
+   },
+   {
+    "id": "E13",
+    "t": 15.14,
+    "ref": "i",
+    "hyp": "",
+    "bag_ref": "imeclistekimiyenibirsavaş",
+    "bag_hyp": "imeclistekimyenibirsavaş"
+   }
+  ]
+ },
+ "s09_b": {
+  "cer": 0.0022,
+  "sure": 42.44,
+  "farklar": [
+   {
+    "id": "E13",
+    "t": 15.4,
+    "ref": "i",
+    "hyp": "",
+    "bag_ref": "imeclistekimiyenibirsavaş",
+    "bag_hyp": "imeclistekimyenibirsavaş"
+   }
+  ]
+ },
+ "s10_a": {
+  "cer": 0.0,
+  "sure": 37.92,
+  "farklar": []
+ },
+ "s10_b": {
+  "cer": 0.0023,
+  "sure": 38.76,
+  "farklar": [
+   {
+    "id": "F01",
+    "t": 5.22,
+    "ref": "",
+    "hyp": "n",
+    "bag_ref": "ekişeytanonunedentanımad",
+    "bag_hyp": "ekişeytanonunnedentanımad"
+   }
+  ]
+ },
+ "s11_a": {
+  "cer": 0.0051,
+  "sure": 37.2,
+  "farklar": [
+   {
+    "id": "F08",
+    "t": 29.38,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "inbekçisiuriyeleyolusorar",
+    "bag_hyp": "inbekçisiurieleyolusorar"
+   },
+   {
+    "id": "F08",
+    "t": 31.06,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "yolusoraruriyelyolugöster",
+    "bag_hyp": "yolusorarurielyolugöster"
+   }
+  ]
+ },
+ "s11_b": {
+  "cer": 0.0026,
+  "sure": 37.9,
+  "farklar": [
+   {
+    "id": "F08",
+    "t": 29.84,
+    "ref": "",
+    "hyp": "y",
+    "bag_ref": "bekçisiuriyeleyolusoraru",
+    "bag_hyp": "bekçisiuriyeyleyolusoraru"
+   }
+  ]
+ },
+ "s12_a": {
+  "cer": 0.0071,
+  "sure": 61.9,
+  "farklar": [
+   {
+    "id": "G02",
+    "t": 8.12,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "yarırcehennemiiçindetaşıy",
+    "bag_hyp": "yarırcehenneniiçindetaşıy"
+   },
+   {
+    "id": "G03",
+    "t": 25.44,
+    "ref": "tç",
+    "hyp": "y",
+    "bag_ref": "güneşsanadostçaseslenmiyor",
+    "bag_hyp": "güneşsanadosyaseslenmiyor"
+   },
+   {
+    "id": "G03",
+    "t": 29.8,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "kiçinadınıanıyorumçünküb",
+    "bag_hyp": "kiçinadınıanlıyorumçünküb"
+   },
+   {
+    "id": "G04",
+    "t": 44.1,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "eninbaşınakakmazdıonahiz",
+    "bag_hyp": "eninbaşınakalkmazdıonahiz"
+   }
+  ]
+ },
+ "s12_b": {
+  "cer": 0.0085,
+  "sure": 62.42,
+  "farklar": [
+   {
+    "id": "G01",
+    "t": 2.92,
+    "ref": "ne",
+    "hyp": "mi",
+    "bag_ref": "eytankendinenesöylercehenn",
+    "bag_hyp": "eytankendinemisöylercehenn"
+   },
+   {
+    "id": "G03",
+    "t": 25.96,
+    "ref": "tç",
+    "hyp": "y",
+    "bag_ref": "güneşsanadostçaseslenmiyor",
+    "bag_hyp": "güneşsanadosyaseslenmiyor"
+   },
+   {
+    "id": "G03",
+    "t": 30.14,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "kiçinadınıanıyorumçünküb",
+    "bag_hyp": "kiçinadınıanlıyorumçünküb"
+   },
+   {
+    "id": "G04",
+    "t": 44.7,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "eninbaşınakakmazdıonahiz",
+    "bag_hyp": "eninbaşınakalkmazdıonahiz"
+   }
+  ]
+ },
  "s13_a": {
   "cer": 0.0024,
   "sure": 39.64,
@@ -24,6 +715,1043 @@
     "hyp": "n",
     "bag_ref": "nındaçektiğimcehennemcenn",
     "bag_hyp": "nındaçektiğincehennemcenn"
+   }
+  ]
+ },
+ "s14_a": {
+  "cer": 0.0042,
+  "sure": 67.94,
+  "farklar": [
+   {
+    "id": "G13",
+    "t": 32.54,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "benokadaruzağımsonundakara",
+    "bag_hyp": "benokadaruzamsonundakara"
+   },
+   {
+    "id": "G15",
+    "t": 54.96,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "inbekçisiuriyelhepsinigör",
+    "bag_hyp": "inbekçisiurielhepsinigör"
+   }
+  ]
+ },
+ "s14_b": {
+  "cer": 0.007,
+  "sure": 67.6,
+  "farklar": [
+   {
+    "id": "G12",
+    "t": 13.3,
+    "ref": "y",
+    "hyp": "ğ",
+    "bag_ref": "zünüsöylerdiyelimkipişman",
+    "bag_hyp": "zünüsöylerdiğerimkipişman"
+   },
+   {
+    "id": "G12",
+    "t": 13.3,
+    "ref": "l",
+    "hyp": "r",
+    "bag_ref": "nüsöylerdiyelimkipişmanol",
+    "bag_hyp": "nüsöylerdiğerimkipişmanol"
+   },
+   {
+    "id": "G13",
+    "t": 32.06,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "benokadaruzağımsonundakara",
+    "bag_hyp": "benokadaruzamsonundakara"
+   },
+   {
+    "id": "G15",
+    "t": 54.6,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "inbekçisiuriyelhepsinigör",
+    "bag_hyp": "inbekçisiurielhepsinigör"
+   }
+  ]
+ },
+ "s15_a": {
+  "cer": 0.0048,
+  "sure": 36.86,
+  "farklar": [
+   {
+    "id": "H05",
+    "t": 23.7,
+    "ref": "vu",
+    "hyp": "lı",
+    "bag_ref": "irimbilebusavunmasızhaller",
+    "bag_hyp": "irimbilebusalınmasızhaller"
+   }
+  ]
+ },
+ "s15_b": {
+  "cer": 0.0096,
+  "sure": 36.78,
+  "farklar": [
+   {
+    "id": "H02",
+    "t": 8.62,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "ayıştaduvarınüstündenatla",
+    "bag_hyp": "ayıştaduvarımüstündenatla"
+   },
+   {
+    "id": "H05",
+    "t": 23.62,
+    "ref": "vu",
+    "hyp": "lı",
+    "bag_ref": "irimbilebusavunmasızhaller",
+    "bag_hyp": "irimbilebusalınmasızhaller"
+   },
+   {
+    "id": "H06",
+    "t": 26.96,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "olmasadamasumiyetinizkarş",
+    "bag_hyp": "olmasadamasuniyetinizkarş"
+   }
+  ]
+ },
+ "s16_a": {
+  "cer": 0.0106,
+  "sure": 66.2,
+  "farklar": [
+   {
+    "id": "H08",
+    "t": 13.46,
+    "ref": "",
+    "hyp": "n",
+    "bag_ref": "efretedilesimanzaraişken",
+    "bag_hyp": "efretedilesinmanzaraişken"
+   },
+   {
+    "id": "H08",
+    "t": 20.3,
+    "ref": "",
+    "hyp": "i",
+    "bag_ref": "nnettelerbensesevincinde",
+    "bag_hyp": "nnettelerbenisesevincinde"
+   },
+   {
+    "id": "H09",
+    "t": 27.34,
+    "ref": "l",
+    "hyp": "d",
+    "bag_ref": "ındibineçömelirbirkurbağa",
+    "bag_hyp": "ındibineçömedirbirkurbağa"
+   },
+   {
+    "id": "H10",
+    "t": 31.5,
+    "ref": "l",
+    "hyp": "r",
+    "bag_ref": "ısıldaruriyelinhaberverdi",
+    "bag_hyp": "ısıldaruriyerinhaberverdi"
+   },
+   {
+    "id": "H10",
+    "t": 35.18,
+    "ref": "y",
+    "hyp": "i",
+    "bag_ref": "ızrağınınucuylaonadokunur",
+    "bag_hyp": "ızrağınınucuileonadokunur"
+   },
+   {
+    "id": "H10",
+    "t": 35.18,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "rağınınucuylaonadokunurşe",
+    "bag_hyp": "rağınınucuileonadokunurşe"
+   },
+   {
+    "id": "H11",
+    "t": 41.28,
+    "ref": "e",
+    "hyp": "i",
+    "bag_ref": "esorarküçümseyerekmelekle",
+    "bag_hyp": "esorarküçümsiyerekmelekle"
+   },
+   {
+    "id": "H12",
+    "t": 62.4,
+    "ref": "k",
+    "hyp": "p",
+    "bag_ref": "rençokdasönükleşenışığını",
+    "bag_hyp": "rençokdasönüpleşenışığını"
+   }
+  ]
+ },
+ "s16_b": {
+  "cer": 0.0132,
+  "sure": 66.14,
+  "farklar": [
+   {
+    "id": "H08",
+    "t": 19.94,
+    "ref": "",
+    "hyp": "i",
+    "bag_ref": "nnettelerbensesevincinde",
+    "bag_hyp": "nnettelerbenisesevincinde"
+   },
+   {
+    "id": "H08",
+    "t": 23.74,
+    "ref": "",
+    "hyp": "eğ",
+    "bag_ref": "bircehennemeitildimgeceo",
+    "bag_hyp": "bircehennemeeğitildimgeceo"
+   },
+   {
+    "id": "H10",
+    "t": 31.4,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "rfısıldaruriyelinhaberver",
+    "bag_hyp": "rfısıldarurielinhaberver"
+   },
+   {
+    "id": "H10",
+    "t": 34.38,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "denbirimızrağınınucuylaona",
+    "bag_hyp": "denbirimızranınucuylaona"
+   },
+   {
+    "id": "H11",
+    "t": 38.02,
+    "ref": "e",
+    "hyp": "ili",
+    "bag_ref": "çiminedönerbenitanımıyorm",
+    "bag_hyp": "çiminedönerbilinitanımıyorm"
+   },
+   {
+    "id": "H11",
+    "t": 41.16,
+    "ref": "e",
+    "hyp": "i",
+    "bag_ref": "esorarküçümseyerekmelekle",
+    "bag_hyp": "esorarküçümsiyerekmelekle"
+   }
+  ]
+ },
+ "s17_a": {
+  "cer": 0.0023,
+  "sure": 38.44,
+  "farklar": [
+   {
+    "id": "I02",
+    "t": 10.32,
+    "ref": "ı",
+    "hyp": "i",
+    "bag_ref": "gizlicegerisızarsaklanmak",
+    "bag_hyp": "gizlicegerisizarsaklanmak"
+   }
+  ]
+ },
+ "s17_b": {
+  "cer": 0.0023,
+  "sure": 38.58,
+  "farklar": [
+   {
+    "id": "I02",
+    "t": 10.52,
+    "ref": "ı",
+    "hyp": "i",
+    "bag_ref": "gizlicegerisızarsaklanmak",
+    "bag_hyp": "gizlicegerisizarsaklanmak"
+   }
+  ]
+ },
+ "s18_a": {
+  "cer": 0.008,
+  "sure": 48.32,
+  "farklar": [
+   {
+    "id": "I06",
+    "t": 0.7,
+    "ref": "a",
+    "hyp": "ı",
+    "bag_ref": "sabahyılanıniçindehav",
+    "bag_hyp": "sabahyılınıniçindehav"
+   },
+   {
+    "id": "I06",
+    "t": 20.52,
+    "ref": "y",
+    "hyp": "ğ",
+    "bag_ref": "ermiltonundeyişiylebirsür",
+    "bag_hyp": "ermiltonundeğişiylebirsür"
+   },
+   {
+    "id": "I08",
+    "t": 34.7,
+    "ref": "e",
+    "hyp": "a",
+    "bag_ref": "derhavvameyveyikoparırvey",
+    "bag_hyp": "derhavvameyvayıkoparırvey"
+   },
+   {
+    "id": "I08",
+    "t": 34.7,
+    "ref": "i",
+    "hyp": "ı",
+    "bag_ref": "rhavvameyveyikoparırveyer",
+    "bag_hyp": "rhavvameyvayıkoparırveyer"
+   }
+  ]
+ },
+ "s18_b": {
+  "cer": 0.012,
+  "sure": 49.08,
+  "farklar": [
+   {
+    "id": "I06",
+    "t": 0.7,
+    "ref": "a",
+    "hyp": "ı",
+    "bag_ref": "sabahyılanıniçindehav",
+    "bag_hyp": "sabahyılınıniçindehav"
+   },
+   {
+    "id": "I06",
+    "t": 20.66,
+    "ref": "y",
+    "hyp": "ğ",
+    "bag_ref": "ermiltonundeyişiylebirsür",
+    "bag_hyp": "ermiltonundeğişiylebirsür"
+   },
+   {
+    "id": "I08",
+    "t": 34.94,
+    "ref": "v",
+    "hyp": "",
+    "bag_ref": "ıiknaederhavvameyveyikopa",
+    "bag_hyp": "ıiknaederhavameyvayıkopa"
+   },
+   {
+    "id": "I08",
+    "t": 35.18,
+    "ref": "e",
+    "hyp": "a",
+    "bag_ref": "derhavvameyveyikoparırvey",
+    "bag_hyp": "ederhavameyvayıkoparırvey"
+   },
+   {
+    "id": "I08",
+    "t": 35.18,
+    "ref": "i",
+    "hyp": "ı",
+    "bag_ref": "rhavvameyveyikoparırveyer",
+    "bag_hyp": "erhavameyvayıkoparırveyer"
+   },
+   {
+    "id": "I09",
+    "t": 40.96,
+    "ref": "ç",
+    "hyp": "t",
+    "bag_ref": "issederdoğaiççekerveherşe",
+    "bag_hyp": "issederdoğaitçekerveherşe"
+   }
+  ]
+ },
+ "s19_a": {
+  "cer": 0.0168,
+  "sure": 27.68,
+  "farklar": [
+   {
+    "id": "J01",
+    "t": 0.44,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "zaferanındainsann",
+    "bag_hyp": "zaferhanındainsann"
+   },
+   {
+    "id": "J01",
+    "t": 1.98,
+    "ref": "y",
+    "hyp": "r",
+    "bag_ref": "ndainsanneduymayıbeklerşe",
+    "bag_hyp": "ndainsannedurmayıbeklerşe"
+   },
+   {
+    "id": "J02",
+    "t": 13.94,
+    "ref": "y",
+    "hyp": "ğ",
+    "bag_ref": "damiltonundeyişiylesahteb",
+    "bag_hyp": "damiltonundeğişiylesahteb"
+   },
+   {
+    "id": "J03",
+    "t": 23.6,
+    "ref": "y",
+    "hyp": "",
+    "bag_ref": "elmaylagülmeyedeğmezmives",
+    "bag_hyp": "elmaylagülmeedeymezmives"
+   },
+   {
+    "id": "J03",
+    "t": 23.6,
+    "ref": "ğ",
+    "hyp": "y",
+    "bag_ref": "ylagülmeyedeğmezmivesusar",
+    "bag_hyp": "aylagülmeedeymezmivesusar"
+   }
+  ]
+ },
+ "s19_b": {
+  "cer": 0.0101,
+  "sure": 27.6,
+  "farklar": [
+   {
+    "id": "J01",
+    "t": 2.06,
+    "ref": "y",
+    "hyp": "r",
+    "bag_ref": "ndainsanneduymayıbeklerşe",
+    "bag_hyp": "ndainsannedurmayıbeklerşe"
+   },
+   {
+    "id": "J02",
+    "t": 13.32,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "layadamiltonundeyişiylesa",
+    "bag_hyp": "layadamiltonındeğişiylesa"
+   },
+   {
+    "id": "J02",
+    "t": 13.98,
+    "ref": "y",
+    "hyp": "ğ",
+    "bag_ref": "damiltonundeyişiylesahteb",
+    "bag_hyp": "damiltonındeğişiylesahteb"
+   }
+  ]
+ },
+ "s20_a": {
+  "cer": 0.0036,
+  "sure": 74.54,
+  "farklar": [
+   {
+    "id": "J07",
+    "t": 11.98,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "aşırıryüzününsivrildiğini",
+    "bag_hyp": "aşırıryüzünümsivrildiğini"
+   },
+   {
+    "id": "J07",
+    "t": 23.22,
+    "ref": "r",
+    "hyp": "",
+    "bag_ref": "nkralşimdikarnınınüstünde",
+    "bag_hyp": "nkralşimdikanınınüstünde"
+   },
+   {
+    "id": "J06",
+    "t": 35.36,
+    "ref": "e",
+    "hyp": "",
+    "bag_ref": "uiçinboyuneğememiştişimdi",
+    "bag_hyp": "uiçinboyuneğmemiştişimdi"
+   }
+  ]
+ },
+ "s20_b": {
+  "cer": 0.012,
+  "sure": 71.98,
+  "farklar": [
+   {
+    "id": "J07",
+    "t": 11.48,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "aşırıryüzününsivrildiğini",
+    "bag_hyp": "aşırıryüzünümsivrildiğini"
+   },
+   {
+    "id": "J07",
+    "t": 17.76,
+    "ref": "ığı",
+    "hyp": "ürü",
+    "bag_ref": "yüzüstüyereyığılırdevasabir",
+    "bag_hyp": "yüzüstüyereyürülürdevasabir"
+   },
+   {
+    "id": "J07",
+    "t": 17.76,
+    "ref": "ı",
+    "hyp": "ü",
+    "bag_ref": "stüyereyığılırdevasabiryı",
+    "bag_hyp": "stüyereyürülürdevasabiryı"
+   },
+   {
+    "id": "J06",
+    "t": 30.1,
+    "ref": "d",
+    "hyp": "t",
+    "bag_ref": "üştürnifatesdağındabukala",
+    "bag_hyp": "üştürnifatestağındabukala"
+   },
+   {
+    "id": "J06",
+    "t": 33.92,
+    "ref": "e",
+    "hyp": "",
+    "bag_ref": "uiçinboyuneğememiştişimdi",
+    "bag_hyp": "uiçinboyuneğmemiştişimdi"
+   },
+   {
+    "id": "J10",
+    "t": 52.74,
+    "ref": "l",
+    "hyp": "d",
+    "bag_ref": "oluağaçlarbeliriraçlıklas",
+    "bag_hyp": "oluağaçlarbediriraçlıklas"
+   },
+   {
+    "id": "J10",
+    "t": 56.84,
+    "ref": "ü",
+    "hyp": "ku",
+    "bag_ref": "zlarındaacıküledönerveşey",
+    "bag_hyp": "zlarındaacıkkuledönerveşey"
+   }
+  ]
+ },
+ "s21_a": {
+  "cer": 0.0109,
+  "sure": 41.94,
+  "farklar": [
+   {
+    "id": "K01",
+    "t": 3.24,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "bitmezsonsahnedeademileha",
+    "bag_hyp": "bitmezsonsahmedeademileha"
+   },
+   {
+    "id": "K03",
+    "t": 24.16,
+    "ref": "e",
+    "hyp": "a",
+    "bag_ref": "eytandadileyebilirmiydimi",
+    "bag_hyp": "eytandadileyabilirmiydimi"
+   },
+   {
+    "id": "K03",
+    "t": 25.58,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "rmiydimiltonundestanındab",
+    "bag_hyp": "rmiydimiltonındestanındab"
+   },
+   {
+    "id": "K04",
+    "t": 39.14,
+    "ref": "i",
+    "hyp": "y",
+    "bag_ref": "akiasılkavgaisemiltonöldü",
+    "bag_hyp": "akiasılkavgaysamiltonöldü"
+   },
+   {
+    "id": "K04",
+    "t": 39.14,
+    "ref": "e",
+    "hyp": "a",
+    "bag_ref": "iasılkavgaisemiltonöldükt",
+    "bag_hyp": "iasılkavgaysamiltonöldükt"
+   }
+  ]
+ },
+ "s21_b": {
+  "cer": 0.0109,
+  "sure": 41.68,
+  "farklar": [
+   {
+    "id": "K01",
+    "t": 6.22,
+    "ref": "n",
+    "hyp": "m",
+    "bag_ref": "cennettenadendençıkarmilt",
+    "bag_hyp": "cennettenademdençıkarmilt"
+   },
+   {
+    "id": "K01",
+    "t": 10.94,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "kaçdamlagözyaşıdöktüleram",
+    "bag_hyp": "kaçdamlagözyeşildöktülera"
+   },
+   {
+    "id": "K01",
+    "t": 10.94,
+    "ref": "ı",
+    "hyp": "il",
+    "bag_ref": "çdamlagözyaşıdöktüleramaç",
+    "bag_hyp": "çdamlagözyeşildöktüleramaç"
+   },
+   {
+    "id": "K03",
+    "t": 34.36,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "dikendileriniayarttıonlar",
+    "bag_hyp": "dikendilerineayarttıonlar"
+   }
+  ]
+ },
+ "s22_a": {
+  "cer": 0.0315,
+  "sure": 34.64,
+  "farklar": [
+   {
+    "id": "K07",
+    "t": 12.82,
+    "ref": "v",
+    "hyp": "w",
+    "bag_ref": "şairveressamvilyımbleykba",
+    "bag_hyp": "şairveressamwilliamblakeb"
+   },
+   {
+    "id": "K07",
+    "t": 12.82,
+    "ref": "yı",
+    "hyp": "lia",
+    "bag_ref": "rveressamvilyımbleykbambaş",
+    "bag_hyp": "rveressamwilliamblakebambaş"
+   },
+   {
+    "id": "K07",
+    "t": 13.16,
+    "ref": "",
+    "hyp": "ak",
+    "bag_ref": "ssamvilyımbleykbambaşkab",
+    "bag_hyp": "samwilliamblakebambaşkabir"
+   },
+   {
+    "id": "K07",
+    "t": 13.94,
+    "ref": "yk",
+    "hyp": "",
+    "bag_ref": "samvilyımbleykbambaşkabirş",
+    "bag_hyp": "williamblakebambaşkabirş"
+   },
+   {
+    "id": "K07",
+    "t": 17.7,
+    "ref": "ı",
+    "hyp": "a",
+    "bag_ref": "lerivetanrıyıanlatırkenzi",
+    "bag_hyp": "lerivetanrıyaanlatırkenzi"
+   },
+   {
+    "id": "K07",
+    "t": 22.9,
+    "ref": "",
+    "hyp": "ak",
+    "bag_ref": "ırkenözgürbleykingerekçe",
+    "bag_hyp": "ırkenözgürblakeingerekçesi"
+   },
+   {
+    "id": "K07",
+    "t": 22.9,
+    "ref": "yk",
+    "hyp": "",
+    "bag_ref": "rkenözgürbleykingerekçesiş",
+    "bag_hyp": "enözgürblakeingerekçesiş"
+   }
+  ]
+ },
+ "s22_b": {
+  "cer": 0.0097,
+  "sure": 35.7,
+  "farklar": [
+   {
+    "id": "K07",
+    "t": 13.3,
+    "ref": "v",
+    "hyp": "w",
+    "bag_ref": "şairveressamvilyımbleykba",
+    "bag_hyp": "şairveressamwilliambleykb"
+   },
+   {
+    "id": "K07",
+    "t": 13.3,
+    "ref": "yı",
+    "hyp": "lia",
+    "bag_ref": "rveressamvilyımbleykbambaş",
+    "bag_hyp": "rveressamwilliambleykbambaş"
+   }
+  ]
+ },
+ "s24_a": {
+  "cer": 0.0164,
+  "sure": 63.6,
+  "farklar": [
+   {
+    "id": "K13",
+    "t": 0.0,
+    "ref": "",
+    "hyp": "ak",
+    "bag_ref": "bleykmihaklılu",
+    "bag_hyp": "blakemıhaklıluis"
+   },
+   {
+    "id": "K13",
+    "t": 0.38,
+    "ref": "yk",
+    "hyp": "",
+    "bag_ref": "bleykmihaklıluism",
+    "bag_hyp": "blakemıhaklıluism"
+   },
+   {
+    "id": "K13",
+    "t": 0.38,
+    "ref": "i",
+    "hyp": "ı",
+    "bag_ref": "bleykmihaklıluismip",
+    "bag_hyp": "blakemıhaklıluismip"
+   },
+   {
+    "id": "K15b",
+    "t": 36.28,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "tkurdumiltonunkendidevrim",
+    "bag_hyp": "tkurdumiltonınkendidevrim"
+   },
+   {
+    "id": "K15b",
+    "t": 39.52,
+    "ref": "k",
+    "hyp": "c",
+    "bag_ref": "kralıdevirenkromvelkendis",
+    "bag_hyp": "kralıdevirencromwellkendi"
+   },
+   {
+    "id": "K15b",
+    "t": 39.52,
+    "ref": "v",
+    "hyp": "w",
+    "bag_ref": "ıdevirenkromvelkendisines",
+    "bag_hyp": "ıdevirencromwellkendisine"
+   },
+   {
+    "id": "K15b",
+    "t": 39.52,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "evirenkromvelkendisinesu",
+    "bag_hyp": "evirencromwellkendisinesu"
+   },
+   {
+    "id": "K16",
+    "t": 55.88,
+    "ref": "l",
+    "hyp": "n",
+    "bag_ref": "uranmıabdiyelincevabıbell",
+    "bag_hyp": "uranmıabdiyenincevabıbell"
+   },
+   {
+    "id": "K16",
+    "t": 60.14,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "endinintutsağısınbaşkaldır",
+    "bag_hyp": "endinintutsasınbaşkaldır"
+   }
+  ]
+ },
+ "s24_b": {
+  "cer": 0.0164,
+  "sure": 62.16,
+  "farklar": [
+   {
+    "id": "K13",
+    "t": 0.0,
+    "ref": "",
+    "hyp": "ak",
+    "bag_ref": "bleykmihaklılu",
+    "bag_hyp": "blakemıhaklıluis"
+   },
+   {
+    "id": "K13",
+    "t": 0.36,
+    "ref": "yk",
+    "hyp": "",
+    "bag_ref": "bleykmihaklıluism",
+    "bag_hyp": "blakemıhaklıluism"
+   },
+   {
+    "id": "K13",
+    "t": 0.36,
+    "ref": "i",
+    "hyp": "ı",
+    "bag_ref": "bleykmihaklıluismip",
+    "bag_hyp": "blakemıhaklıluismip"
+   },
+   {
+    "id": "K15b",
+    "t": 35.42,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "tkurdumiltonunkendidevrim",
+    "bag_hyp": "tkurdumiltonınkendidevrim"
+   },
+   {
+    "id": "K15b",
+    "t": 38.66,
+    "ref": "k",
+    "hyp": "c",
+    "bag_ref": "kralıdevirenkromvelkendis",
+    "bag_hyp": "kralıdevirencromwellkendi"
+   },
+   {
+    "id": "K15b",
+    "t": 38.66,
+    "ref": "v",
+    "hyp": "w",
+    "bag_ref": "ıdevirenkromvelkendisines",
+    "bag_hyp": "ıdevirencromwellkendisine"
+   },
+   {
+    "id": "K15b",
+    "t": 38.66,
+    "ref": "",
+    "hyp": "l",
+    "bag_ref": "evirenkromvelkendisinesu",
+    "bag_hyp": "evirencromwellkendisinesu"
+   },
+   {
+    "id": "K16",
+    "t": 54.08,
+    "ref": "l",
+    "hyp": "n",
+    "bag_ref": "uranmıabdiyelincevabıbell",
+    "bag_hyp": "uranmıabdiyenincevabıbell"
+   },
+   {
+    "id": "K16",
+    "t": 58.84,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "endinintutsağısınbaşkaldır",
+    "bag_hyp": "endinintutsasınbaşkaldır"
+   }
+  ]
+ },
+ "s25_b": {
+  "cer": 0.0,
+  "sure": 42.26,
+  "farklar": []
+ },
+ "s26_a": {
+  "cer": 0.0111,
+  "sure": 59.1,
+  "farklar": [
+   {
+    "id": "L06",
+    "t": 2.88,
+    "ref": "b",
+    "hyp": "d",
+    "bag_ref": "nnemdenkaçanbirinioradatu",
+    "bag_hyp": "nnemdenkaçandirinioradatu"
+   },
+   {
+    "id": "L06",
+    "t": 7.26,
+    "ref": "m",
+    "hyp": "n",
+    "bag_ref": "uydukcehennemiiçindetaşıy",
+    "bag_hyp": "uydukcehenneniiçindetaşıy"
+   },
+   {
+    "id": "L07",
+    "t": 29.08,
+    "ref": "m",
+    "hyp": "",
+    "bag_ref": "cirleriçözülmüştübuzincir",
+    "bag_hyp": "cirleriçözülüştübuzincir"
+   },
+   {
+    "id": "L08",
+    "t": 39.56,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "ukendikendiniayartanasime",
+    "bag_hyp": "ukendikendineayartanasime"
+   },
+   {
+    "id": "L08",
+    "t": 48.86,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "benokadaruzağımonuoradatut",
+    "bag_hyp": "benokadaruzamonuoradatut"
+   },
+   {
+    "id": "L08",
+    "t": 52.52,
+    "ref": "u",
+    "hyp": "ı",
+    "bag_ref": "uyoksamiltonunonahiçaçmad",
+    "bag_hyp": "uyoksamiltonınonahiçaçmad"
+   }
+  ]
+ },
+ "s26_b": {
+  "cer": 0.0111,
+  "sure": 59.3,
+  "farklar": [
+   {
+    "id": "L07",
+    "t": 28.8,
+    "ref": "",
+    "hyp": "nü",
+    "bag_ref": "uzinciridegölünzincirler",
+    "bag_hyp": "uzinciridegönülzincirleriç"
+   },
+   {
+    "id": "L07",
+    "t": 29.04,
+    "ref": "ün",
+    "hyp": "",
+    "bag_ref": "zinciridegölünzincirleriçö",
+    "bag_hyp": "nciridegönülzincirleriçö"
+   },
+   {
+    "id": "L08",
+    "t": 39.8,
+    "ref": "i",
+    "hyp": "e",
+    "bag_ref": "ukendikendiniayartanasime",
+    "bag_hyp": "ukendikendineayartanasime"
+   },
+   {
+    "id": "L08",
+    "t": 49.08,
+    "ref": "ğı",
+    "hyp": "",
+    "bag_ref": "benokadaruzağımonuoradatut",
+    "bag_hyp": "benokadaruzamonuoradatut"
+   }
+  ]
+ },
+ "s27_a": {
+  "cer": 0.0098,
+  "sure": 54.32,
+  "farklar": [
+   {
+    "id": "L09",
+    "t": 0.0,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "körşairbuhikayeyi",
+    "bag_hyp": "körşahirbuhikayeyi"
+   },
+   {
+    "id": "L09",
+    "t": 12.3,
+    "ref": "",
+    "hyp": "ey",
+    "bag_ref": "lügözüngöremediğinigörey",
+    "bag_hyp": "lügözüngöremeyediğinigörey"
+   },
+   {
+    "id": "L11",
+    "t": 34.66,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "asininprometeusunhikayes",
+    "bag_hyp": "asininprometheusunhikayes"
+   },
+   {
+    "id": "L11",
+    "t": 39.34,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "yegöreprometeusabenzeyen",
+    "bag_hyp": "yegöreprometheusabenzeyen"
+   },
+   {
+    "id": "L11",
+    "t": 44.16,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "ydıamaprometeushırstankı",
+    "bag_hyp": "ydıamaprometheushırstankı"
+   }
+  ]
+ },
+ "s27_b": {
+  "cer": 0.0098,
+  "sure": 55.04,
+  "farklar": [
+   {
+    "id": "L09",
+    "t": 0.0,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "körşairbuhikayeyi",
+    "bag_hyp": "körşahirbuhikayeyi"
+   },
+   {
+    "id": "L09",
+    "t": 9.3,
+    "ref": "a",
+    "hyp": "ı",
+    "bag_ref": "şıkiçimeparlaoradagözlera",
+    "bag_hyp": "şıkiçimeparlıoradagözlera"
+   },
+   {
+    "id": "L09",
+    "t": 12.7,
+    "ref": "",
+    "hyp": "y",
+    "bag_ref": "ügözüngöremediğinigöreyi",
+    "bag_hyp": "ügözüngöremeydiğinigöreyi"
+   },
+   {
+    "id": "L11",
+    "t": 34.92,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "asininprometeusunhikayes",
+    "bag_hyp": "asininprometheusunhikayes"
+   },
+   {
+    "id": "L11",
+    "t": 39.42,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "yegöreprometeusabenzeyen",
+    "bag_hyp": "yegöreprometheusabenzeyen"
+   },
+   {
+    "id": "L11",
+    "t": 44.74,
+    "ref": "",
+    "hyp": "h",
+    "bag_ref": "ydıamaprometeushırstankı",
+    "bag_hyp": "ydıamaprometheushırstankı"
    }
   ]
  }

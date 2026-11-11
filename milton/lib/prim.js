@@ -14,21 +14,36 @@ const PR = (() => {
   // Tek küme (yumru): hafif dalgalı daire. Ton üç sert bant: ışıklı sırt (rim), gövde (body), koyu çekirdek (core).
   // Tarama: kümenin gölge yanındaki bir merkez çevresinde yaylar; çizgiler kümenin kavsini izler.
   const FX = 1.18, FY = .84; // kümeler yatayda yassı
+  // yumru yarıçapı (açıya göre hafif dalgalı)
+  function puffRad(r, s) {
+    const q = rng(s), a1 = q() * TAU, a2 = q() * TAU, k1 = .05 + q() * .05, k2 = .03 + q() * .03;
+    return a => r * (1 + k1 * Math.sin(3 * a + a1) + k2 * Math.sin(5 * a + a2));
+  }
   function puffPath(x, y, r, s) {
-    const q = rng(s), a1 = q() * TAU, a2 = q() * TAU, k1 = .05 + q() * .05, k2 = .03 + q() * .03, n = 22, pts = [];
-    for (let i = 0; i < n; i++) { const a = i / n * TAU, rr = r * (1 + k1 * Math.sin(3 * a + a1) + k2 * Math.sin(5 * a + a2)); pts.push([x + Math.cos(a) * rr * FX, y + Math.sin(a) * rr * FY]); }
+    const R = puffRad(r, s), n = 22, pts = [];
+    for (let i = 0; i < n; i++) { const a = i / n * TAU, rr = R(a); pts.push([x + Math.cos(a) * rr * FX, y + Math.sin(a) * rr * FY]); }
     const P = new Path2D(); spline(P, pts, true); return P;
   }
+  // "Beyaz çizgi" yumrusu (üslup kurulu tur 2): yumru tek ton kütledir; biçimi, ışık yanında kenarı izleyen ve
+  // uçları sivrilen birkaç hilal çizgi verir (içe doğru kısalır ve incelir). Eş merkezli halka taraması yok.
+  // Koyu yumruda (duman, gece bulutu) çizgiler kâğıt rengi; açık yumruda (cennet bulutu) gölge yanında mürekkep rengi.
   function drawPuff(p, L, id, tn) {
-    const P = puffPath(p.x, p.y, p.r, p.s);
-    // tarama merkezi kümenin altında, uzakta: yaylar kümenin üst kabarıklığına koşut akar (Doré kümülüsü), göbek görünmez
-    fill(P, null, { type: 'rad', cx: p.x - L[0] * p.r * .5, cy: p.y + p.r * 1.6, ph: p.ph, id });
-    // gölge yanı koyu (komşu kümelere ve arka dolguya karışır); ışık yanında gövde hilali ve en dışta sırt hilali
-    tx.save(); tx.clip(P);
-    tx.fillStyle = tone(snap(tn.core)); tx.fill(P);
-    const D1 = new Path2D(); D1.ellipse(p.x + L[0] * p.r * .22, p.y + L[1] * p.r * .22, p.r * .92 * FX, p.r * .92 * FY, 0, 0, TAU);
-    tx.clip(D1); tx.fillStyle = tone(snap(tn.rim)); tx.fill(D1);
-    tx.fillStyle = tone(snap(tn.body)); tx.beginPath(); tx.ellipse(p.x - L[0] * p.r * .12, p.y - L[1] * p.r * .12, p.r * .9 * FX, p.r * .9 * FY, 0, 0, TAU); tx.fill();
+    const P = puffPath(p.x, p.y, p.r, p.s), R = puffRad(p.r, p.s), light = tn.core > .6;
+    fill(P, tone(light ? tn.core : snap(tn.core)), { th: -.25, ph: p.ph, id });
+    const v = light ? 1 - tn.rim : tn.rim;                         // çizgi dozu: ışık (ya da gölge) şiddeti
+    const K = Math.max(1, Math.min(4, Math.round(.6 + v * 3.6))), gap = Math.max(13, p.r * .13), th0 = Math.max(3.6, p.r * .07 * (.5 + v));
+    const la = Math.atan2(L[1], L[0]) + (light ? PI : 0), q = rng(p.s + 5);
+    tx.save(); tx.clip(P); tx.fillStyle = tone(light ? .05 : 1);
+    for (let k = 0; k < K; k++) {
+      const d = gap * (k + .45), half = (1.45 - .3 * k) * (.6 + .4 * v) * (.9 + q() * .2), c0 = la + (q() - .5) * .16 * (k + 1), th = th0 * (1 - k / (K + 1.5));
+      if (half < .2 || p.r - d < p.r * .35) break;
+      const n = 18, A = [], B = [];
+      for (let i = 0; i <= n; i++) {
+        const u = i / n, a = c0 - half + 2 * half * u, ro = R(a) - d, w = th * Math.pow(Math.sin(PI * u), .75);
+        A.push([p.x + Math.cos(a) * ro * FX, p.y + Math.sin(a) * ro * FY]); B.push([p.x + Math.cos(a) * (ro - w) * FX, p.y + Math.sin(a) * (ro - w) * FY]);
+      }
+      tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+    }
     tx.restore();
     return P;
   }
@@ -320,6 +335,22 @@ const PR = (() => {
       fill(P, tone(1), { th: aa, id: 7 });
     }
   }
+  // İnce huzmeler: yarıktan hedefe inen, uçları sivrilen birkaç açık çizgi ("beyaz çizgi" dili; bant ya da kurdele değil).
+  // o: {n, w (kaynakta kalınlık px), spread (hedefteki yayılma px), slitW (kaynak boyunca dağılım), v (ton), seed, t}
+  function shafts(sx, sy, ex, ey, o = {}) {
+    const n = o.n || 4, r = rng(o.seed || 23), w = o.w ?? 9, t = o.t || 0, dx = ex - sx, dy = ey - sy, Lr = Math.hypot(dx, dy), nx = -dy / Lr, ny = dx / Lr;
+    tx.save(); tx.globalCompositeOperation = 'lighten';
+    for (let i = 0; i < n; i++) {
+      const f = n > 1 ? i / (n - 1) - .5 : 0, s0 = f * (o.slitW ?? 120) + (r() - .5) * 20, e0 = f * (o.spread ?? 260) + (r() - .5) * 40, len = (o.len ?? [.62, 1])[0] + r() * ((o.len ?? [.62, 1])[1] - (o.len ?? [.62, 1])[0]), u0 = r() * .12;
+      const ww = w * (.7 + r() * .6) * (.9 + .1 * Math.sin(t * .4 + i * 2.1)), A = [], B = [], m = 12;
+      for (let k = 0; k <= m; k++) {
+        const u = u0 + (len - u0) * k / m, cx = sx + dx * u + nx * lerp(s0, e0, u), cy = sy + dy * u + ny * lerp(s0, e0, u), hw = ww * .5 * Math.pow(Math.sin(PI * (k / m) * .92 + .08), .6) * (1 - .55 * k / m);
+        A.push([cx + nx * hw, cy + ny * hw]); B.push([cx - nx * hw, cy - ny * hw]);
+      }
+      tx.fillStyle = tone(o.v ?? .96); tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+    }
+    tx.restore();
+  }
   // yumuşak ışık lekesi (ton katmanında aydınlatma ya da karartma)
   function glow(x, y, r0, r1, v, a = 1, op = 'lighter') {
     const g = tx.createRadialGradient(x, y, r0, x, y, r1);
@@ -344,7 +375,7 @@ const PR = (() => {
     // dalga sırtları
     const nc = o.crests ?? 46, cv = o.crestV ?? .3;
     for (let i = 0; i < nc; i++) {
-      const f = Math.pow(r(), 1.5), yy = y0 + 4 + f * (D - 8), ln = lerp(24, 280, f) * (.6 + r() * .8), th = lerp(1.2, 3.2, f);
+      const f = Math.pow(r(), 1.5), yy = y0 + 4 + f * (D - 8), ln = lerp(24, 280, f) * (.6 + r() * .8), th = lerp(1.6, 3.4, f);
       const xx = r() * W, a = cv * (.5 + r() * .5) * (.7 + .3 * Math.sin(t * .5 + i * 2.3));
       tx.fillStyle = `rgba(255,255,255,${a})`; tx.beginPath(); tx.ellipse(xx + Math.sin(t * .1 + i) * 6, yy, ln / 2, th, 0, 0, TAU); tx.fill();
     }
@@ -395,5 +426,5 @@ const PR = (() => {
       c.restore();
     }
   }
-  return { cloud, smoke, flame, flameBank, rock, rays, glow, lake, chain, puff: drawPuff };
+  return { cloud, smoke, flame, flameBank, rock, rays, shafts, glow, lake, chain, puff: drawPuff };
 })();
