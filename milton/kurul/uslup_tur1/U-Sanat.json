@@ -1,0 +1,94 @@
+{
+  "uye": "U-Sanat",
+  "karar": "RED",
+  "puanlar": {"U1": 6, "U2": 7, "U3": 6.5, "U4": 5.5, "U5": 6, "U6": 7},
+  "agirlikli": 6.3,
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "bolge": "tüm kare; en belirgin: gövde x 670–950, y 500–806; bulutlar x 0–1920, y 0–520; göl x 0–1920, y 600–1080",
+      "sorun": "Gök, bulut, göl ve ten aynı doğrultuda (yatay) ve neredeyse aynı aralıkta (P 6,4–7,0) taranmış. Kare gravür gibi değil, tarama çizgili (CRT/interlace) bir ekran filtresi gibi okunuyor. 'Ucuz filtre' izleniminin bir numaralı sebebi bu. Doré'de çizgi doğrultusu nesneyi kurar: gök yatay, kaya çapraz, beden ve kanat biçim boyunca kavislidir (ref/dore_abdiel_kirpma_1e1.png). Gövdedeki yatay çizgiler bedeni panjurun arkasında gösteriyor; hacim yalnız ton lekeleriyle verilmiş.",
+      "oneri": "Tarama doğrultusunu nesneye bağla. (a) Ten (sty 5): θ'yı gövde ekseni boyunca kavisli ver; figur.js sbody içinde patGrad ile omuzdan bele 'kontur taraması' kur: göğüste ~θ=0,35π→0,15π, kollarda kol eksenine dik. (b) Bulut (sty 2): yatay değil, bulut karnının kavsini izleyen θ; prim.js cloud içinde lit vektöründen türet (±0,1π yay). (c) Göl (sty 8) yatay kalsın ama P 8,5'e çıksın; gök (sty 1) P 7,5 olsun. Böylece arka plan seyrek, figür sık olur, hiyerarşi aralıktan da okunur. (d) Hiçbir komşu iki büyük alan aynı θ ve aynı P'yi paylaşmasın.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 2,
+      "bolge": "alevler: ufuk bandı x 0–1920, y 530–610; sağ orta sıra x 1250–1920, y 640–775; bel hizası x 540–1090, y 765–845; sağ ön x 1520–1920, y 890–1080",
+      "sorun": "Alevler tek bir damla/lale şablonunun çoğaltılması gibi duruyor. Düz krem dolgulu, üstüne benek serpilmiş, taban çizgisine dizilmiş. Sağ ortadaki sıra doğum günü mumu ya da sarımsak dizisi gibi okunuyor. Karenin en ucuz öğesi bu ve 23 dakika boyunca en çok tekrar edecek olan da bu. Doré'de alev ayrı nesne değildir; ışık kaynağıdır, beyaz kâğıt alanıdır ve kenarı karanlık taramayla yırtık biter.",
+      "oneri": "prim.js flameBank: (1) Tek tek damla yerine birbirine kaynayan, yukarı doğru yırtılan dil kütleleri çiz; bitişik dilleri union yap, tabanda sürekli bir şerit olsun. (2) İç dolgu benekli olmasın: alevin içi temiz kâğıt (tone 1, sty 3 ds→0), yalnız dış kenarda 2–3 çizgilik kısa, alevin yönünü izleyen kontur taraması. (3) Boy ve yükseklikte gürültü: env × (0,4–1,6) rastgele, taban çizgisini ±12 px oynat. (4) Sağ orta sırayı (y 760) kaldır ya da yarıya indir; ufuk bandı + bel hizası + ön plan, üç katman yeter. (5) Sağ ön alev (x 1500+) karenin ikinci en parlak kütlesi ve gözü köşeden dışarı çekiyor: tonunu 0,7'ye düşür, üst kenarını kadraj dışına taşı, siluete yakın koyu bir çerçeve olsun.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 3,
+      "bolge": "baş ve yüz x 760–860, y 400–530",
+      "sorun": "Yüz siyah bir yumurta, göz hizasında beyaz bir şerit var; bire bir bakınca kar maskesi ya da hırsız maskesi gibi duruyor. İki göz ışığı 1920'de zor, 640'ta neredeyse, 168'de hiç seçilmiyor. Fikir doğru (yüzü gölgede bırakmak) ama uygulaması ucuz: siluetin kendisi yüz değil. Elmacık ve burun ışıkları (sculpt ikinci geçiş) maske kenarı gibi okunuyor. Kıvırcık saç kütlesi düzenli daire yumrularından oluştuğu için karnabahar ya da peruk gibi duruyor.",
+      "oneri": "gol.js 48–63: (1) Başı 3/4 çevir, yüzü yarığa (sağ üst) döndür; brief de bunu istiyor ama kare önden. Çene, burun ve kaş çıkıntısı kenar ışığıyla (rimDir [.8,-.5]) yalnız sağ konturda 2–3 px'lik ince bir ışık çizgisi olarak verilsin. Yüzün iç ışıklarını (burun ve elmacık elipsleri) kaldır. (2) Göz: hh*.06 × hh*.024 elips yerine tek görünen gözde (yarığa yakın olan) daha uzun, ince ışık ver (hh*.09 × hh*.018), glow .35→.6. Öteki göz yalnız ışıklı bir kaş altı noktası olsun; simetrik iki nokta 'maske' etkisini doğuruyor. (3) Saç: 17 eşit daire yerine 6–8 büyük, rüzgârla geriye ve yukarı savrulan tutam; kenar ışığı yalnız yarık tarafında.",
+      "onem": "kritik"
+    },
+    {
+      "sira": 4,
+      "bolge": "göğüs x 740–870, y 540–620",
+      "sorun": "Göğüste, iki göğüs kasının üzerinde iki koyu yuvarlak leke var (sbody bump/edge gölgesi). Bire bir ve 640'ta meme ucu gibi okunuyor. Hassasiyet kırmızı çizgisi (çıplaklık çağrışımı) açısından risk taşıyor, ayrıca ucuz duruyor. Gövde genel olarak plastik bir manken gibi parlak; benekli koyu lekeler (bump .3) kirli görünüyor.",
+      "oneri": "gol.js 46 sh: bump .3→.05, depth 30→18; göğüs kasında yuvarlak gölge üretme. Göğüs ile karın kasını tek bir kavisli gölge sınırıyla ver; ışık sol üstten değil, alttan (alev) ve arkadan (ufuk) gelsin. Daha güçlü çözüm: gövdeye yanık, yırtık bir göğüslük ya da zırh parçası (sty 9) ekle. Doré'nin Şeytan'ı zırhlıdır (ref/dore_satan.jpg); hem hassasiyet riskini kapatır hem 'düşmüş savaşçı' kimliğini kurar.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 5,
+      "bolge": "kanatlar x 210–1290, y 195–700",
+      "sorun": "Kanatlar önden, neredeyse simetrik ve tam açık; arma ya da madalyon gibi bir 'T pozu' kuruyorlar (CLAUDE.md dersi: T pozundan kaçın). Tüy sıraları tek tip; örtü tüyleri, ikincil ve birincil tüyler ayrışmıyor, her tüy aynı dikey tarak çizgisiyle dolu ve kanat tarak ya da jaluzi gibi duruyor. Kanadın kökü omuzun arkasından çıkmıyor, gövdenin yanına yapıştırılmış gibi. Kanat uçları buluta teğet duruyor (sol x 210, y 200; sağ x 1280, y 250). 'Yanık, dokuz gün düşmüş' kanat temiz ve bütün.",
+      "oneri": "gol.js 38–43 ve kanat.js feathered: (1) Asimetri: bir kanat yarı açık ve yukarıda (open .7, lift .6), öteki ağır, yarı kapalı ve suya sarkmış (open .45, lift .2, uç göle değsin). Düşüşün yorgunluğu duruştan okunsun. (2) Üç tüy katmanı: örtü (kısa, P 4,0, sık), ikincil (orta), birincil (uzun, kenarı kâğıt ışıklı); tüy taramasının θ'sı tüy ekseni boyunca hafif kavisli olsun. (3) Yanık tüyler: birincillerin %20–30'unda uç kırık ve kısa, kenarlar düzensiz; kanat.js'ye 'yanik' parametresi ekle. (4) Teğetleri boz: sol kanat ucunu buluta 60 px gömerek ya da 80 px aşağıda bitirerek sınırı netleştir. (5) Kanat tonu figürden koyu kalsın (dark .9 iyi), ama rim .55→.35: kanatlar şu an göğüsle aynı parlaklıkta, odağı bölüyor.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 6,
+      "bolge": "odak: en parlak 64 px blok x ≈1110–1180, y ≈520–585 (ölçüm); yarık x 1450–1920, y 0–140; figür x 700–950, y 400–806",
+      "sorun": "Değer planı dağınık. Karenin en parlak noktası figür değil, sol kanadın sağında ufuktaki boşluk (x 1144, y 552). Göz önce sağ ön alevlere (x 1700, y 1000) ve ufuk şeridine gidiyor, figüre ancak sonra geliyor. Yarık (sağ üst) ikinci ışık odağı, ama huzmeler bulut taramasında kayboluyor ve hikâyedeki 'yitik cennet' bakışını kurmuyor. Ufuk parıltısı figürün arkasında karşıtlık veriyor; bu iyi, ama tüm ufuk boyunca eşit parlaklıkta bir alev şeridi kareyi yatay olarak ikiye bölüyor.",
+      "oneri": "(1) gol.js 11: ufuk parıltısını daralt ve figürün başına doğru yükselt (PR.glow(FX+20, 520, 20, 420, 1, .95)). Kare genişliğindeki ufuk alev bandını (satır 28) iki uçta karart: env f => .15 + .85*Math.sin(f*PI)^2. (2) En parlak nokta başın sağ konturu ile kanat kökü arası olsun (x 830–880, y 430–520). (3) Yarığı küçült ama keskinleştir: tek dar bir yarık, sağlam beyaz bir şekil (bulutta yırtık), huzmeleri str .3→.45 ve 4–5 taneyle sınırla. Figürün bakışı bu yarığa yönelsin (bkz. 3. madde); kompozisyon ancak bu çizgiyle tamamlanır. (4) Vinyeti (applyVignette .65) sağ alt köşede .8'e çıkar.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 7,
+      "bolge": "bulutlar x 0–1920, y 0–520 (özellikle kirpma_gok: x 1180–1920, y 0–520)",
+      "sorun": "Bulutlar yumuşak, bulanık (soft: 8, blur) gri lekelerin üzerine çekilmiş yatay çizgilerden oluşuyor. Orta tonda kesiklik (ds) yüzünden noktalı bir moiré çıkıyor; bire bir bakınca JPEG ya da tarama hatası gibi duruyor. Gravürde 'bulanık' diye bir şey yoktur: ton ya çizgi kalınlığıdır ya kâğıttır. Kütlelerin kenarı da muğlak, form yok.",
+      "oneri": "prim.js cloud: blur/soft kaldır (soft 0). Ton geçişini çizgi kalınlığına bırak. Bulut karnının ışıklı kenarını keskin, kâğıt beyazı ince bir şerit olarak ver. sty 2: ds .3→.1, wv .10→.05 ve doğrultu bulut kavsini izlesin (1. madde). Tonozun üst kısmında (y 0–150) tone ≤ .05 olan alanlarda çizgi yerine tam mürekkep basılsın: GR.engrave'de koyuluk > .93 ise düz siyah. Doré'de en koyu kütleler düz siyahtır; bu, göz konforunu da artırır, çünkü titreşen ızgara alanı küçülür.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 8,
+      "bolge": "gövde ve kanatlar x 250–1300, y 220–806 (kare-kare fark ölçümü)",
+      "sorun": "Ardışık iki karede figür bölgesinde ortalama piksel farkı 6,5, kanat bölgesinde 2,9, gökte 0,1. Nefes salınımı (br = sin(t*.6)*2,5) gövdeyi oynatıyor ama tarama çizgileri gövdeye tam yapışmıyor, çizgiler bedenin üzerinde 'yüzüyor'. 23 dakika boyunca her yakın planda göz yoracak, sıkıştırmada da kenarlarda kaynama yapacak.",
+      "oneri": "figur.js sbody ve kanat.js: nefes dy'si kadar GR.phaseOf(θ, 0, br, 5) ile evreyi kaydır. Kanat kökleri için de aynısını yap (satır 39'daki br). Kontrol: aynı ölçümde figür bölgesindeki fark ≤ 2 olmalı.",
+      "onem": "orta"
+    },
+    {
+      "sira": 9,
+      "bolge": "sol ön kaya x 0–410, y 520–1080",
+      "sorun": "Kaya iyi bir koyu çerçeve (repoussoir) kuruyor. Ama kenarındaki ışık çizgisi (blur 2 px stroke) ve x 0–140, y 780–960 arasındaki beyaz noktalı kesik çizgiler dikiş ya da dantel gibi okunuyor. Kaya Doré'deki kütlesel taşla karşılaştırınca düz bir şablon gibi duruyor; içinde kırık ve düzlem yok.",
+      "oneri": "gol.js 76–77: blur'lu stroke'u kaldır, kenar ışığını yalnız üst sağ kenarda kesintisiz, değişken kalınlıkta (2–6 px) bir kâğıt şeridi olarak ver. cracks 60→20; çatlakları beyaz nokta değil koyu çizgi olarak çiz. Kayaya 2–3 büyük düzlem (ışık ve gölge yüzü, farklı θ) ekle (prim.js rock).",
+      "onem": "orta"
+    },
+    {
+      "sira": 10,
+      "bolge": "zincirler ve bilekler x 640–1010, y 740–810",
+      "sorun": "Zincirler küçük ve kısa, kâğıt beyazı halkalar halinde suyun üstünde duruyor. 640'ta zor seçiliyor, 'kırılmaz zincir' fikri taşınmıyor. Eller yok, bilek su çizgisinde kesiliyor; kollar gövdenin iki yanından dümdüz sarkıyor, poz edilgen ve duygusuz.",
+      "oneri": "gol.js 65–66: halka boyunu 22→34 yap, zincirleri koyu (v .35) ver ve suya dik inerek gölde kaybolsunlar. Kollardan birini suyun üstüne kaldırıp zinciri gerdir, bilekte ışık olsun (anlatı: uyanış ve ilk çekiş). Öteki kol suda kalsın. Böylece simetrik 'heykel' pozu kırılır.",
+      "onem": "orta"
+    },
+    {
+      "sira": 11,
+      "bolge": "kağıt ve genel ton, tüm kare",
+      "sorun": "Kare karanlık (ortalama parlaklık 68/255), ama gerçek düz siyah ve temiz kâğıt alanları az; çoğu alan orta gri tarama. Doré levhalarında (ref/dore_satan.jpg) ton aralığı geniştir: parlak kaya yüzeyi neredeyse kâğıttır, gölge neredeyse düz siyahtır. Burada her şey 'çizgili gri' ve kare bulanık bir sisin içinde gibi duruyor.",
+      "oneri": "gravur.js engrave'de iki uç kesim ekle: koyuluk > .93 ise düz mürekkep, < .06 ise temiz kâğıt. Tarama yalnız aradaki tonlarda kalsın. applyPaper .8 kâğıt dokusunu da sakin tut. Gri değer testinde en az %15 düz siyah ve %8 temiz kâğıt hedefle.",
+      "onem": "orta"
+    }
+  ],
+  "korunmali": [
+    "Temel değer fikri: zifiri tonoz, ufukta figürün arkasında parıltı, koyu siluet; karşıtlıkla figür okunuyor (640 ve 168'de kanatlı figür biçimi seçiliyor).",
+    "Sol ön kaya ve sağ ön alevle kurulan ön plan çerçevesi fikri (uygulaması düzeltilecek).",
+    "Yüzü gölgede bırakma kararı; yalnız uygulaması değişmeli (3/4 baş, kenar ışığı, tek baskın göz ışığı).",
+    "Çizgilerin dünya koordinatına bağlı olması ve kamera hareketiyle birlikte kayması (gökte kare-kare fark 0,1, sakin).",
+    "Krem kâğıt ve sıcak siyah paleti (PAPER/INK).",
+    "Seyrek ve kalın tarama ilkesi (göz konforu). Ama aralık her yerde aynı olmamalı: figür sık, arka plan seyrek."
+  ],
+  "en_emin_olmadigim_nokta": "Kanatların tüylü mü yoksa Doré'nin Şeytan'ı gibi yarasa kanadı mı olacağı. Açılış sahnesinde (yeni düşmüş başmelek) yanık tüy kanadı anlatıya uyuyor ve Lewis okumasındaki 'küçülme' yolculuğu için tüy→yarasa→yılan dönüşümü güçlü bir görsel kemer kurabilir. Ama izleyicinin Doré'den hatırladığı ikon yarasa kanadıdır; kapak ve tanınırlık için hangisinin daha iyi olacağından emin değilim. Bu senaryo ve kapak kuruluyla birlikte karara bağlanmalı. İkinci belirsizlik: tarama doğrultusunu biçime bağlamak (1. madde) video sıkıştırmasında çapraz ve kavisli çizgilerde yatay çizgiye göre daha çok titreşim yaratabilir. Bunun kare-kare fark ve H.264 CRF 18 testiyle ölçülmesi gerekir."
+}

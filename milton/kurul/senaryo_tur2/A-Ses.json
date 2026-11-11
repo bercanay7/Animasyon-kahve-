@@ -1,0 +1,480 @@
+{
+ "uye": "A-Ses",
+ "karar": "RED",
+ "puanlar": {
+  "K1": 9,
+  "K2": 9,
+  "K3": 9,
+  "K4": 8.5,
+  "K5": 9.5,
+  "K6": 8.5,
+  "K7": 8
+ },
+ "agirlikli": 8.85,
+ "puan_gerekcesi": {
+  "K1": "Tur 1 ile aynı. Merceğim değil. Tek açık kalem H11: IV.827 'filled with scorn' metinde hâlâ 'kükrer', IV.834'teki tek melek hâlâ 'Melekler'.",
+  "K2": "8'den 9'a. Alıntı ilk 4 saniyede bitiyor, 'Neden?' sorusu Emrullah'ın ölçülen hızıyla yaklaşık 15. saniyede soruluyor (rev1'de 31. saniyeydi). Yıl anlatımdan çıktı.",
+  "K3": "9. Yeni kurulumlar seste yankı olarak çalışır: D04 'zincir bekle' → L07; G09b alıntısı L07'de birebir aynı metinle dönüyor (programla karşılaştırdım).",
+  "K4": "8'den 8,5'e. Kalıp tekrarı azaldı ama iki yeni tekdüzelik kaynağı var: 139 segmentin 62'si [calmly] ile başlıyor (E02–E10 arası sekiz segment art arda), 11 bölüm sorusu hâlâ [curious]. Metin %14 uzadı (2.245 → 2.560 kelime); seslendirme boşluklarla yaklaşık 23 dakika. Süre kullanıcı kararıyla ölçüt değil; puanı düşüren tekdüzelik riski.",
+  "K5": "9'dan 9,5'e. G13 ('Bunu beni cezalandıran da biliyor') ve G16 ('Acımak, hak vermek değildir. Ama ilk kez, ona acıyoruz') empatiyi seste de dengeliyor. E10'daki 'kaşlarının altında gurur, gözlerinde pişmanlık' L05'te ödeniyor.",
+  "K6": "7'den 8,5'e. Tur 1'in iki kritik bulgusu büyük ölçüde kapandı:\n- etiket sızıntısı ihlali 93'ten 8'e indi (4 segment kaldı);\n- tts'te '…' yok, rakam yok, [deep voice] yok, [slowly] yalnız A01, G07 ve L06'da.\n9'un altında tutan kalemler:\n- I01'de [whispers] (tur 1'de ölçümle uyardığım etiket);\n- kalan 4 sızıntı segmenti;\n- G bölümü tek çekimde 314 kelimeye çıktı;\n- 'Milton'ın' ünlü uyumsuzluğu (11 yer);\n- vo/plan.json henüz yok (önerisi bu raporda).",
+  "K7": "8. Merceğim değil; tur 1 ile aynı."
+ },
+ "onaya_mesafe": "Engelleyici bulgum yok. Düzeltme 1–8 tts metni, plan ve iki küçük araç değişikliği düzeyinde; senaryonun yapısına dokunmuyor. Uygulanırsa K6'yı 9,5'e, K4'ü 9'a çıkarırım; ağırlıklı puanım 9,03 olur. Bunun için tam tur gerekmez, tek üyeli gerileme kontrolü yeter.",
+ "capraz": {
+  "katildigim": [
+   "H08 'Sight hateful' (A-Dil engelleyicisi): 'Nefret dolu manzara' anlamı tersine çeviriyordu. Ben tur 1'de bunu görmedim, yalnız etiketine baktım. Seste de fark eder: 'nefret edilesi' [bitterly] ile, 'nefret dolu' öfkeyle okunur. Rev2'de düzeltilmiş.",
+   "A01/G07 iyelik belirsizliği: ikimiz de gördük. Ben vurguyu durakla ('Cehennem: benim') kurmayı önermiştim; A-Dil sözü değiştirmeyi önerdi. A-Dil'in çözümü daha sağlam: TTS'te vurguyu yönetemiyoruz, Whisper de ölçemiyor. Başkanın 'Ben cehennemim' kararına katılıyorum.",
+   "G01 dil bilgisi hatası ('Kimse duymadığını') ve G15'teki 'ilk kez alkışlayan bir kalabalık' belirsizliği. İkisini de kaçırdım; G15'i 'korunmalı' listeme bile almıştım. İkisi de kulakta yanlış çözülen yapılar, yani tam benim alanım.",
+   "'Milton'ın' ünlü uyumu (A-Dil 39b). Kaçırdım. tts'te ad 'Milton' diye yazılınca model 'o' ile okur, ardından gelen '-ın' kulağı tırmalar. Rev2'de hâlâ 11 yerde duruyor (düzeltme 6).",
+   "E07 ve L04'teki 'kendi küçümsemesine rağmen' → 'ağlamayı gururuna yediremese de'; 'sesi düğümlenir' → 'boğazı düğümlenir'. Kulakta ilk duyuşta anlaşılıyor; rev2'de uygulanmış.",
+   "F03 'başından' (iki anlam), G10 'onlara boyun eğmeyi', G04 'O,' (seste 'Ooo' gibi duyulur), B08 dizilişi. Dördü de yalnız kulakta ortaya çıkan sorunlar ve doğru teşhis edilmiş; rev2'de düzeltilmiş.",
+   "Sayılarda kesme işareti: ikimiz de gördük. A-Dil kesmeyi kaldırmayı, ben 'yılında' kalıbını önerdim. Rev2 yılların çoğunu ekrana taşıyıp kalan tek yılı (L02) 'yılında' ile yazmış; ikisinden de iyi.",
+   "E04'teki sona sarkan '-ken' (A-Dil 52, benim 19). İkimiz de yazdık, rev2'de hâlâ duruyor (düzeltme 8).",
+   "H11 'kükrer' / 'Melekler' (A-Dil 42, benim 22). İkimiz de yazdık, rev2'de hâlâ duruyor (düzeltme 9)."
+  ],
+  "katilmadigim": [
+   "E09/E10'un tek dizeye indirilmesi (A-Dil 4): kısmen katılmıyorum. 'Hükümdar / hizmetkâr' çifti seste iyi kafiyeleniyor, buna katılıyorum. Ama iki çekince var. Birincisi, kullanıcının CLAUDE.md'de menteşe olarak yazdığı 'Cennette köle olacağıma cehennemde kral olurum' sözü anlatımdan tamamen çıktı; A-Dil de 'kullanıcı isterse' diye not düşmüştü, karar kullanıcıya sorulmalı. İkincisi, 'yeğdir' sözcüğünde 'ğ' seste erir; destanın en ünlü dizesinin son sözcüğü 'yedir' ya da 'iyidir' gibi duyulabilir. Ses denemesine E07 de girsin.",
+   "J03 'Gülmeye değmez mi?' → 'değer, değil mi?' (A-Dil 41): katılmıyorum. Soru eki yükselen ezgiyle okunur ve [triumphantly] altında 'değmez' diye ters anlaşılmaz. 'Değil mi?' eki böbürlenmeyi onay arayışına çevirir. Rev2 özgün hâli korumuş, doğru.",
+   "'toad' için 'kara kurbağası' (A-Dil 43): katılmıyorum. H09'da 'bir kurbağa gibi' kısa bir vuruş; K11'deki basamak listesinde 'kara kurbağasına' ritmi bozar. Rev2 'kurbağa'yı korumuş.",
+   "L04 'dolu dolu' (A-Dil 68): katılmıyorum. 'Gözleri öfkeli. Ve dolu.' kısa vuruşu ikilemeden daha güçlü. Sorun sözcükte değil durakta: rev2 buraya noktalı virgül koymuş (düzeltme 8).",
+   "A-Dil'in 'Ve'yi 7–8 vurgulu yerde tutma önerisi (38): ilkeye katılıyorum, listeye değil. 'Ve' bölüm ortasındaki düz geçişlerde kalkmalı, vuruş cümlelerinde kalmalı. Rev2'deki yerleşim (J04 'Ve susar', H04 'Ve ilk kez onları görür') doğru."
+  ],
+  "gozden_kacan": [
+   "A-Dil metni cümle cümle okudu, ama metnin bölüm başına tek çağrıda üretildiğini hesaba katmadı: etiketin kapsamı, '…' işaretinin durak vermemesi, [slowly]'nin etkisizliği ve uzun çekimde sona doğru hızlanma raporunda yok. Tur 1'in iki kritik ses bulgusu buradan çıktı.",
+   "Aynı sözün iki yerde aynı duyulması. A-Dil yankıları sözcük düzeyinde izledi ('boyun eğmek', 'hizmet'). Seste ayrıca etiket ve çekim de aynı olmalı: A01↔G07, G09b↔L07, G13↔L08, D03↔K16. Rev2'de bu çiftlerin üçünde etiket farklı (düzeltme 10).",
+   "K16 Abdiyel'i 'Sen özgür değilsin' diye anıyor; D03'te söz 'Sen de özgür değilsin'. A-Dil bunu tur 1'de K12 için önermişti; rev2'de D03 düzeltilmiş, K16 eski hâlinde kalmış.",
+   "Hitap tutarlılığı (rev2'de yeni): C09 'Kendisine sorsanız… Milton'a sorsanız' diye 'siz' kullanıyor; C12, K08, K16 ve L10 'sen' diyor. Dil kurulu baksın.",
+   "Araç tarafı: Whisper ipucu listesi hâlâ Prometheus adlarını taşıyor, tools/merge.json yok. A-Dil'in kapsamı değil ama seslendirme öncesi şart (düzeltme 11)."
+  ]
+ },
+ "sizinti_denetimi": {
+  "yontem": "Program her tts'i etiket aralıklarına böler, her aralıkta tırnak içini (alıntı) ve dışını (anlatım) ayırır. Dört kural:\n- K1: segment etiketle başlar.\n- K2: 4 sözcük ve üstü alıntı yalnız anlatıcı etiketiyle (calmly, thoughtfully, curious, mysterious, warmly) okunmaz.\n- K3: tek etiket hem 3+ sözcük anlatımı hem ardından gelen alıntıyı kapsamaz.\n- K4: kapanış tırnağından sonra 3+ sözcük anlatım sıfırlama etiketi olmadan sürmez.\nBetik: /tmp/claude-0/-home-user/11d2c568-95b3-5772-9108-19223f852e25/scratchpad/sizinti.py (salt okur; argüman olarak senaryo dosyasını alır).",
+  "sonuc_rev1": "136 segment, 136 etiket aralığı, 93 ihlal.",
+  "sonuc_rev2": "139 segment, 170 etiket aralığı, 8 ihlal; 4 segmentte toplanıyor. K1 ihlali yok: 139 segmentin hepsi etiketle başlıyor.",
+  "ihlaller_rev2": [
+   {
+    "id": "H06",
+    "kural": "K2 + K4",
+    "not": "Şeytan'ın en yumuşak sözü ('Masumiyetiniz karşısında yüreğim yumuşuyor') anlatıcının [calmly] etiketiyle okunuyor; ardından gelen 'Ama hemen ekler…' aynı aralıkta sürüyor. Gerçek ihlal."
+   },
+   {
+    "id": "K11",
+    "kural": "K2 + K3",
+    "not": "Luis'in alıntısı anlatıcının [thoughtfully] etiketiyle okunuyor. K07'deki Bleyk de [thoughtfully]. İki okuma aynı renkte; gerçek ihlal."
+   },
+   {
+    "id": "K16",
+    "kural": "K2 + K3 + K4",
+    "not": "Abdiyel'in sözü [thoughtfully] ile okunuyor (D03'te [firmly] idi); son soru sıfırlanmadan geliyor. Gerçek ihlal."
+   },
+   {
+    "id": "H07",
+    "kural": "K3",
+    "not": "[gravely] hem 'Şair burada araya girer:' sözünü hem Milton'ın yargısını kapsıyor. Kabul edilebilir: konuşan şair, tanıtan anlatıcı; aynı ağır ton ikisine de uyar. Düzeltme istemiyorum."
+   }
+  ],
+  "programin_yakalamadigi": [
+   "A03: [curious] iki düz cümleyi de kapsıyor ('Birazdan cehennemden kaçacak. Ama… uzaklaşamayacak.'), soru yalnız son sözcük ('Neden?'). Tırnak olmadığı için program görmez.",
+   "A01 ↔ G07: aynı dize A01'de yalnız [slowly], G07'de [slowly] [anguished] ile okunuyor. İki ayrı segment olduğu için program görmez.",
+   "Etiket seçimi: I01'de [whispers]. Kural ihlali değil, yanlış etiket (düzeltme 1).",
+   "Kısa 'der' ekleri (H05, J03) ve 'diye kükrer' (H11) karakter etiketinde kalıyor. Eşiğin altında (3 sözcükten az) ve tur 1'de bunu zaten doğru bulmuştum."
+  ],
+  "diger_program_kontrolleri": "Hepsi rev2 tts alanında:\n- '…' ya da '...': yok.\n- Rakam: yok.\n- [deep voice]: yok.\n- [slowly]: yalnız A01, G07, L06.\n- alt alanında etiket: yok.\n- Tırnak dengesi: bozuk segment yok.\n- 26 ayrı etiket, 171 kullanım: calmly 65, softly 18, thoughtfully 17, curious 11, darkly 10, bitterly 7.\n- tts ile alt sözcük sayısı farkı: yalnız L02 (17'ye 13; 'Bin sekiz yüz kırk yedi' ↔ '1847').\n- Yankı alıntıları: G09b ile L07 birebir aynı; G13 ile L08 aynı (L08 kısaltılmış); D03 'Sen de özgür değilsin', K16 'Sen özgür değilsin' (fark var)."
+ },
+ "dogrulama": [
+  {
+   "bulgu": "1. Etiket kapsamı (sızıntı)",
+   "durum": "kısmen",
+   "not": "Programla doğruladım: 93 ihlalden 8'e inmiş, 139 segmentin hepsi etiketle başlıyor, karakter etiketleri tırnağın önünde. Kalan gerçek ihlal 3 segment: H06, K11, K16 (düzeltme 2)."
+  },
+  {
+   "bulgu": "2. '…' durakları yerine plan.json",
+   "durum": "kısmen",
+   "not": "tts'te '…' kalmamış; doğru. Ama vo/ klasörü boş, plan.json henüz yok. Önerim bu raporda (plan_onerisi), bütün anahtarlar rev2 metnine karşı programla denendi. Üç vuruş noktası noktalı virgüle çevrilmiş (L03, F02, I06); bu ses için ';' ölçümüm yok (düzeltme 8)."
+  },
+  {
+   "bulgu": "3. [slowly] etkisiz",
+   "durum": "karşılandı",
+   "not": "Yalnız A01, G07 ve L06'da kalmış; öteki yerler duygu etiketine çevrilmiş (C04, D09, J09 [gravely]; E15 [wryly])."
+  },
+  {
+   "bulgu": "4. Çekim uzunluğu (vo_parca)",
+   "durum": "karşılanmadı",
+   "not": "KURUL.md'de geçmiyor. Rev2'de durum ağırlaştı: 'Güneşe itiraf' 280'den 314 kelimeye (2.244 karakter), 'Cehennemde kral' 245'ten 299 kelimeye çıktı. G14 doruğu çekimin 261. kelimesinde. Senaryo işi değil, ama seslendirmeden önce karar gerekli (düzeltme 3)."
+  },
+  {
+   "bulgu": "5. Şeytan, anlatıcı ve öteki sesler",
+   "durum": "karşılandı",
+   "not": "[deep voice] yok. Şeytan'ın paleti perde perde değişiyor: C07 defiantly; E03 defiantly, E06–E07 proudly; G03 bitterly, G07 anguished, G09 trembling, G09b ve G14 coldly; I04 disgusted; J03 triumphantly. Milton'ın yakarışı [tenderly] ve [reverently], Abdiyel [firmly]. Akustik mekân önerisi miks aşamasına kalıyor."
+  },
+  {
+   "bulgu": "6. A01 + G07 aynı ses",
+   "durum": "kısmen",
+   "not": "A01 ikiye bölünmüş (A01 alıntı, A02 anlatım); doğru. Sesin G07 çekiminden kesilmesi seslendirme aşamasına ertelenmiş; gerekçe bana uygun. Ama kesilmezse iki okuma farklı çıkacak: A01 [slowly], G07 [slowly] [anguished] (düzeltme 4)."
+  },
+  {
+   "bulgu": "7. H07 'iblis'",
+   "durum": "karşılandı",
+   "not": "'Böyle konuştu Şeytan; zorbaların hep sığındığı bahaneyle…'. Metinde 'iblis' sözcüğü kalmamış."
+  },
+  {
+   "bulgu": "8. G07 doruğu",
+   "durum": "kısmen",
+   "not": "'Vay hâlime!' ve [anguished] alınmış. Ama çığlıktan alçak sese iniş yok: bütün segment tek [slowly] [anguished] aralığında, G08 de [anguished]. 'Ben cehennemim' çığlık tonunda kalırsa doruk en yüksek noktada biter, en alçakta değil (düzeltme 4)."
+  },
+  {
+   "bulgu": "9. 'Cehennem benim' vurgusu",
+   "durum": "karşılandı",
+   "not": "Başkan kararıyla 'Ben cehennemim' oldu; anlam artık vurguya bağlı değil. Seste tek kontrol kaldı: ek-fiil vurgusuz okunur (ce-hen-NE-mim); model son heceyi vurgularsa (cehenne-MİM) 'benim cehennemim' gibi duyulur. Ses denemesinde kulakla bakılsın."
+  },
+  {
+   "bulgu": "10. G09 ikiye bölünsün",
+   "durum": "karşılandı",
+   "not": "G09 ([trembling] soru) ve G09b ([coldly] ret) ayrı segment. Aradaki sessizlik plan önerisinde 2,0 sn."
+  },
+  {
+   "bulgu": "11. G13 (rev2: G14)",
+   "durum": "karşılandı",
+   "not": "Önerdiğim metin ve etiketler aynen alınmış: üç 'elveda' üç cümle, [coldly] → [quietly]."
+  },
+  {
+   "bulgu": "12. J03–J07 (alkış ve tıslama)",
+   "durum": "kısmen",
+   "not": "J03 [triumphantly], J04 ve J05 [softly] alınmış. İki sorun kaldı: dönüşüm (J07) [tense] yerine [darkly]; ve yeni J06 tıslama ile dönüşümün arasına girmiş (düzeltme 5)."
+  },
+  {
+   "bulgu": "13. L09 cevabı adlandırsın (rev2: L06–L08)",
+   "durum": "karşılandı",
+   "not": "Cevap adıyla söyleniyor ('gururu'), G09b alıntısı birebir tekrar ediliyor, [slowly] yalnız L06'da. L08'in ikinci okumayı da vermesi ('hiç açılmamış bir kapı') seste dengeli."
+  },
+  {
+   "bulgu": "14. E09/E10 menteşesi (rev2: E07)",
+   "durum": "karşılandı",
+   "not": "Başka yoldan çözülmüş: tek dize, [proudly], 'Yani:' açımlaması kalkmış. Tekrar sorunu bitti. İki çekincem 'katılmadığım' bölümünde: kullanıcının kendi sözü çıktı; 'yeğdir' seste eriyebilir."
+  },
+  {
+   "bulgu": "15. Bölüm sorularının etiketi",
+   "durum": "kısmen",
+   "not": "12 [curious]'tan 11'e inmiş. D01 düz cümleye çevrilmiş ([darkly]), I01 [whispers] olmuş (gerileme). Öteki on soru aynı etikette (düzeltme 7)."
+  },
+  {
+   "bulgu": "16. 'merhaba dehşet' (rev2: E06)",
+   "durum": "karşılandı",
+   "not": "'Elveda, mutlu ovalar; selam size, dehşetler!' ve [proudly]."
+  },
+  {
+   "bulgu": "17. C09 'yasasız da yanılmayanlara' (rev2: C07)",
+   "durum": "karşılandı",
+   "not": "A-Dil'in metni alınmış: 'Yasa olmadan da yoldan çıkmayan bizlere, kim yasa koyabilir?'"
+  },
+  {
+   "bulgu": "18. Sayılar ve merge.json",
+   "durum": "kısmen",
+   "not": "tts'te tek yıl kalmış (L02, 'yılında' kalıbıyla); doğru. tools/merge.json hâlâ yok; build_vo.py ilk satırlarda çöker. Gereken tek girdi: {\"L02\": {\"1847\": 5}}."
+  },
+  {
+   "bulgu": "19. Nefes: E04, K07 (rev2: K11), K11 (rev2: K15)",
+   "durum": "kısmen",
+   "not": "E04'te sona sarkan '-ken' duruyor. K11'de Luis'in listesi hâlâ 30 kelimelik tek cümle. K15 yeniden yazılmış ama 45 kelimelik tek etiketli segment oldu; 13 kelimelik virgülsüz bir koşu var."
+  },
+  {
+   "bulgu": "20. Anlatıcının araya girmesi; 'Ve', 'Ama', 'Peki' açılışları",
+   "durum": "kısmen",
+   "not": "G06 ve G12 girişleri kısalmış, 'Ve' kalkmış. KURUL.md 'Ve 20'den 9'a, Ama 19'dan 8'e' diyor; bu iki farklı ölçünün karşılaştırması. Tur 1'deki 20 ve 19 cümle başı sayımıydı; 9 ve 8 segment başı sayımı. Aynı ölçüyle (cümle başı): 'Ve' 20'den 14'e inmiş, 'Ama' 19'dan 21'e çıkmış, 'Peki' 7'den 5'e inmiş. Segment başı ölçüsüyle: 'Ve' 12'den 9'a, 'Ama' 7'den 8'e."
+  },
+  {
+   "bulgu": "21. Okunuşlar ve Whisper ipucu",
+   "durum": "karşılanmadı",
+   "not": "transcribe.py ve transcribe_all.py hâlâ Prometheus adlarını ipucu veriyor (dosyalar değişmemiş). 'Luis' ve 'Si Es' aynı; ses denemesinde dinlenecek. 'Lüsifer' A-Dil'in önerisiyle değişmiş; yerleşik Türkçe okunuş bu, katılıyorum. [whispers] uyarım ters yönde sonuçlanmış: I01'e eklenmiş."
+  },
+  {
+   "bulgu": "22. H11 'kükrer' ve 'Melekler'",
+   "durum": "karşılanmadı",
+   "not": "İkisi de duruyor; reddedilenler listesinde de yok. Etiket yapısı düzelmiş ([defiantly] → [calmly] → [firmly])."
+  },
+  {
+   "bulgu": "23. Kanca süresi",
+   "durum": "karşılandı",
+   "not": "Soru yaklaşık 15. saniyede tamamlanıyor; Kaos özeti ve yıl çıkmış."
+  },
+  {
+   "bulgu": "24. B10/B11 şairin sesi (rev2: B06/B07)",
+   "durum": "karşılandı",
+   "not": "Önerdiğim etiketler ve noktalama aynen alınmış."
+  },
+  {
+   "bulgu": "25. İki okumaya iki renk",
+   "durum": "karşılanmadı",
+   "not": "K07 (Bleyk) ve K11 (Luis) ikisi de [thoughtfully]; K09 ve K10 [calmly]. Çarpışma seste duyulmuyor (düzeltme 2)."
+  },
+  {
+   "bulgu": "26. Kapanış soruları (rev2: L10)",
+   "durum": "karşılandı",
+   "not": "Dört sorudan üçe inmiş, Bleyk/Luis sorusu çıkmış."
+  },
+  {
+   "bulgu": "27. Önce ses karesi",
+   "durum": "kısmen",
+   "not": "KURUL.md'de 'kullanıcıya sorulacak' listesinde; kabul edilmiş, onay bekliyor. sec.py'nin eşitlikte kısa çekimi seçme kuralı değişmemiş."
+  },
+  {
+   "bulgu": "A-Dil engelleyici 1: H07 'iblis'",
+   "durum": "karşılandı",
+   "not": "Bkz. 7."
+  },
+  {
+   "bulgu": "A-Dil engelleyici 2: H08 'Sight hateful'",
+   "durum": "karşılandı",
+   "not": "'Nefret edilesi manzara! İşkence veren manzara!… itildim.' Etiket [bitterly], tırnağın önünde."
+  },
+  {
+   "bulgu": "A-Dil 39b: 'Milton'ın' ünlü uyumu",
+   "durum": "karşılanmadı",
+   "not": "tts'te 11 yerde 'Milton'ın' duruyor (düzeltme 6)."
+  },
+  {
+   "bulgu": "A-Dil 52: E04 sarkan '-ken'",
+   "durum": "karşılanmadı",
+   "not": "Bkz. 19 ve düzeltme 8."
+  },
+  {
+   "bulgu": "A-Dil 40: J02 'çığlıklarla'",
+   "durum": "karşılanmadı",
+   "not": "'Cehennem çığlıklarla onu karşılar' duruyor. Seste önemi var: J05'teki tıslama ancak ilk ses açıkça sevinç sesiyse çarpar. 'Cehennem onu coşkulu bir uğultuyla karşılar' önerisine katılıyorum; ses efekti de buna göre seçilir."
+  }
+ ],
+ "engelleyici": [],
+ "uretim_oncesi_zorunlu": [
+  "I01'deki [whispers] değişmeli (düzeltme 1).",
+  "H06, K11 ve K16'daki sızıntı kapanmalı (düzeltme 2).",
+  "Uzun bölümler seslendirme için parçalanmalı (düzeltme 3).",
+  "vo/plan.json, tools/merge.json ve Whisper ipucu listesi hazırlanmalı (plan_onerisi ve düzeltme 11).",
+  "Kullanıcı onay verirse önce ses karesi üretilmeli (düzeltme 12)."
+ ],
+ "duzeltmeler": [
+  {
+   "sira": 1,
+   "id": "I01",
+   "onem": "yüksek",
+   "sorun": "'[whispers] İntikam, tatlı mıdır?' Tur 1'de bu etikete karşı ölçümle uyarmıştım; rev2'de eklenmiş. Sisifos E02'de [whispers] ortalamanın 7,4 dB altında ve 7,35 hece/sn ile hızlı çıktı; Whisper 'Bedenimi' sözünü 'Pedenimi' duydu. Burası bir bölüm sorusu: müziğin altında, telefon hoparlöründe anlaşılmak zorunda. Üç sözcüklük segmentte etiketin yerleşecek alanı da yok.",
+   "oneri": "tts: '[darkly] İntikam, tatlı mıdır?' Sonrasında 1,0 sn boşluk. Fısıltı hissi isteniyorsa mikste yakın mikrofon ve müziğin kısılmasıyla verilsin."
+  },
+  {
+   "sira": 2,
+   "id": "H06, K07, K11, K16",
+   "onem": "yüksek",
+   "sorun": "Programın bulduğu kalan sızıntılar:\n- H06: Şeytan'ın 'yüreğim yumuşuyor' sözü anlatıcının [calmly] tonunda.\n- K11: Luis'in alıntısı [thoughtfully]; K07'deki Bleyk de [thoughtfully]. İki okuma aynı renkte okunuyor (tur 1, bulgu 25).\n- K16: Abdiyel'in sözü [thoughtfully]; D03'te [firmly] idi. Son soru sıfırlanmadan geliyor.",
+   "oneri": "- H06: '[softly] “Masumiyetiniz karşısında yüreğim yumuşuyor,” der. [calmly] Ama hemen ekler: krallığının çıkarı, onuru ve intikamı onu buna mecbur bırakıyor.'\n- K07: '[calmly] Ama yüz yıldan fazla sonra, şair ve ressam Vilyım Bleyk başka bir şey gördü: [passionately] Milton, melekleri ve Tanrı'yı anlatırken zincirliydi; şeytanları ve cehennemi anlatırken özgür. Çünkü gerçek bir şairdi ve farkında olmadan Şeytan'ın tarafındaydı.'\n- K11: '[calmly] Luis'e göre bu, bir yükselişin değil, bir küçülmenin hikâyesiydi: [wryly] “Kahramandan generale. Generalden politikacıya. Oradan casusa. Yatak odası penceresinden içeri bakan bir şeye. Sonra bir kurbağaya. Ve en sonunda, bir yılana.”' Sözcükler aynı, yalnız tts noktalaması değişiyor; alt virgüllü kalır. Her basamak bir nokta durağı (yaklaşık 0,5 sn) alır ve bir öncekinden alçak okunur.\n- K16: '[thoughtfully] Kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? [calmly] Abdiyel'in sözünü hatırla: [firmly] “Sen de özgür değilsin; kendi kendinin tutsağısın.” [softly] Başkaldırı her zaman özgürlük müdür?' ('Sen de': D03 ile birebir.)"
+  },
+  {
+   "sira": 3,
+   "id": "GENEL (çekim uzunluğu; tools/vo_sections.py, tools/build_vo.py)",
+   "onem": "yüksek",
+   "sorun": "Tur 1 bulgusu karşılanmadı ve rev2'de büyüdü. Sisifos'ta ölçtüğüm en uzun çekim 149 kelimeydi ve son dört cümlesi 5,9'dan 7,5 hece/sn'ye hızlandı. Rev2'de:\n- 'Güneşe itiraf' tek çekimde 314 kelime (2.244 karakter); G07 117. kelimede, G14 261. kelimede.\n- 'Cehennemde kral' 299 kelime; E07 127. kelimede.\n- 'İki okuma' 254, 'Bir damla yaş' 248, 'Işık taşıyan' 240, 'Kör şair' 223 kelime.",
+   "oneri": "Segmentlere isteğe bağlı 'vo_parca' alanı eklensin; vo_sections.py ve build_vo.py gruplamayı (bolum, vo_parca) çiftiyle yapsın. 'bolum' alanına dokunulmasın; YouTube bölümleri ondan çıkıyor. Parçalar (kelime sayısıyla):\n- G: G01–G06 (117) / G07–G10 (77) / G11–G16 (120)\n- E: E01–E05 (98) / E06–E11 / E12–E15\n- L: L01–L05 (82) / L06–L11 (166)\n- K: K05–K12 (131) / K13–K16 (123)\n- C: C01–C09 (190) / C10–C12 (50)\n- B: B01–B05 (125) / B06–B10 (98)\nHer parça zaten etiketle başlıyor; rev2'nin 'her segment etiketli' kuralı sayesinde ek metin değişikliği gerekmiyor."
+  },
+  {
+   "sira": 4,
+   "id": "A01, G07, G08",
+   "onem": "yüksek",
+   "sorun": "Filmin ana dizesi iki yerde iki ayrı etiketle okunuyor: A01'de yalnız [slowly], G07'de [slowly] [anguished]. A01'in G07 çekiminden kesilmesi ertelendi; kesilmezse izleyici G07'de açılıştaki sesi tanımaz.\nİkinci sorun G07'nin kavisi: 'Vay hâlime!' çığlığı ile 'Ben cehennemim' aynı aralıkta. Doruk en alçak sesle bitmeli; şu hâliyle çığlık tonunda bitiyor ve G08 de [anguished] ile sürüyor.\nÜçüncü sorun A01'in konumu: altı sözcüklük tek cümle ve çekimin ilk cümlesi. Sisifos'ta bu konumdaki A01 [slowly] etiketine rağmen normal hızda çıktı (6,25 hece/sn).",
+   "oneri": "- G07: '[anguished] “Vay hâlime! Sonsuz gazaptan, sonsuz umutsuzluktan nereye kaçayım? [slowly] [softly] Hangi yana kaçsam cehennem. Ben cehennemim.”'\n- A01: '[slowly] [softly] “Hangi yana kaçsam cehennem. Ben cehennemim.”' (G07'nin kapanışıyla aynı iki etiket.)\n- G08: '[trembling voice] “En derin dipte…”' ('Daha derin bir dip' korkudur, ikinci bir çığlık değil.)\n[slowly] yine yalnız A01, G07 ve L06'da kalıyor. Seslendirmede önce G07'den kesme denensin; tutmazsa bu etiket eşliği iki okumayı yaklaştırır."
+  },
+  {
+   "sira": 5,
+   "id": "J05–J08",
+   "onem": "orta",
+   "sorun": "Rev2'de eklenen J06 ('Nifates Dağı'nda, bu kalabalığın önünde rezil olmaktan korktuğu için boyun eğememişti. Şimdi aynı kalabalık ona tıslıyor.') tıslama ile dönüşümün arasına giriyor. Milton'da ikisi tek hamle (X.509: 'he wondered, but not long'). Seste de tek olay: tıslama efekti J05'te yükselir, J07'de Şeytan'ın kendi tıslamasına dönüşür. Araya 20 kelimelik bir açıklama girince efekt ya kesilir ya da açıklamanın altında anlamsız kalır. J07'nin 'Şaşırır' sözü de neye şaşırdığından üç cümle uzağa düşüyor. J07'deki [darkly] hızlanan dönüşümü ağırlaştırıyor.",
+   "oneri": "Sıra: J05 → J07 → J08 → J06 → J09. Metin değişmiyor, yalnız J06 iki segment aşağı iniyor ve '[thoughtfully]' oluyor: dönüşüm bittikten sonra anlatıcı geri çekilip bağlantıyı kuruyor, J09'daki hüküm ('Günahı hangi kılıkta işlediyseler…') bunun üstüne geliyor.\nJ07: '[tense] Şaşırır; ama çok geçmeden asıl kendi hâline şaşırır…' (Sisifos F04'te [tense] ortalamanın 3,8 dB üstünde enerji verdi.)\nSıra değişikliği dramaturji kurulunun da alanı; ses gerekçesi bu."
+  },
+  {
+   "sira": 6,
+   "id": "GENEL ('Milton'ın', 11 yer)",
+   "onem": "orta",
+   "sorun": "A-Dil'in tur 1 bulgusu; ben kaçırmıştım, rev2'de duruyor. tts'te ad 'Milton' diye yazılı, model son heceyi 'o' ile okur; ardından gelen '-ın' ünlü uyumunu bozar ('mil-ton-ın'). Film boyunca 11 kez duyulacak.",
+   "oneri": "tts'te 'Milton'un' yazılsın (11 yer), alt 'Milton'ın' kalsın; sözcük sayısı değişmez. Öteki çekimler ('Milton'a', 'Milton'da', 'Milton') zaten uyumlu. Ses karesinde A05 dinlenip kesinleştirilsin; 'Miltın'ın' ikinci seçenek."
+  },
+  {
+   "sira": 7,
+   "id": "GENEL ([calmly] ve [curious] dozu)",
+   "onem": "orta",
+   "sorun": "Sızıntıyı kapatan [calmly] kuralı fazla geniş uygulanmış:\n- 171 etiketin 65'i [calmly]; 139 segmentin 62'si onunla başlıyor.\n- E02–E10 arası sekiz segment art arda [calmly] ile başlıyor.\n- Olay doruklarının bir kısmı sakin tonda: Havva'nın meyveyi yemesi (I08), Kaos'a düşüş (F06), Pandemonyum'un yükselişi (E12), sökülen dağlar (D07), ağızdan yalnız tıslama çıkması (J08), küle dönen meyve (J10).\n- 11 bölüm sorusu [curious]; Sisifos'ta bu etiket filmin en hızlı ve en hafif cümlesini verdi (D04, 7,9 hece/sn).\nTur 1'de [calmly]'yi sıfırlama için önermiştim, bütün anlatımın tonu olarak değil. Sisifos'ta hemen her cümle renkli bir etiket taşıyordu ve anlatım canlıydı.",
+   "oneri": "[calmly] yalnız alıntıdan dönüşte ve düz bilgi cümlelerinde kalsın. Değişecekler:\n- D07 [tense]; E09 [in awe]; E10 [gravely]; E12 [in awe]; E13 [darkly]\n- F05 [darkly]; F06 [tense]\n- H02 [wryly]; H03 [darkly]\n- I08 [gravely]; I10 [quietly]\n- J08 [tense]; J10 [darkly]\nBöylece [calmly] ile başlayan segment 62'den 49'a iner ve en uzun dizi kırılır.\nSorular: [curious] A03'ün sorusunda, B01, C01, H01, K05 ve L10'da kalsın. E01 [softly], F01 [mysterious], G01 [quietly], J01 [wryly], L01 [softly].\nA03: '[darkly] Birazdan cehennemden kaçacak. Ama cehennemden bir adım bile uzaklaşamayacak. [curious] Neden?'"
+  },
+  {
+   "sira": 8,
+   "id": "L03, F02, I06, E04, K15",
+   "onem": "orta",
+   "sorun": "'…' kaldırılırken üç vuruş noktası noktalı virgüle çevrilmiş. Sisifos metninde hiç noktalı virgül yok; bu sesin ';' durağını ölçemedim. Virgül 0,06 sn, nokta 0,50 sn, iki nokta 0,58 sn veriyor. plan.json'daki 'ara' da doğal boşluk ister.\n- L03: 'Gözleri öfkeli; ve dolu.'\n- F02: '…yarısı yılan bir varlık; ve biçimi olmayan bir gölge.'\n- I06: '…intikamı; hepsi elinden düşer.'\nAyrıca E04 hâlâ sarkan '-ken' ile bitiyor; K15 45 kelimelik tek etiketli segment.",
+   "oneri": "Yalnız tts'te; alt değişmez.\n- L03: 'Gözleri öfkeli. Ve dolu.'\n- F02: '…yarısı kadın, yarısı yılan bir varlık. Ve biçimi olmayan bir gölge.'\n- I06: '…Nefreti, hilesi, kıskançlığı, intikamı: hepsi elinden düşer.'\n- E04: '[calmly] Şair bu sözlerin hemen ardından bir not düşer: Şeytan acı içinde böbürleniyordu. Ama içi, derin bir umutsuzlukla kıvranıyordu. [softly] Bu sözleri yazdıran adam da, bir savaşı kaybetmişti.' (alt da böyle olsun; A-Dil 52.)\n- K15: '…Milton'ın kendi devriminde bile, kralı deviren Kromvel kendisine sunulan tacı reddetti. [wryly] Ama Lord Koruyucu olarak taçsız bir kral gibi yönetti. Ve yerini oğluna bıraktı.'"
+  },
+  {
+   "sira": 9,
+   "id": "H11",
+   "onem": "orta",
+   "sorun": "Tur 1'de ikimizin de yazdığı bulgu duruyor. IV.827 'filled with scorn' diyor; metin 'kükrer' diyor ve [defiantly] etiketi taşıyor. IV.834'te tek başına Zefon cevap veriyor; metin 'Melekler' diyor. Tek ses üç konuşanı taşırken çoğul bir koro daha da karışık duyulur.",
+   "oneri": "'[scornfully] “Beni tanımıyor musunuz?” der, küçümseyerek. [calmly] Meleklerden biri aynı küçümsemeyle karşılık verir: [coldly] “Parlaklığının hâlâ aynı olduğunu sanma. İyi olmaktan çıktığın gün, o ışık seni terk etti. Şimdi günahına benziyorsun.”'\nKaynak kurulu doğrulasın."
+  },
+  {
+   "sira": 10,
+   "id": "L07, L08 (yankı alıntıları)",
+   "onem": "orta",
+   "sorun": "Final iki eski sözü geri çağırıyor. L07'deki alıntı G09b ile aynı etikette ([coldly]); doğru. L08'deki 'Bunu beni cezalandıran da biliyor' [quietly], oysa G13'te [bitterly] idi. İzleyici ikinci okumanın kanıtını tanımak için aynı sesi duymalı.",
+   "oneri": "L08: 'Şeytan da biliyordu: [bitterly] “Bunu beni cezalandıran da biliyor.” [thoughtfully] Peki onu orada tutan…'\nDaha iyisi: L07 ve L08'deki alıntılar mikste G09b ve G13'ün seçilen çekiminden, hafif yankıyla yeniden çalınsın. A01 için önerdiğim 'ses_kaynagi' seçeneği burada da işe yarar; ertelenen kararla birlikte seslendirme aşamasında denensin."
+  },
+  {
+   "sira": 11,
+   "id": "Araçlar (tools/) ve bölüm adı",
+   "onem": "orta",
+   "sorun": "Seslendirmeden önce dört küçük iş açık:\n- transcribe.py ve transcribe_all.py'deki Whisper ipucu Prometheus adlarını taşıyor.\n- tools/merge.json yok; build_vo.py onu okuyor.\n- sec.py eşitlikte kısa çekimi seçiyor; doruk parçalarında kısa çekim genellikle aceleci olandır.\n- İlk bölümün adı hâlâ 'Cehennem benim'. Karar 'Ben cehennemim' olarak kesinleşti; bu ad YouTube bölüm damgasına ve vo/secim.json anahtarına gider.",
+   "oneri": "- Whisper ipucu: 'Con Milton, Kayıp Cennet, Lüsifer, Şeytan, Belzebub, Pandemonyum, Abdiyel, Uriyel, Nifates, Kaos, Aden, Âdem, Havva, Günah, Ölüm, Oğul, Hürmüz, Hindistan, Kromvel, Lord Koruyucu, Vilyım Bleyk, Şeli, Si Es Luis, Luis, Narniya, Aleksandr Kabanel, Prometeus, Zaman Kuryesi.'\n- merge.json: {\"L02\": {\"1847\": 5}}\n- sec.py: doruk parçalarında (G, J, L06–L11) CER yalnız eleme ölçütü olsun (≤ 0,03); seçimi kullanıcı kulakla yapsın.\n- bolum: 'Ben cehennemim'."
+  },
+  {
+   "sira": 12,
+   "id": "Ses karesi (kullanıcı onayıyla)",
+   "onem": "orta",
+   "sorun": "Rev2'nin etiket düzeni bu sesle hiç denenmedi. 26 etiketin çoğu Sisifos'ta kullanılmadı: anguished, coldly, quietly, trembling, defiantly, proudly, tenderly, wistfully, disgusted, triumphantly. Bütün metin iki çekimle yaklaşık 37 bin karakter tutuyor.",
+   "oneri": "Kullanıcı açıkça onay verirse önce üç küçük parça üretilsin (toplam yaklaşık 1.500 karakter × 2 çekim):\n- A01–A06 (634 karakter): Şeytan ile anlatıcı ayrışıyor mu, 'Milton'un' doğru duyuluyor mu, [calmly] gerçekten sıfırlıyor mu?\n- G07–G10 (529 karakter): 'Ben cehennemim' vurgusu, [anguished] ve [coldly] abartılı mı?\n- E06–E07 (325 karakter): 'yeğdir' anlaşılıyor mu?\nBaşarısız çekim 'yeniden dene' diye tekrarlanmasın; her tekrar ayrıca ücretlendirilir."
+  },
+  {
+   "sira": 13,
+   "id": "G09, D08, F07 (etiket yazımı)",
+   "onem": "düşük",
+   "sorun": "İki etiket kılavuzdaki ve denenmiş biçimden farklı yazılmış: [trembling] (v4 kılavuzunda [trembling voice]) ve [awed] (Sisifos C02 ve D07'de denenen [in awe]). Etiketler serbest biçimli olduğu için çalışabilir; ama denenmiş biçim varken risk almaya gerek yok.",
+   "oneri": "G09: [trembling voice]. D08 ve F07: [in awe]."
+  },
+  {
+   "sira": 14,
+   "id": "C09",
+   "onem": "düşük",
+   "sorun": "'Kendisine sorsanız… Milton'a sorsanız' çoğul hitap; filmin geri kalanı 'sen' diyor (C12, K08, K16, L10). Seste hitap değişimi duyulur.",
+   "oneri": "'Kendisine sorsan: özgürlük için. Milton'a sorsan, iki kelime: kıskançlık ve gurur.' Dil kurulu karar versin."
+  }
+ ],
+ "plan_onerisi": {
+  "aciklama": "vo/plan.json için öneri; rev2 kimlikleriyle. build_vo.py'nin okuduğu alanlar: 'once', 'varsayilan', 'secGap', 'gap', 'ara', 'sonra'.\n- 'gap' segmentten sonraki boşluktur (saniye). Listede olmayan segment 'varsayilan' alır.\n- Bölümün son segmentine 'secGap' ayrıca eklenir; bölüm sonu değerlerini buna göre düşük tuttum (örnek: G16 1,5 + 1,5 = 3,0 sn).\n- 'ara' anahtarı 'KİMLİK@sözcük#n' biçimindedir: segmentte o harflerle başlayan n'inci sözcükten (0'dan sayılır) sonra sessizlik ekler.\n- Doğrulama: 29 'ara' anahtarının hepsini build_vo.py'nin eşleme mantığıyla rev2 metnine karşı denedim; hepsi doğru sözcüğü buluyor. 28'i nokta, soru işareti ya da iki noktadan sonraya düşüyor. Tek istisna 'L03@öfkeli' (noktalı virgül); düzeltme 8 uygulanırsa o da noktaya düşer.\n- Bu plan varsayılanın üstüne yaklaşık 69 sn sessizlik ekler; toplam süre yaklaşık 23 dakika olur.\n- Düzeltme 5 uygulanırsa (J06 aşağı iner) anahtarlar değişmez. Düzeltme 3 (vo_parca) planı etkilemez.\n- Sayılar başlangıç değeridir; kredi harcamadan, dinleyerek ayarlanır. Betik: /tmp/claude-0/-home-user/11d2c568-95b3-5772-9108-19223f852e25/scratchpad/plan_oneri.py; üretilen dosya: /tmp/claude-0/-home-user/11d2c568-95b3-5772-9108-19223f852e25/scratchpad/plan_oneri.json",
+  "doruklar": {
+   "A01": "'cehennem.' ile 'Ben' arası 0,8 sn; sonra 1,0 sn. Müzik 'Ben cehennemim'de çekilir.",
+   "E07": "'söyler:' sonrası 0,6 sn; dizeden sonra 1,8 sn.",
+   "G07": "'kaçayım?' sonrası 0,9 sn; 'cehennem.' sonrası 0,9 sn; segmentten sonra 1,6 sn.",
+   "G09": "Cevapsız sorudan sonra 2,0 sn. Filmin tek tam sessizliği: müzik de susar.",
+   "G09b": "'verir:' sonrası 0,5 sn; 'eğmek.' sonrası 0,6 sn.",
+   "G14": "'pişmanlık.' sonrası 1,0 sn; 'Kötülük:' sonrası 0,6 sn; segmentten sonra 2,2 sn.",
+   "G16": "'değildir.' sonrası 0,8 sn; bölüm sonu 1,5 + 1,5 sn.",
+   "J04–J05": "J04'ten sonra 2,0 sn (alkış beklenir); 'duyar:' sonrası 1,4 sn (tıslama efekti sözcükten önce yükselir).",
+   "L06–L08": "L06'dan sonra 1,5 sn; 'yasaklıyor.' sonrası 1,0 sn; 'zincirdi:' sonrası 0,8 sn ('gururu' tek başına kalır); L08'den sonra 2,2 sn."
+  },
+  "plan": {
+   "once": 0.9,
+   "varsayilan": 0.45,
+   "secGap": 1.5,
+   "gap": {
+    "A01": 1.0,
+    "A02": 0.8,
+    "A03": 1.5,
+    "A06": 0.8,
+    "B01": 1.0,
+    "B07": 1.0,
+    "B08": 0.9,
+    "B09": 0.8,
+    "B10": 0.5,
+    "C01": 1.0,
+    "C06": 0.7,
+    "C07": 1.0,
+    "C09": 1.0,
+    "C10": 0.7,
+    "C12": 1.0,
+    "D04": 1.0,
+    "D05": 0.9,
+    "D09": 1.2,
+    "D10": 0.5,
+    "E01": 1.0,
+    "E04": 1.0,
+    "E07": 1.8,
+    "E11": 1.2,
+    "E15": 1.0,
+    "F01": 1.0,
+    "F04": 1.2,
+    "F07": 0.8,
+    "F09": 0.5,
+    "G01": 1.0,
+    "G02b": 1.0,
+    "G05": 0.9,
+    "G06": 1.2,
+    "G07": 1.6,
+    "G08": 0.8,
+    "G09": 2.0,
+    "G09b": 1.2,
+    "G13": 1.0,
+    "G14": 2.2,
+    "G15": 1.0,
+    "G16": 1.5,
+    "H01": 1.0,
+    "H04": 0.8,
+    "H07": 0.9,
+    "H11": 1.0,
+    "H12": 1.0,
+    "I01": 1.0,
+    "I05": 1.0,
+    "I07": 0.9,
+    "I09": 1.2,
+    "I10": 1.3,
+    "J01": 1.0,
+    "J04": 2.0,
+    "J05": 1.0,
+    "J07": 1.0,
+    "J09": 0.9,
+    "J11": 1.5,
+    "K01": 1.2,
+    "K03": 1.0,
+    "K04": 0.5,
+    "K05": 1.0,
+    "K08": 1.5,
+    "K12": 1.0,
+    "K16": 1.5,
+    "L01": 1.0,
+    "L03": 1.2,
+    "L05": 1.2,
+    "L06": 1.5,
+    "L07": 1.5,
+    "L08": 2.2,
+    "L09": 2.0,
+    "L10": 1.5
+   },
+   "ara": {
+    "A01@cehennem#0": 0.8,
+    "A03@uzaklaşamayacak": 0.7,
+    "B06@gülü": 0.6,
+    "D04@edeyim": 0.5,
+    "E07@söyler": 0.6,
+    "E11@boşanır": 0.6,
+    "F04@öğrenir": 0.6,
+    "F04@ölüm": 0.7,
+    "G03@güneş#1": 0.7,
+    "G07@kaçayım": 0.9,
+    "G07@cehennem#0": 0.9,
+    "G09b@verir": 0.5,
+    "G09b@eğmek": 0.6,
+    "G14@pişmanlık": 1.0,
+    "G14@kötülük": 0.6,
+    "G16@değildir": 0.8,
+    "J05@duyar": 1.4,
+    "J05@tıslama": 0.6,
+    "J07@yılan": 0.7,
+    "K01@yazar": 0.5,
+    "K16@tutsağısın": 1.2,
+    "L03@öfkeli": 0.7,
+    "L06@sorduk": 0.5,
+    "L07@duyduk": 0.6,
+    "L07@yasaklıyor": 1.0,
+    "L07@buldu": 0.6,
+    "L07@zincirdi": 0.8,
+    "L08@değildi": 0.6,
+    "L08@biliyor#1": 0.8
+   },
+   "sonra": 14.0
+  }
+ },
+ "en_emin_olmadigim_nokta": "İki şey metinden bilinemiyor. Birincisi [calmly]: tur 1'de onu sıfırlama etiketi olarak önerdim, ama dayanağım Sisifos'taki tek bir segment (D03). 65 kez kullanıldığında gerçekten nötr mü kalıyor, yoksa anlatımı düzleştiriyor mu, ancak ses karesinde anlaşılır. İkincisi yeni etiketler: [anguished], [coldly], [quietly] ve [trembling] bu sesle hiç denenmedi; abartılı ya da etkisiz çıkabilirler. Ölçümlerimin hepsi Sisifos'un 8 çekimine dayanıyor; Prometheus çekimleri bu depoda yok. Noktalı virgülün durağını ölçemedim."
+}

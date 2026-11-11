@@ -1,0 +1,148 @@
+{
+  "uye": "S-Dram",
+  "karar": "RED",
+  "puanlar": {"K1": 9.0, "K2": 9.0, "K3": 9.0, "K4": 8.0, "K5": 9.0, "K6": 9.0, "K7": 8.5},
+  "agirlikli": 8.8,
+  "puan_gerekceleri": {
+    "K1": "Tur 1'de işaretlediğim üç kayma düzeltilmiş: I. kitabın sırası (E06–E07 önce, E09–E11 sonra), “ilk dizeler”in kapsamı (B09, G02b) ve Cromwell cümlesi (K15). Yeni eklenen dizeleri metinden kontrol ettim: VI.183–186, III.129–132, IX.169–170, XII.69–70, X.451–452, IV.839–840, II.755–758 uyuyor. L11'deki Shelley alıntısı hâlâ kaynak denetçisinin doğrulamasını bekliyor.",
+    "K2": "Soru artık A03'te, ~0:15'te ve somut bir paradoks: “kaçacak ama bir adım bile uzaklaşamayacak.” Kapak A'nın vaadi ilk saniyede karşılanıyor. A01'deki söz sorunun yüzeydeki cevabını veriyor, ama asıl cevap (gurur mu, kapalı kapı mı) sona saklanmış; bu çalışıyor.",
+    "K3": "Omurga ve son bölümün sırası düzelmiş. Kurulum–ödemelerin çoğu artık tutuyor: G10 → J06, E15 → J07, C07 → G09b → L07, D04 → L07, G13 → L08, F04 ↔ H11, C12 → K16. Kalanlar orta düzeyde: D02–D04'ün ters sırası, B01'in “nasıl?” sorusunun L09'da ödenmemesi, K01–K02'nin ters sırası.",
+    "K4": "Asıl kalan sorun burada. Rev2, rev1'den 315 kelime (%14) uzun: 2245 → 2560. S-Yon'un ölçtüğü Sisifos hızıyla (1,6 kelime/sn) ~23:25'ten ~26:40'a çıkıyor. KURUL.md'deki iki iddia kelime sayımıyla doğrulanmıyor: Milton bölümü kısalmamış (220 → 223 kelime, ~2:19; Şeytan'ın hikâyesi ~3:15'te başlıyor) ve “İki okuma” sıkışmamış, uzamış (223 → 254 kelime, ~2:38). J11'den sonra ~5:50'lik bir yansıma ve kapanış var.",
+    "K5": "Empati zinciri güçlenmiş: E11'de gözyaşının nedeni, G13'te “Bunu beni cezalandıran da biliyor”, J06'da kalabalık ironisi, L08'de hiç açılmamış kapı. Sonuncusu acımayı azaltmıyor, trajediyi derinleştiriyor. İki eksik var: G16 duyguyu hâlâ dikte ediyor ve iksir izleyicinin kendi hayatına taşınmıyor.",
+    "K6": "“İblis” kalkmış, sözcük izlekleri (“boyun eğmek”, “o söz”) tutarlı. Küçük pürüzler: K03'te “bunu”nun neyi gösterdiği belirsiz, B02'nin sonu kırık (“Çoğu zaman da evde kim varsa, ona.”), 139 segmentin 62'si [calmly] ile açılıyor.",
+    "K7": "Cabanel'in tek renkli kare olması (L02 notu) ve Âdem–Havva için uzak siluet notları yüz yakın planı riskini azaltıyor. Diz çökme pozu ve ışık sönmesi motifleri kodla ucuz ve güçlü. Kapanış karesi hâlâ tanımsız: L06–L10 sırasında ekranda ne olacağı yazılmamış."
+  },
+  "capraz": {
+    "katildigim": [
+      "S-Yon 1 (kanca): aynı teşhisi koymuştuk; soru geç geliyordu ve rev1 A03 cevabı önceden veriyordu. Rev2 bunu çözmüş.",
+      "S-Yon 3 ve 4 (I. kitabın sırası, gözyaşının nedeni): birbirimizden bağımsız aynı iki bulguya vardık. İkisi de rev2'de uygulanmış.",
+      "S-Yon 7 (D02–D03): sıranın ters olduğunu ben de yazmıştım. S-Yon ayrıca benim kaçırdığım iki dizeyi buldu: VI.183–184 (“Sen cehennemde hüküm sür”) ve VI.186 (“krallık değil, zincir bekle”). Bunlar I.263'ün habercisi ve L07'nin en güçlü ödemesi oldu.",
+      "S-Yon 6 (final): iksirin izleyicinin kendi hayatına taşınmadığı tespiti doğru ve bende yoktu. Sisifos'un çalışan finali (“Peki ya sen?”) burada eksik. “Belki hepimizin söyleyemediği bir kelime vardır” önerisi “boyun eğmek” izleğini izleyiciye bağlıyor. Rev2 bunu almamış; kalan en değerli iyileştirme bu (düzeltme 2).",
+      "S-Yon 6 (L10): “kaybetmenin ne olduğunu biliyordu” cümlesi, B01'deki “nasıl bu kadar iyi gördü?” sorusunun gerçek cevabı. Rev2 L09 yalnız “en iyi o gördü” diyor, nasılını söylemiyor.",
+      "S-Yon 13 (Âdem ile Havva): önce af (X. kitap), sonra çıkış (XII. kitap) sırası ve üç gözyaşı dizisi (söze dönüşemeyen, söze dönüşen, silinip yürünen). X.1101'deki gözyaşını ben kaçırmıştım. Rev2'de sıra hâlâ ters (düzeltme 6).",
+      "S-Yon 9 (J02 “sahte parıltı” ve ışık parametresi): ışık kaybını tek bir parametreyle kodlamak, benim sözle bağlamaya çalıştığım motifi görselle çözüyor. Metin kısmı rev2'de var.",
+      "S-Yon 10 ve 11 (C06 ↔ H12 “impaired” aynası, F04 ↔ H11 tanınma aynası): ikisine de katılıyorum; ikincisini ben de yazmıştım.",
+      "S-Yon 2, tercih (b): cellat kitabı yakarken yazarın ateşi görememesi. Biyografi listesi yerine tek sahne; A04'teki “alev var ama ışık yok” imgesiyle de yankılanıyor. Rev2 kullanmamış; B04–B05 hâlâ liste (düzeltme 1).",
+      "S-Yon'un konuşma hızı ölçümü (Sisifos: 667 kelime / ~410 sn ≈ 1,6 kelime/sn): ben tur 1'de ~2 kelime/sn varsaymıştım; onun ölçümü kanıta dayanıyor. Süre hesaplarımı buna göre düzelttim."
+    ],
+    "katilmadigim": [
+      "S-Yon 14 (“acıyoruz kelimesi kalsın”): kısmen katılmıyorum. H05'teki “bana acıyan olmasa da” ile dramatik ironi kurduğu doğru; bunu tur 1'de hafife almışım. Ama ironi için “acımak” sözcüğünün geçmesi yeter. “İlk kez, ona acıyoruz” izleyici adına konuşuyor ve “ilk kez” E11'deki gözyaşından sonra doğru değil. S-Yon'un aynı maddedeki öteki cümlesi daha iyi: “Şimdiye kadar hep birilerine konuştu… Bu kez dinleyen yok.” Bu göstererek anlatıyor (düzeltme 3).",
+      "S-Yon 2, tercih (a) (siyasi yenilginin üç segmentle E04'e taşınması): katılmıyorum. Cehennemdeki ilk sahnenin ortasına üç biyografi cümlesi girerse göl sahnesi bölünür. Başkanın çözümü (B'de iki cümle, E04'te tek cümlelik yankı) doğru; gerekçesi bana uygun.",
+      "S-Yon 8 (J07'den sonra Abdiel'in küçümsemesiyle ilgili ek cümle): fikir doğru (V.904 'hostile scorn' ↔ X.509 'publick scorn'), ama J06 zaten bir anlatıcı yorumu taşıyor. Felaket anına ikinci bir yorum cümlesi dönüşümü yavaşlatır. Bu ayna yalnız görselle kurulsun: C11 ile J05 aynı kompozisyon.",
+      "S-Yon 5.1'in bir yanı: “Sanki kendi yarattığı karaktere kapılmamızdan korkuyor” cümlesi Milton'a kaynaksız bir niyet yüklüyor. İpliğin kendisi (şairin araya girmeleri) değerli; soru biçiminde kullanılabilir (düzeltme 9)."
+    ],
+    "gozden_kacan": [
+      "S-Yon, hikâyenin sonu ile yorum bölümünün sırasına dokunmamıştı (K, L'den önce; Âdem ile Havva en sonda). Üç ayrı “son” sorununu final metinlerini yeniden yazarak çözmeye çalıştı. Asıl çözüm sıraydı; rev2 bunu uyguladı.",
+      "Kalabalık ironisi: G10'da kalabalığın önünde rezil olma korkusu, J05'te aynı kalabalığın tıslaması. S-Yon bunun yerine Abdiel aynasını önermişti. Rev2 J06 ile kalabalık ironisini aldı.",
+      "E15 ↔ X.514 aynası (önünde diz çökülen kral → karnının üstünde). S-Yon D02'deki dizi fark etti ama motifin J'deki kapanışını yazmadı.",
+      "C bölümünde hükmün (kıskançlık ve gurur) Şeytan'ın gerekçesinden önce verilmesi. İki okumanın tohumu çağrı anında ekilebilirdi; rev2 C09 bunu yapıyor.",
+      "H07'deki “iblis” kelimesi ve B13 → G15 ödemesinin yeri (ödeme konuşmanın sonunda değil, başında olmalıydı; rev2 G02b).",
+      "S-Yon'un kendi raporunda da olan bir boşluk: Milton'ın araya girmeleri ipliğini önerdi, ama rev1'deki G15 ve E04 gibi yorum cümlelerinin izleyiciyi sahneden çıkardığını yazmadı. İki öneri birlikte düşünülmeli: araya giren ses motif olursa güç kazanır, her sahnede tekrar ederse mesafe yaratır."
+    ]
+  },
+  "dogrulama": [
+    {"bulgu": "S-Dram 1: son bölümün sırası (destanın sonu öne, Cabanel sona, Doré notu dışarı)", "durum": "karşılandı", "not": "J11 → K01–K04 → K05–K16 → L01–L05 (Cabanel) → L06–L08 → L09 → L10 → L11. L02 tarihle açılıyor, Doré notu yok. Eksik: L06–L10 sırasında ekranda ne olacağı yazılmamış; Cabanel'in kapanış sahnesi olması için L10 gözyaşı karesinin üstünde bitmeli."},
+    {"bulgu": "S-Dram 2: A03 sorusunun ödemesi (söz açıkça söylensin, zincir netleşsin, iki okuma dengelensin)", "durum": "karşılandı", "not": "L07'de söz Şeytan'ın sesiyle tekrar ediliyor; zincir “gururu” diye adlandırılıyor ve D04'e bağlanıyor. L08 öbür yarıyı (III.129–132, IV.103) veriyor ve kararı izleyiciye bırakıyor. Benim önerimden daha iyi."},
+    {"bulgu": "S-Dram 3: kanca (somut soru, erken)", "durum": "kısmen", "not": "Soru 0:15'te ve somut. “Tek bir söz” boşluğu ve “ağlar” vaadi alınmamış; KURUL.md'de gerekçe yok ama seçilen biçim çalışıyor, ısrar etmiyorum. Kapak B (gözyaşı) seçilirse ilk 15 saniyede karşılığı hâlâ yok; bu durumda S-Yon'un görsel önerisi (göle düşen tek damla) yeter."},
+    {"bulgu": "S-Dram 4: kalabalık ironisi ve diz çökme aynası", "durum": "karşılandı", "not": "J06 ve J07'nin son cümlesi."},
+    {"bulgu": "S-Dram 5 / S-Yon 3–4: I. kitabın sırası ve gözyaşının nedeni", "durum": "karşılandı", "not": "E06–E07 → E09–E11. Küçük kayıp: E11'de “hâlâ ayaktalar” var, I.611'deki sadakat ('yet faithful how they stood') düşmüş. J06'daki ironi bu sadakate dayanıyor."},
+    {"bulgu": "S-Dram 6: gurur ve pişmanlığın aynı yüzde yan yana yazılması (I.603–605)", "durum": "karşılandı", "not": "E10'da kuruluyor, L05'te geri çağrılıyor. Ben sona saklamayı önermiştim; iki yerde olması da çalışıyor."},
+    {"bulgu": "S-Dram 7: C bölümünde sıra ve iki cevap", "durum": "karşılandı", "not": "C09."},
+    {"bulgu": "S-Dram 8: “ilk dizeler”in kapsamı ve yeri; “ona acıyoruz” cümlesi", "durum": "kısmen", "not": "B09 ve G02b tam karşılanmış. G16 karşılanmamış: “Maskesiz” eklenmiş ama “ilk kez, ona acıyoruz” duruyor, üstüne “Acımak, hak vermek değildir” gelmiş. Segmentin kaynak notu “S-Dram + H-Hassasiyet ortak metni” diyor; benim önerim yalnız “Maskesiz.” ile bitiyordu, bu atıf düzeltilmeli."},
+    {"bulgu": "S-Dram 9 / S-Yon 5: “İki okuma”nın sıkıştırılması, anlatıcının taraf tutmaması, C12'nin ödemesi", "durum": "kısmen", "not": "Karşılananlar: Blake birleşti (K07), izleyicinin belleği kanıt oldu (K08), “Gerçekten de” yerine Şeytan'ın kendi sözü geldi (K12), Cromwell düzeltildi (K15), C12 ödendi (K16). Karşılanmayan: bölüm sıkışmadı, 223'ten 254 kelimeye çıktı. K14 yeni ve Abdiel'i K16'dan iki segment önce bir kez daha alıntılıyor."},
+    {"bulgu": "S-Dram 11 / S-Yon 2 ve 16: Milton bölümünün kısalması", "durum": "kısmen", "not": "Bölüm sorusu (B01), sahneyle açılış (B02) ve çifte paralellik (B08) karşılanmış. Uzunluk karşılanmamış: 220 → 223 kelime. “Siyaset iki cümleye indi” iddiası sayımla tutmuyor (B04'ün ikinci cümlesi ile B05 ~45 kelime; rev1'de ~50)."},
+    {"bulgu": "S-Dram 12 / S-Yon 7: D02–D03'ün kronolojik sırası", "durum": "karşılanmadı", "not": "Dizeler eklendi (D04) ama sıra ters kaldı; şimdi darbeden sonra iki geri dönüş var (“söylemişti”, “Ve eklemişti”). KURUL.md'nin reddedilenler listesinde yok. İki üye de aynı şeyi istemişti."},
+    {"bulgu": "S-Dram 13: “iblis” ve zorbalık kurulumu", "durum": "karşılandı", "not": "H07 düzeltildi. K13 artık “cenneti zorbalıkla suçlayan” demediği için E03'e kurulum gerekmiyor."},
+    {"bulgu": "S-Dram 14: izleyiciye iki soru", "durum": "karşılandı", "not": "L10. Yeni yan etki: L08 hemen öncesinde üçüncü bir soru soruyor ve “Cevap, hangi okumayı seçtiğine bağlı” diye kapatıyor; L10'un açılışıyla üst üste biniyor."},
+    {"bulgu": "S-Dram 15: Shelley ile Prometheus köprüsü", "durum": "karşılandı", "not": "L11. Alıntı kaynak denetçisinin doğrulamasını bekliyor."},
+    {"bulgu": "S-Dram 16, 18, 21 / S-Yon 15, 11, 20: I10–J01 tekrarı, tanınma aynası, soru kalıbının çeşitlenmesi", "durum": "karşılandı", "not": "I10 “Kazanmıştır.”; H11 “Şimdi günahına benziyorsun”; D01 vaat, I01 fısıltı. F01'in “neden tanımadı?” sorusu ise F04'te yalnız tekrar ediliyor, cevaplanmıyor (düzeltme 7)."},
+    {"bulgu": "S-Dram 17: bilinen söyleyiş (“cennette köle olacağıma, cehennemde kral olurum”)", "durum": "karşılanmadı", "not": "Cümle tamamen çıkarılmış (rev1 E10); KURUL.md'de gerekçe yok. CLAUDE.md'deki kullanıcı planı bu söyleyişi menteşe olarak anıyor. Düşük öncelikli, ama bilinçli bir karar değilse kullanıcıya sorulmalı."},
+    {"bulgu": "S-Yon 6: final (iksirin izleyiciye taşınması, çerçevenin “kaybetmeyi biliyordu” ile kapanması)", "durum": "kısmen", "not": "L07 S-Yon'un zincir önerisini almış. İzleyicinin kendi hayatına taşıyan cümle ve B01'in “nasıl?” cevabı alınmamış."},
+    {"bulgu": "S-Yon 13: Âdem ile Havva'nın sırası ve gözyaşı üçlüsü", "durum": "karşılanmadı", "not": "K01 çıkışı (XII), K02 geri dönüşle affı (X) veriyor. X.1101'deki gözyaşı kullanılmamış."},
+    {"bulgu": "S-Yon 10: C06 ↔ H12 'impaired' aynası", "durum": "kısmen", "not": "H12'nin kaynak notu aynadan söz ediyor, ama iki cümlede ortak sözcük kalmamış: C09 “küçük düşürülmüş”, H12 “sönükleşen”. Kulak bu aynayı yakalamaz."},
+    {"bulgu": "S-Yon 9: J02 “sahte parıltı”", "durum": "karşılandı", "not": "J02. Işık parametresi sanat yönetimine kalıyor."},
+    {"bulgu": "S-Yon 5.1: Milton'ın araya girmeleri ipliği", "durum": "kısmen", "not": "E04, G02 ve H07'de “şair” sözcüğüyle iplik metinde var; K'de ödenmiyor."}
+  ],
+  "engelleyici": [],
+  "yeni_sorunlar": [
+    "Süre: 2245 → 2560 kelime (+%14). Sisifos hızıyla ~26:40. Artış en çok doğruluk ve denge eklerinden geliyor (C03, C04, E05, E09, G13, K03, K12, K14). Şeytan'ın hikâyesi ~3:15'te başlıyor, Nifates ~12:10'da, J11'den sonra ~5:50 kalıyor.",
+    "D03–D04: darbeden sonra art arda iki geri dönüş (“söylemişti”, “Ve eklemişti”).",
+    "D04 ↔ E07 yankısı sözcük düzeyinde kaybolmuş: D04 “hüküm sür / hizmet edeyim”, E07 “hükümdar olmak / hizmetkâr olmak”. Kulak aynı sözü duymuyor.",
+    "K03: “bunu” neyi gösteriyor, belirsiz; bir önceki cümle insanların af dilemesini anlatıyor.",
+    "Son 2:35'te altı soru cümlesi var (L01, L05, L06, L08, L10'da iki). L08'in kapanışı ile L10'un açılışı aynı işi yapıyor.",
+    "Kaynak alanlarındaki çapraz atıflar eski kimlikleri gösteriyor: A03 “L09–L09c”, D04 ve G09b “L09b”, G13 ve K03 “L09c”, B01 “L10”, C12 “K12”. E08 kimliği atlanmış. A bölümünün adı hâlâ “Cehennem benim”, oysa söz “Ben cehennemim”; bölüm adı YouTube zaman damgasına giderse tutarsız olur. Animasyon `S('…')` ile bağlanacağı için zaman çizelgesinden önce temizlenmeli."
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "id": "B02–B06",
+      "sorun": "Milton bölümü kısalmamış (223 kelime, ~2:19); Şeytan'ın hikâyesi ~3:15'te başlıyor. B04–B05 hâlâ bir biyografi listesi. B03'ün son cümlesi (kızların sıkıntısı) hiçbir yerde ödenmiyor.",
+      "oneri": "Hedef ~170 kelime.\n- B02: “[softly] Londra'da bir ev; gece. Gözleri görmeyen bir adam uyuyamıyor. Bazı geceler dizeleri karanlıkta zihninde kurar, kızını uyandırıp yazdırır: kırk dizeyi bir solukta söyler, sonra yirmiye indirir. Gündüzleri de evde kim varsa, ona.”\n- B03: “[sadly] İki küçük kızı ona, tek kelimesini anlamadıkları dillerde kitap okurdu: İbranice, Yunanca, Latince.”\n- B04–B05 tek sahne olur (S-Yon tercih b): “[darkly] Bin altı yüz altmış yılında Londra'da cellat bir kitabı ateşe atıyor: kralın idamını savunan kitabı. Yazarı şehirde saklanıyor ve o ateşi göremiyor; sekiz yıldır kör. Kralı deviren devrimin adamıydı; devrim çökmüş, kral geri dönmüştü. Destanına devrim ayaktayken başlamıştı; çoğunu bu yenilginin içinde yazdırdı.”\n- B06: “[calmly] Destanın üçüncü kitabında kendi körlüğünü anlatır: [tenderly] “Mevsimler döner; ama bana gün dönmez. Ne bahar çiçeği, ne yaz gülü, ne de bir insan yüzü.””\nKaynak kurulu “sekiz yıldır” (1652 → 1660) ve yakılan kitabı (DNB s. 33: Defensio) teyit etsin.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 2,
+      "id": "L08, L09, L10",
+      "sorun": "1) B01'in sorusu “nasıl bu kadar iyi gördü?” idi; L09 yalnız “en iyi o gördü” diyor, nasılını söylemiyor.\n2) İksir izleyicinin kendi hayatına taşınmıyor (S-Yon 6); kanalın çalışan finali bu.\n3) L08'in son cümlesi ile L10'un açılışı üst üste biniyor.\n4) Kapanış karesi tanımsız.",
+      "oneri": "- L08'in sonu: “… Peki onu orada tutan gururu muydu, yoksa hiç açılmamış bir kapı mı?” (“Cevap, hangi okumayı seçtiğine bağlı.” çıkar.)\n- L09: “[thoughtfully] Bir şey daha sormuştuk: Hiçbir şey göremeyen bir adam, cehennemi nasıl bu kadar iyi gördü? Belki şundan: kaybetmenin ne olduğunu biliyordu. Ve insanın cehennemi içinde taşıyabileceğini, o karanlıkta herkesten iyi gördü.”\n- L10: “[softly] Belki herkesin ağzına alamadığı bir söz vardır. Onu söylememek bazen onurdur; bazen insanın kendi eliyle vurduğu zincir. [curious] Peki sen ne düşünüyorsun? O gözyaşı pişmanlık mıydı, gurur mu? Ve başkaldırı ne zaman özgürlüktür, ne zaman insanın kendi cehennemi? Yorumlarda yaz.”\n- Görsel: L10, Cabanel'in gözündeki yaşın üstünde biter; kullanıcının planındaki kapanış sahnesi böylece gerçekten son kare olur.",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "id": "K05–K16",
+      "sorun": "Bölüm kısalmamış, uzamış (254 kelime, ~2:38). K14 ile K16 iki segment arayla aynı Abdiel konuşmasını alıntılıyor. K16 soruyu bağlamsız açıyor; izleyici C12'yi 18 dakika önce duydu.",
+      "oneri": "Hedef ~200 kelime.\n- K14 çıkar; içeriği K16'ya taşınır. XII.69–70 (Nimrod) açıklamaya gider.\n- K15: “[calmly] Tarihteki başkaldırıların çoğu, elinden alınan hakları ve özgürlükleri geri istemek içindi. Ama bazıları özgürlük diye yola çıkıp yeni bir taht kurdu. Milton'ın kendi devriminde bile kralı deviren Kromvel, sunulan tacı reddetti; ama taçsız bir kral gibi yönetti ve yerini oğluna bıraktı.”\n- K16: “[thoughtfully] Başta bir soru bırakmıştık: asıl başkaldıran kim; kalabalığı peşine takan mı, kalabalığa karşı tek başına duran mı? Milton'ın cevabı Abdiyel'in ağzındaydı: “Asıl kölelik, akılsıza hizmet etmektir. Sen özgür değilsin; kendi kendinin tutsağısın.” Başkaldırı her zaman özgürlük müdür?”",
+      "onem": "yüksek"
+    },
+    {
+      "sira": 4,
+      "id": "G16",
+      "sorun": "“İlk kez, ona acıyoruz” izleyici adına konuşuyor; “ilk kez” E11'deki gözyaşından sonra doğru değil. Rev2 buna bir de ahlak notu eklemiş; segment şimdi iki kez söylüyor, hiç göstermiyor. Hassasiyet cümlesi kalabilir, ama koşullu biçimde.",
+      "oneri": "G16: “[thoughtfully] Şimdiye kadar hep birilerine konuştu: Belzebub'a, ordusuna, meclise. Bu kez dinleyen yok. Maskesiz. [softly] Burada ona acıdıysan şunu da bil: acımak, hak vermek değildir.”\n- İlk iki cümle S-Yon'un önerisinden; “acımak” sözcüğü kaldığı için H05'teki “bana acıyan olmasa da” ile ironi korunur.\n- Kaynak notundaki “S-Dram + H-Hassasiyet ortak metni” atfı buna göre düzeltilsin.",
+      "onem": "orta"
+    },
+    {
+      "sira": 5,
+      "id": "D02–D04, E07",
+      "sorun": "Abdiel'in iki sözü darbeden sonra geri dönüşle veriliyor (“söylemişti”, “Ve eklemişti”). Metindeki sıra söz → darbe (VI.172–195); söz söylenir, darbe onu noktalar. Ayrıca D04 ile E07 aynı fiilleri kullanmadığı için I.263'ün Abdiel'in sözünü tersine çevirdiği duyulmuyor.",
+      "oneri": "- D02: “[calmly] Abdiyel, ordunun önünde Şeytan'ın karşısına çıkar: [firmly] “Asıl kölelik budur: akılsıza ya da kendinden üstüne başkaldırana hizmet etmek; seninkilerin şimdi sana ettiği gibi. Sen de özgür değilsin; kendi kendinin tutsağısın.””\n- D03: “[firmly] “Sen cehennemde, kendi krallığında hüküm sür; bırak ben cennette hizmet edeyim. Ama cehennemde krallık değil, zincir bekle.””\n- D04: “[calmly] Ve ilk darbeyi o vurur. Kılıcı Şeytan'ın miğferine iner; Şeytan on adım geriler, onuncu adımda dizinin üstüne çöker.”\n- E07: “[calmly] Abdiyel'in sözü şimdi onun ağzında tersine döner; destanın en ünlü dizesi olur: [proudly] “Burada hiç değilse özgür olacağız. Cehennemde hüküm sürmek, cennette hizmet etmekten yeğdir.”” (I.258–259, I.263)\n- Dil editörü “hükümdar / hizmetkâr” çiftinde ısrar ederse D03 aynı çifte çevrilsin; önemli olan iki yerde aynı sözcüklerin duyulması.",
+      "onem": "orta"
+    },
+    {
+      "sira": 6,
+      "id": "K01–K03",
+      "sorun": "Sıra ters: önce çıkış (XII), sonra geri dönüşle af (X). K03'teki “bunu” belirsiz. Gözyaşı üçlüsü (S-Yon 13) kurulmamış.",
+      "oneri": "- K01: “[softly] Destan, Şeytan'la bitmez. Âdem ile Havva da ağlar; ama onların gözyaşı bir söze dönüşür: Şeytan'ın yapmadığını yaparlar, kusurlarını kabul edip bağışlanma dilerler.” (X.1099–1104)\n- K02: “[thoughtfully] Ama destanın başında Milton'ın Tanrı'sı bir ayrım yapmıştı: İnsan aldatıldı; bu yüzden merhamet bulacak. İsyancı melekler kendi kendilerini ayarttı; onlar bulamayacak.”\n- K03: “[softly] Son sahnede Aden'den çıkarlar. Milton yazar: [tenderly] “İnsanca birkaç damla gözyaşı döktüler; ama çabucak sildiler. Bütün dünya önlerindeydi.””\n- K04 aynen kalır. Bölüm, adını veren imgeyle biter.",
+      "onem": "orta"
+    },
+    {
+      "sira": 7,
+      "id": "F03, F04, H12",
+      "sorun": "F01 “neden tanımadı?” diye soruyor; F04 yalnız “tanımaz” diye tekrar ediyor. Metinde cevap var: Günah doğduğunda parlak yüzüyle ona benziyordu (II.756), sonra biçimi bozuldu (II.783–785). Bu, H11'deki “Şimdi günahına benziyorsun” sözünün tam aynası. C09 ↔ H12 aynası ise ortak sözcük kalmadığı için duyulmuyor.",
+      "oneri": "- F03: “… başının sol yanı yarıldı ve ben oradan doğdum: parlak yüzümle sana benziyordum. Bana Günah dediler.”\n- F04: “[darkly] Şeytan onu tanımaz: bir zamanlar kendisine benzeyen o parlak yüz, tanınmaz hâle gelmiştir. Ve dövüşmek üzere olduğu gölgenin kim olduğunu öğrenir: Ölüm. Kendi oğlu.”\n- H12'nin sonuna (S-Yon 10): “Bir zamanlar kendini küçük düşürülmüş saymıştı. Şimdi gerçekten küçülmüştü.”",
+      "onem": "orta"
+    },
+    {
+      "sira": 8,
+      "id": "E05, E09, E11, J10",
+      "sorun": "“Cehennemde kral” bölümü 299 kelimeyle (~3:06) Nifates'ten sonraki en uzun bölüm. Bazı cümleler doğruluk için eklenmiş ama sahneye bir şey katmıyor. E11'de ordunun sadakati düşmüş.",
+      "oneri": "- E05, E06'nın başına bir yan cümle olarak girer: “[calmly] Cennetin izniyle gölden kalkar; yanan kıyıya çıkınca cehennemi selamlar: …”\n- E09: “[calmly] Kalkanı omzunda ay gibi asılıdır; dev mızrağına yaslanarak yanan topraklarda yürür.”\n- E11: “… Yıldırım çarpmış bir ormanın ağaçları gibi yanık; ama hâlâ ayakta, hâlâ ona sadıklar.” (I.611)\n- J10 (küle dönen meyveler) isteğe bağlı çıkarılabilir; felaket J07–J09'da tamamlanıyor.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 9,
+      "id": "K08",
+      "sorun": "S-Yon'un “şair araya giriyor” ipliği E04, G02 ve H07'de kurulmuş ama ödenmiyor. Blake okuması için izleyicinin elinde ikinci bir kanıt olabilir.",
+      "oneri": "K08 (isteğe bağlı ek): “[softly] Kendine sor: bu hikâyeden aklında kalan sözler, kimin sözleri? Ve şair, kaç kez araya girip bizi uyarmak zorunda kaldı?” Soru olarak kalır; Milton'a niyet yüklemez.",
+      "onem": "düşük"
+    },
+    {
+      "sira": 10,
+      "id": "Kaynak alanları, A bölüm adı, E08",
+      "sorun": "Çapraz atıflar eski kimlikleri gösteriyor; E08 atlanmış; A bölümünün adı sözle uyuşmuyor (bkz. yeni_sorunlar).",
+      "oneri": "Zaman çizelgesi kurulmadan önce: atıflar L06–L08, L09, K16 olarak güncellensin; kimlikler ardışık hâle getirilsin ya da boşluk not edilsin; A bölümünün adı “Ben cehennemim” olsun.",
+      "onem": "düşük"
+    }
+  ],
+  "en_emin_olmadigim_nokta": "Gerçek konuşma hızı. Tempo puanım (K4 = 8,0) S-Yon'un Sisifos ölçümüne (1,6 kelime/sn, ~26:40) dayanıyor; Emrullah bu metni 2 kelime/sn'ye yakın okursa süre ~21 dakikaya iner ve B ile K'nin uzunluğu daha az sorun olur. Kısa ses denemesi yapılırsa bu sayı ilk ölçülecek şey olmalı. İkinci belirsizlik: L08'deki “hiç açılmamış kapı” okuması dramaturjik olarak trajediyi derinleştiriyor, ama yorumlarda tartışmayı edebiyattan çıkarıp inanca çekebilir; bunu hassasiyet üyeleri tartmalı."
+}
