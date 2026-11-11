@@ -108,7 +108,7 @@ const SF = (() => {
     for (let i = 0; i <= n; i++) { const u = i / n * (m - 1), s = Math.min(m - 2, Math.floor(u)), tt = u - s; S.push(cr(pts[Math.max(0, s - 1)], pts[s], pts[s + 1], pts[Math.min(m - 1, s + 2)], tt)); }
     for (let i = 0; i <= n; i++) {
       const a = S[Math.max(0, i - 1)], b = S[Math.min(n, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
-      const w = wd / k * .5 * Math.pow(Math.sin(PI * (.04 + .92 * i / n)), .55);
+      const w = Math.max(1.3 / k, wd / k * .5 * Math.pow(Math.sin(PI * (.04 + .92 * i / n)), .55)); // en ince 2 px, uç küt
       A.push([S[i][0] - dy / L * w, S[i][1] + dx / L * w]); B.push([S[i][0] + dy / L * w, S[i][1] - dx / L * w]);
     }
     const Q = new Path2D(); poly(Q, [...A, ...B.reverse()], true); c.fill(Q);
@@ -243,7 +243,9 @@ const SF = (() => {
       let E = null; for (let s2 = 0; s2 < 4 * hd_; s2 += 1) { const x = P[0] + dOut[0] * s2, y = P[1] + dOut[1] * s2; if (!ins(a, x, y)) { E = [x, y]; break; } }
       if (!E) return;
       const n = 10, A = [], B = [], din = [-dOut[0], -dOut[1]], nn = [-din[1], din[0]];
-      for (let i = 0; i <= n; i++) { const u = i / n, cx = E[0] + din[0] * L * u + bdir[0] * bend * L * u * u, cy = E[1] + din[1] * L * u + bdir[1] * bend * L * u * u, hw = w * .5 * Math.pow(1 - u, .85) + .15;
+      const uE = w > 2.6 ? 1 - Math.pow(2.6 / w, 1 / .85) : 0;                       // uç: genişlik 2 px'e inince küt biter (1 px'lik kıl kalmaz)
+      if (uE * L < 4) return;
+      for (let i = 0; i <= n; i++) { const u = i / n * uE, cx = E[0] + din[0] * L * u + bdir[0] * bend * L * u * u, cy = E[1] + din[1] * L * u + bdir[1] * bend * L * u * u, hw = Math.max(1.3, w * .5 * Math.pow(1 - u, .85));
         A.push([cx + nn[0] * hw, cy + nn[1] * hw]); B.push([cx - nn[0] * hw, cy - nn[1] * hw]); }
       const Pp = new Path2D(); poly(Pp, [[E[0] + dOut[0] * 1.5, E[1] + dOut[1] * 1.5], ...A, ...B.reverse()], true); c.fill(Pp);
     };
@@ -298,16 +300,13 @@ const SF = (() => {
         if (!light && lit[1] < 0 && o.hair !== false) {
           const sw2 = Math.sin(t * .8) * .02 * wind, k = sc0;
           for (const c of [[[.06, -.55], [-.06, -.53], [-.14, -.57]], [[-.22, -.55], [-.34, -.5], [-.42, -.54]], [[-.47, -.4], [-.55, -.32], [-.53, -.24]]])   // kısa, kıvrık teller: yalnız saç kütlesinin üst-arka kenarında
-            taper(Z, c.map(([x, y]) => HL(x + sw2, y)), Math.max(2, hd_ * .02), k);
+            taper(Z, c.map(([x, y]) => HL(x + sw2, y)), Math.max(2.8, hd_ * .024), k);
           any = true;
         }
       }
       const eo = o.eye ?? (lum < .5 ? 1 : 0);
       if (eo > 0 && hd_ > 24) {                                                    // göz: kaşın altında tek ince ışık
-        any = true; const e0 = HL(.19, -.04), e1 = HL(.34, -.055), dx = e1[0] - e0[0], dy = e1[1] - e0[1], L = Math.hypot(dx, dy) || 1, th = Math.max(1.7 / sc0, h * .028) * eo;
-        Z.beginPath(); Z.moveTo(e0[0], e0[1]);
-        Z.quadraticCurveTo((e0[0] + e1[0]) / 2 + dy / L * th, (e0[1] + e1[1]) / 2 - dx / L * th, e1[0], e1[1]);
-        Z.quadraticCurveTo((e0[0] + e1[0]) / 2 - dy / L * th * .5, (e0[1] + e1[1]) / 2 + dx / L * th * .5, e0[0], e0[1]); Z.fill();
+        any = true; Z.save(); Z.setTransform(ML.a, ML.b, ML.c, ML.d, ML.e, ML.f); taper(Z, [HL(.19, -.04), HL(.27, -.062), HL(.34, -.055)], Math.max(2.8, hd_ * .03) * eo, sc0); Z.restore(); // göz: küt uçlu ince ışık (≥ 2,6 px)
       }
       if (any) AR = Z.getImageData(0, 0, BW, BH).data;
     }
@@ -320,7 +319,7 @@ const SF = (() => {
       return ((a[i] * (1 - fx) + a[i + 4] * fx) * (1 - fy) + (a[i + BW4] * (1 - fx) + a[i + BW4 + 4] * fx) * fy) * (1 / 255);
     };
     const Dl = hd_ * lerp(.25, .45, lum), Ds = hd_ * .2, rI0 = 0, rI1 = Math.max(2, hd_ * .035);
-    const DIR = Array.from({ length: 8 }, (_, k) => { const a = k * TAU / 8, dx = Math.cos(a), dy = Math.sin(a); return [dx, dy, rI0 + rI1 * Math.max(0, -(dx * lx + dy * ly))]; });
+    const DIR = Array.from({ length: 8 }, (_, k) => { const a = k * TAU / 8, dx = Math.cos(a), dy = Math.sin(a); const rr = rI0 + rI1 * Math.max(0, -(dx * lx + dy * ly)); return [dx, dy, rr < 1.6 ? 0 : Math.max(2.4, rr)]; }); // kontur 2 px'ten ince kalmaz
     const doRL = sRim > .01, Dmax = rw + 1.5;
     const rIm = rI0 + rI1 + 1;
     const full = (a, x, y) => { const qx = (x + .5) | 0, qy = (y + .5) | 0; return qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] === 255; };
@@ -343,7 +342,10 @@ const SF = (() => {
           const qx = (x + lx * Dmax + .5) | 0, qy = (y + ly * Dmax + .5) | 0;
           if (!(qx >= 0 && qy >= 0 && qx < BW && qy < BH && a[(qy * BW + qx) * 4 + 3] === 255)) {
             const ddx = x - lc[0], ddy = y - lc[1], dd = Math.sqrt(ddx * ddx + ddy * ddy);
-            if (sRim > .01) { const fd = clamp(1 - (dd - R0) / (R1 - R0)), w = rw * (g < 2 ? .75 : 1) * (.3 + .7 * fd); tg += (1 - tg) * sRim * crisp(1 - smp(a, x + lx * w, y + ly * w)); }
+            if (sRim > .01) { const fd = clamp(1 - (dd - R0) / (R1 - R0)), w = rw * (g < 2 ? .75 : 1) * (.3 + .7 * fd), rv = crisp(1 - smp(a, x + lx * w, y + ly * w));
+              if (rv > 0) { // kenar normali (kaba gradyan): bant genişliği w·cos < 2 px ise kenar ışığı orada küt biter
+                const gx = smp(a, x - w, y) - smp(a, x + w, y), gy = smp(a, x, y - w) - smp(a, x, y + w), gl = Math.hypot(gx, gy);
+                if (gl < .05 || w * (gx * lx + gy * ly) / gl >= 2) tg += (1 - tg) * sRim * rv; } }
             // (eko çizgiler kaldırıldı: yerlerine vuruşlar)
           }
         }

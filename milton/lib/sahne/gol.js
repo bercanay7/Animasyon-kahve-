@@ -47,10 +47,10 @@ function cizGol(t, o = {}) {
   }
   GR.tx.restore();
   // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle)
-  PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .7, strip: .5 });
-  PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6, solidBelow: 500, speed: .7, strip: .5 });
+  PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6, solidBelow: 500, speed: .5, strip: .5 });
+  PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6, solidBelow: 500, speed: .5, strip: .5 });
   // sağ ön: büyük alev dilleri (çerçeve); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
-  PR.flameBank(1480, W + 120, H + 30, 380, t, 4, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55 });
+  PR.flameBank(1480, W + 120, H + 30, 380, t, 14, { env: f => .5 + .5 * f, wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .55 });
   const RK = [[-20, 560], [70, 582], [130, 640], [205, 662], [236, 730], [300, 770], [318, 860], [386, 915], [404, H + 20], [-20, H + 20]];
   const RP = PR.rock(RK,
     { lit: [.85, -.45], hi: .05, mid: .03, lo: .02, seed: 2, th: -.9, rim: 6, facets: 10 });

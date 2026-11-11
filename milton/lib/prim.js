@@ -39,7 +39,8 @@ const PR = (() => {
       const half = (.85 + .5 * v) * (.9 + q() * .2), th = Math.max(4.5, 11 * sc * (.5 + v)), n = 18, A = [], B = [];
       for (let i = 0; i <= n; i++) { const u = i / n, a = la - half + 2 * half * u, ro = R(a) - 5, w = th * Math.pow(Math.sin(PI * u), .8);
         A.push([p.x + Math.cos(a) * ro * FX, p.y + Math.sin(a) * ro * FY]); B.push([p.x + Math.cos(a) * (ro - w) * FX, p.y + Math.sin(a) * (ro - w) * FY]); }
-      tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+      const vis = k => !hidden(A[k][0], A[k][1]);
+      if (vis(n >> 1) && (vis(2) || vis(n - 2))) { tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill(); }
       // vuruşlar: ışık yanındaki dilimden kütlenin içine giren, kesit kavsini izleyen, sivrilen kısa çizgiler.
       // Uzunluk ve aralık düzensiz (eşit olursa tarak gibi durur); hepsi aynı yöne kıvrılır (bıçak izi).
       const ha = PI * (.2 + .14 * v), sg = q() < .5 ? -1 : 1, beta = .5 + q() * .25;
@@ -172,7 +173,7 @@ const PR = (() => {
     for (const g of list) {
       // kabuk taraması: dilin ekseni boyunca akan, eğriliğini izleyen çizgiler
       // büyük dilde kabuk akış çizgileriyle taranır; küçük ve orta dilde (H < 240) tarama iki üç dikey çizgiye düşüp koni gibi okunduğu için dil bütünüyle kâğıt kalır
-      fill(g.outer, tone(g.H < (o.solidBelow ?? 240) ? 1 : edgeT), { type: 'bend', ox: g.base[0], oy: g.base[1], a: g.ax, k: -g.curl * .9 / Math.max(60, g.H), ph: hash(g.seed + 9.1), id });
+      fill(g.outer, tone(g.solid || g.H < (o.solidBelow ?? 240) ? 1 : edgeT), { type: 'bend', ox: g.base[0], oy: g.base[1], a: g.ax, k: -g.curl * .9 / Math.max(60, g.H), ph: hash(g.seed + 9.1), id });
       U.addPath(g.outer);
     }
     tx.fillStyle = tone(core);
@@ -260,7 +261,7 @@ const PR = (() => {
       }
     }
     // tabanda sürekli şerit: dilleri birbirine bağlar; uçlarda sıfıra iner (kutu gibi kesilmez)
-    const strip = { outer: new Path2D(), inner: new Path2D(), base: [x0, y], ax: -PI / 2, H: hgt, curl: 0, seed, frags: [] };
+    const strip = { outer: new Path2D(), inner: new Path2D(), base: [x0, y], ax: -PI / 2, H: hgt, curl: 0, seed, frags: [], solid: true };   // taban şeridi her boyda taramasız
     const sh = hgt * (o.strip ?? .3), sp2 = [], ip = [];   // taban şeridi dillerin arasını kapatır (kapalı siyah boşluk kalmaz)
     for (let x = x0; x <= x1 + 1; x += 10) {
       const f = (x - x0) / (x1 - x0), e = Math.sqrt(Math.max(0, Math.sin(f * PI))) * (o.env ? o.env(clamp(f)) : 1);
