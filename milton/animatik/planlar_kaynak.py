@@ -83,7 +83,7 @@ P = [
  # ── Kapıdaki bekçiler ──
  ('F01', 'KAP', .25, "Bölüm kartı; karanlıkta dev kapı", "kart", "KAPIDAKİ BEKÇİLER"),
  ('F02', 'KAP', .25, "Dokuz katlı kapı; iki bekçi: örtülü kadın silueti (eteği yılan kıvrımı), biçimsiz taçlı gölge", "yavaş yaklaşma", ""),
- ('F03', 'KAP', .25, "Kadın araya girer; arkada anı: başmeleğin başından doğan ışık", "anı belirir, söner", "GÜNAH"),
+ ('F03', 'KAP', .25, "Kadın araya girer; arkada anı: başmeleğin başından doğan ışık", "anı belirir, söner", "GÜNAH · kendi kızı"),
  ('F04', 'KAP', .25, "Gölge mızrağını kaldırır; iki profil karşı karşıya", "", "ÖLÜM · kendi oğlu"),
  ('F05', 'KAO', .25, "Kapı açılır: girdaplı, ufuksuz karanlık okyanus", "kapı kanatları ayrılır", "KAOS"),
  ('F06', 'KAO', .25, "Uçuş ve düşüş: figür girdapta küçülür; rüzgâr yukarı fırlatır", "düşüş, sıçrama", ""),

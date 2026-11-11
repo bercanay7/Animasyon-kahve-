@@ -51,28 +51,62 @@ function kap_sahne(t, o = {}) {
   if (o.fig) o.fig();
   if (o.front) o.front();
 }
-// ── GÜNAH: örtülü kadın silueti; eteği yılan kıvrımına döner (kuyruk zeminde sola kıvrılır). x: ayak hizasında merkez, s ölçek (1 ≈ 520 px boy), f bakış (±1)
+// ── GÜNAH (II.650–653): belden aşağısı kalın, pullu yılan halkaları (yerde iki kıvrım yapıp yükselir; ADN yılanı ailesi),
+// belden yukarısı başı açık, saçları rüzgârda yılan gibi kıvrılan bir kadın gövdesi; omuzlarda toplanan dökümlü peplos (gövde giysisi,
+// baş örtüsü değil). Yüz ayrıntısı yok (yalnız profil dış çizgisi). Mitolojik yaratık silueti: Skylla/Ekhidna ailesi.
+// x: yılan gövdesinin yükseldiği yer (zeminde), s ölçek (1 ≈ 600 px boy), f bakış (±1), o.kay (0..1: süzülme evresi; kıvrımlar akar)
 function kap_gunah(t, x, s, f = -1, o = {}) {
-  const gy = KAP_GY + 4, sw = Math.sin(t * .8) * 4 * s, X = (u) => x + u * s * f, Y = v => gy - v * s;
-  // başlık (öne düşen örtü), dar omuz, yere doğru genişleyen pelerin; pelerinin dibi arkaya doğru kalın bir yılan gövdesine akar ve zeminde kıvrılır
-  const pts = [[22, 540], [-20, 534], [-50, 506], [-60, 470], [-66, 440], [-92, 412], [-112, 350], [-122, 260], [-128, 170], [-132, 90], [-130, 40],
-    [-160, 26], [-230, 18 + sw * .2], [-300, 26], [-350, 50], [-362, 86], [-334, 108], [-300, 96], [-312, 72], [-282, 58], [-220, 50], [-160, 56], [-120, 52],
-    [-60, 22], [20, 10], [92, 14], [96, 80], [94, 170], [88, 260], [78, 350], [64, 408], [58, 432], [70, 458], [74, 490], [62, 520]].map(([u, v]) => [X(u + (v > 300 ? sw * .02 : 0)), Y(v)]);
-  const P = kap_yol(pts, .6);
+  const { tx, tone } = GR, gy = KAP_GY + 4, X = u => x + u * s * f, Y = v => gy - v * s, ph = (o.kay || 0) * 5 + t * .35;
+  const Lp = { x: 960, y: KAP_GY - 40 };
+  // yılan gövdesi: kuyruk ucu (arkada, kadrajda kıvrık) → zeminde iki kıvrım → belden yukarı yükselen gövde
+  const C = [], n = 150;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n;
+    let px, pv;
+    if (u < .62) { const v = u / .62, a = -PI * .2 + v * TAU * 1.55 + ph * .25, cx = lerp(-330, -40, v), rr = lerp(70, 120, v);   // zeminde sarmal kıvrımlar (arkadan öne)
+      px = cx + Math.cos(a) * rr; pv = 46 + Math.sin(a) * rr * .3 + (v < .08 ? (1 - v / .08) * 26 : 0); }
+    else { const v = (u - .62) / .38, e = v * v * (3 - 2 * v);                                       // yükselen gövde: hafif S
+      const c0 = [-40 + Math.cos(-PI * .2 + TAU * 1.55 + ph * .25) * 120, 46 + Math.sin(-PI * .2 + TAU * 1.55 + ph * .25) * 36];
+      px = lerp(c0[0], 0, e) + Math.sin(v * PI * 1.3 + ph * .5) * 26; pv = lerp(c0[1], 300, v); }
+    C.push([X(px), Y(pv)]);
+  }
+  const wr = u => s * (u < .1 ? 6 + 260 * u : u < .62 ? 32 + 22 * (u - .1) / .52 : 54 - 8 * ((u - .62) / .38));
+  adn_yilan(C, wr, { seg: [[0, .33], [.33, .62], [.62, .995]], L: Lp, goz: 0, rim: Math.max(4, 6 * s), kesik: 1.2, t, karin: { u0: .64, u1: .98, d: [f, 0], ara: 12 * s, v: .85 } });
+  // insan gövdesi (bel 300 → baş 600): peplos, kollar, boyun, baş (profil), dağınık saç
+  const U = new Path2D(), cok = (pts, sp = .6) => { const q = pts.map(([u, v]) => [X(u), Y(v)]); spline(U, kap_yon(q), true, sp); };
+  const sw = Math.sin(t * .9) * 3;
+  // peplos: omuzlarda toplanmış, belin altına dökülen kat (apoptygma) ve kıvrımlı alt kenar
+  cok([[-28, 522], [-62, 514], [-76, 490], [-64, 446], [-54, 404], [-50, 366], [-64, 330], [-84, 290], [-70, 272], [-54, 282], [-36, 266], [-16, 280], [4, 264], [24, 278], [44, 262], [64, 276], [82, 268], [70, 310], [52, 352], [50, 396], [60, 446], [64, 484], [50, 508], [24, 520]]);
+  // kollar: ön kol ileri uzanır (karşısındakine seslenir), arka kol yanda
+  const tup = (pts, w0, w1) => { const q = pts.map(([u, v]) => [X(u), Y(v)]), A = [], B = []; for (let i = 0; i < q.length; i++) { const p0 = q[Math.max(0, i - 1)], p1 = q[Math.min(q.length - 1, i + 1)], dx = p1[0] - p0[0], dy = p1[1] - p0[1], l = Math.hypot(dx, dy) || 1, w = lerp(w0, w1, i / (q.length - 1)) * s; A.push([q[i][0] - dy / l * w, q[i][1] + dx / l * w]); B.push([q[i][0] + dy / l * w, q[i][1] - dx / l * w]); } spline(U, kap_yon([...A, ...B.reverse()]), true, .7); };
+  const ar = o.uzan ?? .5;
+  tup([[44, 488], [78, lerp(430, 450, ar)], [lerp(104, 150, ar), lerp(370, 452, ar)], [lerp(116, 182, ar), lerp(352, 448, ar)]], 16, 10);
+  tup([[-58, 488], [-78, 424], [-76, 356], [-64, 320]], 15, 10);
+  // boyun ve baş: yüz bakış yönünde; yalnız profil dış çizgisi (alın, burun, çene)
+  cok([[-12, 510], [-14, 540], [14, 540], [12, 512]]);
+  cok([[-26, 556], [-24, 584], [-6, 600], [16, 598], [30, 584], [34, 568], [44, 560], [36, 552], [38, 542], [30, 534], [24, 524], [6, 520], [-14, 528]], .55);
+  // saç: başın arkasından savrulan, uçları sivrilen dalgalı tutamlar (yılan kıvrımı gibi; rüzgârla yavaşça oynar)
+  for (let k = 0; k < 6; k++) {
+    const r = rng(40 + k), L0 = (120 + r() * 90), v0 = 586 - k * 11, A = [], B = [];
+    for (let i = 0; i <= 14; i++) { const u = i / 14, uu = -14 - u * L0, vv = v0 + Math.sin(u * 4.2 + k * 1.3 + t * 1.1) * 16 * u + (k - 2.5) * 6 * u + 10 * u, w = lerp(10, 1.6, Math.pow(u, .8)) * s;
+      A.push([uu, vv + w / s]); B.push([uu, vv - w / s]); }
+    cok([...A, ...B.reverse()], .7);
+  }
   const L = [(960 - x) / Math.hypot(960 - x, 300), -300 / Math.hypot(960 - x, 300)];
-  kap_kutle(P, L, Math.max(4, 7 * s));
-  GR.tx.save(); GR.tx.clip(P);   // örtünün kıvrımları: başlıktan aşağı inen birkaç uzun vuruş, kuyrukta pul vuruşları
-  for (const [u0, v0, u1, v1] of [[-40, 480, -80, 330], [-40, 400, -80, 160], [30, 390, 50, 120]]) gol_vurus(GR.tx, [[X(u0), Y(v0)], [X((u0 + u1) / 2 - 6), Y((v0 + v1) / 2)], [X(u1), Y(v1)]], 6 * s, .9, .6);
-  for (let k = 0; k < 5; k++) { const u = -150 - k * 38, v = 44 + (k > 3 ? 10 : 0); gol_vurus(GR.tx, [[X(u), Y(v + 12)], [X(u - 8), Y(v)]], 5 * s, .9, .6); }
-  GR.tx.restore();
-  return { head: [X(0), Y(470)], top: [X(0), Y(520)] };
+  kap_kutle(U, L, Math.max(4, 6.5 * s));
+  // kumaş kıvrımları: omuzdan düşen, sivrilen uzun beyaz vuruşlar; kat kenarında kısa vuruşlar
+  tx.save(); tx.clip(U);
+  for (const [u0, v0, u1, v1] of [[-44, 500, -66, 300], [6, 470, -4, 290], [44, 480, 60, 300]]) gol_vurus(tx, [[X(u0), Y(v0)], [X((u0 + u1) / 2 + 4), Y((v0 + v1) / 2)], [X(u1), Y(v1)]], Math.max(3, 5.5 * s), .9, .5);
+  gol_vurus(tx, [[X(-80), Y(300)], [X(0), Y(292)], [X(76), Y(300)]], Math.max(3, 5 * s), .92, .3);
+  tx.restore();
+  return { head: [X(0), Y(570)], top: [X(0), Y(600)] };
 }
 // ── ÖLÜM: biçimsiz, taçlı koyu gölge; kenarları dumanlı (yavaşça kıpırdar); mızrak. x: taban merkezi, s ölçek, sp (0..1 mızrak kalkışı)
 function kap_olum(t, x, s, f = 1, o = {}) {
   const { tx, tone } = GR, gy = KAP_GY + 6, hgt = 640 * s, n = 40, pts = [];
   // yarı genişlik profili (v: 0 zemin … 1 tepe): yere doğru dağılan etek, geniş omuz, dar baş; kenarlar duman gibi yavaşça kıpırdar
   const WP = [[0, 165], [.15, 128], [.45, 108], [.7, 122], [.78, 96], [.84, 64], [.95, 58], [1, 0]];
-  const side = (sd) => { const out = []; for (let i = 0; i <= n; i++) { const v = i / n, w0 = mec_tab(WP, v) * s, amp = (v < .3 ? 22 : 9) * s * (1 - v * .5);
+  const side = (sd) => { const out = []; for (let i = 0; i <= n; i++) { const v = i / n, w0 = mec_tab(WP, v) * s, amp = (v < .3 ? 36 : 18) * s * (1 - v * .4);
     const nz = fbm1(i * .7 + (sd > 0 ? 40 : 0) + t * .3, 7) + .4 * Math.sin(i * 2.3 + t * .8 + sd); out.push([x + sd * (w0 + amp * nz), gy - v * hgt + (v < .02 ? 0 : 0)]); } return out; };
   const Rt = side(1), Lf = side(-1).reverse();
   for (let k = 0; k < 7; k++) { const u = k / 6, xx = lerp(x + 150 * s, x - 150 * s, u), yy = gy + (k % 2 ? -18 : 6) * s + Math.sin(t * .9 + k) * 4 * s; Rt.unshift; Lf.push([xx, yy]); }   // yırtık etek
@@ -112,7 +146,7 @@ plan('P056', (ctx, st) => {
 plan('P057', (ctx, st) => {
   const t = st.t, w = k => Wd('F02', k);
   const cam = camLerp({ cx: 900, cy: 560, z: 1 }, { cx: 1020, cy: 560, z: 1 }, st.p, E.sine);
-  levha(ctx, cam, () => kap_sahne(t, { fig: () => { kap_gunah(t, 700, 1, 1); kap_olum(t, 1230, 1, -1, { sp: 0 }); } }));
+  levha(ctx, cam, () => kap_sahne(t, { fig: () => { kap_gunah(t, 760, .9, 1, { uzan: .2 }); kap_olum(t, 1230, 1, -1, { sp: 0 }); } }));
 }, { tr: { type: 'fade', dur: .8 } });
 
 // ═════════ F03 (P058): kadın araya girer; arkada anı: başmeleğin başının sol yanından doğan ışık ═════════
@@ -136,17 +170,25 @@ plan('P058', (ctx, st) => {
   levha(ctx, { cx: 960, cy: 560, z: 1 }, () => kap_sahne(t, { lt: .9, mid: () => kap_ani(aa, gg, 250, 230), fig: () => {
     kap_seytan(t, 300, 62, { armN: [lerp(.3, 1.1, E.io2(kap_u(t, w('dövüşmeye') - .3, w('hazırlanırken')))) * (1 - gi * .7), .3], spear: { grip: 'N', ang: .3, len: 7, up: .7 } });
     kap_olum(t, 1180, .95, -1, { sp: .15 });
-    kap_gunah(t, lerp(1480, 720, gi), .9, -1);
+    kap_gunah(t, lerp(1520, 760, gi), .85, -1, { kay: gi, uzan: E.io2(kap_u(t, w('beni') - .2, w('unuttun') + .4)) });
   } }));
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => etiket(ctx, 'GÜNAH', 760, 200, st.t - Wd('F03', 'günah'), 99, { px: 56, ls: 10, panel: .9 }) });
+  over: (ctx, st) => {
+    if (NOTEXT) return;
+    const t1 = st.t - Wd('F03', 'günah'), t2 = t1 - .6;
+    if (t1 <= 0) return;
+    ctx.save(); ctx.font = FONT.baslik(56, 600); ctx.letterSpacing = '8px'; const a = ctx.measureText('GÜNAH').width, b = ctx.measureText(' · kendi kızı').width; ctx.restore();
+    const x0 = 820 - (a + b) / 2;
+    etiket(ctx, 'GÜNAH', x0 + a / 2, 150, t1, 99, { px: 56, ls: 8, panel: .9 });
+    if (t2 > 0) etiket(ctx, ' · kendi kızı', x0 + a + b / 2, 150, t2, 99, { px: 56, ls: 8, panel: .9 });
+  } });
 
 // ═════════ F04 (P059): gölge mızrağını kaldırır; iki profil karşı karşıya ═════════
 plan('P059', (ctx, st) => {
   const t = st.t, w = k => Wd('F04', k), sp = E.io2(kap_u(t, w('dövüşmek') - .3, w('olduğu') + .4));
   const cam = camLerp({ cx: 990, cy: 560, z: 1 }, { cx: 930, cy: 560, z: 1 }, st.p, E.sine);
   levha(ctx, cam, () => kap_sahne(t, { lt: .85, fig: () => {
-    kap_gunah(t, 960, .7, -1);
+    kap_gunah(t, 1000, .62, -1, { uzan: .3 });
     kap_seytan(t, 470, 82, { head: .05, armN: [lerp(.6, 1.6, sp), .4], spear: { grip: 'N', ang: .6, len: 7, up: .7 }, wingK: .75, open: .3 * sp });
     kap_olum(t, 1430, 1.05, -1, { sp });
   } }));

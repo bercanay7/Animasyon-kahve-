@@ -223,7 +223,6 @@ const MEC_GEN = { K: 2.3, zc: .9, vy: 170, serit: 1 };
 function mec_kure(x, y, R, a) {
   if (a <= .01) return;
   const { tx, tone } = GR, r = R * E.out3(a);
-  PR.glow(x, y, r, r * 1.5, 1, .5 * a);
   // dolu, parlak küre (hilal okunmasın diye gölge yok); üstünde iki mürekkep çizgi: eğik eksenli bir meridyen ve bir enlem
   const P = new Path2D(); P.arc(x, y, r, 0, TAU); tx.fillStyle = tone(.98); tx.fill(P);
   if (r > 8) { tx.save(); tx.clip(P);
@@ -237,7 +236,7 @@ plan('P053', (ctx, st) => {
   const ka = E.io2(mec_u(t, tD - .4, tD + 1.2));
   levha(ctx, cam, () => mec_salon(t, Object.assign({}, MEC_GEN, { glow: lerp(1, .85, ka), crowd: () => ({}),
     fig: () => mec_seytan(t, MEC_OTUR(t, tK)), figZ: MW.TZ - .02,
-    aisle: [{ z: 2.6, d: () => { const [x, y] = mec_P(-330, -40, 2.6); mec_kure(x, y, 44, ka); } }] })));
+    front: () => { if (ka > .01) { const D = new Path2D(); D.arc(500, 330, 46 * 1.45 * E.out3(ka), 0, TAU); GR.fill(D, GR.tone(.02), { th: 0, id: 1 }); } mec_kure(500, 330, 46, ka); } })));
 }, { tr: { type: 'fade', dur: .9 } });
 
 // ═════════ Dönüşüm figürü (J03, J07 ve sonrası) ═════════

@@ -276,13 +276,13 @@ function cen_yildiz(x, y, r, a = 1, o = {}) {
   const { tx, px, tone } = GR; if (a <= 0) return;
   const q = rng(o.seed || 5), n = 14, S = new Path2D(), k = .55 + .45 * a, c = r * .2, ph = q() * TAU;
   for (let i = 0; i < n; i++) {
-    const an = ph + (i + (q() - .5) * .35) / n * TAU, len = r * k * (.45 + .45 * q()), w = r * (.05 + .03 * q()), ca = Math.cos(an), sa = Math.sin(an);
+    const an = ph + (i + (q() - .5) * .35) / n * TAU, len = r * k * (.45 + .45 * q()), w = r * (.07 + .03 * q()), ca = Math.cos(an), sa = Math.sin(an);
     const b0 = [x + ca * c * .7, y + sa * c * .7];
     S.moveTo(b0[0] - sa * w, b0[1] + ca * w); S.lineTo(x + ca * (c + len), y + sa * (c + len)); S.lineTo(b0[0] + sa * w, b0[1] - ca * w); S.closePath();
   }
-  S.moveTo(x + c, y); S.arc(x, y, c, 0, TAU);
-  if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'round'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(S); }
-  tx.fillStyle = tone(1); tx.fill(S);
+  const C = new Path2D(); C.arc(x, y, c, 0, TAU);
+  if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'round'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fill(S); px.fill(C); }
+  tx.fillStyle = tone(1); tx.fill(S); tx.fill(C);
 }
 // İkinci ışık (Oğul): figürsüz temiz kâğıt disk ve parıltı. Yüz, el, hale, haç yok.
 function cen_isik(x, y, r, a = 1) {
@@ -296,10 +296,10 @@ function cen_isik(x, y, r, a = 1) {
 function cen_saray(x, y, s, lx = 1) {
   const { tx, px, tone } = GR, u = s / 10, B = new Path2D(), R = new Path2D();
   // basamaklı piramit (orta)
-  const st = 5, pw = 6 * u, ph = 4.2 * u;
+  const st = 6, pw = 6.4 * u, ph = 5.2 * u;
   for (let i = 0; i < st; i++) { const w = pw * (1 - i / st), hh = ph / st; B.rect(x - w / 2, y - hh * (i + 1), w, hh + 1); R.rect(lx > 0 ? x + w / 2 - .22 * u : x - w / 2, y - hh * (i + 1), .22 * u, hh * .7); }
   // kristal kuleler: kalın gövde, iki basamak, sivri uç (obelisk); farklı boylar
-  const T = [[-4.1, 1.3, 6.4], [-2.6, 1.0, 8.6], [2.5, 1.1, 9.4], [3.9, 1.3, 6.8], [0, 1.0, 7.4]];
+  const T = [[-4.3, 2.0, 5.0], [-2.6, 1.8, 6.4], [2.6, 1.9, 6.8], [4.3, 2.1, 5.2]];   // kalın, kısa, kristal gibi (ince uzun kule yok)
   for (const [dx, w, H] of T) {
     const cx = x + dx * u, ww = w * u, hh = H * u, yb = y;
     B.moveTo(cx - ww / 2, yb); B.lineTo(cx - ww / 2, yb - hh * .55); B.lineTo(cx - ww * .38, yb - hh * .58); B.lineTo(cx - ww * .38, yb - hh * .78); B.lineTo(cx, yb - hh);

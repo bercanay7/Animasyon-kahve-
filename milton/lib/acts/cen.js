@@ -100,6 +100,7 @@ function cen_selam(x, gy, h, f, b, L, t, seed, o = {}) {
   let lx = L.x - J.shC[0], ly = L.y - J.shC[1]; { const l = Math.hypot(lx, ly) || 1; lx /= l; ly /= l; }
   if (o.wings !== false) for (const [side, sd0] of [[-1, 71], [1, 72]]) {
     const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
+    if (h < 30) { cen_kanatKoyu(sh[0] - side * h * .2, sh[1] + h * .2, side, (side < 0 ? 3.4 : 3.0) * h, { lift: 1.1, open: .9, seed: seed * 7 + sd0, t, L }); continue; }   // uzak: ucuz kapalı kanat
     GR.frame(sh[0] - side * h * .25, sh[1] + h * .15, (side < 0 ? -.05 : .08), side, 1);
     KN.feathered({ span: (side < 0 ? 5.4 : 4.8) * h, open: .32, lift: .72, droop: .2, ruin: 0, dark: .93, rim: .8, t, seed: seed * 7 + sd0, root: .1, lit: [lx * side, ly] });
     GR.unframe();
