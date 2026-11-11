@@ -967,7 +967,9 @@ const NIF_L07_ZINCIR = (() => {
 function nif_l07(t) {
   const tC = Wd('L07', 'çözülmüştü'), tK = Wd('L07', 'zinciri', 1), tV = Wd('L07', 'vurdu') + .15, tG = Wd('L07', 'gururu', 1);   // 'bu zinciri … kendi eliyle vurdu' boyunca halka halka
   const pulse = Math.sin(PI * clamp((t - tG + .1) / 1.2));
-  const F = nif_kancaA01(t, .35 * pulse);
+  // her tur sarıldıkça omuzlar çöker (figür ayak hizasında 3–4 px kısalır) ve baş biraz daha eğilir; son halkada kısa bir sarsılma
+  const pr = E.io2(nif_u(t, tK, tV)), sh = Math.exp(-Math.pow((t - tV) / .12, 2)) * Math.sin(t * 60) * .015;
+  const F = nif_kancaA01(t, .35 * pulse, { K: { x: NIF_KANCA.x, y: NIF_KANCA.y, U: NIF_KANCA.U * (1 - .018 * pr) }, tilt: NIF_EGIM - .1 * pr + sh });
   // kopuk zincirler: ayakların iki yanında, koyu zirvede; kalın, az (3 parça), uçta açılmış kırık halka
   const ca = E.io2(nif_u(t, tC - .3, tC + .9));
   if (ca > 0) {
@@ -989,6 +991,17 @@ function nif_l07(t) {
   for (let i = 0; i < k; i++) { const [a, b] = links[i]; PR.chain(a[0], a[1], b[0], b[1], 50, { over: true, lit: [0, -1] }); }
   return F;
 }
-plan('P137', (ctx, st) => levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
-  { tr: { type: 'fade', dur: .8 },
+// L07 üç kadraj (kurgu kurulu): (a) G09b'nin diz bükme karesinin geri çağrısı («bir çıkış görmüştü … boyun eğmek»);
+// (b) «Abdiel onu uyarmıştı» D03'teki Abdiel yakın planının geri çağrısı (sav.js P032 çizimi aynen çağrılır, alıntısıyla);
+// (c) «Krallığı buldu; zinciri de …»: A01 karesi, kopuk zincirler, kendi bedenini saran zincir, "gururu".
+plan('P137', (ctx, st) => levha(ctx, { cx: 915, cy: 570, z: 1 }, () => nif_g09(st.t, .72 * E.io2(nif_u(st.t, Wd('L07', 'boyun') - .6, Wd('L07', 'eğmek') + .4)), 0), NIF_BG),
+  { tr: { type: 'fade', dur: .8 } });
+shot(Wd('L07', 'abdiyel') - .2, (ctx, st) => {
+  const P = SHOTS.find(x => x.id === 'P032'); if (!P) return;
+  const m = Wd('D03', 'ama') - .9 - Wd('L07', 'cehennemde') + .2, t2 = st.t + m;   // alıntı 'cehennemde' ile belirir
+  P.draw(ctx, { t: t2, lt: st.lt, d: st.d, p: st.p, at: st.at + m, end: st.end + m });
+}, { id: 'P137a', tr: { type: 'cut' },
+  over: (ctx, st) => { const P = SHOTS.find(x => x.id === 'P032'); if (P && P.over) { const m = Wd('D03', 'ama') - .9 - Wd('L07', 'cehennemde') + .2; P.over(ctx, { t: st.t + m, lt: st.lt, d: st.d, p: st.p, at: st.at + m, end: st.end + m }); } } });
+shot(Wd('L07', 'krallığı') - .2, (ctx, st) => levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
+  { id: 'P137b', tr: { type: 'cut' },
     over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; quote(ctx, 'gururu', 1480, 108, st.lt, { t0, px: 84, panel: false }); } });   // P001 ile aynı yerleşim (ayna)
