@@ -251,7 +251,7 @@ const MEC_NS = 40;
 const mec_tab = (T, s) => { if (s <= T[0][0]) return T[0][1]; for (let i = 1; i < T.length; i++) if (s <= T[i][0]) { const [a, va] = T[i - 1], [b, vb] = T[i], u = (s - a) / (b - a); return va + (vb - va) * u * u * (3 - 2 * u); } return T[T.length - 1][1]; };
 // genişlik (baş boyu biriminde), s: 0 ayak … 1 boyun; F: göğüs (bakış) yanı, B: sırt yanı
 // insan evresi (kiy_seytan kütlesi): göğüs yanında zırh eteği (s .48–.6) ve geniş göğüs; sırt yanında omuzdan baldıra inen pelerin
-const MEC_INS_F = [[0, 0], [.44, 0], [.48, .62], [.56, .56], [.66, .46], [.8, .66], [.9, .62], [.96, .34], [1, .3]];
+const MEC_INS_F = [[0, 0], [.18, 0], [.24, .5], [.36, .52], [.48, .62], [.56, .56], [.66, .46], [.8, .66], [.9, .62], [.96, .34], [1, .3]];
 const MEC_INS_B = [[0, 0], [.2, 0], [.25, .95], [.36, .92], [.5, .84], [.66, .7], [.8, .7], [.9, .82], [.96, .38], [1, .3]];
 const MEC_MUM = [[0, .3], [.15, .38], [.3, .46], [.45, .54], [.6, .62], [.75, .6], [.85, .64], [.93, .56], [.98, .44], [1, .42]];
 const MEC_YIL = [[0, .04], [.1, .3], [.28, .66], [.5, .76], [.8, .72], [.92, .56], [1, .48]];
@@ -414,23 +414,72 @@ function mec_j7Fig(t, J, P, o = {}) {
 }
 const MEC_MEYVE_DUS = fu => { const x0 = 690, y0 = 560, yG = 905, g2 = 1500, tt = Math.min(fu, Math.sqrt(2 * (yG - y0) / g2)); if (fu <= tt) return [x0 + 60 * fu, y0 + .5 * g2 * fu * fu];
   const u2 = fu - tt, b = Math.abs(Math.sin(u2 * 7)) * 30 * Math.exp(-u2 * 3.5); return [x0 + 40 * tt - 150 * (1 - Math.exp(-u2 * 1.2)), yG + 26 * (1 - Math.exp(-u2 * 1.2)) - b]; };
-// (a) orta plan: şaşkınlık, kanatların büzülmesi
+// (a) orta plan: şaşkınlık, kanatların sarsılması. Figür kıyıdaki Şeytan'la aynı (kiy_seytan); dönüşüm figürüne geçiş P109b kesmesinin arkasında
 plan('P109', (ctx, st) => {
-  const t = st.t, J = mec_j7(t);
-  levha(ctx, null, () => mec_orta(t, { fig: () => mec_j7Fig(t, J, { px: MEC_J.px, py: MEC_J.py, h: MEC_J.h }, { fruit: MEC_MEYVE_DUS }), figZ: 3.1, crowd: f => ({ n: .45, bend: f.bd * (.6 + .4 * Math.sin(f.ph)) }) }));
+  const t = st.t, J = mec_j7(t), sh = Math.sin(t * 9) * .06 * E.sine(mec_u(t, J.w('şaşırır', 1) - .3, J.w('hisseder') + .2));
+  levha(ctx, null, () => mec_orta(t, { fig: () => {
+    const h = MEC_J.h, Jr = kiy_seytan(t, { x: MEC_J.px, gy: MEC_J.py, h, facing: 1, twist: .35, head: lerp(.1, -.2, J.arm), lum: .1, cloak: 1.3, wingK: .95 * (1 - .55 * J.wk), open: -sh, lift: .1 * sh,
+      armN: [lerp(2.55, .3, J.arm), lerp(.35, .3, J.arm)], armF: [-.15, .2], lit: [-.42, -.91], legN: [.08, -.04], legF: [-.08, -.03] });
+    const d = mec_dir(lerp(2.9, .6, J.arm)), c = [Jr.wrN[0] + d[0] * .3 * h, Jr.wrN[1] + d[1] * .3 * h], P = new Path2D(); P.arc(c[0], c[1], .21 * h, 0, TAU);
+    GR.tx.save(); GR.tx.lineWidth = 4; GR.tx.strokeStyle = GR.tone(.02); GR.tx.stroke(P); GR.tx.fillStyle = GR.tone(.98); GR.tx.fill(P); GR.tx.restore();
+  }, figZ: 3.1, crowd: f => ({ n: .45, bend: f.bd * (.6 + .4 * Math.sin(f.ph)) }) }));
 }, { tr: { type: 'cut' } });
-// (b) baş-omuz yakın planı: «yüzünün sivrildiğini» (yüz ayrıntısı yok; dış çizgi)
+// (b) baş-omuz yakın planı: «yüzünün sivrildiğini». E10 profilinin (gol.js cizProfil) dili: SF gövdesi (omuz zırhı, pelerin, kenar ışığı,
+// vuruşlar) + kendi baş dış çizgimiz. Baş: SF baş profili ile saç kütlesinin birleşimi, merkezden 72 açıda yarıçap olarak örneklenir;
+// sivrilmede her açının yarıçapı yılan başına sürekli geçer (alın geri yatar, burun-çene öne uzayıp birleşir, saç kısalıp kaybolur), boyun kalınlaşır.
+const MEC_SF_HEAD = [[-.45, -.04], [-.43, -.3], [-.26, -.5], [.02, -.56], [.24, -.47], [.34, -.32], [.37, -.17], [.385, -.1], [.4, -.05], [.475, .1], [.45, .145], [.39, .165],
+  [.405, .215], [.39, .245], [.405, .28], [.375, .33], [.395, .41], [.34, .5], [.18, .52], [.02, .44], [-.14, .44], [-.32, .36], [-.44, .2]];
+const MEC_SF_SAC = [[.24, -.43], [.08, -.58], [-.16, -.62], [-.38, -.57], [-.53, -.46], [-.62, -.32], [-.6, -.2], [-.6, -.07], [-.55, .04], [-.5, .12], [-.44, .19], [-.38, .22], [-.3, .16], [-.24, -.04], [-.08, -.3], [.12, -.38]];
+function mec_isin(poly, a) {   // merkezden (0,0) a açısındaki ışının çokgenle en uzak kesişimi
+  const ux = Math.cos(a), uy = Math.sin(a); let m = 0;
+  for (let i = 0; i < poly.length; i++) { const [x1, y1] = poly[i], [x2, y2] = poly[(i + 1) % poly.length], ex = x2 - x1, ey = y2 - y1, den = ux * ey - uy * ex;
+    if (Math.abs(den) < 1e-9) continue; const tt = (x1 * ey - y1 * ex) / den, u = (x1 * uy - y1 * ux) / den; if (tt > 0 && u >= 0 && u <= 1) m = Math.max(m, tt); }
+  return m;
+}
+const MEC_PROF_N = 72;
+const MEC_PROF_H = Array.from({ length: MEC_PROF_N }, (_, k) => { const a = k / MEC_PROF_N * TAU - PI; return [Math.max(mec_isin(MEC_SF_HEAD, a), mec_isin(MEC_SF_SAC, a)), mec_isin(MEC_SF_HEAD, a)]; });
+function mec_profil(t, J) {
+  const { tx, tone } = GR, p = J.p, wk = J.wk;
+  tx.fillStyle = tone(.03); tx.fillRect(-300, -300, W + 600, H + 600);
+  const G = new Path2D(); G.rect(-300, -300, W + 600, H + 600); GR.fill(G, null, { th: 0, id: 1 });
+  PR.glow(1010, 470, 120, 640, 1, .95);                                            // taht ışığı (arkada; odak başın arkası)
+  // taht tepesi: sağ arkada koyu, ışık kenarlı
+  const T = new Path2D(); mec_cok(T, [[1330, 1100], [1330, 220], [1308, 196], [1318, 170], [1600, 170], [1610, 196], [1590, 220], [1590, 1100]]); GR.fill(T, tone(.02), { th: -PI / 2, id: 9 });
+  tx.save(); tx.clip(T); gol_vurus(tx, [[1338, 1080], [1338, 600], [1340, 232]], 8, .95, .2); tx.restore();
+  const h = 470, Jr = SF.rig({ x: 820, y: 1980 + Math.sin(t * .6) * 2, h, facing: 1, twist: .55, lean: .02, head: lerp(.1, -.05, p), shTilt: -.04, armN: [.05, .1], armF: [-.05, .1] });
+  // kanat: omzun arkasından yükselen üst kenar; büzülür
+  if (wk < .97) { GR.frame(Jr.shF[0] - h * .2, Jr.shF[1] + h * .1, -.25 + .6 * wk, -1, .55); KN.feathered({ span: 9 * h * (1 - wk), open: lerp(.45, .1, wk), lift: lerp(.5, 0, wk), droop: lerp(.5, 1, wk), ruin: .6, dark: .93, rim: .75, t, seed: 31, root: .1, lit: [-.35, -.94] }); GR.unframe(); }
+  SF.draw(Jr, { lum: .15, lit: [.35, -.94], t, legs: false, skirt: false, eye: 0, hair: false, headScale: .05, wind: .6, cloak: 1.4, halo: 4, lines: 2 });
+  // boyun: insan boynundan omuza akan kalın yılan boynuna
+  const hh = h * 1.04, hd = Jr.hd, tl = lerp(.1, -.05, p), c = Math.cos(-tl), sn2 = Math.sin(-tl), L = (x, y) => [hd[0] + x * hh * c - y * hh * sn2, hd[1] + x * hh * sn2 + y * hh * c];
+  const U = new Path2D();
+  { const nw = lerp(.24, .42, p), a0 = L(-.05 - nw * .3, .3), a1 = L(-.02 - nw, 1.15), b1 = L(.2 + nw * .6, 1.15), b0 = L(.2 + nw * .2, .3); mec_cok(U, [a0, L(-.1 - nw * .8, .75), a1, b1, L(.22 + nw * .7, .75), b0], .6); }
+  // baş: insan (saç dahil) → yılan; saç tutamları kısalır
+  const sacK = 1 - clamp(p * 1.4), HP = [];
+  for (let k = 0; k < MEC_PROF_N; k++) {
+    const a = k / MEC_PROF_N * TAU - PI, [rH, rB] = MEC_PROF_H[k], rh = lerp(rB, rH, sacK);
+    const c2 = Math.cos(a), s2 = Math.sin(a), ax = c2 > 0 ? .95 : .44, by = s2 < 0 ? .36 : .34, rs = 1 / Math.sqrt((c2 / ax) ** 2 + (s2 / by) ** 2);
+    const r = lerp(rh, rs, E.io2(p)), off = .12 * E.io2(p);
+    HP.push(L(c2 * r + off, s2 * r + .06 * E.io2(p)));
+  }
+  mec_cok(U, HP, .55);
+  // saç tutamları: arkaya savrulan, sivrilen kıvrık uçlar (kısalıp kaybolur)
+  if (sacK > .02) for (let k = 0; k < 4; k++) { const a0 = L(-.5 + k * .03, -.36 + k * .14), ln = (.22 + .06 * k) * sacK, w = .06 * sacK;
+    const pts = [[-.5 + k * .03, -.36 + k * .14 - w], [-.5 + k * .03 - ln * .6, -.4 + k * .14 + Math.sin(t + k) * .02], [-.5 + k * .03 - ln, -.3 + k * .15], [-.5 + k * .03, -.36 + k * .14 + w]].map(([x, y]) => L(x, y)); mec_cok(U, pts, .7); }
+  const Ld = [.35, -.94]; GR.fill(U, null, { th: 0, id: 5 });
+  tx.save(); tx.clip(U); tx.fillStyle = tone(.96); tx.fill(U); tx.translate(-Ld[0] * 9, -Ld[1] * 9); tx.fillStyle = tone(.02); tx.fill(U); tx.restore();
+  // biçimi izleyen beyaz vuruşlar: saç kıvrımları (söner), alın-burun ışığı, boyun kası → yılan boynunda pul vuruşları
+  tx.save(); tx.clip(U);
+  if (sacK > .05) for (const pl of [[[-.2, -.5], [-.36, -.42], [-.46, -.26]], [[-.06, -.52], [-.2, -.38], [-.3, -.2]]]) gol_vurus(tx, pl.map(([x, y]) => L(x, y)), 7 * sacK, .93, .5);
+  gol_vurus(tx, [L(.08, -.5), L(.3, -.38), lerp(1, 0, 0) && L(lerp(.37, .9, E.io2(p)), lerp(-.14, -.1, E.io2(p)))], 7, .95, .4);
+  for (let k = 0; k < 4; k++) { const y = .45 + k * .16, sv = .3 + .7 * p; gol_vurus(tx, [L(.22 + .14 * p, y), L(.05 + .08 * p, y + .05)], 6 * sv, .9, .6); }
+  tx.restore();
+  // göz: insanda kaşın altında ince yatay ışık → yılanda dikey yarık
+  { const q = E.io2(p), ec = L(lerp(.27, .42, q), lerp(-.06, -.12, q)), P = new Path2D(); P.ellipse(ec[0], ec[1], lerp(.075, .012, q) * hh, lerp(.012, .05, q) * hh, -tl, 0, TAU); tx.fillStyle = tone(.98); tx.fill(P); }
+}
 shot(Wd('J07', 'yüzünün') - .12, (ctx, st) => {
   const t = st.t, J = mec_j7(t);
-  levha(ctx, null, () => {
-    const { tx, tone } = GR; tx.fillStyle = tone(.03); tx.fillRect(-100, -100, W + 200, H + 200);
-    const G = new Path2D(); G.rect(-100, -100, W + 200, H + 200); GR.fill(G, null, { th: 0, id: 1 });
-    PR.glow(1120, 420, 60, 760, 1, .95); PR.glow(1120, 420, 30, 380, 1, .9);
-    // tahtın tepesi arkada (koyu, ışık kenarlı)
-    const T = new Path2D(); mec_cok(T, [[1260, 1100], [1260, 250], [1240, 226], [1250, 200], [1520, 200], [1530, 226], [1510, 250], [1510, 1100]]); GR.fill(T, tone(.02), { th: -PI / 2, id: 9 });
-    tx.save(); tx.clip(T); gol_vurus(tx, [[1268, 1080], [1268, 600], [1270, 262]], 8, .95, .2); tx.restore();
-    mec_j7Fig(t, J, { px: 860, py: 430 + 7.44 * 230, h: 230, rimW: 9, gozK: .5 });
-  });
+  levha(ctx, null, () => mec_profil(t, J));
 }, { id: 'P109b', tr: { type: 'cut' } });
 // (a') orta plan: kollar yapışır, bacaklar dolanır
 shot(Wd('J07', 'kolları') - .3, (ctx, st) => {

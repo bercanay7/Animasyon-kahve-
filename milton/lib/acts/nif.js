@@ -482,6 +482,61 @@ function nif_alev7(t, F, a = 0, kx = 1) {
   }
   tx.restore();
 }
+// ═════════ baş-omuz yakın planı: güneşe karşı profil silueti (yüz ayrıntısı yok: dış çizgi + kenar ışığı) ═════════
+// Kanca figürünün yakın hâli: kıvırcık saç (bukleler), kısa boyun, kambur omuz, pelerin; omzun arkasında kanadın kemeri yükselir.
+// o: {f (bakış: 1 sağa, −1 sola), nx, ny (boyun tabanı, dünya), h (baş boyu px; 450 ≈ kare yüksekliğinin %45'i), bow (baş eğimi: + öne/aşağı, radyan),
+//     drop (omuz çöküşü, h biriminde), wing (0..1 kanat kemerinin yüksekliği), sun ({x,y,r}: kenar ışığı bu çevrede)}
+function nif_yakinSiluet(t, o) {
+  const { tx } = GR, f = o.f ?? 1, h = o.h ?? 450, nx = o.nx, ny = o.ny, bow = o.bow ?? 0, dr = (o.drop ?? 0) * h;
+  const R = (x, y, a) => { const c = Math.cos(a), s2 = Math.sin(a); return [x * c - y * s2, x * s2 + y * c]; };
+  // baş: boyun tabanı çevresinde döner (f yönünde öne eğilme)
+  const hb = (x, y) => { const q = R(x * f * h, y * h, bow * f); return [nx + q[0], ny - dr + q[1]]; };
+  const hc = [.1, -.66];   // baş merkezi (boyun tabanına göre, h biriminde)
+  const HEAD = [[-.45, -.04], [-.43, -.3], [-.26, -.5], [.02, -.56], [.24, -.47], [.34, -.32], [.37, -.17], [.385, -.1], [.4, -.05], [.475, .1], [.45, .145], [.39, .165],
+    [.405, .215], [.39, .245], [.405, .28], [.375, .33], [.395, .41], [.34, .5], [.18, .52], [.02, .44], [-.14, .44], [-.32, .36], [-.44, .2]];
+  const Hd = new Path2D(); spline(Hd, HEAD.map(([x, y]) => hb(hc[0] + x * .95, hc[1] + y * .95)), true, .55);
+  const r = rng(73), curls = [];
+  for (let i = 0; i <= 9; i++) { const a = PI * (.92 + .78 * i / 9), d = .44, q = hb(hc[0] - .06 + Math.cos(a) * d * .92, hc[1] - .04 + Math.sin(a) * d * 1.05); curls.push([q[0], q[1], (.085 + r() * .035) * h]); }
+  for (const [x, y, rr] of curls) { Hd.moveTo(x + rr, y); Hd.arc(x, y, rr, 0, TAU); }
+  // boyun + omuz + pelerin (kambur; ön omuz öne düşük)
+  const B = (x, y) => [nx + x * f * h, ny + y * h];
+  const Bd = new Path2D(); spline(Bd, [hb(-.22, -.3), hb(.22, -.24), B(.3, .02), B(.62, .16 + dr / h * .6), B(.9, .42 + dr / h), B(1.08, .9), B(1.18, 1.8), B(-1.3, 1.8), B(-1.22, .8), B(-.9, .2), B(-.5, -.02), B(-.26, -.12)], true, .5);
+  // kanat: omzun arkasından kemerle yükselir, sırtın gerisine iner
+  const wg = o.wing ?? .6, Wg = new Path2D();
+  spline(Wg, [B(-.3, .25), B(-.85, -.2 - .5 * wg), B(-1.2, -.5 - .8 * wg), B(-1.6, -.45 - .7 * wg), B(-1.9, -.1 - .3 * wg), B(-2.0, .5), B(-1.9, 1.8), B(-.4, 1.8), B(-.3, .6)], true, .7);
+  const INK = GR.tone(.02);
+  GR.fill(Wg, INK, { th: 0, id: 6 }); GR.fill(Bd, INK, { th: 0, id: 0 }); GR.fill(Hd, INK, { th: 0, id: 0 });
+  // kanat içi tüy vuruşları (sivrilen, kesintisiz) ve kenar ışığı
+  tx.save(); tx.clip(Wg);
+  for (let k = 0; k < 4; k++) { const u = k / 3; nif_vurus2([B(lerp(-.92, -1.7, u), lerp(-.3, -.35, u) - .5 * wg), B(lerp(-1.02, -1.72, u) - .1, .35), B(lerp(-1.1, -1.75, u) - .15 * u, 1.1 + .2 * u)], 9 - k, 1, .3, .2); }
+  tx.restore();
+  // kenar ışığı: güneşe yakın dış hatta (keskin üst katman), güneşten uzaklaştıkça yok olur
+  const S = o.sun, all = new Path2D(); all.addPath(Wg); all.addPath(Bd); all.addPath(Hd);
+  nif_kenarIsik([Wg, Bd, Hd], S, 7);
+  // saçta birkaç kısa hilal
+  for (const i of [2, 4, 6]) { const [x, y, rr] = curls[i], q = []; for (let k = 0; k <= 6; k++) { const a = -PI / 2 - .9 + 1.8 * k / 6; q.push([x + Math.cos(a) * rr * .7, y + Math.sin(a) * rr * .7]); } nif_vurus2(q, 6, 1, .5, .2); }
+  return { all, head: Hd };
+}
+// birleşik siluetin dış kenarında (iç örtüşme çizgileri olmadan) kâğıt rengi kenar ışığı: maske − 8 yönde kaydırılmış maske.
+// Güneş çevresinde tam, uzaklaştıkça söner. P: Path2D (dünya), S: {x, y, r}, d: bant kalınlığı (dünya px)
+const NIF_RM = makeCanvas(DW, DH), NIF_rm = NIF_RM.getContext('2d'), NIF_RM2 = makeCanvas(DW, DH), NIF_rm2 = NIF_RM2.getContext('2d');
+function nif_kenarIsik(P, S, d = 7) {
+  const M = GR.tx.getTransform(), k = Math.hypot(M.a, M.b), dd = d * k;
+  NIF_rm.setTransform(1, 0, 0, 1, 0, 0); NIF_rm.clearRect(0, 0, DW, DH); NIF_rm.setTransform(M); NIF_rm.fillStyle = '#fff'; for (const q of (Array.isArray(P) ? P : [P])) NIF_rm.fill(q);   // parça parça (birleşik yolda zıt yönlü parçalar delik açar)
+  NIF_rm2.setTransform(1, 0, 0, 1, 0, 0); NIF_rm2.globalCompositeOperation = 'source-over'; NIF_rm2.clearRect(0, 0, DW, DH); NIF_rm2.drawImage(NIF_RM, 0, 0);
+  NIF_rm2.globalCompositeOperation = 'destination-in';   // aşındırma: 8 yönde kaydırılmış maskelerin kesişimi
+  for (let i = 0; i < 8; i++) { const a = i * TAU / 8; NIF_rm2.drawImage(NIF_RM, Math.cos(a) * dd, Math.sin(a) * dd); }
+  NIF_rm.setTransform(1, 0, 0, 1, 0, 0); NIF_rm.globalCompositeOperation = 'destination-out'; NIF_rm.drawImage(NIF_RM2, 0, 0);   // bant = maske − aşınmış
+  NIF_rm.globalCompositeOperation = 'source-in'; NIF_rm.setTransform(M);
+  const g = NIF_rm.createRadialGradient(S.x, S.y, S.r * .7, S.x, S.y, S.r * 1.9); g.addColorStop(0, GR.paperCol); g.addColorStop(1, 'rgba(230,223,207,0)');
+  NIF_rm.fillStyle = g; NIF_rm.fillRect(-4000, -4000, 12000, 12000); NIF_rm.globalCompositeOperation = 'source-over';
+  const O = GR.ox; O.save(); O.setTransform(1, 0, 0, 1, 0, 0); O.drawImage(NIF_RM, 0, 0); O.restore();
+}
+// yakın plan sahnesi: gök + güneş + figür. o: nif_yakinSiluet seçenekleri + {sun, clouds, soft, dark}
+function nif_yakin(t, o) {
+  nif_gok(o.sun, { beams: [], soft: o.soft, dark: o.dark, clouds: o.clouds || [], t });
+  return nif_yakinSiluet(t, o);
+}
 // eski adla (G01, G02, panolar): kanca figürü
 function nif_kancaSiluet(t, a, K = NIF_KANCA, tilt) { return nif_siluet7(t, a, K, { tilt }); }
 // o: {K (figür yeri ve boyu; varsayılan NIF_KANCA), sun, clouds, hz, tepe (false: zirve yok), dive (0..1: siyah içe dalış + kareyi dolduran alevler), tilt}
@@ -618,16 +673,13 @@ plan('P068', (ctx, st) => {
 }, { tr: { type: 'fade', dur: .8 },
   over: (ctx, st) => nif_soz(ctx, '“Ey güneş… ışınlarından nefret ediyorum.”', 380, 150, st, Wd('G03', 'ey'), { maxW: 620 }) });
 
-// ═════════ P069 (G04): baş öne eğilir; ışık yumuşar (arkadan) ═════════
+// ═════════ P069 (G04): baş-omuz yakın planı; güneşin önünde profil; "benden" ile baş öne eğilir, ışık yumuşar ═════════
 plan('P069', (ctx, st) => {
-  const t = st.t, S0 = { x: 1010, y: 400, r: 380 }, tB = Wd('G04', 'benden'), tY = Wd('G04', 'beni');
+  const t = st.t, tB = Wd('G04', 'benden'), tY = Wd('G04', 'beni');
   const bow = E.io2(nif_u(t, tB - .4, tB + 2.2)), soft = E.io2(nif_u(t, tY - 1, tY + 4));
-  levha(ctx, camLerp({ cx: 980, cy: 540, z: 1 }, { cx: 980, cy: 540, z: 1.1 }, st.p, E.io2), () => cizNifates(t, {
-    sun: S0, hz: 900, tepe: { x: 1000, y: 902, s: .9, seed: 13 }, t, soft, aden: { x: 1620, y: 900, w: 260, s: .7 },
-    clouds: [{ x: 330, y: 170, w: 1150, h: 420, seed: 21, n: 5 }],
-    fig: (tp) => nif_seytan({ x: tp[0], y: 0, ground: tp[1] + 2, h: 74, facing: 1, twist: .12, lean: lerp(0, .1, bow), head: lerp(.12, -.55, bow), shTilt: lerp(-.03, .06, bow), t,
-      armN: [lerp(.12, .05, bow), .2], armF: [lerp(-.1, -.03, bow), .2], legN: [.12, -.04], legF: [-.12, -.02], lum: .22, lit: [0, -1],
-      wings: Object.assign({}, NIF_PELERIN, { rotL: lerp(-1.5, -1.9, bow), rotR: lerp(1.5, 1.9, bow) }) }) }), NIF_BG);
+  levha(ctx, { cx: lerp(975, 950, E.io2(st.p)), cy: 540, z: 1 }, () => nif_yakin(t, {
+    sun: { x: 1120, y: 420, r: 400 }, soft, clouds: [{ x: 160, y: 120, w: 980, h: 360, seed: 21, n: 4 }],
+    f: 1, nx: 1010, ny: 760, h: 470, bow: lerp(-.05, .5, bow), drop: .06 * bow, wing: .55 }), NIF_BG);
 }, { tr: { type: 'cut' },
   over: (ctx, st) => nif_soz(ctx, '“Hak etmemişti.”', 370, 150, st, Wd('G04', 'hak'), { px: 76 }) });
 
