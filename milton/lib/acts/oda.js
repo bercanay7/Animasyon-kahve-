@@ -530,8 +530,8 @@ function cizLondra(t, o = {}) {
 }
 
 // ═════════════ ÇEKİMLER ═════════════
-// P007 (A06): karanlık oda; koltukta kör şair, önünde mum; yüzü ışığa dönük, gözü yok. Yavaş yaklaşma (1 → 1,18).
-plan('P007', (ctx, st) => levha(ctx, camLerp({ cx: 900, cy: 560, z: 1 }, { cx: 880, cy: 560, z: 1.18 }, st.p, E.lin), () => {
+// P007 (A06): karanlık oda; koltukta kör şair, önünde mum; yüzü ışığa dönük, gözü yok. Yavaş yaklaşma (1 → 1,08).
+plan('P007', (ctx, st) => levha(ctx, camLerp({ cx: 900, cy: 560, z: 1 }, { cx: 880, cy: 560, z: 1.08 }, st.p, E.lin), () => {
   cizOda(st.t, { sair: { bas: .16 } });
 }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 } });
 
@@ -783,31 +783,61 @@ function oda_P118(t) {
 }
 plan('P118', (ctx, st) => levha(ctx, null, () => { oda_P118(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => etiket(ctx, '1674', 700, 360, st.t - Wd('K04', 'milton') - .4, st.end - Wd('K04', 'milton') - .3, { px: 56 }) });
 
-// P140 (L09): kapanış: zifiri karanlıkta kör şair; "Sen, göksel ışık, içime parla": siluetinin içinde aşağıdan yükselen ışık.
-// İç ışık: çekirdek temiz kâğıt, çevresi eş merkezli tarama; siluetin DIŞ kenarı koyu bant olarak kalır (biçim okunur).
-function oda_icIsik(U, C, rr, kw) {
-  const { tx, px, tone } = GR;
-  tx.save(); px.save(); tx.clip(U); px.clip(U);
-  const g = tx.createRadialGradient(C[0], C[1], 0, C[0], C[1], rr); g.addColorStop(0, tone(1)); g.addColorStop(.4, tone(1)); g.addColorStop(.72, tone(.5)); g.addColorStop(1, tone(.03));
-  tx.fillStyle = g; tx.fill(U); px.fillStyle = GR.hatch({ type: 'rad', cx: C[0], cy: C[1], id: 7 }); px.fill(U);
-  tx.restore(); px.restore();
-  oda_kontur(U, kw);
+// P140 (L09): kapanış, açılış karesinin (A01) aynası. A01: güneşin önünde koyu figür, göğsünde alev (iç cehennem).
+// L09: zifiri karanlıkta koyu şair silueti; «içime parla»da göğsünde küçük temiz bir güneş doğar (disk + sivrilen seyrek ışın
+// vuruşları; halka yok). «gözler aç»ta ışınlar siluetin içinde başa uzanır; «göreyim ve anlatayım»da siluetin dışına taşar ve
+// oda bu ışıkla belirir (masa, kâğıtlar, kitaplık kenar ışığıyla). Siluet düz siyah kalır. Alfa yok: ışık uzayarak, açılarak gelir.
+// Sahne 1,4 ölçekte çizilir (kamera sabit): figür kadraj yüksekliğinin ~%55'i.
+const ODA_P140_K = 1.4, ODA_P140_O = [-150, -267];
+function oda_P140Isik(t) {
+  const tP = Wd('L09', 'parla'), tG = Wd('L09', 'gözler'), tGr = Wd('L09', 'göreyim'), tA = Wd('L09', 'anlatayım');
+  return { dog: E.out3(oda_u(t, tP - .25, tP + .7)), ic: E.io2(oda_u(t, tP + .1, tG)), bas: E.io2(oda_u(t, tG - .1, tGr - .2)), dis: E.io2(oda_u(t, tGr - .1, tA + 1.0)) };
+}
+// ışınlar: diskin kenarından çıkan, sivrilen kâğıt rengi vuruşlar; uzunluklar evrelere göre (seed sabit; parça sayısı değişmez)
+function oda_isinlar(C, h, I, kirp) {
+  const r = rng(140), n = 13, rd = .16 * h * I.dog;
+  for (let i = 0; i < n; i++) {
+    const a = -PI / 2 + (i + .5) / n * TAU + (r() - .5) * .28, up = Math.max(0, -Math.sin(a)), q1 = r(), q2 = r(), q3 = r();
+    const Lr = h * ((.32 + .3 * q1) * I.ic + up * (1.3 + .5 * q2) * I.bas + (2.6 + 2.6 * q3) * I.dis);
+    if (Lr < 6) continue;
+    const c = Math.cos(a), sn = Math.sin(a), r0 = rd + 5, w = Math.max(3.2, (6 + 4 * I.dis) * (.7 + .3 * q2));
+    oda_cizgi([[C[0] + c * r0, C[1] + sn * r0], [C[0] + c * (r0 + Lr * .5), C[1] + sn * (r0 + Lr * .5)], [C[0] + c * (r0 + Lr), C[1] + sn * (r0 + Lr)]], w, 1, .9);
+  }
 }
 function oda_P140(t) {
-  const { tone } = GR, FL = ODA_FL, tSen = Wd('L09', 'sen'), tAn = Wd('L09', 'anlatayım');
-  const ic = E.io2(oda_u(t, tSen - .2, tAn + .6));
-  GR.fill(oda_dik(-400, FL, W + 800, 400), tone(.03), { th: 0, id: 0 });
-  const sa = { x: 880, y: FL - 2.05 * 92, h: 92, f: 1, bas: .28, fw: -.06, kol: 'kol' };
-  const Lr = [1700, 250];                                   // sönük yukarı ışık: yalnız ince kenar (siluet okunsun)
-  oda_koltuk(sa, 'arka', Lr, 1e5);
-  const G = oda_sairGeo(sa), Ub = oda_birles(G.B, G.yaka), Ua = oda_birles(G.A, G.H);
-  oda_kut(Ub, { L: Lr, c: G.c, w: 5 });
-  const C = G.M(lerp(.3, .2, ic), lerp(-.5, -2.5, ic)), rr = lerp(.4, 4.4, ic) * sa.h;
-  if (ic > .005) oda_icIsik(Ub, C, rr, 9);
-  oda_koltuk(sa, 'on', Lr, 1e5);
-  oda_kut(Ua, { L: Lr, c: G.E, w: 5 });
-  if (ic > .005) oda_icIsik(Ua, C, rr, 7);
+  const { tx, tone } = GR, I = oda_P140Isik(t), h = ODA_YER.sh;
+  const sa = { x: ODA_YER.sx, y: ODA_FL - 2.05 * h, h, f: 1, bas: .3, fw: -.06, kol: 'kol' };
+  const G0 = oda_sairGeo(sa), C = G0.T([.36, -1.72]);                    // göğüs hizası
+  const yay = I.dis, L = yay > .01 ? C : null;
+  GR.frame(ODA_P140_O[0], ODA_P140_O[1], 0, 1, ODA_P140_K);
+  cizOda(t, {
+    mum: null, L, isik: yay > .01, r0: 40 + 80 * yay, r1: 60 + 340 * yay, R: 40 + 600 * yay, raf: false,
+    pen: { x0: 250, y0: 170, x1: 590, y1: 560, ay: [356, 248], v: .08, ayV: .3, sill: .45 },
+    isikEk: () => oda_isik(520, 430, 0, 560, .42),                      // pencereden çok zayıf ay vinyeti
+    sair: { bas: .3, fw: -.06, L: null, vurus: false, yakaV: 0 }, masaUstu: false,
+    arka: L2 => {
+      if (L2) oda_raf(1200, 1470, 480, ODA_FL - 150, L2, { R: 80 + 900 * yay, rows: 2, seed: 44 });
+      if (yay > .01) oda_isinlar(C, h, I, false);                      // dışa taşan ışınlar (siluetin arkasında)
+    },
+    on: L2 => {
+      // masadaki kâğıt yığını: ışık gelince belirir
+      const st = oda_cok([[1030, ODA_YER.my - 13], [1150, ODA_YER.my - 13], [1150, ODA_YER.my - 58], [1030, ODA_YER.my - 58]]);
+      if (L2) oda_kut(st, { L: L2, c: [1090, ODA_YER.my - 35], w: 6, R: 40 + 600 * yay }); else GR.fill(st, tone(.03), { th: 0, id: 0 });
+      // göğüsteki güneş: siluetin içinde (kırpılı) disk ve ışınlar
+      if (I.dog > .01) {
+        const U = oda_birles(G0.B, G0.yaka, G0.A, G0.H);
+        tx.save(); tx.clip(U);
+        oda_isinlar(C, h, I, true);
+        tx.fillStyle = tone(1); tx.fill(oda_daire(C[0], C[1], .16 * h * I.dog));
+        tx.restore();
+        if (yay > .01) { tx.fillStyle = tone(1); tx.fill(oda_daire(C[0], C[1], .16 * h * I.dog)); }
+      }
+    }
+  });
+  GR.unframe();
 }
-plan('P140', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 560, z: 1 }, { cx: 980, cy: 540, z: 1.2 }, st.p, E.lin), () => { oda_P140(st.t); }, [.03, 0, 1]), {
-  tr: { type: 'fade', dur: 1.0 },
-  over: (ctx, st) => quote(ctx, '“göksel ışık, içime parla”', 960, 140, st.t - Wd('L09', 'sen') - .3, { px: 66, kaynak: 'KAYIP CENNET · III. 51–52' }) });
+plan('P140', (ctx, st) => levha(ctx, null, () => { oda_P140(st.t); }, [.03, 0, 1]), {
+  tr: { type: 'black', dur: 1.2 },
+  over: (ctx, st) => { const lt = st.t - Wd('L09', 'sen') - .2;
+    quote(ctx, '“göksel ışık,\niçime parla”', 1560, 150, lt, { px: 68 });
+    txt(ctx, 'KAYIP CENNET · III. 51–52', 1530, 280, { font: FONT.baslik(40, 600), px: 40, ls: 3, a: E.sine(clamp((lt - 1.1) / .6)) }); } });

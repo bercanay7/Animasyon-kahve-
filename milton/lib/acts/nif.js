@@ -416,13 +416,14 @@ function nif_kancaA01(t, a, o = {}) {   // a: 0..1+ alevin büyüklüğü ('cehe
   const F = nif_kancaSiluet(t, a, K), c = F.P(0, -.55);
   const dv = clamp(o.dive || 0);
   if (dv > 0) {   // dalış: göğüsten büyüyen siyah (siluetin içi kareyi doldurur) ve onunla büyüyen alevler
-    const R = 2300 * Math.pow(dv, 1.6), Dk = new Path2D(); Dk.ellipse(c[0], c[1], R * .9, R, 0, 0, TAU);
+    // siluetin kendisi göğüs noktası çevresinde büyür (maske büyür, kamera değil): içi siyah, içinde alevler
+    const g = 1 + 26 * Math.pow(dv, 2.2), Kg = { x: c[0] + (K.x - c[0]) * g, y: c[1] + (K.y - c[1]) * g, U: U * g }, Dk = nif_kancaYol(0, Kg).all;
     GR.fill(Dk, GR.tone(.02), { th: 0, id: 0 });
     { const O = GR.ox; O.save(); O.globalCompositeOperation = 'destination-out'; O.fill(Dk); O.restore(); }
-    const kk = 1.4 + 6 * Math.pow(dv, 1.3), by = c[1] + .1 * U * kk * .5 + 500 * dv;
+    const kk = 1.6 + 7 * Math.pow(dv, 1.2), by = lerp(c[1], H + 40, E.io2(dv));
     tx.save(); tx.clip(Dk);
-    nif_gogusAlev(c[0], Math.min(by, H + 40), .19 * U * kk, .03 * U * kk, t);
-    if (dv > .35) PR.flameBank(-200, W + 200, H + 60, 700 * E.in2((dv - .35) / .65), t, 27, { n: 7, env: f => .55 + .45 * Math.abs(Math.cos(f * PI)), wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .5, curl: .45, solidBelow: 1e5 });
+    nif_gogusAlev(c[0], by, .19 * U * kk, .03 * U * kk, t);
+    if (dv > .25) PR.flameBank(-200, W + 200, H + 60, 820 * E.out2((dv - .25) / .75), t, 27, { n: 7, env: f => .55 + .45 * Math.abs(Math.cos(f * PI)), wr: .5, base: .3, edge: .4, core: .8, frags: false, speed: .5, curl: .45, solidBelow: 1e5 });
     tx.restore();
   }
   return F;
@@ -521,7 +522,7 @@ plan('P066', (ctx, st) => {
   const a = -.7 + .7 * E.io2(nif_u(t, tC - .2, tC + 1.2)) + .35 * E.io2(nif_u(t, tK - .6, tK + 1));
   levha(ctx, { cx: lerp(1000, 970, E.io2(st.p)), cy: 540, z: 1 }, () => nif_kancaA01(t, a, {
     K: { x: 720, y: 930, U: 560 }, sun: { x: 1330, y: 420, r: 300 }, hz: 900,
-    clouds: [{ x: -100, y: 60, w: 760, h: 260, seed: 21, n: 3 }, { x: 1900, y: 820, w: 700, h: 200, seed: 29, n: 3 }] }), NIF_BG);
+    clouds: [{ x: -100, y: 60, w: 760, h: 260, seed: 21, n: 3 }] }), NIF_BG);
 }, { tr: { type: 'cut' } });
 
 // ═════════ P068 (G03): profil güneşe karşı; eliyle gözünü siper eder (alttan) ═════════
@@ -606,8 +607,7 @@ plan('P072', (ctx, st) => {
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => { if (t >= tB - .05) nif_icGolTam(t); else nif_kancaA01(t, a, { dive: dv }); }, NIF_BG);
 }, { tr: { type: 'cut' },
   over: (ctx, st) => {
-    if (st.t < Wd('G07', 'ben') - .05) quote(ctx, '“Hangi yana kaçsam cehennem.”', 1560, 150, st.lt, { t0: Wd('G07', 'hangi') - st.at, px: 68, maxW: 600, panel: false });
-    else nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84 });
+    if (st.t >= Wd('G07', 'ben') - .05) nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84 });
   } });
 // tam kare iç cehennem (maskenin büyümesi bittikten sonra): yerel çerçeve dünya ile aynı
 function nif_icGolTam(t) { cizGol(t, { fig: false, chains: false, sway: .02 }); }
@@ -779,30 +779,70 @@ plan('P082', (ctx, st) => {
       legN: [.08, -.04], legF: [-.08, -.03], lum: .15, lit: nif_isik(S0, tp[0], tp[1] - 60), wings: NIF_PROF }) }), NIF_BG);
 }, { tr: { type: 'fade', dur: .9 } });
 
-// ═════════ P137 (L07): kendi elinden kendi bileğine zincir (orta plan) ═════════
-// Akşam, belden yukarı orta plan (h 150). Önde, yerde gölün çözülmüş zincirleri (kırık, büyük halkalar). 'zinciri' (ikinci geçiş) ile
-// sağ elden sol bileğe zincir halka halka uzar; 'vurdu' ile bilezik kapanır. Etiket "gururu".
-plan('P137', (ctx, st) => {
-  const t = st.t, S0 = { x: 1450, y: 520, r: 360 }, tZ = Wd('L07', 'zinciri', 1) - .1, tV = Wd('L07', 'vurdu');
-  const g = nif_u(t, tZ, tV + .1), h = 150;
-  const P = { x: 860, y: 860, h, facing: 1, twist: .35, lean: .05, head: -.28, shTilt: .03, legN: [.12, -.05], legF: [-.12, -.03] };
-  const J0 = nif_rig(P), hp = J0.hip;
-  P.ikN = [hp[0] - .05 * h, hp[1] - .45 * h, -1]; P.ikF = [hp[0] + 1.45 * h, hp[1] - 1.75 * h, 1];
-  levha(ctx, { cx: lerp(970, 940, st.p), cy: 540, z: 1 }, () => cizNifates(t, {
-    sun: S0, hz: 1000, tepe: { x: 860, y: 1300, s: 1, seed: 29 }, t, dark: .5, soft: .7, beams: [],
-    clouds: [{ x: 120, y: 110, w: 1000, h: 330, seed: 21, n: 4 }, { x: 1880, y: 120, w: 800, h: 300, seed: 19, n: 4 }],
-    fig: () => {
-      const J = nif_seytan(Object.assign({}, P, { t, lum: .1, lit: nif_isik(S0, 860, 500), wings: NIF_PROF, legs: false }));
-      if (g > 0) {   // yeni zincir: yakın elden (yumruk) uzak bileğe; halka sayısı g ile artar
-        const a = [J.wrN[0] + .4 * h, J.wrN[1]], b = [J.wrF[0], J.wrF[1] + .05 * h], n = Math.max(1, Math.ceil(g * 6));
-        const e = [lerp(a[0], b[0], n / 6), lerp(a[1], b[1], n / 6)];
-        PR.chain(a[0], a[1], e[0], e[1], 46, { sag: 26 * n / 6, v: .95, lit: [.6, -.8], over: true });
-        GR.ox.save(); GR.ox.strokeStyle = GR.paperCol; GR.ox.lineWidth = 9; GR.ox.beginPath(); GR.ox.ellipse(b[0], b[1], .2 * h, .26 * h, .3, -PI / 2, -PI / 2 + TAU * clamp((g - .8) * 5)); GR.ox.stroke(); GR.ox.restore();   // bilezik
-      }
-    },
-    front: () => {   // önde yerde gölün çözülmüş, kırık zincirleri
-      PR.chain(120, 1010, 620, 975, 48, { sag: 20, v: .9, lit: [.6, -.8] });
-      PR.chain(1180, 990, 1700, 1030, 48, { sag: 24, v: .9, lit: [.6, -.8] });
-    } }), NIF_BG);
-}, { tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; etiket(ctx, 'gururu', 1720, 170, st.lt - t0, st.d - t0, { px: 52, panel: false }); } });
+// ═════════ P137 (L07): kendi elinden kendi bileğine zincir (filmin cevabı) ═════════
+// P005'in dili (kelepçeli bilek + büyük halkalar). Beden ve yüz yok: yalnız iki ön kol, alttan kadraja girer.
+// Sol el zincirin ucunu kavramış (yumruk); zincir kısa bir yay çizip sağ bilekteki kelepçeye bağlanır.
+// Altta, yerde gölün kopuk, dağınık zincirleri ('çözülmüştü'de belirir); yeni zincir 'kendi'den 'vurdu'ya halka halka çizilir; 'gururu' yazısı.
+// Arkada Nifates göğü, alçalmış güneş (temiz kâğıt disk).
+function nif_kol(pts, lit, seed) {   // ön kol: kalın, koyu kütle; ışık yanında kenar ışığı ve içe giren vuruşlar
+  const { tx, tone } = GR, P = new Path2D(); spline(P, pts, true, .75);
+  GR.fill(P, tone(.02), { th: .3, id: 5 });
+  return P;
+}
+function nif_l07(t) {
+  const { tx, tone } = GR, S0 = { x: 1500, y: 360, r: 210 };
+  const tC = Wd('L07', 'çözülmüştü'), tK = Wd('L07', 'kendi'), tV = Wd('L07', 'vurdu');
+  nif_gok(S0, { dark: .3, beams: [], clouds: [{ x: 160, y: 120, w: 1000, h: 300, seed: 21, n: 4 }], t });
+  nif_siralar({ hz: 760, dark: .3 });
+  // zemin: yakın, koyu tepe yüzü; üstünde kopuk zincirler
+  const G = new Path2D(); G.moveTo(-200, 800); for (let x = -200; x <= W + 200; x += 120) G.lineTo(x, 800 + 30 * Math.sin(x * .004 + 1) + 12 * Math.sin(x * .02)); G.lineTo(W + 200, H + 200); G.lineTo(-200, H + 200); G.closePath();
+  GR.fill(G, tone(.02), { th: 0, id: 4 });
+  tx.save(); tx.clip(G); tx.strokeStyle = tone(.9); tx.lineWidth = 5; tx.stroke(G); tx.restore();
+  const ca = E.io2(nif_u(t, tC - .4, tC + .8));
+  if (ca > 0) {   // kopuk zincirler: yerde dağınık, uçları açık (kırık halka), ışık üstten
+    const L = [[90, 900, 470, 862, 40, 14], [560, 960, 820, 1000, 40, -10], [1240, 905, 1640, 870, 40, 12], [1500, 1010, 1860, 990, 40, 8]];
+    tx.save(); tx.globalAlpha = 1;
+    for (const [x0, y0, x1, y1, lk, sg] of L) { const m = lerp(.3, 1, ca); PR.chain(x0, y0, lerp(x0, x1, m), lerp(y0, y1, m), lk, { sag: sg, v: .9, lit: [.3, -1] }); }
+    tx.restore();
+  }
+  // ön kollar (P005 dili): yanlardan kadraja giren, kaslı, koyu, kalın ön kollar; güneş arkada (kenar ışığı üstte)
+  const arm = (pts) => { const P = new Path2D(); spline(P, pts, true, .7); GR.fill(P, tone(.02), { th: .3, id: 5 }); return P; };
+  // sol kol: soldan sağa hafif yukarı; bilek (760, 600)
+  const LA = arm([[-80, 610], [180, 572], [420, 560], [640, 540], [770, 548], [782, 650], [690, 676], [470, 724], [220, 812], [-80, 900]]);
+  // sol yumruk: zinciri kavramış; dört boğum üstte, başparmak önde kıvrık; zincir yumruğun altından çıkar
+  const Fi = new Path2D(); Fi.moveTo(760, 548);
+  for (let i = 0; i < 4; i++) { const x0 = 770 + i * 26; Fi.quadraticCurveTo(x0 + 13, 528 - (i === 1 ? 6 : 0), x0 + 26, 546); }
+  Fi.quadraticCurveTo(892, 560, 886, 600); Fi.quadraticCurveTo(880, 646, 840, 652); Fi.lineTo(770, 652); Fi.quadraticCurveTo(752, 600, 760, 548); Fi.closePath();
+  GR.fill(Fi, tone(.02), { th: .3, id: 5 });
+  // sağ kol: sağdan sola hafif yukarı; bilek (1160, 620), kelepçe bilekte; el açık, parmaklar aşağı sarkar
+  const RA = arm([[2000, 640], [1760, 600], [1480, 594], [1260, 584], [1150, 594], [1140, 690], [1240, 702], [1460, 750], [1740, 832], [2000, 920]]);
+  const Hn = new Path2D(); Hn.moveTo(1150, 600); Hn.quadraticCurveTo(1090, 592, 1060, 620);
+  for (const [fx, fy] of [[1040, 700], [1062, 718], [1086, 722], [1110, 712]]) { Hn.quadraticCurveTo(fx - 10, fy - 30, fx, fy); Hn.quadraticCurveTo(fx + 10, fy + 4, fx + 12, fy - 26); }
+  Hn.quadraticCurveTo(1140, 690, 1150, 676); Hn.closePath();
+  GR.fill(Hn, tone(.02), { th: .3, id: 5 });
+  // kenar ışığı: kolların ve ellerin üst (güneşe bakan) kenarında kesintisiz kâğıt çizgi; içe giren birkaç vuruş
+  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 6;
+    for (const P of [LA, Fi, RA, Hn]) { O.save(); O.clip(P); O.stroke(P); O.restore(); } O.restore(); }
+  for (const [pts, cl] of [[[[300, 650], [480, 625], [640, 594]], LA], [[[120, 690], [260, 676]], LA], [[[1700, 704], [1520, 676], [1340, 640]], RA], [[[1880, 738], [1760, 722]], RA]]) { tx.save(); tx.clip(cl); nif_vurus(pts, 10, .95); tx.restore(); }
+  // yumrukta boğum araları (ince kâğıt kesikler), başparmak çizgisi
+  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 3.5;
+    for (let i = 1; i < 4; i++) { const x = 770 + i * 26; O.beginPath(); O.moveTo(x, 552); O.lineTo(x - 2, 580); O.stroke(); }
+    O.beginPath(); O.moveTo(784, 608); O.quadraticCurveTo(830, 596, 872, 612); O.stroke(); O.restore(); }
+  // kelepçe: bileği saran kalın bant (yanlardan bakış: dikey bant), üst kenar ışıklı, perçinler
+  const cf = new Path2D(); cf.moveTo(1170, 582); cf.quadraticCurveTo(1200, 578, 1230, 590); cf.lineTo(1232, 702); cf.quadraticCurveTo(1200, 712, 1168, 700); cf.closePath();
+  GR.fill(cf, tone(.03), { th: PI / 2, id: 9 });
+  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 6; O.beginPath(); O.moveTo(1172, 586); O.quadraticCurveTo(1200, 581, 1228, 592); O.lineTo(1229, 640); O.stroke();
+    O.fillStyle = GR.paperCol; for (const y of [612, 644, 676]) { O.beginPath(); O.arc(1200, y, 5.5, 0, TAU); O.fill(); } O.restore(); }
+  // yeni zincir: yumruğun altından kelepçeye, kısa yay (aşağı sarkar); 'kendi'den 'vurdu'ya halka halka
+  const n = 9, k = Math.floor(clamp(nif_u(t, tK, tV)) * n + (t >= tV ? n : 0));
+  if (k > 0) {
+    const a = [830, 655], b = [1200, 706], q = Math.min(n, k);
+    const pos = f => [lerp(a[0], b[0], f), lerp(a[1], b[1], f) + Math.sin(f * PI) * 120];
+    const e = pos(q / n);
+    // PR.chain düz yay; yay boyunca parça parça çizmek için segmentlere böl
+    for (let i = 0; i < q; i++) { const p0 = pos(i / n), p1 = pos((i + 1) / n); PR.chain(p0[0], p0[1], p1[0], p1[1], 54, { over: true, lit: [.4, -.9] }); }
+  }
+}
+plan('P137', (ctx, st) => levha(ctx, { cx: lerp(975, 945, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
+  { tr: { type: 'fade', dur: .8 },
+    over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; etiket(ctx, 'gururu', 1000, 930, st.lt - t0, st.d - t0, { px: 56, panel: false }); } });
