@@ -24,3 +24,7 @@ Baloo 2 800 (başlık, yuvarlak), Patrick Hand 400 (el yazısı). Her `@font-fac
 - Her karede tek odak; okunurluk: başlık ≥ 120 px (1080p), kontrast yüksek.
 - Gölge = aynı şeklin 8 px kaydırılmış koyu kopyası (flat, blur yok).
 - 16:9'da güvenli alan: kenarlardan %5 içeride.
+
+## Geçiş/efekt tarifleri (canvas'ta kendimiz yazarız)
+zoomBlur (merkezden alt-kare ölçek ortalaması), rgbSplit (R/G/B kanalları farklı ofsetle çiz, `globalCompositeOperation='lighter'`), clockWipe (`arc` ile kırpma maskesi), lightLeak (sıcak renkli radial gradient, `screen` blend), pixelate (küçük canvas'a çiz, büyüt, `imageSmoothingEnabled=false`). Çizgi kalınlığı ≥ 2 px (küçük ekranda kaybolmasın).
+Kaynak fikirler: claude-code-video-toolkit (MIT), anthropics/skills slack-gif-creator (Apache-2.0).

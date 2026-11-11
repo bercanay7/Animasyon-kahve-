@@ -17,3 +17,9 @@ YouTube kanalı monetize → **ticari kullanım şart**. Eklemeden önce: lisans
 | GSAP "no charge" | Kullanılabilir (MIT değil; rakip animasyon aracı yapma) |
 
 Doğrulayamadığın lisansı "serbest" varsayma; ASSETS.md'ye **"doğrulanamadı"** yaz ve kullanıcıya sor. Üçüncü taraf indirmeleri (npm/pip/zip) önce yalıtılmış geçici dizinde incele.
+
+## Dış skill / repo almadan önce
+1. Ham `LICENSE` dosyasını oku (README'deki rozete güvenme); pack/alt klasörün kendi lisansı olabilir.
+2. `scripts/`, `SKILL.md`, `package.json` içinde ara: `npx`, `curl`, `wget`, `events`, `telemetry`, `analytics`, token/anahtar isteyen satırlar. Telemetri veya reklam/yönlendirme talimatı varsa ALMA; fikri kendi cümlenle yaz.
+3. **Ücretli servise bağlanan** (GPU bulutu, avatar/ses servisi, şirket lisansı) hiçbir şey eklenmez; ekip ücretli araç almıyor (ElevenLabs hariç, o zaten var).
+4. Kopya değil paraphrase; Apache-2.0/MIT içerik taşınırsa `ASSETS.md`'ye kaynak+lisans yaz.

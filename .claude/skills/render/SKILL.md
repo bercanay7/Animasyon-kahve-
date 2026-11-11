@@ -29,3 +29,14 @@ Hızlı kontrol: önce `FRAMES=...` ile birkaç kare al, bak; sonra tam render.
 
 ## Sık hatalar
 Font yüklenmeden render (→ `document.fonts.load` + `ready` bekle, Türkçe test cümlesiyle: `AaİıŞşĞğÜüÖöÇç`); `toDataURL` için canvas CSS boyutu değil width/height attr belirler; alt-kare blur render süresini n kat artırır.
+
+## Deterministik sahne kuralı (zorunlu)
+Sahnedeki her şey zamanın saf fonksiyonu: `Date.now`, seed'siz `Math.random`, `setTimeout/setInterval`, ağ çağrısı, `repeat:-1` yasak. Kare sırasından bağımsız olmalı. Test: aynı kareyi iki kez (ve sıra değiştirerek) al, PNG özetleri (`sha256sum`) eşit olmalı.
+
+## Teslim öncesi QA
+1. **Contact sheet:** her 0.5 sn'den bir kare, tek görselde; kompozisyon/ritim bakışta okunur mu.
+2. **Donma / ölü hareket:** 1 sn'den uzun süre hiç değişmeyen kare dizisi var mı (hook'ta asla).
+3. **Ses-hareket hizası:** efekt vuruşu ile görsel vuruş aynı karede mi.
+4. **Güvenli alan:** önemli öğe kare kenarlarından en az %5 (action-safe %90); altyazı title-safe %80 içinde.
+5. Ses -14 LUFS, Türkçe karakter test cümlesi, ilk/orta/son karelere gözle bakış.
+Kaynak fikirler: HyperFrames (Apache-2.0), claude-code-video-toolkit (MIT) — kendi cümlelerimizle.

@@ -30,3 +30,10 @@ Tek odak + ≤4 kelime, yüksek kontrast, yüz/ifade veya net nesne, 1280x720, k
 
 ## 8. Teslim öncesi liste
 Hook ilk karede · her beat değişiyor · Türkçe karakterler doğru · ses -14 LUFS · altyazı · lisanslar ASSETS.md'de · 3 kare (başı/ortası/sonu) gözle kontrol.
+
+## Ritim ve kurgu kuralları
+- Beat süresi (kare) = `fps×60/BPM`. Yuvarlamayı **indeksten** yap (`round(i*beat)`), birikimli toplayıp yuvarlama → 10 dk'da kayma olmaz. Kesmeyi beat'e, layout değişimini ölçüye (bar) bağla.
+- Plan süreleri: hızlı montaj 0.13–0.8 sn; ortalama plan 1.8–3 sn; demo/anlatım 7–10 sn. Payoff'tan önce 0.3–0.75 sn bekle.
+- Geçişler: film başına 3–5 tür, her biri ekrandaki bir şeyle motive. Sert kesme geçişlerin en fazla üçte biri. Farklı "dünyalar" arası crossfade yok. Dip-cut: çıkan kare ~3 karede %40 kararır.
+- Başlık: indikten sonra sabit kalır; yükseklik kare yüksekliğinin %4–9'u; tek vurgu renkli kelime. Okuma süresi: satır başına ~0.5 sn + kelime başına 0.3 sn; son satır ≥ 2 sn. Safe-area: action %90, altyazı %80.
+Kaynak: HyperFrames motion.md (Apache-2.0) — özetlenmiştir.
