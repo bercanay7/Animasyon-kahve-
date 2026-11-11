@@ -259,7 +259,7 @@ function kpk_siluet7(t, o = {}) {
     kpk_vurus([[bx - w * .45, by - L * .14], [bx - w * .5 + ln * .3, by - L * .42], [bx - w * .15 + ln * .7, by - L * .74]], Math.max(4, w * .2), .04, .35, .2);
     if (L > 200) kpk_vurus([[bx + w * .4, by - L * .2], [bx + w * .32 + ln * .5, by - L * .5], [bx + w * .15 + ln * .8, by - L * .76]], 5, .04, .4, .2);
   }
-  { const Bz = new Path2D(); Bz.ellipse(fb[0] + 2, fb[1] - 34, 74, 42, 0, 0, TAU); DP.addPath(Bz); GR.fill(Bz, GR.tone(1), { th: 0, id: 0 }); }   // taban: üç dili birleştiren yuvarlak kor (W biçimi yok)
+  { const Bz = new Path2D(); Bz.ellipse(fb[0] + 2, fb[1] - 38, 60, 30, 0, 0, TAU); DP.addPath(Bz); GR.fill(Bz, GR.tone(1), { th: 0, id: 0 }); }   // taban: üç dili birleştiren yuvarlak kor (W biçimi yok)
   tx.restore();
   { const O = GR.ox; O.save(); O.globalCompositeOperation = 'destination-out'; O.fill(C); O.fill(Hd); for (const [x, y, rr] of curls) { O.beginPath(); O.arc(x, y, rr, 0, TAU); O.fill(); } O.fill(N); O.restore(); }
   return { cloak: C, wings: R, dil: DP, base: fb, L: 245, core: [fb[0] + 6, fb[1] - 245 * .52], head: Hd };
@@ -283,7 +283,7 @@ function kpk_alevRenk7(ctx, F) {
   const g = cx.createRadialGradient(c[0], c[1], 4, c[0], c[1] + 8, L * .62);
   g.addColorStop(0, '#fffcef'); g.addColorStop(.12, '#fff0b4'); g.addColorStop(.3, '#ffc35e'); g.addColorStop(.55, '#ff8a30'); g.addColorStop(.8, '#e0481c'); g.addColorStop(1, '#9a200e');
   cx.fillStyle = g; cx.fillRect(x0, y0, w, h);
-  cx.globalCompositeOperation = 'multiply'; const gb = cx.createLinearGradient(0, by - L * .48, 0, by - 26); gb.addColorStop(0, '#fff'); gb.addColorStop(.35, '#ffb478'); gb.addColorStop(.62, '#b4441e'); gb.addColorStop(.84, '#5a1a08'); gb.addColorStop(1, '#3a1006');
+  cx.globalCompositeOperation = 'multiply'; const gb = cx.createLinearGradient(0, by - L * .48, 0, by - 18); gb.addColorStop(0, '#fff'); gb.addColorStop(.45, '#ffb478'); gb.addColorStop(.66, '#a8401c'); gb.addColorStop(.86, '#3a0e05'); gb.addColorStop(1, '#120402');
   cx.fillStyle = gb; cx.fillRect(x0, y0, w, h);   // taban: kor rengine koyulaşıp karanlığa erir
   const MD = m.getImageData(x0, y0, w, h).data, CD = cx.getImageData(0, 0, w, h).data, I = ctx.getImageData(x0, y0, w, h), D = I.data;
   for (let i = 0; i < D.length; i += 4) { const a = MD[i + 3] / 255; if (!a) continue; const Lp = (D[i] + D[i + 1] + D[i + 2]) / 3, k = a * clamp((Lp - 70) / 100), f = clamp(Lp / 175, 0, 1);
