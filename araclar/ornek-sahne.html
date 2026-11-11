@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Örnek sahne — YouTube 16:9</title>
+<style>
+  @font-face { font-family: 'Baloo 2'; font-weight: 800; src: url(fonts/baloo-2-latin-800-normal.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Baloo 2'; font-weight: 800; src: url(fonts/baloo-2-latin-ext-800-normal.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  @font-face { font-family: 'Patrick Hand'; font-weight: 400; src: url(fonts/patrick-hand-latin-400-normal.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Patrick Hand'; font-weight: 400; src: url(fonts/patrick-hand-latin-ext-400-normal.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F; }
+  html, body { margin: 0; height: 100%; background: #111; }
+  body { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  canvas { max-width: 100vw; max-height: 100vh; aspect-ratio: 16 / 9; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/rough.js"></script>
+<script src="vendor/matter.min.js"></script>
+<script>
+/*
+ * ÖRNEK SAHNE — "araç kutusu" gösterimi. 1920x1080, 30 fps, 4 sn.
+ *   GSAP      : zaman çizgisi (paused, tl.time(t) ile kare kare) → squash/stretch, anticipation, overshoot
+ *   Rough.js  : elle çizilmiş fincan; çizgi titremesi ("boil") kare başına seed ile
+ *   matter-js : kahve çekirdekleri düşer; sabit adımla ÖNCEDEN simüle edilir (deterministik)
+ *   Lucide    : SVG path'i Path2D ile çizilen ikon
+ * Sözleşme (render.js ile): window.ready, window.DUR, window.FPS, window.renderFrame(t), window.renderFrameMB(t, n)
+ */
+const W = 1920, H = 1080, FPS = 30, DUR = 4;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const rc = rough.canvas(cv);
+const INK = '#2b1d14', CREAM = '#f6ecd9', CARAMEL = '#c98b4a', ORANGE = '#E17610';
+
+// ---------- GSAP: tek bir "durum" nesnesini zaman çizgisi sürer ----------
+gsap.ticker.lagSmoothing(0);
+const S = { titleY: -300, sx: 1, sy: 1, cup: 0, steam: 0, icon: 0, sub: 0 };
+const tl = gsap.timeline({ paused: true });
+tl.to(S, { cup: 1, duration: 0.5, ease: 'back.out(2)' }, 0.1)
+  // başlık: beklenti (yukarı), düşüş, ezilme-uzama, sıçrama, yerleşme
+  .to(S, { titleY: -330, sy: 1.12, sx: 0.94, duration: 0.18, ease: 'power2.out' }, 0.5)   // anticipation
+  .to(S, { titleY: 0, sy: 1.25, sx: 0.85, duration: 0.22, ease: 'power3.in' }, 0.68)      // düşüş (stretch)
+  .to(S, { sy: 0.7, sx: 1.25, duration: 0.07, ease: 'none' }, 0.9)                         // çarpma (squash)
+  .to(S, { sy: 1, sx: 1, duration: 0.5, ease: 'elastic.out(1, 0.35)' }, 0.97)              // overshoot
+  .to(S, { steam: 1, duration: 1.0, ease: 'sine.inOut' }, 1.2)
+  .to(S, { icon: 1, duration: 0.5, ease: 'back.out(3)' }, 1.5)
+  .to(S, { sub: 1, duration: 0.4, ease: 'power2.out' }, 1.9);
+
+// ---------- matter-js: sabit adımlı, önceden hesaplanan çekirdek yörüngeleri ----------
+let beanFrames = null;
+function simulateBeans() {
+  const { Engine, Bodies, Composite } = Matter;
+  const eng = Engine.create({ gravity: { y: 1.4 } });
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647; // deterministik rastgele
+  const floor = Bodies.rectangle(W / 2, H - 40, W, 80, { isStatic: true, restitution: 0.5 });
+  const beans = [];
+  for (let i = 0; i < 14; i++) {
+    const b = Bodies.circle(160 + rnd() * (W - 320), -100 - i * 140, 26 + rnd() * 8,
+      { restitution: 0.55, friction: 0.3, angle: rnd() * 6 });
+    beans.push(b);
+  }
+  Composite.add(eng.world, [floor, ...beans]);
+  beanFrames = [];
+  const n = Math.round(DUR * FPS) + 1;
+  for (let f = 0; f < n; f++) {
+    for (let k = 0; k < 4; k++) Engine.update(eng, 1000 / FPS / 4); // 4 alt adım / kare
+    beanFrames.push(beans.map(b => [b.position.x, b.position.y, b.angle, b.circleRadius]));
+  }
+}
+
+// ---------- Lucide ikonu: SVG <path d> → Path2D ----------
+const COFFEE_PATHS = [
+  'M10 2v2', 'M14 2v2', 'M6 2v2',
+  'M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1',
+].map(d => new Path2D(d));
+
+function drawLucide(paths, x, y, size, color, lw) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(size / 24, size / 24);
+  ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineCap = ctx.lineJoin = 'round';
+  paths.forEach(p => ctx.stroke(p)); ctx.restore();
+}
+
+// ---------- çizim ----------
+function render(t) {
+  tl.time(t);                                   // tüm hareket yalnızca t'ye bağlı
+  const boil = Math.floor(t * 8) + 1;           // saniyede 8 farklı "elle çizim" seed'i
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+  ctx.fillStyle = CREAM; ctx.fillRect(0, 0, W, H);
+
+  // çekirdekler (fizik)
+  const fr = beanFrames[Math.max(0, Math.min(beanFrames.length - 1, Math.round(t * FPS)))];
+  for (const [x, y, a, r] of fr) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+    ctx.fillStyle = '#5a3a24'; ctx.beginPath(); ctx.ellipse(0, 0, r, r * 0.72, 0, 0, 7); ctx.fill();
+    ctx.strokeStyle = CREAM; ctx.lineWidth = 4; ctx.beginPath();
+    ctx.moveTo(-r * 0.8, 0); ctx.quadraticCurveTo(0, -r * 0.35, r * 0.8, 0); ctx.stroke(); ctx.restore();
+  }
+
+  // fincan (Rough.js) — S.cup ile ölçek
+  ctx.save(); ctx.translate(W / 2, 700); ctx.scale(S.cup, S.cup);
+  rc.rectangle(-170, -120, 300, 240, { fill: ORANGE, fillStyle: 'solid', stroke: INK, strokeWidth: 6, roughness: 1.6, seed: boil });
+  rc.arc(130, 0, 130, 150, -Math.PI / 2, Math.PI / 2, false, { stroke: INK, strokeWidth: 6, roughness: 1.6, seed: boil + 100 });
+  rc.ellipse(-20, 130, 360, 40, { fill: CARAMEL, fillStyle: 'solid', stroke: INK, strokeWidth: 5, roughness: 1.4, seed: boil + 200 });
+  // buhar
+  ctx.strokeStyle = INK; ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.globalAlpha = S.steam * (0.9);
+  for (let i = 0; i < 3; i++) {
+    const x0 = -90 + i * 80, ph = t * 3 + i * 1.7;
+    ctx.beginPath(); ctx.moveTo(x0, -150);
+    for (let k = 1; k <= 6; k++) ctx.lineTo(x0 + Math.sin(ph + k * 0.9) * 18, -150 - k * 28 * S.steam);
+    ctx.stroke();
+  }
+  ctx.restore(); ctx.globalAlpha = 1;
+
+  // başlık (squash & stretch, ayak noktası sabit)
+  ctx.save(); ctx.translate(W / 2, 250 + S.titleY); ctx.scale(S.sx, S.sy);
+  ctx.font = '800 190px "Baloo 2"'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK; ctx.fillText('Kahve Molası', 8, 8);
+  ctx.fillStyle = ORANGE; ctx.fillText('Kahve Molası', 0, 0); ctx.restore();
+
+  // Lucide ikonu (sağ üst, sıçrayarak girer)
+  const k = S.icon; ctx.save(); ctx.translate(W - 230, 190); ctx.scale(k, k);
+  drawLucide(COFFEE_PATHS, -70, -70, 140, INK, 1.8); ctx.restore();
+
+  // alt yazı (Patrick Hand, Türkçe karakter testi)
+  ctx.globalAlpha = S.sub; ctx.fillStyle = INK; ctx.font = '400 64px "Patrick Hand"'; ctx.textAlign = 'center';
+  ctx.fillText('İyi, ılık, şahane — ğüçöÖÇŞĞÜİ', W / 2, 980 + (1 - S.sub) * 30); ctx.globalAlpha = 1;
+}
+
+// hareket bulanıklığı: render.js'in beklediği imza (alt kare ortalaması, 180° obtüratör)
+const acc = document.createElement('canvas'); acc.width = W; acc.height = H;
+const actx = acc.getContext('2d', { willReadFrequently: true });
+function renderMB(t, n) {
+  const px = new Float32Array(W * H * 4);
+  for (let i = 0; i < n; i++) {
+    render(t - (i / n) * 0.5 / FPS);
+    const d = ctx.getImageData(0, 0, W, H).data;
+    for (let j = 0; j < d.length; j++) px[j] += d[j];
+  }
+  const out = ctx.createImageData(W, H);
+  for (let j = 0; j < px.length; j++) out.data[j] = px[j] / n;
+  ctx.putImageData(out, 0, 0);
+}
+
+window.renderFrame = render; window.renderFrameMB = renderMB;
+window.DUR = DUR; window.FPS = FPS;
+window.ready = (async () => {
+  simulateBeans();
+  await Promise.all([
+    document.fonts.load('800 80px "Baloo 2"', 'AaİıŞşĞğÜüÖöÇç'),
+    document.fonts.load('400 40px "Patrick Hand"', 'AaİıŞşĞğÜüÖöÇç'),
+  ]);
+  await document.fonts.ready;
+})();
+
+const params = new URLSearchParams(location.search);
+window.ready.then(() => {
+  if (params.has('render')) return;
+  if (params.has('t')) { render(parseFloat(params.get('t'))); return; }
+  let start = performance.now();
+  const loop = now => { render(((now - start) / 1000) % DUR); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+});
+</script>
+</body>
+</html>
