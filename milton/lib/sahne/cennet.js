@@ -266,7 +266,7 @@ function cen_melek(p) {
     if (p.lx != null && h > 10) { tx.save(); tx.translate(p.lx * 2.5, p.ly * 2.5); tx.fillStyle = tone(.9); tx.fill(all); tx.restore(); }
     tx.fillStyle = tone(v); tx.fill(all); px.fillStyle = GR.hatch({ th: PI / 2, id: 10 }); px.fill(all);
   }
-  if (p.spear != null) cen_mizrak(Y.hand[0], Y.hand[1], p.spear, (p.sl ?? 7.5) * h, .7, Math.max(1.4, h * .055), h, light ? 0 : 1);
+  if (p.spear != null) cen_mizrak(Y.hand[0], Y.hand[1], p.spear, (p.sl ?? 7.5) * h, .7, Math.max(1.4, h * .055), h, p.spV ?? (light ? 0 : 1));
   return Y;
 }
 

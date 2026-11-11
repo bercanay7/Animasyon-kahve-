@@ -445,9 +445,24 @@ function adn_i06Alev(t) {
     [Wd('I06', 'sersem'), .24], [Wd('I06', 'iyilik'), 0, E.io2]]);
   return k * (1 + .05 * Math.sin(t * 2.1));
 }
+function adn_i06Goz(t, g) {
+  // sabah, yakın plan: otların arasında yatan yılanın başı; göz açılır (filmdeki Şeytan'ın göz ışığı motifi)
+  const L = { x: 1300, y: 260 };
+  cen_gok(L, { r0: 380, r1: 1500, v: .72, n: 90 });
+  adn_tepe(700, 20, 3, { v: .62 }); adn_zemin(700, { v0: .9, v1: .96, v2: .985 });
+  adn_cali({ x0: -300, x1: 900, y: 690, amp: 40, wl: 90, seed: 151, yb: 760, L, cuts: .5, endW: 160 });
+  const C = adn_spl([[-200, 900], [100, 960], [400, 920], [700, 860], [900, 830], [1080, 820]], 120);
+  C.forEach((p, i) => { p[1] += Math.sin(t * .7 + i * .05) * 2; });
+  const r = adn_yilan(C, u => lerp(30, 64, smooth(clamp(u / .6))) * (u > .9 ? lerp(1, .82, (u - .9) / .1) : 1), { L, t, goz: 0, kesik: .7, basK: 1.45, seg: [[0, 1]] });
+  if (g > .02) { const e = r.HB(r.hw * 1.05, -r.hw * .4), tx = GR.tx; tx.fillStyle = GR.tone(1); tx.beginPath(); tx.ellipse(e[0], e[1], r.hw * .3, r.hw * .11 * g, Math.atan2(r.dir[1], r.dir[0]), 0, TAU); tx.fill(); }
+  adn_otlar(-60, 1960, 1020, 152, { t, h: 150, w: 11 });
+}
 plan('P099', (ctx, st) => {
-  const t = st.t, yum = E.io2(adn_u(t, Wd('I06', 'kopup'), Wd('I06', 'durur') + .8)) * .7 + .3 * E.io2(adn_u(t, Wd('I06', 'sersem'), Wd('I06', 'donakalır')));
-  const cam = camLerp({ cx: 900, cy: 540, z: 1 }, { cx: 1000, cy: 540, z: 1 }, st.p, E.sine);
+  // önce yakın plan (göz açılır), "havvayı"da geniş plana kesme (Havva uzakta, yılan dik)
+  const t = st.t, tC = Wd('I06', 'havvayı');
+  if (t < tC) { levha(ctx, { cx: 960, cy: 540, z: 1 }, () => adn_i06Goz(t, E.io2(adn_u(t, S('I06') + .3, S('I06') + 1.3))), [.8, 0, 1]); return; }
+  const yum = E.io2(adn_u(t, Wd('I06', 'kopup'), Wd('I06', 'durur') + .8)) * .7 + .3 * E.io2(adn_u(t, Wd('I06', 'sersem'), Wd('I06', 'donakalır')));
+  const cam = camLerp({ cx: 900, cy: 540, z: 1 }, { cx: 1000, cy: 540, z: 1 }, adn_u(t, tC, st.end), E.sine);
   levha(ctx, cam, () => adn_i06(t, { alev: adn_i06Alev(t), yum, goz: 1 - .45 * yum }), [.8, 0, 1]);
 }, { tr: ADN_FADE, over: (ctx, st) => {
   adn_alintiA(ctx, 'sersem bir iyilik', 860, 200, st.t - Wd('I06', 'iyilik') + .25, { px: 80 });
@@ -583,8 +598,8 @@ function adn_h02(t) {
   adn_cali({ x0: -300, x1: W + 300, y: 1050, amp: 26, wl: 110, seed: 36, yb: 1300, L, cuts: .5, tooth: 7, ends: false });
 }
 plan('P084', (ctx, st) => {
-  const t = st.t, p = E.io2(adn_u(t, S('H02'), Wd('H02', 'tek', 1) - .2));
-  levha(ctx, camLerp({ cx: 1160, cy: 540 }, { cx: 900, cy: 540 }, p, E.lin), () => adn_h02(t), [.8, 0, 1]);
+  const t = st.t;
+  levha(ctx, camLerp({ cx: 1160, cy: 540 }, { cx: 900, cy: 540 }, adn_u(t, S('H02'), Wd('H02', 'tek', 1) - .2), E.sine), () => adn_h02(t), [.8, 0, 1]);
 }, { tr: ADN_FADE, mb: 3 });
 
 // ═════════ P085 (H03): hayat ağacının tepesinde karabatak; kanat toplar, gözü parlar ═════════
@@ -737,8 +752,8 @@ plan('P091', (ctx, st) => {
   const t = st.t, tK = Wd('H09', 'kurbağa'), tR = Wd('H09', 'rüyalar');
   levha(ctx, camLerp({ cx: 1000, cy: 540 }, { cx: 940, cy: 540 }, st.p, E.sine), () => {
     adn_cardak(t);
-    adn_kurbaga(668, 744, 66, { f: -1, L: ADN_AY, nefes: Math.sin(t * 1.4) });
-    adn_ruya(634, 722, t, E.io2(adn_u(t, tR - 1.2, tR + .8)));
+    adn_kurbaga(650, 806, 92, { f: -1, L: ADN_AY, nefes: Math.sin(t * 1.4) });
+    adn_ruya(612, 770, t, E.io2(adn_u(t, tR - 1.2, tR + .8)));
   }, [.04, 0, 1]);
 }, { tr: ADN_FADE });
 
@@ -761,7 +776,7 @@ plan('P092', (ctx, st) => {
     if (t > tD) {
       adn_patlama(670, 640, R * .62, t, 1 - E.io2(adn_u(t, tD + .1, tD + 1.2)));
       kiy_seytan(t, { x: 690, gy: 800, h, lum: .12, facing: -1, lit: [.6, -.8], lean: -.02, head: .25 * born, open: .25 + .5 * born, lift: .3 * born, armN: [.1, .2], armF: [-.25, .3] });
-    } else adn_kurbaga(668, 744, 66, { f: -1, L: ADN_AY, nefes: Math.sin(t * 1.4) });
+    } else adn_kurbaga(650, 806, 92, { f: -1, L: ADN_AY, nefes: Math.sin(t * 1.4) });
     // mızrak: soldan; kâğıt beyazı, mürekkep konturlu (koyu çardağın önünde)
     const a = Math.atan2(tip[0] + 260, -(tip[1] - 590)) * 0 + PI / 2 + Math.atan2(tip[1] - 590, tip[0] + 260);
     cen_mizrak(tip[0] - Math.cos(a - PI / 2) * 600, tip[1] - Math.sin(a - PI / 2) * 600, a, 1100, .52, 4.5, 60, 1);
@@ -777,7 +792,7 @@ function adn_gece2(t, M, o = {}) {
   for (const [x, y, rx, ry, s] of (o.leke || [])) adn_leke(x, y, rx, ry, s);
 }
 function adn_bekci(t, list, L) {
-  for (const p of list) cen_basmelek(Object.assign({ facing: 1, L, t, head: .12, twist: .3, armN: [-.05, .25], armF: [.3, .9], lift: .5, open: .12, wingS: 3.4 }, p));
+  for (const p of list) cen_basmelek(Object.assign({ facing: 1, L, t, robe: true, legs: true, head: .12, twist: .3, armN: [-.05, .25], armF: [.3, .9], lift: .5, open: .12, wingS: 3.4 }, p));
 }
 function adn_h11(t) {
   const M = { x: 1330, y: 250, r: 78 }, tB = Wd('H11', 'beni'), tS = Wd('H11', 'şimdi');
@@ -826,70 +841,94 @@ function adn_i04Set(t) {
   adn_gece2(t, M, { hz: 760, R: 1100, leke: [[300, 980, 240, 36, 136], [1700, 1000, 220, 34, 137]] });
   adn_tac({ x: 120, y: 420, r: 340, seed: 131, L: M, n: 8, vurus: 2, cuts: .7 });
   adn_tac({ x: 1900, y: 560, r: 240, seed: 132, L: M, n: 6, vurus: 2, cuts: .7 });
-  adn_leke(1060, 920, 420, 92, 133, .95);
-  adn_cali({ x0: 420, x1: 700, y: 905, amp: 40, wl: 40, seed: 134, yb: 1000, L: M, cuts: 0, tooth: 10, endW: 120, endD: 60 });
+  adn_leke(1000, 925, 520, 100, 133, .95);
 }
 // uyuyan sarmal: baş en üstte, sola dönük
-function adn_uyuyan(cx, cy, k) {
-  const sp = adn_sarmal(cx, cy, 150 * k, 46 * k, 2.15, .36, .2, 130), e = sp[sp.length - 1];
-  const hd = adn_spl([e, [e[0] - 30 * k, e[1] - 20 * k], [e[0] - 90 * k, e[1] - 26 * k], [e[0] - 140 * k, e[1] - 14 * k]], 30);
-  return sp.concat(hd.slice(1));
+function adn_uyuyan(k = 1, hx = 800, hy = 900) {
+  // uyuyan yılan (simit değil): gevşek tek halka, baş öne uzanmış; baş (800, 900) çevresinde kurulur, k ölçeğiyle (hx, hy)'ye taşınır
+  const K = [[1520, 950], [1400, 984], [1260, 978], [1140, 948], [1090, 905], [1130, 868], [1225, 866], [1262, 905], [1215, 944], [1100, 958], [990, 942], [900, 914], [800, 900]];
+  return adn_spl(K.map(([x, y]) => [hx + (x - 800) * k, hy + (y - 900) * k]), 160);
 }
-const adn_uyW = k => u => k * lerp(6, 36, smooth(clamp(u / .45))) * (u > .9 ? lerp(1, .8, (u - .9) / .1) : 1);
+
+const adn_uyW = k => u => k * lerp(5, 30, smooth(clamp(u / .4))) * (u > .92 ? lerp(1, .78, (u - .92) / .08) : 1);
 function adn_uyuyanCiz(t, o = {}) {
-  const C = adn_uyuyan(1060, 905, 1.45), br = Math.sin(t * .8) * 1.5;
-  C.forEach(p => { p[1] += br * (p[0] - 900) / 600; });
-  adn_yilan(C, adn_uyW(1.45), { L: ADN_I4M, t, seg: adn_sarmalSira(C, 130, [[130 / (C.length - 1), 1]]), goz: o.goz ?? 0, kesik: .6, rim: 4, basK: 1.35 });
+  const k = o.k ?? 1.3, C = adn_uyuyan(k, o.hx ?? 720, o.hy ?? 900), br = Math.sin(t * .8) * 1.5, sh = o.titre || 0;
+  C.forEach(p => { p[1] += br * (p[0] - 900) / 600; p[0] += sh; });
+  adn_yilan(C, adn_uyW(k), { L: ADN_I4M, t, seg: [[0, .5], [.5, 1]], goz: o.goz ?? 0, kesik: .6, rim: 4, basK: 1.4 });
+  if ((o.goz ?? 0) < .05) { const h = C[C.length - 1], w = 30 * k * .78 * 1.4; adn_cizgi([[h[0] + w * .3, h[1] - w * .38], [h[0] + w * .62, h[1] - w * .42], [h[0] + w * .9, h[1] - w * .36]], 4, .9, .5); }   // kapalı göz
   return C;
 }
+
 // ═════════ P097 (I04): otların arasında uyuyan kıvrık yılan; üstünde duraksayan koyu siluet; “Ne iğrenç bir alçalış!” ═════════
+function adn_otlar(x0, x1, y, seed, o = {}) {
+  // ot öbekleri: dipten yukarı sivrilen, hafif eğik koyu yapraklar (öbek öbek; kırıntı değil)
+  const q = rng(seed), h0 = o.h ?? 60;
+  for (let x = x0; x < x1; x += 34 + q() * 60) { const n = 4 + Math.floor(q() * 4), hh = h0 * (.6 + q() * .7);
+    for (let i = 0; i < n; i++) { const a = (q() - .5) * .9, l = hh * (.55 + q() * .5), bx = x + (q() - .5) * 18, sw = Math.sin((o.t || 0) * .8 + x * .01) * .04;
+      adn_sivri([[bx, y + 4], [bx + Math.sin(a + sw) * l * .5, y - Math.cos(a) * l * .5], [bx + Math.sin(a * 1.4 + sw) * l, y - Math.cos(a * 1.2) * l]], o.w ?? 7, .02); } }
+}
 plan('P097', (ctx, st) => {
-  const t = st.t, tI = Wd('I04', 'iğrenir');
+  // orta plan: figür yılanın üstünde sürekli alçalır (asılı durma yok), kanatları kapanır; "iğrenir"de baş yılandan yana döner
+  const t = st.t, tI = Wd('I04', 'iğrenir'), dn = E.io2(st.p), bow = E.io2(adn_u(t, tI - .2, tI + .3));
   levha(ctx, camLerp({ cx: 990, cy: 540 }, { cx: 1030, cy: 540 }, st.p, E.sine), () => {
     adn_i04Set(t);
     adn_uyuyanCiz(t);
-    const bob = Math.sin(t * .9) * 8, bow = E.io2(adn_u(t, tI - .4, tI + 1.2));
-    kiy_seytan(t, { x: 1270, gy: 640 + bob, h: 52, lum: .1, facing: -1, lit: [0, -1], legs: true, head: -.1 - .4 * bow, lean: .15 + .1 * bow, open: .7 - .25 * bow, lift: .55 - .2 * bow,
+    adn_otlar(440, 640, 930, 138, { t }); adn_otlar(1380, 1640, 960, 139, { t });
+    kiy_seytan(t, { x: 1250, gy: 560 + 180 * dn + Math.sin(t * .9) * 3, h: 52, lum: .1, facing: -1, lit: [0, -1], legs: true, head: -.1 - .3 * bow - .1 * dn, lean: .15 + .1 * bow, open: .7 - .2 * dn, lift: .55 - .25 * dn,
       legN: [.25, -.6], legF: [.05, -.4], armN: [.3, .5], armF: [-.1, .4] });
     adn_cali({ x0: -300, x1: W + 300, y: 1050, amp: 34, wl: 60, seed: 135, yb: 1300, L: ADN_I4M, cuts: .3, tooth: 11, ends: false, rim: 3 });
   }, [.04, 0, 1]);
 }, { tr: ADN_FADE, over: (ctx, st) => quote(ctx, '“Ne iğrenç bir alçalış!”', 560, 230, st.t - Wd('I04', 'iğrenç') + .3, { px: 72, panel: .55 }) });
 
 // ═════════ P098 (I05): siluet duman olup yılanın ağzından içeri akar; “yükseldiği kadar alçalmak zorundadır” ═════════
-function adn_dumanAkis(path, a, t, M) {
-  // kalın, kıvrılan tek koyu duman şeridi: siluetten yılanın ağzına; genişlik başta geniş, ağızda sivri; yan dalgalar şerit boyunca akar
-  if (a <= .01) return;
-  const n = path.length - 1, A = [], B = [];
-  for (let i = 0; i <= n; i++) {
-    const u = i / n, p = path[i], q = path[Math.min(n, i + 1)], r = path[Math.max(0, i - 1)], [nx, ny] = adn_nrm(q[1] - r[1], -(q[0] - r[0]));
-    const wv = Math.sin(u * 11 - t * 3.2) * 22 * (1 - u) * a, w = lerp(70, 6, Math.pow(u, .8)) * a * (1 + .22 * Math.sin(u * 7 - t * 2.4) + .2 * Math.abs(Math.sin(u * 34 - t * 4)));
-    A.push([p[0] + nx * (w + wv), p[1] + ny * (w + wv)]); B.push([p[0] - nx * (w - wv), p[1] - ny * (w - wv)]);
-  }
-  const P = new Path2D(); spline(P, [...A, ...B.reverse()], true, .5);
-  GR.fill(P, GR.tone(.02), { type: 'bend', ox: path[0][0], oy: path[0][1], a: Math.atan2(path[n][1] - path[0][1], path[n][0] - path[0][0]), k: .001, id: 2 });
-  adn_kenar(P, M, path[0][0], path[0][1], 6, 2);
-  // kıvrım: şeridin içinde akan birkaç kâğıt çizgi (ay yanında)
+function adn_dumanKol(path, h0, h1, t, M, seed) {
+  // tek duman kolu: yolun [h0, h1] arası görünür (h1 baş: ağza ilerler); ince, sivrilen, kıvrımlı; içinde düzensiz beyaz vuruşlar; kuyruk ucu yırtık
+  if (h1 - h0 < .01) return;
+  const n = 40, A = [], B = [], q = rng(seed), C = [];
+  for (let i = 0; i <= n; i++) { const u = lerp(h0, h1, i / n), p = adn_yolNokta(path, u), pp = adn_yolNokta(path, Math.min(1, u + .01)), [nx, ny] = adn_nrm(pp[1] - p[1], -(pp[0] - p[0]));
+    const f = i / n, wv = Math.sin(u * 18 - t * 3 + seed) * 18 * (1 - u), w = 24 * Math.pow(Math.sin(PI * Math.min(1, f * 1.05)), .7) * (1 + .5 * Math.abs(Math.sin(u * 40 + seed - t * 2)) * (1 - f));
+    C.push([p[0] + nx * wv, p[1] + ny * wv]); A.push([p[0] + nx * (wv + w), p[1] + ny * (wv + w)]); B.push([p[0] + nx * (wv - w), p[1] + ny * (wv - w)]); }
+  const P = new Path2D(); spline(P, [...A, ...B.reverse()], true, .45); adn_doldur(P, .02);
+  { const c = C[Math.floor(n / 2)]; adn_kenar(P, M, c[0], c[1], 5, 2); }
   GR.tx.save(); GR.tx.clip(P);
-  for (let k = 0; k < 3; k++) { const s0 = ((k / 3) + t * .25) % 1, pts = []; for (let j = 0; j <= 8; j++) { const u = clamp(s0 + j * .03), i = Math.round(u * n); pts.push([path[i][0] + Math.sin(u * 11 - t * 3.2) * 10, path[i][1]]); } adn_cizgi(pts, 5, .95, .5); }
+  for (let k = 0; k < 3; k++) { const a0 = Math.floor((.1 + k * .28 + q() * .1) * n), a1 = Math.min(n, a0 + 5 + Math.floor(q() * 5)); adn_cizgi(C.slice(a0, a1 + 1).map(([x, y]) => [x + (q() - .5) * 8, y + (q() - .5) * 8]), 4.5, .95, .55); }
   GR.tx.restore();
 }
+function adn_cozulme(cx, cy, rx, ry, d, seed) {
+  // uçlardan çözülme maskesi: d 0 bütün … 1 yok; merkezden uzak (kanat uçları, ayaklar) ve gürültüsü yüksek hücreler önce kaybolur (yatay kesme yok)
+  const P = new Path2D(), g = 20;
+  for (let y = cy - ry; y <= cy + ry; y += g) for (let x = cx - rx; x <= cx + rx; x += g) {
+    const r = Math.hypot((x - cx) / rx, (y - cy) / ry), th = 1 - .62 * r - .38 * hash2(x * .01, y * .01, seed), rr = g * .95 * clamp((th - d) * 6);
+    if (rr > .5) { P.moveTo(x + rr, y); P.arc(x, y, rr, 0, TAU); }
+  }
+  return P;
+}
 
-function adn_yolNokta(K, s) { const n = K.length - 1, u = s * n, i = Math.min(n - 1, Math.floor(u)), f = u - i; return [lerp(K[i][0], K[i + 1][0], f), lerp(K[i][1], K[i + 1][1], f)]; }
+function adn_yolNokta(K, s) { const n = K.length - 1, u = clamp(s) * n, i = Math.min(n - 1, Math.floor(u)), f = u - i; return [lerp(K[i][0], K[i + 1][0], f), lerp(K[i][1], K[i + 1][1], f)]; }
+
 plan('P098', (ctx, st) => {
-  const t = st.t, t0 = Wd('I05', 'sonra'), t1 = Wd('I05', 'girer') + .4, d = E.io2(adn_u(t, t0, t1)), a = clamp((t - t0) / .4) * (1 - E.io2(adn_u(t, t1 - .3, t1 + .8)));
-  levha(ctx, { cx: 1030, cy: 540, z: 1 }, () => {
-    const M = ADN_I4M;
-    adn_i04Set(t);
-    const C = adn_uyuyanCiz(t, { goz: E.io2(adn_u(t, t1, t1 + .8)) }), m = C[C.length - 1];
-    const bob = Math.sin(t * .9) * 8, gy = 640 + bob, h = 52, top = gy - 8.6 * h, bot = gy + 30, yc = lerp(top - 140, bot, d);
-    if (d < 1) {
-      GR.save(); const Cl = new Path2D(); Cl.rect(-500, yc, W + 1000, 2000); GR.tx.clip(Cl); GR.px.clip(Cl);
-      kiy_seytan(t, { x: 1270, gy, h, lum: .08, facing: -1, lit: [0, -1], head: -.5, lean: .25, open: .45 - .3 * d, lift: .35, legN: [.25, -.6], legF: [.05, -.4], armN: [.3, .5], armF: [-.1, .4] });
-      GR.restore();
-    }
-    const path = adn_spl([[1270, Math.max(yc, top) + 30], [1210, lerp(yc, 760, .5)], [m[0] + 30, m[1] - 120], [m[0] - 30, m[1] - 50], [m[0] - 40, m[1]]], 40);
-    adn_dumanAkis(path, a, t, M);
-    adn_cali({ x0: -300, x1: W + 300, y: 1050, amp: 34, wl: 60, seed: 135, yb: 1300, L: M, cuts: .3, tooth: 11, ends: false, rim: 3 });
+  // yakın plan: yılanın başı büyük; üstte alçalan figür ("yükseldiği"nde kısa yükselir, sonra daha derine), "sonra"da uçlardan çözülür,
+  // 4 ince duman kolu E.in2 ile ağza akar; ağız kapanırken gövde bir kez titrer (±4 px, 3 kare). Göz bu planda kapalı kalır (P099'da açılır).
+  const t = st.t, t0 = Wd('I05', 'sonra'), t1 = Wd('I05', 'girer') + .4, tY = Wd('I05', 'yükseldiği'), d = E.io2(adn_u(t, t0, t1 - .5));
+  const sh = (t > t1 - .3 && t < t1 - .2) ? 4 * (Math.floor((t - t1 + .3) * 30) % 2 ? -1 : 1) : 0;
+  levha(ctx, { cx: 960, cy: 540, z: 1 }, () => {
+    const M = { x: 1060, y: 250, r: 84 };
+    adn_gece2(t, M, { hz: 600, R: 1300, leke: [[1000, 860, 1000, 190, 141]] });
+    adn_tac({ x: 60, y: 300, r: 330, seed: 142, L: M, n: 7, vurus: 2, cuts: .7 });
+    const C = adn_uyuyanCiz(t, { k: 2.3, hx: 640, hy: 850, titre: sh }), m = C[C.length - 1];
+    adn_otlar(-40, 300, 1000, 143, { t, h: 110, w: 10 }); adn_otlar(1560, 1960, 1010, 144, { t, h: 120, w: 10 });
+    const gy = 470 + 70 * E.io2(adn_u(t, S('I05'), t0)) - 40 * Math.sin(PI * adn_u(t, tY, tY + 1)) + 40 * d, h = 60, fx = 1120, fc = [fx, gy - 4 * h];
+    if (d < 1) { GR.save(); const Cl = adn_cozulme(fc[0], fc[1], 560, 330, d, 7); GR.tx.clip(Cl); GR.px.clip(Cl);
+      kiy_seytan(t, { x: fx, gy, h, lum: .08, facing: -1, lit: [0, -1], head: -.5, lean: .25, open: .5 - .2 * d, lift: .35, legN: [.25, -.6], legF: [.05, -.4], armN: [.3, .5], armF: [-.1, .4] });
+      GR.restore(); }
+    const mouth = [m[0] - 50, m[1] + 6], src = [[fc[0] - 300, fc[1] - 120], [fc[0] + 280, fc[1] - 140], [fc[0] - 10, gy + 30], [fc[0] + 40, fc[1] + 40]];
+    src.forEach((s0, i) => {
+      const path = adn_spl([s0, [lerp(s0[0], mouth[0], .35) + (i % 2 ? 90 : -90), lerp(s0[1], mouth[1], .3) - 60], [lerp(s0[0], mouth[0], .7) + (i % 2 ? -40 : 60), lerp(s0[1], mouth[1], .75) - 50], mouth], 60);
+      const u = adn_u(t, t0 + i * .2, t1 - .3 + i * .05), hd = clamp(.12 + .88 * E.in2(clamp(u * 1.2))), tl = clamp(E.in2(clamp(u * 1.2)) * 1.5 - .5);
+      if (u <= 0) return;
+      adn_dumanKol(path, tl, hd, t, M, 11 + i);
+    });
+    adn_cali({ x0: -300, x1: W + 300, y: 1060, amp: 30, wl: 60, seed: 145, yb: 1300, L: M, cuts: .3, tooth: 11, ends: false, rim: 3 });
   }, [.04, 0, 1]);
 }, { tr: { type: 'cut' }, over: (ctx, st) => {
   const t0 = Wd('I05', 'yükseldiği') - .5, e = Wd('I05', 'sonra');
