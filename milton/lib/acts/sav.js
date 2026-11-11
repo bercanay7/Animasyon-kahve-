@@ -32,8 +32,8 @@ function kao_kol(t, K, i = 0, L = null) {
     const u = k / m, a = a0 + K.span * u, yr = K.yirtik || 0, e = Math.pow(Math.sin(PI * Math.pow(u, K.skew ?? .7)), lerp(.6, .3, yr));
     const Rr = R * (1 + (K.spiral ?? .05) * u + .02 * Math.sin(u * 4.5 + ph));
     const lobe = .5 - .5 * Math.cos(TAU * (u * nb + bph));       // iç kenarda yuvarlak yumrular
-    const rag = yr ? (noise1(u * 13 + (K.seed || 1) * 3.1, 3) - .5) * .7 + (noise1(u * 41 + (K.seed || 1), 5) - .5) * .35 : 0;   // yırtık duman kenarı
-    const wi = wd * .45 * e * (1 + bp * lobe + yr * rag), wo = wd * .55 * e * (1 + .12 * Math.sin(u * 3.3 + ph2) + yr * (noise1(u * 17 + (K.seed || 1) * 7, 4) - .5) * .8);
+    const rag = yr ? (noise1(u * 7 + (K.seed || 1) * 3.1, 3) - .5) * .5 + (noise1(u * 19 + (K.seed || 1), 5) - .5) * .18 : 0;   // yırtık duman kenarı
+    const wi = wd * .45 * e * (1 + bp * lobe + yr * rag), wo = wd * .55 * e * (1 + .12 * Math.sin(u * 3.3 + ph2) + yr * (noise1(u * 6 + (K.seed || 1) * 7, 4) - .5) * .45);
     inner.push([K.ox + Math.cos(a) * (Rr - wi), K.oy + Math.sin(a) * (Rr - wi)]);
     outer.push([K.ox + Math.cos(a) * (Rr + wo), K.oy + Math.sin(a) * (Rr + wo)]);
   }
@@ -625,12 +625,12 @@ plan('P033', (ctx, st) => {
 function sav_p033y(t) {
   const tI = Wd('D04', 'iner'), L = { x: 380, y: 60 }, h = 120;
   cen_gok(L, { r0: 300, r1: 1500, v: .7, n: 110 });
-  cen_bulutKat({ x0: 1150, x1: 2500, y: 360, h: 620, yb: H + 100, seed: 157, L, t, n: 3 });
+  cen_bulutKat({ x0: 900, x1: 2500, y: 360, h: 620, yb: H + 100, seed: 157, L, t, n: 3 });
   const sw = E.in3(sav_u(t, tI - .25, tI)), rec = E.out3(sav_u(t, tI, tI + .7));
   sav_aydinKilic({ x: 760 - 120 * rec, y: 1040 + 30 * rec, h, facing: 1, L, t, back: true, head: .1 - .5 * rec, lean: -.05 - .35 * rec, twist: .35, legs: false,
     armN: [lerp(1.4, 2.4, rec), lerp(.6, .2, rec)], armF: [.3 + .4 * rec, .6], lift: .55 + .25 * rec, open: .85, wingS: 6, seed: 5 }, { k: 'N', off: .25, len: 3.2 });
   // Abdiel'in kolu ve kılıcı: sağ kenardan; ışıklı, koyu bulutun önünde
-  sav_aydinKilic({ x: 1640, y: 1080, h, facing: -1, L, t, twist: .35, legs: false, head: .1, lean: lerp(-.1, .2, sw), armN: [.2, .3], armF: [lerp(2.9, 1.25, sw), lerp(.3, .1, sw)], lift: .6, open: .8, wingS: 5.5, seed: 7 }, { k: 'F', off: .05, len: 3.6 });
+  sav_aydinKilic({ x: 1680, y: 1080, h, facing: -1, L, t, twist: .35, legs: false, head: .1, lean: lerp(-.1, .2, sw), armN: [.2, .3], armF: [lerp(2.9, 1.25, sw), lerp(.3, .1, sw)], lift: .6, open: .8, wingS: 5.5, seed: 7 }, { k: 'F', off: .05, len: 3.6 });
   const fl = Math.exp(-Math.pow((t - tI) / .12, 2));   // çarpma parıltısı: kılıçların kesiştiği yerde kısa kâğıt yıldız
   if (fl > .05) cen_yildiz(980, 470, 120 * fl, 1);
 }
@@ -689,13 +689,13 @@ plan('P035', (ctx, st) => levha(ctx, camLerp({ cx: 990, cy: 540, z: 1 }, { cx: 9
 // çevresinde seyrek ışınsal tarama. Sağda koyu saflar (kütle + mızrak) geri çekilip uçurum kenarına sıkışır.
 const SAV_P037 = (() => { const r = rng(370), F = [], R = [];
   for (let i = 0; i < 8; i++) F.push({ dx: r() * 240, dl: i * .14 + r() * .1, h: 26 + r() * 10, f: r() < .5 ? 1 : -1, sp: (r() - .5) * 2, seed: 900 + i });
-  for (let i = 0; i < 9; i++) R.push({ x: 1050 + i * 62 + r() * 24, h: 34 + r() * 8, sp: .3 + r() * .25, seed: 950 + i, ph: r() });   // ön saf: tek tek okunan figürler
+  for (let i = 0; i < 9; i++) R.push({ x: 960 + i * 58 + r() * 24, h: 34 + r() * 8, sp: .3 + r() * .25, seed: 950 + i, ph: r() });   // ön saf: tek tek okunan figürler
   return { F, R }; })();
 function sav_p037(t) {
   // Oğul yalnız ışık: koyu bulut örtüsünü sol üstten çapraz yaran geniş huzme demeti (figür, yüz, el, hale, haç, araba gövdesi yok).
   // Huzme sağ alttaki asi saflarına vurur: ön saflar (tek tek koyu figürler, mızraklı) geri savrulur, kıyıdan boşluğa dökülür.
   const { tx, px, tone } = GR, tO = Wd('D08', 'savaş'), tG = Wd('D08', 'gelir'), tS = Wd('D08', 'sürülür'), tA = Wd('D08', 'atarlar');
-  const op = E.io2(sav_u(t, tO - .5, tG + .8)), push = E.io2(sav_u(t, tG, tS + .9)), EDGE = 1660, GY = 840;
+  const op = E.io2(sav_u(t, tO - .5, tG + .8)), push = E.io2(sav_u(t, tG, tS + .9)), EDGE = 1520, GY = 840;
   const O = { x: 160, y: -120 }, T = { x: 1300, y: GY - 60 }, th = Math.atan2(T.y - O.y, T.x - O.x), d = [Math.cos(th), Math.sin(th)], n = [-d[1], d[0]];
   // koyu bulut örtüsü (savaşın karanlığı)
   tx.fillStyle = tone(.025); tx.fillRect(-400, -400, W + 800, H + 800); px.fillStyle = GR.hatch({ th: 0, id: 0 }); px.fillRect(-400, -400, W + 800, H + 800);
