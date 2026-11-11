@@ -466,7 +466,7 @@ function nif_siluet7(t, a, K = NIF_KANCA, o = {}) {
 }
 // göğüs alevi (kapak dili): boyları farklı üç dil (orta en uzun), taban düz kesilmez, taramayla karaya erir; yan pençe dili yok
 function nif_alev7(t, F, a = 0, kx = 1) {
-  const { tx } = GR, s = F.s, fb = F.fb, k = lerp(.8, 1.02, clamp(a)) * kx, sw = q => Math.sin(t * 1.1 + q) * 6 * s;   // çok yavaş salınım
+  const { tx } = GR, s = F.s, fb = F.fb, k = lerp(.8, 1.02, clamp(a, 0, 1.6)) * kx, sw = q => Math.sin(t * 1.1 + q) * 6 * s;   // çok yavaş salınım
   const dil = (bx, by, L, w, ln) => { const P = new Path2D(); P.moveTo(bx, by);
     P.bezierCurveTo(bx - w * 1.15, by - L * .1, bx - w * 1.1, by - L * .52, bx - w * .3 + ln * .45, by - L * .78);
     P.quadraticCurveTo(bx - w * .05 + ln * .85, by - L * .92, bx + ln, by - L);
