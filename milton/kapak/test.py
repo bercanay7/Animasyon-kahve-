@@ -38,7 +38,7 @@ def sahte(w, h, i):
     d.multiline_text((w * .05, h * .12), t, font=f, fill=fg, spacing=2, stroke_width=max(1, w // 160), stroke_fill=(0, 0, 0))
     return im
 
-BASLIK = "Şeytan'ın İç Yolculuğu: Milton'ın Kayıp Cennet'i"
+BASLIK = "Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"
 def akis(kapaklar, koyu, out):
     """mobil ana sayfa (tek sütun, 390 dp ≈ 780 px) + önerilen listesi (168×94) yan yana"""
     bg, fg, gr = ((15, 15, 15), (241, 241, 241), (170, 170, 170)) if koyu else ((255, 255, 255), (15, 15, 15), (96, 96, 96))
