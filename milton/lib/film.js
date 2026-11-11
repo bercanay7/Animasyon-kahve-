@@ -120,10 +120,11 @@ function quote(ctx, s, x, y, lt, o = {}) {
   const px = o.px || 68, lh = px * 1.22;
   ctx.save(); ctx.font = FONT.alinti(px); const L = wrapLines(ctx, s, o.maxW || 1240), y0 = y - (L.length - 1) * lh / 2;
   const t0 = o.t0 || 0, per = o.per ?? .5, aAll = clamp((lt - t0) / .5);
-  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = aAll; softPanel(ctx, x, y, wd * .5 + px * 1.8, L.length * lh * .5 + px * 1.2, o.panel ?? .8); }
+  const kpx = Math.max(40, Math.round(px * .42)), kEk = o.kaynak ? kpx + 34 : 0;   // künye: telefon kuralı ≥ 40 px; panel künyeyi de kapsar
+  if (o.panel !== false && aAll > 0) { let wd = 0; for (const l of L) wd = Math.max(wd, ctx.measureText(l).width); ctx.globalAlpha = aAll; softPanel(ctx, x, y + kEk / 2, wd * .5 + px * 1.8, L.length * lh * .5 + px * 1.2 + kEk / 2, o.panel ?? .8); }
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = o.col || PAPER_CSS;
   L.forEach((l, i) => { const a = clamp((lt - t0 - i * per) / .6); if (a <= 0) return; ctx.globalAlpha = E.sine(a); ctx.fillText(l, x, y0 + i * lh + (1 - E.out3(a)) * 10); });
-  if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = a * .85; ctx.font = FONT.baslik(Math.round(px * .42), 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + L.length * lh + px * .25); }
+  if (o.kaynak) { const a = clamp((lt - t0 - L.length * per) / .6); ctx.globalAlpha = E.sine(a); ctx.font = FONT.baslik(kpx, 600); ctx.letterSpacing = '3px'; ctx.fillText(o.kaynak, x, y0 + (L.length - 1) * lh + px * .62 + 30 + kpx / 2); }
   ctx.restore();
 }
 // Bölüm kartı: ince çizgi + büyük harfli başlık + altında bölümün merak sorusu. lt: çekim içi zaman, d: süre
@@ -132,11 +133,11 @@ function chapterCard(ctx, title, soru, lt, d = 3.6, o = {}) {
   const a = clamp(lt / .6) * clamp((d - lt) / .6); if (a <= 0) return;
   const x = o.x ?? W / 2, y = o.y ?? 430, px = o.px || 92;
   ctx.save(); ctx.globalAlpha = E.sine(a);
-  softPanel(ctx, x, y + 30, 760, 250, .82);
+  softPanel(ctx, x, y + 40, 900, 300, .9);
   const u = E.out3(clamp(lt / 1.1)), lw = 250 * u;
   ctx.strokeStyle = PAPER_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - lw, y - px * .82); ctx.lineTo(x + lw, y - px * .82); ctx.stroke();
   txt(ctx, title, x, y, { px, ls: 10 });
-  if (soru) { ctx.font = FONT.alinti(50); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = PAPER_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6); wrapLines(ctx, soru, 1200).forEach((l, i) => ctx.fillText(l, x, y + px * .95 + i * 60)); }
+  if (soru) { const sp = o.soruPx || 64; ctx.font = FONT.alinti(sp); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = PAPER_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6); wrapLines(ctx, soru, o.soruW || Math.min(1400, 2 * (Math.min(x, W - x) - 110))).forEach((l, i) => ctx.fillText(l, x, y + px * 1.02 + i * sp * 1.18)); }   // soru ≥ 64 px (telefon)
   ctx.restore();
 }
 // Etiket: küçük büyük harfli ad (kişi, yer, yıl). lt ile belirir, d sonunda söner.
