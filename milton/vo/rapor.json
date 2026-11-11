@@ -1565,5 +1565,57 @@
     "prometheus"
    ]
   ]
+ },
+ "s23_a": {
+  "wer": 0.127,
+  "sure": 33.84,
+  "hatalar": [
+   [
+    "replace",
+    "yirminci",
+    "yirmizci"
+   ],
+   [
+    "replace",
+    "narniyanın",
+    "narniya nın"
+   ],
+   [
+    "replace",
+    "luise",
+    "luis e"
+   ],
+   [
+    "replace",
+    "generale generalden",
+    "generele genelden"
+   ],
+   [
+    "replace",
+    "alçalır",
+    "alçalar"
+   ]
+  ]
+ },
+ "s23_b": {
+  "wer": 0.0952,
+  "sure": 33.66,
+  "hatalar": [
+   [
+    "replace",
+    "narniyanın",
+    "narniya nın"
+   ],
+   [
+    "replace",
+    "luise",
+    "luis e"
+   ],
+   [
+    "replace",
+    "generale generalden",
+    "generele genelden"
+   ]
+  ]
  }
 }

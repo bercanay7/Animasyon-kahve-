@@ -397,7 +397,7 @@ plan('P032', (ctx, st) => {
       kilic: { k: 'N', off: .05, len: 3.4, v: 1 } });
   });
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => quote(ctx, '“…krallık değil, zincir bekle.”', 560, 600, st.t - Wd('D03', 'ama') + .2, { px: 80, maxW: 820, panel: false, kaynak: 'KAYIP CENNET · VI. 186' }) });
+  over: (ctx, st) => quote(ctx, '“…krallık değil, zincir bekle.”', 560, 600, st.t - Wd('D03', 'ama') + .2, { px: 80, maxW: 820, panel: false }) });
 
 // ═════════ P033 (D04): kılıç iner; Şeytan on adım geriler, onuncu adımda dizinin üstüne çöker ═════════
 function sav_p033(t) {
@@ -577,3 +577,142 @@ function sav_p037(t) {
   }
 }
 plan('P037', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => sav_p037(st.t)), { tr: { type: 'cut' } });
+
+// ═════════ P060 (F05): kapı kanatları ayrılır; arkada Kaos ═════════
+// Kapının kendisi KAP grubunun; burada yalnız aralanan iki koyu kütle (kanatların iç yüzü) ve aradan görünen Kaos.
+// Eşikte, sırtı bize dönük küçük koyu siluet: Kaos'un aydınlığına karşı okunur.
+const KAO_P060 = [
+  { ox: 900, oy: 760, R: 560, a0: -2.9, span: 1.3, wd: 150, nb: 6, seed: 61, bump: .22 },
+  { ox: 1040, oy: 700, R: 720, a0: -.35, span: -1.2, wd: 190, nb: 7, seed: 62, bump: .2 },
+  { ox: 960, oy: 640, R: 1050, a0: 2.65, span: -.9, wd: 230, nb: 6, seed: 63, bump: .2 },
+];
+function kao_p060(t) {
+  const { tx, px, tone } = GR, tA = Wd('F05', 'açar'), o = E.io3(sav_u(t, tA - .3, tA + 2.6));
+  kao_bosluk(t, { lt: t - S('F05'), cx: 960, cy: 600, r0: 90, r1: 1250, sy: .65, kollar: KAO_P060 });
+  // eşik ve figür (sırtı bize dönük; kanatlar yarı açık)
+  const TH = new Path2D(); poly(TH, [[-100, 930], [W + 100, 930], [W + 100, H + 50], [-100, H + 50]], true); GR.fill(TH, tone(.03), { th: 0, id: 4 });
+  GR.tx.save(); GR.tx.clip(TH); gol_vurus(GR.tx, [[960 - 700 * o, 934], [960, 937], [960 + 700 * o, 934]], 10 * o + 1, .97, .4); GR.tx.restore();
+  kiy_seytan(t, { x: 960, gy: 932, h: 44, facing: 1, twist: 0, head: .05, lean: 0, armN: [.15, .15], armF: [-.15, .15], lum: .06, lit: [0, -1], open: lerp(-.2, .25, o), lift: lerp(-.1, .3, o), wingK: .75, cloak: 1.5 });
+  // kanatlar: düz siyah, iç kenarda ince ışık; dönerek açılır (iç kenar dışa kayar, boyca hafif uzar)
+  for (const sd of [-1, 1]) {
+    const xi = 960 + sd * (4 + 760 * o), xo = 960 + sd * 1300, gr = 30 * o, P = new Path2D();
+    poly(P, [[xi, -60 - gr], [xo, -200], [xo, H + 200], [xi, H + 60 + gr]], true);
+    GR.fill(P, tone(.025), { th: PI / 2, id: 0 });
+    tx.save(); tx.clip(P); gol_vurus(tx, [[xi + sd * 4, -20], [xi + sd * 5, 540], [xi + sd * 4, H + 20]], 9 + 6 * o, .95, .1); tx.restore();
+  }
+}
+plan('P060', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => kao_p060(st.t)), { tr: { type: 'cut' },
+  over: (ctx, st) => etiket(ctx, 'KAOS', 960, 150, st.t - Wd('F05', 'kaos') + .1, st.end - Wd('F05', 'kaos') + .5, { px: 64, ls: 14, panel: .7 }) });
+
+// ═════════ P061 (F06): uçuş, düşüş, rüzgâr ═════════
+const KAO_P061 = [
+  { ox: 1150, oy: 560, R: 480, a0: -2.7, span: 1.45, wd: 150, nb: 6, seed: 71, bump: .22 },
+  { ox: 1000, oy: 470, R: 700, a0: .25, span: 1.25, wd: 200, nb: 7, seed: 72, bump: .2 },
+  { ox: 1160, oy: 420, R: 980, a0: -.65, span: -1.0, wd: 230, nb: 6, seed: 73, bump: .2 },
+  { ox: 980, oy: 520, R: 1150, a0: 2.4, span: .7, wd: 240, nb: 5, seed: 74, bump: .2 },
+];
+function kao_p061(t) {
+  const tU = Wd('F06', 'uçar'), tD = Wd('F06', 'düşer'), tR = Wd('F06', 'rüzgar'), tF = Wd('F06', 'fırlatmasa');
+  kao_bosluk(t, { lt: t - S('F06'), cx: 1050, cy: 420, r0: 90, r1: 1000, sy: .7, kollar: KAO_P061 });
+  // yol: uçuş (sağa süzülür) → düşüş (aşağı, hızlanır, küçülür) → rüzgâr (yukarı fırlar) → yeniden süzülür
+  const fly = E.io2(sav_u(t, tU - .5, tD)), fall = E.io2(sav_u(t, tD - .1, tR + .1)), gust = E.out3(sav_u(t, tR + .1, tF + .6));
+  let x = lerp(640, 900, fly) + 140 * fall - 260 * gust, y = lerp(470, 430, fly) + 560 * fall - 640 * gust;
+  const h = lerp(30, 17, fall) + 8 * gust, tumble = fall * (1 - gust) * (2.2 + Math.sin(t * 2) * .3);
+  // rüzgâr: aşağıdan dönerek yükselen beyaz akış vuruşları (yalnız esinti süresince)
+  const gw = Math.sin(PI * sav_u(t, tR - .2, tF + 1.2));
+  if (gw > .02) { const q = rng(616); for (let i = 0; i < 4; i++) { const x0 = 760 + (q() - .5) * 420, ph = q() * TAU, L = 380 + q() * 260, pts = [];
+      for (let k = 0; k <= 8; k++) { const u = k / 8; pts.push([x0 + Math.sin(u * 3.2 + ph + t * .8) * 90 - u * 160, 1120 - u * L * gw - (1 - gw) * 200]); }
+      gol_vurus(GR.tx, pts, 11 * gw, .95, .5); } }
+  const sp = fly * (1 - fall) + gust;
+  kao_ucan(t, { x, y, h, lean: tumble + lerp(.1, -.2, gust) * (1 - fall), head: .1, open: lerp(.95, .5, fall) + .4 * gust, lift: lerp(.55, .9, fall * (1 - gust)), droop: lerp(.15, .7, fall * (1 - gust)),
+    flap: Math.sin(t * 3) * .25 * sp, lum: .1, lit: [.3, -1], seed: 7, legN: [.05, -.2], legF: [-.1, -.3] });
+}
+plan('P061', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => kao_p061(st.t)), { tr: { type: 'fade', dur: .8 } });
+
+// ═════════ P062 (F07): uzakta, ışıktan ince altın zincirle sarkan küçük dünya; yanında ay ═════════
+const KAO_P062 = [
+  { ox: 980, oy: -60, R: 560, a0: 2.65, span: -1.0, wd: 170, nb: 6, seed: 81, bump: .2 },
+  { ox: 900, oy: -100, R: 840, a0: .25, span: 1.0, wd: 230, nb: 7, seed: 82, bump: .2 },
+  { ox: 1020, oy: -40, R: 1150, a0: 2.4, span: -.8, wd: 260, nb: 6, seed: 83, bump: .2 },
+];
+function kao_p062(t) {
+  const { tx, tone } = GR;
+  kao_bosluk(t, { lt: t - S('F07'), cx: 1000, cy: 40, r0: 160, r1: 1250, sy: .75, kollar: KAO_P062 });
+  // zincir: yukarıdaki ışıktan inen ince kâğıt çizgi, küçük halkalar
+  const X = 1010, Y1 = 600, sw = Math.sin(t * .4) * 6;
+  gol_vurus(tx, [[X, -10], [X + sw * .4, Y1 * .5], [X + sw, Y1 - 22]], 4, .97, .05);
+  for (let k = 1; k < 28; k++) { const u = k / 28, y = u * (Y1 - 22), x = X + sw * u * u; tx.fillStyle = tone(.97); tx.beginPath(); tx.ellipse(x, y, 3.2, 5.5, 0, 0, TAU); tx.fill(); }
+  // dünya: küçük küre; üstten aydınlık (kâğıt hilal), altı koyu
+  const R = 20, cx = X + sw, cy = Y1;
+  PR.glow(cx, cy, R, R * 5, 1, .35);
+  const D = new Path2D(); D.arc(cx, cy, R, 0, TAU); GR.fill(D, tone(.03), { th: 0, id: 0 });
+  tx.save(); tx.clip(D); tx.fillStyle = tone(1); tx.beginPath(); tx.arc(cx - 3, cy - 8, R * .95, 0, TAU); tx.fill(); tx.fillStyle = tone(.03); tx.beginPath(); tx.arc(cx + 6, cy + 6, R * .9, 0, TAU); tx.fill(); tx.restore();
+  // ay: yanında biraz büyük, ince hilal
+  const MX = 1210, MY = 500, MR = 38, M = new Path2D(); M.arc(MX, MY, MR, 0, TAU);
+  tx.save(); tx.clip(M); tx.fillStyle = tone(1); tx.fill(M); tx.fillStyle = tone(.05); tx.beginPath(); tx.arc(MX + 16, MY - 6, MR * .92, 0, TAU); tx.fill(); tx.restore();
+  // önde, sol altta: ona bakan küçük koyu figür (havada asılı, kanatlar açık)
+  kao_ucan(t, { x: 600, y: 700 + Math.sin(t * 1.2) * 5, h: 36, lean: .25, head: .3, open: .9, lift: .5, flap: Math.sin(t * 1.6) * .15, lum: .08, lit: [.6, -.8], seed: 9, legN: [-.1, -.4], legF: [-.25, -.6] });
+}
+plan('P062', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 990, cy: 560, z: 1.08 }, st.p, E.io2), () => kao_p062(st.t)), { tr: { type: 'fade', dur: .8 } });
+
+// ═════════ P063 (F08): güneş; bekçi Uriel ve genç melek kılığındaki Şeytan ═════════
+// Güneş: büyük, temiz kâğıt disk (sol üst). İki beyaz figür, arkalarındaki koyu bulut sütununun önünde, açık bulut terasında.
+// Kılık: genç melek beyaz; ama terasa düşen gölgesi koyu ve geniş yarasa kanatlı. Uriel "gösterir"de kolunu uzatır.
+function kao_p063(t) {
+  const { tx, px, tone } = GR, tG = Wd('F08', 'gösterir'), tS = Wd('F08', 'güneşe');
+  const L = { x: 470, y: 250 };
+  cen_gok(L, { r0: 262, r1: 1300, v: .6, n: 110 });
+  const SD = new Path2D(); SD.arc(L.x, L.y, 250, 0, TAU); tx.fillStyle = tone(1); tx.fill(SD); tx.save(); tx.lineWidth = 5; tx.strokeStyle = tone(.05); tx.stroke(SD); tx.restore();
+  cen_bank({ x0: 760, x1: 1720, y: 180, amp: 80, wl: 380, yb: 800, seed: 91, L, cuts: .8, ends: true, drift: t * 4 });
+  const GY = 800; cen_teras({ x0: -200, x1: W + 200, y: 794, d: 190, seed: 92, L, cuts: .5 });
+  // gölgeler: ışık sol üstten → gölgeler sağa, terasın üstüne yatık
+  // gölgeler: ışık sol üstten → ayaktan sağ aşağı, terasın üstüne yatık. Kılığın gölgesi: geniş, parmaklı yarasa kanatları
+  const shade = (x, len, wd, bat) => {
+    const ax = [Math.cos(.22), Math.sin(.22)], nx = [-ax[1], ax[0]], Pt = (u, v) => [x + ax[0] * u + nx[0] * v, GY + ax[1] * u + nx[1] * v], P = new Path2D();
+    poly(P, [Pt(0, -wd * .5), Pt(len * .3, -wd), Pt(len * .85, -wd * .7), Pt(len, 0), Pt(len * .85, wd * .7), Pt(len * .3, wd), Pt(0, wd * .5)], true);
+    if (bat) for (const sd of [-1, 1]) poly(P, [Pt(len * .35, 0), Pt(len * .42, sd * wd * 3), Pt(len * .52, sd * wd * 2.3), Pt(len * .6, sd * wd * 4.2), Pt(len * .68, sd * wd * 2.6), Pt(len * .8, sd * wd * 4.6), Pt(len * .82, sd * wd * 1.2), Pt(len * .7, 0)], true);
+    tx.fillStyle = tone(.03); tx.fill(P); };
+  shade(1000, 300, 16, false);
+  shade(1290, 360, 13, true);
+  const pt = E.io2(sav_u(t, tG - .6, tG + .5));
+  sav_melek({ x: 1000, y: GY - 3.95 * 46, h: 46, facing: 1, L, t, head: .12, armN: [lerp(.15, 1.55, pt), lerp(.3, .05, pt)], armF: [-.1, .3], legN: [.1, -.05], legF: [-.1, -.02], lift: .65, open: .85, wingS: 5.4,
+    spear: { grip: 'F', ang: .02, len: 7.6, up: .65 } });
+  cen_basmelek({ x: 1290, y: GY - 3.95 * 34, h: 34, facing: -1, L, t, head: .05, armN: [.05, .3], armF: [-.05, .2], legN: [.08, -.05], legF: [-.06, -.02], lift: .4, open: .6, wingS: 3.6, spear: false, cloak: .3 });
+}
+plan('P063', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => kao_p063(st.t)), { tr: { type: 'fade', dur: .8 },
+  over: (ctx, st) => cen_yazi_sav(ctx, 'URIEL', 1000, 330, st.t - Wd('F08', 'uriyele') + .2, st.end - Wd('F08', 'uriyele') + .4) });
+// açık levhada etiket: kâğıt harf, koyu bulutun üstünde (panelsiz)
+function cen_yazi_sav(ctx, s, x, y, lt, d) { const a = clamp(lt / .5) * clamp((d - lt) / .5); if (a <= 0 || NOTEXT) return; txt(ctx, s, x, y, { px: 48, ls: 10, a: E.sine(a), font: FONT.baslik(48, 600) }); }
+
+// ═════════ P096 (I02): yedi gece: dünyanın gece yanında, karanlıkla birlikte dönen küçük figür ═════════
+// Küre: sağdan aydınlık (temiz kâğıttan koyuya), solu gece (düz siyah). Kıtalar dönerek kayar; figür hep sol kenarda, gece yanında,
+// arkasındaki Kaos aydınlığına karşı koyu siluet. Sayaç I–VII (kelimeye bağlı değil, "yedi"den "sekizinci"ye yayılır); "sızar"da geceye süzülür.
+const KAO_KITA = (() => { const r = rng(96), K = []; for (let i = 0; i < 7; i++) K.push({ lon: r() * TAU, lat: (r() - .5) * 1.6, rx: .25 + r() * .35, ry: .18 + r() * .25, seed: 960 + i }); return K; })();
+function kao_p096(t) {
+  const { tx, px, tone } = GR, t7 = Wd('I02', 'yedi'), t8 = Wd('I02', 'sekizinci'), tZ = Wd('I02', 'sızar');
+  kao_bosluk(t, { lt: t - S('I02'), cx: 640, cy: 540, r0: 120, r1: 950, sy: .9, kollar: [
+    { ox: 700, oy: 560, R: 620, a0: -2.2, span: 1.3, wd: 150, nb: 6, seed: 97, bump: .2 }, { ox: 820, oy: 520, R: 760, a0: 1.0, span: 1.3, wd: 190, nb: 6, seed: 98, bump: .2 }] });
+  const CX = 1060, CY = 560, R = 300, rot = (t - S('I02')) * .9;
+  const D = new Path2D(); D.arc(CX, CY, R, 0, TAU);
+  const g = tx.createLinearGradient(CX + R, CY, CX - R * .2, CY); g.addColorStop(0, tone(.98)); g.addColorStop(.45, tone(.8)); g.addColorStop(.8, tone(.25)); g.addColorStop(1, tone(.03));
+  GR.fill(D, g, { th: .35, id: 9 });
+  tx.save(); tx.clip(D);
+  for (const k of KAO_KITA) { const a = k.lon - rot, ca = Math.cos(a); if (ca < .05) continue;
+    const x = CX + Math.sin(a) * R * Math.cos(k.lat * .8) , y = CY + Math.sin(k.lat * .8) * R, P = new Path2D(); P.ellipse(x, y, R * k.rx * ca, R * k.ry, 0, 0, TAU);
+    tx.fillStyle = tone(.12 + .2 * clamp((x - CX) / R + .3)); tx.fill(P); }
+  // gece yanı: sol yarı düz siyah, sınır yumuşak değil (alacakaranlık kuşağı ince)
+  const N = new Path2D(); N.rect(CX - R - 10, CY - R - 10, R * .95, 2 * R + 20); tx.fillStyle = tone(.03); tx.fill(N);
+  tx.restore();
+  // figür: sol kenarda, küreyi gece yanından saran yay üstünde salınır; "sızar"da geceye iner
+  const sw = Math.sin((t - t7) * 1.6) * .18, z = E.io2(sav_u(t, tZ - .6, tZ + 1));
+  const a = PI + sw, fx = CX + Math.cos(a) * (R + 70 - 60 * z), fy = CY + Math.sin(a) * (R + 70 - 60 * z) - 20;
+  kao_ucan(t, { x: fx, y: fy, h: 22, lean: -.6 + sw * .5, head: .2, open: .85, lift: .5, flap: Math.sin(t * 2.2) * .2, lum: .06, lit: [.8, -.6], seed: 11, legN: [-.2, -.3], legF: [-.35, -.4] });
+}
+plan('P096', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => kao_p096(st.t)), { tr: { type: 'fade', dur: .8 },
+  over: (ctx, st) => {
+    if (NOTEXT) return;
+    const t7 = Wd('I02', 'yedi'), t8 = Wd('I02', 'sekizinci'), k = clamp((st.t - t7) / (t8 - t7)) * 7, i = Math.min(6, Math.floor(k));
+    const a = clamp((st.t - t7 + .2) / .4) * clamp((st.end - st.t) / .5); if (a <= 0) return;
+    txt(ctx, ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i], 1640, 200, { px: 110, ls: 6, a: a * (.55 + .45 * (i < 6 ? clamp((k % 1) / .15) : 1)) });
+    txt(ctx, 'yedi gece', 1640, 295, { font: FONT.alinti(50), px: 50, a: a * .9 });
+  } });

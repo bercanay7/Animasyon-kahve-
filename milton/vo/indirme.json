@@ -391,16 +391,17 @@
    ]
   },
   "s23": {
-   "node": "XYIlQdqqT34wKz945CoM",
+   "node": "f37O1b8NOOLbLR1Oxfvk",
    "a": [
-    "2gFeZhJN79NdA8Q5HnPO",
-    "6vFenujG7PyG2mGNcTqu"
+    "l5Rfi7vGIXvx8wXIaOmG",
+    "pPGMrCYLj6szOpTGY6xf"
    ],
    "b": [
-    "RurKtv3OwNXlDhPwy063",
-    "OnRm1aCzcX35KOb3JdrF"
+    "AFGSxaV6MnjoCMXIWDJc",
+    "h1bgU3mrBFfYJtSn9oIq"
    ],
-   "kredi": 492
+   "kredi": 492,
+   "not": "ilk deneme kredi bittiği için başarısız olmuştu; kullanıcı kredi yükledikten sonra yeniden üretildi"
   },
   "s24": {
    "node": "re8JZHsWGnvDCPqyzECH",

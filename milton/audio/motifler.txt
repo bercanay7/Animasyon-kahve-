@@ -42,13 +42,13 @@
 19:25.62  J11   IŞIK/half (viol)                   Sib4 Re5
 19:37.89  K01   ADEN (lute)                        Re5 Si4 Do5 La4 Si4 Sol4
 20:51.21  K07   IŞIK/full (viol)                   Si4 Re5 La5 Sol5
-21:15.14  K11   DÜŞÜŞ (Lewis basamakları, lavta)   Sol3 Fa#3 Fa3 Mi3 Mib3 Re3
-21:39.77  K13   IŞIK/half (hpsi)                   Sib4 Re5
-21:40.77  K13   DÜŞÜŞ (bowed)                      Sol2 Fa#2 Fa2
-22:35.84  K16   ABDİEL (viol)                      Sol4 Re5 Mi5 Re5
-23:08.06  L03   IŞIK/min (viol)                    Sib4 Re5 La5 Sol5
-23:36.93  L06   DÜŞÜŞ (bowed)                      Sol2 Fa#2 Fa2 Mi2 Mib2 Re2
-24:50.08  L09   IŞIK/home (organ)                  Si4 Re5 La5 Sol5 Fa#5 Sol5
-24:50.08  L09   IŞIK/home (viol)                   Si4 Re5 La5 Sol5 Fa#5 Sol5
-25:03.84  L09   IŞIK/home (choir)                  Si4 Re5 La5 Sol5 Fa#5 Sol5
-25:41.36  L11   IŞIK/home (viol)                   Si4 Re5 La5 Sol5 Fa#5 Sol5
+21:13.91  K11   DÜŞÜŞ (Lewis basamakları, lavta)   Sol3 Fa#3 Fa3 Mi3 Mib3 Re3
+21:36.35  K13   IŞIK/half (hpsi)                   Sib4 Re5
+21:37.35  K13   DÜŞÜŞ (bowed)                      Sol2 Fa#2 Fa2
+22:32.42  K16   ABDİEL (viol)                      Sol4 Re5 Mi5 Re5
+23:04.64  L03   IŞIK/min (viol)                    Sib4 Re5 La5 Sol5
+23:33.51  L06   DÜŞÜŞ (bowed)                      Sol2 Fa#2 Fa2 Mi2 Mib2 Re2
+24:46.66  L09   IŞIK/home (organ)                  Si4 Re5 La5 Sol5 Fa#5 Sol5
+24:46.66  L09   IŞIK/home (viol)                   Si4 Re5 La5 Sol5 Fa#5 Sol5
+25:00.42  L09   IŞIK/home (choir)                  Si4 Re5 La5 Sol5 Fa#5 Sol5
+25:37.94  L11   IŞIK/home (viol)                   Si4 Re5 La5 Sol5 Fa#5 Sol5

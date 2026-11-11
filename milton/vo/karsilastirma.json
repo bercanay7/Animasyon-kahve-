@@ -1402,6 +1402,66 @@
    }
   ]
  },
+ "s23_a": {
+  "cer": 0.0134,
+  "sure": 33.84,
+  "farklar": [
+   {
+    "id": "K10",
+    "t": 0.0,
+    "ref": "n",
+    "hyp": "z",
+    "bag_ref": "yirminciyüzyıldais",
+    "bag_hyp": "yirmizciyüzyıldais"
+   },
+   {
+    "id": "K11",
+    "t": 13.8,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "amandangeneralegeneralden",
+    "bag_hyp": "amandangenerelegeneldenpo"
+   },
+   {
+    "id": "K11",
+    "t": 14.96,
+    "ref": "ra",
+    "hyp": "",
+    "bag_ref": "generalegeneraldenpolitika",
+    "bag_hyp": "generelegeneldenpolitika"
+   },
+   {
+    "id": "K12",
+    "t": 33.22,
+    "ref": "ı",
+    "hyp": "a",
+    "bag_ref": "ğikadaralçalır",
+    "bag_hyp": "ğikadaralçalar"
+   }
+  ]
+ },
+ "s23_b": {
+  "cer": 0.008,
+  "sure": 33.66,
+  "farklar": [
+   {
+    "id": "K11",
+    "t": 13.7,
+    "ref": "a",
+    "hyp": "e",
+    "bag_ref": "amandangeneralegeneralden",
+    "bag_hyp": "amandangenerelegeneldenpo"
+   },
+   {
+    "id": "K11",
+    "t": 14.86,
+    "ref": "ra",
+    "hyp": "",
+    "bag_ref": "generalegeneraldenpolitika",
+    "bag_hyp": "generelegeneldenpolitika"
+   }
+  ]
+ },
  "s24_a": {
   "cer": 0.0164,
   "sure": 63.6,
