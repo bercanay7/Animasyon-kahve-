@@ -99,7 +99,7 @@ const KN = (() => {
     const Lf = [], Rt = [];
     for (let i = 0; i < n; i++) {
       const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)], d = nrm([b[0] - a[0], b[1] - a[1]]), nn = [-d[1], d[0]];
-      const w = Math.max(0, wf(i / (n - 1))) / 2, o = inset ? w * inset : 0, p = pts[i];
+      const w = Math.max(2 * PX, wf(i / (n - 1))) / 2, o = inset ? w * inset : 0, p = pts[i]; // en ince yer 2 px: uç küt biter (1 px'lik koşu telefon boyunda yanıp söner)
       Lf.push([p[0] + nn[0] * (w + o), p[1] + nn[1] * (w + o)]); Rt.push([p[0] - nn[0] * (w - o), p[1] - nn[1] * (w - o)]);
     }
     const P = new Path2D(); poly(P, [...Lf, ...Rt.reverse()], true);

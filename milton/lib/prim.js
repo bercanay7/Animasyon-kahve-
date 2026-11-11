@@ -27,7 +27,8 @@ const PR = (() => {
   // "Beyaz çizgi" yumrusu (üslup kurulu tur 2): yumru tek ton kütledir; biçimi, ışık yanında kenarı izleyen ve
   // uçları sivrilen birkaç hilal çizgi verir (içe doğru kısalır ve incelir). Eş merkezli halka taraması yok.
   // Koyu yumruda (duman, gece bulutu) çizgiler kâğıt rengi; açık yumruda (cennet bulutu) gölge yanında mürekkep rengi.
-  function drawPuff(p, L, id, tn) {
+  function drawPuff(p, L, id, tn, later) {
+    const hidden = (x, y) => later && later.some(j => { const dx = (x - j.x) / (j.r * FX * 1.1), dy = (y - j.y) / (j.r * FY * 1.1); return dx * dx + dy * dy < 1; });
     const P = puffPath(p.x, p.y, p.r, p.s), R = puffRad(p.r, p.s), light = tn.core > .6;
     fill(P, tone(light ? tn.core : snap(tn.core)), { th: -.25, ph: p.ph, id });
     const v = light ? 1 - tn.rim : tn.rim;                         // doz: ışık (ya da gölge) şiddeti
@@ -44,9 +45,10 @@ const PR = (() => {
       const ha = PI * (.2 + .14 * v), sg = q() < .5 ? -1 : 1, beta = .5 + q() * .25;
       let a = la - ha + q() * .1;
       while (a < la + ha) {
+        if (hidden(p.x + Math.cos(a) * R(a) * FX, p.y + Math.sin(a) * R(a) * FY)) { a += (20 + q() * 34) / p.r; q(); q(); continue; }
         const edge = 1 - Math.pow(Math.abs(a - la) / ha, 2), len = (40 + q() * q() * 130) * sc * (.45 + .55 * edge) * (.7 + .5 * v), w0 = Math.max(3.6, 6.5 * sc), m = 9, A2 = [], B2 = [];
         for (let i = 0; i <= m; i++) {
-          const u = i / m, s2 = len * u, aa = a + sg * s2 * Math.cos(beta) / p.r, rr = R(aa) - 9 - th - s2 * Math.sin(beta) * (1 + .5 * u), hw = w0 * .5 * Math.pow(1 - u, 1.15);
+          const u = i / m, s2 = len * u, aa = a + sg * s2 * Math.cos(beta) / p.r, rr = R(aa) - 9 - th - s2 * Math.sin(beta) * (1 + .5 * u), hw = Math.max(1, w0 * .5 * Math.pow(1 - u, 1.15));
           const cx = p.x + Math.cos(aa) * rr * FX, cy = p.y + Math.sin(aa) * rr * FY, nx = Math.cos(aa), ny = Math.sin(aa);
           A2.push([cx + nx * hw, cy + ny * hw]); B2.push([cx - nx * hw, cy - ny * hw]);
         }
@@ -91,7 +93,7 @@ const PR = (() => {
       const back = 1 - i / Math.max(1, N - 1); // 1 = en arka
       const dk = 1 - dep * back;
       const rim = hi * (1 - dep * .6 * back), body = lerp(base, hi, o.mid ?? .7) * dk, core = (o.core ?? lerp(base, lerp(base, hi, .7), .25)) * dk;
-      U.addPath(drawPuff(p, L, id, { rim, body, core }));
+      U.addPath(drawPuff(p, L, id, { rim, body, core }, puffs.slice(i + 1)));
     });
     return { puffs, path: U };
   }
@@ -148,7 +150,7 @@ const PR = (() => {
       P.closePath(); return P;
     };
     const tip = spine[m], ax = Math.atan2(tip[1] - y, tip[0] - x);
-    const res = { outer: edge(1, 1), inner: edge(o.inner ?? .55, .8), base: [x, y], ax, H, wid, curl, seed, frags: [] };
+    const res = { outer: edge(1, 1), inner: edge(o.inner ?? .55, .8), base: [x, y], spine, ax, H, wid, curl, seed, frags: [] };
     // kopan parçalar: dil ucundan ayrılıp yükselen, küçülen alev kırıntıları (büyüklük döngü sınırlarında sıfır: sıçrama yok)
     if (o.frags !== false && hash(seed + 3.3) > .45) {
       const c = (t * .42 * sp + hash(seed + 4.4) * 7) % 1, s = wid * .26 * Math.sin(PI * c) * (1 - .45 * c);
@@ -175,6 +177,23 @@ const PR = (() => {
     }
     tx.fillStyle = tone(core);
     for (const g of list) { tx.fill(g.inner); for (const f of g.frags) tx.fill(fragPath(f, .8)); }
+    // taramasız (kâğıt beyazı) dillerde biçimi içteki mürekkep vuruşları verir: dipten yukarı, omurgayı izleyen, sivrilen 2–4 çizgi
+    for (const g of list) {
+      if (!g.spine || g.H >= (o.solidBelow ?? 240) || g.H < 46) continue;
+      const q = rng(g.seed * 7 + 3), nS = g.H > 130 ? 3 : 2, m = g.spine.length - 1;
+      tx.save(); tx.clip(g.outer); tx.fillStyle = tone(.04);
+      for (let k = 0; k < nS; k++) {
+        const side = (k % 2 ? 1 : -1) * (g.curl > 0 ? 1 : -1), off = (.16 + .1 * q()) * (k === 2 ? .15 : 1), f0 = .04 + q() * .1, f1 = .42 + q() * .3, w0 = clamp(g.wid * .07, 3.4, 9), A = [], B = [], n = 9;
+        for (let i = 0; i <= n; i++) {
+          const u = i / n, f = lerp(f0, f1, u), j = f * m, j0 = Math.min(m - 1, j | 0), fr = j - j0, P0 = g.spine[j0], P1 = g.spine[j0 + 1];
+          const tg = Math.atan2(P1[1] - P0[1], P1[0] - P0[0]), nx = -Math.sin(tg), ny = Math.cos(tg), wl = g.wid * .5 * Math.pow(Math.max(0, 1 - f), 1.2);
+          const cx = lerp(P0[0], P1[0], fr) + nx * side * off * wl * 2, cy = lerp(P0[1], P1[1], fr) + ny * side * off * wl * 2, hw = Math.max(1, w0 * .5 * Math.pow(1 - u, 1.1));
+          A.push([cx + nx * hw, cy + ny * hw]); B.push([cx - nx * hw, cy - ny * hw]);
+        }
+        tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
+      }
+      tx.restore();
+    }
     // dip: koyuya gömülen taban (kısa tarama)
     const b = o.base ?? .25;
     if (b < 1 && hgt >= (o.solidBelow ?? 240)) {
@@ -235,14 +254,14 @@ const PR = (() => {
       const bx = lerp(x0, x1, f), by = y + (r() - .5) * hgt * .12;
       const sd = seed * 31 + i;
       list.push(tongue(bx, by, hh, hh * wr, t + r() * 10, sd, o));
-      if (r() < .4) { // çatal: ana dilin yanından kopan ikinci uç
+      if (r() < .62) { // çatal: ana dilin yanından kopan ikinci uç
         const g = list[list.length - 1], fx = bx + Math.cos(g.ax) * hh * .35, fy = by + Math.sin(g.ax) * hh * .35;
         list.push(tongue(fx, fy, hh * (.4 + r() * .2), hh * wr * .45, t + r() * 10, sd + 500, Object.assign({}, o, { lean: (o.lean ?? 0) + (r() < .5 ? -.45 : .45) })));
       }
     }
     // tabanda sürekli şerit: dilleri birbirine bağlar; uçlarda sıfıra iner (kutu gibi kesilmez)
     const strip = { outer: new Path2D(), inner: new Path2D(), base: [x0, y], ax: -PI / 2, H: hgt, curl: 0, seed, frags: [] };
-    const sh = hgt * .2, sp2 = [], ip = [];
+    const sh = hgt * (o.strip ?? .3), sp2 = [], ip = [];   // taban şeridi dillerin arasını kapatır (kapalı siyah boşluk kalmaz)
     for (let x = x0; x <= x1 + 1; x += 10) {
       const f = (x - x0) / (x1 - x0), e = Math.sqrt(Math.max(0, Math.sin(f * PI))) * (o.env ? o.env(clamp(f)) : 1);
       const hh = sh * e * (.6 + .5 * noise2(x / 40, t * .5 + seed, 3));
@@ -355,7 +374,7 @@ const PR = (() => {
       const f = n > 1 ? i / (n - 1) - .5 : 0, s0 = f * (o.slitW ?? 120) + (r() - .5) * 20, e0 = f * (o.spread ?? 260) + (r() - .5) * 40, len = (o.len ?? [.62, 1])[0] + r() * ((o.len ?? [.62, 1])[1] - (o.len ?? [.62, 1])[0]), u0 = r() * .12;
       const ww = w * (.7 + r() * .6) * (.9 + .1 * Math.sin(t * .4 + i * 2.1)), A = [], B = [], m = 12;
       for (let k = 0; k <= m; k++) {
-        const u = u0 + (len - u0) * k / m, cx = sx + dx * u + nx * lerp(s0, e0, u), cy = sy + dy * u + ny * lerp(s0, e0, u), hw = ww * .5 * Math.pow(Math.sin(PI * (k / m) * .92 + .08), .6) * (1 - .55 * k / m);
+        const u = u0 + (len - u0) * k / m, cx = sx + dx * u + nx * lerp(s0, e0, u), cy = sy + dy * u + ny * lerp(s0, e0, u), hw = Math.max(1, ww * .5 * Math.min(1, k / m * 6 + .35) * Math.pow(1 - k / m, .9));
         A.push([cx + nx * hw, cy + ny * hw]); B.push([cx - nx * hw, cy - ny * hw]);
       }
       tx.fillStyle = tone(o.v ?? .96); tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
@@ -371,7 +390,7 @@ const PR = (() => {
       const a = pts[i], b = pts[i + 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]); let s = r() * g1;
       while (s < L) {
         const x = lerp(a[0], b[0], s / L), y = lerp(a[1], b[1], s / L), len = l0 + r() * r() * (l1 - l0), an = Math.atan2(d[1], d[0]) + (r() - .5) * .3, m = 8, A = [], B = [];
-        for (let k = 0; k <= m; k++) { const u = k / m, aa = an + bend * u, cx = x + Math.cos(an + bend * u * .5) * len * u + d[0] * 2, cy = y + Math.sin(an + bend * u * .5) * len * u + d[1] * 2, hw = w0 * .5 * Math.pow(1 - u, 1.15), nx = -Math.sin(aa), ny = Math.cos(aa);
+        for (let k = 0; k <= m; k++) { const u = k / m, aa = an + bend * u, cx = x + Math.cos(an + bend * u * .5) * len * u + d[0] * 2, cy = y + Math.sin(an + bend * u * .5) * len * u + d[1] * 2, hw = Math.max(1, w0 * .5 * Math.pow(1 - u, 1.15)), nx = -Math.sin(aa), ny = Math.cos(aa);
           A.push([cx + nx * hw, cy + ny * hw]); B.push([cx - nx * hw, cy - ny * hw]); }
         tx.beginPath(); poly(tx, [...A, ...B.reverse()], true); tx.fill();
         s += g0 + r() * (g1 - g0);

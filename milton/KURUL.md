@@ -293,3 +293,26 @@ Kalıcı ders: cennet ve Aden sahneleri kâğıt ağırlıklı (yüksek anahtar)
 **Reddedilen bulgu:** U-Teknik'in "yaklaşmada ton beyaza kayıyor" iddiası. Aynı dünya yamalarının ortalama parlaklığını z = 1,0 ve z = 1,5 karelerinde ölçtüm: 67,4 → 64,3; 147,6 → 142,8; 26,4 → 27,0; 49,2 → 49,1. Fark vinyetten gelen ±%3; ton kaymıyor. (Üye de nedeni kodu okumadan doğrulamadığını yazmıştı.) Yönetmenlik kuralı olarak yine de kamera yaklaşması 1,25 katı geçmeyecek; daha yakın kadrajlar kesmeyle ve sahne o ölçekte çizilerek kurulacak (U-Sanat'ın "yaklaşınca çizgi jaluziye dönüyor" bulgusu).
 
 **Cennet eskizi için ortak yön (puanlanmadı):** tarif doğru (cehennemin tersi). Açık nesne konturla değil arkasındaki taramayla ayrılacak; gölge yanında forma giren mürekkep vuruşları; karede %15–25 koyu bir çapa; tek ve baskın, taramasız bir ışık merkezi; **cennette tarama ışınsal/eş merkezli, cehennemde yatay** (iki dünya çizgi yönüyle de ayrılır); saflar üst üste binen sıralar hâlinde, uzaklaştıkça küçülür.
+
+### Tur 4
+| Üye | Puan | Karar | Engelleyen bulgu |
+|---|---|---|---|
+| U-Sanat | 8,2 | RED (eşik 9) | yok: "dil doğru ve tutarlı; üretime geçilsin" |
+| U-Gravur | 8,0 | RED (eşik 9) | yok: "tek koşul, ilk sahneden önce alevin tek çizim dili seçilsin" |
+| U-Teknik | 8,55 | RED (eşik 9) | yok; ton kayması bulgusunu geri çekti (kendi ölçümüyle doğruladı) |
+
+Üç üye de sahne üretimini engelleyen bulgu olmadığını, kalan bulguların üretim sırasında düzeltilebileceğini yazdı. Eşik (9) yine de geçilmediği için kapı açık sayılmadı; kalan somut bulgular düzeltilip tur 5'e gidildi.
+
+**Başkan kararı (tur 5 için uygulananlar):**
+1. **Alevde tek dil:** her boyda kâğıt beyazı kütle + içinde dipten yukarı akan, sivrilen 2–3 mürekkep vuruşu (beyaz çizginin tersi). Yay taraması yalnız kadrajı kesen en yakın alevde kalır. Taban şeridi yükseltildi (diller arasında kapalı siyah boşluk kalmaz); ufuk alevleri simetrik çift değil, 5–6 düzensiz dil.
+2. **Bulut:** başlangıcı öndeki yumrunun altında kalan vuruş çizilmez (yüzen kırıntı yok).
+3. **Kaya:** vuruş uzunlukları 16–190 px arasında düzensiz, daha seyrek.
+4. **Huzme:** kaynakta kalın, uca doğru sivri.
+5. **Göl:** ufuk aralığı 9,5 px'ten başlar (427 px'te Nyquist altına inmez).
+6. **Vuruş uçları:** en ince yer 2 px, küt biter (kanat ve figür ajanlarına da verildi).
+7. **Zincir:** geniş planda bilek halkası olarak kalır; zincir bilgisini ayrı yakın plan taşır (plan listesinde A04@zincirlerle zaten var).
+
+Kalıcı hedefler (U-Gravur): sahne başına koyu piksel oranı cehennem %65–75, geçiş sahneleri %50–60, cennet ve Aden %20–35.
+
+## Müzik ve miks (ilk sürüm)
+`audio/score.py` (sentez; örnek ses ve ücretli araç yok), `tools/mix.py`, `audio/muzik.md`. Ölçüm (ajanın raporu; ses kurulu doğrulayacak): entegre −14,0 LUFS, gerçek tepe −2,5 dBTP; konuşma altında müzik ortanca 20 LU aşağıda; J04'te gerçek sessizlik (yaklaşık 7,9 sn). Motifler: IŞIK (Si–Re–La–Sol; her dönüşte eksilir, L09'da Milton için tam döner), DÜŞÜŞ (inen kromatik bas), ABDİEL, ADEN. Yasaklar (ezan, tilavet, ney, makam, ilahi) brief'te verildi; kulakla son onay kullanıcıda. Dinleme kopyası kullanıcıya gönderildi.
