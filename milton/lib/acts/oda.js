@@ -485,7 +485,7 @@ function cizLondra(t, o = {}) {
   const { tx, tone } = GR, FX = o.fx ?? 1010, FY = o.fy ?? 830, GY = 690;
   const fl = 1 + .06 * Math.sin(t * 2.1) + .05 * fbm1(t * .8, 9), L = [FX, FY - 140];
   // gök: ateşle alttan aydınlanan pus
-  oda_isik(FX, FY - 150, 0, 860 * fl, .66);
+  oda_isik(FX, FY - 150, 0, 960 * fl, .68);
   oda_evler(L, rng(71), [{ x: -40, w: 200, y: GY, hg: 290 }, { x: 178, w: 170, y: GY, hg: 240 }, { x: 362, w: 220, y: GY, hg: 320 }, { x: 604, w: 150, y: GY, hg: 210 },
     { x: 1290, w: 160, y: GY, hg: 220 }, { x: 1470, w: 210, y: GY, hg: 310 }, { x: 1700, w: 240, y: GY, hg: 280 }], 1150);
   // zemin: arnavut kaldırımı; ateşin çevresi aydınlık (yassı ışık)
@@ -503,13 +503,13 @@ function cizLondra(t, o = {}) {
   // ateş: çapraz kütükler + yanan düz ciltler + alev öbeği
   const kutuk = oda_birles(...[[-150, -10, 170, -40], [-120, -46, 140, 4], [-60, 0, 90, -70], [-170, -30, 40, -14]].map(([a, b, c, d]) => oda_uzuv([FX + a, FY + b], [FX + c, FY + d], () => 13, () => 13, 4)));
   oda_kut(kutuk, { L: [FX, FY - 80], c: [FX, FY - 20], w: 6, R: 400 });
-  PR.flameBank(FX - 190, FX + 190, FY - 10, 340 * fl, t, 21, { n: 6, wr: .5, curl: .7, speed: .6, solidBelow: 500, env: f => .35 + .65 * Math.sin(f * PI) });
+  PR.flameBank(FX - 190, FX + 190, FY - 10, 340 * fl, t, 21, { n: 6, wr: .5, curl: .7, speed: .6, solidBelow: 500, frags: false, env: f => .35 + .65 * Math.sin(f * PI) });
   // uçuşan sayfalar: ateşten yükselip savrulur (döngü; büyüklük döngü sınırında sıfır)
   for (let i = 0; i < 4; i++) {
     const q = rng(300 + i), ph = q(), sp = .07 + q() * .04, u = (t * sp + ph) % 1, g = Math.sin(PI * u);
-    if (g < .1) continue;
+    if (g < .3) continue;
     const sd = q() < .5 ? 1 : -.7, x = FX + (q() - .5) * 120 + u * (200 + q() * 260) * sd + Math.sin(t * .8 + i) * 26, y = FY - 260 - u * 470;
-    oda_sayfa(x, y, 20 * Math.min(1, g * 1.6), t * (.5 + q() * .6) + i, t * (1.1 + q()) + i);
+    oda_sayfa(x, y, 22 * (.65 + .35 * g), t * (.5 + q() * .6) + i, t * (1.1 + q()) + i);
   }
   // cellat: ateşin solunda; yığından kitap alır, ateşe atar (döngü; son atış tA'da elden çıkar)
   const CX = o.cx ?? 790, CY = FY + 36, cyc = 3.4, tA = o.tA ?? 0, ph = ((t - tA) % cyc + cyc) % cyc, ch = 54;
@@ -688,7 +688,7 @@ function oda_mevsimDis(t, P, x0, y0, x1, y1, m) {
   // m: {kar, yaprak, cicek, gul, gunes (−1..1 konum; null), gok (gök tonu)}
   const { tx, tone } = GR;
   const sx = m.gunes == null ? null : lerp(x0 + 40, x1 - 40, (m.gunes + 1) / 2), syy = m.gunes == null ? 0 : y1 - 70 - Math.sin((m.gunes + 1) / 2 * PI) * (y1 - y0 - 200);
-  GR.fill(P, tone(m.gok), sx != null ? { type: 'rad', cx: sx, cy: syy, id: 1 } : { th: 0, id: 1 });
+  GR.fill(P, tone(m.gok), { th: 0, id: 1 });
   tx.save(); tx.clip(P);
   if (sx != null) { const gg = tx.createRadialGradient(sx, syy, 0, sx, syy, 240); gg.addColorStop(0, tone(1)); gg.addColorStop(.2, tone(1)); gg.addColorStop(.24, tone(m.gok * .7)); gg.addColorStop(1, tone(m.gok)); tx.fillStyle = gg; tx.fillRect(x0, y0, x1 - x0, y1 - y0); }
   // dal: sağdan giren, sola incelen koyu dal + üç sürgün
@@ -701,7 +701,7 @@ function oda_mevsimDis(t, P, x0, y0, x1, y1, m) {
     const P2 = oda_yol([[a[0], a[1] - 8], [mx, my - 9 - w2 * .6], [b[0], b[1] - 8], [mx, my - 4]], .7); tx.fillStyle = tone(1); tx.fill(P2); tx.strokeStyle = tone(.03); tx.lineWidth = 2.6; tx.stroke(P2); }
   dug.forEach(([x, y], i) => {
     const q = rng(80 + i);
-    if (m.yaprak > .02) for (const sd of [-1, 1]) { const s = 26 * m.yaprak * (.8 + q() * .4), a = (sd < 0 ? -2.2 : .6) + (q() - .5) * .6; const P2 = oda_yol([[0, 0], [s * .5, -s * .3], [s, 0], [s * .5, s * .3]].map(([u, v]) => [x + u * Math.cos(a) - v * Math.sin(a), y + u * Math.sin(a) + v * Math.cos(a)]), .8); GR.fill(P2, tone(.03), { th: 0, id: 0 }); }
+    if (m.yaprak > .02) for (const sd of [-1, 1]) { const s = 34 * m.yaprak * (.85 + q() * .3), a = (sd < 0 ? -2.2 : .6) + (q() - .5) * .6; const P2 = oda_yol([[0, 0], [s * .5, -s * .3], [s, 0], [s * .5, s * .3]].map(([u, v]) => [x + u * Math.cos(a) - v * Math.sin(a), y + u * Math.sin(a) + v * Math.cos(a)]), .8); GR.fill(P2, tone(.03), { th: 0, id: 0 }); }
     if (m.cicek > .02 && i % 3 !== 2) { const s = 19 * m.cicek; tx.strokeStyle = tone(.03); tx.lineWidth = 2.6; tx.fillStyle = tone(1); for (let k = 0; k < 5; k++) { const a = k / 5 * TAU + q(); const P2 = oda_daire(x + Math.cos(a) * s * .6, y + Math.sin(a) * s * .6, s * .5); tx.fill(P2); tx.stroke(P2); } tx.fillStyle = tone(.03); tx.fill(oda_daire(x, y, s * .22)); }
   });
   if (m.gul > .02) { // yaz gülü: tek büyük çiçek, sarmal taç yaprakları
@@ -720,13 +720,14 @@ function oda_P014(t) {
   const isik = lerp(.55, 1, oda_u(t, tM, tM + 1.6)) * (1 - .3 * oda_u(t, tYuz, tYuz + 1.2));
   const L = [(x0 + x1) / 2, y0 + 140];
   // pencereden düşen ışık: tabanda dörtgen leke; şairin ayağına varmadan biter (ışık ona ulaşmaz)
+  tx.save(); tx.translate(630, 420); tx.scale(.74, 1); tx.translate(-630, -420); oda_isik(630, 420, 0, 1050, .5 * isik); tx.restore();   // pencereden duvara sızan loş ışık: şairin silueti bunun önünde okunur
   GR.fill(oda_dik(-400, FL, W + 800, H - FL + 400), tone(.03), { th: 0, id: 0 });
   const leke = oda_cok([[x0 + 30, FL + 2], [x1 - 30, FL + 2], [x1 + 150, H + 20], [x0 + 210, H + 20]]);
   const gl = tx.createLinearGradient(0, FL, 0, H); gl.addColorStop(0, tone(1 * isik)); gl.addColorStop(1, tone(.55 * isik));
   GR.fill(leke, gl, { th: 0, id: 0 });
   oda_pencere(t, { x0, y0, x1, y1, mod: 'dis', dis: P => oda_mevsimDis(t, P, x0, y0, x1, y1, { kar, yaprak, cicek, gul, gunes, gok }), sp: 64, sill: .97 });
   // şair: sağda, profili pencereye dönük ama bakmıyor; ışık yalnız profilinin ince kenarına değer (koltuk karanlıkta)
-  const sa = { x: 1330, y: FL - 2.05 * 90, h: 90, f: -1, bas: .1, fw: -.03, kol: 'kol', L, R: 1600, rw: 4.5, vurus: false, yakaV: 0 };
+  const sa = { x: 1330, y: FL - 2.05 * 90, h: 90, f: -1, bas: .1, fw: -.03, kol: 'kol', L, R: 1600, rw: 6, vurus: false, yakaV: 0 };
   oda_koltuk(sa, 'arka', null, 1);
   const G = oda_sair(Object.assign({}, sa, { kolCiz: false }));
   oda_koltuk(sa, 'on', null, 1);
@@ -734,7 +735,7 @@ function oda_P014(t) {
 }
 plan('P014', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 1000, cy: 540, z: 1.06 }, st.p, E.lin), () => { oda_P014(st.t); }, [.03, 0, 1]), {
   tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => quote(ctx, '“…ama bana gün dönmez.”', 1380, 170, st.t - Wd('B06', 'ama'), { px: 66, kaynak: 'KAYIP CENNET · III. 41–42' }) });
+  over: (ctx, st) => quote(ctx, '“…ama bana gün dönmez.”', 1430, 170, st.t - Wd('B06', 'ama'), { px: 66, kaynak: 'KAYIP CENNET · III. 41–42' }) });
 
 // P044 (E04@destan): kısa ara: şair karanlık odada, başı öne eğik; mum kısalmış.
 plan('P044', (ctx, st) => levha(ctx, { cx: 860, cy: 600, z: 1.12 }, () => {

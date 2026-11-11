@@ -104,13 +104,13 @@ function nif_rig(p) {
   return SF.rig({ x: p.x, y: p.y, h: p.h, facing: p.facing ?? 1, twist: p.twist ?? .4, lean: p.lean ?? 0, head: p.head ?? 0, shTilt: p.shTilt ?? -.04,
     armN: p.armN || [.12, .2], armF: p.armF || [-.1, .15], legN: p.legN || [.1, -.05], legF: p.legF || [-.08, -.03] });
 }
-function nif_kanat(J, p) {
+function nif_kanat(J, p, mask) {
   const h = J.h, w = p.wings || {}, LIT = p.lit || [.3, -.95], t = p.t || 0;
   for (const [side, P] of [[-1, { span: (w.spanL ?? 8.6) * h, open: w.open ?? .55, lift: w.lift ?? .45, droop: w.droop ?? .5, rot: w.rotL ?? -.06, seed: 31, root: .1 }],
     [1, { span: (w.spanR ?? 7.8) * h, open: (w.open ?? .55) * .94, lift: (w.lift ?? .45) * .8, droop: (w.droop ?? .5) * 1.2, rot: w.rotR ?? .1, seed: 32, root: .12 }]]) {
     const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
     GR.frame(sh[0] - side * h * .25, sh[1] + h * .15, P.rot, side, 1);
-    KN.feathered(Object.assign({ dark: .93, rim: .75, ruin: .55, t, lit: [LIT[0] * side, LIT[1]] }, P));
+    KN.feathered(Object.assign({ dark: .93, rim: mask ? 0 : .75, ruin: .55, t, lit: [LIT[0] * side, LIT[1]] }, P));
     GR.unframe();
   }
 }
@@ -120,104 +120,109 @@ function nif_sfdraw(J, p, mask) {   // mask: maske geçişi (beyaz vuruş ve ken
 }
 function nif_seytan(p) {
   const J = nif_rig(p);
-  if (p.wings !== false) nif_kanat(J, p);
+  if (p.wings !== false && !(p.ic && p.ic.wings)) nif_kanat(J, p);
   if (p.mid) p.mid(J);
-  if (p.ic) nif_icCehennem(J, m => nif_sfdraw(J, p, m), Object.assign({ t: p.t }, p.ic));
+  if (p.ic) nif_icCehennem(J, m => { if (p.ic.wings && p.wings !== false) nif_kanat(J, p, m); nif_sfdraw(J, p, m); }, Object.assign({ t: p.t }, p.ic));
   else nif_sfdraw(J, p);
   return J;
 }
 
 // ═════════ iç cehennem ═════════
-// "Cehennemi içinde taşıyor": siluetin içi bir pencere gibi yanan gölü gösterir.
-// Yöntem: figür (drawFig) önce beyaza boşaltılmış kutuda çizilir; düz siyah çekirdeği (kenar ışığı ve beyaz çizgiler hariç) maske olur,
-// maske kenardan içe aşındırılır (siyah bir çerçeve kalır). Sonra figür sahneye gerçek hâliyle çizilir ve göl (cizGol, figürsüz)
-// ölçeklenerek yalnız maskenin içine basılır (ton katmanı maske alfasıyla karışır, tarama yaması maske yarısını geçen yerde gölünkü olur).
-// Tarama çizgi aralığı dünyaya bağlı olduğundan küçük ölçekte de göl çizgileri okunur (seyrek, kalın).
-// o: {t, k (0..1 pencerenin açıklığı: aşındırma azalır, alevler yükselir), erode (baş boyu biriminde aşındırma, .14), neck (true: boyun üstü hariç),
-//     scale (göl ölçeği; varsayılan gövde genişliğine göre), at: [x, y] (gölün ufuk odağının geleceği dünya noktası; varsayılan göğüs),
-//     grow: {g (maskenin büyüme katsayısı ≥ 1), c: [x, y] (büyüme merkezi), p (0..1 göl ölçeğinin tam kareye geçişi)}, gol: cizGol ek seçenekleri}
-// Döndürür: J (drawFig'in döndürdüğü değer değil, figürün iskeleti dışarıdan verilir).
-// sadeleştirilmiş yanan göl (yerel 1920×1080; ufuk odağı (910, 600)): zifiri tonoz, ufukta tek parlak kuşak, göğe yükselen
-// birkaç büyük alev dili ve yansımalı göl. Bulut, yarık ve huzme yok (küçük ölçekte kırıntı olur). k: 0..1 alevlerin boyu.
+// "Cehennemi içinde taşıyor": siluetin içi bir pencere gibi yanan gölü gösterir (filmin görsel anahtarı; A01, G02, G07, L07).
+// Yöntem (motora dokunmadan):
+//  1) figür (drawFig(true): kanatlar + SF.draw, beyaz vuruşsuz) beyaza boşaltılmış kutuda çizilir; koyu çekirdeği maske olur;
+//  2) maske çeyrek çözünürlükte kapanır (beyaz vuruş delikleri dolar) ve kenardan içe aşındırılır: siluetin dış hattında kalın siyah çerçeve kalır;
+//  3) kutu eski hâline döner, figür gerçek hâliyle çizilir (drawFig(false));
+//  4) içerik (nif_icGol ya da cizGol) ölçekli çerçevede (GR.frame) basılır ve maskeyle karışır: ton katmanı maske alfasıyla,
+//     tarama yaması maskenin yarısını geçen yerde içeriğinkiyle. Tarama aralığı dünyaya bağlı olduğundan küçük ölçekte de çizgiler seyrek ve okunur kalır.
+// o: {t, k (0..1 pencerenin açıklığı: maske genişler, alevler yükselir), erode (baş boyu biriminde çerçeve kalınlığı; .2), neck (false: baş da pencereye dahil),
+//     bot (kalçadan aşağı sınır, baş boyu; yok = sınırsız), margin (kutu payı, baş boyu; kanatlı figürde 6), scale (içerik ölçeği; h/96),
+//     at: [x, y] (içeriğin ufuk odağının geleceği dünya noktası; kalçanın biraz üstü),
+//     grow: {g (≥ 1, maskenin büyüme katsayısı), c: [x, y] (büyüme merkezi), p (0..1: içeriğin tam kareye (ölçek 1, odak (910, 600)) geçişi)},
+//     full (true: içerik onaylı göl karesi cizGol, figürsüz), gol (cizGol ek seçenekleri), draw (t, k) => {} (özel içerik, yerel 1920×1080, odak (910, 600))}
+// Başka gruplar: kendi figür çizimlerini drawFig olarak verip aynı işlevi çağırabilir (açık levhada, kamera dönüşümü ne olursa olsun).
 function nif_icGol(t, k = 1) {
-  const { tx, tone } = GR, X = 910, Y = 600, fh = lerp(.4, 1, E.io2(clamp(k)));
+  const { tx, tone } = GR, X = 910, Y = 600, fh = lerp(.35, 1, E.io2(clamp(k)));
   tx.fillStyle = tone(.02); tx.fillRect(-3000, -3000, 8000, 3000 + Y);
-  PR.glow(X, Y - 4, 20, 200, 1, .9);
-  PR.lake(Y, Y + 900, t, { tone: [.16, .02], crests: 0, p0: 9.5, refl: [{ x: X, w: 170, v: .95, len: 240, rows: 9 }] });
-  PR.flameBank(X - 400, X + 400, Y + 2, 16, t, 1, { env: f => .3 + .7 * Math.pow(Math.sin(f * PI), 2) });
-  const fo = { speed: .6, curl: .5, solidBelow: 600, strokeAbove: 60, frags: false, inner: .5 };
-  PR.flame(X - 78, Y + 14, 210 * fh, 96, t, 11, Object.assign({ lean: -.12 }, fo));
-  PR.flame(X + 82, Y + 14, 190 * fh, 90, t + 3, 12, Object.assign({ lean: .12 }, fo));
-  PR.flame(X + 4, Y + 18, 330 * fh, 124, t + 6, 13, fo);
+  PR.glow(X, Y - 6, 60, 560, 1, .95);
+  PR.glow(X, Y - 20, 20, 240, 1, .7);
+  PR.lake(Y, Y + 900, t, { tone: [.2, .02], crests: 8, p0: 9.5, refl: [{ x: X, w: 300, v: .95, len: 330, rows: 12 }] });
+  PR.flameBank(X - 900, X + 900, Y + 2, 30, t, 1, { env: f => .25 + .75 * Math.pow(Math.sin(f * PI), 2) });
+  const fo = { speed: .6, curl: .5, solidBelow: 900, strokeAbove: 80, frags: false, inner: .5 };
+  PR.flame(X - 330, Y + 10, 170 * fh, 90, t + 1, 14, Object.assign({ lean: -.2 }, fo));
+  PR.flame(X + 320, Y + 10, 150 * fh, 84, t + 2, 15, Object.assign({ lean: .2 }, fo));
+  PR.flame(X - 150, Y + 16, 290 * fh, 130, t, 11, Object.assign({ lean: -.1 }, fo));
+  PR.flame(X + 160, Y + 16, 260 * fh, 124, t + 3, 12, Object.assign({ lean: .1 }, fo));
+  PR.flame(X + 4, Y + 22, 430 * fh, 170, t + 6, 13, fo);
 }
 const NIF_MK = makeCanvas(DW, DH), NIF_mk = NIF_MK.getContext('2d', { willReadFrequently: true });
 const NIF_MG = makeCanvas(DW, DH), NIF_mg = NIF_MG.getContext('2d', { willReadFrequently: true });
+// kare çekirdekli en büyük/en küçük süzgeç (ayrık iki geçiş), yerinde
+function nif_morf(A, w, h, r, mx) {
+  if (r < 1) return A;
+  const T = new Float32Array(A.length);
+  for (let y = 0; y < h; y++) { const o = y * w; for (let x = 0; x < w; x++) { let m = mx ? 0 : 1; const a = Math.max(0, x - r), b = Math.min(w - 1, x + r); for (let k = a; k <= b; k++) { const v = A[o + k]; if (mx ? v > m : v < m) m = v; } T[o + x] = m; } }
+  for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) { let m = mx ? 0 : 1; const a = Math.max(0, y - r), b = Math.min(h - 1, y + r); for (let k = a; k <= b; k++) { const v = T[k * w + x]; if (mx ? v > m : v < m) m = v; } A[y * w + x] = m; }
+  return A;
+}
 function nif_icCehennem(J, drawFig, o = {}) {
   const { tx, px } = GR, t = o.t || 0, h = J.h, kOpen = clamp(o.k ?? 1);
   const M = tx.getTransform(), sc = Math.hypot(M.a, M.b);
-  // figürün kutusu (cihaz pikseli)
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
   for (const q of [J.hd, J.hip, J.shN, J.shF, J.elN, J.elF, J.wrN, J.wrF, J.knN, J.knF, J.anN, J.anF]) {
     const d = M.transformPoint(new DOMPoint(q[0], q[1])); x0 = Math.min(x0, d.x); y0 = Math.min(y0, d.y); x1 = Math.max(x1, d.x); y1 = Math.max(y1, d.y);
   }
-  const mg = 2.6 * h * sc;
+  const mg = (o.margin ?? 2.6) * h * sc;
   x0 = Math.max(0, Math.floor(x0 - mg)); y0 = Math.max(0, Math.floor(y0 - mg)); x1 = Math.min(DW, Math.ceil(x1 + mg)); y1 = Math.min(DH, Math.ceil(y1 + mg));
   const bw = x1 - x0, bh = y1 - y0;
-  if (bw < 4 || bh < 4 || kOpen <= 0) { drawFig(false); return; }
-  // 1) maske: beyaz kutuda figür
+  if (bw < 8 || bh < 8 || kOpen <= 0) { drawFig(false); return; }
+  // 1) maske: beyaz kutuda figür (çeyrek çözünürlük)
   const S0 = tx.getImageData(x0, y0, bw, bh);
   tx.save(); tx.setTransform(1, 0, 0, 1, 0, 0); tx.fillStyle = '#fff'; tx.fillRect(x0, y0, bw, bh); tx.restore();
   drawFig(true);
   const Bw = tx.getImageData(x0, y0, bw, bh).data;
   tx.putImageData(S0, x0, y0);
-  const n = bw * bh, A = new Float32Array(n);
-  const neckY = o.neck === false ? -1e9 : M.transformPoint(new DOMPoint(J.nk[0], J.nk[1] + .25 * h)).y - y0;
+  const Q = 4, qw = Math.ceil(bw / Q), qh = Math.ceil(bh / Q), A = new Float32Array(qw * qh);
+  const neckY = o.neck === false ? -1e9 : M.transformPoint(new DOMPoint(J.nk[0], J.nk[1] + .2 * h)).y - y0;
   const botY = o.bot == null ? 1e9 : M.transformPoint(new DOMPoint(J.hip[0], J.hip[1] + o.bot * h)).y - y0;
-  for (let y = 0; y < bh; y++) { if (y < neckY || y > botY) continue; for (let x = 0, i = y * bw; x < bw; x++, i++) { const v = Bw[i * 4]; A[i] = v < 60 ? 1 : v < 110 ? (110 - v) / 50 : 0; } }
-  if (window.NIF_DBG) { let c = 0, hist = new Array(8).fill(0); for (let i = 0; i < n; i++) { if (A[i] > 0) c++; hist[Bw[i * 4] >> 5]++; } console.log('mask', bw, bh, c, neckY, hist.join(',')); }
-  // aşındırma (kare çekirdekli min süzgeç, ayrık iki geçiş)
-  const er = Math.round((o.erode ?? .22) * h * sc * lerp(1.8, 1, E.out2(kOpen)));
-  if (er > 0) {
-    const Tm = new Float32Array(n);
-    for (let y = 0; y < bh; y++) { const r0 = y * bw; for (let x = 0; x < bw; x++) { let m = 1; const a = Math.max(0, x - er), b = Math.min(bw - 1, x + er); for (let k = a; k <= b && m > 0; k++) { const v = A[r0 + k]; if (v < m) m = v; } Tm[r0 + x] = m; } }
-    for (let x = 0; x < bw; x++) { for (let y = 0; y < bh; y++) { let m = 1; const a = Math.max(0, y - er), b = Math.min(bh - 1, y + er); for (let k = a; k <= b && m > 0; k++) { const v = Tm[k * bw + x]; if (v < m) m = v; } A[y * bw + x] = m; } }
-  }
+  for (let y = 0; y < qh; y++) { const yy = Math.min(bh - 1, y * Q + 2); for (let x = 0; x < qw; x++) { const v = Bw[(yy * bw + Math.min(bw - 1, x * Q + 2)) * 4]; A[y * qw + x] = v < 90 ? 1 : 0; } }
+  const rc = Math.max(1, Math.round(.1 * h * sc / Q));
+  nif_morf(A, qw, qh, rc, true); nif_morf(A, qw, qh, rc, false);                       // kapanış: vuruş delikleri dolar
+  for (let y = 0; y < qh; y++) { const yy = y * Q; if (yy >= neckY && yy <= botY) continue; for (let x = 0; x < qw; x++) A[y * qw + x] = 0; }
+  nif_morf(A, qw, qh, Math.round((o.erode ?? .2) * h * sc * lerp(2.4, 1, E.out2(kOpen)) / Q), false);  // çerçeve
   if (window.NIF_DBG == 1) A.fill(1);
-  if (window.NIF_DBG == 2) { const im = new ImageData(bw, bh); for (let i = 0; i < n; i++) { im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = Bw[i * 4] * .5 + A[i] * 120; im.data[i * 4 + 3] = 255; } tx.putImageData(im, x0, y0); return; }
   // 2) figür gerçek hâliyle
   drawFig(false);
-  // 3) maske tuvali (büyüme için ölçeklenebilir)
-  const G = o.grow, g = G ? Math.max(1, G.g) : 1;
-  let R = [x0, y0, bw, bh], MA = A;
-  if (g > 1.001) {
-    const mi = new ImageData(bw, bh), md = mi.data; for (let i = 0; i < n; i++) { md[i * 4] = md[i * 4 + 1] = md[i * 4 + 2] = 255; md[i * 4 + 3] = A[i] * 255; }
-    NIF_mk.setTransform(1, 0, 0, 1, 0, 0); NIF_mk.clearRect(0, 0, DW, DH); NIF_mk.putImageData(mi, x0, y0);
-    const c = M.transformPoint(new DOMPoint(G.c[0], G.c[1]));
-    NIF_mg.setTransform(1, 0, 0, 1, 0, 0); NIF_mg.clearRect(0, 0, DW, DH);
-    NIF_mg.setTransform(g, 0, 0, g, c.x * (1 - g), c.y * (1 - g)); NIF_mg.imageSmoothingEnabled = true; NIF_mg.drawImage(NIF_MK, 0, 0);
-    const gx0 = Math.max(0, Math.floor(c.x + (x0 - c.x) * g)), gy0 = Math.max(0, Math.floor(c.y + (y0 - c.y) * g));
-    const gx1 = Math.min(DW, Math.ceil(c.x + (x1 - c.x) * g)), gy1 = Math.min(DH, Math.ceil(c.y + (y1 - c.y) * g));
-    R = [gx0, gy0, gx1 - gx0, gy1 - gy0];
-    const md2 = NIF_mg.getImageData(R[0], R[1], R[2], R[3]).data; MA = new Float32Array(R[2] * R[3]); for (let i = 0; i < MA.length; i++) MA[i] = md2[i * 4 + 3] / 255;
-  }
+  // 3) maske tuvali: küçük maske → tam çözünürlük (yumuşak büyütme), isteğe bağlı büyüme
+  const mi = new ImageData(qw, qh); for (let i = 0; i < A.length; i++) { mi.data[i * 4] = mi.data[i * 4 + 1] = mi.data[i * 4 + 2] = 255; mi.data[i * 4 + 3] = A[i] * 255; }
+  NIF_mk.setTransform(1, 0, 0, 1, 0, 0); NIF_mk.clearRect(0, 0, qw + 2, qh + 2); NIF_mk.putImageData(mi, 0, 0);
+  const G = o.grow, g = G ? Math.max(1, G.g) : 1, c = G ? M.transformPoint(new DOMPoint(G.c[0], G.c[1])) : { x: 0, y: 0 };
+  const gm = new DOMMatrix([g, 0, 0, g, c.x * (1 - g), c.y * (1 - g)]).translate(x0, y0).scale(Q, Q);
+  const bx0 = Math.max(0, Math.floor(c.x + (x0 - c.x) * g)), by0 = Math.max(0, Math.floor(c.y + (y0 - c.y) * g));
+  const bx1 = Math.min(DW, Math.ceil(c.x + (x0 + qw * Q - c.x) * g)), by1 = Math.min(DH, Math.ceil(c.y + (y0 + qh * Q - c.y) * g));
+  const R = [bx0, by0, bx1 - bx0, by1 - by0];
   if (R[2] < 2 || R[3] < 2) return;
-  // 4) göl: maskenin kutusuna ölçekli
+  NIF_mg.setTransform(1, 0, 0, 1, 0, 0); NIF_mg.clearRect(R[0], R[1], R[2], R[3]);
+  NIF_mg.setTransform(gm); NIF_mg.imageSmoothingEnabled = true; NIF_mg.imageSmoothingQuality = 'high'; NIF_mg.drawImage(NIF_MK, 0, 0, qw, qh, 0, 0, qw, qh);
+  NIF_mg.setTransform(1, 0, 0, 1, 0, 0);
+  const MD = NIF_mg.getImageData(R[0], R[1], R[2], R[3]).data;
+  // 4) içerik
   const T0 = tx.getImageData(R[0], R[1], R[2], R[3]), P0 = px.getImageData(R[0], R[1], R[2], R[3]);
-  const sw = Math.hypot(J.shF[0] - J.shN[0], J.shF[1] - J.shN[1]);
-  let ks = o.scale ?? (Math.max(sw, 1.5 * h) / 230), at = o.at || [lerp(J.shC[0], J.hip[0], .7), lerp(J.shC[1], J.hip[1], .85)];
+  let ks = o.scale ?? h / 96, at = o.at || [J.hip[0], J.hip[1] - .35 * h];
   const F = [910, 600];
   if (G && G.p) { const u = E.io2(clamp(G.p)); ks = lerp(ks, 1, u); at = [lerp(at[0], F[0], u), lerp(at[1], F[1], u)]; }
   GR.save();
-  for (const c of [tx, px, GR.ox]) { c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.beginPath(); c.rect(R[0], R[1], R[2], R[3]); c.restore(); c.clip(); }
+  for (const cx of [tx, px, GR.ox]) { cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.beginPath(); cx.rect(R[0], R[1], R[2], R[3]); cx.restore(); cx.clip(); }
   GR.frame(at[0] - F[0] * ks, at[1] - F[1] * ks, 0, 1, ks);
-  if (o.full) cizGol(t, Object.assign({ fig: false, chains: false }, o.gol || {}));
+  if (o.draw) o.draw(t, kOpen);
+  else if (o.full) cizGol(t, Object.assign({ fig: false, chains: false }, o.gol || {}));
   else nif_icGol(t, kOpen);
   GR.unframe();
   GR.restore();
   const T1 = tx.getImageData(R[0], R[1], R[2], R[3]), P1 = px.getImageData(R[0], R[1], R[2], R[3]);
   const a0 = T0.data, a1 = T1.data, p0 = P0.data, p1 = P1.data;
-  for (let i = 0, m = MA.length; i < m; i++) {
-    const a = MA[i], j = i * 4;
+  for (let j = 0, m = a0.length; j < m; j += 4) {
+    const a = MD[j + 3] / 255; if (a <= 0) continue;
     a0[j] = a0[j] + (a1[j] - a0[j]) * a; a0[j + 1] = a0[j]; a0[j + 2] = a0[j];
     if (a > .5) { p0[j] = p1[j]; p0[j + 1] = p1[j + 1]; p0[j + 2] = p1[j + 2]; }
   }
@@ -232,7 +237,7 @@ function nif_a01(t, o = {}) {
   return cizNifates(t, {
     sun: { x: 1010, y: 400, r: 330 }, hz: 900, tepe: { x: 880, y: 940, s: 1, seed: 3 }, t,
     clouds: [{ x: 120, y: 120, w: 900, h: 260, seed: 12 }, { x: 1900, y: 40, w: 900, h: 230, seed: 19 }, { x: 1640, y: 230, w: 900, h: 220, seed: 23, n: 3 }],
-    fig: () => nif_seytan(Object.assign({}, NIF_A01, { t, lum: .12, wings: NIF_A01_KANAT, lit: [.4, -.92], ic: o.ic === false ? null : Object.assign({ k: 1 }, o.ic) })) });
+    fig: () => nif_seytan(Object.assign({}, NIF_A01, { t, lum: .12, wings: NIF_A01_KANAT, lit: [.4, -.92], ic: o.ic === false ? null : Object.assign({ k: 1, wings: true, margin: 6, neck: false }, o.ic) })) });
 }
 plan('P001', (ctx, st) => {
   const t = st.t, tC = Wd('A01', 'cehennem');

@@ -1,0 +1,60 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 7.9,
+  "puanlar": {"U1": 8, "U2": 8, "U3": 8, "U4": 7.5, "U5": 7.5, "U6": 8.5},
+  "engelleyen_var_mi": "Üslup dili için yok: dil hareket hâlinde de çalışıyor, titreşmiyor, geri çekilme rahatsız etmiyor. Sahnenin kendisi için üç bulgu bu sahnenin son render'ından önce düzeltilmeli: göz ışıklarının başla uyuşmaması, zincir yakın planında kolun çizme ya da toynak gibi okunması, siyahtan açılıştaki gri geçiş. Bunlar dili değil uygulamayı ilgilendiriyor; üretimi durdurmaz, bölüm kurulunda kapatılabilir.",
+  "puan_gerekcesi": "Tek karede 8,35 vermiştim. Hareket U6'yı yükseltti: az ama anlamlı ilke tutuyor; nefes, baş kalkışı, yavaş alev ve geri çekilme sakin ve ağır. Ama sahne, tek karede görünmeyen üç kusur ekledi (göz–baş uyuşmazlığı, gri geçiş, zincir planındaki kol). U3, U4 ve U5 düştü. Dürüst puan 7,9.",
+  "olcumler": {
+    "geri_cekilme_28.00–28.30_onbir_kare": "Ardışık kare farkı 4,75–5,35 arası, düzgün ve tekdüze artıyor; sıçrama yok. Kare başına mürekkep↔kâğıt çevrilen piksel oranı %2,75, figür bölgesinde %1,56. En kötü 64 px blok 24 → 37 (sağ alt alevin büyümesi). Desen titreşim değil, tutarlı bir ölçek hareketi.",
+    "araclar": "node shot.js ile kendi klasörümde (scratchpad/U-Sanat_a04) 1/30 sn aralıklı 10 kare üretip ölçtüm."
+  },
+  "sorulara_cevap": {
+    "1_hareket": "Anlamlı ve yeterli. İki göz ışığının karanlıkta açılıp ağır kırpması güçlü bir kanca; baş kalkışı ve nefes 'uyanış'ı söylüyor. Fazla hareketli yer yok. Tek eksik: 'dokuz' kelimesinde baş kalkıyor ama bakış yarığa (sağ üst) değil, parıltıya gidiyor (30,0 ve 32,5'te baş x 840–960, y 480–570; profil yukarı ve öne). Yarığa doğru 10–15° daha dönmesi anlatıyı bağlar. Sağ alt alev 27,0 → 32,5 arasında çok büyüyor (x 1830–1920'deki küçük parçadan x 1530–1920, y 700–1080'e); ön planda sahneyi çalan tek hareket bu.",
+    "2_geri_cekilme": "Rahatsız etmiyor. Ölçümde kare farkı tekdüze, ara kare sıçraması yok; çizgiler kamerayla birlikte kayıyor, bu da gerçek bir kamera hareketi gibi okunuyor. Yalnız yatay kaydırmaya geçmeye gerek yok. Öneri: geri çekilme ease-in-out olsun (başta ve sonda yavaş) ve süresi ≥ 4 sn kalsın. Yakınlaşma oranı 1,25 sınırında kalsın.",
+    "3_zincir_yakin_plani": "Dil tutarlı (aynı çizgi aralığı, parıltı, beyaz çizgi), ama okunurluk sorunlu. Koyu, sivrilen kol (x 480–860, y 0–800) ve altında taralı yuvarlak el (x 520–860, y 720–810) çizme, bacak ya da at toynağı gibi okunuyor. Perçinli bilezik çizme kenarı gibi duruyor. Kolun üzerindeki uzun beyaz kavis (x 490–780, y 0–520) tüy kalemi ya da kanat kenarı gibi. Gökte bulut kütlesi olmadan yüzen beyaz hilaller var (x 200–450, y 90–320; x 1310–1550, y 45–200; x 1640–1890, y 130–230); karanlık zeminde pençe ya da martı gibi okunuyor. Zincir halkaları ve suya dalış iyi.",
+    "4_etiket": "Yeri doğru (sol üst, odaktan uzak), font dile uygun. Ama büyük harf yüksekliği ~25 px (karenin %2,3'ü); telefonda (427) ~6 px, okunmuyor. Sağ ucu ('LIK', x 520–600, y 130–160) gökteki taramaya taşıyor ve harfler çizgilerle karışıyor."
+  },
+  "duzeltmeler": {
+    "bu_sahnenin_son_renderindan_once": [
+      {
+        "sira": 1,
+        "bolge": "göz ışıkları x 735–880 ve 1040–1185, y 520–535 (21,5–24,0); baş x 900–1020, y 490–580 (24,0)",
+        "sorun": "Karanlıktaki iki göz yaklaşık 300 px aralıklı. Sahne açılınca (24,0) bu göz izleri hâlâ görünüyor ve ~120 px genişliğindeki başın iki yanında, kanadın üstünde kalıyor. Göz ile baş birbirini tutmuyor; süreklilik hatası gibi duruyor.",
+        "oneri": "İki seçenek. (a) Gözleri karanlıkta bir yakın plan gibi tut, sonra karanlık içinde kes; 'yanan'da geniş plana geçilirken göz ışıkları sönsün (ya da başın üzerindeki gerçek göz konumuna, profildeki tek göze, 0,4 sn'de toplanıp kaybolsun). (b) Gözleri baştan geniş plandaki baş ölçeğinde ve konumunda aç (profilde tek göz, x ≈ 985, y ≈ 520), kamera 1,25 yakınlıktan başlasın. Ben (a)'yı öneririm: ilk 2 saniyedeki 'karanlıkta dev gözler' kanca olarak çok güçlü.",
+        "onem": "yüksek"
+      },
+      {
+        "sira": 2,
+        "bolge": "zincir yakın planı, kol ve el x 480–860, y 0–810 (33,0–35,5)",
+        "sorun": "Kol, çizme ya da toynak gibi okunuyor: dirsek yok, el yok, suyun altındaki el yuvarlak ve taralı bir taban gibi. Kanal izleyicisi bu planda 'zincir' değil 'çizmeli bacak' görebilir.",
+        "oneri": "Kolu çapraz (sol üstten sağ alta, ~35–45°) ver, bileği kadrajın ortasına al. Suyun üstünde yumruk ya da gergin parmak boğumları görünsün (siluet, 3–4 boğum çentiği); el suya girmeden önce görünsün. Bileziğin üst ve alt kenarı kolun eğimine dik olsun, perçinler bileziğin kavsini izlesin (şu an yatay dizi çizme kenarı gibi). Kolun üstündeki uzun beyaz kavis kas kenarını izleyen 2–3 kısa vuruşa dönsün.",
+        "onem": "yüksek"
+      },
+      {
+        "sira": 3,
+        "bolge": "tüm kare, 23,5–24,5",
+        "sorun": "Siyahtan açılırken kare kısa bir süre düz ara gride düşüyor (24,0): kâğıt ve mürekkep birlikte bulanık bir griye dönüyor. Gravür dilinde 'gri' yok; bu an video geçişi gibi ve ucuz duruyor.",
+        "oneri": "Açılışı tondan değil biçimden yap. Mürekkep hep tam siyah kalsın; açılan şey kâğıt olsun. Önce parıltının taramasız çekirdeği açılsın, sonra çizgiler dışa doğru eşikle (çizgi kalınlığı azalarak) belirsin. Böylece sahne karanlıktan 'gravür gibi' doğar. Teknik olarak: gravur.js'de açılış için ton eşiğini zamanla kaydır; bütün kareye opaklık uygulama.",
+        "onem": "yüksek"
+      }
+    ],
+    "bolum_kurulunda_duzeltilebilir": [
+      {"sira": 4, "bolge": "etiket x 115–600, y 130–160 (32,0–35,0)", "sorun": "Telefonda okunmuyor; sağ ucu taramaya taşıyor.", "oneri": "Büyük harf yüksekliğini ≥ 44 px yap (karenin ~%4), harf aralığını koru, etiketi tamamen düz siyah bölgeye al (x 90–700, y 150–210 bulut kütlesinin içi). İnce bir kâğıt çizgisiyle alt çizgi ekle, ya da hiçbir şey ekleme.", "onem": "orta"},
+      {"sira": 5, "bolge": "zincir planı gök x 200–450, y 90–320; x 1310–1890, y 45–230", "sorun": "Bulut kütlesi görünmeden yüzen beyaz hilaller pençe ya da martı gibi okunuyor.", "oneri": "Yakın planda bulut kütlesinin dış hattını en az bir kenar ışığıyla ver ya da bu hilalleri kaldır; yakın planda gök yalnız parıltı ve tarama olsun.", "onem": "orta"},
+      {"sira": 6, "bolge": "figür yanı alevler x 540–700 ve 975–1250, y 700–840 (32,5)", "sorun": "Bazı karelerde alev kütleleri katlanmış kumaş ya da kâğıt torba gibi okunuyor; 24–27'de ise uçları X yapıyor.", "oneri": "flameBank: dil uçlarının her zaman yukarı ve tek yöne akmasını zorunlu kıl (zamanla da); kütle gövdesinin genişlik/yükseklik oranı ≤ 1 olsun.", "onem": "orta"},
+      {"sira": 7, "bolge": "sağ alt ön plan alevi x 1530–1920, y 700–1080 (30,0–35,0)", "sorun": "Zamanla çok büyüyor ve göz oraya kayıyor.", "oneri": "Büyüme genliğini yarıya indir; üst ucu y 820'nin üstüne çıkmasın.", "onem": "düşük"},
+      {"sira": 8, "bolge": "baş x 840–960, y 480–570 ('dokuz'dan sonra)", "sorun": "Baş parıltıya kalkıyor ama yarığa dönmüyor.", "oneri": "Baş kalkışının sonunda 10–15° sağa dönüş ekle; bakış çizgisi huzme yelpazesiyle buluşsun.", "onem": "düşük"}
+    ]
+  },
+  "korunmali": [
+    "Karanlıkta açılan iki ince göz ışığı ve ağır kırpma (kanca).",
+    "Az ama anlamlı hareket: nefes, baş kalkışı, yavaş alev, kanat salınımı.",
+    "1,25 → 1,0 geri çekilme: tutarlı ölçek hareketi, titreşim yok.",
+    "Zincir planında suya dalan halkalar ve arkadaki parıltı.",
+    "Etiketin yeri ve fontu."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Hareket hâlinde de hayır. Kamera hareketlerinde çizgiler tutarlı kayıyor, kırpışma yok. Koşul aynı: değer anahtarı sahneden sahneye değişsin.",
+  "en_emin_olmadigim_nokta": "Göz–baş uyuşmazlığının bir izleyici için gerçekten hata gibi mi, yoksa bilinçli bir 'karanlıktaki dev bakış' metaforu gibi mi okunacağı. Durağan karelerde (24,0) açıkça uyuşmuyor. Ama 24 fps oynatmada geçiş 0,5 sn'den kısaysa göz bunu fark etmeyebilir. Bunu ancak gerçek hızda video izleyerek kesinleştirebilirim; kurul sesi ve videoyu oynatamıyor, son karar kullanıcının gözünde."
+}
