@@ -929,8 +929,14 @@ function adn_el(x, y, s, ang, o = {}) {
   const tb = lerp(.95, .78, k), Th = new Path2D(); spline(Th, [[.25, .14], [.55, .3], [tb, .44 - .12 * k], [tb + .06, .52 - .14 * k], [tb - .04, .56 - .14 * k], [.5, .44], [.18, .3]].map(([a, b]) => F(a, b)), true, .5);
   const v = o.v ?? .975;
   for (const Q of [P, Fg, Th]) adn_doldur(Q, v, ang, 10);
-  const tx = GR.tx; tx.save(); const all = new Path2D(); all.addPath(P); all.addPath(Fg); all.addPath(Th); tx.clip(all);
-  adn_cizgi([F(-.5, -.3), F(-.52, 0), F(-.5, .32)], Math.max(4, s * .045), .03, .4);                     // kol kenarı (yen ağzı)
+  // uzun, bol yen: bilekten dirseğe (kadraj dışı) genişleyen, alt yanı sarkan dökümlü kumaş; kol çıplak görünmez
+  const Y = new Path2D(); spline(Y, [[.06, -.38], [-.6, -.52], [-1.6, -.66], [-4.2, -.8], [-4.2, 1.9], [-2.4, 1.75], [-1.5, 1.45], [-.8, 1.0], [-.2, .62], [.08, .4], [.14, 0]].map(([a, b]) => F(a, b)), true, .45);
+  adn_doldur(Y, v, ang, 10);
+  const tx = GR.tx; tx.save(); tx.clip(Y);
+  adn_cizgi([F(.02, -.36), F(.1, 0), F(.04, .4)], Math.max(4, s * .045), .03, .35);                       // yen ağzı
+  for (const [a0, b0, a1, b1] of [[-.3, .5, -1.5, -.3], [-.9, 1.05, -2.4, .25], [-1.7, 1.5, -3.6, .7]]) adn_sivri([F(a0, b0), F((a0 + a1) / 2 - .05, (b0 + b1) / 2 + .05), F(a1, b1)], Math.max(4, s * .045), .03);   // kıvrımlar
+  tx.restore();
+  tx.save(); const all = new Path2D(); all.addPath(Fg); all.addPath(Th); tx.clip(all);
   adn_cizgi([F(.3, .2), F(.6, .26), F(tb - .1, .42 - .12 * k)], Math.max(3, s * .035), .03, .5);          // başparmak ayrımı
   for (let i = 0; i < 3; i++) { const j = n - 1 - (i % 2), p = sp[j], q = sp[n]; adn_cizgi([F(lerp(p[0], q[0], .3), lerp(p[1], q[1], .3) - .1 + i * .1), F(q[0], q[1] - .1 + i * .1)], Math.max(2.6, s * .025), .03, .6); } // parmak uçları
   tx.restore();
@@ -1029,7 +1035,7 @@ plan('P103', (ctx, st) => {
 }, { tr: { type: 'fade', dur: .6 }, over: (ctx, st) => txt(ctx, 'Kazanmıştır.', 960, 640, { font: FONT.alinti(84), a: E.sine(clamp((st.t - Wd('I10', 'kazanmıştır') + .1) / .6)) }) });
 
 // ═════════ P116 (K02): önceki an: iki figür diz çökmüş, başları eğik (uzak, arkadan); köşede dik duran koyu Şeytan ═════════
-function adn_k02(t) {
+function adn_k02(t, o = {}) {
   const L = { x: 720, y: 330 }, HZ = 700;
   adn_gunduz(L, HZ, { r0: 360, tepeA: 26 });
   adn_govde(760, 760, 470, 36, 20, { dallar: [[.85, .7, 110, 12]] });
@@ -1043,9 +1049,18 @@ function adn_k02(t) {
   adn_cali({ x0: 160, x1: 1240, y: 856, amp: 12, wl: 60, seed: 174, yb: 900, L, cuts: .2, tooth: 5, endW: 160, endD: 40 });
   // sol üst köşe: yaprak kütlesi; sağ köşe: yükselti üstünde dik duran koyu Şeytan (açık göğe karşı)
   adn_tac({ x: -100, y: -20, r: 320, seed: 177, L, n: 7 });
-  adn_cali({ x0: 1360, x1: 2300, y: 920, amp: 40, wl: 150, seed: 175, yb: 1300, L, cuts: .5, tooth: 7, endW: 260, endD: 200 });
-  kiy_seytan(t, { x: 1690, gy: 920, h: 66, lum: 0, facing: -1, lit: [-.9, -.4], head: .08, lean: -.03, open: 0, lift: .15, wingK: .6, armN: [.1, .15], armF: [-.1, .1] });
+  if (o.seytan !== false) adn_cali({ x0: 1360, x1: 2300, y: 920, amp: 40, wl: 150, seed: 175, yb: 1300, L, cuts: .5, tooth: 7, endW: 260, endD: 200 });
+  if (o.seytan !== false) kiy_seytan(t, { x: 1690, gy: 920, h: 66, lum: 0, facing: -1, lit: [-.9, -.4], head: .08, lean: -.03, open: 0, lift: .15, wingK: .6, armN: [.1, .15], armF: [-.1, .1] });
   adn_cali({ x0: -300, x1: 1500, y: 1050, amp: 26, wl: 100, seed: 176, yb: 1300, L, cuts: .4, tooth: 6, endW: 200, endD: 80 });
 }
 
-plan('P116', (ctx, st) => levha(ctx, camLerp({ cx: 980, cy: 540 }, { cx: 950, cy: 540 }, st.p, E.sine), () => adn_k02(st.t), [.8, 0, 1]), { tr: ADN_FADE });
+// Diptik (kurul tur 1, kaynak: X.1086–1104'te Şeytan orada değil): iki ayrı pano, aynı mekân değil, karşılaştırma.
+// Sol: Aden'de diz çökmüş iki uzak, örtülü siluet (gövde dik, başlar eğik). Sağ: ayrı panoda dimdik duran Şeytan (açılış figürü, nif_kancaA01);
+// sağ pano "Şeytan'ın" kelimesinde ortadan açılır.
+plan('P116', (ctx, st) => {
+  const t = st.t, R1 = [96, 110, 1080, 760], R2 = [1236, 110, 588, 760], a2 = E.io2(clamp((t - Wd('K02', 'şeytanın') + .2) / 1.1));
+  levha(ctx, null, () => { const B = new Path2D(); B.rect(-10, -10, W + 20, H + 20); kit_dol(B, .97, { th: 0, id: 1 });
+    for (const [x, y, w, h] of [R1, R2]) { kit_kutu(x - 14, y - 14, x + w + 14, y + h + 14, 4); kit_kutu(x - 4, y - 4, x + w + 4, y + h + 4, 2.4); } }, [.97, 0, 1]);
+  kit_pano(ctx, 0, kit_panoKam(760, 640, R1, 1), () => adn_k02(t, { seytan: false }), R1, [.8, 0, 1]);
+  if (a2 > 0) { const hh = R2[3] * a2; kit_pano(ctx, 1, kit_panoKam(860, 560, R2, .78), () => nif_kancaA01(t, .5), [R2[0], R2[1] + (R2[3] - hh) / 2, R2[2], hh], [.5, 0, 1]); }
+}, { tr: ADN_FADE });
