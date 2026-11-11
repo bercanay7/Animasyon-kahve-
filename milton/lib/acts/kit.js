@@ -661,5 +661,5 @@ plan('P136', (ctx, st) => {
   const op = (i, r) => { const a = E.io2(ac(i)), hh = r[3] * a; return [r[0], r[1] + (r[3] - hh) / 2, r[2], hh]; };   // pano ortadan açılır
   kit_pano(ctx, 0, kit_panoKam(900, 600, P[0], .9), () => cizGol(t, { sway: .02 }), op(0, P[0]));
   kit_pano(ctx, 1, kit_panoKam(960, 520, P[1], .9), () => { kao_bosluk(t, { lt: t - S('L06'), cx: 960, cy: 120, r0: 140, r1: 1100, sy: .8 }); kao_ucan(t, { x: 960, y: 640 - 60 * kit_a(t, tw[1], 8), h: 34, lean: -.2, head: .35, open: .95, lift: .7, flap: Math.sin(t * 1.6) * .15, lum: .08, lit: [0, -1], seed: 9 }); }, op(1, P[1]));
-  kit_pano(ctx, 2, kit_panoKam(900, 600, P[2], .9), () => nif_a01(t), op(2, P[2]), [.5, 0, 1]);
+  kit_pano(ctx, 2, kit_panoKam(860, 560, P[2], .9), () => nif_kancaA01(t, 1), op(2, P[2]), [.5, 0, 1]);
 }, { tr: KIT_TR });
