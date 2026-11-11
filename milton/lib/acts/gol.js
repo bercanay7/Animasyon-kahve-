@@ -49,7 +49,7 @@ plan('P004', (ctx, st) => {
   levha(ctx, cam, () => cizGol(t, { head: lerp(.08, .66, E.io2(gol_u(t, tD, tD + 1.9))), sway: .025, light: L, eyes: E.sine(gol_u(t, tR + .9, tR + 1.6)) }));
 }, { tr: { type: 'cut' },
   over: (ctx, st) => { const t0 = Wd('A04', 'görünür'), d = st.end - t0 + .3;
-    etiket(ctx, 'GÖRÜNÜR', 330, 138, st.t - t0, d, { px: 60, ls: 6, panel: .55 }); etiket(ctx, 'KARANLIK', 330, 222, st.t - t0 - .15, d, { px: 60, ls: 6, panel: .55 }); } });
+    etiket(ctx, 'GÖRÜNÜR', 330, 250, st.t - t0, d, { px: 64, ls: 6, panel: .55 }); etiket(ctx, 'KARANLIK', 330, 338, st.t - t0 - .15, d, { px: 64, ls: 6, panel: .55 }); } });
 
 // ═════════ P005 (A04@zincirlerle): zincir yakın planı ═════════
 // Yakın ölçekte çizilmiş ayrı kadraj: bilekten göle inen büyük halkalar, demir bilezik, su çizgisi.
@@ -366,15 +366,22 @@ function cizOrdu(t, o = {}) {
 }
 // gözyaşı yakın planı (E11 notu): h 150 profil (P050 karesinin eşi); yanaktan çeneye inen ıslak iz, çeneden düşen parlak damla
 function gol_yasPlani(t, yas, head) {
-  const J = cizProfil(t, { iz: .67, head });
+  const J = cizProfil(t, { iz: .34, head });                     // yalnız alındaki ilk iz: yanaktaki ıslak izle karışmasın
   const { tx, tone } = GR;
   yas.forEach((t0, i) => {
-    const u = (t - t0) / 1.4; if (u <= 0) return;
-    const e = gol_hl(J, .27 - .02 * i, -.02), c = gol_hl(J, .24 - .03 * i, .4), k = E.in2(Math.min(u, 1));
-    const p = [lerp(e[0], c[0], k), lerp(e[1], c[1], k)];
-    gol_vurus(tx, [e, [lerp(e[0], p[0], .5) + 2, lerp(e[1], p[1], .5)], p], 5, .96, .3);                       // ıslak iz (kalır)
-    let q = p; if (u > 1) { const f = u - 1; q = [c[0] + f * 10, c[1] + 900 * f * f]; }                     // çeneden kopup düşer
-    if (u < 1.6) { const D = new Path2D(); D.moveTo(q[0], q[1] - 20); D.quadraticCurveTo(q[0] + 11, q[1] + 4, q[0], q[1] + 11); D.quadraticCurveTo(q[0] - 11, q[1] + 4, q[0], q[1] - 20); tx.fillStyle = tone(.98); tx.fill(D); }
+    const u = (t - t0) / 1.2; if (u <= 0) return;
+    // iz: gözden yanak boyunca çene kenarına; kalın, parlak, kalıcı
+    const e = gol_hl(J, .3, -.02), m = gol_hl(J, .3 - .03 * i, .2), c = gol_hl(J, .33 - .02 * i, .44), k = E.in2(Math.min(u, 1));
+    const path = [e, m, c], seg = k * 2, pts = [e];
+    if (seg > 0) pts.push(seg < 1 ? [lerp(e[0], m[0], seg), lerp(e[1], m[1], seg)] : m);
+    if (seg > 1) pts.push([lerp(m[0], c[0], seg - 1), lerp(m[1], c[1], seg - 1)]);
+    if (pts.length > 1 && k > .1) gol_vurus(tx, pts.length > 2 ? pts : [pts[0], [(pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2], pts[1]], 7, .97, .25);
+    const q = u <= 1 ? pts[pts.length - 1] : [c[0] + (u - 1) * 14, c[1] + 700 * (u - 1) * (u - 1)];
+    if (u > 1.9) return;
+    // damla: yüzde kâğıt rengi; çeneden kopunca parıltıya karşı mürekkep damla, kâğıt kenarlı
+    const D = new Path2D(), r = 10; D.moveTo(q[0], q[1] - 2 * r); D.quadraticCurveTo(q[0] + r * 1.1, q[1] + .4 * r, q[0], q[1] + r); D.quadraticCurveTo(q[0] - r * 1.1, q[1] + .4 * r, q[0], q[1] - 2 * r);
+    if (u <= 1) { tx.fillStyle = tone(.99); tx.fill(D); }
+    else { tx.save(); tx.lineWidth = 6; tx.strokeStyle = tone(.99); tx.stroke(D); tx.fillStyle = tone(.02); tx.fill(D); tx.restore(); }
   });
 }
 plan('P051', (ctx, st) => {
@@ -388,12 +395,12 @@ plan('P051', (ctx, st) => {
 }, { tr: { type: 'fade', dur: .8 } });
 // "gözlerinden yaşlar boşanır": profil yakın planına kesme, üç damla tek tek
 shot(Wd('E11', 'gözlerinden') - .35, (ctx, st) => {
-  levha(ctx, { cx: 940, cy: 550, z: 1.04 }, () => gol_yasPlani(st.t, [Wd('E11', 'gözlerinden'), Wd('E11', 'yaşlar'), Wd('E11', 'boşanır')], -.1));
+  levha(ctx, camLerp({ cx: 880, cy: 520, z: 1.1 }, { cx: 880, cy: 540, z: 1.1 }, st.p, E.sine), () => gol_yasPlani(st.t, [Wd('E11', 'gözlerinden'), Wd('E11', 'yaşlar'), Wd('E11', 'boşanır')], -.1));
 }, { id: 'P051y', tr: { type: 'cut' } });
 plan('P134', (ctx, st) => {
   const t = st.t, tA = Wd('L04', 'ağlar');
   if (t < tA - .3) { levha(ctx, camLerp({ cx: 880, cy: 590, z: 1.02 }, { cx: 860, cy: 590, z: 1.02 }, gol_u(t, st.at, tA), E.sine), () => cizOrdu(t, { head: -.1 })); return; }
-  levha(ctx, { cx: 940, cy: 550, z: 1.04 }, () => gol_yasPlani(t, [tA, Wd('L04', 'meleklerin')], -.12));   // ağlar: profil yakın planı
+  levha(ctx, { cx: 880, cy: 530, z: 1.1 }, () => gol_yasPlani(t, [tA, Wd('L04', 'meleklerin')], -.12));   // ağlar: profil yakın planı
 }, { tr: { type: 'fade', dur: .9 } });
 
 // P052: şeytanlar toprağı kazar; yerden Dor sütunlu, altın tavanlı saray yükselir (I.670–730). Kubbe, minare, hilal, Osmanlı motifi yok.
@@ -427,22 +434,25 @@ function gol_saray(cx, gy, sc, rise) {
 function gol_kazici(x, y, h, t, ph) {
   const sw = Math.sin(t * 2.0 + ph), up = E.sine((sw + 1) / 2), a = lerp(.75, 2.55, up);
   const J = SF.rig({ x, y: y - 3.6 * h, h, facing: 1, twist: .25, lean: .42 - .12 * up, head: -.25, shTilt: .05, armN: [a, .25], armF: [a - .15, .35], legN: [.35, -.4], legF: [-.2, -.15] });
-  SF.draw(J, { lum: 0, lit: [-.3, -.95], t, legs: true, skirt: false, eye: 0, wind: .3, cloak: false, halo: 2.5, lines: 0, seed: 11 + ph * 3, spear: { grip: 'N', ang: a - PI / 2 + .3 + PI * .5, len: 2.2, up: .8 } });
+  SF.draw(J, { lum: 0, lit: [-.3, -.95], t, legs: true, skirt: true, eye: 0, wind: .3, cloak: .6, halo: 2.5, lines: 0, seed: 11 + ph * 3, spear: { grip: 'N', ang: a - PI / 2 + .3 + PI * .5, len: 2.2, up: .8 } });
 }
 plan('P052', (ctx, st) => {
   const t = st.t, tY = Wd('E12', 'yerden'), tK = Wd('E12', 'şeytanlar');
   const rise = E.out3(gol_u(t, tY - .3, tY + 2.4)), dig = E.sine(gol_u(t, tK - .6, tK + .6)) * (1 - .6 * rise);
   const cam = camLerp({ cx: 990, cy: 540, z: 1.02 }, { cx: 930, cy: 540, z: 1.02 }, st.p, E.sine);
   levha(ctx, cam, () => cizKiyi(t, { fx: 960, hz: 640, wall: .6, front: false, fig: gy => {
-    gol_saray(960, 650, .9, rise);
-    // kazılan çukurlarda erimiş altın parlar (I.700–704): her kazıcı kendi çukurunun ışığına karşı siluet okunur
-    for (const [x, y, h, ph] of [[500, 930, 30, 0], [800, 975, 34, 3.1], [1140, 940, 31, .9], [1460, 990, 36, 2.4]]) {
-      const v = clamp(dig * 1.4), P = new Path2D(); P.ellipse(x + 1.6 * h, y + 2, 1.9 * h * (.5 + .5 * v), .32 * h, 0, 0, TAU);
-      GR.fill(P, GR.tone(.97), { th: 0, id: 3 });
-      gol_kazici(x, y, h, t, ph);
-    }
+    gol_saray(960, 650, 1.0, rise);
+    // E12 notu: kazı işi iki büyük ön plan silueti ve çukurlardan yükselen ışıkla anlatılır; tapınak yükselişi ana olay.
+    // Kazı çukurları: erimiş altın (I.700–704) düz kâğıt; yükselen ışık sütunu (kenarı keskin, yukarı incelir); kazıcı ona karşı siluet.
+    const pit = (x, y, w, v) => {
+      if (v <= .01) return;
+      PR.glow(x, y - w * .5, w * .2, w * 1.6, 1, .5 * v);                                                     // çukurdan yükselen ışık (yumuşak, figürün arkasında)
+      const P = new Path2D(); P.ellipse(x, y, w * (.3 + .7 * v), w * .15, 0, 0, TAU); GR.fill(P, GR.tone(.98), { th: 0, id: 3 });
+    };
+    const v = clamp(dig * 1.3);
+    for (const [x, y, h, ph, w] of [[1180, 905, 30, .9, 70], [700, 915, 32, 3.1, 74], [200, 1070, 78, 0, 190], [1430, 1080, 84, 2.4, 200]]) { pit(x + 1.6 * h, y + 4, w, v); gol_kazici(x, y, h, t, ph); }
     // Şeytan solda, kayalıkta: konuşur (kolu kalkık), sonra izler
-    kiy_seytan(t, { x: 230, gy: gy + 10, h: 44, head: .15, armN: [lerp(.2, 2.2, E.sine(gol_u(t, st.at, st.at + 1.2)) * (1 - E.sine(gol_u(t, tK, tK + 1.2)))), .1], lum: .1, cloak: 1.1 });
+    kiy_seytan(t, { x: 1760, gy: gy + 12, h: 36, wingK: .8, facing: -1, head: .15, armN: [lerp(.2, 2.2, E.sine(gol_u(t, st.at, st.at + 1.2)) * (1 - E.sine(gol_u(t, tK, tK + 1.2)))), .1], lum: .1, cloak: 1.1 });
   } }));
 }, { tr: { type: 'fade', dur: .9 },
   over: (ctx, st) => etiket(ctx, 'PANDEMONIUM', 960, 150, st.t - Wd('E12', 'pandemonyum'), 99, { px: 64, ls: 14 }) });

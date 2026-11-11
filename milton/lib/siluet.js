@@ -118,7 +118,7 @@ const SF = (() => {
   // o: {lum (0..1), lit: [x,y] (ışığa doğru), t, anchor, eye (0..1), hair (false | uzunluk), wind, spear: {grip:'N'|'F', ang, len, up},
   //   armor (true), skirt (true), legs (true), waterY (bu çizginin altı çizilmez), rim (kenar ışığı kalınlığı, baş biriminde; .07),
   //   tilt, headScale, seed,
-  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, lines (vuruş yoğunluğu, 0 = yok … 4; 2), halo (px: ışık yanında arkadaki koyu kütleye karşı kâğıt rengi ayırma boşluğu; 0), robe (true | uzunluk: bele oturan, bileğe inen uzun giysi; skirt yerine), armorAlpha (.85)}
+  //   YENİ: cloak (false | uzunluk çarpanı, 1 ≈ dize kadar) pelerin, plain (yalnız lum > .6: düz kâğıt siluet, kontur ve iç tarama yok; varsayılan kapalı), lines (vuruş yoğunluğu, 0 = yok … 4; 2), halo (px: ışık yanında arkadaki koyu kütleye karşı kâğıt rengi ayırma boşluğu; 0), robe (true | uzunluk: bele oturan, bileğe inen uzun giysi; skirt yerine), armorAlpha (.85)}
   function draw(J, o = {}) {
     const h = J.h, f = J.f, lum = clamp(o.lum ?? 0), t = o.t || 0, wind = o.wind ?? 1;
     let lit = o.lit || [.7, -.7]; { const l = Math.hypot(lit[0], lit[1]) || 1; lit = [lit[0] / l, lit[1] / l]; }
@@ -217,8 +217,9 @@ const SF = (() => {
 
     // ── tonlar ve etkiler (lum'a bağlı yumuşak geçişler) ──
     const core = lerp(.03, .97, sst(.45, .6, lum));
-    const coreG = [core, lerp(core, core * .86, sst(.5, .9, lum)), core, core];
-    const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = sst(.5, .75, lum);
+    const plain = !!o.plain && lum > .6;                                          // düz açık siluet (cennet): kontur yok, iç tarama yok, yalnız birkaç sivri mürekkep vuruşu
+    const coreG = plain ? [core, core, core, core] : [core, lerp(core, core * .86, sst(.5, .9, lum)), core, core];
+    const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = plain ? 0 : sst(.5, .75, lum);
     const light = lum >= .6, skTone = light ? 0 : 1, sgS = light ? -1 : 1;     // vuruşlar: koyu figürde ışık yanından beyaz, açıkta gölge yanından mürekkep
     const rw = Math.max(3, hd_ * (o.rim ?? .09));
     // ışık merkezi: kenar ışığı burada en kalın; uzaklaştıkça incelir (beyaz çizgiler incelip söner, saydamlaşmaz)
@@ -264,13 +265,13 @@ const SF = (() => {
     }
     if (dens > 0 && hd_ > 34) {
       clr(SKc); SKc.fillStyle = '#fff'; let any = false;
-      for (const S of limbStrokes) {
+      for (const S of (plain ? [] : limbStrokes)) {
         const a = AM[S.g], P0 = toL(S.p0), P1 = toL(S.p1), ax = [P1[0] - P0[0], P1[1] - P0[1]], La = Math.hypot(ax[0], ax[1]) || 1, d = [ax[0] / La, ax[1] / La];
         let nrm = [-d[1], d[0]]; const dt = nrm[0] * sv[0] + nrm[1] * sv[1]; if (Math.abs(dt) < .3) continue; if (dt < 0) nrm = [-nrm[0], -nrm[1]];
         strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(3.8, hd_ * .04), .12, d); any = true;
       }
       // pelerin: gölge/ışık yanından içeri birkaç uzun kıvrım vuruşu
-      if (AM[0]) for (let i = 0; i < Math.round(dens * 2); i++) { const al = .6 + i * .55 + rS() * .2, P = toL(Q(al, -(swH + .2 + .2 * al))); strk(SKc, AM[0], P, sv, hd_ * (.5 + .4 * rS()), Math.max(3, hd_ * .035), .15, lin(dn)); any = true; }
+      if (AM[0]) for (let i = 0; i < (plain ? Math.min(2, Math.round(dens)) : Math.round(dens * 2)); i++) { const al = .6 + i * .55 + rS() * .2, P = toL(Q(al, -(swH + .2 + .2 * al))); strk(SKc, AM[0], P, sv, hd_ * (.5 + .4 * rS()), Math.max(3, hd_ * .035), .15, lin(dn)); any = true; }
       if (any) SK = SKc.getImageData(0, 0, BW, BH).data;
     }
     // zırh çizgileri ve göz: ana grubun tonuna karışır (öndeki kol ve sahnedeki önde çizilen her şey örter)
@@ -279,15 +280,15 @@ const SF = (() => {
       clr(Z); Z.setTransform(ML.a, ML.b, ML.c, ML.d, ML.e, ML.f); Z.fillStyle = '#fff'; let any = false;
       if (o.armor !== false && hd_ > 40) {
         any = true; const k = sc0, wA = Math.max(3, hd_ * .034);
-        for (let b2 = 0, nb = lum < .5 ? 0 : 1; b2 < nb; b2++) { const al = 1.45; taper(Z, [Q(al, -(swH * .72 + .05)), Q(al + .07, cs), Q(al, swH * .72 + .1)], wA * (1 - .12 * b2), k); } // lorika bantları
+        for (let b2 = 0, nb = lum < .5 || plain ? 0 : 1; b2 < nb; b2++) { const al = 1.45; taper(Z, [Q(al, -(swH * .72 + .05)), Q(al + .07, cs), Q(al, swH * .72 + .1)], wA * (1 - .12 * b2), k); } // lorika bantları
         taper(Z, [Q(1.98, -(hwH + .3)), Q(2.03, cs), Q(1.98, hwH + .3)], wA * 1.3, k);                        // kemer
-        for (const sd of [-1, 1]) taper(Z, [Q(.02, sd * swH * .6), Q(.14, sd * (swH + .1)), Q(.4, sd * (swH + .2))], wA * .85, k); // omuzluk kenarı (omuz başına tek çizgi)
-        if (o.skirt !== false && legs && !robe) for (let i = 1; i < 7; i += 2) { const a2 = -(hwH + .46) + (i / 7) * 2 * (hwH + .46); taper(Z, [Q(2.1, a2 * .85), Q(2.85, a2)], wA * .8, k); }
+        if (!plain) for (const sd of [-1, 1]) taper(Z, [Q(.02, sd * swH * .6), Q(.14, sd * (swH + .1)), Q(.4, sd * (swH + .2))], wA * .85, k); // omuzluk kenarı (omuz başına tek çizgi)
+        if (o.skirt !== false && legs && !robe && !plain) for (let i = 1; i < 7; i += 2) { const a2 = -(hwH + .46) + (i / 7) * 2 * (hwH + .46); taper(Z, [Q(2.1, a2 * .85), Q(2.85, a2)], wA * .8, k); }
       }
       if (dens > 0 && hd_ > 34) {
         // gövde vuruşları: ışık (ya da gölge) yanındaki gövde kenarından içeri
         const side = (rt[0] * sv[0] + rt[1] * sv[1]) * 1 >= 0 ? 1 : -1, rD = lin([rt[0] * side, rt[1] * side]);
-        if (Math.abs(lin(rt)[0] * sv[0] + lin(rt)[1] * sv[1]) > .2) for (const S of torsoStrokes) {
+        if (Math.abs(lin(rt)[0] * sv[0] + lin(rt)[1] * sv[1]) > .2) for (const S of (plain ? torsoStrokes.slice(0, 2) : torsoStrokes)) {
           const P = toL(Q(S.al, side * f * .15)); Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0);
           strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(4.2, hd_ * (.04 + .015 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
         }
@@ -375,7 +376,7 @@ const SF = (() => {
       if (sRim > .01) { tx.fillStyle = tone(lerp(coreG[gi], 1, sRim)); const e = (p, k) => [p[0] + n[0] * sn * k, p[1] + n[1] * sn * k], P = new Path2D();
         poly(P, [e(bot, w0), e(top, w0), e(top, w0 - ew), e(bot, w0 - ew)], true); tx.fill(P);
         const P2 = new Path2D(); const tp = [top[0] + d[0] * tl, top[1] + d[1] * tl]; poly(P2, [e(top, .2 * h * .55), tp, e(top, .2 * h * .3)], true); tx.fill(P2); }
-      if (sInk > .01) { tx.strokeStyle = tone(lerp(coreG[gi], 0, sInk)); tx.lineWidth = Math.max(1.5 / sc0, h * .012); tx.stroke(S); tx.stroke(Tp); }
+      if (sInk > .01 && !plain) { tx.strokeStyle = tone(lerp(coreG[gi], 0, sInk)); tx.lineWidth = Math.max(1.5 / sc0, h * .012); tx.stroke(S); tx.stroke(Tp); }
       tx.restore();
       const px = GR.px; px.save(); clipW(px); px.fillStyle = GR.hatch(HSs[gi] || HSs[2]); px.fill(S); px.fill(Tp); px.restore();
     };
