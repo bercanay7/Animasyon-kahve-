@@ -27,3 +27,12 @@ Sabit adım (`1000/FPS/4`), seed'li başlangıç, **önceden simüle et** → ka
 
 ## Kaçın
 Spine/Live2D (ücretli lisans); render içinde `Math.random()`/`Date.now()`.
+
+## Yay sönümü ve ease rolleri
+- Yay sönümü (damping): 1.0 sıçramaz · 0.7–0.85 "premium/ağırbaşlı" · 0.4–0.6 oyuncu · <0.3 çizgi film. **Yalnızca konum/boyut sıçrar; opacity ve renk asla.**
+- Rol bazlı ease: giriş = uzun kuyruklu ease-out (`expo.out`, `power4.out`); kamera/renk akışı = `power2.inOut`; çıkış/zoom-through = `power3.in`; `linear` yalnızca dönme, progress bar, sabit hız.
+- Süre: hızlı hareket 0.3–0.6 sn tek tween; çıkışlar girişten %40–50 kısa.
+- Çakışma (overlap): sonraki öğe öncekinin %30–50'sinde başlar. Stagger: harf ≈ 1 kare, kelime 60–120 ms, liste 40–80 ms.
+- Punch-in/pan: medyanın kendisini değil sarmalayıcıyı ölçekle/taşı. Konum için `left/top` yerine transform.
+- Kaçın: başlıkta sürekli "nefes/yüzme" döngüsü; her sahnede aynı giriş; her şeye fade+slide-up.
+- Shake: `sin/cos` ofseti, 6-8 karede söner; pulse: %80–120 (kalp atışı = iki hızlı pulse + duraklama); parçacık patlaması: seed'li, hızı zamanla söner.
