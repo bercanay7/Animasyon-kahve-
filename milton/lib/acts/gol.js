@@ -19,34 +19,51 @@ function gol_vurus(c, pts, w, v = 1, uc = .55) {
 }
 
 // ═════════ P004 (A04): karanlıkta açılan gözler → yanan göl ═════════
-// İki göz: siyah karede yalnız iki ince ışık (kaşın gölgesinde, iç uçları hafif aşağıda: ağır, mağrur bakış). a: açıklık 0..1
-function gol_gozler(T, a, al = 1) {
-  if (a <= .02 || al <= 0) return;
-  T.save(); baseT(T); T.globalAlpha = al; {
-    for (const sd of [-1, 1]) {
-      const cx = 960 + sd * 152, cy = 528, L = 150, ang = sd * .1;   // iç uç (merkeze yakın) aşağıda
-      const c = Math.cos(ang), s = Math.sin(ang), P = (x, y) => [cx + x * c - y * s, cy + x * s + y * c];
-      const th = 15 * a, n = 20, up = [], dn = [];
-      for (let i = 0; i <= n; i++) {
-        const u = i / n, x = (u - .5) * L, e = Math.pow(Math.sin(PI * u), .7);
-        const k = sd < 0 ? u : 1 - u;                                 // dış uç biraz daha açık (badem)
-        up.push(P(x, -th * .35 * e * (.8 + .4 * k)));               // üst kapak düz ve ağır
-        dn.push(P(x, th * .65 * e * (.7 + .5 * k)));
-      }
-      T.fillStyle = PAPER_CSS; T.beginPath(); poly(T, [...up, ...dn.reverse()], true); T.fill();
+// Kurgu kurulu tur 1: tam siyah en çok 0,5 sn. Plan başında kapalı göz kapaklarının alev ışığı alan alt kenarları;
+// "gözlerini"de iri gözler açılır (her biri 300 px; kâğıt beyazı akı, ışınsal vuruşlu koyu iris, iriste küçük alev dili yansıması);
+// "başlar"da kapaklar iner, kısa siyah, ışıkla geniş plan açılır; göl "yanan"da tam görünür.
+// a: kapak açıklığı 0..1, lt: alt kapak ışığı 0..1 (kapalıyken görünen tek şey), t: alev salınımı
+function gol_gozBuyuk(a, lt, t) {
+  const { tx, px, tone } = GR, INK = tone(.02);
+  tx.fillStyle = tone(.02); tx.fillRect(-400, -400, W + 800, H + 800);
+  for (const sd of [-1, 1]) {
+    const cx = 960 + sd * 235, cy = 520, Lw = 300, ang = sd * .07;              // iç uç hafif aşağıda (ağır, mağrur bakış)
+    GR.frame(cx, cy, ang, sd, 1);                                               // yerel: +x dış uç
+    const up = [[-150, 4], [-70, -60], [60, -64], [150, -8]], lo = [[150, -8], [70, 52], [-60, 50], [-150, 4]];
+    const AK = new Path2D(); AK.moveTo(...up[0]); AK.bezierCurveTo(...up[1], ...up[2], ...up[3]); AK.bezierCurveTo(...lo[1], ...lo[2], ...lo[3]); AK.closePath();
+    const ic = [-8, 2], lidY = lerp(52, -66, a);                                // üst kapağın alt kenarı: kapalıyken alt kapağa iner
+    if (a > .01) {
+      GR.fill(AK, tone(.96), { th: 0, id: 0 });
+      tx.save(); tx.clip(AK); px.save(); px.clip(AK);
+      { const I = new Path2D(); I.arc(ic[0], ic[1], 50, 0, TAU); GR.fill(I, tone(.03), { th: 0, id: 0 }); }
+      const ri = rng(41 + sd);                                                  // iris: kenara doğru sivrilen eşit olmayan ışınsal vuruşlar (Cabanel gözünün akrabası)
+      for (let k = 0; k < 18; k++) { const an = k / 18 * TAU + (ri() - .5) * .2, r0 = 25 + ri() * 4, r1 = 40 + ri() * 8; gol_vurus(tx, [[ic[0] + Math.cos(an) * r0, ic[1] + Math.sin(an) * r0], [ic[0] + Math.cos(an) * r1, ic[1] + Math.sin(an) * r1]], 3.2 + ri() * 1.6, .92, .3); }
+      { const B = new Path2D(); B.arc(ic[0], ic[1], 21, 0, TAU); GR.fill(B, INK, { th: 0, id: 0 }); }
+      // alev yansıması: göz bebeğinin üstünde küçük, sivri, hafif kıvrık alev dili (kâğıt)
+      { const fx = ic[0] + 12 * sd, fy = ic[1] + 8, h = 30 * (1 + .08 * Math.sin(t * 5.3)), sw = 3 * Math.sin(t * 3.7);
+        const F = new Path2D(); F.moveTo(fx - 7, fy + 4); F.quadraticCurveTo(fx - 9, fy - h * .45, fx + sw, fy - h); F.quadraticCurveTo(fx + 3, fy - h * .5, fx + 8, fy + 3); F.quadraticCurveTo(fx, fy + 9, fx - 7, fy + 4); F.closePath();
+        tx.fillStyle = tone(1); tx.fill(F); }
+      // üst kapak: kalın mürekkep kütle, açıklığa göre iner
+      const lid = new Path2D(); lid.moveTo(-170, lidY + 6); lid.quadraticCurveTo(ic[0], lidY - 40 * a - 6, 170, lidY - 6); lid.lineTo(170, -200); lid.lineTo(-170, -200); lid.closePath();
+      GR.fill(lid, INK, { th: 0, id: 0 });
+      tx.restore(); px.restore();
+      tx.save(); tx.strokeStyle = INK; tx.lineCap = 'round'; tx.lineWidth = 12; tx.beginPath(); tx.moveTo(-152, lidY * .3 + 4); tx.quadraticCurveTo(ic[0], lidY - 40 * a - 6, 152, lidY * .3 - 6); tx.stroke(); tx.restore();
     }
-  } T.restore();
+    // alt kapağın ışıklı kenarı (alevi yansıtır): kapalıyken de görünen ince, sivrilen kâğıt çizgi; kaşın altında ince ışık sırtı
+    gol_vurus(tx, [[-140, 14], [-60, 50], [60, 52], [140, -2]], 7 * lt, .97, .5);
+    if (a > .2) gol_vurus(tx, [[-150, -84], [-40, -110], [90, -104], [170, -72]], 8 * clamp((a - .2) / .5), .9, .5);
+    GR.unframe();
+  }
 }
 plan('P004', (ctx, st) => {
-  // Çok yakın plan → geniş plan (A04 kurulu): önden iki göz karanlıkta açılır, ağır kırpar, KAPANIR; kısa tam siyah;
-  // sonra geniş plan ışıkla açılır ve profildeki tek göz ışığı başta belirir. Geniş planda önden göz yok.
-  const t = st.t, tG = Wd('A04', 'gözlerini'), tY = Wd('A04', 'yanan'), tD = Wd('A04', 'dokuz');
-  const tC = tY - .75, tR = tY - .2;                                       // kapanış, ışığın açılışı
-  const open = E.out3(gol_u(t, tG, tG + .9)) * (1 - .75 * Math.sin(PI * gol_u(t, tG + 1.55, tG + 1.85))) * (1 - E.io2(gol_u(t, tC, tC + .3)));
-  if (t < tR) { ctx.save(); baseT(ctx); ctx.fillStyle = INK_CSS; ctx.fillRect(0, 0, W, H); ctx.restore(); gol_gozler(ctx, open); return; }
-  const L = E.io2(gol_u(t, tR, tR + 2.2));
+  const t = st.t, tG = Wd('A04', 'gözlerini'), tB = Wd('A04', 'başlar'), tY = Wd('A04', 'yanan'), tD = Wd('A04', 'dokuz');
+  const lt = E.sine(gol_u(t, st.at + .3, st.at + 1));                                    // 0,3 sn siyah, sonra kapalı kapakların ışıklı kenarı
+  const open = E.out3(gol_u(t, tG, tG + .38)) * (1 - E.in2(gol_u(t, tB, tB + .28)));       // "gözlerini"de açılır, "başlar"da kapanır
+  const tR = tB + .45, Ly = tY - .05;                                                     // kısa siyah (~.17 sn), ışık açılışı, göl "yanan"da tam
+  if (t < tR) { levha(ctx, null, () => gol_gozBuyuk(open, lt * (1 - gol_u(t, tB + .1, tB + .3)), t)); return; }
+  const L = E.io2(gol_u(t, tR, Ly));
   const cam = camLerp({ cx: 900, cy: 530, z: 1.1 }, { cx: 960, cy: 540, z: 1 }, gol_u(t, tR, st.end), E.io2);   // ≥ 8 sn, %10, yumuşak
-  levha(ctx, cam, () => cizGol(t, { head: lerp(.08, .66, E.io2(gol_u(t, tD, tD + 1.9))), sway: .025, light: L, eyes: E.sine(gol_u(t, tR + .9, tR + 1.6)) }));
+  levha(ctx, cam, () => cizGol(t, { head: lerp(.08, .66, E.io2(gol_u(t, tD, tD + 1.9))), sway: .025, light: L, eyes: E.sine(gol_u(t, Ly, Ly + .6)) }));
 }, { tr: { type: 'cut' },
   over: (ctx, st) => { const t0 = Wd('A04', 'görünür'), d = st.end - t0 + .3;
     etiket(ctx, 'GÖRÜNÜR', 330, 250, st.t - t0, d, { px: 64, ls: 6, panel: .55 }); etiket(ctx, 'KARANLIK', 330, 338, st.t - t0 - .15, d, { px: 64, ls: 6, panel: .55 }); } });

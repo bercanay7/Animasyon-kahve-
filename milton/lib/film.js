@@ -26,8 +26,27 @@ let SHOTS_SORTED = false;
 function shot(at, draw, o = {}) { if (o.tr && o.tr.end && o.tr.type !== 'cut') at -= o.tr.dur; SHOTS.push({ at, draw, ...o }); SHOTS_SORTED = false; }
 // plan kimliğiyle çekim: plan('P016', draw, o)
 function plan(id, draw, o = {}) { shot(PA(id, o.off || 0), draw, { id, ...o }); }
+// Geçiş politikası (kurgu kurulu tur 1; başkan): gravürde yumuşak geçiş iki levhanın yarı saydam üst üste binmesidir (gri ara kare)
+// ve filmde geçişlerin %62'si fade'di, çoğu konuşmanın ilk saniyesine biniyordu. Kural, çekimler kaydedildikten sonra bir kez uygulanır:
+//  - aynı set içinde fade → kesme (aynı mekânda kadraj değişimi kesmedir). İstisna: ODA ve LON (zaman atlaması), ve tr.keep işaretli çekimler.
+//  - setler arası fade kalır ama en çok 0,7 sn sürer ve öncesinde ≥ 0,7 sn sessizlik varsa o sessizlikte oynar (çapada biter).
+//  - black / paper / cut dokunulmaz.
+const TR_SUREKLI = { ODA: 1, LON: 1 };
+function normTransitions() {
+  const P = window.PLAN || {}, set = sh => (sh.id && P[sh.id] ? P[sh.id].set : null);
+  const cues = Object.values(window.CUES || {}).sort((a, b) => a.s - b.s);
+  const sessiz = t => { let pe = -1e9; for (const c of cues) { if (c.s > t + .06) break; if (c.s > t - .06) return c.s - pe; pe = c.e; } return 0; };   // t bir cümle başıysa öncesindeki boşluk
+  SHOTS.sort((a, b) => a.at - b.at);
+  for (let i = 1; i < SHOTS.length; i++) {
+    const sh = SHOTS[i], tr = sh.tr; if (!tr || tr.type !== 'fade' || tr.keep || sh._n) continue; sh._n = 1;
+    const a0 = tr.end ? sh.at + tr.dur : sh.at, s0 = set(SHOTS[i - 1]), s1 = set(sh);
+    if (s0 && s0 === s1 && !TR_SUREKLI[s1]) { sh.tr = { type: 'cut' }; sh.at = a0; continue; }
+    const dur = Math.min(tr.dur || .8, .7), end = tr.end || sessiz(a0) >= .7;
+    sh.tr = { ...tr, dur, end }; sh.at = end ? a0 - dur : a0;
+  }
+}
 function shotAt(t) {
-  if (!SHOTS_SORTED) { SHOTS.sort((a, b) => a.at - b.at); SHOTS_SORTED = true; }
+  if (!SHOTS_SORTED) { normTransitions(); SHOTS.sort((a, b) => a.at - b.at); SHOTS_SORTED = true; }
   let i = 0;
   for (let k = 0; k < SHOTS.length; k++) if (SHOTS[k].at <= t) i = k;
   return i;
