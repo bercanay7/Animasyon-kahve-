@@ -548,7 +548,7 @@ function oda_P009(t) {
   // kızın yolu: sağdan girer (mum elinde), masanın sağına oturur
   const yu = oda_u(t, tK - .3, tYz - .1), gel = E.io2(yu), otur = E.io2(oda_u(t, tYz - .25, tYz + .45)), bob = Math.sin(yu * PI * 6) * 3 * (1 - otur);
   const kx = lerp(1760, 1290, gel), masada = t > tYz - .2;
-  const elMum = oda_mumAlev(kx - 66, 640 + bob, .9, { boy: .8 });
+  const elG = oda_ayaktaGeo({ x: kx, y: ODA_FL + bob, h: 60, f: -1, etek: true, kolN: [.75, 1.05], fw: .04 }), elMum = oda_mumAlev(elG.WN[0], elG.WN[1] + 8, .9, { boy: .8 });
   const L = masada ? oda_mumAlev(1050, ODA_YER.my, 1, { boy: .8 }) : (t > tK - .5 ? elMum : null);
   const ayL = [310, 340];
   return cizOda(t, {
@@ -558,8 +558,10 @@ function oda_P009(t) {
     sair: { bas: .2, fw: -.05, L: L || ayL, R: L ? 600 : 1400, rw: L ? 6 : 4, vurus: !!L },
     on: () => {
       if (!masada) {
-        if (L) oda_ayakta({ x: kx, y: ODA_FL, h: 60, f: -1, etek: true, sapka: 'baslik', kolN: [1.2, .2], kolF: [.85, .4], bas: -.05, L: elMum, R: 600, rw: 6, fw: .04 });
-        if (t > tK - .5) oda_mum(t, kx - 66, 640 + bob, .9, { boy: .8 });
+        // mumu göğüs hizasında, bükük kolla önünde taşır; mumluk elin içinde
+        const G = oda_ayaktaGeo({ x: kx, y: ODA_FL + bob, h: 60, f: -1, etek: true, sapka: 'baslik', kolN: [.75, 1.05], kolF: [.5, .9], bas: -.05, fw: .04 });
+        if (L) oda_ayakta({ x: kx, y: ODA_FL + bob, h: 60, f: -1, etek: true, sapka: 'baslik', kolN: [.75, 1.05], kolF: [.5, .9], bas: -.05, L: elMum, R: 600, rw: 6, fw: .04 });
+        if (t > tK - .5) oda_mum(t, G.WN[0], G.WN[1] + 8, .9, { boy: .8 });
       } else {
         const yz = Math.sin((t - tYz) * 7) * .5 + .5;
         oda_kut(oda_cok([[1196, ODA_FL], [1204, 768], [1286, 768], [1294, ODA_FL]]), { L, c: [1245, 840], w: 5, R: 520 });   // tabure
@@ -772,11 +774,11 @@ plan('P067', (ctx, st) => levha(ctx, { cx: 900, cy: 520, z: 1.05 }, () => { oda_
 // P118 (K04): mum söner; ince duman yükselir; "1674".
 function oda_P118(t) {
   const tS = Wd('K04', 'milton'), alev = 1 - E.in2(oda_u(t, tS - .3, tS + .45));
-  const R = cizMumYakin(t, { alev, boy: .3, L: [1560, 650] });
+  const R = cizMumYakin(t, { alev, boy: .3 });
   if (alev < .99) { // duman: fitilden yükselen, kıvrılan ince kâğıt rengi şerit; yükseldikçe incelir ve söner
     const u = oda_u(t, tS, tS + 4.5), top = R.M.top, x = 1560 + 1.5 * 3.1, pts = [];
     for (let i = 0; i <= 9; i++) { const f = i / 9, yy = top - 10 - f * (90 + 420 * E.out2(u)); pts.push([x + Math.sin(f * 5 - t * 1.1) * (8 + f * 46) - f * 30, yy]); }
-    const w = 7 * (1 - .7 * u); if (w > 2.4) oda_cizgi(pts, w, 1, .7);
+    const w = 11 * (1 - .6 * u); if (w > 3) oda_cizgi(pts, w, 1, .7);
   }
 }
 plan('P118', (ctx, st) => levha(ctx, null, () => { oda_P118(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => etiket(ctx, '1674', 700, 360, st.t - Wd('K04', 'milton') - .4, st.end - Wd('K04', 'milton') - .3, { px: 56 }) });
@@ -795,16 +797,16 @@ function oda_P140(t) {
   const { tone } = GR, FL = ODA_FL, tSen = Wd('L09', 'sen'), tAn = Wd('L09', 'anlatayım');
   const ic = E.io2(oda_u(t, tSen - .2, tAn + .6));
   GR.fill(oda_dik(-400, FL, W + 800, 400), tone(.03), { th: 0, id: 0 });
-  const sa = { x: 900, y: FL - 2.05 * 84, h: 84, f: 1, bas: .28, fw: -.06, kol: 'kol' };
-  const Lr = [1500, -300];                                   // sönük yukarı ışık: yalnız ince kenar (siluet okunsun)
+  const sa = { x: 880, y: FL - 2.05 * 92, h: 92, f: 1, bas: .28, fw: -.06, kol: 'kol' };
+  const Lr = [1700, 250];                                   // sönük yukarı ışık: yalnız ince kenar (siluet okunsun)
   oda_koltuk(sa, 'arka', Lr, 1e5);
   const G = oda_sairGeo(sa), Ub = oda_birles(G.B, G.yaka), Ua = oda_birles(G.A, G.H);
-  oda_kut(Ub, { L: Lr, c: G.c, w: 3.5 });
-  const C = G.M(lerp(.3, .25, ic), lerp(-.5, -2.3, ic)), rr = lerp(.4, 4.8, ic) * sa.h;
-  if (ic > .005) oda_icIsik(Ub, C, rr, 7);
+  oda_kut(Ub, { L: Lr, c: G.c, w: 5 });
+  const C = G.M(lerp(.3, .2, ic), lerp(-.5, -2.5, ic)), rr = lerp(.4, 4.4, ic) * sa.h;
+  if (ic > .005) oda_icIsik(Ub, C, rr, 9);
   oda_koltuk(sa, 'on', Lr, 1e5);
-  oda_kut(Ua, { L: Lr, c: G.E, w: 3.5 });
-  if (ic > .005) oda_icIsik(Ua, C, rr, 6);
+  oda_kut(Ua, { L: Lr, c: G.E, w: 5 });
+  if (ic > .005) oda_icIsik(Ua, C, rr, 7);
 }
 plan('P140', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 560, z: 1 }, { cx: 980, cy: 540, z: 1.2 }, st.p, E.lin), () => { oda_P140(st.t); }, [.03, 0, 1]), {
   tr: { type: 'fade', dur: 1.0 },

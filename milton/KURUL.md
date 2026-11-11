@@ -350,3 +350,16 @@ Puanların seyri: U-Sanat 6,3 → 7,15 → 7,85 → 8,2 → 8,3 → 8,35; U-Grav
 - Üç üyenin oybirliğiyle "dil doğru, engelleyen bulgu yok" görüşüne ve U-Sanat'ın önerisine dayanarak kapının kalan kısmı **ilk hareketli sahneye (A04, yanan göl, ~15 sn) taşındı**: aynı üç üye bu sahneyi aynı ölçütlerle puanlayacak; 9 eşiği orada ve bütün bölüm kurullarında aranacak.
 - Bu, kullanıcının "her aşama ≥ 9 onay" kuralından bilinçli bir sapmadır; kullanıcıya bildirildi. Kullanıcı isterse tek karede tura devam edilir.
 - Sahne üretimi `lib/acts/KILAVUZ.md` ile başlar. İlk dalga: göl ve kıyı (A04 dahil), Milton'ın odası, yazı levhaları.
+
+## Kapı 2b: ilk hareketli sahne (A04, yanan göl)
+| Üye | Puan | Karar | Özet |
+|---|---|---|---|
+| U-Sanat | 7,9 | RED | dil hareket hâlinde de çalışıyor; sahnede üç kusur: göz–baş sürekliliği, zincir planında kol "çizme" gibi, gri açılış |
+| U-Gravur | 8,1 | RED | oyma titremesinin dozu doğru ("vektör temizliği" bulgusu kapandı); göz sürekliliği; geri çekilmede çizgi pompalanması |
+| U-Teknik | 8,9 | RED (0,1 eksik) | kayma düzgün, kırpışma yok (%0,17); titreme alanı zamanla sabit; geri çekilme bit hızını 7–9 Mbps'e çıkarıyor |
+
+Üç üye: "üslup dili için engelleyen bulgu yok". Bulgular sahnenin uygulamasına ait.
+
+**Çatışma ve başkan kararı (kamera):** U-Sanat geri çekilmeyi rahatsız edici bulmadı; U-Gravur "akordeon gibi pompalanır" dedi; U-Teknik ölçtü: kayma düzgün ve kırpışmasız, ama bit hızı durağan bölümün üç katı ve varsayılan hareketin yatay kaydırma olmasını önerdi. Karar: **varsayılan kamera hareketi yatay kaydırma; yakınlık değişimi en çok %10, en az 6 sn, yumuşak.** A04'te 1,10 → 1,0. Kılavuza işlendi.
+
+**Diğer kararlar (göl ajanına verildi):** karanlıktaki iki göz kapanır, kısa siyah, sonra geniş plan ışıkla açılır ve profildeki tek göz ışığı başa bağlı belirir; saydamlıkla açılış yok, ışıkla açılış; zincir planında çapraz kol, görünen yumruk, kola dik bilezik; etiket ≥ 60 punto ve düz siyah zeminde; ön alevlerde en-boy sınırı ve en az iki sivri dil; sağ alt alev yavaş ve küçük. Kıyı sahneleri (E) için başkan notları: koyu oran %80–86'dan hedefe (%65–75), E11'de saflar ve öndeki figür, E07'de figür ölçeği, E12'de kazıcılar.

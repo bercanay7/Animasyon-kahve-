@@ -14,9 +14,9 @@ function cen_gok(L, o = {}) {
   const r0 = (o.r0 ?? 110) * (.35 + .65 * a), r1 = o.r1 ?? 1900;
   const vf = o.v ?? .72, vm = o.mid ?? .88;
   const g = tx.createRadialGradient(L.x, L.y, r0 * .6, L.x, L.y, r1);
-  const k = v => clamp(lerp(v, v * .62, dk));
+  const k = v => clamp(lerp(v, v * .85, dk));
   g.addColorStop(0, tone(1)); g.addColorStop(.08, tone(lerp(k(vm), 1, a * .9)));
-  g.addColorStop(.3, tone(lerp(k(vm * .97), k(vm), a))); g.addColorStop(.62, tone(k(lerp(vm, vf, .55)))); g.addColorStop(1, tone(k(vf)));
+  g.addColorStop(.3, tone(lerp(k(vm * .97), k(vm), a))); g.addColorStop(.62, tone(lerp(lerp(vm, vf, .55), .3, dk))); g.addColorStop(.85, tone(lerp(lerp(vm, vf, .85), .06, dk))); g.addColorStop(1, tone(lerp(vf, .02, dk)));
   tx.fillStyle = g; tx.fillRect(-1600, -1600, W + 3200, H + 3200);
   px.fillStyle = GR.hatch({ type: 'rad', cx: L.x, cy: L.y, id: 1, ph: o.ph || 0 }); px.fillRect(-1600, -1600, W + 3200, H + 3200);
   // ışık kamaları: merkezden çıkan, ortada genişleyip ucu sivrilen kâğıt boşlukları (en çok 3)
@@ -261,13 +261,20 @@ function cen_mizrak(gx, gy, a, L, up, w, h) {
 // Sabah yıldızı: sekiz kollu kâğıt beyazı yıldız; çevresinde kendi küçük eş merkezli halesi (koyu halka taraması, ayırma için)
 function cen_yildiz(x, y, r, a = 1) {
   const { tx, px, tone } = GR; if (a <= 0) return;
-  const R2 = r * (3.2 + 1.2 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
+  const R2 = r * (2.2 + .8 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
   const g = tx.createRadialGradient(x, y, r * .6, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.3, tone(lerp(.85, .5, a))); g.addColorStop(.7, tone(lerp(.85, .62, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
   tx.save(); tx.globalCompositeOperation = 'source-over'; tx.fillStyle = g; tx.fill(D); tx.restore();
   px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
   const S = new Path2D(), n = 8, pts = [];
   for (let i = 0; i < n * 2; i++) { const an = i / (n * 2) * TAU - PI / 2, rr = i % 2 ? r * .22 : (i % 4 === 0 ? r * (1.6 + .6 * a) : r * .95); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
   poly(S, pts, true); tx.fillStyle = tone(1); tx.fill(S);
+}
+// İkinci ışık (Oğul): figürsüz kâğıt disk; çevresinde koyulaşan kısa halka taraması (ayrım için). Yüz, el, hale, haç yok.
+function cen_isik(x, y, r, a = 1) {
+  const { tx, px, tone } = GR, R2 = r * 3.4, D = new Path2D(); D.arc(x, y, R2, 0, TAU);
+  const g = tx.createRadialGradient(x, y, r, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.25, tone(lerp(.9, .6, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
+  tx.fillStyle = g; tx.fill(D); px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
+  const C = new Path2D(); C.arc(x, y, r, 0, TAU); tx.fillStyle = tone(1); tx.fill(C);
 }
 // Uzak saray: Dor sütunlu, alınlıklı tapınak (kubbe yok). x, y taban ortası; s ölçek (taban genişliği px); lx ışık yanı (±1)
 function cen_saray(x, y, s, lx = 1, v = .97) {
