@@ -7,18 +7,19 @@
 const nif_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 
 // ═════════ set ═════════
-// gök ve güneş. S: {x, y, r}; o: {dark (0..1 alacakaranlık), soft (0..1 ışık yumuşar: kamalar söner), beams (kama listesi: [açı, yarı genişlik, boy]),
-//   clouds (false | bulut listesi: {x, y, w, h, seed, n}): güneşe bakan kenarı ışıklı koyu bulut kütleleri (yazıların zemini de bunlardır)}
+// gök ve güneş (yönetmen notu 1): güneş temiz kâğıt disk + çevresinde tek ince mürekkep çizgisi; çevresi geniş temiz kâğıt;
+// dışa doğru seyrek ışınsal tarama (GR 'ray', üslup 10: sabit kalınlıkta çizgi, merkeze yakın kendiliğinden kaybolur). Eş merkezli halka yok.
+// S: {x, y, r}; o: {dark (0..1 alacakaranlık), soft (0..1 ışık yumuşar: kamalar söner), beams (en çok iki kama: [açı, yarı genişlik, boy]),
+//   clouds (bulut listesi: {x, y, w, h, seed, n}): güneşe bakan kenarı ışıklı koyu bulut kütleleri (yazıların zemini de bunlardır), ring (false: disk çizgisi yok)}
 function nif_gok(S, o = {}) {
   const { tx, px, tone } = GR, dk = o.dark || 0, sf = o.soft || 0, r = S.r;
-  const k = v => clamp(lerp(v, v * .86, dk));   // alacakaranlık gökte az koyulaşır (çizgi kalınlaşıp göz yormasın); karanlığı bulut kütleleri taşır
-  const g = tx.createRadialGradient(S.x, S.y, r * .98, S.x, S.y, r * 5);
-  g.addColorStop(0, tone(k(lerp(.86, .9, sf)))); g.addColorStop(.12, tone(k(lerp(.92, .94, sf)))); g.addColorStop(.3, tone(k(lerp(.89, .92, sf))));
-  g.addColorStop(.6, tone(k(lerp(.83, .87, sf)))); g.addColorStop(1, tone(k(lerp(.72, .78, sf))));
+  const lo = lerp(.66, .6, dk);   // en koyu gök tonu (.6'nın altına inmez)
+  const g = tx.createRadialGradient(S.x, S.y, r, S.x, S.y, r * 4.6);
+  g.addColorStop(0, tone(1)); g.addColorStop(.12, tone(1)); g.addColorStop(.3, tone(lerp(.9, .86, dk))); g.addColorStop(.6, tone(lerp(.76, .7, dk))); g.addColorStop(1, tone(lo));
   tx.fillStyle = g; tx.fillRect(-2000, -2000, W + 4000, H + 4000);
-  px.fillStyle = GR.hatch({ type: 'rad', cx: S.x, cy: S.y, id: 1 }); px.fillRect(-2000, -2000, W + 4000, H + 4000);
-  // ışın kamaları: güneşten çıkan, sivrilen açık kamalar (temiz kâğıda yakın); içlerinde çizgi ışın doğrultusunda
-  const B = o.beams ?? [[-2.5, .045, 1500], [-1.95, .03, 1200], [-1.15, .035, 1300], [-.5, .045, 1500], [-3.05, .03, 1100]];
+  px.fillStyle = GR.hatch({ type: 'ray', cx: S.x, cy: S.y, n: 96, id: 10, w: 3 }); px.fillRect(-2000, -2000, W + 4000, H + 4000);
+  // ışın kamaları (en çok iki): güneşten çıkan, sivrilen temiz kâğıt kamalar
+  const B = (o.beams ?? [[-2.45, .05, 1500], [-.55, .045, 1400]]).slice(0, 2);
   const bv = (1 - sf) * (1 - dk * .7);
   if (bv > .02) {
     tx.save(); tx.globalCompositeOperation = 'lighten';
@@ -27,16 +28,14 @@ function nif_gok(S, o = {}) {
       for (let i = 0; i <= n; i++) { const u = i / n, rr = r * .96 + L * u, ww = w * Math.pow(Math.sin(PI * (.08 + .84 * u)), .7) * (1 - .4 * u); A.push([S.x + Math.cos(a - ww) * rr, S.y + Math.sin(a - ww) * rr]); C.push([S.x + Math.cos(a + ww) * rr, S.y + Math.sin(a + ww) * rr]); }
       const P = new Path2D(); poly(P, [...A, ...C.reverse()], true);
       const gg = tx.createRadialGradient(S.x, S.y, r, S.x, S.y, r + L);
-      gg.addColorStop(0, tone(k(lerp(.85, 1, bv)))); gg.addColorStop(.6, tone(k(lerp(.75, .9, bv)))); gg.addColorStop(1, tone(k(.6)));
+      gg.addColorStop(0, tone(1)); gg.addColorStop(.6, tone(lerp(.9, 1, bv))); gg.addColorStop(1, tone(lo));
       tx.fillStyle = gg; tx.fill(P);
-      px.fillStyle = GR.hatch({ th: a, id: 7 }); px.fill(P);
     }
     tx.restore();
   }
-  // disk: temiz kâğıt, keskin kenar
   const D = new Path2D(); D.arc(S.x, S.y, r, 0, TAU);
-  GR.fill(D, tone(1), { type: 'rad', cx: S.x, cy: S.y, id: 1 });
-  // bulut kütleleri: koyu, güneşe bakan yumrularında ince açık hilal
+  GR.fill(D, tone(1), { th: 0, id: 10 });
+  if (o.ring !== false) { tx.save(); tx.strokeStyle = tone(.05); tx.lineWidth = 3; tx.stroke(D); tx.restore(); }
   for (const c of (o.clouds || [])) {
     const L = [S.x - c.x, S.y - c.y], l = Math.hypot(L[0], L[1]) || 1;
     PR.cloud({ x: c.x, y: c.y, w: c.w, h: c.h, seed: c.seed, lit: [L[0] / l, L[1] / l], base: .03, hi: c.hi ?? .85, core: .02, n: c.n || 4, drift: (o.t ? Math.sin(o.t * .07 + c.seed) * 8 : 0) });

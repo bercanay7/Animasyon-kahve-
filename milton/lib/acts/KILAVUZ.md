@@ -30,8 +30,13 @@ plan('P016', (ctx, st) => levha(ctx, cam, () => { /* dünya koordinatında çizi
 ## Üslup dili (kurul onaylı; sapma)
 1. **Üç değer:** düz siyah kütle, temiz kâğıt, ikisinin arasında yalnız geçişlerde seyrek kalın tarama. Gri, yarı saydam çizgi, bulanıklık yok.
 2. **Cehennem tarifi (koyu sahneler: göl, kıyı, Pandemonium, kapı, Kaos):** koyu kütleler düz siyah; biçimi ışık yanındaki tek kenar ışığı ve **kütlenin içine giren, sivrilen, uzunluğu ve aralığı düzensiz beyaz vuruşlar** verir (kenara koşut "eko" çizgisi değil). Tarama yatay. Karede tek odak; odak karenin en parlak yeri (temiz kâğıt) ve figürün arkasında.
-3. **Cennet tarifi (açık sahneler: cennet, Aden gündüzü, çıkış):** tersidir. Hafif taralı açık zemin üstünde kâğıt beyazı kütleler; açık nesne **konturla değil arkasındaki taramayla** ayrılır; gölge yanında forma giren mürekkep vuruşları; karede %15–25 koyu bir çapa (bulut altı, kanat iç yüzü, gölge yanı). Tek, baskın, taramasız ışık merkezi; **tarama ışınsal/eş merkezli** (`{ type: 'rad', cx, cy }`, merkez ışık kaynağı). Tanrı ve Oğul yalnız ışıktır.
-4. **Koyu piksel oranı hedefi** (parlaklığı 60'ın altındaki piksel): cehennem %65–75, geçiş sahneleri (oda, kitap, Nifates) %50–60, cennet ve Aden %20–35. Yüksek karşıtlıklı çizgili alan karenin %30–40'ını geçmesin.
+3. **Açık tarif (cennet, Aden gündüzü, çıkış, Nifates göğü; tur 2 sonrası bağlayıcı):**
+   - Gökte eş merkezli halka YOK ("plak/hedef tahtası" gibi okunur, açık zeminde göz yorar). Işık merkezinin çevresi geniş temiz kâğıt; dışa doğru seyrek ışınsal tarama: `GR.hatch({ type: 'ray', cx, cy, n: 84–100, id: 10, w: 3 })`. Gök tonu .6'nın altına inmez.
+   - **Beyaz figür her zaman koyu bir kütlenin önünde durur; koyu figür açık zeminin önünde.** Açık zemin üstünde konturla ayrılan beyaz figür yasak ("boyama kitabı").
+   - Açık figür düz kâğıt siluet (`SF.draw(..., { lum: 1, plain: true, lines: 0 })`); saflar tek tek figür değil, baş-omuz yumrulu KÜTLE + seyrek mızrak.
+   - Açık karede yazı paneli (yumuşak koyu gölge) kullanılmaz: yazı temiz kâğıtta mürekkeple ya da koyu kütlenin üstünde kâğıt rengiyle.
+   - Tanrı ve Oğul yalnız ışıktır. Örnek: `lib/sahne/cennet.js`, `lib/acts/cen.js`.
+4. **Koyu piksel oranı hedefi** (parlaklığı 60'ın altındaki piksel): cehennem %65–75, geçiş sahneleri (oda, kitap, Nifates) %50–60, cennet ve Aden %30–45. Yüksek karşıtlıklı çizgili alan karenin %30–40'ını geçmesin.
 5. **Alev:** her boyda kâğıt beyazı kütle + içinde sivrilen 2–3 mürekkep vuruşu (`flameBank` bunu kendisi yapar: `solidBelow: 500`); yay taraması yalnız kadrajı kesen en yakın alevde. Hız düşük (`speed` .5–.7).
 6. **Çizgi:** en ince yer 2 px, uçlar küt; birbirine 8 px'ten yakın koşut çizgi yok. Tarama aralığı 9–12,5 px (motor ayarlı; değiştirme).
 7. **Figür kullanımı:** Şeytan çoğunlukla orta ve uzak planda (h 50–110), kanat ve pelerinle sarılı koyu siluet. Yüz ve beden yakın planı yok; duygu duruşla (baş açısı, omuz, kanat) verilir. Kalabalık saflar üst üste binen sıralar hâlinde, uzaklaştıkça küçülür (aynı figürün eşit aralıklı kopyaları "oyuncak asker" gibi okunur); cennetteki melekler `robe` ile.
