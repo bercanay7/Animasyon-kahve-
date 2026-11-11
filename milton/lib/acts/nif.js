@@ -926,17 +926,7 @@ plan('P081', (ctx, st) => {
       wings: { open: mx(5), lift: mx(6), droop: mx(7), spanL: 7, prof: true } }) }), NIF_BG);
 }, { tr: { type: 'cut' } });
 
-// G15 'güneşin bekçisi': güneşin içinden ayrıntı: disk kadrajı doldurur; içinde tek ince göz açılır ve aşağıya, tepedeki küçük figüre bakar
-shot(Wd('G15', 'güneşin') - .2, (ctx, st) => {
-  const t = st.t, ku = nif_u(t, Wd('G15', 'uriyel') - .5, Wd('G15', 'uriyel') + .5), S0 = { x: 1060, y: 360, r: 560 };
-  levha(ctx, { cx: lerp(970, 950, E.io2(st.p)), cy: 540, z: 1 }, () => {
-    nif_gok(S0, { beams: [], t, clouds: [{ x: -100, y: 120, w: 600, h: 300, seed: 21, n: 3 }] });
-    nif_siralar({ hz: 960, dark: .2 });
-    nif_tepe({ x: 330, y: 1000, s: .5, seed: 25, lit: [1, -.3] });
-    nif_kancaSiluet(t, .1, { x: 330, y: 1003, U: 120 });
-    nif_uriel({ x: S0.x - 40, y: S0.y + 420, r: 330 }, ku);   // küçük, merkez dışında, aşağıya (figüre) bakan tek göz; hale/ışın simgesi yok
-  }, NIF_BG);
-}, { id: 'P081u', tr: { type: 'cut' } });
+// (P081u 'güneşin içinden göz' ek çekimi başkanca çıkarıldı: ışınlı güneşin içinde tek göz, 'her şeyi gören göz' simgesi gibi okunur; kırmızı çizgi 1'in ruhu)
 
 // ═════════ P082 (G16): tepede küçük, yalnız figür; uzun bekleme ═════════
 plan('P082', (ctx, st) => {

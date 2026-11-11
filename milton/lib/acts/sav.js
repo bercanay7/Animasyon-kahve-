@@ -634,7 +634,7 @@ function sav_p033y(t) {
   const fl = Math.exp(-Math.pow((t - tI) / .12, 2));   // çarpma parıltısı: kılıçların kesiştiği yerde kısa kâğıt yıldız
   if (fl > .05) cen_yildiz(980, 470, 120 * fl, 1);
 }
-shot(Wd('D04', 'iner') - .35, (ctx, st) => { const tI = Wd('D04', 'iner'), sh = st.t > tI ? Math.exp(-(st.t - tI) * 8) : 0;
+shot(S('D04') + .02, (ctx, st) => { const tI = Wd('D04', 'iner'), sh   /* cümle başından: 0,6 sn'lik ara plan kalmasın (başkan) */ = st.t > tI ? Math.exp(-(st.t - tI) * 8) : 0;
   levha(ctx, { cx: 960 + Math.sin(st.t * 61) * 10 * sh, cy: 540 + Math.cos(st.t * 47) * 7 * sh, z: 1 }, () => sav_p033y(st.t)); }, { id: 'P033y', tr: { type: 'cut' }, mb: 3 });
 shot(Wd('D04', 'iner') + .9, (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => sav_p033(st.t)), { id: 'P033g', tr: { type: 'cut' } });
 
