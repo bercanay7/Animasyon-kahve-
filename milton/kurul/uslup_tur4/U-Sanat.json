@@ -1,0 +1,85 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 8.2,
+  "puanlar": {"U1": 8, "U2": 8.5, "U3": 8.5, "U4": 8, "U5": 7.5, "U6": 8.5},
+  "karar_sorusu_cevabi": "Puanım 8,2. Kapının sayısal eşiği (9,0) geçilmedi, bu yüzden biçimsel karar RED. Ama sahne üretimini engelleyen bir bulgum yok: üslubun dili artık doğru ve tutarlı. Değer planı, tek odak, siluet figür, form izleyen beyaz çizgi, kanat, bulut ve kaya grameri onaylanabilir düzeyde. Kalan bütün bulgular sahne üretimi sırasında düzeltilebilir. Bunlardan biri (alev dilinin tekleştirilmesi) ilk alevli sahne üretilmeden önce prim.js'de bir kez yapılmalı, çünkü alev filmde en çok tekrar eden öğe olacak. Önerim: dil onaylansın, üretime geçilsin, bu liste ilk bölüm kurulunda denetlensin.",
+  "olcumler": {
+    "koyu_<40": 0.724,
+    "kagit_>200": 0.174,
+    "ortalama_parlaklik": 67.9,
+    "en_parlak_blok": "x 848, y 456 (başın arkası)",
+    "kare_farki_ortalama": {"figur": 0.79, "kanat": 1.12, "alev": 1.35, "tum_kare": 0.63},
+    "yuksek_karsitlikli_cizgili_32px_blok_orani": 0.389,
+    "not": "Tur 3'te çizgili blok oranı 0,504'tü; 0,389'a indi. Brief'teki kâğıt oranı (~%23) benim eşiğimle (>200) %17,4 çıkıyor; fark eşik tanımından olabilir, önemli değil."
+  },
+  "tur3_bulgulari": [
+    {"no": 1, "bulgu": "Alevler beyaz koni, yelken, yüzgeç", "durum": "kısmen", "not": "Koni ve barkod görüntüsü gitti; diller S kavisli ve kaynaşıyor. Ama orta ve uzak alevler artık taramasız, düz kâğıt beyazı kesik kâğıt biçimleri. Sağ uzak grup (x 1250–1700, y 520–680) beyaz sıçrama ya da balina kuyruğu, sol kaya önündeki dil (x 200–420, y 560–720) uçan beyaz bir kuş ya da yarasa, sağ bilek yanındaki dil (x 1140–1250, y 760–840) içindeki koyu damla deliğiyle maça işareti gibi okunuyor. Sağ öndeki alev (x 1510–1920, y 840–1080) kontur taramalı; aynı karede iki ayrı alev dili var."},
+    {"no": 2, "bulgu": "Göl ve gökte geniş yatay ızgara; yakın planda kalınlaşma", "durum": "giderildi", "not": "Göl perspektif taramalı, y > 870 düz siyah. Gökte taralı kuşak daraldı, parıltının çekirdeği taramasız. Çizgili alan oranı 0,50 → 0,39. Yaklaşma 1,25 ile sınırlandı; yakin_z1.25'te ızgara kabul edilebilir."},
+    {"no": 3, "bulgu": "Yarık huzmesi kısa, çizik gibi", "durum": "giderildi", "not": "Altı sivrilen huzme yarıktan yelpaze gibi açılıyor, en uzunları figürün üst sağına ulaşıyor (x 930–1700, y 20–520). Işık olarak okunuyor. Küçük not: huzmeler kusursuz düz ve eşit kalınlıkta, biraz 'lazer çizgisi' gibi."},
+    {"no": 4, "bulgu": "Bulut alt kenarında çift ofset hilal", "durum": "giderildi", "not": "Tek kenar hilali ve kütleye giren kıvrılan vuruşlar Doré'nin duman diline yaklaştı. Sol bulutun yelpaze gibi açılan vuruşları (x 360–740, y 300–420) yer yer istiridye kabuğu ya da saç gibi okunuyor; küçük bir not."},
+    {"no": 5, "bulgu": "El oval leke; diz çöken figür karmaşık", "durum": "giderildi", "not": "figur_pozlar.jpg'de eller yumruk olarak okunuyor, diz çöken figür temiz bir siluet. Oyuncak asker okuması kalmadı. Işıklı başmelek pelerinli bir heykel gibi; kabul edilebilir."},
+    {"no": 6, "bulgu": "Zincir yüzeyde yatıyor", "durum": "kısmen", "not": "Zincir kısa ve bilekte. Ama 1920'de yalnız bilekte iki halka (x 715–760 ve 1045–1100, y 760–800) görünüyor; zincirden çok bilezik ya da kelepçe gibi. 427'de seçilmiyor. Anlatıda 'zincire vurulmuş' bilgisini dış ses taşıyacaksa sorun değil."},
+    {"no": 7, "bulgu": "Kanat beyaz iç çizgileri kesik ve ince", "durum": "giderildi", "not": "Kanat çizgileri tam opak, tüy yönünde ve yalnız ışık tarafında; Doré'ye en yakın öğe bu."}
+  ],
+  "duzeltmeler": {
+    "engelleyen": [],
+    "sahne_uretimi_sirasinda": [
+      {
+        "sira": 1,
+        "bolge": "orta ve uzak alevler: x 200–420, y 560–720; x 520–800, y 600–850; x 1000–1250, y 750–840; x 1250–1700, y 520–680",
+        "sorun": "Alev için karede iki ayrı dil var: düz kâğıt beyazı kesik kâğıt biçimleri ve sağ öndeki kontur taramalı alev. Düz beyaz biçimler alev değil sıçrama, kuş ya da balina kuyruğu gibi okunuyor; içleri boş olduğu için gravür dilinden kopuk, 'kâğıt kesme' gibi duruyor. Sağ bilekteki dilin koyu damla deliği maça işareti gibi.",
+        "oneri": "lib/prim.js flameBank: tek alev dili seç ve her ölçekte onu kullan. Öneri: kâğıt beyazı çekirdek (taramasız kalsın) + gölge yanında, alev ekseni boyunca giren 2–4 kısa, sivrilen mürekkep vuruşu (bulut ve kanattaki 'beyaz çizgi' dilinin tersi). Uzak alevlerde 1 vuruş yeter. Dillerin üst ucu çatallansın ve sivrilsin; yuvarlak 'kuyruk' uçlarından kaçın. İç delikler damla değil, dil boyunca uzanan ince yırtık olsun. Bu iş ilk alevli sahneden önce bir kez yapılmalı.",
+        "onem": "yüksek (ilk alevli sahneden önce)"
+      },
+      {
+        "sira": 2,
+        "bolge": "sağ bulut içi x 1480–1500, y 410–445; x 1820–1880, y 340–400",
+        "sorun": "Bulut kütlesinin içinde yüzen küçük beyaz eşkenar dörtgen ve kırıntılar var; nereden geldikleri belli değil, hata gibi duruyorlar.",
+        "oneri": "prim.js cloud vuruş üretiminde boyu ve kalınlığı eşiğin altında kalan, kenara bağlı olmayan vuruşları ele (min uzunluk ~25 px, kenardan başlamayanları at).",
+        "onem": "orta"
+      },
+      {
+        "sira": 3,
+        "bolge": "zincirler x 700–770 ve x 1040–1110, y 750–810",
+        "sorun": "Zincir bilezik ya da kelepçe gibi; 'kırılmaz zincirlerle göle bağlı' imgesi taşınmıyor.",
+        "oneri": "Bu sahnede zincir dış sese bırakılabilir. Ama zincir vurgulanacaksa, ayrı bir ekleme planında (bilek + zincir, 1,25 sınırında kesme) suya dalan 4–5 halka göster. PR.chain: halka ≥ 34 px, ilk iki halka kâğıt beyazı kenar ışıklı.",
+        "onem": "orta"
+      },
+      {
+        "sira": 4,
+        "bolge": "huzmeler x 930–1700, y 20–520",
+        "sorun": "Huzmeler kusursuz düz ve eşit kalınlıkta; 'lazer' ya da gerilmiş tel gibi sert.",
+        "oneri": "prim.js rays: her huzmeye 2–3 kesinti ekle ve kalınlığı boy boyunca 3 → 0 px azalt; ikisi bulut kütlesinin önünde değil arkasında kalsın (x 1240–1330, y 400–520'de bulutun üstüne biniyor).",
+        "onem": "düşük"
+      },
+      {
+        "sira": 5,
+        "bolge": "sol kaya kenarı x 0–400, y 570–1080",
+        "sorun": "Kaya kenarı uzun düz segmentlerden oluşuyor; harita sınırı ya da poligon gibi.",
+        "oneri": "prim.js rock: kenara ±6 px düşük frekanslı bükülme ve 2–3 küçük çentik ekle.",
+        "onem": "düşük"
+      },
+      {
+        "sira": 6,
+        "bolge": "sol bulut vuruşları x 360–740, y 300–420",
+        "sorun": "Tek merkezden yelpaze gibi açılan vuruşlar yer yer istiridye kabuğu ya da saç gibi okunuyor.",
+        "oneri": "Vuruş başlangıçlarını kenar boyunca rastgele kaydır (±15 px) ve doğrultu farkını genişlet; ortak bir odak noktası oluşmasın.",
+        "onem": "düşük"
+      }
+    ]
+  },
+  "korunmali": [
+    "Tek odak ve değer planı: taramasız parıltı çekirdeği önünde ışığa bakan profil siluet.",
+    "'Beyaz çizgi' grameri: form boyunca giren, sivrilen, tam opak kâğıt vuruşları (kanat, bulut, kaya, figür).",
+    "Kanat dili: düz siyah kütle, tüy yönünde ışık tarafı vuruşları, asimetri.",
+    "Perspektifli göl taraması ve düz siyah ön göl.",
+    "Yarıktan figüre inen huzme yelpazesi.",
+    "Siluet figür sistemi (figur_pozlar): yumruk, pelerin, sürekli kontur.",
+    "Yaklaşma sınırı 1,25 ve daha yakın kadrajın kesmeyle kurulması.",
+    "Titreşimsiz motor (kare farkı 0,63)."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Hayır, bu haliyle yormaz. Çizgili alan karenin ~%39'una indi, göl gövdesi düz siyah, çizgiler kalın ve sivri uçlu, titreşim yok. Tek koşul, cennet ve Aden sahnelerinin yüksek anahtarda kurulmasıyla filmin değer ritminin değişmesi; bütün film bu karenin %72 karanlığında kalırsa yorgunluktan çok monotonluk yaratır.",
+  "en_emin_olmadigim_nokta": "Alev için hangi dilin doğru olduğu. Düz kâğıt beyazı alev 427 ve 246 boylarında çok net okunuyor, göz için de en rahatı. Ama 1920'de gravür dilinden kopuyor ve kâğıt kesme gibi duruyor. Önerdiğim melez dil (beyaz çekirdek + gölge yanında mürekkep vuruşu) iki ihtiyacı birleştirmeli; bunu ancak alevli bir sahnede hareket hâlinde görünce kesinleştirebilirim. Bu yüzden onu engelleyen değil, 'ilk alevli sahneden önce' diye işaretledim."
+}
