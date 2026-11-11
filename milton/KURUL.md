@@ -487,3 +487,13 @@ Puanların seyri: A: P-TO 8,3 → 8,8 → 9,0 → 9,0; P-Sanat 7,9 → 8,4 → 8
 - **Sırada:** "İki okuma" bloğu (K03, K06, K08, K14, K16, L10) ve bitiş ekranı; Nifates'te ölçek çeşitliliği ve G07'de "içindeki göl" maskesi; A03'te itme ve «tutan»da soluk zincir (L07'nin tohumu); J07'de daha yakın kadraj; savaş ve yılana giriş bloklarında kadraj tekrarı; geçiş politikası (aynı set içinde kesme; fade yalnız mekân/zaman sıçramasında ve sessizlikte).
 - **Reddedilen (T-Tutma):** açıklamanın ilk satırına kancanın alınması. Gerekçe: ilk satırın edebi okuma notu olması hassasiyet alanının (veto) şartı. Bölüm adı önerileri kabul edildi ("Alkış yerine tıslama", "Âdem bağışlandı; ya Şeytan?"; yalnız YouTube bölüm adları, ekran yazısı değil).
 - **Shorts adayları (T-Tutma):** K10–K13 başı (21:00–21:46), E05–E08 (7:22–8:02), G02b + G06–G08 (~41 sn).
+
+### Kapı 3, tur 1 (devam): animasyon
+| Alan | Üye | Puan | Karar | Öne çıkan |
+|---|---|---|---|---|
+| Animasyon ve kurgu | N-Animasyon (animasyon yönetmeni) | 7,8 | RED | engelleyici iki bulgu: yumuşak geçişler gri ara kare üretiyor (geçişin ortasında gri piksel %55–76); J07'deki düşüş ayaklardan değil ortadan dönüyor, çarpma ve sekme yok. Kelimeye bağlama övgü aldı (mızrak saplaması, kılıç darbesi, "birden belirir") |
+
+**Başkan kararları:**
+- **Gri geçiş (kabul; motorda çözüldü):** `film.js`'te fade artık **eşik geçişi**: her piksel ya eski ya yeni levhadan gelir, saydamlıkla karışmaz; yeni levha yatay baskı vuruşları hâlinde, düzensiz kümelerle açılır (üyenin önerdiği yöntem). Buna ek olarak geçiş politikası merkezîleşti (N-Kurgu bulgusu): aynı set içinde kesme; setler arası geçiş en çok 0,7 sn ve sessizlikte. Fade sayısı 90 → 45.
+- **J07 düşüş (kabul):** dönme noktası ayaklar, yerçekimi ivmesi, ezilme ve sekme; "havuç/mumya" okumasını veren eğik şeritler kalkıyor; J07 kelimeye bağlı üç kadraja bölünüyor (orta, baş yakın planı, geniş): doruklarda tempo bulgusuyla (N-Kurgu) birlikte.
+- Öteki maddeler sahiplerine verildi: I05'te yılana giriş (hortum yerine ince duman kolları), E09'da dikey kaydırma yerine kesme, D07'de kaydırmaya hareket bulanıklığı, E15'te sıra sıra selam dalgası, C04'te durağan başlangıç ve mızrak pozu, D04 → D05 süreklilik hatası, kamera kuralı ihlalleri (kaydırma + yakınlaşma birlikte; doğrusal yumuşatma), E05'te ön hazırlık, L09 sonundaki 7,5 sn donma, J04'teki mutlak donma, J10 ağacı, L07'de figürün zincire tepkisi.
