@@ -37,3 +37,27 @@ Hook ilk karede · her beat değişiyor · Türkçe karakterler doğru · ses -1
 - Geçişler: film başına 3–5 tür, her biri ekrandaki bir şeyle motive. Sert kesme geçişlerin en fazla üçte biri. Farklı "dünyalar" arası crossfade yok. Dip-cut: çıkan kare ~3 karede %40 kararır.
 - Başlık: indikten sonra sabit kalır; yükseklik kare yüksekliğinin %4–9'u; tek vurgu renkli kelime. Okuma süresi: satır başına ~0.5 sn + kelime başına 0.3 sn; son satır ≥ 2 sn. Safe-area: action %90, altyazı %80.
 Kaynak: HyperFrames motion.md (Apache-2.0) — özetlenmiştir.
+
+## Bu kanalın hattı (Zaman Kuryesi) — önce kökteki `CLAUDE.md`'yi oku
+Üretim kuralları orada: senaryo (`tts`/`alt`), kurul yöntemi (≥9/10, alan başına iki farklı mercek, veto: doğruluk + hassasiyet), kapak dersleri, ölçüt verileri. `sisifos/README.md` komutlar, `sisifos/yayin.md` yayın adımları. Bu skill onları **tamamlar**, yerine geçmez; çelişirse CLAUDE.md ve kullanıcının kararı geçerli.
+
+## YouTube: kanıt düzeyine göre kurallar
+Düzey **A** = YouTube resmi yardım sayfası · **B** = kanalın kendi verisi (CLAUDE.md) · **C** = blog/topluluk (hipotez; 3 videoda ölç).
+- (A) Açılış, başlık+kapak vaadiyle uyuşmalı; ilk 30 sn "intro" metriği buna bakar. (B) Sisifos: kapak "NEDEN GÜLÜYOR?" derken açılış başka sahneydi, kayıp ilk 10–15 sn'de oldu → ilk 5 sn kapağın vaadini karşılasın, merak sorusu ilk cümlede, cevap sona.
+- (A) Retention raporu: spike = tekrar izlenen/paylaşılan an **ya da anlaşılmayan yer**; otomatik "başarı" sayma. En iyi anlar geçse güçlü içeriği öne al.
+- (A) Test ve Karşılaştır: en çok 3 başlık/kapak, optimize edilen ölçüt TO değil **izlenme süresi payı**; benzer varyantlar kazananı belirsizleştirir (belirgin farklı olsun); test sürerken değiştirme.
+- (A) Aldatıcı başlık/kapak politikaya aykırı; ödül karşılığı beğeni/abone isteme yasak (beğen/abone ol demek serbest).
+- (A) Shorts: azami 3 dk; Analytics'te "Engaged views" ve ort. izlenme yüzdesine bak, ham görüntülenmeye değil.
+- (A, orta güven) **"Inauthentic content" riski:** aynı şablondan küçük farklı seri üretim monetizasyonu etkileyebilir. ElevenLabs + kodla çizim bir araçtır; her bölüm kendi hikâyesi, yorumu, üslup kararıyla farklı olmalı (CLAUDE.md'deki kurul bunu zaten besliyor). Gerçekçi sentetik içerik "açıklama" sorusu: YouTube'un güncel sayfasından kontrol edilmeli (doğrulanamadı).
+- (B) Uzun videoda TO tek başına yetmez: **gösterim başına izlenme süresi ≈ TO × ort. izleme** (Prometheus 0,11 dk vs Sisifos 0,05 dk). İlk saatlerin TO'su sadık kitleden şişkindir; 3. ve 5. günde karşılaştır.
+- (C) Open loop: bir soruyu aç, cevabı bir bölüm sonra ver; "tadımlık" serpiştir. Pattern interrupt aralığı (≈60–90 sn önerisi kaynaksız): kendi retention grafiğinle kalibre et.
+- (C→ölç) Kanca kalıpları: önizleme/teaser, merak tırmandırma, problem büyütme, anında değer; anlatıda "olayın ortasından başla". İlk saniye görüntü hareketli ve anlaşılır; ses açılışı selam değil olay cümlesi.
+- Mit say, kural yapma: "belirli saat/gün zorunlu", "etiketler sıralamayı belirler", "ilk X saatte Y izlenme şart" — resmi kaynakla doğrulanamadı. Sayısal oranlar (örn. "%70 ilk-30 sn → %50 genel") kaynaklar çelişiyor, kullanma.
+
+## Yapma listesi
+Vaat edilmeyen şeyi başlık/kapakta gösterme · selam/uzun intro ile açma · en iyi anı sona gömme · art arda iki videoda aynı başlık kalıbı (CLAUDE.md) · tek metriğe (yalnız TO ya da yalnız izlenme süresi) bakma · benzer kapak varyantı test etme · ücretli analiz/zamanlama servislerini (DataForSEO, Buffer vb.) ekleme.
+
+## Yayın sonrası not şablonu (48. saat / 7. gün)
+Gösterim · TO · ort. izleme (%) · 0:30'da kalan % · trafik payı (Göz at/Önerilen/Kanal) · tutma grafiğinde ilk düşüş saniyesi · spike'lar ("sevildi" / "anlaşılmadı" diye etiketle) · ders → CLAUDE.md "Ölçütler"e işle.
+
+Kaynaklar (yardım sayfaları, erişim 2026-11-11, 3–6 ayda yenile): support.google.com/youtube/answer/9314415 (retention), /13861714 (Test ve Karşılaştır), /2801973 (spam/aldatıcı politikalar), /10059070 (Shorts). Repo fikirleri (claude-youtube MIT, claude-gtm-plugin MIT) yalnız paraphrase; kurulmadı; ücretli bağlantıları (DataForSEO/Gemini/Buffer) alınmadı.

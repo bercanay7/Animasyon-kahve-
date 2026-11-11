@@ -20,3 +20,6 @@ Seslendirme ElevenLabs'te yapılır; burada TTS araştırılmaz/önerilmez. Bu r
 
 ## Hazır ses kaynakları
 Kenney audio (CC0). Freesound: yalnız **CC0** filtresi, her dosyada lisansı tek tek doğrula (CC-BY atıf ister). Pixabay: CC0 değil, Content ID riski — `ASSETS.md`'ye yaz. pedalboard GPL-3.0: dağıtılan ürüne gömme.
+
+## Bu kanalın ses hattı
+Anlatıcı ElevenLabs **"Emrullah"** (kanalın sesi, değişmez; `voice_id` her seferinde `creative_list_voices` ile bulunur). Her bölüm iki çekim → Whisper doğrulama → `tools/build_vo.py`. Müzik `audio/score.py` (numpy/scipy, özgün), efektler ElevenLabs + `tools/mix.py` içinde sentez; hedef -14 LUFS / -1 dBTP (İngilizce dublaj -2 dBTP). **Kredi harcayan üretim yalnız kullanıcı açıkça isterse; aynı çağrıyı "yeniden dene" diye tekrarlama.** Ayrıntı: kökteki `CLAUDE.md`.

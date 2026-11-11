@@ -40,3 +40,6 @@ Sahnedeki her şey zamanın saf fonksiyonu: `Date.now`, seed'siz `Math.random`, 
 4. **Güvenli alan:** önemli öğe kare kenarlarından en az %5 (action-safe %90); altyazı title-safe %80 içinde.
 5. Ses -14 LUFS, Türkçe karakter test cümlesi, ilk/orta/son karelere gözle bakış.
 Kaynak fikirler: HyperFrames (Apache-2.0), claude-code-video-toolkit (MIT) — kendi cümlelerimizle.
+
+## Not: bu repodaki iki render hattı
+Asıl üretim hattı kökteki `render.js` (4 paralel Chromium işçisi, parça kalıcılığı, `Q=`/`AUDIO=`/`SHORTS=` env'leri; bkz. `sisifos/README.md`, CLAUDE.md). `araclar/render-sahne.js` yalnızca **küçük/deneme sahneler** için bağımsız yardımcıdır; Sisifos/Orfeus tarzı filmler için kökteki `render.js` kullanılır. Bu skill'in QA ve deterministiklik kuralları ikisi için de geçerli.
