@@ -181,7 +181,8 @@ function nif_icCehennem(J, drawFig, o = {}) {
     for (let y = 0; y < bh; y++) { const r0 = y * bw; for (let x = 0; x < bw; x++) { let m = 1; const a = Math.max(0, x - er), b = Math.min(bw - 1, x + er); for (let k = a; k <= b && m > 0; k++) { const v = A[r0 + k]; if (v < m) m = v; } Tm[r0 + x] = m; } }
     for (let x = 0; x < bw; x++) { for (let y = 0; y < bh; y++) { let m = 1; const a = Math.max(0, y - er), b = Math.min(bh - 1, y + er); for (let k = a; k <= b && m > 0; k++) { const v = Tm[k * bw + x]; if (v < m) m = v; } A[y * bw + x] = m; } }
   }
-  if (window.NIF_DBG) A.fill(1);
+  if (window.NIF_DBG == 1) A.fill(1);
+  if (window.NIF_DBG == 2) { const im = new ImageData(bw, bh); for (let i = 0; i < n; i++) { im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = Bw[i * 4] * .5 + A[i] * 120; im.data[i * 4 + 3] = 255; } tx.putImageData(im, x0, y0); return; }
   // 2) figür gerçek hâliyle
   drawFig();
   // 3) maske tuvali (büyüme için ölçeklenebilir)

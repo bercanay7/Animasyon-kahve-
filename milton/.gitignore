@@ -19,3 +19,4 @@ shorts/*.wav
 *.mp4
 kurul/kapak_tur*/_kare/
 kurul/ses_tur*/*.wav
+.parts_test/
