@@ -55,6 +55,40 @@ function cab_kollar() {
 }
 // saç: düz siyah kütle; yumru yumru kıvırcık: her yumrunun ışık (sol üst) yanında sivrilen kâğıt rengi hilal
 const CAB_PIP = makeCanvas(4, 4).getContext('2d');
+// sivrilen dolgu vuruş (kapak tur 7'den): iki uçta incelir, en kalın yer 'tepe' oranında
+function cab_vurus(pts, w, v, tepe = .4, uc = .25, c = GR.tx) {
+  const n = 18, S = [], A = [], B = [], m = pts.length;
+  const cr = (p0, p1, p2, p3, t) => { const t2 = t * t, t3 = t2 * t; return [0, 1].map(j => .5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t2 + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t3)); };
+  for (let i = 0; i <= n; i++) { const u = i / n * (m - 1), s = Math.min(m - 2, Math.floor(u)); S.push(cr(pts[Math.max(0, s - 1)], pts[s], pts[s + 1], pts[Math.min(m - 1, s + 2)], u - s)); }
+  for (let i = 0; i <= n; i++) {
+    const a = S[Math.max(0, i - 1)], b = S[Math.min(n, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1, u = i / n;
+    const prof = u < tepe ? lerp(uc, 1, E.out2(u / tepe)) : lerp(1, uc * .5, E.in2((u - tepe) / (1 - tepe))), ww = Math.max(1.1, w * .5 * prof);
+    A.push([S[i][0] - dy / L * ww, S[i][1] + dx / L * ww]); B.push([S[i][0] + dy / L * ww, S[i][1] - dx / L * ww]);
+  }
+  c.save(); c.fillStyle = typeof v === 'string' ? v : GR.tone(v); c.beginPath(); poly(c, [...A, ...B.reverse()], true); c.fill(); c.restore();
+}
+// gözyaşı: ince, uzun, hafif asimetrik (uç sola-yukarı yatık, karın sağda biraz dolgun); boy ~4 r; d karnın ortası
+function cab_damlaYol(d, r) {
+  const [x, y] = d, T = new Path2D(), top = [x - r * .28, y - r * 3.0];
+  T.moveTo(...top);
+  T.bezierCurveTo(x - r * .05, y - r * 1.9, x + r * 1.02, y - r * .95, x + r * .96, y + r * .05);
+  T.bezierCurveTo(x + r * .9, y + r * .82, x + r * .3, y + r * 1.02, x - r * .12, y + r * .98);
+  T.bezierCurveTo(x - r * .72, y + r * .92, x - r * .98, y + r * .4, x - r * .88, y - r * .25);
+  T.bezierCurveTo(x - r * .78, y - r * 1.0, x - r * .42, y - r * 1.9, top[0], top[1]);
+  T.closePath(); return T;
+}
+// damla (gravür dili): kâğıt beyazı kütle, kesintisiz ince mürekkep kontur, sol altta kalınlaşan gölge vuruşu,
+// içte biçimi izleyen iki tarama vuruşu, sağ üst iç kenarda tek parlama yayı (üst katmanda saf beyaz)
+function cab_damla(D, r) {
+  const { tx, ox } = GR, INK = GR.tone(.02), T = cab_damlaYol(D, r);
+  GR.fill(T, GR.tone(1), { th: 0, id: 0 });
+  tx.save(); tx.strokeStyle = INK; tx.lineWidth = Math.max(3.4, r * .09); tx.lineJoin = 'round'; tx.stroke(T); tx.restore();
+  { const q = []; for (let k = 0; k <= 12; k++) { const a = PI * (.35 + .85 * k / 12); q.push([D[0] + Math.cos(a) * r * .99, D[1] + Math.sin(a) * r * .99]); } cab_vurus(q, Math.max(6, r * .2), .02, .5, .3); }
+  tx.save(); tx.clip(T);
+  for (const [k0, rad, w] of [[.62, .76, .1], [.72, .54, .08]]) { const q = []; for (let k = 0; k <= 8; k++) { const a = PI * (k0 + .45 * k / 8); q.push([D[0] + Math.cos(a) * r * rad, D[1] + Math.sin(a) * r * rad]); } cab_vurus(q, Math.max(3.4, r * w), .05, .5, .2); }
+  tx.restore();
+  ox.save(); ox.strokeStyle = '#ffffff'; ox.lineCap = 'round'; ox.lineWidth = Math.max(3, r * .11); ox.beginPath(); ox.arc(D[0] - r * .05, D[1] - r * .05, r * .64, -PI * .42, PI * .1); ox.stroke(); ox.restore();
+}
 // saç kütlesi: çerçevenin üstünü ve iki yanını kaplar; yüze bakan kenarı yumru yumru (kıvırcık)
 function cab_sacYolu() {
   const B = CAB.sacTaban, Q = [], P = new Path2D();
@@ -69,13 +103,18 @@ function cab_sacYolu() {
   P.closePath(); return P;
 }
 function cab_sac(SAC, seed, light, o = {}) {
+  // düz siyah kütle; ışık (sol üst) yanında saçın akışını izleyen, uzunluğu ve aralığı düzensiz, sivrilen beyaz vuruşlar (eş merkezli tarama yok)
   const { tx } = GR, r = rng(seed);
-  // ışık yanında açılan ton: geçişte saçın akışını izleyen kavisli çizgiler (gravür saç taraması)
-  const g = tx.createRadialGradient(light[0], light[1], 0, light[0], light[1], o.reach ?? 900);
-  g.addColorStop(0, GR.tone(.42)); g.addColorStop(.4, GR.tone(.2)); g.addColorStop(.75, GR.tone(.02)); g.addColorStop(1, GR.tone(.02));
-  GR.fill(SAC, g, { type: 'bend', ox: light[0], oy: light[1], a: 1.05, k: .0016, id: 0 });
-  // yüze bakan yumrular: ışık yanında sivrilen hilal
+  GR.fill(SAC, GR.tone(.02), { th: 0, id: 0 });
   tx.save(); tx.clip(SAC);
+  for (let i = 0; i < (o.n ?? 70); i++) {
+    const x = -60 + r() * 1500, y = -60 + r() * 640, d = Math.hypot(x - light[0], y - light[1]), k = clamp(1.15 - d / (o.reach ?? 950)), pr = r(), L0 = r(), cv = (r() - .5) * 2.4, w0 = r();
+    if (k <= .05 || pr > .2 + .8 * k || !CAB_PIP.isPointInPath(SAC, x, y)) continue;
+    const an = .55 + (x - light[0]) * .0006 + (y - light[1]) * .0009, len = (60 + 220 * L0 * L0) * (.5 + .5 * k), pts = [];
+    for (let q = 0; q <= 8; q++) { const u = q / 8, a2 = an + cv * u * u; pts.push([x + Math.cos(an) * len * u * .5 + Math.cos(a2) * len * u * .5, y + Math.sin(an) * len * u * .5 + Math.sin(a2) * len * u * .5]); }
+    cab_vurus(pts, (5 + 8 * k) * (.7 + .5 * w0), .95, .25, .3);
+  }
+  // yüze bakan yumrular: ışık yanında sivrilen kısa hilal
   for (const [cx, cy, R] of CAB.yumru) {
     const d = Math.hypot(cx - light[0], cy - light[1]), k = clamp(1.1 - d / 900); if (k <= .15 || cx > 1100 || r() < .5) continue;
     const a0 = Math.atan2(light[1] - cy, light[0] - cx) + .5, sp = 1.4 + .6 * r(), pts = [];
@@ -85,9 +124,11 @@ function cab_sac(SAC, seed, light, o = {}) {
   tx.restore();
 }
 // yakın kadraj: göz, kaş, alın, saç, kavuşturulmuş kollar. o: {yas (0..1 birikme), kay (0..1 süzülme), bg (false: zemin boyama)}
+// o.s: sahne bu ölçekte ÇİZİLİR (kamera z 1'de kalır, tarama aralığı motorun normal aralığında); o.c: yerel nokta (varsayılan göz), o.at: ekranda konacağı yer
 function cab_yakin(t, o = {}) {
-  const { tx, px } = GR, G = CAB.goz;
-  if (o.bg !== false) { tx.fillStyle = GR.tone(.03); tx.fillRect(-400, -400, W + 800, H + 800); }
+  const { tx, px } = GR, G = CAB.goz, sk = o.s && o.s !== 1;
+  if (sk) { const c = o.c || [G.x, G.y], at = o.at || [960, 540]; GR.frame(at[0] - c[0] * o.s, at[1] - c[1] * o.s, 0, 1, o.s); }
+  if (o.bg !== false) { tx.fillStyle = GR.tone(.03); tx.fillRect(-2000, -2000, W + 4000, H + 4000); }
   // yüz: soldan-üstten ışık; çizgiler alnın geniş kavsini izler; sağ yan karanlığa karışır
   const YZ = new Path2D(); spline(YZ, CAB.yuz, true, .85);
   let g = tx.createLinearGradient(560, 300, 1620, 640); g.addColorStop(0, GR.tone(.97)); g.addColorStop(.55, GR.tone(.93)); g.addColorStop(.78, GR.tone(.45)); g.addColorStop(1, GR.tone(.04));
@@ -105,20 +146,23 @@ function cab_yakin(t, o = {}) {
   const L = [G.x - G.w / 2, G.y], R = [G.x + G.w / 2, G.y + 18];
   const up = [[L[0], L[1]], [G.x - 90, G.y - 66], [G.x + 100, G.y - 62], [R[0], R[1]]], lo = [[R[0], R[1]], [G.x + 110, G.y + 66], [G.x - 90, G.y + 58], [L[0], L[1]]];
   const AK = new Path2D(); AK.moveTo(...up[0]); AK.bezierCurveTo(...up[1], ...up[2], ...up[3]); AK.bezierCurveTo(...lo[1], ...lo[2], ...lo[3]); AK.closePath();
-  GR.fill(AK, GR.tone(.93), { th: 0, id: 0 });
+  // göz akı iki yanda görünür; koyu iris içinde kenara doğru sivrilen ~22 eşit olmayan ışınsal vuruş; göz bebeği ayrı;
+  // üst kapak kalın, irisin en çok üst %20'sini örter; tek parlama (kapak tur 7 ile aynı çizim)
+  const INK = GR.tone(.02), Lp = L, Rp = R, ic = [G.x + 22, G.y + 8], cy = G.y - 63;
+  GR.fill(AK, GR.tone(.95), { th: 0, id: 0 });
   tx.save(); tx.clip(AK); px.save(); px.clip(AK);
-  const ic = [G.x + 22, G.y + 8];
-  const iris = new Path2D(); iris.arc(ic[0], ic[1], 74, 0, TAU); GR.fill(iris, GR.tone(.1), { th: 0, id: 0 });
-  for (let k = 0; k < 7; k++) { const an = PI * .55 + k / 6 * PI * .9, r0 = 40 + (k % 2) * 6; oku_vurus([[ic[0] + Math.cos(an) * 70, ic[1] + Math.sin(an) * 70], [ic[0] + Math.cos(an) * r0, ic[1] + Math.sin(an) * r0]], 7, .85, .3); }
-  const pp = new Path2D(); pp.arc(ic[0], ic[1], 32, 0, TAU); GR.fill(pp, GR.tone(.02), { th: 0, id: 0 });
-  tx.globalCompositeOperation = 'multiply'; g = tx.createLinearGradient(0, G.y - 62, 0, G.y - 10); g.addColorStop(0, GR.tone(.04)); g.addColorStop(1, GR.tone(1)); tx.fillStyle = g; tx.fillRect(L[0], G.y - 80, G.w + 30, 72);   // kapağın gölgesi
+  { const I = new Path2D(); I.arc(ic[0], ic[1], 74, 0, TAU); GR.fill(I, GR.tone(.03), { th: 0, id: 0 }); }
+  const ri = rng(31);
+  for (let k = 0; k < 22; k++) { const a = k / 22 * TAU + (ri() - .5) * .18, r0 = 39 + ri() * 6, r1 = 60 + ri() * 13; cab_vurus([[ic[0] + Math.cos(a) * r0, ic[1] + Math.sin(a) * r0], [ic[0] + Math.cos(a) * r1, ic[1] + Math.sin(a) * r1]], 3.4 + ri() * 2.5, .92, .15, .25); }
+  { const B = new Path2D(); B.arc(ic[0], ic[1], 33, 0, TAU); GR.fill(B, INK, { th: 0, id: 0 }); }
+  const lid = new Path2D(); lid.moveTo(Lp[0] - 20, Lp[1] - 2); lid.quadraticCurveTo(ic[0] - 10, cy, Rp[0] + 20, Rp[1] - 6); lid.lineTo(Rp[0] + 20, G.y - 200); lid.lineTo(Lp[0] - 20, G.y - 200); lid.closePath();
+  GR.fill(lid, INK, { th: 0, id: 0 });
   tx.restore(); px.restore();
-  const hl = new Path2D(); hl.arc(ic[0] + 26, ic[1] - 26, 14, 0, TAU); GR.fill(hl, GR.tone(1), { th: 0, id: 0 });
-  tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineCap = 'round';
-  tx.lineWidth = 17; tx.beginPath(); tx.moveTo(L[0] - 10, L[1] + 4); tx.bezierCurveTo(G.x - 90, G.y - 70, G.x + 100, G.y - 66, R[0] + 12, R[1] - 4); tx.stroke();
-  tx.lineWidth = 7; tx.beginPath(); tx.moveTo(G.x - 140, G.y - 64); tx.bezierCurveTo(G.x - 40, G.y - 112, G.x + 100, G.y - 104, G.x + 176, G.y - 50); tx.stroke();   // kapak kıvrımı
+  tx.save(); tx.strokeStyle = INK; tx.lineCap = 'round'; tx.lineWidth = 15; tx.beginPath(); tx.moveTo(Lp[0] - 6, Lp[1] + 1); tx.quadraticCurveTo(ic[0] - 10, cy, Rp[0] + 10, Rp[1] - 4); tx.stroke();
+  tx.lineWidth = 6; tx.beginPath(); tx.moveTo(G.x - 130, G.y - 58); tx.quadraticCurveTo(G.x + 10, G.y - 104, G.x + 170, G.y - 52); tx.stroke();
   tx.lineWidth = 6; tx.beginPath(); tx.moveTo(L[0] + 26, L[1] + 14); tx.bezierCurveTo(G.x - 70, G.y + 62, G.x + 80, G.y + 70, R[0] - 4, R[1] + 4); tx.stroke();
   tx.restore();
+  { const h = new Path2D(); poly(h, [[ic[0] + 14, G.y - 22], [ic[0] + 33, G.y - 24], [ic[0] + 35, G.y - 7], [ic[0] + 16, G.y - 6]], true); GR.fill(h, GR.tone(1), { th: 0, id: 0 }); }
    // kirpikler (dış uç)
   // saç ve perçem
   const SAC = cab_sacYolu();
@@ -127,16 +171,16 @@ function cab_yakin(t, o = {}) {
   oku_vurus([[1196, 300], [1262, 420], [1300, 560], [1312, 690]], 10, .9, .3);
   // kollar (yüzün alt yarısını örter)
   cab_kollar();
-  // gözyaşı: alt kapağın iç yanında birikir, sonra yanaktan kolun üstüne süzülür
-  const yas = clamp(o.yas ?? 0), kay = clamp(o.kay ?? 0), D0 = [G.x + 86, G.y + 72], D1 = [G.x + 128, 650];
+  // gözyaşı: alt kapaktan sarkarak birikir (yas), sonra yanaktan kolun üstüne süzülür (kay); kapaktan damlaya ıslak iz
+  const yas = clamp(o.yas ?? 0), kay = clamp(o.kay ?? 0), D0 = [G.x + 70, G.y + 58];
   if (yas > 0) {
-    const q = E.io2(kay), pth = s => [lerp(D0[0], D1[0], s) + Math.sin(s * 3) * 10, lerp(D0[1], D1[1], s)], d = pth(q), r = 8 + 12 * E.out3(yas);
-    if (kay > 0) { const pts = []; for (let k = 0; k <= 16; k++) pts.push(pth(k / 16 * q)); oku_vurus(pts, 15, .02, .75); oku_vurus(pts, 7, 1, .7); }
-    const T = new Path2D(); T.moveTo(d[0], d[1] - r * 1.9); T.bezierCurveTo(d[0] + r * .5, d[1] - r * 1.1, d[0] + r, d[1] - r * .4, d[0] + r, d[1]); T.arc(d[0], d[1], r, 0, PI); T.bezierCurveTo(d[0] - r, d[1] - r * .4, d[0] - r * .5, d[1] - r * 1.1, d[0], d[1] - r * 1.9); T.closePath();
-    tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 9; tx.stroke(T); tx.restore();
-    GR.fill(T, GR.tone(1), { th: 0, id: 0 });
-    const cr = new Path2D(); cr.arc(d[0], d[1], r * .66, .25, PI * .75); tx.save(); tx.strokeStyle = GR.tone(.15); tx.lineWidth = Math.max(3.5, r * .24); tx.lineCap = 'round'; tx.stroke(cr); tx.restore();
+    const r = lerp(7, 26, E.out3(yas)), c0 = [D0[0] + r * .28, D0[1] + r * 2.6], c1 = [G.x + 120, 652], q = E.io2(kay);
+    const pth = u => [lerp(c0[0], c1[0], u) + Math.sin(u * 3) * 8, lerp(c0[1], c1[1], u)], D = pth(q), top = [D[0] - r * .28, D[1] - r * 3.0], pts = [];
+    for (let k = 0; k <= 10; k++) { const u = k / 10; pts.push([lerp(D0[0], top[0], u) + Math.sin(u * 3) * 4, lerp(D0[1], top[1] + 4, u)]); }
+    if (Math.hypot(top[0] - D0[0], top[1] - D0[1]) > 6) { cab_vurus(pts.map(p => [p[0] - 3.4, p[1]]), 3.4, .02, .3, .4); cab_vurus(pts, 5.5, 1, .2, .5); }
+    cab_damla(D, r);
   }
+  if (sk) GR.unframe();
 }
 // ── P133 (L03): göze yaklaşma; gözde damla birikir ve süzülür ──
 plan('P133', (ctx, st) => {
@@ -458,7 +502,7 @@ plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), {
 // "…en parlak meleğiydi." biter bitmez, A03 başlamadan önceki ~1,3 sn'lik sessizlikte Cabanel'in gözü ve biriken damla.
 // Amaç: finaldeki gözyaşını (L03) açılışta ekmek; gözyaşı kapağının vaadi ilk 11 saniyede karşılanır.
 shot(Se('A02') + .05, (ctx, st) => {
-  levha(ctx, { cx: 940, cy: 520, z: 1 }, () => cab_yakin(st.t, { yas: lerp(.45, 1, E.out2 ? E.out2(st.p) : st.p), kay: 0 }), [.03, 0, 1]);
+  levha(ctx, null, () => cab_yakin(st.t, { yas: lerp(.45, 1, E.out2(st.p)), kay: 0, s: 1.78, c: [905, 500], at: [960, 540] }), [.03, 0, 1]);   // göz kadraj genişliğinin ~%35'i
 }, { id: 'P002g', tr: { type: 'cut' } });
 
 // ── P000g (0 → A01): filmin ilk karesi (başkan eklemesi, kapak kurulu tur 2) ──
@@ -466,5 +510,5 @@ shot(Se('A02') + .05, (ctx, st) => {
 // göz ve damla (kapak B) → "Ben cehennemim" figürü (kapak A). P002g aynı gözü 10. saniyede geri çağırır (damla dolar).
 shot(0, (ctx, st) => {
   // yakın kadraj (kapak B ile aynı ölçek: göz kadraj genişliğinin ~%45'i; damla 1 saniyeden kısa sürede tanınmalı)
-  levha(ctx, { cx: 930, cy: 505, z: 2.2 }, () => cab_yakin(st.t, { yas: lerp(.35, .8, E.out2(st.p)), kay: 0 }), [.03, 0, 1]);
+  levha(ctx, null, () => cab_yakin(st.t, { yas: lerp(.35, .8, E.out2(st.p)), kay: 0, s: 2.27, c: [905, 505], at: [960, 540] }), [.03, 0, 1]);   // göz ~%45, sahne bu ölçekte çizilir (kamera z 1)
 }, { id: 'P000g', tr: { type: 'cut' } });

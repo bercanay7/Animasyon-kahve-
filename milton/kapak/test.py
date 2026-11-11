@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kapak test seti (CLAUDE.md "Kapak test seti").
+"""Kapak test seti (CLAUDE.md "Kapak test seti"). Not: akış taklidi ilk iki kapağı "bizimkiler" olarak kullanır; A ve B'yi önce ver.
 Kullanım: python3 kapak/test.py <çıktı-klasörü> kapak1.jpg [kapak2.jpg ...]
 Her kapak için: tam boy, küçültmeler (246×138, 168×94, 120×68), bulanıklık (Gauss 8 px), gri değer, süre rozeti (25:46);
 bütün kapaklar için: koyu ve açık mobil akış + "önerilen" listesi taklidi, TV boyu (1920 genişlik) ve yan yana karşılaştırma tabloları.
