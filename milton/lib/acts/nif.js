@@ -654,20 +654,22 @@ plan('P070', (ctx, st) => {
     Bk.lineTo(1540, 1100); Bk.lineTo(380, 1100); Bk.closePath();
     GR.fill(Bk, tone(.03), { th: 0, id: 2 });
     PR.cuts([[420, 540], [670, 500], [960, 510], [1250, 500], [1500, 540]], [0, 1], { len: [10, 46], gap: [40, 110], w: 5, seed: 8, clip: Bk, bend: .2 });
-    // melek safları: üst üste binen iki sıra uzun giysili (robe) kâğıt beyazı melek, koyu bankın önünde; ortada boşluk.
-    // Aralık ve boy düzensiz (oyuncak asker okuması olmasın); arkadaki sıra küçük.
-    const rr = rng(11);
-    for (const [y, hh, n, x0, x1, gw] of [[620, 20, 17, 440, 1480, 60], [700, 27, 13, 410, 1510, 100]]) {
-      for (let i = 0; i < n; i++) {
-        const x = lerp(x0, x1, (i + .5 + (rr() - .5) * .5) / n), hv = hh * (.9 + rr() * .2);
-        if (Math.abs(x - 960) < gw) continue;
-        const Jm = SF.rig({ x, y: y + (rr() - .5) * 8, h: hv, facing: x < 960 ? 1 : -1, twist: .1 + rr() * .3, head: (rr() - .5) * .2, armN: [.06, .1], armF: [-.06, .1] });
-        SF.draw(Jm, { lum: 1, lit: [0, -1], t, robe: true, legs: true, eye: 0, lines: 1, seed: 5 + i, spear: rr() < .3 ? { grip: 'N', ang: -.05, len: 7 } : null });
-      }
+    // melekler: iki yay biçimli küme (düz sıra ve tek yöne dönük saf değil; hassasiyet: "imam ve cemaat" okuması olmasın),
+    // farklı yönlere dönük, kanatlı, uzun giysili (robe) kâğıt beyazı figürler. "Sıradan melek" kümenin İÇİNDE, ötekilerle aynı boyda;
+    // yalnız arkasında kısa bir kâğıt boşluğu (açık hale değil: kümenin koyu bankında bir aralık) ve hafif öne eğik başıyla ayrılır.
+    const rr = rng(11), M = [];
+    for (const [cx, cy, n, rx, ry] of [[690, 640, 6, 200, 120], [1240, 650, 6, 210, 120]])
+      for (let i = 0; i < n; i++) { const u = i / (n - 1), a = PI * (.15 + .7 * u) + (cx > 960 ? PI : 0); M.push({ x: cx + Math.cos(a) * rx + (rr() - .5) * 30, y: cy + Math.abs(Math.sin(a)) * ry * (cx > 960 ? -1 : 1) * .6 + 60 * u + (rr() - .5) * 20, f: rr() < .5 ? 1 : -1, tw: rr() }); }
+    M.push({ x: 1150, y: 690, f: -1, tw: .2, siradan: true });
+    for (const m of M) m.h = 22 + (m.y - 560) * .1;   // derinlik: yakındaki büyük
+    M.sort((p, q) => p.y - q.y);
+    for (const m of M) {
+      const Jm = SF.rig({ x: m.x, y: m.y, h: m.h, facing: m.f, twist: .15 + m.tw * .5, head: m.siradan ? -.25 : (rr() - .5) * .3, armN: [.06, .1], armF: [-.06, .1] });
+      if (m.siradan) PR.glow(m.x, m.y - 2 * m.h, 4, m.h * 3, 1, .5);
+      for (const sd of [-1, 1]) { const sh = sd < 0 ? Jm.shN : Jm.shF; GR.frame(Jm.shC[0] + sd * .35 * m.h, Jm.shC[1] + .2 * m.h, sd * -.15, sd, 1);
+        KN.feathered({ span: 4.2 * m.h, open: .35, lift: .7, droop: .3, dark: 0, rim: .6, ruin: 0, root: .1, lit: [0, -1], t, seed: 60 + sd }); GR.unframe(); }
+      SF.draw(Jm, { lum: 1, lit: [0, -1], t, robe: true, legs: true, eye: 0, lines: 1, seed: 5 + Math.round(m.x) % 7 });
     }
-    // boşlukta tek, küçük, sıradan melek: biraz önde
-    const J = SF.rig({ x: 960, y: 770, h: 27, facing: 1, twist: .1, head: -.05, armN: [.06, .1], armF: [-.06, .1] });
-    SF.draw(J, { lum: 1, lit: [0, -1], t, robe: true, legs: true, eye: 0, lines: 1, seed: 4 });
     GR.restore();
     if (a < 1) { const T1 = tx.getImageData(0, 0, tx.canvas.width, tx.canvas.height), d0 = T0.data, d1 = T1.data; for (let i = 0; i < d0.length; i += 4) { const v = d0[i] + (d1[i] - d0[i]) * a; d1[i] = d1[i + 1] = d1[i + 2] = v; } tx.putImageData(T1, 0, 0); }
   }, NIF_BG);
@@ -864,10 +866,10 @@ plan('P082', (ctx, st) => {
 const NIF_L07_ZINCIR = (() => {
   const bz = (a, c, b, n = 16) => Array.from({ length: n + 1 }, (_, i) => { const u = i / n, v = 1 - u; return [v * v * a[0] + 2 * u * v * c[0] + u * u * b[0], v * v * a[1] + 2 * u * v * c[1] + u * u * b[1]]; });
   return [
-    bz([848, 690], [800, 600], [745, 520]),                // alevin dibinden çıkıp göğüs üstünden sol omza
-    bz([1085, 540], [890, 720], [645, 690]),               // sağ kanattan sola, aşağı doğru çapraz (önden yarım tur)
-    bz([1090, 700], [890, 860], [650, 840]),               // ikinci tur
-    bz([1080, 850], [1000, 760], [866, 694])               // üçüncü turun önü: sağdan yukarı, alevin dibine döner
+    bz([1085, 560], [990, 680], [872, 706]),               // sağ omuzdan inen tur, alevin dibine girer (bir uç)
+    bz([838, 708], [740, 712], [645, 690]),                // alevin dibinden çıkıp sola (öteki uç)
+    bz([1088, 720], [880, 830], [648, 800]),               // ikinci tur (önden yarım tur, çapraz)
+    bz([1092, 820], [900, 940], [656, 915])                // üçüncü tur
   ];
 })();
 function nif_l07(t) {
