@@ -1,7 +1,13 @@
-"""Son miks: anlatım + müzik (efektler müzikle birlikte score.py'de sentezlendi) → audio/mix.wav (-14 LUFS, ≤ -1 dBTP)
+"""Son miks (Kayıp Cennet): anlatım + müzik ve efektler (ikisi de audio/score.py'de sentezlenir)
+→ audio/mix.wav (48 kHz stereo, entegre -14 LUFS, gerçek tepe ≤ -1 dBTP)
 
+python3 audio/score.py          # önce müzik (audio/music.wav)
 python3 tools/mix.py            # tam miks
 python3 tools/mix.py --stems    # ayrıca audio/stems/vo.wav ve music.wav (Shorts kaynağı)
+
+Müzik düzeyi sabit bir LUFS değeriyle değil, anlatıma göre ayarlanır: konuşma süren 3 sn'lik pencerelerde
+müziğin kısa süreli ses yüksekliğinin ortancası anlatımın SPEECH_GAP LU altına oturtulur. Böylece
+timeline.js ya da score.py değişse de konuşma altı müzik farkı korunur.
 """
 import json, sys, os, re
 import numpy as np, soundfile as sf, pyloudnorm as pyln
@@ -113,24 +119,41 @@ def true_peak(x):
 
 
 def voice_chain(vo):
-    # cümle kazançları: fısıltı etiketli "Ama ne diyorum?" (F14) yaklaşık 12 dB sessiz geliyor (okunuş denemesi): +6 dB
-    # ses kurulu tur 1: "diyorum" fısıltının içinde ayrıca +3 dB; en sessiz iki cümle (C18, L01) +2 / +1,5 dB
-    gains = [(W('F14', 'ama') - .1, W('F14', 'olacak') - .05, 6.0), (W('F14', 'diyorum') - .03, We('F14', 'diyorum') + .05, 9.0),
-             (CUES['C18']['s'] - .05, CUES['C18']['e'] + .05, 2.0), (CUES['L01']['s'] - .05, CUES['L01']['e'] + .05, 1.5)]
-    g = np.ones(len(vo))
-    for a, b, d in gains:
-        g[int(a * SR):int(b * SR)] = db(d)
-    g = uniform_filter1d(g, int(.04 * SR), mode='nearest')
-    vo = vo * g
-    vo = peq(vo, 250, -2, .9); vo = peq(vo, 3500, 1.5, .8)
+    """Anlatıma yalnız hafif işlem: 250 Hz'de -1,5 dB (çamur), 3,5 kHz'de +1 dB (anlaşılırlık), 3:1 hafif sıkıştırma
+    (yalnız tepeler; eşik entegre düzeyin 6 dB üstü), güvenlik sınırlayıcısı. Cümle kazancı yok: fısıltılar ve
+    yükselen sesler oyunculuğun parçası."""
+    vo = peq(vo, 250, -1.5, .9); vo = peq(vo, 3500, 1.0, .8)
     L = pyln.Meter(SR).integrated_loudness(vo)
     vo, gr = compress(vo, L + 6, 3.0)
     vo = limiter(vo[None, :], db(pyln.Meter(SR).integrated_loudness(vo) + 11))[0]
     return vo
 
 
+SPEECH_GAP = 17.0      # konuşma altında müzik, anlatımın bu kadar LU altında (ortanca; hedef ≥ 14–16)
+
+
+def kweight(x):
+    """BS.1770 K ağırlıklama (pyloudnorm'un filtre katsayılarıyla)."""
+    m = pyln.Meter(SR)
+    y = x
+    for f in m._filters.values():
+        y = signal.lfilter(f.b, f.a, y, axis=-1)
+    return y
+
+
+def short_term(x, win=3.0, hop=1.0):
+    """Kısa süreli ses yüksekliği (LUFS) dizisi, pencere başlangıçları hop aralıklı. x: (kanal, örnek)."""
+    k = kweight(x.astype(np.float64))
+    p = np.sum(k ** 2, axis=0)
+    c = np.concatenate([[0.0], np.cumsum(p)])
+    w, h = int(win * SR), int(hop * SR)
+    st = np.arange(0, len(p) - w, h)
+    pw = (c[st + w] - c[st]) / w
+    return st / SR, -0.691 + 10 * np.log10(pw + 1e-12)
+
+
 def main():
-    # bellek: 24 dk × 48 kHz stereo ≈ 550 MB/kanal (float64); ara diziler silinir, büyük diziler float32 tutulur
+    # bellek: 26 dk × 48 kHz stereo ≈ 550 MB/kanal (float64); ara diziler silinir, büyük diziler float32 tutulur
     stems = '--stems' in sys.argv
     meter = pyln.Meter(SR)
     vo, sr = sf.read(A('vo/vo.wav'), always_2d=False, dtype='float32')
@@ -153,8 +176,14 @@ def main():
     mu = np.pad(mu, ((0, 0), (0, max(0, N - mu.shape[1]))))[:, :N]
     hp35 = signal.butter(4, 35, 'highpass', fs=SR, output='sos')
     for c in range(2): mu[c] = peq(signal.sosfilt(hp35, mu[c]), 60, -2.5, .7).astype(np.float32)
-    mu *= np.float32(db(-21 - meter.integrated_loudness(mu.T)))
     mu *= duck; del duck
+    # müzik düzeyi: konuşmalı pencerelerde anlatımın SPEECH_GAP LU altı (ortanca)
+    ts, lm = short_term(mu)
+    _, lv = short_term(vo[None, :])
+    sp = lv > -16 - 10                       # pencerede anlatım var
+    g = (-16 - SPEECH_GAP) - float(np.median(lm[sp & (lm > -70)]))
+    mu *= np.float32(db(g))
+    print(f'müzik kazancı {g:+.1f} dB (konuşma altı ortanca → {-16 - SPEECH_GAP:.1f} LUFS)', flush=True)
     # vuruşların tepeleri son sınırlayıcıyı çalıştırıp anlatımı bastırmasın: müzik kendi sınırlayıcısından geçer (ses kurulu tur 1)
     # sınırlayıcı yalnız konuşma sırasında sıkı (-8 dBFS); konuşmasız boşlukta doruklar serbest (-1 dBFS) (ses kurulu tur 2)
     va = (np.clip((20 * np.log10(envelope(vo) + 1e-9) + 42) / 10, 0, 1) > .3).astype(np.float32)

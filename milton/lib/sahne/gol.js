@@ -26,8 +26,7 @@ function cizGol(t, o = {}) {
   PR.flameBank(150, 540, 704, 160, t, 9, { n: 5, wr: .55, env: f => .35 + .65 * Math.sin(f * PI) });
   // ── Şeytan: belden yukarısı gölün üstünde; arkadan aydınlanan koyu kütle, yüzü yarığa dönük ──
   const br = Math.sin(t * .6) * 2, h = 98;
-  const J = SF.rig({ x: FX, y: WY + 26 + br * .3, h, facing: 1, twist: .3, lean: .05, head: .35, shTilt: .06,
-    armN: [-.42, .3], armF: [.5, -.22], legN: [.05, -.05], legF: [-.05, -.04] });
+  const J = SF.rig({ x: FX, y: WY + 26 + br * .3, h, facing: 1, twist: .3, lean: .04, head: .42, shTilt: -.06, armN: [-.5, .22], armF: [.55, -.2] });
   const LIT = [.55, -.8];
   for (const [side, P] of [[-1, { span: 640, open: .78, lift: .5, droop: .25, rot: -.1, seed: 31, root: .1 }], [1, { span: 560, open: .7, lift: .2, droop: .8, rot: .12, seed: 32, root: .12 }]]) {
     const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
@@ -35,12 +34,14 @@ function cizGol(t, o = {}) {
     KN.feathered(Object.assign({ dark: .92, rim: .75, ruin: .65, t, lit: [LIT[0] * side, LIT[1]] }, P));
     GR.unframe();
   }
-  SF.draw(J, { lum: 0, lit: LIT, t, legs: false, skirt: false, waterY: WY, eye: o.eyes ?? 1, wind: .6 });
-  // zincirler: bileklerden göle (kırılmaz zincir; I.48)
-  PR.chain(J.wrN[0], J.wrN[1], J.wrN[0] - 150, WY + 44, 34, { sag: 14, v: .9 });
-  PR.chain(J.wrF[0], J.wrF[1], J.wrF[0] + 170, WY + 40, 34, { sag: 14, v: .9 });
+  PR.glow(FX, WY + 10, 6, 170, 1, .2);                 // su çizgisinde ateş ışığı (figürün arkasında kalır)
+  SF.draw(J, { lum: 0, lit: LIT, t, legs: false, skirt: false, waterY: WY, eye: o.eyes ?? 1, wind: .6, cloak: 1.2 });
+  // zincirler (kırılmaz zincir; I.48): ön kolun suya girdiği noktadan çıkar, su yüzeyinde dışa uzanır
+  for (const [el, wr, dx] of [[J.elN, J.wrN, -230], [J.elF, J.wrF, 230]]) {
+    const u = clamp((WY - el[1]) / ((wr[1] - el[1]) || 1)), x0 = lerp(el[0], wr[0], u);
+    PR.chain(x0, WY - 4, x0 + dx, WY + 38, 34, { sag: 10, v: .9 });
+  }
   // bel hizası: su çizgisinde ince ışık ve figürü saran alevler (öndeki kütle)
-  PR.glow(FX, WY + 10, 6, 170, 1, .2);
   PR.flameBank(FX - 340, FX - 70, WY + 40, 190, t, 7, { n: 4, env: f => .45 + .55 * (1 - f), wr: .6 });
   PR.flameBank(FX + 80, FX + 370, WY + 38, 170, t, 8, { n: 4, env: f => .45 + .55 * f, wr: .6 });
   // sağ ön: büyük alev dilleri (çerçeve); sol ön: kaya kıyısı (koyu kütle, ışıklı sırt)
