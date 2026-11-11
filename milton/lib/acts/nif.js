@@ -402,7 +402,7 @@ function nif_kancaA01(t, a) {   // a: 0..1 alevin büyüklüğü ('cehennemim')
   tx.restore();
   nif_kanatVurus(F, 1, 6);
   // iç cehennem: göğüs hizasında tek kâğıt beyazı alev (P003'teki göğüs alevinin akrabası); 'cehennemim' ile büyür
-  const c = P(0, -.42), k = lerp(.7, 1.25, a);
+  const c = P(0, -.5), k = lerp(.8, 1.4, a);
   tx.save(); tx.clip(F.cloak);
   nif_gogusAlev(c[0], c[1], .17 * U * k, .03 * U * k, t);
   tx.restore();

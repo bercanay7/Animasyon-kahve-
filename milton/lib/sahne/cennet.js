@@ -219,7 +219,7 @@ function cen_safKutle(o) {
   const nSp = o.nSp ?? 10;
   if (nSp > 0) { const idx = heads.map((_, i) => i).sort((a, b) => hash(a * 3.7 + (o.seed || 1)) - hash(b * 3.7 + (o.seed || 1))).slice(0, nSp);
     for (const i of idx) { const H = heads[i], a = (hash(i * 1.3 + (o.seed || 1)) - .5) * .1 + (o.spAng ? o.spAng(i, H.x) : 0), Ls = H.hh * (8 + 3.5 * hash(i * 5.1 + 2));
-      cen_mizrak(H.x + H.f * H.w * .9, H.sh + H.hh * 1.3, a, Ls, .72, Math.max(1.5, H.hh * .07), H.hh, o.spV ?? (light ? 0 : 1)); } }
+      cen_mizrak(H.x + H.f * H.w * .9, H.sh + H.hh * 1.3, a, Ls, o.spUp ?? .9, Math.max(1.5, H.hh * .07), H.hh, o.spV ?? (light ? 0 : 1)); } }
   return { path: P, heads };
 }
 
@@ -271,11 +271,13 @@ function cen_melek(p) {
 }
 
 // Sabah yıldızı: sade sekiz kollu kâğıt beyazı ışık (koyu kütlenin önünde çizilir). r: uzun kol boyu; a: 0..1 parlama
-function cen_yildiz(x, y, r, a = 1) {
+function cen_yildiz(x, y, r, a = 1, o = {}) {
   const { tx, tone } = GR; if (a <= 0) return;
   const S = new Path2D(), pts = [];
   for (let i = 0; i < 16; i++) { const an = i / 16 * TAU - PI / 2, rr = i % 2 ? r * .1 : (i % 4 === 0 ? r * (.55 + .45 * a) : r * .42 * (.6 + .4 * a)); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
-  poly(S, pts, true); tx.fillStyle = tone(1); tx.fill(S);
+  poly(S, pts, true);
+  if (o.ink) { tx.save(); tx.lineWidth = o.ink; tx.lineJoin = 'miter'; tx.strokeStyle = tone(.02); tx.stroke(S); tx.restore(); GR.px.fillStyle = GR.hatch({ th: 0, id: 0 }); GR.px.fill(S); }
+  tx.fillStyle = tone(1); tx.fill(S);
 }
 // İkinci ışık (Oğul): figürsüz temiz kâğıt disk ve parıltı. Yüz, el, hale, haç yok.
 function cen_isik(x, y, r, a = 1) {

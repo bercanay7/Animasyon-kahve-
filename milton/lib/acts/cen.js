@@ -6,20 +6,22 @@ const cen_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 let CEN_YOL = (typeof location !== 'undefined' && new URLSearchParams(location.search).get('cenyol')) || 'b';   // a: ışıklı çizgili figür, b: ters ışık
 
 // ═════════ P019 (C02): melek safları arasında başmelek (açık tariflerin üslup karesi) ═════════
+// (b) ters ışık: ışık merkezi başmeleğin alnının üstündeki sabah yıldızıdır ("ışık taşıyan"); gök ondan ışınsal açılır.
 function cen_c02(t, o = {}) {
-  const back = (o.yol ?? CEN_YOL) === 'b', L = back ? { x: 640, y: 330 } : { x: 1380, y: 110 };
-  cen_gok(L, back ? { r0: 300, r1: 1200, v: .7, n: 96 } : { r0: 330, r1: 1300, v: .72, n: 96 });
-  // bulut terasları: ufukta küçülen katlar; saflar katların arasında beyaz kütle
-  cen_bulutKat({ x0: 760, x1: 2080, y: 500, h: 70, yb: 560, seed: 21, L, t });
-  cen_safKutle({ x0: 860, x1: 2000, y: 600, h: 7, seed: 11, nSp: 12 });
-  cen_bulutKat({ x0: 700, x1: 2100, y: 610, h: 95, yb: 690, seed: 22, L, t });
-  cen_safKutle({ x0: 840, x1: 2000, y: 760, h: 12, seed: 12, nSp: 10 });
-  cen_bulutKat({ x0: 640, x1: 2140, y: 790, h: 140, yb: H + 100, seed: 23, L, t });
-  // başmelek: koyu bulut kütlesinin önünde (a) ya da ışık açıklığının önünde koyu siluet (b)
+  const back = (o.yol ?? CEN_YOL) === 'b', FX = 560, FY = 540, h = 66, SX = FX + 14, SY = FY - 6.3 * h, L = back ? { x: SX, y: SY } : { x: 1380, y: 110 };
+  cen_gok(L, back ? { r0: 280, r1: 1300, v: .7, n: 100 } : { r0: 330, r1: 1300, v: .72, n: 96 });
+  // bulut terasları: sakin katlar (kenar hilali, damla yok), ufukta küçülür; saflar katların üstünde beyaz kütle
+  cen_bank({ x0: 820, x1: 2120, y: 560, amp: 24, wl: 260, seed: 21, L, rim: 1, cuts: 0, endW: 160, endD: 120 });
+  cen_safKutle({ x0: 900, x1: 2000, y: 640, h: 9, seed: 11, nSp: 12, spV: 0 });
+  cen_bank({ x0: 760, x1: 2140, y: 650, amp: 34, wl: 340, seed: 22, L, rim: 1, cuts: 0, endW: 200, endD: 160 });
+  cen_safKutle({ x0: 860, x1: 2000, y: 800, h: 15, seed: 12, nSp: 10, spV: 0 });
+  cen_bank({ x0: 700, x1: 2160, y: 800, amp: 46, wl: 420, seed: 23, L, rim: 1, cuts: 0, endW: 240, endD: 200 });
+  // ön plan: büyük koyu bulut kümeleri (Nifates dili)
+  cen_bulutKat({ x0: 960, x1: 2300, y: 1010, h: 260, seed: 26, L, t, n: 4 });
   if (!back) cen_bulutKat({ x0: -200, x1: 900, y: 300, h: 330, yb: H + 100, seed: 24, L, t, n: 3 });
-  const J = cen_aydin({ x: 560, y: 520, h: 66, facing: 1, L, t, back, head: .2, twist: .32, armN: [-.08, .3], armF: [.2, 1.3], lift: .55, open: .85, wingS: 7.5 });
-  if (back) cen_yildiz(J.hd[0] + 6, J.hd[1] - 1.5 * 66, 40, .8 + .2 * Math.sin(t * .9));
-  cen_bulutKat({ x0: -200, x1: 1000, y: 880, h: 120, yb: H + 100, seed: 25, L, t });
+  cen_aydin({ x: FX, y: FY, h, facing: 1, L, t, back, head: .2, twist: .32, armN: [-.08, .3], armF: [.2, 1.3], lift: .55, open: .85, wingS: 7.5 });
+  if (back) cen_yildiz(SX, SY, 46, .85 + .15 * Math.sin(t * .9), { ink: 5 });
+  cen_bulutKat({ x0: -300, x1: 1100, y: 960, h: 280, seed: 25, L, t, n: 4 });
 }
 plan('P019', (ctx, st) => {
   const cam = camLerp({ cx: 1000, cy: 540, z: 1.05 }, { cx: 920, cy: 540, z: 1.05 }, st.p, E.io2);
