@@ -418,3 +418,15 @@ Ortak brif ve malzeme: `kurul/kurgu_tur1/BRIF.md` (her plandan baş/orta/son kar
 - Kapak A'nın yazısı tırnak içine alınıyor ve altına küçük "MILTON · KAYIP CENNET" satırı deneniyor.
 - Yayın koşulları `youtube.md`'ye işlendi (Ramazan, kandiller, perşembe akşamı–cuma, 24–26 Aralık; yorum izleme; Shorts kısıtları).
 - Düşük öncelikliler sahiplerine verilecek: G05'te önde tek figür + arkada saflar (imam ve cemaat okuması), E13'te tavandan sarkan küre (kandil okuması), E04 levhasında kıvrık iç figür (cenin okuması).
+
+### Kapı 3, tur 1 (devam): hukuk
+| Alan | Üye | Puan | Karar | Öne çıkan |
+|---|---|---|---|---|
+| Telif ve YouTube politikaları (veto) | H-Hukuk | 8,8 | RED (koşullu: iki kayıt eksiği) | hukuki içerik riski düşük; Lewis alıntısının özgünü ve bölümü doğrulanmalı; ElevenLabs sesinin ticari kullanım kaydı ve font lisans kayıtları depoda yok |
+
+**Başkan kararları ve doğrulamalar:**
+- **Lewis alıntısı (E1):** özgün cümle senaryo kapısında kaynaktan alınıp `kaynak/notlar.md` satır 32'ye yazılmıştı (*A Preface to Paradise Lost*, 13. bölüm "Satan": "From hero to general, from general to politician, from politician to secret service agent, and thence to a thing that peers in at bedroom or bathroom windows, and thence to a toad, and finally to a snake"); bu kapıda K-Denetim de yedi basamağı ve sırayı özgünle karşılaştırıp doğruladı. Alıntı ~30 kelime, eleştirel bağlamda, yazarı ve kitabı anlatımda, ekranda ve açıklamada anılıyor (FSEK m. 35). Tırnak kalıyor; sayfa numarası iddia edilmiyor. Açıklamaya yayıncı ve bölüm eklendi.
+- **Kayıtlar (E2 ve fontlar):** `araclar/ASSETS.md`'ye Cinzel, Cormorant Garamond, Courier Prime, Bebas Neue (OFL-1.1), ElevenLabs sesi ve özgün müzik satırları; `milton/fonts/LISANS.md` eklendi. **Kullanıcıya bırakılan tek doğrulama:** ElevenLabs hesabının planı ticari kullanıma izin veriyor mu (ücretli planlarda verir); bunu yalnız hesap sahibi görebilir.
+- Açıklamaya Cabanel için "kendi gravür yorumumuz", müzik için "kodla sentezlenmiş" ifadeleri ve özgün üretim cümlesi eklendi. "Değiştirilmiş veya yapay içerik" beyanı: Hayır (gerekçesi `youtube.md`'de).
+- P123 (Lewis kitabı): kare başkanca kontrol edildi: kendi çizdiğimiz düz bir kapak; gerçek bir baskının tasarımı, logo ya da barkod yok.
+- Doğrulanamayan: yayımlanmış Türkçe çevirilerle cümle düzeyinde benzerlik (üyenin metinlere erişimi yok). Çeviriler senaryo kapısında İngilizce özgün metinden yapıldı; uzun dört alıntı (B06, C07, G03, G12) için kullanıcı elindeki baskıyla karşılaştırmak isterse metinler `senaryo.json`'da.

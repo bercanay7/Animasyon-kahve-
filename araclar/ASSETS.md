@@ -12,3 +12,9 @@
 | claude-code-video-toolkit (yalnız fikir) | — | github.com/digitalsamba/claude-code-video-toolkit | MIT | kurulmadı; Remotion/GPU/bulut kısımları alınmadı | geçiş ve QA fikirleri |
 | anthropics/skills · slack-gif-creator (yalnız fikir) | — | github.com/anthropics/skills | Apache-2.0 | kurulmadı | shake/pulse/parçacık formülleri |
 | iart-ai/motion-skills | — | github.com/iart-ai/motion-skills | MIT (pack lisansları doğrulanamadı) | alınmadı; içerik okunmadı | incelenecek |
+| Cinzel | Google Fonts (latin + latin-ext woff2) | fonts.google.com/specimen/Cinzel | OFL-1.1 | lisans metni; yazı tipi adıyla satılmaz | milton/fonts, sisifos/fonts; video ve kapak yazıları. Telif: The Cinzel Project Authors |
+| Cormorant Garamond | Google Fonts (latin + latin-ext woff2) | fonts.google.com/specimen/Cormorant+Garamond | OFL-1.1 | lisans metni | milton/fonts, sisifos/fonts; alıntılar. Telif: The Cormorant Project Authors |
+| Courier Prime | Google Fonts (latin + latin-ext woff2) | fonts.google.com/specimen/Courier+Prime | OFL-1.1 | lisans metni | milton/fonts, sisifos/fonts. Telif: The Courier Prime Project Authors |
+| Bebas Neue | Google Fonts (latin + latin-ext woff2) | fonts.google.com/specimen/Bebas+Neue | OFL-1.1 | lisans metni | orfeus/fonts; Milton kapaklarının yazısı. Telif: The Bebas Neue Project Authors |
+| ElevenLabs "Emrullah" sesi (anlatım) | eleven_v4 | ElevenLabs ses kitaplığı, kullanıcının hesabı | ElevenLabs Kullanım Şartları | ticari kullanım ücretli planda; **plan türünü ve sesin kitaplık koşullarını hesap sahibi doğrular** | kanalın anlatıcı sesi; üretim kayıtları milton/vo/indirme.json. Açıklamada "Anlatım: yapay zekâ sesi (ElevenLabs)" yazılır |
+| Müzik ve efektler (Milton) | — | milton/audio/score.py (numpy/scipy ile sentez) | özgün | — | dış ses dosyası, örnek ya da hazır döngü yok |

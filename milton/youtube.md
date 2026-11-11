@@ -35,12 +35,12 @@ Bölümler
 Kaynaklar
 • John Milton, Paradise Lost (1667; on iki kitaplık ikinci baskı 1674). Dizeler İngilizce özgün metinden kendi çevirimizdir; kimi alıntıların altındaki numaralar kitap ve dize numarasıdır (ör. IV. 75).
 • William Blake, The Marriage of Heaven and Hell (1790–93).
-• C. S. Lewis, A Preface to Paradise Lost (1942).
+• C. S. Lewis, A Preface to Paradise Lost (Oxford University Press, 1942), 13. bölüm: "Satan". Videodaki "küçülme" sıralaması bu bölümden kısa bir alıntının çevirisidir.
 • Percy Bysshe Shelley, Prometheus Unbound, önsöz (1820).
-• Alexandre Cabanel, Düşmüş Melek (L'Ange déchu, 1847), Musée Fabre, Montpellier.
+• Alexandre Cabanel, Düşmüş Melek (L'Ange déchu, 1847), Musée Fabre, Montpellier. Videodaki göz, tablonun kendi gravür yorumumuzdur; tablonun fotoğrafı kullanılmamıştır.
 • Görsel üslup, Gustave Doré'nin 1866 tarihli Kayıp Cennet gravürlerinden esinlenmiştir; bütün çizimler bu video için kodla yapılmış özgün animasyondur.
 
-Müzik ve ses tasarımı özgündür. Anlatım: yapay zekâ sesi (ElevenLabs).
+Müzik ve ses efektleri bu video için kodla sentezlenmiş özgün yapımdır. Anlatım: yapay zekâ sesi (ElevenLabs). Senaryo, çeviri ve bütün çizimler kanalın özgün üretimidir.
 
 Zaman Kuryesi: geçmişe gider, bir soruyla döner.
 Önceki video: Prometheus, ateşi neden bile bile çaldı?
@@ -67,7 +67,8 @@ Başkaldırı serisinin öteki videoları: Sisifos ve Prometheus (oynatma listes
 - Yayın günü yorumlar yakından izlenir (sabit yorum edebi çerçeveyi taşır).
 - Hiçbir Shorts C04 (selam), F02–F04 (kapıdaki bekçiler) ya da "Kazanmıştır." ile başlamaz ve bitmez; hiçbir Shorts G14 ile bitmez; Shorts'un ilk cümlesi ve ilk karesi edebi çerçeveyi taşır.
 - Kategori: Eğitim. Video dili: Türkçe. Kitle: çocuklara özel değil.
-- "Değiştirilmiş veya yapay içerik" beyanı: video gerçekçi görüntü içermez (stilize gravür animasyonu); karar yayın paketi kurulunda kayda geçirilir.
+- "Değiştirilmiş veya yapay içerik" beyanı: **Hayır** (hukuk üyesi, kurgu kurulu tur 1): YouTube'un beyanı gerçekçi görünen değiştirilmiş/sentetik içerik içindir; tam animasyon ve gerçekçi olmayan içerik muaftır. Sentetik anlatım sesi yardım sayfasında açıkça ele alınmıyor; açıklamada "Anlatım: yapay zekâ sesi" satırı durur. "Evet" işaretlemek de zararsızdır; kullanıcı isterse işaretler.
+- Kanalın "Hakkında" metnine bir cümle: videolar özgün senaryo, çeviri ve kodla çizilen animasyondur; anlatımda yapay zekâ sesi kullanılır.
 - Altyazı: `milton.tr.srt` (izleyicilerin ~%38'i Türkçe altyazıyla izliyor).
 - Bitiş ekranı: son ~30 sn (L11 levhası; solda video, sağda abone düğmesi için boş çerçeveler).
 - Oynatma listesi: Kitapların Sorduğu Sorular (ve başkaldırı serisi olarak Mitler ve Felsefe'ye çapraz bağlantı).
