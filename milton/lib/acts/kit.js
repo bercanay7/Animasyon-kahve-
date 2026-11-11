@@ -68,23 +68,52 @@ function kit_yer(x0, x1, y, o = {}) {
   if (o.sx != null) { const P = new Path2D(); P.ellipse(o.sx, y + (o.sh ?? 18) * .55, o.sw ?? 160, o.sh ?? 18, 0, 0, TAU); const C = new Path2D(); C.rect(x0, y + 2, x1 - x0, 400); GR.tx.save(); GR.tx.clip(C); GR.px.save(); GR.px.clip(C); GR.fill(P, GR.tone(.3), { th: 0, id: 0 }); GR.tx.restore(); GR.px.restore(); }
 }
 
-// ════════ P006 (A05): 1667 başlık sayfası ════════
+// ════════ P006 (A05): 1667 başlık sayfası; «kaleminden»de tüy kalem sayfanın alt yarısına açılış figürünü çizer ════════
+// Yazılar ilk ~5 sn'de biter (üst yarı); alt yarı (x 700–1220, y 590–880) figür vinyetine ayrılır. Kamera z 1,00 → 1,08 (15 sn).
+const KIT_P6K = { x: 960, y: 872, U: 290 };   // figür: ayak hizası ve boy (nif_yol7 ölçüsü)
+// kalemin izlediği yol (kapak/figür koordinatında: sol kanat ucu → baş → sağ kanat → etek → geri)
+const KIT_P6Y = [[-300, 960], [-292, 460], [-206, 140], [-120, 220], [-40, 300], [0, 330], [40, 300], [120, 220], [206, 140], [292, 460], [300, 960],
+  [170, 860], [120, 560], [60, 420], [0, 600], [-60, 420], [-120, 560], [-170, 860], [-120, 980], [0, 985], [120, 980], [0, 760], [-90, 700], [90, 700]];
+function kit_kalem(x, y, a = 1) {   // tüy kalem: sivri uç + gövde + tüy silueti (el yok); ucu (x, y)
+  if (a <= 0) return; const { tx } = GR, an = -.95;
+  tx.save(); tx.translate(x, y); tx.rotate(an); tx.scale(.72, .72);
+  const U = new Path2D(); poly(U, [[0, 0], [16, -7], [40, -7], [40, 7], [16, 7]], true); GR.fill(U, GR.tone(.02), { th: 0, id: 0 });
+  const T = new Path2D(); spline(T, [[40, 0], [70, -12], [150, -34], [250, -40], [320, -22], [262, -6], [180, 10], [100, 12], [60, 8]], true, .8); GR.fill(T, GR.tone(.03), { th: 0, id: 0 });
+  oku_vurus([[44, 0], [140, -10], [250, -22], [312, -20]], 4, .95, .4);
+  for (let k = 0; k < 6; k++) { const u = .25 + k * .12; oku_vurus([[lerp(60, 300, u), -lerp(6, 24, u)], [lerp(60, 300, u) + 30, -lerp(6, 24, u) - 22]], 3.4, .95, .3); }
+  tx.restore();
+}
 function kit_baslikSayfasi(st) {
   const t = st.t, s0 = S('A05');
   kit_cerceve();
   const ar = kit_a(t, s0 + .1, 1.2);
-  if (ar > 0) { const w = 330 * E.out3(ar); kit_hat(960 - w, 146, 960 + w, 146, 4); kit_hat(960 - w, 160, 960 + w, 160, 3); }
-  kit_yaz('PARADISE LOST.', 960, 250, { f: 'b', px: 112, ls: 16, a: kit_a(t, s0 + .25, 1.6), wipe: true });
-  kit_yaz('A POEM', 960, 346, { f: 'b', px: 46, w: 600, ls: 18, a: kit_a(t, s0 + 1.1, .9), wipe: true });
-  kit_cizgi(960, 402, 110, { a: kit_a(t, s0 + 1.4, 1) });
-  kit_yaz('JOHN MILTON', 960, 464, { f: 'b', px: 66, w: 600, ls: 14, a: kit_a(t, Wd('A05', 'con') - .2, 1.1), wipe: true });
-  // ayırıcı: özgün sayfanın düzeni / bizim okumamız
+  if (ar > 0) { const w = 320 * E.out3(ar); kit_hat(960 - w, 112, 960 + w, 112, 4); kit_hat(960 - w, 126, 960 + w, 126, 3); }
+  kit_yaz('PARADISE LOST.', 960, 196, { f: 'b', px: 96, ls: 14, a: kit_a(t, s0 + .2, 1.4), wipe: true });
+  kit_yaz('A POEM', 960, 272, { f: 'b', px: 42, w: 600, ls: 18, a: kit_a(t, s0 + .9, .8), wipe: true });
+  kit_cizgi(960, 314, 100, { a: kit_a(t, s0 + 1.2, .9) });
+  kit_yaz('JOHN MILTON', 960, 364, { f: 'b', px: 58, w: 600, ls: 14, a: kit_a(t, Wd('A05', 'con') - .2, 1), wipe: true });
   const tk = Wd('A05', 'kayıp'), ak = kit_a(t, tk - .5, 1);
-  if (ak > 0) { const w = 400 * E.out3(ak); kit_hat(960 - w, 560, 960 + w, 560, 3); kit_hat(960 - w, 572, 960 + w, 572, 3); }
-  kit_yaz('KAYIP CENNET · John Milton, 1667', 960, 660, { f: 'b', px: 62, w: 700, ls: 6, a: kit_a(t, tk - .15, 1.2), wipe: true });
-  kit_yaz('bir destanın okuması', 960, 772, { f: 'a', px: 72, a: kit_a(t, Wd('A05', 'edebiyat') - .1, 1.1), wipe: true });
+  if (ak > 0) { const w = 380 * E.out3(ak); kit_hat(960 - w, 414, 960 + w, 414, 3); kit_hat(960 - w, 425, 960 + w, 425, 3); }
+  kit_yaz('KAYIP CENNET · John Milton, 1667', 960, 482, { f: 'b', px: 56, w: 700, ls: 6, a: kit_a(t, tk - .15, 1.1), wipe: true });
+  // figür vinyeti: kalem dış hattı yol boyunca çizer (ilerleyen maske), kanat vuruşları gelir, göğüs alevi en son «karakter»de yanar
+  const tK = Wd('A05', 'kaleminden') - .15, tC = Wd('A05', 'karakter'), u = oku_u(t, tK, tK + 1.5), F = nif_yol7(KIT_P6K, NIF_EGIM), M = F.M;
+  const Y = KIT_P6Y.map(([x, y]) => M(x, y)), at = q => oku_yolNokta(Y, clamp(q));
+  if (u > 0) {
+    const C = new Path2D(), n = 90, R = 46; for (let i = 0; i <= n * u; i++) { const q = at(i / n); C.moveTo(q[0] + R, q[1]); C.arc(q[0], q[1], R, 0, TAU); }
+    if (u >= 1) C.rect(0, 0, W, H);
+    // vinyet zemini: ayak altında taralı gölge
+    const Sh = new Path2D(); Sh.ellipse(960, 878, 250 * E.out3(u), 13, 0, 0, TAU); GR.fill(Sh, GR.tone(.35), { th: 0, id: 0 });
+    GR.save(); for (const c of [GR.tx, GR.px]) c.clip(C);
+    nif_siluet7(t, 0, KIT_P6K, { alev: false });
+    GR.restore();
+  }
+  const fa = E.out3(kit_a(t, Math.max(tC, tK + 1.3), 1.1));
+  if (fa > 0) nif_alev7(t, F, 0, fa);
+  // kalem: yolun ucunda; iş bitince sağ üste çekilir
+  if (u > 0) { const q = at(u), go = E.in2(oku_u(t, tK + 1.5, tK + 2.3)); if (go < 1) kit_kalem(q[0] + go * 900, q[1] - go * 700, 1); }
+  kit_yaz('bir destanın okuması', 1470, 760, { f: 'a', px: 66, a: kit_a(t, Wd('A05', 'değil') - .1, 1.1), wipe: true });
 }
-plan('P006', (ctx, st) => levha(ctx, camLerp({ z: 1 }, { z: 1.03 }, st.p, E.lin), () => kit_baslikSayfasi(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+plan('P006', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 560, z: 1 }, { cx: 960, cy: 560, z: 1.08 }, st.p, E.sine), () => kit_baslikSayfasi(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ P016 (B09): taslak sayfası, güneş çizimi ════════
 // sayfa yerel koordinatı: merkez (0,0)
@@ -127,18 +156,14 @@ function kit_taslak(st) {
   tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4; tx.stroke(SP); tx.restore();
   // güneş (sağ üst): 'güneşe'de çevresi eş merkezli taramayla koyulaşır, güneş kâğıt beyazı parlar
   const SX = 170, SY = -290, sg = kit_a(t, Wd('B09', 'güneşe') - .1, 1.4);
-  if (sg > 0) {
-    const R = new Path2D(); R.arc(SX, SY, 128, 0, TAU);
-    const g = tx.createRadialGradient(SX, SY, 36, SX, SY, 128);
-    g.addColorStop(0, GR.tone(.975)); g.addColorStop(.2, GR.tone(lerp(.975, .4, sg))); g.addColorStop(.6, GR.tone(lerp(.975, .72, sg))); g.addColorStop(1, GR.tone(.975));
-    GR.fill(R, g, { type: 'rad', cx: SX, cy: SY, id: 0 });
-    const C = new Path2D(); C.arc(SX, SY, 40, 0, TAU); kit_dol(C, .975, { th: 0, id: 1 });
-  }
+  if (sg > 0) { const e = E.out3(sg), rr2 = rng(29); ox.save(); ox.strokeStyle = GR.inkCol; ox.lineCap = 'round'; ox.lineWidth = 2.6;
+    for (let i = 0; i < 20; i++) { const a = i / 20 * TAU + .05, l = (40 + rr2() * 60) * e; ox.beginPath(); ox.moveTo(SX + Math.cos(a) * 74, SY + Math.sin(a) * 74); ox.lineTo(SX + Math.cos(a) * (74 + l), SY + Math.sin(a) * (74 + l)); ox.stroke(); } ox.restore(); }
   // üst katman çizgileri yalnız çevrilen sayfanın açtığı yerde görünür
   ox.save(); { const C = new Path2D(); C.rect(-PW / 2 + PW * k - 2, -PH / 2 - 60, PW + 80, PH + 120); ox.clip(C); }
-  kit_karalama(ox, -110, 110, -300, 7, { w: 3.2 });
-  ox.save(); ox.strokeStyle = GR.inkCol; ox.lineWidth = 3; ox.beginPath(); ox.moveTo(-95, -282); ox.lineTo(95, -282); ox.stroke(); ox.restore();
-  for (let i = 0; i < 13; i++) kit_karalama(ox, -250, i === 12 ? 30 : 250, -212 + i * 42, 50 + i, { indent: i % 4 === 0 ? 40 : 0, strike: i === 3 || i === 7 || i === 8 });
+  // satırlar sırayla yazılır (her satır soldan sağa), sayfa çevrildikten sonra
+  const sat = (i, y, fn) => { const u = oku_u(t, s0 + 1.3 + i * .55, s0 + 1.3 + i * .55 + .7); if (u <= 0) return; ox.save(); const C = new Path2D(); C.rect(-280, y - 40, 40 + 540 * E.io2(u), 70); ox.clip(C); fn(); ox.restore(); };
+  sat(0, -300, () => { kit_karalama(ox, -110, 110, -300, 7, { w: 3.2 }); ox.save(); ox.strokeStyle = GR.inkCol; ox.lineWidth = 3; ox.beginPath(); ox.moveTo(-95, -282); ox.lineTo(95, -282); ox.stroke(); ox.restore(); });
+  for (let i = 0; i < 13; i++) sat(i + 1, -212 + i * 42, () => kit_karalama(ox, -250, i === 12 ? 30 : 250, -212 + i * 42, 50 + i, { indent: i % 4 === 0 ? 40 : 0, strike: i === 3 || i === 7 || i === 8 }));
   ox.strokeStyle = GR.inkCol; ox.lineWidth = 3.4; ox.lineCap = 'round';
   ox.beginPath(); ox.arc(SX, SY, 30, 0, TAU); ox.stroke();
   const rr = rng(21);
@@ -153,19 +178,31 @@ function kit_taslak(st) {
     tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4 / Math.max(k, .2); tx.stroke(Q2);
     GR.unframe(); GR.restore();
   }
-  // "Oraya geleceğiz." ve güneşe uzanan ince ok (üst katman)
-  const ao = kit_a(t, Wd('B09', 'oraya') - .15, 1);
-  kit_yaz('Oraya geleceğiz.', 1440, 600, { f: 'a', px: 84, a: ao, wipe: true });
-  if (ao > 0) {
-    const sx = PX + Math.cos(rot) * SX - Math.sin(rot) * SY, sy = PY + Math.sin(rot) * SX + Math.cos(rot) * SY;
-    const p0 = [1290, 540], p2 = [sx + 92, sy + 30], c = [1250, sy + 40], u = E.io2(ao), N = 30, pts = [];
-    for (let i = 0; i <= N * u; i++) { const q = i / N; pts.push([lerp(lerp(p0[0], c[0], q), lerp(c[0], p2[0], q), q), lerp(lerp(p0[1], c[1], q), lerp(c[1], p2[1], q), q)]); }
-    if (pts.length > 2) { ox.save(); ox.strokeStyle = GR.inkCol; ox.lineWidth = 3.2; ox.lineCap = 'round'; ox.lineJoin = 'round'; ox.beginPath(); poly(ox, pts, false); ox.stroke();
-      if (u >= .99) { const e = pts[pts.length - 1], q = pts[pts.length - 3], an = Math.atan2(e[1] - q[1], e[0] - q[0]); ox.beginPath(); ox.moveTo(e[0] - Math.cos(an - .45) * 22, e[1] - Math.sin(an - .45) * 22); ox.lineTo(e[0], e[1]); ox.lineTo(e[0] - Math.cos(an + .45) * 22, e[1] - Math.sin(an + .45) * 22); ox.stroke(); }
-      ox.restore(); }
+  // sağ yarı: «tiyatro oyununun»da sahne (perde, döşeme) ve tek küçük siluet; «güneşe»de sayfadaki güneşten siluete ışın çizgileri
+  const tT = Wd('B09', 'tiyatro') - .2, as = kit_a(t, tT, 1.2), af = kit_a(t, tT + .7, 1.2);
+  if (as > 0) {
+    const X0 = 1170, X1 = 1760, Yt = 150, Yf = 500, e = E.io2(as);
+    kit_hat(X0 - 10, Yf, X1 + 10, Yf, 6); kit_hat(X0 + 10, Yf + 14, X1 - 10, Yf + 14, 3);
+    const V = new Path2D(); poly(V, [[X0, Yt], [X1, Yt], [X1, Yt + 40]].concat(Array.from({ length: 7 }, (_, k) => [lerp(X1, X0, (k + .5) / 7), Yt + 40 + (k % 2 ? 0 : 22)])).concat([[X0, Yt + 40]]), true);
+    tx.save(); tx.globalAlpha = e; kit_dol(V, .03); tx.restore();
+    for (const sd of [-1, 1]) {   // yana toplanmış perdeler: kıvrımlı koyu kütle, kâğıt rengi kıvrım vuruşları
+      const xo = sd < 0 ? X0 : X1, w = 120 * e, P = new Path2D();
+      spline(P, [[xo, Yt + 30], [xo - sd * w, Yt + 30], [xo - sd * w * .55, Yt + 200], [xo - sd * w * .8, Yf], [xo, Yf]], true, .6); kit_dol(P, .03);
+      if (e > .5) for (let k = 0; k < 3; k++) oku_vurus([[xo - sd * (20 + k * 28) * e, Yt + 60], [xo - sd * (14 + k * 20) * e, Yt + 230], [xo - sd * (24 + k * 30) * e, Yf - 10]], 5, .95, .3);
+    }
+    if (af > 0) { GR.tx.save(); GR.tx.globalAlpha = E.sine(af); kit_bas(kit_pelerinli(1468, Yf - 2, 30, -1, { tilt: .34, seed: 13 }), .02); GR.tx.restore(); }
+    const ag = kit_a(t, Wd('B09', 'güneşe') - .1, 1.3);
+    if (ag > 0) {   // güneşten siluetin başına seyrek ışın çizgileri (üst katman)
+      const sx = PX + Math.cos(rot) * SX - Math.sin(rot) * SY, sy = PY + Math.sin(rot) * SX + Math.cos(rot) * SY, hd = [1450, Yf - 7.25 * 30], u = E.io2(ag);
+      ox.save(); ox.strokeStyle = GR.inkCol; ox.lineCap = 'round';
+      for (let k = -2; k <= 2; k++) { const a0 = Math.atan2(hd[1] - sy, hd[0] - sx) + k * .05, L = Math.hypot(hd[0] - sx, hd[1] - sy) - 60, r0 = 56;
+        ox.lineWidth = k ? 2.6 : 3.4; ox.beginPath(); ox.moveTo(sx + Math.cos(a0) * r0, sy + Math.sin(a0) * r0); ox.lineTo(sx + Math.cos(a0) * (r0 + L * u * (k ? .9 : 1)), sy + Math.sin(a0) * (r0 + L * u * (k ? .9 : 1))); ox.stroke(); }
+      ox.restore();
+    }
   }
+  kit_yaz('Oraya geleceğiz.', 1465, 650, { f: 'a', px: 84, a: kit_a(t, Wd('B09', 'oraya') - .15, 1), wipe: true });
 }
-plan('P016', (ctx, st) => levha(ctx, null, () => kit_taslak(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+plan('P016', (ctx, st) => levha(ctx, camLerp({ cx: 945 }, { cx: 985 }, st.p, E.sine), () => kit_taslak(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ P026 (C09): yarı ışık yarı gölge profil; iki cevap ════════
 // büst: baş (SF.headPath) + saç + boyun + omuz; dir -1 sola bakar
@@ -179,7 +216,7 @@ function kit_bustYollari(cx, cy, h, dir, tilt = 0, t = 0, sw = 1) {
   return out;
 }
 function kit_ikiCevap(st) {
-  const t = st.t, { tx, px } = GR, XS = 960;
+  const t = st.t, { tx, px } = GR, XS = 960 - 60 * E.sine(oku_u(t, Wd('C09', 'kendini') - .3, Wd('C09', 'yürüyecek', 0, true)));
   // sol yarı gece (düz siyah), sağ yarı kâğıt
   const Lh = new Path2D(); Lh.rect(-10, -10, XS + 10, H + 20); kit_dol(Lh, .02);
   kit_cerceve(.02);
@@ -204,7 +241,7 @@ function kit_ikiCevap(st) {
   kit_yaz('kıskançlık', 1500, 400, { f: 'a', px: 96, a: kit_a(t, tk, .9), wipe: true });
   kit_yaz('ve gurur', 1500, 506, { f: 'a', px: 96, a: kit_a(t, Wd('C09', 'gurur') - .3, .8), wipe: true });
 }
-plan('P026', (ctx, st) => levha(ctx, null, () => kit_ikiCevap(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+plan('P026', (ctx, st) => levha(ctx, camLerp({ cx: 975 }, { cx: 945 }, st.p, E.lin), () => kit_ikiCevap(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ kendi siluetlerimiz (şemalar için sade, okunur biçimler) ════════
 // Pelerinli ayakta figür: ayak ortası (x, yF), boy Hh = baş birimi (toplam ~7,7 baş), dir yüz yönü.
@@ -302,17 +339,40 @@ function kit_kimBaskaldiran(st) {
 }
 plan('P029', (ctx, st) => levha(ctx, null, () => kit_kimBaskaldiran(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
-// ════════ P043 (E04): dış siluet dik ve mağrur; içinde kıvrılmış küçük figür ════════
-function kit_icFigur(t, ai) {
-  const x = 960, yF = 870, hh = 92;
-  kit_yer(62, W - 62, yF, { sx: x - 30, sw: 230, sh: 22 });
-  kit_bas(kit_pelerinli(x, yF, hh, -1, { tilt: .32, seed: 5 }), .02);
-  kit_kivrim(x, yF, hh, -1, 8, .97, 4);
-  // iç figür: göğüs hizasında, kâğıt rengi, kıvrılmış
-  if (ai > 0) { const s = 62, cy = yF - 4.9 * hh; kit_bas(kit_kivrik(x + 6, cy, s, -1), .975, ai); if (ai >= 1) kit_kivrikKol(x + 6, cy, s, -1, .02); }
+// ════════ P043 (E04): dış siluet dik ve mağrur; altındaki su yansıması başka bir duruşta (iki büklüm, başı ellerinin arasında) ════════
+// Karın ve göğüste figür yok (kurul tur 1, hassasiyet). «ama içi»de yansıma dikten çökmüşe döner (yavaş).
+// yere çökmüş, iki büklüm oturan figür; başı ellerinin arasında (yandan): taban (x, yB), birim s, dir yüz yönü
+function kit_basEller(x, yB, s, dir = 1) {
+  const L = (a, b) => [x + a * dir * s, yB + b * s], P = new Path2D();
+  spline(P, [L(-.62, 0), L(-.8, -.55), L(-.68, -1.15), L(-.38, -1.55), L(-.02, -1.62), L(.22, -1.45), L(.5, -1.3), L(.7, -1.08), L(.82, -.98), L(.98, -.62), L(1.02, -.1), L(1.22, -.02), L(1.2, 0)], true, .75);
+  const hc = L(.36, -1.12); P.moveTo(hc[0] + .3 * s, hc[1]); P.ellipse(hc[0], hc[1], .3 * s, .27 * s, 0, 0, TAU);   // baş: dizlere doğru düşmüş
+  return [P];
 }
-plan('P043', (ctx, st) => levha(ctx, camLerp({ z: 1, cy: 540 }, { z: 1.07, cy: 500 }, st.p, E.lin), () => {
-  kit_cerceve(); kit_kirp(() => kit_icFigur(st.t, kit_a(st.t, Wd('E04', 'içi') - .3, 1.4)));
+function kit_icFigur(t, ic) {
+  const { tx, px } = GR, x = 960, yG = 560, hh = 60;
+  // su: zemin çizgisinin altı; yatay, perspektifli tarama, aşağı doğru koyulaşır
+  const Wt = new Path2D(); Wt.rect(0, yG, W, H - yG);
+  const g = tx.createLinearGradient(0, yG, 0, H); g.addColorStop(0, GR.tone(.82)); g.addColorStop(1, GR.tone(.4));
+  GR.fill(Wt, g, { type: 'persp', y0: yG, D: H - yG, p0: 9, p1: 12.5, id: 8 });
+  kit_hat(62, yG, W - 62, yG, 4);
+  kit_bas(kit_pelerinli(x, yG, hh, -1, { tilt: .32, seed: 5 }), .02);
+  kit_kivrim(x, yG, hh, -1, 8, .97, 4);
+  // yansıma: suya ters düşen koyu biçim; dik (ayna) → çökmüş (iki büklüm, baş eller arasında). Yatay kâğıt dalga kesikleriyle bölünür.
+  GR.save(); { const C = new Path2D(); C.rect(0, yG + 3, W, H); tx.clip(C); px.clip(C); }
+  tx.save(); tx.translate(0, 2 * yG + 6); tx.scale(1, -1);
+  const dik = kit_pelerinli(x, yG, hh, -1, { tilt: .32, seed: 5 }), cok = kit_basEller(x + 30, yG, 150, -1);
+  const v1 = lerp(.12, .82, E.sine(ic)), v2 = lerp(.82, .12, E.sine(ic));
+  for (const P of dik) { tx.fillStyle = GR.tone(lerp(v1, .82, 0)); tx.globalAlpha = 1 - E.sine(ic); tx.fill(P); }
+  tx.globalAlpha = E.sine(ic);
+  for (const P of cok) { tx.fillStyle = GR.tone(.12); tx.fill(P); }
+  { const L = (a, b) => [x + 30 + a * -150, yG + b * 150]; tx.lineCap = 'round'; tx.strokeStyle = GR.tone(.12); tx.lineWidth = 24;   // önkol: dizden başa
+    tx.beginPath(); tx.moveTo(...L(.86, -.95)); tx.quadraticCurveTo(...L(.66, -1.25), ...L(.5, -1.3)); tx.stroke(); }
+  tx.restore();
+  { const r = rng(44); tx.fillStyle = GR.tone(.85); for (let y = yG + 16; y < H; y += 20 + r() * 16) { const xl = 620 + r() * 200, L = 160 + r() * 420; tx.fillRect(xl, y, L, 4 + r() * 3); } }   // dalga kesikleri
+  GR.restore();
+}
+plan('P043', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 520, z: 1 }, { cx: 960, cy: 540, z: 1.05 }, st.p, E.sine), () => {
+  kit_cerceve(); kit_kirp(() => kit_icFigur(st.t, oku_u(st.t, Wd('E04', 'ama') - .1, Wd('E04', 'kıvranıyordu', 0, true) + .4)));
 }, [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ P071 (G06): karşı karşıya iki aynı profil ════════
@@ -324,21 +384,31 @@ function kit_ikiProfil(st) {
 }
 plan('P071', (ctx, st) => levha(ctx, camLerp({ z: 1 }, { z: 1.03 }, st.p, E.lin), () => kit_ikiProfil(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
-// ════════ P073 (G08): siluetin içinde siluet: dibin altında dip ════════
+// ════════ P073 (G08): dibin altında dip: yandan kesit; her dip bir öncekinin tabanında, kaydırılmış ve kaya kenarlı açılır ════════
+// Toprak taralı orta ton, oyuklar düz karanlık; kenarda küçük kanatlı figür. «açan»da ikinci dip ağzını açar, «dip»te üçüncüsü karanlığa açılır.
+function kit_oyuk(x0, x1, yT, yB, seed, ac) {   // kaya kenarlı oyuk: üst ağız (x0..x1, yT), taban yB; ac: 0..1 açılma (ağız genişler, derinleşir)
+  const r = rng(seed), cx = (x0 + x1) / 2, hw = (x1 - x0) / 2 * E.out3(ac), d = (yB - yT) * E.out2(ac), L = [], Rr = [];
+  for (let i = 0; i <= 8; i++) { const u = i / 8, w = hw * (1 - .35 * u * u) * (1 + (r() - .5) * .18), y = yT + d * u; L.push([cx - w + (r() - .5) * 18, y]); Rr.push([cx + w + (r() - .5) * 18, y]); }
+  const P = new Path2D(); poly(P, [...L, ...Rr.reverse()], true); return { P, L, R: Rr };
+}
 function kit_dip(st) {
-  const t = st.t, x = 960, yF = 870, hh = 94;
+  const t = st.t, { tx } = GR, yS = 330;
   kit_cerceve();
   kit_kirp(() => {
-    kit_yer(62, W - 62, yF, { sx: x + 30, sw: 230, sh: 22 });
-    kit_bas(kit_pelerinli(x, yF, hh, 1, { tilt: -.05, seed: 4 }), .02);
-    kit_kivrim(x, yF, hh * .55, 1, 3, .97, 4);
-    const a1 = kit_a(t, Wd('G08', 'yutmak') - .2, 1.3), yB = yF - 2.55 * hh, s1 = 80;
-    kit_bas(kit_cokmus(x - 4, yB, s1, 1), .975, a1);
-    const a2 = kit_a(t, Wd('G08', 'daha') - .15, 1.2), s2 = 40, cy2 = yB - .68 * s1;
-    kit_bas(kit_kivrik(x - 14, cy2, s2, 1), .02, a2); if (a2 >= 1) kit_kivrikKol(x - 14, cy2, s2, 1, .975);
+    const Y = new Path2D(); Y.rect(0, yS, W, H); GR.fill(Y, GR.tone(.62), { th: -.75, id: 4 });   // toprak (kesit)
+    kit_hat(62, yS, W - 62, yS, 5);
+    const a2 = kit_a(t, Wd('G08', 'açan') - .4, 1.4), a3 = kit_a(t, Wd('G08', 'dip', 1) - .2, 1.6);
+    const O1 = kit_oyuk(620, 1260, yS, 560, 3, 1), O2 = kit_oyuk(880, 1200, 555, 770, 7, a2), O3 = kit_oyuk(960, 1150, 765, 1120, 11, a3);
+    for (const O of [O1, O2, O3]) {
+      GR.fill(O.P, GR.tone(.02), { th: 0, id: 0 });
+      // kaya ağzı: ışık (üstten) yanında oyuğun içine giren kısa beyaz vuruşlar
+      tx.save(); tx.clip(O.P); const pts = O.L.slice(0, 5); for (let i = 0; i < pts.length - 1; i++) { const p = pts[i]; oku_vurus([[p[0] + 2, p[1] + 6], [p[0] + 30, p[1] + 26], [p[0] + 52, p[1] + 34]], 6, .95, .3); } tx.restore();
+    }
+    // kenarda küçük kanatlı figür (açılış figürünün küçüğü), aşağı eğilmiş
+    nif_siluet7(t, 0, { x: 560, y: yS - 2, U: 150 }, { alev: false, tilt: -.7 });
   });
 }
-plan('P073', (ctx, st) => levha(ctx, camLerp({ z: 1, cx: 960, cy: 540 }, { z: 1.16, cx: 958, cy: 620 }, ramp(st.t, Wd('G08', 'yutmak') - .3, Wd('G08', 'kalıyor', 0, true) + .5, E.io2)), () => kit_dip(st), [KIT_K, 0, 1]), { tr: KIT_TR });
+plan('P073', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 500, z: 1 }, { cx: 960, cy: 600, z: 1 }, oku_u(st.t, st.at, st.at + Math.max(6, st.d)), E.sine), () => kit_dip(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ P077 (G11): terazi: taç ve asa yükselir, figür aşağı iner ════════
 function kit_tac(x, y, s) { // taç: düz bant + beş uç (ortadaki ve kenardakiler uzun), uçlarda top

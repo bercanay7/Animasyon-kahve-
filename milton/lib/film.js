@@ -67,6 +67,21 @@ function levha(ctx, cam, fn, bg = [.04, 0, 1]) {
 function camLerp(a, b, p, ease = E.io2) { const u = ease(clamp(p)); return { cx: lerp(a.cx ?? W / 2, b.cx ?? W / 2, u), cy: lerp(a.cy ?? H / 2, b.cy ?? H / 2, u), z: lerp(a.z ?? 1, b.z ?? 1, u) }; }
 
 const bufA = makeCanvas(DW, DH), bufAx = bufA.getContext('2d');
+const bufB = makeCanvas(DW, DH), bufBx = bufB.getContext('2d');
+// eşik geçişi maskesi: 960×540 eşik alanı (bir kez üretilir); p ilerledikçe eski levhadan kalan pikseller azalır
+const TRM = { w: 960, h: 540, N: null, cv: null, cx: null, img: null };
+function trMask(p) {
+  const M = TRM, { w, h } = M;
+  if (!M.N) {
+    M.N = new Uint8Array(w * h); M.cv = makeCanvas(w, h); M.cx = M.cv.getContext('2d'); M.img = M.cx.createImageData(w, h);
+    for (let y = 0; y < h; y++) { const band = hash(Math.floor(y / 3) * 7.13 + 2.7); for (let x = 0; x < w; x++) M.N[y * w + x] = Math.round(255 * clamp(.5 * noise2(x / 120, y / 46, 3) + .26 * noise2(x / 26, y / 6, 8) + .24 * band)); }
+    let lo = 255, hi = 0; for (const v of M.N) { if (v < lo) lo = v; if (v > hi) hi = v; } M.lo = lo; M.hi = hi;
+  }
+  const thr = M.lo - 1 + (M.hi - M.lo + 2) * clamp(p), d = M.img.data, N = M.N;
+  for (let k = 0, j = 3; k < N.length; k++, j += 4) d[j] = N[k] > thr ? 255 : 0;
+  M.cx.putImageData(M.img, 0, 0);
+  return M.cv;
+}
 function drawShot(ctx, i, t) { const sh = SHOTS[i]; if (!sh) return; ctx.save(); sh.draw(ctx, shotState(i, t)); ctx.restore(); }
 const PAPER_CSS = `rgb(${GR.PAPER})`, INK_CSS = `rgb(${GR.INK})`;
 function drawFilm(ctx, t) {
@@ -77,8 +92,13 @@ function drawFilm(ctx, t) {
   if (tr && i > 0 && t < sh.at + tr.dur && tr.type !== 'cut') {
     const p = clamp((t - sh.at) / tr.dur);
     if (tr.type === 'fade') {
+      // Eşik geçişi (animasyon üyesi, kurgu kurulu tur 1): iki levha saydamlıkla karışmaz (gri ara kare olmaz);
+      // her piksel ya eski ya yeni levhadandır. Yeni levha yatay baskı vuruşları hâlinde, düzensiz kümelerle açılır.
       drawShot(bufAx, i - 1, t); drawShot(ctx, i, t);
-      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1 - E.sine(p); ctx.drawImage(bufA, 0, 0); ctx.restore();
+      const m = trMask(E.sine(p));
+      bufBx.setTransform(1, 0, 0, 1, 0, 0); bufBx.globalCompositeOperation = 'source-over'; bufBx.clearRect(0, 0, DW, DH); bufBx.drawImage(bufA, 0, 0);
+      bufBx.globalCompositeOperation = 'destination-in'; bufBx.imageSmoothingEnabled = false; bufBx.drawImage(m, 0, 0, DW, DH); bufBx.globalCompositeOperation = 'source-over';
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(bufB, 0, 0); ctx.restore();
     } else { // 'black' ya da 'paper': önce eski levha kapanır, sonra yenisi açılır
       const col = tr.type === 'paper' ? PAPER_CSS : INK_CSS;
       drawShot(ctx, p < .5 ? i - 1 : i, t);
