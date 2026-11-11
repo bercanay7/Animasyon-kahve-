@@ -788,7 +788,7 @@ plan('P118', (ctx, st) => levha(ctx, null, () => { oda_P118(st.t); }, [.03, 0, 1
 // vuruşları; halka yok). «gözler aç»ta ışınlar siluetin içinde başa uzanır; «göreyim ve anlatayım»da siluetin dışına taşar ve
 // oda bu ışıkla belirir (masa, kâğıtlar, kitaplık kenar ışığıyla). Siluet düz siyah kalır. Alfa yok: ışık uzayarak, açılarak gelir.
 // Sahne 1,55 ölçekte çizilir (kamera sabit): figür kadraj yüksekliğinin ~%61'i.
-const ODA_P140_K = 1.55, ODA_P140_O = [-245, -403];
+const ODA_P140_K = 1.55, ODA_P140_O = [-345, -403];
 function oda_P140Isik(t) {
   const tP = Wd('L09', 'göksel'), tG = Wd('L09', 'gözler'), tGr = Wd('L09', 'göreyim'), tA = Wd('L09', 'anlatayım');
   return { dog: E.out3(oda_u(t, tP - .25, tP + .7)), ic: E.io2(oda_u(t, tP + .1, tG)), bas: E.io2(oda_u(t, tG - .1, tGr - .2)), dis: E.io2(oda_u(t, tGr - .1, tA + 1.0)) };
@@ -818,7 +818,11 @@ function oda_P140(t) {
     sair: { bas: .3, fw: -.06, L: null, vurus: false, yakaV: 0 }, masaUstu: false,
     arka: L2 => {
       if (L2) oda_raf(1200, 1470, 480, ODA_FL - 150, L2, { R: 80 + 900 * yay, rows: 2, seed: 44 });
-      if (yay > .01) oda_isinlar(C, h, I, false, t);                     // dışa taşan ışınlar (siluetin arkasında)
+      if (yay > .01) { // yazı kutusu (alıntı + künye, ekran x 1120–1800, y 70–320) ışınlardan korunur
+        const K = ODA_P140_K, O = ODA_P140_O, w2 = x => (x - O[0]) / K, h2 = y => (y - O[1]) / K, Z = new Path2D();
+        Z.rect(-3000, -3000, 9000, 9000); Z.rect(w2(1120), h2(70), (1800 - 1120) / K, (320 - 70) / K);
+        GR.tx.save(); GR.tx.clip(Z, 'evenodd'); oda_isinlar(C, h, I, false, t); GR.tx.restore();
+      }                     // dışa taşan ışınlar (siluetin arkasında)
     },
     on: L2 => {
       // masadaki kâğıt yığını: ışık gelince belirir

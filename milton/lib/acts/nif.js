@@ -495,10 +495,10 @@ function nif_yakinSiluet(t, o) {
   const HEAD = [[-.45, -.04], [-.43, -.3], [-.26, -.5], [.02, -.56], [.24, -.47], [.34, -.32], [.37, -.17], [.385, -.1], [.4, -.05], [.475, .1], [.45, .145], [.39, .165],
     [.405, .215], [.39, .245], [.405, .28], [.375, .33], [.395, .41], [.34, .5], [.18, .52], [.02, .44], [-.14, .44], [-.32, .36], [-.44, .2]];
   const Hd = new Path2D(); spline(Hd, HEAD.map(([x, y]) => hb(hc[0] + x * .95, hc[1] + y * .95)), true, .55);
-  { const cap = []; for (let i = 0; i < 24; i++) { const a = i / 24 * TAU; cap.push(hb(hc[0] - .08 + Math.cos(a) * .36, hc[1] - .03 + Math.sin(a) * .36)); } const C = new Path2D(); poly(C, cap, true); Hd.addPath(C); }   // saç kütlesi (bukle araları dolu)
+  const Hc = new Path2D(); { const q = hb(hc[0] - .08, hc[1] - .03); Hc.moveTo(q[0] + .36 * h, q[1]); Hc.arc(q[0], q[1], .36 * h, 0, TAU); }   // saç kütlesi (bukle araları dolu; ayrı yol: zıt dönüşle delik açmasın)
   const r = rng(73), curls = [];
   for (let i = 0; i <= 9; i++) { const a = PI * (.95 + .7 * i / 9), d = .36, q = hb(hc[0] - .08 + Math.cos(a) * d * .9, hc[1] - .02 + Math.sin(a) * d * 1.0); curls.push([q[0], q[1], (.095 + r() * .025) * h]); }
-  for (const [x, y, rr] of curls) { Hd.moveTo(x + rr, y); Hd.arc(x, y, rr, 0, TAU); }
+  for (const [x, y, rr] of curls) { Hc.moveTo(x + rr, y); Hc.arc(x, y, rr, 0, TAU); }
   // boyun + omuz + pelerin (kambur; ön omuz öne düşük)
   const B = (x, y) => [nx + x * f * h, ny + y * h];
   const Bd = new Path2D(); spline(Bd, [hb(-.22, -.3), hb(.22, -.24), B(.3, .02), B(.62, .16 + dr / h * .6), B(.9, .42 + dr / h), B(1.08, .9), B(1.18, 1.8), B(-1.3, 1.8), B(-1.22, .8), B(-.9, .2), B(-.5, -.02), B(-.26, -.12)], true, .5);
@@ -506,14 +506,14 @@ function nif_yakinSiluet(t, o) {
   const wg = o.wing ?? .6, Wg = new Path2D();
   spline(Wg, [B(-.3, .25), B(-.85, -.2 - .5 * wg), B(-1.2, -.5 - .8 * wg), B(-1.6, -.45 - .7 * wg), B(-1.9, -.1 - .3 * wg), B(-2.0, .5), B(-1.9, 1.8), B(-.4, 1.8), B(-.3, .6)], true, .7);
   const INK = GR.tone(.02);
-  GR.fill(Wg, INK, { th: 0, id: 6 }); GR.fill(Bd, INK, { th: 0, id: 0 }); GR.fill(Hd, INK, { th: 0, id: 0 });
+  GR.fill(Wg, INK, { th: 0, id: 6 }); GR.fill(Bd, INK, { th: 0, id: 0 }); GR.fill(Hd, INK, { th: 0, id: 0 }); GR.fill(Hc, INK, { th: 0, id: 0 });
   // kanat içi tüy vuruşları (sivrilen, kesintisiz) ve kenar ışığı
   tx.save(); tx.clip(Wg);
   for (let k = 0; k < 4; k++) { const u = k / 3; nif_vurus2([B(lerp(-.92, -1.7, u), lerp(-.3, -.35, u) - .5 * wg), B(lerp(-1.02, -1.72, u) - .1, .35), B(lerp(-1.1, -1.75, u) - .15 * u, 1.1 + .2 * u)], 9 - k, 1, .3, .2); }
   tx.restore();
   // kenar ışığı: güneşe yakın dış hatta (keskin üst katman), güneşten uzaklaştıkça yok olur
   const S = o.sun, all = new Path2D(); all.addPath(Wg); all.addPath(Bd); all.addPath(Hd);
-  nif_kenarIsik([Wg, Bd, Hd], S, 7);
+  nif_kenarIsik([Wg, Bd, Hd, Hc], S, 7);
   // saçta birkaç kısa hilal
   return { all, head: Hd };
 }
@@ -896,7 +896,7 @@ shot(Wd('G14', 'kötülük') - .3, (ctx, st) => {   // G14 'kötülük': yakın;
     sun: { x: 520, y: 640, r: 330 }, dark: .25, clouds: [{ x: 1500, y: 120, w: 1100, h: 400, seed: 19, n: 4 }],
     f: 1, nx: 1060, ny: 820, h: 450, bow: lerp(.12, -.1, u), drop: 0, wing: lerp(.5, .95, u) }), NIF_BG);
 }, { id: 'P080y', tr: { type: 'cut' },
-  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 1500, 190, st, Wd('G14', 'kötülük'), { maxW: 620, px: 66 }) });
+  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 1560, 130, st, Wd('G14', 'kötülük'), { maxW: 620, px: 66 }) });
 
 // ═════════ P081 (G15): yüz üç kez değişir (üç ton); güneşte küçük bir göz ═════════
 // Yüz yakın planı yok: üç duygu duruş ve ışıkla. Öfke (öne eğik, yumruklar, kanatlar kabarık, sert ışık) → kıskançlık (baş Aden'e döner,
