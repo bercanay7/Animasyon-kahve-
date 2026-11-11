@@ -226,7 +226,7 @@ function cen_c10(t) {
     let lx = L.x - x, ly = L.y - (y - 6 * h); const l = Math.hypot(lx, ly); cen_melek({ x, y: y + (q() - .5) * h * .4, h: h * (.9 + q() * .2), f: x < AX ? 1 : -1, lx: lx / l, ly: ly / l, v: .03, spear: null, seed: sd * 50 + i, wing: .5 }); } };
   cen_bank({ x0: -140, x1: 2080, y: 530, amp: 24, wl: 300, seed: 55, L, rim: 1, cuts: 0, ends: false });
   crowd(700, 12, 40, 51); crowd(800, 17, 28, 52);
-  cen_melek({ x: AX, y: 900, h: 42, f: -1, bow: 1 - up, spear: null, seed: 5, v: .99, wing: .9 });
+  cen_melek({ x: AX, y: 930, h: 58, f: -1, bow: 1 - up, spear: null, seed: 5, v: .99, wing: .9 });
   crowd(960, 26, 17, 53); crowd(1130, 38, 11, 54);
 }
 plan('P027', (ctx, st) => levha(ctx, null, () => cen_c10(st.t), [.7, 0, 1]),
@@ -237,12 +237,12 @@ plan('P027', (ctx, st) => levha(ctx, null, () => cen_c10(st.t), [.7, 0, 1]),
 function cen_c11(t) {
   const s0 = S('C11'), w = cen_u(t, s0, Se('C11') + 1), AX = lerp(560, 1900, w), L = { x: AX + 60, y: 260 };
   cen_gok(L, { r0: 260, r1: 1100, v: .66, n: 90 });
-  cen_bank({ x0: -140, x1: 2500, y: 560, amp: 24, wl: 300, seed: 65, L: { x: 1200, y: 260 }, cuts: .5, ends: false });
+  cen_bank({ x0: -140, x1: 2500, y: 560, amp: 24, wl: 300, seed: 65, L: { x: 1200, y: 260 }, rim: 1, cuts: 0, ends: false });
   const q0 = rng(61);
   for (let i = 0; i < 44; i++) { const x = -60 + i * 58 + (q0() - .5) * 30, d = x - AX, h = 16 * (.9 + q0() * .2);
     let lx = L.x - x, ly = L.y - 600; const l = Math.hypot(lx, ly); cen_melek({ x: x + Math.sign(d) * Math.exp(-d * d / 9000) * 18, y: 770 + (q0() - .5) * 8, h, f: d < 0 ? 1 : -1, lx: lx / l, ly: ly / l, v: .03, spear: null, seed: 70 + i, wing: .5 }); }
   const ph = (t - s0) * 3.4, sw = Math.sin(ph) * .38;
-  cen_basmelek({ x: AX, y: 900 - 3.95 * 40 - Math.abs(Math.cos(ph)) * 3, h: 40, facing: 1, L: { x: AX + 400, y: 100 }, t, head: .12, twist: .55, armN: [-sw * .6, .2], armF: [sw * .6, .2],
+  cen_basmelek({ x: AX, y: 920 - 3.95 * 54 - Math.abs(Math.cos(ph)) * 3, h: 54, facing: 1, L: { x: AX + 400, y: 100 }, t, head: .12, twist: .55, armN: [-sw * .6, .2], armF: [sw * .6, .2],
     legN: [sw, -.1 - .2 * Math.max(0, -Math.sin(ph))], legF: [-sw, -.1 - .2 * Math.max(0, Math.sin(ph))], spear: false, lift: .2, open: .2, wingS: 3.6 });
   const R = rng(62);
   for (let i = 0; i < 12; i++) { const x = -100 + i * 230 + (R() - .5) * 60, gap = Math.exp(-Math.pow((x - AX) / 260, 2)) * 70; let lx = L.x - x, ly = L.y - 900; const l = Math.hypot(lx, ly);
