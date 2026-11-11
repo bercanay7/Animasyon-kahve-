@@ -182,7 +182,7 @@ const SF = (() => {
       const mid = [(aL[0] + aR[0]) / 2 - dn[0] * h * (.1 + .35 * clamp(spread - .3, 0, 1.5)), (aL[1] + aR[1]) / 2 - dn[1] * h * (.1 + .35 * clamp(spread - .3, 0, 1.5))];
       const wv = i => Math.sin(t * 1.2 + i * 1.9) * .03 * h * wind;
       const qq = (al, sd) => { const q = Q(al, sd * f); return q; };
-      const pts = [qq(1.7, -(hwH + .26)), qq(2.15, -(hwH + .4)), qq(3.0, -(hwH + .5)), hemY(aL, -.5), hemY(aL, -.15), hemY(aL, .2), mid, hemY(aR, -.2), hemY(aR, .15), hemY(aR, .5), qq(3.0, hwH + .5), qq(2.15, hwH + .4), qq(1.7, hwH + .26)];
+      const pts = [qq(1.7, -(hwH + .26)), qq(2.15, -(hwH + .4)), qq(3.2, -(hwH + .55)), hemY(aL, -.68), hemY(aL, -.2), hemY(aL, .22), mid, hemY(aR, -.22), hemY(aR, .2), hemY(aR, .68), qq(3.2, hwH + .55), qq(2.15, hwH + .4), qq(1.7, hwH + .26)];
       for (let i = 3; i <= 9; i++) pts[i] = [pts[i][0] + dn[0] * wv(i), pts[i][1] + dn[1] * wv(i)];
       const K = new Path2D(); spline(K, pts, true, .55); G[2].push(K);
     }
@@ -251,8 +251,8 @@ const SF = (() => {
     const rS = rng((o.seed || 3) * 101 + 13), minGap = 12 / hd_;              // aralık ≥ 12 px (baş biriminde)
     const torsoStrokes = [], limbStrokes = [];
     { // gövde: çapalar boy boyunca farklı aralık ve uzunlukta; kesit boyunca (yana) hafif aşağı kavisli
-      const n = Math.round(dens * 3); let al = .12 + rS() * .1;
-      for (let i = 0; i < 8; i++) { const step = Math.max(minGap, (1.7 / Math.max(1, n)) * (.65 + .7 * rS())), Ls = .22 + .5 * rS(), wj = rS();
+      const n = Math.round(dens * 2.5 * clamp(hd_ / 110, .45, 1)); let al = .12 + rS() * .1;
+      for (let i = 0; i < 8; i++) { const step = Math.max(minGap, (1.7 / Math.max(1, n)) * (.6 + .8 * rS())), Ls = .18 + .6 * rS() * rS() + .12 * rS(), wj = rS();
         if (i < n && al < 1.9) torsoStrokes.push({ al, Ls, wj }); al += step; }
       // uzuvlar: kesit boyunca (eksene çapraz) 1–3 vuruş
       const segs = [[1, J.shF, J.elF], [1, J.elF, J.wrF], [3, J.shN, J.elN], [3, J.elN, J.wrN]];
@@ -290,6 +290,10 @@ const SF = (() => {
           const P = toL(Q(S.al, side * f * .15)); Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0);
           strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(2.8, hd_ * (.028 + .012 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
         }
+        // uzun giysi kıvrımları: etekten yukarı giren uzun, sivrilen vuruşlar (ışık ya da gölge yanında yoğun)
+        if (robe) { const rF = rng((o.seed || 3) * 7 + 1), dD = lin(dn), dU = [-dD[0], -dD[1]];
+          for (let i = 0; i < 2 + Math.round(dens); i++) { const sd = (side > 0 ? 1 : -1) * (.75 - i * (.45 + .2 * rF())) , P = toL(Q(3.3, sd * f * (hwH + .3)));
+            Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0); strk(Z, AM[2], P, dD, hd_ * (.7 + .8 * rF()), Math.max(3, hd_ * .038), .05, lin(rt)); Z.restore(); } }
         // saç telleri: ışık yanında 3–4 ince, kıvrık vuruş (yalnız koyu figür, ışık üstten)
         if (!light && lit[1] < 0 && o.hair !== false) {
           const sw2 = Math.sin(t * .8) * .02 * wind, k = sc0;
