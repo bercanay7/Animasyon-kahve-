@@ -216,7 +216,7 @@ const SF = (() => {
     const toL = p => { const q = ML.transformPoint(new DOMPoint(p[0], p[1])); return [q.x, q.y]; };
 
     // ── tonlar ve etkiler (lum'a bağlı yumuşak geçişler) ──
-    const core = lerp(.03, .97, sst(.47, .64, lum));
+    const core = lerp(.03, .97, sst(.45, .6, lum));
     const coreG = [core, lerp(core, core * .86, sst(.5, .9, lum)), core, core];
     const sRim = 1 - sst(.5, .8, lum), sLit = 0, sSh = 0, sInk = sst(.5, .75, lum);
     const light = lum >= .6, skTone = light ? 0 : 1, sgS = light ? -1 : 1;     // vuruşlar: koyu figürde ışık yanından beyaz, açıkta gölge yanından mürekkep
@@ -266,7 +266,7 @@ const SF = (() => {
       for (const S of limbStrokes) {
         const a = AM[S.g], P0 = toL(S.p0), P1 = toL(S.p1), ax = [P1[0] - P0[0], P1[1] - P0[1]], La = Math.hypot(ax[0], ax[1]) || 1, d = [ax[0] / La, ax[1] / La];
         let nrm = [-d[1], d[0]]; const dt = nrm[0] * sv[0] + nrm[1] * sv[1]; if (Math.abs(dt) < .3) continue; if (dt < 0) nrm = [-nrm[0], -nrm[1]];
-        strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(2.6, hd_ * .032), .12, d); any = true;
+        strk(SKc, a, [P0[0] + ax[0] * S.u, P0[1] + ax[1] * S.u], nrm, hd_ * S.Ls, Math.max(3, hd_ * .034), .12, d); any = true;
       }
       // pelerin: gölge/ışık yanından içeri birkaç uzun kıvrım vuruşu
       if (AM[0]) for (let i = 0; i < Math.round(dens * 2); i++) { const al = .6 + i * .55 + rS() * .2, P = toL(Q(al, -(swH + .2 + .2 * al))); strk(SKc, AM[0], P, sv, hd_ * (.5 + .4 * rS()), Math.max(3, hd_ * .035), .15, lin(dn)); any = true; }
@@ -288,12 +288,12 @@ const SF = (() => {
         const side = (rt[0] * sv[0] + rt[1] * sv[1]) * 1 >= 0 ? 1 : -1, rD = lin([rt[0] * side, rt[1] * side]);
         if (Math.abs(lin(rt)[0] * sv[0] + lin(rt)[1] * sv[1]) > .2) for (const S of torsoStrokes) {
           const P = toL(Q(S.al, side * f * .15)); Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0);
-          strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(2.8, hd_ * (.028 + .012 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
+          strk(Z, AM[2], P, rD, hd_ * S.Ls, Math.max(3.2, hd_ * (.032 + .012 * S.wj)), .18, lin(dn)); Z.restore(); any = true;
         }
         // uzun giysi kıvrımları: etekten yukarı giren uzun, sivrilen vuruşlar (ışık ya da gölge yanında yoğun)
         if (robe) { const rF = rng((o.seed || 3) * 7 + 1), dD = lin(dn), dU = [-dD[0], -dD[1]];
           for (let i = 0; i < 2 + Math.round(dens); i++) { const sd = (side > 0 ? 1 : -1) * (.75 - i * (.45 + .2 * rF())) , P = toL(Q(4.8, sd * f * (hwH + .3)));
-            Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0); strk(Z, AM[2], P, dD, hd_ * (.7 + .8 * rF()), Math.max(3, hd_ * .038), .05, lin(rt)); Z.restore(); } }
+            Z.save(); Z.setTransform(1, 0, 0, 1, 0, 0); strk(Z, AM[2], P, dD, hd_ * (.7 + .8 * rF()), Math.max(4.2, hd_ * .045), .05, lin(rt)); Z.restore(); } }
         // saç telleri: ışık yanında 3–4 ince, kıvrık vuruş (yalnız koyu figür, ışık üstten)
         if (!light && lit[1] < 0 && o.hair !== false) {
           const sw2 = Math.sin(t * .8) * .02 * wind, k = sc0;
