@@ -10,12 +10,12 @@ const nif_u = (t, a, b) => clamp((t - a) / ((b - a) || 1));
 // gök ve güneş (yönetmen notu 1): güneş temiz kâğıt disk + çevresinde tek ince mürekkep çizgisi; çevresi geniş temiz kâğıt;
 // dışa doğru seyrek ışınsal tarama (GR 'ray', üslup 10: sabit kalınlıkta çizgi, merkeze yakın kendiliğinden kaybolur). Eş merkezli halka yok.
 // S: {x, y, r}; o: {dark (0..1 alacakaranlık), soft (0..1 ışık yumuşar: kamalar söner), beams (en çok iki kama: [açı, yarı genişlik, boy]),
-//   clouds (bulut listesi: {x, y, w, h, seed, n}): güneşe bakan kenarı ışıklı koyu bulut kütleleri (yazıların zemini de bunlardır), ring (false: disk çizgisi yok)}
+//   clouds (bulut listesi: {x, y, w, h, seed, n}): güneşe bakan kenarı ışıklı koyu bulut kütleleri (yazıların zemini de bunlardır), ring (yalnız çerçeve: true ya da kalınlık; varsayılan yok), tight (false: eski geniş kâğıt çevre)}
 function nif_gok(S, o = {}) {
   const { tx, px, tone } = GR, dk = o.dark || 0, sf = o.soft || 0, r = S.r;
   const lo = lerp(.66, .6, dk);   // en koyu gök tonu (.6'nın altına inmez)
   const g = tx.createRadialGradient(S.x, S.y, r, S.x, S.y, r * 4.6);
-  if (o.tight) { g.addColorStop(0, tone(.8)); g.addColorStop(.1, tone(.82)); } else { g.addColorStop(0, tone(1)); g.addColorStop(.12, tone(1)); }
+  if (o.tight !== false) { g.addColorStop(0, tone(.8)); g.addColorStop(.1, tone(.82)); } else { g.addColorStop(0, tone(1)); g.addColorStop(.12, tone(1)); }
   g.addColorStop(.3, tone(lerp(.9, .86, dk))); g.addColorStop(.6, tone(lerp(.76, .7, dk))); g.addColorStop(1, tone(lo));
   tx.fillStyle = g; tx.fillRect(-2000, -2000, W + 4000, H + 4000);
   px.fillStyle = GR.hatch({ type: 'ray', cx: S.x, cy: S.y, n: 96, id: 10, w: 3 }); px.fillRect(-2000, -2000, W + 4000, H + 4000);
@@ -36,7 +36,7 @@ function nif_gok(S, o = {}) {
   }
   const D = new Path2D(); D.arc(S.x, S.y, r, 0, TAU);
   GR.fill(D, tone(1), { th: 0, id: 10 });
-  if (o.ring !== false) { tx.save(); tx.strokeStyle = tone(.05); tx.lineWidth = 3; tx.stroke(D); tx.restore(); }
+  if (o.ring) { const c = GR.ox; c.save(); c.strokeStyle = GR.inkCol; c.lineWidth = o.ring === true ? 3.5 : o.ring; c.stroke(D); c.restore(); }   // yalnız çerçeve olarak (G05): kesintisiz, keskin üst katman
   for (const c of (o.clouds || [])) {
     const L = [S.x - c.x, S.y - c.y], l = Math.hypot(L[0], L[1]) || 1;
     PR.cloud({ x: c.x, y: c.y, w: c.w, h: c.h, seed: c.seed, lit: [L[0] / l, L[1] / l], base: .03, hi: c.hi ?? .85, core: .02, n: c.n || 4, drift: (o.t ? Math.sin(o.t * .07 + c.seed) * 8 : 0) });
@@ -536,7 +536,7 @@ plan('P070', (ctx, st) => {
   const a = E.io2(nif_u(t, tK, tK + 1)) * (1 - E.io2(nif_u(t, tE - .2, tE + .6)));
   levha(ctx, { cx: lerp(990, 950, st.p), cy: 540, z: 1 }, () => {
     const { tx, px, tone } = GR, S0 = { x: 960, y: 540, r: 520 };
-    nif_gok(S0, { beams: [], ring: true });
+    nif_gok(S0, { beams: [], ring: 4 });
     if (a <= 0) return;
     const D = new Path2D(); D.arc(S0.x, S0.y, S0.r - 3, 0, TAU);
     // anı diskin içine basılır; görünürlük a: önce ton katmanında karışır (yarıdan sonra tarama da)

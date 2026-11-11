@@ -44,8 +44,8 @@ function cen_b10(t) {
     ox.restore(); }
   // koyu bulut terasları alttan yükselir (iki yanda katlı küme, önde alçak kat)
   const dy = (1 - v) * 520;
-  cen_bulutKat({ x0: -300, x1: 760, y: 640 + dy, h: 280, seed: 61, L, t, n: 3 });
-  cen_bulutKat({ x0: 1160, x1: 2220, y: 620 + dy * 1.15, h: 280, seed: 62, L, t, n: 3 });
+  cen_bulutKat({ x0: -400, x1: 760, y: 700 + dy, h: 400, yb: H + 200, seed: 61, L, t, n: 4 });
+  cen_bulutKat({ x0: 1160, x1: 2320, y: 680 + dy * 1.15, h: 400, yb: H + 200, seed: 62, L, t, n: 4 });
   cen_bulutKat({ x0: -300, x1: 2220, y: 960 + dy * .6, h: 200, yb: H + 200, seed: 63, L, t, n: 7 });
 }
 plan('P017', (ctx, st) => levha(ctx, null, () => cen_b10(st.t), [.975, 0, 1]), { tr: { type: 'paper', dur: 1.0 } });
@@ -54,8 +54,8 @@ plan('P017', (ctx, st) => levha(ctx, null, () => cen_b10(st.t), [.975, 0, 1]), {
 function cen_c01(t) {
   const L = { x: 960, y: 210 }, dr = Math.sin(t * .1) * 6;
   cen_gok(L, { r0: 520, r1: 1400, v: .72, n: 100 });
-  cen_bulutKat({ x0: -300, x1: 640, y: 640, h: 280, seed: 71, L, t, n: 3 });
-  cen_bulutKat({ x0: 1280, x1: 2220, y: 630, h: 280, seed: 72, L, t, n: 3 });
+  cen_bulutKat({ x0: -400, x1: 680, y: 720, h: 400, yb: H + 200, seed: 71, L, t, n: 4 });
+  cen_bulutKat({ x0: 1240, x1: 2320, y: 700, h: 400, yb: H + 200, seed: 72, L, t, n: 4 });
   cen_bulutKat({ x0: -300, x1: 2220, y: 960, h: 190, yb: H + 200, seed: 73, L, t, n: 7 });
 }
 // açık kart: ince mürekkep çizgi + başlık + soru (temiz kâğıt bölgede mürekkep harf; panel yok)
