@@ -465,5 +465,6 @@ shot(Se('A02') + .05, (ctx, st) => {
 // Ses 0,9. saniyede başlar; o ana kadar Cabanel'in gözü ve dolmakta olan damla. İki kapağın vaadi de ilk saniyede:
 // göz ve damla (kapak B) → "Ben cehennemim" figürü (kapak A). P002g aynı gözü 10. saniyede geri çağırır (damla dolar).
 shot(0, (ctx, st) => {
-  levha(ctx, { cx: 940, cy: 520, z: 1 }, () => cab_yakin(st.t, { yas: lerp(.15, .5, E.out2(st.p)), kay: 0 }), [.03, 0, 1]);
+  // yakın kadraj (kapak B ile aynı ölçek: göz kadraj genişliğinin ~%45'i; damla 1 saniyeden kısa sürede tanınmalı)
+  levha(ctx, { cx: 930, cy: 505, z: 2.2 }, () => cab_yakin(st.t, { yas: lerp(.35, .8, E.out2(st.p)), kay: 0 }), [.03, 0, 1]);
 }, { id: 'P000g', tr: { type: 'cut' } });

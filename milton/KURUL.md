@@ -446,3 +446,15 @@ Hiçbir ölçüt 7'nin altında değil. İki üye de kavramı, "PİŞMAN MIYDI?"
 - **Reddedilen:** filmdeki damlanın kapaktaki gibi mavi olması (P-TO). Gerekçe: film siyah-beyaz; tek vurgu rengi yalnız kapakta. Koyu A'nın üçüncü test seçeneği olması (P-Sanat karşı çıktı; açılışla eşleşmiyor): teste girmiyor.
 - Başlık: 1. aday ("Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"). Test: A (tırnaklı) ana kapak, B ikinci seçenek.
 - Filmin açılış figürü kapaktaki iyileşmiş figüre uyduruluyor (P-TO'nun 1. bulgusu).
+
+### Kapak kurulu tur 3 (son rötuşların gerileme kontrolü)
+| Üye | A (tur 2 → 3) | B (tur 2 → 3) | Karar |
+|---|---|---|---|
+| P-TO | 8,8 → **9,0** | 8,3 → 8,7 | A: **ONAY** (ana kapak); B: RED (tek madde filmde) |
+| P-Sanat | 8,4 → 8,9 | 8,3 → **9,0** | B: **ONAY**; A: RED (tek madde: alev dibi) |
+
+- Her kapak bir üyeden ONAY aldı; öteki üyede eşiğe 0,1–0,3 kaldı ve her birinde **tek** madde var.
+- P-Sanat, A: tur 8'de eklenen yuvarlak kor tabanı "kâse/kandil" gibi okunuyor (gerileme). Dip kaldırılıyor, ışıma pelerine eriyor (tur 9).
+- P-TO, B: kapağın kendisinde istek yok; filmin ilk karesindeki (0–0,9 sn) göz planında damla 25 px, bir saniyeden kısa sürede tanınmıyor. Plan yakın ölçekte yeniden çiziliyor (göz kadrajın ~%45'i, damla ≥ 80 px); aynı işte filmdeki damla ve iris kapaktaki gravür çizime uyduruluyor.
+- P-TO test planını onayladı: A ana kapak, B ikinci seçenek; başlık 1. aday; filmdeki damla siyah-beyaz kalır (üye katıldı).
+- İki maddeden sonra tek üyeli gerileme kontrolü: A için P-Sanat, B'nin açılış vaadi için P-TO.
