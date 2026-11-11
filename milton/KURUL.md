@@ -271,3 +271,25 @@ Kalıcı ders: cennet ve Aden sahneleri kâğıt ağırlıklı (yüksek anahtar)
 - Seçim: `vo/secim.json` (en düşük hata; eşitlikte kısa olan). Duraklar: `vo/plan.json` (A-Ses önerisi rev3 kimliklerine uyarlandı).
 - Zaman çizelgesi: `timeline.js`, **25:49**. s23 yer tutucu sessizlikle duruyor (36 sn tahmini); çekim gelince `tools/build_vo.py` yeniden çalıştırılır, görüntü işaretlere bağlı olduğu için kendiliğinden kayar.
 - Bölüm başlangıçları: 0:00 Ben cehennemim · 0:56 Kör şair · 2:45 Işık taşıyan · 4:57 Dokuz gün · 6:31 Cehennemde kral · 9:32 Kapıdaki bekçiler · 10:56 Güneşe itiraf · 14:09 Aden'de bir yabancı · 16:01 Yılanın içinde · 17:37 Alkış · 19:34 Dünya önlerindeydi · 20:21 İki okuma · 22:47 Bir damla yaş.
+
+### Tur 3
+| Üye | Puan | Karar | Kalan en önemli bulgu |
+|---|---|---|---|
+| U-Sanat | 7,85 | RED (ortalama < 9; hiçbir ölçüt < 7 değil) | alevler koni/yelken gibi; gök ve gölde geniş yatay ızgara; huzmeler figürle ilişki kurmuyor |
+| U-Gravur | 7,4 | RED (U5 6,5) | kanatta gri kontur; beyaz çizgi kenara paralel "eko" (forma girmiyor); omuzda üç şerit, ufuk alevleri, su çizgisinde barkod |
+| U-Teknik | 8,55 | RED (ortalama < 9) | kanat ve figür kenar ışığı 1–2 px; yaklaşmada ton kayması iddiası |
+
+Üyelerin doğruladıkları: figür artık manken değil, düşmüş başmelek silueti; **göğüs bulgusu (kırmızı çizgi 6) kapandı**; bulut halkaları, kaya, zincir, sağ kanat giderildi; 427 px'te moiré büyük ölçüde gitti (1 px'lik beyaz koşu %13,8 → %3,1); titreşim 0,40/255; CRF 18'de 4,3 Mbps, SSIM 0,9986. Üç üye de "24 dakika göz yormaz; risk tekdüzelik" dedi.
+
+**Başkan kararı:**
+1. Alev: küçük ve orta diller taramasız kâğıt beyazı, S kavisli; uzak bant taramasız; dip gölgesi yalnız büyük dillerde; sağ alttaki tek kırıntı kaldırıldı. *(uygulandı)*
+2. "Beyaz çizgi" forma girdi: bulutta tek kenar hilali + ışık yanından kütlenin içine giren, kıvrılan, düzensiz uzunlukta sivri vuruşlar; kayada üst kenardan inen vuruşlar. *(uygulandı; figür ve kanat için ajanlara verildi)*
+3. Göl: perspektifli tarama (ufukta 7,5 px, önde 12,5 px); ufuktan uzakta düz siyah. Gökte taralı kuşak daraltıldı. *(uygulandı)*
+4. Huzme: yarıktan yelpaze gibi açılan altı ince, sivrilen çizgi; en uzunları figüre ulaşır. *(uygulandı)*
+5. Zincir: kısa ve suya dalar. *(uygulandı)*
+6. Kanat: gri/yarı saydam çizgi yok; yalnız kâğıt ya da mürekkep. Figür: omuz şeridi ve yaka kalkar, saç dış hattı yumuşar. *(ajanlarda)*
+7. Kenar ışıkları en az 3 px. *(ajanlarda)*
+
+**Reddedilen bulgu:** U-Teknik'in "yaklaşmada ton beyaza kayıyor" iddiası. Aynı dünya yamalarının ortalama parlaklığını z = 1,0 ve z = 1,5 karelerinde ölçtüm: 67,4 → 64,3; 147,6 → 142,8; 26,4 → 27,0; 49,2 → 49,1. Fark vinyetten gelen ±%3; ton kaymıyor. (Üye de nedeni kodu okumadan doğrulamadığını yazmıştı.) Yönetmenlik kuralı olarak yine de kamera yaklaşması 1,25 katı geçmeyecek; daha yakın kadrajlar kesmeyle ve sahne o ölçekte çizilerek kurulacak (U-Sanat'ın "yaklaşınca çizgi jaluziye dönüyor" bulgusu).
+
+**Cennet eskizi için ortak yön (puanlanmadı):** tarif doğru (cehennemin tersi). Açık nesne konturla değil arkasındaki taramayla ayrılacak; gölge yanında forma giren mürekkep vuruşları; karede %15–25 koyu bir çapa; tek ve baskın, taramasız bir ışık merkezi; **cennette tarama ışınsal/eş merkezli, cehennemde yatay** (iki dünya çizgi yönüyle de ayrılır); saflar üst üste binen sıralar hâlinde, uzaklaştıkça küçülür.

@@ -1,0 +1,93 @@
+{
+  "uye": "U-Sanat",
+  "mercek": "sanat yönetmeni (animasyon filmi ve illüstrasyon)",
+  "karar": "RED",
+  "puan": 7.85,
+  "puanlar": {"U1": 7.5, "U2": 8, "U3": 8.5, "U4": 7.5, "U5": 7.5, "U6": 8},
+  "gerekce_ozet": "Kare artık tutarlı, kendine ait bir gravür/linol dili konuşuyor ve kompozisyon güçlü. Tek odak başın hemen arkasında (ölçülen en parlak 64 px blok x 848, y 448). Figür manken ya da oyuncak asker değil, ışığa bakan, kanatlı, koyu bir düşmüş başmelek siluetine döndü; göğüste sakıncalı okuma kalmadı. Hiçbir ölçüt 7'nin altında değil. Ama 9'a ulaşmıyor, üç sebeple: (1) Alevler hâlâ karenin en ucuz öğesi; şimdi ot değil, beyaz koni, yelken ya da köpekbalığı yüzgeci gibi okunuyorlar. (2) Gök ve göl hâlâ geniş, yüksek karşıtlıklı yatay çizgi ızgarası. 'Göl düz siyah + yansıma tireleri' iddiası karede doğrulanmıyor. Yakın planda çizgiler kalınlaşınca ızgara daha da baskın oluyor. (3) Yarıktaki huzme, figüre inen bir ışık değil, sağ üst köşede dört çizik ya da kuyruklu yıldız gibi duruyor.",
+  "olcumler": {
+    "koyu_<40": 0.702,
+    "kagit_>200": 0.164,
+    "ara_ton": 0.134,
+    "ortalama_parlaklik": 70.1,
+    "en_parlak_blok": "x 848, y 448 (başın arkası)",
+    "kare_farki_ortalama": {"figur": 0.54, "kanat": 1.56, "tum_kare": 0.63},
+    "yuksek_karsitlikli_cizgili_32px_blok_orani": 0.504,
+    "not": "Son ölçü kenarları da sayar, gerçek ızgara alanını biraz abartır. Yine de gökte (x 560–1500, y 0–560) ve gölde (x 260–1920, y 600–1000) geniş çizgili alan gözle de açık."
+  },
+  "tur2_bulgulari": [
+    {"no": 1, "bulgu": "Figür manken/oyuncak asker; göğüste iki yay", "durum": "giderildi (ana karede) / kısmen (poz sayfasında)", "not": "Ana karede tek kütle siluet, kalın boyun, eğimli omuz, yukarı ve ışığa dönük klasik profil; düşmüş başmelek gibi okunuyor. Göğüste yalnız bir yaka kavsi ve sağ omuzda iki paralel omuzluk kenarı var; meme ya da sütyen okuması kalmadı. figur_pozlar.jpg'de 'büyük el' ayakta ve yürüyen figürde uzun bir oval leke gibi duruyor; ekmek, ayakkabı ya da sopa tutuyor gibi (x 380–445, y 500–525 ve x 730–795, y 510–545). Diz çöken taramalı figür karmaşık ve okunmuyor (x 660–1040, y 490–870)."},
+    {"no": 2, "bulgu": "Bulut halkaları mantar/kovan/uçan daire", "durum": "kısmen", "not": "Halkalar gitti; mantar ve daire okuması yok. Yerine düz siyah kütle ve altında 1–3 beyaz hilal geldi. Sol bulutun alt kenarındaki çift beyaz kontur (x 130–740, y 260–500) ve sağ bulutunki (x 1270–1920, y 300–500) vektör 'ofset kontur' ya da çizgi roman bulutu gibi okunuyor; Doré'nin kıvrılan duman kenarı değil. Hilaller kütle boyunca eşit kalınlıkta ve paralel; sivrilme kısa."},
+    {"no": 3, "bulgu": "Sağ kanat kıl yığını, kök görünmüyor", "durum": "giderildi", "not": "Sağ kanat (x 990–1190, y 520–790) ön kenar ışığı, katmanlı tüyler ve sivri uçlarla kanat olarak okunuyor; kök omuz arkasından çıkıyor."},
+    {"no": 4, "bulgu": "Yarık çapraz kurdele gibi; huzme yok", "durum": "kısmen", "not": "Kurdele kalktı, keskin bir yırtık var (x 1510–1710, y 10–45). Ama dört huzme kısa (x 1270–1620, y 0–175) ve figüre doğru inmiyor; çizik, yağmur ya da kuyruklu yıldız gibi okunuyor. Yarık ile figür arasında bir ilişki kurulmuyor; figürün bakışı ufuk parıltısına gidiyor, yarığa değil."},
+    {"no": 5, "bulgu": "Alevler ot/saz; ufukta sıradağ", "durum": "kısmen", "not": "Ot görüntüsü gitti, ufuk bandı alçaldı ve sıradağ okuması azaldı. Ama dikey taramalı, tek sivri uçlu beyaz koniler (sağ uzak x 1250–1660, y 540–665; figür yanı x 530–800 ve 990–1230, y 600–840) yelken, köpekbalığı yüzgeci ya da trafik konisi gibi okunuyor. Dilde S kavsi, kopan damla ve kıvrım yok. Sağ öndeki kontur taramalı alevler (x 1520–1920, y 800–1080) iyi; uzak alevler de bu dilde olmalı."},
+    {"no": 6, "bulgu": "Zincirler bilekten kopuk", "durum": "giderildi", "not": "Zincir bilekten çıkıyor ve su yüzeyinde iki yana uzanıyor (x 510–750 ve 1060–1305, y 790–840). Okunuyor, ama suya inmediği için 'göle bağlı' değil 'yüzeyde yatan' gibi. Küçük not."},
+    {"no": 7, "bulgu": "Göl ve gökte geniş yüksek karşıtlıklı ızgara (göz yorgunluğu)", "durum": "kısmen", "not": "Çizgi aralığı arttı (12–12,5 px) ve uçlar sivri; bu titreşimi azaltıyor (kare farkı 0,63). Ama göl gövdesi düz siyah değil: x 260–1920, y 600–1000 boyunca kalın yatay çizgiler sürüyor. Gökte de x 560–1500, y 0–560 tam ızgara. Aralık artınca çizgiler kalınlaştı; desen artık daha iri ve daha 'grafik'. Yakın planda (yakin_z1.5) çizgi kalınlığı ~8 px, aralık ~18 px ve ızgara ekranın yarısından fazlası."},
+    {"no": 8, "bulgu": "Kaya low-poly", "durum": "giderildi", "not": "Koyu siluet ve ışıklı sırt çizgisi temiz bir ön plan çerçevesi veriyor. Sırt çizgisi düz segmentlerden oluştuğu için hafif harita sınırı gibi (x 0–400, y 560–1080); kabul edilebilir."},
+    {"no": 9, "bulgu": "Saç boncuk dizisi; boyunda küpe çizgisi", "durum": "giderildi", "not": "Saç yumuşak bir kütle. Küçük boyda baş biraz kask gibi yuvarlak (x 830–940, y 480–560); arkaya akan bir tutam ucu siluete kırılma verirdi."}
+  ],
+  "duzeltmeler": [
+    {
+      "sira": 1,
+      "bolge": "uzak alevler x 1250–1660, y 540–665 ve x 220–320, y 510–700; figür yanı alevler x 530–800 ve x 990–1230, y 600–840",
+      "sorun": "Alevler dikey taramalı, tek uçlu, simetrik beyaz koniler. Yelken, yüzgeç ya da koni gibi okunuyorlar ve 24 dakikalık filmde en sık tekrar edecek öğe yine bunlar.",
+      "oneri": "lib/prim.js flameBank: (1) Sağ öndeki alevin dilini (kontur taraması, kıvrılan ve yırtılan kenar) ölçekleyip uzak ve orta alevlere uygula; bütün alevler tek bir dili konuşsun. (2) Her dilin ekseni S kavisli olsun (yanal genlik boyun %20'si), uçta %30 olasılıkla kopan küçük bir damla bulunsun. (3) İçteki dikey tarama kalksın; iç temiz kâğıt kalsın, tarama yalnız gölge kenarında, alev ekseni boyunca 2–3 kısa sivrilen çizgi olarak verilsin. (4) Uzak alevlerin sayısını yarıya indir, iki yükseklik sınıfı kullan (büyük 1, küçük 3–4)."
+      ,"onem": "yüksek"
+    },
+    {
+      "sira": 2,
+      "bolge": "göl x 260–1920, y 600–1000; gök x 560–1500, y 0–560; yakın planlarda bütün kare",
+      "sorun": "Geniş, yüksek karşıtlıklı, tek frekanslı yatay ızgara hâlâ karenin büyük bölümü. İddia edilen 'düz siyah göl' karede yok. Kamera yaklaşınca çizgiler dünyaya bağlı olduğu için kalınlaşıyor ve yakın planda ızgara iri bir jaluzi deseni oluyor.",
+      "oneri": "lib/sahne/gol.js lake ve lib/gravur.js: (1) Gölde y > 700 bölgesini düz siyah yap; yalnız yansıma sütununda (x 640–1100) ve alev diplerinde, aralığı 18–24 px olan sivrilen kâğıt beyazı tireler kalsın. (2) Gökte parıltıdan uzaklaştıkça çizgi sayısını azalt (P 12 → 20), dış halkada tek tük çizgiler olsun. (3) Kamera yaklaşmasında ekran uzayında periyodu sınırla: z > 1,2 olunca dünya periyodunu z ile böl ve yeni ara çizgileri sivri uçlarla soluklaştırarak getir (Doré'de büyütülen levhada çizgi kalınlaşmaz, sıklaşır). (4) Render denetimine kural koy: yüksek karşıtlıklı çizgili alan karenin %30'unu geçmesin."
+      ,"onem": "yüksek"
+    },
+    {
+      "sira": 3,
+      "bolge": "yarık ve huzme x 1260–1720, y 0–180; figür başı x 830–950, y 480–560",
+      "sorun": "Huzme kısa ve köşede kalıyor; dört çizik ya da kuyruklu yıldız gibi duruyor. Anlatıda 'yitik cennetin yarığı' figürle ilişki kurmuyor.",
+      "oneri": "lib/sahne/gol.js ve prim.js rays: (1) Huzmeleri yırtıktan (1600, 30) figürün başına (880, 470) doğru uzat; uzunluk ≥ 600 px, uç kısmı düz siyah üzerinde soluklaşan kesik çizgilerle bitsin. (2) Huzme çizgileri 2–3 px kalınlıkta, aralarında farklı açılar (±3°) olsun, paralel çizik görüntüsü kırılsın. (3) Alternatif: yarık bu karede yalnız bir işaret olarak kalacaksa huzmeleri tamamen kaldır, yırtığı biraz büyüt (260×50) ve figürün başını 10–15° sağa, yarığa çevir. Böylece bakış çizgisi kompozisyonu bağlar. Hangisi seçilirse seçilsin, 'çizik' görüntüsü gitmeli."
+      ,"onem": "orta"
+    },
+    {
+      "sira": 4,
+      "bolge": "bulut alt kenarları: sol x 130–740, y 260–500; sağ x 1270–1920, y 300–500",
+      "sorun": "Kütlenin alt kenarını izleyen çift ya da üçlü eşit kalınlıktaki beyaz hilaller vektör ofset kontur ya da çizgi roman bulutu gibi okunuyor.",
+      "oneri": "lib/prim.js cloud: hilal sayısını yumru başına 1–2'ye indir. Her hilal ortada kalın (4–5 px), uçlarda sivri (0) olsun ve yumrunun yalnız ışığa bakan üçte birini izlesin; kenarı tam dolaşmasın. İkinci hilal birincinin %60 boyunda ve kaydırılmış başlasın. Alt kenara düşük frekanslı düzensizlik ekle (±8 px), yumrular kusursuz daire yayı olmasın."
+      ,"onem": "orta"
+    },
+    {
+      "sira": 5,
+      "bolge": "figur_pozlar.jpg: eller x 380–445, y 500–525 ve x 730–795, y 510–545; diz çöken figür x 660–1040, y 490–870",
+      "sorun": "Ana karede sorun yok; ama diğer sahnelerde kullanılacak pozlarda 'büyük el' uzun bir oval leke gibi, tutulan bir nesne gibi okunuyor. Taramalı diz çöken figürde çizgi doğrultuları karışmış, siluet kayboluyor.",
+      "oneri": "lib/siluet.js: el siluetini 'kapalı yumruk + başparmak' ya da 'açık el, parmaklar birleşik, başparmak ayrık' olarak iki şablonla ver; el uzunluğu baş boyunun ~0,75'i olsun. Taramalı (açık tonlu) figürlerde tek bir tarama doğrultusu kullan ve dış konturu 2 px koyu çizgiyle kapat. Yönetmenlik kuralına (orta ve uzak plan, sarılı siluet) uyuyor, ama elin göründüğü her planda bu düzeltme gerekli."
+      ,"onem": "orta"
+    },
+    {
+      "sira": 6,
+      "bolge": "zincirler x 510–750 ve 1060–1305, y 790–840",
+      "sorun": "Zincirler su yüzeyinde yatay yatıyor; 'göle bağlı' değil, 'yüzeyde duran' gibi.",
+      "oneri": "PR.chain: bilekten sonra 2–3 halka yüzeyde kalsın, sonra zincir 30–40° açıyla suya dalsın ve y 880'de soluklaşarak kaybolsun."
+      ,"onem": "düşük"
+    },
+    {
+      "sira": 7,
+      "bolge": "kanat beyaz iç çizgileri x 360–790 ve 990–1190, y 430–790",
+      "sorun": "Tüy kenarlarındaki ince beyaz çizgiler kesik kesik ve 1 px'e yakın. 1920'de kırpıntı gibi, 427'de kayboluyor; yakın planda tırnak çiziği gibi okunuyor.",
+      "oneri": "lib/kanat.js: iç tüy çizgileri en az 2 px olsun ve sayısı yarıya insin. Kesintisiz ön kenar ışığı kalsın; iç çizgiler yalnız ışığa en yakın 4–5 tüy kümesinde bulunsun."
+      ,"onem": "düşük"
+    }
+  ],
+  "korunmali": [
+    "Tek odak ve değer planı: başın arkasındaki parıltı, ışığa bakan profil siluet; %70 koyu, %16 kâğıt, %13 ara ton.",
+    "Tek kütle figür siluet ve bütüne bir kez uygulanan kenar ışığı; klasik profil ve yukarı bakış.",
+    "Asimetrik, yanık, suya giren kanatlar ve ön kenar ışığı.",
+    "Koyu kaya siluet ve ışıklı sırt çizgisi (sol ön çerçeve).",
+    "Sağ öndeki kontur taramalı alev dili (bütün alevler buna yaklaşmalı).",
+    "Titreşimsiz motor (kare farkı figürde 0,54) ve sivrilen çizgi uçları.",
+    "Yönetmenlik kuralı: Şeytan çoğunlukla orta ve uzak planda, kanat ve pelerinle sarılı siluet."
+  ],
+  "yirmi_dort_dakika_goz_yorar_mi": "Bu kare tek başına artık rahat: titreşim yok, çizgiler kalın ve seyrek, odak net. Ama bu dil, bu oranlarla 24 dakika sürerse yorar. Sebep artık ince çizgi değil, geniş alanları kaplayan yüksek karşıtlıklı, düzenli yatay ızgara. Gök ve göl birlikte karenin yarısına yakın. Yakın planlarda çizgiler kalınlaştığı için ızgara daha da baskınlaşıyor. Uzun izlemede bu tür desen 'çizgili ekran' yorgunluğu ve sıkıştırmada iri bantlanma yapar. 2. madde uygulanırsa (göl gövdesi düz siyah, gökte uzaklaştıkça seyrelen çizgi, yakın planda periyot sınırı, %30 kuralı) ve film değer anahtarını sahneden sahneye değiştirirse (cehennem alçak anahtar, cennet ve Aden yüksek anahtar) yormaz. Bu iki koşul sağlanmadan hayır diyemiyorum.",
+  "cennet_eskizi_yon_gorusu": "Yön doğru: cehennemin tersi olan yüksek anahtar (kâğıt ağırlıklı, gölge yanında mürekkep hilali) aynı grameri koruyup duyguyu tersine çeviriyor ve 24 dakikalık filme nefes aldırır. Değişmesi gerekenler: (1) Açık figür kâğıt üstünde kâğıt olduğu için kayboluyor. Değer karşıtlığı gerek: figürü daha koyu bir zemin bölgesinin önüne koy (ör. arkasında taralı bir bulut gölgesi) ya da gölge yanını yoğun taramayla kapat. Yalnız ince bir kontur 'boyama kitabı' gibi duruyor. (2) Saflar (x 1030–1830, y 500–740) birebir kopya, eşit aralıklı on bir figür; oyuncak asker dizisi gibi. Derinlik ver: üst üste binen 3–4 sıra, uzaklaştıkça küçülen ve soluklaşan figürler, mızrak açılarında ±4° farklılık, ön sırada birkaç büyük figür. (3) Kâğıt beyazı bulutlar mürekkep hilalleriyle çakıl taşı ya da sabun gibi okunuyor; cehennemdeki düzeltmeyle aynı (tek sivrilen hilal, düzensiz kenar). (4) Tanrı 'yalnız ışık' olacağı için tek bir baskın ışık kaynağı lazım: sağ üstte taramasız saf kâğıt bir merkez, ondan yayılan ve uzaklaştıkça sıklaşan tarama. Şu an gök her yerde aynı yatay çizgide ve ışığın nereden geldiği belli değil. (5) Kareyi kesen çapraz huzme bantları çok grafik; sayıyı 2'ye indir ve uçlarını sivrilt. (6) Yüksek anahtarda yatay çizgiyi incelt (siyah çizgi 1,7–2,5 px) ve aralığı büyüt; açık zeminde kalın siyah ızgara karanlıktakinden daha çok göz yorar.",
+  "yazi_gorusu": "Puanlamaya girmiyor, dosyalara bakmadım; yorum yapmıyorum.",
+  "en_emin_olmadigim_nokta": "Bu dilin Doré'den çok 20. yüzyıl linol baskısı ya da Art Deco afişi gibi okunmaya başlaması bir kusur mu, yoksa kanalın kendi kimliği olarak kabul edilebilir bir yorum mu? Tutarlı ve göz dostu olduğu kesin, ama 'Doré gravürü' vaadini (U1) tam karşılamıyor. Kullanıcı 'profesyonel ve göz yormayan' dediği için bu sapmayı bilinçli bir tercih olarak kabul etmeye yatkınım. Bu yüzden U1'i daha sert kırmadım. Bunun gravür üyesiyle birlikte netleşmesi gerekir."
+}
