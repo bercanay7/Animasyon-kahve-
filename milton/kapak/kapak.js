@@ -153,10 +153,10 @@ function kpk_alevRenk(ctx, F) {
 }
 // kor halesi: pelerinin karası üstünde yumuşak turuncu ışıma (screen); figürün dışına ve kenar ışığına taşmaz
 function kpk_korHale(ctx, F) {
-  const U = KPK_A6.K.U, b = F.base, c = [b[0], b[1] - F.L * .42];
+  const U = KPK_A6.K.U, b = F.base, c = [b[0], b[1] - F.L * .3];
   const G = makeCanvas(DW, DH), g = G.getContext('2d'); g.setTransform(RS, 0, 0, RS, 0, 0);
-  g.save(); g.translate(c[0], c[1]); g.scale(1, 1.45);
-  const r = .175 * U, q = g.createRadialGradient(0, 0, r * .25, 0, 0, r); q.addColorStop(0, 'rgba(255,120,30,.75)'); q.addColorStop(.55, 'rgba(230,80,20,.35)'); q.addColorStop(1, 'rgba(200,50,10,0)');
+  g.save(); g.translate(c[0], c[1]); g.scale(1, 1.25);
+  const r = .15 * U, q = g.createRadialGradient(0, 0, r * .2, 0, 0, r); q.addColorStop(0, 'rgba(255,120,30,.6)'); q.addColorStop(.4, 'rgba(235,85,20,.22)'); q.addColorStop(1, 'rgba(200,50,10,0)');
   g.fillStyle = q; g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.restore();
   g.globalCompositeOperation = 'destination-in'; g.fillStyle = '#fff'; g.fill(F.cloak);
   g.globalCompositeOperation = 'destination-out'; g.lineWidth = .045 * U; g.stroke(F.cloak); for (const wg of F.wings) g.stroke(wg.path);
@@ -251,14 +251,11 @@ function kpk_b6Sahne(t) {
   const { tx } = GR, G = CAB.goz, { D, r } = KPK_B6;
   cab_yakin(t, { yas: 0 });
   tx.save(); tx.globalCompositeOperation = 'multiply';
-  const g = tx.createRadialGradient(G.x + 30, G.y + 30, 160, G.x + 30, G.y + 30, 520);
-  g.addColorStop(0, GR.tone(1)); g.addColorStop(.5, GR.tone(.7)); g.addColorStop(1, GR.tone(.1));
-  tx.fillStyle = g; tx.fillRect(-400, -400, W + 800, H + 800);
-  const lin = (x0, y0, x1, y1, a, b2) => { const q = tx.createLinearGradient(x0, y0, x1, y1); q.addColorStop(0, GR.tone(a)); q.addColorStop(1, GR.tone(b2)); return q; };
-  tx.fillStyle = lin(0, 280, 0, 335, .02, 1); tx.fillRect(-400, -400, W + 800, 735);          // üst: saç kenarı düz koyu
-  tx.fillStyle = lin(0, 610, 0, 665, 1, .03); tx.fillRect(-400, 610, W + 800, H);              // alt: kollar düz koyu kütle
-  tx.fillStyle = lin(1095, 0, 1140, 0, 1, .03); tx.fillRect(1095, -400, W, H + 800);           // sağ: yazının zemini
-  tx.fillStyle = lin(625, 0, 690, 0, .03, 1); tx.fillRect(-400, -400, 1090, H + 800);          // sol: nefes payı
+  // eliptik ışık: göz ve kaş aydınlık, çevresi yumuşakça düz karaya (kare levha kenarı yok)
+  tx.save(); tx.translate(G.x - 20, G.y - 10); tx.scale(1, .52);
+  const g = tx.createRadialGradient(0, 0, 230, 0, 0, 430); g.addColorStop(0, GR.tone(1)); g.addColorStop(.45, GR.tone(.75)); g.addColorStop(1, GR.tone(.02));
+  tx.fillStyle = g; tx.fillRect(-3000, -3000, 6000, 6000); tx.restore();
+  { const q = tx.createLinearGradient(1070, 0, 1125, 0); q.addColorStop(0, GR.tone(1)); q.addColorStop(1, GR.tone(.02)); tx.fillStyle = q; tx.fillRect(1070, -400, W, H + 800); }   // sağ: yazının zemini
   tx.restore();
   // kontrast eğrisi: ara tonlar azalır (üç değer: düz siyah, temiz kâğıt, dar geçişte tarama) → 168 px'te "bozuk ekran" çizgileri azalır
   { tx.save(); tx.setTransform(1, 0, 0, 1, 0, 0); const I = tx.getImageData(0, 0, DW, DH), A = I.data, LUT = new Uint8Array(256);

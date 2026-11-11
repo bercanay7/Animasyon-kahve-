@@ -40,1716 +40,1739 @@ yalnızca görünür bir karanlık.
 Kırılmaz zincirlerle bu göle bağlı.
 
 10
-00:00:35,750 --> 00:00:40,880
-Bu hikâye bir şiirden: John
-Milton'ın destanından, Kayıp Cennet'ten.
+00:00:35,750 --> 00:00:37,520
+Bu hikâye bir şiirden:
 
 11
+00:00:37,617 --> 00:00:40,880
+John Milton'ın destanından,
+Kayıp Cennet'ten.
+
+12
 00:00:41,110 --> 00:00:46,110
 Buradaki Şeytan, bir şairin kaleminden
 çıkmış bir karakter; biz de bu hikâyeyi
 
-12
+13
 00:00:46,110 --> 00:00:50,120
 bir din anlatısı olarak değil,
 bir edebiyat eseri olarak okuyacağız.
 
-13
+14
 00:00:50,780 --> 00:00:54,630
 Ve bu destanı yazdıran şair,
 hiçbir şey göremiyordu.
 
-14
+15
 00:00:56,860 --> 00:01:01,210
 Hiçbir şey göremeyen bir adam,
 cehennemi nasıl bu kadar iyi gördü?
 
-15
+16
 00:01:02,500 --> 00:01:04,650
 Londra'da bir ev; gece.
 
-16
+17
 00:01:05,000 --> 00:01:08,330
 Bir adam uyuyamıyor;
 zihninde dizeler kuruyor.
 
-17
+18
 00:01:08,460 --> 00:01:10,560
 Anlatılanlara göre böyle gecelerde
 
-18
+19
 00:01:10,560 --> 00:01:14,050
 bazen kızını uyandırır,
 dizeleri ona yazdırırdı.
 
-19
+20
 00:01:14,320 --> 00:01:17,470
 Çoğu zaman da evde
 o sırada kim varsa, ona.
 
-20
+21
 00:01:17,820 --> 00:01:21,610
 Kırk dizeyi bir solukta söyler,
 sonra yirmiye indirirdi.
 
-21
+22
 00:01:22,230 --> 00:01:24,810
 İki küçük kızına, hiç bilmedikleri dilleri
 
-22
+23
 00:01:24,810 --> 00:01:29,040
 okumayı öğretmişti:
 İbranice, Yunanca, Latince.
 
-23
+24
 00:01:29,370 --> 00:01:32,190
 Kızlar, göremeyen babalarına,
 tek kelimesini
 
-24
+25
 00:01:32,190 --> 00:01:34,540
 anlamadıkları metinleri sesli okurdu.
 
-25
+26
 00:01:34,730 --> 00:01:38,380
 Bu saatler, yıllar içinde
 onlar için dayanılmaz oldu.
 
-26
+27
 00:01:39,020 --> 00:01:44,790
 Bu adam yalnızca bir şair değil,
 bir devrimciydi: Kralın idamını savunmuştu.
 
-27
+28
 00:01:45,020 --> 00:01:48,240
 Devrim çöküp krallık geri dönünce,
 Londra'da cellat
 
-28
+29
 00:01:48,240 --> 00:01:51,630
 onun kitaplarını ateşe
 atarken yazarı saklanıyordu.
 
-29
+30
 00:01:51,840 --> 00:01:54,990
 Alevleri göremezdi; sekiz yıldır kördü.
 
-30
+31
 00:01:55,090 --> 00:01:58,940
 Destanına,
 devrim henüz ayaktayken başlamıştı.
 
-31
+32
 00:01:59,130 --> 00:02:00,960
 Bu yenilginin içinde bitirdi.
 
-32
+33
 00:02:01,310 --> 00:02:04,840
 Destanın üçüncü kitabında
 kendi körlüğünü anlatır:
 
-33
+34
 00:02:05,110 --> 00:02:08,340
 “Mevsimler döner; ama bana gün dönmez.
 
-34
+35
 00:02:08,630 --> 00:02:13,653
 Ne sabah ne akşam,
 ne bahar çiçeği ne yaz gülü.
 
-35
+36
 00:02:13,890 --> 00:02:15,880
 Ne de bir insan yüzü.”
 
-36
+37
 00:02:16,810 --> 00:02:21,580
 Işığını kaybetmiş bir şair,
 ışığını kaybetmiş bir meleği anlatacaktı.
 
-37
-00:02:22,670 --> 00:02:27,200
-Yeğeninin anlattığına göre,
-bu hikâyenin ilk dizeleri çok daha önce,
-
 38
-00:02:27,200 --> 00:02:31,890
-Milton'ın gözleri henüz görürken, bir
-tiyatro oyununun açılışı olarak yazılmıştı.
+00:02:22,670 --> 00:02:25,830
+Yeğeninin anlattığına göre,
+bu hikâyenin ilk dizeleri
 
 39
+00:02:25,830 --> 00:02:29,110
+çok daha önce,
+Milton'ın gözleri henüz görürken,
+
+40
+00:02:29,110 --> 00:02:31,890
+bir tiyatro oyununun açılışı
+olarak yazılmıştı.
+
+41
 00:02:31,970 --> 00:02:38,160
 Ve o dizeler bir zafer şarkısı değildi:
 Şeytan'ın güneşe yaptığı bir itiraftı.
 
-40
+42
 00:02:38,290 --> 00:02:39,520
 Oraya geleceğiz.
 
-41
+43
 00:02:40,410 --> 00:02:43,880
 Ama önce, o meleğin düşmeden
 önceki hâline bakalım.
 
-42
+44
 00:02:45,950 --> 00:02:49,310
 Her şeye sahip olan biri,
 neden başkaldırır?
 
-43
+45
 00:02:50,450 --> 00:02:53,480
 Milton'ın cenneti ışıktan bir dünyadır.
 
-44
+46
 00:02:53,750 --> 00:02:57,720
 O dünyanın en parlak varlıklarından
 biri bir başmelektir:
 
-45
+47
 00:02:58,010 --> 00:03:02,040
 başmeleklerin en büyüklerinden biri,
 belki de en büyüğü.
 
-46
+48
 00:03:02,420 --> 00:03:05,210
 Milton onun cennetteki adını vermez:
 
-47
+49
 00:03:05,360 --> 00:03:10,640
 “Eski adı artık cennette anılmıyor;
 ona bundan böyle Şeytan deyin.”
 
-48
+50
 00:03:10,720 --> 00:03:16,850
 Yalnızca birkaç yerde, çekinerek,
 ona Lucifer adını yakıştırır: ışık taşıyan.
 
-49
+51
 00:03:16,950 --> 00:03:19,800
 Bir gün, Milton'ın anlattığına göre,
 
-50
+52
 00:03:20,070 --> 00:03:24,380
 Tanrı bütün melekleri toplar
 ve Oğul'u onların başına geçirir.
 
-51
+53
 00:03:24,630 --> 00:03:28,770
 Bundan sonra herkes onun önünde
 diz çökecek; ona karşı gelen,
 
-52
+54
 00:03:28,770 --> 00:03:34,000
-Tanrı'ya karşı gelmiş sayılacak ve dönüşü
-olmayan bir karanlığa düşecektir.
+Tanrı'ya karşı gelmiş sayılacak
+ve dönüşü olmayan bir karanlığa düşecektir.
 
-53
+55
 00:03:34,600 --> 00:03:38,430
 O gece yarısı başmelek,
 yardımcısını gizlice uyandırır.
 
-54
+56
 00:03:38,660 --> 00:03:41,880
 Ordularına bir yalan söyletir:
 Kuzeydeki saraya,
 
-55
+57
 00:03:41,880 --> 00:03:45,090
 yeni kralı karşılamaya
 hazırlanmak için gidecekler.
 
-56
+58
 00:03:45,390 --> 00:03:46,780
 Ve orada konuşur.
 
-57
+59
 00:03:47,110 --> 00:03:52,000
 Sözlerindeki kelime,
 isyanların en eski kelimesidir: özgürlük.
 
-58
+60
 00:03:52,670 --> 00:03:54,580
 “Boyun eğip diz mi bükeceksiniz?
 
-59
+61
 00:03:54,790 --> 00:03:56,880
 Biz cennetin öz evlatlarıyız.
 
-60
+62
 00:03:56,970 --> 00:04:01,300
 Hepimiz eşit değiliz belki,
 ama hepimiz eşit ölçüde özgürüz.
 
-61
+63
 00:04:01,430 --> 00:04:05,018
 Yasa olmadan da yoldan çıkmayan bizlere,
 kim yasa koyabilir?”
 
-62
-00:04:06,170 --> 00:04:08,530
-Sabah yıldızı gibi yüzü ve yalanlarıyla,
-
-63
-00:04:08,530 --> 00:04:12,100
-cennetin ordularının üçte
-birini peşinden sürükler.
-
 64
+00:04:06,170 --> 00:04:09,350
+Sabah yıldızı gibi yüzü
+ve yalanlarıyla, cennetin
+
+65
+00:04:09,350 --> 00:04:12,100
+ordularının üçte birini peşinden sürükler.
+
+66
 00:04:12,700 --> 00:04:14,850
 Peki neden başkaldırdı?
 
-65
+67
 00:04:15,040 --> 00:04:16,700
 Ona sorsan: özgürlük için.
 
-66
+68
 00:04:16,780 --> 00:04:21,590
 Milton'a sorsan, iki kelime:
 kıskançlık ve gurur.
 
-67
+69
 00:04:21,820 --> 00:04:23,910
 Kendini küçük düşürülmüş saymıştı.
 
-68
+70
 00:04:24,200 --> 00:04:27,850
 Bu iki cevap,
 hikâyenin sonuna kadar yan yana yürüyecek.
 
-69
+71
 00:04:28,960 --> 00:04:31,130
 Ama bir melek ayağa kalkar.
 
-70
+72
 00:04:31,260 --> 00:04:32,830
 Adı Abdiel'dir.
 
-71
+73
 00:04:33,560 --> 00:04:36,640
 Abdiel ona karşı çıkar; sonra küçümseyen
 
-72
+74
 00:04:36,640 --> 00:04:39,610
 bakışların arasından,
 tek başına yürüyüp gider.
 
-73
+75
 00:04:39,900 --> 00:04:45,610
 Milton onu şöyle anlatır: binlerce
 hainin arasında sadık kalan tek kişi.
 
-74
+76
 00:04:45,710 --> 00:04:50,700
 Peki burada asıl başkaldıran kim:
 kalabalığı peşine takan mı,
 
-75
+77
 00:04:50,710 --> 00:04:53,020
 kalabalığa karşı tek başına duran mı?
 
-76
+78
 00:04:53,170 --> 00:04:54,640
 Bu soruyu aklında tut.
 
-77
+79
 00:04:57,030 --> 00:04:59,490
 Cennette ilk kez kılıçlar çekilir.
 
-78
+80
 00:04:59,570 --> 00:05:05,080
 Ve ölümsüz bir varlık,
 birazdan acının ne olduğunu öğrenecek.
 
-79
+81
 00:05:05,720 --> 00:05:08,230
 Karşısına ilk çıkan, Abdiel olur.
 
-80
-00:05:08,560 --> 00:05:14,400
+82
+00:05:08,560 --> 00:05:11,330
 Kılıcını indirmeden önce ona şunu söyler:
-“Asıl kölelik budur: akılsıza ya da
 
-81
-00:05:14,400 --> 00:05:19,410
-kendinden üstüne başkaldırana hizmet etmek;
+83
+00:05:11,540 --> 00:05:14,900
+“Asıl kölelik budur:
+akılsıza ya da kendinden
+
+84
+00:05:14,900 --> 00:05:19,410
+üstüne başkaldırana hizmet etmek;
 seninkilerin şimdi sana ettiği gibi.
 
-82
+85
 00:05:19,660 --> 00:05:22,930
 Sen de özgür değilsin;
 kendi kendinin tutsağısın.”
 
-83
+86
 00:05:23,370 --> 00:05:27,290
 “Sen cehennemde hükümdar ol;
 bırak ben cennette hizmetkâr kalayım.
 
-84
+87
 00:05:27,370 --> 00:05:30,920
 Ama cehennemde krallık değil,
 zincir bekle.”
 
-85
+88
 00:05:31,580 --> 00:05:33,230
 Sonra kılıç iner.
 
-86
+89
 00:05:33,380 --> 00:05:37,850
 Şeytan on adım geriler;
 onuncu adımda dizinin üstüne çöker.
 
-87
+90
 00:05:38,820 --> 00:05:44,010
 Savaşın ortasında bir başmeleğin kılıcı,
 Şeytan'ın sağ yanını yarar.
 
-88
+91
 00:05:44,300 --> 00:05:48,670
 Milton yazar:
 Şeytan acıyı ilk kez o an tanıdı.
 
-89
+92
 00:05:49,800 --> 00:05:51,570
 Yarası çabucak kapanır.
 
-90
+93
 00:05:51,680 --> 00:05:55,420
 Ama bir zamanlar parlayan
 zırhı artık lekelidir.
 
-91
+94
 00:05:55,950 --> 00:05:58,440
 Asiler barutu ve topu icat eder.
 
-92
+95
 00:05:58,690 --> 00:06:02,800
 Sadık melekler de dağları
 kökünden söküp üzerlerine atar.
 
-93
+96
 00:06:03,360 --> 00:06:05,130
 Kimse üstün gelemez.
 
-94
+97
 00:06:05,380 --> 00:06:09,140
 Destanda üçüncü gün,
 Oğul ışıktan bir savaş arabasıyla gelir.
 
-95
+98
 00:06:09,220 --> 00:06:14,910
 Asiler cennetin kıyısına kadar sürülür
 ve kendilerini boşluğa atarlar.
 
-96
+99
 00:06:15,530 --> 00:06:17,100
 Dokuz gün düştüler.
 
-97
+100
 00:06:17,330 --> 00:06:23,720
 Kaos kükredi. Sonunda cehennem ağzını
 açıp onları yuttu ve üzerlerine kapandı.
 
-98
+101
 00:06:24,990 --> 00:06:28,720
 Ve hikâye, en başta gördüğümüz yere döner:
 yanan göle.
 
-99
+102
 00:06:31,070 --> 00:06:34,280
 Her şeyini kaybeden biri,
 ilk olarak ne söyler?
 
-100
+103
 00:06:35,590 --> 00:06:39,100
 Şeytan, yanında yatan
 yardımcısı Beelzebub'u görür.
 
-101
+104
 00:06:39,230 --> 00:06:42,440
 İlk sözleri bir şaşkınlıktır:
 “Sen o musun?
 
-102
+105
 00:06:42,870 --> 00:06:46,200
 Ah, ne kadar düşmüş, ne kadar değişmişsin!
 
-103
+106
 00:06:46,510 --> 00:06:51,180
 Bir zamanlar ışık diyarında, binlerce
 parlak varlığı gölgede bırakırdın.”
 
-104
+107
 00:06:51,780 --> 00:06:55,510
 Ama hemen toparlanır:
 “Meydanı kaybettik; ne çıkar?
 
-105
+108
 00:06:55,780 --> 00:07:00,060
 Her şey kaybedilmiş değil:
 yenilmez irade, intikam hırsı,
 
-106
+109
 00:07:00,060 --> 00:07:04,710
 ölümsüz nefret ve asla boyun
 eğmeyen yüreklilik hâlâ bizde.”
 
-107
+110
 00:07:05,370 --> 00:07:10,290
 Şair bu sözlerin hemen ardından
 bir not düşer: Şeytan acı içinde,
 
-108
+111
 00:07:10,290 --> 00:07:16,100
 yüksek sesle böbürleniyordu; ama içi
 derin bir umutsuzlukla kıvranıyordu.
 
-109
+112
 00:07:16,470 --> 00:07:20,800
 Destan yayımlandığında, bu sözlerin
 şairi de bir savaşı kaybetmişti.
 
-110
+113
 00:07:22,090 --> 00:07:23,860
 Sonra gölden kalkar.
 
-111
+114
 00:07:24,090 --> 00:07:27,520
 Milton'a göre bunu ancak
 göklerin izniyle yapabilir.
 
-112
+115
 00:07:28,020 --> 00:07:31,110
 Yanan kıyıya çıkınca cehennemi selamlar:
 
-113
+116
 00:07:31,280 --> 00:07:34,930
 “Elveda, mutlu ovalar;
 selam size, dehşetler!
 
-114
+117
 00:07:35,120 --> 00:07:39,030
 Ve sen, en derin cehennem,
 yeni sahibini karşıla.
 
-115
+118
 00:07:39,200 --> 00:07:43,440
 Zihin kendi dünyasıdır;
 kendi içinde cehennemi cennet,
 
-116
+119
 00:07:43,440 --> 00:07:45,270
 cenneti cehennem yapabilir.”
 
-117
+120
 00:07:45,970 --> 00:07:48,900
 Sonra destanın en ünlü dizesini söyler:
 
-118
+121
 00:07:49,130 --> 00:07:53,520
 “Cehennemde hükümdar olmak,
 cennette hizmetkâr olmaktan yeğdir.”
 
-119
+122
 00:07:54,430 --> 00:08:00,160
 Bizim bildiğimiz hâliyle: cennette
 köle olacağıma, cehennemde kral olurum.
 
-120
+123
 00:08:01,570 --> 00:08:04,080
 Kalkanı omzunda ay gibi asılıdır.
 
-121
-00:08:04,250 --> 00:08:09,120
-Mızrağı öyle büyüktür ki, en büyük
-geminin direği yanında değnek gibi kalır.
+124
+00:08:04,250 --> 00:08:07,230
+Mızrağı öyle büyüktür ki,
+en büyük geminin direği
 
-122
+125
+00:08:07,230 --> 00:08:09,120
+yanında değnek gibi kalır.
+
+126
 00:08:09,680 --> 00:08:12,630
 Yüzünde yıldırımların
 açtığı derin izler var;
 
-123
+127
 00:08:12,800 --> 00:08:16,290
 ama hâlâ yıkılmış
 bir başmelek kadar görkemli.
 
-124
+128
 00:08:16,400 --> 00:08:19,930
 Milton o yüzü anlatırken
 iki şeyi yan yana yazar:
 
-125
+129
 00:08:20,180 --> 00:08:23,610
 kaşlarının altında gurur,
 gözlerinde pişmanlık.
 
-126
+130
 00:08:23,710 --> 00:08:29,460
 Ordusuna bakar: onun suçu yüzünden
 cennetten atılmış milyonlarca ruh.
 
-127
+131
 00:08:29,770 --> 00:08:34,420
 Yıldırım çarpmış bir ormanın ağaçları
 gibi yanık, ama hâlâ ayaktalar.
 
-128
+132
 00:08:34,610 --> 00:08:37,580
 Konuşmaya hazırlanır; boğazı düğümlenir.
 
-129
+133
 00:08:37,750 --> 00:08:41,730
 Üç kez dener; üç kez,
 ağlamayı gururuna yediremese de,
 
-130
+134
 00:08:41,730 --> 00:08:46,320
 gözlerinden yaşlar boşanır:
 meleklerin ağladığı gibi.
 
-131
+135
 00:08:47,420 --> 00:08:50,720
 Sonunda konuşur; ordu işe koyulur.
 
-132
+136
 00:08:50,800 --> 00:08:54,030
 Şeytanlar cehennemin
 toprağından altın kazar.
 
-133
+137
 00:08:54,280 --> 00:08:58,170
 Bir saat içinde,
 yerden devasa bir saray yükselir:
 
-134
+138
 00:08:58,320 --> 00:09:01,390
 Pandemonium, bütün şeytanların meclisi.
 
-135
+139
 00:09:02,130 --> 00:09:06,780
 Mecliste kimi yeni bir savaş ister,
 kimi sessizce katlanmayı.
 
-136
+140
 00:09:07,070 --> 00:09:09,620
 Sonunda Şeytan'ın planı kabul edilir:
 
-137
+141
 00:09:09,750 --> 00:09:13,320
 Tanrı'nın yeni yarattığı dünyaya,
 insana saldırmak.
 
-138
+142
 00:09:13,420 --> 00:09:18,950
 Kimsenin gitmeye cesaret edemediği
 bu yolculuğa, yalnızca o gönüllü olur.
 
-139
+143
 00:09:19,590 --> 00:09:22,820
 Ayağa kalktığında
 bütün cehennem önünde eğilir;
 
-140
+144
 00:09:22,870 --> 00:09:25,180
 onu Tanrı'ya denk sayıp yüceltirler.
 
-141
+145
 00:09:25,570 --> 00:09:29,980
 Diz çökmeyi reddeden melek,
 şimdi önünde diz çökülen bir kraldır.
 
-142
+146
 00:09:32,380 --> 00:09:36,230
 Cehennemin kapısında,
 onu çok iyi tanıyan biri bekliyordu.
 
-143
+147
 00:09:36,480 --> 00:09:38,790
 Peki Şeytan onu neden tanımadı?
 
-144
+148
 00:09:39,940 --> 00:09:43,650
 Dokuz katmanlı kapıda iki bekçi vardır:
 yarısı kadın,
 
-145
+149
 00:09:43,780 --> 00:09:47,830
 yarısı yılan bir varlık;
 ve biçimi olmayan bir gölge.
 
-146
+150
 00:09:48,390 --> 00:09:53,480
 Şeytan gölgeyle dövüşmeye hazırlanırken
 kadın araya girer: “Beni unuttun mu?
 
-147
+151
 00:09:53,650 --> 00:09:58,930
 Cennette sen isyanı tasarlarken başının sol
 yanı yarıldı ve ben oradan doğdum.
 
-148
+152
 00:09:59,010 --> 00:10:01,840
 Sana benziyordum. Bana Günah dediler.”
 
-149
+153
 00:10:02,460 --> 00:10:06,020
 Şeytan onu tanımaz;
 kendi aklından doğan şeyi tanımaz.
 
-150
+154
 00:10:06,100 --> 00:10:11,830
 Ve dövüşmek üzere olduğu
 o gölgenin kim olduğunu öğrenir: Ölüm.
 
-151
+155
 00:10:12,500 --> 00:10:13,650
 Kendi oğlu.
 
-152
+156
 00:10:14,740 --> 00:10:16,570
 Günah kapıyı açar.
 
-153
+157
 00:10:16,800 --> 00:10:21,910
 Şeytan'ın önünde ne başı ne sonu
 olan bir okyanus vardır: Kaos.
 
-154
+158
 00:10:22,510 --> 00:10:27,400
 Kanatlarını açıp uçar;
 sonra boşluğa düşer, binlerce kulaç aşağı.
 
-155
+159
 00:10:27,630 --> 00:10:31,940
 Bir rüzgâr onu yeniden yukarı fırlatmasa,
 hâlâ düşüyor olurdu.
 
-156
+160
 00:10:32,620 --> 00:10:37,420
 Sonunda uzakta bir şey görür:
 cennete altın bir zincirle asılı,
 
-157
+161
 00:10:37,420 --> 00:10:40,850
 ayın yanındaki
 en küçük yıldız kadar bir dünya.
 
-158
+162
 00:10:41,300 --> 00:10:47,370
 Güneşe varır; genç bir melek kılığında,
 güneşin bekçisi Uriel'e yolu sorar.
 
-159
+163
 00:10:47,530 --> 00:10:49,310
 Uriel yolu gösterir.
 
-160
+164
 00:10:49,830 --> 00:10:54,440
 Şeytan aşağı süzülür ve bir dağın,
 Nifates'in tepesine konar.
 
-161
+165
 00:10:56,330 --> 00:11:00,180
 Kimsenin duymadığını sanırken,
 Şeytan kendine ne söyler?
 
-162
+166
 00:11:01,450 --> 00:11:07,160
 Cehennemden kurtulmuştur.
 Ama şair uyarır: Cehennemi içinde taşıyor.
 
-163
+167
 00:11:07,550 --> 00:11:11,900
 Kendinden nasıl kaçamıyorsa,
 cehennemden de bir adım uzaklaşamaz.
 
-164
+168
 00:11:12,620 --> 00:11:18,610
 Ve şimdi, Milton'ın yıllar önce, gözleri
 henüz görürken yazdığı o ilk dizeler.
 
-165
+169
 00:11:19,980 --> 00:11:23,770
 Güneşe bakar:
 “Ey ihtişamla taçlanmış güneş…
 
-166
+170
 00:11:23,850 --> 00:11:25,320
 Sana dostça seslenmiyorum.
 
-167
+171
 00:11:25,400 --> 00:11:29,420
 Işınlarından nefret ettiğimi
 söylemek için adını anıyorum;
 
-168
+172
 00:11:29,420 --> 00:11:32,850
 çünkü bana hangi yücelikten
 düştüğümü hatırlatıyorlar.”
 
-169
-00:11:33,650 --> 00:11:37,700
+173
+00:11:33,650 --> 00:11:36,320
 Sonra hiç beklemediğimiz bir şey söyler,
-hem de Tanrı için:
 
-170
-00:11:37,990 --> 00:11:40,461
+174
+00:11:36,450 --> 00:11:40,340
+hem de Tanrı için:
 “Benden böyle bir karşılığı hak etmemişti.
 
-171
+175
 00:11:40,690 --> 00:11:44,530
 Beni yaratmıştı;
 iyiliğini kimsenin başına kakmazdı.
 
-172
+176
 00:11:44,630 --> 00:11:46,760
 Ona hizmet etmek de ağır değildi.”
 
-173
+177
 00:11:47,380 --> 00:11:49,792
 “Keşke beni sıradan bir melek yaratsaydı.
 
-174
+178
 00:11:49,960 --> 00:11:51,430
 O zaman mutlu kalırdım.”
 
-175
+179
 00:11:52,400 --> 00:11:56,940
 Sonra kendine bir soru sorar:
 “Sadık kalanlar gibi senin de özgür
 
-176
+180
 00:11:56,940 --> 00:11:59,710
 iraden, ayakta kalma gücün yok muydu?
 
-177
+181
 00:11:59,940 --> 00:12:02,830
 Vardı. O hâlde kimi suçlayacaksın?”
 
-178
+182
 00:12:04,100 --> 00:12:09,650
 “Vay hâlime! Sonsuz gazaptan,
 sonsuz umutsuzluktan nereye kaçayım?
 
-179
+183
 00:12:10,640 --> 00:12:15,190
 Hangi yana kaçsam cehennem.
 Ben cehennemim.”
 
-180
+184
 00:12:16,740 --> 00:12:21,330
 “En derin dipte, beni yutmak için ağzını
 açan daha derin bir dip var.
 
-181
+185
 00:12:21,640 --> 00:12:25,050
 Onun yanında,
 çektiğim cehennem cennet gibi kalıyor.”
 
-182
+186
 00:12:26,180 --> 00:12:30,830
 Bir an yumuşar: “Pişmanlığa hiç yer
 kalmadı mı? Bağışlanmaya?”
 
-183
+187
 00:12:33,100 --> 00:12:37,650
 Cevabı yine kendisi verir:
 “Bir yol kaldı: boyun eğmek.
 
-184
+188
 00:12:37,800 --> 00:12:40,830
 Ama o sözü bana gururum yasaklıyor.”
 
-185
+189
 00:12:42,260 --> 00:12:46,970
 Gururu, ve cehennemde bıraktığı
 ordunun önünde rezil olma korkusu.
 
-186
+190
 00:12:47,180 --> 00:12:51,290
 Onlara vaat ettiği şey boyun eğmek değil,
 Tanrı'yı yenmekti.
 
-187
+191
 00:12:51,590 --> 00:12:54,460
 “Onlar beni cehennemin
 tahtında yüceltirken,
 
-188
+192
 00:12:54,630 --> 00:12:56,940
 içimde nasıl inlediğimi bilmiyorlar.
 
-189
+193
 00:12:57,170 --> 00:13:01,740
 Tacım ve asam ne kadar yükselirse,
 ben o kadar aşağı düşüyorum.”
 
-190
+194
 00:13:02,520 --> 00:13:05,010
 Belki de en dürüst sözünü söyler:
 
-191
+195
 00:13:05,040 --> 00:13:08,250
 “Diyelim ki pişman oldum
 ve eski yerime döndüm.
 
-192
+196
 00:13:08,520 --> 00:13:09,570
 Ne kadar sürer?
 
-193
+197
 00:13:09,940 --> 00:13:12,770
 Yükselince,
 yükseklik yine başımı döndürür.
 
-194
+198
 00:13:13,200 --> 00:13:16,670
 Acı içinde verdiğim sözleri,
 rahata erince geri alırım.”
 
-195
+199
 00:13:16,811 --> 00:13:18,870
 “Beni cezalandıran da bunu biliyor.
 
-196
+200
 00:13:18,950 --> 00:13:22,870
 Bu yüzden,
 barışı bağışlamaktan o ne kadar uzaksa,
 
-197
+201
 00:13:22,870 --> 00:13:25,580
 dilemekten ben o kadar uzağım.”
 
-198
+202
 00:13:26,510 --> 00:13:29,840
 Sonunda kararını verir: “Elveda umut.
 
-199
+203
 00:13:29,950 --> 00:13:34,160
 Umutla birlikte, elveda korku.
 Elveda pişmanlık.”
 
-200
+204
 00:13:35,370 --> 00:13:38,500
 “Kötülük: sen benim iyiliğim ol.”
 
-201
+205
 00:13:40,910 --> 00:13:44,160
 Bu sözleri söylerken yüzü üç kez değişir:
 
-202
+206
 00:13:44,390 --> 00:13:47,920
 öfkeyle, kıskançlıkla, umutsuzlukla.
 
-203
+207
 00:13:48,230 --> 00:13:54,000
 Kimsenin görmediğini sanır; ama güneşin
 bekçisi Uriel, hepsini görmüştür.
 
-204
+208
 00:13:55,210 --> 00:13:59,260
 Şeytan'ı burada, onu alkışlayan
 bir kalabalık olmadan görüyoruz.
 
-205
+209
 00:13:59,390 --> 00:14:02,520
 Maskesiz. Ona hak vermek zorunda değiliz.
 
-206
+210
 00:14:02,750 --> 00:14:06,040
 Yine de, belki ilk kez, ona acıyoruz.
 
-207
+211
 00:14:09,090 --> 00:14:12,140
 Yok etmeye geldiğin bir şeyi,
 sevebilir misin?
 
-208
+212
 00:14:13,490 --> 00:14:15,730
 Şeytan Aden bahçesine varır.
 
-209
+213
 00:14:15,810 --> 00:14:20,340
 Doğudaki tek kapıyı küçümser;
 tek sıçrayışta duvarın üstünden atlar.
 
-210
+214
 00:14:20,880 --> 00:14:26,130
 Bahçenin en yüksek ağacına,
 hayat ağacına tüner: bir karabatak gibi.
 
-211
+215
 00:14:26,850 --> 00:14:30,320
 Ve ilk kez onları görür:
 Âdem ile Havva'yı.
 
-212
+216
 00:14:31,370 --> 00:14:33,340
 “Onları hayranlıkla seyrediyorum.
 
-213
+217
 00:14:33,530 --> 00:14:35,040
 Onları sevebilirim bile.
 
-214
+218
 00:14:35,390 --> 00:14:39,200
 Bu savunmasız hâllerine acıyabilirim;
 bana acıyan olmasa da.”
 
-215
+219
 00:14:39,300 --> 00:14:42,830
 “Masumiyetiniz karşısında yüreğim
 yumuşuyor.”
 
-216
-00:14:42,980 --> 00:14:46,060
-Ama hemen ekler: krallığının çıkarı,
+220
+00:14:42,980 --> 00:14:46,400
+Ama hemen ekler: krallığının çıkarı, onuru
 
-217
-00:14:46,060 --> 00:14:49,450
-onuru ve intikamı onu
-buna mecbur bırakıyor.
+221
+00:14:46,400 --> 00:14:49,450
+ve intikamı onu buna mecbur bırakıyor.
 
-218
+222
 00:14:49,890 --> 00:14:54,870
 Şair burada araya girer:
 “Böyle konuştu Şeytan; zorbaların hep
 
-219
+223
 00:14:54,870 --> 00:15:00,000
 sığındığı bahaneyle, zorunlulukla,
 şeytanca işlerine kılıf uydurdu.”
 
-220
+224
 00:15:01,130 --> 00:15:05,300
 Sonra iki insanı yan yana görür:
 “Nefret edilesi manzara!
 
-221
+225
 00:15:05,550 --> 00:15:07,180
 İşkence veren manzara!
 
-222
+226
 00:15:07,550 --> 00:15:10,200
 Bu ikisi birbirinin kollarında cennetteler.
 
-223
+227
 00:15:10,670 --> 00:15:15,320
 Bense, sevincin de sevginin de olmadığı
 bir cehenneme itildim.”
 
-224
+228
 00:15:15,460 --> 00:15:20,550
 Gece olunca, Havva'nın kulağının dibine
 çömelir: bir kurbağa gibi.
 
-225
+229
 00:15:20,840 --> 00:15:22,510
 Ona rüyalar fısıldar.
 
-226
+230
 00:15:23,060 --> 00:15:25,900
 Uriel'in haber verdiği
 bekçi meleklerden biri,
 
-227
+231
 00:15:26,040 --> 00:15:30,607
 mızrağının ucuyla ona dokunur;
 Şeytan gerçek biçimine döner.
 
-228
+232
 00:15:30,909 --> 00:15:32,380
 “Beni tanımıyor musunuz?”
 
-229
+233
 00:15:32,460 --> 00:15:34,350
 diye sorar, küçümseyerek.
 
-230
+234
 00:15:34,480 --> 00:15:37,610
 Meleklerden biri
 aynı küçümsemeyle karşılık verir:
 
-231
+235
 00:15:37,720 --> 00:15:40,450
 “Parlaklığının hâlâ aynı olduğunu sanma.
 
-232
+236
 00:15:40,680 --> 00:15:44,130
 İyi olmaktan çıktığın gün,
 o ışık seni terk etti.
 
-233
+237
 00:15:44,340 --> 00:15:46,150
 Şimdi günahına benziyorsun.”
 
-234
+238
 00:15:46,800 --> 00:15:49,880
 Şeytan utanç içinde kalakalır.
 
-235
-00:15:49,960 --> 00:15:54,370
-İyiliğin ne kadar heybetli olduğunu
-hisseder ve kaybettiğine yanar;
+239
+00:15:49,960 --> 00:15:52,340
+İyiliğin ne kadar heybetli
+olduğunu hisseder
 
-236
-00:15:54,500 --> 00:15:59,630
-en çok da sönükleşen ışığının
-başkalarının gözünden kaçmadığını görünce.
+240
+00:15:52,340 --> 00:15:56,140
+ve kaybettiğine yanar;
+en çok da sönükleşen
 
-237
+241
+00:15:56,140 --> 00:15:59,630
+ışığının başkalarının gözünden
+kaçmadığını görünce.
+
+242
 00:16:01,960 --> 00:16:04,090
 İntikam, tatlı mıdır?
 
-238
+243
 00:16:05,380 --> 00:16:07,370
 Şeytan bahçeden kovulur.
 
-239
+244
 00:16:07,660 --> 00:16:11,310
 Yedi gece, karanlıkla birlikte
 dünyanın çevresinde döner;
 
-240
+245
 00:16:11,580 --> 00:16:14,757
 sekizinci gece, gizlice geri sızar.
 
-241
+246
 00:16:14,970 --> 00:16:17,440
 Saklanmak için uyuyan bir yılan arar;
 
-242
+247
 00:16:17,530 --> 00:16:21,460
 ararken kendinden iğrenir:
 “Ne iğrenç bir alçalış!
 
-243
+248
 00:16:21,540 --> 00:16:23,910
 Bir zamanlar en yüce yer için yarışan ben,
 
-244
+249
 00:16:23,910 --> 00:16:26,620
 şimdi bir hayvanın bedenine hapsoluyorum.”
 
-245
+250
 00:16:27,140 --> 00:16:29,150
 Ve kendi geleceğini söyler:
 
-246
+251
 00:16:29,280 --> 00:16:33,020
 “Kim yükselmeye kalkarsa,
 yükseldiği kadar alçalmak zorundadır.
 
-247
+252
 00:16:33,100 --> 00:16:39,200
 İntikam önce tatlıdır; ama çok geçmeden
 acılaşır ve dönüp sahibini vurur.”
 
-248
+253
 00:16:39,280 --> 00:16:42,650
 Sonra yılanı bulur
 ve ağzından içine girer.
 
-249
+254
 00:16:43,500 --> 00:16:47,750
 Sabah, yılanın içinde,
 Havva'yı bahçede yalnız görür.
 
-250
+255
 00:16:47,980 --> 00:16:51,950
-Sonra destanın belki
-de en şaşırtıcı anı gelir:
+Sonra destanın belki de en şaşırtıcı
+anı gelir:
 
-251
+256
 00:16:52,320 --> 00:16:57,510
 Havva'nın masumiyeti karşısında Şeytan,
 kendi kötülüğünden kopup dalgın durur.
 
-252
+257
 00:16:57,740 --> 00:17:03,210
 Nefreti, hilesi, kıskançlığı,
 intikamı; hepsi elinden düşer.
 
-253
+258
 00:17:03,500 --> 00:17:07,850
 Milton'ın deyişiyle, bir süre
 sersem bir iyilik içinde donakalır.
 
-254
+259
 00:17:08,090 --> 00:17:11,040
 Ama içinde hep yanan o cehennem,
 
-255
+260
 00:17:11,110 --> 00:17:14,640
 cennetin ortasında bile,
 bu sevinci çabucak bitirir.
 
-256
+261
 00:17:15,750 --> 00:17:18,920
 Yılanın diliyle konuşur,
 Havva'yı ikna eder.
 
-257
+262
 00:17:19,230 --> 00:17:23,320
-Havva meyveyi koparır ve yer;
-sonra Âdem de.
+Havva meyveyi koparır
+ve yer; sonra Âdem de.
 
-258
+263
 00:17:23,520 --> 00:17:29,290
 Dünya yarayı hisseder; doğa iç çeker
 ve her şeyin kaybedildiğini haber verir.
 
-259
+264
 00:17:29,560 --> 00:17:32,710
 Suçlu yılan, sessizce çalılığa süzülür.
 
-260
+265
 00:17:34,160 --> 00:17:35,170
 Kazanmıştır.
 
-261
+266
 00:17:37,860 --> 00:17:41,010
 Zafer anında, insan ne duymayı bekler?
 
-262
+267
 00:17:42,180 --> 00:17:44,130
 Şeytan cehenneme döner.
 
-263
+268
 00:17:44,340 --> 00:17:49,490
 Sıradan bir asker kılığında saraya girer,
 tahtına çıkar ve birden belirir:
 
-264
+269
 00:17:49,780 --> 00:17:55,270
 düşüşten ona kalan ışıkla ya da,
 Milton'ın deyişiyle, sahte bir parıltıyla.
 
-265
+270
 00:17:55,560 --> 00:17:58,450
 Cehennem onu sevinç
 haykırışlarıyla karşılar.
 
-266
+271
 00:17:59,090 --> 00:18:01,103
 “İnsanı yaratıcısından kopardım.
 
-267
+272
 00:18:01,183 --> 00:18:02,650
 Hem de bir elmayla!
 
-268
+273
 00:18:02,730 --> 00:18:04,080
 Gülmeye değmez mi?”
 
-269
+274
 00:18:04,700 --> 00:18:07,710
 Ve susar. O büyük alkışı bekler.
 
-270
+275
 00:18:09,680 --> 00:18:12,780
 Ama her yandan, sayısız dilden yükselen
 
-271
+276
 00:18:12,780 --> 00:18:18,130
 tek bir ses duyar:
 kasvetli, ortak bir tıslama.
 
-272
+277
 00:18:19,360 --> 00:18:23,470
 Şaşırır; ama çok geçmeden
 asıl kendi hâline şaşırır.
 
-273
+278
 00:18:23,590 --> 00:18:25,430
 Yüzünün sivrildiğini hisseder.
 
-274
-00:18:25,599 --> 00:18:28,540
+279
+00:18:25,588 --> 00:18:29,000
 Kolları kaburgalarına yapışır,
-bacakları birbirine
+bacakları birbirine dolanır
 
-275
-00:18:28,540 --> 00:18:32,630
-dolanır ve yüzüstü yere yığılır:
-devasa bir yılan.
+280
+00:18:29,000 --> 00:18:32,630
+ve yüzüstü yere yığılır: devasa bir yılan.
 
-276
+281
 00:18:33,540 --> 00:18:36,950
 Önünde diz çökülen kral,
 şimdi karnının üstünde.
 
-277
+282
 00:18:38,060 --> 00:18:41,100
 Konuşmak ister;
 ağzından yalnızca tıslama çıkar.
 
-278
+283
 00:18:41,180 --> 00:18:44,210
 Bütün şeytanlar yılana dönüşmüştür.
 
-279
+284
 00:18:45,320 --> 00:18:48,040
 Nifates Dağı'nda,
 bu kalabalığın önünde rezil
 
-280
+285
 00:18:48,040 --> 00:18:50,780
 olmaktan korktuğu için boyun eğememişti.
 
-281
+286
 00:18:50,860 --> 00:18:54,730
 Şimdi aynı kalabalıktan,
 alkış yerine tıslama yükseliyor.
 
-282
+287
 00:18:55,900 --> 00:18:58,720
 Milton'a göre Şeytan, günahı hangi kılıkta
 
-283
+288
 00:18:58,720 --> 00:19:01,790
 işlediyse cezasını da o kılıkta çeker.
 
-284
+289
 00:19:02,040 --> 00:19:06,610
 Zafer, kendi ağızlarından
 kendi üstlerine yağan bir utanca dönüşür.
 
-285
+290
 00:19:07,600 --> 00:19:11,420
 Ceza bitmez:
 önlerinde meyveyle dolu ağaçlar belirir.
 
-286
+291
 00:19:11,500 --> 00:19:16,290
 Açlıkla saldırırlar;
 meyveler ağızlarında acı küle döner.
 
-287
+292
 00:19:16,750 --> 00:19:22,640
 Ve Şeytan destandan sessizce çekilir;
 son iki kitapta bir daha sahneye çıkmaz.
 
-288
+293
 00:19:23,010 --> 00:19:27,380
 Ama baştaki sorumuz hâlâ ortada:
 Onu orada tutan neydi?
 
-289
+294
 00:19:27,690 --> 00:19:31,520
 Cevabın bir parçası,
 destanın son sahnesinde saklı.
 
-290
+295
 00:19:34,430 --> 00:19:36,760
 Destan, Şeytan'la bitmez.
 
-291
+296
 00:19:37,110 --> 00:19:42,080
 Son sahnede Âdem ile Havva,
 kaybettikleri cennetten, Aden'den çıkar.
 
-292
+297
 00:19:42,530 --> 00:19:48,160
 Milton yazar: “İnsanca birkaç damla
 gözyaşı döktüler; ama çabucak sildiler.
 
-293
+298
 00:19:48,490 --> 00:19:50,380
 Bütün dünya önlerindeydi.”
 
-294
+299
 00:19:51,790 --> 00:19:54,540
 Onlar, Şeytan'ın yapmadığını yapmışlardı:
 
-295
+300
 00:19:54,770 --> 00:19:57,880
 kusurlarını kabul edip
 bağışlanma dilemişlerdi.
 
-296
+301
 00:19:58,440 --> 00:20:00,830
 Peki Şeytan da dileyebilir miydi?
 
-297
+302
 00:20:01,000 --> 00:20:04,520
 Milton'ın destanında bunun
 cevabı daha üçüncü kitapta
 
-298
+303
 00:20:04,520 --> 00:20:08,870
 verilir: İnsan aldatıldı;
 bu yüzden merhamet bulacak.
 
-299
+304
 00:20:09,120 --> 00:20:13,510
 Asi melekler kendi kendilerini ayarttı;
 onlar bulamayacak.
 
-300
+305
 00:20:14,560 --> 00:20:19,110
 Şeytan hakkındaki asıl kavga ise,
 Milton öldükten sonra başladı.
 
-301
+306
 00:20:21,080 --> 00:20:22,930
 Bu destanın kahramanı kim?
 
-302
+307
 00:20:24,120 --> 00:20:27,810
 Milton destanın en başında
 amacını açıkça söyler:
 
-303
+308
 00:20:28,120 --> 00:20:32,070
 Tanrı'nın insanlara karşı
 yollarının adil olduğunu göstermek.
 
-304
+309
 00:20:32,650 --> 00:20:36,750
 Ama yüz yıldan fazla sonra,
 şair ve ressam William Blake
 
-305
+310
 00:20:36,750 --> 00:20:40,710
 bambaşka bir şey ileri sürdü:
 Ona göre Milton, melekleri
 
-306
+311
 00:20:40,710 --> 00:20:45,980
 ve Tanrı'yı anlatırken zincirliydi;
 şeytanları ve cehennemi anlatırken özgür.
 
-307
+312
 00:20:46,110 --> 00:20:49,790
 Blake'in gerekçesi şuydu:
 Milton gerçek bir şairdi
 
-308
+313
 00:20:49,790 --> 00:20:52,900
 ve farkında olmadan
 Şeytan'ın tarafındaydı.
 
-309
+314
 00:20:53,420 --> 00:20:59,030
 Şurası doğru: bu destandan akılda
 kalan sözlerin çoğu, Şeytan'ın sözleri.
 
-310
+315
 00:21:00,400 --> 00:21:04,190
-Yirminci yüzyılda ise Narnia'nın yazarı C.
-S. Lewis,
+Yirminci yüzyılda ise
+Narnia'nın yazarı C. S. Lewis,
 
-311
+316
 00:21:04,560 --> 00:21:08,470
 Kayıp Cennet'e Önsöz adlı
 kitabında tam tersini savundu.
 
-312
+317
 00:21:09,030 --> 00:21:11,680
 Lewis'e göre bu, bir yükselişin değil,
 
-313
+318
 00:21:11,850 --> 00:21:15,693
 bir küçülmenin hikâyesiydi:
 “Kahramandan generale.
 
-314
+319
 00:21:15,837 --> 00:21:18,900
 Generalden politikacıya. Oradan casusa.
 
-315
+320
 00:21:19,170 --> 00:21:22,840
 Yatak odası ya da banyo
 pencerelerinden içeri bakan bir şeye.
 
-316
+321
 00:21:23,010 --> 00:21:24,210
 Sonra bir kurbağaya.
 
-317
+322
 00:21:24,290 --> 00:21:26,940
 Ve en sonunda, bir yılana.”
 
-318
+323
 00:21:27,040 --> 00:21:31,710
 Şeytan da bunu, yılana girmeden
 önce kendi ağzıyla söylemişti:
 
-319
+324
 00:21:32,040 --> 00:21:35,310
 yükselmeye kalkan,
 yükseldiği kadar alçalır.
 
-320
+325
 00:21:36,450 --> 00:21:38,660
 Blake mi haklı, Lewis mi?
 
-321
+326
 00:21:38,830 --> 00:21:39,830
 Peki ya Milton?
 
-322
+327
 00:21:40,170 --> 00:21:43,140
 Kralların devrilebileceğini
 savunan bir devrimci,
 
-323
+328
 00:21:43,170 --> 00:21:46,220
 Tanrı'nın tahtına başkaldıran
 bir meleği yazıyor.
 
-324
+329
 00:21:46,470 --> 00:21:48,740
 Ama o melek cehennemde ne yapıyor?
 
-325
+330
 00:21:49,110 --> 00:21:54,500
 Kendine, Hürmüz'ün ve Hindistan'ın
 hazinelerinden görkemli bir taht kuruyor.
 
-326
+331
 00:21:55,000 --> 00:21:58,530
 Üstelik Milton son kitapta
 Âdem'e şunu söyletir:
 
-327
+332
 00:21:58,740 --> 00:22:01,750
 Tanrı insanı, insanın efendisi yapmadı.
 
-328
-00:22:01,850 --> 00:22:05,290
+333
+00:22:01,850 --> 00:22:05,790
 Tarihteki başkaldırıların çoğu,
-elinden alınan
+elinden alınan hakları
 
-329
-00:22:05,290 --> 00:22:08,100
-hakları ve özgürlükleri
-geri istemek içindi.
+334
+00:22:05,790 --> 00:22:08,100
+ve özgürlükleri geri istemek içindi.
 
-330
+335
 00:22:08,270 --> 00:22:12,480
 Ama bazıları özgürlük diye
 yola çıkıp yeni bir taht kurdu.
 
-331
+336
 00:22:13,030 --> 00:22:15,383
 Milton'ın kendi devriminde de öyle oldu:
 
-332
+337
 00:22:15,620 --> 00:22:19,270
 Kralı deviren Cromwell
 kendisine sunulan tacı reddetti,
 
-333
+338
 00:22:19,360 --> 00:22:23,930
 ama ülkeyi taçsız bir kral gibi yönetti
 ve yerini oğluna bıraktı.
 
-334
+339
 00:22:24,410 --> 00:22:28,000
 Başta bir soru bırakmıştık:
 Asıl başkaldıran kim?
 
-335
+340
 00:22:28,190 --> 00:22:32,400
 Kalabalığı peşine takan mı,
 kalabalığa karşı tek başına duran mı?
 
-336
+341
 00:22:32,520 --> 00:22:37,910
 Abdiel'in cevabı belliydi: “Sen de özgür
 değilsin; kendi kendinin tutsağısın.”
 
-337
+342
 00:22:38,910 --> 00:22:41,480
 Başkaldırı her zaman özgürlük müdür?
 
-338
+343
 00:22:44,370 --> 00:22:46,063
 Peki ya o gözyaşları?
 
-339
+344
 00:22:46,982 --> 00:22:50,650
 1847 yılında genç bir Fransız ressam,
 
-340
+345
 00:22:50,650 --> 00:22:54,680
 Alexandre Cabanel,
 düşmüş bir meleği şöyle resmetti:
 
-341
+346
 00:22:55,280 --> 00:22:59,510
 Kayalara uzanmış, kollarını
 yüzünün önünde kavuşturmuş bir melek.
 
-342
+347
 00:22:59,780 --> 00:23:01,930
 Kollarının arasından bize bakıyor.
 
-343
+348
 00:23:02,300 --> 00:23:05,090
 Gözleri öfkeli; ve dolu.
 
-344
-00:23:06,500 --> 00:23:11,580
+349
+00:23:06,500 --> 00:23:09,110
 Bu gözyaşının destanda bir karşılığı var:
-Milton'ın Şeytan'ı da yenik ordusunun
 
-345
-00:23:11,580 --> 00:23:17,070
-karşısında ağlar; ağlamayı gururuna
-yediremese de, meleklerin ağladığı gibi.
+350
+00:23:09,400 --> 00:23:12,990
+Milton'ın Şeytan'ı da yenik
+ordusunun karşısında ağlar;
 
-346
+351
+00:23:13,200 --> 00:23:17,070
+ağlamayı gururuna yediremese de,
+meleklerin ağladığı gibi.
+
+352
 00:23:17,170 --> 00:23:20,740
 O gözyaşı pişmanlık mıydı, gurur mu?
 
-347
+353
 00:23:21,050 --> 00:23:24,240
 Milton ikisini aynı yüzde, yan yana yazar.
 
-348
+354
 00:23:24,390 --> 00:23:27,890
 Şeytan destanın bir yerinde ağlıyor;
 başka bir yerinde,
 
-349
+355
 00:23:27,890 --> 00:23:30,680
 “boyun eğmek” sözünü kendine yasaklıyor.
 
-350
+356
 00:23:31,830 --> 00:23:37,060
 En başta sorduk: Cehennemden kaçan birini,
 orada tutan neydi?
 
-351
+357
 00:23:37,490 --> 00:23:40,920
 Bir cevabı duyduk:
 Cehennemi içinde taşıyordu.
 
-352
+358
 00:23:41,090 --> 00:23:44,660
 Peki içindeki o cehennemden
 bir çıkış var mıydı?
 
-353
+359
 00:23:46,070 --> 00:23:50,880
 Nifates Dağı'nda bir çıkış görmüştü:
 “Bir yol kaldı: boyun eğmek.
 
-354
+360
 00:23:51,110 --> 00:23:53,600
 Ama o sözü bana gururum yasaklıyor.”
 
-355
+361
 00:23:54,690 --> 00:23:59,420
 Abdiel onu uyarmıştı:
 “Cehennemde krallık değil, zincir bekle.”
 
-356
+362
 00:23:59,670 --> 00:24:02,440
 Krallığı buldu; zinciri de.
 
-357
+363
 00:24:02,690 --> 00:24:07,320
 Gölün zincirleri çözülmüştü;
 bu zinciri ise ona kimse vurmadı.
 
-358
+364
 00:24:07,550 --> 00:24:09,780
 Kendi eliyle vurdu: gururu.
 
-359
+365
 00:24:11,470 --> 00:24:15,110
 Ama destan bir şey daha söyler:
 bağışlanma yolu,
 
-360
+366
 00:24:15,110 --> 00:24:18,640
 kendi kendini ayartan asi
 meleklere açık değildir.
 
-361
+367
 00:24:18,730 --> 00:24:23,010
 Şeytan bunu da biliyordu:
 “Barışı bağışlamaktan o ne kadar uzaksa,
 
-362
+368
 00:24:23,010 --> 00:24:25,790
 dilemekten ben o kadar uzağım.”
 
-363
+369
 00:24:26,490 --> 00:24:32,180
 Onu orada tutan gururu muydu, yoksa
 Milton'ın ona hiç açmadığı bir kapı mı?
 
-364
+370
 00:24:34,070 --> 00:24:37,980
 Belki herkesin, söylemeyi kendine
 yasakladığı bir söz vardır.
 
-365
+371
 00:24:40,390 --> 00:24:43,760
 Kör şair bu hikâyeyi
 zifiri karanlıkta yazdırdı.
 
-366
+372
 00:24:44,010 --> 00:24:49,740
 Destanın bir yerinde tek bir şey diler:
 “Sen, göksel ışık, içime parla.
 
-367
+373
 00:24:49,950 --> 00:24:54,740
 Orada gözler aç ki, ölümlü gözün
 göremediğini göreyim ve anlatayım.”
 
-368
+374
 00:24:54,930 --> 00:24:58,230
 Belki de bu yüzden,
 insanın kendi içinde bir cehennem
 
-369
+375
 00:24:58,230 --> 00:25:00,720
 taşıyabileceğini en iyi o gördü.
 
-370
+376
 00:25:02,770 --> 00:25:04,520
 Peki sen ne düşünüyorsun?
 
-371
+377
 00:25:04,750 --> 00:25:07,190
 O gözyaşı pişmanlık mıydı, gurur mu?
 
-372
+378
 00:25:07,270 --> 00:25:12,580
 Ve başkaldırı ne zaman özgürlüktür,
 ne zaman insanın kendi cehennemi?
 
-373
+379
 00:25:12,730 --> 00:25:13,860
 Yorumlarda yaz.
 
-374
+380
 00:25:15,430 --> 00:25:20,750
 Ateşi insanlar için çalan bir başka asinin,
 Prometheus'un hikâyesi ekranda.
 
-375
+381
 00:25:20,830 --> 00:25:25,330
 Romantik şair Shelley'ye göre
 Prometheus'a benzeyen tek hayalî karakter,
 
-376
+382
 00:25:25,330 --> 00:25:29,720
 Milton'ın Şeytan'ıydı;
 ama Prometheus hırstan,
 
-377
+383
 00:25:29,850 --> 00:25:33,680
 kıskançlıktan ve intikamdan
 arınmış olarak anlatılabilirdi.
 
-378
+384
 00:25:33,810 --> 00:25:38,140
 Bu hikâyeler hoşuna gidiyorsa,
 Zaman Kuryesi'ne abone olmayı unutma.
