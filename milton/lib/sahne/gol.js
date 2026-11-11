@@ -120,8 +120,11 @@ function cizKiyi(t, o = {}) {
   // kıyı: koyu, kırık sırt; ışık arkadan (alev duvarı), sırtta ince kenar ışığı
   const R = rng(7), K = [[-200, GY + 20]];
   for (let x = -120; x <= W + 200; x += 80) K.push([x, GY + Math.sin(x * .004 + 1) * 16 + (R() - .5) * 18 - 10 * Math.exp(-Math.pow((x - FX) / 260, 2))]);
-  K.push([W + 200, H + 300], [-200, H + 300]);
-  const KP = PR.rock(K, { lit: [0, -1], hi: .04, mid: .03, lo: .02, seed: 9, th: -.15, rim: 5, facets: 9 });
+  K.push([W + 200, GY + 700], [-200, GY + 700]);
+  // kıyı zemini: sırtta alev duvarının ışığını alan, öne doğru kararan yatay taramalı düzlük; sırtta ince kenar ışığı
+  const KP = new Path2D(); poly(KP, K, true);
+  { const gg = tx.createLinearGradient(0, GY - 10, 0, GY + 260); gg.addColorStop(0, tone(.3)); gg.addColorStop(1, tone(.02)); GR.fill(KP, gg, { type: 'persp', y0: GY, D: 500, p0: 9.5, p1: 12.5, id: 8 }); }
+  tx.save(); tx.clip(KP); gol_vurus(tx, K.slice(1, -2).map(([x, y]) => [x, y + 3]), 7, .95, .1); tx.restore();
   // sol önde kırık kaya çıkıntısı (göldeki kayanın eşi): koyu kütle, ışıklı sırt, içe giren vuruşlar
   if (o.front !== false) {
     const dy = HZ - 560, RK = [[-20, 600], [60, 612], [118, 640], [150, 676], [196, 690], [232, 724], [262, 770], [300, 800], [318, 846], [356, 880], [372, 930], [396, 990], [404, H + 20], [-20, H + 20]].map(([x, y]) => [x, y + dy]);
