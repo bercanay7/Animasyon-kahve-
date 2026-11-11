@@ -44,8 +44,10 @@ function kpk_yazi(ctx, lines, o) {
 
 // ═════════ KAPAK A: güneşin önünde kanatlı kara siluet, göğsünde alev ═════════
 // Kadraj: figür sağda, büyük (ayaklar kadrajın hemen altında); güneş başın ve göğsün arkasında; solda yazı için koyu bulut kütlesi.
-const KPK_A = { K: { x: 1560, y: 1072, U: 900 }, sun: { x: 1560, y: 545, r: 272 }, dark: [1.02, 1.42] };   // dark: güneş yarıçapı biriminde karartma başlangıcı ve sonu
+const KPK_A = { K: { x: 1560, y: 1072, U: 900 }, sun: { x: 1590, y: 545, r: 300 }, dark: [1.02, 1.36] };   // dark: güneş yarıçapı biriminde karartma başlangıcı ve sonu
+const KPK_SUN = { alcak: { sun: { x: 1560, y: 760, r: 370 }, dark: [1.02, 1.3] }, genis: { sun: { x: 1590, y: 545, r: 300 }, dark: [1.02, 1.36] } };
 function kpk_aSahne(t) {
+  if (KQ.get('sun') && KPK_SUN[KQ.get('sun')]) Object.assign(KPK_A, KPK_SUN[KQ.get('sun')]);
   const { K, sun } = KPK_A, { tx } = GR;
   nif_gok(sun, { beams: [], t: 0 });
   // sol: ışınlar kalınlaşarak karanlığa karışır (multiply); yazının zemini düz siyah
