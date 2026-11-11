@@ -142,18 +142,12 @@ function nif_seytan(p) {
 //     full (true: içerik onaylı göl karesi cizGol, figürsüz), gol (cizGol ek seçenekleri), draw (t, k) => {} (özel içerik, yerel 1920×1080, odak (910, 600))}
 // Başka gruplar: kendi figür çizimlerini drawFig olarak verip aynı işlevi çağırabilir (açık levhada, kamera dönüşümü ne olursa olsun).
 function nif_icGol(t, k = 1) {
-  const { tx, tone } = GR, X = 910, Y = 600, fh = lerp(.35, 1, E.io2(clamp(k)));
-  tx.fillStyle = tone(.02); tx.fillRect(-3000, -3000, 8000, 3000 + Y);
-  PR.glow(X, Y - 6, 60, 560, 1, .95);
-  PR.glow(X, Y - 20, 20, 240, 1, .7);
-  PR.lake(Y, Y + 900, t, { tone: [.2, .02], crests: 8, p0: 9.5, refl: [{ x: X, w: 300, v: .95, len: 330, rows: 12 }] });
-  PR.flameBank(X - 900, X + 900, Y + 2, 30, t, 1, { env: f => .25 + .75 * Math.pow(Math.sin(f * PI), 2) });
-  const fo = { speed: .6, curl: .5, solidBelow: 900, strokeAbove: 80, frags: false, inner: .5 };
-  PR.flame(X - 330, Y + 10, 170 * fh, 90, t + 1, 14, Object.assign({ lean: -.2 }, fo));
-  PR.flame(X + 320, Y + 10, 150 * fh, 84, t + 2, 15, Object.assign({ lean: .2 }, fo));
-  PR.flame(X - 150, Y + 16, 290 * fh, 130, t, 11, Object.assign({ lean: -.1 }, fo));
-  PR.flame(X + 160, Y + 16, 260 * fh, 124, t + 3, 12, Object.assign({ lean: .1 }, fo));
-  PR.flame(X + 4, Y + 22, 430 * fh, 170, t + 6, 13, fo);
+  const { tone } = GR, X = 910, Y = 600, fh = lerp(.3, 1, E.io2(clamp(k)));
+  const V = new Path2D(); V.rect(-3000, -3000, 8000, 3000 + Y); GR.fill(V, tone(.02), { th: 0, id: 1 });
+  PR.glow(X, Y - 6, 40, 520, 1, .55);
+  PR.lake(Y, Y + 900, t, { tone: [.12, .02], crests: 10, p0: 9.5, refl: [{ x: X, w: 380, v: .95, len: 320, rows: 12 }, { x: X - 420, w: 140, v: .6, len: 160 }, { x: X + 430, w: 150, v: .6, len: 160 }] });
+  PR.flameBank(X - 900, X + 900, Y + 2, 30, t, 1, { env: f => .35 + .65 * Math.pow(Math.sin(f * PI), 2), smoke: false });
+  PR.flameBank(X - 560, X + 560, Y + 8, 190 * fh, t, 5, { n: 9, wr: .5, curl: .5, speed: .6, solidBelow: 900, strip: .3, frags: false, env: f => .35 + .65 * Math.pow(Math.sin(f * PI), 1.5) });
 }
 const NIF_MK = makeCanvas(DW, DH), NIF_mk = NIF_MK.getContext('2d', { willReadFrequently: true });
 const NIF_MG = makeCanvas(DW, DH), NIF_mg = NIF_MG.getContext('2d', { willReadFrequently: true });
@@ -208,7 +202,7 @@ function nif_icCehennem(J, drawFig, o = {}) {
   const MD = NIF_mg.getImageData(R[0], R[1], R[2], R[3]).data;
   // 4) içerik
   const T0 = tx.getImageData(R[0], R[1], R[2], R[3]), P0 = px.getImageData(R[0], R[1], R[2], R[3]);
-  let ks = o.scale ?? h / 96, at = o.at || [J.hip[0], J.hip[1] - .35 * h];
+  let ks = o.scale ?? h / 96, at = o.at || [J.shC[0], J.shC[1] + .9 * h];
   const F = [910, 600];
   if (G && G.p) { const u = E.io2(clamp(G.p)); ks = lerp(ks, 1, u); at = [lerp(at[0], F[0], u), lerp(at[1], F[1], u)]; }
   GR.save();

@@ -261,7 +261,7 @@ function oda_sairGeo(o) {
   // yakın kol
   const kol = o.kol || 'kol', S = T([.0, -2.1]);
   let E, Wr, hand;
-  if (kol === 'yaz') { E = M(.42, -1.28); Wr = M(1.32, -1.62); hand = [[1.24, -1.74], [1.52, -1.76], [1.66, -1.64], [1.6, -1.52], [1.3, -1.52]]; }
+  if (kol === 'yaz') { E = M(.5, -1.02); Wr = M(1.4, -.9); hand = [[1.34, -1.0], [1.6, -1.0], [1.76, -.9], [1.72, -.8], [1.4, -.8]]; }
   else if (kol === 'diz') { E = M(.3, -1.18); Wr = M(1.45, -.62); hand = [[1.4, -.74], [1.74, -.68], [1.9, -.5], [1.74, -.42], [1.42, -.5]]; }
   else { E = M(-.24, -1.0); Wr = M(.95, -1.06); hand = [[.88, -1.16], [1.18, -1.15], [1.38, -1.02], [1.44, -.84], [1.32, -.77], [1.14, -.9], [.9, -.94]]; }
   const A = oda_birles(oda_uzuv(S, E, () => .3 * h, () => .27 * h, 8), oda_daire(E[0], E[1], .25 * h), oda_uzuv(E, Wr, u => (.25 - .05 * u) * h, u => (.24 - .05 * u) * h, 8));
@@ -747,9 +747,9 @@ function oda_P067(t) {
   const { tx, tone } = GR, FL = ODA_FL, x0 = 300, y0 = 130, x1 = 760, y1 = 600, dol = E.io2(oda_u(t, S('G02b'), S('G02b') + 2.2));
   const SUN = [(x0 + x1) / 2, y0 + 140];
   const g = tx.createRadialGradient(SUN[0], SUN[1], 0, SUN[0], SUN[1], 1700);
-  g.addColorStop(0, tone(1)); g.addColorStop(.25, tone(lerp(.78, 1, dol))); g.addColorStop(.6, tone(lerp(.55, .88, dol))); g.addColorStop(1, tone(lerp(.35, .66, dol)));
+  g.addColorStop(0, tone(1)); g.addColorStop(lerp(.12, .3, dol), tone(1)); g.addColorStop(lerp(.3, .5, dol), tone(.8)); g.addColorStop(.78, tone(.5)); g.addColorStop(1, tone(.3));
   GR.fill(oda_dik(-400, -400, W + 800, FL + 400), g, { type: 'rad', cx: SUN[0], cy: SUN[1], id: 1 });
-  GR.fill(oda_dik(-400, FL, W + 800, 400), tone(lerp(.45, .7, dol)), { th: 0, id: 0 });
+  GR.fill(oda_dik(-400, FL, W + 800, 400), tone(.22), { th: 0, id: 0 });
   GR.fill(oda_cok([[x0 + 10, FL + 2], [x1 - 10, FL + 2], [x1 + 330, H + 10], [x0 + 330, H + 10]]), tone(lerp(.75, 1, dol)), { th: 0, id: 0 });
   oda_pencere(t, { x0, y0, x1, y1, mod: 'dis', sp: 60, dis: P => { GR.fill(P, tone(.97), { type: 'rad', cx: SUN[0], cy: SUN[1], id: 1 }); tx.save(); tx.clip(P); oda_cizgi([[x1 + 40, y0 + 330], [x1 - 140, y0 + 350], [x0 + 130, y0 + 430], [x0 - 20, y0 + 440]], 20, .03, .25); oda_cizgi([[x1 - 200, y0 + 352], [x1 - 250, y0 + 290], [x1 - 260, y0 + 240]], 9, .03, .4); tx.restore(); } });
   const L = SUN, mx0 = 760, mx1 = 1080, my = 690;
@@ -765,7 +765,7 @@ function oda_P067(t) {
   oda_masa(mx0, mx1, my, L, { R: 3000 });
   oda_masaUstu(930, my, L, { hokka: true });
   oda_kut(G.A, { L, c: G.E, w: 8, R: 3000 }); oda_acik(G.H, { L, c: G.Wr, w: 6, tn: .97, sv: .08 });
-  oda_cizgi([G.M(1.5, -1.95), G.M(1.72, -2.05), G.M(1.95, -2.35)], 4, .03, .5);    // kalem
+  oda_cizgi([G.M(1.66, -.84), G.M(1.8, -1.1), G.M(1.98, -1.48)], 4, .03, .5);    // kalem
 }
 plan('P067', (ctx, st) => levha(ctx, { cx: 900, cy: 520, z: 1.05 }, () => { oda_P067(st.t); }, [.9, 0, 1]), { tr: { type: 'fade', dur: 1.0 } });
 

@@ -1,0 +1,57 @@
+{
+  "uye": "U-Gravur",
+  "mercek": "Doré ve 19. yüzyıl ağaç/çelik baskı geleneği; kalın çizgili linol/ağaç baskı tutarlılığı (hareket hâlinde)",
+  "olcut_tanimi": "9 = gerçek bir ağaç baskı levhasının yanında bitmiş durur; bu kapıda ek olarak hareket hâlinde de öyle durmalı.",
+  "karar": "RED",
+  "puanlar": {"U1": 8.5, "U2": 7.5, "U3": 8.5, "U4": 8.0, "U5": 8.0, "U6": 8.0},
+  "puan": 8.1,
+  "engelleyen_bulgu": "Üslup dili için engelleyen bulgu yok. Sahnenin kendisinde ise yayından önce düzeltilmesi gereken iki bulgu var (göz ışığı sürekliliği, geri çekilmede çizgi pompalanması). İkisi de sahne düzeyinde, dili değiştirmeyi gerektirmiyor.",
+  "genel_hukum": "Durağan karede ulaşılan dil hareket hâlinde de korunuyor: iki yönlü vuruş grameri, tek odak, kâğıt kütle + mürekkep vuruşlu alevler. Zincir yakın planı aynı çizgi ölçeğinde ve aynı dilde çizilmiş. Suyun altında kalan bilezik yarısının taramayla verilmesi iyi bir gravür çözümü. Oyma titremesinin dozu doğru. Puanı düşüren üç şey hareketle geliyor. (1) Açılışta ekranda iki önden göz ışığı var; figür ise profilde ve gözler kafanın dışında, kanatların üstünde kalıyor (süreklilik hatası). (2) Geri çekilmede bütün yatay tarama ölçeklenip kayıyor; ardışık kare farkı 5,4, en kötü blok 26. Bu, video sıkıştırmasında 'akordeon' pompalanması yapar. (3) Açılış saydamlıkla yapılıyor: kâğıt bir an griye dönüyor; baskı dilinde gri yok.",
+  "olcumler": {
+    "ardisik_kare_farki": {
+      "24,0": {"ortalama": 1.63, "en_kotu_blok": 4.7, "koyu_lt60": 0.766},
+      "28,0": {"ortalama": 5.40, "en_kotu_blok": "26,0 (x 1600, y 640)", "koyu_lt60": 0.72},
+      "31,0": {"ortalama": 3.61, "en_kotu_blok": "39,9 (x 1792, y 896: sağ alt yakın alev)", "koyu_lt60": 0.741},
+      "34,5": {"ortalama": 2.09, "en_kotu_blok": "22,9 (x 256, y 192: zincir planında bulut vuruşları)", "koyu_lt60": 0.732}
+    },
+    "not": "Ölçümlerim brief'tekilerden biraz yüksek (28,0'da 5,4'e karşı 4,8), eğilim aynı."
+  },
+  "oyma_titremesi_dozu": "Doğru. t0030 kırpmalarına 2 kat büyütmeyle baktım (bulut x 1180–1580, y 220–520; kaya x 0–420, y 560–860). Kenarlar ve kaya kırığı elle oyulmuş gibi hafifçe dalgalı ve yer yer çentikli; 'bozuk baskı' etkisi yok. Gök çizgilerinde kalınlık dalgası seçiliyor ama göz yormuyor. Durağan karede 'vektör temizliği' bulgum giderildi. Sapma dünyaya bağlı olduğu için durağan planlarda titreşim üretmiyor (24,0: 1,6). İstersen uzun gök çizgilerinde genlik 1,2 → 1,5 px'e çıkabilir; şart değil.",
+  "tur6_bulgulari": [
+    {"bulgu": "Oyma titremesi", "durum": "giderildi", "not": "Doz doğru."},
+    {"bulgu": "Kanat içinde mum", "durum": "giderildi", "not": ""},
+    {"bulgu": "Sağ alt X alev çifti", "durum": "giderildi", "not": "27,0 ve 32,5'te çaprazlaşma yok. 32,5'te ön alevler (x 540–1250, y 690–850) geniş, yuvarlak kütleleriyle bir an çarşaf ya da örtü gibi okunuyor; alev biçimi zamanla 'kumaşa' kayıyor (aşağıda madde 5)."},
+    {"bulgu": "Buluttaki kopuk hilaller", "durum": "kısmen", "not": "Geniş planda azaldı. Zincir yakın planında bulut gövdesi siyah gökte kayboluyor; geriye yalnız yüzen pençe izi gibi vuruşlar kalıyor (madde 4)."},
+    {"bulgu": "Huzme bulutun önünden geçiyor", "durum": "giderilmedi", "not": "Düşük öncelik; 27,0 ve 32,5'te x 1200–1520, y 380–520."}
+  ],
+  "sorulara_cevap": {
+    "1_hareket": "Anlamlı ve yeterli: göz açılışı, başın yarığa kalkışı, nefes, kanat salınımı, yavaş alev. 'Az ama anlamlı' ilkesine uyuyor; gereksiz hareket yok. Fazla durağan bir yer görmedim. Tek fazlalık sağ alt yakın alevin hızı (31,0'da en kötü blok 39,9): en yakın plan en yavaş hareket etmeli.",
+    "2_geri_cekilme": "Evet, rahatsız eder. Yatay paralel çizgilerle dolu bir karede yakınlaşma, her karede bütün aralıkları değiştirir: çizgiler 'nefes alır', sıkıştırmada pompalanır. Gravür açısından en doğal kamera, tarama doğrultusu boyunca kaydırmadır: yatay çizgiler yatay kaydırmada değişmez (fark yalnız nesne kenarlarında oluşur). Önerim: bu sahnede geri çekilme yerine yavaş yatay kaydırma (ya da 1,25'ten 1,0'a kesme). Yakınlaşma ancak tarama seyrek olan (düz siyah ağırlıklı) karelerde, çok yavaş ve kısa kullanılsın. U-Teknik'in ölçümüyle doğrulanmalı.",
+    "3_zincir_yakin_plani": "Dil olarak tutarlı: aynı çizgi ölçeği, aynı kâğıt vuruşu, suyun altı taramayla. İki sorun var. (a) Elsiz, sivrilen siyah ön kol ile alt ucundaki üç perçinli bilezik bir an çizme konçu ya da kova gibi okunuyor; kol olduğunu söyleyen bir ipucu yok. (b) Siyah bulutlar siyah gökte kayboluyor; yalnız kenar vuruşları kalıyor (x 200–450, y 140–320; x 1310–1550, y 40–200; x 1640–1840, y 120–230) ve yüzen pençe izi gibi görünüyor.",
+    "4_etiket": "Okunur ve yerinde: koyu bulutun üstünde, odaktan uzakta, Cinzel üslupla uyumlu. Büyük harf yüksekliği ~22 px; telefonda küçük kalabilir. Bu tipografi üyesinin alanı; ben yalnız not ediyorum."
+  },
+  "duzeltmeler_sahne_yayindan_once": [
+    {"sira": 1, "onem": "yüksek", "bolge": "21,2–24,5 sn; göz ışıkları x 735–880 ve 1040–1185, y ≈525; baş x ≈900–1020",
+     "ne": "Karanlıkta önden bakan iki simetrik göz ışığı açılıyor; görüntü belirince figür profilde. Göz ışıkları kafanın dışında, iki kanadın üstünde kalıyor (24,0'da açıkça görünüyor). Süreklilik hatası; ilk saniyelerin en önemli görüntüsü bu.",
+     "nasil": "Göz ışığını profil başın göz noktasına yerleştir (tek göz, ışık tarafında). İkinci göz, burnun arkasında çok daha kısa ve sönük bir kıvılcım olabilir. Açılış boyunca göz ışığı kafanın dünya konumuna bağlı kalsın; geri çekilme varsa onunla birlikte ölçeklensin."},
+    {"sira": 2, "onem": "yüksek", "bolge": "25–30 sn geri çekilme, bütün kare",
+     "ne": "Yakınlaşma/geri çekilmede yatay taramanın bütün aralıkları değişiyor; kare farkı 5,4, en kötü blok 26. Çizgi pompalanması ve sıkıştırma titreşimi.",
+     "nasil": "Geri çekilme yerine tarama doğrultusunda (yatay) yavaş kaydırma ya da 1,25 → 1,0 kesme. Yakınlaşma kalacaksa toplam ölçek değişimi ≤ %10 ve süre ≥ 6 sn olsun."}
+  ],
+  "duzeltmeler_bolum_kurulunda": [
+    {"sira": 3, "onem": "orta", "bolge": "21,2–24,5 sn açılış (24,0 karesi)",
+     "ne": "Saydamlıkla açılış kâğıdı griye çeviriyor; baskı dilinde ara gri yok.",
+     "nasil": "Açılışı ışıkla yap: ton katmanında ufuk parıltısının ve yarığın değeri 0'dan 1'e çıksın, tarama çizgileri kalınlıktan incelerek açılsın (siyahtan kâğıda, çizgi diliyle). Görüntü hiçbir an gri olmaz."},
+    {"sira": 4, "onem": "orta", "bolge": "zincir yakın planı 33–35,8 sn; kol x 480–860, y 0–800; bulut vuruşları x 200–450 / 1310–1550 / 1640–1840, y 40–320",
+     "ne": "Kol çizme konçu ya da kova gibi; siyah gökte gövdesiz bulut vuruşları pençe izi gibi.",
+     "nasil": "Kolun su üstündeki kısmında bilek kıvrımı ve yumruğun üst eklemleri (ışık kenarıyla 3–4 düğüm) görünsün ya da ön kolda kas kavsini izleyen 2–3 kesit vuruşu olsun. Gökte bulutun arkasına taralı gök kuşağı koy ya da bu planda bulut vuruşlarını çizme."},
+    {"sira": 5, "onem": "orta", "bolge": "ön alevler x 540–1250, y 690–850 (32,5); sağ alt yakın alev x 1500–1920, y 700–1080 (31,0)",
+     "ne": "Ön alevler zaman zaman geniş yuvarlak kütleye dönüşüp çarşaf gibi okunuyor. Sağ alt yakın alev çok hızlı (en kötü blok 39,9).",
+     "nasil": "Alev kütlesinin genişlik/yükseklik oranına üst sınır (≤ 0,7); uçlar her an en az 2 sivri dil. En yakın alevin hızını yarıya indir (yakın plan en yavaş)."},
+    {"sira": 6, "onem": "düşük", "bolge": "huzme x 1200–1520, y 380–520",
+     "ne": "Huzme sağ bulutun önünden geçiyor.",
+     "nasil": "Bulut maskesinde kes."}
+  ],
+  "dokuza_ne_kaldi": "Durağan dil 9'a yakın (U1 8,5). Hareketteki puanı düşüren U2 (geri çekilme pompalanması, gri açılış) ve U4 (göz ışığı sürekliliği, kol okuması). Düzeltme 1 ve 2 uygulanırsa U2 8,5'e, U4 8,5'e çıkar: ağırlıklı ≈8,5. 3–5 ile ≈8,8–9,0.",
+  "en_emin_olmadigim_nokta": "Geri çekilmedeki pompalanmanın gerçek videoda ne kadar göründüğü. Ben yalnız 0,033 sn aralıklı iki kare çiftinden ölçtüm; 10–15 karelik bir dizi ve H.264 çıktısı üzerinde U-Teknik'in ölçümü belirleyici olmalı. Kare farkı yüksek olsa da çizgiler düzgün ölçekleniyorsa, göz bunu 'kamera hareketi' diye kabul edebilir."
+}

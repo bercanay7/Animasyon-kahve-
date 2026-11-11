@@ -224,19 +224,19 @@ function cen_basmelek(p) {
   const J = SF.rig({ x: p.x, y: p.y, h, facing: p.facing ?? 1, twist: p.twist ?? .3, lean: p.lean ?? 0, head: p.head ?? .15, shTilt: p.shTilt ?? -.03,
     armN: p.armN || [-.1, .3], armF: p.armF || [.45, .8], legN: p.legN || [.1, -.05], legF: p.legF || [-.08, -.02] });
   let lx = p.L.x - J.shC[0], ly = p.L.y - J.shC[1]; { const l = Math.hypot(lx, ly) || 1; lx /= l; ly /= l; }
-  const LIT = [lx, ly], lum = p.lum ?? 1, dk = clamp((1 - lum) * 2.2);
+  const LIT = p.lit || [lx, ly], lum = p.lum ?? 1, dk = clamp((1 - lum) * 2.2);
   if (p.wing !== false) {
     const S = p.wingSpan ?? 6.6 * h;
     for (const [side, P] of [[-1, { span: S, open: .9, lift: .62, rot: -.12, seed: 11, root: .1 }], [1, { span: S * .92, open: .86, lift: .72, rot: .1, seed: 12, root: .1 }]]) {
       const sh = side < 0 ? (J.shN[0] < J.shF[0] ? J.shN : J.shF) : (J.shN[0] < J.shF[0] ? J.shF : J.shN);
       GR.frame(sh[0] - side * h * .25, sh[1] + h * .12, P.rot + (p.wingRot || 0) * side, side, 1);
       KN.feathered(Object.assign({ dark: dk * .5, rim: .4, ruin: 0, droop: 0, t, lit: [LIT[0] * side, LIT[1]], anchor: p.anchor ?? .55 }, P,
-        { open: lerp(P.open, 1, p.open ?? 0) * (p.fold ? 1 - .5 * p.fold : 1), lift: lerp(P.lift, .9, p.lift ?? 0) }));
+        { open: lerp(P.open, 1, p.open ?? 0) * (p.fold ? 1 - .5 * p.fold : 1), lift: lerp(P.lift, .9, p.lift ?? 0), span: P.span * (p.fold ? 1 - .3 * p.fold : 1) }));
       GR.unframe();
     }
   }
   if (p.mid) p.mid(J);
-  const so = { lum, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 0, eye: 0, wind: .5, spear: null, seed: p.seed || 3, armor: p.armor };
+  const so = { lum, lit: LIT, t, cloak: p.cloak ?? .55, legs: p.legs ?? true, skirt: true, lines: p.lines ?? 0, eye: 0, wind: .5, spear: null, seed: p.seed || 3, armor: p.armor, robe: p.robe, hair: p.hair };
   const sp = p.spear === false ? null : Object.assign({ grip: 'F', ang: .03, len: 7.8, up: .66 }, p.spear || {});
   const spear = () => { const g = J['wr' + sp.grip], a = (sp.ang || 0) * J.f; cen_mizrak(g[0] + J.f * h * .25, g[1] + h * .08, a, sp.len * h, sp.up, Math.max(1.6, h * .05), h); };
   if (sp && sp.grip === 'F') spear();
@@ -257,6 +257,38 @@ function cen_mizrak(gx, gy, a, L, up, w, h) {
   const SP = new Path2D(); poly(SP, [[b0[0] + n[0] * w, b0[1] + n[1] * w], [t0[0] + n[0] * w, t0[1] + n[1] * w], [t0[0] + n[0] * w * 2.4 + c * tl * .3, t0[1] + n[1] * w * 2.4 + s * tl * .3], [t0[0] + c * tl, t0[1] + s * tl],
     [t0[0] - n[0] * w * 2.4 + c * tl * .3, t0[1] - n[1] * w * 2.4 + s * tl * .3], [t0[0] - n[0] * w, t0[1] - n[1] * w], [b0[0] - n[0] * w, b0[1] - n[1] * w]], true);
   tx.fillStyle = tone(0); tx.fill(SP); px.fillStyle = GR.hatch({ th: a - PI / 2, id: 7 }); px.fill(SP);
+}
+// Sabah yıldızı: sekiz kollu kâğıt beyazı yıldız; çevresinde kendi küçük eş merkezli halesi (koyu halka taraması, ayırma için)
+function cen_yildiz(x, y, r, a = 1) {
+  const { tx, px, tone } = GR; if (a <= 0) return;
+  const R2 = r * (3.2 + 1.2 * a), D = new Path2D(); D.arc(x, y, R2, 0, TAU);
+  const g = tx.createRadialGradient(x, y, r * .6, x, y, R2); g.addColorStop(0, tone(1)); g.addColorStop(.3, tone(lerp(.85, .5, a))); g.addColorStop(.7, tone(lerp(.85, .62, a))); g.addColorStop(1, 'rgba(0,0,0,0)');
+  tx.save(); tx.globalCompositeOperation = 'source-over'; tx.fillStyle = g; tx.fill(D); tx.restore();
+  px.fillStyle = GR.hatch({ type: 'rad', cx: x, cy: y, id: 7 }); px.fill(D);
+  const S = new Path2D(), n = 8, pts = [];
+  for (let i = 0; i < n * 2; i++) { const an = i / (n * 2) * TAU - PI / 2, rr = i % 2 ? r * .22 : (i % 4 === 0 ? r * (1.6 + .6 * a) : r * .95); pts.push([x + Math.cos(an) * rr, y + Math.sin(an) * rr]); }
+  poly(S, pts, true); tx.fillStyle = tone(1); tx.fill(S);
+}
+// Uzak saray: Dor sütunlu, alınlıklı tapınak (kubbe yok). x, y taban ortası; s ölçek (taban genişliği px); lx ışık yanı (±1)
+function cen_saray(x, y, s, lx = 1, v = .97) {
+  const { tx, px, tone } = GR, u = s / 10, B = new Path2D(), dk = new Path2D();
+  B.rect(x - 5 * u, y - .6 * u, 10 * u, .6 * u); B.rect(x - 4.6 * u, y - 1 * u, 9.2 * u, .4 * u);              // basamaklar
+  B.rect(x - 4.3 * u, y - 5.4 * u, 8.6 * u, .8 * u);                                                        // arşitrav
+  B.moveTo(x - 4.7 * u, y - 5.4 * u); B.lineTo(x, y - 7.3 * u); B.lineTo(x + 4.7 * u, y - 5.4 * u); B.closePath(); // alınlık
+  for (let i = 0; i < 6; i++) { const cx = x - 3.8 * u + i * 1.52 * u; B.rect(cx - .32 * u, y - 4.6 * u, .64 * u, 3.6 * u); }
+  dk.rect(x - 4.3 * u, y - 4.6 * u, 8.6 * u, 3.6 * u);                                                       // sütun arası gölge
+  tx.fillStyle = tone(.08); tx.fill(dk); px.fillStyle = GR.hatch({ th: 0, id: 9 }); px.fill(dk);
+  tx.save(); tx.translate(-lx * u * .25, u * .1); tx.fillStyle = tone(.03); tx.fill(B); tx.restore();
+  tx.fillStyle = tone(v); tx.fill(B); px.fillStyle = GR.hatch({ th: PI / 2, id: 9 }); px.fill(B);
+}
+// Açık levhada yazı: arkasında yumuşak kâğıt zemin, mürekkep rengi harf (over katmanında)
+function cen_yazi(ctx, s, x, y, a, o = {}) {
+  if (NOTEXT || !s || a <= 0) return;
+  const px_ = o.px || 56; ctx.save(); ctx.font = o.font || FONT.baslik(px_, 600); if (o.ls) ctx.letterSpacing = o.ls + 'px';
+  const wd = ctx.measureText(s).width; ctx.restore();
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1); g.addColorStop(0, `rgba(${GR.PAPER},${.92 * a})`); g.addColorStop(.6, `rgba(${GR.PAPER},${.85 * a})`); g.addColorStop(1, `rgba(${GR.PAPER},0)`);
+  ctx.save(); ctx.translate(x, y); ctx.scale(wd * .5 + px_ * 1.4, px_ * 1.25); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill(); ctx.restore();
+  txt(ctx, s, x, y, { px: px_, font: o.font || FONT.baslik(px_, 600), ls: o.ls ?? 6, a, col: INK_CSS });
 }
 // ── kaba eskiz uyumu: cizCennet(t, o) = C02 levhası ──
 function cizCennet(t, o = {}) { return cen_c02(t, o); }
