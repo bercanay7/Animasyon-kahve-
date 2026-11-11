@@ -460,3 +460,10 @@ plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), {
 shot(Se('A02') + .05, (ctx, st) => {
   levha(ctx, { cx: 940, cy: 520, z: 1 }, () => cab_yakin(st.t, { yas: lerp(.45, 1, E.out2 ? E.out2(st.p) : st.p), kay: 0 }), [.03, 0, 1]);
 }, { id: 'P002g', tr: { type: 'cut' } });
+
+// ── P000g (0 → A01): filmin ilk karesi (başkan eklemesi, kapak kurulu tur 2) ──
+// Ses 0,9. saniyede başlar; o ana kadar Cabanel'in gözü ve dolmakta olan damla. İki kapağın vaadi de ilk saniyede:
+// göz ve damla (kapak B) → "Ben cehennemim" figürü (kapak A). P002g aynı gözü 10. saniyede geri çağırır (damla dolar).
+shot(0, (ctx, st) => {
+  levha(ctx, { cx: 940, cy: 520, z: 1 }, () => cab_yakin(st.t, { yas: lerp(.15, .5, E.out2(st.p)), kay: 0 }), [.03, 0, 1]);
+}, { id: 'P000g', tr: { type: 'cut' } });

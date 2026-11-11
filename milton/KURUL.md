@@ -430,3 +430,19 @@ Ortak brif ve malzeme: `kurul/kurgu_tur1/BRIF.md` (her plandan baş/orta/son kar
 - Açıklamaya Cabanel için "kendi gravür yorumumuz", müzik için "kodla sentezlenmiş" ifadeleri ve özgün üretim cümlesi eklendi. "Değiştirilmiş veya yapay içerik" beyanı: Hayır (gerekçesi `youtube.md`'de).
 - P123 (Lewis kitabı): kare başkanca kontrol edildi: kendi çizdiğimiz düz bir kapak; gerçek bir baskının tasarımı, logo ya da barkod yok.
 - Doğrulanamayan: yayımlanmış Türkçe çevirilerle cümle düzeyinde benzerlik (üyenin metinlere erişimi yok). Çeviriler senaryo kapısında İngilizce özgün metinden yapıldı; uzun dört alıntı (B06, C07, G03, G12) için kullanıcı elindeki baskıyla karşılaştırmak isterse metinler `senaryo.json`'da.
+
+### Kapak kurulu tur 2 (çapraz eleştiri + yeniden puan)
+| Üye | A (tur 1 → 2) | B (tur 1 → 2) | Karar |
+|---|---|---|---|
+| P-TO | 8,3 → 8,8 | 7,3 → 8,3 | RED (yakın) |
+| P-Sanat | 7,9 → 8,4 | 7,4 → 8,3 | RED (son rötuş) |
+
+Hiçbir ölçüt 7'nin altında değil. İki üye de kavramı, "PİŞMAN MIYDI?" yazısını, gravür damlayı ve tek vurgu rengini onaylıyor.
+
+**Çatışmalar ve başkan kararı:**
+- **A'da tırnak:** P-Sanat tırnakların kaldırılmasını istedi (ağır serif, künyeyi alıntılıyor); hassasiyet üyesi tırnak istemişti; P-TO "168 px'te fark yok, hassasiyet önce gelir" dedi. Karar: tırnak kalır ama doğru dizilir (Bebas ağırlığında, asılı; kapanış tırnağı künye bandında değil); künye "MILTON · KAYIP CENNET".
+- **Damlanın boyu:** P-TO küçültmeye, P-Sanat büyütmeye karşı. Karar: şimdiki orta boy kalır; odak renk ve parlaklıkla sağlanır (≥ 235 parlaklığın %90'ı damlada).
+- **B'nin vaadinin açılıştaki yeri:** P-TO göz planının 6,3. saniyeye alınmasını önerdi (ilk 5 sn kuralı). Karar: A01 → A02 eşleme kesmesini bozmamak için plan oraya alınmadı; onun yerine **filmin ilk karesi göz ve damla oldu** (P000g: 0–0,9 sn, ses başlamadan önce); 10. saniyedeki P002g geri çağrı olarak kalıyor. İki kapağın vaadi de ilk saniyede.
+- **Reddedilen:** filmdeki damlanın kapaktaki gibi mavi olması (P-TO). Gerekçe: film siyah-beyaz; tek vurgu rengi yalnız kapakta. Koyu A'nın üçüncü test seçeneği olması (P-Sanat karşı çıktı; açılışla eşleşmiyor): teste girmiyor.
+- Başlık: 1. aday ("Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"). Test: A (tırnaklı) ana kapak, B ikinci seçenek.
+- Filmin açılış figürü kapaktaki iyileşmiş figüre uyduruluyor (P-TO'nun 1. bulgusu).
