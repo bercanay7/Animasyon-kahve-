@@ -363,3 +363,20 @@ Puanların seyri: U-Sanat 6,3 → 7,15 → 7,85 → 8,2 → 8,3 → 8,35; U-Grav
 **Çatışma ve başkan kararı (kamera):** U-Sanat geri çekilmeyi rahatsız edici bulmadı; U-Gravur "akordeon gibi pompalanır" dedi; U-Teknik ölçtü: kayma düzgün ve kırpışmasız, ama bit hızı durağan bölümün üç katı ve varsayılan hareketin yatay kaydırma olmasını önerdi. Karar: **varsayılan kamera hareketi yatay kaydırma; yakınlık değişimi en çok %10, en az 6 sn, yumuşak.** A04'te 1,10 → 1,0. Kılavuza işlendi.
 
 **Diğer kararlar (göl ajanına verildi):** karanlıktaki iki göz kapanır, kısa siyah, sonra geniş plan ışıkla açılır ve profildeki tek göz ışığı başa bağlı belirir; saydamlıkla açılış yok, ışıkla açılış; zincir planında çapraz kol, görünen yumruk, kola dik bilezik; etiket ≥ 60 punto ve düz siyah zeminde; ön alevlerde en-boy sınırı ve en az iki sivri dil; sağ alt alev yavaş ve küçük. Kıyı sahneleri (E) için başkan notları: koyu oran %80–86'dan hedefe (%65–75), E11'de saflar ve öndeki figür, E07'de figür ölçeği, E12'de kazıcılar.
+
+## Sahne üretimi ve yönetmen (başkan) düzeltme turu
+142 planın hepsi çizildi (sahipleri: göl/kıyı, oda/Londra, levhalar, cennet, Nifates, savaş/Kaos, Aden/çıkış, Pandemonium/kapı, okuma/Cabanel ajanları). Kurul kapısından önce başkan filmin tamamını plan plan özet sayfalarında izledi (`tools/kurgu_ozet.py`; her plandan bir kare) ve kurula gitmeden düzeltilecekleri belirledi. Bu tur bir kurul oyu değildir; başkanın kendi gözüyle yaptığı ön elemedir.
+
+| Bölge | Başkanın okuması | Karar ve sonuç |
+|---|---|---|
+| Kanca (A01, A02; ilk 11 sn) | A01 "direğe takılmış çan"; A02 okunmuyor. Kayıp ilk 10–15 sn'de olduğu için en öncelikli iş | İkisi tek sahibe verildi, eşleme kesmesi olarak yeniden kuruldu: A01 güneş diski önünde kanatlı, pelerinli kara figür, göğsünde tek alev; A02 aynı gövde, değerler ters, tüylü kanatlar açılır, göğüsten çıkan seyrek güçlü ışınlar. İki tur |
+| Cennet (C02–C06) | Düz kâğıt figürler "vitrin mankeni", küçük kanatlar, biçimsiz koyu yumrular, C04'te arkadan başsız görünen eğilenler | "Düz kâğıt figür" kuralını bu set için başkan değiştirdi. İki yol denendi (ışıklı çizgili figür / ters ışık); **ters ışık seçildi**: koyu siluet + `KN.feathered` büyük kanat + kenar ışığı, ışık merkezi alnın üstündeki sabah yıldızı. Koyu kütleler Nifates dilinde bulut terasları. C04'te profilden Batı saray selamı |
+| Savaş (D02–D08), Uriel (F08) | Cennetin eski dilinde kalmıştı; D06 zırh yakın planı "katlı pasta" | Cennetin yeni diline geçti. Asi koyu siluet açık gök önünde, sadık melek ışıklı ve çizgili koyu bulut önünde: karşıtlık kompozisyonun kendisi. D06 orta plana çevrildi (zırhtaki parlak şerit kopar). D08'de Oğul yalnız bulutların arasından açılan ışık |
+| Pandemonium (E13–E15, J01–J11) | Aynı geniş salon karesi yedi kez; figür 25 px; J07 dönüşümü küçük ve "çöp adam" | Geniş salon yalnız kuruluş için; J05, J08, J10 kendi orta planlarını aldı; J07 yakın planda, yılan Aden'deki yılanla aynı aileden |
+| Nifates (F09–G16, L07) | Güneş ince çizgi çember ("pergel izi"); G02 ve G07 eski "çan" figürü; L07 okunmuyor | Güneş temiz kâğıt disk; G02/G07 açılış figürü, G07 açılış karesinin birebir geri çağrısı. L07: iki ön kol denemesi "top namlusu" gibi okundu; kol bırakıldı, zincir açılış figürünün bedenini sarıyor (alevden çıkıp aleve dönüyor): açılışın üçüncü geri çağrısı |
+| Son kare (L09) | Siyah zeminde küçük beyaz kesme figür ("hayalet") | Açılış karesinin aynası: karanlık odada düz siyah şair silueti, göğsünde doğan küçük güneş; ışık önce içeride büyür, sonra dışarı taşıp odayı aydınlatır |
+| A06 | Yakınlık 1 → 1,18 kamera kuralını aşıyordu | 1 → 1,08 |
+
+**Üslup tarifindeki değişiklik (bağlayıcı):** "açık tarif"teki *düz kâğıt figür* maddesi kalktı. Cennet, savaş ve Nifates aynı dili konuşuyor: ana figür ters ışıkta koyu siluet; ışıklı figür yalnız çizgili ve koyu kütle önünde; uzak saflar beyaz kütle. Gerekçe: iç çizgisiz beyaz figür her ölçekte "kâğıt kesme" okundu; filmin en iyi duran figürleri baştan beri koyu siluetlerdi.
+
+**Geri çağrı yapısı (kurulun bakacağı):** A01 (soru) → G07 (itiraf; aynı kare, alev büyür) → L07 (cevap; aynı kare, zincir) → L09 (ayna: içindeki ışık).

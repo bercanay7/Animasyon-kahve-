@@ -779,70 +779,47 @@ plan('P082', (ctx, st) => {
       legN: [.08, -.04], legF: [-.08, -.03], lum: .15, lit: nif_isik(S0, tp[0], tp[1] - 60), wings: NIF_PROF }) }), NIF_BG);
 }, { tr: { type: 'fade', dur: .9 } });
 
-// ═════════ P137 (L07): kendi elinden kendi bileğine zincir (filmin cevabı) ═════════
-// P005'in dili (kelepçeli bilek + büyük halkalar). Beden ve yüz yok: yalnız iki ön kol, alttan kadraja girer.
-// Sol el zincirin ucunu kavramış (yumruk); zincir kısa bir yay çizip sağ bilekteki kelepçeye bağlanır.
-// Altta, yerde gölün kopuk, dağınık zincirleri ('çözülmüştü'de belirir); yeni zincir 'kendi'den 'vurdu'ya halka halka çizilir; 'gururu' yazısı.
-// Arkada Nifates göğü, alçalmış güneş (temiz kâğıt disk).
-function nif_kol(pts, lit, seed) {   // ön kol: kalın, koyu kütle; ışık yanında kenar ışığı ve içe giren vuruşlar
-  const { tx, tone } = GR, P = new Path2D(); spline(P, pts, true, .75);
-  GR.fill(P, tone(.02), { th: .3, id: 5 });
-  return P;
-}
+// ═════════ P137 (L07): cevap; açılışın üçüncü geri çağrısı (A01 soru → G07 itiraf → L07 cevap) ═════════
+// Kadraj, güneş, zirve ve kanca figürü A01 ile aynı; göğüsteki alev A01'deki sakin hâlinde.
+// 'çözülmüştü': ayakların iki yanında, zirvenin koyu zemininde kopuk zincir parçaları belirir.
+// 'kendi'den 'vurdu'ya yeni zincir halka halka çizilir ve figürün kendi bedenini sarar: göğüsteki alevden çıkar, pelerinin ve kanatların
+// önünden çapraz üç kez dolanır, aleve geri döner; iki ucu da alevde (dışarıda bağlandığı yer yok). Arkadan geçen kısımlar görünmez.
+// 'gururu': yazı A01'deki "Ben cehennemim." ile aynı yerde, aynı biçimde; alev bir kez hafifçe büyüyüp döner.
+// zincirin önden görünen parçaları (dünya noktaları; aralarındaki arka geçişler çizilmez)
+const NIF_L07_ZINCIR = (() => {
+  const bz = (a, c, b, n = 16) => Array.from({ length: n + 1 }, (_, i) => { const u = i / n, v = 1 - u; return [v * v * a[0] + 2 * u * v * c[0] + u * u * b[0], v * v * a[1] + 2 * u * v * c[1] + u * u * b[1]]; });
+  return [
+    bz([845, 572], [770, 520], [690, 470]),                // alevin dibinden çıkıp göğüs üstünden sol omza
+    bz([1045, 500], [890, 660], [680, 650]),               // sağ kanattan sola, aşağı doğru çapraz (önden yarım tur; alevin altından)
+    bz([1050, 665], [890, 810], [690, 790]),               // ikinci tur
+    bz([1045, 805], [990, 700], [880, 578])                // üçüncü turun önü: sağdan yukarı, alevin dibine döner
+  ];
+})();
 function nif_l07(t) {
-  const { tx, tone } = GR, S0 = { x: 1500, y: 360, r: 210 };
-  const tC = Wd('L07', 'çözülmüştü'), tK = Wd('L07', 'kendi'), tV = Wd('L07', 'vurdu');
-  nif_gok(S0, { dark: .3, beams: [], clouds: [{ x: 160, y: 120, w: 1000, h: 300, seed: 21, n: 4 }], t });
-  nif_siralar({ hz: 760, dark: .3 });
-  // zemin: yakın, koyu tepe yüzü; üstünde kopuk zincirler
-  const G = new Path2D(); G.moveTo(-200, 800); for (let x = -200; x <= W + 200; x += 120) G.lineTo(x, 800 + 30 * Math.sin(x * .004 + 1) + 12 * Math.sin(x * .02)); G.lineTo(W + 200, H + 200); G.lineTo(-200, H + 200); G.closePath();
-  GR.fill(G, tone(.02), { th: 0, id: 4 });
-  tx.save(); tx.clip(G); tx.strokeStyle = tone(.9); tx.lineWidth = 5; tx.stroke(G); tx.restore();
-  const ca = E.io2(nif_u(t, tC - .4, tC + .8));
-  if (ca > 0) {   // kopuk zincirler: yerde dağınık, uçları açık (kırık halka), ışık üstten
-    const L = [[90, 900, 470, 862, 40, 14], [560, 960, 820, 1000, 40, -10], [1240, 905, 1640, 870, 40, 12], [1500, 1010, 1860, 990, 40, 8]];
-    tx.save(); tx.globalAlpha = 1;
-    for (const [x0, y0, x1, y1, lk, sg] of L) { const m = lerp(.3, 1, ca); PR.chain(x0, y0, lerp(x0, x1, m), lerp(y0, y1, m), lk, { sag: sg, v: .9, lit: [.3, -1] }); }
-    tx.restore();
+  const tC = Wd('L07', 'çözülmüştü'), tK = Wd('L07', 'zinciri', 1), tV = Wd('L07', 'vurdu') + .15, tG = Wd('L07', 'gururu', 1);   // 'bu zinciri … kendi eliyle vurdu' boyunca halka halka
+  const pulse = Math.sin(PI * clamp((t - tG + .1) / 1.2));
+  const F = nif_kancaA01(t, .35 * pulse);
+  // kopuk zincirler: ayakların iki yanında, koyu zirvede; kalın, az (3 parça), uçta açılmış kırık halka
+  const ca = E.io2(nif_u(t, tC - .3, tC + .9));
+  if (ca > 0) {
+    for (const [x0, y0, x1, y1, sg] of [[560, 960, 760, 935, 10], [960, 935, 1180, 965, 12], [1240, 1010, 1420, 990, 8]]) {
+      const m = lerp(.25, 1, ca); PR.chain(x0, y0, lerp(x0, x1, m), lerp(y0, y1, m), 46, { over: true, sag: sg, lit: [0, -1] });
+    }
+    const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 6; O.lineCap = 'butt';   // kırık halkalar: açık yay
+    for (const [x, y, r] of [[790, 930, .3], [930, 940, -.4]]) { O.beginPath(); O.ellipse(x, y, 22 * ca, 13 * ca, r, .7, TAU - .7); O.stroke(); }
+    O.restore();
   }
-  // ön kollar (P005 dili): yanlardan kadraja giren, kaslı, koyu, kalın ön kollar; güneş arkada (kenar ışığı üstte)
-  const arm = (pts) => { const P = new Path2D(); spline(P, pts, true, .7); GR.fill(P, tone(.02), { th: .3, id: 5 }); return P; };
-  // sol kol: soldan sağa hafif yukarı; bilek (760, 600)
-  const LA = arm([[-80, 610], [180, 572], [420, 560], [640, 540], [770, 548], [782, 650], [690, 676], [470, 724], [220, 812], [-80, 900]]);
-  // sol yumruk: zinciri kavramış; dört boğum üstte, başparmak önde kıvrık; zincir yumruğun altından çıkar
-  const Fi = new Path2D(); Fi.moveTo(760, 548);
-  for (let i = 0; i < 4; i++) { const x0 = 770 + i * 26; Fi.quadraticCurveTo(x0 + 13, 528 - (i === 1 ? 6 : 0), x0 + 26, 546); }
-  Fi.quadraticCurveTo(892, 560, 886, 600); Fi.quadraticCurveTo(880, 646, 840, 652); Fi.lineTo(770, 652); Fi.quadraticCurveTo(752, 600, 760, 548); Fi.closePath();
-  GR.fill(Fi, tone(.02), { th: .3, id: 5 });
-  // sağ kol: sağdan sola hafif yukarı; bilek (1160, 620), kelepçe bilekte; el açık, parmaklar aşağı sarkar
-  const RA = arm([[2000, 640], [1760, 600], [1480, 594], [1260, 584], [1150, 594], [1140, 690], [1240, 702], [1460, 750], [1740, 832], [2000, 920]]);
-  const Hn = new Path2D(); Hn.moveTo(1150, 600); Hn.quadraticCurveTo(1090, 592, 1060, 620);
-  for (const [fx, fy] of [[1040, 700], [1062, 718], [1086, 722], [1110, 712]]) { Hn.quadraticCurveTo(fx - 10, fy - 30, fx, fy); Hn.quadraticCurveTo(fx + 10, fy + 4, fx + 12, fy - 26); }
-  Hn.quadraticCurveTo(1140, 690, 1150, 676); Hn.closePath();
-  GR.fill(Hn, tone(.02), { th: .3, id: 5 });
-  // kenar ışığı: kolların ve ellerin üst (güneşe bakan) kenarında kesintisiz kâğıt çizgi; içe giren birkaç vuruş
-  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 6;
-    for (const P of [LA, Fi, RA, Hn]) { O.save(); O.clip(P); O.stroke(P); O.restore(); } O.restore(); }
-  for (const [pts, cl] of [[[[300, 650], [480, 625], [640, 594]], LA], [[[120, 690], [260, 676]], LA], [[[1700, 704], [1520, 676], [1340, 640]], RA], [[[1880, 738], [1760, 722]], RA]]) { tx.save(); tx.clip(cl); nif_vurus(pts, 10, .95); tx.restore(); }
-  // yumrukta boğum araları (ince kâğıt kesikler), başparmak çizgisi
-  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 3.5;
-    for (let i = 1; i < 4; i++) { const x = 770 + i * 26; O.beginPath(); O.moveTo(x, 552); O.lineTo(x - 2, 580); O.stroke(); }
-    O.beginPath(); O.moveTo(784, 608); O.quadraticCurveTo(830, 596, 872, 612); O.stroke(); O.restore(); }
-  // kelepçe: bileği saran kalın bant (yanlardan bakış: dikey bant), üst kenar ışıklı, perçinler
-  const cf = new Path2D(); cf.moveTo(1170, 582); cf.quadraticCurveTo(1200, 578, 1230, 590); cf.lineTo(1232, 702); cf.quadraticCurveTo(1200, 712, 1168, 700); cf.closePath();
-  GR.fill(cf, tone(.03), { th: PI / 2, id: 9 });
-  { const O = GR.ox; O.save(); O.strokeStyle = GR.paperCol; O.lineWidth = 6; O.beginPath(); O.moveTo(1172, 586); O.quadraticCurveTo(1200, 581, 1228, 592); O.lineTo(1229, 640); O.stroke();
-    O.fillStyle = GR.paperCol; for (const y of [612, 644, 676]) { O.beginPath(); O.arc(1200, y, 5.5, 0, TAU); O.fill(); } O.restore(); }
-  // yeni zincir: yumruğun altından kelepçeye, kısa yay (aşağı sarkar); 'kendi'den 'vurdu'ya halka halka
-  const n = 9, k = Math.floor(clamp(nif_u(t, tK, tV)) * n + (t >= tV ? n : 0));
-  if (k > 0) {
-    const a = [830, 655], b = [1200, 706], q = Math.min(n, k);
-    const pos = f => [lerp(a[0], b[0], f), lerp(a[1], b[1], f) + Math.sin(f * PI) * 120];
-    const e = pos(q / n);
-    // PR.chain düz yay; yay boyunca parça parça çizmek için segmentlere böl
-    for (let i = 0; i < q; i++) { const p0 = pos(i / n), p1 = pos((i + 1) / n); PR.chain(p0[0], p0[1], p1[0], p1[1], 54, { over: true, lit: [.4, -.9] }); }
+  // yeni zincir: görünen parçalar boyunca halka halka (her halka ~37 px adım)
+  const step = 36, segs = NIF_L07_ZINCIR, links = [];
+  for (const sg of segs) {   // her parçayı eşit adımlı noktalara böl
+    let acc = 0; const pts = [sg[0]];
+    for (let i = 1; i < sg.length; i++) { const a = sg[i - 1], b = sg[i], d = Math.hypot(b[0] - a[0], b[1] - a[1]); acc += d; while (acc >= step) { acc -= step; const u = 1 - acc / d; pts.push([lerp(a[0], b[0], u), lerp(a[1], b[1], u)]); } }
+    for (let i = 1; i < pts.length; i++) links.push([pts[i - 1], pts[i]]);
   }
+  const N = links.length, k = t >= tV ? N : Math.floor(clamp(nif_u(t, tK, tV)) * N);
+  for (let i = 0; i < k; i++) { const [a, b] = links[i]; PR.chain(a[0], a[1], b[0], b[1], 50, { over: true, lit: [0, -1] }); }
+  return F;
 }
-plan('P137', (ctx, st) => levha(ctx, { cx: lerp(975, 945, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
+plan('P137', (ctx, st) => levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
   { tr: { type: 'fade', dur: .8 },
-    over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; etiket(ctx, 'gururu', 1000, 930, st.lt - t0, st.d - t0, { px: 56, panel: false }); } });
+    over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; quote(ctx, 'gururu', 1560, 150, st.lt, { t0, px: 84, panel: false }); } });
