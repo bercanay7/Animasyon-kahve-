@@ -149,13 +149,13 @@ plan('P039', (ctx, st) => {
 plan('P040', (ctx, st) => {
   levha(ctx, { cx: 960, cy: 560, z: 1.04 }, () => cizGol(st.t, { head: .05, sway: .02 }));
 }, { tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => chapterCard(ctx, 'CEHENNEMDE KRAL', 'Her şeyini kaybeden biri, ilk olarak ne söyler?', st.lt, st.d + .4, { y: 250 }) });
+  over: (ctx, st) => chapterCard(ctx, 'CEHENNEMDE KRAL', 'Her şeyini kaybeden biri, ilk olarak ne söyler?', st.lt - .7, st.d + .4 - .7, { y: 250 }) });
 plan('P041', (ctx, st) => {
   const t = st.t, tG = Wd('E02', 'görür');
   const cam = camLerp({ cx: 1000, cy: 570, z: 1.06 }, { cx: 1060, cy: 570, z: 1.06 }, st.p, E.sine);
   levha(ctx, cam, () => gol_ikili(t, { head: lerp(.42, -.32, E.io2(gol_u(t, tG - .3, tG + 1.1))), sway: .02 }));
 }, { tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => quote(ctx, '“Ah, ne kadar düşmüş, ne kadar değişmişsin!”', 960, 190, st.t - Wd('E02', 'ah'), { px: 68, maxW: 1500, panel: .8 }) });
+  over: (ctx, st) => quote(ctx, '“Ah, ne kadar düşmüş, ne kadar değişmişsin!”', 960, 190, st.t - Wd('E02', 'ah'), { px: 72, maxW: 1500, panel: .8 }) });
 // dört söz: kelimeleri anlatımla birlikte, tek satırda sırayla
 function gol_dortSoz(ctx, t) {
   if (NOTEXT) return;
@@ -192,7 +192,7 @@ plan('P046', (ctx, st) => {
   const cam = camLerp({ cx: 990, cy: 540, z: 1.04 }, { cx: 930, cy: 540, z: 1.04 }, st.p, E.sine);
   levha(ctx, cam, () => cizKiyi(t, { fx: KIY_FX, fig: gy => kiy_seytan(t, { x: KIY_FX - 20, gy, h: 56, head: lerp(-.05, .22, a), armN: [lerp(.15, 1.75, a), lerp(.2, .05, a)], armF: [-.1, .2], lum: .05 }) }));
 }, { tr: { type: 'fade', dur: .9 },
-  over: (ctx, st) => quote(ctx, '“Zihin kendi dünyasıdır.”', 960, 115, st.t - Wd('E06', 'zihin'), { px: 70, kaynak: 'KAYIP CENNET · I. 254–255' }) });
+  over: (ctx, st) => quote(ctx, '“Zihin kendi dünyasıdır.”', 960, 115, st.t - Wd('E06', 'zihin'), { px: 72, kaynak: 'KAYIP CENNET · I. 254–255' }) });
 // P047–P048: mızrağı yere saplar; filmin en ünlü dizesi (I.263)
 const KIY_HZ = 600;
 function gol_mizrak(t, tS) {
@@ -219,13 +219,13 @@ plan('P047', (ctx, st) => {
   const t = st.t, tS = Wd('E07', 'söyler');
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => gol_kiyMizrak(t, tS));
 }, { tr: { type: 'cut' }, mb: 3,
-  over: (ctx, st) => quote(ctx, '“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”', 1420, 270, st.t - Wd('E07', 'cehennemde') + .4, { px: 68, maxW: 760, per: .45, kaynak: 'KAYIP CENNET · I. 263' }) });
+  over: (ctx, st) => quote(ctx, '“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”', 1420, 270, st.t - Wd('E07', 'cehennemde') + .4, { px: 72, maxW: 760, per: .45, kaynak: 'KAYIP CENNET · I. 263' }) });
 plan('P048', (ctx, st) => {
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => gol_kiyMizrak(st.t, Wd('E07', 'söyler')));
 }, { tr: { type: 'cut' },
   over: (ctx, st) => {
-    quote(ctx, '“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”', 1420, 200, 9, { px: 58, maxW: 760, panel: .8 });
-    quote(ctx, 'cennette köle olacağıma, cehennemde kral olurum', 1420, 470, st.t - Wd('E08', 'cennette') + .2, { px: 66, maxW: 820, panel: .85 });
+    quote(ctx, '“Cehennemde hükümdar olmak, cennette hizmetkâr olmaktan yeğdir.”', 1420, 200, 9, { px: 66, maxW: 760, panel: .8 });
+    quote(ctx, 'cennette köle olacağıma, cehennemde kral olurum', 1420, 470, st.t - Wd('E08', 'cennette') + .2, { px: 72, maxW: 820, panel: .85 });
   } });
 
 // P049: ölçek karesi. Omzunda ay gibi asılı kalkan; mızrağın dibinde, en büyük geminin direği bir değnek (I.284–294)
@@ -293,10 +293,12 @@ plan('P050', (ctx, st) => {
     if (!GOL_PJ) return;
     const { J, cam } = GOL_PJ, cm = camOf(cam), sc = p => [(p[0] - cm.x) * cm.s, (p[1] - cm.y) * cm.s];
     const kas = sc(gol_hl(J, .3, -.2)), goz = sc(gol_hl(J, .3, -.055));
-    for (const [s, w, p, x, y] of [['GURUR', 'gurur', kas, 1350, 400], ['PİŞMANLIK', 'gözlerinde', goz, 1420, 640]]) {
+    // etiketler koyu gökte (güneş diskinin ve ufuk taramasının dışında), panelli; ok çizgisi yazının sol ucundan çıkar
+    for (const [s, w, p, x, y] of [['GURUR', 'gurur', kas, 1580, 410], ['PİŞMANLIK', 'gözlerinde', goz, 1580, 640]]) {
       const lt = st.t - Wd('E10', w); if (lt <= 0) continue;
-      etiket(ctx, s, x, y, lt, 99, { px: 46 });
-      const a = E.sine(clamp(lt / .6)), x0 = x - ctx.measureText ? x - 170 - (s.length > 6 ? 70 : 0) : x;
+      etiket(ctx, s, x, y, lt, 99, { px: 48, panel: .85 });
+      ctx.save(); ctx.font = FONT.baslik(48, 600); ctx.letterSpacing = '6px'; const tw = ctx.measureText(s).width; ctx.restore();
+      const a = E.sine(clamp(lt / .6)), x0 = x - tw / 2 - 26;
       ctx.save(); ctx.globalAlpha = a * .9; ctx.strokeStyle = PAPER_CSS; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
       const ex = lerp(x0, p[0] + 34, E.out3(clamp(lt / .8))), ey = lerp(y, p[1], E.out3(clamp(lt / .8)));
       ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(ex, ey); ctx.stroke(); ctx.restore();

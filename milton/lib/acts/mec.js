@@ -398,7 +398,7 @@ plan('P109', (ctx, st) => {
     mec_beden({ px: MEC_J.px, py: MEC_J.py, h: MEC_J.h, t, armN: [lerp(2.55, .28, arm), lerp(.35, .3, arm)], armF: [-.15, .2], head: lerp(.1, -.18, arm), a, g, p, wk, th, sn, fruit: fr, wave: .06 * mec_u(t, w('yılan') + 1.1, w('yılan') + 3) });
   }, figZ: 3.1, crowd: f => ({ n: .45, bend: f.bd * (.6 + .4 * Math.sin(f.ph)) }) }));
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => quote(ctx, 'Önünde diz çökülen kral, şimdi karnının üstünde.', 960, 150, st.t - Wd('J07', 'kral') + .2, { px: 66, maxW: 1500, panel: .8 }) });
+  over: (ctx, st) => quote(ctx, 'Önünde diz çökülen kral, şimdi karnının üstünde.', 960, 120, st.t - Wd('J07', 'kral') + .4, { px: 72, maxW: 1500, panel: .92 }) });   // 'kral'dan 0,4 sn önce belirir (≥ 3,5 sn görünür)
 
 // ═════════ Yardımcılar: geniş plan yılan yolu, ağaç, yürüyen asker ═════════
 // orta plandaki yolu (K 1.5, zc 1.8; kürsü üstü Y = 200) geniş plana taşı
@@ -458,13 +458,13 @@ plan('P055', (ctx, st) => {
   levha(ctx, cam, () => mec_salon(t, { K: 2.2, zc: 1.0, vy: 190, serit: .9, glow: 1.05, crowd: (f, R) => mec_selam(f, R, t, tE),
     fig: () => mec_seytan(t, { X: 0, z: MW.TZ - .3, head: .22, armN: [.25, .2], armF: [-.15, .15], lum: .25, cloak: 1.3, wingK: .85, open: .35, lift: .35 }) }));
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => quote(ctx, 'Diz çökmeyi reddeden melek…', 960, 150, st.t - Wd('E15', 'reddeden') + .3, { px: 68, panel: .8 }) });
+  over: (ctx, st) => quote(ctx, 'Diz çökmeyi reddeden melek…', 960, 836, st.t - Wd('E15', 'reddeden') + .3, { px: 72, panel: .85 }) });   // taht, figür ve sütunlardan uzak: alt koyu kütle
 
 // ═════════ J01 (P104): bölüm kartı ALKIŞ; boş taht ═════════
 plan('P104', (ctx, st) => {
   levha(ctx, null, () => mec_orta(st.t, { gx: 960, gy: 360, gR: 380, glow: .42, lt: .6, neck: 0, crowd: null }));
 }, { tr: { type: 'black', dur: 1.4, end: true },
-  over: (ctx, st) => chapterCard(ctx, 'ALKIŞ', 'Zafer anında, insan ne duymayı bekler?', st.lt, st.d + .4, { y: 220 }) });
+  over: (ctx, st) => chapterCard(ctx, 'ALKIŞ', 'Zafer anında, insan ne duymayı bekler?', st.lt - 1.0, st.d + .4 - 1.0, { y: 220 }) });   // 'Kazanmıştır.' söndükten ≥ 0,3 sn sonra belirir (chapterCard geçiş alfasını ezdiği için kayma burada)
 
 // ═════════ J02 (P105): sıradan asker kılığında salondan geçer; tahtta birden belirir (sahte parıltı) ═════════
 plan('P105', (ctx, st) => {

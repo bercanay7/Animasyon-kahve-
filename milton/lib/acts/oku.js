@@ -178,7 +178,7 @@ function cab_tablo(t) {
 }
 plan('P132', (ctx, st) => levha(ctx, camLerp({ cx: 950 }, { cx: 970 }, st.p, E.sine), () => {
   cab_tablo(st.t);
-  kit_yaz('Alexandre Cabanel · Düşmüş Melek, 1847', 960, 852, { f: 'a', px: 58, a: kit_a(st.t, Wd('L02', 'aleksandr') - .3, 1.2), wipe: true });
+  kit_yaz('Alexandre Cabanel · Düşmüş Melek, 1847', 960, 808, { f: 'a', px: 54, a: kit_a(st.t, Wd('L02', 'aleksandr') - .3, 1.2), wipe: true });
 }, [KIT_K, 0, 1]), { tr: { type: 'fade', dur: .8 } });
 
 // ═════════════════ K11: küçülme merdiveni ═════════════════
@@ -327,8 +327,8 @@ function oku_k07(st) {
   GR.fill(Cu, cg, { th: -.6, id: 0 }); tx.save(); tx.strokeStyle = GR.tone(.02); tx.lineWidth = 4; tx.stroke(Cu); tx.restore();
   { const P = new Path2D(); poly(P, [[1450, 600], [1700, 380], [1708, 388], [1462, 610]], true); P.moveTo(1488, 590); P.ellipse(1470, 604, 30, 20, -.72, 0, TAU); GR.fill(P, GR.tone(.03), { th: 0, id: 0 }); oku_vurus([[1478, 586], [1690, 392]], 3, .9, .5); }
   // künye plakası
-  const Pl = new Path2D(); Pl.rect(470, 786, 680, 88); GR.fill(Pl, GR.tone(.975), { th: 0, id: 1 }); kit_kutu(470, 786, 1150, 874, 4); kit_kutu(482, 798, 1138, 862, 2.6);
-  kit_yaz('WILLIAM BLAKE · 1793', 810, 830, { f: 'b', px: 42, w: 700, ls: 6, a: kit_a(t, Wd('K07', 'vilyım') - .3, 1.1), wipe: true });
+  const Pl = new Path2D(); Pl.rect(440, 786, 740, 88); GR.fill(Pl, GR.tone(.975), { th: 0, id: 1 }); kit_kutu(440, 786, 1180, 874, 4); kit_kutu(452, 798, 1168, 862, 2.6);
+  kit_yaz('WILLIAM BLAKE · 1790–93', 810, 830, { f: 'b', px: 42, w: 700, ls: 6, a: kit_a(t, Wd('K07', 'vilyım') - .3, 1.1), wipe: true });
   // çizimler: solda sert çizgili melekler ("zincirliydi"), sağda serbest çizgili şeytanlar ("özgür")
   const fa = oku_u(t, Wd('K07', 'melekleri') - .3, Wd('K07', 'zincirliydi', 0, true) + .3), fs = oku_u(t, Wd('K07', 'şeytanları') - .2, Wd('K07', 'özgür', 0, true) + 1.2);
   [[420, 470], [550, 470], [680, 470]].forEach(([x, y], i) => oku_melekSert(ox, x, y, 120, clamp(fa * 3 - i)));
@@ -348,7 +348,7 @@ function oku_k10(st) {
   const xc = (X0 + 46 + X1) / 2, k = { v: .975, bg: .04 };
   kit_yaz('C. S. LEWIS', xc, 260, { f: 'b', px: 66, ls: 8, ...k, a: kit_a(t, Wd('K10', 'si') - .2, 1.2), wipe: true });
   kit_cizgi(xc, 360, 120, { v: .95, a: kit_a(t, Wd('K10', 'luis'), 1) });
-  kit_yaz('Kayıp Cennet\'e', xc, 470, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'kayıp') - .2, 1), wipe: true });
+  kit_yaz('Kayıp Cennet’e', xc, 470, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'kayıp') - .2, 1), wipe: true });
   kit_yaz('Önsöz', xc, 560, { f: 'a', px: 72, ...k, a: kit_a(t, Wd('K10', 'önsöz') - .2, .9), wipe: true });
   kit_yaz('1942', xc, 730, { f: 'b', px: 48, w: 600, ls: 10, ...k, a: kit_a(t, Wd('K10', 'önsöz') + .4, .9), wipe: true });
 }
@@ -450,7 +450,7 @@ function oku_k15b(st) {
   const ao = kit_a(t, Wd('K15b', 'oğluna') - .4, 1.2), h2 = 32;
   const J2 = SF.rig({ x: 470, y: G - 3.95 * h2, h: h2, facing: 1, twist: .4, head: .02, armN: [.1, .2], armF: [-.1, .2] });
   kit_fig(J2, { lum: 0, lit: [.6, -.8], t, legs: true, cloak: 1, lines: 0, hair: 1.2, armor: false, seed: 11 }, .22 + .78 * ao);
-  kit_yaz('Cromwell, 1657', 960, 900 - 40, { f: 'a', px: 68, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
+  kit_yaz('Cromwell, 1657', 960, 805, { f: 'a', px: 60, a: kit_a(t, Wd('K15b', 'kromvel') - .2, 1), wipe: true });
 }
 plan('P129', (ctx, st) => levha(ctx, null, () => oku_k15b(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 

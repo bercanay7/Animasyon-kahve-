@@ -612,7 +612,7 @@ plan('P010', (ctx, st) => levha(ctx, camLerp({ cx: 1000, cy: 540, z: 1.06 }, { c
 // P011 (B04): Londra, 1660: meydanda cellat kitapları ateşe atıyor; kalabalık; sayfalar savrulur.
 plan('P011', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 960, cy: 560, z: 1.08 }, st.p, E.lin), () => {
   cizLondra(st.t, { tA: Wd('B04', 'ateşe') + .2 });
-}, [.03, 0, 1]), { tr: { type: 'fade', dur: 1.0 }, over: (ctx, st) => etiket(ctx, 'LONDRA, 1660', 300, 110, st.lt - .6, st.d - .4, { px: 44 }) });
+}, [.03, 0, 1]), { tr: { type: 'fade', dur: 1.0 }, over: (ctx, st) => oda_yil(ctx, 'LONDRA, 1660', st.lt - .6, st.d - .4) });
 
 // P012 (B04@yazarı): karanlık odada, aralık kalmış kapının ardında saklanan şair. Kapı aralığından giren ateş ışığı (dikey yarık)
 // odaya yelpaze gibi yayılır; yüzünü ve önünü yalayıp titrer. Gözü çizilmez (boş bakış).
@@ -683,7 +683,7 @@ function oda_P013(t) {
     oda_acik(kolluk, { L, c: [cx, cy], w: 7, tn: .97, sv: .04 });
   }
 }
-plan('P013', (ctx, st) => levha(ctx, null, () => { oda_P013(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => etiket(ctx, '1667', 1620, 170, st.lt - .5, st.d - .3, { px: 52 }) });
+plan('P013', (ctx, st) => levha(ctx, null, () => { oda_P013(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 } });   // '1667' etiketi kaldırıldı (K-Denetim 3.4: anlatım 'bitirdi' derken yayım yılı görünüyordu)
 
 // P014 (B06): şairin profili karanlıkta; arkasındaki pencerede mevsimler geçer (kar, bahar çiçeği, yaz gülü); ışık ona ulaşmaz.
 function oda_mevsimDis(t, P, x0, y0, x1, y1, m) {
@@ -737,7 +737,7 @@ function oda_P014(t) {
 }
 plan('P014', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540, z: 1 }, { cx: 1000, cy: 540, z: 1.06 }, st.p, E.lin), () => { oda_P014(st.t); }, [.03, 0, 1]), {
   tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => quote(ctx, '“…ama bana gün dönmez.”', 1430, 170, st.t - Wd('B06', 'ama'), { px: 66, kaynak: 'KAYIP CENNET · III. 41–42' }) });
+  over: (ctx, st) => quote(ctx, '“…ama bana gün dönmez.”', 1430, 170, st.t - Wd('B06', 'ama'), { px: 72, kaynak: 'KAYIP CENNET · III. 41–42' }) });
 
 // P044 (E04@destan): kısa ara: şair karanlık odada, başı öne eğik; mum kısalmış.
 plan('P044', (ctx, st) => levha(ctx, { cx: 860, cy: 600, z: 1.12 }, () => {
@@ -781,7 +781,7 @@ function oda_P118(t) {
     const w = 11 * (1 - .6 * u); if (w > 3) oda_cizgi(pts, w, 1, .7);
   }
 }
-plan('P118', (ctx, st) => levha(ctx, null, () => { oda_P118(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => etiket(ctx, '1674', 700, 360, st.t - Wd('K04', 'milton') - .4, st.end - Wd('K04', 'milton') - .3, { px: 56 }) });
+plan('P118', (ctx, st) => levha(ctx, null, () => { oda_P118(st.t); }, [.03, 0, 1]), { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => oda_yil(ctx, '1674', st.t - Wd('K04', 'milton') - .4, st.end - Wd('K04', 'milton') - .3) });
 
 // P140 (L09): kapanış, açılış karesinin (A01) aynası. A01: güneşin önünde koyu figür, göğsünde alev (iç cehennem).
 // L09: zifiri karanlıkta koyu şair silueti; «içime parla»da göğsünde küçük temiz bir güneş doğar (disk + sivrilen seyrek ışın
@@ -839,5 +839,10 @@ function oda_P140(t) {
 plan('P140', (ctx, st) => levha(ctx, null, () => { oda_P140(st.t); }, [.03, 0, 1]), {
   tr: { type: 'black', dur: 1.2 },
   over: (ctx, st) => { const lt = st.t - Wd('L09', 'sen') - .2;
-    quote(ctx, '“göksel ışık,\niçime parla”', 1560, 150, lt, { px: 68 });
+    quote(ctx, '“göksel ışık,\niçime parla”', 1560, 150, lt, { px: 72 });
     txt(ctx, 'KAYIP CENNET · III. 51–52', 1530, 280, { font: FONT.baslik(40, 600), px: 40, ls: 3, a: E.sine(clamp((lt - 1.1) / .6)) }); } });
+// Yıl/yer etiketi (P011, P118): aynı biçim, aynı köşe (sol üst, sol kenar x 140, y 110; Cinzel 56 px, harf aralığı 6)
+function oda_yil(ctx, s, lt, d) {
+  ctx.save(); ctx.font = FONT.baslik(56, 600); ctx.letterSpacing = '6px'; const w = ctx.measureText(s).width; ctx.restore();
+  etiket(ctx, s, 140 + w / 2, 110, lt, d, { px: 56, ls: 6, panel: .7 });
+}

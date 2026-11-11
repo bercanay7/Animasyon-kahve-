@@ -66,12 +66,12 @@ function cen_kart(ctx, title, soru, lt, d) {
   ctx.save(); ctx.globalAlpha *= E.sine(a);
   const lw = 250 * E.out3(clamp(lt / 1.1)); ctx.strokeStyle = INK_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - lw, y - px * .82); ctx.lineTo(x + lw, y - px * .82); ctx.stroke();
   txt(ctx, title, x, y, { px, ls: 10, col: INK_CSS });
-  ctx.font = FONT.alinti(56); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = INK_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6);
-  wrapLines(ctx, soru, 1200).forEach((l, i) => ctx.fillText(l, x, y + px * 1.0 + i * 62));
+  ctx.font = FONT.alinti(64); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = INK_CSS; ctx.globalAlpha *= clamp((lt - .5) / .6);   // soru ≥ 64 px (telefon)
+  wrapLines(ctx, soru, 1300).forEach((l, i) => ctx.fillText(l, x, y + px * 1.02 + i * 76));
   ctx.restore();
 }
 plan('P018', (ctx, st) => levha(ctx, null, () => cen_c01(st.t), [.8, 0, 1]),
-  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => cen_kart(ctx, 'IŞIK TAŞIYAN', 'Her şeye sahip olan biri, neden başkaldırır?', st.lt, st.end - st.at) });
+  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => cen_kart(ctx, 'IŞIK TAŞIYAN', 'Her şeye sahip olan biri, neden başkaldırır?', st.lt - .7, st.end - st.at - .7) });   // önceki yazı söndükten ≥ 0,3 sn sonra
 
 // ═════════ P020 (C03): profil (belden yukarı), alnının üstünde sabah yıldızı; "LUCIFER · ışık taşıyan" ═════════
 function cen_c03(t) {
@@ -227,4 +227,4 @@ function cen_c11(t) {
     cen_melek({ x: x + Math.sign(x - AX) * gap, y: 1180 + (R() - .5) * 30, h: 46, f: x < AX ? 1 : -1, lx: lx / l, ly: ly / l, spear: null, v: .03, seed: 90 + i, wing: .6 }); }
 }
 plan('P028', (ctx, st) => levha(ctx, camLerp({ cx: 760, cy: 560, z: 1.05 }, { cx: 1160, cy: 560, z: 1.05 }, st.p, E.sine), () => cen_c11(st.t), [.7, 0, 1]),
-  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C11', 'binlerce') - .2; quote(ctx, '“binlerce hainin arasında sadık kalan tek kişi”', 960, 190, st.t - t0, { px: 66, per: .45, panel: false, col: INK_CSS }); } });
+  { tr: { type: 'fade', dur: .8 }, over: (ctx, st) => { const t0 = Wd('C11', 'binlerce') - .2; quote(ctx, '“binlerce hainin arasında sadık kalan tek kişi”', 960, 190, st.t - t0, { px: 72, per: .45, panel: false, col: INK_CSS }); } });

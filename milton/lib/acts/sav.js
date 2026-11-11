@@ -337,7 +337,7 @@ function sav_kart(ctx, title, lt, d, o = {}) {
   if (NOTEXT) return;
   const a = clamp(lt / .6) * clamp((d - lt) / .6); if (a <= 0) return;
   const x = o.x ?? W / 2, y = o.y ?? 250, px = o.px || 96;
-  ctx.save(); ctx.globalAlpha = E.sine(a);
+  ctx.save(); ctx.globalAlpha *= E.sine(a);
   const u = E.out3(clamp(lt / 1.1)), lw = 240 * u;
   ctx.strokeStyle = INK_CSS; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - lw, y - px * .82); ctx.lineTo(x + lw, y - px * .82); ctx.stroke();
   txt(ctx, title, x, y, { px, ls: 12, col: INK_CSS });
@@ -367,7 +367,7 @@ function sav_p030(t) {
   }
 }
 plan('P030', (ctx, st) => levha(ctx, { cx: 960, cy: 540, z: 1 }, () => sav_p030(st.t)),
-  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => sav_kart(ctx, 'DOKUZ GÜN', st.lt, st.d + .3, { y: 260 }) });
+  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => sav_kart(ctx, 'DOKUZ GÜN', st.lt - 1.0, st.d + .3 - 1.0, { y: 260 }) });   // önceki levhanın yazısı söndükten ≥ 0,3 sn sonra belirir
 
 // ═════════ P036 (D07): solda duman püskürten toplar (asilerin icadı); sağda kökünden sökülüp fırlatılan dağlar ═════════
 // 17. yüzyıl gravür dili: dökme namlu (halkalı), tahta kundak, parmaklı tekerlek; namludan koyu, kenarı ışıklı duman. Dağlar: havada koyu kaya kütleleri, altında sarkan kök çizgileri.
@@ -567,7 +567,8 @@ plan('P031', (ctx, st) => {
       { k: 'F', off: .25, len: 4 });
   });
 }, { tr: { type: 'fade', dur: .8 },
-  over: (ctx, st) => quote(ctx, '“Sen de özgür değilsin; kendi kendinin tutsağısın.”', 960, 110, st.t - Wd('D02', 'sen'), { px: 64, maxW: 1500, col: INK_CSS, panel: false }) });
+  // alıntı koyu bulut kütlesinin üstünde, kâğıt renginde, iki satır; 'sen'den 1 sn önce belirir (≥ 4,2 sn görünür)
+  over: (ctx, st) => quote(ctx, '“Sen de özgür değilsin;\nkendi kendinin tutsağısın.”', 1330, 250, st.t - (Wd('D02', 'sen') - 1.0), { px: 72, maxW: 1100, per: .55, panel: false }) });
 
 // ═════════ P032 (D03): Abdiel yakın planı: ışıklı çizgili baş-omuz-kanat; arkasında koyu bulut ═════════
 plan('P032', (ctx, st) => {

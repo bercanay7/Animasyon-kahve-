@@ -394,7 +394,7 @@ function adn_sarmal(cx, cy, r0, r1, tur, sq, a0 = 0, n = 120) {
 
 // ═════════ ortak: yazılar ═════════
 // açık levhada alıntı (panel yok, mürekkep harf)
-function adn_alintiA(ctx, s, x, y, lt, o = {}) { quote(ctx, s, x, y, lt, Object.assign({ panel: false, col: INK_CSS, px: 68 }, o)); }
+function adn_alintiA(ctx, s, x, y, lt, o = {}) { quote(ctx, s, x, y, lt, Object.assign({ panel: false, col: INK_CSS, px: 72 }, o)); }
 
 // ═════════ ortak setler ═════════
 // Aden gündüzü, bahçe içi: gök, uzak tepeler, çayır. L ışık; hz ufuk
@@ -555,7 +555,7 @@ function adn_h01(t) {
   adn_bahceDis(t, { L, y: 730, r0: 600, crowns: [{ x: 120, y: 740, r: 200, seed: 21 }, { x: 430, y: 760, r: 150, seed: 22 }, { x: 1480, y: 750, r: 180, seed: 23 }, { x: 1800, y: 730, r: 210, seed: 24 }, { x: 980, y: 800, r: 120, seed: 25, n: 4 }] });
 }
 plan('P083', (ctx, st) => levha(ctx, camLerp({ cx: 940, cy: 540 }, { cx: 980, cy: 540 }, st.p, E.sine), () => adn_h01(st.t), [.8, 0, 1]),
-  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => cen_kart(ctx, "ADEN'DE BİR YABANCI", 'Yok etmeye geldiğin bir şeyi, sevebilir misin?', st.lt, st.d) });
+  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => cen_kart(ctx, 'ADEN’DE BİR YABANCI', 'Yok etmeye geldiğin bir şeyi, sevebilir misin?', st.lt - 1.0, st.d - 1.0) });
 
 // ═════════ P084 (H02): duvarın üstünden tek sıçrayış ═════════
 // Kamera kapıdan (sağ) sola kayar; "sıçrayışta" koyu kanatlı siluet ön plandan duvarın üstüne yay çizer, bahçeye iner (duvarın ardında kaybolur).
@@ -694,7 +694,7 @@ function adn_h08(t) {
 }
 
 plan('P090', (ctx, st) => levha(ctx, camLerp({ cx: 960, cy: 540 }, { cx: 1010, cy: 540 }, st.p, E.sine), () => adn_h08(st.t), [.8, 0, 1]),
-  { tr: ADN_FADE, over: (ctx, st) => adn_alintiA(ctx, '“Bense… bir cehenneme itildim.”', 820, 165, st.t - Wd('H08', 'bense') + .3, { px: 70 }) });
+  { tr: ADN_FADE, over: (ctx, st) => adn_alintiA(ctx, '“Bense… bir cehenneme itildim.”', 820, 165, st.t - Wd('H08', 'bense') + .3, { px: 72 }) });
 
 // ═════════ gece: çardak (H09, H10) ═════════
 // Çardak: iki ağaç tacının kavuştuğu koyu kemer; içi zifiri. Ay ışığı ince huzmelerle uyuyan figürün örtüsüne düşer (temiz kâğıt kütle).
@@ -792,7 +792,7 @@ function adn_h11(t) {
   adn_cali({ x0: -300, x1: W + 300, y: 1060, amp: 24, wl: 100, seed: 106, yb: 1300, L: M, cuts: .4, tooth: 6, ends: false, rim: 3 });
 }
 plan('P093', (ctx, st) => levha(ctx, camLerp({ cx: 940, cy: 540 }, { cx: 990, cy: 540 }, st.p, E.sine), () => adn_h11(st.t), [.04, 0, 1]),
-  { tr: { type: 'cut' }, over: (ctx, st) => quote(ctx, '“Şimdi günahına benziyorsun.”', 860, 130, st.t - Wd('H11', 'şimdi') + .3, { px: 68, panel: .55 }) });
+  { tr: { type: 'cut' }, over: (ctx, st) => quote(ctx, '“Şimdi günahına benziyorsun.”', 860, 130, st.t - Wd('H11', 'şimdi') + .3, { px: 72, panel: .55 }) });
 
 // ═════════ P094 (H12): başı eğik; onların ışığı yanında kendi ışığının azlığı ═════════
 function adn_h12(t) {
@@ -817,7 +817,7 @@ function adn_i01(t) {
   adn_cali({ x0: -300, x1: W + 300, y: 1040, amp: 34, wl: 110, seed: 124, yb: 1300, L: M, cuts: .4, tooth: 8, ends: false, rim: 3 });
 }
 plan('P095', (ctx, st) => levha(ctx, null, () => adn_i01(st.t), [.04, 0, 1]),
-  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => chapterCard(ctx, 'YILANIN İÇİNDE', 'İntikam, tatlı mıdır?', st.lt, st.d) });
+  { tr: { type: 'black', dur: 1.4, end: true }, over: (ctx, st) => chapterCard(ctx, 'YILANIN İÇİNDE', 'İntikam, tatlı mıdır?', st.lt - 1.0, st.d - 1.0) });
 
 // ═════════ gece açıklığı (I04, I05): ay ışıklı otlar arasında uyuyan kıvrık yılan ═════════
 const ADN_I4M = { x: 1290, y: 220, r: 76 };
@@ -853,7 +853,7 @@ plan('P097', (ctx, st) => {
       legN: [.25, -.6], legF: [.05, -.4], armN: [.3, .5], armF: [-.1, .4] });
     adn_cali({ x0: -300, x1: W + 300, y: 1050, amp: 34, wl: 60, seed: 135, yb: 1300, L: ADN_I4M, cuts: .3, tooth: 11, ends: false, rim: 3 });
   }, [.04, 0, 1]);
-}, { tr: ADN_FADE, over: (ctx, st) => quote(ctx, '“Ne iğrenç bir alçalış!”', 560, 230, st.t - Wd('I04', 'iğrenç') + .3, { px: 70, panel: .55 }) });
+}, { tr: ADN_FADE, over: (ctx, st) => quote(ctx, '“Ne iğrenç bir alçalış!”', 560, 230, st.t - Wd('I04', 'iğrenç') + .3, { px: 72, panel: .55 }) });
 
 // ═════════ P098 (I05): siluet duman olup yılanın ağzından içeri akar; “yükseldiği kadar alçalmak zorundadır” ═════════
 function adn_dumanAkis(path, a, t, M) {
@@ -893,7 +893,7 @@ plan('P098', (ctx, st) => {
   }, [.04, 0, 1]);
 }, { tr: { type: 'cut' }, over: (ctx, st) => {
   const t0 = Wd('I05', 'yükseldiği') - .5, e = Wd('I05', 'sonra');
-  ctx.save(); ctx.globalAlpha *= clamp((e - st.t) / .6); quote(ctx, '“yükseldiği kadar alçalmak zorundadır”', 620, 220, st.t - t0, { px: 66, panel: .55, maxW: 900 }); ctx.restore();
+  ctx.save(); ctx.globalAlpha *= clamp((e - st.t) / .6); quote(ctx, '“yükseldiği kadar alçalmak zorundadır”', 620, 220, st.t - t0, { px: 72, panel: .55, maxW: 900 }); ctx.restore();
 } });
 
 // ═════════ P100 (I07): alev geri gelir ═════════

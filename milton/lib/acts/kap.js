@@ -139,7 +139,7 @@ plan('P058', (ctx, st) => {
     kap_gunah(t, lerp(1480, 720, gi), .9, -1);
   } }));
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => etiket(ctx, 'GÜNAH', 720, 230, st.t - Wd('F03', 'günah'), 99, { px: 54, ls: 10 }) });
+  over: (ctx, st) => etiket(ctx, 'GÜNAH', 760, 200, st.t - Wd('F03', 'günah'), 99, { px: 56, ls: 10, panel: .9 }) });
 
 // ═════════ F04 (P059): gölge mızrağını kaldırır; iki profil karşı karşıya ═════════
 plan('P059', (ctx, st) => {
@@ -157,6 +157,6 @@ plan('P059', (ctx, st) => {
     if (t1 <= 0) return;
     ctx.save(); ctx.font = FONT.baslik(56, 600); ctx.letterSpacing = '8px'; const a = ctx.measureText('ÖLÜM').width, b = ctx.measureText(' · kendi oğlu').width; ctx.restore();
     const x0 = 1000 - (a + b) / 2;
-    etiket(ctx, 'ÖLÜM', x0 + a / 2, 105, t1, 99, { px: 56, ls: 8 });
-    if (t2 > 0) etiket(ctx, ' · kendi oğlu', x0 + a + b / 2, 105, t2, 99, { px: 56, ls: 8, panel: 0 });
+    etiket(ctx, 'ÖLÜM', x0 + a / 2, 105, t1, 99, { px: 56, ls: 8, panel: .9 });
+    if (t2 > 0) etiket(ctx, ' · kendi oğlu', x0 + a + b / 2, 105, t2, 99, { px: 56, ls: 8, panel: .9 });
   } });

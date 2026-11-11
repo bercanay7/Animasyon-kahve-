@@ -490,7 +490,7 @@ function kit_ikiSutun(st) {
   // sağ
   kit_satirlar(['Asi melek', 'kendi kendini ayarttı'], 1394, 290, 88, [tA, tA + .6], t, { f: 'a', px: 80, wipe: true });
   kit_ok(1394, 380, 560, kit_a(t, tA + 1.4, 1.2));
-  kit_yaz('YOK', 1394, 660, { f: 'b', px: 92, ls: 10, a: kit_a(t, tY, 1), wipe: true });
+  kit_yaz('YOK', 1394, 660, { f: 'b', px: 92, ls: 10, a: kit_a(t, tY - .4, .5), wipe: true });   // vuruş anında ('bulamayacak' başlarken) tam yazılmış
 }
 plan('P117', (ctx, st) => levha(ctx, null, () => kit_ikiSutun(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
@@ -509,8 +509,8 @@ function kit_ilkSayfa(st) {
   if (am > 0) { kit_hat(X0 - 12, y26 + 12, lerp(X0 - 12, 700, E.io2(am)), y26 + 12, 4); }
   // dize (sağ)
   const tq = Wd('K06', 'tanrının') - .15;
-  kit_satirlar(['Tanrı\'nın yollarının', 'adil olduğunu göstermek'], 1320, 420, 92, [tq, Wd('K06', 'adil') - .3], t, { f: 'a', px: 80, wipe: true });
-  kit_yaz('(I. 26)', 1320, 590, { f: 'b', px: 44, w: 600, ls: 6, a: kit_a(t, Wd('K06', 'göstermek') - .1, .9) });
+  kit_satirlar(['Tanrı’nın yollarının', 'adil olduğunu göstermek'], 1320, 420, 92, [tq, Wd('K06', 'adil') - .3], t, { f: 'a', px: 80, wipe: true });
+  kit_yaz('KAYIP CENNET · I. 26', 1320, 590, { f: 'b', px: 40, w: 600, ls: 3, a: kit_a(t, Wd('K06', 'göstermek') - .1, .9) });
 }
 plan('P120', (ctx, st) => levha(ctx, null, () => kit_ilkSayfa(st), [KIT_K, 0, 1]), { tr: KIT_TR });
 
@@ -540,15 +540,16 @@ plan('P141', (ctx, st) => levha(ctx, null, () => {
 }, [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════ P142 (L11): bitiş ekranı ════════
-// Yuvaların içi boş kalır (YouTube öğeleri gelecek): video 180–900 × 250–655, abone merkez (1400, 450) çap 300.
+// Yuvaların içi boş kalır (YouTube öğeleri gelecek): video 150–930 × 232–671 (780×439, 16:9), abone merkez (1470, 452) çap 280.
 plan('P142', (ctx, st) => levha(ctx, null, () => {
   const t = st.t, { tx, px } = GR;
   kit_cerceve();
-  kit_kutu(166, 236, 914, 669, 4); kit_kutu(152, 222, 928, 683, 2.6);
-  const ring = (r, w) => { const P = new Path2D(); P.arc(1400, 450, r + w / 2, 0, TAU); P.arc(1400, 450, r - w / 2, 0, TAU, true); kit_dol(P, .02); };
-  ring(164, 4); ring(178, 2.6);
-  kit_cizgi(960, 760, 260, { a: 1 });
-  kit_yaz('ZAMAN KURYESİ', 960, 830, { f: 'b', px: 64, ls: 16, a: kit_a(t, S('L11') + .2, 1.2), wipe: true });
+  // video kutusu tam 16:9 (780×439), abone dairesi çap 280; ikisi güvenli alanda (x 120–1800), aralarında 240 px; grup ortalı
+  kit_kutu(164, 240, 916, 663, 4); kit_kutu(150, 232, 930, 671, 2.6);
+  const ring = (r, w) => { const P = new Path2D(); P.arc(1470, 452, r + w / 2, 0, TAU); P.arc(1470, 452, r - w / 2, 0, TAU, true); kit_dol(P, .02); };
+  ring(132, 4); ring(139, 2.6);
+  kit_cizgi(960, 735, 260, { a: 1 });
+  kit_yaz('ZAMAN KURYESİ', 960, 790, { f: 'b', px: 64, ls: 16, a: kit_a(t, S('L11') + .2, 1.2), wipe: true });
 }, [KIT_K, 0, 1]), { tr: KIT_TR });
 
 // ════════════════ BİLEŞİK LEVHALAR ════════════════

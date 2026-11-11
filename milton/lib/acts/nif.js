@@ -467,7 +467,7 @@ plan('P001', (ctx, st) => {
   const t = st.t, tC = Wd('A01', 'cehennemim');
   levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_kancaA01(t, E.io2(nif_u(t, tC - .2, tC + .9))), NIF_BG);
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1560, 150, st.lt, { t0, px: 84, panel: false }); } });
+  over: (ctx, st) => { const t0 = Wd('A01', 'cehennemim') - st.at; quote(ctx, '“Ben cehennemim.”', 1480, 108, st.lt, { t0, px: 84, panel: false, kaynak: 'KAYIP CENNET · IV. 75' }); } });   // sağ kenar ≤ 1790; P137 ile aynı yerleşim (ayna)
 plan('P002', (ctx, st) => {
   const t = st.t, s0 = S('A02'), s1 = Se('A02');
   const op = E.out2(nif_u(t, s0 + .1, s0 + 1.2)), rl = E.out2(nif_u(t, s0, s0 + .5)) * (1 - E.io2(nif_u(t, s1 - .9, s1 + .4)));
@@ -481,7 +481,7 @@ const NIF_PROF = { open: .45, lift: 0, droop: 1, spanL: 5, prof: true, ruin: 0 }
 const NIF_KAPALI = { open: .25, lift: .05, droop: .9, ruin: 0 };   // kanatlar katlı: sırtta pelerin gibi
 const NIF_BG = [.5, 0, 1];
 // yazı: bulutun koyu kütlesi üstünde, yumuşak zeminle
-function nif_soz(ctx, s, x, y, st, wd, o = {}) { quote(ctx, s, x, y, st.lt, Object.assign({ t0: wd - st.at, px: 68, maxW: 900, panel: false }, o)); }
+function nif_soz(ctx, s, x, y, st, wd, o = {}) { quote(ctx, s, x, y, st.lt, Object.assign({ t0: wd - st.at, px: 72, maxW: 900, panel: false }, o)); }
 
 // ═════════ P064 (F09): dağın tepesine süzülür ═════════
 // Kanatlar açık, sol üstten süzülür; 'konar' kelimesinde ayaklar yere değer, kanatlar kapanır. Işık (melek kılığı) inişte söner.
@@ -513,7 +513,7 @@ plan('P065', (ctx, st) => {
     clouds: [{ x: 560, y: 250, w: 1600, h: 560, seed: 12, n: 5 }],
     fig: (tp) => nif_kancaSiluet(t, .3, { x: tp[0], y: tp[1] + 3, U: 190 }) }), NIF_BG);
 }, { tr: { type: 'black', dur: 1.4, end: true },
-  over: (ctx, st) => chapterCard(ctx, 'GÜNEŞE İTİRAF', 'Kimsenin duymadığını sanırken, Şeytan kendine ne söyler?', st.lt, st.d, { x: 620, y: 290 }) });
+  over: (ctx, st) => chapterCard(ctx, 'GÜNEŞE İTİRAF', 'Kimsenin duymadığını sanırken, Şeytan kendine ne söyler?', st.lt - 1.0, st.d - 1.0, { x: 620, y: 290 }) });
 
 // ═════════ P066 (G02): aynı kanca figürü (A01), göğsünde küçük alev: "cehennemi içinde taşıyor" ═════════
 // Alev 'cehennemi'de belirir (küçük), 'kaçamıyorsa'da biraz büyür. Kadraj: figür sola, güneş sağda; yatay kaydırma.
@@ -607,7 +607,7 @@ plan('P072', (ctx, st) => {
   levha(ctx, { cx: 960, cy: 540, z: 1 }, () => { if (t >= tB - .05) nif_icGolTam(t); else nif_kancaA01(t, a, { dive: dv }); }, NIF_BG);
 }, { tr: { type: 'cut' },
   over: (ctx, st) => {
-    if (st.t >= Wd('G07', 'ben') - .05) nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84 });
+    if (st.t >= Wd('G07', 'ben') - .05) nif_soz(ctx, '“Ben cehennemim.”', 440, 130, st, Wd('G07', 'ben'), { px: 84, panel: .9, kaynak: 'KAYIP CENNET · IV. 75' });
   } });
 // tam kare iç cehennem (maskenin büyümesi bittikten sonra): yerel çerçeve dünya ile aynı
 function nif_icGolTam(t) { cizGol(t, { fig: false, chains: false, sway: .02 }); }
@@ -739,7 +739,7 @@ plan('P080', (ctx, st) => {
         legN: [.1, -.04], legF: [-.1, -.03], lum: .15, lit: nif_isik(S0, fx, fy - 120), wings: Object.assign({}, NIF_PROF, { spanL: 6 }) }), [fx - 400, fy - 560, fx + 400, fy + 40]);
     } }), NIF_BG);
 }, { tr: { type: 'cut' },
-  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 400, 160, st, Wd('G14', 'kötülük'), { maxW: 620, px: 66 }) });
+  over: (ctx, st) => nif_soz(ctx, '“Kötülük: sen benim iyiliğim ol.”', 400, 160, st, Wd('G14', 'kötülük'), { maxW: 620, px: 72 }) });
 
 // ═════════ P081 (G15): yüz üç kez değişir (üç ton); güneşte küçük bir göz ═════════
 // Yüz yakın planı yok: üç duygu duruş ve ışıkla. Öfke (öne eğik, yumruklar, kanatlar kabarık, sert ışık) → kıskançlık (baş Aden'e döner,
@@ -822,4 +822,4 @@ function nif_l07(t) {
 }
 plan('P137', (ctx, st) => levha(ctx, { cx: lerp(930, 960, E.io2(st.p)), cy: 540, z: 1 }, () => nif_l07(st.t), NIF_BG),
   { tr: { type: 'fade', dur: .8 },
-    over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; quote(ctx, 'gururu', 1560, 150, st.lt, { t0, px: 84, panel: false }); } });
+    over: (ctx, st) => { const t0 = Wd('L07', 'gururu', 1) - st.at; quote(ctx, 'gururu', 1480, 108, st.lt, { t0, px: 84, panel: false }); } });   // P001 ile aynı yerleşim (ayna)

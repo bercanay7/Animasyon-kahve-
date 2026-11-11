@@ -34,7 +34,7 @@ P = [
  ('B03', 'ODA', None, "İki kız masada dev kitaplardan sesli okuyor; harfler (İbranice, Yunanca, Latince) süs olarak havada", "harfler dökülür; cümle sonunda kızların başı öne düşer", ""),
  ('B04', 'LON', None, "Meydanda cellat kitapları ateşe atıyor; kalabalık siluetleri", "alev yükselir, sayfalar savrulur", "Londra, 1660"),
  ('B04@yazarı', 'LON', None, "Karanlık bir kapı aralığında saklanan şair; alev ışığı yüzüne vuruyor, gözleri boş", "ışık titrer", ""),
- ('B05', 'ODA', None, "Masada büyüyen el yazması yığını", "sayfalar üst üste biner", "1667"),
+ ('B05', 'ODA', None, "Masada büyüyen el yazması yığını", "sayfalar üst üste biner", ""),
  ('B06', 'ODA', None, "Şairin profili karanlıkta; arkasındaki pencerede mevsimler geçer (çiçek, gül, kar), ışık ona ulaşmaz", "pencerede dört mevsim; alıntı satır satır", "“…ama bana gün dönmez.”"),
  ('B08', 'KIT', .1, "İkiye bölünmüş levha: solda karanlıkta şair, sağda gölde melek; ikisi de başını aynı açıyla yukarı kaldırmış", "iki yarı ortadan açılır", ""),
  ('B09', 'KIT', None, "Eski bir taslak sayfası (oyun taslağı); sayfada küçük bir güneş çizimi", "sayfa çevrilir; güneş parlar", "Oraya geleceğiz."),
@@ -152,7 +152,7 @@ P = [
  # ── İki okuma ──
  ('K05', 'OKU', None, "Bölüm kartı", "kart", "İKİ OKUMA / Bu destanın kahramanı kim?"),
  ('K06', 'KIT', None, "Destanın ilk sayfası", "dize belirir", "Tanrı'nın yollarının adil olduğunu göstermek (I. 26)"),
- ('K07', 'OKU', None, "Gravürcü masası: kalem, bakır levha, künye plakası; açık defterde solda zincir gibi sert çizgili melekler, sağda serbest çizgili şeytanlar", "çizgiler çizilir", "WILLIAM BLAKE · 1793"),
+ ('K07', 'OKU', None, "Gravürcü masası: kalem, bakır levha, künye plakası; açık defterde solda zincir gibi sert çizgili melekler, sağda serbest çizgili şeytanlar", "çizgiler çizilir", "WILLIAM BLAKE · 1790–93"),
  ('K08', 'KIT', .2, "Filmde duyduğumuz Şeytan sözleri sayfada birikir", "", ""),
  ('K10', 'OKU', None, "Kitap kapağı", "", "C. S. LEWIS · Kayıp Cennet'e Önsöz, 1942"),
  ('K11', 'OKU', None, "Küçülme merdiveni: basamak basamak inen siluetler (zırhlı başmelek, general, kürsüde politikacı, pencereden bakan casus, kurbağa, yılan)", "siluetler sözle birlikte tek tek yanar", "kahraman → general → politikacı → casus → kurbağa → yılan"),
