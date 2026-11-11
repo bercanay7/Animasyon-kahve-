@@ -2,6 +2,7 @@
 import json, re, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAXL, MAXC = 42, 80
+CUEMAX = 86  # yumuşak altyazı sınırı: 81-86 karakter küçük ceza (iki satır 43'er)
 MAXDUR = 6.4  # bir cümle bundan uzun sürerse en az iki altyazıya bölünür (altyazı 7 sn'yi aşmasın)  # satır / altyazı başına karakter (iki satır 42'yi aşmadan sığsın)
 
 segs = json.load(open(os.path.join(ROOT, 'senaryo.json')))['segments']
@@ -35,14 +36,14 @@ def open_quote_tail(words, n=4):
     for i, w in enumerate(tail):
         if '“' in w and '”' not in w[w.index('“'):] and not any('”' in x for x in tail[i + 1:]): return True
     return False
-def pen_quote(prev, nxt):
+def pen_quote(prev, nxt, n=4):
     """prev | nxt kesmesinde tırnak cezası"""
     p = 0
-    if open_quote_tail(prev): p += 100  # alıntının başı önceki altyazının/satırın kuyruğuna sıkışmasın
+    if open_quote_tail(prev, n): p += 100  # alıntının başı önceki altyazının/satırın kuyruğuna sıkışmasın
     if '”' in nxt[0] and '“' not in nxt[0]: p += 80  # kapanış tırnağı ilk sözcükte yalnız kalmasın
     return p
-def brk_pen(prev, nxt):
-    return pen_end(prev[-1]) + pen_start(nxt[0]) + pen_quote(prev, nxt)
+def brk_pen(prev, nxt, n=4):
+    return pen_end(prev[-1]) + pen_start(nxt[0]) + pen_quote(prev, nxt, n)
 def over_pen(n):
     o = n - MAXL
     return 0 if o <= 0 else 15 * min(o, SOFT - MAXL) + 100 * max(0, n - SOFT)
@@ -53,7 +54,7 @@ def wrap2(words):
     if len(s) <= MAXL or len(words) < 2: return s, best
     for i in range(1, len(words)):
         a, b = ' '.join(words[:i]), ' '.join(words[i:])
-        cost = abs(len(a) - len(b)) + brk_pen(words[:i], words[i:]) + over_pen(len(a)) + over_pen(len(b))
+        cost = abs(len(a) - len(b)) + brk_pen(words[:i], words[i:], 2) + over_pen(len(a)) + over_pen(len(b))
         if cost < best: best, bi = cost, i
     if bi == 0: return s, best
     return ' '.join(words[:bi]) + '\n' + ' '.join(words[bi:]), best
@@ -81,33 +82,40 @@ for sg in segs:
     # çok kısa cümleleri (≤ 2 kelime) bir sonrakiyle birleştir
     merged = []
     for sn in sents:
-        if merged and len(merged[-1]) <= 2 and len(' '.join(toks[j] for j in merged[-1] + sn)) <= MAXC: merged[-1] += sn
+        closing = len(sn) <= 2 and '”' in toks[sn[-1]] and not any('“' in toks[j] for j in sn)  # alıntıyı kapatan kısa cümle ("Bağışlanmaya?”") önceki cümleyle kalır
+        if merged and (len(merged[-1]) <= 2 or closing) and len(' '.join(toks[j] for j in merged[-1] + sn)) <= MAXC: merged[-1] += sn
         else: merged.append(sn)
     for sn in merged:
         L = len(' '.join(toks[j] for j in sn))
         k = max(1, -(-L // MAXC))
         dur = ws[sn[-1]]['e'] - ws[sn[0]]['s']
         if dur > MAXDUR: k = max(k, 2)  # çok uzun süren altyazı iki parçaya (":" ya da "," tercih edilir)
-        k = min(k, len(sn) // 2) or 1
-        if k == 1: parts = [sn]
-        else:
-            # k parçaya böl: uzunluk dengesi + dile duyarlı kesme cezası (brk_pen) + satır kırma maliyeti
+        def split(k):
+            """k parçaya böl: uzunluk dengesi + dile duyarlı kesme cezası (brk_pen) + satır kırma maliyeti"""
+            if k < 2 or len(sn) < 2 * k: return None, 0
             import itertools
             best, parts = 1e9, None
             for cuts in itertools.combinations(range(1, len(sn)), k - 1):
                 ps = [sn[a_:b_] for a_, b_ in zip((0,) + cuts, cuts + (len(sn),))]
                 tk = [[toks[j] for j in pp] for pp in ps]
                 ls = [len(' '.join(t_)) for t_ in tk]
-                cost = sum(abs(l - L / k) for l in ls) + 200 * sum(max(0, l - MAXC) for l in ls) + 100 * sum(1 for pp in ps if len(pp) < 2)
+                cost = sum(abs(l - L / k) for l in ls) + sum(15 * (min(l, CUEMAX) - MAXC) for l in ls if l > MAXC) + 200 * sum(max(0, l - CUEMAX) for l in ls)
+                cost += 100 * sum(1 for pp in ps if len(pp) < 2)
                 cost += sum(brk_pen(tk[q], tk[q + 1]) for q in range(k - 1)) - 5 * sum(1 for q in range(k - 1) if tk[q][-1][-1] == ':')
                 cost += sum(wrap2(t_)[1] for t_ in tk)
                 if dur > MAXDUR: cost += 30 * sum(1 for pp in ps if ws[pp[-1]]['e'] - ws[pp[0]]['s'] > MAXDUR - .5)
                 if cost < best: best, parts = cost, ps
+            return parts, best
+        parts, best = split(k)
+        if parts is not None and best >= 100:  # kötü kesme kaçınılmazsa bir parça fazlasını da dene
+            p2, b2 = split(k + 1)
+            if p2 is not None and b2 + 40 < best: parts = p2
+        if parts is None: parts = [sn]
         for pp in parts:
             cues.append([ws[pp[0]]['s'], ws[pp[-1]]['e'], wrap([toks[j] for j in pp])])
 
 # süreleri düzenle: en az 1.0 sn, cümle sonunda bir sonrakine 80 ms boşluk, cümle ortasında 0 ms, okuma hızı ≤ 17 karakter/sn için
-# sonundan en fazla +1,0 sn uzar; yetmezse başı en fazla 0,25 sn öne alınır (önceki altyazıyla boşluk korunur)
+# sonundan en fazla +1,0 sn uzar; yetmezse başı en fazla 0,5 sn öne alınır (yalnız hız aşımını gidermek için; çoğu altyazıda 0) (önceki altyazıyla boşluk korunur)
 CPS = 17
 def gap_after(c):
     """altyazıdan sonra bırakılacak boşluk: cümle ortasında 0 (bitiş = sonrakinin başı), cümle sonunda 80 ms"""
@@ -121,7 +129,7 @@ def settle_times():
         need = len(c[2].replace('\n', ' ')) / CPS
         if c[1] - c[0] < need:
             prv = cues[i - 1][1] if i else 0.0
-            c[0] = max(prv + (gap_after(cues[i - 1]) if i else 0), c[0] - .25, c[1] - need)
+            c[0] = max(prv + (gap_after(cues[i - 1]) if i else 0), c[0] - .5, c[1] - need)
 raw = [c[:] for c in cues]
 settle_times()
 # okuma hızı 18 karakter/sn'yi aşan kısa altyazı, sonraki kısa altyazıyla birleşir (sığıyorsa)

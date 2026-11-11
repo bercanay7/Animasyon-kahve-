@@ -5,7 +5,7 @@ Zaman damgaları `python3 tools/bolum_damga.py` çıktısıdır; ses ya da kurgu
 ## Başlık adayları
 Koşul (senaryo kurulu): başlıkta "Milton" ya da "Kayıp Cennet" geçer.
 
-1. `Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | John Milton`
+1. `Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton` (kapak kurulu tur 1: TO stratejistinin önerisi; iki kapakla da çalışan tek başlık)
 2. `Milton'ın Şeytanı: "Ben Cehennemim" | Kayıp Cennet`
 3. `Kör Bir Şairin Cehennemi: Kayıp Cennet'te Şeytan'ın Düşüşü`
 
@@ -33,8 +33,8 @@ Bölümler
 22:44 Bir damla yaş
 
 Kaynaklar
-• John Milton, Paradise Lost (1667; on iki kitaplık ikinci baskı 1674). Dizeler İngilizce özgün metinden kendi çevirimizdir; ekrandaki numaralar kitap ve dize numarasıdır.
-• William Blake, The Marriage of Heaven and Hell (1793 dolayları).
+• John Milton, Paradise Lost (1667; on iki kitaplık ikinci baskı 1674). Dizeler İngilizce özgün metinden kendi çevirimizdir; kimi alıntıların altındaki numaralar kitap ve dize numarasıdır (ör. IV. 75).
+• William Blake, The Marriage of Heaven and Hell (1790–93).
 • C. S. Lewis, A Preface to Paradise Lost (1942).
 • Percy Bysshe Shelley, Prometheus Unbound, önsöz (1820).
 • Alexandre Cabanel, Düşmüş Melek (L'Ange déchu, 1847), Musée Fabre, Montpellier.

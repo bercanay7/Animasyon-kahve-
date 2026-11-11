@@ -380,3 +380,27 @@ Puanların seyri: U-Sanat 6,3 → 7,15 → 7,85 → 8,2 → 8,3 → 8,35; U-Grav
 **Üslup tarifindeki değişiklik (bağlayıcı):** "açık tarif"teki *düz kâğıt figür* maddesi kalktı. Cennet, savaş ve Nifates aynı dili konuşuyor: ana figür ters ışıkta koyu siluet; ışıklı figür yalnız çizgili ve koyu kütle önünde; uzak saflar beyaz kütle. Gerekçe: iç çizgisiz beyaz figür her ölçekte "kâğıt kesme" okundu; filmin en iyi duran figürleri baştan beri koyu siluetlerdi.
 
 **Geri çağrı yapısı (kurulun bakacağı):** A01 (soru) → G07 (itiraf; aynı kare, alev büyür) → L07 (cevap; aynı kare, zincir) → L09 (ayna: içindeki ışık).
+
+## Kapı 3: ilk tam kurgu (tur 1; sürüyor)
+Ortak brif ve malzeme: `kurul/kurgu_tur1/BRIF.md` (her plandan baş/orta/son kare özet sayfaları). Üyeler bu kapıda yeni açıldı (önceki kapıların üyeleri yerine; mercekler aynı). Raporlar `kurul/kurgu_tur1/`.
+
+| Alan | Üye | Puan | Karar | Öne çıkan |
+|---|---|---|---|---|
+| Ekran yazıları | Y-Tipo (tipografi) | 7,3 | RED | P031 alıntısı koyu zeminde mürekkep rengi (okunmuyor); künyeler 28–30 px; bölüm kartı soruları 50 px; iki yerde iki yazı katmanı üst üste |
+| Altyazı | Y-Altyazi (altyazı editörü) | 8,5 | RED | metin senaryoyla birebir, okuma hızı ort. 13,7 kr/sn; satır/altyazı bölme dile bakmıyor; "C. | S. Lewis" bölünmüş; üç etiket alt banda taşıyor |
+| Kaynak ve doğruluk (veto) | K-Denetim | 8,85 | RED (hafif) | **yanlış bilgi yok**; iki görsel çelişki: K02'de Âdem ile Havva'nın yanında Şeytan; C05'te kuzey sarayı Dor tapınağı (Milton'da kule ve piramit; Dor sütun Pandemonium'un) |
+
+**Başkan kararları (tur 1, ilk dalga):**
+- Y-Tipo bulgularının hepsi kabul. Ortak yardımcılar başkanca düzeltildi (`film.js`: künye ≥ 40 px, opak, panel içinde; kart sorusu 64 px); kalanlar ekran yazısı düzeltme işine verildi (`Y-Tipo-duzeltme.md`).
+- Y-Altyazi: bölme kuralları, kısaltma istisnası, 0 ms cümle içi boşluk, alt bant kabul (`Y-Altyazi-duzeltme.md`). **Reddedilen:** "Milton'ın → Milton'un". Gerekçe: senaryo kapısında diksiyon üyesinin kararı (özel ada gelen ek okunuşa göre: "Milton" [miltın]); seslendirme metnindeki "Milton'un" yalnız sesin doğal okuması için.
+- K-Denetim: K02 (P116) iki ayrı çerçeveye ayrılacak (karşılaştırma, aynı mekân değil); C05 sarayı kule ve piramit siluetine çevrilecek; "Ben cehennemim." altına künye (IV. 75); B05'teki "1667" etiketi kalkıyor; Blake "1790–93"; açıklamadaki künye cümlesi yumuşatıldı. **Reddedilen:** göl karesinde (A04/E02) figürün arkasındaki soluk ışık. Gerekçe: üslup kapısında altı tur boyunca onaylanan kompozisyon kuralı (tek odak, figürün arkasında); "görünür karanlık" alevlerin ışık vermemesiyle (alevler kâğıt beyazı ama çevrelerini aydınlatmıyor) ve karenin %70'inin düz siyah olmasıyla anlatılıyor; ufuktaki parıltı Doré'nin göl levhalarında da var.
+
+## Kapı 5 (erken başladı): kapak
+| Tur | Üye | A | B | Karar |
+|---|---|---|---|---|
+| 1 | P-TO (TO ve paketleme stratejisti) | 8,3 | 7,3 | RED |
+
+- **"ŞEYTAN AĞLADI" yazısı başkanca kaldırıldı** (P-TO bulgusu; hassasiyet alanıyla örtüşüyor): Türkçede yaygın vaaz motifiyle ("şeytanı ağlatan amel") çakışıyor; yanlış kitleyi çağırır ve "yalnız edebi okuma" kararıyla çelişir. Yeni yazı: "PİŞMAN MIYDI?" (yedek: "GURUR MU?").
+- B'nin vaadi finalde (22:44) karşılanıyordu. **Açılışa P002g eklendi:** A02 ile A03 arasındaki 1,3 sn'lik sessizlikte Cabanel gözü ve biriken damla (`oku.js` sonu). İki kapağın vaadi de ilk 11 saniyede.
+- A: alev karenin en parlak yeri değil (odak bölünüyor), açık temada kenar kayboluyor, köşe bulutları "kir". Tur 6'da düzeltiliyor.
+- Başlık: "Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton".
