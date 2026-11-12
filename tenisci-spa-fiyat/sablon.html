@@ -89,6 +89,31 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
 .strip img{display:block;width:100%;height:100%;object-fit:cover}
 .strip figcaption{position:absolute;left:16px;bottom:16px;padding:7px 18px 8px;border-radius:999px;background:rgba(46,34,28,.78);color:var(--on-dark);font-size:26px;font-weight:600}
 
+/* membership hook (corporate lists) */
+.h1-kicker{display:block;margin-bottom:10px;font-family:var(--f-body);font-size:30px;font-weight:600;letter-spacing:.06em;line-height:1.3;color:var(--muted)}
+.plogos{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.plogos img{height:auto}
+.hook{position:relative;overflow:hidden;margin-top:30px;padding:40px 44px 38px;border-radius:32px;background:var(--rose);color:var(--on-dark)}
+.hook:before{content:"";position:absolute;right:-140px;top:-140px;width:420px;height:420px;border-radius:50%;border:2px solid rgba(245,237,228,.14)}
+.hook:after{content:"";position:absolute;right:-70px;top:-70px;width:280px;height:280px;border-radius:50%;border:2px solid rgba(245,237,228,.14)}
+.hk-eyebrow{position:relative;font-size:26px;font-weight:600;letter-spacing:.18em;color:var(--amber-light)}
+.hk-title{position:relative;margin-top:14px;font-family:var(--f-head);font-size:58px;line-height:1.08}
+.hk-title b{font-weight:400;color:var(--amber-light);white-space:nowrap}
+.hk-sub{position:relative;margin-top:14px;font-size:30px;line-height:1.35;color:var(--on-dark-muted)}
+.hk-sub s{text-decoration-thickness:2px}
+.hk-grid{position:relative;margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.hk-card{padding:22px 24px;border-radius:22px;background:rgba(245,237,228,.08);border:1.5px solid rgba(245,237,228,.16)}
+.hk-card .l{font-size:26px;font-weight:600;letter-spacing:.08em;color:var(--on-dark-muted)}
+.hk-card .p{margin-top:6px;font-family:var(--f-head);font-size:50px;line-height:1}
+.hk-card .p small{font-family:var(--f-body);font-size:24px;font-weight:600;margin-left:6px}
+.hk-card .o{margin-top:6px;font-size:26px;color:var(--on-dark-muted);text-decoration:line-through;text-decoration-thickness:2px}
+.hk-inc{position:relative;margin-top:22px;font-size:28px;line-height:1.35;color:var(--on-dark-muted)}
+.prow .mem{grid-column:1/-1;margin-top:10px;padding:10px 16px;border-radius:14px;background:var(--sand);font-size:28px;color:var(--ink)}
+.prow .mem b{font-weight:600;color:var(--rose)}
+.qr{position:absolute;right:64px;top:52px;width:230px;padding:18px 18px 14px;border-radius:22px;background:var(--on-dark);text-align:center}
+.qr img{display:block;width:100%;height:auto}
+.qr span{display:block;margin-top:10px;font-size:22px;font-weight:600;line-height:1.25;color:var(--dark)}
+
 /* includes */
 .incl{margin:36px 64px 0;padding:28px 36px;background:var(--sand);border-radius:28px;display:grid;gap:12px}
 .incl div{display:flex;align-items:flex-start;gap:18px;font-size:29px;line-height:1.35;color:var(--ink)}
@@ -129,8 +154,8 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
     </div>
     <h1>{{BASLIK}}</h1>
   </div>
-  <p class="lead"><b>İsveç masajı paketlerinde %30, VIP Süit’te %20 indirim.</b><br>{{KURAL}}</p>
-
+  <p class="lead"><b>{{GIRIS}}</b><br>{{KURAL}}</p>
+{{KANCA}}
   <div class="hero">
     <img class="photo" src="foto/havlu.jpg" alt="Masaj yatağında Navitas spa işlemeli havlu ve gül">
   </div>
@@ -150,6 +175,7 @@ h1{margin:14px 0 0;font-family:var(--f-head);font-weight:400;font-size:80px;line
         <div><div class="pname">10 seans</div><div class="unit">Seansı <b>1.750 TL</b></div></div>
         <div class="price"><div class="old">25.000 TL</div><div class="new">17.500<small>TL</small></div></div>
         <div class="save">10 tek seansa göre <b>12.500 TL</b> avantaj · %41 daha uygun</div>
+{{UYE10}}
       </div>
       <div class="prow">
         <div><div class="pname">20 seans</div><div class="unit">Seansı <b>1.225 TL</b></div></div>

@@ -26,6 +26,9 @@ const VARIANTS = {
     KURAL: 'Tenisçi fiyatı için <a href="{{WA}}">WhatsApp’tan yazmanız</a> ya da söylemeniz yeterli.',
     MOTIF: KORT,
     ORTAK: '',
+    KANCA: '',
+    GIRIS: 'İsveç masajı paketlerinde %30, VIP Süit’te %20 indirim.',
+    UYE10: '',
     WA: wa('Merhaba, tenisçilere özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: TENIS-PDF)'),
   },
   karaca: {
@@ -38,13 +41,42 @@ const VARIANTS = {
     MOTIF: '',
     // Karaca's own logo, unmodified, from karaca.com (use approved by the business owner, 2026-11-04).
     ORTAK: '    <div class="partner"><span class="x" aria-hidden="true">×</span><img src="logo/karaca.svg" alt="Karaca"></div>\n',
+    KANCA: '',
+    GIRIS: 'İsveç masajı paketlerinde %30, VIP Süit’te %20 indirim.',
+    UYE10: '',
     WA: wa('Merhaba, Karaca çalışanlarına özel spa fiyat listesinden yazıyorum. Randevu almak istiyorum. (Ref: KARACA-PDF)'),
+  },
+  hastane: {
+    pdf: 'navitas-koc-healthcare-spa-fiyat-listesi.pdf',
+    jpg: 'onizleme-koc-healthcare.jpg',
+    BASLIK_DUZ: 'Koç Healthcare ve Amerikan Hastanesi Çalışanlarına Özel Spa ve Üyelik Fiyatları',
+    BASLIK: '<span class="h1-kicker">Koç Healthcare · Amerikan Hastanesi çalışanlarına özel</span>Spa ve üyelik<br>fiyatları',
+    IKON: YAPRAK_IKON,
+    KURAL: 'Üyelik ve randevu için <a href="{{WA}}">WhatsApp’tan yazın</a>.',
+    // QR for printed copies (made with segno, github.com/heuer/segno); opens WhatsApp with Ref: KHC-QR.
+    MOTIF: '  <div class="qr"><img src="logo/qr-khc.svg" alt="WhatsApp QR kodu"><span>Tarayın,<br>WhatsApp’tan yazın</span></div>\n',
+    // Both logos unmodified, from kochealthcare.org and amerikanhastanesi.org (use approved by the business owner, 2026-11-12).
+    ORTAK: '    <div class="partner"><span class="x" aria-hidden="true">×</span><div class="plogos"><img src="logo/koc-healthcare.svg" alt="Koç Healthcare" style="width:236px"><img src="logo/amerikan-hastanesi.svg" alt="Amerikan Hastanesi" style="width:200px"></div></div>\n',
+    GIRIS: 'Üyelikte özel fiyat, İsveç paketlerinde %30, VIP’te %20 indirim.',
+    KANCA: `  <div class="hook">
+    <div class="hk-eyebrow">YILLIK ÜYELİK + MASAJ</div>
+    <div class="hk-title">Üyeliğinize 10 seans<br>İsveç masajı: <b>15.000 TL</b></div>
+    <div class="hk-sub"><s>17.500 TL</s> yerine · seansı 1.500 TL (tek seans 3.000 TL)</div>
+    <div class="hk-grid">
+      <div class="hk-card"><div class="l">ERKEK · YILLIK</div><div class="p">35.000<small>TL</small></div><div class="o">45.000 TL</div></div>
+      <div class="hk-card"><div class="l">KADIN · YILLIK</div><div class="p">25.000<small>TL</small></div><div class="o">35.000 TL</div></div>
+    </div>
+    <div class="hk-inc">Fitness salonu, kapalı havuz, sauna ve hamam üyeliğe dahil. Kadın ve erkek ıslak alanları ayrı.</div>
+  </div>
+`,
+    UYE10: '        <div class="mem">Yıllık üyelikle birlikte: <b>15.000 TL</b> · seansı 1.500 TL</div>',
+    WA: wa('Merhaba, Koç Healthcare / Amerikan Hastanesi çalışanlarına özel listeden yazıyorum. Üyelik ve masaj paketi hakkında bilgi almak istiyorum. (Ref: KHC-PDF)'),
   },
 };
 
 function build(v) {
   let html = fs.readFileSync(path.join(dir, 'sablon.html'), 'utf8');
-  for (const key of ['BASLIK_DUZ', 'BASLIK', 'IKON', 'KURAL', 'MOTIF', 'ORTAK', 'WA']) {
+  for (const key of ['BASLIK_DUZ', 'BASLIK', 'IKON', 'KURAL', 'MOTIF', 'ORTAK', 'KANCA', 'UYE10', 'GIRIS', 'WA']) {
     html = html.split('{{' + key + '}}').join(v[key]);
   }
   html = html.split('{{WA}}').join(v.WA); // the rule line can carry the link too
