@@ -74,6 +74,19 @@ const VARIANTS = {
   },
 };
 
+// Koç Üniversitesi Hastanesi: same offer and hook as the Koç Healthcare list, its own logo, codes and QR.
+VARIANTS.kuh = {
+  ...VARIANTS.hastane,
+  pdf: 'navitas-koc-universitesi-hastanesi-spa-fiyat-listesi.pdf',
+  jpg: 'onizleme-koc-universitesi-hastanesi.jpg',
+  BASLIK_DUZ: 'Koç Üniversitesi Hastanesi Çalışanlarına Özel Spa ve Üyelik Fiyatları',
+  BASLIK: '<span class="h1-kicker">Koç Üniversitesi Hastanesi çalışanlarına özel</span>Spa ve üyelik<br>fiyatları',
+  MOTIF: '  <div class="qr"><img src="logo/qr-kuh.svg" alt="WhatsApp QR kodu"><span>Tarayın,<br>WhatsApp’tan yazın</span></div>\n',
+  // Logo unmodified, from kuh.ku.edu.tr (use approved by the business owner, 2026-11-12).
+  ORTAK: '    <div class="partner"><span class="x" aria-hidden="true">×</span><img src="logo/koc-universitesi-hastanesi.svg" alt="Koç Üniversitesi Hastanesi" style="height:92px"></div>\n',
+  WA: wa('Merhaba, Koç Üniversitesi Hastanesi çalışanlarına özel listeden yazıyorum. Üyelik ve masaj paketi hakkında bilgi almak istiyorum. (Ref: KUH-PDF)'),
+};
+
 function build(v) {
   let html = fs.readFileSync(path.join(dir, 'sablon.html'), 'utf8');
   for (const key of ['BASLIK_DUZ', 'BASLIK', 'IKON', 'KURAL', 'MOTIF', 'ORTAK', 'KANCA', 'UYE10', 'GIRIS', 'WA']) {

@@ -1,13 +1,15 @@
 # Kurumlara ve gruplara özel spa fiyat listeleri (WhatsApp için)
 
-Aynı fiyatlarla üç sürüm, tek şablondan üretilir:
+Aynı fiyatlarla dört sürüm, tek şablondan üretilir:
 
 - `navitas-tenisci-spa-fiyat-listesi.pdf`: tenis WhatsApp grupları için. Uygunluk satırı: "Tenisçi fiyatı için WhatsApp'tan yazmanız ya da söylemeniz yeterli." Hazır mesajda `(Ref: TENIS-PDF)`. Alt bölümde tenis kortu motifi.
 - `navitas-karaca-spa-fiyat-listesi.pdf`: Karaca çalışanları için. İşletmenin kararıyla uygunluk kuralı yazılmadı; giriş satırında yalnız "Randevu için WhatsApp'tan yazın." var. Hazır mesajda `(Ref: KARACA-PDF)`. Başlıkta "Navitas × Karaca" düzeninde Karaca'nın kendi logosu var: `logo/karaca.svg`, karaca.com'un site başlığındaki yatay logo, hiç değiştirilmeden (renk ve oran aynı). Logonun bu listede kullanılmasına işletme 2026-11-04'te Karaca adına onay olduğunu bildirdi.
 
 - `navitas-koc-healthcare-spa-fiyat-listesi.pdf`: Koç Healthcare · Amerikan Hastanesi çalışanları için. Başlıkta iki kurumun resmi logoları (`logo/koc-healthcare.svg` kochealthcare.org'dan, `logo/amerikan-hastanesi.svg` amerikanhastanesi.org'dan, değiştirilmeden; işletme 2026-11-12'de kullanım onayı olduğunu bildirdi). Yalnız bu listede, başlığın altında koyu bir "kanca" kutusu var: yıllık üyelik erkek 45.000 → 35.000 TL, kadın 35.000 → 25.000 TL; üyelikle birlikte 10 seans İsveç paketi 17.500 yerine 15.000 TL (seansı 1.500 TL). Aynı fiyat 10 seans satırında da yazıyor. Alt bölümde basılı kopyalar için WhatsApp QR kodu (`logo/qr-khc.svg`, açık kaynak `segno` kütüphanesiyle üretildi: github.com/heuer/segno; mesajda `Ref: KHC-QR`). PDF'teki bağlantılar `Ref: KHC-PDF` ile açılır.
 
-Üç PDF de tek sayfa, telefona göre (1080 px genişlik), yaklaşık 690 KB; iki tıklanabilir WhatsApp bağlantısı var (giriş satırında ve alttaki düğmede).
+- `navitas-koc-universitesi-hastanesi-spa-fiyat-listesi.pdf`: Koç Üniversitesi Hastanesi çalışanları için, Koç Healthcare listesiyle aynı teklif ve üyelik kancası. Başlıkta hastanenin resmi logosu (`logo/koc-universitesi-hastanesi.svg`, kuh.ku.edu.tr'den, değiştirilmeden). Ölçüm kodları `Ref: KUH-PDF` ve QR için `Ref: KUH-QR` (`logo/qr-kuh.svg`).
+
+Dört PDF de tek sayfa, telefona göre (1080 px genişlik), yaklaşık 690 KB; iki tıklanabilir WhatsApp bağlantısı var (giriş satırında ve alttaki düğmede).
 
 - `sablon.html`: ortak sayfa. Sürüme göre değişen yerler `{{BASLIK}}`, `{{KURAL}}`, `{{IKON}}`, `{{MOTIF}}`, `{{ORTAK}}` (ortak kurum logosu), `{{WA}}`; değerleri `render.js` içindeki `VARIANTS` tablosunda. Yeni bir kurum için oraya bir satır eklemek yeter.
 - `render.js`: `NODE_PATH=$(npm root -g) node tenisci-spa-fiyat/render.js` ikisini birden, `... render.js karaca` yalnız birini üretir.
