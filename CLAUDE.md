@@ -245,7 +245,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - **Köprü:** Prometheus yeni alanlara köprü olarak kullanılabilir:
     - Mary Shelley'nin *Frankenstein*'ının alt başlığı "Modern Prometheus"tur (kitap bölümü).
     - Nolan'ın *Oppenheimer* filmi, *American Prometheus* biyografisine dayanır (film bölümü).
-- **Sonraki video: Milton, *Kayıp Cennet* ve Şeytan** (kullanıcıyla konuşularak netleşti, 1 Kasım 2026).
+- **Milton, *Kayıp Cennet* ve Şeytan** (kullanıcıyla konuşularak netleşti, 1 Kasım 2026). **Durum (12 Kasım 2026):** film, iki kapak ve yayın paketi hazır (`milton/`, `milton/yayin.md`); kurgu kurulunun gerileme turu, Shorts ve yayın yapılmadı.
   - **Amaç:** "Şeytan haklı mıydı?" diye sormak değil. İzleyiciyi Şeytan'la empati kurduran bir **iç yolculuk** anlatmak.
   - **Ağırlık:** ağırlık Şeytan'da. Milton'ın hayatı kısa tutulur; yalnız eseri kör olduktan sonra kızlarına ve yardımcılarına yazdırması öne çıkar (kullanıcıyı en çok etkileyen ayrıntı).
     - Çerçeve fikri: kör bir şair, göremediği ışığı ve cehennemi anlatıyor. III. kitabın açılışındaki ışığa yakarış bunun için kullanılabilir.
@@ -278,6 +278,19 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
     - Tarihler, kitap ve dize numaraları ve Milton'ın hayatına dair ayrıntılar senaryo kurulunda kaynaktan doğrulanır.
   - **Süre:** hikâye ne kadar gerektiriyorsa o kadar.
 - **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.
+
+## Orkestra düzeni ve Milton dersleri (kullanıcının kararı; 12 Kasım 2026)
+Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. Ayrıntı: `milton/geriye_bakis.md`, `milton/KURUL.md`.
+- **Roller:** ana oturum yönetmen ve kurul başkanıdır; kararları kendisi verir, kullanıcıya her adımda sormaz. Çizim işleri alt ajanlara dağıtılır: her sahne setinin **tek sahibi** vardır ve aynı ajan düzeltme turlarında `SendMessage` ile sürdürülür. Zor çizim ve hassas kurul işleri büyük modele, ölçüm ve metin işleri küçük modele verilir.
+- **Kullanım sınırı:** aynı anda en çok iki ağır ajan. Sınır dolunca ajanlar yarım kalır; sıfırlanınca `SendMessage` ile kaldıkları yerden sürdürülür, yeni ajan açılmaz.
+- **Ortak dosyalar** (motor, `film.js`, `KILAVUZ.md`, plan listesi) yalnız ana oturumca değiştirilir; ajanlar kendi set dosyasına yazar. Durdurma kancası için ara durum sık sık commit edilir.
+- **Kurula gitmeden önce** başkan bütün filmi `tools/kurgu_ozet.py` ile (her plandan bir kare) yan yana görür ve zayıf bölgeleri sahiplerine yeniden çizdirir.
+- **Üslup kapısı** tek kare değil: bir manzara karesi + bir orta plan figür + bir yakın plan + 15 sn'lik hareketli sahne. Kodla çizimde iç çizgisiz açık figür "kâğıt kesme" okunur; ana figür koyu siluettir.
+- **Plan listesinde her plana ölçek yazılır** (geniş / orta / yakın / ayrıntı / ters açı); ardışık iki plan aynı ölçekte olmaz. Yazı levhası plan başına en çok 8 sn ve filmin beşte birini geçmez; boş kâğıt 2 sn'den uzun kalmaz.
+- **Geçiş:** aynı mekânda kesme; yumuşak geçiş yalnız mekân/zaman sıçramasında, kısa ve sessizlikte. İki levha saydamlıkla karıştırılmaz (gri üretir).
+- **Hassasiyet kurulu görüntüye de bakar** (yalnız senaryoya değil): Milton'da yakaladıkları: sıra hâlinde eğilen figürler (namaz safı), baştan ayağa siyah örtülü kadın figürü, dört kollu yıldız (haç), göğsünde alev tutan önden simetrik figür (Kutsal Kalp), "ŞEYTAN AĞLADI" kapak yazısı (vaaz motifi), siluetin karnındaki küçük figür (hamilelik). Kapak yazısı da bu kuruldan geçer.
+- **Kapak:** en iyi sonuç filmin ilk karesiyle aynı figür + tek vurgu rengi + Bebas Neue yazı (%18 harf yüksekliği). İkinci kapağın vaadi de ilk saniyede karşılanır (Milton'da film 0,9 sn'lik göz planıyla açılır).
+- **Kredi:** seslendirmeden önce karakter sayısı × çekim sayısı hesaplanıp kullanıcıya bildirilir.
 
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
