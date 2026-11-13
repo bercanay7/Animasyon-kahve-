@@ -1,0 +1,16 @@
+# yeniden üretilebilir büyük ara dosyalar
+vo/vo.wav
+audio/*.wav
+audio/stems/
+audio/__pycache__/
+tools/__pycache__/
+.parts*/
+*_master.mp4
+*_shorts.mp4
+en/*.wav
+en/words/
+**/__pycache__/
+shorts/*.wav
+audio/stems_en/
+*_youtube*.mp4
+board/

@@ -1,0 +1,85 @@
+// Ana döngü: kare çizimi, hareket bulanıklığı, canlı önizleme
+'use strict';
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+cv.width = DW; cv.height = DH;
+const Q = new URLSearchParams(location.search);
+window.FPS = 30;
+const acc = makeCanvas(DW, DH), accx = acc.getContext('2d');
+function renderFrame(t) {
+  window.FIG_T = t;
+  baseT(ctx);
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+  drawFilm(ctx, t);
+}
+// 180° obtüratör: kare süresinin yarısı içinde n alt kare ortalaması
+function renderFrameMB(t, n) {
+  const si = typeof SHOTS !== 'undefined' ? shotAt(t) : -1, sh = si >= 0 ? SHOTS[si] : null;
+  if (sh && sh.mb) n = Math.max(n, sh.mb);
+  const dt = 1 / FPS * .5;
+  // alt kareler kesmenin öbür yanına taşmaz: her örnek o anki planın [başlangıç, sonraki plan) aralığına kısılır (kesmede tek karelik bindirme olmaz)
+  const lo = sh ? sh.at : 0, hi = si >= 0 && si + 1 < SHOTS.length ? SHOTS[si + 1].at - 1e-4 : Infinity;
+  accx.setTransform(1, 0, 0, 1, 0, 0); accx.globalAlpha = 1; accx.globalCompositeOperation = 'source-over';
+  window.FRAME_T = t; // ayrık değişen öğeler (sayaçlar) alt karelerde değil karenin kendisinde değişsin
+  for (let i = 0; i < n; i++) {
+    renderFrame(Math.max(0, Math.min(hi, Math.max(lo, t + dt * (i / n - .5)))));
+    accx.globalAlpha = 1 / (i + 1);
+    accx.drawImage(cv, 0, 0);
+  }
+  window.FRAME_T = null;
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+  ctx.drawImage(acc, 0, 0);
+}
+window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
+// Yönetmenlik kurulu kuralları (tek yerden):
+// K1 baskı geçişi (press) yalnız bölüm imzası ve dört özel anda kalır, öbürleri düz kesme olur;
+// K2 cümle başına bağlı geçiş cümlenin ilk kelimesinden önce biter (kesme 0,1 sn önce; baskı süresi + 0,1 sn önce).
+function cutRules() {
+  // sanat kurulu A9: merdane (press) yalnız bölüm başlarında; imza geçiş "reg" (kayık baskı oturması) özel anlarda
+  const chap = ['B01', 'C01', 'D01', 'E01', 'F01', 'G01'].map(S);
+  const regAt = [Wd('A01', 'küçük') - .3, S('A05') - .45, S('C05'), S('G06') - .3];
+  const starts = Object.values(CUES).map(c => c.s);
+  for (const sh of SHOTS) {
+    if (sh.at <= 0) continue;
+    const near = xs => xs.some(x => Math.abs(sh.at - x) < 1.2);
+    if (sh.tr && sh.tr.type === 'press' && !near(chap)) sh.tr = near(regAt) ? { type: 'reg', dur: .5 } : { ...sh.tr, type: 'cut' };
+    else if (sh.tr && ['fade', 'clay', 'ink', 'wipe', 'iris', 'black', 'white'].includes(sh.tr.type)) sh.tr = { type: 'reg', dur: .5 };
+    const s0 = starts.find(x => sh.at > x - .2 && sh.at < x + .35);
+    if (s0 == null) continue;
+    sh.at = !sh.tr || sh.tr.type === 'cut' ? s0 - .1 : s0 - (sh.tr.dur || .7) - .1;
+    // I. bölüm baskısı ilk sözcükten hemen önce biter: A05 başlığı en az 2,6 sn tam okunur (tipografi kurulu, 2. tur)
+    if (Math.abs(s0 - S('B01')) < .01) { sh.at = S('B01') - .85; sh.tr = { ...(sh.tr || {}), type: 'press', dur: .8 }; }
+  }
+}
+// K6 kilit anlarda göz kırpma yok: alıntı cümlesi (A02) ve isim açıklama anları (±0,6 sn)
+window.noBlink = t => {
+  if (t == null || !window.CUES) return false;
+  if (!noBlink.w) {
+    noBlink.w = [[S('A02') - .3, Se('A02') + .3], [S('G06') - .3, Se('G06') + .3]];
+    for (const [id, w] of [['B06', 'mustafa'], ['B06', 'kemal'], ['C06', 'mustafa'], ['C06', 'ali'], ['D03', 'mustafa'], ['D03', 'kazım'],
+      ['F02', 'ali'], ['F02', 'kazım'], ['F03', 'ismet'], ['F03', 'fevzi'], ['F04', 'halide'], ['F06', 'mustafa'], ['G02', 'mustafa'], ['G02', 'ismet'], ['G02', 'fevzi']]) {
+      const x = Wd(id, w); noBlink.w.push([x - .6, x + 1.2]);
+    }
+  }
+  return noBlink.w.some(([a, b]) => t >= a && t <= b);
+};
+window.ready = (async () => {
+  // unicode-range ile bölünmüş yüzler Türkçe harflerle birlikte önceden yüklenir
+  const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
+  for (const f of ['400 40px "Abril Fatface"', '400 40px "Alfa Slab One"', '400 40px "Courier Prime"', '700 40px "Courier Prime"',
+    'italic 600 40px "Cormorant Garamond"', '600 40px "Cormorant Garamond"', '400 40px Amiri', '700 40px Amiri']) await document.fonts.load(f, TR);
+  await document.fonts.load('400 40px "GFS Didot"', 'ΚΑΦΕΝΕΙΟΝ ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'); // Selanik'in Rumca tabelaları
+  buildPaper();
+  if (typeof SHOTS !== 'undefined') SHOTS.sort((a, b) => a.at - b.at); // act dosyaları paralel yazıldı; çekimler zamana göre sıralanır
+  if (typeof SHOTS !== 'undefined' && window.CUES) cutRules();
+  if (typeof SHOTS !== 'undefined') SHOTS.sort((a, b) => a.at - b.at);
+  if (window.initScenes) initScenes();
+  return true;
+})();
+if (!Q.has('render')) {
+  window.ready.then(() => {
+    const t0 = performance.now() / 1000 - (+Q.get('t') || 0);
+    const loop = () => { renderFrame(performance.now() / 1000 - t0); requestAnimationFrame(loop); };
+    if (Q.has('still')) renderFrame(+Q.get('t') || 0); else loop();
+  });
+}

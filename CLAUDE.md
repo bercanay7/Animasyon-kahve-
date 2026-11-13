@@ -12,6 +12,9 @@ Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan 
   - Türkçe yazar, kararlarını kısa verir ("Üret", "Devam edelim").
   - İşin baştan sona yapılmasını ister.
   - Her aşamayı bağımsız bir kurula onaylatır ve 10/10'a doğru tekrar tekrar iyileştirir.
+  - Önerilerini öneri olarak verir. Onaylanmayı değil, uzman gözüyle tartılmayı bekler: "Karar tamamen sana ait", "sen patronsun".
+    - Uymayan öneri gerekçesiyle geri çevrilir ve uygunsa sonraki işe not edilir.
+    - Onu memnun etmek için öneriyi kabul etme.
 - **Yayın:** kullanıcı YouTube Studio'da elle yapar. Bu oturumda tarayıcı eklentisi yok, Metricool'da YouTube yok. Dosyalar `SendUserFile` ile gönderilir. Adım adım bir `yayin.md` yazılır.
 - **Anlatıcı:** ElevenLabs'te **"Emrullah"** sesi. Kanalın sesidir, değiştirilmez. `voice_id` her seferinde `creative_list_voices` ile bulunur, ezberden yazılmaz.
 - **Kredi harcayan üretim** (ElevenLabs, Abracadabrax görsel/video): yalnız kullanıcı açıkça istediğinde yapılır. Aynı çağrıyı "yeniden dene" diye tekrarlama; her tekrar yeniden ücretlendirilir.
@@ -295,6 +298,7 @@ Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. A
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
 - **Süreçler:** `pkill -f` kullanma; işlemleri PID ile durdur. Uzun render ve miks işlerini arka planda uzun `timeout` ile çalıştır.
+- **Render önbelleği:** `render.js` parçaları `.parts*/` içinde tutar. Artık kod, zaman çizelgesi ve ayarların özetini (`KEY`) saklıyor ve değişince eski parçaları siliyor. Öncesinde kod değişse bile eski kareleri sessizce yeniden kullanıyordu (29 Ekim önizleme v2'de yaşandı). Şüphede klasörü elle sil.
 - **Disk:** disk payı sınırlı. Ara parçaları (`.parts*/`) iş bitince sil. Büyük mp4'ler depoya girmez (`.gitignore`); kullanıcıya `SendUserFile` ile gönderilir.
 - **Fontlar:** `sisifos/fonts.css` ve `orfeus/fonts.css` (Anton, Alfa Slab One, Lilita One, Bebas Neue, Cinzel …). Türkçe karakterli (latin-ext) woff2 dosyaları depoda.
 - **Git:**
@@ -302,6 +306,37 @@ Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. A
   - Commit mesajı Türkçe ve açıklayıcı olsun, sonunda oturumun verdiği atıf satırları bulunsun.
   - Her iş parçasından sonra commit + push yap (durdurma kancası commit edilmemiş değişikliğe izin vermiyor).
 - **`navitas-topkapi` deposu:** bu işle ilgisizdir, dokunma.
+
+## 29 Ekim dersleri
+- **Türk bayrağı (2893 sayılı Kanun ve cetveli):** Doğru çizim `cumhuriyet/lib/act6.js` içindeki `a6_flagImg`.
+  - Yıldız merkezi = iç çemberin uçkurluk yanındaki kesişimi + G/3 + G/8. G = 60000'de 49250 olur.
+  - Uçkurluk beyazdır. Hilalin dış konturu uçların arasında kapanmaz.
+  - Kıvrım gölgesi is ile basılır, kırmızıyla değil; yoksa ay ve yıldız pembeleşir.
+  - Dalgalı bayrak 1 px'lik şeritlerle çizilir; daha geniş şerit kenarda basamak bırakır.
+  - Osmanlı bayrağında 1844'ten sonra beş köşeli yıldız vardır.
+  - Bu hata üç kurul turunda gözden kaçtı. **Hassasiyet ve hukuk kurulunu sona bırakma, üslup karesi aşamasında çalıştır.**
+- **Zaman çizelgesini kaydıran ses kararları** (cümle arası boşluk gibi):
+  - Etkiledikleri yerler: tam render, bitiş ekranı saati (`yayin.md`, `youtube.md`), SRT ve Shorts EDL.
+  - Bu yüzden ses kurulunu son render'dan önce bitir.
+  - Yalnız miks değişirse render gerekmez; sesi yeniden bağlamak yeter.
+- **ElevenLabs ses efekti:** `creative_generate_in_flow` süre parametresi almıyor. Kalabalık sesi 1 sn'lik dört çekim olarak geldi.
+  - Belli bir süre gerekiyorsa node'u ekle, `duration_seconds` ver, sonra çalıştır.
+  - Kısa çekimler 0,25–0,4 sn geçişle birleştirilebilir.
+  - Sol ve sağ için iki ayrı sıra kullanılırsa stereo genişlik doğar.
+- **Teslim boyutu:** Uygulamada 100 MB'ı aşan dosyada indirme düğmesi çıkmıyor (413 ve 153 MB'lık dosyalar inmedi, 83 MB'lık indi).
+  - Uzun videonun ana kopyasından ayrıca 100 MB'ın altında bir yükleme kopyası üret.
+  - Kullanılan ayar: `libx265 -preset medium -crf 26 -tag:v hvc1`, BT.709 etiketleri ve ses `-c:a copy`. Sonuç 83 MB, SSIM 0,980; YouTube kabul etti.
+  - Yedek olarak H.264 iki geçiş, 1750k (~96 MB).
+- **Shorts kırpması:** Üst künye kutusu ile bayrak ya da yüz arasında ≥ 30 px boşluk bırak.
+  - Bunun için klipte `z0` ve `cy0` kullan; kırpmayı üste hizala (y0 = 0).
+
+## Sonraki videolar için kullanıcının önerileri
+- **Psikolojik anlatım:** Stefan Zweig (*Yıldızın Parladığı Anlar*) ve Dostoyevski gibi karakterin iç dünyasına inen bir anlatım.
+  - 29 Ekim videosunda kayıt ve kurgu bittikten sonra önerildiği için uygulanmadı.
+  - Senaryo en baştan bu üslupla kurulmalı: tek bir "karar anı" ve onu yaşayan kişinin iç dünyası.
+  - İç dünya uydurulmaz. Kişinin kendi hatırat, mektup ve sözlerine dayanır; kaynak açıklamada verilir.
+  - Atatürk için 5816 sayılı Kanun ve saygı kuralları gereği ona söz ya da düşünce uydurulmaz.
+- **Hareket:** Animasyon hiç durmasın, sürekli aksın. Durağan kare kalmaz. Kontrol aracı `cumhuriyet/tools/donma.py`.
 
 ## Sıkışık takvimde öncelik (ör. 2 günlük teslim)
 1. Senaryo (4–6 dk, 35–50 cümle) → kurul tek tur.
