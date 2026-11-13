@@ -319,6 +319,14 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - YouTube'a yüklemeyi kullanıcı bilgisayardan yapar; bu oturumda YouTube'a yükleme aracı yok.
 - **Render'ı mutlak yolla başlat:** depo kökünde ilgisiz, eski bir `render.js` var.
 
+## Üslup ve çizim motoru seçimi (kullanıcının kararı, 13 Kasım 2026)
+Yeni videoda üslup seçilirken sıra şudur:
+1. **Kendi motorlarımız:** gravür (`milton/lib`; en olgunu), vazo resmi (`sisifos/lib`, `prometheus/`), kâğıt kesme (`orfeus/`), Python motoru (`gunluk-shorts/`). Konuya uyuyorsa bunlardan biri yeniden kullanılır.
+2. **Uymuyorsa cinecode:** `.claude/skills/cinecode/styles/` içindeki 61 üslup tarifine bakılır. Her tarif hazır bir tasarım belgesidir: malzeme ve çizgi yasası, renk mantığı, yazı, hareket kalitesi, kamera dili, ses paleti, ortamın tuzakları ve motor notu. Motorun çerçevesi `references/engine.md` ve `starter/` (three.js ya da tek gölgelendirici).
+3. **Yeni motor:** seçilen tarif yeni bir motora çevrilir. Motor **bizim hattımıza** takılır: anlatıma kelime kelime bağlı çekim sistemi (`milton/lib/film.js`: `S()`, `Wd()`, `plan()`), `render.js`, `tools/` ve kurul düzeni. cinecode'un kendi akışı (kendi soru turu, dış sesi, jürisi) kullanılmaz.
+- cinecode tarifleri kod değil, tasarım belgesidir. Kodla çizimin zayıf yanı (yüz, el, karmaşık beden hareketi) orada da geçerli; tarif seçilirken Milton'daki üslup kapısı dersi uygulanır: manzara + orta plan figür + yakın plan + 15 sn hareket.
+- Motor yazmak videonun en pahalı aşamasıdır (Milton'da üslup kapısı altı tur sürdü). Hazır motor işe yarıyorsa yenisi yazılmaz.
+
 ## Orkestra düzeni ve Milton dersleri (kullanıcının kararı; 12 Kasım 2026)
 Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. Ayrıntı: `milton/geriye_bakis.md`, `milton/KURUL.md`.
 - **Roller:** ana oturum yönetmen ve kurul başkanıdır; kararları kendisi verir, kullanıcıya her adımda sormaz. Çizim işleri alt ajanlara dağıtılır: her sahne setinin **tek sahibi** vardır ve aynı ajan düzeltme turlarında `SendMessage` ile sürdürülür. Zor çizim ve hassas kurul işleri büyük modele, ölçüm ve metin işleri küçük modele verilir.
