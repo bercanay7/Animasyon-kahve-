@@ -231,6 +231,11 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - **Darboğaz paketleme (kapak ve başlık):** Sisifos'un gösterimi büyüdü, Cumhuriyet'inki %1,1 TO ile 14 B'de durdu (konusu da güne bağlıydı). Her videoda en az iki kapak hazırlanır ve "Test ve karşılaştır" ile denenir. Kapak kurulu "ilk bakışta anlaşılıyor mu?" sorusuna öncelik verir.
   - **En iyi açılış Şarlken'de (%79):** yeni videoların açılışı onunla karşılaştırılır.
   - **Kanal vitrin gibi çalışıyor:** diğer videolarda trafiğin %17–35'i kanal sayfasından geliyor. Sisifos kapı açıyor, izleyici kanala dağılıyor.
+- **Milton ("Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"; 25:46; kapak "BEN CEHENNEMİM"), yayından ~15–18 saat sonra (12 Kasım 21:00'de yayımlandı):**
+  - Erişim: 1,2 B gösterim, TO %1,7, 95 görüntüleme, ~15 saat izlenme.
+  - İzleme: ortalama 9:30 (%37). Kanalın en yüksek ortalama izlemesi (Prometheus 5. saatte 9:02).
+  - Gösterim başına izlenme süresi ≈ %1,7 × 9,5 dk ≈ 0,16 dk (Prometheus 0,11, Sisifos 0,05): kanalın en iyisi.
+  - Yorum: ilk saatlerde bile TO düşük (Prometheus'un ilk saatlerinde %5,8'di); sadık kitle tıklamakta isteksiz ya da gösterim erkenden geniş kitleye gitti. Büyük göz atma testi henüz gelmedi (Prometheus'ta ~20. saatte geldi). Bakılacak: 48. saatte trafik kaynakları, 0:30'da kalan, ilk 3 sn (açılıştaki sessiz göz planı), "Test ve karşılaştır" sonucu.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
 
 ## Kitle (Sisifos, 5. gün) ve kanal yönü
