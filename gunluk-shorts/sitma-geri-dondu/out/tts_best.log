@@ -1,0 +1,34 @@
+  [0.00] Türkiyede sıtma neredeyse bitmişti.  ->  Türkiye'de sıtma neredeyse bitmişti.
+  [0.00] Sonra geri döndü!  ->  Sonra geri döndü.
+  [0.00] Yıllarca kinin dağıtıldı,  ->  Yıllarca kinin dağıtıldı.
+  [0.00] bataklıklar kurutuldu.  ->  Bataklıklar kurutuldu.
+  [0.00] Yıllık vaka sayısı 1.263e düştü.  ->  Yıllık vaka sayısı 1263'e düştü.
+  [0.00] Birkaç yıl sonra 115.000i aştı!  ->  Birkaç yıl sonra 115.000'i aştı.
+  [0.00] Uzmanlara göre,  ->  Uzmanlara göre
+  [0.00] faktörler üst üste bindi.  ->  Faktörler üst üste bindi.
+  [0.00] sulu tarım yayıldı.  ->  Sulu tarım yayıldı.
+  [0.00] Sivrisinek sayısı keskin arttı.  ->  Sivrisinek sayısı keskin arttı.
+  [0.00] işçi göçü hastalığı yeni bölgelere taşıdı.  ->  İşçi göçü hastalığı yeni bölgelere taşıdı.
+  [0.00] izleme zayıftı.  ->  İzleme zayıftı.
+  [0.00] Mücadele yeniden başlayınca salgın geriledi.  ->  Mücadele yeniden başlayınca salgın geriledi.
+  [0.00] Ama sıtma tekrar patladı:  ->  Ama sıtma tekrar patladı.
+  [0.00] 84.000i aştı!  ->  84.000'i aştı.
+  [0.00] Sağlık Bakanlığına göre,  ->  Sağlık Bakanlığına göre
+  [0.00] yerli vaka yok.  ->  Yerli vaka yok.
+  [0.00] İthal vakalar sürüyor.  ->  İthal vakalar sürüyor.
+  [0.00] Ders şu:  ->  Ders şu;
+  [0.00] bitti diye bırakırsan,  ->  Bitti diye bırakırsan
+  [0.00] hastalık döner.  ->  Hastalık döner
+ses=dfki süre=39 sn (son kelime 37.94 sn)
+  A   0.05–  3.28  0:Türkiye’de | 1:sıtma | 2:neredeyse | 3:bitmişti. | 4:Sonra | 5:geri | 6:döndü!
+  B   3.46–  6.51  0:Yıllarca | 1:kinin | 2:dağıtıldı, | 3:bataklıklar | 4:kurutuldu.
+  C   6.65–  9.62  0:Yıllık | 1:vaka | 2:sayısı | 3:1.263’e | 4:düştü.
+  D   9.76– 11.92  0:Birkaç | 1:yıl | 2:sonra | 3:115.000’i | 4:aştı!
+  E  12.12– 15.12  0:Neden? | 1:Uzmanlara | 2:göre, | 3:faktörler | 4:üst | 5:üste | 6:bindi.
+  F  15.26– 18.97  0:Önce, | 1:sulu | 2:tarım | 3:yayıldı. | 4:Sivrisinek | 5:sayısı | 6:keskin | 7:arttı.
+  G  19.09– 22.09  0:Sonra, | 1:işçi | 2:göçü | 3:hastalığı | 4:yeni | 5:bölgelere | 6:taşıdı.
+  H  22.21– 23.90  0:Üstelik, | 1:izleme | 2:zayıftı.
+  I  24.08– 26.60  0:Mücadele | 1:yeniden | 2:başlayınca | 3:salgın | 4:geriledi.
+  J  26.78– 29.98  0:Ama | 1:sıtma | 2:tekrar | 3:patladı: | 4:84.000’i | 5:aştı!
+  K  30.18– 34.64  0:Bugün, | 1:Sağlık | 2:Bakanlığı’na | 3:göre, | 4:yerli | 5:vaka | 6:yok. | 7:İthal | 8:vakalar | 9:sürüyor.
+  L  34.82– 37.94  0:Ders | 1:şu: | 2:bitti | 3:diye | 4:bırakırsan, | 5:hastalık | 6:döner.

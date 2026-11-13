@@ -1,0 +1,5 @@
+ses-modelleri/ex_*
+ses-modelleri/*.tar.bz2
+__pycache__/
+*/out/*_noaudio.mp4
+*/out/render.log

@@ -1,0 +1,5 @@
+__pycache__/
+out/zanzibar_noaudio.mp4
+out/prev_*
+out/c_*
+out/render.log

@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "title": "Zaman Kuryesi kanal yonu",
+  "slug": "kanal-yonu",
+  "dossier": 1,
+  "date": "2026-10-14",
+  "mode": "parallel",
+  "seats": [
+    {
+      "id": "buyume",
+      "title": "Shorts b\u00fcy\u00fcme stratejisti",
+      "group": "B\u00fcy\u00fcme",
+      "weight": 1
+    },
+    {
+      "id": "retention",
+      "title": "Retention (izleyici tutma) analisti",
+      "group": "B\u00fcy\u00fcme",
+      "weight": 1
+    },
+    {
+      "id": "analitik",
+      "title": "Algoritma ve analitik uzman\u0131",
+      "group": "B\u00fcy\u00fcme",
+      "weight": 1
+    },
+    {
+      "id": "seo",
+      "title": "Ba\u015fl\u0131k, a\u00e7\u0131klama ve SEO uzman\u0131",
+      "group": "B\u00fcy\u00fcme",
+      "weight": 1
+    },
+    {
+      "id": "topluluk",
+      "title": "Topluluk y\u00f6neticisi",
+      "group": "B\u00fcy\u00fcme",
+      "weight": 1
+    },
+    {
+      "id": "izleyici",
+      "title": "\u0130zleyici (kayd\u0131ran T\u00fcrk Shorts kullan\u0131c\u0131s\u0131)",
+      "group": "\u0130zleyici",
+      "weight": 1
+    },
+    {
+      "id": "kanca",
+      "title": "Kanca (hook) yazar\u0131",
+      "group": "\u0130\u00e7erik",
+      "weight": 1
+    },
+    {
+      "id": "senarist",
+      "title": "Hik\u00e2ye anlat\u0131c\u0131 / senarist",
+      "group": "\u0130\u00e7erik",
+      "weight": 1
+    },
+    {
+      "id": "dil",
+      "title": "T\u00fcrk\u00e7e dil edit\u00f6r\u00fc",
+      "group": "\u0130\u00e7erik",
+      "weight": 1
+    },
+    {
+      "id": "olgu",
+      "title": "Olgu denet\u00e7isi (tarih)",
+      "group": "\u0130\u00e7erik",
+      "weight": 1
+    },
+    {
+      "id": "artdir",
+      "title": "Art director",
+      "group": "G\u00f6rsel",
+      "weight": 1
+    },
+    {
+      "id": "illustrator",
+      "title": "Karakter ve ill\u00fcstrasyon sanat\u00e7\u0131s\u0131",
+      "group": "G\u00f6rsel",
+      "weight": 1
+    },
+    {
+      "id": "motion",
+      "title": "Motion designer",
+      "group": "G\u00f6rsel",
+      "weight": 1
+    },
+    {
+      "id": "renktipo",
+      "title": "Renk ve tipografi uzman\u0131",
+      "group": "G\u00f6rsel",
+      "weight": 1
+    },
+    {
+      "id": "thumb",
+      "title": "K\u00fc\u00e7\u00fck resim (kapak) tasar\u0131mc\u0131s\u0131",
+      "group": "G\u00f6rsel",
+      "weight": 1
+    },
+    {
+      "id": "seslendirme",
+      "title": "Seslendirme y\u00f6netmeni",
+      "group": "Ses",
+      "weight": 1
+    },
+    {
+      "id": "sesmuh",
+      "title": "Ses m\u00fchendisi",
+      "group": "Ses",
+      "weight": 1
+    },
+    {
+      "id": "muzik",
+      "title": "Besteci ve ses tasar\u0131mc\u0131s\u0131",
+      "group": "Ses",
+      "weight": 1
+    },
+    {
+      "id": "pipeline",
+      "title": "\u00dcretim hatt\u0131 m\u00fchendisi",
+      "group": "\u00dcretim",
+      "weight": 1
+    },
+    {
+      "id": "qc",
+      "title": "Kalite kontrol uzman\u0131",
+      "group": "\u00dcretim",
+      "weight": 1
+    },
+    {
+      "id": "seytan",
+      "title": "\u015eeytan\u0131n avukat\u0131 (az yap / hi\u00e7 yapma)",
+      "group": "Ele\u015ftiri",
+      "weight": 1
+    }
+  ]
+}

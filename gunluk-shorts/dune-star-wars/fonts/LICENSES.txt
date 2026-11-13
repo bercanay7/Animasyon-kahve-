@@ -1,0 +1,5 @@
+Bu klasördeki yazı tipleri SIL Open Font License 1.1 altındadır (https://openfontlicense.org):
+- Inter Display (Black, ExtraBold) — The Inter Project Authors (Rasmus Andersson)
+- Lora Bold — The Lora Project Authors (Cyreal); ayrıca Lora-OFL.txt
+- Poppins Bold — Indian Type Foundry
+Yazı tipleri yalnızca video çiziminde kullanılır; yeniden dağıtımda OFL metni korunmalıdır.

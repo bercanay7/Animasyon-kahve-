@@ -1,0 +1,36 @@
+E WER 0.14 ['0.14', '0.14', '0.14'] | Neden? Uzmanlara göre, *etkenler=etkeenler üst üste bindi.*
+       Neden? Uzmanları göre etkenler üst üste bindi.
+       Neden? Uzmanları göre etkenler üst üste bindi.
+       Neden? Uzmanları göre etkenler üst üste bindi.
+E WER 0.00 ['0.00', '0.00', '0.00'] | Neden? Uzmanlara göre, *faktörler üst üste bindi.*
+       Neden? Uzmanlara göre faktörler üst üste bindi.
+       Neden? Uzmanlara göre faktörler üst üste bindi.
+       Neden? Uzmanlara göre faktörler üst üste bindi.
+H WER 0.67 ['0.67', '0.67', '0.67'] | Üstelik, *gözetim zayıftı.*
+       Üstelik, düzetim zayı
+       Üstelik, düzetim zayı
+       Üstelik, düzetim zayı
+H WER 0.00 ['0.00', '0.00', '0.00'] | Üstelik, *gözetim çok zayıftı.*
+       Üstelik gözetim çok zayıftı
+       Üstelik gözetim çok zayıftı
+       Üstelik gözetim çok zayıftı
+H WER 0.00 ['0.00', '0.00', '0.00'] | Üstelik, *izleme zayıftı.*
+       Üstelik izleme zayıftı.
+       Üstelik izleme zayıftı.
+       Üstelik izleme zayıftı.
+L WER 0.25 ['0.25', '0.25', '0.25'] | Ders şu: *bitti sanılan hastalık,* takip edilmezse döner.
+       Ders şu; Bitti sanıdan hastalık, takip edilmese döner.
+       Ders şu; Bitti sanıdan hastalık, takip edilmese döner.
+       Ders şu; Bitti sanıdan hastalık, takip edilmese döner.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *biten sanılan hastalık* izlenmezse döner.
+       Ders şu; biten sanılan hastalık izamese döner.
+       Ders şu; biten sanılan hastalık izamese döner.
+       Ders şu; biten sanılan hastalık izamese döner.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *bitti sanılan hastalık,* gözetilmezse döner.
+       Ders şu; Bitti sanılan hastalık gözetilmese döner.
+       Ders şu; Bitti sanılan hastalık gözetilmese döner.
+       Ders şu; Bitti sanılan hastalık gözetilmese döner.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *bitti sanılan hastalık* bırakılırsa döner.
+       Ders şu, bitti sanıdan hastalık bırakılırsa döner.
+       Ders şu, bitti sanıdan hastalık bırakılırsa döner.
+       Ders şu, bitti sanıdan hastalık bırakılırsa döner.

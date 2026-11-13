@@ -1,0 +1,24 @@
+L WER 0.00 ['0.00', '0.00', '0.00'] | Ders şu: *bitti diye bırakırsan,* hastalık döner.
+       Ders şu, bitti diye bırakırsan hastalık döner.
+       Ders şu, bitti diye bırakırsan hastalık döner.
+       Ders şu, bitti diye bırakırsan hastalık döner.
+L WER 0.00 ['0.00', '0.00', '0.00'] | Ders şu: *bitti sanıp bırakırsan,* hastalık geri döner.
+       Ders şu, bitti sanıp bırakırsan, hastalık geri döner.
+       Ders şu, bitti sanıp bırakırsan, hastalık geri döner.
+       Ders şu, bitti sanıp bırakırsan, hastalık geri döner.
+L WER 0.14 ['0.14', '0.14', '0.14'] | Ders şu: *bitti diye izlemezsen,* hastalık döner.
+       Ders şu, bitti diye izlemesen hastalık döner.
+       Ders şu, bitti diye izlemesen hastalık döner.
+       Ders şu, bitti diye izlemesen hastalık döner.
+L WER 0.29 ['0.29', '0.29', '0.29'] | Ders şu: *bitti diye bakmazsan,* hastalık döner.
+       Ders şu, bitti diye bakma Hasan. Hastalık döner.
+       Ders şu, bitti diye bakma Hasan. Hastalık döner.
+       Ders şu, bitti diye bakma Hasan. Hastalık döner.
+G WER 0.00 ['0.00', '0.00', '0.00'] | Sonra, *işçi göçü* hastalığı *yeni bölgelere taşıdı.*
+       Sonra işçi göçü hastalığı yeni bölgelere taşıdı.
+       Sonra işçi göçü hastalığı yeni bölgelere taşıdı.
+       Sonra işçi göçü hastalığı yeni bölgelere taşıdı.
+G WER 0.00 ['0.00', '0.00', '0.00'] | Sonra, *işçi göçü* hastalığı *başka bölgelere taşıdı.*
+       Sonra işçi göçü hastalığı başka bölgelere taşıdı.
+       Sonra işçi göçü hastalığı başka bölgelere taşıdı.
+       Sonra işçi göçü hastalığı başka bölgelere taşıdı.

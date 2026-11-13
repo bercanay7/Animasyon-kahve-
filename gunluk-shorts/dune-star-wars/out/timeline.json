@@ -1,0 +1,1871 @@
+{
+ "duration": 156.0,
+ "voice": "dfki",
+ "last_word_end": 154.319,
+ "sentences": [
+  {
+   "id": "A1",
+   "t0": 0.05,
+   "t1": 5.379,
+   "words": [
+    {
+     "show": "Kupkuru",
+     "emph": false,
+     "t0": 0.05,
+     "t1": 0.568
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 0.568,
+     "t1": 0.741
+    },
+    {
+     "show": "çöl",
+     "emph": true,
+     "t0": 0.741,
+     "t1": 0.914
+    },
+    {
+     "show": "gezegeni.",
+     "emph": true,
+     "t0": 0.914,
+     "t1": 1.604
+    },
+    {
+     "show": "Kaderi",
+     "emph": false,
+     "t0": 1.604,
+     "t1": 2.21
+    },
+    {
+     "show": "yazılmış",
+     "emph": false,
+     "t0": 2.21,
+     "t1": 2.815
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 2.815,
+     "t1": 3.017
+    },
+    {
+     "show": "çocuk.",
+     "emph": true,
+     "t0": 3.017,
+     "t1": 3.42
+    },
+    {
+     "show": "Evreni",
+     "emph": false,
+     "t0": 3.42,
+     "t1": 3.955
+    },
+    {
+     "show": "yöneten",
+     "emph": false,
+     "t0": 3.955,
+     "t1": 4.489
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 4.489,
+     "t1": 4.667
+    },
+    {
+     "show": "imparator.",
+     "emph": true,
+     "t0": 4.667,
+     "t1": 5.379
+    }
+   ],
+   "text": "Kupkuru bir *çöl gezegeni.* Kaderi yazılmış bir *çocuk.* Evreni yöneten bir *imparator.*"
+  },
+  {
+   "id": "A2",
+   "t0": 5.929,
+   "t1": 10.909,
+   "words": [
+    {
+     "show": "Bu,",
+     "emph": false,
+     "t0": 5.929,
+     "t1": 6.287
+    },
+    {
+     "show": "Star",
+     "emph": false,
+     "t0": 6.507,
+     "t1": 6.778
+    },
+    {
+     "show": "Wars’ın",
+     "emph": false,
+     "t0": 6.778,
+     "t1": 7.319
+    },
+    {
+     "show": "hikâyesi.",
+     "emph": false,
+     "t0": 7.319,
+     "t1": 8.132
+    },
+    {
+     "show": "Ama",
+     "emph": false,
+     "t0": 8.132,
+     "t1": 8.479
+    },
+    {
+     "show": "on",
+     "emph": true,
+     "t0": 8.479,
+     "t1": 8.653
+    },
+    {
+     "show": "iki",
+     "emph": true,
+     "t0": 8.653,
+     "t1": 9.0
+    },
+    {
+     "show": "yıl",
+     "emph": true,
+     "t0": 9.0,
+     "t1": 9.173
+    },
+    {
+     "show": "önce",
+     "emph": true,
+     "t0": 9.173,
+     "t1": 9.52
+    },
+    {
+     "show": "yazılmış",
+     "emph": false,
+     "t0": 9.52,
+     "t1": 10.041
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 10.041,
+     "t1": 10.215
+    },
+    {
+     "show": "romanın",
+     "emph": false,
+     "t0": 10.215,
+     "t1": 10.735
+    },
+    {
+     "show": "da.",
+     "emph": false,
+     "t0": 10.735,
+     "t1": 10.909
+    }
+   ],
+   "text": "Bu, Star Wars’ın=Vorsın hikâyesi. Ama *on iki yıl önce* yazılmış bir romanın da."
+  },
+  {
+   "id": "A3",
+   "t0": 11.409,
+   "t1": 18.416,
+   "words": [
+    {
+     "show": "Peki",
+     "emph": false,
+     "t0": 11.409,
+     "t1": 11.986
+    },
+    {
+     "show": "Star",
+     "emph": false,
+     "t0": 11.986,
+     "t1": 12.275
+    },
+    {
+     "show": "Wars,",
+     "emph": false,
+     "t0": 12.275,
+     "t1": 12.563
+    },
+    {
+     "show": "o",
+     "emph": false,
+     "t0": 12.783,
+     "t1": 12.973
+    },
+    {
+     "show": "romandan",
+     "emph": false,
+     "t0": 12.973,
+     "t1": 13.542
+    },
+    {
+     "show": "ne",
+     "emph": false,
+     "t0": 13.542,
+     "t1": 13.732
+    },
+    {
+     "show": "kadar",
+     "emph": false,
+     "t0": 13.732,
+     "t1": 14.111
+    },
+    {
+     "show": "ödünç",
+     "emph": false,
+     "t0": 14.111,
+     "t1": 14.491
+    },
+    {
+     "show": "aldı?",
+     "emph": false,
+     "t0": 14.491,
+     "t1": 14.87
+    },
+    {
+     "show": "Cevabın",
+     "emph": false,
+     "t0": 14.87,
+     "t1": 15.441
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 15.441,
+     "t1": 15.632
+    },
+    {
+     "show": "kısmı,",
+     "emph": false,
+     "t0": 15.632,
+     "t1": 16.012
+    },
+    {
+     "show": "geri",
+     "emph": true,
+     "t0": 16.232,
+     "t1": 16.629
+    },
+    {
+     "show": "çevrilmiş",
+     "emph": true,
+     "t0": 16.629,
+     "t1": 17.225
+    },
+    {
+     "show": "bir",
+     "emph": true,
+     "t0": 17.225,
+     "t1": 17.423
+    },
+    {
+     "show": "teklifte",
+     "emph": true,
+     "t0": 17.423,
+     "t1": 18.019
+    },
+    {
+     "show": "saklı.",
+     "emph": false,
+     "t0": 18.019,
+     "t1": 18.416
+    }
+   ],
+   "text": "Peki Star Wars=Vors, o romandan ne kadar ödünç aldı? Cevabın bir kısmı, *geri çevrilmiş bir teklifte* saklı."
+  },
+  {
+   "id": "B1",
+   "t0": 19.266,
+   "t1": 27.495,
+   "words": [
+    {
+     "show": "O",
+     "emph": false,
+     "t0": 19.266,
+     "t1": 19.46
+    },
+    {
+     "show": "roman,",
+     "emph": false,
+     "t0": 19.46,
+     "t1": 19.848
+    },
+    {
+     "show": "Dune.",
+     "emph": true,
+     "t0": 20.068,
+     "t1": 20.593
+    },
+    {
+     "show": "Yazarı",
+     "emph": false,
+     "t0": 20.593,
+     "t1": 21.304
+    },
+    {
+     "show": "Frank",
+     "emph": false,
+     "t0": 21.304,
+     "t1": 21.541
+    },
+    {
+     "show": "Herbert,",
+     "emph": false,
+     "t0": 21.541,
+     "t1": 22.015
+    },
+    {
+     "show": "Oregon’daki",
+     "emph": false,
+     "t0": 22.235,
+     "t1": 23.013
+    },
+    {
+     "show": "hareketli",
+     "emph": false,
+     "t0": 23.013,
+     "t1": 23.635
+    },
+    {
+     "show": "kum",
+     "emph": false,
+     "t0": 23.635,
+     "t1": 23.791
+    },
+    {
+     "show": "tepelerini",
+     "emph": false,
+     "t0": 23.791,
+     "t1": 24.569
+    },
+    {
+     "show": "araştırırken,",
+     "emph": false,
+     "t0": 24.569,
+     "t1": 25.347
+    },
+    {
+     "show": "çöl",
+     "emph": true,
+     "t0": 25.567,
+     "t1": 25.743
+    },
+    {
+     "show": "gezegeni",
+     "emph": true,
+     "t0": 25.743,
+     "t1": 26.444
+    },
+    {
+     "show": "fikrine",
+     "emph": false,
+     "t0": 26.444,
+     "t1": 26.97
+    },
+    {
+     "show": "ulaştı.",
+     "emph": false,
+     "t0": 26.97,
+     "t1": 27.495
+    }
+   ],
+   "text": "O roman, *Dune=Dyun.* Yazarı Frank Herbert=Hörbırt, Oregon’daki=Oregondaki hareketli kum tepelerini araştırırken, *çöl gezegeni* fikrine ulaştı."
+  },
+  {
+   "id": "B2",
+   "t0": 27.995,
+   "t1": 30.675,
+   "words": [
+    {
+     "show": "Kitabı",
+     "emph": false,
+     "t0": 27.995,
+     "t1": 28.498
+    },
+    {
+     "show": "yirmiden",
+     "emph": true,
+     "t0": 28.498,
+     "t1": 29.0
+    },
+    {
+     "show": "fazla",
+     "emph": true,
+     "t0": 29.0,
+     "t1": 29.335
+    },
+    {
+     "show": "yayıncı",
+     "emph": true,
+     "t0": 29.335,
+     "t1": 29.838
+    },
+    {
+     "show": "geri",
+     "emph": false,
+     "t0": 29.838,
+     "t1": 30.173
+    },
+    {
+     "show": "çevirdi.",
+     "emph": false,
+     "t0": 30.173,
+     "t1": 30.675
+    }
+   ],
+   "text": "Kitabı *yirmiden fazla yayıncı* geri çevirdi."
+  },
+  {
+   "id": "B3",
+   "t0": 31.075,
+   "t1": 33.776,
+   "words": [
+    {
+     "show": "Ama",
+     "emph": false,
+     "t0": 31.075,
+     "t1": 31.382
+    },
+    {
+     "show": "çıktığında,",
+     "emph": false,
+     "t0": 31.382,
+     "t1": 31.994
+    },
+    {
+     "show": "Nebula",
+     "emph": false,
+     "t0": 32.214,
+     "t1": 32.682
+    },
+    {
+     "show": "ödülünü",
+     "emph": false,
+     "t0": 32.682,
+     "t1": 33.307
+    },
+    {
+     "show": "kazandı.",
+     "emph": false,
+     "t0": 33.307,
+     "t1": 33.776
+    }
+   ],
+   "text": "Ama çıktığında, Nebula ödülünü kazandı."
+  },
+  {
+   "id": "C1",
+   "t0": 34.526,
+   "t1": 37.262,
+   "words": [
+    {
+     "show": "On",
+     "emph": true,
+     "t0": 34.526,
+     "t1": 34.721
+    },
+    {
+     "show": "iki",
+     "emph": true,
+     "t0": 34.721,
+     "t1": 35.11
+    },
+    {
+     "show": "yıl",
+     "emph": true,
+     "t0": 35.11,
+     "t1": 35.305
+    },
+    {
+     "show": "sonra,",
+     "emph": true,
+     "t0": 35.305,
+     "t1": 35.695
+    },
+    {
+     "show": "Star",
+     "emph": false,
+     "t0": 35.915,
+     "t1": 36.252
+    },
+    {
+     "show": "Wars",
+     "emph": false,
+     "t0": 36.252,
+     "t1": 36.588
+    },
+    {
+     "show": "geldi.",
+     "emph": false,
+     "t0": 36.588,
+     "t1": 37.262
+    }
+   ],
+   "text": "*On iki yıl sonra,* Star Wars=Vors geldi."
+  },
+  {
+   "id": "C2",
+   "t0": 37.612,
+   "t1": 45.643,
+   "words": [
+    {
+     "show": "George",
+     "emph": false,
+     "t0": 37.612,
+     "t1": 37.817
+    },
+    {
+     "show": "Lucas’ın",
+     "emph": false,
+     "t0": 37.817,
+     "t1": 38.433
+    },
+    {
+     "show": "andığı",
+     "emph": false,
+     "t0": 38.433,
+     "t1": 39.048
+    },
+    {
+     "show": "ilhamlar",
+     "emph": false,
+     "t0": 39.048,
+     "t1": 39.664
+    },
+    {
+     "show": "şunlar:",
+     "emph": false,
+     "t0": 39.664,
+     "t1": 40.074
+    },
+    {
+     "show": "Joseph",
+     "emph": false,
+     "t0": 40.374,
+     "t1": 40.791
+    },
+    {
+     "show": "Campbell’ın",
+     "emph": false,
+     "t0": 40.791,
+     "t1": 41.416
+    },
+    {
+     "show": "kahraman",
+     "emph": false,
+     "t0": 41.416,
+     "t1": 42.04
+    },
+    {
+     "show": "miti,",
+     "emph": false,
+     "t0": 42.04,
+     "t1": 42.457
+    },
+    {
+     "show": "Kurosawa’nın",
+     "emph": false,
+     "t0": 42.677,
+     "t1": 43.553
+    },
+    {
+     "show": "Gizli",
+     "emph": false,
+     "t0": 43.553,
+     "t1": 43.903
+    },
+    {
+     "show": "Kale’si,",
+     "emph": false,
+     "t0": 43.903,
+     "t1": 44.429
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 44.649,
+     "t1": 44.898
+    },
+    {
+     "show": "Flash",
+     "emph": false,
+     "t0": 44.898,
+     "t1": 45.146
+    },
+    {
+     "show": "Gordon.",
+     "emph": false,
+     "t0": 45.146,
+     "t1": 45.643
+    }
+   ],
+   "text": "George=Corc Lucas’ın=Lukasın andığı ilhamlar şunlar: Joseph=Cozef Campbell’ın=Kempbılın kahraman miti, Kurosawa’nın=Kurosavanın Gizli Kale’si=Kalesi, ve Flash=Fleş Gordon=Gordın."
+  },
+  {
+   "id": "C3",
+   "t0": 46.143,
+   "t1": 50.834,
+   "words": [
+    {
+     "show": "Listede",
+     "emph": false,
+     "t0": 46.143,
+     "t1": 46.984
+    },
+    {
+     "show": "Dune",
+     "emph": true,
+     "t0": 46.984,
+     "t1": 47.264
+    },
+    {
+     "show": "yok.",
+     "emph": true,
+     "t0": 47.264,
+     "t1": 47.545
+    },
+    {
+     "show": "Lucas,",
+     "emph": false,
+     "t0": 47.545,
+     "t1": 48.142
+    },
+    {
+     "show": "bu",
+     "emph": false,
+     "t0": 48.362,
+     "t1": 48.527
+    },
+    {
+     "show": "bağı",
+     "emph": false,
+     "t0": 48.527,
+     "t1": 48.857
+    },
+    {
+     "show": "hiçbir",
+     "emph": false,
+     "t0": 48.857,
+     "t1": 49.186
+    },
+    {
+     "show": "zaman",
+     "emph": false,
+     "t0": 49.186,
+     "t1": 49.516
+    },
+    {
+     "show": "açıkça",
+     "emph": false,
+     "t0": 49.516,
+     "t1": 50.01
+    },
+    {
+     "show": "kabul",
+     "emph": false,
+     "t0": 50.01,
+     "t1": 50.34
+    },
+    {
+     "show": "etmedi.",
+     "emph": false,
+     "t0": 50.34,
+     "t1": 50.834
+    }
+   ],
+   "text": "Listede *Dune=Dyun yok.* Lucas=Lukas, bu bağı hiçbir zaman açıkça kabul etmedi."
+  },
+  {
+   "id": "D0",
+   "t0": 51.684,
+   "t1": 53.959,
+   "words": [
+    {
+     "show": "Yorumcuların",
+     "emph": false,
+     "t0": 51.684,
+     "t1": 52.632
+    },
+    {
+     "show": "saydığı",
+     "emph": false,
+     "t0": 52.632,
+     "t1": 53.201
+    },
+    {
+     "show": "beş",
+     "emph": true,
+     "t0": 53.201,
+     "t1": 53.391
+    },
+    {
+     "show": "benzerlik.",
+     "emph": true,
+     "t0": 53.391,
+     "t1": 53.959
+    }
+   ],
+   "text": "Yorumcuların saydığı *beş benzerlik.*"
+  },
+  {
+   "id": "D1",
+   "t0": 54.559,
+   "t1": 59.771,
+   "words": [
+    {
+     "show": "Birincisi:",
+     "emph": true,
+     "t0": 54.559,
+     "t1": 55.299
+    },
+    {
+     "show": "neredeyse",
+     "emph": false,
+     "t0": 55.599,
+     "t1": 56.323
+    },
+    {
+     "show": "yaşanmaz",
+     "emph": false,
+     "t0": 56.323,
+     "t1": 56.867
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 56.867,
+     "t1": 57.048
+    },
+    {
+     "show": "çöl",
+     "emph": false,
+     "t0": 57.048,
+     "t1": 57.229
+    },
+    {
+     "show": "gezegeni.",
+     "emph": false,
+     "t0": 57.229,
+     "t1": 57.954
+    },
+    {
+     "show": "Arrakis,",
+     "emph": false,
+     "t0": 57.954,
+     "t1": 58.753
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 58.973,
+     "t1": 59.173
+    },
+    {
+     "show": "Tatooine.",
+     "emph": false,
+     "t0": 59.173,
+     "t1": 59.771
+    }
+   ],
+   "text": "*Birincisi:* neredeyse yaşanmaz bir çöl gezegeni. Arrakis, ve Tatooine=Tatuin."
+  },
+  {
+   "id": "D2",
+   "t0": 60.321,
+   "t1": 66.626,
+   "words": [
+    {
+     "show": "İkincisi:",
+     "emph": true,
+     "t0": 60.321,
+     "t1": 61.04
+    },
+    {
+     "show": "çölün",
+     "emph": false,
+     "t0": 61.34,
+     "t1": 61.758
+    },
+    {
+     "show": "halkı.",
+     "emph": false,
+     "t0": 61.758,
+     "t1": 62.175
+    },
+    {
+     "show": "Fremenler,",
+     "emph": false,
+     "t0": 62.175,
+     "t1": 62.962
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 63.182,
+     "t1": 63.39
+    },
+    {
+     "show": "Jawa’lar.",
+     "emph": false,
+     "t0": 63.39,
+     "t1": 64.011
+    },
+    {
+     "show": "Bir",
+     "emph": false,
+     "t0": 64.011,
+     "t1": 64.265
+    },
+    {
+     "show": "de,",
+     "emph": false,
+     "t0": 64.265,
+     "t1": 64.519
+    },
+    {
+     "show": "devasa",
+     "emph": false,
+     "t0": 64.739,
+     "t1": 65.368
+    },
+    {
+     "show": "paletli",
+     "emph": false,
+     "t0": 65.368,
+     "t1": 65.997
+    },
+    {
+     "show": "araçlar.",
+     "emph": false,
+     "t0": 65.997,
+     "t1": 66.626
+    }
+   ],
+   "text": "*İkincisi:* çölün halkı. Fremenler, ve Jawa’lar=Cavalar. Bir de, devasa paletli araçlar."
+  },
+  {
+   "id": "D3",
+   "t0": 67.176,
+   "t1": 70.051,
+   "words": [
+    {
+     "show": "Üçüncüsü:",
+     "emph": true,
+     "t0": 67.176,
+     "t1": 67.951
+    },
+    {
+     "show": "kumun",
+     "emph": false,
+     "t0": 68.251,
+     "t1": 68.611
+    },
+    {
+     "show": "altındaki",
+     "emph": false,
+     "t0": 68.611,
+     "t1": 69.331
+    },
+    {
+     "show": "dev",
+     "emph": false,
+     "t0": 69.331,
+     "t1": 69.511
+    },
+    {
+     "show": "yaratık.",
+     "emph": false,
+     "t0": 69.511,
+     "t1": 70.051
+    }
+   ],
+   "text": "*Üçüncüsü:* kumun altındaki dev yaratık."
+  },
+  {
+   "id": "D4",
+   "t0": 70.601,
+   "t1": 76.994,
+   "words": [
+    {
+     "show": "Dördüncüsü:",
+     "emph": true,
+     "t0": 70.601,
+     "t1": 71.433
+    },
+    {
+     "show": "baharat.",
+     "emph": false,
+     "t0": 71.733,
+     "t1": 72.427
+    },
+    {
+     "show": "Lucas’ın",
+     "emph": false,
+     "t0": 72.427,
+     "t1": 73.03
+    },
+    {
+     "show": "ilk",
+     "emph": false,
+     "t0": 73.03,
+     "t1": 73.231
+    },
+    {
+     "show": "taslağında,",
+     "emph": false,
+     "t0": 73.231,
+     "t1": 74.035
+    },
+    {
+     "show": "prenses,",
+     "emph": false,
+     "t0": 74.255,
+     "t1": 74.972
+    },
+    {
+     "show": "aura",
+     "emph": true,
+     "t0": 75.192,
+     "t1": 75.684
+    },
+    {
+     "show": "baharatı",
+     "emph": true,
+     "t0": 75.684,
+     "t1": 76.339
+    },
+    {
+     "show": "taşıyordu.",
+     "emph": false,
+     "t0": 76.339,
+     "t1": 76.994
+    }
+   ],
+   "text": "*Dördüncüsü:* baharat. Lucas’ın=Lukasın ilk taslağında, prenses, *aura=a_ura baharatı* taşıyordu."
+  },
+  {
+   "id": "D5",
+   "t0": 77.544,
+   "t1": 82.664,
+   "words": [
+    {
+     "show": "Beşincisi:",
+     "emph": true,
+     "t0": 77.544,
+     "t1": 78.334
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 78.634,
+     "t1": 78.844
+    },
+    {
+     "show": "imparator,",
+     "emph": false,
+     "t0": 78.844,
+     "t1": 79.682
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 79.902,
+     "t1": 80.086
+    },
+    {
+     "show": "uzay",
+     "emph": false,
+     "t0": 80.086,
+     "t1": 80.454
+    },
+    {
+     "show": "yollarını",
+     "emph": false,
+     "t0": 80.454,
+     "t1": 81.191
+    },
+    {
+     "show": "elinde",
+     "emph": false,
+     "t0": 81.191,
+     "t1": 81.743
+    },
+    {
+     "show": "tutan",
+     "emph": false,
+     "t0": 81.743,
+     "t1": 82.111
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 82.111,
+     "t1": 82.295
+    },
+    {
+     "show": "birlik.",
+     "emph": false,
+     "t0": 82.295,
+     "t1": 82.664
+    }
+   ],
+   "text": "*Beşincisi:* bir imparator, ve uzay yollarını elinde tutan bir birlik."
+  },
+  {
+   "id": "E1",
+   "t0": 83.514,
+   "t1": 91.93,
+   "words": [
+    {
+     "show": "Frank",
+     "emph": false,
+     "t0": 83.514,
+     "t1": 83.799
+    },
+    {
+     "show": "Herbert",
+     "emph": false,
+     "t0": 83.799,
+     "t1": 84.37
+    },
+    {
+     "show": "fark",
+     "emph": false,
+     "t0": 84.37,
+     "t1": 84.655
+    },
+    {
+     "show": "etti.",
+     "emph": false,
+     "t0": 84.655,
+     "t1": 85.225
+    },
+    {
+     "show": "Anlatıldığına",
+     "emph": false,
+     "t0": 85.225,
+     "t1": 86.199
+    },
+    {
+     "show": "göre,",
+     "emph": false,
+     "t0": 86.199,
+     "t1": 86.524
+    },
+    {
+     "show": "1977’de",
+     "emph": false,
+     "t0": 86.744,
+     "t1": 88.366
+    },
+    {
+     "show": "şöyle",
+     "emph": false,
+     "t0": 88.366,
+     "t1": 88.727
+    },
+    {
+     "show": "dedi:",
+     "emph": false,
+     "t0": 88.727,
+     "t1": 89.088
+    },
+    {
+     "show": "dava",
+     "emph": true,
+     "t0": 89.388,
+     "t1": 89.687
+    },
+    {
+     "show": "açmamak",
+     "emph": true,
+     "t0": 89.687,
+     "t1": 90.135
+    },
+    {
+     "show": "için",
+     "emph": true,
+     "t0": 90.135,
+     "t1": 90.434
+    },
+    {
+     "show": "elimden",
+     "emph": true,
+     "t0": 90.434,
+     "t1": 90.883
+    },
+    {
+     "show": "geleni",
+     "emph": true,
+     "t0": 90.883,
+     "t1": 91.332
+    },
+    {
+     "show": "yapacağım.",
+     "emph": true,
+     "t0": 91.332,
+     "t1": 91.93
+    }
+   ],
+   "text": "Frank Herbert=Hörbırt fark etti. Anlatıldığına göre, 1977’de=bin_dokuz_yüz_yetmiş_yedide şöyle dedi: *dava açmamak için elimden geleni yapacağım.*"
+  },
+  {
+   "id": "E2",
+   "t0": 92.43,
+   "t1": 101.07,
+   "words": [
+    {
+     "show": "1985’te",
+     "emph": false,
+     "t0": 92.43,
+     "t1": 94.015
+    },
+    {
+     "show": "ise,",
+     "emph": false,
+     "t0": 94.015,
+     "t1": 94.412
+    },
+    {
+     "show": "iki",
+     "emph": false,
+     "t0": 94.632,
+     "t1": 94.997
+    },
+    {
+     "show": "eser",
+     "emph": false,
+     "t0": 94.997,
+     "t1": 95.362
+    },
+    {
+     "show": "arasında",
+     "emph": false,
+     "t0": 95.362,
+     "t1": 96.093
+    },
+    {
+     "show": "on",
+     "emph": true,
+     "t0": 96.093,
+     "t1": 96.275
+    },
+    {
+     "show": "altı",
+     "emph": true,
+     "t0": 96.275,
+     "t1": 96.64
+    },
+    {
+     "show": "özdeşlik",
+     "emph": true,
+     "t0": 96.64,
+     "t1": 97.188
+    },
+    {
+     "show": "noktası",
+     "emph": true,
+     "t0": 97.188,
+     "t1": 97.736
+    },
+    {
+     "show": "saydı.",
+     "emph": false,
+     "t0": 97.736,
+     "t1": 98.101
+    },
+    {
+     "show": "Ama,",
+     "emph": false,
+     "t0": 98.101,
+     "t1": 98.51
+    },
+    {
+     "show": "kopyaladılar",
+     "emph": true,
+     "t0": 98.73,
+     "t1": 99.498
+    },
+    {
+     "show": "demiyorum,",
+     "emph": true,
+     "t0": 99.498,
+     "t1": 100.112
+    },
+    {
+     "show": "diye",
+     "emph": false,
+     "t0": 100.332,
+     "t1": 100.627
+    },
+    {
+     "show": "ekledi.",
+     "emph": false,
+     "t0": 100.627,
+     "t1": 101.07
+    }
+   ],
+   "text": "1985’te=bin_dokuz_yüz_seksen_beşte ise, iki eser arasında *on altı özdeşlik noktası* saydı. Ama, *kopyaladılar demiyorum,* diye ekledi."
+  },
+  {
+   "id": "E3",
+   "t0": 101.57,
+   "t1": 107.63,
+   "words": [
+    {
+     "show": "Lucas’ın",
+     "emph": false,
+     "t0": 101.57,
+     "t1": 102.115
+    },
+    {
+     "show": "cevabı:",
+     "emph": false,
+     "t0": 102.115,
+     "t1": 102.66
+    },
+    {
+     "show": "bildirildiğine",
+     "emph": false,
+     "t0": 102.96,
+     "t1": 103.894
+    },
+    {
+     "show": "göre,",
+     "emph": false,
+     "t0": 103.894,
+     "t1": 104.205
+    },
+    {
+     "show": "tek",
+     "emph": false,
+     "t0": 104.425,
+     "t1": 104.661
+    },
+    {
+     "show": "ortak",
+     "emph": false,
+     "t0": 104.661,
+     "t1": 105.133
+    },
+    {
+     "show": "nokta,",
+     "emph": false,
+     "t0": 105.133,
+     "t1": 105.605
+    },
+    {
+     "show": "ikisinde",
+     "emph": false,
+     "t0": 105.825,
+     "t1": 106.547
+    },
+    {
+     "show": "de",
+     "emph": false,
+     "t0": 106.547,
+     "t1": 106.727
+    },
+    {
+     "show": "çöl",
+     "emph": true,
+     "t0": 106.727,
+     "t1": 106.908
+    },
+    {
+     "show": "olmasıydı.",
+     "emph": false,
+     "t0": 106.908,
+     "t1": 107.63
+    }
+   ],
+   "text": "Lucas’ın=Lukasın cevabı: bildirildiğine göre, tek ortak nokta, ikisinde de *çöl* olmasıydı."
+  },
+  {
+   "id": "F1",
+   "t0": 108.48,
+   "t1": 115.24,
+   "words": [
+    {
+     "show": "Peki",
+     "emph": false,
+     "t0": 108.48,
+     "t1": 108.88
+    },
+    {
+     "show": "gerçekten",
+     "emph": false,
+     "t0": 108.88,
+     "t1": 109.482
+    },
+    {
+     "show": "kopya",
+     "emph": false,
+     "t0": 109.482,
+     "t1": 109.882
+    },
+    {
+     "show": "mı?",
+     "emph": false,
+     "t0": 109.882,
+     "t1": 110.083
+    },
+    {
+     "show": "Ortak",
+     "emph": false,
+     "t0": 110.083,
+     "t1": 110.455
+    },
+    {
+     "show": "atalar",
+     "emph": false,
+     "t0": 110.455,
+     "t1": 111.014
+    },
+    {
+     "show": "da",
+     "emph": false,
+     "t0": 111.014,
+     "t1": 111.201
+    },
+    {
+     "show": "var:",
+     "emph": false,
+     "t0": 111.201,
+     "t1": 111.387
+    },
+    {
+     "show": "Arabistanlı",
+     "emph": false,
+     "t0": 111.687,
+     "t1": 112.877
+    },
+    {
+     "show": "Lawrence,",
+     "emph": false,
+     "t0": 112.877,
+     "t1": 113.353
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 113.573,
+     "t1": 113.758
+    },
+    {
+     "show": "eski",
+     "emph": false,
+     "t0": 113.758,
+     "t1": 114.129
+    },
+    {
+     "show": "kahraman",
+     "emph": false,
+     "t0": 114.129,
+     "t1": 114.684
+    },
+    {
+     "show": "mitleri.",
+     "emph": false,
+     "t0": 114.684,
+     "t1": 115.24
+    }
+   ],
+   "text": "Peki gerçekten kopya mı? Ortak atalar da var: Arabistanlı Lawrence=Lavrens, ve eski kahraman mitleri."
+  },
+  {
+   "id": "F2",
+   "t0": 115.74,
+   "t1": 123.393,
+   "words": [
+    {
+     "show": "Üstelik",
+     "emph": false,
+     "t0": 115.74,
+     "t1": 116.416
+    },
+    {
+     "show": "Herbert,",
+     "emph": false,
+     "t0": 116.416,
+     "t1": 116.867
+    },
+    {
+     "show": "Paul’ü",
+     "emph": false,
+     "t0": 117.087,
+     "t1": 117.403
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 117.403,
+     "t1": 117.562
+    },
+    {
+     "show": "uyarı",
+     "emph": true,
+     "t0": 117.562,
+     "t1": 118.036
+    },
+    {
+     "show": "olarak",
+     "emph": false,
+     "t0": 118.036,
+     "t1": 118.511
+    },
+    {
+     "show": "yazdı:",
+     "emph": false,
+     "t0": 118.511,
+     "t1": 118.827
+    },
+    {
+     "show": "süper",
+     "emph": false,
+     "t0": 119.127,
+     "t1": 119.487
+    },
+    {
+     "show": "kahramanların",
+     "emph": false,
+     "t0": 119.487,
+     "t1": 120.388
+    },
+    {
+     "show": "hataları,",
+     "emph": false,
+     "t0": 120.388,
+     "t1": 121.109
+    },
+    {
+     "show": "çok",
+     "emph": false,
+     "t0": 121.329,
+     "t1": 121.516
+    },
+    {
+     "show": "insanı",
+     "emph": false,
+     "t0": 121.516,
+     "t1": 122.079
+    },
+    {
+     "show": "felakete",
+     "emph": false,
+     "t0": 122.079,
+     "t1": 122.83
+    },
+    {
+     "show": "sürükler.",
+     "emph": false,
+     "t0": 122.83,
+     "t1": 123.393
+    }
+   ],
+   "text": "Üstelik Herbert=Hörbırt, Paul’ü=Polü bir *uyarı* olarak yazdı: süper kahramanların hataları, çok insanı felakete sürükler."
+  },
+  {
+   "id": "G1",
+   "t0": 124.243,
+   "t1": 129.661,
+   "words": [
+    {
+     "show": "Şimdi",
+     "emph": false,
+     "t0": 124.243,
+     "t1": 124.699
+    },
+    {
+     "show": "o",
+     "emph": false,
+     "t0": 124.699,
+     "t1": 124.928
+    },
+    {
+     "show": "teklif.",
+     "emph": false,
+     "t0": 124.928,
+     "t1": 125.385
+    },
+    {
+     "show": "Lucas,",
+     "emph": false,
+     "t0": 125.385,
+     "t1": 125.992
+    },
+    {
+     "show": "Jedi’ın",
+     "emph": false,
+     "t0": 126.212,
+     "t1": 126.731
+    },
+    {
+     "show": "Dönüşü",
+     "emph": false,
+     "t0": 126.731,
+     "t1": 127.25
+    },
+    {
+     "show": "için,",
+     "emph": false,
+     "t0": 127.25,
+     "t1": 127.596
+    },
+    {
+     "show": "David",
+     "emph": false,
+     "t0": 127.816,
+     "t1": 128.226
+    },
+    {
+     "show": "Lynch’e",
+     "emph": false,
+     "t0": 128.226,
+     "t1": 128.636
+    },
+    {
+     "show": "kapıyı",
+     "emph": false,
+     "t0": 128.636,
+     "t1": 129.251
+    },
+    {
+     "show": "çaldı.",
+     "emph": false,
+     "t0": 129.251,
+     "t1": 129.661
+    }
+   ],
+   "text": "Şimdi o teklif. Lucas=Lukas, Jedi’ın=Cedinin Dönüşü için, David=Deyvid Lynch’e=Linçe kapıyı çaldı."
+  },
+  {
+   "id": "G2",
+   "t0": 130.161,
+   "t1": 133.574,
+   "words": [
+    {
+     "show": "Lynch",
+     "emph": false,
+     "t0": 130.161,
+     "t1": 130.353
+    },
+    {
+     "show": "teklifi",
+     "emph": false,
+     "t0": 130.353,
+     "t1": 130.93
+    },
+    {
+     "show": "geri",
+     "emph": false,
+     "t0": 130.93,
+     "t1": 131.315
+    },
+    {
+     "show": "çevirdi,",
+     "emph": false,
+     "t0": 131.315,
+     "t1": 131.892
+    },
+    {
+     "show": "ve",
+     "emph": false,
+     "t0": 132.112,
+     "t1": 132.321
+    },
+    {
+     "show": "Dune",
+     "emph": true,
+     "t0": 132.321,
+     "t1": 132.529
+    },
+    {
+     "show": "filmini",
+     "emph": true,
+     "t0": 132.529,
+     "t1": 133.156
+    },
+    {
+     "show": "çekti.",
+     "emph": false,
+     "t0": 133.156,
+     "t1": 133.574
+    }
+   ],
+   "text": "Lynch=Linç teklifi geri çevirdi, ve *Dune=Dyun filmini* çekti."
+  },
+  {
+   "id": "G3",
+   "t0": 133.974,
+   "t1": 136.213,
+   "words": [
+    {
+     "show": "Film,",
+     "emph": false,
+     "t0": 133.974,
+     "t1": 134.435
+    },
+    {
+     "show": "yatırımını",
+     "emph": false,
+     "t0": 134.655,
+     "t1": 135.305
+    },
+    {
+     "show": "bile",
+     "emph": false,
+     "t0": 135.305,
+     "t1": 135.564
+    },
+    {
+     "show": "çıkaramadı.",
+     "emph": false,
+     "t0": 135.564,
+     "t1": 136.213
+    }
+   ],
+   "text": "Film, yatırımını bile çıkaramadı."
+  },
+  {
+   "id": "G4",
+   "t0": 136.713,
+   "t1": 144.984,
+   "words": [
+    {
+     "show": "Yıllar",
+     "emph": false,
+     "t0": 136.713,
+     "t1": 137.106
+    },
+    {
+     "show": "sonra",
+     "emph": false,
+     "t0": 137.106,
+     "t1": 137.498
+    },
+    {
+     "show": "Denis",
+     "emph": false,
+     "t0": 137.498,
+     "t1": 137.89
+    },
+    {
+     "show": "Villeneuve,",
+     "emph": false,
+     "t0": 137.89,
+     "t1": 138.283
+    },
+    {
+     "show": "yeni",
+     "emph": false,
+     "t0": 138.503,
+     "t1": 138.88
+    },
+    {
+     "show": "Dune",
+     "emph": false,
+     "t0": 138.88,
+     "t1": 139.068
+    },
+    {
+     "show": "filmini",
+     "emph": false,
+     "t0": 139.068,
+     "t1": 139.633
+    },
+    {
+     "show": "çekerken",
+     "emph": false,
+     "t0": 139.633,
+     "t1": 140.198
+    },
+    {
+     "show": "şöyle",
+     "emph": false,
+     "t0": 140.198,
+     "t1": 140.575
+    },
+    {
+     "show": "dedi:",
+     "emph": false,
+     "t0": 140.575,
+     "t1": 140.952
+    },
+    {
+     "show": "Star",
+     "emph": true,
+     "t0": 141.252,
+     "t1": 141.442
+    },
+    {
+     "show": "Wars’ın",
+     "emph": true,
+     "t0": 141.442,
+     "t1": 141.821
+    },
+    {
+     "show": "ana",
+     "emph": true,
+     "t0": 141.821,
+     "t1": 142.201
+    },
+    {
+     "show": "fikirlerinin",
+     "emph": true,
+     "t0": 142.201,
+     "t1": 143.15
+    },
+    {
+     "show": "çoğu,",
+     "emph": true,
+     "t0": 143.15,
+     "t1": 143.529
+    },
+    {
+     "show": "Dune’dan",
+     "emph": true,
+     "t0": 143.749,
+     "t1": 144.243
+    },
+    {
+     "show": "geliyor.",
+     "emph": true,
+     "t0": 144.243,
+     "t1": 144.984
+    }
+   ],
+   "text": "Yıllar sonra Denis=Deni Villeneuve=Vilnöv, yeni Dune=Dyun filmini çekerken şöyle dedi: *Star Wars’ın=Vorsın ana fikirlerinin çoğu, Dune’dan=Dyundan geliyor.*"
+  },
+  {
+   "id": "H1",
+   "t0": 145.884,
+   "t1": 149.191,
+   "words": [
+    {
+     "show": "Yani",
+     "emph": false,
+     "t0": 145.884,
+     "t1": 146.292
+    },
+    {
+     "show": "kesin",
+     "emph": false,
+     "t0": 146.292,
+     "t1": 146.701
+    },
+    {
+     "show": "bir",
+     "emph": false,
+     "t0": 146.701,
+     "t1": 146.905
+    },
+    {
+     "show": "kopya",
+     "emph": false,
+     "t0": 146.905,
+     "t1": 147.314
+    },
+    {
+     "show": "kanıtı",
+     "emph": false,
+     "t0": 147.314,
+     "t1": 147.926
+    },
+    {
+     "show": "yok.",
+     "emph": false,
+     "t0": 147.926,
+     "t1": 148.131
+    },
+    {
+     "show": "Ama",
+     "emph": false,
+     "t0": 148.131,
+     "t1": 148.555
+    },
+    {
+     "show": "izler",
+     "emph": true,
+     "t0": 148.555,
+     "t1": 148.979
+    },
+    {
+     "show": "çok.",
+     "emph": true,
+     "t0": 148.979,
+     "t1": 149.191
+    }
+   ],
+   "text": "Yani kesin bir kopya kanıtı yok. Ama *izler çok.*"
+  },
+  {
+   "id": "H2",
+   "t0": 149.891,
+   "t1": 154.319,
+   "words": [
+    {
+     "show": "Sence",
+     "emph": false,
+     "t0": 149.891,
+     "t1": 150.369
+    },
+    {
+     "show": "tesadüf",
+     "emph": false,
+     "t0": 150.369,
+     "t1": 151.088
+    },
+    {
+     "show": "mü,",
+     "emph": false,
+     "t0": 151.088,
+     "t1": 151.327
+    },
+    {
+     "show": "ilham",
+     "emph": false,
+     "t0": 151.547,
+     "t1": 152.078
+    },
+    {
+     "show": "mı,",
+     "emph": false,
+     "t0": 152.078,
+     "t1": 152.343
+    },
+    {
+     "show": "yoksa",
+     "emph": false,
+     "t0": 152.563,
+     "t1": 153.065
+    },
+    {
+     "show": "ortak",
+     "emph": false,
+     "t0": 153.065,
+     "t1": 153.567
+    },
+    {
+     "show": "kaynak",
+     "emph": false,
+     "t0": 153.567,
+     "t1": 154.068
+    },
+    {
+     "show": "mı?",
+     "emph": false,
+     "t0": 154.068,
+     "t1": 154.319
+    }
+   ],
+   "text": "Sence tesadüf mü, ilham mı, yoksa ortak kaynak mı?"
+  }
+ ]
+}
