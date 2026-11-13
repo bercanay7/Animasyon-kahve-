@@ -49,18 +49,19 @@ SHORTS = {
     CTA=dict(s=wd('G09b', 'ama')['s'], l1='GURUR MU, PİŞMANLIK MI?', l2='TAM HİKÂYE · İLGİLİ VİDEODA')),
   # Kısa B (13 Kasım; Kısa A'nın verisinden ders: ilk 20 dk'da izlemeye devam %32, ~1.000 izlenmede %38, ortalama 16/37 sn):
   # en güçlü cümle ve kare ilk saniyede ("Hangi yana kaçsam cehennem. Ben cehennemim." + kanatların arasından göl),
+  # kurul B tur 1: kancadaki sessizlikten 0,5 sn, çukurdaki sessizlikten 0,3 sn kesildi.
   # bağlam isteyen anlatıcı cümlesi ("Cevabı yine kendisi verir") çıkar, ~25 sn; son cümle döngüde ilk cümleye bağlanır.
   'b': dict(
     TITLE="MILTON'IN ŞEYTANI",
     F0=730.54, F1=wd('G09b', 'yasaklıyor')['e'] + .95,
-    CUTS=[(734.95, 735.34), (736.04, 736.45), (745.10, 745.70), (wd('G09', 'bağışlanmaya')['e'] + .42, wd('G09b', 'bir')['s'] - .15)],
-    KEYS=[(730.54, 930, 560, 1.0), (734.95, 930, 690, 1.17), (735.34, 930, 700, 1.18),
-          (735.35, 620, 540, 1.0), (736.04, 635, 540, 1.0), (736.45, 643, 540, 1.0), (741.0, 740, 540, 1.0), (745.10, 740, 540, 1.0), (745.70, 740, 540, 1.0), (746.17, 740, 540, 1.0),
+    CUTS=[(732.55, 733.05), (734.95, 735.34), (736.04, 736.45), (741.15, 741.45), (745.10, 745.70), (wd('G09', 'bağışlanmaya')['e'] + .42, wd('G09b', 'bir')['s'] - .15)],
+    KEYS=[(730.54, 930, 560, 1.0), (732.55, 930, 615, 1.07), (733.05, 930, 630, 1.09), (734.95, 930, 690, 1.17), (735.34, 930, 700, 1.18),
+          (735.35, 620, 540, 1.0), (736.04, 635, 540, 1.0), (736.45, 643, 540, 1.0), (741.0, 740, 540, 1.0), (741.15, 740, 540, 1.0), (741.45, 740, 540, 1.0), (745.10, 740, 540, 1.0), (745.70, 740, 540, 1.0), (746.17, 740, 540, 1.0),
           (746.18, 900, 540, 1.0), (wd('G09', 'bağışlanmaya')['e'] + .42, 880, 525, 1.08),
           (wd('G09b', 'bir')['s'] - .15, 890, 540, 1.0), (761.43, 870, 540, 1.04)],
     LIGHT=[], CAP=1235, CAPS=[(753.10, 1400, 300)],
     HOOK=dict(l1='CEHENNEMDEN', l2='KAÇILIR MI?', e=wd('G07', 'ben')['s']),
-    TAGS=[(wd('G07', 'ben')['s'], 734.95, 'KAYIP CENNET · IV. 75'),
+    TAGS=[(wd('G07', 'ben')['s'] + .35, 734.95, 'KAYIP CENNET · IV. 75'),   # kanca söndükten sonra (üst üste binmesin)
           (wd('G08', 'en')['s'] - .1, wd('G08', 'kalıyor')['e'] + .3, 'KAYIP CENNET · IV. 76–78'),
           (wd('G09', 'pişmanlığa')['s'] - .1, wd('G09', 'bağışlanmaya')['e'] + .4, 'KAYIP CENNET · IV. 79–80'),
           (wd('G09b', 'bir')['s'] - .1, wd('G09b', 'eğmek')['e'] + .4, 'KAYIP CENNET · IV. 81–82')],

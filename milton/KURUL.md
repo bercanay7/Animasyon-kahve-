@@ -522,3 +522,12 @@ Kullanım hakkı nedeniyle **tek üye, tek tur** (kural iki üye ister; bilerek 
 
 ## Shorts kurulu, tur 2 (gerileme)
 Aynı üye: **9,0 ONAY** (`kurul/shorts_tur2/uye.md`). Engelleyici olmayan iki okunurluk notu uygulandı: künye kutusu opaklığı .62 → .85; altyazı konturu 16 → 20 px (tarama zemininde). Reddedilen: üst başlığa "KAYIP CENNET" eklenmesi; ad, künyelerde (2,2 sn'den itibaren), Shorts başlığında ve açıklamasında geçiyor, üst başlık kısa ve tek odaklı kalır.
+
+## Kısa B kurulu, tur 1 (13 Kasım 2026)
+Kısa A yayında zayıf kaldığı için (izlemeye devam %32→%38, ortalama 16/37 sn) ikinci kesit: kanca ilk saniyede ("Hangi yana kaçsam cehennem. Ben cehennemim."), 24,3 sn. Aynı tek üye: **8,5 RED** (`kurul/shorts_b_tur1/uye.md`).
+
+**Başkan kararları:**
+- Kancadaki sessizlikten 0,5 sn (732,55–733,05), çukurdaki sessizlikten 0,3 sn (741,15–741,45) kesildi (kabul). İkinci çukur sessizliği (13,6 sn) filmin kesmesine denk geldiği için kesilmedi.
+- Kanca yazısı en çok 900 px (kabul). Künye kanca söndükten 0,35 sn sonra gelir (başkanın kendi bulgusu: iki yazı üst üste biniyordu).
+- Shorts başlığı: üyenin önerisi kabul.
+- **Reddedilen (engelleyici sayılmadı):** ilk karedeki figürün sırtındaki alevin "Kutsal Kalp" ya da "karında figür" okuması. Gerekçe: figür arkadan görünür ve alev sırtında/silüetin içindedir (filmin "cehennemi içinde taşıyor" imgesi, G02); Kutsal Kalp bulgusu önden simetrik, göğsünde alev tutan figür içindi ve o figür filmde değiştirildi. Plan film kurulundan geçti; alev ilk 0,9 sn'de altyazının arkasında kalır. Gerileme turu yapılmadı (kullanım hakkı); kayda açıkça yazılır.

@@ -53,6 +53,12 @@ Dosya: `milton_shorts.mp4` (1080×1920, 37,3 sn; depoda yok, oturumda gönderild
    Milton'ın destanındaki Şeytan'ı bir edebi karakter olarak okuyoruz; bir din anlatısı değil. Sizce: gurur mu, pişmanlık mı? 👇 Tam hikâye (25 dk): ▶ İlgili video.
    ```
 
+## Shorts B (13 Kasım 2026)
+Dosya: `milton_shorts_b.mp4` (1080×1920, 24,3 sn). Kısa A'dan bir gün sonra, cumartesi 18:00–20:00. Kısa A silinmez.
+- **Başlık:** `Cehennemden Kaçılır mı? Milton'ın Şeytanı #shorts`
+- **Açıklama, etiketler, İlgili video, kitle, kategori:** Kısa A ile aynı.
+- **Sabit yorum:** `Kaçabilir miydi, yoksa cehennem gerçekten içinde miydi? 👇 Bu bir edebiyat okuması, din anlatısı değil. Tam hikâye (25 dk): ▶ İlgili video.`
+
 ## 48. saat ve 7. gün bakılacaklar
 - İlk 3 saniyede kayıp var mı (film 0,9 sn'lik sessiz bir göz planıyla açılıyor)?
 - 0:30'da kalan (kurulun tahmini %64–71; hedef Şarlken'in %79'u) ve 0:36–0:51 arasındaki başlık sayfasında düşüş.

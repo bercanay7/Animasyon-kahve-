@@ -84,8 +84,8 @@ function shortOverlay(g, ts) {
     g.save(); g.globalAlpha = q;
     const hb = g.createLinearGradient(0, 170, 0, 560); hb.addColorStop(0, 'rgba(12,6,4,0)'); hb.addColorStop(.2, 'rgba(12,6,4,.55)'); hb.addColorStop(.85, 'rgba(12,6,4,.55)'); hb.addColorStop(1, 'rgba(12,6,4,0)');
     g.fillStyle = hb; g.fillRect(0, 170, SHW, 390);
-    stx(g, S_.HOOK.l1, 540, 285, { font: '900 150px Cinzel', col: KAGIT, ls: 4, maxW: 960, force: true, stroke: 'rgba(14,9,7,.92)', sw: 14, shadow: 'rgba(0,0,0,.7)', blur: 18 });
-    stx(g, S_.HOOK.l2, 540, 425, { font: '900 170px Cinzel', col: '#E9B44C', ls: 6, maxW: 960, force: true, stroke: 'rgba(14,9,7,.92)', sw: 16, shadow: 'rgba(0,0,0,.7)', blur: 18 });
+    stx(g, S_.HOOK.l1, 540, 285, { font: '900 150px Cinzel', col: KAGIT, ls: 4, maxW: 900, force: true, stroke: 'rgba(14,9,7,.92)', sw: 14, shadow: 'rgba(0,0,0,.7)', blur: 18 });
+    stx(g, S_.HOOK.l2, 540, 425, { font: '900 170px Cinzel', col: '#E9B44C', ls: 6, maxW: 900, force: true, stroke: 'rgba(14,9,7,.92)', sw: 16, shadow: 'rgba(0,0,0,.7)', blur: 18 });
     g.restore();
   }
   // damga: filmdeki ZEUS · KÖLE / PROMETHEUS · ÖZGÜR levhası (notext ile silinir); dikey kadrajın üstünde
