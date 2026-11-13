@@ -1,0 +1,112 @@
+=== c3  (jeton 386, koşu 111) ===
+  594.53-  596.08 d 1.55 p 0.40 [  0:  6)  5.8h/s ev 0-5 (6/6)           ASR: Eylül 1433'te                                    | SEN: Eylül bin dört yüz otuz üçte
+  596.48-  596.97 d 0.49 p 0.47 [  6:  7)  6.1h/s ev 6-6 (1/1)           ASR: Cosimo                                           | SEN: Kozimo,
+  597.44-  599.14 d 1.70 p 0.35 [  7: 10)  5.3h/s ev 7-9 (3/3)           ASR: Palazzo Vecchio'ya çağr                          | SEN: Palattso Vekkyo'ya çağrıldı
+  599.49-  600.27 d 0.78 p 0.92 [ 10: 12)  6.4h/s ev 10-11 (2/2)         ASR: ve tutuklandı.                                   | SEN: ve tutuklandı.
+  601.19-  602.63 d 1.44 p 0.42 [ 12: 15)  6.9h/s ev 12-14 (3/3)         ASR: Kapatıldığı hücrenin ad                          | SEN: Kapatıldığı hücrenin adı
+  603.05-  604.16 d 1.11 p 0.58 [ 15: 16)  5.4h/s ev 15-15 (1/3)         ASR: Alberg ettin oydu.                               | SEN: Albergettino'ydu:
+  604.74-  605.31 d 0.57 p 0.86 [ 16: 18)  5.3h/s ev 16-17 (2/2)         ASR: Küçük Han                                        | SEN: Küçük Han.
+  606.17-  608.53 d 2.36 p 0.82 [ 18: 25)  6.4h/s ev 18-23 (6/8)         ASR: Bir tutuk evi için fazla konuk sever, birat.     | SEN: Bir tutukevi için fazla konuksever bir ad.
+  609.35-  611.14 d 1.79 p 0.28 [ 25: 29)  6.1h/s ev 25-28 (4/4)         ASR: tek penceresinin dar yarığından                  | SEN: Tek penceresinin dar yarığından
+  611.42-  612.93 d 1.51 p 0.82 [ 29: 32)  7.3h/s ev 29-31 (3/3)         ASR: şehre bakabildiği anlatıdır.                     | SEN: şehre bakabildiği anlatılır.
+  613.75-  615.89 d 2.14 p 0.74 [ 32: 35)  6.5h/s ev 32-34 (3/3)         ASR: Konfalonyer Ebernardo Guadagnidi.                | SEN: Gonfaloniere Bernardo Guadanyi'ydi;
+  616.63-  617.29 d 0.66 p 0.29 [ 35: 36)  6.1h/s ev 35-35 (1/1)         ASR: Arkasında                                        | SEN: arkasında
+  617.58-  618.52 d 0.94 p 0.35 [ 36: 38)  5.3h/s ev 36-37 (2/2)         ASR: Rinaldo Delgi                                    | SEN: Rinaldo delyi
+  618.87-  619.72 d 0.85 p 0.71 [ 38: 40)  5.9h/s ev 38-39 (2/2)         ASR: albitsi vardı.                                   | SEN: Albittsi vardı.
+  620.43-  621.02 d 0.59 p 0.35 [ 40: 41)  5.1h/s ev 40-40 (1/1)         ASR: Suçlama,                                         | SEN: Suçlama,
+  621.37-  624.63 d 3.26 p 0.71 [ 41: 48)  6.7h/s ev 41-47 (7/7)         ASR: halk yönetiminde kendini sıradan yurttaşın üstün | SEN: halk yönetiminde kendini sıradan yurttaşın üstüne çıkarmaktı;
+  625.34-  627.28 d 1.94 p 0.84 [ 48: 52)  6.7h/s ev 48-51 (4/4)         ASR: Ölüm cezası ihtimali masadaydı                   | SEN: ölüm cezası ihtimali masadaydı.
+  628.12-  629.35 d 1.23 p 0.44 [ 52: 55)  7.3h/s ev 52-53 (2/2)         ASR: Aynı Machiavelli'ye                              | SEN: Aynı Makyavelli'ye göre
+  629.79-  631.55 d 1.76 p 0.41 [ 55: 58)  5.7h/s ev 55-57 (3/3)         ASR: Kozimo zehirlenmekten korkup                     | SEN: Kozimo zehirlenmekten korkup
+  631.96-  633.01 d 1.05 p 0.65 [ 58: 61)  5.7h/s ev 58-60 (3/3)         ASR: yalnız ekmek yedi.                               | SEN: yalnız ekmek yedi;
+  633.66-  634.06 d 0.40 p 0.34 [ 61: 62)  5.0h/s ev 61-61 (1/1)         ASR: Bekçi                                            | SEN: bekçi,
+  634.40-  636.54 d 2.14 p 0.39 [ 62: 67)  6.5h/s ev 62-66 (5/5)         ASR: getirilen her yemekten kendisi yiyerek           | SEN: getirilen her yemekten kendisi yiyerek
+  636.93-  637.77 d 0.84 p 0.68 [ 67: 69)  7.1h/s ev 67-68 (2/2)         ASR: Onu rahatlattı.                                  | SEN: onu rahatlattı.
+  638.45-  639.71 d 1.26 p 0.32 [ 69: 73)  7.1h/s ev 69-72 (4/4)         ASR: Yine ona göre Kozimo,                            | SEN: Yine ona göre Kozimo,
+  640.03-  641.92 d 1.89 p 0.68 [ 73: 78)  6.3h/s ev 73-77 (5/5)         ASR: Aracısına küçük bir kağıt verdi.                 | SEN: aracısına küçük bir kâğıt verdi;
+  642.60-  645.27 d 2.67 p 0.19 [ 78: 83)  6.4h/s ev 78-82 (5/5)         ASR: Santa Maria Nuova Hastanesi'nin Başkanı'ndan     | SEN: Santa Maria Nuova hastanesinin başkanından
+  645.46-  646.79 d 1.33 p 0.46 [ 83: 87)  5.3h/s ev 83-86 (4/4)         ASR: 1100 duka çekildi.                               | SEN: bin yüz duka çekildi,
+  647.25-  648.82 d 1.57 p 0.72 [ 87: 90)  6.4h/s ev 87-89 (3/3)         ASR: Bini Gonfaloniere'ye gitti.                      | SEN: bini gonfalonyere'ye gitti.
+  649.54-  650.43 d 0.89 p 0.34 [ 90: 92)  5.6h/s ev 90-91 (2/2)         ASR: Ölüm cezası                                      | SEN: Ölüm cezası,
+  650.77-  651.60 d 0.83 p 0.67 [ 92: 94)  6.0h/s ev 92-93 (2/2)         ASR: sürgüne döndü                                    | SEN: sürgüne döndü.
+  652.27-  653.15 d 0.88 p 0.44 [ 94: 96)  5.7h/s ev 94-95 (2/2)         ASR: Aradaki fark                                     | SEN: Aradaki fark,
+  653.59-  654.61 d 1.02 p 0.82 [ 96: 99)  5.9h/s ev 96-98 (3/3)         ASR: Küçük bir kağıtt                                 | SEN: küçük bir kâğıttı.
+  655.43-  657.63 d 2.20 p 0.47 [ 99:107)  5.9h/s ev 99-106 (8/8)        ASR: 3 Ekim 1433'te Kozimo,                           | SEN: Üç Ekim bin dört yüz otuz üçte Kozimo,
+  658.10-  659.65 d 1.55 p 0.35 [107:110)  6.5h/s ev 107-109 (3/3)       ASR: Singoria'nın önüne çıktı.                        | SEN: Sinyoriya'nın önüne çıktı
+  660.00-  661.33 d 1.33 p 0.69 [110:113)  6.8h/s ev 110-112 (3/3)       ASR: ve Padova'ya gönderild                           | SEN: ve Padova'ya gönderildi.
+  662.02-  662.62 d 0.60 p 0.30 [113:114)  5.0h/s ev 113-113 (1/1)       ASR: Kaynaklar,                                       | SEN: Kaynaklar
+  662.92-  664.68 d 1.76 p 0.52 [114:117)  6.8h/s ev 114-116 (3/3)       ASR: Sürgünün süresinde anlaşamıyor                   | SEN: sürgünün süresinde anlaşamıyor:
+  665.20-  666.31 d 1.11 p 0.33 [117:122)  5.4h/s ev 117-121 (5/5)       ASR: Bir yıl diyen de var.                            | SEN: bir yıl diyen de var,
+  666.64-  667.68 d 1.04 p 0.50 [122:126)  5.8h/s ev 122-125 (4/3)       ASR: 20 yıl diyende.                                  | SEN: yirmi yıl diyen de;
+  668.18-  669.05 d 0.87 p 0.10 [126:128)  6.9h/s ev 127-127 (1/1)       ASR: Çoğalnatı                                        | SEN: çoğu anlatıda
+  669.15-  669.51 d 0.36 p 0.86 [128:130)  5.6h/s ev 128-129 (2/2)       ASR: 10 yıl.                                          | SEN: on yıl.
+  670.37-  672.01 d 1.64 p 0.68 [130:134)  6.1h/s ev 130-133 (4/4)       ASR: Çok geçmeden Venedi'ye geçti.                    | SEN: Çok geçmeden Venedik'e geçti;
+  672.69-  673.16 d 0.47 p 0.39 [134:135)  6.4h/s ev 134-134 (1/1)       ASR: Venedik!                                         | SEN: Venedik
+  673.55-  675.35 d 1.80 p 0.26 [135:140)  6.7h/s ev 135-139 (5/5)       ASR: Onu bir diplomat gibi karşıladı.                 | SEN: onu bir diplomat gibi karşıladı
+  675.61-  677.39 d 1.78 p 0.72 [140:144)  5.6h/s ev 140-143 (4/4)       ASR: ve Floransa'ya elçi gönderdi.                    | SEN: ve Floransa'ya elçi gönderdi.
+  678.11-  678.60 d 0.49 p 0.34 [144:145)  6.1h/s ev 144-144 (1/1)       ASR: Yanında                                          | SEN: Yanında
+  678.94-  680.34 d 1.40 p 0.85 [145:148)  5.7h/s ev 145-147 (3/4)       ASR: Mimar Mikheil Otso vardı.                        | SEN: mimar Mikelottso vardı.
+  681.19-  681.70 d 0.51 p 0.36 [148:150)  7.8h/s ev 148-149 (2/2)       ASR: Bu sırada                                        | SEN: Bu sırada
+  682.06-  683.84 d 1.78 p 0.69 [150:153)  6.2h/s ev 150-152 (3/3)       ASR: Floransa'da rüzgar değişiyordu.                  | SEN: Floransa'da rüzgâr değişiyordu.
+  684.53-  685.85 d 1.32 p 0.44 [153:156)  6.1h/s ev 153-155 (3/3)       ASR: Ağustos sonunda Kura,                            | SEN: Ağustos sonunda kura
+  686.29-  688.42 d 2.13 p 0.76 [156:161)  6.6h/s ev 156-160 (5/5)       ASR: Kozimo yalnızı bir Signoria çıkardı.             | SEN: Kozimo yanlısı bir Sinyoriya çıkardı;
+  689.18-  690.85 d 1.67 p 0.43 [161:165)  6.0h/s ev 161-164 (4/4)       ASR: Rinaldo Deli Albiç ise                           | SEN: Rinaldo delyi Albittsi ise
+  691.28-  691.98 d 0.70 p 0.38 [165:167)  5.7h/s ev 165-166 (2/2)       ASR: Ona karşı                                        | SEN: ona karşı
+  692.36-  694.92 d 2.56 p 0.89 [167:173)  7.0h/s ev 167-172 (6/6)       ASR: olağanüstü yetkili bir kurul toplatmaya çalıştı  | SEN: olağanüstü yetkili bir kurul toplatmaya çalıştı.
+  695.81-  696.65 d 0.84 p 0.31 [173:175)  6.0h/s ev 173-174 (2/2)       ASR: Eylül sonunda                                    | SEN: Eylül sonunda
+  696.96-  698.31 d 1.35 p 0.53 [175:178)  5.2h/s ev 175-177 (3/3)       ASR: sürgün kararı kalktı.                            | SEN: sürgün kararı kalktı;
+  698.84-  700.80 d 1.96 p 0.43 [178:185)  5.6h/s ev 178-184 (7/7)       ASR: 6 Ekim 1434'te                                   | SEN: altı Ekim bin dört yüz otuz dörtte
+  701.23-  702.80 d 1.57 p 0.78 [185:188)  5.7h/s ev 185-187 (3/3)       ASR: Kozimo, Florença'ya dönd                         | SEN: Kozimo Floransa'ya döndü.
+  703.58-  707.29 d 3.71 p 1.09 [188:195)  6.5h/s ev 188-194 (7/7)       ASR: Albiçlilerin ıssız kalmış konaklarının önünden g | SEN: Albittsi'lerin ıssız kalmış konaklarının önünden geçtiği anlatılır.
+  708.38-  709.96 d 1.58 p 0.39 [195:199)  6.3h/s ev 195-198 (4/4)       ASR: Rinaldo Deli Albiçsi ile                         | SEN: Rinaldo delyi Albittsi ile,
+  710.35-  711.63 d 1.28 p 0.36 [199:204)  6.2h/s ev 199-203 (5/5)       ASR: 1427'de                                          | SEN: bin dört yüz yirmi yedide
+  711.99-  713.67 d 1.68 p 0.40 [204:208)  5.4h/s ev 204-207 (4/4)       ASR: şehrin en zengini sayılan                        | SEN: şehrin en zengini sayılan
+  714.07-  716.19 d 2.12 p 0.83 [208:212)  5.2h/s ev 208-211 (4/4)       ASR: Palla Strodzi sürgüne gönderildi.                | SEN: Palla Strottsi sürgüne gönderildi.
+  717.02-  718.56 d 1.54 p 0.42 [212:217)  5.8h/s ev 212-216 (5/5)       ASR: O gün kimse bilmiyordu ki...                     | SEN: O gün kimse bilmiyordu ki
+  718.98-  719.46 d 0.48 p 0.37 [217:219)  6.2h/s ev 217-218 (2/2)       ASR: Bu adam                                          | SEN: bu adam,
+  719.83-  720.77 d 0.94 p 0.10 [219:221)  4.3h/s ev 220-220 (1/2)       ASR: Touch takmadan                                   | SEN: taç takmadan
+  720.87-  722.18 d 1.31 p 0.94 [221:224)  6.1h/s ev 221-223 (3/3)       ASR: 30 yıl yönetecekti.                              | SEN: otuz yıl yönetecekti.
+  723.12-  724.70 d 1.58 p 0.41 [224:228)  6.3h/s ev 224-227 (4/4)       ASR: Papa 2. Pius'a göre                              | SEN: Papa İkinci Pius'a göre
+  725.11-  725.62 d 0.51 p 0.40 [228:229)  5.9h/s ev 228-228 (1/1)       ASR: Kozimo                                           | SEN: Kozimo,
+  726.02-  728.59 d 2.57 p 0.78 [229:236)  5.8h/s ev 229-235 (7/7)       ASR: Adı ve hukuki statüsü dışında bir kraldı.        | SEN: adı ve hukuki statüsü dışında bir kraldı.
+  729.37-  730.92 d 1.55 p 0.77 [236:239)  5.8h/s ev 236-238 (3/3)       ASR: Düzenin sırrı torbalardı.                        | SEN: Düzenin sırrı torbalardı:
+  731.69-  732.80 d 1.11 p 0.37 [239:241)  7.2h/s ev 239-240 (2/2)       ASR: Sinyoria üyeleri                                 | SEN: Sinyoriya üyeleri
+  733.17-  735.01 d 1.84 p 0.71 [241:244)  6.0h/s ev 241-243 (3/3)       ASR: torbalardan kurayla çekilirdi.                   | SEN: torbalardan kurayla çekilirdi.
+  735.72-  737.08 d 1.36 p 0.18 [244:246)  4.4h/s ev 244-245 (2/2)       ASR: Kozimo yıllarca                                  | SEN: Kozimo yıllarca,
+  737.26-  741.71 d 4.45 p 0.83 [246:257)  6.7h/s ev 246-256 (11/11)     ASR: torbaların bir daha kendi çıkarına karşı bir sin | SEN: torbaların bir daha kendi çıkarına karşı bir Sinyoriya çıkarmaması için uğraştı.
+  742.54-  743.25 d 0.71 p 0.55 [257:259)  5.6h/s ev 257-258 (2/2)       ASR: Kura vardı.                                      | SEN: Kura vardı;
+  743.80-  745.47 d 1.67 p 0.39 [259:263)  7.2h/s ev 259-262 (4/4)       ASR: Torbaya kimin gireceğine ise                     | SEN: torbaya kimin gireceğine ise
+  745.86-  747.17 d 1.31 p 0.85 [263:266)  6.1h/s ev 263-265 (3/3)       ASR: kura karar vermiyordu.                           | SEN: kura karar vermiyordu.
+  748.02-  748.77 d 0.75 p 0.40 [266:267)  5.3h/s ev 266-266 (1/1)       ASR: Sosyologlar                                      | SEN: Sosyologlar
+  749.17-  750.29 d 1.12 p 0.40 [267:270)  5.4h/s ev 267-269 (2/2)       ASR: peccetli ansel,                                  | SEN: Pedcet ile Ansel
+  750.69-  752.17 d 1.48 p 0.68 [270:275)  6.1h/s ev 270-274 (5/5)       ASR: Bunu bir "a" olarak çizdi.                       | SEN: bunu bir ağ olarak çizdi:
+  752.85-  755.25 d 2.40 p 0.20 [275:280)  6.2h/s ev 275-279 (5/5)       ASR: Birbirine bağlı olmayan aile grupları,           | SEN: birbirine bağlı olmayan aile grupları
+  755.45-  758.11 d 2.66 p 0.77 [280:285)  6.8h/s ev 280-284 (5/5)       ASR: yalnız Medici üzerinden birbirine bağlanıyordu.  | SEN: yalnız Mediçi üzerinden birbirine bağlanıyordu.
+  758.88-  760.73 d 1.85 p 0.20 [285:289)  5.9h/s ev 285-288 (4/4)       ASR: bu iktidarın arka odasında                       | SEN: Bu iktidarın arka odasında
+  760.93-  762.16 d 1.23 p 0.64 [289:293)  5.7h/s ev 289-292 (4/4)       ASR: Yine bir defter vardı.                           | SEN: yine bir defter vardı.
+  762.80-  763.73 d 0.93 p 0.32 [293:295)  6.5h/s ev 293-294 (2/2)       ASR: Şube Müdürleri                                   | SEN: Şube müdürleri
+  764.05-  765.18 d 1.13 p 0.35 [295:297)  5.3h/s ev 295-296 (2/2)       ASR: sermayeden küçük,                                | SEN: sermayeden küçük,
+  765.53-  766.27 d 0.74 p 0.10 [297:299)  5.4h/s ev 297-298 (2/2)       ASR: Kardan büyük                                     | SEN: kârdan büyük
+  766.37-  766.94 d 0.57 p 0.56 [299:301)  7.0h/s ev 299-300 (2/2)       ASR: pay alırdı                                       | SEN: pay alırdı;
+  767.50-  768.27 d 0.77 p 0.33 [301:303)  5.2h/s ev 301-302 (2/2)       ASR: Yani herkes                                      | SEN: yani herkes
+  768.60-  770.54 d 1.94 p 0.84 [303:307)  6.7h/s ev 303-306 (4/4)       ASR: kendi şubesinin hesabını kollardı.               | SEN: kendi şubesinin hesabını kollardı.
+  771.38-  772.77 d 1.39 p 0.17 [307:312)  5.0h/s ev 307-311 (5/5)       ASR: 1435'ten                                         | SEN: Bin dört yüz otuz beşten
+  772.94-  774.20 d 1.26 p 0.39 [312:317)  6.3h/s ev 312-316 (5/5)       ASR: 1450'ye kadar                                    | SEN: bin dört yüz elliye kadar
+  774.59-  777.66 d 3.07 p 0.66 [317:326)  5.2h/s ev 317-325 (9/9)       ASR: banka 290.000'i aşkın Florin Karr yazdı.         | SEN: banka iki yüz doksan bini aşkın florin kâr yazdı;
+  778.32-  779.28 d 0.96 p 0.19 [326:328)  6.3h/s ev 326-327 (2/2)       ASR: kayıtlara göre                                   | SEN: kayıtlara göre
+  779.47-  780.85 d 1.38 p 0.29 [328:331)  5.8h/s ev 328-330 (3/3)       ASR: Bunun yeriden fazlası                            | SEN: bunun yarıdan fazlası
+  781.14-  782.18 d 1.04 p 0.85 [331:333)  6.7h/s ev 331-332 (2/2)       ASR: Roma'dan geliyordu.                              | SEN: Roma'dan geliyordu.
+  783.03-  784.98 d 1.95 p 0.57 [333:337)  5.6h/s ev 333-336 (4/4)       ASR: Holding sözcüğü sonradan eklendi.                | SEN: “Holding” sözcüğü sonradan eklendi;
+  785.55-  786.48 d 0.93 p 0.36 [337:340)  6.5h/s ev 337-339 (3/3)       ASR: O günlerde buna                                  | SEN: o günlerde buna
+  786.84-  787.81 d 0.97 p 0.22 [340:342)  6.2h/s ev 340-341 (2/2)       ASR: "Kompanya" denirdi                               | SEN: kompanya denirdi.
+  788.03-  790.25 d 2.22 p 0.69 [342:351)  7.2h/s ev 343-350 (8/8)       ASR: 1 Ağustos 1464'te öldü.                          | SEN: Kozimo bir Ağustos bin dört yüz altmış dörtte öldü;
+  790.94-  793.04 d 2.10 p 0.80 [351:355)  7.1h/s ev 351-354 (4/4)       ASR: Kareci'deki villasında öldüğü yazılır.           | SEN: Karecci'deki villasında öldüğü yazılır.
+  793.84-  795.51 d 1.67 p 0.60 [355:360)  6.6h/s ev 355-359 (5/5)       ASR: Kozimo'ya atfedilen bir söz var                  | SEN: Kozimo'ya atfedilen bir söz var:
+  796.11-  797.87 d 1.76 p 0.59 [360:363)  5.7h/s ev 360-362 (3/4)       ASR: şehri mi mizacını bilirmiş.                      | SEN: şehrinin mizacını bilirmiş;
+  798.46-  799.58 d 1.12 p 0.40 [363:366)  5.4h/s ev 363-365 (3/3)       ASR: 50 yıl geçmeden                                  | SEN: elli yıl geçmeden
+  799.98-  801.53 d 1.55 p 0.42 [366:369)  6.5h/s ev 366-368 (3/3)       ASR: Hepsi sürgüne gönderilirmiş                      | SEN: hepsi sürgüne gönderilirmiş,
+  801.95-  803.29 d 1.34 p 0.60 [369:372)  6.7h/s ev 369-371 (3/3)       ASR: ama binaları kalırmış.                           | SEN: ama binaları kalırmış.
+  803.89-  804.87 d 0.98 p 0.67 [372:374)  6.1h/s ev 372-373 (2/2)       ASR: Kaynağı belirsiz.                                | SEN: Kaynağı belirsiz.
+  805.54-  806.97 d 1.43 p 0.59 [374:377)  4.9h/s ev 374-376 (3/3)       ASR: Sürgün gerçekten geldi.                          | SEN: Sürgün gerçekten geldi,
+  807.56-  808.90 d 1.34 p 0.45 [377:382)  5.2h/s ev 377-381 (5/5)       ASR: 1494'te                                          | SEN: bin dört yüz doksan dörtte;
+  809.35-  810.72 d 1.37 p-1.00 [382:386)  6.6h/s ev 382-385 (4/4)       ASR: Binalar bugün de ayakta                          | SEN: binalar bugün de ayakta.

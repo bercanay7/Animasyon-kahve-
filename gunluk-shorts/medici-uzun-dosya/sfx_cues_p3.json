@@ -1,0 +1,660 @@
+{
+ "surum": 1,
+ "parca": 3,
+ "bolumler": [
+  "c6",
+  "c7"
+ ],
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c6-kalem-valori",
+   "bolum": "c6",
+   "ad": "quill_scratch",
+   "capa": [
+    "c6s1",
+    "anlatır",
+    0.5
+   ],
+   "seviye": -26,
+   "not": "çekim 2: Valori'nin sayfası (kalem yazar)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 100,
+   "sure": 2.4
+  },
+  {
+   "id": "c6-kalem-madalya",
+   "bolum": "c6",
+   "ad": "quill_scratch",
+   "capa": [
+    "c6s2",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 3: Lorenzo madalyası (kalem)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 101,
+   "sure": 2.0
+  },
+  {
+   "id": "c6-defter",
+   "bolum": "c6",
+   "ad": "page_turn",
+   "capa": [
+    "c6s5",
+    "defter",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": -0.2
+  },
+  {
+   "id": "c6-kalem-siir",
+   "bolum": "c6",
+   "ad": "quill_scratch",
+   "capa": [
+    "c6s5",
+    0.5
+   ],
+   "seviye": -27,
+   "not": "çekim 6: defter → şiir",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 102,
+   "sure": 2.2
+  },
+  {
+   "id": "c6-ricordi",
+   "bolum": "c6",
+   "ad": "quill_scratch",
+   "capa": [
+    "c6s7",
+    "hatıra",
+    0.0
+   ],
+   "seviye": -25,
+   "dur": 2.2
+  },
+  {
+   "id": "c6-kagit-gerekce",
+   "bolum": "c6",
+   "ad": "paper_rustle",
+   "capa": [
+    "c6s8",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 11: gerekçe sayfası",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 103,
+   "sure": 1.4
+  },
+  {
+   "id": "c6-damga-aldim",
+   "bolum": "c6",
+   "ad": "stamp_thud",
+   "capa": [
+    "c6s12",
+    "defterine",
+    1.2
+   ],
+   "seviye": -24,
+   "not": "çekim 15: 'aldım ya da bana verildi' damgası (mizah)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 104
+  },
+  {
+   "id": "c6-alay",
+   "bolum": "c6",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c6s13",
+    0.0
+   ],
+   "seviye": -33,
+   "not": "çekim 16: düğün şenlikleri alayı (sözsüz uğultu)",
+   "kaynak": "yonetmen_c6.md",
+   "bitis_capa": [
+    "c6s13",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.5,
+   "bastir_db": -4,
+   "seed": 105
+  },
+  {
+   "id": "c6-kagit-derleme-1",
+   "bolum": "c6",
+   "ad": "paper_rustle",
+   "capa": [
+    "c6s16",
+    0.5
+   ],
+   "seviye": -27,
+   "not": "çekim 21: derleme (Lorenzo & Poliziano)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 106,
+   "sure": 1.4
+  },
+  {
+   "id": "c6-kagit-derleme-2",
+   "bolum": "c6",
+   "ad": "paper_rustle",
+   "capa": [
+    "c6s16",
+    "isteğiyle",
+    0.5
+   ],
+   "seviye": -28,
+   "not": "çekim 22: Napoli'nin isteği (Vita nova)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 107,
+   "sure": 1.4
+  },
+  {
+   "id": "c6-damga-muhtesem-1",
+   "bolum": "c6",
+   "ad": "stamp_thud",
+   "capa": [
+    "c6s17",
+    "Machiavelli",
+    0.5
+   ],
+   "seviye": -23,
+   "not": "çekim 24: 'Muhteşem' damgası (1)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 108
+  },
+  {
+   "id": "c6-damga-muhtesem-2",
+   "bolum": "c6",
+   "ad": "stamp_thud",
+   "capa": [
+    "c6s17",
+    "Machiavelli",
+    1.4
+   ],
+   "seviye": -23,
+   "not": "çekim 24: 'Muhteşem' damgası (2; unvan enflasyonu)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 109
+  },
+  {
+   "id": "c6-giostra-kalabalik",
+   "bolum": "c6",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c6s20",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c6s22",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5,
+   "bastir_db": -4,
+   "not": "Santa Croce meydanı (sözsüz)"
+  },
+  {
+   "id": "c6-giostra-at",
+   "bolum": "c6",
+   "ad": "horse_hooves",
+   "capa": [
+    "c6s20",
+    "turnuva",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 4.0,
+   "parametre": {
+    "kind": "gallop"
+   },
+   "pan": 0.0
+  },
+  {
+   "id": "c6-siir-damlasi",
+   "bolum": "c6",
+   "ad": "glass_chime",
+   "capa": [
+    "c6s23",
+    1.0
+   ],
+   "seviye": -34,
+   "not": "çekim 32: Poliziano'nun şiiri yarım kaldı — şiir damlası",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 110
+  },
+  {
+   "id": "c6-damga-bilmiyoruz",
+   "bolum": "c6",
+   "ad": "stamp_thud",
+   "capa": [
+    "c6s24",
+    1.5
+   ],
+   "seviye": -25,
+   "not": "çekim 33: Giuliano — bilmiyoruz damgası",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 111
+  },
+  {
+   "id": "c6-cetvel-tik-1",
+   "bolum": "c6",
+   "ad": "tick",
+   "capa": [
+    "c6s26",
+    0.8
+   ],
+   "seviye": -30,
+   "not": "çekim 35: ay cetvelinde tık (üç yıl üç ay)",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 112
+  },
+  {
+   "id": "c6-cetvel-tik-2",
+   "bolum": "c6",
+   "ad": "tick",
+   "capa": [
+    "c6s26",
+    1.5
+   ],
+   "seviye": -30,
+   "not": "cetvelde tık",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 113
+  },
+  {
+   "id": "c6-cetvel-tik-3",
+   "bolum": "c6",
+   "ad": "tick",
+   "capa": [
+    "c6s26",
+    2.2
+   ],
+   "seviye": -30,
+   "not": "cetvelde tık",
+   "kaynak": "yonetmen_c6.md",
+   "seed": 114
+  },
+  {
+   "id": "c7-ayin-yankisi-1",
+   "bolum": "c7",
+   "ad": "church_ambience",
+   "capa": [
+    "c7s2",
+    "Santa",
+    0.0
+   ],
+   "seviye": -27,
+   "bitis_capa": [
+    "c7s3",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 0.8,
+   "cik": 1.8,
+   "erken": 0.4,
+   "bastir_db": -3,
+   "not": "V1 J-kesme: ayin yankısı + kalabalık uğultusu görüntüden 0,4 sn önce girer; müzik yok",
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-damga-12",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s8",
+    1.0
+   ],
+   "seviye": -25,
+   "not": "çekim 12: damga (ziyafette plan; gravür)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 124
+  },
+  {
+   "id": "c7-damga-13",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s9",
+    1.0
+   ],
+   "seviye": -25,
+   "not": "çekim 13: damga (Montesecco reddetti)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 125
+  },
+  {
+   "id": "c7-ayin-yankisi-2",
+   "bolum": "c7",
+   "ad": "church_ambience",
+   "capa": [
+    "c7s12",
+    0.0
+   ],
+   "seviye": -25,
+   "bitis_capa": [
+    "c7s15",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.2,
+   "erken": 0.4,
+   "bastir_db": -3,
+   "not": "V4 J-kesme: içeriden önce girer; V5 başında (sessizliğe giriş 0,6 sn önce) çekilir"
+  },
+  {
+   "id": "c7-vurus-yikama",
+   "bolum": "c7",
+   "ad": "drum_hit",
+   "capa": [
+    "c7s17",
+    "sapladı",
+    0.0
+   ],
+   "seviye": -24,
+   "not": "çekim 22: pigment yıkaması yayılırken tek düşük vuruş (yıldız an; müzik yok)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 120,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-tik-isaret-1",
+   "bolum": "c7",
+   "ad": "tick",
+   "capa": [
+    "c7s17",
+    "sapladı",
+    -0.2
+   ],
+   "seviye": -25,
+   "not": "çekim 22: işaret çakışmasında kısa tiz tık",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 121,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-kalem-cetele",
+   "bolum": "c7",
+   "ad": "quill_scratch",
+   "capa": [
+    "c7s18",
+    0.5
+   ],
+   "seviye": -29,
+   "not": "çekim 23: çetele çizgileri (19) kalem sürtmesi",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 122,
+   "sure": 2.0,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-tunc-kapi",
+   "bolum": "c7",
+   "ad": "door_bronze",
+   "capa": [
+    "c7s22",
+    "kapattığı",
+    -0.12
+   ],
+   "seviye": -15,
+   "sessizlik_izni": true,
+   "not": "tunç kapı kapanır ('kapattığı'); kuyruğu sessizliğe uzanır (ses köprüsü)"
+  },
+  {
+   "id": "c7-tik-isaret-2",
+   "bolum": "c7",
+   "ad": "tick",
+   "capa": [
+    "c7s23",
+    "hançerinden",
+    0.0
+   ],
+   "seviye": -25,
+   "not": "çekim 28: işaret çakışması (Nori) — kısa tiz tık",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 123,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-kilit",
+   "bolum": "c7",
+   "ad": "lock_click",
+   "capa": [
+    "c7s27",
+    "kapana",
+    -0.3
+   ],
+   "seviye": -22,
+   "sessizlik_izni": true,
+   "not": "V9: kilit sesi V7'nin tunç kapısını yankılar"
+  },
+  {
+   "id": "c7-pazzi-atlilari",
+   "bolum": "c7",
+   "ad": "horse_hooves",
+   "capa": [
+    "c7s28",
+    "silahlı",
+    -0.5
+   ],
+   "seviye": -25,
+   "dur": 3.4,
+   "parametre": {
+    "kind": "walk"
+   },
+   "not": "Jacopo'nun adamları meydana gelir (brif V10: atlılar)"
+  },
+  {
+   "id": "c7-meydan",
+   "bolum": "c7",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c7s28",
+    0.0
+   ],
+   "seviye": -28,
+   "bitis_capa": [
+    "c7s31",
+    "end",
+    -1.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 1.0,
+   "bastir_db": -4
+  },
+  {
+   "id": "c7-palle",
+   "bolum": "c7",
+   "ad": "crowd_chant",
+   "capa": [
+    "c7s30",
+    "palle",
+    -0.2
+   ],
+   "seviye": -22,
+   "dur": 5.2,
+   "not": "'palle, palle' (sözsüz ritmik haykırış; altılı ritim)"
+  },
+  {
+   "id": "c7-alkis",
+   "bolum": "c7",
+   "ad": "applause_far",
+   "capa": [
+    "c7s31",
+    "alkışlandı",
+    -2.2
+   ],
+   "seviye": -23,
+   "dur": 5.5,
+   "cik": 0.4,
+   "not": "alkış sese dönüşür ve sonraki çekimde kesilir"
+  },
+  {
+   "id": "c7-damga-anekdot",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s33",
+    1.0
+   ],
+   "seviye": -25,
+   "not": "çekim 41: ANEKDOT damgası (Poliziano; tek anlatıcı)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 126
+  },
+  {
+   "id": "c7-damga-45",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s36",
+    1.6
+   ],
+   "seviye": -26,
+   "not": "çekim 45: damga (yazıldığı belirtilir; beden yok)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 127
+  },
+  {
+   "id": "c7-analitik-kagit-1",
+   "bolum": "c7",
+   "ad": "paper_rustle",
+   "capa": [
+    "c7s38",
+    0.5
+   ],
+   "seviye": -30,
+   "not": "çekim 47–: kâğıt/kalem sesleriyle analitik ton",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 131,
+   "sure": 2.0
+  },
+  {
+   "id": "c7-damga-montesecco",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s39",
+    1.0
+   ],
+   "seviye": -25,
+   "not": "çekim 48: Montesecco itirafı damgası",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 128
+  },
+  {
+   "id": "c7-analitik-kalem-1",
+   "bolum": "c7",
+   "ad": "quill_scratch",
+   "capa": [
+    "c7s39",
+    0.8
+   ],
+   "seviye": -29,
+   "not": "analitik ton: kalem",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 132,
+   "sure": 2.4
+  },
+  {
+   "id": "c7-analitik-kagit-2",
+   "bolum": "c7",
+   "ad": "paper_rustle",
+   "capa": [
+    "c7s41",
+    0.5
+   ],
+   "seviye": -30,
+   "not": "analitik ton: kâğıt",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 133,
+   "sure": 1.6
+  },
+  {
+   "id": "c7-damga-ama",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s42",
+    "ama",
+    0.4
+   ],
+   "seviye": -25,
+   "not": "çekim 52: 'ama' — zorla yazılmış olabilir (damga)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 129
+  },
+  {
+   "id": "c7-damga-53",
+   "bolum": "c7",
+   "ad": "stamp_thud",
+   "capa": [
+    "c7s43",
+    1.0
+   ],
+   "seviye": -26,
+   "not": "çekim 53: Pazzi'lerin sesi yok (damga)",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 130
+  },
+  {
+   "id": "c7-analitik-kalem-2",
+   "bolum": "c7",
+   "ad": "quill_scratch",
+   "capa": [
+    "c7s43",
+    0.8
+   ],
+   "seviye": -29,
+   "not": "analitik ton: kalem",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 134,
+   "sure": 2.4
+  },
+  {
+   "id": "c7-kopan-ip",
+   "bolum": "c7",
+   "ad": "rope_creak",
+   "capa": [
+    "c7s47",
+    "end",
+    -0.9
+   ],
+   "seviye": -27,
+   "not": "çekim 57: Papa'yla barış o sabah ölmüştü — ip gerilir",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 135,
+   "sure": 1.0,
+   "sessizlik_izni": true
+  },
+  {
+   "id": "c7-kopan-ip-tik",
+   "bolum": "c7",
+   "ad": "tick",
+   "capa": [
+    "c7s47",
+    "end",
+    0.15
+   ],
+   "seviye": -23,
+   "not": "çekim 57: kopan ip için çok kısa tık; ardından boşluk",
+   "kaynak": "yonetmen_c7.md",
+   "seed": 136,
+   "sessizlik_izni": true
+  }
+ ]
+}

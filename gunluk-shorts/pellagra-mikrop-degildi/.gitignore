@@ -1,0 +1,8 @@
+__pycache__/
+out/audio.wav
+out/_*
+out/voice_v*.wav
+out/timeline_v*.json
+out/*_new.mp4
+out/noaudio.mp4
+out/render.log

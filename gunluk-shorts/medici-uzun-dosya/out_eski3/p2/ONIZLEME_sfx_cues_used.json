@@ -1,0 +1,62 @@
+[
+ {
+  "t": 333.25,
+  "name": "chapter_stinger",
+  "gain_db": -12.5,
+  "pan": 0.0,
+  "seed": 21,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 220.0,
+   "flavor": "bedel"
+  },
+  "id": "kart-c8",
+  "note": "bölüm kartı c8"
+ },
+ {
+  "t": 574.66,
+  "name": "chapter_stinger",
+  "gain_db": -12.5,
+  "pan": 0.0,
+  "seed": 22,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 195.99771799087463,
+   "flavor": "bedel"
+  },
+  "id": "kart-c9",
+  "note": "bölüm kartı c9"
+ },
+ {
+  "t": 775.09,
+  "name": "chapter_stinger",
+  "gain_db": -12.5,
+  "pan": 0.0,
+  "seed": 23,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 164.81377845643496,
+   "flavor": "bedel"
+  },
+  "id": "kart-c10",
+  "note": "bölüm kartı c10"
+ },
+ {
+  "t": 1048.12,
+  "name": "chapter_stinger",
+  "gain_db": -12.5,
+  "pan": 0.0,
+  "seed": 24,
+  "dur": null,
+  "loop": false,
+  "params": {
+   "root": 146.8323839587038,
+   "flavor": "bedel"
+  },
+  "id": "kart-c11",
+  "note": "bölüm kartı c11"
+ }
+]

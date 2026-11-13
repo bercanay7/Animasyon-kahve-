@@ -1,0 +1,9 @@
+MEDICI P7 — ses önizleme kesitleri (ÖNİZLEME miksi: geçici ses / eksik bölüm)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  ONIZLEME_01_c14_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P7 açılışı (t=0): matbaa/sert taş — parlak-meraklı F lidyen
+  ONIZLEME_02_c14_euridice_recitativo_mix.mp3 (+_muzik.mp3)  t=   56.7–   86.7 sn  — c14: Euridice — özgün recitativo-tarzı süreklilik
+  ONIZLEME_03_c14_yildizlar_mix.mp3 (+_muzik.mp3)  t=   86.4–  116.4 sn  — c14: Galileo'nun dört yıldızı (klavsen)
+  ONIZLEME_04_c15_yorgun_mix.mp3 (+_muzik.mp3)  t=  364.8–  394.8 sn  — c15: yorgun, seyrek — soy ağacı solar
+  ONIZLEME_05_c16_donus_ters_motif_mix.mp3 (+_muzik.mp3)  t=  396.2–  426.2 sn  — c16: c0'ın odası — 'miras' hücresi TERS çevrilmiş
+  ONIZLEME_06_c16_kapanis_mix.mp3 (+_muzik.mp3)  t=  549.7–  579.7 sn  — P7 sonu (TÜM FİLM): çözülüş, son lavta notası, son sessizlik

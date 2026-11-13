@@ -1,0 +1,115 @@
+=== c8  (jeton 448, koşu 60) ===
+    0.06-    9.24 d 9.18 p 0.14 [  0: 19)  5.6h/s ev 0-18 (18/20)        ASR: Patisi suikastının ve baş psikopos salviatinin a | SEN: Pattsi suikastının ve başpiskopos Salvyati'nin asılmasının ardından, Haziran bin dört yüz yetmiş sekizde Papa Dördüncü Sikstus Lorentso'yu aforoz etti;
+    9.38-    9.94 d 0.56 p 0.11 [ 19: 20)  1.8h/s ev 19-19 (1/1)         ASR: Çok                                              | SEN: çok
+   10.05-   13.33 d 3.28 p 0.73 [ 20: 27)  5.2h/s ev 20-26 (7/7)         ASR: Geçmeden Floransa'ya da yasak, yani interdikt ko | SEN: geçmeden Floransa'ya da yasak, yani interdikt kondu.
+   14.06-   17.79 d 3.73 p 0.12 [ 27: 33)  5.9h/s ev 27-32 (6/6)         ASR: Artırıldığına göre papalık belgeleri alışılmış ü | SEN: Aktarıldığına göre papalık belgeleri, alışılmış üslupla,
+   17.91-   21.00 d 3.09 p 0.74 [ 33: 40)  6.5h/s ev 33-39 (7/7)         ASR: Lorenzo'ya kötülüğün oğlu ve yıkımın evladı diyo | SEN: Lorentso'ya “kötülüğün oğlu ve yıkımın evladı” diyordu.
+   21.74-   30.74 d 9.00 p 0.86 [ 40: 58)  5.7h/s ev 40-57 (18/18)       ASR: Napoli Kralı Ferrantep Papa'nın yanında savaşa g | SEN: Napoli Kralı Ferrante Papa'nın yanında savaşa girdi; ordunun başında oğlu Alfonso, generali ise Urbino'dan Federiko da Montefeltro vardı.
+   31.60-   36.05 d 4.45 p 0.68 [ 58: 68)  6.3h/s ev 58-67 (10/10)       ASR: Siena ordunun geçişine izin verdi. Alfonso Chian | SEN: Siyena ordunun geçişine izin verdi; Alfonso Kyanti'ye girip kaleleri aldı.
+   36.73-   45.13 d 8.40 p 0.76 [ 68: 88)  5.5h/s ev 68-87 (17/18)       ASR: 1479 sonbaharında Fransa ordusu Poggio Imperiale | SEN: Bin dört yüz yetmiş dokuz sonbaharında Floransa ordusu Pocco İmperyale'de yenildi; Kolle Val d'Elsa da uzun bir kuşatmanın ardından düştü.
+   45.89-   48.47 d 2.58 p 0.96 [ 88: 92)  5.4h/s ev 88-91 (4/4)         ASR: Savaş masrafı hazineyi boşaltıyordu.             | SEN: Savaş masrafı hazineyi boşaltıyordu.
+   49.43-   50.14 d 0.71 p 0.10 [ 92: 94)  7.0h/s ev 92-93 (2/2)         ASR: Altı adalık                                      | SEN: Altı Aralık
+   50.24-   53.69 d 3.45 p 0.22 [ 94:102)  5.2h/s ev 94-101 (7/9)        ASR: 1479'da Lawrence of Florence'dan ayrılıp         | SEN: bin dört yüz yetmiş dokuzda Lorentso Floransa'dan ayrılıp
+   53.91-   56.10 d 2.19 p 0.71 [102:107)  5.9h/s ev 102-106 (5/5)       ASR: Düşman kralın yanına Napoli'ye gitti.            | SEN: düşman kralın yanına, Napoli'ye gitti.
+   56.81-   59.06 d 2.25 p 0.12 [107:111)  5.8h/s ev 107-110 (4/6)       ASR: Biz aya varınca sinyori aya yazıp                | SEN: Piza'ya varınca Sinyoriya'ya yazıp
+   59.18-   64.54 d 5.36 p 0.65 [111:122)  5.6h/s ev 111-121 (10/11)     ASR: nedenini bildirdiği, sinyore yanında ona elçilik | SEN: nedenini bildirdiği, Sinyoriya'nın da ona elçilik ve tam yetki verdiği anlatılır.
+   65.19-   69.47 d 4.28 p 0.60 [122:132)  5.4h/s ev 122-131 (10/10)     ASR: Önce yola çıktı, yetkiyi sonra aldı. Diplomasi b | SEN: Önce yola çıktı, yetkiyi sonra aldı; diplomasi bazen böyle işler.
+   70.07-   72.27 d 2.20 p 0.64 [132:137)  5.9h/s ev 132-136 (5/5)       ASR: Napoliye 18 Aralık'ta vardı.                     | SEN: Napoli'ye on sekiz Aralık'ta vardı.
+   72.91-   73.68 d 0.77 p 0.10 [137:139)  5.2h/s ev 137-138 (2/2)       ASR: Konuk muidu                                      | SEN: Konuk muydu,
+   73.78-   74.35 d 0.57 p 0.22 [139:141)  7.0h/s ev 139-139 (1/3)       ASR: Ve hine me                                       | SEN: rehine mi?
+   74.57-   79.41 d 4.84 p 0.85 [141:153)  6.6h/s ev 141-152 (12/12)     ASR: Ne düşündüğünü bilmiyoruz ama ne yaptığını biliy | SEN: Ne düşündüğünü bilmiyoruz; ama ne yaptığını biliyoruz: şubat sonuna dek orada kaldı.
+   80.26-   84.41 d 4.15 p 0.66 [153:162)  6.0h/s ev 153-161 (9/9)       ASR: Aynı haftalarda doğudan Floransa'ya gelen bir yo | SEN: Aynı haftalarda doğudan Floransa'ya gelen bir yolculuk sona eriyordu.
+   85.07-   87.60 d 2.53 p 0.17 [162:166)  5.5h/s ev 162-165 (4/4)       ASR: Juliano'yu vuranlardan Bernardo Bandini          | SEN: Culyano'yu vuranlardan Bernardo Bandini,
+   87.77-   91.66 d 3.89 p 0.68 [166:173)  6.2h/s ev 166-172 (7/7)       ASR: kiliseden kaçıp İstanbul'a ulaşmıştı. Orada akra | SEN: kiliseden kaçıp İstanbul'a ulaşmıştı; orada akrabaları vardı.
+   92.34-   97.51 d 5.17 p 0.11 [173:185)  5.8h/s ev 173-184 (12/12)     ASR: 8 Mayıs 1479'da Pera'daki Florassalı temsilcinin | SEN: Sekiz Mayıs bin dört yüz yetmiş dokuzda Pera'daki Floransalı temsilcinin yazdığına göre
+   97.62-  102.15 d 4.53 p 0.66 [185:193)  5.3h/s ev 185-192 (8/8)       ASR: Fatih Sultan Mehmed, Florasa sevgisinden dolayı  | SEN: Fatih Sultan Mehmed, Floransa sevgisinden dolayı katili tutuklatmıştı.
+  102.81-  103.56 d 0.75 p 0.14 [193:194)  4.0h/s ev 193-193 (1/1)       ASR: Florasa                                          | SEN: Floransa,
+  103.70-  112.51 d 8.81 p 0.62 [194:213)  5.7h/s ev 194-212 (19/20)     ASR: Antonio de Medici'yi elçi seçip 14 Temmuz'da ace | SEN: Antonyo de Mediçi'yi elçi seçip on dört Temmuz'da aceleyle yola çıkardı; çünkü Sultan katili Ağustos ortasından fazla hapiste tutmayacaktı.
+  113.13-  119.56 d 6.43 p 0.74 [213:224)  5.9h/s ev 213-223 (11/11)     ASR: Sultanın bunu neden yaptığını bilmiyoruz. Florah | SEN: Sultan'ın bunu neden yaptığını bilmiyoruz; Floransa'nın Osmanlı topraklarında ticaret ayrıcalıkları vardı.
+  120.30-  122.91 d 2.61 p 0.64 [224:230)  5.7h/s ev 224-229 (6/6)       ASR: Heyet 24 Aralık'ta Floransa'ya vardı.            | SEN: Heyet yirmi dört Aralık'ta Floransa'ya vardı.
+  123.55-  126.46 d 2.91 p 0.10 [230:237)  5.2h/s ev 230-236 (7/7)       ASR: Bandini 5 gün sonra 29 Aralık'ta                 | SEN: Bandini beş gün sonra, yirmi dokuz Aralık'ta,
+  126.56-  130.88 d 4.32 p 0.72 [237:245)  5.8h/s ev 237-244 (8/8)       ASR: Barcallo'nun penceresinden asıldı. Üstünde hala  | SEN: Barcello'nun penceresinden asıldı; üstünde hâlâ Doğu giysileri vardı.
+  131.60-  133.62 d 2.02 p 0.73 [245:249)  5.9h/s ev 245-248 (4/4)       ASR: O sırada Lorenzo Napolideydi.                    | SEN: O sırada Lorentso Napoli'deydi.
+  134.35-  136.26 d 1.91 p 0.12 [249:253)  6.3h/s ev 249-252 (4/4)       ASR: Leonardo asıl adamı çizdi                        | SEN: Leonardo asılı adamı çizdi,
+  136.38-  138.57 d 2.19 p 0.86 [253:258)  5.0h/s ev 253-257 (5/5)       ASR: gizisini satır satır not etti.                   | SEN: giysisini satır satır not etti.
+  139.43-  141.67 d 2.24 p 0.18 [258:262)  5.4h/s ev 258-261 (4/4)       ASR: Ferran Tekpapa'nın safından ayrıldı.             | SEN: Ferrante Papa'nın safından ayrıldı;
+  141.85-  144.92 d 3.07 p 0.72 [262:268)  5.5h/s ev 262-267 (5/6)       ASR: Lorenzo Mart ortasında, Florence'a yabarışla dön | SEN: Lorentso mart ortasında Floransa'ya barışla döndü.
+  145.64-  146.48 d 0.84 p 0.13 [268:270)  4.8h/s ev 268-269 (2/2)       ASR: Barış Parmak                                     | SEN: Barış parlak
+  146.61-  147.02 d 0.41 p 0.14 [270:271)  7.3h/s ev 270-270 (1/1)       ASR: Eğild                                            | SEN: değildi;
+  147.16-  148.41 d 1.25 p 0.10 [271:273)  4.8h/s ev 271-272 (2/2)       ASR: şartlar arasında                                 | SEN: şartlar arasında
+  148.51-  153.37 d 4.86 p 0.11 [273:281)  5.6h/s ev 273-280 (8/8)       ASR: savaşta alınan yerlerin akıbetinin kralın takdir | SEN: savaşta alınan yerlerin akıbetinin kralın takdirine kalması, Alfonso'ya
+  153.48-  155.03 d 1.55 p 0.14 [281:285)  7.1h/s ev 281-284 (4/4)       ASR: Süreli bir ödeme yapılması,                      | SEN: süreli bir ödeme yapılması
+  155.17-  158.91 d 3.74 p 0.61 [285:291)  5.6h/s ev 285-290 (6/6)       ASR: ve Volterra'da tutulan patsilerin salıverilmesi  | SEN: ve Volterra'da tutulan Pattsi'lerin salıverilmesi sayılır.
+  159.52-  160.95 d 1.43 p 0.14 [291:293)  4.2h/s ev 291-291 (1/3)       ASR: Nisan'da loyan sop                               | SEN: Nisanda Lorentso,
+  161.09-  163.84 d 2.75 p 0.11 [293:299)  5.5h/s ev 293-298 (6/6)       ASR: Beş yıllığına bir yetmişler konseyi kurdurdu.    | SEN: beş yıllığına bir Yetmişler Konseyi kurdurdu;
+  163.95-  168.32 d 4.37 p 0.85 [299:312)  4.8h/s ev 299-311 (13/13)     ASR: Konsey 1485'te de 1490'da da yenilendi.          | SEN: konsey bin dört yüz seksen beşte de bin dört yüz doksanda da yenilendi.
+  169.17-  171.55 d 2.38 p 0.71 [312:317)  4.2h/s ev 312-316 (5/5)       ASR: Sonra denizden bir haber geldi.                  | SEN: Sonra denizden bir haber geldi.
+  172.26-  175.39 d 3.13 p 0.10 [317:326)  5.1h/s ev 317-325 (9/9)       ASR: 28 Temmuz 1480'de gedik Ahmet                    | SEN: Yirmi sekiz Temmuz bin dört yüz seksende Gedik Ahmed
+  175.49-  179.46 d 3.97 p 0.70 [326:334)  6.0h/s ev 326-332 (7/7)       ASR: Paşa'nın domanması Otranto yakınına çıktı. Şehir | SEN: Paşa'nın donanması Otranto yakınına çıktı; şehir ağustosta düştü.
+  180.16-  180.97 d 0.81 p 0.18 [334:335)  3.7h/s ev 334-334 (1/2)       ASR: Fahran Te                                        | SEN: Ferrante,
+  181.15-  184.71 d 3.56 p 0.64 [335:342)  5.6h/s ev 335-341 (7/7)       ASR: Oğlu Alfonsoyu ve ordusunu Toskana'dan geri çağı | SEN: oğlu Alfonso'yu ve ordusunu Toskana'dan geri çağırdı.
+  185.35-  193.84 d 8.49 p 0.86 [342:359)  5.7h/s ev 342-358 (17/17)     ASR: Papa'nın Floransa'ya öfkesi Osmanlı çıkarması ka | SEN: Papa'nın Floransa'ya öfkesi Osmanlı çıkarması karşısında geri plana düştü; Aralık bin dört yüz seksende Floransa'nın elçileri affedildi.
+  194.70-  195.54 d 0.84 p 0.11 [359:361)  4.8h/s ev 359-360 (2/2)       ASR: Bu yıllarda                                      | SEN: Bu yıllarda
+  195.65-  202.83 d 7.18 p 0.67 [361:373)  5.2h/s ev 361-372 (12/12)     ASR: Florensa'da, Lorenzo'nun heykeltıraşı Bertoldo d | SEN: Floransa'da, Lorentso'nun heykeltıraşı Bertoldo di Covanni, Fatih Sultan Mehmed'in profilini bronza döküyordu.
+  203.50-  205.71 d 2.21 p 0.15 [373:377)  5.9h/s ev 373-376 (4/4)       ASR: Müzelerin yazdığına göre Madalia                 | SEN: Müzelerin yazdığına göre madalya,
+  205.86-  210.12 d 4.26 p 0.10 [377:385)  6.3h/s ev 377-384 (8/8)       ASR: Sultanın katilliği yakalatmasına bir teşekkür ol | SEN: Sultan'ın katili yakalatmasına bir teşekkür olarak ısmarlanmış olabilir;
+  210.22-  211.32 d 1.10 p 0.68 [385:388)  4.5h/s ev 385-387 (3/3)       ASR: Kesin belge yok.                                 | SEN: kesin belge yok.
+  212.00-  218.87 d 6.87 p 0.61 [388:401)  5.7h/s ev 388-400 (13/13)     ASR: Arka yüzünde Mehmet bir zafer arabasındadır. Ara | SEN: Arka yüzünde Mehmed bir zafer arabasındadır; arabada Napoli krallarının alevli sandalye amblemi görülür.
+  219.48-  226.74 d 7.26 p 0.72 [401:419)  6.2h/s ev 401-418 (18/18)     ASR: Müzeler bunu Napoli'ye olası bir saldırıya ima s | SEN: Müzeler bunu Napoli'ye olası bir saldırıya imâ sayar; Napoli'yle barışı yeni imzalamış bir şehir için tuhaf bir hediye.
+  227.46-  233.59 d 6.13 p 0.89 [419:434)  5.1h/s ev 419-433 (14/16)     ASR: Mehmet 3 Mayıs 1481'de öldü. O Trump'u aynı yılı | SEN: Mehmed üç Mayıs bin dört yüz seksen birde öldü; Otranto aynı yılın eylülünde Napoli'ye döndü.
+  234.48-  237.00 d 2.52 p 0.74 [434:439)  5.6h/s ev 434-438 (5/5)       ASR: Lorenzo bir savaşı barışa çevirmişti.            | SEN: Lorentso bir savaşı barışa çevirmişti.
+  237.74-  242.86 d 5.12 p-1.00 [439:448)  5.7h/s ev 439-447 (9/9)       ASR: Ama bankasının şubelerinde Londra'dan Milano'ya  | SEN: Ama bankasının şubelerinde, Londra'dan Milano'ya, ışıklar birer birer sönüyordu.
+
+=== c9  (jeton 408, koşu 52) ===
+  246.29-  247.85 d 1.56 p 0.15 [  0:  2)  5.1h/s ev 0-1 (2/2)           ASR: Lorenz Sonunflaurassas                           | SEN: Lorentso'nun Floransa'sı
+  248.00-  251.85 d 3.85 p 0.80 [  2:  8)  5.2h/s ev 2-7 (6/6)           ASR: parlarken, Banka'nın defteri sessizce incelmeye  | SEN: parlarken, bankanın defteri sessizce incelmeye başlamıştı.
+  252.65-  254.52 d 1.87 p 0.18 [  8: 13)  5.3h/s ev 8-12 (5/5)          ASR: Bankanın yolu şapa da düştü.                     | SEN: Bankanın yolu şapa da düştü:
+  254.70-  256.15 d 1.45 p 0.17 [ 13: 16)  6.2h/s ev 13-15 (3/3)         ASR: boyayı kumaşa tutturan,                          | SEN: boyayı kumaşa tutturan,
+  256.32-  259.60 d 3.28 p 0.76 [ 16: 22)  6.4h/s ev 16-21 (6/6)         ASR: Fluorosa'nın boyahanelerinin ihtiyaç duyduğu bir | SEN: Floransa'nın boyahanelerinin ihtiyaç duyduğu bir mineral.
+  260.36-  262.24 d 1.88 p 0.15 [ 22: 26)  6.4h/s ev 22-25 (4/4)         ASR: Button'ın şapı foçadan geliyordu                 | SEN: Batı'nın şapı Foça'dan geliyordu;
+  262.39-  266.96 d 4.57 p 0.16 [ 26: 37)  5.7h/s ev 26-36 (11/11)       ASR: Foça 1455'te Osmanlı'ya geçince papalık kendi to | SEN: Foça bin dört yüz elli beşte Osmanlı'ya geçince papalık kendi topraklarında,
+  267.12-  268.29 d 1.17 p 0.70 [ 37: 40)  6.0h/s ev 37-39 (3/4)         ASR: Tolfa da yatak buldu.                            | SEN: Tolfa'da yatak buldu.
+  268.99-  274.79 d 5.80 p 0.66 [ 40: 56)  5.9h/s ev 40-55 (16/17)       ASR: Pazar nama hakkını 1466'da Piero de Medici'nin d | SEN: Pazarlama hakkını bin dört yüz altmış altıda, Pyero de Mediçi'nin de içinde olduğu bir gruba verdi.
+  275.45-  275.90 d 0.45 p 0.12 [ 56: 57)  4.4h/s ev 56-56 (1/1)         ASR: Papa                                             | SEN: Papa,
+  276.02-  278.12 d 2.10 p 0.14 [ 57: 63)  7.1h/s ev 57-61 (5/5)         ASR: Türk şapı alanları Aforoz'la tehdit              | SEN: Türk şapı alanları aforozla tehdit etti;
+  278.26-  281.50 d 3.24 p 0.72 [ 63: 71)  5.6h/s ev 63-70 (8/8)         ASR: Alıcılar yine de daha ucuz Türk çapına yöneldi.  | SEN: alıcılar yine de daha ucuz Türk şapına yöneldi.
+  282.22-  290.41 d 8.19 p 0.86 [ 71: 88)  5.0h/s ev 71-87 (17/17)       ASR: Medici'nin şaptan ne kazandığını bilmiyoruz. Yal | SEN: Mediçi'nin şaptan ne kazandığını bilmiyoruz; yalnız, bin dört yüz yetmiş beşte banka şapta zarar yazıyordu diye aktarılır.
+  291.27-  293.19 d 1.92 p 0.10 [ 88: 92)  6.3h/s ev 88-90 (3/3)         ASR: Börüge'de yıllarca yardımcı                      | SEN: Brüge'de yıllarca yardımcı olarak
+  293.29-  295.86 d 2.57 p 0.10 [ 92: 97)  6.2h/s ev 92-95 (4/5)         ASR: Çalışan Tomazo Portinariye Kozimo'nun P          | SEN: çalışan Tommazo Portinari'ye Kozimo'nun pek
+  295.96-  301.21 d 5.25 p 0.65 [ 97:108)  6.3h/s ev 97-107 (11/11)      ASR: üvenmediği anlatılır. Ama Kozimo ölünce Portinar | SEN: güvenmediği anlatılır; ama Kozimo ölünce Portinari şubenin müdürü ve ortağı oldu.
+  301.86-  308.04 d 6.18 p 0.79 [108:120)  5.0h/s ev 108-119 (12/13)     ASR: Portinali bu bonyada dükü cesur şarlar büyük tem | SEN: Portinari, Burgonya Dükü Cesur Şarl'a büyük, teminatsız krediler verdi; borç geri ödenmedi.
+  308.83-  310.36 d 1.53 p 0.10 [120:123)  5.9h/s ev 121-122 (2/2)       ASR: Hemmedici'nin müdürüydü                          | SEN: Hem Mediçi'nin müdürüydü
+  310.46-  313.11 d 2.65 p 0.57 [123:129)  5.7h/s ev 123-128 (6/6)       ASR: hem dükün danışmanı iki efendiye hizmet.         | SEN: hem dükün danışmanı: iki efendiye hizmet.
+  313.68-  322.77 d 9.09 p 0.82 [129:152)  5.6h/s ev 129-151 (23/23)     ASR: Meliç'in sonunda Brügey taskiyeye karar verip Or | SEN: Mediçi sonunda Brüge'yi tasfiyeye karar verip Portinari'yi şubeyi üstlenmeye zorladı; şube bin dört yüz seksen ya da bin dört yüz seksen birde kapandı.
+  323.59-  324.99 d 1.40 p 0.13 [152:154)  3.6h/s ev 152-153 (2/2)       ASR: Longa şubesi                                     | SEN: Londra şubesi,
+  325.12-  333.36 d 8.24 p 0.66 [154:177)  5.1h/s ev 154-176 (22/23)     ASR: 1466 ile 1471 arasında Kral 4. Edward'a toplam 2 | SEN: bin dört yüz altmış altı ile bin dört yüz yetmiş bir arasında Kral Dördüncü Edvard'a toplam yirmi altı bin sterlinden fazla kredi verdi.
+  334.02-  335.43 d 1.41 p 0.16 [177:181)  5.7h/s ev 177-180 (4/4)       ASR: Bir kısmı geri ödendi.                           | SEN: Bir kısmı geri ödendi;
+  335.59-  340.35 d 4.76 p 0.56 [181:191)  5.7h/s ev 181-190 (10/10)     ASR: Kalan için güller savaşı suçlanır ama rakamlar k | SEN: kalanı için Güller Savaşı suçlanır, ama rakamlar kaynaktan kaynağa değişir.
+  340.91-  346.09 d 5.18 p 0.85 [191:206)  5.4h/s ev 191-205 (15/15)     ASR: Şube 1477 ile 1478 arasında tasfiye edildi.      | SEN: Şube bin dört yüz yetmiş yedi ile bin dört yüz yetmiş sekiz arasında tasfiye edildi.
+  346.94-  347.64 d 0.70 p 0.19 [206:207)  4.3h/s ev 206-206 (1/1)       ASR: Milano                                           | SEN: Milano,
+  347.83-  355.34 d 7.51 p 0.87 [207:225)  4.5h/s ev 207-224 (18/18)     ASR: Avignon, Brüge, Venedik, Şubeler 1470'lerin sonu | SEN: Avinyon, Brüge, Venedik: şubeler bin dört yüz yetmişlerin sonundan bin dört yüz seksen bire dek tek tek kapandı.
+  356.21-  357.18 d 0.97 p 0.78 [225:227)  4.1h/s ev 225-226 (2/2)       ASR: Suçlu kimde?                                     | SEN: Suçlu kimdi?
+  357.96-  362.70 d 4.74 p 0.13 [227:234)  4.9h/s ev 227-233 (7/8)       ASR: Medici'nin siparişiyle tarih yazan Mark Yavalli  | SEN: Mediçi'nin siparişiyle tarih yazan Makyavelli, suçu ajanlara
+  362.83-  368.66 d 5.83 p 0.73 [234:242)  5.0h/s ev 235-241 (7/7)       ASR: Lorenzo ticarete talihsizdi. Ajanlarının uygunsu | SEN: atar: Lorentso ticarette talihsizdi, ajanlarının uygunsuz davranışları yüzünden.
+  369.39-  381.69 d12.30 p 0.69 [242:269)  5.1h/s ev 242-268 (27/27)     ASR: Sassetti 1463'ten 1490'daki ölümüne dek yaklaşık | SEN: Sassetti bin dört yüz altmış üçten bin dört yüz doksandaki ölümüne dek, yaklaşık otuz yıl, genel müdürdü; İtalyan Ansiklopedisi Trekkani sorunu “verimsiz bir mali örgütlenme” diye özetler.
+  382.38-  388.91 d 6.53 p 0.11 [269:284)  5.1h/s ev 269-283 (15/16)     ASR: Tarihçi Raymond de Rover'a göre Lorenzo parlak b | SEN: Tarihçi Reymond de Rover'a göre Lorentso parlak bir devlet adamıydı, iş adamı değil; Goldtveyt ise
+  389.02-  392.67 d 3.65 p 0.75 [284:294)  5.2h/s ev 284-293 (10/10)     ASR: 1500 öncesi Floransa'da gelen bir banka krizi gö | SEN: bin beş yüz öncesi Floransa'da genel bir banka krizi görmez.
+  393.42-  396.80 d 3.38 p 0.75 [294:301)  5.9h/s ev 294-300 (7/7)       ASR: Yani bankayı kimin batırdığı, kime sorduğunuza b | SEN: Yani bankayı kimin batırdığı, kime sorduğunuza bağlı.
+  397.55-  398.71 d 1.16 p 0.12 [301:304)  6.0h/s ev 301-303 (3/3)       ASR: Genel Müdür Sasset                               | SEN: Genel müdür Sassetti
+  398.83-  399.32 d 0.49 p 0.13 [304:305)  4.1h/s ev 304-304 (1/1)       ASR: Tise                                             | SEN: ise
+  399.45-  404.78 d 5.33 p 0.91 [305:315)  5.4h/s ev 305-314 (10/10)     ASR: 1480'lerde Santa Trinita'da Girlandio'ya kendi ş | SEN: bin dört yüz seksenlerde Santa Trinita'da Girlandayo'ya kendi şapelini yaptırıyordu.
+  405.69-  409.45 d 3.76 p 0.21 [315:325)  5.1h/s ev 315-324 (10/10)     ASR: Kasım 1494'te Lorenzo'nun oğlu Piero kaçtı.      | SEN: Kasım bin dört yüz doksan dörtte Lorentso'nun oğlu Pyero kaçtı;
+  409.66-  411.44 d 1.78 p 0.75 [325:329)  6.7h/s ev 326-328 (3/4)       ASR: Senior Yağmediçi sürgün etti.                    | SEN: Sinyoriya Mediçi'yi sürgün etti.
+  412.19-  416.96 d 4.77 p 0.13 [329:339)  5.9h/s ev 329-338 (10/10)     ASR: Cumhuriyet Palak, somediciye ve öteki medici kon | SEN: Cumhuriyet Palattso Mediçi'ye ve öteki Mediçi konutlarına resmen el koydu;
+  417.09-  420.60 d 3.51 p 0.69 [339:346)  6.0h/s ev 339-345 (7/8)       ASR: Donatello'nun David'i ve Judith'i Palazzo ve Kyo | SEN: Donatello'nun David'i ve Yudit'i Palattso Vekkyo'ya taşındı.
+  421.29-  426.25 d 4.96 p 0.70 [346:355)  4.6h/s ev 346-354 (9/9)       ASR: Kalabalık bahçelere daldı. Saray kısmen yağmalan | SEN: Kalabalık bahçelere daldı; saray kısmen yağmalandı, resmen el kondu.
+  426.95-  428.49 d 1.54 p 0.17 [355:358)  4.5h/s ev 355-357 (3/3)       ASR: Bankanın bütün mülkü                             | SEN: Bankanın bütün mülkü,
+  428.66-  431.74 d 3.08 p 0.64 [358:363)  5.5h/s ev 358-362 (5/5)       ASR: Floransa'daki masası dahil, kayyumlara verildi.  | SEN: Floransa'daki masası dahil, kayyumlara verildi.
+  432.38-  434.99 d 2.61 p 0.15 [363:370)  3.8h/s ev 363-369 (7/8)       ASR: Ve ismi son 1494'ü                               | SEN: Resmî son bin dört yüz doksan dörttü;
+  435.14-  438.95 d 3.81 p 0.91 [370:380)  6.0h/s ev 370-379 (10/10)     ASR: Fili çözünme 1470'lerden beri şuba şuba sürüyord | SEN: fiilî çözülme bin dört yüz yetmişlerden beri şube şube sürüyordu.
+  439.86-  443.01 d 3.15 p 0.10 [380:386)  5.4h/s ev 380-385 (6/6)       ASR: Banka sona ermişti. Amadona Tello'nun bronzları  | SEN: Banka sona ermişti; ama Donatello'nun bronzları
+  443.11-  444.53 d 1.42 p 0.70 [386:389)  6.3h/s ev 386-388 (3/3)       ASR: Palatsovek yoğuya taş                            | SEN: Palattso Vekkyo'ya taşındı.
+  445.23-  447.34 d 2.11 p 0.64 [389:393)  4.3h/s ev 389-392 (4/4)       ASR: Banka öldü, güzellik kaldı.                      | SEN: Banka öldü, güzellik kaldı.
+  447.98-  451.16 d 3.18 p 0.22 [393:401)  6.3h/s ev 393-400 (8/8)       ASR: Peki Medici sürgüne gönderen o güne nasıl gelind | SEN: Peki Mediçi'yi sürgüne gönderen o güne nasıl gelindi?
+  451.38-  453.29 d 1.91 p 0.10 [401:405)  5.2h/s ev 401-404 (4/4)       ASR: bir kralın altları aşmasıyla                     | SEN: Bir kralın Alpler'i aşmasıyla,
+  453.39-  455.02 d 1.63 p-1.00 [405:408)  5.5h/s ev 405-407 (3/3)       ASR: bir rahibin vaazlarıyla...                       | SEN: bir rahibin vaazlarıyla.

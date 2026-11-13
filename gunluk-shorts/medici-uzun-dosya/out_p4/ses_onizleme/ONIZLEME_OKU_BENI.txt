@@ -1,0 +1,8 @@
+MEDICI P4 — ses önizleme kesitleri (ÖNİZLEME miksi: geçici ses / eksik bölüm)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  ONIZLEME_01_c8_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P4 açılışı (t=0): Aslanın İni — 6/8 deniz, parça başlığı bindirmesi
+  ONIZLEME_02_c8_konuk_mu_rehine_mi_mix.mp3 (+_muzik.mp3)  t=   69.1–   97.1 sn  — c8: müzik çekilir — 'Konuk muydu, rehine mi?'
+  ONIZLEME_03_c8_isiklar_sonuyor_mix.mp3 (+_muzik.mp3)  t=  233.5–  263.5 sn  — c8 sonu: şube ışıkları birer birer sönüyor
+  ONIZLEME_04_c9_defter_kapaniyor_mix.mp3 (+_muzik.mp3)  t=  339.9–  369.9 sn  — c9: şubeler tek tek kapanır (inen lavta notaları), kuru tık-tık
+  ONIZLEME_05_c9_kapanis_mix.mp3 (+_muzik.mp3)  t=  432.3–  462.3 sn  — P4 sonu: 'güzellik kaldı' sıcak akor → tehdit; 7 sn çözülme

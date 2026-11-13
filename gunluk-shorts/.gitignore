@@ -3,3 +3,83 @@ ses-modelleri/*.tar.bz2
 __pycache__/
 */out/*_noaudio.mp4
 */out/render.log
+
+# yeniden üretilebilir ara çıktılar (tts_best.py parça önbelleği)
+**/_chunk_cache/
+
+# sarlken-uzun-dosya: yeniden üretilebilir harita önbelleği
+**/out/_cache/
+# sarlken-uzun-dosya: büyük ara ses dosyaları (ses_ham/*.mp3 kaynak olarak tutulur)
+sarlken-uzun-dosya/ses_ham/*.wav
+sarlken-uzun-dosya/ses_ham/olc_log.txt
+sarlken-uzun-dosya/out/voice.wav
+sarlken-uzun-dosya/out/voice_for_scribe.mp3
+sarlken-uzun-dosya/out/scribe_raw.json
+sarlken-uzun-dosya/out/scribe_words_full.json
+sarlken-uzun-dosya/out/frames/
+sarlken-uzun-dosya/out/seg/
+
+# Şarlken: üretilen büyük/ara dosyalar (git'e girmez)
+sarlken-uzun-dosya/out/*.wav
+sarlken-uzun-dosya/out/*.m4a
+sarlken-uzun-dosya/out/*.mp4
+sarlken-uzun-dosya/out/_audio_cache/
+sarlken-uzun-dosya/out/_cache/
+sarlken-uzun-dosya/out/yama_combined*
+sarlken-uzun-dosya/out/yama_scribe_raw.json
+sarlken-uzun-dosya/out/audio_report.txt
+sarlken-uzun-dosya/out/seg/
+sarlken-uzun-dosya/out/frames/
+sarlken-uzun-dosya/ses_ham/*_48k.wav
+**/__pycache__/
+*.npy
+sarlken-uzun-dosya/out/audio_prev/
+sarlken-uzun-dosya/out/*.npy
+sarlken-uzun-dosya/yayin/*.png
+sarlken-uzun-dosya/yayin/sarlken_kisa_fragman.mp4
+sarlken-uzun-dosya/teslim_parcalar/
+
+# Medici: üretilen büyük/ara dosyalar (git'e girmez)
+medici-uzun-dosya/out/frames/
+medici-uzun-dosya/out/seg/
+medici-uzun-dosya/out/*.wav
+medici-uzun-dosya/out/*.m4a
+medici-uzun-dosya/out/*.mp4
+medici-uzun-dosya/out/*.npy
+medici-uzun-dosya/out/_audio_cache/
+medici-uzun-dosya/out/_cache/
+medici-uzun-dosya/out/audio_prev/
+medici-uzun-dosya/out/voice_for_scribe.mp3
+medici-uzun-dosya/out/scribe_raw.json
+medici-uzun-dosya/out/scribe_words_full.json
+medici-uzun-dosya/out/timeline.json
+medici-uzun-dosya/ses_ham/*.wav
+medici-uzun-dosya/out_p*/*.wav
+medici-uzun-dosya/out_p*/*.mp3
+medici-uzun-dosya/out_p*/*.m4a
+medici-uzun-dosya/out_p*/*.mp4
+medici-uzun-dosya/out_p*/seg/
+medici-uzun-dosya/out_p*/frames/
+medici-uzun-dosya/out_p*/_cache/
+medici-uzun-dosya/out_p*/_audio_cache/
+medici-uzun-dosya/out_p*/audio_prev/
+medici-uzun-dosya/out_base/
+medici-uzun-dosya/yayin/*.png
+medici-uzun-dosya/yayin/*.mp4
+medici-uzun-dosya/teslim_parcalar/
+medici-uzun-dosya/out/
+medici-uzun-dosya/isemri/
+medici-uzun-dosya/ses_ham/GECICI.json
+
+# Medici: 3 parçalı eski ara çıktılar ve Tam Film birleşimi (büyük, yeniden üretilebilir)
+medici-uzun-dosya/out_eski3/**/*.wav
+medici-uzun-dosya/out_eski3/**/*.mp3
+medici-uzun-dosya/out_tam/
+medici-uzun-dosya/out_p*/*.flac
+medici-uzun-dosya/out_eski3/**/*.m4a
+
+# kurul düzeltme ajanlarının geçici önizleme kareleri/klipleri (büyük; repoya girmez)
+medici-uzun-dosya/out_p*/duzeltme/
+medici-uzun-dosya/t.mp4
+medici-uzun-dosya/out_p*/hizala_*.log
+medici-uzun-dosya/out_p*/uretim_*.log

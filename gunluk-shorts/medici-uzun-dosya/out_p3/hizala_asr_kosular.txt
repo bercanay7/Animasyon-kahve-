@@ -1,0 +1,141 @@
+=== c6  (jeton 432, koşu 58) ===
+    0.02-    4.65 d 4.63 p 0.20 [  0: 11)  6.5h/s ev 0-10 (10/9)         ASR: Kozimon'un torunun gören Södemedici yakın dostu  | SEN: Kozimo'nun torunu Lorentso de Mediçi'yi yakın dostu Nikkolo Valori anlatır: doğa,
+    4.85-    6.04 d 1.19 p 0.14 [ 11: 13)  6.7h/s ev 11-12 (2/2)         ASR: görünüşü konusunda                               | SEN: görünüşü konusunda
+    6.18-   10.38 d 4.20 p 0.69 [ 13: 25)  6.2h/s ev 13-24 (12/12)       ASR: Ona Üvey Ana gibi davranmış ama zine gelince şef | SEN: ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş.
+   11.07-   15.70 d 4.63 p 0.12 [ 25: 34)  5.6h/s ev 25-33 (9/9)         ASR: Valori'ye göre Florasa'nın bu tahtsız efendisini | SEN: Valori'ye göre Floransa'nın bu tahtsız efendisinin yüzü güzel sayılmazdı,
+   15.82-   18.41 d 2.59 p 0.70 [ 34: 39)  5.8h/s ev 34-38 (5/5)         ASR: ama saygı uyandıracak kadar vakarlıydı.          | SEN: ama saygı uyandıracak kadar vakarlıydı.
+   19.11-   22.03 d 2.92 p 0.11 [ 39: 44)  5.5h/s ev 39-43 (5/5)         ASR: Asiklopedilerin tarifi daha çıplak. Basık...     | SEN: Ansiklopedilerin tarifi daha çıplak: basık
+   22.14-   24.89 d 2.75 p 0.71 [ 44: 51)  4.7h/s ev 44-50 (7/7)         ASR: burun öne çıkık alt çene zayıf görme.            | SEN: burun, öne çıkık alt çene, zayıf görme.
+   25.60-   29.70 d 4.10 p 0.71 [ 51: 60)  6.1h/s ev 51-59 (8/9)         ASR: Valori'ye advedilen tarife göre koku düğüsü de n | SEN: Valori'ye atfedilen tarife göre koku duyusu da neredeyse yoktu.
+   30.41-   33.37 d 2.96 p 0.91 [ 60: 66)  5.7h/s ev 60-65 (6/7)         ASR: Büyük babası defter tutardı. Torunu şiir yazdı.  | SEN: Büyükbabası defter tutardı; torunu şiir yazdı.
+   34.28-   34.88 d 0.60 p 0.12 [ 66: 68)  8.3h/s ev -                   ASR: İLKAR                                            | SEN: İki Aralık
+   35.00-   42.30 d 7.30 p 0.73 [ 68: 86)  5.6h/s ev 68-85 (18/18)       ASR: 1469'da babası Piero öldü. Günler içinde 20 yaşı | SEN: bin dört yüz altmış dokuzda babası Pyero öldü; günler içinde yirmi yaşındaki Lorentso şehrin ve devletin yükünü üstlendi.
+   43.03-   45.75 d 2.72 p 0.19 [ 86: 90)  5.1h/s ev 86-89 (4/4)         ASR: Bunu hatıra defterinde, rikordisinde...          | SEN: Bunu hatıra defterinde, Rikordi'sinde,
+   45.94-   53.22 d 7.28 p 0.75 [ 90:103)  5.2h/s ev 90-102 (13/14)      ASR: şöyle gerekçelendirir dostlarını ve servetini ko | SEN: şöyle gerekçelendirir: dostlarını ve servetini korumak için; çünkü Floransa'da devletsiz zengin yaşamak zordu.
+   53.97-   60.40 d 6.43 p 0.15 [103:116)  5.6h/s ev 103-115 (13/13)     ASR: İsteksiz davrandığını, yaşına ve tehlikeyi gerek | SEN: İsteksiz davrandığını, yaşını ve tehlikeyi gerekçe gösterdiğini de yazar; ama bunu anlatan yine
+   60.55-   61.13 d 0.58 p 0.83 [116:117)  5.2h/s ev 116-116 (1/1)       ASR: kendisi                                          | SEN: kendisi.
+   61.96-   66.03 d 4.07 p 0.18 [117:124)  5.2h/s ev 117-123 (5/8)       ASR: Annesi Lucretia Torna bu vanibi şeridi. Doğaç şa | SEN: Annesi Lukretsya Tornabuvoni bir şairdi: dua şarkıları
+   66.21-   71.55 d 5.34 p 0.83 [124:134)  4.3h/s ev 124-133 (10/11)     ASR: ve 5 mazlum anlatı yazdı. Pulcinin dostuydu. Mor | SEN: ve beş manzum anlatı yazdı, Pulçi'nin dostuydu, Morgante'ye ilham verdi.
+   72.38-   78.41 d 6.03 p 0.17 [134:149)  5.6h/s ev 134-148 (15/15)     ASR: Oğluna eş seçmeyi de kendisi üstlendi. 1467 baha | SEN: Oğluna eş seçmeyi de kendisi üstlendi: bin dört yüz altmış yedi baharında Roma'da Klariçe'yi görüp
+   78.58-   80.25 d 1.67 p 0.71 [149:153)  4.8h/s ev 149-152 (4/4)       ASR: Piro'ya 3 mektup yazdı.                          | SEN: Pyero'ya üç mektup yazdı.
+   80.96-   89.28 d 8.32 p 0.14 [153:174)  5.0h/s ev 153-173 (21/21)     ASR: 28 Mart tarihli ilk mektupta kızın uzun boylu, N | SEN: Yirmi sekiz Mart tarihli ilk mektupta kızın uzun boylu, narin, açık tenli ve bol saçlı olduğunu, yüzünün çok güzel olmasa da
+   89.42-   90.51 d 1.09 p 0.76 [174:177)  6.4h/s ev 174-176 (3/3)       ASR: hoş olduğunu yazar.                              | SEN: hoş olduğunu yazar.
+   91.27-   97.28 d 6.01 p 0.64 [177:190)  5.8h/s ev 177-189 (13/13)     ASR: Lorenzo evliliği defterine şöyle geçirir diye ak | SEN: Lorentso evliliği defterine şöyle geçirir, diye aktarılır: Klariçe'yi aldım ya da bana verildi.
+   97.92-  104.37 d 6.45 p 0.10 [190:204)  5.1h/s ev 190-203 (14/14)     ASR: Roma'da vekaletle nikah kıyıldıktan sonra düğün  | SEN: Roma'da vekâletle nikâh kıyıldıktan sonra düğün şenlikleri dört Haziran bin dört yüz altmış dokuzda
+  104.47-  105.68 d 1.21 p 0.74 [204:206)  5.8h/s ev 204-205 (2/2)       ASR: Florensa'da başladı                              | SEN: Floransa'da başladı.
+  106.42-  109.85 d 3.43 p 0.11 [206:214)  5.5h/s ev 206-213 (8/8)       ASR: Klerice 1479'da çocuklarının hocası.             | SEN: Klariçe, bin dört yüz yetmiş dokuzda çocuklarının hocası
+  109.96-  111.35 d 1.39 p 0.13 [214:217)  7.2h/s ev 214-216 (3/4)       ASR: Polis yanıya evden çıkar.                        | SEN: Politsyano'yu evden çıkarttı;
+  111.48-  114.29 d 2.81 p 0.89 [217:224)  6.4h/s ev 217-223 (7/7)       ASR: Ona uygun bir eğitmen olmadığına ikna olmuştu.   | SEN: ona uygun bir eğitmen olmadığına ikna olmuştu.
+  115.18-  117.32 d 2.14 p 0.11 [224:227)  4.7h/s ev 224-226 (3/3)       ASR: Lorenzo'nun çevresinde okuluyor.                 | SEN: Lorentso'nun çevresinde okul
+  117.43-  121.18 d 3.75 p 0.16 [227:233)  5.6h/s ev 228-232 (5/5)       ASR: Atölyeler vardı. Verrocchio'nun atölyesinden Leo | SEN: yoktu, atölyeler vardı: Verrokyo'nun atölyesinden Leonardo,
+  121.34-  123.91 d 2.57 p 0.78 [233:238)  5.8h/s ev 233-237 (5/6)       ASR: Pelucino ve bot içerliği geçtiği söylenir.       | SEN: Peruçino ve Botiçelli geçtiği söylenir.
+  124.69-  130.32 d 5.63 p 0.14 [238:253)  5.0h/s ev 238-252 (15/15)     ASR: 1476 ile 1477 arasında Lorenzo ve Poliziano      | SEN: Bin dört yüz yetmiş altı ile bin dört yüz yetmiş yedi arasında Lorentso ve Politsyano,
+  130.46-  134.08 d 3.62 p 0.10 [253:260)  6.1h/s ev 253-259 (7/7)       ASR: Napoli'nin isteğiyle bir Toskan'a çir derlemesi  | SEN: Napoli'nin isteğiyle bir Toskana şiir derlemesi hazırladı;
+  134.18-  136.74 d 2.56 p 0.70 [260:266)  5.5h/s ev 260-265 (6/6)       ASR: içinde Dante'nin Vita Novası da vardı.           | SEN: içinde Dante'nin Vita nova'sı da vardı.
+  137.44-  139.56 d 2.12 p 0.16 [266:269)  4.2h/s ev 266-268 (3/3)       ASR: Muhteşem yani maifiko                            | SEN: “Muhteşem”, yani Manyifiko,
+  139.72-  141.07 d 1.35 p 0.14 [269:272)  5.2h/s ev 269-271 (3/3)       ASR: bir saydı sözcüğüydü                             | SEN: bir saygı sözcüğüydü;
+  141.21-  147.95 d 6.74 p 0.85 [272:287)  5.8h/s ev 272-286 (15/16)     ASR: Makya Velli prensi Lorenzson'un önce oğluna, son | SEN: Makyavelli Prens'i Lorentso'nun önce oğluna, sonra torununa ithaf etti ve ikisine de “Muhteşem” diye seslendi.
+  148.80-  156.22 d 7.42 p 0.15 [287:301)  5.8h/s ev 287-300 (14/14)     ASR: Michelangelo'nun biografisini yazan Condivie'ye  | SEN: Mikelancelo'nun biyografisini yazan Kondivi'ye göre Lorentso, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış:
+  156.37-  158.30 d 1.93 p 0.73 [301:305)  5.2h/s ev 301-304 (4/4)       ASR: Yaşlıların dişleri tam olmaz.                    | SEN: yaşlıların dişleri tam olmaz.
+  159.03-  160.57 d 1.54 p 0.10 [305:309)  6.5h/s ev 305-307 (3/5)       ASR: Mi, kerence, ro bir dişi                         | SEN: Mikelancelo bir dişi kırıp
+  160.67-  161.63 d 0.96 p 0.17 [309:312)  6.3h/s ev 310-311 (2/2)       ASR: İşettin'e oy                                     | SEN: diş etini oymuş;
+  161.80-  164.09 d 2.29 p 0.15 [312:318)  5.2h/s ev 312-317 (6/7)       ASR: Lorenzo da onu eve almış. O da...                | SEN: Lorentso da onu eve almış: oda,
+  164.24-  164.82 d 0.58 p 0.18 [318:319)  3.4h/s ev 318-318 (1/1)       ASR: sofra                                            | SEN: sofra,
+  165.00-  166.15 d 1.15 p 0.83 [319:322)  4.3h/s ev 321-321 (1/1)       ASR: Aydabestukat                                     | SEN: ayda beş dukat.
+  166.98-  172.06 d 5.08 p 0.11 [322:334)  4.7h/s ev 322-333 (12/12)     ASR: 29 Ocak 1475'te Santa Croce Meydanı'nda Venedik  | SEN: Yirmi dokuz Ocak bin dört yüz yetmiş beşte Santa Kroçe Meydanı'nda, Venedik
+  172.17-  176.82 d 4.65 p 0.84 [334:344)  5.4h/s ev 334-342 (9/10)      ASR: ve Milano'yla ittifakı kutlamak için büyük bir t | SEN: ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Costra.
+  177.66-  180.52 d 2.86 p 0.24 [344:349)  5.2h/s ev 344-348 (5/5)       ASR: Kazanan Lorenzo değil, kardeşi Giuliano'ydu.     | SEN: Kazanan Lorentso değil, kardeşi Culyano'ydu;
+  180.76-  184.00 d 3.24 p 0.72 [349:355)  5.6h/s ev 349-354 (6/7)       ASR: Seçtiği kadın Marco Vespochi'nin eşi Simone Etay | SEN: seçtiği kadın, Marko Vespuççi'nin eşi Simonetta'ydı.
+  184.72-  190.98 d 6.26 p 0.72 [355:367)  5.8h/s ev 355-366 (12/14)     ASR: Boti Çelli'nin sancağı simoneteyi miferli bir pa | SEN: Botiçelli'nin sancağa Simonetta'yı miğferli bir Pallas olarak resmettiği anlatılır; asıl sancak kayıp.
+  191.70-  193.39 d 1.69 p 0.12 [367:372)  6.5h/s ev 367-371 (5/5)       ASR: Polisyonu bu günü bir şiire                      | SEN: Politsyano bu günü bir şiire
+  193.51-  196.09 d 2.58 p 0.65 [372:378)  5.8h/s ev 373-377 (5/5)       ASR: Şiir Kahaman'a ölünce yarım kaldı.               | SEN: döktü; şiir, kahramanı ölünce yarım kaldı.
+  196.74-  197.62 d 0.88 p 0.18 [378:379)  4.5h/s ev 378-378 (1/1)       ASR: Simoneta                                         | SEN: Simonetta,
+  197.80-  201.56 d 3.76 p 0.17 [379:390)  5.9h/s ev 379-389 (11/11)     ASR: 1476 Nisan'ında 23 yaşında verenden öldü.        | SEN: bin dört yüz yetmiş altı Nisanında yirmi üç yaşında veremden öldü;
+  201.73-  204.64 d 2.91 p 0.60 [390:395)  6.5h/s ev 390-394 (5/6)       ASR: Julian O'yla sevgili olup olmadıklarını bilmiyor | SEN: Culyano'yla sevgili olup olmadıklarını bilmiyoruz.
+  205.24-  208.14 d 2.90 p 0.10 [395:401)  5.2h/s ev 395-400 (6/6)       ASR: Lorenzo yıllar sonra bir karnaval şarkısına      | SEN: Lorentso yıllar sonra bir karnaval şarkısına
+  208.24-  208.99 d 0.75 p 0.10 [401:403)  8.0h/s ev 401-402 (2/2)       ASR: Şunu yazacak                                     | SEN: şunu yazacaktı:
+  209.09-  212.12 d 3.03 p 0.91 [403:410)  4.3h/s ev 403-409 (7/7)       ASR: Ne güzel şey gençlik ama kaçıp gidiyor.          | SEN: ne güzel şey gençlik, ama kaçıp gidiyor.
+  213.03-  219.34 d 6.31 p 0.72 [410:427)  4.8h/s ev 410-426 (17/17)     ASR: Jostra'dan 26 Nisan 1478'e bir pazar sabahına 3  | SEN: Costra'dan yirmi altı Nisan bin dört yüz yetmiş sekize, bir Pazar sabahına, üç yıl üç ay vardı.
+  220.06-  222.64 d 2.58 p-1.00 [427:432)  5.0h/s ev 427-431 (5/5)       ASR: Giuliano 24 yaşında ölecekti.                    | SEN: Culyano yirmi dört yaşında ölecekti.
+
+=== c7  (jeton 603, koşu 80) ===
+  226.03-  229.98 d 3.95 p 0.75 [  0: 11)  4.8h/s ev 0-10 (11/11)        ASR: 26 Nisan 1478 bir pazar sabahı.                  | SEN: Yirmi altı Nisan bin dört yüz yetmiş sekiz, bir pazar sabahı.
+  230.73-  235.94 d 5.21 p 0.71 [ 11: 20)  5.2h/s ev 11-19 (9/10)        ASR: Flora Assa'nın katederliğinde Santa Maria del Fi | SEN: Floransa'nın katedralinde, Santa Maria del Fyore'de, yüksek ayin yapılıyordu.
+  236.65-  240.45 d 3.80 p 0.11 [ 20: 29)  5.8h/s ev 20-28 (9/9)         ASR: Ayin, şehre yeni gelmiş genç bir konunun onuruna | SEN: Ayin, şehre yeni gelmiş genç bir konuğun onuruna yapılıyordu:
+  240.56-  245.44 d 4.88 p 0.94 [ 29: 41)  5.9h/s ev 29-40 (12/13)       ASR: 16 ya da 17 yaşındaki Kardinal Rafael de Riario, | SEN: on altı ya da on yedi yaşındaki Kardinal Rafaele Riaryo, Papa'nın akrabası.
+  246.38-  249.76 d 3.38 p 0.15 [ 41: 47)  5.3h/s ev 41-46 (6/7)         ASR: Flora say Cosmodan beri hiçbir umvan taşımadan   | SEN: Floransa'yı Kozimo'dan beri, hiçbir unvan taşımadan,
+  249.91-  251.77 d 1.86 p 0.10 [ 47: 51)  7.0h/s ev 47-50 (4/4)         ASR: bir bankacı ailesi yönetiyordu.                  | SEN: bir bankacı ailesi yönetiyordu:
+  251.87-  252.49 d 0.62 p 0.65 [ 51: 52)  4.8h/s ev 51-51 (1/1)         ASR: Medice                                           | SEN: Mediçi.
+  253.14-  258.35 d 5.21 p 0.11 [ 52: 64)  5.6h/s ev 52-63 (11/12)       ASR: 1474'te Papa 4. Sixtus, papalığın bakerliğini Me | SEN: Bin dört yüz yetmiş dörtte Papa Dördüncü Sikstus, papalığın bankerliğini Mediçi'den alıp
+  258.46-  262.17 d 3.71 p 0.11 [ 64: 75)  6.2h/s ev 66-74 (9/9)         ASR: 2 yıl sonra şap tekelinin de aynı yoldan gitti.  | SEN: Pattsi'ye verdi; iki yıl sonra şap tekelinin de aynı yoldan gittiği
+  262.28-  262.98 d 0.70 p 0.62 [ 75: 76)  4.3h/s ev 75-75 (1/2)         ASR: T yazılır.                                       | SEN: yazılır.
+  263.60-  268.41 d 4.81 p 0.19 [ 76: 86)  6.4h/s ev 76-85 (10/10)       ASR: Lorenzo, papağanın yeğeni Ciro'la Moriario'nun i | SEN: Lorentso, Papa'nın yeğeni Cirolamo Riaryo'nun İmola'yı alması için para vermemiş,
+  268.60-  273.15 d 4.55 p 0.88 [ 86: 94)  5.7h/s ev 86-93 (8/9)         ASR: Salviati'nin pizza başkırısı koposluğuna gemisin | SEN: Salvyati'nin Piza başpiskoposluğuna girmesini de iki yıl engellemişti.
+  274.03-  280.25 d 6.22 p 0.14 [ 94:106)  4.8h/s ev 94-105 (12/13)      ASR: 1477 de Cirolamorriario, baş psikopo saliyati ve | SEN: Bin dört yüz yetmiş yedide Cirolamo Riaryo, Başpiskopos Salvyati ve Pattsi'lerden Françesko,
+  280.39-  283.81 d 3.42 p 0.62 [106:112)  5.6h/s ev 106-111 (6/7)       ASR: Lorenzo ile Giuliano'yu ortadan kaldırmak için a | SEN: Lorentso'yla Culyano'yu ortadan kaldırmak için anlaştı.
+  284.43-  290.64 d 6.21 p 0.60 [112:123)  6.1h/s ev 112-122 (11/11)     ASR: İlk planın bir ziyafette uygulanacağı, Juliano g | SEN: İlk planın bir ziyafette uygulanacağı, Culyano gelmeyince saldırının kiliseye kaydırıldığı anlatılır.
+  291.24-  294.92 d 3.68 p 0.11 [123:129)  5.4h/s ev 123-128 (6/6)       ASR: Lorenzo'yu öldürmekle görevli paralı asker Monte | SEN: Lorentso'yu öldürmekle görevli paralı asker Montesekko,
+  295.03-  297.08 d 2.05 p 0.82 [129:133)  5.4h/s ev 129-132 (4/4)       ASR: kilisede kan dökmeyi reddetti.                   | SEN: kilisede kan dökmeyi reddetti.
+  297.90-  305.49 d 7.59 p 0.11 [133:149)  5.9h/s ev 134-148 (15/16)     ASR: Yiyin aceleyle iki Papa seçildi. Antonio Maffei  | SEN: Yerine aceleyle iki papaz seçildi: Antonyo Maffey ve Stefano da Banyone; İtalyan Ansiklopedisi Trekkani bu değişikliği
+  305.60-  308.79 d 3.19 p 0.73 [149:154)  4.7h/s ev 149-153 (5/6)       ASR: İtliği planın kısmen çökmesinin nedenlerinden sa | SEN: planın kısmen çökmesinin nedenlerinden sayar.
+  309.52-  310.32 d 0.80 p 0.13 [154:155)  3.7h/s ev 154-154 (1/1)       ASR: Stefano                                          | SEN: Stefano,
+  310.45-  313.76 d 3.31 p 0.86 [155:162)  5.7h/s ev 157-161 (5/5)       ASR: Yakopodepatsi'nin kızına latince öğreten papazdı | SEN: Yakopo de Pattsi'nin kızına Latince öğreten papazdı.
+  314.62-  315.62 d 1.00 p 0.10 [162:164)  6.0h/s ev 162-163 (2/2)       ASR: Kilise doluydu.                                  | SEN: Kilise doluydu,
+  315.72-  316.83 d 1.11 p 0.21 [164:166)  5.4h/s ev 164-165 (2/2)       ASR: Ayin başlamıştı.                                 | SEN: ayin başlamıştı;
+  317.04-  319.28 d 2.24 p 0.77 [166:170)  4.9h/s ev 166-169 (4/4)       ASR: Juliano ise henüz gelmemişti.                    | SEN: Culyano ise henüz gelmemişti.
+  320.05-  323.77 d 3.72 p 0.13 [170:179)  5.6h/s ev 170-178 (9/9)       ASR: Francesco de Patsy ile Bernardo Bandini onun evi | SEN: Françesko de Pattsi ile Bernardo Bandini onun evine gidip
+  323.90-  325.88 d 1.98 p 0.67 [179:184)  6.6h/s ev 179-183 (5/5)       ASR: il dökerek onu kiliseye getirdi.                 | SEN: dil dökerek onu kiliseye getirdi.
+  326.55-  330.11 d 3.56 p 0.19 [184:191)  5.9h/s ev 184-190 (7/8)       ASR: Yol boyunca şaka açtıkları Francesco'nun sarılır | SEN: Yol boyunca şakalaştıkları, Françesko'nun sarılır gibi yapıp
+  330.30-  334.20 d 3.90 p 0.83 [191:199)  6.9h/s ev 191-198 (8/8)       ASR: Juliano'nun gizlisinin altında zırh olup olmadığ | SEN: Culyano'nun giysisinin altında zırh olup olmadığını yokladığı anlatılır.
+  335.03-  342.83 d 7.80 p 0.74 [199:214)  5.9h/s ev 199-213 (15/15)     ASR: İşaret konusunda anlatılara ayrışır. Kime ayini  | SEN: İşaret konusunda anlatılar ayrışır: kimi ayini yöneten papazın komünyon alışını söyler, kimi ekmeğin kaldırıldığı anı.
+  343.57-  347.01 d 3.44 p 0.86 [214:220)  5.2h/s ev 214-219 (6/6)       ASR: Elkmek kaldırılırken herkesin diz çöpmesi gelene | SEN: Ekmek kaldırılırken herkesin diz çökmesi gelenekti.
+  347.87-  350.86 d 2.99 p 0.14 [220:227)  6.4h/s ev 220-226 (7/7)       ASR: Bandini kısa bir silahı Juliano'nun gözsüne sapl | SEN: Bandini kısa bir silahı Culyano'nun göğsüne sapladı;
+  351.00-  352.46 d 1.46 p 0.19 [227:231)  6.2h/s ev 227-230 (4/5)       ASR: Juliano bir kaç adım gidip                       | SEN: Culyano birkaç adım gidip
+  352.65-  353.11 d 0.46 p 0.69 [231:232)  4.3h/s ev 231-231 (1/1)       ASR: düştü.                                           | SEN: düştü.
+  353.80-  356.50 d 2.70 p 0.11 [232:237)  5.6h/s ev 232-236 (5/5)       ASR: Francesco üstüne kapanıp defalarca vurdu.        | SEN: Françesko üstüne kapanıp defalarca vurdu;
+  356.61-  358.92 d 2.31 p 0.63 [237:243)  5.6h/s ev 237-242 (6/7)       ASR: Yara sayı ise 19 diye sayılır.                   | SEN: yara sayısı on dokuz diye sayılır.
+  359.55-  361.79 d 2.24 p 0.85 [243:248)  5.4h/s ev 243-247 (5/5)       ASR: Ama hedef yalnız Juliano değildi.                | SEN: Ama hedef yalnız Culyano değildi.
+  362.64-  365.45 d 2.81 p 0.70 [248:254)  5.3h/s ev 248-253 (6/6)       ASR: Aynı anda Lorenzo'ya iki papa saldırdı.          | SEN: Aynı anda Lorentso'ya iki papaz saldırdı.
+  366.15-  368.65 d 2.50 p 0.13 [254:258)  5.2h/s ev 254-257 (4/4)       ASR: Lorenzo boynundan hafifçe yaralandı.             | SEN: Lorentso boynundan hafifçe yaralandı,
+  368.78-  371.12 d 2.34 p 0.72 [258:263)  5.6h/s ev 258-262 (5/5)       ASR: Kendini savundu ve sacristiğe kaçtı.             | SEN: kendini savundu ve sakristiye kaçtı.
+  371.84-  379.10 d 7.26 p 0.72 [263:276)  5.6h/s ev 263-275 (13/13)     ASR: Dostlarının Sakristin'in ağır Tunç kapısını arka | SEN: Dostlarının, sakristinin ağır tunç kapısını arkasından kapattığı anlatılır; aralarında şair Politsyano da vardı.
+  379.82-  382.59 d 2.77 p 0.14 [276:282)  6.5h/s ev 276-281 (6/6)       ASR: Onu korumaya çalışan arkadaşı Francesco Nori     | SEN: Onu korumaya çalışan arkadaşı Françesko Nori,
+  382.73-  384.47 d 1.74 p 0.91 [282:285)  5.7h/s ev 282-284 (3/3)       ASR: bandinin hançerinden öldü.                       | SEN: Bandini'nin hançerinden öldü.
+  385.38-  386.67 d 1.29 p 0.11 [285:287)  5.4h/s ev 285-286 (2/2)       ASR: Cüiyano'nun Bedeni                               | SEN: Culyano'nun bedeni,
+  386.78-  389.95 d 3.17 p 0.16 [287:294)  6.0h/s ev 287-293 (7/7)       ASR: katedralin papazları gelip toplayana dek yerde y | SEN: katedralin papazları gelip toplayana dek yerde yattı.
+  390.11-  390.29 d 0.18 p 0.71 [294:294)  0.0h/s ev -                   ASR: Teşekkür                                         | SEN: 
+  391.00-  395.97 d 4.97 p 0.83 [294:304)  5.0h/s ev 294-303 (10/10)     ASR: Genç Kardina tutuklandı, halkın elinden kurtuldu | SEN: Genç kardinal tutuklandı; halkın elinden kurtuldu ve haftalarca rehin kaldı.
+  396.80-  400.10 d 3.30 p 0.17 [304:310)  5.5h/s ev 304-309 (5/8)       ASR: Aynı sırada Palatso ve Kjölde baş psikopos Savvi | SEN: Aynı sırada Palattso Vekkyo'da Başpiskopos Salvyati,
+  400.27-  405.35 d 5.08 p 0.69 [310:321)  6.9h/s ev 310-320 (11/11)     ASR: Bir grup adamla Cumhuriyet'in başı olan Bonfalon | SEN: bir grup adamla cumhuriyetin başı olan gonfaloniereyi öldürüp sarayı almaya çalışıyordu.
+  406.04-  407.42 d 1.38 p 0.15 [321:323)  6.5h/s ev 322-322 (1/4)       ASR: Gon falan yeri çezare,                           | SEN: Gonfaloniere Çezare
+  407.57-  413.14 d 5.57 p 0.88 [323:335)  5.9h/s ev 323-334 (12/12)     ASR: Petrucce hileyi sezip halam verdi. Saviati'nin a | SEN: Petrutçi hileyi sezip alarm verdi; Salvyati'nin adamları sarayda bir odada kapana kısıldı.
+  414.02-  419.88 d 5.86 p 0.64 [335:349)  5.6h/s ev 335-348 (13/13)     ASR: Yakopode patsı 100 kadar silahlı adamla meydana  | SEN: Yakopo de Pattsi, yüz kadar silahlı adamla meydana gelip halkı ve özgürlüğü yardıma çağırdı.
+  420.52-  429.47 d 8.95 p 0.74 [349:366)  5.5h/s ev 349-365 (17/17)     ASR: Makyaverli'ye göre karşılık veren çıkmadı. Halkı | SEN: Makyavelli'ye göre karşılık veren çıkmadı: halkı Mediçi'nin talihi ve cömertliği sağır etmişti, özgürlüğü ise Floransa pek tanımıyordu.
+  430.21-  431.40 d 1.19 p 0.16 [366:368)  5.0h/s ev 366-367 (2/2)       ASR: Sokaklarda ise                                   | SEN: Sokaklarda ise
+  431.56-  436.35 d 4.79 p 0.23 [368:377)  5.8h/s ev 368-376 (9/9)       ASR: Medici armasındaki toplara gönderme yapan Pâle,  | SEN: Mediçi armasındaki toplara gönderme yapan “palle, palle” sesleri yükseliyordu;
+  436.58-  437.91 d 1.33 p 0.82 [377:380)  6.0h/s ev 377-379 (2/3)       ASR: Bunu Büşardeni yazar.                            | SEN: bunu Gviçardini yazar.
+  438.73-  447.32 d 8.59 p 0.85 [380:395)  6.2h/s ev 380-394 (15/15)     ASR: Lorenzo'nun silahlı gençlerin koruması altında M | SEN: Lorentso'nun silahlı gençlerin koruması altında Mediçi Sarayı'na götürüldüğü, yaralı boynuyla pencerede göründüğü ve alkışlandığı anlatılır.
+  448.17-  450.89 d 2.72 p 0.10 [395:398)  4.8h/s ev 395-397 (2/6)       ASR: Sağlığı yaratı baş pis koparslık istileriyle     | SEN: Salvyati, başpiskoposluk giysileriyle
+  450.99-  455.63 d 4.64 p 0.62 [398:407)  5.8h/s ev 398-406 (8/9)       ASR: Palazzo Vecchion'un penceresinden asıldı. Yanına | SEN: Palattso Vekkyo'nun penceresinden asıldı; yanına Françesko de Pattsi getirildi.
+  456.25-  461.60 d 5.35 p 0.65 [407:416)  5.4h/s ev 407-415 (9/9)       ASR: Polisyonaya göre Savvyati can çekişirken dişleri | SEN: Politsyano'ya göre Salvyati, can çekişirken dişlerini Françesko'nun göğsüne geçirdi.
+  462.25-  467.63 d 5.38 p 0.65 [416:429)  5.8h/s ev 416-428 (13/13)     ASR: O gün yaklaşık 30 kişi daha idam edildi. Araları | SEN: O gün yaklaşık otuz kişi daha idam edildi; aralarında Salvyati'nin kardeşi de vardı.
+  468.28-  471.13 d 2.85 p 0.75 [429:434)  6.0h/s ev 429-433 (5/5)       ASR: Kalabalık başkalarını kendi eliyle öldürdü.      | SEN: Kalabalık başkalarını kendi eliyle öldürdü.
+  471.88-  480.37 d 8.49 p 0.59 [434:451)  5.9h/s ev 434-450 (17/18)     ASR: Ya Copo kaçtı? Birkaç gün içinde yakalanıp asıld | SEN: Yakopo kaçtı, birkaç gün içinde yakalanıp asıldı; cesedinin sonraki pazar mezardan çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır.
+  480.96-  484.22 d 3.26 p 0.87 [451:458)  5.5h/s ev 451-457 (7/7)       ASR: Toplamda 80'den fazla kişinin öldüğü de yazılır. | SEN: Toplamda seksenden fazla kişinin öldüğü de yazılır.
+  485.09-  485.76 d 0.67 p 0.11 [458:460)  4.5h/s ev 458-459 (2/2)       ASR: Bu işte.                                         | SEN: Bu işte
+  485.87-  487.88 d 2.01 p 0.10 [460:465)  6.0h/s ev 460-464 (5/5)       ASR: Papa'nın payı bugün de tartışılır.               | SEN: Papa'nın payı bugün de tartışılır;
+  487.98-  490.36 d 2.38 p 0.61 [465:471)  5.9h/s ev 465-470 (6/6)       ASR: İki taraf iki ayrı Hika'yı anlattı               | SEN: iki taraf iki ayrı hikâye anlattı.
+  490.97-  491.74 d 0.77 p 0.19 [471:472)  3.9h/s ev 471-471 (1/1)       ASR: FLORANSA                                         | SEN: Floransa,
+  491.93-  497.52 d 5.59 p 0.79 [472:483)  6.4h/s ev 472-482 (11/11)     ASR: Montesekon'un hapisteyken idamından kısa süre ön | SEN: Montesekko'nun hapisteyken, idamından kısa süre önce yazdığı itirafı yayımlayıp Papa'yı suçladı.
+  498.31-  498.77 d 0.46 p 0.13 [483:484)  4.3h/s ev 483-483 (1/1)       ASR: Roma                                             | SEN: Roma,
+  498.90-  502.05 d 3.15 p 0.14 [484:492)  6.7h/s ev 484-491 (8/9)       ASR: Apağanın bu işle ilgisini reddetti ve Lorenz soy | SEN: Papa'nın bu işle ilgisini reddetti ve Lorentso'yu aforoz
+  502.19-  507.02 d 4.83 p 0.68 [492:500)  6.0h/s ev 493-499 (7/8)       ASR: Gerekçe bir başpırs koposun kilise mahkemesine ç | SEN: etti; gerekçe, bir başpiskoposun kilise mahkemesine çıkarılmadan asılmasıydı.
+  507.70-  514.87 d 7.17 p 0.71 [500:515)  6.6h/s ev 501-514 (14/16)     ASR: Tek kendini göre Papa Complew'u büyük olasılıkla | SEN: Trekkani'ye göre Papa komployu büyük olasılıkla biliyordu; iki kardeşin öldürülmesini isteyip istemediği ise belli değil.
+  515.58-  524.74 d 9.16 p 0.62 [515:539)  6.4h/s ev 515-538 (24/24)     ASR: 2023'te ortaya çıktığı anlatılan mafya itirafı,  | SEN: İki bin yirmi üçte ortaya çıktığı anlatılan Maffey itirafı, Papa'yı, Napoli Kralı'nı ve Urbino Dükü'nü teşvikçi diye anar; ama o da zorla yazılmış olabilir.
+  525.36-  531.80 d 6.44 p 0.82 [539:552)  5.4h/s ev 539-551 (13/13)     ASR: Üstelik bu anlatıların çoğu Medici'nin süzgecind | SEN: Üstelik bu anlatıların çoğu Mediçi'nin süzgecinden geçti; Pattsi'lerin kendi sesi bu kaynaklarda yok.
+  532.62-  536.18 d 3.56 p 0.64 [552:558)  4.5h/s ev 552-557 (6/6)       ASR: Giuliano 30 Nisan'da San Lorenzo'ya gömüldü.     | SEN: Culyano otuz Nisan'da San Lorentso'ya gömüldü.
+  536.82-  542.72 d 5.90 p 0.69 [558:571)  5.1h/s ev 558-570 (12/13)     ASR: Saldırıdan tam bir ay sonra 26 Mayıs'ta Giuliano | SEN: Saldırıdan tam bir ay sonra, yirmi altı Mayıs'ta, Culyano'nun gayrimeşru oğlu Culyo doğdu.
+  543.41-  549.49 d 6.08 p 0.16 [571:585)  5.3h/s ev 571-584 (14/14)     ASR: Aynı yıl bu olay bronza da döküldü. Bertholdo'ya | SEN: Aynı yıl bu olay bronza da döküldü: Bertoldo'ya atfedilen bir madalyanın bir yüzünde Lorentso,
+  549.65-  553.57 d 3.92 p 0.69 [585:594)  5.6h/s ev 585-593 (8/8)       ASR: Ötekinde Julianova. Yazılar halkın eserliği ve h | SEN: ötekinde Culyano var; yazılar “Halkın Esenliği” ve “Halkın Yası”.
+  554.26-  555.60 d 1.34 p 0.10 [594:596)  5.2h/s ev 594-595 (2/2)       ASR: Lorenzo yaşıyordu.                               | SEN: Lorentso yaşıyordu;
+  555.70-  558.74 d 3.04 p-1.00 [596:603)  5.9h/s ev 596-602 (7/8)       ASR: Ama Flora Aslan'ın papayla Barış'ı o sabah ölmüş | SEN: ama Floransa'nın Papa'yla barışı o sabah ölmüştü.

@@ -1,0 +1,131 @@
+=== c14  (jeton 400, koşu 51) ===
+    0.05-    4.87 d 4.82 p 0.11 [  0: 10)  5.6h/s ev 0-9 (8/9)           ASR: 16. Yüzyılın sonunda Roma'da Papa XIII. Gregoriu | SEN: On altıncı yüzyılın sonunda Roma'da, Papa On Üçüncü Gregoryus'un desteğiyle
+    4.98-   11.41 d 6.43 p 0.70 [ 10: 24)  6.1h/s ev 10-23 (13/12)       ASR: ve Büyüklük Kozimo'nun oğlu Kardinal Ferdinandov | SEN: ve Büyük Dük Kozimo'nun oğlu Kardinal Ferdinando'nun himayesinde, bir Mediçi Doğu Dilleri Matbaası kuruldu.
+   12.11-   15.96 d 3.85 p 0.10 [ 24: 31)  4.4h/s ev 24-30 (7/7)         ASR: Arapça harfleri Robert Grangeon kesti. Arapça İn | SEN: Arapça harfleri Robert Granjon kesti; Arapça İncil,
+   16.06-   19.06 d 3.00 p 0.63 [ 31: 39)  5.7h/s ev 31-38 (8/8)         ASR: İbn Sina'nın kanunu ve Öklid bu harflerle basıld | SEN: İbn Sina'nın Kanun'u ve Öklid bu harflerle basıldı.
+   19.69-   29.68 d 9.99 p 0.10 [ 39: 60)  5.5h/s ev 39-58 (19/20)       ASR: Bunlar basılmadan önce İstanbul'dan bir ferman ç | SEN: Bunlar basılmadan önce İstanbul'dan bir ferman çıkmıştı: Üçüncü Murad, Arapça ve Farsça kitap getiren iki Avrupalı tüccarı koruma altına alıyordu; yasak
+   29.78-   30.71 d 0.93 p 0.64 [ 60: 62)  5.4h/s ev 61-61 (1/2)         ASR: Tehir Koruma.                                    | SEN: değil, koruma.
+   31.35-   34.38 d 3.03 p 0.18 [ 62: 67)  5.0h/s ev 62-66 (5/5)         ASR: Tüccarlardan biri Oratio Bandini'ydi. Evet.      | SEN: Tüccarlardan biri Orattsyo Bandini'ydi; evet,
+   34.56-   40.78 d 6.22 p 0.59 [ 67: 83)  5.5h/s ev 67-82 (16/16)       ASR: 1478'de Giuliano'yu vuranlardan biriyle aynı soy | SEN: bin dört yüz yetmiş sekizde Culyano'yu vuranlardan biriyle aynı soyadı, ama bağ gösteren bir kayıt yok.
+   41.37-   45.99 d 4.62 p 0.83 [ 83: 91)  5.8h/s ev 83-90 (8/8)         ASR: İstanbul'da bu baskıların satışının beklenenin a | SEN: İstanbul'da bu baskıların satışının beklenenin altında kaldığı anlatılır.
+   46.82-   50.84 d 4.02 p 0.11 [ 91:100)  6.0h/s ev 91-99 (8/8)         ASR: Aynı yıllarda büyüklük olan Ferdinando, Uffizi'n | SEN: Aynı yıllarda büyük dük olan Ferdinando, Uffitsi'nin doğu kanadında
+   50.95-   56.76 d 5.81 p 0.92 [100:115)  5.9h/s ev 100-114 (15/15)     ASR: Sert taşla resim yapılan bir atölye kurdu. Opifi | SEN: sert taşla resim yapılan bir atölye kurdu: Opifiçyo delle Piyetre Dure; kurum bugün de çalışıyor.
+   57.68-   58.62 d 0.94 p 0.17 [115:118)  4.3h/s ev 115-117 (3/2)       ASR: Beşrekim 1000                                    | SEN: Beş Ekim bin
+   58.79-   67.46 d 8.67 p 0.71 [118:137)  5.7h/s ev 118-136 (19/18)     ASR: 600'de Maride Medici'nin vekaleten evlendiği Flo | SEN: altı yüzde Mari de Mediçi'nin vekâleten evlendiği Floransa'da, ertesi gün Pitti Sarayı'nda bu düğün için Euridiçe ilk kez sahnelendi.
+   68.17-   73.37 d 5.20 p 0.69 [137:146)  6.2h/s ev 138-145 (8/9)       ASR: Jakko Popper'i, Orfeo'yu kendisi söyledi. Eurydi | SEN: Yakopo Peri, Orfeo'yu kendisi söyledi; Euridiçe'yi Vittorya Arkilei canlandırdı.
+   74.06-   78.21 d 4.15 p 0.12 [146:156)  6.0h/s ev 146-155 (10/10)     ASR: Günümüze müziği ve libretosuyla tam ulaşan en es | SEN: Günümüze müziği ve librettosuyla tam ulaşan en eski opera budur;
+   78.33-   80.80 d 2.47 p 0.74 [156:162)  5.7h/s ev 156-161 (6/6)       ASR: Daphne daha önceydi ama müziği kayıp.            | SEN: Dafne daha önceydi, ama müziği kayıp.
+   81.54-   84.12 d 2.58 p 0.11 [162:166)  6.6h/s ev 162-165 (4/5)       ASR: Kaç iğne kendi öğretiçesinin notalarına          | SEN: Kaççini, kendi Euridiçe'sinin notalarını
+   84.23-   86.58 d 2.35 p 0.83 [166:171)  6.4h/s ev 166-170 (5/6)       ASR: Perinin kinden 6 hafta önce bastırılmıştı.       | SEN: Peri'ninkinden altı hafta önce bastırmıştı.
+   87.41-   92.08 d 4.67 p 0.90 [171:179)  6.0h/s ev 171-178 (8/8)       ASR: Bu işin kuramcılarından Vincenzo Galilei, astron | SEN: Bu işin kuramcılarından Vinçentso Galilei, astronom Galileo'nun babasıydı.
+   92.98-   96.60 d 3.62 p 0.11 [179:188)  5.8h/s ev 179-187 (9/9)       ASR: 7 Ocak 1610'da Galileo, Jupiter'ın yanında       | SEN: Yedi Ocak bin altı yüz onda Galileo, Jüpiter'in yanında
+   96.71-   98.06 d 1.35 p 0.12 [188:193)  5.9h/s ev 188-192 (5/5)       ASR: 3 küçük yıldız fark etti.                        | SEN: üç küçük “yıldız” fark etti;
+   98.18-   98.80 d 0.62 p 0.11 [193:194)  3.2h/s ev 193-193 (1/1)       ASR: Ocak                                             | SEN: ocak
+   98.91-  100.52 d 1.61 p 0.60 [194:198)  5.6h/s ev 194-197 (4/4)       ASR: Bitmeden sayı 4'e çıktı.                         | SEN: bitmeden sayı dörde çıktı.
+  101.12-  110.19 d 9.07 p 0.68 [198:219)  5.4h/s ev 198-218 (20/21)     ASR: Şubatta saraya iki seçenek sundu. Yeni gökcisini | SEN: Şubat'ta saraya iki seçenek sundu: yeni gökcisimlerine yalnız genç Büyük Dük İkinci Kozimo'nun adı mı verilsin, yoksa dört kardeşin adı mı?
+  110.87-  113.98 d 3.11 p 0.11 [219:226)  5.5h/s ev 219-225 (7/7)       ASR: Saray ikincisini seçti. 13 Mart'ta Venedik...    | SEN: Saray ikincisini seçti; on üç Mart'ta Venedik'te
+  114.09-  119.78 d 5.69 p 0.65 [226:236)  6.0h/s ev 229-235 (7/7)       ASR: Yeni Yıldız Habercisi'nin kapağında Meliçi Yıldı | SEN: çıkan Sidereus Nuntsius'un, yani Yıldız Habercisi'nin kapağında “Mediçi yıldızları” yazıyordu.
+  120.43-  126.91 d 6.48 p 0.64 [236:249)  5.9h/s ev 236-248 (13/14)     ASR: Kitap Kozimo'ya ithaf edilmişti. Galileo bir nüs | SEN: Kitap Kozimo'ya ithaf edilmişti; Galileo bir nüshayı, teleskopla birlikte Büyük Dük'e gönderdiği yazılır.
+  127.55-  128.99 d 1.44 p 0.13 [249:253)  6.3h/s ev 249-252 (4/4)       ASR: O yaz Pado'dan ayrılıp                           | SEN: O yaz Padua'dan ayrılıp
+  129.12-  132.10 d 2.98 p 0.28 [253:260)  6.7h/s ev 253-259 (7/7)       ASR: Büyük tüküm birinci matematikçisi ve filozofu ol | SEN: “Büyük Dük'ün Birinci Matematikçisi ve Filozofu” oldu;
+  132.38-  133.73 d 1.35 p 0.64 [260:264)  5.2h/s ev 260-263 (4/4)       ASR: Ders verme yükü yoktu.                           | SEN: ders verme yükü yoktu.
+  134.37-  138.22 d 3.85 p 0.95 [264:272)  5.7h/s ev 264-271 (8/8)       ASR: Ama adlar tutmadı. Bugün kullandığımız uydu adla | SEN: Ama adlar tutmadı: bugün kullandığımız uydu adları Maryus'un.
+  139.17-  142.39 d 3.22 p 0.25 [272:279)  5.0h/s ev 272-278 (7/7)       ASR: 1633'te Galileo yargılandı.                      | SEN: Bin altı yüz otuz üçte Galileo yargılandı.
+  142.64-  144.35 d 1.71 p 0.10 [279:282)  6.4h/s ev 279-281 (3/3)       ASR: Yargılanan kitabı diyalogo                       | SEN: Yargılanan kitabı Dialogo,
+  144.45-  147.26 d 2.81 p 0.10 [282:288)  6.0h/s ev 282-286 (4/5)       ASR: Büyüklük 2. Ferdinando'ya ithaf ed               | SEN: Büyük Dük İkinci Ferdinando'ya ithaf edilmişti;
+  147.36-  152.69 d 5.33 p 0.67 [288:297)  5.8h/s ev 288-296 (9/9)       ASR: Ferdinando aklanmasını istediği mahkumiyetten so | SEN: Ferdinando aklanmasını istedi, mahkûmiyetten sonra da temkinli girişimlerde bulundu.
+  153.36-  156.52 d 3.16 p 0.91 [297:303)  6.6h/s ev 297-302 (6/8)       ASR: Nediç'i Galile oyu kollaya bildiği yere kadar ko | SEN: Mediçi Galileo'yu kollayabildiği yere kadar kolladı.
+  157.43-  160.91 d 3.48 p 0.11 [303:312)  6.6h/s ev 303-310 (6/7)       ASR: 17. Yüzyılın sonlarında büyüklük 3. Kozimon'     | SEN: On yedinci yüzyılın sonlarında Büyük Dük Üçüncü Kozimo'nun oğlu
+  161.02-  162.22 d 1.20 p 0.20 [312:314)  4.2h/s ev 312-313 (2/2)       ASR: Prens Ferdinandov                                | SEN: Prens Ferdinando,
+  162.42-  168.26 d 5.84 p 0.70 [314:324)  6.2h/s ev 314-323 (9/9)       ASR: Padovalı, Kravsen'in ustası Bartolomeo Christofo | SEN: Padovalı klavsen ustası Bartolomeo Kristofori'yi sarayın enstrümanlarına bakması için çağırdı.
+  168.96-  173.92 d 4.96 p 0.10 [324:337)  6.3h/s ev 324-336 (13/13)     ASR: 1700 tarihli Meliç'i envanterinde bir satır var. | SEN: Bin yedi yüz tarihli Mediçi envanterinde bir satır var: Kristofori'nin “yeni icat ettiği”,
+  174.02-  174.37 d 0.35 p 0.20 [337:337)  0.0h/s ev -                   ASR: C                                                | SEN: 
+  174.57-  177.01 d 2.44 p 0.74 [337:342)  6.6h/s ev 337-341 (5/5)       ASR: Çekiçli ve sönümleyicili bir arpiç               | SEN: çekiçli ve sönümleyicili bir arpiçembalo.
+  177.75-  179.52 d 1.77 p 0.13 [342:346)  5.6h/s ev 342-345 (4/4)       ASR: Bugünkü adının ilk biçimi                        | SEN: Bugünkü adının ilk biçimi,
+  179.65-  186.23 d 6.58 p 0.58 [346:360)  5.6h/s ev 346-359 (14/15)     ASR: 18. Yüzyılın başında aşıp yöne Maffei'nin bir ga | SEN: on sekizinci yüzyılın başında Şipyone Maffey'nin bir gazete makalesinde geçer: piano ve forte'li klavsen.
+  186.81-  189.65 d 2.84 p 0.17 [360:366)  6.0h/s ev 360-365 (6/6)       ASR: Christopher'ın yaptığı 3 piano bugüne kaldı.     | SEN: Kristofori'nin yaptığı üç piyano bugüne kaldı;
+  189.82-  191.23 d 1.41 p 0.17 [366:369)  4.3h/s ev 366-368 (3/3)       ASR: New York'ta, Roma'da,                            | SEN: New York'ta, Roma'da,
+  191.40-  192.19 d 0.79 p 0.70 [369:370)  3.8h/s ev -                   ASR: Like sildi.                                      | SEN: Layptsig'de.
+  192.89-  197.79 d 4.90 p 0.72 [370:380)  6.1h/s ev 370-379 (10/11)     ASR: Piyanoyu mek içi icat etmedi. Christofori'ye maa | SEN: Piyanoyu Mediçi icat etmedi; Kristofori'ye maaş verdi, aleti envantere yazdı.
+  198.51-  200.94 d 2.43 p 0.16 [380:384)  4.5h/s ev 380-383 (4/4)       ASR: Büyük hicatlar bazen envanterde                  | SEN: Büyük icatlar bazen envanterde
+  201.10-  202.68 d 1.58 p 0.83 [384:389)  5.7h/s ev 384-388 (5/5)       ASR: tek bir satır olarak doğar.                      | SEN: tek bir satır olarak doğar.
+  203.51-  209.13 d 5.62 p-1.00 [389:400)  6.0h/s ev 389-399 (11/11)     ASR: Envanter'deki satırlar sürdü ama o Envanter'i tu | SEN: Envanterdeki satırlar sürdü; ama o envanteri tutan ailenin kendi satırları azalıyordu.
+
+=== c15  (jeton 361, koşu 37) ===
+  212.61-  213.94 d 1.33 p 0.15 [  0:  2)  4.5h/s ev 0-1 (2/2)           ASR: Birinci Francesco                                | SEN: Birinci Françesko,
+  214.09-  217.58 d 3.49 p 0.11 [  2: 10)  5.7h/s ev 2-9 (7/9)           ASR: Palazzo Vecchio da kendini bir oda yaptırmıştı.  | SEN: Palattso Vekkyo'da kendine bir oda yaptırmıştı: yarı ofis,
+  217.69-  220.04 d 2.35 p 0.14 [ 10: 15)  6.0h/s ev 10-14 (5/6)         ASR: Yarı laboratu var, yarı saklanma yeri.           | SEN: yarı laboratuvar, yarı saklanma yeri,
+  220.18-  224.12 d 3.94 p 0.76 [ 15: 26)  6.1h/s ev 15-25 (10/10)       ASR: Yarı merak kabini. Kendisi dışında çok az kişi o | SEN: yarı merak kabini; kendisi dışında çok az kişi o odayı görmüştü.
+  224.88-  227.74 d 2.86 p 0.20 [ 26: 33)  4.5h/s ev 26-32 (7/7)         ASR: Ekim 1587'de Francesco                           | SEN: Ekim bin beş yüz seksen yedide Françesko,
+  227.94-  230.77 d 2.83 p 0.67 [ 33: 40)  5.7h/s ev 33-39 (7/8)         ASR: Eşi Bianca Capello ile bir gün arayla öldü.      | SEN: eşi Bianka Kappello'yla bir gün arayla öldü.
+  231.44-  236.88 d 5.44 p 0.10 [ 40: 50)  5.3h/s ev 40-49 (10/10)       ASR: Zehir söylentisinin o günlerde dolaştığı söyleni | SEN: Zehir söylentisinin o günlerde dolaştığı söylenir; zehirli turta hikâyesi ise
+  236.98-  240.65 d 3.67 p 0.63 [ 50: 55)  5.7h/s ev 50-54 (5/5)         ASR: sonradan anlatılmıştır. İlk anlatıcısını göstere | SEN: sonradan anlatılmıştır, ilk anlatıcısını gösteremiyoruz.
+  241.28-  248.22 d 6.94 p 0.69 [ 55: 71)  5.8h/s ev 55-70 (16/16)       ASR: 2006'da bir çalışma kalıntılarda arsenik, 2010'd | SEN: İki bin altıda bir çalışma kalıntılarda arsenik, iki bin onda bir başkası sıtma antijeni bulduğunu bildirdi.
+  248.91-  250.59 d 1.68 p 0.17 [ 71: 76)  6.0h/s ev 71-75 (5/5)         ASR: 2026'da ise                                      | SEN: İki bin yirmi altıda ise
+  250.76-  253.20 d 2.44 p 0.10 [ 76: 80)  5.3h/s ev 76-79 (4/4)         ASR: Fransescon'un 3 kaburgasından alınan             | SEN: Françesko'nun üç kaburgasından alınan
+  253.30-  256.24 d 2.94 p 0.64 [ 80: 86)  6.1h/s ev 80-85 (6/6)         ASR: örneklerde iki sıtma parazitinin nasıl bulundu?  | SEN: örneklerde iki sıtma parazitinin DNA'sı bulundu.
+  256.88-  259.11 d 2.23 p 0.15 [ 86: 92)  6.3h/s ev 86-91 (6/5)         ASR: Bir haberbaşlı kitabı kapattı dedi.              | SEN: Bir haber başlığı “kitabı kapattı” dedi,
+  259.26-  263.39 d 4.13 p 0.76 [ 92:101)  5.6h/s ev 92-100 (9/9)        ASR: Bir başkası çözünmüş olabilir. Aynı çalışma, iki | SEN: bir başkası “çözülmüş olabilir”; aynı çalışma, iki ayrı kesinlik.
+  264.15-  273.04 d 8.89 p 0.94 [101:119)  5.7h/s ev 101-118 (18/20)     ASR: Dana bir enfeksiyonu gösterir. Ölümün nedenini t | SEN: DNA bir enfeksiyonu gösterir, ölümün nedenini tek başına kanıtlamaz; ama dört yüzyıllık zehir hikâyesinin ağırlığı bugün sıtmanın tarafında.
+  273.98-  275.37 d 1.39 p 0.14 [119:121)  5.0h/s ev 119-120 (2/2)       ASR: Kardeşi Ferdinand'o                              | SEN: Kardeşi Ferdinando,
+  275.51-  283.58 d 8.07 p 0.11 [121:142)  5.7h/s ev 121-141 (21/21)     ASR: 13 yaşında kardinal yapılmıştı ve hiçbir zaman r | SEN: on üç yaşında kardinal yapılmıştı ve hiçbir zaman rahip olmadı; ağabeyinin ölümüyle on dokuz Ekim bin beş yüz seksen yedide büyük
+  283.69-  284.27 d 0.58 p 0.69 [142:144)  5.2h/s ev -                   ASR: ...kulltu                                        | SEN: dük oldu.
+  284.96-  295.87 d10.91 p 0.16 [144:166)  5.1h/s ev 144-165 (22/23)     ASR: Livorno'nun ticareti onun döneminde büyüdü. 1593 | SEN: Livorno'nun ticareti onun döneminde büyüdü; bin beş yüz doksan üçte ilan edilen Livornina, oraya gelen tüccara dinî özgürlük, af ve Toskana vatandaşlığı
+  296.03-  296.97 d 0.94 p 0.68 [166:168)  6.4h/s ev 166-167 (2/2)       ASR: vaat ediyordu.                                   | SEN: vaat ediyordu.
+  297.65-  307.26 d 9.61 p 0.64 [168:188)  5.9h/s ev 168-187 (18/20)     ASR: 1598'de Sultan III. Mehmed'in mektuplarını getir | SEN: Bin beş yüz doksan sekizde Sultan Üçüncü Mehmed'in mektuplarını getiren Osmanlı elçisi Mustafa Ağa Floransa'da ağırlandı, ama müzakere başarısızlıkla bitti.
+  307.90-  309.17 d 1.27 p 0.14 [188:190)  4.7h/s ev 188-189 (2/3)       ASR: Ferdinand onun bin                               | SEN: Ferdinando'nun bin
+  309.31-  317.75 d 8.44 p 0.58 [190:205)  5.7h/s ev 190-204 (15/16)     ASR: 608'de Dürze Emir-i Faheddin'le yaptığı antlaşma | SEN: altı yüz sekizde Dürzi Emiri Fahreddin'le yaptığı antlaşmanın, İstanbul sıkıştırırsa Toskana'da sığınma güvencesi içerdiği yazılır.
+  318.33-  321.37 d 3.04 p 0.15 [205:212)  4.3h/s ev 205-211 (7/8)       ASR: Fahre din gerçekten 1613'te                      | SEN: Fahreddin gerçekten bin altı yüz on üçte,
+  321.52-  323.42 d 1.90 p 0.84 [212:216)  6.3h/s ev 212-215 (4/4)       ASR: 2. Kozma döneminde geldi.                        | SEN: İkinci Kozimo döneminde geldi.
+  324.26-  326.82 d 2.56 p 0.13 [216:223)  5.5h/s ev 217-222 (6/7)       ASR: 3. Kozima Ali 3 yıl hüküm sürdü.                 | SEN: Üçüncü Kozimo elli üç yıl hüküm sürdü;
+  326.95-  334.72 d 7.77 p 0.62 [223:243)  6.0h/s ev 223-242 (20/20)     ASR: Dönemi çoğu anlatıda gerileme diye geçer ama bu  | SEN: dönemi çoğu anlatıda gerileme diye geçer, ama bu tablo her sektör için aynı değildi: yün geriledi, ipek gelişti diye yazılır.
+  335.34-  342.70 d 7.36 p 0.22 [243:262)  5.3h/s ev 243-261 (19/19)     ASR: Oğlu Can Gaston'a 1723'te büyük lük oldu. Çevres | SEN: Oğlu Can Gastone bin yedi yüz yirmi üçte büyük dük oldu; çevresindeki üç yüz yetmiş dokuz adama “ruspanti” derlerdi,
+  342.92-  346.86 d 3.94 p 0.73 [262:269)  5.3h/s ev 262-268 (7/7)       ASR: Çünkü atlarını altın sikelerden yani Rusbi'den a | SEN: çünkü adlarını altın sikkelerden, yani “ruspi”den alırlardı.
+  347.59-  352.72 d 5.13 p 0.16 [269:279)  5.3h/s ev 269-278 (10/10)     ASR: İtalyan ansiklopedisi Trekkani'nin 1932 tarihli  | SEN: İtalyan Ansiklopedisi Trekkani'nin bin dokuz yüz otuz iki tarihli maddesi
+  352.88-  357.35 d 4.47 p 0.66 [279:289)  5.8h/s ev 279-288 (10/10)     ASR: Onu devlet işlerine kayıtsız bulur ama saltanatı | SEN: onu devlet işlerine kayıtsız bulur ama saltanatını bir onarım sayar.
+  358.01-  364.98 d 6.97 p 0.84 [289:302)  5.7h/s ev 289-301 (13/14)     ASR: 2010 tarihli maddesi ise tek reformunun üniversi | SEN: İki bin on tarihli maddesi ise tek reformunun üniversiteyi Aristotelesçilikten kurtarmak olduğunu yazar.
+  365.82-  370.77 d 4.95 p 0.11 [302:315)  5.5h/s ev 302-314 (13/13)     ASR: Can Dastana 9 Temmuz 1737'de öldü. Trekkaniye gö | SEN: Can Gastone dokuz Temmuz bin yedi yüz otuz yedide öldü; Trekkani'ye göre artık
+  370.88-  377.07 d 6.19 p 0.71 [315:328)  5.8h/s ev 315-327 (12/13)     ASR: kendi devletinin hükümdarı değildi çünkü devleti | SEN: kendi devletinin hükümdarı değildi, çünkü devleti Loren Dükü Fransis Stifın'ın birlikleri işgal etmişti.
+  377.78-  387.05 d 9.27 p 0.67 [328:348)  5.4h/s ev 328-347 (18/19)     ASR: Toskana'nın geleceği Vienna'da kararlaştırılmışt | SEN: Toskana'nın geleceği Viyana'da kararlaştırılmıştı; yeni büyük dük Fransis Stifın Floransa'ya yalnızca bir kez, bin yedi yüz otuz dokuz başında geldi.
+  387.72-  390.20 d 2.48 p 0.10 [348:353)  5.6h/s ev 348-352 (5/5)       ASR: Toskan'ın yöneten erkek hat kapanmıştı.          | SEN: Toskana'yı yöneten erkek hat kapanmıştı;
+  390.30-  393.84 d 3.54 p-1.00 [353:361)  5.4h/s ev 353-360 (8/8)       ASR: geriye bir kadın ve imzalanacak bir sözleşme kal | SEN: geriye bir kadın ve imzalanacak bir sözleşme kalmıştı.
+
+=== c16  (jeton 334, koşu 38) ===
+  397.24-  399.58 d 2.34 p 0.10 [  0:  8)  4.7h/s ev 0-7 (8/8)           ASR: 18 Şubat 1743                                    | SEN: On sekiz Şubat bin yedi yüz kırk üç.
+  399.68-  401.43 d 1.75 p 0.18 [  8: 12)  5.1h/s ev 8-11 (4/4)          ASR: 75 yaşındaki kadın                               | SEN: Yetmiş beş yaşındaki kadın,
+  401.61-  403.48 d 1.87 p 0.74 [ 12: 16)  5.9h/s ev 12-15 (4/4)         ASR: Anna Maria Luisa ölüyor.                         | SEN: Anna Maria Luiza, ölüyor.
+  404.22-  411.26 d 7.04 p 0.82 [ 16: 28)  5.8h/s ev 16-27 (12/12)       ASR: Bir anlatıya göre, bedeninin açılmamasını ve yüz | SEN: Bir anlatıya göre, bedeninin açılmamasını ve yüzüyle ellerinin yalnız nedimelerince yıkanmasını istemiş.
+  412.08-  416.44 d 4.36 p 0.10 [ 28: 39)  5.7h/s ev 28-38 (11/11)       ASR: 1737'de imzalara sözleşmeye çoğu zaman barış den | SEN: Bin yedi yüz otuz yedide imzalanan sözleşmeye çoğu zaman bağış denir;
+  416.54-  418.30 d 1.76 p 0.14 [ 39: 44)  6.8h/s ev 39-43 (5/5)         ASR: Bir akademik yoruma göre ise                     | SEN: bir akademik yoruma göre ise
+  418.44-  419.75 d 1.31 p 0.10 [ 44: 48)  6.1h/s ev 44-47 (4/4)         ASR: Bu bir devi koşuluydu                            | SEN: bu bir devir koşuluydu:
+  419.85-  420.45 d 0.60 p 0.13 [ 48: 49)  3.3h/s ev 48-48 (1/1)         ASR: LOREN                                            | SEN: Loren,
+  420.58-  423.89 d 3.31 p 0.67 [ 49: 54)  6.9h/s ev 49-53 (5/5)         ASR: Eserlerin Florasa'dan çıkarılamayacağını kabul e | SEN: eserlerin Floransa'dan çıkarılamayacağını kabul ediyordu.
+  424.56-  430.54 d 5.98 p 0.70 [ 54: 65)  6.5h/s ev 54-64 (11/11)       ASR: Uffizi'ye göre madde, yeni Hanedanın Florassanın | SEN: Uffitsi'ye göre madde, yeni hanedanın Floransa'nın hazinelerini yağmalamasını hukuken önlemek içindi.
+  431.24-  438.90 d 7.66 p 0.62 [ 65: 81)  5.5h/s ev 65-80 (16/16)       ASR: Hiçbir şey buradan çıkmayacak demek maddenin biz | SEN: “Hiçbir şey buradan çıkmayacak” demek, maddenin bizim özetimizdir; Anna Maria Luiza'nın söylediği bilinen bir söz değil.
+  439.52-  443.02 d 3.50 p 0.81 [ 81: 87)  5.7h/s ev 81-86 (6/6)         ASR: Maddenin sonradan nasıl uygulandığını ise bilmiy | SEN: Maddenin sonradan nasıl uygulandığını ise bilmiyoruz.
+  443.83-  445.97 d 2.14 p 0.71 [ 87: 92)  6.5h/s ev 87-91 (5/5)         ASR: Peki Mediçiler Renesansı Yarattın mı?            | SEN: Peki Mediçiler Rönesans'ı yarattı mı?
+  446.68-  451.67 d 4.99 p 0.70 [ 92:103)  5.8h/s ev 92-102 (11/11)      ASR: Kaynaklar onu tek yaratıcı değil, en görünür pat | SEN: Kaynaklar onu tek yaratıcı değil, en görünür patronlardan biri olarak anlatıyor.
+  452.37-  454.14 d 1.77 p 0.17 [103:107)  5.6h/s ev 103-106 (4/4)       ASR: Kubeyi yü nonjası yaptıldı.                      | SEN: Kubbeyi yün loncası yaptırdı;
+  454.31-  462.26 d 7.95 p 0.69 [107:122)  5.5h/s ev 107-120 (14/16)     ASR: Strodsi, Rucerlai, Tornabuonidasi, Paris verdi.  | SEN: Strottsi, Ruçellay, Tornabuvoni da sipariş verdi; Primavera bile büyük olasılıkla ailenin başka bir kolunun siparişiydi.
+  462.95-  467.62 d 4.67 p 0.12 [122:130)  4.9h/s ev 122-129 (7/7)       ASR: Tarihçilerde tartışır. Gombrie, benzersiz konumd | SEN: Tarihçiler de tartışır: Gombrih, benzersiz konumdaki Mediçi'nin “tipik”
+  467.74-  469.52 d 1.78 p 0.14 [130:134)  6.7h/s ev 130-133 (4/4)       ASR: patron sayılmasına itiraz et.                    | SEN: patron sayılmasına itiraz etti;
+  469.66-  472.77 d 3.11 p 0.16 [134:139)  4.5h/s ev 134-138 (5/5)       ASR: Goldfeyt sanat talebini şehirde biriken          | SEN: Goldtveyt sanat talebini şehirde biriken
+  472.93-  474.14 d 1.21 p 0.76 [139:141)  5.8h/s ev 139-140 (2/2)       ASR: zenginliğe bağladı.                              | SEN: zenginliğe bağladı.
+  474.90-  481.63 d 6.73 p 0.72 [141:153)  5.6h/s ev 141-152 (12/12)     ASR: Görünürlüğün bir kısmı kaynaklardan geliyor. Ves | SEN: Görünürlüğün bir kısmı kaynaklardan geliyor: Vespazyano Kozimo'yu övdü; Vazari de Mediçi'nin hizmetindeydi.
+  482.35-  485.79 d 3.44 p 0.94 [153:159)  5.2h/s ev 153-158 (6/6)       ASR: Medici'ye ayıran ölçek ve siyasi görünülüktü.    | SEN: Mediçi'yi ayıran, ölçek ve siyasi görünürlüktü.
+  486.73-  489.70 d 2.97 p 0.71 [159:164)  6.7h/s ev 159-163 (5/5)       ASR: Şimdi anlattıklarımızı sağlamlığına göre ayıralı | SEN: Şimdi anlattıklarımızı sağlamlığına göre ayıralım.
+  490.41-  496.77 d 6.36 p 0.71 [164:178)  5.7h/s ev 164-177 (13/14)     ASR: Çif'te kaydırma hiç icat etmedi. Cenova'da ve Ve | SEN: Çifte kaydı Mediçi icat etmedi; Cenova'da ve Venedik'te bu yöntem onlardan çok önce kullanılıyordu.
+  497.48-  502.29 d 4.81 p 0.66 [178:189)  6.0h/s ev 178-188 (10/11)     ASR: Opera ve Piano Medici'nin sarayında ortaya çıktı | SEN: Opera ve piyano Mediçi'nin sarayında ortaya çıktı, ama icat onların değil.
+  502.95-  509.29 d 6.34 p 0.78 [189:204)  5.8h/s ev 189-203 (15/14)     ASR: Ufid'si çoğu yerde ilk modern müze diye anılır.  | SEN: Uffitsi çoğu yerde ilk modern müze diye anılır; oysa Roma'daki Kapitolin ondan önce halka açılmıştı.
+  510.07-  516.52 d 6.45 p 0.89 [204:217)  5.4h/s ev 205-216 (12/16)     ASR: Made it to them Fubere. Fubber'den Rochelle'de u | SEN: Mediçi'den Fugır'e, Fugır'den Rotşild'e uzanan zincir de bir benzetmeden ibaret; kurumsal süreklilik yok.
+  517.41-  520.16 d 2.75 p 0.11 [217:225)  4.7h/s ev 217-224 (8/8)       ASR: Banka resmen 1494 Tebit                          | SEN: Banka resmen bin dört yüz doksan dörtte bitti;
+  520.27-  525.13 d 4.86 p 0.69 [225:237)  5.3h/s ev 225-236 (12/12)     ASR: Ama çözülme çok önceden şuba şuba sürüyordu ve s | SEN: ama çözülme çok önceden, şube şube sürüyordu ve suçlu tek kişi değildi.
+  525.82-  531.26 d 5.44 p 0.67 [237:248)  5.1h/s ev 237-247 (11/11)     ASR: Medici defterlerinin bir kısmı bugün Floransa De | SEN: Mediçi defterlerinin bir kısmı bugün Floransa Devlet Arşivi'nde, bir kısmı Harvard'da.
+  531.93-  532.88 d 0.95 p 0.20 [248:250)  4.2h/s ev 248-249 (2/2)       ASR: Banka öldü.                                      | SEN: Banka öldü;
+  533.08-  539.82 d 6.74 p 0.84 [250:268)  6.1h/s ev 250-267 (17/17)     ASR: kurumlar kaldı. Oprifiç yöderle Pietradura bugün | SEN: kurumlar kaldı: Opifiçyo delle Piyetre Dure bugün de çalışıyor, Uffitsi bin yedi yüz altmış dokuzdan beri halka açık.
+  540.66-  545.00 d 4.34 p 0.83 [268:276)  6.0h/s ev 268-275 (8/9)       ASR: Yol boyunca düzel, timiz hikayeleri ekranda bir  | SEN: Yol boyunca düzelttiğimiz hikâyeleri ekranda bir arada bırakıyoruz.
+  545.83-  551.72 d 5.89 p 0.84 [276:290)  6.1h/s ev 276-289 (14/14)     ASR: Mezar yakın zamanda açıldığında iç orbanları ayr | SEN: Mezarı yakın zamanda açıldığında iç organları ayrı bir kapta bulundu; ölüm nedeni belirsiz kaldı.
+  552.56-  563.99 d11.43 p 0.61 [290:313)  5.6h/s ev 290-312 (23/23)     ASR: Her 18 Şubatta Floransa, Anna Maria, Luisa'yı ta | SEN: Her on sekiz Şubat'ta Floransa, Anna Maria Luiza'yı tarihî bir alayla anar: Palattso Vekkyo'dan Mediçi Şapelleri'ndeki mezarına yürünür, o gün belediye müzeleri ücretsizdir.
+  564.60-  565.05 d 0.45 p 0.11 [313:315)  8.9h/s ev 313-314 (2/2)       ASR: Para git!                                        | SEN: Para gitti,
+  565.16-  566.31 d 1.15 p 0.58 [315:317)  3.5h/s ev 315-316 (2/2)       ASR: Banka gitti.                                     | SEN: banka gitti.
+  566.89-  572.44 d 5.55 p-1.00 [317:334)  5.8h/s ev 317-333 (17/17)     ASR: Kalan şey bir kadının da imzaladığı bir cümle ve | SEN: Kalan şey, bir kadının da imzaladığı bir cümle ve o kadını her yıl yürüyerek anan bir şehir.

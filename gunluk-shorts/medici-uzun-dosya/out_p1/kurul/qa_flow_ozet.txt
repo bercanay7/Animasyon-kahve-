@@ -1,0 +1,30 @@
+ 75 c2_ayrim   444.9   7.7  ('pan', 'r')                        pan           kart     kesme           audio    kefalet mi fidye mi: yol ayrımı
+ 76 c2_mezar   452.6   7.8  ('tilt', 'up', 120)                 tilt          kart     candle 1.00     light    Cossa'nın anıtı: IOANNES QVONDAM PAPA
+ 77 p1_oda     460.4   2.9  ('push',)                           own:pan       dunya    kesme           audio    V. Martinus itiraz eder
+ 78 c2_mezar   463.3   1.5  ('tilt', 'up', 130)                 tilt          kart     kesme           cam      yazıt kaldı
+ 79 c2_rivayet  464.8   2.1  ('tilt', 'down', 130)               tilt          kart     sayfa 0.50      material belge (de Roover): mitra borç karşılığı
+ 80 p1_oda     466.9   3.1  ('push',)                           own:pan       dunya    kesme           audio    Martinus mitrayı geri ister
+ 81 c2_yakin   469.9   1.7  —                                   own:yol       dunya    kesme           cam      yakın plan: rehin mitra, papalık eli
+ 82 p1_oda     471.7   4.2  ('push',)                           own:pan       dunya    kesme           cam      aforoz tehdidi (belgeli)
+ 83 c2_masa    475.8  10.6  —                                   own:pan       dunya    kesme           audio    masa · kasa: el anahtarları bırakır; 22 + 18 yıl
+ 84 p1_oda     486.4   7.2  ('truck', 'r')                      own:pan       dunya    slide 0.50      dir      catasto dairesi: beyanname getiren hane reisleri
+ 85 c2_masa    493.6   9.2  —                                   own:pan       dunya    kesme           cam      masa · catasto: 9.780 hane, %29,8 kenarda, Strozzi
+ 86 p1_oda     502.8   3.9  'hand'                              own:pan       dunya    kesme           audio    Giovanni catasto'yu destekledi
+ 87 p1_oda     506.7   5.0  ('pull',)                           own:pull      dunya    slide 0.60      dir      1420: yönetim oğullarına
+ 88 p1_ledger  511.7   6.6  ('pull',)                           pull          kart     sayfa 0.60      material defterler: 150 bini aşkın florin kâr
+ 89 p1_oda     518.3   7.8  ('push',)                           own:push      dunya    candle 1.20     light    20 Şubat 1429: ölüm döşeği (siluet)
+ 90 p1_medal   526.1   8.4  ('pan', 'r')                        pan           kart     dip 0.80        light    Lorenzo'nun kaydına göre 180 bin florin
+ 91 c2_kalemler  534.5   4.9  ('truck', 'r')                      truck         kart     kesme           audio    iki kalem, iki biçim
+ 92 c1_machiavelli  539.4   5.8  ('push',)                           push          figur    slide 0.40      dir      Machiavelli yazar: onun ağzından
+ 93 p1_oda     545.2   7.2  'hand'                              own:push      dunya    kesme           audio    ölüm döşeği konuşması (ANEKDOT)
+ 94 p1_oda     552.5   7.2  ('push',)                           own:push      dunya    sayfa 0.50      material Cavalcanti yazar (Stinche hücresi)
+ 95 c2_kalemler  559.7   6.5  [(('c2s30', 'kimse', -0.3), (380,   push          kart     kesme           cam      Cavalcanti'nin sayfası (ANEKDOT)
+ 96 c2_kalemler  566.2   2.8  ('pull',)                           pull          kart     slide 0.35      dir      hangisi söylendi: bilmiyoruz
+ 97 c2_sadaka  569.0   6.5  ('truck', 'r')                      truck         figur    slide 0.60      dir      yoksulun ihtiyacı (Giovanni; ANEKDOT)
+ 98 c2_yakin   575.5   4.5  —                                   own:yol       dunya    kesme           audio    yakın plan: o kalem; Medici siparişi (1520 mührü)
+ 99 p1_medal   580.0   4.8  ('push',)                           push          kart     iris 0.90       shape    Cosimo: kırk yaşına yaklaşıyordu
+100 p1_sehir   584.8   6.8  ('crane', 'up', 300)                own:crane     dunya    light 1.00      light    kapı: şehrin en yüksek kulesi
+101 outro      591.5  10.0  —                                   —             kart*    yikama 0.90     material bitiş ekranı
+
+ÖZET: 19 GEÇTİ · 0 KALDI · 2 UYARI · 1 PAS
+→ out/qa_flow.json

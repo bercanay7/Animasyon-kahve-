@@ -1,0 +1,260 @@
+{
+ "bolumler": {
+  "c1": {
+   "jeton": 421,
+   "jeton_eslesen": 407,
+   "jeton_oran": 0.9667,
+   "asr_sozcuk": 419,
+   "asr_eslesen": 405,
+   "asr_oran": 0.9666,
+   "kosu": 126,
+   "kanitli_kosu": 124,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 2,
+   "hmm_kosu": 126,
+   "model": {
+    "hece": 0.141,
+    "soz": 0.0207,
+    "sabit": 0.1626,
+    "sigma": 0.161
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [],
+   "eslesmeyen_bolgeler": [
+    [
+     66,
+     68,
+     "ona göre"
+    ],
+    [
+     303,
+     305,
+     "Floransa tarihinin"
+    ],
+    [
+     326,
+     328,
+     "di Biççi"
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -18.525198421620093,
+    "thr": -52.52519842162009,
+    "n_ham": 133,
+    "n_gurultu": 4,
+    "n_parca": 3,
+    "n_bolunen": 0
+   }
+  }
+ },
+ "uyarilar": [],
+ "cumleler": {
+  "c1s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 2
+  },
+  "c1s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 3,
+   "run_b": 5
+  },
+  "c1s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 6,
+   "run_b": 9
+  },
+  "c1s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 10,
+   "run_b": 11
+  },
+  "c1s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 12,
+   "run_b": 14
+  },
+  "c1s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 15,
+   "run_b": 21
+  },
+  "c1s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 22,
+   "run_b": 22
+  },
+  "c1s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 23,
+   "run_b": 28
+  },
+  "c1s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 29,
+   "run_b": 34
+  },
+  "c1s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 41
+  },
+  "c1s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 42,
+   "run_b": 44
+  },
+  "c1s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 49
+  },
+  "c1s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 50,
+   "run_b": 54
+  },
+  "c1s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 55,
+   "run_b": 57
+  },
+  "c1s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 58,
+   "run_b": 60
+  },
+  "c1s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 61,
+   "run_b": 66
+  },
+  "c1s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 67,
+   "run_b": 71
+  },
+  "c1s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 72,
+   "run_b": 78
+  },
+  "c1s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 79,
+   "run_b": 82
+  },
+  "c1s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 83,
+   "run_b": 86
+  },
+  "c1s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 87,
+   "run_b": 89
+  },
+  "c1s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 90,
+   "run_b": 91
+  },
+  "c1s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 92,
+   "run_b": 93
+  },
+  "c1s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 94,
+   "run_b": 97
+  },
+  "c1s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 98,
+   "run_b": 100
+  },
+  "c1s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 101,
+   "run_b": 105
+  },
+  "c1s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 106,
+   "run_b": 110
+  },
+  "c1s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 111,
+   "run_b": 115
+  },
+  "c1s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 116,
+   "run_b": 116
+  },
+  "c1s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 117,
+   "run_b": 119
+  },
+  "c1s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 120,
+   "run_b": 120
+  },
+  "c1s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 121,
+   "run_b": 125
+  }
+ },
+ "toplam": {
+  "jeton": 421,
+  "jeton_eslesen": 407,
+  "asr_sozcuk": 419,
+  "asr_eslesen": 405,
+  "kosu": 126,
+  "jeton_oran": 0.9667,
+  "asr_oran": 0.9666,
+  "cumle": 32,
+  "cumle_t0_durakta": 32,
+  "cumle_t1_durakta": 32
+ },
+ "scribe_md5": "ae8ae7a3fd880fd823ec4acf3f95067e",
+ "uretim": "2026-10-18 20:35:24"
+}

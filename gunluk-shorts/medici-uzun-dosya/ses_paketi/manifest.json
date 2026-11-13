@@ -1,0 +1,189 @@
+[
+ {
+  "id": "c0",
+  "part": 1,
+  "chars": 1256,
+  "words": 175,
+  "credits": 1256,
+  "usd": 0.25,
+  "sha": "39bbdc3dd33c",
+  "gercek_ses": true,
+  "uretilen_sha": "39bbdc3dd33c"
+ },
+ {
+  "id": "c1",
+  "part": 1,
+  "chars": 2997,
+  "words": 419,
+  "credits": 2997,
+  "usd": 0.6,
+  "sha": "ae9fa820baed",
+  "gercek_ses": true,
+  "uretilen_sha": "ae9fa820baed"
+ },
+ {
+  "id": "c2",
+  "part": 1,
+  "chars": 3202,
+  "words": 447,
+  "credits": 3202,
+  "usd": 0.64,
+  "sha": "cbad07c9c21e",
+  "gercek_ses": true,
+  "uretilen_sha": "cbad07c9c21e"
+ },
+ {
+  "id": "c3",
+  "part": 2,
+  "chars": 2784,
+  "words": 386,
+  "credits": 2784,
+  "usd": 0.56,
+  "sha": "f496ee01c742",
+  "gercek_ses": true,
+  "uretilen_sha": "f496ee01c742"
+ },
+ {
+  "id": "c4",
+  "part": 2,
+  "chars": 3103,
+  "words": 423,
+  "credits": 3103,
+  "usd": 0.62,
+  "sha": "12bac3b3bf13",
+  "gercek_ses": true,
+  "uretilen_sha": "12bac3b3bf13"
+ },
+ {
+  "id": "c5",
+  "part": 2,
+  "chars": 2237,
+  "words": 306,
+  "credits": 2237,
+  "usd": 0.45,
+  "sha": "4b1da0b965f9",
+  "gercek_ses": true,
+  "uretilen_sha": "4b1da0b965f9"
+ },
+ {
+  "id": "c6",
+  "part": 3,
+  "chars": 3132,
+  "words": 432,
+  "credits": 3132,
+  "usd": 0.63,
+  "sha": "4c477483f242",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c7",
+  "part": 3,
+  "chars": 4716,
+  "words": 603,
+  "credits": 4716,
+  "usd": 0.94,
+  "sha": "c50cefe9623d",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c8",
+  "part": 4,
+  "chars": 3455,
+  "words": 448,
+  "credits": 3455,
+  "usd": 0.69,
+  "sha": "7e2d746ba031",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c9",
+  "part": 4,
+  "chars": 2937,
+  "words": 408,
+  "credits": 2937,
+  "usd": 0.59,
+  "sha": "7974e7e8d935",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c10",
+  "part": 5,
+  "chars": 3837,
+  "words": 513,
+  "credits": 3837,
+  "usd": 0.77,
+  "sha": "f1e39fa79e00",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c11",
+  "part": 5,
+  "chars": 4719,
+  "words": 642,
+  "credits": 4719,
+  "usd": 0.94,
+  "sha": "0ef4503df538",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c12",
+  "part": 6,
+  "chars": 3958,
+  "words": 559,
+  "credits": 3958,
+  "usd": 0.79,
+  "sha": "d0fdd18065a2",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c13",
+  "part": 6,
+  "chars": 3786,
+  "words": 548,
+  "credits": 3786,
+  "usd": 0.76,
+  "sha": "86e70a8b8759",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c14",
+  "part": 7,
+  "chars": 3018,
+  "words": 400,
+  "credits": 3018,
+  "usd": 0.6,
+  "sha": "6e9c751dacdb",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c15",
+  "part": 7,
+  "chars": 2604,
+  "words": 361,
+  "credits": 2604,
+  "usd": 0.52,
+  "sha": "6e268d3f789e",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ },
+ {
+  "id": "c16",
+  "part": 7,
+  "chars": 2484,
+  "words": 334,
+  "credits": 2484,
+  "usd": 0.5,
+  "sha": "30ad2a0fbfc0",
+  "gercek_ses": false,
+  "uretilen_sha": null
+ }
+]

@@ -1,0 +1,9 @@
+MEDICI P6 — ses önizleme kesitleri (ÖNİZLEME miksi: geçici ses / eksik bölüm)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  ONIZLEME_01_c12_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P6 açılışı (t=0): 'miras' hücresi (lavta), makine gibi tık-tık
+  ONIZLEME_02_c12_uffizi_mix.mp3 (+_muzik.mp3)  t=   86.7–  114.7 sn  — c12: Uffizi kendini kurar (Vasari koridoru)
+  ONIZLEME_03_c12_1562_sessizlik_mix.mp3 (+_muzik.mp3)  t=  145.6–  175.6 sn  — c12: 1562 — neredeyse sessizlik, 'dört haftada üç ölüm'de tam sessizlik
+  ONIZLEME_04_c13_1572_sessizlik_mix.mp3 (+_muzik.mp3)  t=  349.3–  379.3 sn  — c13: 1572 — ses çekilir, tam sessizlik 3 sn (çan yok)
+  ONIZLEME_05_c13_catherine_marie_mix.mp3 (+_muzik.mp3)  t=  437.5–  467.5 sn  — c13: Catherine → Marie (A aeolian → C lidyen, kesit geçişi)
+  ONIZLEME_06_c13_kapanis_mix.mp3 (+_muzik.mp3)  t=  537.0–  567.0 sn  — P6 sonu: Marie'nin sonu, 7 sn çözülme

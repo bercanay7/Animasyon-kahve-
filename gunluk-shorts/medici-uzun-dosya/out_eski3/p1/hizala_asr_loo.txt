@@ -1,0 +1,8 @@
+DURAKTAN BİR BIRAK (n=623 iç sınır; her yandan 30 ms kırpıldı; ses dalgası düzeyinde birleştirme):
+  hece/sözcük ağırlık modeli             |hata| medyan 0.069  %90 0.163  %95 0.202  %99 0.275  azami 0.380 sn · ort işaretli -0.000 · ≤0,1: %69.7  ≤0,2: %94.7  >0,3: 3  >0,6: 0
+  akustik HMM (çapraz doğrulama)         |hata| medyan 0.008  %90 0.032  %95 0.062  %99 0.163  azami 0.372 sn · ort işaretli -0.010 · ≤0,1: %96.5  ≤0,2: %99.0  >0,3: 1  >0,6: 0
+  akustik HMM (tüm veriyle eğitilmiş)    |hata| medyan 0.008  %90 0.032  %95 0.062  %99 0.169  azami 0.372 sn · ort işaretli -0.010 · ≤0,1: %96.5  ≤0,2: %99.0  >0,3: 1  >0,6: 0
+    cümle sonu (. ? ! paragraf)    ağırlık     n=166 medyan 0.071 %95 0.204 azami 0.319
+    cümle sonu (. ? ! paragraf)    HMM çapraz  n=166 medyan 0.008 %95 0.022 azami 0.213
+    noktalamasız/virgül/;:         ağırlık     n=457 medyan 0.069 %95 0.199 azami 0.380
+    noktalamasız/virgül/;:         HMM çapraz  n=457 medyan 0.008 %95 0.082 azami 0.372

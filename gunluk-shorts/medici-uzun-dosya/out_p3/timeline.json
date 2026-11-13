@@ -1,0 +1,5721 @@
+{
+ "total": 559.12,
+ "chapters": [
+  {
+   "id": "c6",
+   "t0": 0.0,
+   "t1": 222.98,
+   "dur": 222.98,
+   "raw": 225.645,
+   "saved": 1.74,
+   "gain_db": -0.13,
+   "gap_after": 3.0
+  },
+  {
+   "id": "c7",
+   "t0": 225.98,
+   "t1": 559.12,
+   "dur": 333.14,
+   "raw": 337.363,
+   "saved": 3.19,
+   "gain_db": -0.32,
+   "gap_after": 0.0
+  }
+ ],
+ "sentences": [
+  {
+   "id": "c6s1",
+   "ch": "c6",
+   "disp": "Cosimo'nun torunu Lorenzo de' Medici'yi yakın dostu Niccolò Valori anlatır: doğa, görünüşü konusunda ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş.",
+   "speech": "Kozimo'nun torunu Lorentso de Mediçi'yi yakın dostu Nikkolo Valori anlatır: doğa, görünüşü konusunda ona üvey ana gibi davranmış; ama zihne gelince şefkatli bir ana olmuş.",
+   "t0": 0.02,
+   "t1": 10.38,
+   "words": [
+    {
+     "w": "Cosimo'nun",
+     "t0": 0.02,
+     "t1": 0.688
+    },
+    {
+     "w": "torunu",
+     "t0": 0.688,
+     "t1": 1.038
+    },
+    {
+     "w": "Lorenzo",
+     "t0": 1.038,
+     "t1": 1.677
+    },
+    {
+     "w": "de'",
+     "t0": 1.677,
+     "t1": 1.778
+    },
+    {
+     "w": "Medici'yi",
+     "t0": 1.778,
+     "t1": 2.257
+    },
+    {
+     "w": "yakın",
+     "t0": 2.257,
+     "t1": 2.577
+    },
+    {
+     "w": "dostu",
+     "t0": 2.577,
+     "t1": 2.917
+    },
+    {
+     "w": "Niccolò",
+     "t0": 2.917,
+     "t1": 3.257
+    },
+    {
+     "w": "Valori",
+     "t0": 3.257,
+     "t1": 3.527
+    },
+    {
+     "w": "anlatır:",
+     "t0": 3.527,
+     "t1": 4.118
+    },
+    {
+     "w": "doğa,",
+     "t0": 4.198,
+     "t1": 4.65
+    },
+    {
+     "w": "görünüşü",
+     "t0": 4.85,
+     "t1": 5.398
+    },
+    {
+     "w": "konusunda",
+     "t0": 5.398,
+     "t1": 6.04
+    },
+    {
+     "w": "ona",
+     "t0": 6.18,
+     "t1": 6.448
+    },
+    {
+     "w": "üvey",
+     "t0": 6.448,
+     "t1": 6.678
+    },
+    {
+     "w": "ana",
+     "t0": 6.678,
+     "t1": 6.898
+    },
+    {
+     "w": "gibi",
+     "t0": 6.898,
+     "t1": 7.118
+    },
+    {
+     "w": "davranmış;",
+     "t0": 7.118,
+     "t1": 7.878
+    },
+    {
+     "w": "ama",
+     "t0": 7.878,
+     "t1": 8.198
+    },
+    {
+     "w": "zihne",
+     "t0": 8.198,
+     "t1": 8.548
+    },
+    {
+     "w": "gelince",
+     "t0": 8.548,
+     "t1": 9.027
+    },
+    {
+     "w": "şefkatli",
+     "t0": 9.027,
+     "t1": 9.658
+    },
+    {
+     "w": "bir",
+     "t0": 9.658,
+     "t1": 9.768
+    },
+    {
+     "w": "ana",
+     "t0": 9.768,
+     "t1": 9.928
+    },
+    {
+     "w": "olmuş.",
+     "t0": 9.928,
+     "t1": 10.38
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c6s2",
+   "ch": "c6",
+   "disp": "Valori'ye göre Floransa'nın bu tahtsız efendisinin yüzü güzel sayılmazdı, ama saygı uyandıracak kadar vakarlıydı.",
+   "speech": "Valori'ye göre Floransa'nın bu tahtsız efendisinin yüzü güzel sayılmazdı, ama saygı uyandıracak kadar vakarlıydı.",
+   "t0": 11.07,
+   "t1": 18.41,
+   "words": [
+    {
+     "w": "Valori'ye",
+     "t0": 11.07,
+     "t1": 11.718
+    },
+    {
+     "w": "göre",
+     "t0": 11.718,
+     "t1": 11.998
+    },
+    {
+     "w": "Floransa'nın",
+     "t0": 11.998,
+     "t1": 12.848
+    },
+    {
+     "w": "bu",
+     "t0": 12.848,
+     "t1": 12.938
+    },
+    {
+     "w": "tahtsız",
+     "t0": 12.938,
+     "t1": 13.498
+    },
+    {
+     "w": "efendisinin",
+     "t0": 13.498,
+     "t1": 14.248
+    },
+    {
+     "w": "yüzü",
+     "t0": 14.248,
+     "t1": 14.548
+    },
+    {
+     "w": "güzel",
+     "t0": 14.548,
+     "t1": 14.888
+    },
+    {
+     "w": "sayılmazdı,",
+     "t0": 14.888,
+     "t1": 15.7
+    },
+    {
+     "w": "ama",
+     "t0": 15.82,
+     "t1": 16.058
+    },
+    {
+     "w": "saygı",
+     "t0": 16.058,
+     "t1": 16.478
+    },
+    {
+     "w": "uyandıracak",
+     "t0": 16.478,
+     "t1": 17.258
+    },
+    {
+     "w": "kadar",
+     "t0": 17.258,
+     "t1": 17.617
+    },
+    {
+     "w": "vakarlıydı.",
+     "t0": 17.617,
+     "t1": 18.41
+    }
+   ],
+   "gap": 0.7
+  },
+  {
+   "id": "c6s3",
+   "ch": "c6",
+   "disp": "Ansiklopedilerin tarifi daha çıplak: basık burun, öne çıkık alt çene, zayıf görme.",
+   "speech": "Ansiklopedilerin tarifi daha çıplak: basık burun, öne çıkık alt çene, zayıf görme.",
+   "t0": 19.11,
+   "t1": 24.89,
+   "words": [
+    {
+     "w": "Ansiklopedilerin",
+     "t0": 19.11,
+     "t1": 20.277
+    },
+    {
+     "w": "tarifi",
+     "t0": 20.277,
+     "t1": 20.837
+    },
+    {
+     "w": "daha",
+     "t0": 20.837,
+     "t1": 21.037
+    },
+    {
+     "w": "çıplak:",
+     "t0": 21.037,
+     "t1": 21.617
+    },
+    {
+     "w": "basık",
+     "t0": 21.617,
+     "t1": 22.03
+    },
+    {
+     "w": "burun,",
+     "t0": 22.14,
+     "t1": 22.538
+    },
+    {
+     "w": "öne",
+     "t0": 22.617,
+     "t1": 22.828
+    },
+    {
+     "w": "çıkık",
+     "t0": 22.828,
+     "t1": 23.168
+    },
+    {
+     "w": "alt",
+     "t0": 23.168,
+     "t1": 23.398
+    },
+    {
+     "w": "çene,",
+     "t0": 23.488,
+     "t1": 23.808
+    },
+    {
+     "w": "zayıf",
+     "t0": 23.887,
+     "t1": 24.387
+    },
+    {
+     "w": "görme.",
+     "t0": 24.457,
+     "t1": 24.89
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c6s4",
+   "ch": "c6",
+   "disp": "Valori'ye atfedilen tarife göre koku duyusu da neredeyse yoktu.",
+   "speech": "Valori'ye atfedilen tarife göre koku duyusu da neredeyse yoktu.",
+   "t0": 25.6,
+   "t1": 29.7,
+   "words": [
+    {
+     "w": "Valori'ye",
+     "t0": 25.6,
+     "t1": 26.247
+    },
+    {
+     "w": "atfedilen",
+     "t0": 26.247,
+     "t1": 26.977
+    },
+    {
+     "w": "tarife",
+     "t0": 26.977,
+     "t1": 27.387
+    },
+    {
+     "w": "göre",
+     "t0": 27.387,
+     "t1": 27.667
+    },
+    {
+     "w": "koku",
+     "t0": 27.667,
+     "t1": 27.977
+    },
+    {
+     "w": "duyusu",
+     "t0": 27.977,
+     "t1": 28.347
+    },
+    {
+     "w": "da",
+     "t0": 28.347,
+     "t1": 28.537
+    },
+    {
+     "w": "neredeyse",
+     "t0": 28.537,
+     "t1": 29.207
+    },
+    {
+     "w": "yoktu.",
+     "t0": 29.207,
+     "t1": 29.7
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c6s5",
+   "ch": "c6",
+   "disp": "Büyükbabası defter tutardı; torunu şiir yazdı.",
+   "speech": "Büyükbabası defter tutardı; torunu şiir yazdı.",
+   "t0": 30.41,
+   "t1": 33.37,
+   "words": [
+    {
+     "w": "Büyükbabası",
+     "t0": 30.41,
+     "t1": 31.157
+    },
+    {
+     "w": "defter",
+     "t0": 31.157,
+     "t1": 31.627
+    },
+    {
+     "w": "tutardı;",
+     "t0": 31.627,
+     "t1": 32.207
+    },
+    {
+     "w": "torunu",
+     "t0": 32.258,
+     "t1": 32.557
+    },
+    {
+     "w": "şiir",
+     "t0": 32.557,
+     "t1": 32.867
+    },
+    {
+     "w": "yazdı.",
+     "t0": 32.867,
+     "t1": 33.37
+    }
+   ],
+   "gap": 0.91
+  },
+  {
+   "id": "c6s6",
+   "ch": "c6",
+   "disp": "2 Aralık 1469'da babası Piero öldü; günler içinde yirmi yaşındaki Lorenzo şehrin ve devletin yükünü üstlendi.",
+   "speech": "İki Aralık bin dört yüz altmış dokuzda babası Pyero öldü; günler içinde yirmi yaşındaki Lorentso şehrin ve devletin yükünü üstlendi.",
+   "t0": 34.28,
+   "t1": 42.3,
+   "words": [
+    {
+     "w": "2",
+     "t0": 34.28,
+     "t1": 34.568
+    },
+    {
+     "w": "Aralık",
+     "t0": 34.568,
+     "t1": 34.88
+    },
+    {
+     "w": "1469'da",
+     "t0": 35.0,
+     "t1": 36.637
+    },
+    {
+     "w": "babası",
+     "t0": 36.637,
+     "t1": 37.078
+    },
+    {
+     "w": "Piero",
+     "t0": 37.078,
+     "t1": 37.508
+    },
+    {
+     "w": "öldü;",
+     "t0": 37.508,
+     "t1": 37.843
+    },
+    {
+     "w": "günler",
+     "t0": 37.843,
+     "t1": 38.267
+    },
+    {
+     "w": "içinde",
+     "t0": 38.267,
+     "t1": 38.637
+    },
+    {
+     "w": "yirmi",
+     "t0": 38.637,
+     "t1": 38.968
+    },
+    {
+     "w": "yaşındaki",
+     "t0": 38.968,
+     "t1": 39.557
+    },
+    {
+     "w": "Lorenzo",
+     "t0": 39.557,
+     "t1": 40.093
+    },
+    {
+     "w": "şehrin",
+     "t0": 40.093,
+     "t1": 40.608
+    },
+    {
+     "w": "ve",
+     "t0": 40.608,
+     "t1": 40.767
+    },
+    {
+     "w": "devletin",
+     "t0": 40.767,
+     "t1": 41.288
+    },
+    {
+     "w": "yükünü",
+     "t0": 41.288,
+     "t1": 41.678
+    },
+    {
+     "w": "üstlendi.",
+     "t0": 41.678,
+     "t1": 42.3
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c6s7",
+   "ch": "c6",
+   "disp": "Bunu hatıra defterinde, Ricordi'sinde, şöyle gerekçelendirir: dostlarını ve servetini korumak için; çünkü Floransa'da devletsiz zengin yaşamak zordu.",
+   "speech": "Bunu hatıra defterinde, Rikordi'sinde, şöyle gerekçelendirir: dostlarını ve servetini korumak için; çünkü Floransa'da devletsiz zengin yaşamak zordu.",
+   "t0": 43.03,
+   "t1": 53.22,
+   "words": [
+    {
+     "w": "Bunu",
+     "t0": 43.03,
+     "t1": 43.377
+    },
+    {
+     "w": "hatıra",
+     "t0": 43.377,
+     "t1": 43.828
+    },
+    {
+     "w": "defterinde,",
+     "t0": 43.828,
+     "t1": 44.598
+    },
+    {
+     "w": "Ricordi'sinde,",
+     "t0": 44.697,
+     "t1": 45.75
+    },
+    {
+     "w": "şöyle",
+     "t0": 45.94,
+     "t1": 46.428
+    },
+    {
+     "w": "gerekçelendirir:",
+     "t0": 46.428,
+     "t1": 47.498
+    },
+    {
+     "w": "dostlarını",
+     "t0": 47.548,
+     "t1": 48.238
+    },
+    {
+     "w": "ve",
+     "t0": 48.238,
+     "t1": 48.498
+    },
+    {
+     "w": "servetini",
+     "t0": 48.498,
+     "t1": 49.178
+    },
+    {
+     "w": "korumak",
+     "t0": 49.178,
+     "t1": 49.608
+    },
+    {
+     "w": "için;",
+     "t0": 49.608,
+     "t1": 49.918
+    },
+    {
+     "w": "çünkü",
+     "t0": 49.978,
+     "t1": 50.378
+    },
+    {
+     "w": "Floransa'da",
+     "t0": 50.378,
+     "t1": 51.068
+    },
+    {
+     "w": "devletsiz",
+     "t0": 51.068,
+     "t1": 51.758
+    },
+    {
+     "w": "zengin",
+     "t0": 51.758,
+     "t1": 52.178
+    },
+    {
+     "w": "yaşamak",
+     "t0": 52.178,
+     "t1": 52.738
+    },
+    {
+     "w": "zordu.",
+     "t0": 52.738,
+     "t1": 53.22
+    }
+   ],
+   "gap": 0.75
+  },
+  {
+   "id": "c6s8",
+   "ch": "c6",
+   "disp": "İsteksiz davrandığını, yaşını ve tehlikeyi gerekçe gösterdiğini de yazar; ama bunu anlatan yine kendisi.",
+   "speech": "İsteksiz davrandığını, yaşını ve tehlikeyi gerekçe gösterdiğini de yazar; ama bunu anlatan yine kendisi.",
+   "t0": 53.97,
+   "t1": 61.13,
+   "words": [
+    {
+     "w": "İsteksiz",
+     "t0": 53.97,
+     "t1": 54.728
+    },
+    {
+     "w": "davrandığını,",
+     "t0": 54.728,
+     "t1": 55.658
+    },
+    {
+     "w": "yaşını",
+     "t0": 55.718,
+     "t1": 56.208
+    },
+    {
+     "w": "ve",
+     "t0": 56.208,
+     "t1": 56.448
+    },
+    {
+     "w": "tehlikeyi",
+     "t0": 56.518,
+     "t1": 57.118
+    },
+    {
+     "w": "gerekçe",
+     "t0": 57.118,
+     "t1": 57.598
+    },
+    {
+     "w": "gösterdiğini",
+     "t0": 57.598,
+     "t1": 58.368
+    },
+    {
+     "w": "de",
+     "t0": 58.368,
+     "t1": 58.468
+    },
+    {
+     "w": "yazar;",
+     "t0": 58.468,
+     "t1": 58.948
+    },
+    {
+     "w": "ama",
+     "t0": 59.008,
+     "t1": 59.238
+    },
+    {
+     "w": "bunu",
+     "t0": 59.238,
+     "t1": 59.468
+    },
+    {
+     "w": "anlatan",
+     "t0": 59.468,
+     "t1": 60.058
+    },
+    {
+     "w": "yine",
+     "t0": 60.058,
+     "t1": 60.4
+    },
+    {
+     "w": "kendisi.",
+     "t0": 60.55,
+     "t1": 61.13
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c6s9",
+   "ch": "c6",
+   "disp": "Annesi Lucrezia Tornabuoni bir şairdi: dua şarkıları ve beş manzum anlatı yazdı, Pulci'nin dostuydu, Morgante'ye ilham verdi.",
+   "speech": "Annesi Lukretsya Tornabuvoni bir şairdi: dua şarkıları ve beş manzum anlatı yazdı, Pulçi'nin dostuydu, Morgante'ye ilham verdi.",
+   "t0": 61.96,
+   "t1": 71.55,
+   "words": [
+    {
+     "w": "Annesi",
+     "t0": 61.96,
+     "t1": 62.597
+    },
+    {
+     "w": "Lucrezia",
+     "t0": 62.688,
+     "t1": 63.367
+    },
+    {
+     "w": "Tornabuoni",
+     "t0": 63.367,
+     "t1": 64.167
+    },
+    {
+     "w": "bir",
+     "t0": 64.167,
+     "t1": 64.287
+    },
+    {
+     "w": "şairdi:",
+     "t0": 64.287,
+     "t1": 64.892
+    },
+    {
+     "w": "dua",
+     "t0": 64.892,
+     "t1": 65.262
+    },
+    {
+     "w": "şarkıları",
+     "t0": 65.262,
+     "t1": 66.03
+    },
+    {
+     "w": "ve",
+     "t0": 66.21,
+     "t1": 66.507
+    },
+    {
+     "w": "beş",
+     "t0": 66.577,
+     "t1": 66.902
+    },
+    {
+     "w": "manzum",
+     "t0": 66.902,
+     "t1": 67.317
+    },
+    {
+     "w": "anlatı",
+     "t0": 67.387,
+     "t1": 67.797
+    },
+    {
+     "w": "yazdı,",
+     "t0": 67.797,
+     "t1": 68.257
+    },
+    {
+     "w": "Pulci'nin",
+     "t0": 68.257,
+     "t1": 68.857
+    },
+    {
+     "w": "dostuydu,",
+     "t0": 68.857,
+     "t1": 69.712
+    },
+    {
+     "w": "Morgante'ye",
+     "t0": 69.712,
+     "t1": 70.607
+    },
+    {
+     "w": "ilham",
+     "t0": 70.667,
+     "t1": 71.127
+    },
+    {
+     "w": "verdi.",
+     "t0": 71.127,
+     "t1": 71.55
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c6s10",
+   "ch": "c6",
+   "disp": "Oğluna eş seçmeyi de kendisi üstlendi: 1467 baharında Roma'da Clarice'yi görüp Piero'ya üç mektup yazdı.",
+   "speech": "Oğluna eş seçmeyi de kendisi üstlendi: bin dört yüz altmış yedi baharında Roma'da Klariçe'yi görüp Pyero'ya üç mektup yazdı.",
+   "t0": 72.38,
+   "t1": 80.25,
+   "words": [
+    {
+     "w": "Oğluna",
+     "t0": 72.38,
+     "t1": 72.857
+    },
+    {
+     "w": "eş",
+     "t0": 72.937,
+     "t1": 73.127
+    },
+    {
+     "w": "seçmeyi",
+     "t0": 73.127,
+     "t1": 73.607
+    },
+    {
+     "w": "de",
+     "t0": 73.607,
+     "t1": 73.757
+    },
+    {
+     "w": "kendisi",
+     "t0": 73.757,
+     "t1": 74.342
+    },
+    {
+     "w": "üstlendi:",
+     "t0": 74.342,
+     "t1": 75.102
+    },
+    {
+     "w": "1467",
+     "t0": 75.102,
+     "t1": 76.507
+    },
+    {
+     "w": "baharında",
+     "t0": 76.507,
+     "t1": 77.097
+    },
+    {
+     "w": "Roma'da",
+     "t0": 77.197,
+     "t1": 77.577
+    },
+    {
+     "w": "Clarice'yi",
+     "t0": 77.577,
+     "t1": 78.147
+    },
+    {
+     "w": "görüp",
+     "t0": 78.147,
+     "t1": 78.41
+    },
+    {
+     "w": "Piero'ya",
+     "t0": 78.58,
+     "t1": 79.047
+    },
+    {
+     "w": "üç",
+     "t0": 79.147,
+     "t1": 79.332
+    },
+    {
+     "w": "mektup",
+     "t0": 79.332,
+     "t1": 79.767
+    },
+    {
+     "w": "yazdı.",
+     "t0": 79.767,
+     "t1": 80.25
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c6s11",
+   "ch": "c6",
+   "disp": "28 Mart tarihli ilk mektupta kızın uzun boylu, narin, açık tenli ve bol saçlı olduğunu, yüzünün çok güzel olmasa da hoş olduğunu yazar.",
+   "speech": "Yirmi sekiz Mart tarihli ilk mektupta kızın uzun boylu, narin, açık tenli ve bol saçlı olduğunu, yüzünün çok güzel olmasa da hoş olduğunu yazar.",
+   "t0": 80.96,
+   "t1": 90.51,
+   "words": [
+    {
+     "w": "28",
+     "t0": 80.96,
+     "t1": 81.697
+    },
+    {
+     "w": "Mart",
+     "t0": 81.697,
+     "t1": 81.947
+    },
+    {
+     "w": "tarihli",
+     "t0": 82.007,
+     "t1": 82.607
+    },
+    {
+     "w": "ilk",
+     "t0": 82.667,
+     "t1": 82.907
+    },
+    {
+     "w": "mektupta",
+     "t0": 82.907,
+     "t1": 83.507
+    },
+    {
+     "w": "kızın",
+     "t0": 83.507,
+     "t1": 83.857
+    },
+    {
+     "w": "uzun",
+     "t0": 83.857,
+     "t1": 84.187
+    },
+    {
+     "w": "boylu,",
+     "t0": 84.187,
+     "t1": 84.607
+    },
+    {
+     "w": "narin,",
+     "t0": 84.707,
+     "t1": 85.277
+    },
+    {
+     "w": "açık",
+     "t0": 85.337,
+     "t1": 85.637
+    },
+    {
+     "w": "tenli",
+     "t0": 85.637,
+     "t1": 86.047
+    },
+    {
+     "w": "ve",
+     "t0": 86.047,
+     "t1": 86.247
+    },
+    {
+     "w": "bol",
+     "t0": 86.247,
+     "t1": 86.507
+    },
+    {
+     "w": "saçlı",
+     "t0": 86.507,
+     "t1": 86.867
+    },
+    {
+     "w": "olduğunu,",
+     "t0": 86.867,
+     "t1": 87.457
+    },
+    {
+     "w": "yüzünün",
+     "t0": 87.457,
+     "t1": 87.947
+    },
+    {
+     "w": "çok",
+     "t0": 87.947,
+     "t1": 88.197
+    },
+    {
+     "w": "güzel",
+     "t0": 88.197,
+     "t1": 88.567
+    },
+    {
+     "w": "olmasa",
+     "t0": 88.567,
+     "t1": 89.047
+    },
+    {
+     "w": "da",
+     "t0": 89.047,
+     "t1": 89.28
+    },
+    {
+     "w": "hoş",
+     "t0": 89.42,
+     "t1": 89.732
+    },
+    {
+     "w": "olduğunu",
+     "t0": 89.732,
+     "t1": 90.087
+    },
+    {
+     "w": "yazar.",
+     "t0": 90.087,
+     "t1": 90.51
+    }
+   ],
+   "gap": 0.76
+  },
+  {
+   "id": "c6s12",
+   "ch": "c6",
+   "disp": "Lorenzo evliliği defterine şöyle geçirir, diye aktarılır: Clarice'yi aldım ya da bana verildi.",
+   "speech": "Lorentso evliliği defterine şöyle geçirir, diye aktarılır: Klariçe'yi aldım ya da bana verildi.",
+   "t0": 91.27,
+   "t1": 97.28,
+   "words": [
+    {
+     "w": "Lorenzo",
+     "t0": 91.27,
+     "t1": 91.967
+    },
+    {
+     "w": "evliliği",
+     "t0": 91.967,
+     "t1": 92.447
+    },
+    {
+     "w": "defterine",
+     "t0": 92.447,
+     "t1": 93.072
+    },
+    {
+     "w": "şöyle",
+     "t0": 93.072,
+     "t1": 93.477
+    },
+    {
+     "w": "geçirir,",
+     "t0": 93.477,
+     "t1": 94.072
+    },
+    {
+     "w": "diye",
+     "t0": 94.072,
+     "t1": 94.377
+    },
+    {
+     "w": "aktarılır:",
+     "t0": 94.377,
+     "t1": 95.077
+    },
+    {
+     "w": "Clarice'yi",
+     "t0": 95.137,
+     "t1": 95.747
+    },
+    {
+     "w": "aldım",
+     "t0": 95.747,
+     "t1": 96.097
+    },
+    {
+     "w": "ya",
+     "t0": 96.097,
+     "t1": 96.257
+    },
+    {
+     "w": "da",
+     "t0": 96.257,
+     "t1": 96.427
+    },
+    {
+     "w": "bana",
+     "t0": 96.427,
+     "t1": 96.797
+    },
+    {
+     "w": "verildi.",
+     "t0": 96.797,
+     "t1": 97.28
+    }
+   ],
+   "gap": 0.64
+  },
+  {
+   "id": "c6s13",
+   "ch": "c6",
+   "disp": "Roma'da vekâletle nikâh kıyıldıktan sonra düğün şenlikleri 4 Haziran 1469'da Floransa'da başladı.",
+   "speech": "Roma'da vekâletle nikâh kıyıldıktan sonra düğün şenlikleri dört Haziran bin dört yüz altmış dokuzda Floransa'da başladı.",
+   "t0": 97.92,
+   "t1": 105.68,
+   "words": [
+    {
+     "w": "Roma'da",
+     "t0": 97.92,
+     "t1": 98.417
+    },
+    {
+     "w": "vekâletle",
+     "t0": 98.417,
+     "t1": 99.147
+    },
+    {
+     "w": "nikâh",
+     "t0": 99.147,
+     "t1": 99.652
+    },
+    {
+     "w": "kıyıldıktan",
+     "t0": 99.652,
+     "t1": 100.297
+    },
+    {
+     "w": "sonra",
+     "t0": 100.297,
+     "t1": 100.837
+    },
+    {
+     "w": "düğün",
+     "t0": 100.837,
+     "t1": 101.167
+    },
+    {
+     "w": "şenlikleri",
+     "t0": 101.167,
+     "t1": 101.887
+    },
+    {
+     "w": "4",
+     "t0": 101.887,
+     "t1": 102.188
+    },
+    {
+     "w": "Haziran",
+     "t0": 102.247,
+     "t1": 102.787
+    },
+    {
+     "w": "1469'da",
+     "t0": 102.787,
+     "t1": 104.37
+    },
+    {
+     "w": "Floransa'da",
+     "t0": 104.47,
+     "t1": 105.117
+    },
+    {
+     "w": "başladı.",
+     "t0": 105.117,
+     "t1": 105.68
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c6s14",
+   "ch": "c6",
+   "disp": "Clarice, 1479'da çocuklarının hocası Poliziano'yu evden çıkarttı; ona uygun bir eğitmen olmadığına ikna olmuştu.",
+   "speech": "Klariçe, bin dört yüz yetmiş dokuzda çocuklarının hocası Politsyano'yu evden çıkarttı; ona uygun bir eğitmen olmadığına ikna olmuştu.",
+   "t0": 106.42,
+   "t1": 114.29,
+   "words": [
+    {
+     "w": "Clarice,",
+     "t0": 106.42,
+     "t1": 107.078
+    },
+    {
+     "w": "1479'da",
+     "t0": 107.078,
+     "t1": 108.688
+    },
+    {
+     "w": "çocuklarının",
+     "t0": 108.688,
+     "t1": 109.377
+    },
+    {
+     "w": "hocası",
+     "t0": 109.377,
+     "t1": 109.85
+    },
+    {
+     "w": "Poliziano'yu",
+     "t0": 109.96,
+     "t1": 110.717
+    },
+    {
+     "w": "evden",
+     "t0": 110.717,
+     "t1": 110.987
+    },
+    {
+     "w": "çıkarttı;",
+     "t0": 110.987,
+     "t1": 111.35
+    },
+    {
+     "w": "ona",
+     "t0": 111.697,
+     "t1": 111.847
+    },
+    {
+     "w": "uygun",
+     "t0": 111.847,
+     "t1": 112.267
+    },
+    {
+     "w": "bir",
+     "t0": 112.267,
+     "t1": 112.397
+    },
+    {
+     "w": "eğitmen",
+     "t0": 112.397,
+     "t1": 112.787
+    },
+    {
+     "w": "olmadığına",
+     "t0": 112.787,
+     "t1": 113.352
+    },
+    {
+     "w": "ikna",
+     "t0": 113.352,
+     "t1": 113.647
+    },
+    {
+     "w": "olmuştu.",
+     "t0": 113.647,
+     "t1": 114.29
+    }
+   ],
+   "gap": 0.89
+  },
+  {
+   "id": "c6s15",
+   "ch": "c6",
+   "disp": "Lorenzo'nun çevresinde okul yoktu, atölyeler vardı: Verrocchio'nun atölyesinden Leonardo, Perugino ve Botticelli geçtiği söylenir.",
+   "speech": "Lorentso'nun çevresinde okul yoktu, atölyeler vardı: Verrokyo'nun atölyesinden Leonardo, Peruçino ve Botiçelli geçtiği söylenir.",
+   "t0": 115.18,
+   "t1": 123.91,
+   "words": [
+    {
+     "w": "Lorenzo'nun",
+     "t0": 115.18,
+     "t1": 115.977
+    },
+    {
+     "w": "çevresinde",
+     "t0": 115.977,
+     "t1": 116.677
+    },
+    {
+     "w": "okul",
+     "t0": 116.757,
+     "t1": 117.32
+    },
+    {
+     "w": "yoktu,",
+     "t0": 117.43,
+     "t1": 117.777
+    },
+    {
+     "w": "atölyeler",
+     "t0": 117.777,
+     "t1": 118.357
+    },
+    {
+     "w": "vardı:",
+     "t0": 118.357,
+     "t1": 118.807
+    },
+    {
+     "w": "Verrocchio'nun",
+     "t0": 118.867,
+     "t1": 119.637
+    },
+    {
+     "w": "atölyesinden",
+     "t0": 119.637,
+     "t1": 120.447
+    },
+    {
+     "w": "Leonardo,",
+     "t0": 120.447,
+     "t1": 121.18
+    },
+    {
+     "w": "Perugino",
+     "t0": 121.34,
+     "t1": 121.867
+    },
+    {
+     "w": "ve",
+     "t0": 121.867,
+     "t1": 122.057
+    },
+    {
+     "w": "Botticelli",
+     "t0": 122.057,
+     "t1": 122.777
+    },
+    {
+     "w": "geçtiği",
+     "t0": 122.777,
+     "t1": 123.257
+    },
+    {
+     "w": "söylenir.",
+     "t0": 123.257,
+     "t1": 123.91
+    }
+   ],
+   "gap": 0.78
+  },
+  {
+   "id": "c6s16",
+   "ch": "c6",
+   "disp": "1476 ile 1477 arasında Lorenzo ve Poliziano, Napoli'nin isteğiyle bir Toskana şiir derlemesi hazırladı; içinde Dante'nin Vita nova'sı da vardı.",
+   "speech": "Bin dört yüz yetmiş altı ile bin dört yüz yetmiş yedi arasında Lorentso ve Politsyano, Napoli'nin isteğiyle bir Toskana şiir derlemesi hazırladı; içinde Dante'nin Vita nova'sı da vardı.",
+   "t0": 124.69,
+   "t1": 136.74,
+   "words": [
+    {
+     "w": "1476",
+     "t0": 124.69,
+     "t1": 126.207
+    },
+    {
+     "w": "ile",
+     "t0": 126.207,
+     "t1": 126.497
+    },
+    {
+     "w": "1477",
+     "t0": 126.557,
+     "t1": 127.917
+    },
+    {
+     "w": "arasında",
+     "t0": 127.917,
+     "t1": 128.567
+    },
+    {
+     "w": "Lorenzo",
+     "t0": 128.647,
+     "t1": 129.317
+    },
+    {
+     "w": "ve",
+     "t0": 129.317,
+     "t1": 129.457
+    },
+    {
+     "w": "Poliziano,",
+     "t0": 129.457,
+     "t1": 130.32
+    },
+    {
+     "w": "Napoli'nin",
+     "t0": 130.46,
+     "t1": 131.102
+    },
+    {
+     "w": "isteğiyle",
+     "t0": 131.102,
+     "t1": 131.727
+    },
+    {
+     "w": "bir",
+     "t0": 131.727,
+     "t1": 131.998
+    },
+    {
+     "w": "Toskana",
+     "t0": 131.998,
+     "t1": 132.607
+    },
+    {
+     "w": "şiir",
+     "t0": 132.607,
+     "t1": 132.857
+    },
+    {
+     "w": "derlemesi",
+     "t0": 132.857,
+     "t1": 133.407
+    },
+    {
+     "w": "hazırladı;",
+     "t0": 133.407,
+     "t1": 134.08
+    },
+    {
+     "w": "içinde",
+     "t0": 134.18,
+     "t1": 134.567
+    },
+    {
+     "w": "Dante'nin",
+     "t0": 134.567,
+     "t1": 135.227
+    },
+    {
+     "w": "Vita",
+     "t0": 135.317,
+     "t1": 135.657
+    },
+    {
+     "w": "nova'sı",
+     "t0": 135.657,
+     "t1": 136.097
+    },
+    {
+     "w": "da",
+     "t0": 136.097,
+     "t1": 136.248
+    },
+    {
+     "w": "vardı.",
+     "t0": 136.248,
+     "t1": 136.74
+    }
+   ],
+   "gap": 0.7
+  },
+  {
+   "id": "c6s17",
+   "ch": "c6",
+   "disp": "“Muhteşem”, yani Magnifico, bir saygı sözcüğüydü; Machiavelli Prens'i Lorenzo'nun önce oğluna, sonra torununa ithaf etti ve ikisine de “Muhteşem” diye seslendi.",
+   "speech": "“Muhteşem”, yani Manyifiko, bir saygı sözcüğüydü; Makyavelli Prens'i Lorentso'nun önce oğluna, sonra torununa ithaf etti ve ikisine de “Muhteşem” diye seslendi.",
+   "t0": 137.44,
+   "t1": 147.95,
+   "words": [
+    {
+     "w": "“Muhteşem”,",
+     "t0": 137.44,
+     "t1": 138.188
+    },
+    {
+     "w": "yani",
+     "t0": 138.308,
+     "t1": 138.748
+    },
+    {
+     "w": "Magnifico,",
+     "t0": 138.748,
+     "t1": 139.56
+    },
+    {
+     "w": "bir",
+     "t0": 139.72,
+     "t1": 139.917
+    },
+    {
+     "w": "saygı",
+     "t0": 139.917,
+     "t1": 140.327
+    },
+    {
+     "w": "sözcüğüydü;",
+     "t0": 140.327,
+     "t1": 141.07
+    },
+    {
+     "w": "Machiavelli",
+     "t0": 141.21,
+     "t1": 141.958
+    },
+    {
+     "w": "Prens'i",
+     "t0": 141.958,
+     "t1": 142.398
+    },
+    {
+     "w": "Lorenzo'nun",
+     "t0": 142.398,
+     "t1": 143.173
+    },
+    {
+     "w": "önce",
+     "t0": 143.173,
+     "t1": 143.488
+    },
+    {
+     "w": "oğluna,",
+     "t0": 143.488,
+     "t1": 143.988
+    },
+    {
+     "w": "sonra",
+     "t0": 144.077,
+     "t1": 144.553
+    },
+    {
+     "w": "torununa",
+     "t0": 144.553,
+     "t1": 144.968
+    },
+    {
+     "w": "ithaf",
+     "t0": 144.968,
+     "t1": 145.387
+    },
+    {
+     "w": "etti",
+     "t0": 145.387,
+     "t1": 145.678
+    },
+    {
+     "w": "ve",
+     "t0": 145.678,
+     "t1": 145.847
+    },
+    {
+     "w": "ikisine",
+     "t0": 145.917,
+     "t1": 146.317
+    },
+    {
+     "w": "de",
+     "t0": 146.317,
+     "t1": 146.417
+    },
+    {
+     "w": "“Muhteşem”",
+     "t0": 146.417,
+     "t1": 147.058
+    },
+    {
+     "w": "diye",
+     "t0": 147.058,
+     "t1": 147.227
+    },
+    {
+     "w": "seslendi.",
+     "t0": 147.227,
+     "t1": 147.95
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c6s18",
+   "ch": "c6",
+   "disp": "Michelangelo'nun biyografisini yazan Condivi'ye göre Lorenzo, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz.",
+   "speech": "Mikelancelo'nun biyografisini yazan Kondivi'ye göre Lorentso, genç sanatçının yonttuğu yaşlı faunun başına şaka yapmış: yaşlıların dişleri tam olmaz.",
+   "t0": 148.8,
+   "t1": 158.3,
+   "words": [
+    {
+     "w": "Michelangelo'nun",
+     "t0": 148.8,
+     "t1": 149.868
+    },
+    {
+     "w": "biyografisini",
+     "t0": 149.868,
+     "t1": 150.558
+    },
+    {
+     "w": "yazan",
+     "t0": 150.558,
+     "t1": 150.947
+    },
+    {
+     "w": "Condivi'ye",
+     "t0": 150.947,
+     "t1": 151.537
+    },
+    {
+     "w": "göre",
+     "t0": 151.537,
+     "t1": 151.828
+    },
+    {
+     "w": "Lorenzo,",
+     "t0": 151.828,
+     "t1": 152.528
+    },
+    {
+     "w": "genç",
+     "t0": 152.627,
+     "t1": 152.958
+    },
+    {
+     "w": "sanatçının",
+     "t0": 152.958,
+     "t1": 153.588
+    },
+    {
+     "w": "yonttuğu",
+     "t0": 153.588,
+     "t1": 154.007
+    },
+    {
+     "w": "yaşlı",
+     "t0": 154.007,
+     "t1": 154.398
+    },
+    {
+     "w": "faunun",
+     "t0": 154.398,
+     "t1": 154.828
+    },
+    {
+     "w": "başına",
+     "t0": 154.828,
+     "t1": 155.268
+    },
+    {
+     "w": "şaka",
+     "t0": 155.377,
+     "t1": 155.708
+    },
+    {
+     "w": "yapmış:",
+     "t0": 155.708,
+     "t1": 156.22
+    },
+    {
+     "w": "yaşlıların",
+     "t0": 156.37,
+     "t1": 157.088
+    },
+    {
+     "w": "dişleri",
+     "t0": 157.088,
+     "t1": 157.487
+    },
+    {
+     "w": "tam",
+     "t0": 157.487,
+     "t1": 157.727
+    },
+    {
+     "w": "olmaz.",
+     "t0": 157.727,
+     "t1": 158.3
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c6s19",
+   "ch": "c6",
+   "disp": "Michelangelo bir dişi kırıp diş etini oymuş; Lorenzo da onu eve almış: oda, sofra, ayda beş dukat.",
+   "speech": "Mikelancelo bir dişi kırıp diş etini oymuş; Lorentso da onu eve almış: oda, sofra, ayda beş dukat.",
+   "t0": 159.03,
+   "t1": 166.15,
+   "words": [
+    {
+     "w": "Michelangelo",
+     "t0": 159.03,
+     "t1": 159.907
+    },
+    {
+     "w": "bir",
+     "t0": 159.907,
+     "t1": 160.058
+    },
+    {
+     "w": "dişi",
+     "t0": 160.058,
+     "t1": 160.317
+    },
+    {
+     "w": "kırıp",
+     "t0": 160.317,
+     "t1": 160.57
+    },
+    {
+     "w": "diş",
+     "t0": 160.67,
+     "t1": 160.828
+    },
+    {
+     "w": "etini",
+     "t0": 160.828,
+     "t1": 161.138
+    },
+    {
+     "w": "oymuş;",
+     "t0": 161.138,
+     "t1": 161.63
+    },
+    {
+     "w": "Lorenzo",
+     "t0": 161.8,
+     "t1": 162.498
+    },
+    {
+     "w": "da",
+     "t0": 162.498,
+     "t1": 162.667
+    },
+    {
+     "w": "onu",
+     "t0": 162.748,
+     "t1": 162.898
+    },
+    {
+     "w": "eve",
+     "t0": 162.898,
+     "t1": 163.118
+    },
+    {
+     "w": "almış:",
+     "t0": 163.118,
+     "t1": 163.688
+    },
+    {
+     "w": "oda,",
+     "t0": 163.688,
+     "t1": 164.09
+    },
+    {
+     "w": "sofra,",
+     "t0": 164.24,
+     "t1": 164.82
+    },
+    {
+     "w": "ayda",
+     "t0": 165.0,
+     "t1": 165.338
+    },
+    {
+     "w": "beş",
+     "t0": 165.338,
+     "t1": 165.657
+    },
+    {
+     "w": "dukat.",
+     "t0": 165.657,
+     "t1": 166.15
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c6s20",
+   "ch": "c6",
+   "disp": "29 Ocak 1475'te Santa Croce Meydanı'nda, Venedik ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Giostra.",
+   "speech": "Yirmi dokuz Ocak bin dört yüz yetmiş beşte Santa Kroçe Meydanı'nda, Venedik ve Milano'yla ittifakı kutlamak için büyük bir turnuva yapıldı: Costra.",
+   "t0": 166.98,
+   "t1": 176.82,
+   "words": [
+    {
+     "w": "29",
+     "t0": 166.98,
+     "t1": 167.838
+    },
+    {
+     "w": "Ocak",
+     "t0": 167.907,
+     "t1": 168.278
+    },
+    {
+     "w": "1475'te",
+     "t0": 168.328,
+     "t1": 169.758
+    },
+    {
+     "w": "Santa",
+     "t0": 169.847,
+     "t1": 170.258
+    },
+    {
+     "w": "Croce",
+     "t0": 170.258,
+     "t1": 170.688
+    },
+    {
+     "w": "Meydanı'nda,",
+     "t0": 170.688,
+     "t1": 171.407
+    },
+    {
+     "w": "Venedik",
+     "t0": 171.498,
+     "t1": 172.06
+    },
+    {
+     "w": "ve",
+     "t0": 172.17,
+     "t1": 172.388
+    },
+    {
+     "w": "Milano'yla",
+     "t0": 172.388,
+     "t1": 173.028
+    },
+    {
+     "w": "ittifakı",
+     "t0": 173.028,
+     "t1": 173.627
+    },
+    {
+     "w": "kutlamak",
+     "t0": 173.627,
+     "t1": 174.188
+    },
+    {
+     "w": "için",
+     "t0": 174.188,
+     "t1": 174.528
+    },
+    {
+     "w": "büyük",
+     "t0": 174.597,
+     "t1": 174.918
+    },
+    {
+     "w": "bir",
+     "t0": 174.918,
+     "t1": 175.108
+    },
+    {
+     "w": "turnuva",
+     "t0": 175.108,
+     "t1": 175.548
+    },
+    {
+     "w": "yapıldı:",
+     "t0": 175.548,
+     "t1": 176.067
+    },
+    {
+     "w": "Giostra.",
+     "t0": 176.127,
+     "t1": 176.82
+    }
+   ],
+   "gap": 0.84
+  },
+  {
+   "id": "c6s21",
+   "ch": "c6",
+   "disp": "Kazanan Lorenzo değil, kardeşi Giuliano'ydu; seçtiği kadın, Marco Vespucci'nin eşi Simonetta'ydı.",
+   "speech": "Kazanan Lorentso değil, kardeşi Culyano'ydu; seçtiği kadın, Marko Vespuççi'nin eşi Simonetta'ydı.",
+   "t0": 177.66,
+   "t1": 184.0,
+   "words": [
+    {
+     "w": "Kazanan",
+     "t0": 177.66,
+     "t1": 178.268
+    },
+    {
+     "w": "Lorenzo",
+     "t0": 178.268,
+     "t1": 178.758
+    },
+    {
+     "w": "değil,",
+     "t0": 178.758,
+     "t1": 179.118
+    },
+    {
+     "w": "kardeşi",
+     "t0": 179.118,
+     "t1": 179.798
+    },
+    {
+     "w": "Giuliano'ydu;",
+     "t0": 179.798,
+     "t1": 180.52
+    },
+    {
+     "w": "seçtiği",
+     "t0": 180.76,
+     "t1": 181.328
+    },
+    {
+     "w": "kadın,",
+     "t0": 181.328,
+     "t1": 181.748
+    },
+    {
+     "w": "Marco",
+     "t0": 181.748,
+     "t1": 182.238
+    },
+    {
+     "w": "Vespucci'nin",
+     "t0": 182.238,
+     "t1": 182.938
+    },
+    {
+     "w": "eşi",
+     "t0": 182.938,
+     "t1": 183.127
+    },
+    {
+     "w": "Simonetta'ydı.",
+     "t0": 183.127,
+     "t1": 184.0
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c6s22",
+   "ch": "c6",
+   "disp": "Botticelli'nin sancağa Simonetta'yı miğferli bir Pallas olarak resmettiği anlatılır; asıl sancak kayıp.",
+   "speech": "Botiçelli'nin sancağa Simonetta'yı miğferli bir Pallas olarak resmettiği anlatılır; asıl sancak kayıp.",
+   "t0": 184.72,
+   "t1": 190.98,
+   "words": [
+    {
+     "w": "Botticelli'nin",
+     "t0": 184.72,
+     "t1": 185.627
+    },
+    {
+     "w": "sancağa",
+     "t0": 185.627,
+     "t1": 186.218
+    },
+    {
+     "w": "Simonetta'yı",
+     "t0": 186.218,
+     "t1": 186.897
+    },
+    {
+     "w": "miğferli",
+     "t0": 186.897,
+     "t1": 187.438
+    },
+    {
+     "w": "bir",
+     "t0": 187.438,
+     "t1": 187.567
+    },
+    {
+     "w": "Pallas",
+     "t0": 187.567,
+     "t1": 188.017
+    },
+    {
+     "w": "olarak",
+     "t0": 188.017,
+     "t1": 188.447
+    },
+    {
+     "w": "resmettiği",
+     "t0": 188.447,
+     "t1": 189.047
+    },
+    {
+     "w": "anlatılır;",
+     "t0": 189.047,
+     "t1": 189.748
+    },
+    {
+     "w": "asıl",
+     "t0": 189.817,
+     "t1": 190.077
+    },
+    {
+     "w": "sancak",
+     "t0": 190.077,
+     "t1": 190.627
+    },
+    {
+     "w": "kayıp.",
+     "t0": 190.627,
+     "t1": 190.98
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c6s23",
+   "ch": "c6",
+   "disp": "Poliziano bu günü bir şiire döktü; şiir, kahramanı ölünce yarım kaldı.",
+   "speech": "Politsyano bu günü bir şiire döktü; şiir, kahramanı ölünce yarım kaldı.",
+   "t0": 191.7,
+   "t1": 196.09,
+   "words": [
+    {
+     "w": "Poliziano",
+     "t0": 191.7,
+     "t1": 192.428
+    },
+    {
+     "w": "bu",
+     "t0": 192.428,
+     "t1": 192.578
+    },
+    {
+     "w": "günü",
+     "t0": 192.578,
+     "t1": 192.798
+    },
+    {
+     "w": "bir",
+     "t0": 192.798,
+     "t1": 192.918
+    },
+    {
+     "w": "şiire",
+     "t0": 192.918,
+     "t1": 193.39
+    },
+    {
+     "w": "döktü;",
+     "t0": 193.51,
+     "t1": 193.728
+    },
+    {
+     "w": "şiir,",
+     "t0": 193.848,
+     "t1": 194.312
+    },
+    {
+     "w": "kahramanı",
+     "t0": 194.312,
+     "t1": 194.907
+    },
+    {
+     "w": "ölünce",
+     "t0": 194.907,
+     "t1": 195.377
+    },
+    {
+     "w": "yarım",
+     "t0": 195.377,
+     "t1": 195.678
+    },
+    {
+     "w": "kaldı.",
+     "t0": 195.678,
+     "t1": 196.09
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c6s24",
+   "ch": "c6",
+   "disp": "Simonetta, 1476 Nisanında yirmi üç yaşında veremden öldü; Giuliano'yla sevgili olup olmadıklarını bilmiyoruz.",
+   "speech": "Simonetta, bin dört yüz yetmiş altı Nisanında yirmi üç yaşında veremden öldü; Culyano'yla sevgili olup olmadıklarını bilmiyoruz.",
+   "t0": 196.74,
+   "t1": 204.64,
+   "words": [
+    {
+     "w": "Simonetta,",
+     "t0": 196.74,
+     "t1": 197.62
+    },
+    {
+     "w": "1476",
+     "t0": 197.8,
+     "t1": 199.138
+    },
+    {
+     "w": "Nisanında",
+     "t0": 199.138,
+     "t1": 199.688
+    },
+    {
+     "w": "yirmi",
+     "t0": 199.688,
+     "t1": 200.058
+    },
+    {
+     "w": "üç",
+     "t0": 200.148,
+     "t1": 200.308
+    },
+    {
+     "w": "yaşında",
+     "t0": 200.308,
+     "t1": 200.727
+    },
+    {
+     "w": "veremden",
+     "t0": 200.727,
+     "t1": 201.197
+    },
+    {
+     "w": "öldü;",
+     "t0": 201.197,
+     "t1": 201.56
+    },
+    {
+     "w": "Giuliano'yla",
+     "t0": 201.73,
+     "t1": 202.448
+    },
+    {
+     "w": "sevgili",
+     "t0": 202.448,
+     "t1": 202.918
+    },
+    {
+     "w": "olup",
+     "t0": 202.918,
+     "t1": 203.223
+    },
+    {
+     "w": "olmadıklarını",
+     "t0": 203.223,
+     "t1": 203.888
+    },
+    {
+     "w": "bilmiyoruz.",
+     "t0": 203.888,
+     "t1": 204.64
+    }
+   ],
+   "gap": 0.6
+  },
+  {
+   "id": "c6s25",
+   "ch": "c6",
+   "disp": "Lorenzo yıllar sonra bir karnaval şarkısına şunu yazacaktı: ne güzel şey gençlik, ama kaçıp gidiyor.",
+   "speech": "Lorentso yıllar sonra bir karnaval şarkısına şunu yazacaktı: ne güzel şey gençlik, ama kaçıp gidiyor.",
+   "t0": 205.24,
+   "t1": 212.12,
+   "words": [
+    {
+     "w": "Lorenzo",
+     "t0": 205.24,
+     "t1": 205.847
+    },
+    {
+     "w": "yıllar",
+     "t0": 205.847,
+     "t1": 206.218
+    },
+    {
+     "w": "sonra",
+     "t0": 206.218,
+     "t1": 206.597
+    },
+    {
+     "w": "bir",
+     "t0": 206.597,
+     "t1": 206.778
+    },
+    {
+     "w": "karnaval",
+     "t0": 206.778,
+     "t1": 207.338
+    },
+    {
+     "w": "şarkısına",
+     "t0": 207.338,
+     "t1": 208.14
+    },
+    {
+     "w": "şunu",
+     "t0": 208.24,
+     "t1": 208.458
+    },
+    {
+     "w": "yazacaktı:",
+     "t0": 208.458,
+     "t1": 208.99
+    },
+    {
+     "w": "ne",
+     "t0": 209.347,
+     "t1": 209.498
+    },
+    {
+     "w": "güzel",
+     "t0": 209.498,
+     "t1": 209.917
+    },
+    {
+     "w": "şey",
+     "t0": 209.917,
+     "t1": 210.148
+    },
+    {
+     "w": "gençlik,",
+     "t0": 210.148,
+     "t1": 210.847
+    },
+    {
+     "w": "ama",
+     "t0": 210.847,
+     "t1": 211.058
+    },
+    {
+     "w": "kaçıp",
+     "t0": 211.058,
+     "t1": 211.517
+    },
+    {
+     "w": "gidiyor.",
+     "t0": 211.567,
+     "t1": 212.12
+    }
+   ],
+   "gap": 0.91
+  },
+  {
+   "id": "c6s26",
+   "ch": "c6",
+   "disp": "Giostra'dan 26 Nisan 1478'e, bir Pazar sabahına, üç yıl üç ay vardı.",
+   "speech": "Costra'dan yirmi altı Nisan bin dört yüz yetmiş sekize, bir Pazar sabahına, üç yıl üç ay vardı.",
+   "t0": 213.03,
+   "t1": 219.34,
+   "words": [
+    {
+     "w": "Giostra'dan",
+     "t0": 213.03,
+     "t1": 213.778
+    },
+    {
+     "w": "26",
+     "t0": 213.778,
+     "t1": 214.377
+    },
+    {
+     "w": "Nisan",
+     "t0": 214.377,
+     "t1": 214.897
+    },
+    {
+     "w": "1478'e,",
+     "t0": 214.897,
+     "t1": 216.618
+    },
+    {
+     "w": "bir",
+     "t0": 216.697,
+     "t1": 216.957
+    },
+    {
+     "w": "Pazar",
+     "t0": 216.957,
+     "t1": 217.347
+    },
+    {
+     "w": "sabahına,",
+     "t0": 217.347,
+     "t1": 217.987
+    },
+    {
+     "w": "üç",
+     "t0": 218.058,
+     "t1": 218.297
+    },
+    {
+     "w": "yıl",
+     "t0": 218.297,
+     "t1": 218.447
+    },
+    {
+     "w": "üç",
+     "t0": 218.528,
+     "t1": 218.697
+    },
+    {
+     "w": "ay",
+     "t0": 218.697,
+     "t1": 218.857
+    },
+    {
+     "w": "vardı.",
+     "t0": 218.857,
+     "t1": 219.34
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c6s27",
+   "ch": "c6",
+   "disp": "Giuliano yirmi dört yaşında ölecekti.",
+   "speech": "Culyano yirmi dört yaşında ölecekti.",
+   "t0": 220.06,
+   "t1": 222.64,
+   "words": [
+    {
+     "w": "Giuliano",
+     "t0": 220.06,
+     "t1": 220.688
+    },
+    {
+     "w": "yirmi",
+     "t0": 220.688,
+     "t1": 221.088
+    },
+    {
+     "w": "dört",
+     "t0": 221.088,
+     "t1": 221.407
+    },
+    {
+     "w": "yaşında",
+     "t0": 221.407,
+     "t1": 221.868
+    },
+    {
+     "w": "ölecekti.",
+     "t0": 221.927,
+     "t1": 222.64
+    }
+   ],
+   "gap": 3.39
+  },
+  {
+   "id": "c7s1",
+   "ch": "c7",
+   "disp": "26 Nisan 1478, bir pazar sabahı.",
+   "speech": "Yirmi altı Nisan bin dört yüz yetmiş sekiz, bir pazar sabahı.",
+   "t0": 226.03,
+   "t1": 229.98,
+   "words": [
+    {
+     "w": "26",
+     "t0": 226.03,
+     "t1": 226.688
+    },
+    {
+     "w": "Nisan",
+     "t0": 226.688,
+     "t1": 227.207
+    },
+    {
+     "w": "1478,",
+     "t0": 227.207,
+     "t1": 228.847
+    },
+    {
+     "w": "bir",
+     "t0": 228.847,
+     "t1": 229.077
+    },
+    {
+     "w": "pazar",
+     "t0": 229.077,
+     "t1": 229.487
+    },
+    {
+     "w": "sabahı.",
+     "t0": 229.487,
+     "t1": 229.98
+    }
+   ],
+   "gap": 0.75
+  },
+  {
+   "id": "c7s2",
+   "ch": "c7",
+   "disp": "Floransa'nın katedralinde, Santa Maria del Fiore'de, yüksek ayin yapılıyordu.",
+   "speech": "Floransa'nın katedralinde, Santa Maria del Fyore'de, yüksek ayin yapılıyordu.",
+   "t0": 230.73,
+   "t1": 235.94,
+   "words": [
+    {
+     "w": "Floransa'nın",
+     "t0": 230.73,
+     "t1": 231.607
+    },
+    {
+     "w": "katedralinde,",
+     "t0": 231.607,
+     "t1": 232.468
+    },
+    {
+     "w": "Santa",
+     "t0": 232.558,
+     "t1": 233.017
+    },
+    {
+     "w": "Maria",
+     "t0": 233.017,
+     "t1": 233.407
+    },
+    {
+     "w": "del",
+     "t0": 233.407,
+     "t1": 233.718
+    },
+    {
+     "w": "Fiore'de,",
+     "t0": 233.718,
+     "t1": 234.277
+    },
+    {
+     "w": "yüksek",
+     "t0": 234.337,
+     "t1": 234.887
+    },
+    {
+     "w": "ayin",
+     "t0": 234.887,
+     "t1": 235.197
+    },
+    {
+     "w": "yapılıyordu.",
+     "t0": 235.197,
+     "t1": 235.94
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c7s3",
+   "ch": "c7",
+   "disp": "Ayin, şehre yeni gelmiş genç bir konuğun onuruna yapılıyordu: 16 ya da 17 yaşındaki Kardinal Raffaele Riario, Papa'nın akrabası.",
+   "speech": "Ayin, şehre yeni gelmiş genç bir konuğun onuruna yapılıyordu: on altı ya da on yedi yaşındaki Kardinal Rafaele Riaryo, Papa'nın akrabası.",
+   "t0": 236.65,
+   "t1": 245.44,
+   "words": [
+    {
+     "w": "Ayin,",
+     "t0": 236.65,
+     "t1": 237.222
+    },
+    {
+     "w": "şehre",
+     "t0": 237.222,
+     "t1": 237.657
+    },
+    {
+     "w": "yeni",
+     "t0": 237.657,
+     "t1": 237.957
+    },
+    {
+     "w": "gelmiş",
+     "t0": 237.957,
+     "t1": 238.477
+    },
+    {
+     "w": "genç",
+     "t0": 238.477,
+     "t1": 238.757
+    },
+    {
+     "w": "bir",
+     "t0": 238.827,
+     "t1": 238.957
+    },
+    {
+     "w": "konuğun",
+     "t0": 238.957,
+     "t1": 239.308
+    },
+    {
+     "w": "onuruna",
+     "t0": 239.308,
+     "t1": 239.688
+    },
+    {
+     "w": "yapılıyordu:",
+     "t0": 239.688,
+     "t1": 240.45
+    },
+    {
+     "w": "16",
+     "t0": 240.56,
+     "t1": 241.127
+    },
+    {
+     "w": "ya",
+     "t0": 241.127,
+     "t1": 241.278
+    },
+    {
+     "w": "da",
+     "t0": 241.278,
+     "t1": 241.457
+    },
+    {
+     "w": "17",
+     "t0": 241.558,
+     "t1": 241.927
+    },
+    {
+     "w": "yaşındaki",
+     "t0": 241.927,
+     "t1": 242.457
+    },
+    {
+     "w": "Kardinal",
+     "t0": 242.457,
+     "t1": 243.087
+    },
+    {
+     "w": "Raffaele",
+     "t0": 243.087,
+     "t1": 243.597
+    },
+    {
+     "w": "Riario,",
+     "t0": 243.597,
+     "t1": 244.188
+    },
+    {
+     "w": "Papa'nın",
+     "t0": 244.188,
+     "t1": 244.727
+    },
+    {
+     "w": "akrabası.",
+     "t0": 244.727,
+     "t1": 245.44
+    }
+   ],
+   "gap": 0.94
+  },
+  {
+   "id": "c7s4",
+   "ch": "c7",
+   "disp": "Floransa'yı Cosimo'dan beri, hiçbir unvan taşımadan, bir bankacı ailesi yönetiyordu: Medici.",
+   "speech": "Floransa'yı Kozimo'dan beri, hiçbir unvan taşımadan, bir bankacı ailesi yönetiyordu: Mediçi.",
+   "t0": 246.38,
+   "t1": 252.49,
+   "words": [
+    {
+     "w": "Floransa'yı",
+     "t0": 246.38,
+     "t1": 247.127
+    },
+    {
+     "w": "Cosimo'dan",
+     "t0": 247.127,
+     "t1": 247.777
+    },
+    {
+     "w": "beri,",
+     "t0": 247.777,
+     "t1": 248.077
+    },
+    {
+     "w": "hiçbir",
+     "t0": 248.188,
+     "t1": 248.577
+    },
+    {
+     "w": "unvan",
+     "t0": 248.577,
+     "t1": 248.987
+    },
+    {
+     "w": "taşımadan,",
+     "t0": 248.987,
+     "t1": 249.76
+    },
+    {
+     "w": "bir",
+     "t0": 249.91,
+     "t1": 250.127
+    },
+    {
+     "w": "bankacı",
+     "t0": 250.127,
+     "t1": 250.637
+    },
+    {
+     "w": "ailesi",
+     "t0": 250.637,
+     "t1": 251.058
+    },
+    {
+     "w": "yönetiyordu:",
+     "t0": 251.058,
+     "t1": 251.77
+    },
+    {
+     "w": "Medici.",
+     "t0": 251.87,
+     "t1": 252.49
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c7s5",
+   "ch": "c7",
+   "disp": "1474'te Papa IV. Sixtus, papalığın bankerliğini Medici'den alıp Pazzi'ye verdi; iki yıl sonra şap tekelinin de aynı yoldan gittiği yazılır.",
+   "speech": "Bin dört yüz yetmiş dörtte Papa Dördüncü Sikstus, papalığın bankerliğini Mediçi'den alıp Pattsi'ye verdi; iki yıl sonra şap tekelinin de aynı yoldan gittiği yazılır.",
+   "t0": 253.14,
+   "t1": 262.98,
+   "words": [
+    {
+     "w": "1474'te",
+     "t0": 253.14,
+     "t1": 254.817
+    },
+    {
+     "w": "Papa",
+     "t0": 254.817,
+     "t1": 255.167
+    },
+    {
+     "w": "IV.",
+     "t0": 255.167,
+     "t1": 255.667
+    },
+    {
+     "w": "Sixtus,",
+     "t0": 255.667,
+     "t1": 256.357
+    },
+    {
+     "w": "papalığın",
+     "t0": 256.357,
+     "t1": 256.897
+    },
+    {
+     "w": "bankerliğini",
+     "t0": 256.897,
+     "t1": 257.668
+    },
+    {
+     "w": "Medici'den",
+     "t0": 257.668,
+     "t1": 258.157
+    },
+    {
+     "w": "alıp",
+     "t0": 258.157,
+     "t1": 258.35
+    },
+    {
+     "w": "Pazzi'ye",
+     "t0": 258.46,
+     "t1": 258.907
+    },
+    {
+     "w": "verdi;",
+     "t0": 258.907,
+     "t1": 259.382
+    },
+    {
+     "w": "iki",
+     "t0": 259.382,
+     "t1": 259.627
+    },
+    {
+     "w": "yıl",
+     "t0": 259.627,
+     "t1": 259.777
+    },
+    {
+     "w": "sonra",
+     "t0": 259.777,
+     "t1": 260.277
+    },
+    {
+     "w": "şap",
+     "t0": 260.337,
+     "t1": 260.637
+    },
+    {
+     "w": "tekelinin",
+     "t0": 260.637,
+     "t1": 261.277
+    },
+    {
+     "w": "de",
+     "t0": 261.277,
+     "t1": 261.358
+    },
+    {
+     "w": "aynı",
+     "t0": 261.358,
+     "t1": 261.647
+    },
+    {
+     "w": "yoldan",
+     "t0": 261.647,
+     "t1": 262.17
+    },
+    {
+     "w": "gittiği",
+     "t0": 262.279,
+     "t1": 262.28
+    },
+    {
+     "w": "yazılır.",
+     "t0": 262.28,
+     "t1": 262.98
+    }
+   ],
+   "gap": 0.62
+  },
+  {
+   "id": "c7s6",
+   "ch": "c7",
+   "disp": "Lorenzo, Papa'nın yeğeni Girolamo Riario'nun Imola'yı alması için para vermemiş, Salviati'nin Pisa başpiskoposluğuna girmesini de iki yıl engellemişti.",
+   "speech": "Lorentso, Papa'nın yeğeni Cirolamo Riaryo'nun İmola'yı alması için para vermemiş, Salvyati'nin Piza başpiskoposluğuna girmesini de iki yıl engellemişti.",
+   "t0": 263.6,
+   "t1": 273.15,
+   "words": [
+    {
+     "w": "Lorenzo,",
+     "t0": 263.6,
+     "t1": 264.438
+    },
+    {
+     "w": "Papa'nın",
+     "t0": 264.438,
+     "t1": 264.887
+    },
+    {
+     "w": "yeğeni",
+     "t0": 264.887,
+     "t1": 265.257
+    },
+    {
+     "w": "Girolamo",
+     "t0": 265.257,
+     "t1": 265.808
+    },
+    {
+     "w": "Riario'nun",
+     "t0": 265.808,
+     "t1": 266.277
+    },
+    {
+     "w": "Imola'yı",
+     "t0": 266.277,
+     "t1": 266.707
+    },
+    {
+     "w": "alması",
+     "t0": 266.707,
+     "t1": 267.137
+    },
+    {
+     "w": "için",
+     "t0": 267.137,
+     "t1": 267.428
+    },
+    {
+     "w": "para",
+     "t0": 267.428,
+     "t1": 267.717
+    },
+    {
+     "w": "vermemiş,",
+     "t0": 267.717,
+     "t1": 268.41
+    },
+    {
+     "w": "Salviati'nin",
+     "t0": 268.6,
+     "t1": 269.397
+    },
+    {
+     "w": "Pisa",
+     "t0": 269.397,
+     "t1": 269.707
+    },
+    {
+     "w": "başpiskoposluğuna",
+     "t0": 269.707,
+     "t1": 270.928
+    },
+    {
+     "w": "girmesini",
+     "t0": 270.928,
+     "t1": 271.447
+    },
+    {
+     "w": "de",
+     "t0": 271.447,
+     "t1": 271.618
+    },
+    {
+     "w": "iki",
+     "t0": 271.717,
+     "t1": 271.988
+    },
+    {
+     "w": "yıl",
+     "t0": 271.988,
+     "t1": 272.168
+    },
+    {
+     "w": "engellemişti.",
+     "t0": 272.168,
+     "t1": 273.15
+    }
+   ],
+   "gap": 0.88
+  },
+  {
+   "id": "c7s7",
+   "ch": "c7",
+   "disp": "1477'de Girolamo Riario, Başpiskopos Salviati ve Pazzi'lerden Francesco, Lorenzo'yla Giuliano'yu ortadan kaldırmak için anlaştı.",
+   "speech": "Bin dört yüz yetmiş yedide Cirolamo Riaryo, Başpiskopos Salvyati ve Pattsi'lerden Françesko, Lorentso'yla Culyano'yu ortadan kaldırmak için anlaştı.",
+   "t0": 274.03,
+   "t1": 283.81,
+   "words": [
+    {
+     "w": "1477'de",
+     "t0": 274.03,
+     "t1": 275.597
+    },
+    {
+     "w": "Girolamo",
+     "t0": 275.597,
+     "t1": 276.157
+    },
+    {
+     "w": "Riario,",
+     "t0": 276.157,
+     "t1": 276.618
+    },
+    {
+     "w": "Başpiskopos",
+     "t0": 276.727,
+     "t1": 277.727
+    },
+    {
+     "w": "Salviati",
+     "t0": 277.727,
+     "t1": 278.347
+    },
+    {
+     "w": "ve",
+     "t0": 278.347,
+     "t1": 278.457
+    },
+    {
+     "w": "Pazzi'lerden",
+     "t0": 278.457,
+     "t1": 279.387
+    },
+    {
+     "w": "Francesco,",
+     "t0": 279.387,
+     "t1": 280.25
+    },
+    {
+     "w": "Lorenzo'yla",
+     "t0": 280.39,
+     "t1": 281.243
+    },
+    {
+     "w": "Giuliano'yu",
+     "t0": 281.243,
+     "t1": 281.717
+    },
+    {
+     "w": "ortadan",
+     "t0": 281.717,
+     "t1": 282.257
+    },
+    {
+     "w": "kaldırmak",
+     "t0": 282.257,
+     "t1": 282.827
+    },
+    {
+     "w": "için",
+     "t0": 282.827,
+     "t1": 283.077
+    },
+    {
+     "w": "anlaştı.",
+     "t0": 283.137,
+     "t1": 283.81
+    }
+   ],
+   "gap": 0.62
+  },
+  {
+   "id": "c7s8",
+   "ch": "c7",
+   "disp": "İlk planın bir ziyafette uygulanacağı, Giuliano gelmeyince saldırının kiliseye kaydırıldığı anlatılır.",
+   "speech": "İlk planın bir ziyafette uygulanacağı, Culyano gelmeyince saldırının kiliseye kaydırıldığı anlatılır.",
+   "t0": 284.43,
+   "t1": 290.64,
+   "words": [
+    {
+     "w": "İlk",
+     "t0": 284.43,
+     "t1": 284.608
+    },
+    {
+     "w": "planın",
+     "t0": 284.608,
+     "t1": 285.178
+    },
+    {
+     "w": "bir",
+     "t0": 285.178,
+     "t1": 285.327
+    },
+    {
+     "w": "ziyafette",
+     "t0": 285.327,
+     "t1": 285.947
+    },
+    {
+     "w": "uygulanacağı,",
+     "t0": 285.947,
+     "t1": 286.907
+    },
+    {
+     "w": "Giuliano",
+     "t0": 286.967,
+     "t1": 287.438
+    },
+    {
+     "w": "gelmeyince",
+     "t0": 287.438,
+     "t1": 288.137
+    },
+    {
+     "w": "saldırının",
+     "t0": 288.137,
+     "t1": 288.788
+    },
+    {
+     "w": "kiliseye",
+     "t0": 288.788,
+     "t1": 289.257
+    },
+    {
+     "w": "kaydırıldığı",
+     "t0": 289.257,
+     "t1": 289.967
+    },
+    {
+     "w": "anlatılır.",
+     "t0": 289.967,
+     "t1": 290.64
+    }
+   ],
+   "gap": 0.6
+  },
+  {
+   "id": "c7s9",
+   "ch": "c7",
+   "disp": "Lorenzo'yu öldürmekle görevli paralı asker Montesecco, kilisede kan dökmeyi reddetti.",
+   "speech": "Lorentso'yu öldürmekle görevli paralı asker Montesekko, kilisede kan dökmeyi reddetti.",
+   "t0": 291.24,
+   "t1": 297.08,
+   "words": [
+    {
+     "w": "Lorenzo'yu",
+     "t0": 291.24,
+     "t1": 292.037
+    },
+    {
+     "w": "öldürmekle",
+     "t0": 292.037,
+     "t1": 292.747
+    },
+    {
+     "w": "görevli",
+     "t0": 292.747,
+     "t1": 293.197
+    },
+    {
+     "w": "paralı",
+     "t0": 293.197,
+     "t1": 293.567
+    },
+    {
+     "w": "asker",
+     "t0": 293.567,
+     "t1": 294.017
+    },
+    {
+     "w": "Montesecco,",
+     "t0": 294.017,
+     "t1": 294.92
+    },
+    {
+     "w": "kilisede",
+     "t0": 295.03,
+     "t1": 295.617
+    },
+    {
+     "w": "kan",
+     "t0": 295.617,
+     "t1": 295.987
+    },
+    {
+     "w": "dökmeyi",
+     "t0": 295.987,
+     "t1": 296.438
+    },
+    {
+     "w": "reddetti.",
+     "t0": 296.438,
+     "t1": 297.08
+    }
+   ],
+   "gap": 0.82
+  },
+  {
+   "id": "c7s10",
+   "ch": "c7",
+   "disp": "Yerine aceleyle iki papaz seçildi: Antonio Maffei ve Stefano da Bagnone; İtalyan Ansiklopedisi Treccani bu değişikliği planın kısmen çökmesinin nedenlerinden sayar.",
+   "speech": "Yerine aceleyle iki papaz seçildi: Antonyo Maffey ve Stefano da Banyone; İtalyan Ansiklopedisi Trekkani bu değişikliği planın kısmen çökmesinin nedenlerinden sayar.",
+   "t0": 297.9,
+   "t1": 308.79,
+   "words": [
+    {
+     "w": "Yerine",
+     "t0": 297.9,
+     "t1": 298.277
+    },
+    {
+     "w": "aceleyle",
+     "t0": 298.277,
+     "t1": 298.928
+    },
+    {
+     "w": "iki",
+     "t0": 298.987,
+     "t1": 299.157
+    },
+    {
+     "w": "papaz",
+     "t0": 299.157,
+     "t1": 299.527
+    },
+    {
+     "w": "seçildi:",
+     "t0": 299.527,
+     "t1": 300.147
+    },
+    {
+     "w": "Antonio",
+     "t0": 300.237,
+     "t1": 300.767
+    },
+    {
+     "w": "Maffei",
+     "t0": 300.767,
+     "t1": 301.188
+    },
+    {
+     "w": "ve",
+     "t0": 301.188,
+     "t1": 301.342
+    },
+    {
+     "w": "Stefano",
+     "t0": 301.342,
+     "t1": 301.938
+    },
+    {
+     "w": "da",
+     "t0": 301.938,
+     "t1": 302.048
+    },
+    {
+     "w": "Bagnone;",
+     "t0": 302.048,
+     "t1": 302.647
+    },
+    {
+     "w": "İtalyan",
+     "t0": 302.727,
+     "t1": 303.317
+    },
+    {
+     "w": "Ansiklopedisi",
+     "t0": 303.387,
+     "t1": 304.407
+    },
+    {
+     "w": "Treccani",
+     "t0": 304.517,
+     "t1": 305.027
+    },
+    {
+     "w": "bu",
+     "t0": 305.027,
+     "t1": 305.157
+    },
+    {
+     "w": "değişikliği",
+     "t0": 305.157,
+     "t1": 305.49
+    },
+    {
+     "w": "planın",
+     "t0": 305.6,
+     "t1": 306.188
+    },
+    {
+     "w": "kısmen",
+     "t0": 306.188,
+     "t1": 306.707
+    },
+    {
+     "w": "çökmesinin",
+     "t0": 306.707,
+     "t1": 307.308
+    },
+    {
+     "w": "nedenlerinden",
+     "t0": 307.308,
+     "t1": 308.222
+    },
+    {
+     "w": "sayar.",
+     "t0": 308.222,
+     "t1": 308.79
+    }
+   ],
+   "gap": 0.73
+  },
+  {
+   "id": "c7s11",
+   "ch": "c7",
+   "disp": "Stefano, Jacopo de' Pazzi'nin kızına Latince öğreten papazdı.",
+   "speech": "Stefano, Yakopo de Pattsi'nin kızına Latince öğreten papazdı.",
+   "t0": 309.52,
+   "t1": 313.76,
+   "words": [
+    {
+     "w": "Stefano,",
+     "t0": 309.52,
+     "t1": 310.32
+    },
+    {
+     "w": "Jacopo",
+     "t0": 310.45,
+     "t1": 310.938
+    },
+    {
+     "w": "de'",
+     "t0": 310.938,
+     "t1": 311.058
+    },
+    {
+     "w": "Pazzi'nin",
+     "t0": 311.058,
+     "t1": 311.697
+    },
+    {
+     "w": "kızına",
+     "t0": 311.697,
+     "t1": 312.097
+    },
+    {
+     "w": "Latince",
+     "t0": 312.097,
+     "t1": 312.702
+    },
+    {
+     "w": "öğreten",
+     "t0": 312.702,
+     "t1": 313.188
+    },
+    {
+     "w": "papazdı.",
+     "t0": 313.188,
+     "t1": 313.76
+    }
+   ],
+   "gap": 0.86
+  },
+  {
+   "id": "c7s12",
+   "ch": "c7",
+   "disp": "Kilise doluydu, ayin başlamıştı; Giuliano ise henüz gelmemişti.",
+   "speech": "Kilise doluydu, ayin başlamıştı; Culyano ise henüz gelmemişti.",
+   "t0": 314.62,
+   "t1": 319.28,
+   "words": [
+    {
+     "w": "Kilise",
+     "t0": 314.62,
+     "t1": 315.017
+    },
+    {
+     "w": "doluydu,",
+     "t0": 315.017,
+     "t1": 315.62
+    },
+    {
+     "w": "ayin",
+     "t0": 315.72,
+     "t1": 316.058
+    },
+    {
+     "w": "başlamıştı;",
+     "t0": 316.058,
+     "t1": 316.83
+    },
+    {
+     "w": "Giuliano",
+     "t0": 317.04,
+     "t1": 317.537
+    },
+    {
+     "w": "ise",
+     "t0": 317.537,
+     "t1": 317.957
+    },
+    {
+     "w": "henüz",
+     "t0": 318.087,
+     "t1": 318.418
+    },
+    {
+     "w": "gelmemişti.",
+     "t0": 318.418,
+     "t1": 319.28
+    }
+   ],
+   "gap": 0.77
+  },
+  {
+   "id": "c7s13",
+   "ch": "c7",
+   "disp": "Francesco de' Pazzi ile Bernardo Bandini onun evine gidip dil dökerek onu kiliseye getirdi.",
+   "speech": "Françesko de Pattsi ile Bernardo Bandini onun evine gidip dil dökerek onu kiliseye getirdi.",
+   "t0": 320.05,
+   "t1": 325.88,
+   "words": [
+    {
+     "w": "Francesco",
+     "t0": 320.05,
+     "t1": 320.792
+    },
+    {
+     "w": "de'",
+     "t0": 320.792,
+     "t1": 320.938
+    },
+    {
+     "w": "Pazzi",
+     "t0": 320.938,
+     "t1": 321.407
+    },
+    {
+     "w": "ile",
+     "t0": 321.407,
+     "t1": 321.597
+    },
+    {
+     "w": "Bernardo",
+     "t0": 321.597,
+     "t1": 322.308
+    },
+    {
+     "w": "Bandini",
+     "t0": 322.308,
+     "t1": 322.737
+    },
+    {
+     "w": "onun",
+     "t0": 322.867,
+     "t1": 323.097
+    },
+    {
+     "w": "evine",
+     "t0": 323.197,
+     "t1": 323.457
+    },
+    {
+     "w": "gidip",
+     "t0": 323.457,
+     "t1": 323.77
+    },
+    {
+     "w": "dil",
+     "t0": 323.9,
+     "t1": 324.027
+    },
+    {
+     "w": "dökerek",
+     "t0": 324.027,
+     "t1": 324.558
+    },
+    {
+     "w": "onu",
+     "t0": 324.558,
+     "t1": 324.748
+    },
+    {
+     "w": "kiliseye",
+     "t0": 324.748,
+     "t1": 325.227
+    },
+    {
+     "w": "getirdi.",
+     "t0": 325.227,
+     "t1": 325.88
+    }
+   ],
+   "gap": 0.67
+  },
+  {
+   "id": "c7s14",
+   "ch": "c7",
+   "disp": "Yol boyunca şakalaştıkları, Francesco'nun sarılır gibi yapıp Giuliano'nun giysisinin altında zırh olup olmadığını yokladığı anlatılır.",
+   "speech": "Yol boyunca şakalaştıkları, Françesko'nun sarılır gibi yapıp Culyano'nun giysisinin altında zırh olup olmadığını yokladığı anlatılır.",
+   "t0": 326.55,
+   "t1": 334.2,
+   "words": [
+    {
+     "w": "Yol",
+     "t0": 326.55,
+     "t1": 326.897
+    },
+    {
+     "w": "boyunca",
+     "t0": 326.897,
+     "t1": 327.297
+    },
+    {
+     "w": "şakalaştıkları,",
+     "t0": 327.297,
+     "t1": 328.287
+    },
+    {
+     "w": "Francesco'nun",
+     "t0": 328.377,
+     "t1": 329.197
+    },
+    {
+     "w": "sarılır",
+     "t0": 329.197,
+     "t1": 329.617
+    },
+    {
+     "w": "gibi",
+     "t0": 329.617,
+     "t1": 329.837
+    },
+    {
+     "w": "yapıp",
+     "t0": 329.837,
+     "t1": 330.11
+    },
+    {
+     "w": "Giuliano'nun",
+     "t0": 330.3,
+     "t1": 330.877
+    },
+    {
+     "w": "giysisinin",
+     "t0": 330.877,
+     "t1": 331.452
+    },
+    {
+     "w": "altında",
+     "t0": 331.452,
+     "t1": 331.928
+    },
+    {
+     "w": "zırh",
+     "t0": 331.928,
+     "t1": 332.237
+    },
+    {
+     "w": "olup",
+     "t0": 332.237,
+     "t1": 332.527
+    },
+    {
+     "w": "olmadığını",
+     "t0": 332.527,
+     "t1": 332.997
+    },
+    {
+     "w": "yokladığı",
+     "t0": 332.997,
+     "t1": 333.487
+    },
+    {
+     "w": "anlatılır.",
+     "t0": 333.487,
+     "t1": 334.2
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c7s15",
+   "ch": "c7",
+   "disp": "İşaret konusunda anlatılar ayrışır: kimi ayini yöneten papazın komünyon alışını söyler, kimi ekmeğin kaldırıldığı anı.",
+   "speech": "İşaret konusunda anlatılar ayrışır: kimi ayini yöneten papazın komünyon alışını söyler, kimi ekmeğin kaldırıldığı anı.",
+   "t0": 335.03,
+   "t1": 342.83,
+   "words": [
+    {
+     "w": "İşaret",
+     "t0": 335.03,
+     "t1": 335.627
+    },
+    {
+     "w": "konusunda",
+     "t0": 335.627,
+     "t1": 336.308
+    },
+    {
+     "w": "anlatılar",
+     "t0": 336.308,
+     "t1": 336.938
+    },
+    {
+     "w": "ayrışır:",
+     "t0": 336.938,
+     "t1": 337.673
+    },
+    {
+     "w": "kimi",
+     "t0": 337.673,
+     "t1": 337.947
+    },
+    {
+     "w": "ayini",
+     "t0": 337.947,
+     "t1": 338.417
+    },
+    {
+     "w": "yöneten",
+     "t0": 338.417,
+     "t1": 338.957
+    },
+    {
+     "w": "papazın",
+     "t0": 338.957,
+     "t1": 339.467
+    },
+    {
+     "w": "komünyon",
+     "t0": 339.467,
+     "t1": 339.897
+    },
+    {
+     "w": "alışını",
+     "t0": 339.897,
+     "t1": 340.308
+    },
+    {
+     "w": "söyler,",
+     "t0": 340.308,
+     "t1": 340.938
+    },
+    {
+     "w": "kimi",
+     "t0": 340.997,
+     "t1": 341.298
+    },
+    {
+     "w": "ekmeğin",
+     "t0": 341.298,
+     "t1": 341.787
+    },
+    {
+     "w": "kaldırıldığı",
+     "t0": 341.787,
+     "t1": 342.487
+    },
+    {
+     "w": "anı.",
+     "t0": 342.487,
+     "t1": 342.83
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c7s16",
+   "ch": "c7",
+   "disp": "Ekmek kaldırılırken herkesin diz çökmesi gelenekti.",
+   "speech": "Ekmek kaldırılırken herkesin diz çökmesi gelenekti.",
+   "t0": 343.57,
+   "t1": 347.01,
+   "words": [
+    {
+     "w": "Ekmek",
+     "t0": 343.57,
+     "t1": 344.007
+    },
+    {
+     "w": "kaldırılırken",
+     "t0": 344.007,
+     "t1": 344.957
+    },
+    {
+     "w": "herkesin",
+     "t0": 344.957,
+     "t1": 345.657
+    },
+    {
+     "w": "diz",
+     "t0": 345.657,
+     "t1": 345.877
+    },
+    {
+     "w": "çökmesi",
+     "t0": 345.877,
+     "t1": 346.317
+    },
+    {
+     "w": "gelenekti.",
+     "t0": 346.317,
+     "t1": 347.01
+    }
+   ],
+   "gap": 0.86
+  },
+  {
+   "id": "c7s17",
+   "ch": "c7",
+   "disp": "Bandini kısa bir silahı Giuliano'nun göğsüne sapladı; Giuliano birkaç adım gidip düştü.",
+   "speech": "Bandini kısa bir silahı Culyano'nun göğsüne sapladı; Culyano birkaç adım gidip düştü.",
+   "t0": 347.87,
+   "t1": 353.11,
+   "words": [
+    {
+     "w": "Bandini",
+     "t0": 347.87,
+     "t1": 348.407
+    },
+    {
+     "w": "kısa",
+     "t0": 348.407,
+     "t1": 348.697
+    },
+    {
+     "w": "bir",
+     "t0": 348.697,
+     "t1": 348.857
+    },
+    {
+     "w": "silahı",
+     "t0": 348.857,
+     "t1": 349.277
+    },
+    {
+     "w": "Giuliano'nun",
+     "t0": 349.277,
+     "t1": 349.847
+    },
+    {
+     "w": "göğsüne",
+     "t0": 349.847,
+     "t1": 350.257
+    },
+    {
+     "w": "sapladı;",
+     "t0": 350.257,
+     "t1": 350.86
+    },
+    {
+     "w": "Giuliano",
+     "t0": 351.0,
+     "t1": 351.507
+    },
+    {
+     "w": "birkaç",
+     "t0": 351.507,
+     "t1": 352.037
+    },
+    {
+     "w": "adım",
+     "t0": 352.037,
+     "t1": 352.237
+    },
+    {
+     "w": "gidip",
+     "t0": 352.237,
+     "t1": 352.46
+    },
+    {
+     "w": "düştü.",
+     "t0": 352.65,
+     "t1": 353.11
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c7s18",
+   "ch": "c7",
+   "disp": "Francesco üstüne kapanıp defalarca vurdu; yara sayısı 19 diye sayılır.",
+   "speech": "Françesko üstüne kapanıp defalarca vurdu; yara sayısı on dokuz diye sayılır.",
+   "t0": 353.8,
+   "t1": 358.92,
+   "words": [
+    {
+     "w": "Francesco",
+     "t0": 353.8,
+     "t1": 354.548
+    },
+    {
+     "w": "üstüne",
+     "t0": 354.548,
+     "t1": 354.917
+    },
+    {
+     "w": "kapanıp",
+     "t0": 354.917,
+     "t1": 355.438
+    },
+    {
+     "w": "defalarca",
+     "t0": 355.438,
+     "t1": 356.058
+    },
+    {
+     "w": "vurdu;",
+     "t0": 356.058,
+     "t1": 356.5
+    },
+    {
+     "w": "yara",
+     "t0": 356.61,
+     "t1": 356.928
+    },
+    {
+     "w": "sayısı",
+     "t0": 356.928,
+     "t1": 357.477
+    },
+    {
+     "w": "19",
+     "t0": 357.577,
+     "t1": 358.148
+    },
+    {
+     "w": "diye",
+     "t0": 358.148,
+     "t1": 358.368
+    },
+    {
+     "w": "sayılır.",
+     "t0": 358.368,
+     "t1": 358.92
+    }
+   ],
+   "gap": 0.63
+  },
+  {
+   "id": "c7s19",
+   "ch": "c7",
+   "disp": "Ama hedef yalnız Giuliano değildi.",
+   "speech": "Ama hedef yalnız Culyano değildi.",
+   "t0": 359.55,
+   "t1": 361.79,
+   "words": [
+    {
+     "w": "Ama",
+     "t0": 359.55,
+     "t1": 359.877
+    },
+    {
+     "w": "hedef",
+     "t0": 359.877,
+     "t1": 360.317
+    },
+    {
+     "w": "yalnız",
+     "t0": 360.317,
+     "t1": 360.808
+    },
+    {
+     "w": "Giuliano",
+     "t0": 360.808,
+     "t1": 361.288
+    },
+    {
+     "w": "değildi.",
+     "t0": 361.288,
+     "t1": 361.79
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c7s20",
+   "ch": "c7",
+   "disp": "Aynı anda Lorenzo'ya iki papaz saldırdı.",
+   "speech": "Aynı anda Lorentso'ya iki papaz saldırdı.",
+   "t0": 362.64,
+   "t1": 365.45,
+   "words": [
+    {
+     "w": "Aynı",
+     "t0": 362.64,
+     "t1": 362.978
+    },
+    {
+     "w": "anda",
+     "t0": 362.978,
+     "t1": 363.398
+    },
+    {
+     "w": "Lorenzo'ya",
+     "t0": 363.398,
+     "t1": 364.077
+    },
+    {
+     "w": "iki",
+     "t0": 364.168,
+     "t1": 364.368
+    },
+    {
+     "w": "papaz",
+     "t0": 364.368,
+     "t1": 364.788
+    },
+    {
+     "w": "saldırdı.",
+     "t0": 364.788,
+     "t1": 365.45
+    }
+   ],
+   "gap": 0.7
+  },
+  {
+   "id": "c7s21",
+   "ch": "c7",
+   "disp": "Lorenzo boynundan hafifçe yaralandı, kendini savundu ve sakristiye kaçtı.",
+   "speech": "Lorentso boynundan hafifçe yaralandı, kendini savundu ve sakristiye kaçtı.",
+   "t0": 366.15,
+   "t1": 371.12,
+   "words": [
+    {
+     "w": "Lorenzo",
+     "t0": 366.15,
+     "t1": 366.808
+    },
+    {
+     "w": "boynundan",
+     "t0": 366.808,
+     "t1": 367.428
+    },
+    {
+     "w": "hafifçe",
+     "t0": 367.428,
+     "t1": 368.007
+    },
+    {
+     "w": "yaralandı,",
+     "t0": 368.007,
+     "t1": 368.65
+    },
+    {
+     "w": "kendini",
+     "t0": 368.78,
+     "t1": 369.197
+    },
+    {
+     "w": "savundu",
+     "t0": 369.197,
+     "t1": 369.748
+    },
+    {
+     "w": "ve",
+     "t0": 369.748,
+     "t1": 369.938
+    },
+    {
+     "w": "sakristiye",
+     "t0": 369.938,
+     "t1": 370.647
+    },
+    {
+     "w": "kaçtı.",
+     "t0": 370.647,
+     "t1": 371.12
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c7s22",
+   "ch": "c7",
+   "disp": "Dostlarının, sakristinin ağır tunç kapısını arkasından kapattığı anlatılır; aralarında şair Poliziano da vardı.",
+   "speech": "Dostlarının, sakristinin ağır tunç kapısını arkasından kapattığı anlatılır; aralarında şair Politsyano da vardı.",
+   "t0": 371.84,
+   "t1": 379.1,
+   "words": [
+    {
+     "w": "Dostlarının,",
+     "t0": 371.84,
+     "t1": 372.717
+    },
+    {
+     "w": "sakristinin",
+     "t0": 372.778,
+     "t1": 373.612
+    },
+    {
+     "w": "ağır",
+     "t0": 373.612,
+     "t1": 373.918
+    },
+    {
+     "w": "tunç",
+     "t0": 373.918,
+     "t1": 374.227
+    },
+    {
+     "w": "kapısını",
+     "t0": 374.227,
+     "t1": 374.697
+    },
+    {
+     "w": "arkasından",
+     "t0": 374.697,
+     "t1": 375.457
+    },
+    {
+     "w": "kapattığı",
+     "t0": 375.457,
+     "t1": 375.947
+    },
+    {
+     "w": "anlatılır;",
+     "t0": 375.947,
+     "t1": 376.637
+    },
+    {
+     "w": "aralarında",
+     "t0": 376.707,
+     "t1": 377.428
+    },
+    {
+     "w": "şair",
+     "t0": 377.517,
+     "t1": 377.898
+    },
+    {
+     "w": "Poliziano",
+     "t0": 377.898,
+     "t1": 378.558
+    },
+    {
+     "w": "da",
+     "t0": 378.558,
+     "t1": 378.688
+    },
+    {
+     "w": "vardı.",
+     "t0": 378.688,
+     "t1": 379.1
+    }
+   ],
+   "gap": 0.72
+  },
+  {
+   "id": "c7s23",
+   "ch": "c7",
+   "disp": "Onu korumaya çalışan arkadaşı Francesco Nori, Bandini'nin hançerinden öldü.",
+   "speech": "Onu korumaya çalışan arkadaşı Françesko Nori, Bandini'nin hançerinden öldü.",
+   "t0": 379.82,
+   "t1": 384.47,
+   "words": [
+    {
+     "w": "Onu",
+     "t0": 379.82,
+     "t1": 380.038
+    },
+    {
+     "w": "korumaya",
+     "t0": 380.038,
+     "t1": 380.477
+    },
+    {
+     "w": "çalışan",
+     "t0": 380.477,
+     "t1": 380.957
+    },
+    {
+     "w": "arkadaşı",
+     "t0": 380.957,
+     "t1": 381.517
+    },
+    {
+     "w": "Francesco",
+     "t0": 381.517,
+     "t1": 382.217
+    },
+    {
+     "w": "Nori,",
+     "t0": 382.217,
+     "t1": 382.59
+    },
+    {
+     "w": "Bandini'nin",
+     "t0": 382.73,
+     "t1": 383.438
+    },
+    {
+     "w": "hançerinden",
+     "t0": 383.438,
+     "t1": 384.137
+    },
+    {
+     "w": "öldü.",
+     "t0": 384.137,
+     "t1": 384.47
+    }
+   ],
+   "gap": 0.91
+  },
+  {
+   "id": "c7s24",
+   "ch": "c7",
+   "disp": "Giuliano'nun bedeni, katedralin papazları gelip toplayana dek yerde yattı.",
+   "speech": "Culyano'nun bedeni, katedralin papazları gelip toplayana dek yerde yattı.",
+   "t0": 385.38,
+   "t1": 389.951,
+   "words": [
+    {
+     "w": "Giuliano'nun",
+     "t0": 385.38,
+     "t1": 386.178
+    },
+    {
+     "w": "bedeni,",
+     "t0": 386.178,
+     "t1": 386.67
+    },
+    {
+     "w": "katedralin",
+     "t0": 386.78,
+     "t1": 387.438
+    },
+    {
+     "w": "papazları",
+     "t0": 387.438,
+     "t1": 388.118
+    },
+    {
+     "w": "gelip",
+     "t0": 388.237,
+     "t1": 388.607
+    },
+    {
+     "w": "toplayana",
+     "t0": 388.607,
+     "t1": 389.207
+    },
+    {
+     "w": "dek",
+     "t0": 389.207,
+     "t1": 389.467
+    },
+    {
+     "w": "yerde",
+     "t0": 389.467,
+     "t1": 389.95
+    },
+    {
+     "w": "yattı.",
+     "t0": 389.95,
+     "t1": 389.951
+    }
+   ],
+   "gap": 1.049
+  },
+  {
+   "id": "c7s25",
+   "ch": "c7",
+   "disp": "Genç kardinal tutuklandı; halkın elinden kurtuldu ve haftalarca rehin kaldı.",
+   "speech": "Genç kardinal tutuklandı; halkın elinden kurtuldu ve haftalarca rehin kaldı.",
+   "t0": 391.0,
+   "t1": 395.97,
+   "words": [
+    {
+     "w": "Genç",
+     "t0": 391.0,
+     "t1": 391.438
+    },
+    {
+     "w": "kardinal",
+     "t0": 391.438,
+     "t1": 391.957
+    },
+    {
+     "w": "tutuklandı;",
+     "t0": 391.957,
+     "t1": 392.788
+    },
+    {
+     "w": "halkın",
+     "t0": 392.847,
+     "t1": 393.298
+    },
+    {
+     "w": "elinden",
+     "t0": 393.298,
+     "t1": 393.748
+    },
+    {
+     "w": "kurtuldu",
+     "t0": 393.748,
+     "t1": 394.337
+    },
+    {
+     "w": "ve",
+     "t0": 394.337,
+     "t1": 394.467
+    },
+    {
+     "w": "haftalarca",
+     "t0": 394.467,
+     "t1": 395.227
+    },
+    {
+     "w": "rehin",
+     "t0": 395.227,
+     "t1": 395.548
+    },
+    {
+     "w": "kaldı.",
+     "t0": 395.548,
+     "t1": 395.97
+    }
+   ],
+   "gap": 0.83
+  },
+  {
+   "id": "c7s26",
+   "ch": "c7",
+   "disp": "Aynı sırada Palazzo Vecchio'da Başpiskopos Salviati, bir grup adamla cumhuriyetin başı olan gonfaloniereyi öldürüp sarayı almaya çalışıyordu.",
+   "speech": "Aynı sırada Palattso Vekkyo'da Başpiskopos Salvyati, bir grup adamla cumhuriyetin başı olan gonfaloniereyi öldürüp sarayı almaya çalışıyordu.",
+   "t0": 396.8,
+   "t1": 405.35,
+   "words": [
+    {
+     "w": "Aynı",
+     "t0": 396.8,
+     "t1": 397.138
+    },
+    {
+     "w": "sırada",
+     "t0": 397.138,
+     "t1": 397.498
+    },
+    {
+     "w": "Palazzo",
+     "t0": 397.498,
+     "t1": 398.018
+    },
+    {
+     "w": "Vecchio'da",
+     "t0": 398.018,
+     "t1": 398.467
+    },
+    {
+     "w": "Başpiskopos",
+     "t0": 398.467,
+     "t1": 399.347
+    },
+    {
+     "w": "Salviati,",
+     "t0": 399.347,
+     "t1": 400.1
+    },
+    {
+     "w": "bir",
+     "t0": 400.27,
+     "t1": 400.498
+    },
+    {
+     "w": "grup",
+     "t0": 400.498,
+     "t1": 400.837
+    },
+    {
+     "w": "adamla",
+     "t0": 400.918,
+     "t1": 401.342
+    },
+    {
+     "w": "cumhuriyetin",
+     "t0": 401.342,
+     "t1": 401.998
+    },
+    {
+     "w": "başı",
+     "t0": 401.998,
+     "t1": 402.317
+    },
+    {
+     "w": "olan",
+     "t0": 402.317,
+     "t1": 402.658
+    },
+    {
+     "w": "gonfaloniereyi",
+     "t0": 402.658,
+     "t1": 403.358
+    },
+    {
+     "w": "öldürüp",
+     "t0": 403.358,
+     "t1": 403.768
+    },
+    {
+     "w": "sarayı",
+     "t0": 403.768,
+     "t1": 404.238
+    },
+    {
+     "w": "almaya",
+     "t0": 404.238,
+     "t1": 404.597
+    },
+    {
+     "w": "çalışıyordu.",
+     "t0": 404.597,
+     "t1": 405.35
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c7s27",
+   "ch": "c7",
+   "disp": "Gonfaloniere Cesare Petrucci hileyi sezip alarm verdi; Salviati'nin adamları sarayda bir odada kapana kısıldı.",
+   "speech": "Gonfaloniere Çezare Petrutçi hileyi sezip alarm verdi; Salvyati'nin adamları sarayda bir odada kapana kısıldı.",
+   "t0": 406.04,
+   "t1": 413.14,
+   "words": [
+    {
+     "w": "Gonfaloniere",
+     "t0": 406.04,
+     "t1": 406.857
+    },
+    {
+     "w": "Cesare",
+     "t0": 406.857,
+     "t1": 407.42
+    },
+    {
+     "w": "Petrucci",
+     "t0": 407.57,
+     "t1": 408.143
+    },
+    {
+     "w": "hileyi",
+     "t0": 408.143,
+     "t1": 408.457
+    },
+    {
+     "w": "sezip",
+     "t0": 408.457,
+     "t1": 408.918
+    },
+    {
+     "w": "alarm",
+     "t0": 408.918,
+     "t1": 409.267
+    },
+    {
+     "w": "verdi;",
+     "t0": 409.267,
+     "t1": 409.678
+    },
+    {
+     "w": "Salviati'nin",
+     "t0": 409.737,
+     "t1": 410.527
+    },
+    {
+     "w": "adamları",
+     "t0": 410.527,
+     "t1": 411.107
+    },
+    {
+     "w": "sarayda",
+     "t0": 411.168,
+     "t1": 411.747
+    },
+    {
+     "w": "bir",
+     "t0": 411.747,
+     "t1": 411.928
+    },
+    {
+     "w": "odada",
+     "t0": 411.928,
+     "t1": 412.237
+    },
+    {
+     "w": "kapana",
+     "t0": 412.237,
+     "t1": 412.577
+    },
+    {
+     "w": "kısıldı.",
+     "t0": 412.577,
+     "t1": 413.14
+    }
+   ],
+   "gap": 0.88
+  },
+  {
+   "id": "c7s28",
+   "ch": "c7",
+   "disp": "Jacopo de' Pazzi, yüz kadar silahlı adamla meydana gelip halkı ve özgürlüğü yardıma çağırdı.",
+   "speech": "Yakopo de Pattsi, yüz kadar silahlı adamla meydana gelip halkı ve özgürlüğü yardıma çağırdı.",
+   "t0": 414.02,
+   "t1": 419.88,
+   "words": [
+    {
+     "w": "Jacopo",
+     "t0": 414.02,
+     "t1": 414.548
+    },
+    {
+     "w": "de'",
+     "t0": 414.548,
+     "t1": 414.697
+    },
+    {
+     "w": "Pazzi,",
+     "t0": 414.697,
+     "t1": 415.308
+    },
+    {
+     "w": "yüz",
+     "t0": 415.377,
+     "t1": 415.637
+    },
+    {
+     "w": "kadar",
+     "t0": 415.637,
+     "t1": 416.018
+    },
+    {
+     "w": "silahlı",
+     "t0": 416.018,
+     "t1": 416.457
+    },
+    {
+     "w": "adamla",
+     "t0": 416.457,
+     "t1": 416.898
+    },
+    {
+     "w": "meydana",
+     "t0": 416.898,
+     "t1": 417.358
+    },
+    {
+     "w": "gelip",
+     "t0": 417.358,
+     "t1": 417.738
+    },
+    {
+     "w": "halkı",
+     "t0": 417.738,
+     "t1": 418.058
+    },
+    {
+     "w": "ve",
+     "t0": 418.058,
+     "t1": 418.248
+    },
+    {
+     "w": "özgürlüğü",
+     "t0": 418.308,
+     "t1": 418.908
+    },
+    {
+     "w": "yardıma",
+     "t0": 418.908,
+     "t1": 419.317
+    },
+    {
+     "w": "çağırdı.",
+     "t0": 419.317,
+     "t1": 419.88
+    }
+   ],
+   "gap": 0.64
+  },
+  {
+   "id": "c7s29",
+   "ch": "c7",
+   "disp": "Machiavelli'ye göre karşılık veren çıkmadı: halkı Medici'nin talihi ve cömertliği sağır etmişti, özgürlüğü ise Floransa pek tanımıyordu.",
+   "speech": "Makyavelli'ye göre karşılık veren çıkmadı: halkı Mediçi'nin talihi ve cömertliği sağır etmişti, özgürlüğü ise Floransa pek tanımıyordu.",
+   "t0": 420.52,
+   "t1": 429.47,
+   "words": [
+    {
+     "w": "Machiavelli'ye",
+     "t0": 420.52,
+     "t1": 421.418
+    },
+    {
+     "w": "göre",
+     "t0": 421.418,
+     "t1": 421.688
+    },
+    {
+     "w": "karşılık",
+     "t0": 421.688,
+     "t1": 422.288
+    },
+    {
+     "w": "veren",
+     "t0": 422.288,
+     "t1": 422.648
+    },
+    {
+     "w": "çıkmadı:",
+     "t0": 422.648,
+     "t1": 423.197
+    },
+    {
+     "w": "halkı",
+     "t0": 423.288,
+     "t1": 423.678
+    },
+    {
+     "w": "Medici'nin",
+     "t0": 423.678,
+     "t1": 424.227
+    },
+    {
+     "w": "talihi",
+     "t0": 424.227,
+     "t1": 424.778
+    },
+    {
+     "w": "ve",
+     "t0": 424.778,
+     "t1": 424.977
+    },
+    {
+     "w": "cömertliği",
+     "t0": 424.977,
+     "t1": 425.597
+    },
+    {
+     "w": "sağır",
+     "t0": 425.597,
+     "t1": 425.957
+    },
+    {
+     "w": "etmişti,",
+     "t0": 425.957,
+     "t1": 426.528
+    },
+    {
+     "w": "özgürlüğü",
+     "t0": 426.597,
+     "t1": 427.308
+    },
+    {
+     "w": "ise",
+     "t0": 427.308,
+     "t1": 427.697
+    },
+    {
+     "w": "Floransa",
+     "t0": 427.798,
+     "t1": 428.408
+    },
+    {
+     "w": "pek",
+     "t0": 428.408,
+     "t1": 428.688
+    },
+    {
+     "w": "tanımıyordu.",
+     "t0": 428.688,
+     "t1": 429.47
+    }
+   ],
+   "gap": 0.74
+  },
+  {
+   "id": "c7s30",
+   "ch": "c7",
+   "disp": "Sokaklarda ise Medici armasındaki toplara gönderme yapan “palle, palle” sesleri yükseliyordu; bunu Guicciardini yazar.",
+   "speech": "Sokaklarda ise Mediçi armasındaki toplara gönderme yapan “palle, palle” sesleri yükseliyordu; bunu Gviçardini yazar.",
+   "t0": 430.21,
+   "t1": 437.91,
+   "words": [
+    {
+     "w": "Sokaklarda",
+     "t0": 430.21,
+     "t1": 430.998
+    },
+    {
+     "w": "ise",
+     "t0": 430.998,
+     "t1": 431.4
+    },
+    {
+     "w": "Medici",
+     "t0": 431.56,
+     "t1": 431.928
+    },
+    {
+     "w": "armasındaki",
+     "t0": 431.928,
+     "t1": 432.648
+    },
+    {
+     "w": "toplara",
+     "t0": 432.648,
+     "t1": 433.123
+    },
+    {
+     "w": "gönderme",
+     "t0": 433.123,
+     "t1": 433.668
+    },
+    {
+     "w": "yapan",
+     "t0": 433.668,
+     "t1": 434.077
+    },
+    {
+     "w": "“palle,",
+     "t0": 434.077,
+     "t1": 434.517
+    },
+    {
+     "w": "palle”",
+     "t0": 434.517,
+     "t1": 434.957
+    },
+    {
+     "w": "sesleri",
+     "t0": 434.957,
+     "t1": 435.498
+    },
+    {
+     "w": "yükseliyordu;",
+     "t0": 435.498,
+     "t1": 436.35
+    },
+    {
+     "w": "bunu",
+     "t0": 436.58,
+     "t1": 436.837
+    },
+    {
+     "w": "Guicciardini",
+     "t0": 436.837,
+     "t1": 437.498
+    },
+    {
+     "w": "yazar.",
+     "t0": 437.498,
+     "t1": 437.91
+    }
+   ],
+   "gap": 0.82
+  },
+  {
+   "id": "c7s31",
+   "ch": "c7",
+   "disp": "Lorenzo'nun silahlı gençlerin koruması altında Medici Sarayı'na götürüldüğü, yaralı boynuyla pencerede göründüğü ve alkışlandığı anlatılır.",
+   "speech": "Lorentso'nun silahlı gençlerin koruması altında Mediçi Sarayı'na götürüldüğü, yaralı boynuyla pencerede göründüğü ve alkışlandığı anlatılır.",
+   "t0": 438.73,
+   "t1": 447.32,
+   "words": [
+    {
+     "w": "Lorenzo'nun",
+     "t0": 438.73,
+     "t1": 439.567
+    },
+    {
+     "w": "silahlı",
+     "t0": 439.567,
+     "t1": 440.087
+    },
+    {
+     "w": "gençlerin",
+     "t0": 440.087,
+     "t1": 440.697
+    },
+    {
+     "w": "koruması",
+     "t0": 440.697,
+     "t1": 441.168
+    },
+    {
+     "w": "altında",
+     "t0": 441.168,
+     "t1": 441.798
+    },
+    {
+     "w": "Medici",
+     "t0": 441.897,
+     "t1": 442.317
+    },
+    {
+     "w": "Sarayı'na",
+     "t0": 442.317,
+     "t1": 442.757
+    },
+    {
+     "w": "götürüldüğü,",
+     "t0": 442.757,
+     "t1": 443.438
+    },
+    {
+     "w": "yaralı",
+     "t0": 443.507,
+     "t1": 443.938
+    },
+    {
+     "w": "boynuyla",
+     "t0": 443.938,
+     "t1": 444.428
+    },
+    {
+     "w": "pencerede",
+     "t0": 444.428,
+     "t1": 445.107
+    },
+    {
+     "w": "göründüğü",
+     "t0": 445.107,
+     "t1": 445.697
+    },
+    {
+     "w": "ve",
+     "t0": 445.697,
+     "t1": 445.837
+    },
+    {
+     "w": "alkışlandığı",
+     "t0": 445.837,
+     "t1": 446.688
+    },
+    {
+     "w": "anlatılır.",
+     "t0": 446.688,
+     "t1": 447.32
+    }
+   ],
+   "gap": 0.85
+  },
+  {
+   "id": "c7s32",
+   "ch": "c7",
+   "disp": "Salviati, başpiskoposluk giysileriyle Palazzo Vecchio'nun penceresinden asıldı; yanına Francesco de' Pazzi getirildi.",
+   "speech": "Salvyati, başpiskoposluk giysileriyle Palattso Vekkyo'nun penceresinden asıldı; yanına Françesko de Pattsi getirildi.",
+   "t0": 448.17,
+   "t1": 455.63,
+   "words": [
+    {
+     "w": "Salviati,",
+     "t0": 448.17,
+     "t1": 449.077
+    },
+    {
+     "w": "başpiskoposluk",
+     "t0": 449.077,
+     "t1": 450.258
+    },
+    {
+     "w": "giysileriyle",
+     "t0": 450.258,
+     "t1": 450.89
+    },
+    {
+     "w": "Palazzo",
+     "t0": 450.99,
+     "t1": 451.477
+    },
+    {
+     "w": "Vecchio'nun",
+     "t0": 451.477,
+     "t1": 451.977
+    },
+    {
+     "w": "penceresinden",
+     "t0": 451.977,
+     "t1": 452.757
+    },
+    {
+     "w": "asıldı;",
+     "t0": 452.757,
+     "t1": 453.278
+    },
+    {
+     "w": "yanına",
+     "t0": 453.347,
+     "t1": 453.768
+    },
+    {
+     "w": "Francesco",
+     "t0": 453.768,
+     "t1": 454.387
+    },
+    {
+     "w": "de'",
+     "t0": 454.387,
+     "t1": 454.518
+    },
+    {
+     "w": "Pazzi",
+     "t0": 454.518,
+     "t1": 454.988
+    },
+    {
+     "w": "getirildi.",
+     "t0": 454.988,
+     "t1": 455.63
+    }
+   ],
+   "gap": 0.62
+  },
+  {
+   "id": "c7s33",
+   "ch": "c7",
+   "disp": "Poliziano'ya göre Salviati, can çekişirken dişlerini Francesco'nun göğsüne geçirdi.",
+   "speech": "Politsyano'ya göre Salvyati, can çekişirken dişlerini Françesko'nun göğsüne geçirdi.",
+   "t0": 456.25,
+   "t1": 461.6,
+   "words": [
+    {
+     "w": "Poliziano'ya",
+     "t0": 456.25,
+     "t1": 456.967
+    },
+    {
+     "w": "göre",
+     "t0": 456.967,
+     "t1": 457.237
+    },
+    {
+     "w": "Salviati,",
+     "t0": 457.237,
+     "t1": 457.998
+    },
+    {
+     "w": "can",
+     "t0": 458.058,
+     "t1": 458.438
+    },
+    {
+     "w": "çekişirken",
+     "t0": 458.438,
+     "t1": 459.267
+    },
+    {
+     "w": "dişlerini",
+     "t0": 459.267,
+     "t1": 459.778
+    },
+    {
+     "w": "Francesco'nun",
+     "t0": 459.778,
+     "t1": 460.587
+    },
+    {
+     "w": "göğsüne",
+     "t0": 460.587,
+     "t1": 461.038
+    },
+    {
+     "w": "geçirdi.",
+     "t0": 461.038,
+     "t1": 461.6
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c7s34",
+   "ch": "c7",
+   "disp": "O gün yaklaşık otuz kişi daha idam edildi; aralarında Salviati'nin kardeşi de vardı.",
+   "speech": "O gün yaklaşık otuz kişi daha idam edildi; aralarında Salvyati'nin kardeşi de vardı.",
+   "t0": 462.25,
+   "t1": 467.63,
+   "words": [
+    {
+     "w": "O",
+     "t0": 462.25,
+     "t1": 462.428
+    },
+    {
+     "w": "gün",
+     "t0": 462.428,
+     "t1": 462.658
+    },
+    {
+     "w": "yaklaşık",
+     "t0": 462.658,
+     "t1": 463.267
+    },
+    {
+     "w": "otuz",
+     "t0": 463.267,
+     "t1": 463.617
+    },
+    {
+     "w": "kişi",
+     "t0": 463.617,
+     "t1": 463.918
+    },
+    {
+     "w": "daha",
+     "t0": 463.918,
+     "t1": 464.137
+    },
+    {
+     "w": "idam",
+     "t0": 464.137,
+     "t1": 464.507
+    },
+    {
+     "w": "edildi;",
+     "t0": 464.507,
+     "t1": 464.918
+    },
+    {
+     "w": "aralarında",
+     "t0": 464.998,
+     "t1": 465.747
+    },
+    {
+     "w": "Salviati'nin",
+     "t0": 465.747,
+     "t1": 466.558
+    },
+    {
+     "w": "kardeşi",
+     "t0": 466.558,
+     "t1": 467.077
+    },
+    {
+     "w": "de",
+     "t0": 467.077,
+     "t1": 467.197
+    },
+    {
+     "w": "vardı.",
+     "t0": 467.197,
+     "t1": 467.63
+    }
+   ],
+   "gap": 0.65
+  },
+  {
+   "id": "c7s35",
+   "ch": "c7",
+   "disp": "Kalabalık başkalarını kendi eliyle öldürdü.",
+   "speech": "Kalabalık başkalarını kendi eliyle öldürdü.",
+   "t0": 468.28,
+   "t1": 471.13,
+   "words": [
+    {
+     "w": "Kalabalık",
+     "t0": 468.28,
+     "t1": 468.822
+    },
+    {
+     "w": "başkalarını",
+     "t0": 468.822,
+     "t1": 469.498
+    },
+    {
+     "w": "kendi",
+     "t0": 469.498,
+     "t1": 469.947
+    },
+    {
+     "w": "eliyle",
+     "t0": 469.947,
+     "t1": 470.428
+    },
+    {
+     "w": "öldürdü.",
+     "t0": 470.507,
+     "t1": 471.13
+    }
+   ],
+   "gap": 0.75
+  },
+  {
+   "id": "c7s36",
+   "ch": "c7",
+   "disp": "Jacopo kaçtı, birkaç gün içinde yakalanıp asıldı; cesedinin sonraki pazar mezardan çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır.",
+   "speech": "Yakopo kaçtı, birkaç gün içinde yakalanıp asıldı; cesedinin sonraki pazar mezardan çıkarılıp sürüklendiği ve Arno'ya atıldığı yazılır.",
+   "t0": 471.88,
+   "t1": 480.37,
+   "words": [
+    {
+     "w": "Jacopo",
+     "t0": 471.88,
+     "t1": 472.408
+    },
+    {
+     "w": "kaçtı,",
+     "t0": 472.408,
+     "t1": 472.908
+    },
+    {
+     "w": "birkaç",
+     "t0": 472.987,
+     "t1": 473.497
+    },
+    {
+     "w": "gün",
+     "t0": 473.558,
+     "t1": 473.668
+    },
+    {
+     "w": "içinde",
+     "t0": 473.668,
+     "t1": 473.997
+    },
+    {
+     "w": "yakalanıp",
+     "t0": 473.997,
+     "t1": 474.527
+    },
+    {
+     "w": "asıldı;",
+     "t0": 474.577,
+     "t1": 475.077
+    },
+    {
+     "w": "cesedinin",
+     "t0": 475.158,
+     "t1": 475.817
+    },
+    {
+     "w": "sonraki",
+     "t0": 475.817,
+     "t1": 476.288
+    },
+    {
+     "w": "pazar",
+     "t0": 476.288,
+     "t1": 476.697
+    },
+    {
+     "w": "mezardan",
+     "t0": 476.697,
+     "t1": 477.337
+    },
+    {
+     "w": "çıkarılıp",
+     "t0": 477.337,
+     "t1": 477.908
+    },
+    {
+     "w": "sürüklendiği",
+     "t0": 477.908,
+     "t1": 478.817
+    },
+    {
+     "w": "ve",
+     "t0": 478.817,
+     "t1": 478.997
+    },
+    {
+     "w": "Arno'ya",
+     "t0": 479.067,
+     "t1": 479.447
+    },
+    {
+     "w": "atıldığı",
+     "t0": 479.447,
+     "t1": 479.867
+    },
+    {
+     "w": "yazılır.",
+     "t0": 479.867,
+     "t1": 480.37
+    }
+   ],
+   "gap": 0.59
+  },
+  {
+   "id": "c7s37",
+   "ch": "c7",
+   "disp": "Toplamda seksenden fazla kişinin öldüğü de yazılır.",
+   "speech": "Toplamda seksenden fazla kişinin öldüğü de yazılır.",
+   "t0": 480.96,
+   "t1": 484.22,
+   "words": [
+    {
+     "w": "Toplamda",
+     "t0": 480.96,
+     "t1": 481.577
+    },
+    {
+     "w": "seksenden",
+     "t0": 481.577,
+     "t1": 482.398
+    },
+    {
+     "w": "fazla",
+     "t0": 482.398,
+     "t1": 482.798
+    },
+    {
+     "w": "kişinin",
+     "t0": 482.798,
+     "t1": 483.278
+    },
+    {
+     "w": "öldüğü",
+     "t0": 483.278,
+     "t1": 483.597
+    },
+    {
+     "w": "de",
+     "t0": 483.597,
+     "t1": 483.727
+    },
+    {
+     "w": "yazılır.",
+     "t0": 483.727,
+     "t1": 484.22
+    }
+   ],
+   "gap": 0.87
+  },
+  {
+   "id": "c7s38",
+   "ch": "c7",
+   "disp": "Bu işte Papa'nın payı bugün de tartışılır; iki taraf iki ayrı hikâye anlattı.",
+   "speech": "Bu işte Papa'nın payı bugün de tartışılır; iki taraf iki ayrı hikâye anlattı.",
+   "t0": 485.09,
+   "t1": 490.36,
+   "words": [
+    {
+     "w": "Bu",
+     "t0": 485.09,
+     "t1": 485.288
+    },
+    {
+     "w": "işte",
+     "t0": 485.288,
+     "t1": 485.76
+    },
+    {
+     "w": "Papa'nın",
+     "t0": 485.87,
+     "t1": 486.308
+    },
+    {
+     "w": "payı",
+     "t0": 486.308,
+     "t1": 486.567
+    },
+    {
+     "w": "bugün",
+     "t0": 486.567,
+     "t1": 486.908
+    },
+    {
+     "w": "de",
+     "t0": 486.908,
+     "t1": 487.028
+    },
+    {
+     "w": "tartışılır;",
+     "t0": 487.028,
+     "t1": 487.88
+    },
+    {
+     "w": "iki",
+     "t0": 487.98,
+     "t1": 488.207
+    },
+    {
+     "w": "taraf",
+     "t0": 488.207,
+     "t1": 488.628
+    },
+    {
+     "w": "iki",
+     "t0": 488.628,
+     "t1": 488.868
+    },
+    {
+     "w": "ayrı",
+     "t0": 488.868,
+     "t1": 489.227
+    },
+    {
+     "w": "hikâye",
+     "t0": 489.227,
+     "t1": 489.658
+    },
+    {
+     "w": "anlattı.",
+     "t0": 489.658,
+     "t1": 490.36
+    }
+   ],
+   "gap": 0.61
+  },
+  {
+   "id": "c7s39",
+   "ch": "c7",
+   "disp": "Floransa, Montesecco'nun hapisteyken, idamından kısa süre önce yazdığı itirafı yayımlayıp Papa'yı suçladı.",
+   "speech": "Floransa, Montesekko'nun hapisteyken, idamından kısa süre önce yazdığı itirafı yayımlayıp Papa'yı suçladı.",
+   "t0": 490.97,
+   "t1": 497.52,
+   "words": [
+    {
+     "w": "Floransa,",
+     "t0": 490.97,
+     "t1": 491.74
+    },
+    {
+     "w": "Montesecco'nun",
+     "t0": 491.93,
+     "t1": 492.717
+    },
+    {
+     "w": "hapisteyken,",
+     "t0": 492.717,
+     "t1": 493.628
+    },
+    {
+     "w": "idamından",
+     "t0": 493.688,
+     "t1": 494.357
+    },
+    {
+     "w": "kısa",
+     "t0": 494.357,
+     "t1": 494.587
+    },
+    {
+     "w": "süre",
+     "t0": 494.587,
+     "t1": 494.913
+    },
+    {
+     "w": "önce",
+     "t0": 494.913,
+     "t1": 495.237
+    },
+    {
+     "w": "yazdığı",
+     "t0": 495.237,
+     "t1": 495.628
+    },
+    {
+     "w": "itirafı",
+     "t0": 495.628,
+     "t1": 496.097
+    },
+    {
+     "w": "yayımlayıp",
+     "t0": 496.097,
+     "t1": 496.607
+    },
+    {
+     "w": "Papa'yı",
+     "t0": 496.607,
+     "t1": 496.957
+    },
+    {
+     "w": "suçladı.",
+     "t0": 496.957,
+     "t1": 497.52
+    }
+   ],
+   "gap": 0.79
+  },
+  {
+   "id": "c7s40",
+   "ch": "c7",
+   "disp": "Roma, Papa'nın bu işle ilgisini reddetti ve Lorenzo'yu aforoz etti; gerekçe, bir başpiskoposun kilise mahkemesine çıkarılmadan asılmasıydı.",
+   "speech": "Roma, Papa'nın bu işle ilgisini reddetti ve Lorentso'yu aforoz etti; gerekçe, bir başpiskoposun kilise mahkemesine çıkarılmadan asılmasıydı.",
+   "t0": 498.31,
+   "t1": 507.02,
+   "words": [
+    {
+     "w": "Roma,",
+     "t0": 498.31,
+     "t1": 498.77
+    },
+    {
+     "w": "Papa'nın",
+     "t0": 498.9,
+     "t1": 499.378
+    },
+    {
+     "w": "bu",
+     "t0": 499.378,
+     "t1": 499.498
+    },
+    {
+     "w": "işle",
+     "t0": 499.498,
+     "t1": 499.758
+    },
+    {
+     "w": "ilgisini",
+     "t0": 499.758,
+     "t1": 500.178
+    },
+    {
+     "w": "reddetti",
+     "t0": 500.178,
+     "t1": 500.707
+    },
+    {
+     "w": "ve",
+     "t0": 500.707,
+     "t1": 500.858
+    },
+    {
+     "w": "Lorenzo'yu",
+     "t0": 500.858,
+     "t1": 501.518
+    },
+    {
+     "w": "aforoz",
+     "t0": 501.518,
+     "t1": 502.05
+    },
+    {
+     "w": "etti;",
+     "t0": 502.437,
+     "t1": 502.438
+    },
+    {
+     "w": "gerekçe,",
+     "t0": 502.438,
+     "t1": 503.188
+    },
+    {
+     "w": "bir",
+     "t0": 503.238,
+     "t1": 503.508
+    },
+    {
+     "w": "başpiskoposun",
+     "t0": 503.508,
+     "t1": 504.508
+    },
+    {
+     "w": "kilise",
+     "t0": 504.508,
+     "t1": 504.888
+    },
+    {
+     "w": "mahkemesine",
+     "t0": 504.888,
+     "t1": 505.588
+    },
+    {
+     "w": "çıkarılmadan",
+     "t0": 505.588,
+     "t1": 506.238
+    },
+    {
+     "w": "asılmasıydı.",
+     "t0": 506.238,
+     "t1": 507.02
+    }
+   ],
+   "gap": 0.68
+  },
+  {
+   "id": "c7s41",
+   "ch": "c7",
+   "disp": "Treccani'ye göre Papa komployu büyük olasılıkla biliyordu; iki kardeşin öldürülmesini isteyip istemediği ise belli değil.",
+   "speech": "Trekkani'ye göre Papa komployu büyük olasılıkla biliyordu; iki kardeşin öldürülmesini isteyip istemediği ise belli değil.",
+   "t0": 507.7,
+   "t1": 514.87,
+   "words": [
+    {
+     "w": "Treccani'ye",
+     "t0": 507.7,
+     "t1": 508.327
+    },
+    {
+     "w": "göre",
+     "t0": 508.327,
+     "t1": 508.588
+    },
+    {
+     "w": "Papa",
+     "t0": 508.588,
+     "t1": 508.947
+    },
+    {
+     "w": "komployu",
+     "t0": 508.947,
+     "t1": 509.567
+    },
+    {
+     "w": "büyük",
+     "t0": 509.567,
+     "t1": 509.868
+    },
+    {
+     "w": "olasılıkla",
+     "t0": 509.868,
+     "t1": 510.418
+    },
+    {
+     "w": "biliyordu;",
+     "t0": 510.418,
+     "t1": 510.988
+    },
+    {
+     "w": "iki",
+     "t0": 511.038,
+     "t1": 511.258
+    },
+    {
+     "w": "kardeşin",
+     "t0": 511.258,
+     "t1": 511.848
+    },
+    {
+     "w": "öldürülmesini",
+     "t0": 511.848,
+     "t1": 512.548
+    },
+    {
+     "w": "isteyip",
+     "t0": 512.548,
+     "t1": 513.008
+    },
+    {
+     "w": "istemediği",
+     "t0": 513.008,
+     "t1": 513.697
+    },
+    {
+     "w": "ise",
+     "t0": 513.697,
+     "t1": 514.067
+    },
+    {
+     "w": "belli",
+     "t0": 514.158,
+     "t1": 514.567
+    },
+    {
+     "w": "değil.",
+     "t0": 514.567,
+     "t1": 514.87
+    }
+   ],
+   "gap": 0.71
+  },
+  {
+   "id": "c7s42",
+   "ch": "c7",
+   "disp": "2023'te ortaya çıktığı anlatılan Maffei itirafı, Papa'yı, Napoli Kralı'nı ve Urbino Dükü'nü teşvikçi diye anar; ama o da zorla yazılmış olabilir.",
+   "speech": "İki bin yirmi üçte ortaya çıktığı anlatılan Maffey itirafı, Papa'yı, Napoli Kralı'nı ve Urbino Dükü'nü teşvikçi diye anar; ama o da zorla yazılmış olabilir.",
+   "t0": 515.58,
+   "t1": 524.74,
+   "words": [
+    {
+     "w": "2023'te",
+     "t0": 515.58,
+     "t1": 516.668
+    },
+    {
+     "w": "ortaya",
+     "t0": 516.768,
+     "t1": 517.148
+    },
+    {
+     "w": "çıktığı",
+     "t0": 517.148,
+     "t1": 517.518
+    },
+    {
+     "w": "anlatılan",
+     "t0": 517.518,
+     "t1": 518.158
+    },
+    {
+     "w": "Maffei",
+     "t0": 518.158,
+     "t1": 518.567
+    },
+    {
+     "w": "itirafı,",
+     "t0": 518.567,
+     "t1": 519.067
+    },
+    {
+     "w": "Papa'yı,",
+     "t0": 519.067,
+     "t1": 519.718
+    },
+    {
+     "w": "Napoli",
+     "t0": 519.808,
+     "t1": 520.218
+    },
+    {
+     "w": "Kralı'nı",
+     "t0": 520.218,
+     "t1": 520.638
+    },
+    {
+     "w": "ve",
+     "t0": 520.638,
+     "t1": 520.778
+    },
+    {
+     "w": "Urbino",
+     "t0": 520.778,
+     "t1": 521.218
+    },
+    {
+     "w": "Dükü'nü",
+     "t0": 521.218,
+     "t1": 521.567
+    },
+    {
+     "w": "teşvikçi",
+     "t0": 521.567,
+     "t1": 522.158
+    },
+    {
+     "w": "diye",
+     "t0": 522.158,
+     "t1": 522.368
+    },
+    {
+     "w": "anar;",
+     "t0": 522.368,
+     "t1": 522.728
+    },
+    {
+     "w": "ama",
+     "t0": 522.837,
+     "t1": 523.108
+    },
+    {
+     "w": "o",
+     "t0": 523.108,
+     "t1": 523.207
+    },
+    {
+     "w": "da",
+     "t0": 523.207,
+     "t1": 523.348
+    },
+    {
+     "w": "zorla",
+     "t0": 523.348,
+     "t1": 523.697
+    },
+    {
+     "w": "yazılmış",
+     "t0": 523.697,
+     "t1": 524.197
+    },
+    {
+     "w": "olabilir.",
+     "t0": 524.197,
+     "t1": 524.74
+    }
+   ],
+   "gap": 0.62
+  },
+  {
+   "id": "c7s43",
+   "ch": "c7",
+   "disp": "Üstelik bu anlatıların çoğu Medici'nin süzgecinden geçti; Pazzi'lerin kendi sesi bu kaynaklarda yok.",
+   "speech": "Üstelik bu anlatıların çoğu Mediçi'nin süzgecinden geçti; Pattsi'lerin kendi sesi bu kaynaklarda yok.",
+   "t0": 525.36,
+   "t1": 531.8,
+   "words": [
+    {
+     "w": "Üstelik",
+     "t0": 525.36,
+     "t1": 525.938
+    },
+    {
+     "w": "bu",
+     "t0": 526.018,
+     "t1": 526.148
+    },
+    {
+     "w": "anlatıların",
+     "t0": 526.148,
+     "t1": 526.837
+    },
+    {
+     "w": "çoğu",
+     "t0": 526.837,
+     "t1": 527.128
+    },
+    {
+     "w": "Medici'nin",
+     "t0": 527.128,
+     "t1": 527.628
+    },
+    {
+     "w": "süzgecinden",
+     "t0": 527.628,
+     "t1": 528.487
+    },
+    {
+     "w": "geçti;",
+     "t0": 528.487,
+     "t1": 528.908
+    },
+    {
+     "w": "Pazzi'lerin",
+     "t0": 528.908,
+     "t1": 529.727
+    },
+    {
+     "w": "kendi",
+     "t0": 529.727,
+     "t1": 530.077
+    },
+    {
+     "w": "sesi",
+     "t0": 530.077,
+     "t1": 530.477
+    },
+    {
+     "w": "bu",
+     "t0": 530.528,
+     "t1": 530.668
+    },
+    {
+     "w": "kaynaklarda",
+     "t0": 530.668,
+     "t1": 531.457
+    },
+    {
+     "w": "yok.",
+     "t0": 531.457,
+     "t1": 531.8
+    }
+   ],
+   "gap": 0.82
+  },
+  {
+   "id": "c7s44",
+   "ch": "c7",
+   "disp": "Giuliano 30 Nisan'da San Lorenzo'ya gömüldü.",
+   "speech": "Culyano otuz Nisan'da San Lorentso'ya gömüldü.",
+   "t0": 532.62,
+   "t1": 536.18,
+   "words": [
+    {
+     "w": "Giuliano",
+     "t0": 532.62,
+     "t1": 533.308
+    },
+    {
+     "w": "30",
+     "t0": 533.368,
+     "t1": 533.818
+    },
+    {
+     "w": "Nisan'da",
+     "t0": 533.818,
+     "t1": 534.503
+    },
+    {
+     "w": "San",
+     "t0": 534.503,
+     "t1": 534.898
+    },
+    {
+     "w": "Lorenzo'ya",
+     "t0": 534.898,
+     "t1": 535.578
+    },
+    {
+     "w": "gömüldü.",
+     "t0": 535.578,
+     "t1": 536.18
+    }
+   ],
+   "gap": 0.64
+  },
+  {
+   "id": "c7s45",
+   "ch": "c7",
+   "disp": "Saldırıdan tam bir ay sonra, 26 Mayıs'ta, Giuliano'nun gayrimeşru oğlu Giulio doğdu.",
+   "speech": "Saldırıdan tam bir ay sonra, yirmi altı Mayıs'ta, Culyano'nun gayrimeşru oğlu Culyo doğdu.",
+   "t0": 536.82,
+   "t1": 542.72,
+   "words": [
+    {
+     "w": "Saldırıdan",
+     "t0": 536.82,
+     "t1": 537.738
+    },
+    {
+     "w": "tam",
+     "t0": 537.738,
+     "t1": 538.008
+    },
+    {
+     "w": "bir",
+     "t0": 538.008,
+     "t1": 538.128
+    },
+    {
+     "w": "ay",
+     "t0": 538.128,
+     "t1": 538.328
+    },
+    {
+     "w": "sonra,",
+     "t0": 538.328,
+     "t1": 538.908
+    },
+    {
+     "w": "26",
+     "t0": 538.968,
+     "t1": 539.567
+    },
+    {
+     "w": "Mayıs'ta,",
+     "t0": 539.567,
+     "t1": 540.188
+    },
+    {
+     "w": "Giuliano'nun",
+     "t0": 540.258,
+     "t1": 541.008
+    },
+    {
+     "w": "gayrimeşru",
+     "t0": 541.008,
+     "t1": 541.688
+    },
+    {
+     "w": "oğlu",
+     "t0": 541.688,
+     "t1": 541.958
+    },
+    {
+     "w": "Giulio",
+     "t0": 541.958,
+     "t1": 542.327
+    },
+    {
+     "w": "doğdu.",
+     "t0": 542.327,
+     "t1": 542.72
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c7s46",
+   "ch": "c7",
+   "disp": "Aynı yıl bu olay bronza da döküldü: Bertoldo'ya atfedilen bir madalyanın bir yüzünde Lorenzo, ötekinde Giuliano var; yazılar “Halkın Esenliği” ve “Halkın Yası”.",
+   "speech": "Aynı yıl bu olay bronza da döküldü: Bertoldo'ya atfedilen bir madalyanın bir yüzünde Lorentso, ötekinde Culyano var; yazılar “Halkın Esenliği” ve “Halkın Yası”.",
+   "t0": 543.41,
+   "t1": 553.57,
+   "words": [
+    {
+     "w": "Aynı",
+     "t0": 543.41,
+     "t1": 543.717
+    },
+    {
+     "w": "yıl",
+     "t0": 543.717,
+     "t1": 543.928
+    },
+    {
+     "w": "bu",
+     "t0": 543.928,
+     "t1": 544.038
+    },
+    {
+     "w": "olay",
+     "t0": 544.038,
+     "t1": 544.327
+    },
+    {
+     "w": "bronza",
+     "t0": 544.327,
+     "t1": 544.817
+    },
+    {
+     "w": "da",
+     "t0": 544.817,
+     "t1": 544.947
+    },
+    {
+     "w": "döküldü:",
+     "t0": 544.947,
+     "t1": 545.528
+    },
+    {
+     "w": "Bertoldo'ya",
+     "t0": 545.628,
+     "t1": 546.428
+    },
+    {
+     "w": "atfedilen",
+     "t0": 546.428,
+     "t1": 547.087
+    },
+    {
+     "w": "bir",
+     "t0": 547.087,
+     "t1": 547.268
+    },
+    {
+     "w": "madalyanın",
+     "t0": 547.268,
+     "t1": 547.967
+    },
+    {
+     "w": "bir",
+     "t0": 547.967,
+     "t1": 548.097
+    },
+    {
+     "w": "yüzünde",
+     "t0": 548.097,
+     "t1": 548.658
+    },
+    {
+     "w": "Lorenzo,",
+     "t0": 548.658,
+     "t1": 549.49
+    },
+    {
+     "w": "ötekinde",
+     "t0": 549.65,
+     "t1": 550.238
+    },
+    {
+     "w": "Giuliano",
+     "t0": 550.238,
+     "t1": 550.728
+    },
+    {
+     "w": "var;",
+     "t0": 550.728,
+     "t1": 550.878
+    },
+    {
+     "w": "yazılar",
+     "t0": 551.018,
+     "t1": 551.567
+    },
+    {
+     "w": "“Halkın",
+     "t0": 551.567,
+     "t1": 552.008
+    },
+    {
+     "w": "Esenliği”",
+     "t0": 552.008,
+     "t1": 552.558
+    },
+    {
+     "w": "ve",
+     "t0": 552.558,
+     "t1": 552.678
+    },
+    {
+     "w": "“Halkın",
+     "t0": 552.678,
+     "t1": 553.098
+    },
+    {
+     "w": "Yası”.",
+     "t0": 553.098,
+     "t1": 553.57
+    }
+   ],
+   "gap": 0.69
+  },
+  {
+   "id": "c7s47",
+   "ch": "c7",
+   "disp": "Lorenzo yaşıyordu; ama Floransa'nın Papa'yla barışı o sabah ölmüştü.",
+   "speech": "Lorentso yaşıyordu; ama Floransa'nın Papa'yla barışı o sabah ölmüştü.",
+   "t0": 554.26,
+   "t1": 558.74,
+   "words": [
+    {
+     "w": "Lorenzo",
+     "t0": 554.26,
+     "t1": 554.958
+    },
+    {
+     "w": "yaşıyordu;",
+     "t0": 554.958,
+     "t1": 555.6
+    },
+    {
+     "w": "ama",
+     "t0": 555.7,
+     "t1": 555.938
+    },
+    {
+     "w": "Floransa'nın",
+     "t0": 555.938,
+     "t1": 556.688
+    },
+    {
+     "w": "Papa'yla",
+     "t0": 556.688,
+     "t1": 557.188
+    },
+    {
+     "w": "barışı",
+     "t0": 557.188,
+     "t1": 557.567
+    },
+    {
+     "w": "o",
+     "t0": 557.567,
+     "t1": 557.688
+    },
+    {
+     "w": "sabah",
+     "t0": 557.688,
+     "t1": 558.128
+    },
+    {
+     "w": "ölmüştü.",
+     "t0": 558.128,
+     "t1": 558.74
+    }
+   ],
+   "gap": 0.0
+  }
+ ]
+}

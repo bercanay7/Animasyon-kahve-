@@ -1,0 +1,5 @@
+Bu klasördeki yazı tipleri SIL Open Font License 1.1 altındadır (https://openfontlicense.org):
+- Alfa Slab One — JM Solé (Google Fonts); başlık, damga ve kanca kartı
+- Fraunces (Bold, Black, Bold Italic) — The Fraunces Project Authors (Undercase Type); altyazı ve etiketler
+Yazı tipleri @expo-google-fonts/alfa-slab-one ve @expo-google-fonts/fraunces npm paketlerinden alınmıştır.
+Yazı tipleri yalnızca video çiziminde kullanılır; yeniden dağıtımda OFL metni korunmalıdır.

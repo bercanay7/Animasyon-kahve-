@@ -1,0 +1,147 @@
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+  örnekleme: 1203 kare, 2 işlem, 125 sn (ortalama 171 ms/kare)
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+  ölçüm (ENG-D): 84 iş (47 kamera, 37 kesme), 2 işlem, 69 sn
+
+══ qa_flow — Parça 1 ══
+  KAPI                        SONUÇ    ÖLÇÜLEN                                                                                     EŞİK
+✓ Durgunluk                   GEÇTİ    en uzun durgun koşu 0.5 sn (MAD<0.4); durgun aralık %0                                      ≤1.5 sn (τ=0.4; kalibrasyon (18 Eki 2026, --calibrate + t_mad ölçümleri): sabit 
+✓ Kamera varlığı              GEÇTİ    99/99 çekimde kamera var (%100); otomatik seçilen 0                                         %100 (cam= yoksa Program tohumlu seçer)
+✓ Kamera hareket yeterliliği  GEÇTİ    0 çekim zayıf                                                                               ≥%6 ölçek ya da ≥120 px kayma
+✓ Gerekçeli geçiş             GEÇTİ    link≠none %100 (96/96); çıplak fade %0; çıplak kesme 0                                      link ≥%70 · çıplak fade ≤%10 · aynı geçiş ≥3 üst üste yok
+✓ Çekim uzunluğu              GEÇTİ    99 çekim                                                                                    medyan 4–6 · p90 ≤12 · max ≤16 (longtake ≤28) · ≥1,2 sn (ağır/mizah bölümde bant
+✓ Tür tekrarı                 GEÇTİ    0 ihlal                                                                                     aynı kind üst üste ≤2 (montage=True hariç)
+✓ Çapa denetimi               GEÇTİ    sözcük 273 · cümle 151 · mutlak 9 (mutlak %2)                                               mutlak ≤%10 (çapalı ≥%90)
+⚠ Yön denetimi                UYARI    1 uyarı · 2 bilinçli yön bozma                                                              pan/slide yönleri §1-6 ile çelişmesin; yön bozma ≤1/bölüm (uyarı listesi → yönet
+✓ Altyazı bölgesi             GEÇTİ    0 çekimde nominal metin/kamera kayması bölgeye giriyor                                      bölge dışı (SPEC y≈1250–1390 → 1080p varsayımı: alt şerit y≈938–1042)
+✓ Yönetmen kartı              GEÇTİ    0 bölümde kart eksik/uyumsuz                                                                her bölümde yonetmen_cK.md ve shots ile uyumlu
+✓ Ardışık itme                GEÇTİ    en uzun itme dizisi 4; 0 dizi > 5                                                           ≤5 ardışık itme (kendi kameralı türlerde cams/path)
+✓ Kart dizisi                 GEÇTİ    kart dizisi en uzun 4 (0 > 4); dünyasız en uzun 21 sn; dünya/figür %61                      ardışık kart ≤4 · ≤75 sn'de bir dünya/figür
+✓ Sert kesme payı             GEÇTİ    %39 (37/96 sınır; aynı görüntü kesmesi sayılmadı: 0)                                        ≥%15 (tr="cut" / None; yalnız mekân/ölçek/konu değişen kesmeler)
+✓ Geçiş süresi dağılımı       GEÇTİ    σ 0.33 sn (ort. 0.77, 59 geçiş) {'0,4–0,8': 28, '0,8–1,2': 21, '1,2–1,8': 3, '≤0,4': 6, '>  σ ≥ 0.25 sn (aralık 0,25–2,4)
+✓ Işık geçişi bütçesi         GEÇTİ    4 "light" geçişi {'c0': 1, 'c1': 1, 'c2': 2}                                                parça başına ≤4 (ifşa/yıldız an; gerisi kesme, malzeme geçişi ya da eşleşen nesn
+✓ Olay yoğunluğu              GEÇTİ    %98 cümle ≥1 olay (83/85)                                                                   ≥%95
+✓ Ölçülen hareket             GEÇTİ    0 çekim >6 sn ve hareketsiz (medyan MAD<1.25)                                               >6 sn çekimde medyan kare farkı ≥1.25 (0,5 sn adım; geçişler hariç)
+⚠ Beyan ↔ gerçekleşen kamera  UYARI    43 çekim ölçüldü: ulaşmıyor 0, kısmen 0, gerçekleşen <%50/ters 0; kadraj koruması 1; ölçül  (A) beyan çizime ulaşır (fark testinde izdüşüm ≥0.5); (B) %20→%80 gerçekleşen ≥ 
+✓ Aynı görüntü kesmesi        GEÇTİ    37 sert kesme: kesin sıçrama 0, sınırda 0, muaf 0                                           inlier ≥100 ve ölçek 0.8–1.35 → aday; 1/1.12–1.12 ve değişen ≤%35 → KALDI, diğer
+· Donma (ffmpeg)              PAS      video verilmedi (--video yol.mp4)                                                           0 olay
+✓ Yerleşim (ENG-A)            GEÇTİ    qa_yerlesim P1: 303 kare, 80 levha kaydı · İHLAL 0  · düzeltilen 3 · altyazı şeridi 0 · ÖN  qa_yerlesim.py çıkış kodu 0
+✓ Dönem (ENG-A)               GEÇTİ    qa_donem P1 [dönem katmanı açık]: 306 kare, 323 dönem kaydı · İHLAL 0  · uyarı 0            qa_donem.py çıkış kodu 0
+
+  [Yön denetimi]
+    - #15 p1_skyline: giriş geçişi yönü (l) önceki çekim kamerasıyla (sağ) çelişiyor
+    - c0: bilinçli yön bozma 1 (sağ 5, sol 1) — dramatik gerekçe yönetmen kartında yazılı olmalı
+    - c2: bilinçli yön bozma 1 (sağ 11, sol 1) — dramatik gerekçe yönetmen kartında yazılı olmalı
+
+  [Beyan ↔ gerçekleşen kamera]
+    - #63 p1_map 361.1 sn ('pull',): ön ayar harita KADRAJ KORUMASIYLA durduruluyor (rota/kent noktaları zaten kenar payında); gerçekleşen hareket (sahnenin anahtar kareleri) beyanla uyumlu, izdüşüm 1.11 → beyan gereksiz/sahnede sadeleştirilebilir
+    - ölçülemedi (zaman testi; içerik değişiyor / yalnız duvar): #5 c0_takvim 26.2 sn ('tilt', 'down', 140), #12 c0_harita 64.9 sn ('truck', 'r', {'ease': 'in'}), #14 c0_kuyruk 78.0 sn ('pan', 'r'), #16 c0_sikke 92.4 sn ('push',), #20 p1_coin 113.6 sn ('pull',), #37 c1_yazi 209.7 sn ('pull',), #53 p1_coin 302.3 sn ('push',), #67 c2_hediye 389.1 sn ('push', {'rate': 0.03}), #75 c2_ayrim 444.9 sn ('pan', 'r'), #79 c2_rivayet 464.8 sn ('tilt', 'down', 130)
+
+  # tür           t0  süre  cam                                 kamera ailesi aile     giriş geçişi    link     etiket
+  0 kapak_kilit    0.0   3.7  ('push',)                           push          kart     —               —        kapak yankısı K1: SON MEDİCİ / MİRASI KİLİTLEDİ
+  1 p1_oda       3.7   5.4  ('push',)                           own:push      dunya    light 0.60      light    1743 odası: yatak (siluet)
+  2 p1_palle     9.1   4.2  ('push', {'ease': 'out'})           push          kart     kesme           audio    arma: Medici'nin son üyesi
+  3 p1_oda      13.3   6.7  ('push',)                           own:yol       dunya    iris 0.90       shape    boş taht, yabancı birlik
+  4 p1_oda      20.0   6.1  ('pan', 'r')                        own:pan       dunya    kesme           cam      Medici salonu, tek siluet
+  5 c0_takvim   26.2   6.0  ('tilt', 'down', 140)               tilt          kart     candle 1.60     light    31 Ekim 1737 · 114 gün
+  6 p1_oda      32.1   2.4  ('push',)                           own:pan       dunya    kesme           audio    imza, mühür, belgeye iniş
+  7 c0_belge    34.6   9.3  'hand'                              own:crane     kart     zoomthru 0.90   scale    belge: iki mühür, 13 madde, FRANSIZCA
+  8 c0_belge    43.9   5.5  'hand'                              own:crane     kart     kesme           cam      ITALIANO yazılır, çizilir
+  9 p1_oda      49.4   4.9  ('pull',)                           own:pull      dunya    carry 0.95      carry    masa başı: bilmiyoruz → biliyoruz
+ 10 c0_belge    54.3   2.4  ('push',)                           own:crane     kart     zoomthru 0.60   scale    III. madde
+ 11 p1_pano     56.7   8.2  ('truck', 'r')                      own:pan       dunya    zoomthru 0.90   scale    galeri: Vasari koridoru, 5 kalem
+ 12 c0_harita   64.9   6.3  ('truck', 'r', {'ease': 'in'})      truck         kart     slide 0.60      dir      harita: Büyük Dukalık, zincir + kilit, 3. madde özeti
+ 13 c0_gerekce   71.2   6.8  ('truck', 'r', 160)                 truck         kart     sayfa 0.70      material gerekçe: süs, yarar, merak
+ 14 c0_kuyruk   78.0   8.6  ('pan', 'r')                        pan           figur    kesme           audio    Uffizi kuyruğu (bugün)
+ 15 p1_skyline   86.5   5.8  ('pan', 'l', 220)                   pan           dunya    slide 0.60      dir      nasıl geldi? (Floransa silueti)
+ 16 c0_sikke    92.4   8.8  ('push',)                           push          kart     yikama 1.20     material kılıç değil sikke; 1252
+ 17 fresco_title  101.2   4.5  —                                   —             kart*    yikama 0.90     material ana başlık
+ 18 p1_coin    105.7   2.4  ('push', 0.07)                      push          kart     iris 0.90       shape    florin, 1252
+ 19 p1_pano    108.1   5.5  ('pan', 'r')                        own:pan       dunya    iris 0.40       shape    Floransa kendi altınını basıyor
+ 20 p1_coin    113.6   5.8  ('pull',)                           pull          kart     zoomthru 0.90   scale    3,5 g · 2 cm
+ 21 c1_cicek   119.3   7.8  ('push',)                           push          kart     iris 1.10       shape    lanetli çiçek
+ 22 c1_darphane  127.2  10.1  [(('c1s4', -0.1), (-470, 30, 1.4,   pan           dunya    kesme           audio    darphane: basmaya devam → Villani sayar
+ 23 p1_sehir   137.3   7.0  ('pan', 'r')                        own:yol       dunya    slide 0.70      dir      1338: ≈90.000 kişi (tahmin)
+ 24 c1_okul    144.2   8.0  ('push',)                           push          figur    carry 0.90      carry    hesap okulları: defterlerin şehri
+ 25 c1_agi     152.2   3.6  ('pull',)                           pull          kart     slide 0.30      dir      çok şubeli banka: Medici'nin icadı değil
+ 26 p1_oda     155.8   6.2  ('push',)                           own:push      dunya    kesme           audio    Peruzzi sayım odası: 15 şube
+ 27 c1_agi     162.0   3.9  ('push', 0.07, {'shake': [(('c1s9'  push          kart     kesme           audio    Peruzzi ve Bardi batar
+ 28 c1_edward  165.9   6.1  ('truck', 'r')                      truck         kart     kesme           audio    Edward'ın ödemediği borç
+ 29 p1_oda     172.0   9.2  ('push',)                           own:push      dunya    zoomthru 0.70   scale    Villani: Peruzzi ortağı; kaybedenlerin içinden
+ 30 p1_skyline  181.2   5.9  ('pan', 'r', 240)                   pan           dunya    yikama 2.00     color    veba: renk solar
+ 31 c1_sokak   187.1   2.6  ('truck', 'r')                      own:yol       dunya    zoomthru 0.60   scale    Boccaccio: sağlıklılar kaçar
+ 32 p1_oda     189.7   4.0  ('push',)                           own:push      dunya    candle 0.80     light    hasta yalnız
+ 33 c1_sokak   193.7   3.6  ('pan', 'r')                        own:yol       dunya    kesme           audio    kapılar kapanır, sokak boş
+ 34 c1_sokak   197.3   4.1  ('pull',)                           own:yol       dunya    slide 0.35      dir      Stefani: on iki yaşında
+ 35 p1_oda     201.4   2.1  ('push',)                           own:push      dunya    candle 0.60     light    yıllar sonra: kronik
+ 36 c1_toprak  203.5   6.2  ('tilt', 'down', 140)               tilt          kart     yikama 0.80     color    çukur, katman katman toprak
+ 37 c1_yazi    209.7   4.7  ('pull',)                           pull          kart     slide 0.60      dir      bilmiyoruz → yazdığını biliyoruz
+ 38 p1_procession  214.4   5.1  ('truck', 'r')                      truck         dunya    slide 0.80      dir      1378: öfke sokakta (halk)
+ 39 p1_oda     219.5   8.2  ('push',)                           own:push      dunya    kesme           audio    kurayla gonfaloniere: Salvestro
+ 40 c1_lonca   227.8   7.0  ('pan', 'r')                        pan           kart     carry 0.95      carry    21 lonca; yün işçisinin yeri boş
+ 41 p1_sehir   234.8   5.0  ('truck', 'r')                      own:yol       dunya    slide 0.70      dir      Ciompi Palazzo Vecchio'yu ele geçirir
+ 42 p1_sehir   239.8   5.1  ('crane', 'up', 300)                own:yol       dunya    zoomthru 0.80   scale    kule: Michele di Lando gonfaloniere
+ 43 p1_oda     244.9   3.4  ('push',)                           own:push      dunya    zoomthru 0.60   scale    talepler Signoria'da okunur
+ 44 p1_doc     248.3   4.2  ('push',)                           push          kart     kesme           audio    Ciompi'nin talepleri (belge)
+ 45 p1_oda     252.5   5.8  ('pan', 'r')                        own:pan       dunya    sayfa 0.80      material Machiavelli: Medici siparişiyle tarih
+ 46 p1_oda     258.4   9.0  ('push',)                           own:pan       dunya    kesme           cam      isyancının ağzına konuşma (kurgu)
+ 47 p1_procession  267.3   4.3  ('truck', 'r', 170)                 truck         dunya    yikama 1.60     color    loncaların milisleri
+ 48 c1_lonca   271.6   6.1  ('pull',)                           pull          kart     carry 0.70      carry    lonca kaldırıldı; dışlandılar
+ 49 c1_kademe  277.7   7.5  ('pan', 'r')                        pan           kart     slide 0.35      dir      bir kademe altta; kır gelirleri
+ 50 p1_oda     285.2   6.6  ('push',)                           own:push      dunya    light 0.70      light    Giovanni di Bicci: küçük pay
+ 51 p1_map     291.8   2.3  ('push', 0.07)                      push          kart     zoomthru 0.70   scale    Roma
+ 52 p1_oda     294.1   8.2  ('truck', 'r')                      own:push      dunya    kesme           audio    Vieri'nin bankası: devir
+ 53 p1_coin    302.3   5.6  ('push',)                           push          kart     kesme           audio    1.500 florinlik çeyiz
+ 54 p1_doc     307.9   5.1  ('tilt', 'down', 140)               tilt          kart     slide 0.50      dir      hanedanın ilk sermayesi: evlilik sözleşmesi
+ 55 p1_map     313.0   3.9  ('push',)                           push          kart     yikama 0.90     material 1397: Roma'dan Floransa'ya taşınma
+ 56 c1_kose    316.9   6.5  ('push', 0.1)                       push          kart     zoomthru 0.80   scale    Orsanmichele köşesi: iğne
+ 57 p1_oda     323.4   9.8  ('push',)                           own:pan       dunya    zoomthru 0.60   scale    köşede bir masa, bir defter
+ 58 p1_oda     333.3   6.5  ('pull',)                           own:pan       dunya    kesme           cam      faiz günahtır: huzurla kazanmak
+ 59 chapter_card  339.8   3.0  —                                   —             kart*    yikama 0.90     material bölüm kartı c2
+ 60 p1_oda     342.8   8.8  ('pull',)                           own:pan       dunya    light 0.60      light    banka: kambiyo; Kilise faizi yasakladı; bir yol
+ 61 p1_oda     351.6   4.2  ('push',)                           own:push      dunya    slide 0.70      dir      Brugge: Flaman salonu, klasik bir örnek
+ 62 c2_yakin   355.8   5.4  —                                   own:yol       dunya    kesme           cam      yakın plan: kese elden ele, poliçe karşılığında
+ 63 p1_map     361.1   7.7  ('pull',)                           pull          kart     zoomthru 0.55   scale    poliçe gider, para döner: kur farkı
+ 64 c2_nolist  368.8   4.5  ('pan', 'r')                        pan           kart     kesme           audio    BORÇ ✗ FAİZ ✗ KUR FARKI ✓
+ 65 p1_oda     373.4   5.8  ('pan', 'r')                        own:yol       dunya    kesme           audio    vicdan komitesi
+ 66 p1_oda     379.2  10.0  ('push',)                           own:push      dunya    kesme           audio    mevduat: faiz yazılmaz; lütuf
+ 67 c2_hediye  389.1   2.2  ('push', {'rate': 0.03})            push          kart     kesme           audio    faiz değil, hediye
+ 68 p1_oda     391.4   5.7  ('push',)                           own:push      dunya    kesme           audio    müşteri: Kilise'nin ta kendisi
+ 69 c2_kasa    397.1   8.9  ('pan', 'r')                        pan           kart     zoomthru 0.50   scale    Roma şubesi: kasayı Kilise doldurdu
+ 70 p1_map     406.0   6.7  ('pan', 'r')                        pan           kart     yikama 1.60     material 25 Mart 1402: Venedik şubesi; yılbaşı
+ 71 p1_oda     412.7   3.2  'hand'                              own:pan       dunya    kesme           audio    çifte kayıt: kâtip; MİT
+ 72 c2_masa    416.0  15.6  —                                   own:pan       dunya    zoomthru 0.60   scale    masa · iz: Cenova 1340 → yapı (tek kamera)
+ 73 p1_oda     431.6   8.6  ('truck', 'r')                      own:pan       dunya    zoomthru 0.60   scale    Giovanni → Cossa: borç; papa (tiara)
+ 74 p1_oda     440.1   4.7  ('pan', 'l')                        own:push      dunya    kesme           audio    Konstanz 1415: taht boş, taç düşer
+ 75 c2_ayrim   444.9   7.7  ('pan', 'r')                        pan           kart     kesme           audio    kefalet mi fidye mi: yol ayrımı
+ 76 c2_mezar   452.6   7.8  ('tilt', 'up', 120)                 tilt          kart     candle 1.00     light    Cossa'nın anıtı: IOANNES QVONDAM PAPA
+ 77 p1_oda     460.4   2.9  ('push',)                           own:pan       dunya    kesme           audio    V. Martinus itiraz eder
+ 78 c2_mezar   463.3   1.5  ('tilt', 'up', 130)                 tilt          kart     kesme           cam      yazıt kaldı
+ 79 c2_rivayet  464.8   2.1  ('tilt', 'down', 130)               tilt          kart     sayfa 0.50      material belge (de Roover): mitra borç karşılığı
+ 80 p1_oda     466.9   3.1  ('push',)                           own:pan       dunya    kesme           audio    Martinus mitrayı geri ister
+ 81 c2_yakin   469.9   1.7  —                                   own:yol       dunya    kesme           cam      yakın plan: rehin mitra, papalık eli
+ 82 p1_oda     471.7   4.2  ('push',)                           own:pan       dunya    kesme           cam      aforoz tehdidi (belgeli)
+ 83 c2_masa    475.8  10.6  —                                   own:pan       dunya    kesme           audio    masa · kasa: el anahtarları bırakır; 22 + 18 yıl
+ 84 p1_oda     486.4   7.2  ('truck', 'r')                      own:pan       dunya    slide 0.50      dir      catasto dairesi: beyanname getiren hane reisleri
+ 85 c2_masa    493.6   9.2  —                                   own:pan       dunya    kesme           cam      masa · catasto: 9.780 hane, %29,8 kenarda, Strozzi
+ 86 p1_oda     502.8   3.9  'hand'                              own:pan       dunya    kesme           audio    Giovanni catasto'yu destekledi
+ 87 p1_oda     506.7   5.0  ('pull',)                           own:pull      dunya    slide 0.60      dir      1420: yönetim oğullarına
+ 88 p1_ledger  511.7   6.6  ('pull',)                           pull          kart     sayfa 0.60      material defterler: 150 bini aşkın florin kâr
+ 89 p1_oda     518.3   7.8  ('push',)                           own:push      dunya    candle 1.20     light    20 Şubat 1429: ölüm döşeği (siluet)
+ 90 p1_medal   526.1   8.4  ('pan', 'r')                        pan           kart     dip 0.80        light    Lorenzo'nun kaydına göre 180 bin florin
+ 91 c2_kalemler  534.5   4.9  ('truck', 'r')                      truck         kart     kesme           audio    iki kalem, iki biçim
+ 92 c1_machiavelli  539.4   5.8  ('push',)                           push          figur    slide 0.40      dir      Machiavelli yazar: onun ağzından
+ 93 p1_oda     545.2   7.2  'hand'                              own:push      dunya    kesme           audio    ölüm döşeği konuşması (ANEKDOT)
+ 94 p1_oda     552.5   7.2  ('push',)                           own:push      dunya    sayfa 0.50      material Cavalcanti yazar (Stinche hücresi)
+ 95 c2_kalemler  559.7   6.5  [(('c2s30', 'kimse', -0.3), (380,   push          kart     kesme           cam      Cavalcanti'nin sayfası (ANEKDOT)
+ 96 c2_kalemler  566.2   2.8  ('pull',)                           pull          kart     slide 0.35      dir      hangisi söylendi: bilmiyoruz
+ 97 c2_sadaka  569.0   6.5  ('truck', 'r')                      truck         figur    slide 0.60      dir      yoksulun ihtiyacı (Giovanni; ANEKDOT)
+ 98 c2_yakin   575.5   4.5  —                                   own:yol       dunya    kesme           audio    yakın plan: o kalem; Medici siparişi (1520 mührü)
+ 99 p1_medal   580.0   4.8  ('push',)                           push          kart     iris 0.90       shape    Cosimo: kırk yaşına yaklaşıyordu
+100 p1_sehir   584.8   6.8  ('crane', 'up', 300)                own:crane     dunya    light 1.00      light    kapı: şehrin en yüksek kulesi
+101 outro      591.5  10.0  —                                   —             kart*    yikama 0.90     material bitiş ekranı
+
+ÖZET: 19 GEÇTİ · 0 KALDI · 2 UYARI · 1 PAS
+→ out/qa_flow.json

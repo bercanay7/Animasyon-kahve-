@@ -1,0 +1,9 @@
+MEDICI P5 — ses önizleme kesitleri (ÖNİZLEME miksi: geçici ses / eksik bölüm)
+mix = nihai miksten (konuşma + müzik + efekt; −14 LUFS); muzik = ducking'siz ham müzik (kulakla müziği değerlendirmek için; RMS −20 dBFS).
+
+  ONIZLEME_01_c10_acilis_parca_basligi_mix.mp3 (+_muzik.mp3)  t=    0.0–   26.0 sn  — P5 açılışı (t=0): Rahip ve Kral — ağır, E frigiyen
+  ONIZLEME_02_c10_9_kasim_mix.mp3 (+_muzik.mp3)  t=   91.2–  121.2 sn  — c10: 9 Kasım — kısa vuruşlar, kapı, 1 sn sessizlik, uzak trompet (ÇAN YOK)
+  ONIZLEME_03_c10_ates_mix.mp3 (+_muzik.mp3)  t=  179.1–  209.1 sn  — c10: ilk ateş … (ateş çıtırtısı + ağır org)
+  ONIZLEME_04_c11_leo_alayi_mix.mp3 (+_muzik.mp3)  t=  318.9–  346.9 sn  — c11: Leo X alayı — görkemli-ironik (mizah izni)
+  ONIZLEME_05_c11_roma_1527_mix.mp3 (+_muzik.mp3)  t=  416.3–  446.3 sn  — c11: Roma 1527 — sakin sayaç, ağır
+  ONIZLEME_06_c11_kapanis_mix.mp3 (+_muzik.mp3)  t=  585.2–  615.2 sn  — P5 sonu: Alessandro → çözülmeyen sus4, 7 sn çözülme

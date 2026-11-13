@@ -1,0 +1,8 @@
+Hangi dosya hangi ses? (kör test için dinlemeden önce AÇMAYIN)
+
+ses_A.m4a = fahrettin — veri seti CC0 (Nabu Casa voice-datasets)
+ses_B.m4a = dfki — veri seti CC BY-NC-SA 4.0 (ticari kullanım yok; atıf gerekir)
+ses_C.m4a = fettah — veri seti CC0 (Nabu Casa voice-datasets)
+
+Kaynak: aynı 6 cümle (Pellagra videosundan: A1, A2, B1, B2, E0, E0b), aynı işleme (hız 0,96, kuru, ses-lab/narrator.py), tek geçiş sentez (en iyi-5 seçimi yok), loudnorm −16 LUFS.
+Model kartları: ses-modelleri/ex_*/…/MODEL_CARD (dfki: CC BY-NC-SA 4.0; fettah ve fahrettin: CC0; üçü de ABD İngilizcesi 'lessac' sesinden ince ayarlı).

@@ -1,0 +1,380 @@
+{
+ "surum": 1,
+ "parca": 7,
+ "bolumler": [
+  "c14",
+  "c15",
+  "c16"
+ ],
+ "aciklama": "SFX kuyruğu (sözleşme: sfx.py normalize_cue / notlar_ses.md). Çapalar timeline.json cümle/sözcük kimliklerine bağlıdır: ses yamalanınca zamanlar yeniden çözülür. İlk doldurma anlatı + yönetmen brifinden; sahne yazarları çekimlere sfx= ipucu verdikçe bu dosyaya (ya da out_pN/sfx_gecis.json'a) eklenir. KAYNAK POLİTİKASI: c7/c10/c13'te çan/gong olay sesi yasak; hançer/kılıç/kan sesi yok.",
+ "ayar": {
+  "varsayilan_stinger": true,
+  "gecis_sesleri": true
+ },
+ "cues": [
+  {
+   "id": "c14-harf-dizimi",
+   "bolum": "c14",
+   "ad": "type_set",
+   "capa": [
+    "c14s2",
+    "harfleri",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.8,
+   "pan": -0.1
+  },
+  {
+   "id": "c14-ferman-muhru",
+   "bolum": "c14",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c14s3",
+    "ferman",
+    0.3
+   ],
+   "seviye": -22,
+   "seed": 12
+  },
+  {
+   "id": "c14-sert-tas",
+   "bolum": "c14",
+   "ad": "chisel_tap",
+   "capa": [
+    "c14s6",
+    "taşla",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.4
+  },
+  {
+   "id": "c14-lens",
+   "bolum": "c14",
+   "ad": "glass_chime",
+   "capa": [
+    "c14s12",
+    "Galileo",
+    0.3
+   ],
+   "seviye": -26,
+   "not": "mercek/cam tınısı"
+  },
+  {
+   "id": "c14-sidereus",
+   "bolum": "c14",
+   "ad": "page_turn",
+   "capa": [
+    "c14s14",
+    "kapağında",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2
+  },
+  {
+   "id": "c14-cekic-mekanizma",
+   "bolum": "c14",
+   "ad": "keyboard_action",
+   "capa": [
+    "c14s21",
+    "çekiçli",
+    -1.2
+   ],
+   "seviye": -27,
+   "parametre": {
+    "kind": "piano",
+    "n_keys": 5
+   },
+   "not": "piyano mekanizmasının çekici"
+  },
+  {
+   "id": "c14-gazete",
+   "bolum": "c14",
+   "ad": "paper_rustle",
+   "capa": [
+    "c14s22",
+    "gazete",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.5
+  },
+  {
+   "id": "c14-envanter-satiri",
+   "bolum": "c14",
+   "ad": "quill_scratch",
+   "capa": [
+    "c14s25",
+    "envanterde",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 2.4,
+   "not": "envanterde tek bir satır"
+  },
+  {
+   "id": "c15-studiolo",
+   "bolum": "c15",
+   "ad": "candle_flame",
+   "capa": [
+    "c15s1",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c15s1",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c15-saklanma-yeri",
+   "bolum": "c15",
+   "ad": "lock_click",
+   "capa": [
+    "c15s1",
+    "saklanma",
+    0.0
+   ],
+   "seviye": -26
+  },
+  {
+   "id": "c15-basliklar",
+   "bolum": "c15",
+   "ad": "paper_rustle",
+   "capa": [
+    "c15s6",
+    "başlığı",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c15-livorno",
+   "bolum": "c15",
+   "ad": "water_lap",
+   "capa": [
+    "c15s9",
+    "Livorno'nun",
+    0.0
+   ],
+   "seviye": -31,
+   "bitis_capa": [
+    "c15s9",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c15-mustafa-aga-mektubu",
+   "bolum": "c15",
+   "ad": "letter_open",
+   "capa": [
+    "c15s10",
+    "mektuplarını",
+    0.0
+   ],
+   "seviye": -25
+  },
+  {
+   "id": "c15-ruspanti-1",
+   "bolum": "c15",
+   "ad": "coin_clink",
+   "capa": [
+    "c15s14",
+    "altın",
+    0.0
+   ],
+   "seviye": -25,
+   "pan": 0.2,
+   "seed": 13
+  },
+  {
+   "id": "c15-ruspanti-2",
+   "bolum": "c15",
+   "ad": "coin_clink",
+   "capa": [
+    "c15s14",
+    "sikkelerden",
+    0.0
+   ],
+   "seviye": -26,
+   "pan": -0.2,
+   "seed": 14
+  },
+  {
+   "id": "c15-imza-habercisi",
+   "bolum": "c15",
+   "ad": "quill_scratch",
+   "capa": [
+    "c15s19",
+    "imzalanacak",
+    0.0
+   ],
+   "seviye": -24,
+   "dur": 2.2,
+   "not": "imzalanacak bir sözleşme → c16"
+  },
+  {
+   "id": "c16-takvim",
+   "bolum": "c16",
+   "ad": "page_turn",
+   "capa": [
+    "c16s1",
+    "Şubat",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": -0.2,
+   "not": "c0'ın takvim yaprağının yankısı"
+  },
+  {
+   "id": "c16-oda",
+   "bolum": "c16",
+   "ad": "candle_flame",
+   "capa": [
+    "c16s1",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c16s2",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.0,
+   "cik": 1.5
+  },
+  {
+   "id": "c16-sozlesme",
+   "bolum": "c16",
+   "ad": "paper_rustle",
+   "capa": [
+    "c16s3",
+    "Sözleşmeye",
+    0.0
+   ],
+   "seviye": -26,
+   "dur": 1.6
+  },
+  {
+   "id": "c16-x-cifte-kayit",
+   "bolum": "c16",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s14",
+    "icat",
+    0.8
+   ],
+   "seviye": -20,
+   "not": "✘ (sağlamlık haritası)"
+  },
+  {
+   "id": "c16-x-opera",
+   "bolum": "c16",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s15",
+    "icat",
+    0.8
+   ],
+   "seviye": -20,
+   "seed": 2
+  },
+  {
+   "id": "c16-x-uffizi",
+   "bolum": "c16",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s16",
+    "açılmıştı",
+    0.6
+   ],
+   "seviye": -20,
+   "seed": 3
+  },
+  {
+   "id": "c16-x-zincir",
+   "bolum": "c16",
+   "ad": "stamp_thud",
+   "capa": [
+    "c16s17",
+    "benzetmeden",
+    0.6
+   ],
+   "seviye": -20,
+   "seed": 4
+  },
+  {
+   "id": "c16-defterler",
+   "bolum": "c16",
+   "ad": "page_turn",
+   "capa": [
+    "c16s19",
+    "Defterlerin",
+    0.0
+   ],
+   "seviye": -22,
+   "pan": 0.2
+  },
+  {
+   "id": "c16-onay",
+   "bolum": "c16",
+   "ad": "wax_seal_stamp",
+   "capa": [
+    "c16s20",
+    "kurumlar",
+    0.4
+   ],
+   "seviye": -20,
+   "seed": 15,
+   "not": "✔ banka öldü, kurumlar kaldı"
+  },
+  {
+   "id": "c16-alay-adimlari",
+   "bolum": "c16",
+   "ad": "footsteps",
+   "capa": [
+    "c16s23",
+    "yürünür",
+    -1.8
+   ],
+   "seviye": -27,
+   "parametre": {
+    "kind": "stone",
+    "n_steps": 9,
+    "pace": 0.66
+   }
+  },
+  {
+   "id": "c16-sehir",
+   "bolum": "c16",
+   "ad": "crowd_murmur",
+   "capa": [
+    "c16s23",
+    0.0
+   ],
+   "seviye": -32,
+   "bitis_capa": [
+    "c16s25",
+    "end",
+    0.0
+   ],
+   "dongu": true,
+   "gir": 1.5,
+   "cik": 3.0,
+   "bastir_db": -5,
+   "not": "alay: her yıl yürüyerek anan şehir (sözsüz)"
+  }
+ ]
+}

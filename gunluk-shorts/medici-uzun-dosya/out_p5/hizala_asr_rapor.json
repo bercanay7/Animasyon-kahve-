@@ -1,0 +1,570 @@
+{
+ "bolumler": {
+  "c10": {
+   "jeton": 513,
+   "jeton_eslesen": 510,
+   "jeton_oran": 0.9942,
+   "asr_sozcuk": 513,
+   "asr_eslesen": 508,
+   "asr_oran": 0.9903,
+   "kosu": 68,
+   "kanitli_kosu": 68,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 0,
+   "hmm_kosu": 68,
+   "model": {
+    "hece": 0.1024,
+    "soz": 0.181,
+    "sabit": 0.2096,
+    "sigma": 0.261
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [
+    [
+     19.06,
+     -3.5,
+     "Piko ya.",
+     "Piko'ya,"
+    ]
+   ],
+   "eksik_sozcuk": [
+    {
+     "tok": 102,
+     "kelime": "gittiği",
+     "t": 57.259,
+     "onceki": "oraya yürüyerek",
+     "sonraki": "yazılır. Bin",
+     "asr": "Bolonya'da Dominikan tarihatına girdi. Oraya yürüyerek gitmiş"
+    }
+   ],
+   "eslesmeyen_bolgeler": [],
+   "kosu_bilgi": {
+    "p95": -17.337149531971303,
+    "thr": -51.337149531971306,
+    "n_ham": 70,
+    "n_gurultu": 0,
+    "n_parca": 2,
+    "n_bolunen": 0
+   }
+  },
+  "c11": {
+   "jeton": 642,
+   "jeton_eslesen": 625,
+   "jeton_oran": 0.9735,
+   "asr_sozcuk": 648,
+   "asr_eslesen": 623,
+   "asr_oran": 0.9614,
+   "kosu": 78,
+   "kanitli_kosu": 78,
+   "bos_kosu": 0,
+   "kanitsiz_kosu": 0,
+   "hmm_kosu": 77,
+   "model": {
+    "hece": 0.1507,
+    "soz": 0.0705,
+    "sabit": 0.0077,
+    "sigma": 0.326
+   },
+   "celiski": 0,
+   "aykiri_hiz": [],
+   "akustik_suphe": [
+    [
+     597.11,
+     -8.2,
+     "9 Ocak",
+     "Dokuz Ocak'ta"
+    ]
+   ],
+   "eksik_sozcuk": [
+    {
+     "tok": 589,
+     "kelime": "etti;",
+     "t": 576.697,
+     "onceki": "buluşma vaat",
+     "sonraki": "Alessandro adamlarını",
+     "asr": "5 Ocak 1537 gecesi kuzeni nörentsine ona kendi dairesinde bir buluşma vaat etti."
+    }
+   ],
+   "eslesmeyen_bolgeler": [
+    [
+     79,
+     81,
+     "Onuncu Leo."
+    ]
+   ],
+   "kosu_bilgi": {
+    "p95": -17.293639750127564,
+    "thr": -51.29363975012757,
+    "n_ham": 81,
+    "n_gurultu": 0,
+    "n_parca": 3,
+    "n_bolunen": 0
+   }
+  }
+ },
+ "uyarilar": [
+  "scribe_words: çakışan 1, süresi ≤0 0"
+ ],
+ "cumleler": {
+  "c10s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 0
+  },
+  "c10s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 1,
+   "run_b": 1
+  },
+  "c10s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 2,
+   "run_b": 4
+  },
+  "c10s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 5,
+   "run_b": 5
+  },
+  "c10s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 6,
+   "run_b": 11
+  },
+  "c10s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 12,
+   "run_b": 12
+  },
+  "c10s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 13,
+   "run_b": 15
+  },
+  "c10s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 16,
+   "run_b": 19
+  },
+  "c10s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 20,
+   "run_b": 21
+  },
+  "c10s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 22,
+   "run_b": 23
+  },
+  "c10s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 24,
+   "run_b": 25
+  },
+  "c10s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 26,
+   "run_b": 27
+  },
+  "c10s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 28,
+   "run_b": 28
+  },
+  "c10s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 29,
+   "run_b": 31
+  },
+  "c10s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 32,
+   "run_b": 32
+  },
+  "c10s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 33,
+   "run_b": 33
+  },
+  "c10s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 34,
+   "run_b": 34
+  },
+  "c10s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 36
+  },
+  "c10s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 37,
+   "run_b": 38
+  },
+  "c10s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 39,
+   "run_b": 41
+  },
+  "c10s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 42,
+   "run_b": 44
+  },
+  "c10s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 45,
+   "run_b": 47
+  },
+  "c10s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 48,
+   "run_b": 48
+  },
+  "c10s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 49,
+   "run_b": 49
+  },
+  "c10s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 50,
+   "run_b": 53
+  },
+  "c10s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 54,
+   "run_b": 55
+  },
+  "c10s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 56,
+   "run_b": 56
+  },
+  "c10s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 57,
+   "run_b": 57
+  },
+  "c10s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 58,
+   "run_b": 58
+  },
+  "c10s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 59,
+   "run_b": 59
+  },
+  "c10s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 60,
+   "run_b": 60
+  },
+  "c10s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 61,
+   "run_b": 61
+  },
+  "c10s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 62,
+   "run_b": 62
+  },
+  "c10s34": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 63,
+   "run_b": 63
+  },
+  "c10s35": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 64,
+   "run_b": 65
+  },
+  "c10s36": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 66,
+   "run_b": 67
+  },
+  "c11s1": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 0,
+   "run_b": 2
+  },
+  "c11s2": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 3,
+   "run_b": 5
+  },
+  "c11s3": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 6,
+   "run_b": 6
+  },
+  "c11s4": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 7,
+   "run_b": 12
+  },
+  "c11s5": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 13,
+   "run_b": 13
+  },
+  "c11s6": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 14,
+   "run_b": 15
+  },
+  "c11s7": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 16,
+   "run_b": 17
+  },
+  "c11s8": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 18,
+   "run_b": 18
+  },
+  "c11s9": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 19,
+   "run_b": 19
+  },
+  "c11s10": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 20,
+   "run_b": 20
+  },
+  "c11s11": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 21,
+   "run_b": 23
+  },
+  "c11s12": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 24,
+   "run_b": 25
+  },
+  "c11s13": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 26,
+   "run_b": 27
+  },
+  "c11s14": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 28,
+   "run_b": 29
+  },
+  "c11s15": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 30,
+   "run_b": 30
+  },
+  "c11s16": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 31,
+   "run_b": 31
+  },
+  "c11s17": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 32,
+   "run_b": 32
+  },
+  "c11s18": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 33,
+   "run_b": 33
+  },
+  "c11s19": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 34,
+   "run_b": 34
+  },
+  "c11s20": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 35,
+   "run_b": 36
+  },
+  "c11s21": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 37,
+   "run_b": 39
+  },
+  "c11s22": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 40,
+   "run_b": 41
+  },
+  "c11s23": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 42,
+   "run_b": 42
+  },
+  "c11s24": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 43,
+   "run_b": 45
+  },
+  "c11s25": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 46,
+   "run_b": 47
+  },
+  "c11s26": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 48,
+   "run_b": 48
+  },
+  "c11s27": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 49,
+   "run_b": 52
+  },
+  "c11s28": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 53,
+   "run_b": 55
+  },
+  "c11s29": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 56,
+   "run_b": 56
+  },
+  "c11s30": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 57,
+   "run_b": 60
+  },
+  "c11s31": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 61,
+   "run_b": 63
+  },
+  "c11s32": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 64,
+   "run_b": 65
+  },
+  "c11s33": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 66,
+   "run_b": 67
+  },
+  "c11s34": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 68,
+   "run_b": 69
+  },
+  "c11s35": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 70,
+   "run_b": 73
+  },
+  "c11s36": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 74,
+   "run_b": 75
+  },
+  "c11s37": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 76,
+   "run_b": 76
+  },
+  "c11s38": {
+   "t0_durak": true,
+   "t1_durak": true,
+   "run_a": 77,
+   "run_b": 77
+  }
+ },
+ "toplam": {
+  "jeton": 1155,
+  "jeton_eslesen": 1135,
+  "asr_sozcuk": 1161,
+  "asr_eslesen": 1131,
+  "kosu": 146,
+  "jeton_oran": 0.9827,
+  "asr_oran": 0.9742,
+  "cumle": 74,
+  "cumle_t0_durakta": 74,
+  "cumle_t1_durakta": 74,
+  "seste_olmayan_sozcuk": 2
+ },
+ "scribe_md5": "f8eac9b57d7c529dfbfc769c038d0fe4",
+ "uretim": "2026-10-19 02:50:34"
+}
