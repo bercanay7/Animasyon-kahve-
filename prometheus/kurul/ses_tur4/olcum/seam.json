@@ -1,0 +1,78 @@
+{
+ "cut_film": [
+  1057.98,
+  1059.0
+ ],
+ "seam_short_s": 2.64,
+ "dur": 52.26,
+ "max_jump_seam_pm50ms": 0.002,
+ "jump_p999_file": 0.3302,
+ "jump_p50_seam_region_1s": 0.00393,
+ "env_geniş": {
+  "before_0_3s": -30.2,
+  "after_0_3s": -32.6,
+  "seam_min": -34.0,
+  "seam_max": -28.4,
+  "film_at_ca": -32.9,
+  "film_at_cb": -30.1
+ },
+ "env_<150 Hz": {
+  "before_0_3s": -30.7,
+  "after_0_3s": -32.5,
+  "seam_min": -35.0,
+  "seam_max": -28.7,
+  "film_at_ca": -33.1,
+  "film_at_cb": -30.8
+ },
+ "env_400-500 Hz (A4)": {
+  "before_0_3s": -51.5,
+  "after_0_3s": -57.4,
+  "seam_min": -59.9,
+  "seam_max": -50.4,
+  "film_at_ca": -54.1,
+  "film_at_cb": -49.7
+ },
+ "env_1-4k": {
+  "before_0_3s": -53.2,
+  "after_0_3s": -67.3,
+  "seam_min": -65.8,
+  "seam_max": -55.3,
+  "film_at_ca": -57.3,
+  "film_at_cb": -60.1
+ },
+ "chroma_cos_seam": 0.903,
+ "spec_dist_seam_dB": 23.79,
+ "ref_chroma_cos_min_med": [
+  0.483,
+  0.8015000000000001
+ ],
+ "ref_spec_dist_med_max": [
+  13.365,
+  55.78
+ ],
+ "corr_seam_100ms": 0.959,
+ "nearest_words": [
+  [
+   "tutsak",
+   1057.13
+  ],
+  [
+   "olan",
+   1057.31
+  ],
+  [
+   "kim",
+   1057.63
+  ],
+  [
+   "görünüşe",
+   1059.25
+  ],
+  [
+   "bakılırsa",
+   1059.75
+  ]
+ ],
+ "LUFS": -14.0,
+ "TP": -2.88
+}

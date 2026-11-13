@@ -1,0 +1,255 @@
+{
+ "answers": [
+  {
+   "from": "dramaturg-A",
+   "answer": "(1) Kapak henüz kesinleşmedi; üretim planında 8. adımda ayrı bir kurulla seçilecek. Bu yüzden açılışı iki aday kapağın ikisini de karşılayacak biçimde kurmalıyız: görsel vaat ilk karede, sözlü vaat en geç 0:11'de. (2) Zincirin bulutlara uzanan ucunu ilk 5 saniyede görsel olarak vermeye katılıyorum, ama tek başına yetmez. A05 ile A06'yı birleştirmek de yetmez, çünkü A06 9 saniyelik bir atıf cümlesi ve paradoks yine 0:20 civarına düşer. Önerim şu: A02'yi 'Şimdi de, onu oraya zincirleten tanrının… asıl tutsak olduğunu' diye bir düşünce deneyi olarak yeniden yazmak (0:07–0:11). Atfı A06 0:22'de yapar. Sisifos'ta da 'Ölümü zincire vuran bir adam düşün' cümlesi kapak vaadini 0:01'de karşılamıştı. (3) Abone çağrısı yalnız M03'te ve bitiş ekranıyla birlikte olmalı. I12 ile J06'dan sonra çağrı koymayalım: duygusal doruğu böler ve izleyicilerin %95,5'i yeni, değeri tam almadan çağrıya karşılık vermez. Senin önerdiğin sırada son doruk K06 oluyor ('ilk temsilcisi… Prometheus'tur'). M bölümü ≤35 sn tutulursa çağrı son doruktan en fazla ~40 sn sonra gelir; kanal verisindeki 'doruk anına (~son dakika)' kuralı da bunu istiyor. (4) 14 bölüm damgası fazla değil. Ortalama ~1:35 düşüyor, her biri 10 sn'den uzun, ilki 0:00. Önemli olan adların somut ve merak uyandırıcı olması. Simülasyonla tahmini damgalar: 0:00 Kayadaki Titan / 0:47 Erhat'ın sorusu / 1:41 Tanrıların taht kavgası / 3:59 Aklın tekeli / 5:46 Mekone'deki hile / 8:13 Duruşma / 11:10 Sanığın savunması / 13:48 Tanıklar ve inek geçidi / 15:35 Zeus'u korkutan sır / 16:53 Asıl tutsak kim? / 17:46 Son söz / 19:02 O okçu geldi mi? / 20:05 Başkaldıran yaratık / 21:35 Kapanış. Kesin değerler seslendirmeden sonra timeline.js'ten alınacak."
+  },
+  {
+   "from": "dramaturg-B",
+   "answer": "(1) A05'in cevabını öne almak tutmaya yarar, ama yeri E11 değil, E bölümünün sonu (dramaturg-A'nın E16'sı) olmalı. Ara ödül orada bölüm geçişine (~8:00) denk gelir ve bir sonraki merak sorusunun mandalı da olur ('Ama Erhat'ın en şaşırtıcı iddiası hâlâ ortada: o zincirin asıl tutsağı kim?'). Bölüm geçişleri kayıp riskinin yüksek olduğu anlar; ödül ile yeni kancayı aynı noktaya koymak bu riski kırar. Asıl kanca (A02 ve A06) hükme kadar açık kalır. (2) Telefon %48 olan bir kitle için 21–22 dakika kabul edilebilir. Trafiğin %75'i Göz at'tan geliyor ve YouTube mutlak izlenme süresine bakıyor. Risk sürenin uzunluğunda değil, ortadaki çöküntülerde (1:00–6:40 arası anlatıcı ve sergi, 8–11. dakikalar arası Duruşma). (3) Evet, A06'nın ~0:28'de gelmesi kapak 'asıl tutsak'ı vaat ediyorsa 5 saniye kuralını çiğner. Ama A05'i atmayalım: A06'dan sonra ikinci soru olarak kalsın ve E16'da ödensin. Çözüm A02'de: paradoksu 0:07–0:11 arasında düşünce deneyi olarak söylemek. (4) J06'ya abone çağrısı koymayalım. Tek çağrı M03'te olsun."
+  },
+  {
+   "from": "uslup-Zweig",
+   "answer": "(1) Kapak metni henüz yok. Adaylar 'ASIL TUTSAK KİM?' ya da 'ZİNCİRDEKİ ÖZGÜR' ile kitle-Paket'in 'BİLE BİLE' önerisi. Çekiç ve sessizlik açılışı yalnız kapak düz bir 'zincirlenen Titan' görüntüsüyse vaadi karşılar. Paradoks ya da 'bile bile' kapaklarında vaadi 0:10'un ötesine iter. Önerim şu: çekici sözle değil sesle verelim; ilk ses çekiç vuruşu olsun, ilk kare kapak kompozisyonu, kararma olmasın. Sözlü açılış A01 ('bile bile çaldığı için… zincirlenmiş') ve A02 ('zincirleten tanrının asıl tutsak olduğunu') olsun. Böylece sessizlik motifi sesle kurulur, kapak vaadi de 0:11'de tamamlanır. (2) Evet, paradoksu ilk 10–11 saniyeye çekmek gerekir; A02 bunu yapıyor. (3) Bosporos kesinlikle korunmalı. İzleyicinin %73,6'sı Türkiye'den ve bu ayrıntı ~14. dakikadaki orta-geç çöküntü bölgesinde en güçlü yerel yeniden yakalama noktası. H01'de bölüm sorusu olsun ('boynuzlu bir genç kızın Bosporos adıyla ne ilgisi var?'). Shorts sıralamasında ikinci aday."
+  },
+  {
+   "from": "uslup-Dostoyevski",
+   "answer": "(1) Prometheus'un kendi sesinin ilk kez ~10:50'de duyulması bir tutma riski; çünkü 1:00–6:40 arası, Sisifos'ta 'önemli an'ın başladığı aralık, sergi ve anlatıcıdan oluşuyor. Açılışa bir Prometheus cümlesi eklemeyelim; paradoksu geciktirir. A04'e de 'yani önceden gören'i koymayalım; D09'da yeri var ve filolog-Klasik'in etimoloji itirazı orada çözülmeli. Bunun yerine üç ucuz çare var: C01'deki hatıra çerçevesi ('kayadaki Titan bunu çok iyi biliyordu…', ZVP 956–957) ~1:45'te kayayı ve Prometheus'u geri getirir. E05'teki Zeus–Prometheus repliği (dil-Ses, Th. 543–549) ~6:30'da ilk karakter sesidir. F13b de iç sesi ~10:30'a getirir. (2) 20–21 dakika makul, ama ölçü modelini belirtmek gerek. Önerilen değişikliklerle hece modeli ~21:45–22:05, kelime modeli ~20:40–21:00 veriyor; oyum 21,5. (3) 'Kendini bil / Haddini bil' yorum çeker ama orta güçte bir Shorts adayı. 'Haddini bil' anlatıcının yorumu ve bağlamından kopunca ahlak ya da siyaset dersi gibi okunabilir. Asıl tutsak, Bosporos ve Mekone'den sonra gelir."
+  },
+  {
+   "from": "filolog-Erhat",
+   "answer": "(1) A06'nın kendisini ilk 5 saniyeye çekmek gerekmez; çekilmesi de mümkün değil, 9 saniyelik bir atıf cümlesi. Gereken şu: görsel vaat ilk karede, paradoks iddiası A02'de 0:11'e kadar düşünce deneyi olarak, Erhat'a atıf A06'da ~0:22'de. Bu sıranın kaynak kuralına uyup uymadığını siz onaylamalısınız; ben uyduğunu düşünüyorum, çünkü atıf 15 saniye içinde geliyor. (2) 'O kayada asıl tutsak' mantık olarak aksıyor, haklısınız. 'O zincirin asıl tutsağı' bende daha güçlü bir etki bırakıyor: somut bir imge, görsel motifle (zincirin öbür ucu J'de Zeus'un bileğinde) birebir örtüşüyor, xiv5'teki 'tutukladığı düşmanının elinde tutuklu' fikrine de en yakın ifade. 'Bu hikâyede asıl tutsak' soyut kalıyor. A02'de 'zincirleten' fiilini öneriyorum (Zeus zincirletti, Hephaistos zincirledi). Kapak metni 'ASIL TUTSAK KİM?' bu değişiklikten etkilenmez."
+  },
+  {
+   "from": "filolog-Klasik",
+   "answer": "(1) I04'teki Thetis ve Akhilleus bilgisi kanca, ama yeri yanlış. ~15:50'de, doruğa giden Sır bölümünde bir sapma oluyor; Aiskhylos'un adı hiç söyletmemesi de dramatik olarak daha güçlü. I04 tek cümle kalsın ('Ve o adı söylemez'), Akhilleus açıklamaya ya da sabitlenmiş yoruma gitsin. (2) Kerç ve İstanbul ayrımı tek cümle kalırsa kanca; doğruluk kritik, çünkü Shorts geniş kitleye çıkar ve yanlış iddia yorumlarda düzeltilir. H07'deki 'bu geçişten adını alacak' düzeltmenize katılıyorum. (3) 'Bosporos = inek geçidi' güçlü bir Shorts adayı: yerel, kendi içinde kapanan, ilk 2 saniyede soruyla açılabilen bir parça. 'Filantropi bir suçlamaydı' orta güçte: Yunanca bağlam ister, ekranda ΦΙΛΑΝΘΡΩΠΟΣ yazıtıyla çalışır, beşinci sıraya koyardım."
+  },
+  {
+   "from": "kitle-Paket",
+   "answer": "(1) Ölçüler aynı metne farklı modeller uyguluyor. Dakikada 97 kelime (boşluklar dahil) 23,5 dk, benim hece modelim 23:05, yalnız kelime hızı 21:50 veriyor. Kurulun çoğunun savunduğu kesme ve eklemeleri simüle ettim: hece modeliyle 22:05, cümle arası 0,95 sn ile 21:45, kelime modeliyle 20:40–21:00. Senin 21,5 hedefine katılıyorum; oyum da bu. (2) İlk Shorts doruk olsun (J02–J06 ve zincirin öbür ucu). Uzun videoya köprüdür ve Sisifos dersi de en iyi adayın doruk anı olduğunu söylüyor. Uzun videodan sonraki 24–48 saatte yayımlanırsa Göz at dalgasını besler. Boğaz 3–4 gün sonra erişim hamlesi olarak gelsin, uzun videonun ikinci gösterim dalgasına denk gelecek biçimde. Not: K bloğunu B'ye ve G'ye dağıtma önerine katılmıyorum (eleştiriler bölümünde gerekçesi var). M02 sorun benimkinden daha iyi, onu benimsiyorum."
+  },
+  {
+   "from": "dil-Metin",
+   "answer": "(1) 'Gökteki darbeler' bölüm adı değişmeli. Bölüm adları YouTube'da 'Önemli anlar' ve aramada görünür; Türkiye'de 'darbe' sözcüğü güçlü siyasi çağrışım taşıyor ve izleyicinin %73,6'sı Türkiye'den. Önerim 'Tanrıların taht kavgası'. 'Gökteki devrimler' de olur, ama 'taht kavgası' daha somut ve B07'nin köprü cümlesiyle örtüşüyor. (2) K02'de Camus'ye tek cümlelik bir geri dönüşe katılıyorum. Kanal içi izlenme ve oturum süresi için değerli; ama açıkça anlatıcının notu olmalı ve Erhat'a mal edilmemeli. Örnek: 'Kanalda Sisifos'unu anlattığımız Camus da bu düşünürlerdendi.' Dayanağı (L'Homme révolté, 1951) yayından önce doğrulanmalı. Bitiş ekranında da Sisifos videosu olsun; M03 metnim buna göre."
+  },
+  {
+   "from": "dil-Ses",
+   "answer": "(1) Evet, 1:00–6:40 arasının yalnız anlatıcı ve atıflardan oluşması bir tutma riski; Sisifos'ta 'önemli an' tam 1:00'de başlıyordu. Çareler: B bölümünü ≤55 sn'ye indirmek (B03 L02'ye, B04 ile B05 birleşik), C01'deki hatıra çerçevesi, senin E05 replik önerin (Th. 543–549; destekliyorum), karakter repliklerini tırnak ve kendi etiketiyle okumak, 'Peki' kalıbını ve [curious] etiketini çeşitlendirmek. (2) Abone çağrısını J06'ya almayalım; doruğu böler. Tek çağrı M03'te olsun, son doruk K06'dan en fazla ~40 sn sonra, bitiş ekranıyla eşzamanlı. Bölüm içi boşlukları 0,9–1,0 sn'ye indirme önerine katılıyorum; simülasyonda ~25 sn kazandırıyor."
+  },
+  {
+   "from": "gorsel-Uslup",
+   "answer": "Kapak metni henüz yok (8. adım). Benim istediğim, ilk karenin kapak karesi olması: zincirli kırmızı figür, kadraj dışına çıkan zincir, tek altın köz. A05 ile A06'nın yer değiştirmesi yetmez, paradoks yine ~0:20'ye düşer. Paradoksu A02'de 0:07–0:11 arasına alıyorum, atıf A06'da (~0:22), ateş sorusu A05'te en sonda (~0:34). 'NEDEN…?' kalıbından kaçınmaya katılıyorum."
+  },
+  {
+   "from": "gorsel-Kurgu",
+   "answer": "(1) Kapakta yalnız zincirli bilek ve yıldırım yeterli, hatta daha iyi. Kapak sorunun cevabını göstermemeli; merak boşluğu tıklamayı getirir, J04'teki açığa çıkış da ödül olarak korunur. Bunun bir uzlaşma çözümü de var: zincir sağ üstte yıldırımla aydınlanan bir taht siluetine gidebilir. Zeus ima edilir ama gösterilmez. (2) C14'teki sözlü vaadi tamamen görsel tohuma çevirmeyelim. İzleyicilerin %22'si TV'de, %48'i telefonda izliyor ve birçoğu kulakla takip ediyor; sözlü açık döngü ('Nasıl mı? Bunu zincirdeyken kendi ağzından duyacağız') onları tutar. Senin görsel tohumun da (Zeus'un kulağına fısıldayan adsız figür) üstüne eklensin. Sorun vaadin varlığında değil, 'birazdan' sözünün 8 dakikalık bekleyişi gizlemesinde."
+  }
+ ],
+ "critiques": [
+  {
+   "member": "dramaturg-A",
+   "proposal": "Doruk sırası: I07 → I07b (koşul) → J01–J06 hüküm → I08, I08b, I08c → I09–I12 fırtına ve son söz.",
+   "stance": "katılıyorum",
+   "reason": "Tutma açısından en iyi seçenek. Simülasyona göre hüküm ~17:00'de, en güçlü görsel-işitsel tepe olan fırtına ve son söz ise ~18:20–19:00'da (%83–86) geliyor. Sisifos'taki 'sona doğru doruk' artışı da böyle bir yerleşimi destekliyor. Fırtına 'çaresiz zorbanın kaba kuvveti' olarak okununca hükmü sahneyle kanıtlamış olur. Birinci turda önerdiğim 'K önce, J sonra' sırasından bu yüzden vazgeçiyorum."
+  },
+  {
+   "member": "dramaturg-A",
+   "proposal": "Kuyruk: L önce, K sonra; video K06 ile bitsin; J07, J08 ve J08b silinip xiv3 K08a'da verilsin.",
+   "stance": "katılıyorum",
+   "reason": "Kuyruk artık 'deneme' olmaktan çıkıyor; içinde üç eski döngünün ödemesi var: H10 → L01 (o okçu geldi mi?), D11 → K03b (sıra insana gelmişti) ve B06 → K08a. Açık döngü sona kadar taşınıyor. Tek koşulum K bölümünün ≤1:30 kalması; K02 ile K03 birleşsin, K04 kısalsın. Simülasyonda doruktan sonraki kuyruk ~3:05."
+  },
+  {
+   "member": "dramaturg-A / dramaturg-B",
+   "proposal": "A05'in cevabı (K07) dorukta değil, ortada ara ödül olarak verilsin (E16 ya da E11).",
+   "stance": "katılıyorum",
+   "reason": "Fikrimi değiştirdim; birinci turda cevabı sona saklamayı önermiştim. Sona saklanacak soru zaten A02/A06 (asıl tutsak). İki sorunun ikisini birden sona bırakmak kuyruğu ağırlaştırıyor. E16'yı E11'e tercih ediyorum: ödül bölüm geçişine (~8:00) düşüyor ve yeni bir mandalla ('o zincirin asıl tutsağı kim?') Duruşma bölümüne köprü kuruyor."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "K02, K03 ve K06 B'ye, K04 ile K05 G13'ün arkasına taşınsın; doruk %89'a çıksın.",
+   "stance": "katılmıyorum",
+   "reason": "B bölümü (0:40–2:00) zaten videonun en riskli sergi bölgesi; ~30 sn soyut tanım eklemek tam Sisifos'taki 'önemli an' başlangıcını ağırlaştırır. K06'daki halka kapanışı ('ilk temsilcisi… Prometheus'tur') da yok olur. Doruğu sona yaklaştırmak için dramaturg-A'nın sırası, B'yi büyütmeden aynı sonucu (son söz ~%86, son doruk K06 ~%97) veriyor. Kabul ettiğim tek parça: xii4'teki 'gurur ya da kibir sanırlar' tespiti, önsözdeki yeriyle uyumlu biçimde H05'e girsin."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "Kapak A 'BİLE BİLE'; A01'e 'bile bile' eklensin.",
+   "stance": "kısmen",
+   "reason": "A01'e eklemeyi destekliyorum: A/B testinde iki kapaktan hangisi gösterilirse gösterilsin ilk 5 saniye ikisinin de vaadini karşılar. Ama tek başına kapak metni olarak 'BİLE BİLE' 168 px'te bağlamsız ve belirsiz kalıyor ('bile bile lades' gibi). Ana kapak paradoks olsun ('ASIL TUTSAK KİM?' ya da 'ZİNCİRDEKİ ÖZGÜR'), 'BİLE BİLE' B seçeneği olarak test edilsin. Karar kapak kurulunun."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "M02: 'Peki sen olsan? Bedelini bile bile o ateşi yine de verir miydin?'",
+   "stance": "katılıyorum",
+   "reason": "Benim önerdiğim 'bugün hangi ateşi getirirdi' sorusu güncel siyasete kapı açabilir. Seninki kişisel, gerekçe isteyen ve videonun çekirdeğine bağlı bir soru; Sisifos'un 'Senin kayan ne?' sorusuna benzer bir yorum dinamiği kurar. Mevcut M02 ise videonun zaten cevapladığı soruyu yeniden soruyor ve tek kelimelik yorumlar getirir."
+  },
+  {
+   "member": "uslup-Zweig",
+   "proposal": "A01–A02'de şimdiki zamanda çekiç ve sessizlik açılışı ('tek söz etmiyor').",
+   "stance": "kısmen",
+   "reason": "Ses tasarımı olarak katılıyorum: ilk ses çekiç vuruşu olsun, kararma olmasın. Sözlü açılış olarak katılmıyorum. Paradoks ve 'bile bile' vaadi 5–7 sn gecikir; kendi önerinizde de bunu kabul ediyorsunuz. Sessizlik motifi F10b'de ve I12'de sözle ödeniyor, açılışta sesle kurulması yeterli."
+  },
+  {
+   "member": "uslup-Zweig / uslup-Dostoyevski / dil-Ses",
+   "proposal": "F13'ün ardına Prometheus'un iç sesi: 'Ama ne diyorum? Olacak her şeyi önceden biliyordum…' (ZVP 101–103).",
+   "stance": "katılıyorum",
+   "reason": "Karakterin ilk iç sesini ~10:30'a getiriyor ve tek tip anlatıcı sesini Duruşma'nın ortasında, orta risk bölgesinde kırıyor. Koşulum ≤10 sn olması: Dostoyevski üyesinin F13b sürümü ya da dil-Ses'in fısıltı önerisi. Zweig'ın 21 sn'lik F14'ü uzun. Duruşma bölümü eklemelerle ~2:57'ye çıkıyor; 3 dakikayı aşmamalı."
+  },
+  {
+   "member": "uslup-Dostoyevski",
+   "proposal": "Okeanos bloğu üç segmente genişlesin (H04, H04b, H04c; ~+45 sn).",
+   "stance": "kısmen",
+   "reason": "Tanıklar bölümü 13:45–15:30 arasında, Sır ve doruktan hemen önceki orta-geç bölgede. +45 sn burada bir çöküntü yaratır. Okeanos'a toplam ≤+15 sn verilsin: dramaturg-B'nin tek repliklik 'Seni kıskanıyorum… suçun dışında kaldın' cevabı ile H05'teki xii4 'kibir sanırlar' tespiti yeter. 'Haddini bil' aforizması Shorts için ayrı tutulabilir."
+  },
+  {
+   "member": "uslup-Dostoyevski / gorsel-Uslup",
+   "proposal": "F05b: 'Yargıç: Zeus. Ama oyun boyunca bir kez bile görünmeyecek.'",
+   "stance": "katılıyorum",
+   "reason": "6 saniyelik ucuz bir ekleme, ama yaklaşık 9 dakika açık kalan bir döngü kuruyor. Ödemesi J04–J06'da hem görsel (Zeus'un ilk ve tek görünüşü, zincirin öbür ucu) hem sözlü ('yargıç tutsak'). Zeus'un ZVP'de sahneye hiç çıkmadığı doğru; kişi listesinde yok."
+  },
+  {
+   "member": "filolog-Erhat / filolog-Klasik",
+   "proposal": "I03'teki 'üçüncü devrim = bilgi' okuması düzeltilsin; asıl cevap (xi1: sıra insana geldi) verilsin.",
+   "stance": "katılıyorum",
+   "reason": "Önsöz notlarında ve s. xi'da doğruladım: x3–x4 devrimin 'hazırlanması', xi1 devrimin kendisi. Tutma açısından bir artısı da var: D11'in 'Sıra kime gelecekti?' sorusu ~6:40'ta açılıyor; I03'te kısmen (Zeus'un kuşkusu), K03b'de tam ödenirse kuyruğa taşınan bir açık döngü olur. K07'de değil K03b'de verilmesini öneriyorum, çünkü K07 E16'ya taşınıyor."
+  },
+  {
+   "member": "filolog-Klasik",
+   "proposal": "L01 'Peki Prometheus'un haber verdiği o okçu gerçekten geldi mi?'; L02'de Herakles bağı ve 'acısından kurtardı'.",
+   "stance": "katılıyorum",
+   "reason": "Genel bir 'kurtuldu mu?' sorusu H10'da kurulmuş beklentiyi ödeyen bir soruya dönüşüyor. Doruk sonrasının ilk bölüm sorusu olarak güçlü bir mandal; bölüm adı da 'O okçu geldi mi?' olabilir."
+  },
+  {
+   "member": "dramaturg-B / filolog-Klasik / uslup-Zweig",
+   "proposal": "I08'de 'Eyvah' geri gelsin; I08b'de Hermes'in kartal tehdidi (ZVP 1016–1025) eklensin.",
+   "stance": "katılıyorum",
+   "reason": "Kapak ve A03'teki kartal videonun ilk vaadi, ama şu an hiç ödenmiyor. Bu, 17. dakikada 'açılıştaki kartal işte bu' diye ilk saniyelere geri dönen güçlü bir yeniden yakalama anı. 'Eyvah' olmadan da Hermes'in cevabı boşta kalıyor (K1 ve K3)."
+  },
+  {
+   "member": "uslup-Zweig / uslup-Dostoyevski / filolog-Klasik / kitle-Paket",
+   "proposal": "G12'nin ardına ZVP 267–270'teki çatlak: 'böyle cezalarla eriyip gideceğimi düşünmemiştim'.",
+   "stance": "katılıyorum",
+   "reason": "Birinci turda önerdiğim G13b ('her acıyı iki kez yaşıyordu') anlatıcının yorumuydu; metnin kendi çatlağı hem kaynağa daha sadık hem daha güçlü. Bu yüzden G13b'yi geri çekiyorum. Psikolojik doruk aynı zamanda tutma doruğu; ~11:30–13:00 aralığında bir yeniden yakalama sağlıyor ve iyi bir Shorts adayı."
+  },
+  {
+   "member": "gorsel-Kurgu",
+   "proposal": "I10'da seslendirme tek cümleye insin, ardından 6–8 sn anlatımsız fırtına.",
+   "stance": "kısmen",
+   "reason": "Doruk anında kısa bir anlatımsız tepe iyi; ses ve görüntü değişimi dikkati tazeler. Ama 6–8 sn uzun, telefonda izleyen 'bitti mi?' diye çıkabilir. Kısa bir Prometheus cümlesi (ZVP 1080, 'artık sözde değil, gerçekte!') ve 4–5 sn sözsüz fırtına önerim; filologların ve üslup üyelerinin önerisiyle de uyumlu."
+  },
+  {
+   "member": "gorsel-Kurgu",
+   "proposal": "C01'de hatıra çerçevesi: 'Kayadaki Titan bunu çok iyi biliyordu: hepsini gözleriyle görmüştü' (ZVP 956–957), I06'da ödeme.",
+   "stance": "katılıyorum",
+   "reason": "Birinci turda işaret ettiğim 2:47'lik 'Prometheus yok' riskini çözüyor ve benim C01 soru önerimden daha iyi, çünkü kaynağa dayalı ve I06'da ödeniyor. Kapak görüntüsü olan kaya 2 ile 9. dakika arasında canlı kalır."
+  },
+  {
+   "member": "dil-Metin",
+   "proposal": "Erhat'ın 'günümüz/çağımız' ifadeleri tarihlensin; 'iktidar' ve 'polis' çevresi yumuşatılsın; K04 üçüncü kişiye çevrilsin.",
+   "stance": "katılıyorum",
+   "reason": "İzleyicinin %73,6'sı Türkiye'den; siyasi okumaya açık bir yorum bölümü yorumları kutuplaştırır ve kanalın biçim kimliğini (geçmişten soru taşıyan kurye) bozar. Tarihleme ('Erhat'ın 1967'deki çağı') aynı zamanda B07'nin tarih bilgisini taşıyor."
+  },
+  {
+   "member": "dil-Ses / uslup-Zweig",
+   "proposal": "Bölüm açılışlarında 'Peki' ve [curious] tekdüzeliği kırılsın.",
+   "stance": "katılıyorum",
+   "reason": "Her ~1,5 dakikada aynı ezgi gelince bölüm başı bir 'jingle' gibi duyuluyor ve izleyiciye 'şimdi geçiş, atlayabilirsin' sinyali veriyor. 'Peki' yalnız A05, L01 ve M02'de kalsın."
+  },
+  {
+   "member": "uslup-Zweig / filolog-Klasik / kitle-Paket",
+   "proposal": "'Erhat'a göre' kalıbı seyreltilsin; atfı ekrandaki sayfa etiketi ve beyaz zemin taşısın.",
+   "stance": "katılıyorum",
+   "reason": "50 'Erhat', ortalama ~26 saniyede bir aynı kalıp, tempoyu düşürüyor. Koşulum: her Erhat öbeğinin ilk cümlesinde sözlü atıf kalsın. İzleyicilerin %22'si TV'de, kayda değer bir kısmı da kulakla izliyor; yalnız ekrandaki etiket herkese ulaşmaz."
+  },
+  {
+   "member": "gorsel-Uslup / uslup-Zweig",
+   "proposal": "Süre hedefi 22,5 ve 22 dk.",
+   "stance": "katılmıyorum",
+   "reason": "Bu hedefler eklemelerin tamamını (~+130 sn) kabul edip kesmeleri sınırlı tutuyor. Simülasyonum gösteriyor ki kurulun ortak kesmeleri (~−2:10) ile seçilmiş eklemeler (~+1:10) hece modeliyle ~22:05, boşluk sıkılaştırmasıyla ~21:45 veriyor. Hedefi 22,5'e açmak Duruşma ve Tanıklar bölümlerinde 3 dakikayı aşan çöküntüler riskini doğurur."
+  }
+ ],
+ "changed_mind": "1) Süre oyumu 20'den 21,5 dakikaya çıkardım. Kartal tehdidi, 'Eyvah', ZVP 268–270'teki çatlak, görünmeyen yargıç ve iç ses eklemelerini kabul ediyorum. Bunlar kendi başlarına birer yeniden yakalama noktası ve toplam ~+70 sn tutuyor. Kurulun ortak kesmeleriyle simülasyon hece modeliyle 22:05, boşluk sıkılaştırmasıyla 21:45, kelime modeliyle 20:40–21:00 veriyor. 2) Birinci turda önerdiğim kuyruk sırasını (I12 → K → J → L → K07) geri çekiyorum; dramaturg-A'nın sırasını destekliyorum (hüküm Hermes sahnesinin içinde, fırtına sonra, L sonra K, son cümle K06). Kuyrukta üç eski döngünün ödemesi var, ayrıca açık soru gerekmiyor. 3) A05'in cevabını sona saklamaktan vazgeçtim. E16'da ara ödül olarak verilsin ve yeni bir mandalla Duruşma'ya köprü kursun. 4) Kendi G13b cümlemi ('her acıyı iki kez yaşıyordu') geri çekiyorum; metnin kendi çatlağı (ZVP 268–270) hem kaynağa daha sadık hem daha güçlü. 5) M02 için kitle-Paket'in sorusunu benimsiyorum; benimki siyasete kapı açıyordu. 6) Rev 1'deki 'Darbeyle gelen darbeden korkar' cümlesini I03'e geri koyma önerimi kitle-Paket'in siyasi okuma uyarısı yüzünden geri çekiyorum. 7) C01'de kendi soru önerim yerine gorsel-Kurgu'nun hatıra çerçevesini destekliyorum (ZVP 956–957), çünkü I06'da ödeniyor. 8) A02'de 'zincirleyen' yerine 'zincirleten' (Zeus emreder, Hephaistos vurur), A06'da da filolog-Erhat'ın uyarısıyla 'o zincirin asıl tutsağı' ifadesini kullanıyorum. K1 puanımı I03'teki yanlış okumayı, B05'teki abartıyı ve D08/K04'teki yakın aktarmayı doğruladıktan sonra 8,8'den 8,2'ye, K3'ü de D11'in yanlış ödemesi ve kartalın ödenmemesi yüzünden 8,2'den 7,8'e indirdim.",
+ "scores": {
+  "K1": 8.2,
+  "K2": 7,
+  "K3": 7.8,
+  "K4": 7.2,
+  "K5": 7,
+  "K6": 8,
+  "K7": 8
+ },
+ "final_duration_min": 21.5,
+ "duration_vote_reason": "Ölçüm: Sisifos'un timeline.js'i aynı ses ve modelle saniyede 4,94 hece, cümle arası 1,18 sn, bölüm arası 2,54 sn veriyor. Rev 2 bu hızla 23:05; kelime modeliyle 21:50. Üyelerin '21' ile '23,5' arasındaki tahminleri aynı metnin farklı ölçümleri. Kurulun ortak kesmelerini (B03 L02'ye, B04+B05, C03+C04, C12+C13, D05+D06, E07+E08, G11+G12, H02+H03, J07, J08, J08b ve K07 dağıtılır, M00+M01) ve savunduğum eklemeleri (açılışta A02, C01 çerçevesi, E16, F05b, F10a, F13b, G12b, H05 kibir, I07b, I08 Eyvah, I08b kartal, K03b, L03, K08a) dramaturg-A'nın sırasıyla simüle ettim. Sonuç hece modeliyle 22:05, cümle arası 0,95 sn ile 21:45, kelime modeliyle 20:40–21:00. Hedef 21,5 dk (bant 20,5–22,5); gerçek süre seslendirmeden sonra timeline.js'ten ölçülecek. İçerik kırpılmıyor; kesilenler tekrar ve dolgu. 20 dakikanın altına ancak Io, Pandora, Theogonia ya da Goethe bloğundan biri kesilerek inilir; bu kullanıcının kuralına aykırı. Asıl ölçüt dağılım: paradoks ≤0:11; B ≤55 sn; C ≤2:20 ve Prometheus çerçevesi içinde; hiçbir bölüm 3:00'ı aşmasın (Duruşma en riskli, ~2:57); A05'in ara ödülü ~8:00; hüküm ~%78; son söz doruğu ~%85; doruktan sonraki kuyruk ≤3:05 ve içinde üç ödeme; abone çağrısı son doruk K06'dan ≤40 sn sonra, bitiş ekranıyla birlikte.",
+ "top_fixes": [
+  {
+   "ids": "A01, A02, A06, A05 (yeni sıra: A01 → A02 → A03 → A04 → A06 → A05)",
+   "change": "Kapağın vaadi (zincirdeki Titan, asıl tutsak paradoksu, 'bile bile') 0:01–0:11 arasında karşılansın. İlk kare kapak kompozisyonu olsun (zincir kadraj dışına uzanır), ilk ses çekiç vuruşu, kararma yok. Erhat'a atıf A06'da ~0:22'de, ateş sorusu A05'te ~0:34'te gelsin. A03 ve A04 aynen kalır. Not: tts'teki 'bin dokuz yüz altmış yedide' ile alt'taki '1967'de' arasındaki kelime sayısı farkı için srt.py'ye bir eşleme haritası gerekir (dil-Ses'in B07 uyarısı).",
+   "why": "Sisifos'ta kayıp 10–15. saniyelerde yaşandı; rev 2'de paradoks 0:28–0:37'de, yani kayıp penceresinin dışında. Bu düzen iki aday kapağın ikisini de ilk 11 saniyede karşılıyor. 'Zincirleten' fiili rol dağılımını doğru veriyor (Zeus emreder, Hephaistos vurur). 'O zincirin asıl tutsağı' imgesi J04–J06'daki görsel ödemeye bağlanıyor. Kaynak: A02 anlatıcının Erhat xiv2 ve xiv5 üzerine kurduğu düşünce deneyi, atıf A06'da; A01'deki 'bile bile' ZVP 266 ve Erhat xi5.",
+   "tts": "A01: [slowly] [deep voice] Ateşi bile bile çaldığı için, dünyanın ucunda bir kayaya zincirlenmiş bir Titan düşün. | A02: [mysterious] Şimdi de, onu oraya zincirleten tanrının… asıl tutsak olduğunu. | A06: [thoughtfully] Bu tuhaf fikir, efsaneyi anlatan antik bir tragedyayı Türkçeye çeviren Azra Erhat'ındır. [slowly] Bin dokuz yüz altmış yedide yazdığı önsözde, bu eski hikâyeyi bambaşka bir gözle okur. | A05: [curious] Peki bir zorba, zincirlettiği adamın tutsağı nasıl olur? Ve Zeus'u bu kadar öfkelendiren, gerçekten bir avuç ateş miydi?",
+   "alt": "A01: Ateşi bile bile çaldığı için dünyanın ucunda bir kayaya zincirlenmiş bir Titan düşün. | A02: Şimdi de, onu oraya zincirleten tanrının… asıl tutsak olduğunu. | A06: Bu tuhaf fikir, efsaneyi anlatan antik bir tragedyayı Türkçeye çeviren Azra Erhat'ındır. 1967'de yazdığı önsözde bu eski hikâyeyi bambaşka bir gözle okur. | A05: Peki bir zorba, zincirlettiği adamın tutsağı nasıl olur? Ve Zeus'u bu kadar öfkelendiren gerçekten bir avuç ateş miydi?"
+  },
+  {
+   "ids": "I01–I07, I07b (yeni), J01–J06, I08, I08b, I09–I12, L01–L06, K01, K02+K03, K03b, K04, K05, K08a, K06, M; J07, J08, J08b, K07 dağıtılır",
+   "change": "Dramaturg-A'nın doruk ve kuyruk sırası uygulansın. Sorgu → koşul (I07b) → duruşmayı dondurup hüküm (J01–J06) → Eyvah ve kartal tehdidi → fırtına ve son söz → 'O okçu geldi mi?' (L) → önsöze dönüş halkası (K) → K06 ile son → kısa kapanış (M). J06'ya 'Roller yer değiştirmiştir: sanık özgür, yargıç tutsak' eklensin; bu, F05b'deki görünmeyen yargıcın ödemesi. J03'teki alıntı Erhat'ın cümlesiyle düzeltilsin ('gerçekten de').",
+   "why": "Rev 2'de hüküm 18:02'de geliyor, ardından ~5 dakika açık soru taşımayan deneme anlatımı var; kitlenin en çok kaybolacağı yer burası. Yeni sırada son söz doruğu ~%85'e, son doruk K06 ~%97'ye düşüyor. Doruktan sonraki ~3:05'lik kuyrukta üç eski döngü ödeniyor: H10 → L01, D11 → K03b, B06 → K08a. Abone çağrısı son doruğun hemen ardına geliyor.",
+   "tts": "J01: [slowly] Duruşmayı burada bir an durduralım. [curious] Bu sahnede gerçekten tutsak olan kim? | J03: [knowingly] Erhat sorar: Ama bakalım, gerçekten de öyle mi? | J06: [knowingly] Erhat'ın deyişiyle: Zeus, tutukladığı düşmanının elinde tutukludur aslında. [slowly] Roller yer değiştirmiştir: Sanık özgür, yargıç tutsak.",
+   "alt": "J01: Duruşmayı burada bir an durduralım. Bu sahnede gerçekten tutsak olan kim? | J03: Erhat sorar: “Ama bakalım gerçekten de öyle mi?” | J06: Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Roller yer değiştirmiştir: Sanık özgür, yargıç tutsak."
+  },
+  {
+   "ids": "I08, I08b (yeni)",
+   "change": "Prometheus'un 'Eyvah'ı geri gelsin. Hermes'in kartal tehdidi eklensin ve açılıştaki kartala açıkça bağlansın.",
+   "why": "Kapak ve A03'teki kartal videonun ilk görsel vaadi; şu an hiç ödenmiyor. 17. dakikada 'açılıştaki kartal işte bu' demek ilk saniyelere geri dönen güçlü bir yeniden yakalama ve Shorts anı. 'Eyvah' olmadan Hermes'in cevabının mantığı kurulmuyor. Kaynak: ZVP 979–981 ve 1016–1025, kendi çevirimiz; son iki cümle anlatıcının.",
+   "tts": "I08: [pained] Bir an, Prometeus'un ağzından bir inilti kaçar: Eyvah! [mocking] Hermes hemen yakalar: Zeus bu kelimeyi bilmez. [calmly] Prometeus'un cevabı: Yaşlanan zaman, her şeyi öğretir. | I08b: [ominous] Hermes son tehdidini savurur: Kaya yıldırımla parçalanacak. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği gelecek: kanlı kartal. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek. [slowly] Açılıştaki kartal, işte bu tehdittir. Ve Prometeus, onu bile bile bekleyerek… hayır der.",
+   "alt": "I08: Bir an Prometheus'un ağzından bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.” | I08b: Hermes son tehdidini savurur: “Kaya yıldırımla parçalanacak. Uzun zaman sonra ışığa döndüğünde Zeus'un kanatlı köpeği gelecek: kanlı kartal. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.” Açılıştaki kartal işte bu tehdittir. Ve Prometheus, onu bile bile bekleyerek… hayır der."
+  },
+  {
+   "ids": "I03, K03b (yeni, K02'nin ardına)",
+   "change": "I03'te 'üçüncü devrim' bir hazırlık olarak verilsin. Devrimin kendisi, yani üçüncü ve son devrimi insanın yapması, kuyrukta K03b'de söylensin.",
+   "why": "Önsöz notları ve s. xi ile doğruladım: x3–x4 devrimin hazırlanmasını, xi1 devrimin kendisini anlatıyor. Rev 2 Erhat'ı yanlış aktarıyor (K1). Bu düzeltme D11'in 'Sıra kime gelecekti?' sorusunu (~6:40) videonun sonuna kadar taşınan bir açık döngüye çeviriyor: I03'te kısmen, K03b'de tam ödeniyor. Kaynak: Erhat x3, x4, xi1.",
+   "tts": "I03: [slowly] Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Erhat'ın sözünü ettiği üçüncü devrim, işte böyle hazırlanıyordu: Zeus'u sürekli kuşku içinde tutan bir bilgiyle. | K03b: [slowly] Erhat'ın üçüncü devrimi de budur. Uranos devrilmişti, Kronos devrilmişti. Ama üçüncü ve son devrimin öznesi bir tanrı değildir: İnsan, kendi gücünün bilincine varır ve tanrıya karşı ayaklanır.",
+   "alt": "I03: Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Erhat'ın sözünü ettiği “üçüncü devrimin hazırlanması” işte buydu: Zeus'u sürekli kuşku içinde tutan bir bilgi. | K03b: Erhat'ın üçüncü devrimi de budur. Uranos devrilmişti, Kronos devrilmişti. Ama “üçüncü ve son devrim”in öznesi bir tanrı değildir: İnsan kendi gücünün bilincine varır ve tanrıya karşı ayaklanır."
+  },
+  {
+   "ids": "E15 (kısalt), E16 (yeni, Mekone bölümünün son cümlesi); K07 silinir",
+   "change": "A05'in ateş sorusu Mekone bölümünün sonunda ara ödül olarak cevaplansın. Aynı cümle bir sonraki bölümün merak sorusuna mandal atsın.",
+   "why": "Bölüm geçişi (~8:00) bir kayıp noktası; ödülü ve yeni kancayı oraya koymak riski kırıyor. Doruktaki geri dönüş (K07) kalkınca kuyruk kısalıyor. Asıl soru (asıl tutsak) hükme kadar açık kalıyor. Kaynak: Erhat x5, xi1; son cümle anlatıcının köprüsü.",
+   "tts": "E15: Hesiodos hikâyeyi Zeus'tan yana anlatır: Zeus'u aldatmak da, aklını aşmak da mümkün değildir. [knowingly] Ama Erhat satır aralarında başka bir şey okur: Akıl gücü, artık tanrılardan insanlara geçmiştir. | E16: [knowingly] Demek ki Zeus'u öfkelendiren, yalnızca bir avuç ateş değildi; ateş, onu ikinci kez küçük düşüren hamleydi. Asıl mesele akıldı. [mysterious] Ama Erhat'ın en şaşırtıcı iddiası hâlâ ortada: O zincirin asıl tutsağı kim?",
+   "alt": "E15: Hesiodos hikâyeyi Zeus'tan yana anlatır: Zeus'u aldatmak da aklını aşmak da mümkün değildir. Ama Erhat satır aralarında başka bir şey okur: Akıl gücü artık tanrılardan insanlara geçmiştir. | E16: Demek ki Zeus'u öfkelendiren yalnızca bir avuç ateş değildi; ateş, onu ikinci kez küçük düşüren hamleydi. Asıl mesele akıldı. Ama Erhat'ın en şaşırtıcı iddiası hâlâ ortada: O zincirin asıl tutsağı kim?"
+  },
+  {
+   "ids": "B01, B02 (B03 → L02), B04+B05, B06 (tek soru), B07",
+   "change": "'Bir önsözün sorusu' bölümü 80 sn'den ~52 sn'ye insin. Kayıp oyunların adları L02'ye taşınsın. Erhat ikinci kez tanıtılmasın. B05'teki 'en iyi temsil eden' Erhat'ın v5'teki 'özüyle… benimsenmiştir' ifadesine dönsün. B06'da yalnız vi7 sorusu kalsın; xi2 sorusu F03'e, Erhat'ın kendi sırasına geçsin. Bölüm adı 'Erhat'ın sorusu' olsun.",
+   "why": "0:40–2:00 arası kaynakça ve önsöz bilgisinden oluşuyor ve Sisifos'ta 'önemli an'ın başladığı aralığa denk geliyor. B01'deki 'neredeyse' Io'nun ölümlü olması yüzünden gerekli (filolog-Klasik). B06'da 'şaşırtıcı' yerine 'can alıcı' kullanılıyor, çünkü A06 'tuhaf fikir' diyor. Kaynak: Erhat v2, v5, vi7.",
+   "tts": "B01: [curious] Sahnede neredeyse yalnızca tanrıların konuştuğu bir oyun, insanı anlatabilir mi? | B02: Atinalı tragedya yazarı Ayshilos, Prometeus'u üç oyunda anlattı. Bize yalnızca biri ulaştı: Zincire Vurulmuş Prometeus. | B04: [warmly] Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre, anlatabilir: Oynanan dram, insanlığın dramıdır. Prometeus da, Ayshilos'tan bu yana, en çok da yirminci yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir: insan dostu, tanrı düşmanı. | B06: [intrigued] Ve Erhat can alıcı bir soru sorar: Nasıl oldu da, İsa'dan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi? | B07: Cevabı ararken, önce çok daha geriye gider: tanrıların taht kavgasına.",
+   "alt": "B01: Sahnede neredeyse yalnızca tanrıların konuştuğu bir oyun insanı anlatabilir mi? | B02: Atinalı tragedya yazarı Aiskhylos, Prometheus'u üç oyunda anlattı. Bize yalnızca biri ulaştı: Zincire Vurulmuş Prometheus. | B04: Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre, anlatabilir: Oynanan dram insanlığın dramıdır. Prometheus da Aiskhylos'tan bu yana, en çok da XX. yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir: “insan dostu, tanrı düşmanı.” | B06: Ve Erhat can alıcı bir soru sorar: Nasıl oldu da İsa'dan önce V. yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi? | B07: Cevabı ararken önce çok daha geriye gider: tanrıların taht kavgasına."
+  },
+  {
+   "ids": "C01, C03+C04, C12+C13, C14; bölüm adı 'Tanrıların taht kavgası'",
+   "change": "Prometheus'un hiç görünmediği 2:45'lik bölüm, kayadaki Titan'ın hatırası olarak çerçevelensin (ödemesi I06'da). Tekrarlar birleşsin, C14'teki vaat dürüstleşsin. Bölüm ~2:18'e insin. 'Gökteki darbeler' adı siyasi çağrışım yüzünden değişsin.",
+   "why": "Ana karakter ve kapak görüntüsü 2 ile 9. dakika arasında ekrandan kayboluyor; orta-yüksek bir düşüş riski. C14'teki 'birazdan' sözünün karşılığı 8 dk sonra geliyor; 'zincirdeyken kendi ağzından duyacağız' hem dürüst hem F13'ten beklentiyi büyütüyor. Kaynak: C01 ZVP 956–957 (kendi çevirimiz) ve anlatıcının çerçevesi; C04 Th. 116–126 (filolog-Klasik'in düzeltmesi); C12 Erhat viii2–viii4.",
+   "tts": "C01: [curious] Tanrıların kralı Zeus, o tahta nasıl oturmuştu? [softly] Kayadaki Titan bunu çok iyi biliyordu: İki hükümdarın oradan atıldığını, kendi gözleriyle görmüştü. | C04: Hesiodos'un Teogonia'sına göre, başlangıçta Kaos vardı. Sonra Toprak Ana, Gaya geldi; Gaya önce kendine denk bir eş doğurdu: Gök, yani Uranos. [darkly] Ama Uranos, Gaya'dan doğan devlerden tiksindi ve her birini, doğar doğmaz, annelerinin karnına geri tıktı. | C12: [thoughtfully] Erhat'a göre bu iki darbe aynı şey değildir. Birincisi, kaba kuvvetin kendi kendine yenilmesiydi. İkincisi ise bir akıl ve hesap işiydi: kaba kuvvetin, akılla yenilmesi. Bu kez Zeus'a, kaba kuvvetin acısını tatmış Uranos ile Gaya kılavuzluk etmişti. | C14: [knowingly] Ve Erhat bir ayrıntıyı hatırlatır: Prometeus da işte bu devrimde rol oynamıştı. Nasıl mı? Bunu, zincirdeyken kendi ağzından duyacağız.",
+   "alt": "C01: Tanrıların kralı Zeus o tahta nasıl oturmuştu? Kayadaki Titan bunu çok iyi biliyordu: İki hükümdarın oradan atıldığını kendi gözleriyle görmüştü. | C04: Hesiodos'un Theogonia'sına göre başlangıçta Khaos vardı. Sonra Toprak Ana, Gaia geldi; Gaia önce kendine denk bir eş doğurdu: Gök, yani Uranos. Ama Uranos, Gaia'dan doğan devlerden tiksindi ve her birini, doğar doğmaz, annelerinin karnına geri tıktı. | C12: Erhat'a göre bu iki darbe aynı şey değildir. Birincisi kaba kuvvetin kendi kendine yenilmesiydi. İkincisi ise “bir akıl ve hesap işi”ydi: “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, kaba kuvvetin acısını tatmış Uranos ile Gaia kılavuzluk etmişti. | C14: Ve Erhat bir ayrıntıyı hatırlatır: Prometheus da işte bu devrimde rol oynamıştı. Nasıl mı? Bunu, zincirdeyken kendi ağzından duyacağız."
+  },
+  {
+   "ids": "G11+G12, G12b (yeni), G13",
+   "change": "İtiraf tek segmentte birleşsin. Ardından metindeki çatlak gelsin (ZVP 267–270). G13 bu çatlağı çözümlesin; 'her şeyi biliyordu' kesinliği yumuşasın, Erhat'ın 'katlanma duygusu' ifadesi geri gelsin.",
+   "why": "Psikolojik doruk aynı zamanda tutma doruğudur; Savunma bölümünün sonunda, ~12:50'de bir yeniden yakalama sağlar. Zweig ve Dostoyevski yönünü uydurmadan, metnin kendisiyle verir. Birinci turdaki G13b önerimin yerine geçiyor. Kaynak: ZVP 265–270 (kendi çevirimiz); Erhat xi5, xii1; G13'ün son cümlesi anlatıcının.",
+   "tts": "G11: [firmly] Ve sanık suçunu inkâr etmez; Erhat'ın dediği gibi, bugünkü bir sanık gibi konuşur. Oyundaki sözleriyle: Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim. | G12b: [softly] Ve hemen ardından, sesi bir an çatlar: [pained] [slowly] Ama böyle cezalarla, bu ıssız kayada eriyip gideceğimi… düşünmemiştim. | G13: [thoughtfully] Erhat'a göre bu bilinç, onda hem bir gurur, hem de bir katlanma duygusu doğurur. [slowly] Bedelin bu kadar ağır olacağını belki bilmiyordu… ama geri adım atmaz.",
+   "alt": "G11: Ve sanık suçunu inkâr etmez; Erhat'ın dediği gibi, bugünkü bir sanık gibi konuşur. Oyundaki sözleriyle: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim.” | G12b: Ve hemen ardından sesi bir an çatlar: “Ama böyle cezalarla, bu ıssız kayada eriyip gideceğimi… düşünmemiştim.” | G13: Erhat'a göre bu bilinç onda hem bir gurur hem de bir katlanma duygusu doğurur. Bedelin bu kadar ağır olacağını belki bilmiyordu… ama geri adım atmaz."
+  },
+  {
+   "ids": "F05b (yeni, F05'in ardına), J09+J10 → F10a (F10'un ardına)",
+   "change": "Görünmeyen yargıç döngüsü kurulsun (ödemesi J04–J06'da Zeus'un ilk görünüşü ve 'yargıç tutsak'). Kölelik bağlamı, Erhat'ın kendi sırasına göre (xiii1'den xiii2'ye) zincirleme sahnesine taşınsın.",
+   "why": "F05b 6 saniyelik bir ekleme ama ~9 dakikalık açık bir döngü kuruyor. J09 ile J10 dorukta tempoyu düşürüyordu; F10a'da zincirin vurulduğu görüntüye denk geliyor ve J10'u gerçek bir ödemeye çeviriyor. Duruşma bölümü bu eklemelerle ~2:57; F08'deki filantropi bilgisi ekrana kaydırılarak 3 dakikanın altında tutulsun. Kaynak: F05b ZVP kişi listesi (Zeus sahneye çıkmaz), anlatıcının; F10a Erhat xiii1–xiii2.",
+   "tts": "F05b: [darkly] Yargıç: Zeus. Ama oyun boyunca, bir kez bile görünmeyecek. | F10a: [thoughtfully] Bunun ağırlığını anlamak için çağa bakmak gerekir. Erhat'a göre beşinci yüzyıl Atinası'nda kölelik de zorbalık da yasalara uygun kurumlardı. Prometeus da, herhangi bir köle gibi, zincire vurulmuştu. [slowly] Köleliği doğal sayan bir dünyada hakkın köleden yana olduğunu söylemek… Ayshilos'un tek başına başardığı koca bir işti.",
+   "alt": "F05b: Yargıç: Zeus. Ama oyun boyunca bir kez bile görünmeyecek. | F10a: Bunun ağırlığını anlamak için çağa bakmak gerekir. Erhat'a göre V. yüzyıl Atinası'nda kölelik de zorbalık da yasalara uygun kurumlardı. Prometheus da herhangi bir köle gibi zincire vurulmuştu. Köleliği doğal sayan bir dünyada hakkın köleden yana olduğunu söylemek… Aiskhylos'un tek başına başardığı “koca bir iş”ti."
+  },
+  {
+   "ids": "M00+M01, M02, M03 (abone çağrısı ve bitiş ekranı)",
+   "change": "Kapanış ~55 sn'den ~30 sn'ye insin. Bağlamı kopmuş 'bildiri' cümlesi kalksın; mesaj I12'de zaten veriliyor. Yorum sorusu kişisel olsun. Tek abone çağrısı M03'te, son doruk K06'dan ≤40 sn sonra ve 20 sn'lik bitiş ekranıyla eşzamanlı gelsin. Bitiş ekranında Sisifos videosu ve abone düğmesi olsun; aynı soru sabitlenmiş yorumda tekrarlansın.",
+   "why": "İzleyicilerin %95,5'i yeni ve izlenme süresinin %98,8'i abone olmayanlardan geliyor. Kanal verisi çağrıyı doruk anına (~son dakika) ve bitiş ekranına koymayı söylüyor. Mevcut M02 videonun zaten cevapladığı soruyu soruyor ve tek kelimelik yorumlar getirir. Sisifos bağlantısı oturum süresini besler. Kaynak: M00 Erhat xv4, xvi1.",
+   "tts": "M00: [warmly] Erhat ile Eyüboğlu, bu oyunun sahnelenemeyeceğini düşünerek başlamışlar; çevirdikçe yanıldıklarını anlamış ve coşmuşlar. Dilekleri, Prometeus'u bir gün bir Türk tiyatrosunda görmekti. | M02: [curious] Peki sen olsan? Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz. | M03: [warmly] Tanrılara kafa tutan bir başka isyankârın, Sisifos'un hikâyesi ekranda. Geçmişten bugüne soru taşıyan bu hikâyeler hoşuna gidiyorsa, abone olmayı unutma.",
+   "alt": "M00: Erhat ile Eyüboğlu, bu oyunun sahnelenemeyeceğini düşünerek başlamışlar; çevirdikçe yanıldıklarını anlamış ve coşmuşlar. Dilekleri, Prometheus'u bir gün bir Türk tiyatrosunda görmekti. | M02: Peki sen olsan? Bedelini bile bile o ateşi yine de verir miydin? Yorumlarda yaz. | M03: Tanrılara kafa tutan bir başka isyankârın, Sisifos'un hikâyesi ekranda. Geçmişten bugüne soru taşıyan bu hikâyeler hoşuna gidiyorsa abone olmayı unutma."
+  }
+ ],
+ "verdict": "RED"
+}

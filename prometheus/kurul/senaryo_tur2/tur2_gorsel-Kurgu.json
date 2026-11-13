@@ -1,0 +1,271 @@
+{
+ "answers": [
+  {
+   "from": "dramaturg-A",
+   "answer": "Evet, ikisi de mevcut motorla çizilebilir. Zincir: env.js'teki chain(ctx, pts) halkaları herhangi bir yol üzerine diziyor. Yolu dünya koordinatında sabit bir spline olarak tanımlarsak üç sahne aynı geometriyi kullanır. A02/A06'da kamera (cam) yolu yukarı izler ve uç karanlıkta kesilir. J06'da yol tamamlanır ve shackle() ile Zeus'un bileğinde biter. M02'de kamera geri çekilip iki ucu birlikte gösterir. Kural: Zeus Aiskhylos katmanında görünmez. Açığa çıkış beyaz zemin (Erhat) katmanında olur, yani 'oyunda görünmez, Erhat'ın okumasında ilk kez görünür'. Bu, F05b önerisiyle de tutarlı. Üç panel: metop çerçeveleri (friezeFrame) ve throne() ile. D11'de üçüncü panel boş, taht hafifçe sallanır. I03'te boş panele yıldırım ışığında bir oğul gölgesi düşer; sır oğuldur, Zeus değil. I06'da 'iki hükümdarın atıldığını gördüm' sözünde ilk iki panel siyah figürle bir an çakar. Bir düzeltme: çatlak I06'da olmamalı, çünkü orada yalnız kehanet var. Çatlak J08'de (ya da K08a'da) olsun. Asıl ödeme filolog-Klasik'in K03b'sinde gelsin: üçüncü panele bir tanrı değil, eğik duruştan doğrulan bir insan girer (figure.js IK). Erhat masası: env.js'te desk() ve oilLamp() zaten var. Yüz de el de çizilmez: masa, kandil, açık el yazması, satır çizen yalnız bir kalem ucu ve sepya 'Ağustos 1967' imzası. K08a-b gibi soyut cümlelerde satırlar yazılırken kandil ışığı büyür. 'İktidar sahipleri devrilip gider' sözünde üç taht frizinin gölgesi sayfanın kenarından geçip kaybolur; 'düşünce kalır' sözünde ekranda yalnız kandil kalır. Güncel siyasete işaret eden imge (üniforma, bina, bayrak) kullanılmaz."
+  },
+  {
+   "from": "dramaturg-B",
+   "answer": "Soyut bölümler için tek simge yetmez, iki simge öneriyorum. Göz = akıl: D05–D07'de 'tekel' sözünde Zeus'unki dışında bütün gözler kapanır. Ateş = armağan. İkisi E16'daki 'asıl mesele akıldı' cümlesinde birleşir: alev badem biçimli bir göze dönüşür. K07 düşerse bu dönüşüm oraya taşınır. Diğer bölümler: C12'de tırpan ve kundaklı taş panelleri, J07/J08'de çatlayan üçüncü taht, K02–K04'te eğik figürün doğrulması ve üstünden süs kuşaklarının dökülmesi. I08c için A03 karesi birebir yeniden kullanılabilir: aynı kaya, aynı kanat gölgesi. Ama kartal gelmez, yalnız gölgesi geçer; böylece 'Aiskhylos'ta kartal henüz gelmedi' ayrımını görüntü söyler ve anlatıcının açıklama cümlesine gerek kalmaz. G04'te F06'daki Kratos/Bia siluetleri tondonun içinde 'gücün ve zorun değil' kelimelerinde (Wd) belirip söner. Aynı çizim nesnesi alfa ile yeniden kullanılır, maliyeti düşük. F10b'deki çekiç vuruşları Wd('iner') ile shake(), kıvılcım (dustBurst) ve sfx olarak yapılır, müzik kesilir. Hepsi mümkün. Sayfa etiketi kurallı olursa kompozisyonu bozmaz: sol üstte dar, krem, beyaz zeminli bir şerit; içinde Cinzel küçük harflerle 'ERHAT · s. ix'; en az 3 sn kalır, yumuşak girer ve çıkar. Alt %20 (altyazı) boş kalır. Etiket %85 opaklıkta krem olur ve ateşle parlaklıkta yarışmaz."
+  },
+  {
+   "from": "uslup-Zweig",
+   "answer": "Dördü de çizilebilir. Kama: kırmızı figür gövdesinin üstünde göğsü çapraz geçen tek siyah kontur çizgisi. 'Kama' kelimesinde (Wd) çizgi sol üstten sağ alta çekilir, darbeyle kıvılcım ve kamera sarsıntısı gelir. Kan ve yara yok; bu hem üslup hem YouTube güvenliği için gerekli. Tek ateş noktası: E09'da humanFires() ile insan ateşleri teker teker söner. E10'da karanlık ovada tek bir kor yolculuk eder ve büyür. Olympos'ta siyah figür bir Zeus profili onu görür. 'Yüreğinin ta dibinden ısırır' sözünde profilin göğsünde kırmızı boya (C.red) yayılır, uzakta şimşek titrer; ısırmayı figür değil renk gösterir. Bu Hesiodos katmanı olduğu için Zeus'un görünmesi katman kuralını bozmaz. Perilerle çöken kaya: crag() iki kütleye ayrılır, waveBand/sea() kuşağı yükselir, perilerin beyaz figürleri Prometheus'la birlikte dalga kuşağına batar. 'Koroyla birlikte gömülüp yok olana dek' ayrıntısını s. xv fotoğrafında doğruladım; ekleme kaynaklı. Kartal gölgesi: eagle2 siluetinin düz siyah gölgesi D11'de söze dokunmadan 2–3 sn kayanın üstünden geçer. Etiket kâğıt dokusu (C.paper) ve sepya çizgiyle beyaz zemin katmanının küçük bir parçası gibi durur, dışarıdan eklenmiş bir grafik gibi görünmez."
+  },
+  {
+   "from": "uslup-Dostoyevski",
+   "answer": "Bütün filmde değil, katman kuralıyla. Hesiodos katmanında (siyah figür) Zeus görünür; Mekone düellosu ve E10 onsuz kurulamaz. Aiskhylos katmanında (kırmızı figür) hiç görünmez: boş taht, sallanan gölge, uzakta yıldırım, kartal. Erhat katmanında bir kez görünür: J04–J06'da küçük ve büzülmüş, bileğinde zincirin öbür ucu. Kapakta da Zeus'un tamamı gösterilmez. Baş ve ağız: figure.js'te baş ve boyun açısı ile p.mouthOpen parametresi var. F13'te baş göğe kalkıktır, ağız açıktır. F14/F13b'de 'kendi sözünü keser' kelimesinde ağız kapanır, baş yavaşça gökten toprağa döner. 'Ne susabiliyorum' sözünde ağız yarı açık kalır. Profilde okunur, ama karikatür olmaması için tek hareket yeter; ağız aç-kapa tekrarlanmasın. Okeanos'un dört ayaklı kanatlı bineği (ZVP 286): creatures.js'teki dört ayaklı gövde ile figure.js'teki bigWing() birleştirilerek yapılır. Yarım günlük iş, sahnenin tek hafif mizah anı olur ve bütçeye sığar. ΓΝΩΘΙ ΣΑΥΤΟΝ yazıtı da ucuz: H04b'de friz üstüne kazınır, 'haddini bil' sözünde harfler dar bir çerçeveye sıkışır. Üretim notu: prometheus/fonts/ yalnız latin ve latin-ext alt kümelerini içeriyor. Bu yazıt ve önerilen bütün Yunanca yazıtlar (ΠΡΟΜΗΘΕΥΣ, ΔΕΣΜΩΤΗΣ) için ya Yunanca glifli bir font alt kümesi eklenmeli ya da harfler çizgiyle çizilmeli."
+  },
+  {
+   "from": "filolog-Erhat",
+   "answer": "Evet, ama ayrı bir durak kartı olarak değil; beyaz zemin sayfasının içinde yazılan alıntı olarak. Üç düzey öneriyorum. (1) Tam sayfa, yaklaşık 6 doruk alıntı: C12 'kaba kuvvetin akılla yenilmesi' (s. viii), D07 'akıl gücüyse Zeus'un tekelindedir' (s. ix), J04 (s. xiv), J06 (s. xiv), I12 (s. xv), K06 (s. vi). Krem kâğıt üzerinde satırlar sepya kalemle yazılır, köşede basılı sayfa numarası durur. (2) Kenar şeridi, geri kalan ~14 alıntı: sahne arkada sürerken üstten inen dar krem şerit, içinde 2–4 kelimelik çekirdek alıntı ve 'ERHAT · s. x'. (3) Tırnaklı tam metin SRT'de, sayfa numarasız. Bunların hiçbiri süre eklemez; hepsi anlatımın altında akar. Tempoyu ağırlaştıran kartın kendisi değil, kartla gelen duraklamadır. Duraklama yalnız J04'te, yani dorukta olsun. Bir kural daha: ekranda tam alıntı ile altyazı aynı anda görünecekse ekrandaki metin altyazıyla harfi harfine aynı olmalı, yoksa altyazıyla izleyen %38 iki ayrı metin okur."
+  },
+  {
+   "from": "filolog-Klasik",
+   "answer": "Evet, bir koşulla. Beyaz zemin her Erhat cümlesinde değil, yalnız iki ya da daha çok cümleden oluşan Erhat bloklarında tam geçiş yapsın (~12 blok). Tek cümlelik yorumlarda atfı kenar şeridi ve sayfa etiketi taşısın. Böylece sözlü atıf blok başında bir kez kalır ve yaklaşık 12 tekrar düşer: D06, D10, E11, C17, G13, J05, J10, K05, K06, L04'teki ikincisi, H05, F02. Doğrudan alıntılarda ve tartışmalı yorumlarda sözlü atfın kalması gerektiğine katılıyorum. Lakonya kylix'i (Vatikan, Arkesilas Ressamı, İÖ ~550) D03–D04 için doğru model: göğü taşıyan Atlas ile sütuna bağlı Prometheus'u ve kartalı aynı tondoda gösteriyor. Bu, Hesiodos'un sütunuyla (Th. 522) birebir örtüşüyor. Tondoyu çizer, kamerayla Atlas'tan Prometheus'a kayarız; D03–D04 tek planda iki olay olur. Bu bir kopya değil, ikonografik model; künyesi açıklamaya yazılır."
+  },
+  {
+   "from": "kitle-Tutma",
+   "answer": "Evet. İlk kare kapak kompozisyonunun kendisi olur: kararma ya da logo yok, ilk ses çekiç vuruşu ya da zincirin gerilmesi. Bir düzeltme önereceğim: kapakta 'üstte küçük Zeus silueti' olmasın. Yalnız zincirin bulutlara giden ucu, orada bir bilek ve bir yıldırım parıltısı görünsün. Zeus'un tamamı J04'te ilk kez görünmeli; kapakta ve açılışta görünürse doruktaki görsel ödeme önceden harcanır. Dönüşüm efekti kolay: 0:06–0:11'de kamera chain() yolu boyunca 3 sn'lik dikey bir kaymayla yukarı tırmanır, bulutun içinde shackle() bir bileği kavrar, yıldırım ışığı bir an çakar ve söner. Bu üslupta dönüşümü figür değil ışık ve kadraj yapar; bu yüzden hem ucuz hem okunur. Plan, önerdiğin yeni A02 ile de rev 2'deki A06 ile de çalışır. İki kapak aynı videoyu test ettiği için açılış ilk 8 sn'de ikisinin vaadini birden taşımalı: ateş ve Titan 0–4. saniyede, zincirin öbür ucu 6–11. saniyede."
+  },
+  {
+   "from": "kitle-Paket",
+   "answer": "Tek sürekli zincir mümkün: tek bir dünya koordinatı yolu ve chain(). A02'de kamera yolun alt kısmındadır, A06'da orta kısmındadır (uç kadraj dışında), J06'da yol tam açılır. Kapak B, J06 kompozisyonundan türetilebilir; Zeus'un yalnız bileği ve taht gölgesi görünür. Böylece videoya sadakat kuralı da karşılanır. Kapak A: 'ateş tutan elde pranga' 168×94'te okunmaz; bu üslupta el ve bilek ayrıntısı zayıf, küçük boyda kaybolur. Önerim şu: Prometheus profil siluetinin kolu yukarıda, rezene sapındaki alev karenin en parlak tek noktası, aynı bilekten kayaya kalın bir zincir sarkıyor. Küçük boyda el değil 'ateş ve zincir' siluet zıtlığı okunur. Pranga halkası 1280×720'de en az ~100 px çapında ve kalın çizgili olmalı."
+  },
+  {
+   "from": "kitle-Paket",
+   "answer": "Tam geçiş çok belirgin olur: siyah sır zeminden krem kâğıda geçiş, ateşten sonra filmin en büyük parlaklık sıçraması. Ama 50 atfın her birinde geçiş yaparsak belirginlik kaybolur ve kurgu parçalanır. Kural: iki ya da daha çok cümlelik Erhat bloklarının başında tam geçiş olsun. Bunun için 'clay/ink' çözülme maskesinin kâğıt renkli bir sürümü kullanılır. Tek cümlelik yorumlarda kenar şeridi ve sayfa etiketi yeter. Bu ayrımla sesli atıf pasaj başına bire inebilir. İzleyici krem kareyi 'şimdi Erhat konuşuyor' diye okumayı ilk iki geçişte (A06 ve B04) öğrenir; bu yüzden o iki geçiş tam ve yavaş (≈1 sn) yapılmalı."
+  },
+  {
+   "from": "dil-Metin",
+   "answer": "Beyaz zemin tek başına 2,5 dakikayı taşıyamaz. Krem sayfa üstünde 2,5 dakika durağan kalır ve sanat.md'deki 'durağan plan yok' ilkesini çiğner. Çözüm için yapıyla görüntünün birlikte çalışması gerekiyor. (1) J09, F'deki zincirleme sahnesine taşınır ve desmotes yazıtıyla somutlaşır. (2) Hüküm (J01–J06) dramaturg-A'nın önerdiği gibi Hermes sahnesinin içine alınır: donmuş kırmızı figür sahnenin üstünde zincir açığa çıkar, ÖZGÜR/KÖLE etiketleri yer değiştirir. (3) Fırtına hükümden sonra gelir; L bölümü (Herakles'in oku, siyah figür) somut bir ara verir. (4) K'de üçüncü panelin ödemesi (K03b), doğrulan insan figürü ve umut üçlemesi gelir: küpteki ışık, kör umutlu insanlar, ışıksız Prometheus. Böylece en uzun kesintisiz soyut blok ~1:15'e iner. Zeus'a ve zincire dönen somut planlar şart: J06'nın zincir karesi K'de iki kez geri gelsin (K02 ve K06)."
+  },
+  {
+   "from": "dil-Ses",
+   "answer": "Üçü de mümkün. Rozet: kenar şeridinin içinde 'ERHAT · s. ix'; tam beyaz zemin sahnelerinde sayfanın köşesinde basılı sayfa numarası gibi durur. Karakter replikleri: konuşan figürün başının çevresinde 1,5 sn'de yükselen sıcak bir sahne ışığı (glow) yanar ve ağzından kısa bir vazo yazıtı (dipinto: tek anahtar kelime) çıkar. Bu ışık, ses tarafında tiyatro yankısının açıldığı kelimede (Wd) başlarsa kulak ve göz katmanı aynı anda değiştirir. Üç kayıt böylece eşleşir: anlatıcıda ekran yazısı yok, Erhat'ta krem şerit, karakterde ışık ve yazıt. F10b sonrasındaki 3 sn: müzik kesilir. Zincir halkaları rüzgârda hafifçe sallanır (chain'in sag parametresi), toz ve kıvılcım parçacıkları (motes) yavaşça düşer, figürün göğsü nefes alır (breath). Kamera kapalı ağza ve göze doğru çok yavaş iter (%3 yakınlaşma, 3 sn). Kartal gölgesi burada geçmesin; onu D11 ve I08b'ye saklıyoruz. Böylece sessizlik hareketsiz değil, nefes alan bir plan olur."
+  },
+  {
+   "from": "gorsel-Uslup",
+   "answer": "İkisini de onaylıyorum, birer düzeltmeyle. Işık grameri: altın = ateş = akıl, soğuk beyaz = kaba kuvvet (yıldırım, tırpan), ek beyaz nokta = umut. Umut noktası halesiz ve mat olmalı, ateşle parlaklıkta hiçbir karede yarışmamalı; K05'teki üçlemede de. Kenar şeridi zaten benim de önerimdi; tam geçiş yalnız bölüm ve blok başlarında olsun. Dönen amfora: C bölümünün yaklaşık 2:20'lik süresi boyunca tek ve kesintisiz bir friz, 8 sn'yi geçen planda iç olay olması kuralıyla çatışır ve tekdüzeleşir. Çözümüm şu. Friz, kayadaki Titan'ın hatırası olarak açılsın: C01'de kamera kırmızı figür gözden siyah figür frize geçer. Her olay bir panel olsun, panel geçişleri kelimeye bağlansın (ortalama ~4 sn). Frizden üç kez çıkılsın: C07'de tırpanın tek parlaması (yakın plan), C10'da kundaklı taş (tondo), C15'te savaş (kamera sarsıntısı, kırılan friz çizgileri). C14 ve C18'de 1,5–2 sn'lik kaya kesmeleri kapak görüntüsünü canlı tutar. Böylece amforanın 'hiç durmayan hareket' avantajı kalır, tekdüzelik riski ortadan kalkar."
+  }
+ ],
+ "critiques": [
+  {
+   "member": "dramaturg-A",
+   "proposal": "Doruk sırası: I07 → I07b → J01–J06, J10 → I08–I12 (fırtına sonda) → L → K; video K06 ile biter; J07/J08/J08b/K07 toplanır ya da silinir",
+   "stance": "katılıyorum",
+   "reason": "Görsel kurguya en büyük katkıyı bu öneri yapıyor. J01'deki 'duruşmayı durduralım' cümlesi gerçek bir dondurma planına dönüşür: kırmızı figür sahne donar ve krem kâğıda çözülür, kamera I07b'de gerilen zinciri izleyip J06'da Zeus'un bileğine varır. Ardından fırtına hükmün görsel sonucu olarak gelir (söz geçiremeyen zorba kaba kuvvete döner; E11'in ödemesi). Böylece filmin en büyük sarsıntısı doruğun sonuna düşer. Kuyrukta L bölümü somut bir ara olur ve ~3 dk'lık soyut blok ikiye bölünür. Tek itirazım üçüncü panelin çatlağı: I06'da değil, J08'de (ya da K08a'da) olmalı."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "I12 → K01–K06 → J → L → K07–K08 → M sırası",
+   "stance": "katılmıyorum",
+   "reason": "Fırtınanın hemen ardından K ve J art arda gelir; iki soyut Erhat bloğu yan yana kalır (~3 dk beyaz zemin) ve görüntü sıkıntısı riski en yüksek yerde büyür. A06'nın ödemesi de ~19. dakikaya kayar. Ödemeden sonra açık bir soru kalması gerektiği konusunda haklı; dramaturg-A'nın sırasında bu işi L01 ('kurtuldu mu?') görüyor."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "K02/K03/K06'yı B'ye, K04/K05'i G13'ün arkasına taşımak",
+   "stance": "katılmıyorum",
+   "reason": "B (0:40–2:00) görüntüsü en zayıf ve izleyici kaybının en yüksek olduğu bölge; oraya üç soyut cümle daha eklemek riski büyütür. B06'daki 'başkaldıran insan' tanımsızlığı, B06'yı tek soruya indirip tanımı K'de vermekle de çözülür. K04'ü G'ye almak Aiskhylos katmanının (kırmızı figür) ortasında 1967'ye bir beyaz zemin sıçraması yaratır. K05'in umut fikri G08'in yanında görsel olarak işler, ama yalnız tek cümle olarak."
+  },
+  {
+   "member": "uslup-Dostoyevski",
+   "proposal": "I10: kıyameti Prometheus kendi ağzından anlatsın (ZVP 1080–1090; gorsel-Uslup ve filolog-Klasik de aynı yönde)",
+   "stance": "katılıyorum",
+   "reason": "s. xv fotoğrafında Erhat'ın cümlesi şu: 'başına saldıkları doğal belaları bir bir izleyip diliyle canlandırır gözümüzün önünde'. Bu bir senkron talimatı; her bela adının geçtiği kelimede (Wd) ekranda belirmeli. Birinci turda 'sözü tek cümleye indir, fırtınayı sözsüz ver' demiştim; bu öneriyi geri alıyorum. I11'den önce 3–4 sn'lik sözsüz bir kuyruk kalsın."
+  },
+  {
+   "member": "filolog-Klasik",
+   "proposal": "I08b: Hermes'in kartal tehdidi ve ardından 'Açılıştaki kartal Aiskhylos'ta henüz gelmemiştir… bile bile bekleyerek hayır der' açıklaması",
+   "stance": "kısmen",
+   "reason": "Tehdit metni şart, çünkü A03'ün tek ödemesi bu. Ama son iki cümle görüntünün işini sözle yapıyor. I08b, A03'ün birebir kompozisyonuyla verilir ve kartal gelmeden yalnız gölgesi geçerse hem kurulum-ödeme hem de 'kartal henüz gelmedi' ayrımı görülür. Prometheus'un cevabı için dramaturg-A'nın önerdiği ZVP 1040 ('zaten bilen birine haykırıyor') daha kısa ve önceden bilme motifini kapatıyor."
+  },
+  {
+   "member": "uslup-Zweig",
+   "proposal": "F14 (ZVP 101–107): kendi sözünü kesme ve 'ne susabiliyorum…' (Dostoyevski F13b ve dil-Ses F14 ile aynı)",
+   "stance": "katılıyorum",
+   "reason": "Filmin iç dünya anı burası olmalı. Aynı dizeleri birinci turda G13'e koymuştum, oradan geri çekiyorum: bir kez ve doğru yerde kullanılsın. Görsel: baş gökten toprağa döner, ağız kapanır, göz ufka bakar ve ufukta kartal gölgesi geçer. I08c bu planın tekrarıyla ödenir."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "G13b: 'her acıyı iki kez yaşıyordu: önce zihninde, sonra kayada'",
+   "stance": "katılmıyorum",
+   "reason": "Cümle güzel, ama önerilerle 'önceden bilme' motifi altı kez çalınıyor: F14, G12, G12b, G13, G13b, I08c. Aynı göz planı da altı kez tekrarlanamaz. Üç vuruş yeter: F14, G12/G12b, I08c."
+  },
+  {
+   "member": "uslup-Dostoyevski",
+   "proposal": "Okeanos bloğunu H04, H04b, H04c olarak genişletmek (+45 sn)",
+   "stance": "kısmen",
+   "reason": "Tanıklar bölümünün tek somut ve hafif anını veriyor: kanatlı dört ayaklı binek ve ΓΝΩΘΙ ΣΑΥΤΟΝ yazıtı, ikisi de çizim bütçesine sığar. 'Kendini bil / haddini bil' ayrımı da görüntüyle anlatılabilir. Ama 45 sn bu bölüme fazla; H03 ile H04c'deki 'geldiği gibi gider' kısmı düşerse ek yük ~25 sn'ye iner."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "Açılışta paradoksu 0:06–0:11'e çekmek (A01, A02, A03, A04, A06, A05)",
+   "stance": "katılıyorum",
+   "reason": "Görsel karşılığı hazır: 0:06–0:11'de kamera zinciri bulutlara kadar izler, bir bilek ve yıldırım parıltısı görünür, Zeus görünmez. A/B testinde iki kapak aynı videoya bağlandığı için açılış ikisinin vaadini birden taşımalı; bu sıra taşıyor. Tek koşulum: Zeus'un tamamı J04'e saklansın."
+  },
+  {
+   "member": "uslup-Zweig",
+   "proposal": "A01–A02'yi çekiç ve sessizlikle, şimdiki zamanda açmak",
+   "stance": "kısmen",
+   "reason": "Çekiç sesi metne dokunmadan ilk ses olarak alınabilir. Ama 'tek söz etmiyor' kancası, kapaktaki ateş ve asıl tutsak vaadiyle yarışır. Sessizlik omurgası en güçlü olduğu yerde, F10b'de kurulsun."
+  },
+  {
+   "member": "gorsel-Uslup",
+   "proposal": "C12+C13'ü tırpan ve kundaklı taş üzerinden birleştirmek",
+   "stance": "katılıyorum",
+   "reason": "Erhat'ın soyut ayrımı Hesiodos'un iki somut nesnesine bağlanıyor ve görüntüsüz C13 ortadan kalkıyor. Hesiodos'ta taş hilesini Rheia'ya öğütleyenler Gaia ile Uranos'tur (Th. 469–484), yani 'kılavuzluk' bu hilenin kendisi; filolog doğrulasın."
+  },
+  {
+   "member": "filolog-Klasik",
+   "proposal": "I03'ü 'üçüncü devrimin hazırlığı' diye düzeltmek ve K03b'yi eklemek (xi1: üçüncü ve son devrimin öznesi insan)",
+   "stance": "katılıyorum",
+   "reason": "Üç taht motifinin ödemesi K03b'de gelir: üçüncü panele bir tanrı değil, doğrulan bir insan girer. I03'te boş panele düşen gölge Zeus'un değil, bir oğulun gölgesidir (sır). D11'deki 'Sıra kime?' sorusu böylece görüntüyle cevaplanır; soyut K bölümü de en temiz görsel ödemesini alır."
+  },
+  {
+   "member": "dramaturg-A",
+   "proposal": "A05'in cevabını E16'ya (E15'ten sonra) almak ve K07'yi silmek; kitle-Tutma ise cevabın sona saklanmasını öneriyor",
+   "stance": "katılıyorum",
+   "reason": "Asıl soru olan A06 J'ye kadar açık kalıyor; A05 bir ara ödül. Benim K07 için önerdiğim alevin göze dönüşümü E16'ya taşınır. 'Kayada saklı' sözündeki kesme de F bölümüne köprü olur. Dorukta açılış sorusuna geri dönülmesi engellenir."
+  },
+  {
+   "member": "filolog-Erhat",
+   "proposal": "G03 ve I11'de Themis-Adalet bağını kurmak, Klymene çelişkisini gidermek",
+   "stance": "kısmen",
+   "reason": "D02'den Klymene düşerse G03'te tek bir yan cümle yeter. I11'deki 'Adalet' hitabı güçlü. Ama görselde Themis'e terazi verilmesin; terazi klasik vazo ikonografisinde yok, sonraki dönemin imgesi. Bunun yerine F13'teki dağ silueti biçimindeki Gaia geri dönsün."
+  },
+  {
+   "member": "dil-Metin",
+   "proposal": "'Polis', 'polis müdürü' ve 'kör iktidarlar' ifadelerini 1967 bağlamında tarihlendirmek",
+   "stance": "katılıyorum",
+   "reason": "Görselde de aynı kural geçerli olmalı: bu sözcükler hiçbir zaman çağdaş imgeyle (üniforma, rozet, bina) çizilmez. Kratos, Bia ve Hermes vazo figürü olarak kalır, Kafka'nın da portresi yapılmaz."
+  },
+  {
+   "member": "gorsel-Uslup",
+   "proposal": "D04'e 'Hesiodos'ta kaya yoktur' eki",
+   "stance": "kısmen",
+   "reason": "Sütun siyah figürle çizilecek ve 'sütuna' kelimesi zaten geçiyor. F02'deki siyah figürden kırmızı figüre geçiş de katman farkını görüntüyle öğretiyor. Ek cümle zarar vermez, ama 2 sn'lik gereksiz bir bilgi yükü."
+  },
+  {
+   "member": "dramaturg-B",
+   "proposal": "In medias res seçeneği: B'den sonra F06–F10b'ye atlayıp C–E'yi geri dönüş olarak anlatmak",
+   "stance": "katılmıyorum",
+   "reason": "Kapak görüntüsünü canlı tutma faydası, C01'deki hatıra çerçevesiyle ve C14, C18, D11'deki 1,5–2 sn'lik kaya kesmeleriyle sağlanıyor; üstelik Erhat'ın okuma sırası bozulmuyor."
+  },
+  {
+   "member": "dramaturg-A",
+   "proposal": "I07b: Prometheus zincirdeyken koşul koyar (ZVP 989–991)",
+   "stance": "katılıyorum",
+   "reason": "Koşul koyma anı aynı zamanda görsel kurulum oluyor: Prometheus bileğini kaldırır, zincir kadraj dışına doğru gerilir. J06'da bu gerginliğin öbür ucunda Zeus'un bileği görülür."
+  },
+  {
+   "member": "uslup-Dostoyevski",
+   "proposal": "F05b: Zeus oyunda hiç sahneye çıkmaz, görünmeyen yargıç (gorsel-Uslup F05 ile aynı)",
+   "stance": "katılıyorum",
+   "reason": "Bu cümle, Aiskhylos katmanındaki boş taht planlarını metinle gerekçelendiriyor. Zeus'un açığa çıkışı Erhat katmanında olduğu için kaynağa da sadık kalınıyor."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "M02'yi 'Sen olsan? Bedelini bile bile, o ateşi yine de verir miydin?' sorusuna çevirmek",
+   "stance": "katılıyorum",
+   "reason": "Son görüntü, ateşin elden ele yolculuğunun (L) izleyiciye uzanan bir korla bitmesi olur. 'Prometheus mu, Zeus mu?' sorusu J'de zaten cevaplandığı için zayıf. Yeni soru kapak A'daki 'bile bile' ile de halka kuruyor."
+  },
+  {
+   "member": "filolog-Erhat",
+   "proposal": "J02'de görünüşü 'Zeus özgür, Prometheus köle' sözcükleriyle açıkça kurmak",
+   "stance": "katılıyorum",
+   "reason": "Görsel karşılığı: J02'de figürlerin altında ÖZGÜR ve KÖLE kil etiketleri belirir, J04'te etiketler yer değiştirir. Tersine çevirmenin tek karelik görüntüsü bu olur."
+  },
+  {
+   "member": "dramaturg-B",
+   "proposal": "J09 ve J10'u J bölümü içinde, J02'den önceye almak",
+   "stance": "katılmıyorum",
+   "reason": "J09'un somut karşılığı zincirleme sahnesinde zaten ekranda: zincir kilitlenirken desmotes yazıtı kayaya kazınır. J içinde kalırsa soyut blok uzar. J10 ise J06'nın ardında kalıp gerçek bir ödeme olsun."
+  }
+ ],
+ "changed_mind": "Altı noktada fikrimi değiştirdim.\n\n1. I10. Birinci turda fırtınayı tek cümleye indirip sözsüz vermeyi önermiştim. s. xv fotoğrafında Erhat'ın 'başına saldıkları doğal belaları bir bir izleyip diliyle canlandırır gözümüzün önünde' cümlesini okuyunca önerimi değiştirdim. Fırtına Prometheus'un kendi ağzından gelsin, her bela kendi kelimesinde ekranda belirsin, I11'den önce yalnız 3–4 sn sözsüz kuyruk kalsın.\n\n2. F10b. Cümleyi F11'in arkasına bir özet olarak taşımayı önermiştim. Artık Zweig ve dramaturg-B'nin önerdiği şimdiki zamanlı olay sürümünü (çekiç, kama, sessizlik) zincirleme sahnesinin içinde, F10a'nın ardından ve 3 sn'lik müziksiz nefes planıyla birlikte savunuyorum.\n\n3. G13. ZVP 101–103'ü buraya koymuştum. Dizeleri F14'e veriyorum ve önceden bilme motifini üç vuruşla sınırlıyorum: F14, G12/G12b, I08c.\n\n4. C14. Sözlü vaadi tamamen kaldırıp görsel bir tohumla değiştirmeyi önermiştim. Artık 'zincirdeyken kendi ağzından duyacağız' biçimindeki dürüst vaadi, görsel tohumla birlikte kabul ediyorum.\n\n5. B05. Birinci tur metnimde 'en iyi temsil eden' ifadesini korumuştum; bu bir hataydı. Doğrusu s. v'ye göre 'özüyle temsil eden … benimsenmiştir'. I06 için önerdiğim 'küçümser' yerine de filolog-Klasik'in çevirisiyle 'alay eder' daha sadık.\n\n6. J09–J10. İkisini birlikte F'ye almayı önermiştim. Artık J09 F10a'ya gitsin, J10 ise J06'nın ardında ödeme olarak kalsın diyorum (dramaturg-A).\n\nAyrıca M00'da önerdiğim 'kişiler sahnede kımıldamasa da' ayrıntısını s. xv–xvi'da doğruladım. Asıl cümle 'Hele eserin plastik değeri…' diye başlıyor, bu da önerinin görsel gerekçesini güçlendiriyor.\n\nSüre oyumu 21'den 21,5'e çıkardım, çünkü savunduğum eklemeler (I07b, I08–I08c, F14, G12b, I10, K03b, E16) kesintilerin kazandırdığının çoğunu geri harcıyor.",
+ "scores": {
+  "K1": 8,
+  "K2": 8,
+  "K3": 7.8,
+  "K4": 7.5,
+  "K5": 7.2,
+  "K6": 8,
+  "K7": 7.6
+ },
+ "final_duration_min": 21.5,
+ "duration_vote_reason": "Ölçüm modeli: Sisifos'ta konuşma ~120 kelime/dk ve cümle arası ~1,33 sn. Bu modelle rev 2 ~21,8 dk; hece modeliyle ~23 dk. Hesap şöyle:\n- Kurulun neredeyse oybirliğiyle kabul ettiği kesintiler ~120 sn kazandırıyor: B kısaltması, C12+C13, E03/E07, G11+G12, J07+J08, J08b, K07, M00+M01, H02+H03 ve atıf seyreltmesi.\n- Savunduğum eklemeler ~110 sn tutuyor: I07b, I08 'Eyvah', I08b–I08c kartal, F14, G12b, I10'un Prometheus'a verilmesi, I12'deki periler, E10, E16, K03b, F05b ve 2–3 sn'lik görsel nefesler.\n- Sonuç: kelime modeliyle ~21,5 dk, hece modeliyle ~22,5 dk.\n\nGörsel yönetmen olarak benim için asıl ölçüt toplam süre değil, sürenin dağılımı:\n- kesintisiz en uzun soyut blok ≤1:15 olmalı;\n- kaya ve Prometheus en geç ~2 dakikada bir ekrana dönmeli;\n- doruğun sonunda en büyük görsel sarsıntı (fırtına) yer almalı.\n\nBu koşullar 21–22 dakikada rahatça sağlanıyor. 20 dakikanın altına ancak somut sahneler kesilerek inilebilir: Theogonia, Mekone, Pandora, Io/Boğaz. Bunlar filmin en çizilebilir malzemesi; kesilirlerse soyut oran %50'yi aşar. Kesin süre seslendirmeden sonra timeline.js ile ölçülmeli.",
+ "top_fixes": [
+  {
+   "ids": "I07 → I07b (yeni) → J01–J06 → J10 → I08 → I08b → I08c → I09 → I10 → I11 → I12 → L01–L03 → K01–K06 → M; F05b (yeni); J07, J08, J08b ve K07 K'ye toplanır ya da silinir",
+   "change": "Doruğu dramaturg-A'nın sırasıyla kur ve görsel ödeme kuralını sabitle.\n- Zeus Aiskhylos katmanında hiç görünmez (F05b).\n- I07b'de Prometheus bileğini kaldırır, zincir kadraj dışına gerilir.\n- J01'de kırmızı figür sahne donar ve krem kâğıda çözülür.\n- J02'de figürlerin altında ÖZGÜR / KÖLE etiketleri belirir, J04'te yer değiştirir.\n- J06'da kamera zinciri izler; öbür uç küçük, büzülmüş Zeus'un bileğinde biter. Bu, Zeus'un Erhat katmanındaki tek görünüşüdür.\n- Sahne çözülür, Hermes sahnesi sürer.\n- I10'da fırtına Prometheus'un ağzından gelir ve her bela kendi kelimesinde (Wd) ekranda belirir. I11'den önce 3–4 sn sözsüz kuyruk kalır.\n- I12'de kaya perilerle birlikte dalga kuşağına gömülür.\n- Üçüncü taht J08 / K08a'da çatlar.",
+   "why": "Fırtınadan sonraki ~3 dk'lık soyut blok, filmin görsel riskinin merkezi; bu sıra onu ikiye bölüyor. En büyük sarsıntı doruğun sonuna düşüyor. A06'nın kurulumu (yukarı giden zincir) J06'da aynı geometriyle ödeniyor. Kaynaklar:\n- Erhat xv3: 'diliyle canlandırır gözümüzün önünde' ve 'koroyla birlikte gömülüp yok olana dek' (s. xv fotoğrafında doğrulandı);\n- Erhat xiii4, xiv2, xiv5;\n- ZVP 989–991 ve 1080–1090 (kendi çevirimiz; filolog doğrulasın).\nJ06'nın ikinci cümlesi ve I10'un ilk cümlesi anlatıcıya aittir.",
+   "tts": "F05b: [knowingly] Yargıç ise hiç görünmeyecek: Zeus, oyun boyunca bir kez bile sahneye çıkmaz. || I07b: [defiantly] Ve koşulunu koyar: Bu aşağılayıcı zincirler çözülmeden, Zeus bu sırrı benden ne işkenceyle alabilir, ne hileyle. || J01: [slowly] Duruşmayı burada bir an durduralım. [mysterious] Bu sahnede gerçekten tutsak olan kim? || J02: Görünüşe bakılırsa cevap açık. Evreni yöneten Zeus özgürdür. Prometeus ise köledir: zincirde, ıssız bir kayada, sonu gelmeyen bir işkenceye mahkûm. Ölümsüz olduğu için, canına kıyma özgürlüğü bile yok. || J06: [knowingly] Erhat'ın deyişiyle… Zeus, tutukladığı düşmanının elinde tutukludur aslında. [slowly] Roller yer değiştirmiştir: Sanık özgür, yargıç tutsak. || I10: [intense] Söz geçiremeyen Zeus, yine kaba kuvvete başvurur. Prometeus, başına inen belaları kendi ağzıyla anlatır: Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine giriyor; gök, denize karışıyor. || I12: [firmly] Başta tek söz etmeyen Prometeus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek konuşmayı sürdürür. Son söz onundur. [slowly] Erhat'a göre Ayshilos'un söylemek istediği de budur: Kıyamet de kopsa, son söz özgür düşüncenindir.",
+   "alt": "F05b: Yargıç ise hiç görünmeyecek: Zeus, oyun boyunca bir kez bile sahneye çıkmaz. || I07b: Ve koşulunu koyar: “Bu aşağılayıcı zincirler çözülmeden Zeus bu sırrı benden ne işkenceyle alabilir ne hileyle.” || J01: Duruşmayı burada bir an durduralım. Bu sahnede gerçekten tutsak olan kim? || J02: Görünüşe bakılırsa cevap açık. Evreni yöneten Zeus özgürdür. Prometheus ise köledir: zincirde, ıssız bir kayada, sonu gelmeyen bir işkenceye mahkûm. Ölümsüz olduğu için canına kıyma özgürlüğü bile yok. || J06: Erhat'ın deyişiyle: “Zeus tutukladığı düşmanının elinde tutukludur aslında.” Roller yer değiştirmiştir: Sanık özgür, yargıç tutsak. || I10: Söz geçiremeyen Zeus, yine kaba kuvvete başvurur. Prometheus, başına inen belaları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine giriyor; gök denize karışıyor.” || I12: Başta tek söz etmeyen Prometheus, dünya başına yıkılıp yanında kalan perilerle birlikte gömülene dek konuşmayı sürdürür. Son söz onundur. Erhat'a göre Aiskhylos'un söylemek istediği de budur: “Kıyamet de kopsa son söz özgür düşüncenindir.”"
+  },
+  {
+   "ids": "A01–A02 (görüntü), A06, M02",
+   "change": "Açılış ve kapanış:\n- İlk kare kapak karesi olsun; kararma ya da logo olmasın. İlk ses çekiç ya da zincirin gerilmesi.\n- Karede ovadaki insan ateşleri en parlak nokta, kayada zincirli kırmızı figür.\n- 0:06–0:11'de kamera zinciri yukarı izler: bulutta bir bilek ve yıldırım parıltısı görünür, Zeus görünmez.\n- A06'da (ve M02 korunursa orada da) 'o kayada' yerine 'o zincirin asıl tutsağı' denir.\n- M02 için kitle-Paket'in kişisel sorusunu öneriyorum; son görüntüde ateş izleyiciye uzanır.",
+   "why": "İki kapağın vaadi aynı açılışta, ilk 8 saniyede görüntüyle karşılanıyor: kapak A ateş ya da 'bile bile', kapak B 'asıl tutsak'. 'O kayada' ifadesi Zeus'u kayaya yerleştiriyor; oysa Erhat xiv5'te Zeus 'tutukladığı düşmanının elinde tutuklu'. 'Zincir' hem mantıklı hem çizilebilir, J06'da da aynı imgeyle ödeniyor.",
+   "tts": "A06: [thoughtfully] Bu efsaneyi anlatan antik bir tragedyayı Türkçeye çevirenlerden Azra Erhat, şaşırtıcı bir şey söyler. [mysterious] Ona göre o zincirin asıl tutsağı… Prometeus değildi. || M02: [curious] Peki sen olsan? Bedelini bile bile, o ateşi yine de verir miydin? Yorumlarda yaz.",
+   "alt": "A06: Bu efsaneyi anlatan antik bir tragedyayı Türkçeye çevirenlerden Azra Erhat şaşırtıcı bir şey söyler. Ona göre o zincirin asıl tutsağı… Prometheus değildi. || M02: Peki sen olsan? Bedelini bile bile o ateşi yine de verir miydin? Yorumlarda yaz."
+  },
+  {
+   "ids": "I08, I08b (yeni), I08c (yeni)",
+   "change": "Hermes sahnesine üç ekleme:\n- 'Eyvah' çatlağı (ZVP 979–981): kayada tek bir çatlak çizgisi, figürün ağzı bir an açılır.\n- Hermes'in kartal tehdidi (ZVP 1016–1025).\n- Prometheus'un kısa cevabı (ZVP 1040).\nAnlatıcının 'açılıştaki kartal bu tehdittir' gibi bir açıklaması yazılmaz. I08b, A03'ün birebir kompozisyonudur: aynı kaya, aynı kanat gölgesi; kartal gelmez, yalnız gölgesi geçer. I08c'de F14'teki göz-ufuk planı tekrarlanır.",
+   "why": "Bu, A03'ün ve kapaktaki kartalın tek ödemesi. Hermes'in 'Zeus bu sözü bilmez' repliği ancak Prometheus'un 'Eyvah'ıyla anlam kazanıyor. 'Kartal henüz gelmedi' ayrımını görüntü taşıyor, sözle söylemeye gerek yok. Kendi çevirimiz; dize numaralarını filolog doğrulasın.",
+   "tts": "I08: [pained] Bir an, Prometeus'un ağzından bir inilti kaçar: Eyvah! [mocking] Hermes hemen yakalar: Zeus bu sözü bilmez. [calmly] Prometeus'un cevabı: Yaşlanan zaman, her şeyi öğretir. || I08b: [ominous] Hermes son tehdidini savurur: Zeus bu kayayı yıldırımla parçalayacak, seni içine gömecek. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek. || I08c: [calmly] Prometeus'un cevabı: Bu haberleri, zaten bilen birine haykırıyor.",
+   "alt": "I08: Bir an Prometheus'un ağzından bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu sözü bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.” || I08b: Hermes son tehdidini savurur: “Zeus bu kayayı yıldırımla parçalayacak, seni içine gömecek. Uzun zaman sonra ışığa döndüğünde Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.” || I08c: Prometheus'un cevabı: “Bu haberleri zaten bilen birine haykırıyor.”"
+  },
+  {
+   "ids": "F06 → F08 → F07 → F09 → F10 → F10a (J09'dan) → F10b → F11 → F13; J09 J bölümünden çıkar",
+   "change": "Zincirleme sahnesi oyunun sırasına (filolog-Klasik) ve somut görüntüye bağlanır.\n- F09'dan 'tanrılar arasında' düşer. Hephaistos'un 'nefret ettiğim zanaatım' sözü eklenir; görüntüde çekiç havada duraksar.\n- J09, Erhat xiii2'nin aşağılanma cümlesiyle birlikte F10a olur. 'Desmotes' kelimesinde son halka kilitlenirken kayaya ΔΕΣΜΩΤΗΣ yazıtı kazınır.\n- F10b dipnot olmaktan çıkar, şimdiki zamanda yaşanan bir olay olur. Ardından 3 sn müziksiz bir 'nefes alan' plan gelir: zincir sallanır, toz düşer, göğüs nefes alır, kamera kapalı ağza doğru çok yavaş iter.",
+   "why": "J'deki soyut blok kısalıyor. F10'daki 'özgürlük ve kölelik' tezi zincir görüntüsüne bağlanıyor. J10 ('hakkın köleden yana') J06'nın ardında gerçek bir ödemeye dönüşüyor. Kaynaklar: ZVP 45–50 ve 64–65 (kendi çevirimiz; filolog doğrulasın), Erhat xiii2, xv3. 'Zorbalık' sözü filolog-Klasik'in tarih uyarısı nedeniyle düşürüldü; son kararı filologlar versin.",
+   "tts": "F09: [bitterly] İş sürerken Hefaistos inler: Ah, nefret ettiğim zanaatım! [coldly] Güç'ün cevabı buz gibidir: Tanrılara hükmetmekten başka her iş yüktür. Zeus'tan başka hiç kimse özgür değildir. || F10a: [thoughtfully] Bunun ağırlığını anlamak için Erhat, oyunun çağına bakar. Beşinci yüzyıl Atinası'nda kölelik, yasal ve canlı bir kurumdu. Prometeus da herhangi bir köle gibi, desmotes'tu: zincire vurulmuş. [slowly] Ona göre işkencenin büyüklüğü de zincirde değil, bir tanrının köle durumuna düşürülmesindeydi. || F10b: [tense] Çekiç iner… bir daha iner. Kırılmaz bir kama, göğsünü bir yandan öbür yana deler. Güç sövüp sayar. [slowly] Ve Prometeus… tek söz etmez.",
+   "alt": "F09: İş sürerken Hephaistos inler: “Ah, nefret ettiğim zanaatım!” Güç'ün cevabı buz gibidir: “Tanrılara hükmetmekten başka her iş yüktür. Zeus'tan başka hiç kimse özgür değildir.” || F10a: Bunun ağırlığını anlamak için Erhat oyunun çağına bakar. V. yüzyıl Atinası'nda kölelik yasal ve canlı bir kurumdu. Prometheus da herhangi bir köle gibi “desmotes”tu: zincire vurulmuş. Ona göre işkencenin büyüklüğü de zincirde değil, bir tanrının köle durumuna düşürülmesindeydi. || F10b: Çekiç iner… bir daha iner. Kırılmaz bir kama göğsünü bir yandan öbür yana deler. Güç sövüp sayar. Ve Prometheus… tek söz etmez."
+  },
+  {
+   "ids": "F14 (yeni, F13'ten sonra); G12 → G11 → G13; G13b eklenmez",
+   "change": "İç dünya bu üç vuruşla kurulur; önceden bilme motifi başka yerde tekrarlanmaz.\n- F14: ZVP 101–107. 'Kendi sözünü keser' kelimesinde ağız kapanır, baş gökten toprağa döner. Göz ufka bakar, ufukta kartal gölgesi geçer; I08c bu planla ödenir.\n- G12/G12b: itiraf ve içindeki çatlak (ZVP 259–270). Son cümlede kamera geri çekilir, ıssız kaya geniş planda küçülür.\n- G13 Erhat'ın tek cümlesine iner: 'katlanma duygusu' (xii1).",
+   "why": "K5'in en zayıf halkası kapanıyor: Prometheus'un sesi ilk kez kendi bilinciyle duyuluyor ve gururla acı aynı nefeste veriliyor. Önerilerle motif altı kez çalınıyordu; üçe indirilince hem anlatım hem görüntü aynı göz planını tekrar etmekten kurtuluyor. Kendi çevirimiz; 'ne susabiliyorum…' satırını filolog seçsin.",
+   "tts": "F14: [softly] Sonra birden kendi sözünü keser: Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum. Hiçbir acı bana habersiz gelmeyecek. [pained] [slowly] Yine de başıma gelenler üstüne… ne susabiliyorum, ne de konuşabiliyorum. || G12: Periler çekinerek söyler: Suç işledin. [firmly] Prometeus'un cevabı dolaysızdır: Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim. [pained] [slowly] Ama böyle cezalarla, bu ıssız, komşusuz kayada eriyip gideceğimi… düşünmemiştim. || G11: Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: Ne yaptımsa, bile bile yaptım. || G13: [thoughtfully] Ona göre bu bilinç, onda hem bir gurur, hem de bir katlanma duygusu doğurur. [slowly] Biliyordu… ve yine de yaptı.",
+   "alt": "F14: Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum. Hiçbir acı bana habersiz gelmeyecek. Yine de başıma gelenler üstüne ne susabiliyorum ne de konuşabiliyorum.” || G12: Periler çekinerek söyler: “Suç işledin.” Prometheus'un cevabı dolaysızdır: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim. Ama böyle cezalarla, bu ıssız, komşusuz kayada eriyip gideceğimi düşünmemiştim.” || G11: Erhat'a göre bu, bugünkü bir sanığın savunmasıdır: “Ne yaptımsa bile bile yaptım.” || G13: Ona göre bu bilinç onda hem bir gurur hem de bir katlanma duygusu doğurur. Biliyordu… ve yine de yaptı."
+  },
+  {
+   "ids": "C01, C12+C13 (C13 silinir), C14, C15 → G05 (görsel tohum)",
+   "change": "C bölümü kayadaki Titan'ın hatırası olarak çerçevelenir.\n- C01'de kamera kırmızı figür göze iter ve siyah figür friz açılır.\n- I06'daki 'iki hükümdarın düştüğünü gördüm' sözünde C'deki devrik taht panelleri bir an siyah figürle çakar.\n- C12: gorsel-Uslup'un tırpan ve kundaklı taş iki paneli.\n- C14: sözlü vaat dürüst hâle gelir.\n- C15'te Zeus'un kulağına fısıldayan adsız bir figür görünür. G05'te aynı kompozisyon kırmızı figürle döner; eşleşen kesme yapılır.\n- C14 ile C18'de 1,5–2 sn'lik kaya kesmeleri.",
+   "why": "2. ile 9. dakika arasında kapak görüntüsü de kahraman da ekrandan kayboluyor. Hatıra çerçevesi ikisini yapıyı bozmadan geri getiriyor. Erhat'ın soyut ayrımı Hesiodos'un iki nesnesine bağlanıyor ve görüntüsüz C13 kalkıyor. Kaynaklar: ZVP 956–959, Th. 469–500, Erhat viii1–viii4. C01'in ikinci cümlesi anlatıcıya aittir.",
+   "tts": "C01: [curious] Tanrıların kralı Zeus, o tahta nasıl oturmuştu? [softly] Kayadaki Titan, bunu çok iyi biliyordu: Hepsini, gözleriyle görmüştü. || C12: [thoughtfully] Erhat'a göre bu iki darbe aynı şey değildir. Birincisinin silahı bir tırpandı: salt kaba kuvvet. İkincisinin silahı, kundağa sarılmış bir taştı: bir akıl ve hesap işi. Üstelik bu kez akıl verenler, kaba kuvvetin acısını tatmış Uranos ile Gaya'ydı. Erhat'ın deyişiyle: kaba kuvvetin akılla yenilmesi. || C14: [knowingly] Ve Erhat bir ayrıntıyı hatırlatır: Prometeus da işte bu devrimde rol oynamıştı. Nasıl mı? Bunu, zincirdeyken kendi ağzından duyacağız.",
+   "alt": "C01: Tanrıların kralı Zeus, o tahta nasıl oturmuştu? Kayadaki Titan bunu çok iyi biliyordu: Hepsini gözleriyle görmüştü. || C12: Erhat'a göre bu iki darbe aynı şey değildir. Birincisinin silahı bir tırpandı: salt kaba kuvvet. İkincisinin silahı kundağa sarılmış bir taştı: “bir akıl ve hesap işi.” Üstelik bu kez akıl verenler, kaba kuvvetin acısını tatmış Uranos ile Gaia'ydı. Erhat'ın deyişiyle: “kaba kuvvetin akılla yenilmesi.” || C14: Ve Erhat bir ayrıntıyı hatırlatır: Prometheus da işte bu devrimde rol oynamıştı. Nasıl mı? Bunu, zincirdeyken kendi ağzından duyacağız."
+  },
+  {
+   "ids": "D11 (görüntü), I03, K03b (yeni, K03'ten sonra)",
+   "change": "Üç taht motifi kurulup ödenir.\n- D11: üç panelden ikisi devrik, üçüncüsü boş ve sallanıyor. Söz bitince 2 sn sessiz bir kaya kesmesi, üstünden kartal gölgesi geçer.\n- I03: boş panele yıldırım ışığında bir oğul gölgesi düşer.\n- J08 / K08a: üçüncü taht çatlar.\n- K03b: üçüncü panele bir tanrı değil, eğik duruştan doğrulan bir insan figürü (figure.js IK) girer.",
+   "why": "I03 Erhat'ı yanlış aktarıyor: x3'te söz konusu olan 'hazırlanma', devrimin kendisi ise xi1'de insanın ayaklanması. D11'in 'Sıra kime?' sorusu ancak böyle cevap buluyor. Soyut K bölümü de filmin en temiz görsel ödemesini alıyor. Kaynaklar: Erhat x3, x4, xi1. K03b'nin bağlantısı anlatıcıya aittir.",
+   "tts": "I03: [slowly] Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Erhat'ın sözünü ettiği üçüncü devrimin hazırlığı, işte buydu: Zeus'u sürekli kuşku içinde tutan bir bilgi. || K03b: [slowly] Erhat'ın üçüncü devrimi de budur. Uranos devrilmişti, Kronos devrilmişti. Ama üçüncü ve son devrimin öznesi bir tanrı değildir: İnsan, kendi gücünün bilincine varır ve tanrıya karşı ayaklanır.",
+   "alt": "I03: Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Erhat'ın sözünü ettiği “üçüncü devrimin hazırlanması” işte buydu: Zeus'u sürekli kuşku içinde tutan bir bilgi. || K03b: Erhat'ın üçüncü devrimi de budur. Uranos devrilmişti, Kronos devrilmişti. Ama “üçüncü ve son devrim”in öznesi bir tanrı değildir: İnsan kendi gücünün bilincine varır ve tanrıya karşı ayaklanır."
+  },
+  {
+   "ids": "E09–E10 (görüntü ve metin), E16 (yeni, E15'ten sonra); K07 silinir",
+   "change": "Ateşin çalınması ve A05'in ara ödülü:\n- E09'da insan ateşleri teker teker söner.\n- E10'da karanlık ovada tek bir kor yolculuk eder. Olympos'ta siyah figür bir Zeus profili onu görür; 'ısırır' sözünde göğsünde kırmızı boya yayılır.\n- E15'te tahttaki alev ovadaki ateşlere dağılır.\n- E16'da 'asıl mesele akıldı' sözünde bir alev badem biçimli bir göze dönüşür. 'Kayada saklı' sözünde kırmızı figür kayaya kesilir; F bölümüne köprü olur.",
+   "why": "Hikâyenin merkezindeki eylem şu an tek düz cümle; Zeus'un iç dünyası burada ilk kez görüntüye giriyor. A05'in cevabı ortada ara ödül olarak veriliyor ve dorukta açılış sorusuna geri dönülmesi kalkıyor. Asıl soru A06 J'ye kadar açık kalıyor. Kaynaklar: Th. 565–569 (kendi çevirimiz; filolog doğrulasın), Erhat x5, xi1. E16'nın son cümlesi anlatıcının köprüsüdür.",
+   "tts": "E10: Prometeus onu bir kez daha aldatır. Ateşin parıltısını, içi boş bir rezene sapına gizleyip insanlara götürür. [darkly] [slowly] Hesiodos'un deyişiyle, insanların arasında o uzaktan görünen ışığı görmek, Zeus'u yüreğinin ta dibinden ısırır. || E16: [knowingly] Demek ki Zeus'u öfkelendiren, yalnızca bir avuç ateş değildi; ateş, onu ikinci kez küçük düşüren hamleydi. Asıl mesele akıldı. [mysterious] Ama Erhat'ın en şaşırtıcı iddiası, kayada saklı.",
+   "alt": "E10: Prometheus onu bir kez daha aldatır. Ateşin parıltısını içi boş bir rezene sapına gizleyip insanlara götürür. Hesiodos'un deyişiyle, insanların arasında o uzaktan görünen ışığı görmek Zeus'u “yüreğinin ta dibinden ısırır.” || E16: Demek ki Zeus'u öfkelendiren yalnızca bir avuç ateş değildi; ateş, onu ikinci kez küçük düşüren hamleydi. Asıl mesele akıldı. Ama Erhat'ın en şaşırtıcı iddiası kayada saklı."
+  },
+  {
+   "ids": "B01, B03 → L02, B04+B05 (B05 silinir), B06, B07",
+   "change": "B bölümü kısalır ve görüntüye bağlanır.\n- B01: Dionysos tiyatrosunda sahnede tanrı maskeleri; kamera seyirci basamaklarına döner.\n- B02: rafta üç vazo, biri sağlam, ikisi kırık. L02'de kırık parça geri döner.\n- B06 tek soruya iner; kurye çizgisi İÖ ~460'tan 1967'ye uzanır.\n- 'Azra Erhat · Ağustos 1967' imzası ekranda görünür, seslendirmede tarih gerekmez.\n- Kayıp oyunların adları L02'de söylenir.",
+   "why": "0:40–2:00 aralığı filmin en kritik ve en soyut bölgesi; bu değişiklikle ~55 sn'den ~35 sn'ye iner. B04'teki tekrar ve B05'teki 'en iyi' ifadesi kalkar; s. v'de 'özü özelliğiyle temsil eden … benimsenmektedir' ve 'en çok da bizim çağımızda' yazıyor. B01'deki 'neredeyse' Io'nun ölümlü olmasını hesaba katıyor.",
+   "tts": "B01: [curious] Sahnede neredeyse yalnızca tanrıların konuştuğu bir oyun, insanı anlatabilir mi? || B04: [warmly] Oyunu Sabahattin Eyüboğlu'yla birlikte Türkçeye çeviren klasik filolog Azra Erhat'a göre, evet: Bu oyunun asıl konusu insandır; oynanan dram da, insanlığın dramıdır. Prometeus ise, Ayshilos'tan bu yana, en çok da yirminci yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir: insan dostu, tanrı düşmanı. || B06: [intrigued] Ve Erhat, önsözünde can alıcı bir soru sorar: Nasıl oldu da, İsa'dan önce beşinci yüzyılda yaşamış bir yazar, yirminci yüzyılın başkaldıran insanını yaratabildi? || B07: [thoughtfully] Cevabı ararken, önce çok daha geriye gider: tanrıların, taht için verdiği kavgaya.",
+   "alt": "B01: Sahnede neredeyse yalnızca tanrıların konuştuğu bir oyun insanı anlatabilir mi? || B04: Oyunu Sabahattin Eyüboğlu'yla birlikte Türkçeye çeviren klasik filolog Azra Erhat'a göre, evet: Bu oyunun asıl konusu insandır; oynanan dram da insanlığın dramıdır. Prometheus ise Aiskhylos'tan bu yana, en çok da XX. yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir: “insan dostu, tanrı düşmanı.” || B06: Ve Erhat önsözünde can alıcı bir soru sorar: Nasıl oldu da İsa'dan önce V. yüzyılda yaşamış bir yazar, XX. yüzyılın başkaldıran insanını yaratabildi? || B07: Cevabı ararken önce çok daha geriye gider: tanrıların taht için verdiği kavgaya."
+  },
+  {
+   "ids": "Genel atıf ve ekran sistemi (örnekler: D06, E11, J10; ayrıca C17, D10, G13, J05, K05, K06, L04, H05)",
+   "change": "Sözlü atıf her Erhat öbeğinin yalnız ilk cümlesinde kalır. Ekranda üç düzey olur:\n1. İki ya da daha çok cümlelik Erhat bloklarında tam beyaz zemin geçişi (~12 blok).\n2. Tek cümlelik yorumlarda sol üstten inen krem bir kenar şeridi: 2–4 kelimelik çekirdek alıntı ve 'ERHAT · s. ix'; en az 3 sn kalır.\n3. Yaklaşık 6 doruk alıntı tam sayfada sepya kalemle yazılır: C12, D07, J04, J06, I12, K06.\nDiğer kurallar:\n- Karakter replikleri vazo yazıtı (dipinto) ve konuşanın başında yükselen sıcak bir ışıkla verilir; anlatıcı konuşurken ekranda yazı yok.\n- Yazılar ekranın alt %20'sine girmez; ekrandaki tam alıntı altyazıyla harfi harfine aynıdır.\nÜretim notu: prometheus/fonts/ yalnız latin ve latin-ext alt kümelerini içeriyor. ΠΡΟΜΗΘΕΥΣ, ΔΕΣΜΩΤΗΣ, ΦΙΛΑΝΘΡΩΠΟΣ ve ΓΝΩΘΙ ΣΑΥΤΟΝ için ya Yunanca glifli bir alt küme eklenmeli ya da harfler çizgiyle çizilmeli.",
+   "why": "Metinde 50 kez 'Erhat', 22 kez 'Erhat'a göre' geçiyor; bu hem anlatımı rapora çeviriyor hem de her anışta katman değişirse kurguyu ~50 parçaya bölüyor. K1, ekrandaki sayfa etiketiyle korunuyor ve süre eklenmiyor. Ses tarafında da üç kayıt (anlatıcı, Erhat, karakter) görüntüdeki üç katmanla eşleşiyor.",
+   "tts": "D06: Çünkü bu kardeşlerin dördü de kafa gücünden pay almıştı. Akılca üstündüler; bununla övünüyor, Zeus'a karşı gelmeye yelteniyorlardı. || E11: [ominous] İki kez küçük düşürülen tanrıların kralı, artık kaba kuvvete başvurmak zorundaydı. || J10: Köleliği doğal sayan bir dünyada, hakkın köleden yana olduğunu söylemek… Ayshilos'un tek başına başardığı koca bir işti.",
+   "alt": "D06: Çünkü bu kardeşlerin dördü de kafa gücünden pay almıştı. Akılca üstündüler; bununla övünüyor, Zeus'a karşı gelmeye yelteniyorlardı. [ekranda: ERHAT · s. ix] || E11: İki kez küçük düşürülen tanrıların kralı artık kaba kuvvete başvurmak zorundaydı. [ekranda: ERHAT · s. x] || J10: Köleliği doğal sayan bir dünyada hakkın köleden yana olduğunu söylemek… Aiskhylos'un tek başına başardığı “koca bir iş”ti. [ekranda: ERHAT · s. xiii]"
+  }
+ ],
+ "verdict": "RED"
+}

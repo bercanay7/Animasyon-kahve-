@@ -1,0 +1,267 @@
+{
+ "answers": [
+  {
+   "from": "dramaturg-A",
+   "answer": "(1) Mekoni/Mekone: Yeni Yunanca okunuş bilerek seçilmişti ve okunuş denemesinde (vo/test/okunus.md) Mekoni doğru okundu. Ama bölüm adı, alt ve Erhat \"Mekone\" diyor. Ses ile ekran yazısı ayrışmasın diye tts'yi \"Mekone\" yapın; bu yazım denenmedi, ikinci okunuş denemesinde doğrulansın. (2) Ayshilos denemede \"Aişilos\" okundu; Türkçedeki yaygın söyleyişe yakın, değişmesin. desmotes denenmedi. Türkçe yazımla düzenli bir sözcük, doğru okunması beklenir; \"Yunancasıyla, desmotes\" çerçevesiyle verilsin, dinleyici yabancı bir sözcük geldiğini anlasın. İkinci denemeye eklensin. (3) K08a-b ve F03 kırk kelimeyi segment olarak aşıyor, cümle olarak aşmıyor. Saydım: F03'ün en uzun cümlesi 14 kelime, K08a'nınki 15 civarı. Nefes için bölmek gerekmiyor. Asıl sorun iç içe iki iki nokta üst üste (G03) ve fiilden önce gelen uzun ad öbekleri (B04, K02); düzeltilecek yer bunlar."
+  },
+  {
+   "from": "dramaturg-B",
+   "answer": "Ayshilos: yukarıdaki gibi, kalsın. G03'ü G03 ile G04 olarak ikiye bölme önerin seslendirme için doğru, iç içe iki nokta kalkıyor. I08b üç cümle, en uzunu 15 kelime civarı; tek çekimde sorun çıkmaz. Yalnız tehdidin ikinci yarısı \"…\" ile ve ikinci bir etiketle ([darkly]) ayrılsın. Etiket cümle başında olsun, cümle ortasında olmasın. G13 sorun değil. tts ile alt arasında kelime sayısı taraması yaptım. Uyuşmayanlar yalnız üç: B07 (24'e 20), J03 (7'ye 8), M01 (27'ye 26). B07'deki fark sayı yazımından geliyor. build_vo.py ile srt.py kelimeleri sırayla eşlediği için altyazı 4 kelime öne kayar. Sisifos'ta G01'de (\"bin dokuz yüz kırk iki\" / \"1942\") aynı kaymanın olduğunu timeline.js'te doğruladım. Bu yüzden ya srt.py'deki MERGE haritasına ('B07', \"1967'de\"): 5 eklenmeli ya da sayılar için bir eşleme yazılmalı. Başka hatalar: C08 alt'ında \"Aphrodite'in\" yazıyor, doğrusu \"Aphrodite'nin\". H06–H10 alt'ında \"Io\" yazıyor, doğrusu \"İo\"; Erhat s. xii ve xiv'de noktalı İ ile yazıyor."
+  },
+  {
+   "from": "uslup-Zweig",
+   "answer": "\"Zeus'u yüreğinin ta dibinden ısırır\" iki nesneli olduğu için kulakta takılıyor. \"O ışık, Zeus'un yüreğini ta dibinden ısırır\" deyin, \"Hesiodos'un deyişiyle\" de başta kalsın; imgenin Hesiodos'tan geldiği duyulursa tuhaflığı şiir olarak kabul edilir. \"Eriyip tükeneceğimi… sanmamıştım\" doğal Türkçe; \"…\" duraklaması da işe yarıyor. \"Ne susabiliyorum ne de susmamak elimde\" çift olumsuz, dinleyici ilk duyuşta çözemez. Aynı anlamı kulağa \"ne susabiliyorum, ne de konuşabiliyorum\" veriyor (Dostoyevski üyesinin sürümü); Yunancaya uygunluğunu filolog onaylasın. Ayshilos kalsın; \"Esilos\" denenmedi, \"Ayskilos\" da aynı biçimde okundu. [curious] 15 kez geçiyor, çeşitlendirmek ritmi kesinlikle iyileştirir; önerdiğim etiket listesi 8. düzeltmede."
+  },
+  {
+   "from": "uslup-Dostoyevski",
+   "answer": "\"Ne susabiliyorum, ne de konuşabiliyorum\" doğal duruyor, vurgu iki fiile düşüyor. \"Dilini bu kadar azdırma\" Türkçede deyim değil; doğal karşılığı \"dilini bu kadar uzatma\" (dil uzatmak: saygısızca konuşmak). \"Akıllı olup akılsız görünmek\" anlaşılır. \"Kendini bil / Haddini bil\" karşıtlığını tek ses kurabilir, ama bunu sözcük vurgusu değil cümle yapısı taşımalı: \"Kendini bil… Okeanos'un ağzında bu söz, haddini bil demektir.\" \"Haddini bil\" cümlenin sonunda ve tek başına kalsın. Koro: ilk geçişte \"deniz perileri, Okeanos'un kızları\" densin, sonra hep \"periler\". Böylece kulak bunları yeni bir grup sanmaz."
+  },
+  {
+   "from": "filolog-Erhat",
+   "answer": "Kafka: tts'te \"Kafka'nın Dava romanı\", ekranda \"Dava (Erhat'ta: Duruşma)\". Tırnak kuralı: alt'taki tırnağın içi kaynakla harfi harfine aynı olmalı. Ek farkı varsa tırnağı daraltın ve eki tırnağın dışına kesmesiz yazın; TDK kuralı budur: “avutucu ninni”lere. Anlamı değiştirmeyen konuşma fiili (\"diyor\") düşürülebilir. Seste tırnak duyulmaz; alıntıyı \"Erhat'ın deyişiyle:\" gibi bir sözdizimi ve öncesindeki kısa duraklama işaretler. \"Temis\" Türkçe yazıma uygun, büyük olasılıkla doğru okunur, ama ikinci okunuş denemesine eklensin."
+  },
+  {
+   "from": "filolog-Klasik",
+   "answer": "Mekone: evet, ikinci denemede doğrulanmak şartıyla. İo: alt'ta \"İo\" olsun. Erhat s. xii ve xiv'de noktalı İ yazıyor; noktasız \"Io\"yu Türkçe okuyan \"ıo\" diye okur. tts'te denenmiş ve doğru okunmuş olan \"İyo\" kalsın. Ek taraması: ünlüyle biten adlara gelen bütün ekleri taradım, yalnız C08'deki \"Aphrodite'in\" hatalı (doğrusu \"Aphrodite'nin\"). Bir de H09'daki \"Zeus tahtından düşmedikçe\" Eyüboğlu-Erhat çevirisiyle birebir aynı (s. xii'de gördüm). \"Tiranlığından düşmedikçe\" ise kulakta deyim gibi durmuyor; \"Zeus'un tiranlığı yıkılmadıkça\" hem Yunancaya yakın hem doğal."
+  },
+  {
+   "from": "kitle-Tutma",
+   "answer": "C04, E03, E15, F03, F13 ve G10 segment olarak 32–33 kelime, ama içlerindeki cümleler 3 ile 16 kelime arası. Tek istisna F13'teki 23 kelimelik seslenme dizisi; virgüller nefes yeri veriyor, bölünmesin. Ayshilos kalsın, alt'ta zaten Aiskhylos görünüyor. Bosporos tts'te \"Bosporos\" yazılsın; Türkçe yazımla düzenli, ikinci denemede doğrulanır. Süre konusunda: ölçtüğüm gerçek süre şu an 22,5–23 dk. 20 dk'ya ancak hikâye bloğu keserek ya da hızı artırarak inilir; ikisine de karşıyım (gerekçe süre oyumda)."
+  },
+  {
+   "from": "kitle-Paket",
+   "answer": "\"Tanrılardan ateşi, bile bile çalıp\" cümlesindeki virgül ritmi bölüyor; \"Tanrılardan ateşi bile bile çalıp insanlara veren bir Titan düşün\" diye akar. A06'daki \"Prometeus'un tragedyasını\" ifadesinde iyelik belirsiz, onun yazdığı bir tragedya gibi duyuluyor. \"Prometeus tragedyasını Türkçeye çeviren Azra Erhat\" ya da \"bu efsaneyi anlatan antik bir oyunun çevirmenlerinden\" deyin. \"Bin dokuz yüz altmış yedide\" kancada 2 sn yer; A06'da tarihi ekrana bırakın, seste B'de kalsın. Sözlü atfın şart olduğu yerler: her Erhat bloğunun ilk cümlesi, her doğrudan alıntı (\"deyişiyle\"), yeni bir iddianın girişi (D10, I03) ve yorumun döndüğü cümleler (D07, J04, J06, I12, K02, K06). Blok içinde tekrar eden atıflar düşebilir: C17, D06, E11, J10, K05 ve K06'daki ikincisi."
+  },
+  {
+   "from": "dil-Metin",
+   "answer": "Evet, bölüm çekimlerinden önce ikinci bir kısa okunuş denemesi yapılsın (tek çekim, ~40 sn). Denenecek adlar: Mekone, Kratos, Bia, Okeanos, Menoitios, İapetos, Bosporos, Temis, desmotes, Göte, Meri Şeli, Frankenştayn, Openhaymır, Afrodit, Olimpos, İskit, Herakles. Denenecek etiketler, Emrullah'la hiç kullanılmamış olanlar: pained, mocking, coldly, bitterly, defiantly, intense, intrigued, proudly, firmly, sadly, nervously. Yedekleri: pained → sadly, mocking → wryly, intense → tense, defiantly → firmly, coldly → grimly. tts'te İo değil İyo kalsın, çünkü denenen o. Tırnak konusunda: etiket tek başına yetmez, konuşanın değiştiğini sözdizimi taşımalı. Önce kısa bir çerçeve gelsin (\"Hermes hemen yakalar:\"), replik ayrı bir cümle olsun, öncesinde \"…\" duraklaması olsun. Sisifos'ta replikler tts'te düz tırnak ve etiketle yazılmıştı (C05, D04, E02, E04); aynı kural burada da uygulansın. \"Diye bir kelime\" eklemek gerekmiyor: I08'de \"Eyvah!\" önce Prometeus'un ağzından duyulursa Hermes'in \"bu kelimeyi\" demesi kendiliğinden ona gönderme yapar."
+  },
+  {
+   "from": "gorsel-Uslup",
+   "answer": "K07: \"ikinci kez küçük düşüren hamle\" kulakta temiz. \"Bardağı taşıran son damla\" da doğal, ama ateş ile damla imgeleri karışık kalıyor. Benim tercihim dramaturg-A'nın E16 sürümü (\"ikinci kez küçük düşürülmesidir\"). I06: ikisi de değil; \"alay eder\" olsun. Dayanağı Erhat xv3 (\"tanrıları beş paralık ettikten sonra\"). Direnişi [defiantly] etiketi zaten taşıyor ve görselde gülme çizmek gerekmiyor. I10: [shouting] kullanmayın; bozulma ve kırpılma riski var, Sisifos'ta da kullanılmadı. [intense] etiketi, kısa ünlem cümleleri ve mix.py'de konuşmanın altına yerleşen fırtına sesi yeterli yükseltmeyi verir. [intense] denenmediği için ikinci denemeye girsin; yedeği [tense]."
+  },
+  {
+   "from": "gorsel-Kurgu",
+   "answer": "C17 ve E11'de \"Erhat'a göre\" düşebilir, çünkü aynı blokta atıf zaten yapılmış. D10 ve I03'te düşmemeli: ikisi de yeni bir Erhat iddiasını (üçüncü devrim) açıyor, sesli atıf şart. Vazo yazıtı altyazının tam metni olmasın. Yalnız anahtar kelime yazılsın ve bu kelime seslendirmede geçen kelimenin aynısı olsun (TEKEL, BİLİNÇ gibi). Seste duyulmayan bir kelime ekranda okunursa dikkat bölünür. Kelime Wd() ile tam söylendiği anda belirsin."
+  }
+ ],
+ "critiques": [
+  {
+   "member": "dramaturg-A",
+   "proposal": "Doruk sırası: hüküm (J01–J06) I07'nin ardına, Hermes'in son tehdidi ve fırtına sonra; L K'den önce gelsin; video K06 ile bitsin",
+   "stance": "katılıyorum",
+   "reason": "Seslendirmeden bakınca bugünkü düzende videonun ses doruğu olan I10 fırtınası ~17. dakikada geliyor. Ardından ~5 dakika boyunca karakter sesi olmayan, [thoughtfully] ve [slowly] tonunda anlatıcı konuşuyor; tekdüzeliğin en ağır olduğu yer burası. Yeni sırada hüküm müziğin kesildiği sessiz bir dondurmayla gelir, ses giderek yükselir ve fırtınada tepe yapar, kuyruk ~3 dakikaya iner. Hermes sahnesinin bölünmesi J01'deki \"Duruşmayı burada bir an durduralım\" cümlesi ve I08'deki dönüş sorusuyla sesle işaretlenirse kopukluk duyulmaz. Bir uyarı: J01'de \"gerçekten\" kelimesi kullanılmasın, J03'teki \"gerçekten de öyle mi\" ile çakışır."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "Sıra: I12 → K01–K06 → J01–J08b → L → K07–K08 → M",
+   "stance": "katılmıyorum",
+   "reason": "Fırtınadan sonra iki düşünsel bloğu art arda koyuyor; ~4 dakika tek tonda anlatıcı demek ve tutmayı en çok bu düşürür. K07'yi (A05 sorusunun cevabı) en sona koymak dorukta açılışa geri dönmek olur. dramaturg-A'nın sırası aynı tutma sorununu, doruktan sonraki uzun kuyruğu, daha temiz çözüyor."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "K02, K03 ve K06'yı B'ye; K04 ve K05'i G13'ün arkasına; J09 ve J10'u F10'un arkasına taşımak",
+   "stance": "kısmen",
+   "reason": "J09 ve J10'u F10'un arkasına almaya katılıyorum; s. xiii'te sıra tam böyle (xiii1'den sonra xiii2 geliyor). K'yi B'ye taşımaya karşıyım: B zaten ~80 sn soyut anlatım; açılışın en kırılgan anında karakter sesi olmayan bölümü ikiye katlar."
+  },
+  {
+   "member": "dramaturg-A / dramaturg-B / uslup-Zweig / filolog-Klasik",
+   "proposal": "I08'e \"Eyvah\", I08b'ye Hermes'in kartal tehdidi (ZVP 1016–1025), I08c'ye Prometheus'un cevabı",
+   "stance": "katılıyorum",
+   "reason": "Videonun tek inilti anı ve A03'teki kartal kurulumunun ödemesi bu. Dört sürümden tek bir kısa sürüm seçilmeli: replikler tırnak içinde, en fazla iki etiket. I08c için 1053'teki \"beni öldüremez\" H09'daki \"ölemem bile\" ile sesli bir kafiye kurar; bu yüzden onu öneriyorum (metni 1. düzeltmede)."
+  },
+  {
+   "member": "uslup-Zweig",
+   "proposal": "F14 (\"ne susabiliyorum ne de susmamak elimde\") ve G12b (\"sesi bir an çatlar\")",
+   "stance": "kısmen",
+   "reason": "F14 doğru yerde ve gerekli. Ama çift olumsuz ilk duyuşta çözülmüyor; Dostoyevski üyesinin \"ne susabiliyorum, ne de konuşabiliyorum\" sürümü aynı anlamı kulağa veriyor. \"Sesi bir an çatlar\" ise anlatıcının TTS adına verdiği bir performans sözü: Emrullah sesi gerçekten çatlatmazsa söz ile ses çelişir. Çatlağı repliğin kendisi ve [pained][slowly] etiketi taşısın."
+  },
+  {
+   "member": "uslup-Dostoyevski",
+   "proposal": "Okeanos bloğu: H04, H04b ve H04c, ~45 sn ekleme",
+   "stance": "kısmen",
+   "reason": "Çok seslilik seslendirmeye büyük kazanç getiriyor, ama üç segment fazla. dramaturg-B'nin tek cevaplı H04'ü ve Erhat xii4'e dayanan tek bir H05 cümlesi yeter. \"Kendini bil… haddini bil demektir\" tek cümle olarak kalabilir. \"Dilini azdırma\" yerine \"dilini uzatma\" denmeli."
+  },
+  {
+   "member": "uslup-Dostoyevski / gorsel-Uslup",
+   "proposal": "I10: kıyameti Prometheus kendi ağzından anlatsın (ZVP 1080 ve sonrası)",
+   "stance": "katılıyorum",
+   "reason": "Erhat xv3'teki \"diliyle canlandırır\" ifadesine dayanıyor ve doruk anlatıcının değil karakterin sesi oluyor. [shouting] kullanılmasın; [intense], kısa ünlem cümleleri ve ardından 3–4 sn sözsüz fırtına yeter. Cümle sayısı bugünkünden artmıyor, yalnız konuşan değişiyor."
+  },
+  {
+   "member": "gorsel-Kurgu",
+   "proposal": "I10'u \"Ve Zeus'un öfkesi iner.\" cümlesine indirip 6–8 sn sözsüz fırtına koymak",
+   "stance": "kısmen",
+   "reason": "Sözsüz fırtına iyi bir fikir, 3–4 sn'lik hâlini kabul ediyorum. Ama \"öfkesi iner\" \"yatıştı\" diye de duyulabiliyor (dil-Metin), ve sesin doruğu Prometheus'un kendi sesi olmalı. Bu yüzden \"gökten boşanır\" ve birinci tekil şahıs anlatım."
+  },
+  {
+   "member": "dil-Metin",
+   "proposal": "K04'ü üçüncü kişiye çevirmek; J08b, K02 ve F06'daki \"çağımız/günümüz\" ifadelerini tarihlemek",
+   "stance": "katılıyorum",
+   "reason": "Bu en çok seslendirmeyi ilgilendiren öneri. Tırnak sesle duyulmaz: Emrullah \"ayaklandık\" ya da \"bizim çağımız\" dediğinde dinleyici kanalın 2026'daki sesini duyar. Birinci çoğul şahıs yalnız \"Erhat'ın deyişiyle:\" çerçevesindeki kısa alıntıda kalmalı."
+  },
+  {
+   "member": "dil-Metin",
+   "proposal": "C07'de rolleri netleştirmek (\"oğlu… babasını\"), I10'da \"öfkesi iner\" yerine \"gökten boşanır\", I06'da \"alay eder\"",
+   "stance": "katılıyorum",
+   "reason": "Üçü de dinleyicinin yanlış anladığı yerler; okurken fark edilmiyor, dinlerken anlam kayıyor. C07'deki virgül özneyi Uranos'a kaydırıyor."
+  },
+  {
+   "member": "dil-Metin",
+   "proposal": "Bölüm içinde cümle arasını 0,9 sn'ye indirerek ~40 sn kazanmak",
+   "stance": "kısmen",
+   "reason": "Sisifos'ta segment başına sessizlik 1,34 sn: bunun 0,82 sn'si plandaki boşluk, 0,52 sn'si kesim payı. 0,9 sn'ye inmek için plan boşluğu ortalama ~0,4 sn olmalı. Bölüm içinde 0,25–0,35 sn makul, ama vuruşlardan sonra 0,8–1,2 sn ve 5–6 nefes noktası şart. Gerçekçi kazanç ~30 sn."
+  },
+  {
+   "member": "dramaturg-B / kitle-Tutma / uslup-Zweig",
+   "proposal": "Sözlü \"Erhat'a göre\" atfını bloğa bire indirmek, sayfayı ekrandaki rozet taşısın",
+   "stance": "katılıyorum",
+   "reason": "Şu an 22 kez \"Erhat'a göre\", toplam 50 kez \"Erhat\" geçiyor; aynı yükselen ezgi tik gibi tekrar ediyor. Sınırı şöyle koyuyorum: izleyicinin %48'i telefonda, %22'si TV'de ve rozet küçük kalacak. Bu yüzden sesli atıf her bloğun başında ve her doğrudan alıntıda kalmalı. D10 ve I03 gibi yeni bir iddianın girişinde düşürülmemeli."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "A02'de paradoksu 0:06'ya çekmek: \"onu oraya zincirleyen tanrının… asıl tutsak olduğunu\"",
+   "stance": "kısmen",
+   "reason": "K2'deki kazanç gerçek; eksiltili yapı (\"düşün\" fiilinin bir önceki cümleden taşınması) Sisifos'un A02'sinde çalışmıştı. Ama \"zincirleyen\" yanlış: Zeus zincirlemez, zincirletir, zinciri Hefaistos vurur. \"Zincirleten\" denmeli ve A06 aynı sözü tekrar etmemeli. Kapak kararı kitleye ait."
+  },
+  {
+   "member": "kitle-Paket",
+   "proposal": "A01'e \"bile bile\" eklemek, A06'ya 1967 tarihini koymak",
+   "stance": "kısmen",
+   "reason": "\"Bile bile\" virgülsüz yazılırsa akıyor ve G11'e tohum ekiyor. 1967'yi kancada seslendirmek 2 sn harcıyor ve B07'deki altyazı kayması sorununu açılışa taşıyor; tarih ekranda kalsın."
+  },
+  {
+   "member": "uslup-Zweig",
+   "proposal": "A01–A02'yi -iyor kipinde çekiç ve sessizlikle açmak",
+   "stance": "kısmen",
+   "reason": "Aynı etki sözsüz de alınabilir: ilk ses bir çekiç vuruşu olur, ardından kısa bir sessizlik gelir. Söz ise kapağın vaadine ayrılmalı. Sessizlik omurgası F10b'de ses tasarımıyla zaten kuruluyor."
+  },
+  {
+   "member": "filolog-Erhat / filolog-Klasik",
+   "proposal": "I03'teki \"üçüncü devrim\" yanlışını düzeltmek ve D11'in cevabını Erhat xi1'den vermek",
+   "stance": "katılıyorum",
+   "reason": "Omurgadaki en ciddi sadakat hatası bu. Düzeltilince [slowly] okunacak güçlü bir cümle de kazanılıyor: \"İnsan, kendi gücünün bilincine varır… ve tanrıya karşı ayaklanır.\""
+  },
+  {
+   "member": "filolog-Klasik",
+   "proposal": "F06 → F08 → F07 → F09 sırası; Hephaistos'un \"nefret ettiğim zanaatım\" sözü ve Kratos'un cevabı",
+   "stance": "katılıyorum",
+   "reason": "Videonun ilk karşılıklı konuşması ~8. dakikada gelir ve ses rengi ilk kez değişir. Tek bir düzeltme: önerilen metinde art arda iki \"başka\" var (\"hükmetmekten başka… Zeus'tan başka\"), kulak tekrarı yakalıyor. Birincisi \"dışında\" olmalı."
+  },
+  {
+   "member": "filolog-Klasik",
+   "proposal": "H09: \"Zeus tiranlığından düşmedikçe\"",
+   "stance": "kısmen",
+   "reason": "Tespit doğru: s. xii'de Eyüboğlu-Erhat çevirisinde \"Zeus tahtından düşmedikçe\" yazıyor, bizim metnimiz birebir aynı. Ama \"tiranlığından düşmek\" Türkçede deyim değil. \"Zeus'un tiranlığı yıkılmadıkça\" hem Yunancaya yakın hem kulakta doğal."
+  },
+  {
+   "member": "gorsel-Kurgu",
+   "proposal": "F08'deki filantropi bilgisini seslendirmeden çıkarıp ekrana bırakmak",
+   "stance": "katılmıyorum",
+   "reason": "Telefon ve TV izleyicisi bu bilgiyi ancak duyarsa alır. Bilgi bir merak kancası; kısaltılmış hâliyle seste kalsın, ekrandaki yazıt onu desteklesin."
+  },
+  {
+   "member": "dramaturg-A / dramaturg-B",
+   "proposal": "K07'yi E16 ya da E11'e taşıyıp A05'in cevabını ara ödül olarak vermek",
+   "stance": "katılıyorum",
+   "reason": "Kapanıştaki beş ayrı \"son cümle\" yığılmasını azaltıyor. E bölümü de doğal bir kapanış vuruşuyla bitiyor."
+  },
+  {
+   "member": "kitle-Tutma",
+   "proposal": "G13b: \"her acıyı iki kez yaşıyordu: önce zihninde, sonra kayada\"",
+   "stance": "kısmen",
+   "reason": "Ritmi güzel, ama F14, G12 ve G13 de \"önceden bilme\" temasını işliyor; bu dördüncü vuruş olur. Motif üç vuruşta kalsın, her vuruş farklı sözcüklerle. G13b eklenirse G13'teki özet cümle çıkmalı."
+  },
+  {
+   "member": "gorsel-Uslup",
+   "proposal": "J03'ü atmak",
+   "stance": "katılmıyorum",
+   "reason": "J03 Erhat'ın kendi sorusu (xiii4) ve J04'ten önceki tek nefeslik gerilim duraklaması; seslendirme için gerekli bir vuruş. \"Gerçekten de\" düzeltmesiyle kalsın; tekrarı önlemek için J01'den \"gerçekten\" çıkarılsın."
+  }
+ ],
+ "changed_mind": "1) Süre hesabı. Birinci turda cümle arası boşluğu 0,35 sn varsaydım ve toplamı ~21,8 dk buldum. Sisifos'un timeline.js ve plan.json dosyalarını ölçünce gerçek konuşma dışı süre segment başına 1,34 sn çıktı: 0,82 sn plandaki boşluk, 0,52 sn kesim payı. Konuşma hızı 13,91 karakter/sn. Bu ölçümle rev 2 şu an 22,5–23,1 dk ediyor. Bu yüzden süre oyumu 21'den 22'ye çıkardım. 2) Mekoni/Mekone. Okunuş denemesinde Mekoni doğru okunmuş, Mekone hiç denenmemiş. \\\"Mekone\\\" önerimi koruyorum, ama ikinci denemede doğrulanma şartıyla. 3) E05'teki Zeus repliği için önerdiğim \\\"İapetosoğlu\\\" denenmemiş bir bileşik ad; yerine \\\"İapetos'un oğlu\\\" diyorum. 4) F14'te yalnız ZVP 101–103'ü önermiştim. Şimdi 106–107'yi de alıyorum, ama Dostoyevski üyesinin kulakta çözülen \\\"ne susabiliyorum, ne de konuşabiliyorum\\\" sürümüyle. G12b'deki \\\"sesi bir an çatlar\\\" cümlesine karşıyım (TTS'e performans vaadi). 5) Birinci turda J08'i tamamen atmayı önermiştim. Şimdi J07 ile birleşmesini ve Zeus'a bağlanmasını kabul ediyorum: xiv4'teki politika dersi korunuyor, güncel siyaset gibi okunma riski kalkıyor. 6) Doruk sırası hakkında birinci turda görüş bildirmemiştim. Ses yayı açısından dramaturg-A'nın sırasını destekliyorum. 7) Sisifos'taki tırnaklı repliklerin \\\"diyalog gibi okunduğunu\\\" söylemiştim. Doğrulayabildiğim yalnız şu: Sisifos'ta replikler düz tırnak ve etiketle yazılmıştı (C05, D04, E02, E04) ve video başarılı oldu; kulakla bir karşılaştırma yapılmadı. 8) Kaynak üyelerinin bulguları (I03, B05, F09, L02, H09'un Eyüboğlu-Erhat çevirisiyle aynı olması) yüzünden K1'i 8,6'dan 7,9'a, yapı sorunları yüzünden K3'ü 8,8'den 7,8'e indirdim. Ağırlıklı toplam ~7,75; kararım RED.",
+ "scores": {
+  "K1": 7.9,
+  "K2": 8,
+  "K3": 7.8,
+  "K4": 7.6,
+  "K5": 7.2,
+  "K6": 7.6,
+  "K7": 8.2
+ },
+ "final_duration_min": 22,
+ "duration_vote_reason": "Hesabı Sisifos'un gerçek kayıtlarından yaptım. Hız: 4.644 karakter 334,0 sn saf konuşmada okunmuş, yani 13,91 karakter/sn. Konuşma dışı süre segment başına 1,34 sn. Rev 2'nin tts metni etiketler çıkarılınca 16.743 karakter, bu da 20,1 dk saf konuşma eder. Sisifos'un boşluk alışkanlığıyla toplam ~23,1 dk; daha sıkı bir boşluk planıyla (bölüm içinde 0,3 sn, bölüm sonunda 2,2 sn) ~22,5 dk. Kurulun üzerinde birleştiği tekrar kesintileri yaklaşık −85 sn: B03–B05, C12/C13, C14, D05/D06, E03, E07, G11, J07+J08, J08b, M00+M01, fazla atıflar. Doruk eklemeleri yaklaşık +75 sn: Eyvah, kartal tehdidi, \\\"beni öldüremez\\\", F14, G12'deki çatlak, Hephaistos ile Kratos'un konuşması, Okeanos'a tek cevap, D11'in cevabı. Net sonuç ~−10 sn. Buna 3–4 nefes noktası ve bitiş ekranı eklenince ~22 dk (21,5–22,5) çıkıyor. 21 dakika ancak eklemeler kısılırsa tutar: tek bir \\\"önceden bilme\\\" vuruşu, Okeanos'a tek cümle, kısa I08b. Daha aşağısı için hikâye bloğu kesmek ya da hızı artırmak gerekir. Kanalın sesi doğal hızında kalmalı, bu yüzden time-stretch ya da hız ayarı önermiyorum.",
+ "top_fixes": [
+  {
+   "ids": "I06, I08, I08b (yeni), I08c (yeni)",
+   "change": "I06'da \"güler\" yerine \"alay eder\". I08'e önce Prometheus'un \"Eyvah\"ı gelsin. I08'den sonra Hermes'in kartal tehdidi (ZVP 1016–1025) ve Prometheus'un cevabı (ZVP 1053) girsin. Replikler tts'te düz tırnak içinde ve konuşana göre etiketli yazılsın. Çeviriler bizim; dize karşılıklarını filolog onaylasın. I08c'nin ilk cümlesi anlatıcının.",
+   "why": "A03'teki kartal ödemesiz kalıyor ve oyunun tek inilti anı atlanmış (K3, K5). Ses açısından Hermes sorgusu videonun en sık replik değişen, en çok sesli sahnesi olur. \"Beni öldüremez\" H09'daki \"ölemem bile\" ile sesli bir kafiye kurar.",
+   "tts": "I06: [defiantly] Prometeus alay eder: \"Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü gördüm. Üçüncüsünün düşüşünü de göreceğim.\" || I08: [pained] Bir an, Prometeus'un ağzından tek bir inilti kaçar: \"Eyvah!\"… [mocking] Hermes hemen yakalar: \"Zeus bu kelimeyi bilmez.\" [calmly] Prometeus'un cevabı: \"Yaşlanan zaman, her şeyi öğretir.\" || I08b: [ominous] Hermes son tehdidini savurur: \"Zeus bu kayayı yıldırımla parçalayacak; sen kayanın içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği gelecek: kanlı kartal.\" [darkly] \"Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek.\" || I08c: [slowly] Açılıştaki kartal, işte bu tehdittir. [calmly] Prometeus'un cevabı kısadır: \"Ne yaparsa yapsın… beni öldüremez.\"",
+   "alt": "I06: Prometheus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü gördüm. Üçüncüsünün düşüşünü de göreceğim.” || I08: Bir an Prometheus'un ağzından tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.” || I08b: Hermes son tehdidini savurur: “Zeus bu kayayı yıldırımla parçalayacak; sen kayanın içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde Zeus'un kanatlı köpeği gelecek: kanlı kartal. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.” || I08c: Açılıştaki kartal işte bu tehdittir. Prometheus'un cevabı kısadır: “Ne yaparsa yapsın… beni öldüremez.”"
+  },
+  {
+   "ids": "I07 → J01–J06 → I08–I12 → L01–L06 → K01–K06 → M; J07+J08 birleşir (J08 silinir); K07 → E16",
+   "change": "dramaturg-A'nın doruk sırası uygulansın. Hüküm Hermes sahnesinin ortasında sessiz bir dondurmayla verilsin, fırtına sonraya kalsın. Kuyrukta önce L, sonra K gelsin ve son Erhat cümlesi K06 olsun. J01 dondurmayı sesle duyursun (müzik o an kesilsin) ve \"gerçekten\" kelimesini kullanmasın; J03 böylece \"gerçekten de\" ile kalabilir. J04'te paradoks ortadaki duraklamayla kurulsun, [reverently] kalksın. J07 ile J08 birleşip Zeus'a bağlansın.",
+   "why": "Bugünkü düzende I10'daki fırtınadan sonra ~5 dakika karakter sesi olmayan, tek tonlu anlatım geliyor; bu tekdüzeliğin ve izleyici kaybının en yüksek olduğu bölge (K3, K4). Yeni sırada ses giderek fırtınaya tırmanıyor ve kuyruk ~3 dakikaya iniyor. J07'deki iki tırnaklı ifade Erhat xiv'deki cümleyle birebir aynı (fotoğraftan doğruladım).",
+   "tts": "J01: [slowly] Duruşmayı burada bir an durduralım. [mysterious] Bu sahnede asıl tutsak kim? || J04: [slowly] Ve Erhat'ın cevabı: Gerçekte Zeus köle… [firmly] Prometeus özgürdür. || J07: Erhat'a göre Ayshilos'un dersi şudur: Akıl gücü, kaba güçten üstündür; özgür düşünce tutuklanamaz, susturulamaz. Zeus'un düzeni de akılla kurulmuştu; akla sırt çevirdiği an, zayıflar ve devrilme tehlikesiyle yüz yüze gelir.",
+   "alt": "J01: Duruşmayı burada bir an durduralım. Bu sahnede asıl tutsak kim? || J04: Ve Erhat'ın cevabı: “Gerçekte Zeus köle, Prometheus özgürdür.” || J07: Erhat'a göre Aiskhylos'un dersi şudur: “Akıl gücü kaba güçten üstündür”; özgür düşünce “tutuklanamaz, susturulamaz.” Zeus'un düzeni de akılla kurulmuştu; akla sırt çevirdiği an zayıflar ve devrilme tehlikesiyle yüz yüze gelir."
+  },
+  {
+   "ids": "I03, K03b (yeni, K03'ten sonra)",
+   "change": "I03'teki \"üçüncü devrim bir bilgidir\" denklemi düzeltilsin: Erhat x3'e göre bilgi devrimin hazırlığıdır. D11'deki \"Sıra kime gelecekti?\" sorusu Erhat xi1'deki cevapla kapansın: üçüncü ve son devrimi insan yapar. I03'ün ikinci cümlesi anlatıcının; dayanağı Erhat x4 ve ZVP 907–912.",
+   "why": "Omurgadaki en ciddi kaynak hatası bu (K1) ve D11 şu an hiç ödenmiyor (K3). Ses açısından [slowly] okunacak güçlü bir cümle kazanılıyor. tts ile alt'ın kelime sayısı birebir tutuyor.",
+   "tts": "I03: [slowly] Tıpkı Uranos'un ve Kronos'un başına gelen gibi. [darkly] Babasını deviren oğul, şimdi oğlundan korkuyordu. [knowingly] Erhat'ın sözünü ettiği üçüncü devrim, işte böyle hazırlanıyordu: Zeus'u sürekli kuşku içinde tutan bir bilgiyle. || K03b: [slowly] Uranos devrilmişti. Kronos devrilmişti. Erhat'a göre üçüncü ve son devrimi ise bir tanrı yapmaz: İnsan, kendi gücünün bilincine varır… ve tanrıya karşı ayaklanır.",
+   "alt": "I03: Tıpkı Uranos'un ve Kronos'un başına gelen gibi. Babasını deviren oğul, şimdi oğlundan korkuyordu. Erhat'ın sözünü ettiği üçüncü devrim işte böyle hazırlanıyordu: Zeus'u sürekli kuşku içinde tutan bir bilgiyle. || K03b: Uranos devrilmişti. Kronos devrilmişti. Erhat'a göre “üçüncü ve son devrim”i ise bir tanrı yapmaz: İnsan kendi gücünün bilincine varır… ve tanrıya karşı ayaklanır."
+  },
+  {
+   "ids": "F13 (son cümle), F14 (yeni), G11, G12, G13",
+   "change": "F13'teki son replik birinci tekil şahsa dönsün (Yunancası ἴδεσθέ μ᾽). F14 eklensin: ZVP 101–103 ve 106–107 bizim çevirimizle, Eyüboğlu-Erhat çevirisinden (s. xii) farklı. [whispers] etiketi Sisifos'ta denenmişti ve filmde yalnız burada kullanılsın. G12'ye ZVP 267–270'teki çatlak eklensin; \"sesi bir an çatlar\" gibi anlatıcı cümlesi olmasın. G11 kısalsın: \"[firmly] Ve sanık suçunu inkâr etmez. Erhat'ın dediği gibi, bugünkü bir sanık gibi konuşur: Ne yaptımsa, bile bile yaptım.\" G13'te Erhat'ın kelimesi \"katlanma duygusu\" kullanılsın (s. xii'den doğruladım); son cümlesi anlatıcının.",
+   "why": "Prometheus'un iç sesi şu an ancak ~9. dakikada ve tek bir cümleyle duyuluyor (K5). Sessizlik (F10b), iç hesaplaşma (F14), itiraf ve çatlak (G12), son söz (I12): karakterin yayı sesle kurulur. \"Önceden bilme\" motifi üç farklı cümleyle çalınır; G13'teki özet tekrar kalkar.",
+   "tts": "F13 (son cümle): [pained] \"Bakın bana: Tanrı olduğum hâlde, tanrılardan neler çekiyorum.\" || F14: Sonra birden kendi sözünü keser: [whispers] \"Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum. Hiçbir acı bana habersiz gelmeyecek.\" [pained] [slowly] \"Yine de… başıma gelenler karşısında ne susabiliyorum, ne de konuşabiliyorum.\" || G12: Oyundaki sözleriyle: [firmly] \"Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim.\" [pained] [slowly] \"Ama böyle cezalarla, bu ıssız kayada eriyip gideceğimi… hiç düşünmemiştim.\" || G13: [thoughtfully] Erhat'a göre bu bilinç, onda hem bir gurur, hem de bir katlanma duygusu doğurur. [slowly] Bedel, beklediğinden ağırdı… ama geri adım atmadı.",
+   "alt": "F13 (son cümle): “Bakın bana: Tanrı olduğum hâlde tanrılardan neler çekiyorum.” || F14: Sonra birden kendi sözünü keser: “Ama ne diyorum? Olacak her şeyi önceden, apaçık biliyorum. Hiçbir acı bana habersiz gelmeyecek. Yine de… başıma gelenler karşısında ne susabiliyorum ne de konuşabiliyorum.” || G12: Oyundaki sözleriyle: “Bunların hepsini biliyordum. İsteyerek, isteyerek suç işledim; inkâr etmeyeceğim. Ama böyle cezalarla, bu ıssız kayada eriyip gideceğimi… hiç düşünmemiştim.” || G13: Erhat'a göre bu bilinç onda hem bir gurur hem de bir katlanma duygusu doğurur. Bedel beklediğinden ağırdı… ama geri adım atmadı."
+  },
+  {
+   "ids": "B07, J03, M01, C08, E03, H06–H10, H09 + araçlar",
+   "change": "(a) tts ile alt'ın kelime sayısını eşitle. J03'e \"de\" eklensin (Erhat xiii4: \"gerçekten de\"). M01'de bildirinin içeriği yeniden söylensin; Erhat'ın cümlesi (s. xv) seste değişmesin. B07'nin metni doğru; ama srt.py'deki MERGE haritasına ('B07', \"1967'de\"): 5 eklensin ve build_vo.py'nin disp eşlemesine bir sayı haritası yazılsın. Sisifos'un G01'inde altyazı bu yüzden 4 kelime kaymıştı, timeline'da doğruladım. (b) Yazım: alt'ta \"İo\" (Erhat s. xii, xiv), tts'te denenmiş \"İyo\"; tts'te \"Mekone\"; C08 alt'ında \"Aphrodite'nin\"; H09'un Eyüboğlu-Erhat çevirisiyle birebir aynı olan kısmı yeniden yazılsın. (c) Üretim: bölüm çekiminden önce ikinci bir okunuş denemesi yapılsın (denenmemiş adlar ve etiketler). Uzun bölümler 1.100 karakteri geçmeyen alt çekimlere bölünsün. Sisifos'taki en uzun bölüm 1.021 karakterdi; burada C 2.037, E 1.873, G 1.765, F 1.735 karakter. Bunun için build_vo.py'ye bir 'cekim' alanı eklensin. transcribe.py'deki initial_prompt hâlâ Sisifos adlarını içeriyor, Prometheus'un tts yazımlarıyla değiştirilsin.",
+   "why": "Eşleşme bozuk olursa izleyicilerin %38'inin kullandığı altyazı kayar ve ses ile ekran ayrı şey söyler (K6). Bölüm başı tek çekim olunca uzun bölümlerde ezgi kayar, tek bir hatalı cümle için bütün bölüm yeniden üretilir ve kredi harcanır.",
+   "tts": "J03: [knowingly] Erhat sorar: Ama bakalım, gerçekten de öyle mi? || M01: [thoughtfully] Azra Erhat'ın önsözü, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. [slowly] Kıyamet de kopsa son söz özgür düşüncenindir, diyordu Ayshilos. Ve Erhat ekler: Bildirisi, bugün de kulaklarımızda çınlasın. || H09: [softly] İyo, acısına dayanamayıp ölmeyi diler. Prometeus'un cevabı ağırdır: \"Ben ölemem bile. İşkencem, Zeus'un tiranlığı yıkılmadıkça bitmeyecek.\" || E03: …Mekone denen yerde… || H06: …Adı… İyo.",
+   "alt": "J03: Erhat sorar: “Ama bakalım gerçekten de öyle mi?” || M01: Azra Erhat'ın önsözü, zincirdeki bu Titan'da insanın kendisini görmeyi öğretiyor. Kıyamet de kopsa son söz özgür düşüncenindir, diyordu Aiskhylos. Ve Erhat ekler: “Bildirisi bugün de kulaklarımızda çınlasın!” || H09: İo, acısına dayanamayıp ölmeyi diler. Prometheus'un cevabı ağırdır: “Ben ölemem bile. İşkencem, Zeus'un tiranlığı yıkılmadıkça bitmeyecek.” || C08: …deniz köpüğünden doğan Aphrodite'nin hikâyesine dalar gider… || H06: …Adı… İo."
+  },
+  {
+   "ids": "K04, J08b, K02, F06",
+   "change": "Erhat'ın 1967'de söylediği \"çağımız\" ve \"günümüz\" ifadeleri tts'te \"kendi çağı\" ya da \"yirminci yüzyıl\" diye tarihlensin. K04 üçüncü kişiye çevrilsin; birinci çoğul şahıs yalnız tırnaklı kısa alıntıda kalsın. K02'de fiil öne alınsın; şimdiki hâlinde fiilden önce on kelimelik bir ad öbeği var ve kulak bunu taşıyamıyor.",
+   "why": "Tırnak sesle duyulmaz. Emrullah'ın \"ayaklandık\", \"bizim çağımız\" ya da \"günümüzün diliyle polis\" demesi kanalın 2026'daki bildirisi ve güncel siyasete bir yorum gibi duyulur (K6, K1). Böylece Erhat'ın sözü değişmeden yerine oturuyor.",
+   "tts": "K04: Erhat, kendi kuşağı adına konuşur. Bu kuşak, gelenek süslerini üstünden atmıştır; ister tanrıdan, ister insandan gelsin, avutucu ninnilere kulak vermez. Bugün, bu dünyada yaşamak ister. [firmly] Erhat'ın deyişiyle: Umuda karşı da ayaklandık. || J08b: Efsane Prometeus'a kâhin der. Erhat'ın yirminci yüzyılı ise kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Bu hizmetinin karşılığında, kör iktidarların baskısına uğradığını da bilir. || K02: Erhat'a göre kendi çağının düşünürleri bu soruya, sanki sözleşmiş gibi, hep aynı cevabı verir: İnsan, başkaldıran yaratıktır. || F06 (son cümle): Erhat onlara, kendi çağının diliyle, polis der.",
+   "alt": "K04: Erhat kendi kuşağı adına konuşur. Bu kuşak gelenek süslerini üstünden atmıştır; ister tanrıdan ister insandan gelsin, “avutucu ninni”lere kulak vermez. Bugün, bu dünyada yaşamak ister. Erhat'ın deyişiyle: “Umuda karşı da ayaklandık.” || J08b: Efsane Prometheus'a kâhin der. Erhat'ın XX. yüzyılı ise kâhine inanmaz; ama aklıyla geleceği gören düşünürü tanır. Bu hizmetinin karşılığında “kör iktidarların baskısına” uğradığını da bilir. || K02: Erhat'a göre kendi çağının düşünürleri bu soruya, sanki sözleşmiş gibi, hep aynı cevabı verir: “İnsan başkaldıran yaratıktır.” || F06: …Erhat onlara, kendi çağının diliyle, “polis” der."
+  },
+  {
+   "ids": "F06→F08→F07→F09 (sıra), F07, F09, H04, E05",
+   "change": "Karakter replikleri anlatıcının sesinden ayrılsın: tts'te düz tırnak, kendi etiketi ve kısa bir çerçeve kullanılsın (Sisifos'taki C05, D04, E02, E04 kuralı). Etiketler: Hefaistos [sadly] ya da [pained], Güç [coldly], Okeanos [softly], Zeus [wryly]. Terimler (“önceden gören”, “filantropi”) tts'te tırnaksız yazılsın, tırnak alt'ta kalsın. F09'da art arda iki \"başka\" olmasın. F07'de \"iktidar\" yerine \"tahta çıkan\" (ZVP 35'te \"herkes\" deniyor). H04'te Prometheus'un cevabı ZVP 330–331'den; filolog doğrulasın.",
+   "why": "Tek bir sesle beş ayrı konuşan var ve ilk 9 dakikada ses rengi hiç değişmiyor (K5, K6). Hefaistos ile Güç'ün atışması ve Okeanos'un ayartısı Dostoyevski'nin çok sesliliğini uydurma eklemeden veriyor. Zeus'un E05'teki repliği E09'daki \"bile bile aldanır\" cümlesini temellendiriyor.",
+   "tts": "F07: Zincirleri vurmak, demirci tanrı Hefaistos'a düşer. İstemeyerek vurur: zincirlediği kendi akrabasıdır, ama Zeus'un sözünü çiğneyemez. [sadly] \"Yeni tahta çıkan herkes serttir,\" der. || F09: İş sürerken Hefaistos inler: [pained] \"Ah, nefret ettiğim zanaatım!\" [coldly] Güç'ün cevabı buz gibidir: \"Tanrılara hükmetmek dışında her iş bir yüktür. Çünkü Zeus'tan başka hiç kimse özgür değildir.\" || H04: Okeanos, Prometeus'a boyun eğmesini öğütler: [softly] \"Kendini bil. Tanrıların başında yeni bir tiran var. Boşuna direnme.\" [coldly] Prometeus'un cevabı iğnelidir: \"Seni kıskanıyorum. Her şeye benimle ortak oldun; ama suçun dışında kalmayı başardın.\" || E05: [wryly] Zeus alay eder: \"İapetos'un oğlu, payları ne de eşitsiz bölmüşsün!\" Prometeus hafifçe gülümser: \"Hangisini istersen, onu seç.\" Zeus yağlı payı aldı… ve altından beyaz kemikler çıktı. O günden beri insanlar eti kendileri yer, tanrılara kemik yakar.",
+   "alt": "F07: Zincirleri vurmak, demirci tanrı Hephaistos'a düşer. İstemeyerek vurur: Zincirlediği kendi akrabasıdır, ama Zeus'un sözünü çiğneyemez. “Yeni tahta çıkan herkes serttir,” der. || F09: İş sürerken Hephaistos inler: “Ah, nefret ettiğim zanaatım!” Güç'ün cevabı buz gibidir: “Tanrılara hükmetmek dışında her iş bir yüktür. Çünkü Zeus'tan başka hiç kimse özgür değildir.” || H04: Okeanos, Prometheus'a boyun eğmesini öğütler: “Kendini bil. Tanrıların başında yeni bir tiran var. Boşuna direnme.” Prometheus'un cevabı iğnelidir: “Seni kıskanıyorum. Her şeye benimle ortak oldun; ama suçun dışında kalmayı başardın.” || E05: Zeus alay eder: “İapetos'un oğlu, payları ne de eşitsiz bölmüşsün!” Prometheus hafifçe gülümser: “Hangisini istersen onu seç.” Zeus yağlı payı aldı… ve altından beyaz kemikler çıktı. O günden beri insanlar eti kendileri yer, tanrılara kemik yakar."
+  },
+  {
+   "ids": "C01, D01, F01, G01, H01, I01, K01, L01",
+   "change": "Bölüm açılışlarındaki etiketler sorunun duygusuna göre çeşitlensin. \"Peki\" yalnız A05 ile M02'de kalsın. [curious] yalnız A05, H01 ve M02'de kullanılsın. F01 ve H01'deki bilgi soruları gerçek merak sorusuna dönsün (dramaturg-A). C01 Prometheus'u bölüme bağlasın (kitle-Tutma, gorsel-Kurgu). L01 H10'daki okçu kurulumunu ödesin (filolog-Klasik).",
+   "why": "13 bölüm açılışının hepsi [curious] etiketli, 8'i \"Peki\" ile başlıyor. Her ~1,5 dakikada aynı ezgi geliyor ve bölüm başı bir jingle gibi duyuluyor (K4, K6). Önerdiğim etiketlerden wryly, darkly, thoughtfully, softly ve mischievously Sisifos'ta denenmişti; intrigued denenmedi.",
+   "tts": "C01: [wryly] Tanrıların kralı Zeus, o tahta nasıl oturmuştu? Ve Prometeus'un bunda ne payı vardı? || D01: [darkly] Zeus, bir Titan ailesine neden özel bir kin besliyordu? || F01: [thoughtfully] Aynı Titan, yüzyıllar sonra Atina'da sahneye çıkınca, neden bambaşka birine dönüştü? || G01: [intrigued] Zincirdeki sanık, kendini nasıl savunur? || H01: [curious] Kayaya gelen herkes ona aynı şeyi öğütler: boyun eğ. Neden hiçbiri onu anlamaz? || I01: [mischievously] Zincirdeki bir sanık, yargıcını nasıl korkutabilir? || K01: [thoughtfully] İnsan, ne zaman insan olmaya başladı? || L01: [softly] Prometeus'un haber verdiği o okçu, gerçekten geldi mi?",
+   "alt": "C01: Tanrıların kralı Zeus, o tahta nasıl oturmuştu? Ve Prometheus'un bunda ne payı vardı? || D01: Zeus, bir Titan ailesine neden özel bir kin besliyordu? || F01: Aynı Titan, yüzyıllar sonra Atina'da sahneye çıkınca neden bambaşka birine dönüştü? || G01: Zincirdeki sanık kendini nasıl savunur? || H01: Kayaya gelen herkes ona aynı şeyi öğütler: boyun eğ. Neden hiçbiri onu anlamaz? || I01: Zincirdeki bir sanık yargıcını nasıl korkutabilir? || K01: İnsan ne zaman insan olmaya başladı? || L01: Prometheus'un haber verdiği o okçu gerçekten geldi mi?"
+  },
+  {
+   "ids": "B04+B05 (B05 silinir), C12+C13 (C13 silinir), J09+J10 → F10'dan sonra; atıf kuralı: C17, D06, E11, J10, K05, K06",
+   "change": "Sözlü atıf kuralı: her Erhat bloğunun ilk cümlesinde ve her doğrudan alıntıda atıf sesle yapılır, blok içindeki tekrarlar düşer; ekrandaki sayfa rozeti bunu destekler. B04 B01'in sorusunu doğrudan cevaplasın. B05'teki \"en iyi\" düzeltilsin: Erhat v5'te \"özüyle temsil eden\" ve \"en çok da bizim çağımızda\" diyor; ikincisi tarihlensin. C12 ile C13 tek cümle olsun. J09 ve J10, Erhat'ın kendi sırasıyla (xiii1'den sonra xiii2) F10'un arkasına taşınsın; \"desmotes\" çerçeveli verilsin.",
+   "why": "Şu an 22 kez \"Erhat'a göre\" ve toplam 50 kez \"Erhat\" geçiyor; aynı yükselen ezgi tik gibi duyuluyor (K4, K6). B05'te kaynak abartısı var (K1). J09–J10 zincir sahnesinin yanına gelince soyut J bloğu kısalıyor.",
+   "tts": "B04: [warmly] Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre, anlatabilir: Burada oynanan dram, insanlığın dramıdır. [slowly] Ve Prometeus, Ayshilos'tan bu yana, en çok da yirminci yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir… insan dostu, tanrı düşmanı. || C12: [thoughtfully] Erhat'a göre bu iki darbe aynı şey değildir. Birincisi, kaba kuvvetin kendi kendine yenilmesiydi. İkincisi ise bir akıl ve hesap işiydi: kaba kuvvetin, akılla yenilmesi. Bu kez Zeus'a, kaba kuvvetin acısını tatmış Uranos ile Gaya kılavuzluk etmişti. || J09 (F10'dan sonra): [thoughtfully] Bunun ağırlığını anlamak için, Erhat'a göre çağı düşünmek gerekir. Beşinci yüzyıl Atinası'nda kölelik de zorbalık da, yasalara uygun kurumlardı. Prometeus da herhangi bir köle gibi zincire vurulmuştu; Yunancasıyla, desmotes.",
+   "alt": "B04: Oyunu Sabahattin Eyüboğlu'yla birlikte çeviren Azra Erhat'a göre anlatabilir: Burada oynanan dram insanlığın dramıdır. Ve Prometheus, Aiskhylos'tan bu yana, en çok da XX. yüzyılda, insanı özüyle temsil eden kahraman olarak benimsenmiştir: “insan dostu, tanrı düşmanı.” || C12: Erhat'a göre bu iki darbe aynı şey değildir. Birincisi kaba kuvvetin kendi kendine yenilmesiydi. İkincisi ise “bir akıl ve hesap işi”ydi: “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, kaba kuvvetin acısını tatmış Uranos ile Gaia kılavuzluk etmişti. || J09: Bunun ağırlığını anlamak için, Erhat'a göre çağı düşünmek gerekir. V. yüzyıl Atinası'nda kölelik de zorbalık da yasalara uygun kurumlardı. Prometheus da herhangi bir köle gibi zincire vurulmuştu; Yunancasıyla “desmotes”."
+  },
+  {
+   "ids": "A06, M02, C07, I10 (+A02 için not)",
+   "change": "Dinleyiciyi yanıltan cümleler düzeltilsin. A06 ve M02'de \"o kayada asıl tutsak\" yerine \"o zincirin asıl tutsağı\" densin (Zeus kayada değil; Erhat xiv5). A06'daki \"Bu oyunu\" bağlamsız kalıyor, çünkü oyun henüz anılmadı. C07'de virgül özneyi Uranos'a kaydırıyor. I10'daki \"öfkesi iner\" \"yatıştı\" diye de duyulabilir; kıyameti Prometheus kendi ağzından anlatsın (ZVP 1080 ve sonrası; Erhat xv3), ardından plan.json'a 3–4 sn sözsüz fırtına konsun. Not: A02'de kitle-Tutma'nın paradoksu kullanılırsa \"zincirleyen\" yerine \"zincirleten\" denmeli, çünkü zinciri Hefaistos vurur.",
+   "why": "Okurken fark edilmeyen ama dinlerken anlamı kaydıran yerler bunlar (K6, K1). A06 ile M02 aynı kalıpla eşleşince kurulum ile ödeme kulakta birleşir. Fırtınanın doruğu anlatıcının betimlemesi değil, karakterin sesi olur.",
+   "tts": "A06: [thoughtfully] Bu efsaneyi anlatan antik bir oyunun çevirmenlerinden Azra Erhat, şaşırtıcı bir şey söyler. [mysterious] Ona göre o zincirin asıl tutsağı… Prometeus değildi. || M02: [curious] Peki sen ne düşünüyorsun? O zincirin asıl tutsağı kimdi: kayadaki Prometeus mu, tahttaki Zeus mu? Yorumlarda yaz. || C07: [tense] Kronos gece pusuya yattı. Uranos Gaya'nın üstüne eğildiği anda, oğlu tırpanı savurdu… ve babasını iğdiş etti. || I10: [intense] Ve Zeus'un öfkesi gökten boşanır. Prometeus, olanları kendi ağzıyla anlatır: \"Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine giriyor; gök, denize karışıyor!\"",
+   "alt": "A06: Bu efsaneyi anlatan antik bir oyunun çevirmenlerinden Azra Erhat şaşırtıcı bir şey söyler. Ona göre o zincirin asıl tutsağı… Prometheus değildi. || M02: Peki sen ne düşünüyorsun? O zincirin asıl tutsağı kimdi: kayadaki Prometheus mu, tahttaki Zeus mu? Yorumlarda yaz. || C07: Kronos gece pusuya yattı. Uranos Gaia'nın üstüne eğildiği anda, oğlu tırpanı savurdu… ve babasını iğdiş etti. || I10: Ve Zeus'un öfkesi gökten boşanır. Prometheus olanları kendi ağzıyla anlatır: “Artık sözde değil, gerçekte! Yer sarsılıyor, gök gürlüyor, şimşekler çakıyor. Rüzgârlar birbirine giriyor; gök denize karışıyor!”"
+  }
+ ],
+ "verdict": "RED"
+}

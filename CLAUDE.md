@@ -238,7 +238,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - YouTube bölüm zaman damgaları konur;
   - açılış kuralı (ilk 5 saniyede kapağın vaadi) değişmez;
   - kurul "bu sahne hikâyeye bir şey katıyor mu?" diye sorar, "kısa mı?" diye değil.
-- **Sıradaki video:** Prometheus (kullanıcının kararı).
+- **Prometheus** (kullanıcının kararı). Durum: üretildi ve yayımlandı (`prometheus/yayin.md`, karar kaydı `prometheus/kurul/kararlar.md`, geriye bakış `prometheus/geriye_bakis.md`).
   - **Çıkış noktası:** Aiskhylos'un *Zincire Vurulmuş Prometheus*'u (İş Bankası Kültür Yayınları, Hasan Âli Yücel Klasikler). Kullanıcıyı asıl etkileyen, kitabın kendisinden çok Azra Erhat'ın önsözü; onun Prometheus'a bakışı videonun omurgası olacak.
   - **Önsözden yorum uydurma:** Erhat'a ait her görüş ve alıntı yalnız kullanıcının verdiği önsöz sayfalarından (fotoğraf ya da metin) alınır. Kaynak yoksa sorulur.
   - **Telif:** önsöz ve çeviri telif kapsamında (Erhat 1982'de öldü). Fikirler kendi cümlelerimizle anlatılır; kısa alıntılar kaynak gösterilerek yapılır. Açıklamaya künye yazılır.
@@ -281,6 +281,20 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
     - Tarihler, kitap ve dize numaraları ve Milton'ın hayatına dair ayrıntılar senaryo kurulunda kaynaktan doğrulanır.
   - **Süre:** hikâye ne kadar gerektiriyorsa o kadar.
 - **Film ve dizi videolarında:** film görüntüsü kullanma; oyuncuya benzeyen gerçekçi çizimden ve telifli karakter tasarımlarını kopyalamaktan kaçın. Kendi animasyonunla fikri anlat.
+
+## Süreç dersleri (Prometheus'tan)
+- **Kurul kapıları:** senaryo → seslendirme → üslup karesi → animatik → sahneler → ses/miks → kapak → Shorts.
+  - Render ancak ses/miks ONAY'ından sonra başlar. Prometheus'ta ses kurulu geç açıldı; kesik kelimeler ("güvenmez" → "güvenme") ve kelimenin üstündeki motifler neredeyse yayına gidiyordu.
+  - Shorts render'dan önce kurula gider. Prometheus'ta Shorts ilk turda 6,3 aldı.
+  - ONAY'sız geçilen kapı kayda açıkça yazılır.
+- **Kurula verilen "yaptım" iddiası** kare, ölçüm ya da diff ile verilir. Kurulun kendi önerisi de iddiadır: yan etkisi ölçülmeden uygulanmaz. Örnek: sabit müzik sınırlayıcısı dorukları 5–7 dB söndürdü.
+- **Seslendirme kesimi:** Whisper kelime zamanları cümle sınırında üst üste binebilir. `build_vo.py` kesimdeki RMS'i denetleyip ilk gerçek duraklamaya keser; zaman çizelgesi değişmez.
+- **Shorts'ta `notext`** filmin ekran yazılarını siler. Damga, künye ve kanca katmanı Shorts için ayrıca kurulur. Kadraj ve zemin geçişleri filmin kesmelerine kare kare eşlenir.
+- **Teslim (Milton'da güncellendi):**
+  - `SendUserFile` sınırı 400 MiB; Drive'a buradan yükleme sınırı 10 MB (büyük dosya Drive'a gönderilemez).
+  - Kullanıcı telefondan büyük dosyayı indiremedi. Üç kopya hazırlanır: YouTube'a yüklemek için yüksek kalite (≤ 400 MiB), telefonda izlemek için H.265 küçük kopya (Milton: CRF 33, 25:46'da 143 MiB, SSIM 0,986) ve gerekirse ≤ 50 MB'lık parçalar (`ffmpeg -c copy -f segment`).
+  - YouTube'a yüklemeyi kullanıcı bilgisayardan yapar; bu oturumda YouTube'a yükleme aracı yok.
+- **Render'ı mutlak yolla başlat:** depo kökünde ilgisiz, eski bir `render.js` var.
 
 ## Orkestra düzeni ve Milton dersleri (kullanıcının kararı; 12 Kasım 2026)
 Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. Ayrıntı: `milton/geriye_bakis.md`, `milton/KURUL.md`.

@@ -1,0 +1,78 @@
+[
+ [
+  "J04",
+  1078.4,
+  1083.3,
+  {
+   "telefon_miks": {
+    "wer": 0.0,
+    "errs": [],
+    "text": "Gerçekte Zeus Köle Prometeus Özgürdür"
+   }
+  }
+ ],
+ [
+  "I12",
+  1204.4,
+  1208.4,
+  {
+   "telefon_miks": {
+    "wer": 0.286,
+    "errs": [
+     [
+      "replace",
+      "gömülene dek",
+      "ve gömülenedek"
+     ]
+    ],
+    "text": "ve gömülenedek konuşmakta direnir. Son söz onundur."
+   }
+  }
+ ],
+ [
+  "L06",
+  1279.5,
+  1286.6,
+  {
+   "telefon_miks": {
+    "wer": 0.133,
+    "errs": [
+     [
+      "replace",
+      "insan",
+      "i nsan"
+     ]
+    ],
+    "text": "İnsan ne zaman kendisine yasaklanmış bir ateşe el uzatsa, o eski titanın adı yeniden anılır."
+   }
+  }
+ ],
+ [
+  "E10-kontrol",
+  399.4,
+  413.6,
+  {
+   "yalniz_anlatim": {
+    "wer": 0.185,
+    "errs": [
+     [
+      "replace",
+      "rezene sapına",
+      "rezen hesapına"
+     ],
+     [
+      "replace",
+      "deyişiyle",
+      "değişiyle"
+     ],
+     [
+      "replace",
+      "ta dibinden",
+      "tadibinden"
+     ]
+    ],
+    "text": "Prometeus onu bir kez daha aldatır. Ateşi, içi boş bir rezen hesapına gizleyip insanlara götürür. Hesiodosun değişiyle, uzaktan parlayan o ışığı görmek, Zeus'u yüreğinin tadibinden ısırır."
+   }
+  }
+ ]
+]

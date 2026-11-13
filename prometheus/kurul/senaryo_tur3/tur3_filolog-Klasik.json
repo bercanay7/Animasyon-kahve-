@@ -1,0 +1,101 @@
+{
+ "scores": {
+  "K1": 8.6,
+  "K2": 9,
+  "K3": 8.8,
+  "K4": 8.4,
+  "K5": 9,
+  "K6": 8.6,
+  "K7": 8.8
+ },
+ "verdict": "RED",
+ "summary": "Rev 3 açık ara en sadık sürüm, ama ağırlıklı ortalama 8,74 ve eşiğin altında kalıyor. ONAY'ı tutan sorunlar küçük ve kesin; tek bir düzeltme turu yeter.\n\nTüm Aiskhylos ve Hesiodos dizelerini Yunancayla karşılaştırdım:\n- Konuşmacı dağılımları doğru: Kratos 10–11 ve 49–50, Hephaistos 35 ve 45, Okeanos 309–310, koro 178–180 ve 1063–1070, Hermes 980.\n- Kendi çevirilerimiz Erhat'ınkinden yeterince farklı. s. xii ve s. xiii fotoğraflarıyla karşılaştırdım (101–105, 265–266, 752–756, 49–50).\n- Psikolojik katmanların hepsi metne dayanıyor ve iyi seçilmiş: sessizlik, kendi sözünü kesme, 239–241, 268–270, 'Eyvah', 1053, Th. 567–569.\n- Kerç ve İstanbul Boğazı ayrımı (ZVP 729–735; Apollodoros II.1.3), Goethe 1774, Shelley 1818 ve Bird–Sherwin 2005 / Nolan 2023 doğru.\n\nKalan kaynak sorunları:\n- (1) Hermes sahnesinde 979–981 ('Eyvah'), 989–991'deki şarttan sonraya alınmış ve 'Sorgu sürer' diye ardışıkmış gibi anlatılıyor. Bu, oyunun sırasını ters çeviriyor.\n- (2) I06'da 958'deki τρίτον ('üçüncüsü') düşmüş. Rev 2'de vardı. Oysa D11'in 'Sıra kime?' sorusuna Aiskhylos'un kendi cevabı bu kelime.\n- (3) C17'de 'dünyayı paylaştırmaya girişti' cümlesi silinmiş. Bu yüzden C18'deki 'bu paylaşmada' boşta kalıyor.\n- (4) E16'da Erhat'ın 'tanrıya karşı ayaklanmıştır' sözü 'Olimpos'un tanrılarına' diye daraltılmış.\n- (5) D08 (x2) ve J05 (xiv5) Erhat'ın cümlelerini tırnaksız ve neredeyse birebir aktarıyor.\n- (6) K01 'önsöz bu soruyla açılır' diyor. s. v fotoğrafına göre önsöz başlık, üçleme ve tarih bilgisiyle açılıyor; soru sayfanın sonunda geliyor.\n- (7) L02'deki 'okuyla' Hesiodos'ta yok (Th. 526: ἔκτεινε).\n\nBunlar düzeltilirse K1 ve K3 9'un üstüne çıkar, ortalama da eşiği geçer.",
+ "resolved": "Giderilenler:\n- Üçüncü devrim: I03 artık 'hazırlanması' (x3–x4). xi1 Erhat'ın kendi bağlamında, Mekone okumasının sonunda veriliyor (E15–E16) ve D11 ödeniyor.\n- Prolog: dizeler oyundaki sırada (F08 → F07 → F09). 'Tanrılar arasında' kalktı, 45 eklendi, 35 Hephaistos'a bağlandı.\n- Hermes sahnesi: I06'da 'güler' yerine 'alay eder' geldi, 959 eklendi. I08 'Eyvah' (979–981), I08b kartal tehdidi (1016–1025) ve I08c 1053 ('beni öldüremez') eklendi; Hesiodos'taki kartal ile Aiskhylos'taki tehdit ayrıldı.\n- F14 (101–107), G12b (268–270), G13 'katlanma duygusu' (xii1) eklendi.\n- L01–L02: 'Aiskhylos'un cevabını bilmiyoruz' çelişkisi kalktı. 'Acısından kurtardı' (Th. 528) ve Zeus'un gerekçesi metinden veriliyor.\n- B01 'neredeyse', B02 'adıyla', B05 'özüyle… benimsenmiştir' ve XX. yüzyıl kaydı geldi.\n- A06'da Platon'a karşı özgünlük iddiası yok ('Bu tuhaf fikri… yazar'). 'O kayada' ifadesi kalktı.\n- F10 → F10a, Erhat'ın sırasıyla (xiii1 → xiii2). 'Zorbalık da yasaldı' aktarılmadı.\n- G03'te Themis-Adalet var; I11'de son söz anaya ve göğe bağlanıyor.\n- H07: Kerç Boğazı adıyla anılıyor, ad 'bu geçişten' geliyor, 'yüzerek' kalktı. H09'da kendi çevirimiz kullanılıyor ('tiranlığından').\n- Diğer küçük düzeltmeler: C04 (Khaos'tan sonra), I09 (1068), L04 ('sürmeyi önerir'), D09 ('önceden düşünen'; Erhat'ın deyişiyle 'kâhin'), F03 ('Dava').\n- D05'te sıfatlar abartılmıyor.\n- J05'teki 'Çünkü' kalktı, sıra Erhat'ınki.\n- K08a artık xiv3'ü tek başına 'cevap' diye sunmuyor; xiv6–xv1 meşru bir cevap.\n- Geri çektiğim kaygı: H05'teki 'gurur, hatta kibir sanır' sözünü Erhat'la çelişir saymıştım. s. xii fotoğrafında Erhat'ın kendisi 'gurur ya da kibir diye nitelerler' diyor; H05 sadık.\n- H02'deki 'kimi isteyerek, kimi istemeyerek' de s. xiii'e birebir uyuyor.\n\nGiderilmeyenler:\n- Hermes sahnesinin dize sırası (bkz. kalan 1);\n- F13'ün birinci tekili;\n- L05'teki 'mimarı';\n- G03'teki iç içe ara sözler;\n- E03'teki tts 'Mekoni'.",
+ "remaining": [
+  {
+   "ids": "I07, I08, I07b, I08b",
+   "severity": "önemli",
+   "problem": "I08 (ZVP 979–981, 'Eyvah') hüküm durağından sonraya alınmış ve 'Sorgu sürer' diye ardışık sunuluyor. Oyunda 989–991'deki şart 979–981'den SONRA gelir: 982–988 arasında Hermes ile söz düellosu var, şart onun sonucudur. Doğru sıra: I06 → I07 → I08 → I07b → J01–J10 → I08b. Hüküm yine şart anında verilir, yani kurulun kararı korunur. 'Sorgu sürer' I08b'ye taşınırsa J'deki duraktan dönüş de işaretlenmiş olur. Ayrıca 981'deki 'Yaşlanan zaman her şeyi öğretir' sözü hükmün hemen önüne düşer ve J05'teki 'zayıf ve çaresiz' Zeus'u hazırlar. I08'in bölüm alanı 'Tahtı sallayan sır' olur.",
+   "tts": "I08 (I07'nin ardına): [pained] Bir an, Prometeus'un ağzından tek bir inilti kaçar: Eyvah! [mocking] Hermes hemen yakalar: Zeus bu kelimeyi bilmez. [calmly] Prometeus'un cevabı: Yaşlanan zaman, her şeyi öğretir. || I07b: değişmez. || I08b (J10'un ardına): [ominous] Sorgu yeniden başlar. Hermes son tehdidini savurur: Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde, Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi, bütün gün karaciğerinle ziyafet çekecek.",
+   "alt": "I08: Bir an, Prometheus'un ağzından tek bir inilti kaçar: “Eyvah!” Hermes hemen yakalar: “Zeus bu kelimeyi bilmez.” Prometheus'un cevabı: “Yaşlanan zaman her şeyi öğretir.” (ZVP 979–981) || I08b: Sorgu yeniden başlar. Hermes son tehdidini savurur: “Kaya yıldırımla parçalanacak, sen içine gömüleceksin. Uzun zaman sonra ışığa döndüğünde Zeus'un kanatlı köpeği, kanlı kartal gelecek. Çağrılmamış bir konuk gibi bütün gün karaciğerinle ziyafet çekecek.” (ZVP 1016–1025)"
+  },
+  {
+   "ids": "I06",
+   "severity": "önemli",
+   "problem": "958'deki 'τρίτον δὲ τὸν νῦν κοιρανοῦντ᾽' ('üçüncüsünü, şimdi hüküm sürenin') çevirisinden 'üçüncüsü' kelimesi düşmüş. Rev 2'de vardı, rev 3'te kayboldu. Bu hem bir eksik çeviri hem de kaçan bir ödeme. D11 'Uranos devrilmişti. Kronos devrilmişti. Sıra kime gelecekti?' diye sorar, Aiskhylos'un Prometheus'u ise bizzat 'üçüncüsü' diye sayar. Bu, Erhat'ın 'üçüncü devrim' kavramına oyunun içinden gelen tek kelimelik dayanak. C01'deki 'Kayadaki Titan hepsini görmüştü' kurulumu da böylece tamamlanır.",
+   "tts": "I06: [defiantly] Prometeus alay eder: Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü görmedim mi? [slowly] Şimdi üçüncüsünün, bugün hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.",
+   "alt": "I06: Prometheus alay eder: “Siz yeni tanrılar, kalenizde hiç acı yüzü görmeyeceğinizi sanıyorsunuz. Ben oradan iki tiranın düştüğünü görmedim mi? Şimdi üçüncüsünün, bugün hüküm sürenin düşüşünü de göreceğim: en utanç verici biçimde, en çabuk.” (ZVP 953–959, kendi çevirimiz; 958 τρίτον; ödemesi D11)"
+  },
+  {
+   "ids": "C17, C18",
+   "severity": "önemli",
+   "problem": "C15 ile C17 birleştirilirken rev 2'deki 'Tahta oturdu ve dünyayı paylaştırmaya girişti' cümlesi silinmiş. C18 ise hâlâ 'Ve bu paylaşmada önüne tek bir engel çıktı' diyor; gönderme boşta kalıyor ve izleyici neyin paylaşıldığını duymuyor. Erhat ix2'de paylaştırmayı Gaia'nın öğüdüne bağlar ('kardeşleri ve çocukları arasında'). Ayrıca C17'nin künyesinde savaşın dizeleri yok.",
+   "tts": "C17: Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. [thoughtfully] Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti.",
+   "alt": "C17: Ardından Titanlarla on yıllık bir savaş geldi; Zeus, yerin altındaki yüz kollu devleri savaşa sürdü ve Titanlar Tartaros'a kapatıldı. Erhat'a göre kaba güçler birbirini yok etmişti; meydanda akıldan başka güç kalmamıştı. Yıldırım elinde, Zeus tahta oturdu ve dünyayı kardeşleriyle çocukları arasında paylaştırmaya girişti. (Erhat viii5, ix2; Th. 617–735 savaş, 501–506 yıldırım, 881–885 tahta oturma ve paylaştırma)"
+  },
+  {
+   "ids": "E16 (ve E15)",
+   "severity": "önemli",
+   "problem": "E16, Erhat'ın xi1'deki cümlesini ('İnsan kendi gücünün bilincine varmış, tanrıya karşı ayaklanmıştır') 'Olimpos'un tanrılarına karşı' diye değiştiriyor. Kaynak alanı bu değişikliği itiraf ediyor, ama dinleyici kaynak alanını görmez ve sözü yine Erhat'ın sözü olarak duyar. Değişiklik Erhat'ın tekil ve genel ifadesini çoğul ve mitolojik bir ifadeye çeviriyor. Bağlamda 'tanrı' zaten aldatılmış Zeus diye okunuyor. En güvenlisi kısa alıntıyı tırnakla ve Erhat'ın kelimesiyle vermek; böylece söz anlatıcının değil Erhat'ın olur. Fotoğraftaki ifade 'olup bitmiştir' değil 'olmuş bitmiştir'. E15'te de küçük bir kayma var: Erhat'taki 'çünkü', Zeus'un egemenliğinin gerçek bir güce dayanmamasını açıklar; gülünçlüğünü değil.",
+   "tts": "E15: Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. [knowingly] Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş, egemenliği artık gerçek bir güce dayanmayan bir tanrı. Çünkü akıl gücü, tanrılardan insanlara geçmiştir. || E16: [slowly] Ve Erhat, sıranın kime geldiğini söyler: Devrim, üçüncü ve son devrim, olmuş bitmiştir. İnsan, kendi gücünün bilincine varmış… tanrıya karşı ayaklanmıştır.",
+   "alt": "E15: Hesiodos Zeus'tan yana anlatır: Zeus'un aklı aşılamaz. Ama Erhat satır aralarında başka bir şey okur: insanların gözünde gülünç düşmüş, egemenliği artık gerçek bir güce dayanmayan bir tanrı. Çünkü akıl gücü tanrılardan insanlara geçmiştir. (Th. 613; İG 105; Erhat x6, xi1) || E16: Ve Erhat, sıranın kime geldiğini söyler: “Devrim, üçüncü ve son devrim olmuş bitmiştir: İnsan kendi gücünün bilincine varmış, tanrıya karşı ayaklanmıştır.” (Erhat xi1, kısa alıntı)"
+  },
+  {
+   "ids": "D08, J05",
+   "severity": "önemli",
+   "problem": "İki segment Erhat'ın cümlesini tırnaksız ve neredeyse birebir veriyor; bu 'kendi cümlelerimizle' kuralına aykırı. Fotoğraflarla karşılaştırdım. D08: s. x'ta 'Prometheus da bu öfkeyi körükler durur: Sivri aklını, geleceği önceden görme gücünü Zeus'u aldatmak, kuşkulandırmak, küçük düşürmek için kullanır' yazıyor; D08 aynı yapıyı eş anlamlılarla kuruyor. J05: s. xiv'te 'bir çocuk gibi zayıf ve çaresizdir: Onu yıkımdan kurtaracak tek kişi akıl gücünün taşıyıcısı Prometheus'tur' yazıyor; J05 neredeyse aynısı. Ardından J06 bir sonraki cümleyi tırnakla aktarınca iki ardışık Erhat cümlesi art arda gelmiş oluyor. Çözüm: kısa bir parça tırnağa alınsın, gerisi bizim cümlemiz olsun.",
+   "tts": "D08: Prometeus ise bu öfkeyi bile bile kışkırtır: Keskin aklıyla, geleceği gören gözüyle Zeus'u kâh aldatır, kâh kuşkuya düşürür, kâh gülünç eder. || J05: Ona göre bütün uşaklarına, dalkavuklarına karşın Zeus, bir çocuk gibi zayıf ve çaresizdir. Tahtını yıkımdan kurtaracak akıl onda değil… zincirdeki Titan'dadır.",
+   "alt": "D08: Prometheus ise bu öfkeyi bile bile kışkırtır: Keskin aklıyla, geleceği gören gözüyle Zeus'u kâh aldatır, kâh kuşkuya düşürür, kâh gülünç eder. (Erhat x2) || J05: Ona göre bütün uşaklarına, dalkavuklarına karşın Zeus “bir çocuk gibi zayıf ve çaresizdir.” Tahtını yıkımdan kurtaracak akıl onda değil, zincirdeki Titan'dadır. (Erhat xiv5, kısa alıntı; ikinci cümle bizim aktarmamız)"
+  },
+  {
+   "ids": "K01",
+   "severity": "önemli",
+   "problem": "'Erhat'ın önsözü de tam bu soruyla açılır' cümlesi kaynağın yapısını yanlış anlatıyor. s. v fotoğrafına göre önsöz başlıkla ('Prometheus desmotes'), üçlemeyle, tarihlemeyle ve 'yalnız tanrılar' itirazıyla açılıyor. 'İnsan nedir? İnsan olmaya ne zaman başladı?' sorusu sayfanın sonunda geliyor (v6). Ayrıca 'bu soru' önceki segmentteki (L06) hiçbir soruya bağlanmıyor.",
+   "tts": "K01: [thoughtfully] Erhat'ın önsözü de, daha ilk sayfasında şu soruyu sorar: İnsan nedir? Ne zaman insan olmaya başladı?",
+   "alt": "K01: Erhat'ın önsözü de daha ilk sayfasında şu soruyu sorar: İnsan nedir? Ne zaman insan olmaya başladı? (Erhat v6)"
+  },
+  {
+   "ids": "L02",
+   "severity": "küçük",
+   "problem": "'Hesiodos'a göre… Kartalı okuyla vurdu' cümlesi oku Hesiodos'a mal ediyor. Th. 526–527 yalnız 'ἔκτεινε' (öldürdü) der. 'Okçu' Aiskhylos'tan gelir (ZVP 871–873, 'τόξοισι κλεινός'); ok ayrıca Kurtulmuş Prometheus parçalarında (fr. 200 Radt) ve Apollodoros II.5.11'de var. En kolay çözüm 'okuyla' kelimesini atmak. Vazo resmindeki yay görselde kalabilir.",
+   "tts": "L02: Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı vurdu ve Prometeus'u acısından kurtardı. [wryly] Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Ayshilos'un Kurtulmuş Prometeus'u ise kayıp.",
+   "alt": "L02: Hesiodos'a göre geldi: Adı Herakles'ti. Kartalı vurdu ve Prometheus'u acısından kurtardı. Tabii Zeus'un izniyle; oğlunun ünü artsın diye. Aiskhylos'un Kurtulmuş Prometheus'u ise kayıp. (Th. 526–534; okçu ZVP 871–873; ok: Aisk. fr. 200 Radt, Apollodoros II.5.11; Erhat v2)"
+  },
+  {
+   "ids": "F13, I11",
+   "severity": "küçük",
+   "problem": "92'deki 'ἴδεσθέ μ᾽ οἷα πρὸς θεῶν πάσχω θεός' birinci tekildir. F13 ise 'Bir tanrı, tanrılardan neler çekiyor' diye üçüncü kişiye çevirmiş. Önceki turda da önerilmişti, giderilmedi. Halka fiil düzeyinde duyulmuyor: ilk sözün son kelimesi (92) de son sözün son kelimesi (1093, 'ἔκδικα πάσχω') de 'çekiyorum'dur. I11 'çekiyorum'la biterse F13 ile I11 arasındaki halka kulakla da kurulur.",
+   "tts": "F13 sonu: …ve sen, herkesin anası Toprak. [pained] Bakın bana: Tanrı olduğum hâlde, tanrılardan neler çekiyorum. || I11: [pained] [slowly] İlk sözleri gibi, son sözleri de göğe ve anasınadır; adlarından biri Adalet olan anasına: Görüyor musun, ne haksız acılar çekiyorum.",
+   "alt": "F13 sonu: …ve sen, herkesin anası Toprak: Bakın bana; tanrı olduğum hâlde tanrılardan neler çekiyorum.” (ZVP 88–92) || I11: İlk sözleri gibi son sözleri de göğe ve anasınadır, adlarından biri Adalet olan anasına: “Görüyor musun, ne haksız acılar çekiyorum.” (ZVP 1091–1093, kendi çevirimiz)"
+  },
+  {
+   "ids": "G03",
+   "severity": "küçük",
+   "problem": "'Titanların savaşında annesi, Ayshilos'ta Toprak, öbür adıyla Temis, yani Adalet, ona geleceği söylemişti' cümlesinde özne ile yüklem arasına dört ara söz giriyor. Kulakla izlenmesi zor, oysa I11'deki ödeme bu cümleye dayanıyor. İçerik doğru: ZVP 209–213, 'Θέμις καὶ Γαῖα, πολλῶν ὀνομάτων μορφὴ μία' ve 'οὐ κατ᾽ ἰσχὺν… δόλῳ δέ'.",
+   "tts": "G03: Çekiç seslerini duyan Okeanos'un kızları gelir. Prometeus onlara geçmişi anlatır. Ayshilos'ta annesi Toprak'tır; öbür adıyla Temis, yani Adalet. Titanların savaşında bu anne ona geleceği söylemişti: Zafer gücün değil… kurnazlığın olacaktı.",
+   "alt": "G03: Çekiç seslerini duyan Okeanos'un kızları gelir. Prometheus onlara geçmişi anlatır. Aiskhylos'ta annesi Toprak'tır; öbür adıyla Themis, yani Adalet. Titanların savaşında bu anne ona geleceği söylemişti: Zafer gücün değil, kurnazlığın olacaktı. (ZVP 128–135, 199–213; Erhat x4)"
+  },
+  {
+   "ids": "L05",
+   "severity": "küçük",
+   "problem": "'Atom bombasının mimarı' ifadesi Los Alamos'u yöneten Oppenheimer'ı bombanın tek yaratıcısı gibi gösteriyor; önceki turda da işaretlenmişti. Yerleşik ve çekinceli ifade 'atom bombasının babası diye anılan'dır. Künyeler doğru: Shelley 1818, Bird ve Sherwin 2005, Nolan 2023.",
+   "tts": "L05: Meri Şeli, Frankenştayn romanına Modern Prometeus alt başlığını koydu. Atom bombasının babası diye anılan Openhaymır'ın biyografisinin adı da Amerikan Prometeus: Nolan'ın filmi bu kitaba dayanır.",
+   "alt": "L05: Mary Shelley, Frankenstein romanına “Modern Prometheus” alt başlığını koydu. Atom bombasının babası diye anılan Oppenheimer'ın biyografisinin adı da “American Prometheus”: Nolan'ın filmi bu kitaba dayanır. (Shelley 1818; Bird ve Sherwin 2005; Nolan 2023)"
+  },
+  {
+   "ids": "E03, C12, K06 (+ alt tırnakları: H04, H09, I08b, I08c, I10)",
+   "severity": "küçük",
+   "problem": "Dil ve tutarlılık:\n- E03'ün tts'inde hâlâ 'Mekoni' var. Kurul Erhat'ın yazımı Μηκώνη/Mekone üzerinde uzlaşmıştı.\n- C12'de bir totoloji var: 'Erhat bu iki devrimi ayırır: Bu iki devrim aynı değildir.'\n- K06'da aynı cümlede 'ilk temsilcisini… Bu ülkünün ilk temsilcisi' tekrarı var.\n- alt'ta doğrudan alıntıların bir kısmı tırnaklı, bir kısmı tırnaksız. Türkçe altyazıyla izleyen %38 için kimin konuştuğu tırnakla belli olmalı.",
+   "tts": "E03: Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekone'de paylarını belirlemek için toplanır. Prometeus büyük bir öküz keser ve ikiye ayırır. || C12: [thoughtfully] Erhat'a göre bu iki devrim aynı değildir: Birincisi kaba kuvvetin kendi kendini yenmesiydi; ikincisi, kaba kuvvetin akılla yenilmesi. Bu kez Zeus'a, ders almış Uranos ile Gaya yol göstermişti. || K06: Önsöze göre bu kuşağın tek ülküsü, insan olmaktı. [slowly] [reverently] Ve önsöz, onu tek cümleyle adlandırır: Bu ülkünün ilk temsilcisi… Prometeus'tur.",
+   "alt": "E03: Cevap, Hesiodos'ta. Bir gün tanrılar ve insanlar, Mekone'de paylarını belirlemek için toplanır. Prometheus büyük bir öküz keser ve ikiye ayırır. || C12: Erhat'a göre bu iki devrim aynı değildir: Birincisi kaba kuvvetin kendi kendini yenmesiydi; ikincisi “kaba kuvvetin akılla yenilmesi.” Bu kez Zeus'a, ders almış Uranos ile Gaia yol göstermişti. || K06: Önsöze göre bu kuşağın tek ülküsü insan olmaktı. Ve önsöz onu tek cümleyle adlandırır: “Bu ülkünün ilk temsilcisi Prometheus'tur.” || H04, H09, I08b, I08c, I10: doğrudan sözler “ ” içine alınsın."
+  },
+  {
+   "ids": "G10b, H04, K08b, I04, F08, F09, E12 (yalnız kaynak alanı)",
+   "severity": "küçük",
+   "problem": "Künye düzeltmeleri; seslendirme değişmez:\n- G10b: 'gözleri olup görmeyen' ve 'karıncalar gibi' dizeleri 447–453'tedir. Künye 'ZVP 442–506' olsun.\n- H04: 385 kullanılmıyor, 'Kendi başını derde sokma' 332–334'e dayanıyor. Künye 'ZVP 307–334' olsun.\n- K08b: kaynak alanı 'xiv3, ilk cümle Erhat'ın özeti' diyor, ama segmentte tek cümle var ve o da anlatıcının. Künye 'anlatıcının yorumu' olsun.\n- I04: Thetis adı çıkarıldığı için Pindaros künyesi düşsün; yerine 'ZVP 913–914, 873–874' gelsin.\n- F08: '10–11 Kratos; 28 Hephaistos' diye ayrı yazılsın.\n- F09: '49'da ἐπαχθῆ okuması; Eyüboğlu-Erhat çevirisi (s. xiii) ἐπράχθη'ye yakın' notu düşülsün.\n- E12: uyarı ve 'iş işten geçince' için İG 83–89 eklensin.",
+   "tts": "(değişiklik yok)",
+   "alt": "(yalnız kaynak alanları, yukarıdaki gibi)"
+  }
+ ],
+ "disagree_with_decisions": "1) Doruk sırası (karar 1): Hükmün şart anında, Hermes sahnesinin içinde verilmesine katılıyorum; Erhat xv3 o tartışmaya bizzat 'kölelik-özgürlük tartışması' der. Ama I08'in (979–981) hükümden sonraya, yani 989–991'in arkasına konmasına katılmıyorum. Kararda bunun gerekçesi yok ve 'Sorgu sürer' cümlesi oyunun sırasını tersine anlatıyor. I07 → I08 → I07b → J → I08b sırası kararın amacını değiştirmeden bu sorunu çözer.\n\n2) E16 'Olimpos'un tanrılarına': kararlar.md'de yok, ama kaynak alanından bilinçli bir seçim olduğu anlaşılıyor. Katılmıyorum. Duyarlılık kaygısı varsa, Erhat'ın tekil 'tanrı' kelimesini tırnak içinde onun sözü olarak vermek, cümleyi değiştirip anlatıcıya söyletmekten daha dürüst. Bağlamda 'tanrı' zaten aldatılmış Zeus diye okunuyor.\n\n3) D02'den Klymene'nin atılması (karar 6): Hafif bir itirazım var. Erhat x4 karşıtlığı açıkça kurar ('Klymene'nin değil… Gaia'nın oğludur'). G03'teki 'Ayshilos'ta' sözü bir karşıtlık işaret ediyor ama öbür ucu hiç söylenmiyor. Süre gerekçesini kabul ediyorum; kritik değil.\n\n4) Kabul ettiklerim:\n- F08'de στέργειν için 'boyun eğmeyi' (LSJ'de 'acquiesce' anlamı var);\n- I07b'de λυμαντήρια için 'aşağılayıcı';\n- F10a'da 'zorbalık' kelimesinin aktarılmaması;\n- 'desmotes' sözcüğünün görsele bırakılması;\n- Thetis–Aşil ödemesinin ve Shelley'nin Prometheus Unbound'unun reddi;\n- C01'in dayanağının ZVP 956–959 olarak not edilmesi;\n- 'filantropi' cümlesinin çıkarılması (kaynak açısından kayıp yok)."
+}

@@ -1,0 +1,73 @@
+{
+ "dip_returns": {
+  "D11 sonrası": {
+   "t": 332.8,
+   "before": -66.1,
+   "after": -70.7,
+   "max_step_50ms": 3.4,
+   "pm120": [
+    -64.2,
+    -68.2
+   ]
+  },
+  "F14 olacak": {
+   "t": 652.34,
+   "before": -53.0,
+   "after": -38.2,
+   "max_step_50ms": 4.4,
+   "pm120": [
+    -38.5,
+    -37.3
+   ]
+  },
+  "J02 zeustan": {
+   "t": 1063.39,
+   "before": -41.5,
+   "after": -34.7,
+   "max_step_50ms": 1.3,
+   "pm120": [
+    -35.2,
+    -34.3
+   ]
+  }
+ },
+ "I12_old_dip_region_music": -94.7,
+ "D11_silence": {
+  "ref_sentence_music": -19.0,
+  "longest_20dB_below_s": 1.9,
+  "start": 331.1,
+  "min_level": -71.3
+ },
+ "lf_mono": {
+  "weighted": -0.09,
+  "n_lf_dominant": 1091,
+  "n_loss_gt3": 6,
+  "worst": -8.64,
+  "list": [
+   [
+    85.0,
+    -3.3
+   ],
+   [
+    293.5,
+    -4.3
+   ],
+   [
+    332.0,
+    -8.6
+   ],
+   [
+    520.5,
+    -4.2
+   ],
+   [
+    943.0,
+    -5.5
+   ],
+   [
+    1369.5,
+    -4.6
+   ]
+  ]
+ }
+}

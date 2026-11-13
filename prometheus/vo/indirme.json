@@ -1,0 +1,292 @@
+{
+ "flow_id": "mq8pIKHNdRi484dA92h2",
+ "model_id": "eleven_v4",
+ "ses": "Emrullah (DpEiQMnL9WxMsymCsjPY)",
+ "dosya_sayisi": 28,
+ "toplam_sure_sn": 2666.057,
+ "has_failures": false,
+ "basarisiz_uretimler": [],
+ "dosya_sorunlari": [],
+ "bolumler": {
+  "s00": {
+   "a": {
+    "dosya": "s00_a.mp3",
+    "generation_id": "f9vHGk5g08zeZT0nKU0M",
+    "session_id": "6dqaEC05ergeyTb1IkWG",
+    "sure_sn": 38.844,
+    "api_sure_sn": 38.8,
+    "boyut_bayt": 639092,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s00_b.mp3",
+    "generation_id": "ZWyKByxof9vOKK2mW7Tx",
+    "session_id": "fYZL1B42Ez1NR4tb28ng",
+    "sure_sn": 39.393,
+    "api_sure_sn": 39.36,
+    "boyut_bayt": 647869,
+    "durum": "completed"
+   }
+  },
+  "s01": {
+   "a": {
+    "dosya": "s01_a.mp3",
+    "generation_id": "wgtDKAkLbIEKLDLEX64H",
+    "session_id": "xFaeWENFmji0UMcRp6mG",
+    "sure_sn": 43.389,
+    "api_sure_sn": 43.36,
+    "boyut_bayt": 711817,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s01_b.mp3",
+    "generation_id": "85I313U7O9w2aAveIPOk",
+    "session_id": "9iDrFgK1tqABYyMNlK3p",
+    "sure_sn": 43.807,
+    "api_sure_sn": 43.76,
+    "boyut_bayt": 718504,
+    "durum": "completed"
+   }
+  },
+  "s02": {
+   "a": {
+    "dosya": "s02_a.mp3",
+    "generation_id": "D4vU8mMPDgBSijLLuEwe",
+    "session_id": "J618q1cK2WNe1jKtpj75",
+    "sure_sn": 137.874,
+    "api_sure_sn": 137.84,
+    "boyut_bayt": 2223575,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s02_b.mp3",
+    "generation_id": "PaCiagNIS2DQcRO3FHhD",
+    "session_id": "6OmnVpBfuHnTYLKzGBY1",
+    "sure_sn": 137.874,
+    "api_sure_sn": 137.84,
+    "boyut_bayt": 2223575,
+    "durum": "completed"
+   }
+  },
+  "s03": {
+   "a": {
+    "dosya": "s03_a.mp3",
+    "generation_id": "eIEiS3l7UwRpe4dUcaGJ",
+    "session_id": "RUYG56GWFfNFEZS4mKz1",
+    "sure_sn": 89.887,
+    "api_sure_sn": 89.84,
+    "boyut_bayt": 1455784,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s03_b.mp3",
+    "generation_id": "q7XDdSOgshEypD3cJYwQ",
+    "session_id": "vynh5P2xIZeEpXJff31Y",
+    "sure_sn": 90.358,
+    "api_sure_sn": 90.32,
+    "boyut_bayt": 1463307,
+    "durum": "completed"
+   }
+  },
+  "s04": {
+   "a": {
+    "dosya": "s04_a.mp3",
+    "generation_id": "X8QcTp4mZxYcNG8UxlY0",
+    "session_id": "3LTknQdfDktl0r4XEkf9",
+    "sure_sn": 148.611,
+    "api_sure_sn": 148.56,
+    "boyut_bayt": 2395356,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s04_b.mp3",
+    "generation_id": "M04PfVjIwnUiBiKCOAvO",
+    "session_id": "EBzC4u05YMVwNZG5y9Cd",
+    "sure_sn": 149.708,
+    "api_sure_sn": 149.68,
+    "boyut_bayt": 2412911,
+    "durum": "completed"
+   }
+  },
+  "s05": {
+   "a": {
+    "dosya": "s05_a.mp3",
+    "generation_id": "V0Hl4jUKybHSPO6UJYbA",
+    "session_id": "hD3bYDZoWqbIQ829WuLd",
+    "sure_sn": 171.076,
+    "api_sure_sn": 171.04,
+    "boyut_bayt": 2754801,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s05_b.mp3",
+    "generation_id": "0VDCkweZvykm5ZByppHq",
+    "session_id": "wFxOQcRzY9t5Vnklbxyi",
+    "sure_sn": 174.028,
+    "api_sure_sn": 174.0,
+    "boyut_bayt": 2802031,
+    "durum": "completed"
+   }
+  },
+  "s06": {
+   "a": {
+    "dosya": "s06_a.mp3",
+    "generation_id": "XwdThWLx55GgUDyqLUjn",
+    "session_id": "n68iNoWqJAkok5myqK6H",
+    "sure_sn": 150.753,
+    "api_sure_sn": 150.72,
+    "boyut_bayt": 2429629,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s06_b.mp3",
+    "generation_id": "IZu8o9tqnYMfeWL5pWFh",
+    "session_id": "wwR6ecEAtQXqb3RtsDpI",
+    "sure_sn": 147.958,
+    "api_sure_sn": 147.92,
+    "boyut_bayt": 2384907,
+    "durum": "completed"
+   }
+  },
+  "s07": {
+   "a": {
+    "dosya": "s07_a.mp3",
+    "generation_id": "Eug2rm0oRBYlB08iF9pO",
+    "session_id": "pFhe299emrhy4oad94Hu",
+    "sure_sn": 112.927,
+    "api_sure_sn": 112.88,
+    "boyut_bayt": 1824424,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s07_b.mp3",
+    "generation_id": "CuNnluCvCoJuQlP9nCkO",
+    "session_id": "j9thzYVPxmTWDsqRtYSC",
+    "sure_sn": 115.331,
+    "api_sure_sn": 115.28,
+    "boyut_bayt": 1862876,
+    "durum": "completed"
+   }
+  },
+  "s08": {
+   "a": {
+    "dosya": "s08_a.mp3",
+    "generation_id": "8L0V0xheh8tICKUU1xL2",
+    "session_id": "ZThwpP8jyhpsw0OS96uS",
+    "sure_sn": 92.996,
+    "api_sure_sn": 92.96,
+    "boyut_bayt": 1505521,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s08_b.mp3",
+    "generation_id": "3fL2R7FJGHvC3KhE3z9K",
+    "session_id": "jpsbkuMkwGiUg48jXRoR",
+    "sure_sn": 93.231,
+    "api_sure_sn": 93.2,
+    "boyut_bayt": 1509283,
+    "durum": "completed"
+   }
+  },
+  "s09": {
+   "a": {
+    "dosya": "s09_a.mp3",
+    "generation_id": "hUa015KO7k6A9fyoTy5K",
+    "session_id": "Su7duINAzGzijIr9008Y",
+    "sure_sn": 61.649,
+    "api_sure_sn": 61.6,
+    "boyut_bayt": 1003970,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s09_b.mp3",
+    "generation_id": "4ZzhE3XYr1XU0qBmdimr",
+    "session_id": "t4ejpoRSmdG0kTRblFOe",
+    "sure_sn": 62.511,
+    "api_sure_sn": 62.48,
+    "boyut_bayt": 1017763,
+    "durum": "completed"
+   }
+  },
+  "s10": {
+   "a": {
+    "dosya": "s10_a.mp3",
+    "generation_id": "1vdQDFZQJZWfzov2KKi4",
+    "session_id": "w7s7uV4LXEKuRQHowD36",
+    "sure_sn": 90.671,
+    "api_sure_sn": 90.64,
+    "boyut_bayt": 1468323,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s10_b.mp3",
+    "generation_id": "XX0EFBwEwSKHObVnbFCg",
+    "session_id": "njd28UXGmPb5POv270oB",
+    "sure_sn": 91.246,
+    "api_sure_sn": 91.2,
+    "boyut_bayt": 1477518,
+    "durum": "completed"
+   }
+  },
+  "s11": {
+   "a": {
+    "dosya": "s11_a.mp3",
+    "generation_id": "hpRKBXrzkd2Yd3YIoFmP",
+    "session_id": "JD6UKMtf7noxIj4qj6MV",
+    "sure_sn": 63.634,
+    "api_sure_sn": 63.6,
+    "boyut_bayt": 1035735,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s11_b.mp3",
+    "generation_id": "c7qqFrKjErUjAGbjjmAx",
+    "session_id": "RHwkw69JP7rKHFKPdeyI",
+    "sure_sn": 64.522,
+    "api_sure_sn": 64.48,
+    "boyut_bayt": 1049946,
+    "durum": "completed"
+   }
+  },
+  "s12": {
+   "a": {
+    "dosya": "s12_a.mp3",
+    "generation_id": "ZaXscHd52ETw41AHNlQN",
+    "session_id": "j8y7jlR2wMAmgfDK9Psn",
+    "sure_sn": 96.287,
+    "api_sure_sn": 96.24,
+    "boyut_bayt": 1558184,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s12_b.mp3",
+    "generation_id": "PxmoBAla4BpaL8krWkav",
+    "session_id": "YAhvHEeVBzbUGLB6eH8x",
+    "sure_sn": 96.444,
+    "api_sure_sn": 96.4,
+    "boyut_bayt": 1560692,
+    "durum": "completed"
+   }
+  },
+  "s13": {
+   "a": {
+    "dosya": "s13_a.mp3",
+    "generation_id": "EVZZWKk2Tn236HWGGjqL",
+    "session_id": "vrBuFhe6srSr9gCtpXzg",
+    "sure_sn": 31.007,
+    "api_sure_sn": 30.96,
+    "boyut_bayt": 513704,
+    "durum": "completed"
+   },
+   "b": {
+    "dosya": "s13_b.mp3",
+    "generation_id": "4iaDFA6iOuczGx63uXps",
+    "session_id": "iiBBjePHXxhK75Qu18yh",
+    "sure_sn": 30.041,
+    "api_sure_sn": 30.0,
+    "boyut_bayt": 498240,
+    "durum": "completed"
+   }
+  }
+ }
+}

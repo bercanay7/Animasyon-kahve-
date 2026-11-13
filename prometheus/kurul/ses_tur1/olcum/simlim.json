@@ -1,0 +1,21 @@
+{
+ "mevcut": {
+  "sec_lt_1": 127.9,
+  "sec_lt_2": 11.2,
+  "min": -6.22,
+  "J04": -5.66,
+  "D11": -5.54,
+  "I10": -6.22,
+  "music_gr_peak_sec": null
+ },
+ "müzik sınırlayıcı -6.0 dBFS": {
+  "sec_lt_1": 124.7,
+  "sec_lt_2": 7.0,
+  "min": -4.56,
+  "J04": -4.35,
+  "D11": -4.29,
+  "I10": -4.56,
+  "music_gr_peak_sec": null,
+  "music_limited_sec": 14.2
+ }
+}

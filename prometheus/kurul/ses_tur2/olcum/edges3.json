@@ -1,0 +1,114 @@
+[
+ {
+  "cue": "A04",
+  "kind": "end",
+  "edge": 25.589,
+  "cue_time": 25.4,
+  "speech_beyond_cut_ms": 565,
+  "edge_level_dB_re_P95": -35.9
+ },
+ {
+  "cue": "A06",
+  "kind": "start",
+  "edge": 27.191,
+  "cue_time": 27.0,
+  "speech_beyond_cut_ms": 15,
+  "edge_level_dB_re_P95": -54.8
+ },
+ {
+  "cue": "B05",
+  "kind": "end",
+  "edge": 74.55,
+  "cue_time": 74.5,
+  "speech_beyond_cut_ms": 670,
+  "edge_level_dB_re_P95": -28.4
+ },
+ {
+  "cue": "C14",
+  "kind": "end",
+  "edge": 204.819,
+  "cue_time": 204.58,
+  "speech_beyond_cut_ms": 375,
+  "edge_level_dB_re_P95": -52.2
+ },
+ {
+  "cue": "C17",
+  "kind": "start",
+  "edge": 205.621,
+  "cue_time": 205.38,
+  "speech_beyond_cut_ms": 65,
+  "edge_level_dB_re_P95": -71.3
+ },
+ {
+  "cue": "F07",
+  "kind": "end",
+  "edge": 574.806,
+  "cue_time": 574.64,
+  "speech_beyond_cut_ms": 335,
+  "edge_level_dB_re_P95": -39.8
+ },
+ {
+  "cue": "F09",
+  "kind": "start",
+  "edge": 575.214,
+  "cue_time": 575.04,
+  "speech_beyond_cut_ms": 125,
+  "edge_level_dB_re_P95": -71.7
+ },
+ {
+  "cue": "G06",
+  "kind": "end",
+  "edge": 730.796,
+  "cue_time": 730.56,
+  "speech_beyond_cut_ms": 315,
+  "edge_level_dB_re_P95": -43.9
+ },
+ {
+  "cue": "G07",
+  "kind": "start",
+  "edge": 731.307,
+  "cue_time": 731.06,
+  "speech_beyond_cut_ms": 10,
+  "edge_level_dB_re_P95": -71.9
+ },
+ {
+  "cue": "H05",
+  "kind": "end",
+  "edge": 889.285,
+  "cue_time": 889.08,
+  "speech_beyond_cut_ms": 635,
+  "edge_level_dB_re_P95": -36.9
+ },
+ {
+  "cue": "H05b",
+  "kind": "start",
+  "edge": 889.794,
+  "cue_time": 889.58,
+  "speech_beyond_cut_ms": 0,
+  "edge_level_dB_re_P95": -71.6
+ },
+ {
+  "cue": "L03",
+  "kind": "end",
+  "edge": 1247.589,
+  "cue_time": 1247.45,
+  "speech_beyond_cut_ms": 715,
+  "edge_level_dB_re_P95": -40.8
+ },
+ {
+  "cue": "L04",
+  "kind": "start",
+  "edge": 1248.091,
+  "cue_time": 1247.95,
+  "speech_beyond_cut_ms": 0,
+  "edge_level_dB_re_P95": -48.6
+ },
+ {
+  "cue": "C12",
+  "kind": "start",
+  "edge": 178.906,
+  "cue_time": 178.88,
+  "speech_beyond_cut_ms": 0,
+  "edge_level_dB_re_P95": -26.3
+ }
+]

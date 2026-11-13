@@ -1,0 +1,12 @@
+{
+ "müzik -8.0 dBFS + anlatım tepe -4.0 dBFS": {
+  "sec_lt_1": 6.1,
+  "sec_lt_2": 0.8,
+  "min": -2.98,
+  "J04": -2.87,
+  "D11": -2.57,
+  "I10": -2.91,
+  "music_gr_peak_sec": null,
+  "music_limited_sec": 22.4
+ }
+}
