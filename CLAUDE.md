@@ -17,7 +17,7 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 | `zaman-kuryesi-zanzibar/` | Zanzibar savaşı Shorts |
 | `.claude/skills/` | `yonetmenlik` (hikâye iskeletleri, YouTube kuralları, taslak kontrol listesi), `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; oturum başında otomatik yüklenir |
 | `araclar/` | ortak araç kutusu, `ASSETS.md` (lisans kaydı) |
-| `araclar/cinecode/` | **cinecode** (MIT, Sarp Yıldız): 61 üslup tarifi, uzun belgesel yazımı, jüri, ses, tipografi, kamera ve denetim rehberleri. Başvuru kütüphanesi; etkin beceri değil. Yeni videoda üslup seçerken ve kurul brifi yazarken önce `araclar/cinecode/BIZIM_NOT.md`'yi oku. Kanalın kuralları (Emrullah, kurul, kredi) önce gelir |
+| `.claude/skills/cinecode/` | **cinecode** (MIT, Sarp Yıldız): kodla film yapma becerisi. Yalnız kullanıcı `/cinecode` yazınca çalışır (kanal dışı işler için). Kanal videolarında başvuru kütüphanesidir: 61 üslup tarifi (`styles/`), uzun belgesel yazımı, jüri, ses, tipografi, kamera, denetim ve **arşiv malzemesi lisans kuralları**. Yeni videoda üslup seçerken, kurul brifi yazarken ve arşiv malzemesi kullanırken önce `.claude/skills/cinecode/BIZIM_NOT.md`'yi oku. Kanalın kuralları (Emrullah, kurul, kredi) önce gelir |
 | kök dizin (`animation.html`, `render.js`, `poster.js`…) | eski Navitas kahve Story'si; kanalla ilgisiz |
 
 
