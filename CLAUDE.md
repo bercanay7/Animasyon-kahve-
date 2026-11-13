@@ -3,6 +3,23 @@
 Bu dosya, yeni bir Claude Code oturumunun önceki işleri baştan anlatılmadan devralması içindir.
 Önce bunu, ardından `sisifos/README.md` (komutlar) ve `sisifos/yayin.md` (yayın adımları) dosyalarını oku.
 
+## Depo düzeni (13 Kasım 2026'dan beri her şey `main`'de)
+Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı için yeni oturumlar önceki işi göremiyordu. Bütün kanal dalları `main`'de birleştirildi. **Her video bitince kendi dalı `main`'e birleştirilir** (kullanıcının kararı).
+
+| Klasör | Ne |
+|---|---|
+| `milton/` | Kayıp Cennet (Doré gravürü; en olgun motor ve araçlar). Yeni videoda buradan başla: `lib/` (gravür motoru, çekim sistemi `film.js`), `lib/acts/KILAVUZ.md` (sahne üretim kılavuzu), `tools/` (`kurgu_ozet.py` bütün filmi tek bakışta; `plan_zaman.py`; `srt.py`; `bolum_damga.py`; `build_vo.py`; `mix.py`), `render.js`, `kapak/` (kapak ve test seti), `KURUL.md`, `geriye_bakis.md` |
+| `prometheus/` | Prometheus (vazo üslubu); `geriye_bakis.md`, `kurul/kararlar.md` |
+| `sisifos/` | Sisifos (vazo üslubu); `README.md` komutlar, `yayin.md`, Shorts hattı (`shorts/`) |
+| `orfeus/` | Orfeus (kâğıt kesme); `kapak.js` |
+| `cumhuriyet/`, `29-ekim/`, `cumhuriyet_kapak/` | 29 Ekim videosu ve yeni kapakları |
+| `gunluk-shorts/` | Şarlken uzun video ve günlük Shorts (Python motoru); `sarlken_kapak/` yeni paket |
+| `zaman-kuryesi-zanzibar/` | Zanzibar savaşı Shorts |
+| `.claude/skills/` | `yonetmenlik` (hikâye iskeletleri, YouTube kuralları, taslak kontrol listesi), `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; oturum başında otomatik yüklenir |
+| `araclar/` | ortak araç kutusu, `ASSETS.md` (lisans kaydı) |
+| kök dizin (`animation.html`, `render.js`, `poster.js`…) | eski Navitas kahve Story'si; kanalla ilgisiz |
+
+
 ## Kanal ve kullanıcı
 - **Kanal:** YouTube'da "Zaman Kuryesi" (@ZamanKuryesi). Türkçe mitoloji, tarih ve felsefe animasyonları.
 - **Önceki videolar:**
@@ -177,7 +194,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
     - Yorum: YouTube videoyu hiç geniş bir göz atma testine sokmadı. Yayın sırasında kanalın kitlesi yoktu; şimdiki kitle (Sisifos) mit ve felsefe izleyicisi.
     - Paketleme fırsatı: videoda Kanuni ve 1529 Viyana bölümü var. Türk izleyici "Şarlken"i tanımıyor ama Kanuni'yi tanıyor. "Kanuni'nin rakibi tahtı neden bıraktı?" açısı doğru ve geniş kitleye açılır.
     - Doğruluk notu: 1529'da Viyana'yı savunan Şarlken değil, kardeşi Ferdinand'dı. Başlıkta "Kanuni'yi durduran" gibi bir iddia kullanılmaz.
-    - Proje: `claude/youtube-video-topic-emk7zu` dalında, `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru).
+    - Proje: `gunluk-shorts/sarlken-uzun-dosya/` klasöründe (Python motoru).
     - **Yeni paket (2 Kasım):** `sarlken_kapak/`.
       - Kapaklar: "KANUNİ'NİN RAKİBİ / TAHTI BIRAKTI" (madalyalar + bırakılmış taç), salon versiyonu ve mevcut kapak (kontrol).
       - Başlık: "Osmanlı'nın 'İspanya Kralı' Dediği İmparator: Şarlken Neden Vazgeçti?"
