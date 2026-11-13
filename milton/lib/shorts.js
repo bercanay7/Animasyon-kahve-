@@ -75,7 +75,7 @@ function shortOverlay(g, ts) {
   const tq = (S_.TAGS || []).map(tg => clamp((ts - tg.s) / .25) * (1 - clamp((ts - tg.e) / .25)));
   const tqMax = Math.max(0, ...tq);
   if (tqMax > 0) {
-    g.save(); g.globalAlpha = tqMax; g.fillStyle = 'rgba(12,6,4,.62)'; g.fillRect(60, 188, 840, 56); g.restore();
+    g.save(); g.globalAlpha = tqMax; g.fillStyle = 'rgba(12,6,4,.85)'; g.fillRect(60, 188, 840, 56); g.restore();
     S_.TAGS.forEach((tg, i) => { if (tq[i] > 0) { g.save(); g.globalAlpha = tq[i]; stx(g, tg.t, 480, 217, { font: '700 36px Cinzel', col: KAGIT, ls: 3, force: true }); g.restore(); } });
   }
   // kanca: ilk karede soru (ses kapalı izleyen için), anlatımda cevap başlayınca söner
@@ -134,7 +134,7 @@ function shortOverlay(g, ts) {
         const on = ts >= w.s - .03, cur2 = on && ts < w.e + .05;
         const pop = cur2 ? 1 + .06 * clamp(1 - (ts - w.s) / .15) : 1;
         g.save(); g.translate(x + w.ww / 2, y0 + li * 104); g.scale(pop, pop); g.globalAlpha = a;
-        g.lineWidth = 16; g.strokeStyle = light ? 'rgba(246,236,214,.95)' : 'rgba(15,7,4,.9)'; g.lineJoin = 'round'; g.textAlign = 'center';
+        g.lineWidth = 20; g.strokeStyle = light ? 'rgba(246,236,214,.95)' : 'rgba(15,7,4,.9)'; g.lineJoin = 'round'; g.textAlign = 'center';
         const T = w.w.toLocaleUpperCase('tr');
         g.strokeText(T, 0, 0);
         g.fillStyle = light ? (cur2 ? VURGU : (on ? '#1E1611' : 'rgba(30,22,17,.62)')) : (cur2 ? '#E9B44C' : (on ? '#FFF6E6' : 'rgba(255,246,230,.8)')); g.fillText(T, 0, 0);

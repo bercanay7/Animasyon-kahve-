@@ -519,3 +519,6 @@ Kullanım hakkı nedeniyle **tek üye, tek tur** (kural iki üye ister; bilerek 
 - Açıklama ve sabit yorumda edebi çerçeve (kabul): `yayin.md` Shorts bölümü.
 - Hassasiyet notları (engelleyici değil; başkan baktı): kanatlar arasındaki kemerli açıklık göl manzarasıdır, mihrap okuması düşük; P075'te tek figür kayalıkta diz çöküp doğruluyor, sıra hâlinde secde değil; film kurulunda da geçmişti. Değişiklik yok.
 - Gerileme turu: aynı üyeye son render'dan kareler gönderilecek.
+
+## Shorts kurulu, tur 2 (gerileme)
+Aynı üye: **9,0 ONAY** (`kurul/shorts_tur2/uye.md`). Engelleyici olmayan iki okunurluk notu uygulandı: künye kutusu opaklığı .62 → .85; altyazı konturu 16 → 20 px (tarama zemininde). Reddedilen: üst başlığa "KAYIP CENNET" eklenmesi; ad, künyelerde (2,2 sn'den itibaren), Shorts başlığında ve açıklamasında geçiyor, üst başlık kısa ve tek odaklı kalır.
