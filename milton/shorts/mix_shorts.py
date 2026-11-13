@@ -15,7 +15,7 @@ y = pieces[0]
 for p_ in pieces[1:]:
     w = np.linspace(0, np.pi / 2, xf); y = np.concatenate([y[:, :-xf], y[:, -xf:] * np.cos(w) + p_[:, :xf] * np.sin(w), p_[:, xf:]], 1)
 y = y[:, :n]; y = np.pad(y, ((0, 0), (0, n - y.shape[1])))
-fi, fo = int(.12 * SR), int(.35 * SR)   # F1 son kelimeden 0,35 sn sonra: solma kelimeden sonra başlar, döngü dikişi ≈ 0,5 sn (Shorts kurulu tur 1)
+fi, fo = int(.03 * SR), int(.35 * SR)   # Kısa B ilk sözcüğe 0,1 sn'de başlar: giriş solması sözcüğü yemesin   # F1 son kelimeden 0,35 sn sonra: solma kelimeden sonra başlar, döngü dikişi ≈ 0,5 sn (Shorts kurulu tur 1)
 y[:, :fi] *= np.sin(np.linspace(0, np.pi / 2, fi)) ** 2
 y[:, n - fo:] *= np.cos(np.linspace(0, np.pi / 2, fo)) ** 2
 meter = pyln.Meter(SR); db = lambda g: 10 ** (g / 20)

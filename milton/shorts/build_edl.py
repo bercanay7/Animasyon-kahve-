@@ -47,6 +47,27 @@ SHORTS = {
             'Onun yanında,', 'çektiğim cehennem', 'cennet gibi kalıyor.”', 'Bir an yumuşar:', '“Pişmanlığa', 'hiç yer kalmadı mı?', 'Bağışlanmaya?”',
             'Cevabı yine', 'kendisi verir:', '“Bir yol kaldı:', 'boyun eğmek.', 'Ama o sözü bana', 'gururum yasaklıyor.”'],
     CTA=dict(s=wd('G09b', 'ama')['s'], l1='GURUR MU, PİŞMANLIK MI?', l2='TAM HİKÂYE · İLGİLİ VİDEODA')),
+  # Kısa B (13 Kasım; Kısa A'nın verisinden ders: ilk 20 dk'da izlemeye devam %32, ~1.000 izlenmede %38, ortalama 16/37 sn):
+  # en güçlü cümle ve kare ilk saniyede ("Hangi yana kaçsam cehennem. Ben cehennemim." + kanatların arasından göl),
+  # bağlam isteyen anlatıcı cümlesi ("Cevabı yine kendisi verir") çıkar, ~25 sn; son cümle döngüde ilk cümleye bağlanır.
+  'b': dict(
+    TITLE="MILTON'IN ŞEYTANI",
+    F0=730.54, F1=wd('G09b', 'yasaklıyor')['e'] + .95,
+    CUTS=[(734.95, 735.34), (736.04, 736.45), (745.10, 745.70), (wd('G09', 'bağışlanmaya')['e'] + .42, wd('G09b', 'bir')['s'] - .15)],
+    KEYS=[(730.54, 930, 560, 1.0), (734.95, 930, 690, 1.17), (735.34, 930, 700, 1.18),
+          (735.35, 620, 540, 1.0), (736.04, 635, 540, 1.0), (736.45, 643, 540, 1.0), (741.0, 740, 540, 1.0), (745.10, 740, 540, 1.0), (745.70, 740, 540, 1.0), (746.17, 740, 540, 1.0),
+          (746.18, 900, 540, 1.0), (wd('G09', 'bağışlanmaya')['e'] + .42, 880, 525, 1.08),
+          (wd('G09b', 'bir')['s'] - .15, 890, 540, 1.0), (761.43, 870, 540, 1.04)],
+    LIGHT=[], CAP=1235, CAPS=[(753.10, 1400, 300)],
+    HOOK=dict(l1='CEHENNEMDEN', l2='KAÇILIR MI?', e=wd('G07', 'ben')['s']),
+    TAGS=[(wd('G07', 'ben')['s'], 734.95, 'KAYIP CENNET · IV. 75'),
+          (wd('G08', 'en')['s'] - .1, wd('G08', 'kalıyor')['e'] + .3, 'KAYIP CENNET · IV. 76–78'),
+          (wd('G09', 'pişmanlığa')['s'] - .1, wd('G09', 'bağışlanmaya')['e'] + .4, 'KAYIP CENNET · IV. 79–80'),
+          (wd('G09b', 'bir')['s'] - .1, wd('G09b', 'eğmek')['e'] + .4, 'KAYIP CENNET · IV. 81–82')],
+    GROUPS=['Hangi yana kaçsam', 'cehennem.', 'Ben cehennemim.”', '“En derin dipte,', 'beni yutmak için', 'ağzını açan', 'daha derin bir dip var.',
+            'Onun yanında,', 'çektiğim cehennem', 'cennet gibi kalıyor.”', 'Bir an yumuşar:', '“Pişmanlığa', 'hiç yer kalmadı mı?', 'Bağışlanmaya?”',
+            '“Bir yol kaldı:', 'boyun eğmek.', 'Ama o sözü bana', 'gururum yasaklıyor.”'],
+    CTA=dict(s=wd('G09b', 'ama')['s'], l1='GURUR MU, PİŞMANLIK MI?', l2='TAM HİKÂYE · İLGİLİ VİDEODA')),
 }
 K = sys.argv[1] if len(sys.argv) > 1 else 'a'
 cfg = SHORTS[K]
@@ -57,7 +78,7 @@ def sh(t): return round(t - F0 - sum(max(0, min(t, b) - a) for a, b in CUTS), 3)
 cfg['KEYS'] = [((CUTS[-1][0] if k[0] == 'CUT_A' else CUTS[-1][1]) if isinstance(k[0], str) else k[0], *k[1:]) for k in cfg['KEYS']]
 DUR = sh(F1)
 # altyazı sözcükleri: kesite düşen sözcükler, Shorts saatine kaydırılır
-words = [{'w': x['d'] or x['w'], 's': sh(x['s']), 'e': sh(x['e'])} for x in WORDS if x['s'] >= F0 - .05 and x['e'] <= F1 + .05 and (x['d'] or '').strip()]
+words = [{'w': x['d'] or x['w'], 's': sh(x['s']), 'e': sh(x['e'])} for x in WORDS if x['s'] >= F0 - .05 and x['e'] <= F1 + .05 and (x['d'] or '').strip() and not any(a_ <= (x['s'] + x['e']) / 2 < b_ for a_, b_ in CUTS)]   # atlama kesmesine düşen sözcükler altyazıya girmez
 # gruplar: yapılandırmada elle yazılmış anlam birimleri varsa sözcükler sırayla eşlenir; yoksa noktalama ya da en fazla 3 sözcük
 P = '.,:?!…”'
 groups, cur = [], []
