@@ -23,20 +23,20 @@ SHORTS = {
   # Yayın koşulu (hassasiyet, kurgu kurulu tur 1): ilk kare edebi çerçeveyi taşır (üstte KAYIP CENNET · MILTON);
   # C04, F02–F04, "Kazanmıştır." ve G14 bu kesitte yok.
   'a': dict(
-    TITLE='KAYIP CENNET · MILTON',
-    F0=wd('G06', 'o')['s'] - .15, F1=wd('G09b', 'yasaklıyor')['e'] + .35,
+    TITLE="MILTON'IN ŞEYTANI",   # Shorts kurulu tur 1: konuşanın kimliği ilk karede (kanca öznesiz kalıyordu); edebi çerçeve yazarın adıyla
+    F0=wd('G06', 'o')['s'] - .15, F1=wd('G09b', 'yasaklıyor')['e'] + .95,   # son kelimeden sonra 0,95 sn: kanal çağrısı okunur, ses söner (kurul tur 1)
     # atlama kesmeleri: sorudan sonraki sessizlik filmin kesmesine (P072, 724,10) kadar; "Bağışlanmaya?"dan sonraki 2,6 sn'lik sessizlik 1,8 sn'ye
-    CUTS=[(wd('G06', 'suçlayacaksın')['e'] + .45, 724.10), (751.40, 752.20)],
+    CUTS=[(wd('G06', 'suçlayacaksın')['e'] + .45, 724.10), (734.95, 735.34), (736.04, 736.45), (745.10, 745.70), (751.40, 752.20)],   # kurul tur 1: çukur sahnesindeki iki sessizlik kısaltıldı (geçişin öncesi ve sonrası, geçişin içinde kesme yok)
     KEYS=[(720.70, 560, 600, 1.0), (721.40, 560, 600, 1.0), (722.90, 1300, 600, 1.0),          # iki profil: soran ve sorulan aynı kişi
           (724.10, 1210, 560, 1.0), (728.20, 1200, 540, 1.1),                                    # P072 güneşe karşı
           (728.21, 820, 540, 1.0), (730.53, 840, 540, 1.05),                                    # P072y yakın profil
-          (730.54, 930, 560, 1.0), (735.34, 930, 700, 1.18),                                    # P072z kanatların arasından göl; "Ben cehennemim"de yakınlaşma
-          (735.35, 620, 540, 1.0), (741.0, 740, 540, 1.0), (746.17, 740, 540, 1.0),             # P073 dibin altında dip (filmin geçişi 735,34–736,04)
+          (730.54, 930, 560, 1.0), (734.95, 930, 690, 1.17), (735.34, 930, 700, 1.18),                                    # P072z kanatların arasından göl; "Ben cehennemim"de yakınlaşma
+          (735.35, 620, 540, 1.0), (736.04, 635, 540, 1.0), (736.45, 643, 540, 1.0), (741.0, 740, 540, 1.0), (745.10, 740, 540, 1.0), (745.70, 740, 540, 1.0), (746.17, 740, 540, 1.0),             # P073 dibin altında dip (filmin geçişi 735,34–736,04)
           (746.18, 900, 540, 1.0), ('CUT_A', 880, 540, 1.04), ('CUT_B', 880, 520, 1.14), (753.09, 880, 520, 1.16),   # P074 yakın profil; atlama kesmesinde yakınlaşma
           (753.10, 890, 540, 1.0), (760.83, 870, 540, 1.04)],                                   # P075 diz çöker, doğrulur
     LIGHT=[],   # altyazı bantsız: krem yazı + kalın mürekkep kontur (krem kâğıtta da siyah siluette de okunur; bant gri leke bırakıyordu)
     CAP=1235,
-    CAPS=[(753.10, 1440, 300)],   # P075: figür kadrajın ortasında; altyazı ayakların altına, kanal çağrısı başlığın altına
+    CAPS=[(753.10, 1400, 300)],   # kurul tur 1: alt arayüzden uzak (1440 → 1400; 1340 bacakları örter)   # P075: figür kadrajın ortasında; altyazı ayakların altına, kanal çağrısı başlığın altına
     HOOK=dict(l1='PİŞMAN', l2='MIYDI?', e=724.10),   # B kapağının sorusu; cevabı son cümlede ("gururum yasaklıyor")
     TAGS=[(724.10, wd('G07', 'kaçayım')['e'] + .3, 'KAYIP CENNET · IV. 73–75'),
           (wd('G08', 'en')['s'] - .1, wd('G08', 'kalıyor')['e'] + .3, 'KAYIP CENNET · IV. 76–78'),

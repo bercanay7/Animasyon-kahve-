@@ -32,12 +32,32 @@ Bütün işlemler YouTube Studio'da elle yapılır. Metinler `youtube.md` dosyas
 4. **Görünürlük:** Planla → seçtiğiniz gün, 20:00.
 5. **Yayından sonra:** `youtube.md`'deki sabit yorumu yazıp sabitleyin; ilk gün yorumları yakından izleyin. Sisifos ve Prometheus videolarının bitiş ekranına ve açıklamasına bu videoyu ekleyin.
 
+## Shorts (13 Kasım 2026)
+Dosya: `milton_shorts.mp4` (1080×1920, 37,3 sn; depoda yok, oturumda gönderildi). Kesit: Nifates iç konuşması, "O hâlde kimi suçlayacaksın?" → "Ben cehennemim" → "gururum yasaklıyor". Ses ve kareler filmden; yeni seslendirme yok.
+
+1. **Oluştur → Video yükle** → `milton_shorts.mp4`. Dikey ve 60 sn'den kısa; YouTube bunu Shorts sayar.
+2. **Başlık:** `Ben cehennemim: Milton'ın Şeytanı pişman mıydı? #shorts`
+3. **Açıklama:**
+   ```
+   John Milton'ın "Kayıp Cennet" destanından (1667), IV. kitap: Şeytan güneşe karşı kendi kendine konuşuyor. Bu bir edebiyat okumasıdır; bir din anlatısı değildir.
+   Dizeler İngilizce özgün metinden kendi çevirimizdir (IV. 66–82). Tam hikâye (25 dk): videonun altındaki ▶ İlgili video bağlantısında.
+
+   #KayıpCennet #Milton #edebiyat #shorts
+   ```
+4. **Etiketler:** Kayıp Cennet, Paradise Lost, John Milton, Şeytan, Lucifer, edebiyat, destan, İngiliz edebiyatı, shorts
+5. **Kitle:** çocuklara özel değil. **Kategori:** Eğitim.
+6. **İlgili video:** uzun video ("Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton"). Shorts'tan uzun videoya giden tek tıklanabilir yol budur; Shorts'un sonundaki "TAM HİKÂYE · İLGİLİ VİDEODA ▼" kutusu buna işaret eder.
+7. **Görünürlük:** Yayın koşulları uzun videoyla aynı (Ramazan, kandil, perşembe akşamı, cuma, 24–26 Aralık yok). Uzun video yayında olduğu için hemen ya da ertesi akşam 18:00–20:00 arası.
+8. **Sabit yorum:**
+   ```
+   Milton'ın destanındaki Şeytan'ı bir edebi karakter olarak okuyoruz; bir din anlatısı değil. Sizce: gurur mu, pişmanlık mı? 👇 Tam hikâye (25 dk): ▶ İlgili video.
+   ```
+
 ## 48. saat ve 7. gün bakılacaklar
 - İlk 3 saniyede kayıp var mı (film 0,9 sn'lik sessiz bir göz planıyla açılıyor)?
 - 0:30'da kalan (kurulun tahmini %64–71; hedef Şarlken'in %79'u) ve 0:36–0:51 arasındaki başlık sayfasında düşüş.
 - Nifates bölümünde (10:56–14:09) ve "İki okuma"da (20:21–22:44) eğri nasıl?
 - Hangi kapak izlenme süresi payıyla önde?
 
-## Yapılmayanlar (bu oturumda kullanım hakkı bittiği için)
-- Shorts üretilmedi. Kurulun önerdiği üç aday: 21:00–21:46 (Lewis'in küçülme merdiveni), 7:22–8:02 (kıyıda "cehennemde hükümdar olmak"), 11:12–11:20 + 11:52–12:26 ("Ben cehennemim"). Koşullar `youtube.md`'de.
+## Yapılmayanlar (kullanım hakkı nedeniyle)
 - İngilizce dublaj yapılmadı (düşük öncelik).

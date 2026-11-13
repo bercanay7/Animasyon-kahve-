@@ -68,15 +68,15 @@ function shortOverlay(g, ts) {
   // üst şerit + başlık
   const top = g.createLinearGradient(0, 0, 0, 300); top.addColorStop(0, 'rgba(12,8,5,.9)'); top.addColorStop(.7, 'rgba(12,8,5,.55)'); top.addColorStop(1, 'rgba(12,6,4,0)');
   g.fillStyle = top; g.fillRect(0, 0, SHW, 300);
-  g.strokeStyle = 'rgba(241,233,218,.8)'; g.lineWidth = 2; g.strokeRect(60, 70, SHW - 120, 0.01); g.strokeRect(60, 206, SHW - 120, 0.01);
+  g.strokeStyle = 'rgba(241,233,218,.8)'; g.lineWidth = 2; g.strokeRect(60, 70, 840, 0.01); g.strokeRect(60, 206, 840, 0.01);
   const tOff = (S_.TITLE_OFF || []).reduce((m, o) => Math.max(m, clamp((ts - o.s) / .25) * (1 - clamp((ts - o.e) / .25))), 0);
-  if (tOff < 1) stx(g, S_.TITLE || 'PROMETHEUS', 540, 140, { a: 1 - tOff, font: '700 52px Cinzel', col: KAGIT, ls: 8, maxW: 900, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
+  if (tOff < 1) stx(g, S_.TITLE || 'MILTON', 480, 140, { a: 1 - tOff, font: '700 52px Cinzel', col: KAGIT, ls: 8, maxW: 780, force: true, shadow: 'rgba(0,0,0,.6)', blur: 12 });
   // künye: başlığın altında; filmde silinen Erhat künyesi ve adların karşılığı (kim konuşuyor, kaynak sayfa)
   const tq = (S_.TAGS || []).map(tg => clamp((ts - tg.s) / .25) * (1 - clamp((ts - tg.e) / .25)));
   const tqMax = Math.max(0, ...tq);
   if (tqMax > 0) {
-    g.save(); g.globalAlpha = tqMax; g.fillStyle = 'rgba(12,6,4,.62)'; g.fillRect(90, 188, 900, 56); g.restore();
-    S_.TAGS.forEach((tg, i) => { if (tq[i] > 0) { g.save(); g.globalAlpha = tq[i]; stx(g, tg.t, 540, 217, { font: '700 36px Cinzel', col: KAGIT, ls: 3, force: true }); g.restore(); } });
+    g.save(); g.globalAlpha = tqMax; g.fillStyle = 'rgba(12,6,4,.62)'; g.fillRect(60, 188, 840, 56); g.restore();
+    S_.TAGS.forEach((tg, i) => { if (tq[i] > 0) { g.save(); g.globalAlpha = tq[i]; stx(g, tg.t, 480, 217, { font: '700 36px Cinzel', col: KAGIT, ls: 3, force: true }); g.restore(); } });
   }
   // kanca: ilk karede soru (ses kapalı izleyen için), anlatımda cevap başlayınca söner
   if (S_.HOOK && ts < S_.HOOK.e + .3) {

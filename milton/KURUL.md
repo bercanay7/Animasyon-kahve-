@@ -502,3 +502,20 @@ Puanların seyri: A: P-TO 8,3 → 8,8 → 9,0 → 9,0; P-Sanat 7,9 → 8,4 → 8
 Kullanıcının kullanım hakkı azaldığı için kurul çalışması burada durduruldu. Kurgu kurulu tur 1 bulgularının neredeyse hepsi uygulandı (göl/kıyı, levhalar, cennet, savaş/Kaos, kapı/Pandemonium, Nifates, Aden, oda; ekran yazıları, altyazı, geçişler). **Yapılmayanlar:** düzeltmelerden sonra gerileme turu; sanat/gravür ve teknik/erişilebilirlik üyeleri; ses, son render ve yayın paketi kurulları; Shorts. Kurgu kapısı "geçti" diye kaydedilmiyor. Son render'ı başkan kare örnekleriyle kontrol etti. Ayrıntı ve dersler: `geriye_bakis.md`.
 - Başkanın son tur kararları: Nifates'e eklenen "güneşin içinden göz" ek çekimi çıkarıldı (ışınlı güneşte tek göz, "her şeyi gören göz" simgesi gibi okunur); D04 darbe yakın planı cümle başından başlar (0,6 sn'lik ara plan kalmasın).
 - Son render ölçümleri (başkan): 1920×1080, 30 fps, H.264 + AAC, BT.709 etiketli, 25:46; ses −14,0 LUFS, tepe −2,5 dBFS; render günlüğünde sayfa hatası yok. A04 başındaki siyah, hedefin (≤ 0,5 sn) üstünde kaldı: anlatım sürerken ~0,9 sn siyah, sonra gözler; göl 23,2. saniyede açılıyor (önce ~4 sn'ydi).
+
+## Shorts kurulu, tur 1 (13 Kasım 2026)
+Kullanım hakkı nedeniyle **tek üye, tek tur** (kural iki üye ister; bilerek esnetildi). Üye: Shorts tutma + toplumsal/dini hassasiyet (tek ajan, iki mercek). Rapor: `kurul/shorts_tur1/uye.md`.
+
+| Üye | Puan | Karar |
+|---|---|---|
+| Tutma + hassasiyet | 7,8 | RED (engelleyici hassasiyet bulgusu yok) |
+
+**Başkan kararları:**
+- Konuşanın kimliği (kabul): üst başlık "KAYIP CENNET · MILTON" → "MILTON'IN ŞEYTANI" (ilk karede; edebi çerçeve yazarın adıyla). Üyenin önerdiği künyeye yazmak yerine başlığa alındı, çünkü künye ilk 2,2 sn'de kancanın altında kalıyordu. Kanca öznesiz kaldı ("PİŞMAN MIYDI?", B kapağının sözü); vaaz motifi riski yok.
+- Çukur sahnesindeki sessizlikler (kabul): 734,95–735,34 ve 736,04–736,45 (geçişin öncesi ve sonrası; geçişin içinde kesme yok) ve 745,10–745,70 atlama kesmeleri. Süre 38,1 → 37,3 sn.
+- Son altyazı konumu (kısmen kabul): capY 1440 → 1400; üyenin önerdiği 1340 figürün bacaklarını örtüyordu.
+- Sağ üst simgeler (kabul): başlık ve künye x 60–900.
+- Son kelimeden sonra 0,35 → 0,95 sn (kabul): kanal çağrısı okunur, ses söner.
+- Açıklama ve sabit yorumda edebi çerçeve (kabul): `yayin.md` Shorts bölümü.
+- Hassasiyet notları (engelleyici değil; başkan baktı): kanatlar arasındaki kemerli açıklık göl manzarasıdır, mihrap okuması düşük; P075'te tek figür kayalıkta diz çöküp doğruluyor, sıra hâlinde secde değil; film kurulunda da geçmişti. Değişiklik yok.
+- Gerileme turu: aynı üyeye son render'dan kareler gönderilecek.
