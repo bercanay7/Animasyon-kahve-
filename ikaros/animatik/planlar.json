@@ -151,7 +151,8 @@
    "set": "KIY",
    "pal": "ALACA",
    "ne": "Daidalos'un gölgesi uzar; ayağının dibinde çalılıkta bir keklik silueti (ön işaret)",
-   "yazi": ""
+   "yazi": "",
+   "palat": "C06@ama"
   },
   {
    "id": "P18",
@@ -241,7 +242,8 @@
    "set": "GOK",
    "pal": "BATIS",
    "ne": "Kanat kökünde mum damlaları akar, tüyler gevşer",
-   "yazi": ""
+   "yazi": "",
+   "palat": "D05@arzudan"
   },
   {
    "id": "P28",
@@ -385,7 +387,8 @@
    "set": "UCK",
    "pal": "GECE",
    "ne": "Üç panelli afiş sırayla basılır: güneşe giden çocuk / alçakta keklik / ortada usta",
-   "yazi": ""
+   "yazi": "",
+   "palat": "F08@atmıştı"
   },
   {
    "id": "P44",
@@ -430,7 +433,8 @@
    "set": "GOK",
    "pal": "SAFAK",
    "ne": "İkaros'un uçuşu, sevinç; açılış karesi geri döner",
-   "yazi": ""
+   "yazi": "",
+   "palat": "G06@önce"
   },
   {
    "id": "P49",

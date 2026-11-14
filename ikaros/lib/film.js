@@ -32,7 +32,7 @@ const PAL = {
 // Film boyunca palet saati: [{at, pal, dur}] — at çapası, dur yeniden mürekkepleme (çapraz rakle) süresi. Planlarda PALT doldurulur.
 const PALT = [];
 // plan listesindeki 'pal' alanı palet saatini kurar (plan başında değişim = kesmeyle; çekim içindeyse çapraz rakle)
-if (window.PLAN) { PALT.push({ at: -1e9, pal: 'SAFAK' }); for (const p of Object.values(window.PLAN)) if (p.pal) PALT.push({ at: p.at, pal: p.pal, dur: .4 }); }
+if (window.PLAN) { PALT.push({ at: -1e9, pal: 'SAFAK' }); for (const p of Object.values(window.PLAN)) if (p.pal) PALT.push({ at: p.palat || p.at, pal: p.pal, dur: .4 }); }
 function palAt(t) { let cur = PALT.length ? PALT[0] : { pal: 'SAFAK', at: -1e9 }, prev = null; for (const p of PALT) { const a = A(p.at); if (a <= t) { prev = cur; cur = { ...p, a }; } } return { cur, prev }; }
 
 const SHOTS = [];
@@ -91,6 +91,7 @@ function baskiPal(ctx, st, cam, fn, pal) {
   ctx.restore();
 }
 function baski(ctx, st, cam, fn, o = {}) {
+  if (!cam && !o.sabit) cam = { cx: o.fx ?? 960, cy: o.fy ?? 540, z: 1 + (o.nefes ?? .03) * E.io2(clamp(st.p ?? 0)) };   // kurgu kurulu E: donuk kare yok
   if (o.pal) { baskiPal(ctx, st, cam, fn, typeof o.pal === 'string' ? PAL[o.pal] : o.pal); return; }
   const { cur, prev } = palAt(st.t), dur = cur.dur ?? .4;
   baskiPal(ctx, st, cam, fn, PAL[cur.pal]);

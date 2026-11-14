@@ -70,7 +70,7 @@ plan('P15', (ctx, st) => baski(ctx, st, null, pr => {
   if (st.t > tG) { bant(pr, 0, 330, 'sky2', { clip: pull(tG, [0, 0, W, 330]) }); const s = FG.sunRings(1500, 165, 70, 2); s.rings.forEach(q => pr.ink(q, 'lit', { sheen: 0, clip: pull(tG + .2, [0, 0, W, 330]) })); pr.ink(s.disk, 'acc', { clip: pull(tG + .2, [0, 0, W, 330]) }); }
   if (st.t > tD) { bant(pr, 750, 1080, 'mid', { clip: pull(tD, [0, 750, W, 330]) }); const wv = new Path2D(); for (let r = 0; r < 3; r++) { const y0 = 800 + r * 80; wv.moveTo(-50, y0 + 14); for (let x = -50; x <= 1970; x += 12) wv.lineTo(x, y0 + Math.sin(x / 55 + st.lt * 1.5 + r) * 10); for (let x = 1970; x >= -50; x -= 12) wv.lineTo(x, y0 + 14 + Math.sin(x / 55 + st.lt * 1.5 + r) * 10); wv.closePath(); } pr.ink(wv, 'sky1', { sheen: 0, clip: pull(tD + .2, [0, 750, W, 330]) }); }
   bant(pr, 330, 344, 'near'); bant(pr, 736, 750, 'near');
-  if (st.t > tO) { const u = E.out3(clamp((st.t - tO) / .6)), fl = Math.sin(st.lt * 3.2); const J = FG.rig({ x: lerp(-120, 640, u), y: 560, h: 30, f: 1, lean: 1.15, head: -.8, legN: [-.12, .35], legF: [-.38, .55] });
+  { const u = E.io2(clamp(st.lt / Math.max(2, tO - st.at + .6))), fl = Math.sin(st.lt * 3.2); const J = FG.rig({ x: lerp(-120, 640, u), y: 560, h: 30, f: 1, lean: 1.15, head: -.8, legN: [-.12, .35], legF: [-.38, .55] });
     kanatliFigur(pr, J, { w: { ang: -1.65 - fl * .5, bend: -.25, span: 30 * 6.4, chord: 30 * 2.3, side: -1, seed: 5 }, light: [1, -.4], litD: 3, farOff: [6, -4], look: { curls: true } }); }
 }), { over: (ctx, st, pal) => basYazi(ctx, 'ORTADAN UÇ', 1300, 560, st.t - Wd('C05', 'arasından'), { px: 150, ls: 10, col: pal.near, dur: .5 }) });
 

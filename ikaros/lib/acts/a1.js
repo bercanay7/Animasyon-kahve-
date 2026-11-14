@@ -32,6 +32,7 @@ plan('P03', (ctx, st) => baski(ctx, st, null, pr => {
   for (let x = -50; x <= 1970; x += 20) sea.lineTo(x, yW + Math.sin(x / 90 + st.lt * 1.6) * 9);
   sea.lineTo(1970, 1200); sea.lineTo(-50, 1200); sea.closePath(); pr.ink(sea, 'mid', { sheen: .2 });
   pr.bands('near', 900, 1100, 4, 0, { trap: .2 });
+  { const k = clamp((st.t - Wd('A03', 'sırrı')) / 2.5); if (k > 0) { const tp = new Path2D(); a2_tuy(tp, 900 + k * 120, 600 + k * k * 260, 150, 1.2 + k * 1.4, .14); pr.ink(tp, 'near', { sheen: .2 }); } }
   const tip = wn.tip, cx = clamp(tip[0], 200, 1700);
   for (let k = 0; k < 3; k++) { const r = 60 + ((st.lt * 70 + k * 90) % 270), ring = SK.ringPath(cx, yW + 14, r, r + 6); const p2 = new Path2D(); p2.addPath(ring, new DOMMatrix().translate(cx, yW + 14).scale(1, .22).translate(-cx, -(yW + 14))); pr.ink(p2, 'sky1', { sheen: 0, reg: 0 }); }
 }));

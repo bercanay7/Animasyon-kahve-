@@ -11,7 +11,8 @@ function a6_kursu(pr, x, y, h) { const p = new Path2D(); p.rect(x - h * .9, y, h
 // P43 — G01: üç panelli afiş: güneşe giden çocuk (yüksek) / keklik (alçak) / usta (orta)
 plan('P43', (ctx, st) => baski(ctx, st, null, pr => {
   pr.fillAll('near');
-  const k = s => E.out3(clamp((st.t - s) / .5)), t1 = Wd('G01', 'güneşe'), t2 = Wd('G01', 'keklik'), t3 = Wd('G01', 'usta');
+  const k = s => Math.max(.001, E.out3(clamp((st.t - s) / .5))), t1 = Wd('G01', 'güneşe'), t2 = Wd('G01', 'keklik'), t3 = Wd('G01', 'usta');
+  for (const [x, y] of [[120, 90], [700, 330], [1280, 210]]) { const fr = new Path2D(); fr.rect(x - 14, y - 14, 548, 748); fr.rect(x, y, 520, 720); pr.ink(fr, 'paper', { rule: 'evenodd', sheen: 0 }); }
   a6_panel(pr, 120, 90, 520, 720, () => { bant(pr, 90, 810, 'sky2'); gunes(pr, 470, 220, 60, 2); a3_ucan(pr, st.lt, 300, 320, 26, 1.3, false, { rise: .4 }); }, k(t1));
   a6_panel(pr, 700, 330, 520, 720, () => { bant(pr, 330, 1050, 'sky1'); const c = new Path2D(); for (let i = 0; i < 4; i++) FG.ellipseInto(c, 760 + i * 150, 940, 110, 80, 0, 18); c.rect(690, 940, 540, 120); pr.ink(c, 'mid'); pr.ink(keklikPath(960, 875, 80, 1, .4 + .4 * Math.sin(st.lt * 7), .1), 'near'); }, k(t2));
   a6_panel(pr, 1280, 210, 520, 720, () => { bant(pr, 210, 930, 'sky2'); bant(pr, 540, 610, 'lit'); a3_ucan(pr, st.lt, 1540, 570, 30, 0, true); }, k(t3));
@@ -21,7 +22,7 @@ plan('P43', (ctx, st) => baski(ctx, st, null, pr => {
 plan('P44', (ctx, st) => baski(ctx, st, null, pr => {
   pr.sky('sky2', 'sky1', 80, 360, 5);
   bant(pr, 560, 650, 'lit');
-  const k = E.out3(clamp(st.lt / 1.2)), ky = lerp(980, 640, k); a6_kursu(pr, 960, ky, 70);
+  const k = E.io2(clamp(st.p)), ky = lerp(1000, 600, k); a6_kursu(pr, 960, ky, 70);
   const J = FG.rig({ x: 960, y: ky - 50 * 3.75 + 8, h: 50, f: 1, lean: -.04, head: -.18, armN: [.2, -.1], armF: [-.1, -.1] });
   kanatliFigur(pr, J, { light: [1, -.4], litD: 4, faceFill: false, look: { beard: true, long: true, face: true } });
   pr.ink(FG.ridge(-40, 1960, 1100, 980, 20, 121, 4), 'near');
@@ -37,7 +38,7 @@ plan('P46', (ctx, st) => baski(ctx, st, null, pr => {
   const ay = new Path2D(); ay.rect(952, -50, 16, 1200); pr.ink(ay, 'near', { sheen: 0 });
   a6_kursu(pr, 480, 660, 64); const J = FG.rig({ x: 480, y: 660 - 48 * 3.75 + 8, h: 48, f: 1, head: -.15, armN: [.2, -.1], armF: [-.1, -.1] }); kanatliFigur(pr, J, { light: [1, -.4], litD: 4, look: { beard: true, long: true } });
   const c = new Path2D(); for (let i = 0; i < 5; i++) FG.ellipseInto(c, 1040 + i * 200, 960, 140, 100, 0, 18); c.rect(960, 960, 1000, 200); pr.ink(c, 'mid');
-  pr.ink(keklikPath(1440, 890, 110, -1, 0, .2), 'near');
+  { const hp = Math.max(0, Math.sin(st.lt * 1.6)) ** 2; pr.ink(keklikPath(1440, 890 - hp * 90, 110, -1, hp > .1 ? .5 + .5 * Math.sin(st.lt * 14) : 0, .2), 'near'); }
   pr.ink(FG.ridge(-40, 960, 1100, 1000, 10, 122, 3), 'near');
 }), { over: (ctx, st, pal) => { basYazi(ctx, 'EN İYİSİ', 480, 150, st.t - Wd('G04', 'daidalos'), { px: 110, ls: 8, col: pal.near, dur: .4 }); basYazi(ctx, 'HİÇ', 1440, 150, st.t - Wd('G04', 'keklik'), { px: 110, ls: 8, col: pal.paper, dur: .4 }); } });
 
@@ -48,7 +49,7 @@ plan('P47', (ctx, st) => baski(ctx, st, null, pr => {
   bant(pr, 520, 1100, 'far'); bant(pr, 820, 1100, 'near');
   const p = new Path2D(), r = rng(31); for (let i = 0; i < 7; i++) { const x = 260 + i * 230 + Math.sin(st.lt * .4 + i) * 40, y = 160 + ((st.lt * 34 + r() * 700) % 900), a = Math.PI / 2 + Math.sin(st.lt * .6 + i) * .5; a2_tuy(p, x, y, 130, a, .14); }
   pr.ink(p, 'lit', { sheen: .1 });
-}));
+}), { over: (ctx, st, pal) => basYazi(ctx, 'ÇOK ALÇAKTAN DA UÇMA', W / 2, 330, st.t - Wd('G05', 'unutulan'), { px: 120, ls: 6, col: pal.paper, dur: .5 }) });
 
 // P48 — G06: İkaros'un uçuşu, sevinç (yakın; sabah paleti geri döner)
 plan('P48', (ctx, st) => baski(ctx, st, { cx: 960 + st.lt * 20, cy: 540 }, pr => {
@@ -66,7 +67,7 @@ plan('P49', (ctx, st) => baski(ctx, st, null, pr => {
 }));
 
 // P50 — G08: Bruegel'e saygı (kopya değil): önde saban süren çiftçi, göğe bakan çoban, gemi; köşede denizde iki küçük bacak
-plan('P50', (ctx, st) => baski(ctx, st, null, pr => {
+plan('P50', (ctx, st) => baski(ctx, st, { cx: lerp(780, 1150, E.io2(clamp((st.t - Wd('G08', 'kimse') + 1) / 3))), cy: 620, z: 1.25 }, pr => {
   pr.sky('sky2', 'sky1', 60, 320, 4);
   const sun = FG.sunRings(1500, 470, 60, 2); sun.rings.forEach(q => pr.ink(q, 'lit', { sheen: 0 })); pr.ink(sun.disk, 'acc');
   const sea = new Path2D(); sea.rect(-50, 480, 2020, 700); pr.ink(sea, 'far', { sheen: 0 });
@@ -84,8 +85,8 @@ plan('P50', (ctx, st) => baski(ctx, st, null, pr => {
 // P51 — G08@bacak: denizde iki bacak ve tüyler; dalda bir keklik
 plan('P51', (ctx, st) => baski(ctx, st, null, pr => {
   pr.fillAll('sky1'); const sea = new Path2D(); sea.rect(-50, 560, 2020, 600); pr.ink(sea, 'far', { sheen: 0 });
-  const bc = new Path2D(), sp = Math.sin(st.lt * 4) * 14; FG.capsule(bc, [900, 600], [870, 330 + sp], 30, 24); FG.capsule(bc, [960, 600], [1010, 350 - sp], 30, 24); pr.ink(bc, 'lit', { sheen: .2 });
-  const sc = new Path2D(); for (let i = 0; i < 7; i++) { const a = -Math.PI + i * .5; FG.ellipseInto(sc, 930 + Math.cos(a) * 150, 590 + Math.sin(a) * 40, 30, 12, a, 12); } pr.ink(sc, 'paper', { sheen: 0 });
+  const bc = new Path2D(), sp = Math.sin(st.lt * 4) * 14; FG.capsule(bc, [915, 600], [905, 510 + sp * .4], 12, 10); FG.capsule(bc, [945, 600], [960, 516 - sp * .4], 12, 10); pr.ink(bc, 'lit', { sheen: .2 });
+  const sc = new Path2D(); for (let i = 0; i < 7; i++) { const a = -Math.PI + i * .5; FG.ellipseInto(sc, 930 + Math.cos(a) * 70, 596 + Math.sin(a) * 18, 14, 6, a, 12); } pr.ink(sc, 'paper', { sheen: 0 });
   const p = new Path2D(); for (let i = 0; i < 6; i++) a2_tuy(p, 500 + i * 180, 640 + (i % 2) * 60 + Math.sin(st.lt + i) * 8, 110, i * 1.1, .14); pr.ink(p, 'near', { sheen: .1 });
   const dal = new Path2D(); FG.capsule(dal, [-50, 160], [520, 220], 16, 8); pr.ink(dal, 'near', { sheen: 0 }); pr.ink(keklikPath(330, 150, 110, 1, 0, .5), 'near');
 }));
@@ -99,7 +100,6 @@ plan('P52', (ctx, st) => baski(ctx, st, null, pr => {
 // P53 — H01: bitiş ekranı: solda başlık ve küçük kanatlı; sağ yarı YouTube öğelerine boş (video: x 1000–1840, y 160–640; abone: x 1300–1520, y 720–940)
 plan('P53', (ctx, st) => baski(ctx, st, null, pr => {
   pr.fillAll('near'); bant(pr, 1040, 1080, 'mid');
-  const fr = new Path2D(); fr.rect(980, 140, 880, 520); pr.ink(fr, 'mid', { sheen: 0 });
   a3_ucan(pr, st.lt, 470, 640, 40, 1.3, false, { rise: .2, light: [1, -.6] });
   gunes(pr, 720, 320, 44, 2);
 }), { over: (ctx, st, pal) => { basYazi(ctx, 'ZAMAN KURYESİ', 480, 860, st.lt - .3, { px: 120, ls: 10, col: pal.paper, dur: .5 }); basYazi(ctx, 'GEÇMİŞTEN BUGÜNE BİR SORU', 480, 950, st.lt - .8, { font: FONT.metin(36, 600), ls: 6, col: pal.lit, dur: .5 }); } });

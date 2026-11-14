@@ -13,13 +13,23 @@ def w(sid, wd, n=0, end=False):
             if k == n: return x['e'] if end else x['s']
             k += 1
     raise KeyError(f'{sid}@{wd}')
+import numpy as np
+_raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', os.path.join(R, 'vo', 'vo.wav'), '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'], capture_output=True).stdout
+_a = np.frombuffer(_raw, np.float32); _rms = np.sqrt(np.convolve(_a ** 2, np.ones(480) / 480, 'same'))[::160]; _thr = np.percentile(_rms, 20) * 2.2
+def pause(t, win=.9):
+    """t çevresindeki (±win) en uzun gerçek duraklamanın ortası (vo.wav, 10 ms çözünürlük)"""
+    v = _rms[int((t - win) * 100):int((t + win) * 100)] < _thr; best, bi, cur = 0, None, 0
+    for i, q in enumerate(v):
+        cur = cur + 1 if q else 0
+        if cur > best: best, bi = cur, i
+    return t if bi is None else (t - win) + (bi - best / 2) / 100
 # (film başı, film sonu, kırpma merkezi x [başta, sonda], yakınlık)
 SEG = [
   (CUES['A01']['s'] - .25, w('A02', 'güneşe') - .02, (900, 900), 1.0),        # P01: güneşe bakan İkaros (kapak A ile aynı kare)
   (w('A02', 'güneşe') - .02, CUES['A02']['e'] + .2, (980, 900), 1.0),       # P02: dev güneş, yükselen siluet
   (CUES['C05']['s'] - .15, CUES['C05']['e'] + .3, (700, 700), 1.0),         # P15: uyarı afişi
-  (CUES['C06']['s'] - .1, 86.84, (1240, 1240), 1.0),   # 86,66–87,02 gerçek duraklama (vo.wav ölçümü)  # P16: tüy dalgada
-  (277.45, CUES['G05']['e'] + .4, (900, 1000), 1.0, .5),   # 277,38–277,64 gerçek duraklama  # P47: batan tüyler
+  (CUES['C06']['s'] - .1, pause(w('C06', 'uçma', end=True) + .3), (1240, 1240), 1.0),   # gerçek duraklamada kes  # P16: tüy dalgada
+  (pause(w('G05', 'oysa')) + .05, CUES['G05']['e'] + .4, (900, 1000), 1.0, .5),   # 277,38–277,64 gerçek duraklama  # P47: batan tüyler
   (CUES['G09']['s'] - .15, CUES['G09']['e'] + 1.6, (720, 720), 1.0),        # P52: tek tüy yükselir; sonda kanal çağrısı
 ]
 EDL, t, words = [], 0.0, []

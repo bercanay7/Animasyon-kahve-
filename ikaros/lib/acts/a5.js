@@ -25,7 +25,7 @@ plan('P35', (ctx, st) => baski(ctx, st, null, pr => {
   a5_hendek(pr, st.lt);
   const tC = Wd('F03', 'çocuktu'), k = clamp((st.t - tC) / .45);
   if (k < 1) pr.ink(keklikPath(1000, 700, 300, -1, 0, .3), 'near', { clip: (() => { const c = SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6), inv = new Path2D(); inv.rect(-1e4, -1e4, 2e4, 2e4); inv.addPath(c); return inv; })(), rule: 'nonzero' });
-  if (k > 0) { const J = FG.rig({ x: 1000, y: 780 - 30 * 3.75, h: 30, f: -1, head: -.1, armN: [.2, -.2], armF: [-.1, -.1] }); const fg = FG.figure(J, { curls: true }); pr.ink(fg.far, 'near', { clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); pr.ink(fg.body, 'near', { clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); if (fg.belt) pr.ink(fg.belt, 'lit', { sheen: 0, clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); }
+  if (k > 0) { const J = FG.rig({ x: 1000, y: 800 - 46 * 3.75, h: 46, f: -1, head: -.1, armN: [.2, -.2], armF: [-.1, -.1] }); const fg = FG.figure(J, { curls: true }); pr.ink(fg.far, 'near', { clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); pr.ink(fg.body, 'near', { clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); if (fg.belt) pr.ink(fg.belt, 'lit', { sheen: 0, clip: SK.wipeRegion([0, 0, W, H], 'right', k, 7, 40, 6) }); }
 }), { over: (ctx, st, pal) => {
   basYazi(ctx, '“SENİN BİTMEYECEK SUÇUN, DAİDALOS.”', W / 2, 200, st.t - Wd('F03', 'ovidius'), { px: 92, ls: 4, col: pal.near, dur: .6 });
   basYazi(ctx, 'OVİDİUS · DÖNÜŞÜMLER · VIII.240', W / 2, 300, st.t - Wd('F03', 'ovidius') - .5, { font: FONT.metin(40, 600), ls: 6, col: pal.near, dur: .5 });
@@ -56,7 +56,7 @@ plan('P37', (ctx, st) => baski(ctx, st, null, pr => {
 }));
 
 // P38 — F05: Akropolis kayası alacakaranlıkta; tepede iki küçük figür; itiş gösterilmez
-plan('P38', (ctx, st) => baski(ctx, st, null, pr => {
+plan('P38', (ctx, st) => baski(ctx, st, { cx: lerp(960, 1180, E.io2(st.p)), cy: lerp(540, 470, E.io2(st.p)), z: lerp(1, 1.3, E.io2(st.p)) }, pr => {
   pr.sky('sky2', 'sky1', 120, 520, 6);
   a5_akropolis(pr);
   for (const [x, hh, beard] of [[1230, 22, true], [1290, 15, false]]) { const J = FG.rig({ x, y: 545 - hh * 3.75, h: hh, f: -1, armN: [.2, -.1], armF: [-.1, -.1] }); const fg = FG.figure(J, { beard, long: beard, curls: !beard }); pr.ink(fg.far, 'near'); pr.ink(fg.body, 'near'); }
@@ -66,7 +66,7 @@ plan('P38', (ctx, st) => baski(ctx, st, null, pr => {
 plan('P39', (ctx, st) => baski(ctx, st, null, pr => {
   pr.sky('sky2', 'sky1', 80, 380, 5);
   pr.ink(FG.ridge(1100, 1960, 1100, 640, 80, 102, 5), 'far');
-  const J = FG.rig({ x: 760, y: 1250, h: 220, f: 1, lean: .02, head: .12, armN: [.05, 0], armF: [.05, 0] });
+  const yl = E.io2(clamp((st.t - Wd('F05', 'yalan')) / 1.2)); const J = FG.rig({ x: 760, y: 1250, h: 220, f: 1, lean: .02 + yl * .06, head: .12 + yl * .42, armN: [.05, 0], armF: [.05, 0] });
   kanatliFigur(pr, J, { light: [-1, -.4], litD: 4, faceFill: false, look: { beard: true, long: true, chest: true, face: true } });
 }));
 
@@ -77,8 +77,8 @@ plan('P40', (ctx, st) => baski(ctx, st, null, pr => {
   a5_akropolis(pr);
   pr.ink(a5_baykus(640, 432, 56), 'near', { sheen: .1 });
   const tY = Wd('F06', 'kuşa'), k = clamp((st.t - tY) / .5), y = lerp(560, 760, clamp(st.lt / 1.4));
-  if (k < 1) { const J = FG.rig({ x: 960, y, h: 10, f: -1, lean: .5, head: .2, armN: [.8, -.6], armF: [.6, -.7], legN: [.8, -1.2], legF: [.6, -1.0] }); const fg = FG.figure(J, { curls: true }); pr.ink(fg.body, 'near'); }
-  if (k > 0) { const p = new Path2D(), r = rng(4); for (let i = 0; i < 12; i++) { const a = r() * 6.28, d = 30 + k * 120 * r(); a2_tuy(p, 960 + Math.cos(a) * d, y + Math.sin(a) * d, 26, a, .18); } pr.ink(p, 'paper', { sheen: 0 }); pr.ink(keklikPath(960 - k * 260, y - k * 40, 80, -1, Math.max(0, Math.sin(st.lt * 8)), .4), 'near'); }
+  if (k < 1) { const J = FG.rig({ x: 960, y, h: 16, f: -1, lean: .5, head: .2, armN: [.8, -.6], armF: [.6, -.7], legN: [.8, -1.2], legF: [.6, -1.0] }); const fg = FG.figure(J, { curls: true }); pr.ink(fg.body, 'paper'); }
+  if (k > 0) { const p = new Path2D(), r = rng(4); for (let i = 0; i < 12; i++) { const a = r() * 6.28, d = 30 + k * 120 * r(); a2_tuy(p, 960 + Math.cos(a) * d, y + Math.sin(a) * d, 26, a, .18); } pr.ink(p, 'paper', { sheen: 0 }); pr.ink(keklikPath(960 - k * 260, y - k * 40, 90, -1, Math.max(0, Math.sin(st.lt * 8)), .4), 'paper'); }
 }));
 
 // P41 — F07: keklik çitlerin üstünden alçaktan uçar; çit dibinde yuva

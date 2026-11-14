@@ -65,6 +65,10 @@ P = [
  ('P53','H01','genis','SON','GECE',"Bitiş ekranı: afiş çerçevesi, sağda video kutusu alanı, abone",'ZAMAN KURYESİ'),
 ]
 out = [dict(zip(['id','at','olcek','set','pal','ne','yazi'], p)) for p in P]
+# kelimeye bağlı palet değişimi (kurgu kurulu E: rakle anlamlı anlarda, plan içinde): plan kimliği → çapa
+PALAT = {'P17': 'C06@ama', 'P27': 'D05@arzudan', 'P43': 'F08@atmıştı', 'P48': 'G06@önce'}
+for o in out:
+    if o['id'] in PALAT: o['palat'] = PALAT[o['id']]
 for a, b in zip(out, out[1:]):
     if a['olcek'] == b['olcek']: print('UYARI: ardışık aynı ölçek', a['id'], b['id'], a['olcek'])
 os.makedirs(os.path.join(ROOT, 'animatik'), exist_ok=True)
