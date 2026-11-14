@@ -7,15 +7,15 @@ function a2_tuy(p, x, y, l, a, w = .16) { const n = [Math.cos(a + Math.PI / 2), 
   FG.polyInto(p, pts); FG.capsule(p, [x - u[0] * l * .12, y - u[1] * l * .12], [x + u[0] * l * .9, y + u[1] * l * .9], l * .012, l * .006); }
 function a2_atolye(pr, t) { pr.sky('sky2', 'sky1', 100, 380, 5); gunes(pr, 1640, 260, 60, 2); const sea = new Path2D(); sea.rect(-50, 640, 2020, 500); pr.ink(sea, 'mid', { sheen: 0 }); pr.ink(FG.glints(100, 1900, 650, 760, 18, 6, t, 40), 'sky1', { sheen: 0, reg: 0 }); pr.ink(FG.ridge(-40, 1960, 1100, 860, 30, 52, 5), 'near'); }
 
-// P09 — C01: tüyler küçükten büyüğe dizilir; ip; mum damlaları
+// P09 — C01: Ovidius'un kavalı: tüyler yatay, kısadan uzuna dizilir (kanat biçimi doğar); ip; mum damlaları
 plan('P09', (ctx, st) => baski(ctx, st, null, pr => {
-  pr.fillAll('sky1'); bant(pr, 760, 1100, 'far'); bant(pr, 760, 790, 'mid');
-  const N = 11, tD = Wd('C01', 'dizdi', 0, true), tI = Wd('C01', 'iple'), tM = Wd('C01', 'mumla');
+  pr.fillAll('sky1'); bant(pr, 880, 1100, 'far'); bant(pr, 880, 900, 'mid');
+  const N = 12, tD = Wd('C01', 'dizdi', 0, true), tI = Wd('C01', 'iple'), tM = Wd('C01', 'mumla');
   const tu = new Path2D(); let n = 0;
-  for (let i = 0; i < N; i++) { if (st.t < st.at + .25 + i * Math.max(.12, (tD - st.at) / N)) continue; n++; const x = 300 + i * 120, l = 220 + i * 46; a2_tuy(tu, x, 760, l, -Math.PI / 2 - .05 + i * .01, .2); }
-  if (n) litInk(pr, tu, 'lit', 'near', 1, -.5, 4);
-  if (st.t > tI) { const u = clamp((st.t - tI) / .8), ip = new Path2D(); ip.rect(280, 600, 1300 * u, 7); pr.ink(ip, 'mid', { sheen: 0 }); }
-  if (st.t > tM) { const dr = new Path2D(); for (let i = 0; i < N; i++) { const k = clamp((st.t - tM - i * .12) / .4); if (k <= 0) continue; FG.ellipseInto(dr, 300 + i * 120, 752, 26 * k, 18 * k, 0, 16); } pr.ink(dr, A2_MUM, { sheen: .5 }); }
+  for (let i = 0; i < N; i++) { if (st.t < st.at + .2 + i * Math.max(.1, (tD - st.at) / N)) continue; n++; const y = 190 + i * 54, l = 300 + i * 85; a2_tuy(tu, 430, y, l, .04 + i * .012, .12); }
+  if (n) litInk(pr, tu, 'lit', 'near', .3, -1, 4);
+  if (st.t > tI) { const u = clamp((st.t - tI) / .8), ip = new Path2D(); ip.rect(600, 170, 9, 620 * u); pr.ink(ip, 'mid', { sheen: 0 }); }
+  if (st.t > tM) { const dr = new Path2D(); for (let i = 0; i < N; i++) { const k = clamp((st.t - tM - i * .1) / .4); if (k <= 0) continue; FG.ellipseInto(dr, 432, 196 + i * 54, 30 * k, 20 * k, 0, 16); } pr.ink(dr, A2_MUM, { sheen: .5 }); }
 }));
 
 // P10 — C02: İkaros uçuşan tüyleri yakalıyor; Daidalos oturmuş çalışıyor
@@ -35,8 +35,7 @@ plan('P11', (ctx, st) => baski(ctx, st, null, pr => {
   const k = E.io2(clamp((st.lt - .3) / 1.0)), sq = 1 - .06 * k;
   const wax = new Path2D(); FG.ellipseInto(wax, 900, 600, 330 / sq, 230 * sq, 0, 48); pr.ink(wax, A2_MUM, { sheen: .6 });
   const iz = new Path2D(); for (let i = 0; i < 5; i++) { const r0 = 30 + i * 22; iz.addPath(SK.ringPath(0, 0, r0, r0 + 7), new DOMMatrix().translate(930, 560).scale(1.25, .8)); } pr.ink(iz, 'sky2', { sheen: 0, alpha: k });
-  const tu = new Path2D(); for (let i = 0; i < 4; i++) a2_tuy(tu, 520 + i * 60, 820, 380, -2.3 + i * .12, .2); litInk(pr, tu, 'lit', 'near', 1, -.5, 4);
-  const th = new Path2D(); const y = lerp(170, 455, k); FG.capsule(th, [1500, y - 260], [1040, y], 120, 92); FG.capsule(th, [1700, y - 360], [1500, y - 260], 150, 125); litInk(pr, th, 'lit', 'near', 1, -.7, 10);
+  const tu = new Path2D(); for (let i = 0; i < 5; i++) a2_tuy(tu, 560 + i * 50, 860, 470, -2.2 + i * .1, .1); litInk(pr, tu, 'lit', 'near', 1, -.5, 4);
 }));
 
 // P12 — C03: İkaros bir tüyü güneşe doğru tutuyor; güneş arkada büyük
@@ -69,7 +68,7 @@ plan('P15', (ctx, st) => baski(ctx, st, null, pr => {
   const tD = Wd('C05', 'alçalırsan'), tG = Wd('C05', 'yükselirsen'), tO = Wd('C05', 'arasından');
   const pull = (t0, box) => SK.wipeRegion(box, 'right', clamp((st.t - t0) / .5), 3, 40, 6);
   if (st.t > tG) { bant(pr, 0, 330, 'sky2', { clip: pull(tG, [0, 0, W, 330]) }); const s = FG.sunRings(1500, 165, 70, 2); s.rings.forEach(q => pr.ink(q, 'lit', { sheen: 0, clip: pull(tG + .2, [0, 0, W, 330]) })); pr.ink(s.disk, 'acc', { clip: pull(tG + .2, [0, 0, W, 330]) }); }
-  if (st.t > tD) { bant(pr, 750, 1080, 'mid', { clip: pull(tD, [0, 750, W, 330]) }); const wv = new Path2D(); for (let i = 0; i < 9; i++) { const x = 120 + i * 210; for (let k = 0; k < 3; k++) FG.ellipseInto(wv, x + k * 34, 800 + Math.sin(st.lt * 1.5 + i) * 6, 36, 13, 0, 16); } pr.ink(wv, 'sky1', { sheen: 0, clip: pull(tD + .2, [0, 750, W, 330]) }); }
+  if (st.t > tD) { bant(pr, 750, 1080, 'mid', { clip: pull(tD, [0, 750, W, 330]) }); const wv = new Path2D(); for (let r = 0; r < 3; r++) { const y0 = 800 + r * 80; wv.moveTo(-50, y0 + 14); for (let x = -50; x <= 1970; x += 12) wv.lineTo(x, y0 + Math.sin(x / 55 + st.lt * 1.5 + r) * 10); for (let x = 1970; x >= -50; x -= 12) wv.lineTo(x, y0 + 14 + Math.sin(x / 55 + st.lt * 1.5 + r) * 10); wv.closePath(); } pr.ink(wv, 'sky1', { sheen: 0, clip: pull(tD + .2, [0, 750, W, 330]) }); }
   bant(pr, 330, 344, 'near'); bant(pr, 736, 750, 'near');
   if (st.t > tO) { const u = E.out3(clamp((st.t - tO) / .6)), fl = Math.sin(st.lt * 3.2); const J = FG.rig({ x: lerp(-120, 640, u), y: 560, h: 30, f: 1, lean: 1.15, head: -.8, legN: [-.12, .35], legF: [-.38, .55] });
     kanatliFigur(pr, J, { w: { ang: -1.65 - fl * .5, bend: -.25, span: 30 * 6.4, chord: 30 * 2.3, side: -1, seed: 5 }, light: [1, -.4], litD: 3, farOff: [6, -4], look: { curls: true } }); }
