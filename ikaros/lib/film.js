@@ -73,7 +73,10 @@ function makePrinter(ctx, st, pal, cam) {
     // basamaklı gök: y0'dan y1'e A rengi üstüne B bantları
     // gök: üstte düz koyu bant (0..y0), y0..y1 arası incelen basamaklar, altı açık gök
     sky(top, bottom, y0, y1, n = 5) { pr.fillAll(bottom); const p = new Path2D(); p.rect(cam.x - 400, cam.y - 400, W / cam.s + 800, y0 - cam.y + 400); pr.ink(p, top, { sheen: 0, trap: 0 }); pr.bands(top, y0, y1, n); },
-    bands(roleB, y0, y1, n = 5, curve = 0, o = {}) { pr.ink(SK.bandSteps(cam.x - 400, W / cam.s + 800, y0, y1, n, curve), roleB, { sheen: 0, trap: .3, ...o }); },
+    // basamaklı bantlar (SK.bandSteps'in bizim sürümü): en ince bant 7 px (360p'de titremesin; kurul D)
+    bands(roleB, y0, y1, n = 5, curve = 0, o = {}) { const p = new Path2D(), x = cam.x - 400, w = W / cam.s + 800, cell = (y1 - y0) / n;
+      for (let i = 0; i < n; i++) { const th = Math.max(7, cell * (1 - (i + .5) / n) * .95), top = y0 + cell * i; p.rect(x, top, w, th); }
+      pr.ink(p, roleB, { sheen: 0, trap: .3, ...o }); },
   };
   return pr;
 }

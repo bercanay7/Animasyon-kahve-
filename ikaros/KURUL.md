@@ -67,3 +67,36 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 **Kapı 1 sonucu: GEÇTİ** (rev3).
 
 **Ek görsel kırmızı çizgiler (B, tur 2):** E05'te mezar ya da beden gösterilmez; İkarya'da gerçek bir kasaba ya da kilise silueti kullanılmaz.
+
+## Kapı 2: Üslup (serigrafi seyahat afişi)
+Üslup kapısı dört sahneden oluşuyordu: manzara, orta plan, yakın plan (kapak adayı) ve 15 sn hareketli uçuş. Kareler `kurul/uslup_tur1/` ve `kurul/uslup_tur2/` klasörlerinde.
+
+| Üye | Tur 1 | Tur 2 | Rapor |
+|---|---|---|---|
+| C (sanat, gelenek, hareket) | 7,0 RED | (bekleniyor) | `uslup_tur1/C_sanat_hareket.md`, `uslup_tur2/C.md` |
+| D (görsel hassasiyet, okunurluk) | 8,0 RED, veto yok | **9,2 ONAY** | `uslup_tur1/D_hassasiyet_okunurluk.md`, `uslup_tur2/D.md` |
+
+**Tur 1 sonrası uygulananlar:**
+- Kanat: yuvarlak uçlu tüyler; birinciller derin oyuklu.
+- Uçuş: aşağı vuruş döngünün %40'ı ve yatayın altına iner; yukarı vuruşta kanat toplanır; uzak kanatla V.
+- Derinlikli kaydırma; parıltılar dünyaya sabit.
+- Palet geçişi 0,4 sn çapraz rakle; bıçak ve boncuk görünür.
+- Kollar kanadın ön kenarında ten rengi, kayışlı (melek okumasına karşı).
+- İkaros'a kemerli kısa tunik.
+- Öğle güneşi soluk altın (Japon bayrağı, THY, hedef tahtası okumaları).
+- Kapak: yüz dolgusu yok; koyu profil ve kâğıt renginde göz; 4 px pay; bulut yok.
+- Orta planda Daidalos büyük, İkaros küçük; yerde konfeti yok.
+- Manzarada figürler kenardan içeride.
+
+**Tur 2 sonrası:** uçan figürler arasında ≥ 40 px boşluk; kapakta tek çapraz kayış; en ince bant 7 px.
+
+**Reddedilen:** ¾ alttan bakış A/B'si (C, tur 1). Gerekçe: kullanım payı. Profil ve V çırpma ile okunurluk sağlandı; D 168 px'te "güneşe bakan kanatlı çocuk" okumasını doğruladı.
+
+## Görsel kırmızı çizgiler (sonraki sahneler; D, tur 1 ile senaryo kurulu B birleşik)
+1. Çocuk figürlerde çıplaklık yok, tunik olur. Düşüş, çarpma ya da ölü beden grafik gösterilmez; E05'te mezar ya da beden yok. Perdix'in itilişi ayrıntı planla gösterilmez.
+2. Düşüşte haç pozu (önden açık kollar) yok. Matisse'in *Icare* renk ve biçim birleşimi kullanılmaz. Işık saniyede 3'ten fazla yanıp sönmez.
+3. Baş hiçbir karede güneşin merkezine girmez (hale okuması).
+4. Öpüş alından olur. Kamera aşağıdan tuniğin altına bakmaz. Yayında "çocuklara özel değil" işaretlenir (`yayin.md`).
+5. "Tanrı sandılar" sahnesinde diz çöken ya da secde eden figür olmaz. Athena önden simetrik ve haleli çizilmez; yalnız ışık ve baykuş.
+6. "Üç uçuş" panelleri Golgota gibi (üç figür yan yana, ortası yüksek) dizilmez. Bruegel sahnesinde suda kalan bacaklar küçük olur. İkarya'da gerçek kasaba ya da kilise silueti kullanılmaz.
+7. Uçurum kenarında aşağı bakan figür kullanılmaz (intihar çağrışımı). Kapakta mutlak iddia yok.

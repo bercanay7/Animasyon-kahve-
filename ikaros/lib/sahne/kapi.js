@@ -61,7 +61,7 @@ SCENES.ucus = (ctx, t, st) => {
     const Jb = FG.rig({ x: 1850, y: 830, h: 26, f: -1, lean: .35 - lookUp * .5, head: .45 - lookUp * 1.5, armN: [1.25, -.6], armF: [1.05, -.4], legN: [1.45, -1.7], legF: [1.3, -1.5] });
     const fb = FG.figure(Jb, {}); pr.ink(fb.far, 'near'); litInk(pr, fb.body, 'lit', 'near', -1, -.4, 2);
     const rod = new Path2D(); FG.capsule(rod, Jb.armN[2], [Jb.armN[2][0] - 170, Jb.armN[2][1] - 100 + Math.sin(t * 2) * 3], 3, 2); pr.ink(rod, 'near', { sheen: 0 });
-    for (const [ox, oy, hh, beard, ph] of [[150, 560, 50, true, 0], [-230, 450, 42, false, 1.3]]) {
+    for (const [ox, oy, hh, beard, ph] of [[230, 600, 50, true, 0], [-330, 400, 42, false, 1.3]]) {
       // çırpma: aşağı vuruş döngünün %40'ı (kanat tam açık), yukarı vuruşta toplanır
       const cyc = ((t * .55 + ph * .2) % 1 + 1) % 1, down = cyc < .4, u = down ? cyc / .4 : (cyc - .4) / .6;
       const angW = down ? lerp(-1.6, -2.95, E.io2(u)) : lerp(-2.95, -1.6, E.io2(u)), open = down ? 1 : .72 + .28 * Math.abs(u - .5) * 2;
