@@ -114,7 +114,7 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 ## Kapı 3: İlk tam kurgu
 | Üye | Tur 1 | Rapor |
 |---|---|---|
-| E (kurgu, animasyon, tutma, ilk kez gören izleyici) | 7,6 RED | `kurul/kurgu_tur1/E_kurgu_tutma.md` |
+| E (kurgu, animasyon, tutma, ilk kez gören izleyici) | 7,6 RED → tur 2 (tek üyeli gerileme; F'nin bulgularını da doğruladı) **9,2 ONAY** | `kurul/kurgu_tur1/E_kurgu_tutma.md`, `kurul/kurgu_tur2/E.md` |
 | F (görsel hassasiyet, yazı/altyazı, teknik) | 7,5 RED, 1 veto (P51 bacaklar) | `kurul/kurgu_tur1/F_hassasiyet_yazi_teknik.md` |
 
 **Uygulananlar:**
@@ -138,6 +138,17 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 - 17 kar/sn'yi aşan 5 altyazı (en yüksek 19,6): anlatım hızından kaynaklanıyor. `srt.py` okuma hızı kuralı uygulanıyor; daha fazlası metni bölmeyi gerektirir.
 - "Ve uçtular." 0,65 sn: aynı cümlenin devamı hemen başlıyor.
 - Satır bölme kusurları küçük; sonraki videoda `srt.py`'ye özel ad + edat bölme kuralı eklenecek.
+
+**Tur 2 sonucu:** donukluk %25,7'den ~%1,5–2,5'e indi (freezedetect 8,7 sn; E 480 px'te 14,7 sn ölçtü, gözle donuk değil). Rakle anları ve geri çağrı doğrulandı. **Kapı 3: GEÇTİ.**
+
+**Başkanın kabul ettikleri (E, tur 2; engelleyici değil):**
+- P15'te 1,4 sn boş kâğıt: kural 2 sn'nin altında; figür kenardan girerek "ortadan"a yerleşiyor.
+- P44 ve P46'da ustanın aynı poz ve kürsüyle görünmesi: P46 bilinçli eşleme kesmesi (aynı simge, bölünmüş karede karşıtıyla).
+- P42'de çatlak isteğe bağlıydı; rakle vuruşu taşıyor.
+
+**Kurulsuz kalan kapılar (kullanım sınırı):**
+- Ses ve miks: ölçümle hedefte (−14,3 LUFS, −1,3 dBTP); kulakla onay kullanıcıda.
+- Shorts: kanca, altyazı ve kesimler başkanca kare kare kontrol edildi.
 
 ## Kapı 5: Kapak ve yayın paketi
 | Üye | Tur 1 | Tur 2 | Tur 3 |
