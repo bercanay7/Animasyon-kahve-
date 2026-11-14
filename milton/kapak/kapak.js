@@ -7,7 +7,7 @@ const KQ = new URLSearchParams(location.search);
 const KPK = { v: KQ.get('v') || 'a', renk: +(KQ.get('renk') || 0), font: KQ.get('font') || 'cinzel', yazi: +(KQ.get('yazi') || 0), t: +(KQ.get('t') || 3.2), a: KQ.has('a') ? +KQ.get('a') : 1.3, notext: KQ.has('notext') };
 const KPK_PAPER = `rgb(${GR.PAPER})`, KPK_INK = `rgb(${GR.INK})`;
 const KPK_YAZI = {
-  a: [['BEN', 'CEHENNEMİM'], ['ŞEYTAN\'IN', 'İTİRAFI'], ['SEVİLEN', 'KÖTÜ'], ['KAÇAMADI']],
+  a: [['BEN', 'CEHENNEMİM'], ['ŞEYTAN\'IN', 'İTİRAFI'], ['SEVİLEN', 'KÖTÜ'], ['KAÇAMADI'], ['ŞEYTAN’IN', 'İÇ SESİ']],
   b: [['PİŞMAN', 'MIYDI?'], ['GURUR', 'MU?'], ['ŞEYTAN', 'AĞLADI'], ['TEK DAMLA', 'YAŞ'], ['ŞEYTAN\'IN', 'İTİRAFI'], ['SEVİLEN', 'KÖTÜ']],
 };
 const KPK_FONT = {
@@ -245,12 +245,12 @@ function kpk_siluet7(t, o = {}) {
   // güneş tarafında (üstte) kenar ışığı: saç kütlesinin içinden, kesintisiz ve sivrilen
   { const q = []; for (let k = 0; k <= 12; k++) { const a = -PI * (.9 - .8 * k / 12); q.push(rot(Math.cos(a) * 47, -72 + Math.sin(a) * 57)); } kpk_vurus(q, 6, 1, .5, .15); }
   // alev: boyları farklı üç dil (orta en uzun); taban düz kesilmez, sivrilerek koyuya erir; içte biçimi izleyen mürekkep vuruşları
-  const fb = [cx - 8, 684], dil = (bx, by, L, w, ln) => { const P = new Path2D(); P.moveTo(bx, by);
+  const AL = KQ.has('alev') ? +KQ.get('alev') : 1, fb = [cx - 8, 684 - (KQ.has('alevy') ? +KQ.get('alevy') : 0)], dil = (bx, by, L, w, ln) => { const P = new Path2D(); P.moveTo(bx, by);
     P.bezierCurveTo(bx - w * 1.15, by - L * .1, bx - w * 1.1, by - L * .52, bx - w * .3 + ln * .45, by - L * .78);
     P.quadraticCurveTo(bx - w * .05 + ln * .85, by - L * .92, bx + ln, by - L);
     P.quadraticCurveTo(bx + w * .4 + ln * .9, by - L * .86, bx + w * .45 + ln * .5, by - L * .68);
     P.bezierCurveTo(bx + w * 1.15, by - L * .45, bx + w * 1.05, by - L * .1, bx, by); P.closePath(); return P; };
-  const D = [[fb[0] - 34, fb[1] - 6, 140, 30, -26], [fb[0] + 32, fb[1] - 4, 104, 26, 22], [fb[0], fb[1], 236, 38, 14]];
+  const D = [[fb[0] - 34 * AL, fb[1] - 6, 140 * AL, 30 * AL, -26 * AL], [fb[0] + 32 * AL, fb[1] - 4, 104 * AL, 26 * AL, 22 * AL], [fb[0], fb[1], 236 * AL, 38 * AL, 14 * AL]];
   const DP = new Path2D();
   tx.save(); tx.clip(C);
   for (const [bx, by, L, w, ln] of D) {
@@ -261,9 +261,10 @@ function kpk_siluet7(t, o = {}) {
   }
   tx.restore();
   { const O = GR.ox; O.save(); O.globalCompositeOperation = 'destination-out'; O.fill(C); O.fill(Hd); for (const [x, y, rr] of curls) { O.beginPath(); O.arc(x, y, rr, 0, TAU); O.fill(); } O.fill(N); O.restore(); }
-  return { cloak: C, wings: R, dil: DP, base: fb, L: 236, core: [fb[0] + 6, fb[1] - 236 * .52], head: Hd };
+  return { cloak: C, wings: R, dil: DP, base: fb, L: 236 * AL, core: [fb[0] + 6, fb[1] - 236 * AL * .52], head: Hd };
 }
 function kpk_a7Sahne(t) {
+  if (KQ.has('gunx')) KPK_A7.sun = Object.assign({}, KPK_A7.sun, { x: 1627 + +KQ.get('gunx') });
   const { sun } = KPK_A7, { tx } = GR, K = KPK_A7.K;
   nif_gok(sun, { beams: [], t: 0 });
   tx.save(); tx.globalCompositeOperation = 'lighten';
@@ -330,9 +331,9 @@ async function kpk_a7(ctx) {
   cift(b0[0] - 10 - 40, top0, true);
   const qr = cift(b1[2] + 9, top1, false);
   console.log('tirnak sag kenar', Math.round(qr), 'kanat', KPK_F7.cx - 292);
-  // künye: MILTON · KAYIP CENNET (Cinzel 700, aralıklı, açık mürekkep), bloğa sola hizalı
+  // künye: MİLTON · KAYIP CENNET (Cinzel 700, aralıklı, açık mürekkep), bloğa sola hizalı
   ctx.font = '700 60px Cinzel'; ctx.letterSpacing = '9px'; const kc = ctx.measureText('H').actualBoundingBoxAscent; ctx.font = `700 ${60 * 42 / kc}px Cinzel`; ctx.letterSpacing = (9 * 42 / kc) + 'px';
-  ctx.fillStyle = '#4a433c'; ctx.fillText('MILTON · KAYIP CENNET', b1[0] + 4, b1[3] + 30 + 42);
+  ctx.fillStyle = '#4a433c'; ctx.fillText('MİLTON · KAYIP CENNET', b1[0] + 4, b1[3] + 30 + 42);
   ctx.restore();
 }
 async function kpk_a(ctx) {
