@@ -110,3 +110,31 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 5. "Tanrı sandılar" sahnesinde diz çöken ya da secde eden figür olmaz. Athena önden simetrik ve haleli çizilmez; yalnız ışık ve baykuş.
 6. "Üç uçuş" panelleri Golgota gibi (üç figür yan yana, ortası yüksek) dizilmez. Bruegel sahnesinde suda kalan bacaklar küçük olur. İkarya'da gerçek kasaba ya da kilise silueti kullanılmaz.
 7. Uçurum kenarında aşağı bakan figür kullanılmaz (intihar çağrışımı). Kapakta mutlak iddia yok.
+
+## Kapı 3: İlk tam kurgu
+| Üye | Tur 1 | Rapor |
+|---|---|---|
+| E (kurgu, animasyon, tutma, ilk kez gören izleyici) | 7,6 RED | `kurul/kurgu_tur1/E_kurgu_tutma.md` |
+| F (görsel hassasiyet, yazı/altyazı, teknik) | 7,5 RED, 1 veto (P51 bacaklar) | `kurul/kurgu_tur1/F_hassasiyet_yazi_teknik.md` |
+
+**Uygulananlar:**
+- **Donukluk (E: filmin %25,7'si donuktu).** Kadrajı sabit her plana varsayılan %3 yavaş yaklaşma eklendi (`film.js` baski). Ayrıca:
+  - P38'de Akropolis'e yaklaşma; P39'da "yalan" sözünde baş öne eğilir;
+  - P44'te kürsü plan boyunca yükselir; P46'da keklik kalkmaya çalışıp düşer;
+  - P50'de kamera çiftçiden bacaklara kayar;
+  - P03'te "sırrı" sözünde bir tüy kopup batar;
+  - P15'te figür plan başında girer.
+- **Rakle:** palet değişimi dört anlamlı sözcüğe bağlandı ve plan içinde görünüyor: "ama" (alacakaranlık), "arzudan" (gün batımı), "atmıştı" (gece), "önce" (şafak).
+- **Geri çağrı:** "Unutulan uyarı buydu" sözünde "ÇOK ALÇAKTAN DA UÇMA" yeniden basılır (P47).
+- **Kanca:** A03 sonrası boşluk 0,6 sn kısaldı (A03 gap 0). Zaman çizelgesine bağlı her şey yeniden üretildi: anlatım, SRT, müzik, miks, Shorts.
+- **P51 kaldırıldı (F veto).** Keklik P50'de dalda; P50'ye kayada oturan balıkçı eklendi; çoban tepede, göğe bakıyor.
+- **Alt banttaki yazılar** başlığın altına alındı (P04, P32); P53'teki blok yukarı taşındı; boş video kutusu kaldırıldı. Altyazıyla çakışma kalmadı.
+- **Diğer:**
+  - P22 ve P23'te uçanlar arasında bir kanat açıklığı var; balıkçı kayada oturuyor (diz çökme okuması yok).
+  - P52'de tüy yazının solunda.
+  - P35'te çocuk büyük (h 46); P40'ta düşen çocuk ve keklik kâğıt renginde.
+
+**Gerekçeyle kabul edilenler (F, engelleyici değil):**
+- 17 kar/sn'yi aşan 5 altyazı (en yüksek 19,6): anlatım hızından kaynaklanıyor. `srt.py` okuma hızı kuralı uygulanıyor; daha fazlası metni bölmeyi gerektirir.
+- "Ve uçtular." 0,65 sn: aynı cümlenin devamı hemen başlıyor.
+- Satır bölme kusurları küçük; sonraki videoda `srt.py`'ye özel ad + edat bölme kuralı eklenecek.

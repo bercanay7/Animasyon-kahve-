@@ -60,7 +60,6 @@ P = [
  ('P48','G06','yakin','GOK','SAFAK',"İkaros'un uçuşu, sevinç; açılış karesi geri döner",''),
  ('P49','G07','ters','GOK','',"İkaros en tepede, bulutların üstünde; babası aşağıda küçük",''),
  ('P50','G08','genis','BRU','BRUEGEL',"Saygı karesi (kopya değil): önde saban süren çiftçi, gemi, göğe bakan çoban; köşede denizde iki küçük bacak",''),
- ('P51','G08@bacak','ayrinti','BRU','',"Denizde iki bacak ve tüyler; dalda bir keklik",''),
  ('P52','G09','yakin','GOK','SAFAK',"Boş gök, güneş; tek tüy yükselir",'HANGİ YÜKSEKLİKTE UÇARDIN?'),
  ('P53','H01','genis','SON','GECE',"Bitiş ekranı: afiş çerçevesi, sağda video kutusu alanı, abone",'ZAMAN KURYESİ'),
 ]

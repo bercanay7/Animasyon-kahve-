@@ -60,5 +60,5 @@ plan('P32', (ctx, st) => baski(ctx, st, null, pr => {
   bant(pr, 968, 1080, 'near');
 }), { over: (ctx, st, pal) => {
   basYazi(ctx, 'İKARYA', W / 2, 200, st.t - Wd('E05', 'ikarya'), { px: 200, ls: 22, col: pal.near, dur: .5 });
-  basYazi(ctx, 'ADI DENİZDE VE TOPRAKTA KALAN ÇOCUK', W / 2, 1024, st.t - Wd('E05', 'ikarya') - .6, { font: FONT.metin(40, 600), ls: 6, col: pal.paper, dur: .6 });
+  basYazi(ctx, 'ADI DENİZDE VE TOPRAKTA KALAN ÇOCUK', W / 2, 310, st.t - Wd('E05', 'ikarya') - .6, { font: FONT.metin(40, 600), ls: 6, col: pal.near, dur: .6 });
 } });

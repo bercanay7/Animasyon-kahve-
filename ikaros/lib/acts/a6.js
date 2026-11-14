@@ -76,30 +76,25 @@ plan('P50', (ctx, st) => baski(ctx, st, { cx: lerp(780, 1150, E.io2(clamp((st.t 
   const tepe = new Path2D(); tepe.moveTo(-50, 640); tepe.bezierCurveTo(400, 600, 900, 700, 1100, 1100); tepe.lineTo(-50, 1100); tepe.closePath(); pr.ink(tepe, 'mid', { sheen: .1 });
   const sv = new Path2D(); for (let i = 0; i < 8; i++) sv.rect(-50, 760 + i * 46, 900 - i * 60, 12); pr.ink(sv, 'near', { sheen: 0, clip: tepe });
   a3_tanik(pr, 430, 900, 52, 'ciftci', 0, st.lt);
-  a3_tanik(pr, 820, 690, 26, 'coban', 1, st.lt);
-  const koyun = new Path2D(); for (let i = 0; i < 5; i++) FG.ellipseInto(koyun, 700 + i * 40, 690 - (i % 2) * 8, 18, 12, 0, 12); pr.ink(koyun, 'paper', { sheen: 0 });
+  a3_tanik(pr, 200, 640, 26, 'coban', 1, st.lt);
+  const koyun = new Path2D(); for (let i = 0; i < 5; i++) FG.ellipseInto(koyun, 300 + i * 40, 650 - (i % 2) * 8, 18, 12, 0, 12); pr.ink(koyun, 'paper', { sheen: 0 });
+  a3_tanik(pr, 1480, 960, 22, 'balikci', 0, st.lt);
+  const dal = new Path2D(); FG.capsule(dal, [-50, 240], [470, 300], 14, 7); pr.ink(dal, 'near', { sheen: 0 }); pr.ink(keklikPath(330, 238, 70, 1, 0, .5), 'near');
   const bc = new Path2D(), sp = Math.sin(st.lt * 5) * 6; FG.capsule(bc, [1620, 900], [1612, 862 + sp], 6, 5); FG.capsule(bc, [1636, 900], [1650, 866 - sp], 6, 5); pr.ink(bc, 'lit', { sheen: 0 });
   const sc = new Path2D(); FG.ellipseInto(sc, 1630, 904, 40, 8, 0, 16); pr.ink(sc, 'paper', { sheen: 0, reg: 0 });
 }));
 
-// P51 — G08@bacak: denizde iki bacak ve tüyler; dalda bir keklik
-plan('P51', (ctx, st) => baski(ctx, st, null, pr => {
-  pr.fillAll('sky1'); const sea = new Path2D(); sea.rect(-50, 560, 2020, 600); pr.ink(sea, 'far', { sheen: 0 });
-  const bc = new Path2D(), sp = Math.sin(st.lt * 4) * 14; FG.capsule(bc, [915, 600], [905, 510 + sp * .4], 12, 10); FG.capsule(bc, [945, 600], [960, 516 - sp * .4], 12, 10); pr.ink(bc, 'lit', { sheen: .2 });
-  const sc = new Path2D(); for (let i = 0; i < 7; i++) { const a = -Math.PI + i * .5; FG.ellipseInto(sc, 930 + Math.cos(a) * 70, 596 + Math.sin(a) * 18, 14, 6, a, 12); } pr.ink(sc, 'paper', { sheen: 0 });
-  const p = new Path2D(); for (let i = 0; i < 6; i++) a2_tuy(p, 500 + i * 180, 640 + (i % 2) * 60 + Math.sin(st.lt + i) * 8, 110, i * 1.1, .14); pr.ink(p, 'near', { sheen: .1 });
-  const dal = new Path2D(); FG.capsule(dal, [-50, 160], [520, 220], 16, 8); pr.ink(dal, 'near', { sheen: 0 }); pr.ink(keklikPath(330, 150, 110, 1, 0, .5), 'near');
-}));
+// P51 kaldırıldı (kurgu kurulu F, veto: bacaklar küçük olmalı; keklik P50'de dalda)
 
 // P52 — G09: boş gök, güneş; tek tüy yükselir; soru basılır
 plan('P52', (ctx, st) => baski(ctx, st, null, pr => {
   pr.sky('sky2', 'sky1', 80, 380, 5); gunes(pr, 1500, 260, 80, 3);
-  const p = new Path2D(); a2_tuy(p, 700 + Math.sin(st.lt * .9) * 40, lerp(1000, 520, clamp(st.lt / Math.max(4, st.d))), 180, -1.3 + Math.sin(st.lt * 1.2) * .3, .16); litInk(pr, p, 'lit', 'near', 1, -.5, 4);
+  const p = new Path2D(); a2_tuy(p, 190 + Math.sin(st.lt * .9) * 30, lerp(1000, 420, clamp(st.lt / Math.max(4, st.d))), 180, -1.3 + Math.sin(st.lt * 1.2) * .3, .16); litInk(pr, p, 'lit', 'near', 1, -.5, 4);
 }), { over: (ctx, st, pal) => basYazi(ctx, 'HANGİ YÜKSEKLİKTE UÇARDIN?', W / 2, 760, st.t - Wd('G09', 'hangi'), { px: 120, ls: 8, col: pal.near, dur: .6 }) });
 
 // P53 — H01: bitiş ekranı: solda başlık ve küçük kanatlı; sağ yarı YouTube öğelerine boş (video: x 1000–1840, y 160–640; abone: x 1300–1520, y 720–940)
 plan('P53', (ctx, st) => baski(ctx, st, null, pr => {
   pr.fillAll('near'); bant(pr, 1040, 1080, 'mid');
-  a3_ucan(pr, st.lt, 470, 640, 40, 1.3, false, { rise: .2, light: [1, -.6] });
-  gunes(pr, 720, 320, 44, 2);
-}), { over: (ctx, st, pal) => { basYazi(ctx, 'ZAMAN KURYESİ', 480, 860, st.lt - .3, { px: 120, ls: 10, col: pal.paper, dur: .5 }); basYazi(ctx, 'GEÇMİŞTEN BUGÜNE BİR SORU', 480, 950, st.lt - .8, { font: FONT.metin(36, 600), ls: 6, col: pal.lit, dur: .5 }); } });
+  a3_ucan(pr, st.lt, 470, 440, 40, 1.3, false, { rise: .2, light: [1, -.6] });
+  gunes(pr, 720, 200, 44, 2);
+}), { over: (ctx, st, pal) => { basYazi(ctx, 'ZAMAN KURYESİ', 480, 700, st.lt - .3, { px: 120, ls: 10, col: pal.paper, dur: .5 }); basYazi(ctx, 'GEÇMİŞTEN BUGÜNE BİR SORU', 480, 790, st.lt - .8, { font: FONT.metin(36, 600), ls: 6, col: pal.lit, dur: .5 }); } });

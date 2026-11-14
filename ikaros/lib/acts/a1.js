@@ -43,7 +43,7 @@ plan('P04', (ctx, st) => {
   ctx.save(); baseT(ctx); ctx.fillStyle = PAL[palAt(st.t).cur.pal].near; ctx.fillRect(0, 968, W, 112); ctx.restore();
 }, { over: (ctx, st, pal) => {
   basYazi(ctx, 'GİRİT', 1460, 190, st.lt, { px: 200, ls: 22, col: pal.near, t0: .4, dur: .5 });
-  basYazi(ctx, 'OVİDİUS · DÖNÜŞÜMLER · VIII. KİTAP', W / 2, 1024, st.lt, { font: FONT.metin(42, 600), ls: 6, col: pal.paper, t0: 1.2, dur: .6 });
+  basYazi(ctx, 'OVİDİUS · DÖNÜŞÜMLER · VIII. KİTAP', 1460, 300, st.lt, { font: FONT.metin(38, 600), ls: 5, col: pal.near, t0: 1.2, dur: .6 });
 } });
 
 // P05 — B02@labirent: labirentin planı tepeden, duvar duvar basılır; girişte küçük bir figür

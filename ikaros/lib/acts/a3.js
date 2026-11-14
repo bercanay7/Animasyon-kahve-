@@ -35,7 +35,7 @@ plan('P21', (ctx, st) => baski(ctx, st, { cx: 960 + st.lt * 30, cy: 540 }, pr =>
 // P22 — D02 (ters açı): yerden bakış; balıkçı, çoban, çiftçi başlarını kaldırır; gökte iki küçük kanatlı
 plan('P22', (ctx, st) => baski(ctx, st, null, pr => {
   pr.sky('sky2', 'sky1', 80, 380, 5); gunes(pr, 1560, 220, 60, 2);
-  for (const [x, y, ph] of [[860, 300, 0], [760, 360, 1.3]]) a3_ucan(pr, st.lt, x + st.lt * 18, y, 14, ph, ph === 0);
+  for (const [x, y, ph] of [[1000, 270, 0], [640, 380, 1.3]]) a3_ucan(pr, st.lt, x + st.lt * 18, y, 14, ph, ph === 0);
   pr.ink(FG.ridge(-40, 760, 1100, 820, 40, 71, 5), 'far'); const sea = new Path2D(); sea.rect(700, 860, 1300, 300); pr.ink(sea, 'mid', { sheen: 0 });
   pr.ink(FG.ridge(-40, 1960, 1100, 930, 26, 72, 4), 'near');
   const bak = t0 => E.io2(clamp((st.t - t0) / .8));
@@ -47,7 +47,7 @@ plan('P22', (ctx, st) => baski(ctx, st, null, pr => {
 // P23 — D03: çiftçinin başı profilden, göğe bakıyor
 plan('P23', (ctx, st) => baski(ctx, st, null, pr => {
   pr.sky('sky2', 'sky1', 60, 300, 4);
-  for (const [x, y, ph] of [[1450, 230, 0], [1360, 270, 1.3]]) a3_ucan(pr, st.lt, x + st.lt * 10, y, 12, ph, ph === 0);
+  for (const [x, y, ph] of [[1560, 210, 0], [1250, 310, 1.3]]) a3_ucan(pr, st.lt, x + st.lt * 10, y, 12, ph, ph === 0);
   pr.ink(FG.ridge(-40, 1960, 1100, 900, 30, 73, 4), 'far');
   const J = FG.rig({ x: 700, y: 1240, h: 210, f: 1, lean: .02, head: -.75 + Math.sin(st.lt * .7) * .03, armN: [.05, 0], armF: [.05, 0] });
   kanatliFigur(pr, J, { light: [1, -.6], litD: 4, faceFill: false, look: { beard: true, chest: true, face: true } });
