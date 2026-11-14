@@ -13,7 +13,8 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 | `sisifos/` | Sisifos (vazo üslubu); `README.md` komutlar, `yayin.md`, Shorts hattı (`shorts/`) |
 | `orfeus/` | Orfeus (kâğıt kesme); `kapak.js` |
 | `cumhuriyet/`, `29-ekim/`, `cumhuriyet_kapak/` | 29 Ekim videosu ve yeni kapakları |
-| `gunluk-shorts/` | Şarlken uzun video ve günlük Shorts (Python motoru); `sarlken_kapak/` yeni paket |
+| `gunluk-shorts/` | Şarlken uzun video ve günlük Shorts (Python motoru); `sarlken_kapak/` yeni paket. **Medici serisi** ("Medici Ailesi (1/7): Faiz Yasakken Nasıl Zengin Oldular?", 10:02, 5 Kasım): `gunluk-shorts/medici-uzun-dosya/` (kapak `kapak_medici.py`, `yayin/`); dersleri `gunluk-shorts/DERSLER.md`, yayın kaydı `gunluk-shorts/yayin_gunlugu.jsonl` |
+| `analiz/` | Studio dışa aktarım analizleri (`2026-11-11-studio-analizi.md`: bütün videolar yan yana, Medici dahil) |
 | `zaman-kuryesi-zanzibar/` | Zanzibar savaşı Shorts |
 | `.claude/skills/` | `yonetmenlik` (hikâye iskeletleri, YouTube kuralları, taslak kontrol listesi), `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; oturum başında otomatik yüklenir |
 | `araclar/` | ortak araç kutusu, `ASSETS.md` (lisans kaydı) |
@@ -239,6 +240,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - Yorum: ilk saatlerde bile TO düşük (Prometheus'un ilk saatlerinde %5,8'di); sadık kitle tıklamakta isteksiz ya da gösterim erkenden geniş kitleye gitti. Büyük göz atma testi henüz gelmedi (Prometheus'ta ~20. saatte geldi). Bakılacak: 48. saatte trafik kaynakları, 0:30'da kalan, ilk 3 sn (açılıştaki sessiz göz planı), "Test ve karşılaştır" sonucu.
 - **Milton, ~1. gün sonu (13 Kasım akşamı):** 4,5 B gösterim, 171 görüntüleme (görüntüleme/gösterim ≈ %3,8; Studio'daki TO ayrıca bakılacak), ortalama 6:33 (%25). İzlenmenin %60'ı abonelerden: büyük göz atma testi henüz gelmedi (Prometheus'ta ~20. saatte gelmişti). Gösterim başına izlenme ≈ 0,25 dk (Prometheus 45. saatte 0,11). Ortalamanın 9:30'dan düşmesi kitle genişledikçe beklenen düşüş. Karar noktası 3. gün: yeni dalga yoksa paketleme kurulla yenilenir.
 - **Milton Shorts** (37 sn; açılış: durağan büst + "O hâlde kimi suçlayacaksın?", en güçlü cümle "Ben cehennemim" 10. sn'de): 20. dakikada izlemeye devam eden %32; ~1.000 izlenmede %38, ortalama izleme 16 sn (%43). Ders: Shorts'ta en güçlü cümle ve en güçlü kare ilk saniyede olur; bağlam isteyen soru kanca değildir; 25–30 sn'lik sıkı kesit tercih edilir.
+- **Kanal, 14 Kasım 2026:** ~500 abone. Sisifos 200 B gösterimi geçti, ~25 B görüntüleme. Medici (1/7) 8. günde ~300 görüntüleme, ~5 B gösterim, TO ~%1,5, ortalama 3:05 / 10:02 (~%30). Düşük tutmanın nedeni kanal cezası değil videonun kendisi: kullanıcı da "ne başı var ne sonu, isimlerden beynim allak bullak" dedi (`gunluk-shorts/DERSLER.md`). YouTube kanala değil videoya puan verir; Sisifos aynı kanalda 200 B gösterim aldı.
 - **Milton, ~40. saat (14 Kasım 13:20; Studio'daki başlık artık "Milton'ın Şeytanı: "Ben Ceh…"):**
   - Erişim: 4,5 B gösterim (1. gün sonuyla aynı), ömür boyu TO %1,4; günlük TO ~%1,5'ten ~%0,9–1,0'a indi. 189 görüntüleme (gerçek zamanlı; izlenme saati kartı ~10 saat gösteriyor, yani Analytics verisi gerçek zamanlıdan geride).
   - **Büyük göz atma testi gelmedi.** ~22.–26. saatte küçük bir test geldi (~2 B → 4,4 B), TO düşük kaldı, ~27. saatten beri gösterim düz. Karşılaştırma: Prometheus ~20. saatte 1 B → 18 B; Sisifos 18. saatte 4,7 B, 3. günde 22,2 B.
@@ -256,7 +258,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - Bağlılık: izlenme süresinin %98,8'i abone olmayanlardan, izleyicilerin %95,5'i yeni. Abone çağrısı doruk anına (~son dakika) ve bitiş ekranına konmalı.
   - Cihaz: telefon %48, bilgisayar %23, TV %22, tablet %6.
   - Cinsiyet: kadın %22,5.
-- **Kanal yönü (kullanıcının kararı):** yalnız mitoloji değil, geniş bir alan: tarih, felsefe ve kitap, film ve dizi. Kanalı bir arada tutan konu değil biçim olacak:
+- **Kanal yönü (kullanıcının kararı):** yalnız mitoloji değil, geniş bir alan: tarih, felsefe, psikoloji ve kitap, film ve dizi. Örnek aldığı kanal TED-Ed. Kanal kullanıcının arka bahçesi: amaç yalnız izlenme değil, ilgisini çeken fikirleri ve bakış açısını paylaşıp etkileşim almak. Hızlı büyüme için konu ve kaliteden ödün verilmez; büyüme kaldıracı paketleme, düzenli yayın ve her videoda tek soru biçimidir. Kanalı bir arada tutan konu değil biçim olacak:
   - animasyonlu anlatım;
   - tek bir büyük soru;
   - Emrullah sesi;
