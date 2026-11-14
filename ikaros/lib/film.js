@@ -23,7 +23,7 @@ function PA(id, off = 0) { const p = (window.PLAN || {})[id]; if (!p) { console.
 // acc tek vurgu (güneş), lit ışıklı yüz, paper kâğıt. Günün saati = hikâyenin saati.
 const PAL = {
   SAFAK: { paper: '#F3E6CC', sky1: '#F6CD98', sky2: '#EE9A73', far: '#9A7FA8', mid: '#3E7079', near: '#1E3B3F', acc: '#FBE6B4', lit: '#F2B27A' },
-  OGLE:  { paper: '#F4ECD8', sky1: '#E8F0F2', sky2: '#7FB3C8', far: '#D9C7A3', mid: '#2F6E8E', near: '#173247', acc: '#E8553D', lit: '#F2D9A6' },
+  OGLE:  { paper: '#F4ECD8', sky1: '#E8F0F2', sky2: '#7FB3C8', far: '#D9C7A3', mid: '#2F6E8E', near: '#173247', acc: '#F7E3A1', lit: '#E9C98C' },
   BATIS: { paper: '#F1E2C6', sky1: '#F4B25E', sky2: '#D9583B', far: '#8C3B4E', mid: '#4A2D52', near: '#1F1630', acc: '#FCE39A', lit: '#F08C4A' },
   ALACA: { paper: '#EDE3D0', sky1: '#B8C9D9', sky2: '#8B9BB0', far: '#6A6F8E', mid: '#4A5D78', near: '#1F2A3C', acc: '#F2B134', lit: '#C9B79A' },
   BRUEGEL: { paper: '#F2EAD3', sky1: '#EEE6B8', sky2: '#C9D3A0', far: '#8FB0A4', mid: '#4F7A5A', near: '#2B2A1E', acc: '#F2A33A', lit: '#D9B866' },
@@ -32,7 +32,7 @@ const PAL = {
 // Film boyunca palet saati: [{at, pal, dur}] — at çapası, dur yeniden mürekkepleme (çapraz rakle) süresi. Planlarda PALT doldurulur.
 const PALT = [];
 // plan listesindeki 'pal' alanı palet saatini kurar (plan başında değişim = kesmeyle; çekim içindeyse çapraz rakle)
-if (window.PLAN) { PALT.push({ at: -1e9, pal: 'SAFAK' }); for (const p of Object.values(window.PLAN)) if (p.pal) PALT.push({ at: p.at, pal: p.pal, dur: .6 }); }
+if (window.PLAN) { PALT.push({ at: -1e9, pal: 'SAFAK' }); for (const p of Object.values(window.PLAN)) if (p.pal) PALT.push({ at: p.at, pal: p.pal, dur: .4 }); }
 function palAt(t) { let cur = PALT.length ? PALT[0] : { pal: 'SAFAK', at: -1e9 }, prev = null; for (const p of PALT) { const a = A(p.at); if (a <= t) { prev = cur; cur = { ...p, a }; } } return { cur, prev }; }
 
 const SHOTS = [];
@@ -89,14 +89,20 @@ function baskiPal(ctx, st, cam, fn, pal) {
 }
 function baski(ctx, st, cam, fn, o = {}) {
   if (o.pal) { baskiPal(ctx, st, cam, fn, typeof o.pal === 'string' ? PAL[o.pal] : o.pal); return; }
-  const { cur, prev } = palAt(st.t), dur = cur.dur ?? .5;
+  const { cur, prev } = palAt(st.t), dur = cur.dur ?? .4;
   baskiPal(ctx, st, cam, fn, PAL[cur.pal]);
-  // yeniden mürekkepleme: palet değişimi çekimin içine düşerse çapraz rakle geçer; eski palet rakle önünde kalır
+  // yeniden mürekkepleme (tarif §5): geniş rakle ~0,4 sn'de kareyi çapraz geçer; önünde eski palet, arkasında yeni. Bıçak ve boncuk görünür.
   if (prev && st.t < cur.a + dur && cur.a > st.at + .05) {
-    const p = clamp((st.t - cur.a) / dur);
-    const clip = SK.wipeRegion([-200, -200, W + 400, H + 400], 'right', p, 3, 60, 8);
-    const inv = new Path2D(); inv.rect(-1e4, -1e4, 2e4, 2e4); inv.addPath(clip);
-    ctx.save(); baseT(ctx); ctx.clip(inv, 'evenodd'); baskiPal(ctx, st, cam, fn, PAL[prev.pal]); ctx.restore();
+    const p = clamp((st.t - cur.a) / dur), ang = -.32, L = 2600;
+    const fx = lerp(-700, W + 700, p);                                           // döndürülmüş çerçevede cephe
+    ctx.save(); baseT(ctx); ctx.translate(W / 2, H / 2); ctx.rotate(ang);
+    const clip = new Path2D(); clip.rect(fx - W / 2, -L / 2, L, L);            // cephenin önü: eski palet
+    ctx.clip(clip); ctx.rotate(-ang); ctx.translate(-W / 2, -H / 2);
+    baskiPal(ctx, st, cam, fn, PAL[prev.pal]); ctx.restore();
+    ctx.save(); baseT(ctx); ctx.translate(W / 2, H / 2); ctx.rotate(ang);
+    const np = PAL[cur.pal];
+    SK.squeegee(ctx, [fx - W / 2, -900], [fx - W / 2, 900], [1, 0], { scale: 1.6, roll: st.t * 6, handle: .25, beads: [{ t0: 0, t1: .45, color: np.sky2 }, { t0: .45, t1: .7, color: np.mid }, { t0: .7, t1: 1, color: np.near }], bead: 30 });
+    ctx.restore();
   }
 }
 

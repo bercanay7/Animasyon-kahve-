@@ -41,12 +41,12 @@ const FG = (() => {
     const { Hd, h, f, ht } = J, r = .5 * h, c = Math.cos(ht), s = Math.sin(ht);
     const T = (x, y) => [Hd[0] + (x * c - y * s) * f, Hd[1] + (x * s + y * c)];   // x: yüz yönü, y: aşağı
     ellipseInto(p, Hd[0], Hd[1], r * .98, r * 1.04, ht);
-    polyInto(p, [T(.2 * r, -.78 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r),
-      T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
+    polyInto(p, [T(.2 * r, -.78 * r), T(.78 * r, -.42 * r), T(.88 * r, -.1 * r), T(1.2 * r, .24 * r), T(.92 * r, .36 * r), T(1.0 * r, .5 * r), T(.9 * r, .58 * r),
+      T(.97 * r, .68 * r), T(.86 * r, .86 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
     if (o.beard) { polyInto(p, [T(.66 * r, .5 * r), T(.98 * r, .86 * r), T(.9 * r, 1.22 * r), T(.62 * r, 1.62 * r), T(.36 * r, 1.4 * r), T(.1 * r, 1.2 * r), T(-.15 * r, .5 * r)]); for (let k = 0; k < 5; k++) { const a = Math.PI * (.8 + k * .16); ellipseInto(p, ...T(Math.cos(a) * r * .95 - .1 * r, Math.sin(a) * r * .9 + .05 * r), r * .2, r * .2, 0, 12); } }
-    if (o.curls) for (let k = 0; k < 7; k++) { const a = Math.PI * (.72 + k * .13); ellipseInto(p, ...T(Math.cos(a) * r * .9 - .06 * r, Math.sin(a) * r * .92 - .04 * r), r * .24, r * .24, 0, 14); }
+    if (o.curls) for (let k = 0; k < 7; k++) { const a = Math.PI * (.78 + k * .12); ellipseInto(p, ...T(Math.cos(a) * r * .84 - .04 * r, Math.sin(a) * r * .86 - .02 * r), r * .19, r * .19, 0, 14); }
     if (o.faceOut) { const fp = P(); polyInto(fp, [T(.32 * r, -.8 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r), T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.4 * r, .88 * r), T(.5 * r, .3 * r), T(.44 * r, -.3 * r)]);
-      const ep = P(); ellipseInto(ep, ...T(.6 * r, -.08 * r), r * .07, r * .045, ht, 12); o.faceOut.face = fp; o.faceOut.eye = ep; }
+      const ep = P(); ellipseInto(ep, ...T(.66 * r, -.1 * r), r * .11, r * .06, ht, 14); o.faceOut.face = fp; o.faceOut.eye = ep; }
     // boyun
     capsule(p, J.N, add2(Hd, [-f * .1 * h, .25 * h]), .26 * h, .24 * h);
   }
@@ -69,7 +69,8 @@ const FG = (() => {
     if (o.chest) ellipseInto(body, J.Sh[0] - J.f * .05 * h, J.Sh[1] + .45 * h, .62 * h, .7 * h, J.lean, 24);
     if (!o.noArmN) limbInto(body, J.armN, .21 * h, .18 * h, .14 * h); limbInto(body, J.legN, .31 * h, .23 * h, .17 * h); footInto(body, J.legN, J, .17 * h);
     if (o.hands !== false && !o.noArmN) { ellipseInto(body, J.armN[2][0], J.armN[2][1], .19 * h, .15 * h, J.armN[3], 12); ellipseInto(far, J.armF[2][0], J.armF[2][1], .18 * h, .14 * h, J.armF[3], 12); }
-    return { far, body, face: fo && fo.face, eye: fo && fo.eye };
+    let belt = null; if (!o.long && o.belt !== false) { belt = P(); const fw = [Math.cos(J.lean) * J.f, Math.sin(J.lean)], c = add2(J.H, J.upv, .55 * h); polyInto(belt, [add2(add2(c, fw, -.66 * h), J.upv, .09 * h), add2(add2(c, fw, .62 * h), J.upv, .09 * h), add2(add2(c, fw, .62 * h), J.upv, -.09 * h), add2(add2(c, fw, -.66 * h), J.upv, -.09 * h)]); }
+    return { far, body, face: fo && fo.face, eye: fo && fo.eye, belt };
   }
 
   // ── Kanat (kuş kanadı; kola bağlı), afiş dili: tek siluet. Ön kenar kökten bileğe, oradan uca; arka kenar tırtıklı
@@ -85,14 +86,16 @@ const FG = (() => {
     for (let k = 0; k <= NS; k++) { const u = k / NS, b = add2(R, d(o.ang), sp * .46 * u); const miss = o.ruin && hash(k * 3.7 + (o.seed || 0)) < o.ruin; tips.push({ p: add2(b, nrm(o.ang + .1 * u * f), ch * (miss ? .45 : (.84 + .12 * u)) * (1 + (r() - .5) * .05)), deep: false }); }
     for (let k = 1; k <= NP; k++) { const u = k / NP, b = add2(Wr, d(o.ang + bend), sp * .54 * (u * .92)), a = o.ang + bend + 1.62 * f - (.25 + 1.15 * u) * f;
       const miss = o.ruin && hash(k * 5.1 + 9 + (o.seed || 0)) < o.ruin * 1.3; tips.push({ p: add2(b, d(a), ch * (miss ? .35 : (1.0 + .45 * u - .3 * u * u))), deep: true, b }); }
+    // arka kenar: her tüy ucu yuvarlak; ikinciller arası sığ çentik, birinciller ("parmaklar") arası derin oyuk
     const trail = [];
     for (let i = 0; i < tips.length; i++) {
-      const A = tips[i].p, B = i + 1 < tips.length ? tips[i + 1].p : T;
-      trail.push(A);
-      // iki uç arasına yay (sığ) ya da oyuk (birinciller arasında kökte derin)
-      const m = [(A[0] + B[0]) / 2, (A[1] + B[1]) / 2], L = Math.hypot(B[0] - A[0], B[1] - A[1]);
-      if (tips[i].deep || (i + 1 < tips.length && tips[i + 1].deep)) { const base = tips[i + 1] && tips[i + 1].b ? tips[i + 1].b : m; trail.push([lerp(m[0], base[0], .42), lerp(m[1], base[1], .42)]); }
-      else { const n = [-(B[1] - A[1]) / L, (B[0] - A[0]) / L]; trail.push(add2(m, n, -L * .22 * f)); }
+      const A = tips[i].p, B = i + 1 < tips.length ? tips[i + 1].p : T, prv = i > 0 ? tips[i - 1].p : R;
+      const dx = B[0] - prv[0], dy = B[1] - prv[1], L = Math.hypot(dx, dy) || 1, tg = [dx / L, dy / L], rr = Math.hypot(B[0] - A[0], B[1] - A[1]) * .5;
+      const out = [-tg[1] * f, tg[0] * f];                                        // dışa (ön kenardan uzağa)
+      for (let k = 0; k <= 6; k++) { const th = -Math.PI / 2 + Math.PI * k / 6; trail.push(add2(add2(A, tg, Math.sin(th) * rr * .9), out, Math.cos(th) * rr * .55)); }
+      const m = [(A[0] + B[0]) / 2, (A[1] + B[1]) / 2];
+      if (tips[i].deep || (i + 1 < tips.length && tips[i + 1].deep)) { const base = tips[i + 1] && tips[i + 1].b ? tips[i + 1].b : m; trail.push([lerp(m[0], base[0], .45), lerp(m[1], base[1], .45)]); }
+      else trail.push(add2(m, out, -rr * .35));
     }
     const all = P(); polyInto(all, [...lead, ...trail.slice().reverse()]);
     // örtü tüyleri: ön kenar boyunca, tırtıklı alt kenar
