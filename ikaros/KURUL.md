@@ -73,7 +73,7 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 
 | Üye | Tur 1 | Tur 2 | Rapor |
 |---|---|---|---|
-| C (sanat, gelenek, hareket) | 7,0 RED | (bekleniyor) | `uslup_tur1/C_sanat_hareket.md`, `uslup_tur2/C.md` |
+| C (sanat, gelenek, hareket) | 7,0 RED | 8,5 RED → tur 3 (tek üyeli gerileme) **9,0 ONAY** | `uslup_tur1/C_sanat_hareket.md`, `uslup_tur2/C.md`, `uslup_tur3/C.md` |
 | D (görsel hassasiyet, okunurluk) | 8,0 RED, veto yok | **9,2 ONAY** | `uslup_tur1/D_hassasiyet_okunurluk.md`, `uslup_tur2/D.md` |
 
 **Tur 1 sonrası uygulananlar:**
@@ -88,7 +88,17 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 - Orta planda Daidalos büyük, İkaros küçük; yerde konfeti yok.
 - Manzarada figürler kenardan içeride.
 
-**Tur 2 sonrası:** uçan figürler arasında ≥ 40 px boşluk; kapakta tek çapraz kayış; en ince bant 7 px.
+**Tur 2 sonrası:**
+- Uçan figürler arasında ≥ 40 px boşluk; kapakta tek çapraz kayış; en ince bant 7 px.
+- Uçuşta Daidalos'a uzun tunik, İkaros 0,75 ölçek.
+- En dış birincil tüy sivri; orta planda kol göğüste, yerde gerçek tüyler; sırt uçları sivri.
+
+**Kapı 2 sonucu: GEÇTİ** (C 9,0, D 9,2).
+
+**Sahne aşaması notları (C):**
+- Uçuşta tunik ucuna küçük bir salınım ekle.
+- C04 (P14) planında Daidalos'un eli kayışta olsun.
+- Uçuş planlarında baba ile oğul arasında en az bir kanat açıklığı bırak.
 
 **Reddedilen:** ¾ alttan bakış A/B'si (C, tur 1). Gerekçe: kullanım payı. Profil ve V çırpma ile okunurluk sağlandı; D 168 px'te "güneşe bakan kanatlı çocuk" okumasını doğruladı.
 

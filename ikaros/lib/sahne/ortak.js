@@ -42,7 +42,7 @@ function keklikPath(x, y, s, f = 1, kanat = 0, bas = 0) {
   FG.polyInto(p, [T(.66, -.38 - bas * .12), T(.8, -.33 - bas * .12), T(.66, -.29 - bas * .12)]);
   FG.polyInto(p, [T(-.5, -.1), T(-.8, -.22), T(-.78, -.05), T(-.5, .1)]);
   FG.capsule(p, T(.08, .3), T(.1, .56), s * .035, s * .03); FG.capsule(p, T(-.1, .3), T(-.12, .56), s * .035, s * .03);
-  if (kanat > 0) FG.polyInto(p, [T(-.1, -.2), T(-.3 - kanat * .3, -.55 - kanat * .55), T(.15, -.7 - kanat * .4), T(.25, -.2)]);
+  if (kanat > 0) { const w = FG.wing({ root: T(.1, -.15), ang: f > 0 ? -2.0 - kanat * .5 : -1.14 + kanat * .5, bend: -.3 * f, span: s * (.7 + .3 * kanat), chord: s * .3, f: -f, seed: 7 }); p.addPath(w.all); }
   return p;
 }
 // yalnız düz mürekkep yazı afişi için: kare boyu bir bant
