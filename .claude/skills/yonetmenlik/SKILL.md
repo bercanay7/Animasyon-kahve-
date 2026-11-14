@@ -63,7 +63,7 @@ Gösterim · TO · ort. izleme (%) · 0:30'da kalan % · trafik payı (Göz at/�
 Kaynaklar (yardım sayfaları, erişim 2026-11-11, 3–6 ayda yenile): support.google.com/youtube/answer/9314415 (retention), /13861714 (Test ve Karşılaştır), /2801973 (spam/aldatıcı politikalar), /10059070 (Shorts). Repo fikirleri (claude-youtube MIT, claude-gtm-plugin MIT) yalnız paraphrase; kurulmadı; ücretli bağlantıları (DataForSEO/Gemini/Buffer) alınmadı.
 
 ## Hikâye yapısı seç (kontrol listesi, kalıp değil)
-Kanalın asıl listesi kökteki `CLAUDE.md`'deki Kahramanın Yolculuğu tablosudur; burası, videonun uzunluğuna ve konusuna göre **hangi iskeletin** daha rahat oturduğunu seçmek içindir. Uymayan aşamayı zorlama. Bu yapılar film/edebiyat geleneğinden gelir; YouTube'da tek başına izlenme garantilemez (kanıt düzeyi C): kapak, başlık ve ilk 15 sn belirleyicidir. Kendi verine (CLAUDE.md "Ölçütler") bak.
+Kanalın asıl listesi kökteki `CLAUDE.md`'deki Kahramanın Yolculuğu tablosudur; burası, videonun uzunluğuna ve konusuna göre **hangi iskeletin** daha rahat oturduğunu seçmek içindir. **Seçim senaryodan önce yapılır** ve projenin `uretim_plani.md`'sine yazılır: iskelet, gerekçe, kahraman, adım → cümle numarası, açık döngüler, önceki videonun iskeleti (aynısı art arda gelirse "süsü" değiştir). Uymayan aşamayı zorlama. Bu yapılar film/edebiyat geleneğinden gelir; YouTube'da tek başına izlenme garantilemez (kanıt düzeyi C): kapak, başlık ve ilk 15 sn belirleyicidir. Kendi verine (CLAUDE.md "Ölçütler") bak.
 
 | Uzunluk / tür | Önerilen iskelet |
 |---|---|
@@ -87,4 +87,4 @@ Her bölümün ve cümle geçişinin kontrolü. "…ve sonra… ve sonra…" ile
 - **Çözülmeyen kalıp riski:** art arda videolarda aynı iskelet ve aynı başlık kalıbı ("NEDEN…?") izleyiciyi ve "şablon seri" riskini besler; kalıbı koru, süsünü değiştir.
 
 ### Taslak kontrol listesi (kurula girmeden önce)
-□ Tek cümlelik vaat yazılı □ İlk 5 sn kapağın vaadini karşılıyor □ Her bölümde AMA + BU YÜZDEN var □ En az bir açık döngü sonuna kadar taşınıyor □ Büyük sınav/kırılma anı net (kapak buradan seçilir) □ Sonda iksir: bugüne taşınan fikir □ Doğruluk: tarih, alıntı, atıf kaynakla doğrulandı.
+□ İskelet senaryodan önce seçildi ve `uretim_plani.md`'de adım → cümle eşlemesi var □ Tek cümlelik vaat yazılı □ İlk 5 sn kapağın vaadini karşılıyor □ Her bölümde AMA + BU YÜZDEN var □ En az bir açık döngü sonuna kadar taşınıyor □ Büyük sınav/kırılma anı net (kapak buradan seçilir) □ Sonda iksir: bugüne taşınan fikir □ Doğruluk: tarih, alıntı, atıf kaynakla doğrulandı.

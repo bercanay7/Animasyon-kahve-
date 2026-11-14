@@ -7,6 +7,28 @@
 - İksir: üç uçuş (güneşe giden çocuk, yerde kalan keklik, ortadan uçan usta), Milton'ın "yükselmeye kalkan, yükseldiği kadar alçalır" dizesi (kanalın Milton videosuna köprü), Bruegel: kimse bakmıyor. Son soru: kimse bakmasa da hangi yükseklikte uçardın?
 - Murray'nin "İkaros kompleksi" çıkarıldı: Milton dizesi aynı işi görüyor ve doğrulanmış.
 
+## Hikâye iskeleti (kayda sonradan geçti, 14 Kasım 2026)
+Senaryo yazılırken iskelet açıkça seçilmedi; senaryo kurulu (A üyesi, dramaturji merceği) yapıyı sonradan böyle okudu. Sonraki videonun "art arda aynı iskelet" kontrolü için kayıt.
+
+| Harmon adımı (kahraman: Daidalos) | Cümleler |
+|---|---|
+| 1. Konfor: çağının en büyük ustası, labirent | B02 |
+| 2. İhtiyaç: adaya kapalı, yıllardır sürgün | B03 |
+| 3. Eşik: "Ama gök açık. Oradan gideceğiz." | B04 |
+| 4. Uyum: kanatlar, deneme, iki uyarı | C01–C08 |
+| 5. Ödül: uçuş, tanrı sanılmak | D01–D05 |
+| 6. Bedel: İkaros'un düşüşü, "artık baba olmayan baba" | E01–E05 |
+| 7. Dönüş: gömme; keklik geçmişi geri getirir | F01–F08 |
+| 8. Değişim: üç uçuş, izleyiciye soru | G01–G09, H01 |
+
+- **Kişōtenketsu "dönüşü":** F01 "Ama Ovidius hikâyeyi burada bitirmez": bilinen hikâyeye beklenmedik bilgi (keklik).
+- **Merak döngüleri:**
+  - A03 "Ötekini çoğumuz hatırlamayız" sorusunun cevabı C05–C06'da (unutulan uyarı).
+  - C06 "bu uyarıyı yapan adamın da bir sırrı vardı" sorusunun cevabı F08'de ("kıskandığı bir çocuğu yükseklikten atmıştı").
+- **ABT:** her bölümde bir AMA ya da OYSA var (A03, B03, B04, C06, D04, E02, F01, G02, G06).
+- **İkaros'un rolü:** kahraman değil, hikâyenin sevinci; kırılma onun düşüşünde değil, ustanın sırrında.
+- **Önceki video:** Milton, Kahramanın Yolculuğu (iç yolculuk).
+
 ## Üslup: serigrafi seyahat afişi (cinecode `styles/silkscreen-poster.md`)
 - Kullanıcının kararı: vazo değil, gerçekten renkli bir üslup.
 - Opak düz mürekkepler, gradyan yerine basamaklı renk bantları, 1–3 px kayık baskı, krem kâğıt. Çizgi yok, figürler düz siluet (kodla çizimin zayıf yanı olan yüz yok).

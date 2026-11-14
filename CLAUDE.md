@@ -41,6 +41,7 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 
 ## Uçtan uca iş akışı
 1. **Senaryo** (`senaryo.json`): cümle cümle yazılır. `tts` alanı seslendirme metnidir (ses etiketleriyle), `alt` alanı altyazı metnidir. Senaryo/yönetmenlik kurulu ≥9 verene kadar düzeltilir.
+   - **Önce iskelet (İkaros'tan sonra kural):** senaryo yazılmadan önce `yonetmenlik` becerisindeki "Hikâye yapısı seç" tablosundan bir iskelet seçilir (Harmon çemberi, Kahramanın Yolculuğu, Kişōtenketsu, Shorts için Pixar omurgası). Projenin `uretim_plani.md`'sine yazılır: hangi iskelet, neden, kahraman kim, her adımın cümle numarası. Ayrıca açık merak döngüleri (soru → cevap cümlesi) ve bir önceki videonun iskeleti yazılır. Senaryo kurulunun ilk sorusu "senaryo bu iskeletle mi kuruldu?" olur.
 2. **Seslendirme:** her bölüm iki çekim alınır.
    - `tools/transcribe.py` çekimleri Whisper'dan geçirir. Metne karşı doğrulayıp iyi olanı seçer (`vo/secim.json`).
    - `tools/build_vo.py` seçilen çekimleri birleştirir. Çıktılar `vo/vo.wav` ve kelime zamanlı `timeline.js` olur.
@@ -355,6 +356,7 @@ Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. A
 
 ## İkaros dersleri (14 Kasım 2026)
 Ayrıntı: `ikaros/geriye_bakis.md`, `ikaros/KURUL.md`.
+- **İskelet baştan seçilmedi:** senaryo bölüm bölüm yazıldı; iskelet sonradan kurulda belirdi (Harmon çemberi, kahraman Daidalos; keklik Kişōtenketsu'nun "dönüş"ü; iki merak döngüsü). İşe yaradı ama tesadüfe bağlıydı; artık iskelet senaryodan önce seçilip kayda yazılır ("Uçtan uca iş akışı", 1. adım). Kayıt: `ikaros/uretim_plani.md`.
 - **Yorum kullanıcıyla birlikte kurulur:** önce birkaç soru sorulur ("suçlu mu, kurban mı?", "hangi okuma seni etkiledi?"). Kullanıcının görüşleri kaynakla sınanarak omurgaya girer.
 - **Bilinen hikâyede sürpriz kaynağın kendisindedir:** özgün metni (burada Ovidius'un Latincesi) satır numarasıyla depoya al ve kurula ver. Kaynak üyesi kendisi doğrular.
 - **Üslup için önce hazır motor:** cinecode tarifi ve kaynağındaki MIT motor (`silk.js`) yeni motor yazmanın yerini tuttu; üslup kapısı 3 turda geçti.
