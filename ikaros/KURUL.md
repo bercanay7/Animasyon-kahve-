@@ -143,7 +143,7 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
 | Üye | Tur 1 | Tur 2 | Tur 3 |
 |---|---|---|---|
 | G (TO/paketleme, yayın paketi) | A 8,0 · B 7,0 · paket 7,5 RED | **A 9,0 · B 9,0 · paket 9,5 ONAY** | – |
-| H (sanat, görsel hassasiyet) | A 7,5 · B 6,0 RED | **A 9,0 ONAY** · B 7,0 RED | B (bekleniyor) |
+| H (sanat, görsel hassasiyet) | A 7,5 · B 6,0 RED | **A 9,0 ONAY** · B 7,0 RED | A 9,0 · B 8,5 → tek madde (sudaki tüyler asimetrik, V yarıklı, saplı) başkanca kareyle doğrulandı: **B ONAY** |
 
 **Uygulananlar:**
 - Kapak yazısı Bebas 290 px: büyük harf ~136 px / 720 (%19).
@@ -155,3 +155,5 @@ Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uç
   - Sabit yorum cevabı vermiyor.
   - Tek kart 4:56'da (Milton); erken Sisifos kartı kaldırıldı.
   - Bölüm damgaları yeni çizelgeden; #YunanMitolojisi eklendi.
+
+**Kapı 5 sonucu: GEÇTİ** (A ve B; paket 9,5).

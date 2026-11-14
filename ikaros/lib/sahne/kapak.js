@@ -11,6 +11,12 @@ SCENES.kapakA = (ctx, t) => {
   }, { pal: 'SAFAK', sabit: true });
   kapakYazi(ctx, ['İKİ UYARI', 'VARDI'], 80, 720, 290, PAL.SAFAK.near);
 };
+// gerçek tüy: asimetrik bayrak (bir yan geniş, bir yan dar), geniş yanda V yarığı, sap tabanda bayraktan taşar
+function kapakTuy(p, x, y, l, a) {
+  const u = [Math.cos(a), Math.sin(a)], n = [-u[1], u[0]], P_ = (k, w) => [x + u[0] * l * k + n[0] * w, y + u[1] * l * k + n[1] * w], A = [], B = [];
+  for (let i = 0; i <= 14; i++) { const k = .1 + .9 * i / 14, env = Math.sin(Math.PI * Math.pow((k - .1) / .9, .75)); let wa = env * l * .2, wb = env * l * .09; if (k > .52 && k < .6) wa *= .35; A.push(P_(k, wa)); B.push(P_(k, -wb)); }
+  FG.polyInto(p, [...A, ...B.reverse()]); FG.capsule(p, P_(-.16, 0), P_(.98, 0), l * .018, l * .008);
+}
 // B: kanat ucu denize değer; en parlak öğe temas noktasındaki sıçrama; suda tek tük tüyler; yazı sağ üstte
 SCENES.kapakB = (ctx, t) => {
   baski(ctx, kSt(3, 6), null, pr => {
@@ -22,7 +28,7 @@ SCENES.kapakB = (ctx, t) => {
     const tx = wn.tip[0];
     for (let k = 0; k < 3; k++) { const r = 80 + k * 90, ring = SK.ringPath(0, 0, r, r + 9), q = new Path2D(); q.addPath(ring, new DOMMatrix().translate(tx, yW + 14).scale(1, .22)); pr.ink(q, 'sky1', { sheen: 0, reg: 0 }); }
     const sp = new Path2D(); for (let i = 0; i < 7; i++) { const a = -Math.PI + i * .52; FG.ellipseInto(sp, tx + Math.cos(a) * 46, yW - 6 + Math.sin(a) * 38, 14, 22, a + Math.PI / 2, 12); } pr.ink(sp, '#FAF0CF', { sheen: 0, reg: 0 });
-    const tu = new Path2D(); [[1180, 905, .25], [1460, 975, -.35], [880, 1010, 2.8]].forEach(([x, y, a]) => a2_tuy(tu, x, y, 170, a, .2)); litInk(pr, tu, 'lit', 'near', 1, -.6, 5);
+    const tu = new Path2D(); [[1150, 905, .25], [1440, 975, -.35], [900, 1010, 2.8]].forEach(([x, y, a]) => kapakTuy(tu, x, y, 190, a)); litInk(pr, tu, 'lit', 'near', 1, -.6, 5);
   }, { pal: 'SAFAK', sabit: true });
   kapakYazi(ctx, ['UNUTULAN', 'UYARI'], 1860, 500, 290, PAL.SAFAK.near, 'right');
 };
