@@ -1,6 +1,6 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev2 (14 Kasım 2026): senaryo kurulu tur 1 (A 7,5; B 7,5) bulguları uygulandı",
+ "revizyon": "rev3 (14 Kasım 2026): senaryo kurulu tur 2 ONAY (A 9,0; B 9,3); son küçük düzeltmeler işlendi",
  "not": "Kaynak: Ovidius, Metamorphoses VIII.155–259 (Latince özgün, kamu malı; kaynak_ovidius_met8.txt; çeviriler bizim). Künyeler doğrulandı (kurul B, tur 1–2). Milton dizesi milton/senaryo.json I05 ile aynı çeviri (IX.169–170).",
  "segments": [
   {
@@ -25,24 +25,17 @@
    "kaynak": "merak sorusu; ilk cevap C06, ikinci döngü C06 sonunda açılır (F03–F08), asıl cevap G04–G05"
   },
   {
-   "id": "B01",
-   "bolum": "Havaya kimse sahip değil",
-   "tts": "[calmly] Bu hikâyeyi en ayrıntılı, iki bin yıl önce Romalı şair Ovidius anlatır.",
-   "alt": "Bu hikâyeyi en ayrıntılı, iki bin yıl önce Romalı şair Ovidius anlatır.",
-   "kaynak": "Ovidius, Metamorphoses (MS 8 civarı tamamlandı); kurul B: Ovidius bir kez tanıtılmalı"
-  },
-  {
    "id": "B02",
    "bolum": "Havaya kimse sahip değil",
-   "tts": "[calmly] Ona göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
-   "alt": "Ona göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
-   "kaynak": "VIII.155–168 (vix ipse reverti ad limen potuit)"
+   "tts": "[calmly] Romalı şair Ovidius'a göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
+   "alt": "Romalı şair Ovidius'a göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
+   "kaynak": "Ovidius, Metamorphoses VIII.155–168 (vix ipse reverti ad limen potuit). Ekranda künye: OVİDİUS · DÖNÜŞÜMLER · VIII. KİTAP"
   },
   {
    "id": "B03",
    "bolum": "Havaya kimse sahip değil",
-   "tts": "[calmly] Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Uzun bir sürgündü bu, ve doğduğu toprakları özlüyordu.",
-   "alt": "Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Uzun bir sürgündü bu, ve doğduğu toprakları özlüyordu.",
+   "tts": "[calmly] Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Yıllardır sürgündeydi ve doğduğu toprakları özlüyordu.",
+   "alt": "Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Yıllardır sürgündeydi ve doğduğu toprakları özlüyordu.",
    "kaynak": "VIII.183–185 (longum perosus exilium; loci natalis amore; clausus erat pelago)"
   },
   {
@@ -76,9 +69,9 @@
   {
    "id": "C04",
    "bolum": "Mum ve tüy",
-   "tts": "[calmly] Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra kanatları oğluna taktı ve onu uyardı:",
-   "alt": "Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra kanatları oğluna taktı ve onu uyardı:",
-   "kaynak": "VIII.200–203 (libravit… pependit in aura)"
+   "tts": "[calmly] Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra oğlunun omuzlarına taktı ve onu uyardı:",
+   "alt": "Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra oğlunun omuzlarına taktı ve onu uyardı:",
+   "kaynak": "VIII.200–203, 209 (libravit… pependit in aura; umeris accommodat alas)"
   },
   {
    "id": "C05",
@@ -132,8 +125,8 @@
   {
    "id": "D04",
    "bolum": "Tanrılar gibi",
-   "tts": "[warmly] Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Önderini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
-   "alt": "Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Önderini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
+   "tts": "[warmly] Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Babasının peşini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
+   "alt": "Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Babasının peşini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
    "kaynak": "VIII.223–225 (audaci coepit gaudere volatu; deseruitque ducem; caeli cupidine tractus)"
   },
   {
@@ -244,9 +237,9 @@
   {
    "id": "G02",
    "bolum": "Üç uçuş",
-   "tts": "[thoughtful] Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.",
-   "alt": "Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.",
-   "kaynak": "F05'ten yorum (invidit)"
+   "tts": "[thoughtful] Ama usta hiçbir zaman ortada olmamıştı. En iyisi olmak zorundaydı; ikinci olmaya dayanamadı.",
+   "alt": "Ama usta hiçbir zaman ortada olmamıştı. En iyisi olmak zorundaydı; ikinci olmaya dayanamadı.",
+   "kaynak": "F05'ten yorum (invidit); kurul A tur 2"
   },
   {
    "id": "G03",

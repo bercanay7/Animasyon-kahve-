@@ -1,4 +1,4 @@
-# İkaros: senaryo (rev2)
+# İkaros: senaryo (rev3, kurul ONAY)
 
 Okuma kopyası. Asıl dosya `senaryo.json`.
 
@@ -11,9 +11,8 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 
 ## Havaya kimse sahip değil
 
-- **B01** Bu hikâyeyi en ayrıntılı, iki bin yıl önce Romalı şair Ovidius anlatır.  _(Ovidius, Metamorphoses (MS 8 civarı tamamlandı); kurul B: Ovidius bir kez tanıtılmalı)_
-- **B02** Ona göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.  _(VIII.155–168 (vix ipse reverti ad limen potuit))_
-- **B03** Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Uzun bir sürgündü bu, ve doğduğu toprakları özlüyordu.  _(VIII.183–185 (longum perosus exilium; loci natalis amore; clausus erat pelago))_
+- **B02** Romalı şair Ovidius'a göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.  _(Ovidius, Metamorphoses VIII.155–168 (vix ipse reverti ad limen potuit). Ekranda künye: OVİDİUS · DÖNÜŞÜMLER · VIII. KİTAP)_
+- **B03** Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Yıllardır sürgündeydi ve doğduğu toprakları özlüyordu.  _(VIII.183–185 (longum perosus exilium; loci natalis amore; clausus erat pelago))_
 - **B04** “Karayı da denizi de kapatabilir,” dedi. “Ama gök açık. Oradan gideceğiz. Minos her şeye sahip olabilir; havaya sahip değil.”  _(VIII.185–187 (çevirimiz; ibimus illac))_
 
 ## Mum ve tüy
@@ -21,7 +20,7 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 - **C01** Tüyleri küçükten büyüğe dizdi; ortadan iple bağladı, diplerini mumla tutturdu.  _(VIII.189–194)_
 - **C02** İkaros yanında oynuyordu. Rüzgârın uçurduğu tüyleri yakalıyor, sarı mumu başparmağıyla yumuşatıyordu.  _(VIII.195–200)_
 - **C03** Kendi tehlikesiyle oynadığını bilmeden.  _(VIII.196 (ignarus sua se tractare pericla))_
-- **C04** Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra kanatları oğluna taktı ve onu uyardı:  _(VIII.200–203 (libravit… pependit in aura))_
+- **C04** Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra oğlunun omuzlarına taktı ve onu uyardı:  _(VIII.200–203, 209 (libravit… pependit in aura; umeris accommodat alas))_
 - **C05** “Ortadan uç, İkaros. Fazla alçalırsan dalgalar tüylerini ağırlaştırır. Fazla yükselirsen güneş yakar. İkisinin arasından uç.”  _(VIII.203–206 (çevirimiz; özgünde ateş: ignis; sıra özgündeki gibi: önce alçak))_
 - **C06** İşte unutulan uyarı: çok alçaktan da uçma. Üstelik Daidalos onu ilk sırada söylemişti. Ama bu uyarıyı yapan adamın da bir sırrı vardı.  _(A03'ün ilk cevabı; VIII.204–205 sıra; ikinci döngü açılır (F03–F08 kapatır))_
 - **C07** Sonra bir öğüt ekledi: “Beni izle.”  _(VIII.208 (me duce carpe viam))_
@@ -32,7 +31,7 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 - **D01** Ve uçtular. Daidalos önden gidiyor, yuvadan ilk kez çıkan yavrusuna bakan bir kuş gibi dönüp dönüp oğluna bakıyordu.  _(VIII.213–216 (velut ales… teneram prolem))_
 - **D02** Aşağıda oltasıyla bir balıkçı, değneğine yaslanmış bir çoban, sabanına dayanmış bir çiftçi başını kaldırdı.  _(VIII.217–219; G08'deki Bruegel kafiyesi, aynı siluetler)_
 - **D03** Gökte yol alan bu ikisini tanrı sandılar.  _(VIII.219–220)_
-- **D04** Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Önderini bıraktı; göğün arzusuyla daha yükseğe çıktı.  _(VIII.223–225 (audaci coepit gaudere volatu; deseruitque ducem; caeli cupidine tractus))_
+- **D04** Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Babasının peşini bıraktı; göğün arzusuyla daha yükseğe çıktı.  _(VIII.223–225 (audaci coepit gaudere volatu; deseruitque ducem; caeli cupidine tractus))_
 - **D05** Ovidius burada kibir demez. Cüretten, sevinçten ve göğe duyulan arzudan söz eder.  _(VIII.223–225; kurul B V1 ifadesi. Sabit yorum için: Ars Amatoria II.83 (nimium temerarius))_
 
 ## İkaros, neredesin?
@@ -57,7 +56,7 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 ## Üç uçuş
 
 - **G01** Bu hikâyede üç uçuş var: güneşe giden çocuk, yükseğe çıkmaya korkan keklik ve ortadan uçup sağ kalan usta.  _(yorumumuz (kurul A: G01+G02 birleşti))_
-- **G02** Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.  _(F05'ten yorum (invidit))_
+- **G02** Ama usta hiçbir zaman ortada olmamıştı. En iyisi olmak zorundaydı; ikinci olmaya dayanamadı.  _(F05'ten yorum (invidit); kurul A tur 2)_
 - **G03** Bu ses bugün de tanıdık: ya bir işin en iyisi olacağız ya da hiç başlamayacağız.  _(kullanıcının yorumu)_
 - **G04** Bu cümlenin ilk yarısı Daidalos: geçilmeye dayanamayan usta. İkinci yarısı keklik: bir kez düşmüş, bir daha yükselmeye cesaret edemeyen.  _(kurul A: güdü ayrımı)_
 - **G05** Orta ise bize sıradanlık gibi gelir. Oysa hiç başlamamak da bir düşüştür; tüyleri ıslatan, sessiz, yavaş bir düşüş. Unutulan uyarı buydu.  _(C05–C06'ya geri çağrı; A03'ün asıl cevabı)_

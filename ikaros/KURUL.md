@@ -48,3 +48,22 @@
 - Auden ve W. C. Williams'tan alıntı yapılmaz.
 
 Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uçuş hep profilde ya da üç çeyrek açıdan gösterilir.
+
+### Tur 2 (gerileme; rev2 → rev3)
+| Üye | Puan | Karar | Rapor |
+|---|---|---|---|
+| A (dramaturji, tutma) | **9,0** | ONAY (küçük düzeltmelerle) | `kurul/senaryo_tur2/A.md` |
+| B (kaynak, hassasiyet) | **9,3** | ONAY, veto yok | `kurul/senaryo_tur2/B.md` |
+
+**Uygulananlar:**
+- B01 ve B02 birleşti: Ovidius tanıtımı ilk 15 sn'den çıktı; "iki bin yıl önce" bilgisi ekrandaki künyeye gitti.
+- D04: "önderini bıraktı" yerine "babasının peşini bıraktı" ("Beni izle"ye karşılık).
+- G02: kıskançlık tekrarı yerine "en iyisi olmak zorundaydı; ikinci olmaya dayanamadı".
+- B03 ve C04 dil düzeltmeleri.
+- B'nin önerileri: E05 "toprağa verdi; o toprak da o deniz de" (adanın İkarya oluşu: Apollodoros II.6.3, Pausanias IX.11.5); F03 "bitmeyecek suçun"; G01 "yükseğe çıkmaya korkan keklik"; G08 "resmetti".
+
+**Reddedilen:** G07'nin son cümlesinin ("Bazılarımız bütün ömrünü böyle tek bir an için yaşar") tempo için kısaltılması. Bu kullanıcının kendi fikri; 4 sn'lik kişisel bir vuruş ve iksirin taşıyıcısı. Kalıyor.
+
+**Kapı 1 sonucu: GEÇTİ** (rev3).
+
+**Ek görsel kırmızı çizgiler (B, tur 2):** E05'te mezar ya da beden gösterilmez; İkarya'da gerçek bir kasaba ya da kilise silueti kullanılmaz.
