@@ -8,6 +8,7 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 
 | Klasör | Ne |
 |---|---|
+| `ikaros/` | **İkaros** (14 Kasım 2026; serigrafi seyahat afişi üslubu, 5:55). Hazır motor: LemoLab `silk.js` (MIT) + bizim çekim sistemimiz. Whisper/scipy yokken çalışan araçlar: `tools/hizala.py` (sessizliğe dayalı hizalama), `audio/dsp_shim.py` (numpy scipy yerine), `tools/mix_ffmpeg.py`; Shorts `shorts/build.py` (çok kesitli, gerçek duraklamadan keser). `geriye_bakis.md`, `KURUL.md` |
 | `milton/` | Kayıp Cennet (Doré gravürü; en olgun motor ve araçlar). Yeni videoda buradan başla: `lib/` (gravür motoru, çekim sistemi `film.js`), `lib/acts/KILAVUZ.md` (sahne üretim kılavuzu), `tools/` (`kurgu_ozet.py` bütün filmi tek bakışta; `plan_zaman.py`; `srt.py`; `bolum_damga.py`; `build_vo.py`; `mix.py`), `render.js`, `kapak/` (kapak ve test seti), `KURUL.md`, `geriye_bakis.md` |
 | `prometheus/` | Prometheus (vazo üslubu); `geriye_bakis.md`, `kurul/kararlar.md` |
 | `sisifos/` | Sisifos (vazo üslubu); `README.md` komutlar, `yayin.md`, Shorts hattı (`shorts/`) |
@@ -351,6 +352,25 @@ Milton videosunda denendi, sonuç iyi; bundan sonra hep böyle çalışılır. A
 - **Hassasiyet kurulu görüntüye de bakar** (yalnız senaryoya değil): Milton'da yakaladıkları: sıra hâlinde eğilen figürler (namaz safı), baştan ayağa siyah örtülü kadın figürü, dört kollu yıldız (haç), göğsünde alev tutan önden simetrik figür (Kutsal Kalp), "ŞEYTAN AĞLADI" kapak yazısı (vaaz motifi), siluetin karnındaki küçük figür (hamilelik). Kapak yazısı da bu kuruldan geçer.
 - **Kapak:** en iyi sonuç filmin ilk karesiyle aynı figür + tek vurgu rengi + Bebas Neue yazı (%18 harf yüksekliği). İkinci kapağın vaadi de ilk saniyede karşılanır (Milton'da film 0,9 sn'lik göz planıyla açılır).
 - **Kredi:** seslendirmeden önce karakter sayısı × çekim sayısı hesaplanıp kullanıcıya bildirilir.
+
+## İkaros dersleri (14 Kasım 2026)
+Ayrıntı: `ikaros/geriye_bakis.md`, `ikaros/KURUL.md`.
+- **Yorum kullanıcıyla birlikte kurulur:** önce birkaç soru sorulur ("suçlu mu, kurban mı?", "hangi okuma seni etkiledi?"). Kullanıcının görüşleri kaynakla sınanarak omurgaya girer.
+- **Bilinen hikâyede sürpriz kaynağın kendisindedir:** özgün metni (burada Ovidius'un Latincesi) satır numarasıyla depoya al ve kurula ver. Kaynak üyesi kendisi doğrular.
+- **Üslup için önce hazır motor:** cinecode tarifi ve kaynağındaki MIT motor (`silk.js`) yeni motor yazmanın yerini tuttu; üslup kapısı 3 turda geçti.
+- **Donuk plan yok:**
+  - Sabit kadrajlı afiş planları donuk kalıyor; ilk kurguda filmin %25,7'si donuktu.
+  - Her planın ilk saniyeden hareketi olmalı (varsayılan yavaş yaklaşma + sözcüğe bağlı eylem).
+  - Kurgu kurulu kare farkıyla ölçer.
+- **Palet ya da geçiş değişimi sözcüğe bağlanır ve plan içinde olur;** plan başındaki değişim kesmeye dönüşür, görünmez.
+- **Karikatür okuması:** koyu siluet + bembeyaz göz + kıvırcık yuvarlak baş + çıkık ağız birleşimi kullanılmaz. Göz küçük ve sıcak tonda olur.
+- **Kapak yazısı:** Bebas'ta büyük harf ≈ 0,70 em; %18 için 1080 ölçeğinde font ≥ 290 px.
+- **Ekran yazısı ve künye alt banda (y > 880) konmaz;** orası altyazının yeri.
+- **Kapta paket eksikse:**
+  - Bu oturumda Whisper, scipy, soundfile ve pyloudnorm yoktu; `pip install` izin sisteminde reddedildi.
+  - Kurulumsuz yollar `ikaros/` altında: `tools/hizala.py`, `audio/dsp_shim.py`, `tools/mix_ffmpeg.py`.
+  - Kalıcı çözüm kullanıcıda: ortamın kurulum betiğine ya da izinlere `pip install openai-whisper scipy soundfile pyloudnorm` eklemek.
+- **Kurul kısaltması (kullanım sınırı):** kapı başına iki birleşik mercekli üye işe yaradı. Ses/miks ve Shorts kurulsuz kalırsa bu kayda açıkça yazılır.
 
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
