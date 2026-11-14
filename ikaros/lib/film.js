@@ -91,7 +91,7 @@ function baskiPal(ctx, st, cam, fn, pal) {
   ctx.restore();
 }
 function baski(ctx, st, cam, fn, o = {}) {
-  if (!cam && !o.sabit) cam = { cx: o.fx ?? 960, cy: o.fy ?? 540, z: 1 + (o.nefes ?? .03) * E.io2(clamp(st.p ?? 0)) };   // kurgu kurulu E: donuk kare yok
+  if (!cam && !o.sabit) cam = { cx: o.fx ?? 960, cy: o.fy ?? 540, z: 1 + (o.nefes ?? .035) * clamp(st.p ?? 0) };   // doğrusal: hareket ilk karede başlar (freezedetect)   // kurgu kurulu E: donuk kare yok
   if (o.pal) { baskiPal(ctx, st, cam, fn, typeof o.pal === 'string' ? PAL[o.pal] : o.pal); return; }
   const { cur, prev } = palAt(st.t), dur = cur.dur ?? .4;
   baskiPal(ctx, st, cam, fn, PAL[cur.pal]);

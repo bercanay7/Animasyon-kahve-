@@ -80,7 +80,7 @@ plan('P07', (ctx, st) => baski(ctx, st, null, pr => {
 // P08 — B04: Daidalos kayalıkta kolunu göğe kaldırır; kamera göğe kayar (boş gök, martılar)
 plan('P08', (ctx, st) => {
   const u = E.io2(clamp((st.t - Wd('B04', 'gök')) / 3.5));
-  const cam = { cx: 960, cy: lerp(540, 300, u) };
+  const cam = { cx: 960, cy: lerp(540, 300, u), z: 1 + .03 * st.p };
   baski(ctx, st, cam, pr => {
     pr.sky('sky2', 'sky1', -250, 280, 5);
     gunes(pr, 1500, 120, 60, 3);

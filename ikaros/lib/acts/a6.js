@@ -67,7 +67,7 @@ plan('P49', (ctx, st) => baski(ctx, st, null, pr => {
 }));
 
 // P50 — G08: Bruegel'e saygı (kopya değil): önde saban süren çiftçi, göğe bakan çoban, gemi; köşede denizde iki küçük bacak
-plan('P50', (ctx, st) => baski(ctx, st, { cx: lerp(780, 1150, E.io2(clamp((st.t - Wd('G08', 'kimse') + 1) / 3))), cy: 620, z: 1.25 }, pr => {
+plan('P50', (ctx, st) => baski(ctx, st, { cx: lerp(780, 1150, clamp(st.lt / Math.max(4, st.d - 1))), cy: 620, z: 1.25 }, pr => {
   pr.sky('sky2', 'sky1', 60, 320, 4);
   const sun = FG.sunRings(1500, 470, 60, 2); sun.rings.forEach(q => pr.ink(q, 'lit', { sheen: 0 })); pr.ink(sun.disk, 'acc');
   const sea = new Path2D(); sea.rect(-50, 480, 2020, 700); pr.ink(sea, 'far', { sheen: 0 });
