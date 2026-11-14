@@ -2,7 +2,7 @@
 'use strict';
 const SCENES = {};
 // 1. MANZARA: şafakta Girit; yalıyarın üstünde labirent, denizin ortasında güneş doğuyor; kıyının ucunda baba ve oğul.
-SCENES.manzara = (ctx, t) => baski(ctx, kSt(t, 2), null, pr => {
+SCENES.manzara = (ctx, t, st) => baski(ctx, st || kSt(t, 2), null, pr => {
   pr.sky('sky2', 'sky1', 150, 420, 5);
   gunes(pr, 1360, 640, 118, 3);
   pr.ink(FG.ridge(980, 1920, 700, 600, 70, 11), 'far');
@@ -19,7 +19,7 @@ SCENES.manzara = (ctx, t) => baski(ctx, kSt(t, 2), null, pr => {
 });
 
 // 2. ORTA PLAN: kıyıdaki atölye. İkaros kanatları ilk kez açıyor; Daidalos (uzun tunik, sakal) arkasında kayışı tutuyor.
-SCENES.orta = (ctx, t) => baski(ctx, kSt(t, 3), null, pr => {
+SCENES.orta = (ctx, t, st) => baski(ctx, st || kSt(t, 3), null, pr => {
   pr.sky('sky2', 'sky1', 120, 380, 5);
   gunes(pr, 1620, 300, 70, 2);
   const sea = new Path2D(); sea.rect(-50, 640, 2020, 500); pr.ink(sea, 'mid', { sheen: 0 });
@@ -36,7 +36,7 @@ SCENES.orta = (ctx, t) => baski(ctx, kSt(t, 3), null, pr => {
 });
 
 // 3. YAKIN PLAN: İkaros'un başı ve kanadı; güneşe bakıyor (güneş başın arkasında değil: hale okunmasın)
-SCENES.yakin = (ctx, t) => baski(ctx, kSt(t, 4), null, pr => {
+SCENES.yakin = (ctx, t, st) => baski(ctx, st || kSt(t, 4), null, pr => {
   pr.sky('sky2', 'sky1', 560, 860, 5);
   gunes(pr, 1540, 250, 95, 3);
   pr.ink(FG.cloud(1560, 640, 520, 100, 3), 'paper', { sheen: 0 });
@@ -46,9 +46,9 @@ SCENES.yakin = (ctx, t) => baski(ctx, kSt(t, 4), null, pr => {
 
 // 4. HAREKETLİ (15 sn): baba ve oğul denizin üstünde; aşağıda bir balıkçı başını kaldırır; 8. sn'de gün ilerler (şafak → öğle, çapraz rakle)
 if (new URLSearchParams(location.search).get('scene')) { PALT.length = 0; PALT.push({ at: -1e9, pal: 'SAFAK' }); if (new URLSearchParams(location.search).get('scene') === 'ucus') PALT.push({ at: 8, pal: 'OGLE', dur: .7 }); }
-SCENES.ucus = (ctx, t) => {
+SCENES.ucus = (ctx, t, st) => {
   const cam = { cx: 960 + t * 38, cy: 540 };
-  baski(ctx, kSt(t, 5), cam, pr => {
+  baski(ctx, st || kSt(t, 5), cam, pr => {
     const x0 = cam.cx - 1100;
     pr.sky('sky2', 'sky1', 100, 420, 5);
     gunes(pr, cam.cx + 520 - t * 6, 230, 80, 3);

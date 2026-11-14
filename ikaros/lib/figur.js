@@ -43,7 +43,7 @@ const FG = (() => {
     ellipseInto(p, Hd[0], Hd[1], r * .98, r * 1.04, ht);
     polyInto(p, [T(.2 * r, -.78 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r),
       T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
-    if (o.beard) polyInto(p, [T(.62 * r, .62 * r), T(.82 * r, .98 * r), T(.5 * r, 1.34 * r), T(.04 * r, 1.12 * r), T(-.12 * r, .52 * r)]);
+    if (o.beard) { polyInto(p, [T(.66 * r, .5 * r), T(.98 * r, .86 * r), T(.9 * r, 1.22 * r), T(.62 * r, 1.62 * r), T(.36 * r, 1.4 * r), T(.1 * r, 1.2 * r), T(-.15 * r, .5 * r)]); for (let k = 0; k < 5; k++) { const a = Math.PI * (.8 + k * .16); ellipseInto(p, ...T(Math.cos(a) * r * .95 - .1 * r, Math.sin(a) * r * .9 + .05 * r), r * .2, r * .2, 0, 12); } }
     if (o.curls) for (let k = 0; k < 7; k++) { const a = Math.PI * (.72 + k * .13); ellipseInto(p, ...T(Math.cos(a) * r * .9 - .06 * r, Math.sin(a) * r * .92 - .04 * r), r * .24, r * .24, 0, 14); }
     if (o.faceOut) { const fp = P(); polyInto(fp, [T(.32 * r, -.8 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r), T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.4 * r, .88 * r), T(.5 * r, .3 * r), T(.44 * r, -.3 * r)]);
       const ep = P(); ellipseInto(ep, ...T(.6 * r, -.08 * r), r * .07, r * .045, ht, 12); o.faceOut.face = fp; o.faceOut.eye = ep; }
