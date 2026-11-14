@@ -18,11 +18,11 @@ def rozet(im, w):
     im = im.convert('RGBA'); s = w / 1280
     ov = Image.new('RGBA', im.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
     f = font(max(9, round(12 * w / 246)) if w <= 400 else round(34 * s))
-    tw = d.textlength('25:46', font=f); pad = max(3, round(8 * s)) if w > 400 else 3
+    tw = d.textlength(SURE, font=f); pad = max(3, round(8 * s)) if w > 400 else 3
     h = f.size + pad
     x1, y1 = im.width - max(4, round(14 * s)), im.height - max(4, round(14 * s))
     d.rounded_rectangle([x1 - tw - 2 * pad, y1 - h, x1, y1], radius=max(2, round(6 * s)), fill=(0, 0, 0, 205))
-    d.text((x1 - tw - pad, y1 - h + pad / 2 - 1), '25:46', font=f, fill=(255, 255, 255, 255))
+    d.text((x1 - tw - pad, y1 - h + pad / 2 - 1), SURE, font=f, fill=(255, 255, 255, 255))
     return Image.alpha_composite(im, ov).convert('RGB')
 
 def sahte(w, h, i):
@@ -39,6 +39,7 @@ def sahte(w, h, i):
     return im
 
 import os as _os
+SURE = _os.environ.get('SURE', '25:46')
 BASLIK = _os.environ.get("BASLIK", "Kayıp Cennet: Şeytan Cehennemden Neden Kaçamadı? | Milton")
 def akis(kapaklar, koyu, out):
     """mobil ana sayfa (tek sütun, 390 dp ≈ 780 px) + önerilen listesi (168×94) yan yana"""

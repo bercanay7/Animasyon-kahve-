@@ -414,12 +414,12 @@ function draw(v) {
   if (!Q.has('notext')) {
     const T = Q.has('t1') ? [Q.get('t1'), Q.get('t2') || ''] : ({ a: ['ARKANA', 'BAKMA!'], b: ['NEDEN', 'BAKTI?'] }[v] || ['ARKANA', 'BAKMA!']);   // t1/t2: paket 2 yazı adayları
     const font = Q.get('font') || 'Anton';
-    const f1 = +(Q.get('f1') || 168), f2 = +(Q.get('f2') || 246), x = 1872, y1 = 26 + f1 * .86, y2 = y1 + 16 + f2 * .86;
+    const f1 = +(Q.get('f1') || 168), f2 = +(Q.get('f2') || 246), x = 1872, y1 = 26 + (+(Q.get('ty') || 0)) + f1 * .86, y2 = y1 + 16 + f2 * .86;
     ctx.save(); ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
     const fnt = f => `${font === 'Anton' ? '' : '900 '}${f}px ${font}`, wd = (s, f) => { ctx.font = fnt(f); return ctx.measureText(s).width; };
     const left = false, lx = x - Math.max(wd(T[0], f1), wd(T[1], f2));
     ctx.textAlign = left ? 'left' : 'right';
-    for (const [s, y, f, fill] of [[T[0], y1, f1, '#ffffff'], [T[1], y2, f2, '#ffcf3a']]) {
+    for (const [s, y, f, fill] of [[T[0], y1, f1, Q.get('c1') ? '#' + Q.get('c1') : '#ffffff'], [T[1], y2, f2, '#ffcf3a']]) {
       ctx.font = fnt(f); const xx = left ? lx : x;
       ctx.shadowColor = 'rgba(5,6,25,.9)'; ctx.shadowBlur = 28; ctx.shadowOffsetY = 8;
       ctx.lineWidth = f * .14; ctx.strokeStyle = '#0a0d28'; ctx.strokeText(s, xx, y);
