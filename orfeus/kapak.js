@@ -412,7 +412,7 @@ function draw(v) {
   ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
   // yazı (dokunun üstünde, keskin)
   if (!Q.has('notext')) {
-    const T = { a: ['ARKANA', 'BAKMA!'], b: ['NEDEN', 'BAKTI?'] }[v] || ['ARKANA', 'BAKMA!'];
+    const T = Q.has('t1') ? [Q.get('t1'), Q.get('t2') || ''] : ({ a: ['ARKANA', 'BAKMA!'], b: ['NEDEN', 'BAKTI?'] }[v] || ['ARKANA', 'BAKMA!']);   // t1/t2: paket 2 yazı adayları
     const font = Q.get('font') || 'Anton';
     const f1 = +(Q.get('f1') || 168), f2 = +(Q.get('f2') || 246), x = 1872, y1 = 26 + f1 * .86, y2 = y1 + 16 + f2 * .86;
     ctx.save(); ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
