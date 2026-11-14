@@ -7,8 +7,8 @@ const KQ = new URLSearchParams(location.search);
 const KPK = { v: KQ.get('v') || 'a', renk: +(KQ.get('renk') || 0), font: KQ.get('font') || 'cinzel', yazi: +(KQ.get('yazi') || 0), t: +(KQ.get('t') || 3.2), a: KQ.has('a') ? +KQ.get('a') : 1.3, notext: KQ.has('notext') };
 const KPK_PAPER = `rgb(${GR.PAPER})`, KPK_INK = `rgb(${GR.INK})`;
 const KPK_YAZI = {
-  a: [['BEN', 'CEHENNEMİM']],
-  b: [['PİŞMAN', 'MIYDI?'], ['GURUR', 'MU?'], ['ŞEYTAN', 'AĞLADI'], ['TEK DAMLA', 'YAŞ']],
+  a: [['BEN', 'CEHENNEMİM'], ['ŞEYTAN\'IN', 'İTİRAFI'], ['SEVİLEN', 'KÖTÜ'], ['KAÇAMADI']],
+  b: [['PİŞMAN', 'MIYDI?'], ['GURUR', 'MU?'], ['ŞEYTAN', 'AĞLADI'], ['TEK DAMLA', 'YAŞ'], ['ŞEYTAN\'IN', 'İTİRAFI'], ['SEVİLEN', 'KÖTÜ']],
 };
 const KPK_FONT = {
   cinzel: px => `900 ${px}px Cinzel`, bebas: px => `400 ${px}px "Bebas Neue"`, anton: px => `400 ${px}px Anton`,
@@ -311,8 +311,12 @@ async function kpk_a7(ctx) {
   if (KPK.renk) { kpk_korHale7(ctx, F); kpk_alevRenk7(ctx, F); kpk_korHale7(ctx, F, true); }
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.strokeStyle = KPK_INK; ctx.lineWidth = 2 * 7 * 1.5 * RS; ctx.strokeRect(0, 0, DW, DH); ctx.restore();
   if (KPK.notext) return;
-  const Y = KPK_A7.yazi, Z = kpk_yazi(ctx, KPK_YAZI.a[0], { x: Y.x, y: Y.y, cap: 198, maxW: Y.w, align: 'left', gap: .3, col: KPK_INK });
+  const Y = KPK_A7.yazi, Z = kpk_yazi(ctx, KPK_YAZI.a[KPK.yazi] || KPK_YAZI.a[0], { x: Y.x, y: Y.y, cap: 198, maxW: Y.w, align: 'left', gap: .3, col: KPK_INK });
   if (KQ.has('sade')) return;
+  if (KPK.yazi) {   // paket 2 (14 Kasım): alıntı değil, tırnak yok; künye isteğe bağlı (kunye=...)
+    const kn = KQ.get('kunye'); if (!kn) return; const bl = Z.boxes[Z.boxes.length - 1];
+    ctx.save(); ctx.setTransform(RS, 0, 0, RS, 0, 0); ctx.font = '700 60px Cinzel'; ctx.letterSpacing = '9px'; const kc = ctx.measureText('H').actualBoundingBoxAscent; ctx.font = `700 ${60 * 42 / kc}px Cinzel`; ctx.letterSpacing = (9 * 42 / kc) + 'px';
+    ctx.fillStyle = '#4a433c'; ctx.fillText(kn, bl[0] + 4, bl[3] + 30 + 42); ctx.restore(); return; }
   // tırnaklar: Bebas'ın ağırlığına uyan sade eğik çift vuruş (çizim); asılı dizgi: “ bloğun solunda dışarıda, ” son harfin sağında; ikisi de büyük harf üst hizasında
   const [b0, b1] = [Z.boxes[0], Z.boxes[1]], qh = Z.cap * .32, top0 = b0[3] - Z.cap, top1 = b1[3] - Z.cap;
   ctx.save(); ctx.setTransform(RS, 0, 0, RS, 0, 0); ctx.fillStyle = KPK_INK;
