@@ -26,10 +26,13 @@ const PAL = {
   OGLE:  { paper: '#F4ECD8', sky1: '#E8F0F2', sky2: '#7FB3C8', far: '#D9C7A3', mid: '#2F6E8E', near: '#173247', acc: '#E8553D', lit: '#F2D9A6' },
   BATIS: { paper: '#F1E2C6', sky1: '#F4B25E', sky2: '#D9583B', far: '#8C3B4E', mid: '#4A2D52', near: '#1F1630', acc: '#FCE39A', lit: '#F08C4A' },
   ALACA: { paper: '#EDE3D0', sky1: '#B8C9D9', sky2: '#8B9BB0', far: '#6A6F8E', mid: '#4A5D78', near: '#1F2A3C', acc: '#F2B134', lit: '#C9B79A' },
+  BRUEGEL: { paper: '#F2EAD3', sky1: '#EEE6B8', sky2: '#C9D3A0', far: '#8FB0A4', mid: '#4F7A5A', near: '#2B2A1E', acc: '#F2A33A', lit: '#D9B866' },
   GECE:  { paper: '#E9E1CF', sky1: '#3B4C6B', sky2: '#26324B', far: '#1E2840', mid: '#141B2E', near: '#0B0F1C', acc: '#F2D27A', lit: '#7A8BAE' },
 };
 // Film boyunca palet saati: [{at, pal, dur}] — at çapası, dur yeniden mürekkepleme (çapraz rakle) süresi. Planlarda PALT doldurulur.
 const PALT = [];
+// plan listesindeki 'pal' alanı palet saatini kurar (plan başında değişim = kesmeyle; çekim içindeyse çapraz rakle)
+if (window.PLAN) { PALT.push({ at: -1e9, pal: 'SAFAK' }); for (const p of Object.values(window.PLAN)) if (p.pal) PALT.push({ at: p.at, pal: p.pal, dur: .6 }); }
 function palAt(t) { let cur = PALT.length ? PALT[0] : { pal: 'SAFAK', at: -1e9 }, prev = null; for (const p of PALT) { const a = A(p.at); if (a <= t) { prev = cur; cur = { ...p, a }; } } return { cur, prev }; }
 
 const SHOTS = [];

@@ -21,4 +21,4 @@ sec = [a.upper() for a in sys.argv[1:]]
 for i, (t, p) in enumerate(T):
     if sec and p['set'] not in sec and p['id'] not in sec: continue
     d = (T[i + 1][0] if i + 1 < len(T) else DUR) - t
-    print(f"{p['id']}  {t:8.2f}  {d:6.2f} sn  {p['set']}  {p['at']:18s} {p['kadraj'][:70]}")
+    print(f"{p['id']}  {t:8.2f}  {d:6.2f} sn  {p['set']}  {p['at']:18s} {p.get('kadraj', p.get('ne', ''))[:50]}")
