@@ -1,0 +1,9 @@
+# Motiflerin çaldığı anlar (audio/score.py üretir; zaman = film saniyesi)
+01:06.97  C04   UÇUŞ (lyre)                        Re4 Mi4 Fa#4 La4 Si4 La4 Re5
+01:47.01  D01   UÇUŞ (bowed)                       Re4 Mi4 Fa#4 La4 Si4 La4 Re5
+01:47.01  D01   UÇUŞ (lyre)                        Re5 Mi5 Fa#5 La5 Si5 La5 Re6
+02:09.93  D04   UÇUŞ (lyre)                        Re5 Mi5 Fa#5 La5 Si5 La5 Re6
+04:54.30  G06   UÇUŞ (bowed)                       Re4 Mi4 Fa#4 La4 Si4 La4 Re5
+04:54.30  G06   UÇUŞ (lyre)                        Re5 Mi5 Fa#5 La5 Si5 La5 Re6
+05:31.45  H01   UÇUŞ (lyre)                        Re4 Mi4 Fa#4 La4 Si4 La4 Re5
+05:33.88  H01   UÇUŞ (bowed)                       La4 Si4 Do#5 Mi5 Fa#5 Mi5 La5
