@@ -54,9 +54,10 @@ const FG = (() => {
   function bodyInto(p, J, o = {}) {
     const { H, Sh, h, f, upv, lean } = J, side = [-upv[1] * f, upv[0] * f];   // side: yüz yönüne dik (göğüs önü)
     const fw = [Math.cos(lean) * f, Math.sin(lean)];                            // gövdeye dik, yüz yönü
-    const len = o.long ? 4.4 : 2.0, hg = lean < .7 ? 1 - lean / .7 : 0, hd = [lerp(-upv[0], 0, hg), lerp(-upv[1], 1, hg)], hn = Math.hypot(...hd), hem = add2(H, [hd[0] / hn, hd[1] / hn], len * h), fl = o.long ? .95 : .78;
-    polyInto(p, [add2(add2(Sh, fw, .42 * h), upv, .1 * h), add2(add2(Sh, fw, -.5 * h), upv, .05 * h), add2(add2(H, fw, -.62 * h), upv, .2 * h),
-      add2(hem, fw, -fl * h), add2(hem, fw, (fl + .1) * h), add2(add2(H, fw, .58 * h), upv, .3 * h), add2(add2(Sh, fw, .5 * h), upv, -.9 * h)]);
+    const len = o.long ? 3.9 : 2.0, hg = lean < .7 ? 1 - lean / .7 : 0, hd = [lerp(-upv[0], 0, hg), lerp(-upv[1], 1, hg)], hn = Math.hypot(...hd), hem = add2(H, [hd[0] / hn, hd[1] / hn], len * h), fl = o.long ? .78 : .78;
+    const sw = o.long ? .4 : .46, wb = o.long ? .4 : .58;
+    polyInto(p, [add2(add2(Sh, fw, sw * h), upv, .1 * h), add2(add2(Sh, fw, -.48 * h), upv, .05 * h), add2(add2(H, fw, -wb * h), upv, .45 * h), add2(add2(H, fw, -(wb + .06) * h), upv, .1 * h),
+      add2(hem, fw, -fl * h), add2(hem, fw, (fl + .1) * h), add2(add2(H, fw, (wb + .02) * h), upv, .1 * h), add2(add2(H, fw, wb * h), upv, .45 * h), add2(add2(Sh, fw, (sw + .1) * h), upv, -.9 * h)]);
   }
   function limbInto(p, L, r0, r1, r2) { capsule(p, L[0], L[1], r0, r1); capsule(p, L[1], L[2], r1, r2); }
   function footInto(p, L, J, r) { const a = L[3], toe = add2(L[2], [Math.cos(a) * 0 + J.f * Math.cos(a - J.lean * 0) * .55 * J.h, Math.sin(a) * 0 + .05 * J.h]); capsule(p, L[2], toe, r, r * .7); }

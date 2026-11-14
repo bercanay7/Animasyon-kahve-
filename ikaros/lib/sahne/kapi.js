@@ -10,9 +10,9 @@ function litInk(pr, path, litRole, darkRole, lx, ly, d) {
 function kSt(t, seed = 1) { return { t, lt: t, at: 0, d: 15, p: t / 15, seed }; }
 // kanatlı figür: w = {ang, bend, span, chord, side, ruin}; kanat kola bağlı, yakın kol kanadın ön kenarında kalır
 function kanatliFigur(pr, J, o) {
-  const w = o.w, L = o.light, dl = o.litD ?? J.h * .09;
+  const w = o.w, L = o.light, dl = o.litD ?? J.h * .09, rb = (o.rootBack ?? .45) * J.h, R0 = [J.Sh[0] - J.upv[0] * rb, J.Sh[1] - J.upv[1] * rb];
   if (w) {
-    const wf = FG.wing({ root: [J.Sh[0] + (o.farOff || [0, 0])[0], J.Sh[1] + (o.farOff || [0, 0])[1]], ang: w.ang + (w.farDa ?? -.1), bend: w.bend, span: w.span * .93, chord: w.chord, f: w.side, seed: (w.seed || 1) + 1, ruin: w.ruin });
+    const wf = FG.wing({ root: [R0[0] + (o.farOff || [0, 0])[0], R0[1] + (o.farOff || [0, 0])[1]], ang: w.ang + (w.farDa ?? -.1), bend: w.bend, span: w.span * .93, chord: w.chord, f: w.side, seed: (w.seed || 1) + 1, ruin: w.ruin });
     pr.ink(wf.all, o.farWing || 'mid');
   }
   const fig = FG.figure(J, { ...(o.look || {}), noArmN: !!w && o.armInWing !== false, noArmF: !!w && o.armInWing !== false });
@@ -20,7 +20,7 @@ function kanatliFigur(pr, J, o) {
   litInk(pr, fig.body, 'lit', o.body || 'near', L[0], L[1], dl);
   if (fig.face) { pr.ink(fig.face, 'lit', { sheen: .2 }); pr.ink(fig.eye, o.body || 'near', { sheen: 0 }); }
   if (w) {
-    const wn = FG.wing({ root: J.Sh, ang: w.ang, bend: w.bend, span: w.span, chord: w.chord, f: w.side, seed: w.seed || 1, ruin: w.ruin });
+    const wn = FG.wing({ root: R0, ang: w.ang, bend: w.bend, span: w.span, chord: w.chord, f: w.side, seed: w.seed || 1, ruin: w.ruin });
     litInk(pr, wn.all, 'lit', o.wing || 'near', L[0], L[1], dl * .8);
     pr.ink(wn.cov, o.cov || 'mid', { sheen: .1 });
   }
@@ -55,15 +55,16 @@ SCENES.orta = (ctx, t) => baski(ctx, kSt(t, 3), null, pr => {
   pr.ink(FG.ridge(-40, 1960, 1100, 850, 40, 22, 5), 'near');
   const r = rng(9), tu = new Path2D(); for (let i = 0; i < 12; i++) { const x = 200 + r() * 1500, y = 900 + r() * 120, a = r() * 6.28, l = 26 + r() * 30; FG.ellipseInto(tu, x, y, l, 7, a, 14); } pr.ink(tu, 'lit', { sheen: 0 });
   const nf = Math.sin(t * 1.3), op = E.io2(clamp((t - 1) / 3));
-  const Jd = FG.rig({ x: 700, y: 600, h: 56, f: 1, lean: .2, head: .2, armN: [1.35 + Math.sin(t * 2.4) * .05, -.7], armF: [1.1, -.9], legN: [.12, -.05], legF: [-.12, 0] });
-  kanatliFigur(pr, Jd, { light: [1, -.35], look: { beard: true, long: true } });
-  const Ji = FG.rig({ x: 1060, y: 610, h: 52, f: 1, lean: .08, head: -.35 - op * .15, armN: [.2, 0], armF: [.2, 0], legN: [.1, -.05], legF: [-.12, 0] });
-  kanatliFigur(pr, Ji, { w: { ang: lerp(1.9, -2.35, op) + nf * .04 * op, bend: lerp(.2, -.35, op), span: 300, chord: 120, side: op > .5 ? -1 : 1, seed: 7 }, light: [1, -.35], farOff: [-16, -6], look: { curls: true } });
+  // İkaros kayalığın ucunda kanatlarını ilk kez açıyor; Daidalos geride (daha küçük), bir eli kalkık, izliyor
+  const Ji = FG.rig({ x: 1150, y: 590, h: 72, f: 1, lean: .1, head: -.35 - op * .2, armN: [.2, 0], armF: [.2, 0], legN: [.12, -.05], legF: [-.16, 0] });
+  const Jd = FG.rig({ x: 640, y: 680, h: 50, f: 1, lean: .04, head: -.12, armN: [1.0 + Math.sin(t * 1.2) * .05, -.5], armF: [.15, -.3], legN: [.08, -.03], legF: [-.1, 0] });
+  kanatliFigur(pr, Jd, { light: [1, -.35], litD: 4, look: { beard: true, long: true, face: true } });
+  kanatliFigur(pr, Ji, { w: { ang: -2.45 + nf * .04 * op - (1 - op) * .35, bend: -.35, span: lerp(170, 430, op), chord: lerp(90, 160, op), side: -1, seed: 7 }, rootBack: .55, light: [1, -.35], litD: 5, farOff: [-22, -10], look: { curls: true, face: true } });
 });
 
 // 3. YAKIN PLAN: İkaros'un başı ve kanadı; güneşe bakıyor (güneş başın arkasında değil: hale okunmasın)
 SCENES.yakin = (ctx, t) => baski(ctx, kSt(t, 4), null, pr => {
-  pr.sky('sky2', 'sky1', 200, 560, 6);
+  pr.sky('sky2', 'sky1', 560, 860, 5);
   gunes(pr, 1540, 250, 95, 3);
   pr.ink(FG.cloud(1560, 640, 520, 100, 3), 'paper', { sheen: 0 });
   const J = FG.rig({ x: 860, y: 1180, h: 210, f: 1, lean: .05, head: -.62 + Math.sin(t * .8) * .04, armN: [.1, 0], armF: [.1, 0] });
@@ -90,10 +91,10 @@ SCENES.ucus = (ctx, t) => {
     const Jb = FG.rig({ x: 1860, y: 860, h: 16, f: -1, lean: .35 - lookUp * .4, head: .35 - lookUp * 1.25, armN: [1.25, -.6], armF: [1.05, -.4], legN: [1.45, -1.7], legF: [1.3, -1.5] });
     const fb = FG.figure(Jb, {}); pr.ink(fb.far, 'mid'); pr.ink(fb.body, 'near');
     const rod = new Path2D(); FG.capsule(rod, Jb.armN[2], [Jb.armN[2][0] - 130, Jb.armN[2][1] - 80 + Math.sin(t * 2) * 3], 2.4, 1.5); pr.ink(rod, 'near', { sheen: 0 });
-    for (const [dx, dy, hh, beard, ph] of [[220, 520, 38, true, 0], [-120, 400, 34, false, 1.3]]) {
+    for (const [dx, dy, hh, beard, ph] of [[230, 540, 46, true, 0], [-150, 400, 42, false, 1.3]]) {
       const fl = Math.sin(t * 3.0 + ph), x = cam.cx + dx + Math.sin(t * .7 + ph) * 20, y = dy + Math.sin(t * 1.4 + ph) * 14 + fl * 6;
-      const J = FG.rig({ x, y, h: hh, f: 1, lean: 1.3, head: -1.05, legN: [-.05, .12], legF: [-.18, .2] });
-      kanatliFigur(pr, J, { w: { ang: -1.65 - fl * .55, bend: -.25 - fl * .1, span: hh * 6.4, chord: hh * 2.3, side: -1, seed: ph * 10 + 3, farDa: .25 }, light: [.8, -.6], farOff: [hh * .3, -hh * .2], look: { beard, curls: !beard } });
+      const J = FG.rig({ x, y, h: hh, f: 1, lean: 1.12, head: -.85, legN: [-.12 + fl * .05, .35], legF: [-.38 - fl * .05, .55] });
+      kanatliFigur(pr, J, { w: { ang: -1.65 - fl * .55, bend: -.25 - fl * .1, span: hh * 6.4, chord: hh * 2.3, side: -1, seed: ph * 10 + 3, farDa: .25 }, light: [.8, -.6], farOff: [hh * .3, -hh * .2], look: { beard, curls: !beard, face: true } });
     }
     [[700, 620, 14, 0], [760, 580, 10, 1.4], [2400, 540, 12, 2]].forEach(([x, y, s, ph]) => pr.ink(FG.gull(x + t * 20, y + Math.sin(t * 1.3 + ph) * 5, s, t * 6 + ph), 'near', { sheen: 0 }));
   });
