@@ -1,59 +1,308 @@
 {
-  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
-  "revizyon": "rev1 taslak (14 Kasım 2026), kullanıcının cevaplarıyla",
-  "not": "Kaynak: Ovidius, Metamorphoses VIII.183–259 (Latince özgün, kamu malı; çeviriler bizim). Dize numaraları senaryo kurulunda doğrulanacak. Milton dizesi milton/senaryo.json I05/K12 ile aynı çeviri.",
-  "segments": [
-    {"id": "A01", "bolum": "İki uyarı", "tts": "[calmly] İkaros'a babası, uçmadan önce iki uyarı yaptı.", "alt": "İkaros'a babası, uçmadan önce iki uyarı yaptı.", "kaynak": "Met. VIII.203–206; kapak vaadi"},
-    {"id": "A02", "bolum": "İki uyarı", "tts": "[calmly] Birini hepimiz biliyoruz: güneşe fazla yaklaşma.", "alt": "Birini hepimiz biliyoruz: güneşe fazla yaklaşma.", "kaynak": "VIII.205"},
-    {"id": "A03", "bolum": "İki uyarı", "tts": "[curious] Ötekini neredeyse kimse hatırlamıyor. Oysa hikâyenin sırrı o unutulan uyarıda.", "alt": "Ötekini neredeyse kimse hatırlamıyor. Oysa hikâyenin sırrı o unutulan uyarıda.", "kaynak": "merak sorusu; ilk cevap C06, asıl cevap G04–G07"},
-
-    {"id": "B01", "bolum": "Havaya kimse sahip değil", "tts": "[calmly] Daidalos çağının en büyük ustasıydı.", "alt": "Daidalos çağının en büyük ustasıydı.", "kaynak": "genel; VIII.159"},
-    {"id": "B02", "bolum": "Havaya kimse sahip değil", "tts": "[calmly] Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile kapısına zor dönmüştü.", "alt": "Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile kapısına zor dönmüştü.", "kaynak": "VIII.159–168 (vix ipse reverti ad limen potuit)"},
-    {"id": "B03", "bolum": "Havaya kimse sahip değil", "tts": "[calmly] Ama şimdi o da oğlu İkaros'la birlikte adaya kapatılmıştı. Çevrede yalnız deniz vardı.", "alt": "Ama şimdi o da oğlu İkaros'la birlikte adaya kapatılmıştı. Çevrede yalnız deniz vardı.", "kaynak": "VIII.183–185 (clausus erat pelago)"},
-    {"id": "B04", "bolum": "Havaya kimse sahip değil", "tts": "[determined] “Karayı da denizi de kapatabilir,” dedi. “Ama gök açık. Minos her şeye sahip olabilir; havaya sahip değil.”", "alt": "“Karayı da denizi de kapatabilir,” dedi. “Ama gök açık. Minos her şeye sahip olabilir; havaya sahip değil.”", "kaynak": "VIII.185–187 (çevirimiz)"},
-
-    {"id": "C01", "bolum": "Mum ve tüy", "tts": "[calmly] Tüyleri küçükten büyüğe dizdi; ortadan iple bağladı, diplerini mumla tutturdu.", "alt": "Tüyleri küçükten büyüğe dizdi; ortadan iple bağladı, diplerini mumla tutturdu.", "kaynak": "VIII.189–194"},
-    {"id": "C02", "bolum": "Mum ve tüy", "tts": "[warmly] İkaros yanında oynuyordu. Rüzgârın uçurduğu tüyleri yakalıyor, sarı mumu başparmağıyla yumuşatıyordu.", "alt": "İkaros yanında oynuyordu. Rüzgârın uçurduğu tüyleri yakalıyor, sarı mumu başparmağıyla yumuşatıyordu.", "kaynak": "VIII.195–200"},
-    {"id": "C03", "bolum": "Mum ve tüy", "tts": "[softly] Kendi tehlikesiyle oynadığını bilmeden.", "alt": "Kendi tehlikesiyle oynadığını bilmeden.", "kaynak": "VIII.196 (ignarus sua se tractare pericla)"},
-    {"id": "C04", "bolum": "Mum ve tüy", "tts": "[calmly] Kanatlar bitince Daidalos oğluna uçmayı öğretti ve uyardı:", "alt": "Kanatlar bitince Daidalos oğluna uçmayı öğretti ve uyardı:", "kaynak": "VIII.200–203"},
-    {"id": "C05", "bolum": "Mum ve tüy", "tts": "[slowly] “Ortadan uç, İkaros. Fazla alçalırsan dalgalar tüylerini ağırlaştırır. Fazla yükselirsen güneş yakar. İkisinin arasından uç.”", "alt": "“Ortadan uç, İkaros. Fazla alçalırsan dalgalar tüylerini ağırlaştırır. Fazla yükselirsen güneş yakar. İkisinin arasından uç.”", "kaynak": "VIII.203–206 (çevirimiz; özgünde ateş: ignis)"},
-    {"id": "C06", "bolum": "Mum ve tüy", "tts": "[firmly] İşte unutulan uyarı: çok alçaktan da uçma.", "alt": "İşte unutulan uyarı: çok alçaktan da uçma.", "kaynak": "A03'ün ilk cevabı"},
-    {"id": "C07", "bolum": "Mum ve tüy", "tts": "[calmly] Bir de şunu ekledi: “Yıldızlara bakma. Beni izle.”", "alt": "Bir de şunu ekledi: “Yıldızlara bakma. Beni izle.”", "kaynak": "VIII.206–208 (me duce carpe viam)"},
-    {"id": "C08", "bolum": "Mum ve tüy", "tts": "[softly] Bunları söylerken yaşlı adamın yanakları ıslandı, elleri titredi. Oğlunu öptü. Bir daha öpemeyecekti.", "alt": "Bunları söylerken yaşlı adamın yanakları ıslandı, elleri titredi. Oğlunu öptü. Bir daha öpemeyecekti.", "kaynak": "VIII.210–212"},
-
-    {"id": "D01", "bolum": "Tanrılar gibi", "tts": "[excited] Ve uçtular.", "alt": "Ve uçtular.", "kaynak": "VIII.213–216"},
-    {"id": "D02", "bolum": "Tanrılar gibi", "tts": "[calmly] Aşağıda oltasıyla bir balıkçı, değneğine yaslanmış bir çoban, sabanına dayanmış bir çiftçi başını kaldırdı.", "alt": "Aşağıda oltasıyla bir balıkçı, değneğine yaslanmış bir çoban, sabanına dayanmış bir çiftçi başını kaldırdı.", "kaynak": "VIII.217–219"},
-    {"id": "D03", "bolum": "Tanrılar gibi", "tts": "[awed] Gökte yol alan bu ikisini tanrı sandılar.", "alt": "Gökte yol alan bu ikisini tanrı sandılar.", "kaynak": "VIII.219–220"},
-    {"id": "D04", "bolum": "Tanrılar gibi", "tts": "[warmly] Sonra Ovidius'un en çok gözden kaçan cümlesi gelir: Çocuk, cesur uçuşundan zevk almaya başladı. Göğe duyduğu özlemle babasını bıraktı ve daha yükseğe çıktı.", "alt": "Sonra Ovidius'un en çok gözden kaçan cümlesi gelir: Çocuk, cesur uçuşundan zevk almaya başladı. Göğe duyduğu özlemle babasını bıraktı ve daha yükseğe çıktı.", "kaynak": "VIII.223–225 (audaci coepit gaudere volatu; caeli cupidine tractus)"},
-    {"id": "D05", "bolum": "Tanrılar gibi", "tts": "[calmly] Ovidius burada kibirden söz etmez. Sevinçten söz eder. Özlemden.", "alt": "Ovidius burada kibirden söz etmez. Sevinçten söz eder. Özlemden.", "kaynak": "yorum; VIII.223–225 metniyle sınanacak (kaynak kurulu)"},
-
-    {"id": "E01", "bolum": "İkaros, neredesin?", "tts": "[tense] Güneşe yaklaştıkça tüyleri bağlayan mum yumuşadı, eridi.", "alt": "Güneşe yaklaştıkça tüyleri bağlayan mum yumuşadı, eridi.", "kaynak": "VIII.225–227"},
-    {"id": "E02", "bolum": "İkaros, neredesin?", "tts": "[tense] İkaros çıplak kollarını çırptı. Ama tutunacak tüy kalmamıştı; hava onu taşımadı.", "alt": "İkaros çıplak kollarını çırptı. Ama tutunacak tüy kalmamıştı; hava onu taşımadı.", "kaynak": "VIII.227–228"},
-    {"id": "E03", "bolum": "İkaros, neredesin?", "tts": "[softly] Düşerken babasını çağırıyordu. Mavi su o sesi yuttu.", "alt": "Düşerken babasını çağırıyordu. Mavi su o sesi yuttu.", "kaynak": "VIII.229–230 (patrium clamantia nomen)"},
-    {"id": "E04", "bolum": "İkaros, neredesin?", "tts": "[sorrowful] Artık baba olmayan baba bağırdı: “İkaros! İkaros, neredesin?”", "alt": "Artık baba olmayan baba bağırdı: “İkaros! İkaros, neredesin?”", "kaynak": "VIII.231–232 (nec iam pater)"},
-    {"id": "E05", "bolum": "İkaros, neredesin?", "tts": "[sorrowful] Dalgaların üstünde yalnız tüyler vardı. Daidalos kendi sanatına lanet etti.", "alt": "Dalgaların üstünde yalnız tüyler vardı. Daidalos kendi sanatına lanet etti.", "kaynak": "VIII.233–234 (devovitque suas artes)"},
-
-    {"id": "F01", "bolum": "Kekliğin sevinci", "tts": "[calmly] Ama Ovidius hikâyeyi burada bitirmez.", "alt": "Ama Ovidius hikâyeyi burada bitirmez.", "kaynak": "VIII.236"},
-    {"id": "F02", "bolum": "Kekliğin sevinci", "tts": "[slowly] Daidalos oğlunu toprağa verirken, bir hendeğin kıyısından bir keklik onu izliyordu. Kanatlarını çırptı ve sevinçle öttü.", "alt": "Daidalos oğlunu toprağa verirken, bir hendeğin kıyısından bir keklik onu izliyordu. Kanatlarını çırptı ve sevinçle öttü.", "kaynak": "VIII.235–238 (limoso elice; bazı basımlarda ilice: meşe)"},
-    {"id": "F03", "bolum": "Kekliğin sevinci", "tts": "[ominous] Çünkü bu kuş bir zamanlar bir çocuktu.", "alt": "Çünkü bu kuş bir zamanlar bir çocuktu.", "kaynak": "VIII.239–240"},
-    {"id": "F04", "bolum": "Kekliğin sevinci", "tts": "[calmly] Daidalos'un kız kardeşinin oğluydu, ustanın çırağıydı. Daha on iki yaşında testereyi ve pergeli icat etmişti.", "alt": "Daidalos'un kız kardeşinin oğluydu, ustanın çırağıydı. Daha on iki yaşında testereyi ve pergeli icat etmişti.", "kaynak": "VIII.241–249 (testere balık kılçığından; pergel)"},
-    {"id": "F05", "bolum": "Kekliğin sevinci", "tts": "[dark] Usta, çırağının kendini geçmesine dayanamadı. Onu Athena'nın kutsal tepesinden aşağı itti, sonra “düştü” dedi.", "alt": "Usta, çırağının kendini geçmesine dayanamadı. Onu Athena'nın kutsal tepesinden aşağı itti, sonra “düştü” dedi.", "kaynak": "VIII.250–251 (sacra ex arce Minervae; lapsum mentitus)"},
-    {"id": "F06", "bolum": "Kekliğin sevinci", "tts": "[calmly] Athena çocuğu havada yakalayıp kuşa çevirdi.", "alt": "Athena çocuğu havada yakalayıp kuşa çevirdi.", "kaynak": "VIII.252–254 (Pallas)"},
-    {"id": "F07", "bolum": "Kekliğin sevinci", "tts": "[softly] O günden beri keklik yüksekten uçmaz, dallara yuva yapmaz. Yere yakın uçar. Eski düşüşünü unutmamıştır; yükseklikten korkar.", "alt": "O günden beri keklik yüksekten uçmaz, dallara yuva yapmaz. Yere yakın uçar. Eski düşüşünü unutmamıştır; yükseklikten korkar.", "kaynak": "VIII.255–259"},
-    {"id": "F08", "bolum": "Kekliğin sevinci", "tts": "[slowly] Yani oğluna “ortadan uç” diyen adam, kendini geçen bir çocuğu yükseklikten atmıştı.", "alt": "Yani oğluna “ortadan uç” diyen adam, kendini geçen bir çocuğu yükseklikten atmıştı.", "kaynak": "F05 + C05; kırılma"},
-
-    {"id": "G01", "bolum": "Üç kuş", "tts": "[calmly] Bu hikâyede üç uçuş var.", "alt": "Bu hikâyede üç uçuş var.", "kaynak": "yorumumuz"},
-    {"id": "G02", "bolum": "Üç kuş", "tts": "[calmly] Güneşe giden çocuk. Yerden ayrılmaya korkan keklik. Ve ortadan uçup sağ kalan usta.", "alt": "Güneşe giden çocuk. Yerden ayrılmaya korkan keklik. Ve ortadan uçup sağ kalan usta.", "kaynak": "yorumumuz"},
-    {"id": "G03", "bolum": "Üç kuş", "tts": "[thoughtful] Ama usta da hiçbir zaman ortada olmamıştı. En iyisi olmak zorundaydı; ikinci olmaya dayanamadı.", "alt": "Ama usta da hiçbir zaman ortada olmamıştı. En iyisi olmak zorundaydı; ikinci olmaya dayanamadı.", "kaynak": "F05'ten yorum"},
-    {"id": "G04", "bolum": "Üç kuş", "tts": "[thoughtful] Belki bugün orta yoldan bu yüzden kaçıyoruz.", "alt": "Belki bugün orta yoldan bu yüzden kaçıyoruz.", "kaynak": "kullanıcının yorumu"},
-    {"id": "G05", "bolum": "Üç kuş", "tts": "[calmly] Ya bir işin en iyisi olacağız ya da hiç başlamayacağız. Orta yol bize sıradanlık gibi geliyor. Ve kimse sıradan sayılmak istemiyor.", "alt": "Ya bir işin en iyisi olacağız ya da hiç başlamayacağız. Orta yol bize sıradanlık gibi geliyor. Ve kimse sıradan sayılmak istemiyor.", "kaynak": "kullanıcının yorumu; psikolojide 'ya hep ya hiç' düşüncesi (kurulda kaynak bakılacak)"},
-    {"id": "G06", "bolum": "Üç kuş", "tts": "[calmly] Hiç başlamamak da bir düşüştür. Tüyleri ıslatan, yavaş bir düşüş. Unutulan uyarı buydu.", "alt": "Hiç başlamamak da bir düşüştür. Tüyleri ıslatan, yavaş bir düşüş. Unutulan uyarı buydu.", "kaynak": "C05–C06'ya geri çağrı; A03'ün asıl cevabı"},
-    {"id": "G07", "bolum": "Üç kuş", "tts": "[slowly] Milton'ın Şeytan'ı da bunu bilirdi: yükselmeye kalkan, yükseldiği kadar alçalır.", "alt": "Milton'ın Şeytan'ı da bunu bilirdi: yükselmeye kalkan, yükseldiği kadar alçalır.", "kaynak": "Kayıp Cennet IX.169–170 (milton/senaryo.json I05, K12); kanalın Milton videosuna köprü"},
-    {"id": "G08", "bolum": "Üç kuş", "tts": "[warmly] İkaros bu bedeli ödedi. Ama önce uçtu.", "alt": "İkaros bu bedeli ödedi. Ama önce uçtu.", "kaynak": "kullanıcının yorumu"},
-    {"id": "G09", "bolum": "Üç kuş", "tts": "[thoughtful] Pişman oldu mu, bilmiyoruz. Bildiğimiz şu: kimsenin yapmadığını yaptı ve bir an için kuşların özgürlüğünü tattı.", "alt": "Pişman oldu mu, bilmiyoruz. Bildiğimiz şu: kimsenin yapmadığını yaptı ve bir an için kuşların özgürlüğünü tattı.", "kaynak": "kullanıcının yorumu"},
-    {"id": "G10", "bolum": "Üç kuş", "tts": "[calmly] Yüzyıllar sonra Bruegel'e atfedilen bir tablo bu düşüşü çizdi. Çiftçi sabanını sürmeye devam ediyor. Kimse düşen çocuğa bakmıyor.", "alt": "Yüzyıllar sonra Bruegel'e atfedilen bir tablo bu düşüşü çizdi. Çiftçi sabanını sürmeye devam ediyor. Kimse düşen çocuğa bakmıyor.", "kaynak": "İkaros'un Düşüşü ile Manzara (Brüksel, Kraliyet Güzel Sanatlar Müzeleri; özgünün kopyası sayılıyor, ~1560'lar). Kurulda doğrulanacak"},
-    {"id": "G11", "bolum": "Üç kuş", "tts": "[slowly] Peki sen, kimse başını kaldırıp bakmasa bile, hangi yükseklikte uçardın?", "alt": "Peki sen, kimse başını kaldırıp bakmasa bile, hangi yükseklikte uçardın?", "kaynak": "son soru; yoruma çağrı"},
-
-    {"id": "H01", "bolum": "Üç kuş", "tts": "[warmly] Bu video, yorumlarda İkaros'u isteyenler için. Cevabınızı ve sıradaki hikâyeyi yorumlara yazın; Zaman Kuryesi yeni bir soruyla dönecek.", "alt": "Bu video, yorumlarda İkaros'u isteyenler için. Cevabınızı ve sıradaki hikâyeyi yorumlara yazın; Zaman Kuryesi yeni bir soruyla dönecek.", "kaynak": "kapanış ve abone çağrısı (bitiş ekranı: Milton ya da Sisifos)"}
-  ]
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "rev2 (14 Kasım 2026): senaryo kurulu tur 1 (A 7,5; B 7,5) bulguları uygulandı",
+ "not": "Kaynak: Ovidius, Metamorphoses VIII.183–259 (Latince özgün, kamu malı; çeviriler bizim). Dize numaraları senaryo kurulunda doğrulanacak. Milton dizesi milton/senaryo.json I05/K12 ile aynı çeviri.",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "İki uyarı",
+   "tts": "[calmly] İkaros'a babası, uçmadan önce iki uyarı yaptı.",
+   "alt": "İkaros'a babası, uçmadan önce iki uyarı yaptı.",
+   "kaynak": "Met. VIII.203–206; kapak vaadi"
+  },
+  {
+   "id": "A02",
+   "bolum": "İki uyarı",
+   "tts": "[calmly] Birini hepimiz biliyoruz: güneşe fazla yaklaşma.",
+   "alt": "Birini hepimiz biliyoruz: güneşe fazla yaklaşma.",
+   "kaynak": "VIII.205"
+  },
+  {
+   "id": "A03",
+   "bolum": "İki uyarı",
+   "tts": "[curious] Ötekini çoğumuz hatırlamayız. Oysa hikâyenin sırrı o unutulan uyarıda.",
+   "alt": "Ötekini çoğumuz hatırlamayız. Oysa hikâyenin sırrı o unutulan uyarıda.",
+   "kaynak": "merak sorusu; ilk cevap C06, ikinci döngü C06 sonunda açılır (F03–F08), asıl cevap G04–G05"
+  },
+  {
+   "id": "B01",
+   "bolum": "Havaya kimse sahip değil",
+   "tts": "[calmly] Bu hikâyeyi en ayrıntılı, iki bin yıl önce Romalı şair Ovidius anlatır.",
+   "alt": "Bu hikâyeyi en ayrıntılı, iki bin yıl önce Romalı şair Ovidius anlatır.",
+   "kaynak": "Ovidius, Metamorphoses (MS 8 civarı tamamlandı); kurul B: Ovidius bir kez tanıtılmalı"
+  },
+  {
+   "id": "B02",
+   "bolum": "Havaya kimse sahip değil",
+   "tts": "[calmly] Ona göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
+   "alt": "Ona göre Daidalos çağının en büyük ustasıydı. Girit Kralı Minos için öyle bir labirent yapmıştı ki, kendisi bile içinden zor çıkmıştı.",
+   "kaynak": "VIII.155–168 (vix ipse reverti ad limen potuit)"
+  },
+  {
+   "id": "B03",
+   "bolum": "Havaya kimse sahip değil",
+   "tts": "[calmly] Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Uzun bir sürgündü bu, ve doğduğu toprakları özlüyordu.",
+   "alt": "Ama şimdi kendisi de bir labirentteydi: çevresini denizin sardığı bir ada. Uzun bir sürgündü bu, ve doğduğu toprakları özlüyordu.",
+   "kaynak": "VIII.183–185 (longum perosus exilium; loci natalis amore; clausus erat pelago)"
+  },
+  {
+   "id": "B04",
+   "bolum": "Havaya kimse sahip değil",
+   "tts": "[determined] “Karayı da denizi de kapatabilir,” dedi. “Ama gök açık. Oradan gideceğiz. Minos her şeye sahip olabilir; havaya sahip değil.”",
+   "alt": "“Karayı da denizi de kapatabilir,” dedi. “Ama gök açık. Oradan gideceğiz. Minos her şeye sahip olabilir; havaya sahip değil.”",
+   "kaynak": "VIII.185–187 (çevirimiz; ibimus illac)"
+  },
+  {
+   "id": "C01",
+   "bolum": "Mum ve tüy",
+   "tts": "[calmly] Tüyleri küçükten büyüğe dizdi; ortadan iple bağladı, diplerini mumla tutturdu.",
+   "alt": "Tüyleri küçükten büyüğe dizdi; ortadan iple bağladı, diplerini mumla tutturdu.",
+   "kaynak": "VIII.189–194"
+  },
+  {
+   "id": "C02",
+   "bolum": "Mum ve tüy",
+   "tts": "[warmly] İkaros yanında oynuyordu. Rüzgârın uçurduğu tüyleri yakalıyor, sarı mumu başparmağıyla yumuşatıyordu.",
+   "alt": "İkaros yanında oynuyordu. Rüzgârın uçurduğu tüyleri yakalıyor, sarı mumu başparmağıyla yumuşatıyordu.",
+   "kaynak": "VIII.195–200"
+  },
+  {
+   "id": "C03",
+   "bolum": "Mum ve tüy",
+   "tts": "[softly] Kendi tehlikesiyle oynadığını bilmeden.",
+   "alt": "Kendi tehlikesiyle oynadığını bilmeden.",
+   "kaynak": "VIII.196 (ignarus sua se tractare pericla)"
+  },
+  {
+   "id": "C04",
+   "bolum": "Mum ve tüy",
+   "tts": "[calmly] Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra kanatları oğluna taktı ve onu uyardı:",
+   "alt": "Kanatlar bitince önce kendisi denedi ve havada asılı kaldı. Sonra kanatları oğluna taktı ve onu uyardı:",
+   "kaynak": "VIII.200–203 (libravit… pependit in aura)"
+  },
+  {
+   "id": "C05",
+   "bolum": "Mum ve tüy",
+   "tts": "[slowly] “Ortadan uç, İkaros. Fazla alçalırsan dalgalar tüylerini ağırlaştırır. Fazla yükselirsen güneş yakar. İkisinin arasından uç.”",
+   "alt": "“Ortadan uç, İkaros. Fazla alçalırsan dalgalar tüylerini ağırlaştırır. Fazla yükselirsen güneş yakar. İkisinin arasından uç.”",
+   "kaynak": "VIII.203–206 (çevirimiz; özgünde ateş: ignis; sıra özgündeki gibi: önce alçak)"
+  },
+  {
+   "id": "C06",
+   "bolum": "Mum ve tüy",
+   "tts": "[firmly] İşte unutulan uyarı: çok alçaktan da uçma. Üstelik Daidalos onu ilk sırada söylemişti. [ominous] Ama bu uyarıyı yapan adamın da bir sırrı vardı.",
+   "alt": "İşte unutulan uyarı: çok alçaktan da uçma. Üstelik Daidalos onu ilk sırada söylemişti. Ama bu uyarıyı yapan adamın da bir sırrı vardı.",
+   "kaynak": "A03'ün ilk cevabı; VIII.204–205 sıra; ikinci döngü açılır (F03–F08 kapatır)"
+  },
+  {
+   "id": "C07",
+   "bolum": "Mum ve tüy",
+   "tts": "[calmly] Sonra bir öğüt ekledi: “Beni izle.”",
+   "alt": "Sonra bir öğüt ekledi: “Beni izle.”",
+   "kaynak": "VIII.208 (me duce carpe viam)"
+  },
+  {
+   "id": "C08",
+   "bolum": "Mum ve tüy",
+   "tts": "[softly] Bunları söylerken yaşlı adamın yanakları ıslandı, elleri titredi. Oğlunu öptü. Bir daha öpemeyecekti.",
+   "alt": "Bunları söylerken yaşlı adamın yanakları ıslandı, elleri titredi. Oğlunu öptü. Bir daha öpemeyecekti.",
+   "kaynak": "VIII.210–212"
+  },
+  {
+   "id": "D01",
+   "bolum": "Tanrılar gibi",
+   "tts": "[excited] Ve uçtular. [warmly] Daidalos önden gidiyor, yuvadan ilk kez çıkan yavrusuna bakan bir kuş gibi dönüp dönüp oğluna bakıyordu.",
+   "alt": "Ve uçtular. Daidalos önden gidiyor, yuvadan ilk kez çıkan yavrusuna bakan bir kuş gibi dönüp dönüp oğluna bakıyordu.",
+   "kaynak": "VIII.213–216 (velut ales… teneram prolem)"
+  },
+  {
+   "id": "D02",
+   "bolum": "Tanrılar gibi",
+   "tts": "[calmly] Aşağıda oltasıyla bir balıkçı, değneğine yaslanmış bir çoban, sabanına dayanmış bir çiftçi başını kaldırdı.",
+   "alt": "Aşağıda oltasıyla bir balıkçı, değneğine yaslanmış bir çoban, sabanına dayanmış bir çiftçi başını kaldırdı.",
+   "kaynak": "VIII.217–219; G08'deki Bruegel kafiyesi, aynı siluetler"
+  },
+  {
+   "id": "D03",
+   "bolum": "Tanrılar gibi",
+   "tts": "[awed] Gökte yol alan bu ikisini tanrı sandılar.",
+   "alt": "Gökte yol alan bu ikisini tanrı sandılar.",
+   "kaynak": "VIII.219–220"
+  },
+  {
+   "id": "D04",
+   "bolum": "Tanrılar gibi",
+   "tts": "[warmly] Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Önderini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
+   "alt": "Ama sonra çocuk, bu cüretkâr uçuşun sevincine kapıldı. Önderini bıraktı; göğün arzusuyla daha yükseğe çıktı.",
+   "kaynak": "VIII.223–225 (audaci coepit gaudere volatu; deseruitque ducem; caeli cupidine tractus)"
+  },
+  {
+   "id": "D05",
+   "bolum": "Tanrılar gibi",
+   "tts": "[calmly] Ovidius burada kibir demez. Cüretten, sevinçten ve göğe duyulan arzudan söz eder.",
+   "alt": "Ovidius burada kibir demez. Cüretten, sevinçten ve göğe duyulan arzudan söz eder.",
+   "kaynak": "VIII.223–225; kurul B V1 ifadesi. Sabit yorum için: Ars Amatoria II.83 (nimium temerarius)"
+  },
+  {
+   "id": "E01",
+   "bolum": "İkaros, neredesin?",
+   "tts": "[tense] Güneşe yaklaştıkça tüyleri bağlayan mum yumuşadı, eridi.",
+   "alt": "Güneşe yaklaştıkça tüyleri bağlayan mum yumuşadı, eridi.",
+   "kaynak": "VIII.225–227"
+  },
+  {
+   "id": "E02",
+   "bolum": "İkaros, neredesin?",
+   "tts": "[tense] İkaros çıplak kollarını çırptı. Ama tutunacak tüy kalmamıştı; hava onu taşımadı.",
+   "alt": "İkaros çıplak kollarını çırptı. Ama tutunacak tüy kalmamıştı; hava onu taşımadı.",
+   "kaynak": "VIII.227–228 (remigio carens)"
+  },
+  {
+   "id": "E03",
+   "bolum": "İkaros, neredesin?",
+   "tts": "[softly] Düşerken babasını çağırıyordu. Mavi su o sesi yuttu.",
+   "alt": "Düşerken babasını çağırıyordu. Mavi su o sesi yuttu.",
+   "kaynak": "VIII.229–230 (patrium clamantia nomen)"
+  },
+  {
+   "id": "E04",
+   "bolum": "İkaros, neredesin?",
+   "tts": "[sorrowful] Artık baba olmayan baba bağırdı: “İkaros! İkaros, neredesin?”",
+   "alt": "Artık baba olmayan baba bağırdı: “İkaros! İkaros, neredesin?”",
+   "kaynak": "VIII.231–232 (nec iam pater)"
+  },
+  {
+   "id": "E05",
+   "bolum": "İkaros, neredesin?",
+   "tts": "[sorrowful] Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunun bedenini bir adaya gömdü. O ada da o deniz de bugün onun adını taşır: İkarya.",
+   "alt": "Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunun bedenini bir adaya gömdü. O ada da o deniz de bugün onun adını taşır: İkarya.",
+   "kaynak": "VIII.233–235 (devovitque suas artes; corpus sepulcro condidit; tellus a nomine dicta) ve VIII.230 (deniz)"
+  },
+  {
+   "id": "F01",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[calmly] Ama Ovidius hikâyeyi burada bitirmez.",
+   "alt": "Ama Ovidius hikâyeyi burada bitirmez.",
+   "kaynak": "VIII.236"
+  },
+  {
+   "id": "F02",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[slowly] Daidalos oğlunu toprağa verirken, çamurlu bir hendekten bir keklik onu izliyordu. Kanatlarını çırptı ve sevinçle öttü.",
+   "alt": "Daidalos oğlunu toprağa verirken, çamurlu bir hendekten bir keklik onu izliyordu. Kanatlarını çırptı ve sevinçle öttü.",
+   "kaynak": "VIII.236–238 (limoso elice; bazı basımlarda ilice)"
+  },
+  {
+   "id": "F03",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[ominous] Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin uzun suçun, Daidalos” der.",
+   "alt": "Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin uzun suçun, Daidalos” der.",
+   "kaynak": "VIII.239–240 (longum tibi, Daedale, crimen); kurul B: anlatıcı suçu Daidalos'a yazar"
+  },
+  {
+   "id": "F04",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[calmly] Daidalos'un kız kardeşinin oğluydu. On iki yaşında ustanın yanına çırak verilmişti. Testereyi ve pergeli o icat etti.",
+   "alt": "Daidalos'un kız kardeşinin oğluydu. On iki yaşında ustanın yanına çırak verilmişti. Testereyi ve pergeli o icat etti.",
+   "kaynak": "VIII.241–249 (bis puerum senis; testere balık kılçığından; pergel)"
+  },
+  {
+   "id": "F05",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[dark] Usta onu kıskandı. Athena'nın kutsal kalesinden, Atina Akropolisi'nden aşağı attı; sonra “ayağı kaydı” diye yalan söyledi.",
+   "alt": "Usta onu kıskandı. Athena'nın kutsal kalesinden, Atina Akropolisi'nden aşağı attı; sonra “ayağı kaydı” diye yalan söyledi.",
+   "kaynak": "VIII.250–251 (invidit; sacra ex arce Minervae; lapsum mentitus)"
+  },
+  {
+   "id": "F06",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[calmly] Athena çocuğu havada yakalayıp kuşa çevirdi.",
+   "alt": "Athena çocuğu havada yakalayıp kuşa çevirdi.",
+   "kaynak": "VIII.251–253 (Pallas)"
+  },
+  {
+   "id": "F07",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[softly] O günden beri keklik yüksekten uçmaz, dallara yuva yapmaz. Yere yakın uçar. Eski düşüşünü unutmamıştır; yükseklikten korkar.",
+   "alt": "O günden beri keklik yüksekten uçmaz, dallara yuva yapmaz. Yere yakın uçar. Eski düşüşünü unutmamıştır; yükseklikten korkar.",
+   "kaynak": "VIII.254–259"
+  },
+  {
+   "id": "F08",
+   "bolum": "Kekliğin sevinci",
+   "tts": "[slowly] Yani oğluna “ortadan uç” diyen adam, kıskandığı bir çocuğu yükseklikten atmıştı.",
+   "alt": "Yani oğluna “ortadan uç” diyen adam, kıskandığı bir çocuğu yükseklikten atmıştı.",
+   "kaynak": "F05 + C05; C06'daki ikinci döngü kapanır; kırılma"
+  },
+  {
+   "id": "G01",
+   "bolum": "Üç uçuş",
+   "tts": "[calmly] Bu hikâyede üç uçuş var: güneşe giden çocuk, yerden ayrılmaya korkan keklik ve ortadan uçup sağ kalan usta.",
+   "alt": "Bu hikâyede üç uçuş var: güneşe giden çocuk, yerden ayrılmaya korkan keklik ve ortadan uçup sağ kalan usta.",
+   "kaynak": "yorumumuz (kurul A: G01+G02 birleşti)"
+  },
+  {
+   "id": "G02",
+   "bolum": "Üç uçuş",
+   "tts": "[thoughtful] Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.",
+   "alt": "Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.",
+   "kaynak": "F05'ten yorum (invidit)"
+  },
+  {
+   "id": "G03",
+   "bolum": "Üç uçuş",
+   "tts": "[thoughtful] Bu ses bugün de tanıdık: ya bir işin en iyisi olacağız ya da hiç başlamayacağız.",
+   "alt": "Bu ses bugün de tanıdık: ya bir işin en iyisi olacağız ya da hiç başlamayacağız.",
+   "kaynak": "kullanıcının yorumu"
+  },
+  {
+   "id": "G04",
+   "bolum": "Üç uçuş",
+   "tts": "[calmly] Bu cümlenin ilk yarısı Daidalos: geçilmeye dayanamayan usta. İkinci yarısı keklik: bir kez düşmüş, bir daha yükselmeye cesaret edemeyen.",
+   "alt": "Bu cümlenin ilk yarısı Daidalos: geçilmeye dayanamayan usta. İkinci yarısı keklik: bir kez düşmüş, bir daha yükselmeye cesaret edemeyen.",
+   "kaynak": "kurul A: güdü ayrımı"
+  },
+  {
+   "id": "G05",
+   "bolum": "Üç uçuş",
+   "tts": "[calmly] Orta ise bize sıradanlık gibi gelir. Oysa hiç başlamamak da bir düşüştür; tüyleri ıslatan, sessiz, yavaş bir düşüş. Unutulan uyarı buydu.",
+   "alt": "Orta ise bize sıradanlık gibi gelir. Oysa hiç başlamamak da bir düşüştür; tüyleri ıslatan, sessiz, yavaş bir düşüş. Unutulan uyarı buydu.",
+   "kaynak": "C05–C06'ya geri çağrı; A03'ün asıl cevabı"
+  },
+  {
+   "id": "G06",
+   "bolum": "Üç uçuş",
+   "tts": "[warmly] İkaros ise ne kıskançlıktan yükseldi ne korkudan alçaldı. Sevinçten uçtu. Bedelini ödedi. Ama önce uçtu.",
+   "alt": "İkaros ise ne kıskançlıktan yükseldi ne korkudan alçaldı. Sevinçten uçtu. Bedelini ödedi. Ama önce uçtu.",
+   "kaynak": "kullanıcının yorumu; kurul A metni"
+  },
+  {
+   "id": "G07",
+   "bolum": "Üç uçuş",
+   "tts": "[thoughtful] Pişman oldu mu, bilmiyoruz. Ama bir an için, babasının bile çıkmadığı yükseklikteydi. Bazılarımız bütün ömrünü böyle tek bir an için yaşar.",
+   "alt": "Pişman oldu mu, bilmiyoruz. Ama bir an için, babasının bile çıkmadığı yükseklikteydi. Bazılarımız bütün ömrünü böyle tek bir an için yaşar.",
+   "kaynak": "kullanıcının yorumu; VIII.224–225 (altius egit iter)"
+  },
+  {
+   "id": "G08",
+   "bolum": "Üç uçuş",
+   "tts": "[calmly] On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden çizdi. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
+   "alt": "On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden çizdi. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
+   "kaynak": "İkaros'un Düşüşü ile Manzara (Brüksel, Belçika Kraliyet Güzel Sanatlar Müzeleri; 1560'lar; çoğu uzman erken kopya sayar). Çoban göğe bakar ama İkaros'a değil; 'kimse düşen çocuğa bakmıyor' doğru (kurul B)"
+  },
+  {
+   "id": "G09",
+   "bolum": "Üç uçuş",
+   "tts": "[slowly] Peki sen, kimse başını kaldırıp bakmasa bile, hangi yükseklikte uçardın? Yorumlarda yaz.",
+   "alt": "Peki sen, kimse başını kaldırıp bakmasa bile, hangi yükseklikte uçardın? Yorumlarda yaz.",
+   "kaynak": "son soru; yoruma çağrı"
+  },
+  {
+   "id": "H01",
+   "bolum": "Üç uçuş",
+   "tts": "[warmly] Bu video, yorumlarda İkaros'u isteyenler için. Milton'ın Şeytan'ı da kendisi için “yükselmeye kalkan, yükseldiği kadar alçalır” demişti; onun hikâyesi ekranda. Hoşuna gittiyse Zaman Kuryesi'ne abone ol.",
+   "alt": "Bu video, yorumlarda İkaros'u isteyenler için. Milton'ın Şeytan'ı da kendisi için “yükselmeye kalkan, yükseldiği kadar alçalır” demişti; onun hikâyesi ekranda. Hoşuna gittiyse Zaman Kuryesi'ne abone ol.",
+   "kaynak": "bitiş ekranı (Milton videosu); Kayıp Cennet IX.169–170 (Dartmouth ile doğrulandı; milton/senaryo.json I05). Kullanıcı: yorumlarda İkaros isteyen izleyiciler var"
+  }
+ ]
 }
