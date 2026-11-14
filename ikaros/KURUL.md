@@ -1,0 +1,170 @@
+# İkaros: kurul kayıtları
+
+**Sapma (kullanıcının kullanım sınırı nedeniyle, 14 Kasım 2026):** CLAUDE.md alan başına iki üye istiyor. Bu videoda her kapıda en çok iki **birleşik mercekli** üye toplanıyor:
+- Üye A: senaryo/yönetmenlik + dramaturji + tutma + ilk kez gören izleyici.
+- Üye B: konu uzmanı + kaynak denetçisi + hassasiyet/hukuk (veto alanları).
+
+Çapraz eleştiri turu atlandı: bulgular çoğunlukla örtüşüyor ya da birbirini tamamlıyordu. Başkan çatışmaları kendisi çözdü.
+
+## Kapı 1: Senaryo
+
+### Tur 1 (rev1 → rev2)
+| Üye | Puan | Karar | Rapor |
+|---|---|---|---|
+| A (dramaturji, tutma) | 7,5 | RED | `kurul/senaryo_tur1/A_dramaturji_tutma.md` |
+| B (kaynak, hassasiyet) | 7,5 | RED, 4 veto (yanlış bilgi) | `kurul/senaryo_tur1/B_kaynak_hassasiyet.md` |
+
+**Uygulananlar:**
+- **B'nin veto bulguları:**
+  - D04/D05: "cesur, sevinç, özlem" yerine "cüret, sevinç, arzu". Sabit yorum için *Ars Amatoria* II.83 hazır.
+  - G09: "kimsenin yapmadığını yaptı" yanlıştı, çünkü Daidalos önce uçtu.
+  - F04: icatların yaşı Ovidius'ta yok.
+  - E05/F02: beden gömülüyor (VIII.234–235).
+- **B'nin öteki bulguları:**
+  - F05: "kıskandı" ve "ayağı kaydı diye yalan" eklendi; "arx" kale demek, yani Akropolis.
+  - F03'e VIII.240 ("senin uzun suçun, Daidalos") eklendi.
+  - Milton dizesi için "kendisi için demişti" dendi.
+  - Künyeler düzeltildi, Ovidius tanıtıldı.
+- **A'nın bulguları:**
+  - İkinci merak döngüsü kuruldu.
+  - G bölümü güdü ayrımıyla yeniden kuruldu (Daidalos = "en iyisi", keklik = "hiç").
+  - Milton gövdeden çıkıp bitiş ekranına taşındı.
+  - Bruegel ile D02'deki üç tanık arasında kafiye kuruldu.
+  - Sürgün ve yurt özlemi, "Oradan gideceğiz" ve "önce kendisi denedi" eklendi.
+  - C07 yalnız "Beni izle" oldu; D01'e kuş benzetmesi eklendi.
+
+**Başkanın kararları ve reddedilen öneriler:**
+- **İkinci döngünün yeri:** A, %60 ihtimalle A03'ü öneriyordu. Başkan döngüyü C06'nın sonuna koydu. Gerekçe: kanca tek ve sade bir vaat olarak kalmalı. Şarlken'in %79'luk açılışı tek bir net vaatle geldi; ilk 15 sn'yi uzatmak, kanalın kanıtlanmış kaybı (ilk 10–15 sn) açısından risk.
+- **Ada cümlesi (Sisam, Kalimnos):** süre nedeniyle alınmadı.
+- **G09'un tümden çıkarılması:** önerildi, reddedildi. Kullanıcının "tek bir zirve anı için yaşamak" fikri G07'de dürüst biçimde (babasının bile çıkmadığı yükseklik) korundu.
+
+**Görsel kırmızı çizgiler (B'den):**
+- Çocuk figürlerde çıplaklık yok, tunik olur.
+- Düşüş, çarpma ya da ölü beden grafik gösterilmez.
+- Perdix'in itilişi ayrıntı planla gösterilmez.
+- Uçurum kenarında aşağı bakan figür kullanılmaz (intihar çağrışımı).
+- Kapakta mutlak iddia ("SUÇSUZDU", "KATİL") yok.
+- Matisse'in *Icare* eseri kopyalanmaz.
+- Auden ve W. C. Williams'tan alıntı yapılmaz.
+
+Ek (Milton dersi): önden simetrik, kolları açık figür haç gibi okunur. Uçuş hep profilde ya da üç çeyrek açıdan gösterilir.
+
+### Tur 2 (gerileme; rev2 → rev3)
+| Üye | Puan | Karar | Rapor |
+|---|---|---|---|
+| A (dramaturji, tutma) | **9,0** | ONAY (küçük düzeltmelerle) | `kurul/senaryo_tur2/A.md` |
+| B (kaynak, hassasiyet) | **9,3** | ONAY, veto yok | `kurul/senaryo_tur2/B.md` |
+
+**Uygulananlar:**
+- B01 ve B02 birleşti: Ovidius tanıtımı ilk 15 sn'den çıktı; "iki bin yıl önce" bilgisi ekrandaki künyeye gitti.
+- D04: "önderini bıraktı" yerine "babasının peşini bıraktı" ("Beni izle"ye karşılık).
+- G02: kıskançlık tekrarı yerine "en iyisi olmak zorundaydı; ikinci olmaya dayanamadı".
+- B03 ve C04 dil düzeltmeleri.
+- B'nin önerileri: E05 "toprağa verdi; o toprak da o deniz de" (adanın İkarya oluşu: Apollodoros II.6.3, Pausanias IX.11.5); F03 "bitmeyecek suçun"; G01 "yükseğe çıkmaya korkan keklik"; G08 "resmetti".
+
+**Reddedilen:** G07'nin son cümlesinin ("Bazılarımız bütün ömrünü böyle tek bir an için yaşar") tempo için kısaltılması. Bu kullanıcının kendi fikri; 4 sn'lik kişisel bir vuruş ve iksirin taşıyıcısı. Kalıyor.
+
+**Kapı 1 sonucu: GEÇTİ** (rev3).
+
+**Ek görsel kırmızı çizgiler (B, tur 2):** E05'te mezar ya da beden gösterilmez; İkarya'da gerçek bir kasaba ya da kilise silueti kullanılmaz.
+
+## Kapı 2: Üslup (serigrafi seyahat afişi)
+Üslup kapısı dört sahneden oluşuyordu: manzara, orta plan, yakın plan (kapak adayı) ve 15 sn hareketli uçuş. Kareler `kurul/uslup_tur1/` ve `kurul/uslup_tur2/` klasörlerinde.
+
+| Üye | Tur 1 | Tur 2 | Rapor |
+|---|---|---|---|
+| C (sanat, gelenek, hareket) | 7,0 RED | 8,5 RED → tur 3 (tek üyeli gerileme) **9,0 ONAY** | `uslup_tur1/C_sanat_hareket.md`, `uslup_tur2/C.md`, `uslup_tur3/C.md` |
+| D (görsel hassasiyet, okunurluk) | 8,0 RED, veto yok | **9,2 ONAY** | `uslup_tur1/D_hassasiyet_okunurluk.md`, `uslup_tur2/D.md` |
+
+**Tur 1 sonrası uygulananlar:**
+- Kanat: yuvarlak uçlu tüyler; birinciller derin oyuklu.
+- Uçuş: aşağı vuruş döngünün %40'ı ve yatayın altına iner; yukarı vuruşta kanat toplanır; uzak kanatla V.
+- Derinlikli kaydırma; parıltılar dünyaya sabit.
+- Palet geçişi 0,4 sn çapraz rakle; bıçak ve boncuk görünür.
+- Kollar kanadın ön kenarında ten rengi, kayışlı (melek okumasına karşı).
+- İkaros'a kemerli kısa tunik.
+- Öğle güneşi soluk altın (Japon bayrağı, THY, hedef tahtası okumaları).
+- Kapak: yüz dolgusu yok; koyu profil ve kâğıt renginde göz; 4 px pay; bulut yok.
+- Orta planda Daidalos büyük, İkaros küçük; yerde konfeti yok.
+- Manzarada figürler kenardan içeride.
+
+**Tur 2 sonrası:**
+- Uçan figürler arasında ≥ 40 px boşluk; kapakta tek çapraz kayış; en ince bant 7 px.
+- Uçuşta Daidalos'a uzun tunik, İkaros 0,75 ölçek.
+- En dış birincil tüy sivri; orta planda kol göğüste, yerde gerçek tüyler; sırt uçları sivri.
+
+**Kapı 2 sonucu: GEÇTİ** (C 9,0, D 9,2).
+
+**Sahne aşaması notları (C):**
+- Uçuşta tunik ucuna küçük bir salınım ekle.
+- C04 (P14) planında Daidalos'un eli kayışta olsun.
+- Uçuş planlarında baba ile oğul arasında en az bir kanat açıklığı bırak.
+
+**Reddedilen:** ¾ alttan bakış A/B'si (C, tur 1). Gerekçe: kullanım payı. Profil ve V çırpma ile okunurluk sağlandı; D 168 px'te "güneşe bakan kanatlı çocuk" okumasını doğruladı.
+
+## Görsel kırmızı çizgiler (sonraki sahneler; D, tur 1 ile senaryo kurulu B birleşik)
+1. Çocuk figürlerde çıplaklık yok, tunik olur. Düşüş, çarpma ya da ölü beden grafik gösterilmez; E05'te mezar ya da beden yok. Perdix'in itilişi ayrıntı planla gösterilmez.
+2. Düşüşte haç pozu (önden açık kollar) yok. Matisse'in *Icare* renk ve biçim birleşimi kullanılmaz. Işık saniyede 3'ten fazla yanıp sönmez.
+3. Baş hiçbir karede güneşin merkezine girmez (hale okuması).
+4. Öpüş alından olur. Kamera aşağıdan tuniğin altına bakmaz. Yayında "çocuklara özel değil" işaretlenir (`yayin.md`).
+5. "Tanrı sandılar" sahnesinde diz çöken ya da secde eden figür olmaz. Athena önden simetrik ve haleli çizilmez; yalnız ışık ve baykuş.
+6. "Üç uçuş" panelleri Golgota gibi (üç figür yan yana, ortası yüksek) dizilmez. Bruegel sahnesinde suda kalan bacaklar küçük olur. İkarya'da gerçek kasaba ya da kilise silueti kullanılmaz.
+7. Uçurum kenarında aşağı bakan figür kullanılmaz (intihar çağrışımı). Kapakta mutlak iddia yok.
+
+## Kapı 3: İlk tam kurgu
+| Üye | Tur 1 | Rapor |
+|---|---|---|
+| E (kurgu, animasyon, tutma, ilk kez gören izleyici) | 7,6 RED → tur 2 (tek üyeli gerileme; F'nin bulgularını da doğruladı) **9,2 ONAY** | `kurul/kurgu_tur1/E_kurgu_tutma.md`, `kurul/kurgu_tur2/E.md` |
+| F (görsel hassasiyet, yazı/altyazı, teknik) | 7,5 RED, 1 veto (P51 bacaklar) | `kurul/kurgu_tur1/F_hassasiyet_yazi_teknik.md` |
+
+**Uygulananlar:**
+- **Donukluk (E: filmin %25,7'si donuktu).** Kadrajı sabit her plana varsayılan %3 yavaş yaklaşma eklendi (`film.js` baski). Ayrıca:
+  - P38'de Akropolis'e yaklaşma; P39'da "yalan" sözünde baş öne eğilir;
+  - P44'te kürsü plan boyunca yükselir; P46'da keklik kalkmaya çalışıp düşer;
+  - P50'de kamera çiftçiden bacaklara kayar;
+  - P03'te "sırrı" sözünde bir tüy kopup batar;
+  - P15'te figür plan başında girer.
+- **Rakle:** palet değişimi dört anlamlı sözcüğe bağlandı ve plan içinde görünüyor: "ama" (alacakaranlık), "arzudan" (gün batımı), "atmıştı" (gece), "önce" (şafak).
+- **Geri çağrı:** "Unutulan uyarı buydu" sözünde "ÇOK ALÇAKTAN DA UÇMA" yeniden basılır (P47).
+- **Kanca:** A03 sonrası boşluk 0,6 sn kısaldı (A03 gap 0). Zaman çizelgesine bağlı her şey yeniden üretildi: anlatım, SRT, müzik, miks, Shorts.
+- **P51 kaldırıldı (F veto).** Keklik P50'de dalda; P50'ye kayada oturan balıkçı eklendi; çoban tepede, göğe bakıyor.
+- **Alt banttaki yazılar** başlığın altına alındı (P04, P32); P53'teki blok yukarı taşındı; boş video kutusu kaldırıldı. Altyazıyla çakışma kalmadı.
+- **Diğer:**
+  - P22 ve P23'te uçanlar arasında bir kanat açıklığı var; balıkçı kayada oturuyor (diz çökme okuması yok).
+  - P52'de tüy yazının solunda.
+  - P35'te çocuk büyük (h 46); P40'ta düşen çocuk ve keklik kâğıt renginde.
+
+**Gerekçeyle kabul edilenler (F, engelleyici değil):**
+- 17 kar/sn'yi aşan 5 altyazı (en yüksek 19,6): anlatım hızından kaynaklanıyor. `srt.py` okuma hızı kuralı uygulanıyor; daha fazlası metni bölmeyi gerektirir.
+- "Ve uçtular." 0,65 sn: aynı cümlenin devamı hemen başlıyor.
+- Satır bölme kusurları küçük; sonraki videoda `srt.py`'ye özel ad + edat bölme kuralı eklenecek.
+
+**Tur 2 sonucu:** donukluk %25,7'den ~%1,5–2,5'e indi (freezedetect 8,7 sn; E 480 px'te 14,7 sn ölçtü, gözle donuk değil). Rakle anları ve geri çağrı doğrulandı. **Kapı 3: GEÇTİ.**
+
+**Başkanın kabul ettikleri (E, tur 2; engelleyici değil):**
+- P15'te 1,4 sn boş kâğıt: kural 2 sn'nin altında; figür kenardan girerek "ortadan"a yerleşiyor.
+- P44 ve P46'da ustanın aynı poz ve kürsüyle görünmesi: P46 bilinçli eşleme kesmesi (aynı simge, bölünmüş karede karşıtıyla).
+- P42'de çatlak isteğe bağlıydı; rakle vuruşu taşıyor.
+
+**Kurulsuz kalan kapılar (kullanım sınırı):**
+- Ses ve miks: ölçümle hedefte (−14,3 LUFS, −1,3 dBTP); kulakla onay kullanıcıda.
+- Shorts: kanca, altyazı ve kesimler başkanca kare kare kontrol edildi.
+
+## Kapı 5: Kapak ve yayın paketi
+| Üye | Tur 1 | Tur 2 | Tur 3 |
+|---|---|---|---|
+| G (TO/paketleme, yayın paketi) | A 8,0 · B 7,0 · paket 7,5 RED | **A 9,0 · B 9,0 · paket 9,5 ONAY** | – |
+| H (sanat, görsel hassasiyet) | A 7,5 · B 6,0 RED | **A 9,0 ONAY** · B 7,0 RED | A 9,0 · B 8,5 → tek madde (sudaki tüyler asimetrik, V yarıklı, saplı) başkanca kareyle doğrulandı: **B ONAY** |
+
+**Uygulananlar:**
+- Kapak yazısı Bebas 290 px: büyük harf ~136 px / 720 (%19).
+- A: güneş somon bantta, en parlak nokta; kanat kısa ve kadrajda, ayrık birincil tüyler; kayış mercan.
+- B: güneş küçük ve sönük; temas noktasında krem sıçrama odakta; suda kanat renginde saplı tüyler; kanat küçüldü.
+- **Karikatür okuması (H'nin uyarısı; engelleyici değildi):** koyu siluet + bembeyaz göz + kıvırcık yuvarlak baş + çıkık ağız birleşimi. Göz küçüldü ve kâğıt beyazı değil 'lit' tonunda; dudak profili sadeleşti. Değişiklik film genelinde uygulandı, film yeniden render edildi.
+- **Paket:**
+  - Başlık `İkaros: "Güneşe Yaklaşma." Peki Öteki Uyarı Neydi?` ("Herkes" mutlak iddiası kalktı).
+  - Sabit yorum cevabı vermiyor.
+  - Tek kart 4:56'da (Milton); erken Sisifos kartı kaldırıldı.
+  - Bölüm damgaları yeni çizelgeden; #YunanMitolojisi eklendi.
+
+**Kapı 5 sonucu: GEÇTİ** (A ve B; paket 9,5).
