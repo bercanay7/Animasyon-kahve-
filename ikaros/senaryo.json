@@ -267,7 +267,8 @@
    "bolum": "Üç uçuş",
    "tts": "[warmly] İkaros ise ne kıskançlıktan yükseldi ne korkudan alçaldı. Sevinçten uçtu. Bedelini ödedi. Ama önce uçtu.",
    "alt": "İkaros ise ne kıskançlıktan yükseldi ne korkudan alçaldı. Sevinçten uçtu. Bedelini ödedi. Ama önce uçtu.",
-   "kaynak": "kullanıcının yorumu; kurul A metni"
+   "kaynak": "kullanıcının yorumu; kurul A metni",
+   "vo_parca": true
   },
   {
    "id": "G07",
@@ -279,7 +280,7 @@
   {
    "id": "G08",
    "bolum": "Üç uçuş",
-   "tts": "[calmly] On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
+   "tts": "[calmly] On beş yüzyıl sonra, Brögel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
    "alt": "On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
    "kaynak": "İkaros'un Düşüşü ile Manzara (Brüksel, Belçika Kraliyet Güzel Sanatlar Müzeleri; 1560'lar; çoğu uzman erken kopya sayar). Çoban göğe bakar ama İkaros'a değil; 'kimse düşen çocuğa bakmıyor' doğru (kurul B)"
   },

@@ -1,4 +1,4 @@
-"""Altyazı: senaryo 'alt' metni + kelime zamanları → milton.tr.srt (python3 tools/srt.py)"""
+"""Altyazı: senaryo 'alt' metni + kelime zamanları → ikaros.tr.srt (python3 tools/srt.py)"""
 import json, re, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAXL, MAXC = 42, 80  # satır / altyazı başına karakter (iki satır 42'yi aşmadan sığsın)
@@ -157,7 +157,7 @@ while i < len(cues) - 1:
         settle_times()
     else: i += 1
 
-out = os.path.join(ROOT, 'milton.tr.srt')
+out = os.path.join(ROOT, 'ikaros.tr.srt')
 with open(out, 'w', encoding='utf-8') as f:
     for i, (a, b, t) in enumerate(cues, 1):
         f.write(f'{i}\n{fmt(a)} --> {fmt(b)}\n{t}\n\n')
