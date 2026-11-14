@@ -35,7 +35,7 @@ others = [('Sisifos', os.path.join(ROOT, 'sisifos', 'kapak.png'), "Sisifos'u Ned
 for key, im in covers.items():
     W, item = 390, 201 + 86
     feed = Image.new('RGB', (W, 16 + item * 3), (15, 15, 15)); dr = ImageDraw.Draw(feed)
-    rows = [(others[0][1], others[0][2]), (None, "İkaros'a İki Uyarı Yapıldı, Herkes Birini Unuttu | Ovidius"), (others[1][1], others[1][2])]
+    rows = [(others[0][1], others[0][2]), (None, 'İkaros: "Güneşe Yaklaşma." Peki Öteki Uyarı Neydi?'), (others[1][1], others[1][2])]
     for i, (p, title) in enumerate(rows):
         y = 8 + i * item
         th = (im if p is None else Image.open(p).convert('RGB')).resize((358, 201), Image.LANCZOS)
@@ -51,6 +51,6 @@ print('test seti →', out)
 for key, im in covers.items():
     W, item = 390, 201 + 86
     feed = Image.new('RGB', (W, 16 + item), (255, 255, 255)); dr = ImageDraw.Draw(feed)
-    feed.paste(im.resize((358, 201), Image.LANCZOS), (16, 8)); dr.text((62, 218), "İkaros'a İki Uyarı Yapıldı, Herkes", fill=(15, 15, 15), font=font(15)); dr.text((62, 240), 'Birini Unuttu | Ovidius', fill=(15, 15, 15), font=font(15))
+    feed.paste(im.resize((358, 201), Image.LANCZOS), (16, 8)); dr.text((62, 218), 'İkaros: "Güneşe Yaklaşma." Peki', fill=(15, 15, 15), font=font(15)); dr.text((62, 240), 'Öteki Uyarı Neydi?', fill=(15, 15, 15), font=font(15))
     feed.save(os.path.join(out, f'{key}_akis_acik.png'))
     tv = Image.new('RGB', (1920, 1080), (20, 20, 20)); [tv.paste(im.resize((300, 169), Image.LANCZOS), (60 + i * 310, 300)) for i in range(6)]; tv.save(os.path.join(out, f'{key}_tv.jpg'), quality=85)

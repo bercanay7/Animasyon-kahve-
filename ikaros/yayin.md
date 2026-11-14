@@ -6,8 +6,8 @@
 4. **Kitle:** "Hayır, çocuklara özel değil" (kurul D: çocuk güvenliği işareti).
 5. **Değiştirilmiş/sentetik içerik:** gerçekçi bir kişi ya da olay göstermiyor; animasyon. Ses yapay zekâ: açıklamada yazılı. YouTube'un o günkü sorusunu oku; gerçekçi içerik değilse "Hayır".
 6. **Altyazı:** Altyazılar → Dosya yükle → "Zamanlamalı" → `ikaros.tr.srt` (Türkçe).
-7. **Bitiş ekranı (son 20 sn, ~5:34–5:54):** sol yarıda başlık ve kanatlı figür var; sağdaki koyu çerçeveye **Milton videosu** (Kayıp Cennet), altına **abone ol** öğesi. Sağ alttaki rozet alanı boş.
-8. **Kartlar:** yalnız bir kart, ~4:50'de ("Ama önce uçtu"dan sonra) → Milton videosu. İzleyiciyi ilk dakikada filmden çıkaran kart konmaz (kurul G).
+7. **Bitiş ekranı (son 20 sn, 5:35–5:55):** sol yarıda başlık ve kanatlı figür var; sağdaki koyu çerçeveye **Milton videosu** (Kayıp Cennet), altına **abone ol** öğesi. Sağ alttaki rozet alanı boş.
+8. **Kartlar:** yalnız bir kart, 4:56'da ("Ama önce uçtu" bittikten sonra) → Milton videosu. İzleyiciyi ilk dakikada filmden çıkaran kart konmaz (kurul G).
 9. **Oynatma listesi:** "Mitler ve Felsefe".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
 11. **Zamanlama:** kanalın önceki yayın saatleri (akşam 20:00–21:00) iyi çalıştı.
