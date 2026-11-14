@@ -45,6 +45,8 @@ const FG = (() => {
       T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
     if (o.beard) polyInto(p, [T(.62 * r, .62 * r), T(.82 * r, .98 * r), T(.5 * r, 1.34 * r), T(.04 * r, 1.12 * r), T(-.12 * r, .52 * r)]);
     if (o.curls) for (let k = 0; k < 7; k++) { const a = Math.PI * (.72 + k * .13); ellipseInto(p, ...T(Math.cos(a) * r * .9 - .06 * r, Math.sin(a) * r * .92 - .04 * r), r * .24, r * .24, 0, 14); }
+    if (o.faceOut) { const fp = P(); polyInto(fp, [T(.32 * r, -.8 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r), T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.4 * r, .88 * r), T(.5 * r, .3 * r), T(.44 * r, -.3 * r)]);
+      const ep = P(); ellipseInto(ep, ...T(.6 * r, -.08 * r), r * .07, r * .045, ht, 12); o.faceOut.face = fp; o.faceOut.eye = ep; }
     // boyun
     capsule(p, J.N, add2(Hd, [-f * .1 * h, .25 * h]), .26 * h, .24 * h);
   }
@@ -62,11 +64,11 @@ const FG = (() => {
   function figure(J, o = {}) {
     const h = J.h, far = P(), body = P();
     if (!o.noArmF) limbInto(far, J.armF, .2 * h, .17 * h, .13 * h); limbInto(far, J.legF, .3 * h, .22 * h, .17 * h); footInto(far, J.legF, J, .16 * h);
-    bodyInto(body, J, o); headInto(body, J, o);
+    const fo = o.face ? {} : null; bodyInto(body, J, o); headInto(body, J, { ...o, faceOut: fo });
     if (o.chest) ellipseInto(body, J.Sh[0] - J.f * .05 * h, J.Sh[1] + .45 * h, .62 * h, .7 * h, J.lean, 24);
     if (!o.noArmN) limbInto(body, J.armN, .21 * h, .18 * h, .14 * h); limbInto(body, J.legN, .31 * h, .23 * h, .17 * h); footInto(body, J.legN, J, .17 * h);
     if (o.hands !== false && !o.noArmN) { ellipseInto(body, J.armN[2][0], J.armN[2][1], .19 * h, .15 * h, J.armN[3], 12); ellipseInto(far, J.armF[2][0], J.armF[2][1], .18 * h, .14 * h, J.armF[3], 12); }
-    return { far, body };
+    return { far, body, face: fo && fo.face, eye: fo && fo.eye };
   }
 
   // ── Kanat (kuş kanadı; kola bağlı), afiş dili: tek siluet. Ön kenar kökten bileğe, oradan uca; arka kenar tırtıklı

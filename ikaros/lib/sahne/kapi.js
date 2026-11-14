@@ -18,6 +18,7 @@ function kanatliFigur(pr, J, o) {
   const fig = FG.figure(J, { ...(o.look || {}), noArmN: !!w && o.armInWing !== false, noArmF: !!w && o.armInWing !== false });
   pr.ink(fig.far, o.farLimb || 'mid');
   litInk(pr, fig.body, 'lit', o.body || 'near', L[0], L[1], dl);
+  if (fig.face) { pr.ink(fig.face, 'lit', { sheen: .2 }); pr.ink(fig.eye, o.body || 'near', { sheen: 0 }); }
   if (w) {
     const wn = FG.wing({ root: J.Sh, ang: w.ang, bend: w.bend, span: w.span, chord: w.chord, f: w.side, seed: w.seed || 1, ruin: w.ruin });
     litInk(pr, wn.all, 'lit', o.wing || 'near', L[0], L[1], dl * .8);
@@ -64,9 +65,9 @@ SCENES.orta = (ctx, t) => baski(ctx, kSt(t, 3), null, pr => {
 SCENES.yakin = (ctx, t) => baski(ctx, kSt(t, 4), null, pr => {
   pr.sky('sky2', 'sky1', 200, 560, 6);
   gunes(pr, 1540, 250, 95, 3);
-  pr.ink(FG.cloud(1250, 520, 560, 110, 3), 'paper', { sheen: 0 });
+  pr.ink(FG.cloud(1560, 640, 520, 100, 3), 'paper', { sheen: 0 });
   const J = FG.rig({ x: 860, y: 1180, h: 210, f: 1, lean: .05, head: -.62 + Math.sin(t * .8) * .04, armN: [.1, 0], armF: [.1, 0] });
-  kanatliFigur(pr, J, { w: { ang: -2.55 + Math.sin(t * .8) * .03, bend: -.3, span: 980, chord: 360, side: -1, seed: 12 }, light: [1, -.7], litD: 14, farOff: [-50, 10], look: { curls: true, chest: true } });
+  kanatliFigur(pr, J, { w: { ang: -2.55 + Math.sin(t * .8) * .03, bend: -.3, span: 980, chord: 360, side: -1, seed: 12 }, light: [1, -.7], litD: 14, farOff: [-50, 10], look: { curls: true, chest: true, face: true } });
 });
 
 // 4. HAREKETLİ (15 sn): baba ve oğul denizin üstünde; aşağıda bir balıkçı başını kaldırır; 8. sn'de gün ilerler (şafak → öğle, çapraz rakle)
