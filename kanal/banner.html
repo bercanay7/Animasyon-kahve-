@@ -1,0 +1,72 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Kanal kapağı</title>
+<link rel="stylesheet" href="../milton/fonts.css">
+<style>html,body{margin:0;background:#000}</style></head><body>
+<canvas id="c" width="2560" height="1440"></canvas>
+<script>
+// Zaman Kuryesi kanal kapağı: 2560×1440; telefonda görünen güvenli alan x 507–2053, y 508–931
+const c = document.getElementById('c'), g = c.getContext('2d'), W = 2560, H = 1440;
+const GOLD = '#D4AE5C', GOLD2 = '#A9873F', CREAM = '#EFE4CC', INK = '#0A1120';
+function bg() {
+  const r = g.createRadialGradient(W/2, 720, 100, W/2, 720, 1500); r.addColorStop(0, '#22345A'); r.addColorStop(.55, '#152341'); r.addColorStop(1, '#070D1A');
+  g.fillStyle = r; g.fillRect(0, 0, W, H);
+  // gravür taraması: ince çapraz çizgiler, kenarlara doğru koyulaşır
+  g.save(); g.globalAlpha = .07; g.strokeStyle = '#000'; g.lineWidth = 2;
+  for (let x = -H; x < W; x += 9) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x + H, H); g.stroke(); }
+  g.restore();
+  const v = g.createRadialGradient(W/2, 720, 600, W/2, 720, 1400); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)'); g.fillStyle = v; g.fillRect(0, 0, W, H);
+  // yıldızlar
+  let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 260; i++) { const x = rnd() * W, y = rnd() * 820, a = rnd() * .5 + .1; g.fillStyle = `rgba(239,228,204,${a})`; g.beginPath(); g.arc(x, y, rnd() * 2 + .6, 0, 7); g.fill(); }
+}
+const Y = 868;   // zaman yolu (yer çizgisi)
+function sil(f) { g.save(); g.fillStyle = INK; g.strokeStyle = GOLD; g.lineWidth = 3; f(); g.restore(); }
+function temple(x, s) { sil(() => { g.translate(x, Y); g.scale(s, s);
+  g.beginPath(); g.moveTo(-110, -150); g.lineTo(0, -205); g.lineTo(110, -150); g.closePath(); g.fill(); g.stroke();
+  g.fillRect(-115, -150, 230, 16); g.strokeRect(-115, -150, 230, 16);
+  for (let i = 0; i < 5; i++) { const cx = -88 + i * 44; g.fillRect(cx - 10, -134, 20, 112); g.strokeRect(cx - 10, -134, 20, 112); }
+  g.fillRect(-125, -22, 250, 22); g.strokeRect(-125, -22, 250, 22); }); }
+function hillStone(x, s) { sil(() => { g.translate(x, Y); g.scale(s, s);
+  g.beginPath(); g.moveTo(-170, 0); g.quadraticCurveTo(-40, -40, 120, -175); g.lineTo(150, -175); g.quadraticCurveTo(160, -80, 190, 0); g.closePath(); g.fill(); g.stroke();
+  g.beginPath(); g.arc(70, -170, 42, 0, 7); g.fill(); g.stroke();
+}); }
+function flame(x, s, t) { g.save(); g.translate(x, Y); g.scale(s, s);
+  const gr = g.createRadialGradient(0, -90, 5, 0, -90, 130); gr.addColorStop(0, 'rgba(255,214,120,.55)'); gr.addColorStop(1, 'rgba(255,180,80,0)'); g.fillStyle = gr; g.fillRect(-150, -240, 300, 260);
+  g.fillStyle = GOLD; g.beginPath(); g.moveTo(0, -200); g.bezierCurveTo(45, -140, 55, -90, 30, -45); g.bezierCurveTo(20, -20, -20, -20, -30, -45); g.bezierCurveTo(-55, -95, -25, -130, 0, -200); g.fill();
+  g.fillStyle = '#FFE6A8'; g.beginPath(); g.moveTo(0, -130); g.bezierCurveTo(22, -95, 22, -65, 8, -48); g.bezierCurveTo(0, -40, -12, -45, -14, -55); g.bezierCurveTo(-20, -80, -8, -100, 0, -130); g.fill();
+  // meşale sapı
+  g.fillStyle = INK; g.strokeStyle = GOLD; g.lineWidth = 3; g.beginPath(); g.moveTo(-26, -42); g.lineTo(26, -42); g.lineTo(10, 0); g.lineTo(-10, 0); g.closePath(); g.fill(); g.stroke(); g.restore(); }
+function book(x, s) { sil(() => { g.translate(x, Y); g.scale(s, s);
+  for (const d of [-1, 1]) { g.beginPath(); g.moveTo(0, -20); g.quadraticCurveTo(d * 70, -45, d * 150, -30); g.lineTo(d * 150, -150); g.quadraticCurveTo(d * 70, -165, 0, -140); g.closePath(); g.fill(); g.stroke();
+    g.save(); g.strokeStyle = GOLD2; g.lineWidth = 2; for (let k = 0; k < 5; k++) { g.beginPath(); g.moveTo(d * 25, -118 + k * 18); g.quadraticCurveTo(d * 80, -136 + k * 18, d * 130, -126 + k * 18); g.stroke(); } g.restore(); }
+  g.fillRect(-4, -142, 8, 124); }); }
+function wings(x, s) { sil(() => { g.translate(x, Y); g.scale(s, s);
+  for (const d of [-1, 1]) { g.beginPath(); g.moveTo(d * 12, -120); g.bezierCurveTo(d * 70, -230, d * 140, -250, d * 175, -235);
+    for (let k = 0; k < 6; k++) { const px = d * (175 - k * 26), py = -235 + k * 30; g.lineTo(px, py + 30); g.lineTo(d * (165 - k * 26), py + 14); }
+    g.lineTo(d * 20, -60); g.closePath(); g.fill(); g.stroke(); }
+  g.beginPath(); g.arc(0, -140, 18, 0, 7); g.fill(); g.stroke();
+  g.beginPath(); g.moveTo(-22, -118); g.lineTo(22, -118); g.lineTo(30, 0); g.lineTo(-30, 0); g.closePath(); g.fill(); g.stroke(); }); }
+function sun(x, y, r) { g.save(); g.strokeStyle = 'rgba(212,174,92,.35)'; g.lineWidth = 2;
+  for (let i = 0; i < 72; i++) { const a = i / 72 * Math.PI * 2; g.beginPath(); g.moveTo(x + Math.cos(a) * r * 1.15, y + Math.sin(a) * r * 1.15); g.lineTo(x + Math.cos(a) * r * (i % 2 ? 1.6 : 2.1), y + Math.sin(a) * r * (i % 2 ? 1.6 : 2.1)); g.stroke(); }
+  g.fillStyle = 'rgba(232,200,120,.42)'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.strokeStyle = 'rgba(212,174,92,.6)'; g.lineWidth = 3; g.stroke(); g.restore(); }
+function road() {
+  g.save(); g.strokeStyle = GOLD; g.lineWidth = 4; g.beginPath(); g.moveTo(0, Y); g.lineTo(W, Y); g.stroke();
+  g.fillStyle = 'rgba(7,13,26,.85)'; g.fillRect(0, Y + 2, W, H - Y);
+  g.lineWidth = 2; g.strokeStyle = GOLD2; g.setLineDash([24, 18]); g.beginPath(); g.moveTo(0, Y + 18); g.lineTo(W, Y + 18); g.stroke(); g.restore();
+}
+function text(s, x, y, font, col, ls, o = {}) { g.save(); g.font = font; g.letterSpacing = ls + 'px'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  if (o.shadow) { g.shadowColor = 'rgba(0,0,0,.7)'; g.shadowBlur = 24; } g.fillStyle = col; g.fillText(s, x, y); g.restore(); }
+(async () => {
+  for (const f of ['900 120px Cinzel', '700 40px Cinzel', 'italic 500 60px "Cormorant Garamond"']) await document.fonts.load(f, 'ZAMANKURYESİçğış·');
+  bg();
+  sun(2300, 470, 90);                 // yalnız geniş ekranda (Milton'ın güneşi, İkaros'un güneşi)
+  road();
+  temple(190, .95); hillStone(470, .8); flame(1960, .9); wings(2230, .75); book(2440, .55);
+  // ortadaki yazı (güvenli alan)
+  text('ZAMAN KURYESİ', W/2, 655, '900 132px Cinzel', GOLD, 14, { shadow: 1 });
+  g.save(); g.strokeStyle = GOLD2; g.lineWidth = 2; g.beginPath(); g.moveTo(W/2 - 420, 728); g.lineTo(W/2 - 40, 728); g.moveTo(W/2 + 40, 728); g.lineTo(W/2 + 420, 728); g.stroke();
+  g.fillStyle = GOLD; g.beginPath(); g.moveTo(W/2, 716); g.lineTo(W/2 + 12, 728); g.lineTo(W/2, 740); g.lineTo(W/2 - 12, 728); g.closePath(); g.fill(); g.restore();
+  text('geçmişe gider, bir soruyla döner', W/2, 790, 'italic 500 64px "Cormorant Garamond"', CREAM, 1, { shadow: 1 });
+  text('MİTLER · TARİH · FELSEFE · KİTAPLAR', W/2, 912, '700 34px Cinzel', GOLD, 10);
+  window.done = true;
+})();
+</script></body></html>
