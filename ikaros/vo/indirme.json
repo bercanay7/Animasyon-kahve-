@@ -1,0 +1,11 @@
+{"flow_id": "RhcDVdEKajErkjpvLWzd", "voice": "Emrullah", "voice_id": "DpEiQMnL9WxMsymCsjPY", "model": "eleven_v4", "toplam_kredi": 9206,
+ "cekimler": {
+  "s00": {"node": "nuVAFTPdlDM3V6453EH9", "sessions": ["6XaOw4q7FyXr1fSXBSj3", "t8nw2IwMLqj8tvgNLRt8"], "kredi": 388},
+  "s01": {"node": "xfGAoIUqdeegETEM4pKw", "sessions": ["oGiPDNuBGu8tclCVItMG", "GGht4PahYEep0RNSDeaW"], "kredi": 878},
+  "s02": {"node": "Um1HSA1ARr8vu58UPubD", "sessions": ["QkHYHnlhuoYKYzhIFUct", "e5KWcdeICwZLiTCVky5J"], "kredi": 1614},
+  "s03": {"node": "CrLHz5Um9Z0tYgGqyfD0", "sessions": ["uS3lQGBpLV8ysSjP7kB4", "KXl5Wc8JFaGWz26SZySZ"], "kredi": 1036},
+  "s04": {"node": "yZKoAHOIX2FUGBeHfGz2", "sessions": ["c1Z4XHgWkyoNfpWpTpjQ", "XhotUW4GjfYtwaNhYFZ4"], "kredi": 894},
+  "s05": {"node": "PucUHfxgbWoIJlVdhEGY", "sessions": ["wdysYMQSeCD6B5Slz5iP", "YDNZMqaPjwsvNowhyqhu"], "kredi": 1620},
+  "s06": {"node": "N8NN7NHem5QSof4bQAwY", "sessions": ["cNbQdykmgR7CG6cJNNy4", "4fLsAtGrZ3CVSL6YWh3D"], "kredi": 1216},
+  "s07": {"node": "RvuWqcDBvpJnbXXcfDqU", "sessions": ["leyqM58pBwJQfenVbkeC", "TasEdg3UhC9280fYou5b"], "kredi": 1560}
+ }}
