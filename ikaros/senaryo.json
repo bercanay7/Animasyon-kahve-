@@ -1,7 +1,7 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
  "revizyon": "rev2 (14 Kasım 2026): senaryo kurulu tur 1 (A 7,5; B 7,5) bulguları uygulandı",
- "not": "Kaynak: Ovidius, Metamorphoses VIII.183–259 (Latince özgün, kamu malı; çeviriler bizim). Dize numaraları senaryo kurulunda doğrulanacak. Milton dizesi milton/senaryo.json I05/K12 ile aynı çeviri.",
+ "not": "Kaynak: Ovidius, Metamorphoses VIII.155–259 (Latince özgün, kamu malı; kaynak_ovidius_met8.txt; çeviriler bizim). Künyeler doğrulandı (kurul B, tur 1–2). Milton dizesi milton/senaryo.json I05 ile aynı çeviri (IX.169–170).",
  "segments": [
   {
    "id": "A01",
@@ -174,9 +174,9 @@
   {
    "id": "E05",
    "bolum": "İkaros, neredesin?",
-   "tts": "[sorrowful] Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunun bedenini bir adaya gömdü. O ada da o deniz de bugün onun adını taşır: İkarya.",
-   "alt": "Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunun bedenini bir adaya gömdü. O ada da o deniz de bugün onun adını taşır: İkarya.",
-   "kaynak": "VIII.233–235 (devovitque suas artes; corpus sepulcro condidit; tellus a nomine dicta) ve VIII.230 (deniz)"
+   "tts": "[sorrowful] Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunu toprağa verdi. O toprak da o deniz de bugün onun adını taşır: İkarya.",
+   "alt": "Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunu toprağa verdi. O toprak da o deniz de bugün onun adını taşır: İkarya.",
+   "kaynak": "VIII.233–235 (devovitque suas artes; corpus sepulcro condidit; tellus a nomine dicta), VIII.230 (deniz); adanın İkarya oluşu: Apollodoros II.6.3, Pausanias IX.11.5"
   },
   {
    "id": "F01",
@@ -195,8 +195,8 @@
   {
    "id": "F03",
    "bolum": "Kekliğin sevinci",
-   "tts": "[ominous] Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin uzun suçun, Daidalos” der.",
-   "alt": "Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin uzun suçun, Daidalos” der.",
+   "tts": "[ominous] Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin bitmeyecek suçun, Daidalos” der.",
+   "alt": "Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin bitmeyecek suçun, Daidalos” der.",
    "kaynak": "VIII.239–240 (longum tibi, Daedale, crimen); kurul B: anlatıcı suçu Daidalos'a yazar"
   },
   {
@@ -237,8 +237,8 @@
   {
    "id": "G01",
    "bolum": "Üç uçuş",
-   "tts": "[calmly] Bu hikâyede üç uçuş var: güneşe giden çocuk, yerden ayrılmaya korkan keklik ve ortadan uçup sağ kalan usta.",
-   "alt": "Bu hikâyede üç uçuş var: güneşe giden çocuk, yerden ayrılmaya korkan keklik ve ortadan uçup sağ kalan usta.",
+   "tts": "[calmly] Bu hikâyede üç uçuş var: güneşe giden çocuk, yükseğe çıkmaya korkan keklik ve ortadan uçup sağ kalan usta.",
+   "alt": "Bu hikâyede üç uçuş var: güneşe giden çocuk, yükseğe çıkmaya korkan keklik ve ortadan uçup sağ kalan usta.",
    "kaynak": "yorumumuz (kurul A: G01+G02 birleşti)"
   },
   {
@@ -286,8 +286,8 @@
   {
    "id": "G08",
    "bolum": "Üç uçuş",
-   "tts": "[calmly] On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden çizdi. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
-   "alt": "On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden çizdi. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
+   "tts": "[calmly] On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
+   "alt": "On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.",
    "kaynak": "İkaros'un Düşüşü ile Manzara (Brüksel, Belçika Kraliyet Güzel Sanatlar Müzeleri; 1560'lar; çoğu uzman erken kopya sayar). Çoban göğe bakar ama İkaros'a değil; 'kimse düşen çocuğa bakmıyor' doğru (kurul B)"
   },
   {

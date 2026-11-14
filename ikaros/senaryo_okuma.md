@@ -41,13 +41,13 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 - **E02** İkaros çıplak kollarını çırptı. Ama tutunacak tüy kalmamıştı; hava onu taşımadı.  _(VIII.227–228 (remigio carens))_
 - **E03** Düşerken babasını çağırıyordu. Mavi su o sesi yuttu.  _(VIII.229–230 (patrium clamantia nomen))_
 - **E04** Artık baba olmayan baba bağırdı: “İkaros! İkaros, neredesin?”  _(VIII.231–232 (nec iam pater))_
-- **E05** Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunun bedenini bir adaya gömdü. O ada da o deniz de bugün onun adını taşır: İkarya.  _(VIII.233–235 (devovitque suas artes; corpus sepulcro condidit; tellus a nomine dicta) ve VIII.230 (deniz))_
+- **E05** Sonra dalgaların üstünde tüyleri gördü ve kendi sanatına lanet etti. Oğlunu toprağa verdi. O toprak da o deniz de bugün onun adını taşır: İkarya.  _(VIII.233–235 (devovitque suas artes; corpus sepulcro condidit; tellus a nomine dicta), VIII.230 (deniz); adanın İkarya oluşu: Apollodoros II.6.3, Pausanias IX.11.5)_
 
 ## Kekliğin sevinci
 
 - **F01** Ama Ovidius hikâyeyi burada bitirmez.  _(VIII.236)_
 - **F02** Daidalos oğlunu toprağa verirken, çamurlu bir hendekten bir keklik onu izliyordu. Kanatlarını çırptı ve sevinçle öttü.  _(VIII.236–238 (limoso elice; bazı basımlarda ilice))_
-- **F03** Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin uzun suçun, Daidalos” der.  _(VIII.239–240 (longum tibi, Daedale, crimen); kurul B: anlatıcı suçu Daidalos'a yazar)_
+- **F03** Çünkü bu kuş bir zamanlar bir çocuktu. Ovidius ona “senin bitmeyecek suçun, Daidalos” der.  _(VIII.239–240 (longum tibi, Daedale, crimen); kurul B: anlatıcı suçu Daidalos'a yazar)_
 - **F04** Daidalos'un kız kardeşinin oğluydu. On iki yaşında ustanın yanına çırak verilmişti. Testereyi ve pergeli o icat etti.  _(VIII.241–249 (bis puerum senis; testere balık kılçığından; pergel))_
 - **F05** Usta onu kıskandı. Athena'nın kutsal kalesinden, Atina Akropolisi'nden aşağı attı; sonra “ayağı kaydı” diye yalan söyledi.  _(VIII.250–251 (invidit; sacra ex arce Minervae; lapsum mentitus))_
 - **F06** Athena çocuğu havada yakalayıp kuşa çevirdi.  _(VIII.251–253 (Pallas))_
@@ -56,13 +56,13 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 
 ## Üç uçuş
 
-- **G01** Bu hikâyede üç uçuş var: güneşe giden çocuk, yerden ayrılmaya korkan keklik ve ortadan uçup sağ kalan usta.  _(yorumumuz (kurul A: G01+G02 birleşti))_
+- **G01** Bu hikâyede üç uçuş var: güneşe giden çocuk, yükseğe çıkmaya korkan keklik ve ortadan uçup sağ kalan usta.  _(yorumumuz (kurul A: G01+G02 birleşti))_
 - **G02** Ama usta hiçbir zaman ortada olmamıştı. Kıskandığı bir çocuğu aşağı atacak kadar, en iyisi olmak zorundaydı.  _(F05'ten yorum (invidit))_
 - **G03** Bu ses bugün de tanıdık: ya bir işin en iyisi olacağız ya da hiç başlamayacağız.  _(kullanıcının yorumu)_
 - **G04** Bu cümlenin ilk yarısı Daidalos: geçilmeye dayanamayan usta. İkinci yarısı keklik: bir kez düşmüş, bir daha yükselmeye cesaret edemeyen.  _(kurul A: güdü ayrımı)_
 - **G05** Orta ise bize sıradanlık gibi gelir. Oysa hiç başlamamak da bir düşüştür; tüyleri ıslatan, sessiz, yavaş bir düşüş. Unutulan uyarı buydu.  _(C05–C06'ya geri çağrı; A03'ün asıl cevabı)_
 - **G06** İkaros ise ne kıskançlıktan yükseldi ne korkudan alçaldı. Sevinçten uçtu. Bedelini ödedi. Ama önce uçtu.  _(kullanıcının yorumu; kurul A metni)_
 - **G07** Pişman oldu mu, bilmiyoruz. Ama bir an için, babasının bile çıkmadığı yükseklikteydi. Bazılarımız bütün ömrünü böyle tek bir an için yaşar.  _(kullanıcının yorumu; VIII.224–225 (altius egit iter))_
-- **G08** On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden çizdi. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.  _(İkaros'un Düşüşü ile Manzara (Brüksel, Belçika Kraliyet Güzel Sanatlar Müzeleri; 1560'lar; çoğu uzman erken kopya sayar). Çoban göğe bakar ama İkaros'a değil; 'kimse düşen çocuğa bakmıyor' doğru (kurul B))_
+- **G08** On beş yüzyıl sonra, Bruegel'e atfedilen bir tablo bu düşüşü yeniden resmetti. Ovidius'un balıkçısı, çobanı, çiftçisi yine orada. Ama bu kez kimse düşen çocuğa bakmıyor. Denizde yalnız iki bacak.  _(İkaros'un Düşüşü ile Manzara (Brüksel, Belçika Kraliyet Güzel Sanatlar Müzeleri; 1560'lar; çoğu uzman erken kopya sayar). Çoban göğe bakar ama İkaros'a değil; 'kimse düşen çocuğa bakmıyor' doğru (kurul B))_
 - **G09** Peki sen, kimse başını kaldırıp bakmasa bile, hangi yükseklikte uçardın? Yorumlarda yaz.  _(son soru; yoruma çağrı)_
 - **H01** Bu video, yorumlarda İkaros'u isteyenler için. Milton'ın Şeytan'ı da kendisi için “yükselmeye kalkan, yükseldiği kadar alçalır” demişti; onun hikâyesi ekranda. Hoşuna gittiyse Zaman Kuryesi'ne abone ol.  _(bitiş ekranı (Milton videosu); Kayıp Cennet IX.169–170 (Dartmouth ile doğrulandı; milton/senaryo.json I05). Kullanıcı: yorumlarda İkaros isteyen izleyiciler var)_
