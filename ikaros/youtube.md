@@ -1,11 +1,10 @@
 # İkaros: YouTube metinleri (taslak; paketleme kurulundan geçecek)
 
 ## Başlık
-**A (önerilen):** İkaros'a İki Uyarı Yapıldı, Herkes Birini Unuttu | Ovidius
-- Test seçeneği B: İkaros'un Unutulan Uyarısı: "Çok Alçaktan da Uçma"
-- Test seçeneği C: İkaros'tan Önce Düşen Çocuk: Daidalos'un Sırrı
+**A (önerilen; 50 karakter):** İkaros: "Güneşe Yaklaşma." Peki Öteki Uyarı Neydi?
+- Yedek (en az değişiklik): İkaros'a İki Uyarı Yapıldı, Çoğumuz Birini Unuttuk
 
-("Neden …?" kalıbı kullanılmadı: bir önceki video "…Neden Kaçamadı?")
+Başlık soruyu sorar, kapak A ("İKİ UYARI VARDI") ve kapak B ("UNUTULAN UYARI") onu tamamlar; cevap filmde (1:13–1:32). "Neden …?" kalıbı yok (önceki video "…Neden Kaçamadı?"). "Herkes" gibi mutlak iddia yok (kurul G/H).
 
 ## Açıklama
 İkaros'a babası, uçmadan önce iki uyarı yaptı. Birini hepimiz biliyoruz: güneşe fazla yaklaşma. Ötekini çoğumuz hatırlamayız.
@@ -15,11 +14,11 @@ Ovidius'un Dönüşümler'indeki İkaros hikâyesini baştan okuyoruz: unutulan 
 Bu video, yorumlarda İkaros'u isteyenler için.
 
 0:00 İki uyarı
-0:16 Havaya kimse sahip değil
-0:48 Mum ve tüy
+0:15 Havaya kimse sahip değil
+0:47 Mum ve tüy
 1:46 Tanrılar gibi
-2:24 İkaros, neredesin?
-3:01 Kekliğin sevinci
+2:23 İkaros, neredesin?
+3:00 Kekliğin sevinci
 4:02 Üç uçuş
 
 Kaynaklar
@@ -34,13 +33,14 @@ Yapım
 - Animasyon: kodla çizildi (serigrafi afiş üslubu; baskı motoru LemoLab silk.js, MIT lisansı).
 - Müzik ve efektler: özgün, kodla sentezlendi.
 
-Milton'ın Şeytan'ı: kanalda "Kayıp Cennet" videosu.
+Milton'ın Şeytan'ı: kanaldaki "Kayıp Cennet" videosu (bağlantıyı Studio'da ekle).
+Sisifos: kanaldaki "Sisifos'u Neden Mutlu Hayal Etmeliyiz?" videosu (bağlantıyı Studio'da ekle).
 
-#İkaros #Ovidius #Mitoloji #Felsefe #ZamanKuryesi
+#İkaros #YunanMitolojisi #Ovidius #Felsefe #ZamanKuryesi
 
 ## Etiketler
 İkaros, Icarus, Daidalos, Daedalus, Ovidius, Dönüşümler, Metamorphoses, Yunan mitolojisi, mitoloji, Girit, labirent, keklik, Perdix, Bruegel, İkaros'un düşüşü, orta yol, mükemmeliyetçilik, ya hep ya hiç, felsefe, Zaman Kuryesi
 
-## Sabit yorum
-Babasının iki uyarısından hangisini daha çok unutuyoruz: "çok yükseğe uçma" mı, "çok alçaktan uçma" mı? Sen kimse bakmasa bile hangi yükseklikte uçardın? 🪶
+## Sabit yorum (cevabı vermez: mobilde önizleme açılıştaki merakı bozmasın)
+Unutulan uyarıyı videodan önce biliyor muydun? Ve kimse başını kaldırıp bakmasa bile, sen hangi yükseklikte uçardın? 🪶
 (Sıradaki efsaneyi de yazın: bu video da sizin isteğinizdi.)

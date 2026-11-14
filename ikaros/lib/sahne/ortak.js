@@ -19,8 +19,8 @@ function kanatliFigur(pr, J, o) {
   pr.ink(fig.far, o.farLimb || 'near');
   litInk(pr, fig.body, 'lit', o.body || 'near', L[0], L[1], dl);
   if (fig.belt) pr.ink(fig.belt, o.beltRole || 'lit', { sheen: 0 });
-  if (o.kosum) { const k = new Path2D(), fw = [Math.cos(J.lean) * J.f, Math.sin(J.lean)]; FG.capsule(k, add2c(add2c(J.Sh, fw, -.35 * J.h), J.upv, .05 * J.h), add2c(add2c(J.H, fw, .45 * J.h), J.upv, 1.5 * J.h), J.h * .07, J.h * .07); pr.ink(k, 'lit', { sheen: 0 }); }
-  if (fig.face) { if (o.faceFill !== false) { pr.ink(fig.face, 'lit', { sheen: .2 }); pr.ink(fig.eye, o.body || 'near', { sheen: 0 }); } else pr.ink(fig.eye, 'paper', { sheen: 0, reg: 0 }); }
+  if (o.kosum) { const k = new Path2D(), fw = [Math.cos(J.lean) * J.f, Math.sin(J.lean)]; FG.capsule(k, add2c(add2c(J.Sh, fw, -.35 * J.h), J.upv, .05 * J.h), add2c(add2c(J.H, fw, .45 * J.h), J.upv, 1.5 * J.h), J.h * .07, J.h * .07); pr.ink(k, o.kosumRole || 'lit', { sheen: 0 }); }
+  if (fig.face) { if (o.faceFill !== false) { pr.ink(fig.face, 'lit', { sheen: .2 }); pr.ink(fig.eye, o.body || 'near', { sheen: 0 }); } else pr.ink(fig.eye, 'lit', { sheen: 0, reg: 0 }); }
   if (w) {
     const wn = FG.wing({ root: R0, ang: w.ang, bend: w.bend, span: w.span, chord: w.chord, f: w.side, seed: w.seed || 1, ruin: w.ruin });
     litInk(pr, wn.all, 'lit', o.wing || 'near', L[0], L[1], dl * .8);

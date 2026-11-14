@@ -41,12 +41,12 @@ const FG = (() => {
     const { Hd, h, f, ht } = J, r = .5 * h, c = Math.cos(ht), s = Math.sin(ht);
     const T = (x, y) => [Hd[0] + (x * c - y * s) * f, Hd[1] + (x * s + y * c)];   // x: yüz yönü, y: aşağı
     ellipseInto(p, Hd[0], Hd[1], r * .98, r * 1.04, ht);
-    polyInto(p, [T(.2 * r, -.78 * r), T(.78 * r, -.42 * r), T(.88 * r, -.1 * r), T(1.2 * r, .24 * r), T(.92 * r, .36 * r), T(1.0 * r, .5 * r), T(.9 * r, .58 * r),
-      T(.97 * r, .68 * r), T(.86 * r, .86 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
+    polyInto(p, [T(.2 * r, -.78 * r), T(.78 * r, -.42 * r), T(.88 * r, -.1 * r), T(1.14 * r, .24 * r), T(.9 * r, .36 * r), T(.93 * r, .5 * r), T(.88 * r, .6 * r),
+      T(.9 * r, .7 * r), T(.84 * r, .86 * r), T(.6 * r, 1.0 * r), T(.1 * r, .92 * r), T(-.1 * r, .4 * r)]);
     if (o.beard) { polyInto(p, [T(.66 * r, .5 * r), T(.98 * r, .86 * r), T(.9 * r, 1.22 * r), T(.62 * r, 1.62 * r), T(.36 * r, 1.4 * r), T(.1 * r, 1.2 * r), T(-.15 * r, .5 * r)]); for (let k = 0; k < 5; k++) { const a = Math.PI * (.8 + k * .16); ellipseInto(p, ...T(Math.cos(a) * r * .95 - .1 * r, Math.sin(a) * r * .9 + .05 * r), r * .2, r * .2, 0, 12); } }
     if (o.curls) for (let k = 0; k < 7; k++) { const a = Math.PI * (.78 + k * .12); ellipseInto(p, ...T(Math.cos(a) * r * .84 - .04 * r, Math.sin(a) * r * .86 - .02 * r), r * .19, r * .19, 0, 14); }
     if (o.faceOut) { const fp = P(); polyInto(fp, [T(.32 * r, -.8 * r), T(.78 * r, -.42 * r), T(.86 * r, -.06 * r), T(1.12 * r, .2 * r), T(.9 * r, .34 * r), T(.94 * r, .52 * r), T(.84 * r, .66 * r), T(.86 * r, .8 * r), T(.6 * r, 1.0 * r), T(.4 * r, .88 * r), T(.5 * r, .3 * r), T(.44 * r, -.3 * r)]);
-      const ep = P(); ellipseInto(ep, ...T(.66 * r, -.1 * r), r * .11, r * .06, ht, 14); o.faceOut.face = fp; o.faceOut.eye = ep; }
+      const ep = P(); ellipseInto(ep, ...T(.64 * r, -.1 * r), r * .075, r * .045, ht, 14); o.faceOut.face = fp; o.faceOut.eye = ep; }
     // boyun
     capsule(p, J.N, add2(Hd, [-f * .1 * h, .25 * h]), .26 * h, .24 * h);
   }
