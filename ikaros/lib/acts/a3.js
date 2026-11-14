@@ -5,7 +5,7 @@ function a3_ucan(pr, t, x, y, hh, ph, beard, o = {}) {
   const cyc = ((t * .55 + ph * .2) % 1 + 1) % 1, down = cyc < .4, u = down ? cyc / .4 : (cyc - .4) / .6;
   const angW = down ? lerp(-1.6, -2.95, E.io2(u)) : lerp(-2.95, -1.6, E.io2(u)), open = down ? 1 : .72 + .28 * Math.abs(u - .5) * 2;
   const J = FG.rig({ x, y: y + (down ? -6 : 6) * Math.sin(u * Math.PI) * hh / 40, h: hh, f: o.f || 1, lean: 1.12 - (o.rise || 0), head: -.85 + (o.rise || 0) * .3, legN: [-.12, .35], legF: [-.38, .55] });
-  kanatliFigur(pr, J, { w: { ang: (o.f || 1) > 0 ? angW - (o.rise || 0) * .5 : Math.PI - angW, bend: -.25, span: hh * 6.4 * open, chord: hh * 2.3 * (.8 + .2 * open), side: -(o.f || 1), seed: ph * 10 + 3, farDa: .6 }, light: o.light || [.8, -.6], litD: Math.max(2, hh * .06), farOff: [hh * .3, -hh * .2], faceFill: false, look: { beard, curls: !beard, face: hh > 60 } });
+  kanatliFigur(pr, J, { w: { ang: (o.f || 1) > 0 ? angW - (o.rise || 0) * .5 : Math.PI - angW, bend: -.25, span: hh * 6.4 * open, chord: hh * 2.3 * (.8 + .2 * open), side: -(o.f || 1), seed: ph * 10 + 3, farDa: .6, ruin: o.ruin }, light: o.light || [.8, -.6], litD: Math.max(2, hh * .06), farOff: [hh * .3, -hh * .2], faceFill: false, look: { beard, curls: !beard, long: beard, face: hh > 60 } });
   return J;
 }
 function a3_tanik(pr, x, yBase, hh, tur, bak, t) {

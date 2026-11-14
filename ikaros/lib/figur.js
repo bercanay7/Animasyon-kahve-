@@ -90,7 +90,7 @@ const FG = (() => {
     const trail = [];
     for (let i = 0; i < tips.length; i++) {
       const A = tips[i].p, B = i + 1 < tips.length ? tips[i + 1].p : T, prv = i > 0 ? tips[i - 1].p : R;
-      const dx = B[0] - prv[0], dy = B[1] - prv[1], L = Math.hypot(dx, dy) || 1, tg = [dx / L, dy / L], rr = Math.hypot(B[0] - A[0], B[1] - A[1]) * .5;
+      const dx = B[0] - prv[0], dy = B[1] - prv[1], L = Math.hypot(dx, dy) || 1, tg = [dx / L, dy / L], rr = Math.hypot(B[0] - A[0], B[1] - A[1]) * .5 * (i === tips.length - 1 ? .3 : 1);
       const out = [-tg[1] * f, tg[0] * f];                                        // dışa (ön kenardan uzağa)
       for (let k = 0; k <= 6; k++) { const th = -Math.PI / 2 + Math.PI * k / 6; trail.push(add2(add2(A, tg, Math.sin(th) * rr * .9), out, Math.cos(th) * rr * .55)); }
       const m = [(A[0] + B[0]) / 2, (A[1] + B[1]) / 2];
@@ -107,7 +107,7 @@ const FG = (() => {
   // güneş: dolu disk + eş merkezli halkalar (WPA afiş güneşi); halkalar kâğıt boşluklu
   function sunRings(x, y, r, n = 3, gap = .5) { const disk = P(); disk.arc(x, y, r, 0, Math.PI * 2); const rings = []; for (let k = 1; k <= n; k++) { const r0 = r * (1 + k * .55), r1 = r0 + r * .32 * (1 - k * .18); rings.push(SK.ringPath(x, y, r0, r1)); } return { disk, rings }; }
   // sırt / kayalık: x0..x1 arasında yukarıda tepe çizgisi, aşağısı dolu
-  function ridge(x0, x1, yBase, yTop, rough, seed, depth = 6) { const pts = SK.ridgeLine([x0, yTop], [x1, yTop + rough * .2], rough, depth, seed); return SK.polyPath([[x0 - 10, yBase], ...pts, [x1 + 10, yBase]]); }
+  function ridge(x0, x1, yBase, yTop, rough, seed, depth = 6) { const ta = Math.min(120, (x1 - x0) * .18), pts = SK.ridgeLine([x0, yTop], [x1, yTop + rough * .2], rough, depth, seed).map(([x, y]) => [x, yBase + (y - yBase) * Math.min(1, x0 > 0 ? Math.max(0, (x - x0) / ta) : 1, x1 < 1920 ? Math.max(0, (x1 - x) / ta) : 1)]); return SK.polyPath([[x0 - 10, yBase], ...pts, [x1 + 10, yBase]]); }
   // yalıyar: dik kıyı; edgeX'te denize iner
   function cliff(x0, edgeX, yTop, yBase, f = 1, seed = 1) {
     const r = rng(seed), pts = [[x0, yBase], [x0, yTop + 20]];
