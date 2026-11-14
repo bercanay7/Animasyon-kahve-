@@ -455,6 +455,7 @@ Ayrıntı: `ran/geriye_bakis.md`, `ran/KURUL.md`, `ran/uretim_plani.md`.
   - Senaryo en baştan bu üslupla kurulmalı: tek bir "karar anı" ve onu yaşayan kişinin iç dünyası.
   - İç dünya uydurulmaz. Kişinin kendi hatırat, mektup ve sözlerine dayanır; kaynak açıklamada verilir.
   - Atatürk için 5816 sayılı Kanun ve saygı kuralları gereği ona söz ya da düşünce uydurulmaz.
+- **Kendi sesini klonlamak (14 Kasım 2026, ertelendi):** kullanıcı ekipmanı olmadığı için şimdilik istemedi; anlatıcı Emrullah kalıyor. İleride açılırsa sıra: önce hızlı klon (1–2 dk temiz kayıt, kanalın senaryolarından bir metin), Emrullah'la kör karşılaştırma, beğenilirse profesyonel klon (Creator planı, 30 dk–3 sa kayıt, canlı doğrulama, 3–24 sa eğitim). Ses değişimi seri ortasında değil yeni bir videoyla yapılır.
 - **Hareket:** Animasyon hiç durmasın, sürekli aksın. Durağan kare kalmaz. Kontrol aracı `cumhuriyet/tools/donma.py`.
 
 ## Sıkışık takvimde öncelik (ör. 2 günlük teslim)
