@@ -36,3 +36,8 @@ cinecode belgeselleri koddan çizimin yanında gerçek arşiv malzemesi kullanı
 - **Freesound:** her sesin lisansı ayrı (CC0, BY, BY-NC). **BY-NC para kazanan kanalda kullanılmaz.**
 - Her varlık `araclar/ASSETS.md`'ye ve videonun `youtube.md` künyesine işlenir; `templates/LICENSES.csv` biçimi kullanılabilir. `lisans-kontrol` becerisi uygulanır.
 - Gerçek kişi fotoğrafları için hassasiyet kurulu bakar (CLAUDE.md: gerçek kişiye söz uydurulmaz).
+
+## Lemo-Opuscar 2.x (14 Kasım 2026)
+Lemo artık 99 üslup içeriyor, cinecode'da bunların 61'i var. Kanala uyan yeni üsluplar ve güncel motorlar: `araclar/lemo/KATALOG.md`.
+- **Lisans değişti:** 2.0'dan beri belgeleri (STYLE.md) CC BY-NC 4.0 + film yapma izni; kodu MIT. Buradaki tarifler 2.0 öncesi MIT sürümden uyarlandığı için etkilenmez.
+- Yeni belgeler herkese açık depoya kopyalanmaz.

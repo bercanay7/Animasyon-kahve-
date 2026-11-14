@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Hareket örneği: yürü, dur, selam ver</title>
+<style>html,body{margin:0;background:#1a1712}canvas{display:block;width:100vw;height:auto}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script src="hareket.js"></script>
+<script>
+'use strict';
+// Sahne sözleşmesi araclar/render-sahne.js ile aynı: window.ready, DUR, FPS, renderFrame(t), renderFrameMB(t, n).
+// Ek: window.SERIT_ODAK(t) → [x, y] (serit.js figürü izleyerek kare şeridi çıkarır).
+const { yuruyus, yuruyusYolu, yayIzi, sarkacIzi, ivme, rampa, kipir, yerlestir, diz } = HAREKET;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const DUR = 9, FPS = 30, ZEMIN = 860, OLCEK = 4.6;
+const MUREKKEP = '#1d1a16', KAGIT = '#efe6d2', ARKA_BACAK = '#4a443b';
+
+// Yol: 0–0,5 sn hızlanır, 3,2–3,7 durur, 3,9–6,3 eğilip doğrulur, 6,4–6,9 yeniden yürür
+const go = t => rampa(t, 0, .5) * (1 - rampa(t, 3.2, 3.7)) + rampa(t, 6.4, 6.9);
+const g = yuruyus({ tip: 'yuru' });
+const yol = yuruyusYolu(g, { t0: 0, t1: DUR + 1, x0: 260, olcek: OLCEK, go });
+const egil = t => .55 * (rampa(t, 3.9, 4.8) - rampa(t, 5.5, 6.3));          // gövdenin kalçadan öne eğilmesi (rad)
+// Kollar bacakların tersine; dirsek ve çanta gecikerek izler (follow-through)
+const kolHedef = t => { const y = yol(t); return .42 * Math.sin(2 * Math.PI * y.faz) * y.go; };
+const kol = yayIzi({ hedef: kolHedef, k: 60, d: 9, t0: 0, t1: DUR + 1 });
+const dirsek = yayIzi({ hedef: t => .35 + .25 * Math.max(0, kolHedef(t)) + .6 * egil(t), k: 45, d: 7, t0: 0, t1: DUR + 1 });
+const acc = ivme(yol);
+const canta = sarkacIzi({ kuvvet: t => -acc(t) * .012 / OLCEK + .9 * egil(t) * 0, k: 14, d: 1.6, t0: 0, t1: DUR + 1 });
+const nefes = t => .35 * kipir(t, .8);
+
+function bacak(p, renk) {
+  ctx.strokeStyle = renk; ctx.lineWidth = 7.2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(...p.kalca); ctx.lineTo(...p.diz); ctx.lineTo(...p.bilek); ctx.stroke();
+  // ayak: bilekten öne, topuk kalkınca eğimle döner
+  ctx.save(); ctx.translate(...p.bilek); ctx.rotate(p.egim * Math.PI / 180);
+  ctx.fillStyle = renk; ctx.beginPath(); ctx.ellipse(2.6, 1.1, 5.2, 1.9, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+}
+
+function figur(t) {
+  const y = yol(t), P = y.poz, [kx, ky] = P.kalca, e = egil(t);
+  ctx.save(); yerlestir(ctx, y.x, ZEMIN, 1, OLCEK);
+  const arka = 1 - P.on, ayakla = i => Object.assign({ kalca: P.kalca }, P.ayaklar[i]);
+  bacak(ayakla(arka), ARKA_BACAK);
+  // gövde kalçanın etrafında döner; omuz, baş, kollar bu dönüşümle gelir
+  ctx.save(); ctx.translate(kx, ky); ctx.rotate(e + .03);
+  const omuz = [1.5, -29 + nefes(t) * .3];
+  // arka kol
+  const kolCiz = (aci, renk) => {
+    const dir = [omuz[0] + 16 * Math.sin(aci), omuz[1] + 16 * Math.cos(aci)];
+    const a2 = aci + dirsek(t), el = [dir[0] + 14 * Math.sin(a2), dir[1] + 14 * Math.cos(a2)];
+    ctx.strokeStyle = renk; ctx.lineWidth = 5.4; ctx.beginPath(); ctx.moveTo(...omuz); ctx.lineTo(...dir); ctx.lineTo(...el); ctx.stroke();
+  };
+  kolCiz(-kol(t), ARKA_BACAK);
+  // gövde (hafif bel ile)
+  ctx.fillStyle = MUREKKEP; ctx.beginPath();
+  ctx.moveTo(-6, 2); ctx.bezierCurveTo(-8, -12, -7, -26, -4, -32); ctx.lineTo(7, -32);
+  ctx.bezierCurveTo(9, -24, 8, -10, 6, 2); ctx.closePath(); ctx.fill();
+  // baş ve boyun
+  ctx.beginPath(); ctx.ellipse(2.5, -40.5, 6.2, 7, -.15, 0, Math.PI * 2); ctx.fill();
+  ctx.fillRect(0.5, -35, 4, 5);
+  // çanta: omuzdan askıyla asılı, sarkaçla sallanır (dünyada dik asılsın diye gövde açısı düşülür)
+  ctx.save(); ctx.translate(-2, -27); ctx.rotate(canta(t) - e);
+  ctx.strokeStyle = MUREKKEP; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, 22); ctx.stroke();
+  ctx.fillStyle = '#7a2e1f'; ctx.beginPath(); ctx.roundRect(-5, 20, 10, 9, 2); ctx.fill(); ctx.restore();
+  kolCiz(kol(t), MUREKKEP);
+  ctx.restore();
+  bacak(ayakla(P.on), MUREKKEP);
+  ctx.restore();
+  return y;
+}
+
+function renderFrame(t) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = KAGIT; ctx.fillRect(0, 0, 1920, 1080);
+  ctx.fillStyle = '#e2d6bd'; ctx.fillRect(0, ZEMIN, 1920, 1080 - ZEMIN);
+  ctx.strokeStyle = MUREKKEP; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, ZEMIN + .5); ctx.lineTo(1920, ZEMIN + .5); ctx.stroke();
+  // yerde sabit çentikler: ayakların kaymadığı bunlara göre görülür
+  ctx.lineWidth = 1.5; for (let x = 40; x < 1920; x += 80) { ctx.beginPath(); ctx.moveTo(x, ZEMIN + 8); ctx.lineTo(x, ZEMIN + 22); ctx.stroke(); }
+  figur(t);
+  ctx.fillStyle = MUREKKEP; ctx.font = '28px serif';
+  ctx.fillText('HAREKET.yuruyus · yay · sarkaç   t = ' + t.toFixed(2) + ' sn', 60, 80);
+}
+const tmp = document.createElement('canvas'); tmp.width = 1920; tmp.height = 1080;
+function renderFrameMB(t, n = 4) {
+  const tc = tmp.getContext('2d'); tc.clearRect(0, 0, 1920, 1080);
+  for (let i = 0; i < n; i++) { renderFrame(t + (i / n - .5) / FPS * .5); tc.globalAlpha = 1 / (i + 1); tc.drawImage(cv, 0, 0); }
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(tmp, 0, 0);
+}
+window.DUR = DUR; window.FPS = FPS; window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
+window.SERIT_ODAK = t => [yol(t).x, ZEMIN - 230];
+window.ready = Promise.resolve();
+if (!new URLSearchParams(location.search).has('render')) {
+  const q = new URLSearchParams(location.search);
+  if (q.has('t')) renderFrame(+q.get('t'));
+  else { const t0 = performance.now(); const dongu = () => { renderFrame(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(dongu); }; dongu(); }
+}
+</script></body></html>

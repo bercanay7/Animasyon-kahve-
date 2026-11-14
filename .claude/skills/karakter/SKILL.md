@@ -36,3 +36,9 @@ Spine/Live2D (ücretli lisans); render içinde `Math.random()`/`Date.now()`.
 - Punch-in/pan: medyanın kendisini değil sarmalayıcıyı ölçekle/taşı. Konum için `left/top` yerine transform.
 - Kaçın: başlıkta sürekli "nefes/yüzme" döngüsü; her sahnede aynı giriş; her şeye fade+slide-up.
 - Shake: `sin/cos` ofseti, 6-8 karede söner; pulse: %80–120 (kalp atışı = iki hızlı pulse + duraklama); parçacık patlaması: seed'li, hızı zamanla söner.
+
+## Yürüyüş, koşu, asılı ve bağlı şeyler: `araclar/hareket/`
+- Figür yürüyorsa elle sinüs yazma: `HAREKET.yuruyusYolu`. Konum ve faz aynı `go(t)` integralinden gelir, basan ayak yerde sabit kalır; kalça sinüsle değil bacak erişiminden çözülür.
+- Kol, pelerin ve kanat ucu için `yayIzi`; fener, çanta, zincir ve kandil için `sarkacIzi` (taşıyanın ivmesi `HAREKET.ivme(yol)`). İkisi de t'nin saf fonksiyonudur, sırasız render'da güvenlidir.
+- Denetim: `node araclar/hareket/serit.js <film.html> serit.png t0 t1 8 --odak x,y`. Bakılacaklar: ayak yerinde mi, kalça iniş/çıkış, öndeki bacak üstte mi, gecikme ve oturma.
+- Ayrıntı: `araclar/hareket/KILAVUZ.md`; başvuru klibini ölçme: `araclar/vendor/line-art-animation/references/matching.md`.

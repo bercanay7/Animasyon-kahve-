@@ -20,7 +20,7 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 | `analiz/` | Studio dışa aktarım analizleri (`2026-11-11-studio-analizi.md`: bütün videolar yan yana, Medici dahil) |
 | `zaman-kuryesi-zanzibar/` | Zanzibar savaşı Shorts |
 | `.claude/skills/` | `yonetmenlik` (hikâye iskeletleri, YouTube kuralları, taslak kontrol listesi), `cizim`, `karakter`, `ses`, `render`, `lisans-kontrol`; oturum başında otomatik yüklenir |
-| `araclar/` | ortak araç kutusu, `ASSETS.md` (lisans kaydı) |
+| `araclar/` | ortak araç kutusu, `ASSETS.md` (lisans kaydı). **`araclar/hareket/`** (14 Kasım): yürüyüş/koşu çözücüsü (ayak kaymaz), deterministik yay ve sarkaç, figürü izleyen kare şeridi `serit.js` (her filmde çalışır); kılavuz `hareket/KILAVUZ.md`. **`araclar/lemo/`**: Lemo-Opuscar'ın 99 üslubundan kanala uyanların kataloğu ve sabit commit'ten indirme betiği. **`araclar/ADAYLAR.md`**: incelenen açık kaynak depolar (alınan, alınmayan, sıradaki) |
 | `.claude/skills/cinecode/` | **cinecode** (MIT, Sarp Yıldız): kodla film yapma becerisi. Yalnız kullanıcı `/cinecode` yazınca çalışır (kanal dışı işler için). Kanal videolarında başvuru kütüphanesidir: 61 üslup tarifi (`styles/`), uzun belgesel yazımı, jüri, ses, tipografi, kamera, denetim ve **arşiv malzemesi lisans kuralları**. Yeni videoda üslup seçerken, kurul brifi yazarken ve arşiv malzemesi kullanırken önce `.claude/skills/cinecode/BIZIM_NOT.md`'yi oku. Kanalın kuralları (Emrullah, kurul, kredi) önce gelir |
 | kök dizin (`animation.html`, `render.js`, `poster.js`…) | eski Navitas kahve Story'si; kanalla ilgisiz |
 
@@ -349,9 +349,11 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
 ## Üslup ve çizim motoru seçimi (kullanıcının kararı, 13 Kasım 2026)
 Yeni videoda üslup seçilirken sıra şudur:
 1. **Kendi motorlarımız:** gravür (`milton/lib`; en olgunu), vazo resmi (`sisifos/lib`, `prometheus/`), kâğıt kesme (`orfeus/`), Python motoru (`gunluk-shorts/`). Konuya uyuyorsa bunlardan biri yeniden kullanılır.
-2. **Uymuyorsa cinecode:** `.claude/skills/cinecode/styles/` içindeki 61 üslup tarifine bakılır. Her tarif hazır bir tasarım belgesidir: malzeme ve çizgi yasası, renk mantığı, yazı, hareket kalitesi, kamera dili, ses paleti, ortamın tuzakları ve motor notu. Motorun çerçevesi `references/engine.md` ve `starter/` (three.js ya da tek gölgelendirici).
+2. **Uymuyorsa cinecode, sonra Lemo:** cinecode tarifine bakılmadan önce de sonra da `araclar/lemo/KATALOG.md` açılır; Lemo'da 38 yeni üslup ve güncel motorlar var. Lemo 2.0'dan beri belgeleri (STYLE.md) CC BY-NC 4.0 lisanslı: okunur ve uygulanır, ama herkese açık bu depoya kopyalanmaz. Kodu MIT.
+   **cinecode:** `.claude/skills/cinecode/styles/` içindeki 61 üslup tarifine bakılır. Her tarif hazır bir tasarım belgesidir: malzeme ve çizgi yasası, renk mantığı, yazı, hareket kalitesi, kamera dili, ses paleti, ortamın tuzakları ve motor notu. Motorun çerçevesi `references/engine.md` ve `starter/` (three.js ya da tek gölgelendirici).
 3. **Yeni motor:** seçilen tarif yeni bir motora çevrilir. Motor **bizim hattımıza** takılır: anlatıma kelime kelime bağlı çekim sistemi (`milton/lib/film.js`: `S()`, `Wd()`, `plan()`), `render.js`, `tools/` ve kurul düzeni. cinecode'un kendi akışı (kendi soru turu, dış sesi, jürisi) kullanılmaz.
 - cinecode tarifleri kod değil, tasarım belgesidir. Kodla çizimin zayıf yanı (yüz, el, karmaşık beden hareketi) orada da geçerli; tarif seçilirken Milton'daki üslup kapısı dersi uygulanır: manzara + orta plan figür + yakın plan + 15 sn hareket.
+- **Figür yürüyor, koşuyor ya da bir şey taşıyorsa** `araclar/hareket/` kullanılır: `yuruyusYolu` (konum ve faz aynı integralden, ayak kaymaz), kol ve pelerin için `yayIzi`, asılı şeyler için `sarkacIzi`. Kurgu kuruluna `serit.js` şeridi kanıt olarak verilir. Mevcut motorlara dokunmaz; `film.html`'e tek `<script>` satırı eklenir.
 - Motor yazmak videonun en pahalı aşamasıdır (Milton'da üslup kapısı altı tur sürdü). Hazır motor işe yarıyorsa yenisi yazılmaz.
 
 ## Orkestra düzeni ve Milton dersleri (kullanıcının kararı; 12 Kasım 2026)
