@@ -531,3 +531,24 @@ Kısa A yayında zayıf kaldığı için (izlemeye devam %32→%38, ortalama 16/
 - Kanca yazısı en çok 900 px (kabul). Künye kanca söndükten 0,35 sn sonra gelir (başkanın kendi bulgusu: iki yazı üst üste biniyordu).
 - Shorts başlığı: üyenin önerisi kabul.
 - **Reddedilen (engelleyici sayılmadı):** ilk karedeki figürün sırtındaki alevin "Kutsal Kalp" ya da "karında figür" okuması. Gerekçe: figür arkadan görünür ve alev sırtında/silüetin içindedir (filmin "cehennemi içinde taşıyor" imgesi, G02); Kutsal Kalp bulgusu önden simetrik, göğsünde alev tutan figür içindi ve o figür filmde değiştirildi. Plan film kurulundan geçti; alev ilk 0,9 sn'de altyazının arkasında kalır. Gerileme turu yapılmadı (kullanım hakkı); kayda açıkça yazılır.
+
+## Paket 2 kurulu (14 Kasım 2026; yayın sonrası paketleme yenilemesi)
+Neden: 40. saatte 4,5 B gösterim, TO %1,4 (son gün ~%1), büyük göz atma testi gelmedi; tutma iyi (ort. 6:43, 0:30'da %68). Darboğaz paketleme. Üyeler: P-TO (TO/paketleme + ilk kez gören izleyici), P-Sanat-Hassasiyet (sanat yönetmeni + toplumsal/dini hassasiyet). Raporlar: `kurul/paket2_tur1/`, `kurul/paket2_tur2/`. Dosyalar: `kapak/paket2/` (adaylar, test setleri `test/`, `test2/`, `test3/` yeni başlıkla akış taklidi).
+
+| Tur | Öğe | P-TO | P-Sanat-Hassasiyet |
+|---|---|---|---|
+| 1 | "ŞEYTAN'IN İTİRAFI" siluet / göz | 9,0 ONAY / 7,5 | 5 / 4, **ENGELLEYİCİ** |
+| 1 | "SEVİLEN KÖTÜ" siluet / göz | 6,5 / 6,0 | 8 / 6 |
+| 1 | eski A / eski B (kontrol) | 7,0 / 7,0 | 8 / 7,5 |
+| 2 | **"ŞEYTAN’IN İÇ SESİ" siluet (`kapak_c.jpg`)** | **9,0 ONAY** | **9 ONAY** |
+| 2 | eski B "PİŞMAN MIYDI?" + yeni başlık | 8,0 (koşullu) / başlık 8,5 → düzeltmeyle 9 | 8,5 ONAY (eşikte) |
+
+**Başkan kararları:**
+- "ŞEYTAN'IN İTİRAFI" düştü (veto): Türkçe YouTube'da "Şeytan'ın itirafları" yerleşik dinî rivayet/vaaz türü; "ŞEYTAN AĞLADI" ailesi. Aynı gerekçeyle P-TO'nun "Şeytan Pişman Olabilir miydi?" başlığı da düştü ("Şeytan tövbe eder mi?" kalıbı).
+- "SEVİLEN KÖTÜ" + "Edebiyatın En Sevilen Kötüsü…" düştü: kapak–başlık tekrarı, öznesiz kapak, liste videosu kalıbı. Göz + "SEVİLEN KÖTÜ" ilişki videosu gibi okunuyor.
+- "MİLTON'IN ŞEYTANI" kapak yazısı (P-TO tur 1 önerisi) basılmadı: etiket, merak taşımıyor; yayındaki başlık zaten bununla açılıyor (%1,4).
+- Kabul (hassasiyet): alev %20 küçük ve 40 px yukarı, güneş 75 px sağa ("göğüste yanan kalp + hâle" okumasına karşı); Türkçe büyük harf "MİLTON" (yayındaki A'da "MILTON" yanlıştı); kesme işareti ’ (P-TO). Ertelenen: kanat köklerine açık çizgi (isteğe bağlıydı).
+- **Başlık:** `Kayıp Cennet'in Şeytanı: Milton Onu Neden İnsan Gibi Yazdı?` (P-TO; "Bu Kadar İnsan" çift anlamı düzeltildi; hassasiyet: "insan" engelleyici değil, soru yazarın tercihi üzerine). Yedek: `Cehennemi İçinde Taşıyan Şeytan | Milton, Kayıp Cennet`.
+- **Test:** A = `kapak_c.jpg` ("ŞEYTAN’IN İÇ SESİ"); B = eski B ("PİŞMAN MIYDI?") yalnız eski "Test ve karşılaştır"da açık farkla kaybetmediyse; kaybettiyse B yuvası için yeni kapak açılır. Eski testin sonucu buraya yazılır.
+- Açık risk (iki üye de not etti): "iç ses" kişisel gelişim ya da "vesvese" gibi okunabilir. Başkan: iyelik ("Şeytan'ın") ve siluet bunu karakterin kendi sesine bağlıyor; kabul. Yedek kapak yazısı: "ŞEYTAN’IN MONOLOĞU". İzleme ölçütü: yeni paketten sonra 0:30'da kalan %68'in altına düşerse vaat yanıltıyor sayılır.
+- Uygulama koşulu: 72. saatte (15 Kasım ~21:00) gösterim hâlâ ~4,5 B ise. Başlık yeni test başlamadan bir kez değişir, test sürerken dokunulmaz.

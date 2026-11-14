@@ -32,6 +32,14 @@ Bütün işlemler YouTube Studio'da elle yapılır. Metinler `youtube.md` dosyas
 4. **Görünürlük:** Planla → seçtiğiniz gün, 20:00.
 5. **Yayından sonra:** `youtube.md`'deki sabit yorumu yazıp sabitleyin; ilk gün yorumları yakından izleyin. Sisifos ve Prometheus videolarının bitiş ekranına ve açıklamasına bu videoyu ekleyin.
 
+## Paket 2 (72. saatte, 15 Kasım akşamı; koşullu)
+Koşul: gösterim hâlâ ~4,5 B'de. Kurul kaydı: `KURUL.md` → "Paket 2 kurulu".
+1. Studio → İçerik → video → "Test ve karşılaştır" sonucunu okuyun (izlenme süresi payı: A "BEN CEHENNEMİM" mi, B "PİŞMAN MIYDI?" mı?). Ekran görüntüsünü gönderin; sonuç kayda yazılır. Testi bitirin.
+2. Başlık: `Kayıp Cennet'in Şeytanı: Milton Onu Neden İnsan Gibi Yazdı?`
+3. Yeni "Test ve karşılaştır": `kapak/kapak_c.jpg` ("ŞEYTAN’IN İÇ SESİ") + `kapak/kapak_b.jpg` ("PİŞMAN MIYDI?"). B eski testte açık farkla kaybettiyse yalnız C'yi koyun ve haber verin (B yuvası için yeni kapak yapılır).
+4. Açıklamanın ilk satırı (edebi okuma notu) değişmez. Test sürerken başlığa dokunmayın.
+5. 48 saat sonra: gösterim, TO ve 0:30'da kalan (%68'in altına düşerse kapak yanıltıyor demektir).
+
 ## Shorts (13 Kasım 2026)
 Dosya: `milton_shorts.mp4` (1080×1920, 37,3 sn; depoda yok, oturumda gönderildi). Kesit: Nifates iç konuşması, "O hâlde kimi suçlayacaksın?" → "Ben cehennemim" → "gururum yasaklıyor". Ses ve kareler filmden; yeni seslendirme yok.
 
