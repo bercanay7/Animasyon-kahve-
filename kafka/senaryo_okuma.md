@@ -5,12 +5,12 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 
 ## Bir sabah
 
-- **A01** Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi?  _(kapak ve başlık vaadi; merak sorusu ilk cümlede; cevap E04–E05, soru F07'de izleyiciye döner)_
+- **A01** Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi?  _(kapak ve başlık vaadi; merak sorusu ilk cümlede; cevap E05–E06, soru F07'de izleyiciye döner)_
 - **A02** Franz Kafka'nın Dönüşüm'ü şöyle başlar: Gregor Samsa bir sabah huzursuz düşlerden uyandığında, kendini yatağında korkunç bir haşereye dönüşmüş buldu.  _(Gutenberg satırı 1–2 (çevirimiz; 'ungeheueres Ungeziefer'). Ekranda künye: FRANZ KAFKA · DÖNÜŞÜM · 1915)_
 - **A03** Peki o sabah onu en çok ne korkuttu? Böcek olmak değil.  _(L1 açılır; cevap A04)_
 - **A04** İşe geç kalmak. Saat beş treni gitmişti, sonraki yedideydi. Patron ne diyecekti?  _(Gutenberg satırı 64, 73)_
 - **A05** Bu videoda o böceği hiç görmeyeceksiniz. Nedenini sona saklıyorum.  _(L2 açılır; cevap F01–F02 (K9 doğrulanamazsa F02 değişir))_
-- **A06** Çünkü bu hikâyede dönüşen tek kişi Gregor değil.  _(L3 açılır; cevap E09–E11)_
+- **A06** Çünkü bu hikâyede dönüşen tek kişi Gregor değil.  _(L3 açılır; cevap E10–E12)_
 
 ## Hayvan sesi
 
@@ -27,10 +27,9 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 - **C02** İlk akşam kapının önüne, eskiden en sevdiği şeyi bıraktı: içinde beyaz ekmek yüzen bir kâse tatlı süt.  _(Gutenberg satırı 625)_
 - **C03** Ama Gregor artık sütten tat almıyordu. Grete bunu fark etti ve ertesi gün ne sevdiğini anlamak için önüne bir yığın yiyecek serdi: yarı çürük sebzeler, eski bir peynir, akşam yemeğinden kalan kemikler.  _(Gutenberg satırı 628–633, 712–715)_
 - **C04** Bu sevgiydi. Gerçek bir sevgi.  _(aile 'ikisinin ortası' (kullanıcı ve başkan))_
-- **C05** Ama haftalar geçti. Grete odaya girmeden önce pencereyi açıyor, işini bitirir bitirmez çıkıyordu.  _(Gutenberg satırı 917–925 (odaya girer girmez pencereye koşar, açar; Gregor bunu her gün bir eziyet olarak yaşar). Not: bu ilk haftalardaki tiksintidir; "haftalar geçti" bağlamı kurulda tartılacak)_
-- **C06** Bir akşam kapıda bir adam belirdi. Gregor onu tanıyamadı: aylardır koltuktan kalkmayan babası, altın düğmeli mavi bir üniformanın içinde dimdik duruyordu.  _(Gutenberg satırı 1197–1198 (banka odacısı üniforması); K5)_
-- **C07** Babası büfedeki meyve tabağından ceplerini doldurdu ve küçük kırmızı elmaları birer birer attı.  _(Gutenberg satırı 1232–1234 (Kredenz, Obstschale, kleinen roten Äpfel); filmin tek rengi)_
-- **C08** Biri Gregor'un sırtına saplandı. Kimse çıkarmaya cesaret edemedi. Elma orada kaldı ve çürüdü.  _(Gutenberg satırı 1235, 1258, 1736)_
+- **C05** Bir akşam kapıda bir adam belirdi. Gregor onu tanıyamadı: aylardır koltuktan kalkmayan babası, altın düğmeli mavi bir üniformanın içinde dimdik duruyordu.  _(Gutenberg satırı 1197–1198 (banka odacısı üniforması); K5)_
+- **C06** Babası büfedeki meyve tabağından ceplerini doldurdu ve küçük kırmızı elmaları birer birer attı.  _(Gutenberg satırı 1232–1234 (Kredenz, Obstschale, kleinen roten Äpfel); filmin tek rengi)_
+- **C07** Biri Gregor'un sırtına saplandı. Kimse çıkarmaya cesaret edemedi. Elma orada kaldı ve çürüdü.  _(Gutenberg satırı 1235, 1258, 1736)_
 
 ## Kapının arkasındaki hesap
 
@@ -47,16 +46,17 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 ## O değil, bu
 
 - **E01** Eve para girmeyince herkes çalışmaya başladı. Baba banka odacısı oldu, anne bir moda dükkânına iç çamaşırı dikti, Grete tezgâhtar oldu.  _(Gutenberg satırı 1197–1198, 1283–1284)_
-- **E02** Bir odayı da üç kiracıya verdiler. Bir akşam Grete onlar için keman çaldı.  _(Gutenberg satırı 1446, 1504)_
-- **E03** Gregor müziğe doğru süründü ve odasından çıktı. Kiracılar onu gördü.  _(Gutenberg satırı 1557–1558 ("War er ein Tier, da ihn Musik so ergriff?"))_
-- **E04** O gece Grete masaya vurdu: “Böyle gitmez. Bu canavarın önünde kardeşimin adını ağzıma almayacağım. Bundan kurtulmalıyız.”  _(Gutenberg satırı 1633–1637 (çevirimiz). Not: Almancada 'es' dilbilgisel olarak 'Untier'e (nötr) bağlanır; videoda 'zamir değişti' denmez, 'adını ağzına almadı' denir)_
-- **E05** “Bunun Gregor olduğu düşüncesinden kurtulmalısın, baba. Asıl felaketimiz, bu kadar uzun süre buna inanmış olmamız.”  _(Gutenberg satırı 1675–1677 (çevirimiz). Ekranda alıntı)_
-- **E06** İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.  _(yorum; aile ikisinin ortası)_
-- **E07** Gregor o gece ailesini sevgiyle ve duygulanarak düşündü. Ortadan kalkması gerektiğine kız kardeşinden de çok inanıyordu.  _(Gutenberg satırı 1737–1740)_
-- **E08** Kilise saati üçü vurdu. Pencerenin dışında hava aydınlanmaya başlarken, son nefesini verdi.  _(Gutenberg satırı 1741–1744. Görselde yalnız pencere ve ışık)_
-- **E09** Aile o gün işe gitmedi. Tramvaya binip şehrin dışına çıktılar.  _(Gutenberg satırı 1836, 1873)_
-- **E10** Yolda anne ile baba, kızlarının bütün o bakım günlerine rağmen nasıl serpildiğini fark ettiler. Ona iyi bir koca bulma zamanı gelmişti.  _(Gutenberg satırı 1885–1890)_
-- **E11** Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.  _(Gutenberg satırı 1891–1892; L3 kapanır)_
+- **E02** Grete sabah dükkâna koşmadan önce yemeği ayağıyla odaya itiyordu. Duvarlarda kir izleri birikti; o kiri görüyor ama bırakmayı seçmişti.  _(Gutenberg satırı 1373–1385 ("mit dem Fuß", "Schmutzstreifen", "sich entschlossen, ihn zu lassen"); sevginin aşınması)_
+- **E03** Bir odayı da üç kiracıya verdiler. Bir akşam Grete onlar için keman çaldı.  _(Gutenberg satırı 1446, 1504)_
+- **E04** Gregor müziğe doğru süründü ve odasından çıktı. Kiracılar onu gördü.  _(Gutenberg satırı 1557–1558 ("War er ein Tier, da ihn Musik so ergriff?"))_
+- **E05** O gece Grete masaya vurdu: “Böyle gitmez. Bu canavarın önünde kardeşimin adını ağzıma almayacağım. Bundan kurtulmalıyız.”  _(Gutenberg satırı 1633–1637 (çevirimiz). Not: Almancada 'es' dilbilgisel olarak 'Untier'e (nötr) bağlanır; videoda 'zamir değişti' denmez, 'adını ağzına almadı' denir)_
+- **E06** “Bunun Gregor olduğu düşüncesinden kurtulmalısın, baba. Asıl felaketimiz, bu kadar uzun süre buna inanmış olmamız.”  _(Gutenberg satırı 1675–1677 (çevirimiz). Ekranda alıntı)_
+- **E07** İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.  _(yorum; aile ikisinin ortası)_
+- **E08** Gregor o gece ailesini sevgiyle ve duygulanarak düşündü. Ortadan kalkması gerektiğine kız kardeşinden de çok inanıyordu.  _(Gutenberg satırı 1737–1740)_
+- **E09** Kilise saati üçü vurdu. Pencerenin dışında hava aydınlanmaya başlarken, son nefesini verdi.  _(Gutenberg satırı 1741–1744. Görselde yalnız pencere ve ışık)_
+- **E10** Aile o gün işe gitmedi. Tramvaya binip şehrin dışına çıktılar.  _(Gutenberg satırı 1836, 1873)_
+- **E11** Yolda anne ile baba, kızlarının bütün o bakım günlerine rağmen nasıl serpildiğini fark ettiler. Ona iyi bir koca bulma zamanı gelmişti.  _(Gutenberg satırı 1885–1890)_
+- **E12** Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.  _(Gutenberg satırı 1891–1892; L3 kapanır)_
 
 ## Görünmeyen böcek
 
@@ -70,4 +70,4 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 - **F08** Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.  _(Ten 1'in (D07–D08) bugünkü karşılığı)_
 - **F09** Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.  _(bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — DOĞRULANACAK)_
 
-Cümle: 49 · kelime: 710 · tts karakter: 5402 · tahmini süre (İkaros: 594 kelime = 5:55): 7.1 dk · kredi: 5402 × 2 çekim ≈ 10804
+Cümle: 49 · kelime: 716 · tts karakter: 5440 · tahmini süre (İkaros: 594 kelime = 5:55): 7.1 dk · kredi: 5440 × 2 çekim ≈ 10880

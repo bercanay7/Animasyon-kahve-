@@ -1,14 +1,14 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
  "revizyon": "rev0 (15 Kasım 2026): ilk taslak; kurul toplanmadı (kullanıcının haftalık kullanımı %89)",
- "not": "Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). DOĞRULANACAK: F02 (Wolff mektubu), F04 (Babaya Mektup), F09 (Camus eki), C05 bağlamı.",
+ "not": "Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). DOĞRULANACAK: F02 (Wolff mektubu), F04 (Babaya Mektup), F09 (Camus eki).",
  "segments": [
   {
    "id": "A01",
    "bolum": "Bir sabah",
    "tts": "[calmly] Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi?",
    "alt": "Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi?",
-   "kaynak": "kapak ve başlık vaadi; merak sorusu ilk cümlede; cevap E04–E05, soru F07'de izleyiciye döner"
+   "kaynak": "kapak ve başlık vaadi; merak sorusu ilk cümlede; cevap E05–E06, soru F07'de izleyiciye döner"
   },
   {
    "id": "A02",
@@ -43,7 +43,7 @@
    "bolum": "Bir sabah",
    "tts": "[thoughtful] Çünkü bu hikâyede dönüşen tek kişi Gregor değil.",
    "alt": "Çünkü bu hikâyede dönüşen tek kişi Gregor değil.",
-   "kaynak": "L3 açılır; cevap E09–E11"
+   "kaynak": "L3 açılır; cevap E10–E12"
   },
   {
    "id": "B01",
@@ -118,26 +118,19 @@
   {
    "id": "C05",
    "bolum": "Süt ve elma",
-   "tts": "[calmly] Ama haftalar geçti. Grete odaya girmeden önce pencereyi açıyor, işini bitirir bitirmez çıkıyordu.",
-   "alt": "Ama haftalar geçti. Grete odaya girmeden önce pencereyi açıyor, işini bitirir bitirmez çıkıyordu.",
-   "kaynak": "Gutenberg satırı 917–925 (odaya girer girmez pencereye koşar, açar; Gregor bunu her gün bir eziyet olarak yaşar). Not: bu ilk haftalardaki tiksintidir; \"haftalar geçti\" bağlamı kurulda tartılacak"
-  },
-  {
-   "id": "C06",
-   "bolum": "Süt ve elma",
    "tts": "[tense] Bir akşam kapıda bir adam belirdi. Gregor onu tanıyamadı: aylardır koltuktan kalkmayan babası, altın düğmeli mavi bir üniformanın içinde dimdik duruyordu.",
    "alt": "Bir akşam kapıda bir adam belirdi. Gregor onu tanıyamadı: aylardır koltuktan kalkmayan babası, altın düğmeli mavi bir üniformanın içinde dimdik duruyordu.",
    "kaynak": "Gutenberg satırı 1197–1198 (banka odacısı üniforması); K5"
   },
   {
-   "id": "C07",
+   "id": "C06",
    "bolum": "Süt ve elma",
    "tts": "[tense] Babası büfedeki meyve tabağından ceplerini doldurdu ve küçük kırmızı elmaları birer birer attı.",
    "alt": "Babası büfedeki meyve tabağından ceplerini doldurdu ve küçük kırmızı elmaları birer birer attı.",
    "kaynak": "Gutenberg satırı 1232–1234 (Kredenz, Obstschale, kleinen roten Äpfel); filmin tek rengi"
   },
   {
-   "id": "C08",
+   "id": "C07",
    "bolum": "Süt ve elma",
    "tts": "[slowly] Biri Gregor'un sırtına saplandı. Kimse çıkarmaya cesaret edemedi. Elma orada kaldı ve çürüdü.",
    "alt": "Biri Gregor'un sırtına saplandı. Kimse çıkarmaya cesaret edemedi. Elma orada kaldı ve çürüdü.",
@@ -216,68 +209,75 @@
   {
    "id": "E02",
    "bolum": "O değil, bu",
+   "tts": "[calmly] Grete sabah dükkâna koşmadan önce yemeği ayağıyla odaya itiyordu. Duvarlarda kir izleri birikti; o kiri görüyor ama bırakmayı seçmişti.",
+   "alt": "Grete sabah dükkâna koşmadan önce yemeği ayağıyla odaya itiyordu. Duvarlarda kir izleri birikti; o kiri görüyor ama bırakmayı seçmişti.",
+   "kaynak": "Gutenberg satırı 1373–1385 (\"mit dem Fuß\", \"Schmutzstreifen\", \"sich entschlossen, ihn zu lassen\"); sevginin aşınması"
+  },
+  {
+   "id": "E03",
+   "bolum": "O değil, bu",
    "tts": "[calmly] Bir odayı da üç kiracıya verdiler. Bir akşam Grete onlar için keman çaldı.",
    "alt": "Bir odayı da üç kiracıya verdiler. Bir akşam Grete onlar için keman çaldı.",
    "kaynak": "Gutenberg satırı 1446, 1504"
   },
   {
-   "id": "E03",
+   "id": "E04",
    "bolum": "O değil, bu",
    "tts": "[quietly] Gregor müziğe doğru süründü ve odasından çıktı. Kiracılar onu gördü.",
    "alt": "Gregor müziğe doğru süründü ve odasından çıktı. Kiracılar onu gördü.",
    "kaynak": "Gutenberg satırı 1557–1558 (\"War er ein Tier, da ihn Musik so ergriff?\")"
   },
   {
-   "id": "E04",
+   "id": "E05",
    "bolum": "O değil, bu",
    "tts": "[firm] O gece Grete masaya vurdu: “Böyle gitmez. Bu canavarın önünde kardeşimin adını ağzıma almayacağım. Bundan kurtulmalıyız.”",
    "alt": "O gece Grete masaya vurdu: “Böyle gitmez. Bu canavarın önünde kardeşimin adını ağzıma almayacağım. Bundan kurtulmalıyız.”",
    "kaynak": "Gutenberg satırı 1633–1637 (çevirimiz). Not: Almancada 'es' dilbilgisel olarak 'Untier'e (nötr) bağlanır; videoda 'zamir değişti' denmez, 'adını ağzına almadı' denir"
   },
   {
-   "id": "E05",
+   "id": "E06",
    "bolum": "O değil, bu",
    "tts": "[firm] “Bunun Gregor olduğu düşüncesinden kurtulmalısın, baba. Asıl felaketimiz, bu kadar uzun süre buna inanmış olmamız.”",
    "alt": "“Bunun Gregor olduğu düşüncesinden kurtulmalısın, baba. Asıl felaketimiz, bu kadar uzun süre buna inanmış olmamız.”",
    "kaynak": "Gutenberg satırı 1675–1677 (çevirimiz). Ekranda alıntı"
   },
   {
-   "id": "E06",
+   "id": "E07",
    "bolum": "O değil, bu",
    "tts": "[thoughtful] İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.",
    "alt": "İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.",
    "kaynak": "yorum; aile ikisinin ortası"
   },
   {
-   "id": "E07",
+   "id": "E08",
    "bolum": "O değil, bu",
    "tts": "[slowly] Gregor o gece ailesini sevgiyle ve duygulanarak düşündü. Ortadan kalkması gerektiğine kız kardeşinden de çok inanıyordu.",
    "alt": "Gregor o gece ailesini sevgiyle ve duygulanarak düşündü. Ortadan kalkması gerektiğine kız kardeşinden de çok inanıyordu.",
    "kaynak": "Gutenberg satırı 1737–1740"
   },
   {
-   "id": "E08",
+   "id": "E09",
    "bolum": "O değil, bu",
    "tts": "[slowly] Kilise saati üçü vurdu. Pencerenin dışında hava aydınlanmaya başlarken, son nefesini verdi.",
    "alt": "Kilise saati üçü vurdu. Pencerenin dışında hava aydınlanmaya başlarken, son nefesini verdi.",
    "kaynak": "Gutenberg satırı 1741–1744. Görselde yalnız pencere ve ışık"
   },
   {
-   "id": "E09",
+   "id": "E10",
    "bolum": "O değil, bu",
    "tts": "[calmly] Aile o gün işe gitmedi. Tramvaya binip şehrin dışına çıktılar.",
    "alt": "Aile o gün işe gitmedi. Tramvaya binip şehrin dışına çıktılar.",
    "kaynak": "Gutenberg satırı 1836, 1873"
   },
   {
-   "id": "E10",
+   "id": "E11",
    "bolum": "O değil, bu",
    "tts": "[calmly] Yolda anne ile baba, kızlarının bütün o bakım günlerine rağmen nasıl serpildiğini fark ettiler. Ona iyi bir koca bulma zamanı gelmişti.",
    "alt": "Yolda anne ile baba, kızlarının bütün o bakım günlerine rağmen nasıl serpildiğini fark ettiler. Ona iyi bir koca bulma zamanı gelmişti.",
    "kaynak": "Gutenberg satırı 1885–1890"
   },
   {
-   "id": "E11",
+   "id": "E12",
    "bolum": "O değil, bu",
    "tts": "[slowly] Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.",
    "alt": "Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.",
