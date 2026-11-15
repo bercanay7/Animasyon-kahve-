@@ -64,7 +64,7 @@ P = [
  ('P52','F04','orta','KAFKA',"Gece: masa başında yazan bir adam silueti (dönem silueti), lamba; zarf; alıntı",'“YAZDIKLARIM HEP SENİN HAKKINDAYDI.”'),
  ('P53','F05','genis','BUGUN',"Bugün: gece apartman koridoru, kapalı kapılar; birinin altından ışık",''),
  ('P54','F06','orta','BUGUN',"Kapının arkasında yatağın kenarında oturan bugünün insanı (kapüşonlu)",''),
- ('P55','F07','yakin','KAPI',"Açılış karesi geri döner: aralık kapı, ışık şeridi, kırmızı elma; soru oyulur",'SENİ Mİ SEVİYORLARDI?'),
+ ('P55','F07','yakin','KAPI',"Açılış karesi geri döner: aralık kapı, ışık şeridi, kırmızı elma; soru oyulur",'SEN KENDİNİ HANGİ KOŞULLA SEVİYORSUN?'),
  ('P56','F08@camus','genis','SON',"Tepede kaya ve küçük figür (Sisifos'a köprü); ZAMAN KURYESİ; bitiş ekranı alanı",''),
 ]
 ids = [p[0] for p in P]; assert len(ids) == len(set(ids))

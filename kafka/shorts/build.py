@@ -1,5 +1,5 @@
-"""İkaros Shorts: filmden kesitler (9:16) + kelime vurgulu altyazı + ses → shorts/edl.js, edl.json, mix_shorts.wav
-python3 shorts/build.py ; sonra: SHORTS=1 node render.js ikaros_shorts.mp4
+"""Kafka Shorts: filmden kesitler (9:16) + kelime vurgulu altyazı + ses → shorts/edl.js, edl.json, mix_shorts.wav
+python3 shorts/build.py ; sonra: SHORTS=1 node render.js kafka_shorts.mp4
 Kesitler cümle/kelime çapalarıyla (timeline.js); ses audio/mix.wav'dan aynı kesitler (35 ms geçiş)."""
 import json, os, re, subprocess
 D = os.path.dirname(os.path.abspath(__file__)); R = os.path.dirname(D)
@@ -25,12 +25,11 @@ def pause(t, win=.9):
     return t if bi is None else (t - win) + (bi - best / 2) / 100
 # (film başı, film sonu, kırpma merkezi x [başta, sonda], yakınlık)
 SEG = [
-  (CUES['A01']['s'] - .25, w('A02', 'güneşe') - .02, (900, 900), 1.0),        # P01: güneşe bakan İkaros (kapak A ile aynı kare)
-  (w('A02', 'güneşe') - .02, CUES['A02']['e'] + .2, (980, 900), 1.0),       # P02: dev güneş, yükselen siluet
-  (CUES['C05']['s'] - .15, CUES['C05']['e'] + .3, (700, 700), 1.0),         # P15: uyarı afişi
-  (CUES['C06']['s'] - .1, pause(w('C06', 'uçma', end=True) + .3), (1240, 1240), 1.0),   # gerçek duraklamada kes  # P16: tüy dalgada
-  (pause(w('G05', 'oysa')) + .05, CUES['G05']['e'] + .4, (900, 1000), 1.0, .5),   # 277,38–277,64 gerçek duraklama  # P47: batan tüyler
-  (CUES['G09']['s'] - .15, CUES['G09']['e'] + 1.6, (720, 720), 1.0),        # P52: tek tüy yükselir; sonda kanal çağrısı
+  (CUES['A01']['s'] - .25, w('A01', 'sevenler') - .05, (1110, 1110), 1.0),        # P01: aralık kapı + kırmızı elma (kapak A ile aynı kare); en güçlü kare ilk saniyede
+  (w('A01', 'sevenler') - .05, CUES['A01']['e'] + .45, (960, 960), 1.0),          # P02: kapıda aile
+  (pause(w('A02', 'gregor') - .1) , CUES['A02']['e'] + .3, (1240, 1140), 1.0),  # P04: oda, kabaran yorgan
+  (CUES['E05']['s'] - .2, CUES['E05']['e'] + .4, (1180, 1120), 1.0),              # P41: Grete masaya vurur
+  (CUES['F06']['s'] - .15, w('F07', 'seviyorsun', end=True) + 1.6, (900, 1110), 1.0),   # P55: açılış karesi geri döner; F08 'kendini hangi koşulla seviyorsun?'
 ]
 EDL, t, words = [], 0.0, []
 for sg in SEG:
@@ -49,7 +48,7 @@ for x in words:
     if len(cur) >= 4 or re.search(r'[.,;:?!”]$', x['w']): G.append(cur); cur = []
 if cur: G.append(cur)
 GROUPS = [{'s': g[0]['s'], 'e': g[-1]['e'], 'words': [{'w': re.sub(r'[“”]', '', x['w']), 's': x['s'], 'e': x['e']} for x in g]} for g in G]
-S = {'TITLE': 'İKAROS · OVİDİUS', 'HOOK': {'l1': 'İKİ UYARI', 'l2': 'VARDI', 'e': EDL[0]['e']}, 'CTA': round(DUR - 1.5, 2), 'DUR': DUR, 'EDL': EDL, 'GROUPS': GROUPS}
+S = {'TITLE': 'KAFKA · DÖNÜŞÜM', 'HOOK': {'l1': 'ARTIK', 'l2': 'O DEĞİL', 'e': EDL[0]['e']}, 'CTA': round(DUR - 1.5, 2), 'DUR': DUR, 'EDL': EDL, 'GROUPS': GROUPS}
 json.dump(S, open(os.path.join(D, 'edl.json'), 'w'), ensure_ascii=False, indent=1)
 open(os.path.join(D, 'edl.js'), 'w').write('window.SHORT = ' + json.dumps(S, ensure_ascii=False) + ';\n')
 # ses

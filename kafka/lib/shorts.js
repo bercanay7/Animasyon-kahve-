@@ -1,6 +1,6 @@
-// İkaros Shorts: film karelerinden 9:16 kesit (shorts.html?rs=2&notext=1) + başlık, kanca, kelime vurgulu altyazı, kanal çağrısı.
+// Kafka Shorts: film karelerinden 9:16 kesit (shorts.html?rs=2&notext=1) + başlık, kanca, kelime vurgulu altyazı, kanal çağrısı.
 'use strict';
-const SHW = 1080, SHH = 1920, SH_INK = '#1E3B3F', SH_PAPER = '#F3E6CC', SH_ACC = '#F2B27A';
+const SHW = 1080, SHH = 1920, SH_INK = '#16130F', SH_PAPER = '#E9E1CF', SH_ACC = '#D8352B';
 const shortCv = makeCanvas(SHW, SHH), shx = shortCv.getContext('2d');
 function shTxt(g, s, x, y, px, col, o = {}) { g.save(); g.font = `400 ${px}px "Bebas Neue"`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.letterSpacing = (o.ls ?? 3) + 'px';
   if (o.maxW) while (g.measureText(s).width > o.maxW && px > 30) { px -= 2; g.font = `400 ${px}px "Bebas Neue"`; }
@@ -9,8 +9,9 @@ function renderShortFrame(ts, mb = 1) {
   const S_ = window.SHORT, E_ = S_.EDL; let i = 0; for (let k = 0; k < E_.length; k++) if (E_[k].s <= ts) i = k;
   const c = E_[i], u = clamp((ts - c.s) / (c.e - c.s)), tf = c.f + (ts - c.s);
   renderFrame(tf);
-  const z = lerp(c.z0, c.z1, E.io2(u)), cx = lerp(c.cx0, c.cx1, E.io2(u)), cw = H * 9 / 16 / z, ch = H / z;
-  const x0 = clamp(cx - cw / 2, 0, W - cw), y0 = clamp(H / 2 - ch / 2, 0, H - ch);
+  // yalnız basılı blok (kâğıt kenarı dışarıda): y 40–900
+  const z = lerp(c.z0, c.z1, E.io2(u)), cx = lerp(c.cx0, c.cx1, E.io2(u)), ch = 858 / z, cw = ch * 9 / 16;
+  const x0 = clamp(cx - cw / 2, 60, 1860 - cw), y0 = 471 - ch / 2;
   shx.setTransform(1, 0, 0, 1, 0, 0); shx.imageSmoothingQuality = 'high';
   shx.drawImage(document.getElementById('c'), x0 * RS, y0 * RS, cw * RS, ch * RS, 0, 0, SHW, SHH);
   shortOverlay(shx, ts);
@@ -33,7 +34,7 @@ function shortOverlay(g, ts) {
     const y0 = 1330 - (lines.length - 1) * 60;
     lines.forEach((ln, li) => { const tw = ln.reduce((q, x) => q + x.ww, 0) + sp * (ln.length - 1); let x = 500 - tw / 2;
       for (const wd of ln) { const on = ts >= wd.s - .03, cur2 = on && ts < wd.e + .05; g.lineWidth = 16; g.lineJoin = 'round'; g.strokeStyle = SH_INK; g.strokeText(wd.T, x, y0 + li * 120);
-        g.fillStyle = cur2 ? SH_ACC : on ? SH_PAPER : 'rgba(243,230,204,.7)'; g.fillText(wd.T, x, y0 + li * 120); x += wd.ww + sp; } });
+        g.fillStyle = cur2 ? SH_ACC : on ? SH_PAPER : 'rgba(233,225,207,.72)'; g.fillText(wd.T, x, y0 + li * 120); x += wd.ww + sp; } });
     g.restore();
   }
   // kanal çağrısı

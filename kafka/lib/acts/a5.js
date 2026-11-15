@@ -152,7 +152,7 @@ plan('P54', (ctx, st) => kes(ctx, st, { cx: 960, cy: 470, z: 1.0 + .04 * st.p },
   O.fig(k, { x: 720, y: 900, h: 600, f: 1, tip: 'bugun', otur: true, egil: .35 + Math.sin(k.lt * .7) * .03, bas: .45, kolN: [1.3, -1.2], kolF: [1.1, -1.0] }, { isik: [1, -.3] });
 }));
 // açılış karesi geri döner; soru oyulur
-plan('P55', (ctx, st) => kes(ctx, st, { cx: 1100, cy: 470, z: 1.04 + .04 * st.p }, k => { a1_kapiKaresi(k, { ac: 56 }); oyYazi(k, 'Seni mi seviyorlardı,\nişe yarayan hâlini mi?', 560, 330, { font: YF.italik(66, 600), t0: .6, dur: 1.2 }); }));
+plan('P55', (ctx, st) => kes(ctx, st, { cx: 1100, cy: 470, z: 1.04 + .04 * st.p }, k => { a1_kapiKaresi(k, { ac: 56 }); oyYazi(k, 'Sen kendini\nhangi koşulla\nseviyorsun?', 560, 330, { font: YF.italik(66, 600), t0: .6, dur: 1.2 }); }));
 // son: tepede kaya ve küçük figür (Sisifos'a köprü); kanal adı; bitiş ekranı alanı (sağ yarı boş)
 plan('P56', (ctx, st) => kes(ctx, st, { cx: 960, cy: 470, z: 1.0 + .02 * st.p }, k => {
   const g = k.m, lt = k.lt;
