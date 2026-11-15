@@ -1,0 +1,16 @@
+# Motiflerin çaldığı anlar (audio/score.py üretir; zaman = film saniyesi)
+00:04.22  A01   KAPI (çello)                       La3 Fa3 Mi3
+01:20.35  B06   KAPI (çello)                       La3 Fa3 Mi3
+01:29.31  C01   GRETE (keman)                      Do5 Mib5 Re5 Do5 Sol4
+01:54.64  C04   GRETE (keman)                      Re5 Fa5 Mi5 Re5 La4
+03:15.69  D07   GRETE (keman)                      La4 Do5 Si4 La4 Mi4
+03:29.71  D09   GRETE (keman)                      Re5 Fa5 Mi5 Re5 La4
+03:32.81  D09   GRETE (keman)                      Fa5 Lab5 Sol5 Fa5 Do5
+04:01.19  E03   GRETE (keman)                      Re5 Fa5 Mi5 Re5 La4
+04:03.59  E03   GRETE (keman)                      La4 Do5 Si4 La4 Mi4
+04:19.44  E06   KAPI (çello)                       La3 Fa3 Mi3
+04:28.39  E07   GRETE (keman)                      La4 Do5 Si4 La4 Mi4
+05:08.08  E12   GRETE (keman)                      Re5 Fa5 Mi5 Re5 La4
+05:28.49  F03   KAPI (çello)                       La3 Fa3 Mi3
+06:10.93  F08   GRETE (keman)                      Re5 Fa5 Mi5 Re5 La4
+06:23.18  F08   KAPI (çello)                       Re4 Sib3 La3

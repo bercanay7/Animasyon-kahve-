@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-İKAROS: özgün müzik ve efektler, tamamen numpy/scipy ile sentez (örnek ses yok, indirme yok, ücretli üretim yok).
+KAFKA (Dönüşüm): özgün müzik ve efektler, tamamen numpy/scipy ile sentez (örnek ses yok, indirme yok, ücretli üretim yok).
 Motor (çalgılar, efektler, miks) milton/audio/score.py'den alındı; beste bölümleri (a_..h_) bu filme özgü.
     python3 audio/score.py  -> audio/music.wav (48 kHz stereo, timeline.js DUR), audio/motifler.txt
 Her vuruş bir cümleye ya da kelimeye bağlı (timeline.js); çizelge değişince yeniden çalıştırmak yeter.
@@ -29,7 +29,7 @@ FILM = HERE.parent
 OUT = HERE / 'music.wav'
 VO_PATH = FILM / 'vo' / 'vo.wav'
 SR, SRL = 48000, 16000          # tam hız: tel/vurmalı/efekt; düşük hız: ped, koro, org, dron
-rng = np.random.default_rng(1667)
+rng = np.random.default_rng(1915)
 
 # =============================================================================== cues (timeline.js)
 _TL = (FILM / 'timeline.js').read_text(encoding='utf-8')
@@ -1204,161 +1204,114 @@ def card(t, notes='G1 D2 G2', vel=0.5):
 
 
 
-# =============================================================================== İKAROS: beste
-# Ton: re (D). Ege rengi: dorian (Si doğal) ve miksolidyen (Do doğal); gökte majör, düşüşte minör.
-SABAH = ['D2 A2 D3 F#3', 'G2 D3 G3 B3', 'A2 E3 A3 C#4', 'D2 A2 E3 F#3']
-DORYA = ['D2 A2 D3 F3', 'C3 G3 C4 E4', 'G2 D3 G3 B3', 'A2 E3 A3 C4']
-GECE = ['D2 A2 F3 A3', 'Bb1 F2 D3 F3', 'G1 D2 Bb2 D3', 'A1 E2 C#3 E3']
-UCUS = [(0, .5), (2, .5), (4, .5), (7, .5), (9, 1.0), (7, .5), (12, 1.5)]      # D E F# A B A D: uçuş (yükselen)
-UYARI_ALT, UYARI_UST, UYARI_ORTA = 'A2', 'A5', 'D4'                               # deniz, güneş, orta
-KEKLIK = ['C6', 'A5', 'C6']
-
-def mel(t, items, inst='lyre', vel=.3, **kw):
-    """Ezgi: items (midi, sn, vel). lyre için tek tek çalınır, bowed için ifade."""
-    if inst == 'bowed': bowed(t, items, gain=vel, **kw); return sum(d for _, d, _ in items)
-    for m, d, v in items: lyre(t, m, vel=vel * v, **kw); t += d
-    return sum(d for _, d, _ in items)
-
-def ucus(t, root='D4', beat=.38, inst='lyre', vel=.3, **kw):
-    ph = mot(root, UCUS, beat); _log(t, f'UÇUŞ ({inst})', ph); return mel(t, ph, inst, vel, **kw)
-
-def deniz(t0, t1, vel=.08, period=5.5):
-    """Dalgalar: alçak geçiren gürültü, yavaş genlik dalgası (dalga boyu ~period sn)."""
+# =============================================================================== KAFKA: beste
+# Ton: re minör. Oda müziği: çello (bowed, alçak), Grete'nin kemanı (bowed, yüksek), saat tiki, tahta vuruş (tick), kapı, elma.
+# Ağaç baskı ses paleti (cinecode woodcut §7): alçak yaylılar, tahta ve deri, tek gong; sessizlik bir araçtır.
+KARANLIK = ['D2 A2 D3 F3', 'Bb1 F2 D3 F3', 'G1 D2 Bb2 D3', 'A1 E2 C#3 E3']
+SICAK = ['F2 C3 F3 A3', 'Bb1 F2 D3 F3', 'C2 G2 E3 G3', 'F2 C3 F3 A3']
+BAHAR = ['D3 A3 D4 F#4', 'G2 D3 B3 D4', 'A2 E3 C#4 E4', 'D3 A3 D4 F#4']
+KAPI = [(0, 1.0), (-4, 1.0), (-5, 2.0)]                               # A3 F3 E3: kapının motifi (çello, iner)
+GRETE = [(0, .5), (3, .5), (2, .5), (0, .5), (-5, 1.5)]                # D5 F5 E5 D5 A4: kemanın ezgisi
+def kapi_mot(t, root='A3', beat=.6, gain=.16):
+    ph = mot(root, KAPI, beat); _log(t, 'KAPI (çello)', ph); bowed(t, ph, gain=gain, cutoff=800, vib=4)
+def keman(t, root='D5', beat=.45, gain=.1):
+    ph = mot(root, GRETE, beat); _log(t, 'GRETE (keman)', ph); bowed(t, ph, gain=gain, cutoff=3200, vib=10)
+def saat(t0, t1, vel=.05):
+    t = t0
+    while t < t1: tick(t, vel=vel, pitch=1.0, pan=.25); t += 1.0
+def yagmur(t0, t1, vel=.04):
     n = int(max(0, t1 - t0) * SR)
     if n <= 0: return
-    tt = np.arange(n) / SR
-    env = (.55 + .45 * np.sin(2 * np.pi * tt / period + 1.3)) * np.clip(tt / 1.5, 0, 1) * np.clip((t1 - t0 - tt) / 1.5, 0, 1)
-    place(FX, noise(n, 120, 900, SR, 2) * env, t0, gain=vel)
+    tt = np.arange(n) / SR; env = np.clip(tt / 1.0, 0, 1) * np.clip((t1 - t0 - tt) / 1.0, 0, 1)
+    place(FX, noise(n, 1500, 7000, SR, 2) * env, t0, gain=vel)
+def elma_dus(t, vel=.18): thud(t, vel=vel, f0=140); tick(t + .02, vel=vel * .5, pitch=.6)
 
-def keklik_otus(t, vel=.05):
-    for k, m in enumerate(KEKLIK): bell(t + k * .13, m, vel=vel * (1 - .2 * k), decay=.25, pan=.3)
+def a_sabah():
+    """A: Bir sabah. Karanlık oda; kapı motifi; saat; tren."""
+    drone('D2 A2', .2, S('A02') + .5, gain=.12, att=1.5, rel=1.0)
+    kapi_mot(W('A01', 'sevenler') - .3, 'A3', .7, .13)
+    metal(S('A02') - .05, f0=146.8, vel=.18, decay=2.5)                                  # başlık: tek gong
+    bed(S('A02') + .3, Se('A02') + .6, KARANLIK[:2], gain=.07, cutoff=700)
+    yagmur(S('A02') + 1.5, Se('A02') + .8)
+    saat(S('A03'), Se('A04') + .4, vel=.06)
+    pizz(W('A04', 'işe'), 'D3', vel=.3); pizz(W('A04', 'treni'), 'A2', vel=.3)
+    wind(W('A04', 'treni') - .2, W('A04', 'treni') + 2.4, vel=.05, lo=150, hi=700)
+    pad(M('D3 F3 A3'), S('A05'), Se('A06') + 1.0, gain=.07, att=.8, rel=1.2, cutoff=900)
+    bowed(S('A06'), [('D4', 1.4, .6), ('C#4', 2.2, .5)], gain=.08, cutoff=1400, vib=6)
 
-def a_kanca():
-    """A: 'İki uyarı' — güneş (yüksek koro, parıltı) ve deniz (dalga) arasında asılı soru."""
-    wind(0.0, S('B02'), vel=.06, lo=300, hi=1400)
-    pad(M('D3 A3 E4'), .2, Se('A01') + 1.0, gain=.1, att=.8, rel=1.0, cutoff=1100)
-    lyre(W('A01', 'iki'), 'A4', vel=.25); lyre(W('A01', 'uyarı'), 'D5', vel=.22)
-    choir(M('A4 E5'), W('A02', 'güneşe') - .2, Se('A02') + .6, gain=.14, att=.4, rel=.8, vowel='a')
-    shimmer(W('A02', 'güneşe'), dur=1.4, vel=.04, notes=('A6', 'D7', 'E7', 'F#7'))
-    deniz(S('A03') - .3, S('B02') + .8, vel=.07)
-    drone('D2 A2', S('A03'), S('B02') + .5, gain=.16, att=.8, rel=1.0)
-    bowed(W('A03', 'oysa'), [('E3', Se('A03') - W('A03', 'oysa') + 1.0, .6)], gain=.12, stack=(0, 5), cutoff=900, vib=4)
+def b_hayvan():
+    """B: Hayvan sesi. Geri dönüş yağmuru; borç; kapıda müdür; anahtar; kaçış; baba."""
+    yagmur(S('B01'), W('B01', 'borcu'), vel=.05)
+    bed(S('B01'), Se('B01') + .5, KARANLIK, gain=.07, cutoff=800)
+    for k in range(4): pizz(S('B02') + k * .55, ['D3', 'D3', 'E3', 'F3'][k], vel=.22)         # kapıya vuruş gibi
+    tick(S('B02') + .2, vel=.12, pitch=.5); tick(S('B02') + .5, vel=.12, pitch=.5); tick(S('B02') + .8, vel=.12, pitch=.5)
+    drone('D2 G#2', S('B03') - .2, Se('B03') + .6, gain=.11, att=.4, rel=.8)                # tritone: "hayvan sesi"
+    metal(W('B03', 'hayvan'), f0=110, vel=.12, decay=1.8)
+    tick(W('B04', 'anahtarı') + .4, vel=.14, pitch=.8); tick(W('B04', 'anahtarı') + .9, vel=.18, pitch=.6)
+    footsteps(W('B04', 'merdivenlere') - .2, W('B04', 'merdivenlere') + 1.6, count=9, vel=.12)
+    for k in range(6): fdrum(S('B05') + k * .5, 'dum' if k % 2 == 0 else 'tek', vel=.3)
+    door(Se('B05') + .1, vel=.3, dur=1.2)
+    kapi_mot(S('B06') + .2, 'A3', .7, .14)
+    pad(M('D3 F3 A3'), S('B06'), Se('B06') + 1.2, gain=.07, att=.6, rel=1.0, cutoff=800)
 
-def b_girit():
-    """B: Girit afişi, labirent, sürgün, 'gök açık'."""
-    T = S('B02') - .3
-    toll(T, 'D3', vel=.18, decay=5.0)
-    arp(S('B02'), Se('B02') + .5, 'D3 A3 D4 F4'.split(), (0, 1, 2, 3, 2, 1), .36, vel=.16)
-    for k in range(6): lyre(W('B02', 'labirent') + k * .18, ['D4', 'F4', 'E4', 'C4', 'D4', 'A3'][k], vel=.12, pan=-.2)
-    deniz(S('B03'), Se('B03') + .6, vel=.08)
-    bed(S('B03'), Se('B03') + .4, DORYA[:2], gain=.09, cutoff=900)
-    bowed(W('B03', 'özlüyordu') - .2, [('A3', 1.0, .7), ('G3', 1.2, .6), ('F3', 1.6, .5)], gain=.14, cutoff=1000)
-    wind(S('B04'), Se('B04') + 1.0, vel=.06, lo=500, hi=2200, gust=.8)
-    riser(W('B04', 'gök') - .05, 1.0, vel=.08, kind='cym')
-    pad(M('D3 A3 D4 F#4 A4'), W('B04', 'gök'), Se('B04') + 1.2, gain=.12, att=.3, rel=1.0, cutoff=1500)
-    birds(W('B04', 'gök') + .4, Se('B04') + .6, vel=.02, rate=.8)
+def c_elma():
+    """C: Süt ve elma. Grete'nin sıcaklığı (fa majör), babanın üniforması, elmalar."""
+    bed(S('C01'), Se('C04') + .6, SICAK, gain=.08, cutoff=1300)
+    keman(S('C01') + .4, 'C5', .5, .08)
+    lyre(W('C02', 'süt'), 'F4', vel=.15); lyre(W('C02', 'süt') + .4, 'A4', vel=.12)
+    keman(S('C04') - .2, 'D5', .55, .09)
+    T = S('C05'); timp(T, 'D2', vel=.25); timp(W('C05', 'üniformanın'), 'A1', vel=.22)
+    drone('D2 A2', T, Se('C07') + .8, gain=.13, att=.4, rel=1.0)
+    for k in range(8): elma_dus(W('C06', 'attı') + .15 + k * .32 + (k % 3) * .07, vel=.16 - k * .01)
+    boom(W('C07', 'saplandı'), vel=.4, f0=70, f1=48, decay=.9)
+    bowed(W('C07', 'çürüdü') - .3, [('E3', 2.5, .5)], gain=.11, cutoff=700, vib=3)
 
-def c_mum():
-    """C: atölye (lir), uyarı motifi (alçak / yüksek / orta), sır, öpücük."""
-    arp(S('C01'), Se('C02') + .3, 'D3 A3 D4 E4'.split(), (0, 2, 1, 3, 2, 1), .3, vel=.13, pan=-.15)
-    for k in range(8): tick(W('C01', 'dizdi') - 1.2 + k * .16, vel=.05, pitch=1 + k * .06)
-    for k in range(4): drop(W('C01', 'mumla') + k * .14, vel=.05)
-    bell(W('C03', 'tehlikesiyle'), 'A5', vel=.06, decay=2.0)
-    bowed(S('C03') - .1, [('D4', 2.2, .5)], gain=.1, stack=(0, 6), cutoff=900, vib=3)          # tritone: tehlike
-    ucus(W('C04', 'denedi'), 'D4', beat=.3, vel=.18)
-    T = S('C05')
-    pad(M('D3 A3'), T - .3, Se('C05') + .6, gain=.08, att=.6, rel=.6, cutoff=700)
-    drone(UYARI_ALT, W('C05', 'alçalırsan') - .1, W('C05', 'yükselirsen'), gain=.18, att=.15, rel=.5); deniz(W('C05', 'alçalırsan'), W('C05', 'yükselirsen') + .5, vel=.06, period=2.2)
-    choir([note(UYARI_UST)], W('C05', 'yükselirsen') - .1, W('C05', 'arasından'), gain=.12, att=.15, rel=.5, vowel='a'); shimmer(W('C05', 'güneş'), dur=.8, vel=.03)
-    lyre(W('C05', 'arasından'), UYARI_ORTA, vel=.3); lyre(W('C05', 'arasından') + .3, 'A4', vel=.22)
-    drone(UYARI_ALT, W('C06', 'çok') - .1, W('C06', 'üstelik'), gain=.2, att=.1, rel=.4)
-    boom(W('C06', 'sırrı') + .35, vel=.18, f0=90, f1=36.7, decay=1.2, knock=.1)
-    pad(M('D2 G#2 D3'), W('C06', 'ama') - .1, Se('C06') + .8, gain=.1, att=.4, rel=.8, cutoff=500)
-    lyre(W('C07', 'izle'), 'D4', vel=.25)
-    bowed(S('C08'), [('F#4', 2.0, .5), ('E4', 1.6, .55), ('D4', 1.2, .6), ('A3', 2.4, .5)], gain=.14, cutoff=1200)
-    pad(M('D3 A3 F#4'), W('C08', 'öptü') - .2, Se('C08') + 1.4, gain=.08, att=.6, rel=1.2, cutoff=1000)
+def d_hesap():
+    """D: Kapının arkasındaki hesap. Geri dönüş: sofra, sikkeler, kasa; terazi; konservatuvar hayali."""
+    bed(S('D01'), Se('D03') + .5, ['F2 C3 F3 A3', 'D2 A2 D3 F3', 'Bb1 F2 D3 F3', 'C2 G2 E3 G3'], gain=.07, cutoff=1100)
+    clinks(W('D02', 'masaya') if W('D02', 'masaya') else S('D02') + 4, count=5, vel=.1)
+    clinks(S('D03') + 1.2, count=4, vel=.07)
+    pad(M('D3 F3 A3'), S('D04'), Se('D05') + .5, gain=.07, att=.5, rel=.8, cutoff=900)
+    tick(W('D05', 'küçük'), vel=.12, pitch=.7); clinks(W('D05', 'servet'), count=8, spread=1.0, vel=.08)
+    yagmur(W('D05', 'borcu') - .3, Se('D05') + .5, vel=.04)
+    pizz(S('D06'), 'A2', vel=.25); pizz(W('D06', 'kızmadı'), 'D3', vel=.22)
+    keman(S('D07') + .2, 'A4', .6, .06)
+    metal(S('D08'), f0=196, vel=.12, decay=2.0)
+    for k in range(3): clinks(S('D08') + 1.2 + k * .4, count=2, vel=.05)
+    keman(S('D09') + .3, 'D5', .48, .12); keman(S('D09') + 3.4, 'F5', .48, .1)
+    bed(S('D09'), Se('D09') + .8, SICAK[:2], gain=.06, cutoff=1500)
 
-def d_ucus():
-    """D: kalkış, tanıklar, sevinç, öğleye tırmanış; 'kibir değil'."""
-    T = S('D01')
-    riser(T, .9, vel=.14, kind='swell')
-    wings(T + .1, Se('D01') + .5, period=.6, vel=.14); wind(T, Se('D05') + .8, vel=.08, lo=300, hi=2400, gust=.7)
-    bed(T, Se('D02') + .5, SABAH, gain=.1, cutoff=1500)
-    ucus(T + .05, 'D4', beat=.36, inst='bowed', vel=.2); ucus(T + .05, 'D5', beat=.36, vel=.18)
-    arp(W('D01', 'daidalos'), Se('D01'), 'D4 F#4 A4 D5', (0, 1, 2, 3, 2, 1), .24, vel=.12)
-    deniz(S('D02') - .5, Se('D03') + .5, vel=.05)
-    for w, m in (('balıkçı', 'A4'), ('çoban', 'B4'), ('çiftçi', 'D5')): lyre(W('D02', w), m, vel=.16)
-    choir(M('D4 F#4 A4 D5'), W('D03', 'tanrı') - .2, Se('D03') + 1.0, gain=.16, att=.4, rel=.9, vowel='a')
-    T = S('D04')
-    bed(T, Se('D04') + .6, ['G2 D3 G3 B3', 'A2 E3 A3 C#4', 'B2 F#3 B3 D4', 'D3 A3 D4 F#4'], gain=.1, cutoff=1800)
-    ucus(W('D04', 'sevincine'), 'D5', beat=.3, vel=.2)
-    bowed(W('D04', 'yükseğe') - .3, [('A4', .6, .6), ('B4', .6, .65), ('D5', .9, .7), ('F#5', 1.8, .75)], gain=.16, cutoff=2400)
-    shimmer(W('D04', 'yükseğe'), dur=1.6, vel=.05, notes=('A6', 'B6', 'D7', 'E7', 'F#7'))
-    pad(M('D3 A3 E4 F#4'), S('D05'), Se('D05') + .8, gain=.08, att=.3, rel=.8, cutoff=1400)
-    for w in ('kibir', 'cüretten', 'sevinçten', 'arzudan'): lyre(W('D05', w), 'D5' if w != 'kibir' else 'G#4', vel=.15)
+def e_bu():
+    """E: O değil, bu. İş, ihmal, kiracılar, keman, karar; ölüm; tramvay ve bahar."""
+    for k in range(int((Se('E01') - S('E01')) / .6)): tick(S('E01') + k * .6, vel=.05, pitch=1.2)
+    bed(S('E01'), Se('E02') + .5, KARANLIK, gain=.07, cutoff=800)
+    keman(S('E03') + 1.2, 'D5', .45, .1); keman(S('E03') + 3.6, 'A4', .45, .09)
+    drone('D2 G#2', S('E04'), Se('E04') + .3, gain=.1, att=.2, rel=.4)
+    boom(S('E05') + .55, vel=.5, f0=90, f1=60, decay=.5)                                       # masaya vurmak
+    drone('D2 A2', S('E05') + .6, Se('E06') + .6, gain=.12, att=.3, rel=1.0)
+    kapi_mot(S('E06') + 1.0, 'A3', .7, .12)
+    T = S('E07'); bed(T, Se('E08') + 1.2, ['D2 A2 D3 F3', 'Bb1 F2 D3 F3', 'G1 D2 Bb2 D3', 'A1 E2 A2 C#3'], gain=.08, cutoff=700)
+    keman(W('E07', 'süt') - .2, 'A4', .7, .06)
+    bell(W('E09', 'kilise') + .3, 'D4', vel=.1, decay=3.5); bell(W('E09', 'üçü') + .1, 'D4', vel=.1, decay=3.5); bell(W('E09', 'üçü') + 1.1, 'D4', vel=.08, decay=3.5)
+    T = S('E10'); bed(T, Se('E12') + 1.5, BAHAR, gain=.09, cutoff=1800)
+    birds(T + .3, Se('E12'), vel=.03, rate=1.0)
+    for k in range(int((Se('E11') - T) / .9)): tick(T + k * .9, vel=.03, pitch=.8, pan=-.2)       # tramvay rayı
+    keman(S('E12'), 'D5', .5, .11); stab(W('E12', 'gerindi'), 'D4 F#4 A4 D5', vel=.12, cutoff=2400, rel=2.0)
 
-def e_dusus():
-    """E: mum erir (yüksek tel gerilir), çırpınış, düşüş (sessizlik), çağrı, tüyler, İkarya."""
-    T = S('E01')
-    bowed(T - .2, [((note('A5'), note('G#5')), 3.2, .5)], gain=.1, stack=(0, 1), cutoff=3000, vib=2, trem=.3)
-    for k in range(6): drop(W('E01', 'mum') + k * .45, vel=.05, pan=.1 * k - .2)
-    wings(S('E02'), Se('E02'), period=.32, vel=.12)
-    bowed(S('E02'), [('D3', 1.5, .6), ('C#3', 1.5, .6), ('C3', 1.5, .6)], gain=.12, stack=(0, 6), cutoff=900, trem=.6)
-    whoosh_down(W('E03', 'düşerken') - .2, dur=2.0, vel=.16)
-    drop(W('E03', 'yuttu'), vel=.12); boom(W('E03', 'yuttu') + .05, vel=.14, f0=80, f1=36.7, decay=1.4, knock=.1)
-    deniz(W('E03', 'yuttu'), Se('E05') + 1.0, vel=.06)
-    bowed(S('E04'), [('D4', 1.2, .4), ('A3', 2.6, .5)], gain=.12, cutoff=900)
-    toll(W('E04', 'neredesin') + .7, 'D3', vel=.14, decay=6.0)
-    bed(S('E05'), Se('E05') + 1.2, ['D2 A2 D3 F3', 'Bb1 F2 D3 F3', 'G1 D2 Bb2 D3', 'A1 E2 C#3 E3'], gain=.1, cutoff=800)
-    bowed(W('E05', 'ikarya') - .3, [('F4', 1.0, .5), ('E4', 1.0, .5), ('D4', 2.4, .55)], gain=.12, cutoff=1200)
+def f_gorunmeyen():
+    """F: Görünmeyen böcek. Mektuplar; bugün; soru; bitiş (Sisifos'a köprü)."""
+    bed(S('F01'), Se('F03') + .5, KARANLIK[:3], gain=.07, cutoff=900)
+    page(S('F01') + .2, vel=.1); quill(S('F02') + .3, Se('F02'), vel=.05)
+    kapi_mot(S('F03') + .3, 'A3', .7, .12)
+    quill(S('F04') + .5, Se('F04'), vel=.05); pad(M('D3 F3 A3'), S('F04'), Se('F04') + .8, gain=.06, att=.6, rel=1.0, cutoff=900)
+    hiss(S('F05'), Se('F05'), vel=.03, lo=300, hi=1200)
+    bowed(S('F05') + 1.0, [('D3', 3.0, .5), ('F3', 3.0, .5), ('E3', 4.0, .5)], gain=.09, cutoff=800, vib=4)
+    pad(M('Bb2 F3 D4'), S('F06'), Se('F06') + 1.2, gain=.08, att=.5, rel=1.2, cutoff=1000)
+    pad(M('G2 D3 Bb3 E4'), S('F07'), Se('F07') + 1.6, gain=.09, att=.5, rel=1.4, cutoff=1100)          # soru akoru: çözülmez
+    T = S('F08'); bed(T, DUR - .3, ['D3 A3 D4 F4', 'Bb2 F3 D4 F4', 'C3 G3 C4 E4', 'D3 A3 D4 F#4'], gain=.08, cutoff=1300, att=1.2, rel=2.5)
+    keman(W('F08', 'camus') - .2, 'D5', .5, .08); kapi_mot(W('F08', 'abone') - .5, 'D4', .65, .08)
 
-def f_keklik():
-    """F: alacakaranlık; keklik ötüşü (sevinç), çocuğun hikâyesi, kale, Athena'nın ışığı, alçaktan uçuş."""
-    T = S('F01')
-    drone('D2 A2', T - .3, Se('F02') + .5, gain=.12, att=1.0, rel=.8)
-    for k in range(3): keklik_otus(W('F02', 'öttü') + k * .55, vel=.06)
-    wings(W('F02', 'kanatlarını'), W('F02', 'kanatlarını') + .8, period=.18, vel=.06, lo=400, hi=1800)
-    pad(M('D3 G#3 C4'), S('F03') - .1, Se('F03') + .6, gain=.09, att=.3, rel=.6, cutoff=700)
-    boom(W('F03', 'çocuktu') + .25, vel=.12, f0=85, f1=36.7, decay=1.0, knock=.1)
-    arp(S('F04'), Se('F04') + .3, 'D3 A3 D4 E4'.split(), (0, 2, 1, 3), .3, vel=.11)
-    for k in range(5): tick(W('F04', 'testereyi') + k * .12, vel=.05, pitch=1.4)
-    timp(W('F05', 'kıskandı'), 'D2', vel=.22)
-    drone('D2 Eb2', S('F05'), Se('F05') + .4, gain=.12, att=.3, rel=.6)
-    whoosh_down(W('F05', 'attı') - .1, dur=1.1, vel=.09)
-    bowed(W('F05', 'yalan') - .2, [('Eb4', 1.2, .5), ('D4', 1.8, .5)], gain=.1, cutoff=900)
-    riser(W('F06', 'yakalayıp') - .1, .8, vel=.06, kind='cym'); shimmer(W('F06', 'yakalayıp'), dur=1.6, vel=.05, notes=('D6', 'A6', 'D7', 'E7'))
-    choir(M('D4 A4 E5'), W('F06', 'yakalayıp') - .1, Se('F06') + .8, gain=.11, att=.3, rel=.8, vowel='o')
-    birds(S('F07'), Se('F07'), vel=.02, rate=.6)
-    for k in range(3): keklik_otus(S('F07') + 1 + k * 2.6, vel=.035)
-    bed(S('F07'), Se('F07') + .4, DORYA[:2], gain=.08, cutoff=800)
-    lyre(W('F08', 'ortadan'), UYARI_ORTA, vel=.22); drone(UYARI_ALT, W('F08', 'atmıştı') - .2, Se('F08') + 1.2, gain=.16, att=.2, rel=1.0)
-    boom(W('F08', 'atmıştı') + .4, vel=.16, f0=90, f1=36.7, decay=1.4, knock=.15)
-
-def g_ucuslar():
-    """G: gece, üç uçuş; en iyisi ya da hiç; batan tüyler; şafakla 'ama önce uçtu'; Bruegel; soru; bitiş."""
-    T = S('G01')
-    bed(T, Se('G02') + .5, GECE, gain=.09, cutoff=900)
-    lyre(W('G01', 'güneşe'), 'A5', vel=.14); lyre(W('G01', 'keklik'), 'A3', vel=.16); lyre(W('G01', 'usta'), 'D4', vel=.16)
-    timp(W('G03', 'en'), 'A2', vel=.14); timp(W('G03', 'hiç'), 'D2', vel=.18)
-    pad(M('D3 F3 A3'), S('G04'), Se('G04') + .5, gain=.07, att=.5, rel=.6, cutoff=800)
-    deniz(S('G05') - .3, Se('G05') + .8, vel=.05, period=7.0)
-    bowed(S('G05'), [('A3', 2.0, .5), ('G3', 2.0, .5), ('F3', 2.0, .5), ('E3', 3.0, .5)], gain=.11, cutoff=800)
-    T = S('G06')
-    riser(T, 1.0, vel=.1, kind='swell'); wind(T, Se('G07') + .8, vel=.06, lo=300, hi=2400)
-    bed(T, Se('G07') + .8, SABAH, gain=.1, cutoff=1600)
-    ucus(W('G06', 'önce') - .1, 'D4', beat=.4, inst='bowed', vel=.2); ucus(W('G06', 'önce') - .1, 'D5', beat=.4, vel=.18)
-    choir(M('D4 A4 D5 F#5'), W('G07', 'babasının') - .2, Se('G07') + 1.0, gain=.12, att=.6, rel=1.0, vowel='a')
-    T = S('G08')
-    arp(T, Se('G08') + .3, 'G3 D4 G4 B4'.split(), (0, 1, 2, 3, 2, 1), .3, vel=.12, pan=.2)               # pastoral (sol)
-    birds(T + .5, Se('G08'), vel=.018, rate=.7); deniz(T, Se('G08') + .5, vel=.04)
-    drop(W('G08', 'bacak'), vel=.06)
-    pad(M('G3 D4 A4'), S('G09') - .2, Se('G09') + 1.4, gain=.1, att=.6, rel=1.2, cutoff=1300)        # soru akoru (çözülmez)
-    T = S('H01')
-    bed(T, DUR - .2, SABAH, gain=.09, cutoff=1400, att=1.2, rel=2.5)
-    ucus(T + .8, 'D4', beat=.45, vel=.2); ucus(W('H01', 'milton') - .2, 'A4', beat=.42, inst='bowed', vel=.14)
-    arp(W('H01', 'abone') - 1.0, DUR - 1.0, 'D4 F#4 A4 D5', (0, 1, 2, 3, 2, 1), .3, vel=.1)
-
-SECTIONS = [a_kanca, b_girit, c_mum, d_ucus, e_dusus, f_keklik, g_ucuslar]
+SECTIONS = [a_sabah, b_hayvan, c_elma, d_hesap, e_bu, f_gorunmeyen]
 
 
 # =============================================================================== mixing
