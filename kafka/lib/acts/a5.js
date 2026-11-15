@@ -11,6 +11,7 @@ plan('P37', (ctx, st) => kes(ctx, st, { cx: 960, cy: 470, z: 1.0 + .03 * st.p },
     if (i === 2) { KS.ak(g, KS.rect(x0, 560, 540, 30)); KS.tara(g, 'p37:raf', [[[x0, 140], [x0 + 540, 140], [x0 + 540, 540], [x0, 540]]], { aci: 0, sp: 34, wmax: 8, seg: [80, 220], gap: [10, 40], seed: 325, ton: () => .5 }); O.fig(k, { x: x0 + 300, y: 820, h: 520, f: -1, tip: 'grete', bas: .1, kolN: [1.2, -.3], kolF: [1.0, -.2] }, { isik: [-.6, -1] }); }
     g.restore();
   });
+  bolum(k, 'O DEĞİL, BU', { pw: 620, y: 110 });
 }));
 // eşikte ayak tabağı içeri iter; duvarda kir izleri
 plan('P38', (ctx, st) => kes(ctx, st, { cx: 960, cy: 470, z: 1.02 + .03 * st.p }, k => {
@@ -23,7 +24,6 @@ plan('P38', (ctx, st) => kes(ctx, st, { cx: 960, cy: 470, z: 1.02 + .03 * st.p }
   const u = E.out3(clamp(lt / 1.3)), tx = lerp(1500, 1050, u);
   const tb = new Path2D(); tb.ellipse(tx, 760, 160, 36, 0, 0, TAU); KS.siluet(g, tb, { hale: 7, rim: 6, isik: [0, -1] });
   const ay = new Path2D(); FG.capsule(ay, [2000, 520], [tx + 260, 740], 60, 44); FG.ellipseInto(ay, tx + 200, 760, 110, 40, -.1); KS.siluet(g, ay, { hale: 9, rim: 8, isik: [-.4, -1] });
-  bolum(k, 'O DEĞİL, BU', { pw: 620 });
 }));
 // salon: üç sakallı kiracı masada; Grete keman çalıyor
 function a5_salon(k, o = {}) {

@@ -1,6 +1,6 @@
 """Kapak ve kapak kurulu test seti.
 Kullanım: python3 tools/kapak_seti.py <çıktı-klasörü>
-- ikaros/kapak/kapak_a.jpg (A) ve kapak_b.jpg (B): 1280×720 JPG, < 2 MB
+- kafka/kapak/kapak_a.jpg (A) ve kapak_b.jpg (B): 1280×720 JPG, < 2 MB
 - test seti (her kapak için): tam boy, 246×138 ve 168×94 küçültmeler, bulanık (odak noktası), gri değer,
   sağ altta süre rozeti, mobil akış taklidi (kanalın Sisifos ve Orfeus kapaklarıyla yan yana)"""
 import sys, os, subprocess
@@ -27,7 +27,7 @@ for key, scene, fn in [('A', 'kapakA', 'kapak/kapak_a.jpg'), ('B', 'kapakB', 'ka
     im.resize((320, 180), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6)).resize((640, 360)).save(os.path.join(out, f'{key}_bulanik.png'))
     ImageOps.grayscale(im).save(os.path.join(out, f'{key}_gri.png'))
     # süre rozeti (YouTube sağ alt): rozet bölgesi boş mu?
-    b = im.copy(); dr = ImageDraw.Draw(b); dr.rounded_rectangle((1168, 668, 1266, 706), 6, fill=(0, 0, 0)); dr.text((1180, 672), '5:55', fill='white', font=font(28))
+    b = im.copy(); dr = ImageDraw.Draw(b); dr.rounded_rectangle((1168, 668, 1266, 706), 6, fill=(0, 0, 0)); dr.text((1180, 672), '6:46', fill='white', font=font(28))
     b.save(os.path.join(out, f'{key}_rozet.jpg'), quality=88)
 # mobil akış taklidi: 390 px genişlikte telefon, üç video alt alta (kapak 358×201, başlık iki satır)
 others = [('Sisifos', os.path.join(ROOT, 'sisifos', 'kapak.png'), "Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt"),
@@ -35,7 +35,7 @@ others = [('Sisifos', os.path.join(ROOT, 'sisifos', 'kapak.png'), "Sisifos'u Ned
 for key, im in covers.items():
     W, item = 390, 201 + 86
     feed = Image.new('RGB', (W, 16 + item * 3), (15, 15, 15)); dr = ImageDraw.Draw(feed)
-    rows = [(others[0][1], others[0][2]), (None, 'İkaros: "Güneşe Yaklaşma." Peki Öteki Uyarı Neydi?'), (others[1][1], others[1][2])]
+    rows = [(others[0][1], others[0][2]), (None, "Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi?"), (others[1][1], others[1][2])]
     for i, (p, title) in enumerate(rows):
         y = 8 + i * item
         th = (im if p is None else Image.open(p).convert('RGB')).resize((358, 201), Image.LANCZOS)
@@ -51,6 +51,6 @@ print('test seti →', out)
 for key, im in covers.items():
     W, item = 390, 201 + 86
     feed = Image.new('RGB', (W, 16 + item), (255, 255, 255)); dr = ImageDraw.Draw(feed)
-    feed.paste(im.resize((358, 201), Image.LANCZOS), (16, 8)); dr.text((62, 218), 'İkaros: "Güneşe Yaklaşma." Peki', fill=(15, 15, 15), font=font(15)); dr.text((62, 240), 'Öteki Uyarı Neydi?', fill=(15, 15, 15), font=font(15))
+    feed.paste(im.resize((358, 201), Image.LANCZOS), (16, 8)); dr.text((62, 218), "Kafka'nın Dönüşüm'ü: İşe Yaramasan", fill=(15, 15, 15), font=font(15)); dr.text((62, 240), 'da Seni Severler miydi?', fill=(15, 15, 15), font=font(15))
     feed.save(os.path.join(out, f'{key}_akis_acik.png'))
     tv = Image.new('RGB', (1920, 1080), (20, 20, 20)); [tv.paste(im.resize((300, 169), Image.LANCZOS), (60 + i * 310, 300)) for i in range(6)]; tv.save(os.path.join(out, f'{key}_tv.jpg'), quality=85)
