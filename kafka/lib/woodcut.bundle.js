@@ -96,7 +96,7 @@ function mkStroke(pts, w, o = {}) {
   const p = pts.length && Array.isArray(pts[0]) ? Float32Array.from(pts.flat()) : Float32Array.from(pts);
   const n = p.length / 2;
   const ws = typeof w === 'number' ? new Float32Array(n).fill(w) : Float32Array.from(w);
-  return { p, w: ws, kind: o.kind || 'v', seed: o.seed ?? Math.random() * 1000, t0: o.t0 ?? -1e9, dur: o.dur ?? .2, chip: o.chip ?? .16 };
+  return { p, w: ws, kind: o.kind || 'v', seed: o.seed ?? (Math.abs(pts[0][0] * 12.9898 + pts[0][1] * 78.233) % 1000)  /* Zaman Kuryesi: Math.random yerine nokta özeti (işçiler arası belirlenimcilik) */, t0: o.t0 ?? -1e9, dur: o.dur ?? .2, chip: o.chip ?? .16 };
 }
 
 // resample a polyline [[x,y]...] so no segment is longer than `step`
