@@ -8,6 +8,7 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 
 | Klasör | Ne |
 |---|---|
+| `kafka/` | **Kafka, Dönüşüm** (15 Kasım 2026; ağaç baskı üslubu, 6:39). Hazır motor: LemoLab woodcut (MIT) → `lib/woodcut.bundle.js` (`tools/bundle_woodcut.py`) + baskı çekim sistemi `lib/kes.js` + 1910'lar figürleri `lib/insan.js`. Talep kontrolü ve iskelet `uretim_plani.md`; `geriye_bakis.md`, `KURUL.md` (kurulsuz) |
 | `ikaros/` | **İkaros** (14 Kasım 2026; serigrafi seyahat afişi üslubu, 5:55). Hazır motor: LemoLab `silk.js` (MIT) + bizim çekim sistemimiz. Whisper/scipy yokken çalışan araçlar: `tools/hizala.py` (sessizliğe dayalı hizalama), `audio/dsp_shim.py` (numpy scipy yerine), `tools/mix_ffmpeg.py`; Shorts `shorts/build.py` (çok kesitli, gerçek duraklamadan keser). `geriye_bakis.md`, `KURUL.md` |
 | `milton/` | Kayıp Cennet (Doré gravürü; en olgun motor ve araçlar). Yeni videoda buradan başla: `lib/` (gravür motoru, çekim sistemi `film.js`), `lib/acts/KILAVUZ.md` (sahne üretim kılavuzu), `tools/` (`kurgu_ozet.py` bütün filmi tek bakışta; `plan_zaman.py`; `srt.py`; `bolum_damga.py`; `build_vo.py`; `mix.py`), `render.js`, `kapak/` (kapak ve test seti), `KURUL.md`, `geriye_bakis.md` |
 | `prometheus/` | Prometheus (vazo üslubu); `geriye_bakis.md`, `kurul/kararlar.md` |
@@ -41,6 +42,11 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
 
 ## Uçtan uca iş akışı
 1. **Senaryo** (`senaryo.json`): cümle cümle yazılır. `tts` alanı seslendirme metnidir (ses etiketleriyle), `alt` alanı altyazı metnidir. Senaryo/yönetmenlik kurulu ≥9 verene kadar düzeltilir.
+   - **Önce talep kontrolü (Kafka'dan itibaren kural):** senaryodan önce `uretim_plani.md`'ye yazılır.
+     - (a) Türk izleyici bu adı ya da konuyu tanıyor mu? YouTube otomatik tamamlaması (`suggestqueries-clients6.youtube.com`, `hl=tr&gl=tr`) ve konudaki Türkçe videoların izlenme sayıları ile ölçülür. Kontrol satırı olarak kanalın eski konuları da aranır.
+     - (b) Başlık ve kapak izleyiciye kendi hayatından bir soru soruyor mu?
+     - Başlık ve kapağın ilk taslağı senaryodan **önce** yazılır; paketleme kurulu onu senaryo kuruluyla birlikte görür.
+     - Kontrol zayıfsa açı kullanıcıya önerilir; konuyu değiştirmek ya da korumak kullanıcının kararıdır.
    - **Önce iskelet (İkaros'tan sonra kural):** senaryo yazılmadan önce `yonetmenlik` becerisindeki "Hikâye yapısı seç" tablosundan bir iskelet seçilir (Harmon çemberi, Kahramanın Yolculuğu, Kişōtenketsu, Shorts için Pixar omurgası). Projenin `uretim_plani.md`'sine yazılır: hangi iskelet, neden, kahraman kim, her adımın cümle numarası. Ayrıca açık merak döngüleri (soru → cevap cümlesi) ve bir önceki videonun iskeleti yazılır. Senaryo kurulunun ilk sorusu "senaryo bu iskeletle mi kuruldu?" olur.
 2. **Seslendirme:** her bölüm iki çekim alınır.
    - `tools/transcribe.py` çekimleri Whisper'dan geçirir. Metne karşı doğrulayıp iyi olanı seçer (`vo/secim.json`).
@@ -252,6 +258,7 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - Shorts A'nın (~1.000 izlenme) uzun videoya katkısı görünmüyor: trafik kaynaklarında "Shorts" satırı yok, en çok "Diğer" (15) içinde. Ders: Shorts kendi başına izlenme getirir ama 25 dk'lık videoya izleyici taşımıyor; Shorts uzun videonun tanıtımı sayılmaz, ayrı içerik sayılır.
   - **Karar (yayın sonrası analiz, 40. saat):** paketleme şimdi değiştirilmez. Kapak testi sürüyor ve 3. gün (15 Kasım akşamı, ~72. saat) kuralı geçerli. 72. saatte gösterim hâlâ ~4,5 B'deyse paketleme kurulu açılır. Kurulun başlangıç noktası: TO kapağın vaadinde değil ilk bakışta anlaşılmasında; "Milton" adı Türk izleyiciye Şarlken gibi yabancı. Konunun tanıdık kapısı Milton değil Şeytan'dır. Bu arada maliyetsiz kaldıraç: Sisifos'un (kanalın kapısı, ~100 B gösterim) bitiş ekranı, açıklaması ve sabit yorumu Milton'a bağlanır.
 - "Test ve karşılaştır" kazananı TO'ya göre değil izlenme süresi payına göre seçer. Test sürerken başlık değiştirilmez.
+- **Geniş kitle dersi (kullanıcının çıkarımı, 15 Kasım 2026):** kanalda geniş kitleye açılan tek video Sisifos oldu. Prometheus, Milton, Cumhuriyet ve Medici'de tutma iyiydi (0:30'da %63–70), ama geniş gösterim testinde TO %1–1,6'da kaldı ve dalga gelmedi; Cumhuriyet ancak kapak ve başlık değişince yeniden açıldı. Sisifos'ta iki şey birlikteydi: (a) Türk izleyicinin zaten tanıdığı popüler bir ad (Camus'nün Sisifos Söyleni), (b) izleyicinin kendi hayatına sorulan bir soru ("Neden mutlu hayal etmeliyiz?"). Milton'da (a) eksikti (ad yabancı; "milton" araması kasırgaya ve futbolcuya gidiyor), İkaros'ta (b) zayıftı ("ikaros" araması işaret fişeğine gidiyor; bilgi merakı vardı, kişisel soru yoktu). Bu yüzden her videoda senaryodan önce talep kontrolü yapılır ("Uçtan uca iş akışı", 1. adım). İlk sınama: Kafka, *Dönüşüm* (a güçlü, b güçlü); sonucu 48. saat ve 7. gün verisiyle buraya yazılacak.
 
 ## Kitle (Sisifos, 5. gün) ve kanal yönü
 - **Kitle verileri:**
@@ -373,6 +380,18 @@ Ayrıntı: `ikaros/geriye_bakis.md`, `ikaros/KURUL.md`.
   - Kurulumsuz yollar `ikaros/` altında: `tools/hizala.py`, `audio/dsp_shim.py`, `tools/mix_ffmpeg.py`.
   - Kalıcı çözüm kullanıcıda: ortamın kurulum betiğine ya da izinlere `pip install openai-whisper scipy soundfile pyloudnorm` eklemek.
 - **Kurul kısaltması (kullanım sınırı):** kapı başına iki birleşik mercekli üye işe yaradı. Ses/miks ve Shorts kurulsuz kalırsa bu kayda açıkça yazılır.
+
+## Kafka dersleri (15 Kasım 2026)
+Ayrıntı: `kafka/geriye_bakis.md`, `kafka/KURUL.md`, `kafka/uretim_plani.md`.
+- **Talep kontrolü işe yaradı:** on dakikalık, bedava bir ölçüm. "dönüşüm kafka" otomatik tamamlamada özet, analiz, felsefe ve "animasyon" çıkarken "milton" ve "ikaros" konuya hiç ulaşmıyordu.
+- **Kaynağın kendi kuralı üslubu çözebilir:** Kafka'nın "böcek çizilmesin" mektubu (25 Ekim 1915) hem merak döngüsü hem kodla çizimin zayıf yanının (beden) çözümü oldu; kamera yerden, izleyici Gregor'un yerinde.
+- **Derinlik kaynaktaki az bilinen ayrıntıdan gelir:** kullanıcı "bu eser beni derin düşüncelere atmadı" dedi; omurga özetten değil satır numaralı ayrıntılardan kuruldu (gizli birikime sevinen Gregor, kardeşinin adını ağzına almayan Grete, tramvayda gerinen Grete). Yorumun omurgasını ("koşullu sevgi") kullanıcı seçti.
+- **Ağaç baskı motoru:** cinecode `woodcut` demo motoru ES modülü; `tools/bundle_woodcut.py` ile tek klasik betiğe paketlenir. `mkStroke` tohumsuz çağrıda `Math.random` kullanıyordu; işçiler arası belirlenimcilik için nokta özetine çevrildi. Başsız Chromium'da WebGL2 çalışıyor (kare başına ~0,5 sn). Her kare: maske (siyah blok, ak oyuk) + kırmızı levha → baskı. Kenar boşluğu kâğıt ve sabit; alt boşluk (y > 900) altyazının yeri.
+- **Siluet figür kuralları:** gövde kutu olmasın (omuz eğimi, dar bel, açılan etek ya da palto); kollar ayrı yol ve ince ak konturla gövdeden ayrılır; yakın planda baş kadraj içinde kalır (boy ≤ 1300 px), yoksa geriye "borular" kalır.
+- **Numara kayması:** senaryodan cümle çıkarınca kimlikler yeniden numaralandı, plan listesi bir cümle kaydı ve oyulmuş soru anlatımla uyuşmadı. Plan listesi senaryo kesinleşince yazılır ya da çıkarılan cümlenin numarası boş bırakılır.
+- **Bitiş ekranı:** anlatım "… ekranda" diyorsa o kelime bitiş ekranının (son 20 sn) içinde olmalı; `vo/plan.json` "sonra" buna göre hesaplanır.
+- **Kredi harcayan çağrılar ve izin:** otomatik izin denetleyicisi yedi seslendirme çağrısından üçünü durdurdu (ücretsiz). Kullanıcı açıkça izin verince gönderildi. Kredi onayı çağrıdan hemen önce açık cümleyle alınır.
+- **Kurulsuz üretim kullanıcının kararıydı** (kullanım %89). Bütün kapılar başkan denetimiyle geçti; kayıt `kafka/KURUL.md`. Kullanım açılırsa ilk tur: hassasiyet + kaynak.
 
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.
