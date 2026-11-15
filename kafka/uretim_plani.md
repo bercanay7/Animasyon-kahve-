@@ -22,7 +22,11 @@ YouTube otomatik tamamlama (hl=tr, gl=tr) ve Türkçe arama sonuçları, 15 Kas�
 - **Kullanıcının dürüst notu:** eser popüler ama onu *Kayıp Cennet* gibi derin düşüncelere atmadı. Bu yüzden derinlik özetten değil, metnin içindeki az bilinen ayrıntılardan kurulur (İkaros dersi: sürpriz kaynağın kendisinde).
 - **Aile:** ne kötü ne masum; ikisinin ortası (kullanıcı ve başkan aynı yerde). Yorgun, korkmuş, sonunda rahatlamış.
 - **Kafka'nın babası:** tek kısa geri dönüş (kullanıcının kararı).
-- **Bugünkü karşılık (kullanıcı başkana bıraktı):** hastalık ya da engellilik **değil** (insanı böcekle eşleştirir; hassasiyet riski) ve bakım veren aile **değil** (aileleri suçlar). Karşılık: **bir sabah artık eskisi gibi görünmeyen, eskisi gibi işe yaramayan herkes.** Soru izleyicinin kendisine: *seni sevenler seni mi seviyordu, yoksa senin alışık oldukları hâlini mi?*
+- **Omurga: koşullu sevgi (kullanıcının seçimi, 15 Kasım; başkanın ilk önerisiydi).** Dış görünüşün değişmesi tetikleyicidir, anlamı koşullu sevgidir: aile Gregor'u para getirdiği ve tanıdık göründüğü sürece "o" diye sever; ikisi de bitince "bu" der (K4, K7). Kaynakla uyumlu: Gregor'un ailedeki yeri baştan beri parayla kurulmuş (borç, satış seyahatleri), dönüşümden sonra ilk düşündüğü de iş ve para.
+  - İncelik (kurul tartacak): Grete'nin ilk günlerdeki bakımı gerçek sevgidir; sevgi bir anda değil, yorgunlukla aşınır. "Aile kötü" değil, "sevginin koşulları yavaş yavaş görünür olur".
+  - Derinlik: koşulu yalnız aile koymaz; Gregor da kendi değerini kazancıyla ölçer ve gizli birikimi öğrenince sevinir (K4). Koşullu sevgiyi önce kendine uygulamıştır.
+  - Rakipten ayrım: "Yararlı olmayınca sevilmezsin" (8,5 B) aynı damarda; bizim farkımız zamir (o → bu), Gregor'un kendi koşulu ve ailenin dönüşümü.
+  - Bugünkü karşılık: hastalık ya da engellilik **değil** (insanı böcekle eşleştirir; hassasiyet riski), bakım veren aile **değil** (aileleri suçlar). Karşılık: eskisi gibi kazanamayan, eskisi gibi görünmeyen, eskisi gibi "işe yaramayan" herkes. Son soru: *seni sevenler seni mi seviyordu, yoksa senin işe yarayan hâlini mi? Ve sen kendini hangi koşulla seviyorsun?*
 
 ### Metinden doğrulanmış dayanaklar (Gutenberg satırı, `kaynak/die_verwandlung_numarali.txt`)
 | # | Ne | Satır |
@@ -62,9 +66,9 @@ Toplam ~42–48 cümle; hedef 6–7 dk (kullanıcı 5–10 dk önerdi; başkan k
 
 ## Paketleme taslağı (senaryodan önce; paketleme kurulu senaryo kuruluyla birlikte görecek)
 **Başlık adayları** (<60 karakter; "NEDEN …?" kalıbından kaçınılır, Sisifos ve Milton'da kullanıldı):
-1. Kafka'nın Dönüşüm'ü: Değişsen, Seni Hâlâ Severler miydi?
-2. Bir Sabah Böcek Olarak Uyansan Seni Kim Severdi? | Kafka
-3. Dönüşüm: Gregor Böcek Olunca Ailesi Ne Yaptı? | Kafka
+1. Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi?
+2. Sevgi Koşullu mudur? | Kafka'nın Dönüşüm'ü
+3. Bir Sabah Böcek Olarak Uyansan Seni Kim Severdi? | Kafka
 
 **Kapak adayları** (ağaç baskı, tek renk kırmızı elma; tek odak; Bebas ≥ 290 px; sağ alt boş):
 - **A:** aralık kapı, karanlık odaya düşen ışık şeridi, eşikte kırmızı elma. Yazı: **"ARTIK O DEĞİL"** (zamir sürprizi; ilk saniyede karşılanır: film aralık kapıyla açılır).
