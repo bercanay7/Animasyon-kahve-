@@ -27,7 +27,7 @@ for key, scene, fn in [('A', 'kapakA', 'kapak/kapak_a.jpg'), ('B', 'kapakB', 'ka
     im.resize((320, 180), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6)).resize((640, 360)).save(os.path.join(out, f'{key}_bulanik.png'))
     ImageOps.grayscale(im).save(os.path.join(out, f'{key}_gri.png'))
     # süre rozeti (YouTube sağ alt): rozet bölgesi boş mu?
-    b = im.copy(); dr = ImageDraw.Draw(b); dr.rounded_rectangle((1168, 668, 1266, 706), 6, fill=(0, 0, 0)); dr.text((1180, 672), '6:46', fill='white', font=font(28))
+    b = im.copy(); dr = ImageDraw.Draw(b); dr.rounded_rectangle((1168, 668, 1266, 706), 6, fill=(0, 0, 0)); dr.text((1180, 672), '6:39', fill='white', font=font(28))
     b.save(os.path.join(out, f'{key}_rozet.jpg'), quality=88)
 # mobil akış taklidi: 390 px genişlikte telefon, üç video alt alta (kapak 358×201, başlık iki satır)
 others = [('Sisifos', os.path.join(ROOT, 'sisifos', 'kapak.png'), "Sisifos'u Neden Mutlu Hayal Etmeliyiz? | Camus ve Absürt"),
