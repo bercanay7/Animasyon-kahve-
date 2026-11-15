@@ -1,76 +1,74 @@
 """Plan listesi (yönetmen): python3 tools/planlar_kaynak.py → animatik/planlar.json + planlar.js
-Alanlar: id, at (çapa: 'B02' cümle başı, 'B02@kelime' kelime), olcek (genis/orta/yakin/ayrinti/levha/ters), set, pal (palet saati değişimi; boşsa önceki sürer), ne (görüntü), yazi (ekran yazısı; kurul onaylı olmalı)."""
+Alanlar: id, at (çapa: 'B02' cümle başı, 'B02@kelime'), olcek (genis/orta/yakin/ayrinti/levha/ters), set, ne (görüntü), yazi.
+Kural: böcek hiç çizilmez (ne gölgesi ne bacağı); Gregor yalnız geri dönüşte insan olarak görünür. Kamera çoğunlukla yerden (Gregor'un bakışı)."""
 import json, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 P = [
- # İKİ UYARI (kanca: kapak A ile aynı kare)
- ('P01','A01','yakin','GOK','SAFAK',"İkaros güneşe bakıyor, kanat kökü; kapak karesi. Güneş halkaları yavaş genişler",''),
- ('P02','A02@güneşe','genis','GOK','',"Dev güneş diski, küçük kanatlı siluet ona doğru yükselir (tehlike yukarıda)",''),
- ('P03','A03','ayrinti','DNZ','',"Bir kanat ucu denize değer, tüy ıslanıp koyulaşır (unutulan uyarı: aşağıda). Dalga bantları",''),
- # HAVAYA KİMSE SAHİP DEĞİL
- ('P04','B02','genis','KIY','',"Seyahat afişi: Girit yalıyarı, deniz, şafak. Bilgi bandı basılır",'GİRİT|OVİDİUS · DÖNÜŞÜMLER · VIII. KİTAP'),
- ('P05','B02@labirent','ayrinti','LAB','',"Labirentin planı tepeden, duvar duvar basılır; girişte küçük Daidalos",''),
- ('P06','B03','genis','KIY','',"Ada denizin ortasında, çevresinde dalga halkaları; uzakta ufuk",''),
- ('P07','B03@yıllardır','yakin','KIY','',"Daidalos'un başı profilden, ufka bakıyor; ufukta uzak kara silueti (yurt)",''),
- ('P08','B04','orta','KIY','',"Daidalos kayalıkta, kolu göğe kalkar; kamera yukarı kayar: boş gök, martılar",''),
- # MUM VE TÜY
- ('P09','C01','ayrinti','ATL','',"Tüyler küçükten büyüğe dizilir (pan flüt gibi), ip bağlanır, sarı mum damlaları",''),
- ('P10','C02','orta','ATL','',"İkaros uçuşan tüyleri yakalıyor; Daidalos çalışıyor",''),
- ('P11','C02@başparmağıyla','ayrinti','ATL','',"Sarı mum diski, başparmak izi basılır; tüy uçları",''),
- ('P12','C03','yakin','ATL','',"İkaros bir tüyü güneşe doğru tutuyor; güneş arkada uğursuz büyük",''),
- ('P13','C04','genis','KIY','',"Daidalos kanatlarla havada asılı; aşağıda İkaros bakıyor",''),
- ('P14','C04@omuzlarına','orta','KIY','',"Daidalos kanatları oğlunun omuzlarına bağlar (üslup kapısı orta planı)",''),
- ('P15','C05','levha','UYR','',"Uyarı afişi: üç yatay bölge basılır: güneş / orta / deniz; ortada küçük figür",'ORTADAN UÇ'),
- ('P16','C06','ayrinti','UYR','',"Deniz bölgesi öne çıkar: dalga tüyü ağırlaştırıyor",'ÇOK ALÇAKTAN DA UÇMA'),
- ('P17','C06@sırrı','orta','KIY','ALACA',"Daidalos'un gölgesi uzar; ayağının dibinde çalılıkta bir keklik silueti (ön işaret)",''),
- ('P18','C07','genis','KIY','SAFAK',"Daidalos öne doğru işaret eder; İkaros arkasında",''),
- ('P19','C08','yakin','KIY','',"İki baş profilden: baba oğlunun alnını öper; tek damla gözyaşı (ışık mürekkebi)",''),
- # TANRILAR GİBİ
- ('P20','D01','genis','GOK','',"Kalkış: ikisi kayalıktan göğe; kamera izler (üslup kapısı uçuş sahnesi)",''),
- ('P21','D01@kuş','orta','GOK','',"Daidalos önde, başını çevirip oğluna bakıyor",''),
- ('P22','D02','ters','KIR','',"Aşağıdan: balıkçı, çoban, çiftçi başlarını kaldırır; gökte iki küçük kanatlı",''),
- ('P23','D03','yakin','KIR','',"Çiftçinin başı profilden, göğe bakıyor; gölgesi uzun",''),
- ('P24','D04','genis','GOK','OGLE',"İkaros babasını aşağıda bırakıp güneşe tırmanır (dikey kompozisyon)",''),
- ('P25','D04@yükseğe','yakin','GOK','',"İkaros'un yüzü güneşte, sevinç (açılış karesinin aynası)",''),
- ('P26','D05','levha','GOK','',"Göğe basılan üç kelime, sırayla",'KİBİR DEĞİL|CÜRET · SEVİNÇ · ARZU'),
- # İKAROS, NEREDESİN?
- ('P27','E01','ayrinti','GOK','BATIS',"Kanat kökünde mum damlaları akar, tüyler gevşer",''),
- ('P28','E02','orta','GOK','',"Çıplak kollar çırpıyor, tüyler savruluyor; dev güneş",''),
- ('P29','E03','genis','DNZ','',"Uzaktan: tüyler sarmal iner; denizde küçük bir halka kapanır (grafik çarpma yok)",''),
- ('P30','E04','orta','GOK','',"Boş gökte Daidalos tek başına döner, çağırır",''),
- ('P31','E05','ayrinti','DNZ','',"Dalgaların üstünde tüyler",''),
- ('P32','E05@toprağa','genis','DNZ','',"Afiş: adanın silueti alacakaranlıkta, başlık basılır (mezar yok)",'İKARYA'),
- # KEKLİĞİN SEVİNCİ
- ('P33','F01','orta','KEK','ALACA',"Kıyıda Daidalos sırtı dönük, diz çökmüş (uzak)",''),
- ('P34','F02','yakin','KEK','',"Çamurlu hendekte keklik, kanat çırpıyor, ötüyor",''),
- ('P35','F03','ayrinti','KEK','',"Kekliğin silueti yeniden basılır: aynı yerde bir çocuk silueti",'“Senin bitmeyecek suçun, Daidalos.”|DÖNÜŞÜMLER · VIII.240'),
- ('P36','F04','orta','ATL','SAFAK',"Atölye: çırak çocuk testere ve pergelle; arkada Daidalos bakıyor",''),
- ('P37','F04@testereyi','ayrinti','ATL','',"Balık kılçığı → testere, iki kollu pergel: icat afişi gibi basılır",''),
- ('P38','F05','genis','AKR','ALACA',"Akropolis kayası ve surları alacakaranlıkta; tepede iki küçük figür; kesme (itiş gösterilmez)",''),
- ('P39','F05@yalan','yakin','AKR','',"Daidalos'un profili, gözü; arkada boş kale kenarı",''),
- ('P40','F06','orta','AKR','',"Işık huzmesi: düşen küçük siluet tüy patlamasıyla kekliğe döner (Athena yalnız ışık ve baykuş)",''),
- ('P41','F07','genis','KEK','',"Keklik çitlerin üstünden alçaktan uçar; çit dibinde yuva",''),
- ('P42','F08','yakin','UYR','',"Uyarı afişi yeniden basılır; üstüne Daidalos'un profili kayık baskıyla düşer",''),
- # ÜÇ UÇUŞ
- ('P43','G01','genis','UCK','GECE',"Üç panelli afiş sırayla basılır: güneşe giden çocuk / alçakta keklik / ortada usta",''),
- ('P44','G02','orta','UCK','',"Orta panel büyür: ustanın silueti; orta bant çatlar",''),
- ('P45','G03','levha','UCK','',"Yazı afişi",'YA EN İYİSİ|YA HİÇ'),
- ('P46','G04','orta','UCK','',"Bölünmüş kare: solda usta (EN İYİSİ), sağda keklik (HİÇ)",''),
- ('P47','G05','genis','DNZ','',"Islanan tüyler yavaşça batar (alçak uçuşun düşüşü)",''),
- ('P48','G06','yakin','GOK','SAFAK',"İkaros'un uçuşu, sevinç; açılış karesi geri döner",''),
- ('P49','G07','ters','GOK','',"İkaros en tepede, bulutların üstünde; babası aşağıda küçük",''),
- ('P50','G08','genis','BRU','BRUEGEL',"Saygı karesi (kopya değil): önde saban süren çiftçi, gemi, göğe bakan çoban; köşede denizde iki küçük bacak",''),
- ('P52','G09','yakin','GOK','SAFAK',"Boş gök, güneş; tek tüy yükselir",'HANGİ YÜKSEKLİKTE UÇARDIN?'),
- ('P53','H01','genis','SON','GECE',"Bitiş ekranı: afiş çerçevesi, sağda video kutusu alanı, abone",'ZAMAN KURYESİ'),
+ # BİR SABAH (Ki)
+ ('P01','A01','yakin','KAPI',"Yerden: karanlık oda, aralık kapı; kapıdan yere düşen ışık şeridi; şeritte kırmızı elma (kapak A karesi). Şerit yavaşça genişler",''),
+ ('P02','A01@sevenler','ters','KAPI',"Aşağıdan: kapı boşluğunda üç siluet (baba, anne, Grete) arkadan ışıklı, aşağıya bakıyor",''),
+ ('P03','A02','levha','KITAP',"Kara blok; başlık oyulur",'DÖNÜŞÜM|FRANZ KAFKA · 1915'),
+ ('P04','A02@Gregor','genis','ODA',"Yüksekten oda: yatak, kabarık yorgan yavaşça inip kalkar; pencerede yağmur; duvarda çerçeveli resim",''),
+ ('P05','A03','ayrinti','SAAT',"Çalar saat: yelkovan altı buçukta, saniye ibresi ilerler",''),
+ ('P06','A04@treni','genis','TREN',"İstasyon: tren kalkıyor, buhar oyulur; peron boş",''),
+ ('P07','A04@patron','ters','PATRON',"Aşağıdan: yüksek kürsüde patron silueti, aşağıya konuşur",''),
+ ('P08','A05','ayrinti','CERCEVE',"Duvarda boş çerçeve: bıçak oymaya başlar, içi kara kalır",''),
+ ('P09','A06','orta','AILE',"Aile portresi: baba, anne, Grete yan yana; Grete'nin üstüne ışık",''),
+ # HAYVAN SESİ
+ ('P10','B01','genis','YOL',"Gezici satıcı: kumaş örnekleri çantasıyla yağmurda yürüyen Gregor (insan, geri dönüş) ; bölüm başlığı",'HAYVAN SESİ'),
+ ('P11','B01@borcu','ayrinti','PARA',"Masada borç senetleri ve sikkeler; bir el sikkeleri iter",''),
+ ('P12','B02','orta','KORIDOR',"Koridor: kapalı kapının önünde melon şapkalı müdür yardımcısı, baston; anne ve baba arkada",''),
+ ('P13','B03','yakin','KORIDOR',"Müdür yardımcısının baş profili, kapıya eğilmiş; alıntı oyulur",'“BU BİR HAYVAN SESİYDİ.”'),
+ ('P14','B04','ayrinti','KILIT',"Kilitte anahtar yavaşça döner (oyulmuş ak anahtar)",''),
+ ('P15','B04@merdivenlere','genis','MERDIVEN',"Merdiven boşluğu: müdür yardımcısı aşağı kaçar, palto eteği uçuşur",''),
+ ('P16','B05','ters','KAPI',"Aşağıdan: baba bastonu kaldırmış, gazete elinde, üstümüze yürür; arkasından ışık",''),
+ ('P17','B06','yakin','KAPI',"Kapı kapanır, ışık şeridi daralıp kaybolur",''),
+ # SÜT VE ELMA
+ ('P18','C01','orta','KAPI',"Grete eşikte diz çöker, elinde kâse; bölüm başlığı",'SÜT VE ELMA'),
+ ('P19','C02','ayrinti','KASE',"Yerde süt kâsesi, beyaz ekmek parçaları yüzer; süt halkalanır",''),
+ ('P20','C03','ayrinti','YEMEK',"Eski gazete üstünde yarı çürük sebzeler, peynir, kemikler",''),
+ ('P21','C04','yakin','GRETE',"Grete'nin profili, aşağı bakıyor; kandil ışığı",''),
+ ('P22','C05','ters','KAPI',"Aşağıdan: kapıda üniformalı baba, kep, ak oyulmuş düğmeler, dimdik",''),
+ ('P23','C06','ayrinti','BUFE',"Büfede meyve tabağı; babanın eli kırmızı elmaları alır",''),
+ ('P24','C06@attı','genis','ODA',"Yerde kırmızı elmalar yuvarlanır, çarpışır",''),
+ ('P25','C07','yakin','ODA',"Bir elma karanlığa uçar ve orada kırmızı bir leke olarak kalır",''),
+ ('P26','C07@çürüdü','ayrinti','ODA',"Karanlıktaki kırmızı leke yavaşça kararır",''),
+ # KAPININ ARKASINDAKİ HESAP
+ ('P27','D01','orta','GECMIS',"Geri dönüş: Gregor (insan) eve girer, şapkasını asar; bölüm başlığı",'KAPININ ARKASINDAKİ HESAP'),
+ ('P28','D02','genis','SOFRA',"Lamba altında sofra: Gregor parayı masaya koyar, aile oturuyor",''),
+ ('P29','D03','yakin','SOFRA',"Masada para; eller alır, kimse başını kaldırmaz; alıntı oyulur",'“PARAYI MİNNETLE ALIYORLARDI…”'),
+ ('P30','D04','yakin','KAPI',"Kapı aralığından içeri: lamba altında baba küçük bir kasa açıyor (Gregor'un bakışı)",''),
+ ('P31','D05','ayrinti','KASA',"Kasanın içi: sikke yığınları büyür",''),
+ ('P32','D05@borcu','genis','YOL',"Geri dönüş: Gregor yağmurda, çantası elinde, bitmeyen tren yolları",''),
+ ('P33','D06','yakin','KAPI',"Karanlık taraftan kapı aralığı; ışık",''),
+ ('P34','D07','ayrinti','KAPI',"Kapı aralığı yakın; kamera yavaşça başını sallar gibi iner kalkar",''),
+ ('P35','D08','orta','TERAZI',"Eski terazi: bir kefede Gregor'un fotoğrafı, ötekinde sikkeler; sikkeler ağır basar",''),
+ ('P36','D09','orta','KEMAN',"Geri dönüş: pencere önünde keman çalan Grete; Gregor (insan) dinliyor",''),
+ # O DEĞİL, BU
+ ('P37','E01','genis','UCLU',"Üç pencereli baskı: bankada baba, lamba altında dikiş diken anne, tezgâhta Grete",''),
+ ('P38','E02','ayrinti','ESIK',"Eşikte bir ayak tabağı içeri iter; duvarda kir izleri; bölüm başlığı",'O DEĞİL, BU'),
+ ('P39','E03','orta','SALON',"Salon: üç sakallı kiracı masada, Grete keman çalıyor",''),
+ ('P40','E04','yakin','SALON',"Kiracılar başlarını kapıya çevirir; ayağa kalkarlar",''),
+ ('P41','E05','orta','SALON',"Grete eliyle masaya vurur; baba ve anne oturuyor; alıntı oyulur",'“KARDEŞİMİN ADINI AĞZIMA ALMAYACAĞIM.”'),
+ ('P42','E06','yakin','SALON',"Baba başını ellerine almış; Grete ayakta",''),
+ ('P43','E07','ayrinti','KASE',"Boş, tozlu süt kâsesi (P19'un aynası)",''),
+ ('P44','E08','genis','ODA',"Gece oda: kapının altından ince ışık; pencere karanlık",''),
+ ('P45','E09','genis','PENCERE',"Pencere: kilise kulesi, gök aydınlanır (ışık oyulur)",''),
+ ('P46','E10','genis','TRAMVAY',"Güneşli kır yolunda tramvay",''),
+ ('P47','E11','orta','TRAMVAY',"Tramvayın içi: anne ve baba Grete'ye bakıyor",''),
+ ('P48','E12','orta','TRAMVAY',"Grete ayağa kalkıp kollarını açar; arkasında oyulmuş güneş",''),
+ # GÖRÜNMEYEN BÖCEK
+ ('P49','F01','ayrinti','KITAP',"1915 ilk baskı (kendi çizimimiz): kitap kapağı, kapakta yalnız aralık kapı",''),
+ ('P50','F02','ayrinti','MEKTUP',"Masada mektup, el yazısı satırlar; alıntı oyulur",'“BÖCEĞİN KENDİSİ ÇİZİLEMEZ.”'),
+ ('P51','F03','ters','KAPI',"P02'nin aynası: kapıda aile aşağıya bakıyor",''),
+ ('P52','F04','orta','KAFKA',"Gece: masa başında yazan bir adam silueti (dönem silueti), lamba; zarf; alıntı",'“YAZDIKLARIM HEP SENİN HAKKINDAYDI.”'),
+ ('P53','F05','genis','BUGUN',"Bugün: gece apartman koridoru, kapalı kapılar; birinin altından ışık",''),
+ ('P54','F06','orta','BUGUN',"Kapının arkasında yatağın kenarında oturan bugünün insanı (kapüşonlu)",''),
+ ('P55','F07','yakin','KAPI',"Açılış karesi geri döner: aralık kapı, ışık şeridi, kırmızı elma; soru oyulur",'SENİ Mİ SEVİYORLARDI?'),
+ ('P56','F08@camus','genis','SON',"Tepede kaya ve küçük figür (Sisifos'a köprü); ZAMAN KURYESİ; bitiş ekranı alanı",''),
 ]
-out = [dict(zip(['id','at','olcek','set','pal','ne','yazi'], p)) for p in P]
-# kelimeye bağlı palet değişimi (kurgu kurulu E: rakle anlamlı anlarda, plan içinde): plan kimliği → çapa
-PALAT = {'P17': 'C06@ama', 'P27': 'D05@arzudan', 'P43': 'F08@atmıştı', 'P48': 'G06@önce'}
-for o in out:
-    if o['id'] in PALAT: o['palat'] = PALAT[o['id']]
-for a, b in zip(out, out[1:]):
-    if a['olcek'] == b['olcek']: print('UYARI: ardışık aynı ölçek', a['id'], b['id'], a['olcek'])
-os.makedirs(os.path.join(ROOT, 'animatik'), exist_ok=True)
-json.dump({'planlar': out}, open(os.path.join(ROOT, 'animatik', 'planlar.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-open(os.path.join(ROOT, 'animatik', 'planlar.js'), 'w', encoding='utf-8').write('window.PLAN = ' + json.dumps({p['id']: p for p in out}, ensure_ascii=False) + ';\n')
+ids = [p[0] for p in P]; assert len(ids) == len(set(ids))
+out = [dict(id=a, at=b, olcek=c, set=d, ne=e, yazi=f) for a, b, c, d, e, f in P]
+json.dump({'planlar': out}, open(os.path.join(ROOT, 'animatik', 'planlar.json'), 'w'), ensure_ascii=False, indent=1)
+open(os.path.join(ROOT, 'animatik', 'planlar.js'), 'w').write('window.PLAN = ' + json.dumps({p['id']: p for p in out}, ensure_ascii=False) + ';\n')
 print(len(out), 'plan')

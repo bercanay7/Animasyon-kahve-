@@ -7,7 +7,7 @@ window.FPS = 30;
 const acc = makeCanvas(DW, DH), accx = acc.getContext('2d');
 function renderFrame(t) {
   baseT(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = '#F3E6CC'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = KAGIT; ctx.fillRect(0, 0, W, H);
   drawFilm(ctx, t);
   if (!window.IN_MB && !Q.get('scene')) drawOver(ctx, t);
 }
@@ -27,8 +27,8 @@ function renderFrameMB(t, n) {
 window.renderFrame = renderFrame; window.renderFrameMB = renderFrameMB;
 window.ready = (async () => {
   const TR = 'AaĞğİıŞşÖöÜüÇçÂâ“”’…–·';
-  for (const f of ['400 40px "Bebas Neue"', '500 40px "Hanken Grotesk"', '600 40px "Hanken Grotesk"']) await document.fonts.load(f, TR);
-  buildTextures();
+  for (const f of ['400 40px "Bebas Neue"', '600 40px "Cormorant Garamond"', 'italic 500 40px "Cormorant Garamond"', '500 40px "Cormorant Garamond"']) await document.fonts.load(f, TR);
+  initKes();
   if (window.initScenes) initScenes();
   return true;
 })();
