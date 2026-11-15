@@ -1,0 +1,8 @@
+{"flow_id": "z0mLSo7t8ESbsAdI0q1m", "voice": "Emrullah", "voice_id": "DpEiQMnL9WxMsymCsjPY", "model": "eleven_v4",
+ "cekimler": {
+  "s01": {"node": "XFWJLrCZTOxTdsyrFbSP", "sessions": ["msqHmKEfVryBmFd0gev9", "o4B3o04ZRb5pCpmDyijB"], "gen": ["XIyeOAyU29NhZfQ7jKoj", "13iRo1IA2VAzcrsc8Z9a"], "kredi": 1414},
+  "s02": {"node": "JTxTX3I3h3jcvxbYziTu", "sessions": ["peyFY7eU15AzpYGZ5d8O", "2PRc8BNmxFyVUNFNaPF3"], "gen": ["PzsN8cTdnDdreO6TsSWn", "mUVpRX1lF6VSUSoG3Kei"], "kredi": 1544},
+  "s03": {"node": "ej3t37YchH4ntHPSAg5O", "sessions": ["skSDdl4iNkz8qvfcxJ7L", "oUAqQxf4Uo6wBqZftCcQ"], "gen": ["RcZnkHWPhIcWfFGkNgYb", "t0blgx0YqU3lsvzzfYDF"], "kredi": 2134},
+  "s05": {"node": "liSgXs8SLguo0Yc7iifg", "sessions": ["46gz0pJsCTgdYrSon4FT", "9DcqzYPeqms7dVUlKxwk"], "gen": ["iYROBmAsZBDFokODGBqi", "Hy6uuGhkEWEjymPXrSfD"], "kredi": 1356}
+ },
+ "engellenen": ["s00", "s04", "s06"], "_not": "s00, s04, s06 çağrıları izin denetleyicisince reddedildi (ücret alınmadı); kullanıcı izni bekleniyor"}

@@ -1,7 +1,7 @@
 {
  "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
- "revizyon": "rev0 (15 Kasım 2026): ilk taslak; kurul toplanmadı (kullanıcının haftalık kullanımı %89)",
- "not": "Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). DOĞRULANACAK: F02 (Wolff mektubu), F04 (Babaya Mektup), F09 (Camus eki).",
+ "revizyon": "rev1 (15 Kasım 2026): başkan doğrulaması; kurul toplanmadı (kullanıcı 'İkaros gibi yapıp bitirelim' dedi; haftalık kullanım %89)",
+ "not": "Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). F02, F04, F09 başkan tarafından doğrulandı (15 Kasım); kurul toplanmadı.",
  "segments": [
   {
    "id": "A01",
@@ -246,7 +246,8 @@
    "bolum": "O değil, bu",
    "tts": "[thoughtful] İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.",
    "alt": "İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı.",
-   "kaynak": "yorum; aile ikisinin ortası"
+   "kaynak": "yorum; aile ikisinin ortası",
+   "vo_parca": true
   },
   {
    "id": "E08",
@@ -295,7 +296,7 @@
    "bolum": "Görünmeyen böcek",
    "tts": "[calmly] Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.",
    "alt": "Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.",
-   "kaynak": "K9: Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 — DOĞRULANACAK (kaynak üyesi). Doğrulanamazsa: 'Kafka ona bir tür adı bile vermez' (satır 2)"
+   "kaynak": "Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 ('Das Insekt selbst kann nicht gezeichnet werden. Es kann aber nicht einmal von der Ferne aus gezeigt werden.') — doğrulandı (Christie's lot 2033965; Goethe-Institut; Open Culture 2015)"
   },
   {
    "id": "F03",
@@ -307,44 +308,37 @@
   {
    "id": "F04",
    "bolum": "Görünmeyen böcek",
-   "tts": "[quietly] Dört yıl sonra Kafka babasına uzun bir mektup yazdı ve onu hiç göndermedi. İçinde şu cümle var: “Yazdıklarımın hepsi senin hakkındaydı.”",
-   "alt": "Dört yıl sonra Kafka babasına uzun bir mektup yazdı ve onu hiç göndermedi. İçinde şu cümle var: “Yazdıklarımın hepsi senin hakkındaydı.”",
-   "kaynak": "K10: Brief an den Vater (1919) 'Mein Schreiben handelte von Dir' — DOĞRULANACAK; Almanca metin depoya alınacak. Tek kısa geri dönüş (kullanıcının kararı)"
+   "tts": "[quietly] Dört yıl sonra Kafka babasına uzun bir mektup yazdı; mektup babasına hiç ulaşmadı. İçinde şu cümle var: “Yazdıklarım hep senin hakkındaydı.”",
+   "alt": "Dört yıl sonra Kafka babasına uzun bir mektup yazdı; mektup babasına hiç ulaşmadı. İçinde şu cümle var: “Yazdıklarım hep senin hakkındaydı.”",
+   "kaynak": "Brief an den Vater (Kasım 1919) 'Mein Schreiben handelte von Dir' — doğrulandı: kaynak/brief_an_den_vater_alinti.txt. Mektup Max Brod'un yayımına dek babaya ulaşmadı. Tek kısa geri dönüş (kullanıcının kararı)"
   },
   {
    "id": "F05",
-   "bolum": "Görünmeyen böcek",
-   "tts": "[thoughtful] Kafka'nın kendi koşulu da belliydi: beklenen oğul olmak.",
-   "alt": "Kafka'nın kendi koşulu da belliydi: beklenen oğul olmak.",
-   "kaynak": "yorum; kaynak üyesi tartacak (mektuptaki baba beklentisi). Zayıfsa çıkar"
-  },
-  {
-   "id": "F06",
    "bolum": "Görünmeyen böcek",
    "tts": "[calmly] Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir.",
    "alt": "Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir.",
    "kaynak": "bugünkü karşılık (başkan); hastalık/engellilik bilerek yok"
   },
   {
-   "id": "F07",
+   "id": "F06",
    "bolum": "Görünmeyen böcek",
    "tts": "[slowly] Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?",
    "alt": "Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?",
    "kaynak": "A01'in sorusu izleyiciye döner; doruk"
   },
   {
-   "id": "F08",
+   "id": "F07",
    "bolum": "Görünmeyen böcek",
    "tts": "[slowly] Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.",
    "alt": "Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.",
    "kaynak": "Ten 1'in (D07–D08) bugünkü karşılığı"
   },
   {
-   "id": "F09",
+   "id": "F08",
    "bolum": "Görünmeyen böcek",
    "tts": "[warmly] Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.",
    "alt": "Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.",
-   "kaynak": "bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — DOĞRULANACAK"
+   "kaynak": "bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — doğrulandı (Sisifos Söyleni, ek)"
   }
  ]
 }

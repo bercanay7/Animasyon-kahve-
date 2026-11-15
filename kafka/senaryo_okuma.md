@@ -1,4 +1,4 @@
-# Kafka, Dönüşüm: senaryo (rev0, taslak; kurul toplanmadı)
+# Kafka, Dönüşüm: senaryo (rev1; kurul toplanmadı)
 
 Okuma kopyası. Asıl dosya `senaryo.json`.
 
@@ -61,13 +61,12 @@ Okuma kopyası. Asıl dosya `senaryo.json`.
 ## Görünmeyen böcek
 
 - **F01** Peki o böceği neden hiç görmediniz?  _(L2 kapanış başı)_
-- **F02** Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.  _(K9: Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 — DOĞRULANACAK (kaynak üyesi). Doğrulanamazsa: 'Kafka ona bir tür adı bile vermez' (satır 2))_
+- **F02** Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.  _(Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 ('Das Insekt selbst kann nicht gezeichnet werden. Es kann aber nicht einmal von der Ferne aus gezeigt werden.') — doğrulandı (Christie's lot 2033965; Goethe-Institut; Open Culture 2015))_
 - **F03** Belki de Gregor'un neye dönüştüğü önemli değildi. Önemli olan, ötekilerin artık onda ne gördüğüydü.  _(yorum)_
-- **F04** Dört yıl sonra Kafka babasına uzun bir mektup yazdı ve onu hiç göndermedi. İçinde şu cümle var: “Yazdıklarımın hepsi senin hakkındaydı.”  _(K10: Brief an den Vater (1919) 'Mein Schreiben handelte von Dir' — DOĞRULANACAK; Almanca metin depoya alınacak. Tek kısa geri dönüş (kullanıcının kararı))_
-- **F05** Kafka'nın kendi koşulu da belliydi: beklenen oğul olmak.  _(yorum; kaynak üyesi tartacak (mektuptaki baba beklentisi). Zayıfsa çıkar)_
-- **F06** Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir.  _(bugünkü karşılık (başkan); hastalık/engellilik bilerek yok)_
-- **F07** Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?  _(A01'in sorusu izleyiciye döner; doruk)_
-- **F08** Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.  _(Ten 1'in (D07–D08) bugünkü karşılığı)_
-- **F09** Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.  _(bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — DOĞRULANACAK)_
+- **F04** Dört yıl sonra Kafka babasına uzun bir mektup yazdı; mektup babasına hiç ulaşmadı. İçinde şu cümle var: “Yazdıklarım hep senin hakkındaydı.”  _(Brief an den Vater (Kasım 1919) 'Mein Schreiben handelte von Dir' — doğrulandı: kaynak/brief_an_den_vater_alinti.txt. Mektup Max Brod'un yayımına dek babaya ulaşmadı. Tek kısa geri dönüş (kullanıcının kararı))_
+- **F05** Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir.  _(bugünkü karşılık (başkan); hastalık/engellilik bilerek yok)_
+- **F06** Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?  _(A01'in sorusu izleyiciye döner; doruk)_
+- **F07** Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.  _(Ten 1'in (D07–D08) bugünkü karşılığı)_
+- **F08** Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.  _(bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — doğrulandı (Sisifos Söyleni, ek))_
 
-Cümle: 49 · kelime: 716 · tts karakter: 5440 · tahmini süre (İkaros: 594 kelime = 5:55): 7.1 dk · kredi: 5440 × 2 çekim ≈ 10880
+Cümle: 48 · kelime: 708 · tts karakter: 5375 · tahmini süre (İkaros: 594 kelime = 5:55): 7.1 dk · kredi: 5375 × 2 çekim ≈ 10750

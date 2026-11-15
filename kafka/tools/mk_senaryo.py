@@ -48,14 +48,13 @@ S=[
 ("E11","O değil, bu","slowly","Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.",G+"1891–1892; L3 kapanır"),
 # --- KETSU
 ("F01","Görünmeyen böcek","curious","Peki o böceği neden hiç görmediniz?","L2 kapanış başı"),
-("F02","Görünmeyen böcek","calmly","Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.","K9: Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 — DOĞRULANACAK (kaynak üyesi). Doğrulanamazsa: 'Kafka ona bir tür adı bile vermez' (satır 2)"),
+("F02","Görünmeyen böcek","calmly","Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin.","Kafka'nın Kurt Wolff Verlag'a mektubu, 25 Ekim 1915 ('Das Insekt selbst kann nicht gezeichnet werden. Es kann aber nicht einmal von der Ferne aus gezeigt werden.') — doğrulandı (Christie's lot 2033965; Goethe-Institut; Open Culture 2015)"),
 ("F03","Görünmeyen böcek","thoughtful","Belki de Gregor'un neye dönüştüğü önemli değildi. Önemli olan, ötekilerin artık onda ne gördüğüydü.","yorum"),
-("F04","Görünmeyen böcek","quietly","Dört yıl sonra Kafka babasına uzun bir mektup yazdı ve onu hiç göndermedi. İçinde şu cümle var: “Yazdıklarımın hepsi senin hakkındaydı.”","K10: Brief an den Vater (1919) 'Mein Schreiben handelte von Dir' — DOĞRULANACAK; Almanca metin depoya alınacak. Tek kısa geri dönüş (kullanıcının kararı)"),
-("F05","Görünmeyen böcek","thoughtful","Kafka'nın kendi koşulu da belliydi: beklenen oğul olmak.","yorum; kaynak üyesi tartacak (mektuptaki baba beklentisi). Zayıfsa çıkar"),
+("F04","Görünmeyen böcek","quietly","Dört yıl sonra Kafka babasına uzun bir mektup yazdı; mektup babasına hiç ulaşmadı. İçinde şu cümle var: “Yazdıklarım hep senin hakkındaydı.”","Brief an den Vater (Kasım 1919) 'Mein Schreiben handelte von Dir' — doğrulandı: kaynak/brief_an_den_vater_alinti.txt. Mektup Max Brod'un yayımına dek babaya ulaşmadı. Tek kısa geri dönüş (kullanıcının kararı)"),
 ("F06","Görünmeyen böcek","calmly","Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir.","bugünkü karşılık (başkan); hastalık/engellilik bilerek yok"),
 ("F07","Görünmeyen böcek","slowly","Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi?","A01'in sorusu izleyiciye döner; doruk"),
 ("F08","Görünmeyen böcek","slowly","Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz.","Ten 1'in (D07–D08) bugünkü karşılığı"),
-("F09","Görünmeyen böcek","warmly","Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.","bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — DOĞRULANACAK"),
+("F09","Görünmeyen böcek","warmly","Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.","bitiş ekranı → Sisifos (kanalın kapısı). Camus'nün eki 'L'espoir et l'absurde dans l'œuvre de Franz Kafka' — doğrulandı (Sisifos Söyleni, ek)"),
 ]
 import itertools
 segs=[]
@@ -66,11 +65,13 @@ cnt={}
 for sg in segs:
     L0=sg["id"][0]; cnt[L0]=cnt.get(L0,0)+1; sg["id"]=f"{L0}{cnt[L0]:02d}"
 d={"voice":"Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
-"revizyon":"rev0 (15 Kasım 2026): ilk taslak; kurul toplanmadı (kullanıcının haftalık kullanımı %89)",
-"not":"Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). DOĞRULANACAK: F02 (Wolff mektubu), F04 (Babaya Mektup), F09 (Camus eki).",
+"revizyon":"rev1 (15 Kasım 2026): başkan doğrulaması; kurul toplanmadı (kullanıcı 'İkaros gibi yapıp bitirelim' dedi; haftalık kullanım %89)",
+"not":"Kaynak: Franz Kafka, Die Verwandlung (1915; kamu malı), kaynak/die_verwandlung_numarali.txt (Gutenberg #22367; satır numaraları bu dosyadaki). Çeviriler bizim. İskelet: Kişōtenketsu (uretim_plani.md). F02, F04, F09 başkan tarafından doğrulandı (15 Kasım); kurul toplanmadı.",
 "segments":segs}
+for sg in segs:
+    if sg["id"]=="E07": sg["vo_parca"]=True
 json.dump(d,open('senaryo.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
-L=["# Kafka, Dönüşüm: senaryo (rev0, taslak; kurul toplanmadı)","","Okuma kopyası. Asıl dosya `senaryo.json`.",""]
+L=["# Kafka, Dönüşüm: senaryo (rev1; kurul toplanmadı)","","Okuma kopyası. Asıl dosya `senaryo.json`.",""]
 cur=None; chars=0
 for s in segs:
     if s['bolum']!=cur: cur=s['bolum']; L+=["",f"## {cur}",""]
