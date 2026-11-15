@@ -391,6 +391,7 @@ Ayrıntı: `kafka/geriye_bakis.md`, `kafka/KURUL.md`, `kafka/uretim_plani.md`.
 - **Numara kayması:** senaryodan cümle çıkarınca kimlikler yeniden numaralandı, plan listesi bir cümle kaydı ve oyulmuş soru anlatımla uyuşmadı. Plan listesi senaryo kesinleşince yazılır ya da çıkarılan cümlenin numarası boş bırakılır.
 - **Bitiş ekranı:** anlatım "… ekranda" diyorsa o kelime bitiş ekranının (son 20 sn) içinde olmalı; `vo/plan.json` "sonra" buna göre hesaplanır.
 - **Kredi harcayan çağrılar ve izin:** otomatik izin denetleyicisi yedi seslendirme çağrısından üçünü durdurdu (ücretsiz). Kullanıcı açıkça izin verince gönderildi. Kredi onayı çağrıdan hemen önce açık cümleyle alınır.
+- **Dosya boyu:** ağaç baskının karede değişen mürekkep gürültüsü dosyayı şişirir (6:39 → H.264 310 MB, H.265 CRF 26 259 MB; telefon H.265 CRF 32 98 MB). Baskı gürültüsünü iki karede bir değiştir ya da teslimde `-tune grain` + yüksek CRF dene.
 - **Kurulsuz üretim kullanıcının kararıydı** (kullanım %89). Bütün kapılar başkan denetimiyle geçti; kayıt `kafka/KURUL.md`. Kullanım açılırsa ilk tur: hassasiyet + kaynak.
 
 ## Teknik notlar ve tuzaklar
