@@ -1,8 +1,8 @@
 """LemoLab ink-wash motorunu (ES modülleri, lib/vendor/) tek klasik betiğe paketler: python3 tools/bundle_ink.py → lib/ink.bundle.js
-kafka/tools/bundle_woodcut.py'den uyarlandı. Modüller değiştirilmedi (Math.random yok; belirlenimci). Genel adlar: INK (ink), INKC (comp), INKL (land), INKH (hero), INKF (face), INKS (seal), INKW (wave), LIB (core/lib)."""
+kafka/tools/bundle_woodcut.py'den uyarlandı. Modüller değiştirilmedi (Math.random yok; belirlenimci); yalnız birleştirici yerine lib/comp_hizli.js (aynı görünüm, durağan gürültü ön geçişte). Genel adlar: INK (ink), INKC (comp), INKL (land), INKH (hero), INKF (face), INKS (seal), INKW (wave), LIB (core/lib)."""
 import re, os
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); V = os.path.join(R, 'lib', 'vendor')
-mods = [('lib', 'core/lib.js'), ('ink', 'ink-wash/ink.js'), ('comp', 'ink-wash/comp.js'), ('land', 'ink-wash/land.js'), ('hero', 'ink-wash/hero.js'),
+mods = [('lib', 'core/lib.js'), ('ink', 'ink-wash/ink.js'), ('comp', '../comp_hizli.js'), ('land', 'ink-wash/land.js'), ('hero', 'ink-wash/hero.js'),
         ('face', 'ink-wash/face.js'), ('seal', 'ink-wash/seal.js'), ('wave', 'ink-wash/wave.js')]
 KEY = {'/core/lib.js': 'lib', './ink.js': 'ink', './comp.js': 'comp', './land.js': 'land', './hero.js': 'hero', './face.js': 'face', './seal.js': 'seal', './wave.js': 'wave'}
 out = ["// ink.bundle.js: LemoLab ink-wash motoru (MIT, commit d33bdea) tek klasik betik. Kaynak modüller lib/vendor/ altında, değiştirilmedi.\n// Üretici: ran/tools/bundle_ink.py.\n'use strict';\nconst __M = {};\n"]
