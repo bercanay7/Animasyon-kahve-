@@ -1,8 +1,12 @@
 0:00 Yanan kale
-0:36 Resimlerle çekilen film
-1:24 Üç ok
-2:33 Kapılar
-3:30 Üçüncü kale
-4:52 Flüt
-5:41 Dönüş
-6:31 Surdaki adam
+0:42 Üç ok
+1:51 Kapılar
+2:49 Üçüncü kale
+3:35 Resimlerle çekilen film
+4:17 Lear'ın fırtınası
+4:53 Flüt
+5:42 Dönüş
+6:32 Surdaki adam
+H11 {'s': 461.09, 'e': 466.53, 'sec': 8} ekranda [{'id': 'H11', 'w': 'ekranda', 'd': 'ekranda.', 's': 465.88, 'e': 466.53}]
+DUR 483.14;
+

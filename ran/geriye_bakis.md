@@ -1,7 +1,7 @@
 # Geriye bakış: Kurosawa, Ran (kanalın ilk film videosu)
 
 ## Ne çıktı
-- **Film:** 8:02; 66 cümle, 63 plan; mürekkep resmi (Japon suiboku) üslubu, LemoLab ink-wash motoru (MIT) + bizim çizim ilkellerimiz (`lib/ran_cizim.js`: kale, ateş, xieyi figür, flüt); 5 gerçek görsel arası (Met CC0 ×3, Commons PD ×2); Emrullah sesi; özgün müzik (flüt, dron, taiko); 125 altyazı.
+- **Film:** 8:03 (açılış yeniden düzenlendikten sonra; önce 8:02); 66 cümle, 63 plan; mürekkep resmi (Japon suiboku) üslubu, LemoLab ink-wash motoru (MIT) + bizim çizim ilkellerimiz (`lib/ran_cizim.js`: kale, ateş, xieyi figür, flüt); 5 gerçek görsel arası (Met CC0 ×3, Commons PD ×2); Emrullah sesi; özgün müzik (flüt, dron, taiko); 125 altyazı.
 - **Kapaklar:** A "EKTİĞİNİ BİÇTİ" (filmin ilk karesi: yanan kale, inen yaşlı figür); B "KIRILMAZ SANDI" (kırık üç ok; 10. sn'de karşılanır).
 - **Teslim:** `teslim/ran_ana.mp4` (H.264 CRF 18, 289 MB), `ran_youtube.mp4` (H.265 CRF 26, 66 MB, SSIM 0,980), `ran_telefon.mp4` (720p H.265, 17 MB). Render 4 işçiyle 96 dk (hızlı birleştiriciyle) + 5 parça düzeltme 25 dk; miks −14,3 LUFS, tepe −1,0 dBFS.
 - **Shorts:** 28,3 sn (`ran_shorts.mp4`); açılış yanan kale + "Bir kale yanıyor"; kapanış "Sana yapılanla ne yaparsın?".
@@ -34,6 +34,8 @@
 7. **Kurulsuz üretim.** Bütün kapılar başkan denetimiyle geçti. Bilinen zayıflıklar aşağıda.
 
 8. **Donukluk taraması işe yaradı.** İlk render'da 2 sn'den uzun beş donuk aralık çıktı (künye levhası, üç leke, bitmiş çizgi, kadrajdan çıkan tomar, soru levhası); hareket eklenip yalnız 5 parça yeniden render edildi. Kalan: bitiş ekranı ve 2 sn'lik boş yol.
+
+9. **Açılış yayından önce yeniden düzenlendi (kullanıcının kararı, İkaros 47. saat verisi).** İlk sürümde kancadan (A01–A03) sonra 1 dakikalık yapım hikâyesi geliyordu; hikâye 1:24'te başlıyordu. İkaros'ta 0:30'da kalan ~%40'a düşmüştü ve kayıp tam bu geçişte başlamıştı. Yeni sırada hikâye 0:42'de başlıyor; yapım hikâyesi (A05, B01–B05) kesilmedi, yanan kale sahnesinin (E06) arkasına, ilgili sahnenin yanına taşındı. Yeni seslendirme yapılmadı: `build_vo.py` iki geçişe ayrıldı (önce her çekimden cümleler gerçek duraklamada kesilir, sonra `vo/sira.json` sırasıyla dizilir); planlar cümleye bağlı olduğu için kendiliğinden kaydı; yalnız sıraya dayanan yerler elle düzeltildi (müzik blokları, bölüm başlıkları, B05'in köprüsü, iki giriş geçişi). Geçiş boşluklarında sızıntı yok (en yüksek −58 dB). **Ders:** kancadan sonra hikâye en geç ~0:45'te başlar; yapım/bağlam bilgisi kancanın arkasına değil, ilgili sahnenin yanına konur.
 
 ## Bilinen zayıflıklar
 - Figürler xieyi ve yüzsüz; bazı planlarda (P02 sırt, P34 yakın baş) biçim belirsiz kalabiliyor.

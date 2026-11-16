@@ -161,3 +161,22 @@ Değişiklikler (doğrulanamayan için): "yetmiş yaşında" ve "elli yıl" çı
 - **Gerçek görsel araları:** `archive-lighttable` demosu depoda yok (404); tarif okunup kendi Canvas 2D sürümümüz kurulur: koyu masa üstünde pirinç kâğıdına tutturulmuş gerçek nesne (Met CC0 Lear baskıları, Nō maskesi, Kurosawa 1937/1953 fotoğrafları), büyüteçle yaklaşma, künye kartı. Mürekkep dünyasıyla aynı kâğıt tonu: kopuk durmasın.
 - Paketleme: `kafka/tools/bundle_woodcut.py` gibi `tools/bundle_ink.py` → `lib/ink.bundle.js`; `Math.random` varsa tohumlanır.
 - Sonraki adım: üslup kapısı (manzara: yanan kale gece + orta plan: kulübede Hidetora ve Tsurumaru + yakın plan: flüt tutan eller ya da yüzü görünmeyen baş + 15 sn hareket: kaleden inen figür) + bir arşiv arası karesi. Kurul yok; hassasiyet ve telif bakışı başkanca.
+
+## Açılış yeniden düzenlendi (16 Kasım, yayından önce; kullanıcının kararı)
+**Gerekçe: İkaros 47. saat verisi** (CLAUDE.md → Ölçütler): 0:30'da kalan ~%40 (kanalda %63–79); kayıp, kanca sorusundan sonra bağlam anlatısına geçilen 15. saniyede başlıyor. Ran'ın ilk sürümünde kanca doğruydu (A01–A03), ama 0:23–1:22 arası yapım hikâyesiydi (A04–A05, B01–B07); Hidetora'nın hikâyesi ancak 1:24'te başlıyordu (İkaros'taki hatanın dört katı).
+
+**Yeni sıra** (`vo/sira.json`; yeni seslendirme yok, kredi harcanmadı):
+| Bölüm | Cümleler | Başlangıç |
+|---|---|---|
+| Yanan kale | A01 A02 A03 A04 **B06 B07** | 0:00 |
+| Üç ok | C01–C09 | **0:42** (hikâye başlar; önce 1:24) |
+| Kapılar | D01–D09 | 1:51 |
+| Üçüncü kale | E01–E06 | 2:49 |
+| **Resimlerle çekilen film** (taşındı) | **A05 B01–B05** | 3:35 (E06 "…Fuji eteğinde inşa ettirdi, sonra yaktı"nın ardından "Kurosawa bu sahneyi çekmeden çok önce resim olarak çizmişti") |
+| Lear'ın fırtınası (yeni bölüm adı) | E07–E11 | 4:17 |
+| Flüt / Dönüş / Surdaki adam | F, G, H | 4:53 / 5:42 / 6:32 |
+
+- Resim hikâyesi kullanıcının çıkış noktası; kesilmedi, yanan kale sahnesinin üstüne taşındı.
+- **B05 "Onları kendi fırçamızla yeniden kuracağız"** yeni yerinde: fırça o sözcükte yanan kaleyi ve inen yaşlı adamı yeniden boyar; E07'deki "Lear da **bu noktada** aklını yitirir" böylece görsel olarak kale sahnesine bağlanır (araya giren 40 sn'lik blok "bu noktada"nın göndergesini koparmasın diye).
+- A04 "Yıl 1985." → B06 "Hikâyenin kendisi ise çok daha eski" geçişi anlamca sürüyor (boşluk 0,6 sn).
+- **Dokunulmadı:** E10–E11 (Nō oyunculuğu), H06 (Yōko). İkisi de düşüş adayı; 48. saat verisine bakılacak. Kapaklar ve başlık değişmedi.

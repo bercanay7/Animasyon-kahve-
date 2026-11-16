@@ -1,5 +1,7 @@
 # Ran: plan listesi (rev0, senaryo kesin; 16 Kasım)
 
+**Not (16 Kasım, yayından önce):** oynatma sırası değişti (`vo/sira.json`): A05 ve B01–B05 (P05–P10) E06'nın arkasına, B06–B07 (P11–P12) A04'ün arkasına taşındı. Planlar cümleye bağlı; tablodaki "Başlangıç" sütunu eski sıradandır, güncel zamanlar `timeline.js`te.
+
 Ölçek sırası ardışık tekrar etmez (arşiv araları ayrı ölçek sayılır). Zaman `timeline.js` cümle başından. Hareket: her planda ilk saniyeden hareket (İkaros dersi).
 
 | Plan | Cümle | Başlangıç | Ölçek | İçerik | Hareket | Not |

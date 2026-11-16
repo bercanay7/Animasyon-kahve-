@@ -6,8 +6,8 @@
 4. **Kitle:** "Hayır, çocuklara özel değil".
 5. **Değiştirilmiş/sentetik içerik:** gerçekçi bir kişi ya da olay göstermiyor (animasyon; gerçek fotoğraflar arşiv belgesi olarak, değiştirilmeden). Ses yapay zekâ: açıklamada yazılı. YouTube'un o günkü sorusunu oku; gerçekçi içerik değilse "Hayır".
 6. **Altyazı:** Altyazılar → Dosya yükle → "Zamanlamalı" → `ran.tr.srt` (Türkçe, 125 altyazı).
-7. **Bitiş ekranı (son 20 sn, 7:42–8:02; anlatımdaki "Sisifos, şimdi ekranda" cümlesi 7:40'ta başlar, "ekranda" 7:44,7'de):** sol yarı boş kâğıt: **Sisifos videosu** ve altına **abone ol**. Sağda kaya ve küçük figür; sağ alttaki rozet alanı boş.
-8. **Kartlar:** isteğe bağlı tek kart 6:31'de (Surdaki adam) → Sisifos videosu.
+7. **Bitiş ekranı (son 20 sn, 7:43–8:03; anlatımdaki "Sisifos, şimdi ekranda" cümlesi 7:41'de başlar, "ekranda" 7:45,9'da):** sol yarı boş kâğıt: **Sisifos videosu** ve altına **abone ol**. Sağda kaya ve küçük figür; sağ alttaki rozet alanı boş.
+8. **Kartlar:** isteğe bağlı tek kart 6:32'de (Surdaki adam) → Sisifos videosu.
 9. **Oynatma listesi:** "Ekrandaki Felsefe" (yoksa oluştur; kanalın ilk film videosu).
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".
 11. **Zamanlama:** kanalın önceki yayın saatleri (akşam 20:00–21:00).

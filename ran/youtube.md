@@ -9,16 +9,17 @@ Başlık izleyicinin kendi hayatına soru sorar (talep kontrolü b); tanıdık k
 ## Açıklama
 Bir kale yanıyor. İçinden yaşlı bir adam çıkıyor: kılıcı yok, adamları yok, yanında kimse yok. Yaptıkların bir gün sana döner mi?
 
-Akira Kurosawa'nın Ran'ı (1985), Shakespeare'in Kral Lear'ının Japonya'ya taşınmış hâli. Ama Kurosawa hikâyeye, Shakespeare'in hiç vermediği bir şey ekledi: kralın kanlı bir geçmişi. Üç ok efsanesi, kapanan kapılar, yanan üçüncü kale, kör Tsurumaru'nun flütü ve aynı acıyı yaşayıp bambaşka yollar seçen üç kişi: Kaede, Sue, Tsurumaru. Ve Kurosawa'nın kendisi: bu filmi yıllarca resim resim çizen, 75 yaşında bitiren yönetmen.
+Akira Kurosawa'nın Ran'ı (1985), Shakespeare'in Kral Lear'ının Japonya'ya taşınmış hâli. Ama Kurosawa hikâyeye, Shakespeare'in hiç vermediği bir şey ekledi: kralın kanlı bir geçmişi. Üç ok efsanesi, kapanan kapılar, yanan üçüncü kale ve o kaleyi çekmeden yıllar önce resim resim çizen, filmi 75 yaşında bitiren yönetmen. Sonra kör Tsurumaru'nun flütü ve aynı acıyı yaşayıp bambaşka yollar seçen üç kişi: Kaede, Sue, Tsurumaru.
 
 0:00 Yanan kale
-0:36 Resimlerle çekilen film
-1:24 Üç ok
-2:33 Kapılar
-3:30 Üçüncü kale
-4:52 Flüt
-5:41 Dönüş
-6:31 Surdaki adam
+0:42 Üç ok
+1:51 Kapılar
+2:49 Üçüncü kale
+3:35 Resimlerle çekilen film
+4:17 Lear'ın fırtınası
+4:53 Flüt
+5:42 Dönüş
+6:32 Surdaki adam
 
 Bu video filmin kendi görüntülerini kullanmaz: bütün sahneler kodla, mürekkep resmi üslubunda yeniden çizildi. Kurosawa'nın kendi storyboard resimleri telifli olduğu için gösterilmedi.
 

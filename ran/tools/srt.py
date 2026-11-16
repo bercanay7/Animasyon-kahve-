@@ -9,6 +9,9 @@ MAXDUR = 6.4  # bir cümle bundan uzun sürerse en az iki altyazıya bölünür 
 segs = json.load(open(os.path.join(ROOT, 'senaryo.json')))['segments']
 tl = open(os.path.join(ROOT, 'timeline.js')).read()
 WORDS = json.loads(re.search(r'window\.WORDS = (\[.*?\]);', tl, re.S).group(1))
+_ilk = {}
+for _w in WORDS: _ilk.setdefault(_w['id'], _w['s'])
+segs = sorted(segs, key=lambda sg: _ilk.get(sg['id'], 1e9))   # oynatma sırası (vo/sira.json cümleleri taşıyabilir)
 
 def fmt(t):
     ms = int(round(t * 1000)); h, ms = divmod(ms, 3600000); m, ms = divmod(ms, 60000); s, ms = divmod(ms, 1000)
