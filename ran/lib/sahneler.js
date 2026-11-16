@@ -136,7 +136,7 @@ plan('P03', 'A03', (L, st) => {   // yerde kırık kılıç; alev yansısı
   return NIGHT;
 });
 plan('P04', 'A04', (L, st) => {   // künye: kâğıt boşluğu
-  cam(L, 960, 540, 1 + .02 * st.p); H.sis(L, 620, .1);
+  cam(L, 960 + 40 * st.p, 540, 1 + .08 * eio(st.p)); H.sis(L, 620 - 60 * st.p, .14, 2); H.sis(L, 380 + 50 * st.p, .08, 5);
   H.yazi(L, ['AKIRA KUROSAWA'], 960, 430, { px: 46, ls: 14, a: clamp(st.lt / .8) });
   H.yazi(L, ['RAN'], 960, 580, { px: 150, ls: 40, a: clamp((st.lt - .5) / .8), bebas: true });
   H.yazi(L, ['1985 · “kargaşa”'], 960, 660, { px: 34, ls: 4, a: clamp((st.lt - 1.4) / .8), font: 'italic 500 ' });
@@ -293,7 +293,7 @@ plan('P25', 'D04', (L, st) => {   // geri dönüş: yıllar önce yanan başka k
   INK.mass(L.cw, [[-200, -200], [2120, -200], [2120, 1280], [-200, 1280]], .15, 0, 1);
   return { ...DAY, warm: .7, bleed: 9 };
 });
-plan('P26', 'D05', (L, st) => { push(L, st, 960, 540, 1, 1.06); H.lekeler(L, 3, 960, 520, 320, 0, clamp((st.t - AT('D05@canavara')) / 1)); return { ...DAY, bleed: 9 }; });
+plan('P26', 'D05', (L, st) => { push(L, st, 960, 540, 1, 1.14); const g = clamp(st.lt / 2.5); H.lekeler(L, 3, 960 + 30 * Math.sin(st.t * .5), 520, 320 * (.7 + .3 * g), 0, clamp((st.t - AT('D05@canavara')) / 1)); return { ...DAY, bleed: 6 + 6 * g }; });
 plan('P27', 'D06', (L, st) => { H.arsiv(L, IMG.lear, null, st, { h: 640, x: 340 }); H.yazi(L, ['GEÇMİŞ'], 1500, 520, { px: 120, bebas: true, ls: 10, a: clamp((st.t - AT('D06@geçmiş')) / .5) }); return DAY; });
 plan('P28', 'D08', (L, st) => {   // kapı kapanır; Hidetora dışarıda (D07 = P27'nin devamı ses olarak)
   push(L, st, 960, 600, 1, 1.04);
@@ -303,8 +303,8 @@ plan('P28', 'D08', (L, st) => {   // kapı kapanır; Hidetora dışarıda (D07 =
   return DAY;
 });
 plan('P29', 'D09', (L, st) => {   // Lear'ın yılan dişi: kıvrılan çizgi + alıntı
-  push(L, st, 960, 540, 1, 1.04);
-  const p = clamp(st.lt / 2.5);
+  cam(L, 900 + 120 * eio(st.p), 560, 1 + .1 * eio(st.p));
+  const p = clamp(st.lt / Math.max(2.5, st.d * .8));
   RC.S(L, [[220, 700], [420, 560], [620, 760], [820, 560], [1000, 720]], { w: 22, tone: TN.nong, dry: .45, seed: 111, prof: 'cone', p });
   H.yazi(L, ['“Nankör bir evladın acısı', 'yılan dişinden keskindir.”'], 1130, 470, { px: 52, align: 'left', a: clamp((st.t - AT('D09@nankör')) / .8), kunye: 'Kral Lear, I. perde' });
   return DAY;
@@ -484,9 +484,9 @@ function surKaresi(L, st, z = 1) {
 }
 plan('P55', 'H01', (L, st) => { surKaresi(L, st, 1.08 - .06 * eio(st.p)); H.bolum(L, 'SURDAKİ ADAM', st); return { ...DAY, warm: .7 }; });
 plan('P56', 'H02', (L, st) => {   // düşen resim (sarılı kumaş, kırmızı şerit)
-  cam(L, 960, 540, 1); const d = clamp((st.t - AT('H02@düşer')) / 1.4);
+  cam(L, 960, 540 + 160 * eio(st.p), 1 + .05 * st.p); const d = clamp((st.t - AT('H02@düşer') + .6) / Math.max(1.4, st.end - AT('H02@düşer')));
   INK.mass(L.cw, [[600, -200], [1300, -200], [1300, 1300], [600, 1300]], .2, 10, 251);
-  H.tomar(L, 960 + 60 * d, lerp(380, 1250, d * d), 1.3, .3 + d * 2.2, 1);
+  H.tomar(L, 960 + 60 * d, lerp(380, 1060, d * d), 1.3, .3 + d * 2.2, 1);
   return { ...DAY, warm: .7 };
 });
 plan('P57', 'H03', (L, st) => { surKaresi(L, st, 1.02); return { ...DAY, warm: .75 }; });
@@ -513,8 +513,8 @@ plan('P60', 'H07', (L, st) => {   // fırça üç ok çizer + soru
   H.yazi(L, ['Hidetora için: evet.'], 1300, 690, { px: 42, font: 'italic 500 ', a: clamp((st.t - AT('H08@evet')) / .5) });
   return DAY;
 });
-plan('P61', 'H09', (L, st) => {   // asıl soru
-  cam(L, 960, 540, 1 + .03 * st.p);
+plan('P61', 'H09', (L, st) => {   // asıl soru: sisler kayar, yavaş yaklaşma
+  cam(L, 960, 520, 1 + .1 * eio(st.p)); H.sis(L, 760 - 80 * st.p, .12, 6); H.sis(L, 260 + 60 * st.p, .07, 8);
   H.yazi(L, ['SANA YAPILANLA', 'NE YAPARSIN?'], 960, 440, { px: 130, bebas: true, ls: 6, a: clamp((st.lt - .2) / .8) });
   return DAY;
 });
