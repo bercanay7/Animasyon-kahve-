@@ -109,7 +109,9 @@ const RC = (() => {
     // baş: soluk leke + saç (yaşlı: kuru açık gri tepe topuzu; genç: koyu topuz). Yüz çizilmez.
     const hx = shX + 3 + bow * 6, hy = shY - 12 + bow * 4;
     blot(L.cw, ...P([hx, hy]), 8.5 * s, (X.headTone ?? .2) * am, 0, 1.15, sd);
-    if (X.hair !== 'none') {
+    if (X.hair === 'woman') {   // uzun saç: başın arkasından sırta inen tek koyu darbe; yüz yok
+      S(L, [[hx - 4, hy - 9], [hx - 9, hy], [hx - 11, hy + 20], [hx - 9, hy + 44]].map(P), { w: 9 * s, tone: TONE.jiao, dry: .25, seed: sd * 31 + 6, prof: 'cone', am });
+    } else if (X.hair !== 'none') {
       const old = X.hair === 'old';
       S(L, [[hx - 7, hy - 3], [hx - 2, hy - 10], [hx + 5, hy - 7]].map(P), { w: 5 * s, tone: old ? .3 : TONE.nong, dry: old ? .85 : .3, seed: sd * 31 + 6, prof: 'lens', am });
       S(L, [[hx - 3, hy - 10], [hx - 1, hy - 15]].map(P), { w: 4 * s, tone: old ? .32 : TONE.jiao, dry: old ? .8 : .2, seed: sd * 31 + 7, prof: 'dot', am });

@@ -64,6 +64,6 @@
 | P58 | H04 |  408.7 | orta | Üç figür yan yana yan yana değil: üç ayrı kâğıt (Kaede, Sue, Tsurumaru) | sırayla belirir |  |
 | P59 | H06 |  423.5 | arşiv | Kurosawa 1953 fotoğrafı tekrar (yaşlılığa köprü yok: fotoğraf uydurulmaz) |  |  |
 | P60 | H07 |  435.9 | yakın | Fırça kâğıda üç ok çizer |  |  |
-| P61 | H08 |  438.9 | geniş | Boş kâğıt + soru (Bebas, ekran yazısı) |  | 'sana yapılanla ne yaparsın?' |
+| P61 | H09 |  438.9 | geniş | Boş kâğıt + soru (Bebas, ekran yazısı) |  | 'sana yapılanla ne yaparsın?' |
 | P62 | H10 |  453.1 | orta | Kurye: kanalın imzası |  |  |
 | P63 | H11 |  459.9 | bitiş | Bitiş ekranı: Sisifos + abone |  | son 20 sn |
