@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../fonts.css">
+<style>html,body{margin:0;background:transparent}</style><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+window.ciz = (hook, txt, top) => {
+  const c = document.getElementById('c').getContext('2d'); c.clearRect(0, 0, 1080, 1920); c.textAlign = 'center';
+  if (top) {   // kanca: üstte, kâğıt zeminde koyu mürekkep; küçük kırmızı kare
+    c.fillStyle = '#16140f'; c.font = '120px "Bebas Neue"'; c.letterSpacing = '3px';
+    const w = hook.split(' '), l1 = w.slice(0, 2).join(' '), l2 = w.slice(2).join(' ');
+    c.fillText(l1, 540, 220); c.fillText(l2, 540, 340); c.fillStyle = 'rgb(176,46,34)'; c.fillRect(522, 382, 36, 8);
+    c.fillStyle = '#4a453d'; c.font = 'italic 500 42px "Cormorant Garamond"'; c.letterSpacing = '1px'; c.fillText('Kurosawa’nın Kral Lear’ı · Ran (1985)', 540, 1720);
+    return;
+  }
+  // altyazı: video altında, kâğıt üstüne koyu, büyük
+  c.fillStyle = '#16140f'; c.font = '600 64px "Cormorant Garamond"'; c.fillText(txt, 540, 1420);
+};
+</script>
