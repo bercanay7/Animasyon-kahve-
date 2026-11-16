@@ -39,3 +39,30 @@ Arama damarları: miras kavgası, evlat ayrımı, nankör evlat, "yaşlanınca y
 ## Açık işler
 - Yorum (kullanıcıyla), iskelet seçimi (Kafka = Kişōtenketsu; tekrar edilmeyecek), başlık + kapak ilk taslağı, kaynak klasörü (`kaynak/`: Kral Lear İngilizce özgün metin satır numaralı; Kurosawa kaynak notları).
 - Üslup kapısı: cinecode `ukiyoe` ve `ink-wash` tarifleri; LemoLab demo motorları (MIT, commit d33bdea) indirilip tek betiğe paketlenecek.
+
+## Gerçek görseller (kullanıcının isteği, 16 Kasım: "yer yer, hepsi değil")
+Kural: yalnız **kamu malı (PD) ve CC0**; CC BY künyeyle. **Kullanılmaz:** CC BY-SA ve BY-NC (para kazanan kanal), Ran'dan kare, afiş, fragman ve 1985 çekim fotoğrafı, Kurosawa'nın resimleri ve storyboard'ları (Japonya'da ölümden sonra 70 yıl telifli: 1998 + 70 → 2068), eşi Yōko'nun ve ailesinin fotoğrafları. Her varlık `kaynak/GORSELLER.md`'ye (kaynak URL, envanter no, lisans, erişim tarihi) ve `araclar/ASSETS.md`'ye işlenir; künye `youtube.md`'de. Gerçek kişiye söz uydurulmaz; fotoğrafın altına yalnız kaynakta yazan bilgi.
+
+İlk yoklama (16 Kasım, API ile):
+| Malzeme | Kaynak | Lisans | Ne için |
+|---|---|---|---|
+| David Garrick Kral Lear rolünde (James McArdell, 1761; Met 707787, 707788) | Met Open Access | CC0 (`isPublicDomain: true`) | Lear'ın 400 yıllık sahne geçmişi |
+| Lear ve Cordelia (Bartolozzi ~1783, Met 713083; Heath 1825–40, Met 739728); "King Lear" (William Sharp 1783, Met 707789) | Met Open Access | CC0 | IV.7 barışma sahnesi |
+| Nō maskesi, 1336–1573 (Met 60220); "Kojo" yaşlı adam maskesi, 19. yy (Met 45140) | Met Open Access | CC0 | Kurosawa'nın Nō'dan aldığı (kendi sözüyle DOĞRULANACAK). Filmdeki makyaj çizilmez, gerçek tarihî maske gösterilir |
+| Sesshū Tōyō okulu resimleri (Met 45649, 54576; tarihleri 17.–19. yy kopyaları: "Sesshū'ya göre" diye yazılır) | Met Open Access | CC0 | Üslubun geleneği (suiboku) |
+| Kurosawa ve Mikio Naruse, *Nadare* çekimi, 1937 (P.C.L.) | Wikimedia Commons | PD-Japan-oldphoto | Genç asistan Kurosawa |
+| Kurosawa, *Yedi Samuray* setinde, 1953 (dergi taraması) | Wikimedia Commons | PD-Japan-oldphoto | Ustalık dönemi |
+| Mōri Motonari portresi; First Folio (1623) Lear sayfası; 1870'ler Kumamoto/Himeji kale fotoğrafları | Commons / müzeler | yoklanacak (PD-Art; Folger CC BY-SA ve Bodleian BY-NC **elenir**) | Üç ok efsanesi; Lear'ın ilk baskısı; dönem kalesi |
+
+ABD durumu: PD-Japan-oldphoto, 1956 sonundan önce çekilmiş fotoğraflar 1970'te Japonya'da kamu malı olduğundan URAA ile ABD'de yeniden telife girmez (Commons'un kabul ölçütü). Senaryo aşamasında her dosyanın sayfası ayrıca okunur.
+
+## Üslup adayları (cinecode, konuya göre)
+| Tarif | Rol | Not |
+|---|---|---|
+| `ukiyoe` | Ana anlatım adayı 1 | Edo savaşçı baskıları (musha-e) Sengoku'yu anlatır; LemoLab demo motoru var (`print.js`, `nature.js`, `traveler.js`). Risk: düz renk bloklarıyla filmin renk kodlu ordularına kayma; renkler filmden uzak seçilir |
+| `ink-wash` | Ana anlatım adayı 2 | Tarif Çin xieyi; Japon suiboku'ya (Sesshū, Muromachi = Ran'ın dönemi) çevrilir: Çin hattatlığı, Çin mührü ve guqin yok. Tek renk + bir kırmızı: filmin renklerinden en uzak |
+| `archive-lighttable` | **Gerçek görsel araları** | Kuryenin masası: gerçek nesneler (Met baskıları, Nō maskesi, 1937/1953 fotoğrafları, First Folio) ışıklı masada, büyüteçle içine girilir; tek sinyal rengi. Canvas 2D'ye uyarlanır (demo three.js/WebGL) |
+| Elenenler | `shadow-puppet`, `paper-lantern`, `papercut-red` | Çin geleneği; Japon konusunda kültür karışması (hassasiyet). `woodcut` Kafka'da kullanıldı |
+
+## Kurul (kullanıcının kararı, 16 Kasım): bu turda kurul yok
+Kapılar başkan denetimiyle geçer, `KURUL.md`'ye "kurulsuz" diye açıkça yazılır. Hassasiyet ve telif bakışı üslup kapısında başkanca yapılır.
