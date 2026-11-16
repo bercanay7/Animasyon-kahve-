@@ -565,3 +565,35 @@ window.KAPAK = {
     return { ...NIGHT, vig: .45 };
   },
 };
+
+// A2 ve C (16 Kasım; kullanıcının isteği: büyük insan unsuru + daha yüksek kontrast; C tık tuzağı tarzı ama doğru: Taro ile Jiro'nun orduları babalarının kalesini kuşatır)
+function kapakSahne(L, o = {}) {
+  cam(L, 960, 560, 1);
+  H.gece(L, o.gece ?? .82, .6);
+  H.dag(L, 'gece', [[300, 120, 260], [820, 90, 300], [1500, 140, 280]], 700, { tone: .35, mist: 1.2, seed: 4 });
+  const K = RC.castle(L, { x: 1560, y: 660, s: .78, seed: 11 });
+  RC.smoke(L, 1560, K.top - 10, 300, 420, 2.3, 1, 3);
+  RC.fire(L, [[1560, K.top + 30, 46], [K.win[1][0], K.win[1][1] + 10, 16], [K.win[5][0], K.win[5][1] + 10, 18], [1640, K.top + 100, 26]], 1, 2.3);
+  if (o.parilti) { const c = L.cc; c.save(); c.setTransform(1, 0, 0, 1, 0, 0); const g = c.createRadialGradient(1560, 420, 20, 1560, 420, 700); g.addColorStop(0, 'rgba(255,110,30,.38)'); g.addColorStop(1, 'rgba(255,110,30,0)'); c.fillStyle = g; c.fillRect(0, 0, 1920, 1080); c.restore(); }
+  if (o.oklar) { const tq = 2.3; for (let i = 0; i < 9; i++) { const x = 1150 + i * 70, y = 120 + (i % 3) * 60; RC.S(L, [[x, y], [x + 70, y + 110]], { w: 5, tone: .95, dry: .3, seed: 700 + i, prof: 'nail' }); } for (let k = 0; k < 6; k++) H.sancak(L, 1330 + k * 75, 700 + (k % 2) * 12, 170, 1 + k, 820 + k); }
+  RC.ground(L, 690, 1100, 1920, 1, 8);
+  // yaşlı adam: önde, büyük, kaleye dönük (yüzsüz); başı koyu
+  return RC.figure(L, { x: 1215, y: 1270, s: 6.4, dir: 1, pose: 'stand', t: .4, hair: 'old', bowed: .22, seed: 5, headTone: .85, robeTone: .82 });
+}
+function kapakYaziC(L, lines, x, y, px = 300) {   // tık tuzağı: sarı, kalın siyah kontur
+  const c = L.cc; c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.font = px + 'px "Bebas Neue"'; c.letterSpacing = '4px'; c.lineJoin = 'round';
+  lines.forEach((ln, i) => { const yy = y + i * px * .86; c.lineWidth = 22; c.strokeStyle = '#0b0a08'; c.strokeText(ln, x, yy); c.fillStyle = '#ffd21f'; c.fillText(ln, x, yy); });
+  c.restore();
+}
+window.KAPAK.A2 = L => { kapakSahne(L); kapakYazi(L, ['EKTİĞİNİ', 'BİÇTİ'], 60, 420); return { ...NIGHT, vig: .5 }; };
+window.KAPAK.C = L => {
+  const f = kapakSahne(L, { gece: .75, parilti: true, oklar: true });
+  const c = L.cc; c.save(); c.setTransform(1, 0, 0, 1, 0, 0);
+  // kırmızı halka yaşlı adamın başı ve omzu çevresinde; yazıdan ona kıvrık ok
+  c.strokeStyle = '#ff2a1a'; c.lineWidth = 14; c.beginPath(); c.ellipse(f.head[0] + 10, f.head[1] + 60, 150, 175, -.15, 0, Math.PI * 2); c.stroke();
+  c.lineCap = 'round'; c.beginPath(); c.moveTo(860, 760); c.quadraticCurveTo(930, 900, f.head[0] - 150, f.head[1] + 110); c.stroke();
+  const ax = f.head[0] - 150, ay = f.head[1] + 110; c.beginPath(); c.moveTo(ax, ay); c.lineTo(ax - 52, ay - 14); c.moveTo(ax, ay); c.lineTo(ax - 30, ay + 44); c.stroke();
+  c.restore();
+  kapakYaziC(L, ['OĞULLARI', 'SALDIRDI!'], 60, 400);
+  return { ...NIGHT, vig: .4, warm: .7 };
+};
