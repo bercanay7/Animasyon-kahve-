@@ -230,7 +230,7 @@ plan('P17', 'C05', (L, st) => {   // demetteki bir ok gölgede kalır
   return { ...DAY, bleed: 6 + 6 * g };
 });
 plan('P18', 'C06', (L, st) => {   // Saburo okları dizinde kırar
-  push(L, st, 960, 600, 1, 1.05);
+  push(L, st, 960, 600, 1, 1.13);
   const k = clamp((st.t - AT('C06@dizinde')) / .3);
   RC.figure(L, { x: 820, y: 1120, s: 6, dir: 1, pose: 'kneel', t: st.t, hair: 'young', seed: 33, headTone: .45, bowed: .2 });
   H.oklar(L, 1180, 900, .9, { kir: k });
@@ -301,7 +301,7 @@ plan('P25', 'D04', (L, st) => {   // geri dönüş: yıllar önce yanan başka k
   return { ...DAY, warm: .7, bleed: 9 };
 });
 plan('P26', 'D05', (L, st) => { push(L, st, 960, 540, 1, 1.14); const g = clamp(st.lt / 2.5); H.lekeler(L, 3, 960 + 30 * Math.sin(st.t * .5), 520, 320 * (.7 + .3 * g), 0, clamp((st.t - AT('D05@canavara')) / 1)); return { ...DAY, bleed: 6 + 6 * g }; });
-plan('P27', 'D06', (L, st) => { H.arsiv(L, IMG.lear, null, st, { h: 640, x: 340 }); H.yazi(L, ['GEÇMİŞ'], 1500, 520, { px: 120, bebas: true, ls: 10, a: clamp((st.t - AT('D06@geçmiş')) / .5) }); return DAY; });
+plan('P27', 'D06', (L, st) => { H.arsiv(L, IMG.lear, null, st, { h: 640, x: 340, z: .16, fx: 640 }); H.yazi(L, ['GEÇMİŞ'], 1500, 520, { px: 120, bebas: true, ls: 10, a: clamp((st.t - AT('D06@geçmiş')) / .5) }); return DAY; });
 plan('P28', 'D08', (L, st) => {   // kapı kapanır; Hidetora dışarıda (D07 = P27'nin devamı ses olarak)
   push(L, st, 960, 600, 1, 1.04);
   const ac = 1 - ss(clamp(st.lt / 2.5));
@@ -417,7 +417,7 @@ plan('P44', 'F04', (L, st) => {   // Hidetora başını eğer, ellerini yüzüne
   return DAY;
 });
 plan('P45', 'F05', (L, st) => {   // Sue ve Tsurumaru, yıkık sur
-  push(L, st, 960, 560, 1, 1.05); H.sis(L, 650, .12, 13);
+  push(L, st, 960, 560, 1, 1.13); H.sis(L, 650, .12, 13);
   INK.mass(L.cw, [[300, 900], [1500, 900], [1450, 700], [1200, 640], [900, 690], [500, 660]], .45, 8, 201);
   RC.figure(L, { x: 900, y: 690, s: 1.7, dir: 1, pose: 'stand', t: st.t, hair: 'woman', seed: 92 });
   RC.figure(L, { x: 1000, y: 692, s: 1.6, dir: -1, pose: 'stand', t: st.t, hair: 'young', seed: 93 });
@@ -496,14 +496,15 @@ plan('P56', 'H02', (L, st) => {   // düşen resim (sarılı kumaş, kırmızı 
   H.tomar(L, 960 + 60 * d, lerp(380, 1060, d * d), 1.3, .3 + d * 2.2, 1);
   return { ...DAY, warm: .7 };
 });
-plan('P57', 'H03', (L, st) => { surKaresi(L, st, 1.02); return { ...DAY, warm: .75 }; });
+plan('P57', 'H03', (L, st) => { surKaresi(L, st, 1.02 + .05 * eio(st.p)); H.sis(L, 620 - 50 * st.p, .1, 21); H.sis(L, 360 + 40 * st.p, .06, 22); return { ...DAY, warm: .75 }; });   // sessizlik: ses yok, görüntü yine akar (sis + yavaş yaklaşma)
 plan('P58', 'H04', (L, st) => {   // üç ayrı kâğıt: Kaede, Sue, Tsurumaru
-  push(L, st, 960, 540, 1, 1.04);
+  push(L, st, 960, 540, 1, 1.09);
   const names = ['KAEDE', 'SUE', 'TSURUMARU'], words = ['kaede', 'sue', 'tsurumaru'];
   for (let k = 0; k < 3; k++) {
-    const a = clamp((st.t - AT('H04@' + words[k])) / .5), x = 420 + k * 540;
+    const a = clamp((st.t - AT('H04@' + words[k])) / .5), x = 420 + k * 540, a0 = clamp((st.lt - k * .3) / .6);
+    INK.mass(L.cw, [[x - 220, 160], [x + 220, 170], [x + 215, 780], [x - 225, 770]], .06 * Math.max(a, a0), 2, 260 + k);
+    RC.S(L, [[x - 220, 160], [x + 220, 170], [x + 215, 780], [x - 225, 770], [x - 220, 160]], { w: 3, tone: .5, dry: .6, seed: 280 + k, prof: 'even', am: a0 });
     if (a <= 0) continue;
-    INK.mass(L.cw, [[x - 220, 160], [x + 220, 170], [x + 215, 780], [x - 225, 770]], .06 * a, 2, 260 + k);
     if (k === 0) { RC.fire(L, [[x + 140, 700, 24]], .8 * a, st.t); RC.figure(L, { x, y: 700, s: 2.8, dir: 1, pose: 'sit', t: 0, hair: 'woman', seed: 81, am: a }); }
     if (k === 1) RC.figure(L, { x, y: 700, s: 2.8, dir: 1, pose: 'sit', t: 0, hair: 'woman', seed: 92, bowed: .25, am: a });
     if (k === 2) { INK.mass(L.cw, [[x - 210, 175], [x + 210, 180], [x + 205, 760], [x - 215, 755]], .55 * a, 3, 270); RC.figure(L, { x, y: 700, s: 2.8, dir: 1, pose: 'stand', t: 0, hair: 'young', seed: 93, am: a, headTone: .5 }); }
@@ -511,7 +512,7 @@ plan('P58', 'H04', (L, st) => {   // üç ayrı kâğıt: Kaede, Sue, Tsurumaru
   }
   return DAY;
 });
-plan('P59', 'H06', (L, st) => { H.arsiv(L, IMG.kuro37, null, st, { h: 820, x: 960 - 820 * 500 / 700 / 2, z: .05 }); return DAY; });
+plan('P59', 'H06', (L, st) => { H.arsiv(L, IMG.kuro37, null, st, { h: 820, x: 960 - 820 * 500 / 700 / 2, z: .16, fy: 330 }); return DAY; });
 plan('P60', 'H07', (L, st) => {   // fırça üç ok çizer + soru
   push(L, st, 960, 560, 1, 1.04);
   const p = clamp(st.lt / 2.5);
