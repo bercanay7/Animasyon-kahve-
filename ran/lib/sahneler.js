@@ -34,12 +34,12 @@ const H = (() => {
   const bolum = (L, ad, st) => { const a = Math.min(clamp(st.lt / .6), clamp((3.6 - st.lt) / .8)); if (a > 0) yazi(L, [ad], 120, 130, { px: 40, align: 'left', a, ls: 6, font: '600 ' }); };
   // gerçek görsel: kâğıt paspartu + künye kartı; yavaş yaklaşma; kâğıt tonunda masa
   function arsiv(L, im, kart, st, o = {}) {
-    const z = 1 + (o.z ?? .06) * eio(st.p), fx = o.fx ?? 960, fy = o.fy ?? 520;
-    INK.mass(L.cw, [[-80, -80], [2000, -80], [2000, 1160], [-80, 1160]], .26, 0, 1, [0, 0, 1920, 1080, 1, .55]);
+    const z = 1 + (o.z ?? .06) * eio(st.p), fx = o.fx ?? 960, fy = o.fy ?? 520, ain = o.ain ? clamp(st.lt / o.ain) : 1;
+    INK.mass(L.cw, [[-80, -80], [2000, -80], [2000, 1160], [-80, 1160]], .26 * ain, 0, 1, [0, 0, 1920, 1080, 1, .55]);
     if (!im) return;
     const hgt = o.h || 720, w = hgt * im.width / im.height, x = (o.x ?? (960 - (w + 420) / 2)), y = o.y ?? (470 - hgt / 2);
     const c = L.cc; c.save(); c.setTransform(z, 0, 0, z, fx * (1 - z), fy * (1 - z));
-    c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 30; c.shadowOffsetY = 12; c.fillStyle = '#efe6d2'; c.fillRect(x - 26, y - 26, w + 52, hgt + 52); c.shadowColor = 'transparent';
+    c.globalAlpha = ain; c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 30; c.shadowOffsetY = 12; c.fillStyle = '#efe6d2'; c.fillRect(x - 26, y - 26, w + 52, hgt + 52); c.shadowColor = 'transparent';
     c.drawImage(im, x, y, w, hgt);
     if (kart) {
       const kx = x + w + 60, ky = Math.min(y + hgt - 220, 640), ka = clamp((st.lt - .5) / .6);
@@ -142,8 +142,8 @@ plan('P04', 'A04', (L, st) => {   // künye: kâğıt boşluğu
   H.yazi(L, ['1985 · “kargaşa”'], 960, 660, { px: 34, ls: 4, a: clamp((st.lt - 1.4) / .8), font: 'italic 500 ' });
   return DAY;
 });
-plan('P05', 'A05', (L, st) => {   // fırça kâğıda kale çizer
-  push(L, st, 960, 540, 1, 1.04);
+plan('P05', 'A05', (L, st) => {   // fırça kâğıda kale çizer (yeni sırada E06'nın ardından: yanan kaleden resme)
+  push(L, st, 960, 540, 1, 1.04); H.bolum(L, 'RESİMLERLE ÇEKİLEN FİLM', st);
   const p = clamp(st.lt / Math.max(1, st.d - .3));
   L.cw.save(); L.cw.globalAlpha = 1; RC.castle(L, { x: 960, y: 760, s: 1.1, seed: 11, am: Math.min(1, p * 1.6) }); L.cw.restore();
   RC.S(L, [[1400, 300 + 400 * p], [1470, 250 + 400 * p]], { w: 18, tone: TN.jiao, dry: .2, seed: 61, prof: 'cone' });   // fırça ucu
@@ -151,7 +151,7 @@ plan('P05', 'A05', (L, st) => {   // fırça kâğıda kale çizer
 });
 
 // ================= B: Resimlerle çekilen film =================
-plan('P06', 'B01', (L, st) => { H.arsiv(L, IMG.kuro37, ['Akira Kurosawa (solda), 1937', ['Mikio Naruse ile, Nadare çekimi', 'arkada Nagoya Kalesi'], 'Wikimedia Commons · kamu malı'], st, { h: 760 }); H.bolum(L, 'RESİMLERLE ÇEKİLEN FİLM', st); return DAY; });
+plan('P06', 'B01', (L, st) => { H.arsiv(L, IMG.kuro37, ['Akira Kurosawa (solda), 1937', ['Mikio Naruse ile, Nadare çekimi', 'arkada Nagoya Kalesi'], 'Wikimedia Commons · kamu malı'], st, { h: 760 }); return DAY; });
 plan('P07', 'B02', (L, st) => {   // üst üste kâğıtlar, her birinde bizim taslağımız
   push(L, st, 960, 540, 1, 1.05);
   for (let k = 0; k < 5; k++) {
@@ -176,14 +176,20 @@ plan('P09', 'B04', (L, st) => {   // taslak → sahne: tepe, sancak sırası (re
   RC.ground(L, 840, 0, 1920, 1, 14);
   return DAY;
 });
-plan('P10', 'B05', (L, st) => {   // fırça kalkar; kâğıtta boşluk
-  push(L, st, 960, 540, 1.04, 1);
-  const up = clamp(st.lt / 2);
-  RC.S(L, [[700, 620], [1100, 600]], { w: 26, tone: TN.nong, dry: .6, seed: 101, prof: 'brush', p: .6 });
-  RC.S(L, [[1150 + up * 80, 560 - up * 300], [1220 + up * 80, 500 - up * 300]], { w: 22, tone: TN.jiao, dry: .2, seed: 61, prof: 'cone' });
-  return DAY;
+plan('P10', 'B05', (L, st) => {   // fırça kalkar; "Onları kendi fırçamızla…"da fırça yanan kaleyi ve inen yaşlı adamı yeniden boyar (E07'ye köprü)
+  push(L, st, 960, 600, 1.04, 1);
+  const up = clamp(st.lt / 2), t0 = AT('B05@onları'), p = clamp((st.t - t0) / Math.max(1.5, st.end - t0 - .3));
+  if (p <= 0) RC.S(L, [[700, 620], [1100, 600]], { w: 26, tone: TN.nong, dry: .6, seed: 101, prof: 'brush', p: .6 });
+  if (p > 0) {
+    H.gece(L, .66 * p, .38 * p); RC.castle(L, { x: 1180, y: 700, s: 1.15, seed: 11, am: Math.min(1, p * 1.4) });
+    RC.fire(L, [[1180, 330, 40]], p, st.t); RC.ground(L, 706, 600, 1760, p, 8);
+    RC.figure(L, { x: 900, y: 880, s: 1.9, dir: -1, pose: 'walk', t: st.t, hair: 'old', bowed: .3, seed: 5, headTone: .55, am: clamp(p * 2 - 1) });
+  }
+  const bx = p > 0 ? lerp(1300, 820, p) : 1150 + up * 80, by = p > 0 ? 300 + 520 * p : 560 - up * 300;
+  RC.S(L, [[bx, by], [bx + 70, by - 60]], { w: 22, tone: TN.jiao, dry: .2, seed: 61, prof: 'cone' });
+  return p > .3 ? NIGHT : DAY;
 });
-plan('P11', 'B06', (L, st) => { H.arsiv(L, IMG.lear, ['Kral Lear rolünde David Garrick', ['James McArdell, 1761', 'Shakespeare, III. perde'], 'The Met · kamu malı (CC0)'], st, { h: 640 }); return DAY; });
+plan('P11', 'B06', (L, st) => { H.arsiv(L, IMG.lear, ['Kral Lear rolünde David Garrick', ['James McArdell, 1761', 'Shakespeare, III. perde'], 'The Met · kamu malı (CC0)'], st, { h: 640, ain: .6 }); return DAY; });
 plan('P12', 'B07', (L, st) => {   // boş sayfaya tek damla
   push(L, st, 960, 540, 1, 1.08);
   const d = clamp((st.lt - .4) / .5), sp = clamp((st.lt - .9) / 2.5);
@@ -195,7 +201,8 @@ plan('P12', 'B07', (L, st) => {   // boş sayfaya tek damla
 // ================= C: Üç ok =================
 plan('P13', 'C01', (L, st) => {   // gündüz: sıradağlar, tepede kale; el tomarı gibi kayma
   cam(L, lerp(900, 1060, eio(st.p)), 540, 1);
-  H.dag(L, 'gun2', [[200, 260, 300], [800, 330, 380], [1500, 280, 340], [2100, 240, 300]], 720, { tone: .38, seed: 8, mist: 1.4 });
+  const gi = ss(clamp(st.lt / 1.2));   // B07'nin damlasından sonra dağlar boyanarak belirir (yumuşak giriş)
+  L.cw.globalAlpha = gi; H.dag(L, 'gun2', [[200, 260, 300], [800, 330, 380], [1500, 280, 340], [2100, 240, 300]], 720, { tone: .38, seed: 8, mist: 1.4 }); L.cw.globalAlpha = 1;
   RC.castle(L, { x: 1250, y: 470, s: .42, seed: 12 });
   for (let k = 0; k < 9; k++) RC.figure(L, { x: 300 + k * 60 + st.t * 6, y: 900, s: .7, pose: 'walk', t: st.t + k * .3, hair: 'young', seed: 20 + k });
   RC.ground(L, 905, -200, 2200, 1, 15); H.bolum(L, 'ÜÇ OK', st);
@@ -348,8 +355,8 @@ plan('P35', 'E06', (L, st) => {   // Fuji eteğinde gerçek yangın
   RC.ground(L, 885, -200, 2200, 1, 24);
   return NIGHT;
 });
-plan('P36', 'E07', (L, st) => {   // Lear fırtınada
-  push(L, st, 960, 560, 1, 1.05); H.gece(L, .4, .5); H.yagmur(L, st.t);
+plan('P36', 'E07', (L, st) => {   // Lear fırtınada (yeni bölüm: Lear'ın fırtınası)
+  push(L, st, 960, 560, 1, 1.05); H.gece(L, .4, .5); H.yagmur(L, st.t); H.bolum(L, 'LEAR’IN FIRTINASI', st);
   H.agac(L, 1450, 900, 1.6, 7, Math.sin(st.t * 2) * .4);
   RC.figure(L, { x: 800, y: 900, s: 3.4, dir: 1, pose: 'stand', t: st.t, hair: 'old', bowed: -.2, seed: 41, headTone: .45 });
   RC.ground(L, 905, -200, 2200, 1, 25);
