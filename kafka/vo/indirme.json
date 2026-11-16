@@ -1,0 +1,94 @@
+{
+ "flow_id": "z0mLSo7t8ESbsAdI0q1m",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "cekimler": {
+  "s01": {
+   "node": "XFWJLrCZTOxTdsyrFbSP",
+   "sessions": [
+    "msqHmKEfVryBmFd0gev9",
+    "o4B3o04ZRb5pCpmDyijB"
+   ],
+   "gen": [
+    "XIyeOAyU29NhZfQ7jKoj",
+    "13iRo1IA2VAzcrsc8Z9a"
+   ],
+   "kredi": 1414
+  },
+  "s02": {
+   "node": "JTxTX3I3h3jcvxbYziTu",
+   "sessions": [
+    "peyFY7eU15AzpYGZ5d8O",
+    "2PRc8BNmxFyVUNFNaPF3"
+   ],
+   "gen": [
+    "PzsN8cTdnDdreO6TsSWn",
+    "mUVpRX1lF6VSUSoG3Kei"
+   ],
+   "kredi": 1544
+  },
+  "s03": {
+   "node": "ej3t37YchH4ntHPSAg5O",
+   "sessions": [
+    "skSDdl4iNkz8qvfcxJ7L",
+    "oUAqQxf4Uo6wBqZftCcQ"
+   ],
+   "gen": [
+    "RcZnkHWPhIcWfFGkNgYb",
+    "t0blgx0YqU3lsvzzfYDF"
+   ],
+   "kredi": 2134
+  },
+  "s05": {
+   "node": "liSgXs8SLguo0Yc7iifg",
+   "sessions": [
+    "46gz0pJsCTgdYrSon4FT",
+    "9DcqzYPeqms7dVUlKxwk"
+   ],
+   "gen": [
+    "iYROBmAsZBDFokODGBqi",
+    "Hy6uuGhkEWEjymPXrSfD"
+   ],
+   "kredi": 1356
+  },
+  "s00": {
+   "node": "UZfdChVaFIHV9yNLghQR",
+   "sessions": [
+    "BWNr4471IWM4vKmh5Z17",
+    "i8NgCYXn8B291dR2eQTt"
+   ],
+   "gen": [
+    "6TtJEpTlPEK5zYxM9fIs",
+    "u0q5LD9dXTgClHq1aacc"
+   ],
+   "kredi": 1086
+  },
+  "s04": {
+   "node": "TRPQLKxvlgaLvwnZ6HQk",
+   "sessions": [
+    "AP6DMSkVH2No3Xg6oVGC",
+    "HiIBncZZRswoSE0wHinl"
+   ],
+   "gen": [
+    "ae1xIqX8bHlDIxVyFzAI",
+    "mQ4IUnghGMtYIf7fg0nN"
+   ],
+   "kredi": 1408
+  },
+  "s06": {
+   "node": "DJcxJXVlrHZuApX43lz7",
+   "sessions": [
+    "CWBCSkvFip4cR8agtwQn",
+    "rQ7yJugaqKz59IgfHDk5"
+   ],
+   "gen": [
+    "Xza6QfIg7JTE9wz4LJKn",
+    "B61nKeME2ZsZ7WUFzRwe"
+   ],
+   "kredi": 1890
+  }
+ },
+ "_not": "s00, s04, s06 ilk denemede izin denetleyicisince reddedildi (ücretsiz); kullanıcı izniyle yeniden gönderildi",
+ "toplam_kredi": 10832
+}

@@ -1,0 +1,106 @@
+[
+ {
+  "ad": "Bir sabah",
+  "ids": [
+   "A01",
+   "A02",
+   "A03",
+   "A04",
+   "A05",
+   "A06"
+  ],
+  "metin": "[calmly] Bir sabah uyandığında artık eskisi gibi değilsin. Seni sevenler, seni yine sever mi? [calmly] Franz Kafka'nın Dönüşüm'ü şöyle başlar: Gregor Samsa bir sabah huzursuz düşlerden uyandığında, kendini yatağında korkunç bir haşereye dönüşmüş buldu. [curious] Peki o sabah onu en çok ne korkuttu? Böcek olmak değil. [wry] İşe geç kalmak. Saat beş treni gitmişti, sonraki yedideydi. Patron ne diyecekti? [calmly] Bu videoda o böceği hiç görmeyeceksiniz. Nedenini sona saklıyorum. [thoughtful] Çünkü bu hikâyede dönüşen tek kişi Gregor değil.",
+  "onek": "s00",
+  "karakter": 487
+ },
+ {
+  "ad": "Hayvan sesi",
+  "ids": [
+   "B01",
+   "B02",
+   "B03",
+   "B04",
+   "B05",
+   "B06"
+  ],
+  "metin": "[calmly] Gregor gezici bir satıcıydı. Babasının batan işinden kalan borcu o ödüyor, annesine, babasına ve on yedi yaşındaki kız kardeşi Grete'ye o bakıyordu. [tense] Saat yediyi geçince işyerinden müdür yardımcısı kapıya dayandı. Gregor kapının arkasından her şeyin yolunda olduğunu anlatmaya çalıştı. [quietly] Kendini anlaşılır sanıyordu. Ama müdür yardımcısı fısıldadı: “Bu bir hayvan sesiydi.” [tense] Gregor anahtarı ağzıyla çevirip kapıyı açtı. Müdür yardımcısı merdivenlere kaçtı. [tense] Babası ise bir eline bastonu, öbürüne gazeteyi aldı ve onu odasına geri sürdü. Hiçbir yalvarış işe yaramadı. [thoughtful] İçi aynıydı. Değişen yalnız dışıydı. Ama o sabahtan sonra herkes yalnız dışını görecekti.",
+  "onek": "s01",
+  "karakter": 651
+ },
+ {
+  "ad": "Süt ve elma",
+  "ids": [
+   "C01",
+   "C02",
+   "C03",
+   "C04",
+   "C05",
+   "C06",
+   "C07"
+  ],
+  "metin": "[warmly] Ona bakan tek kişi Grete oldu. [warmly] İlk akşam kapının önüne, eskiden en sevdiği şeyi bıraktı: içinde beyaz ekmek yüzen bir kâse tatlı süt. [calmly] Ama Gregor artık sütten tat almıyordu. Grete bunu fark etti ve ertesi gün ne sevdiğini anlamak için önüne bir yığın yiyecek serdi: yarı çürük sebzeler, eski bir peynir, akşam yemeğinden kalan kemikler. [warmly] Bu sevgiydi. Gerçek bir sevgi. [tense] Bir akşam kapıda bir adam belirdi. Gregor onu tanıyamadı: aylardır koltuktan kalkmayan babası, altın düğmeli mavi bir üniformanın içinde dimdik duruyordu. [tense] Babası büfedeki meyve tabağından ceplerini doldurdu ve küçük kırmızı elmaları birer birer attı. [slowly] Biri Gregor'un sırtına saplandı. Kimse çıkarmaya cesaret edemedi. Elma orada kaldı ve çürüdü.",
+  "onek": "s02",
+  "karakter": 711
+ },
+ {
+  "ad": "Kapının arkasındaki hesap",
+  "ids": [
+   "D01",
+   "D02",
+   "D03",
+   "D04",
+   "D05",
+   "D06",
+   "D07",
+   "D08",
+   "D09"
+  ],
+  "metin": "[calmly] Biraz geri saralım. Gregor yıllarca neden bu kadar çok çalışmıştı? [calmly] Babasının işi battığında, neredeyse bir gecede küçük bir tezgâhtardan gezici satıcıya dönüştü. Kazandığını eve getirip masaya koydu. [quietly] Kafka o yılları tek cümleyle anlatır: “Parayı minnetle alıyorlardı, o da seve seve veriyordu. Ama aralarında artık özel bir sıcaklık kalmamıştı.” [curious] Böcek olduktan sonra, kapının arkasından bir şey duydu. Aile sandığı kadar parasız değilmiş. [calmly] Eski işten kalan küçük bir servet varmış. Gregor'un getirdiği paradan da bir kenara para ayrılmış. O parayla babasının borcu çok daha erken kapanabilir, Gregor sevmediği işten çok daha erken kurtulabilirmiş. [curious] Gregor ne yaptı? Kızmadı. [quietly] Kapının arkasında hevesle başını salladı. Bu tutumluluğa sevindi. [thoughtful] İşte ilk sürpriz. Koşulu yalnız ailesi koymuyordu. Gregor da kendi değerini eve getirdiği parayla ölçüyordu. [warmly] Sevgisini bile parayla göstermek istiyordu: gizli planı, masrafı ne olursa olsun, keman çalan Grete'yi konservatuvara göndermekti.",
+  "onek": "s03",
+  "karakter": 978
+ },
+ {
+  "ad": "O değil, bu",
+  "ids": [
+   "E01",
+   "E02",
+   "E03",
+   "E04",
+   "E05",
+   "E06"
+  ],
+  "metin": "[calmly] Eve para girmeyince herkes çalışmaya başladı. Baba banka odacısı oldu, anne bir moda dükkânına iç çamaşırı dikti, Grete tezgâhtar oldu. [calmly] Grete sabah dükkâna koşmadan önce yemeği ayağıyla odaya itiyordu. Duvarlarda kir izleri birikti; o kiri görüyor ama bırakmayı seçmişti. [calmly] Bir odayı da üç kiracıya verdiler. Bir akşam Grete onlar için keman çaldı. [quietly] Gregor müziğe doğru süründü ve odasından çıktı. Kiracılar onu gördü. [firm] O gece Grete masaya vurdu: “Böyle gitmez. Bu canavarın önünde kardeşimin adını ağzıma almayacağım. Bundan kurtulmalıyız.” [firm] “Bunun Gregor olduğu düşüncesinden kurtulmalısın, baba. Asıl felaketimiz, bu kadar uzun süre buna inanmış olmamız.”",
+  "onek": "s04",
+  "karakter": 653
+ },
+ {
+  "ad": "O değil, bu",
+  "ids": [
+   "E07",
+   "E08",
+   "E09",
+   "E10",
+   "E11",
+   "E12"
+  ],
+  "metin": "[thoughtful] İlk akşam ona süt getiren kız kardeşti bu. Sevgisi bir günde bitmemişti; yorgunlukla, gün gün aşınmıştı. [slowly] Gregor o gece ailesini sevgiyle ve duygulanarak düşündü. Ortadan kalkması gerektiğine kız kardeşinden de çok inanıyordu. [slowly] Kilise saati üçü vurdu. Pencerenin dışında hava aydınlanmaya başlarken, son nefesini verdi. [calmly] Aile o gün işe gitmedi. Tramvaya binip şehrin dışına çıktılar. [calmly] Yolda anne ile baba, kızlarının bütün o bakım günlerine rağmen nasıl serpildiğini fark ettiler. Ona iyi bir koca bulma zamanı gelmişti. [slowly] Yolculuğun sonunda ilk ayağa kalkan Grete oldu ve genç bedenini gerindi. Hikâyenin asıl dönüşümü buydu.",
+  "onek": "s05",
+  "karakter": 620
+ },
+ {
+  "ad": "Görünmeyen böcek",
+  "ids": [
+   "F01",
+   "F02",
+   "F03",
+   "F04",
+   "F05",
+   "F06",
+   "F07",
+   "F08"
+  ],
+  "metin": "[curious] Peki o böceği neden hiç görmediniz? [calmly] Kitap basılırken Kafka yayıncısına yazdı: böceğin kendisi çizilmesin, uzaktan bile gösterilmesin. [thoughtful] Belki de Gregor'un neye dönüştüğü önemli değildi. Önemli olan, ötekilerin artık onda ne gördüğüydü. [quietly] Dört yıl sonra Kafka babasına uzun bir mektup yazdı; mektup babasına hiç ulaşmadı. İçinde şu cümle var: “Yazdıklarım hep senin hakkındaydı.” [calmly] Bugün kimse bir sabah böcek olarak uyanmıyor. Ama işini kaybeden, eskisi gibi kazanamayan, eskisi gibi görünmeyen herkes o kapının arkasında bir gece geçirir. [slowly] Asıl soru o kapıda: Seni sevenler seni mi seviyordu, yoksa işe yarayan hâlini mi? [slowly] Ve belki daha zoru: Sen kendini hangi koşulla seviyorsun? Yorumlarda yaz. [warmly] Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme eklemişti. Sisifos'un hikâyesi ekranda. Geçmişten bugüne sorular taşımaya devam etmemizi istiyorsan Zaman Kuryesi'ne abone ol.",
+  "onek": "s06",
+  "karakter": 867
+ }
+]

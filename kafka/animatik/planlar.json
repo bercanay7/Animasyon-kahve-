@@ -1,0 +1,452 @@
+{
+ "planlar": [
+  {
+   "id": "P01",
+   "at": "A01",
+   "olcek": "yakin",
+   "set": "KAPI",
+   "ne": "Yerden: karanlık oda, aralık kapı; kapıdan yere düşen ışık şeridi; şeritte kırmızı elma (kapak A karesi). Şerit yavaşça genişler",
+   "yazi": ""
+  },
+  {
+   "id": "P02",
+   "at": "A01@sevenler",
+   "olcek": "ters",
+   "set": "KAPI",
+   "ne": "Aşağıdan: kapı boşluğunda üç siluet (baba, anne, Grete) arkadan ışıklı, aşağıya bakıyor",
+   "yazi": ""
+  },
+  {
+   "id": "P03",
+   "at": "A02",
+   "olcek": "levha",
+   "set": "KITAP",
+   "ne": "Kara blok; başlık oyulur",
+   "yazi": "DÖNÜŞÜM|FRANZ KAFKA · 1915"
+  },
+  {
+   "id": "P04",
+   "at": "A02@Gregor",
+   "olcek": "genis",
+   "set": "ODA",
+   "ne": "Yüksekten oda: yatak, kabarık yorgan yavaşça inip kalkar; pencerede yağmur; duvarda çerçeveli resim",
+   "yazi": ""
+  },
+  {
+   "id": "P05",
+   "at": "A03",
+   "olcek": "ayrinti",
+   "set": "SAAT",
+   "ne": "Çalar saat: yelkovan altı buçukta, saniye ibresi ilerler",
+   "yazi": ""
+  },
+  {
+   "id": "P06",
+   "at": "A04@treni",
+   "olcek": "genis",
+   "set": "TREN",
+   "ne": "İstasyon: tren kalkıyor, buhar oyulur; peron boş",
+   "yazi": ""
+  },
+  {
+   "id": "P07",
+   "at": "A04@patron",
+   "olcek": "ters",
+   "set": "PATRON",
+   "ne": "Aşağıdan: yüksek kürsüde patron silueti, aşağıya konuşur",
+   "yazi": ""
+  },
+  {
+   "id": "P08",
+   "at": "A05",
+   "olcek": "ayrinti",
+   "set": "CERCEVE",
+   "ne": "Duvarda boş çerçeve: bıçak oymaya başlar, içi kara kalır",
+   "yazi": ""
+  },
+  {
+   "id": "P09",
+   "at": "A06",
+   "olcek": "orta",
+   "set": "AILE",
+   "ne": "Aile portresi: baba, anne, Grete yan yana; Grete'nin üstüne ışık",
+   "yazi": ""
+  },
+  {
+   "id": "P10",
+   "at": "B01",
+   "olcek": "genis",
+   "set": "YOL",
+   "ne": "Gezici satıcı: kumaş örnekleri çantasıyla yağmurda yürüyen Gregor (insan, geri dönüş) ; bölüm başlığı",
+   "yazi": "HAYVAN SESİ"
+  },
+  {
+   "id": "P11",
+   "at": "B01@borcu",
+   "olcek": "ayrinti",
+   "set": "PARA",
+   "ne": "Masada borç senetleri ve sikkeler; bir el sikkeleri iter",
+   "yazi": ""
+  },
+  {
+   "id": "P12",
+   "at": "B02",
+   "olcek": "orta",
+   "set": "KORIDOR",
+   "ne": "Koridor: kapalı kapının önünde melon şapkalı müdür yardımcısı, baston; anne ve baba arkada",
+   "yazi": ""
+  },
+  {
+   "id": "P13",
+   "at": "B03",
+   "olcek": "yakin",
+   "set": "KORIDOR",
+   "ne": "Müdür yardımcısının baş profili, kapıya eğilmiş; alıntı oyulur",
+   "yazi": "“BU BİR HAYVAN SESİYDİ.”"
+  },
+  {
+   "id": "P14",
+   "at": "B04",
+   "olcek": "ayrinti",
+   "set": "KILIT",
+   "ne": "Kilitte anahtar yavaşça döner (oyulmuş ak anahtar)",
+   "yazi": ""
+  },
+  {
+   "id": "P15",
+   "at": "B04@merdivenlere",
+   "olcek": "genis",
+   "set": "MERDIVEN",
+   "ne": "Merdiven boşluğu: müdür yardımcısı aşağı kaçar, palto eteği uçuşur",
+   "yazi": ""
+  },
+  {
+   "id": "P16",
+   "at": "B05",
+   "olcek": "ters",
+   "set": "KAPI",
+   "ne": "Aşağıdan: baba bastonu kaldırmış, gazete elinde, üstümüze yürür; arkasından ışık",
+   "yazi": ""
+  },
+  {
+   "id": "P17",
+   "at": "B06",
+   "olcek": "yakin",
+   "set": "KAPI",
+   "ne": "Kapı kapanır, ışık şeridi daralıp kaybolur",
+   "yazi": ""
+  },
+  {
+   "id": "P18",
+   "at": "C01",
+   "olcek": "orta",
+   "set": "KAPI",
+   "ne": "Grete eşikte diz çöker, elinde kâse; bölüm başlığı",
+   "yazi": "SÜT VE ELMA"
+  },
+  {
+   "id": "P19",
+   "at": "C02",
+   "olcek": "ayrinti",
+   "set": "KASE",
+   "ne": "Yerde süt kâsesi, beyaz ekmek parçaları yüzer; süt halkalanır",
+   "yazi": ""
+  },
+  {
+   "id": "P20",
+   "at": "C03",
+   "olcek": "ayrinti",
+   "set": "YEMEK",
+   "ne": "Eski gazete üstünde yarı çürük sebzeler, peynir, kemikler",
+   "yazi": ""
+  },
+  {
+   "id": "P21",
+   "at": "C04",
+   "olcek": "yakin",
+   "set": "GRETE",
+   "ne": "Grete'nin profili, aşağı bakıyor; kandil ışığı",
+   "yazi": ""
+  },
+  {
+   "id": "P22",
+   "at": "C05",
+   "olcek": "ters",
+   "set": "KAPI",
+   "ne": "Aşağıdan: kapıda üniformalı baba, kep, ak oyulmuş düğmeler, dimdik",
+   "yazi": ""
+  },
+  {
+   "id": "P23",
+   "at": "C06",
+   "olcek": "ayrinti",
+   "set": "BUFE",
+   "ne": "Büfede meyve tabağı; babanın eli kırmızı elmaları alır",
+   "yazi": ""
+  },
+  {
+   "id": "P24",
+   "at": "C06@attı",
+   "olcek": "genis",
+   "set": "ODA",
+   "ne": "Yerde kırmızı elmalar yuvarlanır, çarpışır",
+   "yazi": ""
+  },
+  {
+   "id": "P25",
+   "at": "C07",
+   "olcek": "yakin",
+   "set": "ODA",
+   "ne": "Bir elma karanlığa uçar ve orada kırmızı bir leke olarak kalır",
+   "yazi": ""
+  },
+  {
+   "id": "P26",
+   "at": "C07@çürüdü",
+   "olcek": "ayrinti",
+   "set": "ODA",
+   "ne": "Karanlıktaki kırmızı leke yavaşça kararır",
+   "yazi": ""
+  },
+  {
+   "id": "P27",
+   "at": "D01",
+   "olcek": "orta",
+   "set": "GECMIS",
+   "ne": "Geri dönüş: Gregor (insan) eve girer, şapkasını asar; bölüm başlığı",
+   "yazi": "KAPININ ARKASINDAKİ HESAP"
+  },
+  {
+   "id": "P28",
+   "at": "D02",
+   "olcek": "genis",
+   "set": "SOFRA",
+   "ne": "Lamba altında sofra: Gregor parayı masaya koyar, aile oturuyor",
+   "yazi": ""
+  },
+  {
+   "id": "P29",
+   "at": "D03",
+   "olcek": "yakin",
+   "set": "SOFRA",
+   "ne": "Masada para; eller alır, kimse başını kaldırmaz; alıntı oyulur",
+   "yazi": "“PARAYI MİNNETLE ALIYORLARDI…”"
+  },
+  {
+   "id": "P30",
+   "at": "D04",
+   "olcek": "yakin",
+   "set": "KAPI",
+   "ne": "Kapı aralığından içeri: lamba altında baba küçük bir kasa açıyor (Gregor'un bakışı)",
+   "yazi": ""
+  },
+  {
+   "id": "P31",
+   "at": "D05",
+   "olcek": "ayrinti",
+   "set": "KASA",
+   "ne": "Kasanın içi: sikke yığınları büyür",
+   "yazi": ""
+  },
+  {
+   "id": "P32",
+   "at": "D05@borcu",
+   "olcek": "genis",
+   "set": "YOL",
+   "ne": "Geri dönüş: Gregor yağmurda, çantası elinde, bitmeyen tren yolları",
+   "yazi": ""
+  },
+  {
+   "id": "P33",
+   "at": "D06",
+   "olcek": "yakin",
+   "set": "KAPI",
+   "ne": "Karanlık taraftan kapı aralığı; ışık",
+   "yazi": ""
+  },
+  {
+   "id": "P34",
+   "at": "D07",
+   "olcek": "ayrinti",
+   "set": "KAPI",
+   "ne": "Kapı aralığı yakın; kamera yavaşça başını sallar gibi iner kalkar",
+   "yazi": ""
+  },
+  {
+   "id": "P35",
+   "at": "D08",
+   "olcek": "orta",
+   "set": "TERAZI",
+   "ne": "Eski terazi: bir kefede Gregor'un fotoğrafı, ötekinde sikkeler; sikkeler ağır basar",
+   "yazi": ""
+  },
+  {
+   "id": "P36",
+   "at": "D09",
+   "olcek": "orta",
+   "set": "KEMAN",
+   "ne": "Geri dönüş: pencere önünde keman çalan Grete; Gregor (insan) dinliyor",
+   "yazi": ""
+  },
+  {
+   "id": "P37",
+   "at": "E01",
+   "olcek": "genis",
+   "set": "UCLU",
+   "ne": "Üç pencereli baskı: bankada baba, lamba altında dikiş diken anne, tezgâhta Grete",
+   "yazi": ""
+  },
+  {
+   "id": "P38",
+   "at": "E02",
+   "olcek": "ayrinti",
+   "set": "ESIK",
+   "ne": "Eşikte bir ayak tabağı içeri iter; duvarda kir izleri; bölüm başlığı",
+   "yazi": "O DEĞİL, BU"
+  },
+  {
+   "id": "P39",
+   "at": "E03",
+   "olcek": "orta",
+   "set": "SALON",
+   "ne": "Salon: üç sakallı kiracı masada, Grete keman çalıyor",
+   "yazi": ""
+  },
+  {
+   "id": "P40",
+   "at": "E04",
+   "olcek": "yakin",
+   "set": "SALON",
+   "ne": "Kiracılar başlarını kapıya çevirir; ayağa kalkarlar",
+   "yazi": ""
+  },
+  {
+   "id": "P41",
+   "at": "E05",
+   "olcek": "orta",
+   "set": "SALON",
+   "ne": "Grete eliyle masaya vurur; baba ve anne oturuyor; alıntı oyulur",
+   "yazi": "“KARDEŞİMİN ADINI AĞZIMA ALMAYACAĞIM.”"
+  },
+  {
+   "id": "P42",
+   "at": "E06",
+   "olcek": "yakin",
+   "set": "SALON",
+   "ne": "Baba başını ellerine almış; Grete ayakta",
+   "yazi": ""
+  },
+  {
+   "id": "P43",
+   "at": "E07",
+   "olcek": "ayrinti",
+   "set": "KASE",
+   "ne": "Boş, tozlu süt kâsesi (P19'un aynası)",
+   "yazi": ""
+  },
+  {
+   "id": "P44",
+   "at": "E08",
+   "olcek": "genis",
+   "set": "ODA",
+   "ne": "Gece oda: kapının altından ince ışık; pencere karanlık",
+   "yazi": ""
+  },
+  {
+   "id": "P45",
+   "at": "E09",
+   "olcek": "genis",
+   "set": "PENCERE",
+   "ne": "Pencere: kilise kulesi, gök aydınlanır (ışık oyulur)",
+   "yazi": ""
+  },
+  {
+   "id": "P46",
+   "at": "E10",
+   "olcek": "genis",
+   "set": "TRAMVAY",
+   "ne": "Güneşli kır yolunda tramvay",
+   "yazi": ""
+  },
+  {
+   "id": "P47",
+   "at": "E11",
+   "olcek": "orta",
+   "set": "TRAMVAY",
+   "ne": "Tramvayın içi: anne ve baba Grete'ye bakıyor",
+   "yazi": ""
+  },
+  {
+   "id": "P48",
+   "at": "E12",
+   "olcek": "orta",
+   "set": "TRAMVAY",
+   "ne": "Grete ayağa kalkıp kollarını açar; arkasında oyulmuş güneş",
+   "yazi": ""
+  },
+  {
+   "id": "P49",
+   "at": "F01",
+   "olcek": "ayrinti",
+   "set": "KITAP",
+   "ne": "1915 ilk baskı (kendi çizimimiz): kitap kapağı, kapakta yalnız aralık kapı",
+   "yazi": ""
+  },
+  {
+   "id": "P50",
+   "at": "F02",
+   "olcek": "ayrinti",
+   "set": "MEKTUP",
+   "ne": "Masada mektup, el yazısı satırlar; alıntı oyulur",
+   "yazi": "“BÖCEĞİN KENDİSİ ÇİZİLEMEZ.”"
+  },
+  {
+   "id": "P51",
+   "at": "F03",
+   "olcek": "ters",
+   "set": "KAPI",
+   "ne": "P02'nin aynası: kapıda aile aşağıya bakıyor",
+   "yazi": ""
+  },
+  {
+   "id": "P52",
+   "at": "F04",
+   "olcek": "orta",
+   "set": "KAFKA",
+   "ne": "Gece: masa başında yazan bir adam silueti (dönem silueti), lamba; zarf; alıntı",
+   "yazi": "“YAZDIKLARIM HEP SENİN HAKKINDAYDI.”"
+  },
+  {
+   "id": "P53",
+   "at": "F05",
+   "olcek": "genis",
+   "set": "BUGUN",
+   "ne": "Bugün: gece apartman koridoru, kapalı kapılar; birinin altından ışık",
+   "yazi": ""
+  },
+  {
+   "id": "P54",
+   "at": "F06",
+   "olcek": "orta",
+   "set": "BUGUN",
+   "ne": "Kapının arkasında yatağın kenarında oturan bugünün insanı (kapüşonlu)",
+   "yazi": ""
+  },
+  {
+   "id": "P55",
+   "at": "F07",
+   "olcek": "yakin",
+   "set": "KAPI",
+   "ne": "Açılış karesi geri döner: aralık kapı, ışık şeridi, kırmızı elma; soru oyulur",
+   "yazi": "SEN KENDİNİ HANGİ KOŞULLA SEVİYORSUN?"
+  },
+  {
+   "id": "P56",
+   "at": "F08@camus",
+   "olcek": "genis",
+   "set": "SON",
+   "ne": "Tepede kaya ve küçük figür (Sisifos'a köprü); ZAMAN KURYESİ; bitiş ekranı alanı",
+   "yazi": ""
+  }
+ ]
+}
