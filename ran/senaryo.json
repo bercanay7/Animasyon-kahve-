@@ -1,0 +1,469 @@
+{
+ "voice": "Emrullah (ElevenLabs; voice_id creative_list_voices ile bulunur)",
+ "revizyon": "rev0 (16 Kasım 2026): başkan taslağı; kurul yok (kullanıcının kararı, kullanım %90)",
+ "segments": [
+  {
+   "id": "A01",
+   "bolum": "Yanan kale",
+   "tts": "[calmly] Bir kale yanıyor. İçinden yaşlı bir adam çıkıyor: kılıcı yok, adamları yok, yanında kimse yok.",
+   "alt": "Bir kale yanıyor. İçinden yaşlı bir adam çıkıyor: kılıcı yok, adamları yok, yanında kimse yok.",
+   "kaynak": "kanca: kullanıcının sahnesi; kapak A; L1 açılır (cevap E05)"
+  },
+  {
+   "id": "A02",
+   "bolum": "Yanan kale",
+   "tts": "Bir ömür boyunca kurduğu her şeyi, birkaç gün önce kendi eliyle oğullarına vermişti.",
+   "alt": "Bir ömür boyunca kurduğu her şeyi, birkaç gün önce kendi eliyle oğullarına vermişti.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "A03",
+   "bolum": "Yanan kale",
+   "tts": "[curious] Peki şimdi neden tek başına? Ve asıl soru şu: yaptıkların bir gün sana döner mi?",
+   "alt": "Peki şimdi neden tek başına? Ve asıl soru şu: yaptıkların bir gün sana döner mi?",
+   "kaynak": "başlığın sorusu ilk 10 sn içinde; cevap H07"
+  },
+  {
+   "id": "A04",
+   "bolum": "Yanan kale",
+   "tts": "Bu, Akira Kurosawa'nın Ran'ı. Japoncada kargaşa demek. Yıl, bin dokuz yüz seksen beş.",
+   "alt": "Bu, Akira Kurosawa'nın Ran'ı. Japoncada kargaşa demek. Yıl 1985.",
+   "kaynak": "Ran 乱 = kargaşa, karmaşa. Künye: AKIRA KUROSAWA · RAN · 1985"
+  },
+  {
+   "id": "A05",
+   "bolum": "Yanan kale",
+   "tts": "Kurosawa bu sahneyi çekmeden çok önce, resim olarak çizmişti.",
+   "alt": "Kurosawa bu sahneyi çekmeden çok önce, resim olarak çizmişti.",
+   "kaynak": "K3 (Positif 296; TCM)"
+  },
+  {
+   "id": "B01",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "Senaryoyu yetmişli yılların ortasında yazdı. Ama hiçbir stüdyo bu kadar pahalı bir filme para vermedi.",
+   "alt": "Senaryoyu yetmişli yılların ortasında yazdı. Ama hiçbir stüdyo bu kadar pahalı bir filme para vermedi.",
+   "kaynak": "K3, K5 (Wikipedia: senaryo 1975, Positif 296; TCM \"preparing for a decade\")"
+  },
+  {
+   "id": "B02",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "Kurosawa beklerken filmi kare kare boyadı. Yüzlerce resim.",
+   "alt": "Kurosawa beklerken filmi kare kare boyadı. Yüzlerce resim.",
+   "kaynak": "K3 (TCM \"hundreds of highly detailed storyboard illustrations\")"
+  },
+  {
+   "id": "B03",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "Para ancak yıllar sonra, bir Fransız yapımcıyla geldi. Çekim başladığında Kurosawa yetmişini geçmişti ve gözleri iyice zayıflamıştı.",
+   "alt": "Para ancak yıllar sonra, bir Fransız yapımcıyla geldi. Çekim başladığında Kurosawa yetmişini geçmişti ve gözleri iyice zayıflamıştı.",
+   "kaynak": "K4, K5 (Silberman; çekim 1983, Galbraith; TCM \"nearly blind\"). \"Kör\" denmez"
+  },
+  {
+   "id": "B04",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "Ekip sahneleri o resimlere bakarak kurdu.",
+   "alt": "Ekip sahneleri o resimlere bakarak kurdu.",
+   "kaynak": "K3 (ikincil: resimler sette şablon)"
+  },
+  {
+   "id": "B05",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "O resimleri burada göstermeyeceğim; hepsi hâlâ Kurosawa'nın. Onları kendi fırçamızla yeniden kuracağız.",
+   "alt": "O resimleri burada göstermeyeceğim; hepsi hâlâ Kurosawa'nın. Onları kendi fırçamızla yeniden kuracağız.",
+   "kaynak": "telif: Kurosawa resimleri 2068'e kadar telifli; üslup açıklaması"
+  },
+  {
+   "id": "B06",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "Hikâyenin kendisi ise çok daha eski: Shakespeare'in Kral Lear'ı.",
+   "alt": "Hikâyenin kendisi ise çok daha eski: Shakespeare'in Kral Lear'ı.",
+   "kaynak": "Kral Lear (~1606). Arşiv masası: Garrick Lear rolünde, 1761 (Met 707787, CC0)"
+  },
+  {
+   "id": "B07",
+   "bolum": "Resimlerle çekilen film",
+   "tts": "[curious] Kurosawa ona yalnız tek bir şey ekledi. Shakespeare'in hiç vermediği bir şey.",
+   "alt": "Kurosawa ona yalnız tek bir şey ekledi. Shakespeare'in hiç vermediği bir şey.",
+   "kaynak": "L2 açılır (cevap D06)"
+  },
+  {
+   "id": "C01",
+   "bolum": "Üç ok",
+   "tts": "Hidetora yaşlı bir savaş beyi. Bütün ömrünü savaşarak bir ülke kurmaya vermiş.",
+   "alt": "Hidetora yaşlı bir savaş beyi. Bütün ömrünü savaşarak bir ülke kurmaya vermiş.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "C02",
+   "bolum": "Üç ok",
+   "tts": "Bir av dönüşü kararını açıklar: artık dinlenecek. Ülkeyi üç oğlu arasında bölecek, ama unvanını ve onurunu koruyacak.",
+   "alt": "Bir av dönüşü kararını açıklar: artık dinlenecek. Ülkeyi üç oğlu arasında bölecek, ama unvanını ve onurunu koruyacak.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "C03",
+   "bolum": "Üç ok",
+   "tts": "Sonra oğullarına birer ok verir. Tek ok kolayca kırılır. Üç ok bir arada kırılmaz.",
+   "alt": "Sonra oğullarına birer ok verir. Tek ok kolayca kırılır. Üç ok bir arada kırılmaz.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985); kapak B"
+  },
+  {
+   "id": "C04",
+   "bolum": "Üç ok",
+   "tts": "Bu öğüt eski bir Japon efsanesinden gelir: on altıncı yüzyılda yaşamış bey Mori Motonari'nin, oğullarına verdiği öğüt.",
+   "alt": "Bu öğüt eski bir Japon efsanesinden gelir: on altıncı yüzyılda yaşamış bey Mōri Motonari'nin, oğullarına verdiği öğüt.",
+   "kaynak": "K2; Motonari 1497–1571; efsane (\"üç ok\") sonradan anlatılır: \"efsaneye göre\""
+  },
+  {
+   "id": "C05",
+   "bolum": "Üç ok",
+   "tts": "Kurosawa'nın aklına şu soru takılmış: ya bu üç oğul iyi olmasaydı?",
+   "alt": "Kurosawa'nın aklına şu soru takılmış: ya bu üç oğul iyi olmasaydı?",
+   "kaynak": "K2 (Peary, Boston Herald 1986)"
+  },
+  {
+   "id": "C06",
+   "bolum": "Üç ok",
+   "tts": "En küçük oğul Saburo üç oku birden dizinde kırar. Kardeşlerin bu ülkeyi paylaşamayacağını söyler.",
+   "alt": "En küçük oğul Saburo üç oku birden dizinde kırar. Kardeşlerin bu ülkeyi paylaşamayacağını söyler.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "C07",
+   "bolum": "Üç ok",
+   "tts": "Hidetora onu sürgüne gönderir. Tıpkı Lear'ın, babasına yağ çekmeyi reddeden kızı Cordelia'yı sürmesi gibi.",
+   "alt": "Hidetora onu sürgüne gönderir. Tıpkı Lear'ın, babasına yağ çekmeyi reddeden kızı Cordelia'yı sürmesi gibi.",
+   "kaynak": "Kral Lear I.1"
+  },
+  {
+   "id": "C08",
+   "bolum": "Üç ok",
+   "tts": "Lear o gün kızına şöyle der: Hiçten hiç çıkar.",
+   "alt": "Lear o gün kızına şöyle der: Hiçten hiç çıkar.",
+   "kaynak": "KL2: \"Nothing will come of nothing\" I.1, Gutenberg 261 (çevirimiz)"
+  },
+  {
+   "id": "C09",
+   "bolum": "Üç ok",
+   "tts": "Shakespeare'de üç kız var, Kurosawa'da üç oğul. Ama asıl fark başka yerde.",
+   "alt": "Shakespeare'de üç kız var, Kurosawa'da üç oğul. Ama asıl fark başka yerde.",
+   "kaynak": "ABT: AMA"
+  },
+  {
+   "id": "D01",
+   "bolum": "Kapılar",
+   "tts": "Hidetora önce büyük oğlu Taro'nun kalesine gider. Orada onu Taro'nun karısı karşılar: Kaede.",
+   "alt": "Hidetora önce büyük oğlu Taro'nun kalesine gider. Orada onu Taro'nun karısı karşılar: Kaede.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "D02",
+   "bolum": "Kapılar",
+   "tts": "Taro babasına boyun eğmez. Onu kışkırtan Kaede'dir.",
+   "alt": "Taro babasına boyun eğmez. Onu kışkırtan Kaede'dir.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "D03",
+   "bolum": "Kapılar",
+   "tts": "Çünkü Kaede'nin bir geçmişi var.",
+   "alt": "Çünkü Kaede'nin bir geçmişi var.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "D04",
+   "bolum": "Kapılar",
+   "tts": "Yıllar önce Hidetora onun ailesini kılıçtan geçirmişti. Kaede şimdi o adamın oğlunun karısıydı.",
+   "alt": "Yıllar önce Hidetora onun ailesini kılıçtan geçirmişti. Kaede şimdi o adamın oğlunun karısıydı.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "D05",
+   "bolum": "Kapılar",
+   "tts": "Hidetora'nın yaralayıp hayatta bıraktığı üç kişi var bu hikâyede. Biri bir canavara dönüşecek.",
+   "alt": "Hidetora'nın yaralayıp hayatta bıraktığı üç kişi var bu hikâyede. Biri bir canavara dönüşecek.",
+   "kaynak": "L3 açılır (cevap H04–H05)"
+  },
+  {
+   "id": "D06",
+   "bolum": "Kapılar",
+   "tts": "[firmly] İşte Kurosawa'nın eklediği şey buydu: geçmiş.",
+   "alt": "İşte Kurosawa'nın eklediği şey buydu: geçmiş.",
+   "kaynak": "L2 kapanır"
+  },
+  {
+   "id": "D07",
+   "bolum": "Kapılar",
+   "tts": "Kurosawa'ya göre Shakespeare kahramanlarına bir geçmiş vermez. Ran'da kralın bir geçmişi var. Ve bu geçmiş kanlı.",
+   "alt": "Kurosawa'ya göre Shakespeare kahramanlarına bir geçmiş vermez. Ran'da kralın bir geçmişi var. Ve bu geçmiş kanlı.",
+   "kaynak": "K1 (Great Performances \"Ask the Experts\"; TCM; Cornell). Dolaylı anlatım, tırnak yok"
+  },
+  {
+   "id": "D08",
+   "bolum": "Kapılar",
+   "tts": "Taro kapıyı kapatır. Sonra ortanca oğul Jiro da.",
+   "alt": "Taro kapıyı kapatır. Sonra ortanca oğul Jiro da.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "D09",
+   "bolum": "Kapılar",
+   "tts": "Lear da kapı kapı dolaşmıştı. Kızına şöyle haykırır: Nankör bir evladın acısı, yılan dişinden keskindir.",
+   "alt": "Lear da kapı kapı dolaşmıştı. Kızına şöyle haykırır: Nankör bir evladın acısı, yılan dişinden keskindir.",
+   "kaynak": "KL3: \"How sharper than a serpent's tooth\" I.4, Gutenberg 1448 (çevirimiz)"
+  },
+  {
+   "id": "E01",
+   "bolum": "Üçüncü kale",
+   "tts": "Hidetora ona kalan tek yere, sürgündeki Saburo'nun boş kalesine sığınır.",
+   "alt": "Hidetora ona kalan tek yere, sürgündeki Saburo'nun boş kalesine sığınır.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "E02",
+   "bolum": "Üçüncü kale",
+   "tts": "Ama Taro ile Jiro'nun orduları kaleyi kuşatır.",
+   "alt": "Ama Taro ile Jiro'nun orduları kaleyi kuşatır.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "E03",
+   "bolum": "Üçüncü kale",
+   "tts": "Adamları birer birer düşer. Kale yanar. Hidetora kılıcını arar; kılıcı kırıktır.",
+   "alt": "Adamları birer birer düşer. Kale yanar. Hidetora kılıcını arar; kılıcı kırıktır.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Hassasiyet: seppuku girişimi anlatılmaz, toplu ölüm çizilmez"
+  },
+  {
+   "id": "E04",
+   "bolum": "Üçüncü kale",
+   "tts": "Ve o an gelir: yaşlı adam yanan kaleden yürüyerek iner. Askerler önünden çekilir. Kimse ona dokunmaz.",
+   "alt": "Ve o an gelir: yaşlı adam yanan kaleden yürüyerek iner. Askerler önünden çekilir. Kimse ona dokunmaz.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Kullanıcının sahnesi; filmin kompozisyonu kopyalanmaz"
+  },
+  {
+   "id": "E05",
+   "bolum": "Üçüncü kale",
+   "tts": "[softly] Neden tek başına? Çünkü her şeyi kılıçla kurmuştu. Şimdi o kılıç ona dönmüştü.",
+   "alt": "Neden tek başına? Çünkü her şeyi kılıçla kurmuştu. Şimdi o kılıç ona dönmüştü.",
+   "kaynak": "L1 kapanır"
+  },
+  {
+   "id": "E06",
+   "bolum": "Üçüncü kale",
+   "tts": "Kurosawa bu kaleyi Fuji Dağı'nın eteklerinde gerçekten inşa ettirdi, sonra yaktı. Sahne tek çekimde çekildi; ikinci şans yoktu.",
+   "alt": "Kurosawa bu kaleyi Fuji Dağı'nın eteklerinde gerçekten inşa ettirdi, sonra yaktı. Sahne tek çekimde çekildi; ikinci şans yoktu.",
+   "kaynak": "K7 (Positif 296; TCM)"
+  },
+  {
+   "id": "E07",
+   "bolum": "Üçüncü kale",
+   "tts": "Lear da bu noktada aklını yitirir. Fırtınanın ortasında bağırır: Esin rüzgârlar, patlatın yanaklarınızı!",
+   "alt": "Lear da bu noktada aklını yitirir. Fırtınanın ortasında bağırır: Esin rüzgârlar, patlatın yanaklarınızı!",
+   "kaynak": "KL4: \"Blow, winds, and crack your cheeks!\" III.2, Gutenberg 2944"
+  },
+  {
+   "id": "E08",
+   "bolum": "Üçüncü kale",
+   "tts": "Ve en ünlü sözünü söyler: Ben, günah işlediğinden çok kendisine günah işlenmiş bir adamım.",
+   "alt": "Ve en ünlü sözünü söyler: Ben, günah işlediğinden çok kendisine günah işlenmiş bir adamım.",
+   "kaynak": "KL5: \"More sinn'd against than sinning\" III.2, Gutenberg 3019"
+  },
+  {
+   "id": "E09",
+   "bolum": "Üçüncü kale",
+   "tts": "[firmly] Lear için bu doğru. Hidetora için değil.",
+   "alt": "Lear için bu doğru. Hidetora için değil.",
+   "kaynak": "omurga (kullanıcının okuması)"
+  },
+  {
+   "id": "E10",
+   "bolum": "Üçüncü kale",
+   "tts": "Bu oyunculuk bazen izleyiciyi iter: abartılı, ağır, maske gibi bir yüz.",
+   "alt": "Bu oyunculuk bazen izleyiciyi iter: abartılı, ağır, maske gibi bir yüz.",
+   "kaynak": "kullanıcının notu (kopuş)"
+  },
+  {
+   "id": "E11",
+   "bolum": "Üçüncü kale",
+   "tts": "Bu bir kaza değil. Altı yüzyılı aşkın Nō tiyatrosunu andırır: yüz bir maskedir, duygu bedende taşınır.",
+   "alt": "Bu bir kaza değil. Altı yüzyılı aşkın Nō tiyatrosunu andırır: yüz bir maskedir, duygu bedende taşınır.",
+   "kaynak": "K9 (TCM \"classical Noh theater\"). Arşiv masası: Nō maskesi, 1336–1573 (Met 60220, CC0)"
+  },
+  {
+   "id": "F01",
+   "bolum": "Flüt",
+   "tts": "Aklını yitiren Hidetora harabelerin arasında dolaşır. Bir gece sığındığı kulübede onu genç bir adam karşılar: Tsurumaru.",
+   "alt": "Aklını yitiren Hidetora harabelerin arasında dolaşır. Bir gece sığındığı kulübede onu genç bir adam karşılar: Tsurumaru.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "F02",
+   "bolum": "Flüt",
+   "tts": "Tsurumaru'nun ailesini Hidetora öldürmüş, gözlerini de Hidetora kör ettirmişti.",
+   "alt": "Tsurumaru'nun ailesini Hidetora öldürmüş, gözlerini de Hidetora kör ettirmişti.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Hassasiyet: yara/kan çizilmez"
+  },
+  {
+   "id": "F03",
+   "bolum": "Flüt",
+   "tts": "Tsurumaru ona flüt çalar. Hidetora o ezgiye dayanamaz.",
+   "alt": "Tsurumaru ona flüt çalar. Hidetora o ezgiye dayanamaz.",
+   "kaynak": "moviemistakes \"ending\"; DBU makalesi; kullanıcının ikinci sahnesi"
+  },
+  {
+   "id": "F04",
+   "bolum": "Flüt",
+   "tts": "[softly] Asıl savaş artık oğullarıyla değil. Kendi vicdanıyla.",
+   "alt": "Asıl savaş artık oğullarıyla değil. Kendi vicdanıyla.",
+   "kaynak": "omurga (kullanıcının okuması)"
+  },
+  {
+   "id": "F05",
+   "bolum": "Flüt",
+   "tts": "Tsurumaru'nun ablası Sue de aynı acıyı yaşamıştı. Ailesi Hidetora'nın kılıcıyla yok olmuş, kendisi Jiro'ya gelin verilmişti.",
+   "alt": "Tsurumaru'nun ablası Sue de aynı acıyı yaşamıştı. Ailesi Hidetora'nın kılıcıyla yok olmuş, kendisi Jiro'ya gelin verilmişti.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "F06",
+   "bolum": "Flüt",
+   "tts": "Ama Sue nefret etmedi. Hidetora'yı affetti.",
+   "alt": "Ama Sue nefret etmedi. Hidetora'yı affetti.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985) + Sue Budizme yönelip Hidetora'yı affetmişti (Wikipedia eski sürüm, epfl wikispeedia aynası; kurosawainreview). Güven B"
+  },
+  {
+   "id": "F07",
+   "bolum": "Flüt",
+   "tts": "Kaede ise hiçbir şeyi affetmedi.",
+   "alt": "Kaede ise hiçbir şeyi affetmedi.",
+   "kaynak": "ABT"
+  },
+  {
+   "id": "G01",
+   "bolum": "Dönüş",
+   "tts": "Sürgündeki Saburo babasını aramaya gelir. Hidetora onu görünce kendine gelir ve oğlundan af diler.",
+   "alt": "Sürgündeki Saburo babasını aramaya gelir. Hidetora onu görünce kendine gelir ve oğlundan af diler.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "G02",
+   "bolum": "Dönüş",
+   "tts": "Shakespeare'de de böyledir: Cordelia döner, yaşlı kral onun önünde diz çökmek ister.",
+   "alt": "Shakespeare'de de böyledir: Cordelia döner, yaşlı kral onun önünde diz çökmek ister.",
+   "kaynak": "Kral Lear IV.7. Arşiv masası: Bartolozzi, Lear ve Cordelia, ~1783 (Met 713083, CC0)"
+  },
+  {
+   "id": "G03",
+   "bolum": "Dönüş",
+   "tts": "Bir an her şey düzelecek gibi olur.",
+   "alt": "Bir an her şey düzelecek gibi olur.",
+   "kaynak": ""
+  },
+  {
+   "id": "G04",
+   "bolum": "Dönüş",
+   "tts": "Ama uzaktan atılan bir kurşun Saburo'yu vurur. Hidetora oğlunun başında ölür.",
+   "alt": "Ama uzaktan atılan bir kurşun Saburo'yu vurur. Hidetora oğlunun başında ölür.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Görsel olarak işlenmez"
+  },
+  {
+   "id": "G05",
+   "bolum": "Dönüş",
+   "tts": "Shakespeare'de de Cordelia ölür. Lear onu kollarında taşır ve beş kez asla der.",
+   "alt": "Shakespeare'de de Cordelia ölür. Lear onu kollarında taşır ve beş kez asla der.",
+   "kaynak": "KL8: \"Never, never, never, never, never!\" V.3, Gutenberg 6095"
+  },
+  {
+   "id": "G06",
+   "bolum": "Dönüş",
+   "tts": "Kaede'nin intikamı da tamamlanır. Hidetora'nın hanedanı çöker. Kaede bunu baştan beri istediğini söyler ve o da ölür.",
+   "alt": "Kaede'nin intikamı da tamamlanır. Hidetora'nın hanedanı çöker. Kaede bunu baştan beri istediğini söyler ve o da ölür.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Görsel olarak işlenmez"
+  },
+  {
+   "id": "G07",
+   "bolum": "Dönüş",
+   "tts": "[curious] Ya Sue? O gece kardeşinin unuttuğu flütü almak için geri döndü. Bir daha gelmedi.",
+   "alt": "Ya Sue? O gece kardeşinin unuttuğu flütü almak için geri döndü. Bir daha gelmedi.",
+   "kaynak": "L4 (soru + cevap aynı cümlede); Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985)"
+  },
+  {
+   "id": "H01",
+   "bolum": "Surdaki adam",
+   "tts": "Filmin son karesi: yıkık bir surun ucunda, kör Tsurumaru, tek başına.",
+   "alt": "Filmin son karesi: yıkık bir surun ucunda, kör Tsurumaru, tek başına.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985); kapanış ve Shorts"
+  },
+  {
+   "id": "H02",
+   "bolum": "Surdaki adam",
+   "tts": "Flütü yok. Ablası yok. Ablasının bıraktığı resim de elinden düşer.",
+   "alt": "Flütü yok. Ablası yok. Ablasının bıraktığı resim de elinden düşer.",
+   "kaynak": "Ran olay örgüsü (Wikipedia \"Ran (film)\", Plot; Ebert 1985). Amida resmi: figür çizilmez"
+  },
+  {
+   "id": "H03",
+   "bolum": "Surdaki adam",
+   "tts": "[softly] Hiçbir ses yok.",
+   "alt": "Hiçbir ses yok.",
+   "kaynak": "ma: ses bandı sıfır"
+  },
+  {
+   "id": "H04",
+   "bolum": "Surdaki adam",
+   "tts": "Aynı acıyı üç kişi yaşadı. Kaede yakıp yıktı. Sue affetti. Tsurumaru karanlıkta kaldı.",
+   "alt": "Aynı acıyı üç kişi yaşadı. Kaede yakıp yıktı. Sue affetti. Tsurumaru karanlıkta kaldı.",
+   "kaynak": "L3 kapanır"
+  },
+  {
+   "id": "H05",
+   "bolum": "Surdaki adam",
+   "tts": "Kaede bir canavardı. Ama onu canavar yapan Hidetora'ydı. Yine de aynı yarayı taşıyan Sue başka bir yol seçti.",
+   "alt": "Kaede bir canavardı. Ama onu canavar yapan Hidetora'ydı. Yine de aynı yarayı taşıyan Sue başka bir yol seçti.",
+   "kaynak": "kullanıcının okuması (Kaede masum değil)"
+  },
+  {
+   "id": "H06",
+   "bolum": "Surdaki adam",
+   "tts": "Kurosawa bu filmi yetmiş beş yaşında bitirdi. Çekimler sürerken otuz dokuz yıllık eşi Yoko'yu kaybetti; işe yalnız bir gün ara verdi.",
+   "alt": "Kurosawa bu filmi yetmiş beş yaşında bitirdi. Çekimler sürerken otuz dokuz yıllık eşi Yōko'yu kaybetti; işe yalnız bir gün ara verdi.",
+   "kaynak": "K6 (Interviews s.128; TCM); Ebert \"at 75\". Ölüm nedeni söylenmez"
+  },
+  {
+   "id": "H07",
+   "bolum": "Surdaki adam",
+   "tts": "Lear'a eklediği geçmiş bize de bir soru bırakıyor.",
+   "alt": "Lear'a eklediği geçmiş bize de bir soru bırakıyor.",
+   "kaynak": ""
+  },
+  {
+   "id": "H08",
+   "bolum": "Surdaki adam",
+   "tts": "[thoughtfully] Yaptıkların bir gün sana döner mi? Hidetora için, evet.",
+   "alt": "Yaptıkların bir gün sana döner mi? Hidetora için, evet.",
+   "kaynak": "A03'ün cevabı"
+  },
+  {
+   "id": "H09",
+   "bolum": "Surdaki adam",
+   "tts": "[thoughtfully] Ama asıl soru öbürü: sana yapılanla ne yaparsın?",
+   "alt": "Ama asıl soru öbürü: sana yapılanla ne yaparsın?",
+   "kaynak": "kapanış sorusu (iksir); yorum çağrısı"
+  },
+  {
+   "id": "H10",
+   "bolum": "Surdaki adam",
+   "tts": "Geçmişten bugüne böyle sorular taşıyoruz. Bu yolculuğa devam etmek istersen abone ol.",
+   "alt": "Geçmişten bugüne böyle sorular taşıyoruz. Bu yolculuğa devam etmek istersen abone ol.",
+   "kaynak": "abone çağrısı doruk anında"
+  },
+  {
+   "id": "H11",
+   "bolum": "Surdaki adam",
+   "tts": "Kayasını her gün yeniden iten bir adamın hikâyesi, Sisifos, şimdi ekranda.",
+   "alt": "Kayasını her gün yeniden iten bir adamın hikâyesi, Sisifos, şimdi ekranda.",
+   "kaynak": "bitiş ekranı: \"ekranda\" son 20 sn içinde"
+  }
+ ],
+ "not": "Kaynak: kaynak/KAYNAKLAR.md (Kral Lear Gutenberg #1532 satırları; Kurosawa K1–K10). Çeviriler bizim. İskelet: Harmon çemberi (uretim_plani.md). Film diyaloğu alıntılanmaz."
+}

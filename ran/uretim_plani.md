@@ -132,3 +132,21 @@ Kullanıcı: "Sondaki kör flüt sahnesi de çok etkileyiciydi." Kaynaklardaki s
 - **Hassasiyet:** Tsurumaru onurlu çizilir; göz yarası, kan yok; "kör" bir hakaret sıfatı gibi değil, Hidetora'nın yaptığının sonucu olarak söylenir ("Hidetora'nın kör ettirdiği çocuk"). Amida resmi kutsal imge: figür çizilmez, sarılı kumaş.
 - **Kapanış planı:** son geniş plan: surda tek, küçük figür, gün batımı boşluğu; flüt sesi yok; tek kırmızı nokta (düşen resmin şeridi). **Shorts adayı** bu an + kanca "Bir flüt için geri döndü".
 - **Kapak B alternatifi:** surda yalnız kör figür, yazı "FLÜTÜ GERİDE KALDI" (üç ok ile karşılaştırılacak; ilk saniyelerde karşılanması için açılış montajına bir an konur).
+
+## Senaryo rev0 (16 Kasım; başkan taslağı, kurul yok): iskelet → cümle
+66 cümle, 771 kelime (Kafka 708 kelime = 6:39) → tahmini **~7:15–7:45**. Kral Lear dizeleri `KL1–KL8`, Kurosawa bilgileri `K1–K10` (`kaynak/KAYNAKLAR.md`). Film diyaloğu alıntılanmadı. Olay örgüsü sırası filme göre düzeltildi: yanan kale, harabe ve flütten **önce** gelir.
+
+| Harmon adımı | Cümleler |
+|---|---|
+| 0. Kanca (yanan kale, soru) | A01–A05 |
+| Çerçeve: Kurosawa'nın resimleri, Lear | B01–B07 |
+| 1. Konfor | C01 |
+| 2. İhtiyaç: bölüşme, üç ok, Saburo'nun sürgünü | C02–C09 |
+| 3. Yabancı dünya: kapılar, Kaede'nin geçmişi (L2 kapanır) | D01–D09 |
+| 4–5. Uyum ve ters ödül: Saburo'nun boş kalesi | E01–E02 |
+| 6. Bedel: yanan kale (L1 kapanır), Lear'ın fırtınası, Nō anı | E03–E11 |
+| 6b. Yüzleşme: flüt, Sue, Kaede | F01–F07 |
+| 7. Dönüş: Saburo, Cordelia, ölümler, Sue'nün dönüşü (L4) | G01–G07 |
+| 8. Değişim / iksir: surdaki adam, üç seçim (L3), Kurosawa, iki soru, abone, bitiş ekranı | H01–H11 |
+
+Değişiklikler (doğrulanamayan için): "yetmiş yaşında" ve "elli yıl" çıkarıldı (kaynakta bulunmadı; "bütün ömrünü"); "kale Kaede'nin ailesinindi" çıkarıldı (yalnız "ailesini kılıçtan geçirmişti" doğrulandı); Saburo okları dizinde kırar (doğrulandı); Sue Hidetora'yı affetti (B güven). Japonca adlar: `tts`'te Mōri → Mori, Yōko → Yoko.

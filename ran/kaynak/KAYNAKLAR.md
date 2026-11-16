@@ -5,14 +5,14 @@
 
 | # | Dize | Yer | Gutenberg satırı |
 |---|---|---|---|
-| L1 | "Unburden'd crawl toward death" (yükümüzü atıp ölüme doğru emekleyelim) | I.1 | 191 |
-| L2 | "Nothing will come of nothing" (hiçten hiç çıkar) | I.1 | 261 |
-| L3 | "How sharper than a serpent's tooth it is / To have a thankless child!" (nankör evlat) | I.4 | 1448 |
-| L4 | "Blow, winds, and crack your cheeks!" (fırtına) | III.2 | 2944 |
-| L5 | "More sinn'd against than sinning" (günah işlediğinden çok kendisine günah işlenmiş) | III.2 | 3019 |
-| L6 | "As flies to wanton boys are we to the gods" | IV.1 | 4010 |
-| L7 | "Upon a wheel of fire" | IV.7 | 5142 |
-| L8 | "Never, never, never, never, never!" | V.3 | 6095 |
+| KL1 | "Unburden'd crawl toward death" (yükümüzü atıp ölüme doğru emekleyelim) | I.1 | 191 |
+| KL2 | "Nothing will come of nothing" (hiçten hiç çıkar) | I.1 | 261 |
+| KL3 | "How sharper than a serpent's tooth it is / To have a thankless child!" (nankör evlat) | I.4 | 1448 |
+| KL4 | "Blow, winds, and crack your cheeks!" (fırtına) | III.2 | 2944 |
+| KL5 | "More sinn'd against than sinning" (günah işlediğinden çok kendisine günah işlenmiş) | III.2 | 3019 |
+| KL6 | "As flies to wanton boys are we to the gods" | IV.1 | 4010 |
+| KL7 | "Upon a wheel of fire" | IV.7 | 5142 |
+| KL8 | "Never, never, never, never, never!" | V.3 | 6095 |
 
 ## Kurosawa ve Ran (gerçek kişi: söz uydurulmaz)
 Güven: **A** = birincil (Kurosawa'nın kendi söyleşisi/yazısı), **B** = güvenilir ikincil (TCM, Ebert, akademik kitap), **C** = tek ikincil / kaynaksız → senaryoya girmez.
