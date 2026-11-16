@@ -24,6 +24,7 @@ for s in segs:
         for w, d in zip(ws, disp):
             if cur and len(' '.join(x[1] for x in cur) + ' ' + d) > 26: grp.append(cur); cur = []
             cur.append((w, d))
+            if d[-1] in '.?!:;,' and len(' '.join(x[1] for x in cur)) >= 9: grp.append(cur); cur = []
         if cur: grp.append(cur)
         for g in grp:
             cues.append(dict(s=g[0][0]['s'] - s['a'] + s['t0'], e=g[-1][0]['e'] - s['a'] + s['t0'] + .15, txt=' '.join(x[1] for x in g)))
@@ -32,9 +33,9 @@ json.dump(dict(DUR=DUR, segs=segs, cues=cues, hook=HOOK), open(P('shorts', 'edl.
 # 1) taban: kesitleri kırp, ölçekle, kâğıt zemine koy (video 1080×810, y=470)
 tmp = P('shorts', '_parca'); os.makedirs(tmp, exist_ok=True); parts = []
 for i, s in enumerate(segs):
-    o = os.path.join(tmp, f'p{i}.mp4'); parts.append(o)
+    o = os.path.join(tmp, f'p{i}.mov'); parts.append(o)
     vf = f"crop=1440:1080:{s['x0']}:0,scale=1080:810,pad=1080:1920:0:470:color=0xece4d2,fps=30"
-    af = f"afade=t=in:d=.15,afade=t=out:st={s['b']-s['a']-.25:.2f}:d=.25"
+    af = f"afade=t=in:d=0.15,afade=t=out:st={s["b"]-s["a"]-.25:.2f}:d=0.25"
     subprocess.run(['ffmpeg', '-y', '-v', 'error', '-ss', f"{s['a']:.3f}", '-t', f"{s['b']-s['a']:.3f}", '-i', P('teslim', 'ran_ana.mp4'), '-ss', f"{s['a']:.3f}", '-t', f"{s['b']-s['a']:.3f}", '-i', P('audio', 'mix.wav'),
                     '-map', '0:v', '-map', '1:a', '-vf', vf, '-af', af, '-c:v', 'libx264', '-crf', '16', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-c:a', 'pcm_s16le', '-ar', '48000', o], check=True)
 open(os.path.join(tmp, 'liste.txt'), 'w').write('\n'.join(f"file '{p}'" for p in parts))
