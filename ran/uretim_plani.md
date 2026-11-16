@@ -150,3 +150,14 @@ Kullanıcı: "Sondaki kör flüt sahnesi de çok etkileyiciydi." Kaynaklardaki s
 | 8. Değişim / iksir: surdaki adam, üç seçim (L3), Kurosawa, iki soru, abone, bitiş ekranı | H01–H11 |
 
 Değişiklikler (doğrulanamayan için): "yetmiş yaşında" ve "elli yıl" çıkarıldı (kaynakta bulunmadı; "bütün ömrünü"); "kale Kaede'nin ailesinindi" çıkarıldı (yalnız "ailesini kılıçtan geçirmişti" doğrulandı); Saburo okları dizinde kırar (doğrulandı); Sue Hidetora'yı affetti (B güven). Japonca adlar: `tts`'te Mōri → Mori, Yōko → Yoko.
+
+## Üslup kararı (başkan, 16 Kasım; üslup kapısı karesi henüz yok)
+İki LemoLab demo motoru (MIT, commit d33bdea) indirildi ve başsız Chromium'da çalıştırıldı; kareler `uslup/lemo_demo_karsilastir.jpg` (üst sıra ukiyoe, alt sıra ink-wash). Ağ çağrısı yok (yalnız kendi `lines.json`, `voices/dur.json`, `fonts.css`).
+
+**Seçilen: `ink-wash` motoru, Japon suiboku'ya (Sesshū, Muromachi) çevrilerek + gerçek görsel araları.**
+- Neden: Ran bir çöküş trajedisi; boş kâğıt (留白) = harabe, sis, duman ve filmin sonundaki sessizlik (H03 "Hiçbir ses yok"). Tek kırmızı = **ateş** (yanan kale, kapak A) ve sonda düşen resmin şeridi. Tek renk, filmin renk kodlu ordularını ve Emi Wada kostümlerini kopyalama riskini sıfırlar. Xieyi figür (soluk kütle + iki yüklü fırça darbesi, yüz 3–5 darbe) oyuncuya benzemeyi ve beyaz makyajı kendiliğinden dışarıda bırakır. Kodla çizimin zayıf yanı (yüz, el) bu üslupta zaten gösterilmez.
+- `ukiyoe` elendi: demo neşeli bir seyahat afişi (Fuji, pirinç tarlası, *Büyük Dalga*'yı andıran dalga: tarif de bunu yasaklar); trajediye ters; renk blokları filmin sancak renklerine kayar. Dönem de geç (Edo).
+- **Japonlaştırma (hassasiyet, kültür karışmasın):** Çin hattatlığı (`glyph.js`) kullanılmaz; ekran yazısı Türkçe; mühür Çince karakter değil kanalın kendi işareti (ör. kırmızı kare içinde "ZK" ya da boş mühür); guqin yerine özgün shakuhachi/nōkan benzeri nefesli + taiko (`audio/score.py`, Takemitsu taklidi yok); manzara Japon: kale (1870'ler fotoğraflarına göre, filmin kalesi değil), volkanik ova, sur. Japon kültürü klişe değil: geyşa, katana pozu, kiraz çiçeği süsü yok.
+- **Gerçek görsel araları:** `archive-lighttable` demosu depoda yok (404); tarif okunup kendi Canvas 2D sürümümüz kurulur: koyu masa üstünde pirinç kâğıdına tutturulmuş gerçek nesne (Met CC0 Lear baskıları, Nō maskesi, Kurosawa 1937/1953 fotoğrafları), büyüteçle yaklaşma, künye kartı. Mürekkep dünyasıyla aynı kâğıt tonu: kopuk durmasın.
+- Paketleme: `kafka/tools/bundle_woodcut.py` gibi `tools/bundle_ink.py` → `lib/ink.bundle.js`; `Math.random` varsa tohumlanır.
+- Sonraki adım: üslup kapısı (manzara: yanan kale gece + orta plan: kulübede Hidetora ve Tsurumaru + yakın plan: flüt tutan eller ya da yüzü görünmeyen baş + 15 sn hareket: kaleden inen figür) + bir arşiv arası karesi. Kurul yok; hassasiyet ve telif bakışı başkanca.
