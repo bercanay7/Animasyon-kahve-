@@ -94,7 +94,7 @@ const RC = (() => {
     const robe = pose === 'sit' || pose === 'kneel'
       ? [[shX - 8, shY], [shX + 10, shY + 2], [22, hipY + 4], [34, hem], [-24, hem], [-14, hipY]]
       : [[shX - 9, shY], [shX + 9, shY + 2], [12, hipY], [20 + sw * 4, hem], [-22 + sw * 3, hem], [-10, hipY]];
-    mass(L.cw, robe.map(P), .3 * am, 1.6 * s, sd);
+    mass(L.cw, robe.map(P), (X.robeTone ?? .3) * am, 1.6 * s, sd);
     // iki yüklü kontur: sırt ve ön
     S(L, [[shX - 9, shY], [-12, (shY + hipY) / 2], robe[5].slice(0, 2), robe[4].slice(0, 2)].map(P), { w: 9 * s, tone: TONE.nong, dry: .3, seed: sd * 31 + 1, prof: 'robe', darkDir: [-d, 0], am });
     S(L, [[shX + 9, shY + 2], robe[2].slice(0, 2), robe[3].slice(0, 2)].map(P), { w: 6 * s, tone: TONE.zhong, dry: .4, seed: sd * 31 + 2, prof: 'brush', am });

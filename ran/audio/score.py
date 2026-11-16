@@ -3,7 +3,7 @@
 Çalgılar: nefesli bambu flüt (shakuhachi/nōkan benzeri; miyako-bushi dizisi), alçak dron, taiko, ateş çıtırtısı, rüzgâr/yağmur, tek silah sesi.
 Tōru Takemitsu'nun Ran müziği telifli: ezgi ya da motif taklidi yok; ezgiler burada yazıldı.
     python3 audio/score.py  -> audio/music.wav (48 kHz stereo, timeline.js DUR)
-Her olay bir cümleye/kelimeye bağlı (timeline.js). H03 ("Hiçbir ses yok") boyunca müzik ve efekt tamamen susar (ma).
+Her olay bir cümleye/kelimeye bağlı (timeline.js); sıraya dayanan bloklar (dron, ateş) yeni sıraya göre (vo/sira.json, 16 Kasım). H03 ("Hiçbir ses yok") boyunca müzik ve efekt tamamen susar (ma).
 """
 import json, re, wave
 from pathlib import Path
@@ -110,11 +110,11 @@ def shot(t):
 
 # ---------- beste (cümlelere bağlı) ----------
 # A: yanan kale — ateş, alçak dron D; kanca sorusunda tek taiko; künyede flüt
-crackle(0, S('A04'), 1.1); drone(0, S('B01') + 2, SC['D3'] / 2, 1.0)
+crackle(0, S('A04'), 1.1); drone(0, S('C01') + 2, SC['D3'] / 2, 1.0)   # açılış: A01–A04 + B06–B07 (yeni sıra, vo/sira.json)
 taiko(W('A03', 'yaptıkların'), .5)
 flute([('D4', 1.2), ('Eb4', .7), ('G4', 2.0)], S('A04') - .2, g=.8)
 # B: resimler — yumuşak dron, aralarda kısa flüt
-drone(S('B01'), S('C01') + 2, SC['G3'] / 2, .8)
+drone(S('A05'), S('E07') + 2, SC['G3'] / 2, .8)   # taşınan blok: resimlerle çekilen film (E06'nın ardından)
 flute([('A4', .9), ('G4', .6), ('Eb4', 1.6)], E('B03') - .6, g=.55)
 flute([('D4', .8), ('-', .3), ('G4', 1.4)], E('B07') - .4, g=.6)
 # C: üç ok — gündüz dronu; kırılmalar taiko
@@ -125,8 +125,8 @@ taiko(W('C03', 'kırılır'), .8); taiko(W('C06', 'dizinde'), 1.0, .2); taiko(W(
 drone(S('D01'), S('E01') + 2, SC['Eb3'] / 2, 1.0)
 taiko(W('D06', 'geçmiş'), .7); flute([('Eb4', 1.0), ('D4', 2.0)], E('D09') - .3, g=.6)
 # E: üçüncü kale — kuşatmada sıklaşan davul, ateş, fırtına
-drone(S('E01'), S('F01') + 2, SC['D3'] / 2, 1.2)
-roll(S('E02'), W('E04', 'yaşlı'), .55); crackle(S('E03'), S('E07'), 1.3)
+drone(S('E01'), S('A05') + 2, SC['D3'] / 2, 1.2); drone(S('E07'), S('F01') + 2, SC['D3'] / 2, 1.2)
+roll(S('E02'), W('E04', 'yaşlı'), .55); crackle(S('E03'), S('A05') + 1, 1.3)
 taiko(W('E04', 'yaşlı'), .9)
 wind(S('E07'), S('E09') + 1, 1.2, rain=True)
 taiko(W('E09', 'hidetora'), .7)

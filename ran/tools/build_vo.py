@@ -25,8 +25,7 @@ for b in bol:
     if b['ad'] not in adlar: adlar.append(b['ad'])
 secs = [(b['onek'], b['ad'], [byid[i] for i in b['ids']], k == len(bol) - 1 or bol[k + 1]['ad'] != b['ad']) for k, b in enumerate(bol)]
 
-out = []; t = plan.get('once', 1.0); cues = {}; allwords = []
-out.append(np.zeros(int(t * SR), np.float32))
+CLIP = {}   # id → (klip, cümle başı/sonu klibe göre, [kelimeler klibe göre])
 for onek, bolum, segs, bolum_sonu in secs:
     si = adlar.index(bolum); f = sel.get(onek)
     if not f or not os.path.exists('vo/' + f):
@@ -34,13 +33,8 @@ for onek, bolum, segs, bolum_sonu in secs:
         print('YER TUTUCU:', onek, [s_['id'] for s_ in segs]); eksik.append(onek)
         for k, s in enumerate(segs):
             ws = words_of(s['tts']); dur = max(1.2, len(re.sub(r'\[[^\]]*\]', '', s['tts'])) / 12.3)
-            cues[s['id']] = {'s': round(t, 3), 'e': round(t + dur, 3), 'sec': si, 'yer_tutucu': True}
             dw = [x for x in re.sub(r'\[[^\]]*\]', ' ', s['alt']).replace('…', ' ').split() if norm1(x)]
-            for i, w in enumerate(ws): allwords.append({'id': s['id'], 'w': w, 'd': dw[i] if i < len(dw) else '', 's': round(t + dur * i / len(ws), 3), 'e': round(t + dur * (i + .8) / len(ws), 3)})
-            out.append(np.zeros(int(dur * SR), np.float32)); t += dur
-            g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
-            if k == len(segs) - 1 and bolum_sonu: g += plan.get('secGap', 1.5)
-            out.append(np.zeros(int(g * SR), np.float32)); t += g
+            CLIP[s['id']] = (np.zeros(int(dur * SR), np.float32), 0, dur, [{'id': s['id'], 'w': w, 'd': dw[i] if i < len(dw) else '', 's': dur * i / len(ws), 'e': dur * (i + .8) / len(ws)} for i, w in enumerate(ws)])
         continue
     a = load('vo/' + f)
     hw = []
@@ -131,13 +125,23 @@ for onek, bolum, segs, bolum_sonu in secs:
                 parts += [seg_, np.zeros(int(dur * SR), np.float32)]; last = cp
             tail = clip[last:].copy(); f2 = int(.01 * SR); tail[:f2] *= np.linspace(0, 1, f2); parts.append(tail)
             clip = np.concatenate(parts)
-        cues[s['id']] = {'s': round(t + (bounds[k][0] - c0), 3), 'e': round(t + (bounds[k][1] - c0) + shift[idx[-1]], 3), 'sec': si}
-        for i, o in enumerate(owner):
-            if o == k: allwords.append({'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': round(t + st[i] - c0 + shift[i], 3), 'e': round(t + en[i] - c0 + shift[i], 3)})
+        idx_ = [i for i, o in enumerate(owner) if o == k]
+        CLIP[s['id']] = (clip, bounds[k][0] - c0, bounds[k][1] - c0 + shift[idx_[-1]],
+                         [{'id': s['id'], 'w': ref[i], 'd': disp[i] if i < len(disp) else ref[i], 's': st[i] - c0 + shift[i], 'e': en[i] - c0 + shift[i]} for i in idx_])
+# 2) yeni oynatma sırası (vo/sira.json; yoksa çekim sırası): boşluklar plan.json'dan, bölüm sonuna secGap
+SIRA = json.load(open('vo/sira.json'))['bolumler'] if os.path.exists('vo/sira.json') else [(b, [x['id'] for x in sg]) for _, b, sg, _ in secs]
+out = []; t = plan.get('once', 1.0); cues = {}; allwords = []
+out.append(np.zeros(int(t * SR), np.float32))
+for si, (bad, ids) in enumerate(SIRA):
+    for k, sid in enumerate(ids):
+        clip, cs, ce, ws_ = CLIP[sid]
+        cues[sid] = {'s': round(t + cs, 3), 'e': round(t + ce, 3), 'sec': si}
+        for w in ws_: allwords.append({**w, 's': round(t + w['s'], 3), 'e': round(t + w['e'], 3)})
         out.append(clip); t += len(clip) / SR
-        g = plan['gap'].get(s['id'], plan.get('varsayilan', 0.35))
-        if k == len(segs) - 1 and bolum_sonu: g += plan.get('secGap', 1.5)
+        g = plan['gap'].get(sid, plan.get('varsayilan', 0.35))
+        if k == len(ids) - 1: g += plan.get('secGap', 1.5)
         out.append(np.zeros(int(g * SR), np.float32)); t += g
+assert len(cues) == len(d['segments']), ('sırada eksik/fazla cümle', len(cues), len(d['segments']))
 t += plan.get('sonra', 0)
 out.append(np.zeros(int(plan.get('sonra', 0) * SR), np.float32))
 vo = np.concatenate(out)
