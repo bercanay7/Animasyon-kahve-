@@ -1,0 +1,13 @@
+{
+ "flow_id": "zFaxTYtWNfgrNkSqNm7g",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "16 Kasım 2026: ElevenLabs kotası (148.500) doldu; s02–s07 reddedildi ('exceeds your quota', 403 kredi kaldı; reddedilenlerden ücret alınmadı). Harcanan: test 232 + Scribe 60 + s00 854 + s01 1186 = 2.332.",
+ "cekimler": {
+  "test": {"node": "CeJuM8EOgJednDZgLLfX", "gen": ["WQoHoU0WldA1NaRrD36w", "HVble9LYPzCltpzWfh6r"], "kredi": 232, "scribe": "Akira Kurosawa'nın Ran'ı. Hidetora, Taro, Jiro ve Saburo. Kaede, Sue ve Tsurumaru. Mori Motonari, eşi Yoko (60 kredi; bütün adlar doğru)"},
+  "s00": {"node": "v2NL55L1SvltbVXLIQTL", "gen": ["WcVp4MfJxgvLbgIQItr9", "5nh3oVzZZzRHhln4EPNY"], "kredi": 854},
+  "s01": {"node": "Rt6YE7jiO5DMSV5VYBZn", "gen": ["pdMXOBzYyn4MSgXIUNGm", "PjCniQMzduHDvu8KNbAh"], "kredi": 1186},
+  "s02_s07": {"durum": "kota yüzünden reddedildi; yeniden gönderilecek", "gerekli_kredi_2_cekim": 8736, "gerekli_kredi_1_cekim": 4368}
+ }
+}

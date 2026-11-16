@@ -1,0 +1,80 @@
+<!doctype html><meta charset="utf-8"><title>Ran üslup karesi</title>
+<link rel="stylesheet" href="../fonts.css"><style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../lib/ink.bundle.js"></script><script src="../lib/ran_cizim.js"></script>
+<script>
+'use strict';
+const q = new URLSearchParams(location.search), V = q.get('v') || 'manzara';
+const IMG = {};
+const comp = INKC.makeComp(document.getElementById('c')), A = INKC.layerSet();
+const { ss, seg, lerp, clamp, vnoise } = LIB;
+const VIEWS = {
+  // 1) Manzara: gece yanan kale, kapıdan inen küçük figür (kapak A ile aynı kompozisyon ailesi)
+  manzara(t) {
+    const L = A, push = 1 + t * .004;
+    L.xf(push, 960 * (1 - push), 620 * (1 - push));
+    // gece: göğe ağır ıslak yıkama (üstte koyu, ateşe doğru açılır)
+    INK.mass(L.cw, [[-80, -80], [2000, -80], [2000, 1160], [-80, 1160]], .66, 0, 1, [0, 0, 0, 1080, 1, .38]);
+    // uzak sıradağ (soluk)
+    const ridge = INKL.ridgeFn([[300, 120, 260], [820, 90, 300], [1500, 140, 280]], 700, 4, 20);
+    IMG.dag = IMG.dag || INKL.mountainLayer({ W: 1920, H: 1080, ridge, depth: 220, tone: .35, rim: .5, mist: 1.2, seed: 4 }); L.cw.drawImage(IMG.dag, 0, 0);
+    const K = RC.castle(L, { x: 1180, y: 700, s: 1.15, seed: 11 });
+    RC.smoke(L, 1180, K.top - 20, 360, 520, t, 1, 3);
+    RC.fire(L, [[1180, K.top + 40, 42], [K.win[1][0], K.win[1][1] + 14, 14], [K.win[5][0], K.win[5][1] + 12, 16], [1180 + 120, K.top + 120, 22]], .95, t);
+    // yamaç ve yol: kaleden sola doğru inen rampa
+    for (let k = 0; k < 3; k++) RC.S(L, [[560 + k * 40, 1090], [820 + k * 20, 900], [1040 + k * 10, 760], [1150, 706]], { w: 10, tone: .7, dry: .75, seed: 77 + k, prof: 'robe' });
+    RC.ground(L, 706, 600, 1760, 1, 8);
+    // figür: kaleden inerek yürüyor (15 sn'de rampadan aşağı)
+    const u = clamp(t / 15), fx = lerp(1020, 760, u), fy = lerp(790, 980, u);
+    RC.figure(L, { x: fx, y: fy, s: 1.5 + u * .7, dir: -1, pose: 'walk', t, hair: 'old', bowed: .3, seed: 5, headTone: .55 });
+    return { paper: [0, 0, 1], bleed: 7, vig: .35, warm: .55 };
+  },
+  // 2) Orta plan: kulübe; oturan Hidetora, karşısında flüt çalan Tsurumaru
+  orta(t) {
+    const L = A;
+    // kulübe çerçevesi: iki direk, eğik çatı kirişi (soluk)
+    RC.S(L, [[260, 120], [250, 900]], { w: 22, tone: .6, dry: .5, seed: 3, prof: 'robe' });
+    RC.S(L, [[1680, 160], [1690, 900]], { w: 18, tone: .5, dry: .6, seed: 4, prof: 'robe' });
+    RC.S(L, [[120, 230], [960, 90], [1800, 260]], { w: 28, tone: .7, dry: .4, seed: 5, prof: 'tip' });
+    RC.ground(L, 1010, 0, 1920, 1, 9);
+    for (let k = 0; k < 14; k++) RC.S(L, [[300 + k * 95, 300 + (k % 3) * 20], [310 + k * 95, 760]], { w: 5, tone: .22, dry: .9, seed: 200 + k, prof: 'tip' });
+    // ocak közü: tek kırmızı nokta (ateşin rengi; sahnenin tek rengi)
+    RC.fire(L, [[960, 1000, 13]], .55, t);
+    INK.blot(L.cw, 960, 1010, 60, .35, 0, .25, 2);
+    const hd = RC.figure(L, { x: 560, y: 1010, s: 4.4, dir: 1, pose: 'sit', t, hair: 'old', bowed: .25 + .25 * ss(seg(t, 4, 9)), seed: 5 });
+    const ts = RC.figure(L, { x: 1400, y: 1010, s: 4.2, dir: -1, pose: 'kneel', t, hair: 'young', seed: 6 });
+    RC.S(L, [[ts.head[0] - 30, ts.head[1] + 30], [ts.head[0] + 170, ts.head[1] + 110]], { w: 11, tone: .85, dry: .3, seed: 41, prof: 'even' });
+    return { bleed: 6, vig: .25, warm: .5 };
+  },
+  // 3) Yakın plan: flüt tutan eller (parmaklar ezgiyle kalkar)
+  yakin(t) {
+    const L = A;
+    RC.fluteClose(L, { x: 260, y: 640, s: 1, t, play: 1, seed: 21 });
+    return { bleed: 7, vig: .28, warm: .5 };
+  },
+  // 4) Gerçek görsel arası: pirinç kâğıdı masada tutturulmuş Met CC0 gravürü; künye kartı; yavaş yaklaşma
+  arsiv(t) {
+    const L = A, img = IMG.lear; if (!img) return {};
+    const push = 1 + .035 * ss(t / 15); L.xf(push, 960 * (1 - push), 540 * (1 - push));
+    INK.mass(L.cw, [[-80, -80], [2000, -80], [2000, 1160], [-80, 1160]], .28, 0, 1, [0, 0, 1920, 1080, 1, .6]);   // masa: soluk yıkama
+    const h = 700, w = h * img.width / img.height, x = 960 - w / 2 - 120, y = 150;
+    const c = L.cc; c.save(); c.setTransform(push, 0, 0, push, 960 * (1 - push), 540 * (1 - push));
+    c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 30; c.shadowOffsetY = 12;
+    c.fillStyle = '#efe6d2'; c.fillRect(x - 28, y - 28, w + 56, h + 56); c.shadowColor = 'transparent';
+    c.drawImage(img, x, y, w, h);
+    // künye kartı
+    const kx = x + w + 70, ky = y + h - 210;
+    c.fillStyle = '#f4eddc'; c.fillRect(kx, ky, 360, 210);
+    c.fillStyle = 'rgb(176,46,34)'; c.fillRect(kx + 24, ky + 26, 14, 14);
+    c.fillStyle = '#1b1a18'; c.font = '600 30px "Cormorant Garamond", serif'; c.fillText('Kral Lear rolünde David Garrick', kx + 50, ky + 42);
+    c.font = '500 26px "Cormorant Garamond", serif'; c.fillText('James McArdell, 1761', kx + 24, ky + 92); c.fillText('Shakespeare, III. perde', kx + 24, ky + 130);
+    c.fillStyle = '#5a554d'; c.font = 'italic 500 22px "Cormorant Garamond", serif'; c.fillText('The Met · kamu malı (CC0)', kx + 24, ky + 176);
+    c.restore();
+    return { bleed: 5, vig: .3, warm: .45 };
+  },
+};
+window.render = t => { A.clear(); const o = VIEWS[V](t) || {}; comp(A, null, o); };
+(async () => { await document.fonts.load("600 30px 'Cormorant Garamond'"); await document.fonts.load("italic 500 22px 'Cormorant Garamond'");
+  if (V === 'arsiv') { const im = new Image(); im.src = '../kaynak/gorsel/met707787_garrick_lear_1761.jpg'; await im.decode(); IMG.lear = im; }
+  window.DUR = 15; render(parseFloat(q.get('t') ?? '3')); window.READY = true; })();
+</script>

@@ -1,0 +1,8 @@
+.parts*/
+*.mp4
+!uslup/**/*.mp4
+audio/music.wav
+audio/mix.wav
+animatik/kare/
+teslim/
+shorts/_parca/
