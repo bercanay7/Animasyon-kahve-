@@ -105,7 +105,7 @@ Toplam ~58–62 cümle; hedef **8 dk** (başkan kararı).
 
 ## Paketleme taslağı (senaryodan önce)
 **Başlık adayları** (<60 karakter; "NEDEN …?" ve Kafka'nın "X'in Y'si: soru" kalıbından kaçınılır):
-1. **Yaptıkların Bir Gün Sana Döner mi? | Kurosawa'nın Kral Lear'ı** (önerilen: kişisel soru önde, tanıdık kapı arkada)
+1. **Yaptıkların Sana Döner mi? | Kurosawa'nın Kral Lear'ı** (52 karakter) (önerilen: kişisel soru önde, tanıdık kapı arkada)
 2. Kral Lear Masum muydu? Kurosawa Ona Bir Geçmiş Verdi | Ran
 3. Kurosawa Kral Lear'ı Japonya'ya Taşıdı: Ran (1985)
 - "Ran (1985)" açıklamanın ilk satırında ve etiketlerde; başlıkta yer kalırsa sonda.
