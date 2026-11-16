@@ -11,7 +11,7 @@ Akira Kurosawa'nın Ran'ı (1985) ve Shakespeare'in Kral Lear'ı: yaptıkların 
 
 Bir kale yanıyor. İçinden yaşlı bir adam çıkıyor: kılıcı yok, adamları yok, yanında kimse yok.
 
-Akira Kurosawa'nın Ran'ı (1985), Shakespeare'in Kral Lear'ının Japonya'ya taşınmış hâli. Ama Kurosawa hikâyeye, Shakespeare'in hiç vermediği bir şey ekledi: kralın kanlı bir geçmişi. Üç ok efsanesi, kapanan kapılar, yanan üçüncü kale ve o kaleyi çekmeden yıllar önce resim resim çizen, filmi 75 yaşında bitiren yönetmen. Sonra kör Tsurumaru'nun flütü ve aynı acıyı yaşayıp bambaşka yollar seçen üç kişi: Kaede, Sue, Tsurumaru.
+Ran, Kral Lear'ın Japonya'ya taşınmış hâli. Ama Kurosawa hikâyeye, Shakespeare'in hiç vermediği bir şey ekledi: kralın kanlı bir geçmişi. Üç ok efsanesi, kapanan kapılar, yanan üçüncü kale ve o kaleyi çekmeden yıllar önce resim resim çizen, filmi 75 yaşında bitiren yönetmen. Sonra kör Tsurumaru'nun flütü ve aynı acıyı yaşayıp bambaşka yollar seçen üç kişi: Kaede, Sue, Tsurumaru.
 
 0:00 Yanan kale | Ran (1985)
 0:42 Üç ok: Kral Lear'dan farkı
