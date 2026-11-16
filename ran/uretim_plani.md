@@ -117,3 +117,18 @@ Toplam ~58–62 cümle; hedef **8 dk** (başkan kararı).
 
 ## Kredi (tahmin)
 ~60 cümle × ~95 karakter ≈ 5.700 karakter × 2 çekim ≈ **11.400 karakter** (Kafka 10.832). Kesin sayı senaryo kesinleşince bildirilir.
+
+## Ek (16 Kasım): kullanıcının ikinci sahnesi: kör Tsurumaru ve flüt
+Kullanıcı: "Sondaki kör flüt sahnesi de çok etkileyiciydi." Kaynaklardaki sıra (Wikipedia olay örgüsü; moviemistakes "ending"; DBU makalesi; bağımsız iki özet aynı):
+1. **Kulübe:** Hidetora sığındığı kulübede, ailesini öldürüp kör ettirdiği Tsurumaru'yla karşılaşır. Tsurumaru ona flüt çalar; Hidetora bu ezgiyle sarsılır (kullanıcının 1. notundaki "geçmişiyle yüzleştiği an").
+2. **Flüt Sue'nün hediyesi:** sürgüne giderken vermiştir. Harabeye kaçarken flüt kulübede unutulur; Sue ona yoldaş olsun diye Amida resmini bırakıp flütü almaya döner ve **geri gelmez** (Jiro'nun adamlarınca öldürülür; görsel olarak işlenmez).
+3. **Son:** Tsurumaru harabe kalenin surunda yapayalnız; **flütü yok**, ablası yok, elinden Amida resmi de düşer.
+- Kesinlik notu: son sahnede flüt çalınmıyor (kaynaklara göre flüt kaybolmuştur). Kullanıcının hatırladığı ezgi büyük olasılıkla kulübe sahnesi ya da müzik. Anlatımda "son sahnede flüt çalar" denmez.
+
+**Senaryoya etkisi (başkan kararı):**
+- **Flüt filmin ses motifi olur:** mürekkep dünyasında tek "ses nesnesi". Kulübede çalar (adım 4), Sue onun için geri döner (adım 7), sonda yoktur (adım 8): sessizlik. İksirin karşılığı: Sue'nün affı bir ezgi kadar küçük ve kırılgan; Kaede'nin intikamı bütün bir hanedanı yakar.
+- **Yeni döngü L4 (C10 → E10):** "Sue o gece neden geri döndü?" → bir flüt için.
+- **Müzik:** flüt ezgisi özgün sentez (`audio/score.py`; shakuhachi/nōkan benzeri nefesli). **Tōru Takemitsu'nun Ran müziği telifli: ne ezgi ne motif taklit edilir.**
+- **Hassasiyet:** Tsurumaru onurlu çizilir; göz yarası, kan yok; "kör" bir hakaret sıfatı gibi değil, Hidetora'nın yaptığının sonucu olarak söylenir ("Hidetora'nın kör ettirdiği çocuk"). Amida resmi kutsal imge: figür çizilmez, sarılı kumaş.
+- **Kapanış planı:** son geniş plan: surda tek, küçük figür, gün batımı boşluğu; flüt sesi yok; tek kırmızı nokta (düşen resmin şeridi). **Shorts adayı** bu an + kanca "Bir flüt için geri döndü".
+- **Kapak B alternatifi:** surda yalnız kör figür, yazı "FLÜTÜ GERİDE KALDI" (üç ok ile karşılaştırılacak; ilk saniyelerde karşılanması için açılış montajına bir an konur).
