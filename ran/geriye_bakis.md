@@ -3,7 +3,8 @@
 ## Ne çıktı
 - **Film:** 8:02; 66 cümle, 63 plan; mürekkep resmi (Japon suiboku) üslubu, LemoLab ink-wash motoru (MIT) + bizim çizim ilkellerimiz (`lib/ran_cizim.js`: kale, ateş, xieyi figür, flüt); 5 gerçek görsel arası (Met CC0 ×3, Commons PD ×2); Emrullah sesi; özgün müzik (flüt, dron, taiko); 125 altyazı.
 - **Kapaklar:** A "EKTİĞİNİ BİÇTİ" (filmin ilk karesi: yanan kale, inen yaşlı figür); B "KIRILMAZ SANDI" (kırık üç ok; 10. sn'de karşılanır).
-- **Shorts:** ~28 sn; açılış yanan kale + "Bir kale yanıyor"; kapanış "Sana yapılanla ne yaparsın?".
+- **Teslim:** `teslim/ran_ana.mp4` (H.264 CRF 18, 289 MB), `ran_youtube.mp4` (H.265 CRF 26, 66 MB, SSIM 0,980), `ran_telefon.mp4` (720p H.265, 17 MB). Render 4 işçiyle 96 dk (hızlı birleştiriciyle) + 5 parça düzeltme 25 dk; miks −14,3 LUFS, tepe −1,0 dBFS.
+- **Shorts:** 28,3 sn (`ran_shorts.mp4`); açılış yanan kale + "Bir kale yanıyor"; kapanış "Sana yapılanla ne yaparsın?".
 - **Yayın metinleri:** `youtube.md`, `yayin.md` (telif notu dahil).
 - **Kredi:** seslendirme 13.008 (test 232 + 8 bölüm × 2 çekim); Scribe dökümü 466.
 - **Kurul:** hiçbir kapıda toplanmadı (kullanıcının kararı, kullanım %90); ayrıntı `KURUL.md`.
@@ -31,6 +32,8 @@
 5. **file:// görselleri WebGL'i kirletiyor.** Gerçek görsel arası `Tainted canvases` hatası verdi; render ve kare araçları küçük bir yerel http sunucusuyla çalışıyor (`tools/kare_cek.js`, `render.js`).
 6. **Wikimedia oran sınırı.** Commons API arka arkaya isteklerde boş döndü; 1953 fotoğrafı indirilemedi. `Special:FilePath` + bekleme işe yaradı.
 7. **Kurulsuz üretim.** Bütün kapılar başkan denetimiyle geçti. Bilinen zayıflıklar aşağıda.
+
+8. **Donukluk taraması işe yaradı.** İlk render'da 2 sn'den uzun beş donuk aralık çıktı (künye levhası, üç leke, bitmiş çizgi, kadrajdan çıkan tomar, soru levhası); hareket eklenip yalnız 5 parça yeniden render edildi. Kalan: bitiş ekranı ve 2 sn'lik boş yol.
 
 ## Bilinen zayıflıklar
 - Figürler xieyi ve yüzsüz; bazı planlarda (P02 sırt, P34 yakın baş) biçim belirsiz kalabiliyor.
