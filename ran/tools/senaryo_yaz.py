@@ -4,7 +4,7 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 S = []
 ALT = {"Bu, Akira Kurosawa'nın Ran'ı. Japoncada kargaşa demek. Yıl, bin dokuz yüz seksen beş.": "Bu, Akira Kurosawa'nın Ran'ı. Japoncada kargaşa demek. Yıl 1985."}
 def b(bolum, rows):
-    for i, (tag, txt, kay) in enumerate(rows): S.append(dict(id=None, bolum=bolum, tts=(f'[{tag}] ' if tag else '') + txt.replace('Mōri', 'Mori').replace('Yōko', 'Yoko'), alt=ALT.get(txt, txt), kaynak=kay))
+    for i, (tag, txt, kay) in enumerate(rows): S.append(dict(id=None, bolum=bolum, tts=(f'[{tag}] ' if tag else '') + txt.replace('Mōri', 'Mori').replace('Yōko', 'Yoko').replace('Nō', 'No'), alt=ALT.get(txt, txt), kaynak=kay))
 P = 'Ran olay örgüsü (Wikipedia "Ran (film)", Plot; Ebert 1985)'
 b('Yanan kale', [
  ('calmly', 'Bir kale yanıyor. İçinden yaşlı bir adam çıkıyor: kılıcı yok, adamları yok, yanında kimse yok.', 'kanca: kullanıcının sahnesi; kapak A; L1 açılır (cevap E05)'),
