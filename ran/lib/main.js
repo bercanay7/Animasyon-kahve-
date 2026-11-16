@@ -5,6 +5,7 @@ const CV = document.getElementById('c'), COMP = INKC.makeComp(CV), LA = INKC.lay
 window.FPS = 30;
 function renderFrame(t) {
   LA.clear(); cam(LA);
+  if (Q.get('kapak') && window.KAPAK) { const o = KAPAK[Q.get('kapak')](LA) || {}; COMP(LA, null, o); return CV; }
   const i = shotAt(t), st = shotState(i, t);
   let o = {}; try { o = SHOTS[i].fn(LA, st) || {}; } catch (e) { console.log('[plan ' + SHOTS[i].id + '] ' + e.message); }
   COMP(LA, null, o);
@@ -24,3 +25,4 @@ if (!Q.has('render')) window.ready.then(() => {
   const loop = () => { renderFrame(performance.now() / 1000 - t0); requestAnimationFrame(loop); }; loop();
 });
 else window.ready.then(() => { window.READY = true; });
+

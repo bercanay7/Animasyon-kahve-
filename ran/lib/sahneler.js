@@ -60,10 +60,11 @@ const H = (() => {
         const a = kir * .5;
         RC.S(L, [[x + dx, y], [mid[0] - Math.sin(a) * 40 * s, mid[1] + 10 * s]], { w: 9 * s, tone: TN.nong, dry: .3, seed: 300 + i, prof: 'even' });
         RC.S(L, [[mid[0] + Math.sin(a) * 40 * s, mid[1] - 10 * s], [top[0] + Math.sin(a) * 160 * s, top[1] + kir * 60 * s]], { w: 9 * s, tone: TN.nong, dry: .3, seed: 310 + i, prof: 'even' });
-      } else RC.S(L, [[x + dx, y], mid, top], { w: 9 * s, tone: TN.nong, dry: .3, seed: 300 + i, prof: 'even' });
+      } else RC.S(L, [[x + dx, y], mid, top], { w: 11 * s, tone: TN.nong, dry: .3, seed: 300 + i, prof: 'even' });
       const t0 = kir > 0 ? [top[0] + Math.sin(kir * .5) * 160 * s, top[1] + kir * 60 * s] : top;
-      RC.S(L, [[t0[0], t0[1]], [t0[0] - 12 * s, t0[1] + 34 * s]], { w: 6 * s, tone: TN.jiao, dry: .2, seed: 320 + i, prof: 'nail' });   // uç
-      RC.S(L, [[x + dx - 14 * s, y - 10 * s], [x + dx, y - 70 * s], [x + dx + 14 * s, y - 10 * s]], { w: 5 * s, tone: TN.zhong, dry: .6, seed: 330 + i, prof: 'tip' });   // tüy
+      INK.mass(L.cw, [[t0[0] - 13 * s, t0[1] + 30 * s], [t0[0], t0[1] - 16 * s], [t0[0] + 13 * s, t0[1] + 30 * s]], .9, 1, 320 + i);   // uç: üçgen demir
+      for (const d of [-1, 1]) RC.S(L, [[x + dx, y - 20 * s], [x + dx + d * 22 * s, y + 4 * s]], { w: 9 * s, tone: TN.nong, dry: .45, seed: 330 + i + d, prof: 'fan' });   // tüyler
+      for (const d of [-1, 1]) RC.S(L, [[x + dx, y - 60 * s], [x + dx + d * 22 * s, y - 36 * s]], { w: 9 * s, tone: TN.nong, dry: .45, seed: 340 + i + d, prof: 'fan' });
     }
   }
   function sancak(L, x, y, h, t, sd) {   // nobori: direk + dikey bayrak (renksiz, desensiz)
@@ -113,12 +114,18 @@ function kancaKaresi(L, st, o = {}) {   // açılış = kapak A; E04'te yakın s
   RC.figure(L, { x: lerp(1020, 760, u), y: lerp(790, 980, u), s: 1.5 + u * .7, dir: -1, pose: 'walk', t, hair: 'old', bowed: .3, seed: 5, headTone: .55 });
 }
 plan('P01', 'A01', (L, st) => { push(L, st, 960, 620, 1, 1.05); kancaKaresi(L, st, { u: clamp(st.t / 30) }); return NIGHT; });
-plan('P02', 'A02', (L, st) => {   // sırttan: omuz ve boş eller, uzakta yanan kale
-  cam(L, 960, 540, 1 + .04 * st.p);
-  H.gece(L, .6, .45); H.kale(L, { x: 1300, y: 640, s: .55, seed: 11 }, st.t, 1);
-  RC.figure(L, { x: 700, y: 1500, s: 7.5, dir: 1, pose: 'stand', t: st.t, hair: 'old', bowed: .15, seed: 5, headTone: .6 });
+plan('P02', 'A02', (L, st) => {   // "oğullarına vermişti": yerde üç ok, biri kırık; ateş ışığı (kapak B'nin vaadi ilk saniyelerde)
+  push(L, st, 960, 600, 1.02, 1.1); H.gece(L, .55, .5);
+  kapakOklar(L, st.t, clamp((st.t - AT('A02@oğullarına')) / .4));
+  RC.ground(L, 900, -200, 2200, 1, 12);
   return NIGHT;
 });
+function rot(L, cx, cy, a, fn) { const cs = [L.cw, L.cd, L.cc]; cs.forEach(c => { c.save(); c.translate(cx, cy); c.rotate(a); c.translate(-cx, -cy); }); fn(); cs.forEach(c => c.restore()); }
+function kapakOklar(L, t, kir = 1) {
+  rot(L, 900, 760, -1.25, () => H.oklar(L, 900, 1000, 1.2, {}));
+  rot(L, 1150, 780, 1.1, () => H.oklar(L, 1150, 1020, 1.1, { tek: true, kir: .9 * kir + .1 }));
+  RC.fire(L, [[1650, 900, 34], [260, 930, 22]], .7, t);
+}
 plan('P03', 'A03', (L, st) => {   // yerde kırık kılıç; alev yansısı
   push(L, st, 960, 600, 1.05, 1.15); H.gece(L, .5, .5);
   RC.S(L, [[420, 760], [900, 700]], { w: 22, tone: TN.nong, dry: .3, seed: 51, prof: 'even' });            // kın
@@ -525,3 +532,29 @@ plan('P63', 'H11', (L, st) => {   // bitiş ekranı: sol yarı boş kâğıt (ö
   H.yazi(L, ['ZAMAN KURYESİ'], 960, 140, { px: 50, ls: 14, a: 1 });
   return DAY;
 });
+
+// ================= Kapaklar (?kapak=A|B) =================
+function kapakYazi(L, lines, x, y, px = 300) {   // col katmanına kâğıt tonunda Bebas; koyu gölge
+  const c = L.cc; c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.font = px + 'px "Bebas Neue"'; c.letterSpacing = '4px'; c.textBaseline = 'alphabetic';
+  lines.forEach((ln, i) => { c.shadowColor = 'rgba(0,0,0,.75)'; c.shadowBlur = 26; c.fillStyle = '#f3ecdc'; c.fillText(ln, x, y + i * px * .86); });
+  c.restore();
+}
+window.KAPAK = {
+  A(L) {   // filmin ilk karesi: yanan kale, kapıdan inen yaşlı figür; yazı solda, sağ alt boş
+    cam(L, 960, 560, 1);
+    H.gece(L, .7, .42); H.dag(L, 'gece', [[300, 120, 260], [820, 90, 300], [1500, 140, 280]], 700, { tone: .35, mist: 1.2, seed: 4 });
+    H.kale(L, { x: 1400, y: 720, s: 1.2, seed: 11 }, 2.3, 1);
+    for (let k = 0; k < 3; k++) RC.S(L, [[960 + k * 40, 1090], [1150 + k * 20, 900], [1300 + k * 10, 790], [1370, 726]], { w: 10, tone: .7, dry: .75, seed: 77 + k, prof: 'robe' });
+    RC.ground(L, 726, 600, 1920, 1, 8);
+    RC.figure(L, { x: 1250, y: 830, s: 2.3, dir: -1, pose: 'walk', t: .4, hair: 'old', bowed: .3, seed: 5, headTone: .65 });
+    kapakYazi(L, ['EKTİĞİNİ', 'BİÇTİ'], 70, 420);
+    return { ...NIGHT, vig: .45 };
+  },
+  B(L) {   // üç ok demeti ortadan kırılmış; ateş ışığı solda alçakta; sağ alt (süre rozeti) boş
+    cam(L, 960, 560, 1); H.gece(L, .62, .5);
+    RC.fire(L, [[1330, 980, 70]], .9, 1.7);
+    H.oklar(L, 1330, 990, 1.75, { kir: 1 }); RC.ground(L, 985, 800, 1700, 1, 12);
+    kapakYazi(L, ['KIRILMAZ', 'SANDI'], 70, 420);
+    return { ...NIGHT, vig: .45 };
+  },
+};

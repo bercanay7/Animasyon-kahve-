@@ -10,5 +10,6 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
   p.on('pageerror', e => console.log('HATA', e.message));
   await p.goto(`http://127.0.0.1:${port}/${html}?${qs || ''}`);
   await p.waitForFunction(() => window.READY, null, { timeout: 60000 });
+  await p.evaluate(() => { const q = new URLSearchParams(location.search); if (window.renderFrame && q.has('render')) renderFrame(+(q.get('t') || 0)); });
   await p.screenshot({ path: out }); await b.close(); srv.close();
 })();
