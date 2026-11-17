@@ -47,6 +47,13 @@ Yeni oturum `main`'den başlar; eskiden her video kendi dalında kaldığı içi
      - (a) Türk izleyici bu adı ya da konuyu tanıyor mu? YouTube otomatik tamamlaması (`suggestqueries-clients6.youtube.com`, `hl=tr&gl=tr`) ve konudaki Türkçe videoların izlenme sayıları ile ölçülür. Kontrol satırı olarak kanalın eski konuları da aranır.
      - (b) Başlık ve kapak izleyiciye kendi hayatından bir soru soruyor mu?
      - Başlık ve kapağın ilk taslağı senaryodan **önce** yazılır; paketleme kurulu onu senaryo kuruluyla birlikte görür.
+     - **On başlık adayı (17 Kasım 2026'dan beri kural):** başlık tek aday yazılıp düzeltilmez; `uretim_plani.md`'ye en az 10 aday yazılır, paketleme kurulu (kurulsuz üretimde başkan) aralarından seçer ve gerekçeyi yazar. Her aday şu sorularla elenir:
+       - izleyiciye kendi hayatından soru soruyor mu, yoksa yalnız konuyu mu anlatıyor?
+       - tek nefeste okunuyor mu?
+       - cevabı yarı tahmin ettiriyor ama ele vermiyor mu?
+       - talep kontrolündeki tanıdık kapı (izleyicinin aradığı kelime) içinde mi?
+       - bağlam istemeden anlaşılıyor mu?
+       Soru biçimi tek başına ölçüt değildir: genel soru zayıf, izleyicinin hayatına sorulan soru güçlüdür. Kaynak: bir "Viral Hook Tier List" ile kanal verisinin (Sisifos, Milton, İkaros, Cumhuriyet) karşılaştırması.
      - Kontrol zayıfsa açı kullanıcıya önerilir; konuyu değiştirmek ya da korumak kullanıcının kararıdır.
    - **Önce iskelet (İkaros'tan sonra kural):** senaryo yazılmadan önce `yonetmenlik` becerisindeki "Hikâye yapısı seç" tablosundan bir iskelet seçilir (Harmon çemberi, Kahramanın Yolculuğu, Kişōtenketsu, Shorts için Pixar omurgası). Projenin `uretim_plani.md`'sine yazılır: hangi iskelet, neden, kahraman kim, her adımın cümle numarası. Ayrıca açık merak döngüleri (soru → cevap cümlesi) ve bir önceki videonun iskeleti yazılır. Senaryo kurulunun ilk sorusu "senaryo bu iskeletle mi kuruldu?" olur.
 2. **Seslendirme:** her bölüm iki çekim alınır.
