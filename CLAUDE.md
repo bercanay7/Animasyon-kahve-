@@ -192,6 +192,17 @@ Kaynak: Mario Joos'un 1 milyonu geçen videolardaki 15 kapak kompozisyonu listes
   - **Sohbet sorusu, alıntı ya da tepki, puanlama:** kanalın tonuna ve hâline uymuyor.
   - **Kısıtlama kuralı:** meydan okuma videoları için; bizde nadiren.
 - **Öneri:** iki kapak iki farklı kompozisyondan seçilirse "Test ve karşılaştır" iki kalıbı karşılaştırır. Kapak kaydına kullanılan kompozisyon yazılırsa birkaç video sonra kanalın kendi verisiyle hangi kalıbın tuttuğu görülür.
+- **Araştırma bulguları (17 Kasım 2026, öneri):**
+  - **Formüller kanalın kurallarıyla uyuşuyor.** MrBeast'in sızan yapım kılavuzu (gerçekliği doğrulanmadı): kapak videonun en heyecanlı anını gösterir, ilk dakika vaadi karşılar. Paddy Galloway: kapağın %80–90'ı tıklama psikolojisi, tasarım küçük pay.
+  - **Eden'in çalışması** (8.691 kanal, 507 bin video; kanal ortalamasının 2 katını aşanlar ile altında kalanlar karşılaştırılmış; gözlemsel, satıcı yayını, konu ayrımı yok):
+    - yüz neredeyse fark etmiyor (%84,2'ye %82,2);
+    - renk ve parlaklıkta fark yok;
+    - en büyük fark **4–6 kelimelik kapak yazısı** (%30,6'ya %26,5);
+    - çizilmiş ok ve halka biraz daha sık (%41,8'e %38,1).
+  - **1of10 raporu** (Search Engine Journal aktarımı): yüz yalnız büyük kanallarda ve az işe yarıyor; belirleyici olan kapağın konuya uyması.
+  - **Deneme önerisi:** bizim kapak yazılarımız 2–3 kelime ("BEN CEHENNEMİM", "İKİ UYARI VARDI"). Bir videoda iki kapaktan biri 4–6 kelimelik iki satırla denenebilir; %18 harf yüksekliği kuralıyla çatışması test setinde ölçülür.
+  - **Odak ölçümü:** `araclar/kapak/odak.py` göz ilk nereye gider sorusunu ısı haritasıyla gösterir. Kapak test setindeki "belirginlik (odak noktası)" maddesine sayı verir. Tıklanmayı tahmin etmez: en kalabalık kapak Sisifos'unki ve en iyi tıklanan o; en temiz tek odak Milton'da ve TO düşük.
+  - Kaynak ve araç kararları: `araclar/ADAYLAR.md`.
 
 ## Ölçütler (YouTube Analytics)
 - **Gösterim tıklama oranı (TO):** kanalların yarısı %2–10 arasında.
@@ -446,6 +457,13 @@ Ayrıntı: `ran/geriye_bakis.md`, `ran/KURUL.md`, `ran/uretim_plani.md`.
 - **ElevenLabs:** kota yarıda bitebilir (reddedilen çağrı ücretlendirilmez); büyük üretimden önce kalan krediyi kullanıcıya sor. **Scribe'ın `estimate_only` tahmini ~16 kat düşük** (gerçek ≈ 5,5 kredi/sn): döküm yalnız en riskli bölüme.
 - **Düzenleme sonrası sözdizimi denetimi:** `node -e "new Function(require('fs').readFileSync('dosya.js','utf8'))"`; render işçileri sayfayı başta yüklediği için ortadaki kod değişikliği yalnız sonraki render'a geçer (gerekirse `ONLY=` ile parça yeniden).
 - **Kurulsuz üretim kullanıcının kararıydı** (kullanım %90). Kullanım açılırsa ilk tur: hassasiyet (Amida resmi, Kaede, Japon kültürü) + kapak.
+
+## Kurgu önerileri (öneri, kural değil; 17 Kasım 2026)
+Kaynak: Linus (@linus5x), filmlerini Claude'a çizdiren biri; X'te 5 maddelik liste, kullanıcı getirdi (1. madde ekran görüntüsünde yoktu). Kendi videolarının verisinden; örnek küçük, ama dördü kanalın kendi verisiyle örtüşüyor.
+- **Her 3–5 saniyede ekranda bir yenilik; 30 sn duran kare izleyiciyi kaybeder.** Bizdeki karşılığı "donuk plan yok" (İkaros'ta ilk kurguda film %25,7 donuktu) ve "yazı levhası en çok 8 sn". Öneri: kurgu kurulu donukluğun yanında "kesme ya da sözcüğe bağlı eylem olmadan geçen en uzun süre"yi de ölçer; 5 sn'yi aşan aralıklar listelenir.
+- **Sade tut: bir kahraman, bir karşıt güç, bir mekân, ekranda hep hareket eden tek bir şey.** Medici dersiyle aynı ("isimlerden beynim allak bullak"). Uzun videoda bölüm başına uygulanır: her bölümün tek kahramanı, tek karşıtı, tek mekânı.
+- **Sesi kapat, yazıları ört: plan böyle anlaşılmıyorsa çalışmıyor.** Linus her planı yazısız ve sessiz olarak yeni bir yapay zekâya izletip "ne oluyor?" diye soruyor. Öneri, "sessiz okuma testi": kurgu özetinin kareleri (`kurgu_ozet.py`, `ozet.js`; ekran yazısız sürüm `notext` ile) plan listesini görmemiş yeni bir alt ajana verilir, her kare için ne olduğunu yazar; anlatılmak istenenle uyuşmayan planlar sahibine döner. Bu, kurulun "ilk kez gören izleyici" merceğinin ucuz bir hâlidir. İzleyicilerin %38'i altyazıyla izlese de görüntü tek başına anlaşılmalı.
+- **Her şeyi hikâyenin içine koy: hikâye bitince izleyici gider.** Linus'un filmlerinde bitiş levhası çıkınca ~20 puan kayıp var. Bizde de aynısı ölçüldü: İkaros'ta "Bu hikâyede üç uçuş var" (G01) ile yorum başlayınca düşüş. Abone çağrısı, iksir ve bitiş ekranına yönlendirme hikâyenin son anının içinde verilir, ardından yorum uzatılmaz (İkaros dersi: ifşadan sonra yorum kısa ya da hikâyeye dağıtılır).
 
 ## Teknik notlar ve tuzaklar
 - **Playwright:** `require('playwright')` her yerden çalışır, `NODE_PATH` ayarlama (bozuyor). `playwright install` çalıştırma.

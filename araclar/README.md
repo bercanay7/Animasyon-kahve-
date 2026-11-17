@@ -10,6 +10,7 @@ Mevcut dosyalara (animation.html, render.js, audio.py …) dokunmaz; yalnızca e
 - `hareket/` — yürüyüş çözücüsü, yay/sarkaç, kare şeridi (`KILAVUZ.md`; `node araclar/hareket/test.js`)
 - `lemo/` — Lemo-Opuscar üslup kataloğu ve `getir.sh` (belgeler depoya kopyalanmaz)
 - `ADAYLAR.md` — incelenen açık kaynak depolar ve kararlar
+- `kapak/odak.py` — kapak odak ısı haritası (göz ilk nereye gider; `python3 araclar/kapak/odak.py kapak.jpg --cikti klasor`)
 - `vendor/line-art-animation/` — hareket kütüphanesinin özgün kaynağı (MIT)
 
 ```bash

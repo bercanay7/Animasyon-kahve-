@@ -32,3 +32,12 @@
 Bulunamayanlar:
 - **Lisansı doğrulanmış bir kapak/akış test aracı:** bizim `mkfeed.py` yeterli.
 - **`figure.js`'ten güçlü bir 2D iskelet/IK:** Spine ücretli, Rive'ın düzenleyicisi kapalı kaynak.
+
+## 17 Kasım 2026: kapak araçları ve bir beceri
+| Aday | Karar | Gerekçe |
+|---|---|---|
+| sybil-solutions/inference-optimisation-skill (MIT) | **Alınmadı** | Bilgisayarda çalışan dil modeli sunucusunu (vLLM, SGLang, llama.cpp) hızlandırır; hattımızda yerel model yok. Yöntemi ("önce tavanı hesapla, tek şey değiştir, ölç") Ran'ın "önce ölç, sonra hızlandır" dersinde zaten var. |
+| Kapaktan tıklanma tahmini yapan modeller: TubeCLIP, z03 (Hugging Face), YT-ML, vortexv7/engagevision-yt | **Alınmadı** | TubeCLIP ve z03 ticari kullanıma kapalı (CC BY-NC). EngageVision MIT ama 2024'ten beri güncellenmeyen küçük bir deneme. Hepsi yüz ağırlıklı kanallarla eğitilmiş; siluet ve gravür kapağını doğru puanlamaz. |
+| Akış önizleme eklentileri (PrevYou vb.) | **Gerek yok** | Asıl PrevYou deposu bulunamadı (GitHub aramasında yalnız boş kopyalar). Kapak test setindeki akış taklidi (`mkfeed.py` mantığı) aynı işi görüyor. |
+| matthias-k/DeepGaze (göz izleme tahmini) | **Alınmadı** | Depoda LICENSE yok (`setup.py`'de MIT satırı yorumda), yani kullanım izni yok; büyük model ister. |
+| Spektral artık belirginlik (Hou & Zhang, CVPR 2007) | **Yazıldı** | `araclar/kapak/odak.py`: eğitilmiş model yok, yalnız numpy + PIL; parlaklık + iki renk karşıtlığı kanalı. Kanalın 14 kapağında denendi: Sisifos'ta anahtar, Milton'da alev, Kafka'da elma 1. odak çıktı. Tıklanmayı tahmin etmez; "göz amaçladığımız yere mi gidiyor?" sorusunu ölçer. |
