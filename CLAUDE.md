@@ -176,6 +176,23 @@ Campbell'ın (Vogler uyarlamasıyla) Kahramanın Yolculuğu bir kalıp değil, k
   - Ağız çizgisi yüz konturunu aşarsa "sigara" gibi okunur.
   - Eller iki yanda ayna gibi olmalı; tek el sarkarsa "hata" gibi görünür.
 
+### Kapak kompozisyonu seçenekleri (öneri, kural değil; 17 Kasım 2026)
+Kaynak: Mario Joos'un 1 milyonu geçen videolardaki 15 kapak kompozisyonu listesi (X paylaşımı, kullanıcı getirdi). Liste kazananlardan çıkarıldığı için "bu tıklatır" diye değil, fikre göre seçilecek bir menü olarak okunur. Kapak kurulu taslak çıkarırken buna bakabilir.
+- **Kanala uyanlar:**
+  - **Çatışma:** iki güç birbirine yaklaşıyor, sonuç belli değil (Prometheus ve kartal, Lear ve kızları). İki siluet ve aradaki boşlukla kurulur.
+  - **A, B'yi etkiliyor:** biri ötekini hedef alıyor.
+  - **Ortadan başlamak:** hikâye çoktan başlamış; "olayın ortasından başla" kuralının kapaktaki hâli.
+  - **Üç aşamalı dönüşüm:** soldan sağa değişim (Lewis'in başmelek → karabatak → kurbağa → yılan okuması; Medici'nin yükselişi).
+  - **Hareket oku:** sonuç gizli (İkaros'un güneşe giden yolu; Ran kapak B'deki üç ok).
+  - **Karşıtlık:** boyut ya da değer farkı (Şarlken: imparatorluk ve yere bırakılmış taç).
+  - **"Bunu yapma" uyarısı:** Orfeus'un "ARKANA BAKMA!" kapağı; art arda kullanılmaz.
+  - **Suçlama:** izleyiciyi hedef alır. Talep kontrolünün (b) maddesine en yakın kalıp, ama riskli: video duygu açısından vaadi karşılamazsa izleyici hayal kırıklığına uğrar. Hassasiyet kurulundan geçer.
+- **Uymayanlar:**
+  - **Başlık + yüz ve dramatik yüz:** tanınan bir yüz ister. Milton'ın "BEN CEHENNEMİM" kapağı bu kalıba yakındı ama yüz tanınmıyordu; talep kontrolünün (a) maddesiyle aynı ders.
+  - **Sohbet sorusu, alıntı ya da tepki, puanlama:** kanalın tonuna ve hâline uymuyor.
+  - **Kısıtlama kuralı:** meydan okuma videoları için; bizde nadiren.
+- **Öneri:** iki kapak iki farklı kompozisyondan seçilirse "Test ve karşılaştır" iki kalıbı karşılaştırır. Kapak kaydına kullanılan kompozisyon yazılırsa birkaç video sonra kanalın kendi verisiyle hangi kalıbın tuttuğu görülür.
+
 ## Ölçütler (YouTube Analytics)
 - **Gösterim tıklama oranı (TO):** kanalların yarısı %2–10 arasında.
   - Göz at trafiğinde %3–5 iyi, Önerilen'de %4–8 normal.
