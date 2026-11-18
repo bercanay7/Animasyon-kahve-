@@ -17,6 +17,7 @@ Kanalın ilk "Kitapların Sorduğu Sorular" videosu: Stefan Zweig'ın *Maria Stu
 - **Hassasiyet görüntüde:** Finden gravürünün köşesindeki ek resim idam anını (balta) gösteriyordu; Fable'ın da işaret ettiği kırmızı lekeler kan gibi okunuyordu; dans sahnesindeki kalkık kollar selama, simetrik anka amblem kartalına benziyordu. Hepsi düzeltildi; ama ilk ikisi render başladıktan sonra fark edildi ve dört parça yeniden üretildi.
 - **Son render'dan sonra tam boy kare kontrolü iki kusur daha buldu:** soy çizgisi adların üstünden geçiyordu ("I. James" "ı. James" okunuyordu) ve kitabı kırmızıdan çıkaran dikdörtgen, eteğin içinde gri bir kutu gibi duruyordu. Altı parça yeniden üretildi, kapak B yenilendi. Çıkarma alanı nesnenin kendi biçimiyle çizilir, dikdörtgenle değil; çizgi ve ok yazının arasında kesilir.
 - **Dosya boyu:** film greni her karede değiştiği için usta kopya ~3 GB; teslim kopyaları ayrıca sıkıştırıldı.
+- **Seslendirme yaması ucuz ve güvenli:** yayın öncesi kalan beş anlatım sapması, tüm seslendirme yenilenmeden 1.330 krediyle düzeltildi. Cümle önünde bir bağlam cümlesiyle okutulup kesilir, eski klibin yerine aynı ana oturtulur; zaman çizelgesi kaymadığı için yalnız ilgili parçalar yeniden render edilir (`tools/yama_vo.py`).
 
 ## Sonraki videoya
 1. Gerçek görselleri kullanmadan önce **tam boyutta, her köşesine bakarak** incele (ek resimler, yazılar, şiddet). Bir gravürün küçük ek sahnesi bütün planlara taşınır.
@@ -24,3 +25,4 @@ Kanalın ilk "Kitapların Sorduğu Sorular" videosu: Stefan Zweig'ın *Maria Stu
 3. Render'dan önce `tools/kontrol.js` (kurallar) + kurgu özeti + **tam boy kare** kontrolü; özet 480 px'te kusurları gizliyor.
 4. Uzun render'ı başlatmadan önce hassasiyet taramasını bitir (29 Ekim dersi yine geçerli).
 5. Whisper ortamın kurulum betiğine eklenirse hizalama elle sınır gerektirmez.
+6. Kaynak denetimini seslendirmeden önce yap: anlatım sapması sonradan ancak yama ile düzelir. Yama gerekirse `tools/yama_vo.py` (bağlam cümlesi + aynı aralık + gerekirse iç duraklamayı kısaltma; hız değiştirilmez).

@@ -1,0 +1,30 @@
+{
+ "flow_id": "D1JWp9bP96TZERstmXM7",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "18 Kasım 2026: kullanıcı 'Seslendirme yapabilirsin sıkıntılı gördüğün yerleri' dedi. Beş cümle, önünde bağlam cümlesiyle, 2 çekim; 665 karakter × 2 = 1.330 kredi.",
+ "cekimler": {
+  "F02": [
+   "PzJQTg6sYngrNqPOrRGZ",
+   "YkxEEhP1SMdRcGR1s75H"
+  ],
+  "L17": [
+   "wEHbE2E28h1jU3UVwVHy",
+   "LOZVIFIOfJwS3E5ExLWp"
+  ],
+  "L20": [
+   "hyfYGiJgvuFR9Dy7Mv2X",
+   "9CcC0UOl6drOLk0lpFEK"
+  ],
+  "M10": [
+   "QSJBwPolCSNzwBTjzuk1",
+   "UcUBGGCBKh2HtGhK8HPi"
+  ],
+  "M13": [
+   "8FmVVncEIsmOuFlQo9BY",
+   "b50UDBNtVjbsP8kIpJPY"
+  ]
+ },
+ "kredi": 1330
+}

@@ -60,7 +60,7 @@ Kullanıcı ajanlara izin verdi, sonra yükü fazla bularak hafiflettirdi: dört
   - I13 annenin sözü "git"; I11 ve M07 sayvanda anka yok; E08/G05b haziran-temmuzda kar yok; M06 "Mary'nin soyu" ve "bugünkü kraliyet ailesi";
   - Shorts'ta L15 çıkarıldı (L14 olmadan Mary'nin bakışı kaynaksız kalıyordu);
   - açıklamada "on sekizine üç gün kala dul", "neredeyse on dokuz yıl", alıntıların hangi baskıdan çevrildiği, "Zweig'a göre" çerçevesi, kaynakça künyeleri, sabit yorumda "Zweig'a göre".
-- **Kayda geçen, değiştirilmeyen (seslendirme yenilenmeden düzeltilemez):** F02 "10 Şubat gecesi" (patlama 10 Şubat sabaha karşı; F03 etiketi doğru); L17 "haykırdı" (kaynak "dedi"); L20 "başıma gelen" (kaynak "başa gelen"); M13 "bir imparator daha" (Mary gönüllü bırakmadı); M10 "kazandı" (Zweig "kazanır"). Bölüm adı "On Dokuz Yıl" yuvarlama olarak kaldı (18 yıl 9 ay; Mary'nin kendisi "yirmi yıla yakın" der). Bir sonraki seslendirmede bu kalıplara dikkat.
+- **Kayda geçen, sonra seslendirmeyle düzeltilen (aşağıdaki "Seslendirme yaması"):** F02 "10 Şubat gecesi" (patlama 10 Şubat sabaha karşı; F03 etiketi doğru); L17 "haykırdı" (kaynak "dedi"); L20 "başıma gelen" (kaynak "başa gelen"); M13 "bir imparator daha" (Mary gönüllü bırakmadı); M10 "kazandı" (Zweig "kazanır"). Bölüm adı "On Dokuz Yıl" yuvarlama olarak kaldı (18 yıl 9 ay; Mary'nin kendisi "yirmi yıla yakın" der). Bir sonraki seslendirmede bu kalıplara dikkat.
 - **Başkanın bulduğu teknik hata:** mektup yazısı hizayı kendisi kurmuyordu; önceki planın "ortala" ayarı sızınca metin kadrajdan taşıyordu (işçiler arası belirlenimciliği de bozabilirdi) → çizim durumu her karede sıfırlanıyor.
 - Bulguların tamamı: oturumun çalışma alanında (`bulgular.txt`); burada özet.
 
@@ -71,3 +71,19 @@ Usta kopyadan 13 plan tam boy çekildi (A01, B02, F05, H13b, H15, I11, J04, K07,
 - **Doğrulandı, değişmedi:** I11, I12 ve M07'de "En ma fin est mon commencement" (Mary'nin Tutbury sayvanı, White), I13'te "git" (annesinin ankası, Drummond): ikisi de kaynakla uyumlu. J04 ve L14'teki dikey ak çizgi FilmPost'un film çiziği; M06'daki küçük nokta karede yer değiştiren toz.
 - Yeniden üretilen parçalar: 0, 42, 43, 44, 48, 49 (`ONLY=`).
 - **Düzeltildi, Shorts:** filmin künyesinin sonu ("… The Met (CC0)") dikey kırpmanın sol kenarında kesik kalıyor ve Shorts'un kendi künyesiyle üst üste biniyordu → Shorts'ta filmin üst katmanı (künye, etiket) çizilmiyor (`window.SHORTS_UST_YOK`); film usta kopyası değişmedi. Shorts yeniden üretildi (25,1 sn, −14,0 LUFS).
+
+## Seslendirme yaması (18 Kasım; kullanıcı: "Seslendirme yapabilirsin sıkıntılı gördüğün yerleri")
+Metin denetiminde kayda geçen beş anlatım sapması yeniden seslendirildi (Emrullah, eleven_v4, aynı akış; 665 karakter × 2 çekim = 1.330 kredi):
+| Cümle | Eski | Yeni | Kaynak |
+|---|---|---|---|
+| F02 | "10 Şubat 1567 gecesi" | "10 Şubat 1567, sabaha karşı" | patlama 10 Şubat gece ikide (K15) |
+| L17 | "Protestan dekan haykırdı:" | "Protestan dekan şöyle dedi:" | Wynkfielde: "Then sayde Mr. Deane" |
+| L20 | "başıma gelen o elim olay" | "başa gelen o elim olay" | "hath befallen" (K36) |
+| M10 | "tarihte kazandı" | "tarihte kazanır" (ekrandaki kart da) | Zweig: "siegt" (Z08) |
+| M13 | "bir imparator daha vardı" | "bir imparator vardı" | Mary tahtı zorla bıraktı (K18) |
+- **Yöntem:** her cümle önünde bir bağlam cümlesiyle okutuldu (doğal tonlama), bağlam kesildi, yeni cümle eski klibin yerine konuşma başı aynı ana gelecek biçimde oturtuldu (`tools/yama_vo.py`). Filmin geri kalanında hiçbir cümle kaymadı; müzik, efekt, altyazı ve Shorts'un zamanı aynı.
+- **Seçim (iki çekimden):** hız eskiyle ×1,00–1,05, tını farkı en küçük olan: F02-a, L17-a, L20-b, M10-a, M13-a (`vo/yama/analiz.json`).
+- **F02:** yeni okuma 0,46 sn uzundu (virgülden sonra 0,51 sn duraklama) → duraklama 0,25 sn'ye kısaltıldı (sessizlikte kesim, hız değişmedi), cümle 0,21 sn erken başlıyor; F03'e 0,52 sn ara.
+- **Düzey:** eski cümlenin düzeyine; L17'de eski okuma haykırıştı (komşularından 7,5 dB yüksek), komşularının 1 dB üstüne kondu (diğer cümlelerle aynı ilişki).
+- **Kontrol:** değişen yalnız bu beş bölge, ek yerleri sessizlikte (tık yok); "havaya" (patlama sesi) cümle sonuna 0,80 sn (eskisi 0,82); müzik ve efekt yeni zaman çizelgesiyle yeniden üretildi, miks −14,20 LUFS / −1,50 dBFS; altyazı farkı yalnız bu beş cümlede. Parçalar 15, 16, 45, 46, 50, 51 yeniden render edildi.
+- **Kulakla son onay kullanıcıda:** `vo/yama/karsilastirma_eski_yeni.mp3` (her cümle önce eski, sonra yeni, bağlamıyla).
