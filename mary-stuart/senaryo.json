@@ -46,8 +46,8 @@
    "id": "A06",
    "bolum": "Kırmızı ve deniz",
    "soru": null,
-   "tts": "[curious] Ştefan Tsvayg'in anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
-   "alt": "Stefan Zweig'in anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
+   "tts": "[curious] Ştefan Tsvayg'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
+   "alt": "Stefan Zweig'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?",
    "kaynak": "Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)"
   },
   {
@@ -334,8 +334,8 @@
    "id": "E01",
    "bolum": "Holyrood'daki gece",
    "soru": "Kalbiyle seçtiği adam ona ne yaptı?",
-   "tts": "Birkaç ay içinde Meri, Tsvayg'in deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
-   "alt": "Birkaç ay içinde Mary, Zweig'in deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
+   "tts": "Birkaç ay içinde Meri, Tsvayg'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
+   "alt": "Birkaç ay içinde Mary, Zweig'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.",
    "kaynak": "Zweig 9. bölüm (\"des unreifen, eitlen… Knaben\"; doğrulandı)"
   },
   {
@@ -1350,8 +1350,8 @@
    "id": "M10",
    "bolum": "Sonumda başlangıcım",
    "soru": null,
-   "tts": "Tsvayg'in hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Meri ise şiirde ve efsanede.",
-   "alt": "Zweig'in hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.",
+   "tts": "Tsvayg'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Meri ise şiirde ve efsanede.",
+   "alt": "Zweig'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.",
    "kaynak": "Zweig 8. bölüm (\"Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende\"; doğrulandı)"
   },
   {

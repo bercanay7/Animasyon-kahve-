@@ -10,7 +10,7 @@
 - **A03** Onu buraya, neredeyse on dokuz yıl önce verdiği tek bir karar getirdi: küçük bir balıkçı teknesine binip rakibi Elizabeth'in ülkesine geçmek.  <sub>K21, K26; kapak A vaadi ~0:10</sub>
 - **A04** Dostları "Fransa'ya git" dedi. Mary rakibine sığındı.  <sub>K20; L2 açılır (cevap H)</sub>
 - **A05** Ve iki kraliçe bir kez bile yüz yüze gelmedi.  <sub>K09</sub>
-- **A06** Stefan Zweig'in anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?  <sub>Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)</sub>
+- **A06** Stefan Zweig'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?  <sub>Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)</sub>
 - **A07** Hikâye bir beşikte başlıyor.  <sub>geçiş; hikâye ~0:42</sub>
 
 ## B. Altı günlük kraliçe  ·  *Bir arma, iki kuzeni nasıl düşman yaptı?*
@@ -58,7 +58,7 @@
 
 ## E. Holyrood'daki gece  ·  *Kalbiyle seçtiği adam ona ne yaptı?*
 
-- **E01** Birkaç ay içinde Mary, Zweig'in deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.  <sub>Zweig 9. bölüm ("des unreifen, eitlen… Knaben"; doğrulandı)</sub>
+- **E01** Birkaç ay içinde Mary, Zweig'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.  <sub>Zweig 9. bölüm ("des unreifen, eitlen… Knaben"; doğrulandı)</sub>
 - **E02** Ona kral unvanını verdi ama yetkisini vermedi.  <sub>standart (crown matrimonial verilmedi)</sub>
 - **E03** Darnley'nin kıskançlığı, kraliçenin İtalyan sekreteri David Rizzio'ya yöneldi.  <sub>standart</sub>
 - **E04** 9 Mart 1566 akşamı Mary, Holyrood sarayında küçük bir odada yemekteydi. Altı aylık hamileydi.  <sub>K13</sub>
@@ -209,7 +209,7 @@
 - **M07** Sonumda başlangıcım. Sayvana işlenmiş o bilmece, böyle çözüldü.  <sub>K25, Z06; L6 kapanır</sub>
 - **M08** Oğlu James, annesini Westminster Abbey'ye taşıttı.  <sub>K38</sub>
 - **M09** Bugün iki kraliçe aynı şapelin karşılıklı iki nefinde yatıyor; aralarında yalnız bir koridor var. Hayattayken bir kez bile yüz yüze gelmediler.  <sub>K38, K09</sub>
-- **M10** Zweig'in hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.  <sub>Zweig 8. bölüm ("Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende"; doğrulandı)</sub>
+- **M10** Zweig'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.  <sub>Zweig 8. bölüm ("Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende"; doğrulandı)</sub>
 - **M11** Şimdi soru senin: sen kalbinle mi yaşıyorsun, aklınla mı? Ve sence hangisi kazandı? Cevabını yorumlara yaz.  <sub>L4 kapanır (izleyiciye)</sub>
 - **M12** Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor. Bu yolculuğu sevdiysen abone ol.  <sub>abone çağrısı (doruktan hemen sonra, kısa)</sub>
 - **M13** Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator daha vardı. Onun hikâyesi ekranda.  <sub>bitiş ekranı: Şarlken (son 20 sn içinde)</sub>

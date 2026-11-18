@@ -13,7 +13,7 @@ b('Kırmızı ve deniz', None, [
  ('', 'Onu buraya, neredeyse on dokuz yıl önce verdiği tek bir karar getirdi: küçük bir balıkçı teknesine binip rakibi Elizabeth\'in ülkesine geçmek.', 'K21, K26; kapak A vaadi ~0:10'),
  ('', 'Dostları "Fransa\'ya git" dedi. Mary rakibine sığındı.', 'K20; L2 açılır (cevap H)'),
  ('', 'Ve iki kraliçe bir kez bile yüz yüze gelmedi.', 'K09'),
- ('curious', 'Stefan Zweig\'in anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?', 'Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)'),
+ ('curious', 'Stefan Zweig\'ın anlattığı bu hikâyede biri kalbiyle yaşar, öteki aklıyla. Sen hangisisin?', 'Z02 (Zweig: romantik ve gerçekçi; bizim dilimizle kalp ve akıl); L4 açılır (cevap M)'),
  ('', 'Hikâye bir beşikte başlıyor.', 'geçiş; hikâye ~0:42'),
 ])
 b('Altı günlük kraliçe', 'Bir arma, iki kuzeni nasıl düşman yaptı?', [
@@ -57,7 +57,7 @@ b('Görmediği kuzen', 'Hiç karşılaşmadan birbirlerini nasıl tanıdılar?',
  ('', 'Temmuz 1565\'te evlendiler.', 'K12'),
 ])
 b('Holyrood\'daki gece', 'Kalbiyle seçtiği adam ona ne yaptı?', [
- ('', 'Birkaç ay içinde Mary, Zweig\'in deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.', 'Zweig 9. bölüm ("des unreifen, eitlen… Knaben"; doğrulandı)'),
+ ('', 'Birkaç ay içinde Mary, Zweig\'ın deyişiyle olgunlaşmamış ve kendini beğenmiş bir adamla evlendiğini gördü.', 'Zweig 9. bölüm ("des unreifen, eitlen… Knaben"; doğrulandı)'),
  ('', 'Ona kral unvanını verdi ama yetkisini vermedi.', 'standart (crown matrimonial verilmedi)'),
  ('', 'Darnley\'nin kıskançlığı, kraliçenin İtalyan sekreteri David Rizzio\'ya yöneldi.', 'standart'),
  ('', '9 Mart 1566 akşamı Mary, Holyrood sarayında küçük bir odada yemekteydi. Altı aylık hamileydi.', 'K13'),
@@ -200,7 +200,7 @@ b('Sonumda başlangıcım', 'Peki kim kazandı?', [
  ('thoughtful', 'Sonumda başlangıcım. Sayvana işlenmiş o bilmece, böyle çözüldü.', 'K25, Z06; L6 kapanır'),
  ('', 'Oğlu James, annesini Westminster Abbey\'ye taşıttı.', 'K38'),
  ('', 'Bugün iki kraliçe aynı şapelin karşılıklı iki nefinde yatıyor; aralarında yalnız bir koridor var. Hayattayken bir kez bile yüz yüze gelmediler.', 'K38, K09'),
- ('', 'Zweig\'in hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.', 'Zweig 8. bölüm ("Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende"; doğrulandı)'),
+ ('', 'Zweig\'ın hükmü şöyle: gerçekçi Elizabeth tarihte kazandı; romantik Mary ise şiirde ve efsanede.', 'Zweig 8. bölüm ("Elisabeth, die Realistin, siegt in der Geschichte, Maria Stuart, die Romantikerin, in Dichtung und Legende"; doğrulandı)'),
  ('curious', 'Şimdi soru senin: sen kalbinle mi yaşıyorsun, aklınla mı? Ve sence hangisi kazandı? Cevabını yorumlara yaz.', 'L4 kapanır (izleyiciye)'),
  ('', 'Zaman Kuryesi geçmişten bugüne böyle sorular taşıyor. Bu yolculuğu sevdiysen abone ol.', 'abone çağrısı (doruktan hemen sonra, kısa)'),
  ('', 'Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator daha vardı. Onun hikâyesi ekranda.', 'bitiş ekranı: Şarlken (son 20 sn içinde)'),
