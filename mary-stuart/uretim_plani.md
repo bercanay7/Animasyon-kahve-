@@ -1,6 +1,6 @@
 # Mary Stuart ve I. Elizabeth (Zweig'in anlatımıyla): üretim planı (rev0, 18 Kasım 2026)
 
-Durum: talep kontrolü ölçüldü; yorum kullanıcıyla kurulacak (sorular soruldu). İskelet, başlık adayları ve kapak taslakları sorulardan sonra, senaryodan önce.
+Durum (rev1): talep kontrolü ölçüldü; kullanıcının cevapları alındı; yorum, iskelet, başlık adayları ve kapak taslakları yazıldı. Sırada: birinci el kaynaklar (ajan topluyor), üslup kapısı, senaryo.
 Bölüm: **Tarihin Dönüm Noktaları** (ana); Zweig kapısı yüzünden **Kitapların Sorduğu Sorular** listesine de eklenir.
 Kullanıcının çerçevesi (18 Kasım): Stefan Zweig'in *Maria Stuart*'ından okudu; Zweig'in iç dünyaya inen psikolojik anlatımı; ana odak Mary'nin yolculuğu ve iki kraliçe arasındaki çekişme; Elizabeth "uzaktan bir profil"; uzun video (25–30 dk, gerekirse fazlası; karar başkanın). Üslup için cinecode'da hazır tarif varsa o. **Kurul yok**; gerektiğinde Fable tek danışman/denetmen.
 
@@ -68,3 +68,100 @@ Aday sorular (kaynakla ve kullanıcıyla sınanacak):
 - Yorum (kullanıcıyla), iskelet, on başlık adayı, iki kapak (iki ayrı vaat), kaynak klasörü (birinci el kaynaklar satır numaralı: Mary'nin ve Elizabeth'in mektupları, Melville'in anıları, idam tutanağı).
 - Üslup kararı (cinecode tarifi önce; kendi motorlarımız yeniden kullanılabilir mi).
 - Kredi hesabı (senaryo kesinleşince; 25–30 dk ≈ 2 çekimle 45–55 B karakter).
+
+## Kullanıcının cevapları (18 Kasım)
+| Soru | Cevap |
+|---|---|
+| Zweig'de en çok etkileyen an | **Solway'i geçiş kararı** (16 Mayıs 1568) ve **Fotheringhay'deki idam** (8 Şubat 1587) |
+| Okuma | **Zweig'in okuması:** Mary kalbiyle, Elizabeth aklıyla yaşadı; Mary'yi tutku yıktı |
+| Haftalık kullanım | %50'nin altında → Fable danışman 3–4 noktada (kaynak/doğruluk + hassasiyet, paketleme, üslup karesi, ilk kurgu); çizim iki ajana bölünebilir |
+| ElevenLabs kredisi | 60 B'den fazla → kanalın kuralı: bölüm başına iki çekim |
+
+## Yorum (başkan; kullanıcının okumasıyla, kaynakla sınanarak)
+- **Omurga Zweig'in okuması:** iki kraliçe iki ilke. Mary kararlarını kalbiyle verir (Darnley'yi kendi seçer, Bothwell, Solway); Elizabeth aklıyla ve kararsızlıkla yönetir (evlenmez, bekletir, fermanı imzalar ve inkâr eder). Zweig'in tezini anlatıcı "Zweig'e göre" diye taşır; Zweig bir kaynak ve bakış olarak adıyla anılır.
+- **Sınama (doğruluk vetosu, kurulsuz da geçerli):** Zweig, Casket mektuplarını ve soneleri gerçek sayar ve Bothwell tutkusunu bunlara dayandırır. Mektupların asılları kayıptır; yalnız kopya ve çevirileri kalmıştır; bugün birçok tarihçi (Fraser 1969, Guy 2004) değiştirildiklerini ya da sahte olduklarını düşünür; Melville'in anılarında Bothwell'in Mary'yi Dunbar'da zorladığına dair tanıklık var (ajan birinci el metinden doğruluyor). **Karar:** omurga Zweig'de kalır, ama bu noktada tek dürüst cümle verilir ("Zweig bu mektuplara inandı; asılları kayıp, birçok tarihçi inanmıyor") ve anlatı "Zweig'e göre" kipine geçer. Tutku olgu gibi değil, Zweig'in okuması gibi anlatılır. Kullanıcıya bildirildi.
+- **Zweig'in kanıtsız psikanalitik yorumları kullanılmaz:** Elizabeth'in evlenmemesini bedensel bir kusura bağlayan spekülasyon gibi (kaynağı yok; hassasiyet). Elizabeth "kıskanç kadın" kalıbına indirgenmez: kıskançlığı yalnız birinci el tanığın (Melville) anlattığı kadarıyla verilir.
+- **Elizabeth uzaktan (kullanıcının isteği), görsel kural olarak:** Mary canlı çizilmiş figürdür; **Elizabeth hiç yakından canlanmaz.** Yalnız başkalarının gözüyle görünür: elçi Melville'in anıları (1564: "hangimiz daha güzel?"; 1566: oğlan doğdu haberi), mektupları, Parlamento'ya cevapları ("cevapsız cevap", 1586), Paulet'e yazdırılan mektup ve dönem portreleri (kendisinin denetlediği resmî yüzü). Çizimde en çok uzak siluet, pencere, mühür, taç. İki kraliçe hayatta hiç karşılaşmadı: film de onları aynı karede hiç buluşturmaz (son sahnedeki Westminster mezarları hariç).
+- **Psikolojik anlatım kuralı:** iç dünya uydurulmaz. Mary'nin iç dünyası kendi mektuplarından (17 Mayıs 1568 Workington, 8 Şubat 1587 son mektup), işlemelerindeki sözlerden ("En ma fin est mon commencement") ve tanıkların gördüklerinden; Elizabeth'inki kendi sözlerinden ve tanıklardan. Zweig'in yorumu "Zweig'e göre" diye işaretlenir.
+
+## Tek büyük soru ve talep (b)
+**Seçilen soru: "Kalbinle mi yaşarsın, aklınla mı?"**
+- Gerekçe: Zweig'in iki kraliçe tezi (kullanıcının seçtiği okuma) doğrudan izleyicinin hayatına sorulan bir soruya dönüşüyor; arama damarı güçlü ("akıl mı kalp mi", "akıl ile kalp arasında kalmak", "kalp mi mantık mı"). Sisifos'taki iki koşul birlikte: tanıdık ad (I. Elizabeth, Mary Stuart) + kişisel soru.
+- Cevap ikiye bölünür, izleyiciye kalır: akıl tahtı korudu (Elizabeth 44 yıl hüküm sürdü), kalp tahtı kaybetti ama 1603'te İngiliz tahtına Mary'nin oğlu oturdu ("Sonumda başlangıcım"). Kim kazandı?
+- Elenen damarlar: "Hiç görmediğin birini kıskanır mısın?" (güçlü ama vaadi Elizabeth'in kıskançlığına kurar; filmin merkezi Mary ve Zweig'in "kıskanç kadın" kalıbı hassas); "Düşmanına sığınır mısın?" (kimsenin gündelik hayatında yok; Solway sorusu bölüm sorusu olarak kalır).
+
+## Hikâye iskeleti: Kahramanın Yolculuğu (Vogler) + bölüm başına ABT (seçildi)
+- **Neden:** 25–30 dk'lık biyografi/tarih (yönetmenlik tablosu). Önceki üç video: İkaros Harmon, Kafka Kişōtenketsu, Ran Harmon; art arda değil.
+- **Süs:** **çift yolculuk, hiç kesişmeyen iki yol.** Kahraman Mary; Elizabeth onun "eşik bekçisi" ve gölgesi, ama ekranda hiç buluşmazlar. Kanalın imzası "yolculuk nerede kırıldı?" = **Solway** (kullanıcının sahnesi): kahraman yanlış eşikten geçer, dönüşü olmayan dünyaya. Doruk ve "diriliş" = **Fotheringhay** (kullanıcının ikinci sahnesi): Zweig'e göre ölümünü bir zafere çevirir.
+- **Açılış:** sondan başla (Zweig de *Yıldızın Parladığı Anlar*'da karar anına doğrudan girer). 0:00 kırmızı (kapak B'nin vaadi), 0:08 Solway (kapak A'nın vaadi), 0:25 büyük soru, **hikâye ~0:40'ta başlar** (Ran kuralı: ≤0:45).
+
+| Adım (Vogler) | Bölüm (YouTube damgası) ve içerik | Cümleler (taslak) |
+|---|---|---|
+| 0. Kanca | **Kırmızı ve deniz:** 8 Şubat 1587 sabahı siyah elbisenin altından kırmızı; 19 yıl önce bir balıkçı teknesi; "iki kraliçe birbirini hiç görmedi"; soru: kalp mi akıl mı? | A01–A07 |
+| 1. Sıradan dünya | **Altı günlük kraliçe:** 1542; beş yaşında Fransa; en mutlu yıllar; 16 yaşında evlilik; 1559 arması: İngiltere tahtına sahip çıkmak (L3 açılır); 18 yaşında dul | B01–B12 |
+| 2. Çağrı / eşik | **Siste dönüş:** 1561 Leith; Knox'un "sis"i; Katolik kraliçe, Protestan ülke | C01–C06 |
+| 3. Sınavlar, dostlar, düşmanlar | **Görmediği kuzen:** Melville'in 1564 elçiliği (Elizabeth'in soruları, L5 açılır); Elizabeth'in kendi gözdesini koca olarak önermesi; Mary'nin kalbiyle seçtiği Darnley | C07–C18 |
+| 3b | **Holyrood'daki gece:** Rizzio; James'in doğumu; Elizabeth'in "kısır kütük" tepkisi (Melville) | D01–D10 |
+| 4. Mağaraya yaklaşma | **Bothwell:** Kirk o'Field; Dunbar; evlilik; Casket mektupları (Zweig'in okuması + dürüst cümle) | E01–E14 |
+| 5. Büyük sınav | **Gölün ortasındaki ada:** Carberry, Lochleven, tahttan feragat; kaçış (ödül: özgürlük, ordu) | F01–F10 |
+| 6. Kırılma (kanalın imzası) | **Solway:** Langside; Dundrennan; yandaşları Fransa der; Mary İngiltere'yi seçer; balıkçı teknesi; Workington'dan Elizabeth'e mektubu (kendi sözleri). L2 kapanır | G01–G12 |
+| 7. Uzun sınav | **On dokuz yıl:** esaret; Casket mektupları mahkemesi kararsız; işleme ve "Sonumda başlangıcım" (L6 açılır); Elizabeth'in çıkmazı: bırakamaz, öldüremez | H01–H12 |
+| 7b | **Bira fıçısındaki mektuplar:** Walsingham'ın tuzağı; Babington; mektup; Fotheringhay davası ("dünya sahnesi İngiltere'den geniştir") | I01–I10 |
+| 7c | **Elizabeth, Elizabeth'e karşı:** cevapsız cevap; ferman; Paulet'e gizlice öldürme önerisi ve reddi; Davison (L5 kapanır) | J01–J09 |
+| 8. Diriliş | **Kırmızı:** gece 2'deki son mektup; idam sabahı (tutanaktan, kan ve darbe gösterilmez); peruk ve köpek; Elizabeth'in tepkisi. L1 kapanır | K01–K14 |
+| 9. İksirle dönüş | **Sonumda başlangıcım:** 1603; Mary'nin oğlu İngiliz tahtında; Westminster'de birkaç metre arayla iki mezar; Zweig'in hükmü ve izleyiciye soru (L3, L4, L6 kapanır); abone çağrısı doruk anında; bitiş ekranı Şarlken (aynı yüzyıl, tahtını kendi bırakan) + Sisifos | L01–L10 |
+
+Toplam ~140–150 cümle, ~2.800 kelime → tahmini **27–30 dk** (Ran 96 kelime/dk).
+
+### Merak döngüleri
+- **L1 (A01 → K):** "Neden kırmızı giydi?" (Katolik şehitlik rengi; tutanaktan)
+- **L2 (A04 → G):** "Neden rakibine sığındı?"
+- **L3 (B → L):** 16 yaşında İngiliz armasını taşıdı: İngiltere'ye hiç sahip oldu mu? (1603: oğlu)
+- **L4 (A07 → L):** Kalple yaşayan mı kazanır, akılla yaşayan mı?
+- **L5 (C → J):** Hiç görmediği kuzeni hakkında Elizabeth ne hissediyordu?
+- **L6 (H → L):** İşlemesindeki söz: "Sonumda başlangıcım" ne demek?
+- **ABT:** her bölümde bir AMA (ör. "ama sisin içinde bir vaiz bekliyordu", "ama kalbiyle seçtiği adam onu kıskanacaktı", "ama Elizabeth'in verdiği söz bir yüzükten ibaretti" (doğrulanacak), "ama mektuplarının hepsi okunuyordu").
+
+## Paketleme taslağı (senaryodan önce)
+### On iki başlık adayı (eleme: 1 hayatına soru mu, 2 tek nefes mi, 3 cevabı yarı tahmin ettirip ele vermiyor mu, 4 tanıdık kapı içinde mi, 5 bağlamsız anlaşılır mı)
+| # | Aday | 1 | 2 | 3 | 4 | 5 | Not |
+|---|---|---|---|---|---|---|---|
+| 1 | **Kalbinle mi Yaşarsın, Aklınla mı? \| Mary Stuart ve I. Elizabeth** (63 kr.) | ✓ | ✓ | ✓ | ✓ | ✓ | Seçilen |
+| 2 | Aklınla mı Karar Verirsin, Kalbinle mi? \| I. Elizabeth ve Mary Stuart | ✓ | ✓ | ✓ | ✓ | ✓ | 1'in yedeği; "karar" Solway'e bağlanır ama "yaşamak" daha geniş |
+| 3 | Mary Stuart Neden Rakibine Sığındı? \| I. Elizabeth'in 19 Yıllık Esiri | ✗ | ✓ | ✓ | ✓ | ✓ | Bilgi merakı; İkaros'taki eksik (kişisel soru yok) |
+| 4 | Düşmanına Sığınır mısın? \| Mary Stuart ve I. Elizabeth | ~ | ✓ | ✓ | ✓ | ✓ | Soru yapay: kimsenin hayatında "düşmana sığınmak" yok |
+| 5 | İki Kraliçe Birbirini Hiç Görmedi \| Mary Stuart ve I. Elizabeth | ✗ | ✓ | ✓ | ✓ | ✓ | Şaşırtıcı bilgi; soru yok |
+| 6 | Hiç Görmediğin Birini Kıskanır mısın? \| I. Elizabeth ve Mary Stuart | ✓ | ✓ | ✓ | ✓ | ✓ | Güçlü; ama vaat Elizabeth'in kıskançlığına kayar ve "kıskanç kadın" kalıbı hassas |
+| 7 | I. Elizabeth Ölüm Fermanını Neden İmzalayıp İnkâr Etti? | ✗ | ✗ | ✓ | ✓ | ✓ | Uzun; Elizabeth merkezli (film Mary merkezli) |
+| 8 | Kalbine Uyan Kraliçe Neden Kaybetti? \| Mary Stuart | ~ | ✓ | ✗ | ✓ | ✓ | Cevabı veriyor (kaybetti); 1603 tersini söylüyor |
+| 9 | Stefan Zweig'in Anlattığı Kraliçe: Mary Stuart | ✗ | ✓ | ✗ | ✓ | ✓ | Yalnız okur kapısı |
+| 10 | Neden Kırmızı Giydi? \| Mary Stuart'ın Son Sabahı | ✗ | ✓ | ✓ | ✓ | ✗ | Bağlam ister (kim, nerede?); kapak B'nin işi |
+| 11 | Kalbiyle Kaybetti, Oğlu Kazandı \| Mary Stuart ve I. Elizabeth | ✗ | ✓ | ✗ | ✓ | ~ | Sonu ele veriyor |
+| 12 | Rakibine Güvenen Kraliçe: Mary Stuart ve I. Elizabeth | ✗ | ✓ | ~ | ✓ | ✓ | Konu anlatıyor |
+
+**Seçilen: 1.** Kişisel soru önde, tanıdık iki ad arkada (Sisifos ve Ran kalıbı: soru | kapı). "Kraliçe Elizabeth" değil "I. Elizabeth" (II. Elizabeth'e gitmesin). Mobilde ilk satır sorunun kendisi. Kalıp çeşitlemesi: önceki başlıklar "Yaptıkların Sana Döner mi?" (Ran) ve "Neden … ?"; bu "… mi, … mı?" ikilemi. Açıklamanın ilk satırı: "Stefan Zweig'in *Mary Stuart*'ından: iki kraliçe, bir hiç karşılaşmama, on dokuz yıl." (Zweig kapısı açıklamada ve etiketlerde.) Paketleme Fable danışmana gösterilecek.
+
+### İki kapak: iki ayrı vaat (kanal ortalaması bulgu 7)
+| | A: karar (Çatışma + hareket oku) | B: son (ortadan başlamak, tek renk) |
+|---|---|---|
+| Görüntü | Gece, sisli deniz; küçük bir teknede pelerinli kadın (kırmızı tek vurgu: pelerinin astarı); karşı kıyıda devasa, taçlı koyu siluet (İngiltere / Elizabeth), tekne ona doğru gidiyor | Kapkara bir salon; sırtı dönük kadın figürü, siyah elbisenin altından tek kırmızı; yüz yok, kütük ve balta yok |
+| Yazı | **RAKİBİNE SIĞINDI** | **İDAMINA KIRMIZI GİYDİ** (4–6 kelime denemesi için yedek: "İDAMA KIRMIZILAR İÇİNDE ÇIKTI") |
+| Vaat | Neden rakibine sığındı? (Solway) | Neden kırmızı? (şehitlik rengi) |
+| Filmde karşılandığı yer | 0:08 (A04: tekne) | 0:00 (A01: kırmızı) |
+| Kompozisyon | Mario Joos listesinden "çatışma" + "hareket oku" | "ortadan başlamak" + tek odak |
+
+- Ortak kurallar: Bebas Neue, büyük harf ≥ %18 (1080 ölçeğinde font ≥ 290 px), sağ alt rozet bölgesi (x 1440–1874, y 829–1034) boş, tek odak karenin en parlak yeri.
+- Hassasiyet: idam kapağında kan, balta, kütük, kesik baş yok; "kırmızı" Katolik şehitlik rengi olarak doğru bilgi. Gerçek kişi yüzü çizilmez (siluet).
+
+## Üslup (başkan kararı, 18 Kasım; üslup kapısı karesi bekleniyor)
+**Kendi motorumuz: Milton'ın gravür motoru (`milton/lib`, kanalın en olgun motoru) + cinecode `engraving` tarifinin "renk sonradan, elle" yasası + gerçek görsel araları.**
+- Neden: 16. yüzyılın görsel dili bakır gravür ve ağaç baskıdır (Mary'nin idamı da dönemin baskılarıyla yayıldı); dönem portreleri ve belgeleri gerçek görsel arası olarak aynı kâğıt dünyasına oturur. Kullanıcının isteği "cinecode'da hazır şablon": `engraving` tarifi zaten Milton motorunun akrabası (BIZIM_NOT); motor yazmak en pahalı aşama, hazır motor yetiyor.
+- **Milton'dan ayrılan imza: elle boyama.** Milton tek renkti (siyah-kâğıt). Burada gravür basıldıktan sonra saydam suluboya iki renkle ve olay olarak gelir: **Mary'nin kırmızısı** (kardinal kırmızısı: pelerin astarı, mühür mumu, son sabah), **Elizabeth'in altını** (taç, mühür, portre çerçevesi). Bir karede en çok bir renk; renk taşar, kenarda birikir (tarif: spill, tide-line). Film tek renkle başlar; kırmızının ilk gelişi bir olaydır.
+- **Kodla çizimin zayıf yanı:** yüz ve el yakın planı yok. Mary koyu siluet ya da ters ışıkta figür; duygu duruşla, mekânla ve nesneyle (mektup, mum, pencere, iğne ve işleme, şifre, yüzük). Gerçek yüzleri dönem portreleri verir (arşiv arası).
+- **Üslup kapısı:** (1) manzara: gece Solway, sis, tekne; (2) orta plan figür: Lochleven penceresinde Mary; (3) yakın plan: mum ışığında mektup, kırmızı mühür mumu; (4) 15 sn hareket: teknenin kıyıdan ayrılışı; (5) arşiv arası: Clouet çizimi masada.
+
+## Kurul (kullanıcının kararı, 18 Kasım): kurul yok, Fable danışman
+Kapılar başkan denetimiyle geçer; `KURUL.md`'ye "kurulsuz" diye yazılır. Fable (bağımsız, tek ajan) yalnız gereken yerlerde: (1) senaryo: kaynak/doğruluk + hassasiyet (veto alanları), (2) paketleme: başlık + iki kapak, (3) gerekirse üslup karesi ya da ilk kurgu (sessiz okuma testi). Fable'ın önerileri de iddiadır; başkan ölçüp karar verir.
+
+## Kredi (tahmin)
+~2.800 kelime ≈ 21.500 karakter × 2 çekim ≈ **43.000 kredi** (+ ~500 okunuş testi). Kesin sayı senaryo kesinleşince bildirilir ve onay alınır.
