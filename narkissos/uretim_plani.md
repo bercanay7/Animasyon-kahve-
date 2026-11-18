@@ -60,5 +60,87 @@ Sorular: **K**işisel soru mu · **N**efes (tek nefeste okunur mu) · **Y**arı 
 - **Yedek C, "su → ekran":** havuzun yüzeyi telefon ekranı, yansımadaki yüz ekranda. İzleyicinin hayatına en yakın vaat, ama videonun yalnız bir bölümünü anlatıyor; yanıltmaması için ancak senaryo bu köprüyü güçlü kurarsa denenir.
 - Kapak yazısı hassasiyetten geçer: "NARSİST" kelimesi tek başına kapakta kullanılmaz (teşhis vaadi gibi okunur).
 
-## 5. Üslup
-(araştırma sürüyor; sonuçlar buraya)
+## 5. Üslup (18 Kasım 2026)
+Araştırma: yedi dilim (Lemo'nun 99 üslubu, cinecode, kendi yedi motorumuz, GitHub, sanat tarihi ve lisans), bir sentez, sekiz iddia doğrulaması ve Fable 5.2'nin bağımsız denetimi. Ham raporlar oturumun çalışma alanında kaldı; Lemo belgeleri CC BY-NC olduğu için depoya alınmadı. Aşağıdaki başkan önerisi **kullanıcının onayını bekliyor**.
+
+### Başkanın önerisi
+**Ana üslup: vazo** (kendi motorumuz, `prometheus/lib`). Üslup kapısında aynı sahneyle **risografa** (Lemo `risograph`) karşı sınanır. Risograf aşağıdaki dört ölçütün dördünde de açık farkla kazanırsa seçilir; beraberlik vazoya gider. Sentez risografı birinci koymuştu; Fable 5.2 ve iddia doğrulamaları vazoyu öne aldı. Başkan doğrulamalara katılıyor.
+
+**Neden vazo:**
+- **Çalışan kanıt:** insan figürü, yansıma ve gözyaşı halkası birlikte çalışan tek aday (ajan denemesi; yakın planda karşılıklı profil).
+- **Küçük boyda okunurluk:** 168 ve 120 px'te en okunaklı deneme. `odak.py` iki tepeyi de yüze ve yansımasına koyuyor; figür/zemin ayrışması 0,92.
+  - Risografta bu değer 0,66–0,69 ve ilk odak kare kenarına gidiyor.
+  - Risografın yakın plan başı kuş gibi okunuyor.
+- **Hız:** 4 alt örnekli hareket bulanıklığıyla kare başına 0,35–0,50 sn; 4 işçiyle neredeyse doğrusal ölçekleniyor. Risograf 1,2–4,4 sn ve 4 işçide yalnız ~1,8 kat hızlanıyor.
+- **Formül:** Sisifos'unkiyle aynı (vazo üslubunda mit, başlıkta bugüne sorulan soru). Prometheus da bu üslupla 2. gün kanalın en büyük göz atma testini aldı (17,6 B; `analiz/2026-11-17-kanal-ortalamasi.md`). Üslubun tıklamadaki payı ayrıca ölçülemiyor; ama yeni izleyiciyi geri çevirdiğine dair veri de yok.
+- **Tazelik:** son dört video (Milton, İkaros, Kafka, Ran) baskı ve mürekkep dilindeydi, vazo ise 18 gündür kullanılmadı. Risograf beşinci baskı dili olurdu.
+- **Kanal kuralı:** CLAUDE.md'nin sırasına uyuyor (önce kendi motorlarımız).
+
+**Vazonun açıkları (kapıda çözülecek):**
+- **Kaynak yok:** bilinen hiçbir Yunan vazosunda Narkissos tasvir edilmemiş; en eski kesin tasvirler Roma dönemine ait (Pompeii freskleri, gemmalar). Üslup serinin görsel kimliği olarak kullanılır; anlatıda "Narkissos'un antik tasviri" diye sunulmaz.
+- **Yalnız profil var,** yani ¾ yüz kuralı karşılanmıyor. Kapakta karşılıklı profil denenir; alttaki yüz halkayla bozulur, böylece asimetri hem görsel hem hikâye taşır.
+- **Baş:** denemedeki genç kel gibi okunuyor; yeni bir baş gerekir (saç, genç yüz).
+- **Duruş:** geniş planda dört ayak üstünde eğilmek secde gibi okunuyor. Yerine uzanma ya da kayaya yaslanma kullanılır.
+- **Denenmeyenler:** yansımanın seyreltik sırla koyulaşması ve siyah sırdan siyah cama geçiş henüz denenmedi.
+
+**Neden rakip risograf, kazıma film değil:**
+- Risograf açık zeminli, çağdaş bir dergi illüstrasyonu dili. Kapı gerçekten "koyu ve antik mi, açık ve çağdaş mı?" sorusunu sınar.
+- Yansıma risografın gölgelendiricisinde hazır (`riso.js:50–68`). Eksik olanlar halka ve oval havuz maskesi.
+- Yarım ton noktası ekran pikseline dönüşebilir; bu köprüyü yalnız risograf kurar.
+- Kazıma film de koyu zeminli; vazoyla karşılaştırmak az şey öğretir. Onun fikirleri vazoya taşınır: kazınarak yazılan ve her tekrarda solan söz, bedeni sönen figür.
+
+**Kapı kuralları (önceden yazıldı):**
+- **Süre:** vazoya yarım gün, risografa en çok bir gün.
+- **Sahne:**
+  - manzara: pınar ve orman kenarı;
+  - orta plan: giyinik genç uzanmış, suya bakıyor;
+  - yakın plan: "öpüşme ekseni" (III 427), yüz ve yansıması çene çeneye.
+- **15 sn'lik hareket:** gözyaşı (`Wd`) → halka → yansımanın toparlanması; "sum" sözcüğünde tanıma; su kenarının telefon kenarına dönmesi.
+- **Ekler:** 0–5 sn'lik "cam → havuz" açılış denemesi ve 1280×720 kapak taslağı (süre rozeti bölgesi boş).
+- **Risografın kazanma şartları:**
+  1. yakın plan baş, planı görmemiş bir alt ajana "genç bir insan" diye okunuyor;
+  2. 246, 168 ve 120 px'te, koyu ve açık akışta yüz ve yansıma vazodakinden iyi okunuyor (`odak.py`);
+  3. 480p ve 360p kodlamada yarım ton titremiyor (hare deseni yok);
+  4. hareket bulanıklığı açık, tek işçi ve boş makinede kare başına ≤ 1,5 sn.
+- **İki adayda da:**
+  - hassasiyet bakışı: hale, haç, secde, çıplaklık, altı köşeli yıldız;
+  - sessiz okuma testi;
+  - 15 sn'nin CRF 18 dosya boyu.
+
+### Öteki adaylar
+| Aday | Kaynak | Neden ana üslup değil |
+|---|---|---|
+| Kazıma film | Lemo `scratch-film` | En ucuz yeni motor (0,13–0,41 sn/kare); Eko ve nergis ortamın kendi hareketiyle çözülüyor. Ama koyu zemin ve ince çizgi telefonda zor okunur, koyu akışta kapak kenarı kayboluyor, arşiv belgesi bu dile girmiyor |
+| Neon tüpler | Lemo `neon-tubes` | Kavrama en yakın üslup ("görünmek için yapılmış ışık") ve en iyi hazır yansıma. Ama GPU'da 3,5–5 sn/kare ve 4 işçi hızlandırmıyor (9 dk ≈ 17 saat render); 6–8 günlük iş; Türkçe tüp harfleri yok. 24–25 Kasım'a sığmaz |
+| Roma mozaiği | yeni motor | En özgün fikir: taştan piksele; Hatay'daki Narkissos ve Eko mozaiği Türk izleyiciye kapı. Hazır motor yok, 5–7 gün |
+| Tek çizgi | Lemo `one-line` | 8 dk'lık tek yol elle yazılmalı; 168 px'te soluk; "tek çizgi yüz" kendini sevme afişlerinin klişesi |
+| GitHub | p5.brush, three-painterly, webgl-water, WebGL-Fluid | Tam motor yok: p5.brush'ın 1080p hızı ölçülmedi ve kapakta karşıtlığı düşük, webgl-water'ın lisans dosyası yok, WebGL-Fluid ağ çağrısı ve rastgelelik içeriyor |
+
+Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
+- ink-wash, woodcut, silkscreen, engraving: son dört videonun tekrarı;
+- crayon-book, paper-popup, silent-film, shadow-puppet: alay riski;
+- manga-panels, comic-history: karakterleri yapay zekâyla üretilmiş;
+- gilded-illumination, stained-glass, art-deco: hale ve dua kitabı çağrışımı.
+
+### Üsluptan bağımsız alınacaklar
+- **Analitik halka:** kapalı biçimli dalga, `Wd()` zamanına bağlanır, CPU'da etkin sınır kutusuyla çizilir. 4 işçide ölçüldü: medyan ~17 ms, kare özeti işçiler arasında aynı. Hazır kütüphaneler (jquery.ripples, WebGL-Fluid) rAF, `Date.now` ve `Math.random` ile sürüldüğü için doğrudan alınmaz.
+- **flubber** (MIT): biçim dönüşümleri (beden → nergis, havuz kıyısı → telefon dikdörtgeni). Bağımlılıklarıyla birlikte `araclar/ASSETS.md`'ye yazılır.
+- **Yansımanın fiziği:** yansıma, nesnenin suya uzaklığı kadar aşağıda görünür. "O benim" anı ve kapak yalnız yakın planda kurulur; geniş planda yansıma kadraj dışına düşer.
+- **Ayrışan yansıma** (Milton P043): mitte yansıma birebir taklit eder, bugün bölümünde ayrışır (sunulan benlik).
+- **Göz ↔ nergis:** Divan şiirinde nergis gözdür (ikincil kaynak; Pala'nın sözlüğü görülmedi). Beyaz taç yaprak göz akı, safran göbek iris olur; Ovidius III 509–510 ile örtüşür.
+
+### Gerçek görsel araları (Ran yöntemi; lisanslar doğrulandı)
+- **Met 401131:** Antonio Tempesta, *Narkissos pınar başında*, 1606 (CC0).
+- **Met 419135:** Jacques Callot, *Lux Claustri* 22. levha (1621–35, CC0).
+  - Levhanın başında "L'excez de l'Amour propre est cause de sa perte" yazıyor: "Öz-sevginin aşırılığı yıkımının sebebidir". Bu, Ellis'ten ~270 yıl önce (görselden okundu).
+  - Kitap bir manastır amblem kitabı; levha yalnız resim ve bu satırla kırpılır. Diz üstü eğilen figür hassasiyet bakışından geçer.
+- **Ellis 1898** (*Alienist and Neurologist* 19, archive.org `alienistneurolog1918unse`): yalnız "Narcissus-like" cümlesi kırpılır; makale başlığı gösterilmez.
+- **Freud 1914** (*Jahrbuch* VI, archive.org `jb61914`, PD Mark): yalnız ilk sayfa.
+- **Gösterilmeyenler:**
+  - Caravaggio ve Pompeii fotoğrafları: İtalya'da D.Lgs. 42/2004 md. 108 kâr amaçlı kullanımı izne ve ücrete bağlıyor.
+  - Hatay mozaiği fotoğrafları: CC BY-SA, ayrıca 2863 sayılı Kanun md. 34 gereği Bakanlık izni gerekiyor.
+  - Waterhouse'un tablosunun bütünü.
+
+### Kaynak notları (senaryoda doğrulanacak)
+- Yaygın Türkçe anlatımlardaki "suya atlayıp boğuldu" Ovidius'ta yok; Narkissos erir (III 487–490).
+- İngilizce Wikipedia'nın "Narcissism" maddesinde Ellis ve Näcke için "1889" yazıyor. Ellis'in makalesi 1898 Nisan sayısında (archive.org'dan doğrulandı); Näcke'nin tarihi kaynağından doğrulanacak.
