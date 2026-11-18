@@ -153,12 +153,16 @@ Toplam ~140–150 cümle, ~2.800 kelime → tahmini **27–30 dk** (Ran 96 kelim
 - Ortak kurallar: Bebas Neue, büyük harf ≥ %18 (1080 ölçeğinde font ≥ 290 px), sağ alt rozet bölgesi (x 1440–1874, y 829–1034) boş, tek odak karenin en parlak yeri.
 - Hassasiyet: idam kapağında kan, balta, kütük, kesik baş yok; "kırmızı" Katolik şehitlik rengi olarak doğru bilgi. Gerçek kişi yüzü çizilmez (siluet).
 
-## Üslup (başkan kararı, 18 Kasım; üslup kapısı karesi bekleniyor)
-**Kendi motorumuz: Milton'ın gravür motoru (`milton/lib`, kanalın en olgun motoru) + cinecode `engraving` tarifinin "renk sonradan, elle" yasası + gerçek görsel araları.**
-- Neden: 16. yüzyılın görsel dili bakır gravür ve ağaç baskıdır (Mary'nin idamı da dönemin baskılarıyla yayıldı); dönem portreleri ve belgeleri gerçek görsel arası olarak aynı kâğıt dünyasına oturur. Kullanıcının isteği "cinecode'da hazır şablon": `engraving` tarifi zaten Milton motorunun akrabası (BIZIM_NOT); motor yazmak en pahalı aşama, hazır motor yetiyor.
-- **Milton'dan ayrılan imza: elle boyama.** Milton tek renkti (siyah-kâğıt). Burada gravür basıldıktan sonra saydam suluboya iki renkle ve olay olarak gelir: **Mary'nin kırmızısı** (kardinal kırmızısı: pelerin astarı, mühür mumu, son sabah), **Elizabeth'in altını** (taç, mühür, portre çerçevesi). Bir karede en çok bir renk; renk taşar, kenarda birikir (tarif: spill, tide-line). Film tek renkle başlar; kırmızının ilk gelişi bir olaydır.
-- **Kodla çizimin zayıf yanı:** yüz ve el yakın planı yok. Mary koyu siluet ya da ters ışıkta figür; duygu duruşla, mekânla ve nesneyle (mektup, mum, pencere, iğne ve işleme, şifre, yüzük). Gerçek yüzleri dönem portreleri verir (arşiv arası).
-- **Üslup kapısı:** (1) manzara: gece Solway, sis, tekne; (2) orta plan figür: Lochleven penceresinde Mary; (3) yakın plan: mum ışığında mektup, kırmızı mühür mumu; (4) 15 sn hareket: teknenin kıyıdan ayrılışı; (5) arşiv arası: Clouet çizimi masada.
+## Üslup (kullanıcının kararı, 18 Kasım): cinecode `silent-film` + `archive-lighttable` araları
+- **İlk deneme (Milton gravür motoru) bırakıldı.** Kullanıcı: "Milton motoru bu videoya uygun değil; yeni motor yazmayalım, cinecode'da vardır." Başkan katıldı: Milton'ın dili kozmik mit için kurulmuş siyah siluet ve güneş ışını; bu ise iki kadının yakın, iç dünya dramı. Üç deneme karesi Milton'ın tekrarı gibiydi. Denemeler commit edilmedi.
+- **Seçilen: `silent-film`** (cinecode tarifi; LemoLab demo motoru `engine/redraw.js` + `engine/film.js` + `engine/cards.js`, MIT, commit 3a7132b). Mürekkep çizgisi, gümüş yıkama ve tarama; 4:3 kadraj kadife perdeler arasında; ton ve hasar duyguya göre (soğuk ve sert: kötüleşme; sıcak ve temiz: şefkat).
+  - **Yüzler gerçek:** kamu malı dönem portreleri ve gravürler (Clouet, Hilliard, Met ve Rijksmuseum CC0 baskıları) yeniden çizim geçişinden geçer; yüz uydurulmaz. Deneme: Clouet'nin beyaz yaslı Mary'si, kare başına ~1,4 sn (`ornek/` çalışma alanında; kullanıcıya gönderildi).
+  - **Çizilmiş figürler** (motorun kendi figürleri kaba ve komik): yalnız uzak ve orta planda, siluet; yakın plan ve yüz her zaman gerçek portreden.
+  - **Mekânlar** (kale, deniz, salon) ton resmi olarak çizilir ve aynı geçişten geçer: film tek elden çıkmış gibi görünür.
+  - Mary'nin kendi sözü çerçeveyi taşır: "bütün dünya sahnesi İngiltere krallığından geniştir" (K29). Ara yazı kartları yalnız onun ve Elizabeth'in kendi sözleri ve bölüm başlıkları için.
+  - Müzik: özgün, piyano ya da org (sinema eşlikçisi); Rönesans ezgisi taklidi yok.
+- **`archive-lighttable` araları:** gerçek belgeler masada, büyüteçle: mektuplar, Babington şifresi, idam çizimi (1587), Kirk o'Field krokisi, portreler. Künye kartı her birinde.
+- **Elenenler:** `paper-popup` (çocuk kitabı havası), `stained-glass` (kilise imgesi; konu din çatışması), Çin ve Japon gelenekleri, `woodcut` (Kafka), `impasto`, `art-deco`, `spy-titles`.
 
 ## Kurul (kullanıcının kararı, 18 Kasım): kurul yok, Fable danışman
 Kapılar başkan denetimiyle geçer; `KURUL.md`'ye "kurulsuz" diye yazılır. Fable (bağımsız, tek ajan) yalnız gereken yerlerde: (1) senaryo: kaynak/doğruluk + hassasiyet (veto alanları), (2) paketleme: başlık + iki kapak, (3) gerekirse üslup karesi ya da ilk kurgu (sessiz okuma testi). Fable'ın önerileri de iddiadır; başkan ölçüp karar verir.
