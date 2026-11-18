@@ -12,6 +12,8 @@ norm1 = lambda w: re.sub(r"[^\wçğıöşüâî]+", '', w.lower().replace('İ', 
 def words_of(text): return [w for w in (norm1(x) for x in re.sub(r'\[[^\]]*\]', ' ', text).replace('…', ' ').split()) if w]
 def raw_words(text): return [x for x in re.sub(r'\[[^\]]*\]', ' ', text).replace('…', ' ').split() if norm1(x)]
 
+SINIR = json.load(open(os.path.join(ROOT, 'vo', 'sinir.json'))) if os.path.exists(os.path.join(ROOT, 'vo', 'sinir.json')) else {}
+
 def load(p):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', p, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'], capture_output=True).stdout
     return np.frombuffer(raw, np.float32).copy()
@@ -30,15 +32,27 @@ def align(path):
             if j - i >= 12: sil.append((i, j))
             i = j
         else: i += 1
-    # cümle ağırlıkları: harf sayısı (+ noktalama duraklama payı)
-    txt = [re.sub(r'\[[^\]]*\]', ' ', segs[k]['tts']) for k in ids]
-    wgt = np.array([len(re.sub(r'\s', '', x)) + 6 * len(re.findall(r'[,;:]', x)) + 4 for x in txt], float)
+    # Birimler: her satır, içindeki cümle sonlarından (. ? ! … ve kapanan tırnak) alt cümlelere bölünür (Mary Stuart düzeltmesi:
+    # iki cümleli satırlarda iç duraklama satır sınırı sanılıyordu). Hizalama birimler üzerinde yapılır; satır = birimlerinin birleşimi.
+    units = []   # (satır sırası k, birim metni)
+    for k, sid in enumerate(ids):
+        t = re.sub(r'\[[^\]]*\]', ' ', segs[sid]['tts']).strip()
+        parts = [x for x in re.split(r'(?<=[.!?…])["”]?\s+|(?<=:)\s+(?=["“])', t) if x.strip()]
+        for x in parts: units.append((k, x))
+    wgt = np.array([len(re.sub(r'\s', '', x)) + 6 * len(re.findall(r'[,;:]', x)) + 4 for _, x in units], float)
     cum = np.cumsum(wgt) / wgt.sum(); span = t1 - t0
-    exp = [t0 + cum[k] * span for k in range(len(ids) - 1)]
+    exp = [t0 + cum[k] * span for k in range(len(units) - 1)]
     cand = [(s, e) for s, e in sil if e - s >= 18]
     N, M = len(exp), len(cand)
+    # elle zorlanan satır sınırları (vo/sinir.json: {"s03_b": {"D10": 52.5}} → D10'dan önceki sınır, bu anı içeren sessizlik)
+    zor = {}
+    for sid, tt in SINIR.get(os.path.basename(path).rsplit('.', 1)[0], {}).items():
+        if sid.startswith('_'): continue
+        k = ids.index(sid); u = min(n for n, (kk, _) in enumerate(units) if kk == k) - 1
+        zor[u] = next(j for j, (s, e) in enumerate(cand) if s <= tt * 100 <= e)
     if N:
-        sc = lambda k, j: 2.5 * min((cand[j][1] - cand[j][0]) / 100, 1.0) - (((cand[j][0] + cand[j][1]) / 2 - exp[k]) / (0.07 * span)) ** 2
+        sc0 = lambda k, j: 2.5 * min((cand[j][1] - cand[j][0]) / 100, 1.0) - (((cand[j][0] + cand[j][1]) / 2 - exp[k]) / (0.07 * span)) ** 2
+        sc = lambda k, j: sc0(k, j) if k not in zor or zor[k] == j else -1e6
         dp = np.full((N, M), -1e9); bk = np.zeros((N, M), int)
         for j in range(M): dp[0][j] = sc(0, j)
         for k in range(1, N):
@@ -50,20 +64,30 @@ def align(path):
         for k in range(N - 1, 0, -1): j = bk[k][j]; pick.append(j)
         pick = pick[::-1]; bnd = [cand[j] for j in pick]
     else: bnd = []
-    edges = [(t0, None)] + [(e, s) for s, e in bnd] + [(None, t1)]
-    out, rep = [], []
-    for k, sid in enumerate(ids):
-        s0 = edges[k][0]; s1 = edges[k + 1][1]
-        fr = np.where(v[s0:s1])[0] + s0                       # sesli kareler
-        ws, rw = words_of(segs[sid]['tts']), raw_words(segs[sid]['tts'])
+    uedges = [(t0, None)] + [(e, s) for s, e in bnd] + [(None, t1)]
+    # birim kenarları → kelimeler (her birimin sesli karelerine harf uzunluğuyla)
+    out, rep, useg = [], [], {}
+    for u, (k, txt) in enumerate(units):
+        s0 = uedges[u][0]; s1 = uedges[u + 1][1]; sid = ids[k]
+        useg.setdefault(k, [s0, s1]); useg[k][1] = s1
+        fr = np.where(v[s0:s1])[0] + s0
+        if len(fr) < 2: fr = np.arange(s0, max(s0 + 2, s1))
+        ws, rw = words_of(txt), raw_words(txt)
+        if not ws: continue
         L = np.array([len(norm1(x)) + 1.5 + (3 if re.search(r'[,;:.!?”]$', x) else 0) for x in rw], float)
         c = np.concatenate([[0], np.cumsum(L)]) / L.sum() * (len(fr) - 1)
         for n, w in enumerate(ws):
             fs, fe = fr[int(c[n])], fr[max(int(c[n]), int(c[n + 1]) - 1)]
             out.append({'w': w, 's': round(fs / 100, 3), 'e': round((fe + 1) / 100, 3), 'id': sid})
-        gapl = (edges[k + 1][1] and bnd[k][1] - bnd[k][0]) if k < len(bnd) else None
+    # satır sınırındaki birim kenarı → rapor
+    ub = {}
+    for u in range(len(units) - 1):
+        if units[u][0] != units[u + 1][0]: ub[units[u][0]] = (u, bnd[u] if u < len(bnd) else None)
+    for k, sid in enumerate(ids):
+        s0, s1 = useg[k]; x = ub.get(k)
+        gapl = (x[1][1] - x[1][0]) if x and x[1] else None
         rep.append({'id': sid, 's': round(s0 / 100, 2), 'e': round(s1 / 100, 2), 'sinir_sessizlik': round(gapl / 100, 2) if gapl else None,
-                    'beklenen_sapma': round((((bnd[k][0] + bnd[k][1]) / 2) - exp[k]) / 100, 2) if k < len(bnd) else None})
+                    'beklenen_sapma': round((((x[1][0] + x[1][1]) / 2) - exp[x[0]]) / 100, 2) if x and x[1] else None})
     json.dump(out, open(path.rsplit('.', 1)[0] + '.words.json', 'w'), ensure_ascii=False)
     longsil = [round((e - s) / 100, 2) for s, e in sil if e - s > 140]
     return {'dosya': os.path.basename(path), 'sure': round(len(a) / SR, 2), 'konusma': round(span / 100, 2), 'uzun_sessizlik': longsil,

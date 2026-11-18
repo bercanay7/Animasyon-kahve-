@@ -1,0 +1,14 @@
+{
+ "_not": "Sessizlik ölçümüyle elle doğrulanan satır sınırları (kelime sayısına göre beklenen süre + iki nokta duraklaması). Değer: sınır sessizliğinin içindeki an (sn).",
+ "s03_b": {
+  "D10": 52.5
+ },
+ "s08_a": {
+  "I17": 113.6,
+  "I12": 68.3,
+  "I13": 73.1
+ },
+ "s04_a": {
+  "E12": 77.0
+ }
+}
