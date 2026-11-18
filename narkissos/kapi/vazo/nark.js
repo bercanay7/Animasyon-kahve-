@@ -185,7 +185,7 @@ function phoneScene(ctx, t, o) {
   // küçük telefon camı (yüzün iki katı kadar), eğik tutulduğu için yansıma camın ortasına kayar (dxR)
   const wy = 600, pcx = e[0] + 330, pw = 270;
   const dxR = o.dxFixed ? pcx - e[0] - 20 : lerp(pcx - e[0] - 20, 0, m);
-  if (o.auto) o.cam = [pcx - 170, wy - 30, o.cam[2]];
+  if (o.auto) o.cam = [pcx - 120, wy + 40, o.cam[2]];
   camAt(ctx, ...o.cam);
   const phone = roundRectPts(pcx - pw, wy, pcx + pw, wy + 900, 56, 56);
   const pool = ellipsePts(pcx - 100, wy + 360, 1300, 360);
@@ -229,7 +229,7 @@ SCENES_N.A = (ctx, t) => {
 SCENES_N.E = (ctx, t) => {
   const t0 = 16.0;
   const m = 1 - ramp(t, Wd('S5', 'bakmayı').t0, Wd('S5', 'yine').t1, E.io2);
-  const z = kf(t, [[t0, 1.42], [19.5, 1.56, E.lin]]);
+  const z = kf(t, [[t0, 1.34], [19.5, 1.46, E.lin]]);
   phoneScene(ctx, t, {
     m, dxFixed: true, auto: true, cam: [0, 0, z], light: lerp(.25, 1, ramp(t, Wd('S5', 'yine').t0, Wd('S5', 'bırakamadı').t0, E.io2)), refA: lerp(.5, .4, 1 - m),
     headNod: .03 * Math.sin(t * .9),

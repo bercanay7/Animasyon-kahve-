@@ -161,24 +161,24 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 
 **Kahraman:** Narkissos. Çerçevede bugünün genci (izleyicinin yerine geçen, telefon camına bakan kişi) soruyu taşır. Kurye fikriyle örtüşür: izleyici geçmişe gider, bir soruyla döner. Eko karşı kutuptur: yalnız başkasının sözüyle var olur. Narkissos yalnız kendini görür, Eko yalnız başkasını duyar.
 
-**Tek cümlelik vaat:** "Narkissos baktığı yüzün kendisi olduğunu biliyordu; o hâlde kendini sevmek ne zaman insanı bırakmayan bir şeye döner?"
+**Tek cümlelik vaat:** "Narkissos sonunda baktığı yüzün kendisi olduğunu anladı; o hâlde kendini sevmek ne zaman insanı bırakmayan bir şeye döner?"
 
 **Kanca kuralları:** İkaros ve Kafka dersleri (kancanın arkasına bilinen bağlam ya da alıntı konmaz); Ran kuralı (hikâye en geç ~0:45'te başlar).
 
 | Adım | İçerik | Kaynak | Taslak cümle aralığı* |
 |---|---|---|---|
-| **0. Kanca** (0–20 sn) | Siyah telefon camında kendine bakan genç; cam havuza döner. İlk cümlede soru: herkesin bildiği hikâyenin unutulan yanı, "o biliyordu", ve "o hâlde neden kalkıp gitmedi?" Başlığın sorusu ("kendini sevmek ne zaman…") burada sorulur, cevabı sona saklanır | III 463 (yalnız ima) | A01–A04 |
-| **Ki (giriş)** (~0:20–1:30) | Hikâye hemen başlar. Nehir perisi Liriope'nin oğlu doğar. Kehanet: "kendini tanımazsa" uzun yaşar. Merak döngüsü: kendini tanımak nasıl ölüm olur? Ama: on altı yaşında herkes onu ister, o kimseye dokunmaz | III 344–355 (348) | B01–B08 |
-| **Shō (gelişme)** (~1:30–3:30) | Eko: Juno'nun cezası, yalnız son sözleri tekrarlamak. Ormanda karşılaşma, yankı diyaloğu. Ret: "bana sahip olmana izin vermektense ölürüm" / Eko: "bana sahip ol" (*copia*, 391–392). Eko'nun bedeni erir, sesi kalır. Reddedilen biri beddua eder, Nemesis duyar. Havuz: dokunulmamış su, susuzluk, âşık oluş, yanılsama. Anlatıcı Ovidius'un ona seslenişini taşır ("saf çocuk", 432) | III 356–436 | C01–C14, D01–D10 |
-| **Ten (dönüş)** (~3:30–5:00) | **"Iste ego sum: o benim, anladım; hayalim beni kandırmıyor"** (463). Bilmek yetmiyor: "sahip olduğum şey beni yoksul kıldı" (466, *copia* Eko'ya söylediği sözle döner); "keşke bedenimden ayrılabilsem" (467). Gözyaşı suyu bulandırır, hayal kaçar: "kalsın, hiç değilse bakayım" (474–479). Eko'nun son "elveda"sı (501). Erir; boğulmaz (487–490). Yerinde safran göbekli, ak yapraklı çiçek (509–510); Styks'te bile kendine bakar (504–505) | III 463–510 | E01–E14 |
-| **Ketsu (birleştirme)** (~5:00–7:00) | Çiçeğe onun adı verildi, sonra bir davranışa. Ad zinciri: Callot (1620'ler, "öz-sevginin aşırılığı yıkımının sebebidir") → Ellis 1898 ("Narcissus-like") → Näcke 1899 → Freud 1914. **Başlığın cevabı** Freud'dan: belli bir öz-sevgi herkesin gelişiminin olağan parçası; sevgi dünyadan çekilip bir daha dışarı dönemediğinde başka bir şeye dönüşür (senaryoda Freud'un metninden doğrulanacak). Bu, Eko'yu duyamayan Narkissos'tur. Teşhis yok, tavsiye yok. Su → ekran: genç yine camda. Son soru izleyiciye: "Biliyorsun. Peki yetiyor mu?" Abone çağrısı bu son anın içinde, ardından yorum uzatılmaz | Freud 1914; Ellis 1898; Met 419135 | F01–F12 |
+| **0. Kanca** (0–20 sn) | Siyah telefon camında kendine bakan genç; cam havuza döner. İlk cümlede soru: herkesin bildiği hikâyenin unutulan yanı, "sonunda anladı", ve "o hâlde neden kalkıp gitmedi?" (Baştan beri biliyordu denmez: 425 ve 430'da bilmiyor, 463'te anlıyor) Başlığın sorusu ("kendini sevmek ne zaman…") burada sorulur, cevabı sona saklanır | III 463 (yalnız ima) | A01–A04 |
+| **Ki (giriş)** (~0:20–1:30) | Hikâye hemen başlar. Nehir perisi Liriope'nin oğlu doğar. Kehanet: "kendini tanımazsa" uzun yaşar. Merak döngüsü: kendini tanımak nasıl ölüm olur? Ama: on altı yaşında (351: 3×5+1) herkes onu ister, kimse ona dokunamaz (355) | III 344–355 (348) | B01–B08 |
+| **Shō (gelişme)** (~1:30–3:30) | Eko: Juno'nun cezası, yalnız son sözleri tekrarlamak. Ormanda karşılaşma, yankı diyaloğu. Ret: "bana sahip olmana izin vermektense ölürüm" / Eko: "bana sahip ol" (*copia*, 391–392). Eko'nun bedeni erir, sesi kalır. Reddedilen, adı verilmemiş biri beddua eder; Rhamnusia (Nemesis'in yer adıyla anılan sıfatı) kabul eder (406). Havuz: dokunulmamış su, susuzluk, âşık oluş, yanılsama. Anlatıcı Ovidius'un ona seslenişini taşır ("saf çocuk", 432) | III 356–436 | C01–C14, D01–D10 |
+| **Ten (dönüş)** (~3:30–5:00) | **"Iste ego sum: o benim, anladım; hayalim beni kandırmıyor"** (463). Bilmek yetmiyor: "sahip olduğum şey beni yoksul kıldı" (466, *copia* Eko'ya söylediği sözle döner); "keşke bedenimden ayrılabilsem" (467). Gözyaşı suyu bulandırır, hayal kaçar: "kalsın, hiç değilse bakayım" (474–479). Narkissos'un son sözü bir elvedadır, onu geri veren Eko'dur (501); Eko ağıtlara da yankıyla katılır (507). Erir; boğulmaz (487–490). Yerinde safran göbekli, ak yapraklı çiçek (509–510); Styks'te bile kendine bakar (504–505) | III 463–510 | E01–E14 |
+| **Ketsu (birleştirme)** (~5:00–7:00) | Mit çiçeği ona bağlar (Ovidius çiçeğe ad vermez; "mit böyle anlatır" diye çerçevelenir), sonra bir davranışa ad olur. Ad zinciri: Callot'un gravürüyle 1646'da basılan bir manastır kitabında "öz-sevginin aşırılığı yıkımının sebebidir" (yazı Callot'un değil, baskının) → Ellis 1898 "Narcissus-like tendency" → Näcke 1899, Ellis'i anarak "Narcismus" → Freud 1914 (terimi Näcke'ye verir, 1920'de Ellis'e düzeltir). **Başlığın cevabı** Freud'dan (doğrulandı, `kaynak/DOGRULAMA.md`): her insanın birincil bir narsisizmi vardır (s.13), yani kendini sevmek gelişimin olağan, erken bir parçasıdır ("ilk evre" denmez, s.4). Sorun öz-sevginin varlığı değil, libidonun dünyadan çekilip ego'da birikmesidir (s.2, 10–11): "sonunda sevmeye başlamak gerekir, hastalanmamak için" (s.11). Seven kişi narsisizminden bir parça verir ve onu ancak sevilerek geri alır (s.21). Freud Narkissos mitini anmaz: mitle bağ anlatıcının yorumudur, Freud'a mal edilmez. Bu, Eko'yu duyamayan Narkissos'tur. Teşhis yok, tavsiye yok. Su → ekran: genç yine camda. Son soru izleyiciye: "Biliyorsun. Peki yetiyor mu?" Abone çağrısı bu son anın içinde, ardından yorum uzatılmaz | Freud 1914; Ellis 1898; Met 419135 | F01–F12 |
 
 \* Cümle kimlikleri bölüm harfi + sıra. Senaryo kesinleşince bu tablo gerçek numaralarla güncellenir (Kafka'daki numara kayması dersi). Çıkarılan cümlenin numarası boş bırakılır.
 
 **Açık merak döngüleri (soru → cevap):**
-1. "Biliyordu; o hâlde neden gitmedi?" (A) → E (463–467): bilmek sevgiyi geri döndürmeye yetmedi.
+1. "Sonunda anladı; o hâlde neden gitmedi?" (A) → E (463–467): bilmek sevgiyi geri döndürmeye yetmedi.
 2. "Kendini tanımak nasıl ölüm olur?" (Tiresias, B) → E: tanıdığı an sonun başladığı an.
-3. "Narkissos'un Eko'ya söylediği söz" (C, *copia*) → E (466): söz ona döner.
+3. "Narkissos'un Eko'ya söylediği söz" (C, *copia*) → E (466): Ovidius aynı kelimeyi kullanır (391'de "sahip olma", 466'da "bolluk"); "söz ona döner" anlatıcının okumasıdır, "Ovidius bilerek yaptı" denmez.
 4. Başlığın sorusu (A) → F (Freud): cevap tavsiye değil, kavramın kendi tanımı.
 5. Çerçeve: camdaki genç (A) → F: aynı camda, aynı soru.
 
@@ -186,7 +186,9 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 
 **Başlık notu:** ön seçim 1. aday ("Kendini Sevmek Ne Zaman Narsisizme Döner?") korunur; cevabı F'de Freud'dan gelir. Omurga "bilmek yetmiyor" olduğu için 2. aday ("Bildiğin Hâlde Bırakamıyor musun?") Test ve karşılaştır'da ikinci vaat olarak değerlendirilir. Karar senaryodan sonra.
 
-**Senaryoda kaynakla doğrulanacaklar:**
+**Kaynak denetimi yapıldı (18 Kasım):** `kaynak/DOGRULAMA.md`. Yukarıdaki satırlar buna göre düzeltildi. Ek uyarılar: Ellis'in kırpması "This Narcissus-like tendency … self-admiration" ile sınırlı kalır (cinsiyetçi "kadınlarda ayna" çerçevesi ekrana taşınmaz); Näcke'nin tanımı anlatılmaz, yalnız adın doğuşu söylenir; DSM üçlüsü yalnız ikincil kaynak olarak ve teşhis dili olmadan; susuzluk imgesi 413–416'ya dayandırılır (Magnus 415 ve 417'yi sahte sayar); 399'daki taşa dönüş "derler" diye aktarılır.
+
+**Doğrulanacaklar listesi (tamamlandı):**
 - Ovidius satırları: 344–355, 391–392, 432, 463–467, 474–479, 487–490, 501, 504–505, 509–510.
 - Freud 1914'te birincil ve ikincil narsisizm ayrımı (Almanca metinden).
 - Ellis 1898 cümlesi.
