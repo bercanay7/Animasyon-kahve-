@@ -100,7 +100,7 @@ void main(){
     // piksel ızgarası: eksene hizalı kare hücre, tam yoğunlukta bile ince aralık kalır
     vec2 f = abs(fract(g) - .5) * 2.;
     float sq = max(f.x, f.y);
-    float edge = sqrt(d) * .84;
+    float edge = sqrt(d) * .93;
     float covSq = 1. - smoothstep(edge - .06, edge + .06, sq + (n1 - .5) * .05);
     float cov = mix(covDot, covSq, pk);
     float sp = h21s(floor(q * .55), uSheet * 1.3 + float(i) * 7.7);

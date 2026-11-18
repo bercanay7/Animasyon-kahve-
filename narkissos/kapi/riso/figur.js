@@ -12,12 +12,12 @@ export const RENK = {
   ten: C(0, .34, 0),        // açık ten: yalnız Sunflower tonu
   tenAcik: C(0, .12, 0),    // aşağıdan gelen ışığın vurduğu yüzeyler
   tenKoyu: C(0, .5, 0),
-  dudak: C(.08, .62, 0),
-  sac: C(1, 0, .4),         // koyu: Blue + Teal üst baskı
-  sacTel: C(.55, 0, .55),
+  dudak: C(.06, .52, 0),
+  sac: C(1, .38, .12),      // koyu kahve-siyah: Blue + Sunflower üst baskı
+  sacTel: C(.7, .55, .0),
   cizgi: C(.95, 0, .5),
   khlamys: C(0, 0, 1),      // Teal pelerin
-  khiton: C(0, .14, 0),     // keten
+  khiton: C(0, .24, .0),    // keten
   kapsonlu: C(1, 0, .15),   // bugünün genci: Federal Blue kapüşonlu
 };
 
@@ -39,10 +39,12 @@ function profilYolu() {
   g.quadraticCurveTo(0.763, 0.747, 0.748, 0.753);
   g.quadraticCurveTo(0.767, 0.766, 0.761, 0.787);
   g.quadraticCurveTo(0.751, 0.810, 0.729, 0.824);
-  g.bezierCurveTo(0.745, 0.860, 0.756, 0.910, 0.736, 0.935);
-  g.quadraticCurveTo(0.702, 0.967, 0.642, 0.957);
-  g.quadraticCurveTo(0.585, 0.952, 0.560, 0.970);
-  g.quadraticCurveTo(0.548, 1.05, 0.575, 1.32);
+  g.bezierCurveTo(0.748, 0.860, 0.760, 0.915, 0.742, 0.942);
+  g.quadraticCurveTo(0.715, 0.968, 0.650, 0.962);
+  g.quadraticCurveTo(0.590, 0.958, 0.562, 0.975);
+  g.quadraticCurveTo(0.552, 1.03, 0.572, 1.075);
+  g.quadraticCurveTo(0.585, 1.10, 0.570, 1.13);
+  g.quadraticCurveTo(0.560, 1.20, 0.575, 1.32);
   g.lineTo(0.30, 1.32);
   g.quadraticCurveTo(0.29, 1.02, 0.22, 0.86);
   g.bezierCurveTo(0.08, 0.78, 0.02, 0.55, 0.06, 0.38);
@@ -51,45 +53,49 @@ function profilYolu() {
   g.closePath();
 }
 
-function sacAntik(sw) {   // dalgalı, enseye inen saç; ön perçem alnın üstünde
+function sacAntik(sw) {   // efeb: kısa, dalgalı, kulak açık; alında birkaç kısa perçem
   const w = sw || 0;
   g.beginPath();
-  g.moveTo(0.705, 0.205);
-  g.bezierCurveTo(0.68, 0.07, 0.52, -0.06, 0.31, -0.01);
-  g.bezierCurveTo(0.08, 0.04, -0.05, 0.30, 0.01, 0.53);
-  g.bezierCurveTo(0.03, 0.68, 0.09 + w, 0.82, 0.16 + w, 0.90);
-  g.quadraticCurveTo(0.19 + w * .6, 0.81, 0.235, 0.86);
-  g.quadraticCurveTo(0.25 + w * .4, 0.77, 0.315, 0.77);
-  g.quadraticCurveTo(0.365, 0.70, 0.355, 0.60);
-  g.bezierCurveTo(0.37, 0.49, 0.45, 0.455, 0.515, 0.445);
-  g.quadraticCurveTo(0.585, 0.415, 0.600, 0.33);
-  g.quadraticCurveTo(0.615, 0.255, 0.655, 0.235);
-  g.quadraticCurveTo(0.69, 0.232, 0.705, 0.205);
+  g.moveTo(0.705, 0.245);
+  g.quadraticCurveTo(0.715, 0.15, 0.63, 0.075);
+  g.bezierCurveTo(0.53, -0.025, 0.31, -0.045, 0.16, 0.045);
+  g.bezierCurveTo(0.03, 0.13, -0.015, 0.35, 0.025, 0.50);
+  g.quadraticCurveTo(0.05 + w, 0.61, 0.13 + w, 0.665);
+  g.quadraticCurveTo(0.155, 0.60, 0.205, 0.635);
+  g.quadraticCurveTo(0.24, 0.56, 0.30, 0.585);
+  g.quadraticCurveTo(0.33, 0.50, 0.395, 0.47);
+  g.quadraticCurveTo(0.47, 0.435, 0.505, 0.50);
+  g.lineTo(0.535, 0.53);
+  g.quadraticCurveTo(0.53, 0.44, 0.575, 0.385);
+  g.quadraticCurveTo(0.595, 0.30, 0.64, 0.275);
+  g.quadraticCurveTo(0.675, 0.27, 0.705, 0.245);
   g.closePath();
   fill(RENK.sac);
-  // dalga telleri: daha açık tonda ince eğriler (yuvarlak bukle değil, uzun dalga)
+  // alına düşen kısa perçem
+  g.beginPath(); g.moveTo(0.66, 0.15); g.quadraticCurveTo(0.735, 0.21, 0.725, 0.29); g.quadraticCurveTo(0.70, 0.24, 0.655, 0.235); g.closePath(); fill(RENK.sac);
   const tel = (p, wd) => curve(p, wd, RENK.sacTel);
-  tel([[0.62, 0.12], [0.50, 0.05], [0.36, 0.06], [0.24, 0.13]], .010);
-  tel([[0.56, 0.20], [0.44, 0.15], [0.30, 0.20], [0.16, 0.32], [0.10, 0.48]], .009);
-  tel([[0.50, 0.33], [0.36, 0.31], [0.22, 0.42], [0.15 + w * .5, 0.62], [0.17 + w, 0.80]], .009);
-  tel([[0.47, 0.42], [0.36, 0.46], [0.29, 0.58], [0.27 + w * .4, 0.72]], .008);
+  tel([[0.60, 0.08], [0.46, 0.03], [0.30, 0.05], [0.17, 0.13]], .010);
+  tel([[0.58, 0.20], [0.46, 0.14], [0.32, 0.16], [0.18, 0.26], [0.10, 0.40]], .009);
+  tel([[0.55, 0.32], [0.44, 0.27], [0.31, 0.32], [0.20, 0.45], [0.16 + w, 0.58]], .009);
 }
 
-function sacModern() {     // kısa, üstü dağınık; ense kısa
+function sacModern() {     // kısa, yanları ve ensesi kısa; önde dağınık kâkül
   g.beginPath();
-  g.moveTo(0.70, 0.27);
-  g.quadraticCurveTo(0.72, 0.19, 0.68, 0.12);
-  g.bezierCurveTo(0.62, 0.01, 0.46, -0.05, 0.30, -0.02);
-  g.bezierCurveTo(0.10, 0.02, 0.01, 0.22, 0.04, 0.44);
-  g.quadraticCurveTo(0.06, 0.58, 0.17, 0.66);
-  g.quadraticCurveTo(0.27, 0.62, 0.33, 0.56);
-  g.bezierCurveTo(0.37, 0.48, 0.46, 0.43, 0.53, 0.42);
-  g.quadraticCurveTo(0.585, 0.40, 0.60, 0.33);
-  g.quadraticCurveTo(0.63, 0.29, 0.66, 0.30);
+  g.moveTo(0.72, 0.265);
+  g.quadraticCurveTo(0.735, 0.17, 0.66, 0.09);
+  g.bezierCurveTo(0.56, -0.02, 0.33, -0.05, 0.18, 0.03);
+  g.bezierCurveTo(0.05, 0.11, 0.02, 0.30, 0.05, 0.44);
+  g.quadraticCurveTo(0.10, 0.50, 0.20, 0.49);
+  g.quadraticCurveTo(0.30, 0.47, 0.39, 0.45);
+  g.quadraticCurveTo(0.47, 0.43, 0.51, 0.48);
+  g.lineTo(0.53, 0.47);
+  g.quadraticCurveTo(0.545, 0.39, 0.585, 0.35);
+  g.quadraticCurveTo(0.62, 0.30, 0.66, 0.29);
+  g.quadraticCurveTo(0.70, 0.29, 0.72, 0.265);
   g.closePath();
   fill(RENK.sac);
-  curve([[0.64, 0.14], [0.52, 0.06], [0.38, 0.05]], .010, RENK.sacTel);
-  curve([[0.58, 0.24], [0.44, 0.16], [0.28, 0.17], [0.16, 0.28]], .009, RENK.sacTel);
+  curve([[0.66, 0.12], [0.54, 0.04], [0.38, 0.03]], .010, RENK.sacTel);
+  curve([[0.62, 0.22], [0.48, 0.13], [0.30, 0.13], [0.16, 0.24]], .009, RENK.sacTel);
 }
 
 // o: {x,y,s,r,flip, tip:'antik'|'modern', goz (0 kapalı..1 açık), isik (0..1 aşağıdan ışık), sw (saç salınımı), yaka: 'khlamys'|'kapsonlu'|null, kaybol}
@@ -137,7 +143,7 @@ export function bas(o) {
   curve([[0.635, 0.452 - .01 * op], [0.665, 0.442 - .012 * op], [0.695, 0.452]], .004, C(.2, .55, 0)); // kapak kıvrımı
   // kaş
   const kl = o.kas || 0;
-  curve([[0.605, 0.418 - kl], [0.655, 0.402 - kl * 1.4], [0.716, 0.410 - kl]], .016, RENK.sac);
+  curve([[0.60, 0.420 - kl], [0.655, 0.404 - kl * 1.4], [0.718, 0.414 - kl]], .021, RENK.sac);
   // burun deliği
   curve([[0.762, 0.646], [0.778, 0.655], [0.786, 0.652]], .006, C(.4, .55, 0));
   // dudaklar
@@ -221,49 +227,49 @@ export function avci(o) {
   return { hip, sh, neck };
 }
 
-// Uzanmış genç: yüzüstü, dirseklere dayanmış, başı suya eğik. (x,y): dirseklerin zemindeki noktası. u: baş yüksekliği.
+// Uzanmış genç: yüzüstü, dirseklere dayanmış, başı suya eğik. (x,y): yakın dirseğin zemindeki noktası. u: baş yüksekliği.
 export function uzanan(o) {
   const u = o.u, x = o.x, y = o.y, nf = o.nefes || 0;
   const P = (a, b) => [x + a * u, y + b * u];
-  const tenB = C(0, .38, 0), tenU = C(.16, .38, 0);
-  // uzak bacak (dizden bükük, ayak havada)
-  const hip = P(-3.15, -.62 - nf * .02);
-  const k2 = P(-5.0, -.28), f2 = P(-5.9, -1.55 + Math.sin(o.t * 1.3) * .08);
-  kapsul(hip, k2, .44 * u, tenU); kapsul(k2, f2, .32 * u, tenU);
-  kapsul(f2, [f2[0] - .12 * u, f2[1] - .3 * u], .2 * u, RENK.sac);
-  // uzak kol (önkol yerde)
-  const sh = P(-.75, -1.55 - nf * .05);
-  kapsul(sh, P(-.45, -.18), .32 * u, tenU); kapsul(P(-.45, -.18), P(.55, -.14), .27 * u, tenU);
+  const tenB = C(0, .38, 0), tenU = C(.2, .42, 0);
+  const sh = P(-.75, -1.55 - nf * .03), hip = P(-3.3, -.5);
+  // uzak bacak: dizden hafif bükük, alt bacak kalkık (dinlenen)
+  const k2 = P(-5.15, -.36), f2 = P(-6.2, -1.05 + Math.sin(o.t * 1.1) * .05);
+  kapsul(hip, k2, .56 * u, tenU); kapsul(k2, f2, .40 * u, tenU);
+  kapsul(f2, [f2[0] - .05 * u, f2[1] - .32 * u], .24 * u, RENK.sac);
+  // uzak kol: önkol yerde
+  kapsul(sh, P(-.05, -.2), .36 * u, tenU); kapsul(P(-.05, -.2), P(.95, -.17), .30 * u, tenU);
   // yakın bacak düz
-  const k1 = P(-5.05, -.36), f1 = P(-6.85, -.30);
-  kapsul(hip, k1, .46 * u, tenB); kapsul(k1, f1, .34 * u, tenB);
-  kapsul([f1[0], f1[1]], [f1[0] - .1 * u, f1[1] - .32 * u], .2 * u, RENK.sac);
-  // gövde: khiton
+  const k1 = P(-5.2, -.3), f1 = P(-7.05, -.28);
+  kapsul(hip, k1, .58 * u, tenB); kapsul(k1, f1, .42 * u, tenB);
+  kapsul(f1, [f1[0] - .08 * u, f1[1] - .34 * u], .24 * u, RENK.sac);
+  // gövde (khiton): kalçadan göğse yükselen dolgun biçim
   g.beginPath();
-  g.moveTo(...P(-3.95, -.30)); g.quadraticCurveTo(...P(-3.3, -1.25), ...P(-1.6, -1.95 - nf * .05));
-  g.quadraticCurveTo(...P(-.75, -2.25 - nf * .06), ...P(-.25, -1.75 - nf * .05));
-  g.quadraticCurveTo(...P(-.15, -1.05), ...P(-.55, -.62));
-  g.quadraticCurveTo(...P(-1.9, -.12), ...P(-3.95, -.30));
+  g.moveTo(...P(-4.15, -.12));
+  g.bezierCurveTo(...P(-3.9, -1.05), ...P(-2.4, -1.55), ...P(-1.0, -2.0 - nf * .05));
+  g.quadraticCurveTo(...P(-.25, -2.15 - nf * .05), ...P(-.05, -1.6));
+  g.quadraticCurveTo(...P(.0, -1.0), ...P(-.55, -.62));
+  g.bezierCurveTo(...P(-1.4, -.2), ...P(-2.6, -.02), ...P(-4.15, -.12));
   g.closePath(); fill(RENK.khiton);
-  line([P(-3.0, -.25), P(-3.25, -1.1)], .14 * u, C(.9, 0, .3));
-  // pelerin: sırtın üstünden kalçaya örtülü
+  line([P(-2.95, -.08), P(-2.75, -1.25)], .16 * u, C(.9, 0, .3));
+  // pelerin: omuzdan kalçaya örtülü, kenarı belde biter
   g.beginPath();
-  g.moveTo(...P(-.45, -2.12 - nf * .06)); g.quadraticCurveTo(...P(-1.9, -2.2), ...P(-3.3, -1.35));
-  g.quadraticCurveTo(...P(-4.2, -.85), ...P(-4.55, -.05));
-  g.lineTo(...P(-3.55, -.05)); g.quadraticCurveTo(...P(-2.6, -.9), ...P(-1.3, -1.45));
-  g.quadraticCurveTo(...P(-.6, -1.7), ...P(-.45, -2.12 - nf * .06));
+  g.moveTo(...P(-.15, -2.05 - nf * .05));
+  g.quadraticCurveTo(...P(-1.6, -2.05), ...P(-2.8, -1.5));
+  g.quadraticCurveTo(...P(-3.7, -1.1), ...P(-3.95, -.55));
+  g.quadraticCurveTo(...P(-3.0, -.75), ...P(-2.0, -1.05));
+  g.quadraticCurveTo(...P(-1.0, -1.2), ...P(-.55, -1.15));
+  g.quadraticCurveTo(...P(-.1, -1.5), ...P(-.15, -2.05 - nf * .05));
   g.closePath(); fill(RENK.khlamys);
-  g.beginPath(); g.arc(...P(-.55, -2.0), .13 * u, 0, 7); fill(C(0, 1, 0));
-  // baş: suya eğik
-  const bm = bas({ x: x + (o.basX ?? .95) * u, y: y + (o.basY ?? -1.05) * u, s: u, r: o.basR ?? .95, tip: 'antik', goz: o.goz ?? .8, isik: .8, sw: Math.sin(o.t * 2.1) * .015, ten: tenB });
-  // yakın kol: önkol yerde, el suya doğru uzanabilir (o.uzan 0..1)
-  const el0 = P(.75, -.12), el1 = P(1.9, .35);
+  // baş: suya eğik (pivot = çene/dudak)
+  const bx = x + (o.basX ?? .55) * u, by = y + (o.basY ?? -1.25) * u;
+  const bm = bas({ x: bx, y: by, s: u, r: o.basR ?? .95, tip: 'antik', goz: o.goz ?? .8, isik: .8, sw: Math.sin(o.t * 2.1) * .015, ten: tenB });
+  g.beginPath(); g.arc(...P(-.45, -1.95), .08 * u, 0, 7); fill(C(0, 1, 0));
+  // yakın kol: önkol yerde; el suya doğru uzanabilir (o.uzan 0..1)
   const uz = o.uzan || 0;
-  const el = [lerp(el0[0], el1[0], uz), lerp(el0[1], el1[1], uz)];
-  const dir = P(-.35, -.16);
-  const [dj] = ik(sh, el, 1.45 * u, 1.35 * u, 1);
-  kapsul(sh, uz > .01 ? dj : dir, .34 * u, tenB);
-  kapsul(uz > .01 ? dj : dir, el, .28 * u, tenB);
-  g.beginPath(); g.ellipse(el[0] + .1 * u, el[1], .2 * u, .12 * u, uz * .6, 0, 7); fill(tenB);
+  const el = [lerp(x + 1.15 * u, x + 1.9 * u, uz), lerp(y - .14 * u, y + .25 * u, uz)];
+  const [dj] = ik(sh, el, 1.35 * u, 1.3 * u, -1);
+  kapsul(sh, dj, .40 * u, tenB); kapsul(dj, el, .32 * u, tenB);
+  g.beginPath(); g.ellipse(el[0] + .12 * u, el[1], .22 * u, .13 * u, uz * .5, 0, 7); fill(tenB);
   return bm;
 }

@@ -7,7 +7,7 @@ const CW = DIKEY ? 1080 * RS : DW, CH = DIKEY ? 1920 * RS : DH; // çıktı tuva
 function jointPt(ctx, M, q) { const sp = M.transformPoint(new DOMPoint(q[0], q[1])); const r = ctx.getTransform().inverse().transformPoint(sp); return [r.x, r.y]; }
 
 // ---- görünüm: yatayda 1920×1080 mantıksal, dikeyde aynı sahne D'nin baş+yansıma eksenine ortalanır ----
-let DV = [540, 520, 1.42]; // dikey: [sahne x, sahne y, ölçek] → 1080×1920 merkezine
+let DV = [850, 545, 1.32]; // dikey: [sahne x, sahne y, ölçek] → 1080×1920 merkezine
 function baseView(ctx) {
   if (!DIKEY) { ctx.setTransform(RS, 0, 0, RS, 0, 0); return; }
   const [fx, fy, k] = DV;
@@ -178,33 +178,40 @@ function phoneScene(ctx, t, o) {
   const m = o.m; // 0 telefon camı, 1 havuz
   baseView(ctx);
   glaze(ctx, 1100, 820, 1100, `rgba(${lerp(80, 120, m) | 0},${lerp(42, 48, m) | 0},${lerp(28, 22, m) | 0},.45)`);
-  camAt(ctx, ...o.cam);
-  const wy = 600;
-  const phone = roundRectPts(720, wy, 1560, 1560, 70, 70);
-  const pool = ellipsePts(1120, wy + 360, 1250, 360);
-  const shape = morphPts(phone, pool, m);
-  const clip = c => poly(c, shape);
-  // figür: omuz başı solda kadraj kenarında, başı ekrana eğik; ekran ışığı alttan
   const p = { torso: .3, neck: .42, head: .55 + (o.headNod || 0), shN: .38, elN: .5, shF: .32, elF: .55, handN: 'fist', handF: 'fist', smile: 0, brow: .15, mouthOpen: 0, blink: o.blink };
   let f = { x: 0, y: 0, s: 24, dir: 1, sty: STY.red, lk: LK_MOD, seed: 31, idle: .6, p, faceW: 1.35, stripe: .35 };
   f = placeNeck(ctx, f, o.neck || [560, 250]);
+  const { J: J0, M: M0 } = joints(ctx, f), e = headPt(ctx, J0, M0, [3.7, -6.75]);
+  // küçük telefon camı (yüzün iki katı kadar), eğik tutulduğu için yansıma camın ortasına kayar (dxR)
+  const wy = 600, pcx = e[0] + 330, pw = 270;
+  const dxR = o.dxFixed ? pcx - e[0] - 20 : lerp(pcx - e[0] - 20, 0, m);
+  if (o.auto) o.cam = [pcx - 170, wy - 30, o.cam[2]];
+  camAt(ctx, ...o.cam);
+  const phone = roundRectPts(pcx - pw, wy, pcx + pw, wy + 900, 56, 56);
+  const pool = ellipsePts(pcx - 100, wy + 360, 1300, 360);
+  const shape = morphPts(phone, pool, m);
+  const clip = c => poly(c, shape);
+
+  // figür: omuz başı solda kadraj kenarında, başı ekrana eğik; ekran ışığı alttan
+
   waterBody(ctx, clip, wy, t, { a: .2 * m, seed: 6, span: [300, 2100], n: 40 });
   // eğik cam: yansıma camın ortasına kayar (dx)
-  mirror(ctx, c => figure(c, f), wy, clip, t, { a: o.refA ?? .42, rings: o.rings, calm: lerp(.15, 1.2, m), dx: lerp(330, 0, m) });
+  const rings = typeof o.rings === 'function' ? o.rings(pcx, wy, e) : o.rings;
+  mirror(ctx, c => figure(c, f), wy, clip, t, { a: o.refA ?? .42, rings, calm: lerp(.15, 1.2, m), dx: dxR });
   const ph = 1 - m;
   if (ph > .01) { // cam parıltısı ve telefon ayrıntıları: havuza dönerken söner
     ctx.save(); ctx.beginPath(); clip(ctx); ctx.clip();
-    const g = ctx.createLinearGradient(980, wy, 1420, 1200); g.addColorStop(0, 'rgba(255,240,215,0)'); g.addColorStop(.45, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(.55, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(1, 'rgba(255,240,215,0)');
+    const g = ctx.createLinearGradient(pcx - 200, wy, pcx + 250, wy + 600); g.addColorStop(0, 'rgba(255,240,215,0)'); g.addColorStop(.45, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(.55, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(1, 'rgba(255,240,215,0)');
     ctx.fillStyle = g; ctx.fillRect(600, wy, 1100, 900);
     ctx.restore();
     ctx.save(); ctx.globalAlpha = ph; ctx.fillStyle = '#21160f';
-    ctx.beginPath(); ctx.roundRect(1090, wy + 22, 100, 14, 7); ctx.fill();
-    ctx.beginPath(); ctx.arc(1220, wy + 29, 8, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.roundRect(pcx - 50, wy + 20, 100, 13, 6.5); ctx.fill();
+    ctx.beginPath(); ctx.arc(pcx + 78, wy + 26, 7, 0, TAU); ctx.fill();
     ctx.restore();
   }
   ctx.save(); ctx.beginPath(); poly(ctx, shape); ctx.lineWidth = lerp(4.5, 6, m); ctx.strokeStyle = mixCol('#B9653A', '#C9703F', m); ctx.lineJoin = 'round'; ctx.stroke(); ctx.restore();
-  if (o.light > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, 900, wy, 420, `rgba(255,220,170,${.14 * o.light})`); ctx.restore(); }
-  litFigure(ctx, f, { x: 860, y: wy + 20, r: 430, c: 'rgba(255,226,186,A)', a: .34 * o.light, dark: .25 + .25 * o.light });
+  if (o.light > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, pcx - 120, wy, 420, `rgba(255,220,170,${.14 * o.light})`); ctx.restore(); }
+  litFigure(ctx, f, { x: e[0] + 120, y: wy + 20, r: 430, c: 'rgba(255,226,186,A)', a: .34 * o.light, dark: .25 + .25 * o.light });
   return f;
 }
 const SCENES_N = {};
@@ -216,18 +223,18 @@ SCENES_N.A = (ctx, t) => {
   phoneScene(ctx, t, {
     m, cam: [960, fy, z], light: lerp(.75, .35, m), refA: .42,
     headNod: .04 * Math.sin(t * 1.1) - .05 * ramp(t, Wd('S1', 'kendine').t0, Wd('S1', 'bakıyorsun').t1, E.io2) + .06 * ramp(t, tc - .2, tc + .3, E.io2),
-    rings: [{ x: 1150, y: 760, t0: tc, A: 9, sq: .3, v: 330, lam: 44, k: .9, reach: 1200, life: 4 }],
+    rings: (cx, wy) => [{ x: cx + 20, y: wy + 190, t0: tc, A: 9, sq: .32, v: 330, lam: 44, k: .9, reach: 1200, life: 4 }],
   });
 };
 SCENES_N.E = (ctx, t) => {
   const t0 = 16.0;
   const m = 1 - ramp(t, Wd('S5', 'bakmayı').t0, Wd('S5', 'yine').t1, E.io2);
-  const z = kf(t, [[t0, 1.45], [19.5, 1.56, E.lin]]);
+  const z = kf(t, [[t0, 1.42], [19.5, 1.56, E.lin]]);
   phoneScene(ctx, t, {
-    m, cam: [900, 470, z], light: lerp(.25, 1, ramp(t, Wd('S5', 'yine').t0, Wd('S5', 'bırakamadı').t0, E.io2)), refA: lerp(.5, .4, 1 - m),
+    m, dxFixed: true, auto: true, cam: [0, 0, z], light: lerp(.25, 1, ramp(t, Wd('S5', 'yine').t0, Wd('S5', 'bırakamadı').t0, E.io2)), refA: lerp(.5, .4, 1 - m),
     headNod: .03 * Math.sin(t * .9),
-    rings: [{ x: 1120, y: 700, t0: S('S5').t0 - .1, A: 7, sq: .3, v: 220, lam: 40, k: .7, reach: 1000, life: 4.5 },
-      { x: 1180, y: 720, t0: Wd('S5', 'bırakamadı').t0, A: 6, sq: .3, v: 220, lam: 40, k: .8, reach: 900, life: 3 }],
+    rings: (cx, wy) => [{ x: cx - 10, y: wy + 170, t0: S('S5').t0 - .1, A: 7, sq: .32, v: 220, lam: 40, k: .7, reach: 1000, life: 4.5 },
+      { x: cx + 40, y: wy + 200, t0: Wd('S5', 'bırakamadı').t0, A: 6, sq: .32, v: 220, lam: 40, k: .8, reach: 900, life: 3 }],
   });
 };
 
@@ -315,7 +322,7 @@ SCENES_N.B = (ctx, t) => {
 function proneFig(px, gy, s, p, o = {}) {
   return { x: px, y: gy - 6.5 * s, s, dir: 1, sty: STY.red, lk: LK_NK, seed: 23, idle: o.idle ?? .4, p, stripe: o.stripe ?? .5, faceW: o.faceW || 1.2,
     ik: { fN: [px - 41 * s, gy - 2.5 * s, PI / 2 - .25], fF: [px - 43 * s, gy - 4.5 * s, PI / 2 - .35],
-      hF: [px + 31 * s, gy - 1.5 * s], hN: o.hN || [px + 33 * s, gy - 1.2 * s] } };
+      hF: o.hF || [px + 31 * s, gy - 1.5 * s], hN: o.hN || [px + 33 * s, gy - 1.2 * s] } };
 }
 function pPose(o = {}) {
   return { torso: 1.33, neck: -.5 + (o.neck || 0), head: .38 + (o.head || 0), handN: o.handN || 'flat', handF: 'flat', wrN: o.wrN || 0, wrF: 0,
@@ -328,8 +335,8 @@ function ledge(ctx, xe, gy, wy) {
 SCENES_N.C = (ctx, t) => {
   baseView(ctx);
   glaze(ctx, 1150, 900, 1150, 'rgba(130,52,24,.5)');
-  const z = kf(t, [[7.0, 1.0], [10.5, 1.1, E.lin]]);
-  camAt(ctx, lerp(820, 900, ramp(t, 7, 10.5, E.lin)), 560, z);
+  const z = kf(t, [[7.0, 1.5], [10.5, 1.64, E.lin]]);
+  camAt(ctx, lerp(860, 920, ramp(t, 7, 10.5, E.lin)), 610, z);
   const wy = 640, gy = 618, xe = 980, s = 6.0, px = xe - 30 * s;
   const ly = Wd('S3', 'yüze'), la = Wd('S3', 'âşık');
   const look = ramp(t, ly.t0 - .2, ly.t1 + .3, E.io2), reach = ramp(t, la.t0 - .1, Wd('S3', 'oldu').t1, E.io2);
@@ -358,10 +365,12 @@ function dPoseO(t) {
   return { neck: lean0 + leanIn * .5 - recoil * .6, head: lean0 + flinch + leanIn - recoil * .5,
     smile: -.2 - .3 * sad, brow: .3 + .7 * ramp(t, ben, ben + .25, E.out3) - .35 * sad, mouthOpen: .5 * ramp(t, ben, ben + .3, E.out3) * (1 - .6 * sad), blink: t > ben - .02 && t < ben + .12 ? 0 : undefined };
 }
-const D_S = 26, D_XE = 560;
+const D_S = 26, D_XE = 640;
 function dFig(ctx, t, NT, s = D_S) { // NT: [kaya kenarı x, su çizgisi y]
-  const gy = NT[1] - 3.7 * s, px = NT[0] - 30 * s;
-  return proneFig(px, gy, s, pPose(dPoseO(t)), { idle: .3, faceW: 1.5, stripe: .3 });
+  const gy = NT[1] + .2 * s, px = NT[0] - 30 * s;
+  const q = dPoseO(t), pp = pPose(q);
+  pp.neck = 1.0 + q.neck; pp.head = -.9 + q.head; pp.handN = pp.handF = 'fist'; // boyun kenardan aşağı sarkar, yüz suya bakar (öpüşme ekseni)
+  return proneFig(px, gy, s, pp, { idle: .3, faceW: 1.5, stripe: .3, hN: [px + 21 * s, gy - 1 * s], hF: [px + 23 * s, gy - 1.5 * s] });
 }
 function dScene(ctx, t, o = {}) {
   const wy0 = o.wy || D_WY, NT = [o.xe ?? D_XE, wy0];
@@ -377,7 +386,8 @@ function dScene(ctx, t, o = {}) {
   const lock = ramp(t, ben, ben + .45, E.out3);
   const refA = o.refA ?? lerp(.44, .84, lock);
   const tx = eye[0] + 4;
-  const rings = o.rings || [{ x: tx, y: wy + 8, t0: tHit, A: 26, sq: .2, v: 300, lam: 52, k: 1.25, reach: 1400, life: 4.5 }];
+  if (o.rings && o.ringFix) for (const R of o.rings) { R.x = tx; R.y = wy + 4; }
+  const rings = o.rings || [{ x: tx, y: wy + 4, t0: tHit, A: 50, sq: .62, v: 520, lam: 80, k: 1.2, reach: 1800, life: 4.5 }];
   const water = c => c.rect(NT[0] - 10, wy, 9000, 3000);
   waterBody(ctx, water, wy, t, { a: .16, seed: 3, n: 30, depth: 420 });
   mirror(ctx, c => figure(c, fR), wy, water, t, { a: refA, rings, calm: 1.0 });
@@ -388,7 +398,7 @@ function dScene(ctx, t, o = {}) {
     ctx.save(); ctx.strokeStyle = `rgba(239,200,150,${.6 * ax})`; ctx.lineWidth = 2.4; ctx.setLineDash([2, 10]); ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(eye[0], eye[1] + 20); ctx.lineTo(eye[0], ry - 20); ctx.stroke(); ctx.restore();
   }
-  ledge(ctx, NT[0], wy - 3.7 * D_S, wy);
+  ledge(ctx, NT[0], wy + .2 * D_S, wy);
   litFigure(ctx, f, { x: eye[0] + 30, y: wy + 30, r: 440, c: 'rgba(255,214,160,A)', a: .32, dark: .3 });
   ctx.save(); ctx.strokeStyle = 'rgba(201,112,63,.5)'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(NT[0], wy); ctx.lineTo(6000, wy); ctx.stroke(); ctx.restore();
   // gözyaşı: 'gözyaşı'nda göz pınarında belirir, 'düştü'de suya değer
@@ -403,8 +413,8 @@ function dScene(ctx, t, o = {}) {
 SCENES_N.D = (ctx, t) => {
   baseView(ctx);
   glaze(ctx, 900, 800, 1100, 'rgba(140,56,26,.55)');
-  const z = kf(t, [[10.5, 1.0], [16, 1.09, E.lin]]);
-  camAt(ctx, 900, 560, z);
+  const z = kf(t, [[10.5, .92], [16, 1.0, E.lin]]);
+  camAt(ctx, D_XE + 330, D_WY + 10, z);
   dScene(ctx, t);
 };
 
