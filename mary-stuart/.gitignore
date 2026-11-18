@@ -9,3 +9,5 @@ tools/__pycache__/
 animatik/kare/
 teslim/
 shorts/_parca/
+shorts/*.wav
+kapak/*.png

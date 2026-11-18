@@ -35,12 +35,15 @@ function fotoP(key, a, b, o = {}) {
     for (const c of [G.g, G.r]) c.setTransform(k, 0, 0, k, -(cx - w / 2) * k, -(cy - h / 2) * k);
     G.g.save(); if (o.klip) { const [x0, y0, x1, y1] = o.klip; G.g.beginPath(); G.g.rect(x0 * W, y0 * H, (x1 - x0) * W, (y1 - y0) * H); G.g.clip(); }
     G.g.drawImage(BOYA.griOn(im, o.kontrast ?? 1.12, o.parlak ?? 1.03), 0, 0); G.g.restore();
+    // örtü: görüntünün gösterilmeyecek bölgeleri koyu tonla kapatılır (ör. idam anını gösteren ek resim)
+    for (const [x0, y0, x1, y1] of (o.ort || [])) { const gr = G.g.createLinearGradient(x1 * W, 0, (x1 + .03) * W, 0); G.g.fillStyle = G.gri(.13); G.g.fillRect(x0 * W, y0 * H, (x1 - x0) * W, (y1 - y0) * H); gr.addColorStop(0, G.gri(.13)); gr.addColorStop(1, G.gri(.13, 0)); G.g.fillStyle = gr; G.g.fillRect(x1 * W, y0 * H, .03 * W, (y1 - y0) * H); }
     if (o.ciz) o.ciz(G, st, W, H);
     if (o.kirmizi) {
       const P = G.pathOf(o.kirmizi.poly.map(([x, y]) => [x * W, y * H]), true, .45), ys = o.kirmizi.poly.map(p => p[1] * H), y0 = Math.min(...ys), y1 = Math.max(...ys);
       const al = o.kirmizi.a ? o.kirmizi.a(st) : 1, sil = o.kirmizi.sil ? o.kirmizi.sil(st) : 1;
       if (al > 0 && sil > 0) G.kirmiziCiz(r => { const yf = lerp(y1 + 40, y0 - 40, sil), gr = r.createLinearGradient(0, yf - 60, 0, yf + 60); gr.addColorStop(0, 'rgba(176,22,30,0)'); gr.addColorStop(1, `rgba(176,22,30,${al})`); r.fillStyle = gr; r.filter = `blur(${o.kirmizi.yum ?? 7}px)`; r.fill(P); r.filter = 'none';
-        if (o.kirmizi.koyu !== false) { r.globalCompositeOperation = 'destination-in'; r.drawImage(BOYA.koyuOn(im, o.kirmizi.esik ?? .5), 0, 0); r.globalCompositeOperation = 'source-over'; } });
+        if (o.kirmizi.koyu !== false) { r.globalCompositeOperation = 'destination-in'; r.drawImage(BOYA.koyuOn(im, o.kirmizi.esik ?? .5), 0, 0); r.globalCompositeOperation = 'source-over'; }
+        for (const c of (o.kirmizi.cikar || [])) { r.globalCompositeOperation = 'destination-out'; r.filter = 'blur(6px)'; r.fillStyle = '#000'; r.fill(G.pathOf(c.map(([x, y]) => [x * W, y * H]), true, .5)); r.filter = 'none'; r.globalCompositeOperation = 'source-over'; } });
     }
     for (const c of [G.g, G.r]) c.setTransform(1, 0, 0, 1, 0, 0);
     if (o.ust2) o.ust2(G, st);

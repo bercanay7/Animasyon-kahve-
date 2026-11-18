@@ -41,7 +41,11 @@ let RD = null, FP = null;
 const LOOK0 = { strength: .34, sepia: .2, fps: 15 };
 // Redraw varsayılanı (Mary Stuart ayarı): tarama yalnız gerçek karanlıkta, seyrek; orta tonlar gümüş yıkama
 const REDRAW0 = { gap: 7.5, h1: .7, h2: .83, h3: .94, hatch: .4 };
+// Görüntü saniyede 15 kez güncellenir (elle çevrilen projektör; sessiz film 16–18 kare/sn çekilirdi): 30 kare/sn çıktıda kareler ikişer aynıdır,
+// bu yüzden render yarı sürer ve kodlayıcı tekrarlanan kareyi neredeyse bedava saklar.
+const FILM_FPS = 15; let SON = { k: null, c: null };
 function renderFrameTo(g, t) {
+  const kq = Math.floor(t * FILM_FPS + 1e-6); if (SON.k === kq && SON.c === g.canvas) return g.canvas; SON = { k: kq, c: g.canvas }; t = kq / FILM_FPS;
   RD = RD || new SFR.Redraw(FW, FH); FP = FP || new SFP.FilmPost(FW, FH);
   const i = shotAt(t), st = shotState(i, t), sh = SHOTS[i];
   const fps = sh.fps || LOOK0.fps, ta = Math.floor(t * fps + 1e-6) / fps, frame = Math.floor(t * 24 + 1e-6);

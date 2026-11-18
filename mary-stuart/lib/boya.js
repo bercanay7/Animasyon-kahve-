@@ -163,7 +163,7 @@ const BOYA = (() => {
       g.restore();
       for (const k of (o.kisi || [])) { const p = T(k.x, -.035); figur(G, { ...k, x: p[0], y: p[1] + s * (k.dip ?? .05), s: s * (k.h ?? .3), f: k.f ?? f, t, wind: .6 }); }
       g.fillStyle = gri(.12); g.fill(pathOf([[-.5, -.08], [-.3, -.04], [0, -.035], [.3, -.045], [.52, -.12], [.48, -.06], [.38, .02], [.1, .055], [-.25, .05], [-.45, .02]].map(([x, y]) => T(x, y)), true, .6));
-      const m0 = T(.05, -.04), m1 = T(.05, -.78); g.strokeStyle = gri(.1); g.lineWidth = Math.max(3, s * .014); g.beginPath(); g.moveTo(...m0); g.lineTo(...m1); g.stroke();
+      if (o.direk !== false) { const m0 = T(.05, -.04), m1 = T(.05, -.78); g.strokeStyle = gri(.1); g.lineWidth = Math.max(3, s * .014); g.beginPath(); g.moveTo(...m0); g.lineTo(...m1); g.stroke(); }
       if (sail > 0) { const b = .1 * sail * (1 + .12 * Math.sin(t * 2.1)), top = -.74, bot = -.2;
         g.fillStyle = gri(o.yelken ?? .8); g.fill(pathOf([[.05, top], [.25 + b, top + .02], [.31 + b * 1.4, (top + bot) / 2], [.27 + b, bot], [.05, bot + .02], [-.11 - b * .5, bot], [-.15 - b * .8, (top + bot) / 2], [-.1 - b * .4, top + .02]].map(([x, y]) => T(x, y)), true, .5)); } };
     // taş duvar + derin pencere oyuğu; içi dış manzara (dis fonksiyonu, kırpılır)

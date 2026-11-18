@@ -41,10 +41,13 @@ function martilar(G, st, x0, y0, n, o = {}) { const g = G.g, q = G.rng(o.seed ||
 
 // ════════ A · KIRMIZI VE DENİZ (kanca) ════════
 // A01: siyah elbiseli Mary (Finden, 19. yy); kamera yakadan eteğe iner, kırmızı alttan yükselir
-const SIYAH_ETEK = [[.405, .505], [.5, .54], [.585, .505], [.572, .57], [.562, .632], [.63, .64], [.655, .69], [.672, .758], [.5, .762], [.36, .758], [.372, .69], [.385, .62], [.395, .56]];
+// Finden gravürünün sol altındaki ek resim idam anını (balta, kütük) gösterir: hiçbir planda görünmez
+const ORT_IDAM = [[.226, .528, .372, .672]];
+const SIYAH_ETEK = [[.405, .51], [.45, .525], [.5, .545], [.55, .525], [.585, .51], [.574, .57], [.565, .63], [.63, .642], [.655, .69], [.672, .758], [.5, .762], [.36, .758], [.372, .69], [.385, .62], [.395, .56]];
+const SIYAH_CIKAR = [[[.535, .565], [.645, .56], [.655, .655], [.535, .66]]];   // kitap ve el: kırmızı değmez (kan gibi okunur)
 P('A01', 0, fotoP('mary_siyah_hacli_tamboy', [.545, .41, .36], [.535, .6, .4], {
-  klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', u: st => ss((st.t - 1.3) / 4.2),
-  kirmizi: { poly: SIYAH_ETEK, sil: st => ss((st.t - AT('A01@altından')) / 1.8) }, karart: st => 1 - clamp(st.t / .9),
+  klip: [.232, .242, .765, .762], ort: ORT_IDAM, kontrast: 1.45, parlak: .93, renkTon: 'brightness(2.6) contrast(.95)', u: st => ss((st.t - 1.3) / 4.2),
+  kirmizi: { poly: SIYAH_ETEK, cikar: SIYAH_CIKAR, yum: 12, sil: st => ss((st.t - AT('A01@altından')) / 1.8) }, karart: st => 1 - clamp(st.t / .9),
   kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .16, strength: .34 } }), 'O');
 P('A02', 'A02', fotoP('mary_dul_18yy', [.5, .4, .72], [.5, .34, .46], {
   etiket: [{ text: 'MARY STUART', size: 70, weight: 700, spacing: 8, at: S('A02') + .2 }, { text: 'İskoçya Kraliçesi  ·  8 Şubat 1587', size: 40, font: 'Cormorant Garamond', italic: true, weight: 600, at: AT('A02@şubat') - .3 }],
@@ -792,8 +795,8 @@ P('L06', 'L06', (G, st) => { solway(G, st, { cam: [lerp(640, 760, st.p), 560, 1]
   return { iris: lerp(.62, .7, st.p), look: { sepia: .5, strength: .42 }, ust: etiket([{ text: 'Solway · 1568', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 160 }) }; }, 'G');
 P('L07', 'L07', fotoP('idam_iln_1861', [.3, .48, .42], [.31, .49, .36], { kunye: 'Fotheringhay\'in büyük salonu · ILN, 1861 (J. Gilbert) · The Met (CC0)', etiket: [{ text: '8 Şubat 1587, sabah', size: 40, font: 'Cormorant Garamond', italic: true, at: S('L07') + .4 }] }), 'O');
 P('L07b', 'L07@elinde', fotoP('mary_siyah_hacli_tamboy', [.45, .48, .42], [.52, .6, .34], {
-  klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', u: st => ss((st.t - AT('L08') + 1) / 4),
-  kirmizi: { poly: SIYAH_ETEK, sil: st => ss((st.t - AT('L08@kızıl')) / 2.2) }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14, strength: .36 } }), 'Y');
+  klip: [.232, .242, .765, .762], ort: ORT_IDAM, kontrast: 1.45, parlak: .93, renkTon: 'brightness(2.6) contrast(.95)', u: st => ss((st.t - AT('L08') + 1) / 4),
+  kirmizi: { poly: SIYAH_ETEK, cikar: SIYAH_CIKAR, yum: 12, sil: st => ss((st.t - AT('L08@kızıl')) / 2.2) }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14, strength: .36 } }), 'Y');
 // idam salonu (çizim): siyah örtülü kürsü, parmaklık, seyirciler, şömine; balta ve kütük gösterilmez
 function idamSalonu(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.26);
   g.fillStyle = G.gri(.7); g.beginPath(); g.moveTo(1080, 120); g.lineTo(1260, 120); g.lineTo(1260, 520); g.lineTo(1080, 520); g.fill(); g.save(); g.globalAlpha = .2; g.fillStyle = G.gri(1); g.beginPath(); g.moveTo(1080, 200); g.lineTo(1260, 160); g.lineTo(900, 900); g.lineTo(560, 900); g.closePath(); g.fill(); g.restore();
@@ -818,7 +821,7 @@ function kadife(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 540,
     const P0 = G.pathOf([[x0, -100], [x0 + 190, -100], [x0 + 200 + Math.sin(i) * 20, 600], [x0 + 190, 1200], [x0, 1200], [x0 + 10 + Math.cos(i) * 20, 600]], true, .5); g.fill(P0); }
   G.kirmiziCiz(r => { r.globalAlpha = o.a ?? 1; r.fillRect(-500, -500, 2500, 2100); }); }
 P('L12', 'L12', (G, st) => { kadife(G, st, { cam: [720, 540, lerp(1, 1.1, st.p)], a: acS(st, 'L12', 1.2) }); return { look: { sepia: .14, strength: .3 }, renkTon: 'contrast(.6) brightness(1.5)' }; }, 'A');
-P('L13', 'L13', fotoP('mary_siyah_hacli_tamboy', [.4, .5, .36], [.4, .52, .3], { klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', kirmizi: { poly: SIYAH_ETEK }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14 } }), 'Y');
+P('L13', 'L13', fotoP('mary_siyah_hacli_tamboy', [.52, .58, .34], [.52, .6, .3], { klip: [.232, .242, .765, .762], ort: ORT_IDAM, kontrast: 1.45, parlak: .93, renkTon: 'brightness(2.6) contrast(.95)', kirmizi: { poly: SIYAH_ETEK, cikar: SIYAH_CIKAR, yum: 12 }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14 } }), 'Y');
 P('L14', 'L14', (G, st) => { const g = G.g; G.kamera(lerp(700, 760, st.p), 560, 1.35); G.zemin(.14); isikHalka(G, 600, 380, 900, .5);
   G.mektup(720, 560, 1060, 640, -.02, { px: 38, lh: 56, yazi: ['…pour le maintien de la foy catholique', 'et du droit que Dieu m\'a donné', 'à ceste couronne…'], prog: 1 });
   const k = acS(st, 'L14@inancı', 2); if (k > 0) { g.save(); g.translate(720, 560); g.rotate(-.02); g.strokeStyle = G.gri(.1); g.lineWidth = 5; g.beginPath(); g.moveTo(-460, -42); g.lineTo(-460 + 760 * Math.min(1, k * 2), -42); g.moveTo(-460, 14); g.lineTo(-460 + 500 * Math.max(0, k * 2 - 1), 14); g.stroke(); g.restore(); }

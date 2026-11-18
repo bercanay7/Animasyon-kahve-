@@ -1,6 +1,6 @@
 # Mary Stuart ve I. Elizabeth (Zweig'in anlatımıyla): üretim planı (rev0, 18 Kasım 2026)
 
-Durum (rev1): talep kontrolü ölçüldü; kullanıcının cevapları alındı; yorum, iskelet, başlık adayları ve kapak taslakları yazıldı. Sırada: birinci el kaynaklar (ajan topluyor), üslup kapısı, senaryo.
+Durum (18 Kasım, son): senaryo rev1, seslendirme, 220 planlık film, müzik ve miks, iki kapak, Shorts, SRT ve yayın metinleri hazır; render ve teslim kopyaları sürüyor. Kayıt: `KURUL.md`, `geriye_bakis.md`.
 Bölüm: **Tarihin Dönüm Noktaları** (ana); Zweig kapısı yüzünden **Kitapların Sorduğu Sorular** listesine de eklenir.
 Kullanıcının çerçevesi (18 Kasım): Stefan Zweig'in *Maria Stuart*'ından okudu; Zweig'in iç dünyaya inen psikolojik anlatımı; ana odak Mary'nin yolculuğu ve iki kraliçe arasındaki çekişme; Elizabeth "uzaktan bir profil"; uzun video (25–30 dk, gerekirse fazlası; karar başkanın). Üslup için cinecode'da hazır tarif varsa o. **Kurul yok**; gerektiğinde Fable tek danışman/denetmen.
 
