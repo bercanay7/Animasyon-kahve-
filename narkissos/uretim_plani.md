@@ -196,3 +196,26 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 - Callot levhasının tarihi.
 
 **Ek karar (kullanıcı, 18 Kasım):** üslup kapısının sonucunda kararı Fable 5.2 verir; kullanıcıya sorulmaz. Başkan Fable'ın kararını uygular. Yalnız kaynak ya da hassasiyet engelleyici bulgusu varsa (veto kuralı) kararı kayda gerekçesiyle yazıp düzeltir.
+
+## 8. Üslup kapısı sonucu (18 Kasım 2026): VAZO (Fable 5.2'nin kararı, şartlı)
+Ayrıntı: `kapi/FABLE_KAPI.md`. Kodlar `kapi/vazo/`, `kapi/riso/`; kareler ve mp4'ler oturumun çalışma alanında.
+
+| Ölçüt | Sonuç |
+|---|---|
+| 1. Yakın plan baş "genç insan" okunuyor | Risograf net önde ("erkek, 18–25"). Vazo genç okunuyor ama "üstü çıplak kadın" okumasına kayıyor |
+| 2. 246/168/120 px | Karışık. D planında yansıma risografta daha görünür, koyu akışta kenarı duruyor. Kapakta vazo önde (tek odak yansıyan gözde, yazı karşıtlığı yüksek) |
+| 3. 480p/360p | İkisi de hare ve titreme göstermiyor. Ama YouTube bit hızında risograf 1080p PSNR 26,8 dB, vazo 49,2 dB |
+| 4. Kare süresi (mb=4, tek işçi) | Risograf 0,82 sn ortalama, geçiyor. 4 işçide 9 dk: vazo ≈ 1,26 sa, risograf ≈ 2,02 sa |
+| Ek: dosya boyu | 19,5 sn CRF 18: vazo 10,6 MB, risograf 102 MB (9,6 kat) |
+| Ek: açılış | Vazoda telefon 0,3. saniyede telefon okunuyor; risografta akvaryum, lavabo, pencere okundu |
+| Hassasiyet | Engelleyici bulgu yok. Düzeltilecekler: vazo D planında çıplak okunan beden, E'de hale okunan elips, burundan sarkan çizgi; risografta dudak teması ve kapak "O BENİM" birlikte aşk vaadi gibi okunuyor |
+
+**Karar:** kapı kuralı gereği vazo; risograf dört ölçütün dördünde açık fark yapmadı. **Şart:** Fable'ın on düzeltmesi yapılır, sonra D_benim ve C planı görmemiş okura yeniden sorulur. Okuma yine "çıplak kadın" ya da "secde" çıkarsa kapı yeniden açılır. Risograftan alınacaklar:
+- kısa saçlı, kulağı açık efeb başı;
+- halkada yansımanın koyu lekeye dağılması (120 px'te görünür);
+- kıyı çizgisi ve kesik su ufku;
+- kıyıdaki nergisler;
+- "yabancı yansıma" fikri;
+- suya yansımayan kapak yazısı.
+
+**Başkanın notu:** §5'teki "vazo 0,35–0,50 sn/kare" prototipe aitti; kapı sahnesinde vazo mb=4 ile ortalama 1,0 sn (p90 1,82). Render planı 4 işçiyle ölçülen değere (9 dk ≈ 1,3 saat) göre yapılır.
