@@ -293,3 +293,18 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
 **Sıradaki:**
 1. Seslendirme için kredi hesabı (karakter × çekim) kullanıcıya bildirilir ve açık onay alınır.
 2. Plan listesi rev2'ye göre yazılır.
+
+## 11. Üslup kapısı: vazo şartı yerine geldi (18 Kasım 2026)
+- **Düzeltme turları:** iki tur yapıldı (tur 1 geçmedi, tur 2 geçti). Fable 5.2'nin raporları: `kapi/FABLE_ONAY_tur*.md`.
+- **Kör okuma:** yakın plan (D_benim) "genç erkek, tunikli, giyinik; secde, dua, çıplaklık yok" okundu. Orta plan (C) "genç erkek, yüzüstü yatıp yansımasına bakıyor" okundu. "Çıplak kadın" ve "secde" okuması kalktı.
+- **Tanıma hamlesi** ("benim") yazısız okunuyor: parmak suya değiyor, yansımanın eli aynı karede buluşuyor, genç irkiliyor.
+- **D planı kare süresi** (mb=4, tek işçi): medyan 1,13 sn, p90 1,26 sn (tur 1'de p90 1,82).
+- **Animatikten önce şart (Fable):** açılış planı A ve telefon planı E kör okurda "öpüşme / ekrandaki uzun saçlı kadın" okunuyor. Ters yansıma ikinci bir kişi gibi duruyor. Bu, kapak "O BENİM" ile birleşince yanlış vaat verir.
+  - Çözüm 1: yansıma gerçek başın birebir aynası, soluk, cam parlamalı.
+  - Çözüm 2, tutmazsa plan değişir: telefon omuz üstünden, camda yalnız yansıma, gerçek yüz kadrajda yok.
+- **Kalan küçük düzeltmeler:**
+  - C: khiton uyluk ortasına insin, kalkık ayaklar yere yatsın ("ayak sallama" flört okuması).
+  - E: yansıyan gözdeki kırık iz.
+  - D_halka: ilk halka baştan en az 60 px uzakta (hale okuması).
+- **Kapak notu:** "O BENİM" sahiplenme okumasına da açık. Kapak aşamasında en az bir aday yansımayı söyleyen yazıyla denenir.
+- **Kör okurun notu:** parmakların buluşması Michelangelo'nun Âdem'in Yaratılışı'nı çağrıştırabilir. Başkanın değerlendirmesi: buluşma suyun yüzeyinde ve kendi yansımasıyla, yani ikonografi farklı. Hassasiyet bakışında not olarak kalır, engel değil.

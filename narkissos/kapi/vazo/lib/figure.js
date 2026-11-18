@@ -56,7 +56,8 @@ const HAND = {
   open: [[-1.7, 0], [1.7, 0], [2.3, 2.6], [2.0, 5.6], [.7, 7.0], [-.9, 6.7], [-1.9, 4.2]],
   fist: [[-1.8, 0], [1.8, 0], [2.6, 2.2], [2.5, 4.4], [.8, 5.0], [-1.6, 4.7], [-2.3, 2.6]],
   flat: [[-1.6, 0], [1.6, 0], [2.0, 2.6], [1.7, 6.0], [.6, 7.8], [-.6, 7.6], [-1.6, 4.4]],
-  point: [[-1.8, 0], [1.8, 0], [2.4, 2.2], [2.5, 4.2], [1.2, 4.6], [1.3, 8.6], [.4, 8.8], [-.2, 4.8], [-1.6, 4.6], [-2.3, 2.6]],
+  // tur 2: kapalı yumruk + tek işaret parmağı; yumruğun ucu yuvarlak (ikinci uç/başparmak gibi okunmasın; yansımada V olmasın)
+  point: [[-1.8, 0], [1.8, 0], [2.2, 2.0], [2.0, 4.2], [1.75, 6.6], [1.35, 8.9], [.7, 9.3], [.15, 8.7], [-.05, 6.4], [-.25, 5.0], [-1.1, 4.75], [-2.0, 4.1], [-2.4, 2.5]],
   // yüzeye bastıran avuç: yandan ince görünür, iki parmak ucu ayrık (el sallama gibi okunmaz)
   press: [[-1.3, 0], [1.3, 0], [1.7, 2.4], [2.0, 5.2], [1.4, 7.4], [.7, 6.0], [.3, 7.7], [-.5, 7.3], [-1.3, 4.2]],
 };
@@ -320,6 +321,7 @@ function drawBody(G, f, J, tor, tP) {
     G.at(A.wr, -A.haA, () => {
       if (!lk.fem && hs === 'fist') det(c => { c.moveTo(1.6, 2.4); c.lineTo(-.6, 2.6); c.moveTo(1.8, 3.6); c.lineTo(-.4, 3.8); }, .3);
       if (!lk.fem && (hs === 'open' || hs === 'flat')) det(c => { c.moveTo(1.4, 3.2); c.lineTo(.2, 6.4); c.moveTo(.2, 3.0); c.lineTo(-.7, 6.2); }, .26);
+      if (!lk.fem && hs === 'point') det(c => { c.moveTo(-.3, 4.6); c.quadraticCurveTo(-.5, 3.5, -2.1, 3.3); c.moveTo(-.2, 3.1); c.quadraticCurveTo(-.9, 2.3, -2.2, 2.2); }, .26); // kıvrık parmak boğumları
       if (!lk.fem && hs === 'press') det(c => { c.moveTo(.9, 3.4); c.lineTo(.6, 6.0); }, .24);
       if (lk.fem && (hs === 'open' || hs === 'flat')) G.paint(c => { c.moveTo(1.4, 3.2); c.lineTo(.2, 6.4); }, sty.line, .2, false);
     });
@@ -329,7 +331,7 @@ function drawBody(G, f, J, tor, tP) {
         det(c => { c.moveTo(-3.4, -.5); c.quadraticCurveTo(1.5, -1.6, 3.6, 3.2); c.quadraticCurveTo(2.0, 6.5, -.6, 7.2); }, .3); });
     }
     if (!lk.fem && near) {
-      G.at(A.elb, -A.foA, () => det(c => { c.moveTo(-2.2, -.6); c.quadraticCurveTo(-.2, 1.4, 1.6, .2); }, .33));
+      if (!lk.efeb) G.at(A.elb, -A.foA, () => det(c => { c.moveTo(-2.2, -.6); c.quadraticCurveTo(-.2, 1.4, 1.6, .2); }, .33)); // tur 2: efebde dirsek kıvrımı yok (katlanmış kolda 'kesik uç' gibi okunuyordu)
       if (!lk.rf) G.at(J.shoulder, -A.upA, () => det(c => { c.moveTo(-3.2, 1.5); c.quadraticCurveTo(.4, 4.6, 3.8, 2.2); }, .33));
     }
     const hold = f.hold && f.hold[near ? 'N' : 'F'];
@@ -339,7 +341,7 @@ function drawBody(G, f, J, tor, tP) {
   // arka plan katmanları: pelerin/kanat
   if (lk.wings) G.at(J.shoulder, J.T, () => bigWing(G, lk.wings, p.wingF ?? .6, p.wingSpread ?? .5));
   if (lk.cape) G.at(J.neckB, J.T, () => G.part(c => spline(c, [[-2, -1], [-8.5, 4], [-12, 18], [-10, 30], [-4, 28], [-3.5, 14], [-.5, 6]]), {}));
-  drawArm(J.AF, false);
+  if (!f.noFarArm) drawArm(J.AF, false); // Narkissos tur 2: D'de uzak kol gövdenin arkasında kalır (kütük okunmasın)
   drawLeg(J.LF, false);
   // gövde
   G.at([0, 0], J.T, () => {
@@ -575,15 +577,17 @@ function drawHead(G, f, J, det) {
         if (bl > .3) G.cut(c => c.arc(4.0, ey - .22, .46, 0, TAU), .3, true);
       } else {
         const es = lk.eyeS || 1, ex = x => 3.55 + (x - 3.55) * es, eY = y => ey + (y - ey) * es; // lk.eyeS: daha iri göz (karakter ayrımı)
-        det(c => { c.moveTo(ex(2.2), eY(ey)); c.quadraticCurveTo(ex(3.5), eY(ey - .9 * bl), ex(4.9), eY(ey - .2)); c.quadraticCurveTo(ex(3.5), eY(ey + .6 * bl), ex(2.2), eY(ey)); }, .36 * Math.sqrt(es));
+        const ew = 1 + (p.eyeWide || 0); // tur 2: şaşkınlıkta göz açılır
+        det(c => { c.moveTo(ex(2.2), eY(ey)); c.quadraticCurveTo(ex(3.5), eY(ey - .9 * bl * ew), ex(4.9), eY(ey - .2)); c.quadraticCurveTo(ex(3.5), eY(ey + .6 * bl * ew), ex(2.2), eY(ey)); }, .36 * Math.sqrt(es));
         if (bl > .3 && !lk.blind) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true); // lk.blind: açık ama boş göz (bebeksiz)
       }
     }
     // kaş
     const br = (p.brow || 0) + (lk.brow || 0); // lk.brow: karakterin kalıcı kaş açısı (Zeus sert)
     const sc = (p.scowl || 0) + (lk.scowl || 0);
-    const by0 = -8.45 - br * .3 - sc * .45, by1 = -8.6 + br * .45 + sc * .75, bf = p.browFlat ?? lk.browFlat ?? 0;
-    det(c => { c.moveTo(2.0, by0); c.quadraticCurveTo(3.8, lerp(-9.3 - br * .6 - sc * .05, (by0 + by1) / 2 - .05, bf), 5.6, by1); }, (.34 + sc * .08) * FW * (1 + bf * .25));
+    const bu = p.browUp || 0; // tur 2: şaşkınlıkta kaşın tamamı kalkar
+    const by0 = -8.45 - br * .3 - sc * .45 - bu, by1 = -8.6 + br * .45 + sc * .75 - bu, bf = p.browFlat ?? lk.browFlat ?? 0;
+    det(c => { c.moveTo(2.0, by0); c.quadraticCurveTo(3.8, lerp(-9.3 - br * .6 - sc * .05 - bu, (by0 + by1) / 2 - .05, bf), 5.6, by1); }, (.34 + sc * .08) * FW * (1 + bf * .25));
     if (sc > .3) det(c => { c.moveTo(5.6, -8.6 + br * .45 + sc * .75); c.lineTo(6.0, -7.5); }, .26 * FW);
     // kulak
     if (!lk.earHidden) det(c => { c.moveTo(-.4, -7.8); c.bezierCurveTo(-2.4, -7.6, -2.4, -4.6, -.6, -4.6); c.moveTo(-1.0, -6.8); c.quadraticCurveTo(-1.6, -6, -1.0, -5.4); }, .32);
@@ -594,7 +598,8 @@ function drawHead(G, f, J, det) {
     if (!rf || !lk.beard) { // siyah sakallı kırmızı figürde ağız ve sakal yukarıda boyandı (sakalsız kırmızı figürde ağız kazıma çizgi)
     // ağız: gülümsedikçe köşe yanağa doğru yükselir ve çizgi kalınlaşır; yanakta gülme çizgisi
     det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, (.3 + clamp(sm / 2) * .14) * FW);
-    if (p.mouthOpen) G.cut(c => { c.moveTo(5.8, -3.95); c.quadraticCurveTo(5.0, -3.2 - p.mouthOpen * .6, 4.6, -3.7); c.closePath(); }, .3, true);
+    if (p.mouthOpen && lk.efeb) { const mo = p.mouthOpen; G.cut(c => { c.moveTo(6.5, -4.25); c.quadraticCurveTo(5.2, -4.1, 4.3, -3.85); c.quadraticCurveTo(5.0, -3.3 - mo * .7, 6.5, -3.15 - mo * .55); c.closePath(); }, .3, true); } // tur 2: irkilmede açık ağız profilde görünür boşluk
+    else if (p.mouthOpen) G.cut(c => { c.moveTo(5.8, -3.95); c.quadraticCurveTo(5.0, -3.2 - p.mouthOpen * .6, 4.6, -3.7); c.closePath(); }, .3, true);
     // sakal ve saç kazımaları
     if (lk.beard) {
       det(c => { c.moveTo(-.2, -4.4); c.quadraticCurveTo(2.2, -3.0, 4.6, -3.6); }, .34);

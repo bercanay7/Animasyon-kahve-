@@ -39,3 +39,13 @@ WORKERS=3 MB=4 node render.js <çıktı.mp4>                # 19,5 sn, 30 fps, H
 - Halka çizgileri: merkezdeki küçük elips söner (hale okunmasın).
 - Kapak: kil kenar çizgisi, ortalama parlaklık ~52, el kadraj dışında, karşı kıyı yok; yazı suya yansımaz.
 - Hız: sönmüş halka piksel kaydırmaz, kaydırma yalnız yansıma bölgesinde (`warpBox`).
+
+## Tur 2 değişiklikleri (FABLE_ONAY_tur1.md kalan düzeltmeleri)
+- A/E başparmağı (`phoneHand`): kısa (~70 birim, ekranda ≤ 90 px), iki boğumlu (boğum çizgisi), tırnaklı; kökü avuçta, camın sol alt kenarında durur. Kökü avucun arkasında kalır (kutu gibi uç görünmez). Yansıyan yüzün ağız/çene bölgesinden uzak.
+- A kaydırma: başparmak üç kez (0,3 / 1,0 / 1,7 sn) yukarı süpürür (uç ~70 px yol); camın arkasında soluk akış kartları (`phoneFeed`) her kaydırmada 330 birim yukarı kayar, 2,0–2,6 sn'de söner (cam yalnız yansımaya kalır).
+- A kadrajı telefona yakın (z 1,21 → 1,25), figür ölçeği 24 → 20,5, baş oranı 1,24 → 1,45 (gövde küçük, yüz aynı boyda), `jaw` (köşeli çene).
+- D: `HAND.point` yeniden çizildi (kapalı yumruk, yuvarlak uç, tek işaret parmağı, kıvrık parmak boğumları); yansıma bunun aynası, V/makas okunmaz.
+- D: uzak kol çizilmez (`f.noFarArm`); efeb figürde dirsek kıvrım çizgisi yok (katlanmış kolda 'kesik uç' gibi okunuyordu).
+- D: uzanma yavaş ve alçak (`dReach`: 13,24'te başlar, ara poz dirsek kayada; dönüş 1 sn); hareket bulanıklığında kol lekesi yok.
+- D: irkilme büyük: 14,58–14,82'de göz ~85 px geri/yukarı, ağız açık (`mouthOpen` 2,1, efebde görünür kama), göz açılır (`p.eyeWide`), kaş kalkar (`p.browUp`).
+- C: ayak arkasındaki ince mızrak çubuğu silindi.
