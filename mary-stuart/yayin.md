@@ -6,7 +6,7 @@
 4. **Kitle:** "Hayır, çocuklara özel değil".
 5. **Değiştirilmiş/sentetik içerik:** gerçekçi bir kişi ya da olay göstermiyor (animasyon; tarih gravürleri arşiv görseli olarak, sessiz film süzgecinden geçirilmiş). Ses yapay zekâ: açıklamada yazılı. YouTube'un o günkü sorusunu oku; gerçekçi içerik değilse "Hayır".
 6. **Altyazı:** Altyazılar → Dosya yükle → "Zamanlamalı" → `mary_stuart.tr.srt` (Türkçe, 303 altyazı).
-7. **Bitiş ekranı (son 20 sn, 20:29–20:49):** anlatımdaki "Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator daha vardı. Onun hikâyesi ekranda." cümlesi 20:27'de başlar, "ekranda" ~20:33. Ekran ortası boş bir ara yazı kartı: ortaya **Şarlken videosu** ("Osmanlı'nın 'İspanya Kralı' Dediği İmparator: Şarlken Neden Vazgeçti?"), altına **abone ol**. Üstte "ZAMAN KURYESİ" yazısı var; ögeleri onun altına yerleştir. Sağ alttaki rozet alanı boş.
+7. **Bitiş ekranı (son 20 sn, 20:29–20:49):** anlatımdaki "Aynı yüzyılda, tahtını kendi isteğiyle bırakan bir imparator vardı. Onun hikâyesi ekranda." cümlesi 20:27'de başlar, "ekranda" ~20:33. Ekran ortası boş bir ara yazı kartı: ortaya **Şarlken videosu** ("Osmanlı'nın 'İspanya Kralı' Dediği İmparator: Şarlken Neden Vazgeçti?"), altına **abone ol**. Üstte "ZAMAN KURYESİ" yazısı var; ögeleri onun altına yerleştir. Sağ alttaki rozet alanı boş.
 8. **Kartlar (isteğe bağlı):** 18:54 ("Sonumda başlangıcım") → Sisifos videosu.
 9. **Oynatma listesi:** "Kitapların Sorduğu Sorular" (yoksa oluştur); ikinci liste "Tarihin Dönüm Noktaları".
 10. **Sabit yorum:** `youtube.md` → "Sabit yorum".

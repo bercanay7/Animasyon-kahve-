@@ -419,8 +419,8 @@ Mary ile Darnley artık
 birbirine yabancıydı.
 
 92
-00:06:19,130 --> 00:06:24,990
-10 Şubat 1567 gecesi Edinburgh'da,
+00:06:18,920 --> 00:06:25,620
+10 Şubat 1567, sabaha karşı Edinburgh'da,
 Darnley'nin kaldığı ev havaya uçtu.
 
 93
@@ -1231,11 +1231,11 @@ ve kısacık olduğu görüldü.
 Kırk dört yaşındaydı.
 
 270
-00:18:19,300 --> 00:18:21,240
-Protestan dekan haykırdı:
+00:18:19,300 --> 00:18:21,690
+Protestan dekan şöyle dedi:
 
 271
-00:18:21,350 --> 00:18:24,560
+00:18:21,690 --> 00:18:24,830
 "Kraliçe'nin bütün düşmanları
 böyle yok olsun."
 
@@ -1258,14 +1258,14 @@ Elizabeth'in yüzü değişti, sesi kesildi.
 Yas giydi, ağladı, meclisini azarladı.
 
 276
-00:18:41,710 --> 00:18:44,950
+00:18:41,710 --> 00:18:45,390
 Fermanı gönderen sekreteri
 Davison'ı yargılattı.
 
 277
-00:18:45,040 --> 00:18:50,780
+00:18:45,470 --> 00:18:50,820
 Mary'nin oğluna şöyle yazdı: "Niyetimin
-tam tersine başıma gelen o elim olay."
+tam tersine başa gelen o elim olay."
 
 278
 00:18:52,130 --> 00:18:54,160
@@ -1344,17 +1344,17 @@ Hayattayken bir kez bile
 yüz yüze gelmediler.
 
 295
-00:20:00,910 --> 00:20:04,780
+00:20:00,910 --> 00:20:04,930
 Zweig'ın hükmü şöyle:
 gerçekçi Elizabeth tarihte
 
 296
-00:20:04,780 --> 00:20:09,110
-kazandı; romantik Mary ise şiirde
+00:20:04,930 --> 00:20:09,150
+kazanır; romantik Mary ise şiirde
 ve efsanede.
 
 297
-00:20:09,190 --> 00:20:11,920
+00:20:09,230 --> 00:20:11,920
 Şimdi soru senin:
 sen kalbinle mi yaşıyorsun, aklınla mı?
 
@@ -1376,11 +1376,11 @@ bugüne böyle sorular taşıyor.
 Bu yolculuğu sevdiysen abone ol.
 
 302
-00:20:27,200 --> 00:20:31,900
+00:20:27,200 --> 00:20:32,170
 Aynı yüzyılda, tahtını kendi isteğiyle
-bırakan bir imparator daha vardı.
+bırakan bir imparator vardı.
 
 303
-00:20:32,020 --> 00:20:33,890
+00:20:32,250 --> 00:20:34,010
 Onun hikâyesi ekranda.
 
