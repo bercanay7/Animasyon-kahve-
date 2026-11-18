@@ -192,3 +192,5 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 - Ellis 1898 cümlesi.
 - Näcke 1899'un künyesi.
 - Callot levhasının tarihi.
+
+**Ek karar (kullanıcı, 18 Kasım):** üslup kapısının sonucunda kararı Fable 5.2 verir; kullanıcıya sorulmaz. Başkan Fable'ın kararını uygular. Yalnız kaynak ya da hassasiyet engelleyici bulgusu varsa (veto kuralı) kararı kayda gerekçesiyle yazıp düzeltir.
