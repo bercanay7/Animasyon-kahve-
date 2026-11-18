@@ -24,6 +24,7 @@ Altyazılar Türkçe altyazının zamanlarıyla birebir aynı ve `araclar/altyaz
 - **Taban (17 Kasım, `2026-11-17-studio-verileri.md`):**
   - Sisifos: Türkiye %86,7, Azerbaycan %4,3, Almanya %1,7. Altyazı: Türkçe %31,4, İngilizce %0,8.
   - Ran: yayın 17 Kasım 18:00, henüz kitle verisi yok.
+  - Kafka (kontrol, 48. saat): Türkiye %75,4; altyazı yok %59,9, Türkçe %22,5, İngilizce görünmüyor.
 - **Kontrol videoları:**
   - Ran'ı aynı yaştaki **Kafka** ile karşılaştır; Kafka'ya çeviri eklenmez.
   - Sisifos'u kendi önceki 14 günüyle karşılaştır.
