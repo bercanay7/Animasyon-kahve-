@@ -1,0 +1,45 @@
+{
+ "flow_id": "3auh4aF6TF3LbAoKtBdC",
+ "voice": "Emrullah",
+ "voice_id": "DpEiQMnL9WxMsymCsjPY",
+ "model": "eleven_v4",
+ "not": "18 Kasım 2026: s00 için estimate_only 847,9 kredi (2 çekim, etiketli metin). Oran ~2.000 kredi/karakter/2 çekim. Toplam tahmin ~13758 kredi. İlk gerçek çağrı otomatik izin denetleyicisinde durdu (ücretsiz); kullanıcının tutarla açık onayı bekleniyor.",
+ "cekimler": {
+  "s00": {
+   "karakter_etiketli": 424,
+   "tahmini_kredi": 848
+  },
+  "s01": {
+   "karakter_etiketli": 604,
+   "tahmini_kredi": 1208
+  },
+  "s02": {
+   "karakter_etiketli": 918,
+   "tahmini_kredi": 1836
+  },
+  "s03": {
+   "karakter_etiketli": 482,
+   "tahmini_kredi": 964
+  },
+  "s04": {
+   "karakter_etiketli": 1025,
+   "tahmini_kredi": 2050
+  },
+  "s05": {
+   "karakter_etiketli": 776,
+   "tahmini_kredi": 1552
+  },
+  "s06": {
+   "karakter_etiketli": 780,
+   "tahmini_kredi": 1560
+  },
+  "s07": {
+   "karakter_etiketli": 701,
+   "tahmini_kredi": 1402
+  },
+  "s08": {
+   "karakter_etiketli": 1170,
+   "tahmini_kredi": 2340
+  }
+ }
+}

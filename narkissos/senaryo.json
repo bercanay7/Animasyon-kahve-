@@ -148,7 +148,8 @@
    "bolum": "Yankı",
    "tts": "[quietly] Reddedilen Eko yüzünü yapraklarla örter, mağaralarda yaşar. Aşkı geçmez, acıyla büyür.",
    "alt": "Reddedilen Eko yüzünü yapraklarla örter, mağaralarda yaşar. Aşkı geçmez, acıyla büyür.",
-   "kaynak": "III 393–395"
+   "kaynak": "III 393–395",
+   "vo_parca": true
   },
   {
    "id": "C11",
@@ -316,7 +317,8 @@
    "bolum": "O benim",
    "tts": "[calmly] Ağlar. Gözyaşları suyu bulandırır; yüz dağılır.",
    "alt": "Ağlar. Gözyaşları suyu bulandırır; yüz dağılır.",
-   "kaynak": "III 474–476"
+   "kaynak": "III 474–476",
+   "vo_parca": true
   },
   {
    "id": "E12",
@@ -393,7 +395,8 @@
    "bolum": "Ad",
    "tts": "[curious] Bin dokuz yüz on dörtte Sigmund Froyd ise başta sorduğumuz soruya kendi cevabını verir.",
    "alt": "1914'te Sigmund Freud ise başta sorduğumuz soruya kendi cevabını verir.",
-   "kaynak": "Freud, Zur Einführung des Narzißmus, Jahrbuch VI (1914)"
+   "kaynak": "Freud, Zur Einführung des Narzißmus, Jahrbuch VI (1914)",
+   "vo_parca": true
   },
   {
    "id": "F06",
