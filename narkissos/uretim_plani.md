@@ -321,3 +321,20 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
   - D_halka'daki kolun konturu;
   - C'deki küçük anatomi.
 - A'nın ölçeği artık "orta-yakın". Animatikte A ve E, "bu karede ne oluyor?" diye bir kez daha kör okutulur.
+
+## 12. Seslendirme (18 Kasım 2026)
+- **Kayıt:** Emrullah (`DpEiQMnL9WxMsymCsjPY`), eleven_v4, 9 bölüm × 2 çekim. Kredi: seslendirme 13.760, Scribe denetimi 1.231 (s02_a, s08_a, s08_b). Kullanıcının onayı: "Ne istiyorsan onaylıyorum." Ayrıntı `vo/indirme.json`.
+- **Seçim** (`vo/secim.json`):
+  - s00–s05, s07: a çekimi.
+  - s06: b çekimi.
+  - s08: b çekimi. Scribe'a göre a çekiminde "devam edelim" "devam ederim" diye okunuyor.
+  - Whisper olmadığı için sınırlar sessizlikten bulundu (`tools/hizala.py`). Yankı diyaloğu (s02) ve son bölüm (s08) Scribe ile kelime kelime doğrulandı: "Kim var burada? / Burada!", "Ancak ben ölünce bana sahip olursun / …bana sahip olursun", Froyd, adlar.
+- **Anlatım izi:** `vo/vo.wav` 8:51,9 ve `timeline.js` (`tools/build_vo.py`, duraklar `vo/plan.json`). Yıllar seste yazıyla okunuyor; altyazıda rakamla (`tools/merge.json`).
+- **Kontroller:**
+  - hikâye B01'de 0:34'te başlıyor (Ran kuralı ≤0:45);
+  - "ekranda" 8:32,1'de, son 20 saniyenin içinde (bitiş ekranı 8:31,9'da başlıyor).
+- **Altyazı uyarlaması:** F09'da "O ise" iki çekimde de "Oysa" okundu; altyazı kayda uyduruldu, anlam aynı.
+- **Kulakla bakılacaklar (kullanıcı):**
+  - C07 "Ancak ben ölünce bana sahip olursun" ret olarak duyuluyor mu;
+  - "Zaman Kuryesi'ne" öncesindeki ~0,08 sn'lik kesinti;
+  - genel ton.

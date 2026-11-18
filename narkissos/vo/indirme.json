@@ -3,43 +3,138 @@
  "voice": "Emrullah",
  "voice_id": "DpEiQMnL9WxMsymCsjPY",
  "model": "eleven_v4",
- "not": "18 Kasım 2026: s00 için estimate_only 847,9 kredi (2 çekim, etiketli metin). Oran ~2.000 kredi/karakter/2 çekim. Toplam tahmin ~13758 kredi. İlk gerçek çağrı otomatik izin denetleyicisinde durdu (ücretsiz); kullanıcının tutarla açık onayı bekleniyor.",
+ "not": "18 Kasım 2026: s00 için estimate_only 847,9 kredi (2 çekim, etiketli metin). Oran ~2.000 kredi/karakter/2 çekim. Toplam tahmin ~13758 kredi. İlk gerçek çağrı otomatik izin denetleyicisinde durdu (ücretsiz); kullanıcının tutarla açık onayı bekleniyor. Kullanıcı onayı geldi (\"Ne istiyorsan onaylıyorum\"); 9 bölüm × 2 çekim gönderildi, toplam 13.760 kredi (tahminle aynı).",
  "cekimler": {
   "s00": {
    "karakter_etiketli": 424,
-   "tahmini_kredi": 848
+   "tahmini_kredi": 848,
+   "node": "SSOGEn3DrCPAAJuoZSEx",
+   "session": [
+    "2aZErq6qUHNarTRHTCS3",
+    "JDE6fg64PJ0B4eSRU7nN"
+   ],
+   "gen": [
+    "NL13slILc4MZHhKCPjI6",
+    "9oCQy4K5rKTtKbsajn3a"
+   ],
+   "kredi": 848
   },
   "s01": {
    "karakter_etiketli": 604,
-   "tahmini_kredi": 1208
+   "tahmini_kredi": 1208,
+   "node": "0pmFSSy4t7ITwQkMR8dn",
+   "session": [
+    "ExhJRNogBwY6DQxoj9We",
+    "GC2mj0JGa9CFMPKuzQK4"
+   ],
+   "gen": [
+    "gzZcekxVdGDgv365Rm6F",
+    "o89xNHDdL6enMlKr2i4O"
+   ],
+   "kredi": 1208
   },
   "s02": {
    "karakter_etiketli": 918,
-   "tahmini_kredi": 1836
+   "tahmini_kredi": 1836,
+   "node": "9aHjUTiaJeBNzLT3EqPY",
+   "session": [
+    "xfOmFWsufbnpQKSK2ZZZ",
+    "8TgBSASRwUFoHgd1U2p7"
+   ],
+   "gen": [
+    "6VNeGshHCsvzrwXJGGpi",
+    "064ZKccjulVJUb89xZno"
+   ],
+   "kredi": 1836
   },
   "s03": {
    "karakter_etiketli": 482,
-   "tahmini_kredi": 964
+   "tahmini_kredi": 964,
+   "node": "CfhyZcYYq8RuWWQ2P3sb",
+   "session": [
+    "6l1pwQIJhCYtNirNl7Dk",
+    "dbkaMX35CzTTqigGaILK"
+   ],
+   "gen": [
+    "bUJmVql0OmzuZceBpJJf",
+    "3riSJ4VKEHoQnN4ZFVvB"
+   ],
+   "kredi": 964
   },
   "s04": {
    "karakter_etiketli": 1025,
-   "tahmini_kredi": 2050
+   "tahmini_kredi": 2050,
+   "node": "hZqFrPPEjwOIjDMMc6ZY",
+   "session": [
+    "1kJQXbaZO2v0Fl2umpps",
+    "fOolGQJfluPzwLmt7yTa"
+   ],
+   "gen": [
+    "ZwGy3R1S22lTOdFBjUYC",
+    "jmIqHoqKujDEic7C9ZYA"
+   ],
+   "kredi": 2050
   },
   "s05": {
    "karakter_etiketli": 776,
-   "tahmini_kredi": 1552
+   "tahmini_kredi": 1552,
+   "node": "M8JRMG2u8cGhxe4sQYoy",
+   "session": [
+    "Tch0JDaRJO7pwH9aomFs",
+    "rUSmqMU1SgnY0PR0woIL"
+   ],
+   "gen": [
+    "zTf7BGi3WopKhEyaPAUG",
+    "qhpg3CsoYePZmrC9cNRu"
+   ],
+   "kredi": 1552
   },
   "s06": {
    "karakter_etiketli": 780,
-   "tahmini_kredi": 1560
+   "tahmini_kredi": 1560,
+   "node": "3GzAV0zd0gLDggzuevNR",
+   "session": [
+    "Ls5WyaCRKv8NBSt5nmeX",
+    "9fJ46jIISyh9XuYx07GW"
+   ],
+   "gen": [
+    "N4tYga3G2tKa7l6oXJre",
+    "PwXoSdDUjeSkwQcyPZY9"
+   ],
+   "kredi": 1560
   },
   "s07": {
    "karakter_etiketli": 701,
-   "tahmini_kredi": 1402
+   "tahmini_kredi": 1402,
+   "node": "uPLgj7XrawERDQYd1kFC",
+   "session": [
+    "80T4gutRuZkIcIF4tJhK",
+    "478S9GrQYkWXDaUQqdf4"
+   ],
+   "gen": [
+    "MdcVDDMsw4GWmBCRQlrs",
+    "mv8ZIwbuS4wwJFAj1xfh"
+   ],
+   "kredi": 1402
   },
   "s08": {
    "karakter_etiketli": 1170,
-   "tahmini_kredi": 2340
+   "tahmini_kredi": 2340,
+   "node": "gpbTD9ApbFW9zKBatyLu",
+   "session": [
+    "Ri5vAEY2eC3Yctu2qYJf",
+    "xcgf5vk7G0f4DvZpP2WV"
+   ],
+   "gen": [
+    "NPr9YqUmB2sHvIEmPcV5",
+    "sYD8ysaOEkopd5rRE2lT"
+   ],
+   "kredi": 2340
   }
+ },
+ "scribe": {
+  "s02_a": 333,
+  "s08_a": 450,
+  "s08_b": 448
  }
 }
