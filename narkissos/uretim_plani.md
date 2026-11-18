@@ -150,3 +150,45 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 - **Yorumun omurgası: "bilmek yetmiyor".** Narkissos yansımanın kendisi olduğunu anlar ("Iste ego sum", III 463) ve yine de ayrılamaz. Eko ve kavramın tarihi bu omurgaya bağlanır, ayrı tezler olarak durmaz.
 - **Açılış:** film siyah telefon camında kendine bakan biriyle açılır, cam havuza döner (Fable 5.2'nin önerisi). İskelete ve üslup kapısına alınır.
 - **CLAUDE.md "geniş kitle dersi":** değiştirilmez. Başkan Prometheus cümlesini 2. gün testine karşı okumuştu; kullanıcının kastettiği, 17 Kasım'da günlük gösterimin 1–2 B arasında gidip geldiğiydi (dalga sürmedi).
+
+## 7. İskelet (18 Kasım 2026; senaryodan önce)
+**Seçim: Kişōtenketsu** (giriş → gelişme → dönüş → birleştirme). Her bölümde ABT denetimi yapılır (Ve… Ama… Bu yüzden…).
+
+**Gerekçe:**
+- Omurga ("bilmek yetmiyor") tek bir dönüşe dayanıyor: herkes Narkissos'un yansımanın kendisi olduğunu bilmediğini sanır, oysa o anlar ve yine de ayrılamaz (III 463–467). Kişōtenketsu'nun "ten"i tam olarak bu: beklenmedik bilgi ya da bakış.
+- Mit çatışmasız değil (Juno, Eko'nun reddi, Nemesis'in laneti), ama kahramanın asıl sınavı bir rakip değil, kendi bilgisi. Harmon çemberinin "ihtiyaç" ve "dönüş" adımları zorlanırdı.
+- **Önceki iskeletler:** Ran = Harmon çemberi, Kafka = Kişōtenketsu, İkaros = Harmon (sonradan). Art arda aynı iskelet gelmiyor. Kafka'dan farklı süs: çerçeve hikâye (bugünün genci) ve dönüşün kaynakta satır numarasıyla duruyor olması.
+
+**Kahraman:** Narkissos. Çerçevede bugünün genci (izleyicinin yerine geçen, telefon camına bakan kişi) soruyu taşır. Kurye fikriyle örtüşür: izleyici geçmişe gider, bir soruyla döner. Eko karşı kutuptur: yalnız başkasının sözüyle var olur. Narkissos yalnız kendini görür, Eko yalnız başkasını duyar.
+
+**Tek cümlelik vaat:** "Narkissos baktığı yüzün kendisi olduğunu biliyordu; o hâlde kendini sevmek ne zaman insanı bırakmayan bir şeye döner?"
+
+**Kanca kuralları:** İkaros ve Kafka dersleri (kancanın arkasına bilinen bağlam ya da alıntı konmaz); Ran kuralı (hikâye en geç ~0:45'te başlar).
+
+| Adım | İçerik | Kaynak | Taslak cümle aralığı* |
+|---|---|---|---|
+| **0. Kanca** (0–20 sn) | Siyah telefon camında kendine bakan genç; cam havuza döner. İlk cümlede soru: herkesin bildiği hikâyenin unutulan yanı, "o biliyordu", ve "o hâlde neden kalkıp gitmedi?" Başlığın sorusu ("kendini sevmek ne zaman…") burada sorulur, cevabı sona saklanır | III 463 (yalnız ima) | A01–A04 |
+| **Ki (giriş)** (~0:20–1:30) | Hikâye hemen başlar. Nehir perisi Liriope'nin oğlu doğar. Kehanet: "kendini tanımazsa" uzun yaşar. Merak döngüsü: kendini tanımak nasıl ölüm olur? Ama: on altı yaşında herkes onu ister, o kimseye dokunmaz | III 344–355 (348) | B01–B08 |
+| **Shō (gelişme)** (~1:30–3:30) | Eko: Juno'nun cezası, yalnız son sözleri tekrarlamak. Ormanda karşılaşma, yankı diyaloğu. Ret: "bana sahip olmana izin vermektense ölürüm" / Eko: "bana sahip ol" (*copia*, 391–392). Eko'nun bedeni erir, sesi kalır. Reddedilen biri beddua eder, Nemesis duyar. Havuz: dokunulmamış su, susuzluk, âşık oluş, yanılsama. Anlatıcı Ovidius'un ona seslenişini taşır ("saf çocuk", 432) | III 356–436 | C01–C14, D01–D10 |
+| **Ten (dönüş)** (~3:30–5:00) | **"Iste ego sum: o benim, anladım; hayalim beni kandırmıyor"** (463). Bilmek yetmiyor: "sahip olduğum şey beni yoksul kıldı" (466, *copia* Eko'ya söylediği sözle döner); "keşke bedenimden ayrılabilsem" (467). Gözyaşı suyu bulandırır, hayal kaçar: "kalsın, hiç değilse bakayım" (474–479). Eko'nun son "elveda"sı (501). Erir; boğulmaz (487–490). Yerinde safran göbekli, ak yapraklı çiçek (509–510); Styks'te bile kendine bakar (504–505) | III 463–510 | E01–E14 |
+| **Ketsu (birleştirme)** (~5:00–7:00) | Çiçeğe onun adı verildi, sonra bir davranışa. Ad zinciri: Callot (1620'ler, "öz-sevginin aşırılığı yıkımının sebebidir") → Ellis 1898 ("Narcissus-like") → Näcke 1899 → Freud 1914. **Başlığın cevabı** Freud'dan: belli bir öz-sevgi herkesin gelişiminin olağan parçası; sevgi dünyadan çekilip bir daha dışarı dönemediğinde başka bir şeye dönüşür (senaryoda Freud'un metninden doğrulanacak). Bu, Eko'yu duyamayan Narkissos'tur. Teşhis yok, tavsiye yok. Su → ekran: genç yine camda. Son soru izleyiciye: "Biliyorsun. Peki yetiyor mu?" Abone çağrısı bu son anın içinde, ardından yorum uzatılmaz | Freud 1914; Ellis 1898; Met 419135 | F01–F12 |
+
+\* Cümle kimlikleri bölüm harfi + sıra. Senaryo kesinleşince bu tablo gerçek numaralarla güncellenir (Kafka'daki numara kayması dersi). Çıkarılan cümlenin numarası boş bırakılır.
+
+**Açık merak döngüleri (soru → cevap):**
+1. "Biliyordu; o hâlde neden gitmedi?" (A) → E (463–467): bilmek sevgiyi geri döndürmeye yetmedi.
+2. "Kendini tanımak nasıl ölüm olur?" (Tiresias, B) → E: tanıdığı an sonun başladığı an.
+3. "Narkissos'un Eko'ya söylediği söz" (C, *copia*) → E (466): söz ona döner.
+4. Başlığın sorusu (A) → F (Freud): cevap tavsiye değil, kavramın kendi tanımı.
+5. Çerçeve: camdaki genç (A) → F: aynı camda, aynı soru.
+
+**Kapakla uyum:** Kapak A ("O BENİM", yüz ve yansıması) filmin ilk 5 saniyesinde camdaki yüzle karşılanır; açılış görüntüsü kapak kompozisyonuyla aynı eksende kurulur. Kapak B (Narkissos ve Eko karşıtlığı) C bölümünün görüntüsüyle karşılanır.
+
+**Başlık notu:** ön seçim 1. aday ("Kendini Sevmek Ne Zaman Narsisizme Döner?") korunur; cevabı F'de Freud'dan gelir. Omurga "bilmek yetmiyor" olduğu için 2. aday ("Bildiğin Hâlde Bırakamıyor musun?") Test ve karşılaştır'da ikinci vaat olarak değerlendirilir. Karar senaryodan sonra.
+
+**Senaryoda kaynakla doğrulanacaklar:**
+- Ovidius satırları: 344–355, 391–392, 432, 463–467, 474–479, 487–490, 501, 504–505, 509–510.
+- Freud 1914'te birincil ve ikincil narsisizm ayrımı (Almanca metinden).
+- Ellis 1898 cümlesi.
+- Näcke 1899'un künyesi.
+- Callot levhasının tarihi.
