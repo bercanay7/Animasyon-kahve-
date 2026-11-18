@@ -173,7 +173,7 @@ function morphPts(A, B, m) { const n = 120, a = resample(A, n), b = resample(B, 
 
 // ================= PLAN A ve E: bugünün genci, siyah telefon camı ↔ havuz =================
 const LK_MOD = { modern: true, rf: true, hairPts: HAIR_MOD, garment: 'coat', coatCol: '#6E331B', sleeveCol: '#6E331B', earHidden: false };
-const LK_NK = { hair: 'nape', rf: true, garment: 'short' };
+const LK_NK = { hair: 'nape', rf: true, garment: 'short', noCurls: true };
 function phoneScene(ctx, t, o) {
   const m = o.m; // 0 telefon camı, 1 havuz
   baseView(ctx);

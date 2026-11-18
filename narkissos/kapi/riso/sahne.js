@@ -72,11 +72,11 @@ const A = {
     const k = ss(seg(t, 2.85, 3.45));
     const T = kamera(1 + .045 * ss(seg(t, 0, 3.5)), 930, 600);
     // oda: koyu (Federal Blue); geçişte yapraklar üst baskıyla büyür (oda → orman gölgesi)
-    rect(-100, -100, W + 200, H + 200, C(.55 - .27 * k, .05 + .05 * k, .45 + .17 * k));
+    rect(-100, -100, W + 200, H + 200, C(.6 - .38 * k, .12 * k, .4 + .15 * k));
     // ekran ışığı odayı aşağıdan hafifçe aydınlatır
     
     // masa → kıyı (cam/havuz dışında kalan alt bölge)
-    rect(-100, A.WY - 10, W + 200, H, C(.8 - .25 * k, .15 + .35 * k, .3 - .2 * k));
+    rect(-100, A.WY - 10, W + 200, H, C(.85 - .3 * k, .5 * k, .25 - .15 * k));
     // genç: kapüşonlu, cama eğik
     const bl = Math.abs(tc - 1.25) < .1 ? .1 : 1;  // göz kırpma
     layer(() => bas({ x: 990, y: 612 + Math.sin(tc * 2.2) * 3, s: 430, r: .95, tip: 'modern', goz: bl, isik: .9 * (1 - k) + .5 * k, yaka: 'kapsonlu', ten: C(0, .30, .06) }), 0);
@@ -145,7 +145,7 @@ const B = {
 const C_ = {
   WY: 664, P: [1250, 866, 650, 202],
   ciz(t, tc) {
-    const T = kamera(1 + .06 * ss(seg(t, 7, 10.5)), 1000, 620);
+    const T = kamera(1.25 + .07 * ss(seg(t, 7, 10.5)), 900, 640);
     rect(-100, -100, W + 200, H + 200, C(0, .2, 0));
     rect(-100, -100, W + 200, 200, C(0, .08, 0));
     // arka orman gölgesi
@@ -153,9 +153,8 @@ const C_ = {
     rect(-100, 380, W + 200, 300, C(.45, .08, .75));
     for (let i = 0; i < 10; i++) { const x = rnd(i, 14) * 1920; kanopi(x, 420 + rnd(i, 15) * 120, 90 + rnd(i, 16) * 60, i + 120, C(.5, 0, 1), null); }
     // karşı kıyı şeridi
-    blob([[-100, 700], [-100, 610], [600, 600], [1300, 612], [2020, 600], [2020, 700]], C(0, .3, 1));
-    cimen(500, 1900, 650, 40, 30, 5, C(.7, 0, 1));
-    for (const [x, y, r, e] of [[1500, 628, 14, -.3], [1580, 640, 12, .4], [1720, 625, 13, 0], [1100, 635, 12, .2]]) nergis(x, y, r, e);
+    blob([[-100, 700], [-100, 648], [600, 644], [1300, 650], [2020, 642], [2020, 700]], C(0, .3, 1));
+    cimen(500, 1900, 662, 40, 16, 5, C(.7, 0, 1));
     rect(-100, 690, W + 200, H, C(.12, .32, .55));
     // havuz
     const [px, py, rx, ry] = C_.P;
@@ -172,15 +171,15 @@ const C_ = {
     const tl = wd('S3', 'âşık');
     const uz = ss(seg(tc, tl, tl + .9)) * .6;
     const nef = Math.sin(tc * 2.4);
-    const uo = { x: 880, y: 646, u: 112, t: tc, nefes: nef, uzan: uz, basX: .85, basY: -1.5 + .04 * ss(seg(tc, 8.38, 9.2)), basR: .95, goz: .85 };
+    const uo = { x: 900, y: 646, u: 104, t: tc, nefes: nef, uzan: uz, basX: .8, basY: -1.12 + .04 * ss(seg(tc, 8.38, 9.2)), basR: .95, goz: .85 };
     layer(() => uzanan(uo), 4);
     maskeSil(() => uzanan(uo));
     nergis(250, 640, 15, .3); nergis(330, 655, 12, -.2); nergis(180, 650, 13, .1);
     return T;
   },
   param(t) {
-    const s = 1 + .06 * ss(seg(t, 7, 10.5));
-    return { water: { y: C_.WY * s + 620 * (1 - s), amp: 1.4, t, refl: .9, sep: [[-5, 1], [0, 0], [5, -1]], ink: [.12, 0, .55] } };
+    const s = 1.25 + .07 * ss(seg(t, 7, 10.5));
+    return { water: { y: C_.WY * s + 640 * (1 - s), amp: 1.4, t, refl: .9, sep: [[-5, 1], [0, 0], [5, -1]], ink: [.12, 0, .55] } };
   },
 };
 
@@ -207,10 +206,7 @@ const D = {
     const tb = wd('S4', 'benim'), ta = wd('S4', 'anladı');
     const tan = kapak ? 0 : ss(seg(tc, ta, tb + .2));
     const goz = .78 + .22 * tan;
-    const bo = { x: L.bx, y: L.by + Math.sin(tc * 1.9) * 2.5 - tan * 6, s: L.bs, r: L.br - tan * .03, tip: 'antik', goz, kas: tan * .012, isik: kapak ? 0 : .85, sw: Math.sin(tc * 2.2) * .02, yaka: 'khlamys', ten: kapak ? C(0, .5, 0) : undefined };
-    const sirt = () => { const M = basMatris(bo.x, bo.y, bo.s, bo.r, 1); const n = M.transformPoint(new DOMPoint(.42, 1.25)); const u = bo.s;
-      g.beginPath(); g.moveTo(n.x + .15 * u, L.WY + 10); g.quadraticCurveTo(n.x + .05 * u, n.y - .55 * u, n.x - .6 * u, n.y - .62 * u); g.quadraticCurveTo(n.x - 1.6 * u, n.y - .55 * u, n.x - 2.6 * u, n.y - .2 * u); g.lineTo(n.x - 2.8 * u, L.WY + 10); g.closePath(); fill(RENK_KH);
-      g.beginPath(); g.arc(n.x - .35 * u, n.y - .5 * u, .07 * u, 0, 7); fill(C(0, 1, 0)); };
+    const bo = { x: L.bx, y: L.by + Math.sin(tc * 1.9) * 2.5 - tan * 6, s: L.bs, r: L.br - tan * .03, tip: 'antik', goz, kas: tan * .012, isik: kapak ? 0 : .85, sw: Math.sin(tc * 2.2) * .02, yaka: 'khlamys', ten: kapak ? C(.06, .55, 0) : undefined };
     const sirt = () => {   // kıyıda yatan beden: omuz ve sırt (pelerin), önkol kıyının kenarında
       const M = basMatris(bo.x, bo.y, bo.s, bo.r, 1), u = bo.s;
       const n = M.transformPoint(new DOMPoint(.40, 1.18));
@@ -230,7 +226,7 @@ const D = {
     maskeSil(() => bas(bo));
     // yakın kıyı (boyun ve omzu örter)
     const kx = L.kiyiX;
-    const kiyi = [[-100, H + 100], [-100, L.WY - 8], [kx * .6, L.WY - 12], [kx, L.WY - 6], [kx + 40, L.WY + 30], [kx + 10, L.WY + 130], [kx - 110, L.WY + 300], [kx - 240, H + 100]];
+    const kiyi = [[-100, H + 100], [-100, L.WY - 8], [kx * .6, L.WY - 12], [kx, L.WY - 6], [kx + 22, L.WY + 18], [kx - 50, L.WY + 110], [kx - 250, L.WY + 300], [kx - 480, H + 100]];
     poly(kiyi, C(.55, .5, .1));
     blob([[-100, L.WY + 22], [-100, L.WY - 24], [kx * .5, L.WY - 28], [kx + 6, L.WY - 20], [kx + 36, L.WY + 14], [kx * .4, L.WY + 30]], C(.15, .3, 1));
     maskeSil(() => poly(kiyi, C(1, 1, 1)));
@@ -249,11 +245,11 @@ const D = {
         if (y < L.WY) { g.beginPath(); g.ellipse(x, y, r0, r0 * (tt > 0 ? 1.35 : 1.1), 0, 0, 7); fill(C(0, 0, 0)); g.beginPath(); g.ellipse(x - r0 * .2, y + r0 * .2, r0 * .55, r0 * .7, 0, 0, 7); fill(C(0, 0, .45)); }
       }
     }
-    ufukCizgisi(L.kiyiX + 40, W + 100, L.WY + 3, t);
+    if (!kapak) ufukCizgisi(L.kiyiX + 40, W + 100, L.WY + 3, t);
     if (kapak) {   // kapak: yansıyan gözün parıltısı (karenin en parlak noktası)
       const M = basMatris(bo.x, bo.y, bo.s, bo.r, 1);
       const e = M.transformPoint(new DOMPoint(.672, .468));
-      parilti(e.x + 4, 2 * L.WY - e.y + 2, 11);
+      parilti(e.x + 4, 2 * L.WY - e.y + 2, 17);
     }
     return T;
   },
@@ -274,7 +270,7 @@ const D = {
     const { th, x: hx } = D.carpma();
     let amp = 2.2, sepK = 1, ring = null, refl = .9, ink = [.15, 0, .5];
     if (kapak) {
-      return { water: { y: Y(L.WY), amp: 1.2, t: 3.1, refl: .9, sep: [[-4, 1], [0, 0], [4, -1]], ink: [.1, 0, .42], ring: { x: X(L.bx + 60), y: Y(L.WY + 40), r: 190, amp: 7, wl: 40, sq: 2.6, step: 9 } } };
+      return { water: { y: Y(L.WY), reflX: 930, amp: 1.0, t: 3.1, refl: 1, sep: [[-3, 1], [0, 0], [3, -1]], ink: [.03, 0, .26], ring: { x: X(L.bx - 10), y: Y(L.WY + 60), r: 150, amp: 5, wl: 44, sq: 2.4, step: 10 } } };
     }
     if (t > th) {
       const dt = t - th;
@@ -333,12 +329,12 @@ const E = {
     const isik = ss(seg(tc, tR - .4, tR + .6));
     // üst: orman gölgesi → oda karanlığı (Federal Blue)
     rect(-100, -100, W + 200, H + 200, C(.88, 0, .5 * (1 - k) + .12 * k));
-    if (k < 1) for (let i = 0; i < 6; i++) kanopi(200 + i * 330, 60 + rnd(i, 21) * 200, (130 + rnd(i, 22) * 70) * (1 - k), i + 200, C(.55, 0, 1), null);
+    if (k < .75) for (let i = 0; i < 6; i++) kanopi(200 + i * 330, 60 + rnd(i, 21) * 200, (130 + rnd(i, 22) * 70) * (1 - k), i + 200, C(.55, 0, 1), null);
     // kıyı/masa: alt bölge
     rect(-100, E.WY - 40, W + 200, H + 200, C(.75 - .15 * k, .12 + .15 * k, .55 - .45 * k));
     // yüz (alt yarısı): eski genç → bugünün genci ('yine'de, plaka tepmesiyle)
     const modern = tc >= tY;
-    const bo = { x: 980, y: 400 + Math.sin(tc * 1.7) * 3 + isik * 6, s: 900, r: .62, tip: modern ? 'modern' : 'antik', goz: .85, isik: .35 + .65 * isik, sw: 0, ten: modern ? C(0, .30, .06) : undefined };
+    const bo = { x: 1010, y: 395 + Math.sin(tc * 1.7) * 3 + isik * 6, s: 760, r: .9, tip: modern ? 'modern' : 'antik', goz: .85, isik: .35 + .65 * isik, sw: 0, ten: modern ? C(0, .30, .06) : undefined };
     layer(() => bas(bo), 0);
     maskeSil(() => bas(bo));
     // su/cam bölgesi
@@ -361,10 +357,10 @@ const E = {
     const X = x => x * s + 900 * (1 - s), Y = y => y * s + 470 * (1 - s);
     const isik = ss(seg(t, tR - .4, tR + .6));
     const dt = t - tY;
-    const ring = dt > 0 ? { x: X(1120), y: Y(E.WY + 150), r: 10 + dt * 300, amp: 12 * Math.exp(-dt / .9), wl: 36, sq: 2.2, step: 9 } : null;
+    const ring = dt > 0 ? { x: X(1080), y: Y(E.WY + 110), r: 10 + dt * 300, amp: 12 * Math.exp(-dt / .9), wl: 36, sq: 2.2, step: 9 } : null;
     return {
       water: { y: Y(E.WY), amp: 1.4 * (1 - k) + .3, t, refl: lerp(.9, .62, isik), sep: [[-7, 2], [0, 0], [7, -2]], ink: [lerp(.05, .55, k) - .25 * isik, 0, lerp(.6, .5, k) - .2 * isik], ring },
-      pixP: lerp(9, 15, ss(seg(t, tB + .2, tY + .6))),
+      pixP: lerp(7, 10, ss(seg(t, tB + .2, tY + .6))),
     };
   },
 };

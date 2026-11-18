@@ -509,9 +509,9 @@ function drawHead(G, f, J, det) {
       if (lk.beard) for (let i = 0; i < 3; i++) G.paint(c => { const u = i / 2, x0 = lerp(1.0, 4.6, u), y0 = -2.2, x1 = lerp(2.6, 6.0, u) + jut * .5 - wd * .5 * u, y1 = lerp(1.6, 5.0, u); c.moveTo(x0, y0); c.bezierCurveTo(x0 + 1.2, lerp(y0, y1, .33), x1 - 1.0, lerp(y0, y1, .66), x1, y1); }, sty.fill, .2, false);
       // ağız: bıyık ile sakal arasında kil çizgi
       const mo = p.mouthOpen || 0;
-      G.paint(c => { c.moveTo(6.2 + jut * .3, -2.75); c.quadraticCurveTo(5.3, -2.5 - mo * .35, 4.1, -2.95); }, sty.fill, .34 + mo * .25, false);
+      if (lk.beard) G.paint(c => { c.moveTo(6.2 + jut * .3, -2.75); c.quadraticCurveTo(5.3, -2.5 - mo * .35, 4.1, -2.95); }, sty.fill, .34 + mo * .25, false); // sakalsızda kil çizgi yüz konturunu aşıp 'sigara' gibi okunuyordu
       // alın bukleleri: saç çizgisi boyunca kabartma noktalar
-      if (!lk.modern) for (let i = 0; i < 5; i++) { const x = lerp(5.1, 2.5, i / 4), y = lerp(-9.75, -10.5, i / 4); G.paint(c => c.arc(x, y, .62, 0, TAU), sty.fill); G.paint(c => c.arc(x, y, .4, 0, TAU), sty.line); }
+      if (!lk.modern && !lk.noCurls) for (let i = 0; i < 5; i++) { const x = lerp(5.1, 2.5, i / 4), y = lerp(-9.75, -10.5, i / 4); G.paint(c => c.arc(x, y, .62, 0, TAU), sty.fill); G.paint(c => c.arc(x, y, .4, 0, TAU), sty.line); }
       // bıyık lülesi ve alt dudak
       if (lk.beard) { G.paint(c => { c.moveTo(5.9, -4.35); c.quadraticCurveTo(4.4, -4.0, 3.2, -2.9); c.quadraticCurveTo(4.6, -3.5, 5.9, -3.9); c.closePath(); }, sty.line); G.paint(c => { c.moveTo(5.75, -3.15); c.quadraticCurveTo(5.2, -2.9, 4.7, -3.05); }, sty.fill, .32, false); }
     }
@@ -549,7 +549,7 @@ function drawHead(G, f, J, det) {
     if (!lk.earHidden) det(c => { c.moveTo(-.4, -7.8); c.bezierCurveTo(-2.4, -7.6, -2.4, -4.6, -.6, -4.6); c.moveTo(-1.0, -6.8); c.quadraticCurveTo(-1.6, -6, -1.0, -5.4); }, .32);
     // ağız
     const sm = p.smile || 0;
-    if (!rf) { // siyah sakallı kırmızı figürde ağız ve sakal yukarıda boyandı
+    if (!rf || !lk.beard) { // siyah sakallı kırmızı figürde ağız ve sakal yukarıda boyandı (sakalsız kırmızı figürde ağız kazıma çizgi)
     // ağız: gülümsedikçe köşe yanağa doğru yükselir ve çizgi kalınlaşır; yanakta gülme çizgisi
     det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, (.3 + clamp(sm / 2) * .14) * FW);
     if (p.mouthOpen) G.cut(c => { c.moveTo(5.8, -3.95); c.quadraticCurveTo(5.0, -3.2 - p.mouthOpen * .6, 4.6, -3.7); c.closePath(); }, .3, true);

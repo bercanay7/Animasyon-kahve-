@@ -1,5 +1,5 @@
 // Lemo-Opuscar (lemomo-ai/lemo-opuscar) 3a7132b, MIT — styles/risograph/demo/draw.js
-// Zaman Kuryesi değişiklikleri: W/H sayfadan (window.RW/RH) okunur; setG() ile çizim hedefi (maske tuvali) değiştirilebilir.
+// Zaman Kuryesi değişiklikleri: W/H sayfadan (window.RW/RH) okunur; setG() ile çizim hedefi (maske tuvali) değiştirilebilir; kâğıt halesi 12 yerine 8 damga (hız).
 // Plate-separated drawing tools: a colour = ink density on the three plates [blue, yellow, pink] (0..1)
 // Normal drawing = knockout (covers all three plates); drawing inside over() = only adds ink to the given plates (overprint)
 export const W = (typeof window !== 'undefined' && window.RW) || 1920, H = (typeof window !== 'undefined' && window.RH) || 1080;
@@ -17,7 +17,7 @@ export function layer(fn, halo = 5) {
   g.save(); g.setTransform(1, 0, 0, 1, 0, 0);
   if (halo > 0) {
     g.filter = 'brightness(0)';
-    const n = 12; for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2; g.drawImage(layerC, Math.cos(a) * halo, Math.sin(a) * halo); }
+    const n = 8; for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2; g.drawImage(layerC, Math.cos(a) * halo, Math.sin(a) * halo); }
     g.filter = 'none';
   }
   g.drawImage(layerC, 0, 0);

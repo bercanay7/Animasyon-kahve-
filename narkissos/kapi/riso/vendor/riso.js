@@ -5,6 +5,7 @@
 //  - analitik gözyaşı halkası (her plaka kendi evresinde; Date.now/rAF yok, yalnız zaman parametresi)
 //  - sabit kodlu beyaz dalga kırıkları uGap ile ayarlanır (varsayılan 0: yansıma tek parça)
 //  - suyun kendi mürekkebi uWInk (plaka başına yoğunluk)
+//  - uReflX: yansıma kaynağının x sınırı (kapakta yazının suya yansımasını önler)
 //  - yarım ton → piksel ızgarası: maskenin G kanalında nokta açısı 0'a, biçimi kareye, periyodu uPixP'ye döner
 // Girdi: plaka tuvali (R = 1. mürekkep, G = 2., B = 3.; 0 = mürekkep yok, 255 = tam).
 export const PAPER = [244, 238, 226];
@@ -38,6 +39,7 @@ uniform vec3 uWInk;        // suyun kendi mürekkebi (plaka başına)
 uniform vec4 uRing;        // halka: merkez x, y, yarıçap, genlik (px)
 uniform vec3 uRingP;       // dalga boyu, y basıklığı, plaka başına yarıçap farkı
 uniform float uPixP;       // piksel ızgarası periyodu (px)
+uniform float uReflX;      // yansıma kaynağı bu x'in sağından alınmaz (kapak: yazı suya yansımasın)
 out vec4 o;
 
 float h21(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * .1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
@@ -66,6 +68,7 @@ float dens(int i, vec2 q, vec4 m){
       rq += normalize(dv + 1e-4) * s * env * uRing.w * vec2(1., 1. / uRingP.y);
       crest = smoothstep(.55, .95, s) * env * clamp(uRing.w / 8., 0., 1.);
     }
+    rq.x = min(rq.x, uReflX);
     float r = (rq.y > 0. && rq.y < uWaterY + 2.) ? texture(uTex, rq / uRes)[i] : 0.;
     float gap = step(.72, vn(vec2(q.x * .012, q.y * .35) + uWaterT * vec2(.8, 0), 3.));
     r *= uRefl * (1. - gap * .85 * uGap);
@@ -136,7 +139,7 @@ export function makeRiso(out, W, H) {
   gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
   const U = n => gl.getUniformLocation(pr, n);
   const u = {}; for (const n of ['uTex', 'uMask', 'uRes', 'uOff', 'uRot', 'uAng', 'uInk', 'uPaper', 'uSeed', 'uBoil', 'uSheet', 'uPeriod', 'uGate', 'uGrain',
-    'uWaterY', 'uWaterAmp', 'uWaterT', 'uRefl', 'uGap', 'uRSep', 'uWInk', 'uRing', 'uRingP', 'uPixP']) u[n] = U(n);
+    'uWaterY', 'uWaterAmp', 'uWaterT', 'uRefl', 'uGap', 'uRSep', 'uWInk', 'uRing', 'uRingP', 'uPixP', 'uReflX']) u[n] = U(n);
   gl.viewport(0, 0, W, H);
   return function print(plate, mask, o = {}) {
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -168,6 +171,7 @@ export function makeRiso(out, W, H) {
     gl.uniform4fv(u.uRing, r ? [r.x, r.y, r.r, r.amp] : [0, 0, 0, 0]);
     gl.uniform3fv(u.uRingP, r ? [r.wl ?? 34, r.sq ?? 1, r.step ?? 7] : [34, 1, 7]);
     gl.uniform1f(u.uPixP, o.pixP ?? 12);
+    gl.uniform1f(u.uReflX, w && w.reflX ? w.reflX : 1e5);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 }

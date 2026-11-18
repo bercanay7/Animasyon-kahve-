@@ -20,7 +20,7 @@ async function sayfa(br, port, q, w = 1920, h = 1080) {
   p.on('pageerror', e => console.log('[sayfa hatası]', e.message));
   p.on('console', m => { if (m.type() === 'error') console.log('[konsol]', m.text()); });
   await p.goto(`http://127.0.0.1:${port}/riso/index.html?render=1${q ? '&' + q : ''}`);
-  await p.waitForFunction(() => window.READY || window.HATA, null, { timeout: 120000 });
+  await p.waitForFunction(() => window.READY || window.HATA, null, { timeout: 30000 });
   const hata = await p.evaluate(() => window.HATA); if (hata) throw new Error(hata);
   return p;
 }

@@ -10,11 +10,11 @@ export const lerp = (a, b, k) => a + (b - a) * k;
 
 export const RENK = {
   ten: C(0, .34, 0),        // açık ten: yalnız Sunflower tonu
-  tenAcik: C(0, .12, 0),    // aşağıdan gelen ışığın vurduğu yüzeyler
+  tenAcik: C(0, .2, 0),     // aşağıdan gelen ışığın vurduğu yüzeyler
   tenKoyu: C(0, .5, 0),
   dudak: C(.06, .52, 0),
   sac: C(1, .38, .12),      // koyu kahve-siyah: Blue + Sunflower üst baskı
-  sacTel: C(.7, .55, .0),
+  sacTel: C(.82, .5, .06),
   cizgi: C(.95, 0, .5),
   khlamys: C(0, 0, 1),      // Teal pelerin
   khiton: C(0, .24, .0),    // keten
@@ -121,7 +121,7 @@ export function bas(o) {
     g.save(); profilYolu(); g.clip();
     const k = o.isik ?? 1;
     const lit = C(0, lerp((o.ten || RENK.ten)[1], RENK.tenAcik[1], k), 0);
-    g.beginPath(); g.ellipse(0.66, 1.03, 0.20, 0.10, -0.15, 0, 7); fill(lit);
+    g.beginPath(); g.ellipse(0.64, 1.06, 0.14, 0.07, -0.15, 0, 7); fill(lit);
     g.beginPath(); g.ellipse(0.79, 0.668, 0.035, 0.010, 0.2, 0, 7); fill(lit);
     g.restore();
   }
@@ -232,13 +232,13 @@ export function uzanan(o) {
   const u = o.u, x = o.x, y = o.y, nf = o.nefes || 0;
   const P = (a, b) => [x + a * u, y + b * u];
   const tenB = C(0, .38, 0), tenU = C(.2, .42, 0);
-  const sh = P(-.75, -1.55 - nf * .03), hip = P(-3.3, -.5);
+  const sh = P(-.8, -1.32 - nf * .03), hip = P(-3.3, -.5);
   // uzak bacak: dizden hafif bükük, alt bacak kalkık (dinlenen)
   const k2 = P(-5.15, -.36), f2 = P(-6.2, -1.05 + Math.sin(o.t * 1.1) * .05);
   kapsul(hip, k2, .56 * u, tenU); kapsul(k2, f2, .40 * u, tenU);
   kapsul(f2, [f2[0] - .05 * u, f2[1] - .32 * u], .24 * u, RENK.sac);
   // uzak kol: önkol yerde
-  kapsul(sh, P(-.05, -.2), .36 * u, tenU); kapsul(P(-.05, -.2), P(.95, -.17), .30 * u, tenU);
+  kapsul(sh, P(-.45, -.2), .36 * u, tenU); kapsul(P(-.45, -.2), P(.65, -.17), .30 * u, tenU);
   // yakın bacak düz
   const k1 = P(-5.2, -.3), f1 = P(-7.05, -.28);
   kapsul(hip, k1, .58 * u, tenB); kapsul(k1, f1, .42 * u, tenB);
@@ -252,23 +252,24 @@ export function uzanan(o) {
   g.bezierCurveTo(...P(-1.4, -.2), ...P(-2.6, -.02), ...P(-4.15, -.12));
   g.closePath(); fill(RENK.khiton);
   line([P(-2.95, -.08), P(-2.75, -1.25)], .16 * u, C(.9, 0, .3));
-  // pelerin: omuzdan kalçaya örtülü, kenarı belde biter
+  // pelerin: omuzdan sırta, kalçaya dökülür
   g.beginPath();
-  g.moveTo(...P(-.15, -2.05 - nf * .05));
-  g.quadraticCurveTo(...P(-1.6, -2.05), ...P(-2.8, -1.5));
-  g.quadraticCurveTo(...P(-3.7, -1.1), ...P(-3.95, -.55));
-  g.quadraticCurveTo(...P(-3.0, -.75), ...P(-2.0, -1.05));
-  g.quadraticCurveTo(...P(-1.0, -1.2), ...P(-.55, -1.15));
-  g.quadraticCurveTo(...P(-.1, -1.5), ...P(-.15, -2.05 - nf * .05));
+  g.moveTo(...P(-.25, -2.05 - nf * .05));
+  g.bezierCurveTo(...P(-1.3, -2.25), ...P(-2.6, -1.75), ...P(-3.45, -1.05));
+  g.quadraticCurveTo(...P(-3.95, -.6), ...P(-3.85, -.12));
+  g.lineTo(...P(-2.7, -.1));
+  g.quadraticCurveTo(...P(-2.2, -.7), ...P(-1.2, -1.0));
+  g.quadraticCurveTo(...P(-.55, -1.1), ...P(-.25, -2.05 - nf * .05));
   g.closePath(); fill(RENK.khlamys);
+  curve([P(-.6, -1.95), P(-1.8, -1.7), P(-2.9, -1.0)], .05 * u, C(.6, 0, 1));
   // baş: suya eğik (pivot = çene/dudak)
   const bx = x + (o.basX ?? .55) * u, by = y + (o.basY ?? -1.25) * u;
   const bm = bas({ x: bx, y: by, s: u, r: o.basR ?? .95, tip: 'antik', goz: o.goz ?? .8, isik: .8, sw: Math.sin(o.t * 2.1) * .015, ten: tenB });
   g.beginPath(); g.arc(...P(-.45, -1.95), .08 * u, 0, 7); fill(C(0, 1, 0));
-  // yakın kol: önkol yerde; el suya doğru uzanabilir (o.uzan 0..1)
+  // yakın kol: dirsek omzun altında yerde, önkol ileri; 'âşık'ta el suya doğru uzanır (o.uzan 0..1)
   const uz = o.uzan || 0;
-  const el = [lerp(x + 1.15 * u, x + 1.9 * u, uz), lerp(y - .14 * u, y + .25 * u, uz)];
-  const [dj] = ik(sh, el, 1.35 * u, 1.3 * u, -1);
+  const dj = [x + lerp(-.25, .35, uz) * u, y + lerp(-.18, -.3, uz) * u];
+  const el = [x + lerp(.95, 1.75, uz) * u, y + lerp(-.15, .3, uz) * u];
   kapsul(sh, dj, .40 * u, tenB); kapsul(dj, el, .32 * u, tenB);
   g.beginPath(); g.ellipse(el[0] + .12 * u, el[1], .22 * u, .13 * u, uz * .5, 0, 7); fill(tenB);
   return bm;
