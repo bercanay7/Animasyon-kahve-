@@ -195,5 +195,11 @@ const BOYA = (() => {
       g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = a; g.imageSmoothingQuality = 'high'; g.drawImage(YUM, 0, 0, 1440, 1080); g.restore(); };
     return G;
   }
-  return { ctx, figur, gri, rng, pathOf, griOn, golge };
+  // koyuluk maskesi: görüntünün koyu yerleri opak (kırmızı yalnız koyu kumaşa düşer); görüntü başına bir kez
+  const KOYU_ON = new Map();
+  function koyuOn(im, esik = .5, yum = .22) { const key = (im.src || '') + '|' + esik; let c = KOYU_ON.get(key); if (c) return c;
+    const W = im.naturalWidth, H = im.naturalHeight; c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'); x.filter = 'blur(2px)'; x.drawImage(im, 0, 0);
+    const d = x.getImageData(0, 0, W, H), p = d.data; for (let i = 0; i < p.length; i += 4) { const Lm = (p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11) / 255, a = Math.max(0, Math.min(1, (esik - Lm) / yum + .5)); p[i] = p[i + 1] = p[i + 2] = 0; p[i + 3] = a * 255; }
+    x.putImageData(d, 0, 0); KOYU_ON.set(key, c); return c; }
+  return { ctx, figur, gri, rng, pathOf, griOn, golge, koyuOn };
 })();

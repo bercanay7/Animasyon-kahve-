@@ -17,7 +17,7 @@ const SORU = { B: 'Bir arma, iki kuzeni nasıl düşman yaptı?', C: 'Ona inanma
   F: 'Bothwell\'le neden evlendi?', G: 'Bir kraliçe tahtını nasıl kaybeder?', H: 'Neden rakibine sığındı?', I: 'Elizabeth onu neden ne bıraktı ne öldürdü?', J: 'Mektuplarını kim okuyordu?', K: 'O imzayı kim attı?', L: 'Neden kırmızı giydi?', M: 'Peki kim kazandı?' };
 function bolumKarti(h) {
   const ids = Object.keys(CUES), i = ids.indexOf(h + '01'), t0 = Math.max(CUES[ids[i - 1]].e + .15, S(h + '01') - 1.7);
-  KART('K' + h, t0, [Ls(BOLUM[h][0], null, { size: 34, spacing: 10 }), { text: BOLUM[h][1].toLocaleUpperCase('tr'), size: 78, font: 'Cinzel', weight: 700, spacing: 6 }, { text: '', size: 30 }, Lq(SORU[h], t0 + .7, { size: 50, weight: 500 })], { level: 2 });
+  KART('K' + h, t0, [Ls(BOLUM[h][0], null, { size: 34, spacing: 10 }), { text: BOLUM[h][1].toLocaleUpperCase('tr'), size: Math.min(78, Math.round(78 * 17 / BOLUM[h][1].length)), font: 'Cinzel', weight: 700, spacing: 6 }, { text: '', size: 30 }, Lq(SORU[h], t0 + .7, { size: 50, weight: 500 })], { level: 2 });
 }
 const ILK = h => S(h + '01') + 1.5;    // bölümün ilk içerik planı
 
@@ -41,9 +41,9 @@ function martilar(G, st, x0, y0, n, o = {}) { const g = G.g, q = G.rng(o.seed ||
 
 // ════════ A · KIRMIZI VE DENİZ (kanca) ════════
 // A01: siyah elbiseli Mary (Finden, 19. yy); kamera yakadan eteğe iner, kırmızı alttan yükselir
-const SIYAH_ETEK = [[.42, .515], [.5, .545], [.575, .515], [.565, .57], [.56, .635], [.625, .645], [.645, .69], [.66, .755], [.5, .762], [.37, .755], [.385, .69], [.395, .62], [.405, .56]];
+const SIYAH_ETEK = [[.405, .505], [.5, .54], [.585, .505], [.572, .57], [.562, .632], [.63, .64], [.655, .69], [.672, .758], [.5, .762], [.36, .758], [.372, .69], [.385, .62], [.395, .56]];
 P('A01', 0, fotoP('mary_siyah_hacli_tamboy', [.545, .41, .36], [.535, .6, .4], {
-  klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'contrast(.42) brightness(2)', u: st => ss((st.t - 1.3) / 4.2),
+  klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', u: st => ss((st.t - 1.3) / 4.2),
   kirmizi: { poly: SIYAH_ETEK, sil: st => ss((st.t - AT('A01@altından')) / 1.8) }, karart: st => 1 - clamp(st.t / .9),
   kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .16, strength: .34 } }), 'O');
 P('A02', 'A02', fotoP('mary_dul_18yy', [.5, .4, .72], [.5, .34, .46], {
@@ -199,6 +199,9 @@ P('B10', 'B10', (G, st) => {
   kadirga(G, { x: 900 - st.lt * 26, y: 780, s: 760, f: -1, t: st.t, yelken: .5, kisi: [{ kind: 'mary', x: -.43, h: .17, kol: 'yan', veil: .9, f: -1 }, { kind: 'kadin', x: -.38, h: .15, f: -1 }] });
   return { look: { sepia: .18, strength: .32 }, ust: etiket([{ text: 'Calais · Ağustos 1561', size: 34, font: 'Cormorant Garamond', italic: true, at: S('B10') + .4 }], { y: 120 }) };
 }, 'G');
+P('B10b', 'B10@brantom', (G, st) => { const g = G.g, ufuk = 600; G.kamera(360, 560, 2.4); G.gok(ufuk, { ust: .58, alt: .92, isik: [400, 520, 380, 1] }); G.bulutlar(160, 520, { seed: 6, drift: st.t * 5 });
+  G.deniz(ufuk, 1080, { t: st.t, ufuk: .8, on: .4, n: 100, yansima: [400, 160, .95] }); karaka(G, { x: 360, y: ufuk + 6, s: 110, b: acS(st, 'B10@battığını', 3.5), v: .4 });
+  return { look: { sepia: .18, strength: .34 } }; }, 'A');
 // B11: kıçta Mary, uzaklaşan Fransa kıyısı; sonra "Elveda Fransa"
 P('B11', 'B11', (G, st) => {
   const g = G.g, ufuk = 520; G.kamera(720, 560, lerp(1, 1.1, st.p));
@@ -248,14 +251,14 @@ P('C02', 'C02', (G, st) => {
   for (let i = 0; i < 9; i++) { const x = 120 + i * 150, y = 1000 + (i % 2) * 30; g.fillStyle = G.gri(.06); g.beginPath(); g.arc(x, y - 70, 42, 0, TAU); g.fill(); g.fillRect(x - 70, y - 40, 140, 200); }   // cemaat (arkadan)
   return { look: { sepia: .14, strength: .4 } };
 }, 'O');
-KART('C02k', AT('C02@gökyüzü') - .2, [Lq('“Gökyüzü bile, bu ülkeye', 'C02@gökyüzü', { size: 62 }), Lq('ne getirildiğini söylüyordu:', 'C02@ne', { size: 62 }), Lq('keder, acı ve karanlık.”', 'C02@keder', { size: 72 }), { text: '', size: 22 }, Ls('John Knox · Reformasyon Tarihi', AT('C02@gökyüzü') + 1, { size: 26 })]);
+KART('C02k', AT('C02@gökyüzü') + .2, [Lq('“Gökyüzü bile, bu ülkeye', 'C02@gökyüzü', { size: 62 }), Lq('ne getirildiğini söylüyordu:', 'C02@ne', { size: 62 }), Lq('keder, acı ve karanlık.”', 'C02@keder', { size: 72 }), { text: '', size: 22 }, Ls('John Knox · Reformasyon Tarihi', AT('C02@gökyüzü') + 1, { size: 26 })]);
 // C03: sisin içinde atlılar
 P('C03', 'C03', (G, st) => {
   const g = G.g; G.kamera(720, 560, 1); G.zemin(.82);
-  for (let i = 0; i < 5; i++) { const x = 300 + i * 230 + st.lt * 30, y = 820 + (i % 2) * 20; at(G, { x, y, s: 300 - i * 10, f: 1, ph: st.t * 1.2 + i * .23, dur: true, v: lerp(.25, .6, i / 5), binici: { kind: i === 2 ? 'mary' : 'erkek', veil: .9, v: lerp(.25, .6, i / 5) } }); }
+  G.kamera(720, 700, 1.3); for (let i = 0; i < 5; i++) { const x = 300 + i * 230 + st.lt * 30, y = 820 + (i % 2) * 20; at(G, { x, y, s: 300 - i * 10, f: 1, ph: st.t * 1.2 + i * .23, dur: true, v: lerp(.25, .6, i / 5), binici: { kind: i === 2 ? 'mary' : 'erkek', veil: .9, v: lerp(.25, .6, i / 5) } }); }
   sis(G, st, 500, 1000, .75, { n: 14, v: .84 }); sis(G, st, 200, 700, .5, { n: 8, v: .86, seed: 9 });
   return { look: { sepia: .1, strength: .32 } };
-}, 'G');
+}, 'O');
 // C04: Edinburgh: kale kayası ve şehir
 P('C04', 'C04', (G, st) => {
   const g = G.g, ufuk = 640; G.kamera(lerp(640, 800, eio(st.p)), 540, 1.02);
@@ -436,7 +439,7 @@ P('F02', 'F02', (G, st) => {
 }, 'G');
 // F03: bahçe, şafak: armut ağacı, sandalye, pelerin (beden gösterilmez)
 P('F03', 'F03', (G, st) => {
-  const g = G.g, ufuk = 640; G.kamera(lerp(760, 680, eio(st.p)), 600, 1.1); G.gok(ufuk, { ust: .62, alt: .86 }); G.bulutlar(120, 520, { seed: 25, drift: st.t * 3 });
+  const g = G.g, ufuk = 640; G.kamera(lerp(740, 700, eio(st.p)), 820, 1.5); G.gok(ufuk, { ust: .62, alt: .86 }); G.bulutlar(120, 520, { seed: 25, drift: st.t * 3 });
   kale(G, 900, ufuk, 500, [{ t: 'sur', x: .5, w: 1.4, h: .16 }], { v: .3 }); g.fillStyle = G.gri(.55); g.fillRect(-300, ufuk, 2100, 600);
   g.strokeStyle = G.gri(.14); g.lineCap = 'round'; const dal = (x, y, a, L, w, d) => { if (d > 6) return; const x2 = x + Math.sin(a) * L, y2 = y - Math.cos(a) * L; g.lineWidth = w; g.beginPath(); g.moveTo(x, y); g.lineTo(x2, y2); g.stroke(); dal(x2, y2, a - .45, L * .72, w * .66, d + 1); dal(x2, y2, a + .35, L * .7, w * .66, d + 1); };
   dal(380, 900, .05, 220, 30, 0);
@@ -444,7 +447,7 @@ P('F03', 'F03', (G, st) => {
   g.fillStyle = G.gri(.3); g.fill(G.pathOf([[560, 930], [700, 900], [780, 930], [720, 960], [600, 965]], true, .6));    // pelerin
   sis(G, st, 600, 950, .35, { n: 6, v: .8 });
   return { look: { sepia: .14, strength: .36 }, ust: etiket([{ text: 'Kirk o\'Field · 10 Şubat 1567', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) };
-}, 'G');
+}, 'O');
 // F04: parmaklar tek adamı gösterir (duvarda gölgeler); ortada Bothwell
 P('F04', 'F04', (G, st) => {
   const g = G.g; G.kamera(720, 600, lerp(1, 1.1, eio(st.p))); G.gok(720, { ust: .55, alt: .85 }); kale(G, -100, 720, 1700, [{ t: 'ev', x: .2, w: .3, h: .3, cati: 'beşik', pen: 4 }, { t: 'ev', x: .55, w: .3, h: .36, cati: 'beşik', pen: 5 }, { t: 'ev', x: .85, w: .2, h: .28, cati: 'beşik', pen: 3 }], { v: .45 });
@@ -586,3 +589,311 @@ P('H15', 'H15', (G, st) => { const g = G.g; G.kamera(lerp(620, 760, eio(st.p)), 
   return { look: { sepia: .3, strength: .28 } }; }, 'A');
 KART('H16', 'H16', [{ text: 'KAÇMIŞ TUTSAK', size: 104, font: 'Cinzel', weight: 700, spacing: 10, at: S('H16') }, { text: '', size: 26 }, Lq('Bu imza, ömrünün geri kalanının başlığı olacaktı.', 'H16@bu', { size: 46, weight: 500 })], { level: 0 });
 P('H17', 'H17', fotoP('mary_clouet_beyazyas_resim', [.53, .32, .52], [.53, .3, .42], { kunye: 'Mary Stuart (Clouet\'den sonra) · kamu malı', iris: st => 1 - .5 * acS(st, 'H17@bitmişti', 2.5) }), 'Y');
+
+// ════════ I · ON DOKUZ YIL ════════
+bolumKarti('I');
+// I01–I05: Elizabeth üç kapalı kapının önünde (arkadan); her kapı sözcükte aralanır, ötesi görünür
+function kapilar(G, st, o = {}) {
+  const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.3); isikHalka(G, 720, 460, 900, .3);
+  g.fillStyle = G.gri(.45); g.fillRect(-300, 820, 2100, 400);
+  [[300, o.a1 || 0, o.d1], [720, o.a2 || 0, o.d2], [1140, o.a3 || 0, o.d3]].forEach(([x, a, dis], i) => {
+    const w = 240, h = 520, y = 820 - h; g.fillStyle = G.gri(.12); g.fillRect(x - w / 2 - 26, y - 26, w + 52, h + 26); g.beginPath(); g.arc(x, y, w / 2 + 26, Math.PI, 0); g.fill();
+    g.save(); g.beginPath(); g.rect(x - w / 2, y - w / 2, w, h + w / 2); g.clip(); g.fillStyle = G.gri(.9); g.fillRect(x - w / 2, y - w / 2, w, h + w / 2); if (dis && a > 0) dis(x, y + h, w, h); g.restore();
+    const kw = w * (1 - a * .85); g.fillStyle = G.gri(.22); g.fillRect(x - w / 2, y, kw, h); g.beginPath(); g.moveTo(x - w / 2, y); g.arc(x, y, w / 2, Math.PI, 0); g.lineTo(x - w / 2 + kw, y); g.fill();
+    g.fillStyle = G.gri(.36); for (let j = 0; j < 4; j++) g.fillRect(x - w / 2 + 8, y + 20 + j * 120, kw - 16, 10); g.fillStyle = G.gri(.6); g.beginPath(); g.arc(x - w / 2 + kw - 30, y + h * .55, 10, 0, TAU); g.fill();
+  });
+  if (o.eliz !== false) G.figur({ kind: 'eliz', x: o.ex ?? 720, y: 1060, s: 520, f: o.ef ?? 1, kol: 'onde', t: st.t, v: .06 });
+}
+P('I01', ILK('I'), (G, st) => { kapilar(G, st, { cam: [720, 560, lerp(1, 1.05, st.p)] }); return { look: { sepia: .22, strength: .32 } }; }, 'G');
+P('I02', 'I02', (G, st) => { kapilar(G, st, { cam: [400, 560, 1.5], ex: 470, ef: -1, a1: acS(st, 'I02@serbest', 1.2), d1: (x, y, w, h) => ordu(G, st, { x0: x - w / 2, x1: x + w / 2, y: y - h * .2, s: 120, n: 6, v: .3, sancak: [{ x }] }) }); return { look: { sepia: .22, strength: .32 } }; }, 'O');
+P('I03', 'I03', (G, st) => { kapilar(G, st, { cam: [720, 500, 1.9], eliz: false, a2: acS(st, 'I03@fransaya', 1.2), d2: (x, y, w, h) => { G.deniz(y - h * .5, y, { t: st.t, ufuk: .8, on: .5, n: 20 }); karaka(G, { x, y: y - h * .48, s: 90, v: .3 }); } }); return { look: { sepia: .22, strength: .32 } }; }, 'Y');
+P('I04', 'I04', (G, st) => { kapilar(G, st, { cam: [1040, 560, 1.5], ex: 960, a3: acS(st, 'I04@öldürürse', 1.2), d3: (x, y, w, h) => { const k = acS(st, 'I04@tacını', 1.6); tac(G, x, lerp(y - h * .65, y - 40, k), 120, { v: .25, rot: k * 1.2 }); } }); return { look: { sepia: .22, strength: .34 } }; }, 'O');
+P('I05', 'I05', (G, st) => { G.kamera(720, 560, 1.05); G.zemin(.16); isikHalka(G, 600, 380, 900, .45); G.g.fillStyle = G.gri(.3); G.g.fillRect(-200, 820, 1900, 400); kumSaati(G, 720, 600, 440, clamp(.1 + st.lt * .08)); return { look: { sepia: .26, strength: .3 } }; }, 'A');
+P('I06', 'I06', (G, st) => { const g = G.g, ufuk = 620; G.kamera(lerp(680, 760, st.p), 560, 1); G.gok(ufuk, { ust: .45, alt: .8 }); G.bulutlar(140, 520, { seed: 43, drift: st.t * 4 });
+  kale(G, 360, ufuk + 4, 700, [{ t: 'sur', x: .5, w: 1.1, h: .2 }, { x: .25, w: .3, h: .55, pen: 3 }, { x: .05, w: .1, h: .32 }, { x: .95, w: .12, h: .35 }, { x: .7, w: .14, h: .28 }], { v: .2 }); g.fillStyle = G.gri(.4); g.fillRect(-300, ufuk, 2100, 500);
+  return { look: { sepia: .16, strength: .36 }, ust: etiket([{ text: 'Carlisle Kalesi · 1568', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+KART('I06k', AT('I06@bir#3') - .2, [Lq('“Bir tutsaktan', AT('I06@bir#3'), { size: 84 }), Lq('pek farkım yok.”', AT('I06@pek'), { size: 84 }), { text: '', size: 22 }, Ls('Mary, Carlisle\'dan · 21 Haziran 1568', AT('I06@bir#3') + 1, { size: 26 })]);
+P('I07', 'I07', masaP('hayali_bulusma_currier', { boy: 900, k0: [720, 520, 1.05], k1: [720, 470, 1.2], kunye: '"Rakip Kraliçeler" · Currier & Ives, 1868 · The Met (CC0)',
+  ust: etiket([{ text: 'Hayal (1868). Böyle bir buluşma hiç olmadı.', size: 38, font: 'Cormorant Garamond', italic: true, weight: 600, at: S('I07') + .6 }], { y: 800 }),
+  nesne: (G, st) => { const k = acS(st, 'I07@reddetti', 1.4); if (k <= 0) return; const g = G.g, w = 160 * k, L = [], R = [];
+    for (let i = 0; i <= 14; i++) { const y = -100 + i * 90, j = (i % 2 ? 1 : -1) * 22; L.push([720 + j - w / 2, y]); R.push([720 + j + w / 2, y]); }
+    g.fillStyle = G.gri(.2); g.fill(G.polyP([...L, ...R.reverse()])); g.strokeStyle = G.gri(.95); g.lineWidth = 5; g.beginPath(); L.forEach((p, i) => i ? g.lineTo(...p) : g.moveTo(...p)); g.stroke(); g.beginPath(); R.reverse().forEach((p, i) => i ? g.lineTo(...p) : g.moveTo(...p)); g.stroke(); } }), 'O');
+P('I08', 'I08', (G, st) => { const g = G.g; salon(G, st, { cam: [720, 600, lerp(1, 1.06, st.p)], duvar: .26, zeminV: .42, pencere: 3 }); g.fillStyle = G.gri(.18); g.fillRect(260, 760, 920, 60); g.fillStyle = G.gri(.8); g.fillRect(250, 740, 940, 24);
+  for (let i = 0; i < 6; i++) G.figur({ kind: 'erkek', x: 320 + i * 160, y: 760, s: 300, f: i < 3 ? 1 : -1, poz: 'otur', kol: 'onde', t: st.t, v: .1, sakal: i % 2 === 0 });
+  const k = acS(st, 'I08@mektuplar', 1.2); sandik(G, 720, lerp(500, 742, k), 180, 0, {});
+  return { look: { sepia: .22, strength: .32 }, ust: etiket([{ text: 'York ve Westminster · 1568', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+P('I09', 'I09', (G, st) => { harita(G, st, { k0: [-2.0, 53.6, 1.7], k1: [-1.4, 53.1, 1.9], isaretler: [{ yer: 'carlisle', tur: 'kale' }, { yer: 'tutbury', tur: 'kale', a: acS(st, 'I09@tatberi', .6) }, { yer: 'sheffield', tur: 'kale', a: acS(st, 'I09@şefild', .6) }, { yer: 'chartley', tur: 'kale', a: acS(st, 'I09@çartli', .6) }],
+  yollar: [{ pts: [[-2.94, 54.9], [-1.69, 52.86], [-1.47, 53.38], [-1.98, 52.85]], p: acS(st, 'I09@tatberi', 3.4), kesik: true, kirmizi: true, w: 6 }], yazilar: [['TUTBURY', -1.3, 52.7, 24, acS(st, 'I09@tatberi', .6)], ['SHEFFIELD', -1.1, 53.5, 24, acS(st, 'I09@şefild', .6)], ['CHARTLEY', -2.5, 52.75, 24, acS(st, 'I09@çartli', .6)]] }); return { look: { sepia: .3, strength: .26 } }; }, 'A');
+// I10: iğne ve iplik (işleme kasnağı)
+function isleme(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.16); isikHalka(G, 600, 400, 900, .5);
+  g.fillStyle = G.gri(.82); g.fillRect(260, 160, 920, 760); g.strokeStyle = G.gri(.3); g.lineWidth = 26; g.strokeRect(250, 150, 940, 780);
+  g.save(); g.beginPath(); g.rect(260, 160, 920, 760); g.clip(); g.globalAlpha = .12; g.fillStyle = G.gri(.2); for (let y = 160; y < 920; y += 8) g.fillRect(260, y, 920, 2); for (let x = 260; x < 1180; x += 8) g.fillRect(x, 160, 2, 760); g.restore();
+  if (o.anka != null) anka(G, 720, 600, 300, o.anka, st.t);
+  if (o.yazi) { g.fillStyle = G.gri(.18); g.font = 'italic 600 54px "Cormorant Garamond"'; g.textAlign = 'center'; g.save(); g.beginPath(); g.rect(260, 800, 920 * clamp(o.yaziP ?? 1), 100); g.clip(); g.fillText(o.yazi, 720, 860); g.restore(); } }
+function anka(G, x, y, s, k, t) { const g = G.g;   // alevlerden yükselen anka (yandan): kıvrık kanatlar, tepelik, uzun kuyruk tüyleri; k: işlenme ilerlemesi
+  g.save(); g.beginPath(); g.rect(x - s * 2, y + s * .9 - s * 2.4 * k, s * 4, s * 3); g.clip();
+  for (let i = -4; i <= 4; i++) { const h = s * (.45 + .3 * Math.cos(i * .7)) * (1 + .05 * Math.sin(t * 3 + i)); g.fillStyle = G.gri(i % 2 ? .4 : .58); g.fill(G.pathOf([[x + i * s * .15 - s * .1, y + s * .9], [x + i * s * .15 + s * .05 * Math.sin(t * 2 + i), y + s * .9 - h], [x + i * s * .15 + s * .1, y + s * .9]], true, .9)); }
+  g.fillStyle = G.gri(.2);
+  g.fill(G.pathOf([[x - s * .05, y + s * .35], [x - s * .2, y + s * .05], [x - s * .12, y - s * .25], [x + s * .02, y - s * .4], [x + s * .1, y - s * .55], [x + s * .2, y - s * .58], [x + s * .3, y - s * .52], [x + s * .22, y - s * .48], [x + s * .14, y - s * .4], [x + s * .12, y - s * .2], [x + s * .1, y + s * .1], [x + s * .05, y + s * .35]], true, .7));   // gövde, boyun, baş
+  g.fill(G.pathOf([[x + s * .12, y - s * .58], [x + s * .06, y - s * .72], [x + s * .14, y - s * .64], [x + s * .16, y - s * .78], [x + s * .2, y - s * .62]], true, .6));   // tepelik
+  for (const [d, sc] of [[-1, 1], [1, .8]]) { const pts = [[x, y - s * .2]]; for (let j = 0; j <= 6; j++) { const a = -1.9 + j * .28, r = s * (.7 + .25 * Math.sin(j * 1.3)) * sc; pts.push([x + d * Math.cos(a + (d < 0 ? 0 : .15)) * r * 1.1, y - s * .2 + Math.sin(a) * r * .9]); pts.push([x + d * Math.cos(a + .12) * r * .78, y - s * .2 + Math.sin(a + .12) * r * .68]); } pts.push([x + d * s * .1, y]); g.fill(G.pathOf(pts, true, .5)); }   // kanatlar (tüy uçlu)
+  for (let j = 0; j < 4; j++) { g.strokeStyle = G.gri(.22); g.lineWidth = s * .03; g.beginPath(); g.moveTo(x, y + s * .3); g.quadraticCurveTo(x - s * (.3 + j * .12), y + s * .55, x - s * (.2 + j * .2), y + s * (.75 - j * .05)); g.stroke(); }   // kuyruk
+  g.restore(); }
+P('I10', 'I10', (G, st) => { isleme(G, st, { cam: [760, 640, 2.2], anka: .3 + st.p * .2 }); const g = G.g, k = (st.lt * .8) % 1, x = 800 + k * 40, y = 700 - Math.sin(k * Math.PI) * 160;
+  g.strokeStyle = G.gri(.3); g.lineWidth = 2; g.beginPath(); g.moveTo(760, 720); g.quadraticCurveTo(780, 600, x, y); g.stroke(); g.fillStyle = G.gri(.85); g.save(); g.translate(x, y); g.rotate(-.6); g.fillRect(-3, -60, 6, 70); g.restore();
+  return { look: { sepia: .32, strength: .26 } }; }, 'Y');
+// I11: tahtın sayvanı, işlenmiş söz; ziyaretçi bakar
+P('I11', 'I11', (G, st) => { const g = G.g; G.kamera(720, 540, lerp(1, 1.08, st.p)); oda(G, st, { duvar: .24, zeminY: 880 });
+  g.fillStyle = G.gri(.18); g.fillRect(470, 100, 500, 600); g.fillStyle = G.gri(.6); g.fillRect(500, 150, 440, 520); g.fillStyle = G.gri(.14); g.fill(G.pathOf([[440, 90], [1000, 90], [990, 170], [930, 150], [870, 175], [810, 150], [750, 175], [690, 150], [630, 175], [570, 150], [510, 175], [450, 160]], true, .4));
+  g.fillStyle = G.gri(.2); g.font = 'italic 600 34px "Cormorant Garamond"'; g.textAlign = 'center'; g.fillText('En ma fin est mon commencement', 720, 640); anka(G, 720, 420, 150, 1, st.t);
+  g.fillStyle = G.gri(.16); g.fillRect(600, 640, 240, 260); g.fillRect(580, 620, 280, 40);
+  G.figur({ kind: 'erkek', x: 260, y: 960, s: 560, f: 1, kol: 'yan', t: st.t, v: .08, sakal: true, head: -.15 });
+  return { look: { sepia: .26, strength: .3 }, ust: etiket([{ text: 'Tutbury · 1569', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'O');
+KART('I12', 'I12', [Lq('En ma fin est mon commencement.', 'I12', { size: 70 }), { text: '', size: 18 }, { text: 'SONUMDA BAŞLANGICIM', size: 52, font: 'Cinzel', weight: 700, spacing: 6, at: AT('I12@sonumda') }], { level: 2 });
+P('I13', 'I13', (G, st) => { isleme(G, st, { cam: [720, 560, lerp(1.25, 1.35, st.p)], anka: acS(st, 'I13@ateşin', 2.4), yazi: 'En ma fin est mon commencement', yaziP: acS(st, 'I13@yazılıydı', 1.5) }); return { look: { sepia: .32, strength: .26 } }; }, 'Y');
+// I14: satranç: kırmızı vezir ortada, planlar (taşlar) çevresinde düşer; zincir
+P('I14', 'I14', (G, st) => { const k1 = acS(st, 'I14@kuzeyin', 1.5), k2 = acS(st, 'I14@italyan', 1.5), z = acS(st, 'I14@zincir', 2);
+  satranc(G, st, { cam: [720, lerp(640, 600, st.p), lerp(1.1, 1.5, eio(st.p))], taslar: [{ tip: 'vezir', renk: 'kirmizi', u: 3.5, v: 3.5 }, { tip: 'at', renk: 'siyah', u: 2, v: 5, f: 1, dus: k1 }, { tip: 'at', renk: 'siyah', u: 5, v: 5, f: -1, dus: k1 }, { tip: 'fil', renk: 'siyah', u: 5, v: 2, dus: k2 }, { tip: 'vezir', renk: 'beyaz', u: 0, v: 7 }] });
+  if (z > 0) { const g = G.g, [x, y, k] = tahtaNokta(4, 4); g.strokeStyle = G.gri(.2); g.lineWidth = 10 * k; for (let i = 0; i < 8 * z; i++) { const yy = y - 20 * k - i * 18 * k; g.beginPath(); g.ellipse(x + (i % 2 ? 6 : -6) * k, yy, 38 * k, 12 * k, 0, 0, TAU); g.stroke(); } }
+  return { look: { sepia: .24, strength: .32 } }; }, 'A');
+P('I14b', 'I14@kuzeyin', (G, st) => { G.kamera(720, 560, 1); tepeler(G, st, 580, { seed: 45, ust: .38 }); ordu(G, st, { x0: 100, x1: 1340, y: 760, s: 140, n: 22, v: .12, sancak: [{ x: 360 }, { x: 760 }, { x: 1120 }] });
+  return { look: { sepia: .16, strength: .38 }, ust: etiket([{ text: 'Kuzeyin ayaklanması · 1569', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+P('I14c', AT('I14@italyan') - .4, (G, st) => { G.kamera(720, 560, lerp(1.05, 1.15, st.p)); G.zemin(.16); isikHalka(G, 600, 380, 900, .5); G.mektup(720, 560, 820, 720, .04, { px: 34, lh: 50, yazi: ['Ridolfi · 1571', '…', '…'], prog: 1 }); return { look: { sepia: .3, strength: .28 } }; }, 'Y');
+P('I14d', AT('I14@her') - .2, (G, st) => { const z = acS(st, 'I14@zincir', 2); satranc(G, st, { cam: [720, 560, 1.9], taslar: [{ tip: 'vezir', renk: 'kirmizi', u: 3.5, v: 3.5 }] });
+  const g = G.g, [x, y, k] = tahtaNokta(4, 4); g.strokeStyle = G.gri(.18); g.lineWidth = 12 * k; for (let i = 0; i < Math.round(9 * z); i++) { const yy = y - 18 * k - i * 17 * k; g.beginPath(); g.ellipse(x + (i % 2 ? 7 : -7) * k, yy, 40 * k, 12 * k, 0, 0, TAU); g.stroke(); }
+  return { look: { sepia: .22, strength: .34 } }; }, 'A');
+P('I15', 'I15', fotoP('james_dejode_1603', [.5, .5, .8], [.5, .42, .55], { kunye: 'VI. James · Pieter de Jode, 1603 · The Met (CC0)' }), 'Y');
+P('I15b', 'I15@yıllık', (G, st) => { const g = G.g; G.kamera(720, 600, lerp(1.1, 1.25, st.p)); G.zemin(.16); isikHalka(G, 640, 420, 800, .5); g.fillStyle = G.gri(.28); g.fillRect(-200, 700, 1900, 500);
+  const q = G.rng(8); for (let i = 0; i < 14 * clamp(st.lt / 1.5); i++) { const x = 600 + q() * 260, y = 760 - i * 10; g.fillStyle = G.gri(.7); g.beginPath(); g.ellipse(x, y, 54, 16, 0, 0, TAU); g.fill(); g.fillStyle = G.gri(.4); g.fillRect(x - 54, y, 108, 8); }
+  return { look: { sepia: .32, strength: .28 } }; }, 'A');
+P('I16', 'I16', (G, st) => { galeri(G, st, { cam: [720, 600, 1.15] }); G.g.fillStyle = G.gri(0, .3); G.g.fillRect(-300, -300, 2100, 1700);
+  G.figur({ kind: 'mary', x: 380 + st.lt * 28, y: 1000, s: 560, f: 1, poz: 'yuru', walk: st.t * .3, kol: 'tut', t: st.t, veil: .9, v: .08, lean: .1 });
+  return { look: { sepia: .2, strength: .32 } }; }, 'O');
+// I17: Walsingham (siluet, arkadan): mumlu masa, mektup yığınları; adında başını çevirir
+P('I17', 'I17', (G, st) => { const g = G.g; G.kamera(800, 640, lerp(1.4, 1.5, st.p)); G.zemin(.08); isikHalka(G, 900, 600, 700, .5);
+  g.fillStyle = G.gri(.3); g.fillRect(420, 720, 900, 30); g.fillStyle = G.gri(.18); g.fillRect(440, 750, 860, 400); for (let i = 0; i < 6; i++) G.mektup(980 + i * 30, 700 - i * 8, 260, 40, .02 * i, { yazi: [], v: .85 - i * .03 });
+  G.mum(1180, 720, 160, st.t, { r: 10 }); const k = acS(st, 'I17@volsingım', 1.2);
+  G.figur({ kind: 'erkek', x: 700, y: 1000, s: 620, f: 1, poz: 'otur', kol: 'yaz', t: st.t, v: .04, sapka: false, sakal: true, head: lerp(0, -.25, k) });
+  return { look: { sepia: .12, strength: .4 }, ust: etiket([{ text: 'Francis Walsingham', size: 46, weight: 700, spacing: 6, at: AT('I17@frensis') }], { y: 780 }) }; }, 'Y');
+
+// ════════ J · BİRA FIÇISINDAKİ MEKTUPLAR ════════
+bolumKarti('J');
+P('J01', ILK('J'), (G, st) => { const g = G.g, ufuk = 600; G.kamera(lerp(700, 760, st.p), 560, 1); G.gok(ufuk, { ust: .45, alt: .82 }); G.bulutlar(140, 520, { seed: 47, drift: st.t * 4 });
+  kale(G, 380, ufuk + 4, 680, [{ t: 'ev', x: .3, w: .5, h: .3, cati: 'beşik', pen: 5 }, { x: .05, w: .1, h: .4, cati: 'konik' }, { t: 'ev', x: .8, w: .4, h: .26, cati: 'beşik', pen: 4 }], { v: .22 });
+  G.deniz(ufuk + 4, ufuk + 60, { t: st.t, ufuk: .6, on: .5, n: 10 }); g.fillStyle = G.gri(.4); g.fillRect(-300, ufuk + 60, 2100, 500);
+  ordu(G, st, { x0: 300, x1: 900, y: 820, s: 160, n: 4, v: .1 });
+  return { look: { sepia: .16, strength: .36 }, ust: etiket([{ text: 'Chartley · 1586', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+function fici(G, x, y, s, o = {}) { const g = G.g, gr = g.createLinearGradient(x - s * .4, 0, x + s * .4, 0); gr.addColorStop(0, G.gri(.25)); gr.addColorStop(.35, G.gri(.55)); gr.addColorStop(1, G.gri(.18)); g.fillStyle = gr;
+  g.fill(G.pathOf([[x - s * .32, y - s * .5], [x + s * .32, y - s * .5], [x + s * .4, y], [x + s * .32, y + s * .5], [x - s * .32, y + s * .5], [x - s * .4, y]], true, .6));
+  g.fillStyle = G.gri(.12); for (const k of [-.36, -.14, .14, .36]) g.fillRect(x - s * .4, y + k * s - s * .02, s * .8, s * .04);
+  if (o.tapa != null) { g.fillStyle = G.gri(.08); g.beginPath(); g.arc(x, y, s * .05, 0, TAU); g.fill(); g.fillStyle = G.gri(.45); g.beginPath(); g.arc(x - o.tapa * s * .3, y - o.tapa * s * .2, s * .05, 0, TAU); g.fill(); } }
+P('J02', 'J02', (G, st) => { const g = G.g; G.kamera(720, 540, lerp(1.1, 1.3, st.p)); G.zemin(.12); isikHalka(G, 600, 400, 800, .5); fici(G, 720, 600, 760, { tapa: acS(st, 'J02@açıldı', 1) });
+  const k = acS(st, 'J02@açıldı', 1.6); if (k > 0) { g.fillStyle = G.gri(.75); g.save(); g.translate(720, 600 - k * 120); g.rotate(-.2); g.fillRect(-50, -30, 100, 60); g.fillStyle = G.gri(.5); g.fillRect(-50, -4, 100, 8); g.restore(); }
+  return { look: { sepia: .26, strength: .32 } }; }, 'A');
+P('J03', 'J03', (G, st) => { const g = G.g, ufuk = 600; G.kamera(720, 560, 1); G.gok(ufuk, { ust: .5, alt: .85 }); g.fillStyle = G.gri(.42); g.fillRect(-300, ufuk, 2100, 500);
+  kale(G, 900, ufuk + 4, 600, [{ t: 'ev', x: .4, w: .6, h: .32, cati: 'beşik', pen: 5 }], { v: .24 }); const x = lerp(100, 900, st.p);
+  for (let i = 0; i < 3; i++) fici(G, x - 120 + i * 120, 760, 130, {}); g.fillStyle = G.gri(.14); g.fillRect(x - 220, 820, 360, 20); for (const dx of [-160, 80]) { g.beginPath(); g.arc(x + dx, 860, 50, 0, TAU); g.fill(); }
+  at(G, { x: x + 260, y: 880, s: 260, f: 1, ph: st.t * .7, dur: false, v: .1 }); G.figur({ kind: 'erkek', x: x + 420, y: 885, s: 340, f: 1, poz: 'yuru', walk: st.t * .7, kol: 'tut', t: st.t, v: .1 });
+  return { look: { sepia: .22, strength: .32 }, ust: etiket([{ text: 'Burton\'lu biracı', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+P('J04', 'J04', (G, st) => { yazMasa(G, st, { cam: [720, 620, 1.12], prog: st.p * 1.1, yazi: ['…', 'je vous prie de me mander…'], manset: 'kirmizi' }); return { look: { sepia: .3, strength: .28 } }; }, 'Y');
+// J05: Walsingham'ın masası: mühür kaldırılır, şifre, kopya, yeniden mühür
+P('J05', 'J05', (G, st) => { const g = G.g; G.kamera(lerp(680, 780, eio(st.p)), 560, 1.0); G.zemin(.12); isikHalka(G, 1000, 380, 900, .5);
+  const m = acS(st, 'J05@masasına', 1), s2 = acS(st, 'J05@şifresi', .8), k = acS(st, 'J05@kopyalanıyor', 1.2), y = acS(st, 'J05@yoluna', 1);
+  G.mektup(lerp(-300, 520, m), 520, 560, 660, -.05, { px: 32, lh: 48, yazi: s2 > 0 ? ['ƆϽ Ꝋ ʘ ϟ ꝏ ∆ ⊕ ∞ ϡ', '⊗ ϟ ∆ ꝏ ʘ Ɔ ϡ ⊕ ∞', 'Ꝋ ϟ ʘ ∆ ⊕ ꝏ Ɔ ϡ'] : [], prog: s2 });
+  if (k > 0) G.mektup(lerp(1700, 1060, k), 560, 520, 640, .06, { px: 30, lh: 46, yazi: ['…', 'copie déchiffrée', '…'], prog: k, v: .88 });
+  G.muhur(lerp(-300, 680, m), 780, 50, { acil: y > 0 ? y : 1 - s2 });
+  return { look: { sepia: .26, strength: .3 } }; }, 'A');
+P('J06', 'J06', (G, st) => { const g = G.g; G.kamera(720, 600, lerp(1, 1.06, st.p)); G.zemin(.1); isikHalka(G, 720, 650, 640, .55); g.fillStyle = G.gri(.26); g.fillRect(380, 720, 680, 30); G.mum(720, 720, 140, st.t, { r: 10 });
+  for (const [x, f] of [[420, 1], [560, 1], [880, -1], [1020, -1]]) G.figur({ kind: 'erkek', x, y: 960, s: 520, f, poz: 'otur', kol: 'onde', t: st.t, v: .06, sakal: x % 3 === 0 });
+  G.figur({ kind: 'erkek', x: 720, y: 980, s: 600, f: 1, kol: 'yaz', t: st.t, v: .04, sapka: false });
+  return { look: { sepia: .14, strength: .4 }, ust: etiket([{ text: 'Anthony Babington · Temmuz 1586', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .4 }], { y: 110 }) }; }, 'O');
+P('J07', 'J07', (G, st) => { G.kamera(720, 560, lerp(1.15, 1.3, st.p)); G.zemin(.16); isikHalka(G, 600, 380, 900, .5); G.mektup(720, 560, 760, 600, -.04, { px: 34, lh: 50, yazi: ['ƆϽ Ꝋ ʘ ϟ ꝏ ∆ ⊕ ∞', '⊗ ϟ ∆ ꝏ ʘ Ɔ ϡ ⊕'], prog: 1 }); G.muhur(860, 740, 64, { acil: acS(st, 'J07@cevap', .7) }); return { look: { sepia: .3, strength: .26 } }; }, 'Y');
+P('J06b', 'J06@plan', (G, st) => { G.kamera(720, 560, lerp(1.1, 1.25, st.p)); G.zemin(.14); isikHalka(G, 640, 380, 900, .5); G.mektup(720, 560, 820, 700, -.03, { px: 34, lh: 52, yazi: ['ƆϽ Ꝋ ʘ ϟ ꝏ ∆ ⊕ ∞ ϡ ⊗', 'ϟ ∆ ꝏ ʘ Ɔ ϡ ⊕ ∞ Ꝋ', 'ʘ ∆ ⊕ ꝏ Ɔ ϡ ϟ ∆', '⊗ ∞ Ꝋ ʘ ϟ'], prog: clamp(st.lt / 5) }); return { look: { sepia: .3, strength: .28 }, ust: kunye('Babington\'ın şifreli mektubu · Temmuz 1586') }; }, 'A');
+KART('J08', 'J08@o', [Lq('“O zaman altı beyefendiyi', 'J08@o', { size: 70 }), Lq('işe koşmanın vakti gelecek.”', 'J08@işe', { size: 70 }), { text: '', size: 22 }, Ls('Mary\'nin 17 Temmuz 1586 mektubu · çözülmüş kopya', AT('J08@o') + 1, { size: 26 })]);
+P('J08a', 'J08', (G, st) => { G.kamera(720, 560, 1.2); G.zemin(.16); isikHalka(G, 600, 380, 900, .5); G.mektup(720, 560, 760, 700, .03, { px: 34, lh: 50, yazi: ['copie déchiffrée', '…'], prog: 1, v: .88 }); return { look: { sepia: .3, strength: .28 } }; }, 'A');
+P('J09', 'J09', (G, st) => { const g = G.g; G.kamera(720, 600, 1.05); G.zemin(.2); isikHalka(G, 720, 500, 800, .4); g.fillStyle = G.gri(.3); g.fillRect(-200, 900, 1900, 300);
+  for (let i = 0; i < 6; i++) { const a = acS(st, AT('J09') + i * .35, .5); if (a <= 0) continue; G.figur({ kind: 'erkek', x: 220 + i * 200, y: 960, s: 560, f: i < 3 ? 1 : -1, kol: 'yan', t: st.t, v: lerp(.6, .06, a), pelerin: true }); }
+  return { look: { sepia: .16, strength: .38 } }; }, 'O');
+P('J10', 'J10', (G, st) => { const g = G.g; G.kamera(720, 520, lerp(1.2, 1.35, st.p)); G.zemin(.16); isikHalka(G, 600, 380, 900, .5); G.mektup(720, 600, 820, 760, .03, { px: 34, lh: 50, yazi: ['', 'copie déchiffrée', '…'], prog: 1, v: .9 });
+  const k = clamp((st.t - AT('J10@darağacı') + .3) / 1.6); g.strokeStyle = G.gri(.08); g.lineWidth = 7; g.lineCap = 'round'; const seg = [[[620, 470], [620, 300]], [[620, 300], [720, 300]], [[720, 300], [720, 340]], [[580, 470], [660, 470]]];
+  seg.forEach(([a, b], i) => { const f = clamp(k * 4 - i); if (f <= 0) return; g.beginPath(); g.moveTo(...a); g.lineTo(lerp(a[0], b[0], f), lerp(a[1], b[1], f)); g.stroke(); });
+  return { look: { sepia: .3, strength: .28 }, ust: kunye('Thomas Phelippes\'in çizdiği işaret (1586)') }; }, 'A');
+function fotheringhay(G, st, o = {}) { const g = G.g, ufuk = 620; G.gok(ufuk, { ust: o.ust ?? .42, alt: .78 }); G.bulutlar(140, 520, { seed: 49, drift: st.t * 4, govde: .4 });
+  g.fillStyle = G.gri(.32); g.fill(G.pathOf([[200, ufuk + 6], [420, ufuk - 80], [700, ufuk - 96], [960, ufuk - 70], [1200, ufuk + 6]], true, .5));
+  kale(G, 360, ufuk - 80, 800, [{ t: 'sur', x: .5, w: .9, h: .14 }, { x: .5, w: .26, h: .36, cati: 'mazgal', pen: 3 }, { x: .12, w: .1, h: .24 }, { x: .88, w: .1, h: .24 }], { v: .16, isik: .3, gece: o.gece });
+  G.deniz(ufuk + 6, 760, { t: st.t, ufuk: .6, on: .5, n: 20 }); g.fillStyle = G.gri(.3); g.fillRect(-300, 760, 2100, 500); }
+P('J11', 'J11', (G, st) => { G.kamera(lerp(680, 760, st.p), 560, 1); fotheringhay(G, st); at(G, { x: lerp(100, 600, st.p), y: 900, s: 200, f: 1, ph: st.t, v: .1, binici: { kind: 'erkek', v: .1 } });
+  return { look: { sepia: .14, strength: .38 }, ust: etiket([{ text: 'Fotheringhay · Eylül 1586', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+function dava(G, st, o = {}) { const g = G.g; salon(G, st, { cam: o.cam, duvar: .24, zeminV: .4, pencere: 3, pencereV: .7 });
+  for (let r = 0; r < 2; r++) for (let i = 0; i < 6; i++) G.figur({ kind: 'erkek', x: 820 + i * 100 + r * 50, y: 760 + r * 70, s: 260 + r * 30, f: -1, poz: 'otur', kol: 'onde', t: st.t, v: .08, sakal: (i + r) % 2 === 0 });
+  g.fillStyle = G.gri(.14); g.fillRect(260, 760, 120, 140); G.figur({ kind: 'mary', x: 330, y: 900, s: 330, f: 1, poz: 'otur', kol: o.kol || 'onde', t: st.t, veil: .9, v: .06 }); }
+P('J12', 'J12', (G, st) => { dava(G, st, { cam: [560, 680, lerp(1.35, 1.42, st.p)] }); return { look: { sepia: .18, strength: .34 } }; }, 'O');
+KART('J12k', AT('J12@vicdanınıza') + .1, [Lq('“Vicdanınıza bakın ve unutmayın:', 'J12@vicdanınıza', { size: 60 }), Lq('bütün dünya sahnesi', 'J12@bütün', { size: 70 }), Lq('İngiltere krallığından daha geniştir.”', 'J12@ingiltere', { size: 60 }), { text: '', size: 22 }, Ls('Mary, Fotheringhay\'deki yargıçlarına · Ekim 1586', AT('J12@vicdanınıza') + 1, { size: 26 })], { level: 1 });
+P('J13', 'J13', (G, st) => { dava(G, st, { cam: [720, 600, lerp(1, .96, st.p)], kol: 'yan' }); return { look: { sepia: .14, strength: .38 }, exposure: lerp(1, .85, st.p) }; }, 'G');
+P('J13b', 'J13@geriye', (G, st) => { G.kamera(720, lerp(600, 760, eio(st.p)), lerp(1, 1.3, eio(st.p))); belge(G, st, { baslik: 'FERMAN · 1587', satir: 10, seed: 9 }); return { look: { sepia: .3, strength: .28 } }; }, 'A');
+
+// ════════ K · ELIZABETH, ELIZABETH'E KARŞI ════════
+bolumKarti('K');
+P('K01', ILK('K'), fotoP('elizabeth_depasse_1592', [.5, .31, .44], [.5, .3, .32], { kunye: 'I. Elizabeth · Crispijn de Passe, 1592 · The Met (CC0)' }), 'Y');
+// K02: aynı gravür ve aynadaki eşi: Elizabeth, Elizabeth'e karşı
+P('K02', 'K02', (G, st) => { const g = G.g, im = IMG.elizabeth_depasse_1592; G.zemin(.08); if (!im) return {}; const W = im.naturalWidth, H = im.naturalHeight, c = BOYA.griOn(im, 1.12, 1.03), ay = acS(st, 'K02@kendi', 2);
+  const sw = W * .42, sh = sw * 1080 / 700, sx = W * .29, sy = H * .12, k = lerp(1, 1.05, st.p);
+  g.save(); g.translate(720, 540); g.scale(k, k); g.translate(-720, -540);
+  g.drawImage(c, sx, sy, sw, sh, 0, 0, 700, 1080);
+  g.save(); g.translate(1440, 0); g.scale(-1, 1); g.globalAlpha = lerp(.35, 1, ay); g.drawImage(c, sx, sy, sw, sh, 0, 0, 700, 1080); g.restore();
+  g.fillStyle = G.gri(.05); g.fillRect(700, 0, 40, 1080); g.restore();
+  return { look: { sepia: .22, strength: .34 }, ust: kunye('Aynı gravür ve ayna görüntüsü (de Passe, 1592)') }; }, 'O');
+P('K03', 'K03', (G, st) => { const g = G.g; salon(G, st, { cam: [720, 600, lerp(1, 1.05, st.p)], duvar: .28, zeminV: .45, pencere: 3 });
+  for (let r = 0; r < 3; r++) for (let i = 0; i < 9; i++) G.figur({ kind: 'erkek', x: 120 + i * 150 + r * 40, y: 800 + r * 90, s: 240 + r * 50, f: 1, poz: 'otur', kol: r === 2 && i === 4 && ac(st, 'K03@idam') > 0 ? 'kaldir' : 'onde', t: st.t, v: .07 + r * .02, sakal: (i + r) % 3 === 0 });
+  return { look: { sepia: .2, strength: .32 }, ust: etiket([{ text: 'Parlamento · Kasım 1586', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+KART('K04', 'K04', [Lq('“Dileğinizi kabul etmeyeceğim desem,', 'K04', { size: 58 }), Lq('belki düşündüğümden fazlasını söylemiş olurum.', 'K04@belki', { size: 50 }), { text: '', size: 22 }, Ls('Elizabeth, Parlamento\'ya · 24 Kasım 1586', S('K04') + 1, { size: 26 })], { level: 1 });
+P('K04b', AT('K04@kabul#1') - .2, fotoP('elizabeth_huys', [.53, .27, .32], [.53, .27, .24], { kunye: 'I. Elizabeth · Frans Huys · The Met (CC0)' }), 'Y');
+KART('K04c', AT('K04@size') - .2, [Lq('“Size', 'K04@size', { size: 70 }), { text: 'CEVAPSIZ BİR CEVAP', size: 82, font: 'Cinzel', weight: 700, spacing: 6, at: AT('K04@cevapsız') }, Lq('vermek zorundayım.”', 'K04@vermek', { size: 70 })], { level: 1 });
+P('K05', 'K05', (G, st) => { G.kamera(720, lerp(640, 760, eio(st.p)), lerp(1.05, 1.3, eio(st.p))); belge(G, st, { baslik: 'FERMAN · 1587', satir: 10, seed: 9, imza: acS(st, 'K05@imzaladı', 1.6) }); const k = acS(st, 'K05@imzaladı', 1.6);
+  if (k < 1) el(G, lerp(700, 1080, k), 840, 340, { manset: 'dantel' }); return { look: { sepia: .3, strength: .28 }, ust: etiket([{ text: '1 Şubat 1587', size: 40, font: 'Cormorant Garamond', italic: true, at: AT('K05@bir') }], { y: 110 }) }; }, 'A');
+P('K06', 'K06', (G, st) => { const g = G.g; G.kamera(720, 600, 1.05); G.zemin(.1); isikHalka(G, 720, 600, 640, .5); g.fillStyle = G.gri(.26); g.fillRect(360, 740, 720, 30); G.mum(720, 740, 140, st.t, { r: 10 });
+  G.figur({ kind: 'erkek', x: 520, y: 980, s: 560, f: 1, poz: 'otur', kol: 'yaz', t: st.t, v: .05, sakal: true }); G.figur({ kind: 'erkek', x: 920, y: 980, s: 560, f: -1, poz: 'otur', kol: 'yaz', t: st.t, v: .05 });
+  return { look: { sepia: .14, strength: .4 }, ust: etiket([{ text: 'Walsingham ve Davison\'dan Paulet\'ye', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'O');
+P('K07', 'K07', (G, st) => { const g = G.g; G.kamera(lerp(700, 760, st.p), 560, 1.3); G.zemin(.16); isikHalka(G, 600, 380, 900, .5);
+  G.mektup(720, 560, 1060, 720, -.02, { px: 36, lh: 54, yazi: ['…her Majesty taketh it most unkindly that', 'you have not in all this time found out some', 'way to shorten the life of that Queen…'], prog: 1 });
+  const k = acS(st, 'K07@o', 1.6); if (k > 0) { g.save(); g.translate(720, 560); g.rotate(-.02); g.strokeStyle = G.gri(.1); g.lineWidth = 5; g.beginPath(); g.moveTo(-460, -50); g.lineTo(-460 + 900 * Math.min(1, k * 2), -50); g.moveTo(-460, 4); g.lineTo(-460 + 600 * Math.max(0, k * 2 - 1), 4); g.stroke(); g.restore(); }
+  return { look: { sepia: .3, strength: .28 }, ust: kunye('Walsingham ve Davison\'dan Paulet\'ye · 1 Şubat 1587') }; }, 'A');
+P('K08', 'K08', (G, st) => { const g = G.g; G.kamera(720, 560, lerp(1, 1.06, st.p)); G.zemin(.08); const k = acS(st, 'K08@sessizce', 1.5);
+  g.fillStyle = G.gri(.18); g.fill(G.polyP([[0, 0], [520, 260], [520, 820], [0, 1080]])); g.fill(G.polyP([[1440, 0], [920, 260], [920, 820], [1440, 1080]])); g.fillStyle = G.gri(.12); g.fillRect(520, 260, 400, 560);
+  isikHalka(G, 720, 600, lerp(420, 40, k), .6); g.fillStyle = G.gri(.5); g.fillRect(700, 560, 40, 60);
+  return { look: { sepia: .1, strength: .44 }, exposure: lerp(1, .7, k) }; }, 'G');
+P('K09', 'K09', (G, st) => { const g = G.g; G.kamera(720, 600, 1.15); G.zemin(.1); isikHalka(G, 900, 600, 600, .5); g.fillStyle = G.gri(.26); g.fillRect(500, 740, 700, 30); G.mum(1000, 740, 140, st.t, { r: 10 });
+  G.figur({ kind: 'erkek', x: 720, y: 990, s: 600, f: 1, poz: 'otur', kol: 'yaz', t: st.t, v: .05, sakal: true, sapka: false });
+  return { look: { sepia: .14, strength: .4 }, ust: etiket([{ text: 'Amias Paulet · 2 Şubat 1587', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'O');
+KART('K09k', AT('K09@tanrı') - .2, [Lq('“Tanrı korusun;', 'K09@tanrı', { size: 66 }), Lq('vicdanımı böyle kirletemem,', 'K09@vicdanımı', { size: 60 }), Lq('torunlarıma böyle bir leke bırakamam.', 'K09@torunlarıma', { size: 56 })], { level: 1 });
+KART('K09c', AT('K09@kanun') - .2, [Lq('“Kanun ve ferman olmadan', 'K09@kanun', { size: 74 }), Lq('kan dökmem.”', 'K09@kan#1', { size: 84 }), { text: '', size: 22 }, Ls('Amias Paulet · 2 Şubat 1587', AT('K09@kanun') + 1, { size: 26 })], { level: 0 });
+P('K10', 'K10', (G, st) => { G.kamera(lerp(640, 820, eio(st.p)), 560, 1); fotheringhay(G, st, { ust: .2, gece: true }); G.g.fillStyle = G.gri(0, .35); G.g.fillRect(-300, -300, 2100, 1700);
+  at(G, { x: lerp(1500, 600, st.p), y: 900, s: 260, f: -1, ph: st.t * 1.7, v: .05, binici: { kind: 'erkek', v: .05, pelerin: true } });
+  return { look: { sepia: .06, strength: .44 }, exposure: .9 }; }, 'G');
+P('K10b', 'K10@elizabethin', fotoP('elizabeth_madalya_16yy', [.48, .44, .5], [.46, .45, .42], { kunye: 'I. Elizabeth · 16. yy madalyası · The Met (CC0)', parlak: 1.05 }), 'Y');
+P('K11', 'K11', (G, st) => { const g = G.g; G.kamera(720, 600, lerp(1, 1.06, st.p)); oda(G, st, { duvar: .16, zeminY: 860 }); isikHalka(G, 560, 640, 560, .5); g.fillStyle = G.gri(.24); g.fillRect(360, 720, 420, 26); G.mum(460, 720, 120, st.t, { r: 10 });
+  G.figur({ kind: 'mary', x: 620, y: 930, s: 420, f: 1, poz: 'otur', kol: 'onde', t: st.t, veil: .9, v: .06 });
+  g.fillStyle = G.gri(.5); g.fillRect(1060, 260, 240, 600); const k = acS(st, 'K11@öğrendi', 1.5);
+  G.figur({ kind: 'erkek', x: 1130, y: 880, s: 520, f: -1, kol: 'tut', t: st.t, v: .05, sakal: true }); G.figur({ kind: 'erkek', x: 1260, y: 885, s: 520, f: -1, kol: 'yan', t: st.t, v: .05 });
+  return { look: { sepia: .16, strength: .38 }, exposure: lerp(1, .85, k), ust: etiket([{ text: 'Fotheringhay · 7 Şubat 1587, akşam', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'O');
+
+// ════════ L · KIRMIZI ════════
+bolumKarti('L');
+P('L01', ILK('L'), fotoP('fotheringhay_sabah_dawe', [.5, .45, .9], [.45, .38, .6], { kunye: 'Fotheringhay\'de son sabah · G. Dawe, 1796 · The Met (CC0)' }), 'O');
+P('L02', 'L02', (G, st) => { yazMasa(G, st, { cam: [720, 620, 1.15], prog: st.p, yazi: ['Testament', '…'], manset: 'kirmizi' }); return { look: { sepia: .3, strength: .3 } }; }, 'A');
+const SON_MEKTUP = ['Monsieur mon beau frere, estant par la permission', 'de Dieu, pour mes pechez comme je croy, venue', 'me jetter entre les bras de ceste Royne ma cousine,', 'ou j\'ay eu beaucoup d\'ennuis et passe pres de vingt', 'ans, je suis enfin par elle et ses Estats', 'condamnee a la mort…'];
+P('L03', 'L03', (G, st) => { const g = G.g, k = acS(st, 'L04', 2); G.kamera(lerp(720, 600, k), lerp(560, 420, k), lerp(1, 1.5, k)); G.zemin(.12); G.mum(1220, 980, 330, st.t, { r: 900 });
+  G.mektup(620, 520, 860, 1000, -.04, { px: 40, lh: 56, yazi: SON_MEKTUP, prog: clamp(st.lt / 6.5) });
+  return { look: { sepia: .26, strength: .3 }, ust: etiket([{ text: '8 Şubat 1587, gece saat 2', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'Y');
+KART('L05', 'L05', [Lq('“Tanrı\'nın izniyle, sanırım günahlarım yüzünden,', 'L05', { size: 52 }), Lq('bu kraliçenin, kuzenimin', 'L05@bu', { size: 64 }), Lq('kollarına atıldım.', 'L05@kollarına', { size: 64 }), { text: '', size: 22 }, Ls('Mary\'den III. Henri\'ye · 8 Şubat 1587', S('L05') + 1, { size: 26 })], { level: 2 });
+KART('L05b', AT('L05@orada') - .2, [Lq('“Orada çok sıkıntı çektim', 'L05@orada', { size: 70 }), Lq('ve yirmi yıla yakın zaman geçirdim.”', 'L05@ve', { size: 62 })], { level: 2 });
+P('L06', 'L06', (G, st) => { solway(G, st, { cam: [lerp(640, 760, st.p), 560, 1], sis: .4, ufuk: 500, isik: [1180, 470, 520, 1] });
+  G.tekne({ x: 560 + st.lt * 30, y: 760, s: 420, f: 1, t: st.t, oar: st.t * .9, sail: 0, kisi: [{ kind: 'erkek', x: .3, h: .3, poz: 'otur', kol: 'kurek', f: -1 }, { kind: 'mary', x: -.2, h: .4, poz: 'otur', kol: 'onde', f: 1, kirmizi: 'etek', veil: .8 }] });
+  return { iris: lerp(.62, .7, st.p), look: { sepia: .5, strength: .42 }, ust: etiket([{ text: 'Solway · 1568', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 160 }) }; }, 'G');
+P('L07', 'L07', fotoP('idam_iln_1861', [.3, .48, .42], [.31, .49, .36], { kunye: 'Fotheringhay\'in büyük salonu · ILN, 1861 (J. Gilbert) · The Met (CC0)', etiket: [{ text: '8 Şubat 1587, sabah', size: 40, font: 'Cormorant Garamond', italic: true, at: S('L07') + .4 }] }), 'O');
+P('L07b', 'L07@elinde', fotoP('mary_siyah_hacli_tamboy', [.45, .48, .42], [.52, .6, .34], {
+  klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', u: st => ss((st.t - AT('L08') + 1) / 4),
+  kirmizi: { poly: SIYAH_ETEK, sil: st => ss((st.t - AT('L08@kızıl')) / 2.2) }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14, strength: .36 } }), 'Y');
+// idam salonu (çizim): siyah örtülü kürsü, parmaklık, seyirciler, şömine; balta ve kütük gösterilmez
+function idamSalonu(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.26);
+  g.fillStyle = G.gri(.7); g.beginPath(); g.moveTo(1080, 120); g.lineTo(1260, 120); g.lineTo(1260, 520); g.lineTo(1080, 520); g.fill(); g.save(); g.globalAlpha = .2; g.fillStyle = G.gri(1); g.beginPath(); g.moveTo(1080, 200); g.lineTo(1260, 160); g.lineTo(900, 900); g.lineTo(560, 900); g.closePath(); g.fill(); g.restore();
+  g.fillStyle = G.gri(.15); g.fillRect(120, 380, 260, 380); g.fillStyle = G.gri(.06); g.fillRect(160, 470, 180, 290); for (let i = 0; i < 6; i++) { g.fillStyle = G.gri(.4 + .1 * Math.sin(st.t * 8 + i)); g.beginPath(); g.ellipse(200 + i * 22, 740 - Math.abs(Math.sin(st.t * 5 + i)) * 30, 12, 34, 0, 0, TAU); g.fill(); }   // şömine
+  g.fillStyle = G.gri(.4); g.fillRect(-300, 820, 2100, 400);
+  g.fillStyle = G.gri(.08); g.fill(G.polyP([[440, 820], [1000, 820], [1060, 740], [380, 740]])); g.fillRect(380, 700, 680, 50);   // siyah örtülü kürsü
+  g.fillStyle = G.gri(.12); for (let i = 0; i < 12; i++) g.fillRect(360 + i * 64, 640, 10, 70); g.fillRect(350, 636, 730, 12);   // parmaklık
+  ordu(G, st, { x0: -100, x1: 330, y: 960, s: 300, n: 6, v: .1, mizrak: .5, seed: 3 }); ordu(G, st, { x0: 1110, x1: 1540, y: 960, s: 300, n: 6, v: .1, mizrak: .5, seed: 4 }); }
+P('L09', 'L09', (G, st) => { idamSalonu(G, st, { cam: [720, 600, lerp(1, 1.05, st.p)] });
+  G.figur({ kind: 'mary', x: 720, y: 720, s: 280, f: 1, kol: 'onde', t: st.t, veil: .9, v: .1, kirmizi: 'etek' });
+  G.figur({ kind: 'kadin', x: 560, y: 724, s: 160, f: 1, poz: 'diz', kol: 'egik', t: st.t, v: .14 }); G.figur({ kind: 'kadin', x: 880, y: 724, s: 160, f: -1, poz: 'diz', kol: 'egik', t: st.t, v: .14 });
+  return { look: { sepia: .12, strength: .4 } }; }, 'G');
+KART('L09k', AT('L09@ağlamayın') - .2, [Lq('“Ağlamayın,', 'L09@ağlamayın', { size: 84 }), Lq('sizin için dua ettim.”', 'L09@sizin', { size: 74 })], { level: 2 });
+P('L10', 'L10', (G, st) => { const g = G.g; G.kamera(720, 600, lerp(1.6, 1.7, st.p)); idamSalonu(G, st, { cam: [720, 620, lerp(1.6, 1.7, st.p)] });
+  G.figur({ kind: 'mary', x: 680, y: 742, s: 300, f: 1, poz: 'diz', kol: 'dua', t: st.t, veil: .9, v: .1, kirmizi: 'etek' });
+  return { look: { sepia: .12, strength: .4 } }; }, 'O');
+KART('L10k', AT('L10@son') - .2, [Lq('In manus tuas, Domine,', 'L10@son', { size: 66 }), Lq('commendo spiritum meum.', 'L10@son', { size: 66 }), { text: '', size: 22 }, { text: 'Ruhumu senin ellerine bırakıyorum.', size: 46, font: 'Cormorant Garamond', italic: true, weight: 500, at: AT('L10@ruhumu') }], { level: 2 });
+P('L11', 'L11', (G, st) => { idamSalonu(G, st, { cam: [720, 560, lerp(1.1, 1, eio(st.p))] }); return { look: { sepia: .1, strength: .42 }, karart: clamp((st.t - S('L11') - .6) / 2.4) }; }, 'G');
+// L12: kızıl kadife (kıvrımlar)
+function kadife(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 540, 1])); G.zemin(.2); const n = 9;
+  for (let i = 0; i < n; i++) { const x0 = -100 + i * 190 + Math.sin(st.t * .4 + i) * 10, gr = g.createLinearGradient(x0, 0, x0 + 190, 0); gr.addColorStop(0, G.gri(.18)); gr.addColorStop(.45, G.gri(.62)); gr.addColorStop(1, G.gri(.16)); g.fillStyle = gr;
+    const P0 = G.pathOf([[x0, -100], [x0 + 190, -100], [x0 + 200 + Math.sin(i) * 20, 600], [x0 + 190, 1200], [x0, 1200], [x0 + 10 + Math.cos(i) * 20, 600]], true, .5); g.fill(P0); }
+  G.kirmiziCiz(r => { r.globalAlpha = o.a ?? 1; r.fillRect(-500, -500, 2500, 2100); }); }
+P('L12', 'L12', (G, st) => { kadife(G, st, { cam: [720, 540, lerp(1, 1.1, st.p)], a: acS(st, 'L12', 1.2) }); return { look: { sepia: .14, strength: .3 }, renkTon: 'contrast(.6) brightness(1.5)' }; }, 'A');
+P('L13', 'L13', fotoP('mary_siyah_hacli_tamboy', [.4, .5, .36], [.4, .52, .3], { klip: [.232, .242, .765, .762], kontrast: 1.2, renkTon: 'brightness(2.4) contrast(1.25)', kirmizi: { poly: SIYAH_ETEK }, kunye: 'E. F. Finden, 19. yy gravürü · The Met (CC0)', look: { sepia: .14 } }), 'Y');
+P('L14', 'L14', (G, st) => { const g = G.g; G.kamera(lerp(700, 760, st.p), 560, 1.35); G.zemin(.14); isikHalka(G, 600, 380, 900, .5);
+  G.mektup(720, 560, 1060, 640, -.02, { px: 38, lh: 56, yazi: ['…pour le maintien de la foy catholique', 'et du droit que Dieu m\'a donné', 'à ceste couronne…'], prog: 1 });
+  const k = acS(st, 'L14@inancı', 2); if (k > 0) { g.save(); g.translate(720, 560); g.rotate(-.02); g.strokeStyle = G.gri(.1); g.lineWidth = 5; g.beginPath(); g.moveTo(-460, -42); g.lineTo(-460 + 760 * Math.min(1, k * 2), -42); g.moveTo(-460, 14); g.lineTo(-460 + 500 * Math.max(0, k * 2 - 1), 14); g.stroke(); g.restore(); }
+  return { look: { sepia: .3, strength: .28 }, ust: kunye('Mary\'den III. Henri\'ye · 8 Şubat 1587') }; }, 'A');
+P('L15', 'L15', (G, st) => { idamSalonu(G, st, { cam: [700, 600, lerp(2, 2.15, st.p)] }); G.figur({ kind: 'mary', x: 680, y: 742, s: 300, f: 1, poz: 'diz', kol: 'dua', t: st.t, veil: .9, v: .1, kirmizi: 'etek' });
+  return { look: { sepia: .12, strength: .38 }, exposure: 1.08 }; }, 'O');
+// L16: tül süzülerek düşer
+P('L16', 'L16', (G, st) => { const g = G.g; G.kamera(720, 560, 1); G.zemin(.16); isikHalka(G, 720, 300, 900, .5); g.fillStyle = G.gri(.36); g.fillRect(-300, 900, 2100, 400);
+  const k = clamp(st.lt / 6), y = lerp(-200, 860, k), sw = Math.sin(st.lt * 1.6) * 120 * (1 - k);
+  g.fillStyle = G.gri(.92, .7); g.fill(G.pathOf([[620 + sw, y - 90], [820 + sw, y - 70 + Math.sin(st.t * 3) * 20], [900 + sw, y + 30 * (1 - k)], [780 + sw, y + 60], [600 + sw, y + 40 * (1 - k)], [560 + sw, y - 20]], true, .7));
+  return { look: { sepia: .14, strength: .36 } }; }, 'A');
+P('L16b', 'L16@kırk', fotoP('mary_dul_18yy', [.5, .34, .5], [.5, .33, .4], { kunye: '18. yy gravürü · The Met (CC0)' }), 'Y');
+KART('L17', 'L17', [Lq('“Kraliçe\'nin bütün düşmanları', AT('L17@kraliçenin'), { size: 70 }), Lq('böyle yok olsun.”', AT('L17@böyle'), { size: 78 }), { text: '', size: 22 }, Ls('Peterborough Dekanı · 8 Şubat 1587', S('L17') + .6, { size: 26 })], { level: 0 });
+// L18: köpek kızıl kumaşın altından çıkar, yanında oturur
+function kopek(G, x, y, s, f = 1) { const g = G.g; g.save(); g.translate(x, y); g.scale(s * f, s); g.fillStyle = G.gri(.12);
+  g.fill(G.pathOf([[-.5, -.05], [-.45, -.4], [-.2, -.48], [.2, -.46], [.38, -.6], [.5, -.78], [.6, -.8], [.72, -.72], [.78, -.62], [.7, -.55], [.55, -.5], [.48, -.3], [.42, 0], [.32, 0], [.3, -.2], [-.2, -.2], [-.25, 0], [-.35, 0], [-.4, -.2], [-.55, -.3], [-.7, -.42], [-.62, -.3]], true, .5));
+  g.fill(G.pathOf([[.5, -.78], [.46, -.95], [.56, -.82]], true, .3)); g.fill(G.pathOf([[.62, -.8], [.64, -.97], [.7, -.8]], true, .3)); g.restore(); }
+P('L18', 'L18', (G, st) => { kadife(G, st, { cam: [720, 640, 1.1], a: 1 }); const g = G.g; g.fillStyle = G.gri(.4); g.fillRect(-300, 880, 2100, 400); const k = acS(st, 'L18@çıktı', 1.5);
+  kopek(G, lerp(560, 860, k), 900, 260, 1); return { look: { sepia: .14, strength: .32 }, renkTon: 'contrast(.6) brightness(1.5)' }; }, 'A');
+P('L19', 'L19', fotoP('elizabeth_depasse_1592', [.5, .3, .4], [.5, .3, .34], { kunye: 'I. Elizabeth · Crispijn de Passe, 1592 · The Met (CC0)',
+  ciz: (G, st, W, H) => { const k = acS(st, 'L19@değişti', 2.4); if (k <= 0) return; G.g.fillStyle = G.gri(0, .45 * k); G.g.fillRect(0, 0, W, H); } }), 'Y');
+P('L19b', 'L19@yas', (G, st) => { galeri(G, st, { cam: [720, 600, 1.1] }); G.g.fillStyle = G.gri(0, .35); G.g.fillRect(-300, -300, 2100, 1700);
+  G.figur({ kind: 'eliz', x: 520, y: 960, s: 520, f: 1, kol: ac(st, 'L19@meclisini') > 0 ? 'isaret' : 'yanak', t: st.t, v: .04 });
+  for (let i = 0; i < 4; i++) G.figur({ kind: 'erkek', x: 860 + i * 140, y: 960, s: 460, f: -1, kol: 'egik', t: st.t, v: .06, lean: .25, sakal: i % 2 === 0 });
+  return { look: { sepia: .12, strength: .4 } }; }, 'O');
+P('L20', 'L20', (G, st) => { const g = G.g, ufuk = 620; G.kamera(720, 560, lerp(1, 1.05, st.p)); G.gok(ufuk, { ust: .42, alt: .78 }); G.bulutlar(140, 520, { seed: 53, drift: st.t * 4 });
+  kale(G, 300, ufuk + 4, 820, [{ t: 'sur', x: .5, w: 1.1, h: .16 }, { x: .5, w: .34, h: .44, cati: 'mazgal', pen: 3 }, { x: .33, w: .06, h: .56, cati: 'konik', ch: .08 }, { x: .67, w: .06, h: .56, cati: 'konik', ch: .08 }, { x: .05, w: .1, h: .26 }, { x: .95, w: .1, h: .26 }], { v: .18 });
+  G.deniz(ufuk + 4, 1080, { t: st.t, ufuk: .7, on: .4, n: 50 });
+  return { look: { sepia: .16, strength: .36 }, ust: etiket([{ text: 'Londra Kulesi · Davison', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+P('L20b', 'L20@merinin', (G, st) => { const g = G.g; G.kamera(lerp(700, 760, st.p), 560, 1.3); G.zemin(.14); isikHalka(G, 600, 380, 900, .5);
+  G.mektup(720, 560, 1060, 640, .02, { px: 36, lh: 54, yazi: ['…that miserable accident which', '(far contrary to my meaning)', 'hath befallen…'], prog: 1 });
+  const k = acS(st, 'L20@niyetimin', 1.4); if (k > 0) { g.save(); g.translate(720, 560); g.rotate(.02); g.strokeStyle = G.gri(.1); g.lineWidth = 5; g.beginPath(); g.moveTo(-460, 16); g.lineTo(-460 + 470 * k, 16); g.stroke(); g.restore(); }
+  return { look: { sepia: .3, strength: .28 }, ust: kunye('Elizabeth\'ten VI. James\'e · 14 Şubat 1587') }; }, 'A');
+KART('L21', 'L21', [Lq('Niyetimin', 'L21', { size: 96 }), Lq('tam tersine.', 'L21@tam', { size: 96 })], { level: 0 });
+
+// ════════ M · SONUMDA BAŞLANGICIM ════════
+bolumKarti('M');
+P('M01', ILK('M'), (G, st) => { const g = G.g; salon(G, st, { cam: [720, 600, lerp(1.1, 1, eio(st.p))], duvar: .3, zeminV: .5, pencere: 4 });
+  g.fillStyle = G.gri(.14); g.fillRect(560, 700, 320, 80); g.fillRect(600, 400, 240, 300); g.fillStyle = G.gri(.2); g.fill(G.pathOf([[580, 400], [860, 400], [840, 330], [720, 290], [600, 330]], true, .5));
+  G.figur({ kind: 'eliz', x: 720, y: 780, s: 380, f: 1, poz: 'otur', kol: 'onde', t: st.t, v: .06 });
+  return { look: { sepia: .26, strength: .3 } }; }, 'G');
+P('M02', 'M02', fotoP('elizabeth_depasse_1592', [.5, .34, .5], [.5, .48, .92], { kunye: 'I. Elizabeth · Crispijn de Passe, 1592 · The Met (CC0)' }), 'O');
+P('M03', 'M03', (G, st) => { const g = G.g, im = IMG.elizabeth_madalya_16yy, k = acS(st, 'M03@öldü', 1.2); G.kamera(720, 560, 1.05); G.zemin(.1); isikHalka(G, 900, 500, lerp(800, 200, k), .55);
+  if (im) { const c = BOYA.griOn(im, 1.1, 1.05); g.drawImage(c, 300, 140, 560, 560 * im.naturalHeight / im.naturalWidth); }
+  if (k < 1) G.mum(1080, 900, 240, st.t, { r: 10 }); else G.dik(1062, 660, 36, 240, .6);
+  return { look: { sepia: .2, strength: .34 }, exposure: lerp(1, .8, k), ust: etiket([{ text: '24 Mart 1603', size: 40, font: 'Cormorant Garamond', italic: true, at: st.at + .2 }], { y: 110 }) }; }, 'A');
+P('M04', 'M04', fotoP('james_dejode_1603', [.5, .45, .55], [.5, .42, .4], { kunye: 'VI. James, 1603\'te I. James · P. de Jode · The Met (CC0)' }), 'Y');
+P('M05', 'M05', (G, st) => { G.kamera(720, 540, lerp(1.1, 1, st.p)); G.zemin(.2); isikHalka(G, 720, 420, 700, .35); arma(G, 720, 580, 520, 640, { ing: 1, ingKirmizi: 1, tac: 1 }); return { look: { sepia: .24, strength: .3 } }; }, 'O');
+P('M05b', 'M05@ama', fotoP('james_unite_sikke_1613', [.5, .5, .62], [.5, .5, .5], { kunye: '"Unite" sikkesi, I. James, 1613 · The Met (CC0)', parlak: .95, zemin: .15 }), 'Y');
+// M06: soy çizgisi: Tudor dalı Elizabeth'te biter; Stuart dalı bugüne iner
+P('M06', 'M06', (G, st) => { const g = G.g; G.kamera(720, lerp(500, 640, eio(st.p)), 1); G.zemin(.88); const k = acS(st, 'M06@bugün', 4), t2 = acS(st, 'M06@tudor', 1.5);
+  g.fillStyle = G.gri(.2); g.textAlign = 'center'; g.font = '600 38px "Cinzel"';
+  g.fillText('TUDOR', 400, 170); g.fillText('STUART', 1040, 170);
+  g.strokeStyle = G.gri(.2); g.lineWidth = 6; g.beginPath(); g.moveTo(400, 200); g.lineTo(400, 520); g.stroke(); g.font = 'italic 600 40px "Cormorant Garamond"'; g.fillText('I. Elizabeth', 400, 570);
+  if (t2 > 0) { g.lineWidth = 8; g.beginPath(); g.moveTo(340, 620); g.lineTo(460, 620); g.stroke(); g.fillText('1603', 400, 670); }
+  g.lineWidth = 6; g.beginPath(); g.moveTo(1040, 200); g.lineTo(1040, 200 + 900 * k); g.stroke(); g.fillText('Mary Stuart', 1040, 250); if (k > .25) g.fillText('VI. ve I. James', 1040, 420); if (k > .55) g.fillText('…', 1040, 640); if (k > .85) g.fillText('bugün', 1040, 1060);
+  G.kirmiziCiz(r => { r.beginPath(); r.arc(1040, 200, 14, 0, TAU); r.fill(); });
+  return { look: { sepia: .3, strength: .26 } }; }, 'A');
+P('M07', 'M07', (G, st) => { isleme(G, st, { cam: [720, 600, lerp(1.2, 1.1, st.p)], anka: 1, yazi: 'En ma fin est mon commencement', yaziP: 1 }); return { look: { sepia: .32, strength: .26 } }; }, 'Y');
+P('M08', 'M08', fotoP('westminster_mezar_heykeli', [.55, .45, .7], [.55, .4, .5], { kunye: 'Mary\'nin mezar heykeli, Westminster · T. W. Knight, 1859 · The Met (CC0)' }), 'O');
+// M09–M10: VII. Henry Şapeli: iki yan nef, iki mezar, arada koridor
+function sapel(G, st, o = {}) { const g = G.g; G.kamera(...(o.cam || [720, 560, 1])); G.zemin(.3);
+  for (let i = 0; i < 7; i++) { const x = 100 + i * 210; g.fillStyle = G.gri(.18); g.fillRect(x - 18, 80, 36, 800); g.strokeStyle = G.gri(.2); g.lineWidth = 14; g.beginPath(); g.moveTo(x, 300); g.quadraticCurveTo(x + 105, 120, x + 210, 300); g.stroke(); }
+  const fl = g.createLinearGradient(0, 760, 0, 1080); fl.addColorStop(0, G.gri(.55)); fl.addColorStop(1, G.gri(.3)); g.fillStyle = fl; g.fillRect(-400, 760, 2300, 500);
+  g.fillStyle = G.gri(.7, .5); g.fill(G.polyP([[640, 760], [800, 760], [1000, 1080], [440, 1080]]));    // koridor
+  for (const [x, ad] of [[300, o.sol || 'I. ELIZABETH'], [1140, o.sag || 'MARY STUART']]) { g.fillStyle = G.gri(.22); g.fillRect(x - 170, 560, 340, 200); g.fillStyle = G.gri(.82); g.fillRect(x - 150, 520, 300, 50);
+    for (const dx of [-160, 160]) { g.fillStyle = G.gri(.16); g.fillRect(x + dx - 12, 260, 24, 300); } g.fillStyle = G.gri(.2); g.fill(G.pathOf([[x - 190, 260], [x + 190, 260], [x + 150, 200], [x, 160], [x - 150, 200]], true, .4));
+    g.fillStyle = G.gri(.15); g.font = '600 26px "Cinzel"'; g.textAlign = 'center'; g.fillText(ad, x, 820); } }
+P('M09', 'M09', (G, st) => { sapel(G, st, { cam: [lerp(400, 1040, eio(st.p)), 560, 1.2] }); return { look: { sepia: .28, strength: .3 }, ust: etiket([{ text: 'Westminster Abbey · VII. Henry Şapeli', size: 34, font: 'Cormorant Garamond', italic: true, at: st.at + .3 }], { y: 110 }) }; }, 'G');
+P('M09b', 'M09@hayattayken', (G, st) => { sapel(G, st, { cam: [720, 760, lerp(1.5, 1.4, st.p)] }); return { look: { sepia: .28, strength: .3 } }; }, 'O');
+P('M10', 'M10', (G, st) => { const k = acS(st, 'M10@romantik', 1.6); sapel(G, st, { cam: [lerp(400, 1040, k), 560, 1.15] });
+  return { look: { sepia: .28, strength: .3 }, ust: etiket([{ text: 'Gerçekçi Elizabeth tarihte kazandı;', size: 44, font: 'Cormorant Garamond', italic: true, weight: 600, at: AT('M10@gerçekçi') }, { text: 'romantik Mary ise şiirde ve efsanede.', size: 44, font: 'Cormorant Garamond', italic: true, weight: 600, at: AT('M10@romantik') }, { text: 'Stefan Zweig', size: 26, at: AT('M10@gerçekçi') + 1 }], { y: 700 }) }; }, 'G');
+KART('M11', 'M11', [Lq('Şimdi soru senin:', 'M11', { size: 56 }), { text: 'KALBİNLE Mİ, AKLINLA MI?', size: 76, font: 'Cinzel', weight: 700, spacing: 4, at: AT('M11@kalbinle') }, { text: '', size: 18 }, Lq('Sence hangisi kazandı?', 'M11@sence', { size: 56 }), Ls('Cevabını yorumlara yaz.', 'M11@cevabını', { size: 30 })], { level: 2 });
+P('M12', 'M12', (G, st) => { solway(G, st, { cam: [720, 560, 1], sis: .3, ufuk: 520, isik: [720, 500, 620, 1], gokUst: .4 });
+  G.tekne({ x: 300 + st.lt * 30, y: 680, s: 220, f: 1, t: st.t, sail: .8, kisi: [{ kind: 'mary', x: -.2, h: .45, poz: 'otur', kirmizi: 'etek', veil: .8 }] });
+  return { look: { sepia: .3, strength: .32 }, ust: etiket([{ text: 'ZAMAN KURYESİ', size: 56, weight: 700, spacing: 10, at: S('M12') + .3 }], { y: 160 }), iris: lerp(1, .8, st.p) }; }, 'G');
+// M13 + bitiş ekranı (son 20 sn): sakin kart; ortası YouTube bitiş ögelerine boş
+P('M13', 'M13', () => ({ kart: { level: 2, lines: [{ text: 'ZAMAN KURYESİ', size: 40, font: 'Cinzel', weight: 700, spacing: 10 }, { text: '', size: 380 }, Lq('Aynı yüzyılda tahtını bırakan bir imparator…', AT('M13@aynı') + .5, { size: 40, weight: 500 })] }, look: { sepia: .2, strength: .26 } }), 'K');

@@ -39,7 +39,8 @@ function fotoP(key, a, b, o = {}) {
     if (o.kirmizi) {
       const P = G.pathOf(o.kirmizi.poly.map(([x, y]) => [x * W, y * H]), true, .45), ys = o.kirmizi.poly.map(p => p[1] * H), y0 = Math.min(...ys), y1 = Math.max(...ys);
       const al = o.kirmizi.a ? o.kirmizi.a(st) : 1, sil = o.kirmizi.sil ? o.kirmizi.sil(st) : 1;
-      if (al > 0 && sil > 0) G.kirmiziCiz(r => { const yf = lerp(y1 + 40, y0 - 40, sil), gr = r.createLinearGradient(0, yf - 60, 0, yf + 60); gr.addColorStop(0, 'rgba(176,22,30,0)'); gr.addColorStop(1, `rgba(176,22,30,${al})`); r.fillStyle = gr; r.fill(P); });
+      if (al > 0 && sil > 0) G.kirmiziCiz(r => { const yf = lerp(y1 + 40, y0 - 40, sil), gr = r.createLinearGradient(0, yf - 60, 0, yf + 60); gr.addColorStop(0, 'rgba(176,22,30,0)'); gr.addColorStop(1, `rgba(176,22,30,${al})`); r.fillStyle = gr; r.filter = `blur(${o.kirmizi.yum ?? 7}px)`; r.fill(P); r.filter = 'none';
+        if (o.kirmizi.koyu !== false) { r.globalCompositeOperation = 'destination-in'; r.drawImage(BOYA.koyuOn(im, o.kirmizi.esik ?? .5), 0, 0); r.globalCompositeOperation = 'source-over'; } });
     }
     for (const c of [G.g, G.r]) c.setTransform(1, 0, 0, 1, 0, 0);
     if (o.ust2) o.ust2(G, st);

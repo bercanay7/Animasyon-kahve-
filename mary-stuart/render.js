@@ -50,7 +50,7 @@ async function worker() {
 }
 
 async function master() {
-  const out = path.resolve(process.argv[2] || (SHORTS ? 'ran_shorts.mp4' : 'ran.mp4'));
+  const out = path.resolve(process.argv[2] || (SHORTS ? 'mary_stuart_shorts.mp4' : 'mary_stuart.mp4'));
   let DUR;
   if (SHORTS) DUR = JSON.parse(fs.readFileSync(path.join(__dirname, 'shorts', 'edl.json'), 'utf8')).DUR;
   else DUR = +fs.readFileSync(path.join(__dirname, 'timeline.js'), 'utf8').match(/window\.DUR\s*=\s*([\d.]+)/)[1];
