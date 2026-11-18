@@ -377,20 +377,23 @@ function drawGarment(G, f, J, tP, det) {
   const kneeN = J.LN.knee, kneeF = J.LF.knee;
   const hipPt = (L, t) => add(J.hip, scl(dirF(L.thA), BL.th * t));
   if (gm === 'short' || gm === 'loin') {
-    const tt = gm === 'short' ? .55 : .3;
+    const tt = gm === 'short' ? (p.hemT ?? .55) : .3;
     const a = hipPt(J.LN, tt), b = hipPt(J.LF, tt);
-    const fr = a[0] > b[0] ? a : b, bk = a[0] > b[0] ? b : a;
+    let fr = a[0] > b[0] ? a : b, bk = a[0] > b[0] ? b : a;
+    // Narkissos tur 3 (p.hemPerp): uzanmış figürde etek ucu uyluğa dik keser (uyluk boyunca uzanan bant 'etek çok kısa, belden aşağısı çıplak' okunuyordu)
+    let H = (pt, ox, oy) => add(pt, [ox, oy]);
+    if (p.hemPerp) { const m = lerp2(a, b, .5), d = dirF((J.LN.thA + J.LF.thA) / 2), q = [d[1], -d[0]]; fr = bk = m; H = (pt, ox, oy) => add(pt, add(scl(q, ox), scl(d, oy))); }
     const top = gm === 'short' ? -27.5 : -6;
     const pts = gm === 'short'
-      ? [tP([3.6, -31.0]), tP([9.9, -24.2]), tP([7.0, -15.0]), tP([7.6, -9]), add(fr, [6.2, 1.2]), add(lerp2(fr, bk, .5), [0, 2.4]), add(bk, [-6.4, .8]), tP([-8.8, -5]), tP([-7.0, -15]), tP([-7.8, -24]), tP([-3.0, -31.2])]
+      ? [tP([3.6, -31.0]), tP([9.9, -24.2]), tP([7.0, -15.0]), tP([7.6, -9]), H(fr, 6.2, 1.2), H(lerp2(fr, bk, .5), 0, 2.4), H(bk, -6.4, .8), tP([-8.8, -5]), tP([-7.0, -15]), tP([-7.8, -24]), tP([-3.0, -31.2])]
       : [tP([7.0, -8]), add(fr, [6.0, 1]), add(lerp2(fr, bk, .5), [0, 2]), add(bk, [-6.2, .6]), tP([-8.6, -6])];
     const KH = lk.khiton;
     G.part(c => spline(c, pts, true, .9), KH ? { fill: KH.col } : {});
     // kemer (kırmızı) ve kıvrımlar
     if (KH && gm === 'short') { // khiton: kıvrımlar sık, yaka ve etek kenarı koyu sır bant (çıplak beden gibi okunmasın)
-      for (let i = 0; i < 9; i++) { const u = (i + .5) / 9, st = tP([lerp(-6.4, 7.2, u), -28 + Math.abs(u - .5) * 4]), en = add(lerp2(bk, fr, u), [lerp(-5, 5, u), 0]);
+      for (let i = 0; i < 9; i++) { const u = (i + .5) / 9, st = tP([lerp(-6.4, 7.2, u), -28 + Math.abs(u - .5) * 4]), en = H(lerp2(bk, fr, u), lerp(-5, 5, u), 0);
         det(c => { c.moveTo(st[0], st[1]); c.quadraticCurveTo(lerp(st[0], en[0], .5) + (i % 2 ? .9 : -.6), lerp(st[1], en[1], .5), en[0], en[1]); }, i % 2 ? .22 : .3); }
-      G.paint(c => { const a2 = add(fr, [5.6, .9]), m2 = add(lerp2(fr, bk, .5), [0, 2.0]), b2 = add(bk, [-5.9, .6]); c.moveTo(...a2); c.quadraticCurveTo(...m2, ...b2); }, sty.line, KH.edge || 1.3, false);
+      G.paint(c => { const a2 = H(fr, 5.6, .9), m2 = H(lerp2(fr, bk, .5), 0, 2.0), b2 = H(bk, -5.9, .6); c.moveTo(...a2); c.quadraticCurveTo(...m2, ...b2); }, sty.line, KH.edge || 1.3, false);
     } else if (gm === 'short' && !lk.noBelt) G.paint(c => { c.moveTo(...tP([7.2, -14.6])); c.lineTo(...tP([-6.6, -14.8])); }, sty.red, 1.5, false);
     else G.paint(c => { c.moveTo(...tP([7.0, -6.6])); c.lineTo(...tP([-8.4, -6.8])); }, sty.red, 1.3, false); // peştamal: kemer bel hizasında
     if (!KH) for (let i = 0; i < 5; i++) {
@@ -579,7 +582,7 @@ function drawHead(G, f, J, det) {
         const es = lk.eyeS || 1, ex = x => 3.55 + (x - 3.55) * es, eY = y => ey + (y - ey) * es; // lk.eyeS: daha iri göz (karakter ayrımı)
         const ew = 1 + (p.eyeWide || 0); // tur 2: şaşkınlıkta göz açılır
         det(c => { c.moveTo(ex(2.2), eY(ey)); c.quadraticCurveTo(ex(3.5), eY(ey - .9 * bl * ew), ex(4.9), eY(ey - .2)); c.quadraticCurveTo(ex(3.5), eY(ey + .6 * bl * ew), ex(2.2), eY(ey)); }, .36 * Math.sqrt(es));
-        if (bl > .3 && !lk.blind) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true); // lk.blind: açık ama boş göz (bebeksiz)
+        if (bl > (p.eyeWide ? .6 : .3) && !lk.blind) G.cut(c => c.arc(ex(3.75), eY(ey - .12), .5 * es, 0, TAU), .3, true); // lk.blind: açık ama boş göz (bebeksiz); tur 3: iri gözde yarı kırpışta bebek kapaktan taşmasın
       }
     }
     // kaş
@@ -597,7 +600,8 @@ function drawHead(G, f, J, det) {
     const sm = p.smile || 0;
     if (!rf || !lk.beard) { // siyah sakallı kırmızı figürde ağız ve sakal yukarıda boyandı (sakalsız kırmızı figürde ağız kazıma çizgi)
     // ağız: gülümsedikçe köşe yanağa doğru yükselir ve çizgi kalınlaşır; yanakta gülme çizgisi
-    det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, (.3 + clamp(sm / 2) * .14) * FW);
+    if (p.mouthFlat) det(c => { c.moveTo(5.75, -3.92); c.lineTo(4.55, -3.86); }, .28 * FW); // Narkissos tur 3: nötr ağız (düz, kısa; köşe kalkmaz, 'mest' okunmasın)
+    else det(c => { c.moveTo(5.75, -3.9); c.quadraticCurveTo(4.9, -3.6 - sm * .1, 4.0 - sm * .15, -4.1 - sm * .55); }, (.3 + clamp(sm / 2) * .14) * FW);
     if (p.mouthOpen && lk.efeb) { const mo = p.mouthOpen; G.cut(c => { c.moveTo(6.5, -4.25); c.quadraticCurveTo(5.2, -4.1, 4.3, -3.85); c.quadraticCurveTo(5.0, -3.3 - mo * .7, 6.5, -3.15 - mo * .55); c.closePath(); }, .3, true); } // tur 2: irkilmede açık ağız profilde görünür boşluk
     else if (p.mouthOpen) G.cut(c => { c.moveTo(5.8, -3.95); c.quadraticCurveTo(5.0, -3.2 - p.mouthOpen * .6, 4.6, -3.7); c.closePath(); }, .3, true);
     // sakal ve saç kazımaları

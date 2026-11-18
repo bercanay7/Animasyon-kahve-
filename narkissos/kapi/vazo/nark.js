@@ -44,7 +44,7 @@ function ringEnv(R, r, age) {
 }
 function ringOm(R) { return 2 * PI / R.lam * R.v * .8; }
 // yansımayı halkalarla piksel piksel kaydırır (yalnız halkanın etkin sınır kutusunda)
-function warpRings(cv, rings, t, T, box) {
+function warpRings(cv, rings, t, T, box, calm) {
   const S = T.a; // mantıksal → cihaz ölçeği
   const act = rings.filter(R => t - R.t0 > 0 && t - R.t0 < (R.life || 4) && R.A * Math.exp(-R.k * (t - R.t0)) * T.a > 2.5); // sönmüş halka piksel kaydırmaz (süre)
   if (!act.length) return;
@@ -59,6 +59,8 @@ function warpRings(cv, rings, t, T, box) {
   const cx2 = cv.getContext('2d');
   const src = cx2.getImageData(x0, y0, bw, bh), out = cx2.createImageData(bw, bh), sd = src.data, od = out.data;
   const P = act.map(R => ({ R, cx: R.x * S + T.e - x0, cy: R.y * S + T.f - y0, age: t - R.t0, kap: 2 * PI / (R.lam * S), om: ringOm(R) }));
+  // tur 3: sakin bölge (calm {x, y, r}, mantıksal): yansıyan gözün çevresinde kaydırma yumuşakça sıfıra iner (ince göz çizgisi piksel piksel kırılıp 'kırık iz' bırakmasın)
+  const cc = calm ? [calm.x * S + T.e - x0, calm.y * S + T.f - y0, calm.r * S] : null;
   for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
     let dx = 0, dy = 0;
     for (const q of P) {
@@ -68,6 +70,7 @@ function warpRings(cv, rings, t, T, box) {
       const d = env * S * Math.cos(q.om * q.age - q.kap * r);
       dx += d * ex / r; dy += d * ey / r * q.R.sq * 2.2;
     }
+    if (cc) { const q = clamp((Math.hypot(x - cc[0], y - cc[1]) / cc[2] - 1) / 1.2); const w = q * q * (3 - 2 * q); dx *= w; dy *= w; }
     const sx = clamp(Math.round(x + dx), 0, bw - 1), sy = clamp(Math.round(y + dy), 0, bh - 1);
     const i = (y * bw + x) * 4, j = (sy * bw + sx) * 4;
     od[i] = sd[j]; od[i + 1] = sd[j + 1]; od[i + 2] = sd[j + 2]; od[i + 3] = sd[j + 3];
@@ -78,7 +81,7 @@ function warpRings(cv, rings, t, T, box) {
 function ringLines(ctx, rings, t, o = {}) {
   ctx.save(); ctx.lineCap = 'round';
   for (const R of rings) {
-    const age = t - R.t0; if (age <= 0 || age > (R.life || 4)) continue;
+    const age = t - R.t0; if (R.noLines || age <= 0 || age > (R.life || 4)) continue;
     const kap = 2 * PI / R.lam, om = ringOm(R);
     for (let n = 0; n < 12; n++) {
       const r = (om * age - PI / 2 - 2 * PI * n) / kap; if (r <= 2) break;
@@ -110,13 +113,32 @@ function mirror(ctx, drawFn, wy, clipFn, t, o = {}) {
     }
     wx.drawImage(LY.refl, 0, y, CW, step, dx, y, CW, step);
   }
-  if (o.rings) warpRings(LY.warp, o.rings, t, T, o.warpBox);
+  if (o.rings) warpRings(LY.warp, o.rings, t, T, o.warpBox, o.calmAt);
   ctx.save(); ctx.beginPath(); clipFn(ctx); ctx.clip();
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = o.a ?? .5;
   ctx.drawImage(LY.warp, 0, 0);
   ctx.setTransform(T); ctx.globalAlpha = 1;
-  if (o.rings) ringLines(ctx, o.rings, t, o.ringStyle);
+  if (o.rings) {
+    const mk = o.rings.filter(R => R.mask), free = o.rings.filter(R => !R.mask);
+    if (free.length) ringLines(ctx, free, t, o.ringStyle);
+    if (mk.length) { // tur 3: maskeli halka çizgileri yansıyan figürün çevresindeki şeritte (R.mask px) çizilmez: baş çevresinde yay ('hale') kalmaz; çizgiler açık suda eşmerkezli görünür
+      const rl = layer('rl'); rl.setTransform(T); ringLines(rl, mk, t, o.ringStyle);
+      rl.setTransform(1, 0, 0, 1, 0, 0); rl.globalCompositeOperation = 'destination-out'; rl.drawImage(reflMask(Math.max(...mk.map(R => R.mask)) * S), 0, 0, CW, CH); rl.globalCompositeOperation = 'source-over';
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(LY.rl, 0, 0); ctx.setTransform(T);
+    }
+  }
   ctx.restore();
+}
+// yansıyan figürün (LY.refl, dalgasız) yumuşak kenarlı, d piksel genişletilmiş silueti (çeyrek çözünürlükte; belirlenimci)
+const MQ = 4;
+function reflMask(d) {
+  if (!LY.mq) { LY.mq = makeCanvas(Math.ceil(CW / MQ), Math.ceil(CH / MQ)); LY.mq2 = makeCanvas(LY.mq.width, LY.mq.height); }
+  const w = LY.mq.width, h = LY.mq.height, a = LY.mq.getContext('2d'), b = LY.mq2.getContext('2d');
+  a.setTransform(1, 0, 0, 1, 0, 0); a.globalCompositeOperation = 'source-over'; a.filter = 'none'; a.clearRect(0, 0, w, h);
+  const r = d / MQ;
+  for (const k of [.35, .7, 1]) for (let i = 0; i < 16; i++) { const an = i / 16 * TAU; a.drawImage(LY.refl, Math.cos(an) * r * k, Math.sin(an) * r * k, w, h); }
+  b.setTransform(1, 0, 0, 1, 0, 0); b.clearRect(0, 0, w, h); b.filter = `blur(${Math.max(1, r * .25)}px)`; b.drawImage(LY.mq, 0, 0); b.filter = 'none';
+  return LY.mq2;
 }
 // su gövdesi: koyu sır + yatay ayrılmış kısa çizgiler (vazo ressamının suyu)
 function waterBody(ctx, clipFn, wy, t, o = {}) {
@@ -187,13 +209,17 @@ function phoneScene(ctx, t, o) {
   const m = o.m; // 0 telefon camı, 1 havuz
   baseView(ctx);
   glaze(ctx, 1100, 820, 1100, `rgba(${lerp(80, 120, m) | 0},${lerp(42, 48, m) | 0},${lerp(28, 22, m) | 0},.45)`);
-  const p = { torso: .3, neck: .42, head: .55 + (o.headNod || 0), shN: .38, elN: .5, shF: .32, elF: .55, handN: 'fist', handF: 'fist', smile: 0, brow: .15, mouthOpen: 0, blink: o.blink };
+  const p = { torso: .3, neck: o.neckA ?? .42, head: (o.headA ?? .55) + (o.headNod || 0), shN: .38, elN: .5, shF: .32, elF: .55, handN: 'fist', handF: 'fist', smile: 0, brow: .15, mouthOpen: 0, blink: o.blink,
+    mouthFlat: !!o.neutral, eyeWide: o.neutral ? .3 : 0 }; // tur 3: nötr ağız, açık göz
   let f = { x: 0, y: 0, s: 20.5, dir: 1, sty: STY.red, lk: LK_MOD, seed: 31, idle: .6, p, faceW: 1.35, stripe: .35 };
   f = placeNeck(ctx, f, o.neck || [640, 370]);
   const { J: J0, M: M0 } = joints(ctx, f), e = headPt(ctx, J0, M0, [3.7, -6.75]);
   // küçük telefon camı (yüzün iki katı kadar), eğik tutulduğu için yansıma camın ortasına kayar (dxR)
-  const wy = 600, pcx = e[0] + 330, pw = 270;
-  const dxR = o.dxFixed ? pcx - e[0] - 20 : lerp(pcx - e[0] - 20, 0, m);
+  // tur 3: yansıma gerçek başın tam altında (dx = 0), cam yüzden uzak (wy), cam başın altında; iki yüz çapraz 'öpüşme' çizgisi kurmasın
+  const wy = o.wy ?? 600, pcx = e[0] + (o.phDx ?? 330), pw = o.pw ?? 270;
+  const dxR = o.refDx != null ? o.refDx : o.dxFixed ? pcx - e[0] - 20 : lerp(pcx - e[0] - 20, 0, m);
+  const hy = o.handY ?? 340;
+  if (o.armToPhone) { f.ik = { hN: [pcx - pw - 70, wy + hy + 120 + 420 * m] }; f.noFarArm = true; } // tur 3: yakın kol telefonu tutan ele uzanır (kamera geniş; sarkan yumruk görünmesin)
   if (o.auto) o.cam = [pcx - 120, wy + 40, o.cam[2]];
   camAt(ctx, ...o.cam);
   const phone = roundRectPts(pcx - pw, wy, pcx + pw, wy + 900, 56, 56);
@@ -207,8 +233,9 @@ function phoneScene(ctx, t, o) {
   if (o.feedA > .005) phoneFeed(ctx, clip, pcx, pw, wy, o.feed || 0, o.feedA * (1 - m));
   // eğik cam: yansıma camın ortasına kayar (dx)
   const rings = typeof o.rings === 'function' ? o.rings(pcx, wy, e) : o.rings;
-  mirror(ctx, c => figure(c, f), wy, clip, t, { a: o.refA ?? .42, rings, calm: lerp(.15, 1.2, m), dx: dxR });
+  mirror(ctx, c => figure(c, f), wy, clip, t, { a: o.refA ?? .42, rings, calm: lerp(.15, 1.2, m), dx: dxR, calmAt: o.eyeCalm ? { x: e[0] + dxR, y: 2 * wy - e[1], r: o.eyeCalm } : null });
   const ph = 1 - m;
+  if (o.glare && ph > .01) glassGlare(ctx, clip, pcx, wy, pw, ph * o.glare, t);
   if (ph > .01) { // cam parıltısı ve telefon ayrıntıları: havuza dönerken söner
     ctx.save(); ctx.beginPath(); clip(ctx); ctx.clip();
     const g = ctx.createLinearGradient(pcx - 200, wy, pcx + 250, wy + 600); g.addColorStop(0, 'rgba(255,240,215,0)'); g.addColorStop(.45, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(.55, `rgba(255,240,215,${.07 * ph})`); g.addColorStop(1, 'rgba(255,240,215,0)');
@@ -222,23 +249,26 @@ function phoneScene(ctx, t, o) {
   ctx.save(); ctx.beginPath(); poly(ctx, shape); ctx.lineWidth = lerp(4.5, 6, m); ctx.strokeStyle = mixCol('#B9653A', '#C9703F', m); ctx.lineJoin = 'round'; ctx.stroke(); ctx.restore();
   if (o.light > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, pcx - 120, wy, 420, `rgba(255,220,170,${.14 * o.light})`); ctx.restore(); }
   litFigure(ctx, f, { x: e[0] + 120, y: wy + 20, r: 430, c: 'rgba(255,226,186,A)', a: .34 * o.light, dark: .25 + .25 * o.light });
-  if (ph > .02) phoneHand(ctx, pcx - pw, wy, t, ph, o.thumb || 0, o.light);
+  if (ph > .02) phoneHand(ctx, pcx - pw, wy, t, ph, o.thumb || 0, o.light, hy);
   return f;
 }
 const SCENES_N = {};
+// tur 3 (A/E): yansıma gerçek başın birebir aynası ve tam altında (dx 0); cam yüzden uzak (wy 630: burun-burun ~300 px), baş daha az eğik (iki yüz çapraz 'öpüşme' çizgisi kurmaz),
+// yansıma soluk (refA .3) ve üstünden çapraz cam parlaması geçer; gerçek yüzde nötr ağız, açık göz; yakın kol telefonu tutan ele uzanır; el camın sol alt köşesinde (başparmak yansıyan yüzden uzak)
+const PH3 = { refDx: 0, phDx: 140, pw: 230, wy: 630, armToPhone: true, headA: .3, neckA: .3, neutral: true, glare: 1, handY: 480, eyeCalm: 55 };
 SCENES_N.A = (ctx, t) => {
   const tc = Wd('S1', 'camın').t0;
   const m = ramp(t, Wd('S1', 'içinden').t0 - .05, 3.45, E.io2);
   // tur 2: kadraj telefona yakın (gövde kadrajın sol kenarında küçük kalır), yüz büyük
-  const z = kf(t, [[0, 1.21], [2.8, 1.25, E.io2], [3.5, 1.4, E.in2]]);
-  const fx = lerp(1040, 1000, ramp(t, 2.8, 3.5, E.in2)), fy = lerp(585, 720, ramp(t, 2.8, 3.5, E.in2));
+  const z = kf(t, [[0, .82], [2.8, .86, E.io2], [3.5, 1.3, E.in2]]);
+  const fx = lerp(720, 1000, ramp(t, 2.8, 3.5, E.in2)), fy = lerp(650, 760, ramp(t, 2.8, 3.5, E.in2));
   // başparmak üç kez yukarı kaydırır; ekran içeriği her kaydırmada yukarı kayar, ekran ışığı kısa bir an değişir (yeni içerik)
   const flicks = [.3, 1.0, 1.7];
   const th = flicks.reduce((v, f0) => Math.max(v, ramp(t, f0, f0 + .24, E.io2) * (1 - ramp(t, f0 + .3, f0 + .58, E.io2))), 0);
   const feed = flicks.reduce((v, f0) => v + 330 * E.out3(ramp(t, f0 + .1, f0 + .5, E.lin)), 0);
   const fl = flicks.reduce((v, f0, i) => v + (t > f0 + .2 ? [.12, -.1, .08][i] : 0), 0) * (1 - ramp(t, 2.4, 2.9, E.io2));
   phoneScene(ctx, t, {
-    m, thumb: th, cam: [fx, fy, z], light: lerp(.75 + fl, .35, m), refA: .42, feed, feedA: 1 - ramp(t, 2.0, 2.6, E.io2),
+    m, thumb: th, cam: [fx, fy, z], ...PH3, light: lerp(.75 + fl, .35, m), refA: lerp(.2, .42, m), feed, feedA: 1 - ramp(t, 2.0, 2.6, E.io2),
     headNod: .04 * Math.sin(t * 1.1) - .05 * ramp(t, Wd('S1', 'kendine').t0, Wd('S1', 'bakıyorsun').t1, E.io2) + .06 * ramp(t, tc - .2, tc + .3, E.io2),
     rings: (cx, wy) => [{ x: cx + 20, y: wy + 190, t0: tc, A: 9, sq: .32, v: 330, lam: 44, k: .9, reach: 1200, life: 4 }],
   });
@@ -246,15 +276,34 @@ SCENES_N.A = (ctx, t) => {
 SCENES_N.E = (ctx, t) => {
   const t0 = 16.0;
   const m = 1 - ramp(t, Wd('S5', 'bakmayı').t0, Wd('S5', 'yine').t1, E.io2);
-  const z = kf(t, [[t0, 1.34], [19.5, 1.46, E.lin]]);
+  // tur 3: A'nın geometrisi (PH3); kamera havuz yakınından (A'nın sonu gibi) telefon kadrajına açılır, sonra çok yavaş yaklaşır
+  const u = ramp(t, Wd('S5', 'bakmayı').t0, Wd('S5', 'yine').t1, E.io2);
+  const z = lerp(1.22, .83, u) + .04 * ramp(t, Wd('S5', 'yine').t1, 19.5, E.lin);
+  const fx = lerp(990, 720, u), fy = lerp(740, 655, u);
   phoneScene(ctx, t, {
-    m, dxFixed: true, auto: true, cam: [0, 0, z], light: lerp(.25, 1, ramp(t, Wd('S5', 'yine').t0, Wd('S5', 'bırakamadı').t0, E.io2)), refA: lerp(.5, .4, 1 - m),
+    m, ...PH3, cam: [fx, fy, z], light: lerp(.25, 1, ramp(t, Wd('S5', 'yine').t0, Wd('S5', 'bırakamadı').t0, E.io2)), refA: lerp(.42, .2, 1 - m),
     headNod: .03 * Math.sin(t * .9),
     rings: (cx, wy) => [{ x: cx - 10, y: wy + 170, t0: S('S5').t0 - .1, A: 7, sq: .32, v: 220, lam: 40, k: .7, reach: 1000, life: 4.5 },
       { x: cx + 40, y: wy + 200, t0: Wd('S5', 'bırakamadı').t0, A: 6, sq: .32, v: 220, lam: 40, k: .8, reach: 900, life: 3 }],
   });
 };
 
+// tur 3: çapraz cam parlaması: yansımanın üstünden geçen iki paralel, yumuşak kenarlı şerit (sağ üstten sol alta); 'cam' okunsun, yansıma camın içinde kalsın
+function glassGlare(ctx, clip, pcx, wy, pw, a, t) {
+  ctx.save(); ctx.beginPath(); clip(ctx); ctx.clip();
+  const ang = -.62, ca = Math.cos(ang), sa = Math.sin(ang), drift = 6 * Math.sin(t * .5);
+  for (const [off, w, k] of [[-40, 110, 1], [120, 38, .7]]) {
+    const cx = pcx + off + drift, cy = wy + 330;
+    // şeridin ekseni yönü (ca, sa); dik yönde (−sa, ca) yumuşak profil
+    const nx = -sa, ny = ca;
+    const g = ctx.createLinearGradient(cx - nx * w, cy - ny * w, cx + nx * w, cy + ny * w);
+    g.addColorStop(0, 'rgba(255,236,210,0)'); g.addColorStop(.35, `rgba(255,236,210,${.13 * k * a})`); g.addColorStop(.5, `rgba(255,240,220,${.17 * k * a})`); g.addColorStop(.65, `rgba(255,236,210,${.13 * k * a})`); g.addColorStop(1, 'rgba(255,236,210,0)');
+    ctx.fillStyle = g; ctx.beginPath();
+    const L = 1400;
+    ctx.moveTo(cx - ca * L - nx * w, cy - sa * L - ny * w); ctx.lineTo(cx + ca * L - nx * w, cy + sa * L - ny * w); ctx.lineTo(cx + ca * L + nx * w, cy + sa * L + ny * w); ctx.lineTo(cx - ca * L + nx * w, cy - sa * L + ny * w); ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
 // ekran içeriği (akış): camın arkasında soluk kartlar; her kaydırmada yukarı kayar (tur 2: kaydırma görünür olsun)
 function phoneFeed(ctx, clip, pcx, pw, wy, off, a) {
   ctx.save(); ctx.beginPath(); clip(ctx); ctx.clip();
@@ -272,10 +321,10 @@ function phoneFeed(ctx, clip, pcx, pw, wy, off, a) {
 }
 // telefonu tutan el (tur 2): avuç camın sol kenarının arkasında, alt köşede; başparmak kısa (iki boğum + tırnak), camın sol alt kenarında
 // th 0..1: kaydırma (başparmak yukarı süpürür, uç ~60 birim yol alır); yüzün yansımasına (ağız, çene) hiç yaklaşmaz
-function phoneHand(ctx0, X0, wy, t, a, th, light) {
+function phoneHand(ctx0, X0, wy, t, a, th, light, hy = 340) {
   const T = ctx0.getTransform(), ctx = layer('hand'); ctx.setTransform(T);
   ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-  const Y = wy + 340, ink = C.ink, skin = '#C9703F';
+  const Y = wy + hy, ink = C.ink, skin = '#C9703F';
   // kol (ceket kolu) alttan sola
   ctx.beginPath(); ctx.moveTo(X0 - 300, Y + 420); ctx.quadraticCurveTo(X0 - 210, Y + 190, X0 - 110, Y + 105); ctx.lineTo(X0 - 30, Y + 175); ctx.quadraticCurveTo(X0 - 110, Y + 260, X0 - 140, Y + 440); ctx.closePath();
   ctx.fillStyle = '#6E331B'; ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 4; ctx.stroke();
@@ -392,7 +441,7 @@ SCENES_N.B = (ctx, t) => {
 // pose(t, k): k = ek baş eğimi; ön kol 'âşık'ta suya uzanır (C)
 function proneFig(px, gy, s, p, o = {}) {
   return { x: px, y: gy - 6.5 * s, s, dir: 1, sty: STY.red, lk: LK_NK, seed: 23, idle: o.idle ?? .4, p, stripe: o.stripe ?? .5, faceW: o.faceW || 1.2,
-    ik: { fN: [px - 41 * s, gy - 2.5 * s, PI / 2 - .25], fF: [px - 43 * s, gy - 4.5 * s, PI / 2 - .35],
+    ik: { fN: o.flatFeet ? [px - 47 * s, gy - 1.7 * s, o.flatFeet] : [px - 41 * s, gy - 2.5 * s, PI / 2 - .25], fF: o.flatFeet ? [px - 47.6 * s, gy - 2.0 * s, o.flatFeet] : [px - 43 * s, gy - 4.5 * s, PI / 2 - .35],
       hF: o.hF || [px + 31 * s, gy - 1.5 * s], hN: o.hN || [px + 33 * s, gy - 1.2 * s] } };
 }
 function pPose(o = {}) {
@@ -403,6 +452,7 @@ function pPose(o = {}) {
 function ledge(ctx, xe, gy, wy) {
   crag(ctx, [[-2600, gy + 4], [xe - 260, gy - 6], [xe - 40, gy - 2], [xe + 4, gy + 14], [xe - 6, wy + 30], [xe - 40, wy + 700], [-2600, wy + 700]], { fill: '#5A2C16', seed: 9, flat: [0, 5, 6], wob: 4, strata: 4, lobes: 3 });
 }
+let C_HEM = .62, C_FOOT = -2.9;
 SCENES_N.C = (ctx, t) => {
   baseView(ctx);
   glaze(ctx, 1150, 900, 1150, 'rgba(130,52,24,.5)');
@@ -414,7 +464,8 @@ SCENES_N.C = (ctx, t) => {
   // tur 1: eller kıyıyı kavrar (parmaklar kenardan aşağı), 'âşık'ta yalnız yakın el suya uzanır (avuç yukarı, yakarış okuması yok)
   const grip = [xe - 12, gy - .6];
   const hN = [lerp(grip[0] + 4, xe + 40, reach), lerp(grip[1], wy - 34, reach)], aN = lerp(.12, .42, reach);
-  let f = proneFig(px, gy, s, pPose({ head: .08 * look, neck: .04 * look, handN: reach > .3 ? 'open' : 'flat', smile: .25 * reach }), { hN, hF: [grip[0] - 9, grip[1]] });
+  // tur 3: bacaklar düz, yerde (diz kırılıp ayak kalkmaz: 'ayak sallama' okunmasın); khiton uyluk ortasına iner, etek ucu uyluğa dik
+  let f = proneFig(px, gy, s, { ...pPose({ head: .08 * look, neck: .04 * look, handN: reach > .3 ? 'open' : 'flat', smile: .25 * reach }), hemPerp: true, hemT: C_HEM }, { hN, hF: [grip[0] - 9, grip[1]], flatFeet: C_FOOT });
   const { J } = joints(ctx, f);
   f.p = { ...f.p, wrN: aN - J.AN.foA, wrF: .12 - J.AF.foA };
   const water = c => c.rect(xe - 10, wy, 4000, 2000);
@@ -424,7 +475,7 @@ SCENES_N.C = (ctx, t) => {
   mirror(ctx, c => figure(c, f), wy, water, t, { a: .42, calm: 1.1 });
   farBank(ctx, 1180, 2600, wy, t, 17, { h: 22, grass: 7, fill: '#3A1B0D' }); bank(ctx);
   ledge(ctx, xe, gy, wy);
-  for (let i = 0; i < 5; i++) grass(ctx, 120 + i * 160, gy + 2, 1.6, t, i + 11);
+  for (let i = 0; i < 5; i++) { const gx = 120 + i * 160; if (gx > px - 50 * s && gx < xe) continue; grass(ctx, gx, gy + 2, 1.6, t, i + 11); } // tur 3: figürün altında kalan ot tutamı yok (dibi bacağın altından nokta sırası gibi taşıyordu)
   // tur 2: ayak arkasındaki ince mızrak çubuğu silindi (mızrak okunmuyordu; kayanın kenarıyla karışıyordu)
   litFigure(ctx, f, { x: xe + 80, y: wy + 40, r: 520, c: 'rgba(255,205,150,A)', a: .3 });
   shoreLine(ctx, xe - 10, wy, { w: 2.6 });
@@ -504,6 +555,7 @@ function dPoseO(t) {
     smile: -.2 - .3 * sad, brow: .3 + 1.1 * ramp(t, ben - .02, ben + .15, E.out3) - .45 * sad, mouthOpen: 2.1 * ramp(t, ben - .02, ben + .18, E.out3) * (1 - .6 * sad), browUp: .5 * ramp(t, ben - .02, ben + .15, E.out3) * (1 - .7 * sad), eyeWide: .55 * ramp(t, ben - .02, ben + .12, E.out3) * (1 - .8 * sad), blink: t > ben - .02 && t < ben + .12 ? 0 : undefined };
 }
 const D_S = 26, D_XE = 640;
+let D_RV = 1000, D_RL = 115;
 function dFig(ctx, t, NT, s = D_S, o = {}) { // NT: [kaya kenarı x, su çizgisi y]
   const gy = NT[1] - D_GAP + .2 * s, px = NT[0] - 30 * s;
   const q = dPoseO(t), pp = pPose(q);
@@ -533,7 +585,9 @@ function dScene(ctx, t, o = {}) {
   const refA = o.refA ?? (lerp(.44, .84, lock) + .26 * brk);
   const tx = eye[0] + 4;
   if (o.rings && o.ringFix) for (const R of o.rings) { R.x = tx; R.y = wy + 4; }
-  const rings = o.rings || [{ x: tx, y: wy + 4, t0: tHit, A: 80, sq: .62, v: 820, lam: 150, k: 1.4, reach: 1800, life: 4.5, shear: 3.2 },
+  // tur 3: gözyaşı halkası ikiye ayrıldı: yüzü dağıtan kaydırma (çizgisiz) + görünen çizgiler (hızlı, sık, eşmerkezli; yansıyan figürün 60 px çevresinde çizilmez: hale okunmasın)
+  const rings = o.rings || [{ x: tx, y: wy + 4, t0: tHit, A: 80, sq: .62, v: 820, lam: 150, k: 1.4, reach: 1800, life: 4.5, shear: 3.2, noLines: true },
+    { x: tx, y: wy + 4, t0: tHit, A: 1, sq: .62, v: D_RV, lam: D_RL, k: .8, reach: 2600, life: 4.5, mask: 80 },
     { x: D_TOUCH.tip[0] + (NT[0] - D_XE), y: wy + 3, t0: ben - .3, A: 5, sq: .62, v: 260, lam: 34, k: 1.6, reach: 500, life: 2.2 }];
   const water = c => c.rect(NT[0] - 10, wy, 9000, 3000);
   waterBody(ctx, water, wy, t, { a: .16, seed: 3, n: 30, depth: 420 });

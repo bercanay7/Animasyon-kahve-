@@ -49,3 +49,10 @@ WORKERS=3 MB=4 node render.js <çıktı.mp4>                # 19,5 sn, 30 fps, H
 - D: uzanma yavaş ve alçak (`dReach`: 13,24'te başlar, ara poz dirsek kayada; dönüş 1 sn); hareket bulanıklığında kol lekesi yok.
 - D: irkilme büyük: 14,58–14,82'de göz ~85 px geri/yukarı, ağız açık (`mouthOpen` 2,1, efebde görünür kama), göz açılır (`p.eyeWide`), kaş kalkar (`p.browUp`).
 - C: ayak arkasındaki ince mızrak çubuğu silindi.
+
+## Tur 3 değişiklikleri (FABLE_ONAY_tur2.md kalan düzeltmeleri)
+- A/E (`PH3`, birinci çözüm): yansıma gerçek başın birebir aynası ve **tam altında** (`refDx` 0; camın üst kenarı ayna ekseni). Cam yüzden uzak (`wy` 630), baş daha az eğik (`headA`/`neckA` .3): burun–burun ~300 px, iki yüz çapraz "öpüşme" çizgisi kurmuyor. Yansıyan başın tamamı camın içinde (saç kesilip "uzun saç" gibi akmıyor). Yansıma soluk (`refA` .2; yanakta parlaklık gerçeğin ~%60'ı), üstünden çapraz cam parlaması (`glassGlare`). Gerçek yüzde nötr ağız (`p.mouthFlat`) ve açık göz (`p.eyeWide` .3). Yakın kol telefonu tutan ele uzanır (`armToPhone`; havuza dönerken kadraj altına iner); el camın sol alt köşesinde (`handY` 480), başparmak yansıyan yüzden uzak. Kadraj geniş (z .82–.86), figür + telefon ortada.
+- E: yansıyan gözün çevresinde halka kaydırması yumuşakça sıfıra iner (`warpRings(..., calm)`, `eyeCalm` 55): kırık iz yok.
+- C: bacaklar düz ve yerde (`proneFig(..., {flatFeet})`), ayak kalkmaz; khiton uyluk ortasına iner ve etek ucu uyluğa dik keser (`p.hemPerp`, `p.hemT` .62; `lib/figure.js`). Figürün altında kalan ot tutamı çizilmez.
+- D_halka: gözyaşı halkası ikiye ayrıldı: yüzü dağıtan kaydırma (çizgisiz, `noLines`) + görünen çizgiler (hızlı, sık, eşmerkezli; `D_RV`/`D_RL`). Görünen çizgiler yansıyan figürün 80 birim çevresinde çizilmez (`R.mask`, `reflMask`: dalgasız yansımanın genişletilmiş, yumuşak kenarlı silueti).
+- `lib/figure.js`: iri gözde (`eyeWide`) yarı kırpışta bebek kapaktan taşmaz.

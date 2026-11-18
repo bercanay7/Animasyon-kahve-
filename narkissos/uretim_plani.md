@@ -308,3 +308,16 @@ Dört bağımsız mercek: kaynak (8/10), hassasiyet (7,5), Türkçe seslendirme 
   - D_halka: ilk halka baştan en az 60 px uzakta (hale okuması).
 - **Kapak notu:** "O BENİM" sahiplenme okumasına da açık. Kapak aşamasında en az bir aday yansımayı söyleyen yazıyla denenir.
 - **Kör okurun notu:** parmakların buluşması Michelangelo'nun Âdem'in Yaratılışı'nı çağrıştırabilir. Başkanın değerlendirmesi: buluşma suyun yüzeyinde ve kendi yansımasıyla, yani ikonografi farklı. Hassasiyet bakışında not olarak kalır, engel değil.
+
+**Açılış şartı (tur 3, 18 Kasım):** Fable geçti dedi; ikinci çözüme gerek kalmadı.
+- Telefon planlarında (A ve E) kör okur ikisinde de "bir kişi ve yansıması" saydı.
+- Yansıma gerçek başın tam altında ve birebir aynası. Soluk, üstünde cam parlaması var. İki burun arası ~340 px, öpüşme ekseni yok.
+- Animatikte düzeltilecekler (`kapi/FABLE_ONAY_tur3.md`):
+  - havuz ara hâli (2,6–3,5 ve 16,0–17,2 sn): yansıma soluk kalsın, gövdeden açılsın;
+  - yansıyan saçta "uzun tutam" okuması;
+  - telefon ~%15 küçülsün, el camı görünür kavrasın;
+  - çene altındaki sıcak parıltı nötr ekran ışığı olsun (hale);
+  - D_halka'daki bloklu kırılma harekette bakılsın, gerekirse yatay dalgaya dönülsün;
+  - D_halka'daki kolun konturu;
+  - C'deki küçük anatomi.
+- A'nın ölçeği artık "orta-yakın". Animatikte A ve E, "bu karede ne oluyor?" diye bir kez daha kör okutulur.
