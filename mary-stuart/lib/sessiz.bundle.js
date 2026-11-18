@@ -307,12 +307,14 @@ void main(){
   o = vec4(vec3(L), 1.);
 }`;
 const FS_BLUR = HEAD + `
-uniform vec2 dir; uniform float sig;
+uniform vec2 dir; uniform float Wa[7]; uniform float Wb[7]; uniform float ch;
+// Mary Stuart: iki bulanıklık (küçük ve büyük sigma) aynı dokunuşlarla tek geçişte: r = küçük, g = büyük.
+// ch = 0: kaynak tek kanal (r), ch = 1: kaynak r/g ayrı. Ağırlıklar JS'te bir kez hesaplanır.
 void main(){
-  vec2 st = uv; float s = 0., w = 0.;
-  int n = int(ceil(sig*3.));
-  for (int i = -12; i <= 12; i++) { if (i < -n || i > n) continue; float x = float(i); float k = exp(-x*x/(2.*sig*sig)); s += texture(T, st + dir*x/R).r * k; w += k; }
-  o = vec4(vec3(s/w), 1.);
+  vec2 d = dir / R; vec4 c0 = texture(T, uv); float sa = c0.r * Wa[0], sb = mix(c0.r, c0.g, ch) * Wb[0];
+  for (int i = 1; i <= 6; i++) { float x = float(i); vec4 p = texture(T, uv + d*x), m = texture(T, uv - d*x);
+    sa += (p.r + m.r) * Wa[i]; sb += (mix(p.r, p.g, ch) + mix(m.r, m.g, ch)) * Wb[i]; }
+  o = vec4(sa, sb, 0., 1.);
 }`;
 const FS_BILAT = HEAD + `
 uniform float rs, ss2;
@@ -342,7 +344,7 @@ float hatchLine(vec2 px, float a, float g, float w, float bk){
 }
 void main(){
   vec2 px = vec2(uv.x, 1.-uv.y) * R;
-  float g1 = texture(A, uv).r, g2 = texture(B, uv).r, L = texture(Lm, uv).r;
+  float g1 = texture(A, uv).r, g2 = texture(B, uv).g, L = texture(Lm, uv).r;
   // XDoG
   // DoG band-pass: ink on the dark side of every edge (tone-independent, so dark areas are not flooded)
   float Dg = g1 - g2;
@@ -359,9 +361,11 @@ void main(){
   float bk = floor(frame / 2.);
   float dk = 1. - Ls;
   float h = 0.;
+  if (uHatch > 0. && dk > h1) {   // Mary Stuart: tarama yalnız karanlıkta hesaplanır
   h = max(h, hatchLine(px, .785, gap, .75 + dk * 1.1, bk) * smoothstep(h1, h1 + .08, dk));
-  h = max(h, hatchLine(px, -.785, gap * 1.1, .7 + dk * 1.0, bk + 5.) * smoothstep(h2, h2 + .08, dk));
-  h = max(h, hatchLine(px, .12, gap * .85, .7 + dk * .9, bk + 9.) * smoothstep(h3, h3 + .06, dk));
+  if (dk > h2) h = max(h, hatchLine(px, -.785, gap * 1.1, .7 + dk * 1.0, bk + 5.) * smoothstep(h2, h2 + .08, dk));
+  if (dk > h3) h = max(h, hatchLine(px, .12, gap * .85, .7 + dk * .9, bk + 9.) * smoothstep(h3, h3 + .06, dk));
+  }
   float c = mix(wash, lineDark, h * uHatch * .88);
   c = mix(c, lineDark, (1. - edge) * uLines);
   o = vec4(vec3(c), 1.);
@@ -388,7 +392,7 @@ class Redraw {
     gl.bindFramebuffer(gl.FRAMEBUFFER, target ? target.fb : null); gl.viewport(0, 0, this.w, this.h);
     let i = 0; for (const [name, tex] of texs) { gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, tex); gl.uniform1i(gl.getUniformLocation(prog, name), i); i++; }
     gl.uniform2f(gl.getUniformLocation(prog, 'R'), this.w, this.h);
-    for (const k in uni) { const v = uni[k], l = gl.getUniformLocation(prog, k); if (l == null) continue; if (Array.isArray(v)) (v.length === 2 ? gl.uniform2f(l, ...v) : gl.uniform4f(l, ...v)); else gl.uniform1f(l, v); }
+    for (const k in uni) { const v = uni[k], l = gl.getUniformLocation(prog, k); if (l == null) continue; if (Array.isArray(v)) (v.length === 2 ? gl.uniform2f(l, ...v) : v.length === 4 ? gl.uniform4f(l, ...v) : gl.uniform1fv(l, v)); else gl.uniform1f(l, v); }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   render(img, o = {}) {
@@ -404,11 +408,11 @@ class Redraw {
     this._pass(this.pLum, L, [['T', this.src]], { crop: [cr.x, cr.y, cr.w, cr.h], srcSize: [sw, shh], gam: o.gamma ?? 1, con: o.contrast ?? 1.08 });
     for (let i = 0; i < (o.bilateral ?? 0); i++) { this._pass(this.pBil, L2, [['T', L.t]], { rs: o.bilRange ?? .09, ss2: o.bilStep ?? 1.3 }); [L, L2] = [L2, L]; }
     const sig = o.sigma ?? 1.1, k = o.k ?? 1.6;
-    this._pass(this.pBlur, A1, [['T', L.t]], { dir: [1, 0], sig });
-    this._pass(this.pBlur, A2, [['T', A1.t]], { dir: [0, 1], sig });
-    this._pass(this.pBlur, B1, [['T', L.t]], { dir: [1, 0], sig: sig * k });
-    this._pass(this.pBlur, B2, [['T', B1.t]], { dir: [0, 1], sig: sig * k });
-    this._pass(this.pFin, null, [['A', A2.t], ['B', B2.t], ['Lm', L.t]], {
+    const wts = sg => { const n = Math.ceil(sg * 3), w = []; let t = 0; for (let i = 0; i <= 6; i++) { const v = i <= n ? Math.exp(-i * i / (2 * sg * sg)) : 0; w.push(v); t += i ? 2 * v : v; } return w.map(v => v / t); };
+    const Wa = wts(sig), Wb = wts(sig * k);
+    this._pass(this.pBlur, A1, [['T', L.t]], { dir: [1, 0], 'Wa[0]': Wa, 'Wb[0]': Wb, ch: 0 });
+    this._pass(this.pBlur, A2, [['T', A1.t]], { dir: [0, 1], 'Wa[0]': Wa, 'Wb[0]': Wb, ch: 1 });
+    this._pass(this.pFin, null, [['A', A2.t], ['B', A2.t], ['Lm', L.t]], {
       frame: o.frame ?? 0, p: o.p ?? 14, eps: o.eps ?? .35, phi: o.phi ?? 4, uLines: o.lines ?? 1, uTone: o.tone ?? 1, uHatch: o.hatch ?? 1,
       levels: o.levels ?? 5, gap: o.gap ?? 5.5, lineDark: o.lineDark ?? .07, paper: o.paper ?? .95, seed: o.seed ?? 1,
       washDark: o.washDark ?? .34, washGam: o.washGam ?? .85, h1: o.h1 ?? .42, h2: o.h2 ?? .6, h3: o.h3 ?? .8 });

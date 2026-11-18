@@ -84,7 +84,7 @@ const BOYA = (() => {
     }
     // kollar
     const shN = female ? [-.004, -.778] : [.0, -.8], kol = o.kol || 'onde', ln = female ? [.15, .13] : [.17, .15];
-    const KOL = { onde: [.1, -1.0], yan: [.06, -.12], kaldir: [.5, -1.75], uzat: [1.1, -.25], dua: [.2, -2.05], yaz: [.75, -1.0], pencere: [.9, -.7], tut: [.3, -1.2], kurek: [1.3, -.6] }[kol] || [.1, -1.0];
+    const KOL = { onde: [.1, -1.0], yan: [.06, -.12], kaldir: [.5, -1.75], uzat: [1.1, -.25], dua: [.2, -2.05], yaz: [.75, -1.0], pencere: [.9, -.7], tut: [.3, -1.2], kurek: [1.3, -.6], yanak: [.35, -2.6], dans: [2.2, -.5], isaret: [1.5, -.05], egik: [-.1, -.3] }[kol] || [.1, -1.0];
     const a1 = KOL[0], el = [shN[0] + Math.sin(a1) * ln[0], shN[1] + Math.cos(a1) * ln[0]], wr = [el[0] + Math.sin(a1 - KOL[1]) * ln[1], el[1] + Math.cos(a1 - KOL[1]) * ln[1]];
     parts.push(limb(UB(...shN), UB(...el), (female ? .064 : .055) * s, .03 * s), limb(UB(...el), UB(...wr), (female ? .04 : .032) * s, .024 * s), ell(UB(wr[0] + Math.sin(a1 - KOL[1]) * .01, wr[1] + Math.cos(a1 - KOL[1]) * .01), .014 * s, .012 * s, a1 - KOL[1]));
     if (['dua', 'onde', 'yan', 'pencere', 'yaz'].includes(kol)) { const b1 = kol === 'yan' ? -.05 : a1 - .1, elF = [shN[0] - .015 + Math.sin(b1) * ln[0], shN[1] + Math.cos(b1) * ln[0]], wrF = [elF[0] + Math.sin(b1 - KOL[1]) * ln[1], elF[1] + Math.cos(b1 - KOL[1]) * ln[1]]; parts.push(limb(UB(...elF), UB(...wrF), .028 * s, .02 * s)); }
@@ -94,13 +94,31 @@ const BOYA = (() => {
       astar = pathOf([[.07, -.86], [.09, -.74], [.115, -.5], [.15 + wv(.6), -.25], [.185 + wv(1), -.03], [.13, -.03], [.08, -.3], [.05, -.6], [.045, -.8]].map(([x, y]) => UB(x, y)), true, .6);
     }
     // boya: önce gazlı bez (tül, yelpaze yaka), sonra koyu kütle
-    for (const Z of [veil, fan]) if (Z) { g.fillStyle = gri(o.veilV ?? .62); g.fill(Z); }
+    if (veil) { g.save(); g.fillStyle = gri(o.veilV ?? .7, o.veilA ?? .5); g.fill(veil); g.strokeStyle = gri(.92, .7); g.lineWidth = Math.max(1, s * .004); g.stroke(veil); g.restore(); }
+    if (fan) { g.fillStyle = gri(o.veilV ?? .72); g.fill(fan); }
     g.fillStyle = gri(o.v ?? .1); for (const P of parts) g.fill(P);
-    if (o.kirmizi === 'etek' && etek) G.kirmizi(etek, o.kirmiziA ?? 1);
-    if (o.kirmizi === 'astar' && astar) G.kirmizi(astar, o.kirmiziA ?? 1);
+    // kırmızı kumaşın ton resmi orta değerde olur (kırmızı çizimle çarpılır; koyu kalırsa okunmaz)
+    if (o.kirmizi === 'etek' && etek) { const a = o.kirmiziA ?? 1; if (a > 0) { g.fillStyle = gri(.36, a); g.fill(etek); } G.kirmizi(etek, a); }
+    if (o.kirmizi === 'astar' && astar) { const a = o.kirmiziA ?? 1; if (a > 0) { g.fillStyle = gri(.4, a); g.fill(astar); } G.kirmizi(astar, a); }
     return { T, UB, HB, etek, astar };
   }
 
+  function bulutCiz(G, x, y, w, h, o = {}) { const g = G.g, q = rng(o.seed || 3), n = o.n || Math.round(w / h * 5), dr = o.drift || 0, bl = o.blur ?? h * .12;
+      g.save(); g.filter = `blur(${bl}px)`;
+      // gövde (alt, koyu) sonra ışık (üst, açık): iki katman, düzensiz dağılım
+      for (const [kat, v, dy, k] of [[0, o.govde ?? .58, .12, 1], [1, o.isik ?? .9, -.12, .72]]) {
+        g.fillStyle = gri(v);
+        for (let i = 0; i < n; i++) { const fx = q(), env = Math.pow(Math.sin(PI * fx), .7), cx = x - w / 2 + fx * w + dr * (1 + kat * .1), cy = y + (q() - .5) * h * .5 * env + dy * h - env * h * .18, rr = h * (.18 + q() * .3) * (.4 + .6 * env) * k;
+          g.beginPath(); g.ellipse(cx, cy, rr * (1.3 + q() * .8), rr * .75, 0, 0, TAU); g.fill(); }
+      }
+      g.restore(); }
+  const BULUT_ON = {}, GRI_ON = new Map();
+  // gri + kontrast süzgeci her karede pahalı: görüntü başına bir kez uygulanır
+  function griOn(im, k, b) { const key = (im.src || '') + '|' + k + '|' + b; let c = GRI_ON.get(key); if (c) return c;
+    c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height; const x = c.getContext('2d'); x.filter = `grayscale(1) contrast(${k}) brightness(${b})`; x.drawImage(im, 0, 0); GRI_ON.set(key, c); return c; }
+  // yumuşak gölge (bulanık dikdörtgen) hazır doku: ölçeklenerek çizilir
+  let GOLGE = null; function golge(g, x, y, w, h, a = .6) { if (!GOLGE) { GOLGE = document.createElement('canvas'); GOLGE.width = GOLGE.height = 256; const q = GOLGE.getContext('2d'); q.filter = 'blur(22px)'; q.fillStyle = '#000'; q.fillRect(56, 56, 144, 144); }
+    g.save(); g.globalAlpha = a; g.drawImage(GOLGE, x - w * 56 / 144, y - h * 56 / 144, w * 256 / 144, h * 256 / 144); g.restore(); }
   // ── bağlam ──
   function ctx(g, r, st) {
     const G = { g, r, st, renkVar: false, gri, rng, noise1, pathOf, polyP, ell, TAU, PI };
@@ -112,10 +130,17 @@ const BOYA = (() => {
     G.gok = (y1, o = {}) => { const gr = g.createLinearGradient(0, -200, 0, y1); gr.addColorStop(0, gri(o.ust ?? .55)); gr.addColorStop(1, gri(o.alt ?? .9)); g.fillStyle = gr; g.fillRect(-2000, -2000, 6000, y1 + 2000);
       if (o.isik) { const [x, y, rr, v] = o.isik, rg2 = g.createRadialGradient(x, y, 0, x, y, rr); rg2.addColorStop(0, gri(v ?? 1, 1)); rg2.addColorStop(1, gri(v ?? 1, 0)); g.fillStyle = rg2; g.fillRect(x - rr, y - rr, rr * 2, rr * 2); } };
     // bulut kümesi: yumuşak lekeler; alt yanı koyu, ışık yanı açık
-    G.bulut = (x, y, w, h, o = {}) => { const q = rng(o.seed || 3), n = o.n || Math.max(3, Math.round(w / h * 1.6)), dr = o.drift || 0;
-      for (let i = 0; i < n; i++) { const fx = (i + .5) / n, cx = x - w / 2 + fx * w + dr, cy = y + (q() - .5) * h * .3, rr = h * (.45 + q() * .45) * (.6 + .4 * Math.sin(PI * fx));
-        const gr = g.createRadialGradient(cx - rr * .25, cy - rr * .35, rr * .1, cx, cy, rr); gr.addColorStop(0, gri(o.isik ?? .92)); gr.addColorStop(.7, gri(o.govde ?? .62)); gr.addColorStop(1, gri(o.govde ?? .62, 0));
-        g.fillStyle = gr; g.beginPath(); g.ellipse(cx, cy, rr * 1.25, rr * .8, 0, 0, TAU); g.fill(); } };
+
+    // bulut örtüsü: ufka doğru incelen katmanlar. Bulanıklaştırma pahalı (yazılımsal çizim): katman bir kez önbelleğe çizilir, sonra kaydırılır
+    G.bulutlar = (y0, y1, o = {}) => { const key = JSON.stringify([y0, y1, { ...o, drift: 0 }]); let c = BULUT_ON[key];
+      if (!c) { c = document.createElement('canvas'); c.width = 3200; c.height = 1300; const g2 = c.getContext('2d'); g2.translate(900, 300);
+        const G2 = { ...G, g: g2 }; const k = o.n ?? 5;
+        for (let i = 0; i < k; i++) { const u = i / Math.max(1, k - 1), yy = lerp(y0, y1, u), hh = lerp(o.h0 ?? 170, o.h1 ?? 50, u), q = rng((o.seed || 1) * 31 + i);
+          bulutCiz(G2, 720 + (q() - .5) * 900, yy, lerp(o.w0 ?? 1500, o.w1 ?? 2200, u), hh, { seed: (o.seed || 1) * 7 + i, govde: lerp(o.govde ?? .55, o.ufukV ?? .82, u), isik: lerp(o.isik ?? .9, .95, u) }); }
+        BULUT_ON[key] = c; }
+      g.drawImage(c, -900 + ((o.drift || 0) % 600), -300); };
+    G.bulut = (x, y, w, h, o = {}) => bulutCiz(G, x, y, w, h, o);
+    G.kirmiziCiz = fn => { G.renkVar = true; r.save(); r.fillStyle = r.strokeStyle = 'rgb(176,22,30)'; fn(r); r.restore(); };
     // deniz: ufuktan öne koyulaşan yüzey + hareketli dalga çizgileri (Redraw onları tarama yapar)
     G.deniz = (y0, y1, o = {}) => { const t = o.t || 0, gr = g.createLinearGradient(0, y0, 0, y1); gr.addColorStop(0, gri(o.ufuk ?? .78)); gr.addColorStop(1, gri(o.on ?? .35)); g.fillStyle = gr; g.fillRect(-2000, y0, 6000, y1 - y0 + 2000);
       const q = rng(o.seed || 9), D = y1 - y0;
@@ -128,7 +153,7 @@ const BOYA = (() => {
       pts.push([x1, y + 8]); g.fillStyle = gri(o.v ?? .45); g.fill(pathOf(pts, true, .5)); };
     // gerçek görsel (kamu malı): gri, kontrast; kırpma {x,y,w,h} kaynağın pikselinde; hedef kutu (x, y, w, h)
     G.foto = (im, x, y, w, h, o = {}) => { if (!im) return; const c = o.crop || { x: 0, y: 0, w: im.naturalWidth || im.width, h: im.naturalHeight || im.height };
-      g.save(); g.filter = `grayscale(1) contrast(${o.kontrast ?? 1.1}) brightness(${o.parlak ?? 1.05})`; if (o.clip) g.clip(o.clip); g.drawImage(im, c.x, c.y, c.w, c.h, x, y, w, h); g.restore(); };
+      g.save(); if (o.clip) g.clip(o.clip); g.drawImage(griOn(im, o.kontrast ?? 1.1, o.parlak ?? 1.05), c.x, c.y, c.w, c.h, x, y, w, h); g.restore(); };
     // tekne: açık balıkçı teknesi, tek direk, kare yelken; kürekler; kişiler (figur)
     G.tekne = o => { const s = o.s, f = o.f || 1, X = o.x, Y = o.y, t = o.t || 0, rk = Math.sin(t * 1.3) * .025, sail = o.sail ?? 1;
       const T = (x, y) => { const c = Math.cos(rk), sn = Math.sin(rk), qx = x * c - y * sn, qy = x * sn + y * c; return [X + qx * s * f, Y + qy * s]; };
@@ -165,5 +190,5 @@ const BOYA = (() => {
     G.figur = o => figur(G, o);
     return G;
   }
-  return { ctx, figur, gri, rng, pathOf };
+  return { ctx, figur, gri, rng, pathOf, griOn, golge };
 })();

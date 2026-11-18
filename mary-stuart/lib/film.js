@@ -39,6 +39,8 @@ const MC = mk(FW, FH), mg = MC.getContext('2d');          // renk maskesi: kırm
 const XC = mk(FW, FH), xg = XC.getContext('2d');
 let RD = null, FP = null;
 const LOOK0 = { strength: .34, sepia: .2, fps: 15 };
+// Redraw varsayılanı (Mary Stuart ayarı): tarama yalnız gerçek karanlıkta, seyrek; orta tonlar gümüş yıkama
+const REDRAW0 = { gap: 7.5, h1: .7, h2: .83, h3: .94, hatch: .4 };
 function renderFrameTo(g, t) {
   RD = RD || new SFR.Redraw(FW, FH); FP = FP || new SFP.FilmPost(FW, FH);
   const i = shotAt(t), st = shotState(i, t), sh = SHOTS[i];
@@ -50,13 +52,14 @@ function renderFrameTo(g, t) {
   let o = {};
   try { o = sh.fn(G, sta) || {}; } catch (e) { console.log('[plan ' + sh.id + '] ' + e.message); }
   let src = TC;
-  if (o.kart) { tg.setTransform(1, 0, 0, 1, 0, 0); SFC.intertitle(tg, FW, FH, o.kart, st.lt); }
-  else src = RD.render(TC, { frame, ...(o.redraw || {}) });
+  if (o.kart) kartCiz(tg, o.kart, st);
+  else src = RD.render(TC, { frame, ...REDRAW0, ...(o.redraw || {}) });
   // tek renk: kırmızı, çizimin koyuluğuyla çarpılır (çizgi kırmızının üstünde kalır)
   let mask = null;
   if (G.renkVar) {
     mg.setTransform(1, 0, 0, 1, 0, 0); mg.globalCompositeOperation = 'source-over'; mg.clearRect(0, 0, FW, FH);
-    mg.drawImage(RC, 0, 0); mg.globalCompositeOperation = 'multiply'; mg.drawImage(src, 0, 0);
+    // kırmızı × çizim; çizim önce açılır (kontrast düşük, parlak): koyu kumaşta da kırmızı okunur, çizgi altında kalır
+    mg.drawImage(RC, 0, 0); mg.globalCompositeOperation = 'multiply'; mg.filter = o.renkTon || 'contrast(.55) brightness(1.65)'; mg.drawImage(src, 0, 0); mg.filter = 'none';
     mg.globalCompositeOperation = 'destination-in'; mg.drawImage(RC, 0, 0); mg.globalCompositeOperation = 'source-over';
     mask = MC;
   }
@@ -67,11 +70,27 @@ function renderFrameTo(g, t) {
   SFC.theatre(g, 1920, 1080, GATE, Math.max(.3, FP.mean), 1);
   g.save(); g.beginPath(); g.roundRect(GATE.x, GATE.y, GATE.w, GATE.h, 22); g.clip();
   g.drawImage(dev, GATE.x, GATE.y);
+  if (o.ust) { g.save(); g.translate(GATE.x, GATE.y); try { o.ust(g, sta); } catch (e) { console.log('[ust ' + sh.id + '] ' + e.message); } g.restore(); }
   SFP.damage(g, GATE.x, GATE.y, FW, FH, frame, look.strength);
+  if (o.iris != null && o.iris < 1) SFC.iris(g, 1920, 1080, GATE.x + (o.irisX ?? 720), GATE.y + (o.irisY ?? 540), o.iris * 900, 4);
+  if (o.karart) { g.fillStyle = `rgba(8,7,6,${clamp(o.karart)})`; g.fillRect(GATE.x, GATE.y, FW, FH); }
   g.restore();
   if (perde < 1) perdeOn(g, perde, Math.max(.55, FP.mean));
   return g.canvas;
 }
+// ── ara yazı kartı: satırlar sözcüğe bağlı belirir (l.at: mutlak sn), kart hafifçe yaklaşır (donuk kalmaz) ──
+// spec: { lines:[{text,size,font,italic,weight,spacing,at,color}], level, dy, z0, z1 }
+function kartCiz(c, spec, st) {
+  const z = lerp(spec.z0 ?? 1, spec.z1 ?? 1.035, eio(st.p));
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.fillStyle = SFC.CARD_BG || '#0e0d0b'; c.fillRect(0, 0, FW, FH);
+  c.setTransform(z, 0, 0, z, FW / 2 * (1 - z), FH / 2 * (1 - z));
+  const lines = spec.lines.map(l => { const a = l.at == null ? 1 : clamp((st.t - l.at) / .45); return { ...l, color: `rgba(236,229,213,${(l.alpha ?? 1) * a})` }; });
+  SFC.intertitle(c, FW, FH, { ...spec, lines }, st.lt);
+  c.setTransform(1, 0, 0, 1, 0, 0);
+}
+// kart kısayolu: K(satırlar, seçenek) → plan fonksiyonu
+const kartFn = (lines, o = {}) => () => ({ kart: { level: 1, ...o, lines }, look: { sepia: .2, strength: .3, ...(o.look || {}) } });
 // perdeler perdenin önünde: kapanırken görüntünün üstüne çizilir (perde = 1 açık, 0 kapalı)
 function perdeOn(g, acik, isik) {
   xg.canvas.width = 1920; xg.canvas.height = 1080;

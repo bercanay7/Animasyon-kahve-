@@ -35,6 +35,8 @@ Kullanım: `silent-film` yeniden çizim geçişinden geçer ya da `archive-light
 | `evlilik_madalyasi.jpg` | Medal commemorating the marriage of Mary, Queen of Scots to the Dauphin Francis of France, with seals and signet rings relating to Queen Mary below (from "A Souvenir of the Abbey and Palace of Holyrood") | John West | 1849 | The Met 646939 ([sayfa](https://www.metmuseum.org/art/collection/search/646939)) | CC0 (Met Open Access) | Engraving |
 | `hayali_bulusma_currier.jpg` | The Rival Queens – Mary Queen of Scots Defying Queen Elizabeth | Currier & Ives | 1868-1870 | The Met 659991 ([sayfa](https://www.metmuseum.org/art/collection/search/659991)) | CC0 (Met Open Access) | Hand-colored lithograph with gum arabic |
 | `mary_clouet_beyazyas_resim.jpg` | Mary, Queen of Scots (in white mourning), Clouet'den sonra | bilinmiyor (François Clouet'den sonra) | 16. yy | Scottish National Portrait Gallery; Wikimedia Commons "Unknown after Francois Clouet - Mary, Queen of Scots, 1542 - 1587. Reigned 1542 - 1567 (In white mourning) - Google Art Project.jpg" | Kamu malı (PD-Art; 16. yy eseri) | Commons sayfasındaki şablon elle denetlenecek (API oran sınırı) |
+| `james_dejode_1603.jpg` | James VI, King of Scotland | Pieter de Jode I | 1603 | The Met 643829 ([sayfa](https://www.metmuseum.org/art/collection/search/643829)) | CC0 (Met Open Access) | Engraving; first state of two |
+| `james_unite_sikke_1613.jpg` | Unite coin of James I (r. 1603–25) | – | 1613 | The Met 188484 ([sayfa](https://www.metmuseum.org/art/collection/search/188484)) | CC0 (Met Open Access) | Gold |
 
 ## Hassasiyet notları
 - `idam_gardiner_1790.jpg`, `idam_iln_1861.jpg`: baltayı ve cellatı gösterir; yalnız kırpılmış ayrıntı (salon, seyirciler) kullanılır, darbe anı gösterilmez.
