@@ -83,3 +83,12 @@ Yükleme işlendikten sonra videonun sayfasında: **Altyazılar** (Languages) �
 ## 4. Yayından sonra
 - Uzun videonun altına sabit yorum: `Senin kayan ne? Hepimizin her sabah ittiği bir kaya var. Seninkini yaz 👇`
 - Shorts'un altına sabit yorum: `Tam hikâye (7 dk): <uzun videonun bağlantısı>`
+
+## 18 Kasım 2026: Kafka bağlantısı (kullanıcının kararı)
+Sisifos kanalın kapısı; oradan gelen izleyiciyi tutması en güçlü videoya (Kafka, 48. saatte %45,4) yönlendirmek için. Köprü: Camus *Sisifos Söyleni*'ne Kafka üzerine bir deneme ekledi; Kafka videosu da sonunda Sisifos'a yönlendiriyor.
+1. **Bitiş ekranı** (Studio → Sisifos → Düzenleyici → Bitiş ekranı): bitiş ekranında 4 öğeye kadar yer var. Abone ol ve Milton kalsın; **Video → Belirli bir video → Kafka'nın Dönüşüm'ü** eklensin. Sağ yarıya sığmazsa "En yeni video" öğesinin yerine Kafka konur.
+2. **Açıklama**, ilk paragrafın altına:
+   `Camus, Sisifos Söyleni'ne Kafka üzerine bir deneme de ekledi. Kafka'nın Dönüşüm'ü: İşe Yaramasan da Seni Severler miydi? 👉 <Kafka videosunun bağlantısı>`
+3. **Sabit yorum**: mevcut soru kalsın, altına bir satır:
+   `Camus'nün Kafka'ya bakışı da var: Kafka'nın Dönüşüm'ü 👉 <bağlantı>`
+4. Ölçüm: Kafka'nın trafik kaynaklarında "Önerilen videolar → Sisifos" ve "Bitiş ekranı" satırlarına 7. günde bakılır.
