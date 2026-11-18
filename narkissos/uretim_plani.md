@@ -61,7 +61,7 @@ Sorular: **K**işisel soru mu · **N**efes (tek nefeste okunur mu) · **Y**arı 
 - Kapak yazısı hassasiyetten geçer: "NARSİST" kelimesi tek başına kapakta kullanılmaz (teşhis vaadi gibi okunur).
 
 ## 5. Üslup (18 Kasım 2026)
-Araştırma: yedi dilim (Lemo'nun 99 üslubu, cinecode, kendi yedi motorumuz, GitHub, sanat tarihi ve lisans), bir sentez, sekiz iddia doğrulaması ve Fable 5.2'nin bağımsız denetimi. Ham raporlar oturumun çalışma alanında kaldı; Lemo belgeleri CC BY-NC olduğu için depoya alınmadı. Aşağıdaki başkan önerisi **kullanıcının onayını bekliyor**.
+Araştırma: yedi dilim (Lemo'nun 99 üslubu, cinecode, kendi yedi motorumuz, GitHub, sanat tarihi ve lisans), bir sentez, sekiz iddia doğrulaması ve Fable 5.2'nin bağımsız denetimi. Ham raporlar oturumun çalışma alanında kaldı; Lemo belgeleri CC BY-NC olduğu için depoya alınmadı. Başkanın önerisi **kullanıcı tarafından onaylandı** (18 Kasım, aşağıdaki "Kullanıcının kararları").
 
 ### Başkanın önerisi
 **Ana üslup: vazo** (kendi motorumuz, `prometheus/lib`). Üslup kapısında aynı sahneyle **risografa** (Lemo `risograph`) karşı sınanır. Risograf aşağıdaki dört ölçütün dördünde de açık farkla kazanırsa seçilir; beraberlik vazoya gider. Sentez risografı birinci koymuştu; Fable 5.2 ve iddia doğrulamaları vazoyu öne aldı. Başkan doğrulamalara katılıyor.
@@ -144,3 +144,9 @@ Reddedilen ~35 üslubun gerekçeleri ham raporlarda. Başlıcaları:
 ### Kaynak notları (senaryoda doğrulanacak)
 - Yaygın Türkçe anlatımlardaki "suya atlayıp boğuldu" Ovidius'ta yok; Narkissos erir (III 487–490).
 - İngilizce Wikipedia'nın "Narcissism" maddesinde Ellis ve Näcke için "1889" yazıyor. Ellis'in makalesi 1898 Nisan sayısında (archive.org'dan doğrulandı); Näcke'nin tarihi kaynağından doğrulanacak.
+
+## 6. Kullanıcının kararları (18 Kasım 2026)
+- **Üslup:** öneri (a) onaylandı. Vazo ile risograf aynı sahneyle sınanır; §5'teki kapı kuralları geçerli.
+- **Yorumun omurgası: "bilmek yetmiyor".** Narkissos yansımanın kendisi olduğunu anlar ("Iste ego sum", III 463) ve yine de ayrılamaz. Eko ve kavramın tarihi bu omurgaya bağlanır, ayrı tezler olarak durmaz.
+- **Açılış:** film siyah telefon camında kendine bakan biriyle açılır, cam havuza döner (Fable 5.2'nin önerisi). İskelete ve üslup kapısına alınır.
+- **CLAUDE.md "geniş kitle dersi":** değiştirilmez. Başkan Prometheus cümlesini 2. gün testine karşı okumuştu; kullanıcının kastettiği, 17 Kasım'da günlük gösterimin 1–2 B arasında gidip geldiğiydi (dalga sürmedi).
