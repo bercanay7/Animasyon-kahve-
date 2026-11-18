@@ -87,3 +87,4 @@ Metin denetiminde kayda geçen beş anlatım sapması yeniden seslendirildi (Emr
 - **Düzey:** eski cümlenin düzeyine; L17'de eski okuma haykırıştı (komşularından 7,5 dB yüksek), komşularının 1 dB üstüne kondu (diğer cümlelerle aynı ilişki).
 - **Kontrol:** değişen yalnız bu beş bölge, ek yerleri sessizlikte (tık yok); "havaya" (patlama sesi) cümle sonuna 0,80 sn (eskisi 0,82); müzik ve efekt yeni zaman çizelgesiyle yeniden üretildi, miks −14,20 LUFS / −1,50 dBFS; altyazı farkı yalnız bu beş cümlede. Parçalar 15, 16, 45, 46, 50, 51 yeniden render edildi.
 - **Kulakla son onay kullanıcıda:** `vo/yama/karsilastirma_eski_yeni.mp3` (her cümle önce eski, sonra yeni, bağlamıyla).
+- **Yamadan sonra kare kontrolünde (önceden var olan) kusur:** M10'da "Stefan Zweig" künyesi, kamera Elizabeth'ten Mary'ye kayarken önce "I. ELİZABETH", sonra "MARY STUART" mezar etiketinin üstüne biniyordu → etiket bloğu 60 px yukarı (y 700 → 640); 50. parça yeniden render edildi.
