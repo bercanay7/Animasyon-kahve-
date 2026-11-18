@@ -26,7 +26,7 @@ async function worker() {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   page.on('pageerror', e => console.log('[err]', e.message));
   await page.goto(`http://127.0.0.1:${srv.address().port}/${PAGE}?render=1` + (EXTRA ? '&' + EXTRA : ''));
-  await page.waitForFunction(() => window.READY, null, { timeout: 120000 });
+  await page.waitForFunction(() => window.READY && (!window.renderShortFrame || window.SHORTS_HAZIR), null, { timeout: 120000 });
   const mb = 1;
   process.on('message', async job => {
     if (job.quit) { await browser.close(); process.exit(0); }

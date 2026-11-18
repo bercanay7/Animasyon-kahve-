@@ -6,6 +6,7 @@ const SC = document.getElementById('s'), sg = SC.getContext('2d');
 const ALT = {}; fetch('senaryo.json').then(r => r.json()).then(j => { for (const s of j.segments) ALT[s.id] = s.alt; });
 const ALTID = id => id.replace(/k$/, '');
 function shortsYazi(t, k) {   // sözcük vurgulu altyazı: alt metnin sözcükleri ↔ kelime zamanları (sıra ile)
+  if (/k$/.test(k.id)) return;   // ilk saniye (kırmızı): yalnız kanca yazısı
   const toks = (ALT[ALTID(k.id)] || '').split(/\s+/).filter(Boolean), ws = WORDS.filter(w => w.id === ALTID(k.id)); if (!toks.length) return;
   const src = k.src0 + (t - k.t0), n = Math.min(toks.length, ws.length); let cur = -1; for (let i = 0; i < n; i++) if (ws[i].s <= src) cur = i;
   if (cur < 0) return; const parts = []; let p = [], len = 0;
@@ -38,4 +39,4 @@ window.renderShortFrame = t => {
   }
   return SC;
 };
-window.ready.then(async () => { while (!EDL || !Object.keys(ALT).length) await new Promise(r => setTimeout(r, 50)); await document.fonts.load('400 120px "Bebas Neue"', 'İDAMINKRZGY'); window.READY = true; });
+window.ready.then(async () => { while (!EDL || !Object.keys(ALT).length) await new Promise(r => setTimeout(r, 50)); await document.fonts.load('400 120px "Bebas Neue"', 'İDAMINKRZGY'); window.SHORTS_HAZIR = true; window.READY = true; });
